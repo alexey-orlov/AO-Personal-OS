@@ -33,8 +33,17 @@ if [ -z "$type" ] || [ ! -f "$SKILLS_DIR/$type.md" ]; then
 fi
 echo "[classify] -> $type" >&2
 
-stamp="$(date +%Y-%m-%d_%H%M)"
-note="$OUT_DIR/${stamp}_${type}.md"
+stamp="$(date +%Y-%m-%d_%H%M%S)"
+# Sanitized identifier from the source recording's filename (alphanumerics only).
+src_id="$(printf '%s' "${fname%.*}" | LC_ALL=C tr -cd '[:alnum:]')"
+[ -n "$src_id" ] || src_id="rec"
+note="$OUT_DIR/${stamp}_${type}_${src_id}.md"
+# Belt-and-braces: never overwrite an existing note.
+if [ -e "$note" ]; then
+  i=2
+  while [ -e "${note%.md}-${i}.md" ]; do i=$((i+1)); done
+  note="${note%.md}-${i}.md"
+fi
 {
   echo "# ${type} — ${stamp}"
   echo "_source: ${fname}_"
@@ -46,6 +55,10 @@ note="$OUT_DIR/${stamp}_${type}.md"
 } > "$note"
 
 echo "[done] $fname -> $note  (type: $type)"
+
+# Note produced — drop the working audio copy so the inbox doesn't fill the disk.
+# process_one re-copies from $SRC on each run, so this is safe. Transcripts stay.
+rm -f "$dst"
 
 # Auto-commit + push the note (best-effort).
 if [ "${AUTO_GIT:-0}" = "1" ]; then

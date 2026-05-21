@@ -11,6 +11,10 @@ LEDGER="$STATE/processed.log"; touch "$LEDGER"
 FAILS="$STATE/failures.log";   touch "$FAILS"
 INTERVAL="${WATCH_INTERVAL:-30}"
 MAX_TRIES="${MAX_TRIES:-3}"
+# "Fully synced" detection: require the file size to be unchanged across
+# $SYNC_CHECKS consecutive samples taken $SYNC_INTERVAL seconds apart.
+SYNC_CHECKS="${SYNC_CHECKS:-3}"
+SYNC_INTERVAL="${SYNC_INTERVAL:-5}"
 
 [ -d "$VOICE_MEMOS_DIR" ] || { echo "VOICE_MEMOS_DIR not found: '$VOICE_MEMOS_DIR'. Check config.sh." >&2; exit 1; }
 
@@ -35,14 +39,33 @@ echo "[watch] notes -> $OUT_DIR   ($(date '+%Y-%m-%d %H:%M'))"
 
 while true; do
   while IFS= read -r -d '' path; do
+    fname="$(basename "$path")"
+    dir="$(dirname "$path")"
+    # Skip iCloud placeholder stubs (undownloaded files).
+    if [ -e "$dir/.${fname}.icloud" ]; then
+      continue
+    fi
     s2="$(stat -f%z "$path" 2>/dev/null || echo 0)"
     [ "$s2" -gt 0 ] || continue
-    key="$(basename "$path"):$s2"
+    key="${fname}:$s2"
     grep -qxF "$key" "$LEDGER" && continue
     [ "$(count_fails "$key")" -ge "$MAX_TRIES" ] && continue
-    sleep 2
-    [ "$s2" = "$(stat -f%z "$path" 2>/dev/null || echo 0)" ] || continue
-    echo "[watch] processing: $(basename "$path")"
+    # Require the size to be stable across SYNC_CHECKS samples, SYNC_INTERVAL apart.
+    stable=1
+    prev="$s2"
+    n=1
+    while [ "$n" -lt "$SYNC_CHECKS" ]; do
+      sleep "$SYNC_INTERVAL"
+      cur="$(stat -f%z "$path" 2>/dev/null || echo 0)"
+      if [ "$cur" != "$prev" ] || [ "$cur" -eq 0 ]; then
+        stable=0
+        break
+      fi
+      prev="$cur"
+      n=$((n+1))
+    done
+    [ "$stable" = 1 ] || continue
+    echo "[watch] processing: $fname"
     if "$HERE/process_one.sh" "$path"; then
       echo "$key" >> "$LEDGER"
     else
