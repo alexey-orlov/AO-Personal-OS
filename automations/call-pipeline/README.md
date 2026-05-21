@@ -33,3 +33,42 @@ Background agent:
 ## Add a call type
 Create `skills/call-analysis/<label>.md` (analysis template) and add `<label>` +
 its definition to `skills/call-analysis/classify.md`. That's the whole change.
+
+
+cat >> ~/Documents/GitHub/AO-Personal-OS/automations/call-pipeline/README.md << 'EOF'
+
+## Health check & troubleshooting
+
+**Is the agent running?**
+    launchctl list | grep callpipeline
+A PID in the left column = running. Missing/`-` = not running → `launchctl load ~/Library/LaunchAgents/com.user.callpipeline.plist`.
+
+**Watch it live:**
+    tail -f /tmp/callpipeline.out.log    # activity
+    tail -f /tmp/callpipeline.err.log    # errors
+
+**Test the pipeline directly (bypasses the watcher) to isolate a problem:**
+    cd ~/Documents/GitHub/AO-Personal-OS/automations/call-pipeline && source config.sh
+    ./process_one.sh "$(ls -t "$VOICE_MEMOS_DIR"/*.m4a | head -1)"
+
+**Symptom -> fix**
+
+| Symptom | Likely cause | Fix |
+|---|---|---|
+| Agent not in `launchctl list` | not loaded after login | `launchctl load ...plist` |
+| out.log says `seeded 0 files` (memos exist) | `/bin/bash` lacks Full Disk Access | grant `/bin/bash` FDA, reload agent |
+| TCC popup for `claude` / "2.x.x" | `claude` lacks FDA | grant `~/.local/bin/claude` FDA (drag it in from Finder), reload |
+| New memo never processes | recorded before agent started (seeded as seen), Mac asleep, or not synced | record after agent is up; open Voice Memos on phone to push sync; keep Mac awake |
+| `[transcribe]` then "Invalid API key" | wrong/rotated AssemblyAI key | `security add-generic-password -U -a "$USER" -s ASSEMBLYAI_API_KEY -w 'KEY'` |
+| `claude: command not found` | CLAUDE_BIN unresolved | check `echo $CLAUDE_BIN`; confirm `~/.local/bin/claude` exists |
+| Note written but not on GitHub | git push failed (auth/offline) | run `git push` in the repo; re-enter token if asked |
+| `[skip] ... iCloud stub` | file not fully downloaded | turn off Optimize Mac Storage, or open the memo in Voice Memos |
+
+**After a macOS major upgrade:** TCC can reset. Re-check Full Disk Access for `/bin/bash` and `claude`, restart the agent, and if Claude Code misbehaves run `rm -rf /tmp/claude-$(id -u)`.
+
+**Reset state:** stop the agent, delete the ledger, restart. NOTE: this re-seeds existing memos as *already-seen* (it does NOT reprocess them). To reprocess a specific old memo, run `process_one.sh` on it directly.
+    launchctl unload ~/Library/LaunchAgents/com.user.callpipeline.plist
+    rm -f .work/state/processed.log .work/state/failures.log
+    launchctl load ~/Library/LaunchAgents/com.user.callpipeline.plist
+EOF
+cd ~/Documents/GitHub/AO-Personal-OS && git add -A && git commit -m "docs: agent health-check & troubleshooting" && git push
