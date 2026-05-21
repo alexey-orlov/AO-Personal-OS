@@ -1,0 +1,15 @@
+# Per-machine working dirs: venv, audio copies, transcripts, state, logs.
+# Raw call audio + transcripts are kept LOCAL (privacy) — not committed.
+**/.work/
+
+# Python
+__pycache__/
+*.pyc
+
+# Secrets / env
+.env
+*.key
+*.pem
+
+# macOS
+.DS_Store
