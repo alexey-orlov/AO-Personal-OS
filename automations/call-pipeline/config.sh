@@ -38,6 +38,15 @@ export CLAUDE_BIN
 # AssemblyAI key from macOS Keychain.
 export ASSEMBLYAI_API_KEY="$(security find-generic-password -a "$USER" -s ASSEMBLYAI_API_KEY -w 2>/dev/null || echo "${ASSEMBLYAI_API_KEY:-}")"
 
+# Google Calendar matching. credentials.json is a Desktop-app OAuth client
+# (downloaded from Google Cloud Console). token.json is written on first run
+# after browser consent and auto-refreshes thereafter. Both live in .work/
+# (git-ignored). Empty CALENDAR_TZ = use the Mac's local timezone.
+export CALENDAR_CREDS="$WORK/calendar/credentials.json"
+export CALENDAR_TOKEN="$WORK/calendar/token.json"
+export CALENDAR_IDS="primary"
+export CALENDAR_TZ=""
+
 # Optional `claude -p` model overrides (empty = default model).
 export CLASSIFY_MODEL=""   # e.g. "haiku"
 export ANALYZE_MODEL=""    # e.g. "sonnet"
