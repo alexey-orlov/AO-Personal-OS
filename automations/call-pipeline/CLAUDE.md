@@ -23,3 +23,12 @@ Voice Memo (iCloud-synced to this Mac) → AssemblyAI transcript → Claude clas
 
 ## Files
 `config.sh` · `setup.sh` · `transcribe.py` · `process_one.sh` · `git_sync.sh` · `watch.sh` · `com.user.callpipeline.plist`
+
+## Deploying changes
+- Editing `watch.sh` or `config.sh` requires reloading the launchd agent — they are read once by the long-lived watcher process. Reload with:
+  ```
+  launchctl unload ~/Library/LaunchAgents/com.user.callpipeline.plist
+  launchctl load   ~/Library/LaunchAgents/com.user.callpipeline.plist
+  ```
+- `process_one.sh`, `git_sync.sh`, `transcribe.py`, and `skills/**/*.md` are re-read on every run (the watcher invokes `process_one.sh` per recording, which `source`s `config.sh` and exec's the rest). No reload needed.
+- Never reboot the Mac to pick up a change — just reload the launchd agent.

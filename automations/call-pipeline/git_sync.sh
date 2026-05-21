@@ -12,7 +12,11 @@ f="${1:?}"; msg="${2:-update}"
 cd "$REPO_ROOT" 2>/dev/null || exit 0
 git add -- "$f" 2>/dev/null || true
 git commit -m "$msg" >/dev/null 2>&1 || true
-git pull --rebase --autostash --no-edit >/dev/null 2>&1 || true
+# If the rebase hits a conflict it would leave the repo mid-rebase and jam
+# future commits — abort to restore a clean state. Push may defer; that's fine.
+if ! git pull --rebase --autostash --no-edit >/dev/null 2>&1; then
+  git rebase --abort >/dev/null 2>&1 || true
+fi
 if git push >/dev/null 2>&1; then
   echo "[git] pushed: $(basename "$f")"
 else
