@@ -43,7 +43,8 @@ fi
 
 echo "[classify] ..." >&2
 type="$(
-  "$CLAUDE_BIN" -p "$(cat "$SKILLS_DIR/classify/SKILL.md")" \
+  "$CLAUDE_BIN" -p "Classify the call transcript on input. Follow the classify skill instructions exactly. Output one label only." \
+    --append-system-prompt "$(cat "$SKILLS_DIR/classify/SKILL.md")" \
     ${CLASSIFY_MODEL:+--model "$CLASSIFY_MODEL"} \
     --output-format text < "$txt" | tr -d '[:space:]'
 )"
@@ -90,11 +91,50 @@ fi
 
 echo "[done] $fname -> $note  (type: $type)"
 
-# Note produced — drop the working audio copy so the inbox doesn't fill the disk.
+# English-coaching pass — runs on every call so each transcript also produces
+# a coaching report. The skill self-filters to the user's English utterances
+# and identifies the user from the project CLAUDE.md (auto-loaded by claude -p
+# from the working directory — hence the cd into REPO_ROOT).
+echo "[english-coaching] ..." >&2
+COACH_DIR="$REPO_ROOT/outputs/english-coaching"
+mkdir -p "$COACH_DIR"
+coach_note="$COACH_DIR/${stamp}_${type}_${src_id}.md"
+if [ -e "$coach_note" ]; then
+  i=2
+  while [ -e "${coach_note%.md}-${i}.md" ]; do i=$((i+1)); done
+  coach_note="${coach_note%.md}-${i}.md"
+fi
+{
+  echo "# english-coaching — ${stamp}"
+  echo "_source: ${fname}_"
+  echo
+  if [ -s "$cal_header" ]; then
+    cat "$cal_header"
+    echo
+  fi
+  (
+    cd "$REPO_ROOT"
+    {
+      if [ -s "$cal_context" ]; then
+        printf '<<<CALENDAR_EVENT_CONTEXT>>>\n'
+        cat "$cal_context"
+        printf '<<<END_CALENDAR_EVENT_CONTEXT>>>\n\n'
+      fi
+      cat "$txt"
+    } | "$CLAUDE_BIN" -p "Analyse the call transcript on input for English-language coaching, following the english-coaching skill instructions exactly. You are being invoked headlessly from the call-pipeline — do NOT write files, output Markdown analysis only on stdout. If a CALENDAR_EVENT_CONTEXT block is present, use it for speaker disambiguation only — do not echo it back." \
+      --append-system-prompt "$(cat "$SKILLS_DIR/english-coaching/SKILL.md")" \
+      ${ANALYZE_MODEL:+--model "$ANALYZE_MODEL"} \
+      --output-format text
+  )
+} > "$coach_note"
+
+echo "[done] coaching -> $coach_note"
+
+# Notes produced — drop the working audio copy so the inbox doesn't fill the disk.
 # process_one re-copies from $SRC on each run, so this is safe. Transcripts stay.
 rm -f "$dst" "$cal_header" "$cal_context"
 
-# Auto-commit + push the note (best-effort).
+# Auto-commit + push both notes in a single commit (best-effort).
 if [ "${AUTO_GIT:-0}" = "1" ]; then
-  "$HERE/git_sync.sh" "$note" "call-note: ${type} ${stamp}" || true
+  "$HERE/git_sync.sh" "call-note: ${type} ${stamp}" "$note" "$coach_note" || true
 fi

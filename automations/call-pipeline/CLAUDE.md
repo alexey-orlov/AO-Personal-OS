@@ -1,6 +1,6 @@
 # call-pipeline — agent notes
 
-Voice Memo (iCloud-synced to this Mac) → AssemblyAI transcript → Google Calendar lookup at the recording-start timestamp → Claude classifies the call → Claude analyses with `.claude/skills/<type>/SKILL.md` (calendar metadata fed in as context) → note in `outputs/call-notes/` (calendar header prepended), auto-committed + pushed.
+Voice Memo (iCloud-synced to this Mac) → AssemblyAI transcript → Google Calendar lookup at the recording-start timestamp → Claude classifies the call → Claude analyses with `.claude/skills/<type>/SKILL.md` (calendar metadata fed in as context) → note in `outputs/call-notes/` (calendar header prepended) → Claude runs the `english-coaching` skill on the same transcript → coaching note in `outputs/english-coaching/` (same `${stamp}_${type}_${src_id}.md` filename, easy to correlate). Both notes are committed + pushed together in a single commit.
 
 ## Commands
 - Setup (per machine): `./setup.sh`

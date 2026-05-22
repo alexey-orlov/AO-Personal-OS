@@ -2,14 +2,15 @@
 
 Voice Memo (synced to this Mac) -> AssemblyAI transcript -> Claude classifies the
 call type -> Claude analyses with the matching `.claude/skills/<type>/SKILL.md`
-template -> Markdown note in `outputs/call-notes/`, auto-committed and pushed.
+template -> Markdown note in `outputs/call-notes/` + an `english-coaching` note
+in `outputs/english-coaching/`, both auto-committed and pushed in one commit.
 
 ## Files
 - `config.sh`     paths, key source, toggles (auto-detects Voice Memos folder + claude/python)
 - `setup.sh`      one-time: builds `.work/venv`, installs the SDK, checks tools
 - `transcribe.py` one file -> speaker-labelled transcript (kept local in `.work/`)
 - `process_one.sh` orchestrates one recording end-to-end, then calls git_sync
-- `git_sync.sh`   commit + push one note (best-effort, offline-safe)
+- `git_sync.sh`   commit + push one or more notes in a single commit (best-effort, offline-safe)
 - `watch.sh`      polls the folder; processes new recordings once; fills gaps after downtime
 - `com.user.callpipeline.plist` launchd agent for hands-off background running
 
