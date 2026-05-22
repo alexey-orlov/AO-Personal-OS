@@ -1,6 +1,6 @@
 # call-pipeline — agent notes
 
-Voice Memo (iCloud-synced to this Mac) → AssemblyAI transcript → Claude classifies the call → Claude analyses with `skills/call-analysis/<type>.md` → note in `outputs/call-notes/`, auto-committed + pushed.
+Voice Memo (iCloud-synced to this Mac) → AssemblyAI transcript → Google Calendar lookup at the recording-start timestamp → Claude classifies the call → Claude analyses with `skills/call-analysis/<type>.md` (calendar metadata fed in as context) → note in `outputs/call-notes/` (calendar header prepended), auto-committed + pushed.
 
 ## Commands
 - Setup (per machine): `./setup.sh`
@@ -21,8 +21,15 @@ Voice Memo (iCloud-synced to this Mac) → AssemblyAI transcript → Claude clas
 - iCloud sync to the Mac takes minutes and occasionally needs Voice Memos opened on the phone to push.
 - `.work/` holds audio + transcripts (private, git-ignored).
 
+## Calendar matching
+- `calendar_lookup.py` calls Google Calendar API directly (no MCP). OAuth Desktop-app credentials live in `.work/calendar/credentials.json`; refreshable token in `.work/calendar/token.json` (both git-ignored).
+- Recording timestamp is parsed from the Voice Memo filename (`YYYYMMDD HHMMSS-...`), with file-mtime fallback.
+- Match rule: event whose `[start, end]` contains the timestamp. Tiebreak: prefer events with attendees, then shorter duration. All-day events are ignored.
+- Output: a Markdown header block prepended to the note (visible to the reader) AND a plain-text context block injected into the analyser's stdin between `<<<CALENDAR_EVENT_CONTEXT>>>` markers. If no match, header says so and no context is injected.
+- Failures (no creds, API down, bad timestamp) degrade to "no match" — the pipeline never breaks because of the calendar step.
+
 ## Files
-`config.sh` · `setup.sh` · `transcribe.py` · `process_one.sh` · `git_sync.sh` · `watch.sh` · `com.user.callpipeline.plist`
+`config.sh` · `setup.sh` · `transcribe.py` · `calendar_lookup.py` · `process_one.sh` · `git_sync.sh` · `watch.sh` · `com.user.callpipeline.plist`
 
 ## Deploying changes
 - Editing `watch.sh` or `config.sh` requires reloading the launchd agent — they are read once by the long-lived watcher process. Reload with:

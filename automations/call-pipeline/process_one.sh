@@ -21,6 +21,26 @@ fi
 echo "[transcribe] $fname ..." >&2
 txt="$("$PYTHON_BIN" "$HERE/transcribe.py" "$dst" "$TRANSCRIPTS")"
 
+# Recording-start timestamp — for calendar matching. Voice Memos filenames
+# look like "20260520 175738-XXXX.m4a"; fall back to the source file's mtime.
+rec_ts=""
+if [[ "$fname" =~ ([0-9]{4})([0-9]{2})([0-9]{2})[\ _T-]+([0-9]{2})([0-9]{2})([0-9]{2}) ]]; then
+  rec_ts="${BASH_REMATCH[1]}-${BASH_REMATCH[2]}-${BASH_REMATCH[3]}T${BASH_REMATCH[4]}:${BASH_REMATCH[5]}:${BASH_REMATCH[6]}"
+else
+  _epoch="$(stat -f "%m" "$SRC" 2>/dev/null || stat -c "%Y" "$SRC" 2>/dev/null || true)"
+  [ -n "$_epoch" ] && rec_ts="$(date -r "$_epoch" +"%Y-%m-%dT%H:%M:%S" 2>/dev/null || date -d "@$_epoch" +"%Y-%m-%dT%H:%M:%S" 2>/dev/null || true)"
+fi
+
+cal_header="$STATE/cal_header.$$.md"
+cal_context="$STATE/cal_context.$$.txt"
+: > "$cal_header"; : > "$cal_context"
+if [ -n "$rec_ts" ]; then
+  echo "[calendar] lookup for $rec_ts ..." >&2
+  "$PYTHON_BIN" "$HERE/calendar_lookup.py" "$rec_ts" "$cal_header" "$cal_context" || true
+else
+  printf '> _Calendar match skipped: could not derive recording timestamp from %s._\n' "$fname" > "$cal_header"
+fi
+
 echo "[classify] ..." >&2
 type="$(
   "$CLAUDE_BIN" -p "$(cat "$SKILLS_DIR/classify.md")" \
@@ -48,17 +68,31 @@ fi
   echo "# ${type} — ${stamp}"
   echo "_source: ${fname}_"
   echo
-  "$CLAUDE_BIN" -p "Analyse the call transcript provided on input, following the instructions exactly. Output Markdown only." \
+  if [ -s "$cal_header" ]; then
+    cat "$cal_header"
+    echo
+  fi
+  # Prepend calendar context to the transcript so the analyser can use it to
+  # resolve speakers, "we"-references, agenda framing, etc. The marker keeps
+  # it clearly separated from the transcript body.
+  {
+    if [ -s "$cal_context" ]; then
+      printf '<<<CALENDAR_EVENT_CONTEXT>>>\n'
+      cat "$cal_context"
+      printf '<<<END_CALENDAR_EVENT_CONTEXT>>>\n\n'
+    fi
+    cat "$txt"
+  } | "$CLAUDE_BIN" -p "Analyse the call transcript provided on input, following the instructions exactly. If a CALENDAR_EVENT_CONTEXT block is present, treat it as ground-truth metadata (title, attendees, scheduled time) for the call, but do NOT echo it back verbatim — use it only to disambiguate speakers, topics, and references in the transcript. Output Markdown only." \
     --append-system-prompt "$(cat "$SKILLS_DIR/$type.md")" \
     ${ANALYZE_MODEL:+--model "$ANALYZE_MODEL"} \
-    --output-format text < "$txt"
+    --output-format text
 } > "$note"
 
 echo "[done] $fname -> $note  (type: $type)"
 
 # Note produced — drop the working audio copy so the inbox doesn't fill the disk.
 # process_one re-copies from $SRC on each run, so this is safe. Transcripts stay.
-rm -f "$dst"
+rm -f "$dst" "$cal_header" "$cal_context"
 
 # Auto-commit + push the note (best-effort).
 if [ "${AUTO_GIT:-0}" = "1" ]; then
