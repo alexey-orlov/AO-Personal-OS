@@ -29,6 +29,25 @@ CAL_IDS = [c.strip() for c in os.environ.get("CALENDAR_IDS", "primary").split(",
 TZ_NAME = os.environ.get("CALENDAR_TZ", "")
 
 
+def _int_env(name: str, default: int) -> int:
+    raw = os.environ.get(name, "")
+    if not raw:
+        return default
+    try:
+        return int(raw)
+    except ValueError:
+        sys.stderr.write(f"[calendar_lookup] bad {name}={raw!r}, using {default}\n")
+        return default
+
+
+# Tolerances around the event window. Recordings often start a minute or
+# two before a meeting begins; the post-buffer is symmetric padding for
+# late-started recordings. Neither buffer depends on recording length —
+# matching only ever looks at the recording-start timestamp.
+PRE_BUFFER_MIN = _int_env("CALENDAR_PRE_BUFFER_MIN", 10)
+POST_BUFFER_MIN = _int_env("CALENDAR_POST_BUFFER_MIN", 5)
+
+
 def _local_tz():
     if TZ_NAME:
         try:
@@ -117,7 +136,9 @@ def _candidates(svc, target: dt.datetime):
                 edt = dt.datetime.fromisoformat(ed.replace("Z", "+00:00"))
             except Exception:
                 continue
-            if sdt <= target <= edt:
+            lo_match = sdt - dt.timedelta(minutes=PRE_BUFFER_MIN)
+            hi_match = edt + dt.timedelta(minutes=POST_BUFFER_MIN)
+            if lo_match <= target <= hi_match:
                 out.append((sdt, edt, ev, cal_id))
     return out
 
@@ -169,11 +190,15 @@ def main() -> int:
 
     duration_min = int((edt - sdt).total_seconds() // 60)
     offset_min = int((target - sdt).total_seconds() // 60)
+    if offset_min >= 0:
+        offset_fmt = f"recording started +{offset_min} min in"
+    else:
+        offset_fmt = f"recording started {-offset_min} min before event"
     when_fmt = f"{sdt.strftime('%Y-%m-%d %H:%M')}–{edt.strftime('%H:%M %Z')}"
 
     header = [
         f"> **Calendar event**: {title}",
-        f"> **When**: {when_fmt}  ({duration_min} min; recording started +{offset_min} min in)",
+        f"> **When**: {when_fmt}  ({duration_min} min; {offset_fmt})",
         f"> **Attendees**: {attendees}",
     ]
     if location:
@@ -190,7 +215,7 @@ def main() -> int:
 
     context = [
         f"Title: {title}",
-        f"When: {when_fmt} ({duration_min} min total; recording started {offset_min} min in)",
+        f"When: {when_fmt} ({duration_min} min total; {offset_fmt})",
         f"Attendees: {attendees}",
     ]
     if location:
