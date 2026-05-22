@@ -4,9 +4,17 @@ Personal operating system for AI-assisted work: reusable agent skills, automatio
 
 ## Layout
 
-    skills/         Reusable prompt/skill templates, grouped by domain.
-                    Each is a plain .md the automations inline into Claude.
-        call-analysis/      classify + per-call-type analysis templates
+    .claude/skills/ Reusable agent skills. Each is a folder containing a
+                    SKILL.md with frontmatter (name, description,
+                    disable-model-invocation, user-invocable). Claude Code
+                    exposes them as slash commands; automations also inline
+                    the SKILL.md as a plain prompt.
+        classify/           one-token call-type classifier (pipeline-internal)
+        default/            default call brief
+        interview/          job-interview debrief
+        one-on-one/         1:1 / peer-sync summary
+        sales-call/         B2B SaaS sales-call analysis
+        english-coaching/   English language coaching on the user's speech
 
     automations/    Self-contained automation units. Each has its own
                     scripts, config, setup, and README.
@@ -26,7 +34,7 @@ Personal operating system for AI-assisted work: reusable agent skills, automatio
 - **Raw audio and transcripts stay local** by default (privacy); only the
   analysis notes are committed. Change this per automation if you accept the
   trade-off.
-- **Adding a skill:** drop a new `skills/<domain>/<name>.md`.
+- **Adding a skill:** create `.claude/skills/<name>/SKILL.md` with frontmatter (`name`, `description`, `disable-model-invocation: false`, `user-invocable: true`) followed by the prompt body. Folder name must match `name:`. It becomes `/<name>` in Claude Code automatically.
 - **Adding an automation:** new folder under `automations/` with its own
   `README.md` and `setup.sh`.
 

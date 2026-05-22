@@ -1,6 +1,6 @@
 # call-pipeline — agent notes
 
-Voice Memo (iCloud-synced to this Mac) → AssemblyAI transcript → Google Calendar lookup at the recording-start timestamp → Claude classifies the call → Claude analyses with `skills/call-analysis/<type>.md` (calendar metadata fed in as context) → note in `outputs/call-notes/` (calendar header prepended), auto-committed + pushed.
+Voice Memo (iCloud-synced to this Mac) → AssemblyAI transcript → Google Calendar lookup at the recording-start timestamp → Claude classifies the call → Claude analyses with `.claude/skills/<type>/SKILL.md` (calendar metadata fed in as context) → note in `outputs/call-notes/` (calendar header prepended), auto-committed + pushed.
 
 ## Commands
 - Setup (per machine): `./setup.sh`
@@ -9,7 +9,7 @@ Voice Memo (iCloud-synced to this Mac) → AssemblyAI transcript → Google Cale
 - Background agent: copy `com.user.callpipeline.plist` → `~/Library/LaunchAgents/`, then `launchctl load` it.
 
 ## Design facts — do not "fix" without reason
-- Skills are INLINED via `claude -p --append-system-prompt "$(cat skill.md)"`. They are NOT Claude Code auto-loaded skills, because skill auto-trigger does not fire in headless `claude -p`.
+- Skills are INLINED via `claude -p --append-system-prompt "$(cat .claude/skills/<name>/SKILL.md)"`. We cat the whole file — the model tolerates the YAML frontmatter as preamble — rather than relying on Claude Code's skill auto-trigger, because auto-trigger does not fire in headless `claude -p`. The same files double as user-invocable slash commands in interactive Claude Code (that's why they have the `name`/`description`/`user-invocable` frontmatter).
 - Analysis is pure stdin→stdout (transcript in, Markdown out): no tools, no permission flags.
 - `config.sh` resolves `claude` and `python` by ABSOLUTE path so the launchd background job doesn't depend on PATH.
 - Transcription routing: `speech_models=["universal-3-pro","universal-2"]`. Universal-3 Pro covers en/es/pt/fr/de/it natively; RU/UA fall back to Universal-2.
@@ -37,5 +37,5 @@ Voice Memo (iCloud-synced to this Mac) → AssemblyAI transcript → Google Cale
   launchctl unload ~/Library/LaunchAgents/com.user.callpipeline.plist
   launchctl load   ~/Library/LaunchAgents/com.user.callpipeline.plist
   ```
-- `process_one.sh`, `git_sync.sh`, `transcribe.py`, and `skills/**/*.md` are re-read on every run (the watcher invokes `process_one.sh` per recording, which `source`s `config.sh` and exec's the rest). No reload needed.
+- `process_one.sh`, `git_sync.sh`, `transcribe.py`, and `.claude/skills/**/SKILL.md` are re-read on every run (the watcher invokes `process_one.sh` per recording, which `source`s `config.sh` and exec's the rest). No reload needed.
 - Never reboot the Mac to pick up a change — just reload the launchd agent.

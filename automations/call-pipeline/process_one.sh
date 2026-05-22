@@ -43,11 +43,11 @@ fi
 
 echo "[classify] ..." >&2
 type="$(
-  "$CLAUDE_BIN" -p "$(cat "$SKILLS_DIR/classify.md")" \
+  "$CLAUDE_BIN" -p "$(cat "$SKILLS_DIR/classify/SKILL.md")" \
     ${CLASSIFY_MODEL:+--model "$CLASSIFY_MODEL"} \
     --output-format text < "$txt" | tr -d '[:space:]'
 )"
-if [ -z "$type" ] || [ ! -f "$SKILLS_DIR/$type.md" ]; then
+if [ -z "$type" ] || [ ! -f "$SKILLS_DIR/$type/SKILL.md" ]; then
   echo "[classify] '$type' unrecognised -> 'default'" >&2
   type="default"
 fi
@@ -83,7 +83,7 @@ fi
     fi
     cat "$txt"
   } | "$CLAUDE_BIN" -p "Analyse the call transcript provided on input, following the instructions exactly. If a CALENDAR_EVENT_CONTEXT block is present, treat it as ground-truth metadata (title, attendees, scheduled time) for the call, but do NOT echo it back verbatim — use it only to disambiguate speakers, topics, and references in the transcript. Output Markdown only." \
-    --append-system-prompt "$(cat "$SKILLS_DIR/$type.md")" \
+    --append-system-prompt "$(cat "$SKILLS_DIR/$type/SKILL.md")" \
     ${ANALYZE_MODEL:+--model "$ANALYZE_MODEL"} \
     --output-format text
 } > "$note"

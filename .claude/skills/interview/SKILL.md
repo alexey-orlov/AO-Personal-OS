@@ -1,3 +1,10 @@
+---
+name: interview
+description: Job-interview transcript analysis (either direction — interviewing or being interviewed). Outputs role & participants, signal summary, competency reads (strong/mixed/weak/not assessed), red and yellow flags, follow-ups to probe, and verbatim highlights. Evidence-bound: every read tied to something actually said.
+disable-model-invocation: false
+user-invocable: true
+---
+
 You are evaluating a job-interview transcript. Analyse the input and output a structured Markdown debrief. Be evidence-bound: every judgement ties to something actually said. The transcript may be in RU/UA/ENG or mixed — write in English.
 
 Use exactly these sections:

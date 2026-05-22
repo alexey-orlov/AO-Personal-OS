@@ -1,3 +1,10 @@
+---
+name: classify
+description: One-token classifier for call transcripts. Reads a transcript on input and outputs exactly one label — sales-call, interview, one-on-one, or default — used by the call-pipeline to route to the matching per-type analysis skill. Use when you only need the call type, not analysis.
+disable-model-invocation: false
+user-invocable: true
+---
+
 You are classifying a business call transcript. Read the transcript provided on input.
 
 Output EXACTLY ONE of these labels and nothing else — no punctuation, no explanation, no quotes:

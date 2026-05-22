@@ -1,7 +1,7 @@
 # call-pipeline
 
 Voice Memo (synced to this Mac) -> AssemblyAI transcript -> Claude classifies the
-call type -> Claude analyses with the matching `skills/call-analysis/<type>.md`
+call type -> Claude analyses with the matching `.claude/skills/<type>/SKILL.md`
 template -> Markdown note in `outputs/call-notes/`, auto-committed and pushed.
 
 ## Files
@@ -31,8 +31,8 @@ Background agent:
     # then grant /bin/bash Full Disk Access (Privacy & Security), and reload.
 
 ## Add a call type
-Create `skills/call-analysis/<label>.md` (analysis template) and add `<label>` +
-its definition to `skills/call-analysis/classify.md`. That's the whole change.
+Create `.claude/skills/<label>/SKILL.md` (frontmatter + analysis template) and add
+`<label>` + its definition to `.claude/skills/classify/SKILL.md`. That's the whole change.
 
 
 cat >> ~/Documents/GitHub/AO-Personal-OS/automations/call-pipeline/README.md << 'EOF'
