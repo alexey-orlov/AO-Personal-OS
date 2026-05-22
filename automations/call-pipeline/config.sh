@@ -46,6 +46,12 @@ export CALENDAR_CREDS="$WORK/calendar/credentials.json"
 export CALENDAR_TOKEN="$WORK/calendar/token.json"
 export CALENDAR_IDS="primary"
 export CALENDAR_TZ=""
+# Tolerance around the scheduled event for matching the recording-start
+# timestamp. PRE handles "hit Record a minute before the meeting starts";
+# POST handles the rarer "hit Record just after end". Recording length is
+# never used — only the start timestamp.
+export CALENDAR_PRE_BUFFER_MIN="10"
+export CALENDAR_POST_BUFFER_MIN="5"
 
 # Optional `claude -p` model overrides (empty = default model).
 export CLASSIFY_MODEL=""   # e.g. "haiku"

@@ -24,7 +24,7 @@ Voice Memo (iCloud-synced to this Mac) → AssemblyAI transcript → Google Cale
 ## Calendar matching
 - `calendar_lookup.py` calls Google Calendar API directly (no MCP). OAuth Desktop-app credentials live in `.work/calendar/credentials.json`; refreshable token in `.work/calendar/token.json` (both git-ignored).
 - Recording timestamp is parsed from the Voice Memo filename (`YYYYMMDD HHMMSS-...`), with file-mtime fallback.
-- Match rule: event whose `[start, end]` contains the timestamp. Tiebreak: prefer events with attendees, then shorter duration. All-day events are ignored.
+- Match rule: event whose `[start - CALENDAR_PRE_BUFFER_MIN, end + CALENDAR_POST_BUFFER_MIN]` contains the timestamp (defaults: 10 min before, 5 min after — covers recordings started slightly early or late). Only the recording-start timestamp is used; recording length is irrelevant. Tiebreak: prefer events with attendees, then shorter duration. All-day events are ignored.
 - Output: a Markdown header block prepended to the note (visible to the reader) AND a plain-text context block injected into the analyser's stdin between `<<<CALENDAR_EVENT_CONTEXT>>>` markers. If no match, header says so and no context is injected.
 - Failures (no creds, API down, bad timestamp) degrade to "no match" — the pipeline never breaks because of the calendar step.
 
