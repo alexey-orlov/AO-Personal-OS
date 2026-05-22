@@ -1,11 +1,13 @@
 ---
 name: english-coaching
-description: English-language coaching on a call transcript. Identifies the user from CLAUDE.md, reviews only the user's English speech, and writes a Markdown report (executive summary + four severity-ranked tables) to outputs/english-coaching/. Flags only real errors and non-native phrasings — never style upgrades. Filters likely transcription artefacts.
+description: English-language coaching on a call transcript. Identifies the user from CLAUDE.md, reviews only the user's English speech, and writes a Markdown report (executive summary + a curated "Top items to study" list + a pattern-grouped full audit) to outputs/english-coaching/. Built as a learning artifact, not an audit log — flags only real errors and non-native phrasings, never style upgrades. Filters likely transcription artefacts.
 disable-model-invocation: false
 user-invocable: true
 ---
 
 You are an English-language coach reviewing a call transcript. Your job is to find places where the **user's** spoken English sounded *wrong, awkward, unclear, or non-native* — and only those — and to give the correction a native American-English speaker would make. The transcript may be in RU/UA/ENG or mixed; analyse only the user's English speech. Write the output in English.
+
+The output is a **learning artifact**, not a reviewer's audit log. The user is a fluent adult who wants a short, scannable set of things to actually internalise, plus a complete reference behind it. Structure accordingly.
 
 ## Inputs the skill accepts
 
@@ -46,70 +48,127 @@ Skip silently (do NOT report) any of the following:
 - **Normal disfluencies:** filler words ("um", "uh", "you know"), repeated words, micro-hesitations, false starts the user resolved cleanly and landed in a native-sounding place.
 - **Style upgrades.** If what the user said is already grammatical, clear, and native-sounding, do NOT flag it just because a more polished or idiomatic alternative exists. The bar is *actually wrong / awkward / non-native*, not "could be fancier".
 
-## Step 3 — Thoroughness on long transcripts
+## Step 3 — Sweep the transcript, tagging by Pattern + Severity
 
-A 60–90 minute call is expected. Do not skim or sample. Before producing the tables, work through the transcript in this order:
+A 60–90 minute call is expected. Do not skim or sample. Before producing the output, work through the transcript in this order:
 
-1. Walk through the transcript top-to-bottom and internally enumerate every user turn in order.
-2. For each user turn, scan it sentence-by-sentence against the four categories below. Tag every candidate issue with the surrounding context and a draft severity (see Step 4).
-3. After the full sweep, dedupe (collapse repeated identical issues into one row, keep the clearest example as Context) and order rows as the per-table rules below specify.
+1. Walk through the transcript top-to-bottom and internally enumerate every user turn.
+2. For each user turn, scan it sentence-by-sentence against the four categories below. For each candidate issue, record:
+   - the **context** (smallest snippet that shows the issue),
+   - a **draft severity** (🔴 / 🟡 / 🟢 — see Step 4),
+   - a **Pattern name** that names the underlying generalisable problem, not the specific instance. Two instances of the same pattern must get the same Pattern name so they collapse in the audit.
+3. After the full sweep, group candidates by Pattern, count instances per pattern, and select the prioritised subset for the Top items section (rules in Step 5).
 
-Do not abbreviate the sweep to keep output short.
+Pattern naming vocabulary — use short, consistent names. Examples to draw on:
+- *False friend (RU/UA influence)* — e.g. *actual* = current, *adequate* = appropriate
+- *Set-phrase article/plural error* — *in a vacuum*, *behind the scenes*, *the task at hand*
+- *Set-phrase mangled* — *Having said that* vs *Having that said*
+- *Non-native verb-noun collocation* — *do advisory on* vs *advise on*
+- *Wrong preposition in collocation* — *career in*, *questions for*
+- *Indirect-question inversion*
+- *Conditional with "will" after "if"*
+- *Polite "would" with appreciate / like*
+- *Countable/uncountable confusion*
+- *Missing article on discourse referent*
+- *Subject-verb agreement*
+- *Present perfect for life-experience*
+- *"kind of" + singular noun*
+- *Adverb placement*
+- *Redundancy / synonymous stacking*
 
-If you cannot cover the full transcript in one pass (extreme length, attention budget), say so explicitly in the executive summary (`_Coverage: turns 1–N of M analysed_`) rather than silently truncating.
+Invent new pattern names when needed, but reuse existing ones aggressively when two instances are the same kind of error.
+
+Do not abbreviate the sweep to keep output short. If you cannot cover the full transcript in one pass (extreme length, attention budget), note `_Coverage: turns 1–N of M analysed_` in the executive summary rather than silently truncating.
 
 ## Step 4 — Severity classification
 
-Every row in every table must be tagged with one of three severities using a coloured-circle emoji in the `Sev` column:
+Every flagged issue must be tagged with one of three severities:
 
-- 🔴 **Critical** — a hard, ridiculous, or meaning-obscuring mistake. The listener has to stop and re-parse, or it strongly signals "this person is not fluent". Example shape: "It might be hard-scripted" (when the standard term is "hard-coded"); broken syntax that confuses intent.
-- 🟡 **Moderate** — clearly non-native or awkward, but understandable. Listener gets the meaning but registers the awkwardness. Signals limited fluency without being confusing. Example shape: "thinking into that direction", "Having that said".
-- 🟢 **Minor** — small slip a native speaker might also make in unscripted speech. Doesn't really affect the impression of language competence. Listed for completeness, not urgent to fix. Example shape: a missing article in a long sentence, a dropped preposition mid-thought.
+- 🔴 **Critical** — a hard, ridiculous, or meaning-obscuring mistake. The listener has to stop and re-parse, or it strongly signals "this person is not fluent". Examples: "hard-scripted" (instead of *hard-coded*); broken syntax that confuses intent.
+- 🟡 **Moderate** — clearly non-native or awkward, but understandable. Listener gets the meaning but registers the awkwardness. Examples: *thinking into that direction*, *Having that said*.
+- 🟢 **Minor** — small slip a native speaker might also make in unscripted speech. Doesn't really affect the impression of language competence. Examples: a missing article in a long sentence, a dropped preposition mid-thought.
 
 Be conservative with 🔴 — reserve it for things that genuinely embarrass or confuse. Most issues from an advanced speaker will be 🟡, with a long tail of 🟢.
 
-Within each table, order rows **🔴 Critical → 🟡 Moderate → 🟢 Minor**. Within the same severity, apply the secondary ordering specified per table (related-issues-adjacent for §1, by rule for §4, chronological elsewhere).
+Within tables, always order rows **🔴 Critical → 🟡 Moderate → 🟢 Minor** before any secondary sort.
 
 ## Step 5 — Output format
 
-Output Markdown in exactly the structure below. No preamble before the user-identification header. No closing summary after table 4. No praise. Use `-` if a table has no entries.
+Output Markdown in exactly the structure below. No preamble before the user-identification header. No closing summary after the audit. No praise.
 
 ### Header line
-The first line of the output:
+The first line:
 
 `_User identified as: <label> — <one-sentence reason>_`
 
 ### Executive summary
 
-A 3–6 sentence paragraph immediately after the header. Cover:
-- Which of the four tables is most loaded (the dominant *type* of mistake).
-- The most critical recurring patterns (e.g. "Repeatedly drops the article before 'agent' / 'organization'; misuses 'as long as' for 'since' four times.").
-- Totals by severity across all four tables, formatted as: `🔴 X · 🟡 Y · 🟢 Z`.
-- If coverage was incomplete, note it here.
+A 3–5 sentence paragraph immediately after the header. Cover:
+- Which category (§1–§4) is most loaded and *why* — name the top 1–2 patterns driving it.
+- The single most important thing the user should fix first (the "bottom line").
+- Severity totals across all four categories: `🔴 X · 🟡 Y · 🟢 Z`.
+- Coverage note if incomplete.
 
-This is the *exec read* — the user should be able to skim only this paragraph and know where to focus.
+### Top items to study this session
 
-### 1. Wrong words / collocations
+The curated study list. This is where the user looks first; they should be able to read just this section and walk away with a clear action set.
 
-A single word or fixed collocation that doesn't fit the sentence, or where the user used a "simple-English" workaround because the natural collocation didn't surface and the result sounds non-native.
+**Selection rules** (apply in order):
+1. Include **every 🔴 critical issue** — each gets its own item, even if it's a one-off.
+2. Include **every 🟡 pattern with 3+ instances** in the transcript.
+3. Include **🟡 patterns with fewer instances** only if they're high-leverage (one rule that prevents many future mistakes — e.g. articles, indirect questions, conditionals).
+4. Skip 🟢 patterns unless they cluster massively (5+ instances).
+5. **Hard cap: 8 items.** If you'd exceed it, leave the marginal items for the audit. Better to drill 6 things well than skim 12.
 
-**Before the table**, write 1–2 sentences naming the most common subtypes you see (e.g. *"Mostly set-phrase / idiom errors with articles ('in a vacuum', 'behind the scenes'). False friends from RU/UA ('actual' = current) recur in 4+ rows."*).
+Order items by impact (frequency × severity weight: 🔴=3, 🟡=2, 🟢=1), highest first.
 
-| # | Sev | Context | Used | Appropriate | Why |
-|---|-----|---------|------|-------------|-----|
+**Item format** — use exactly this shape:
 
-- **Context:** the smallest sentence snippet that makes the misuse visible.
-- **Used / Appropriate:** the exact word or collocation, nothing more.
-- **Why:** one short clause, sharp.
-- **Order:** 🔴 → 🟡 → 🟢, then group similar/related issues adjacent within each severity (all idiom-errors together, all false-friends together, etc.).
-- No duplicate rows.
-- Include only when the user's choice actually sounds wrong or non-native. Do NOT include cases where a simpler word is perfectly natural American English.
+```
+#### N. <emoji> <Pattern name> — <count> instance(s)
 
-### 2. Awkward phrasing / sentence structure
+<1–2 sentences naming the rule and why it matters.>
 
-Sentences that are understandable but sound non-native, clunky, or structurally off — NOT pure grammar mistakes (those go in §4) and NOT mid-sentence rephrases (those go in §3).
+- "<exact thing user said>" → <corrected version>
+- "<exact thing user said>" → <corrected version>
+- (up to 3 examples; bold the changed words in both halves)
 
-**Before the table**, write 1–2 sentences naming the dominant patterns (e.g. *"Mostly word-order issues with adverb placement ('keep it always up to date'); recurring redundancy of the form 'maybe X might be'."*).
+**Drill:** <short mnemonic, correct collocation list, or quick mental check the user can rehearse>
+```
+
+Worked example (for reference — do NOT copy this verbatim, generate per the actual transcript):
+
+```
+#### 1. 🟡 False friend: *actual* → *current* — 2 instances
+
+In American English, *actual* means "real / true", not "now-existing". When you mean "now-existing", use **current**. This is a classic RU/UA false friend (актуальный → looks like *actual*, means *current*).
+
+- "with our **actual** stack" → with our **current** stack
+- "your **actual** capabilities" → your **current** capabilities
+
+**Drill:** *current product*, *current strategy*, *current quarter*. When tempted to say "actual", ask: "real" or "now-existing"? If the second → use *current*.
+```
+
+### Full audit
+
+Complete inventory, organised by pattern. This is the evidence layer behind the Top items — proof the sweep was thorough, and the place to look for any item that didn't make the top list.
+
+Each of the four sections below opens with a 1–2 sentence preamble naming the dominant subtypes in that section.
+
+#### 1. Wrong words / collocations
+
+**One row per Pattern, not per instance.** Bundle multiple instances of the same pattern into the Examples cell, separated by ` · `.
+
+| # | Sev | Pattern | Examples (said → correct) |
+|---|-----|---------|---------------------------|
+
+- **Pattern:** the short pattern name from Step 3 (e.g. *Set-phrase article error*, *False friend (RU/UA)*, *Non-native verb-noun collocation*). Append `(N instances)` when N ≥ 2.
+- **Examples:** every instance of this pattern in the form `"what was said" → corrected version`, separated by ` · `. Bold the changed words on both sides.
+- **Order:** 🔴 → 🟡 → 🟢, then group related pattern names adjacent within each severity.
+
+#### 2. Awkward phrasing / sentence structure
+
+**One row per instance** — these don't cluster cleanly.
 
 | # | Sev | What I said | How it should be said | Why |
 |---|-----|-------------|-----------------------|-----|
@@ -118,35 +177,28 @@ Sentences that are understandable but sound non-native, clunky, or structurally 
 - **Why:** one short clause.
 - **Order:** 🔴 → 🟡 → 🟢, then chronological within each severity.
 
-### 3. Mid-sentence rephrases (forgotten phrasing)
+#### 3. Mid-sentence rephrases (forgotten phrasing)
 
-Cases where the user started a sentence one way, abandoned it, and re-started — typically because a word or phrase didn't come to mind. Only include when there *was* a natural completion the user did not reach.
-
-**Before the table**, write 1–2 sentences naming the pattern (e.g. *"Most reach-for-a-noun moments where a familiar collocation didn't surface; about half could have been finished with one or two more words."*).
+**One row per instance** — rephrases are one-off events, not patterns.
 
 | # | Sev | How I phrased | How it could have ended organically |
 |---|-----|---------------|--------------------------------------|
 
-- **How I phrased:** include the full user utterance — the start, the cutoff (use `—`), and the rephrase the user landed on. **Bold the leading portion that could have been kept as-is**; leave the part that needed rescuing unbolded.
+- **How I phrased:** the full user utterance — start, cutoff (`—`), and the rephrase the user landed on. **Bold the leading portion that could have been kept as-is**; leave the part that needed rescuing unbolded.
 - **How it could have ended organically:** the natural completion of the bolded part. Reading "bolded part + column B" should produce a clean sentence.
-- Do NOT include false starts the user resolved cleanly without an actual phrasing problem, and do NOT include normal speech-stream self-corrections every native speaker makes.
-- **Order:** 🔴 → 🟡 → 🟢, then chronological within each severity.
+- Include only when there *was* a natural completion the user did not reach. Skip clean self-corrections every native speaker makes.
+- **Order:** 🔴 → 🟡 → 🟢, then chronological.
 
-Example row shape:
+#### 4. Grammar issues
 
-| 1 | 🟡 | "**how AI can practically transform my** if I'm a PM work" | work as a PM |
+**One row per Rule, not per instance.** Grammar errors cluster very tightly by rule — bundle them.
 
-### 4. Grammar issues
+| # | Sev | Rule | Examples (said → correct) |
+|---|-----|------|---------------------------|
 
-Pure grammar only — tense, aspect, number, articles, prepositions tied to a rule, word form, agreement, plurals, conditionals, etc. Do NOT put phrasing or word-choice problems here (those belong in §1 or §2).
-
-**Before the table**, write 1–2 sentences naming the rule(s) that account for most rows (e.g. *"Articles dominate — missing 'the' before recurring nouns like 'agent', 'organization'. Indirect-question inversion is the second biggest, with 4+ instances."*).
-
-| # | Sev | What I said | Correct version | Rule |
-|---|-----|-------------|-----------------|------|
-
-- **Rule:** the grammatical rule in 3–8 words. Examples: `no future after "if" in conditionals`; `indirect question — no subject-verb inversion`; `uncountable noun, no plural / article`; `subject-verb agreement`; `present perfect for life-experience`; `"kind of" + singular noun`.
-- **Order:** 🔴 → 🟡 → 🟢, then **group rows by Rule** within each severity (all "no future after if" rows together, all "indirect question" rows together, etc.) so the user sees patterns rather than scattered one-offs.
+- **Rule:** the grammatical rule in 3–8 words. Examples: `no future after "if" in conditionals`; `indirect question — no subject-verb inversion`; `uncountable noun, no plural`; `subject-verb agreement`; `"kind of" + singular noun`. Append `(N instances)` when N ≥ 2.
+- **Examples:** every instance in the form `"what was said" → corrected`, separated by ` · `. Bold the changed words on both sides.
+- **Order:** 🔴 → 🟡 → 🟢, then group related rules adjacent within each severity (all article rules together, all preposition rules together, etc.).
 
 ## Step 6 — Write the output to disk
 
@@ -158,14 +210,14 @@ When invoked interactively (slash command or agent), after producing the analysi
    - Prefix with today's date in `YYYY-MM-DD` form.
    - Final path: `outputs/english-coaching/YYYY-MM-DD_<slug>.md`.
    - If that path already exists, append `-2`, `-3`, … until unique.
-2. **Write the full analysis** (header + executive summary + four tables, identical to what you emit in chat) to that file using the Write tool. Create the directory if it doesn't exist.
+2. **Write the full analysis** (header + executive summary + Top items + full audit, identical to what you emit in chat) to that file using the Write tool. Create the directory if it doesn't exist.
 3. **Tell the user the path** that was written, then print the analysis in the chat as well.
 
 When invoked headlessly (a `<<<CALENDAR_EVENT_CONTEXT>>>` block is present, indicating the call-pipeline), do NOT write a file — the pipeline handles file output. Just emit the analysis on stdout.
 
 ## Rules
 
-- Evidence-bound: every row ties to something the user actually said in English in this transcript.
+- Evidence-bound: every item ties to something the user actually said in English in this transcript.
 - No filler, no praise, no encouragement copy, no overall score beyond the severity tags.
 - Mark anything inferred as `(inferred)` inline.
 - `-` for empty tables.
