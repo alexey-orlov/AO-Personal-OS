@@ -124,7 +124,8 @@ The curated study list. This is where the user looks first; they should be able 
 2. Include **every 🟡 pattern with 3+ instances** in the transcript.
 3. Include **🟡 patterns with fewer instances** only if they're high-leverage (one rule that prevents many future mistakes — e.g. articles, indirect questions, conditionals).
 4. Skip 🟢 patterns unless they cluster massively (5+ instances).
-5. **Hard cap: 8 items.** If you'd exceed it, leave the marginal items for the audit. Better to drill 6 things well than skim 12.
+5. **Always include verbosity (§5) if §5 has any rows.** Since §5 issues are one-off rather than recurring, bundle the **2–3 worst offenders** (highest severity, then most words to cut) into a single Top item titled by the dominant §5 pattern (e.g. *Run-on / overlong sentence*), with each as a `said → tighter` example. This guarantees over-long sentences always surface in the study list.
+6. **Hard cap: 8 items.** If you'd exceed it, leave the marginal items for the audit. Better to drill 6 things well than skim 12. The §5 item (rule 5) is exempt from being cut by the cap.
 
 Order items by impact (frequency × severity weight: 🔴=3, 🟡=2, 🟢=1), highest first.
 
