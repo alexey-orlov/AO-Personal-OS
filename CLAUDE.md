@@ -30,7 +30,7 @@ Currently job-searching for product leadership roles (VP Product / CPO) at US co
 ## Structure (where things go)
 - `.claude/skills/<name>/SKILL.md` — reusable agent skills with frontmatter (`name`, `description`, `disable-model-invocation`, `user-invocable`). Discoverable as slash commands (`/<name>`) in Claude Code AND inlined by automations as plain prompt text.
 - `automations/<name>/` — self-contained units: scripts + `config.sh` + `setup.sh` + `README.md`, plus a git-ignored `.work/` runtime dir.
-- `outputs/<type>/` — produced artefacts. COMMITTED, so they sync across devices.
+- `outputs/<type>/` — produced artefacts. COMMITTED, so they sync across devices. `outputs/call-notes/` is foldered by meeting context (`softserve/`, `gigacloud/{product-issues-sukhenko,product-team-weekly,other}/`, `job-search/{intro-chats,vacancy-interviews/<company>}/`, `laba/`, `other/`); the `classify` skill assigns the folder and the call-pipeline routes the note there. `outputs/english-coaching/` stays flat.
 - `context/` — durable reference material (people, companies, frameworks).
 
 ## Hard rules
@@ -43,7 +43,7 @@ Currently job-searching for product leadership roles (VP Product / CPO) at US co
 Evidence-bound, specific, no filler or praise. Mark inferences as "(inferred)". Use "-" for empty sections.
 
 ## Adding things
-- New skill → new folder `.claude/skills/<name>/` with a `SKILL.md` that starts with the frontmatter block (`name`, `description`, `disable-model-invocation: false`, `user-invocable: true`) followed by the prompt body. Directory name MUST match the `name:` value. If it's a new call type for the call-pipeline, also add the label + definition to `.claude/skills/classify/SKILL.md`.
+- New skill → new folder `.claude/skills/<name>/` with a `SKILL.md` that starts with the frontmatter block (`name`, `description`, `disable-model-invocation: false`, `user-invocable: true`) followed by the prompt body. Directory name MUST match the `name:` value. If it's a new call type for the call-pipeline, also add the label + definition to Axis 1 of `.claude/skills/classify/SKILL.md`. To add a new meeting-context output folder, add it to Axis 2 of the same file — the pipeline creates folders on demand, so no script change is needed.
 - New automation → new folder under `automations/` with its own `setup.sh`, `README.md`, and `.work/` for runtime/secret files.
 
 ## Active automations
