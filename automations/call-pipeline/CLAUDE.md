@@ -1,6 +1,17 @@
 # call-pipeline — agent notes
 
-Voice Memo (iCloud-synced to this Mac) → AssemblyAI transcript → Google Calendar lookup at the recording-start timestamp → Claude classifies the call → Claude analyses with `.claude/skills/<type>/SKILL.md` (calendar metadata fed in as context) → note in `outputs/call-notes/` (calendar header prepended) → Claude runs the `english-coaching` skill on the same transcript → coaching note in `outputs/english-coaching/` (same `${stamp}_${type}_${src_id}.md` filename, easy to correlate). Both notes are committed + pushed together in a single commit.
+Voice Memo (iCloud-synced to this Mac) → AssemblyAI transcript → Google Calendar lookup at the recording-start timestamp → Claude classifies the call on two axes (TYPE + CONTEXT folder, calendar metadata fed in) → Claude analyses with `.claude/skills/<type>/SKILL.md` (calendar metadata fed in as context) → note in `outputs/call-notes/<context-folder>/` (calendar header prepended) → Claude runs the `english-coaching` skill on the same transcript → coaching note in `outputs/english-coaching/` (flat folder; same `${stamp}_${type}_${src_id}.md` filename, easy to correlate). Both notes are committed + pushed together in a single commit.
+
+## Output foldering (context taxonomy)
+`classify` returns two lines — `type:` (picks the analysis skill + filename) and `folder:` (the meeting-context subfolder under `outputs/call-notes/`). The folder dimension is orthogonal to type. Valid folders:
+- `softserve` — SoftServe advisory / enablement / R&D.
+- `gigacloud/product-issues-sukhenko` · `gigacloud/product-team-weekly` · `gigacloud/other` — GigaCloud-internal (Alex is CPO); the two recurring weeklies get their own folder, everything else → `other`.
+- `job-search/intro-chats` — recruiter/talent-lead chats NOT tied to a specific vacancy.
+- `job-search/vacancy-interviews/<company-slug>` — interviews/case presentations/recruiter debriefs tied to a specific role; slug = the HIRING company (not the recruiting firm), `_unknown` if unidentifiable.
+- `laba` — Laba PM-course tutoring.
+- `other` — top-level catch-all / low-confidence fallback.
+
+`process_one.sh` sanitises the returned folder (lowercase, `[a-z0-9/_-]` only, neutralises `..`, strips slashes) before `mkdir -p`, so a malformed model response can't escape `call-notes/`. Only `call-notes` is foldered — `english-coaching` stays flat. To add or rename a context, edit Axis 2 of `.claude/skills/classify/SKILL.md`; no script change needed (folders are created on demand).
 
 ## Commands
 - Setup (per machine): `./setup.sh`

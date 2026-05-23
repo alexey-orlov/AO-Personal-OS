@@ -42,23 +42,45 @@ else
 fi
 
 echo "[classify] ..." >&2
-type="$(
-  "$CLAUDE_BIN" -p "Classify the call transcript on input. Follow the classify skill instructions exactly. Output one label only." \
+# Classify on two axes: TYPE (picks the analysis skill + filename) and FOLDER
+# (the meeting-context subfolder under call-notes). The classify skill emits
+# two lines: "type: <…>" and "folder: <…>". Calendar context is fed in so the
+# classifier can read attendees/title to resolve the context.
+classify_out="$(
+  {
+    if [ -s "$cal_context" ]; then
+      printf '<<<CALENDAR_EVENT_CONTEXT>>>\n'
+      cat "$cal_context"
+      printf '<<<END_CALENDAR_EVENT_CONTEXT>>>\n\n'
+    fi
+    cat "$txt"
+  } | "$CLAUDE_BIN" -p "Classify the call transcript on input on both axes. Follow the classify skill instructions exactly. Output only the two required lines (type: … and folder: …)." \
     --append-system-prompt "$(cat "$SKILLS_DIR/classify/SKILL.md")" \
     ${CLASSIFY_MODEL:+--model "$CLASSIFY_MODEL"} \
-    --output-format text < "$txt" | tr -d '[:space:]'
+    --output-format text
 )"
+type="$(printf '%s' "$classify_out" | grep -iE '^[[:space:]]*type:' | head -1 | sed -E 's/^[[:space:]]*[Tt]ype:[[:space:]]*//' | LC_ALL=C tr '[:upper:]' '[:lower:]' | LC_ALL=C tr -cd '[:alnum:]-')"
+folder="$(printf '%s' "$classify_out" | grep -iE '^[[:space:]]*folder:' | head -1 | sed -E 's/^[[:space:]]*[Ff]older:[[:space:]]*//')"
 if [ -z "$type" ] || [ ! -f "$SKILLS_DIR/$type/SKILL.md" ]; then
-  echo "[classify] '$type' unrecognised -> 'default'" >&2
+  echo "[classify] type '$type' unrecognised -> 'default'" >&2
   type="default"
 fi
-echo "[classify] -> $type" >&2
+# Sanitize the folder path: lowercase; keep only [a-z0-9/_-]; neutralise any
+# "../" traversal; collapse and strip slashes. Empty -> the 'other' catch-all.
+folder="$(printf '%s' "$folder" \
+  | LC_ALL=C tr '[:upper:]' '[:lower:]' \
+  | LC_ALL=C tr -cd 'a-z0-9/_-' \
+  | sed -E 's#\.\.+#.#g; s#/+#/#g; s#^/+##; s#/+$##')"
+[ -n "$folder" ] || folder="other"
+echo "[classify] -> type:$type  folder:$folder" >&2
 
 stamp="$(date +%Y-%m-%d_%H%M%S)"
 # Sanitized identifier from the source recording's filename (alphanumerics only).
 src_id="$(printf '%s' "${fname%.*}" | LC_ALL=C tr -cd '[:alnum:]')"
 [ -n "$src_id" ] || src_id="rec"
-note="$OUT_DIR/${stamp}_${type}_${src_id}.md"
+dest_dir="$OUT_DIR/$folder"
+mkdir -p "$dest_dir"
+note="$dest_dir/${stamp}_${type}_${src_id}.md"
 # Belt-and-braces: never overwrite an existing note.
 if [ -e "$note" ]; then
   i=2
