@@ -1,6 +1,6 @@
 ---
 name: english-coaching
-description: English-language coaching on a call transcript. Identifies the user from CLAUDE.md, reviews only the user's English speech, and writes a Markdown report (executive summary + a curated "Top items to study" list + a pattern-grouped full audit) to outputs/english-coaching/. Built as a learning artifact, not an audit log — flags only real errors and non-native phrasings, never style upgrades. Filters likely transcription artefacts.
+description: English-language coaching on a call transcript. Identifies the user from CLAUDE.md, reviews only the user's English speech, and writes a Markdown report (executive summary + a curated "Top items to study" list + a pattern-grouped full audit) to outputs/english-coaching/. Built as a learning artifact, not an audit log — flags real errors, non-native phrasings, and over-long/over-complex sentences (with tighter rewrites), but never mere style upgrades. Filters likely transcription artefacts.
 disable-model-invocation: false
 user-invocable: true
 ---
@@ -47,13 +47,14 @@ Skip silently (do NOT report) any of the following:
 - **Likely transcription artefacts.** A word/phrase so out of place that no upper-intermediate / advanced speaker would plausibly say it (clear ASR mis-hearing). When in doubt that something reflects the user's actual phrasing, leave it out — better to miss one issue than introduce noise.
 - **Normal disfluencies:** filler words ("um", "uh", "you know"), repeated words, micro-hesitations, false starts the user resolved cleanly and landed in a native-sounding place.
 - **Style upgrades.** If what the user said is already grammatical, clear, and native-sounding, do NOT flag it just because a more polished or idiomatic alternative exists. The bar is *actually wrong / awkward / non-native*, not "could be fancier".
+  - **Exception — comprehensibility (§5 only).** Verbosity and over-complexity are NOT style upgrades and ARE in scope. A sentence that is grammatical and native-sounding but *too long, padded with redundant words, or so structurally tangled that a listener has to work to follow it* belongs in §5. The test is comprehension and economy ("a listener loses the thread" / "six words doing the work of three"), not polish ("could be fancier"). Still skip sentences that are already tight and easy to follow.
 
 ## Step 3 — Sweep the transcript, tagging by Pattern + Severity
 
 A 60–90 minute call is expected. Do not skim or sample. Before producing the output, work through the transcript in this order:
 
 1. Walk through the transcript top-to-bottom and internally enumerate every user turn.
-2. For each user turn, scan it sentence-by-sentence against the four categories below. For each candidate issue, record:
+2. For each user turn, scan it sentence-by-sentence against the five categories below. For each candidate issue, record:
    - the **context** (smallest snippet that shows the issue),
    - a **draft severity** (🔴 / 🟡 / 🟢 — see Step 4),
    - a **Pattern name** that names the underlying generalisable problem, not the specific instance. Two instances of the same pattern must get the same Pattern name so they collapse in the audit.
@@ -75,6 +76,9 @@ Pattern naming vocabulary — use short, consistent names. Examples to draw on:
 - *"kind of" + singular noun*
 - *Adverb placement*
 - *Redundancy / synonymous stacking*
+- *Run-on / overlong sentence* — one sentence carrying 3+ clauses a listener can't hold
+- *Wordy padding* — filler that adds length but no meaning (*the thing is that*, *what I want to say is*)
+- *Over-nested structure* — clauses inside clauses that bury the main point
 
 Invent new pattern names when needed, but reuse existing ones aggressively when two instances are the same kind of error.
 
@@ -90,6 +94,8 @@ Every flagged issue must be tagged with one of three severities:
 
 Be conservative with 🔴 — reserve it for things that genuinely embarrass or confuse. Most issues from an advanced speaker will be 🟡, with a long tail of 🟢.
 
+For **§5 (verbosity / over-complexity)**, map severity to how much comprehension suffers: 🔴 = a listener genuinely loses the thread or has to re-parse; 🟡 = followable but clearly bloated (could shed a third of the words); 🟢 = mildly wordy.
+
 Within tables, always order rows **🔴 Critical → 🟡 Moderate → 🟢 Minor** before any secondary sort.
 
 ## Step 5 — Output format
@@ -104,9 +110,9 @@ The first line:
 ### Executive summary
 
 A 3–5 sentence paragraph immediately after the header. Cover:
-- Which category (§1–§4) is most loaded and *why* — name the top 1–2 patterns driving it.
+- Which category (§1–§5) is most loaded and *why* — name the top 1–2 patterns driving it.
 - The single most important thing the user should fix first (the "bottom line").
-- Severity totals across all four categories: `🔴 X · 🟡 Y · 🟢 Z`.
+- Severity totals across all five categories: `🔴 X · 🟡 Y · 🟢 Z`.
 - Coverage note if incomplete.
 
 ### Top items to study this session
@@ -153,7 +159,7 @@ In American English, *actual* means "real / true", not "now-existing". When you 
 
 Complete inventory, organised by pattern. This is the evidence layer behind the Top items — proof the sweep was thorough, and the place to look for any item that didn't make the top list.
 
-Each of the four sections below opens with a 1–2 sentence preamble naming the dominant subtypes in that section.
+Each of the five sections below opens with a 1–2 sentence preamble naming the dominant subtypes in that section.
 
 #### 1. Wrong words / collocations
 
@@ -199,6 +205,20 @@ Each of the four sections below opens with a 1–2 sentence preamble naming the 
 - **Rule:** the grammatical rule in 3–8 words. Examples: `no future after "if" in conditionals`; `indirect question — no subject-verb inversion`; `uncountable noun, no plural`; `subject-verb agreement`; `"kind of" + singular noun`. Append `(N instances)` when N ≥ 2.
 - **Examples:** every instance in the form `"what was said" → corrected`, separated by ` · `. Bold the changed words on both sides.
 - **Order:** 🔴 → 🟡 → 🟢, then group related rules adjacent within each severity (all article rules together, all preposition rules together, etc.).
+
+#### 5. Verbosity / over-complex sentences
+
+Sentences that are grammatical and native-sounding but **too long, padded with redundant words, or so structurally tangled that the listener has to work to follow them**. This is the comprehensibility layer — see the §5 exception in Step 2. Do NOT include sentences that are already tight, or issues better classified as awkward phrasing (§2) or grammar (§4).
+
+**One row per instance** — each over-long sentence is its own event.
+
+| # | Sev | What I said | Tighter version | Why |
+|---|-----|-------------|-----------------|-----|
+
+- **What I said:** the full over-long / over-complex sentence as spoken (trim only obvious filler with `…` if it runs very long).
+- **Tighter version:** the same point said in fewer words / simpler structure. Preserve the user's meaning and voice — cut and untangle, do not embellish.
+- **Why:** one short clause naming the problem (e.g. *"three clauses, one idea"*, *"~30 words, could be 12"*, *"main point buried in clause 3"*).
+- **Order:** 🔴 → 🟡 → 🟢, then chronological within each severity.
 
 ## Step 6 — Write the output to disk
 
