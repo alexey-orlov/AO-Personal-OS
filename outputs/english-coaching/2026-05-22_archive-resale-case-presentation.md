@@ -2,11 +2,21 @@ _User identified as: Speaker A — self-introduces as Alex, an experienced produ
 
 ## Executive summary
 
-The transcript is loaded with **missing-article errors on singular count nouns** (~20+ instances) and **mid-sentence adverb-placement slips** (~10), with a long tail of **wrong prepositions in fixed collocations** (*subject for*, *take a look on*, *moving into the right direction*) — all classic RU/UA L2 patterns. The most important single fix is articles before singular count nouns: it accounts for the most instances, has the clearest rule, and once internalized it eliminates a major chunk of the non-native impression on its own. A handful of critical issues stand out — the *later* vs *latter* swap (twice) and three conditional clauses where "will" or wrong tense appeared after "if". Severity totals: 🔴 7 · 🟡 ~60 · 🟢 ~15.
+By raw count the transcript is loaded with **missing-article errors on singular count nouns** (~20+ instances) and **mid-sentence adverb-placement slips** (~10), with a long tail of **wrong prepositions in fixed collocations** (*subject for*, *take a look on*, *moving into the right direction*) — classic RU/UA L2 patterns. But the most *pervasive* problem — newly catalogued in **§5** — is **verbosity / over-complex sentences**: this is the most run-on-heavy of your transcripts, with single sentences carrying five or six clauses and repeated restarts that lose the listener. **Fix sentence length first** (one idea per sentence); the next highest-leverage rule fix is articles before singular count nouns, which once internalised removes a major chunk of the non-native impression on its own. A handful of critical word/grammar issues also stand out — the *later* vs *latter* swap (twice) and three conditional clauses with "will"/wrong tense after "if". Severity totals: **🔴 9 · 🟡 ~64 · 🟢 ~16**.
 
 ## Top items to study this session
 
-#### 1. 🔴 Conditional verb-tense errors — 3 instances
+#### 1. 🔴 Verbosity / over-complex sentences — run-on as default structure (7+ instances)
+
+Your single biggest spoken-English issue here is sentence length. You build one sentence out of five or six clauses, restart mid-thought ("it kind of needs— if it went through…"), and stack hedges, so the listener loses the through-line before you land it. Decide one point, say it, stop. (Full list in §5.)
+
+- "After this, like, cycle of multiple evaluations for different levers, because you have different ways to tackle the problems... the prioritization agent will have to take all the outputs... and make the conclusion based on all, all those, um, unstructured, differently, uh, like defensible to different degree, differently described, uh, cases" → "**Once each lever has been evaluated, the prioritization agent weighs all those outputs — which are unstructured and defensible to different degrees — and reaches a conclusion.**"
+- "Then you actually need to decide based on all this context... we can just live with low supply, but we can just increase the prices for the item and get the most out of that category with that low supply, but we will just earn more from that lower supply" → "**Then, using that context, you decide: either accept the low supply, or raise prices to earn more from it.**"
+- "The signals that you have, if we look at them high level, they are either brand data signals— they are intentionally super high level if you're like, there is a signal that for this particular category or subcategory we are, we have low supply that is not able to to meet the demand or vice versa, or in this category we have low profit" → "**At a high level, the brand-data signals are things like: this category's supply can't meet demand (or vice versa), or it has low profit.**"
+
+**Drill:** one breath = one idea. When you hear "and… and…" or a restart ("it needs— if it…"), stop and finish the sentence. Aim for ≤25 words; if a sentence needs three "and"s or two "given"s, split it.
+
+#### 2. 🔴 Conditional verb-tense errors — 3 instances
 
 Don't use "will" in the *if*-clause, and don't mix past + present-future across the two halves. Real condition: *if + present, will + base*. Hypothetical: *if + past, would + base*. Unreal past: *if + past perfect, would have + past participle*.
 
@@ -16,7 +26,7 @@ Don't use "will" in the *if*-clause, and don't mix past + present-future across 
 
 **Drill:** After "if", the verb is **present** (real) or **past / past-perfect** (hypothetical). "Will" only goes in the main clause. Mental check on every "if" you say: did "will" sneak in here? If yes, rewrite.
 
-#### 2. 🔴 Wrong word: *later* → *latter* — 2 instances
+#### 3. 🔴 Wrong word: *later* → *latter* — 2 instances
 
 *Later* = afterwards in time. *Latter* = the second of two things just mentioned. They sound different too: *latter* is /ˈlætər/ (short "a" as in *cat*), *later* is /ˈleɪtər/ (long "ay" as in *late*).
 
@@ -25,7 +35,7 @@ Don't use "will" in the *if*-clause, and don't mix past + present-future across 
 
 **Drill:** *The former / the latter* — they come as a pair. Whenever you say "the former", the next word in the pair is always *the latter*, never *the later*. Pronounce it like *cat* + *ter*.
 
-#### 3. 🔴 Invented compound: *must productized* — 1 instance
+#### 4. 🔴 Invented compound: *must productized* — 1 instance
 
 English doesn't form noun phrases by stacking *must* + a past-participle adjective. *Must-have* is a real compound; *must-productized* isn't. Listeners stop and re-parse.
 
@@ -33,9 +43,9 @@ English doesn't form noun phrases by stacking *must* + a past-participle adjecti
 
 **Drill:** If you can't recall having actually heard a native speaker use a compound, paraphrase. *Must-have*, *must-read*, *must-see* — those exist. Anything else with *must-* is probably an invention.
 
-#### 4. 🟡 Missing article on singular count nouns — ~20 instances
+#### 5. 🟡 Missing article on singular count nouns — ~20 instances
 
-Singular count nouns in English almost always need an article — *a/an* for a first/non-specific mention, *the* when the referent is identifiable from context. RU/UA has no articles at all, so this is the single highest-leverage pattern to fix.
+Singular count nouns in English almost always need an article — *a/an* for a first/non-specific mention, *the* when the referent is identifiable from context. RU/UA has no articles at all, so this is the single highest-leverage *rule* to fix.
 
 - "We need to have **clear understanding**" → **a clear understanding**
 - "with the help of **LLM**" → with the help of **an LLM**
@@ -43,7 +53,7 @@ Singular count nouns in English almost always need an article — *a/an* for a f
 
 **Drill:** Before any singular count noun, mentally ask: "Which one?" If the answer is "any one of this kind" → *a/an*. If it's "the specific one we both know about" → *the*. If neither fits, you're probably looking at an uncountable noun. Practice: *we need a clear understanding · this is a priority · with the help of an LLM · we don't have a POC yet.*
 
-#### 5. 🟡 Set-phrase article error — 4 instances
+#### 6. 🟡 Set-phrase article error — 4 instances
 
 Many fixed idioms have a non-negotiable article that doesn't follow the general rule. Memorize the whole phrase as a chunk; don't pick the article on the fly.
 
@@ -54,7 +64,7 @@ Many fixed idioms have a non-negotiable article that doesn't follow the general 
 
 **Drill:** Lock as chunks: *set the stage · take the lead · in a vacuum · go the extra mile · at the end of the day · behind the scenes · on the same page · the task at hand · in the long run.*
 
-#### 6. 🟡 Mid-sentence adverb placement — ~10 instances
+#### 7. 🟡 Mid-sentence adverb placement — ~10 instances
 
 Adverbs like *definitely, probably, also, already, in fact* normally sit **after** the first auxiliary or **before** the main verb. They don't go between "going to" and the verb, and they don't trail after the verb's object.
 
@@ -65,7 +75,7 @@ Adverbs like *definitely, probably, also, already, in fact* normally sit **after
 
 **Drill:** Default position = right after the first auxiliary (*is/was/has/will/can/could*). "I **probably** want to" not "I want **probably** to". "It's **also** going to be" not "it's going to be **also**". For *anymore* / *any longer*, they always go at the very end of the clause.
 
-#### 7. 🟡 Wrong preposition in collocations — 7+ instances
+#### 8. 🟡 Wrong preposition in collocations — 7+ instances
 
 English collocations fix the preposition — you can't translate it from RU/UA. *Subject **to*** (not *for*), *take a look **at*** (not *on*), *move **in*** a direction (not *into*). Wrong prepositions are the single fastest tell of L2 English.
 
@@ -75,7 +85,7 @@ English collocations fix the preposition — you can't translate it from RU/UA. 
 
 **Drill:** Lock as fixed pairs: *subject to · take a look at · move/go in a direction · in a vacuum · candidates for · pivot in a direction · push back on (an idea) · reach out to (a person).*
 
-#### 8. 🟡 Non-native verb-noun collocations — 4 instances
+#### 9. 🟡 Non-native verb-noun collocations — 4 instances
 
 English distinguishes *do* vs *make*, *reach* vs *reach out to*, *go for* vs *go on* in ways RU/UA does not. The wrong verb is understandable but instantly non-native.
 
@@ -170,3 +180,17 @@ Dominant subtypes: missing articles on singular count nouns (by far the largest 
 | 5 | 🟡 | Indirect question — no subject-verb inversion | "discuss real pain points, deal with existing context sources and understand **what's the current state** of things with the context" → understand **what the current state is** |
 | 6 | 🟡 | Wrong verb form after *open to* / causative *have* / *help* (3 instances) | "we are not going to be talking to our direct competitors who are not **open to discuss** that" → **open to discussing** · "this promo is gonna **help us doing one-off logistics**" → **help us do** / **help us with** · (see also Awkward §13–14 — *have that data being collected* → *have that data collected*) |
 | 7 | 🟡 | Uncountable noun pluralized (2 instances) | "we have **high turnovers** with the brand overall" → high **turnover** · "I don't know **how much of logging** happens" → **how much logging** |
+
+### 5. Verbosity / over-complex sentences
+
+This is the most run-on-heavy of the transcripts: single sentences regularly carry five or six clauses, with restarts ("it kind of needs— if it went…") and stacked hedges ("given… given… given…"). The rewrites keep your meaning and voice — the fix is to split and cut, not to change vocabulary. Broken syntax lives in §2; forgotten-phrasing restarts live in §3.
+
+| # | Sev | What I said | Tighter version | Why |
+|---|-----|-------------|-----------------|-----|
+| 1 | 🔴 | "After this, like, cycle of multiple evaluations for different levers, because you have different ways to tackle the problems that we are discussing, the prioritization agent will have to take all the outputs of all the lever realization agents and say and, and make the conclusion based on all, all those, um, unstructured, differently, uh, like defensible to different degree, differently described, uh, cases for using different levers" | "Once each lever has been evaluated, the prioritization agent weighs all those outputs — which are unstructured and defensible to different degrees — and reaches a conclusion" | ~65 words, multiple restarts, one idea |
+| 2 | 🔴 | "Then you actually need to decide based on all this context, uh, here is a context for using the lever, let's say Trading credits increase, and here is the data that supports the decision to use a lever of— well, we can just live with low supply, but we can just increase the prices for the item and get the most out of that category with that low supply, but we will just earn more from that lower supply" | "Then, using that context, you decide: either accept the low supply, or raise prices to earn more from it" | ~75 words collapse to one clear either/or |
+| 3 | 🟡 | "The signals that you have, if we look at them high level, they are either brand data signals— they are intentionally super high level if you're like, there is a signal that for this particular category or subcategory we are, we have low supply that is not able to to meet the demand or vice versa, or in this category we have low profit" | "At a high level, the brand-data signals are things like: this category's supply can't meet demand (or vice versa), or it has low profit" | ~60 words; nested restarts bury a simple list |
+| 4 | 🟡 | "In theory, it might help, like in theory increasing trading credits for this item might help, but given, I don't know, the thresholds from the customer, current promise run by the brand themselves, given the data that we have about the elasticity, so if we go that high with the credit, it actually does not influence anymore the supply" | "Raising trading credits might help in theory, but customer thresholds, the brand's own promos, and elasticity data mean that past a point, more credit no longer lifts supply" | ~60 words; repeated "in theory" + stacked "given" |
+| 5 | 🟡 | "And this level evaluation agent gets this, all this context, and reasons over it. And this context is super unstructured. It's partially the notes from, from the brand guideline doc, or some portion of the, of the elasticity matrix, and some portion of some other data, and it's for reasoning over all, all those things" | "The lever-evaluation agent reasons over all this unstructured context — brand-guideline notes, part of the elasticity matrix, and other data" | trailing repetition; ~55 words |
+| 6 | 🟡 | "It's about validating our assumption that this non-deterministic agentic thing will actually be able to deliver the outputs, because that's the highest point of uncertainty alongside with the availability of the required context" | "It validates the riskiest assumption: that this non-deterministic agent can actually deliver the outputs — alongside whether the needed context is even available" | one idea wrapped in two long subordinate clauses |
+| 7 | 🟢 | "Different story about a storefront optimization, but also it's kind of, in my, in my world, it might be it's probably structured" | "Storefront optimization is different, but it's probably structured too" | hedge pile-up ("kind of… might be… probably") |

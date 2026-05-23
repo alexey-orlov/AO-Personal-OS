@@ -2,11 +2,21 @@ _User identified as: Speaker A — self-introduces as "Alex Orlov... with SoftSe
 
 ## Executive summary
 
-The dominant category is **§1 Wrong words / collocations** (~29 instances), driven by two recurring patterns: a cluster of **non-native verb-noun collocations** (11 instances — *do advisory on*, *get you a sense*, *thinking into that direction*, etc.) and **mangled set-phrase idioms** where an article or plural is off (*behind the scene*, *in the vacuum*, *task in hand*, *Having that said*). **§4 Grammar** is a very close second, dominated by **countable/uncountable noun confusion** (5 instances) and **indirect-question inversion** (4 instances) — both single-rule fixes that unlock many corrections. **Fix uncountable-noun handling first**: one rule eliminates 5 mistakes (*those feedbacks*, *level of details*, *much of responses*, *much of collaboration*, *so much follow-ups*). Severity totals: **🔴 5 · 🟡 67 · 🟢 12**.
+By raw count the most loaded category is **§1 Wrong words / collocations** (~29 instances), driven by a cluster of **non-native verb-noun collocations** (11 — *do advisory on*, *get you a sense*, *thinking into that direction*) and **mangled set-phrase idioms** (*behind the scene*, *in the vacuum*, *task in hand*, *Having that said*); **§4 Grammar** is close behind, dominated by **countable/uncountable confusion** (5) and **indirect-question inversion** (4). But the most *pervasive* problem — newly catalogued in **§5** — is **verbosity / over-complex sentences**: long multi-clause run-ons with mid-sentence restarts are your default spoken structure, and they cost the listener the main point more than any single word choice. **Fix sentence length first** (land one idea, then stop); after that, the highest-leverage rule fix is uncountable-noun handling (one rule kills 5 errors). Severity totals: **🔴 7 · 🟡 72 · 🟢 13**.
 
 ## Top items to study this session
 
-#### 1. 🟡 Countable / uncountable noun confusion — 5 instances
+#### 1. 🔴 Verbosity / over-complex sentences — run-on as default structure (8+ instances)
+
+Your single biggest spoken-English issue isn't grammar or vocabulary — it's sentence length. You routinely chain four to six clauses, with mid-sentence restarts, into one breath, and by the end the listener has lost the point. Land one idea, stop, then start the next sentence. (Full list in §5.)
+
+- "If you give the agent feedback about the writing style or level of details... you ask those follow-up questions" → "For example, you give feedback on writing style, **or you ask follow-up questions to push an activation analysis further than the agent went on its own.**"
+- "Without that context, piece of context behind the scene being put together, there is so much back and forth... preparing some artifact" → "**Without that hidden context assembled up front, you need endless back-and-forth — so much depends on what the PM knows about the audience.**"
+- "That skill should be, should require agent to collect additional pieces of context about the feature structure... previous analysis might be useful" → "**That skill should make the agent pull extra context — feature structure, prior decisions, and especially past activation work — since today's numbers often reflect earlier changes.**"
+
+**Drill:** one breath = one idea. When you hear yourself say "and… and…" or restart a clause ("it should be, should require…"), stop and finish the sentence. Aim for ≤25 words; if a sentence needs three "and"s, split it in two.
+
+#### 2. 🟡 Countable / uncountable noun confusion — 5 instances
 
 English splits nouns into *countable* (responses, follow-ups, ideas) and *uncountable* (feedback, detail, collaboration, advice). Countable nouns take **many / a few**; uncountable take **much / a lot of** with no plural -s. Treating uncountable nouns as countable is one of the strongest non-native signals in your speech.
 
@@ -18,7 +28,7 @@ English splits nouns into *countable* (responses, follow-ups, ideas) and *uncoun
 
 **Drill:** memorise this short list of uncountable nouns and never pluralise them: **feedback · advice · information · detail · research · evidence · software · equipment · progress**. Test: if you can naturally say "*a piece of* X", X is uncountable — use *much*, no plural.
 
-#### 2. 🟡 Indirect question — no subject-verb inversion — 4 instances
+#### 3. 🟡 Indirect question — no subject-verb inversion — 4 instances
 
 When a question is embedded inside another sentence ("see what...", "decide what...", "ask what..."), use **statement word order** — subject before verb. Direct-question inversion ("what *are* X") should NOT leak into the embedded clause.
 
@@ -28,7 +38,7 @@ When a question is embedded inside another sentence ("see what...", "decide what
 
 **Drill:** if "what X is" feels slow, write the direct question first ("What ARE the use cases?"), then strip the inversion when embedding ("...see what the use cases ARE"). The verb moves to the end.
 
-#### 3. 🟡 Set-phrase article / plural errors in idioms — 4 instances
+#### 4. 🟡 Set-phrase article / plural errors in idioms — 4 instances
 
 Many English idioms have *fixed* articles and plurals. Changing one letter breaks the idiom and marks you as non-native. These are memorised as fixed shapes, not derived from rules.
 
@@ -39,7 +49,7 @@ Many English idioms have *fixed* articles and plurals. Changing one letter break
 
 **Drill:** treat each idiom as a single chunk. Re-write each one 3 times: *behind the scenes · in a vacuum · task at hand · Having said that*. Add to the same chunk list: *in the meantime · on the flip side · the source of truth*.
 
-#### 4. 🔴 Contradictory adverbs in a single sentence — 1 instance
+#### 5. 🔴 Contradictory adverbs in a single sentence — 1 instance
 
 When you qualify a claim with two competing hedges ("specifically... mainly"), you cancel your own meaning. Native listeners pause and re-parse. Pick one qualifier per claim.
 
@@ -47,7 +57,7 @@ When you qualify a claim with two competing hedges ("specifically... mainly"), y
 
 **Drill:** before adding a closing hedge ("mainly", "primarily", "mostly"), check the front of your sentence. If you've already said "specifically", "exactly", or "only" — stop. One qualifier per claim.
 
-#### 5. 🔴 Wrong word: *counted* used for *planned / prepared* — 1 instance
+#### 6. 🔴 Wrong word: *counted* used for *planned / prepared* — 1 instance
 
 *Count* in English means tally or enumerate. It does NOT mean plan or prepare. Saying "I've counted X hours" sounds like nonsense to a native ear — they think you literally tallied something.
 
@@ -55,7 +65,7 @@ When you qualify a claim with two competing hedges ("specifically... mainly"), y
 
 **Drill:** for *preparation time*, use **plan / prepare** ("I've planned about 45 minutes of content"). For *tallying*, **count** is correct ("I count three issues"). The two never overlap.
 
-#### 6. 🔴 Double negative scrambles intent — 1 instance
+#### 7. 🔴 Double negative scrambles intent — 1 instance
 
 Stacking negative words ("don't hesitate to NOT postpone") flips or breaks the meaning. Native speakers parse them backwards and give up.
 
@@ -63,7 +73,7 @@ Stacking negative words ("don't hesitate to NOT postpone") flips or breaks the m
 
 **Drill:** if you catch yourself saying *"don't hesitate to NOT X"* or *"I don't disagree that X isn't Y"* — stop and restart. Aim for at most one negative per clause.
 
-#### 7. 🔴 Sentence breakdown — interrupting a noun phrase mid-flow — 1 instance
+#### 8. 🔴 Sentence breakdown — interrupting a noun phrase mid-flow — 1 instance
 
 When you reach for a noun and try to insert a qualifier *inside* the noun phrase ("transform **my if I'm a PM work**"), the sentence breaks. Complete the noun first, then append qualifiers as a separate clause.
 
@@ -71,7 +81,7 @@ When you reach for a noun and try to insert a qualifier *inside* the noun phrase
 
 **Drill:** finish the noun phrase before you add the qualifier. *"Transform my work"* → complete. Then optionally append: *"as a PM"* / *"if I'm a PM"*. Never mid-noun.
 
-#### 8. 🔴 Wrong-term confusion in a technical context — 1 instance
+#### 9. 🔴 Wrong-term confusion in a technical context — 1 instance
 
 In a tech demo, using a non-standard term for a well-known concept doesn't just sound non-native — it makes listeners genuinely uncertain what you mean. ".md" expands to **Markdown**, not "metadata". Native devs hearing "metadata file" think YAML/JSON.
 
@@ -157,3 +167,18 @@ Two rule clusters dominate: **countable / uncountable** noun handling (5 instanc
 | 14 | 🟢 | "look at" not "look on" (3 instances) | "**take a look on** an example" → "**take a look at**" · "**take a look on** the conversations" → "**take a look at**" · "**I'll take a look on** this" → "**I'll take a look at**" |
 | 15 | 🟢 | "touch on (a topic)" requires preposition | "we already **touched that**" → "we already **touched on that**" |
 | 16 | 🟢 | *On* a slide / page, not *in* | "**in the next slide**" → "**on the next slide**" |
+
+### 5. Verbosity / over-complex sentences
+
+This is the most pervasive pattern in the transcript: long multi-clause chains, frequent mid-sentence restarts, and hedged double-openers ("It's important to mention that it's funny how…"). The rewrites preserve your meaning and voice — the fix is structural (split and cut), not vocabulary. Issues better classed as broken syntax live in §2; pure forgotten-phrasing restarts live in §3.
+
+| # | Sev | What I said | Tighter version | Why |
+|---|-----|-------------|-----------------|-----|
+| 1 | 🔴 | "If you give the agent feedback about the writing style or level of details that you require more granular analysis of certain problem, or for example, you perform, I don't know, activation, user activation analysis, and you want to go, every time you want to go 1, 2, 3 steps further beyond what agent initially does, you ask those follow-up questions" | "For example, you give feedback on writing style, or you ask follow-up questions to push an activation analysis further than the agent went on its own" | ~70 words, three false starts, one idea |
+| 2 | 🔴 | "Without that context, piece of context behind the scene being put together, there is so much back and forth, so much follow-ups to be done to get proper results that are based on the hidden knowledge that the product managers have about some expectations of the audience for whom they are preparing some artifact" | "Without that hidden context assembled up front, you need endless back-and-forth — so much depends on what the PM knows about the audience they're preparing the artifact for" | ~50 words; nested clauses bury the point |
+| 3 | 🟡 | "That skill should be, should require agent to collect additional pieces of context about the feature structure that we have, the general information, probably previous decisions that we've made, and specifically those that are related to activation improvement, because what we see now might be the result of what was happening, what was done before, or previous analysis might be useful" | "That skill should make the agent pull extra context — feature structure, prior decisions, and especially past activation work — since today's numbers often reflect earlier changes" | ~60 words; a list and a causal tail run together |
+| 4 | 🟡 | "It's important to mention that it's funny how dynamic this environment is right now because it's a survey ran approximately less than half a year ago, and it's clear right now that the distribution is again changing" | "Worth noting: this survey is barely six months old, and the distribution is already shifting" | two hedged openers ("important to mention… funny how…") before any content |
+| 5 | 🟡 | "Maybe some of you just saw one of those archetypes that typically when we are talking about designing agentic solutions something that just goes beyond Copilot or ChatGPT or Claude Chat, where you get those agents think through your instructions when you connect them to your data" | "Most of you have probably seen both archetypes — the ones that go beyond Copilot or ChatGPT, where agents reason through your instructions against your own data" | sentence loses its grammatical thread mid-way |
+| 6 | 🟡 | "if you define, for example, an engineering reviewer who is focused on— you see that on the screen— on technical feasibility, who is prompted to ask questions about our ability to build something with our actual stack, about dependencies, about some underlying technical capabilities that are, that are required to design what's proposed in the PRD, etc." | "Take an engineering-reviewer persona, prompted to probe technical feasibility — can we build it on the current stack, what are the dependencies, what capabilities does the PRD require" | ~55 words; repeated "if you define" + trailing clause stack |
+| 7 | 🟡 | "The good news is this self-learning mechanism is designed to let you— AI— to let AI help you keep it up to date all the time" | "The good news: this self-learning mechanism lets the AI help keep it up to date" | self-interrupting; ~20 words for a short idea |
+| 8 | 🟢 | "So that's magical and that's simple under the hood, as we've just seen" | "So under the hood it's simple" | filler stacking ("magical and… simple… as we've just seen") |
