@@ -14,7 +14,7 @@ LinkedIn is read on a phone, in a feed-adjacent context, by someone who gets doz
   - Cold InMail or DM: 60-110 words.
   - Reply in an active thread: as short as the content allows, often one or two sentences.
   - For very senior or visibly busy recipients: lean shorter, not longer.
-- **Signature:** drop the full email signature block. Alex's real LinkedIn sign-offs are `- Alex.`, `-Alex.`, `Alex.`, `Alex`, or no signature on quick replies. Pick from these. Never paste the `Best regards, / Alex Orlov, / alexorlov.co | Linkedin` block on LinkedIn.
+- **Signature:** no signature block on LinkedIn. Alex's real LinkedIn sign-offs are `- Alex.`, `-Alex.`, `Alex.`, `Alex`, or no signature on quick replies. Pick from these. Never paste the `Best regards, / Alex Orlov, / alexorlov.co | Linkedin` block on LinkedIn (that block lives in Gmail's auto-signature on email, not in any draft body, and never on LIN).
 - **Greeting:** "Hi [First]," for first contact. Once a thread is going, often drop "Hi" and open with just "[First], ..." ("Christopher, no worries at all!", "Lorraine, thanks for your response!", "Scott, thanks for the update"). Use the bare-name opener for continuing replies.
 - **Telegraphic register.** Compact sentences. Don't overexplain. Avoid overusing "I" - vary openers, cut "I just wanted to / I'd like to / I'm reaching out to" where they add nothing. Reduce repeated "I've / I'm / I would / I wanted" across the message.
 - **Hard rule reminder:** no em dashes. This is already global, but doubly important on LinkedIn where one em dash flags AI immediately. Hyphen with spaces, comma, or split the sentence.
@@ -76,7 +76,7 @@ Phone numbers ARE sometimes shared the same way, but treat phone as a meeting-me
 
 When the channel switches, produce TWO drafts:
 
-1. **The substantive reply, in email.** This is the real reply — full content, proper subject line, email-channel formatting (subject line, signature block per `SKILL.md`), about-me / blurb decisions per `profile.md`. Saved as a Gmail draft to the recipient's email address.
+1. **The substantive reply, in email.** This is the real reply — full content, proper subject line, email-channel formatting per `SKILL.md`. In inbox-sweep this path uses `signature: gmail-auto` (Path A): the draft body ends with the last substantive line — no closer, no name, no contact block — because Gmail iOS auto-appends the signature when the user sends from the prefilled compose. About-me / blurb decisions per `profile.md`.
 2. **A short LinkedIn confirmation message.** Posted in the LIN thread after the email is sent. Its job is to acknowledge the LIN thread (so the recipient sees a notification on LIN and doesn't think Alex went dark) and to tell them to check their email. One short sentence.
 
 The LIN confirmation goes AFTER the email. The user sends the email first, then sends the short LIN note. Both are produced upfront so the user can fire them in sequence.
@@ -156,6 +156,8 @@ His highest-volume LinkedIn use. Four sub-cases.
 
 Note the "(or let me know if nothing works)" graceful safety valve. Keep it.
 
+**This is also the default response to an inbound recruiter cold-pitch.** When a recruiter cold-pings Alex about a role (with or without a link to the JD), the right move is to accept the call and send the Calendly — **not** to pre-qualify with questions about level, scope, comp, remote, etc. Those belong in the call, not in the LIN reply. The recruiter reached out, so they've already decided Alex is worth a conversation; turning the reply into an intake form is friction. Skip status preambles too ("still actively looking" presupposes shared history — see SKILL.md Step 5 cold-inbound check); a warm "thanks, happy to chat" + Calendly is enough.
+
 **Proposing a specific slot when nothing else works:**
 > Hi Deborah - thanks for getting back to me! I couldn't find any spots that worked this week, so I just grabbed a time for next Tuesday on your Calendly.
 >
@@ -222,4 +224,4 @@ Defer-and-loop: `Thanks for taking the time to reply, Meg. I hope things ease up
 
 ## Editing an existing LinkedIn draft
 
-Same rule as email (Step 4 in `SKILL.md`): minimum change, preserve voice, flag don't fix silently. The LinkedIn-specific caveat: **don't "upgrade" a draft to email length or email-signature-block when the channel is LinkedIn.** If a draft is 40 words, the edited version should also be ~40 words. Don't add the full signature block. Don't add a subject line.
+Same rule as email (Step 4 in `SKILL.md`): minimum change, preserve voice, flag don't fix silently. The LinkedIn-specific caveat: **don't "upgrade" a draft to email length when the channel is LinkedIn.** If a draft is 40 words, the edited version should also be ~40 words. Don't paste a signature block — the `Best regards, / Alex Orlov, / ...` block is email-only (auto-appended by Gmail or inline in a Gmail API draft; see `SKILL.md` Step 3), never on LIN. Don't add a subject line.

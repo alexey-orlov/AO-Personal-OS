@@ -21,21 +21,23 @@ The message inherits tone from the *combination*. Cold + senior is the most care
 
 Grounded in the user's actual sent mail. His real greeting is "Hi [First]," in English and "[Name], привет!" / "[Name], привіт!" in Russian/Ukrainian (first name, comma, often an exclamation in RU/UA). He reserves "Dear ..." for official/institutional correspondence only.
 
-| Relationship | Greeting | Contractions | Ask directness | Emoji | Sign-off | Length |
-|---|---|---|---|---|---|---|
-| Cold + senior | "Hi [First]," | Yes, light | Soft, optional, easy no | No | Best regards, + block | Shortest, <120w |
-| Cold + peer | "Hi [First]," | Yes | Direct but not presumptuous | No | Best regards, + block | Short |
-| Warm-but-distant | "Hi [First]," / "[Имя], привет!" | Yes | Direct, reference the prior touch | Sparingly if warm | Best regards, + block | Short |
-| Established peer | "Hi [First]," / "[Имя], привет!" | Yes | Direct | OK in RU/UA, light in EN | Best regards, + block | Medium-short |
-| Close peer | "[Имя], привет!" / "Hey [First]," | Yes, freely | Just say it | Yes, natural (🙏😊🤞) | Best regards, + block, or first name | Shortest |
-| Report / junior | "Hi [First]," / "[Имя], привет!" | Yes | State it plainly, warm | OK | Best regards, or first name | As needed |
-| Official / institutional (embassy, consulate, vendor) | "Dear [Unit/Mr. X]," | Sparing | Precise, factual, polite | Never | Best regards, + block | As needed, exact |
+**Sign-off is handled outside this table** — see `SKILL.md` Step 3 for the Path A / Path B signature rule (Path A = body ends with last substantive line, Gmail auto-appends signature on send; Path B = inline standing block at the bottom for Gmail API drafts). Both paths use the same signature content (`Best regards, / Alex Orlov, / alexorlov.co | Linkedin`); the table below covers the dials that vary by relationship.
+
+| Relationship | Greeting | Contractions | Ask directness | Emoji | Length |
+|---|---|---|---|---|---|
+| Cold + senior | "Hi [First]," | Yes, light | Soft, optional, easy no | No | Shortest, <120w |
+| Cold + peer | "Hi [First]," | Yes | Direct but not presumptuous | No | Short |
+| Warm-but-distant | "Hi [First]," / "[Имя], привет!" | Yes | Direct, reference the prior touch | Sparingly if warm | Short |
+| Established peer | "Hi [First]," / "[Имя], привет!" | Yes | Direct | OK in RU/UA, light in EN | Medium-short |
+| Close peer | "[Имя], привет!" / "Hey [First]," | Yes, freely | Just say it | Yes, natural (🙏😊🤞) | Shortest |
+| Report / junior | "Hi [First]," / "[Имя], привет!" | Yes | State it plainly, warm | OK | As needed |
+| Official / institutional (embassy, consulate, vendor) | "Dear [Unit/Mr. X]," | Sparing | Precise, factual, polite | Never | As needed, exact |
 
 The official/institutional register is its own thing: "Dear Immigrant Visa Unit," / "Dear Consular Section," then clear, factual, slightly formal prose ("Thanks for your email. Sure, I will fill out the document and send it over."). Polite and precise, no warmth performance, no emoji, no jokes.
 
 Genuine warmth is on-brand, not a violation. In warm contexts the user writes real exclamations ("Большое спасибо!!", "Looking forward to connecting!", "Pleasure to e-meet you!") and sometimes a warm PS to people he's close to. Keep that. What stays banned is *manufactured* enthusiasm toward strangers (see `banned-phrases.md`).
 
-On non-email channels (LinkedIn, WhatsApp, Slack, SMS), drop one notch of formality, drop the subject line, and drop the signature block (the closer can stay or go).
+On non-email channels (LinkedIn, WhatsApp, Slack, SMS) there's no auto-signature. Drop one notch of formality, drop the subject line, and use the per-channel signature norms (LinkedIn: `Alex.` / `- Alex.` / no signature on quick replies — see `linkedin.md`; chat: usually no signature).
 
 Three nuances from the wider sample:
 - **Bare first name in ongoing threads.** Once a thread is going, he frequently drops "Hi" and opens with just "[First]," ("Andrew,", "Maggie,", "Manuel,", "Kayla, thanks for pointing this out"). Use the bare-name opener for continuing replies; reserve "Hi [First]," for the first message.

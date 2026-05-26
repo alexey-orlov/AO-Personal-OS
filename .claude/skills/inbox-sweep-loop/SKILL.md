@@ -1,7 +1,7 @@
 ---
 name: inbox-sweep-loop
 description: Single tick of the recurring inbox-sweep routine. Sends a Telegram heartbeat (so Alex can monitor liveness from his phone), then invokes /inbox-sweep. Intended to be wrapped in `/loop 8h /inbox-sweep-loop` inside a long-running Claude Code session — the loop's heartbeat-+-sweep-+-heartbeat-+-sweep cadence is what makes the inbox-sweep routine "always on" while a session stays open. Use this skill (not bare /inbox-sweep) whenever the goal is a scheduled recurring routine; the heartbeat is what makes it observable.
-disable-model-invocation: true
+disable-model-invocation: false
 user-invocable: true
 ---
 

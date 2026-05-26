@@ -88,8 +88,8 @@ Use the Gmail MCP (search_threads / get_thread / list_drafts / create_draft).
    - **Idempotency check:** compose `skip_key = thread_id + ":" + latest_message_id`. If it's in `gmail.drafted` (same latest_message_id) or `gmail.skipped`, skip silently.
    - **User-draft check:** if the thread is in the drafts set from step 1, skip silently.
    - Otherwise: draft a reply.
-     - Invoke the `message-writing` skill via the Skill tool. Pass it: the thread text (last 3-5 messages), the subject, who the recipient is, and that this is a `reply-in-thread`. Let the skill produce the body.
-     - `create_draft` on the Gmail MCP, setting `threadId` to the thread so it appears as a reply in the right thread. Use the original subject (Gmail handles the "Re:" prefix).
+     - Invoke the `message-writing` skill via the Skill tool. Pass it: the thread text (last 3-5 messages), the subject, who the recipient is, that this is a `reply-in-thread`, and `signature: inline` (this draft is saved via Gmail API `create_draft` — Path B, see `message-writing` SKILL.md Step 3). Have it produce both plain (`body`) and HTML (`htmlBody`) with the standing signature block inline in both.
+     - `create_draft` on the Gmail MCP, setting `threadId` to the thread so it appears as a reply in the right thread. Use the original subject (Gmail handles the "Re:" prefix). Pass both `body` and `htmlBody` from message-writing.
      - Update state: `gmail.drafted[thread_id] = { drafted_at, latest_message_id, draft_id, contact }`.
 
 ## Step 2 — LinkedIn leg
@@ -121,7 +121,7 @@ Use the **Claude in Chrome MCP** to drive Alex's real browser (the one with the 
      - **Pass timing context to the skill.** Compute days_since_inbound from the LinkedIn timestamp + today's date (in the conversation context). The `message-writing` skill has explicit rules for 0-2 / 3-7 / 7-14 / 14+ day gaps and the "both parties slow" case — feed it the gap and let it shape the opener.
      - **Check for channel routing.** Per the `Channel routing` section in `references/linkedin.md`, if the recipient signaled they want the next substantive step over email (shared their email with a meeting framing, said "let's move to email," etc.), the substantive reply is an EMAIL, not a LIN message. In that case:
        - Extract the recipient's email from the LIN thread text.
-       - Have `message-writing` produce TWO outputs: (a) the **plain-text email body** (used both for TG display and for the prefill URL), and (b) a short **self-standing LIN confirmation message** per the templates in `references/linkedin.md`. The LIN confirmation must read correctly even if the recipient sees it before the email — bake in a brief acknowledgment of their message, not just "replied via email."
+       - Have `message-writing` produce TWO outputs: (a) the **plain-text email body** with `signature: gmail-auto` — Path A, no signature in body, since this email is sent via prefilled Gmail iOS compose where the auto-signature kicks in (used both for TG display and for the prefill URL); and (b) a short **self-standing LIN confirmation message** per the templates in `references/linkedin.md`. The LIN confirmation must read correctly even if the recipient sees it before the email — bake in a brief acknowledgment of their message, not just "replied via email."
        - **No Gmail API draft is created.** Gmail iOS doesn't expose a URL scheme for opening a specific draft, so a saved API draft can't be deep-linked to anyway. The TG button instead prefills a fresh compose via the URL scheme (see Step 3). If the user has configured their Gmail signature (web → Settings → General → Signature) with rich HTML, Gmail iOS will auto-append it to the outgoing message — this is the recommended way to get clickable signature links.
      - If no channel-switch signal, keep the reply on LIN (default path).
      - The TG notification (containing the recipient's message, the draft, and the buttons) is posted in step 3 below — same step for both LIN→LIN and channel-switch cases.
@@ -157,7 +157,7 @@ Use the **Claude in Chrome MCP** to drive Alex's real browser (the one with the 
    ━━━━━━━━━━━━━━━━━━━━
    📧 Email draft (in Gmail Drafts, subject: "<subject>"):
 
-   <Full email body, including standing signature block>
+   <Full email body — no signature in body (Path A: this LIN→email reply goes via prefill compose; Gmail iOS auto-appends signature on send)>
 
    ━━━━━━━━━━━━━━━━━━━━
    💼 LIN confirmation (send AFTER the email):
@@ -187,13 +187,12 @@ Use the **Claude in Chrome MCP** to drive Alex's real browser (the one with the 
 
    **Why prefill, not a draft URL.** Gmail iOS does NOT expose a URL scheme for opening a specific existing draft (`googlegmail://draft/<id>` doesn't exist). Universal Links to `https://mail.google.com/mail/u/0/#drafts/<id>` fall through to Safari → Gmail web, which on mobile ignores the `#drafts/<id>` fragment and just shows the drafts list — a 3-4 tap detour for the user. The `googlegmail://co?…` URL scheme reliably opens the app's compose screen with prefilled content; we trampoline through `docs/gmail.html` because Telegram bot inline buttons reject non-http(s) URLs.
 
-   **Signature handling.** The prefilled compose carries the plain-text body — so by default the signature is plain text in the body ("alexorlov.co | Linkedin" as text, not a clickable `<a>` link).
+   **Signature handling — depends on which inbox-sweep path produced the draft.**
 
-   For clickable links in the signature on the recipient's side, the cleanest path is to configure Gmail's own signature (Gmail web → Settings → General → Signature) with the HTML version from `references/profile.md`. Gmail iOS auto-appends that signature to every outgoing email server-side, including ones sent from the prefilled compose, so the recipient gets rich HTML. **If you do this, the email body produced by `message-writing` should omit the signature block to avoid duplication** — pass a `signature: gmail-auto` flag (or similar) to message-writing so it stops appending the block.
+   - **LIN→email channel-switch (this block).** Path A. `message-writing` was called with `signature: gmail-auto`, so the body ends with the last substantive line. Gmail iOS is configured to auto-append Alex's standing signature block server-side on send, including for emails sent from the prefilled compose — the recipient gets the rich-HTML signature once, no duplication.
+   - **Email-to-email reply (the other path, Step 1).** Path B. `message-writing` was called with `signature: inline`, so the inline standing block (plain in `body`, HTML in `htmlBody`) is part of the `create_draft` payload — Gmail does NOT auto-append signatures to API-created drafts, so we have to include it ourselves.
 
-   Default behavior (no Gmail-auto-signature configured): `message-writing` appends the plain-text signature block in the body, same as today. No setup required. Loses clickable link on the "Linkedin" word in the signature; the URL `alexorlov.co` is usually auto-detected and clickable in most recipient clients anyway.
-
-   (For other email flows that DO save an API draft via `create_draft` — e.g., re-engagement-outreach in Phase 2 — the HTML body construction in `message-writing` SHOULD include the signature inline using the HTML variant.)
+   If the Gmail web/iOS auto-signature setting is ever turned off, the LIN→email path breaks silently (unsigned messages go out); revisit this skill and `message-writing` at that point.
 
    **Privacy note:** the query params (recipient, subject, body) live in the URL on the public GitHub Pages domain. Acceptable for job-search outreach; do NOT use this redirect for sensitive content (compensation, contracts).
 

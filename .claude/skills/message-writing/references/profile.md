@@ -16,13 +16,18 @@ Source of truth for the links Alex shares and the background blurbs he uses. Pul
 
 - **Calendly.** Paste the full URL when proposing meeting times or handing off scheduling, on any channel. Default pattern: "feel free to pick a time that works for you here in my Calendly: [URL] (or let me know if nothing works)" - the parenthetical safety valve is his real phrasing; keep it. In HTML email drafts, wrap the URL itself in an `<a>` tag so it stays visible AND clickable: `<a href="https://calendly.com/a-orlov/online-meeting">https://calendly.com/a-orlov/online-meeting</a>`.
 - **CV URL.** Share only when explicitly requested or when context makes it obviously expected (post-interview "as discussed" follow-up, recruiter pipeline ask, "could you send your CV?"). Don't pre-emptively attach to cold outreach.
-- **LinkedIn URL.** In email signatures, render as a hyperlink on the word "Linkedin" in the existing signature block (see HTML signature below). In LinkedIn messages, never include (redundant).
-- **Email address.** Share when the recipient may need to reach him off-platform (LinkedIn-to-email handoff, recruiter intake form, when someone asks where to send a document). Don't append it to email signatures - it's already in the From: header.
-- **Portfolio (alexorlov.co).** Used less frequently than the others. Include only when genuinely relevant: a peer or interviewer asked to see work samples, a portfolio-led intro, an exec who'll Google him anyway and benefits from a curated landing page. Already in the email signature; don't double-include it in the body unless context calls for it. In HTML email signatures, render as a hyperlink (see below).
+- **LinkedIn URL.** Already in Alex's standing signature block (whether Gmail auto-appends it or the API draft includes it inline); don't restate it in the email body unless context calls for it. In LinkedIn messages, never include (redundant).
+- **Email address.** Share when the recipient may need to reach him off-platform (LinkedIn-to-email handoff, recruiter intake form, when someone asks where to send a document). Don't append it to email drafts - it's already in the From: header.
+- **Portfolio (alexorlov.co).** Used less frequently than the others. Include only when genuinely relevant: a peer or interviewer asked to see work samples, a portfolio-led intro, an exec who'll Google him anyway and benefits from a curated landing page. Already in the standing signature; don't double-include it in the body unless context calls for it.
 
 ## Standing email signature — two variants
 
-**Plain text** (used for TG display, Slack/SMS/WhatsApp messages, LinkedIn-to-email handoffs in plain TG body, and any context where rich text won't render):
+Same block in two renders. Which one to use (and whether to use either) depends on the delivery path — see `SKILL.md` Step 3 for the full Path A / Path B rule. Short version:
+
+- **Path A (Gmail auto-append):** Gmail's web UI and iOS app are configured to auto-append this signature on send. For ad-hoc drafts the user pastes himself, and for prefilled-compose flows (inbox-sweep's LIN→email URL-scheme path), **omit the signature in the draft body** — Gmail adds it once.
+- **Path B (Gmail API draft via `create_draft`):** Gmail does NOT auto-append on API-created drafts. **Include the standing block inline** in the draft body (plain in `body`, HTML in `htmlBody`).
+
+**Plain text** (used in `body` of an API draft, and for any TG display, Slack/SMS/WhatsApp message, or other context where rich text won't render):
 
 ```
 Best regards,
@@ -30,7 +35,7 @@ Alex Orlov,
 alexorlov.co | Linkedin
 ```
 
-**HTML** (used in every Gmail API draft via `htmlBody`, so `alexorlov.co` and `Linkedin` are clickable in the recipient's email client and on Gmail iOS):
+**HTML** (used in `htmlBody` of an API draft, so `alexorlov.co` and `Linkedin` are clickable in the recipient's email client and on Gmail iOS):
 
 ```html
 <p>Best regards,<br>
@@ -38,13 +43,15 @@ Alex Orlov,<br>
 <a href="https://alexorlov.co">alexorlov.co</a> | <a href="https://linkedin.com/in/aorlov">Linkedin</a></p>
 ```
 
-Both render to the same visual block. The HTML version is the default for any email that's being saved as a real Gmail draft. The plain version is the fallback for channels that can't render HTML.
+Both render to the same visual block. For any `create_draft` call, include both — the plain `body` for fallback rendering and the HTML `htmlBody` for the live render. Don't include one without the other.
+
+Other channels (LinkedIn, WhatsApp, Slack, SMS) have no auto-signature and no inline block — follow the per-channel signature norms in `linkedin.md` and the chat playbooks.
 
 ## HTML formatting in email drafts
 
 When producing an email body for a Gmail API draft (channel = email + delivery = create_draft with htmlBody), output **HTML, not plain text**. Conventions:
 
-- Wrap each paragraph in `<p>…</p>`. Use `<br>` only inside a paragraph (e.g., signature, address block).
+- Wrap each paragraph in `<p>…</p>`. Use `<br>` only inside a paragraph (e.g., a short multi-line address block).
 - Bulleted lists: `<ul><li>…</li><li>…</li></ul>`. Don't use `-` markers.
 - Inline links: `<a href="https://…">visible text</a>`. The visible text can either be the URL itself (Calendly pattern) or natural prose ("see my [portfolio](https://alexorlov.co)").
 - No styling beyond what's needed for hyperlinks and structure — Gmail will apply the recipient's reading theme.
@@ -96,7 +103,7 @@ Background:
 **Rendering notes:**
 - The top line is three hyperlinks (LinkedIn / CV / portfolio). Render as Markdown links so a modern email client converts them. In a plain-text-only context, fall back to bare URLs.
 - Two-level bulleted list. Use `-` bullets with two-space indent for nesting (Markdown-standard). Gmail web, Outlook, and Apple Mail render this cleanly.
-- The block sits in the **body** of the email - typically near the top or after the opening paragraph - **not** in the signature. The signature block (`Best regards, / Alex Orlov, / alexorlov.co | Linkedin`) still goes at the bottom.
+- The block sits in the **body** of the email - typically near the top or after the opening paragraph. The bottom of the email is handled per the Path A / Path B signature rule above: Path A ends with the last substantive line (Gmail auto-appends); Path B ends with the inline signature block. Don't restate the about-me down at the bottom either way.
 
 ## Decision rules: when to insert background
 

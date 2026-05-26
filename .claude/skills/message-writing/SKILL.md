@@ -1,6 +1,6 @@
 ---
 name: message-writing
-description: Write, reply to, edit, or rewrite professional messages across channels (email and LinkedIn DM are first-class; also WhatsApp, Slack, SMS) that sound like a real senior professional, not a template or a chatbot. Use this whenever the user wants to draft outreach, a cold or warm intro, a follow-up, a reply inside an existing thread, a reference/introduction, a scheduling message, a decline, bad news, a negotiation note, or wants an existing draft tightened or de-AI-ified. Trigger even when the user just pastes a thread and says "respond to this," "write back," "follow up," "reach out to X," "fix this email," "draft a LinkedIn message," "reply to this DM," or "make this less AI." Calibrates tone to the real social relationship (cold/warm, peer/senior/report) and reads the prior thread before writing.
+description: Write, reply to, edit, or rewrite professional messages across channels (email and LinkedIn DM are first-class; also WhatsApp, Slack, SMS) that sound like a real senior professional, not a template or a chatbot. Use this whenever the user wants to draft outreach, a cold or warm intro, a follow-up, a reply inside an existing thread, a reference/introduction, a scheduling message, a decline, bad news, a negotiation note, or wants an existing draft tightened or de-AI-ified. Trigger even when the user just pastes a thread and says "respond to this," "write back," "follow up," "reach out to X," "fix this email," "draft a LinkedIn message," "reply to this DM," or "make this less AI." Output is text in chat — for the user to read, edit, copy. Calibrates tone to the real social relationship (cold/warm, peer/senior/report) and reads the prior thread before writing. **For "save / prep / set up a draft to send" intent — saving to Gmail Drafts or pushing a LinkedIn draft to Telegram for mobile review — use `draft-message` instead. It calls this skill internally for the voice and adds the delivery layer on top.**
 ---
 
 # Message writing
@@ -24,13 +24,13 @@ Flag high-financial / legal exposure. If the message touches **compensation, an 
 Collect these before drafting. Pull what you can from the conversation, attached threads, or connected tools (e.g. Gmail thread history) before asking the user anything.
 
 1. **Message type** — outreach / reply-in-thread / follow-up / intro or reference / scheduling / decline / bad news / negotiation / edit-existing. Determines structure. See `references/message-playbooks.md`.
-2. **The prior thread** — if this is a reply or follow-up, read it. Note: what the recipient actually asked, their tone and register, their last open question, anything you owe them, and how they sign off. Match their formality, don't impose yours.
+2. **The prior thread** — if this is a reply or follow-up, read it. Note: what the recipient actually asked, what they handed you (a link, an attachment, a specific detail), their tone and register, their last open question, anything you owe them, and how they sign off. Match their formality, don't impose yours. **Your reply has to engage with what they shared** — don't ask a question whose answer is in the link or file they just sent. Either reference what's in it ("saw the page — which of the roles do you have in mind?"), or skip the question entirely and move to the next step.
 3. **Relationship** — who is the recipient relative to the user? Cold (never met) / warm-but-distant (one prior touch, mutual connection, or replied once) / established peer / close colleague / report / someone senior the user is courting. This sets warmth and deference. See `references/register-calibration.md`.
 4. **Channel** — email, LinkedIn, WhatsApp, Slack, SMS. Drives length and formatting (LinkedIn/WhatsApp/Slack = shorter, no subject line, no formal sign-off; email = subject line, light sign-off). If the channel is LinkedIn (DM, InMail, or post-connection message), also load `references/linkedin.md` — that's where the LinkedIn-specific length, signature, opener, CTA, and banned-tells rules live.
 
    **Channel routing across platforms.** The draft channel is not always the prior-thread channel. If a LinkedIn thread implies the recipient prefers email for the next substantive step (shares their email with a meeting / next-step framing, says "let's move to email", etc.), the substantive reply goes to **email**, not LinkedIn. In that case, ALSO produce a short LinkedIn confirmation message (e.g. "Daniel, sent you a note via email - looking forward!") that the user sends in the LIN thread after the email goes out. See the "Channel routing" section in `references/linkedin.md` for signals, the two-artifact pattern, and the LIN confirmation template.
 
-   **HTML for emails saved as Gmail API drafts.** When the email is going to be saved as a real Gmail draft (the inbox-sweep flow for LIN→email channel-switch, and re-engagement-outreach in Phase 2), produce TWO body variants: a plain-text version (for `body` and TG display) and an HTML version (for `htmlBody`). The HTML version uses `<p>`, `<ul>`/`<li>`, `<a>` per the conventions in `references/profile.md` "HTML formatting in email drafts" — this is what lets the signature have clickable links to `alexorlov.co` and Linkedin, and lets longer messages use bullets. Both versions must be substantively identical; the HTML is just a markup of the plain. Don't add content in HTML that isn't in the plain version.
+   **HTML for emails saved as Gmail API drafts.** When the email is going to be saved as a real Gmail draft (the inbox-sweep flow for LIN→email channel-switch, and re-engagement-outreach in Phase 2), produce TWO body variants: a plain-text version (for `body` and TG display) and an HTML version (for `htmlBody`). The HTML version uses `<p>`, `<ul>`/`<li>`, `<a>` per the conventions in `references/profile.md` "HTML formatting in email drafts" — this is what makes inline links (Calendly, portfolio, etc.) clickable and lets longer messages use bullets. Both versions must be substantively identical; the HTML is just a markup of the plain. Don't add content in HTML that isn't in the plain version.
 5. **Purpose / the one ask** — what does the user want to happen? There should be exactly one. If the draft has three asks, flag it.
 6. **The user's own voice** — if they pasted a draft or past examples, that is the target voice. Preserve it (see Step 4, editing rules). If not, default to the house style below.
 7. **Constraints** — availability, deadlines, names/titles, language. Alex's standing assets (Calendly link, CV URL, email, LinkedIn URL, portfolio URL, brief and long about-me blurbs) live in `references/profile.md`. Load it whenever the message needs to share a link, propose a meeting, or include a background line. Don't ask the user for these and don't invent them.
@@ -76,15 +76,15 @@ This is the always-on default voice. It applies unless the user's own pasted voi
 
 Length targets: cold outreach under ~120 words. Replies and follow-ups: as short as the content allows, usually 3-6 sentences. Density beats length.
 
-**Standing signature** (email only): the user signs off with a fixed block. Default to it for email, in any language:
+**Signature handling for email — depends on how the draft will be delivered.** Two paths, two rules. The caller signals which one via a `signature` parameter; if unspecified, default to `gmail-auto`.
 
-```
-Best regards,
-Alex Orlov,
-alexorlov.co | Linkedin
-```
+**Path A — `signature: gmail-auto`** (default for ad-hoc email drafts the user will paste into Gmail himself; also inbox-sweep's LIN→email channel-switch, which uses the `googlegmail://co?…` URL scheme to prefill a fresh Gmail iOS compose). Gmail is configured to auto-append Alex's standing signature block (`Best regards, / Alex Orlov, / alexorlov.co | Linkedin`) on send. **Do NOT include any closer, name, or contact line in the draft body** — they'd duplicate the auto-signature. The body ends with the last substantive sentence.
 
-Use "Best regards," as the closer (not "Best," / "Thanks,"). Drop the whole block on chat channels (LinkedIn, WhatsApp, Slack, SMS), where it's redundant. For a quick reply deep in an existing thread, "Best regards," alone is fine without the full block.
+**Path B — `signature: inline`** (Gmail API drafts saved via `create_draft`: inbox-sweep email-to-email replies, re-engagement-outreach email contacts). Gmail does NOT auto-append the signature to API-created drafts. **Include Alex's standing signature block inline** at the bottom of the body, using both variants from `references/profile.md`: the plain-text version in `body`, the HTML version in `htmlBody` (so `alexorlov.co` and `Linkedin` are clickable). Same block, same wording — just rendered for both body fields.
+
+**The closer line is part of the signature block, never standalone.** Both `Best regards,` and the contact line live together in the standing block. Path A: Gmail appends the whole thing. Path B: you paste the whole thing. Either way, never type a bare `Best regards,` / `Best,` / `Thanks,` as a closer in the body — in Path A it duplicates the auto-signature; in Path B it stranded above the block. A warm semi-closer ("Looking forward to connecting!", "Thanks!", "Talk soon!") can still be the last line of body content when the register calls for it — it's a wave-goodbye, not a sign-off, and the signature follows it naturally in both paths.
+
+**Chat channels (LinkedIn, WhatsApp, Slack, SMS)** have no auto-signature and no inline signature block. Follow the per-channel signature norms (e.g. `references/linkedin.md` for LinkedIn's `Alex.` / `- Alex.` / no-signature pattern).
 
 ## Step 4 — If editing the user's existing draft
 
@@ -107,6 +107,7 @@ Run this pass on your own draft. It catches the errors that lose trust:
 - Any em dash? Any banned phrase? Any sentence that sounds like a brochure?
 - Would a busy senior person read this in 15 seconds and know what to do?
 - Does the register match the relationship, or did it default to generic-professional?
+- Does any phrase presuppose context the recipient doesn't have? On **cold inbound** (the recipient is reaching out for the first time), they know nothing about Alex — "still", "as I mentioned", "continuing our chat", "circling back", "as discussed" all silently assume shared history that doesn't exist. Drop the temporal marker, or drop the status preamble entirely (often answering their question — "yes, happy to chat" — is enough; the status is implicit).
 - If it touches comp / an offer / contract / equity / legal / hiring / money: did I prepend `[REVIEW - sensitive]` and avoid committing to terms on his behalf?
 
 ## Step 6 — Output format

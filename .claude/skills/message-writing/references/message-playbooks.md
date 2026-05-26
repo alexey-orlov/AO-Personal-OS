@@ -1,6 +1,6 @@
 # Message playbooks
 
-Structure and a short worked example per message type. Structures are scaffolding, not templates to fill mechanically. All examples obey the house style: no em dashes, one ask, business-casual, no AI clichés.
+Structure and a short worked example per message type. Structures are scaffolding, not templates to fill mechanically. All examples obey the house style: no em dashes, one ask, business-casual, no AI clichés. Email examples below are shown in their **Path A** form (no signature in body — Gmail auto-appends `Best regards, / Alex Orlov, / alexorlov.co | Linkedin` on send). For **Path B** drafts (Gmail API `create_draft`), append the standing signature block from `profile.md` at the bottom. See `SKILL.md` Step 3 for which path applies.
 
 ## Outreach (cold or warm)
 
@@ -23,10 +23,6 @@ Frame it as two professionals who'd benefit from comparing notes. Don't sell. Do
 > I'm a product exec in B2B SaaS, currently looking at agentic AI in this space. Happy to compare notes if useful, no agenda.
 >
 > Worth a 20-minute call, or easier over email?
->
-> Best regards,
-> Alex Orlov,
-> alexorlov.co | Linkedin
 
 ## Reply inside an existing thread
 
@@ -65,19 +61,11 @@ His real markers: `Структурую те, про що говорили на 
 > Circling back is exactly what I said I wouldn't do, so instead: we just shipped the vertical-CRM piece I mentioned, and the roadmap-conflict problem played out in a way I think maps to what you're building.
 >
 > Happy to walk through it if it's useful. If the timing's off, no worries at all.
->
-> Best regards,
-> Alex Orlov,
-> alexorlov.co | Linkedin
 
 **Example (warm/transactional nudge - his actual style):**
 > Hi Grant,
 >
 > Hope you're doing well! Just following up in case my last message got buried. Looking forward to catching up!
->
-> Best regards,
-> Alex Orlov,
-> alexorlov.co | Linkedin
 
 ## Network check-in / re-engagement
 
@@ -87,10 +75,6 @@ His real markers: `Структурую те, про що говорили на 
 > Hi [Name],
 >
 > I hope the year is off to a great start for you! It's been a while since we last spoke, so I just wanted to check in and see if you've come across any interesting B2B product leadership roles. Happy to chat if anything relevant has come up on your end.
->
-> Best regards,
-> Alex Orlov,
-> alexorlov.co | Linkedin
 
 Note: this register deliberately uses the warm connectors ("I hope the year is off to a great start," "just wanted to check in") that are banned for cold outreach. That's correct here. Don't strip them.
 
@@ -121,10 +105,6 @@ Gracious and brief. If the other side moved it: "No worries at all" + confirm th
 > Sam, Dana's wrestling with the horizontal-vs-vertical roadmap tension you solved last year. Dana, Sam's one of the few people who's actually shipped through it.
 >
 > I'll let you two take it from here.
->
-> Best regards,
-> Alex Orlov,
-> alexorlov.co | Linkedin
 
 ## Scheduling
 
@@ -136,10 +116,6 @@ Gracious and brief. If the other side moved it: "No worries at all" + confirm th
 > Hi Dana,
 >
 > Happy to connect. Here's my Calendly so you can grab whatever works: https://calendly.com/a-orlov/online-meeting. I'm in Kyiv time, so earlier in your day is easiest on my end.
->
-> Best regards,
-> Alex Orlov,
-> alexorlov.co | Linkedin
 
 **Real-time micro-logistics (live thread, RU/UA).** When a time is being sorted in the moment with someone he's actively talking to, he drops to a single line, no signature, matching the speed of the exchange: `Давай в 17:00 за тим же посиланням зайду?` / `у тебя будет еще время сегодня позднее? Через 15 минут и позже?` Don't wrap these in a full email shell.
 
@@ -153,10 +129,6 @@ Gracious and brief. If the other side moved it: "No worries at all" + confirm th
 > Hi Dana,
 >
 > Thanks for thinking of me on this. I'm going to pass for now, my focus through Q3 is locked on the current role. If that changes I'll come back to you directly. Genuinely appreciate the offer.
->
-> Best regards,
-> Alex Orlov,
-> alexorlov.co | Linkedin
 
 ## Bad news
 
@@ -182,7 +154,7 @@ His real markers: `Thanks, that's great news!! 🎉🎉 Appreciate your help alo
 
 ## Russian / Ukrainian register (worked example)
 
-A warm ask to a former colleague the user knows well. Note: English professional terms stay in English mid-sentence; greeting is first-name + "привет!"; tasteful emoji; an optional warm PS to someone close; signature block still in English.
+A warm ask to a former colleague the user knows well. Note: English professional terms stay in English mid-sentence; greeting is first-name + "привет!"; tasteful emoji; an optional warm PS to someone close. Example shown in Path A form (no signature in body); the standing signature block stays in English in either path.
 
 > [Имя], привет!
 >
@@ -191,10 +163,6 @@ A warm ask to a former colleague the user knows well. Note: English professional
 > Могу ли попросить тебя дать для меня reference как мой бывший manager? С тобой хотел бы пообщаться их co-founder / CTO. Отдельным письмом сделаю intro.
 >
 > Если ок - скинь, пожалуйста, пару слотов на этой неделе 🙏
->
-> Best regards,
-> Alex Orlov,
-> alexorlov.co | Linkedin
 
 Ukrainian is the same register with Ukrainian spelling ("привіт!", "дякую", "зроблю intro"). Match whichever language the recipient uses.
 
