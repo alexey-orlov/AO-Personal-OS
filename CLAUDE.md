@@ -3,6 +3,15 @@
 Personal "OS" for AI-assisted work: reusable skills, automations that run them, and the artefacts they produce. Versioned in Git, synced across devices.
 
 
+## Email skill preference
+
+For any email or message drafting, editing, or "de-AI-ify" request, always invoke the personal `email-writing` skill at `.claude/skills/email-writing/` (in this repo). Never invoke `anthropic-skills:email-writing` (the bundled Anthropic version), even if it appears in the skills list.
+
+The personal skill is calibrated to the user's real sent mail (voice, banned phrases, register matrix, message playbooks, RU/UA register, his standing signature block). The bundled Anthropic version is generic and will produce off-voice drafts.
+
+When a request triggers an email-writing skill (drafting outreach, replies, follow-ups, intros, scheduling, declines, bad news, negotiations, edits, "make this less AI"), call the Skill tool with `skill: "email-writing"` (the unqualified name, which resolves to this project's personal skill). If the bundled one ever auto-fires instead, stop and re-invoke the personal one. Do not blend the two.
+
+
 ## About me
 
 My name is Alex Orlov (Alexey Orlov, Oleksii Orlov).
