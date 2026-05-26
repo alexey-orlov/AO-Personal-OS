@@ -3,13 +3,19 @@
 Personal "OS" for AI-assisted work: reusable skills, automations that run them, and the artefacts they produce. Versioned in Git, synced across devices.
 
 
-## Email skill preference
+## Message-writing skill preference
 
-For any email or message drafting, editing, or "de-AI-ify" request, always invoke the personal `email-writing` skill at `.claude/skills/email-writing/` (in this repo). Never invoke `anthropic-skills:email-writing` (the bundled Anthropic version), even if it appears in the skills list.
+For any written-communication drafting, editing, reply, follow-up, or "de-AI-ify" request - across **email, LinkedIn DM, InMail, Slack, WhatsApp, or SMS** - always invoke the personal `message-writing` skill at `.claude/skills/message-writing/` (in this repo).
 
-The personal skill is calibrated to the user's real sent mail (voice, banned phrases, register matrix, message playbooks, RU/UA register, his standing signature block). The bundled Anthropic version is generic and will produce off-voice drafts.
+The personal skill is calibrated to Alex's real sent mail and LinkedIn messages: voice, banned phrases, register matrix, message playbooks, LinkedIn-specific norms, RU/UA register, standing signature block, and his actual links and about-me blurbs. The bundled Anthropic `anthropic-skills:email-writing` is generic and will produce off-voice drafts.
 
-When a request triggers an email-writing skill (drafting outreach, replies, follow-ups, intros, scheduling, declines, bad news, negotiations, edits, "make this less AI"), call the Skill tool with `skill: "email-writing"` (the unqualified name, which resolves to this project's personal skill). If the bundled one ever auto-fires instead, stop and re-invoke the personal one. Do not blend the two.
+**Trigger phrasings to map to `message-writing`** (not exhaustive): "write an email", "draft an email", "reply to this email/thread", "follow up on this", "fix this email", "make this less AI", "respond to this", "write back", "reach out to X", "draft a LinkedIn message", "write a LinkedIn DM", "reply to this DM", "follow up on LinkedIn", "send him a check-in on LinkedIn", "send a quick Slack to ...", "WhatsApp ...", "draft an intro / reference / decline / scheduling note", "tighten this draft", any paste-a-thread-and-respond ask.
+
+**Hard rules:**
+- Always call the Skill tool with `skill: "message-writing"` (unqualified). This resolves to the personal skill.
+- **Never** invoke `anthropic-skills:email-writing` or any other bundled / namespaced `email-writing` variant, regardless of how the request is phrased. The personal `message-writing` skill is the authoritative tool for **all** message-drafting requests, including those phrased as "write an email."
+- If the bundled `anthropic-skills:email-writing` ever auto-fires, stop immediately and re-invoke the personal `message-writing` skill. Do not blend the two.
+- The skill's reference files (`references/linkedin.md`, `references/profile.md`, etc.) contain Alex's standing assets (Calendly, CV URL, email, LinkedIn URL, portfolio) and his about-me blurbs. Pull from there; never ask the user for these and never invent them.
 
 
 ## About me
