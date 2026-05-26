@@ -160,3 +160,8 @@ rm -f "$dst" "$cal_header" "$cal_context"
 if [ "${AUTO_GIT:-0}" = "1" ]; then
   "$HERE/git_sync.sh" "call-note: ${type} ${stamp}" "$note" "$coach_note" || true
 fi
+
+# Hand the coaching report off to the coaching-notify orchestrator (digest +
+# Telegram). Non-fatal: the report is already saved (and pushed, if AUTO_GIT);
+# a notify failure is just a missed message.
+"$REPO_ROOT/automations/coaching-notify/notify.sh" "$coach_note" || true

@@ -1,6 +1,6 @@
 ---
 name: english-coaching
-description: English-language coaching on a call transcript. Identifies the user from CLAUDE.md, reviews only the user's English speech, and writes a Markdown report (executive summary + a curated "Top items to study" list + a pattern-grouped full audit) to outputs/english-coaching/. Built as a learning artifact, not an audit log — flags real errors, non-native phrasings, and over-long/over-complex sentences (with tighter rewrites), but never mere style upgrades. Filters likely transcription artefacts.
+description: English-language coaching on a call transcript. Identifies the user from CLAUDE.md, reviews only the user's English speech, and writes a Markdown report (executive summary + a curated "Top items to study" list + a pattern-grouped full audit) to outputs/english-coaching/. Built as a learning artifact, not an audit log — flags real errors, non-native phrasings, and over-long/over-complex sentences (with tighter rewrites), but never mere style upgrades. Filters likely transcription artefacts. After writing the report (interactive mode), also sends a short Telegram digest via automations/coaching-notify/.
 disable-model-invocation: false
 user-invocable: true
 ---
@@ -232,8 +232,9 @@ When invoked interactively (slash command or agent), after producing the analysi
    - If that path already exists, append `-2`, `-3`, … until unique.
 2. **Write the full analysis** (header + executive summary + Top items + full audit, identical to what you emit in chat) to that file using the Write tool. Create the directory if it doesn't exist.
 3. **Tell the user the path** that was written, then print the analysis in the chat as well.
+4. **Send the Telegram digest.** Run `bash automations/coaching-notify/notify.sh <path-just-written>` via the Bash tool. The orchestrator generates the digest (via the `english-coaching-digest` skill) and sends it. If it exits non-zero (Telegram unconfigured, network down, digest skill empty, etc.), surface the failure to the user in one line — `Telegram digest not sent: <stderr>` — and stop. Do NOT retry; the report file is the source of truth. The digest's GitHub link points to `main`, so it will 404 until you commit and push the new report — that's expected.
 
-When invoked headlessly (a `<<<CALENDAR_EVENT_CONTEXT>>>` block is present, indicating the call-pipeline), do NOT write a file — the pipeline handles file output. Just emit the analysis on stdout.
+When invoked headlessly (a `<<<CALENDAR_EVENT_CONTEXT>>>` block is present, indicating the call-pipeline), do NOT write a file and do NOT attempt to send the Telegram digest — you have no tool access. The pipeline handles file output and hands off to `coaching-notify` after pushing. Just emit the analysis on stdout.
 
 ## Rules
 

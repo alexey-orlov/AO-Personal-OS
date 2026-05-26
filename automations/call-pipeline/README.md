@@ -3,7 +3,9 @@
 Voice Memo (synced to this Mac) -> AssemblyAI transcript -> Claude classifies the
 call type -> Claude analyses with the matching `.claude/skills/<type>/SKILL.md`
 template -> Markdown note in `outputs/call-notes/` + an `english-coaching` note
-in `outputs/english-coaching/`, both auto-committed and pushed in one commit.
+in `outputs/english-coaching/`, both auto-committed and pushed in one commit
+-> `automations/coaching-notify/` generates a short digest and ships it to
+Telegram with a link to the just-pushed coaching report.
 
 ## Files
 - `config.sh`     paths, key source, toggles (auto-detects Voice Memos folder + claude/python)
@@ -63,6 +65,7 @@ A PID in the left column = running. Missing/`-` = not running → `launchctl loa
 | `[transcribe]` then "Invalid API key" | wrong/rotated AssemblyAI key | `security add-generic-password -U -a "$USER" -s ASSEMBLYAI_API_KEY -w 'KEY'` |
 | `claude: command not found` | CLAUDE_BIN unresolved | check `echo $CLAUDE_BIN`; confirm `~/.local/bin/claude` exists |
 | Note written but not on GitHub | git push failed (auth/offline) | run `git push` in the repo; re-enter token if asked |
+| Note pushed but no Telegram message | Telegram unconfigured / network / token wrong | `automations/telegram/setup.sh`; smoke-test with `echo hi \| automations/telegram/telegram_send.sh` |
 | `[skip] ... iCloud stub` | file not fully downloaded | turn off Optimize Mac Storage, or open the memo in Voice Memos |
 
 **After a macOS major upgrade:** TCC can reset. Re-check Full Disk Access for `/bin/bash` and `claude`, restart the agent, and if Claude Code misbehaves run `rm -rf /tmp/claude-$(id -u)`.

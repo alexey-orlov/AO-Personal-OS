@@ -1,0 +1,28 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(claude mcp list)",
+      "Bash(claude mcp list *)",
+      "Bash(claude --version)",
+      "Bash(claude -v)",
+      "Bash(npx --version)",
+      "Bash(npx -v)",
+      "Bash(brew --version)",
+      "Bash(brew -v)",
+      "Bash(bash -n *)",
+      "Bash(eval \"$(/opt/homebrew/bin/brew shellenv)\")",
+      "Bash(brew list)",
+      "Bash(brew list *)",
+      "Bash(brew info *)",
+      "Bash(brew search *)",
+      "Bash(brew config)",
+      "Bash(brew doctor)",
+      "Bash(security find-generic-password *)",
+      "Bash(mkdir *)",
+      "Bash(chmod *)",
+      "Bash(./automations/*)",
+      "Bash(bash automations/*)",
+      "Bash(bash ./automations/*)"
+    ]
+  }
+}
