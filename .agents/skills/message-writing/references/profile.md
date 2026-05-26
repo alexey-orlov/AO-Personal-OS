@@ -14,42 +14,11 @@ Source of truth for the links Alex shares and the background blurbs he uses. Pul
 
 **Per-asset usage rules:**
 
-- **Calendly.** Paste the full URL when proposing meeting times or handing off scheduling, on any channel. Default pattern: "feel free to pick a time that works for you here in my Calendly: [URL] (or let me know if nothing works)" - the parenthetical safety valve is his real phrasing; keep it. In HTML email drafts, wrap the URL itself in an `<a>` tag so it stays visible AND clickable: `<a href="https://calendly.com/a-orlov/online-meeting">https://calendly.com/a-orlov/online-meeting</a>`.
+- **Calendly.** Paste the full URL when proposing meeting times or handing off scheduling, on any channel. Default pattern: "feel free to pick a time that works for you here in my Calendly: [URL] (or let me know if nothing works)" - the parenthetical safety valve is his real phrasing; keep it.
 - **CV URL.** Share only when explicitly requested or when context makes it obviously expected (post-interview "as discussed" follow-up, recruiter pipeline ask, "could you send your CV?"). Don't pre-emptively attach to cold outreach.
-- **LinkedIn URL.** In email signatures, render as a hyperlink on the word "Linkedin" in the existing signature block (see HTML signature below). In LinkedIn messages, never include (redundant).
+- **LinkedIn URL.** In email signatures, render as a hyperlink on the word "Linkedin" in the existing signature block. In LinkedIn messages, never include (redundant).
 - **Email address.** Share when the recipient may need to reach him off-platform (LinkedIn-to-email handoff, recruiter intake form, when someone asks where to send a document). Don't append it to email signatures - it's already in the From: header.
-- **Portfolio (alexorlov.co).** Used less frequently than the others. Include only when genuinely relevant: a peer or interviewer asked to see work samples, a portfolio-led intro, an exec who'll Google him anyway and benefits from a curated landing page. Already in the email signature; don't double-include it in the body unless context calls for it. In HTML email signatures, render as a hyperlink (see below).
-
-## Standing email signature — two variants
-
-**Plain text** (used for TG display, Slack/SMS/WhatsApp messages, LinkedIn-to-email handoffs in plain TG body, and any context where rich text won't render):
-
-```
-Best regards,
-Alex Orlov,
-alexorlov.co | Linkedin
-```
-
-**HTML** (used in every Gmail API draft via `htmlBody`, so `alexorlov.co` and `Linkedin` are clickable in the recipient's email client and on Gmail iOS):
-
-```html
-<p>Best regards,<br>
-Alex Orlov,<br>
-<a href="https://alexorlov.co">alexorlov.co</a> | <a href="https://linkedin.com/in/aorlov">Linkedin</a></p>
-```
-
-Both render to the same visual block. The HTML version is the default for any email that's being saved as a real Gmail draft. The plain version is the fallback for channels that can't render HTML.
-
-## HTML formatting in email drafts
-
-When producing an email body for a Gmail API draft (channel = email + delivery = create_draft with htmlBody), output **HTML, not plain text**. Conventions:
-
-- Wrap each paragraph in `<p>…</p>`. Use `<br>` only inside a paragraph (e.g., signature, address block).
-- Bulleted lists: `<ul><li>…</li><li>…</li></ul>`. Don't use `-` markers.
-- Inline links: `<a href="https://…">visible text</a>`. The visible text can either be the URL itself (Calendly pattern) or natural prose ("see my [portfolio](https://alexorlov.co)").
-- No styling beyond what's needed for hyperlinks and structure — Gmail will apply the recipient's reading theme.
-- Keep the HTML hand-readable in the source (one paragraph per `<p>`, line breaks between tags). Drafts are reviewed in TG / Gmail UI; readable source helps.
-- Always include both `body` (plain-text equivalent) and `htmlBody` in `create_draft`. The plain body is the fallback for email clients that don't render HTML and for TG display.
+- **Portfolio (alexorlov.co).** Used less frequently than the others. Include only when genuinely relevant: a peer or interviewer asked to see work samples, a portfolio-led intro, an exec who'll Google him anyway and benefits from a curated landing page. Already in the email signature; don't double-include it in the body unless context calls for it.
 
 ## About-me blurbs
 

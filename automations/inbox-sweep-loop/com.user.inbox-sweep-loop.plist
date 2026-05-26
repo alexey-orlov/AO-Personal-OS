@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.user.inbox-sweep-loop</string>
+
+  <key>ProgramArguments</key>
+  <array>
+    <string>/Users/olekorlov/Documents/GitHub/AO-Personal-OS/automations/inbox-sweep-loop/start.sh</string>
+  </array>
+
+  <key>RunAtLoad</key>
+  <true/>
+
+  <key>KeepAlive</key>
+  <false/>
+
+  <key>StandardOutPath</key>
+  <string>/Users/olekorlov/Documents/GitHub/AO-Personal-OS/automations/inbox-sweep-loop/.work/launchd.out.log</string>
+
+  <key>StandardErrorPath</key>
+  <string>/Users/olekorlov/Documents/GitHub/AO-Personal-OS/automations/inbox-sweep-loop/.work/launchd.err.log</string>
+</dict>
+</plist>

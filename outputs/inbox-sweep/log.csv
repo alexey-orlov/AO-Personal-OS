@@ -1,0 +1,5 @@
+2026-05-26T11:22:44Z,started,force=1
+2026-05-26T11:24:25Z,completed, gmail=0 lin=0 skipped=0
+2026-05-26T11:24:56Z,started,force=1
+2026-05-26T12:43:45Z,completed,gmail=1 lin=2 skipped=0+ linleg=ran smoketest=true
+2026-05-26T13:23:12Z,refined,gmail=1 lin=2 tg_format=v2 lin_hygiene=star+unread voice_rules=v2
