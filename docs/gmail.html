@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <title>Open in Gmail</title>
+  <style>
+    :root { color-scheme: light dark; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      margin: 0;
+      padding: 60px 24px;
+      text-align: center;
+      background: #f6f8fa;
+      color: #1f2328;
+    }
+    @media (prefers-color-scheme: dark) {
+      body { background: #0d1117; color: #e6edf3; }
+    }
+    h1 { font-size: 20px; font-weight: 600; margin: 0 0 12px; }
+    p { font-size: 14px; line-height: 1.5; opacity: 0.75; margin: 0 0 32px; }
+    .btn {
+      display: inline-block;
+      padding: 16px 36px;
+      background: #c5221f;
+      color: white;
+      text-decoration: none;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 17px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    }
+    .btn:active { transform: translateY(1px); }
+    .small { font-size: 12px; margin-top: 32px; opacity: 0.5; }
+    .err { color: #d1242f; }
+  </style>
+</head>
+<body>
+  <h1>📧 Opening Gmail compose…</h1>
+  <p>If Gmail doesn't open automatically, tap the button below.</p>
+  <a class="btn" id="open-gmail" href="#">Open in Gmail</a>
+  <p class="small" id="status">No tracking · static redirect for the inbox-sweep workflow</p>
+  <script>
+    (function() {
+      const params = new URLSearchParams(window.location.search);
+      const to = params.get('to') || '';
+      const su = params.get('su') || '';
+      const body = params.get('body') || '';
+
+      if (!to) {
+        document.querySelector('h1').textContent = '⚠️ Missing recipient';
+        document.querySelector('p').innerHTML = 'This page expects <code>?to=…&su=…&body=…</code> in the URL.';
+        document.getElementById('open-gmail').style.display = 'none';
+        return;
+      }
+
+      // googlegmail:// scheme opens the Gmail iOS app's compose screen
+      // with the fields pre-filled. Re-encode values from the URL params
+      // so they're safe inside the new scheme URL.
+      const gmailUrl = 'googlegmail://co?to=' + encodeURIComponent(to)
+                     + '&subject=' + encodeURIComponent(su)
+                     + '&body=' + encodeURIComponent(body);
+
+      document.getElementById('open-gmail').href = gmailUrl;
+
+      // Try to auto-redirect on page load. Many iOS Safari versions allow
+      // this when the page loaded via a user-initiated tap (like a Telegram
+      // button), but some block it without an additional user gesture.
+      // The button is the always-reliable fallback.
+      setTimeout(function() {
+        window.location.href = gmailUrl;
+      }, 50);
+    })();
+  </script>
+</body>
+</html>
