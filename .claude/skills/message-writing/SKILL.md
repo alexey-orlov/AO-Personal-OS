@@ -1,9 +1,9 @@
 ---
-name: email-writing
-description: Write, reply to, edit, or rewrite professional messages (email, LinkedIn DM, WhatsApp, Slack, SMS) that sound like a real senior professional, not a template or a chatbot. Use this whenever the user wants to draft outreach, a cold or warm intro, a follow-up, a reply inside an existing thread, a reference/introduction, a scheduling message, a decline, bad news, a negotiation note, or wants an existing draft tightened or de-AI-ified. Trigger even when the user just pastes a thread and says "respond to this," "write back," "follow up," "reach out to X," "fix this email," or "make this less AI." Calibrates tone to the real social relationship (cold/warm, peer/senior/report) and reads the prior thread before writing.
+name: message-writing
+description: Write, reply to, edit, or rewrite professional messages across channels (email and LinkedIn DM are first-class; also WhatsApp, Slack, SMS) that sound like a real senior professional, not a template or a chatbot. Use this whenever the user wants to draft outreach, a cold or warm intro, a follow-up, a reply inside an existing thread, a reference/introduction, a scheduling message, a decline, bad news, a negotiation note, or wants an existing draft tightened or de-AI-ified. Trigger even when the user just pastes a thread and says "respond to this," "write back," "follow up," "reach out to X," "fix this email," "draft a LinkedIn message," "reply to this DM," or "make this less AI." Calibrates tone to the real social relationship (cold/warm, peer/senior/report) and reads the prior thread before writing.
 ---
 
-# Email & message writing
+# Message writing
 
 Produce a message the user can paste and send with no edits. The default failure mode is sounding like AI or a marketing template; the second is misjudging the relationship. This skill exists to prevent both.
 
@@ -26,10 +26,10 @@ Collect these before drafting. Pull what you can from the conversation, attached
 1. **Message type** — outreach / reply-in-thread / follow-up / intro or reference / scheduling / decline / bad news / negotiation / edit-existing. Determines structure. See `references/message-playbooks.md`.
 2. **The prior thread** — if this is a reply or follow-up, read it. Note: what the recipient actually asked, their tone and register, their last open question, anything you owe them, and how they sign off. Match their formality, don't impose yours.
 3. **Relationship** — who is the recipient relative to the user? Cold (never met) / warm-but-distant (one prior touch, mutual connection, or replied once) / established peer / close colleague / report / someone senior the user is courting. This sets warmth and deference. See `references/register-calibration.md`.
-4. **Channel** — email, LinkedIn, WhatsApp, Slack, SMS. Drives length and formatting (LinkedIn/WhatsApp/Slack = shorter, no subject line, no formal sign-off; email = subject line, light sign-off).
+4. **Channel** — email, LinkedIn, WhatsApp, Slack, SMS. Drives length and formatting (LinkedIn/WhatsApp/Slack = shorter, no subject line, no formal sign-off; email = subject line, light sign-off). If the channel is LinkedIn (DM, InMail, or post-connection message), also load `references/linkedin.md` — that's where the LinkedIn-specific length, signature, opener, CTA, and banned-tells rules live.
 5. **Purpose / the one ask** — what does the user want to happen? There should be exactly one. If the draft has three asks, flag it.
 6. **The user's own voice** — if they pasted a draft or past examples, that is the target voice. Preserve it (see Step 4, editing rules). If not, default to the house style below.
-7. **Constraints** — availability, Calendly link, deadlines, names/titles, language.
+7. **Constraints** — availability, deadlines, names/titles, language. Alex's standing assets (Calendly link, CV URL, email, LinkedIn URL, portfolio URL, brief and long about-me blurbs) live in `references/profile.md`. Load it whenever the message needs to share a link, propose a meeting, or include a background line. Don't ask the user for these and don't invent them.
 
 **Ask only when a wrong guess forces a rebuild.** Scope/audience/purpose ambiguity (e.g. "is this to the CEO or the recruiter?") warrants one tight question. Small ambiguities: state the assumption inline and proceed. Never ask more than 2 questions.
 
@@ -107,3 +107,5 @@ Run this pass on your own draft. It catches the errors that lose trust:
 - `references/register-calibration.md` — relationship × warmth matrix, how to read register off a thread, per-dial tone settings, follow-up cadence and decline/bad-news handling.
 - `references/message-playbooks.md` — structures for outreach, reply-in-thread, follow-up, intro/reference, scheduling, decline, negotiation, with short worked examples.
 - `references/banned-phrases.md` — the full kill list, why each is a tell, and concrete replacements; AI-tells beyond vocabulary (rhythm, structure, fake enthusiasm).
+- `references/linkedin.md` — LinkedIn-specific length/signature/CTA norms, four playbooks (cold DM, recruiter thread, re-engagement, live transactional), LinkedIn-only banned tells. Load when channel is LinkedIn.
+- `references/profile.md` — Alex's standing assets (Calendly, CV, email, LinkedIn, portfolio URLs) and the LIN-length / email-length about-me blurbs, with decision rules for when to insert which. Load whenever the message needs to share a link, propose a meeting, or include a background line.
