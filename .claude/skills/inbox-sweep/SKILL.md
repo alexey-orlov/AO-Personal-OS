@@ -127,17 +127,19 @@ Use the **Claude in Chrome MCP** to drive Alex's real browser (the one with the 
    - **Their message** — the recipient's full last message, verbatim.
    - **Suggested reply** — the draft you produced.
 
+   **Draft sections are wrapped in `<pre>…</pre>` HTML code blocks** so the Telegram mobile client shows a tap-to-copy affordance on the draft alone. Alex copies just the reply (no headers, no recipient message), taps the button to jump to the chat/Gmail compose, and pastes. The send uses `TG_PARSE_MODE=HTML`, so every variable interpolated into the body MUST be HTML-escaped (`&`, `<`, `>`) before assembly. Only the substituted *content* is escaped — the literal `<pre>` and `</pre>` tags around the draft stay as-is so Telegram parses them as code-block markup.
+
    **LIN→LIN format:**
    ```
    💼 LIN message from <Contact> (<Mon DD> · <N> days ago)
    ━━━━━━━━━━━━━━━━━━━━
 
-   <Recipient's last LIN message, full text>
+   <Recipient's last LIN message, full text — HTML-escaped>
 
    ━━━━━━━━━━━━━━━━━━━━
    💬 Suggested reply:
 
-   <The LIN draft body>
+   <pre><The LIN draft body — HTML-escaped></pre>
    ```
    Button (single row): `💼 LIN: <Contact>` → `<thread_url>`
 
@@ -147,18 +149,20 @@ Use the **Claude in Chrome MCP** to drive Alex's real browser (the one with the 
    ━━━━━━━━━━━━━━━━━━━━
    💼 <Contact>'s LIN message:
 
-   <Recipient's last LIN message, full text>
+   <Recipient's last LIN message, full text — HTML-escaped>
 
    ━━━━━━━━━━━━━━━━━━━━
    📧 Email draft (in Gmail Drafts, subject: "<subject>"):
 
-   <Full email body — no signature in body (Path A: this LIN→email reply goes via prefill compose; Gmail iOS auto-appends signature on send)>
+   <pre><Full email body — no signature in body (Path A: this LIN→email reply goes via prefill compose; Gmail iOS auto-appends signature on send) — HTML-escaped></pre>
 
    ━━━━━━━━━━━━━━━━━━━━
    💼 LIN confirmation (send AFTER the email):
 
-   <The self-standing LIN confirmation message>
+   <pre><The self-standing LIN confirmation message — HTML-escaped></pre>
    ```
+   Both draft sections get their own `<pre>` block so each is tap-to-copy independently — Alex copies the email body, sends the email via the Gmail button, then comes back to copy the LIN confirmation and sends it via the LIN button.
+
    Two buttons (each on its own row):
    - `📧 Open in Gmail: <Contact>` → **GitHub Pages redirect to `googlegmail://co?…`**, which opens the Gmail iOS app's compose screen with `to`, `subject`, and `body` prefilled. One tap, no Safari intermediate (the Pages page briefly loads, then JS redirects to the URL scheme).
    - `💼 LIN: <Contact>` → `<thread_url>`
@@ -168,17 +172,40 @@ Use the **Claude in Chrome MCP** to drive Alex's real browser (the one with the 
    https://alexey-orlov.github.io/AO-Personal-OS/gmail.html?to=<urlencoded_email>&su=<urlencoded_subject>&body=<urlencoded_body>
    ```
 
-   The script `telegram_send_with_button.sh` accepts variadic `(text, url)` pairs — one pair per button row. URL-encode the fields with `jq -nr --arg s "$X" '$s|@uri'`:
+   The script `telegram_send_with_button.sh` accepts variadic `(text, url)` pairs — one pair per button row. URL-encode the button URL fields with `jq -nr --arg s "$X" '$s|@uri'`. The body itself is sent with `TG_PARSE_MODE=HTML`; HTML-escape every variable before assembling it.
+
    ```bash
+   # HTML-escape helper for the message body. Order matters — & first, then < and >.
+   html_escape() {
+     local s="$1"
+     s="${s//&/&amp;}"
+     s="${s//</&lt;}"
+     s="${s//>/&gt;}"
+     printf '%s' "$s"
+   }
+
+   # Button URL (separate from body — uses URL-encoding, not HTML-escape).
    gmail_url="https://alexey-orlov.github.io/AO-Personal-OS/gmail.html"
    gmail_url+="?to=$(jq -nr --arg s "$RECIPIENT_EMAIL" '$s|@uri')"
    gmail_url+="&su=$(jq -nr --arg s "$SUBJECT" '$s|@uri')"
    gmail_url+="&body=$(jq -nr --arg s "$EMAIL_BODY" '$s|@uri')"
 
-   printf '%s' "$TG_BODY" | "$REPO_ROOT/automations/telegram/telegram_send_with_button.sh" \
-     "📧 Open in Gmail: $CONTACT" "$gmail_url" \
-     "💼 LIN: $CONTACT" "$THREAD_URL"
+   # Body — HTML-escape each interpolated variable, then wrap drafts in <pre>.
+   THEIR_MSG_HTML="$(html_escape "$THEIR_MSG")"
+   EMAIL_BODY_HTML="$(html_escape "$EMAIL_BODY")"
+   LIN_CONFIRM_HTML="$(html_escape "$LIN_CONFIRM")"
+   CONTACT_HTML="$(html_escape "$CONTACT")"
+   SUBJECT_HTML="$(html_escape "$SUBJECT")"
+
+   # ...assemble $TG_BODY using the format above, with <pre>…</pre> around drafts.
+
+   printf '%s' "$TG_BODY" \
+     | TG_PARSE_MODE=HTML "$REPO_ROOT/automations/telegram/telegram_send_with_button.sh" \
+         "📧 Open in Gmail: $CONTACT" "$gmail_url" \
+         "💼 LIN: $CONTACT" "$THREAD_URL"
    ```
+
+   **Bash gotcha:** put `TG_PARSE_MODE=HTML` on the **script** invocation, not on `printf`. `VAR=val cmd1 | cmd2` only sets `VAR` for `cmd1`, so a prefix on `printf` never reaches the script after the pipe.
 
    **Why prefill, not a draft URL.** Gmail iOS does NOT expose a URL scheme for opening a specific existing draft (`googlegmail://draft/<id>` doesn't exist). Universal Links to `https://mail.google.com/mail/u/0/#drafts/<id>` fall through to Safari → Gmail web, which on mobile ignores the `#drafts/<id>` fragment and just shows the drafts list — a 3-4 tap detour for the user. The `googlegmail://co?…` URL scheme reliably opens the app's compose screen with prefilled content; we trampoline through `docs/gmail.html` because Telegram bot inline buttons reject non-http(s) URLs.
 
@@ -191,7 +218,7 @@ Use the **Claude in Chrome MCP** to drive Alex's real browser (the one with the 
 
    **Privacy note:** the query params (recipient, subject, body) live in the URL on the public GitHub Pages domain. Acceptable for job-search outreach; do NOT use this redirect for sensitive content (compensation, contracts).
 
-   On mobile Telegram, Alex long-presses the section he wants to copy (their msg / email body / LIN confirm), taps Copy, then taps the relevant button to open the app, pastes, reviews, sends.
+   On mobile Telegram, Alex taps the copy icon on the `<pre>` code block to copy just the draft (no header noise), then taps the relevant button to open the app, pastes, reviews, sends. (Long-press the message body still works as a fallback for sections that aren't in a code block, like the recipient's original message.)
 
 4. **LIN hygiene — star the thread + mark it unread.** Before navigating away from a thread you opened:
    - **Star** the thread if you drafted a reply (LIN→LIN or LIN→email). Puts it in Alex's Starred tab so he can find it after sending. Use the star icon in the thread header (top-right of the conversation pane, next to the "..." menu).

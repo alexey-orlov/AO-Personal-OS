@@ -78,17 +78,19 @@ Notes:
 
 Sent via `automations/telegram/telegram_send_with_button.sh` with body on stdin and one button row: `💼 LIN: <Contact>` → `<thread_url>`.
 
+The draft body is wrapped in a Telegram `<pre>` code block so the mobile client shows a tap-to-copy affordance on the draft alone — Alex copies just the reply, taps the button to jump to the thread, pastes. The send uses `TG_PARSE_MODE=HTML`, so every variable interpolated into the body MUST be HTML-escaped (`&`, `<`, `>`) before assembly.
+
 ```
 💼 LIN re-engagement to <Contact> (<slug> · last touch <Mon DD> · <N> days ago)
 ━━━━━━━━━━━━━━━━━━━━
 💼 <Contact>'s last LIN message:
 
-<Their last LIN message, full text>
+<Their last LIN message, full text — HTML-escaped>
 
 ━━━━━━━━━━━━━━━━━━━━
 💬 Suggested re-engagement:
 
-<The LIN draft body>
+<pre><The LIN draft body — HTML-escaped></pre>
 ```
 
 Notes:
@@ -97,11 +99,37 @@ Notes:
 - `<N> days ago` is the gap. If `< 14 days`, just write `recent`. If `> 365`, write `>1y ago`.
 - "Their last LIN message" is verbatim. Do not paraphrase.
 - "Suggested re-engagement" is the body returned by `message-writing`. No signature on LIN drafts (per `references/linkedin.md`).
+- The `<pre>` tags themselves are NOT escaped — they're the parse-mode markup. Only the content inside (and content elsewhere in the body) is escaped.
 
 Send pattern (bash):
 ```bash
-printf '%s' "$TG_BODY" | "$REPO_ROOT/automations/telegram/telegram_send_with_button.sh" \
-  "💼 LIN: $CONTACT" "$THREAD_URL"
+# HTML-escape helper. Order matters — & first, then < and >.
+html_escape() {
+  local s="$1"
+  s="${s//&/&amp;}"
+  s="${s//</&lt;}"
+  s="${s//>/&gt;}"
+  printf '%s' "$s"
+}
+
+THEIR_MSG_HTML="$(html_escape "$THEIR_MSG")"
+DRAFT_HTML="$(html_escape "$DRAFT_BODY")"
+CONTACT_HTML="$(html_escape "$CONTACT")"
+
+TG_BODY="💼 LIN re-engagement to $CONTACT_HTML ($SLUG · last touch $MON_DD · $N_DAYS days ago)
+━━━━━━━━━━━━━━━━━━━━
+💼 $CONTACT_HTML's last LIN message:
+
+$THEIR_MSG_HTML
+
+━━━━━━━━━━━━━━━━━━━━
+💬 Suggested re-engagement:
+
+<pre>$DRAFT_HTML</pre>"
+
+printf '%s' "$TG_BODY" \
+  | TG_PARSE_MODE=HTML "$REPO_ROOT/automations/telegram/telegram_send_with_button.sh" \
+      "💼 LIN: $CONTACT" "$THREAD_URL"
 ```
 
 ---

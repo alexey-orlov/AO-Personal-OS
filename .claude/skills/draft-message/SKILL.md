@@ -266,12 +266,17 @@ Print a one-line confirmation in chat:
 
 ### 8b. LinkedIn
 
-Post one Telegram message using **template (a)** from `references/tg-templates.md`. Sent via `automations/telegram/telegram_send_with_button.sh` with body on stdin and one button row: `💼 LIN: <Contact>` → `<thread_url>` (or profile URL for cold).
+Post one Telegram message using **template (a)** from `references/tg-templates.md`. The draft body is wrapped in `<pre>…</pre>` so the mobile client shows a tap-to-copy affordance on the draft alone — Alex copies just the reply, taps the button to jump to the thread, pastes. Sent via `automations/telegram/telegram_send_with_button.sh` with body on stdin, `TG_PARSE_MODE=HTML`, and one button row: `💼 LIN: <Contact>` → `<thread_url>` (or profile URL for cold).
+
+HTML-escape every variable (`&`, `<`, `>`) before assembling the body — the `html_escape` helper and full send pattern live in `references/tg-templates.md` under "Send pattern (bash)".
 
 ```bash
-printf '%s' "$TG_BODY" | "$REPO_ROOT/automations/telegram/telegram_send_with_button.sh" \
-  "💼 LIN: $CONTACT" "$THREAD_OR_PROFILE_URL"
+printf '%s' "$TG_BODY" \
+  | TG_PARSE_MODE=HTML "$REPO_ROOT/automations/telegram/telegram_send_with_button.sh" \
+      "💼 LIN: $CONTACT" "$THREAD_OR_PROFILE_URL"
 ```
+
+**Bash gotcha:** put `TG_PARSE_MODE=HTML` on the **script** invocation, not on `printf`. `VAR=val cmd1 | cmd2` only sets `VAR` for `cmd1`, so a prefix on `printf` never reaches the script after the pipe.
 
 Print a one-line confirmation in chat:
 ```

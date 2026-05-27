@@ -10,6 +10,8 @@ Only LinkedIn drafts go to TG — email drafts land in Gmail Drafts and are revi
 
 Sent via `automations/telegram/telegram_send_with_button.sh` with body on stdin and one button row: `💼 LIN: <Contact>` → `<thread_url>` (or profile URL for cold drafts).
 
+The draft body is wrapped in a Telegram `<pre>` code block so the mobile client shows a tap-to-copy affordance on the draft alone — Alex copies just the reply, taps the button to jump to the thread, pastes. The send uses `TG_PARSE_MODE=HTML`, so every variable interpolated into the body MUST be HTML-escaped (`&`, `<`, `>`) before assembly.
+
 ### Reply-in-thread variant
 
 ```
@@ -17,12 +19,12 @@ Sent via `automations/telegram/telegram_send_with_button.sh` with body on stdin 
 ━━━━━━━━━━━━━━━━━━━━
 💼 <Contact>'s last LIN message:
 
-<Their last LIN message, full text>
+<Their last LIN message, full text — HTML-escaped>
 
 ━━━━━━━━━━━━━━━━━━━━
 💬 Your draft:
 
-<The LIN draft body returned by message-writing>
+<pre><The LIN draft body returned by message-writing — HTML-escaped></pre>
 ```
 
 Notes:
@@ -30,7 +32,8 @@ Notes:
 - `<N> days ago`: if `< 14 days`, write `recent`. If `> 365`, write `>1y ago`.
 - "Their last LIN message" is verbatim. Do not paraphrase.
 - "Your draft" is the body returned by `message-writing`. No signature on LIN drafts (per `.claude/skills/message-writing/references/linkedin.md`).
-- If the message-writing draft was prefixed with `[REVIEW - sensitive]`, keep that line at the top of "Your draft" — Alex needs to see it on his phone too.
+- If the message-writing draft was prefixed with `[REVIEW - sensitive]`, keep that line at the top of the `<pre>` block — Alex needs to see it on his phone too. The whole `<pre>` content is what gets copied.
+- The `<pre>` tags themselves are NOT escaped — they're the parse-mode markup. Only the content inside (and content elsewhere in the body) is escaped.
 
 ### Cold outreach variant
 
@@ -39,7 +42,7 @@ Notes:
 ━━━━━━━━━━━━━━━━━━━━
 💬 Your draft:
 
-<The LIN draft body returned by message-writing>
+<pre><The LIN draft body returned by message-writing — HTML-escaped></pre>
 ```
 
 Notes:
@@ -51,8 +54,33 @@ Notes:
 ## Send pattern (bash)
 
 ```bash
-printf '%s' "$TG_BODY" | "$REPO_ROOT/automations/telegram/telegram_send_with_button.sh" \
-  "💼 LIN: $CONTACT" "$THREAD_OR_PROFILE_URL"
+# HTML-escape helper. Order matters — & first, then < and >.
+html_escape() {
+  local s="$1"
+  s="${s//&/&amp;}"
+  s="${s//</&lt;}"
+  s="${s//>/&gt;}"
+  printf '%s' "$s"
+}
+
+THEIR_MSG_HTML="$(html_escape "$THEIR_MSG")"
+DRAFT_HTML="$(html_escape "$DRAFT_BODY")"
+CONTACT_HTML="$(html_escape "$CONTACT")"
+
+TG_BODY="💼 LIN draft to $CONTACT_HTML (last inbound $MON_DD · $N_DAYS days ago)
+━━━━━━━━━━━━━━━━━━━━
+💼 $CONTACT_HTML's last LIN message:
+
+$THEIR_MSG_HTML
+
+━━━━━━━━━━━━━━━━━━━━
+💬 Your draft:
+
+<pre>$DRAFT_HTML</pre>"
+
+printf '%s' "$TG_BODY" \
+  | TG_PARSE_MODE=HTML "$REPO_ROOT/automations/telegram/telegram_send_with_button.sh" \
+      "💼 LIN: $CONTACT" "$THREAD_OR_PROFILE_URL"
 ```
 
-If `$THREAD_OR_PROFILE_URL` is empty (rare — LIN URL truly unavailable), fall back to `automations/telegram/telegram_send.sh` (no button) and tell Alex in chat that the TG message has no button because the URL was missing.
+If `$THREAD_OR_PROFILE_URL` is empty (rare — LIN URL truly unavailable), fall back to `automations/telegram/telegram_send.sh` (no button, plain text — no HTML escape needed) and tell Alex in chat that the TG message has no button because the URL was missing.

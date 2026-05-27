@@ -167,7 +167,7 @@ If `message-writing` flags `[REVIEW - sensitive]` on the draft, propagate that l
 
 - **Pre-gate (contacts 1-3):** accumulate the rendered draft in-memory. Do NOT post any TG message. The gate emission (Step 7) renders all pre-gate drafts inline so Alex can review in one place.
 - **Post-gate, email contact:** Gmail draft is already saved. No per-contact TG message. Counts toward end-of-run digest.
-- **Post-gate, LinkedIn contact:** post one TG message using **template (b)** from `references/tg-templates.md`. Sent via `automations/telegram/telegram_send_with_button.sh` with body on stdin and one button row: `💼 LIN: <Contact>` → `<thread_url>`.
+- **Post-gate, LinkedIn contact:** post one TG message using **template (b)** from `references/tg-templates.md`. Sent via `automations/telegram/telegram_send_with_button.sh` with body on stdin, `TG_PARSE_MODE=HTML`, and one button row: `💼 LIN: <Contact>` → `<thread_url>`. The draft is wrapped in `<pre>…</pre>` so Alex can tap-to-copy just the reply on mobile; the template file has the full send pattern incl. the `html_escape` helper.
 - **No-thread contact (any phase):** already accumulated in the `no_thread` list. No per-contact TG; handled in Steps 7 and 8.
 
 ### 6f. Update state

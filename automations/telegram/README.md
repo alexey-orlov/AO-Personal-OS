@@ -29,6 +29,7 @@ cat message.txt                  | ./telegram_send.sh
 
 ## Files
 
-- `telegram_send.sh` — the CLI.
+- `telegram_send.sh` — the CLI (plain text, no buttons).
+- `telegram_send_with_button.sh` — variant that adds one or more inline URL buttons. Variadic `(text, url)` pairs, one button per row. Optional `TG_PARSE_MODE=HTML` (or `MarkdownV2`) env var enables Telegram parse_mode so callers can use `<pre>…</pre>` code blocks for tap-to-copy on mobile — caller must HTML-escape reserved chars (`&`, `<`, `>`) in the body when enabled.
 - `config.sh` — reads `TELEGRAM_BOT_TOKEN` and `TELEGRAM_CHAT_ID` from Keychain (env-var fallback for ad-hoc overrides).
 - `setup.sh` — one-time configuration walkthrough.

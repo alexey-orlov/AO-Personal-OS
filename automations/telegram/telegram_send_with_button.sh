@@ -13,6 +13,11 @@
 # a failure as non-fatal and continue.
 #
 # Link previews are disabled so URLs in the body don't render preview cards.
+#
+# Optional env: TG_PARSE_MODE=HTML (or MarkdownV2) enables Telegram parse_mode
+# so callers can use <pre>…</pre> code blocks for tap-to-copy on mobile. When
+# enabled, the CALLER is responsible for escaping reserved chars in the body
+# (HTML: &, <, >; MarkdownV2: see Telegram docs). Unset = plain text (default).
 
 set -euo pipefail
 HERE="$(cd "$(dirname "$0")" && pwd)"
@@ -58,15 +63,17 @@ while [ "$#" -gt 0 ]; do
 done
 
 payload="$(jq -nc \
-  --arg chat_id "$TELEGRAM_CHAT_ID" \
-  --arg text    "$msg" \
-  --argjson kb  "$keyboard" \
+  --arg chat_id    "$TELEGRAM_CHAT_ID" \
+  --arg text       "$msg" \
+  --arg parse_mode "${TG_PARSE_MODE:-}" \
+  --argjson kb     "$keyboard" \
   '{
     chat_id: $chat_id,
     text: $text,
     disable_web_page_preview: true,
     reply_markup: { inline_keyboard: $kb }
-  }')"
+  }
+  + (if $parse_mode == "" then {} else { parse_mode: $parse_mode } end)')"
 
 resp="$(curl -fsS --max-time 15 \
   -H "Content-Type: application/json" \
