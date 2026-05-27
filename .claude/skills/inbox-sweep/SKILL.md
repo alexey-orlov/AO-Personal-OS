@@ -102,10 +102,12 @@ Use the **Claude in Chrome MCP** to drive Alex's real browser (the one with the 
 2. **Load 25 latest threads** before iterating. LinkedIn shows ~10-15 conversations on initial load; you need a wider lens. After the messaging page loads:
    - Scroll the conversation list (in the sidebar) down until ~25 threads are visible, OR click the "Load more conversations" link at the bottom of the sidebar once or twice. Use the Chrome MCP `scroll` action targeted at the sidebar, or `find` + click on "Load more conversations".
    - Pause briefly (1-2 seconds) after each scroll/load-more to let LinkedIn fetch.
-   - Stop once you have ~25 threads OR you've reached the end of the conversation list (whichever comes first).
+   - **10-day age cutoff on scrolling.** LinkedIn orders the sidebar newest-first, so once the threads at the visible bottom of the loaded list are older than 10 days from today's date, STOP scrolling / loading more — everything further down is older and out of scope. Use the relative-time labels LinkedIn shows ("3d", "1w", "2w", "1mo", etc.) to make the call; treat anything ≥ "2w" or any "…mo" / "…yr" label as past the cutoff.
+   - Stop once you have ~25 threads OR you've reached the end of the conversation list OR you've hit the 10-day age cutoff (whichever comes first).
 
    Then **for each visible thread:**
    - Extract: thread URL (form `https://www.linkedin.com/messaging/thread/<id>/`), contact display name, last-message preview, and the timestamp / relative-time label LinkedIn shows.
+   - **Age cutoff (per-thread):** if the latest message is more than 10 days old from today's date, skip silently (no state entry). The threshold is hard — including 11d. Older threads aren't in scope for inbox-sweep; they should be handled deliberately via `/re-engagement-outreach` if at all.
    - **Latest-sender check:** if the latest message is from Alex, skip (waiting on them).
    - **Idempotency check:** compose `skip_key = thread_url + ":" + latest_message_ts`. If in `lin.drafted` (same ts) or `lin.skipped`, skip silently.
    - Open the thread (click it / navigate). Read the last 5-10 messages for context.
