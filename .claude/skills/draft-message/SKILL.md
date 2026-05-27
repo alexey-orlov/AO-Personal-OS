@@ -77,14 +77,14 @@ Skip this step entirely if Alex pasted the thread in Step 1; use the pasted text
 
 ### 3a. Email leg (when `requested_channel ∈ {email, auto}`)
 
-Gmail MCP `search_threads`:
+Gmail MCP `search_threads` — apply `STRICT_NOISE_FILTERS` from [automations/gmail/search-filters.md](../../../automations/gmail/search-filters.md#strict_noise_filters):
 ```
-(from:<email> OR to:<email>) -from:noreply -from:no-reply -from:notifications -from:calendar-notification@google.com -category:promotions -category:social -category:updates
+(from:<email> OR to:<email>) <STRICT_NOISE_FILTERS>
 ```
 
 If only a name was provided (no email), use:
 ```
-"<Name>" -from:noreply -from:no-reply -from:notifications -category:promotions -category:social -category:updates
+"<Name>" <STRICT_NOISE_FILTERS>
 ```
 …and verify the top hit's `From`/`To` actually contains the named person. If ambiguous (multiple people with that name), show Alex the top 2-3 candidates in chat with `From` line and last-message date, and ask him to pick. Don't guess on name-only searches.
 
@@ -92,8 +92,9 @@ Sort by most-recent message date. `get_thread` on the top result. The thread mus
 
 ### 3b. LinkedIn leg (when `requested_channel ∈ {linkedin, auto}`)
 
-Use the Claude in Chrome MCP. Pre-flight `https://www.linkedin.com/messaging/` for login state — if expired, surface a one-line message in chat ("LIN session expired, can't read thread — proceed without it or re-auth?") and let Alex decide.
+Run the canonical Chrome MCP pre-flight from [automations/chrome-mcp/preflight.md](../../../automations/chrome-mcp/preflight.md). If `lin_available = false`, the TG nudge has already been sent — surface a one-line follow-up in chat ("LIN unreachable, proceed without it or cancel?") and let Alex decide (this is a single-contact flow, so blocking on his choice is appropriate, unlike batch skills).
 
+If `lin_available = true`:
 - If Alex provided a LIN URL → navigate to it directly.
 - If only a name → scan the messaging sidebar (scroll/load to ~25 visible threads, fuzzy-match the contact name with `score ≥ 85`). If ambiguous (two matches both ≥ 85, within 5 points), surface the candidates in chat and ask Alex to pick.
 
@@ -252,14 +253,11 @@ Read the answer from `AskUserQuestion`'s result. Tweaks arrive via the `Other` f
 
 ### 8a. Email
 
-Call Gmail MCP `create_draft`:
-- For reply-in-thread: `create_draft(threadId=<thread_id>, subject=<subject>, body=<body_plain>, htmlBody=<body_html>)`.
-- For cold: `create_draft(to=<email>, subject=<subject>, body=<body_plain>, htmlBody=<body_html>)` — no `threadId`.
+Call Gmail MCP `create_draft` following the canonical conventions in [automations/gmail/draft-save.md](../../../automations/gmail/draft-save.md) — reply-in-thread vs cold variant, Path B inline signature, the `r-…` URL gotcha + thread-hex workaround, and the desktop URL recipe for the confirmation line below.
 
-Capture the returned `draft_id`. Note: `create_draft` returns an API draft ID like `r-3639531887998572442`. This ID is **not** usable in Gmail web URL fragments — `https://mail.google.com/mail/u/0/#drafts/r-...` redirects to the drafts list. Always construct the open link from the thread ID (reply-in-thread) or fall back to the drafts list (cold):
-
-- **Reply-in-thread** (have `thread_id`): open link = `https://mail.google.com/mail/u/0/#all/<thread_id>` — opens the thread; the draft is visible inline at the bottom. Works reliably regardless of inbox/archive state.
-- **Cold** (no thread): open link = `https://mail.google.com/mail/u/0/#drafts` — opens the drafts list; the newly created draft sits at the top.
+Capture the returned `draft_id`. Construct the open URL per the reference:
+- **Reply-in-thread** (have `thread_id`): `https://mail.google.com/mail/u/0/#all/<thread_id>`.
+- **Cold** (no thread): `https://mail.google.com/mail/u/0/#drafts`.
 
 Print a one-line confirmation in chat:
 ```

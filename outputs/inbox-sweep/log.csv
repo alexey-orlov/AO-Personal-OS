@@ -4,3 +4,7 @@
 2026-05-26T12:43:45Z,completed,gmail=1 lin=2 skipped=0+ linleg=ran smoketest=true
 2026-05-26T13:23:12Z,refined,gmail=1 lin=2 tg_format=v2 lin_hygiene=star+unread voice_rules=v2
 2026-05-26T16:48:53Z,completed,gmail=0 lin=0 skipped=0 linleg=skipped chrome_mcp=unavailable lin_notifications_pending=2
+2026-05-26T19:30:00Z,completed,gmail=0 lin=8 skipped=1 linleg=ran loop_tick=1
+2026-05-27T15:52:48Z,completed,gmail=0 lin=0 skipped=0 linleg=skipped chrome_mcp=unavailable lin_notifications_pending=2
+2026-05-27T15:54:13Z,completed,gmail=0 lin=0 skipped=0 linleg=skipped chrome_mcp=unavailable lin_notifications_pending=2
+2026-05-27T17:23:20Z,completed,gmail=0 lin=0 skipped=0 linleg=skipped chrome_mcp=unavailable lin_notifications_pending=0 lin_invitations_pending=2

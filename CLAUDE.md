@@ -44,7 +44,9 @@ Currently job-searching for product leadership roles (VP Product / CPO) at US co
 
 ## Structure (where things go)
 - `.claude/skills/<name>/SKILL.md` — reusable agent skills with frontmatter (`name`, `description`, `disable-model-invocation`, `user-invocable`). Discoverable as slash commands (`/<name>`) in Claude Code AND inlined by automations as plain prompt text.
-- `automations/<name>/` — self-contained units: scripts + `config.sh` + `setup.sh` + `README.md`, plus a git-ignored `.work/` runtime dir.
+- `automations/<name>/` — two kinds of subdirs live here:
+  - **Workflow automations** (e.g. `call-pipeline/`, `inbox-sweep/`): self-contained units with scripts + `config.sh` + `setup.sh` + `README.md` + a git-ignored `.work/` runtime dir.
+  - **Shared libraries by domain** (e.g. `telegram/`, `crm-spreadsheet/`, `chrome-mcp/`, `gmail/`): cross-skill resources. Hold bash/Python helpers AND/OR markdown procedure docs that multiple skills cite. Skills cite procedure docs with a one-line "Follow the procedure in `automations/<domain>/<file>.md`" reference at the relevant step — the canonical algorithm + constants live only there. Use this when ≥2 skills share a procedure/constant and divergence would be a real risk (e.g. Gmail search filters, Chrome MCP preflight, the `r-…` URL gotcha). Wait for the third caller before extracting — premature DRY hurts skill readability.
 - `outputs/<type>/` — produced artefacts. COMMITTED, so they sync across devices. `outputs/call-notes/` is foldered by meeting context (`softserve/`, `gigacloud/{product-issues-sukhenko,product-team-weekly,other}/`, `job-search/{intro-chats,vacancy-interviews/<company>}/`, `laba/`, `other/`); the `classify` skill assigns the folder and the call-pipeline routes the note there. `outputs/english-coaching/` stays flat.
 - `context/` — durable reference material (people, companies, frameworks).
 ## Memory / persistent learnings

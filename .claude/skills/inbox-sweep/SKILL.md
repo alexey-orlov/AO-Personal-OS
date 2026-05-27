@@ -20,6 +20,7 @@ Gmail drafts go to the Gmail Drafts label (Alex reviews and sends from the Gmail
 5. **Skip cold inbound.** If a thread has no prior message from Alex (he's never participated), or it's clearly newsletter / mass pitch / recruiter spam unrelated to job-search, mark it skipped with a reason and move on.
 6. **Stay silent when nothing is new.** If both legs produce zero drafts, send **no Telegram messages at all**. The log file records the run.
 7. **Voice is non-negotiable.** Every draft must be produced by invoking the `message-writing` skill (via the Skill tool). Do not draft replies inline without going through `message-writing` — it's the only thing that keeps the output in Alex's actual voice.
+8. **Do NOT stop after `message-writing` returns.** This is the #1 silent-failure mode of this skill. When you invoke `Skill({skill: "message-writing"})`, that skill's SKILL.md loads into your context and its own "Output discipline" tells YOU to keep the response compact and stop. Inside the inbox-sweep flow, that instruction does NOT apply to you. After message-writing returns the draft text, you MUST immediately continue with: (a) post the structured TG message for THIS thread, (b) star the LIN thread (or create the Gmail draft, if Gmail leg), (c) mark the LIN thread unread, (d) update the in-memory state for THIS thread, (e) move to the NEXT candidate thread. Repeat until all candidates are processed, THEN do the digest + state.json write + log.csv append. The draft text returned by message-writing is one step of the loop, not the end of it. If you find yourself writing a final summary right after message-writing returns, stop — you have more threads to process and TG/hygiene to perform.
 
 ## Paths (all anchored at the repo root)
 
@@ -78,9 +79,9 @@ Use the Gmail MCP (search_threads / get_thread / list_drafts / create_draft).
 1. `list_drafts` once. Build a set of `thread_id`s that already have a draft (user-typed or agent-typed). You'll use this to avoid clobbering.
 2. `search_threads` with query:
    ```
-   is:unread in:inbox -category:promotions -category:social -category:updates -from:me
+   is:unread in:inbox <BASE_NOISE_FILTERS> -from:me
    ```
-   This is a coarse filter; each result still needs the participation check below.
+   `<BASE_NOISE_FILTERS>` expands to the canonical noise-filter set defined in [automations/gmail/search-filters.md](../../../automations/gmail/search-filters.md#base_noise_filters). This is a coarse filter; each result still needs the participation check below.
 3. For each thread:
    - `get_thread` to load the full message list.
    - **Participation check:** at least one message must be `from:me` (Alex). If not → skip with reason `cold-inbound`.
@@ -88,22 +89,15 @@ Use the Gmail MCP (search_threads / get_thread / list_drafts / create_draft).
    - **Idempotency check:** compose `skip_key = thread_id + ":" + latest_message_id`. If it's in `gmail.drafted` (same latest_message_id) or `gmail.skipped`, skip silently.
    - **User-draft check:** if the thread is in the drafts set from step 1, skip silently.
    - Otherwise: draft a reply.
-     - Invoke the `message-writing` skill via the Skill tool. Pass it: the thread text (last 3-5 messages), the subject, who the recipient is, that this is a `reply-in-thread`, and `signature: inline` (this draft is saved via Gmail API `create_draft` — Path B, see `message-writing` SKILL.md Step 3). Have it produce both plain (`body`) and HTML (`htmlBody`) with the standing signature block inline in both.
-     - `create_draft` on the Gmail MCP, setting `threadId` to the thread so it appears as a reply in the right thread. Use the original subject (Gmail handles the "Re:" prefix). Pass both `body` and `htmlBody` from message-writing.
+     - Invoke the `message-writing` skill via the Skill tool. Pass it: the thread text (last 3-5 messages), the subject, who the recipient is, that this is a `reply-in-thread`, and `signature: inline`. Have it produce both plain (`body`) and HTML (`htmlBody`).
+     - Save the draft via the Gmail MCP following [automations/gmail/draft-save.md](../../../automations/gmail/draft-save.md) (reply-in-thread variant — pass `replyToMessageId=<latest_message_id>`, both `body` and `htmlBody` inline-signed).
      - Update state: `gmail.drafted[thread_id] = { drafted_at, latest_message_id, draft_id, contact }`.
 
 ## Step 2 — LinkedIn leg
 
 Use the **Claude in Chrome MCP** to drive Alex's real browser (the one with the extension installed and his LIN session logged in).
 
-1. **Session pre-flight.** Navigate to `https://www.linkedin.com/messaging/` and read the page (use the Chrome MCP's page-read / text tool).
-   - If the page is the login screen, or shows "Sign in to continue", or you can't see the messaging sidebar:
-     - Post one Telegram message via `automations/telegram/telegram_send.sh`:
-       ```
-       ⚠️ LinkedIn session expired — sign in to refresh inbox-sweep.
-       ```
-     - Skip the entire LIN leg. Don't touch LIN state. Proceed to Step 3 with `lin_drafted = 0`.
-   - If Chrome MCP itself isn't reachable (extension off, Chrome not running), catch the error the same way: TG nudge + skip LIN leg.
+1. **Session pre-flight.** Follow the canonical procedure in [automations/chrome-mcp/preflight.md](../../../automations/chrome-mcp/preflight.md). It handles both cases (Chrome MCP not loaded, LIN session expired), sends the appropriate canonical TG nudge, and returns `lin_available: bool`. If `lin_available = false`, skip the entire LIN leg and proceed to Step 3 with `lin_drafted = 0`. Don't touch LIN state.
 
 2. **Load 25 latest threads** before iterating. LinkedIn shows ~10-15 conversations on initial load; you need a wider lens. After the messaging page loads:
    - Scroll the conversation list (in the sidebar) down until ~25 threads are visible, OR click the "Load more conversations" link at the bottom of the sidebar once or twice. Use the Chrome MCP `scroll` action targeted at the sidebar, or `find` + click on "Load more conversations".
@@ -118,6 +112,7 @@ Use the **Claude in Chrome MCP** to drive Alex's real browser (the one with the 
    - **Cold-inbound check:** sales pitch, mass connection-request follow-up, recruiter pitch for an irrelevant role → skip with reason (`cold-inbound` / `recruiter-spam` / `sales-pitch`).
    - Otherwise: draft a reply.
      - Invoke the `message-writing` skill via the Skill tool with the thread context. Make sure the skill knows the channel is **LinkedIn** (so it loads `references/linkedin.md` rules — short, no formal sign-off, plain text).
+     - **After message-writing returns the draft, do NOT stop or summarize — proceed immediately to Step 3 (TG post) and Step 4 (LIN hygiene) for THIS thread, then return to this loop for the next candidate.** See Hard Rule 8.
      - **Pass timing context to the skill.** Compute days_since_inbound from the LinkedIn timestamp + today's date (in the conversation context). The `message-writing` skill has explicit rules for 0-2 / 3-7 / 7-14 / 14+ day gaps and the "both parties slow" case — feed it the gap and let it shape the opener.
      - **Check for channel routing.** Per the `Channel routing` section in `references/linkedin.md`, if the recipient signaled they want the next substantive step over email (shared their email with a meeting framing, said "let's move to email," etc.), the substantive reply is an EMAIL, not a LIN message. In that case:
        - Extract the recipient's email from the LIN thread text.
@@ -190,7 +185,7 @@ Use the **Claude in Chrome MCP** to drive Alex's real browser (the one with the 
    **Signature handling — depends on which inbox-sweep path produced the draft.**
 
    - **LIN→email channel-switch (this block).** Path A. `message-writing` was called with `signature: gmail-auto`, so the body ends with the last substantive line. Gmail iOS is configured to auto-append Alex's standing signature block server-side on send, including for emails sent from the prefilled compose — the recipient gets the rich-HTML signature once, no duplication.
-   - **Email-to-email reply (the other path, Step 1).** Path B. `message-writing` was called with `signature: inline`, so the inline standing block (plain in `body`, HTML in `htmlBody`) is part of the `create_draft` payload — Gmail does NOT auto-append signatures to API-created drafts, so we have to include it ourselves.
+   - **Email-to-email reply (the other path, Step 1).** Path B — canonical create_draft handling in [automations/gmail/draft-save.md](../../../automations/gmail/draft-save.md).
 
    If the Gmail web/iOS auto-signature setting is ever turned off, the LIN→email path breaks silently (unsigned messages go out); revisit this skill and `message-writing` at that point.
 
@@ -202,6 +197,7 @@ Use the **Claude in Chrome MCP** to drive Alex's real browser (the one with the 
    - **Star** the thread if you drafted a reply (LIN→LIN or LIN→email). Puts it in Alex's Starred tab so he can find it after sending. Use the star icon in the thread header (top-right of the conversation pane, next to the "..." menu).
    - **Mark as unread** so the thread still shows the unread badge in Alex's LIN inbox on mobile. Applies to ANY thread you opened — drafted or not — since LIN auto-marks-read on open. Use the "..." menu → "Mark as unread".
    - **Verify it stuck.** After clicking "Mark as unread", screenshot or `find` the conversation row in the sidebar and confirm the blue unread-count badge ("1") is showing. If the click missed (the menu position can shift and (745, 299) sometimes hits the wrong row), reopen the "..." menu and click again. Don't move to the next thread until the badge is visible. LinkedIn's mark-unread isn't always idempotent on first click — re-clicking is safe.
+   - **Pace the menu sequence — don't batch star + ... + Mark-unread in one tool call.** The reliable pattern is: (1) click star, wait ~1s; (2) click the "..." menu, **wait 2s** for the dropdown to render and screenshot to verify the menu is visible; (3) only then click "Mark as unread" at (745, 299) or via find. If you batch all three clicks back-to-back in a single `browser_batch`, the Mark-as-unread click often fires before the dropdown has rendered and lands on a message-body element instead (the emoji-reaction toolbar pops up — a tell-tale failure sign). When you see that toolbar in the screenshot, the click missed; re-open the menu and retry.
    The combination: starred = needs Alex's action, unread = visible badge. Both reversible if the agent makes a mistake.
 
 5. Update state: `lin.drafted[thread_url] = { drafted_at, latest_message_ts, contact, channel_switch: <"email" | null>, gmail_draft_id: <id or null> }`.

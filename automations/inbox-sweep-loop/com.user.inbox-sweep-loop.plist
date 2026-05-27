@@ -5,9 +5,19 @@
   <key>Label</key>
   <string>com.user.inbox-sweep-loop</string>
 
+  <!--
+    Why osascript + Terminal: launchd itself does not have FDA, so it cannot
+    read or exec files under ~/Documents/. Telling Terminal.app via Apple
+    Event to "do script" sidesteps that: Terminal runs in the user-session
+    TCC context and CAN access ~/Documents/. First time this fires, macOS may
+    prompt for Automation permission ("osascript wants to control Terminal");
+    approve it via System Settings → Privacy & Security → Automation.
+  -->
   <key>ProgramArguments</key>
   <array>
-    <string>/Users/olekorlov/Documents/GitHub/AO-Personal-OS/automations/inbox-sweep-loop/start.sh</string>
+    <string>/usr/bin/osascript</string>
+    <string>-e</string>
+    <string>tell application "Terminal" to do script "/Users/olekorlov/Documents/GitHub/AO-Personal-OS/automations/inbox-sweep-loop/start.sh"</string>
   </array>
 
   <key>RunAtLoad</key>
