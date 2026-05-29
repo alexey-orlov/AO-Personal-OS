@@ -36,7 +36,7 @@ Currently job-searching for product leadership roles (VP Product / CPO) at US co
 
 - VP of Product — Creatio (former)
 
-**Context:** Kyiv-based in fact, but position myself as Boston-based for US audience; works in EN/UA/RU languages. Domain depth in enterprise B2B SaaS, product expansion, agentic AI.
+**Context:** Kyiv-based in fact, but position myself as San Francisco-based for US audience (open to relocate across the US; never mention Ukraine externally); works in EN/UA/RU languages. Domain depth in enterprise B2B SaaS, product expansion, agentic AI. Full job-search positioning (public vs. backend framing, recruiter story, target roles) lives in `context/job-search.md` — pull from there.
 
 ## Location & remote
 - Local: `~/Documents/GitHub/AO-Personal-OS` (macOS, case-insensitive filesystem)
