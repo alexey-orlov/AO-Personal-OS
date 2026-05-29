@@ -26,11 +26,11 @@ This skill is a thin wrapper around `/inbox-sweep` that adds **one extra step at
    🫀 inbox-sweep loop · alive at <ISO UTC> · starting sweep…
    ```
 
-2. **Invoke the `inbox-sweep` skill** via the Skill tool. The sweep runs as normal: Gmail leg, LinkedIn leg (with the 25-thread scroll + 5-15s pacing + 10-draft cap), TG digest if drafts > 0, state + log update.
+2. **Invoke the `inbox-sweep` skill** via the Skill tool. The sweep runs as normal: Gmail leg, LinkedIn leg (with the 25-thread scroll + 5-15s pacing + 10-draft cap), the end-of-run TG digest (sent on **every** run now, including quiet ones), state + log update.
 
 3. **Done.** The cron (created via `CronCreate` or `/loop`) handles re-firing this skill on the schedule.
 
-If the heartbeat send fails (Telegram down, network blip), proceed with the sweep anyway — the next heartbeat will signal that the loop is fine. Don't abort the run because of one missed heartbeat.
+The heartbeat send (via `telegram_send.sh`) self-retries on transient network failure for ~1 min — this covers the common laptop-wake race where a missed cron tick fires before Wi-Fi finishes reconnecting, and effectively gates the run until the network is up. If it still fails after the retry window, proceed with the sweep anyway — don't abort the run over one missed heartbeat. (This retry only helps tool calls *inside* the tick; it cannot recover a failure of the model turn itself reaching the API, which happens before any skill instruction runs — for that, see the laptop-wake notes in Setup.)
 
 ## Setup — how to start the routine
 
@@ -79,7 +79,7 @@ If you skip the `expires:` argument entirely (e.g., just `/loop 8h /inbox-sweep-
 
 You should see a `🫀 inbox-sweep loop · alive at …` heartbeat in Telegram **every 8 hours**, give or take a few minutes. If you don't see a heartbeat for >9 hours, the loop is dead.
 
-The heartbeat is the only reliable liveness signal — the digest doesn't fire on quiet runs, and "no digest in 24h" could mean "nothing to draft" OR "loop died." The heartbeat removes that ambiguity.
+The heartbeat is the start-of-run liveness signal, and the digest (which now fires on **every** run, including quiet ones — `📥 Sweep done · 0 Gmail · 0 LIN — inbox clear`) is the end-of-run confirmation. Together they bracket each tick: heartbeat = "sweep started", digest = "sweep finished". A heartbeat with **no** following digest means the sweep started but died mid-run (most often the cold-network race when the laptop wakes and fires a missed tick before Wi-Fi reconnects) — retry or check the session. No heartbeat at all for >9 hours means the loop itself is dead.
 
 ## What to do if the loop dies
 

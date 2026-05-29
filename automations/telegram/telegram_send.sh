@@ -27,14 +27,32 @@ if [ "${#msg}" -gt 4000 ]; then
   msg="${msg:0:3990}"$'\n…[truncated]'
 fi
 
-resp="$(curl -fsS --max-time 15 \
-  -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
-  --data-urlencode "chat_id=${TELEGRAM_CHAT_ID}" \
-  --data-urlencode "text=${msg}" \
-  --data-urlencode "disable_web_page_preview=true" 2>&1)" || {
-  echo "[telegram_send] HTTP failure: $resp" >&2
-  exit 1
-}
+# Retry the send on transient network failure (e.g. Wi-Fi still reconnecting
+# right after the laptop wakes and a missed cron tick fires). Because the
+# heartbeat is the first network op of an inbox-sweep tick, this retry also
+# acts as a network-readiness gate for the whole run. Bounded (~1 min default)
+# so a genuinely-down network doesn't hang things. Only the network layer is
+# retried; a successful HTTP call returning a non-ok API body (bad token /
+# chat_id) is a semantic error and fails immediately.
+retries="${TG_SEND_RETRIES:-5}"
+retry_sleep="${TG_SEND_RETRY_SLEEP:-15}"
+attempt=1
+while :; do
+  if resp="$(curl -fsS --max-time 15 \
+    -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
+    --data-urlencode "chat_id=${TELEGRAM_CHAT_ID}" \
+    --data-urlencode "text=${msg}" \
+    --data-urlencode "disable_web_page_preview=true" 2>&1)"; then
+    break
+  fi
+  if [ "$attempt" -ge "$retries" ]; then
+    echo "[telegram_send] HTTP failure after $attempt attempts: $resp" >&2
+    exit 1
+  fi
+  echo "[telegram_send] send attempt $attempt failed, retrying in ${retry_sleep}s…" >&2
+  sleep "$retry_sleep"
+  attempt=$((attempt + 1))
+done
 
 echo "$resp" | grep -q '"ok":true' || {
   echo "[telegram_send] API error: $resp" >&2

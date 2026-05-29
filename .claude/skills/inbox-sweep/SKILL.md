@@ -18,7 +18,7 @@ Gmail drafts go to the Gmail Drafts label (Alex reviews and sends from the Gmail
 3. **Idempotency.** Read the state file first. Do not re-draft a thread already in `gmail.drafted` or `lin.drafted` unless a newer message has arrived since you last drafted (check `latest_message_id` for Gmail, `latest_message_ts` for LIN).
 4. **Don't clobber user drafts.** Before drafting on a Gmail thread, list existing drafts via the Gmail MCP. If the user has already drafted on that thread, skip it.
 5. **Skip cold inbound.** If a thread has no prior message from Alex (he's never participated), or it's clearly newsletter / mass pitch / recruiter spam unrelated to job-search, mark it skipped with a reason and move on.
-6. **Stay silent when nothing is new.** If both legs produce zero drafts, send **no Telegram messages at all**. The log file records the run.
+6. **Always send the digest — even when nothing is new.** At the end of every run, send the one-line digest Telegram message (Step 4), including the all-zero case (`0 Gmail · 0 LIN`). The digest is the end-of-run confirmation: paired with the loop's start-of-run heartbeat, a heartbeat followed by **no** digest means the sweep started but died mid-run (e.g. the cold-network race on laptop wake). The log file also records every run. (Per-thread drafts are still posted as they're produced; this rule only governs the final summary digest.)
 7. **Voice is non-negotiable.** Every draft must be produced by invoking the `message-writing` skill (via the Skill tool). Do not draft replies inline without going through `message-writing` — it's the only thing that keeps the output in Alex's actual voice.
 8. **Do NOT stop after `message-writing` returns.** This is the #1 silent-failure mode of this skill. When you invoke `Skill({skill: "message-writing"})`, that skill's SKILL.md loads into your context and its own "Output discipline" tells YOU to keep the response compact and stop. Inside the inbox-sweep flow, that instruction does NOT apply to you. After message-writing returns the draft text, you MUST immediately continue with: (a) post the structured TG message for THIS thread, (b) star the LIN thread (or create the Gmail draft, if Gmail leg), (c) mark the LIN thread unread, (d) update the in-memory state for THIS thread, (e) move to the NEXT candidate thread. Repeat until all candidates are processed, THEN do the digest + state.json write + log.csv append. The draft text returned by message-writing is one step of the loop, not the end of it. If you find yourself writing a final summary right after message-writing returns, stop — you have more threads to process and TG/hygiene to perform.
 
@@ -251,7 +251,7 @@ Compute:
 - `M` = LIN drafts created this run (or, if LIN leg skipped, the Gmail-notification count of pending LIN messages)
 - `lin_leg_skipped` = true if Step 2 skipped due to session/extension issue
 
-If `K + M > 0`, send one Telegram message via `automations/telegram/telegram_send.sh`:
+**Always send one Telegram message** via `automations/telegram/telegram_send.sh` — on every run, including when `K + M = 0`:
 
 ```
 📥 K Gmail drafts ready · M LIN msgs <pending|drafted>
@@ -259,8 +259,11 @@ If `K + M > 0`, send one Telegram message via `automations/telegram/telegram_sen
 
 - "drafted" if Step 2 ran and produced drafts.
 - "pending (run /inbox-sweep)" if Step 2 was skipped and M came from Gmail-notification counting.
-
-If K + M = 0, send nothing.
+- **Nothing-new case (`K = 0` and `M = 0`):** still send, but use this variant so a zero-count line reads as a deliberate "all clear", not a malfunction:
+  ```
+  📥 Sweep done · 0 Gmail drafts · 0 LIN msgs — inbox clear
+  ```
+  (If the LIN leg was skipped and the Gmail-notification fallback also found 0, append ` (LIN leg skipped)` so the zero isn't mistaken for "LIN confirmed empty".)
 
 ## Step 5 — Wrap up
 

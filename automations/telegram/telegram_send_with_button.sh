@@ -75,13 +75,27 @@ payload="$(jq -nc \
   }
   + (if $parse_mode == "" then {} else { parse_mode: $parse_mode } end)')"
 
-resp="$(curl -fsS --max-time 15 \
-  -H "Content-Type: application/json" \
-  -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
-  -d "$payload" 2>&1)" || {
-  echo "[telegram_send_with_button] HTTP failure: $resp" >&2
-  exit 1
-}
+# Retry on transient network failure (same rationale as telegram_send.sh:
+# covers the Wi-Fi-still-reconnecting race on laptop wake). Bounded (~1 min
+# default). Only the network layer is retried; a non-ok API body fails fast.
+retries="${TG_SEND_RETRIES:-5}"
+retry_sleep="${TG_SEND_RETRY_SLEEP:-15}"
+attempt=1
+while :; do
+  if resp="$(curl -fsS --max-time 15 \
+    -H "Content-Type: application/json" \
+    -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
+    -d "$payload" 2>&1)"; then
+    break
+  fi
+  if [ "$attempt" -ge "$retries" ]; then
+    echo "[telegram_send_with_button] HTTP failure after $attempt attempts: $resp" >&2
+    exit 1
+  fi
+  echo "[telegram_send_with_button] send attempt $attempt failed, retrying in ${retry_sleep}s…" >&2
+  sleep "$retry_sleep"
+  attempt=$((attempt + 1))
+done
 
 echo "$resp" | grep -q '"ok":true' || {
   echo "[telegram_send_with_button] API error: $resp" >&2
