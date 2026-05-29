@@ -27,6 +27,9 @@ The optional `was:` records the original text when it was corrected from a missp
 
 ## Non-fiction (psychology / business / technology)
 
+- **Exponential Organizations** — Salim Ismail, Yuri van Geest & Michael S. Malone, 2014 · added 2026-05-29
+- **The Organizational Singularity** — Salim Ismail (OpenExO / ExO 3.0), 2025 · added 2026-05-29 · note: upcoming; ExO 3.0 follow-up to Exponential Organizations
+
 ## Non-fiction (philosophy)
 
 ## Other
