@@ -23,6 +23,10 @@ The optional `was:` records the original text when it was corrected from a missp
 
 ## Fiction
 
+- **Ubik** — Philip K. Dick, 1969 · added 2026-05-29
+- **A Scanner Darkly** — Philip K. Dick, 1977 · added 2026-05-29 · was: "Помутнение"
+- **White Noise** — Don DeLillo, 1985 · added 2026-05-29 · was: "Белый шум"
+
 ## History
 
 ## Non-fiction (psychology / business / technology)
