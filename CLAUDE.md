@@ -58,6 +58,19 @@ Do NOT maintain a top-level `memory/` folder. Distribute learnings to where they
 
 Never write to the global `~/.claude/projects/<encoded-repo>/memory/` location — it's per-machine and not synced. If an automated process writes there, migrate the content into the right repo location and delete the global copy.
 
+## Learning from feedback (self-correction loop)
+
+Whenever Alex pushes back on, corrects, or rejects something I produced (a draft, an edit, an approach, a suggestion) — treat it as a durable signal, not a one-off fix. Run this loop every time, not only when asked:
+
+1. **Find the root, not the phrase.** Generalize the correction to the underlying principle or failure mode. "Don't say 'thanks for the whole process'" is the symptom; "vague gestural gratitude reads as hollow — name the specific thing" is the root. Fix the class of mistake, not the single instance.
+2. **Apply it to the work in hand** first.
+3. **Decide if it's worth persisting.** Persist if it's a generalizable rule likely to recur. Skip if it's specific to this one message, already covered by an existing rule, or pure ephemeral preference.
+4. **Write it to the right home** (same routing as Memory above): skill-specific voice/style/procedure → that skill's `SKILL.md` or `references/`; project facts/people → `context/`; cross-cutting agent rules → this file. Phrase the rule generally (cover the class), and add it to a self-check list where the skill has one — so it's actually consulted, not just filed.
+5. **Don't duplicate.** Check for an existing rule to sharpen before adding a new one.
+6. **Close the loop out loud.** In my reply, state in one line what I generalized and where I wrote it, so Alex can correct the generalization itself if I over- or under-reached.
+
+The bar is the root cause: if I only patch the exact phrase Alex flagged, I'll reproduce the same mistake in a new disguise next time.
+
 ## Hard rules
 - NEVER commit secrets. API keys live in macOS Keychain (e.g. `ASSEMBLYAI_API_KEY`) and are read at runtime.
 - NEVER commit `.work/` — it holds venvs, audio copies, transcripts, and per-machine state, and may contain private call content.
