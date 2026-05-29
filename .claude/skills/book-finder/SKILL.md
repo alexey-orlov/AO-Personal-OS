@@ -85,6 +85,14 @@ From Alex's prompt determine three things:
 Curate a **tight shortlist of 3–4 genuinely worth-it books** — quality over quantity, especially for
 History where the bar is "only really great, well-reviewed books." Don't pad the list.
 
+- **Length cap for general recommendations.** When Alex asks for general advice ("recommend a good book
+  on X", "something to listen to about Y") rather than a specific title, do **not** recommend books over
+  ~20h of audio (≈ 500+ pages / ≈ 180k words) — he won't have time to finish them. Check length while
+  researching (Audible runtime, Goodreads/Play page count) and prefer shorter, high-signal picks. You
+  **may** include a longer book only when the request is genuinely narrow — a specific problem, a tight
+  sub-topic, or an explicit "give me the definitive/deep work on X" — and when you do, flag the length
+  so Alex can opt in ("~28h — long, but it's *the* book on this"). A specific-title `acquire` request is
+  never capped; this rule is only for open-ended recommendations.
 - Research real quality signal: WebSearch for critics'/"best books about X" lists and reputable reviews,
   and use `gbooks_search.py` for `averageRating`/`ratingsCount`. Cross-check; don't rely on one source.
 - For each pick, decide its language + media + target source now (Step 3 logic) so the shortlist already
@@ -95,6 +103,7 @@ History where the bar is "only really great, well-reviewed books." Don't pad the
   N. <Title> — <Author> (<year>)
      Why: <one specific line — what makes it worth it, not marketing fluff>
      Signal: <e.g. Goodreads 4.4 / 38k · on the Guardian best-history list>
+     Length: <e.g. ~11h audio / ~320 pages — flag if over the ~20h cap>
      Plan: <language> <audio|reading> → <source>
   ```
 
