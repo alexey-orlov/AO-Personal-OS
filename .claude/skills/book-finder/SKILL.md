@@ -114,27 +114,36 @@ History where the bar is "only really great, well-reviewed books." Don't pad the
 ## Step 3 — Decide language, media, and source order
 
 For each book to acquire, apply the matrix in `references/sources.md` §1:
-- Pick **language** by area; for **Fiction** make the EN-vs-RU call per §2 and **state the call + reason**
-  out loud ("originally English, plain prose → English audio").
+- For **Fiction**: RU audio is always included. Also include EN audio when the §2 conditions hold
+  (originally English + accessible prose). State both calls out loud, e.g.:
+  *"Originally English, accessible prose → RU audio (knigavuhe) + EN audio (Audible)."*
+  Search both tracks in parallel in Step 4.
+- For areas 2–4: follow the single-language matrix in §1.
 - Pick **media** by area (Fiction = audio only; areas 2–3 = audio first then reading; area 4 = reading first).
-- Produce the **ranked source list** for that (language, media). Explicit overrides from Step 1 win.
+- Produce the **source list(s)**. Explicit overrides from Step 1 win.
 
-## Step 4 — Acquire (walk the ranked sources; first verified result wins)
+## Step 4 — Acquire (walk the ranked sources; first verified result wins per track)
 
-For each book, try sources in order, using the recipes in `references/sources.md` §3, and **verify each
-candidate resolves** to the right title/author/format (§4) before accepting it:
+For each book, use the recipes in `references/sources.md` §3 and **verify each candidate** resolves
+to the right title/author/format (§4) before accepting it.
 
-- **Audible** (EN audio): WebSearch the product page; keep the real `audible.com/pd/...` URL.
+**Fiction — run RU and EN tracks in parallel** (when both apply per Step 3):
+- RU track: knigavuhe → Google Play audiobook. First verified result wins for RU.
+- EN track: Audible → Google Play audiobook. First verified result wins for EN.
+- Deliver **all** verified links (up to 2 per Fiction title). Each track is independent — a miss on
+  one does not abort the other.
+
+**Source recipes:**
+- **Audible** (EN audio): WebSearch `<title> <author> audiobook site:audible.com`; keep the real `audible.com/pd/...` URL.
+- **Google Play audiobook**: WebSearch `<title> <author> site:play.google.com/store/audiobooks`.
 - **Google Play ebook**: `python3 automations/book-finder/scripts/gbooks_search.py --lang <en|ru> "<title> <author>"`
   → take the matching candidate's `play_books_url`.
-- **Google Play audiobook**: WebSearch `site:play.google.com/store/audiobooks` (no API for audio).
-- **knigavuhe** (RU audio): search with a Russian-language query; keep the `knigavuhe.org/book/<slug>/` page.
+- **knigavuhe** (RU audio): WebSearch with a Russian-language query; keep the `knigavuhe.org/book/<slug>/` page.
 - **fb2/epub download** (reading): find a direct free file URL (prefer legitimate/public-domain, prefer EPUB),
   then `python3 automations/book-finder/scripts/download_book.py --name "<Author> - <Title>" "<file-url>"`.
   Quote paths/URLs — `$BOOKS_DIR` contains spaces.
 
-The first source that yields a verified link/file wins; record it. If every source for a book fails,
-mark it `not-found` and report what you tried (don't fabricate a link to fill the gap).
+If every source for a given track fails, mark that track `not-found` and note what was tried.
 
 ## Step 5 — Deliver (in-chat AND Telegram)
 
@@ -143,10 +152,10 @@ the link (or the downloaded file's absolute path) · a one-line why (for recomme
 source of truth.
 
 **Telegram** — so Alex can act on his phone (snippets in `references/sources.md` §5):
-- **Link result** → one message per book via `telegram_send_with_button.sh` with `TG_PARSE_MODE=HTML`:
-  body = title · author · source · why; one button row whose label is source-tagged
-  (🎧 Audible / 🎧 knigavuhe / 🎧 Play audio / 📚 Play ebook) and whose URL is the verified link. Tapping
-  it opens the app on his phone.
+- **Link result** → one message **per link** via `telegram_send_with_button.sh` with `TG_PARSE_MODE=HTML`:
+  body = title · author · source · language; one button row whose label is source-tagged
+  (🎧 Audible / 🎧 knigavuhe / 🎧 Play audio / 📚 Play ebook) and whose URL is the verified link.
+  For Fiction with both EN and RU found, send two separate messages (one per link).
 - **Download result** → `telegram_send.sh` (text only — a file path isn't a URL): filename + absolute
   iCloud path + "Open Files → Books to import into Play Books."
 

@@ -22,7 +22,7 @@ beats these defaults — say so out loud.
 
 | Area | Language | Media | Source priority |
 |------|----------|-------|-----------------|
-| **1. Fiction** — philosophical novels, historical novels with philosophical meaning | EN *only if* original is English AND prose isn't too complex for a non-native reader — else RU (see §2) | **Audio ONLY — reading is not acceptable** | EN audio: **Audible → Google Play (audiobook)**. RU audio: **knigavuhe → Google Play (audiobook)** |
+| **1. Fiction** — philosophical novels, historical novels with philosophical meaning | **Always RU** (knigavuhe). **Also EN** when original is English AND prose is accessible to a strong non-native reader (see §2). If English is complex or not the original language → RU only. Search both in parallel; deliver all verified links. | **Audio ONLY — reading is not acceptable** | RU audio: **knigavuhe → Google Play (audiobook)**. EN audio (when applicable): **Audible → Google Play (audiobook)**. |
 | **2. Non-fiction** — psychology, business, technology | EN preferred | Audio preferred, reading OK | EN audio: **Audible → Google Play (audiobook)**. Reading fallback: **Google Play (ebook) → fb2/epub download** |
 | **3. History** — countries, events, biographies, memoirs. *Only genuinely great, well-reviewed books.* | RU preferred | Audio preferred, reading OK | RU audio: **knigavuhe → Google Play (audiobook)**. Reading fallback: **fb2/epub download → Google Play (ebook)** |
 | **4. Non-fiction philosophy** — popular/general, *not* academic | RU preferred | **Reading preferred** | RU reading: **Google Play (ebook) → fb2/epub download** |
@@ -34,20 +34,23 @@ Notes:
   review signal (see §3 Audible/Play ratings + WebSearch for critics' lists). Skip filler.
 - Area 4 leans reading, so lead with Google Play ebook / epub; an audiobook is a last resort.
 
-## 2. Language decision for Fiction (areas 1 only; areas 2–4 follow the table)
+## 2. Language decision for Fiction (area 1 only; areas 2–4 follow the table)
 
-Fiction can go English or Russian. Choose **English audio** only when BOTH hold:
+Russian is **always** searched for Fiction — knigavuhe first, Google Play audiobook as fallback.
+
+English is searched **additionally** when BOTH hold:
 - the book was **originally written in English**, and
 - the prose is **accessible to a strong non-native reader** — no heavy era-specific
   vocabulary, no very dense/experimental narration, no thick domain jargon.
 
-Otherwise choose **Russian audio** (a good RU translation). Always state the call and the
-one-line reason, e.g.:
-- *"Originally English, plain modern prose → English audio (Audible)."*
-- *"Originally English but dense Victorian diction → Russian audio (knigavuhe)."*
-- *"Originally Russian → Russian audio (knigavuhe)."*
+If either condition fails → RU only (don't waste a search slot on a non-existent or unreadable EN audio).
 
-When unsure how hard the prose is, lean Russian (the safe default) but say so, so Alex can override.
+Always state both calls out loud, e.g.:
+- *"Originally English, plain prose → RU audio (knigavuhe) + EN audio (Audible)."*
+- *"Originally English but dense Victorian diction → RU audio only (knigavuhe)."*
+- *"Originally Russian → RU audio only (knigavuhe)."*
+
+When unsure how hard the prose is, include EN and note the uncertainty so Alex can drop it.
 
 ## 3. Source recipes
 
