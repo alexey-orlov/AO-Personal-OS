@@ -42,10 +42,11 @@ else
 fi
 
 echo "[classify] ..." >&2
-# Classify on two axes: TYPE (picks the analysis skill + filename) and FOLDER
-# (the meeting-context subfolder under call-notes). The classify skill emits
-# two lines: "type: <…>" and "folder: <…>". Calendar context is fed in so the
-# classifier can read attendees/title to resolve the context.
+# Classify on three axes: TYPE (picks the analysis skill + filename), FOLDER
+# (the meeting-context subfolder under call-notes), and COACHING (whether the
+# english-coaching pass is worth running). The classify skill emits three
+# lines: "type: <…>", "folder: <…>", "coaching: <yes|no>". Calendar context is
+# fed in so the classifier can read attendees/title to resolve the context.
 classify_out="$(
   {
     if [ -s "$cal_context" ]; then
@@ -54,7 +55,7 @@ classify_out="$(
       printf '<<<END_CALENDAR_EVENT_CONTEXT>>>\n\n'
     fi
     cat "$txt"
-  } | "$CLAUDE_BIN" -p "Classify the call transcript on input on both axes. Follow the classify skill instructions exactly. Output only the two required lines (type: … and folder: …)." \
+  } | "$CLAUDE_BIN" -p "Classify the call transcript on input on all three axes. Follow the classify skill instructions exactly. Output only the three required lines (type: …, folder: …, coaching: …)." \
     --append-system-prompt "$(cat "$SKILLS_DIR/classify/SKILL.md")" \
     ${CLASSIFY_MODEL:+--model "$CLASSIFY_MODEL"} \
     --output-format text
