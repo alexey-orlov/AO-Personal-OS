@@ -27,7 +27,7 @@ Each area folder holds: `README.md` (live state), `<subproject>.md` pages (one p
 
 ## Cross-area reference
 
-- [knowledge/](knowledge/README.md) — knowledge tree (things I'm learning from the world, vs. `areas/` = things I'm working on). Holds [knowledge/podcasts/](knowledge/podcasts/index.md), the self-updating insight base from the tracked podcasts (owned by `/podcast-insights`, not `context-update`).
+- [knowledge/](knowledge/README.md) — knowledge tree (things I'm learning from the world, vs. `areas/` = things I'm working on). Holds [knowledge/podcasts/](knowledge/podcasts/index.md) (self-updating podcast insight base, owned by `/podcast-insights`), [knowledge/notes/](knowledge/notes/index.md) (external-world insights from Drop Zone captures, owned by `context-update`), and [knowledge/explore-queue.md](knowledge/explore-queue.md) (topics to dig into).
 - [areas/job-search/positioning.md](areas/job-search/positioning.md) — job-search positioning: public vs. backend framing, recruiter story, target roles.
 - [book-shortlist.md](book-shortlist.md) — reading shortlist (not a project).
 - `people/` — person pages, created on demand by `context-update` for recurring people.
@@ -38,5 +38,5 @@ Each area folder holds: `README.md` (live state), `<subproject>.md` pages (one p
 - Updater: `.claude/skills/context-update/` — sweep via `/context-update`, automatic single-note runs from the call-pipeline hook.
 - Call-note taxonomy under `areas/<area>/calls/` is owned by Axis 2 of `.claude/skills/classify/SKILL.md`.
 - Ingestion ledger: `_meta/processed.txt` (repo-root-relative path per processed artifact).
-- Drop zone: `inbox/` at repo root (git-ignored; raw files stay local) — next sweep folds files in, then moves them to `inbox/processed/`.
-- `knowledge/podcasts/` is a separate engine: `/podcast-insights` (`.claude/skills/podcast-insights/`) with its own ledger (`knowledge/podcasts/_meta/processed.txt`). `context-update` never touches `knowledge/` — the two don't share state.
+- Drop zones: `context/_inbox/` (cloud — Telegram 📥 Drop Zone → n8n capture, folded daily ~08:33 Kyiv by the "Daily drop-zone & context fold" cloud routine, archived to `_inbox/processed/`); `inbox/` at repo root (local, git-ignored — for files that must never reach GitHub; folded by local sweeps into `inbox/processed/`). Drops route by TYPE: areas / knowledge notes / book shortlist / explore queue (step 3b of `context-update`).
+- `knowledge/podcasts/` is a separate engine: `/podcast-insights` (`.claude/skills/podcast-insights/`) with its own ledger (`knowledge/podcasts/_meta/processed.txt`). `context-update` owns `knowledge/notes/` + `knowledge/explore-queue.md` as outputs; the two engines never touch each other's subtrees.
