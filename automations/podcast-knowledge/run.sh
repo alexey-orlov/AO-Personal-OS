@@ -31,6 +31,11 @@ fi
 
 cd "$REPO_ROOT" || exit 1
 
+# Model: default to the flagship (best clustering/anti-generalization judgment; daily
+# volume is tiny so cost is a non-issue). Override with PODCAST_MODEL=… if needed.
+# Mirrors the claude.ai cloud routines' environment model — keep them aligned.
+PODCAST_MODEL="${PODCAST_MODEL:-claude-fable-5}"
+
 # Tools: Path A toolset; append Gmail MCP tools if GMAIL_TOOLS is set (Path B).
 TOOLS="Read,Glob,Grep,Edit,Write"
 [ -n "${GMAIL_TOOLS:-}" ] && TOOLS="$TOOLS,$GMAIL_TOOLS"

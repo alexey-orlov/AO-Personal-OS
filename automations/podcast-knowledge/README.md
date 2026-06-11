@@ -38,6 +38,8 @@ Runs the fold in the cloud, laptop-independent. Enable it once (it needs your cl
 2. **Create the routine:** claude.ai → **Code → Routines** (scheduled agents) → New → pick the `AO-Personal-OS` repo + `main` branch → **schedule daily 08:03, timezone Europe/Kyiv** (≈1 h after the 07:00 digest) → paste the prompt below.
 3. **Dry-run it once** off-schedule to confirm it reads `_inbox/`, folds, and pushes a `feat(podcasts):` commit; then let the schedule run unattended.
 
+> **Model.** Both cloud routines (daily fold + bi-weekly recluster) share one claude.ai Code **environment** (`env_01BNzuaijoXLrxA9Gfw8k6Wt`), and the model is set on that environment — **not** settable per-routine via the triggers API (a per-trigger `model` is ignored/rejected). Set it once in the claude.ai Code environment settings. **Recommended: Fable 5 (`claude-fable-5`)** — the work is semantic clustering / dedup / anti-generalization judgment (daily) and consequential split/merge restructuring (bi-weekly), both of which want the flagship; daily token volume is small enough (~5–15k in/run) that cost is negligible, so the optimum is the strongest model, not a cheaper one. The two routines can only differ in model if placed in separate environments — not worth it for the pennies involved. The local fallback `run.sh` pins the same model via `PODCAST_MODEL` (default `claude-fable-5`).
+
 > Once step 1 is done you can also ask Claude (in a session with the repo) to create it for you via the claude.ai routines API — the local CLI can't, because the API requires the repo already connected to your account.
 
 - Prompt:
