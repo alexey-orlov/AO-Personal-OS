@@ -39,6 +39,16 @@ v3 originally had a public `webhook` trigger (`/webhook/podcast-stream-v3-run`) 
 - **Change schedule / timezone**: the two Schedule Trigger nodes (`triggerAtHour` 7, and 13+19); workflow timezone is set to `Europe/Kyiv` in settings.
 - **Rollback**: deactivate v3, reactivate v2 (`n080pOslXURMbcRY`) — and note you're back to the silent-loss behavior.
 
+## Knowledge-base capture (side-channel → repo)
+
+A side-channel branch off `Build Digest` persists the morning's insight cards to the repo so the `podcast-insights` knowledge base can fold them (see `automations/podcast-knowledge/`). Strictly additive and isolated from delivery:
+
+- `Build Digest` → **`Build KB JSON`** (Code) → **`PUT to GitHub`** (HTTP Request). The digest's own branches (`Email digest?`, `Build Telegram Digest`) are untouched.
+- `Build KB JSON` reads `$('Resolve insights').all()` (the pristine per-video output — has `videoId` + `anchorQuote`, which `Build Digest` drops) and emits `{schema,runStamp,episodes:[…]}`; returns nothing on zero-episode mornings.
+- `PUT to GitHub` `PUT`s it to `contents/context/knowledge/podcasts/_inbox/<runStamp>.json` on `main`. Path is keyed on the run stamp, so a re-run 422s harmlessly (no clobber).
+- **Both nodes are `onError: continueRegularOutput`** — a GitHub/auth failure is swallowed, so the digest always sends; the curator's Gmail fallback (Path B) covers any skipped capture.
+- Auth: n8n credential **`GitHub PAT (AO-Personal-OS)`** (`httpHeaderAuth`, id `7RNS9ta0huNTPTFz`), header `Authorization: Bearer <fine-grained PAT>`. **Until the PAT value is filled in, `PUT to GitHub` fails silently every morning (no alert, no digest impact).** Create the token (Contents:R/W, this repo only) and paste `Bearer github_pat_…` into that credential's value — see `automations/podcast-knowledge/README.md` § Setup.
+
 ## Dependencies (single points of failure, by design tolerated)
 
 - RapidAPI `youtube-transcript3` (transcripts) — failure degrades to link-only entries, never drops videos.
