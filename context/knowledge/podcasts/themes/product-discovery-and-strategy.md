@@ -61,3 +61,6 @@ related: [A product is a system; marketing and distribution matter equally](#a-p
 - [Y Combinator — Why Two IIT Engineers Turned Down $550K Jobs (2026-05-30)](../episodes/2026/2026-05-30--yc--two-iit-engineers-turned-down-550k-jobs.md)
 - [Y Combinator — How Legora Went From YC to $100M ARR in 18 Months (2026-06-06)](../episodes/2026/2026-06-06--yc--legora-yc-to-100m-arr-18-months.md)
 - [SaaStr AI — Feature Differentiation Is Dead. Here's What Actually Wins Now (2026-06-06)](../episodes/2026/2026-06-06--saastr--feature-differentiation-dead-lovable-elena-verna.md)
+- [Lenny's Podcast — Tony Fadell: How to build real taste (2026-06-08)](../episodes/2026/2026-06-08--lenny--tony-fadell-real-taste-ai-matters-more.md)
+- [a16z — The Economics of AI Usage and What's Next For SaaS | Benedict Evans (2026-06-11)](../episodes/2026/2026-06-11--a16z--economics-ai-usage-saas-evans.md)
+- [Y Combinator — The CEO Must Be the Chief AI Officer (Brex) (2026-06-11)](../episodes/2026/2026-06-11--yc--ceo-must-be-chief-ai-officer-brex.md)
