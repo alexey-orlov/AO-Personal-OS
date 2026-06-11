@@ -39,6 +39,7 @@ Routing heuristics in case of ambiguity:
 - Config: `automations/draft-message/config.sh` (defines `STATE_FILE`, `REPO_ROOT`, sources telegram config; reuses re-engagement's Sheet lookup)
 - Sheet lookup (reused from re-engagement): `automations/re-engagement-outreach/sheets_lookup.py`
 - Telegram (text + URL button): `automations/telegram/telegram_send_with_button.sh`
+- **Every Telegram send in this skill sets `TG_TOPIC=inbox-drafts`** (env prefix on the script invocation) — routes to the 📨 Inbox & Drafts topic of the notification group.
 - TG message template: `.claude/skills/draft-message/references/tg-templates.md` — read this before posting any TG message.
 
 If `.work/state.json` doesn't exist yet, create it with:
@@ -272,7 +273,7 @@ HTML-escape every variable (`&`, `<`, `>`) before assembling the body — the `h
 
 ```bash
 printf '%s' "$TG_BODY" \
-  | TG_PARSE_MODE=HTML "$REPO_ROOT/automations/telegram/telegram_send_with_button.sh" \
+  | TG_TOPIC=inbox-drafts TG_PARSE_MODE=HTML "$REPO_ROOT/automations/telegram/telegram_send_with_button.sh" \
       "💼 LIN: $CONTACT" "$THREAD_OR_PROFILE_URL"
 ```
 

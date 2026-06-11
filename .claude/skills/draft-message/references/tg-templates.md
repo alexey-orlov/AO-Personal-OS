@@ -79,8 +79,8 @@ $THEIR_MSG_HTML
 <pre>$DRAFT_HTML</pre>"
 
 printf '%s' "$TG_BODY" \
-  | TG_PARSE_MODE=HTML "$REPO_ROOT/automations/telegram/telegram_send_with_button.sh" \
+  | TG_TOPIC=inbox-drafts TG_PARSE_MODE=HTML "$REPO_ROOT/automations/telegram/telegram_send_with_button.sh" \
       "💼 LIN: $CONTACT" "$THREAD_OR_PROFILE_URL"
 ```
 
-If `$THREAD_OR_PROFILE_URL` is empty (rare — LIN URL truly unavailable), fall back to `automations/telegram/telegram_send.sh` (no button, plain text — no HTML escape needed) and tell Alex in chat that the TG message has no button because the URL was missing.
+If `$THREAD_OR_PROFILE_URL` is empty (rare — LIN URL truly unavailable), fall back to `TG_TOPIC=inbox-drafts automations/telegram/telegram_send.sh` (no button, plain text — no HTML escape needed) and tell Alex in chat that the TG message has no button because the URL was missing.

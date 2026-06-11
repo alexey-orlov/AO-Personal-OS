@@ -128,7 +128,7 @@ $THEIR_MSG_HTML
 <pre>$DRAFT_HTML</pre>"
 
 printf '%s' "$TG_BODY" \
-  | TG_PARSE_MODE=HTML "$REPO_ROOT/automations/telegram/telegram_send_with_button.sh" \
+  | TG_TOPIC=inbox-drafts TG_PARSE_MODE=HTML "$REPO_ROOT/automations/telegram/telegram_send_with_button.sh" \
       "💼 LIN: $CONTACT" "$THREAD_URL"
 ```
 
@@ -136,7 +136,7 @@ printf '%s' "$TG_BODY" \
 
 ## (e) End-of-run digest
 
-Sent via `automations/telegram/telegram_send.sh` (plain text, no buttons). Only fires if `N_lin > 0` or `N_email > 0`, OR the campaign was stopped at gate with pre-gate Gmail drafts.
+Sent via `TG_TOPIC=inbox-drafts automations/telegram/telegram_send.sh` (plain text, no buttons). Only fires if `N_lin > 0` or `N_email > 0`, OR the campaign was stopped at gate with pre-gate Gmail drafts.
 
 ```
 📤 re-engagement-outreach · <slug>
@@ -155,7 +155,7 @@ Notes:
 
 ## (f) No-thread digest (LIN-flavored)
 
-Sent via `automations/telegram/telegram_send.sh` (plain text, no buttons) immediately after template (e). Only fires if `N_skip > 0`. Header uses 💼 because these contacts are natural cold-LIN candidates.
+Sent via `TG_TOPIC=inbox-drafts automations/telegram/telegram_send.sh` (plain text, no buttons) immediately after template (e). Only fires if `N_skip > 0`. Header uses 💼 because these contacts are natural cold-LIN candidates.
 
 ```
 💼 Cold-LIN candidates · <slug> · <N_skip> contacts with no prior thread

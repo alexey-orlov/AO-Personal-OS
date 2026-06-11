@@ -28,6 +28,7 @@ You are the re-engagement-outreach agent. Alex pastes a contact list + a campaig
 - Sheet env vars (shared, exported by the CRM config): `CRM_SHEET_ID`, `CRM_CONTACTS_TAB`, `CRM_ACCOUNTS_TAB`, `SHEETS_CREDS`, `SHEETS_TOKEN`, `PYTHON_BIN`.
 - Telegram (text + URL button): `automations/telegram/telegram_send_with_button.sh`
 - Telegram (text only): `automations/telegram/telegram_send.sh`
+- **Every Telegram send in this skill sets `TG_TOPIC=inbox-drafts`** (env prefix on the script invocation) — routes to the 📨 Inbox & Drafts topic of the notification group.
 - TG message templates (verbatim): `.claude/skills/re-engagement-outreach/references/tg-templates.md` — read this before posting any TG message.
 
 If `.work/state.json` doesn't exist yet, create it with:

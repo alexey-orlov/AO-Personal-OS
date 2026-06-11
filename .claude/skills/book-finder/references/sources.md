@@ -114,7 +114,7 @@ A search result is a *candidate*, not a confirmed link. Before delivering:
 Links → one message per book with a tappable button (opens the app on the phone):
 ```bash
 echo "<HTML body: title · author · why · source>" | \
-  TG_PARSE_MODE=HTML automations/telegram/telegram_send_with_button.sh \
+  TG_TOPIC=books TG_PARSE_MODE=HTML automations/telegram/telegram_send_with_button.sh \
   "🎧 Audible: <Short Title>" "<product-url>"
 ```
 Button-label emoji by source: 🎧 Audible · 🎧 knigavuhe · 📚 Play Books (ebook) ·
@@ -125,7 +125,7 @@ Downloaded files (a local path isn't a URL → no button):
 echo "📥 Downloaded: <filename>
 → <full iCloud path>
 Open Files → Books on your phone to import into Play Books." | \
-  automations/telegram/telegram_send.sh
+  TG_TOPIC=books automations/telegram/telegram_send.sh
 ```
 Telegram failures are non-fatal — the in-chat result still stands.
 

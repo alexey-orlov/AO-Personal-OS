@@ -50,6 +50,7 @@ source of truth for where each kind of book goes and how to build each link. Thi
 - Routing matrix + source recipes: `.claude/skills/book-finder/references/sources.md` — read first.
 - Telegram (text + URL button): `automations/telegram/telegram_send_with_button.sh`.
 - Telegram (text only): `automations/telegram/telegram_send.sh`.
+- **Every Telegram send in this skill sets `TG_TOPIC=books`** (env prefix on the script invocation) — routes to the 📚 Books topic of the notification group.
 
 If `.work/state.json` doesn't exist, create it with `{"acquired": []}` (or run `setup.sh` once).
 
