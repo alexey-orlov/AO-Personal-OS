@@ -116,9 +116,10 @@ related: [The Vatican formally reframed AI as a human-dignity issue, not just a 
 
 ## Open questions
 - The five YC Paper Club insights (`pi-wE1ZgJdt4uM-01..05`) are research-grade and clustered; if more ML-research insights arrive, this section may earn its own theme split.
-- Supply-constraint narrative (`pi-AiM9mZCmVPY-05`) and token-price-collapse narrative (`pi-dtuPovnf4XQ-04`) point in opposite directions on cycle duration. Which dominates depends on whether an algorithmic breakthrough that slashes token consumption arrives.
-- Two attempts at federal pre-release review (`pi-dtuPovnf4XQ-02` scuttled 90-day mandate → `pi-hyeoYsVl1No-01` voluntary 30-day window) bracket the regulatory range; the next move likely resolves whether the U.S. converges on voluntary-only or returns to mandate.
-- AGI timeline framings (Hassabis ~2029, hosts pushing back that generality already exists) hinge on test design. If the Einstein-1901 test or equivalent goes from thought experiment to actual evaluation, that single benchmark could collapse the debate.
+- Supply-constraint narrative (`pi-AiM9mZCmVPY-05`) and token-price-collapse narrative (`pi-dtuPovnf4XQ-04`) point in opposite directions on cycle duration. Evans's mobile-data analogy (`pi-ktl8mNiWqMM-03`) suggests both are right but on different time horizons — crunch first, then capex-driven normalization. Which dominates depends on whether an algorithmic breakthrough that slashes token consumption arrives.
+- Three governance mechanisms now bracket the regulatory range: scuttled 90-day mandate (`pi-dtuPovnf4XQ-02`), voluntary 30-day window (`pi-hyeoYsVl1No-01`), and proposed golden shares (`pi-P2HJEz3oqLs-03`). If Anthropic's pause request (`pi-P2HJEz3oqLs-01`) gets political traction, the equity-stake mechanism becomes the path of least resistance — but Argentina's nonhuman-corporation pitch (`pi-P2HJEz3oqLs-04`) shows the jurisdictional race that would erode it.
+- AGI timeline framings (Hassabis ~2029, Anthropic's implicit "already self-improving" via `pi-P2HJEz3oqLs-01`, hosts pushing back that generality already exists) hinge on test design. If the Einstein-1901 test or equivalent goes from thought experiment to actual evaluation, that single benchmark could collapse the debate.
+- The device-form bet (`pi-RJjl1TwyfWM-05` — voice-first slabs with displays retained) is currently a single data point in this theme; watch whether Diamandis/a16z follow-ups put numbers on actual voice-input adoption to test or break it.
 
 ## Related themes
 - [AI agents & applications](ai-agents-and-applications.md) — the consumer surface for these capability gains
@@ -133,3 +134,6 @@ related: [The Vatican formally reframed AI as a human-dignity issue, not just a 
 - [Lenny's Podcast — A rational conversation on where AI is actually going (2026-06-01)](../episodes/2026/2026-06-01--lenny--rational-conversation-where-ai-actually-going.md)
 - [Peter H. Diamandis — Opus 4.8 Beats GPT 5.5, the $220B OpenAI Foundation (2026-06-02)](../episodes/2026/2026-06-02--diamandis--opus-4-8-220b-openai-foundation-ep-260.md)
 - [Peter H. Diamandis — Anthropic Files $965B IPO, ChatGPT Crosses 1B Users (2026-06-07)](../episodes/2026/2026-06-07--diamandis--anthropic-965b-ipo-chatgpt-1b-ep-262.md)
+- [Lenny's Podcast — Tony Fadell: How to build real taste (2026-06-08)](../episodes/2026/2026-06-08--lenny--tony-fadell-real-taste-ai-matters-more.md)
+- [a16z — The Economics of AI Usage and What's Next For SaaS | Benedict Evans (2026-06-11)](../episodes/2026/2026-06-11--a16z--economics-ai-usage-saas-evans.md)
+- [Peter H. Diamandis — Anthropic's Global Pause, Recursive Self-Improvement, AI Personhood (2026-06-11)](../episodes/2026/2026-06-11--diamandis--anthropic-global-pause-recursive-self-improvement.md)
