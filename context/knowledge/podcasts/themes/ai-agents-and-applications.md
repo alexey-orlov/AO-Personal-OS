@@ -227,9 +227,14 @@ Even if model prices fall, usage multiplies: Brex expects inference to be among 
 related: [Token-maxing is deliberate; they spend heavily for quality](#token-maxing-is-deliberate-they-spend-heavily-for-quality) · [Fable 5 consumes roughly twice the tokens of other models](#fable-5-consumes-roughly-twice-the-tokens-of-other-models) · theme → [Tech frontier & abundance](tech-frontier-and-abundance.md) (token-price collapse macro, `pi-dtuPovnf4XQ-04`)
 
 ## Open questions
-- Coding-agent benchmarks (DeepSuite, senior-engineer benchmark) are improving fast, but the same week's hands-on Opus 4.8 review says the "last 10%" gap is unchanged, and the Gemini Omni avatar work shows the same wall in video. What's the bridge between benchmark scores and real production ROI across modalities?
-- If every useful agent needs a human "gardener," is the FDE-replacement roadmap (`pi-2Ap1dnv-GXA-05`) optimistic on timing, or does the gardener role just migrate to fewer, higher-leverage people?
-- This page now holds three distinct sub-themes (integration into existing tools / infra discipline / multimodal production). At 31 insights it crosses the page budget — a future split candidate is "Generative media & multimodal production" carving out the Gemini Omni + Image 2 + animal-video cluster.
+- Coding-agent benchmarks (DeepSuite, senior-engineer benchmark) are improving fast, but the same week's hands-on Opus 4.8 review says the "last 10%" gap is unchanged, the Fable 5 long-horizon mode stalls after ~3 hours, and the Gemini Omni avatar work shows the same wall in video. What's the bridge between benchmark scores and real production ROI across modalities?
+- If every useful agent needs a human "gardener," is the FDE-replacement roadmap (`pi-2Ap1dnv-GXA-05`) optimistic on timing, or does the gardener role just migrate to fewer, higher-leverage people? Replit's "engineer-as-shepherd" framing (`pi-RdalLtvn2-M-05`) is the strongest version of the second answer.
+- **Split candidate — at 48 insights with a clean seam.** This page now holds four distinct sub-themes that could carve out cleanly:
+  - **Generative media & multimodal production** — the Gemini Omni + Image 2 + animal-exercise-video cluster (`pi-UNZczH0gpHc-01..04`, `pi-EJKwI4m0fZg-02`, `pi-j1IOG8WoW1A-05`).
+  - **Agent engineering patterns** — Conductor + Emergent + Replit memory/mono-repo + Brex crab-trap + Magpie + token-attribution (`pi-fQmlML9Lay4-02..05`, `pi-yyXCQHX55N4-02..03`, `pi-RdalLtvn2-M-02..04`, `pi-mPAHvz8kW24-02..04`).
+  - **Model-specific reviews** — Opus 4.8 + Fable 5 hands-on (`pi-h0gZf1hL4D4-01..05`, `pi-IREnr4I89Ho-01..05` minus the PM-craft one).
+  - **Agent-in-the-product** — the integration cluster (Anthropic sales stack, Codex desktop, Alexa, Slack-as-front-door, Legora, Chiefy, consumer shopping assistant).
+  Flag for interactive `/podcast-insights recluster ai-agents-and-applications` — do not auto-split during sweep.
 
 ## Related themes
 - [B2B SaaS & scaling](b2b-saas-and-scaling.md) — agent surfaces consume SaaS, not the other way around
@@ -252,3 +257,10 @@ related: [Token-maxing is deliberate; they spend heavily for quality](#token-max
 - [SaaStr AI — Feature Differentiation Is Dead. Here's What Actually Wins Now (2026-06-06)](../episodes/2026/2026-06-06--saastr--feature-differentiation-dead-lovable-elena-verna.md)
 - [Y Combinator — Emergent: How Six Months of Tinkering Led To A $100M ARR Company (2026-06-07)](../episodes/2026/2026-06-07--yc--emergent-six-months-tinkering-100m-arr.md)
 - [Peter H. Diamandis — Anthropic Files $965B IPO, ChatGPT Crosses 1B Users (2026-06-07)](../episodes/2026/2026-06-07--diamandis--anthropic-965b-ipo-chatgpt-1b-ep-262.md)
+- [Lenny's Podcast — Tony Fadell: How to build real taste (2026-06-08)](../episodes/2026/2026-06-08--lenny--tony-fadell-real-taste-ai-matters-more.md)
+- [How I AI — She built a Claude shopping assistant to stop buying cheap junk (2026-06-09)](../episodes/2026/2026-06-09--howiai--claude-shopping-assistant-stop-cheap-junk.md)
+- [How I AI — Claude Fable 5 - is this Mythos model worth the wait? (2026-06-10)](../episodes/2026/2026-06-10--howiai--claude-fable-5-mythos-worth-the-wait.md)
+- [a16z — The Economics of AI Usage and What's Next For SaaS | Benedict Evans (2026-06-11)](../episodes/2026/2026-06-11--a16z--economics-ai-usage-saas-evans.md)
+- [SaaStr AI — What Agents That Actually Work Look Like Right Now (Replit) (2026-06-11)](../episodes/2026/2026-06-11--saastr--agents-that-actually-work-replit-amjad.md)
+- [Aakash Gupta — The Claude Workflow Nobody at the VP Level Is Showing You (Customer.io) (2026-06-11)](../episodes/2026/2026-06-11--aakash--claude-workflow-vp-level-customerio.md)
+- [Y Combinator — The CEO Must Be the Chief AI Officer (Brex) (2026-06-11)](../episodes/2026/2026-06-11--yc--ceo-must-be-chief-ai-officer-brex.md)
