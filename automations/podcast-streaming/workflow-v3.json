@@ -733,6 +733,67 @@
         }
       },
       "onError": "continueRegularOutput"
+    },
+    {
+      "id": "v3-kbjson-001",
+      "name": "Build KB JSON",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        4288,
+        -320
+      ],
+      "parameters": {
+        "jsCode": "// Side-channel capture for the podcast knowledge base (automations/podcast-knowledge).\n// Reads the pristine per-video output of 'Resolve insights' (has videoId + anchorQuote,\n// which Build Digest drops) and emits one JSON file for the morning's digest, to be PUT\n// into the repo at context/knowledge/podcasts/_inbox/<runStamp>.json.\nfunction toISODate(v) {\n  if (v == null || v === '') return null;\n  let n = Number(v);\n  if (!isNaN(n) && n > 0) { if (n < 1e12) n = n * 1000; const d = new Date(n); if (!isNaN(d.getTime())) return d.toISOString().slice(0, 10); }\n  const d2 = new Date(v); return isNaN(d2.getTime()) ? null : d2.toISOString().slice(0, 10);\n}\nconst now = new Date();\nconst runStamp = now.toISOString().replace(/[-:]/g, '').slice(0, 13); // e.g. 20260611T0700\nlet rows = [];\ntry { rows = $('Resolve insights').all().map(it => it.json); } catch (e) { rows = []; }\nconst episodes = rows\n  .filter(r => r && r.insightsObj && !r._omit && Array.isArray(r.insightsObj.insights) && r.insightsObj.insights.length)\n  .map(r => {\n    const o = r.insightsObj;\n    return {\n      videoId: r.videoId || '',\n      videoTitle: o.videoTitle || r.title || '',\n      videoUrl: o.videoUrl || r.url || '',\n      channelName: o.channelName || r.channelName || '',\n      publishedDate: toISODate(r.published),\n      guests: Array.isArray(o.guests) ? o.guests : [],\n      summary: o.summary || '',\n      insights: (o.insights || []).map(i => ({\n        headline: i.headline || '',\n        detail: i.detail || '',\n        anchorQuote: i.anchorQuote || '',\n        tSeconds: (i.tSeconds == null ? null : i.tSeconds),\n        link: i.link || ''\n      }))\n    };\n  });\nif (!episodes.length) return [];\nconst payload = { schema: 1, generatedAt: now.toISOString(), runStamp: runStamp, episodes: episodes };\nconst path = 'context/knowledge/podcasts/_inbox/' + runStamp + '.json';\nconst content = Buffer.from(JSON.stringify(payload, null, 2)).toString('base64');\nreturn [{ json: { path: path, content: content, message: 'feat(podcasts): capture digest ' + runStamp } }];"
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "id": "v3-kbput-001",
+      "name": "PUT to GitHub",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        4512,
+        -320
+      ],
+      "parameters": {
+        "method": "PUT",
+        "url": "=https://api.github.com/repos/alexey-orlov/AO-Personal-OS/contents/{{ $json.path }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Accept",
+              "value": "application/vnd.github+json"
+            },
+            {
+              "name": "User-Agent",
+              "value": "n8n-ao-podcast-kb"
+            },
+            {
+              "name": "X-GitHub-Api-Version",
+              "value": "2022-11-28"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "json",
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ message: $json.message, content: $json.content, branch: 'main' }) }}",
+        "options": {
+          "timeout": 30000
+        }
+      },
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "7RNS9ta0huNTPTFz",
+          "name": "GitHub PAT (AO-Personal-OS)"
+        }
+      },
+      "onError": "continueRegularOutput"
     }
   ],
   "connections": {
@@ -1030,6 +1091,11 @@
             "node": "Email digest?",
             "type": "main",
             "index": 0
+          },
+          {
+            "node": "Build KB JSON",
+            "type": "main",
+            "index": 0
           }
         ]
       ]
@@ -1072,6 +1138,17 @@
         [
           {
             "node": "Send health alert",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build KB JSON": {
+      "main": [
+        [
+          {
+            "node": "PUT to GitHub",
             "type": "main",
             "index": 0
           }
