@@ -179,6 +179,7 @@
   },
   "active": "c0bbbc95d9a63f9d",
   "lastOpenFiles": [
+    "context/_inbox/tg-20260611-232728-38.md",
     "automations/telegram-inbox/export.sh",
     "context/_inbox/tg-20260611-231405-37.md",
     "context/_inbox/tg-20260611-225238-36.md",
@@ -215,7 +216,6 @@
     ".claude/skills/sales-call",
     ".claude/skills/re-engagement-outreach",
     ".claude/skills/podcast-insights",
-    ".claude/skills/one-on-one",
     "Untitled.canvas"
   ]
 }
