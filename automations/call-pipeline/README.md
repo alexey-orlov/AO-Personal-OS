@@ -2,10 +2,11 @@
 
 Voice Memo (synced to this Mac) -> AssemblyAI transcript -> Claude classifies the
 call type -> Claude analyses with the matching `.claude/skills/<type>/SKILL.md`
-template -> Markdown note in `outputs/call-notes/` + an `english-coaching` note
-in `outputs/english-coaching/`, both auto-committed and pushed in one commit
--> `automations/coaching-notify/` generates a short digest and ships it to
-Telegram with a link to the just-pushed coaching report.
+template -> Markdown note in `outputs/call-notes/` + (when the classifier says
+the call has enough of Alex's English speech — not a test recording or a RU/UA
+call) an `english-coaching` note in `outputs/english-coaching/`, auto-committed
+and pushed in one commit -> `automations/coaching-notify/` generates a short
+digest and ships it to Telegram with a link to the just-pushed coaching report.
 
 ## Files
 - `config.sh`     paths, key source, toggles (auto-detects Voice Memos folder + claude/python)
