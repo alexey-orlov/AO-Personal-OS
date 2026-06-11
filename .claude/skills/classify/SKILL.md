@@ -19,7 +19,10 @@ Output exactly one of:
 ## Axis 2 — CONTEXT (which area/folder the note lands in)
 Pick the folder from Alex's current contexts. Output exactly one of these paths. (The pipeline maps it to disk as `context/areas/<area>/calls/<rest>` — the first segment is the area, the rest is the sub-context; you output only the logical path below.)
 
-- `softserve` — Alex is a Product advisor / Distinguished R&D advisor at SoftServe. Advisory calls, enablement sessions, R&D, and SoftServe-led client work (e.g. delivering an AI-PM enablement session to a SoftServe client).
+- `softserve/oracle` — the Oracle joint-IP partnership: Oracle weekly syncs, the NHS client, IP packaging (S/M/L offerings), the R&D PdM team working the IP.
+- `softserve/iris-bootcamp` — the AI bootcamp for client "Iris" (large accounting-software enterprise): cohort lectures/workshops/hackathon, trainers (e.g. Krasimira), bootcamp logistics and materials.
+- `softserve/jumpstart-pm` — the Jumpstart agentic-AI enablement offering and its PM-focused extension: Activation Pod, maturity assessment/heatmap, AI governance, client engagements like DAX / Telenor / Payworks / Commerce IQ / nContracts, counterparts Inna Abolikhina / Bogdan.
+- `softserve` — any other SoftServe call (Alex is a Product advisor / Distinguished R&D advisor): 1:1s with the engagement lead, strategy sessions, other advisory/enablement/R&D work, client enablement like Conga. When unsure between SoftServe sub-contexts, use bare `softserve`.
 - `gigacloud/product-issues-sukhenko` — GigaCloud's recurring weekly "Product Issues" meeting with Sukhenko.
 - `gigacloud/product-team-weekly` — GigaCloud's recurring weekly Product team meeting.
 - `gigacloud/other` — any other GigaCloud-internal call (Alex is CPO at GigaCloud) that is not one of the two recurring meetings above.

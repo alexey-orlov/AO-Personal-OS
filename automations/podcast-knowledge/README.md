@@ -31,9 +31,15 @@ The token lives only in the n8n credential — **never** in the exported `workfl
 ### 2. n8n capture nodes
 Added to **Podcast streaming v3** after `Build Digest` (see `automations/podcast-streaming/README.md` for the node details). Side-channel + `continueRegularOutput`, so a GitHub hiccup can never affect Telegram/Gmail delivery — the cloud routine's Path B covers the gap.
 
-### 3. claude.ai cloud routine (clustering)
-Prereq: connect `alexey-orlov/AO-Personal-OS` to **claude.ai → GitHub** so the routine has the working tree + push rights.
-- Schedule: **daily ~08:03 Europe/Kyiv** (≈1 h after the 07:00 digest).
+### 3. claude.ai cloud routine (clustering) — the chosen scheduler
+Runs the fold in the cloud, laptop-independent. Enable it once (it needs your claude.ai account, so it can't be created from a local CLI session):
+
+1. **Connect the repo:** claude.ai → Settings → Connectors/Integrations → **GitHub** → grant access to `alexey-orlov/AO-Personal-OS`. (This is the gate — the routine can't read/push the repo without it.)
+2. **Create the routine:** claude.ai → **Code → Routines** (scheduled agents) → New → pick the `AO-Personal-OS` repo + `main` branch → **schedule daily 08:03, timezone Europe/Kyiv** (≈1 h after the 07:00 digest) → paste the prompt below.
+3. **Dry-run it once** off-schedule to confirm it reads `_inbox/`, folds, and pushes a `feat(podcasts):` commit; then let the schedule run unattended.
+
+> Once step 1 is done you can also ask Claude (in a session with the repo) to create it for you via the claude.ai routines API — the local CLI can't, because the API requires the repo already connected to your account.
+
 - Prompt:
   > Run the `podcast-insights` skill in **sweep** mode. Fold today's podcast digest into `context/knowledge/podcasts/`: use unprocessed `_inbox/*.json` if present (Path A), else read the latest Gmail thread titled "Youtube podcasts digest" and parse its cards (Path B). Route each insight to a theme or create one per the skill's thresholds, dedup/merge across episodes, refresh only touched theme pages + `index.md`, update `_meta/processed.txt` and `_meta/themes.json`. If there are zero new insights (heartbeat/zero-episode day), make no changes and just report. Then commit `feat(podcasts): …` and push. Output only the skill's run-summary block.
 

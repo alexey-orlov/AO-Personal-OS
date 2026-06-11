@@ -9,7 +9,7 @@ Test recordings and predominantly-RU/UA calls (where Alex's English is just scat
 
 ## Output foldering (context taxonomy)
 `classify` returns three lines — `type:` (picks the analysis skill + filename), `folder:` (the logical meeting context `<area>[/<sub>]`; `process_one.sh` maps it to `context/areas/<area>/calls/<sub>` on disk, so notes sit next to the area's wiki page), and `coaching:` (yes/no — see the gate section above). The folder dimension is orthogonal to type. Valid contexts:
-- `softserve` — SoftServe advisory / enablement / R&D.
+- `softserve/oracle` · `softserve/iris-bootcamp` · `softserve/jumpstart-pm` — SoftServe subproject contexts (Oracle joint IP; Iris client bootcamp; Jumpstart offering + PM extension); `softserve` — everything else SoftServe (fallback when unsure between subs).
 - `gigacloud/product-issues-sukhenko` · `gigacloud/product-team-weekly` · `gigacloud/other` — GigaCloud-internal (Alex is CPO); the two recurring weeklies get their own folder, everything else → `other`.
 - `job-search/intro-chats` — recruiter/talent-lead chats NOT tied to a specific vacancy.
 - `job-search/vacancy-interviews/<company-slug>` — interviews/case presentations/recruiter debriefs tied to a specific role; slug = the HIRING company (not the recruiting firm), `_unknown` if unidentifiable.
