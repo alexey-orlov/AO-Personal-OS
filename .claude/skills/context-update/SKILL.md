@@ -53,6 +53,29 @@ If more than ~15 are new, process newest-first and report what was left for the 
 - **Closing:** when a thread ends (vacancy rejected/withdrawn, program delivered), set `_status: closed — <outcome>` on its page, mark it `(closed)` in the README Subprojects list and the index, and prune its open loops. Closed pages stay — they hold the record and lessons.
 - **New AREA** (`context/areas/<slug>/README.md`): create only when content shows a distinct ongoing initiative that fits no existing area — its own goal, counterparts, expected continuation. A one-off call or topic is NOT an area. Create the README from the template, add an index row flagged `(new)`, suggest a top-level Axis-2 addition for classify, and announce it in the run summary.
 
+**3b. Drop taxonomy — Second-Brain routing (artifacts from `context/_inbox/` or `inbox/` only; call notes and `docs/` skip this).** Classify each drop by TYPE first; a mixed drop is split — each part goes to its home, one ledger entry for the file.
+
+*Reading the drop:* a bare URL → fetch it (WebFetch) and distill what's actually at the link, don't file naked URLs; an image attachment → Read the image (screenshots usually carry the whole payload); an `attachment:` voice file with no transcript → cannot fold: report as `pending-voice` in the summary and do NOT ledger it (stays in the backlog until transcribed).
+
+| Type | Signal | Destination |
+|---|---|---|
+| Area/project material | relates to an active area / subproject / vacancy / engagement | `context/areas/…` per steps 3–5 |
+| External insight | a claim, idea, article, screenshot worth keeping — not tied to an area | `context/knowledge/notes/themes/<slug>.md` (rules below) |
+| Book | a title to read, a rec, a cover screenshot | `context/book-shortlist.md` — resolve real Title + Author, categorize, dedup (the `book-shortlist` skill's format); never auto-run book-finder |
+| Explore topic | a question or topic to dig into ("look into X") | `context/knowledge/explore-queue.md` — `- [ ] YYYY-MM-DD — topic — why (provenance)` |
+| People fact | durable fact about a person | step 5 (people pages) |
+| Junk | accidental forward, empty, test message | ledger + count as junk |
+
+*Provenance for drops:* `context/_inbox/` files are linked at their FINAL home — `context/_inbox/processed/<file>` (they move there in step 8). Local `inbox/` files are NOT in git on other machines — cite `(local drop: <filename>, YYYY-MM-DD)` without a link.
+
+**knowledge/notes rules (bounded by design — built to survive years of drops):**
+- `notes/index.md` is the map: theme table (theme · one-liner · count · last added), header `_updated:` + totals. Fully rewritten when touched; ≤60 lines.
+- `themes/<slug>.md` — one page per theme, created on demand, rewritten in place. Insight block: `### <claim-shaped headline>` + ≤3 distilled lines + `— YYYY-MM-DD · source: <link and/or provenance>`. Headlines are claims, not topics ("Agents fail on long-horizon memory", not "On agents").
+- **Bias to an existing theme** (claim-similarity to its one-liner + headlines); create a new theme only for a clearly distinct domain — never a near-synonym of an existing one. Slugs are immutable.
+- **Dedup inside the chosen theme**: same claim, new source → add a corroboration line under the existing insight, not a new block; a sharper version → replace the block, keeping both sources.
+- **Page budget ~25 insights**: when exceeded, flag `⚠ split candidate` in the index row + the run summary — never auto-split.
+- A run opens only the theme pages it touches — never the whole tree. Cost scales with new insights, not base size.
+
 **4. Merge into the page — curation rules (the heart):**
 - **Rewrite in place.** `_status:`, Snapshot, and Active threads always describe current truth. Never stack "UPDATE:" lines; a newer fact replaces the older one. If the change itself matters (a decision, a closure, a pivot), record it as one line under Decisions or Activity.
 - **Provenance**: every non-obvious claim links to its source, relative to the page — from an area README that's `calls/<file>.md`, `docs/<file>.md`, or `calls/<sub>/<file>.md`. Filenames with spaces use the `[text](<path with spaces.md>)` form.
@@ -73,10 +96,11 @@ printf '%s\n' "context/areas/<area>/calls/<...>.md" >> context/_meta/processed.t
 ```
 (Headless single-artifact mode: Read the file, Write it back with the new line — no Bash.)
 
-**8. Finish (sweep / interactive modes only).** Move folded `inbox/` files to `inbox/processed/`. Then commit deliberately — git-autosync would otherwise scoop the changes into a generic commit:
+**8. Finish (sweep / interactive modes only).** Move folded `inbox/` files to `inbox/processed/` (plain `mv` — local-only dir) and folded `context/_inbox/` files — card AND any attachments — to `context/_inbox/processed/` (`git mv` — committed; provenance links point there). Then commit deliberately — git-autosync would otherwise scoop the changes into a generic commit:
 ```bash
 git add context/ && git commit -m "context: <one line on what changed>"
 ```
+When running as the daily cloud routine, also `git push` (no autosync in the cloud).
 
 ## Page template (area README and subproject pages alike)
 
@@ -105,7 +129,7 @@ _updated: YYYY-MM-DD_
 ## Out of scope
 
 - Everything under `outputs/` (`english-coaching/` is the language stream, `inbox-sweep/` is a run log) and book lists — never folded.
-- Everything under `context/knowledge/` — a separate engine (`/podcast-insights`) with its own ledger owns that tree. The sweep `find` deliberately scans only `context/areas inbox`; never widen it to `context/knowledge/`, or the two engines will fight over the same files.
+- `context/knowledge/podcasts/` — a separate engine (`/podcast-insights`) with its own ledger owns that subtree; never touch it. This skill owns `context/knowledge/notes/` and `explore-queue.md` as OUTPUTS only — the sweep `find` scans `context/areas`, `context/_inbox`, `inbox` and must never scan any part of `context/knowledge/` as input, or the engines will fight over files.
 - Never edit raw artifacts (`calls/`, `docs/`, `inbox/` contents) — read-only inputs.
 - Sensitivity: never copy the "Backend context" items of `context/areas/job-search/positioning.md` onto other pages — link to the doc instead; facts that must never leak externally live in exactly one place.
 
