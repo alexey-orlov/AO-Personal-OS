@@ -8,26 +8,26 @@ export PATH="/opt/homebrew/bin:$HOME/.local/bin:/usr/local/bin:$PATH"
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PLIST="com.user.telegram-chat.plist"
 
-echo "== 1/5 Claude Code version (need >= 2.1.80 for channels)"
+echo "== 1/6 Claude Code version (need >= 2.1.80 for channels)"
 claude --version
 
-echo "== 2/5 Bun (channel plugins are Bun scripts)"
+echo "== 2/6 Bun (channel plugins are Bun scripts)"
 if ! command -v bun >/dev/null; then
   brew install oven-sh/bun/bun
 fi
 bun --version
 
-echo "== 3/5 Telegram channel plugin"
+echo "== 3/6 Telegram channel plugin"
 claude plugin install telegram@claude-plugins-official 2>/dev/null \
   || echo "   (already installed)"
 
-echo "== 4/5 Bot token -> ~/.claude/channels/telegram/.env (from Keychain, never committed)"
+echo "== 4/6 Bot token -> ~/.claude/channels/telegram/.env (from Keychain, never committed)"
 TOKEN="$(security find-generic-password -a "$USER" -s TELEGRAM_CC_BOT_TOKEN -w)"
 mkdir -p "$HOME/.claude/channels/telegram"
 printf 'TELEGRAM_BOT_TOKEN=%s\n' "$TOKEN" > "$HOME/.claude/channels/telegram/.env"
 chmod 600 "$HOME/.claude/channels/telegram/.env"
 
-echo "== 5/5 launchd agent (supervises the telegram-chat tmux session)"
+echo "== 5/6 launchd agent (supervises the telegram-chat tmux session)"
 cp "$DIR/$PLIST" "$HOME/Library/LaunchAgents/$PLIST"
 launchctl unload "$HOME/Library/LaunchAgents/$PLIST" 2>/dev/null || true
 launchctl load "$HOME/Library/LaunchAgents/$PLIST"

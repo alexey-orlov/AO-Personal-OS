@@ -69,6 +69,7 @@ Then pair (first run only): DM the bot → it replies with a code →
 |---|---|
 | Watch the live session | `tmux attach -t telegram-chat` (detach: Ctrl-B D) |
 | Fresh session manually | `./new_session.sh` |
+| Re-register bot menu (`/new` etc.) | `./register_commands.sh` (chat-scoped so the plugin's own menu writes don't clobber it; re-run after pairing a new sender) |
 | Stop the bridge | `launchctl unload ~/Library/LaunchAgents/com.user.telegram-chat.plist && tmux kill-session -t telegram-chat` |
 | Start it again | `launchctl load ~/Library/LaunchAgents/com.user.telegram-chat.plist` |
 | Supervisor logs | `/tmp/telegram-chat.out.log`, `/tmp/telegram-chat.err.log` |

@@ -14,8 +14,7 @@ set -e
 export PATH="/opt/homebrew/bin:/usr/local/bin:$PATH"
 
 TOKEN="$(security find-generic-password -a "$USER" -s TELEGRAM_CC_BOT_TOKEN -w)"
-ACCESS="$HOME/.claude/channels/telegram/.config/access.json"
-[ -f "$ACCESS" ] || ACCESS="$HOME/.claude/channels/telegram/access.json"
+ACCESS="$HOME/.claude/channels/telegram/access.json"
 
 CHAT_IDS="$(python3 -c "import json,sys; print('\n'.join(json.load(open('$ACCESS')).get('allowFrom',[])))")"
 [ -n "$CHAT_IDS" ] || { echo "no allowlisted chats in $ACCESS — pair first"; exit 1; }
