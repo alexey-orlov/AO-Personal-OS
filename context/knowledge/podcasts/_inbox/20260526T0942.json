@@ -1,0 +1,100 @@
+{
+  "schema": 1,
+  "generatedAt": "2026-05-26T09:42:11Z",
+  "runStamp": "20260526T0942",
+  "backfill": true,
+  "episodes": [
+    {
+      "videoId": "7VKliOQXQ9M",
+      "videoTitle": "How The Best Companies Defend Against Mediocrity And Rot",
+      "videoUrl": "https://www.youtube.com/watch?v=7VKliOQXQ9M",
+      "channelName": "Y Combinator",
+      "publishedDate": "2026-05-26",
+      "guests": [],
+      "summary": "The conversation argues that the dominant model of shareholder-primacy and short-term investor incentives corrodes company missions and destroys long-term value. Founders can instead structure companies to be ‘mission-controlled’—using legal forms, governance design, and selection of aligned trustees/board members—to protect mission and create much longer-lived, higher-value firms. The speaker gives historical and modern case studies (FedMart/Costco, Twilio, Novo Nordisk, Anthropic) plus actionable tools (PBCs, foundations, perpetual purpose trusts) showing how to do this in practice.",
+      "insights": [
+        {
+          "headline": "Shareholder primacy is a recent, enforceable habit—not natural law",
+          "detail": "The idea that corporations must prioritize shareholder returns dates to the late 20th century and has been treated as a de facto rule by courts and advisors, even though it was never passed as a statutory law. That legal and cultural shift lets investors claim directors must sell or replace managers to maximize short-term value—examples include Jeff Lawson at Twilio, whose founder protections expired and who was removed 199 days later after a stock drop despite revenue growth. This matters because founders and boards are often operating under assumptions that can be changed if they choose different legal and governance designs early on.",
+          "anchorQuote": "",
+          "tSeconds": 350,
+          "link": "https://www.youtube.com/watch?v=7VKliOQXQ9M&t=350"
+        },
+        {
+          "headline": "Mission-controlled firms (ethos + integrity) survive and create far more value",
+          "detail": "When a company codifies a clear mission and builds governance to protect it—what the speaker summarizes as 'ethos plus integrity equals incorruptible'—it can resist pressures that trigger short-term selling or extractive behavior. Historical examples: Saul Price’s FedMart ethos seeded Costco’s mission-protecting governance, and Novo Nordisk’s foundation structure blocked a sale that would have cancelled long-term GLP‑1 research; companies using industrial-foundation structures are shown to be six times likelier to survive 50 years (roughly 10% versus 60%). That permanence translates into much greater long-term economic and social value.",
+          "anchorQuote": "",
+          "tSeconds": 1175,
+          "link": "https://www.youtube.com/watch?v=7VKliOQXQ9M&t=1175"
+        },
+        {
+          "headline": "‘Best practice’ board design often hands control to investors, not founders",
+          "detail": "Common prescriptions—independent directors plus investor seats—assume independence equals objectivity, but independents are typically nominated through investor networks and have little long-term stake in the mission. The result is boards that effectively answer to investors; the speaker cites research and the Kroger vs. Costco contrast to argue that so-called best practices can destroy shareholder value. Founders who don't actively curate directors or create alternative appointment mechanisms risk surrendering control despite dual-class shares.",
+          "anchorQuote": "",
+          "tSeconds": 2012,
+          "link": "https://www.youtube.com/watch?v=7VKliOQXQ9M&t=2012"
+        },
+        {
+          "headline": "Simple legal tools (PBCs, trusts, foundations) can legally protect mission",
+          "detail": "Founders can adopt public benefit corporations (a short Delaware filing) or more robust two-entity structures (nonprofit trustees or perpetual purpose/long-term benefit trusts) to embed purpose in the charter and create appointment powers that defend the mission. The talk gives concrete precedents—Novo Nordisk's foundation blocked a $20B merger and enabled GLP‑1 research that later helped create a >$600B valuation, and Anthropic used a long-term benefit trust—to show these tools preserve long-term projects and attract mission-aligned talent. Using these mechanisms early is low-friction and materially changes who can legally force short-term exits.",
+          "anchorQuote": "",
+          "tSeconds": 1402,
+          "link": "https://www.youtube.com/watch?v=7VKliOQXQ9M&t=1402"
+        }
+      ]
+    },
+    {
+      "videoId": "4D3hDmGhFhA",
+      "videoTitle": "The AI paradox: More automation, more humans, more work | Dan Shipper",
+      "videoUrl": "https://www.youtube.com/watch?v=4D3hDmGhFhA",
+      "channelName": "Lenny's Podcast",
+      "publishedDate": "2026-05-26",
+      "guests": [],
+      "summary": "Dan Shipper argues that AI will change how we work in two linked ways: company-level agents for delegation and desktop coding-agent surfaces (Codex/Claude Co-work) as the new work operating systems. Rather than eliminating jobs, automation will create more human work — reviewing, gardening, and operating agents — and new high-value roles (PMs, full‑stack designers, forward‑deployed engineers) will thrive if they “ride the models.”",
+      "insights": [
+        {
+          "headline": "Work will split into company agents and local agent work surfaces",
+          "detail": "Shipper predicts a bifurcation: (A) a company-level “super agent” people talk to (often via Slack) that handles wide, shared tasks, and (B) personal or team work happening on your machine inside a coding-agent surface like Codex or Claude Co‑work. He points to examples — Shopify and Ramp adopting single company agents — and his own team’s shift from a few internal products to six, with people doing most of their daily work inside Codex threads and an in‑app browser. This matters because it defines where product teams must optimize (agent UX in Slack vs. rich in‑app agent surfaces) and how collaboration and delegation will be structured.",
+          "anchorQuote": "",
+          "tSeconds": 695,
+          "link": "https://www.youtube.com/watch?v=4D3hDmGhFhA&t=695"
+        },
+        {
+          "headline": "Agents are useful only if people care for and maintain them",
+          "detail": "In current practice Shipper says an agent requires a human 'gardener': someone who configures, monitors and iterates the agent so it keeps working — otherwise it breaks and users abandon it. He gives the pragmatic explanation: teams that tried personal agents found them fiddly, so many companies adopt one top‑level agent maintained by a forward‑deployed engineer; examples include Every’s internal setup and model companies running managed agents. The non‑obvious takeaway is that AI increases demand for new jobs (agent maintainers) rather than immediately eliminating labor.",
+          "anchorQuote": "",
+          "tSeconds": 890,
+          "link": "https://www.youtube.com/watch?v=4D3hDmGhFhA&t=890"
+        },
+        {
+          "headline": "Desktop coding agents (Codex/Co‑work) will act like a new OS for work",
+          "detail": "Shipper describes Codex/Claude Co‑work as an environment that can see your computer and browser, act inside apps, and ‘watch’ you work — turning many tasks (writing, research, email triage) into agent‑assisted flows. He uses his own experience (in‑app Codex threads, an in‑app browser, and Inbox Zero for 10 days) to show how an agent that has access to your files and the web becomes the primary surface. That reverses the earlier idea of embedding AI in each SaaS app: instead, many SaaS products will be consumed inside agent surfaces, changing product design and integration priorities.",
+          "anchorQuote": "",
+          "tSeconds": 725,
+          "link": "https://www.youtube.com/watch?v=4D3hDmGhFhA&t=725"
+        },
+        {
+          "headline": "SaaS economics shift: users/agents bring models, preserving margins",
+          "detail": "Because agents run on users’ or vendors’ model tokens (not necessarily the SaaS vendor’s tokens), Shipper argues SaaS vendors can avoid token costs and instead design for both humans and agents. He claims this 'puts SaaS back in its place' — vendors should make their UIs agent‑friendly (CLIs, accessible HTML, logs, rollback) rather than bundling costly models into their pricing. The practical implication: SaaS demand may spike (more agents using products), but margins won’t necessarily collapse if products are built for agent interaction.",
+          "anchorQuote": "",
+          "tSeconds": 1472,
+          "link": "https://www.youtube.com/watch?v=4D3hDmGhFhA&t=1472"
+        },
+        {
+          "headline": "More automation creates more human work: reviewers and forward‑deployed engineers",
+          "detail": "Shipper calls this the automation paradox: as models automate routine work, humans spend more time reviewing, fixing, and operat ing agents. Evidence includes Every doubling headcount (15→~30) while becoming more automated, the explosion of pull requests from non‑technical users (thousands daily on some agent platforms), and his 'senior engineer benchmark' where GPT‑5.5 scored ~62/100 vs. human seniors in the high‑80s. So AI increases throughput and sloppy outputs, raising demand for people who curate, integrate, and rewrite work.",
+          "anchorQuote": "",
+          "tSeconds": 2357,
+          "link": "https://www.youtube.com/watch?v=4D3hDmGhFhA&t=2357"
+        },
+        {
+          "headline": "PMs and full‑stack designers will be unusually valuable in near term",
+          "detail": "Shipper is 'super super bullish on PMs' and full‑stack designers because models let them directly prototype, ship, and iterate without large engineering teams; he cites an internal PM who, after getting AI‑pilled, ships faster than most engineers by pairing product sense with coding agents. The argument: the skills that matter shift from raw implementation to defining what to build, evaluating quality, and designing interactions where humans and agents collaborate — roles that thrive if people 'ride the models.'",
+          "anchorQuote": "",
+          "tSeconds": 4119,
+          "link": "https://www.youtube.com/watch?v=4D3hDmGhFhA&t=4119"
+        }
+      ]
+    }
+  ]
+}
