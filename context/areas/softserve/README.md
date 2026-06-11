@@ -7,65 +7,56 @@ _updated: 2026-06-11_
 
 - Engagement format agreed in the 2026-06-09 1:1: combine the Product-lead role for the R&D Delivery Unit with an agentic-AI SME/advisor role, ~50–80 h/month while Alex is in Ukraine; no formal people-management while contingent (SoftServe constraint); revisit full-time after the US move (visa tentatively Sep–Oct 2026). [1:1](calls/2026-06-09_183633_one-on-one_2026060917013100B193F3.md)
 - R&D Delivery Unit: ~7 people, formalized May 2026, hiring a Delivery Director; in-housing Delivery for staffing ownership and retained revenue.
-- Product function runs in two modes: (1) productization on client engagements (often BA-flavored), (2) joint-IP development under the **Oracle partnership** — SoftServe is the first integrated partner (contributes PRs, weekly sync); NHS (UK) is the first paying client; GTM via SoftServe + NVIDIA; IP packaged into S/M/L offerings.
+- Product function runs in two modes: (1) productization on client engagements (often BA-flavored), (2) joint-IP development under the Oracle partnership → [oracle](oracle.md).
 - PdM team: Leonid, Dmytro, Olya (new, replacing Semenov), Vladyslav (joining) — ~4–5 PdMs.
 - Agentic-SME focus stays on the product/process-of-work angle (restructuring teams for AI ways of working), not bespoke technical tooling — decided to match Alex's product seniority.
-- Client AI-enablement is a recurring delivery motion: Conga AI-PM session (2026-05-20), Iris bootcamp (below).
+- Client AI-enablement is a recurring delivery motion: Conga AI-PM session (2026-05-20), Iris bootcamp → [iris-bootcamp](iris-bootcamp.md).
 - Alex flagged scope ambiguity honestly ("still floating") and a capacity ceiling: 80 h/mo won't stretch if Iris also demands ~80 h while he is still in Ukraine.
 
-## Active threads
+## Subprojects
 
-- **Oracle onboarding** — agreed sequence: read case-study deck (lead to send) → meet Dmytro & Olya → feedback to lead → intro to Oracle leadership + weekly session. Waiting on the deck. [1:1](calls/2026-06-09_183633_one-on-one_2026060917013100B193F3.md)
-- **R&D strategy session design** — reframed as cross-functional idea generation (Pre-sales + Product + Marketing + Delivery), not a decision forum; tentative framing: "which 3 fixes / 3 introductions give +100% growth". Lead owes written vision input (~by Jun 13) and a 1h alignment call (week of Jun 9); Lviv on-site portion deferred. Alex's concern on record: without strategy pre-work the session leaves an "unclosed gestalt".
-- **Iris AI bootcamp — Product stream** — 4-week bootcamp for client "Iris" (large accounting-software enterprise, ~500 engineers; cohorts of 50–70), tentative start Jun 29. Alex owns the Product stream: AI-fundamentals lecture + per-SDLC-phase lecture/workshop blocks (US/UK splits) + joint Product+Eng session; sandbox-project workshop approach inherited from cohort-2 trainer Krasimira. Tooling standard: Claude Code (Product), Cursor (Eng), Atlassian AI, Jira, Figma; client central adoption ≈ zero. Alex conflict Jul 6–10 (inferred — "6–10", R&D strategy session/travel). Waiting on: cohort products + confirmed dates, agenda Excel + slides, Engineering-trainer name, AHA license. [bootcamp onboarding](calls/2026-06-09_183201_default_20260608180354E83F642F.md) — candidate for its own subproject page once the bootcamp starts.
-- **Jumpstart program — PM-focused extension** — Bogdan tapped Alex to build a more comprehensive PM offering on top of Jumpstart's standard 6-week "Activation Pod" (mid-discovery → agentic-workflow implementation → governance/enablement, mid-size clients ≤1000 eng). Methodology was originally Alex's; exec ownership since smeared (Arkadiusz + Oleh Marchevich) with a knowledge-preservation gap (QA module lost with a departing contractor). PM coverage today is weak — DAX escalation over uncustomized JIRA-vs-Aha workshops; Telenor Discovery waiting on product-workflow agent ideas; clients don't yet ask for PM by name. Anna (presales + program mgmt) gave the program walk-through 2026-06-11: pipeline (DAX flagship, Telenor full Discovery, Payworks .NET modernization, Iris training+hackathon, Commerce IQ ~100-person new ask), maturity assets (legacy 5-level slide + new R&D 3×10 framework Anna built with Claude, heatmap output), governance deck (critical for Telenor's EU AI Act Aug enforcement), team-shape (PM 0.5 + Architect 0.5–1 + 2 Intelligence Engineers + 1 of DevOps/QA/BA/Product), buyer persona (CTO + ~10 VPs; CPO operates independently, SoftServe has minimal CPO relationship). Candidate for its own subproject page once scope firms. [Anna walkthrough](calls/2026-06-11_135929_default_20260611130042C37F547F.md)
+- [oracle](oracle.md) — Oracle partnership / joint IP — onboarding; waiting on the case-study deck.
+- [iris-bootcamp](iris-bootcamp.md) — Product stream of the Iris client bootcamp — prep; tentative start Jun 29.
+- [jumpstart-pm](jumpstart-pm.md) — PM-focused Jumpstart offering design — Jun–Jul mandate (Bogdan-driven); waiting on Inna's materials.
+
+## Active threads (area-level)
+
+- **R&D strategy session design** — reframed as cross-functional idea generation (Pre-sales + Product + Marketing + Delivery), not a decision forum; tentative framing: "which 3 fixes / 3 introductions give +100% growth". Lead owes written vision input (~by Jun 13) and a 1h alignment call (week of Jun 9); Lviv on-site portion deferred. Alex's concern on record: without strategy pre-work the session leaves an "unclosed gestalt". [1:1](calls/2026-06-09_183633_one-on-one_2026060917013100B193F3.md)
 - **IP-collaboration brainstorm with Oleh Marchevich** — Thursday 2026-06-11; open brainstorm, explicitly NOT Oracle onboarding.
 - **Conga follow-ups** (enablement session 2026-05-20): share session slides with attendees; publish demo repo via Conga microsite (routed through Ramya). [session note](calls/2026-05-24_175717_default_202605201757381C904D81.md)
 
 ## People
 
 - R&D engagement lead — Alex's 1:1 counterpart (unnamed in transcript, "Speaker A"); owns vision input, Oracle intros, bootcamp materials.
+- Inna Abolikhina — Jumpstart presales + program management → [people page](../../people/inna-abolikhina.md). (The 2026-06-11 calendar header confirms "Inna Abolikhina"; an earlier guess that this was "Anna Boiarska" was wrong — Anna is a personal contact, unrelated.)
 - Oleh Marchevich — exec side of Jumpstart methodology; IP-collab brainstorm 2026-06-11.
 - Arkadiusz — co-holder of Jumpstart exec ownership.
 - Dmytro, Olya (new, ex-Semenov slot), Leonid, Vladyslav (joining) — R&D PdM team.
-- Anna Boiarska — Jumpstart presales + program management (joined ~Oct 2025); built the R&D 3×10 maturity framework with Claude; primary walk-through contact for Jumpstart-PM design. (Likely the same person referred to as "Inna" in the 2026-06-09 1:1 — transcription artifact.)
-- Bogdan — exec driver behind extending Jumpstart with a PM-focused offering.
-- Nadia Zerchak — PM on the DAX engagement; built the Claude skill that generates Jumpstart's process board.
-- Jorge Rojas, Inok — engineering leads on the Payworks .NET legacy-modernization engagement.
-- Greg — Poland-based trainer who runs most Jumpstart workshops (LLM/agents intro, coding agents, context engineering).
-- Enok — engineering-heavy, ex-Engineering Director of an acquired company.
-- William — agentic, observability/security angle.
-- Krasimira — cohort-2 bootcamp trainer (Bulgaria), built the sandbox-project approach; Alex to sync with her.
+- Enok — engineering-heavy, ex-Engineering Director of an acquired company · William — agentic, observability/security angle (intros pending).
 - Ramya — Conga contact (microsite routing, hackathon registrations).
+- Subproject-specific people (Krasimira, Bogdan, Nadia Zerchak, Jorge Rojas, Inok, Greg) live on their subproject pages.
 
 ## Decisions
 
-- 2026-06-11 — Alex to design a PM-focused extension of the Jumpstart agentic-AI offering across Jun–Jul 2026 (Bogdan-driven). [walkthrough](calls/2026-06-11_135929_default_20260611130042C37F547F.md)
+- 2026-06-11 — Alex to design a PM-focused extension of the Jumpstart offering across Jun–Jul 2026 → details in [jumpstart-pm](jumpstart-pm.md).
 - 2026-06-09 — Part-time ~50–80 h/mo, product-lead + agentic-SME combo; no people-management while contingent. [1:1](calls/2026-06-09_183633_one-on-one_2026060917013100B193F3.md)
 - 2026-06-09 — SME scope = product/process-of-work angle, not bespoke technical advisory.
 - 2026-06-09 — Strategy session = idea-generation forum with mixed groups; "3+3 levers for +100% growth" framing tentative.
-- 2026-06-08 — Bootcamp: reuse existing AI-fundamentals material; lean toward skipping Alex's own pre-bootcamp questionnaire (client baseline ≈ zero anyway). [bootcamp](calls/2026-06-09_183201_default_20260608180354E83F642F.md)
 
-## Open loops
+## Open loops (area-level — subproject loops live on their pages)
 
 Mine:
-- Jumpstart-PM: digest Anna's materials when they arrive, then schedule a follow-up session with her (~next week); define what a "comprehensive" PM-focused Jumpstart looks like vs current lite workshop coverage.
-- Jumpstart-PM: reach out to Nadia Zerchak (DAX PM) and Jorge Rojas / Inok (Payworks) for deeper project detail. (inferred)
-- Connect with Enok and William once Speaker A introduces them.
 - Attend 2026-06-11 brainstorm with Oleh Marchevich.
-- Oracle: read case-study deck when it lands → meet Dmytro & Olya → feedback to lead.
 - Strategy alignment call with lead (week of Jun 9); review his written vision input.
-- Iris: sync with Krasimira after slides arrive; review/update intro + AI-basics slides; share Microsoft-Forms questionnaire template.
+- Connect with Enok and William once the lead introduces them.
 
-Theirs:
-- Anna: send Jumpstart materials (decks, frameworks, references) in chat post-call; check with Bogdan whether the DAX project folder and proposals can be shared with Alex.
-- Engagement lead: send Oracle case-study deck; intro Alex to Enok, William, then Oracle leadership + weekly.
-- Engagement lead: written vision input for the strategy session by ~Jun 13; schedule the 1h alignment call.
-- Engagement lead: Iris — confirm dates/products with client; share agenda + slides; name the Engineering-stream trainer; request AHA license for Alex.
+Theirs (engagement lead):
+- Written vision input for the strategy session by ~Jun 13; schedule the 1h alignment call.
+- Intros: Enok, William.
 
 ## Activity
 
-- 2026-06-11 — [Jumpstart-PM program walkthrough w/ Anna](calls/2026-06-11_135929_default_20260611130042C37F547F.md) — Bogdan tapped Alex for the PM-focused Jumpstart extension; pipeline, maturity frameworks, governance, team-shape, buyer persona mapped.
+- 2026-06-11 — [Jumpstart program walkthrough with Inna](calls/2026-06-11_135929_default_20260611130042C37F547F.md) — PM-extension mandate confirmed; detail folded into [jumpstart-pm](jumpstart-pm.md).
 - 2026-06-09 — [1:1: engagement scope, Oracle, strategy session](calls/2026-06-09_183633_one-on-one_2026060917013100B193F3.md) — engagement format decided; onboarding plan set.
-- 2026-06-08 — [Iris bootcamp onboarding](calls/2026-06-09_183201_default_20260608180354E83F642F.md) — Product-stream scope + logistics (recorded Jun 8, processed Jun 9; duplicate note exists).
+- 2026-06-08 — [Iris bootcamp onboarding](calls/2026-06-09_183201_default_20260608180354E83F642F.md) — Product-stream scope + logistics → [iris-bootcamp](iris-bootcamp.md).
 - 2026-05-20 — [Conga AI-PM enablement session](calls/2026-05-24_175717_default_202605201757381C904D81.md) — delivered; slides/repo follow-ups open. Raw transcript: [docs/conga-ai-pm-bootcamp-transcript.md](docs/conga-ai-pm-bootcamp-transcript.md).
