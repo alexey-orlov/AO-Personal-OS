@@ -1,0 +1,68 @@
+{
+  "schema": 1,
+  "generatedAt": "2026-05-25T04:00:57Z",
+  "runStamp": "20260525T0400",
+  "backfill": true,
+  "episodes": [
+    {
+      "videoId": "X_JsIHUfUjc",
+      "videoTitle": "How to Build a Self-Improving Company with AI",
+      "videoUrl": "https://www.youtube.com/watch?v=X_JsIHUfUjc",
+      "channelName": "Y Combinator",
+      "publishedDate": "2026-05-25",
+      "guests": [],
+      "summary": "AI should not just be a productivity tool; it can let companies become self-improving systems. Build recursive loops (sensors, policy, tools, quality gates, learning) so agents monitor failures, propose fixes, and deploy improvements automatically. Make the company legible to AI by recording and synthesizing all knowledge, treat internal software as disposable, and shift humans to edge roles for novel or high‑stakes work. Expect to trade headcount constraints for token/compute constraints and organize around named individual contributors.",
+      "insights": [
+        {
+          "headline": "Think of a company as recursive AI loops: sensor, decision, tools, quality gate, learning.",
+          "detail": "",
+          "anchorQuote": "",
+          "tSeconds": null,
+          "link": ""
+        },
+        {
+          "headline": "Record everything (emails, Slack, office hours) so AI can learn from it.",
+          "detail": "",
+          "anchorQuote": "",
+          "tSeconds": null,
+          "link": ""
+        },
+        {
+          "headline": "Use monitoring agents to spot failures, write patches, and auto-deploy fixes.",
+          "detail": "",
+          "anchorQuote": "",
+          "tSeconds": null,
+          "link": ""
+        },
+        {
+          "headline": "Burn tokens (compute) not headcount; token usage becomes the main constraint.",
+          "detail": "",
+          "anchorQuote": "",
+          "tSeconds": null,
+          "link": ""
+        },
+        {
+          "headline": "Treat internal software as ephemeral; preserve data and skills instead.",
+          "detail": "",
+          "anchorQuote": "",
+          "tSeconds": null,
+          "link": ""
+        },
+        {
+          "headline": "Eliminate middle management; use named ICs as directly responsible individuals.",
+          "detail": "",
+          "anchorQuote": "",
+          "tSeconds": null,
+          "link": ""
+        },
+        {
+          "headline": "Humans should handle novel, ethical, or high-stakes situations at the system's edge.",
+          "detail": "",
+          "anchorQuote": "",
+          "tSeconds": null,
+          "link": ""
+        }
+      ]
+    }
+  ]
+}
