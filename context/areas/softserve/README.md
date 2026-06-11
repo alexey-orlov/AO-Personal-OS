@@ -28,12 +28,19 @@ _updated: 2026-06-11_
 - Oleh Marchevich — exec side of Jumpstart methodology; IP-collab brainstorm 2026-06-11.
 - Arkadiusz — co-holder of Jumpstart exec ownership.
 - Dmytro, Olya (new, ex-Semenov slot), Leonid, Vladyslav (joining) — R&D PdM team.
-- Inna — best pre-sales/methodology context · Enok — engineering-heavy, ex-Engineering-Director of an acquired company · William — agentic, observability/security angle.
+- Anna Boiarska — Jumpstart presales + program management (joined ~Oct 2025); built the R&D 3×10 maturity framework with Claude; primary walk-through contact for Jumpstart-PM design. (Likely the same person referred to as "Inna" in the 2026-06-09 1:1 — transcription artifact.)
+- Bogdan — exec driver behind extending Jumpstart with a PM-focused offering.
+- Nadia Zerchak — PM on the DAX engagement; built the Claude skill that generates Jumpstart's process board.
+- Jorge Rojas, Inok — engineering leads on the Payworks .NET legacy-modernization engagement.
+- Greg — Poland-based trainer who runs most Jumpstart workshops (LLM/agents intro, coding agents, context engineering).
+- Enok — engineering-heavy, ex-Engineering Director of an acquired company.
+- William — agentic, observability/security angle.
 - Krasimira — cohort-2 bootcamp trainer (Bulgaria), built the sandbox-project approach; Alex to sync with her.
 - Ramya — Conga contact (microsite routing, hackathon registrations).
 
 ## Decisions
 
+- 2026-06-11 — Alex to design a PM-focused extension of the Jumpstart agentic-AI offering across Jun–Jul 2026 (Bogdan-driven). [walkthrough](calls/2026-06-11_135929_default_20260611130042C37F547F.md)
 - 2026-06-09 — Part-time ~50–80 h/mo, product-lead + agentic-SME combo; no people-management while contingent. [1:1](calls/2026-06-09_183633_one-on-one_2026060917013100B193F3.md)
 - 2026-06-09 — SME scope = product/process-of-work angle, not bespoke technical advisory.
 - 2026-06-09 — Strategy session = idea-generation forum with mixed groups; "3+3 levers for +100% growth" framing tentative.
