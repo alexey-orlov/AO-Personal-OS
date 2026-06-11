@@ -1,0 +1,93 @@
+{
+  "schema": 1,
+  "generatedAt": "2026-06-07T04:02:27Z",
+  "runStamp": "20260607T0402",
+  "backfill": true,
+  "episodes": [
+    {
+      "videoId": "yyXCQHX55N4",
+      "videoTitle": "Emergent: How Six Months of Tinkering Led To A $100M ARR Company",
+      "videoUrl": "https://www.youtube.com/watch?v=yyXCQHX55N4",
+      "channelName": "Y Combinator",
+      "publishedDate": "2026-06-07",
+      "guests": ["Mukun (Emergent; founder of Dunzo)"],
+      "summary": "Founder Mukun (previously Dunzo) explains how six months of unfettered tinkering with new models after leaving his prior startup produced the insight and prototypes that became Emergent. Instead of building another front-end copilot, the team engineered a full-stack, autonomous multi-agent system and proprietary infra that finishes real, working software. That approach—focus on complete products, aggressive infrastructure work, and ‘living on the edge’ of model progress—helped Emergent scale to ~8.5M users and an annualized revenue run rate north of $100M within nine months. The throughline: deep, early technical bets on what models will enable, plus obsessing over finish-to-finish product quality, create outsized second-mover advantages.",
+      "insights": [
+        {
+          "headline": "Emergent hit ~8.5M users and $100M+ ARR in nine months",
+          "detail": "Mukun reports Emergent reached close to 8.5 million users and is well over $100 million in annualized revenue run rate roughly nine months after launching. The user base spans 190 countries and revenue is primarily from the U.S. and Europe (India ~10%), which he uses as evidence of huge latent global demand for tools that let non-technical entrepreneurs ship software. This rapid scale underlines that solving the full product delivery problem — not just prototyping — unlocks mainstream adoption and monetization.",
+          "anchorQuote": "",
+          "tSeconds": 187,
+          "link": "https://www.youtube.com/watch?v=yyXCQHX55N4&t=187"
+        },
+        {
+          "headline": "They built an autonomous, multi-agent system and proprietary infra",
+          "detail": "Rather than glue existing tools, Emergent engineered a multi-agent orchestration layer (design agents, testing agents, etc.), a large self-learning memory, and custom infra including disk and memory snapshotting to preserve state across parallel agents. They also perform heavy RL and fine-tuning on data collected from every app built on the platform, and have rewritten their stack multiple times as models evolved. That deep infrastructure work is what lets the product produce finished, deployable software instead of brittle demos.",
+          "anchorQuote": "",
+          "tSeconds": 1098,
+          "link": "https://www.youtube.com/watch?v=yyXCQHX55N4&t=1098"
+        },
+        {
+          "headline": "Winning requires delivering finished, working software — not demos",
+          "detail": "Mukun emphasizes that most competitors focused on front-end demos, but users expect complete, working applications with real backends, databases, and tests. Emergent prioritized automating the entire software-engineering lifecycle so customers get a usable product, and their platform consistently outperformed others in practice. The consequence: better retention and a clearer go-to-market (influencer-driven exposure) because a working product converts and spreads faster than prototypes.",
+          "anchorQuote": "",
+          "tSeconds": 1433,
+          "link": "https://www.youtube.com/watch?v=yyXCQHX55N4&t=1433"
+        },
+        {
+          "headline": "Six months of tinkering revealed exponential AI trajectories",
+          "detail": "After exiting Dunzo Mukun spent six months experimenting with the latest models and building prototypes (voice assistants, coding agents), which convinced him that AI capabilities would accelerate quickly and that remaining problems (JSON parsing, test orchestration) could be solved as models improved. That ‘living at the edge’ mindset let him project short-term model progress and make bold bets — building autonomous agents and skipping problems he expected models to handle soon. The lesson: unstructured tinkering can surface high-leverage, near-future opportunities that mainstream investors and incumbents still dismiss.",
+          "anchorQuote": "",
+          "tSeconds": 870,
+          "link": "https://www.youtube.com/watch?v=yyXCQHX55N4&t=870"
+        }
+      ]
+    },
+    {
+      "videoId": "hyeoYsVl1No",
+      "videoTitle": "Anthropic Files $965B IPO, Trump Signs AI Executive Order, and ChatGPT Crosses 1B Users | EP #262",
+      "videoUrl": "https://www.youtube.com/watch?v=hyeoYsVl1No",
+      "channelName": "Peter H. Diamandis",
+      "publishedDate": "2026-06-07",
+      "guests": ["Dr. Don Mucalem (Fountain Life)"],
+      "summary": "A fast-paced rundown of this week's biggest AI and longevity developments: the White House executive order favoring voluntary pre-release review of large models, OpenAI's unprecedented user growth, Anthropic's confidential IPO filing and the broader rush of capital into frontier AI, plus escalating biosecurity policy and major longevity milestones. The throughline is tension between rapid commercial expansion and national-security/public-interest safeguards — labs are scaling and specializing capabilities quickly, prompting new policy proposals and private–public defensive collaborations.",
+      "insights": [
+        {
+          "headline": "U.S. chose voluntary pre-release review over heavy regulation",
+          "detail": "The recent executive order asks AI labs to voluntarily give the government access to new models 30 days before public release, favoring competition and speed over permission-based regulation. Speakers argue this is a tactical move to avoid throttling innovation (a 90-day delay could shift leadership to China) while still trying to get some pre-release oversight; it also reflects the privatization of capabilities (e.g., automated zero-day discovery) that were once government domains. Expect this balance to be stress-tested in months as labs and agencies operationalize voluntary review.",
+          "anchorQuote": "",
+          "tSeconds": 218,
+          "link": "https://www.youtube.com/watch?v=hyeoYsVl1No&t=218"
+        },
+        {
+          "headline": "ChatGPT hit 1 billion monthly users faster than any app in history",
+          "detail": "OpenAI reached ~1B monthly active users about three years after launch — a growth curve far steeper than YouTube, Instagram or TikTok — with year-over-year growth still ~62%. Claude (Anthropic) sits at ~56M MAU but is growing much faster (cited as ~640% YoY), indicating the whole consumer AI category is rapidly expanding and distribution is emerging as a key moat alongside model quality. This scale matters because it changes competitive dynamics: distribution can trump marginal model improvements, but labs that secure both can consolidate dominant positions.",
+          "anchorQuote": "",
+          "tSeconds": 582,
+          "link": "https://www.youtube.com/watch?v=hyeoYsVl1No&t=582"
+        },
+        {
+          "headline": "Frontier labs are carving out sensitive capabilities into restricted models",
+          "detail": "OpenAI launched 'Rosalind Biodefense' — a restricted offering giving trusted government and public‑health researchers specialized AI tools for outbreak detection and vaccine work — reflecting a broader trend of separating high-risk capabilities from public models. Panelists argue this shrinks the practical 'G' in AGI: advanced capacities with security implications (bio, cyber) are being built as guarded, fine‑tuned systems available only to vetted parties, which reduces general public access but may be necessary for national security and safety.",
+          "anchorQuote": "",
+          "tSeconds": 837,
+          "link": "https://www.youtube.com/watch?v=hyeoYsVl1No&t=837"
+        },
+        {
+          "headline": "Anthropic's IPO filing spotlights trillion-dollar valuations and extreme capital intensity",
+          "detail": "Anthropic confidentially filed S‑1 paperwork and markets/odds have priced a multi‑trillion valuation as plausible; the panel cites PolyMarket odds and revenue estimates suggesting very large market caps. Notably, these frontier AI firms generate extraordinary revenue per employee (Anthropic cited at ~$9.4M per employee on ~5,000 people), meaning a small headcount can command enormous market value and create vast dry powder for acquisitions and ecosystem building. That concentration of capital accelerates M&A, talent flows, and the creation of an AI-native economy.",
+          "anchorQuote": "",
+          "tSeconds": 2122,
+          "link": "https://www.youtube.com/watch?v=hyeoYsVl1No&t=2122"
+        },
+        {
+          "headline": "One‑shot gene editing (Verve‑102) is a potential heart‑disease game changer",
+          "detail": "Verve‑102, a single‑infusion gene‑editing therapy targeting PCSK9 in the liver, showed phase‑1 results with LDL reductions around 62% and PCSK9 protein drops ~88%, with effects observed up to 18 months so far. If durable and scalable, this one‑and‑done approach (CRISPR/base editing + mRNA delivery) could materially lower cardiovascular risk at population scale and exemplifies how gene editing is moving from concept to real clinical impact — a major data point in the broader longevity revolution.",
+          "anchorQuote": "",
+          "tSeconds": 6296,
+          "link": "https://www.youtube.com/watch?v=hyeoYsVl1No&t=6296"
+        }
+      ]
+    }
+  ]
+}
