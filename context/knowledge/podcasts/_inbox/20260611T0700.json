@@ -1,0 +1,34 @@
+{
+  "schema": 1,
+  "generatedAt": "2026-06-11T07:00:00.000Z",
+  "runStamp": "20260611T0700",
+  "episodes": [
+    {
+      "videoId": "Lp1aBcD2eFg",
+      "videoTitle": "The AI PM playbook — with Jane Doe",
+      "videoUrl": "https://www.youtube.com/watch?v=Lp1aBcD2eFg",
+      "channelName": "Lenny's Podcast",
+      "publishedDate": "2026-06-10",
+      "guests": ["Jane Doe (Acme)"],
+      "summary": "Jane Doe argues the PM role is being rewritten by AI: less spec-writing, more judgment about what good output looks like. The throughline is that taste and evaluation become the scarce skills.",
+      "insights": [
+        {"headline": "AI shifts PMs from spec-writers to taste-makers", "detail": "As AI drafts specs and flows, the PM's edge moves from producing the artifact to judging it. Jane cites her team cutting spec-writing time 60% but doubling time spent defining 'good', because the model will produce something either way and the real bottleneck becomes taste.", "anchorQuote": "the bottleneck is taste, not typing", "tSeconds": 642, "link": "https://www.youtube.com/watch?v=Lp1aBcD2eFg&t=642"},
+        {"headline": "Write eval suites before building the AI feature", "detail": "Jane's team writes the evaluation set first — 50 to 100 graded examples — before building an AI feature, so quality is measurable from day one. She says teams that skip this ship demos that work 70% of the time and never close the last 30%.", "anchorQuote": "we write the evals before the feature", "tSeconds": 1180, "link": "https://www.youtube.com/watch?v=Lp1aBcD2eFg&t=1180"},
+        {"headline": "On product strategy", "detail": "They discussed product strategy and how it matters for various teams in many situations.", "anchorQuote": "", "tSeconds": null, "link": ""}
+      ]
+    },
+    {
+      "videoId": "Xy9ZmN4oPqR",
+      "videoTitle": "Agents in production — with John Roe",
+      "videoUrl": "https://www.youtube.com/watch?v=Xy9ZmN4oPqR",
+      "channelName": "a16z",
+      "publishedDate": "2026-06-11",
+      "guests": ["John Roe (Sierra)"],
+      "summary": "John Roe on why most agent projects stall: capability is no longer the hard part, reliability is. The conversation centers on the engineering of determinism and error recovery.",
+      "insights": [
+        {"headline": "Agent reliability, not capability, is the 2026 bottleneck", "detail": "John argues the model can already do the task; the product problem is making it do the task the same way a thousand times. He estimates 80% of his team's effort is error recovery, guardrails, and determinism — the unglamorous last mile that decides whether an agent ships.", "anchorQuote": "capability is solved, reliability is the product", "tSeconds": 905, "link": "https://www.youtube.com/watch?v=Xy9ZmN4oPqR&t=905"},
+        {"headline": "AI turns product managers from spec-writers into taste-curators", "detail": "Echoing a wider shift, John notes his PMs now spend their time defining what a good agent response looks like rather than writing requirements, because the model generates the requirements-shaped output cheaply. The scarce skill becomes judgment.", "anchorQuote": "PMs curate taste now", "tSeconds": 1502, "link": "https://www.youtube.com/watch?v=Xy9ZmN4oPqR&t=1502"}
+      ]
+    }
+  ]
+}
