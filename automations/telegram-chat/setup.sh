@@ -32,6 +32,9 @@ cp "$DIR/$PLIST" "$HOME/Library/LaunchAgents/$PLIST"
 launchctl unload "$HOME/Library/LaunchAgents/$PLIST" 2>/dev/null || true
 launchctl load "$HOME/Library/LaunchAgents/$PLIST"
 
+echo "== 6/6 Bot command menu (/new etc.; needs a paired chat — skipped if none yet)"
+"$DIR/register_commands.sh" || true
+
 cat <<'EOF'
 
 Done. The bridge starts within ~10s. One-time pairing (first run only):
