@@ -16,6 +16,8 @@ Env (set by config.sh):
   CALENDAR_TOKEN   refreshable user token JSON path (written on first run)
   CALENDAR_IDS     comma-separated calendar IDs (default: "primary")
   CALENDAR_TZ      IANA tz for the recording timestamp (default: system local)
+  CALENDAR_MAX_EVENT_MIN  reject timed events longer than this (default: 480 =
+                   8h) so multi-day vacation/OOO blocks can't match a call
 """
 import datetime as dt
 import os
@@ -46,6 +48,14 @@ def _int_env(name: str, default: int) -> int:
 # matching only ever looks at the recording-start timestamp.
 PRE_BUFFER_MIN = _int_env("CALENDAR_PRE_BUFFER_MIN", 10)
 POST_BUFFER_MIN = _int_env("CALENDAR_POST_BUFFER_MIN", 5)
+
+# Reject timed events too long to plausibly be a single call. A multi-day
+# block (vacation, OOO, travel, conference) is technically a timed event with
+# attendees, so it slips past the all-day filter and the recording-start
+# timestamp can fall anywhere inside it — yielding an obviously-wrong match
+# (e.g. an 11-day "vacation" block). Real calls run a few hours at most; an
+# 8h ceiling clears a long workshop while killing the multi-day blocks.
+MAX_EVENT_MIN = _int_env("CALENDAR_MAX_EVENT_MIN", 480)
 
 
 def _local_tz():
@@ -135,6 +145,10 @@ def _candidates(svc, target: dt.datetime):
                 sdt = dt.datetime.fromisoformat(sd.replace("Z", "+00:00"))
                 edt = dt.datetime.fromisoformat(ed.replace("Z", "+00:00"))
             except Exception:
+                continue
+            if (edt - sdt) > dt.timedelta(minutes=MAX_EVENT_MIN):
+                # multi-day/all-week block (vacation, OOO, conference) — too
+                # coarse to be a real call match; would swallow the timestamp.
                 continue
             lo_match = sdt - dt.timedelta(minutes=PRE_BUFFER_MIN)
             hi_match = edt + dt.timedelta(minutes=POST_BUFFER_MIN)
