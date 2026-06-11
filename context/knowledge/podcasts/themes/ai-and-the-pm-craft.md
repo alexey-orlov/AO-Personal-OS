@@ -44,6 +44,26 @@ Low-code/AI tooling lets non‑technical builders and small teams validate and s
 — SaaStr AI · 2026-06-06 · guest: Elena Verna · [▶ 14:56](https://www.youtube.com/watch?v=kdHU-jPxDHw&t=896) · `pi-kdHU-jPxDHw-04`
 related: [A non-technical person can build and ship a production iPhone app today](#a-non-technical-person-can-build-and-ship-a-production-iphone-app-today)
 
+### Fable overthinks like a 'seasoned engineer,' producing unreadable specs
+Anthropic positions Fable as working "like a seasoned engineer," which the reviewer found led to extremely thorough but dense and hard-to-parse outputs—long Markdown docs with deep internal references that make it difficult to zoom out. In practice that means Fable is great when exhaustive detail and correctness matter, but it's poor for readable PRDs or strategy where clarity and concision are more valuable. The non-obvious consequence: for many product tasks you should pair Fable with cheaper models (Opus/Sonnet) or use those for spec writing and reserve Fable for execution or automated review.
+— How I AI · 2026-06-10 · guest: — · [▶ 4:16](https://www.youtube.com/watch?v=IREnr4I89Ho&t=256) · `pi-IREnr4I89Ho-03`
+related: [Prototypes are replacing PRDs as the primary communication artifact](#prototypes-are-replacing-prds-as-the-primary-communication-artifact) (same shift, opposite reason — prototypes win because spec prose loses)
+
+### AI can produce an all‑hands deck quickly if guided
+Matthew rebuilt about a third of an all‑hands presentation in one morning by first inventorying raw materials (demo day Zoom recording, transcripts, strategy docs), asking Claude to extract timestamps/screenshots and pivot engineering content into the company's strategic themes, then feeding final slide screenshots back into Claude to write the talk track. He insists on order: shape the visuals first (show, don't tell), then generate the talk track last so the narrative complements the slides. The workflow demonstrates how leaders can compress tedious work while preserving narrative quality and audience fit.
+— Aakash Gupta · 2026-06-11 · guest: Matthew (Customer.io) · [▶ 4:40](https://www.youtube.com/watch?v=yDeFGKaSoX8&t=280) · `pi-yDeFGKaSoX8-01`
+related: [Codex synthesizes many dashboards into a single, automated daily TLDR](#codex-synthesizes-many-dashboards-into-a-single-automated-daily-tldr) (same pattern at the VP level)
+
+### Treat AI like a junior employee that must be restrained
+Claude often behaves like an eager junior: it will jump ahead (e.g., generate a full Word pricing doc or invent jargon) without clarifying context, producing costly rework and social mismatches. Matthew avoids this by iteratively rolling context into a session, forcing clarifying questions, and explicitly telling Claude not to generate the next deliverable until the foundations are set. That discipline reduces 'micro‑hallucinations' about process or tone and yields outputs that require less tearing down and rebuilding.
+— Aakash Gupta · 2026-06-11 · guest: Matthew (Customer.io) · [▶ 15:28](https://www.youtube.com/watch?v=yDeFGKaSoX8&t=928) · `pi-yDeFGKaSoX8-02`
+related: [Concrete prompting tactics and a 'beginner's mindset' are operational advantages](#concrete-prompting-tactics-and-a-beginners-mindset-are-operational-advantages) (Bryce's hyper-literal prompts are the IC version; Matthew's "block the next deliverable" is the leader version)
+
+### Leaders' value is choosing sources and target story form
+He argues AI has largely commoditized the translation task (turning docs into slides, transcripts into summaries), so the remaining high‑value work for leaders is selecting the right sources (which recordings, docs, metrics) and the right target form (slides, Notion page, one‑pager). Concrete examples: keeping animal‑nicknames out of the public deliverable because of audience baggage, and deciding whether a model should be applied academically or operationalized for the CEO. Getting inputs and outputs right prevents misalignment and ensures AI's transformations are useful.
+— Aakash Gupta · 2026-06-11 · guest: Matthew (Customer.io) · [▶ 29:57](https://www.youtube.com/watch?v=yDeFGKaSoX8&t=1797) · `pi-yDeFGKaSoX8-03`
+related: theme → [Leadership, careers & teams](leadership-careers-and-teams.md) (the tasks-vs-jobs lens — translation automates, judgment doesn't) · theme → [Product discovery & strategy](product-discovery-and-strategy.md) (input choice as the lever)
+
 ## Related themes
 - [AI agents & applications](ai-agents-and-applications.md) — the surfaces PMs build in
 - [Leadership, careers & teams](leadership-careers-and-teams.md) — how the manager/IC mix is shifting alongside
@@ -54,3 +74,5 @@ related: [A non-technical person can build and ship a production iPhone app toda
 - [How I AI — She vibe coded an iPhone app and launched it to the App Store (2026-06-02)](../episodes/2026/2026-06-02--howiai--vibe-coded-iphone-app-app-store.md)
 - [Aakash Gupta — I Made an OpenAI PM Teach Me Codex For 67 Minutes (2026-06-04)](../episodes/2026/2026-06-04--aakash--openai-pm-teach-codex-67-min.md)
 - [SaaStr AI — Feature Differentiation Is Dead. Here's What Actually Wins Now (2026-06-06)](../episodes/2026/2026-06-06--saastr--feature-differentiation-dead-lovable-elena-verna.md)
+- [How I AI — Claude Fable 5 - is this Mythos model worth the wait? (2026-06-10)](../episodes/2026/2026-06-10--howiai--claude-fable-5-mythos-worth-the-wait.md)
+- [Aakash Gupta — The Claude Workflow Nobody at the VP Level Is Showing You (Customer.io) (2026-06-11)](../episodes/2026/2026-06-11--aakash--claude-workflow-vp-level-customerio.md)
