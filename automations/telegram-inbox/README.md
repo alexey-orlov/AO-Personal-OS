@@ -16,9 +16,11 @@ Telegram webhook ─▶ gate (group + Drop Zone topic + not-bot) ─▶ build ca
 - After the card commits, the **"React 👍 on capture"** node sets a 👍 reaction on the message
   (Bot API `setMessageReaction` via HTTP node — the native Telegram node can't react), so the phone
   shows the same capture confirmation the old local watcher gave. The node is `onError: continue`,
-  so a reaction hiccup never fails the capture or fires an alert. The bot token stays in the
-  `telegramApi` credential and is referenced as `{{ $credentials.accessToken }}` — never in the
-  workflow body or the committed export.
+  so a reaction hiccup never fails the capture or fires an alert.
+  **n8n gotcha:** `{{ $credentials.* }}` does NOT resolve in regular node expressions (credential
+  definitions only), and Telegram puts the token in the URL *path*, which no generic n8n auth type
+  can inject — so the token must sit literally in this node's URL inside n8n. That's why exports go
+  through `export.sh`, which regex-strips any `bot<id>:<token>` before writing the JSON here.
 - Card naming/format mirrors the local watcher (`tg-YYYYMMDD-HHMMSS-<msgid>.md`, frontmatter
   `source/date/message_id/attachment`; media alongside: `-photo.jpg`, `-voice.oga`, sanitized doc names).
   The card ALWAYS exists, even for captionless media — `/context-update` discovery keys on it.
@@ -65,5 +67,7 @@ Single-consumer rule still applies to the fallback (run on ONE machine only).
 ## Files
 
 - `workflow-dropzone-capture.json` — redacted export of the live n8n workflow (disaster-recovery
-  copy + diff history). Re-export after any n8n edit, re-applying the redactions.
+  copy + diff history). Re-export after any n8n edit via `export.sh`.
+- `export.sh` — the ONLY sanctioned export path: strips group chat id, trigger webhookId, and any
+  bot token (regex, rotation-proof), then asserts nothing leaked before writing the file.
 - `watch.sh`, `config.sh`, `com.user.telegram-inbox.plist`, `setup.sh` — the local fallback.

@@ -179,6 +179,7 @@
   },
   "active": "c0bbbc95d9a63f9d",
   "lastOpenFiles": [
+    "automations/telegram-inbox/export.sh",
     "context/_inbox/tg-20260611-231405-37.md",
     "context/_inbox/tg-20260611-225238-36.md",
     "context/_inbox/tg-20260611-224131-35.md",
@@ -207,7 +208,6 @@
     ".claude/skills/re-engagement-outreach/references",
     ".claude/skills/re-engagement-outreach/SKILL.md",
     ".claude/skills/podcast-insights/SKILL.md",
-    ".claude/skills/one-on-one/SKILL.md",
     ".claude/skills/message-writing/references",
     ".claude/skills/draft-message/references",
     ".claude/skills/book-finder/references",
