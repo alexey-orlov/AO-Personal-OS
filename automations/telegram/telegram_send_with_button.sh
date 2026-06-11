@@ -18,11 +18,16 @@
 # so callers can use <pre>…</pre> code blocks for tap-to-copy on mobile. When
 # enabled, the CALLER is responsible for escaping reserved chars in the body
 # (HTML: &, <, >; MarkdownV2: see Telegram docs). Unset = plain text (default).
+#
+# Optional env: TG_TOPIC=<slug> routes the message to a topic ("folder") in
+# the forum group (see config.sh / topics.env). On machines without the
+# group configured it silently falls back to the legacy DM chat.
 
 set -euo pipefail
 HERE="$(cd "$(dirname "$0")" && pwd)"
 # shellcheck source=/dev/null
 source "$HERE/config.sh"
+tg_resolve_target
 
 if [ "$#" -lt 2 ] || [ $(($# % 2)) -ne 0 ]; then
   echo "[telegram_send_with_button] usage: $0 <text1> <url1> [<text2> <url2> ...]" >&2
@@ -30,7 +35,7 @@ if [ "$#" -lt 2 ] || [ $(($# % 2)) -ne 0 ]; then
   exit 1
 fi
 
-if [ -z "${TELEGRAM_BOT_TOKEN:-}" ] || [ -z "${TELEGRAM_CHAT_ID:-}" ]; then
+if [ -z "${TELEGRAM_BOT_TOKEN:-}" ] || [ -z "${TG_TARGET_CHAT_ID:-}" ]; then
   echo "[telegram_send_with_button] not configured — run automations/telegram/setup.sh" >&2
   exit 1
 fi
@@ -63,7 +68,8 @@ while [ "$#" -gt 0 ]; do
 done
 
 payload="$(jq -nc \
-  --arg chat_id    "$TELEGRAM_CHAT_ID" \
+  --arg chat_id    "$TG_TARGET_CHAT_ID" \
+  --arg thread_id  "${TG_TARGET_THREAD_ID:-}" \
   --arg text       "$msg" \
   --arg parse_mode "${TG_PARSE_MODE:-}" \
   --argjson kb     "$keyboard" \
@@ -73,7 +79,8 @@ payload="$(jq -nc \
     disable_web_page_preview: true,
     reply_markup: { inline_keyboard: $kb }
   }
-  + (if $parse_mode == "" then {} else { parse_mode: $parse_mode } end)')"
+  + (if $parse_mode == "" then {} else { parse_mode: $parse_mode } end)
+  + (if $thread_id == "" then {} else { message_thread_id: ($thread_id | tonumber) } end)')"
 
 # Retry on transient network failure (same rationale as telegram_send.sh:
 # covers the Wi-Fi-still-reconnecting race on laptop wake). Bounded (~1 min
