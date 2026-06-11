@@ -1,0 +1,237 @@
+{
+  "name": "Drop Zone capture (cloud)",
+  "nodes": [
+    {
+      "id": "tg-trigger",
+      "name": "Telegram Trigger",
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        0
+      ],
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {
+          "download": true,
+          "imageSize": "large"
+        }
+      },
+      "credentials": {
+        "telegramApi": {
+          "id": "FnBXEhAZd1GlsgSP",
+          "name": "Telegram bot (AO)"
+        }
+      },
+      "webhookId": "REDACTED_WEBHOOK_ID"
+    },
+    {
+      "id": "gate-build",
+      "name": "Gate + build card",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        220,
+        0
+      ],
+      "parameters": {
+        "jsCode": "// Gate: only Alex's messages in the 📥 Drop Zone topic of the AO Personal OS group.\n// Then build the inbox card (mirrors automations/telegram-inbox/watch.sh naming).\nconst GROUP_CHAT_ID = 'REDACTED_GROUP_CHAT_ID';\nconst DROPZONE_THREAD_ID = 7;\n\nconst item = $input.first();\nconst m = item.json.message;\nif (!m || !m.chat || String(m.chat.id) !== GROUP_CHAT_ID) return [];\nif (m.message_thread_id !== DROPZONE_THREAD_ID) return [];\nif (m.from && m.from.is_bot) return [];\n\nconst dt = DateTime.fromSeconds(m.date, { zone: 'Europe/Kyiv' });\nconst stamp = dt.toFormat('yyyyLLdd-HHmmss');\nconst base = `tg-${stamp}-${m.message_id}`;\nconst sanitize = (s) => String(s || '').replace(/[^A-Za-z0-9._-]+/g, '_').replace(/^_+|_+$/g, '').slice(0, 60);\n\nlet attachment = null;\nif (m.photo && m.photo.length) attachment = `${base}-photo.jpg`;\nelse if (m.voice) attachment = `${base}-voice.oga`;\nelse if (m.audio) attachment = `${base}-` + (sanitize(m.audio.file_name) || 'audio.mp3');\nelse if (m.video) attachment = `${base}-video.mp4`;\nelse if (m.document) attachment = `${base}-` + (sanitize(m.document.file_name) || 'file');\n\n// Base64 the downloaded media right here (no Extract From File node on this n8n version).\nlet mediaB64 = '';\nif (attachment && item.binary && item.binary.data) {\n  let buf = null;\n  try { if (typeof $helpers !== 'undefined' && $helpers.getBinaryDataBuffer) buf = await $helpers.getBinaryDataBuffer(0, 'data'); } catch (e) {}\n  if (!buf) { try { buf = await this.helpers.getBinaryDataBuffer(0, 'data'); } catch (e) {} }\n  if (buf) {\n    mediaB64 = buf.toString('base64');\n  } else {\n    const bd = item.binary.data;\n    if (bd.data && bd.data.length > 64 && /^[A-Za-z0-9+/=]+$/.test(bd.data.slice(0, 64))) mediaB64 = bd.data;\n  }\n}\nconst hasMedia = !!(attachment && mediaB64);\nconst text = m.text || m.caption || '';\n\nconst fm = ['---', 'source: telegram-dropzone', `date: ${dt.toISO()}`, `message_id: ${m.message_id}`];\nif (hasMedia) fm.push(`attachment: ${attachment}`);\nfm.push('---', '');\nlet body = text;\nif (attachment && !hasMedia) body += (body ? '\\n\\n' : '') + `(media ${attachment} was present but could not be downloaded)`;\nif (!body) body = '(no text)';\nconst card = fm.join('\\n') + body + '\\n';\n\nreturn [{\n  json: {\n    hasMedia,\n    cardPath: `context/_inbox/${base}.md`,\n    cardB64: Buffer.from(card, 'utf8').toString('base64'),\n    cardMsg: `dropzone: capture ${base}`,\n    mediaPath: hasMedia ? `context/_inbox/${attachment}` : '',\n    mediaMsg: hasMedia ? `dropzone: capture ${attachment}` : '',\n    mediaB64\n  }\n}];"
+      }
+    },
+    {
+      "id": "has-media",
+      "name": "Has media?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        440,
+        0
+      ],
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "c1",
+              "leftValue": "={{ $json.hasMedia }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      }
+    },
+    {
+      "id": "put-media",
+      "name": "PUT media to GitHub",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        880,
+        -120
+      ],
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 2000,
+      "parameters": {
+        "method": "PUT",
+        "url": "=https://api.github.com/repos/alexey-orlov/AO-Personal-OS/contents/{{ $json.mediaPath }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Accept",
+              "value": "application/vnd.github+json"
+            },
+            {
+              "name": "User-Agent",
+              "value": "n8n-ao-dropzone"
+            },
+            {
+              "name": "X-GitHub-Api-Version",
+              "value": "2022-11-28"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "json",
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ message: $json.mediaMsg, content: $json.mediaB64, branch: 'main' }) }}",
+        "options": {
+          "timeout": 60000
+        }
+      },
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "7RNS9ta0huNTPTFz",
+          "name": "GitHub PAT (AO-Personal-OS)"
+        }
+      }
+    },
+    {
+      "id": "put-card",
+      "name": "PUT card to GitHub",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1100,
+        0
+      ],
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 2000,
+      "parameters": {
+        "method": "PUT",
+        "url": "=https://api.github.com/repos/alexey-orlov/AO-Personal-OS/contents/{{ $('Gate + build card').first().json.cardPath }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Accept",
+              "value": "application/vnd.github+json"
+            },
+            {
+              "name": "User-Agent",
+              "value": "n8n-ao-dropzone"
+            },
+            {
+              "name": "X-GitHub-Api-Version",
+              "value": "2022-11-28"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "json",
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ message: $('Gate + build card').first().json.cardMsg, content: $('Gate + build card').first().json.cardB64, branch: 'main' }) }}",
+        "options": {
+          "timeout": 30000
+        }
+      },
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "7RNS9ta0huNTPTFz",
+          "name": "GitHub PAT (AO-Personal-OS)"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "Gate + build card",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gate + build card": {
+      "main": [
+        [
+          {
+            "node": "Has media?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Has media?": {
+      "main": [
+        [
+          {
+            "node": "PUT media to GitHub",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "PUT card to GitHub",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "PUT media to GitHub": {
+      "main": [
+        [
+          {
+            "node": "PUT card to GitHub",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "Europe/Kyiv",
+    "saveManualExecutions": true,
+    "errorWorkflow": "k2xuGa0yG0pQFVff",
+    "callerPolicy": "workflowsFromSameOwner",
+    "availableInMCP": false
+  }
+}
