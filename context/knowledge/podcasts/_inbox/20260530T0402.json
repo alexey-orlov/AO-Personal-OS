@@ -1,0 +1,107 @@
+{
+  "schema": 1,
+  "generatedAt": "2026-05-30T04:02:49Z",
+  "runStamp": "20260530T0402",
+  "backfill": true,
+  "episodes": [
+    {
+      "videoId": "AiM9mZCmVPY",
+      "videoTitle": "The Rule for Picking AI Winners | The a16z Show",
+      "videoUrl": "https://www.youtube.com/watch?v=AiM9mZCmVPY",
+      "channelName": "a16z",
+      "publishedDate": "2026-05-30",
+      "guests": [],
+      "summary": "The conversation argues that AI is redirecting enormous amounts of economic value into a small set of model and platform companies, and that the structure of token economics, supply constraints, and who controls models will decide who captures that value. Venture firms and founders must adapt: outcomes are larger and faster, winners are highly concentrated, and early-stage playbooks and support must change accordingly.",
+      "insights": [
+        {
+          "headline": "AI could capture a large share of corporate profits quickly",
+          "detail": "The speakers estimate the Fortune 500 collectively produce roughly $2 trillion of profit and project the biggest model companies (e.g., OpenAI + Anthropic) could hit about $200 billion revenue run rate soon, implying AI could claim on the order of 10% of that profit pool. That math makes the prize enormous and explains why cost pressure is accelerating interest in open-source and local models — buyers will seek cheaper token paths fast. The implication: markets and procurement will reallocate existing IT budgets toward model-driven spending, not just add incremental spend.",
+          "anchorQuote": "",
+          "tSeconds": 167,
+          "link": "https://www.youtube.com/watch?v=AiM9mZCmVPY&t=167"
+        },
+        {
+          "headline": "Native AI firms operate differently—lean, agent-driven, and product-focused",
+          "detail": "Founders of native AI companies build extremely lean organizations that embed AI into their operations and product development (researchers \"whispering in\" agents, running swarms of agents), rather than treating AI as a bolt-on efficiency play. That leads to faster product iteration and different talent preferences — top engineers gravitate to product-facing, frontier work — which changes how companies scale and which operational problems show up earlier. For investors and buyers, this means expectations about growth, resource allocation, and the timing of large business deals must be reset.",
+          "anchorQuote": "",
+          "tSeconds": 388,
+          "link": "https://www.youtube.com/watch?v=AiM9mZCmVPY&t=388"
+        },
+        {
+          "headline": "Top outcomes are much larger and concentrated than before",
+          "detail": "Khosla-style exit statistics cited show the top 1% exit threshold rose from roughly $10B (2020–2024) to about $32B recently, and with players like OpenAI/Anthropic the peak could exceed $100B, meaning winners are orders of magnitude larger than prior cycles. That accelerates power-law dynamics: a small number of firms will capture most value, which affects how VCs allocate follow-on capital and why firms are scaling platform services to support those few hypergrowth companies. For LPs and entrepreneurs, this raises both opportunity (bigger winners) and selection risk (harder to pick the ultimate winners).",
+          "anchorQuote": "",
+          "tSeconds": 511,
+          "link": "https://www.youtube.com/watch?v=AiM9mZCmVPY&t=511"
+        },
+        {
+          "headline": "Being on the 'token path' is now the most important product attribute",
+          "detail": "The firm argues you must have a clear token consumption path because buyers already face cost pressure and aren't increasing legacy software budgets to cover rising AI costs; token pricing and where a product sits in token consumption determines commercial viability. Market-structure (few frontier labs vs many competitors), open-source distillation, and regional low-cost models (e.g., cheaper Chinese models) all change token economics, so product teams need strategies to minimize token friction or monetize a token-heavy value proposition. Practically, that means investors and founders should prioritize models, inference efficiency, and pricing that align with enterprise cost constraints.",
+          "anchorQuote": "",
+          "tSeconds": 773,
+          "link": "https://www.youtube.com/watch?v=AiM9mZCmVPY&t=773"
+        },
+        {
+          "headline": "The current cycle is supply-constrained, not a classic demand-driven bubble",
+          "detail": "Rather than excess supply, the ecosystem lacks compute, memory, data center capacity, and power — the speakers expect data-center capacity shortages to persist into late 2028–2029 and believe this scarcity reduces immediate bubble risk. That constraint affects who can scale model training/inference and bolsters incumbents with access to capacity, while also making infrastructure and chip supply critical investment areas. A major algorithmic breakthrough that drastically reduces token consumption could reverse this dynamic, but absent that, limited supply shapes which firms can capitalize on AI demand.",
+          "anchorQuote": "",
+          "tSeconds": 1449,
+          "link": "https://www.youtube.com/watch?v=AiM9mZCmVPY&t=1449"
+        }
+      ]
+    },
+    {
+      "videoId": "2Ap1dnv-GXA",
+      "videoTitle": "Why Two IIT Engineers Turned Down $550K Jobs To Build A Startup",
+      "videoUrl": "https://www.youtube.com/watch?v=2Ap1dnv-GXA",
+      "channelName": "Y Combinator",
+      "publishedDate": "2026-05-30",
+      "guests": [],
+      "summary": "Two IIT graduates turned down high‑paying jobs and PhD opportunities to join YC and build an AI startup. They pivoted from an edtech idea to fine‑tuning LLMs and then to automating customer support after customer signals, winning major enterprise customers by focusing on product quality, pilots, and automation.",
+      "insights": [
+        {
+          "headline": "They turned down $550K offers to start a company",
+          "detail": "The founder was offered roughly $550,000 and even had a PhD path but chose to join YC and launch a startup instead. That decision created real pressure (parents were upset) but also forced commitment — he frames this as 'burning the boats' to make the company succeed. The point matters because it underpins their willingness to take big downside risk for disproportionate upside and explains how they could focus intensely on building.",
+          "anchorQuote": "",
+          "tSeconds": 173,
+          "link": "https://www.youtube.com/watch?v=2Ap1dnv-GXA&t=173"
+        },
+        {
+          "headline": "YC partner pushed them off edtech, sparking a decisive pivot",
+          "detail": "During the YC interview an partner bluntly told them \"this is edtech it's not going to work,\" and recommended they choose a different problem given their LMS research experience. That push and introductions to experienced edtech leaders made them pivot within the batch rather than double down on an idea YC judged weak. The restart was pivotal — the partner's bet and feedback directly led them to a more viable technical direction.",
+          "anchorQuote": "",
+          "tSeconds": 236,
+          "link": "https://www.youtube.com/watch?v=2Ap1dnv-GXA&t=236"
+        },
+        {
+          "headline": "They pivoted to customer support after fine‑tuning proved a bad market",
+          "detail": "They initially focused on fine‑tuning LLMs (open‑sourcing models, topping Hugging Face benchmarks and raising $4M seed) but realized fine‑tuning had weak commercial dynamics: expensive infrastructure, niche security use cases, and hard enterprise sales. From customer conversations they observed two real growth areas — customer support and coding — so they shifted to support automation, landing early customers like Zepto. This shows their product focus came from customer signals, not theoretical TAM hunting.",
+          "anchorQuote": "",
+          "tSeconds": 494,
+          "link": "https://www.youtube.com/watch?v=2Ap1dnv-GXA&t=494"
+        },
+        {
+          "headline": "A tiny team beat a well‑funded rival to win DoorDash",
+          "detail": "An eight‑person team won DoorDash as a customer against a much larger, heavily funded competitor by leveraging YC introductions, running a rigorous three‑month pilot, and delivering stable metrics. The startup's product quality and reliability in pilot convinced a large enterprise to trust a small vendor, which then served as a strong reference to win other big customers. This demonstrates that pilots and measurable results can outweigh scale or brand in enterprise buying.",
+          "anchorQuote": "",
+          "tSeconds": 639,
+          "link": "https://www.youtube.com/watch?v=2Ap1dnv-GXA&t=639"
+        },
+        {
+          "headline": "AI 'forward‑deployed engineer' replaces manual enterprise configuration",
+          "detail": "They identify the main enterprise bottleneck as the need for forward‑deployed engineers (FDEs) who sit with customers to configure systems and iterate policies. Their roadmap is an AI agent that will join Slack/Google Meet, read notes and make policy/configuration changes automatically to drive KPIs like resolution rate. If it works, enterprises won't need many human FDEs, enabling faster scale and lower adoption friction.",
+          "anchorQuote": "",
+          "tSeconds": 1064,
+          "link": "https://www.youtube.com/watch?v=2Ap1dnv-GXA&t=1064"
+        },
+        {
+          "headline": "Charge customers early — get commitments before building",
+          "detail": "They learned the hard way that many ideas are 'fake problems' unless someone will pay for the solution, so they now require a payment commitment or a clear signal of willingness to pay before building. The founder emphasizes it's not about cool ideas from ChatGPT; it's about validating customer willingness to exchange money (or time) for value. This discipline reduces wasted engineering and ensures product work targets real commercial demand.",
+          "anchorQuote": "",
+          "tSeconds": 930,
+          "link": "https://www.youtube.com/watch?v=2Ap1dnv-GXA&t=930"
+        }
+      ]
+    }
+  ]
+}
