@@ -1,49 +1,63 @@
-# telegram-inbox — Drop Zone → `inbox/` watcher
+# telegram-inbox — 📥 Drop Zone capture (cloud-first)
 
-Long-polls @ao_personal_os_bot for messages Alex posts in the **📥 Drop Zone**
-topic of the "AO Personal OS" Telegram forum group and saves them into the
-repo's `inbox/` drop zone, where the next `/context-update` sweep folds them
-into the context wiki.
+Captures everything Alex posts in the **📥 Drop Zone** topic of the "AO Personal OS"
+Telegram forum group and stages it for the context wiki.
 
-## What gets saved
+## Primary: n8n cloud capture (laptop-independent, since 2026-06-11)
+
+n8n workflow **"Drop Zone capture (cloud)"** in <https://alexorlovco.app.n8n.cloud>:
+
+```
+Telegram webhook ─▶ gate (group + Drop Zone topic + not-bot) ─▶ build card (.md → base64)
+   ─▶ [media? PUT attachment to GitHub] ─▶ PUT card to GitHub   →  context/_inbox/ on main
+```
+
+- Captures within seconds of posting; each drop is a `dropzone: capture tg-<stamp>-<msgid>` commit.
+- Card naming/format mirrors the local watcher (`tg-YYYYMMDD-HHMMSS-<msgid>.md`, frontmatter
+  `source/date/message_id/attachment`; media alongside: `-photo.jpg`, `-voice.oga`, sanitized doc names).
+  The card ALWAYS exists, even for captionless media — `/context-update` discovery keys on it.
+- The daily claude.ai cloud routine **"Daily drop-zone & context fold"** (05:33 UTC = 08:33 Kyiv,
+  same environment as the podcast routines) runs `/context-update` in sweep mode: routes each
+  drop per the Drop taxonomy (step 3b of the skill), then moves card + attachments to
+  `context/_inbox/processed/`. Engine-vs-scheduler, same philosophy as `podcast-knowledge`.
+- **Failure handling**: workflow `errorWorkflow` = "Podcast streaming — error alerts" → Telegram
+  alert on crash. Success is silent (quiet-by-default, like the podcast digest).
+- **Security**: the Telegram trigger validates Telegram's `secret_token` header — forged POSTs to
+  the webhook URL are rejected. The exported JSON below REDACTS the group chat id and the trigger
+  `webhookId` (per the CLAUDE.md hard rule: no live trigger URLs in the repo); restore both in the
+  n8n UI if ever re-importing from this file.
+- Voice notes are staged raw (no transcription yet); the daily fold reports them as `pending-voice`
+  and leaves them in the backlog.
+
+**Consequence of cloud capture:** drops are committed to the private GitHub repo
+(`context/_inbox/`, then `processed/`). Anything that must never reach GitHub goes into the
+local `inbox/` dir instead — still folded by local `/context-update` sweeps, never committed.
+
+## Fallback: local watcher (original implementation, decommissioned 2026-06-11)
+
+`watch.sh` + launchd agent — long-polls `getUpdates`, saves to git-ignored `inbox/`.
+Unloaded and plist removed from `~/Library/LaunchAgents`; files kept here for fallback.
+
+Telegram allows webhook **XOR** `getUpdates` per bot: while the n8n workflow is active the
+watcher cannot run (409 Conflict). To revert to local capture:
+
+1. Deactivate "Drop Zone capture (cloud)" in n8n.
+2. `TOKEN=$(security find-generic-password -a "$USER" -s TELEGRAM_BOT_TOKEN -w); curl "https://api.telegram.org/bot$TOKEN/deleteWebhook"`
+3. `automations/telegram-inbox/setup.sh` — reinstalls the launchd agent.
+
+Single-consumer rule still applies to the fallback (run on ONE machine only).
+
+## What gets saved (both paths)
 
 | Message type | Lands as |
 |---|---|
-| Text | `inbox/tg-<stamp>-<msgid>.md` (frontmatter: source, date, message id) |
-| File / document | `inbox/tg-<stamp>-<msgid>-<original name>` (+ caption sidecar `.md`) |
-| Photo | `inbox/tg-<stamp>-<msgid>-photo.jpg` (largest rendition) |
-| Voice note / audio | `inbox/tg-<stamp>-<msgid>-voice.oga` (saved raw; not auto-transcribed) |
+| Text | `tg-<stamp>-<msgid>.md` (frontmatter: source, date, message id) |
+| File / document | `tg-<stamp>-<msgid>-<sanitized name>` + card `.md` |
+| Photo | `tg-<stamp>-<msgid>-photo.jpg` (large rendition) + card `.md` |
+| Voice / audio | `tg-<stamp>-<msgid>-voice.oga` + card `.md` (not auto-transcribed) |
 
-The bot reacts 👍 on each captured message, so the phone shows confirmation.
-`inbox/` is git-ignored — raw drops stay local; only distilled context is
-committed (same privacy policy as call transcripts).
+## Files
 
-Messages in every other topic (English Coaching, Inbox & Drafts, …) are
-ignored — those are bot→Alex channels.
-
-## Architecture
-
-- `watch.sh` — infinite `getUpdates` long-poll loop (50s window), filters to
-  `chat_id == TELEGRAM_GROUP_CHAT_ID && message_thread_id == TG_TOPIC_DROPZONE`,
-  downloads media via `getFile`. Offset persisted in `.work/offset`.
-- `config.sh` — inherits token/chat ids/topic map from `automations/telegram/`.
-- `com.user.telegram-inbox.plist` — launchd agent, `KeepAlive`, logs in `/tmp/`.
-
-## Setup (per machine — but see the single-consumer rule)
-
-1. One-time, any machine: `automations/telegram/setup_group.sh` (creates
-   topics, stores `TELEGRAM_GROUP_CHAT_ID` in Keychain, writes `topics.env`).
-2. `automations/telegram-inbox/setup.sh` — installs + loads the launchd agent.
-
-**Single-consumer rule:** Telegram allows ONE `getUpdates` consumer per bot.
-Run this watcher on ONE machine only (keep it with the call-pipeline machine).
-A second machine that also runs it would silently steal updates.
-
-## Ops
-
-```bash
-tail -f /tmp/telegram-inbox.out.log                                  # liveness
-launchctl unload ~/Library/LaunchAgents/com.user.telegram-inbox.plist  # stop
-launchctl load   ~/Library/LaunchAgents/com.user.telegram-inbox.plist  # start
-rm automations/telegram-inbox/.work/offset                            # replay nothing — offset only moves forward; deleting re-fetches whatever Telegram still buffers (~24h)
-```
+- `workflow-dropzone-capture.json` — redacted export of the live n8n workflow (disaster-recovery
+  copy + diff history). Re-export after any n8n edit, re-applying the redactions.
+- `watch.sh`, `config.sh`, `com.user.telegram-inbox.plist`, `setup.sh` — the local fallback.
