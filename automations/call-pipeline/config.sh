@@ -6,7 +6,7 @@ export REPO_ROOT="$HOME/Documents/GitHub/AO-Personal-OS"
 export PIPELINE_DIR="$REPO_ROOT/automations/call-pipeline"
 export WORK="$PIPELINE_DIR/.work"                 # machine-local, git-ignored
 export SKILLS_DIR="$REPO_ROOT/.claude/skills"
-export OUT_DIR="$REPO_ROOT/outputs/call-notes"    # committed + pushed (synced across devices)
+export OUT_DIR="$REPO_ROOT/context/areas"         # call notes land at <area>/calls/<sub> in the context tree (committed + synced)
 
 # Voice Memos source — auto-detected (handles macOS-version differences).
 _DEFAULT_VM="$HOME/Library/Group Containers/group.com.apple.VoiceMemos.shared/Recordings"

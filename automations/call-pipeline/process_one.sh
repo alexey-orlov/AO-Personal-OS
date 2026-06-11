@@ -82,7 +82,11 @@ stamp="$(date +%Y-%m-%d_%H%M%S)"
 # Sanitized identifier from the source recording's filename (alphanumerics only).
 src_id="$(printf '%s' "${fname%.*}" | LC_ALL=C tr -cd '[:alnum:]')"
 [ -n "$src_id" ] || src_id="rec"
-dest_dir="$OUT_DIR/$folder"
+# Physical layout: the classifier's logical path <area>[/<sub>] maps to
+# context/areas/<area>/calls/[<sub>] — notes live next to the area's wiki page.
+area="${folder%%/*}"
+sub="${folder#"$area"}"; sub="${sub#/}"
+dest_dir="$OUT_DIR/$area/calls${sub:+/$sub}"
 mkdir -p "$dest_dir"
 note="$dest_dir/${stamp}_${type}_${src_id}.md"
 # Belt-and-braces: never overwrite an existing note.
