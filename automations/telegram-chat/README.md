@@ -17,6 +17,12 @@ content carries a prompt injection — only forward content you trust. To dial
 back, remove the flag in `run.sh` (prompts then relay to Telegram as
 Allow/Deny buttons) and `./new_session.sh`.
 
+Note: even in bypass mode, Claude Code still asks before the plugin's
+*outbound* tools (reply/react/edit/download). Those are allowlisted via the
+`mcp__plugin_telegram_telegram` rule in the repo's `.claude/settings.json`
+(committed — carries over to a VPS). Remove that rule too if reverting to
+prompted mode and you want sends gated.
+
 ## Architecture
 
 ```
