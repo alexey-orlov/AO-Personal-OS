@@ -23,7 +23,7 @@ Each area folder holds: `README.md` (live state), `calls/` (pipeline-routed call
 | [Job search](areas/job-search/README.md) | Zipify HoP process live; recruiter pipeline + outreach waves; Archive Resale closed | 2026-06-02 |
 | [GigaCloud](areas/gigacloud/README.md) | CPO role; no call artifacts in the OS yet | - |
 | [Laba](areas/laba/README.md) | PM-course tutoring; no artifacts yet | - |
-| [Personal OS](areas/personal-os/README.md) | pipeline + autosync + context wiki live; open: calendar OAuth expired | 2026-06-11 |
+| [Personal OS](areas/personal-os/README.md) | pipeline + autosync + context wiki + n8n podcast digest live; open: calendar OAuth expired | 2026-06-11 |
 
 ## Cross-area reference
 
