@@ -179,6 +179,7 @@
   },
   "active": "c0bbbc95d9a63f9d",
   "lastOpenFiles": [
+    "context/_inbox/tg-20260611-231405-37.md",
     "context/_inbox/tg-20260611-225238-36.md",
     "context/_inbox/tg-20260611-224131-35.md",
     "context/_inbox/tg-20260611-223515-34.md",
@@ -208,7 +209,6 @@
     ".claude/skills/podcast-insights/SKILL.md",
     ".claude/skills/one-on-one/SKILL.md",
     ".claude/skills/message-writing/references",
-    ".claude/skills/message-writing/SKILL.md",
     ".claude/skills/draft-message/references",
     ".claude/skills/book-finder/references",
     ".claude/.DS_Store",
