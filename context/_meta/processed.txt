@@ -21,4 +21,5 @@ context/areas/softserve/calls/2026-06-09_182514_one-on-one_202606091701318AAD9C9
 context/areas/softserve/calls/2026-06-09_182910_default_20260608180354D3923990.md
 context/areas/softserve/calls/2026-06-09_183201_default_20260608180354E83F642F.md
 context/areas/softserve/calls/2026-06-09_183633_one-on-one_2026060917013100B193F3.md
+context/areas/softserve/calls/2026-06-11_135929_default_20260611130042C37F547F.md
 context/areas/softserve/docs/conga-ai-pm-bootcamp-transcript.md
