@@ -144,6 +144,88 @@ related: [Excels one-shot but fails the last 10% consistently](#excels-one-shot-
 OpenAI launched 'Rosalind Biodefense' — a restricted offering giving trusted government and public‑health researchers specialized AI tools for outbreak detection and vaccine work — reflecting a broader trend of separating high-risk capabilities from public models. Panelists argue this shrinks the practical 'G' in AGI: advanced capacities with security implications (bio, cyber) are being built as guarded, fine‑tuned systems available only to vetted parties, which reduces general public access but may be necessary for national security and safety.
 — Peter H. Diamandis · 2026-06-07 · guest: Dr. Don Mucalem · [▶ 13:57](https://www.youtube.com/watch?v=hyeoYsVl1No&t=837) · `pi-hyeoYsVl1No-03`
 
+### Putting vetted vendors and purchase rules into a Claude project prevents bad impulse buys
+She created a dedicated Claude 'household management' project that contains a curated list of brands plus explicit rules (preferred materials, return policies, care instructions, formatting for results). Claude searches that list first and formats results with photo, price, materials and trust-history so she can decide quickly without falling for paid ads or knockoffs. That matters because it cuts the mental overhead of shopping for busy parents and reduces purchases of cheap, quickly broken items.
+— How I AI · 2026-06-09 · guest: Nicole · [▶ 4:53](https://www.youtube.com/watch?v=OOPganyUinE&t=293) · `pi-OOPganyUinE-01`
+related: [Proprietary context—not generic web knowledge—differentiates agents](#proprietary-contextnot-generic-web-knowledgedifferentiates-agents) (consumer side of the same "context is the moat" rule)
+
+### Claude can surface brand-level trust signals and flag declining quality
+When asked, Claude will search for vendor history and call out red flags — for example, it surfaced that a brand was taken over two years ago and that reviews became abysmal afterward, or that a company had private-equity-driven scaling and many paid influencer placements. Those signals help her avoid trending direct-to-consumer brands that prioritize marketing over craftsmanship and prevent buying products likely to fail. The non-obvious gain is that AI can aggregate provenance and reputation cues that are otherwise buried across reviews, Glassdoor notes, and industry reporting.
+— How I AI · 2026-06-09 · guest: Nicole · [▶ 7:30](https://www.youtube.com/watch?v=OOPganyUinE&t=450) · `pi-OOPganyUinE-02`
+
+### Connecting Claude to your email automates returns and increases refund success
+She uses Claude Co/work to access Gmail, find receipts or order numbers from a photo of a defective item, and draft a full refund email (including item SKU and deterioration details) to customer service. This reduces the five-to-ten-minute friction that usually stops people from pursuing refunds and often yields faster replies because the draft includes everything a rep needs. The practical effect is less waste and more enforcement of brand quality promises without parents doing tedious administrative work.
+— How I AI · 2026-06-09 · guest: Nicole · [▶ 19:25](https://www.youtube.com/watch?v=OOPganyUinE&t=1165) · `pi-OOPganyUinE-03`
+related: [Codex agents can act on your desktop apps (e.g., WhatsApp + Calendar)](#codex-agents-can-act-on-your-desktop-apps-eg-whatsapp--calendar) (same connector-into-personal-tools pattern, applied to consumer admin)
+
+### AI shopping flow levels the playing field for small artisans and heritage brands
+Claude queries vetted boutiques (she cites Boston General Store) and legacy manufacturers, surfacing handcrafted items—sometimes at prices comparable to mass-market options—along with production details (e.g., a Maine workshop stitching thousands of totes daily). By skipping badly designed legacy websites and ad-saturated listings, the assistant makes small makers discoverable and accessible to consumers who want durable, repairable goods. This flips the common narrative that AI only benefits big platforms: here it reduces UX friction and amplifies artisan visibility.
+— How I AI · 2026-06-09 · guest: Nicole · [▶ 12:38](https://www.youtube.com/watch?v=OOPganyUinE&t=758) · `pi-OOPganyUinE-04`
+
+### Fable 5 consumes roughly twice the tokens of other models
+Anthropic states Fable uses about 2x the rate limits and tokens compared with other models, and the reviewer observed heavy token burn while running on the highest 'extra high' setting. They recommend 'high' as the practical sweet spot because running at maximum quality rapidly increases cost without guaranteed proportional benefit. This matters because teams must match model "effort level" to task complexity to control cloud expense and ROI.
+— How I AI · 2026-06-10 · guest: — · [▶ 3:05](https://www.youtube.com/watch?v=IREnr4I89Ho&t=185) · `pi-IREnr4I89Ho-01`
+related: [Token-maxing is deliberate; they spend heavily for quality](#token-maxing-is-deliberate-they-spend-heavily-for-quality) (Conductor's offsetting discipline) · [Inference/token bills will become a material company expense; track attribution](#inferencetoken-bills-will-become-a-material-company-expense-track-attribution)
+
+### Built for multi-day, long-running workflows but reliability still uneven
+Fable 5 is designed to run "for days," spin up sub-agents, and support dynamic multi-agent workflows; the reviewer ran sessions lasting several hours and successfully kicked off multi-agent runs. However, they also experienced stalls and orchestration errors (one run stalled after ~3 hours) and suspect some issues lie in Claude Code rather than the model itself. So while the model's long-horizon capability is real and valuable for complex planning, teams must expect engineering work to make persistent agent runs robust.
+— How I AI · 2026-06-10 · guest: — · [▶ 3:29](https://www.youtube.com/watch?v=IREnr4I89Ho&t=209) · `pi-IREnr4I89Ho-02`
+related: [Excels one-shot but fails the last 10% consistently](#excels-one-shot-but-fails-the-last-10-consistently) (the same reliability wall, now visible in long-horizon mode)
+
+### Outstanding vision and document formatting compared to peers
+The reviewer repeatedly found Fable 5 strong on vision tasks and PDF/document formatting: in a simple handwriting worksheet test Fable produced clearer spacing and layout than Opus 4A, and it parsed and formatted documents reliably. These wins were consistent across other document/vision checks, suggesting the model is especially well-suited for UI/UX automation, PDF transformation, and any task where output layout quality matters. That makes Fable a good choice when visual fidelity or structured document generation is a priority.
+— How I AI · 2026-06-10 · guest: — · [▶ 10:10](https://www.youtube.com/watch?v=IREnr4I89Ho&t=610) · `pi-IREnr4I89Ho-04`
+
+### Built-in safety classifiers with graceful fallback to Opus 4.8
+Fable includes classifiers for sensitive categories (cybersecurity, biology, chemistry) and implements a fallback that downgrades flagged requests to Opus 4.8 instead of outright blocking them; the API supports this parameter. Anthropic keeps 30-day retention logs for misuse detection and says 95% of sessions did not trigger fallbacks, and Mythos-level access remains restricted to vetted partners while Fable is generally available. Practically, that means enterprises get a safety-first fringe: high-capability outputs plus a controlled downgrade path that preserves continuity and pricing predictability.
+— How I AI · 2026-06-10 · guest: — · [▶ 7:03](https://www.youtube.com/watch?v=IREnr4I89Ho&t=423) · `pi-IREnr4I89Ho-05`
+related: [Frontier labs are carving out sensitive capabilities into restricted models](#frontier-labs-are-carving-out-sensitive-capabilities-into-restricted-models) (Rosalind/Mythos restriction at the model-tier level)
+
+### Coding is the first clear product-market fit for LLMs
+Evans notes agentic coding shifted earlier this year from 'useful' to transformative, with companies like Anthropic finding concrete wins by focusing on developer tooling and coding tasks. This early traction matters because software development both produces immediate productivity gains and surfaces concrete internal reorganizations — e.g., what junior engineers do — that other sectors haven't yet experienced. In short: code-first adoption explains why AI usage and economics are accelerating now, and why the software industry will be reshaped earlier than other verticals.
+— a16z · 2026-06-11 · guest: Benedict Evans · [▶ 3:52](https://www.youtube.com/watch?v=ktl8mNiWqMM&t=232) · `pi-ktl8mNiWqMM-02`
+related: [GPT-5.5 achieved a step-change in coding](#gpt-55-achieved-a-step-change-in-coding-coding-agents-are-becoming-the-workflow) (the benchmark side of Evans's macro framing) · theme → [Leadership, careers & teams](leadership-careers-and-teams.md) (the role consequences inside the same orgs)
+
+### Some agents already perform employee-level work
+Replit's 10K agent runs marketing campaigns, scrapes and consolidates social data, drafts highly personalized outreach (example: it found 137 missing VCs and sent a campaign to 331 investors with zero send failures). The host reports headcount drop (from ~20 to ~2) for SaaStr operations when agents handle repetitive tasks, showing these systems are not just experiments but production labor substitutes for many boring jobs. This matters because it demonstrates real productivity gains and a business case (faster, cheaper, always-on work) rather than theoretical capability.
+— SaaStr AI · 2026-06-11 · guest: Amjad Masad (Replit) · [▶ 3:12](https://www.youtube.com/watch?v=RdalLtvn2-M&t=192) · `pi-RdalLtvn2-M-01`
+related: theme → [Leadership, careers & teams](leadership-careers-and-teams.md) (deflationary effect on roles, `pi-RdalLtvn2-M-05`)
+
+### Huge context windows plus tailored compaction enable effective agents
+Replit says the usable context has jumped from ~16K to over 1 million tokens, but longevity requires smart compaction and multi-layer memories: delete 'bug-fix noise', preserve architectural facts (e.g., 'has a database'), and write durable long-term memory as markdown files like raffle.md. They maintain a graph-like memory and selectively compact so the agent keeps pointers to global state without being confused by extraneous history. The non-obvious point: bigger context without domain-aware pruning can degrade performance, so engineering the memory lifecycle is what makes large context useful.
+— SaaStr AI · 2026-06-11 · guest: Amjad Masad (Replit) · [▶ 5:38](https://www.youtube.com/watch?v=RdalLtvn2-M&t=338) · `pi-RdalLtvn2-M-02`
+related: [Mono-repos and file-system access make agents far more capable](#mono-repos-and-file-system-access-make-agents-far-more-capable)
+
+### Agents can autonomously improve themselves via closed-loop prompt engineering
+Replit runs an internal agent that nightly analyzes user interaction traces, generates pull requests with prompt/behavior changes, A/B tests them in production, and merges improvements that pass metrics like sentiment and deploy rate. This loop doesn't change model weights but iteratively improves prompts, search strategies, and integrations, producing steady capability gains the team can't fully track manually. It's significant because it demonstrates a practical path to self-improving agents today — faster iteration and scaling without retraining base models — and raises governance considerations.
+— SaaStr AI · 2026-06-11 · guest: Amjad Masad (Replit) · [▶ 21:48](https://www.youtube.com/watch?v=RdalLtvn2-M&t=1308) · `pi-RdalLtvn2-M-03`
+related: theme → [Tech frontier & abundance](tech-frontier-and-abundance.md) (Anthropic's pause request, `pi-P2HJEz3oqLs-01`, is the lab-scale version of this self-improvement loop)
+
+### Mono-repos and file-system access make agents far more capable
+Replit moved to a mono-repo architecture so agents can reuse code and share global context across apps (web, mobile, backend, admin), enabling an agent to fetch the right file-level context on demand instead of being limited to a single isolated project. Agents prefer searching file systems (grep-style) over SQL queries; having everything in one repo gives them pointers and immediate access to architecture, docs, and code, which improves accuracy and reduces expensive blind queries. The implication: how you organize company data and code (mono-repo, accessible file system, shared knowledge bases) materially affects agent performance.
+— SaaStr AI · 2026-06-11 · guest: Amjad Masad (Replit) · [▶ 10:59](https://www.youtube.com/watch?v=RdalLtvn2-M&t=659) · `pi-RdalLtvn2-M-04`
+related: [Huge context windows plus tailored compaction enable effective agents](#huge-context-windows-plus-tailored-compaction-enable-effective-agents) · [Proprietary context—not generic web knowledge—differentiates agents](#proprietary-contextnot-generic-web-knowledgedifferentiates-agents)
+
+### Slack agents act as always‑on product radar and auditor
+Rather than try to read every channel, Customer.io uses internal AI agents: a scanner that continuously scans dozens of Slack channels to surface conversations needing product attention, and 'Chiefy' which audits new artifacts against a corpus of canonical company docs to find discrepancies or stale content. These simple, always‑on agents help leaders stay close to the ground, find actionable threads, and keep the organization's living documentation in sync — scaling situational awareness without hiring more people.
+— Aakash Gupta · 2026-06-11 · guest: Matthew (Customer.io) · [▶ 43:29](https://www.youtube.com/watch?v=yDeFGKaSoX8&t=2609) · `pi-yDeFGKaSoX8-04`
+related: [Slack as the front door with Claude automates ticket triage and routing](#slack-as-the-front-door-with-claude-automates-ticket-triage-and-routing) (same Slack-as-substrate pattern, applied to internal product radar instead of customer intake)
+
+### Secure agents by proxying their network traffic, not by hardcoding controls
+Brex built and open-sourced 'crab trap' — an HTTP proxy that records and audits every outgoing request from an agent and then uses LLMs to generate and enforce policies. After observing an agent for a day they could auto-approve ~98% of requests (e.g., their recruiting agent 'Jim'), leaving ~2% for human/LLM judgment; this approach made production experimentation safe enough for broader rollout.
+— Y Combinator · 2026-06-11 · guest: Pedro (Brex) · [▶ 7:01](https://www.youtube.com/watch?v=mPAHvz8kW24&t=421) · `pi-mPAHvz8kW24-02`
+related: [Conductor enforces a strict PR-first workflow; no direct edits](#conductor-enforces-a-strict-pr-first-workflow-no-direct-edits) (same instinct: put the human review boundary at a chokepoint the agent has to traverse)
+
+### Good AI products are agentic loops with tools
+Real, useful AI apps are agents that call external tools and self-bootstrap behavior via a harness (markdown/skills), not single-shot chatbots. Pedro gives concrete examples: buying a movie ticket entirely through an OpenClaw flow tied to a Brex card, and using Slack/voice + agent workflows to coordinate 60 dinners — demonstrating nontechnical teams can get far by composing models, tooling and configuration.
+— Y Combinator · 2026-06-11 · guest: Pedro (Brex) · [▶ 5:07](https://www.youtube.com/watch?v=mPAHvz8kW24&t=307) · `pi-mPAHvz8kW24-03`
+related: theme → [Product discovery & strategy](product-discovery-and-strategy.md) (Evans's "chatbot is not a product", `pi-ktl8mNiWqMM-04`, is the strategic version of this engineering claim)
+
+### Inference/token bills will become a material company expense; track attribution
+Even if model prices fall, usage multiplies: Brex expects inference to be among the largest line items and has built 'Magpie' to attribute every dollar of token spend to products, customers or teams. Their internal data shows concentrated token-maxing regions correlate with faster revenue growth, and adoption is still tiny (in one analogy 84% never used AI, 16% used a free chatbot, 0.3% pay for it, and only one small slice use agents).
+— Y Combinator · 2026-06-11 · guest: Pedro (Brex) · [▶ 30:46](https://www.youtube.com/watch?v=mPAHvz8kW24&t=1846) · `pi-mPAHvz8kW24-04`
+related: [Token-maxing is deliberate; they spend heavily for quality](#token-maxing-is-deliberate-they-spend-heavily-for-quality) · [Fable 5 consumes roughly twice the tokens of other models](#fable-5-consumes-roughly-twice-the-tokens-of-other-models) · theme → [Tech frontier & abundance](tech-frontier-and-abundance.md) (token-price collapse macro, `pi-dtuPovnf4XQ-04`)
+
 ## Open questions
 - Coding-agent benchmarks (DeepSuite, senior-engineer benchmark) are improving fast, but the same week's hands-on Opus 4.8 review says the "last 10%" gap is unchanged, and the Gemini Omni avatar work shows the same wall in video. What's the bridge between benchmark scores and real production ROI across modalities?
 - If every useful agent needs a human "gardener," is the FDE-replacement roadmap (`pi-2Ap1dnv-GXA-05`) optimistic on timing, or does the gardener role just migrate to fewer, higher-leverage people?
