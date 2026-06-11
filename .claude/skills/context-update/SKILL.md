@@ -95,6 +95,7 @@ _updated: YYYY-MM-DD_
 ## Out of scope
 
 - Everything under `outputs/` (`english-coaching/` is the language stream, `inbox-sweep/` is a run log) and book lists — never folded.
+- Everything under `context/knowledge/` — a separate engine (`/podcast-insights`) with its own ledger owns that tree. The sweep `find` deliberately scans only `context/areas inbox`; never widen it to `context/knowledge/`, or the two engines will fight over the same files.
 - Never edit raw artifacts (`calls/`, `docs/`, `inbox/` contents) — read-only inputs.
 - Sensitivity: never copy the "Backend context" items of `context/areas/job-search/positioning.md` onto other pages — link to the doc instead; facts that must never leak externally live in exactly one place.
 
