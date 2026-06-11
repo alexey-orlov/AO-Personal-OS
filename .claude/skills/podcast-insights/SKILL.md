@@ -79,7 +79,7 @@ Headless leaves git to the orchestrator.
 - **Slugs are immutable.** A **rename** edits only the registry `title` + the page `# H1` + the index row; the slug/filename never change, so old links and IDs keep resolving.
 - **Split** (a theme > ~30 insights *and* a clean seam): create the child theme(s) with fresh slugs, **move** the relevant insight blocks (IDs don't change → ledger stays valid), leave a one-line pointer in the parent's `## Related themes`, record `note: split` in both registry rows. A fuzzy overgrown page is **flagged in the run summary** for Alex to split interactively — not auto-split.
 - **Merge** (two themes are one): pick the survivor slug (older/larger), move the loser's blocks in (dedup per step 4), set the loser `status: merged` + `mergedInto` + add its slug to the survivor's `aliases` (tombstone kept forever). Replace `themes/<loser>.md` with a 2-line stub pointing to the survivor.
-- `/podcast-insights recluster <theme>` is the manual maintenance op for the above; normal daily runs never trigger them.
+- `/podcast-insights recluster <theme>` is the manual maintenance op for the above; normal daily runs never trigger them. Scheduled maintenance: the **"Bi-weekly podcast knowledge recluster"** cloud routine (11th & 25th monthly) performs exactly these lifecycle ops on flagged/overgrown themes — see `automations/podcast-knowledge/README.md`.
 
 ## Templates
 
