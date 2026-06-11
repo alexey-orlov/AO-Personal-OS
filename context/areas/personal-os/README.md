@@ -27,7 +27,7 @@ _updated: 2026-06-11_
 
 - **Calendar OAuth token expired** — notes since Jun 8 carry `invalid_grant` instead of calendar headers; re-run consent or publish the OAuth app to production (procedure in `automations/call-pipeline/CLAUDE.md`); optionally backfill Jun 8–9 headers.
 - Duplicate notes exist from re-processing the same recordings (softserve Jun 8–9 pairs, archive-resale Emily call ×3) — decide whether to prune.
-- Reload the call-pipeline launchd agent at some point so the long-lived watcher picks up the new `OUT_DIR` (per-run behavior is already correct — `process_one.sh` re-sources config).
+- (Cosmetic, optional) Reload the call-pipeline launchd agent to refresh the watcher's log banner to the new `OUT_DIR`. Not required — note routing is already correct since `process_one.sh` re-sources config every run; the watcher only uses `OUT_DIR` for a startup mkdir + log line.
 
 ## Activity
 
