@@ -650,11 +650,12 @@
         }
       },
       "parameters": {
-        "chatId": "406449973",
+        "chatId": "REDACTED_GROUP_CHAT_ID",
         "text": "={{ $json.telegramHtml }}",
         "additionalFields": {
           "disable_web_page_preview": true,
-          "parse_mode": "HTML"
+          "parse_mode": "HTML",
+          "message_thread_id": 5
         },
         "resource": "message",
         "operation": "sendMessage"
@@ -719,11 +720,12 @@
       "parameters": {
         "resource": "message",
         "operation": "sendMessage",
-        "chatId": "406449973",
+        "chatId": "REDACTED_GROUP_CHAT_ID",
         "text": "=<b>⚠️ Podcast streaming — feed health</b>\n{{ $json._healthWarning }}",
         "additionalFields": {
           "disable_web_page_preview": true,
-          "parse_mode": "HTML"
+          "parse_mode": "HTML",
+          "message_thread_id": 5
         }
       },
       "credentials": {
