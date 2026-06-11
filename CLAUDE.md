@@ -36,7 +36,7 @@ Currently job-searching for product leadership roles (VP Product / CPO) at US co
 
 - VP of Product — Creatio (former)
 
-**Context:** Kyiv-based in fact, but position myself as San Francisco-based for US audience (open to relocate across the US; never mention Ukraine externally); works in EN/UA/RU languages. Domain depth in enterprise B2B SaaS, product expansion, agentic AI. Full job-search positioning (public vs. backend framing, recruiter story, target roles) lives in `context/job-search.md` — pull from there.
+**Context:** Kyiv-based in fact, but position myself as San Francisco-based for US audience (open to relocate across the US; never mention Ukraine externally); works in EN/UA/RU languages. Domain depth in enterprise B2B SaaS, product expansion, agentic AI. Full job-search positioning (public vs. backend framing, recruiter story, target roles) lives in `context/areas/job-search/positioning.md` — pull from there.
 
 ## Location & remote
 - Local: `~/Documents/GitHub/AO-Personal-OS` (macOS, case-insensitive filesystem)
@@ -53,12 +53,13 @@ Currently job-searching for product leadership roles (VP Product / CPO) at US co
 
 ## Context wiki (live project state)
 
-`context/index.md` + `context/projects/<slug>.md` form a curated wiki of what Alex is working on **right now**, distilled from the artifact stream with provenance links back to source notes.
+`context/index.md` + `context/areas/<area>/README.md` form a curated wiki of what Alex is working on **right now**, distilled from the artifact stream with provenance links back to source notes — which live next to the page in `areas/<area>/calls/` and `docs/`.
 
-- **Read rule:** for any task touching Alex's work (drafting, prep, advice, status questions), read `context/index.md` first, then the relevant project page(s). Don't ask Alex for context the wiki holds, and don't re-derive it from raw `outputs/`.
+- **Read rule:** for any task touching Alex's work (drafting, prep, advice, status questions), read `context/index.md` first, then the relevant area README (and subproject page, if any). Don't ask Alex for context the wiki holds, and don't re-derive it from raw notes.
 - **Write rule:** wiki updates flow through the `context-update` skill only — sweep (`/context-update`), single artifact (a path), or pasted content. When Alex shares a meeting outcome, document, or draft notes in a session, fold it in via the skill after the main task. Pages are rewritten to current truth — never stack "UPDATE:" lines.
 - The call-pipeline auto-runs it after every new call note (`context:` commits), so calls reach the wiki with no manual step; `inbox/` drops are picked up by the next sweep.
-- `context/<topic>.md` docs (e.g. `job-search.md`) remain the durable reference layer; project pages link to them instead of duplicating.
+- Areas are big and may grow subprojects: a thread with its own goal/cadence gets `areas/<area>/<sub-slug>.md` (and, if its calls recur, its own Axis-2 sub-context in `classify`). The `context-update` skill owns when to split.
+- Durable reference docs (e.g. `areas/job-search/positioning.md`) keep living next to their area's README; pages link to them instead of duplicating.
 
 ## Memory / persistent learnings
 
@@ -85,14 +86,14 @@ The bar is the root cause: if I only patch the exact phrase Alex flagged, I'll r
 ## Hard rules
 - NEVER commit secrets. API keys live in macOS Keychain (e.g. `ASSEMBLYAI_API_KEY`) and are read at runtime.
 - NEVER commit `.work/` — it holds venvs, audio copies, transcripts, and per-machine state, and may contain private call content.
-- Only analysis outputs are committed; raw audio and transcripts stay local by design (privacy).
+- Only analysis outputs are committed; raw audio and pipeline transcripts stay local in `.work/` by design (privacy). The only committed transcripts are ones Alex explicitly places in `context/areas/<area>/docs/`.
 - Conventional-commit-style messages (`feat:`, `fix:`, `call-note:`).
 
 ## Conventions for generated content
 Evidence-bound, specific, no filler or praise. Mark inferences as "(inferred)". Use "-" for empty sections.
 
 ## Adding things
-- New skill → new folder `.claude/skills/<name>/` with a `SKILL.md` that starts with the frontmatter block (`name`, `description`, `disable-model-invocation: false`, `user-invocable: true`) followed by the prompt body. Directory name MUST match the `name:` value. If it's a new call type for the call-pipeline, also add the label + definition to Axis 1 of `.claude/skills/classify/SKILL.md`. To add a new meeting-context output folder, add it to Axis 2 of the same file — the pipeline creates folders on demand, so no script change is needed.
+- New skill → new folder `.claude/skills/<name>/` with a `SKILL.md` that starts with the frontmatter block (`name`, `description`, `disable-model-invocation: false`, `user-invocable: true`) followed by the prompt body. Directory name MUST match the `name:` value. If it's a new call type for the call-pipeline, also add the label + definition to Axis 1 of `.claude/skills/classify/SKILL.md`. To add a new call-note context (a new area, or a sub-context under one — lands at `context/areas/<area>/calls/<sub>`), add it to Axis 2 of the same file — the pipeline creates folders on demand, so no script change is needed. A new area should also get its `context/areas/<area>/README.md` page (the `context-update` skill creates it on first fold otherwise).
 - New automation → new folder under `automations/` with its own `setup.sh`, `README.md`, and `.work/` for runtime/secret files.
 
 ## Active automations
