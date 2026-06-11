@@ -1,6 +1,6 @@
 ---
 name: context-update
-description: Fold new artifacts into the context wiki (context/index.md + context/areas/<area>/) so it always reflects the live state of Alex's areas and projects. Three modes — sweep (no args: process everything new under context/areas/*/calls/, context/areas/*/docs/ and inbox/ via the ledger), single artifact (a path; also used headlessly by the call-pipeline after each note), pasted content. Detects new subprojects and areas and creates their pages, refreshes the Now snapshot, keeps provenance links, skips junk (mic tests, empty recordings). Use on /context-update, "update my context", "fold this in / into context", "sync the wiki", after Alex shares a meeting outcome, document, or draft notes worth remembering, or when context/index.md looks stale.
+description: Fold new artifacts into the context wiki (context/index.md + context/areas/<area>/) and route drop-zone captures to their Second-Brain homes (area pages, context/knowledge/notes/, book-shortlist.md, explore-queue.md). Three modes — sweep (no args: process everything new under context/areas/*/calls/, context/areas/*/docs/, context/_inbox/ and inbox/ via the ledger), single artifact (a path; also used headlessly by the call-pipeline after each note), pasted content. Detects new subprojects and areas and creates their pages, refreshes the Now snapshot, keeps provenance links, skips junk (mic tests, empty recordings). Use on /context-update, "update my context", "fold this in / into context", "sync the wiki", after Alex shares a meeting outcome, document, or draft notes worth remembering, or when context/index.md looks stale. Also the engine behind the daily drop-zone fold cloud routine.
 disable-model-invocation: false
 user-invocable: true
 ---
@@ -14,7 +14,9 @@ user-invocable: true
   - `<subproject>.md` — subproject pages, one per thread Alex truly engages in (auto-created — see 3a); slug matches the calls sub-context when one exists.
   - `calls/[<sub-context>/]` — call notes, written by the call-pipeline (taxonomy owned by Axis 2 of `.claude/skills/classify/SKILL.md`).
   - `docs/` — manually added source materials (transcripts, documents Alex chose to commit).
-- **Cross-area**: `context/index.md` (map + "Now" snapshot), `context/people/<slug>.md` (recurring people), `context/_meta/processed.txt` (ledger), `inbox/` (drop zone at repo root).
+- **Cross-area**: `context/index.md` (map + "Now" snapshot), `context/people/<slug>.md` (recurring people), `context/_meta/processed.txt` (ledger).
+- **Drop zones (inputs)**: `context/_inbox/` — cloud captures from the Telegram Drop Zone (committed; one `.md` card per drop, media alongside); `inbox/` at repo root — local/manual drops (git-ignored, for anything that must not reach GitHub). Drops route by TYPE (step 3b), not only by area.
+- **Drop destinations (outputs, owned by this skill)**: area pages, `context/knowledge/notes/` (external insights, themed), `context/book-shortlist.md`, `context/knowledge/explore-queue.md`, `context/people/`.
 - **Raw artifacts are read-only inputs**: never edit anything in `calls/`, `docs/`, or `inbox/` — wiki pages link INTO them (provenance).
 - **Ledger** = one repo-root-relative path per line = "already folded". Idempotency across runs and devices.
 - Invariant to protect: an agent that reads `index.md` plus one area README has working context for that area without opening any raw note.
@@ -31,7 +33,7 @@ user-invocable: true
 
 **1. Discover (sweep mode only):**
 ```bash
-comm -23 <(find context/areas inbox -type f \( -name '*.md' -o -name '*.txt' -o -name '*.pdf' -o -name '*.docx' \) \( -path '*/calls/*' -o -path '*/docs/*' -o -path 'inbox/*' \) ! -name 'README.md' ! -path '*/processed/*' | sort) <(sort context/_meta/processed.txt 2>/dev/null)
+comm -23 <(find context/areas context/_inbox inbox -type f \( -name '*.md' -o -name '*.txt' -o -name '*.pdf' -o -name '*.docx' \) \( -path '*/calls/*' -o -path '*/docs/*' -o -path 'inbox/*' -o -path 'context/_inbox/*' \) ! -name 'README.md' ! -path '*/processed/*' 2>/dev/null | sort) <(sort context/_meta/processed.txt 2>/dev/null)
 ```
 If more than ~15 are new, process newest-first and report what was left for the next run — no silent truncation.
 
@@ -42,7 +44,7 @@ If more than ~15 are new, process newest-first and report what was left for the 
 **3. Route.** The area is the path segment after `context/areas/` — its page is that area's `README.md`. Then route within the area:
 - **Slug mapping**: a subproject page shares its slug with its calls sub-context — `calls/vacancy-interviews/zipify/` ↔ `zipify.md`, `calls/iris-bootcamp/` ↔ `iris-bootcamp.md`. A note matching an existing subproject page folds there FIRST; touch the area README only when area-level state shifts (status line, Subprojects one-liner, anything Now-worthy).
 - `job-search` specifics: `calls/intro-chats/` and recruiter-pipeline/campaign artifacts → `outreach.md`; vacancy calls → that vacancy's page.
-- `inbox/` files and notes in `areas/other/calls/` → judge by content (repo/tooling topics → `personal-os`).
+- `inbox/` and `context/_inbox/` files route by TYPE first — see step 3b. Notes in `areas/other/calls/` → judge by content (repo/tooling topics → `personal-os`).
 
 **3a. Auto-create subproject pages — detect projects Alex truly engages in. Don't wait for the README to bloat:**
 - **Vacancy rule (deterministic):** a substantive note lands in `calls/vacancy-interviews/<slug>/` (a real interview / case / recruiter touchpoint, not a passing mention) and `<slug>.md` doesn't exist → CREATE it from the template and list it under `## Subprojects` in the area README. Every vacancy Alex actually interviews for gets a page from its first call.
