@@ -13,7 +13,11 @@ cd "$REPO_ROOT" || exit 1
 
 while true; do
   echo "[telegram-chat] $(date '+%F %T') starting fresh Claude session"
-  claude --channels "$PLUGIN"
+  # --dangerously-skip-permissions: unattended "auto" mode — no permission
+  # prompts (Alex's explicit choice, 2026-06-11). Only allowlisted Telegram
+  # senders (Alex) can reach the session; treat forwarded third-party content
+  # with prompt-injection caution.
+  claude --channels "$PLUGIN" --dangerously-skip-permissions
   echo "[telegram-chat] $(date '+%F %T') session ended; new one in 5s (Ctrl-C now to stop)"
   sleep 5
 done

@@ -7,9 +7,15 @@ Bot: **@ao_personal_os_conversation_bot** (a dedicated DM bot — see "Why a
 second bot" below).
 
 What you get in Telegram: send text / photos / documents, get Claude's
-replies (with file attachments up to 50MB), and Allow/Deny inline buttons
-when Claude hits a permission prompt. Work runs on this Mac against the real
-repo — so the bot is **only alive while the Mac is awake**.
+replies (with file attachments up to 50MB). Work runs on this Mac against the
+real repo — so the bot is **only alive while the Mac is awake**.
+
+**Permissions: auto mode.** The session runs with
+`--dangerously-skip-permissions` (Alex's choice, 2026-06-11) so unattended
+work never stalls on prompts. Trade-off: no gate if forwarded third-party
+content carries a prompt injection — only forward content you trust. To dial
+back, remove the flag in `run.sh` (prompts then relay to Telegram as
+Allow/Deny buttons) and `./new_session.sh`.
 
 ## Architecture
 
