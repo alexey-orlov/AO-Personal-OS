@@ -4,14 +4,14 @@ Self-updating knowledge base of insights mined from Alex's tracked AI / product 
 
 **For agents:** to answer "what has Alex's podcast feed said about X" — `grep -ri "<concept>" context/knowledge/podcasts/themes/`, open the matching theme page, follow an insight's ▶ link to the source moment or its `episodes/` card for full context. An insight ID (`pi-…`) anywhere resolves with `grep -r pi-… context/knowledge/podcasts/`. Update only via `/podcast-insights` — don't hand-edit theme pages.
 
-_updated: 2026-06-11 · 0 insights · 8 themes (seeded) · 0 episodes — awaiting first digest_
+_updated: 2026-06-11 · 3 insights · 8 themes · 2 episodes_
 
 ## Themes
 
 | Theme | Insights | Last added | One-line |
 |---|---|---|---|
-| AI agents & applications | 0 | - | what's being built with agents/LLMs and where value accrues |
-| AI & the PM craft | 0 | - | how AI reshapes product management work, skills, and roles |
+| [AI agents & applications](themes/ai-agents-and-applications.md) | 1 | 2026-06-11 | capability is solved; reliability is the 2026 product problem |
+| [AI & the PM craft](themes/ai-and-the-pm-craft.md) | 2 | 2026-06-11 | PMs become taste-curators; write evals before the feature |
 | Product discovery & strategy | 0 | - | discovery, prioritization, roadmap, positioning, strategy |
 | Growth, GTM & pricing | 0 | - | growth loops, distribution, GTM motions, pricing, packaging |
 | Founders & fundraising | 0 | - | founding, company building, YC-style playbooks, raising |
@@ -19,15 +19,14 @@ _updated: 2026-06-11 · 0 insights · 8 themes (seeded) · 0 episodes — awaiti
 | Leadership, careers & teams | 0 | - | leadership, hiring, org design, careers, ways of working |
 | Tech frontier & abundance | 0 | - | frontier/deep tech, longevity, energy, the big-picture future |
 
-_Seeded themes anchor day-1 clustering; their pages appear under `themes/` once the first insight lands. New themes are born when ≥3 insights in a digest form a coherent cluster that fits none of these._
-
 ## Recent (last 7 days)
 
-- _(none yet)_
+- 2026-06-11 · a16z — Agents in production (John Roe) → [AI agents & applications](themes/ai-agents-and-applications.md), [AI & the PM craft](themes/ai-and-the-pm-craft.md)
+- 2026-06-10 · Lenny's Podcast — The AI PM playbook (Jane Doe) → [AI & the PM craft](themes/ai-and-the-pm-craft.md)
 
 ## Cross-theme links
 
-- _(none yet)_
+- [AI & the PM craft](themes/ai-and-the-pm-craft.md) ↔ [AI agents & applications](themes/ai-agents-and-applications.md) — evals-first PM workflow ↔ reliability-as-product engineering
 
 ## Channels tracked
 
