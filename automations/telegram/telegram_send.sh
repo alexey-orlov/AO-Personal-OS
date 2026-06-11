@@ -1,8 +1,12 @@
 #!/usr/bin/env bash
 # telegram_send.sh — POST a message to Telegram. Reads text from stdin.
-# Self-sourcing: reads TELEGRAM_BOT_TOKEN / TELEGRAM_CHAT_ID from Keychain
-# via config.sh. Exit 0 on success, 1 on any failure — callers should treat
+# Self-sourcing: reads TELEGRAM_BOT_TOKEN / chat ids from Keychain via
+# config.sh. Exit 0 on success, 1 on any failure — callers should treat
 # a failure as non-fatal and continue.
+#
+# Optional env: TG_TOPIC=<slug> routes the message to a topic ("folder") in
+# the forum group (see config.sh / topics.env). On machines without the
+# group configured it silently falls back to the legacy DM chat.
 #
 # Link previews are disabled so a GitHub URL in the message body doesn't
 # render a giant preview card on the phone.
@@ -10,8 +14,9 @@ set -euo pipefail
 HERE="$(cd "$(dirname "$0")" && pwd)"
 # shellcheck source=/dev/null
 source "$HERE/config.sh"
+tg_resolve_target
 
-if [ -z "${TELEGRAM_BOT_TOKEN:-}" ] || [ -z "${TELEGRAM_CHAT_ID:-}" ]; then
+if [ -z "${TELEGRAM_BOT_TOKEN:-}" ] || [ -z "${TG_TARGET_CHAT_ID:-}" ]; then
   echo "[telegram_send] not configured — run automations/telegram/setup.sh" >&2
   exit 1
 fi
@@ -40,7 +45,8 @@ attempt=1
 while :; do
   if resp="$(curl -fsS --max-time 15 \
     -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
-    --data-urlencode "chat_id=${TELEGRAM_CHAT_ID}" \
+    --data-urlencode "chat_id=${TG_TARGET_CHAT_ID}" \
+    ${TG_TARGET_THREAD_ID:+--data-urlencode "message_thread_id=${TG_TARGET_THREAD_ID}"} \
     --data-urlencode "text=${msg}" \
     --data-urlencode "disable_web_page_preview=true" 2>&1)"; then
     break
