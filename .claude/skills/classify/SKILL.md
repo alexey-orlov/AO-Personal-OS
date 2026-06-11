@@ -16,8 +16,8 @@ Output exactly one of:
 - `one-on-one` — a recurring manager/report or peer sync. Status, blockers, feedback, career, team matters.
 - `default` — anything that does not clearly fit the above, or when you are not confident.
 
-## Axis 2 — CONTEXT (which folder the note lands in)
-Pick the folder from Alex's current contexts. Output exactly one of these paths:
+## Axis 2 — CONTEXT (which area/folder the note lands in)
+Pick the folder from Alex's current contexts. Output exactly one of these paths. (The pipeline maps it to disk as `context/areas/<area>/calls/<rest>` — the first segment is the area, the rest is the sub-context; you output only the logical path below.)
 
 - `softserve` — Alex is a Product advisor / Distinguished R&D advisor at SoftServe. Advisory calls, enablement sessions, R&D, and SoftServe-led client work (e.g. delivering an AI-PM enablement session to a SoftServe client).
 - `gigacloud/product-issues-sukhenko` — GigaCloud's recurring weekly "Product Issues" meeting with Sukhenko.

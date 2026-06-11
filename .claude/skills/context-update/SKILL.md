@@ -1,6 +1,6 @@
 ---
 name: context-update
-description: Fold new artifacts into the context wiki (context/index.md + context/projects/*) so it always reflects the live state of Alex's projects. Three modes — sweep (no args: process everything new in outputs/call-notes/ and inbox/ via the ledger), single artifact (a path; also used headlessly by the call-pipeline after each note), pasted content. Detects new projects and creates pages, refreshes the Now snapshot, keeps provenance links, skips junk (mic tests, empty recordings). Use on /context-update, "update my context", "fold this in / into context", "sync the wiki", after Alex shares a meeting outcome, document, or draft notes worth remembering, or when context/index.md looks stale.
+description: Fold new artifacts into the context wiki (context/index.md + context/areas/<area>/) so it always reflects the live state of Alex's areas and projects. Three modes — sweep (no args: process everything new under context/areas/*/calls/, context/areas/*/docs/ and inbox/ via the ledger), single artifact (a path; also used headlessly by the call-pipeline after each note), pasted content. Detects new subprojects and areas and creates their pages, refreshes the Now snapshot, keeps provenance links, skips junk (mic tests, empty recordings). Use on /context-update, "update my context", "fold this in / into context", "sync the wiki", after Alex shares a meeting outcome, document, or draft notes worth remembering, or when context/index.md looks stale.
 disable-model-invocation: false
 user-invocable: true
 ---
@@ -9,10 +9,15 @@ user-invocable: true
 
 ## The model
 
-- **Wiki = distilled current truth**: `context/index.md` (map + "Now" snapshot) and `context/projects/<slug>.md` (one live-state page per project), plus `context/people/<slug>.md` for recurring people. Curated and rewritten in place — never an append-only log.
-- **Raw stream = `outputs/` and `inbox/`**: never edited, only read. Wiki claims link back into it (provenance).
-- **Ledger = `context/_meta/processed.txt`**: one repo-root-relative path per line = "already folded". Idempotency across runs and devices.
-- Invariant to protect: an agent that reads `index.md` plus one project page has working context for that project without opening any raw note.
+- **One tree per area** under `context/areas/<area>/`:
+  - `README.md` — the area's live-state page (distilled current truth, rewritten in place).
+  - `<subproject>.md` — optional subproject pages as the area grows.
+  - `calls/[<sub-context>/]` — call notes, written by the call-pipeline (taxonomy owned by Axis 2 of `.claude/skills/classify/SKILL.md`).
+  - `docs/` — manually added source materials (transcripts, documents Alex chose to commit).
+- **Cross-area**: `context/index.md` (map + "Now" snapshot), `context/people/<slug>.md` (recurring people), `context/_meta/processed.txt` (ledger), `inbox/` (drop zone at repo root).
+- **Raw artifacts are read-only inputs**: never edit anything in `calls/`, `docs/`, or `inbox/` — wiki pages link INTO them (provenance).
+- **Ledger** = one repo-root-relative path per line = "already folded". Idempotency across runs and devices.
+- Invariant to protect: an agent that reads `index.md` plus one area README has working context for that area without opening any raw note.
 
 ## Modes
 
@@ -22,11 +27,11 @@ user-invocable: true
 
 ## Procedure
 
-**0. Orient.** Read `context/index.md`. Read the target project page(s) once routing is known.
+**0. Orient.** Read `context/index.md`. Read the target area README (and subproject page, if any) once routing is known.
 
 **1. Discover (sweep mode only):**
 ```bash
-comm -23 <(find outputs/call-notes inbox -type f \( -name '*.md' -o -name '*.txt' -o -name '*.pdf' -o -name '*.docx' \) ! -name 'README.md' ! -path '*/processed/*' | sort) <(sort context/_meta/processed.txt 2>/dev/null)
+comm -23 <(find context/areas inbox -type f \( -name '*.md' -o -name '*.txt' -o -name '*.pdf' -o -name '*.docx' \) \( -path '*/calls/*' -o -path '*/docs/*' -o -path 'inbox/*' \) ! -name 'README.md' ! -path '*/processed/*' | sort) <(sort context/_meta/processed.txt 2>/dev/null)
 ```
 If more than ~15 are new, process newest-first and report what was left for the next run — no silent truncation.
 
@@ -34,27 +39,27 @@ If more than ~15 are new, process newest-first and report what was left for the 
 - **Junk gate**: mic/test recordings (counting, "приём, раз-два-три", explicit "don't transcribe"), empty or near-empty notes, purely personal calls with no project relevance → add to ledger, do not fold, count as "junk" in the summary.
 - **Duplicate gate**: call-note filenames end in `_<src_id>` derived from the source recording; its leading `YYYYMMDDHHMMSS` digits are the recording-start timestamp. If the ledger already holds a note whose src_id starts with the same timestamp, this is a re-processing of the same call (suffixes may differ) → fold only genuinely new information (usually none) → ledger it. A path already present in the ledger verbatim = already folded → no-op beyond the summary line.
 
-**3. Route to a project page.** Folder hints: `softserve` → `projects/softserve.md` · `gigacloud/*` → `gigacloud.md` · `job-search/*` → `job-search.md` · `laba` → `laba.md` · `other` and `inbox/` files → judge by content (repo/tooling topics → `personal-os.md`).
-- **New-project rule**: create a new page only when the content shows a distinct ongoing initiative — its own goal, its own counterpart(s), expected continuation — that fits no existing page. A single call or one-off topic is NOT a project. Create from the template below, add an Active-projects row in `index.md` flagged `(new)`, and announce it in the run summary. Unsure → fold into the closest page and add an open loop: "possible new project: <x>?".
-- A genuinely new recurring **meeting context** (not just project) may also warrant a new Axis-2 folder in `.claude/skills/classify/SKILL.md` — suggest it in the summary, don't edit classify yourself.
+**3. Route.** The area is the path segment after `context/areas/` — its page is that area's `README.md`. Files under `calls/<sub-context>/` that match an existing subproject page fold there first, with the area README updated only if the area-level state shifts. `inbox/` files and notes in `areas/other/calls/` → judge by content (repo/tooling topics → `personal-os`).
+- **New SUBPROJECT page** (`context/areas/<area>/<sub-slug>.md`): create when a thread has its own goal, counterpart(s), and cadence AND would bloat the area README past budget (e.g. a client program, a long interview loop). Add a one-line pointer in the area README under `## Subprojects`; suggest a matching Axis-2 subfolder for classify if calls will recur — don't edit classify yourself.
+- **New AREA** (`context/areas/<slug>/README.md`): create only when content shows a distinct ongoing initiative that fits no existing area — its own goal, counterparts, expected continuation. A one-off call or topic is NOT an area. Create the README from the template, add an index row flagged `(new)`, suggest a top-level Axis-2 addition for classify, and announce it in the run summary. Unsure → fold into the closest area and add an open loop: "possible new area/subproject: <x>?".
 
 **4. Merge into the page — curation rules (the heart):**
 - **Rewrite in place.** `_status:`, Snapshot, and Active threads always describe current truth. Never stack "UPDATE:" lines; a newer fact replaces the older one. If the change itself matters (a decision, a closure, a pivot), record it as one line under Decisions or Activity.
-- **Provenance**: every non-obvious claim links to its source, relative to the page (from `projects/`: `../../outputs/...`). Filenames with spaces use the `[text](<path with spaces.md>)` form.
+- **Provenance**: every non-obvious claim links to its source, relative to the page — from an area README that's `calls/<file>.md`, `docs/<file>.md`, or `calls/<sub>/<file>.md`. Filenames with spaces use the `[text](<path with spaces.md>)` form.
 - Repo conventions apply: evidence-bound, specific, no filler; mark inferences "(inferred)"; "-" for empty sections; dates as YYYY-MM-DD.
 - **Open loops**: add new commitments/waiting-ons with owner (Mine/Theirs) and date when known; DELETE completed or expired ones — move to Activity only if noteworthy.
 - **Activity**: prepend `- YYYY-MM-DD — [short label](path) — one line on what changed`; keep ≤10 lines, drop the oldest (the artifact stream is the archive).
-- **Budget**: page ≤120 lines. Trim Activity and pruned loops first; if Snapshot/Threads genuinely outgrow it, split a sub-page `projects/<slug>-<topic>.md` and link it.
+- **Budget**: page ≤120 lines. Trim Activity and pruned loops first; if Snapshot/Threads genuinely outgrow it, split a subproject page and link it.
 - Don't copy transcript quotes longer than one line — distill.
 - Update the page's `_updated:` date.
 
-**5. People pages.** Create `context/people/<first-last>.md` only when a person recurs across ≥2 artifacts or carries durable standing facts (role, relationship to Alex, preferences, history); otherwise a one-liner in the project's People section is enough. Same template spirit: who they are, relation, key facts with sources.
+**5. People pages.** Create `context/people/<first-last>.md` only when a person recurs across ≥2 artifacts or carries durable standing facts (role, relationship to Alex, preferences, history); otherwise a one-liner in the area's People section is enough.
 
-**6. Update the index.** Refresh the project's row (status one-liner + last-artifact date). Rewrite the "Now" section — re-dated to today — whenever the folded events change what Alex is up to; keep it ≤7 bullets. Index stays ≤80 lines.
+**6. Update the index.** Refresh the area's row (status one-liner + last-artifact date). Rewrite the "Now" section — re-dated to today — whenever the folded events change what Alex is up to; keep it ≤7 bullets. Index stays ≤80 lines.
 
 **7. Ledger.** Append every handled path (folded, junk, and duplicate alike):
 ```bash
-printf '%s\n' "outputs/call-notes/<...>.md" >> context/_meta/processed.txt && sort -o context/_meta/processed.txt context/_meta/processed.txt
+printf '%s\n' "context/areas/<area>/calls/<...>.md" >> context/_meta/processed.txt && sort -o context/_meta/processed.txt context/_meta/processed.txt
 ```
 (Headless single-artifact mode: Read the file, Write it back with the new line — no Bash.)
 
@@ -63,10 +68,10 @@ printf '%s\n' "outputs/call-notes/<...>.md" >> context/_meta/processed.txt && so
 git add context/ && git commit -m "context: <one line on what changed>"
 ```
 
-## Page template
+## Page template (area README and subproject pages alike)
 
 ```markdown
-# <Project name>
+# <Area / subproject name>
 
 _status: <one line — the live state>_
 _updated: YYYY-MM-DD_
@@ -75,6 +80,8 @@ _updated: YYYY-MM-DD_
 (3–8 bullets: what this is, durable shape, why it matters)
 ## Active threads
 (per workstream: state → next step → owner, with source links)
+## Subprojects        ← area READMEs only, when subproject pages exist
+(- [name](<sub-slug>.md) — one-line state)
 ## People
 (name — role/relation; link a people/ page if it exists)
 ## Decisions
@@ -87,13 +94,13 @@ _updated: YYYY-MM-DD_
 
 ## Out of scope
 
-- `outputs/english-coaching/` (language stream, not project state), `outputs/inbox-sweep/` logs, book lists — never folded.
-- Never edit anything under `outputs/` or raw files in `inbox/` — read-only inputs.
-- Sensitivity: never copy the "Backend context" items of `context/job-search.md` onto other pages — link to the doc instead; facts that must never leak externally live in exactly one place.
+- Everything under `outputs/` (`english-coaching/` is the language stream, `inbox-sweep/` is a run log) and book lists — never folded.
+- Never edit raw artifacts (`calls/`, `docs/`, `inbox/` contents) — read-only inputs.
+- Sensitivity: never copy the "Backend context" items of `context/areas/job-search/positioning.md` onto other pages — link to the doc instead; facts that must never leak externally live in exactly one place.
 
 ## Run summary (always output)
 
-One short block: `processed N (folded F · junk J · dup D) — pages touched: … — new projects: … — backlog: …`. In interactive mode add one line per substantive change so Alex can correct the folding.
+One short block: `processed N (folded F · junk J · dup D) — pages touched: … — new areas/subprojects: … — backlog: …`. In interactive mode add one line per substantive change so Alex can correct the folding.
 
 ## Self-check before finishing
 
