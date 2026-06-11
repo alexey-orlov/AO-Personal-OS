@@ -2,10 +2,10 @@
 
 _status: live theme — discovery, prioritization, roadmap, positioning, product strategy_
 _slug: product-discovery-and-strategy_
-_updated: 2026-06-11 · 5 insights from 3 episodes_
+_updated: 2026-06-11 · 9 insights from 6 episodes_
 
 ## The throughline
-The strategy conversation in this batch is reorganizing around two beats. (1) Discovery discipline: the fastest signal is money — demand a payment commitment or unambiguous willingness-to-pay before building, because many "great ideas from ChatGPT" turn out to be fake problems. (2) Moats: feature differentiation has gone short-lived (AI writes ~80%+ of code in AI-native orgs, so feature gaps close in weeks), and what remains durable is proprietary inputs/outputs, enterprise workflows, user behavior, network effects, hardware, compliance, and brand. Legora's bundled multi-feature roadmap beating a single-feature competitor with 50× the early ARR is the operational lesson — longer-horizon platform bets compound where point solutions get cloned.
+The strategy conversation is reorganizing around three beats. (1) Discovery discipline: the fastest signal is money — demand a payment commitment or unambiguous willingness-to-pay before building, because many "great ideas from ChatGPT" turn out to be fake problems. The exception is category-creating 1.0s, where data is thin and a "benevolent dictatorship of taste" beats committees (Fadell on the iPhone keyboard call). (2) Moats: feature differentiation has gone short-lived (AI writes ~80%+ of code in AI-native orgs, so feature gaps close in weeks), and what remains durable is proprietary inputs/outputs, enterprise workflows, user behavior, network effects, hardware, compliance, and brand. Legora's bundled multi-feature roadmap beating a single-feature competitor with 50× the early ARR is the operational lesson — longer-horizon platform bets compound where point solutions get cloned. (3) Shape the whole system, not just the feature: products are ecosystems (installation, distribution, marketing language — Fadell's iPod/Nest cases), the chatbot isn't a product (Evans: real work needs tooling/domain data/UIs, so vertical apps and consultancies capture the value above commoditized models), and AI-first builders should *refound* boundaries rather than tack models onto legacy flows — minimize customer-facing surface area, concentrate one core interaction (Brex/Pedro, Stripe/Airbnb analogies).
 
 ## Insights
 
