@@ -6,7 +6,7 @@ One-screen map of what Alex is working on right now. Maintained by the `context-
 
 ## Now (2026-06-11)
 
-- Ramping into a part-time SoftServe engagement (~50–80 h/mo): product lead for the R&D Delivery Unit + agentic-AI SME. In flight: Oracle-partnership onboarding, R&D strategy-session design, Iris client bootcamp (Product stream) starting ~Jun 29.
+- Ramping into a part-time SoftServe engagement (~50–80 h/mo): product lead for the R&D Delivery Unit + agentic-AI SME. In flight: Oracle-partnership onboarding, R&D strategy-session design, Iris client bootcamp (Product stream) starting ~Jun 29, and (new this week) designing a PM-focused extension of the Jumpstart agentic-AI offering across Jun–Jul (Bogdan-driven).
 - Job search (VP Product / CPO, US) active: Zipify Head-of-Product process live (deep-dive Jun 2); Archive Resale closed (rejected May 22 at final round); recruiter pipeline + LSN outreach waves running.
 - GigaCloud CPO duties ongoing — no call artifacts in the OS yet.
 - Laba PM-course tutoring ongoing — no artifacts yet.
@@ -19,7 +19,7 @@ Each area folder holds: `README.md` (live state), `calls/` (pipeline-routed call
 
 | Area | Status | Last artifact |
 |---|---|---|
-| [SoftServe](areas/softserve/README.md) | ramping in: part-time R&D product lead + agentic SME; Oracle onboarding, strategy-session prep, Iris bootcamp ~Jun 29 | 2026-06-09 |
+| [SoftServe](areas/softserve/README.md) | ramping in: part-time R&D product lead + agentic SME; Oracle onboarding, strategy-session prep, Iris bootcamp ~Jun 29, Jumpstart-PM offering design | 2026-06-11 |
 | [Job search](areas/job-search/README.md) | Zipify HoP process live; recruiter pipeline + outreach waves; Archive Resale closed | 2026-06-02 |
 | [GigaCloud](areas/gigacloud/README.md) | CPO role; no call artifacts in the OS yet | - |
 | [Laba](areas/laba/README.md) | PM-course tutoring; no artifacts yet | - |

@@ -49,19 +49,23 @@ _updated: 2026-06-11_
 ## Open loops
 
 Mine:
-- Talk to Inna (Jumpstart / pre-sales context); connect with Enok and William once introduced.
+- Jumpstart-PM: digest Anna's materials when they arrive, then schedule a follow-up session with her (~next week); define what a "comprehensive" PM-focused Jumpstart looks like vs current lite workshop coverage.
+- Jumpstart-PM: reach out to Nadia Zerchak (DAX PM) and Jorge Rojas / Inok (Payworks) for deeper project detail. (inferred)
+- Connect with Enok and William once Speaker A introduces them.
 - Attend 2026-06-11 brainstorm with Oleh Marchevich.
 - Oracle: read case-study deck when it lands → meet Dmytro & Olya → feedback to lead.
 - Strategy alignment call with lead (week of Jun 9); review his written vision input.
 - Iris: sync with Krasimira after slides arrive; review/update intro + AI-basics slides; share Microsoft-Forms questionnaire template.
 
-Theirs (engagement lead):
-- Send Oracle case-study deck; intro Alex to Enok, William, then Oracle leadership + weekly.
-- Written vision input for the strategy session by ~Jun 13; schedule the 1h alignment call.
-- Iris: confirm dates/products with client; share agenda + slides; name the Engineering-stream trainer; request AHA license for Alex.
+Theirs:
+- Anna: send Jumpstart materials (decks, frameworks, references) in chat post-call; check with Bogdan whether the DAX project folder and proposals can be shared with Alex.
+- Engagement lead: send Oracle case-study deck; intro Alex to Enok, William, then Oracle leadership + weekly.
+- Engagement lead: written vision input for the strategy session by ~Jun 13; schedule the 1h alignment call.
+- Engagement lead: Iris — confirm dates/products with client; share agenda + slides; name the Engineering-stream trainer; request AHA license for Alex.
 
 ## Activity
 
+- 2026-06-11 — [Jumpstart-PM program walkthrough w/ Anna](calls/2026-06-11_135929_default_20260611130042C37F547F.md) — Bogdan tapped Alex for the PM-focused Jumpstart extension; pipeline, maturity frameworks, governance, team-shape, buyer persona mapped.
 - 2026-06-09 — [1:1: engagement scope, Oracle, strategy session](calls/2026-06-09_183633_one-on-one_2026060917013100B193F3.md) — engagement format decided; onboarding plan set.
 - 2026-06-08 — [Iris bootcamp onboarding](calls/2026-06-09_183201_default_20260608180354E83F642F.md) — Product-stream scope + logistics (recorded Jun 8, processed Jun 9; duplicate note exists).
 - 2026-05-20 — [Conga AI-PM enablement session](calls/2026-05-24_175717_default_202605201757381C904D81.md) — delivered; slides/repo follow-ups open. Raw transcript: [docs/conga-ai-pm-bootcamp-transcript.md](docs/conga-ai-pm-bootcamp-transcript.md).
