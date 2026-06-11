@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "_doc": "Theme registry + channel slug map for the podcast knowledge base. The /podcast-insights skill reads this FIRST every run to know the current theme set (clustering anchors) and the canonical channel->slug map (used to build deterministic insight IDs). Slugs are immutable once created. A merged/renamed theme keeps its row forever as a tombstone (status: merged, mergedInto: <slug>) so old links and IDs still resolve. Theme pages live at themes/<slug>.md and are created on first populated insight, not here.",
+  "channels": {
+    "a16z": "a16z",
+    "Y Combinator": "yc",
+    "SaaStr AI": "saastr",
+    "Lenny's Podcast": "lenny",
+    "Peter H. Diamandis": "diamandis",
+    "How I AI": "howiai",
+    "Aakash Gupta": "aakash"
+  },
+  "themes": {
+    "ai-agents-and-applications": { "title": "AI agents & applications", "status": "active", "created": "2026-06-11", "aliases": [], "hint": "what's actually being built with agents/LLMs, where value accrues, reliability vs. capability" },
+    "ai-and-the-pm-craft": { "title": "AI & the PM craft", "status": "active", "created": "2026-06-11", "aliases": [], "hint": "how AI reshapes product management work, skills, workflows, and roles" },
+    "product-discovery-and-strategy": { "title": "Product discovery & strategy", "status": "active", "created": "2026-06-11", "aliases": [], "hint": "discovery, prioritization, roadmap, positioning, product strategy" },
+    "growth-gtm-and-pricing": { "title": "Growth, GTM & pricing", "status": "active", "created": "2026-06-11", "aliases": [], "hint": "growth loops, distribution, GTM motions, pricing, packaging, monetization" },
+    "founders-and-fundraising": { "title": "Founders & fundraising", "status": "active", "created": "2026-06-11", "aliases": [], "hint": "founding, company building, YC-style playbooks, raising capital" },
+    "b2b-saas-and-scaling": { "title": "B2B SaaS & scaling", "status": "active", "created": "2026-06-11", "aliases": [], "hint": "SaaS metrics, enterprise motion, scaling orgs and revenue (SaaStr-style)" },
+    "leadership-careers-and-teams": { "title": "Leadership, careers & teams", "status": "active", "created": "2026-06-11", "aliases": [], "hint": "leadership, hiring, org design, careers, ways of working" },
+    "tech-frontier-and-abundance": { "title": "Tech frontier & abundance", "status": "active", "created": "2026-06-11", "aliases": [], "hint": "frontier/deep tech, longevity, energy, the big-picture future (Diamandis-style)" }
+  }
+}

@@ -85,6 +85,7 @@ The bar is the root cause: if I only patch the exact phrase Alex flagged, I'll r
 
 ## Hard rules
 - NEVER commit secrets. API keys live in macOS Keychain (e.g. `ASSEMBLYAI_API_KEY`) and are read at runtime.
+- NEVER commit a live trigger URL (webhook endpoint, n8n `/webhook/...` path, Zapier/Make hook, etc.) for any side-effectful or paid automation — not in docs, not in exported workflow JSON. git-autosync pushes within ~30s and GitHub-commit-scraping bots probe new URLs within the hour; an unauthenticated trigger then gets fired by strangers (this happened 2026-06-11 with the podcast webhook). If a programmatic trigger is genuinely needed, require auth (Header-Auth credential) AND keep the URL out of the repo; otherwise prefer schedule/manual triggers.
 - NEVER commit `.work/` — it holds venvs, audio copies, transcripts, and per-machine state, and may contain private call content.
 - Only analysis outputs are committed; raw audio and pipeline transcripts stay local in `.work/` by design (privacy). The only committed transcripts are ones Alex explicitly places in `context/areas/<area>/docs/`.
 - Conventional-commit-style messages (`feat:`, `fix:`, `call-note:`).
