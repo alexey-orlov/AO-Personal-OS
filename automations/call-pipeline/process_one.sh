@@ -187,3 +187,28 @@ fi
 if [ -n "$coach_note" ]; then
   "$REPO_ROOT/automations/coaching-notify/notify.sh" "$coach_note" || true
 fi
+
+# Context-wiki update — fold the new call note into context/ (project pages +
+# index) via the context-update skill, so the wiki tracks every call with no
+# manual step. The ONE tool-enabled headless call in this pipeline: it edits
+# files under context/, so it gets Read/Glob/Grep/Edit/Write — but NOT Bash;
+# the commit happens here via git_sync.sh. Non-fatal: anything missed is
+# caught by the next interactive `/context-update` sweep (the ledger knows).
+if [ "${CONTEXT_UPDATE:-1}" = "1" ] && [ -f "$SKILLS_DIR/context-update/SKILL.md" ]; then
+  echo "[context-update] ..." >&2
+  rel_note="${note#"$REPO_ROOT"/}"
+  if (
+    cd "$REPO_ROOT"
+    "$CLAUDE_BIN" -p "Single-artifact mode: fold the new call note at '$rel_note' into the context wiki, following the context-update skill instructions exactly. You have no Bash tool — do not attempt git; update the ledger by Read + Write of context/_meta/processed.txt." \
+      --append-system-prompt "$(cat "$SKILLS_DIR/context-update/SKILL.md")" \
+      ${CONTEXT_MODEL:+--model "$CONTEXT_MODEL"} \
+      --allowedTools "Read,Glob,Grep,Edit,Write" \
+      --max-turns 40 \
+      --output-format text >/dev/null
+  ); then
+    "$HERE/git_sync.sh" "context: fold ${rel_note##*/}" "$REPO_ROOT/context" || true
+    echo "[done] context wiki updated"
+  else
+    echo "[context-update] failed (non-fatal)" >&2
+  fi
+fi

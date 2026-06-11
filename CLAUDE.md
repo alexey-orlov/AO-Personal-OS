@@ -48,7 +48,18 @@ Currently job-searching for product leadership roles (VP Product / CPO) at US co
   - **Workflow automations** (e.g. `call-pipeline/`, `inbox-sweep/`): self-contained units with scripts + `config.sh` + `setup.sh` + `README.md` + a git-ignored `.work/` runtime dir.
   - **Shared libraries by domain** (e.g. `telegram/`, `crm-spreadsheet/`, `chrome-mcp/`, `gmail/`): cross-skill resources. Hold bash/Python helpers AND/OR markdown procedure docs that multiple skills cite. Skills cite procedure docs with a one-line "Follow the procedure in `automations/<domain>/<file>.md`" reference at the relevant step — the canonical algorithm + constants live only there. Use this when ≥2 skills share a procedure/constant and divergence would be a real risk (e.g. Gmail search filters, Chrome MCP preflight, the `r-…` URL gotcha). Wait for the third caller before extracting — premature DRY hurts skill readability.
 - `outputs/<type>/` — produced artefacts. COMMITTED, so they sync across devices. `outputs/call-notes/` is foldered by meeting context (`softserve/`, `gigacloud/{product-issues-sukhenko,product-team-weekly,other}/`, `job-search/{intro-chats,vacancy-interviews/<company>}/`, `laba/`, `other/`); the `classify` skill assigns the folder and the call-pipeline routes the note there. `outputs/english-coaching/` stays flat.
-- `context/` — durable reference material (people, companies, frameworks).
+- `context/` — durable reference material (people, companies, frameworks) AND the live context wiki: `index.md` (map + "Now" snapshot), `projects/<slug>.md` (live state per project), `people/` (person pages), `_meta/processed.txt` (ingestion ledger). See the Context-wiki section below.
+- `inbox/` — drop zone for files to fold into the context wiki (git-ignored except its README; raw drops stay local, only distilled context is committed).
+
+## Context wiki (live project state)
+
+`context/index.md` + `context/projects/<slug>.md` form a curated wiki of what Alex is working on **right now**, distilled from the artifact stream with provenance links back to source notes.
+
+- **Read rule:** for any task touching Alex's work (drafting, prep, advice, status questions), read `context/index.md` first, then the relevant project page(s). Don't ask Alex for context the wiki holds, and don't re-derive it from raw `outputs/`.
+- **Write rule:** wiki updates flow through the `context-update` skill only — sweep (`/context-update`), single artifact (a path), or pasted content. When Alex shares a meeting outcome, document, or draft notes in a session, fold it in via the skill after the main task. Pages are rewritten to current truth — never stack "UPDATE:" lines.
+- The call-pipeline auto-runs it after every new call note (`context:` commits), so calls reach the wiki with no manual step; `inbox/` drops are picked up by the next sweep.
+- `context/<topic>.md` docs (e.g. `job-search.md`) remain the durable reference layer; project pages link to them instead of duplicating.
+
 ## Memory / persistent learnings
 
 Do NOT maintain a top-level `memory/` folder. Distribute learnings to where they apply:
@@ -85,6 +96,6 @@ Evidence-bound, specific, no filler or praise. Mark inferences as "(inferred)". 
 - New automation → new folder under `automations/` with its own `setup.sh`, `README.md`, and `.work/` for runtime/secret files.
 
 ## Active automations
-- `automations/call-pipeline/` — Voice Memo → AssemblyAI → Claude → note. See its `CLAUDE.md`.
+- `automations/call-pipeline/` — Voice Memo → AssemblyAI → Claude → note, then auto-folds the note into the context wiki. See its `CLAUDE.md`.
 - `automations/git-autosync/` — launchd agent that auto-commits + pushes any local repo change (and pulls periodically), so devices stay in sync. See its `README.md`. Implication for agents: uncommitted changes get swept into an `autosync:` commit within ~30s — if a semantic commit message matters, commit immediately after editing; otherwise just leave changes and let autosync take them.
 - `automations/book-finder/` — shared config + helpers (Google Books search, epub/fb2 downloader) for the `book-finder` skill. Downloads land in iCloud Drive/Books (outside the repo). See its `README.md`.
