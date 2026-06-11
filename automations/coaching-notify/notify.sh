@@ -55,4 +55,4 @@ gh_url="${origin:-https://github.com/alexey-orlov/AO-Personal-OS}/blob/main/${re
 
 {
   printf '%s\n\n📄 Full report: %s\n' "$digest" "$gh_url"
-} | "$TELEGRAM_CLI"
+} | TG_TOPIC=english-coaching "$TELEGRAM_CLI"
