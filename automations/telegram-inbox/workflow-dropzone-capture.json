@@ -183,8 +183,8 @@
       ],
       "parameters": {
         "method": "POST",
-        "url": "=https://api.telegram.org/bot{{ $credentials.accessToken }}/setMessageReaction",
-        "authentication": "predefinedCredentialType",
+        "url": "https://api.telegram.org/botREDACTED_BOT_TOKEN/setMessageReaction",
+        "authentication": "none",
         "nodeCredentialType": "telegramApi",
         "sendBody": true,
         "contentType": "json",
