@@ -13,6 +13,12 @@ Telegram webhook ─▶ gate (group + Drop Zone topic + not-bot) ─▶ build ca
 ```
 
 - Captures within seconds of posting; each drop is a `dropzone: capture tg-<stamp>-<msgid>` commit.
+- After the card commits, the **"React 👍 on capture"** node sets a 👍 reaction on the message
+  (Bot API `setMessageReaction` via HTTP node — the native Telegram node can't react), so the phone
+  shows the same capture confirmation the old local watcher gave. The node is `onError: continue`,
+  so a reaction hiccup never fails the capture or fires an alert. The bot token stays in the
+  `telegramApi` credential and is referenced as `{{ $credentials.accessToken }}` — never in the
+  workflow body or the committed export.
 - Card naming/format mirrors the local watcher (`tg-YYYYMMDD-HHMMSS-<msgid>.md`, frontmatter
   `source/date/message_id/attachment`; media alongside: `-photo.jpg`, `-voice.oga`, sanitized doc names).
   The card ALWAYS exists, even for captionless media — `/context-update` discovery keys on it.

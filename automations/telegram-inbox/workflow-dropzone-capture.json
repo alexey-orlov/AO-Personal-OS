@@ -171,6 +171,39 @@
           "name": "GitHub PAT (AO-Personal-OS) v2"
         }
       }
+    },
+    {
+      "id": "react-ok",
+      "name": "React 👍 on capture",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1320,
+        0
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "=https://api.telegram.org/bot{{ $credentials.accessToken }}/setMessageReaction",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "telegramApi",
+        "sendBody": true,
+        "contentType": "json",
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ chat_id: $('Telegram Trigger').first().json.message.chat.id, message_id: $('Telegram Trigger').first().json.message.message_id, reaction: [{ type: 'emoji', emoji: '👍' }] }) }}",
+        "options": {
+          "timeout": 15000
+        }
+      },
+      "credentials": {
+        "telegramApi": {
+          "id": "FnBXEhAZd1GlsgSP",
+          "name": "Telegram bot (AO)"
+        }
+      },
+      "onError": "continueRegularOutput",
+      "retryOnFail": true,
+      "maxTries": 2,
+      "waitBetweenTries": 1500
     }
   ],
   "connections": {
@@ -219,6 +252,17 @@
         [
           {
             "node": "PUT card to GitHub",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "PUT card to GitHub": {
+      "main": [
+        [
+          {
+            "node": "React 👍 on capture",
             "type": "main",
             "index": 0
           }
