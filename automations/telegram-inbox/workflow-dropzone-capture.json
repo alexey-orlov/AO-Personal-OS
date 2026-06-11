@@ -118,8 +118,8 @@
       },
       "credentials": {
         "httpHeaderAuth": {
-          "id": "7RNS9ta0huNTPTFz",
-          "name": "GitHub PAT (AO-Personal-OS)"
+          "id": "BNjgcEg64fLzU1gU",
+          "name": "GitHub PAT (AO-Personal-OS) v2"
         }
       }
     },
@@ -167,8 +167,8 @@
       },
       "credentials": {
         "httpHeaderAuth": {
-          "id": "7RNS9ta0huNTPTFz",
-          "name": "GitHub PAT (AO-Personal-OS)"
+          "id": "BNjgcEg64fLzU1gU",
+          "name": "GitHub PAT (AO-Personal-OS) v2"
         }
       }
     }
