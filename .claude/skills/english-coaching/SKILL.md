@@ -1,6 +1,6 @@
 ---
 name: english-coaching
-description: English-language coaching on a call transcript. Identifies the user from CLAUDE.md, reviews only the user's English speech, and writes a Markdown report (executive summary + a curated "Top items to study" list + a pattern-grouped full audit) to outputs/english-coaching/. Built as a learning artifact, not an audit log — flags real errors, non-native phrasings, and over-long/over-complex sentences (with tighter rewrites), but never mere style upgrades. Filters likely transcription artefacts. After writing the report (interactive mode), also sends a short Telegram digest via automations/coaching-notify/.
+description: English-language coaching on a call transcript. Identifies the user from CLAUDE.md, reviews only the user's English speech, and writes a Markdown report (executive summary + a curated "Top items to study" list + a pattern-grouped full audit) to outputs/english-coaching/. Built as a learning artifact, not an audit log — flags real errors, non-native phrasings, and over-long/over-complex sentences (with tighter rewrites), but never mere style upgrades. Filters likely transcription artefacts. Bails out without a report when the user's English speech is too sparse to coach (test recordings, predominantly RU/UA calls). After writing the report (interactive mode), also sends a short Telegram digest via automations/coaching-notify/.
 disable-model-invocation: false
 user-invocable: true
 ---
@@ -38,6 +38,12 @@ Acceptable signals: name match, employer/role match, "I work at <user's employer
   and stop.
 
 ## Step 2 — Scope what to analyse
+
+**Bail out if there is too little user English to coach.** If the user's English speech across the whole transcript amounts to less than roughly 150 words / a handful of complete sentences — e.g. a test recording, or a call held predominantly in RU/UA where the user's English is just scattered terms, loanwords, or a couple of short phrases — do NOT produce a report. Output exactly:
+
+`No coaching performed: the user's English speech in this transcript is too limited to review (test recording or predominantly non-English call).`
+
+and stop. English words embedded inside RU/UA sentences do not count as English speech. (The call-pipeline detects this line and discards the output instead of saving a note; in interactive mode, do not write a file or send a digest either.)
 
 Analyse ONLY:
 - turns spoken by the identified user,
@@ -221,6 +227,8 @@ Sentences that are grammatical and native-sounding but **too long, padded with r
 - **Order:** 🔴 → 🟡 → 🟢, then chronological within each severity.
 
 ## Step 6 — Write the output to disk
+
+If you emitted a bail-out line (unreadable input, unidentifiable speaker, or too little user English), skip this step entirely — no file, no digest.
 
 When invoked interactively (slash command or agent), after producing the analysis:
 

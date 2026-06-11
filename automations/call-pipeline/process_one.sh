@@ -61,6 +61,9 @@ classify_out="$(
 )"
 type="$(printf '%s' "$classify_out" | grep -iE '^[[:space:]]*type:' | head -1 | sed -E 's/^[[:space:]]*[Tt]ype:[[:space:]]*//' | LC_ALL=C tr '[:upper:]' '[:lower:]' | LC_ALL=C tr -cd '[:alnum:]-')"
 folder="$(printf '%s' "$classify_out" | grep -iE '^[[:space:]]*folder:' | head -1 | sed -E 's/^[[:space:]]*[Ff]older:[[:space:]]*//')"
+coaching="$(printf '%s' "$classify_out" | grep -iE '^[[:space:]]*coaching:' | head -1 | sed -E 's/^[[:space:]]*[Cc]oaching:[[:space:]]*//' | LC_ALL=C tr '[:upper:]' '[:lower:]' | LC_ALL=C tr -cd 'a-z')"
+# Only an explicit "no" skips coaching; missing/malformed -> run it (status quo).
+[ "$coaching" = "no" ] || coaching="yes"
 if [ -z "$type" ] || [ ! -f "$SKILLS_DIR/$type/SKILL.md" ]; then
   echo "[classify] type '$type' unrecognised -> 'default'" >&2
   type="default"
@@ -72,7 +75,7 @@ folder="$(printf '%s' "$folder" \
   | LC_ALL=C tr -cd 'a-z0-9/_-' \
   | sed -E 's#\.\.+#.#g; s#/+#/#g; s#^/+##; s#/+$##')"
 [ -n "$folder" ] || folder="other"
-echo "[classify] -> type:$type  folder:$folder" >&2
+echo "[classify] -> type:$type  folder:$folder  coaching:$coaching" >&2
 
 stamp="$(date +%Y-%m-%d_%H%M%S)"
 # Sanitized identifier from the source recording's filename (alphanumerics only).

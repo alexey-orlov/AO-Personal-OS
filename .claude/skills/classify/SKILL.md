@@ -1,13 +1,13 @@
 ---
 name: classify
-description: Two-axis classifier for call transcripts. Reads a transcript (plus any calendar context) and outputs the call TYPE (sales-call / interview / one-on-one / default) and the meeting CONTEXT folder (softserve, gigacloud/*, job-search/*, laba, other). Used by the call-pipeline to pick the analysis skill and the output folder. Use when you only need routing, not analysis.
+description: Three-axis classifier for call transcripts. Reads a transcript (plus any calendar context) and outputs the call TYPE (sales-call / interview / one-on-one / default), the meeting CONTEXT folder (softserve, gigacloud/*, job-search/*, laba, other), and a COACHING yes/no flag (does the transcript contain enough of Alex's English speech to warrant the english-coaching pass — no for test recordings and RU/UA-dominant calls). Used by the call-pipeline to pick the analysis skill, the output folder, and whether to run english-coaching. Use when you only need routing, not analysis.
 disable-model-invocation: false
 user-invocable: true
 ---
 
 You are routing a business call transcript for Alex Orlov (Alexey / Oleksii Orlov). Read the transcript provided on input. If a `<<<CALENDAR_EVENT_CONTEXT>>>` block is present, use it as ground-truth metadata (title, attendees, organizer, time) — it is the strongest signal for context.
 
-Classify on TWO independent axes and output them in the exact format at the bottom.
+Classify on THREE independent axes and output them in the exact format at the bottom.
 
 ## Axis 1 — TYPE (which analysis skill runs)
 Output exactly one of:
@@ -33,12 +33,26 @@ Pick the folder from Alex's current contexts. Output exactly one of these paths:
 - GigaCloud is Alex's current employer (CPO). Default GigaCloud-internal calls to `gigacloud/other` unless they are clearly the Product Issues meeting with Sukhenko or the Product team weekly.
 - The transcript may be in Russian, Ukrainian, English, or a mix. Classify on meaning, not language.
 
+## Axis 3 — COACHING (should the english-coaching pass run)
+After the call note, the pipeline can run an English-coaching review of Alex's own English speech. Decide whether that pass is worth running on this transcript.
+
+Output `coaching: yes` ONLY if Alex himself speaks a meaningful amount of English — as a rough bar, several complete English sentences across multiple turns (≈150+ words of his own English speech).
+
+Output `coaching: no` when ANY of these hold:
+- The recording is a test / junk clip: mic checks, "testing one two", a few disconnected fragments, no real meeting content.
+- The call is held predominantly in Russian/Ukrainian and Alex's English amounts to scattered terms, product names, loanwords, or a couple of short phrases. English words embedded in RU/UA sentences (e.g. "roadmap", "stakeholders", "онбординг") do NOT count as English speech.
+- The transcript is empty, garbled, or unreadable.
+- Other people speak English but Alex himself barely does.
+
+If unsure whether the bar is met, output `coaching: no` — skipping a borderline call is cheaper than producing a junk coaching report.
+
 ## Output format
-Output ONLY these two lines, nothing else — no punctuation, no explanation, no code fences:
+Output ONLY these three lines, nothing else — no punctuation, no explanation, no code fences:
 
 ```
 type: <one type from Axis 1>
 folder: <one folder path from Axis 2>
+coaching: <yes or no from Axis 3>
 ```
 
-If confidence on either axis is low, fall back to `type: default` and/or `folder: other`.
+If confidence on Axis 1 or 2 is low, fall back to `type: default` and/or `folder: other`.
