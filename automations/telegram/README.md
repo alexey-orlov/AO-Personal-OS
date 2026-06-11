@@ -10,7 +10,7 @@ All notifications go to one Telegram group with forum Topics enabled. `TG_TOPIC=
 |---|---|---|
 | `english-coaching` | 🎓 English Coaching | coaching-notify (call-pipeline) |
 | `inbox-drafts` | 📨 Inbox & Drafts | inbox-sweep(-loop), draft-message, re-engagement-outreach |
-| `daily-digest` | 📰 Daily Digest | (reserved — podcast digest et al.) |
+| `daily-digest` | 📰 Daily Digest | podcast-streaming (n8n cloud): daily digest + feed-health + crash alerts |
 | `books` | 📚 Books | book-finder |
 | `dropzone` | 📥 Drop Zone | **Alex → agent**: raw notes/files, auto-saved to `inbox/` by `automations/telegram-inbox/` |
 | *(unset)* | General | anything uncategorized |
