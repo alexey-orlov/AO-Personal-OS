@@ -86,4 +86,5 @@ Evidence-bound, specific, no filler or praise. Mark inferences as "(inferred)". 
 
 ## Active automations
 - `automations/call-pipeline/` — Voice Memo → AssemblyAI → Claude → note. See its `CLAUDE.md`.
+- `automations/git-autosync/` — launchd agent that auto-commits + pushes any local repo change (and pulls periodically), so devices stay in sync. See its `README.md`.
 - `automations/book-finder/` — shared config + helpers (Google Books search, epub/fb2 downloader) for the `book-finder` skill. Downloads land in iCloud Drive/Books (outside the repo). See its `README.md`.
