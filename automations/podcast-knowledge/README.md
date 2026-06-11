@@ -56,7 +56,7 @@ It runs the skill headlessly (Path A; no Bash for the skill → it won't git), t
 - **Manual cloud run**: trigger the claude.ai routine off-schedule (it folds whatever's unprocessed).
 - **Re-run safety**: idempotent — the per-insight ledger (`_meta/processed.txt`) means a repeat run changes nothing.
 - **Correcting clustering**: run `/podcast-insights` interactively; corrections to theme assignment/splits feed back into the skill's self-check (CLAUDE.md feedback loop).
-- **Reclustering**: `/podcast-insights recluster <theme>` for a manual split/merge; normal runs never re-cluster globally.
+- **Reclustering**: a second cloud routine, **"Bi-weekly podcast knowledge recluster"** (11th & 25th of each month, 15:55 UTC = 18:55 Kyiv), runs the skill's Structure-lifecycle maintenance: splits theme pages over ~30 insights along clean seams, merges duplicate themes, refreshes the index. Daily fold runs still never restructure — they only flag split candidates in `index.md`, which the bi-weekly routine acts on. `/podcast-insights recluster <theme>` remains the manual override for an ad-hoc split/merge.
 
 ## Files
 - `run.sh` — local fallback scheduler (runs the skill headlessly + commits).
