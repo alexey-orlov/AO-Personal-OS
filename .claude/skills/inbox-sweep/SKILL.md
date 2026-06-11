@@ -28,6 +28,7 @@ Gmail drafts go to the Gmail Drafts label (Alex reviews and sends from the Gmail
 - Log file (committed, counts only): `outputs/inbox-sweep/log.csv`
 - Telegram (text only): `automations/telegram/telegram_send.sh`
 - Telegram (text + URL button): `automations/telegram/telegram_send_with_button.sh`
+- **Every Telegram send in this skill sets `TG_TOPIC=inbox-drafts`** (env prefix on the script invocation, same placement rule as `TG_PARSE_MODE`) — routes to the 📨 Inbox & Drafts topic of the notification group.
 
 If `.work/state.json` doesn't exist yet, create it with:
 ```json
@@ -202,7 +203,7 @@ Use the **Claude in Chrome MCP** to drive Alex's real browser (the one with the 
    # ...assemble $TG_BODY using the format above, with <pre>…</pre> around drafts.
 
    printf '%s' "$TG_BODY" \
-     | TG_PARSE_MODE=HTML "$REPO_ROOT/automations/telegram/telegram_send_with_button.sh" \
+     | TG_TOPIC=inbox-drafts TG_PARSE_MODE=HTML "$REPO_ROOT/automations/telegram/telegram_send_with_button.sh" \
          "📧 Open in Gmail: $CONTACT" "$gmail_url" \
          "💼 LIN: $CONTACT" "$THREAD_URL"
    ```
@@ -251,7 +252,7 @@ Compute:
 - `M` = LIN drafts created this run (or, if LIN leg skipped, the Gmail-notification count of pending LIN messages)
 - `lin_leg_skipped` = true if Step 2 skipped due to session/extension issue
 
-**Always send one Telegram message** via `automations/telegram/telegram_send.sh` — on every run, including when `K + M = 0`:
+**Always send one Telegram message** via `TG_TOPIC=inbox-drafts automations/telegram/telegram_send.sh` — on every run, including when `K + M = 0`:
 
 ```
 📥 K Gmail drafts ready · M LIN msgs <pending|drafted>

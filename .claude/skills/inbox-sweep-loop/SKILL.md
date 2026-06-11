@@ -11,7 +11,7 @@ This skill is a thin wrapper around `/inbox-sweep` that adds **one extra step at
 
 ## What this skill does on each invocation
 
-1. **Send a heartbeat to Telegram** via `automations/telegram/telegram_send.sh`. Plain text, no buttons, intentionally short.
+1. **Send a heartbeat to Telegram** via `TG_TOPIC=inbox-drafts automations/telegram/telegram_send.sh`. Plain text, no buttons, intentionally short.
 
    The heartbeat ALWAYS includes the current UTC timestamp. If this skill was invoked with an `expires:YYYY-MM-DD` argument (passed via the CronCreate prompt — see "Setup" below), also include the remaining days and the expiry calendar date. If the argument is missing or malformed, fall back to the plain format (no expiry info — never error out on this).
 
