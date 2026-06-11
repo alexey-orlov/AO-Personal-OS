@@ -61,3 +61,8 @@ export USE_EU_ENDPOINT="0" # 1 = AssemblyAI EU data residency
 export WATCH_INTERVAL="30"
 export MAX_TRIES="3"
 export AUTO_GIT="1"        # 1 = auto commit+push each note, 0 = off
+
+# Context-wiki step: fold each new call note into context/ (project pages +
+# index) via the context-update skill. The one tool-enabled claude call.
+export CONTEXT_UPDATE="1"  # 1 = on, 0 = off
+export CONTEXT_MODEL=""    # model override for that step (empty = default)
