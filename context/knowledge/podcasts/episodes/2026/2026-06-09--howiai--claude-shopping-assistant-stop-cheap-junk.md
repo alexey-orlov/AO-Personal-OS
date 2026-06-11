@@ -1,0 +1,29 @@
+# How I AI — She built a Claude shopping assistant to stop buying cheap junk
+
+_source: youtube · channel: How I AI · published: 2026-06-09_
+_video: https://www.youtube.com/watch?v=OOPganyUinE_
+_guests: Nicole_
+_captured: 2026-06-11 (Path A) · digest run 20260609T0402_
+
+## Summary
+A parent-builder describes how she created a Claude AI project that centralizes vetted vendors, explicit purchasing rules, and return workflows to stop impulse-buying low-quality products. The system both surfaces higher-quality, similarly priced artisanal options and automates administrative tasks (like finding receipts and drafting refund emails), reducing friction and household waste. She argues this approach makes it practical to buy fewer, longer-lasting items and holds brands accountable for quality.
+
+## Insights extracted (4)
+
+- `pi-OOPganyUinE-01` — **Putting vetted vendors and purchase rules into a Claude project prevents bad impulse buys** → theme [AI agents & applications](../../themes/ai-agents-and-applications.md)
+  - detail: She created a dedicated Claude 'household management' project that contains a curated list of brands plus explicit rules (preferred materials, return policies, care instructions, formatting for results). Claude searches that list first and formats results with photo, price, materials and trust-history so she can decide quickly without falling for paid ads or knockoffs. That matters because it cuts the mental overhead of shopping for busy parents and reduces purchases of cheap, quickly broken items.
+  - anchor: "—" · t=293 · [▶ 4:53](https://www.youtube.com/watch?v=OOPganyUinE&t=293)
+
+- `pi-OOPganyUinE-02` — **Claude can surface brand-level trust signals and flag declining quality** → theme [AI agents & applications](../../themes/ai-agents-and-applications.md)
+  - detail: When asked, Claude will search for vendor history and call out red flags — for example, it surfaced that a brand was taken over two years ago and that reviews became abysmal afterward, or that a company had private-equity-driven scaling and many paid influencer placements. Those signals help her avoid trending direct-to-consumer brands that prioritize marketing over craftsmanship and prevent buying products likely to fail. The non-obvious gain is that AI can aggregate provenance and reputation cues that are otherwise buried across reviews, Glassdoor notes, and industry reporting.
+  - anchor: "—" · t=450 · [▶ 7:30](https://www.youtube.com/watch?v=OOPganyUinE&t=450)
+
+- `pi-OOPganyUinE-03` — **Connecting Claude to your email automates returns and increases refund success** → theme [AI agents & applications](../../themes/ai-agents-and-applications.md)
+  - detail: She uses Claude Co/work to access Gmail, find receipts or order numbers from a photo of a defective item, and draft a full refund email (including item SKU and deterioration details) to customer service. This reduces the five-to-ten-minute friction that usually stops people from pursuing refunds and often yields faster replies because the draft includes everything a rep needs. The practical effect is less waste and more enforcement of brand quality promises without parents doing tedious administrative work.
+  - anchor: "—" · t=1165 · [▶ 19:25](https://www.youtube.com/watch?v=OOPganyUinE&t=1165)
+
+- `pi-OOPganyUinE-04` — **AI shopping flow levels the playing field for small artisans and heritage brands** → theme [AI agents & applications](../../themes/ai-agents-and-applications.md)
+  - detail: Claude queries vetted boutiques (she cites Boston General Store) and legacy manufacturers, surfacing handcrafted items—sometimes at prices comparable to mass-market options—along with production details (e.g., a Maine workshop stitching thousands of totes daily). By skipping badly designed legacy websites and ad-saturated listings, the assistant makes small makers discoverable and accessible to consumers who want durable, repairable goods. This flips the common narrative that AI only benefits big platforms: here it reduces UX friction and amplifies artisan visibility.
+  - anchor: "—" · t=758 · [▶ 12:38](https://www.youtube.com/watch?v=OOPganyUinE&t=758)
+
+_Provenance archive — generated, never hand-edited. Theme pages are the curated view._
