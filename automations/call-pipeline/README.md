@@ -2,11 +2,13 @@
 
 Voice Memo (synced to this Mac) -> AssemblyAI transcript -> Claude classifies the
 call type -> Claude analyses with the matching `.claude/skills/<type>/SKILL.md`
-template -> Markdown note in `outputs/call-notes/` + (when the classifier says
-the call has enough of Alex's English speech — not a test recording or a RU/UA
-call) an `english-coaching` note in `outputs/english-coaching/`, auto-committed
-and pushed in one commit -> `automations/coaching-notify/` generates a short
-digest and ships it to Telegram with a link to the just-pushed coaching report.
+template -> Markdown note in `context/areas/<area>/calls/` + (when the classifier
+says the call has enough of Alex's English speech — not a test recording or a
+RU/UA call) an `english-coaching` note in `outputs/english-coaching/`, auto-
+committed and pushed in one commit -> `automations/coaching-notify/` generates a
+short digest and ships it to Telegram with a link to the just-pushed coaching
+report -> the `context-update` skill folds the note into the context wiki
+(`context/areas/<area>/README.md` + `context/index.md`), committed as `context: …`.
 
 ## Files
 - `config.sh`     paths, key source, toggles (auto-detects Voice Memos folder + claude/python)
@@ -37,9 +39,6 @@ Background agent:
 ## Add a call type
 Create `.claude/skills/<label>/SKILL.md` (frontmatter + analysis template) and add
 `<label>` + its definition to `.claude/skills/classify/SKILL.md`. That's the whole change.
-
-
-cat >> ~/Documents/GitHub/AO-Personal-OS/automations/call-pipeline/README.md << 'EOF'
 
 ## Health check & troubleshooting
 
@@ -75,5 +74,3 @@ A PID in the left column = running. Missing/`-` = not running → `launchctl loa
     launchctl unload ~/Library/LaunchAgents/com.user.callpipeline.plist
     rm -f .work/state/processed.log .work/state/failures.log
     launchctl load ~/Library/LaunchAgents/com.user.callpipeline.plist
-EOF
-cd ~/Documents/GitHub/AO-Personal-OS && git add -A && git commit -m "docs: agent health-check & troubleshooting" && git push

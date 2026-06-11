@@ -1,0 +1,1076 @@
+{
+  "name": "Podcast streaming v3 (resilient)",
+  "nodes": [
+    {
+      "id": "v3-manual-001",
+      "name": "When clicking ‘Execute workflow’",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        -128
+      ],
+      "parameters": {}
+    },
+    {
+      "id": "v3-sched-digest-001",
+      "name": "Schedule 07:00 (digest)",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        64
+      ],
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 7
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "v3-sched-disc-001",
+      "name": "Schedule 13:00/19:00 (discovery)",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        352
+      ],
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 13
+            },
+            {
+              "triggerAtHour": 19
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "v3-webhook-001",
+      "name": "Webhook trigger",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        0,
+        544
+      ],
+      "webhookId": "b7e2c4d8-1f3a-4e6b-9c5d-200000000001",
+      "parameters": {
+        "path": "podcast-stream-v3-run",
+        "options": {}
+      }
+    },
+    {
+      "id": "v3-mode-digest-001",
+      "name": "Mode: digest",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        256,
+        0
+      ],
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "md-1",
+              "name": "mode",
+              "value": "digest",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      }
+    },
+    {
+      "id": "v3-mode-disc-001",
+      "name": "Mode: discover",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        256,
+        352
+      ],
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "md-2",
+              "name": "mode",
+              "value": "discover",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      }
+    },
+    {
+      "id": "v3-split-001",
+      "name": "Split feeds",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        480,
+        160
+      ],
+      "parameters": {
+        "jsCode": "// One item per channel feed, with a direct URL and an rss2json fallback URL.\nconst FEEDS = [\n  { channel: 'a16z', id: 'UC9cn0TuPq4dnbTY-CBsm8XA' },\n  { channel: 'Y Combinator', id: 'UCcefcZRL2oaA_uBNeo5UOWg' },\n  { channel: 'SaaStr AI', id: 'UCwOILzAcxK5CM2M7oRBuWSg' },\n  { channel: \"Lenny's Podcast\", id: 'UC6t1O76G0jYXOAoYCm153dA' },\n  { channel: 'Peter H. Diamandis', id: 'UCvxm0qTrGN_1LMYgUaftWyQ' },\n  { channel: 'How I AI', id: 'UCRYY7IEbkHLH_ScJCu9eWDQ' },\n  { channel: 'Aakash Gupta', id: 'UCsHBhXybRz2CCfpU0hWp7ow' }\n];\nconst mode = (items[0] && items[0].json && items[0].json.mode) || 'digest';\nreturn FEEDS.map(f => {\n  const url = 'https://www.youtube.com/feeds/videos.xml?channel_id=' + f.id;\n  return { json: {\n    mode,\n    channel: f.channel,\n    feedUrl: url,\n    fallbackUrl: 'https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(url)\n  }};\n});"
+      }
+    },
+    {
+      "id": "v3-fetch-direct-001",
+      "name": "Fetch feeds (direct)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        704,
+        0
+      ],
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 5000,
+      "onError": "continueRegularOutput",
+      "parameters": {
+        "url": "={{ $json.feedUrl }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "User-Agent",
+              "value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
+            },
+            {
+              "name": "Accept",
+              "value": "application/atom+xml, application/xml, text/xml; q=0.9, */*; q=0.8"
+            },
+            {
+              "name": "Accept-Language",
+              "value": "en-US,en;q=0.9"
+            }
+          ]
+        },
+        "options": {
+          "batching": {
+            "batch": {
+              "batchSize": 1,
+              "batchInterval": 1500
+            }
+          },
+          "response": {
+            "response": {
+              "responseFormat": "text"
+            }
+          },
+          "timeout": 15000
+        }
+      }
+    },
+    {
+      "id": "v3-fetch-fb-001",
+      "name": "Fetch feeds (rss2json fallback)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        704,
+        320
+      ],
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 5000,
+      "onError": "continueRegularOutput",
+      "parameters": {
+        "url": "={{ $json.fallbackUrl }}",
+        "options": {
+          "batching": {
+            "batch": {
+              "batchSize": 1,
+              "batchInterval": 1500
+            }
+          },
+          "timeout": 20000
+        }
+      }
+    },
+    {
+      "id": "v3-combine-fetch-001",
+      "name": "Combine fetch results",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        928,
+        160
+      ],
+      "parameters": {
+        "mode": "append"
+      }
+    },
+    {
+      "id": "v3-parse-001",
+      "name": "Parse + discover",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1152,
+        160
+      ],
+      "parameters": {
+        "jsCode": "// Normalize direct-XML + rss2json results, update the persistent ledger\n// (workflowStaticData): new videos -> status 'discovered'; track per-feed health.\nconst sd = $getWorkflowStaticData('global');\nif (!sd.videos) sd.videos = {};\nif (!sd.feedHealth) sd.feedHealth = {};\nconst now = Date.now();\n\nconst feeds = $('Split feeds').all().map(i => i.json);\nconst N = feeds.length;\nconst mode = (feeds[0] && feeds[0].mode) || 'digest';\n\n// optional ops via webhook query: ?lookbackHours=96&markSent=id1,id2\nlet ops = {};\ntry { ops = $('Webhook trigger').first().json.query || {}; } catch (e) {}\nconst lookbackH = Math.max(1, Math.min(240, Number(ops.lookbackHours) || 72));\nconst cutoffMs = now - lookbackH * 3600 * 1000;\nif (ops.markSent) {\n  for (const id of String(ops.markSent).split(',').map(s => s.trim()).filter(Boolean)) {\n    sd.videos[id] = Object.assign({}, sd.videos[id], { videoId: id, status: 'sent', sentAtMs: now, seeded: true });\n  }\n}\n\nconst decode = s => (s || '').replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '\"').replace(/&#39;/g, \"'\");\n\nconst okFeeds = new Set();\nconst errNotes = {};\nconst candidates = new Map();\nfunction addCandidate(v) {\n  if (!v.videoId) return;\n  if (!candidates.has(v.videoId)) candidates.set(v.videoId, v);\n}\n\nitems.forEach((it, idx) => {\n  const feed = feeds[idx % N] || {};\n  const isFallback = idx >= N;\n  const j = it.json || {};\n  if (j.error) {\n    if (!okFeeds.has(feed.channel)) errNotes[feed.channel] = (isFallback ? 'fallback: ' : 'direct: ') + ((j.error.message || 'fetch failed') + '').slice(0, 160);\n    return;\n  }\n  const xml = typeof j.data === 'string' ? j.data : (typeof j.body === 'string' ? j.body : '');\n  if (xml && xml.indexOf('<entry') !== -1) {\n    okFeeds.add(feed.channel);\n    for (const e of xml.split('<entry>').slice(1)) {\n      const vid = (e.match(/<yt:videoId>([^<]+)<\\/yt:videoId>/) || [])[1];\n      if (!vid) continue;\n      const title = decode((e.match(/<title>([^<]*)<\\/title>/) || [])[1] || '');\n      const link = (e.match(/<link[^>]*rel=\"alternate\"[^>]*href=\"([^\"]+)\"/) || [])[1] || ('https://www.youtube.com/watch?v=' + vid);\n      const pub = (e.match(/<published>([^<]+)<\\/published>/) || [])[1];\n      addCandidate({ videoId: vid, title, url: link, published: pub ? new Date(pub).getTime() : null, channelName: feed.channel });\n    }\n    return;\n  }\n  if (j.status === 'ok' && Array.isArray(j.items)) {\n    okFeeds.add(feed.channel);\n    for (const e of j.items) {\n      let vid = ((e.guid || '').match(/yt:video:([\\w-]+)/) || [])[1];\n      if (!vid) vid = ((e.link || '').match(/[?&]v=([\\w-]+)/) || [])[1] || ((e.link || '').match(/\\/shorts\\/([\\w-]+)/) || [])[1];\n      if (!vid) continue;\n      let pubMs = null;\n      if (e.pubDate) {\n        const s = String(e.pubDate).trim();\n        pubMs = new Date(/[zZ]$|[+-]\\d\\d:?\\d\\d$/.test(s) ? s : s.replace(' ', 'T') + 'Z').getTime();\n        if (isNaN(pubMs)) pubMs = null;\n      }\n      addCandidate({ videoId: vid, title: (e.title || '').toString(), url: e.link || ('https://www.youtube.com/watch?v=' + vid), published: pubMs, channelName: feed.channel });\n    }\n    return;\n  }\n  if (!okFeeds.has(feed.channel)) errNotes[feed.channel] = (isFallback ? 'fallback: ' : 'direct: ') + 'unrecognized response';\n});\n\nfor (const f of feeds) {\n  const h = sd.feedHealth[f.channel] || {};\n  if (okFeeds.has(f.channel)) { h.lastOkMs = now; delete h.lastErrNote; }\n  else { h.lastErrMs = now; h.lastErrNote = errNotes[f.channel] || 'failed'; }\n  sd.feedHealth[f.channel] = h;\n}\n\nlet newCount = 0;\nfor (const v of candidates.values()) {\n  if (v.published && v.published < cutoffMs) continue;\n  const urlL = (v.url || '').toLowerCase();\n  if (urlL.includes('/shorts/') || /#shorts/i.test(v.title || '')) continue;\n  if (sd.videos[v.videoId]) continue;\n  sd.videos[v.videoId] = { videoId: v.videoId, title: v.title, url: v.url, published: v.published, channelName: v.channelName, status: 'discovered', firstSeenMs: now };\n  newCount++;\n}\n\n// prune ledger entries older than 14 days\nconst pruneMs = now - 14 * 24 * 3600 * 1000;\nfor (const [id, v] of Object.entries(sd.videos)) {\n  const ref = v.published || v.firstSeenMs || 0;\n  if (ref && ref < pruneMs) delete sd.videos[id];\n}\n\n// channels with no successful fetch for 36h+ (on either path)\nconst dark = [];\nfor (const f of feeds) {\n  const h = sd.feedHealth[f.channel] || {};\n  if ((now - (h.lastOkMs || 0) > 36 * 3600 * 1000) && h.lastErrMs) {\n    dark.push(f.channel);\n  }\n}\nconst healthWarning = dark.length ? '⚠️ Feeds failing for 36h+: ' + dark.join(', ') : '';\n\nconst unsent = Object.values(sd.videos).filter(v => v.status === 'discovered').length;\nreturn [{ json: { mode, newCount, unsent, feedsOk: okFeeds.size, feedsTotal: N, healthWarning, lookbackHours: lookbackH } }];"
+      }
+    },
+    {
+      "id": "v3-ifdigest-001",
+      "name": "Run digest?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1376,
+        160
+      ],
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "rd-1",
+              "leftValue": "={{ $json.mode }}",
+              "rightValue": "digest",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      }
+    },
+    {
+      "id": "v3-loadunsent-001",
+      "name": "Load unsent",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1600,
+        96
+      ],
+      "parameters": {
+        "jsCode": "// Emit one item per ledger video still awaiting delivery (oldest first, capped).\nconst CAP = 15;\nconst sd = $getWorkflowStaticData('global');\nconst all = Object.values(sd.videos || {}).filter(v => v.status === 'discovered');\nlet hw = '';\ntry { hw = $('Parse + discover').first().json.healthWarning || ''; } catch (e) {}\nif (!all.length) return [{ json: { _noNew: true, _healthWarning: hw } }];\nall.sort((a, b) => (a.published || a.firstSeenMs || 0) - (b.published || b.firstSeenMs || 0));\nconst batch = all.slice(0, CAP);\nif (all.length > CAP) {\n  hw = (hw ? hw + '\\n' : '') + '⏭ ' + (all.length - CAP) + ' more video(s) queued for the next digest.';\n}\nreturn batch.map(v => ({ json: {\n  videoId: v.videoId,\n  title: v.title || '',\n  url: v.url || '',\n  published: v.published || null,\n  firstSeenMs: v.firstSeenMs || null,\n  channelName: v.channelName || '',\n  _healthWarning: hw\n}}));"
+      }
+    },
+    {
+      "id": "v3-ifany-001",
+      "name": "Any unsent?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1824,
+        96
+      ],
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "au-1",
+              "leftValue": "={{ $json._noNew === true }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      }
+    },
+    {
+      "id": "v3-tg-nonew-001",
+      "name": "Send Telegram (no new)",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        2048,
+        304
+      ],
+      "onError": "continueRegularOutput",
+      "credentials": {
+        "telegramApi": {
+          "id": "FnBXEhAZd1GlsgSP",
+          "name": "Telegram bot (AO)"
+        }
+      },
+      "parameters": {
+        "chatId": "406449973",
+        "text": "=<b>🎧 Podcast streaming — no new episodes</b>\n<i>No new podcasts found since the last digest.</i>{{ $json._healthWarning ? '\\n\\n' + $json._healthWarning : '' }}",
+        "additionalFields": {
+          "disable_web_page_preview": true,
+          "parse_mode": "HTML"
+        },
+        "resource": "message",
+        "operation": "sendMessage"
+      }
+    },
+    {
+      "id": "v3-setmeta-001",
+      "name": "Set meta",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        2048,
+        0
+      ],
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "sm-1",
+              "name": "meta.title",
+              "value": "={{ $json.title }}",
+              "type": "string"
+            },
+            {
+              "id": "sm-2",
+              "name": "meta.url",
+              "value": "={{ $json.url }}",
+              "type": "string"
+            },
+            {
+              "id": "sm-3",
+              "name": "meta.videoId",
+              "value": "={{ $json.videoId }}",
+              "type": "string"
+            },
+            {
+              "id": "sm-4",
+              "name": "meta.channelName",
+              "value": "={{ $json.channelName }}",
+              "type": "string"
+            },
+            {
+              "id": "sm-5",
+              "name": "meta.published",
+              "value": "={{ $json.published ?? 0 }}",
+              "type": "number"
+            },
+            {
+              "id": "sm-6",
+              "name": "meta.firstSeenMs",
+              "value": "={{ $json.firstSeenMs ?? 0 }}",
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      }
+    },
+    {
+      "id": "v3-transcript-001",
+      "name": "Fetch transcript",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2272,
+        176
+      ],
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 5000,
+      "onError": "continueRegularOutput",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "7eF0BoxAPfAa5s2I",
+          "name": "rapidapi_header"
+        }
+      },
+      "parameters": {
+        "url": "=https://youtube-transcript3.p.rapidapi.com/api/transcript?videoId={{ $json.meta.videoId }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {
+          "batching": {
+            "batch": {
+              "batchSize": 1,
+              "batchInterval": 1500
+            }
+          },
+          "timeout": 60000
+        }
+      }
+    },
+    {
+      "id": "v3-merge-meta-001",
+      "name": "Merge meta + transcript",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        2496,
+        0
+      ],
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineByPosition",
+        "options": {
+          "clashHandling": {
+            "values": {
+              "resolveClash": "preferInput1",
+              "overrideEmpty": true
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "v3-parsetrans-001",
+      "name": "Parse transcript",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2720,
+        0
+      ],
+      "parameters": {
+        "jsCode": "function decodeEntities(s) {\n  if (!s || typeof s !== 'string') return s;\n  return s.replace(/&amp;/g,'&').replace(/&lt;/g,'<').replace(/&gt;/g,'>')\n          .replace(/&quot;/g,'\"').replace(/&#39;/g,\"'\").replace(/&nbsp;/g,' ');\n}\n\nfunction toSeconds(seg) {\n  let v = null;\n  if (seg.start != null)        v = Number(seg.start);\n  else if (seg.offset != null)  v = Number(seg.offset);\n  else if (seg.tStartMs != null)v = Number(seg.tStartMs) / 1000;\n  else if (seg.startMs != null) v = Number(seg.startMs) / 1000;\n  else if (seg.begin != null)   v = Number(seg.begin);\n  else if (seg.startTime!=null) v = Number(seg.startTime);\n  if (v == null || isNaN(v)) return null;\n  if (v > 100000) v = v / 1000;\n  return Math.max(0, Math.floor(v));\n}\n\nfunction normTok(s) {\n  return (s || '').toString().toLowerCase().replace(/[^a-z0-9\\s]/g, ' ').replace(/\\s+/g, ' ').trim();\n}\n\nfunction montageEndIndex(segments) {\n  const REGION = 180;\n  const GAP    = 120;\n  const MIN_RECUR = 3;\n  const LONG   = 600;\n  const MAX_FRAC = 0.4;\n\n  const dur = segments.reduce((m, s) => (s.t != null && s.t > m ? s.t : m), 0);\n  if (dur <= LONG) return -1;\n\n  const toks = [];\n  for (let i = 0; i < segments.length; i++) {\n    const t = segments[i].t;\n    for (const w of normTok(segments[i].text).split(' ')) if (w) toks.push({ w, t });\n  }\n  const grams = new Map();\n  for (let i = 0; i + 3 < toks.length; i++) {\n    if (toks[i].t == null) continue;\n    const key = toks[i].w + ' ' + toks[i+1].w + ' ' + toks[i+2].w + ' ' + toks[i+3].w;\n    let arr = grams.get(key); if (!arr) { arr = []; grams.set(key, arr); }\n    arr.push(toks[i].t);\n  }\n  function recurs(seg) {\n    if (seg.t == null || seg.t >= REGION) return false;\n    const w = normTok(seg.text).split(' ').filter(Boolean);\n    if (w.length < 4) return false;\n    for (let i = 0; i + 3 < w.length; i++) {\n      const arr = grams.get(w[i] + ' ' + w[i+1] + ' ' + w[i+2] + ' ' + w[i+3]);\n      if (arr && arr.some(t => t >= seg.t + GAP)) return true;\n    }\n    return false;\n  }\n\n  let lastIdx = -1, count = 0;\n  for (let i = 0; i < segments.length; i++) {\n    const s = segments[i];\n    if (s.t != null && s.t >= REGION) break;\n    if (recurs(s)) { lastIdx = i; count++; }\n  }\n  if (count < MIN_RECUR) return -1;\n  if (lastIdx + 1 > segments.length * MAX_FRAC) return -1;\n  return lastIdx;\n}\n\nconst out = [];\nfor (const it of items) {\n  const j = it.json || {};\n  const meta = j.meta || {};\n\n  let segs = [];\n  if (Array.isArray(j)) segs = j;\n  else if (Array.isArray(j.transcript)) segs = j.transcript;\n  else if (Array.isArray(j.data)) segs = j.data;\n  else if (Array.isArray(j.result)) segs = j.result;\n  else {\n    for (const k of Object.keys(j)) {\n      if (Array.isArray(j[k]) && j[k].length && typeof j[k][0]?.text === 'string') { segs = j[k]; break; }\n    }\n  }\n\n  let segments = [];\n  for (const s of segs) {\n    let text = decodeEntities((s.text || s.caption || '').toString());\n    text = text.replace(/>>/g, ' ').replace(/\\s+/g, ' ').trim();\n    if (!text) continue;\n    segments.push({ t: toSeconds(s), text });\n  }\n\n  const mEnd = montageEndIndex(segments);\n  if (mEnd >= 0) segments = segments.slice(mEnd + 1);\n\n  const joined = segments.length\n    ? segments.map(s => s.text).join(' ').replace(/\\s+/g,' ').trim()\n    : '';\n\n  out.push({\n    json: {\n      videoId: meta.videoId || j.videoId || j.id || '',\n      title:   meta.title   || j.title   || '',\n      url:     meta.url     || j.url     || j.link || '',\n      channelName: meta.channelName || '',\n      published: meta.published || null,\n      firstSeenMs: meta.firstSeenMs || null,\n      transcriptText: (joined || '').trim(),\n      segments\n    }\n  });\n}\nreturn out;"
+      }
+    },
+    {
+      "id": "v3-iftrans-001",
+      "name": "Has transcript?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        2944,
+        0
+      ],
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "ht-1",
+              "leftValue": "={{ $json.transcriptText }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      }
+    },
+    {
+      "id": "v3-model-001",
+      "name": "Message a model",
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.8,
+      "position": [
+        3168,
+        176
+      ],
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 5000,
+      "onError": "continueRegularOutput",
+      "credentials": {
+        "openAiApi": {
+          "id": "Fi6TbL0LxDnwnyFv",
+          "name": "OpenAi account"
+        }
+      },
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-5-mini",
+          "mode": "list",
+          "cachedResultName": "GPT-5-MINI"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=You turn a video transcript into a short briefing for a sharp reader who did NOT\nwatch it and wants to UNDERSTAND the ideas well enough to repeat them — not skim a list.\n\nReturn valid JSON only. No markdown, no preamble. Exactly this shape:\n{\n  \"videoTitle\": \"<title>\",\n  \"videoUrl\": \"<url>\",\n  \"summary\": \"<2-4 plain-English sentences: what the video is about and its central argument/throughline>\",\n  \"guests\": [\"<external guest name with optional affiliation, e.g. 'Vinod Khosla (Khosla Ventures)'>\"],\n  \"insights\": [\n    {\n      \"headline\": \"<the idea as a CLAIM in <=12 words, not a topic>\",\n      \"detail\": \"<2-4 sentences: state the idea, then the reasoning, evidence, example, or number behind it, and why it matters or what's non-obvious. Must stand alone — the reader has no other context.>\",\n      \"anchorQuote\": \"<5-12 words copied VERBATIM from the transcript, marking where this idea STARTS being discussed>\"\n    }\n  ]\n}\n\nHow to choose and write insights:\n- Depth over count. 3-6 insights total. A few well-explained ideas beat eight fragments. Cut anything generic.\n- Every insight carries its own context. Never a bare claim — always include the WHY: the argument, mechanism, example, or figure. If you can't explain why it's true or why it matters, drop it.\n- Prioritize the surprising, contrarian, or load-bearing points — the ones that change how the reader thinks. Skip intros, throat-clearing, and obvious statements.\n- Be concrete. Name the actual company, person, number, or example from the transcript. Replace \"various / some experts / many\" with the specific instance, or omit.\n- Headlines are claims, not topics: \"Defense software could be a trillion-dollar category\" — NOT \"On defense software.\"\n\nguests rules:\n- List ONLY external interviewees — never the host(s) or the podcast brand itself.\n- Use the name as said in the episode; optionally append the org in parens, e.g. \"Vinod Khosla (Khosla Ventures)\".\n- Return [] if it's a solo monologue, if guests aren't clearly named, or if you're not confident.\n\nanchorQuote rules (this powers a clickable timestamp, so accuracy matters more than elegance):\n- Copy it CHARACTER-FOR-CHARACTER from the transcript — same words, same order. Do NOT paraphrase, fix grammar, or add punctuation.\n- Pick the spot where the point is FIRST made, and choose a DISTINCTIVE phrase (avoid generic words like \"and so the thing is\") so it can be located unambiguously.\n- 5-12 words. If you genuinely cannot find a matching span, set anchorQuote to \"\".\n\nOutput valid JSON only. No extra fields.",
+              "role": "system"
+            },
+            {
+              "content": "=Title: {{$json[\"title\"]}}\nURL: {{$json[\"url\"]}}\n\nTranscript:\n{{$json[\"transcriptText\"]}}\n"
+            }
+          ]
+        },
+        "options": {}
+      }
+    },
+    {
+      "id": "v3-join-001",
+      "name": "Join model + segments",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        3392,
+        0
+      ],
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineByPosition",
+        "options": {
+          "clashHandling": {
+            "values": {
+              "resolveClash": "preferInput1",
+              "overrideEmpty": true
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "v3-resolve-001",
+      "name": "Resolve insights",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3616,
+        0
+      ],
+      "parameters": {
+        "jsCode": "// Build insightsObj { videoTitle, videoUrl, summary, insights[{headline,detail,anchorQuote,tSeconds,link}] }\n// Resolves a real timestamp per anchorQuote from `segments`, defeating cold-open teasers.\n\nfunction coerceObjectFrom(any) {\n  if (!any) return null;\n  if (typeof any === 'object') return any;\n  if (typeof any === 'string') {\n    try { return JSON.parse(any); } catch {}\n    const m = any.match(/\\{[\\s\\S]*\\}$/);\n    if (m) { try { return JSON.parse(m[0]); } catch {} }\n  }\n  return null;\n}\n\nfunction norm(s) {\n  return (s || '').toString().toLowerCase().replace(/[^a-z0-9\\s]/g, ' ').replace(/\\s+/g, ' ').trim();\n}\n\nfunction buildCharIndex(segments) {\n  const charSeg = []; let concat = '';\n  for (let i = 0; i < segments.length; i++) {\n    const t = norm(segments[i].text);\n    if (!t) continue;\n    if (concat) { concat += ' '; charSeg.push(i); }\n    for (let c = 0; c < t.length; c++) { concat += t[c]; charSeg.push(i); }\n  }\n  return { concat, charSeg };\n}\n\nfunction tokenStream(segments) {\n  const toks = [];\n  for (let i = 0; i < segments.length; i++) {\n    const t = norm(segments[i].text); if (!t) continue;\n    for (const w of t.split(' ')) if (w) toks.push({ w, seg: i });\n  }\n  return toks;\n}\n\nfunction startSec(segments, segIdx) {\n  for (let i = segIdx; i >= 0; i--) if (segments[i] && segments[i].t != null) return segments[i].t;\n  for (let i = segIdx; i < segments.length; i++) if (segments[i] && segments[i].t != null) return segments[i].t;\n  return null;\n}\n\nfunction resolveTimestamp(anchor, segments) {\n  if (!anchor || !Array.isArray(segments) || !segments.length) return null;\n  const a = norm(anchor);\n  const at = a.split(' ').filter(Boolean);\n  if (at.length < 2) return null;\n\n  const { concat, charSeg } = buildCharIndex(segments);\n  const videoDuration = segments.reduce((m, s) => (s.t != null && s.t > m ? s.t : m), 0);\n\n  function occurrences(needle) {\n    const res = []; let from = 0, i;\n    while ((i = concat.indexOf(needle, from)) >= 0) { res.push(startSec(segments, charSeg[i])); from = i + 1; }\n    return res.filter(t => t != null);\n  }\n  function pick(secs) {\n    if (!secs.length) return null;\n    const uniq = Array.from(new Set(secs)).sort((x, y) => x - y);\n    const TEASER = 90, LONG = 600;\n    if (uniq.length >= 2 && uniq[0] < TEASER && videoDuration > LONG) {\n      const later = uniq.find(t => t >= TEASER);\n      return later != null ? later : uniq[uniq.length - 1];\n    }\n    return uniq[0];\n  }\n\n  let secs = occurrences(a);\n  if (secs.length) return pick(secs);\n\n  for (let n = Math.min(at.length, 8); n >= 3; n--) {\n    secs = occurrences(at.slice(0, n).join(' '));\n    if (secs.length) return pick(secs);\n  }\n\n  const toks = tokenStream(segments);\n  const want = new Set(at);\n  const L = at.length;\n  const scored = []; let bestScore = 0;\n  for (let i = 0; i < toks.length; i++) {\n    const end = Math.min(toks.length, i + L);\n    const local = new Set(); let score = 0;\n    for (let k = i; k < end; k++) {\n      if (want.has(toks[k].w) && !local.has(toks[k].w)) { score++; local.add(toks[k].w); }\n    }\n    if (score > bestScore) bestScore = score;\n    if (score / L >= 0.6) scored.push({ score, seg: toks[i].seg });\n  }\n  if (bestScore / L >= 0.6) {\n    const top = scored.filter(s => s.score === bestScore)\n                      .map(s => startSec(segments, s.seg))\n                      .filter(t => t != null);\n    if (top.length) return pick(top);\n  }\n  return null;\n}\n\nfunction addTimestamp(url, sec) {\n  if (sec == null || !url) return url || '';\n  const s = Math.max(0, Math.floor(sec));\n  const sep = url.includes('?') ? '&' : '?';\n  return url + sep + 't=' + s;\n}\n\nconst out = [];\nfor (const it of items) {\n  const row = it.json || {};\n  const segments = Array.isArray(row.segments) ? row.segments : [];\n  const inputTitle = row.title || row.videoTitle || row.meta?.title || '';\n  const inputUrl   = row.url   || row.videoUrl   || row.meta?.url   || '';\n\n  const raw =\n    row?.choices?.[0]?.message?.content ||\n    row?.message?.content ||\n    row?.response ||\n    row?.body ||\n    (typeof row === 'string' ? row : null);\n\n  let parsed = coerceObjectFrom(raw) || {};\n  parsed.videoTitle = (parsed.videoTitle || inputTitle || '').toString().trim();\n  parsed.videoUrl   = (parsed.videoUrl   || inputUrl   || '').toString().trim();\n\n  let summary = '';\n  if (typeof parsed.summary === 'string') summary = parsed.summary.trim();\n  else if (typeof parsed.description === 'string') summary = parsed.description.trim();\n\n  const rawInsights = Array.isArray(parsed.insights) ? parsed.insights : [];\n  const conv = rawInsights.map(item => {\n    if (!item) return null;\n    if (typeof item === 'string') return { headline: item.replace(/\\s+/g,' ').trim(), detail: '', anchorQuote: '' };\n    if (typeof item === 'object') {\n      const headline    = (item.headline || item.claim || item.text || item.insight || '').toString().replace(/\\s+/g,' ').trim();\n      const detail      = (item.detail || item.explanation || item.why || item.body || '').toString().replace(/\\s+/g,' ').trim();\n      const anchorQuote = (item.anchorQuote || item.quote || item.anchor || '').toString().replace(/\\s+/g,' ').trim();\n      if (!headline && !detail) return null;\n      return { headline, detail, anchorQuote };\n    }\n    return null;\n  }).filter(Boolean);\n\n  const seenH = new Set(); const deduped = [];\n  for (const x of conv) {\n    const key = x.headline.toLowerCase();\n    if (key && seenH.has(key)) continue;\n    if (key) seenH.add(key);\n    deduped.push(x);\n    if (deduped.length >= 8) break;\n  }\n\n  for (const x of deduped) {\n    const sec = resolveTimestamp(x.anchorQuote, segments);\n    x.tSeconds = (sec == null ? null : sec);\n    x.link = (sec == null ? '' : addTimestamp(parsed.videoUrl, sec));\n  }\n\n  if (!summary && row.transcriptText && row.transcriptText.length) {\n    const t = row.transcriptText.replace(/\\s+/g,' ').trim();\n    const sentences = t.match(/[^.!?]+[.!?]+|[^.!?]+$/g) || [];\n    summary = sentences.slice(0, 2).join(' ').trim();\n    if (summary.length > 320) summary = summary.slice(0, 317) + '…';\n  }\n\n  const guests = Array.isArray(parsed.guests)\n    ? parsed.guests.filter(g => typeof g === 'string' && g.trim()).map(g => g.trim())\n    : [];\n  const channelName = (row.meta?.channelName || row.channelName || '').toString().trim();\n  const final = {\n    videoTitle: parsed.videoTitle || '',\n    videoUrl: parsed.videoUrl || '',\n    channelName,\n    guests,\n    summary: summary || '',\n    insights: deduped\n  };\n  out.push({ json: { ...row, insightsObj: final } });\n}\n\nreturn out;"
+      }
+    },
+    {
+      "id": "v3-notrans-001",
+      "name": "No-transcript handler",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3168,
+        -192
+      ],
+      "parameters": {
+        "jsCode": "// Videos without a transcript: younger than 36h stay in the ledger and are\n// retried at the next digest (_omit); older ones go out link-only so nothing\n// is ever silently dropped.\nconst now = Date.now();\nconst MAX_WAIT_MS = 36 * 3600 * 1000;\nconst out = [];\nfor (const it of items) {\n  const j = it.json || {};\n  const ref = Number(j.published) || Number(j.firstSeenMs) || 0;\n  const age = ref ? (now - ref) : Infinity;\n  if (age < MAX_WAIT_MS) {\n    out.push({ json: { _omit: true, _pending: true, videoId: j.videoId, title: j.title, channelName: j.channelName } });\n  } else {\n    out.push({ json: {\n      videoId: j.videoId,\n      title: j.title,\n      url: j.url,\n      channelName: j.channelName,\n      published: j.published,\n      _linkOnly: true,\n      insightsObj: {\n        videoTitle: j.title,\n        videoUrl: j.url,\n        channelName: j.channelName,\n        guests: [],\n        summary: 'No transcript available — link only.',\n        insights: []\n      }\n    }});\n  }\n}\nreturn out;"
+      }
+    },
+    {
+      "id": "v3-combineready-001",
+      "name": "Combine ready videos",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        3840,
+        0
+      ],
+      "parameters": {
+        "mode": "append"
+      }
+    },
+    {
+      "id": "v3-builddigest-001",
+      "name": "Build Digest",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        4064,
+        -128
+      ],
+      "parameters": {
+        "jsCode": "// Build email digest from insightsObj items. Items flagged _omit are pending\n// (no transcript yet) and excluded; they are counted in the footer.\nconst MAX_BULLETS = 12;\n\nfunction esc(s) {\n  return (s || '').toString().replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');\n}\nfunction hhmmss(sec) {\n  if (sec == null || isNaN(sec)) return '';\n  sec = Math.floor(sec);\n  const h = Math.floor(sec/3600), m = Math.floor((sec%3600)/60), s = sec%60;\n  const mm = String(m).padStart(2,'0'), ss = String(s).padStart(2,'0');\n  return h ? `${h}:${mm}:${ss}` : `${m}:${ss}`;\n}\nfunction normalizeInsights(v) {\n  if (!Array.isArray(v)) return [];\n  return v.map(x => {\n    if (typeof x === 'string') return { headline: x.trim(), detail: '', link: '', tSeconds: null };\n    if (x && typeof x === 'object') return {\n      headline: (x.headline || x.claim || x.text || x.insight || '').toString().trim(),\n      detail:   (x.detail   || x.explanation || x.why || '').toString().trim(),\n      link:     (x.link || '').toString().trim(),\n      tSeconds: (x.tSeconds == null ? null : Number(x.tSeconds))\n    };\n    return { headline: '', detail: '', link: '', tSeconds: null };\n  }).filter(x => x.headline || x.detail);\n}\n\nconst videos = [];\nconst seen = new Set();\nlet pending = 0;\n\nfor (const it of items) {\n  const row = it.json || {};\n  if (row._omit) { if (row._pending) pending++; continue; }\n  const obj = row.insightsObj;\n  if (!obj) continue;\n\n  const title = (obj.videoTitle || row.videoTitle || row.title || 'Untitled').toString();\n  const url   = (obj.videoUrl   || row.videoUrl   || row.url || '').toString();\n  const key   = (url || title).toLowerCase();\n  if (seen.has(key)) continue;\n  seen.add(key);\n\n  const summary  = (obj.summary || '').toString().trim();\n  const insights = normalizeInsights(obj.insights).slice(0, MAX_BULLETS);\n  const channelName = (obj.channelName || row.channelName || '').toString().trim();\n  const guests      = Array.isArray(obj.guests) ? obj.guests.filter(g => typeof g === 'string' && g.trim()) : [];\n  videos.push({ title, url, channelName, guests, summary, insights });\n}\n\nlet hw = '';\ntry { hw = ($('Load unsent').first().json._healthWarning || '').toString(); } catch (e) {}\n\n// ---- Markdown ----\nlet md = '# Daily Podcast Insights\\n\\n';\nmd += `Total videos: ${videos.length}\\n\\n`;\nfor (const v of videos) {\n  const mdHeading = v.channelName ? `${v.channelName} · ${v.title}` : v.title;\n  md += `## ${mdHeading}\\n`;\n  if (v.url) md += `${v.url}\\n`;\n  if (v.guests && v.guests.length) md += `\\n_with ${v.guests.join(', ')}_\\n`;\n  if (v.summary) md += `\\n${v.summary}\\n`;\n  if (v.insights.length) {\n    md += '\\n';\n    for (const s of v.insights) {\n      const ts = s.tSeconds != null ? ` (▶ ${hhmmss(s.tSeconds)})` : '';\n      if (s.link) md += `- [**${s.headline}**](${s.link})${ts}`;\n      else        md += `- **${s.headline}**`;\n      if (s.detail) md += ` — ${s.detail}`;\n      md += `\\n`;\n    }\n    md += '\\n';\n  } else {\n    md += '\\n_No insights extracted._\\n\\n';\n  }\n}\nif (pending) md += `\\n_${pending} video(s) waiting for transcripts — will retry at the next digest._\\n`;\nif (hw) md += `\\n${hw}\\n`;\n\n// ---- HTML ----\nlet html = `<div style=\"font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:1.5;\">`;\nhtml += `<h2 style=\"margin:0 0 8px 0;\">Daily Podcast Insights</h2>`;\nhtml += `<p style=\"color:#666;margin:0 0 14px 0;\">Total videos: ${videos.length}</p>`;\nfor (const v of videos) {\n  const htmlHeading = v.channelName ? `${esc(v.channelName)} · ${esc(v.title)}` : esc(v.title);\n  html += `<h3 style=\"font-size:15px;margin:18px 0 6px 0;\">`;\n  html += v.url\n    ? `<a href=\"${esc(v.url)}\" target=\"_blank\" style=\"color:#1a73e8;text-decoration:none;\">${htmlHeading}</a>`\n    : htmlHeading;\n  html += `</h3>`;\n  if (v.guests && v.guests.length) html += `<p style=\"margin:0 0 6px 0;color:#666;font-style:italic;\">with ${esc(v.guests.join(', '))}</p>`;\n  if (v.summary) html += `<p style=\"margin:6px 0 10px 0;color:#222;\">${esc(v.summary)}</p>`;\n  if (v.insights.length) {\n    html += `<ul style=\"margin:6px 0 14px 18px;padding:0;\">`;\n    for (const s of v.insights) {\n      html += `<li style=\"margin-bottom:12px;color:#111;\">`;\n      const label = `<strong>${esc(s.headline)}</strong>`;\n      html += s.link\n        ? `<a href=\"${esc(s.link)}\" target=\"_blank\" style=\"color:#1a73e8;text-decoration:none;\">${label}</a>`\n        : label;\n      if (s.tSeconds != null && s.link) {\n        html += ` <a href=\"${esc(s.link)}\" target=\"_blank\" style=\"color:#888;text-decoration:none;font-size:12px;white-space:nowrap;\">&#9654; ${hhmmss(s.tSeconds)}</a>`;\n      }\n      if (s.detail) html += `<br><span style=\"color:#333;\">${esc(s.detail)}</span>`;\n      html += `</li>`;\n    }\n    html += `</ul>`;\n  } else {\n    html += `<p style=\"color:#666;margin-bottom:12px;\"><em>No insights extracted.</em></p>`;\n  }\n}\nif (pending) html += `<p style=\"color:#666;\"><em>${pending} video(s) waiting for transcripts — will retry at the next digest.</em></p>`;\nif (hw) html += `<p style=\"color:#b00;\">${esc(hw)}</p>`;\nhtml += `<hr style=\"border:none;border-top:1px solid #eee;margin:12px 0;\">`;\nhtml += `<p style=\"font-size:12px;color:#999;margin:8px 0 0 0;\">Generated automatically</p></div>`;\n\nreturn [{ json: { digestMarkdown: md, digestHtml: html, count: videos.length, pending, videos } }];"
+      }
+    },
+    {
+      "id": "v3-ifemail-001",
+      "name": "Email digest?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        4288,
+        -128
+      ],
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "ed-1",
+              "leftValue": "={{ $json.count }}",
+              "rightValue": 0,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      }
+    },
+    {
+      "id": "v3-gmail-001",
+      "name": "Send email digest",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        4512,
+        -128
+      ],
+      "onError": "continueRegularOutput",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "wDU2SQgN4rlhPTg1",
+          "name": "Gmail account"
+        }
+      },
+      "parameters": {
+        "sendTo": "orlov.alexej@gmail.com",
+        "subject": "Youtube podcasts digest",
+        "message": "={{ $json.digestHtml }}",
+        "options": {},
+        "resource": "message",
+        "operation": "send"
+      }
+    },
+    {
+      "id": "v3-buildtg-001",
+      "name": "Build Telegram Digest",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        4064,
+        192
+      ],
+      "parameters": {
+        "jsCode": "// Build Telegram message(s). Tracks which videoIds are inside each message so\n// 'Mark sent' can update the ledger only for messages that actually delivered.\nfunction esc(s) {\n  return (s || '').toString().replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');\n}\nfunction hhmmss(sec) {\n  if (sec == null || isNaN(sec)) return '';\n  sec = Math.floor(sec);\n  const h = Math.floor(sec/3600), m = Math.floor((sec%3600)/60), s = sec%60;\n  const mm = String(m).padStart(2,'0'), ss = String(s).padStart(2,'0');\n  return h ? `${h}:${mm}:${ss}` : `${m}:${ss}`;\n}\nfunction tighten(text, maxChars) {\n  if (!text) return '';\n  const t = text.replace(/\\s+/g, ' ').trim();\n  if (t.length <= maxChars) return t;\n  const sentences = t.match(/[^.!?]+[.!?]+|[^.!?]+$/g) || [t];\n  let acc = '';\n  for (const s of sentences) {\n    const next = acc ? acc + ' ' + s.trim() : s.trim();\n    if (next.length > maxChars) break;\n    acc = next;\n  }\n  if (!acc) acc = t.slice(0, maxChars - 1).replace(/\\s+\\S*$/, '') + '…';\n  return acc;\n}\n\nconst SOFT_LIMIT   = 3800;\nconst HOOK_MAX     = 180;\nconst DETAIL_MAX   = 240;\nconst MAX_TAKEAWAYS = 5;\n\nconst blocks = [];\nconst seen = new Set();\nlet pending = 0;\n\nfor (const it of items) {\n  const row = it.json || {};\n  if (row._omit) { if (row._pending) pending++; continue; }\n  const obj = row.insightsObj;\n  if (!obj) continue;\n\n  const title = (obj.videoTitle || row.title || 'Untitled').toString();\n  const url   = (obj.videoUrl   || row.url   || '').toString();\n  const key   = (url || title).toLowerCase();\n  if (seen.has(key)) continue;\n  seen.add(key);\n\n  const summary  = (obj.summary || '').toString().trim();\n  const hook     = tighten(summary, HOOK_MAX);\n  const insights = Array.isArray(obj.insights) ? obj.insights.slice(0, MAX_TAKEAWAYS) : [];\n\n  const channelName = (obj.channelName || row.channelName || '').toString().trim();\n  const guests      = Array.isArray(obj.guests) ? obj.guests.filter(g => typeof g === 'string' && g.trim()) : [];\n  const channelPrefix = channelName ? `<b>${esc(channelName)}</b> · ` : '';\n  let block = `🎙 ${channelPrefix}<b><a href=\"${esc(url)}\">${esc(title)}</a></b>\\n`;\n  if (guests.length) block += `<i>with ${esc(guests.join(', '))}</i>\\n`;\n  if (hook) block += `${esc(hook)}\\n`;\n  if (insights.length) {\n    block += `\\n`;\n    for (const s of insights) {\n      const headline = (s.headline || '').toString().trim();\n      const detail   = tighten((s.detail || '').toString().trim(), DETAIL_MAX);\n      const link     = (s.link || '').toString().trim();\n      const tSec     = (s.tSeconds == null ? null : Number(s.tSeconds));\n      if (!headline && !detail) continue;\n      block += `→ <b>${esc(headline)}</b>`;\n      if (detail) block += ` — ${esc(detail)}`;\n      if (link && tSec != null && isFinite(tSec)) {\n        block += ` <a href=\"${esc(link)}\">[${esc(hhmmss(tSec))}]</a>`;\n      }\n      block += `\\n`;\n    }\n  }\n  blocks.push({ html: block.trim(), videoId: (row.videoId || '').toString() });\n}\n\nlet hw = '';\ntry { hw = ($('Load unsent').first().json._healthWarning || '').toString(); } catch (e) {}\n\nlet footer = '';\nif (pending) footer += `\\n\\n⏳ ${pending} video(s) waiting for transcripts — will retry at the next digest.`;\nif (hw) footer += `\\n\\n${hw}`;\n\nif (!blocks.length) {\n  let txt = `<b>🎧 Daily Podcast Insights</b>\\n<i>No new episode summaries this morning.</i>${footer}`;\n  return [{ json: { telegramHtml: txt, messageIndex: 0, messageCount: 1, videoIds: [] } }];\n}\n\nconst HEADER = `<b>🎧 Daily Podcast Insights</b>\\n<i>${blocks.length} ${blocks.length === 1 ? 'episode' : 'episodes'}</i>`;\nconst messages = [];\nlet current = HEADER;\nlet currentIds = [];\nfor (const b of blocks) {\n  const joined = `${current}\\n\\n${b.html}`;\n  if (joined.length > SOFT_LIMIT && current !== HEADER) {\n    messages.push({ html: current, videoIds: currentIds });\n    current = b.html;\n    currentIds = [b.videoId];\n  } else {\n    current = joined;\n    currentIds.push(b.videoId);\n  }\n}\nif (current && current !== HEADER) messages.push({ html: current, videoIds: currentIds });\n\nif (footer && messages.length) messages[messages.length - 1].html += footer;\n\nreturn messages.map((m, i) => ({\n  json: { telegramHtml: m.html, messageIndex: i, messageCount: messages.length, videoIds: m.videoIds.filter(Boolean) }\n}));"
+      }
+    },
+    {
+      "id": "v3-sendtg-001",
+      "name": "Send Telegram digest",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        4288,
+        192
+      ],
+      "onError": "continueRegularOutput",
+      "credentials": {
+        "telegramApi": {
+          "id": "FnBXEhAZd1GlsgSP",
+          "name": "Telegram bot (AO)"
+        }
+      },
+      "parameters": {
+        "chatId": "406449973",
+        "text": "={{ $json.telegramHtml }}",
+        "additionalFields": {
+          "disable_web_page_preview": true,
+          "parse_mode": "HTML"
+        },
+        "resource": "message",
+        "operation": "sendMessage"
+      }
+    },
+    {
+      "id": "v3-marksent-001",
+      "name": "Mark sent",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        4512,
+        192
+      ],
+      "parameters": {
+        "jsCode": "// Mark videos as sent in the ledger — only for Telegram messages that\n// actually delivered. Failed messages leave their videos 'discovered',\n// so the next digest retries them automatically.\nconst sd = $getWorkflowStaticData('global');\nif (!sd.videos) sd.videos = {};\nconst built = $('Build Telegram Digest').all();\nconst now = Date.now();\nlet marked = 0;\nconst failedMessages = [];\nitems.forEach((it, i) => {\n  const r = it.json || {};\n  const failed = !!r.error || r.ok === false;\n  if (failed) { failedMessages.push(i); return; }\n  const ids = (built[i] && built[i].json && built[i].json.videoIds) || [];\n  for (const id of ids) {\n    if (sd.videos[id]) { sd.videos[id].status = 'sent'; sd.videos[id].sentAtMs = now; marked++; }\n  }\n});\nreturn [{ json: { marked, failedMessages } }];"
+      }
+    }
+  ],
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Mode: digest",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule 07:00 (digest)": {
+      "main": [
+        [
+          {
+            "node": "Mode: digest",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule 13:00/19:00 (discovery)": {
+      "main": [
+        [
+          {
+            "node": "Mode: discover",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook trigger": {
+      "main": [
+        [
+          {
+            "node": "Mode: digest",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mode: digest": {
+      "main": [
+        [
+          {
+            "node": "Split feeds",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mode: discover": {
+      "main": [
+        [
+          {
+            "node": "Split feeds",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split feeds": {
+      "main": [
+        [
+          {
+            "node": "Fetch feeds (direct)",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Fetch feeds (rss2json fallback)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fetch feeds (direct)": {
+      "main": [
+        [
+          {
+            "node": "Combine fetch results",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fetch feeds (rss2json fallback)": {
+      "main": [
+        [
+          {
+            "node": "Combine fetch results",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Combine fetch results": {
+      "main": [
+        [
+          {
+            "node": "Parse + discover",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse + discover": {
+      "main": [
+        [
+          {
+            "node": "Run digest?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Run digest?": {
+      "main": [
+        [
+          {
+            "node": "Load unsent",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        []
+      ]
+    },
+    "Load unsent": {
+      "main": [
+        [
+          {
+            "node": "Any unsent?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Any unsent?": {
+      "main": [
+        [
+          {
+            "node": "Send Telegram (no new)",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Set meta",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set meta": {
+      "main": [
+        [
+          {
+            "node": "Fetch transcript",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Merge meta + transcript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fetch transcript": {
+      "main": [
+        [
+          {
+            "node": "Merge meta + transcript",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Merge meta + transcript": {
+      "main": [
+        [
+          {
+            "node": "Parse transcript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse transcript": {
+      "main": [
+        [
+          {
+            "node": "Has transcript?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Has transcript?": {
+      "main": [
+        [
+          {
+            "node": "Message a model",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Join model + segments",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "No-transcript handler",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Message a model": {
+      "main": [
+        [
+          {
+            "node": "Join model + segments",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Join model + segments": {
+      "main": [
+        [
+          {
+            "node": "Resolve insights",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Resolve insights": {
+      "main": [
+        [
+          {
+            "node": "Combine ready videos",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "No-transcript handler": {
+      "main": [
+        [
+          {
+            "node": "Combine ready videos",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Combine ready videos": {
+      "main": [
+        [
+          {
+            "node": "Build Digest",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Build Telegram Digest",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build Digest": {
+      "main": [
+        [
+          {
+            "node": "Email digest?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Email digest?": {
+      "main": [
+        [
+          {
+            "node": "Send email digest",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        []
+      ]
+    },
+    "Build Telegram Digest": {
+      "main": [
+        [
+          {
+            "node": "Send Telegram digest",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Telegram digest": {
+      "main": [
+        [
+          {
+            "node": "Mark sent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "Europe/Kyiv",
+    "saveDataErrorExecution": "all",
+    "saveDataSuccessExecution": "all",
+    "saveManualExecutions": true,
+    "saveExecutionProgress": true,
+    "errorWorkflow": "k2xuGa0yG0pQFVff",
+    "callerPolicy": "workflowsFromSameOwner",
+    "availableInMCP": false
+  }
+}
