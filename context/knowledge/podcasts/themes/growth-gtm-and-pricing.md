@@ -2,10 +2,10 @@
 
 _status: live theme — growth loops, distribution, GTM motions, pricing, packaging, monetization_
 _slug: growth-gtm-and-pricing_
-_updated: 2026-06-11 · 5 insights from 6 episodes_
+_updated: 2026-06-11 · 6 insights from 7 episodes · (absorbed b2b-saas-and-scaling, 2026-06-11)_
 
 ## The throughline
-GTM is reorganizing around three new realities. (1) Self-service can be the primary enterprise channel — not a downgrade — when AI handles qualification and onboarding (54% of Anthropic's 2026 new enterprise logos came from it). (2) "Token economics" now determines commercial viability: buyers won't grow their IT budget to absorb rising AI costs, so where you sit on the token-consumption path is the strategic question — and Evans's broader bet is that foundation models commoditize while value accrues to the app/UX/distribution layer above. (3) In a low-excitement enterprise category, premium brand creative still moves the needle: Legora's Jude Law ad (writer from SNL, cinematographer from Oppenheimer) went viral on professional networks and produced inbound. Smallness still wins enterprise deals when paired with a rigorous pilot and measurable metrics.
+GTM is reorganizing around three new realities. (1) Self-service can be the primary enterprise channel — not a downgrade — when AI handles qualification and onboarding (54% of Anthropic's 2026 new enterprise logos came from it). (2) "Token economics" now determines commercial viability: buyers won't grow their IT budget to absorb rising AI costs, so where you sit on the token-consumption path is the strategic question — and the SaaS-vendor corollary is that margin survival requires designing products for agent consumption (CLIs, accessible HTML, logs, rollback) rather than bundling costly model inference into pricing. Evans's broader bet is that foundation models commoditize while value accrues to the app/UX/distribution layer above. (3) In a low-excitement enterprise category, premium brand creative still moves the needle: Legora's Jude Law ad (writer from SNL, cinematographer from Oppenheimer) went viral on professional networks and produced inbound. Smallness still wins enterprise deals when paired with a rigorous pilot and measurable metrics.
 
 ## Insights
 
@@ -17,6 +17,11 @@ After a rapid MVP in January and production launch in February, Anthropic's ente
 The firm argues you must have a clear token consumption path because buyers already face cost pressure and aren't increasing legacy software budgets to cover rising AI costs; token pricing and where a product sits in token consumption determines commercial viability. Market-structure (few frontier labs vs many competitors), open-source distillation, and regional low-cost models (e.g., cheaper Chinese models) all change token economics, so product teams need strategies to minimize token friction or monetize a token-heavy value proposition. Practically, that means investors and founders should prioritize models, inference efficiency, and pricing that align with enterprise cost constraints.
 — a16z · 2026-05-30 · guest: — · [▶ 12:53](https://www.youtube.com/watch?v=AiM9mZCmVPY&t=773) · `pi-AiM9mZCmVPY-04`
 related: theme → [Tech frontier & abundance](tech-frontier-and-abundance.md) (token-price collapse driving usage)
+
+### SaaS economics shift: users/agents bring models, preserving margins
+Because agents run on users' or vendors' model tokens (not necessarily the SaaS vendor's tokens), Shipper argues SaaS vendors can avoid token costs and instead design for both humans and agents. He claims this 'puts SaaS back in its place' — vendors should make their UIs agent-friendly (CLIs, accessible HTML, logs, rollback) rather than bundling costly models into their pricing. The practical implication: SaaS demand may spike (more agents using products), but margins won't necessarily collapse if products are built for agent interaction.
+— Lenny's Podcast · 2026-05-26 · guest: Dan Shipper · [▶ 24:32](https://www.youtube.com/watch?v=4D3hDmGhFhA&t=1472) · `pi-4D3hDmGhFhA-04`
+related: theme → [AI agents & applications](ai-agents-and-applications.md) (desktop agents as the new OS) · theme → [Being on the 'token path' is now the most important product attribute](#being-on-the-token-path-is-now-the-most-important-product-attribute)
 
 ### A tiny team beat a well-funded rival to win DoorDash
 An eight-person team won DoorDash as a customer against a much larger, heavily funded competitor by leveraging YC introductions, running a rigorous three-month pilot, and delivering stable metrics. The startup's product quality and reliability in pilot convinced a large enterprise to trust a small vendor, which then served as a strong reference to win other big customers. This demonstrates that pilots and measurable results can outweigh scale or brand in enterprise buying.
@@ -36,8 +41,10 @@ Legora pursued Jude Law for a consumer-style, cinematic ad to make legal tech fe
 - [Tech frontier & abundance](tech-frontier-and-abundance.md) — token-economics story behind the GTM constraint
 - [Founders & fundraising](founders-and-fundraising.md) — small-team enterprise wins
 - [Product discovery & strategy](product-discovery-and-strategy.md) — pilots and willingness-to-pay validation
+- [AI agents & applications](ai-agents-and-applications.md) — the consumption surface SaaS now serves
 
 ## Source episodes
+- [Lenny's Podcast — The AI paradox: More automation, more humans, more work (2026-05-26)](../episodes/2026/2026-05-26--lenny--ai-paradox-more-automation-more-humans.md)
 - [SaaStr AI — How Anthropic's Head of Industries Built an AI-Native Sales Org (2026-05-24)](../episodes/2026/2026-05-24--saastr--anthropics-head-of-industries-ai-native-sales.md)
 - [a16z — The Rule for Picking AI Winners (2026-05-30)](../episodes/2026/2026-05-30--a16z--the-rule-for-picking-ai-winners.md)
 - [Y Combinator — Why Two IIT Engineers Turned Down $550K Jobs (2026-05-30)](../episodes/2026/2026-05-30--yc--two-iit-engineers-turned-down-550k-jobs.md)

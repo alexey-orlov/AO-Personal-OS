@@ -4,20 +4,22 @@ Self-updating knowledge base of insights mined from Alex's tracked AI / product 
 
 **For agents:** to answer "what has Alex's podcast feed said about X" — `grep -ri "<concept>" context/knowledge/podcasts/themes/`, open the matching theme page, follow an insight's ▶ link to the source moment or its `episodes/` card for full context. An insight ID (`pi-…`) anywhere resolves with `grep -r pi-… context/knowledge/podcasts/`. Update only via `/podcast-insights` — don't hand-edit theme pages.
 
-_updated: 2026-06-11 · 123 insights · 8 themes · 26 episodes — backfill complete_
+_updated: 2026-06-11 · 121 insights · 10 themes · 26 episodes — recluster: split ai-agents (48→21+6+12+9), merged b2b-saas into growth-gtm_
 
 ## Themes
 
 | Theme | Insights | Last added | One-line |
 |---|---|---|---|
-| [AI agents & applications](themes/ai-agents-and-applications.md) | 48 | 2026-06-11 | **split candidate** — production agents do employee-level work, infra discipline is the moat, consumer agents repeat the context-is-moat rule |
+| [AI agents & applications](themes/ai-agents-and-applications.md) | 21 | 2026-06-11 | integration into existing tools is where value lands; context-is-moat at every scale; coding is LLMs' first clear PMF |
 | [AI & the PM craft](themes/ai-and-the-pm-craft.md) | 12 | 2026-06-11 | PMs ride coding agents; VP-level craft is choosing sources + target form and restraining the model |
 | [Product discovery & strategy](themes/product-discovery-and-strategy.md) | 9 | 2026-06-11 | feature moats died; taste-led 1.0s, system-not-feature, vertical apps capture value, AI-first refounding |
-| [Growth, GTM & pricing](themes/growth-gtm-and-pricing.md) | 5 | 2026-06-11 | self-service as primary channel, token-path GTM, Evans's mobile-era analogy for token economics |
+| [Growth, GTM & pricing](themes/growth-gtm-and-pricing.md) | 6 | 2026-06-11 | self-service as primary channel, token-path GTM, Evans's mobile-era analogy, SaaS-agent design preserves margins |
 | [Founders & fundraising](themes/founders-and-fundraising.md) | 14 | 2026-06-07 | mission-control governance + the AI cycle's lean, concentrated outcomes |
-| [B2B SaaS & scaling](themes/b2b-saas-and-scaling.md) | 1 | 2026-05-26 | SaaS economics survive if products are built for agent consumption |
 | [Leadership, careers & teams](themes/leadership-careers-and-teams.md) | 9 | 2026-06-11 | tasks automate, jobs are bundles; CEO must be the chief AI officer; engineer-as-shepherd |
 | [Tech frontier & abundance](themes/tech-frontier-and-abundance.md) | 23 | 2026-06-11 | recursive self-improvement signals + token-collapse vs. mobile-era capex + golden-shares/Argentina policy mechanisms |
+| [Generative media & multimodal production](themes/generative-media-and-multimodal.md) | 6 | 2026-06-11 | **new** — video/image tools cross usability threshold for short-form; avatar/emotion limits persist; compose specialized models, not one end-to-end system |
+| [Agent engineering & production infra](themes/agent-engineering-patterns.md) | 12 | 2026-06-11 | **new** — production infra is the moat; human-reserved arch decisions + review chokepoints + memory lifecycle engineering; token spend as cost center |
+| [Model reviews & benchmarks](themes/model-reviews-and-benchmarks.md) | 9 | 2026-06-11 | **new** — Opus 4.8 strong one-shot, fails last 10%; Fable 5 burns 2× tokens, leads on vision/docs; benchmark wins ≠ production ROI |
 
 ## Recent (last 7 days)
 
@@ -26,28 +28,29 @@ _updated: 2026-06-11 · 123 insights · 8 themes · 26 episodes — backfill com
 - 2026-06-11 · SaaStr AI — What Agents That Actually Work Look Like (Replit/Amjad) (5 insights → ai-agents, leadership)
 - 2026-06-11 · Peter H. Diamandis — Anthropic's Global Pause, Recursive Self-Improvement, AI Personhood (5 insights → tech-frontier, leadership)
 - 2026-06-11 · a16z — Economics of AI Usage and What's Next For SaaS (Benedict Evans) (4 insights → growth [merged with `pi-BD3vLtWhT5A-03`], ai-agents, tech-frontier, discovery)
-- 2026-06-10 · How I AI — Claude Fable 5 - is this Mythos model worth the wait? (5 insights → ai-agents, ai-and-pm)
+- 2026-06-10 · How I AI — Claude Fable 5 - is this Mythos model worth the wait? (5 insights → model-reviews, ai-and-pm)
 - 2026-06-09 · How I AI — She built a Claude shopping assistant to stop buying cheap junk (4 insights → ai-agents)
-- 2026-06-08 · Lenny's Podcast — Tony Fadell: How to build real taste (5 insights → discovery, leadership, ai-agents [merged with `pi-fQmlML9Lay4-02`], tech-frontier)
+- 2026-06-08 · Lenny's Podcast — Tony Fadell: How to build real taste (5 insights → discovery, leadership, agent-engineering [merged with `pi-fQmlML9Lay4-02`], tech-frontier)
 - 2026-06-07 · Peter H. Diamandis — Anthropic Files $965B IPO, ChatGPT Crosses 1B Users (5 insights → tech-frontier, ai-agents, founders)
-- 2026-06-07 · Y Combinator — Emergent: Six Months of Tinkering → $100M ARR (4 insights → founders, ai-agents)
+- 2026-06-07 · Y Combinator — Emergent: Six Months of Tinkering → $100M ARR (4 insights → founders, agent-engineering)
 - 2026-06-06 · SaaStr AI — Feature Differentiation Is Dead (Elena Verna / Lovable) (4 insights → discovery, ai-agents, ai-and-pm)
 - 2026-06-06 · Y Combinator — How Legora Went From YC to $100M ARR in 18 Months (5 insights → growth, founders, discovery, ai-agents)
-- 2026-06-05 · How I AI — Conductor CEO Charlie Holtz's AI Coding Setup (5 insights → ai-agents)
-- 2026-06-04 · How I AI — I cloned myself with Gemini Omni in 15 minutes (5 insights → ai-agents)
-- 2026-06-04 · Aakash Gupta — I Made an OpenAI PM Teach Me Codex For 67 Minutes (5 insights → ai-and-pm, ai-agents)
+- 2026-06-05 · How I AI — Conductor CEO Charlie Holtz's AI Coding Setup (5 insights → agent-engineering, ai-agents)
+- 2026-06-04 · How I AI — I cloned myself with Gemini Omni in 15 minutes (5 insights → generative-media)
+- 2026-06-04 · Aakash Gupta — I Made an OpenAI PM Teach Me Codex For 67 Minutes (5 insights → ai-and-pm, ai-agents, generative-media)
 
 ## Cross-theme links
 
-- AI agents ↔ B2B SaaS — Shipper's bifurcation (`pi-4D3hDmGhFhA-01`) ties to SaaS-for-agents (`pi-4D3hDmGhFhA-04`)
+- AI agents ↔ Growth, GTM — Shipper's bifurcation (`pi-4D3hDmGhFhA-01`) ties to SaaS-for-agents (`pi-4D3hDmGhFhA-04`, now in Growth, GTM)
 - AI agents ↔ Leadership — agent gardeners (`pi-4D3hDmGhFhA-02`) corroborate the automation paradox (`pi-4D3hDmGhFhA-05`); Replit's "engineer-as-shepherd" (`pi-RdalLtvn2-M-05`) is the operational continuation; Anthropic's "80% coding done by models, humans = research taste" (`pi-P2HJEz3oqLs-02`) is the same story at the lab scale
 - Founders ↔ Growth — native-AI lean firms (`pi-AiM9mZCmVPY-02`) and the DoorDash-win pattern (`pi-2Ap1dnv-GXA-04`) are the same story
 - Tech frontier ↔ Growth — token-price collapse (`pi-dtuPovnf4XQ-04`) is the demand-side; Evans's mobile-data analogy (`pi-ktl8mNiWqMM-03`) is the supply-side mechanism; the "token path" GTM rule (`pi-AiM9mZCmVPY-04`) operationalizes both; Evans's commodity-foundation-models claim now spans two episodes (`pi-BD3vLtWhT5A-03` + corroborator `pi-ktl8mNiWqMM-01`)
 - Tech frontier ↔ Founders — OpenAI Foundation $130–260B (`pi-aMyubFA106U-03`) + Anthropic S-1 trillion caps (`pi-hyeoYsVl1No-04`) = the same capital-concentration arc
-- Tech frontier ↔ AI agents — recursive self-improvement at lab scale (Anthropic pause, `pi-P2HJEz3oqLs-01`) and at product scale (Replit's nightly closed-loop, `pi-RdalLtvn2-M-03`) are the same mechanism at different altitudes
-- AI agents ↔ Tech frontier — Opus 4.8 benchmark wins (`pi-aMyubFA106U-01`) vs. the hands-on Opus 4.8 review finding the "last 10%" gap (`pi-h0gZf1hL4D4-01..05`) and Fable 5's long-horizon stalls (`pi-IREnr4I89Ho-02`): same release/model class, opposite story
+- Tech frontier ↔ Agent engineering — recursive self-improvement at lab scale (Anthropic pause, `pi-P2HJEz3oqLs-01`) and at product scale (Replit's nightly closed-loop, `pi-RdalLtvn2-M-03` in Agent engineering) are the same mechanism at different altitudes
+- Model reviews ↔ Tech frontier — Opus 4.8 benchmark wins (`pi-aMyubFA106U-01` in Tech frontier) vs. the hands-on Opus 4.8 review finding the "last 10%" gap (`pi-h0gZf1hL4D4-01..05`) and Fable 5's long-horizon stalls (`pi-IREnr4I89Ho-02`): same release/model class, opposite story
+- Model reviews ↔ Generative media — the "last 10%" reliability wall (`pi-h0gZf1hL4D4-01`, `pi-IREnr4I89Ho-02`) recurs as avatar/emotion inconsistency (`pi-UNZczH0gpHc-03..04`) across modalities
 - Discovery ↔ AI agents — proprietary context as the moat (`pi-kdHU-jPxDHw-03`) is the agent-side mirror of "data + workflows" durability (`pi-mjmswQurIU4-05`, `pi-kdHU-jPxDHw-02`); the consumer-side replay is Nicole's vetted-vendors Claude project (`pi-OOPganyUinE-01`)
-- Discovery ↔ Leadership ↔ AI agents — Brex's "CEO must be the chief AI officer" (`pi-mPAHvz8kW24-01`) + "minimize surface area, refound boundaries" (`pi-mPAHvz8kW24-05`) + "agentic loops with tools" (`pi-mPAHvz8kW24-03`) are the same playbook from three angles
+- Discovery ↔ Leadership ↔ AI agents — Brex's "CEO must be the chief AI officer" (`pi-mPAHvz8kW24-01`) + "minimize surface area, refound boundaries" (`pi-mPAHvz8kW24-05`) + "agentic loops with tools" (`pi-mPAHvz8kW24-03` in Agent engineering) are the same playbook from three angles
 - Discovery ↔ Growth — Evans's "chatbot isn't a product" / vertical-apps thesis (`pi-ktl8mNiWqMM-04`) is the same thread as the commodity-foundation-models pair in growth
 - Tech frontier internal — three federal-review attempts now bracket the regulatory range: scuttled 90-day mandate (`pi-dtuPovnf4XQ-02`) → voluntary 30-day window (`pi-hyeoYsVl1No-01`) → proposed golden shares (`pi-P2HJEz3oqLs-03`); Argentina's nonhuman-corporation pitch (`pi-P2HJEz3oqLs-04`) is the jurisdictional-race countercurrent
 
