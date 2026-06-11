@@ -2,6 +2,8 @@
 
 Cloud automation (runs in n8n cloud, not on this machine): watches 7 YouTube channels, transcribes new videos (RapidAPI youtube-transcript3), summarizes them (gpt-5-mini), and delivers a daily digest to Telegram + Gmail at 07:00 Kyiv.
 
+**Telegram routing (since 2026-06-11):** all three sends — the digest, the ⚠️ feed-health alert, and the 🎙️ crash alert from the error-alerts workflow — go to the **"AO Personal OS" forum group → 📰 Daily Digest topic** (`message_thread_id` from `automations/telegram/topics.env`, slug `daily-digest`), not the legacy 1:1 DM. The group chat id is set directly in the n8n nodes but **redacted to `REDACTED_GROUP_CHAT_ID` in the exported JSON here** (same convention as `telegram-inbox/export.sh`); on re-import, restore it from Keychain (`TELEGRAM_GROUP_CHAT_ID`).
+
 This folder holds the exported workflow JSON (disaster-recovery copy + reviewable diff history) and this doc. The live system is in n8n: <https://alexorlovco.app.n8n.cloud>
 
 ## Workflows in n8n
@@ -61,3 +63,5 @@ A side-channel branch off `Build Digest` persists the morning's insight cards to
 
 - `workflow-v3.json` — export of the live workflow (name, nodes, connections, settings). Re-export after any change in the n8n UI:
   `security find-generic-password -s N8N_API_KEY -w` → `GET /api/v1/workflows/Qh5MoiJAkZRxtzhE` → keep `name,nodes,connections,settings`.
+- `workflow-error-alerts.json` — export of the error-alerts workflow (`k2xuGa0yG0pQFVff`), same shape.
+- **Redaction rule for both exports:** replace the group chat id with `REDACTED_GROUP_CHAT_ID` before committing (the id lives in Keychain as `TELEGRAM_GROUP_CHAT_ID` and in the live n8n nodes; never commit it — see `telegram-inbox/export.sh` for the same convention).

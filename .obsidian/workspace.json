@@ -179,6 +179,7 @@
   },
   "active": "c0bbbc95d9a63f9d",
   "lastOpenFiles": [
+    "automations/podcast-streaming/workflow-error-alerts.json",
     "context/_inbox/tg-20260611-232728-38.md",
     "automations/telegram-inbox/export.sh",
     "context/_inbox/tg-20260611-231405-37.md",
@@ -208,7 +209,6 @@
     ".claude/skills/sales-call/SKILL.md",
     ".claude/skills/re-engagement-outreach/references",
     ".claude/skills/re-engagement-outreach/SKILL.md",
-    ".claude/skills/podcast-insights/SKILL.md",
     ".claude/skills/message-writing/references",
     ".claude/skills/draft-message/references",
     ".claude/skills/book-finder/references",

@@ -1,0 +1,83 @@
+{
+  "name": "Podcast streaming — error alerts",
+  "nodes": [
+    {
+      "id": "err-trigger-1",
+      "name": "Error Trigger",
+      "type": "n8n-nodes-base.errorTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "parameters": {}
+    },
+    {
+      "id": "err-build-1",
+      "name": "Build alert",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        240,
+        0
+      ],
+      "parameters": {
+        "jsCode": "function esc(s){return (s||'').toString().replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}\nconst j = items[0].json || {};\nconst wf = j.workflow || {};\nconst ex = j.execution || {};\nconst err = ex.error || j.error || {};\nconst node = err.node && err.node.name ? err.node.name : (err.lastNodeExecuted || '');\nconst msg = (err.message || err.description || 'Unknown error').toString();\nconst url = ex.url || '';\n\nlet html = `🎙️ <b>Podcast streaming — workflow failed</b>\\n`;\nhtml += `<i>${esc(wf.name || 'Podcast streaming')}</i>\\n\\n`;\nif (node) html += `<b>Node:</b> ${esc(node)}\\n`;\nhtml += `<b>Error:</b> ${esc(msg.slice(0, 600))}\\n`;\nif (ex.mode) html += `<b>Mode:</b> ${esc(ex.mode)}\\n`;\nif (url) html += `\\n<a href=\\\"${esc(url)}\\\">Open execution</a>`;\n\nreturn [{ json: { telegramHtml: html } }];\n"
+      }
+    },
+    {
+      "id": "err-tg-1",
+      "name": "Send Telegram",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        480,
+        0
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "FnBXEhAZd1GlsgSP",
+          "name": "Telegram bot (AO)"
+        }
+      },
+      "parameters": {
+        "chatId": "REDACTED_GROUP_CHAT_ID",
+        "text": "={{ $json.telegramHtml }}",
+        "additionalFields": {
+          "disable_web_page_preview": true,
+          "parse_mode": "HTML",
+          "message_thread_id": 5
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Error Trigger": {
+      "main": [
+        [
+          {
+            "node": "Build alert",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build alert": {
+      "main": [
+        [
+          {
+            "node": "Send Telegram",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "callerPolicy": "workflowsFromSameOwner",
+    "availableInMCP": false
+  }
+}
