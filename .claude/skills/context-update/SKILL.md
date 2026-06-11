@@ -11,7 +11,7 @@ user-invocable: true
 
 - **One tree per area** under `context/areas/<area>/`:
   - `README.md` — the area's live-state page (distilled current truth, rewritten in place).
-  - `<subproject>.md` — optional subproject pages as the area grows.
+  - `<subproject>.md` — subproject pages, one per thread Alex truly engages in (auto-created — see 3a); slug matches the calls sub-context when one exists.
   - `calls/[<sub-context>/]` — call notes, written by the call-pipeline (taxonomy owned by Axis 2 of `.claude/skills/classify/SKILL.md`).
   - `docs/` — manually added source materials (transcripts, documents Alex chose to commit).
 - **Cross-area**: `context/index.md` (map + "Now" snapshot), `context/people/<slug>.md` (recurring people), `context/_meta/processed.txt` (ledger), `inbox/` (drop zone at repo root).
@@ -39,9 +39,17 @@ If more than ~15 are new, process newest-first and report what was left for the 
 - **Junk gate**: mic/test recordings (counting, "приём, раз-два-три", explicit "don't transcribe"), empty or near-empty notes, purely personal calls with no project relevance → add to ledger, do not fold, count as "junk" in the summary.
 - **Duplicate gate**: call-note filenames end in `_<src_id>` derived from the source recording; its leading `YYYYMMDDHHMMSS` digits are the recording-start timestamp. If the ledger already holds a note whose src_id starts with the same timestamp, this is a re-processing of the same call (suffixes may differ) → fold only genuinely new information (usually none) → ledger it. A path already present in the ledger verbatim = already folded → no-op beyond the summary line.
 
-**3. Route.** The area is the path segment after `context/areas/` — its page is that area's `README.md`. Files under `calls/<sub-context>/` that match an existing subproject page fold there first, with the area README updated only if the area-level state shifts. `inbox/` files and notes in `areas/other/calls/` → judge by content (repo/tooling topics → `personal-os`).
-- **New SUBPROJECT page** (`context/areas/<area>/<sub-slug>.md`): create when a thread has its own goal, counterpart(s), and cadence AND would bloat the area README past budget (e.g. a client program, a long interview loop). Add a one-line pointer in the area README under `## Subprojects`; suggest a matching Axis-2 subfolder for classify if calls will recur — don't edit classify yourself.
-- **New AREA** (`context/areas/<slug>/README.md`): create only when content shows a distinct ongoing initiative that fits no existing area — its own goal, counterparts, expected continuation. A one-off call or topic is NOT an area. Create the README from the template, add an index row flagged `(new)`, suggest a top-level Axis-2 addition for classify, and announce it in the run summary. Unsure → fold into the closest area and add an open loop: "possible new area/subproject: <x>?".
+**3. Route.** The area is the path segment after `context/areas/` — its page is that area's `README.md`. Then route within the area:
+- **Slug mapping**: a subproject page shares its slug with its calls sub-context — `calls/vacancy-interviews/zipify/` ↔ `zipify.md`, `calls/iris-bootcamp/` ↔ `iris-bootcamp.md`. A note matching an existing subproject page folds there FIRST; touch the area README only when area-level state shifts (status line, Subprojects one-liner, anything Now-worthy).
+- `job-search` specifics: `calls/intro-chats/` and recruiter-pipeline/campaign artifacts → `outreach.md`; vacancy calls → that vacancy's page.
+- `inbox/` files and notes in `areas/other/calls/` → judge by content (repo/tooling topics → `personal-os`).
+
+**3a. Auto-create subproject pages — detect projects Alex truly engages in. Don't wait for the README to bloat:**
+- **Vacancy rule (deterministic):** a substantive note lands in `calls/vacancy-interviews/<slug>/` (a real interview / case / recruiter touchpoint, not a passing mention) and `<slug>.md` doesn't exist → CREATE it from the template and list it under `## Subprojects` in the area README. Every vacancy Alex actually interviews for gets a page from its first call.
+- **Engagement rule (general):** create `<sub-slug>.md` when the content shows TRUE engagement — Alex carries his own commitments/deliverables in the thread, AND it has its own counterpart(s) + expected continuation (a recurring program, an offering he's building, a named mandate). A topic merely discussed, a one-off call, or someone else's project does NOT qualify. When in doubt after a single artifact, fold into the README and add an open loop "possible subproject: <x>?" — promote on the second artifact at the latest.
+- On creation: add the README pointer + an index-table entry, and if its calls will recur outside an existing sub-context, SUGGEST a matching Axis-2 entry for classify in the run summary — don't edit classify yourself.
+- **Closing:** when a thread ends (vacancy rejected/withdrawn, program delivered), set `_status: closed — <outcome>` on its page, mark it `(closed)` in the README Subprojects list and the index, and prune its open loops. Closed pages stay — they hold the record and lessons.
+- **New AREA** (`context/areas/<slug>/README.md`): create only when content shows a distinct ongoing initiative that fits no existing area — its own goal, counterparts, expected continuation. A one-off call or topic is NOT an area. Create the README from the template, add an index row flagged `(new)`, suggest a top-level Axis-2 addition for classify, and announce it in the run summary.
 
 **4. Merge into the page — curation rules (the heart):**
 - **Rewrite in place.** `_status:`, Snapshot, and Active threads always describe current truth. Never stack "UPDATE:" lines; a newer fact replaces the older one. If the change itself matters (a decision, a closure, a pivot), record it as one line under Decisions or Activity.

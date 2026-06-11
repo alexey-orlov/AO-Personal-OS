@@ -15,15 +15,15 @@ One-screen map of what Alex is working on right now. Maintained by the `context-
 
 ## Areas
 
-Each area folder holds: `README.md` (live state), `calls/` (pipeline-routed call notes), `docs/` (manually added materials), and optional `<subproject>.md` pages as the area grows.
+Each area folder holds: `README.md` (live state), `<subproject>.md` pages (one per thread Alex truly engages in — every vacancy gets one automatically), `calls/` (pipeline-routed call notes), `docs/` (manually added materials).
 
-| Area | Status | Last artifact |
-|---|---|---|
-| [SoftServe](areas/softserve/README.md) | ramping in: part-time R&D product lead + agentic SME; Oracle onboarding, strategy-session prep, Iris bootcamp ~Jun 29, Jumpstart-PM offering design | 2026-06-11 |
-| [Job search](areas/job-search/README.md) | Zipify HoP process live; recruiter pipeline + outreach waves; Archive Resale closed | 2026-06-02 |
-| [GigaCloud](areas/gigacloud/README.md) | CPO role; no call artifacts in the OS yet | - |
-| [Laba](areas/laba/README.md) | PM-course tutoring; no artifacts yet | - |
-| [Personal OS](areas/personal-os/README.md) | pipeline + autosync + context wiki + n8n podcast digest live; open: calendar OAuth expired | 2026-06-11 |
+| Area | Status | Subprojects | Last artifact |
+|---|---|---|---|
+| [SoftServe](areas/softserve/README.md) | ramping in: part-time R&D product lead + agentic SME; strategy-session prep | [oracle](areas/softserve/oracle.md) · [iris-bootcamp](areas/softserve/iris-bootcamp.md) · [jumpstart-pm](areas/softserve/jumpstart-pm.md) | 2026-06-11 |
+| [Job search](areas/job-search/README.md) | active — one page per vacancy + outreach | [zipify](areas/job-search/zipify.md) · [outreach](areas/job-search/outreach.md) · [archive-resale](areas/job-search/archive-resale.md) (closed) | 2026-06-02 |
+| [GigaCloud](areas/gigacloud/README.md) | CPO role; no call artifacts in the OS yet | - | - |
+| [Laba](areas/laba/README.md) | PM-course tutoring; no artifacts yet | - | - |
+| [Personal OS](areas/personal-os/README.md) | pipeline + autosync + context wiki + n8n podcast digest live; open: calendar OAuth expired | - | 2026-06-11 |
 
 ## Cross-area reference
 

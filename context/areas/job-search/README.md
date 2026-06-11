@@ -8,25 +8,21 @@ Positioning (public vs. backend framing, recruiter story, target roles) lives in
 ## Snapshot
 
 - Target: product leadership (VP Product / CPO) at US B2B SaaS, ~$5–30M revenue, workflow-automation domains; agentic-AI sweet spot. [positioning](positioning.md)
-- Live process: **Zipify** (Shopify-ecosystem e-commerce, SMB, PLG, AI-native) — Head of Product; deep-dive with Nataliia Yerisova (interim co-founder) on 2026-06-02. [interview note](calls/vacancy-interviews/zipify/2026-06-02_181532_interview_202606021729498781C179.md)
-- Recruiter pipeline: Matt Levy (external) keeping Alex in scope for other searches after Archive Resale — "Knack" search mentioned. [debrief](calls/vacancy-interviews/archive-resale/2026-05-22_223525_interview_202605222200194502EF2C.md)
-- Outreach machinery in this OS: LSN recruiter-search waves, CRM sheet, inbox-sweep reply drafting, re-engagement campaigns.
+- One subproject page per vacancy Alex actually interviews for (auto-created from the first vacancy call) + one for outreach. Live state below.
 
-## Active threads
+## Subprojects
 
-- **Zipify — Head of Product** — open items to close in next rounds: engage the SMB/PLG/Shopify fit question head-on (left unanswered in the deep-dive), AI-native shipping examples, concrete outcome metrics for Creatio/Jooble stories, relocation-timing story. Interviewer flagged language-switching at the open — keep answers EN-only and structured. [note](calls/vacancy-interviews/zipify/2026-06-02_181532_interview_202606021729498781C179.md)
-- **Recruiter relationships** — Matt Levy: stay warm; Knack + other searches.
-- **Interview-performance work** — Archive debrief lesson: lost on "business-side alignment" and real-time verbal communication, while written communication was rated "super strong". Standing countermeasure: the english-coaching stream (`outputs/english-coaching/`, cumulative study plan).
+- [zipify](zipify.md) — Head of Product — in process; deep-dive 2026-06-02, next round to drive.
+- [outreach](outreach.md) — LSN recruiter waves, re-engagement campaigns, recruiter pipeline (Matt Levy) — running.
+- [archive-resale](archive-resale.md) — VP Product — closed (rejected 2026-05-22 at final round; lessons captured).
 
-## Closed
+## Active threads (cross-vacancy)
 
-- **Archive Resale — VP Product** — full final loop on 2026-05-22 (case presentation to Ryan/Seth/Shannon, co-founder Emily Gittins conversation, peer interview with Kat Lynn); rejected the same day on "extremely fine margins" vs. a finalist stronger on business-side alignment. Notes (7 files, several duplicate processings of the same recordings): [calls/vacancy-interviews/archive-resale/](calls/vacancy-interviews/archive-resale/) · case-presentation transcript: [docs/archive-resale-case-presentation-transcript.md](docs/archive-resale-case-presentation-transcript.md).
+- **Interview-performance work** — Archive debrief lesson: lost on "business-side alignment" and real-time verbal communication, while written communication was rated "super strong". Standing countermeasure: the english-coaching stream (`outputs/english-coaching/`, cumulative study plan); plus EN-only structured openings (Zipify flag).
 
 ## People
 
-- Nataliia Yerisova — Zipify interim co-founder, ran the Jun 2 deep-dive (CEO "Alazhar" referenced).
-- Matt Levy — external recruiter (Archive search; ongoing pipeline, Knack).
-- Archive Resale (closed): Ryan (CEO), Emily Gittins (co-founder), Shannon (Head of Growth), Seth (engineering), Kat Lynn (PM, ex-Palantir).
+- Vacancy- and outreach-specific people live on the subproject pages (Nataliia Yerisova → zipify; Matt Levy → outreach; Archive loop → archive-resale).
 
 ## Decisions
 
@@ -34,11 +30,10 @@ Positioning (public vs. backend framing, recruiter story, target roles) lives in
 
 ## Open loops
 
-- Zipify: drive/await next step; prep SMB/PLG/Shopify narrative, AI-native shipping examples, Creatio/Jooble outcome metrics.
-- Matt Levy: check in on Knack and other searches (no date set).
+- - (vacancy and outreach loops live on their subproject pages)
 
 ## Activity
 
-- 2026-06-02 — [Zipify deep-dive](calls/vacancy-interviews/zipify/2026-06-02_181532_interview_202606021729498781C179.md) — strong B2B/commercial story; SMB/PLG/Shopify fit question left open.
-- 2026-05-22 — [Archive Resale final loop + rejection debrief](calls/vacancy-interviews/archive-resale/2026-05-22_223525_interview_202605222200194502EF2C.md) — closed; lessons captured above.
-- 2026-05-21 — [unidentified interview eval](calls/vacancy-interviews/_unknown/2026-05-21_1806_interview.md) — company unconfirmed (note text suggests Creatio, inferred); flagged abstract, metric-free answers.
+- 2026-06-02 — [Zipify deep-dive](calls/vacancy-interviews/zipify/2026-06-02_181532_interview_202606021729498781C179.md) → [zipify](zipify.md).
+- 2026-05-22 — [Archive Resale final loop + rejection debrief](calls/vacancy-interviews/archive-resale/2026-05-22_223525_interview_202605222200194502EF2C.md) → closed, [archive-resale](archive-resale.md).
+- 2026-05-21 — [unidentified interview eval](calls/vacancy-interviews/_unknown/2026-05-21_1806_interview.md) — company unconfirmed (note text suggests Creatio, inferred).
