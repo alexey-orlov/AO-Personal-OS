@@ -1,6 +1,6 @@
 # Laba — PM course tutor
 
-_status: ongoing tutoring; no artifacts in the OS yet — page fills as `laba/` notes land_
+_status: ongoing tutoring; no artifacts in the OS yet — page fills as notes land in calls/_
 _updated: 2026-06-11_
 
 ## Snapshot
