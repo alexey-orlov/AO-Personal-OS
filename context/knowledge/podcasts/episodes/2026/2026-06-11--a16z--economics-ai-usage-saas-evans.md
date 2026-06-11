@@ -10,7 +10,7 @@ Benedict Evans analyzes how large language models (LLMs) are reshaping software 
 
 ## Insights extracted (4)
 
-- `pi-ktl8mNiWqMM-01` — **Foundation models are likely to behave as commodity infrastructure** → theme [Product discovery & strategy](../../themes/product-discovery-and-strategy.md)
+- `pi-ktl8mNiWqMM-01` — **Foundation models are likely to behave as commodity infrastructure** → theme [Growth, GTM & pricing](../../themes/growth-gtm-and-pricing.md) (corroborates `pi-BD3vLtWhT5A-03`)
   - detail: Evans argues the base models may become commoditized infrastructure because they lack clear network effects or durable levers of differentiation; multiple frontier providers will compete on cost and scale. He points to analogies with semiconductors and telcos — the layer that builds raw capacity tends to capture less long-term value while the higher-level platforms or applications capture margins. That implies the business on top of models (apps, verticalized services, workflows) is where capture will happen, not necessarily with the model operators themselves.
   - anchor: "—" · t=1300 · [▶ 21:40](https://www.youtube.com/watch?v=ktl8mNiWqMM&t=1300)
 
