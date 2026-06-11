@@ -179,6 +179,9 @@
   },
   "active": "c0bbbc95d9a63f9d",
   "lastOpenFiles": [
+    "automations/telegram-chat/setup.sh",
+    "automations/telegram-chat/com.user.telegram-chat.plist",
+    "automations/telegram-chat/new_session.sh",
     "automations/telegram-chat/start.sh",
     "automations/telegram-chat/run.sh",
     "automations/telegram-chat",
@@ -213,9 +216,6 @@
     ".claude/skills/re-engagement-outreach/references",
     ".claude/skills/re-engagement-outreach/SKILL.md",
     ".claude/skills/message-writing/references",
-    ".claude/skills/draft-message/references",
-    ".claude/skills/book-finder/references",
-    ".claude/.DS_Store",
     "Untitled.canvas"
   ]
 }
