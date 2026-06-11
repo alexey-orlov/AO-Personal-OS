@@ -1,0 +1,41 @@
+{
+  "schema": 1,
+  "generatedAt": "2026-05-30T04:02:49Z",
+  "runStamp": "20260530T0402",
+  "backfill": true,
+  "episodes": [
+    {
+      "videoId": "AiM9mZCmVPY",
+      "videoTitle": "The Rule for Picking AI Winners | The a16z Show",
+      "videoUrl": "https://www.youtube.com/watch?v=AiM9mZCmVPY",
+      "channelName": "a16z",
+      "publishedDate": "2026-05-30",
+      "guests": [],
+      "summary": "The conversation argues that AI is redirecting enormous amounts of economic value into a small set of model and platform companies, and that the structure of token economics, supply constraints, and who controls models will decide who captures that value.",
+      "insights": [
+        { "headline": "AI could capture a large share of corporate profits quickly", "detail": "The speakers estimate the Fortune 500 collectively produce roughly $2 trillion of profit and project the biggest model companies (e.g., OpenAI + Anthropic) could hit about $200 billion revenue run rate soon, implying AI could claim on the order of 10% of that profit pool.", "anchorQuote": "", "tSeconds": 167, "link": "https://www.youtube.com/watch?v=AiM9mZCmVPY&t=167" },
+        { "headline": "Native AI firms operate differently—lean, agent-driven, and product-focused", "detail": "Founders of native AI companies build extremely lean organizations that embed AI into their operations and product development rather than treating AI as a bolt-on efficiency play.", "anchorQuote": "", "tSeconds": 388, "link": "https://www.youtube.com/watch?v=AiM9mZCmVPY&t=388" },
+        { "headline": "Top outcomes are much larger and concentrated than before", "detail": "Khosla-style exit statistics cited show the top 1% exit threshold rose from roughly $10B (2020–2024) to about $32B recently, with peaks potentially exceeding $100B.", "anchorQuote": "", "tSeconds": 511, "link": "https://www.youtube.com/watch?v=AiM9mZCmVPY&t=511" },
+        { "headline": "Being on the 'token path' is now the most important product attribute", "detail": "The firm argues you must have a clear token consumption path because buyers already face cost pressure and aren't increasing legacy software budgets to cover rising AI costs.", "anchorQuote": "", "tSeconds": 773, "link": "https://www.youtube.com/watch?v=AiM9mZCmVPY&t=773" },
+        { "headline": "The current cycle is supply-constrained, not a classic demand-driven bubble", "detail": "Rather than excess supply, the ecosystem lacks compute, memory, data center capacity, and power — shortages expected to persist into late 2028–2029.", "anchorQuote": "", "tSeconds": 1449, "link": "https://www.youtube.com/watch?v=AiM9mZCmVPY&t=1449" }
+      ]
+    },
+    {
+      "videoId": "2Ap1dnv-GXA",
+      "videoTitle": "Why Two IIT Engineers Turned Down $550K Jobs To Build A Startup",
+      "videoUrl": "https://www.youtube.com/watch?v=2Ap1dnv-GXA",
+      "channelName": "Y Combinator",
+      "publishedDate": "2026-05-30",
+      "guests": [],
+      "summary": "Two IIT graduates turned down high-paying jobs and PhD opportunities to join YC and build an AI startup. They pivoted from an edtech idea to fine-tuning LLMs and then to automating customer support after customer signals, winning major enterprise customers by focusing on product quality, pilots, and automation.",
+      "insights": [
+        { "headline": "They turned down $550K offers to start a company", "detail": "The founder was offered roughly $550,000 and even had a PhD path but chose to join YC and launch a startup instead, framing it as burning the boats.", "anchorQuote": "", "tSeconds": 173, "link": "https://www.youtube.com/watch?v=2Ap1dnv-GXA&t=173" },
+        { "headline": "YC partner pushed them off edtech, sparking a decisive pivot", "detail": "During the YC interview a partner bluntly told them this is edtech it's not going to work and recommended they choose a different problem.", "anchorQuote": "", "tSeconds": 236, "link": "https://www.youtube.com/watch?v=2Ap1dnv-GXA&t=236" },
+        { "headline": "They pivoted to customer support after fine-tuning proved a bad market", "detail": "They initially focused on fine-tuning LLMs but realized fine-tuning had weak commercial dynamics; from customer conversations they observed customer support and coding as real growth areas and shifted to support automation, landing early customers like Zepto.", "anchorQuote": "", "tSeconds": 494, "link": "https://www.youtube.com/watch?v=2Ap1dnv-GXA&t=494" },
+        { "headline": "A tiny team beat a well-funded rival to win DoorDash", "detail": "An eight-person team won DoorDash against a much larger competitor by leveraging YC introductions, running a rigorous three-month pilot, and delivering stable metrics.", "anchorQuote": "", "tSeconds": 639, "link": "https://www.youtube.com/watch?v=2Ap1dnv-GXA&t=639" },
+        { "headline": "AI 'forward-deployed engineer' replaces manual enterprise configuration", "detail": "Their roadmap is an AI agent that will join Slack/Google Meet, read notes and make policy/configuration changes automatically to drive KPIs like resolution rate.", "anchorQuote": "", "tSeconds": 1064, "link": "https://www.youtube.com/watch?v=2Ap1dnv-GXA&t=1064" },
+        { "headline": "Charge customers early — get commitments before building", "detail": "They learned that many ideas are fake problems unless someone will pay for the solution, so they now require a payment commitment before building.", "anchorQuote": "", "tSeconds": 930, "link": "https://www.youtube.com/watch?v=2Ap1dnv-GXA&t=930" }
+      ]
+    }
+  ]
+}
