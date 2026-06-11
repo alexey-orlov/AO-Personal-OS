@@ -54,21 +54,6 @@
       }
     },
     {
-      "id": "v3-webhook-001",
-      "name": "Webhook trigger",
-      "type": "n8n-nodes-base.webhook",
-      "typeVersion": 2,
-      "position": [
-        0,
-        544
-      ],
-      "webhookId": "b7e2c4d8-1f3a-4e6b-9c5d-200000000001",
-      "parameters": {
-        "path": "podcast-stream-v3-run",
-        "options": {}
-      }
-    },
-    {
       "id": "v3-mode-digest-001",
       "name": "Mode: digest",
       "type": "n8n-nodes-base.set",
@@ -305,33 +290,6 @@
           "combinator": "and"
         },
         "options": {}
-      }
-    },
-    {
-      "id": "v3-tg-nonew-001",
-      "name": "Send Telegram (no new)",
-      "type": "n8n-nodes-base.telegram",
-      "typeVersion": 1.2,
-      "position": [
-        2048,
-        304
-      ],
-      "onError": "continueRegularOutput",
-      "credentials": {
-        "telegramApi": {
-          "id": "FnBXEhAZd1GlsgSP",
-          "name": "Telegram bot (AO)"
-        }
-      },
-      "parameters": {
-        "chatId": "406449973",
-        "text": "=<b>🎧 Podcast streaming — no new episodes</b>\n<i>No new podcasts found since the last digest.</i>{{ $json._healthWarning ? '\\n\\n' + $json._healthWarning : '' }}",
-        "additionalFields": {
-          "disable_web_page_preview": true,
-          "parse_mode": "HTML"
-        },
-        "resource": "message",
-        "operation": "sendMessage"
       }
     },
     {
@@ -714,6 +672,67 @@
       "parameters": {
         "jsCode": "// Mark videos as sent in the ledger — only for Telegram messages that\n// actually delivered. Failed messages leave their videos 'discovered',\n// so the next digest retries them automatically.\nconst sd = $getWorkflowStaticData('global');\nif (!sd.videos) sd.videos = {};\nconst built = $('Build Telegram Digest').all();\nconst now = Date.now();\nlet marked = 0;\nconst failedMessages = [];\nitems.forEach((it, i) => {\n  const r = it.json || {};\n  const failed = !!r.error || r.ok === false;\n  if (failed) { failedMessages.push(i); return; }\n  const ids = (built[i] && built[i].json && built[i].json.videoIds) || [];\n  for (const id of ids) {\n    if (sd.videos[id]) { sd.videos[id].status = 'sent'; sd.videos[id].sentAtMs = now; marked++; }\n  }\n});\nreturn [{ json: { marked, failedMessages } }];"
       }
+    },
+    {
+      "id": "v3-healthif-001",
+      "name": "Health alert?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        2048,
+        304
+      ],
+      "parameters": {
+        "conditions": {
+          "options": {
+            "version": 2,
+            "leftValue": "",
+            "caseSensitive": true,
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "ha-1",
+              "leftValue": "={{ $json._healthWarning }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      }
+    },
+    {
+      "id": "v3-healthtg-001",
+      "name": "Send health alert",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        2272,
+        432
+      ],
+      "parameters": {
+        "resource": "message",
+        "operation": "sendMessage",
+        "chatId": "406449973",
+        "text": "=<b>⚠️ Podcast streaming — feed health</b>\n{{ $json._healthWarning }}",
+        "additionalFields": {
+          "disable_web_page_preview": true,
+          "parse_mode": "HTML"
+        }
+      },
+      "credentials": {
+        "telegramApi": {
+          "id": "FnBXEhAZd1GlsgSP",
+          "name": "Telegram bot (AO)"
+        }
+      },
+      "onError": "continueRegularOutput"
     }
   ],
   "connections": {
@@ -744,17 +763,6 @@
         [
           {
             "node": "Mode: discover",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Webhook trigger": {
-      "main": [
-        [
-          {
-            "node": "Mode: digest",
             "type": "main",
             "index": 0
           }
@@ -851,8 +859,7 @@
             "type": "main",
             "index": 0
           }
-        ],
-        []
+        ]
       ]
     },
     "Load unsent": {
@@ -870,7 +877,7 @@
       "main": [
         [
           {
-            "node": "Send Telegram (no new)",
+            "node": "Health alert?",
             "type": "main",
             "index": 0
           }
@@ -1035,8 +1042,7 @@
             "type": "main",
             "index": 0
           }
-        ],
-        []
+        ]
       ]
     },
     "Build Telegram Digest": {
@@ -1055,6 +1061,17 @@
         [
           {
             "node": "Mark sent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Health alert?": {
+      "main": [
+        [
+          {
+            "node": "Send health alert",
             "type": "main",
             "index": 0
           }
