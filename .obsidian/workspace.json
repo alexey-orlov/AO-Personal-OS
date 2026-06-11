@@ -150,12 +150,13 @@
             "state": {
               "type": "outline",
               "state": {
+                "file": "Untitled.canvas",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline"
+              "title": "Outline of Untitled"
             }
           }
         ]
@@ -176,7 +177,7 @@
       "bases:Create new base": false
     }
   },
-  "active": "c0bbbc95d9a63f9d",
+  "active": "0f69188431682701",
   "lastOpenFiles": [
     "context/knowledge/explore-queue.md",
     "context/knowledge/notes/index.md",

@@ -135,12 +135,14 @@ _updated: YYYY-MM-DD_
 
 ## Run summary (always output)
 
-One short block: `processed N (folded F · junk J · dup D) — pages touched: … — new areas/subprojects: … — backlog: …`. In interactive mode add one line per substantive change so Alex can correct the folding.
+One short block: `processed N (folded F · junk J · dup D · pending-voice V) — pages touched: … — drops routed: areas A · notes K · books B · explore E — new areas/subprojects/themes: … — backlog: …`. In interactive mode add one line per substantive change so Alex can correct the folding.
 
 ## Self-check before finishing
 
 - No invented facts; every new claim traceable to a source link that resolves.
 - Superseded facts removed, not stacked; sections use "-" when empty; pages within budget.
 - `index.md` "Now" is dated and consistent with the pages.
-- Ledger updated for EVERY artifact handled, including junk and duplicates.
+- Ledger updated for EVERY artifact handled, including junk and duplicates (but NOT pending-voice — those stay in the backlog).
+- Drops routed by TYPE (step 3b), not dumped into an area page by default; bare URLs were fetched, images were read.
+- Folded `context/_inbox/` files moved to `processed/` so the staging dir holds only the backlog.
 - Sweep/interactive: changes committed as `context: …`; headless: no git attempted.
