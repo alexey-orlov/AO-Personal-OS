@@ -49,6 +49,47 @@ launchd (com.user.telegram-chat, KeepAlive)
 - Access control: pairing-code allowlist (one-time, see setup). Anyone on the
   allowlist can also approve permission relays — keep it to yourself.
 
+## Single-poller invariant (2026-06-12 lost-messages incident)
+
+Telegram allows ONE getUpdates consumer per bot. Upstream plugin behavior:
+**every** session that loads the plugin (desktop app, headless `claude -p`,
+any project — it was enabled at user scope) spawns `server.ts`, which
+unconditionally SIGTERM-kills whatever process holds `bot.pid` ("stale poller"
+takeover) and starts polling itself. In a non-channel session the polled
+messages are emitted as channel notifications nobody consumes — **silently
+eaten** (sender sees the typing indicator, then nothing). Claude Code never
+restarts a dead stdio MCP server, so the bridge stayed deaf until manually
+restarted. Upstream refs: claude-code issues #39808, #45146.
+
+Three guards now enforce the invariant (defense in depth):
+
+1. **User-scope disable** — `~/.claude/settings.json` has
+   `"enabledPlugins": {"telegram@claude-plugins-official": false}`. No session
+   anywhere auto-loads the plugin. The bridge still works: `--channels`
+   force-loads the named plugin regardless of enablement (verified 2026-06-12
+   on CC 2.1.153). **Never set this back to `true`.**
+2. **Poll gate** — the plugin cache copy
+   (`~/.claude/plugins/cache/claude-plugins-official/telegram/<ver>/server.ts`)
+   is patched: it only touches `bot.pid` / polls when `TELEGRAM_CHANNEL_POLL=1`
+   (exported by `run.sh` only). Tool-only instances log
+   `tools-only instance, not polling` and serve reply/react tools harmlessly.
+   The pristine-vs-patched diff lives as the repo fork at
+   `automations/telegram-chat/plugin/` (version `0.0.6-ao.1`) — re-apply from
+   there if a plugin update overwrites the cache (guard #1 keeps things safe
+   even unpatched; the gate mainly protects against a future re-enable).
+3. **Watchdog** — `start.sh` checks every 10s that `bot.pid` points at a live
+   process descending from the bridge's tmux pane; after ~90s of failure it
+   respawns the bridge window, whose fresh server reclaims the slot (killing
+   any foreign holder). Self-heals every known deafness mode, including
+   sleep/wake weirdness and crashed servers.
+
+**Receipt ack:** `~/.claude/channels/telegram/access.json` sets
+`"ackReaction": "👀"` — the server reacts 👀 to each accepted inbound message
+the moment it hands it to the session. 👀 = the bridge has it; no 👀 within
+seconds = it never arrived (laptop asleep → it'll arrive on wake; bridge
+broken → watchdog respawn within ~90s). Managed via
+`/telegram:access set ackReaction <emoji>`.
+
 ## Why a second bot (not the main AO Personal OS bot)
 
 Telegram allows exactly one update consumer per bot (webhook XOR getUpdates).
