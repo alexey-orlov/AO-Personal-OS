@@ -12,8 +12,7 @@
       ],
       "parameters": {
         "updates": [
-          "message",
-          "message_reaction"
+          "message"
         ],
         "additionalFields": {
           "download": true,
@@ -205,39 +204,6 @@
       "retryOnFail": true,
       "maxTries": 2,
       "waitBetweenTries": 1500
-    },
-    {
-      "id": "react-gate",
-      "name": "Reaction gate",
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [
-        220,
-        260
-      ],
-      "parameters": {
-        "jsCode": "// 👍 reactions on 🎯 Goals & Tasks item messages → hand off to\n// 'Second-brain delivery (cloud)': 'like' marks the item done in\n// context/knowledge/goals-tasks.md, removing the like reopens it.\n// (Telegram delivers message_reaction only because the bot is a group admin.)\nconst u = $input.first().json;\nconst r = u.message_reaction;\nif (!r || !r.chat || String(r.chat.id) !== 'REDACTED_GROUP_CHAT_ID') return [];\nconst had = (r.old_reaction || []).some(x => x.emoji === '👍');\nconst has = (r.new_reaction || []).some(x => x.emoji === '👍');\nif (had === has) return [];\nreturn [{ json: { messageId: r.message_id, makeDone: has } }];"
-      }
-    },
-    {
-      "id": "react-exec",
-      "name": "Toggle item by reaction",
-      "type": "n8n-nodes-base.executeWorkflow",
-      "typeVersion": 1.2,
-      "position": [
-        440,
-        260
-      ],
-      "parameters": {
-        "workflowId": {
-          "__rl": true,
-          "value": "q8OQXe2gwMk4rOxN",
-          "mode": "id",
-          "cachedResultName": "Second-brain delivery (cloud)"
-        },
-        "options": {}
-      },
-      "onError": "continueRegularOutput"
     }
   ],
   "connections": {
@@ -246,11 +212,6 @@
         [
           {
             "node": "Gate + build card",
-            "type": "main",
-            "index": 0
-          },
-          {
-            "node": "Reaction gate",
             "type": "main",
             "index": 0
           }
@@ -302,17 +263,6 @@
         [
           {
             "node": "React 👍 on capture",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Reaction gate": {
-      "main": [
-        [
-          {
-            "node": "Toggle item by reaction",
             "type": "main",
             "index": 0
           }
