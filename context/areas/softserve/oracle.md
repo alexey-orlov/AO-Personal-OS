@@ -58,7 +58,23 @@ Theirs (Olha Terendii):
 - Send Olya Hanushchak's contact to Alex.
 - Maybe share the Oracle "high-level proposal" doc / Oracle UI reference (tentative).
 
+Theirs (Oracle — AIDP):
+- Amit — sandbox / dev-environment access for SoftServe AIDP enablement (checking with product mgmt; Milo confirmed direction).
+- Amit — send architecture diagram for "fully-on-Oracle" customer footprint.
+- Milo / Speaker G — share internal HTML AIDP-vs-Databricks cost-comparison tool.
+- Speaker G — full inventory of AIDP migration accelerators vs. Databricks/Snowflake (incl. ETL/migration agents, Terraform/batch heritage).
+- Oracle — white paper on the "AIDP-as-mediator" story for all-Oracle estates.
+- Confirmed list of out-of-the-box SAP connectors (esp. S/4HANA, BTP).
+- Gero — chase NHS and DHL NDAs; report back on movement.
+- Milo — host follow-up next-steps conversation with Vladimir on joint GTM / packaging / pilot path.
+
+Theirs (SoftServe partnership team — AIDP):
+- Pavel — check existing SoftServe Oracle subscription credits as possible AIDP-pilot funding (request from Vladimir).
+- Vladimir — set up the GTM/packaging/pilot follow-up with Milo.
+- SoftServe AIDP team — once sandbox lands, ramp hands-on AIDP expertise before next client engagement.
+
 ## Activity
 
+- 2026-06-12 — [AIDP sales/enablement call — Oracle ↔ SoftServe](calls/oracle/2026-06-12_173159_sales-call_2026061216024378A29A99.md) — Oracle introduced the AI Data Platform; SoftServe pushed on differentiation, SAP, NVIDIA, migration accelerators, sandbox; joint GTM follow-up open.
 - 2026-06-12 — [Olha Terendii sync — Bosch POC + Oracle productization](calls/oracle/2026-06-12_151312_one-on-one_20260612143223E84CB5DA.md) — pipeline shape, Bosch case detail, Olha's productization framing; next contacts identified.
 - 2026-06-09 — [1:1: Oracle context + onboarding sequence](calls/2026-06-09_183633_one-on-one_2026060917013100B193F3.md) — partnership shape and Alex's entry path set.
