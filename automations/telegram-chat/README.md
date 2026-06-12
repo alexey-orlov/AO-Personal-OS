@@ -31,9 +31,10 @@ launchd (com.user.telegram-chat, KeepAlive)
        │                  verifies bot.pid is alive and owned by this bridge,
        │                  respawns the bridge after ~90s of bad state (10s poll)
        └─ tmux session "telegram-chat"
-            └─ run.sh     loop: each iteration = a FRESH `claude --channels …` session
+            └─ run.sh     loop: each iteration = a FRESH claude session
                  │        exports TELEGRAM_CHANNEL_POLL=1 (see invariant below)
-                 └─ claude --channels plugin:telegram@claude-plugins-official
+                 └─ claude --dangerously-load-development-channels \
+                      plugin:telegram@ao-personal-os   ← the repo's gated fork
 ```
 
 - The plugin long-polls the Telegram Bot API (no webhook → no trigger URL to
