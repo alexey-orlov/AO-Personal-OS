@@ -4,13 +4,13 @@ One-screen map of what Alex is working on right now. Maintained by the `context-
 
 **For agents:** read this file first for any task touching Alex's work; open the relevant `areas/<area>/README.md` before answering area questions. Update only via `context-update` — don't hand-edit.
 
-## Now (2026-06-11)
+## Now (2026-06-12)
 
 - Ramping into a part-time SoftServe engagement (~50–80 h/mo): product lead for the R&D Delivery Unit + agentic-AI SME. In flight: Oracle-partnership onboarding, R&D strategy-session design, Iris client bootcamp (Product stream) starting ~Jun 29, and (new this week) designing a PM-focused extension of the Jumpstart agentic-AI offering across Jun–Jul (Bogdan-driven).
 - Job search (VP Product / CPO, US) active: Zipify Head-of-Product process live (deep-dive Jun 2); Archive Resale closed (rejected May 22 at final round); recruiter pipeline + LSN outreach waves running.
 - GigaCloud CPO duties ongoing — no call artifacts in the OS yet.
 - Laba PM-course tutoring ongoing — no artifacts yet.
-- Building out this Personal OS: call pipeline + git-autosync + context wiki live; context tree reorganized into per-area folders (Jun 11); open issue: calendar OAuth token expired (notes since Jun 8 lack calendar headers).
+- Building out this Personal OS: call pipeline + git-autosync + context wiki live; automation backlog forming (GDrive navigator, vacancy screener, CV optimizer, company researcher); open issue: calendar OAuth token expired (notes since Jun 8 lack calendar headers).
 - US relocation planned, visa timing tentatively Sep–Oct 2026 (per SoftServe 1:1; positioning rules in [positioning](areas/job-search/positioning.md)).
 
 ## Areas
@@ -23,7 +23,7 @@ Each area folder holds: `README.md` (live state), `<subproject>.md` pages (one p
 | [Job search](areas/job-search/README.md) | active — one page per vacancy + outreach | [zipify](areas/job-search/zipify.md) · [outreach](areas/job-search/outreach.md) · [archive-resale](areas/job-search/archive-resale.md) (closed) | 2026-06-02 |
 | [GigaCloud](areas/gigacloud/README.md) | CPO role; no call artifacts in the OS yet | - | - |
 | [Laba](areas/laba/README.md) | PM-course tutoring; no artifacts yet | - | - |
-| [Personal OS](areas/personal-os/README.md) | pipeline + autosync + context wiki + n8n podcast digest live; open: calendar OAuth expired | - | 2026-06-11 |
+| [Personal OS](areas/personal-os/README.md) | pipeline + autosync + context wiki live; automation backlog forming; open: calendar OAuth expired | - | 2026-06-12 |
 
 ## Cross-area reference
 
