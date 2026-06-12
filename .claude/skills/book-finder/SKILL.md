@@ -186,5 +186,5 @@ Before downloading, the script's dup-guard already prevents re-fetching; if a bo
 - knigavuhe results are free streaming audio — the link opens the page; there's nothing to download.
 - First-time setup: `bash automations/book-finder/setup.sh` (creates the Books dir + state, checks deps).
 - To just *save* a title for later instead of acquiring it now, use `/book-shortlist` (it files the book
-  into `context/book-shortlist.md` under the same area taxonomy). This skill is the find/acquire half;
+  into `context/knowledge/book-shortlist.md` under the same area taxonomy). This skill is the find/acquire half;
   that one is the capture half.

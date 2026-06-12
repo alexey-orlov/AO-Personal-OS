@@ -38,13 +38,16 @@ Telegram webhook ─▶ gate (group + Drop Zone topic + not-bot) ─▶ build ca
   and leaves them in the backlog.
 
 **Consequence of cloud capture:** drops are committed to the private GitHub repo
-(`context/_inbox/`, then `processed/`). Anything that must never reach GitHub goes into the
-local `inbox/` dir instead — still folded by local `/context-update` sweeps, never committed.
+(`context/_inbox/`, then `processed/`). Anything that must never reach GitHub is not dropped
+as a file at all — paste it into a Claude Code session and say "fold this into context"
+(pasted mode). The old git-ignored root `inbox/` dir was retired 2026-06-12.
 
 ## Fallback: local watcher (original implementation, decommissioned 2026-06-11)
 
-`watch.sh` + launchd agent — long-polls `getUpdates`, saves to git-ignored `inbox/`.
+`watch.sh` + launchd agent — long-polls `getUpdates`, saves to a local inbox dir.
 Unloaded and plist removed from `~/Library/LaunchAgents`; files kept here for fallback.
+NOTE: the root `inbox/` dir it wrote to was retired 2026-06-12 — if ever reactivated,
+point its `INBOX_DIR` at `context/_inbox/` (committed) in `config.sh` first.
 
 Telegram allows webhook **XOR** `getUpdates` per bot: while the n8n workflow is active the
 watcher cannot run (409 Conflict). To revert to local capture:

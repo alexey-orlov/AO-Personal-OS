@@ -9,6 +9,9 @@ Committed staging buffer for Telegram **📥 Drop Zone** captures. The n8n cloud
   `source`, `date`, `message_id`, `attachment` (when media). Media drops land next to
   their card (`…-photo.jpg`, `…-voice.oga`, `…-<filename>`).
 - `processed/` — folded drops, kept permanently: wiki pages link here as provenance. Never delete.
-- Unlike `inbox/` (local, git-ignored), this dir is **committed** — cloud capture requires it.
-  Anything that must never reach the (private) GitHub repo goes to local `inbox/` instead.
+- This dir is **committed** — cloud capture requires it. Anything that must never reach the
+  (private) GitHub repo is NOT dropped as a file at all: paste it into a Claude Code session
+  and say "fold this into context" (pasted mode — distilled facts only, no raw file).
+- `outbox/` — queued Telegram notifications written by a fold run that had no Telegram
+  credentials (cloud); flushed and deleted by the n8n "Second-brain delivery" workflow.
 - Routing taxonomy: `.claude/skills/context-update/SKILL.md`, step 3b (Drop taxonomy).

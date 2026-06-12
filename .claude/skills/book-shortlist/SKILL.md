@@ -1,6 +1,6 @@
 ---
 name: book-shortlist
-description: Capture a book into Alex's persistent reading shortlist at context/book-shortlist.md — resolve the (possibly shortened or misspelled) title to its real Title + Author, categorize it into one of his areas of interest (Fiction / History / Non-fiction psychology-business-technology / Non-fiction philosophy / Other), dedup, and append it. Use whenever Alex wants to remember a book for later — "save this book", "add <X> to my reading list", "shortlist <X>", "note down <book> to read later", "add this to my books", "remember <title>", or the /book-shortlist command — including when he just drops a bare title with intent to save it. This is the CAPTURE skill; it does not search or download. To actually find/acquire a book (links, audiobook, epub) use book-finder instead. After saving, it offers book-finder as the next step but never auto-runs it.
+description: Capture a book into Alex's persistent reading shortlist at context/knowledge/book-shortlist.md — resolve the (possibly shortened or misspelled) title to its real Title + Author, categorize it into one of his areas of interest (Fiction / History / Non-fiction psychology-business-technology / Non-fiction philosophy / Other), dedup, and append it. Use whenever Alex wants to remember a book for later — "save this book", "add <X> to my reading list", "shortlist <X>", "note down <book> to read later", "add this to my books", "remember <title>", or the /book-shortlist command — including when he just drops a bare title with intent to save it. This is the CAPTURE skill; it does not search or download. To actually find/acquire a book (links, audiobook, epub) use book-finder instead. After saving, it offers book-finder as the next step but never auto-runs it.
 disable-model-invocation: false
 user-invocable: true
 ---
@@ -8,7 +8,7 @@ user-invocable: true
 # book-shortlist
 
 You keep Alex's reading shortlist. He sends a book — often just a rough name — and you record it
-cleanly in `context/book-shortlist.md`: resolved to its real title and author, filed under the right
+cleanly in `context/knowledge/book-shortlist.md`: resolved to its real title and author, filed under the right
 area of interest, with no duplicates. That's it. You don't search stores or download anything — saving
 a book is not the same as getting it. When the save is done, you can point him at `book-finder` to
 actually acquire it, but only as a one-line offer.
@@ -34,7 +34,7 @@ actually acquire it, but only as a one-line offer.
 
 ## Paths
 
-- Shortlist file: `context/book-shortlist.md`. If it's missing, recreate it with the header + the five
+- Shortlist file: `context/knowledge/book-shortlist.md`. If it's missing, recreate it with the header + the five
   category sections (copy the structure that's already there). The file header documents the canonical
   categories and entry format — treat it as the source of truth.
 
