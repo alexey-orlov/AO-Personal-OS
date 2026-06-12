@@ -103,3 +103,14 @@ Product context system + skills library (versioned, on their marketplace) · mat
 
 ---
 _Sources: Jumpstart walkthrough w/ Inna 2026-06-11 (call note in context/areas/softserve/calls/); ADLC Framework v1.1 (Daxko); Express SDLC Assessment Checklist v1.0; Daxko ADLC Metrics workbook v3; Agentic Metrics deck; Jumpstart anonymized status reports (May 2026); SS Todo note (PM workflow topics); knowledge base: ai-and-the-pm-craft theme (prototypes-replace-PRDs `pi-j1IOG8WoW1A-03`, dashboards→TLDR `pi-j1IOG8WoW1A-02`, restrain-the-eager-junior `pi-yDeFGKaSoX8-02`, PMs-ride-models `pi-4D3hDmGhFhA-06`)._
+
+## External references (web)
+
+- DORA — *The ROI of AI-assisted Software Development* (2026.01, updated Apr 2026): <https://dora.dev/ai/roi/report/> — the J-curve model, −15% productivity-dip calculator default, enablement shortening recovery from 12+ to ~3 months. Companion calculator: <https://dora.dev/ai/roi/calculator/>
+- SoftServe × MIT Technology Review — *Redefining the Future of Software Engineering* (Apr 2026): <https://www.softserveinc.com/en-us/news/agentic-engineering-global-study-softserve-mit> — the leaders/laggards plays (lead with early adopters, defend champions) and the 10–15% protected adoption-time-per-sprint practice.
+- EU AI Act (Regulation 2024/1689), official text: <https://eur-lex.europa.eu/eli/reg/2024/1689/oj>; enforcement timeline: <https://artificialintelligenceact.eu/implementation-timeline/> — the Aug 2026 enforcement driver behind the governance module.
+- Lenny's Podcast — Dan Shipper on why PMs who "ride the models" out-ship engineers: <https://www.youtube.com/watch?v=4D3hDmGhFhA&t=4119>
+- Aakash Gupta × Abby (OpenAI) — PM-built prototypes to ~70–80% replace PRDs as the alignment artifact: <https://www.youtube.com/watch?v=j1IOG8WoW1A&t=914>; many dashboards → one automated daily "strengths and risks" TLDR: <https://www.youtube.com/watch?v=j1IOG8WoW1A&t=379>
+- Aakash Gupta × Matthew (Customer.io VP Product) — the working discipline taught in W1: treat the model like an eager junior — roll context in, force clarifying questions, block premature deliverables: <https://www.youtube.com/watch?v=yDeFGKaSoX8&t=928>
+
+_Not publicly linkable: GI Partners' +35%-by-EOY-2026 portfolio productivity mandate and client-specific facts (DAX, Telenor, Payworks) come from the 2026-06-11 walkthrough with Inna; the governance operating model, maturity levels, and metrics frameworks come from the internal SoftServe files listed above._
