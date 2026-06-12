@@ -1,11 +1,11 @@
 ---
 name: context-update
-description: Fold new artifacts into the context wiki (context/index.md + context/areas/<area>/) and route drop-zone captures to their Second-Brain homes (area pages, context/knowledge/notes/, book-shortlist.md, explore-queue.md). Three modes — sweep (no args: process everything new under context/areas/*/calls/, context/areas/*/docs/, context/_inbox/ and inbox/ via the ledger), single artifact (a path; also used headlessly by the call-pipeline after each note), pasted content. Detects new subprojects and areas and creates their pages, refreshes the Now snapshot, keeps provenance links, skips junk (mic tests, empty recordings). Use on /context-update, "update my context", "fold this in / into context", "sync the wiki", after Alex shares a meeting outcome, document, or draft notes worth remembering, or when context/index.md looks stale. Also the engine behind the daily drop-zone fold cloud routine.
+description: Fold new artifacts into the context wiki (context/index.md + context/areas/<area>/) and route drop-zone captures to their Second-Brain homes (context/knowledge/ — goals-tasks.md, insights/, book-shortlist.md, explore/ — plus area pages and people/). Three modes — sweep (no args: process everything new under context/areas/*/calls/, context/areas/*/docs/ and context/_inbox/ via the ledger), single artifact (a path; also used headlessly by the call-pipeline after each note), pasted content. Detects new subprojects and areas and creates their pages, refreshes the Now snapshot, keeps provenance links, skips junk (mic tests, empty recordings), and sends per-category Telegram notifications (🎯 goals-tasks board summary, 💡 insights, 📚 books via book-finder, 🔭 explore briefs via explore-brief). Use on /context-update, "update my context", "fold this in / into context", "sync the wiki", after Alex shares a meeting outcome, document, or draft notes worth remembering, or when context/index.md looks stale. Also the engine behind the daily drop-zone fold cloud routine.
 disable-model-invocation: false
 user-invocable: true
 ---
 
-# context-update — fold new artifacts into the context wiki
+# context-update — fold new artifacts into the context wiki + second brain
 
 ## The model
 
@@ -15,17 +15,17 @@ user-invocable: true
   - `calls/[<sub-context>/]` — call notes, written by the call-pipeline (taxonomy owned by Axis 2 of `.claude/skills/classify/SKILL.md`).
   - `docs/` — manually added source materials (transcripts, documents Alex chose to commit).
 - **Cross-area**: `context/index.md` (map + "Now" snapshot), `context/people/<slug>.md` (recurring people), `context/_meta/processed.txt` (ledger).
-- **Drop zones (inputs)**: `context/_inbox/` — cloud captures from the Telegram Drop Zone (committed; one `.md` card per drop, media alongside); `inbox/` at repo root — local/manual drops (git-ignored, for anything that must not reach GitHub). Drops route by TYPE (step 3b), not only by area.
-- **Drop destinations (outputs, owned by this skill)**: area pages, `context/knowledge/notes/` (external insights, themed), `context/book-shortlist.md`, `context/knowledge/explore-queue.md`, `context/people/`.
-- **Raw artifacts are read-only inputs**: never edit anything in `calls/`, `docs/`, or `inbox/` — wiki pages link INTO them (provenance).
+- **Drop zone (input)**: `context/_inbox/` — cloud captures from the Telegram 📥 Drop Zone (committed; one `.md` card per drop, media alongside). There is no local drop zone (root `inbox/` retired 2026-06-12); sensitive material arrives as pasted content only.
+- **Second-Brain destinations (outputs, owned by this skill)** — the four capture categories of `context/knowledge/` (map: `context/knowledge/README.md`): `goals-tasks.md`, `insights/`, `book-shortlist.md`, `explore/queue.md` (+ `explore/briefs/` via the `explore-brief` skill) — plus area pages and `context/people/`.
+- **Raw artifacts are read-only inputs**: never edit anything in `calls/`, `docs/`, or `_inbox/` cards — wiki pages link INTO them (provenance).
 - **Ledger** = one repo-root-relative path per line = "already folded". Idempotency across runs and devices.
 - Invariant to protect: an agent that reads `index.md` plus one area README has working context for that area without opening any raw note.
 
 ## Modes
 
-1. **Sweep** (default, no input): discover unprocessed artifacts, fold them all.
-2. **Single artifact** (a path was given): fold just that file. The call-pipeline invokes this headlessly after each new call note — in that mode there is **no Bash tool: never attempt git; update the ledger by Read + Write of `processed.txt`**; the pipeline commits for you.
-3. **Pasted content** (text in chat, no file): distill and fold; cite source as `(chat, YYYY-MM-DD)`; no ledger entry.
+1. **Sweep** (default, no input): discover unprocessed artifacts, fold them all, notify.
+2. **Single artifact** (a path was given): fold just that file. The call-pipeline invokes this headlessly after each new call note — in that mode there is **no Bash tool: never attempt git or Telegram; update the ledger by Read + Write of `processed.txt`**; the pipeline commits for you.
+3. **Pasted content** (text in chat, no file): distill and fold; cite source as `(chat, YYYY-MM-DD)`; no ledger entry. This is also the ONLY path for material that must never reach GitHub — distilled facts land on wiki pages, no raw file is created.
 
 ## Procedure
 
@@ -33,18 +33,20 @@ user-invocable: true
 
 **1. Discover (sweep mode only):**
 ```bash
-comm -23 <(find context/areas context/_inbox inbox -type f \( -name '*.md' -o -name '*.txt' -o -name '*.pdf' -o -name '*.docx' \) \( -path '*/calls/*' -o -path '*/docs/*' -o -path 'inbox/*' -o -path 'context/_inbox/*' \) ! -name 'README.md' ! -path '*/processed/*' 2>/dev/null | sort) <(sort context/_meta/processed.txt 2>/dev/null)
+comm -23 <(find context/areas context/_inbox -type f \( -name '*.md' -o -name '*.txt' -o -name '*.pdf' -o -name '*.docx' \) \( -path '*/calls/*' -o -path '*/docs/*' -o -path 'context/_inbox/*' \) ! -name 'README.md' ! -path '*/processed/*' ! -path '*/outbox/*' 2>/dev/null | sort) <(sort context/_meta/processed.txt 2>/dev/null)
 ```
 If more than ~15 are new, process newest-first and report what was left for the next run — no silent truncation.
 
 **2. Gate each artifact (cheap checks before folding):**
 - **Junk gate**: mic/test recordings (counting, "приём, раз-два-три", explicit "don't transcribe"), empty or near-empty notes, purely personal calls with no project relevance → add to ledger, do not fold, count as "junk" in the summary.
-- **Duplicate gate**: call-note filenames end in `_<src_id>` derived from the source recording; its leading `YYYYMMDDHHMMSS` digits are the recording-start timestamp. If the ledger already holds a note whose src_id starts with the same timestamp, this is a re-processing of the same call (suffixes may differ) → fold only genuinely new information (usually none) → ledger it. A path already present in the ledger verbatim = already folded → no-op beyond the summary line.
+- **Duplicate gate (calls)**: call-note filenames end in `_<src_id>` derived from the source recording; its leading `YYYYMMDDHHMMSS` digits are the recording-start timestamp. If the ledger already holds a note whose src_id starts with the same timestamp, this is a re-processing of the same call (suffixes may differ) → fold only genuinely new information (usually none) → ledger it.
+- **Duplicate gate (drops)**: Alex sometimes re-sends the same Drop Zone message (e.g. when the 👍 capture reaction didn't show). Identical or near-identical drop bodies in one batch, or matching an item already in its destination file → ONE routed item; ledger every duplicate card, count as "dup". Never create two goals/tasks/queue lines for the same text.
+- A path already present in the ledger verbatim = already folded → no-op beyond the summary line.
 
 **3. Route.** The area is the path segment after `context/areas/` — its page is that area's `README.md`. Then route within the area:
 - **Slug mapping**: a subproject page shares its slug with its calls sub-context — `calls/vacancy-interviews/zipify/` ↔ `zipify.md`, `calls/iris-bootcamp/` ↔ `iris-bootcamp.md`. A note matching an existing subproject page folds there FIRST; touch the area README only when area-level state shifts (status line, Subprojects one-liner, anything Now-worthy).
 - `job-search` specifics: `calls/intro-chats/` and recruiter-pipeline/campaign artifacts → `outreach.md`; vacancy calls → that vacancy's page.
-- `inbox/` and `context/_inbox/` files route by TYPE first — see step 3b. Notes in `areas/other/calls/` → judge by content (repo/tooling topics → `personal-os`).
+- `context/_inbox/` files route by TYPE first — see step 3b. Notes in `areas/other/calls/` → judge by content (repo/tooling topics → `personal-os`).
 
 **3a. Auto-create subproject pages — detect projects Alex truly engages in. Don't wait for the README to bloat:**
 - **Vacancy rule (deterministic):** a substantive note lands in `calls/vacancy-interviews/<slug>/` (a real interview / case / recruiter touchpoint, not a passing mention) and `<slug>.md` doesn't exist → CREATE it from the template and list it under `## Subprojects` in the area README. Every vacancy Alex actually interviews for gets a page from its first call.
@@ -53,24 +55,33 @@ If more than ~15 are new, process newest-first and report what was left for the 
 - **Closing:** when a thread ends (vacancy rejected/withdrawn, program delivered), set `_status: closed — <outcome>` on its page, mark it `(closed)` in the README Subprojects list and the index, and prune its open loops. Closed pages stay — they hold the record and lessons.
 - **New AREA** (`context/areas/<slug>/README.md`): create only when content shows a distinct ongoing initiative that fits no existing area — its own goal, counterparts, expected continuation. A one-off call or topic is NOT an area. Create the README from the template, add an index row flagged `(new)`, suggest a top-level Axis-2 addition for classify, and announce it in the run summary.
 
-**3b. Drop taxonomy — Second-Brain routing (artifacts from `context/_inbox/` or `inbox/` only; call notes and `docs/` skip this).** Classify each drop by TYPE first; a mixed drop is split — each part goes to its home, one ledger entry for the file.
+**3b. Drop taxonomy — Second-Brain routing (artifacts from `context/_inbox/` only; call notes and `docs/` skip this).** Classify each drop by TYPE first; a mixed drop is split — each part goes to its home, one ledger entry for the file. Prefix labels (`goal:`, `todo:`, `task:`, `book:`, `look into…`, `done…`) are HINTS, not law — content decides (e.g. "todo: explore X (Karpathy)" is an Explore item, not a Task).
 
-*Reading the drop:* a bare URL → fetch it (WebFetch) and distill what's actually at the link, don't file naked URLs; an image attachment → Read the image (screenshots usually carry the whole payload); an `attachment:` voice file with no transcript → cannot fold: report as `pending-voice` in the summary and do NOT ledger it (stays in the backlog until transcribed).
-
-| Type | Signal | Destination |
+| Type | Signal | Destination + follow-through |
 |---|---|---|
-| Area/project material | relates to an active area / subproject / vacancy / engagement | `context/areas/…` per steps 3–5 |
-| External insight | a claim, idea, article, screenshot worth keeping — not tied to an area | `context/knowledge/notes/themes/<slug>.md` (rules below) |
-| Book | a title to read, a rec, a cover screenshot | `context/book-shortlist.md` — resolve real Title + Author, categorize, dedup (the `book-shortlist` skill's format); never auto-run book-finder |
-| Explore topic | a question or topic to dig into ("look into X") | `context/knowledge/explore-queue.md` — `- [ ] YYYY-MM-DD — topic — why (provenance)` |
+| Goal | durable direction, multi-month ambition | `knowledge/goals-tasks.md` → `## Goals`, next free `g<n>` id |
+| Task | concretely doable item — automation idea, post/content idea, errand | `knowledge/goals-tasks.md` → `## Tasks`, next free `t<n>` id |
+| Completion | "done X" / "сделал X" naming an existing goal/task | toggle that line `[ ]`→`[x]` + ` · done YYYY-MM-DD` |
+| Insight | a claim, idea, article, screenshot worth keeping | `knowledge/insights/themes/<slug>.md` (rules below) |
+| Book | a title to read, a rec, a cover screenshot | `knowledge/book-shortlist.md` per the `book-shortlist` skill's rules (resolve Title + Author, categorize, dedup), then INVOKE the `book-finder` skill for the new title — its Telegram delivery lands in 📚 Books. Skip file downloads when running headless/cloud. |
+| Explore topic | "look into X", a URL to digest, an open question | `knowledge/explore/queue.md` `## Open` line, then INVOKE the `explore-brief` skill for it — brief + 🔭 Telegram delivery |
+| Area/project material | meeting outcome, document, fact about an active thread | `context/areas/…` per steps 3–5 |
 | People fact | durable fact about a person | step 5 (people pages) |
 | Junk | accidental forward, empty, test message | ledger + count as junk |
 
-*Provenance for drops:* `context/_inbox/` files are linked at their FINAL home — `context/_inbox/processed/<file>` (they move there in step 8). Local `inbox/` files are NOT in git on other machines — cite `(local drop: <filename>, YYYY-MM-DD)` without a link.
+- **Knowledge categories beat area routing.** A goal/task/insight/book/explore item that clearly belongs to an area still lands in its `knowledge/` home, tagged ` · area: <slug>` — so every capture stays visible in one general place. The area page gets at most a one-line pointer (id or link), and only when area-level state actually changed. Never restate the item on the area page.
+- *Reading the drop:* a bare URL → fetch it (WebFetch) and distill what's actually at the link, don't file naked URLs; an image attachment → Read the image (screenshots usually carry the whole payload); an `attachment:` voice file with no transcript → cannot fold: report as `pending-voice` in the summary and do NOT ledger it (stays in the backlog until transcribed).
+- *Provenance for drops:* link cards at their FINAL home — `context/_inbox/processed/<file>` (they move there in step 8).
 
-**knowledge/notes rules (bounded by design — built to survive years of drops):**
-- `notes/index.md` is the map: theme table (theme · one-liner · count · last added), header `_updated:` + totals. Fully rewritten when touched; ≤60 lines.
-- `themes/<slug>.md` — one page per theme, created on demand, rewritten in place. Insight block: `### <claim-shaped headline>` + ≤3 distilled lines + `— YYYY-MM-DD · source: <link and/or provenance>`. Headlines are claims, not topics ("Agents fail on long-horizon memory", not "On agents").
+**goals-tasks.md rules:**
+- Format (header of the file is the source of truth): `- [ ] **<id>** — <text> · added YYYY-MM-DD[ · area: <slug>][ · ([drop](provenance))]`. Ids are immutable and never reused; allocate the next free number per prefix (g for Goals, t for Tasks).
+- Goal vs task test: a goal survives months and has no "definition of done" yet; a task you could start this week and finish. When genuinely unclear, file as a task — promoting later is cheap.
+- Never renumber, reorder, or delete lines; completions toggle in place. The pinned Telegram board messages are a VIEW rendered from this file by the n8n "Second-brain delivery" workflow — never edit the frontmatter `tg_*_message_id` keys.
+
+**knowledge/insights rules (bounded by design — built to survive years of drops):**
+- `insights/index.md` is the map: theme table (emoji · theme · one-liner · count · last added), header `_updated:` + totals. Fully rewritten when touched; ≤60 lines.
+- `themes/<slug>.md` — one page per theme, created on demand, rewritten in place. H1 carries the theme emoji. Insight block: `### <claim-shaped headline>` + ≤3 distilled lines + `— YYYY-MM-DD · source: <link and/or provenance>`. Headlines are claims, not topics ("Agents fail on long-horizon memory", not "On agents").
+- **Theme emoji** — one per theme, fixed at creation from this conservative set (reuse across themes of the same domain is fine): 🤖 AI & agents · 📈 business / growth / product · 🧠 mind / learning / psychology · 🛠 tools & process · 💬 communication & people · 🌍 world & other.
 - **Bias to an existing theme** (claim-similarity to its one-liner + headlines); create a new theme only for a clearly distinct domain — never a near-synonym of an existing one. Slugs are immutable.
 - **Dedup inside the chosen theme**: same claim, new source → add a corroboration line under the existing insight, not a new block; a sharper version → replace the block, keeping both sources.
 - **Page budget ~25 insights**: when exceeded, flag `⚠ split candidate` in the index row + the run summary — never auto-split.
@@ -80,7 +91,7 @@ If more than ~15 are new, process newest-first and report what was left for the 
 - **Rewrite in place.** `_status:`, Snapshot, and Active threads always describe current truth. Never stack "UPDATE:" lines; a newer fact replaces the older one. If the change itself matters (a decision, a closure, a pivot), record it as one line under Decisions or Activity.
 - **Provenance**: every non-obvious claim links to its source, relative to the page — from an area README that's `calls/<file>.md`, `docs/<file>.md`, or `calls/<sub>/<file>.md`. Filenames with spaces use the `[text](<path with spaces.md>)` form.
 - Repo conventions apply: evidence-bound, specific, no filler; mark inferences "(inferred)"; "-" for empty sections; dates as YYYY-MM-DD.
-- **Open loops**: add new commitments/waiting-ons with owner (Mine/Theirs) and date when known; DELETE completed or expired ones — move to Activity only if noteworthy.
+- **Open loops**: add new commitments/waiting-ons with owner (Mine/Theirs) and date when known; DELETE completed or expired ones — move to Activity only if noteworthy. Captured goals/tasks do NOT live here (they live in goals-tasks.md) — open loops are for commitments arising from calls/threads.
 - **Activity**: prepend `- YYYY-MM-DD — [short label](path) — one line on what changed`; keep ≤10 lines, drop the oldest (the artifact stream is the archive).
 - **Budget**: page ≤120 lines. Trim Activity and pruned loops first; if Snapshot/Threads genuinely outgrow it, split a subproject page and link it.
 - Don't copy transcript quotes longer than one line — distill.
@@ -96,11 +107,18 @@ printf '%s\n' "context/areas/<area>/calls/<...>.md" >> context/_meta/processed.t
 ```
 (Headless single-artifact mode: Read the file, Write it back with the new line — no Bash.)
 
-**8. Finish (sweep / interactive modes only).** Move folded `inbox/` files to `inbox/processed/` (plain `mv` — local-only dir) and folded `context/_inbox/` files — card AND any attachments — to `context/_inbox/processed/` (`git mv` — committed; provenance links point there). Then commit deliberately — git-autosync would otherwise scoop the changes into a generic commit:
+**8. Archive + commit (sweep / interactive modes only).** Move folded `context/_inbox/` files — card AND any attachments — to `context/_inbox/processed/` (`git mv` — committed; provenance links point there). Then commit deliberately — git-autosync would otherwise scoop the changes into a generic commit:
 ```bash
 git add context/ && git commit -m "context: <one line on what changed>"
 ```
-When running as the daily cloud routine, also `git push` (no autosync in the cloud).
+When running as the daily cloud routine, also `git push` — the push lands on a `main-*` branch which `.github/workflows/auto-merge-routine.yml` auto-merges into `main`; that is expected, don't fight it.
+
+**9. Notify (sweep / interactive modes only — never headless).** Every routed Second-Brain item produces a Telegram notification in its category topic, via `automations/telegram/` scripts. **Cloud/no-Keychain environments: `export TG_OUTBOX=1` first** — sends are then queued as JSON files in `context/_inbox/outbox/` (include them in the commit) and flushed by the n8n "Second-brain delivery" workflow; locally they send immediately.
+- **Goals / tasks / completions** — ONE summary message per run (only if something changed): `TG_TOPIC=goals-tasks`, e.g. `🎯 Board updated: +g3 <short text> · +t6 <short text> · ✅ t2 done`. The pinned board messages re-render from the file automatically (n8n, ~08:50 Kyiv); the summary exists because message edits don't ping the phone.
+- **Insights** — one message per insight: `TG_TOPIC=insights`, body `<theme emoji> <claim headline>` + the 2–3 distilled lines + `— theme: <slug>`.
+- **Books** — handled by the invoked `book-finder` run (`TG_TOPIC=books`); don't double-send.
+- **Explore** — handled by the invoked `explore-brief` run (`TG_TOPIC=explore`); don't double-send.
+- Treat any send failure as non-fatal: report it in the run summary, never abort the fold.
 
 ## Page template (area README and subproject pages alike)
 
@@ -128,14 +146,15 @@ _updated: YYYY-MM-DD_
 
 ## Out of scope
 
-- Everything under `outputs/` (`english-coaching/` is the language stream, `inbox-sweep/` is a run log) and book lists — never folded.
-- `context/knowledge/podcasts/` — a separate engine (`/podcast-insights`) with its own ledger owns that subtree; never touch it. This skill owns `context/knowledge/notes/` and `explore-queue.md` as OUTPUTS only — the sweep `find` scans `context/areas`, `context/_inbox`, `inbox` and must never scan any part of `context/knowledge/` as input, or the engines will fight over files.
-- Never edit raw artifacts (`calls/`, `docs/`, `inbox/` contents) — read-only inputs.
+- Everything under `outputs/` (`english-coaching/` is the language stream, `inbox-sweep/` is a run log) — never folded.
+- `context/knowledge/podcasts/` — a separate engine (`/podcast-insights`) with its own ledger owns that subtree; never touch it. This skill owns the REST of `context/knowledge/` as OUTPUTS only — the sweep `find` scans `context/areas` and `context/_inbox` and must never scan any part of `context/knowledge/` as input, or the engines will fight over files.
+- `context/_inbox/outbox/` is a delivery queue, not input — never fold it, never scan it.
+- Never edit raw artifacts (`calls/`, `docs/`, `_inbox/` cards) — read-only inputs.
 - Sensitivity: never copy the "Backend context" items of `context/areas/job-search/positioning.md` onto other pages — link to the doc instead; facts that must never leak externally live in exactly one place.
 
 ## Run summary (always output)
 
-One short block: `processed N (folded F · junk J · dup D · pending-voice V) — pages touched: … — drops routed: areas A · notes K · books B · explore E — new areas/subprojects/themes: … — backlog: …`. In interactive mode add one line per substantive change so Alex can correct the folding.
+One short block: `processed N (folded F · junk J · dup D · pending-voice V) — pages touched: … — drops routed: goals G · tasks T · done C · insights K · books B · explore E · areas A — notifications: sent S / queued Q — new areas/subprojects/themes: … — backlog: …`. In interactive mode add one line per substantive change so Alex can correct the folding.
 
 ## Self-check before finishing
 
@@ -143,6 +162,8 @@ One short block: `processed N (folded F · junk J · dup D · pending-voice V) �
 - Superseded facts removed, not stacked; sections use "-" when empty; pages within budget.
 - `index.md` "Now" is dated and consistent with the pages.
 - Ledger updated for EVERY artifact handled, including junk and duplicates (but NOT pending-voice — those stay in the backlog).
-- Drops routed by TYPE (step 3b), not dumped into an area page by default; bare URLs were fetched, images were read.
+- Drops routed by TYPE (step 3b): no goal/task/insight/book/explore item buried in an area page; prefix hints overridden where content said otherwise; duplicates collapsed to one item.
+- Bare URLs were fetched, images were read.
+- Every routed knowledge item produced its notification (sent or queued; books/explore via their skills); outbox files, if any, are committed.
 - Folded `context/_inbox/` files moved to `processed/` so the staging dir holds only the backlog.
-- Sweep/interactive: changes committed as `context: …`; headless: no git attempted.
+- Sweep/interactive: changes committed as `context: …`; headless: no git, no Telegram.
