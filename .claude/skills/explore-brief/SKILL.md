@@ -70,14 +70,14 @@ _date: YYYY-MM-DD · sources: N · provenance: [drop](…) or (chat/queue)_
    - Buttons: `Full brief` → `https://github.com/alexey-orlov/AO-Personal-OS/blob/main/context/knowledge/explore/briefs/<slug>.md`,
      then the top 1–3 source links.
    - In cloud/no-Keychain environments `export TG_OUTBOX=1` first (the send is queued to
-     `context/_inbox/outbox/` and flushed by the n8n "Second-brain delivery" workflow).
+     `context/_inbox/outbox/` and flushed by the n8n "Outbox flush (cloud)" workflow).
    - A send failure is non-fatal — report it, don't abort.
 6. **Commit (standalone interactive runs only):** `git add context/knowledge/explore && git commit -m "context: explore brief — <slug>"`.
    When invoked from a `context-update` sweep or the cloud routine, the parent run commits.
 
 ## Out of scope
 
-- Other `context/knowledge/` subtrees (insights, books, goals-tasks, podcasts) — if the
+- Other capture homes (book shortlist, podcasts, the apple-notes queue) — if the
   research surfaces a book or a standalone insight worth keeping, SUGGEST it in the run
   output; don't file it yourself.
 - Checking items off the queue — that's Alex's call after reading.
