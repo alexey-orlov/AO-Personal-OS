@@ -41,12 +41,24 @@ poller_healthy() {
   is_descendant "$bot_pid" "$pane_pid"
 }
 
+# The fork loads via --dangerously-load-development-channels (non-official
+# channel plugins aren't on CC's approved-channels allowlist), and that flag
+# shows an interactive "Loading development channels" confirmation on EVERY
+# claude start. Auto-confirm it whenever it's on screen — selection sits on
+# "1. I am using this for local development", a bare Enter accepts.
+confirm_dev_channels_prompt() {
+  tmux capture-pane -t "$SESSION" -p 2>/dev/null \
+    | grep -q "I am using this for local development" || return 0
+  echo "[telegram-chat] $(date '+%F %T') auto-confirming dev-channels prompt"
+  tmux send-keys -t "$SESSION" Enter
+}
+
 while true; do
   if ! tmux has-session -t "$SESSION" 2>/dev/null; then
     echo "[telegram-chat] $(date '+%F %T') (re)creating tmux session"
     tmux new-session -d -s "$SESSION" "exec '$DIR/run.sh'"
     FAILS=0
-  elif poller_healthy; then
+  elif confirm_dev_channels_prompt && poller_healthy; then
     FAILS=0
   else
     FAILS=$((FAILS + 1))
