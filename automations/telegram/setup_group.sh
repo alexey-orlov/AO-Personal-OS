@@ -69,13 +69,15 @@ TOPICS_ENV="$HERE/topics.env"
 [ -f "$TOPICS_ENV" ] && source "$TOPICS_ENV"
 
 # slug|display name|icon_color (Telegram's fixed palette)
+# NOTE: "goals-tasks" (🎯) was deleted 2026-06-12 — goal/task/insight captures now land
+# in Apple Notes via apple-notes-sync. "insights" (💡) is legacy: kept in the group for
+# history, no producer.
 TOPIC_DEFS=(
   "english-coaching|🎓 English Coaching|7322096"
   "inbox-drafts|📨 Inbox & Drafts|16766590"
   "daily-digest|📰 Daily Digest|13338331"
   "books|📚 Books|9367192"
   "dropzone|📥 Drop Zone|16749490"
-  "goals-tasks|🎯 Goals & Tasks|16478047"
   "insights|💡 My Insights|16766590"
   "explore|🔭 Articles & Topics|7322096"
 )

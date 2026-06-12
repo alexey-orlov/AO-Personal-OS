@@ -1,6 +1,6 @@
 # Oracle partnership — joint IP
 
-_status: onboarding — gathering case context (Bosch, Riyadh Air); next: Olya Hanushchak + Dmytro Duchenko, then form a productization view_
+_status: onboarding — two Oracle motions in flight: cuOpt POC pipeline (Bosch, Riyadh Air) and AIDP co-sell (enablement / NDA stage); next: Olya Hanushchak + Dmytro Duchenko on cuOpt, then form a productization view_
 _updated: 2026-06-12_
 
 ## Snapshot
@@ -12,6 +12,10 @@ _updated: 2026-06-12_
 - Productization framing per Olha (PM/BA on Bosch): a universal product is unrealistic; the realistic play is standardizing the *engagement process* — fixed-scope cuOpt POC packages. "Packages" lacks a shared definition across stakeholders; the SoftServe-side Oracle "packaging" meetings ran with Olya Hanushchak (FE) and Vlad Selyotkin (architect), not Olha. [Olha sync](calls/oracle/2026-06-12_151312_one-on-one_20260612143223E84CB5DA.md)
 - The product mode of Alex's R&D role: joint-IP development — packaging the IP into S/M/L offerings; the other mode (productization on client engagements) lives at the area level.
 - The R&D PdM team (Leonid, Dmytro, Olya, Vladyslav — ~4–5 PdMs) maps onto this work; an early deliverable is aligning the PdMs to the S/M/L packages and sketching "Roadmap v0".
+- AIDP (AI Data Platform) — Oracle's Databricks/Snowflake answer (Medallion architecture, Iceberg first-class, multi-cloud) — is a parallel Oracle motion now opening for SoftServe co-sell + delivery. Intro/enablement call on 2026-06-12 with Milo / Amit / Gero; SoftServe (Vladimir, Stefan, Sergey) pushed on differentiation, SAP, NVIDIA, migration accelerators, sandbox. Now in early enablement / joint-GTM shaping. [AIDP sales call](calls/oracle/2026-06-12_173159_sales-call_2026061216024378A29A99.md)
+- AIDP differentiation Oracle leads with: 20–60% TCO advantage on migrated workloads, forthcoming ontology/semantic-layer SKU, zero-copy catalog-of-catalogs, multi-cloud + on-prem. Acknowledged gaps: no dedicated Databricks/Snowflake migration tooling, NVIDIA Enterprise AI / Omniverse not a top priority, SAP S/4HANA native connector not confirmed. [AIDP sales call](calls/oracle/2026-06-12_173159_sales-call_2026061216024378A29A99.md)
+- NDA blockers in flight on AIDP-adjacent deals (separate workstreams): SPG (ball in client's court, Khaled chasing 2x), NHS (Oracle chasing, ~50K medical records complexity), DHL (debating whether existing Oracle-customer status removes NDA need). Gero owns the chase. [AIDP sales call](calls/oracle/2026-06-12_173159_sales-call_2026061216024378A29A99.md)
+- SoftServe has unused Oracle subscription credits that could fund an AIDP pilot — Pavel owns the check. [AIDP sales call](calls/oracle/2026-06-12_173159_sales-call_2026061216024378A29A99.md)
 
 ## People
 
