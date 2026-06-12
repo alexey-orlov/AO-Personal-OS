@@ -9,6 +9,16 @@ export PATH="/opt/homebrew/bin:$HOME/.local/bin:/usr/local/bin:$PATH"
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 PLUGIN="plugin:telegram@claude-plugins-official"
 
+# Single-poller invariant (2026-06-12 incident): ONLY the bridge may claim
+# Telegram's one getUpdates consumer slot. The plugin's server.ts is patched
+# (cache copy + repo fork at automations/telegram-chat/plugin/) to take the
+# bot.pid slot and poll ONLY when this env var is set. Desktop/headless
+# sessions never set it, so they can no longer kill the bridge's poller and
+# silently eat inbound messages. The plugin is additionally DISABLED at user
+# scope (~/.claude/settings.json enabledPlugins=false) — --channels
+# force-loads it for this session regardless.
+export TELEGRAM_CHANNEL_POLL=1
+
 cd "$REPO_ROOT" || exit 1
 
 while true; do
