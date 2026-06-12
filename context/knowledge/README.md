@@ -1,11 +1,33 @@
-# Knowledge tree
+# Knowledge tree — the second brain
 
-Durable reference knowledge distilled from sources Alex consumes — parallel to `context/areas/` ("things I'm working on"). This is "things I'm learning from the world."
+Everything Alex captures and learns, parallel to `context/areas/` ("things I'm working
+on" vs. this, "things I'm capturing and learning"). Four capture categories plus one
+automated source — each with exactly ONE home here and a mirrored Telegram topic. The
+repo file is always the source of truth; Telegram is the notification/interaction view.
 
-- [podcasts/](podcasts/index.md) — self-updating insight base from the tracked AI/product/startup podcasts (`automations/podcast-streaming` → `/podcast-insights`). Themes are the unit of navigation; insights are concrete, claim-shaped, and deep-link to the source moment.
-- [notes/](notes/index.md) — external-world knowledge Alex captures via the Telegram 📥 Drop Zone (links, screenshots, distilled thoughts not tied to an area). Same theme-page pattern, lighter machinery. Owned by `context-update` (step 3b), folded daily by the cloud routine.
-- [explore-queue.md](explore-queue.md) — topics/questions to dig into, captured via the Drop Zone; lines are deleted once explored. Owned by `context-update`.
+| Category | Home | Telegram topic | Engine |
+|---|---|---|---|
+| Goals & tasks | [goals-tasks.md](goals-tasks.md) | 🎯 Goals & Tasks — 2 pinned board messages with toggle buttons | `context-update` + n8n board render |
+| My insights | [insights/](insights/index.md) — theme pages | 💡 My Insights — one message per insight, theme emoji | `context-update` |
+| Books | [book-shortlist.md](book-shortlist.md) | 📚 Books — book-finder results per new book | `context-update` → `book-shortlist` format + `book-finder` |
+| Articles & topics | [explore/queue.md](explore/queue.md) + [explore/briefs/](explore/briefs/) | 🔭 Articles & Topics — research brief + link buttons | `context-update` → `explore-brief` |
+| Podcasts (automated) | [podcasts/](podcasts/index.md) | 📰 Daily Digest | `automations/podcast-streaming` → `/podcast-insights` |
 
-Ownership boundary: `podcasts/` belongs to the `/podcast-insights` engine; `notes/` + `explore-queue.md` belong to `context-update`. The two engines never read or write each other's subtrees.
+Flow: Telegram 📥 Drop Zone → n8n capture → `context/_inbox/` → daily cloud fold
+(`context-update` sweep) routes each drop by TYPE to its home above and queues the
+category-matched Telegram notification in `context/_inbox/outbox/` (flushed by the n8n
+"Second-brain delivery" workflow when the fold ran without Telegram credentials).
 
-Future sources (books read, courses, talks) can live as sibling folders here under the same pattern: an `index.md` map + a curated, self-updating structure, with raw provenance kept separate.
+Rules that keep this tree clean:
+
+- **One home per item — no duplication.** An item lives in exactly one category file;
+  area pages and other categories may link to it (by id or path), never restate it.
+- **Capture is area-agnostic.** Even an item clearly tied to an area lands here first
+  (tagged `area: <slug>`) so nothing disappears into an area page unnoticed.
+- **Ownership boundaries:** `podcasts/` belongs to the `/podcast-insights` engine;
+  everything else here belongs to `context-update` and its helper skills
+  (`book-shortlist`, `book-finder`, `explore-brief`). Engines never write into each
+  other's subtrees.
+
+Future sources (courses, talks, books read) join as sibling folders under the same
+pattern: an index/map + curated self-updating pages, raw provenance kept separate.

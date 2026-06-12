@@ -1,4 +1,4 @@
-# Agentic engineering — eras and patterns
+# 🤖 Agentic engineering — eras and patterns
 
 _updated: 2026-06-12_
 
