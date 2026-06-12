@@ -46,6 +46,11 @@ wait if the laptop is closed — nothing is lost.
   skill leaves their cards queued (visible in the run summary).
 - **Pinned status isn't scriptable** — folder membership is the contract: every note
   in `_ToDo` is a routing candidate. Add/remove notes there to change the set.
+- **HTML round-trip collapses consecutive spaces** in existing text (verified
+  2026-06-12) — cosmetic only, but don't rely on multi-space alignment in these notes.
+- **Relevance marker**: Alex ends the agent-relevant part of each note with
+  `## BELOW INFO IS NOT RELEVANT FOR AGENT'S KNOWLEDGE BASE ##`. Snapshots stop there
+  (the private tail never reaches the repo) and insertions always go above it.
 - Notes app doesn't need to be open or frontmost; writes work in the background.
 
 ## Recovery

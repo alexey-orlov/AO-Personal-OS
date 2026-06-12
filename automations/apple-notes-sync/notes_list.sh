@@ -19,12 +19,13 @@ on run argv
   tell application "Notes"
     set f to folder folderName
     repeat with n in notes of f
+      set pt to plaintext of n
       if fullMode then
-        set out to out & "=== " & name of n & linefeed & plaintext of n & linefeed & "=== END" & linefeed
+        set out to out & "=== " & name of n & linefeed & pt & linefeed & "=== END" & linefeed
       else
         set md to modification date of n
-        set isoDate to (year of md as string) & "-" & text -2 thru -1 of ("0" & (month of md as integer)) & "-" & text -2 thru -1 of ("0" & day of md)
-        set out to out & name of n & tab & (length of (plaintext of n)) & tab & isoDate & linefeed
+        set isoDate to (year of md as string) & "-" & text -2 thru -1 of ("0" & ((month of md as integer) as string)) & "-" & text -2 thru -1 of ("0" & (day of md as string))
+        set out to out & name of n & tab & (length of pt) & tab & isoDate & linefeed
       end if
     end repeat
   end tell
