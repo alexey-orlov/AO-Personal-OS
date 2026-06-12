@@ -1,6 +1,6 @@
 # Jumpstart for Product — AI Activation Program for PM Organizations
 
-_v0.1 draft for discussion with Inna / Bogdan · 2026-06-12 · owner: Alex Orlov_
+_v0.2 draft for discussion with Inna / Bogdan · 2026-06-12 · owner: Alex Orlov · v0.2 = field-calibrated against external case studies & adoption research (refs at bottom)_
 
 ## Executive summary
 
@@ -24,28 +24,28 @@ Clients sit at L1 (often below their own engineering org). **Program target: L1 
 
 Grouped into four stations; each gets skills built on the client's actual tool stack during the pod:
 
-1. **Context foundation** — the product context system: a versioned repo of strategy, positioning, personas, metric definitions, voice + MCP connections to the system of record (Jira/Aha!/Productboard, Confluence/Notion, analytics, call libraries). Built FIRST — context quality, not prompt skill, is what makes every downstream workflow work.
-2. **Discovery & insight** — customer insights triage (support tickets, interviews, NPS), market research briefs, competitor monitoring, product analytics → automated "what changed and what to do" TLDRs instead of dashboard archaeology.
-3. **Definition & delivery** — PRD/epic shaping, feature breakdown, story + AC writing (reuses the proven ADLC Define-phase skills: PM Shape Epic / Shape Features / Write Story), and **prototype-first definition**: PM-built working prototypes to ~70–80% replace long PRDs as the alignment artifact where suitable, with a short companion doc carrying metrics and guardrails.
+1. **Context foundation** — the product context system: a versioned repo of strategy, positioning, personas, metric definitions, voice + MCP connections to the system of record (Jira/Aha!/Productboard, Confluence/Notion, analytics, call libraries). Built FIRST — context quality, not prompt skill, is what makes every downstream workflow work. And PMs get **configured defaults, not blank tools** — pre-built skills, rules, and connections per role; the distribution pattern behind HubSpot's and Shopify's adoption curves, and how Anthropic PM-built workflows spread internally (packaged as team plugins).
+2. **Discovery & insight** — customer insights triage (support tickets, interviews, NPS), market research briefs, competitor monitoring, product analytics → automated "what changed and what to do" TLDRs instead of dashboard archaeology. This is the largest documented unmet need: PMs use AI for research at ~5% but want it at ~32% — a +27pp gap, the biggest of any PM task (Lenny's 1,750-respondent survey).
+3. **Definition & delivery** — PRD/epic shaping, feature breakdown, story + AC writing (reuses the proven ADLC Define-phase skills: PM Shape Epic / Shape Features / Write Story), and **prototype-first definition**: PM-built working prototypes to ~70–80% replace long PRDs as the alignment artifact where suitable, with a short companion doc carrying metrics and guardrails. For clients also running ADLC, the frontier step: product artifacts move to git — **PRDs versioned like code, the spec as the source of truth agents execute against** (the GitHub Spec-Kit / LaunchDarkly pattern, proven in production).
 4. **Communication & ops** — stakeholder updates, release communication, personal productivity, product knowledge base maintenance. Anything customer- or exec-facing ships only on named human approval.
 
-The map applies to both customer-facing and internal product orgs; Week 0 picks the 2–3 stations with the highest pain for the pilot, not all four at once.
+The map applies to both customer-facing and internal product orgs; Week 0 picks the 2–3 stations with the highest pain for the pilot, not all four at once. Everything runs on the **live backlog from week one — no sandbox pilots**: MIT's GenAI Divide traces the 95% pilot-failure rate to exactly that gap (no workflow integration, no aligned incentives, tools that never learn the org).
 
 ## Program structure
 
-**Week 0 — Express Product Assessment** (reuses the Express SDLC Assessment pattern: intake form + 3–4 working sessions + readout). Outputs: maturity heatmap, ranked pain points, pilot team + use cases, **readiness gate** — frozen metric definitions and 2 sprints of baseline data, system-of-record hygiene confirmed (AC fields, backlog structure), licensing + data-handling sign-off. Hard lesson from DAX: no baseline = unprovable impact; and skills are customized to the client's actual stack (DAX escalated because workshops talked Jira while the client ran Aha!).
+**Week 0 — Express Product Assessment** (reuses the Express SDLC Assessment pattern: intake form + 3–4 working sessions + readout). Outputs: maturity heatmap, ranked pain points, pilot team + use cases, **readiness gate** — frozen metric definitions and 2 sprints of baseline data, system-of-record hygiene confirmed (AC fields, backlog structure), licensing + data-handling sign-off with legal aligned to default-to-yes ("how do we do this safely," not "whether") — the unglamorous unblock behind the fastest corporate adoption curves. Hard lesson from DAX: no baseline = unprovable impact; and skills are customized to the client's actual stack (DAX escalated because workshops talked Jira while the client ran Aha!).
 
 **Weeks 1–6 — Activation Pod** (one pilot product team / PM triad):
 - **W1** Foundations: build the product context system, connect MCPs, intro training (incl. the core working discipline: roll context in, force clarifying questions, block premature deliverables — treat the model like an eager junior), baseline snapshot, friction log opened.
 - **W2** Definition station live: epic/PRD/story skills on the real backlog; champion pairing sessions per PM.
 - **W3** Discovery & insight station: triage pipeline + research/competitor skills; analytics TLDR.
 - **W4** Prototype-first definition + communication station (human-approval gates configured).
-- **W5** Automation: recurring agents (weekly competitor digest, insight triage, metrics TLDR); handoff handshake into engineering (pre-grooming contract — composable with engineering Jumpstart/ADLC if present).
+- **W5** Automation: always-on agents — weekly competitor digest, insight triage, metrics TLDR — designed with persistent memory and parallel fan-out where useful (the adoption-analytics / sentiment-monitoring agent archetypes Anthropic PMs run internally); handoff handshake into engineering (pre-grooming contract — composable with engineering Jumpstart/ADLC if present).
 - **W6** Measure, report, hand over: metric delta vs. baseline, outcomes report, playbook, Go/No-Go to Enablement.
 
 Each week has a written Go/No-Go signal owned by the team champion (same mechanics as the ADLC rollout: champions, weekly micro-retros, friction log, pairing sessions).
 
-**Adoption design for resistant PMs** (the known failure mode): pick the pilot team from early adopters, not skeptics — wins pull the rest; champions get protected 10–15% AI time per sprint as a participation prerequisite; skeptics convert on demonstrated time-back, not training hours. Same plays as the leaders/laggards research, applied to product roles.
+**Adoption design for resistant PMs** (the known failure mode): pick the pilot team from early adopters, not skeptics — wins pull the rest; champions get protected 10–15% AI time per sprint as a participation prerequisite; skeptics convert on demonstrated time-back, not training hours. Same plays as the leaders/laggards research, applied to product roles. Two field-proven levers on top: an **individual 4-tier AI-fluency rubric** per PM (capable → adoptive → transformative; Zapier runs hiring and onboarding on it — the person-level complement to the org-level L1–L5), and an **explicit sponsor mandate** — reflexive AI use stated as a baseline expectation and echoed in review cycles (the Shopify memo pattern; its maximal form gates new headcount on "show AI can't do this job").
 
 **Then — Enablement cohorts**: 4–5 product teams per cohort, 4–6 weeks each, champions coach adoption, optional hackathon. Steady state: Working Group owns the skills library; no consulting dependency.
 
