@@ -1,7 +1,7 @@
 # Jumpstart — PM-focused offering (design)
 
-_status: designing the PM extension of the Jumpstart agentic-AI offering, Jun–Jul 2026 (Bogdan-driven); waiting on Inna's materials, follow-up session ~next week_
-_updated: 2026-06-11_
+_status: v0.1 program one-pager drafted 2026-06-12 — review with Inna ~week of Jun 15; Jun–Jul 2026 mandate (Bogdan-driven)_
+_updated: 2026-06-12_
 
 ## Snapshot
 
@@ -13,10 +13,12 @@ _updated: 2026-06-11_
 - Team shape per engagement: PM 0.5 + Architect 0.5–1 + 2 Intelligence Engineers + 1 of DevOps/QA/BA/Product — picking the wrong 4th role is a recurring failure (DAX: chose DevOps, needed QA, then Product).
 - Buyer persona: CTO + ~10 VPs; the CPO operates separately and SoftServe has minimal CPO-level relationships — the open GTM question for a PM offering.
 - History: Jumpstart methodology originally Alex's; exec ownership since smeared (Arkadiusz + Oleh Marchevich); knowledge-preservation gap (QA module lost with a departing contractor).
+- Inna's materials received 2026-06-12 (local Jumpstart folder): ADLC Framework v1.1 (Daxko), Express SDLC Assessment Checklist, Agentic Metrics deck, Daxko ADLC metrics workbook v3, anonymized status reports. The metrics deck's four categories (Velocity / Quality / Developer Experience / Business Outcomes) are likely the "four-metric framework" Inna couldn't name (inferred).
+- v0.1 offering draft: [program one-pager](../../../outputs/jumpstart-pm/jumpstart-pm-program-one-pager.md) — Week-0 Express Product Assessment → 6-week Activation Pod (4 workflow stations, 11 PM workflows) → Enablement cohorts; L1–L5 product mapping; PM metrics catalog; product governance pack; addresses the walkthrough's open design questions (readiness gate, skills-library-as-IP, CPO motion flagged as open GTM decision).
 
 ## Active threads
 
-- **Offering definition** — what does a "comprehensive" PM-focused Jumpstart look like vs. today's lite workshop coverage? Alex to define after digesting Inna's materials. Open design questions from the walkthrough: a pre-engagement readiness/baseline gate (DAX pattern); systematic handling of mid-maturity "our AI doesn't quite work" clients (today ad-hoc); CPO-engagement motion; a referential best-practice library of skills/agents vs. case-by-case Claude-generated artifacts; name of the four-metric framework Inna couldn't recall.
+- **Offering definition** — v0.1 drafted ([one-pager](../../../outputs/jumpstart-pm/jumpstart-pm-program-one-pager.md)); next: review with Inna, then Bogdan. Open decisions carried in the draft: standalone vs. 4th-seat extension of engineering Jumpstart; CPO-direct GTM now vs. after 2 reference cases; PM skills library as SoftServe IP (recommended yes); pricing/sizing for smaller, higher-touch PM pods.
 
 ## People
 
@@ -34,12 +36,10 @@ _updated: 2026-06-11_
 ## Open loops
 
 Mine:
-- Digest Inna's materials when they arrive → schedule follow-up session with her (~week of Jun 15).
-- Define the comprehensive PM offering vs. current lite coverage.
+- Review the v0.1 one-pager with Inna (~week of Jun 15); fold in feedback, then take to Bogdan.
 - Reach out to Nadia Zerchak (DAX) and Jorge Rojas / Inok (Payworks) for project depth. (inferred)
 
 Theirs:
-- Inna: send key materials (decks, frameworks, references) in chat — committed for same day, 2026-06-11.
 - Inna: check with Bogdan whether the DAX project folder + proposals can be shared with Alex.
 
 ## Activity
