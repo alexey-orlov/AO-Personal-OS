@@ -1,6 +1,6 @@
 # Jumpstart — PM-focused offering (design)
 
-_status: v0.1 program one-pager drafted 2026-06-12 — review with Inna ~week of Jun 15; Jun–Jul 2026 mandate (Bogdan-driven)_
+_status: v0.2 program one-pager (field-calibrated vs. external adoption research) 2026-06-12 — review with Inna ~week of Jun 15; Jun–Jul 2026 mandate (Bogdan-driven)_
 _updated: 2026-06-12_
 
 ## Snapshot
@@ -14,7 +14,7 @@ _updated: 2026-06-12_
 - Buyer persona: CTO + ~10 VPs; the CPO operates separately and SoftServe has minimal CPO-level relationships — the open GTM question for a PM offering.
 - History: Jumpstart methodology originally Alex's; exec ownership since smeared (Arkadiusz + Oleh Marchevich); knowledge-preservation gap (QA module lost with a departing contractor).
 - Inna's materials received 2026-06-12 (local Jumpstart folder): ADLC Framework v1.1 (Daxko), Express SDLC Assessment Checklist, Agentic Metrics deck, Daxko ADLC metrics workbook v3, anonymized status reports. The metrics deck's four categories (Velocity / Quality / Developer Experience / Business Outcomes) are likely the "four-metric framework" Inna couldn't name (inferred).
-- v0.1 offering draft: [program one-pager](../../../outputs/jumpstart-pm/jumpstart-pm-program-one-pager.md) — Week-0 Express Product Assessment → 6-week Activation Pod (4 workflow stations, 11 PM workflows) → Enablement cohorts; L1–L5 product mapping; PM metrics catalog; product governance pack; addresses the walkthrough's open design questions (readiness gate, skills-library-as-IP, CPO motion flagged as open GTM decision).
+- v0.2 offering draft: [program one-pager](../../../outputs/jumpstart-pm/jumpstart-pm-program-one-pager.md) — Week-0 Express Product Assessment → 6-week Activation Pod (4 workflow stations, 11 PM workflows) → Enablement cohorts; L1–L5 product mapping; PM metrics catalog; product governance pack; addresses the walkthrough's open design questions (readiness gate, skills-library-as-IP, CPO motion flagged as open GTM decision). v0.2 folds in external field evidence: configured-defaults distribution (HubSpot/Shopify/Anthropic), PRD-as-code (GitHub/LaunchDarkly), individual fluency rubric (Zapier), and adoption-reality defenses (MIT GenAI Divide 95%-failure root cause, METR perception gap, Gartner 40%-cancellation, post-pilot plateau tactics).
 
 ## Active threads
 
@@ -44,5 +44,6 @@ Theirs:
 
 ## Activity
 
+- 2026-06-12 — [v0.2 field calibration](../../../outputs/jumpstart-pm/jumpstart-pm-program-one-pager.md) — external research sweep (HubSpot, Shopify/First Round, Zapier, Anthropic, Stanford, Lenny's survey, MIT GenAI Divide, METR, Gartner, BCG) folded into the one-pager over 4 review turns; references section now groups company programs / frontier practice / adoption-reality research.
 - 2026-06-12 — [v0.1 program one-pager](../../../outputs/jumpstart-pm/jumpstart-pm-program-one-pager.md) — drafted from the walkthrough + all six shared files + SS-todo workflow topics; ready for the Inna review session.
 - 2026-06-11 — [Jumpstart program walkthrough with Inna](calls/2026-06-11_135929_default_20260611130042C37F547F.md) — offering shape, pipeline, maturity/governance assets, team shape, buyer persona, PM gaps mapped.
