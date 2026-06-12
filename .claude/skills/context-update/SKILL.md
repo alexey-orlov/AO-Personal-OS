@@ -116,9 +116,8 @@ git add context/ && git commit -m "context: <one line on what changed>"
 ```
 When running as the daily cloud routine, also `git push` — the push lands on a `main-*` branch which `.github/workflows/auto-merge-routine.yml` auto-merges into `main`; that is expected, don't fight it.
 
-**9. Notify (sweep / interactive modes only — never headless).** Every routed Second-Brain item produces a Telegram notification in its category topic, via `automations/telegram/` scripts. **Cloud/no-Keychain environments: `export TG_OUTBOX=1` first** — sends are then queued as JSON files in `context/_inbox/outbox/` (include them in the commit) and flushed by the n8n "Second-brain delivery" workflow; locally they send immediately.
-- **Goals / tasks / completions** — do NOT send anything yourself. The n8n "Second-brain delivery" workflow posts each new item as its own 🎯/☑️ message (and syncs ✅ state for completions) from the file at ~08:50 Kyiv — your only job is writing the lines correctly. Count these as "queued (via file)" in the run summary.
-- **Insights** — one message per insight: `TG_TOPIC=insights`, body `<theme emoji> <claim headline>` + the 2–3 distilled lines + `— theme: <slug>`.
+**9. Notify (sweep / interactive modes only — never headless).** Only books and explore items produce Telegram notifications, via `automations/telegram/` scripts. **Cloud/no-Keychain environments: `export TG_OUTBOX=1` first** — sends are then queued as JSON files in `context/_inbox/outbox/` (include them in the commit) and flushed by the n8n "Outbox flush (cloud)" workflow; locally they send immediately.
+- **Goals / tasks / insights / completions** — SILENT by design: no Telegram message. The item surfaces as a `📥`-marked bullet in Alex's Apple Note once the local leg files it. Count them as "queued (apple-notes)" in the run summary.
 - **Books** — handled by the invoked `book-finder` run (`TG_TOPIC=books`); don't double-send.
 - **Explore** — handled by the invoked `explore-brief` run (`TG_TOPIC=explore`); don't double-send.
 - Treat any send failure as non-fatal: report it in the run summary, never abort the fold.
@@ -151,13 +150,14 @@ _updated: YYYY-MM-DD_
 
 - Everything under `outputs/` (`english-coaching/` is the language stream, `inbox-sweep/` is a run log) — never folded.
 - `context/knowledge/podcasts/` — a separate engine (`/podcast-insights`) with its own ledger owns that subtree; never touch it. This skill owns the REST of `context/knowledge/` as OUTPUTS only — the sweep `find` scans `context/areas` and `context/_inbox` and must never scan any part of `context/knowledge/` as input, or the engines will fight over files.
-- `context/_inbox/outbox/` is a delivery queue, not input — never fold it, never scan it.
+- `context/_inbox/outbox/` and `context/_inbox/apple-notes/` are delivery queues this skill WRITES — never fold or scan them as input.
+- `context/areas/<area>/apple-notes/` snapshots are owned by the `apple-notes-sync` skill — read them for context, never edit or fold them.
 - Never edit raw artifacts (`calls/`, `docs/`, `_inbox/` cards) — read-only inputs.
 - Sensitivity: never copy the "Backend context" items of `context/areas/job-search/positioning.md` onto other pages — link to the doc instead; facts that must never leak externally live in exactly one place.
 
 ## Run summary (always output)
 
-One short block: `processed N (folded F · junk J · dup D · pending-voice V) — pages touched: … — drops routed: goals G · tasks T · done C · insights K · books B · explore E · areas A — notifications: sent S / queued Q — new areas/subprojects/themes: … — backlog: …`. In interactive mode add one line per substantive change so Alex can correct the folding.
+One short block: `processed N (folded F · junk J · dup D · pending-voice V) — pages touched: … — drops routed: apple-notes Q (goals/tasks/insights) · books B · explore E · areas A — notifications: sent S / queued O — new areas/subprojects: … — backlog: …`. In interactive mode add one line per substantive change so Alex can correct the folding.
 
 ## Self-check before finishing
 
@@ -167,6 +167,6 @@ One short block: `processed N (folded F · junk J · dup D · pending-voice V) �
 - Ledger updated for EVERY artifact handled, including junk and duplicates (but NOT pending-voice — those stay in the backlog).
 - Drops routed by TYPE (step 3b): no goal/task/insight/book/explore item buried in an area page; prefix hints overridden where content said otherwise; duplicates collapsed to one item.
 - Bare URLs were fetched, images were read.
-- Every routed knowledge item produced its notification (sent or queued; books/explore via their skills); outbox files, if any, are committed.
+- Every goal/task/insight drop produced exactly one apple-notes queue card (verbatim body, frontmatter complete); books/explore produced their notifications via their skills; outbox + queue files, if any, are committed.
 - Folded `context/_inbox/` files moved to `processed/` so the staging dir holds only the backlog.
 - Sweep/interactive: changes committed as `context: …`; headless: no git, no Telegram.
