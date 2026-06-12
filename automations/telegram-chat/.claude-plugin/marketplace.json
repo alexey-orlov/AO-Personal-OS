@@ -1,0 +1,15 @@
+{
+  "name": "ao-personal-os",
+  "description": "AO-Personal-OS local plugins. Currently: the gated Telegram channel fork used by the telegram-chat bridge.",
+  "owner": {
+    "name": "Alex Orlov"
+  },
+  "plugins": [
+    {
+      "name": "telegram",
+      "description": "Fork of telegram@claude-plugins-official 0.0.6 with the TELEGRAM_CHANNEL_POLL single-poller gate — only the bridge session (run.sh) may claim Telegram's one getUpdates consumer slot; all other sessions run tools-only. See automations/telegram-chat/README.md 'Single-poller invariant'.",
+      "category": "productivity",
+      "source": "./plugin"
+    }
+  ]
+}
