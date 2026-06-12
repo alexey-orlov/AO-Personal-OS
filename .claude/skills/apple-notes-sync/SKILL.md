@@ -43,6 +43,7 @@ date: YYYY-MM-DD
 
 **3. Pick the target BLOCK inside the note.** A block = a heading-ish line (usually bold `<div><b>…</b></div>`) followed by a `<ul>` list. Match the item to the block whose heading/contents share its topic (e.g. a LinkedIn-post idea → "LIN Posts:", a build idea → "Tools to build:", a durable ambition → "Goals:"). Insert as the LAST `<li>` of that block's `<ul>`.
 - **No matching block** → create a new block at the TOP of the note (immediately after the title div): `<div><b>📥 Inbox</b></div><ul><li>…</li></ul>` (+ a `<div><br></div>` spacer after). Goals/tasks and insights alike land there as bullets — Apple Notes strips checkbox markup on scripted writes, so native checklist items are impossible (see automation README).
+- Insertions always go ABOVE the note's relevance marker (`## BELOW INFO IS NOT RELEVANT …`) — never into the private section below it.
 
 **4. Compose the item.** `<li><item text verbatim> 📥</li>` — the `📥` suffix marks integration-arrived items; NEVER alter, translate, shorten, or annotate the item text itself.
 
@@ -54,7 +55,7 @@ date: YYYY-MM-DD
 - Archive consumed cards → `context/_inbox/processed/` (Write+delete in headless mode, `git mv` interactively).
 - The helper refuses notes containing native-checklist markup — leave such cards queued and flag the note in the run summary (Alex must keep `_ToDo` lists as plain bullets).
 
-**6. Snapshots (every run, all `_ToDo` notes).** For each note, write `context/areas/<area>/apple-notes/<slug>.md` (area + slug from the note-map; new/renamed notes: classify into an area yourself, add the map row):
+**6. Snapshots (every run, all `_ToDo` notes).** Alex marks the agent-relevant part of each note: everything ABOVE the line `## BELOW INFO IS NOT RELEVANT FOR AGENT'S KNOWLEDGE BASE ##` (and the `————` separator right before it). Snapshot ONLY that part — the content below is private/operational and must never reach the repo. No marker → snapshot the whole note. For each note, write `context/areas/<area>/apple-notes/<slug>.md` (area + slug from the note-map; new/renamed notes: classify into an area yourself, add the map row):
 
 ```markdown
 ---
