@@ -45,3 +45,27 @@ tg_resolve_target() {
       echo "[telegram] unknown TG_TOPIC '$TG_TOPIC' — sending to General" >&2
   fi
 }
+
+# tg_queue_outbox — TG_OUTBOX=1 fallback used by the send scripts when no
+# Telegram credentials are available (e.g. claude.ai cloud routine sandboxes,
+# which have the repo but not the Keychain). Writes the message as a JSON card
+# to context/_inbox/outbox/ — the calling run commits it; the n8n "Second-brain
+# delivery" workflow sends it to the forum group and deletes the file.
+# The thread id is resolved from topics.env directly (works without chat ids);
+# the group chat id itself lives only in Keychain / n8n, never in the card.
+#   $1 = message text · $2 = inline_keyboard rows JSON (default []) · $3 = parse_mode ("" = plain)
+tg_queue_outbox() {
+  command -v jq >/dev/null 2>&1 || { echo "[telegram] jq required to queue outbox" >&2; return 1; }
+  local repo_root; repo_root="$(cd "$_tg_here/../.." && pwd)"
+  local dir="$repo_root/context/_inbox/outbox"
+  mkdir -p "$dir"
+  local slug="${TG_TOPIC:-general}"
+  local key="TG_TOPIC_$(printf '%s' "$slug" | tr 'a-z-' 'A-Z_')"
+  local thread="${!key:-}"
+  local f="$dir/$(date -u +%Y%m%dT%H%M%SZ)-$$-${slug}.json"
+  jq -nc --arg topic "$slug" --arg thread "$thread" --arg text "$1" \
+        --argjson kb "${2:-[]}" --arg pm "${3:-}" \
+    '{topic:$topic, thread_id:$thread, text:$text, buttons:$kb, parse_mode:$pm, queued_at:(now|todate)}' \
+    >"$f" || return 1
+  echo "[telegram] queued to outbox: context/_inbox/outbox/${f##*/}" >&2
+}

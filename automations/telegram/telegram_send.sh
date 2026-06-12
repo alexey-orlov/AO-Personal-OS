@@ -17,8 +17,13 @@ source "$HERE/config.sh"
 tg_resolve_target
 
 if [ -z "${TELEGRAM_BOT_TOKEN:-}" ] || [ -z "${TG_TARGET_CHAT_ID:-}" ]; then
-  echo "[telegram_send] not configured — run automations/telegram/setup.sh" >&2
-  exit 1
+  if [ "${TG_OUTBOX:-0}" != "1" ]; then
+    echo "[telegram_send] not configured — run automations/telegram/setup.sh" >&2
+    exit 1
+  fi
+  # TG_OUTBOX=1: no credentials here (e.g. cloud routine sandbox) — queue the
+  # message to context/_inbox/outbox/ for the n8n delivery workflow instead.
+  TG_QUEUE_ONLY=1
 fi
 
 msg="$(cat)"
@@ -30,6 +35,11 @@ fi
 # Telegram caps sendMessage text at 4096 chars. Safe-truncate just in case.
 if [ "${#msg}" -gt 4000 ]; then
   msg="${msg:0:3990}"$'\n…[truncated]'
+fi
+
+if [ "${TG_QUEUE_ONLY:-0}" = "1" ]; then
+  tg_queue_outbox "$msg" "[]" "" && exit 0
+  exit 1
 fi
 
 # Retry the send on transient network failure (e.g. Wi-Fi still reconnecting
