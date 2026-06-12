@@ -179,6 +179,7 @@
   },
   "active": "c0bbbc95d9a63f9d",
   "lastOpenFiles": [
+    "context/knowledge/podcasts/_inbox/20260612T0402.json",
     "automations/telegram-chat/register_commands.sh",
     "automations/telegram-chat/README.md",
     "automations/telegram-chat/setup.sh",
@@ -215,7 +216,6 @@
     ".claude/skills/draft-message/references/tg-templates.md",
     ".claude/skills/book-finder/references/sources.md",
     ".claude/skills/sales-call/SKILL.md",
-    ".claude/skills/re-engagement-outreach/references",
     "Untitled.canvas"
   ]
 }
