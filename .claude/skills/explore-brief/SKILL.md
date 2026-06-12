@@ -50,7 +50,7 @@ _date: YYYY-MM-DD · sources: N · provenance: [drop](…) or (chat/queue)_
 (numbered points; every claim labeled + tier-cited; specifics named, no "typically")
 
 ## For Alex
-(only REAL hooks into his work — areas, goals-tasks ids, positioning; "-" if none)
+(only REAL hooks into his work — areas, items in his Apple Notes todo snapshots (`context/areas/<area>/apple-notes/`), positioning; "-" if none)
 
 ## Go deeper
 (- [title](url) — one line on why, ranked; the 2–4 best only)

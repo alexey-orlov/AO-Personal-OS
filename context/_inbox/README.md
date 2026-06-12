@@ -13,5 +13,8 @@ Committed staging buffer for Telegram **📥 Drop Zone** captures. The n8n cloud
   (private) GitHub repo is NOT dropped as a file at all: paste it into a Claude Code session
   and say "fold this into context" (pasted mode — distilled facts only, no raw file).
 - `outbox/` — queued Telegram notifications written by a fold run that had no Telegram
-  credentials (cloud); flushed and deleted by the n8n "Second-brain delivery" workflow.
+  credentials (cloud); flushed and deleted by the n8n "Outbox flush (cloud)" workflow.
+- `apple-notes/` — queued goal/task/insight cards written by the fold (one card per item);
+  consumed by the Mac-local `apple-notes-sync` leg, which inserts them into Alex's pinned
+  Apple Notes (`_ToDo`) and archives the cards to `processed/`.
 - Routing taxonomy: `.claude/skills/context-update/SKILL.md`, step 3b (Drop taxonomy).

@@ -35,25 +35,31 @@ goal/task/insight captures now land in Alex's pinned Apple Notes via the
   drop per the Drop taxonomy (step 3b of the skill), then moves card + attachments to
   `context/_inbox/processed/`. Engine-vs-scheduler, same philosophy as `podcast-knowledge`.
   Its push lands on a `main-*` branch — `.github/workflows/auto-merge-routine.yml` merges it
-  into `main` automatically (the sandbox can't push to `main` directly). Telegram
-  notifications from the run are queued to `context/_inbox/outbox/` (`TG_OUTBOX=1`) and sent
-  by the n8n **"Second-brain delivery"** workflow at ~08:50 Kyiv
-  (`automations/second-brain-delivery/README.md`).
+  into `main` automatically (the sandbox can't push to `main` directly). Goal/task/insight
+  drops become queue cards in `context/_inbox/apple-notes/`, consumed by the local
+  `apple-notes-sync` launchd leg (`automations/apple-notes-sync/`) — the cloud sandbox cannot
+  reach Apple Notes. Book/explore Telegram notifications from the run are queued to
+  `context/_inbox/outbox/` (`TG_OUTBOX=1`) and sent by the n8n **"Outbox flush (cloud)"**
+  workflow at ~08:50 Kyiv (`automations/outbox-flush/README.md`).
 
   **Canonical routine prompt** (claude.ai → Code → Routines → "Daily drop-zone & context fold" —
   keep the routine in sync with this block):
-  > First `export TG_OUTBOX=1` (this sandbox has no Telegram credentials — every notification
-  > queues to `context/_inbox/outbox/` for the n8n delivery workflow). Then run the
-  > `context-update` skill in **sweep** mode, following `.claude/skills/context-update/SKILL.md`
-  > exactly: route each unprocessed Drop Zone card by the Drop taxonomy (goals/tasks →
-  > `context/knowledge/goals-tasks.md`; insights → `context/knowledge/insights/`; books →
+  > First `export TG_OUTBOX=1` (this sandbox has no Telegram credentials — book/explore
+  > notifications queue to `context/_inbox/outbox/` for the n8n "Outbox flush (cloud)"
+  > workflow). Then run the `context-update` skill in **sweep** mode, following
+  > `.claude/skills/context-update/SKILL.md` exactly: route each unprocessed Drop Zone card
+  > by the Drop taxonomy (goals/tasks/insights → ONE queue card each in
+  > `context/_inbox/apple-notes/` per the skill's card format — they are filed into Alex's
+  > pinned Apple Notes by the local apple-notes-sync leg; NEVER attempt Apple Notes access
+  > from this sandbox and send no Telegram message for them; books →
   > `context/knowledge/book-shortlist.md` + run the `book-finder` skill links-only, no
   > downloads; explore topics → `context/knowledge/explore/queue.md` + run the `explore-brief`
   > skill; area material → area pages), dedupe re-sent drops, move folded cards to
   > `context/_inbox/processed/`, update the ledger, send/queue the notifications the skill
-  > specifies, commit `context: …` (include any outbox files) and push. The push lands on a
-  > `main-*` branch — expected; the auto-merge Action lands it on `main`. If there are no
-  > unprocessed drops, change nothing and just report. Output only the skill's run-summary block.
+  > specifies, commit `context: …` (include any outbox and apple-notes queue files) and push.
+  > The push lands on a `main-*` branch — expected; the auto-merge Action lands it on `main`.
+  > If there are no unprocessed drops, change nothing and just report. Output only the
+  > skill's run-summary block.
 - **Failure handling**: workflow `errorWorkflow` = "Podcast streaming — error alerts" → Telegram
   alert on crash. Success is silent (quiet-by-default, like the podcast digest).
 - **Security**: the Telegram trigger validates Telegram's `secret_token` header — forged POSTs to

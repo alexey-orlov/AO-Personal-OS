@@ -27,9 +27,17 @@ _updated: 2026-06-12_
 - Bohdan — engagement lead / decision-maker on POC funding split (same Bohdan/Bogdan referenced elsewhere in the SoftServe engagement).
 - Leonid, Vladyslav (joining) — rest of the PdM team.
 - Oracle leadership + weekly-sync participants — intro pending (via the engagement lead).
+- Vladimir — SoftServe partnership/account lead on the Oracle AIDP motion; owns next-steps + joint-GTM follow-up with Milo. [AIDP sales call](calls/oracle/2026-06-12_173159_sales-call_2026061216024378A29A99.md)
+- Stefan — SoftServe CTO Germany; led the differentiation, NVIDIA, and SAP questions on the AIDP call. [AIDP sales call](calls/oracle/2026-06-12_173159_sales-call_2026061216024378A29A99.md)
+- Sergey — SoftServe; owns the migration-accelerator and sandbox-access asks on AIDP. [AIDP sales call](calls/oracle/2026-06-12_173159_sales-call_2026061216024378A29A99.md)
+- Pavel (SoftServe) — owns the check on existing SoftServe Oracle subscription credits that could fund an AIDP pilot. [AIDP sales call](calls/oracle/2026-06-12_173159_sales-call_2026061216024378A29A99.md)
+- Milo (Oracle) — sales/partner-facing lead on AIDP; owns commercials + joint-GTM follow-up. [AIDP sales call](calls/oracle/2026-06-12_173159_sales-call_2026061216024378A29A99.md)
+- Amit (Oracle) — Black Belt, AIDP analytics specialist; ran the deck and live demo. [AIDP sales call](calls/oracle/2026-06-12_173159_sales-call_2026061216024378A29A99.md)
+- Gero (Oracle) — senior sponsor on AIDP; owns the NHS / DHL NDA chase. [AIDP sales call](calls/oracle/2026-06-12_173159_sales-call_2026061216024378A29A99.md)
 
 ## Decisions
 
+- 2026-06-12 — AIDP (AI Data Platform) introduced as a second Oracle co-sell motion alongside cuOpt; SoftServe to start with enablement (sandbox + collateral) and shape joint-GTM packaging with Milo. [AIDP sales call](calls/oracle/2026-06-12_173159_sales-call_2026061216024378A29A99.md)
 - 2026-06-12 — Sync with Olya Hanushchak (Bosch FE, packaging-meeting attendee) and Dmytro Duchenko (Riyadh Air) before forming a productization view → they hold the technical detail and packaging context Olha lacks. [Olha sync](calls/oracle/2026-06-12_151312_one-on-one_20260612143223E84CB5DA.md)
 - 2026-06-09 — Onboarding sequence agreed: case-study deck → meet Dmytro & Olya → feedback to the lead → intro to Oracle leadership + weekly session. [1:1](calls/2026-06-09_183633_one-on-one_2026060917013100B193F3.md)
 
