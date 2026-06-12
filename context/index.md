@@ -6,7 +6,7 @@ One-screen map of what Alex is working on right now. Maintained by the `context-
 
 ## Now (2026-06-12)
 
-- Ramping into a part-time SoftServe engagement (~50–80 h/mo): product lead for the R&D Delivery Unit + agentic-AI SME. In flight: Oracle-partnership onboarding, R&D strategy-session design, Iris client bootcamp (Product stream) starting ~Jun 29, and (new this week) designing a PM-focused extension of the Jumpstart agentic-AI offering across Jun–Jul (Bogdan-driven).
+- Ramping into a part-time SoftServe engagement (~50–80 h/mo): product lead for the R&D Delivery Unit + agentic-AI SME. In flight: Oracle-partnership onboarding, R&D strategy-session design, Iris client bootcamp (Product stream) starting ~Jun 29, and the PM-focused Jumpstart extension (Bogdan-driven) — v0.1 program one-pager drafted Jun 12, review with Inna ~week of Jun 15.
 - Job search (VP Product / CPO, US) active: Zipify Head-of-Product process live (deep-dive Jun 2); Archive Resale closed (rejected May 22 at final round); recruiter pipeline + LSN outreach waves running.
 - GigaCloud CPO duties ongoing — no call artifacts in the OS yet.
 - Laba PM-course tutoring ongoing — no artifacts yet.

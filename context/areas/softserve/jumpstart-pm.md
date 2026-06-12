@@ -44,4 +44,5 @@ Theirs:
 
 ## Activity
 
+- 2026-06-12 — [v0.1 program one-pager](../../../outputs/jumpstart-pm/jumpstart-pm-program-one-pager.md) — drafted from the walkthrough + all six shared files + SS-todo workflow topics; ready for the Inna review session.
 - 2026-06-11 — [Jumpstart program walkthrough with Inna](calls/2026-06-11_135929_default_20260611130042C37F547F.md) — offering shape, pipeline, maturity/governance assets, team shape, buyer persona, PM gaps mapped.

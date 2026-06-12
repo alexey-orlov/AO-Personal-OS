@@ -17,7 +17,7 @@ _updated: 2026-06-12_
 
 - [oracle](oracle.md) — Oracle partnership / joint IP — onboarding; two motions (cuOpt POC pipeline incl. Bosch/Riyadh Air, plus AIDP co-sell now active); next: Olya Hanushchak + Dmytro Duchenko on cuOpt.
 - [iris-bootcamp](iris-bootcamp.md) — Product stream of the Iris client bootcamp — prep; tentative start Jun 29.
-- [jumpstart-pm](jumpstart-pm.md) — PM-focused Jumpstart offering design — Jun–Jul mandate (Bogdan-driven); waiting on Inna's materials.
+- [jumpstart-pm](jumpstart-pm.md) — PM-focused Jumpstart offering design — v0.1 one-pager drafted 2026-06-12; review with Inna ~week of Jun 15.
 
 ## Active threads (area-level)
 
@@ -56,6 +56,7 @@ Theirs (engagement lead):
 
 ## Activity
 
+- 2026-06-12 — [Jumpstart-PM v0.1 one-pager](../../../outputs/jumpstart-pm/jumpstart-pm-program-one-pager.md) — offering draft produced from Inna's materials (received same day) → [jumpstart-pm](jumpstart-pm.md).
 - 2026-06-12 — [Oracle AIDP sales/enablement call](calls/oracle/2026-06-12_173159_sales-call_2026061216024378A29A99.md) — Oracle introduced AIDP as a parallel co-sell motion alongside cuOpt → [oracle](oracle.md).
 - 2026-06-12 — [Olha Terendii sync — Bosch POC + Oracle productization](calls/oracle/2026-06-12_151312_one-on-one_20260612143223E84CB5DA.md) — Oracle onboarding deepened; pipeline + Bosch case context → [oracle](oracle.md).
 - 2026-06-11 — [Jumpstart program walkthrough with Inna](calls/2026-06-11_135929_default_20260611130042C37F547F.md) — PM-extension mandate confirmed; detail folded into [jumpstart-pm](jumpstart-pm.md).
