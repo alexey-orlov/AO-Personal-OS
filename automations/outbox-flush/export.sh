@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# Re-export the live "Second-brain delivery (cloud)" n8n workflow to
-# workflow-second-brain-delivery.json, stripping everything that must never
+# Re-export the live "Outbox flush (cloud)" n8n workflow to
+# workflow-outbox-flush.json, stripping everything that must never
 # reach the repo (CLAUDE.md hard rules):
 #   - the Telegram group chat id      → REDACTED_GROUP_CHAT_ID
 #   - any webhookId (live URL path)   → REDACTED_WEBHOOK_ID
@@ -32,6 +32,6 @@ assert 'github_pat_' not in s, 'GitHub PAT leaked into export!'
 assert re.search(r'bot\d{8,12}:', s) is None, 'Bot token leaked into export!'
 assert chat_id not in s, 'Group chat id leaked into export!'
 
-open('workflow-second-brain-delivery.json', 'w').write(s + '\n')
+open('workflow-outbox-flush.json', 'w').write(s + '\n')
 print('exported + redacted OK')
 "
