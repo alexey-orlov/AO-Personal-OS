@@ -1,6 +1,6 @@
 ---
-tg_goals_message_id: ""
-tg_tasks_message_id: ""
+tg_goals_message_id: "61"
+tg_tasks_message_id: "63"
 ---
 
 # Goals & tasks — captured commitments
