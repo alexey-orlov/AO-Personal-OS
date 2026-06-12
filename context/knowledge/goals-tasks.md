@@ -26,7 +26,7 @@ to ## Done only on occasional cleanups (ids are never reused).
 
 ## Tasks
 
-- [ ] **t1** — GDrive navigator for Claude — browse/navigate Google Drive contents from Claude sessions · added 2026-06-11 · area: personal-os · ([drop](../_inbox/processed/tg-20260611-222757-27.md))
+- [x] **t1** — GDrive navigator for Claude — browse/navigate Google Drive contents from Claude sessions · added 2026-06-11 · area: personal-os · ([drop](../_inbox/processed/tg-20260611-222757-27.md)) · done 2026-06-12
 - [ ] **t2** — Vacancy screening + select + draft applications automation · added 2026-06-11 · area: job-search · ([drop](../_inbox/processed/tg-20260611-222841-30.md))
 - [ ] **t3** — CV optimizer — tailor the CV to a specific job description · added 2026-06-11 · area: job-search · ([drop](../_inbox/processed/tg-20260611-222914-31.md))
 - [ ] **t4** — Company researcher — research a target company before interviews/outreach · added 2026-06-11 · area: job-search · ([drop](../_inbox/processed/tg-20260611-224131-35.md))
