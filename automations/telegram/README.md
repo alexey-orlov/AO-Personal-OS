@@ -13,8 +13,7 @@ All notifications go to one Telegram group with forum Topics enabled. `TG_TOPIC=
 | `daily-digest` | 📰 Daily Digest | podcast-streaming (n8n cloud): daily digest + feed-health + crash alerts |
 | `books` | 📚 Books | book-finder |
 | `dropzone` | 📥 Drop Zone | **Alex → agent**: raw notes/files, captured to `context/_inbox/` by `automations/telegram-inbox/` (n8n cloud) |
-| `goals-tasks` | 🎯 Goals & Tasks | second-brain pipeline: one message per item (🎯 goal / ☑️ task) mirroring `context/knowledge/goals-tasks.md`; Alex's 👍 reaction = done, un-👍 = reopen |
-| `insights` | 💡 My Insights | second-brain pipeline (`context-update`): one message per captured insight, theme emoji |
+| `insights` | 💡 My Insights | LEGACY — no producer since 2026-06-12 (insights now flow to Apple Notes via `apple-notes-sync`); topic kept for history |
 | `explore` | 🔭 Articles & Topics | `explore-brief` skill: research brief + link buttons per explore item |
 | *(unset)* | General | anything uncategorized |
 
@@ -46,7 +45,7 @@ cat message.txt                  | ./telegram_send.sh
 - Sends to the configured chat with `disable_web_page_preview=true`, so URLs in the body don't render giant preview cards on the phone.
 - Truncates at 4000 chars as a failsafe (Telegram caps `sendMessage` at 4096).
 - Exit 0 on success, 1 on any failure (unconfigured / empty stdin / HTTP error / API error). Callers should treat failure as non-fatal and continue.
-- **`TG_OUTBOX=1` (cloud fallback):** when credentials are missing AND this env var is set, both send scripts queue the message as a JSON card in `context/_inbox/outbox/` (topic, thread_id from `topics.env`, text, buttons, parse_mode) and exit 0 — the n8n **"Second-brain delivery"** workflow sends and deletes the cards (see `automations/second-brain-delivery/README.md` for the card format). Used by the claude.ai cloud routines, which have the repo but no Keychain. Without `TG_OUTBOX=1` the unconfigured behaviour is unchanged (exit 1).
+- **`TG_OUTBOX=1` (cloud fallback):** when credentials are missing AND this env var is set, both send scripts queue the message as a JSON card in `context/_inbox/outbox/` (topic, thread_id from `topics.env`, text, buttons, parse_mode) and exit 0 — the n8n **"Outbox flush (cloud)"** workflow sends and deletes the cards (see `automations/outbox-flush/README.md` for the card format). Used by the claude.ai cloud routines, which have the repo but no Keychain. Without `TG_OUTBOX=1` the unconfigured behaviour is unchanged (exit 1).
 
 ## Files
 
