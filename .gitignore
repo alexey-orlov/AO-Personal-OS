@@ -13,3 +13,4 @@ __pycache__/
 
 # macOS
 .DS_Store
+automations/telegram-chat/plugin/node_modules/

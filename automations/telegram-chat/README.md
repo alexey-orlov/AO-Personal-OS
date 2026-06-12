@@ -27,9 +27,12 @@ prompted mode and you want sends gated.
 
 ```
 launchd (com.user.telegram-chat, KeepAlive)
-  └─ start.sh             supervisor: ensures the tmux session exists (10s poll)
+  └─ start.sh             supervisor: ensures the tmux session exists + WATCHDOG:
+       │                  verifies bot.pid is alive and owned by this bridge,
+       │                  respawns the bridge after ~90s of bad state (10s poll)
        └─ tmux session "telegram-chat"
             └─ run.sh     loop: each iteration = a FRESH `claude --channels …` session
+                 │        exports TELEGRAM_CHANNEL_POLL=1 (see invariant below)
                  └─ claude --channels plugin:telegram@claude-plugins-official
 ```
 
