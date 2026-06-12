@@ -47,7 +47,7 @@ Each week has a written Go/No-Go signal owned by the team champion (same mechani
 
 **Adoption design for resistant PMs** (the known failure mode): pick the pilot team from early adopters, not skeptics — wins pull the rest; champions get protected 10–15% AI time per sprint as a participation prerequisite; skeptics convert on demonstrated time-back, not training hours. Same plays as the leaders/laggards research, applied to product roles. Two field-proven levers on top: an **individual 4-tier AI-fluency rubric** per PM (capable → adoptive → transformative; Zapier runs hiring and onboarding on it — the person-level complement to the org-level L1–L5), and an **explicit sponsor mandate** — reflexive AI use stated as a baseline expectation and echoed in review cycles (the Shopify memo pattern; its maximal form gates new headcount on "show AI can't do this job").
 
-**Then — Enablement cohorts**: 4–5 product teams per cohort, 4–6 weeks each, champions coach adoption, optional hackathon. Steady state: Working Group owns the skills library; no consulting dependency.
+**Then — Enablement cohorts**: 4–5 product teams per cohort, 4–6 weeks each, champions coach adoption, optional hackathon (Zapier's took company-wide usage 10%→50% in one week). Adoption stays owned by **line product leads, not a central AI team** — the consistent success pattern in the failure research. Plan for the documented curve: rollouts that skip the foundations plateau at 15–20%; past ~60% adoption skepticism *resurges*, and the playbook flips to peer demo videos and trend data rather than louder mandates (HubSpot's curve). Steady state: Working Group owns the skills library **with explicit kill criteria** — skills and agents that stop earning usage get sunset on schedule, the planned version of what otherwise happens unplanned (Gartner: >40% of agentic-AI projects canceled by 2027 on cost and unclear value). No consulting dependency.
 
 ## Metrics (baseline 2 sprints before; never rank individuals; report quarterly)
 
@@ -59,20 +59,20 @@ Each week has a written Go/No-Go signal owned by the team champion (same mechani
 | Experience & business | PM DX score; time saved per role/sprint | DX ≥4.0/5 |
 | **Guardrails** | downstream defect escape, mid-sprint scope change | must not degrade — speed at the cost of spec quality is the failure mode |
 
-Pair telemetry with the DX survey — divergence between "what happened" and "how it feels" is the single most informative adoption signal. Expect the J-curve: a ~3-month dip with enablement, 12+ months without (DORA 2026). Make the Wave-1 regression explicit in the governance narrative or one bad sprint kills a good skill.
+Calibrate sponsor expectations with field numbers: AI compresses PM execution work ~15–25% today, not 10× (Lenny's survey), and self-reports overstate gains — METR's RCT found developers who *felt* 20% faster measured 19% *slower* — hence telemetry over testimony. Pair telemetry with the DX survey — divergence between "what happened" and "how it feels" is the single most informative adoption signal. Expect the J-curve: a ~3-month dip with enablement, 12+ months without (DORA 2026). Make the Wave-1 regression explicit in the governance narrative or one bad sprint kills a good skill.
 
 ## Governance & processes set up (the "basic processes" deliverable)
 
 Extends the existing visibility / policy / enforcement operating model to product surfaces:
 - **Visibility:** AI tool inventory incl. shadow AI in product roles; usage telemetry.
 - **Policy:** risk tiers (T1 drafting assistant → T3 agent with write access to roadmap/customer comms); data classification for customer interviews, support tickets, PII in insight pipelines; human-in-the-loop checkpoints per tier; AI never publishes externally without a named approver.
-- **Enforcement:** approved-tools registry, secret/PII scanning on prompts, audit trail, kill switch; token budgets per pod (token economics are a board-level topic since the metering shift).
+- **Enforcement:** approved-tools registry, secret/PII scanning on prompts, audit trail, kill switch; token spend **visible per pod from day one, but no punitive caps during activation** — meter anxiety kills adoption faster than overspend (Shopify runs uncapped budgets with a public usage leaderboard). The discipline is watching both meters — productivity and cost — together; caps come at steady state, not during the learning curve.
 
 EU AI Act (enforcement from Aug 2026) makes the governance module a door-opener for EU product orgs — proven at Telenor.
 
 ## Engagement team & buyer
 
-**Pod:** Product Lead 0.5 FTE (offering owner) + 1–2 Intelligence Engineers + Product Ops/BA 0.5. This fixes the recurring "wrong 4th seat" failure on engineering pods — product expertise is in the core team, not an afterthought.
+**Pod:** Product Lead 0.5 FTE (offering owner) + 1–2 Intelligence Engineers + Product Ops/BA 0.5. This fixes the recurring "wrong 4th seat" failure on engineering pods — product expertise is in the core team, not an afterthought. Pod effort is allocated on BCG's 10-20-70 rule: ~70% goes to workflow redesign, enablement, and adoption design — not to tools and prompts.
 **Buyer today:** CTO + VPs (existing relationships; DAX/Telenor product teams already waiting for product-workflow agent ideas). **CPO direct motion = open GTM question** — product orgs buy separately from CTOs; the PE-portfolio productivity mandate (GI Partners: +35% by EOY 2026) is the likely entry argument.
 
 ## What the client keeps (no lock-in)
@@ -98,7 +98,7 @@ Product context system + skills library (versioned, on their marketplace) · mat
 
 1. Standalone offering vs. 4th-seat extension of engineering Jumpstart — or both, with the extension as the land motion?
 2. CPO-direct GTM: build now or after 2 reference cases via CTO-sponsored pilots?
-3. Referential PM skills/agents library as SoftServe IP (vs. case-by-case Claude-generated) — recommend yes: it's the scaling asset, the moat, and the fix for the knowledge-preservation gap (the QA module was lost with one departing contractor).
+3. Referential PM skills/agents library as SoftServe IP (vs. case-by-case Claude-generated) — recommend yes: it's the scaling asset, the moat, and the fix for the knowledge-preservation gap (the QA module was lost with one departing contractor). It also puts us on the right side of the buy-vs-build statistic: externally-partnered AI tooling succeeds ~67% of the time vs ~22% for internal builds (MIT GenAI Divide).
 4. Pricing/sizing parity with engineering pods, given PM pods are smaller but higher-touch.
 
 ---
