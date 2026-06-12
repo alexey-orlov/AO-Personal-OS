@@ -14,7 +14,7 @@ claude.ai routine (~08:03 Kyiv, cloud) ─▶  /podcast-insights sweep  → fold
 The knowledge base itself is documented in `context/knowledge/podcasts/index.md`.
 
 ## Why this layout
-The only time-sensitive step (capturing summaries before they scroll out of Telegram/email) runs in **n8n cloud** — so a sleeping laptop loses nothing. The clustering step runs as a **cloud routine**, but even if it ever lags it self-heals: the per-insight ledger means the next run folds whatever's still unprocessed. Same philosophy as the v3 digest self-heal and the `inbox/`→`context-update` flow.
+The only time-sensitive step (capturing summaries before they scroll out of Telegram/email) runs in **n8n cloud** — so a sleeping laptop loses nothing. The clustering step runs as a **cloud routine**, but even if it ever lags it self-heals: the per-insight ledger means the next run folds whatever's still unprocessed. Same philosophy as the v3 digest self-heal and the `context/_inbox/`→`context-update` flow.
 
 ## Setup
 

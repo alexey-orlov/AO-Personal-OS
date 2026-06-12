@@ -13,8 +13,3 @@ __pycache__/
 
 # macOS
 .DS_Store
-
-# inbox/ — local drop zone for context-update. Raw drops stay local (privacy,
-# same policy as transcripts); only the distilled wiki (context/) is committed.
-inbox/*
-!inbox/README.md
