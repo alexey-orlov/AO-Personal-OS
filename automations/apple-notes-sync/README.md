@@ -37,13 +37,25 @@ wait if the laptop is closed — nothing is lost.
 
 ## Platform constraints (why it works the way it does)
 
-- **No native checkboxes via scripting.** AppleScript can only write HTML; Apple
-  Notes strips checklist markup on write (verified 2026-06-12). So inserted items are
-  PLAIN BULLETS with a trailing `📥` marker — including todos/goals. Alex's existing
-  lists are plain bullets anyway. Corollary: **keep `_ToDo` lists as plain bullets** —
-  if a note is converted to native checklists in the UI, scripted writes would flatten
-  the checkbox state, so `notes_set_body.sh` refuses to touch such notes and the
-  skill leaves their cards queued (visible in the run summary).
+- **Native checklists are invisible to AppleScript** (verified 2026-06-12): `body`
+  renders checklist items as empty `<li><br></li>`s and `plaintext` omits their text
+  entirely — both read AND write are blind, and a body write DESTROYS the checklist.
+  Consequences:
+  - `notes_set_body.sh` refuses any note whose body shows empty list items; the
+    background body-rewrite path is only for verified checklist-free (bullet-only)
+    notes — for those it works with Notes closed and the screen locked.
+  - Checklist-bearing notes are read via `notes_ax_read.sh` (Accessibility view of
+    the open note) and extended via `notes_ax_insert.sh`: ⌘F to the anchor line →
+    Return at end of line (Notes natively continues the list — a REAL checkbox row
+    in a checklist) → paste item → AX-verify → ⌘Z on mismatch. Demonstrated live
+    2026-06-12 (also via the desktop computer-use bridge). Needs the screen unlocked;
+    queued cards simply wait otherwise.
+  - **One-time grant for unattended checklist inserts:** System Settings → Privacy &
+    Security → Accessibility → enable **osascript** (drag in `/usr/bin/osascript` if
+    absent) and **Claude**. Until granted, `notes_ax_*` fails with error -1719 and
+    checklist-bound cards stay queued (bullet-note cards are unaffected).
+  - Optional upgrade: granting **Full Disk Access** would enable a direct (read-only)
+    NoteStore.sqlite reader — full checklist text + checked state, headless. Not built yet.
 - **Pinned status isn't scriptable** — folder membership is the contract: every note
   in `_ToDo` is a routing candidate. Add/remove notes there to change the set.
 - **HTML round-trip collapses consecutive spaces** in existing text (verified
@@ -51,7 +63,6 @@ wait if the laptop is closed — nothing is lost.
 - **Relevance marker**: Alex ends the agent-relevant part of each note with
   `## BELOW INFO IS NOT RELEVANT FOR AGENT'S KNOWLEDGE BASE ##`. Snapshots stop there
   (the private tail never reaches the repo) and insertions always go above it.
-- Notes app doesn't need to be open or frontmost; writes work in the background.
 
 ## Recovery
 

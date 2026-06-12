@@ -13,7 +13,6 @@ All notifications go to one Telegram group with forum Topics enabled. `TG_TOPIC=
 | `daily-digest` | 📰 Daily Digest | podcast-streaming (n8n cloud): daily digest + feed-health + crash alerts |
 | `books` | 📚 Books | book-finder |
 | `dropzone` | 📥 Drop Zone | **Alex → agent**: raw notes/files, captured to `context/_inbox/` by `automations/telegram-inbox/` (n8n cloud) |
-| `insights` | 💡 My Insights | LEGACY — no producer since 2026-06-12 (insights now flow to Apple Notes via `apple-notes-sync`); topic kept for history |
 | `explore` | 🔭 Articles & Topics | `explore-brief` skill: research brief + link buttons per explore item |
 | *(unset)* | General | anything uncategorized |
 
