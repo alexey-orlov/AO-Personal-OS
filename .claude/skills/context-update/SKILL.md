@@ -1,6 +1,6 @@
 ---
 name: context-update
-description: Fold new artifacts into the context wiki (context/index.md + context/areas/<area>/) and route drop-zone captures to their Second-Brain homes (context/knowledge/ — goals-tasks.md, insights/, book-shortlist.md, explore/ — plus area pages and people/). Three modes — sweep (no args: process everything new under context/areas/*/calls/, context/areas/*/docs/ and context/_inbox/ via the ledger), single artifact (a path; also used headlessly by the call-pipeline after each note), pasted content. Detects new subprojects and areas and creates their pages, refreshes the Now snapshot, keeps provenance links, skips junk (mic tests, empty recordings), and sends per-category Telegram notifications (🎯 goals-tasks board summary, 💡 insights, 📚 books via book-finder, 🔭 explore briefs via explore-brief). Use on /context-update, "update my context", "fold this in / into context", "sync the wiki", after Alex shares a meeting outcome, document, or draft notes worth remembering, or when context/index.md looks stale. Also the engine behind the daily drop-zone fold cloud routine.
+description: Fold new artifacts into the context wiki (context/index.md + context/areas/<area>/) and route drop-zone captures by type — goals/tasks/insights become queue cards in context/_inbox/apple-notes/ (filed into Alex's pinned Apple Notes by the apple-notes-sync local leg), books go to context/knowledge/book-shortlist.md + book-finder, explore topics to context/knowledge/explore/ + explore-brief, plus area pages and people/. Three modes — sweep (no args: process everything new under context/areas/*/calls/, context/areas/*/docs/ and context/_inbox/ via the ledger), single artifact (a path; also used headlessly by the call-pipeline after each note), pasted content. Detects new subprojects and areas and creates their pages, refreshes the Now snapshot, keeps provenance links, skips junk (mic tests, empty recordings), and sends Telegram notifications for books (📚 via book-finder) and explore briefs (🔭 via explore-brief) — goal/task/insight drops are silent by design (they surface as 📥 items in Apple Notes). Use on /context-update, "update my context", "fold this in / into context", "sync the wiki", after Alex shares a meeting outcome, document, or draft notes worth remembering, or when context/index.md looks stale. Also the engine behind the daily drop-zone fold cloud routine.
 disable-model-invocation: false
 user-invocable: true
 ---
@@ -16,7 +16,7 @@ user-invocable: true
   - `docs/` — manually added source materials (transcripts, documents Alex chose to commit).
 - **Cross-area**: `context/index.md` (map + "Now" snapshot), `context/people/<slug>.md` (recurring people), `context/_meta/processed.txt` (ledger).
 - **Drop zone (input)**: `context/_inbox/` — cloud captures from the Telegram 📥 Drop Zone (committed; one `.md` card per drop, media alongside). There is no local drop zone (root `inbox/` retired 2026-06-12); sensitive material arrives as pasted content only.
-- **Second-Brain destinations (outputs, owned by this skill)** — the four capture categories of `context/knowledge/` (map: `context/knowledge/README.md`): `goals-tasks.md`, `insights/`, `book-shortlist.md`, `explore/queue.md` (+ `explore/briefs/` via the `explore-brief` skill) — plus area pages and `context/people/`.
+- **Second-Brain destinations (outputs, owned by this skill)** — goal/task/insight drops become QUEUE CARDS in `context/_inbox/apple-notes/` (consumed by the `apple-notes-sync` skill's local leg, which files them into Alex's pinned Apple Notes — map: `context/knowledge/README.md`); books → `context/knowledge/book-shortlist.md`; explore topics → `context/knowledge/explore/queue.md` (+ `explore/briefs/` via the `explore-brief` skill) — plus area pages and `context/people/`.
 - **Raw artifacts are read-only inputs**: never edit anything in `calls/`, `docs/`, or `_inbox/` cards — wiki pages link INTO them (provenance).
 - **Ledger** = one repo-root-relative path per line = "already folded". Idempotency across runs and devices.
 - Invariant to protect: an agent that reads `index.md` plus one area README has working context for that area without opening any raw note.
@@ -33,7 +33,7 @@ user-invocable: true
 
 **1. Discover (sweep mode only):**
 ```bash
-comm -23 <(find context/areas context/_inbox -type f \( -name '*.md' -o -name '*.txt' -o -name '*.pdf' -o -name '*.docx' \) \( -path '*/calls/*' -o -path '*/docs/*' -o -path 'context/_inbox/*' \) ! -name 'README.md' ! -path '*/processed/*' ! -path '*/outbox/*' 2>/dev/null | sort) <(sort context/_meta/processed.txt 2>/dev/null)
+comm -23 <(find context/areas context/_inbox -type f \( -name '*.md' -o -name '*.txt' -o -name '*.pdf' -o -name '*.docx' \) \( -path '*/calls/*' -o -path '*/docs/*' -o -path 'context/_inbox/*' \) ! -name 'README.md' ! -path '*/processed/*' ! -path '*/outbox/*' ! -path '*/apple-notes/*' 2>/dev/null | sort) <(sort context/_meta/processed.txt 2>/dev/null)
 ```
 If more than ~15 are new, process newest-first and report what was left for the next run — no silent truncation.
 
@@ -59,10 +59,10 @@ If more than ~15 are new, process newest-first and report what was left for the 
 
 | Type | Signal | Destination + follow-through |
 |---|---|---|
-| Goal | durable direction, multi-month ambition | `knowledge/goals-tasks.md` → `## Goals`, next free `g<n>` id |
-| Task | concretely doable item — automation idea, post/content idea, errand | `knowledge/goals-tasks.md` → `## Tasks`, next free `t<n>` id |
-| Completion | "done X" / "сделал X" naming an existing goal/task | toggle that line `[ ]`→`[x]` + ` · done YYYY-MM-DD` |
-| Insight | a claim, idea, article, screenshot worth keeping | `knowledge/insights/themes/<slug>.md` (rules below) |
+| Goal | durable direction, multi-month ambition | queue card `kind: goal` in `context/_inbox/apple-notes/` (format below) — the local `apple-notes-sync` leg files it into the matching pinned Apple Note |
+| Task | concretely doable item — automation idea, post/content idea, errand | queue card `kind: task` in `context/_inbox/apple-notes/` |
+| Completion | "done X" / "сделал X" naming a finished item | no programmatic home (Alex ticks/edits his Apple Notes himself) — ledger the drop, mention in the run summary, route nothing |
+| Insight | a claim, idea, article, screenshot worth keeping | queue card `kind: insight` in `context/_inbox/apple-notes/` — distill to ONE self-contained claim line first (fetch URLs, read screenshots; the card body is what will appear verbatim in the note) |
 | Book | a title to read, a rec, a cover screenshot | `knowledge/book-shortlist.md` per the `book-shortlist` skill's rules (resolve Title + Author, categorize, dedup), then INVOKE the `book-finder` skill for the new title — its Telegram delivery lands in 📚 Books. Skip file downloads when running headless/cloud. |
 | Explore topic | "look into X", a URL to digest, an open question | `knowledge/explore/queue.md` `## Open` line, then INVOKE the `explore-brief` skill for it — brief + 🔭 Telegram delivery |
 | Area/project material | meeting outcome, document, fact about an active thread | `context/areas/…` per steps 3–5 |
