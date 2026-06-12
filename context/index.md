@@ -10,7 +10,7 @@ One-screen map of what Alex is working on right now. Maintained by the `context-
 - Job search (VP Product / CPO, US) active: Zipify Head-of-Product process live (deep-dive Jun 2); Archive Resale closed (rejected May 22 at final round); recruiter pipeline + LSN outreach waves running.
 - GigaCloud CPO duties ongoing — no call artifacts in the OS yet.
 - Laba PM-course tutoring ongoing — no artifacts yet.
-- Building out this Personal OS: call pipeline + git-autosync + context wiki live; automation backlog forming (GDrive navigator, vacancy screener, CV optimizer, company researcher); open issue: calendar OAuth token expired (notes since Jun 8 lack calendar headers).
+- Building out this Personal OS: call pipeline + git-autosync + context wiki live; captured goals & build backlog tracked in [knowledge/goals-tasks.md](knowledge/goals-tasks.md); open issue: calendar OAuth token expired (notes since Jun 8 lack calendar headers).
 - US relocation planned, visa timing tentatively Sep–Oct 2026 (per SoftServe 1:1; positioning rules in [positioning](areas/job-search/positioning.md)).
 
 ## Areas
@@ -23,13 +23,12 @@ Each area folder holds: `README.md` (live state), `<subproject>.md` pages (one p
 | [Job search](areas/job-search/README.md) | active — one page per vacancy + outreach | [zipify](areas/job-search/zipify.md) · [outreach](areas/job-search/outreach.md) · [archive-resale](areas/job-search/archive-resale.md) (closed) | 2026-06-02 |
 | [GigaCloud](areas/gigacloud/README.md) | CPO role; no call artifacts in the OS yet | - | - |
 | [Laba](areas/laba/README.md) | PM-course tutoring; no artifacts yet | - | - |
-| [Personal OS](areas/personal-os/README.md) | pipeline + autosync + context wiki live; automation backlog forming; open: calendar OAuth expired | - | 2026-06-12 |
+| [Personal OS](areas/personal-os/README.md) | pipeline + autosync + context wiki live; backlog in knowledge/goals-tasks.md; open: calendar OAuth expired | - | 2026-06-12 |
 
 ## Cross-area reference
 
-- [knowledge/](knowledge/README.md) — knowledge tree (things I'm learning from the world, vs. `areas/` = things I'm working on). Holds [knowledge/podcasts/](knowledge/podcasts/index.md) (self-updating podcast insight base, owned by `/podcast-insights`), [knowledge/notes/](knowledge/notes/index.md) (external-world insights from Drop Zone captures, owned by `context-update`), and [knowledge/explore-queue.md](knowledge/explore-queue.md) (topics to dig into).
+- [knowledge/](knowledge/README.md) — the second brain (things I'm capturing and learning, vs. `areas/` = things I'm working on). Four capture categories, each with one home + a mirrored Telegram topic: [goals-tasks.md](knowledge/goals-tasks.md) (🎯), [insights/](knowledge/insights/index.md) (💡), [book-shortlist.md](knowledge/book-shortlist.md) (📚), [explore/](knowledge/explore/queue.md) (🔭) — plus [podcasts/](knowledge/podcasts/index.md) (automated, owned by `/podcast-insights`). Map + rules: `knowledge/README.md`.
 - [areas/job-search/positioning.md](areas/job-search/positioning.md) — job-search positioning: public vs. backend framing, recruiter story, target roles.
-- [book-shortlist.md](book-shortlist.md) — reading shortlist (not a project).
 - `people/` — person pages, created on demand by `context-update` for recurring people.
 - `areas/other/` — classifier catch-all for unrouted calls (mostly junk; `context-update` junk-gates it).
 
