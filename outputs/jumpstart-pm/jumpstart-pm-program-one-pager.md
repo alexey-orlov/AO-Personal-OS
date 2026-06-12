@@ -4,7 +4,7 @@ _v0.1 draft for discussion with Inna / Bogdan · 2026-06-12 · owner: Alex Orlov
 
 ## Executive summary
 
-A 6-week Activation Pod (plus Week-0 assessment) that takes one product team from ad-hoc chat use to agent-supported product workflows — then scales by cohort, exactly like the engineering Jumpstart. Same proven spine (assess → baseline → activate → enable → hand over), new payload: the eleven PM workflows where product orgs lose time today. The wedge: product is the **last** function clients automate (Telenor: zero AI in product; DAX: one team on Claude, PMs resistant), yet PMs gain the most leverage from agents — the gap between "knowing what to build" and "shipping it" is collapsing. Engineering Jumpstart makes delivery faster; this program fixes what then becomes the bottleneck — the quality and speed of what product feeds into delivery.
+A 6-week Activation Pod (plus Week-0 assessment) that takes one product team from ad-hoc chat use to agent-supported product workflows — then scales by cohort, exactly like the engineering Jumpstart. Same proven spine (assess → baseline → activate → enable → hand over), new payload: the eleven PM workflows where product orgs lose time today. The wedge is already in our own data: with coding largely solved by mid-2026, the residual pain Inna names — backlog quality, context management, spec gaps — sits **upstream, in product**. Yet product is the last function clients automate (Telenor: zero AI in product; DAX: one team on Claude, PMs resistant), while PMs gain the most leverage from agents — the gap between "knowing what to build" and "shipping it" is collapsing. Engineering Jumpstart makes delivery faster; this program fixes what then becomes the bottleneck — the quality and speed of what product feeds into delivery. **First deployments are waiting in the existing pipeline:** DAX (PM gap already escalated; relationship in place) and Telenor product teams (explicitly waiting for product-workflow agent ideas; governance angle opens the door).
 
 **Positioning mirror:** clients ask "make our PMs AI-ready"; we answer "make your product operating system AI-ready" — context, artifact hygiene, and governance are the real blockers, not tool skills. (Same reframe as "AI-ready → SDLC-ready" on the engineering side.)
 
@@ -29,6 +29,8 @@ Grouped into four stations; each gets skills built on the client's actual tool s
 3. **Definition & delivery** — PRD/epic shaping, feature breakdown, story + AC writing (reuses the proven ADLC Define-phase skills: PM Shape Epic / Shape Features / Write Story), and **prototype-first definition**: PM-built working prototypes to ~70–80% replace long PRDs as the alignment artifact where suitable, with a short companion doc carrying metrics and guardrails.
 4. **Communication & ops** — stakeholder updates, release communication, personal productivity, product knowledge base maintenance. Anything customer- or exec-facing ships only on named human approval.
 
+The map applies to both customer-facing and internal product orgs; Week 0 picks the 2–3 stations with the highest pain for the pilot, not all four at once.
+
 ## Program structure
 
 **Week 0 — Express Product Assessment** (reuses the Express SDLC Assessment pattern: intake form + 3–4 working sessions + readout). Outputs: maturity heatmap, ranked pain points, pilot team + use cases, **readiness gate** — frozen metric definitions and 2 sprints of baseline data, system-of-record hygiene confirmed (AC fields, backlog structure), licensing + data-handling sign-off. Hard lesson from DAX: no baseline = unprovable impact; and skills are customized to the client's actual stack (DAX escalated because workshops talked Jira while the client ran Aha!).
@@ -42,6 +44,8 @@ Grouped into four stations; each gets skills built on the client's actual tool s
 - **W6** Measure, report, hand over: metric delta vs. baseline, outcomes report, playbook, Go/No-Go to Enablement.
 
 Each week has a written Go/No-Go signal owned by the team champion (same mechanics as the ADLC rollout: champions, weekly micro-retros, friction log, pairing sessions).
+
+**Adoption design for resistant PMs** (the known failure mode): pick the pilot team from early adopters, not skeptics — wins pull the rest; champions get protected 10–15% AI time per sprint as a participation prerequisite; skeptics convert on demonstrated time-back, not training hours. Same plays as the leaders/laggards research, applied to product roles.
 
 **Then — Enablement cohorts**: 4–5 product teams per cohort, 4–6 weeks each, champions coach adoption, optional hackathon. Steady state: Working Group owns the skills library; no consulting dependency.
 
@@ -87,13 +91,14 @@ Product context system + skills library (versioned, on their marketplace) · mat
 | Governance operating model + risk tiers + kill switch (sales-enablement deck) | product governance pack |
 | Velocity / Quality / Experience / Business metrics framing (Agentic Metrics deck) | metric categories above — likely the "four-metric framework" from the walkthrough (inferred) |
 | "What you keep" handover model, Activation→Enablement→Agentic Team scaling | program arc |
+| Tiered training curriculum (Greg's workshops: LLM/agents intro → applied skills → context engineering) | adapted as the PM training track, taught on the client's own backlog |
 | 10–15% protected adoption time per sprint (MIT TR × SoftServe research) | prerequisite for participating teams |
 
 ## Open decisions (for the Inna/Bogdan session)
 
 1. Standalone offering vs. 4th-seat extension of engineering Jumpstart — or both, with the extension as the land motion?
 2. CPO-direct GTM: build now or after 2 reference cases via CTO-sponsored pilots?
-3. Referential PM skills/agents library as SoftServe IP (vs. case-by-case Claude-generated) — recommend yes; it's the scaling asset and the moat.
+3. Referential PM skills/agents library as SoftServe IP (vs. case-by-case Claude-generated) — recommend yes: it's the scaling asset, the moat, and the fix for the knowledge-preservation gap (the QA module was lost with one departing contractor).
 4. Pricing/sizing parity with engineering pods, given PM pods are smaller but higher-touch.
 
 ---
