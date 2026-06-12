@@ -129,6 +129,8 @@ Then pair (first run only): DM the bot → it replies with a code →
 | Stop the bridge | `launchctl unload ~/Library/LaunchAgents/com.user.telegram-chat.plist && tmux kill-session -t telegram-chat` |
 | Start it again | `launchctl load ~/Library/LaunchAgents/com.user.telegram-chat.plist` |
 | Supervisor logs | `/tmp/telegram-chat.out.log`, `/tmp/telegram-chat.err.log` |
+| Update the fork plugin | edit `plugin/` (the installed plugin runs LIVE from this repo dir) → `./new_session.sh` |
+| Change the receipt emoji | `/telegram:access set ackReaction <emoji>` (or edit `~/.claude/channels/telegram/access.json`) |
 
 ## VPS migration (later, for laptop-independence)
 

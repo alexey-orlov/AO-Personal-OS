@@ -17,9 +17,22 @@ if ! command -v bun >/dev/null; then
 fi
 bun --version
 
-echo "== 3/6 Telegram channel plugin"
-claude plugin install telegram@claude-plugins-official 2>/dev/null \
+echo "== 3/6 Telegram channel plugin — the repo's GATED FORK via local marketplace"
+# Single-poller invariant (see README): the official plugin must stay disabled;
+# only the fork (with the TELEGRAM_CHANNEL_POLL gate) may be enabled.
+claude plugin marketplace add "$DIR" 2>/dev/null || true
+claude plugin install telegram@ao-personal-os --scope user 2>/dev/null \
   || echo "   (already installed)"
+python3 - <<'PY'
+import json, os
+p = os.path.expanduser('~/.claude/settings.json')
+d = json.load(open(p)) if os.path.exists(p) else {}
+ep = d.setdefault('enabledPlugins', {})
+ep['telegram@claude-plugins-official'] = False
+ep['telegram@ao-personal-os'] = True
+json.dump(d, open(p, 'w'), indent=2)
+print('   enabledPlugins: official=False, ao-personal-os fork=True')
+PY
 
 echo "== 4/6 Bot token -> ~/.claude/channels/telegram/.env (from Keychain, never committed)"
 TOKEN="$(security find-generic-password -a "$USER" -s TELEGRAM_CC_BOT_TOKEN -w)"
