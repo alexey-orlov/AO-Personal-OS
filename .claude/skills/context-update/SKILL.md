@@ -69,7 +69,7 @@ If more than ~15 are new, process newest-first and report what was left for the 
 | People fact | durable fact about a person | step 5 (people pages) |
 | Junk | accidental forward, empty, test message | ledger + count as junk |
 
-- **Knowledge categories beat area routing.** A goal/task/insight/book/explore item that clearly belongs to an area still lands in its `knowledge/` home, tagged ` · area: <slug>` — so every capture stays visible in one general place. The area page gets at most a one-line pointer (id or link), and only when area-level state actually changed. Never restate the item on the area page.
+- **Type routing beats area routing.** A goal/task/insight/book/explore item that clearly belongs to an area still routes by TYPE (apple-notes queue card with `area:` set in the frontmatter, book shortlist, explore queue) — never buried in an area page. The area page gets at most a one-line pointer, and only when area-level state actually changed. Never restate the item on the area page.
 - *Reading the drop:* a bare URL → fetch it (WebFetch) and distill what's actually at the link, don't file naked URLs; an image attachment → Read the image (screenshots usually carry the whole payload); an `attachment:` voice file with no transcript → cannot fold: report as `pending-voice` in the summary and do NOT ledger it (stays in the backlog until transcribed).
 - *Provenance for drops:* link cards at their FINAL home — `context/_inbox/processed/<file>` (they move there in step 8).
 
@@ -94,7 +94,7 @@ date: YYYY-MM-DD
 - **Rewrite in place.** `_status:`, Snapshot, and Active threads always describe current truth. Never stack "UPDATE:" lines; a newer fact replaces the older one. If the change itself matters (a decision, a closure, a pivot), record it as one line under Decisions or Activity.
 - **Provenance**: every non-obvious claim links to its source, relative to the page — from an area README that's `calls/<file>.md`, `docs/<file>.md`, or `calls/<sub>/<file>.md`. Filenames with spaces use the `[text](<path with spaces.md>)` form.
 - Repo conventions apply: evidence-bound, specific, no filler; mark inferences "(inferred)"; "-" for empty sections; dates as YYYY-MM-DD.
-- **Open loops**: add new commitments/waiting-ons with owner (Mine/Theirs) and date when known; DELETE completed or expired ones — move to Activity only if noteworthy. Captured goals/tasks do NOT live here (they live in goals-tasks.md) — open loops are for commitments arising from calls/threads.
+- **Open loops**: add new commitments/waiting-ons with owner (Mine/Theirs) and date when known; DELETE completed or expired ones — move to Activity only if noteworthy. Captured goals/tasks do NOT live here (they go to Alex's pinned Apple Notes via the apple-notes queue) — open loops are for commitments arising from calls/threads.
 - **Activity**: prepend `- YYYY-MM-DD — [short label](path) — one line on what changed`; keep ≤10 lines, drop the oldest (the artifact stream is the archive).
 - **Budget**: page ≤120 lines. Trim Activity and pruned loops first; if Snapshot/Threads genuinely outgrow it, split a subproject page and link it.
 - Don't copy transcript quotes longer than one line — distill.
