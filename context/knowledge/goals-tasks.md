@@ -19,16 +19,16 @@ Checked items stay in place; archive to ## Done only on occasional cleanups (ids
 
 ## Goals
 
-- [ ] **g1** — Build the Personal OS into a reference model for a personal→team AI OS · added 2026-06-11 · area: personal-os · ([drop](../_inbox/processed/tg-20260611-222707-25.md))
-- [ ] **g2** — Creatio agentic dev — shape a possible consulting engagement with the former employer · added 2026-06-11 · ([drop](../_inbox/processed/tg-20260611-222748-26.md))
+- [ ] **g1** — Build the Personal OS into a reference model for a personal→team AI OS · added 2026-06-11 · area: personal-os · ([drop](../_inbox/processed/tg-20260611-222707-25.md)) · tg:68
+- [ ] **g2** — Creatio agentic dev — shape a possible consulting engagement with the former employer · added 2026-06-11 · ([drop](../_inbox/processed/tg-20260611-222748-26.md)) · tg:71
 
 ## Tasks
 
-- [ ] **t1** — GDrive navigator for Claude — browse/navigate Google Drive contents from Claude sessions · added 2026-06-11 · area: personal-os · ([drop](../_inbox/processed/tg-20260611-222757-27.md))
-- [ ] **t2** — Vacancy screening + select + draft applications automation · added 2026-06-11 · area: job-search · ([drop](../_inbox/processed/tg-20260611-222841-30.md))
-- [ ] **t3** — CV optimizer — tailor the CV to a specific job description · added 2026-06-11 · area: job-search · ([drop](../_inbox/processed/tg-20260611-222914-31.md))
-- [ ] **t4** — Company researcher — research a target company before interviews/outreach · added 2026-06-11 · area: job-search · ([drop](../_inbox/processed/tg-20260611-224131-35.md))
-- [ ] **t5** — Draft LinkedIn post: types of enterprise workflows — deterministic vs agentic · added 2026-06-11 · (Drop Zone, local capture 2026-06-11)
+- [ ] **t1** — GDrive navigator for Claude — browse/navigate Google Drive contents from Claude sessions · added 2026-06-11 · area: personal-os · ([drop](../_inbox/processed/tg-20260611-222757-27.md)) · tg:73
+- [ ] **t2** — Vacancy screening + select + draft applications automation · added 2026-06-11 · area: job-search · ([drop](../_inbox/processed/tg-20260611-222841-30.md)) · tg:74
+- [ ] **t3** — CV optimizer — tailor the CV to a specific job description · added 2026-06-11 · area: job-search · ([drop](../_inbox/processed/tg-20260611-222914-31.md)) · tg:72
+- [ ] **t4** — Company researcher — research a target company before interviews/outreach · added 2026-06-11 · area: job-search · ([drop](../_inbox/processed/tg-20260611-224131-35.md)) · tg:70
+- [ ] **t5** — Draft LinkedIn post: types of enterprise workflows — deterministic vs agentic · added 2026-06-11 · (Drop Zone, local capture 2026-06-11) · tg:69
 
 ## Done
 
