@@ -57,16 +57,26 @@ const PID_FILE = join(STATE_DIR, 'bot.pid')
 // session crashed (SIGKILL, terminal closed) its server.ts grandchild can
 // survive as an orphan and hold the slot forever, so every new session sees
 // 409 Conflict. Kill any stale holder before we start polling.
+//
+// AO fork guard (2026-06-12): only the designated bridge session may claim
+// the consumer slot — run.sh exports TELEGRAM_CHANNEL_POLL=1. Any other
+// session loading this server (desktop app, headless runs, subagents) runs
+// tools-only: it must NEVER kill the live poller or consume getUpdates,
+// otherwise inbound messages are silently eaten (root cause of the
+// 2026-06-12 lost-messages incident).
+const POLL_ENABLED = process.env.TELEGRAM_CHANNEL_POLL === '1'
 mkdirSync(STATE_DIR, { recursive: true, mode: 0o700 })
-try {
-  const stale = parseInt(readFileSync(PID_FILE, 'utf8'), 10)
-  if (stale > 1 && stale !== process.pid) {
-    process.kill(stale, 0)
-    process.stderr.write(`telegram channel: replacing stale poller pid=${stale}\n`)
-    process.kill(stale, 'SIGTERM')
-  }
-} catch {}
-writeFileSync(PID_FILE, String(process.pid))
+if (POLL_ENABLED) {
+  try {
+    const stale = parseInt(readFileSync(PID_FILE, 'utf8'), 10)
+    if (stale > 1 && stale !== process.pid) {
+      process.kill(stale, 0)
+      process.stderr.write(`telegram channel: replacing stale poller pid=${stale}\n`)
+      process.kill(stale, 'SIGTERM')
+    }
+  } catch {}
+  writeFileSync(PID_FILE, String(process.pid))
+}
 
 // Last-resort safety net — without these the process dies silently on any
 // unhandled promise rejection. With them it logs and keeps serving tools.
@@ -996,7 +1006,10 @@ bot.catch(err => {
 // returned, and polling stopped permanently while the process stayed alive
 // (MCP stdin keeps it running). Outbound tools kept working but the bot was
 // deaf to inbound messages until a full restart.
-void (async () => {
+if (!POLL_ENABLED) {
+  process.stderr.write('telegram channel: TELEGRAM_CHANNEL_POLL!=1 — tools-only instance, not polling\n')
+}
+if (POLL_ENABLED) void (async () => {
   for (let attempt = 1; ; attempt++) {
     try {
       await bot.start({
