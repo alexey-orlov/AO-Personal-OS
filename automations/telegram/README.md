@@ -13,7 +13,7 @@ All notifications go to one Telegram group with forum Topics enabled. `TG_TOPIC=
 | `daily-digest` | 📰 Daily Digest | podcast-streaming (n8n cloud): daily digest + feed-health + crash alerts |
 | `books` | 📚 Books | book-finder |
 | `dropzone` | 📥 Drop Zone | **Alex → agent**: raw notes/files, captured to `context/_inbox/` by `automations/telegram-inbox/` (n8n cloud) |
-| `goals-tasks` | 🎯 Goals & Tasks | second-brain pipeline: 2 pinned board messages (Goals / Tasks) with toggle buttons, rendered from `context/knowledge/goals-tasks.md` |
+| `goals-tasks` | 🎯 Goals & Tasks | second-brain pipeline: one message per item (🎯 goal / ☑️ task) mirroring `context/knowledge/goals-tasks.md`; Alex's 👍 reaction = done, un-👍 = reopen |
 | `insights` | 💡 My Insights | second-brain pipeline (`context-update`): one message per captured insight, theme emoji |
 | `explore` | 🔭 Articles & Topics | `explore-brief` skill: research brief + link buttons per explore item |
 | *(unset)* | General | anything uncategorized |

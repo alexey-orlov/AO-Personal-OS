@@ -1,4 +1,4 @@
-# second-brain-delivery — Telegram delivery + 🎯 Goals & Tasks boards (n8n cloud)
+# second-brain-delivery — Telegram delivery + 🎯 Goals & Tasks items (n8n cloud)
 
 The delivery half of the second-brain pipeline (capture half: `automations/telegram-inbox/`;
 knowledge structure: `context/knowledge/README.md`). One n8n cloud workflow,
@@ -6,9 +6,10 @@ knowledge structure: `context/knowledge/README.md`). One n8n cloud workflow,
 
 ```
 Schedule 08:50 Kyiv ──┬─▶ flush outbox: GET context/_inbox/outbox/*.json ─▶ sendMessage ─▶ DELETE card
-                      └─▶ render boards: GET goals-tasks.md ─▶ render ─▶ editMessageText ×2 (pinned)
-'Drop Zone capture' (gt:<id> button tap) ─▶ answerCallbackQuery ─▶ GET goals-tasks.md
-                      ─▶ toggle line ─▶ PUT goals-tasks.md ─▶ render ─▶ editMessageText ×2
+                      └─▶ items: GET goals-tasks.md ─▶ post NEW items (one message each, stamp · tg:<id>
+                            back into the file) + re-edit POSTED items to current ⬜/✅ state
+'Drop Zone capture' (👍 added/removed on an item message) ─▶ GET goals-tasks.md
+                      ─▶ flip the line's checkbox ─▶ PUT goals-tasks.md ─▶ edit that message
 ```
 
 ## The two jobs
@@ -31,21 +32,27 @@ canonical spec lives there):
   the shared error workflow ("Podcast streaming — error alerts" → Telegram).
 - `.gitkeep` and non-JSON files are ignored.
 
-**2. 🎯 Goals & Tasks boards.** `context/knowledge/goals-tasks.md` is the source of truth;
-two pinned messages in the 🎯 Goals & Tasks topic are a VIEW of it (one for Goals, one for
-Tasks), each with inline toggle buttons (`✓ g1` → callback `gt:g1`). The pinned message ids
-live in the file's frontmatter (`tg_goals_message_id` / `tg_tasks_message_id`).
+**2. 🎯 Goals & Tasks items.** `context/knowledge/goals-tasks.md` is the source of truth;
+the 🎯 Goals & Tasks topic mirrors it as ONE MESSAGE PER ITEM — `🎯 g1 — <text>` for goals,
+`☑️ t1 — <text>` for tasks, `✅ 🎯 g1 — <text> · done YYYY-MM-DD` once done. Alex's native
+**👍 reaction marks an item done; removing the 👍 reopens it** (his explicit preference
+over inline-button boards, 2026-06-12). Item text = the part of the line before the first
+` · `.
 
-- **Render** (daily 08:50 Kyiv, ~15 min after the drop-zone fold): re-renders both boards
-  from the file — new items appear, check states preserved (they live in the file).
+- **Post + sync** (daily 08:50 Kyiv, ~15 min after the drop-zone fold): items WITHOUT a
+  ` · tg:<id>` stamp are new → posted (sequentially, batchSize 1, so topic order matches
+  file order) and the message id is stamped back into the line (one PUT, commit
+  `goals-tasks: stamp tg ids …`). Items WITH a stamp are re-edited to current state — so
+  completions made by other paths ("done X" drop, hand-edit) reach the chat within a day.
   "Message is not modified" 400s are expected no-ops (`onError: continue`).
-- **Toggle** (button tap): Telegram sends the `callback_query` to the bot's webhook → the
-  "Drop Zone capture (cloud)" workflow's *Callback gate* branch calls this workflow →
-  checkbox flipped in the file (+` · done YYYY-MM-DD`), committed to main
-  (`goals-tasks: done <id> (board tap)`), boards re-rendered. Tapping `↩` reopens.
-- Render format (the ONE renderer is the "Toggle + render boards" Code node):
-  `🎯 Goals — YYYY-MM-DD` / `☑️ Tasks — YYYY-MM-DD`, one `⬜|✅ <id> — <text>` line per item
-  (text = part before the first ` · `), buttons in rows of 3.
+- **Reaction toggle** (instant): Telegram sends `message_reaction` updates to the bot's
+  webhook (bot must be a group admin — it is) → the "Drop Zone capture (cloud)" workflow's
+  *Reaction gate* forwards 👍 add/remove on group messages here → the line whose
+  ` · tg:<message_id>` matches is flipped (+/-` · done YYYY-MM-DD`), committed to main
+  (`goals-tasks: done <id> (👍)`), and the message edited to ✅/open. Reactions on
+  non-item messages and non-👍 emojis are ignored.
+- The item renderer (`renderItem`) lives in TWO Code nodes — "Plan posts and edits" and
+  "Apply reaction" — marked keep-in-sync; change both together.
 
 ## Ops notes
 
@@ -56,10 +63,9 @@ live in the file's frontmatter (`tg_goals_message_id` / `tg_tasks_message_id`).
   it in the URL path — no n8n auth type can inject it; same gotcha as telegram-inbox).
   After a token rotation, update the URLs in n8n by hand.
 - GitHub access: Header-Auth credential "GitHub PAT (AO-Personal-OS) v2" (Contents RW).
-- **Re-pinning after a board message is lost/deleted:** send + pin two fresh messages in
-  the 🎯 topic (any render is fine — the next workflow run overwrites it with canonical
-  format), put their message ids into the goals-tasks.md frontmatter, push. Procedure used
-  originally: session of 2026-06-12.
+- **If an item message is lost/deleted:** remove that line's ` · tg:<id>` stamp in
+  goals-tasks.md and push — the next daily run re-posts it and re-stamps. Never invent
+  stamps by hand.
 - The schedule (08:50) is intentionally AFTER the daily drop-zone fold (~08:33) and podcast
   fold (~08:03), so the morning's queued notifications and new board items go out the same
   morning.
