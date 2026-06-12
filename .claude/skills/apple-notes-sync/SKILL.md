@@ -41,19 +41,27 @@ date: YYYY-MM-DD
 
 **2. Pick the target NOTE for each card.** Decide by content; the card's `area:` tag and the note-map are strong hints (e.g. `area: job-search` → "JS todo"). One item → exactly one note. Genuinely no fit → "Other  Todo" (note the double space in its name).
 
-**3. Pick the target BLOCK inside the note.** A block = a heading-ish line (usually bold `<div><b>…</b></div>`) followed by a `<ul>` list. Match the item to the block whose heading/contents share its topic (e.g. a LinkedIn-post idea → "LIN Posts:", a build idea → "Tools to build:", a durable ambition → "Goals:"). Insert as the LAST `<li>` of that block's `<ul>`.
+**3. Pick the target BLOCK inside the note.** A block = a heading-ish line (usually bold) followed by a list — either a bulleted list or a NATIVE CHECKLIST (Alex's todo blocks). Match the item to the block whose heading/contents share its topic (e.g. a LinkedIn-post idea → "LIN Posts:", a build idea → "Tools to build:", a durable ambition → "Goals:", an Oracle action → "Oracle todo"). Insert at the END of that block's list.
+- **CRITICAL — checklist blindness:** AppleScript cannot see native checklist content AT ALL (`body` shows empty `<li>`s, `plaintext` omits the item text; verified 2026-06-12). A note CONTAINING any checklist must be read via the AX/UI path (`notes_ax_read.sh`, or screenshots in a desktop session) and written ONLY via the UI insertion path — a body write would destroy the checklist. Detection: empty `<li><br></li>` runs in `body`, or lines visible on screen/AX that are missing from `plaintext`.
 - **No matching block** → create a new block at the TOP of the note (immediately after the title div): `<div><b>📥 Inbox</b></div><ul><li>…</li></ul>` (+ a `<div><br></div>` spacer after). Goals/tasks and insights alike land there as bullets — Apple Notes strips checkbox markup on scripted writes, so native checklist items are impossible (see automation README).
 - Insertions always go ABOVE the note's relevance marker (`## BELOW INFO IS NOT RELEVANT …`) — never into the private section below it.
 
 **4. Compose the item.** `<li><item text verbatim> 📥</li>` — the `📥` suffix marks integration-arrived items; NEVER alter, translate, shorten, or annotate the item text itself.
 
-**5. Write — insert-only, verify, archive.**
+**5. Write — insert-only, verify, archive.** Pick the path by note class:
+
+**5a. Bullet-only notes (no checklist anywhere)** — background body rewrite:
 - **Dedup**: if the note's plaintext already contains the item text (or a near-identical line), skip the insert; archive the card as `dup`.
-- Get current HTML: `notes_body.sh "<note name>"`. Produce the new HTML by pure INSERTION — never reorder, rewrite, or delete existing markup. Write the new HTML to a temp file under `automations/apple-notes-sync/.work/`, then `notes_set_body.sh "<note name>" <file>` (it backs up the old body first and prints the new plaintext).
+- Get current HTML: `notes_body.sh "<note name>"`. Produce the new HTML by pure INSERTION — never reorder, rewrite, or delete existing markup. Write the new HTML to a temp file under `automations/apple-notes-sync/.work/`, then `notes_set_body.sh "<note name>" <file>` (it backs up the old body first, refuses notes with empty-`<li>` signatures, and prints the new plaintext).
 - **Verify**: new plaintext == old plaintext + exactly the inserted line(s). On mismatch → restore the backup (`notes_set_body.sh "<note>" .work/backups/<stamp>-<slug>.html`), leave the card queued, report as `failed`.
 - Batch: multiple items for one note go in ONE write.
-- Archive consumed cards → `context/_inbox/processed/` (Write+delete in headless mode, `git mv` interactively).
-- The helper refuses notes containing native-checklist markup — leave such cards queued and flag the note in the run summary (Alex must keep `_ToDo` lists as plain bullets).
+
+**5b. Checklist-bearing notes** — UI insertion (real checkbox/bullet rows, needs unlocked screen):
+- Headless / CLI: `notes_ax_insert.sh "<note>" "<anchor line text>" "<item> 📥"` — find-navigates to the anchor (last non-empty line of the target block), presses Return at its end (Notes continues the list: checkbox row in a checklist, bullet in a bullet list), pastes the item, self-verifies via AX read, undoes on mismatch. Requires Accessibility for osascript; exits 3 when the GUI isn't available → leave the card queued.
+- Desktop session with computer-use tools: same maneuver visually — screenshot, click the end of the block's last item line (or an empty trailing checklist row — click it and just type), Return, type the item, screenshot-verify. ALWAYS take a fresh screenshot immediately before clicking (the note may scroll/change — Alex may be editing live) and verify after; ⌘Z stepwise if the text landed wrong.
+- Dedup for these notes checks the AX/screen text, NOT `plaintext` (which is blind).
+
+- Archive consumed cards → `context/_inbox/processed/` (Write+delete in headless mode, `git mv` interactively). A failed/ungated card stays in the queue.
 
 **6. Snapshots (every run, all `_ToDo` notes).** Alex marks the agent-relevant part of each note: everything ABOVE the line `## BELOW INFO IS NOT RELEVANT FOR AGENT'S KNOWLEDGE BASE ##` (and the `————` separator right before it). Snapshot ONLY that part — the content below is private/operational and must never reach the repo. No marker → snapshot the whole note. For each note, write `context/areas/<area>/apple-notes/<slug>.md` (area + slug from the note-map; new/renamed notes: classify into an area yourself, add the map row):
 
