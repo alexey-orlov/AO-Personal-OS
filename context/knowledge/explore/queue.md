@@ -14,7 +14,7 @@ Format: `- [ ] YYYY-MM-DD — topic — why it matters ([drop](provenance))[ →
 
 ## Open
 
-- [ ] 2026-06-11 — agent loop architecture (Karpathy) — what specifically Karpathy means by "agent loop" and how to design it well ([drop](../../_inbox/processed/tg-20260611-231405-37.md))
+- [ ] 2026-06-11 — agent loop architecture (Karpathy) — what specifically Karpathy means by "agent loop" and how to design it well ([drop](../../_inbox/processed/tg-20260611-231405-37.md)) → [brief](briefs/agent-loop-architecture-karpathy.md)
 
 ## Explored (recent)
 
