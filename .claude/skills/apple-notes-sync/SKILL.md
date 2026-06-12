@@ -63,7 +63,7 @@ date: YYYY-MM-DD
 
 - Archive consumed cards → `context/_inbox/processed/` (Write+delete in headless mode, `git mv` interactively). A failed/ungated card stays in the queue.
 
-**6. Snapshots (every run, all `_ToDo` notes).** Alex marks the agent-relevant part of each note: everything ABOVE the line `## BELOW INFO IS NOT RELEVANT FOR AGENT'S KNOWLEDGE BASE ##` (and the `————` separator right before it). Snapshot ONLY that part — the content below is private/operational and must never reach the repo. No marker → snapshot the whole note. For each note, write `context/areas/<area>/apple-notes/<slug>.md` (area + slug from the note-map; new/renamed notes: classify into an area yourself, add the map row):
+**6. Snapshots (every run, all `_ToDo` notes).** Alex marks the agent-relevant part of each note: everything ABOVE the line `## BELOW INFO IS NOT RELEVANT FOR AGENT'S KNOWLEDGE BASE ##` (and the `————` separator right before it). Snapshot ONLY that part — the content below is private/operational and must never reach the repo. No marker → snapshot the whole note. Source text: `plaintext` for bullet-only notes; for checklist-bearing notes use `notes_ax_read.sh` (or the screen) so checklist items are included — prefix them `☐ `/`☑ ` when the state is visible; if the GUI is unavailable, keep the previous snapshot rather than writing a blind one. For each note, write `context/areas/<area>/apple-notes/<slug>.md` (area + slug from the note-map; new/renamed notes: classify into an area yourself, add the map row):
 
 ```markdown
 ---
@@ -83,10 +83,12 @@ Snapshots are a READ-ONLY mirror for agent visibility — never edit them by han
 
 ## Hard rules
 
-- Write ONLY via `notes_set_body.sh`, ONLY to notes in `_ToDo`. Never `set body` by raw osascript, never touch other folders.
+- Body writes ONLY via `notes_set_body.sh`, ONLY to notes in `_ToDo`, ONLY when the note is verified checklist-free. Never `set body` by raw osascript, never touch other folders.
+- NEVER body-write a note that contains (or might contain) a native checklist — AppleScript is blind to checklist content and the write destroys it. When in doubt, use the UI path or leave the card queued.
 - Insert-only edits: existing note content is Alex's — byte-for-byte untouched.
 - Item text verbatim + ` 📥` suffix; nothing else added or removed.
 - A failed/refused card stays in the queue (it must survive to the next run); only verified-inserted or dup cards are archived.
+- Every UI insertion is verified (AX read or screenshot) and undone (⌘Z) on mismatch before anything is archived.
 
 ## Run summary (always output)
 

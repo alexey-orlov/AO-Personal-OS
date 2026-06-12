@@ -41,9 +41,13 @@ on run argv
     set n to item 1 of hits
     set oldBody to body of n
     set oldText to plaintext of n
-    -- native-checklist guard: scripted writes flatten real checkboxes
-    if (oldBody contains "checklist") or (oldBody contains "<input") then
-      error "refusing to write: '" & noteName & "' contains native checklist markup (scripted writes would flatten it)"
+    -- native-checklist guard: AppleScript is BLIND to checklist content — items
+    -- render as empty <li><br></li> in body and are absent from plaintext
+    -- (verified 2026-06-12). A body write would DESTROY them. Empty <li>s are
+    -- the only AppleScript-visible signature, so any empty list item = refuse;
+    -- the UI insertion path (notes_ax_insert.sh) handles those notes.
+    if (oldBody contains "<li><br></li>") or (oldBody contains "checklist") or (oldBody contains "<input") then
+      error "refusing to write: '" & noteName & "' has AppleScript-invisible list items (native checklist?) — use notes_ax_insert.sh"
     end if
     -- backups before touching anything
     set bkHtml to open for access POSIX file (bkBase & ".html") with write permission
