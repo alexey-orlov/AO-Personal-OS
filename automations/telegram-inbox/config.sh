@@ -7,9 +7,11 @@ REPO_ROOT="$(cd "$TI_HERE/../.." && pwd)"
 # shellcheck source=/dev/null
 source "$REPO_ROOT/automations/telegram/config.sh"
 
-# Where Drop Zone messages land. inbox/ is git-ignored by design — raw drops
-# stay local; only distilled context (via /context-update) is committed.
-INBOX_DIR="$REPO_ROOT/inbox"
+# Where Drop Zone messages land. Since 2026-06-12 this is the committed cloud
+# staging dir (the old git-ignored root inbox/ was retired) — if this local
+# fallback watcher is ever revived, its drops join the same flow as the n8n
+# capture and are folded + archived by the daily sweep.
+INBOX_DIR="$REPO_ROOT/context/_inbox"
 
 # Per-machine state (getUpdates offset). Never committed.
 WORK_DIR="$TI_HERE/.work"

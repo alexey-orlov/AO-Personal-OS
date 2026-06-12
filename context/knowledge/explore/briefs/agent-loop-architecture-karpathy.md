@@ -1,7 +1,7 @@
 # Agent loop architecture (Karpathy) — research brief
 
 _question: what specifically Karpathy means by "agent loop" and how to design it well_
-_date: 2026-06-12 · sources: 5 · provenance: [drop](../../_inbox/processed/tg-20260611-231405-37.md)_
+_date: 2026-06-12 · sources: 5 · provenance: [drop](../../../_inbox/processed/tg-20260611-231405-37.md)_
 
 ## TL;DR
 
