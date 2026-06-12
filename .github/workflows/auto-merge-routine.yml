@@ -1,0 +1,42 @@
+# Cloud routines (claude.ai scheduled agents — the daily drop-zone fold and the
+# podcast-insights fold) cannot push to main: the sandbox git proxy lands their
+# push on a `main-<suffix>` branch and opens a PR instead, which used to wait on
+# a manual merge (PR #8, plus two stranded podcast branches on 2026-06-12).
+# This workflow lands those branches on main automatically.
+#
+# Guard: every commit unique to the branch must be authored by the routine
+# identity (Claude, *@anthropic.com). A branch with human commits is left alone.
+# A merge conflict fails the run loudly in the Actions tab — nothing is forced.
+name: Auto-merge routine branches
+
+on:
+  push:
+    branches: ['main-*']
+
+permissions:
+  contents: write
+
+jobs:
+  merge:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v7
+        with:
+          script: |
+            const { owner, repo } = context.repo;
+            const branch = context.ref.replace('refs/heads/', '');
+            const cmp = await github.rest.repos.compareCommits({ owner, repo, base: 'main', head: branch });
+            const commits = cmp.data.commits;
+            if (commits.length === 0) {
+              core.notice(`${branch}: nothing to merge`);
+              await github.rest.git.deleteRef({ owner, repo, ref: `heads/${branch}` });
+              return;
+            }
+            const foreign = commits.filter(c => !(c.commit.author?.email || '').endsWith('@anthropic.com'));
+            if (foreign.length > 0) {
+              core.warning(`${branch}: non-routine commits (${foreign.map(c => c.sha.slice(0, 7)).join(', ')}) — leaving for manual review`);
+              return;
+            }
+            await github.rest.repos.merge({ owner, repo, base: 'main', head: branch });
+            core.notice(`merged ${branch} into main (${commits.length} commit(s))`);
+            await github.rest.git.deleteRef({ owner, repo, ref: `heads/${branch}` });
