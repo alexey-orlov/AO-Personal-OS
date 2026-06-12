@@ -69,10 +69,11 @@ Three guards now enforce the invariant (defense in depth):
    (`automations/telegram-chat/plugin/`, version `0.0.6-ao.1`), installed from
    the repo's own local marketplace (`ao-personal-os` = this directory,
    declared in `~/.claude/settings.json` `extraKnownMarketplaces`). The
-   official `telegram@claude-plugins-official` is disabled in user settings —
-   **never set it back to `true`**; an upstream update can never silently
-   reintroduce the takeover behavior because upstream code is never loaded.
-   (Its cache copy also carries the same gate patch, as a relic/extra belt.)
+   official `telegram@claude-plugins-official` is disabled in user settings.
+   Keep it disabled **until** the rollback test below passes — the fork is a
+   workaround, not a permanent preference, and re-enabling the un-gated
+   upstream plugin reintroduces the takeover. (Its cache copy also carries the
+   same gate patch, as a relic/extra belt.)
 2. **Poll gate (in the fork, permanent)** — `server.ts` only touches `bot.pid`
    / polls when `TELEGRAM_CHANNEL_POLL=1`, which only `run.sh` exports.
    Desktop/headless/subagent sessions load the fork user-scope but run
@@ -83,6 +84,28 @@ Three guards now enforce the invariant (defense in depth):
    respawns the bridge window, whose fresh server reclaims the slot (killing
    any foreign holder). Self-heals every known deafness mode, including
    sleep/wake weirdness and crashed servers.
+
+**Rolling back to the official plugin (allowed once it's safe).** The fork only
+exists to dodge an upstream behavior; going back is *desirable* when fixed —
+it drops the `--dangerously-load-development-channels` flag + its auto-confirm
+and restores upstream maintenance. The failure is silent (you just stop getting
+messages), so don't roll back on a hunch — roll back only after this empirical
+test passes on the candidate upstream version:
+
+1. Install + enable `telegram@claude-plugins-official` at user scope. Keep the
+   bridge running and confirm it owns `bot.pid` (watchdog green).
+2. In a DIFFERENT project, start a plain `claude` session with **no** channels
+   flag (the everyday case that broke us). Wait ~30s.
+3. Check `~/.claude/channels/telegram/bot.pid` still points at the *bridge's*
+   server (its pid descends from the `telegram-chat` tmux pane) AND a test
+   Telegram message still gets a 👀 + reply.
+4. **Pass** = upstream no longer polls/takes-over the bot in non-channel
+   sessions → switch `run.sh` back to `--channels plugin:telegram@claude-plugins-official`,
+   flip the two `enabledPlugins` (official `true`, fork `false`), retire the
+   fork + its marketplace. **Fail** (bot.pid flipped to the other session, or
+   the test message was eaten) = bug persists → stay on the fork, recheck next
+   upstream release. Issue to watch: [claude-code#39808](https://github.com/anthropics/claude-code/issues/39808)
+   (plugin enabled globally → every session's MCP server polls the one bot).
 
 **Why `--dangerously-load-development-channels`:** CC's `--channels` only
 accepts plugins on the Anthropic-managed approved-channels allowlist (official
