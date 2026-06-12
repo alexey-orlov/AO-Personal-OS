@@ -12,7 +12,8 @@
       ],
       "parameters": {
         "updates": [
-          "message"
+          "message",
+          "callback_query"
         ],
         "additionalFields": {
           "download": true,
@@ -204,6 +205,39 @@
       "retryOnFail": true,
       "maxTries": 2,
       "waitBetweenTries": 1500
+    },
+    {
+      "id": "cb-gate",
+      "name": "Callback gate",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        220,
+        260
+      ],
+      "parameters": {
+        "jsCode": "// gt:<id> button taps from the 🎯 Goals & Tasks pinned boards → hand off to\n// 'Second-brain delivery (cloud)' (toggles the checkbox in goals-tasks.md and\n// re-renders the boards). Everything else: ignore (message updates flow through\n// the existing 'Gate + build card' path).\nconst u = $input.first().json;\nconst cq = u.callback_query;\nif (!cq || !cq.data || !cq.data.startsWith('gt:')) return [];\nconst msg = cq.message || {};\nif (!msg.chat || String(msg.chat.id) !== 'REDACTED_GROUP_CHAT_ID') return [];\nreturn [{ json: { itemId: cq.data.slice(3), callbackQueryId: cq.id } }];"
+      }
+    },
+    {
+      "id": "cb-exec",
+      "name": "Toggle board item",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        440,
+        260
+      ],
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "q8OQXe2gwMk4rOxN",
+          "mode": "id",
+          "cachedResultName": "Second-brain delivery (cloud)"
+        },
+        "options": {}
+      },
+      "onError": "continueRegularOutput"
     }
   ],
   "connections": {
@@ -212,6 +246,11 @@
         [
           {
             "node": "Gate + build card",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Callback gate",
             "type": "main",
             "index": 0
           }
@@ -263,6 +302,17 @@
         [
           {
             "node": "React 👍 on capture",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Callback gate": {
+      "main": [
+        [
+          {
+            "node": "Toggle board item",
             "type": "main",
             "index": 0
           }
