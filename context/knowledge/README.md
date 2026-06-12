@@ -7,7 +7,7 @@ repo file is always the source of truth; Telegram is the notification/interactio
 
 | Category | Home | Telegram topic | Engine |
 |---|---|---|---|
-| Goals & tasks | [goals-tasks.md](goals-tasks.md) | 🎯 Goals & Tasks — 2 pinned board messages with toggle buttons | `context-update` + n8n board render |
+| Goals & tasks | [goals-tasks.md](goals-tasks.md) | 🎯 Goals & Tasks — one message per item (🎯/☑️); 👍 = done | `context-update` + n8n item post/sync |
 | My insights | [insights/](insights/index.md) — theme pages | 💡 My Insights — one message per insight, theme emoji | `context-update` |
 | Books | [book-shortlist.md](book-shortlist.md) | 📚 Books — book-finder results per new book | `context-update` → `book-shortlist` format + `book-finder` |
 | Articles & topics | [explore/queue.md](explore/queue.md) + [explore/briefs/](explore/briefs/) | 🔭 Articles & Topics — research brief + link buttons | `context-update` → `explore-brief` |

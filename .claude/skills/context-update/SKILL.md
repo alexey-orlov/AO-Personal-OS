@@ -74,9 +74,9 @@ If more than ~15 are new, process newest-first and report what was left for the 
 - *Provenance for drops:* link cards at their FINAL home — `context/_inbox/processed/<file>` (they move there in step 8).
 
 **goals-tasks.md rules:**
-- Format (header of the file is the source of truth): `- [ ] **<id>** — <text> · added YYYY-MM-DD[ · area: <slug>][ · ([drop](provenance))]`. Ids are immutable and never reused; allocate the next free number per prefix (g for Goals, t for Tasks).
+- Format (header of the file is the source of truth): `- [ ] **<id>** — <text> · added YYYY-MM-DD[ · area: <slug>][ · ([drop](provenance))][ · tg:<msgid>]`. Ids are immutable and never reused; allocate the next free number per prefix (g for Goals, t for Tasks).
 - Goal vs task test: a goal survives months and has no "definition of done" yet; a task you could start this week and finish. When genuinely unclear, file as a task — promoting later is cheap.
-- Never renumber, reorder, or delete lines; completions toggle in place. The pinned Telegram board messages are a VIEW rendered from this file by the n8n "Second-brain delivery" workflow — never edit the frontmatter `tg_*_message_id` keys.
+- Never renumber, reorder, or delete lines; completions toggle in place. Each item is mirrored as its own Telegram message by the n8n "Second-brain delivery" workflow, which stamps ` · tg:<message_id>` onto the line when posted — NEVER add, edit, or copy a `tg:` stamp yourself (a new item simply has none; the workflow posts it and stamps it within a day).
 
 **knowledge/insights rules (bounded by design — built to survive years of drops):**
 - `insights/index.md` is the map: theme table (emoji · theme · one-liner · count · last added), header `_updated:` + totals. Fully rewritten when touched; ≤60 lines.
@@ -114,7 +114,7 @@ git add context/ && git commit -m "context: <one line on what changed>"
 When running as the daily cloud routine, also `git push` — the push lands on a `main-*` branch which `.github/workflows/auto-merge-routine.yml` auto-merges into `main`; that is expected, don't fight it.
 
 **9. Notify (sweep / interactive modes only — never headless).** Every routed Second-Brain item produces a Telegram notification in its category topic, via `automations/telegram/` scripts. **Cloud/no-Keychain environments: `export TG_OUTBOX=1` first** — sends are then queued as JSON files in `context/_inbox/outbox/` (include them in the commit) and flushed by the n8n "Second-brain delivery" workflow; locally they send immediately.
-- **Goals / tasks / completions** — ONE summary message per run (only if something changed): `TG_TOPIC=goals-tasks`, e.g. `🎯 Board updated: +g3 <short text> · +t6 <short text> · ✅ t2 done`. The pinned board messages re-render from the file automatically (n8n, ~08:50 Kyiv); the summary exists because message edits don't ping the phone.
+- **Goals / tasks / completions** — do NOT send anything yourself. The n8n "Second-brain delivery" workflow posts each new item as its own 🎯/☑️ message (and syncs ✅ state for completions) from the file at ~08:50 Kyiv — your only job is writing the lines correctly. Count these as "queued (via file)" in the run summary.
 - **Insights** — one message per insight: `TG_TOPIC=insights`, body `<theme emoji> <claim headline>` + the 2–3 distilled lines + `— theme: <slug>`.
 - **Books** — handled by the invoked `book-finder` run (`TG_TOPIC=books`); don't double-send.
 - **Explore** — handled by the invoked `explore-brief` run (`TG_TOPIC=explore`); don't double-send.
