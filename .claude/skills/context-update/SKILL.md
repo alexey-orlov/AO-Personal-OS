@@ -73,19 +73,22 @@ If more than ~15 are new, process newest-first and report what was left for the 
 - *Reading the drop:* a bare URL → fetch it (WebFetch) and distill what's actually at the link, don't file naked URLs; an image attachment → Read the image (screenshots usually carry the whole payload); an `attachment:` voice file with no transcript → cannot fold: report as `pending-voice` in the summary and do NOT ledger it (stays in the backlog until transcribed).
 - *Provenance for drops:* link cards at their FINAL home — `context/_inbox/processed/<file>` (they move there in step 8).
 
-**goals-tasks.md rules:**
-- Format (header of the file is the source of truth): `- [ ] **<id>** — <text> · added YYYY-MM-DD[ · area: <slug>][ · ([drop](provenance))][ · tg:<msgid>]`. Ids are immutable and never reused; allocate the next free number per prefix (g for Goals, t for Tasks).
-- Goal vs task test: a goal survives months and has no "definition of done" yet; a task you could start this week and finish. When genuinely unclear, file as a task — promoting later is cheap.
-- Never renumber, reorder, or delete lines; completions toggle in place. Each item is mirrored as its own Telegram message by the n8n "Second-brain delivery" workflow, which stamps ` · tg:<message_id>` onto the line when posted — NEVER add, edit, or copy a `tg:` stamp yourself (a new item simply has none; the workflow posts it and stamps it within a day).
+**Apple-notes queue card rules (goals / tasks / insights):**
+- One card per item at `context/_inbox/apple-notes/an-<stamp>-<msgid>[-<k>].md` (`<stamp>-<msgid>` from the source drop's filename; `-<k>` counter when one drop splits into several items):
 
-**knowledge/insights rules (bounded by design — built to survive years of drops):**
-- `insights/index.md` is the map: theme table (emoji · theme · one-liner · count · last added), header `_updated:` + totals. Fully rewritten when touched; ≤60 lines.
-- `themes/<slug>.md` — one page per theme, created on demand, rewritten in place. H1 carries the theme emoji. Insight block: `### <claim-shaped headline>` + ≤3 distilled lines + `— YYYY-MM-DD · source: <link and/or provenance>`. Headlines are claims, not topics ("Agents fail on long-horizon memory", not "On agents").
-- **Theme emoji** — one per theme, fixed at creation from this conservative set (reuse across themes of the same domain is fine): 🤖 AI & agents · 📈 business / growth / product · 🧠 mind / learning / psychology · 🛠 tools & process · 💬 communication & people · 🌍 world & other.
-- **Bias to an existing theme** (claim-similarity to its one-liner + headlines); create a new theme only for a clearly distinct domain — never a near-synonym of an existing one. Slugs are immutable.
-- **Dedup inside the chosen theme**: same claim, new source → add a corroboration line under the existing insight, not a new block; a sharper version → replace the block, keeping both sources.
-- **Page budget ~25 insights**: when exceeded, flag `⚠ split candidate` in the index row + the run summary — never auto-split.
-- A run opens only the theme pages it touches — never the whole tree. Cost scales with new insights, not base size.
+```markdown
+---
+kind: goal | task | insight
+area: <area slug, or none>
+source: context/_inbox/processed/tg-<stamp>-<msgid>.md
+date: YYYY-MM-DD
+---
+<item text VERBATIM — exactly what should appear in the note, one line>
+```
+
+- The card body is what lands in Alex's pinned Apple Note byte-for-byte (plus a `📥` suffix added by the inserter) — no ids, no `· added` metadata, no commentary. Goals/tasks: keep Alex's own wording. Insights: distill to ONE self-contained claim line (fetch the URL / read the screenshot first); put provenance in the frontmatter, not the body.
+- Goal vs task test: a goal survives months and has no "definition of done" yet; a task you could start this week and finish. When genuinely unclear, file as a task. `kind` only affects routing hints — both end up as bullets.
+- The queue is consumed by the `apple-notes-sync` skill on Alex's Mac (launchd leg, ~30 min cadence while the Mac is awake; see `automations/apple-notes-sync/`). NEVER attempt Apple Notes access from this skill — cloud runs can't reach it; writing the card IS the job. Cards survive in the queue until inserted.
 
 **4. Merge into the page — curation rules (the heart):**
 - **Rewrite in place.** `_status:`, Snapshot, and Active threads always describe current truth. Never stack "UPDATE:" lines; a newer fact replaces the older one. If the change itself matters (a decision, a closure, a pivot), record it as one line under Decisions or Activity.
