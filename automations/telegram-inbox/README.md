@@ -10,7 +10,13 @@ n8n workflow **"Drop Zone capture (cloud)"** in <https://alexorlovco.app.n8n.clo
 ```
 Telegram webhook ─▶ gate (group + Drop Zone topic + not-bot) ─▶ build card (.md → base64)
    ─▶ [media? PUT attachment to GitHub] ─▶ PUT card to GitHub   →  context/_inbox/ on main
+   └▶ Callback gate (gt:<id> board-button taps) ─▶ Execute "Second-brain delivery (cloud)"
 ```
+
+The trigger receives `message` + `callback_query` updates: messages flow through the capture
+path; `gt:<id>` button taps from the 🎯 Goals & Tasks pinned boards are handed to the
+delivery workflow, which toggles the checkbox in `context/knowledge/goals-tasks.md` and
+re-renders the boards (see `automations/second-brain-delivery/README.md`).
 
 - Captures within seconds of posting; each drop is a `dropzone: capture tg-<stamp>-<msgid>` commit.
 - After the card commits, the **"React 👍 on capture"** node sets a 👍 reaction on the message
