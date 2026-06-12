@@ -35,256 +35,6 @@
       }
     },
     {
-      "id": "answer-cb",
-      "name": "Answer callback",
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "position": [
-        220,
-        300
-      ],
-      "onError": "continueRegularOutput",
-      "parameters": {
-        "method": "POST",
-        "url": "https://api.telegram.org/botREDACTED_BOT_TOKEN/answerCallbackQuery",
-        "authentication": "none",
-        "sendBody": true,
-        "contentType": "json",
-        "specifyBody": "json",
-        "jsonBody": "={{ JSON.stringify({ callback_query_id: $json.callbackQueryId, text: 'Updating board…' }) }}",
-        "options": {
-          "timeout": 15000
-        }
-      }
-    },
-    {
-      "id": "get-goals",
-      "name": "GET goals file",
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "position": [
-        440,
-        150
-      ],
-      "retryOnFail": true,
-      "maxTries": 3,
-      "waitBetweenTries": 2000,
-      "parameters": {
-        "method": "GET",
-        "url": "https://api.github.com/repos/alexey-orlov/AO-Personal-OS/contents/context/knowledge/goals-tasks.md?ref=main",
-        "authentication": "genericCredentialType",
-        "genericAuthType": "httpHeaderAuth",
-        "sendHeaders": true,
-        "headerParameters": {
-          "parameters": [
-            {
-              "name": "Accept",
-              "value": "application/vnd.github+json"
-            },
-            {
-              "name": "User-Agent",
-              "value": "n8n-ao-secondbrain"
-            },
-            {
-              "name": "X-GitHub-Api-Version",
-              "value": "2022-11-28"
-            }
-          ]
-        },
-        "options": {
-          "timeout": 30000
-        }
-      },
-      "credentials": {
-        "httpHeaderAuth": {
-          "id": "BNjgcEg64fLzU1gU",
-          "name": "GitHub PAT (AO-Personal-OS) v2"
-        }
-      }
-    },
-    {
-      "id": "prep",
-      "name": "Toggle + render boards",
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [
-        660,
-        150
-      ],
-      "parameters": {
-        "jsCode": "// ONE renderer for the 🎯 Goals & Tasks pinned boards.\n// Source of truth: context/knowledge/goals-tasks.md (fetched by 'GET goals file').\n// Modes: render (schedule) | toggle (called from 'Drop Zone capture' on a gt:<id> button tap).\nconst today = DateTime.now().setZone('Europe/Kyiv').toFormat('yyyy-LL-dd');\nconst resp = $input.first().json;\nlet md = Buffer.from(resp.content, 'base64').toString('utf8');\nconst sha = resp.sha;\n\nlet itemId = '';\ntry {\n  const t = $('When called (toggle)').first().json;\n  if (t && t.itemId) itemId = String(t.itemId);\n} catch (e) { /* schedule mode */ }\n\nlet needPut = false, commitMsg = '';\nif (itemId && /^[gt]\\d+$/.test(itemId)) {\n  const re = new RegExp('^(- \\\\[)([ x])(\\\\] \\\\*\\\\*' + itemId + '\\\\*\\\\* — .*)$', 'm');\n  const m = md.match(re);\n  if (m) {\n    let line;\n    if (m[2] === ' ') {\n      line = m[1] + 'x' + m[3];\n      if (!/ · done \\d{4}-\\d{2}-\\d{2}/.test(line)) line += ' · done ' + today;\n      commitMsg = 'goals-tasks: done ' + itemId + ' (board tap)';\n    } else {\n      line = (m[1] + ' ' + m[3]).replace(/ · done \\d{4}-\\d{2}-\\d{2}/, '');\n      commitMsg = 'goals-tasks: reopen ' + itemId + ' (board tap)';\n    }\n    md = md.replace(re, () => line);\n    needPut = true;\n  }\n}\n\nfunction parseBoards(text) {\n  let section = '';\n  const goals = [], tasks = [];\n  for (const ln of text.split('\\n')) {\n    if (/^## Goals/.test(ln)) { section = 'g'; continue; }\n    if (/^## Tasks/.test(ln)) { section = 't'; continue; }\n    if (/^## /.test(ln)) { section = ''; continue; }\n    const m2 = ln.match(/^- \\[([ x])\\] \\*\\*([gt]\\d+)\\*\\* — (.*)$/);\n    if (!m2 || !section) continue;\n    const item = { done: m2[1] === 'x', id: m2[2], text: m2[3].split(' · ')[0].trim() };\n    (section === 'g' ? goals : tasks).push(item);\n  }\n  return { goals, tasks };\n}\nfunction renderBoard(title, items) {\n  const body = items.length\n    ? items.map(i => (i.done ? '✅' : '⬜') + ' ' + i.id + ' — ' + i.text).join('\\n')\n    : '(empty)';\n  const text = title + ' — ' + today + '\\n\\n' + body + '\\n\\n✓ marks done · ↩ reopens';\n  const btns = items.map(i => ({ text: (i.done ? '↩ ' : '✓ ') + i.id, callback_data: 'gt:' + i.id }));\n  const kb = [];\n  for (let i = 0; i < btns.length; i += 3) kb.push(btns.slice(i, i + 3));\n  return { text, kb };\n}\nconst { goals, tasks } = parseBoards(md);\nconst g = renderBoard('🎯 Goals', goals);\nconst t = renderBoard('☑️ Tasks', tasks);\nconst gm = md.match(/^tg_goals_message_id:\\s*\"?(\\d+)\"?/m);\nconst tm = md.match(/^tg_tasks_message_id:\\s*\"?(\\d+)\"?/m);\n\nreturn [{ json: {\n  needPut, commitMsg, sha,\n  contentB64: Buffer.from(md, 'utf8').toString('base64'),\n  hasIds: !!(gm && tm),\n  goalsMsgId: gm ? gm[1] : '', tasksMsgId: tm ? tm[1] : '',\n  goalsText: g.text, goalsKb: g.kb,\n  tasksText: t.text, tasksKb: t.kb\n} }];"
-      }
-    },
-    {
-      "id": "need-put",
-      "name": "Need PUT?",
-      "type": "n8n-nodes-base.if",
-      "typeVersion": 2.2,
-      "position": [
-        880,
-        150
-      ],
-      "parameters": {
-        "conditions": {
-          "options": {
-            "caseSensitive": true,
-            "leftValue": "",
-            "typeValidation": "strict",
-            "version": 2
-          },
-          "conditions": [
-            {
-              "id": "p1",
-              "leftValue": "={{ $json.needPut }}",
-              "rightValue": "",
-              "operator": {
-                "type": "boolean",
-                "operation": "true",
-                "singleValue": true
-              }
-            }
-          ],
-          "combinator": "and"
-        },
-        "options": {}
-      }
-    },
-    {
-      "id": "put-goals",
-      "name": "PUT goals file",
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "position": [
-        1100,
-        60
-      ],
-      "retryOnFail": true,
-      "maxTries": 3,
-      "waitBetweenTries": 2000,
-      "parameters": {
-        "method": "PUT",
-        "url": "https://api.github.com/repos/alexey-orlov/AO-Personal-OS/contents/context/knowledge/goals-tasks.md",
-        "authentication": "genericCredentialType",
-        "genericAuthType": "httpHeaderAuth",
-        "sendHeaders": true,
-        "headerParameters": {
-          "parameters": [
-            {
-              "name": "Accept",
-              "value": "application/vnd.github+json"
-            },
-            {
-              "name": "User-Agent",
-              "value": "n8n-ao-secondbrain"
-            },
-            {
-              "name": "X-GitHub-Api-Version",
-              "value": "2022-11-28"
-            }
-          ]
-        },
-        "sendBody": true,
-        "contentType": "json",
-        "specifyBody": "json",
-        "jsonBody": "={{ JSON.stringify({ message: $json.commitMsg, content: $json.contentB64, sha: $json.sha, branch: 'main' }) }}",
-        "options": {
-          "timeout": 30000
-        }
-      },
-      "credentials": {
-        "httpHeaderAuth": {
-          "id": "BNjgcEg64fLzU1gU",
-          "name": "GitHub PAT (AO-Personal-OS) v2"
-        }
-      }
-    },
-    {
-      "id": "has-ids",
-      "name": "Board ids known?",
-      "type": "n8n-nodes-base.if",
-      "typeVersion": 2.2,
-      "position": [
-        1320,
-        150
-      ],
-      "parameters": {
-        "conditions": {
-          "options": {
-            "caseSensitive": true,
-            "leftValue": "",
-            "typeValidation": "strict",
-            "version": 2
-          },
-          "conditions": [
-            {
-              "id": "h1",
-              "leftValue": "={{ $('Toggle + render boards').first().json.hasIds }}",
-              "rightValue": "",
-              "operator": {
-                "type": "boolean",
-                "operation": "true",
-                "singleValue": true
-              }
-            }
-          ],
-          "combinator": "and"
-        },
-        "options": {}
-      }
-    },
-    {
-      "id": "edit-goals",
-      "name": "Edit Goals board",
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "position": [
-        1540,
-        150
-      ],
-      "onError": "continueRegularOutput",
-      "retryOnFail": true,
-      "maxTries": 2,
-      "waitBetweenTries": 1500,
-      "parameters": {
-        "method": "POST",
-        "url": "https://api.telegram.org/botREDACTED_BOT_TOKEN/editMessageText",
-        "authentication": "none",
-        "sendBody": true,
-        "contentType": "json",
-        "specifyBody": "json",
-        "jsonBody": "={{ JSON.stringify({ chat_id: 'REDACTED_GROUP_CHAT_ID', message_id: Number($('Toggle + render boards').first().json.goalsMsgId), text: $('Toggle + render boards').first().json.goalsText, reply_markup: { inline_keyboard: $('Toggle + render boards').first().json.goalsKb }, link_preview_options: { is_disabled: true } }) }}",
-        "options": {
-          "timeout": 15000
-        }
-      }
-    },
-    {
-      "id": "edit-tasks",
-      "name": "Edit Tasks board",
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "position": [
-        1760,
-        150
-      ],
-      "onError": "continueRegularOutput",
-      "retryOnFail": true,
-      "maxTries": 2,
-      "waitBetweenTries": 1500,
-      "parameters": {
-        "method": "POST",
-        "url": "https://api.telegram.org/botREDACTED_BOT_TOKEN/editMessageText",
-        "authentication": "none",
-        "sendBody": true,
-        "contentType": "json",
-        "specifyBody": "json",
-        "jsonBody": "={{ JSON.stringify({ chat_id: 'REDACTED_GROUP_CHAT_ID', message_id: Number($('Toggle + render boards').first().json.tasksMsgId), text: $('Toggle + render boards').first().json.tasksText, reply_markup: { inline_keyboard: $('Toggle + render boards').first().json.tasksKb }, link_preview_options: { is_disabled: true } }) }}",
-        "options": {
-          "timeout": 15000
-        }
-      }
-    },
-    {
       "id": "list-outbox",
       "name": "List outbox",
       "type": "n8n-nodes-base.httpRequest",
@@ -471,6 +221,336 @@
           "name": "GitHub PAT (AO-Personal-OS) v2"
         }
       }
+    },
+    {
+      "id": "get-cron",
+      "name": "GET file (cron)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        440,
+        150
+      ],
+      "parameters": {
+        "method": "GET",
+        "url": "https://api.github.com/repos/alexey-orlov/AO-Personal-OS/contents/context/knowledge/goals-tasks.md?ref=main",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Accept",
+              "value": "application/vnd.github+json"
+            },
+            {
+              "name": "User-Agent",
+              "value": "n8n-ao-secondbrain"
+            },
+            {
+              "name": "X-GitHub-Api-Version",
+              "value": "2022-11-28"
+            }
+          ]
+        },
+        "options": {
+          "timeout": 30000
+        }
+      },
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "BNjgcEg64fLzU1gU",
+          "name": "GitHub PAT (AO-Personal-OS) v2"
+        }
+      },
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 2000
+    },
+    {
+      "id": "plan",
+      "name": "Plan posts and edits",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        660,
+        150
+      ],
+      "parameters": {
+        "jsCode": "// goals-tasks.md → one item per goal/task: mode 'post' (no tg: id yet) or 'edit'\n// (re-render posted message to current state; 'not modified' edits are no-ops).\n// renderItem() MUST stay in sync with the copy in 'Apply reaction'.\nconst g = $input.first().json;\nconst md = Buffer.from(g.content, 'base64').toString('utf8');\nfunction parseItems(text) {\n  let section = '';\n  const out = [];\n  for (const ln of text.split('\\n')) {\n    if (/^## Goals/.test(ln)) { section = 'g'; continue; }\n    if (/^## Tasks/.test(ln)) { section = 't'; continue; }\n    if (/^## /.test(ln)) { section = ''; continue; }\n    const m = ln.match(/^- \\[([ x])\\] \\*\\*([gt]\\d+)\\*\\* — (.*)$/);\n    if (!m || !section) continue;\n    const tg = ln.match(/· tg:(\\d+)\\b/);\n    const dd = ln.match(/· done (\\d{4}-\\d{2}-\\d{2})/);\n    out.push({ done: m[1] === 'x', id: m[2], text: m[3].split(' · ')[0].trim(),\n               msgId: tg ? tg[1] : '', doneDate: dd ? dd[1] : '' });\n  }\n  return out;\n}\nfunction renderItem(it) {\n  const type = it.id.startsWith('g') ? '🎯' : '☑️';\n  if (it.done) return `✅ ${type} ${it.id} — ${it.text}` + (it.doneDate ? ` · done ${it.doneDate}` : '');\n  return `${type} ${it.id} — ${it.text}`;\n}\nreturn parseItems(md).map(it => ({ json: it.msgId\n  ? { mode: 'edit', msgId: it.msgId, text: renderItem(it) }\n  : { mode: 'post', id: it.id, text: renderItem(it) } }));"
+      }
+    },
+    {
+      "id": "if-mode",
+      "name": "New item?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        880,
+        150
+      ],
+      "parameters": {
+        "conditions": {
+          "options": {
+            "version": 2,
+            "leftValue": "",
+            "caseSensitive": true,
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "m1",
+              "leftValue": "={{ $json.mode }}",
+              "rightValue": "post",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      }
+    },
+    {
+      "id": "post-item",
+      "name": "Post item",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1100,
+        60
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.telegram.org/botREDACTED_BOT_TOKEN/sendMessage",
+        "authentication": "none",
+        "sendBody": true,
+        "contentType": "json",
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ chat_id: 'REDACTED_GROUP_CHAT_ID', message_thread_id: 49, text: $json.text, disable_web_page_preview: true }) }}",
+        "options": {
+          "timeout": 20000,
+          "batching": {
+            "batch": {
+              "batchSize": 1,
+              "batchInterval": 300
+            }
+          }
+        }
+      },
+      "retryOnFail": true,
+      "maxTries": 2,
+      "waitBetweenTries": 1500
+    },
+    {
+      "id": "writeback",
+      "name": "Stamp tg ids",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1320,
+        60
+      ],
+      "parameters": {
+        "jsCode": "// Append · tg:<message_id> to each just-posted line → one PUT.\nconst g = $('GET file (cron)').first().json;\nlet md = Buffer.from(g.content, 'base64').toString('utf8');\nconst planned = $('Plan posts and edits').all().filter(i => i.json.mode === 'post');\nconst sent = $input.all();\nfor (let i = 0; i < sent.length; i++) {\n  const id = planned[i].json.id;\n  const mid = sent[i].json.result.message_id;\n  const re = new RegExp('^(- \\\\[[ x]\\\\] \\\\*\\\\*' + id + '\\\\*\\\\* — .*)$', 'm');\n  md = md.replace(re, (l) => l + ' · tg:' + mid);\n}\nif (!sent.length) return [];\nreturn [{ json: { contentB64: Buffer.from(md, 'utf8').toString('base64'), sha: g.sha,\n                  commitMsg: 'goals-tasks: stamp tg ids for ' + sent.length + ' posted item(s)' } }];"
+      }
+    },
+    {
+      "id": "put-cron",
+      "name": "PUT file (stamp ids)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1540,
+        60
+      ],
+      "parameters": {
+        "method": "PUT",
+        "url": "https://api.github.com/repos/alexey-orlov/AO-Personal-OS/contents/context/knowledge/goals-tasks.md",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Accept",
+              "value": "application/vnd.github+json"
+            },
+            {
+              "name": "User-Agent",
+              "value": "n8n-ao-secondbrain"
+            },
+            {
+              "name": "X-GitHub-Api-Version",
+              "value": "2022-11-28"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "json",
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ message: $json.commitMsg, content: $json.contentB64, sha: $json.sha, branch: 'main' }) }}",
+        "options": {
+          "timeout": 30000
+        }
+      },
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "BNjgcEg64fLzU1gU",
+          "name": "GitHub PAT (AO-Personal-OS) v2"
+        }
+      },
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 2000
+    },
+    {
+      "id": "edit-item",
+      "name": "Edit item message",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1100,
+        250
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.telegram.org/botREDACTED_BOT_TOKEN/editMessageText",
+        "authentication": "none",
+        "sendBody": true,
+        "contentType": "json",
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ chat_id: 'REDACTED_GROUP_CHAT_ID', message_id: Number($json.msgId), text: $json.text, link_preview_options: { is_disabled: true } }) }}",
+        "options": {
+          "timeout": 15000
+        }
+      },
+      "onError": "continueRegularOutput",
+      "retryOnFail": true,
+      "maxTries": 2,
+      "waitBetweenTries": 1500
+    },
+    {
+      "id": "get-react",
+      "name": "GET file (reaction)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        220,
+        400
+      ],
+      "parameters": {
+        "method": "GET",
+        "url": "https://api.github.com/repos/alexey-orlov/AO-Personal-OS/contents/context/knowledge/goals-tasks.md?ref=main",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Accept",
+              "value": "application/vnd.github+json"
+            },
+            {
+              "name": "User-Agent",
+              "value": "n8n-ao-secondbrain"
+            },
+            {
+              "name": "X-GitHub-Api-Version",
+              "value": "2022-11-28"
+            }
+          ]
+        },
+        "options": {
+          "timeout": 30000
+        }
+      },
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "BNjgcEg64fLzU1gU",
+          "name": "GitHub PAT (AO-Personal-OS) v2"
+        }
+      },
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 2000
+    },
+    {
+      "id": "apply",
+      "name": "Apply reaction",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        440,
+        400
+      ],
+      "parameters": {
+        "jsCode": "// 👍 added → done; 👍 removed → reopen. Input from 'When called (toggle)':\n// { messageId, makeDone }. renderItem() MUST stay in sync with 'Plan posts and edits'.\nconst today = DateTime.now().setZone('Europe/Kyiv').toFormat('yyyy-LL-dd');\nconst g = $input.first().json;\nlet md = Buffer.from(g.content, 'base64').toString('utf8');\nconst t = $('When called (toggle)').first().json;\nconst msgId = String(t.messageId || '');\nconst makeDone = !!t.makeDone;\nif (!msgId) return [];\nconst re = new RegExp('^- \\\\[([ x])\\\\] \\\\*\\\\*([gt]\\\\d+)\\\\*\\\\* — .*· tg:' + msgId + '\\\\b.*$', 'm');\nconst m = md.match(re);\nif (!m) return []; // reaction on a non-item message — ignore\nconst line = m[0];\nif ((m[1] === 'x') === makeDone) return []; // already in that state\nlet newLine;\nif (makeDone) {\n  newLine = line.replace('- [ ]', '- [x]');\n  if (!/ · done \\d{4}-\\d{2}-\\d{2}/.test(newLine)) newLine += ' · done ' + today;\n} else {\n  newLine = line.replace('- [x]', '- [ ]').replace(/ · done \\d{4}-\\d{2}-\\d{2}/, '');\n}\nmd = md.replace(line, newLine);\nconst id = m[2];\nfunction renderItem(it) {\n  const type = it.id.startsWith('g') ? '🎯' : '☑️';\n  if (it.done) return `✅ ${type} ${it.id} — ${it.text}` + (it.doneDate ? ` · done ${it.doneDate}` : '');\n  return `${type} ${it.id} — ${it.text}`;\n}\nconst text = newLine.match(/\\*\\* — (.*)$/)[1].split(' · ')[0].trim();\nconst dd = newLine.match(/· done (\\d{4}-\\d{2}-\\d{2})/);\nreturn [{ json: {\n  contentB64: Buffer.from(md, 'utf8').toString('base64'), sha: g.sha,\n  commitMsg: 'goals-tasks: ' + (makeDone ? 'done ' : 'reopen ') + id + ' (👍)',\n  msgId, text: renderItem({ id, done: makeDone, text, doneDate: dd ? dd[1] : '' })\n} }];"
+      }
+    },
+    {
+      "id": "put-react",
+      "name": "PUT file (reaction)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        660,
+        400
+      ],
+      "parameters": {
+        "method": "PUT",
+        "url": "https://api.github.com/repos/alexey-orlov/AO-Personal-OS/contents/context/knowledge/goals-tasks.md",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Accept",
+              "value": "application/vnd.github+json"
+            },
+            {
+              "name": "User-Agent",
+              "value": "n8n-ao-secondbrain"
+            },
+            {
+              "name": "X-GitHub-Api-Version",
+              "value": "2022-11-28"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "json",
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ message: $json.commitMsg, content: $json.contentB64, sha: $json.sha, branch: 'main' }) }}",
+        "options": {
+          "timeout": 30000
+        }
+      },
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "BNjgcEg64fLzU1gU",
+          "name": "GitHub PAT (AO-Personal-OS) v2"
+        }
+      },
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 2000
+    },
+    {
+      "id": "carry",
+      "name": "Carry edit fields",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        880,
+        400
+      ],
+      "parameters": {
+        "jsCode": "// PUT replaced $json with the GitHub response — restore the edit payload.\nconst a = $('Apply reaction').first().json;\nreturn [{ json: { msgId: a.msgId, text: a.text } }];"
+      }
     }
   ],
   "connections": {
@@ -483,102 +563,7 @@
             "index": 0
           },
           {
-            "node": "GET goals file",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "When called (toggle)": {
-      "main": [
-        [
-          {
-            "node": "Answer callback",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Answer callback": {
-      "main": [
-        [
-          {
-            "node": "GET goals file",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "GET goals file": {
-      "main": [
-        [
-          {
-            "node": "Toggle + render boards",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Toggle + render boards": {
-      "main": [
-        [
-          {
-            "node": "Need PUT?",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Need PUT?": {
-      "main": [
-        [
-          {
-            "node": "PUT goals file",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "Board ids known?",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "PUT goals file": {
-      "main": [
-        [
-          {
-            "node": "Board ids known?",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Board ids known?": {
-      "main": [
-        [
-          {
-            "node": "Edit Goals board",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Edit Goals board": {
-      "main": [
-        [
-          {
-            "node": "Edit Tasks board",
+            "node": "GET file (cron)",
             "type": "main",
             "index": 0
           }
@@ -634,6 +619,123 @@
         [
           {
             "node": "DELETE card",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GET file (cron)": {
+      "main": [
+        [
+          {
+            "node": "Plan posts and edits",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Plan posts and edits": {
+      "main": [
+        [
+          {
+            "node": "New item?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "New item?": {
+      "main": [
+        [
+          {
+            "node": "Post item",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Edit item message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Post item": {
+      "main": [
+        [
+          {
+            "node": "Stamp tg ids",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Stamp tg ids": {
+      "main": [
+        [
+          {
+            "node": "PUT file (stamp ids)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When called (toggle)": {
+      "main": [
+        [
+          {
+            "node": "GET file (reaction)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GET file (reaction)": {
+      "main": [
+        [
+          {
+            "node": "Apply reaction",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Apply reaction": {
+      "main": [
+        [
+          {
+            "node": "PUT file (reaction)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "PUT file (reaction)": {
+      "main": [
+        [
+          {
+            "node": "Carry edit fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Carry edit fields": {
+      "main": [
+        [
+          {
+            "node": "Edit item message",
             "type": "main",
             "index": 0
           }

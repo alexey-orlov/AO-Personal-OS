@@ -13,7 +13,7 @@
       "parameters": {
         "updates": [
           "message",
-          "callback_query"
+          "message_reaction"
         ],
         "additionalFields": {
           "download": true,
@@ -207,8 +207,8 @@
       "waitBetweenTries": 1500
     },
     {
-      "id": "cb-gate",
-      "name": "Callback gate",
+      "id": "react-gate",
+      "name": "Reaction gate",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
@@ -216,12 +216,12 @@
         260
       ],
       "parameters": {
-        "jsCode": "// gt:<id> button taps from the 🎯 Goals & Tasks pinned boards → hand off to\n// 'Second-brain delivery (cloud)' (toggles the checkbox in goals-tasks.md and\n// re-renders the boards). Everything else: ignore (message updates flow through\n// the existing 'Gate + build card' path).\nconst u = $input.first().json;\nconst cq = u.callback_query;\nif (!cq || !cq.data || !cq.data.startsWith('gt:')) return [];\nconst msg = cq.message || {};\nif (!msg.chat || String(msg.chat.id) !== 'REDACTED_GROUP_CHAT_ID') return [];\nreturn [{ json: { itemId: cq.data.slice(3), callbackQueryId: cq.id } }];"
+        "jsCode": "// 👍 reactions on 🎯 Goals & Tasks item messages → hand off to\n// 'Second-brain delivery (cloud)': 'like' marks the item done in\n// context/knowledge/goals-tasks.md, removing the like reopens it.\n// (Telegram delivers message_reaction only because the bot is a group admin.)\nconst u = $input.first().json;\nconst r = u.message_reaction;\nif (!r || !r.chat || String(r.chat.id) !== 'REDACTED_GROUP_CHAT_ID') return [];\nconst had = (r.old_reaction || []).some(x => x.emoji === '👍');\nconst has = (r.new_reaction || []).some(x => x.emoji === '👍');\nif (had === has) return [];\nreturn [{ json: { messageId: r.message_id, makeDone: has } }];"
       }
     },
     {
-      "id": "cb-exec",
-      "name": "Toggle board item",
+      "id": "react-exec",
+      "name": "Toggle item by reaction",
       "type": "n8n-nodes-base.executeWorkflow",
       "typeVersion": 1.2,
       "position": [
@@ -250,7 +250,7 @@
             "index": 0
           },
           {
-            "node": "Callback gate",
+            "node": "Reaction gate",
             "type": "main",
             "index": 0
           }
@@ -308,11 +308,11 @@
         ]
       ]
     },
-    "Callback gate": {
+    "Reaction gate": {
       "main": [
         [
           {
-            "node": "Toggle board item",
+            "node": "Toggle item by reaction",
             "type": "main",
             "index": 0
           }
