@@ -36,7 +36,7 @@ The map applies to both customer-facing and internal product orgs; Week 0 picks 
 **Week 0 — Express Product Assessment** (reuses the Express SDLC Assessment pattern: intake form + 3–4 working sessions + readout). Outputs: maturity heatmap, ranked pain points, pilot team + use cases, **readiness gate** — frozen metric definitions and 2 sprints of baseline data, system-of-record hygiene confirmed (AC fields, backlog structure), licensing + data-handling sign-off. Hard lesson from DAX: no baseline = unprovable impact; and skills are customized to the client's actual stack (DAX escalated because workshops talked Jira while the client ran Aha!).
 
 **Weeks 1–6 — Activation Pod** (one pilot product team / PM triad):
-- **W1** Foundations: build the product context system, connect MCPs, intro training, baseline snapshot, friction log opened.
+- **W1** Foundations: build the product context system, connect MCPs, intro training (incl. the core working discipline: roll context in, force clarifying questions, block premature deliverables — treat the model like an eager junior), baseline snapshot, friction log opened.
 - **W2** Definition station live: epic/PRD/story skills on the real backlog; champion pairing sessions per PM.
 - **W3** Discovery & insight station: triage pipeline + research/competitor skills; analytics TLDR.
 - **W4** Prototype-first definition + communication station (human-approval gates configured).
@@ -59,7 +59,7 @@ Each week has a written Go/No-Go signal owned by the team champion (same mechani
 | Experience & business | PM DX score; time saved per role/sprint | DX ≥4.0/5 |
 | **Guardrails** | downstream defect escape, mid-sprint scope change | must not degrade — speed at the cost of spec quality is the failure mode |
 
-Expect the J-curve: a ~3-month dip with enablement, 12+ months without (DORA 2026). Make the Wave-1 regression explicit in the governance narrative or one bad sprint kills a good skill.
+Pair telemetry with the DX survey — divergence between "what happened" and "how it feels" is the single most informative adoption signal. Expect the J-curve: a ~3-month dip with enablement, 12+ months without (DORA 2026). Make the Wave-1 regression explicit in the governance narrative or one bad sprint kills a good skill.
 
 ## Governance & processes set up (the "basic processes" deliverable)
 
