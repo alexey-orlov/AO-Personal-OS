@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.user.apple-notes-sync</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>/bin/bash</string>
+    <string>__REPO__/automations/apple-notes-sync/run.sh</string>
+  </array>
+  <!-- Every 30 min; run.sh exits instantly when the queue is empty.
+       Mac asleep → launchd skips; next wake catches up. -->
+  <key>StartInterval</key>
+  <integer>1800</integer>
+  <key>RunAtLoad</key>
+  <true/>
+  <key>StandardOutPath</key>
+  <string>__REPO__/automations/apple-notes-sync/.work/launchd.log</string>
+  <key>StandardErrorPath</key>
+  <string>__REPO__/automations/apple-notes-sync/.work/launchd.log</string>
+</dict>
+</plist>
