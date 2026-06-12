@@ -75,6 +75,9 @@ TOPIC_DEFS=(
   "daily-digest|📰 Daily Digest|13338331"
   "books|📚 Books|9367192"
   "dropzone|📥 Drop Zone|16749490"
+  "goals-tasks|🎯 Goals & Tasks|16478047"
+  "insights|💡 My Insights|16766590"
+  "explore|🔭 Articles & Topics|7322096"
 )
 
 declare -a lines=()

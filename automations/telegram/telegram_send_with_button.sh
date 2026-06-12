@@ -36,8 +36,13 @@ if [ "$#" -lt 2 ] || [ $(($# % 2)) -ne 0 ]; then
 fi
 
 if [ -z "${TELEGRAM_BOT_TOKEN:-}" ] || [ -z "${TG_TARGET_CHAT_ID:-}" ]; then
-  echo "[telegram_send_with_button] not configured — run automations/telegram/setup.sh" >&2
-  exit 1
+  if [ "${TG_OUTBOX:-0}" != "1" ]; then
+    echo "[telegram_send_with_button] not configured — run automations/telegram/setup.sh" >&2
+    exit 1
+  fi
+  # TG_OUTBOX=1: no credentials here (e.g. cloud routine sandbox) — queue the
+  # message + keyboard to context/_inbox/outbox/ for the n8n delivery workflow.
+  TG_QUEUE_ONLY=1
 fi
 
 command -v jq >/dev/null 2>&1 || {
@@ -66,6 +71,11 @@ while [ "$#" -gt 0 ]; do
     '. + [[ { text: $t, url: $u } ]]' <<<"$keyboard")"
   shift 2
 done
+
+if [ "${TG_QUEUE_ONLY:-0}" = "1" ]; then
+  tg_queue_outbox "$msg" "$keyboard" "${TG_PARSE_MODE:-}" && exit 0
+  exit 1
+fi
 
 payload="$(jq -nc \
   --arg chat_id    "$TG_TARGET_CHAT_ID" \
