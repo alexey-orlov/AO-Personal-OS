@@ -63,25 +63,36 @@ restarted. Upstream refs: claude-code issues #39808, #45146.
 
 Three guards now enforce the invariant (defense in depth):
 
-1. **User-scope disable** — `~/.claude/settings.json` has
-   `"enabledPlugins": {"telegram@claude-plugins-official": false}`. No session
-   anywhere auto-loads the plugin. The bridge still works: `--channels`
-   force-loads the named plugin regardless of enablement (verified 2026-06-12
-   on CC 2.1.153). **Never set this back to `true`.**
-2. **Poll gate** — the plugin cache copy
-   (`~/.claude/plugins/cache/claude-plugins-official/telegram/<ver>/server.ts`)
-   is patched: it only touches `bot.pid` / polls when `TELEGRAM_CHANNEL_POLL=1`
-   (exported by `run.sh` only). Tool-only instances log
-   `tools-only instance, not polling` and serve reply/react tools harmlessly.
-   The pristine-vs-patched diff lives as the repo fork at
-   `automations/telegram-chat/plugin/` (version `0.0.6-ao.1`) — re-apply from
-   there if a plugin update overwrites the cache (guard #1 keeps things safe
-   even unpatched; the gate mainly protects against a future re-enable).
+1. **The fork replaces the official plugin.** The only enabled telegram plugin
+   is `telegram@ao-personal-os` — this repo's gated fork
+   (`automations/telegram-chat/plugin/`, version `0.0.6-ao.1`), installed from
+   the repo's own local marketplace (`ao-personal-os` = this directory,
+   declared in `~/.claude/settings.json` `extraKnownMarketplaces`). The
+   official `telegram@claude-plugins-official` is disabled in user settings —
+   **never set it back to `true`**; an upstream update can never silently
+   reintroduce the takeover behavior because upstream code is never loaded.
+   (Its cache copy also carries the same gate patch, as a relic/extra belt.)
+2. **Poll gate (in the fork, permanent)** — `server.ts` only touches `bot.pid`
+   / polls when `TELEGRAM_CHANNEL_POLL=1`, which only `run.sh` exports.
+   Desktop/headless/subagent sessions load the fork user-scope but run
+   tools-only (their stderr logs `tools-only instance, not polling`); they
+   serve reply/react tools harmlessly and can never steal the consumer slot.
 3. **Watchdog** — `start.sh` checks every 10s that `bot.pid` points at a live
    process descending from the bridge's tmux pane; after ~90s of failure it
    respawns the bridge window, whose fresh server reclaims the slot (killing
    any foreign holder). Self-heals every known deafness mode, including
    sleep/wake weirdness and crashed servers.
+
+**Why `--dangerously-load-development-channels`:** CC's `--channels` only
+accepts plugins on the Anthropic-managed approved-channels allowlist (official
+marketplace only; `allowedChannelPlugins` can override it solely via managed
+org settings). For a disabled or non-allowlisted plugin, `--channels` prints
+"Listening" but silently never loads the channel — so the bridge launches the
+fork with the dev-channels flag instead. That flag shows an interactive
+confirmation on every claude start; the `start.sh` supervisor auto-confirms it
+within ~10s (`confirm_dev_channels_prompt`). If a CC update ever changes that
+prompt's wording, update the grep in `start.sh` — symptom: bridge stuck at the
+warning screen, watchdog respawning every ~90s.
 
 **Receipt ack:** `~/.claude/channels/telegram/access.json` sets
 `"ackReaction": "👀"` — the server reacts 👀 to each accepted inbound message
