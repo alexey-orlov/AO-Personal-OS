@@ -35,7 +35,7 @@ The map applies to both customer-facing and internal product orgs. Week 0 weight
 
 **Week 0 — Express Product Assessment** (reuses the Express SDLC Assessment pattern: intake form + 3–4 working sessions + readout). Outputs: maturity heatmap, ranked pain points, pilot team + use cases, **readiness gate** — frozen metric definitions and 2 sprints of baseline data, system-of-record hygiene confirmed (AC fields, backlog structure), licensing + data-handling sign-off with legal aligned to default-to-yes ("how do we do this safely," not "whether") — the unglamorous unblock behind the fastest corporate adoption curves. Hard lesson from DAX: no baseline = unprovable impact; and skills are customized to the client's actual stack (DAX escalated because workshops talked Jira while the client ran Aha!).
 
-**Weeks 1–6 — Activation Pod** (one pilot product team / PM triad):
+**Weeks 1–6 — Activation Pod** (one pilot product team / PM triad). Day-level activities, the build-and-test method for the context system, and the underperforming-workflow triage playbook are in **[Appendix A](#appendix-a--implementation-playbook-how-we-build-test-and-recover)** — the week summaries below are the spine; the appendix is the operating manual.
 - **W1** Foundations: build the product context system, connect MCPs, intro training (incl. the core working discipline: roll context in, force clarifying questions, block premature deliverables — treat the model like an eager junior), baseline snapshot, friction log opened.
 - **W2** Definition station live: epic/PRD/story skills on the real backlog; champion pairing sessions per PM.
 - **W3** Discovery & insight station: triage pipeline + research/competitor skills; analytics TLDR.
