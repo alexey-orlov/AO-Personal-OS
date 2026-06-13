@@ -22,7 +22,8 @@
 set -euo pipefail
 
 SOFFICE_BIN="${SOFFICE_BIN:-/Applications/LibreOffice.app/Contents/MacOS/soffice}"
-LO_PROFILE="${LO_PROFILE:-file://${TMPDIR:-/tmp}/cv-tailor/loprofile}"
+# Each pdf render gets its OWN LibreOffice profile (see cmd_pdf). Set
+# LO_PROFILE_OVERRIDE to a dir path to force a specific profile instead.
 
 die() { echo "cvtools: ERROR: $*" >&2; exit 1; }
 abspath() { python3 -c "import os,sys;print(os.path.abspath(sys.argv[1]))" "$1"; }
@@ -70,10 +71,22 @@ cmd_repack() {
 cmd_pdf() {
   local in; in=$(abspath "$1"); local outdir; outdir=$(abspath "$2"); mkdir -p "$outdir"
   [ -x "$SOFFICE_BIN" ] || die "soffice not found at $SOFFICE_BIN"
-  "$SOFFICE_BIN" --headless -env:UserInstallation="$LO_PROFILE" \
-    --convert-to pdf --outdir "$outdir" "$in" >/dev/null 2>&1
   local base; base=$(basename "$in"); base="${base%.*}"
-  [ -f "$outdir/$base.pdf" ] || die "PDF conversion produced no output for $in"
+  # Unique LibreOffice profile per call. CRITICAL: a shared profile under
+  # concurrency (e.g. several tailor runs at once) produces nondeterministic
+  # rendering that blinds the pixel-diff gate. Isolated profiles make the
+  # docx->pdf render reproducible, so identical input -> identical pixels.
+  local own=0 prof
+  if [ -n "${LO_PROFILE_OVERRIDE:-}" ]; then prof="$LO_PROFILE_OVERRIDE"; else prof=$(mktemp -d "${TMPDIR:-/tmp}/lo_prof.XXXXXX"); own=1; fi
+  local attempt err
+  for attempt in 1 2; do
+    err=$("$SOFFICE_BIN" --headless -env:UserInstallation="file://$prof" \
+      --convert-to pdf --outdir "$outdir" "$in" 2>&1) || true
+    [ -f "$outdir/$base.pdf" ] && break
+    if [ "$attempt" = 1 ] && [ "$own" = 1 ]; then rm -rf "$prof"; prof=$(mktemp -d "${TMPDIR:-/tmp}/lo_prof.XXXXXX"); fi
+  done
+  [ "$own" = 1 ] && rm -rf "$prof" 2>/dev/null || true
+  [ -f "$outdir/$base.pdf" ] || die "PDF conversion produced no output for $in. soffice said: $err"
   echo "$outdir/$base.pdf"
 }
 
