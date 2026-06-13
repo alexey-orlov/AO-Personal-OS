@@ -115,13 +115,44 @@ you can hold the line count. Adding/removing a bullet is effectively forbidden (
 - Runs are fragmented (bold vs. non-bold split across `<w:r>`). To swap a word, Edit the exact
   `<w:t ...>TEXT</w:t>` substring, preserving the surrounding tags and the run's `<w:rPr>`.
 - The ◆ separators live inside `<w:sdt>…<w:sdtContent>` wrappers; the terms are plain `<w:r>` runs
-  between them. **To reorder ◆-tags**, move the *term run text* — keep the ◆ `<w:sdt>` blocks in place
-  (or move whole term+separator units consistently). Simplest: swap the `<w:t>` contents of two term
-  runs so order changes with zero structural churn.
+  between them. **To reorder ◆-tags**, move the *term run text* — keep the ◆ `<w:sdt>` blocks in place.
 - Skills items are separate paragraphs; to reorder, swap the `<w:t>` contents of two skill paragraphs
   (leave the paragraph shells alone) — this guarantees identical line count.
+
+### Reordering = a 3-step sentinel swap (NOT a naive two-step) — avoids the twin-collision trap
+Swapping two items' text in two Edits creates a moment where both `<w:t>` read the same string, and
+the Edit tool then can't target the second one uniquely (it errors on a non-unique match). The
+**wrong** fix is to fall back to a whole-file Python rewrite — that re-serializes the entire
+`document.xml` and silently re-encodes smart quotes to numeric entities across *untouched*
+paragraphs, which blinds the layout diff gate. **Always reorder with a unique temporary sentinel:**
+1. Edit item A's `<w:t>` text → a unique sentinel, e.g. `@@SWAP@@`.
+2. Edit item B's `<w:t>` text → A's original text.
+3. Edit `@@SWAP@@` → B's original text.
+Each `old_string` is unique at the moment you run it, so the Edit tool never collides and every
+untouched run stays byte-identical. (For multi-item rotations, sentinel each moved item the same way.)
+**Never** rewrite the whole `document.xml` with a script. If you somehow must, serialize with the
+master's exact quote/entity style so unedited runs stay byte-for-byte unchanged.
+
+### Length-neutral About re-point (the high-value, higher-risk lever) — SWAP, don't ADD
+The About paragraph is `jc="both"` (justified) in the pagination-driving left column, so adding words
+risks a 3-page cascade. To re-point it safely: find an existing clause and replace it with a
+JD-aligned, TRUE clause of **equal-or-shorter** character count, then rebuild and confirm the wrap +
+page count held. Do not append. Example moves (illustrative — verify each):
+- Lead clause "…launching, achieving product-market fit, and scaling global B2B SaaS products." For
+  an agentic-AI role, "scaling global B2B SaaS products" → "scaling global B2B SaaS and AI products"
+  is ~length-neutral and TRUE (his current work is agentic-AI) — but it's slightly longer, so verify
+  the wrap; if it adds a line, revert. Prefer swapping an adjective for an equal-width one over
+  inserting a noun.
+- If no equal-width swap surfaces the mandate without echoing the JD or reading forced, **leave the
+  About alone** — the first experience block already carries the through-line. A clean skip here,
+  with the mandate surfaced via the safer levers, still scores 9-10.
+
+### Hygiene
 - Smart quotes: use XML entities for new apostrophes/quotes (`&#x2019;`, `&#x201C;`, `&#x201D;`).
 - Keep `xml:space="preserve"` on any `<w:t>` you touch that has leading/trailing spaces.
+- After editing, diff the post-edit `document.xml` against a copy of the pre-edit version and confirm
+  ONLY the runs you intended changed (no stray re-encoding). The repack is a naive re-zip, so any run
+  you didn't touch with the Edit tool stays byte-identical — a clean diff is the proof.
 
 ---
 

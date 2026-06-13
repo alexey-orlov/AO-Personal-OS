@@ -52,12 +52,16 @@ Work in `WORK="${TMPDIR:-/tmp}/cv-tailor/runs/<company-role-slug>"`; `mkdir -p "
 ### 3. Analyze & plan (lead with the answer; bias to minimal)
 From the JD, extract: the role's **mandate** (what this hire is really for — scale / 0→1 / platform /
 agentic-AI / GM-P&L / turnaround), the **must-have** requirements, and the **exact terms** it uses.
-Map each against Alex's defensible facts (inventory). Then write a short **tailoring plan**: for each
-proposed change name the zone, the exact edit, and a one-line justification on three axes —
+Map each against Alex's defensible facts (inventory). Then **walk the safe-levers checklist in
+best-practices.md §2 explicitly** — for each lever (headline reorder · skills reorder · ◆-tag reorder ·
+one named-true JD requirement via a length-neutral word-swap · an attempted length-neutral About
+re-point), either take it or record a concrete, defensible reason to skip it. **Skipping a zero-risk
+lever — especially surfacing the role's title in the headline — is the #1 way these runs miss a 10;
+restraint means not forcing risky edits, not skipping free ones.** Write a short **tailoring plan**:
+for each proposed change name the zone, the exact edit, and a one-line justification on three axes —
 (a) it surfaces a TRUE fact, (b) it's length-neutral, (c) it's not over-tailored. **Explicitly list
-what you are leaving unchanged and why.** If the base already fits well, the plan may be "reorder a
-few skills/tags and re-point one summary clause" — or "no changes warranted." Prefer the safest zones
-(skills + ◆-tags reordering) and only touch summary prose / bullets when the alignment gain is real.
+what you are leaving unchanged and why.** If the base already fits well the plan may be just a few
+reorders — that is a correct, high-quality outcome — but the role's mandate must still sit in the scan path.
 
 Do not echo the JD's sentences. Mirror its *vocabulary for things Alex genuinely did*, woven into his
 own phrasing. Target ~75-80% coverage of genuinely-applicable terms — never a keyword dump.
