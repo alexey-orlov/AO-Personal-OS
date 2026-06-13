@@ -1,0 +1,152 @@
+{
+  "schema": 1,
+  "generatedAt": "2026-06-13T04:02:18.211Z",
+  "runStamp": "20260613T0402",
+  "episodes": [
+    {
+      "videoId": "XWpTgCvgYaE",
+      "videoTitle": "How Anthropic Uses Claude Fable 5 With Mike Krieger",
+      "videoUrl": "https://www.youtube.com/watch?v=XWpTgCvgYaE",
+      "channelName": "Every",
+      "publishedDate": "2026-06-10",
+      "guests": [
+        "Mike Krieger (Instagram co-founder)"
+      ],
+      "summary": "Mike Krieger describes how Anthropic's Claude Fable 5 has shifted his day-to-day engineering: it can be delegated long-running, complex tasks, orchestrate multi-step engineering work, and even modify software. He argues this changes what software engineering looks like (more parallelism, more product/ownership emphasis) while raising new needs for verification, workflow abstractions, and sensible pricing.",
+      "insights": [
+        {
+          "headline": "You can safely delegate long-running engineering tasks to the model",
+          "detail": "Krieg er recounts routinely giving Fable complex jobs overnight—\"wish Claude a good night, set it up on like a pretty complex task\"—and waking to a completed implementation or a scaffolded fallback (e.g., temporary backend, documented caveats) that it tracked until dependent services returned. That persistent session capability turns the model into a teammate you can offload big chunks of work to, reducing iterative back-and-forth and enabling multi-hour or multi-day executions that previously required human supervision.",
+          "anchorQuote": "wish Claude a good night, set it up on like a pretty complex task",
+          "tSeconds": 211,
+          "link": "https://www.youtube.com/watch?v=XWpTgCvgYaE&t=211"
+        },
+        {
+          "headline": "Software engineering is becoming a different craft, not dead",
+          "detail": "Krieg er says \"software engineering is different. It is like dramatically changed,\" explaining that many traditional coding chores collapse into model-driven work while ownership, architecture decisions, incident response, and product intent remain human responsibilities. Engineers now spend more time on alignment, high-level design, production incident handling, and verifying model outputs rather than typing every line of code—so the role shifts toward orchestration and systems thinking.",
+          "anchorQuote": "software engineering is different. It is like dramatically changed",
+          "tSeconds": 1144,
+          "link": "https://www.youtube.com/watch?v=XWpTgCvgYaE&t=1144"
+        },
+        {
+          "headline": "Trusting models requires new verification and judgment workflows",
+          "detail": "He emphasizes that although Fable often 'does it right' in one shot, teams must build verification loops: attach screenshots, video captures, end-to-end test flows, and staging accounts to each model-generated pull request to confirm behavior in production. Krieger also highlights model discernment—Fable can push back on code-review feedback or choose pragmatic quick fixes versus long-term rearchitecting—so verification combines automated artifacts plus human review of trade-offs.",
+          "anchorQuote": "there's still like a whole verification thing",
+          "tSeconds": 262,
+          "link": "https://www.youtube.com/watch?v=XWpTgCvgYaE&t=262"
+        },
+        {
+          "headline": "Dynamic workflows let the model orchestrate multi-step engineering conversions",
+          "detail": "He describes creating a dynamic workflow that ported a Python codebase to TypeScript over a weekend: the workflow decomposed the job into spec, module-by-module translation, incremental testing, adversarial checks, and follow-up fixes. That orchestration—expressed as executable workflow code and runnable by the model—enables long-horizon, verified transformations that would be costly or impractical to do manually.",
+          "anchorQuote": "it was the workflow was so cool",
+          "tSeconds": 2908,
+          "link": "https://www.youtube.com/watch?v=XWpTgCvgYaE&t=2908"
+        },
+        {
+          "headline": "High per-run model cost restricts who uses the most capable models",
+          "detail": "Krieg er notes bluntly, \"Fable is also very expensive,\" which forces users and companies to weigh per-turn costs against the value of fewer follow-ups because the model often completes tasks in one run. The expense shapes adoption: big professional teams can justify it when it delivers outsized productivity, personal/hobbyist use becomes more measured, and product design must include sticky default model choices per surface to avoid runaway bills.",
+          "anchorQuote": "Fable is also very expensive.",
+          "tSeconds": 1610,
+          "link": "https://www.youtube.com/watch?v=XWpTgCvgYaE&t=1610"
+        }
+      ]
+    },
+    {
+      "videoId": "rYX6m4gIys0",
+      "videoTitle": "How I Built an AI Software Factory With Fable 5",
+      "videoUrl": "https://www.youtube.com/watch?v=rYX6m4gIys0",
+      "channelName": "Every",
+      "publishedDate": "2026-06-11",
+      "guests": [],
+      "summary": "A developer demos an automated \"software factory\" built around Fable that turns Slack feedback and rich recordings into pull requests and code fixes. He explains the pipeline: capture rich feedback with an open-source recorder, schedule batch processing of Slack input, have Fable/compound engineering generate and refine PRs, and then review/merge—sometimes fully automated overnight. The central claim is that this combo turns tedious triage and many small PRs into a manageable, improving flow that can ship while you sleep.",
+      "insights": [
+        {
+          "headline": "Fable can automatically turn feedback into fixes and PRs",
+          "detail": "He uses Fable to read structured feedback, synthesize fixes, and create pull requests that include video walkthroughs of changes. In practice he kicks off the pipeline, Fable applies fixes in a branch and produces an artifact showing what changed, and he often just reviews and merges rather than hand-coding each fix. The result is a dramatic increase in feature-velocity: multiple reported items become a single, reviewable PR instead of many separate manual tasks.",
+          "anchorQuote": "And with Fable it's very good at doing that",
+          "tSeconds": 387,
+          "link": "https://www.youtube.com/watch?v=rYX6m4gIys0&t=387"
+        },
+        {
+          "headline": "Rifreck captures richer feedback than a plain screen recording",
+          "detail": "Rifreck is an open-source wrapper for React that records clicks, spoken narration, network requests, and errors into a sharable file instead of just a video. That richer trace makes automated analysis possible: the pipeline can replay interactions or inspect requests and errors to produce more precise fixes. Having structured recordings in Slack is the input that lets the automation reason about what to change rather than guessing from a short video.",
+          "anchorQuote": "It uh records what you're clicking on. It records what you're saying.",
+          "tSeconds": 171,
+          "link": "https://www.youtube.com/watch?v=rYX6m4gIys0&t=171"
+        },
+        {
+          "headline": "Batch-processing Slack feedback twice daily keeps review manageable",
+          "detail": "He runs a scheduled task that scrapes Slack messages in the morning and evening, classifies items, downloads recordings, and writes YAML/markdown records for each issue. Those batches are then fed into a Cursor/compound-engineering flow that attempts fixes and leaves notes where human input is required, turning dozens of small reports into a few reviewable PRs. The batching reduces context-switching and makes it feasible for one person to validate many fixes rather than reviewing many tiny PRs.",
+          "anchorQuote": "it goes through slack just reads everything and structures it",
+          "tSeconds": 119,
+          "link": "https://www.youtube.com/watch?v=rYX6m4gIys0&t=119"
+        },
+        {
+          "headline": "Compound engineering prevents repeating the same automation mistakes",
+          "detail": "The pipeline includes a compound step that uses prior runs to refine behavior, so when the system makes an error it learns not to repeat that same mistake on subsequent runs. He notes that iterative refinement means the automation improves over time, reducing the manual corrections you must make during review. That learning loop is what turns a brittle script into an increasingly reliable assistant.",
+          "anchorQuote": "it will also not make the same mistake the next time",
+          "tSeconds": 404,
+          "link": "https://www.youtube.com/watch?v=rYX6m4gIys0&t=404"
+        },
+        {
+          "headline": "You can safely auto-merge overnight if CI passes",
+          "detail": "He demonstrated kicking off the flow with an instruction like 'if everything looks good and the CI is green, merge it,' letting the system work overnight and waking to merged changes. In his example, the automated run finished while he slept and a teammate reported the design looked good the next morning—showing the process can produce deployable, high-quality updates without active daytime supervision. He does note the runs can take a few hours, but that latency is an acceptable tradeoff for asynchronous automation.",
+          "anchorQuote": "if everything looks good uh and the CI is green, merge it",
+          "tSeconds": 429,
+          "link": "https://www.youtube.com/watch?v=rYX6m4gIys0&t=429"
+        }
+      ]
+    },
+    {
+      "videoId": "3rWSvrFahIY",
+      "videoTitle": "5 Papers That Show Where AI Research Is Heading Right Now",
+      "videoUrl": "https://www.youtube.com/watch?v=3rWSvrFahIY",
+      "channelName": "Y Combinator",
+      "publishedDate": "2026-06-12",
+      "guests": [
+        "Luke Bailey",
+        "Arnab Matei",
+        "Robert George",
+        "Luke Orthwine (Channel AI)"
+      ],
+      "summary": "A series of short presentations that extract concrete lessons from five recent papers across protein language models, self-play for LMs, streaming retrieval for voice agents, formal verification with Lean, and agentic engineering workflows. The throughline: scale and simple objectives keep unlocking capabilities (in biology and models), but practical systems require grounding, verification, latency-aware retrieval, and new engineering patterns to turn capabilities into useful products.",
+      "insights": [
+        {
+          "headline": "Protein language models follow scaling laws when given huge evolutionary data",
+          "detail": "Meta/Biohub's new ESM Cambrian family shows the same log-linear compute->performance scaling seen in language models once training data is expanded massively: prior ESM2 runs used ~50 million sequences, while ESM Cambrian trained on ~2.8 billion (mostly metagenomic) sequences and kept improving up to 6B-parameter scales. That data-scaling fix removed a prior plateau and enabled single-sequence structure prediction (ESMFold2) to approach specialized methods that rely on MSAs, especially on antibody design tasks where ESMFold2 scored ~50 versus AlphaFold3's ~47 on a practical metric. The non-obvious takeaway is that biology isn’t fundamentally “brittle” to the bitter lesson — you just need orders more diverse sequence data to unlock emergent structure and function representations.",
+          "anchorQuote": "they just pushed that to 2.8 billion",
+          "tSeconds": 883,
+          "link": "https://www.youtube.com/watch?v=3rWSvrFahIY&t=883"
+        },
+        {
+          "headline": "Naive self-play produces adversarial, useless tasks unless grounded and judged",
+          "detail": "When an LM is trained to both generate tasks (the conjecturer) and solve them (the solver), optimizing the generator for tasks the solver finds hard leads it to invent pathologically complex or irrelevant problems instead of useful curriculum. In a formal-math experiment on 3,000 Lean problems, vanilla self-play plateaued at the same RL baseline (~60% asymptote); the paper's Self-Guided Selfplay (SGS) fixes this by (1) generating problems conditioned on real unsolved targets and (2) adding a guide that scores whether synthetic tasks are actually related and not artificially convoluted, yielding a 7B model that matches much bigger baselines when given more compute. The key lesson: synthetic curriculum must be grounded in a target distribution and judged for relevance, not only hardness.",
+          "anchorQuote": "all the conjecturer must do is produce problems",
+          "tSeconds": 1943,
+          "link": "https://www.youtube.com/watch?v=3rWSvrFahIY&t=1943"
+        },
+        {
+          "headline": "Start retrieval while the user is speaking to cut voice-agent latency",
+          "detail": "Streaming RAG designs let a retrieval-augmented model begin fetching documents from partial transcriptions so the system can answer conversational voice queries with low delay rather than waiting for full utterances. The paper evaluates fixed-interval streaming and a learned trigger that decides when partial-query retrieval is worth it (e.g., compare early retrieval results to the final one), and reports latency reductions of roughly 0.5 seconds on synthetic datasets and ~1.5 seconds on human speech without dropping retrieval accuracy. Practically, this shows you can keep RAG-style factual grounding for voice agents while achieving conversational responsiveness by deciding when and how to run retrieval on partial input.",
+          "anchorQuote": "instead of like waiting for the question to end",
+          "tSeconds": 2449,
+          "link": "https://www.youtube.com/watch?v=3rWSvrFahIY&t=2449"
+        },
+        {
+          "headline": "Formal verification (Lean) is becoming a practical path to verified models and code",
+          "detail": "The community is integrating LLMs with Lean and other interactive theorem provers to produce machine-checkable proofs and verified code; progress is rapid enough that models are tackling IMO-level problems and large formal libraries (mathlib) provide substantial corpora. Work discussed includes using Lean as both a theorem prover and a functional programming/spec language (and even a Torch-for-Lean stack), enabling proofs about neural nets (e.g., flash-attention equivalence) and certified properties of numerics/robustness. This matters because it gives a tractable route from LLM outputs to verifiable correctness for math, scientific claims and program behavior — a concrete defense against hallucination and silent bugs.",
+          "anchorQuote": "it's very easy to check if a proof is correct",
+          "tSeconds": 2976,
+          "link": "https://www.youtube.com/watch?v=3rWSvrFahIY&t=2976"
+        },
+        {
+          "headline": "Ship with many agentic workers: treat software work like a real-time strategy game",
+          "detail": "Channel AI advocates running many lightweight agent workers in parallel (spawned from an orchestrator), pushing each task as far as possible toward a PR, then using high-visibility monitoring, rich knowledge-bases, and rapid human corrections — prioritizing throughput and satisficing over single-threaded perfection. Practically they report large productivity gains (roughly 3.5x PRs per engineer per month, and a further ~60% uplift after wider adoption) by maximizing agent tool-calls (APM), using worktrees, portable work artifacts, and aggressive automation of repetitive steps. The contrarian but operational point: to scale product development with LMs you must reorganize workflows for parallelism, fast feedback, and inexpensive correction rather than expecting single agents to produce perfect outcomes.",
+          "anchorQuote": "",
+          "tSeconds": null,
+          "link": ""
+        }
+      ]
+    }
+  ]
+}
