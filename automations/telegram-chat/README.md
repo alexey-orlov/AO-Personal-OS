@@ -79,11 +79,34 @@ Three guards now enforce the invariant (defense in depth):
    Desktop/headless/subagent sessions load the fork user-scope but run
    tools-only (their stderr logs `tools-only instance, not polling`); they
    serve reply/react tools harmlessly and can never steal the consumer slot.
-3. **Watchdog** — `start.sh` checks every 10s that `bot.pid` points at a live
-   process descending from the bridge's tmux pane; after ~90s of failure it
-   respawns the bridge window, whose fresh server reclaims the slot (killing
-   any foreign holder). Self-heals every known deafness mode, including
-   sleep/wake weirdness and crashed servers.
+3. **Watchdog (two layers)** — `start.sh` checks every 10s:
+   - **Transport:** `bot.pid` points at a live process descending from the
+     bridge's tmux pane; after ~90s of failure it respawns the window, whose
+     fresh server reclaims the slot. Catches stolen/crashed pollers.
+   - **Agent** (added 2026-06-13): the pane is scanned for a blocking *system*
+     modal — usage-limit, trust-folder, dev-channels confirm, error dialogs —
+     that freezes claude while its child poller keeps reacting 👀. Known-safe
+     prompts are auto-answered (dev-channels/trust → Enter); the usage-limit
+     and unknown modals are dismissed (Esc), escalated to a respawn if they
+     won't clear, and Alex gets a DM so a stuck bridge is never silent. Tool
+     permissions don't appear here (they relay to Telegram), so a local pane
+     menu is always a system modal — and the normal working/idle panes don't
+     match the modal strings, so a real task is never interrupted.
+
+### Why this needed a second watchdog layer (2026-06-13 recurrence)
+
+The original watchdog only tested the **transport** ("does the bridge own the
+Telegram connection?"). On 2026-06-13 the bridge went silent again — but the
+transport was *fine*: claude was frozen on the Claude-Max usage-limit modal
+("You've hit your session limit"), and its still-alive poller kept reacting 👀,
+so the transport check stayed green and the 👀 falsely reassured. The limit
+reset at 13:00 yet the stale modal kept the session wedged for ~5 hours.
+
+Lesson baked into the design: **a liveness check must verify the thing that
+actually fails (the agent answers), not a proxy (the connection is held), and
+every silent-failure mode must be made loud.** Hence the agent-layer scan +
+the wedge DM. If the bridge ever 👀s but won't reply, the watchdog now clears
+it within ~40s and tells you why.
 
 **Rolling back to the official plugin (allowed once it's safe).** The fork only
 exists to dodge an upstream behavior; going back is *desirable* when fixed —
