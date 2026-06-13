@@ -1,7 +1,7 @@
 # Jumpstart — PM-focused offering (design)
 
-_status: v0.2 program one-pager (field-calibrated vs. external adoption research) 2026-06-12 — review with Inna ~week of Jun 15; Jun–Jul 2026 mandate (Bogdan-driven)_
-_updated: 2026-06-12_
+_status: v0.7 program one-pager + Appendix A implementation playbook (5-round adversarial review, scored 7→8.5; all blockers/majors/citations fixed) 2026-06-12 — review with Inna ~week of Jun 15; Jun–Jul 2026 mandate (Bogdan-driven)_
+_updated: 2026-06-13_
 
 ## Snapshot
 
@@ -44,6 +44,7 @@ Theirs:
 
 ## Activity
 
+- 2026-06-13 — [v0.7 implementation appendix](../../../outputs/jumpstart-pm/jumpstart-pm-program-one-pager.md) — added **Appendix A** (context-system build sequence + eval/test method, underperformance triage playbook, day-/week-by-week W0–W6 + Enablement with owners + exit gates + watch-outs, 18-row risk register). Built from a source-grounded research workflow (8 dimensions, adversarially verified) then hardened across **5 adversarial review rounds** (scored 7→8→8→8→8.5; each round citation-checked by fetching sources). Key fixes landed: post-pod handover-cliff risk, pilot-selection-bias risk, eval-as-tests method, context-saturation triage, EU AI Act date correction (Nov-2025 Digital Omnibus → Dec-2027), MIT/Lenny's/HubSpot citation corrections, model-tiering + memory-as-architecture + meeting-intel/deep-research frontier additions.
 - 2026-06-12 — [v0.2 field calibration](../../../outputs/jumpstart-pm/jumpstart-pm-program-one-pager.md) — external research sweep (HubSpot, Shopify/First Round, Zapier, Anthropic, Stanford, Lenny's survey, MIT GenAI Divide, METR, Gartner, BCG) folded into the one-pager over 4 review turns; references section now groups company programs / frontier practice / adoption-reality research.
 - 2026-06-12 — [v0.1 program one-pager](../../../outputs/jumpstart-pm/jumpstart-pm-program-one-pager.md) — drafted from the walkthrough + all six shared files + SS-todo workflow topics; ready for the Inna review session.
 - 2026-06-11 — [Jumpstart program walkthrough with Inna](calls/2026-06-11_135929_default_20260611130042C37F547F.md) — offering shape, pipeline, maturity/governance assets, team shape, buyer persona, PM gaps mapped.
