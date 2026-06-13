@@ -8,7 +8,8 @@
     "Lenny's Podcast": "lenny",
     "Peter H. Diamandis": "diamandis",
     "How I AI": "howiai",
-    "Aakash Gupta": "aakash"
+    "Aakash Gupta": "aakash",
+    "Every": "every"
   },
   "themes": {
     "ai-agents-and-applications": { "title": "AI agents & applications", "status": "active", "created": "2026-06-11", "aliases": [], "hint": "agent deployment in real products, integration into existing workflows, where value lands, context-is-moat rule", "note": "split 2026-06-11 → generative-media-and-multimodal, agent-engineering-patterns, model-reviews-and-benchmarks" },

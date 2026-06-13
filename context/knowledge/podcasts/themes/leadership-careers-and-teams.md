@@ -2,7 +2,7 @@
 
 _status: live theme — leadership, hiring, org design, careers, ways of working_
 _slug: leadership-careers-and-teams_
-_updated: 2026-06-11 · 9 insights from 6 episodes_
+_updated: 2026-06-13 · 10 insights from 7 episodes_
 
 ## The throughline
 AI bends managerial work toward coaching and exception-handling rather than data assembly — at Anthropic, sales managers stopped reconciling spreadsheets and started running action-oriented strategy sessions. The paradox underneath: total human work goes up, not down. As models automate routine tasks, humans spend more time reviewing, fixing, and operating agents — Every doubled headcount while becoming more automated, Anthropic engineers now do ~80% of code via models and spend their hours on "research taste," and Replit predicts software engineers become "shepherds" of agents. The career-level corollary from Evans: tasks automate, but jobs are bundles, so the parts of a role that involve customer understanding, politics and judgment expand even as the routinizable parts shrink — and the recent jobs report (172k payroll additions vs. 85k expected) reads like an Amdahl-shift, not an extinction event. The labor-market surprise is the opposite of the doom narrative: top AI labs are *buying* consulting capability (Accenture/BCG/Bain) because deployment is a project-based human problem, not a model problem. Two new exec-level beats sharpen the picture: (a) Fadell's hands-on lesson — micromanage the *right* details (high-leverage specs and decisions), not every task; (b) Brex/Pedro's harder claim — the CEO must *be* the chief AI officer, because only CEO authority can refound product, GTM and operations from AI-first premises rather than tacking models onto legacy flows.
@@ -53,9 +53,15 @@ Adopting AI is an organizational design problem that requires CEO-level authorit
 — Y Combinator · 2026-06-11 · guest: Pedro (Brex) · [▶ 39:21](https://www.youtube.com/watch?v=mPAHvz8kW24&t=2361) · `pi-mPAHvz8kW24-01`
 related: [Micromanage the right details: control decisions, not every task](#micromanage-the-right-details-control-decisions-not-every-task) (Fadell-style hands-on focus, now applied to AI strategy) · theme → [Product discovery & strategy](product-discovery-and-strategy.md) (refounding product boundaries, `pi-mPAHvz8kW24-05`)
 
+### Software engineering is becoming a different craft, not dead
+Krieger says "software engineering is different. It is like dramatically changed," explaining that many traditional coding chores collapse into model-driven work while ownership, architecture decisions, incident response, and product intent remain human responsibilities. Engineers now spend more time on alignment, high-level design, production incident handling, and verifying model outputs rather than typing every line of code—so the role shifts toward orchestration and systems thinking.
+— Every · 2026-06-10 · guest: Mike Krieger (Instagram co-founder) · [▶ 19:04](https://www.youtube.com/watch?v=XWpTgCvgYaE&t=1144) · `pi-XWpTgCvgYaE-02`
+related: [Models are automating most coding; humans are becoming 'research taste' guides](#models-are-automating-most-coding-humans-are-becoming-research-taste-guides) (same shift, different vantage — Krieger affirms the change is real while resisting the "dead" framing)
+
 ## Related themes
 - [AI agents & applications](ai-agents-and-applications.md) — the gardener/FDE roles agents create
 - [AI & the PM craft](ai-and-the-pm-craft.md) — which IC roles rise as the mix shifts
+- [Agent engineering & production infra](agent-engineering-patterns.md) — the technical side of the craft shift (delegation, verification, overnight workflows)
 
 ## Source episodes
 - [SaaStr AI — How Anthropic's Head of Industries Built an AI-Native Sales Org (2026-05-24)](../episodes/2026/2026-05-24--saastr--anthropics-head-of-industries-ai-native-sales.md)
@@ -65,3 +71,4 @@ related: [Micromanage the right details: control decisions, not every task](#mic
 - [Peter H. Diamandis — Anthropic's Global Pause, Recursive Self-Improvement, AI Personhood (2026-06-11)](../episodes/2026/2026-06-11--diamandis--anthropic-global-pause-recursive-self-improvement.md)
 - [SaaStr AI — What Agents That Actually Work Look Like Right Now (Replit) (2026-06-11)](../episodes/2026/2026-06-11--saastr--agents-that-actually-work-replit-amjad.md)
 - [Y Combinator — The CEO Must Be the Chief AI Officer (Brex) (2026-06-11)](../episodes/2026/2026-06-11--yc--ceo-must-be-chief-ai-officer-brex.md)
+- [Every — How Anthropic Uses Claude Fable 5 With Mike Krieger (2026-06-10)](../episodes/2026/2026-06-10--every--anthropic-uses-claude-fable-5-mike-krieger.md)

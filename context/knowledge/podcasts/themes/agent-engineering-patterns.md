@@ -2,10 +2,10 @@
 
 _status: live theme — what separates shipped agents from brittle demos: architecture, memory, security, cost_
 _slug: agent-engineering-patterns_
-_updated: 2026-06-11 · 12 insights from 4 episodes · (split from ai-agents-and-applications, 2026-06-11)_
+_updated: 2026-06-13 · 23 insights from 8 episodes · (split from ai-agents-and-applications, 2026-06-11)_
 
 ## The throughline
-Three teams — Conductor, Emergent, Replit — independently converged on the same lesson: production infra is the moat, not better prompts alone. The shared discipline: reserve architectural decisions for humans (Conductor's "no AI architects," human-only files in code), enforce human-review chokepoints (PR gates, Brex's proxy-based policy enforcement via crab-trap that auto-approves ~98% and flags ~2%), and invest heavily in memory lifecycle engineering (domain-aware compaction, mono-repo context, graph-like long-term memory). Emergent's multi-agent orchestration + custom snapshotting and Replit's nightly closed-loop self-improvement are variants of the same insight: agents that produce finished, deployable software require proprietary plumbing that competitors can't copy quickly. The operational corollary is now quantified: token spend is a first-class cost center — Brex built Magpie to attribute every dollar of inference spend to products and teams, and their data shows token-maxing regions correlate with faster revenue growth.
+Three teams — Conductor, Emergent, Replit — independently converged on the same lesson, now corroborated by Fable-native practitioners and research: production infra is the moat, not better prompts alone. The shared discipline: reserve architectural decisions for humans (Conductor's "no AI architects"), enforce human-review chokepoints (PR gates, proxy-based policy enforcement via crab-trap ~98% auto-approve / ~2% flagged), and invest heavily in memory lifecycle engineering (domain-aware compaction, mono-repo context, graph-like long-term memory). The frontier has advanced on two new axes since the initial split. (1) *Delegation depth*: Fable-class models now sustain multi-hour and overnight executions — Krieger offloads complex tasks before sleeping and wakes to completions; the software-factory pattern automates Slack-feedback → branch-fix → PR → auto-merge; Channel AI reports 3.5× PRs/engineer/month by running many parallel workers in an RTS-style orchestration (many lightweight agents, high APM, fast correction). (2) *Verification tooling*: since models increasingly 'do it right in one shot,' the bottleneck shifts to proof — screenshots, video captures, staging accounts per PR; streaming RAG that begins retrieval mid-utterance cutting ~1.5s of voice-agent latency; Lean-based formal verification that produces machine-checkable proofs as a concrete defense against hallucination. Emergent's multi-agent snapshotting, Replit's nightly closed-loop, and the compound-engineering feedback loop (`pi-rYX6m4gIys0-04`) are variants of the same self-improving principle: agents that produce finished deployable software must learn across runs, not just within them. Token spend remains a first-class cost center (Brex's Magpie: token-maxing correlates with faster revenue growth).
 
 ## Insights
 
@@ -67,13 +67,69 @@ Even if model prices fall, usage multiplies: Brex expects inference to be among 
 — Y Combinator · 2026-06-11 · guest: Pedro (Brex) · [▶ 30:46](https://www.youtube.com/watch?v=mPAHvz8kW24&t=1846) · `pi-mPAHvz8kW24-04`
 related: [Token-maxing is deliberate; they spend heavily for quality](#token-maxing-is-deliberate-they-spend-heavily-for-quality) · theme → [Tech frontier & abundance](tech-frontier-and-abundance.md) (token-price collapse macro, `pi-dtuPovnf4XQ-04`)
 
+### You can safely delegate long-running engineering tasks to the model
+Krieger recounts routinely giving Fable complex jobs overnight—"wish Claude a good night, set it up on like a pretty complex task"—and waking to a completed implementation or a scaffolded fallback (e.g., temporary backend, documented caveats) that it tracked until dependent services returned. That persistent session capability turns the model into a teammate you can offload big chunks of work to, reducing iterative back-and-forth and enabling multi-hour or multi-day executions that previously required human supervision.
+— Every · 2026-06-10 · guest: Mike Krieger (Instagram co-founder) · [▶ 3:31](https://www.youtube.com/watch?v=XWpTgCvgYaE&t=211) · `pi-XWpTgCvgYaE-01`
+related: [Built for multi-day, long-running workflows but reliability still uneven (in Model reviews)](model-reviews-and-benchmarks.md#built-for-multi-day-long-running-workflows-but-reliability-still-uneven) (the reliability caveat behind the delegation claim)
+
+### Trusting models requires new verification and judgment workflows
+He emphasizes that although Fable often 'does it right' in one shot, teams must build verification loops: attach screenshots, video captures, end-to-end test flows, and staging accounts to each model-generated pull request to confirm behavior in production. Krieger also highlights model discernment—Fable can push back on code-review feedback or choose pragmatic quick fixes versus long-term rearchitecting—so verification combines automated artifacts plus human review of trade-offs.
+— Every · 2026-06-10 · guest: Mike Krieger (Instagram co-founder) · [▶ 4:22](https://www.youtube.com/watch?v=XWpTgCvgYaE&t=262) · `pi-XWpTgCvgYaE-03`
+related: [Conductor enforces a strict PR-first workflow; no direct edits](#conductor-enforces-a-strict-pr-first-workflow-no-direct-edits) (same instinct: every output goes through a human-review chokepoint)
+
+### Dynamic workflows let the model orchestrate multi-step engineering conversions
+He describes creating a dynamic workflow that ported a Python codebase to TypeScript over a weekend: the workflow decomposed the job into spec, module-by-module translation, incremental testing, adversarial checks, and follow-up fixes. That orchestration—expressed as executable workflow code and runnable by the model—enables long-horizon, verified transformations that would be costly or impractical to do manually.
+— Every · 2026-06-10 · guest: Mike Krieger (Instagram co-founder) · [▶ 48:28](https://www.youtube.com/watch?v=XWpTgCvgYaE&t=2908) · `pi-XWpTgCvgYaE-04`
+related: [Emergent built an autonomous multi-agent system and proprietary infra](#emergent-built-an-autonomous-multi-agent-system-and-proprietary-infra) (Emergent's multi-agent orchestration is the battle-tested version of the same decompose-and-coordinate pattern)
+
+### Fable can automatically turn feedback into fixes and PRs
+He uses Fable to read structured feedback, synthesize fixes, and create pull requests that include video walkthroughs of changes. In practice he kicks off the pipeline, Fable applies fixes in a branch and produces an artifact showing what changed, and he often just reviews and merges rather than hand-coding each fix. The result is a dramatic increase in feature-velocity: multiple reported items become a single, reviewable PR instead of many separate manual tasks.
+— Every · 2026-06-11 · guest: — · [▶ 6:27](https://www.youtube.com/watch?v=rYX6m4gIys0&t=387) · `pi-rYX6m4gIys0-01`
+related: [Conductor enforces a strict PR-first workflow; no direct edits](#conductor-enforces-a-strict-pr-first-workflow-no-direct-edits) (PR-as-chokepoint runs through both systems)
+
+### Rifreck captures richer feedback than a plain screen recording
+Rifreck is an open-source wrapper for React that records clicks, spoken narration, network requests, and errors into a sharable file instead of just a video. That richer trace makes automated analysis possible: the pipeline can replay interactions or inspect requests and errors to produce more precise fixes. Having structured recordings in Slack is the input that lets the automation reason about what to change rather than guessing from a short video.
+— Every · 2026-06-11 · guest: — · [▶ 2:51](https://www.youtube.com/watch?v=rYX6m4gIys0&t=171) · `pi-rYX6m4gIys0-02`
+
+### Batch-processing Slack feedback twice daily keeps review manageable
+He runs a scheduled task that scrapes Slack messages in the morning and evening, classifies items, downloads recordings, and writes YAML/markdown records for each issue. Those batches are then fed into a Cursor/compound-engineering flow that attempts fixes and leaves notes where human input is required, turning dozens of small reports into a few reviewable PRs. The batching reduces context-switching and makes it feasible for one person to validate many fixes rather than reviewing many tiny PRs.
+— Every · 2026-06-11 · guest: — · [▶ 1:59](https://www.youtube.com/watch?v=rYX6m4gIys0&t=119) · `pi-rYX6m4gIys0-03`
+
+### Compound engineering prevents repeating the same automation mistakes
+The pipeline includes a compound step that uses prior runs to refine behavior, so when the system makes an error it learns not to repeat that same mistake on subsequent runs. He notes that iterative refinement means the automation improves over time, reducing the manual corrections you must make during review. That learning loop is what turns a brittle script into an increasingly reliable assistant.
+— Every · 2026-06-11 · guest: — · [▶ 6:44](https://www.youtube.com/watch?v=rYX6m4gIys0&t=404) · `pi-rYX6m4gIys0-04`
+related: [Agents can autonomously improve themselves via closed-loop prompt engineering](#agents-can-autonomously-improve-themselves-via-closed-loop-prompt-engineering) (Replit's nightly loop is the same principle at platform scale)
+
+### You can safely auto-merge overnight if CI passes
+He demonstrated kicking off the flow with an instruction like 'if everything looks good and the CI is green, merge it,' letting the system work overnight and waking to merged changes. In his example, the automated run finished while he slept and a teammate reported the design looked good the next morning—showing the process can produce deployable, high-quality updates without active daytime supervision. He does note the runs can take a few hours, but that latency is an acceptable tradeoff for asynchronous automation.
+— Every · 2026-06-11 · guest: — · [▶ 7:09](https://www.youtube.com/watch?v=rYX6m4gIys0&t=429) · `pi-rYX6m4gIys0-05`
+
+### Start retrieval while the user is speaking to cut voice-agent latency
+Streaming RAG designs let a retrieval-augmented model begin fetching documents from partial transcriptions so the system can answer conversational voice queries with low delay rather than waiting for full utterances. The paper evaluates fixed-interval streaming and a learned trigger that decides when partial-query retrieval is worth it, and reports latency reductions of roughly 0.5 seconds on synthetic datasets and ~1.5 seconds on human speech without dropping retrieval accuracy. Practically, this shows you can keep RAG-style factual grounding for voice agents while achieving conversational responsiveness by deciding when and how to run retrieval on partial input.
+— Y Combinator · 2026-06-12 · guest: Luke Bailey, Arnab Matei, Robert George, Luke Orthwine (Channel AI) · [▶ 40:49](https://www.youtube.com/watch?v=3rWSvrFahIY&t=2449) · `pi-3rWSvrFahIY-03`
+
+### Formal verification (Lean) is becoming a practical path to verified models and code
+The community is integrating LLMs with Lean and other interactive theorem provers to produce machine-checkable proofs and verified code; progress is rapid enough that models are tackling IMO-level problems and large formal libraries (mathlib) provide substantial corpora. Work discussed includes using Lean as both a theorem prover and a functional programming/spec language (and even a Torch-for-Lean stack), enabling proofs about neural nets (e.g., flash-attention equivalence) and certified properties of numerics/robustness. This matters because it gives a tractable route from LLM outputs to verifiable correctness for math, scientific claims and program behavior — a concrete defense against hallucination and silent bugs.
+— Y Combinator · 2026-06-12 · guest: Luke Bailey, Arnab Matei, Robert George, Luke Orthwine (Channel AI) · [▶ 49:36](https://www.youtube.com/watch?v=3rWSvrFahIY&t=2976) · `pi-3rWSvrFahIY-04`
+related: [Trusting models requires new verification and judgment workflows](#trusting-models-requires-new-verification-and-judgment-workflows) (Lean is the formal-proof end of the same verification spectrum)
+
+### Ship with many agentic workers: treat software work like a real-time strategy game
+Channel AI advocates running many lightweight agent workers in parallel (spawned from an orchestrator), pushing each task as far as possible toward a PR, then using high-visibility monitoring, rich knowledge-bases, and rapid human corrections — prioritizing throughput and satisficing over single-threaded perfection. Practically they report large productivity gains (roughly 3.5x PRs per engineer per month, and a further ~60% uplift after wider adoption) by maximizing agent tool-calls (APM), using worktrees, portable work artifacts, and aggressive automation of repetitive steps. The contrarian but operational point: to scale product development with LMs you must reorganize workflows for parallelism, fast feedback, and inexpensive correction rather than expecting single agents to produce perfect outcomes.
+— Y Combinator · 2026-06-12 · guest: Luke Bailey, Arnab Matei, Robert George, Luke Orthwine (Channel AI) · — · `pi-3rWSvrFahIY-05`
+related: [Emergent built an autonomous multi-agent system and proprietary infra](#emergent-built-an-autonomous-multi-agent-system-and-proprietary-infra) (Emergent's multi-agent orchestration is the product-scale version; Channel AI's RTS framing is the engineering-team version)
+
 ## Related themes
 - [AI agents & applications](ai-agents-and-applications.md) — parent theme; agent deployment and integration use cases
 - [Tech frontier & abundance](tech-frontier-and-abundance.md) — token economics and self-improvement at lab scale
 - [Product discovery & strategy](product-discovery-and-strategy.md) — chatbot-not-a-product as the strategic version of agentic-loops-with-tools
+- [Leadership, careers & teams](leadership-careers-and-teams.md) — the human-role shift driven by delegation depth and verification workflows
+- [Model reviews & benchmarks](model-reviews-and-benchmarks.md) — the reliability wall (last 10%, overnight stalls) that verification patterns address
 
 ## Source episodes
 - [How I AI — Conductor CEO Charlie Holtz Walks Us Through His AI Coding Setup (2026-06-05)](../episodes/2026/2026-06-05--howiai--conductor-charlie-holtz-ai-coding-setup.md)
 - [Y Combinator — Emergent: How Six Months of Tinkering Led To A $100M ARR Company (2026-06-07)](../episodes/2026/2026-06-07--yc--emergent-six-months-tinkering-100m-arr.md)
 - [SaaStr AI — What Agents That Actually Work Look Like Right Now (Replit) (2026-06-11)](../episodes/2026/2026-06-11--saastr--agents-that-actually-work-replit-amjad.md)
 - [Y Combinator — The CEO Must Be the Chief AI Officer (Brex) (2026-06-11)](../episodes/2026/2026-06-11--yc--ceo-must-be-chief-ai-officer-brex.md)
+- [Every — How Anthropic Uses Claude Fable 5 With Mike Krieger (2026-06-10)](../episodes/2026/2026-06-10--every--anthropic-uses-claude-fable-5-mike-krieger.md)
+- [Every — How I Built an AI Software Factory With Fable 5 (2026-06-11)](../episodes/2026/2026-06-11--every--ai-software-factory-with-fable-5.md)
+- [Y Combinator — 5 Papers That Show Where AI Research Is Heading Right Now (2026-06-12)](../episodes/2026/2026-06-12--yc--5-papers-show-where-ai-research-heading.md)

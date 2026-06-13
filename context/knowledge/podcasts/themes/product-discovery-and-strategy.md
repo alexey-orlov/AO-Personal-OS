@@ -2,7 +2,7 @@
 
 _status: live theme — discovery, prioritization, roadmap, positioning, product strategy_
 _slug: product-discovery-and-strategy_
-_updated: 2026-06-11 · 9 insights from 6 episodes_
+_updated: 2026-06-13 · 12 insights from 7 episodes_
 
 ## The throughline
 The strategy conversation is reorganizing around three beats. (1) Discovery discipline: the fastest signal is money — demand a payment commitment or unambiguous willingness-to-pay before building, because many "great ideas from ChatGPT" turn out to be fake problems. The exception is category-creating 1.0s, where data is thin and a "benevolent dictatorship of taste" beats committees (Fadell on the iPhone keyboard call). (2) Moats: feature differentiation has gone short-lived (AI writes ~80%+ of code in AI-native orgs, so feature gaps close in weeks), and what remains durable is proprietary inputs/outputs, enterprise workflows, user behavior, network effects, hardware, compliance, and brand. Legora's bundled multi-feature roadmap beating a single-feature competitor with 50× the early ARR is the operational lesson — longer-horizon platform bets compound where point solutions get cloned. (3) Shape the whole system, not just the feature: products are ecosystems (installation, distribution, marketing language — Fadell's iPod/Nest cases), the chatbot isn't a product (Evans: real work needs tooling/domain data/UIs, so vertical apps and consultancies capture the value above commoditized models), and AI-first builders should *refound* boundaries rather than tack models onto legacy flows — minimize customer-facing surface area, concentrate one core interaction (Brex/Pedro, Stripe/Airbnb analogies).
@@ -52,6 +52,20 @@ Pedro urges keeping customer-facing interactions minimal and concentrating found
 — Y Combinator · 2026-06-11 · guest: Pedro (Brex) · [▶ 18:47](https://www.youtube.com/watch?v=mPAHvz8kW24&t=1127) · `pi-mPAHvz8kW24-05`
 related: [A product is a system; marketing and distribution matter equally](#a-product-is-a-system-marketing-and-distribution-matter-equally) · theme → [Leadership, careers & teams](leadership-careers-and-teams.md) (CEO as chief AI officer)
 
+### Ship fast, learn, and kill bad ideas quickly — don't iterate for years
+Meesho's first product targeted local fashion — it was built, tested on hundreds of users, and shut down in three months when consumer feedback showed it was worse than a mall or e‑commerce. That ruthless short cycle meant the founders avoided wasting years on a dead end and redirected resources toward better hypotheses; the habit of rapid shutdowns shaped every subsequent pivot.
+— Y Combinator · 2026-06-11 · guest: Vidit Aatrey (Meesho) · [▶ 7:44](https://www.youtube.com/watch?v=49L8lVe_PVo&t=464) · `pi-49L8lVe_PVo-01`
+related: [Charge customers early — get commitments before building](#charge-customers-early--get-commitments-before-building) (the same validation discipline, demand-side vs. speed-side)
+
+### Find and serve the power users — the online‑native resellers — to discover product‑market fit
+When broad small retailers wouldn't pay for software, Meesho identified a subset of active users — online‑native drop shippers/resellers who used WhatsApp daily — and built Misho Supply to give them reliable suppliers. That focus produced true PMF: zero marketing spend, month‑over‑month doubling, intense daily retention (users opening the app 15–20 times a day), and rapid organic growth.
+— Y Combinator · 2026-06-11 · guest: Vidit Aatrey (Meesho) · [▶ 12:26](https://www.youtube.com/watch?v=49L8lVe_PVo&t=746) · `pi-49L8lVe_PVo-03`
+
+### When the environment shifts, you must fully commit to a new direction, not experiment tentatively
+When India's data costs collapsed and the pandemic accelerated app adoption, Meesho decided to move from enabling resellers to a direct consumer app; the founders argued a half‑measure would alienate resellers and fail to win consumers. They launched a consumer app in July 2021, hit #1 in Play Store shopping and reached ~100 million consumers within five months — evidence that committed, large bets can win when fundamentals change.
+— Y Combinator · 2026-06-11 · guest: Vidit Aatrey (Meesho) · [▶ 18:55](https://www.youtube.com/watch?v=49L8lVe_PVo&t=1135) · `pi-49L8lVe_PVo-04`
+related: [Minimize surface area — design AI-first products by refounding boundaries](#minimize-surface-area--design-ai-first-products-by-refounding-boundaries) (same instinct at different altitude: committed full-pivot vs. AI-era boundary refounding)
+
 ## Related themes
 - [Founders & fundraising](founders-and-fundraising.md) — pivot decisions are how the discipline shows up at company level
 - [Growth, GTM & pricing](growth-gtm-and-pricing.md) — pilots and pricing close the loop on willingness-to-pay
@@ -64,3 +78,4 @@ related: [A product is a system; marketing and distribution matter equally](#a-p
 - [Lenny's Podcast — Tony Fadell: How to build real taste (2026-06-08)](../episodes/2026/2026-06-08--lenny--tony-fadell-real-taste-ai-matters-more.md)
 - [a16z — The Economics of AI Usage and What's Next For SaaS | Benedict Evans (2026-06-11)](../episodes/2026/2026-06-11--a16z--economics-ai-usage-saas-evans.md)
 - [Y Combinator — The CEO Must Be the Chief AI Officer (Brex) (2026-06-11)](../episodes/2026/2026-06-11--yc--ceo-must-be-chief-ai-officer-brex.md)
+- [Y Combinator — How Meesho Became India's Biggest Shopping App (2026-06-11)](../episodes/2026/2026-06-11--yc--meesho-became-indias-biggest-shopping-app.md)
