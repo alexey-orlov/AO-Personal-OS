@@ -1,6 +1,6 @@
 # Jumpstart — PM-focused offering (design)
 
-_status: v0.7 program one-pager + Appendix A implementation playbook (5-round adversarial review, scored 7→8.5; all blockers/majors/citations fixed) 2026-06-12 — review with Inna ~week of Jun 15; Jun–Jul 2026 mandate (Bogdan-driven)_
+_status: v0.8 program one-pager — Coverage map (topics × artifacts × activities × week) + Appendix A implementation playbook (5-round adversarial review 7→8.5; all blockers/majors/citations fixed) 2026-06-12 — review with Inna ~week of Jun 15; Jun–Jul 2026 mandate (Bogdan-driven)_
 _updated: 2026-06-13_
 
 ## Snapshot
@@ -44,6 +44,7 @@ Theirs:
 
 ## Activity
 
+- 2026-06-13 — [v0.8 Coverage map](../../../outputs/jumpstart-pm/jumpstart-pm-program-one-pager.md) — added an executive **Coverage map** mapping all 11 PM topics + the foundational artifacts (default repo, context-sources integration, context metadata, training, responsibilities, success-metrics+governance) + the activity formats (workshop / hackathon / brainstorm / live-Slack / pairing) to weeks W0–W6 + Enablement; compressed the redundant body week-list into a one-line spine so the doc stays focused. Self-scored 8.5→9.5→10 over 3 passes against clarity/systematic/non-abundant criteria (Alex's topic+artifact list as the spec).
 - 2026-06-13 — [v0.7 implementation appendix](../../../outputs/jumpstart-pm/jumpstart-pm-program-one-pager.md) — added **Appendix A** (context-system build sequence + eval/test method, underperformance triage playbook, day-/week-by-week W0–W6 + Enablement with owners + exit gates + watch-outs, 18-row risk register). Built from a source-grounded research workflow (8 dimensions, adversarially verified) then hardened across **5 adversarial review rounds** (scored 7→8→8→8→8.5; each round citation-checked by fetching sources). Key fixes landed: post-pod handover-cliff risk, pilot-selection-bias risk, eval-as-tests method, context-saturation triage, EU AI Act date correction (Nov-2025 Digital Omnibus → Dec-2027), MIT/Lenny's/HubSpot citation corrections, model-tiering + memory-as-architecture + meeting-intel/deep-research frontier additions.
 - 2026-06-12 — [v0.2 field calibration](../../../outputs/jumpstart-pm/jumpstart-pm-program-one-pager.md) — external research sweep (HubSpot, Shopify/First Round, Zapier, Anthropic, Stanford, Lenny's survey, MIT GenAI Divide, METR, Gartner, BCG) folded into the one-pager over 4 review turns; references section now groups company programs / frontier practice / adoption-reality research.
 - 2026-06-12 — [v0.1 program one-pager](../../../outputs/jumpstart-pm/jumpstart-pm-program-one-pager.md) — drafted from the walkthrough + all six shared files + SS-todo workflow topics; ready for the Inna review session.

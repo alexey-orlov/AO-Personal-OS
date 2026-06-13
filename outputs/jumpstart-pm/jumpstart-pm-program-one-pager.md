@@ -1,6 +1,6 @@
 # Jumpstart for Product — AI Activation Program for PM Organizations
 
-_v0.7 draft for discussion with Inna / Bogdan · 2026-06-12 · owner: Alex Orlov · one-pager + Appendix A implementation playbook; external sources inline_
+_v0.8 draft for discussion with Inna / Bogdan · 2026-06-12 · owner: Alex Orlov · adds a Coverage map (topics × artifacts × activities × week); one-pager + Appendix A implementation playbook; external sources inline_
 
 ## Executive summary
 
@@ -22,7 +22,7 @@ Clients sit at L1 (often below their own engineering org). **Program target: L1 
 
 ## What we automate — the PM workflow map
 
-Grouped into four stations; each gets skills built on the client's actual tool stack during the pod:
+Grouped into four stations — the grouping and the *why* below, with every workflow's week + artifact + activity in the **[Coverage map](#coverage-map--topics--artifacts--activities--week)** that follows. Each station's skills are built on the client's actual tool stack during the pod:
 
 1. **Context foundation** — the product context system: a versioned repo of strategy, positioning, personas, metric definitions, voice + MCP connections to the system of record (Jira/Aha!/Productboard, Confluence/Notion, analytics, call libraries). Built FIRST — context quality, not prompt skill, is what makes every downstream workflow work. And PMs get **configured defaults, not blank tools** — pre-built skills, rules, and connections per role; the distribution pattern behind HubSpot's and Shopify's adoption curves, and how Anthropic PM-built workflows spread internally (packaged as team plugins).
 2. **Discovery & insight** — customer insights triage (support tickets, interviews, NPS), market research briefs, competitor monitoring, product analytics → automated "what changed and what to do" TLDRs instead of dashboard archaeology. This is the largest documented unmet need: PMs use AI for research at ~5% but want it at ~32% — a +27pp gap, the biggest of any PM task (Lenny's 1,750-respondent survey). Two proven, widely-deployed additions belong here: a **meeting-intelligence / ambient note-taking agent** (Fireflies/Granola-class, MCP-connected → structured notes + action items auto-filed to the context system, feeding the insight corpus), and a **deep-research agent** for market-research briefs (multi-source fan-out → source-verified cited brief — distinct from the always-on monitor).
