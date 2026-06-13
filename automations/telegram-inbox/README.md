@@ -56,8 +56,11 @@ goal/task/insight captures now land in Alex's pinned Apple Notes via the
   > downloads; explore topics → `context/knowledge/explore/queue.md` + run the `explore-brief`
   > skill; area material → area pages), dedupe re-sent drops, move folded cards to
   > `context/_inbox/processed/`, update the ledger, send/queue the notifications the skill
-  > specifies, commit `context: …` (include any outbox and apple-notes queue files) and push.
-  > The push lands on a `main-*` branch — expected; the auto-merge Action lands it on `main`.
+  > specifies, commit `context: …` (include any outbox and apple-notes queue files), then push
+  > the commit to the `main` ref explicitly: **`git push origin HEAD:main`**. (A bare `git push`
+  > would land it on the agent's `claude/*` working branch, which the auto-merge net misses — the
+  > 2026-06-13 silent-drop incident.) The sandbox proxy redirects the push onto a `main-*` branch —
+  > expected; `.github/workflows/auto-merge-routine.yml` (triggers on `main-*`) lands it on `main`.
   > If there are no unprocessed drops, change nothing and just report. Output only the
   > skill's run-summary block.
 - **Failure handling**: workflow `errorWorkflow` = "Podcast streaming — error alerts" → Telegram
