@@ -31,6 +31,43 @@ Grouped into four stations; each gets skills built on the client's actual tool s
 
 The map applies to both customer-facing and internal product orgs. Week 0 weights depth per station against the pilot's actual pain — the context foundation is always built; the weekly plan below is the full-coverage template, trimmed rather than stretched. Everything runs on the **live backlog from week one — no sandbox pilots**: MIT's GenAI Divide traces the 95% pilot-failure rate to exactly that gap (no workflow integration, no aligned incentives, tools that never learn the org).
 
+## Coverage map — topics × artifacts × activities × week
+
+_The four stations expand into 11 named PM workflows. This is the "what's covered and when" view — each workflow and each foundational artifact mapped to the week it lands and the activity that delivers it. The per-week "how" lives in [Appendix A](#appendix-a--implementation-playbook-how-we-build-test-and-recover)._
+
+**PM workflow topics**
+
+| Topic | Week | Skill / artifact delivered | Delivered via |
+|---|---|---|---|
+| Product context system **(prerequisite)** | W0 → W1 | default repo: 3-tier context tree + AGENTS.md + MCP defaults | W1 workshop · live Slack |
+| PRDs | W2 | `prd-writer` skill + PRD-as-code repo | workshop · pairing |
+| User stories / acceptance criteria | W2 | story + AC skills (ADLC Define-phase) | pairing |
+| Prototypes | W4 | prototype-first flow (Figma/image → working prototype) | build session · pairing |
+| Customer insights triage | W3 → always-on W5 | insight-triage pipeline → adoption-analytics agent | brainstorm (framing) · build |
+| Market research | W3 | market-research-brief agent (deep-research pattern) | build · pairing |
+| Competitor monitoring | W3 → always-on W5 | competitor/market monitor agent | build |
+| Product analytics | W3 | analytics-TLDR skill | build · pairing |
+| Stakeholder communication | W4 | stakeholder-update + release-comms skills | workshop · pairing |
+| Personal productivity | W1 + ongoing | working-discipline patterns + meeting-intelligence agent (notes/actions) | workshop · live Slack |
+| Product knowledge base | W1 build → ongoing → W6 | context tree as a living KB + the capture loop | build · handover workshop |
+
+**Foundational & cross-cutting artifacts**
+
+| Artifact / enabler | Built | Components | Delivered via | Handover |
+|---|---|---|---|---|
+| Default repo | W1 | skills · AGENTS.md · `.cursor/rules` · slash commands · sub-agents | W1 workshop | W6 plugin marketplace |
+| Context-sources integration | W1 core → W2–W3 deep | KPIs (metric-defs) · product KB (Confluence/Notion) · codebase · analytics (Amplitude/Pendo) · feedback tools (tickets/NPS) · roadmapping (Jira/Aha!/Productboard) — via MCP | build · pairing | W6 |
+| Context metadata | W1 → W3 | feature repository · annotated data model (metric-defs ⟂ queries ⟂ schemas) · glossary · decision log | build · capture loop | W6 |
+| Training | W1 intro → ongoing → W6 | role-based onboarding content · prompt/use-case library · 4-tier fluency rubric | workshop · hackathon · live Slack | Enablement cohorts |
+| Responsibilities | W0 → W6 | per-activity owners (PL/IE/PdO/Ch/Sp) · governance RACI · named approvers | W0 brainstorm · workshop | W6 runbook |
+| Success metrics + governance | W0 baseline → W2 evals → W5 → W6 | baseline workbook · eval scorecard + contract · risk tiers + data classification · kill switch · 18-row risk register | workshop · ongoing | W6 governance pack |
+
+**Activity formats** (how the work is actually delivered):
+- **Workshops** — W1 PM-skills lab · W6 handover + train-the-trainer · one per Enablement cohort.
+- **Hackathon** — optional W1 spike-day (Zapier-style, <10%→>50% daily use) · each cohort launch.
+- **Brainstorm sessions** — W0 discovery/assessment · W3 insight & competitor framing · W4 prototype ideation.
+- **Live Slack support** — continuous from W1: `#ai-pm-help` + weekly office hours, through Enablement.
+
 ## Program structure
 
 **Week 0 — Express Product Assessment** (reuses the Express SDLC Assessment pattern: intake form + 3–4 working sessions + readout). Outputs: maturity heatmap, ranked pain points, pilot team + use cases, **readiness gate** — frozen metric definitions and 2 sprints of baseline data, system-of-record hygiene confirmed (AC fields, backlog structure), licensing + data-handling sign-off with legal aligned to default-to-yes ("how do we do this safely," not "whether") — the unglamorous unblock behind the fastest corporate adoption curves. Hard lesson from DAX: no baseline = unprovable impact; and skills are customized to the client's actual stack (DAX escalated because workshops talked Jira while the client ran Aha!).
