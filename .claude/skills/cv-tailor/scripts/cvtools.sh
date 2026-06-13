@@ -109,10 +109,15 @@ cmd_build() {
 cmd_compare() {
   local a="$1" b="$2" out="$3"
   if [ ! -f "$a" ] || [ ! -f "$b" ]; then echo "DIFF_PX=MISSING_INPUT"; return 0; fi
-  # AE = count of differing pixels. fuzz absorbs sub-pixel AA noise from re-render.
+  # AE = count of differing pixels. ImageMagick `compare` writes the metric to
+  # STDERR and EXITS 1 whenever the images differ — under `set -e` that aborts
+  # the script before we can echo, so the number silently vanished on exactly
+  # the edited pages. Tolerate the exit and capture stderr. fuzz absorbs any
+  # residual AA noise (with isolated render profiles, identical input -> AE 0).
   local px
-  px=$(im_compare -metric AE -fuzz 2% "$a" "$b" "$out" 2>&1 | tr -d '\n' | awk '{print $1}')
-  echo "DIFF_PX=${px:-?}"
+  px=$(im_compare -metric AE -fuzz 2% "$a" "$b" "$out" 2>&1 1>/dev/null) || true
+  px=$(printf '%s' "$px" | awk '{print $1}')
+  echo "DIFF_PX=${px:-0}"
 }
 
 case "${1:-}" in
