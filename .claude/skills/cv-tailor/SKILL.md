@@ -104,16 +104,24 @@ and "could Alex defend this cold?".
 
 ### 7. Deliver
 - Filenames: `Alex Orlov — <Company> — <Role>.docx` and `.pdf` (keep it natural; em dash ok).
-- Upload **both** to the Custom CVs folder (parentId `1ykh5bp4QMf6W0lftJwVnUpAdWG6RfBdF`) via a
-  `general-purpose` subagent (base64 the local files in the subagent's context, then call
-  `mcp__a6cbcfee-0a3c-4f9a-8e9e-eeecc78dc903__create_file` with `base64Content`, `contentMimeType`
-  = `application/vnd.openxmlformats-officedocument.wordprocessingml.document` for the docx and
-  `application/pdf` for the pdf, `parentId` the folder, `disableConversionToGoogleType: true`).
-  Have it return the two `webUrl`s.
-- Report to Alex: the Drive links, the **change log** (every edit, zone by zone, each as a true +
-  length-neutral + not-over-tailored line), what you deliberately left unchanged, the verified page
-  count + per-page DIFF_PX, and the rubric scores. If you changed little or nothing, say so plainly —
-  that's a feature.
+- **Always stage both locally first:** copy them to `~/Desktop/Custom CVs/` (so they exist even if
+  the Drive push can't run).
+- **Get them into the Drive "Custom CVs" folder** (id `1ykh5bp4QMf6W0lftJwVnUpAdWG6RfBdF`) by the
+  first working path below. **Do NOT use the Drive MCP `create_file`** — it only accepts inline
+  base64, and the CVs are ~500KB (embedded fonts), far too large to pass through a tool argument
+  reliably; it will silently fail or risk corrupting the binary.
+  1. **Local Google Drive mount** — if `~/Library/CloudStorage/GoogleDrive-*` exists, find the
+     "Custom CVs" folder under it and `cp` both files in (Drive syncs them up). Best — zero friction.
+  2. **rclone** — if `rclone listremotes` shows a Google-Drive remote (e.g. `gdrive:`), run for each
+     file: `rclone copyto "<localfile>" "<remote>:<title>" --drive-root-folder-id 1ykh5bp4QMf6W0lftJwVnUpAdWG6RfBdF`.
+     Then read back the link with the Drive MCP `search_files` (`title = '<title>'`) → `viewUrl`.
+  3. **Neither configured** — leave the files staged in `~/Desktop/Custom CVs/`, tell Alex they're
+     there, and offer the one-time rclone setup (`rclone config` → new `drive` remote) so future runs
+     auto-upload. Don't claim they're in Drive when they aren't.
+- Report to Alex: the Drive links (or the staged local path), the **change log** (every edit, zone by
+  zone, each as a true + length-neutral + not-over-tailored line), what you deliberately left
+  unchanged, the verified page count + per-page DIFF_PX, and the rubric scores. If you changed little
+  or nothing, say so plainly — that's a feature.
 
 ## Hard rules / self-check (consult before delivering)
 - **Honesty is absolute.** Every surfaced claim passes the cold-defense test. No invented metric,
