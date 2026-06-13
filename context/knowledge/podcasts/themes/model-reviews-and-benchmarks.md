@@ -2,7 +2,7 @@
 
 _status: live theme — hands-on practitioner reviews and benchmark findings for frontier models_
 _slug: model-reviews-and-benchmarks_
-_updated: 2026-06-11 · 9 insights from 2 episodes · (split from ai-agents-and-applications, 2026-06-11)_
+_updated: 2026-06-13 · 10 insights from 3 episodes · (split from ai-agents-and-applications, 2026-06-11)_
 
 ## The throughline
 Two hands-on reviews — Opus 4.8 and Fable 5 — find the same wall from different angles. Opus 4.8 is strong on one-shot scaffolding and ergonomics (voice, token efficiency, platform tooling) but hallucinates under follow-up pressure, latches onto narrow signals with overconfidence, and fails the "last 10%" of real engineering tasks (bugs at edge cases, failure to integrate into live codebases). Fable 5 is purpose-built for long-horizon multi-agent runs and stands out on vision and document formatting, but burns ~2× the tokens and stalls after ~3 hours of continuous operation. Neither closes the gap between benchmark wins and production ROI; both carry the same operational lesson: match model to task type (Fable for long-form/vision, Opus/Sonnet for iterative spec work), validate outputs carefully on any accuracy-sensitive task, and never conflate one-shot success with real-world iteration reliability. These findings sit in deliberate tension with benchmark headlines elsewhere in the base: the same model releases that set leaderboard records are the ones this reviewer found "100% made up things based on hypothesis."
@@ -33,6 +33,7 @@ The reviewer praises Opus 4.8 for a pleasant, concise voice ("not an annoying gi
 ### Fable 5 consumes roughly twice the tokens of other models
 Anthropic states Fable uses about 2x the rate limits and tokens compared with other models, and the reviewer observed heavy token burn while running on the highest 'extra high' setting. They recommend 'high' as the practical sweet spot because running at maximum quality rapidly increases cost without guaranteed proportional benefit. This matters because teams must match model "effort level" to task complexity to control cloud expense and ROI.
 — How I AI · 2026-06-10 · guest: — · [▶ 3:05](https://www.youtube.com/watch?v=IREnr4I89Ho&t=185) · `pi-IREnr4I89Ho-01`
+— also: Every · 2026-06-10 · guest: Mike Krieger (Instagram co-founder) · [▶ 26:50](https://www.youtube.com/watch?v=XWpTgCvgYaE&t=1610) · `pi-XWpTgCvgYaE-05` (Krieger bluntly: "Fable is also very expensive" — per-run cost shapes adoption tiers and forces sticky model-choice defaults per surface to avoid runaway bills)
 related: [Token-maxing is deliberate; they spend heavily for quality (in Agent engineering)](agent-engineering-patterns.md#token-maxing-is-deliberate-they-spend-heavily-for-quality) (Conductor's offsetting discipline) · [Inference/token bills will become a material company expense; track attribution (in Agent engineering)](agent-engineering-patterns.md#inferencetoken-bills-will-become-a-material-company-expense-track-attribution)
 
 ### Built for multi-day, long-running workflows but reliability still uneven
@@ -49,8 +50,13 @@ Fable includes classifiers for sensitive categories (cybersecurity, biology, che
 — How I AI · 2026-06-10 · guest: — · [▶ 7:03](https://www.youtube.com/watch?v=IREnr4I89Ho&t=423) · `pi-IREnr4I89Ho-05`
 related: [Frontier labs are carving out sensitive capabilities into restricted models (in AI agents)](ai-agents-and-applications.md#frontier-labs-are-carving-out-sensitive-capabilities-into-restricted-models) (Rosalind/Mythos restriction at the model-tier level)
 
+### Naive self-play produces adversarial, useless tasks unless grounded and judged
+When an LM is trained to both generate tasks (the conjecturer) and solve them (the solver), optimizing the generator for tasks the solver finds hard leads it to invent pathologically complex or irrelevant problems instead of useful curriculum. In a formal-math experiment on 3,000 Lean problems, vanilla self-play plateaued at the same RL baseline (~60% asymptote); the paper's Self-Guided Selfplay (SGS) fixes this by (1) generating problems conditioned on real unsolved targets and (2) adding a guide that scores whether synthetic tasks are actually related and not artificially convoluted, yielding a 7B model that matches much bigger baselines when given more compute. The key lesson: synthetic curriculum must be grounded in a target distribution and judged for relevance, not only hardness.
+— Y Combinator · 2026-06-12 · guest: Luke Bailey, Arnab Matei, Robert George, Luke Orthwine (Channel AI) · [▶ 32:23](https://www.youtube.com/watch?v=3rWSvrFahIY&t=1943) · `pi-3rWSvrFahIY-02`
+
 ## Open questions
 - The same week Opus 4.8 set SWEBench Pro records (`pi-aMyubFA106U-01` in Tech frontier), this reviewer found it "100% made up things based on hypothesis not data." What's the bridge between benchmark scores and real iteration ROI? Benchmarks test one-shot completion; practitioners test loops — the datasets may be measuring different things.
+- SGS's grounding fix (`pi-3rWSvrFahIY-02`) implies that today's RL-trained reasoning models face the same problem at scale: the harder the curriculum, the more likely the training signal drifts from real task distributions. Whether this surfaces as the "last 10%" gap seen in Opus 4.8/Fable 5 remains an open question.
 
 ## Related themes
 - [AI agents & applications](ai-agents-and-applications.md) — parent theme; the production deployment context for these models
@@ -60,3 +66,5 @@ related: [Frontier labs are carving out sensitive capabilities into restricted m
 ## Source episodes
 - [How I AI — No hype Claude Opus 4.8 review (2026-05-29)](../episodes/2026/2026-05-29--howiai--no-hype-claude-opus-4-8-review.md)
 - [How I AI — Claude Fable 5 - is this Mythos model worth the wait? (2026-06-10)](../episodes/2026/2026-06-10--howiai--claude-fable-5-mythos-worth-the-wait.md)
+- [Every — How Anthropic Uses Claude Fable 5 With Mike Krieger (2026-06-10)](../episodes/2026/2026-06-10--every--anthropic-uses-claude-fable-5-mike-krieger.md)
+- [Y Combinator — 5 Papers That Show Where AI Research Is Heading Right Now (2026-06-12)](../episodes/2026/2026-06-12--yc--5-papers-show-where-ai-research-heading.md)
