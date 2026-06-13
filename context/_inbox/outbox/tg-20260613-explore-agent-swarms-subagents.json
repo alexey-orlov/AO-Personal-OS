@@ -1,0 +1,18 @@
+{
+  "topic": "explore",
+  "text": "🔭 Subagents and agent swarms\n\nA skill injects a reusable prompt into the current context window (cheap, synchronous). A subagent spawns an isolated context with its own tools + permissions (expensive, enables parallelism, protects parent context). An agent swarm = multiple subagents concurrently, either under a central supervisor (safe, debuggable) or peer-to-peer (emergent).\n\nKey points:\n• Use a skill when behavior is reusable and output fits inline — no isolation needed [Fact / Spring AI]\n• Spawn a subagent when: context explosion risk, parallel execution needed, permission boundaries required, or specialized toolset [Fact / VILA-Lab]\n• Supervisor architecture = safe default for enterprise; peer-to-peer swarm suits open-ended tasks with dynamic routing [Practitioner consensus]\n• Anthropic's internal research system: lead researcher + parallel SearchAgents → 90% time reduction, 15× token cost (reported, unverified primary source)",
+  "buttons": [
+    {
+      "text": "Full brief",
+      "url": "https://github.com/alexey-orlov/AO-Personal-OS/blob/main/context/knowledge/explore/briefs/agent-swarms-subagents.md"
+    },
+    {
+      "text": "Claude Code architecture (VILA-Lab)",
+      "url": "https://github.com/VILA-Lab/Dive-into-Claude-Code"
+    },
+    {
+      "text": "Spring AI: Task Subagents",
+      "url": "https://spring.io/blog/2026/01/27/spring-ai-agentic-patterns-4-task-subagents/"
+    }
+  ]
+}

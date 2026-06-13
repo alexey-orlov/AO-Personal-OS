@@ -13,6 +13,7 @@ context/_inbox/tg-20260611-224131-35.md
 context/_inbox/tg-20260611-225238-36.md
 context/_inbox/tg-20260611-231405-37.md
 context/_inbox/tg-20260611-232728-38.md
+context/_inbox/tg-20260612-235939-84.md
 context/areas/job-search/calls/vacancy-interviews/_unknown/2026-05-21_1806_interview.md
 context/areas/job-search/calls/vacancy-interviews/archive-resale/2026-05-22_122349_interview_202604271827556FAF460B.md
 context/areas/job-search/calls/vacancy-interviews/archive-resale/2026-05-22_131921_interview_20260420200248D548EF59.md
