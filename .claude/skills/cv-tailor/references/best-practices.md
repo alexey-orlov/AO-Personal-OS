@@ -113,9 +113,16 @@ Gate: **any dimension < 9 → revise before delivering. Honesty (E) < 10 → har
 from the research's 7-floor because Alex's bar is a 10/10 on every criterion.)
 
 **A. JD-alignment** — does it mirror what matters to this role?
-- 9-10: title line aligned; top JD skills lead; first bullet per role is the most JD-relevant TRUE
-  one; ~75-80% of genuinely-applicable JD terms mirrored in the JD's words; summary re-pointed.
-- 5-6: some reordering + a few terms, but summary generic or lead bullets not the most relevant.
+- 9-10: **every item on the safe-levers checklist was taken or has a concrete, defensible reason to
+  skip**, AND the role's core mandate sits in the scan path (headline / lead skills / lead tags /
+  summary lead clauses / first experience bullet). For a near-canonical match this can be just a few
+  reorders — minimal-but-complete is a 9-10, restraint is NOT penalized. For a partial match, the
+  genuinely-applicable JD terms are mirrored (~75-80%) in Alex's own words where safe.
+- 7-8: tailoring is honest and safe but **left an obvious zero-risk lever on the table** — e.g. the
+  role's title is buried in the headline when a free reorder would surface it, or a JD-named
+  requirement Alex genuinely meets is absent when one length-neutral word-swap would add it, or the
+  mandate is buried below the fold and no length-neutral summary re-point was even attempted.
+- 5-6: only cosmetic reordering; mandate not surfaced; multiple safe levers unused.
 - 1-2: untouched; no alignment.
 
 **B. Authenticity / no over-tailoring** — does NOT read as gamed?
@@ -131,9 +138,13 @@ from the research's 7-floor because Alex's bar is a 10/10 on every criterion.)
 - 1-2: generic JD-matched resume; voice erased.
 
 **D. Layout integrity** (mechanically verified)
-- 9-10: same page count as base; **DIFF_PX outside the intentionally-edited text regions ≈ 0**; no
-  reflow, widows/orphans, or broken columns; every swapped element length-neutral.
-- 5-6: holds but a line renders a hair long / spacing drift not yet checked at page edges.
+- 9-10: same page count as base; **DIFF_PX ≈ 0 on every unedited page and confined to the edited
+  region on edited pages** (with isolated render profiles this gate is exact); no reflow,
+  widows/orphans, or broken columns; every swapped element length-neutral; AND the post-edit XML diff
+  shows ONLY the intended runs changed (no whole-file re-serialization / smart-quote re-encoding of
+  untouched text — that blinds the diff gate even when it renders identically).
+- 5-6: holds but a line renders a hair long / spacing drift not yet checked at page edges, or
+  unedited runs were silently re-encoded.
 - 1-2: page count changed, a section reflowed, or a stranded line appeared.
 
 **E. Honesty** (hard block — must be 10)
