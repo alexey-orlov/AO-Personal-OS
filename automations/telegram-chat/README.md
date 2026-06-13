@@ -155,6 +155,38 @@ Then pair (first run only): DM the bot → it replies with a code →
 | Update the fork plugin | edit `plugin/` (the installed plugin runs LIVE from this repo dir) → `./new_session.sh` |
 | Change the receipt emoji | `/telegram:access set ackReaction <emoji>` (or edit `~/.claude/channels/telegram/access.json`) |
 
+## CLI version / auto-update (the "stuck version" trap, 2026-06-13)
+
+`run.sh` invokes bare `claude` resolved via PATH → the **native** install at
+`~/.local/bin/claude` → `~/.local/share/claude/versions/<v>`. Two things to know
+before "updating the bridge binary":
+
+- **The native install is pinned to the `stable` channel.** `claude update`
+  checks stable only (the binary forces stable for non-Homebrew installs; the
+  `latest` channel is reachable only via a `claude-code@latest` Homebrew cask).
+  Whatever stable currently serves *is* "up to date" for this machine.
+- **The "✗ Auto-update failed · v2.1.170+ available" banner is cosmetic.** It
+  compares against the faster `latest`/canary pointer, not stable. You are not
+  actually behind on the supported track.
+- **Do NOT `claude install latest --force` to chase a canary build.** It lands
+  the binary + symlink but isn't recorded as the install-of-record, so
+  `autoUpdatesProtectedForNative` **reverts the symlink to the stable base on the
+  next session start** (logged in `~/.claude/.last-update-result.json`). The
+  bridge then silently respawns onto the old binary. Stay on stable.
+- **`autoUpdates: false` in `~/.claude.json` is normal for native installs** and
+  does NOT block updates — it disables the *legacy* updater; the native
+  protection self-heal pulls future **stable** releases forward at startup.
+  (Code: the disable-check returns "not disabled" when `installMethod==="native"
+  && autoUpdatesProtectedForNative===true`.) Don't set `DISABLE_AUTOUPDATER` —
+  that would actually stop stable updates.
+- After any binary change, restart the bridge with `./new_session.sh` and verify:
+  the dev-channels prompt still auto-confirms (the `start.sh` grep string
+  `I am using this for local development` must exist in the new binary —
+  check with `strings`), `~/.claude/channels/telegram/bot.pid` is a live
+  descendant of the tmux pane, and the newest log under
+  `~/Library/Caches/claude-cli-nodejs/-Users-…/mcp-logs-plugin-telegram-telegram/`
+  shows `Channel notifications registered`.
+
 ## VPS migration (later, for laptop-independence)
 
 Everything here is portable: on a Linux box, clone the repo (+ git-autosync),
