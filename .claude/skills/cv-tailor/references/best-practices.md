@@ -45,6 +45,30 @@ target level is **VP Product / CPO**, so executive nuances dominate.
 **Cross-zone:** spread keywords across summary + skills + bullets naturally. The JD is not a
 100%-inclusion checklist.
 
+### The safe-levers checklist — run through ALL of these every time
+Restraint means *not forcing risky edits* — it does **not** mean skipping the free ones. Under-using
+a zero-risk lever is the most common way these runs miss a 10. For every JD, explicitly decide
+each of the following (take it, or record a concrete reason not to):
+
+1. **Headline title line** — if the JD's role title (or its nearest equivalent) is already in Alex's
+   list, is it positioned to be seen? Reordering it forward is **zero-length-change, zero-honesty-risk**
+   — the single safest edit available. Take it unless leading with it would *under*-position Alex
+   (e.g. fronting "Director PM" ahead of "CPO" for a role below his ceiling — then leave as-is and say so).
+2. **Skills list** — reorder so the JD's named skills lead their group. Zero line-count change.
+3. **Industry + Sweet-spots ◆-tags** — reorder so the JD's domain/mandate leads. Near-zero risk.
+4. **One named-true JD requirement that's currently absent** — if the JD names a requirement Alex
+   genuinely meets but the word never appears (e.g. "packaging", "KPI"/"analytics"), can ONE
+   length-neutral word-swap inside an existing bullet surface it (e.g. "pricing" → "pricing &
+   packaging")? Attempt it; keep only if the line-wrap holds. This is how you mirror a named
+   requirement without stuffing.
+5. **About / summary re-point** — does the role's core mandate sit in the scan path (the summary's
+   lead clauses or the first experience block)? If the strongest match is buried below the fold,
+   attempt a **length-neutral** re-lens of the summary (see the technique in `cv-inventory.md`). Keep
+   it only if the wrap holds and it reads in Alex's voice without echoing the JD; otherwise leave it.
+
+The bar for a 9-10 on JD-alignment: every lever above was either taken or has a concrete,
+defensible reason it was skipped — AND the role's mandate sits somewhere in the scan path.
+
 ## Hard limits / red lines
 
 - **No fabrication** — no invented metrics, no claimed scope Alex didn't own, no skills not held.
