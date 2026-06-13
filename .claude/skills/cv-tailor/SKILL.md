@@ -67,22 +67,31 @@ Do not echo the JD's sentences. Mirror its *vocabulary for things Alex genuinely
 own phrasing. Target ~75-80% coverage of genuinely-applicable terms — never a keyword dump.
 
 ### 4. Apply edits (safest zones first)
-Edit the pretty-printed XML under `$WORK/unpacked/word/document.xml` with the **Edit tool**, following
-the run-level recipe in the inventory. Order: (1) reorder Skills items, (2) reorder/swap ◆-tags,
-(3) re-point the About summary (length-neutral), (4) headline reorder if warranted, (5) bullets last
-and only if confidently line-count-neutral. Preserve every `<w:rPr>`, `xml:space`, and smart-quote entity.
+First snapshot the pre-edit XML: `cp "$WORK/unpacked/word/document.xml" "$WORK/document.xml.orig"`.
+Then edit `$WORK/unpacked/word/document.xml` with the **Edit tool**, following the run-level recipe in
+the inventory. Order: (1) headline reorder if warranted, (2) reorder Skills items, (3) reorder/swap
+◆-tags, (4) one named-true-requirement word-swap if available, (5) attempt the length-neutral About
+re-point, (6) bullets last and only if confidently line-count-neutral. Preserve every `<w:rPr>`,
+`xml:space`, and smart-quote entity.
+**Reorder with the 3-step sentinel swap** (inventory) so the Edit tool never hits a non-unique match.
+**Never rewrite the whole `document.xml` with a script** — it re-encodes untouched runs and blinds the
+diff gate. Stay on the Edit tool.
 
 ### 5. Build & verify — the layout gate (mechanical, non-negotiable)
 - `cvtools.sh repack "$WORK/unpacked" "$WORK/tailored.docx"`
 - `cvtools.sh build "$WORK/tailored.docx" "$WORK/out"` → read `PAGES=`.
+- **Gate 0 — XML-diff guard:** `diff "$WORK/document.xml.orig" "$WORK/unpacked/word/document.xml"`.
+  It must show ONLY the runs you intended to change — no smart-quote re-encoding of untouched
+  paragraphs, no whole-file churn. A clean, minimal diff is what makes the pixel gate meaningful.
 - **Gate 1 — page count:** `PAGES` must equal the baseline's. If not, you broke the cascade →
-  revert the riskiest edit (or re-do it shorter) and rebuild. Repeat until equal.
-- **Gate 2 — pixel diff:** for each page `n`, `cvtools.sh compare baseline/master_page-$n.png
-  out/tailored_page-$n.png "$WORK/out/diff_$n.png"` → `DIFF_PX`. Then **Read the diff images and the
-  tailored page images** and confirm visually: differences are confined to the small regions you
-  intentionally edited; no block shifted, no line wrapped differently elsewhere, no heading orphaned
-  at a page edge, no hanging line. A pristine page should be `DIFF_PX≈0`; an edited page shows a
-  localized cluster only. Any diff *outside* an edited region = unintended reflow → fix it.
+  revert the riskiest edit (or re-do it shorter/length-neutral) and rebuild. Repeat until equal.
+- **Gate 2 — pixel diff:** for each page `n`, `cvtools.sh compare "$WORK/baseline/master_page-$n.png"
+  "$WORK/out/tailored_page-$n.png" "$WORK/out/diff_$n.png"` → `DIFF_PX`. cvtools renders each PDF in an
+  isolated LibreOffice profile, so identical content → `DIFF_PX=0`: every **unedited page must read
+  `DIFF_PX=0`**, and edited pages show a localized cluster only. Then **Read the diff images and the
+  tailored page images** and confirm differences are confined to the regions you intentionally edited
+  — no block shifted, no line wrapped differently elsewhere, no heading orphaned at a page edge. Any
+  diff *outside* an edited region = unintended reflow → fix it.
 - **Gate 3 — page-edge scan:** look at the bottom of every page and the top of the next for stranded
   single lines / split blocks. Hanging lines are invisible except at the boundary.
 
