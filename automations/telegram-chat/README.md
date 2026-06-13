@@ -137,16 +137,19 @@ org settings). For a disabled or non-allowlisted plugin, `--channels` prints
 "Listening" but silently never loads the channel — so the bridge launches the
 fork with the dev-channels flag instead. That flag shows an interactive
 confirmation on every claude start; the `start.sh` supervisor auto-confirms it
-within ~10s (`confirm_dev_channels_prompt`). If a CC update ever changes that
-prompt's wording, update the grep in `start.sh` — symptom: bridge stuck at the
-warning screen, watchdog respawning every ~90s.
+within ~10s (`classify_pane` → `devchannels` → Enter). If a CC update ever
+changes that prompt's wording, update the greps in `classify_pane` — symptom:
+bridge stuck at the warning screen, watchdog respawning every ~90s.
 
 **Receipt ack:** `~/.claude/channels/telegram/access.json` sets
 `"ackReaction": "👀"` — the server reacts 👀 to each accepted inbound message
-the moment it hands it to the session. 👀 = the bridge has it; no 👀 within
-seconds = it never arrived (laptop asleep → it'll arrive on wake; bridge
-broken → watchdog respawn within ~90s). Managed via
-`/telegram:access set ackReaction <emoji>`.
+the moment it hands it to the session. **👀 means *received*, not *answered*:**
+it is emitted by the poller (a child process) before the agent runs, so it
+fires even when claude is frozen on a system modal (the 2026-06-13 wedge).
+No 👀 within seconds = never arrived (laptop asleep → arrives on wake; transport
+broken → respawn within ~90s). 👀 but no reply within a minute while awake =
+agent wedged → the agent-layer watchdog clears it within ~40s and DMs you.
+Managed via `/telegram:access set ackReaction <emoji>`.
 
 ## Why a second bot (not the main AO Personal OS bot)
 
