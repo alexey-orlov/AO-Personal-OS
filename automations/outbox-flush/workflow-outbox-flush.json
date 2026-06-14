@@ -169,7 +169,7 @@
         1540,
         -200
       ],
-      "retryOnFail": true,
+      "retryOnFail": false,
       "maxTries": 3,
       "waitBetweenTries": 2000,
       "parameters": {
