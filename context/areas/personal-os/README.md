@@ -1,12 +1,12 @@
 # Personal OS (this repo)
 
-_status: live and under active build-out — call pipeline, git-autosync, inbox-sweep, second-brain pipeline running; build backlog tracked in [knowledge/goals-tasks.md](../../knowledge/goals-tasks.md)_
-_updated: 2026-06-12_
+_status: live and under active build-out — call pipeline, git-autosync, inbox-sweep, second-brain pipeline running; build backlog tracked in Apple Notes (_ToDo)_
+_updated: 2026-06-14_
 
 ## Snapshot
 
 - Purpose: reusable skills + automations + committed artefacts for AI-assisted work, git-synced across devices.
-- Strategic direction: build this as a reference model for personal→team AI OS (scale from solo to team use) — goal g1 in [knowledge/goals-tasks.md](../../knowledge/goals-tasks.md).
+- Strategic direction: build this as a reference model for personal→team AI OS (scale from solo to team use) — captured in Apple Notes (_ToDo).
 - Running automations: call-pipeline (launchd watcher → AssemblyAI transcript → classified note + coaching report → Telegram digest), git-autosync (auto-commit/push within ~30 s, periodic pull), coaching-notify, podcast-streaming (n8n cloud — daily YouTube-podcast digest to Telegram + Gmail at 07:00 Kyiv; v3 with dual-path fetch + persistent ledger after the Jun 9–11 feed-throttling incident, see `automations/podcast-streaming/README.md`).
 - Interactive routines: inbox-sweep (+ loop wrapper) for Gmail/LinkedIn reply drafts; draft-message; re-engagement-outreach; lsn-recruiters-search; book-finder/-shortlist.
 - Context wiki: `context/index.md` + per-area folders `context/areas/<area>/` (README.md = live state, `calls/` = pipeline-routed notes, `docs/` = manually added materials, optional subproject pages). Updated only via the `context-update` skill; every new call note is auto-folded in by the pipeline hook.
@@ -14,7 +14,7 @@ _updated: 2026-06-12_
 ## Active threads
 
 - Context wiki bedding-in — watch the first unattended pipeline-hook runs against the new `context/areas/` layout; sweep with `/context-update` to catch anything missed.
-- Build backlog — captured automation ideas live as tasks t1–t4 in [knowledge/goals-tasks.md](../../knowledge/goals-tasks.md) (GDrive navigator, vacancy screener, CV optimizer, company researcher). Prioritization TBD.
+- Build backlog — tracked in Apple Notes (_ToDo); new 2026-06-13 task: produce a comprehensive backlog of Personal OS improvements.
 
 ## People
 

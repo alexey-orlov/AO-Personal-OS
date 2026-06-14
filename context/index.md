@@ -4,7 +4,7 @@ One-screen map of what Alex is working on right now. Maintained by the `context-
 
 **For agents:** read this file first for any task touching Alex's work; open the relevant `areas/<area>/README.md` before answering area questions. Update only via `context-update` — don't hand-edit.
 
-## Now (2026-06-12)
+## Now (2026-06-14)
 
 - Ramping into a part-time SoftServe engagement (~50–80 h/mo): product lead for the R&D Delivery Unit + agentic-AI SME. In flight: Oracle-partnership onboarding, R&D strategy-session design, Iris client bootcamp (Product stream) starting ~Jun 29, and the PM-focused Jumpstart extension (Bogdan-driven) — v0.2 program one-pager (field-calibrated) Jun 12, review with Inna ~week of Jun 15.
 - Job search (VP Product / CPO, US) active: Zipify Head-of-Product process live (deep-dive Jun 2); Archive Resale closed (rejected May 22 at final round); recruiter pipeline + LSN outreach waves running.
@@ -23,7 +23,7 @@ Each area folder holds: `README.md` (live state), `<subproject>.md` pages (one p
 | [Job search](areas/job-search/README.md) | active — one page per vacancy + outreach | [zipify](areas/job-search/zipify.md) · [outreach](areas/job-search/outreach.md) · [archive-resale](areas/job-search/archive-resale.md) (closed) | 2026-06-02 |
 | [GigaCloud](areas/gigacloud/README.md) | CPO role; no call artifacts in the OS yet | - | - |
 | [Laba](areas/laba/README.md) | PM-course tutoring; no artifacts yet | - | - |
-| [Personal OS](areas/personal-os/README.md) | pipeline + autosync + context wiki live; backlog in Apple Notes (_ToDo); open: calendar OAuth expired | - | 2026-06-12 |
+| [Personal OS](areas/personal-os/README.md) | pipeline + autosync + context wiki live; backlog in Apple Notes (_ToDo); open: calendar OAuth expired | - | 2026-06-14 |
 
 ## Cross-area reference
 
