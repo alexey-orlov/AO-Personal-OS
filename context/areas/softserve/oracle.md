@@ -37,9 +37,17 @@ _updated: 2026-06-15_
 - Milo (Oracle) — sales/partner-facing lead on AIDP; owns commercials + joint-GTM follow-up. [AIDP sales call](calls/oracle/2026-06-12_173159_sales-call_2026061216024378A29A99.md)
 - Amit (Oracle) — Black Belt, AIDP analytics specialist; ran the deck and live demo. [AIDP sales call](calls/oracle/2026-06-12_173159_sales-call_2026061216024378A29A99.md)
 - Gero (Oracle) — senior sponsor on AIDP; owns the NHS / DHL NDA chase. [AIDP sales call](calls/oracle/2026-06-12_173159_sales-call_2026061216024378A29A99.md)
+- Karsten — NVIDIA partner sales; single gateway for SoftServe ↔ Oracle stakeholder access on the NVIDIA-built packages. [1:1 2026-06-15](calls/oracle/2026-06-15_200833_one-on-one_20260615190118D7E7175C.md)
+- Patrick — tech lead on Riyad Air (AIQ case); tentative Wed-update presenter, comfort presenting TBD. [1:1 2026-06-15](calls/oracle/2026-06-15_200833_one-on-one_20260615190118D7E7175C.md)
+- Lyudmyla — SoftServe marketing; holds the AIQ Kit furniture-placement demo video. [1:1 2026-06-15](calls/oracle/2026-06-15_200833_one-on-one_20260615190118D7E7175C.md)
+- Vishnu — Oracle-side contact at the Tue Jun 16 call; owns the ask on whether SoftServe can internally GTM-promote the Oracle UI prototypes. [1:1 2026-06-15](calls/oracle/2026-06-15_200833_one-on-one_20260615190118D7E7175C.md)
 
 ## Decisions
 
+- 2026-06-15 — All Oracle stakeholder outreach routes through Karsten (NVIDIA partner sales); after Tue Jun 16 first Oracle call, request peer-to-peer monthly syncs with each package owner (AIQ / cuOpt / VSS) through him. [1:1 2026-06-15](calls/oracle/2026-06-15_200833_one-on-one_20260615190118D7E7175C.md)
+- 2026-06-15 — Phase 1 (through end of Jun 2026): reactive familiarization with Oracle's packages; Phase 2: generalize the practice and productize. [1:1 2026-06-15](calls/oracle/2026-06-15_200833_one-on-one_20260615190118D7E7175C.md)
+- 2026-06-15 — First Oracle engagements (Bosch-style) billed on value, not hours (learning phase); managed-services / hourly model only from Phase 2 onward. [1:1 2026-06-15](calls/oracle/2026-06-15_200833_one-on-one_20260615190118D7E7175C.md)
+- 2026-06-15 — Wed Jun 17 cross-team update pitch goal: neutral-to-positive perception, not a stretch pitch — downside risk (looking weak in front of sales / CTO) > upside of overselling. [1:1 2026-06-15](calls/oracle/2026-06-15_200833_one-on-one_20260615190118D7E7175C.md)
 - 2026-06-12 — AIDP (AI Data Platform) introduced as a second Oracle co-sell motion alongside cuOpt; SoftServe to start with enablement (sandbox + collateral) and shape joint-GTM packaging with Milo. [AIDP sales call](calls/oracle/2026-06-12_173159_sales-call_2026061216024378A29A99.md)
 - 2026-06-12 — Sync with Olya Hanushchak (Bosch FE, packaging-meeting attendee) and Dmytro Duchenko (Riyadh Air) before forming a productization view → they hold the technical detail and packaging context Olha lacks. [Olha sync](calls/oracle/2026-06-12_151312_one-on-one_20260612143223E84CB5DA.md)
 - 2026-06-09 — Onboarding sequence agreed: case-study deck → meet Dmytro & Olya → feedback to the lead → intro to Oracle leadership + weekly session. [1:1](calls/2026-06-09_183633_one-on-one_2026060917013100B193F3.md)
