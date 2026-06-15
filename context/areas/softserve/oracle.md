@@ -27,7 +27,7 @@ _updated: 2026-06-15 (packages whiteboard captured)_
 - Olha Terendii (oterend@softserveinc.com) — PM/BA on the Bosch POC; the contextual entry-point for Alex into the cuOpt-POC pipeline. Was excluded from the Oracle packaging meetings and points him onward.
 - Olya Hanushchak — FE on the Bosch POC; attended the Oracle packaging meetings — Alex's next contact for technical depth + packaging context. Contact to come from Olha.
 - Vlad Selyotkin — architect; co-attendee of the Oracle packaging meetings with Olya Hanushchak.
-- Bohdan — engagement lead / decision-maker on POC funding split (same Bohdan/Bogdan referenced elsewhere in the SoftServe engagement).
+- Bohdan Khomych (bkhomy@softserveinc.com) — Associate Director of R&D, SoftServe; Alex's engagement lead and 1:1 counterpart ("Speaker A"); decision-maker on POC funding split. Likely the same "Bogdan" driving the Jumpstart-PM mandate (inferred). → [people page](../../people/bohdan-khomych.md)
 - Leonid, Vladyslav (joining) — rest of the PdM team.
 - Oracle leadership + weekly-sync participants — intro pending (via the engagement lead).
 - Vladimir — SoftServe partnership/account lead on the Oracle AIDP motion; owns next-steps + joint-GTM follow-up with Milo. [AIDP sales call](calls/oracle/2026-06-12_173159_sales-call_2026061216024378A29A99.md)
