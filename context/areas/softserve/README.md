@@ -27,7 +27,7 @@ _updated: 2026-06-15_
 
 ## People
 
-- R&D engagement lead — Alex's 1:1 counterpart (unnamed in transcript, "Speaker A"); owns vision input, Oracle intros, bootcamp materials.
+- Bohdan Khomych — Associate Director of R&D, SoftServe; Alex's engagement lead and 1:1 counterpart ("Speaker A"); owns vision input, Oracle intros, bootcamp materials. Likely the same "Bogdan" driving Jumpstart-PM (inferred). → [people page](../../people/bohdan-khomych.md)
 - Inna Abolikhina — Jumpstart presales + program management → [people page](../../people/inna-abolikhina.md). (The 2026-06-11 calendar header confirms "Inna Abolikhina"; an earlier guess that this was "Anna Boiarska" was wrong — Anna is a personal contact, unrelated.)
 - Oleh Marchevich — exec side of Jumpstart methodology; IP-collab brainstorm 2026-06-11.
 - Arkadiusz — co-holder of Jumpstart exec ownership.

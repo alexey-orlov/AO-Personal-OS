@@ -96,7 +96,7 @@ Theirs (SoftServe partnership team — AIDP):
 ## Activity
 
 - 2026-06-15 — [Packages whiteboard captured](../docs/oracle-packages-tshirt-sizing.md) — S/M/L T-shirt sizing sketch (PoC/PoV · Integration · Product; AIQ + cuOpt as cross-tier capabilities) from the 2026-06-15 1:1, transcribed to docs.
-- 2026-06-15 — [1:1: Oracle packaging + Wed update prep + Karsten gateway](calls/oracle/2026-06-15_200833_one-on-one_20260615190118D7E7175C.md) — three-package framing (AIQ / cuOpt / VSS); Riyad Air reclassified as AIQ; Karsten = single Oracle gateway; Phase 1 / Phase 2 timing; value-based billing for first engagements.
+- 2026-06-15 — [1:1 with Bohdan Khomych: "Oracle packages: current status kick-off"](calls/oracle/2026-06-15_200833_one-on-one_20260615190118D7E7175C.md) — three-package framing (AIQ / cuOpt / VSS); Riyad Air reclassified as AIQ; Karsten = single Oracle gateway; Phase 1 / Phase 2 timing; value-based billing for first engagements.
 - 2026-06-12 — [AIDP sales/enablement call — Oracle ↔ SoftServe](calls/oracle/2026-06-12_173159_sales-call_2026061216024378A29A99.md) — Oracle introduced the AI Data Platform; SoftServe pushed on differentiation, SAP, NVIDIA, migration accelerators, sandbox; joint GTM follow-up open.
 - 2026-06-12 — [Olha Terendii sync — Bosch POC + Oracle productization](calls/oracle/2026-06-12_151312_one-on-one_20260612143223E84CB5DA.md) — pipeline shape, Bosch case detail, Olha's productization framing; next contacts identified.
 - 2026-06-09 — [1:1: Oracle context + onboarding sequence](calls/2026-06-09_183633_one-on-one_2026060917013100B193F3.md) — partnership shape and Alex's entry path set.
