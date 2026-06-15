@@ -4,7 +4,7 @@ Self-updating knowledge base of insights mined from Alex's tracked AI / product 
 
 **For agents:** to answer "what has Alex's podcast feed said about X" — `grep -ri "<concept>" context/knowledge/podcasts/themes/`, open the matching theme page, follow an insight's ▶ link to the source moment or its `episodes/` card for full context. An insight ID (`pi-…`) anywhere resolves with `grep -r pi-… context/knowledge/podcasts/`. Update only via `/podcast-insights` — don't hand-edit theme pages.
 
-_updated: 2026-06-13 · 149 insights · 10 themes · 32 episodes — recluster: split ai-agents (48→21+6+12+9), merged b2b-saas into growth-gtm; ⚠ tech-frontier at 28/30 insight limit, flag for split_
+_updated: 2026-06-15 · 153 insights · 10 themes · 33 episodes — recluster: split ai-agents (48→21+6+12+9), merged b2b-saas into growth-gtm; ⚠ tech-frontier at 28/30 insight limit, flag for split_
 
 ## Themes
 
@@ -12,10 +12,10 @@ _updated: 2026-06-13 · 149 insights · 10 themes · 32 episodes — recluster: 
 |---|---|---|---|
 | [AI agents & applications](themes/ai-agents-and-applications.md) | 24 | 2026-06-13 | integration into existing tools is where value lands; context-is-moat; agents as non-human customers on crypto rails |
 | [AI & the PM craft](themes/ai-and-the-pm-craft.md) | 12 | 2026-06-11 | PMs ride coding agents; VP-level craft is choosing sources + target form and restraining the model |
-| [Product discovery & strategy](themes/product-discovery-and-strategy.md) | 12 | 2026-06-13 | feature moats died; taste-led 1.0s, power-user focus, committed pivots on env shift, vertical apps capture value |
+| [Product discovery & strategy](themes/product-discovery-and-strategy.md) | 15 | 2026-06-14 | feature moats died; taste-led 1.0s, Proven/Better/New copy-first (Pincus), kill-hope-fast, day-365 retention, vertical apps capture value |
 | [Growth, GTM & pricing](themes/growth-gtm-and-pricing.md) | 10 | 2026-06-13 | self-service as primary channel; B2B Cambrian explosion; AI winners bifurcate from legacy; WhatsApp-style channel fit |
 | [Founders & fundraising](themes/founders-and-fundraising.md) | 14 | 2026-06-07 | mission-control governance + the AI cycle's lean, concentrated outcomes |
-| [Leadership, careers & teams](themes/leadership-careers-and-teams.md) | 10 | 2026-06-13 | tasks automate, jobs are bundles; CEO must be the chief AI officer; engineering is a different craft, not dead |
+| [Leadership, careers & teams](themes/leadership-careers-and-teams.md) | 11 | 2026-06-14 | tasks automate, jobs are bundles; CEO must be the chief AI officer; engineering is a different craft, not dead |
 | [Tech frontier & abundance](themes/tech-frontier-and-abundance.md) | 28 | 2026-06-13 | ⚠ near split — recursive self-improvement + SpaceX hyperscaler + golden-shares (2 episodes) + Bitcoin digital-gold + longevity trials |
 | [Generative media & multimodal production](themes/generative-media-and-multimodal.md) | 6 | 2026-06-11 | video/image tools cross usability threshold for short-form; avatar/emotion limits persist; compose specialized models |
 | [Agent engineering & production infra](themes/agent-engineering-patterns.md) | 23 | 2026-06-13 | overnight delegation + software-factory pipelines + RTS-style parallel workers + Lean verification + streaming RAG |
@@ -23,6 +23,7 @@ _updated: 2026-06-13 · 149 insights · 10 themes · 32 episodes — recluster: 
 
 ## Recent (last 7 days)
 
+- 2026-06-14 · Lenny's Podcast — The hidden pattern behind successful products | Mark Pincus (4 insights → product-discovery [3], leadership [1])
 - 2026-06-12 · Y Combinator — 5 Papers That Show Where AI Research Is Heading Right Now (5 insights → agent-engineering, tech-frontier, model-reviews)
 - 2026-06-11 · SaaStr AI — Tired vs. Wired: $4 Trillion in IPOs, Why the SaaSpocalypse is Over (4 insights → growth-gtm, ai-agents)
 - 2026-06-11 · Y Combinator — How Meesho Became India's Biggest Shopping App (5 insights → product-discovery, growth-gtm, ai-agents)
@@ -37,10 +38,6 @@ _updated: 2026-06-13 · 149 insights · 10 themes · 32 episodes — recluster: 
 - 2026-06-10 · How I AI — Claude Fable 5 - is this Mythos model worth the wait? (5 insights → model-reviews, ai-and-pm)
 - 2026-06-09 · How I AI — She built a Claude shopping assistant to stop buying cheap junk (4 insights → ai-agents)
 - 2026-06-08 · Lenny's Podcast — Tony Fadell: How to build real taste (5 insights → discovery, leadership, agent-engineering [merged `pi-fQmlML9Lay4-02`], tech-frontier)
-- 2026-06-07 · Peter H. Diamandis — Anthropic Files $965B IPO, ChatGPT Crosses 1B Users (5 insights → tech-frontier, ai-agents, founders)
-- 2026-06-07 · Y Combinator — Emergent: Six Months of Tinkering → $100M ARR (4 insights → founders, agent-engineering)
-- 2026-06-06 · SaaStr AI — Feature Differentiation Is Dead (Elena Verna / Lovable) (4 insights → discovery, ai-agents, ai-and-pm)
-- 2026-06-06 · Y Combinator — How Legora Went From YC to $100M ARR in 18 Months (5 insights → growth, founders, discovery, ai-agents)
 
 ## Cross-theme links
 
