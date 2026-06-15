@@ -15,7 +15,7 @@ _updated: 2026-06-15_
 
 ## Subprojects
 
-- [oracle](oracle.md) — Oracle partnership / joint IP — onboarding; two motions (cuOpt POC pipeline incl. Bosch/Riyadh Air, plus AIDP co-sell now active); next: Olya Hanushchak + Dmytro Duchenko on cuOpt.
+- [oracle](oracle.md) — Oracle partnership / joint IP — onboarding (Phase 1, through Jun): three NVIDIA-built packages (AIQ / cuOpt / VSS) via Karsten as single Oracle gateway, plus AIDP co-sell; next: Tue Jun 16 first Oracle call + Wed Jun 17 R&D cross-team update.
 - [iris-bootcamp](iris-bootcamp.md) — Product stream of the Iris client bootcamp — prep; tentative start Jun 29.
 - [jumpstart-pm](jumpstart-pm.md) — PM-focused Jumpstart offering design — v0.1 one-pager drafted 2026-06-12; review with Inna ~week of Jun 15.
 
@@ -56,6 +56,7 @@ Theirs (engagement lead):
 
 ## Activity
 
+- 2026-06-15 — [1:1: Oracle packaging + Wed update prep](calls/oracle/2026-06-15_200833_one-on-one_20260615190118D7E7175C.md) — three-package framing (AIQ / cuOpt / VSS); Karsten = single Oracle gateway; Phase 1/2 timing → [oracle](oracle.md).
 - 2026-06-12 — [Jumpstart-PM v0.1 one-pager](../../../outputs/jumpstart-pm/jumpstart-pm-program-one-pager.md) — offering draft produced from Inna's materials (received same day) → [jumpstart-pm](jumpstart-pm.md).
 - 2026-06-12 — [Oracle AIDP sales/enablement call](calls/oracle/2026-06-12_173159_sales-call_2026061216024378A29A99.md) — Oracle introduced AIDP as a parallel co-sell motion alongside cuOpt → [oracle](oracle.md).
 - 2026-06-12 — [Olha Terendii sync — Bosch POC + Oracle productization](calls/oracle/2026-06-12_151312_one-on-one_20260612143223E84CB5DA.md) — Oracle onboarding deepened; pipeline + Bosch case context → [oracle](oracle.md).
