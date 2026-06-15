@@ -55,15 +55,24 @@ _updated: 2026-06-15_
 ## Open loops
 
 Mine:
+- Tue 2026-06-16 — Attend first Oracle call: light self-intro ("first time joining, leading product initiatives in R&D, moving to California"); identify which Oracle stakeholders own which package; do not try to drive agenda.
+- Wed 2026-06-17 — Present at R&D cross-team update (30-min slot): Bosch cuOpt, Riyad Air AIQ, AIQ Kit furniture demo (covering Dmytro's portion in his PTO absence). Rehearse Wed morning.
+- This week — Ping Olya, Leonid, Patrick re Wed slot; ask Patrick to help build the deck by EOD Tue using the established template; check whether Patrick is comfortable presenting.
+- This week — Get the AIQ Kit furniture-placement video from Lyudmyla for the deck.
+- Post-Oracle-call — Via Karsten: arrange targeted 1:1 follow-ups with AIQ / cuOpt / VSS product leads; ask who owns final accelerator/package decisions on Oracle's product side; request peer-to-peer monthly sync per package owner.
 - Re-confirm with Bohdan whether the client pays anything for the initial POC (Olha's ~80% read: no).
 - Get Olya Hanushchak's contact from Olha, then sync with her on Bosch technical depth + the Oracle packaging meetings.
-- Sync with Dmytro Duchenko after his vacation on Riyadh Air / text-recognition.
-- After Olya/Dmytro syncs: form own view on productization viability — universal product vs. standardized engagement SKUs.
-- Read the case-study deck when it lands → meet Dmytro & Olya → report back to the lead.
-- After meeting the PdMs: align team ↔ S/M/L packages, sketch Roadmap v0.
+- Sync with Dmytro Duchenko after his vacation on Riyad Air AIQ / text-recognition.
+- After Olya/Dmytro syncs: form own view on productization viability — universal product vs. standardized engagement SKUs (Oracle may be leaning toward shaped/templatized process: questionnaire → branching → vibe-coded UI per case).
+- After meeting the PdMs: align team ↔ S/M/L packages, sketch Roadmap v0; decide whether to introduce Olya/Leonid to package-owner conversations once cadence is established.
 
 Theirs (engagement lead):
-- Send the Oracle case-study deck; after Alex's PdM sync, intro to Oracle leadership + the weekly.
+- Intro Alex to Karsten (gateway to all Oracle stakeholder access).
+- Send the Oracle case-study deck (outstanding since 2026-06-09).
+- Share previous monthly-update deck template + the chat thread with the AIQ Kit video.
+- Coach Alex on AIQ Kit positioning (Speaker A may cover that portion of Wed update himself given Dmytro's PTO).
+- Continue pushing two Olyas (Hanushchak + Terendiy) to publish Oracle clickable UI prototypes on the SoftServe internal portal so sales can demo.
+- At Tue Jun 16 Oracle call — ask Vishnu whether internal go-to-market promotion of the Oracle UI prototypes is OK.
 
 Theirs (Olha Terendii):
 - Send Olya Hanushchak's contact to Alex.
@@ -86,6 +95,7 @@ Theirs (SoftServe partnership team — AIDP):
 
 ## Activity
 
+- 2026-06-15 — [1:1: Oracle packaging + Wed update prep + Karsten gateway](calls/oracle/2026-06-15_200833_one-on-one_20260615190118D7E7175C.md) — three-package framing (AIQ / cuOpt / VSS); Riyad Air reclassified as AIQ; Karsten = single Oracle gateway; Phase 1 / Phase 2 timing; value-based billing for first engagements.
 - 2026-06-12 — [AIDP sales/enablement call — Oracle ↔ SoftServe](calls/oracle/2026-06-12_173159_sales-call_2026061216024378A29A99.md) — Oracle introduced the AI Data Platform; SoftServe pushed on differentiation, SAP, NVIDIA, migration accelerators, sandbox; joint GTM follow-up open.
 - 2026-06-12 — [Olha Terendii sync — Bosch POC + Oracle productization](calls/oracle/2026-06-12_151312_one-on-one_20260612143223E84CB5DA.md) — pipeline shape, Bosch case detail, Olha's productization framing; next contacts identified.
 - 2026-06-09 — [1:1: Oracle context + onboarding sequence](calls/2026-06-09_183633_one-on-one_2026060917013100B193F3.md) — partnership shape and Alex's entry path set.
