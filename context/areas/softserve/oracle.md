@@ -42,7 +42,9 @@ _updated: 2026-06-16_
 - Karsten — NVIDIA partner sales; single gateway for SoftServe ↔ Oracle stakeholder access on the NVIDIA-built packages. [1:1 2026-06-15](calls/oracle/2026-06-15_200833_one-on-one_20260615190118D7E7175C.md)
 - Patrick — tech lead on Riyad Air (AIQ case); tentative Wed-update presenter, comfort presenting TBD. [1:1 2026-06-15](calls/oracle/2026-06-15_200833_one-on-one_20260615190118D7E7175C.md)
 - Lyudmyla — SoftServe marketing; holds the AIQ Kit furniture-placement demo video. [1:1 2026-06-15](calls/oracle/2026-06-15_200833_one-on-one_20260615190118D7E7175C.md)
-- Vishnu — Oracle-side contact at the Tue Jun 16 call; owns the ask on whether SoftServe can internally GTM-promote the Oracle UI prototypes. [1:1 2026-06-15](calls/oracle/2026-06-15_200833_one-on-one_20260615190118D7E7175C.md)
+- Vishnu — Oracle/NVIDIA solutions lead; facilitated next steps at the 2026-06-16 Bosch tech sync (scheduling George deep-dive, etc.); owns the ask on whether SoftServe can internally GTM-promote the Oracle UI prototypes. [1:1 2026-06-15](calls/oracle/2026-06-15_200833_one-on-one_20260615190118D7E7175C.md) · [Bosch tech sync 2026-06-16](calls/oracle/2026-06-16_191926_sales-call_202606161831156E88BEC4.md)
+- Paweł — Bosch delivery lead driving the cuOpt POC agenda (author of the pre-call email); identity inferred. [Bosch tech sync 2026-06-16](calls/oracle/2026-06-16_191926_sales-call_202606161831156E88BEC4.md)
+- George — Bosch engineer holding the GPU 2 failing logs; owner of the SSH/debug-pod tests against each GPU; inferred. [Bosch tech sync 2026-06-16](calls/oracle/2026-06-16_191926_sales-call_202606161831156E88BEC4.md)
 
 ## Decisions
 
@@ -57,11 +59,10 @@ _updated: 2026-06-16_
 ## Open loops
 
 Mine:
-- Tue 2026-06-16 — Attend first Oracle call: light self-intro ("first time joining, leading product initiatives in R&D, moving to California"); identify which Oracle stakeholders own which package; do not try to drive agenda.
 - Wed 2026-06-17 — Present at R&D cross-team update (30-min slot): Bosch cuOpt, Riyad Air AIQ, AIQ Kit furniture demo (covering Dmytro's portion in his PTO absence). Rehearse Wed morning.
 - This week — Ping Olya, Leonid, Patrick re Wed slot; ask Patrick to help build the deck by EOD Tue using the established template; check whether Patrick is comfortable presenting.
 - This week — Get the AIQ Kit furniture-placement video from Lyudmyla for the deck.
-- Post-Oracle-call — Via Karsten: arrange targeted 1:1 follow-ups with AIQ / cuOpt / VSS product leads; ask who owns final accelerator/package decisions on Oracle's product side; request peer-to-peer monthly sync per package owner.
+- Via Karsten: arrange targeted 1:1 follow-ups with AIQ / cuOpt / VSS product leads; ask who owns final accelerator/package decisions on Oracle's product side; request peer-to-peer monthly sync per package owner.
 - Re-confirm with Bohdan whether the client pays anything for the initial POC (Olha's ~80% read: no).
 - Get Olya Hanushchak's contact from Olha, then sync with her on Bosch technical depth + the Oracle packaging meetings.
 - Sync with Dmytro Duchenko after his vacation on Riyad Air AIQ / text-recognition.
@@ -74,7 +75,7 @@ Theirs (engagement lead):
 - Share previous monthly-update deck template + the chat thread with the AIQ Kit video.
 - Coach Alex on AIQ Kit positioning (Speaker A may cover that portion of Wed update himself given Dmytro's PTO).
 - Continue pushing two Olyas (Hanushchak + Terendiy) to publish Oracle clickable UI prototypes on the SoftServe internal portal so sales can demo.
-- At Tue Jun 16 Oracle call — ask Vishnu whether internal go-to-market promotion of the Oracle UI prototypes is OK.
+- Ask Vishnu whether internal go-to-market promotion of the Oracle UI prototypes is OK — not covered at 2026-06-16 call (technical agenda took the slot); carry to next Oracle touchpoint.
 
 Theirs (Olha Terendii):
 - Send Olya Hanushchak's contact to Alex.
