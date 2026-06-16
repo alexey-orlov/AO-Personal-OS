@@ -98,6 +98,7 @@ Theirs (SoftServe partnership team — AIDP):
 
 ## Activity
 
+- 2026-06-16 — [First Oracle call: Bosch cuOpt POC tech sync](calls/oracle/2026-06-16_191926_sales-call_202606161831156E88BEC4.md) — Bosch ↔ Oracle/NVIDIA technical sync on GPU 2 failures in cuOpt POC; debug path agreed without disturbing UAT on GPU 1; tenancy confirmed extended to 2026-08-26; performance-tuning topics deferred.
 - 2026-06-15 — [Packages whiteboard captured](../docs/oracle-packages-tshirt-sizing.md) — S/M/L T-shirt sizing sketch (PoC/PoV · Integration · Product; AIQ + cuOpt as cross-tier capabilities) from the 2026-06-15 1:1, transcribed to docs.
 - 2026-06-15 — [1:1 with Bohdan Khomych: "Oracle packages: current status kick-off"](calls/oracle/2026-06-15_200833_one-on-one_20260615190118D7E7175C.md) — three-package framing (AIQ / cuOpt / VSS); Riyad Air reclassified as AIQ; Karsten = single Oracle gateway; Phase 1 / Phase 2 timing; value-based billing for first engagements.
 - 2026-06-12 — [AIDP sales/enablement call — Oracle ↔ SoftServe](calls/oracle/2026-06-12_173159_sales-call_2026061216024378A29A99.md) — Oracle introduced the AI Data Platform; SoftServe pushed on differentiation, SAP, NVIDIA, migration accelerators, sandbox; joint GTM follow-up open.
