@@ -2,10 +2,10 @@
 
 _status: live theme — founding, company building, YC-style playbooks, raising capital_
 _slug: founders-and-fundraising_
-_updated: 2026-06-11 · 14 insights from 5 episodes_
+_updated: 2026-06-16 · 16 insights from 6 episodes_
 
 ## The throughline
-Three forces compound across this batch. (1) AI compresses the team needed to win and concentrates outcomes — an eight-person startup landed DoorDash; Emergent reached ~8.5M users and $100M+ ARR in nine months; Anthropic's IPO filing points at trillion-dollar caps with ~$9.4M revenue per employee. Fewer winners, far larger. (2) Shareholder primacy is being treated as overridable by founders who want mission permanence: PBCs, foundations, and long-term benefit trusts (Anthropic, Novo Nordisk, Costco) protect missions that ordinary VC-driven boards would sell off. (3) The playbook for capturing this cycle's upside is founder-led and edge-tested: "burn the boats" commitment, relentless founder sales (Legora's Stockholm bunker, ~$1M → $100M ARR), and six months of unstructured tinkering on the model frontier are what surfaced both Emergent's autonomous-agent thesis and Legora's bundled platform bet. The connective tissue: founders who do the unusual thing early — charter design, "best practice" board scrutiny, founder-bunker outreach — capture more of the upside the cycle is creating.
+Three forces compound across this batch. (1) AI compresses the team needed to win and concentrates outcomes — an eight-person startup landed DoorDash; Emergent reached ~8.5M users and $100M+ ARR in nine months; Anthropic's IPO filing points at trillion-dollar caps with ~$9.4M revenue per employee. Fewer winners, far larger. (2) Shareholder primacy is being treated as overridable by founders who want mission permanence: PBCs, foundations, and long-term benefit trusts (Anthropic, Novo Nordisk, Costco) protect missions that ordinary VC-driven boards would sell off. (3) The playbook for capturing this cycle's upside is founder-led and edge-tested: "burn the boats" commitment, relentless founder sales (Legora's Stockholm bunker, ~$1M → $100M ARR), and six months of unstructured tinkering on the model frontier are what surfaced both Emergent's autonomous-agent thesis and Legora's bundled platform bet. The connective tissue: founders who do the unusual thing early — charter design, "best practice" board scrutiny, founder-bunker outreach — capture more of the upside the cycle is creating. (4) Co-founder mechanics: explicit ownership plus written shared values ('customer first customer obsess') is the practical resolution to multi-founder alignment debt at birth (Groww, 4 co-founders); operating only in regulated zones accepts short-term complexity in exchange for eliminating external uncertainty and building customer credibility for the long run.
 
 ## Insights
 
@@ -71,9 +71,19 @@ Anthropic confidentially filed S‑1 paperwork and markets/odds have priced a mu
 — Peter H. Diamandis · 2026-06-07 · guest: Dr. Don Mucalem · [▶ 35:22](https://www.youtube.com/watch?v=hyeoYsVl1No&t=2122) · `pi-hyeoYsVl1No-04`
 related: [Top outcomes are much larger and concentrated than before](#top-outcomes-are-much-larger-and-concentrated-than-before)
 
+### Choose to operate only in regulated zones to reduce execution risk
+Instead of chasing unregulated or gray areas, Groww decided early to 'play only in regulated zone' — obtain licenses and run within clear rules even if that raises short-term complexity. This narrowed external uncertainty, made decision-making simpler, and positioned the company to benefit when regulatory changes occurred. For regulated fintech, this strategy trades some early speed for lower long-term regulatory risk and credibility with customers.
+— Y Combinator · 2026-06-15 · guest: La Kishray (Groww) · [▶ 13:21](https://www.youtube.com/watch?v=ObBAxL2dFzw&t=801) · `pi-ObBAxL2dFzw-04`
+related: [Simple legal tools (PBCs, trusts, foundations) can legally protect mission](#simple-legal-tools-pbcs-trusts-foundations-can-legally-protect-mission) (both: deliberate structural choices traded short-term optionality for long-term stability)
+
+### Write shared values and clarify ownership to scale multi-founder teams
+With four co-founders, Groww reduced future conflict by drafting a comprehensive document that spelled out their value system (e.g., 'customer first customer obsess') and by assigning clear owners for functions like tech or finance. They still wore many hats early, but explicit ownership and an agreed conflict-resolution rule kept decisions swift and aligned. The practical upshot: shared written values plus role clarity let a larger founder group act with urgency and consensus.
+— Y Combinator · 2026-06-15 · guest: La Kishray (Groww) · [▶ 26:21](https://www.youtube.com/watch?v=ObBAxL2dFzw&t=1581) · `pi-ObBAxL2dFzw-05`
+related: [Mission-controlled firms (ethos + integrity) survive and create far more value](#mission-controlled-firms-ethos--integrity-survive-and-create-far-more-value) (shared values is the founder-team implementation of mission-control at org-birth stage)
+
 ## Open questions
 - Mission-controlled structures (PBC, foundation, long-term benefit trust) raise capital differently. Does the talk's claim that they "attract mission-aligned talent" survive contact with the AI cycle's $100B-outcome power law? (inferred fit — the two clusters here may pull in opposite directions)
-- At 14 insights this page is approaching the soft cap, and the two clusters (mission-permanence/governance vs. AI-cycle outcome concentration) sit awkwardly together. Future split candidate: "Governance & mission permanence" carving out the `pi-7VKliOQXQ9M-*` cluster.
+- At 16 insights this page is approaching the soft cap, and the two clusters (mission-permanence/governance vs. AI-cycle outcome concentration) sit awkwardly together. Future split candidate: "Governance & mission permanence" carving out the `pi-7VKliOQXQ9M-*` cluster.
 
 ## Related themes
 - [Growth, GTM & pricing](growth-gtm-and-pricing.md) — how AI-cycle GTM rewires enterprise sales
@@ -88,3 +98,4 @@ related: [Top outcomes are much larger and concentrated than before](#top-outcom
 - [Y Combinator — How Legora Went From YC to $100M ARR in 18 Months (2026-06-06)](../episodes/2026/2026-06-06--yc--legora-yc-to-100m-arr-18-months.md)
 - [Y Combinator — Emergent: How Six Months of Tinkering Led To A $100M ARR Company (2026-06-07)](../episodes/2026/2026-06-07--yc--emergent-six-months-tinkering-100m-arr.md)
 - [Peter H. Diamandis — Anthropic Files $965B IPO, ChatGPT Crosses 1B Users (2026-06-07)](../episodes/2026/2026-06-07--diamandis--anthropic-965b-ipo-chatgpt-1b-ep-262.md)
+- [Y Combinator — Groww: If Your Customers Don't Love It or Hate It, You've Already Lost (2026-06-15)](../episodes/2026/2026-06-15--yc--groww-customers-dont-love-hate-already-lost.md)
