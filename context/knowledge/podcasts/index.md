@@ -4,7 +4,7 @@ Self-updating knowledge base of insights mined from Alex's tracked AI / product 
 
 **For agents:** to answer "what has Alex's podcast feed said about X" — `grep -ri "<concept>" context/knowledge/podcasts/themes/`, open the matching theme page, follow an insight's ▶ link to the source moment or its `episodes/` card for full context. An insight ID (`pi-…`) anywhere resolves with `grep -r pi-… context/knowledge/podcasts/`. Update only via `/podcast-insights` — don't hand-edit theme pages.
 
-_updated: 2026-06-15 · 153 insights · 10 themes · 33 episodes — recluster: split ai-agents (48→21+6+12+9), merged b2b-saas into growth-gtm; ⚠ tech-frontier at 28/30 insight limit, flag for split_
+_updated: 2026-06-16 · 162 insights · 10 themes · 35 episodes — recluster: split ai-agents (48→21+6+12+9), merged b2b-saas into growth-gtm; ⚠ tech-frontier at 28/30 insight limit, flag for split_
 
 ## Themes
 
@@ -12,17 +12,19 @@ _updated: 2026-06-15 · 153 insights · 10 themes · 33 episodes — recluster: 
 |---|---|---|---|
 | [AI agents & applications](themes/ai-agents-and-applications.md) | 24 | 2026-06-13 | integration into existing tools is where value lands; context-is-moat; agents as non-human customers on crypto rails |
 | [AI & the PM craft](themes/ai-and-the-pm-craft.md) | 12 | 2026-06-11 | PMs ride coding agents; VP-level craft is choosing sources + target form and restraining the model |
-| [Product discovery & strategy](themes/product-discovery-and-strategy.md) | 15 | 2026-06-14 | feature moats died; taste-led 1.0s, Proven/Better/New copy-first (Pincus), kill-hope-fast, day-365 retention, vertical apps capture value |
+| [Product discovery & strategy](themes/product-discovery-and-strategy.md) | 18 | 2026-06-15 | feature moats died; taste-led 1.0s, Proven/Better/New copy-first (Pincus), kill-hope-fast, day-365 retention; Groww: transparency-first PMF + 4-yr zero-revenue love phase |
 | [Growth, GTM & pricing](themes/growth-gtm-and-pricing.md) | 10 | 2026-06-13 | self-service as primary channel; B2B Cambrian explosion; AI winners bifurcate from legacy; WhatsApp-style channel fit |
-| [Founders & fundraising](themes/founders-and-fundraising.md) | 14 | 2026-06-07 | mission-control governance + the AI cycle's lean, concentrated outcomes |
+| [Founders & fundraising](themes/founders-and-fundraising.md) | 16 | 2026-06-15 | mission-control governance + the AI cycle's lean, concentrated outcomes; regulated-zone risk mgmt + shared values for multi-founder teams |
 | [Leadership, careers & teams](themes/leadership-careers-and-teams.md) | 11 | 2026-06-14 | tasks automate, jobs are bundles; CEO must be the chief AI officer; engineering is a different craft, not dead |
 | [Tech frontier & abundance](themes/tech-frontier-and-abundance.md) | 28 | 2026-06-13 | ⚠ near split — recursive self-improvement + SpaceX hyperscaler + golden-shares (2 episodes) + Bitcoin digital-gold + longevity trials |
 | [Generative media & multimodal production](themes/generative-media-and-multimodal.md) | 6 | 2026-06-11 | video/image tools cross usability threshold for short-form; avatar/emotion limits persist; compose specialized models |
-| [Agent engineering & production infra](themes/agent-engineering-patterns.md) | 23 | 2026-06-13 | overnight delegation + software-factory pipelines + RTS-style parallel workers + Lean verification + streaming RAG |
+| [Agent engineering & production infra](themes/agent-engineering-patterns.md) | 27 | 2026-06-15 | overnight delegation + software-factory pipelines + RTS-style parallel workers + Lean verification + streaming RAG + eval-driven infra benchmarking |
 | [Model reviews & benchmarks](themes/model-reviews-and-benchmarks.md) | 10 | 2026-06-13 | Opus 4.8 strong one-shot, fails last 10%; Fable 5 burns 2× tokens (2 sources); grounded self-play beats naive curriculum |
 
 ## Recent (last 7 days)
 
+- 2026-06-15 · How I AI — How this startup uses AI agents to eliminate bugs and optimize infrastructure (4 insights → agent-engineering [4])
+- 2026-06-15 · Y Combinator — Groww: If Your Customers Don't Love It or Hate It, You've Already Lost (5 insights → product-discovery [3], founders [2])
 - 2026-06-14 · Lenny's Podcast — The hidden pattern behind successful products | Mark Pincus (4 insights → product-discovery [3], leadership [1])
 - 2026-06-12 · Y Combinator — 5 Papers That Show Where AI Research Is Heading Right Now (5 insights → agent-engineering, tech-frontier, model-reviews)
 - 2026-06-11 · SaaStr AI — Tired vs. Wired: $4 Trillion in IPOs, Why the SaaSpocalypse is Over (4 insights → growth-gtm, ai-agents)
@@ -37,7 +39,6 @@ _updated: 2026-06-15 · 153 insights · 10 themes · 33 episodes — recluster: 
 - 2026-06-10 · Every — How Anthropic Uses Claude Fable 5 With Mike Krieger (5 insights → agent-engineering, leadership, model-reviews [merged `pi-IREnr4I89Ho-01`])
 - 2026-06-10 · How I AI — Claude Fable 5 - is this Mythos model worth the wait? (5 insights → model-reviews, ai-and-pm)
 - 2026-06-09 · How I AI — She built a Claude shopping assistant to stop buying cheap junk (4 insights → ai-agents)
-- 2026-06-08 · Lenny's Podcast — Tony Fadell: How to build real taste (5 insights → discovery, leadership, agent-engineering [merged `pi-fQmlML9Lay4-02`], tech-frontier)
 
 ## Cross-theme links
 
@@ -54,6 +55,7 @@ _updated: 2026-06-15 · 153 insights · 10 themes · 33 episodes — recluster: 
 - Discovery ↔ Leadership ↔ AI agents — Brex's "CEO must be the chief AI officer" (`pi-mPAHvz8kW24-01`) + "minimize surface area, refound boundaries" (`pi-mPAHvz8kW24-05`) + "agentic loops with tools" (`pi-mPAHvz8kW24-03` in Agent engineering) are the same playbook from three angles
 - Discovery ↔ Growth — Evans's "chatbot isn't a product" / vertical-apps thesis (`pi-ktl8mNiWqMM-04`) is the same thread as the commodity-foundation-models pair in growth
 - Tech frontier internal — three federal-review attempts now bracket the regulatory range: scuttled 90-day mandate (`pi-dtuPovnf4XQ-02`) → voluntary 30-day window (`pi-hyeoYsVl1No-01`) → proposed golden shares (`pi-P2HJEz3oqLs-03`, corroborated by `pi-isd2y37j8v4-04`); Argentina's nonhuman-corporation pitch (`pi-P2HJEz3oqLs-04`) is the jurisdictional-race countercurrent
+- Agent engineering ↔ AI & the PM craft — eval suites as modern PRD (`pi-QE_1hRLsehM-03`): formalizing 'what success looks like' via scored datasets bridges engineering spec with the PM craft of converting taste into repeatable measurement
 
 ## Channels tracked
 
