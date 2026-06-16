@@ -82,6 +82,9 @@
     height: 100%;
     min-width: 0;
     min-height: 0;
+    overflow: hidden;
+    display: grid;
+    place-items: center;
     border-radius: clamp(12px, 5vw, 26px);
     border: none;
     cursor: pointer;
@@ -102,41 +105,37 @@
     transition: transform .08s ease, box-shadow .12s ease, filter .12s ease;
     user-select: none;
   }
-  .btn .sub {
-    display: block;
-    font-size: clamp(6px, 1.8vmin, 10px);
-    font-weight: 600;
-    letter-spacing: .14em;
-    text-transform: uppercase;
-    opacity: .8;
-    margin-top: 4px;
-  }
   .btn:active { transform: translateY(2px); }
+  /* When a project is tracking, dim the others so the active one is brighter. */
+  .grid.has-active .btn:not(.pressed) { filter: brightness(.48) saturate(.8); }
   .btn.pressed {
-    /* depressed: inset shadow, sunk in, colored glow ring */
+    /* selected: brighter, sunk in, colored glow ring */
     transform: translateY(3px);
+    filter: brightness(1.14) saturate(1.06);
     background:
-      radial-gradient(120% 120% at 50% 85%, rgba(255,255,255,.18), rgba(255,255,255,0) 55%),
+      radial-gradient(120% 120% at 50% 82%, rgba(255,255,255,.28), rgba(255,255,255,0) 55%),
       linear-gradient(180deg, var(--c-dark), var(--c-light));
     box-shadow:
-      0 0 0 3px rgba(255,255,255,.10),
-      0 0 22px 2px var(--c-glow),
-      inset 0 8px 14px rgba(0,0,0,.55),
-      inset 0 -2px 1px rgba(255,255,255,.18);
+      0 0 0 3px rgba(255,255,255,.16),
+      0 0 26px 3px var(--c-glow),
+      inset 0 8px 14px rgba(0,0,0,.5),
+      inset 0 -2px 1px rgba(255,255,255,.2);
   }
-  .btn .dot {
-    position: absolute; top: 12px; right: 12px;
-    width: 9px; height: 9px; border-radius: 50%;
-    background: rgba(255,255,255,.35);
-    box-shadow: inset 0 0 2px rgba(0,0,0,.4);
-  }
+  /* Recording indicator: only the tracking button shows it; red + blinking.
+     %-based inset + the button's overflow:hidden keep it inside on any resize. */
+  .btn .dot { display: none; }
   .btn.pressed .dot {
-    background: #fff;
-    box-shadow: 0 0 8px 2px rgba(255,255,255,.9);
-    animation: pulse 1.6s ease-in-out infinite;
+    display: block;
+    position: absolute; top: 8%; right: 8%;
+    width: clamp(8px, 2.6vmin, 11px);
+    height: clamp(8px, 2.6vmin, 11px);
+    border-radius: 50%;
+    background: #ff3b30;
+    box-shadow: 0 0 6px 1px rgba(255,59,48,.95);
+    animation: pulse 1.2s ease-in-out infinite;
   }
-  @keyframes pulse { 50% { opacity: .4; } }
-  .app.busy .btn { pointer-events: none; filter: saturate(.7) brightness(.92); }
+  @keyframes pulse { 50% { opacity: .25; } }
+  .app.busy .btn { pointer-events: none; opacity: .9; }
 
   .field-wrap {
     flex: 0 0 auto;
@@ -203,7 +202,6 @@
   @media (max-width: 260px) {
     .topbar { margin-bottom: 6px; }
     .title { display: none; }
-    .btn .sub { display: none; }
     .sync { display: none; }
   }
   @media (max-width: 180px) {
@@ -212,7 +210,6 @@
   /* Short viewport: same idea by height — keep buttons + field + status legible. */
   @media (max-height: 380px) {
     .title { display: none; }
-    .btn .sub { display: none; }
     .sync { display: none; }
     .topbar { margin-bottom: 6px; }
   }
@@ -266,6 +263,8 @@
   let lastState = null;
   let inFlight = false;
   let projectsRendered = false;
+  // live-duration state for the status line
+  let activeStartMs = null, activeSince = '', activeKeyLabel = null;
 
   // ---- color helpers (lighten/darken for the physical look) ----
   const clamp = (n) => Math.max(0, Math.min(255, n));
@@ -293,7 +292,7 @@
       b.style.setProperty('--c-light', shade(p.color, 0.18));
       b.style.setProperty('--c-dark', shade(p.color, -0.28));
       b.style.setProperty('--c-glow', glow(p.color));
-      b.innerHTML = `<span class="dot"></span>${p.key}<span class="sub">${p.name}</span>`;
+      b.innerHTML = `<span class="dot"></span>${p.key}`;
       b.addEventListener('click', () => onToggle(p.key));
       grid.appendChild(b);
     }
@@ -307,6 +306,7 @@
     const active = state.active;
     const activeKey = active ? active.key : null;
 
+    grid.classList.toggle('has-active', !!activeKey);
     for (const btn of grid.querySelectorAll('.btn')) {
       btn.classList.toggle('pressed', btn.dataset.key === activeKey);
     }
@@ -328,11 +328,27 @@
       desc.placeholder = 'No active tracker';
     }
 
-    // Status line.
-    if (active) {
-      const since = active.start ? new Date(active.start) : null;
-      const hhmm = since ? since.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}) : '';
-      statusText.textContent = `Tracking ${active.key || '?'}${hhmm ? ' since ' + hhmm : ''}`;
+    // Status line (with live-ticking duration — see renderStatus).
+    if (active && active.start) {
+      activeStartMs = Date.parse(active.start);
+      activeSince = new Date(activeStartMs).toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+      activeKeyLabel = active.key || '?';
+    } else {
+      activeStartMs = null; activeKeyLabel = null;
+    }
+    renderStatus();
+  }
+
+  function fmtDur(ms) {
+    let s = Math.max(0, Math.floor(ms / 1000));
+    const h = Math.floor(s / 3600); s -= h * 3600;
+    const m = Math.floor(s / 60); s -= m * 60;
+    const p = (n) => String(n).padStart(2, '0');
+    return h > 0 ? `${h}:${p(m)}:${p(s)}` : `${m}:${p(s)}`;
+  }
+  function renderStatus() {
+    if (activeStartMs) {
+      statusText.textContent = `Tracking ${activeKeyLabel} since ${activeSince} (${fmtDur(Date.now() - activeStartMs)})`;
     } else {
       statusText.textContent = 'Idle — nothing tracking';
     }
@@ -384,7 +400,13 @@
     if (inFlight) return;
     setBusy(true);
     try {
-      const state = await api('/api/toggle', {method:'POST', body: JSON.stringify({projectKey: key})});
+      // If a tracker is running, carry the current field text so the server
+      // saves it onto the entry being completed before stopping/switching.
+      const payload = {projectKey: key};
+      if (lastState && lastState.active && !desc.disabled) {
+        payload.description = desc.value;
+      }
+      const state = await api('/api/toggle', {method:'POST', body: JSON.stringify(payload)});
       clearError();
       paint(state);
       stampSync();
@@ -427,6 +449,9 @@
 
   // Light interval poll.
   setInterval(() => { if (!document.hidden) refresh(false); }, POLL_MS);
+
+  // Tick the live duration once a second (independent of the network poll).
+  setInterval(renderStatus, 1000);
 
   // Initial load.
   refresh(true);

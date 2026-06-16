@@ -210,8 +210,14 @@ class Clockify:
             body["description"] = description
         self._request("POST", f"/workspaces/{self._ws}/time-entries", body)
 
-    def toggle(self, key):
-        """Decide from LIVE truth, not from client state."""
+    def toggle(self, key, description=None):
+        """Decide from LIVE truth, not from client state.
+
+        If a tracker is running, `description` (the panel's field text) is saved
+        onto that entry BEFORE it is stopped, so completing or switching keeps
+        the description on the entry being closed. Clicking a different project
+        therefore equals: stop current (with its description) + start new.
+        """
         target = self._project_by_key(key)
         if not target or not target["id"]:
             raise ClockifyError(f"Project '{key}' not found in workspace.")
@@ -219,6 +225,9 @@ class Clockify:
             self._ensure_identity()
             entry = self.in_progress()
             running_pid = entry.get("projectId") if entry else None
+            # Persist the typed description onto the entry we're about to close.
+            if entry and description:
+                self._apply_description(entry, description)
             if running_pid == target["id"]:
                 # Same project running -> stop (toggle off).
                 self._stop_running()
@@ -231,28 +240,31 @@ class Clockify:
                 self._start(target["id"])
             return self.state()
 
+    def _apply_description(self, entry, description):
+        """PUT the full entry body back with a new description (entry stays running)."""
+        interval = entry.get("timeInterval") or {}
+        # PUT requires the full entry body; preserve everything, change desc.
+        body = {
+            "start": interval.get("start"),
+            "billable": entry.get("billable", True),
+            "description": description,
+            "projectId": entry.get("projectId"),
+            "taskId": entry.get("taskId"),
+            "tagIds": entry.get("tagIds") or [],
+        }
+        # Drop nulls Clockify dislikes (taskId null is fine, but be clean).
+        body = {k: v for k, v in body.items() if v is not None or k == "description"}
+        self._request(
+            "PUT", f"/workspaces/{self._ws}/time-entries/{entry.get('id')}", body
+        )
+
     def set_description(self, description):
         with _mutate_lock:
             self._ensure_identity()
             entry = self.in_progress()
             if not entry:
                 raise ClockifyError("No active tracker to attach a description to.")
-            entry_id = entry.get("id")
-            interval = entry.get("timeInterval") or {}
-            # PUT requires the full entry body; preserve everything, change desc.
-            body = {
-                "start": interval.get("start"),
-                "billable": entry.get("billable", True),
-                "description": description,
-                "projectId": entry.get("projectId"),
-                "taskId": entry.get("taskId"),
-                "tagIds": entry.get("tagIds") or [],
-            }
-            # Drop nulls Clockify dislikes (taskId null is fine, but be clean).
-            body = {k: v for k, v in body.items() if v is not None or k == "description"}
-            self._request(
-                "PUT", f"/workspaces/{self._ws}/time-entries/{entry_id}", body
-            )
+            self._apply_description(entry, description)
             return self.state()
 
 
@@ -329,7 +341,7 @@ class Handler(BaseHTTPRequestHandler):
                         code=400,
                     )
                     return
-                self._send_json(client.toggle(key))
+                self._send_json(client.toggle(key, body.get("description")))
             elif path == "/api/description":
                 desc = body.get("description")
                 if desc is None:
