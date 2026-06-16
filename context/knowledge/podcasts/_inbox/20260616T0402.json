@@ -1,0 +1,94 @@
+{
+  "schema": 1,
+  "generatedAt": "2026-06-16T04:02:13.289Z",
+  "runStamp": "20260616T0402",
+  "episodes": [
+    {
+      "videoId": "QE_1hRLsehM",
+      "videoTitle": "How this startup uses AI agents to eliminate bugs and optimize infrastructure",
+      "videoUrl": "https://www.youtube.com/watch?v=QE_1hRLsehM",
+      "channelName": "How I AI",
+      "publishedDate": "2026-06-15",
+      "guests": [],
+      "summary": "The episode profiles an engineering lead who uses AI coding agents and eval-driven workflows to fix bugs, optimize query performance, and scale infrastructure experimentation. The central argument is that agents make it practical to run exhaustive, production-like benchmarks and automated evals at a scale humans cannot, which raises the engineering quality bar and reduces risk for platform changes.",
+      "insights": [
+        {
+          "headline": "Agents can exhaustively test infrastructure alternatives to speed slow queries",
+          "detail": "Rather than guessing which index, column-store format, or execution engine will help, the team reproduces slow production queries and uses coding agents to try every open-source column store and execution engine matrix-style. They run these experiments on production-like data (or production subsets) to measure real latency effects—examples include testing column-store formats under 4,000 concurrent reads and measuring EC2↔S3 latency. This matters because it turns risky, slow platform changes into measurable decisions you can iterate on without locking staff engineers into months-long rewrites.",
+          "anchorQuote": "we will reproduce those things and use um a coding agent",
+          "tSeconds": 321,
+          "link": "https://www.youtube.com/watch?v=QE_1hRLsehM&t=321"
+        },
+        {
+          "headline": "Agents run far more rigorous benchmarks than humans can feasibly run",
+          "detail": "The guest argues there is no staff engineer who can execute as many varied, continuous benchmarks and algorithmic permutations as an agent-driven process can; they cite discovering a practical Bloom filter index after a week of continuous experiments. Using agents surfaced overlooked trade-offs (e.g., query speed vs. indexing cost) because the system could run both kinds of benchmarks repeatedly and at scale. The non-obvious payoff is higher practical rigor: more complete evidence when deciding core infra changes, reducing the usual conservatism that keeps teams stuck on legacy implementations.",
+          "anchorQuote": "there's no staff engineer who is running as many rigorous benchmarks",
+          "tSeconds": 679,
+          "link": "https://www.youtube.com/watch?v=QE_1hRLsehM&t=679"
+        },
+        {
+          "headline": "Eval suites are the modern PRD for AI-driven features",
+          "detail": "Evals formalize 'what success looks like' the way PRDs used to, by encoding user examples and quantitative scoring so models can autonomously explore the 'how.' In practice they built datasets of doc-site questions, used models to generate and then refine scoring functions (e.g., concise code snippets, single-language answers), and applied those scorers to rank outputs automatically. This matters because it converts subjective product taste into repeatable, measurable evals—then human vibe checks (they iterate with a designer named David) are used only to refine the scorer rather than manually reviewing every example.",
+          "anchorQuote": "EVELs are actually the modern version of a PRD",
+          "tSeconds": 1518,
+          "link": "https://www.youtube.com/watch?v=QE_1hRLsehM&t=1518"
+        },
+        {
+          "headline": "Primary engineering priority: build data->eval feedback pipelines and CI",
+          "detail": "The guest insists the top engineering job is constructing pipelines that pull real-world data into evals and investing in CI so you can move quickly and safely; they say this beats chasing prompt tweaks or agent frameworks. Examples include teams using evals to detect where engineers hit pain points or agents ask for escalated permissions, and the repeated advice to 'fix your CI' before expecting velocity gains from AI. The takeaway is practical: without automated feedback loops and solid CI you cannot reliably scale agent-driven workflows or trust their results in production.",
+          "anchorQuote": "summon from the ether of real world data",
+          "tSeconds": 2200,
+          "link": "https://www.youtube.com/watch?v=QE_1hRLsehM&t=2200"
+        }
+      ]
+    },
+    {
+      "videoId": "ObBAxL2dFzw",
+      "videoTitle": "Groww: If Your Customers Don't Love It or Hate It, You've Already Lost",
+      "videoUrl": "https://www.youtube.com/watch?v=ObBAxL2dFzw",
+      "channelName": "Y Combinator",
+      "publishedDate": "2026-06-15",
+      "guests": [
+        "La Kishray (Grow)"
+      ],
+      "summary": "The founder of Grow explains how early product pivots, relentless customer obsession, and design focus created product-market fit and organic growth. He argues that full transparency, playing only in regulated markets, and prioritizing customer love over early monetization reduced risk and unlocked durable monetization later. He also describes practical founder practices — being a power user, direct customer outreach, and written shared values — that kept four co-founders aligned while scaling.",
+      "insights": [
+        {
+          "headline": "Opening the platform with full transparency created rapid product-market fit",
+          "detail": "Grow began as a robo-advisor that failed, then pivoted to showing customers every product with clear choice and frictionless onboarding. After launching the transparent, choice-first product in May 2017 they expected ~100 customers but got 600 in the first month, signaling strong PMF through organic uptake and high NPS. The lesson: revealing product options and why they matter can convert vocal customer curiosity into word-of-mouth growth.",
+          "anchorQuote": "when customers use the product they would always ask",
+          "tSeconds": 309,
+          "link": "https://www.youtube.com/watch?v=ObBAxL2dFzw&t=309"
+        },
+        {
+          "headline": "Prioritize customer love and organic growth over early monetization",
+          "detail": "The team deliberately accepted monetization uncertainty: for the first four years Grow operated effectively as a 'zero revenue company' while driving down CAC, increasing retention and engagement. That customer-first traction (high retention, word-of-mouth) later made monetization easier — adding stocks and direct mutual funds unlocked sustainable revenue. The non-obvious point: earning deep customer love can be a safer long-term bet than squeezing early fees.",
+          "anchorQuote": "we were like a zero revenue company",
+          "tSeconds": 938,
+          "link": "https://www.youtube.com/watch?v=ObBAxL2dFzw&t=938"
+        },
+        {
+          "headline": "Founders must be power users and talk directly to customers",
+          "detail": "The founders personally used the app daily, created WhatsApp groups, engaged on forums like Kora and even approached people in movie theaters to get signals beyond the first 20 users. They put each new signup into a personal WhatsApp group to stay accessible, read between the lines of requests, and iterate features that actually mattered. That hands-on customer work produced the buzz, retention and product improvements that sustained organic growth.",
+          "anchorQuote": "you put them into a personal WhatsApp group",
+          "tSeconds": 627,
+          "link": "https://www.youtube.com/watch?v=ObBAxL2dFzw&t=627"
+        },
+        {
+          "headline": "Choose to operate only in regulated zones to reduce execution risk",
+          "detail": "Instead of chasing unregulated or gray areas, Grow decided early to 'play only in regulated zone' — obtain licenses and run within clear rules even if that raises short-term complexity. This narrowed external uncertainty, made decision-making simpler, and positioned the company to benefit when regulatory changes occurred. For regulated fintech, this strategy trades some early speed for lower long-term regulatory risk and credibility with customers.",
+          "anchorQuote": "we will play only in regulated zone",
+          "tSeconds": 801,
+          "link": "https://www.youtube.com/watch?v=ObBAxL2dFzw&t=801"
+        },
+        {
+          "headline": "Write shared values and clarify ownership to scale multi-founder teams",
+          "detail": "With four co-founders, Grow reduced future conflict by drafting a comprehensive document that spelled out their value system (e.g., 'customer first customer obsess') and by assigning clear owners for functions like tech or finance. They still wore many hats early, but explicit ownership and an agreed conflict-resolution rule kept decisions swift and aligned. The practical upshot: shared written values plus role clarity let a larger founder group act with urgency and consensus.",
+          "anchorQuote": "the first line was we will always be customer first customer obsess",
+          "tSeconds": 1581,
+          "link": "https://www.youtube.com/watch?v=ObBAxL2dFzw&t=1581"
+        }
+      ]
+    }
+  ]
+}
