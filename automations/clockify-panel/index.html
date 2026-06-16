@@ -18,6 +18,7 @@
   html, body { height: 100%; }
   body {
     margin: 0;
+    height: 100dvh;
     background: radial-gradient(1200px 800px at 50% -10%, #262b36, var(--bg));
     color: var(--ink);
     font: 15px/1.4 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -25,19 +26,27 @@
     align-items: center;
     justify-content: center;
     padding: clamp(4px, 2vw, 24px);
-    overflow: auto;
+    overflow: hidden;
   }
+  /* The panel is a flex column capped at the viewport: the button grid flexes
+     to fill leftover space and shrinks when the window is short, so the
+     description field + status line are ALWAYS visible, never clipped. */
   .app {
     width: 100%;
     max-width: 420px;
     min-width: 0;
+    height: min(94dvh, 600px);
+    display: flex;
+    flex-direction: column;
     background: var(--panel);
     border: 1px solid #2f3441;
     border-radius: clamp(12px, 4vw, 22px);
     padding: clamp(9px, 3.5vw, 20px);
     box-shadow: 0 24px 60px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.04);
+    overflow: hidden;
   }
   .topbar {
+    flex: 0 0 auto;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -60,17 +69,23 @@
   @keyframes spin { to { transform: rotate(360deg); } }
 
   .grid {
+    flex: 1 1 auto;
+    min-height: 0;
     display: grid;
     grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
     gap: clamp(7px, 2.5vw, 16px);
   }
   .btn {
     position: relative;
-    aspect-ratio: 1 / 1;
+    width: 100%;
+    height: 100%;
+    min-width: 0;
+    min-height: 0;
     border-radius: clamp(12px, 5vw, 26px);
     border: none;
     cursor: pointer;
-    font-size: clamp(15px, 7vw, 30px);
+    font-size: clamp(13px, 6vmin, 30px);
     font-weight: 800;
     letter-spacing: .04em;
     color: #fff;
@@ -89,7 +104,7 @@
   }
   .btn .sub {
     display: block;
-    font-size: clamp(6px, 2.3vw, 10px);
+    font-size: clamp(6px, 1.8vmin, 10px);
     font-weight: 600;
     letter-spacing: .14em;
     text-transform: uppercase;
@@ -124,6 +139,7 @@
   .app.busy .btn { pointer-events: none; filter: saturate(.7) brightness(.92); }
 
   .field-wrap {
+    flex: 0 0 auto;
     position: relative;
     margin-top: clamp(10px, 3vw, 18px);
   }
@@ -158,6 +174,7 @@
   .submit.saved { background: #2e7d4f; }
 
   .status {
+    flex: 0 0 auto;
     margin-top: clamp(8px, 2.5vw, 14px);
     display: flex;
     align-items: center;
@@ -168,8 +185,9 @@
     min-height: 14px;
   }
   #statusText { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .status .sync { font-variant-numeric: tabular-nums; }
+  .status .sync { font-variant-numeric: tabular-nums; white-space: nowrap; }
   .banner {
+    flex: 0 0 auto;
     margin-top: 12px;
     padding: 9px 12px;
     border-radius: 10px;
@@ -190,6 +208,13 @@
   }
   @media (max-width: 180px) {
     .topbar { justify-content: flex-end; }
+  }
+  /* Short viewport: same idea by height — keep buttons + field + status legible. */
+  @media (max-height: 380px) {
+    .title { display: none; }
+    .btn .sub { display: none; }
+    .sync { display: none; }
+    .topbar { margin-bottom: 6px; }
   }
 </style>
 </head>
