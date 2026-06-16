@@ -26,6 +26,7 @@ import json
 import os
 import sys
 import threading
+import time
 import urllib.error
 import urllib.parse
 import urllib.request
@@ -36,6 +37,11 @@ API_BASE = "https://api.clockify.me/api/v1"
 # The four project keys we expose, in button order. Matched by exact project
 # name in the workspace.
 PROJECT_KEYS = ["SS", "GC", "JS", "EF"]
+
+# How long to trust the cached project list (names/colors/ids) before re-fetching.
+# Keeps the panel a true mirror of Clockify — change a project color there and the
+# buttons follow within this window — without a Clockify call on every poll.
+PROJECTS_TTL_SEC = 60
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 INDEX_PATH = os.path.join(HERE, "index.html")
@@ -63,6 +69,7 @@ class Clockify:
         self._ws = None
         self._uid = None
         self._projects = None  # list of {key,name,id,color}
+        self._projects_ts = 0.0  # monotonic time of last project fetch
         self._projects_lock = threading.Lock()
 
     # ---- low-level request -------------------------------------------------
@@ -103,9 +110,10 @@ class Clockify:
             raise ClockifyError("Could not resolve workspace/user from /user.")
 
     def projects(self, force=False):
-        """Return [{key,name,id,color}] for our four keys (cached)."""
+        """Return [{key,name,id,color}] for our four keys (cached, TTL-refreshed)."""
         with self._projects_lock:
-            if self._projects is not None and not force:
+            fresh = (time.monotonic() - self._projects_ts) < PROJECTS_TTL_SEC
+            if self._projects is not None and fresh and not force:
                 return self._projects
             self._ensure_identity()
             page = 1
@@ -139,6 +147,7 @@ class Clockify:
                         }
                     )
             self._projects = result
+            self._projects_ts = time.monotonic()
             return result
 
     def _key_for_project_id(self, project_id):

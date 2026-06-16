@@ -24,22 +24,24 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 24px;
+    padding: clamp(4px, 2vw, 24px);
+    overflow: auto;
   }
   .app {
     width: 100%;
     max-width: 420px;
+    min-width: 0;
     background: var(--panel);
     border: 1px solid #2f3441;
-    border-radius: 22px;
-    padding: 20px 20px 22px;
+    border-radius: clamp(12px, 4vw, 22px);
+    padding: clamp(9px, 3.5vw, 20px);
     box-shadow: 0 24px 60px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.04);
   }
   .topbar {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 16px;
+    margin-bottom: clamp(8px, 3vw, 16px);
   }
   .title { font-size: 13px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
   .refresh {
@@ -60,15 +62,15 @@
   .grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 16px;
+    gap: clamp(7px, 2.5vw, 16px);
   }
   .btn {
     position: relative;
     aspect-ratio: 1 / 1;
-    border-radius: 26px;
+    border-radius: clamp(12px, 5vw, 26px);
     border: none;
     cursor: pointer;
-    font-size: 30px;
+    font-size: clamp(15px, 7vw, 30px);
     font-weight: 800;
     letter-spacing: .04em;
     color: #fff;
@@ -87,7 +89,7 @@
   }
   .btn .sub {
     display: block;
-    font-size: 10px;
+    font-size: clamp(6px, 2.3vw, 10px);
     font-weight: 600;
     letter-spacing: .14em;
     text-transform: uppercase;
@@ -123,16 +125,16 @@
 
   .field-wrap {
     position: relative;
-    margin-top: 18px;
+    margin-top: clamp(10px, 3vw, 18px);
   }
   .field-wrap input {
     width: 100%;
-    padding: 13px 46px 13px 14px;
-    border-radius: 14px;
+    padding: clamp(8px, 2.5vw, 13px) clamp(38px, 11vw, 46px) clamp(8px, 2.5vw, 13px) clamp(9px, 3vw, 14px);
+    border-radius: clamp(9px, 3vw, 14px);
     border: 1px solid var(--field-border);
     background: var(--field);
     color: var(--ink);
-    font-size: 14px;
+    font-size: clamp(11px, 3.4vw, 14px);
     outline: none;
     transition: border-color .15s ease, opacity .15s ease;
   }
@@ -140,9 +142,9 @@
   .field-wrap input:disabled { opacity: .45; cursor: not-allowed; }
   .submit {
     position: absolute;
-    right: 6px; top: 50%; transform: translateY(-50%);
-    width: 34px; height: 34px;
-    border-radius: 10px;
+    right: clamp(4px, 1.5vw, 6px); top: 50%; transform: translateY(-50%);
+    width: clamp(26px, 8vw, 34px); height: clamp(26px, 8vw, 34px);
+    border-radius: clamp(7px, 2.5vw, 10px);
     border: none;
     background: #3a4150;
     color: var(--ink);
@@ -156,14 +158,16 @@
   .submit.saved { background: #2e7d4f; }
 
   .status {
-    margin-top: 14px;
+    margin-top: clamp(8px, 2.5vw, 14px);
     display: flex;
     align-items: center;
     justify-content: space-between;
-    font-size: 12px;
+    gap: 8px;
+    font-size: clamp(10px, 3vw, 12px);
     color: var(--muted);
-    min-height: 16px;
+    min-height: 14px;
   }
+  #statusText { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .status .sync { font-variant-numeric: tabular-nums; }
   .banner {
     margin-top: 12px;
@@ -176,6 +180,17 @@
     display: none;
   }
   .banner.show { display: block; }
+
+  /* Narrow tab: drop secondary chrome so the buttons own the space. */
+  @media (max-width: 260px) {
+    .topbar { margin-bottom: 6px; }
+    .title { display: none; }
+    .btn .sub { display: none; }
+    .sync { display: none; }
+  }
+  @media (max-width: 180px) {
+    .topbar { justify-content: flex-end; }
+  }
 </style>
 </head>
 <body>
