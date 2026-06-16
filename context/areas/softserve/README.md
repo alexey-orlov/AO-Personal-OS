@@ -2,6 +2,7 @@
 
 _status: ramping in — part-time (~50–80 h/mo from Ukraine): product lead for the R&D Delivery Unit + agentic-AI SME; full-time possible after US move_
 _updated: 2026-06-16_
+_source files: local `~/Documents/Documents/SoftServe` (this Mac only) → [registry](../../_meta/external-sources.md)_
 
 ## Snapshot
 
