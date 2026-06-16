@@ -1,0 +1,12 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "clockify-panel",
+      "runtimeExecutable": "bash",
+      "runtimeArgs": ["-lc", "exec \"$HOME/Library/Application Support/clockify-panel/launch.sh\""],
+      "port": 7878,
+      "autoPort": true
+    }
+  ]
+}

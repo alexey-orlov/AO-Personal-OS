@@ -1,0 +1,396 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Clockify Panel</title>
+<style>
+  :root {
+    --bg: #1c1f26;
+    --panel: #242833;
+    --ink: #e8eaf0;
+    --muted: #8b91a3;
+    --field: #2c303c;
+    --field-border: #3a3f4d;
+    --danger: #ff6b6b;
+  }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html, body { height: 100%; }
+  body {
+    margin: 0;
+    background: radial-gradient(1200px 800px at 50% -10%, #262b36, var(--bg));
+    color: var(--ink);
+    font: 15px/1.4 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+  .app {
+    width: 100%;
+    max-width: 420px;
+    background: var(--panel);
+    border: 1px solid #2f3441;
+    border-radius: 22px;
+    padding: 20px 20px 22px;
+    box-shadow: 0 24px 60px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.04);
+  }
+  .topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+  }
+  .title { font-size: 13px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+  .refresh {
+    width: 36px; height: 36px; border-radius: 50%;
+    border: 1px solid var(--field-border);
+    background: var(--field);
+    color: var(--ink);
+    font-size: 17px;
+    cursor: pointer;
+    display: grid; place-items: center;
+    transition: transform .15s ease, background .15s ease;
+  }
+  .refresh:hover { background: #333845; }
+  .refresh:active { transform: scale(.92); }
+  .refresh.spin svg { animation: spin .7s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  .btn {
+    position: relative;
+    aspect-ratio: 1 / 1;
+    border-radius: 26px;
+    border: none;
+    cursor: pointer;
+    font-size: 30px;
+    font-weight: 800;
+    letter-spacing: .04em;
+    color: #fff;
+    text-shadow: 0 1px 2px rgba(0,0,0,.45);
+    /* raised physical button: top-light gradient + outer shadow + inset rim */
+    background:
+      radial-gradient(120% 120% at 50% 18%, rgba(255,255,255,.38), rgba(255,255,255,0) 55%),
+      linear-gradient(180deg, var(--c-light), var(--c-dark));
+    box-shadow:
+      0 10px 22px rgba(0,0,0,.45),
+      0 2px 0 rgba(0,0,0,.35),
+      inset 0 2px 1px rgba(255,255,255,.35),
+      inset 0 -6px 10px rgba(0,0,0,.30);
+    transition: transform .08s ease, box-shadow .12s ease, filter .12s ease;
+    user-select: none;
+  }
+  .btn .sub {
+    display: block;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    opacity: .8;
+    margin-top: 4px;
+  }
+  .btn:active { transform: translateY(2px); }
+  .btn.pressed {
+    /* depressed: inset shadow, sunk in, colored glow ring */
+    transform: translateY(3px);
+    background:
+      radial-gradient(120% 120% at 50% 85%, rgba(255,255,255,.18), rgba(255,255,255,0) 55%),
+      linear-gradient(180deg, var(--c-dark), var(--c-light));
+    box-shadow:
+      0 0 0 3px rgba(255,255,255,.10),
+      0 0 22px 2px var(--c-glow),
+      inset 0 8px 14px rgba(0,0,0,.55),
+      inset 0 -2px 1px rgba(255,255,255,.18);
+  }
+  .btn .dot {
+    position: absolute; top: 12px; right: 12px;
+    width: 9px; height: 9px; border-radius: 50%;
+    background: rgba(255,255,255,.35);
+    box-shadow: inset 0 0 2px rgba(0,0,0,.4);
+  }
+  .btn.pressed .dot {
+    background: #fff;
+    box-shadow: 0 0 8px 2px rgba(255,255,255,.9);
+    animation: pulse 1.6s ease-in-out infinite;
+  }
+  @keyframes pulse { 50% { opacity: .4; } }
+  .app.busy .btn { pointer-events: none; filter: saturate(.7) brightness(.92); }
+
+  .field-wrap {
+    position: relative;
+    margin-top: 18px;
+  }
+  .field-wrap input {
+    width: 100%;
+    padding: 13px 46px 13px 14px;
+    border-radius: 14px;
+    border: 1px solid var(--field-border);
+    background: var(--field);
+    color: var(--ink);
+    font-size: 14px;
+    outline: none;
+    transition: border-color .15s ease, opacity .15s ease;
+  }
+  .field-wrap input:focus { border-color: #5566ff; }
+  .field-wrap input:disabled { opacity: .45; cursor: not-allowed; }
+  .submit {
+    position: absolute;
+    right: 6px; top: 50%; transform: translateY(-50%);
+    width: 34px; height: 34px;
+    border-radius: 10px;
+    border: none;
+    background: #3a4150;
+    color: var(--ink);
+    cursor: pointer;
+    display: grid; place-items: center;
+    transition: background .15s ease, transform .1s ease;
+  }
+  .submit:hover:not(:disabled) { background: #49566b; }
+  .submit:active:not(:disabled) { transform: translateY(-50%) scale(.9); }
+  .submit:disabled { opacity: .35; cursor: not-allowed; }
+  .submit.saved { background: #2e7d4f; }
+
+  .status {
+    margin-top: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 12px;
+    color: var(--muted);
+    min-height: 16px;
+  }
+  .status .sync { font-variant-numeric: tabular-nums; }
+  .banner {
+    margin-top: 12px;
+    padding: 9px 12px;
+    border-radius: 10px;
+    background: rgba(255,107,107,.12);
+    border: 1px solid rgba(255,107,107,.4);
+    color: var(--danger);
+    font-size: 12.5px;
+    display: none;
+  }
+  .banner.show { display: block; }
+</style>
+</head>
+<body>
+  <div class="app" id="app">
+    <div class="topbar">
+      <div class="title">Time Tracking</div>
+      <button class="refresh" id="refresh" title="Refresh from Clockify" aria-label="Refresh">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+             stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v6h-6"/>
+        </svg>
+      </button>
+    </div>
+
+    <div class="grid" id="grid"><!-- buttons injected --></div>
+
+    <div class="field-wrap">
+      <input id="desc" type="text" placeholder="No active tracker" disabled
+             autocomplete="off" autocapitalize="off" spellcheck="false" />
+      <button class="submit" id="submit" title="Save description (Enter)" disabled aria-label="Save">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+             stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M9 10L4 15l5 5"/><path d="M20 4v7a4 4 0 0 1-4 4H4"/>
+        </svg>
+      </button>
+    </div>
+
+    <div class="status">
+      <span id="statusText">…</span>
+      <span class="sync" id="syncText"></span>
+    </div>
+    <div class="banner" id="banner"></div>
+  </div>
+
+<script>
+(() => {
+  const POLL_MS = 10000;
+  const grid = document.getElementById('grid');
+  const app = document.getElementById('app');
+  const refreshBtn = document.getElementById('refresh');
+  const desc = document.getElementById('desc');
+  const submit = document.getElementById('submit');
+  const statusText = document.getElementById('statusText');
+  const syncText = document.getElementById('syncText');
+  const banner = document.getElementById('banner');
+
+  // last state from server; null until first load
+  let lastState = null;
+  let inFlight = false;
+  let projectsRendered = false;
+
+  // ---- color helpers (lighten/darken for the physical look) ----
+  const clamp = (n) => Math.max(0, Math.min(255, n));
+  function shade(hex, amt) {
+    const m = (hex || '#555555').replace('#', '');
+    const full = m.length === 3 ? m.split('').map(c => c + c).join('') : m;
+    const r = parseInt(full.slice(0,2),16), g = parseInt(full.slice(2,4),16), b = parseInt(full.slice(4,6),16);
+    const f = (v) => clamp(Math.round(v + (amt < 0 ? v : (255 - v)) * Math.abs(amt)));
+    return `rgb(${f(r)},${f(g)},${f(b)})`;
+  }
+  function glow(hex) {
+    const m = (hex || '#555555').replace('#', '');
+    const full = m.length === 3 ? m.split('').map(c => c + c).join('') : m;
+    const r = parseInt(full.slice(0,2),16), g = parseInt(full.slice(2,4),16), b = parseInt(full.slice(4,6),16);
+    return `rgba(${r},${g},${b},.65)`;
+  }
+
+  function renderButtons(projects) {
+    grid.innerHTML = '';
+    for (const p of projects) {
+      const b = document.createElement('button');
+      b.className = 'btn';
+      b.dataset.key = p.key;
+      b.title = p.name;
+      b.style.setProperty('--c-light', shade(p.color, 0.18));
+      b.style.setProperty('--c-dark', shade(p.color, -0.28));
+      b.style.setProperty('--c-glow', glow(p.color));
+      b.innerHTML = `<span class="dot"></span>${p.key}<span class="sub">${p.name}</span>`;
+      b.addEventListener('click', () => onToggle(p.key));
+      grid.appendChild(b);
+    }
+    projectsRendered = true;
+  }
+
+  function paint(state) {
+    lastState = state;
+    if (!projectsRendered && state.projects) renderButtons(state.projects);
+
+    const active = state.active;
+    const activeKey = active ? active.key : null;
+
+    for (const btn of grid.querySelectorAll('.btn')) {
+      btn.classList.toggle('pressed', btn.dataset.key === activeKey);
+    }
+
+    // Description field: editable only when something is running.
+    const editing = document.activeElement === desc;
+    if (active) {
+      desc.disabled = false;
+      submit.disabled = false;
+      desc.placeholder = 'Task description (optional)';
+      // Don't clobber what the user is typing.
+      if (!editing && desc.value !== active.description) {
+        desc.value = active.description || '';
+      }
+    } else {
+      desc.disabled = true;
+      submit.disabled = true;
+      if (!editing) desc.value = '';
+      desc.placeholder = 'No active tracker';
+    }
+
+    // Status line.
+    if (active) {
+      const since = active.start ? new Date(active.start) : null;
+      const hhmm = since ? since.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}) : '';
+      statusText.textContent = `Tracking ${active.key || '?'}${hhmm ? ' since ' + hhmm : ''}`;
+    } else {
+      statusText.textContent = 'Idle — nothing tracking';
+    }
+  }
+
+  function showError(msg) {
+    banner.textContent = msg;
+    banner.classList.add('show');
+  }
+  function clearError() {
+    banner.classList.remove('show');
+  }
+  function stampSync() {
+    const t = new Date();
+    syncText.textContent = 'synced ' + t.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit', second:'2-digit'});
+  }
+
+  function setBusy(on) {
+    inFlight = on;
+    app.classList.toggle('busy', on);
+    refreshBtn.classList.toggle('spin', on);
+  }
+
+  async function api(path, opts) {
+    const res = await fetch(path, Object.assign({headers: {'Content-Type':'application/json'}}, opts));
+    let data = null;
+    try { data = await res.json(); } catch (_) {}
+    if (!data) throw new Error(`Server returned ${res.status}`);
+    if (data.ok === false) throw new Error(data.error || 'Unknown error');
+    return data;
+  }
+
+  async function refresh(showSpinner) {
+    if (inFlight) return;
+    if (showSpinner) refreshBtn.classList.add('spin');
+    try {
+      const state = await api('/api/state', {method:'GET'});
+      clearError();
+      paint(state);
+      stampSync();
+    } catch (e) {
+      showError('Sync failed: ' + e.message + ' — buttons show last confirmed state.');
+    } finally {
+      if (showSpinner) refreshBtn.classList.remove('spin');
+    }
+  }
+
+  async function onToggle(key) {
+    if (inFlight) return;
+    setBusy(true);
+    try {
+      const state = await api('/api/toggle', {method:'POST', body: JSON.stringify({projectKey: key})});
+      clearError();
+      paint(state);
+      stampSync();
+    } catch (e) {
+      showError('Action failed: ' + e.message);
+      // Re-fetch truth rather than guessing.
+      await refresh(false);
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  async function saveDescription() {
+    if (inFlight || desc.disabled) return;
+    setBusy(true);
+    try {
+      const state = await api('/api/description', {method:'POST', body: JSON.stringify({description: desc.value})});
+      clearError();
+      paint(state);
+      stampSync();
+      submit.classList.add('saved');
+      setTimeout(() => submit.classList.remove('saved'), 900);
+      desc.blur();
+    } catch (e) {
+      showError('Could not save description: ' + e.message);
+      await refresh(false);
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  // ---- events ----
+  refreshBtn.addEventListener('click', () => refresh(true));
+  submit.addEventListener('click', saveDescription);
+  desc.addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); saveDescription(); } });
+
+  // Refresh on focus / visibility (catches changes made elsewhere).
+  window.addEventListener('focus', () => refresh(false));
+  document.addEventListener('visibilitychange', () => { if (!document.hidden) refresh(false); });
+
+  // Light interval poll.
+  setInterval(() => { if (!document.hidden) refresh(false); }, POLL_MS);
+
+  // Initial load.
+  refresh(true);
+})();
+</script>
+</body>
+</html>
