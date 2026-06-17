@@ -198,5 +198,44 @@ class TestDailySummary(unittest.TestCase):
             os.unlink(path)
 
 
+class TestEnrichment(unittest.TestCase):
+    def test_description_status_and_note(self):
+        ev = src("Products: weekly meeting", "2026-06-17T05:00:00", "2026-06-17T05:30:00",
+                 my_status="accepted", organizer="Bohdan Khomych", organizer_email="bkhomych@softserveinc.com",
+                 notes=("Agenda: review Q3 roadmap.\n________________________________\nMicrosoft Teams meeting\n"
+                        "Join: https://teams.microsoft.com/x\nMeeting ID: 123\nPasscode: abc\n"
+                        "Need help? https://aka.ms\nThis email may contain confidential material."),
+                 attendees=[{"name": "Oleksii Orlov", "email": "olekorlov@softserveinc.com", "status": "accepted"},
+                            {"name": "Pawel Domal", "email": "pdomal@softserveinc.com", "status": "needsAction"}])
+        p = sc.reconcile(base([ev]))["creates"][0]["payload"]
+        self.assertEqual(p["attendees"][0]["responseStatus"], "accepted")
+        d = p["description"]
+        self.assertIn("Agenda: review Q3 roadmap.", d)
+        self.assertIn("Organizer: Bohdan Khomych <bkhomych@softserveinc.com>", d)
+        self.assertIn("Oleksii Orlov — accepted", d)
+        self.assertIn("Pawel Domal — no response", d)
+        for junk in ("Microsoft Teams", "Meeting ID", "Passcode", "confidential", "teams.microsoft.com"):
+            self.assertNotIn(junk, d)
+
+    def test_participant_change_triggers_update(self):
+        a = src("Sync", "2026-06-18T06:00:00", "2026-06-18T06:30:00",
+                attendees=[{"name": "A", "email": "a@x.com", "status": "accepted"}])
+        first = sc.reconcile(base([a]))["creates"][0]
+        ledger = {first["source_key"]: {"google_event_id": "g1", "content_hash": first["content_hash"],
+                                        "start_kiev": first["start_kiev"]}}
+        # same meeting, but a new participant joined -> must UPDATE, not skip
+        b = src("Sync", "2026-06-18T06:00:00", "2026-06-18T06:30:00",
+                attendees=[{"name": "A", "email": "a@x.com", "status": "accepted"},
+                           {"name": "B", "email": "b@x.com", "status": "needsAction"}])
+        out = sc.reconcile(base([b], ledger=ledger))
+        self.assertEqual(out["counts"]["update"], 1)
+
+    def test_clean_notes_and_status_helpers(self):
+        self.assertEqual(sc.clean_notes("____\nMicrosoft Teams meeting\nJoin: https://x\nMeeting ID: 1"), "")
+        self.assertEqual(sc.clean_notes("Real note.\nMicrosoft Teams meeting\nJoin: x"), "Real note.")
+        self.assertEqual(sc.response_status(""), "accepted")
+        self.assertEqual(sc.response_status("declined"), "declined")
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)
