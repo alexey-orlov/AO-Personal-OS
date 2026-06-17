@@ -183,8 +183,25 @@
     color: var(--muted);
     min-height: 14px;
   }
-  #statusText { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  #statusText { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
   .status .sync { font-variant-numeric: tabular-nums; white-space: nowrap; }
+  /* Inline editable start time — lives INSIDE the status row, so it adds no
+     extra row and only the width of "HH:MM" (same as the old static time). */
+  #startInput {
+    width: 4.6ch;
+    font: inherit;
+    color: var(--ink);
+    background: transparent;
+    border: none;
+    border-bottom: 1px dashed transparent;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+    outline: none;
+    font-variant-numeric: tabular-nums;
+    vertical-align: baseline;
+  }
+  #startInput:hover, #startInput:focus { border-bottom-color: var(--muted); }
   .banner {
     flex: 0 0 auto;
     margin-top: 12px;
@@ -241,7 +258,9 @@
     </div>
 
     <div class="status">
-      <span id="statusText">…</span>
+      <span id="statusText"><span id="statusPrefix">…</span><input id="startInput" type="text"
+        inputmode="numeric" maxlength="5" autocomplete="off" spellcheck="false"
+        title="Edit start time (HH:MM) — Enter or click away to save" /><span id="statusDur"></span></span>
       <span class="sync" id="syncText"></span>
     </div>
     <div class="banner" id="banner"></div>
@@ -256,6 +275,9 @@
   const desc = document.getElementById('desc');
   const submit = document.getElementById('submit');
   const statusText = document.getElementById('statusText');
+  const statusPrefix = document.getElementById('statusPrefix');
+  const statusDur = document.getElementById('statusDur');
+  const startInput = document.getElementById('startInput');
   const syncText = document.getElementById('syncText');
   const banner = document.getElementById('banner');
 
@@ -346,11 +368,46 @@
     const p = (n) => String(n).padStart(2, '0');
     return h > 0 ? `${h}:${p(m)}:${p(s)}` : `${m}:${p(s)}`;
   }
+  function hhmm(ms) {
+    return new Date(ms).toLocaleTimeString([], {hour: '2-digit', minute: '2-digit', hour12: false});
+  }
   function renderStatus() {
     if (activeStartMs) {
-      statusText.textContent = `Tracking ${activeKeyLabel} since ${activeSince} (${fmtDur(Date.now() - activeStartMs)})`;
+      statusPrefix.textContent = `Tracking ${activeKeyLabel} since `;
+      startInput.style.display = '';
+      // Sync the field from Clockify, but never clobber what the user is typing.
+      if (document.activeElement !== startInput) startInput.value = hhmm(activeStartMs);
+      statusDur.textContent = ` (${fmtDur(Date.now() - activeStartMs)})`;
     } else {
-      statusText.textContent = 'Idle — nothing tracking';
+      statusPrefix.textContent = 'Idle — nothing tracking';
+      startInput.style.display = 'none';
+      startInput.value = '';
+      statusDur.textContent = '';
+    }
+  }
+
+  async function saveStartTime() {
+    if (!activeStartMs) return;
+    const m = startInput.value.trim().match(/^(\d{1,2}):(\d{2})$/);
+    if (!m) { renderStatus(); return; }            // invalid -> revert to truth
+    const hh = +m[1], mm = +m[2];
+    if (hh > 23 || mm > 59) { renderStatus(); return; }
+    // No change? skip the round-trip.
+    if (`${String(hh).padStart(2,'0')}:${String(mm).padStart(2,'0')}` === hhmm(activeStartMs)) return;
+    // Keep the original date, set the new local time.
+    const d = new Date(activeStartMs);
+    d.setHours(hh, mm, 0, 0);
+    if (d.getTime() > Date.now()) { showError("Start time can't be in the future."); renderStatus(); return; }
+    if (inFlight) return;
+    setBusy(true);
+    try {
+      const state = await api('/api/start-time', {method: 'POST', body: JSON.stringify({start: d.toISOString()})});
+      clearError(); paint(state); stampSync();
+    } catch (e) {
+      showError('Could not update start time: ' + e.message);
+      await refresh(false);
+    } finally {
+      setBusy(false);
     }
   }
 
@@ -442,6 +499,9 @@
   refreshBtn.addEventListener('click', () => refresh(true));
   submit.addEventListener('click', saveDescription);
   desc.addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); saveDescription(); } });
+  // Start-time field: save on Enter (via blur) or when focus leaves.
+  startInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); startInput.blur(); } });
+  startInput.addEventListener('blur', saveStartTime);
 
   // Refresh on focus / visibility (catches changes made elsewhere).
   window.addEventListener('focus', () => refresh(false));

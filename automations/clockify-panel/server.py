@@ -30,7 +30,7 @@ import time
 import urllib.error
 import urllib.parse
 import urllib.request
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 
 API_BASE = "https://api.clockify.me/api/v1"
@@ -210,6 +210,26 @@ class Clockify:
             body["description"] = description
         self._request("POST", f"/workspaces/{self._ws}/time-entries", body)
 
+    def _last_description(self, project_id):
+        """Most recent non-empty description used for this project in the last
+        2 days (for prefilling a freshly-started tracker). '' if none."""
+        since = (datetime.now(timezone.utc) - timedelta(days=2)).strftime(
+            "%Y-%m-%dT%H:%M:%SZ"
+        )
+        try:
+            rows = self._request(
+                "GET",
+                f"/workspaces/{self._ws}/user/{self._uid}/time-entries"
+                f"?project={project_id}&start={since}&page-size=50",
+            )
+        except ClockifyError:
+            return ""
+        for e in rows or []:  # API returns newest first
+            d = (e.get("description") or "").strip()
+            if d:
+                return d
+        return ""
+
     def toggle(self, key, description=None):
         """Decide from LIVE truth, not from client state.
 
@@ -234,10 +254,10 @@ class Clockify:
             elif running_pid:
                 # Different project running -> switch: stop then start.
                 self._stop_running()
-                self._start(target["id"])
+                self._start(target["id"], self._last_description(target["id"]))
             else:
                 # Nothing running -> start.
-                self._start(target["id"])
+                self._start(target["id"], self._last_description(target["id"]))
             return self.state()
 
     def _apply_description(self, entry, description):
@@ -265,6 +285,29 @@ class Clockify:
             if not entry:
                 raise ClockifyError("No active tracker to attach a description to.")
             self._apply_description(entry, description)
+            return self.state()
+
+    def set_start(self, start_iso):
+        """Change the running entry's start time (UTC ISO, e.g. 2026-06-16T08:30:00Z)."""
+        if not isinstance(start_iso, str) or "T" not in start_iso:
+            raise ClockifyError("Invalid start time.")
+        with _mutate_lock:
+            self._ensure_identity()
+            entry = self.in_progress()
+            if not entry:
+                raise ClockifyError("No active tracker to set a start time for.")
+            body = {
+                "start": start_iso,
+                "billable": entry.get("billable", True),
+                "description": entry.get("description") or "",
+                "projectId": entry.get("projectId"),
+                "taskId": entry.get("taskId"),
+                "tagIds": entry.get("tagIds") or [],
+            }
+            body = {k: v for k, v in body.items() if v is not None or k == "description"}
+            self._request(
+                "PUT", f"/workspaces/{self._ws}/time-entries/{entry.get('id')}", body
+            )
             return self.state()
 
 
@@ -347,6 +390,14 @@ class Handler(BaseHTTPRequestHandler):
                 if desc is None:
                     desc = ""
                 self._send_json(client.set_description(str(desc)))
+            elif path == "/api/start-time":
+                start = body.get("start")
+                if not start:
+                    self._send_json(
+                        {"ok": False, "error": "Missing start time."}, code=400
+                    )
+                    return
+                self._send_json(client.set_start(str(start)))
             else:
                 self.send_error(404, "Not found")
         except ClockifyError as e:
