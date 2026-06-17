@@ -82,27 +82,48 @@ let end = Calendar.current.date(byAdding: .day, value: days, to: now)!
 let pred = store.predicateForEvents(withStart: now, end: end, calendars: selected.isEmpty ? nil : selected)
 let iso = ISO8601DateFormatter(); iso.formatOptions = [.withInternetDateTime]; iso.timeZone = TimeZone.current  // emit local (Kyiv) wall time, not GMT
 
+func mailFrom(_ u: URL?) -> String {
+    guard let s = u?.absoluteString else { return "" }
+    return s.hasPrefix("mailto:") ? String(s.dropFirst(7)) : ""
+}
+func pstatus(_ s: EKParticipantStatus) -> String {
+    switch s {
+    case .accepted: return "accepted"; case .declined: return "declined"
+    case .tentative: return "tentative"; case .pending: return "needsAction"
+    default: return ""
+    }
+}
+let ssEmail = (ProcessInfo.processInfo.environment["CALSYNC_SS_EMAIL"] ?? "olekorlov@softserveinc.com").lowercased()
+
 let evs = store.events(matching: pred).sorted { $0.startDate < $1.startDate }
 var rows: [String] = []
 for e in evs {
     let url = meetingURL(e)
-    let atts = (e.attendees ?? []).compactMap { p -> String? in
-        let s = p.url.absoluteString
-        return s.hasPrefix("mailto:") ? String(s.dropFirst(7)) : p.name
+    var attJson: [String] = []
+    var myStatus = ""
+    for p in (e.attendees ?? []) {
+        let email = mailFrom(p.url)
+        let nm = p.name ?? email
+        let st = pstatus(p.participantStatus)
+        attJson.append("{\"name\":\"\(esc(nm))\",\"email\":\"\(esc(email))\",\"status\":\"\(st)\"}")
+        if email.lowercased() == ssEmail { myStatus = st }
     }
+    let orgEmail = mailFrom(e.organizer?.url)
+    if myStatus.isEmpty && orgEmail.lowercased() == ssEmail { myStatus = "accepted" }  // I'm the organizer
     var f = [String]()
     f.append("\"uid\":\"\(esc(e.calendarItemIdentifier))\"")
     f.append("\"title\":\"\(esc(e.title ?? ""))\"")
     f.append("\"start\":\"\(iso.string(from: e.startDate))\"")
     f.append("\"end\":\"\(iso.string(from: e.endDate))\"")
     f.append("\"all_day\":\(e.isAllDay)")
-    f.append("\"calendar\":\"\(esc(e.calendar.title))\"")
-    f.append("\"source\":\"\(esc(e.calendar.source.title))\"")
     f.append("\"location\":\"\(esc(e.location ?? ""))\"")
     f.append("\"organizer\":\"\(esc(e.organizer?.name ?? ""))\"")
+    f.append("\"organizer_email\":\"\(esc(orgEmail))\"")
+    f.append("\"my_status\":\"\(myStatus)\"")
     f.append("\"online\":\(url != nil)")
     f.append("\"join_url\":" + (url == nil ? "null" : "\"\(esc(url!))\""))
-    f.append("\"attendees\":[\(atts.map { "\"\(esc($0))\"" }.joined(separator: ","))]")
+    f.append("\"notes\":\"\(esc(e.notes ?? ""))\"")
+    f.append("\"attendees\":[\(attJson.joined(separator: ","))]")
     rows.append("{" + f.joined(separator: ",") + "}")
 }
 print("[\n" + rows.joined(separator: ",\n") + "\n]")
