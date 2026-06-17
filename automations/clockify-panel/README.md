@@ -52,6 +52,23 @@ Clockify webhooks require a public HTTPS callback URL — impossible for a
 localhost-only app, and committing a live trigger URL is against this repo's
 rules. Polling + focus-refresh + action-time revalidation is the sync model.
 
+### Convenience behaviors
+
+- **Switching = stop + start.** Clicking a different project completes the
+  running entry (saving the description currently in the field onto it) and
+  starts the new one.
+- **Description prefill.** Starting a project's tracker prefills the field with
+  the most recent non-empty description used for that project in the last 2
+  days (empty if none) — via `_last_description()` in `server.py`.
+- **Editable start time.** The `HH:MM` in the status line ("Tracking SS since
+  HH:MM (duration)") is an inline editable field — edit it and press Enter or
+  click away to change the running entry's start time (`POST /api/start-time`).
+  It re-syncs from Clockify on every refresh. It lives inside the status row,
+  so it adds no extra row or width to the widget.
+- **Live duration** ticks every second in brackets after the start time.
+- **Project colors** are read live and cached for 60 s, so changing a color in
+  the Clockify web UI propagates to the buttons within a minute.
+
 ## Setup
 
 ```bash
