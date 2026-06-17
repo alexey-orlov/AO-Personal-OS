@@ -125,9 +125,12 @@ cd desktop
                # ad-hoc signs it, installs a login agent that launches it
 ```
 
-Controls: **Cmd+drag** to move (plain clicks go to the UI), drag an edge to
-resize, **Cmd+T** toggle Always-on-Top (off = it sits among/behind your windows
-like a desktop widget; the choice persists), **Cmd+R** reload, **Cmd+Q** quit.
+Controls — there's a **menu-bar clock icon** (the reliable handle for a no-Dock
+widget): Show/Bring to Front, Always on Top, Center on Screen, Reload, Quit.
+Also: **Cmd+drag** anywhere to move (plain clicks go to the UI), drag an edge to
+resize, **Cmd+T** toggle Always-on-Top (off = it sits among/behind your windows;
+persists), **Cmd+R** reload, **Cmd+Q** quit. (Keyboard shortcuts act on the
+window once it's focused — click it first; the menu-bar item always works.)
 It needs the local server running (the `:7878` agent above) and retries until
 reachable, so login order doesn't matter. The icon (`desktop/make_icon.swift`)
 mirrors the widget — a 2×2 of the project colors. Source: `desktop/*.swift`,

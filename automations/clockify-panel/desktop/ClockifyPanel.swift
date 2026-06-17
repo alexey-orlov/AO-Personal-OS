@@ -18,9 +18,39 @@ let panelBG = NSColor(srgbRed: 0.110, green: 0.122, blue: 0.149, alpha: 1.0)
 
 // Borderless windows can't become key by default, which would block typing into
 // the description / start-time fields. Override so the WebView accepts input.
+// Also handle window drag and Cmd shortcuts here — doing it in sendEvent is far
+// more reliable for a no-Dock (accessory) app than a global event monitor.
 final class WidgetWindow: NSWindow {
     override var canBecomeKey: Bool { true }
     override var canBecomeMain: Bool { true }
+
+    private var dragOffset: NSPoint?   // cursor position within the window when a Cmd-drag begins
+
+    override func sendEvent(_ event: NSEvent) {
+        // Cmd + left-drag moves the window from anywhere; plain clicks fall
+        // through to the web UI untouched.
+        if event.type == .leftMouseDown, event.modifierFlags.contains(.command) {
+            dragOffset = event.locationInWindow
+            return
+        }
+        if event.type == .leftMouseDragged, let off = dragOffset {
+            let m = NSEvent.mouseLocation
+            setFrameOrigin(NSPoint(x: m.x - off.x, y: m.y - off.y))
+            return
+        }
+        if event.type == .leftMouseUp, dragOffset != nil {
+            dragOffset = nil
+            saveFrame(usingName: "ClockifyPanelWindow")
+            return
+        }
+        // Cmd shortcuts handled directly so they work without a Dock/menu-bar app menu.
+        if event.type == .keyDown, event.modifierFlags.contains(.command),
+           let d = NSApp.delegate as? AppDelegate,
+           d.handleCommandKey(event.charactersIgnoringModifiers) {
+            return
+        }
+        super.sendEvent(event)
+    }
 }
 
 final class AppDelegate: NSObject, NSApplicationDelegate, WKNavigationDelegate {
@@ -29,6 +59,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, WKNavigationDelegate {
     // Persisted: floating (always on top) vs normal (sits behind your windows).
     var alwaysOnTop = (UserDefaults.standard.object(forKey: "alwaysOnTop") as? Bool) ?? true
     var onTopMenuItem: NSMenuItem?
+    var statusItem: NSStatusItem?
 
     func applicationDidFinishLaunching(_ notification: Notification) {
         NSApp.setActivationPolicy(.accessory) // no Dock icon; it's a desktop widget
@@ -65,7 +96,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, WKNavigationDelegate {
         NSApp.activate(ignoringOtherApps: true)
 
         installMenu()
-        installDragMonitor()
+        installStatusItem()
     }
 
     func loadPanel() {
@@ -80,23 +111,63 @@ final class AppDelegate: NSObject, NSApplicationDelegate, WKNavigationDelegate {
         DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) { [weak self] in self?.loadPanel() }
     }
 
+    // Standard menus so editing shortcuts (copy/paste/select-all) work in the
+    // description / start-time fields, plus Quit. Window-level shortcuts
+    // (Cmd+Q/R/T/W) are also handled in WidgetWindow.sendEvent for reliability.
     func installMenu() {
         let mainMenu = NSMenu()
-        let appItem = NSMenuItem()
-        mainMenu.addItem(appItem)
+
+        let appItem = NSMenuItem(); mainMenu.addItem(appItem)
         let appMenu = NSMenu()
-        let onTop = NSMenuItem(title: "Always on Top", action: #selector(toggleAlwaysOnTop), keyEquivalent: "t")
-        onTop.state = alwaysOnTop ? .on : .off
-        appMenu.addItem(onTop)
-        onTopMenuItem = onTop
-        appMenu.addItem(NSMenuItem.separator())
-        appMenu.addItem(withTitle: "Reload", action: #selector(reloadPanel), keyEquivalent: "r")
-        appMenu.addItem(NSMenuItem.separator())
-        appMenu.addItem(withTitle: "Quit", action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q")
+        appMenu.addItem(withTitle: "Quit Clockify Panel", action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q")
         appItem.submenu = appMenu
+
+        let editItem = NSMenuItem(); mainMenu.addItem(editItem)
+        let edit = NSMenu(title: "Edit")
+        edit.addItem(withTitle: "Undo", action: Selector(("undo:")), keyEquivalent: "z")
+        edit.addItem(withTitle: "Redo", action: Selector(("redo:")), keyEquivalent: "Z")
+        edit.addItem(.separator())
+        edit.addItem(withTitle: "Cut", action: #selector(NSText.cut(_:)), keyEquivalent: "x")
+        edit.addItem(withTitle: "Copy", action: #selector(NSText.copy(_:)), keyEquivalent: "c")
+        edit.addItem(withTitle: "Paste", action: #selector(NSText.paste(_:)), keyEquivalent: "v")
+        edit.addItem(withTitle: "Select All", action: #selector(NSText.selectAll(_:)), keyEquivalent: "a")
+        editItem.submenu = edit
+
         NSApp.mainMenu = mainMenu
     }
+
+    // A menu-bar item is the reliable, always-available control surface for a
+    // no-Dock widget: reach it, toggle on-top, recenter, or quit from here.
+    func installStatusItem() {
+        let item = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
+        if let btn = item.button {
+            if let img = NSImage(systemSymbolName: "clock", accessibilityDescription: "Clockify Panel") {
+                img.isTemplate = true
+                btn.image = img
+            } else {
+                btn.title = "⏱"
+            }
+        }
+        let menu = NSMenu()
+        menu.addItem(withTitle: "Show / Bring to Front", action: #selector(showFront), keyEquivalent: "")
+        let onTop = NSMenuItem(title: "Always on Top", action: #selector(toggleAlwaysOnTop), keyEquivalent: "t")
+        onTop.state = alwaysOnTop ? .on : .off
+        menu.addItem(onTop)
+        onTopMenuItem = onTop
+        menu.addItem(withTitle: "Center on Screen", action: #selector(centerWindow), keyEquivalent: "")
+        menu.addItem(withTitle: "Reload", action: #selector(reloadPanel), keyEquivalent: "r")
+        menu.addItem(.separator())
+        menu.addItem(withTitle: "Quit", action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q")
+        item.menu = menu
+        statusItem = item
+    }
+
     @objc func reloadPanel() { loadPanel() }
+    @objc func showFront() {
+        window.makeKeyAndOrderFront(nil)
+        NSApp.activate(ignoringOtherApps: true)
+    }
+    @objc func centerWindow() { window.center(); showFront() }
 
     // Floating = always above other windows. Off = normal level, so it sits
     // among / behind your windows (like a desktop widget). Persisted.
@@ -109,22 +180,16 @@ final class AppDelegate: NSObject, NSApplicationDelegate, WKNavigationDelegate {
         alwaysOnTop.toggle()
         UserDefaults.standard.set(alwaysOnTop, forKey: "alwaysOnTop")
         applyLevel()
-        if alwaysOnTop {
-            window.makeKeyAndOrderFront(nil)
-            NSApp.activate(ignoringOtherApps: true)
-        }
+        if alwaysOnTop { showFront() }
     }
 
-    // Cmd + left-drag moves the window from anywhere; plain clicks fall through
-    // to the web UI (buttons, field) untouched.
-    func installDragMonitor() {
-        NSEvent.addLocalMonitorForEvents(matching: [.leftMouseDown]) { [weak self] event in
-            guard let self = self, let win = self.window, event.window === win else { return event }
-            if event.modifierFlags.contains(.command) {
-                win.performDrag(with: event)
-                return nil
-            }
-            return event
+    // Called from WidgetWindow.sendEvent for Cmd shortcuts. Returns true if handled.
+    func handleCommandKey(_ chars: String?) -> Bool {
+        switch chars {
+        case "q", "w": NSApp.terminate(nil); return true
+        case "r": reloadPanel(); return true
+        case "t": toggleAlwaysOnTop(); return true
+        default: return false
         }
     }
 
