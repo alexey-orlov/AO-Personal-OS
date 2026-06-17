@@ -1,7 +1,7 @@
 # SoftServe — R&D advisory & product lead (part-time)
 
 _status: ramping in — part-time (~50–80 h/mo from Ukraine): product lead for the R&D Delivery Unit + agentic-AI SME; full-time possible after US move_
-_updated: 2026-06-16_
+_updated: 2026-06-17_
 _source files: local `~/Documents/Documents/SoftServe` (this Mac only) → [registry](../../_meta/external-sources.md)_
 
 ## Snapshot
@@ -16,7 +16,7 @@ _source files: local `~/Documents/Documents/SoftServe` (this Mac only) → [regi
 
 ## Subprojects
 
-- [oracle](oracle.md) — Oracle partnership / joint IP — onboarding (Phase 1, through Jun): three NVIDIA-built packages (AIQ / cuOpt / VSS) via Karsten as single Oracle gateway, plus AIDP co-sell; first Oracle call done (Bosch cuOpt tech sync, 2026-06-16); next: Wed Jun 17 R&D cross-team update.
+- [oracle](oracle.md) — Oracle partnership / joint IP — onboarding (Phase 1, through Jun): three NVIDIA-built packages (AIQ / cuOpt / VSS) via Karsten as single Oracle gateway, plus AIDP co-sell; first Oracle call done (Bosch cuOpt tech sync, 2026-06-16); Wed Jun 17 R&D cross-team update delivered (SoftServe = Oracle "partner of choice"; 5 cases showcased).
 - [iris-bootcamp](iris-bootcamp.md) — Product stream of the Iris client bootcamp — prep; tentative start Jun 29.
 - [jumpstart-pm](jumpstart-pm.md) — PM-focused Jumpstart offering design — v0.1 one-pager drafted 2026-06-12; review with Inna ~week of Jun 15.
 

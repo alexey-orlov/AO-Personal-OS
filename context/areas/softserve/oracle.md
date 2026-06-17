@@ -42,7 +42,7 @@ _updated: 2026-06-17_
 - Amit (Oracle) — Black Belt, AIDP analytics specialist; ran the deck and live demo. [AIDP sales call](calls/oracle/2026-06-12_173159_sales-call_2026061216024378A29A99.md)
 - Gero (Oracle) — senior sponsor on AIDP; owns the NHS / DHL NDA chase. [AIDP sales call](calls/oracle/2026-06-12_173159_sales-call_2026061216024378A29A99.md)
 - Karsten — NVIDIA partner sales; single gateway for SoftServe ↔ Oracle stakeholder access on the NVIDIA-built packages. [1:1 2026-06-15](calls/oracle/2026-06-15_200833_one-on-one_20260615190118D7E7175C.md)
-- Patrick — tech lead on Riyad Air (AIQ case); tentative Wed-update presenter, comfort presenting TBD. [1:1 2026-06-15](calls/oracle/2026-06-15_200833_one-on-one_20260615190118D7E7175C.md)
+- Patrick — tech lead on Riyad Air (AIQ contract-extraction case); presented it at the 2026-06-17 cross-team update. [1:1 2026-06-15](calls/oracle/2026-06-15_200833_one-on-one_20260615190118D7E7175C.md) · [cross-team update 2026-06-17](calls/oracle/2026-06-17_180940_default_20260617170801ABB6DADE.md)
 - Lyudmyla — SoftServe marketing; holds the AIQ Kit furniture-placement demo video. [1:1 2026-06-15](calls/oracle/2026-06-15_200833_one-on-one_20260615190118D7E7175C.md)
 - Vishnu — Oracle/NVIDIA solutions lead; facilitated next steps at the 2026-06-16 Bosch tech sync (scheduling George deep-dive, etc.); owns the ask on whether SoftServe can internally GTM-promote the Oracle UI prototypes. [1:1 2026-06-15](calls/oracle/2026-06-15_200833_one-on-one_20260615190118D7E7175C.md) · [Bosch tech sync 2026-06-16](calls/oracle/2026-06-16_191926_sales-call_202606161831156E88BEC4.md)
 - Paweł — Bosch delivery lead driving the cuOpt POC agenda (author of the pre-call email); identity inferred. [Bosch tech sync 2026-06-16](calls/oracle/2026-06-16_191926_sales-call_202606161831156E88BEC4.md)
@@ -71,8 +71,6 @@ Mine:
 Theirs (engagement lead):
 - Intro Alex to Karsten (gateway to all Oracle stakeholder access).
 - Send the Oracle case-study deck (outstanding since 2026-06-09).
-- Share previous monthly-update deck template + the chat thread with the AIQ Kit video.
-- Coach Alex on AIQ Kit positioning (Speaker A may cover that portion of Wed update himself given Dmytro's PTO).
 - Continue pushing two Olyas (Hanushchak + Terendiy) to publish Oracle clickable UI prototypes on the SoftServe internal portal so sales can demo.
 - Ask Vishnu whether internal go-to-market promotion of the Oracle UI prototypes is OK — not covered at 2026-06-16 call (technical agenda took the slot); carry to next Oracle touchpoint.
 
@@ -97,6 +95,7 @@ Theirs (SoftServe partnership team — AIDP):
 
 ## Activity
 
+- 2026-06-17 — [R&D cross-team update: Oracle GTM showcase](calls/oracle/2026-06-17_180940_default_20260617170801ABB6DADE.md) — SoftServe positioned as Oracle's primary partner of choice for verticalized accelerator packs (~10 new accounts, ~$1B+ annualized per deck); five Oracle+NVIDIA cases (NHS / Verilon / DHL-research / Riyad Air / Bosch) walked through; Verilon VSS SOW signed; Alex introduced as product advisor driving repeatability.
 - 2026-06-16 — [First Oracle call: Bosch cuOpt POC tech sync](calls/oracle/2026-06-16_191926_sales-call_202606161831156E88BEC4.md) — Bosch ↔ Oracle/NVIDIA technical sync on GPU 2 failures in cuOpt POC; debug path agreed without disturbing UAT on GPU 1; tenancy confirmed extended to 2026-08-26; performance-tuning topics deferred.
 - 2026-06-15 — [Packages whiteboard captured](../docs/oracle-packages-tshirt-sizing.md) — S/M/L T-shirt sizing sketch (PoC/PoV · Integration · Product; AIQ + cuOpt as cross-tier capabilities) from the 2026-06-15 1:1, transcribed to docs.
 - 2026-06-15 — [1:1 with Bohdan Khomych: "Oracle packages: current status kick-off"](calls/oracle/2026-06-15_200833_one-on-one_20260615190118D7E7175C.md) — three-package framing (AIQ / cuOpt / VSS); Riyad Air reclassified as AIQ; Karsten = single Oracle gateway; Phase 1 / Phase 2 timing; value-based billing for first engagements.
