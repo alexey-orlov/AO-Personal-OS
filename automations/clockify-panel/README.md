@@ -126,7 +126,8 @@ cd desktop
 ```
 
 Controls — there's a **menu-bar clock icon** (the reliable handle for a no-Dock
-widget): Show/Bring to Front, Always on Top, Center on Screen, Reload, Quit.
+widget): Hide/Show (toggles, **Cmd+H**), Always on Top, Center on Screen,
+Reload, Quit.
 Also: **Cmd+drag** anywhere to move (plain clicks go to the UI), drag an edge to
 resize, **Cmd+T** toggle Always-on-Top (off = it sits among/behind your windows;
 persists), **Cmd+R** reload, **Cmd+Q** quit. (Keyboard shortcuts act on the
