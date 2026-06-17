@@ -80,7 +80,7 @@ if let sf = sourceFilter { selected = selected.filter { $0.source.title.lowercas
 let now = Date()
 let end = Calendar.current.date(byAdding: .day, value: days, to: now)!
 let pred = store.predicateForEvents(withStart: now, end: end, calendars: selected.isEmpty ? nil : selected)
-let iso = ISO8601DateFormatter(); iso.formatOptions = [.withInternetDateTime]
+let iso = ISO8601DateFormatter(); iso.formatOptions = [.withInternetDateTime]; iso.timeZone = TimeZone.current  // emit local (Kyiv) wall time, not GMT
 
 let evs = store.events(matching: pred).sorted { $0.startDate < $1.startDate }
 var rows: [String] = []
