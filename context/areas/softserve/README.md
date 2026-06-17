@@ -57,6 +57,7 @@ Theirs (engagement lead):
 
 ## Activity
 
+- 2026-06-17 — [R&D cross-team update: Oracle GTM + R&D IP showcase](calls/oracle/2026-06-17_180940_default_20260617170801ABB6DADE.md) — SoftServe positioned as Oracle's primary partner of choice (~10 new accounts via Oracle's motion); 5 Oracle+NVIDIA cases shown; plus data-science IP wins (Siemens Energy, APA Insights Platform phase 1, Agents for Everything, MS/Teams delivery assistant) → [oracle](oracle.md).
 - 2026-06-16 — [First Oracle call: Bosch cuOpt POC tech sync](calls/oracle/2026-06-16_191926_sales-call_202606161831156E88BEC4.md) — Bosch ↔ Oracle/NVIDIA debug on GPU 2 cuOpt failures; tenancy extended to 2026-08-26 → [oracle](oracle.md).
 - 2026-06-15 — [1:1: Oracle packaging + Wed update prep](calls/oracle/2026-06-15_200833_one-on-one_20260615190118D7E7175C.md) — three-package framing (AIQ / cuOpt / VSS); Karsten = single Oracle gateway; Phase 1/2 timing → [oracle](oracle.md).
 - 2026-06-12 — [Jumpstart-PM v0.1 one-pager](../../../outputs/jumpstart-pm/jumpstart-pm-program-one-pager.md) — offering draft produced from Inna's materials (received same day) → [jumpstart-pm](jumpstart-pm.md).
