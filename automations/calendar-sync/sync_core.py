@@ -467,13 +467,17 @@ def extract(inp):
     for e in inp.get("events") or []:
         start = (e.get("start") or {}).get("dateTime") or (e.get("start") or {}).get("date")
         end = (e.get("end") or {}).get("dateTime") or (e.get("end") or {}).get("date")
-        desc = e.get("description") or ""
-        m = key_re.search(desc)
-        if m:
-            h = hash_re.search(desc)
-            copies.append({"google_event_id": e.get("id"), "source_key": m.group(1),
-                           "content_hash": h.group(1) if h else None,
-                           "start_kiev": start, "title": e.get("summary")})
+        ep = ((e.get("extendedProperties") or {}).get("private") or {})
+        key, chash = ep.get("ssSync"), ep.get("ssHash")
+        if not key:                                    # fallback: legacy in-description marker
+            m = key_re.search(e.get("description") or "")
+            if m:
+                key = m.group(1)
+                hh = hash_re.search(e.get("description") or "")
+                chash = hh.group(1) if hh else None
+        if key:
+            copies.append({"google_event_id": e.get("id"), "source_key": key,
+                           "content_hash": chash, "start_kiev": start, "title": e.get("summary")})
         else:
             atts = [a.get("email") for a in (e.get("attendees") or []) if a.get("email")]
             natives.append({"title": e.get("summary"), "start_kiev": start, "end_kiev": end,
