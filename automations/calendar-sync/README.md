@@ -21,7 +21,7 @@ so this is a skill orchestrating a pure-Python core — **not** a headless scrip
 | File | Role |
 |---|---|
 | `sync_core.py` | deterministic core (`reconcile` / `extract` / `schedule` / `log-run` / `daily-summary` / `commit`) |
-| `test_sync_core.py` | unit tests (16) |
+| `test_sync_core.py` | unit tests (15) |
 | `core.sh` | TCC-safe runner — `cd /tmp; python3 -I sync_core.py …` |
 | `config.sh` | constants (calendar id, window, prefix, attendee, DRY_RUN flag) |
 | `start.sh` | brings up the always-on tmux session |
