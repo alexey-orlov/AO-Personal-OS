@@ -149,17 +149,70 @@ def week_window(now_utc, days_ahead, tz):
 # --------------------------------------------------------------------------- #
 # Google payload
 # --------------------------------------------------------------------------- #
-def build_payload(ev, start_kiev, end_kiev, key, chash, cfg):
-    """Connector create_event/update_event params for one converted event."""
-    marker = "[[%s:%s]] [[ss-hash:%s]]" % (cfg["marker"], key, chash)
-    note = "Mirrored from SoftServe (Outlook). Do not edit — managed by calendar-sync.\n\n" + marker
+_CONN_PREFIXES = ("join:", "join microsoft teams", "join on your computer", "join the meeting now",
+                  "meeting id:", "passcode:", "phone conference id:", "video conference id",
+                  "dial-in", "dial in", "find a local number", "one tap mobile",
+                  "need help?", "for organizers:", "org help", "tenant id", "alternate vtc")
+_STATUS_LABEL = {"accepted": "accepted", "declined": "declined", "tentative": "tentative", "needsAction": "no response"}
+
+
+def clean_notes(raw):
+    """Real meeting note only — drop the Teams/Zoom join boilerplate + confidentiality footer."""
+    if not raw:
+        return ""
+    t = raw.replace("\r", "")
+    for pat in (r"(?is)_{4,}.*?Microsoft Teams.*$", r"(?is)Microsoft Teams meeting.*$",
+                r"(?is)_{4,}.*?Join Zoom.*$", r"(?is)Join Zoom Meeting.*$",
+                r"(?is)[^\n]*is inviting you to a scheduled Zoom meeting.*$"):
+        t = re.sub(pat, "", t)
+    out = []
+    for ln in t.split("\n"):
+        s, low = ln.strip(), ln.strip().lower()
+        if re.fullmatch(r"_{4,}", s) or re.fullmatch(r"\[.*\]", s):
+            continue
+        if any(low.startswith(p) for p in _CONN_PREFIXES):
+            continue
+        if "may contain confidential" in low or "strictly prohibited" in low:
+            continue
+        out.append(ln)
+    return re.sub(r"\n{3,}", "\n\n", "\n".join(out)).strip()
+
+
+def build_description(ev):
+    """Clean, human description: real note (if any) + organizer + participants with status."""
+    blocks = []
+    note = clean_notes(ev.get("notes"))
+    if note:
+        blocks.append(note)
+    org, orgmail = (ev.get("organizer") or "").strip(), (ev.get("organizer_email") or "").strip()
+    if org or orgmail:
+        blocks.append("Organizer: " + ("%s <%s>" % (org, orgmail) if (org and orgmail) else (org or orgmail)))
+    atts = ev.get("attendees") or []
+    if atts:
+        lines = ["Participants (%d):" % len(atts)]
+        for a in atts[:25]:
+            nm = (a.get("name") or a.get("email") or "").strip()
+            st = _STATUS_LABEL.get(a.get("status"), "")
+            lines.append("  • " + nm + ((" — " + st) if st else ""))
+        if len(atts) > 25:
+            lines.append("  • (+%d more)" % (len(atts) - 25))
+        blocks.append("\n".join(lines))
+    return "\n\n".join(blocks)
+
+
+def response_status(my):
+    return {"accepted": "accepted", "declined": "declined", "tentative": "tentative"}.get(my or "", "accepted")
+
+
+def build_payload(ev, start_kiev, end_kiev, cfg):
+    """create_event/update_event params. The sync marker lives in extendedProperties (set by run.py),
+    so the description stays clean."""
     join = ev.get("join_url")
-    location = join or ev.get("location") or ""
     payload = {
         "summary": cfg["prefix"] + display_title(ev.get("title", "")),
-        "attendees": [{"email": cfg["attendee"]}],
-        "location": location,
-        "description": (("Join: %s\n\n" % join) if join else "") + note,
+        "attendees": [{"email": cfg["attendee"], "responseStatus": response_status(ev.get("my_status"))}],
+        "location": join or ev.get("location") or "",
+        "description": build_description(ev),
         "visibility": "private",
         "notificationLevel": "NONE",
         "timeZone": cfg["tz"],
@@ -240,10 +293,11 @@ def reconcile(inp):
             seen.discard(key)
             continue
 
+        payload = build_payload(ev, start_kiev, end_kiev, cfg)
         chash = content_hash(normalize_title(ev.get("title", "")),
                              start_kiev.isoformat(), end_kiev.isoformat(),
-                             ev.get("location"), ev.get("join_url"))
-        payload = build_payload(ev, start_kiev, end_kiev, key, chash, cfg)
+                             payload["location"], ev.get("join_url"),
+                             payload["description"], payload["attendees"][0].get("responseStatus", ""))
         rec = {"source_key": key, "content_hash": chash,
                "start_kiev": start_kiev.isoformat(), "title": payload["summary"]}
 
