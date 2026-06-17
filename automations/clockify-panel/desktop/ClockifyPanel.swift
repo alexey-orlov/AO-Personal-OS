@@ -147,6 +147,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, WKNavigationDelegate {
             } else {
                 btn.title = "⏱"
             }
+            btn.toolTip = "Clockify Panel"
         }
         let menu = NSMenu()
         menu.addItem(withTitle: "Show / Bring to Front", action: #selector(showFront), keyEquivalent: "")
