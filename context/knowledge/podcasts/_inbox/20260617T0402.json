@@ -1,0 +1,53 @@
+{
+  "schema": 1,
+  "generatedAt": "2026-06-17T04:02:00.603Z",
+  "runStamp": "20260617T0402",
+  "episodes": [
+    {
+      "videoId": "t1jgk8BzE7Q",
+      "videoTitle": "Our Agent Negotiated a Vendor Renewal, Became a CFO and a Better SDR .. but has too many guardrails",
+      "videoUrl": "https://www.youtube.com/watch?v=t1jgk8BzE7Q",
+      "channelName": "SaaStr AI",
+      "publishedDate": "2026-06-16",
+      "guests": [],
+      "summary": "The episode walks through real-world lessons from deploying AI agents across SaaStr's operations: what breaks, what scales, and what unexpectedly changes company workflows. The throughline is that agents can automate and combine roles (marketing, finance, renewals, inbound qualification) but are fragile to over‑engineering (too many guardrails) and shift decision-making and vendor dynamics in non-obvious ways.",
+      "insights": [
+        {
+          "headline": "Too many guardrails can break an AI agent",
+          "detail": "Layering many exception rules into a single mega-prompt caused the deck-grading agent to reject most submissions — of 305 recent submissions 88 failed outright and of the 216 that worked 53% received Fs. After about the 14th guardrail the system considered everything an exception and stopped functioning, forcing a rebuild and removal of most rules. The non-obvious lesson: guardrails are technical debt — over-constraining an LLM-driven flow throttles useful outputs and requires careful measurement and parsimony.",
+          "anchorQuote": "by the time we'd added the 14th guardrail",
+          "tSeconds": 224,
+          "link": "https://www.youtube.com/watch?v=t1jgk8BzE7Q&t=224"
+        },
+        {
+          "headline": "A single agent can effectively combine marketing and finance roles",
+          "detail": "Instead of building a separate finance agent, they embedded finance into their 10K AI VP marketing agent and hooked it to Stripe, QuickBooks and Brex; the agent immediately produced real-time forecasting, asked to start generating invoices, and surfaced accounts receivable issues. Because 10K already had sales and event context, it produced better projections and automation than a siloed finance agent would likely have. This shows agents with broad context can converge responsibilities that humans keep separate, improving cross-domain insights but changing org boundaries.",
+          "anchorQuote": "put it into 10K as like a sub agent",
+          "tSeconds": 1013,
+          "link": "https://www.youtube.com/watch?v=t1jgk8BzE7Q&t=1013"
+        },
+        {
+          "headline": "Agents surface simple operational fixes humans miss",
+          "detail": "When the finance agent was connected to Bill.com it instantly recommended enabling auto reminders and escalation rules for overdue invoices — a toggle the team had never turned on despite years on the platform. By combining knowledge of the product (via the model) with the company’s data, the agent recommended low-effort changes that improve collections and cash flow. Practical implication: agents don’t only answer queries, they can proactively point out high-leverage, operational improvements.",
+          "anchorQuote": "you could just turn on auto reminders for invoices",
+          "tSeconds": 1578,
+          "link": "https://www.youtube.com/watch?v=t1jgk8BzE7Q&t=1578"
+        },
+        {
+          "headline": "Agents will act as primary decision-makers in renewals",
+          "detail": "The team handed a renewal proposal to 10K and treated the agent as the decision maker: it evaluated the vendor, demanded API/headless features and recommended negotiating seat-based pricing to an API-user model. That flipped the renewal dynamic — the agent generated contract requirements and pricing asks that humans might not have pressed for. Vendors should expect agents to drive renewal conversations and to favor headless, API-first contracts or risk losing customers.",
+          "anchorQuote": "the agent is the decision maker",
+          "tSeconds": 3510,
+          "link": "https://www.youtube.com/watch?v=t1jgk8BzE7Q&t=3510"
+        },
+        {
+          "headline": "Inbound agents can scale qualification with surprising efficiency",
+          "detail": "Their inbound agent (Amelia AI) handled ~442,000 chats and booked 614 meetings, drawing from roughly 2.2M website sessions to qualify leads and route them to the right rep. The agent used contextual signals (attendee history, session recordings, sponsor status) to prioritize and route meetings, producing high‑quality downstream opportunities with minimal human intervention. The takeaway: off‑the‑shelf inbound agent tooling, if trained with rich product/event context, can outperform manual inbox-routing and is often worth buying rather than rebuilding.",
+          "anchorQuote": "booked 614 meetings from 442,000 chats",
+          "tSeconds": 3787,
+          "link": "https://www.youtube.com/watch?v=t1jgk8BzE7Q&t=3787"
+        }
+      ]
+    }
+  ]
+}
