@@ -49,6 +49,8 @@ def read_ss():
         return [], False, "reader bad JSON: %s" % e
     evs = []
     for e in raw:
+        if e.get("all_day"):        # skip all-day holidays / placeholders — mirror timed meetings only
+            continue
         evs.append({
             "owa_id": e.get("uid"),                 # stable EventKit id -> reschedules = updates
             "title": e.get("title", ""),
