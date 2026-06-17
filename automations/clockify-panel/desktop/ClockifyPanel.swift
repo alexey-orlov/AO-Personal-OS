@@ -208,7 +208,9 @@ final class AppDelegate: NSObject, NSApplicationDelegate, WKNavigationDelegate, 
         }
     }
 
-    func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool { true }
+    // Stay alive in the menu bar when the window is hidden/closed, so it can be
+    // re-shown from the status item. Quit only via Quit / Cmd+Q / Cmd+W.
+    func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool { false }
 }
 
 let app = NSApplication.shared
