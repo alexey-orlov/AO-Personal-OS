@@ -15,6 +15,7 @@ user-invocable: true
   - `calls/[<sub-context>/]` — call notes, written by the call-pipeline (taxonomy owned by Axis 2 of `.claude/skills/classify/SKILL.md`).
   - `docs/` — manually added source materials (transcripts, documents Alex chose to commit).
 - **Cross-area**: `context/index.md` (map + "Now" snapshot), `context/people/<slug>.md` (recurring people), `context/_meta/processed.txt` (ledger).
+- **External source roots**: `context/_meta/external-sources.md` maps each area to where its out-of-repo source files live (local path / Google Drive / OneDrive). Consult it when you need an area's raw materials. Area READMEs may carry a `_source files: …_` header line — **preserve it verbatim** when rewriting the page. When a drop or Alex says an area's files live at some path/URL, add/refresh the registry row + that header line (schema + how-to are in the registry file).
 - **Drop zone (input)**: `context/_inbox/` — cloud captures from the Telegram 📥 Drop Zone (committed; one `.md` card per drop, media alongside). There is no local drop zone (root `inbox/` retired 2026-06-12); sensitive material arrives as pasted content only.
 - **Second-Brain destinations (outputs, owned by this skill)** — goal/task/insight drops become QUEUE CARDS in `context/_inbox/apple-notes/` (consumed by the `apple-notes-sync` skill's local leg, which files them into Alex's pinned Apple Notes — map: `context/knowledge/README.md`); books → `context/knowledge/book-shortlist.md`; explore topics → `context/knowledge/explore/queue.md` (+ `explore/briefs/` via the `explore-brief` skill) — plus area pages and `context/people/`.
 - **Raw artifacts are read-only inputs**: never edit anything in `calls/`, `docs/`, or `_inbox/` cards — wiki pages link INTO them (provenance).
@@ -162,6 +163,7 @@ One short block: `processed N (folded F · junk J · dup D · pending-voice V) �
 ## Self-check before finishing
 
 - No invented facts; every new claim traceable to a source link that resolves.
+- Preserved any `_source files:` header line on pages I rewrote; if Alex named a new external source root, the registry (`_meta/external-sources.md`) + that README pointer were updated.
 - Superseded facts removed, not stacked; sections use "-" when empty; pages within budget.
 - `index.md` "Now" is dated and consistent with the pages.
 - Ledger updated for EVERY artifact handled, including junk and duplicates (but NOT pending-voice — those stay in the backlog).

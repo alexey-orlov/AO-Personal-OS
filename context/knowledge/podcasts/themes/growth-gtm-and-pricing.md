@@ -2,10 +2,10 @@
 
 _status: live theme — growth loops, distribution, GTM motions, pricing, packaging, monetization_
 _slug: growth-gtm-and-pricing_
-_updated: 2026-06-13 · 10 insights from 10 episodes · (absorbed b2b-saas-and-scaling, 2026-06-11)_
+_updated: 2026-06-17 · 11 insights from 11 episodes · (absorbed b2b-saas-and-scaling, 2026-06-11)_
 
 ## The throughline
-GTM is reorganizing around three new realities. (1) Self-service can be the primary enterprise channel — not a downgrade — when AI handles qualification and onboarding (54% of Anthropic's 2026 new enterprise logos came from it). (2) "Token economics" now determines commercial viability: buyers won't grow their IT budget to absorb rising AI costs, so where you sit on the token-consumption path is the strategic question — and the SaaS-vendor corollary is that margin survival requires designing products for agent consumption (CLIs, accessible HTML, logs, rollback) rather than bundling costly model inference into pricing. Evans's broader bet is that foundation models commoditize while value accrues to the app/UX/distribution layer above. (3) In a low-excitement enterprise category, premium brand creative still moves the needle: Legora's Jude Law ad (writer from SNL, cinematographer from Oppenheimer) went viral on professional networks and produced inbound. Smallness still wins enterprise deals when paired with a rigorous pilot and measurable metrics.
+GTM is reorganizing around three new realities. (1) Self-service and conversational agents together form the primary enterprise acquisition channel: 54% of Anthropic's 2026 new enterprise logos came from AI-qualified self-service, and dedicated inbound chat agents (SaaStr's Amelia AI: 614 meetings from 442,000 chats across 2.2M sessions) show that rich-context conversational qualification scales at pipeline efficiency no human SDR team can match. (2) "Token economics" now determines commercial viability: buyers won't grow their IT budget to absorb rising AI costs, so where you sit on the token-consumption path is the strategic question — and the SaaS-vendor corollary is that margin survival requires designing products for agent consumption (CLIs, accessible HTML, logs, rollback) rather than bundling costly model inference into pricing. Evans's broader bet is that foundation models commoditize while value accrues to the app/UX/distribution layer above. (3) In a low-excitement enterprise category, premium brand creative still moves the needle: Legora's Jude Law ad (writer from SNL, cinematographer from Oppenheimer) went viral on professional networks and produced inbound. Smallness still wins enterprise deals when paired with a rigorous pilot and measurable metrics.
 
 ## Insights
 
@@ -56,6 +56,11 @@ related: [Foundation models risk becoming commodity; app layer captures value](#
 Meesho observed small shops were already using WhatsApp groups to show products because images load on user demand and data costs were high; this low‑data, low‑friction model let them reach buyers who wouldn't download heavy shopping apps. By leaning into that channel they built massive early scale — by 2020 there were millions of WhatsApp sellers tied to Meesho's ecosystem — which later became a foundation for converting users to the company's own app.
 — Y Combinator · 2026-06-11 · guest: Vidit Aatrey (Meesho) · [▶ 10:17](https://www.youtube.com/watch?v=49L8lVe_PVo&t=617) · `pi-49L8lVe_PVo-02`
 
+### Inbound agents can scale qualification with surprising efficiency
+Their inbound agent (Amelia AI) handled ~442,000 chats and booked 614 meetings, drawing from roughly 2.2M website sessions to qualify leads and route them to the right rep. The agent used contextual signals (attendee history, session recordings, sponsor status) to prioritize and route meetings, producing high‑quality downstream opportunities with minimal human intervention. The takeaway: off‑the‑shelf inbound agent tooling, if trained with rich product/event context, can outperform manual inbox-routing and is often worth buying rather than rebuilding.
+— SaaStr AI · 2026-06-16 · guest: — · [▶ 1:03:07](https://www.youtube.com/watch?v=t1jgk8BzE7Q&t=3787) · `pi-t1jgk8BzE7Q-05`
+related: [Self-service produced 54% of new enterprise logos in 2026](#self-service-produced-54-of-new-enterprise-logos-in-2026) (self-service funnel + AI qualification as the two halves of the AI-driven enterprise capture picture)
+
 ## Related themes
 - [Tech frontier & abundance](tech-frontier-and-abundance.md) — token-economics story behind the GTM constraint
 - [Founders & fundraising](founders-and-fundraising.md) — small-team enterprise wins
@@ -72,3 +77,4 @@ Meesho observed small shops were already using WhatsApp groups to show products 
 - [a16z — The Economics of AI Usage and What's Next For SaaS | Benedict Evans (2026-06-11)](../episodes/2026/2026-06-11--a16z--economics-ai-usage-saas-evans.md)
 - [SaaStr AI — Tired vs. Wired: $4 Trillion in IPOs, Why the SaaSpocalypse is Over (2026-06-11)](../episodes/2026/2026-06-11--saastr--tired-vs-wired-4-trillion-ipo-saas-over.md)
 - [Y Combinator — How Meesho Became India's Biggest Shopping App (2026-06-11)](../episodes/2026/2026-06-11--yc--meesho-became-indias-biggest-shopping-app.md)
+- [SaaStr AI — Our Agent Negotiated a Vendor Renewal, Became a CFO and a Better SDR (2026-06-16)](../episodes/2026/2026-06-16--saastr--agent-negotiated-vendor-renewal-cfo-sdr-guardrails.md)

@@ -1,14 +1,16 @@
 # Oracle partnership — joint IP
 
-_status: onboarding — Phase 1 (through end of Jun 2026): reactive familiarization with Oracle's three NVIDIA-built packages (AIQ / cuOpt / VSS) via Karsten as the single Oracle gateway; AIDP co-sell parallel. Next: Tue Jun 16 first Oracle call, Wed Jun 17 R&D cross-team update._
-_updated: 2026-06-15 (packages whiteboard captured)_
+_status: onboarding — Phase 1 (through end of Jun 2026): reactive familiarization with Oracle's three NVIDIA-built packages (AIQ / cuOpt / VSS) via Karsten as the single Oracle gateway; AIDP co-sell parallel. First Oracle call done (Bosch cuOpt tech sync, 2026-06-16); next: Wed Jun 17 R&D cross-team update._
+_updated: 2026-06-16_
 
 ## Snapshot
 
 - SoftServe is Oracle's first integrated partner on this IP: contributes PRs, holds a weekly sync. NHS (UK) is the first paying client using the IP. GTM via SoftServe + NVIDIA. [1:1 2026-06-09](calls/2026-06-09_183633_one-on-one_2026060917013100B193F3.md)
 - Funding model on cuOpt POCs: NVIDIA (and possibly Oracle) underwrites the initial POC; client pays only if it scales — Olha's ~80% read, needs confirmation from Bohdan. [Olha sync 2026-06-12](calls/oracle/2026-06-12_151312_one-on-one_20260612143223E84CB5DA.md)
 - Oracle/NVIDIA package framing crystallized 2026-06-15: SoftServe is onboarding to three NVIDIA-built packages — **AIQ** (agentic enterprise research; AIQ Kit AR-glasses + furniture-placement is a new demoable use case), **cuOpt** (labeled "QOPT" in Oracle/SoftServe shorthand; workforce + route optimization; Bosch is the reference case), **VSS** (visual analysis). S/M/L sizing — S = PoC/PoV (per use case, value-proof), M = Integration (OFS/SCM&OTM/Altradocs/Fusion apps, component-wise), L = Product (advanced AI telemetry, local-market tailoring, tech hardening); AIQ + cuOpt span all tiers — is a whiteboard sketch, not validated; cuOpt repeatability beyond narrow verticals (e.g. retail workforce) is genuinely uncertain. [1:1 2026-06-15](calls/oracle/2026-06-15_200833_one-on-one_20260615190118D7E7175C.md) · [packages whiteboard](../docs/oracle-packages-tshirt-sizing.md)
-- Active client pipeline by package: **cuOpt** — Bosch (3–4 weeks into testing, FE off, allocations winding down), DHL (early stage); Bin Laden Group dropped. **AIQ** — Riyad Air (text-recognition; Dmytro Duchenko owns — earlier characterized as cuOpt; reclassified 2026-06-15). [Olha sync](calls/oracle/2026-06-12_151312_one-on-one_20260612143223E84CB5DA.md) · [1:1 2026-06-15](calls/oracle/2026-06-15_200833_one-on-one_20260615190118D7E7175C.md)
+- Active client pipeline by package: **cuOpt** — Bosch (in UAT / fine-tuning on GPU 1, FE off, allocations winding down), DHL (early stage); Bin Laden Group dropped. **AIQ** — Riyad Air (text-recognition; Dmytro Duchenko owns — earlier characterized as cuOpt; reclassified 2026-06-15). [Olha sync](calls/oracle/2026-06-12_151312_one-on-one_20260612143223E84CB5DA.md) · [1:1 2026-06-15](calls/oracle/2026-06-15_200833_one-on-one_20260615190118D7E7175C.md) · [Bosch tech sync 2026-06-16](calls/oracle/2026-06-16_191926_sales-call_202606161831156E88BEC4.md)
+- Bosch POC live blocker: GPU 2 fails on identical payloads that GPU 1 runs cleanly (kube "server-side abort timeout, not retrying"); Oracle/NVIDIA debug path agreed — PyTorch hello-world per GPU + `nvidia-smi` + `sudo dmesg` for xid/memory errors; if hardware-fault confirmed, rebuild via "bring up second A10-2 then drain failing node" to keep downtime ~1 min without disturbing Bosch UAT on GPU 1. Working hypotheses: faulty GPU vs. config/indexing artifact from manually disabling GPUs. [Bosch tech sync 2026-06-16](calls/oracle/2026-06-16_191926_sales-call_202606161831156E88BEC4.md)
+- Bosch tenancy confirmed extended to 2026-08-26 (~10 weeks of runway from 2026-06-16) — removes the immediate auto-downgrade-to-free-tier risk that broke the parallel RIA Tier 1 POC's CI/CD; Oracle account team on standby to extend further on request. [Bosch tech sync 2026-06-16](calls/oracle/2026-06-16_191926_sales-call_202606161831156E88BEC4.md)
 - All Oracle stakeholder access routes through **Karsten** (NVIDIA partner sales) — single gateway by decision; targeted 1:1 follow-ups with each package owner come through him. NVIDIA relationship currently closer than Oracle's; potential GTC US speaking slot if a SoftServe case lands well. [1:1 2026-06-15](calls/oracle/2026-06-15_200833_one-on-one_20260615190118D7E7175C.md)
 - Bosch POC retrospective (Speaker A's read): ~2.5 months / 2.5 FTE; most time lost to client comms gaps, not implementation. Practice can't absorb this pattern across multiple cases — billing model decision: value-based on first engagements (learning phase), managed-services / hourly only from Phase 2. [1:1 2026-06-15](calls/oracle/2026-06-15_200833_one-on-one_20260615190118D7E7175C.md)
 - Bosch POC shape (reference case): cuOpt-based dispatcher assigning field technicians to zones; custom UI + custom backend wrapper around cuOpt; OFSR (intra-zone routing) explicitly out of scope. Workflow handles stable baselines, sick-leave substitutions, and locked visits — none native to cuOpt, all built on top. Started 2026-04-06; ~2 weeks discovery+workshops, then build. Team: 2 BE full, 1 FE variable (off near end), TL ~0.5→0.25, PM/BA (Olha) ~0.5→0.25, Oracle DevOps. [Olha sync](calls/oracle/2026-06-12_151312_one-on-one_20260612143223E84CB5DA.md)
@@ -40,7 +42,9 @@ _updated: 2026-06-15 (packages whiteboard captured)_
 - Karsten — NVIDIA partner sales; single gateway for SoftServe ↔ Oracle stakeholder access on the NVIDIA-built packages. [1:1 2026-06-15](calls/oracle/2026-06-15_200833_one-on-one_20260615190118D7E7175C.md)
 - Patrick — tech lead on Riyad Air (AIQ case); tentative Wed-update presenter, comfort presenting TBD. [1:1 2026-06-15](calls/oracle/2026-06-15_200833_one-on-one_20260615190118D7E7175C.md)
 - Lyudmyla — SoftServe marketing; holds the AIQ Kit furniture-placement demo video. [1:1 2026-06-15](calls/oracle/2026-06-15_200833_one-on-one_20260615190118D7E7175C.md)
-- Vishnu — Oracle-side contact at the Tue Jun 16 call; owns the ask on whether SoftServe can internally GTM-promote the Oracle UI prototypes. [1:1 2026-06-15](calls/oracle/2026-06-15_200833_one-on-one_20260615190118D7E7175C.md)
+- Vishnu — Oracle/NVIDIA solutions lead; facilitated next steps at the 2026-06-16 Bosch tech sync (scheduling George deep-dive, etc.); owns the ask on whether SoftServe can internally GTM-promote the Oracle UI prototypes. [1:1 2026-06-15](calls/oracle/2026-06-15_200833_one-on-one_20260615190118D7E7175C.md) · [Bosch tech sync 2026-06-16](calls/oracle/2026-06-16_191926_sales-call_202606161831156E88BEC4.md)
+- Paweł — Bosch delivery lead driving the cuOpt POC agenda (author of the pre-call email); identity inferred. [Bosch tech sync 2026-06-16](calls/oracle/2026-06-16_191926_sales-call_202606161831156E88BEC4.md)
+- George — Bosch engineer holding the GPU 2 failing logs; owner of the SSH/debug-pod tests against each GPU; inferred. [Bosch tech sync 2026-06-16](calls/oracle/2026-06-16_191926_sales-call_202606161831156E88BEC4.md)
 
 ## Decisions
 
@@ -55,11 +59,10 @@ _updated: 2026-06-15 (packages whiteboard captured)_
 ## Open loops
 
 Mine:
-- Tue 2026-06-16 — Attend first Oracle call: light self-intro ("first time joining, leading product initiatives in R&D, moving to California"); identify which Oracle stakeholders own which package; do not try to drive agenda.
 - Wed 2026-06-17 — Present at R&D cross-team update (30-min slot): Bosch cuOpt, Riyad Air AIQ, AIQ Kit furniture demo (covering Dmytro's portion in his PTO absence). Rehearse Wed morning.
 - This week — Ping Olya, Leonid, Patrick re Wed slot; ask Patrick to help build the deck by EOD Tue using the established template; check whether Patrick is comfortable presenting.
 - This week — Get the AIQ Kit furniture-placement video from Lyudmyla for the deck.
-- Post-Oracle-call — Via Karsten: arrange targeted 1:1 follow-ups with AIQ / cuOpt / VSS product leads; ask who owns final accelerator/package decisions on Oracle's product side; request peer-to-peer monthly sync per package owner.
+- Via Karsten: arrange targeted 1:1 follow-ups with AIQ / cuOpt / VSS product leads; ask who owns final accelerator/package decisions on Oracle's product side; request peer-to-peer monthly sync per package owner.
 - Re-confirm with Bohdan whether the client pays anything for the initial POC (Olha's ~80% read: no).
 - Get Olya Hanushchak's contact from Olha, then sync with her on Bosch technical depth + the Oracle packaging meetings.
 - Sync with Dmytro Duchenko after his vacation on Riyad Air AIQ / text-recognition.
@@ -72,7 +75,7 @@ Theirs (engagement lead):
 - Share previous monthly-update deck template + the chat thread with the AIQ Kit video.
 - Coach Alex on AIQ Kit positioning (Speaker A may cover that portion of Wed update himself given Dmytro's PTO).
 - Continue pushing two Olyas (Hanushchak + Terendiy) to publish Oracle clickable UI prototypes on the SoftServe internal portal so sales can demo.
-- At Tue Jun 16 Oracle call — ask Vishnu whether internal go-to-market promotion of the Oracle UI prototypes is OK.
+- Ask Vishnu whether internal go-to-market promotion of the Oracle UI prototypes is OK — not covered at 2026-06-16 call (technical agenda took the slot); carry to next Oracle touchpoint.
 
 Theirs (Olha Terendii):
 - Send Olya Hanushchak's contact to Alex.
@@ -95,6 +98,7 @@ Theirs (SoftServe partnership team — AIDP):
 
 ## Activity
 
+- 2026-06-16 — [First Oracle call: Bosch cuOpt POC tech sync](calls/oracle/2026-06-16_191926_sales-call_202606161831156E88BEC4.md) — Bosch ↔ Oracle/NVIDIA technical sync on GPU 2 failures in cuOpt POC; debug path agreed without disturbing UAT on GPU 1; tenancy confirmed extended to 2026-08-26; performance-tuning topics deferred.
 - 2026-06-15 — [Packages whiteboard captured](../docs/oracle-packages-tshirt-sizing.md) — S/M/L T-shirt sizing sketch (PoC/PoV · Integration · Product; AIQ + cuOpt as cross-tier capabilities) from the 2026-06-15 1:1, transcribed to docs.
 - 2026-06-15 — [1:1 with Bohdan Khomych: "Oracle packages: current status kick-off"](calls/oracle/2026-06-15_200833_one-on-one_20260615190118D7E7175C.md) — three-package framing (AIQ / cuOpt / VSS); Riyad Air reclassified as AIQ; Karsten = single Oracle gateway; Phase 1 / Phase 2 timing; value-based billing for first engagements.
 - 2026-06-12 — [AIDP sales/enablement call — Oracle ↔ SoftServe](calls/oracle/2026-06-12_173159_sales-call_2026061216024378A29A99.md) — Oracle introduced the AI Data Platform; SoftServe pushed on differentiation, SAP, NVIDIA, migration accelerators, sandbox; joint GTM follow-up open.
