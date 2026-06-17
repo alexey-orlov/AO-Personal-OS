@@ -110,7 +110,30 @@ tail -f .work/panel.log                                                 # logs
 Editing `server.py` / `index.html` / `config.sh` → reload the agent to pick up
 changes (the server reads them at startup).
 
+## Desktop widget (`desktop/`)
+
+A native macOS **floating desktop panel** that wraps this same web app in a
+frameless, rounded, always-on-top `WKWebView` window — so it's a real desktop
+widget with **100% identical functionality** (no reimplementation; it just
+loads `http://localhost:7878`). A true WidgetKit widget can't do this: widgets
+have no text input (the description + editable start-time fields are
+impossible) and can't live-poll. The WebView wrapper sidesteps all of that.
+
+```bash
+cd desktop
+./build.sh     # compiles ClockifyPanel.swift -> ~/Applications/Clockify Panel.app,
+               # ad-hoc signs it, installs a login agent that launches it
+```
+
+Controls: **Cmd+drag** to move (plain clicks go to the UI), drag an edge to
+resize, **Cmd+R** reload, **Cmd+Q** quit. It needs the local server running
+(the `:7878` agent above). It retries until the server is reachable, so login
+order doesn't matter. Source: `desktop/ClockifyPanel.swift`, `desktop/Info.plist`,
+`desktop/build.sh`, `desktop/com.user.clockify-widget.plist`. The built `.app`
+lives in `~/Applications` (not committed); re-run `build.sh` to rebuild.
+
 ## Files
 
 `server.py` · `index.html` · `config.sh` · `setup.sh` · `run.sh` ·
-`com.user.clockify-panel.plist` · `.work/` (git-ignored: logs)
+`com.user.clockify-panel.plist` · `desktop/` (native wrapper) ·
+`.work/` (git-ignored: logs)

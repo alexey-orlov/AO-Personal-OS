@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.user.clockify-widget</string>
+  <!-- Launch the bundle via `open` so LaunchServices sets it up properly.
+       __APP__ is replaced with the installed .app path by build.sh. -->
+  <key>ProgramArguments</key>
+  <array>
+    <string>/usr/bin/open</string>
+    <string>__APP__</string>
+  </array>
+  <key>RunAtLoad</key>
+  <true/>
+  <key>KeepAlive</key>
+  <false/>
+  <key>StandardOutPath</key>
+  <string>/tmp/clockify-widget.log</string>
+  <key>StandardErrorPath</key>
+  <string>/tmp/clockify-widget.log</string>
+</dict>
+</plist>
