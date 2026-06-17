@@ -5,11 +5,11 @@
 # from bash OR zsh (zsh leaves BASH_SOURCE unset). Override with CALSYNC_REPO.
 export CALSYNC_REPO="${CALSYNC_REPO:-$HOME/Documents/GitHub/AO-Personal-OS}"
 export CALSYNC_HERE="$CALSYNC_REPO/automations/calendar-sync"
-export CALSYNC_CORE="$HERE/core.sh"
-export CALSYNC_STATE="$HERE/.work/state"
+export CALSYNC_CORE="$CALSYNC_HERE/core.sh"
+export CALSYNC_STATE="$CALSYNC_HERE/.work/state"
 export CALSYNC_LEDGER="$CALSYNC_STATE/ledger.json"
 export CALSYNC_RUNLOG="$CALSYNC_STATE/run-log.jsonl"
-export CALSYNC_LOCK="$HERE/.work/run.lock"
+export CALSYNC_LOCK="$CALSYNC_HERE/.work/run.lock"
 
 # --- sync parameters -------------------------------------------------------
 export CALSYNC_CALENDAR_ID="orlov.alexej@gmail.com"   # Google primary (write target)
