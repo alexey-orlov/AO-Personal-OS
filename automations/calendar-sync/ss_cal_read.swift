@@ -40,8 +40,13 @@ if !granted {
 }
 
 let cals = store.calendars(for: .event)
+func typeName(_ t: EKSourceType) -> String {
+    switch t { case .local: return "local"; case .exchange: return "exchange"; case .calDAV: return "calDAV"
+    case .mobileMe: return "mobileMe"; case .subscribed: return "subscribed"; case .birthdays: return "birthdays"
+    @unknown default: return "other" }
+}
 if listOnly {
-    for c in cals { print("[\(c.source.title)] :: \(c.title)") }
+    for c in cals { print("[\(c.source.title)] (\(typeName(c.source.sourceType))) :: \(c.title)") }
     exit(0)
 }
 
@@ -69,7 +74,9 @@ func meetingURL(_ e: EKEvent) -> String? {
     return nil
 }
 
-let selected = (sourceFilter == nil) ? cals : cals.filter { $0.source.title.lowercased().contains(sourceFilter!) }
+var selected = cals
+if exchangeOnly { selected = selected.filter { $0.source.sourceType == .exchange } }
+if let sf = sourceFilter { selected = selected.filter { $0.source.title.lowercased().contains(sf) } }
 let now = Date()
 let end = Calendar.current.date(byAdding: .day, value: days, to: now)!
 let pred = store.predicateForEvents(withStart: now, end: end, calendars: selected.isEmpty ? nil : selected)
