@@ -2,11 +2,14 @@
 
 Read-only, via the **Claude-for-Chrome MCP** (`mcp__Claude_in_Chrome__*`). Runs in a background tab — it must **not** steal focus or change anything in OWA.
 
-## 0. Connect to the right browser
+## 0. Connect to the right browser, and auto-restore the session
 1. `list_connected_browsers` → pick the one named **"SS laptop"** (`$CALSYNC_CHROME_NAME`); `select_browser(deviceId)`.
 2. `tabs_context_mcp{createIfEmpty:true}` → get a tab id (reuse the calendar-sync tab across runs).
-3. `navigate(tabId, "https://outlook.office.com/calendar/view/week")`.
-   - If the page is a login / "open in Microsoft Edge" / Conditional-Access wall instead of the calendar → **stop**, set `source_complete:false`, log `error:"OWA not reachable (sign-in/CA wall)"`, and report. Do not guess events.
+3. `navigate(tabId, "https://outlook.office.com/calendar/view/week")` — once authed it redirects to `outlook.cloud.microsoft/calendar/...`; both are fine.
+4. **Read the page and branch on what loaded:**
+   - **Calendar** (title `Calendar - … - Outlook`) → continue to step 1.
+   - **Account picker** ("Pick an account") with the SoftServe account `olekorlov@softserveinc.com` shown as **"Signed in"** → a routine token lapse (OWA access tokens expire ~hourly). **Click that account** to restore the session, wait ~2 s, and re-read. Locate it by its text — the button reads `Sign in with olekorlov@softserveinc.com work or school account.` — and click it. **Alex has pre-authorized this**: selecting an already-"Signed in" account restores an existing session and enters **no** credentials. If it then lands on the calendar → continue. Do this automatically every run; never wait for a human for this case.
+   - **Anything that actually authenticates** — a password field, an MFA / Authenticator prompt, a consent screen, or a picker where the SoftServe account is **not** "Signed in" → **do not type, approve, or click through it.** Set `source_complete:false`, log `error:"OWA needs sign-in"`, and stop. The daily summary surfaces it, and Alex signs in once (checking **"Stay signed in?"** keeps the session alive for weeks, so this stays rare).
 
 ## 1. Capture the timezone calibration  (critical)
 OWA renders this mailbox in **US/Pacific**, *not* Kyiv — a naïve copy is ~10 h wrong. The core self-calibrates, but you must hand it OWA's clock:
