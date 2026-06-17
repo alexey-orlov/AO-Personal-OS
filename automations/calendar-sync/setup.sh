@@ -46,7 +46,10 @@ cat <<EOF
 ONE-TIME GOOGLE SETUP (only you can do this — it's your account):
   1) console.cloud.google.com -> create/select a project
   2) APIs & Services -> Library -> enable "Google Calendar API"
-  3) APIs & Services -> OAuth consent screen -> External -> add yourself as a Test user
+  3) APIs & Services -> OAuth consent screen -> External -> add yourself as a Test user,
+     THEN set "Publishing status" to "In production" (Publish app). This is important:
+     a "Testing" app expires the refresh token every 7 days; a published one does not.
+     (You'll see an "unverified app" warning at sign-in once -> Advanced -> proceed.)
   4) Credentials -> Create credentials -> OAuth client ID -> "Desktop app" -> copy the Client ID + Secret
   5) store them in Keychain:
        security add-generic-password -U -a "\$USER" -s CALSYNC_GOOGLE_CLIENT_ID     -w '<client id>'
