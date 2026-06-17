@@ -54,12 +54,12 @@ class TestReconcile(unittest.TestCase):
         self.assertEqual(out["counts"]["create"], 1)
         p = out["creates"][0]["payload"]
         self.assertEqual(p["summary"], "SS: T-shirt packages kick-off")
-        self.assertEqual(p["attendees"], [{"email": "orlov.alexej@gmail.com"}])
+        self.assertEqual(p["attendees"], [{"email": "orlov.alexej@gmail.com", "responseStatus": "accepted"}])
         self.assertEqual(p["notificationLevel"], "NONE")
         self.assertEqual(p["visibility"], "private")
         self.assertTrue(p["startTime"].startswith("2026-06-17T18:00:00+03:00"))
         self.assertEqual(p["location"], "https://teams.microsoft.com/l/meetup-join/X")
-        self.assertIn("[[ss-sync:", p["description"])
+        self.assertNotIn("[[ss-sync:", p["description"])   # marker lives in extendedProperties now
 
     def test_idempotent_second_run(self):
         ev = src("Weekly sync-up - R&D Product", "2026-06-18T06:30:00", "2026-06-18T07:00:00")
@@ -118,7 +118,7 @@ class TestExtract(unittest.TestCase):
     def test_split_copies_and_natives(self):
         events = [
             {"id": "g1", "summary": "SS: Product daily standup",
-             "description": "Join: https://t\n\n[[ss-sync:td:abc123]] [[ss-hash:deadbeef0000]]",
+             "extendedProperties": {"private": {"ssSync": "td:abc123", "ssHash": "deadbeef0000"}},
              "start": {"dateTime": "2026-06-18T10:30:00+03:00"},
              "end": {"dateTime": "2026-06-18T10:45:00+03:00"}},
             {"id": "g2", "summary": "Dentist",
