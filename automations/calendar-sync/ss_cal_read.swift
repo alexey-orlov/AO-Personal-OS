@@ -8,14 +8,16 @@ import Foundation
 
 var days = 14
 var sourceFilter: String? = nil
+var exchangeOnly = false
 var listOnly = false
 var args = Array(CommandLine.arguments.dropFirst())
 var i = 0
 while i < args.count {
     switch args[i] {
-    case "--days":   if i+1 < args.count { days = Int(args[i+1]) ?? 14; i += 1 }
-    case "--source": if i+1 < args.count { sourceFilter = args[i+1].lowercased(); i += 1 }
-    case "--list":   listOnly = true
+    case "--days":     if i+1 < args.count { days = Int(args[i+1]) ?? 14; i += 1 }
+    case "--source":   if i+1 < args.count { sourceFilter = args[i+1].lowercased(); i += 1 }
+    case "--exchange": exchangeOnly = true       // SoftServe is the only Exchange account
+    case "--list":     listOnly = true
     default: break
     }
     i += 1
