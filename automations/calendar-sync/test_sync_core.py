@@ -141,7 +141,7 @@ class TestExtract(unittest.TestCase):
         ev = src("Product Issues sync", "2026-06-18T08:00:00", "2026-06-18T08:30:00")
         created = sc.reconcile(base([ev]))["creates"][0]
         gevents = [{"id": "gZ", "summary": created["payload"]["summary"],
-                    "description": created["payload"]["description"],
+                    "extendedProperties": {"private": {"ssSync": created["source_key"], "ssHash": created["content_hash"]}},
                     "start": {"dateTime": created["payload"]["startTime"]},
                     "end": {"dateTime": created["payload"]["endTime"]}}]
         copies = sc.extract({"events": gevents})["google_copies"]
