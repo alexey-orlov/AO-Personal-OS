@@ -395,10 +395,42 @@ def commit(inp):
 
 
 # --------------------------------------------------------------------------- #
+# extract — split a connector list_events payload into our copies vs natives
+# --------------------------------------------------------------------------- #
+def extract(inp):
+    """Parse Google events (as returned by the connector's list_events) into:
+      google_copies  — ours (description carries the [[marker:key]] tag)
+      google_native  — everything else (candidates for native-duplicate match)
+    Keeps the gid/source_key/hash binding exact so updates/deletes never go astray.
+    """
+    cfg = dict(DEFAULT_CONFIG)
+    cfg.update((inp or {}).get("config") or {})
+    key_re = re.compile(r"\[\[%s:([^\]]+)\]\]" % re.escape(cfg["marker"]))
+    hash_re = re.compile(r"\[\[ss-hash:([^\]]+)\]\]")
+    copies, natives = [], []
+    for e in inp.get("events") or []:
+        start = (e.get("start") or {}).get("dateTime") or (e.get("start") or {}).get("date")
+        end = (e.get("end") or {}).get("dateTime") or (e.get("end") or {}).get("date")
+        desc = e.get("description") or ""
+        m = key_re.search(desc)
+        if m:
+            h = hash_re.search(desc)
+            copies.append({"google_event_id": e.get("id"), "source_key": m.group(1),
+                           "content_hash": h.group(1) if h else None,
+                           "start_kiev": start, "title": e.get("summary")})
+        else:
+            atts = [a.get("email") for a in (e.get("attendees") or []) if a.get("email")]
+            natives.append({"title": e.get("summary"), "start_kiev": start, "end_kiev": end,
+                            "attendees": atts, "organizer": (e.get("organizer") or {}).get("email")})
+    return {"google_copies": copies, "google_native": natives}
+
+
+# --------------------------------------------------------------------------- #
 # CLI
 # --------------------------------------------------------------------------- #
 _COMMANDS = {
     "reconcile": reconcile,
+    "extract": extract,
     "schedule": schedule,
     "log-run": log_run,
     "daily-summary": daily_summary,

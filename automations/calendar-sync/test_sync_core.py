@@ -114,6 +114,42 @@ class TestReconcile(unittest.TestCase):
         self.assertEqual(guarded["counts"]["delete"], 0)
 
 
+class TestExtract(unittest.TestCase):
+    def test_split_copies_and_natives(self):
+        events = [
+            {"id": "g1", "summary": "SS: Product daily standup",
+             "description": "Join: https://t\n\n[[ss-sync:td:abc123]] [[ss-hash:deadbeef0000]]",
+             "start": {"dateTime": "2026-06-18T10:30:00+03:00"},
+             "end": {"dateTime": "2026-06-18T10:45:00+03:00"}},
+            {"id": "g2", "summary": "Dentist",
+             "description": "personal",
+             "start": {"dateTime": "2026-06-18T16:00:00+03:00"},
+             "end": {"dateTime": "2026-06-18T17:00:00+03:00"},
+             "attendees": [{"email": "olekorlov@softserveinc.com"}],
+             "organizer": {"email": "clinic@x.com"}},
+        ]
+        out = sc.extract({"events": events})
+        self.assertEqual(len(out["google_copies"]), 1)
+        self.assertEqual(out["google_copies"][0]["source_key"], "td:abc123")
+        self.assertEqual(out["google_copies"][0]["content_hash"], "deadbeef0000")
+        self.assertEqual(out["google_copies"][0]["google_event_id"], "g1")
+        self.assertEqual(len(out["google_native"]), 1)
+        self.assertEqual(out["google_native"][0]["attendees"], ["olekorlov@softserveinc.com"])
+
+    def test_extract_feeds_reconcile_roundtrip(self):
+        # a copy that is already up to date must round-trip to a skip
+        ev = src("Product Issues sync", "2026-06-18T08:00:00", "2026-06-18T08:30:00")
+        created = sc.reconcile(base([ev]))["creates"][0]
+        gevents = [{"id": "gZ", "summary": created["payload"]["summary"],
+                    "description": created["payload"]["description"],
+                    "start": {"dateTime": created["payload"]["startTime"]},
+                    "end": {"dateTime": created["payload"]["endTime"]}}]
+        copies = sc.extract({"events": gevents})["google_copies"]
+        out = sc.reconcile(base([ev], google_copies=copies))
+        self.assertEqual(out["counts"], {"create": 0, "update": 0, "delete": 0, "skip": 1})
+        self.assertEqual(out["skips"][0]["reason"], "up-to-date")
+
+
 class TestSchedule(unittest.TestCase):
     def test_weekday_in_window(self):
         s = sc.schedule({"now_utc": "2026-06-17T07:30:00Z"})  # Wed 10:30 Kyiv
