@@ -174,6 +174,14 @@ final class AppDelegate: NSObject, NSApplicationDelegate, WKNavigationDelegate, 
         NSApp.activate(ignoringOtherApps: true)
     }
     @objc func centerWindow() { window.center(); showFront() }
+    // Hide the floating window (without quitting) / bring it back.
+    @objc func toggleHideShow() {
+        if window.isVisible { window.orderOut(nil) } else { showFront() }
+    }
+    // Keep the menu label accurate each time the menu opens.
+    func menuWillOpen(_ menu: NSMenu) {
+        hideShowItem?.title = window.isVisible ? "Hide" : "Show"
+    }
 
     // Floating = always above other windows. Off = normal level, so it sits
     // among / behind your windows (like a desktop widget). Persisted.
@@ -195,6 +203,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, WKNavigationDelegate, 
         case "q", "w": NSApp.terminate(nil); return true
         case "r": reloadPanel(); return true
         case "t": toggleAlwaysOnTop(); return true
+        case "h": toggleHideShow(); return true
         default: return false
         }
     }
