@@ -65,8 +65,17 @@ printf '%s' '{"now_utc":"2026-06-17T09:00:00Z","owa_tz":"America/Los_Angeles","s
   | bash automations/calendar-sync/core.sh reconcile
 ```
 
+## OWA session handling
+The OWA access token lapses ~hourly and shows the "Pick an account" picker. The read procedure
+**auto-restores** it: it clicks the already-**"Signed in"** SoftServe account (session selection — **no
+credentials entered**) and continues. It **only** stops for a genuine password / MFA / consent wall,
+which it reports via the daily summary so you sign in once. Tick **"Stay signed in?"** at that sign-in
+to keep the session alive for weeks and make full re-auths rare.
+
 ## Limits
-- Runs only while the **Mac is awake/unlocked** and you're **signed into OWA**. The daily summary is the liveness signal.
+- Runs only while the **Mac is awake/unlocked**. Intra-day token lapses are auto-handled (above); a
+  full re-auth (per SoftServe Conditional Access) needs you and is surfaced in the daily summary.
+- The browser-session dependency disappears entirely with the **Apple Calendar / EventKit** upgrade below.
 - The new Outlook for Mac keeps **no parseable local calendar store**, so OWA is the read path. If the SS
   Exchange account is ever added to macOS **Calendar.app**, an EventKit read would be more robust (works while
   locked, fully headless) — see the plan's "Future upgrade".
