@@ -27,7 +27,10 @@ if "$TMUX_BIN" has-session -t "$SESSION" 2>/dev/null; then
 fi
 
 # caffeinate -i runs claude as its child and holds off idle sleep for its lifetime.
-"$TMUX_BIN" new-session -d -s "$SESSION" -x 220 -y 50 "cd \"$REPO\" && exec caffeinate -i \"$CLAUDE_BIN\""
+# --dangerously-skip-permissions: this is an UNATTENDED loop — it must never block on a
+# permission prompt. The session only ever runs the bounded calendar-sync-loop skill on
+# the user's own machine/data, so auto-approving its tool calls is the intended posture.
+"$TMUX_BIN" new-session -d -s "$SESSION" -x 220 -y 50 "cd \"$REPO\" && exec caffeinate -i \"$CLAUDE_BIN\" --dangerously-skip-permissions"
 sleep 6                                   # let the session reach its prompt
 "$TMUX_BIN" send-keys -t "$SESSION" "$LOOP_CMD" Enter
 echo "[start] launched '$SESSION' with: $LOOP_CMD"
