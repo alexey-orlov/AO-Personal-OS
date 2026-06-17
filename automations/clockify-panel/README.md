@@ -126,11 +126,13 @@ cd desktop
 ```
 
 Controls: **Cmd+drag** to move (plain clicks go to the UI), drag an edge to
-resize, **Cmd+R** reload, **Cmd+Q** quit. It needs the local server running
-(the `:7878` agent above). It retries until the server is reachable, so login
-order doesn't matter. Source: `desktop/ClockifyPanel.swift`, `desktop/Info.plist`,
-`desktop/build.sh`, `desktop/com.user.clockify-widget.plist`. The built `.app`
-lives in `~/Applications` (not committed); re-run `build.sh` to rebuild.
+resize, **Cmd+T** toggle Always-on-Top (off = it sits among/behind your windows
+like a desktop widget; the choice persists), **Cmd+R** reload, **Cmd+Q** quit.
+It needs the local server running (the `:7878` agent above) and retries until
+reachable, so login order doesn't matter. The icon (`desktop/make_icon.swift`)
+mirrors the widget — a 2×2 of the project colors. Source: `desktop/*.swift`,
+`desktop/Info.plist`, `desktop/build.sh`, `desktop/com.user.clockify-widget.plist`.
+The built `.app` lives in `~/Applications` (not committed); re-run `build.sh`.
 
 ## Files
 

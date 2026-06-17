@@ -26,6 +26,9 @@ final class WidgetWindow: NSWindow {
 final class AppDelegate: NSObject, NSApplicationDelegate, WKNavigationDelegate {
     var window: WidgetWindow!
     var webView: WKWebView!
+    // Persisted: floating (always on top) vs normal (sits behind your windows).
+    var alwaysOnTop = (UserDefaults.standard.object(forKey: "alwaysOnTop") as? Bool) ?? true
+    var onTopMenuItem: NSMenuItem?
 
     func applicationDidFinishLaunching(_ notification: Notification) {
         NSApp.setActivationPolicy(.accessory) // no Dock icon; it's a desktop widget
@@ -36,8 +39,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, WKNavigationDelegate {
                               backing: .buffered,
                               defer: false)
         window.isMovableByWindowBackground = false   // we drive moves via Cmd+drag
-        window.level = .floating                      // stays above normal windows
-        window.collectionBehavior = [.canJoinAllSpaces, .fullScreenAuxiliary]
+        applyLevel()                                  // floating vs normal (persisted)
         window.isOpaque = false
         window.backgroundColor = .clear
         window.hasShadow = true
@@ -83,6 +85,11 @@ final class AppDelegate: NSObject, NSApplicationDelegate, WKNavigationDelegate {
         let appItem = NSMenuItem()
         mainMenu.addItem(appItem)
         let appMenu = NSMenu()
+        let onTop = NSMenuItem(title: "Always on Top", action: #selector(toggleAlwaysOnTop), keyEquivalent: "t")
+        onTop.state = alwaysOnTop ? .on : .off
+        appMenu.addItem(onTop)
+        onTopMenuItem = onTop
+        appMenu.addItem(NSMenuItem.separator())
         appMenu.addItem(withTitle: "Reload", action: #selector(reloadPanel), keyEquivalent: "r")
         appMenu.addItem(NSMenuItem.separator())
         appMenu.addItem(withTitle: "Quit", action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q")
@@ -90,6 +97,23 @@ final class AppDelegate: NSObject, NSApplicationDelegate, WKNavigationDelegate {
         NSApp.mainMenu = mainMenu
     }
     @objc func reloadPanel() { loadPanel() }
+
+    // Floating = always above other windows. Off = normal level, so it sits
+    // among / behind your windows (like a desktop widget). Persisted.
+    func applyLevel() {
+        window.level = alwaysOnTop ? .floating : .normal
+        window.collectionBehavior = [.canJoinAllSpaces, .fullScreenAuxiliary]
+        onTopMenuItem?.state = alwaysOnTop ? .on : .off
+    }
+    @objc func toggleAlwaysOnTop() {
+        alwaysOnTop.toggle()
+        UserDefaults.standard.set(alwaysOnTop, forKey: "alwaysOnTop")
+        applyLevel()
+        if alwaysOnTop {
+            window.makeKeyAndOrderFront(nil)
+            NSApp.activate(ignoringOtherApps: true)
+        }
+    }
 
     // Cmd + left-drag moves the window from anywhere; plain clicks fall through
     // to the web UI (buttons, field) untouched.

@@ -21,6 +21,17 @@ xcrun swiftc ClockifyPanel.swift -O \
   -sdk "$SDK" -target "$TARGET" \
   -o "build/$EXE" -framework Cocoa -framework WebKit
 
+echo "Generating app icon …"
+xcrun swiftc make_icon.swift -O -sdk "$SDK" -target "$TARGET" -o build/make_icon -framework Cocoa
+build/make_icon build/icon_1024.png
+ICONSET="build/AppIcon.iconset"
+rm -rf "$ICONSET"; mkdir -p "$ICONSET"
+for sz in 16 32 128 256 512; do
+  sips -z $sz $sz       build/icon_1024.png --out "$ICONSET/icon_${sz}x${sz}.png"    >/dev/null
+  sips -z $((sz*2)) $((sz*2)) build/icon_1024.png --out "$ICONSET/icon_${sz}x${sz}@2x.png" >/dev/null
+done
+iconutil -c icns "$ICONSET" -o build/AppIcon.icns
+
 echo "Assembling ${APP_DIR} …"
 # stop any running instance so the binary can be replaced
 pkill -f "${APP_NAME}.app/Contents/MacOS/${EXE}" 2>/dev/null || true
@@ -28,6 +39,7 @@ rm -rf "$APP_DIR"
 mkdir -p "$APP_DIR/Contents/MacOS" "$APP_DIR/Contents/Resources"
 cp "build/$EXE" "$APP_DIR/Contents/MacOS/$EXE"
 cp Info.plist "$APP_DIR/Contents/Info.plist"
+cp build/AppIcon.icns "$APP_DIR/Contents/Resources/AppIcon.icns"
 chmod +x "$APP_DIR/Contents/MacOS/$EXE"
 
 echo "Ad-hoc code-signing …"

@@ -10,6 +10,8 @@
   <string>com.user.clockify-panel</string>
   <key>CFBundleExecutable</key>
   <string>ClockifyPanel</string>
+  <key>CFBundleIconFile</key>
+  <string>AppIcon</string>
   <key>CFBundlePackageType</key>
   <string>APPL</string>
   <key>CFBundleShortVersionString</key>
