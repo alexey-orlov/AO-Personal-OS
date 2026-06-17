@@ -216,6 +216,8 @@ def build_payload(ev, start_kiev, end_kiev, cfg):
         "visibility": "private",
         "notificationLevel": "NONE",
         "timeZone": cfg["tz"],
+        # declined meetings shouldn't block your time -> Free; everything else stays Busy
+        "transparency": "transparent" if ev.get("my_status") == "declined" else "opaque",
     }
     if ev.get("all_day"):
         payload["allDay"] = True

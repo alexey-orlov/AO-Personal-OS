@@ -75,6 +75,7 @@ def to_api_body(p, source_key=None, content_hash=None):
         "location": p.get("location", ""),
         "description": p.get("description", ""),
         "visibility": p.get("visibility", "private"),
+        "transparency": p.get("transparency", "opaque"),   # Busy unless declined
     }
     if source_key:
         body["extendedProperties"] = {"private": {"ssSync": source_key, "ssHash": content_hash or ""}}
