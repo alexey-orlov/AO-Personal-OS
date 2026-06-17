@@ -98,8 +98,10 @@ def _sha(*parts):
     return h.hexdigest()
 
 
-def content_hash(norm_title, start_kiev_iso, end_kiev_iso, location, join_url):
-    return _sha(norm_title, start_kiev_iso, end_kiev_iso, location or "", join_url or "")[:16]
+def content_hash(norm_title, start_kiev_iso, end_kiev_iso, location, join_url, description="", resp=""):
+    # description carries note + organizer + participants, so any of those changing -> update
+    return _sha(norm_title, start_kiev_iso, end_kiev_iso, location or "", join_url or "",
+                description or "", resp or "")[:16]
 
 
 def source_key(ev, start_kiev):
