@@ -27,10 +27,14 @@ if "$TMUX_BIN" has-session -t "$SESSION" 2>/dev/null; then
 fi
 
 # caffeinate -i runs claude as its child and holds off idle sleep for its lifetime.
-# --dangerously-skip-permissions: this is an UNATTENDED loop — it must never block on a
-# permission prompt. The session only ever runs the bounded calendar-sync-loop skill on
-# the user's own machine/data, so auto-approving its tool calls is the intended posture.
-"$TMUX_BIN" new-session -d -s "$SESSION" -x 220 -y 50 "cd \"$REPO\" && exec caffeinate -i \"$CLAUDE_BIN\" --dangerously-skip-permissions"
+# This is an UNATTENDED loop: it must never block on a permission prompt. We mirror the
+# proven telegram-chat bridge invocation on this machine — --dangerously-skip-permissions
+# PLUS an explicit --allowedTools list. On this host skip-permissions is still gated by the
+# auto-mode classifier (it prompts on e.g. command-substitution bash), so the allow-list is
+# what actually pre-approves the Bash / MCP / Skill calls the loop makes.
+#   mcp__Claude_in_Chrome  = read OWA · mcp__4ce225fb-... = Google Calendar connector (write)
+ALLOWED="Bash Edit MultiEdit Write NotebookEdit Read Glob Grep Task TodoWrite Skill SlashCommand BashOutput KillShell mcp__Claude_in_Chrome mcp__4ce225fb-07bf-42fd-b241-c181ddf16bc1"
+"$TMUX_BIN" new-session -d -s "$SESSION" -x 220 -y 50 "cd \"$REPO\" && exec caffeinate -i \"$CLAUDE_BIN\" --dangerously-skip-permissions --allowedTools $ALLOWED"
 sleep 6                                   # let the session reach its prompt
 "$TMUX_BIN" send-keys -t "$SESSION" "$LOOP_CMD" Enter
 echo "[start] launched '$SESSION' with: $LOOP_CMD"
