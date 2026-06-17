@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
 # config.sh — constants for calendar-sync. Sourced by the skill and the loop.
 # Edit values here; secrets (Telegram) come from automations/telegram/config.sh.
-HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-export CALSYNC_HERE="$HERE"
-export CALSYNC_REPO="$(cd "$HERE/../.." && pwd)"
+# NB: resolved from $HOME, not ${BASH_SOURCE[0]}, so it works whether sourced
+# from bash OR zsh (zsh leaves BASH_SOURCE unset). Override with CALSYNC_REPO.
+export CALSYNC_REPO="${CALSYNC_REPO:-$HOME/Documents/GitHub/AO-Personal-OS}"
+export CALSYNC_HERE="$CALSYNC_REPO/automations/calendar-sync"
 export CALSYNC_CORE="$HERE/core.sh"
 export CALSYNC_STATE="$HERE/.work/state"
 export CALSYNC_LEDGER="$CALSYNC_STATE/ledger.json"
