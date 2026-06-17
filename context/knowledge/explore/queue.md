@@ -14,6 +14,7 @@ Format: `- [ ] YYYY-MM-DD — topic — why it matters ([drop](provenance))[ →
 
 ## Open
 
+- [ ] 2026-06-16 — spec-driven development — what it is specifically, its techniques, and relevance to Alex's product/AI-engineering work ([drop](../../_inbox/processed/tg-20260616-134617-107.md)) → [brief](briefs/spec-driven-development.md)
 - [ ] 2026-06-13 — Opus 4.8 workflows for research / scraping in Personal OS — whether extended-thinking workflow patterns offer a better fit for multi-step research and web-scraping tasks than current skill composition ([drop](../../_inbox/processed/tg-20260613-123114-94.md)) → [brief](briefs/opus-48-workflows-research-scraping.md)
 - [ ] 2026-06-13 — multi-agent orchestration: supervisor vs peer-to-peer vs scripted workflows — specific use cases for each; when (if ever) Alex hand-designs peer-to-peer vs leaving it to the platform (Claude Code); build on prior agent-swarms research ([drop](../../_inbox/processed/tg-20260613-124731-97.md)) → [brief](briefs/multi-agent-orchestration-patterns.md)
 - [ ] 2026-06-12 — subagents and agent swarms — real use cases, demos, and how to decide between a skill vs a subagent ([drop](../../_inbox/processed/tg-20260612-235939-84.md)) → [brief](briefs/agent-swarms-subagents.md)
