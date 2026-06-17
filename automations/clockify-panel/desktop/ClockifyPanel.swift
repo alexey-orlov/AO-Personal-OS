@@ -53,12 +53,13 @@ final class WidgetWindow: NSWindow {
     }
 }
 
-final class AppDelegate: NSObject, NSApplicationDelegate, WKNavigationDelegate {
+final class AppDelegate: NSObject, NSApplicationDelegate, WKNavigationDelegate, NSMenuDelegate {
     var window: WidgetWindow!
     var webView: WKWebView!
     // Persisted: floating (always on top) vs normal (sits behind your windows).
     var alwaysOnTop = (UserDefaults.standard.object(forKey: "alwaysOnTop") as? Bool) ?? true
     var onTopMenuItem: NSMenuItem?
+    var hideShowItem: NSMenuItem?
     var statusItem: NSStatusItem?
 
     func applicationDidFinishLaunching(_ notification: Notification) {
@@ -150,7 +151,11 @@ final class AppDelegate: NSObject, NSApplicationDelegate, WKNavigationDelegate {
             btn.toolTip = "Clockify Panel"
         }
         let menu = NSMenu()
-        menu.addItem(withTitle: "Show / Bring to Front", action: #selector(showFront), keyEquivalent: "")
+        menu.delegate = self   // so the Hide/Show label reflects current visibility
+        let hs = NSMenuItem(title: "Hide", action: #selector(toggleHideShow), keyEquivalent: "h")
+        menu.addItem(hs)
+        hideShowItem = hs
+        menu.addItem(.separator())
         let onTop = NSMenuItem(title: "Always on Top", action: #selector(toggleAlwaysOnTop), keyEquivalent: "t")
         onTop.state = alwaysOnTop ? .on : .off
         menu.addItem(onTop)
