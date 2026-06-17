@@ -66,8 +66,9 @@ def read_ss():
     return evs, True, None
 
 
-def to_api_body(p):
-    """sync_core payload -> Google Calendar API v3 body (sendUpdates=none handles 'no email')."""
+def to_api_body(p, source_key=None, content_hash=None):
+    """sync_core payload -> Google Calendar API v3 body (sendUpdates=none handles 'no email').
+    The sync marker goes in private extendedProperties, keeping the description clean."""
     body = {
         "summary": p["summary"],
         "attendees": p.get("attendees", []),
@@ -75,6 +76,8 @@ def to_api_body(p):
         "description": p.get("description", ""),
         "visibility": p.get("visibility", "private"),
     }
+    if source_key:
+        body["extendedProperties"] = {"private": {"ssSync": source_key, "ssHash": content_hash or ""}}
     if p.get("allDay"):
         body["start"] = {"date": p["startTime"]}
         body["end"] = {"date": p["endTime"]}
@@ -133,14 +136,14 @@ def main():
     errors = []
     for x in plan["creates"]:
         try:
-            ev = gcal.create_event(to_api_body(x["payload"]))
+            ev = gcal.create_event(to_api_body(x["payload"], x["source_key"], x["content_hash"]))
             applied["creates"].append({**{k: x[k] for k in ("source_key", "content_hash", "start_kiev", "title")},
                                        "google_event_id": ev["id"]})
         except Exception as e:
             errors.append("create '%s': %s" % (x["payload"]["summary"], e))
     for x in plan["updates"]:
         try:
-            gcal.update_event(x["google_event_id"], to_api_body(x["payload"]))
+            gcal.update_event(x["google_event_id"], to_api_body(x["payload"], x["source_key"], x["content_hash"]))
             applied["updates"].append({k: x[k] for k in ("source_key", "content_hash", "start_kiev", "title", "google_event_id")})
         except Exception as e:
             errors.append("update '%s': %s" % (x["payload"]["summary"], e))
