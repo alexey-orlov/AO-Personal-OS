@@ -236,6 +236,13 @@ class TestEnrichment(unittest.TestCase):
         self.assertEqual(sc.response_status(""), "accepted")
         self.assertEqual(sc.response_status("declined"), "declined")
 
+    def test_declined_is_free_accepted_is_busy(self):
+        pd = sc.reconcile(base([src("X", "2026-06-18T06:00:00", "2026-06-18T06:30:00", my_status="declined")]))["creates"][0]["payload"]
+        pa = sc.reconcile(base([src("Y", "2026-06-18T07:00:00", "2026-06-18T07:30:00", my_status="accepted")]))["creates"][0]["payload"]
+        self.assertEqual(pd["transparency"], "transparent")              # declined -> Free
+        self.assertEqual(pd["attendees"][0]["responseStatus"], "declined")
+        self.assertEqual(pa["transparency"], "opaque")                  # accepted -> Busy
+
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)
