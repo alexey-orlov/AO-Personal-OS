@@ -11,6 +11,14 @@ Read-only, via the **Claude-for-Chrome MCP** (`mcp__Claude_in_Chrome__*`). Runs 
    - **Account picker** ("Pick an account") with the SoftServe account `olekorlov@softserveinc.com` shown as **"Signed in"** → a routine token lapse (OWA access tokens expire ~hourly). **Click that account** to restore the session, wait ~2 s, and re-read. Locate it by its text — the button reads `Sign in with olekorlov@softserveinc.com work or school account.` — and click it. **Alex has pre-authorized this**: selecting an already-"Signed in" account restores an existing session and enters **no** credentials. If it then lands on the calendar → continue. Do this automatically every run; never wait for a human for this case.
    - **Anything that actually authenticates** — a password field, an MFA / Authenticator prompt, a consent screen, or a picker where the SoftServe account is **not** "Signed in" → **do not type, approve, or click through it.** Set `source_complete:false`, log `error:"OWA needs sign-in"`, and stop. The daily summary surfaces it, and Alex signs in once (checking **"Stay signed in?"** keeps the session alive for weeks, so this stays rare).
 
+## 0b. Clear any interstitial modal FIRST  (or clicks silently fail)
+OWA periodically shows blocking modals over the calendar — the **"You're on the move!"** timezone prompt, onboarding / "What's new" dialogs, etc. They sit on top and **swallow clicks**: a click that "registers" but changes nothing almost always means a modal is up. Before reading or clicking anything:
+- `read_page` / screenshot; if a modal/overlay is present, dismiss it by finding a **"Not now" / "Later" / "Dismiss" / "Got it" / close (×)** control and clicking it (by `ref` or coordinate via the `computer` tool).
+- **Never** click **"Yes" / "Allow" / "Never" / "Update"** on these — they change Alex's Outlook settings. The **"You're on the move!"** timezone dialog specifically: dismiss with **"Not now"**; do NOT accept (the sync self-calibrates regardless of OWA's timezone).
+- Re-check after dismissing — clear a second modal if one appears.
+
+Clicking via the **`computer` tool by `ref`** (`{action:"left_click", ref:"ref_N"}`) is reliable once the view is unobstructed; this is also how the account-picker restore (step 0) and event-open (step 3) clicks work.
+
 ## 1. Capture the timezone calibration  (critical)
 OWA renders this mailbox in **US/Pacific**, *not* Kyiv — a naïve copy is ~10 h wrong. The core self-calibrates, but you must hand it OWA's clock:
 - From `read_page`, read the **"Go to today …"** button (e.g. `Go to today June 17, 2026`) → OWA's today date.
