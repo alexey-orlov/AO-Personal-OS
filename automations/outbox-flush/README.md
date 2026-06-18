@@ -28,6 +28,14 @@ canonical spec lives there):
 - A failed send leaves the card queued (no DELETE) — retried next day; crash alerts go via
   the shared error workflow ("Podcast streaming — error alerts" → Telegram).
 - `.gitkeep` and non-JSON files are ignored.
+- **Button sanitize (Decode card node):** each button's `url` must be a bare `https://…`.
+  A malformed card (e.g. a fan-out subagent that crammed `"label https://…"` into the url
+  field) would otherwise fail the send with `BUTTON_URL_INVALID` and poison the batch — the
+  2026-06-18 incident where two explore briefs were dropped and a third was delivered 3×.
+  The Decode node now drops invalid buttons so the card still delivers its text. The source
+  fix lives in `.claude/skills/explore-brief/SKILL.md` (build cards via
+  `telegram_send_with_button.sh`, never hand-assemble the JSON). **The repo JSON change is
+  inert until re-imported into the live n8n workflow via the n8n MCP** (see Ops notes).
 
 ## History
 

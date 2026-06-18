@@ -170,5 +170,6 @@ One short block: `processed N (folded F · junk J · dup D · pending-voice V) �
 - Drops routed by TYPE (step 3b): no goal/task/insight/book/explore item buried in an area page; prefix hints overridden where content said otherwise; duplicates collapsed to one item.
 - Bare URLs were fetched, images were read.
 - Every goal/task/insight drop produced exactly one apple-notes queue card (verbatim body, frontmatter complete); books/explore produced their notifications via their skills; outbox + queue files, if any, are committed.
+- Every queued outbox card is well-formed before commit: each `buttons[][].url` is a bare `https://…` (no spaces, no label prefix). Malformed button URLs are rejected by Telegram (`BUTTON_URL_INVALID`) and can poison the whole flush batch — a frequent failure when a fan-out subagent hand-builds the card JSON instead of going through `telegram_send_with_button.sh` (separate `text` and `url` args). Re-generate any bad card via the script.
 - Folded `context/_inbox/` files moved to `processed/` so the staging dir holds only the backlog.
 - Sweep/interactive: changes committed as `context: …`; headless: no git, no Telegram.

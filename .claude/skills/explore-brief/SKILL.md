@@ -64,7 +64,15 @@ _date: YYYY-MM-DD · sources: N · provenance: [drop](…) or (chat/queue)_
    if this topic wasn't captured before). The line stays `- [ ]` — Alex checks it off
    himself after reading.
 5. **Deliver to Telegram** — `TG_TOPIC=explore`, via
-   `automations/telegram/telegram_send_with_button.sh "<btn> <url>"…`:
+   `automations/telegram/telegram_send_with_button.sh`. **Button label and URL are
+   SEPARATE shell arguments** — one `(text, url)` pair per button row:
+   `… telegram_send_with_button.sh "Full brief" "<brief-url>" "Anthropic report" "<src-url>" …`
+   (body on stdin). NEVER pass `"label url"` as one argument and NEVER hand-assemble the
+   outbox card JSON — both produce a button whose `url` field carries a label prefix, which
+   Telegram rejects (`BUTTON_URL_INVALID`) and which can poison a whole outbox-flush batch.
+   Always go through the script; it builds the `{text,url}` objects correctly. Before
+   committing a queued card, verify each `buttons[][].url` is a bare `https://…` with no
+   spaces or label prefix.
    - Body (plain text, ≤3000 chars): `🔭 <topic>` + blank line + TL;DR + 2–4 key points
      (one line each, tier in parentheses).
    - Buttons: `Full brief` → `https://github.com/alexey-orlov/AO-Personal-OS/blob/main/context/knowledge/explore/briefs/<slug>.md`,
