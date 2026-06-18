@@ -62,6 +62,7 @@ def read_ss():
             "start_wall": e.get("start"),           # absolute ISO (Kyiv) — naive-stripped + reinterpreted in tz
             "end_wall": e.get("end"),
             "all_day": e.get("all_day", False),
+            "recurring": e.get("recurring", False),   # recurring instances share one id -> key adds the date
             "online": e.get("online", False),
             "join_url": e.get("join_url"),
             "location": e.get("location", ""),

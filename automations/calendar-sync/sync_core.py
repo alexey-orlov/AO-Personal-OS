@@ -107,15 +107,20 @@ def content_hash(norm_title, start_kiev_iso, end_kiev_iso, location, join_url,
 
 
 def source_key(ev, start_kiev):
-    """Stable key. Prefer OWA's own id; else title + Kyiv calendar-date.
+    """Stable PER-OCCURRENCE key. Prefer EventKit's own id; else title + Kyiv date.
 
-    Title+date means a same-day reschedule is an UPDATE (key stable) while a
-    cross-day move degrades to delete+create — both leave Google correct, and
-    recurring daily instances stay distinct (one per date).
+    A recurring series shares ONE EventKit id across every instance, so for recurring
+    events we append the Kyiv date — otherwise weekly/daily occurrences collide on a single
+    key and overwrite each other (one copy goes stale; the exact 'Weekly sync-up' bug).
+
+    Date-in-key means a same-day reschedule is an UPDATE (key stable) while a cross-day move
+    degrades to delete+create — both leave Google correct.
     """
+    day = start_kiev.date().isoformat()
     if ev.get("owa_id"):
-        return "id:" + str(ev["owa_id"])
-    return "td:" + _sha(normalize_title(ev.get("title", "")), start_kiev.date().isoformat())[:16]
+        base = "id:" + str(ev["owa_id"])
+        return base + "@" + day if ev.get("recurring") else base
+    return "td:" + _sha(normalize_title(ev.get("title", "")), day)[:16]
 
 
 # --------------------------------------------------------------------------- #

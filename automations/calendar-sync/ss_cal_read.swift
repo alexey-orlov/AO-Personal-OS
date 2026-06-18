@@ -123,6 +123,7 @@ for e in evs {
     f.append("\"start\":\"\(iso.string(from: e.startDate))\"")
     f.append("\"end\":\"\(iso.string(from: e.endDate))\"")
     f.append("\"all_day\":\(e.isAllDay)")
+    f.append("\"recurring\":\(e.hasRecurrenceRules)")   // a series shares one id across instances -> key must add the date
     f.append("\"location\":\"\(esc(e.location ?? ""))\"")
     f.append("\"organizer\":\"\(esc(e.organizer?.name ?? ""))\"")
     f.append("\"organizer_email\":\"\(esc(orgEmail))\"")
