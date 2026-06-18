@@ -4,7 +4,8 @@ One n8n cloud workflow, **"Outbox flush (cloud)"** (id `q8OQXe2gwMk4rOxN`),
 laptop-independent:
 
 ```
-Schedule 08:50 Kyiv ─▶ GET context/_inbox/outbox/*.json ─▶ sendMessage ─▶ DELETE card
+Schedule 08:50 Kyiv ─▶ list outbox/*.json ─▶ decode (sanitize buttons) ─▶ sendMessage
+                          ─▶ DELETE card ─[on error]▶ Refetch sha ─[still there]▶ DELETE retry
 ```
 
 When a fold run has no Telegram credentials (the claude.ai cloud routine sandbox),
