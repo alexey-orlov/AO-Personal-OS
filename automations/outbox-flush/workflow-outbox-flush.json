@@ -147,6 +147,7 @@
       "retryOnFail": true,
       "maxTries": 3,
       "waitBetweenTries": 2000,
+      "onError": "continueErrorOutput",
       "parameters": {
         "method": "POST",
         "url": "https://api.telegram.org/botREDACTED_BOT_TOKEN/sendMessage",

@@ -25,17 +25,26 @@ canonical spec lives there):
 
 - `thread_id` is resolved from `automations/telegram/topics.env` at queue time; the group
   chat id lives only in n8n/Keychain, never in the card.
-- A failed send leaves the card queued (no DELETE) — retried next day; crash alerts go via
-  the shared error workflow ("Podcast streaming — error alerts" → Telegram).
-- `.gitkeep` and non-JSON files are ignored.
-- **Button sanitize (Decode card node):** each button's `url` must be a bare `https://…`.
-  A malformed card (e.g. a fan-out subagent that crammed `"label https://…"` into the url
-  field) would otherwise fail the send with `BUTTON_URL_INVALID` and poison the batch — the
-  2026-06-18 incident where two explore briefs were dropped and a third was delivered 3×.
-  The Decode node now drops invalid buttons so the card still delivers its text. The source
-  fix lives in `.claude/skills/explore-brief/SKILL.md` (build cards via
-  `telegram_send_with_button.sh`, never hand-assemble the JSON). **The repo JSON change is
-  inert until re-imported into the live n8n workflow via the n8n MCP** (see Ops notes).
+- A failed send routes the card to the Send node's **error output** (`onError:
+  continueErrorOutput`), which is unconnected — so the card stays queued (no DELETE) and is
+  retried next day, while every *successfully* sent card in the same batch is deleted
+  immediately. `.gitkeep` and non-JSON files are ignored.
+- **2026-06-18 incident — one card delivered 3× (root cause + fix).** Two of three queued
+  explore briefs had malformed inline buttons (`url` field = `"label https://…"`, invalid →
+  Telegram `BUTTON_URL_INVALID`). The Send node had no `onError` handler, so after the two
+  failed and the third (Enterprise) succeeded, the node **threw and stopped the workflow
+  before `DELETE card` ran** — nothing was dequeued. Every later flush re-ran and re-sent the
+  one card that succeeds, so Enterprise arrived 3× while the two malformed cards never
+  delivered. Two structural fixes, both needed:
+  1. **Send `onError: continueErrorOutput`** — a failed send no longer stops the batch; the
+     success output (main 0) → DELETE, so each sent card is dequeued per-item and can never
+     be re-sent because a sibling failed. (This is the real duplication fix.)
+  2. **Button sanitize (Decode card node)** — drops any button whose `url` isn't a bare
+     `https://…`, so a malformed card still delivers its text instead of erroring at all.
+  Source-side fix: `.claude/skills/explore-brief/SKILL.md` (build cards via
+  `telegram_send_with_button.sh` with separate `text`/`url` args; never hand-assemble the
+  JSON). **The repo JSON change is inert until re-imported into the live n8n workflow via the
+  n8n MCP** (see Ops notes) — until then the live flow still has the duplication bug.
 
 ## History
 
