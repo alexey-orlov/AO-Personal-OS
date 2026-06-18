@@ -14,6 +14,14 @@ _source: LinkedIn + public-web research run in-session 2026-06-16 (per-profile s
 
 ## Roster
 
+### Engagement lead — AI Accelerators (across both motions)
+
+| Person | Role / title | Seniority | Notes | Base |
+|---|---|---|---|---|
+| **Gero Gunkel** (gero.gunkel@oracle.com) | Oracle **"customer CTO,"** customer-facing **across data & AI**, pre-sales + commercial; **leads the entire AI Accelerators engagement** (not just AIDP) and **owns the productization/scaling workstream** Alex is joining — Karsten's main Oracle contact, who routes prioritization / scope / platform-direction questions to him (confirmed 2026-06-18). Also AIDP call host/sponsor (2026-06-12) and the "Speaker G" chasing NHS/DHL NDAs. | Senior IC / AI-product specialist — **exec *pedigree*; treated as the de-facto owner/decision-maker for the accelerator engagement, but still not a confirmed budget owner** (inferred) | Ex-Group/Global Head of AI, **Zurich Insurance** (~2016–2020; Gartner innovation award 2017); then COO of ZCAM; WEF AI-in-finserv working group; LSE + IMD; NLP/doc-extraction patents. Absent from all Oracle exec rosters/AI World speaker lists; personally chases the NHS/DHL NDAs (hands-on, not VP). **Read: best champion *and* the routing/decision point for accelerator scope & prioritization — confirm whether his "commercial" remit extends to package/accelerator funding.** Alex's dedicated discovery call being set up (week of 2026-06-22). | Zürich, CH |
+
+The US-based Oracle AI-accelerator/product teams (the Tuesday-sales-call PMs) are **largely separate from Gero**; their reporting/interest line to him is unknown (inferred separation, 2026-06-18) — an open mapping question.
+
 ### Motion A — OCI AI Infrastructure (+ NVIDIA)
 
 | Person | Role / title | Seniority | Focus | Base |
@@ -33,7 +41,6 @@ Structure: **US build/product** = Kennetz, Gupta, Kammari, Sindhwani. **EMEA sol
 
 | Person | Role / title | Seniority | Notes | Base |
 |---|---|---|---|---|
-| **Gero Gunkel** (gero.gunkel@oracle.com) | AIDP call **host/sponsor**; per Karsten (2026-06-18) Oracle **"customer CTO,"** customer-facing across data & AI, pre-sales + commercial, **leading the accelerator activities** — Karsten's main Oracle contact and the **owner of the productization/scaling workstream** Alex is joining (spans Motion B *and* Motion A) | Senior IC / AI-product specialist — **exec *pedigree*; treated as the de-facto owner/decision-maker for the accelerator workstream, but still not a confirmed budget owner** (inferred) | Ex-Group/Global Head of AI, **Zurich Insurance** (~2016–2020; Gartner innovation award 2017); then COO of ZCAM; WEF AI-in-finserv working group; LSE + IMD; NLP/doc-extraction patents. Absent from all Oracle exec rosters/AI World speaker lists; personally chases the NHS/DHL NDAs (hands-on, not VP). **Read: best champion, now also the routing/decision point for accelerator scope & prioritization — confirm whether his "commercial" remit extends to package/accelerator funding.** Alex's dedicated discovery call with him being set up (week of 2026-06-22). | Zürich, CH |
 | **Amit Tyagi** (amit.tyagi@oracle.com) | AIDP **technical lead** (ran deck + live demo); title "Data Management Domain Expert – Analytics, Cloud Solutions Architect"; **author of Oracle's official AIDP onboarding blog series** | Senior IC solution architect | "Black Belt" = Oracle internal expert-SE/specialist designation. Data-platform lineage (Oracle Analytics Cloud, Autonomous DW). India-origin (possible recent relocation). | Utrecht, NL |
 | **Milo** (Oracle) | AIDP **sales/partner lead**; owns commercials + joint-GTM follow-up | Unknown — **not yet researched** | **The Oracle node most likely to hold real commercial authority → research next.** | ? |
 
@@ -57,6 +64,6 @@ Full catalog + the stack picture in [oracle-ai-offerings.md](oracle-ai-offerings
 - **Vishnu Kammari** — AI Infrastructure, GPU Instances, OCI Enterprise AI, AI Services (his title spans infra + applied AI).
 - **Pulkit Sindhwani** — OCI Enterprise AI (GenAI/agentic) + multicloud DB (Database@Azure/AWS/Google) + Autonomous AI Database.
 - **Dennis Kennetz / Ritika Gupta** — AI Blueprints / GPU Scanner (under AI Infrastructure).
-- **Gero Gunkel** — Oracle AI Data Platform (strategy/sponsor).
+- **Gero Gunkel** — leads the overall AI Accelerators engagement across both motions; AIDP strategy/sponsor on the data-platform side.
 - **Amit Tyagi** — Oracle AI Data Platform + Analytics Cloud + Autonomous AI Database/Lakehouse + Select AI; author of the AIDP onboarding blog series.
 - **Mirjana Rakuljić** — Select AI / OCI AI Agents over Autonomous DB (bridges A↔B).
