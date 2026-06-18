@@ -1,0 +1,80 @@
+name,type,group,angle,tier,channel,feed,auto,last,flag
+Marty Cagan / SVPG,practitioner,main,Product leadership & PM craft,S,Blog (SVPG),https://www.svpg.com/feed/,rss,2026-04-27,~monthly; needs browser UA (403s bots); LinkedIn active too
+Lenny Rachitsky,creator,main,Product leadership & PM craft,S,Substack (written),https://www.lennysnewsletter.com/feed,rss,2026-06-17,cross-cutting; podcast already in your feed
+Melissa Perri,practitioner,main,Product leadership & PM craft,S,Product Thinking (YouTube),https://www.youtube.com/feeds/videos.xml?channel_id=UCXs8MCXAX2GIOAzhBCOQP0w,rss,2026-06-16,biweekly; her Substack is dead
+John Cutler (TBM),practitioner,main,Product leadership & PM craft,S,Substack,https://cutlefish.substack.com/feed,rss,2026-06-16,
+Teresa Torres (Product Talk),practitioner,main,Product leadership & PM craft,S,Blog,https://www.producttalk.org/feed/,rss,2026-06-16,
+Shreyas Doshi,practitioner,main,Product leadership & PM craft,S,Substack,https://shreyasdoshi.substack.com/feed,rss,2026-05-31,also heavy on LinkedIn/X
+First Round Review,vc,main,Product leadership & PM craft,S,Newsletter (email) / In Depth pod,https://feeds.megaphone.fm/FRCH6787238462,email,2026-06-04,blog RSS 404s post-migration; pod feed live
+Aakash Gupta (Product Growth),newsletter,main,Product leadership & PM craft,S,Substack,https://www.news.aakashg.com/feed,rss,2026-06-17,podcast already in your feed
+Ravi Mehta (Ravi on Product),practitioner,main,Product leadership & PM craft,A,Substack,https://blog.ravi-mehta.com/feed,rss,2026-06-09,
+Julie Zhuo (The Looking Glass),practitioner,main,Product leadership & PM craft,A,Substack,https://lg.substack.com/feed,rss,2026-06-13,
+Mind the Product,company,main,Product leadership & PM craft,A,Podcast (Buzzsprout),https://feeds.buzzsprout.com/1797429.rss,rss,2026-06-10,blog RSS redirect-broken; use pod feed
+Casey Winters,practitioner,main,Product leadership & PM craft,A,Blog,https://www.caseyaccidental.com/feed,rss,2026-05-05,~monthly
+Sequoia Capital,vc,main,Product leadership & PM craft,A,Training Data (podcast),https://feeds.megaphone.fm/trainingdata,rss,2026-06-16,Inference Substack is dead
+Brian Balfour,practitioner,main,Product leadership & PM craft,A,Blog,https://blog.brianbalfour.com/feed,rss,2025-10-02,FLAG: infrequent (~quarterly); X for between-posts
+Reforge,company,main,Product leadership & PM craft,A,YouTube,https://www.youtube.com/feeds/videos.xml?channel_id=UCG267cMJ0SN-jbFBp2y_9kA,rss,2026-05-30,FLAG: slowing post-Miro acquisition; re-check Q3
+Ken Norton (Bring the Donuts),practitioner,main,Product leadership & PM craft,A,Newsletter (email),email: bringthedonuts.com,email,-,also fits job-search
+Tomasz Tunguz,vc,main,"B2B SaaS GTM, growth, pricing & scaling",S,Blog,https://tomtunguz.com/index.xml,rss,2026-06-17,near-daily; spans AI-industry too
+Jason Lemkin (SaaStr),creator,main,"B2B SaaS GTM, growth, pricing & scaling",S,Blog,https://www.saastr.com/feed/,rss,2026-06-17,near-daily; SaaStr pod already in your feed
+Elena Verna,practitioner,main,"B2B SaaS GTM, growth, pricing & scaling",S,Substack (Growth Scoop),https://www.elenaverna.com/feed,rss,2026-06-05,LinkedIn heavy; guests on Lenny pod
+Kyle Poyar (Growth Unhinged),creator,main,"B2B SaaS GTM, growth, pricing & scaling",S,"Newsletter (Beehiiv, email)",email: growthunhinged.com,email,live,Substack mirror is dead — use email
+Bessemer (Atlas / State of the Cloud),vc,main,"B2B SaaS GTM, growth, pricing & scaling",S,Newsletter (email),email: bvp.com/subscribe,email,-,
+ICONIQ Growth,vc,main,"B2B SaaS GTM, growth, pricing & scaling",S,Newsletter (email),email: iconiqcapital.com/growth/signup,email,-,Medium feed dead since 2022
+a16z Enterprise,vc,main,"B2B SaaS GTM, growth, pricing & scaling",A,Substack,https://www.a16z.news/feed,rss,2026-06-17,a16zenterprise.substack is dormant; podcast in your feed
+CJ Gustafson (Mostly Metrics),creator,main,"B2B SaaS GTM, growth, pricing & scaling",A,"Newsletter (Beehiiv, email)",email: mostlymetrics.com,email,2026-06-16,custom-domain RSS Cloudflare-blocked
+Emily Kramer (MKT1),practitioner,main,"B2B SaaS GTM, growth, pricing & scaling",A,Substack,https://newsletter.mkt1.co/feed,rss,2026-06-09,
+PricingSaaS (Good Better Best),company,main,"B2B SaaS GTM, growth, pricing & scaling",A,Substack,https://goodbetterbest.substack.com/feed,rss,2026-05-01,
+GTMnow (GTMfund),vc,main,"B2B SaaS GTM, growth, pricing & scaling",A,Substack,https://thegtmnewsletter.substack.com/feed,rss,2026-06-16,
+Maja Voje (GTM Strategist),creator,main,"B2B SaaS GTM, growth, pricing & scaling",A,Substack,https://knowledge.gtmstrategist.com/feed,rss,2026-06-12,
+Ben Murray (The SaaS CFO),practitioner,main,"B2B SaaS GTM, growth, pricing & scaling",A,Blog,https://www.thesaascfo.com/feed/,rss,2026-06-16,
+Dave Kellogg (Kellblog),practitioner,main,"B2B SaaS GTM, growth, pricing & scaling",A,Blog,https://kellblog.com/feed/,rss,2026-06-08,
+Simon Willison,practitioner,main,Agentic AI & AI engineering,S,Blog (Atom),https://simonwillison.net/atom/everything/,rss,2026-06-17,
+Andrej Karpathy,creator,main,Agentic AI & AI engineering,S,Blog (Bear Blog),https://karpathy.bearblog.dev/feed/,rss,2026-04-30,YouTube also active (2026-06-14)
+swyx / Latent Space,newsletter,main,Agentic AI & AI engineering,S,Substack,https://www.latent.space/feed,rss,2026-06-18,
+Nathan Lambert (Interconnects),practitioner,main,Agentic AI & AI engineering,S,Substack,https://www.interconnects.ai/feed,rss,2026-06-17,
+Andrew Ng / The Batch,newsletter,main,Agentic AI & AI engineering,S,Newsletter (email),email: deeplearning.ai/the-batch,email,-,LinkedIn heavy
+Harrison Chase / LangChain,company,main,Agentic AI & AI engineering,S,Blog,https://www.langchain.com/blog/rss.xml,rss,2026-06-16,
+OpenAI Cookbook + Dev,company,main,Agentic AI & AI engineering,S,GitHub (Atom),https://github.com/openai/openai-cookbook/commits/main.atom,rss,2026-06-17,
+Hamel Husain,practitioner,main,Agentic AI & AI engineering,S,Blog,https://hamel.dev/index.xml,rss,2026-03-26,FLAG: infrequent; X between drops
+Anthropic Engineering,company,main,Agentic AI & AI engineering,S,Eng blog (scrape),https://www.anthropic.com/engineering,scrape,-,no RSS; scrape or Claude dev newsletter
+Eugene Yan,practitioner,main,Agentic AI & AI engineering,A,Blog,https://eugeneyan.com/rss/,rss,2026-05-03,
+Philipp Schmid,practitioner,main,Agentic AI & AI engineering,A,Blog,https://www.philschmid.de/rss,rss,2026-06-10,
+Vercel AI (Rauch / AI SDK),company,main,Agentic AI & AI engineering,A,Blog (Atom),https://vercel.com/atom,rss,2026-06-17,
+Shreya Shankar,research-lab,main,Agentic AI & AI engineering,A,Blog,https://www.sh-reya.com/rss.xml,rss,2026-05-21,
+Marily Nika,practitioner,main,Agentic AI & AI engineering,A,Substack,https://marily.substack.com/feed,rss,2026-06-08,LinkedIn heavy
+Jerry Liu / LlamaIndex,company,main,Agentic AI & AI engineering,A,Newsletter (email),email: llamaindex.ai,email,-,
+Cursor Engineering,company,main,Agentic AI & AI engineering,A,Changelog RSS,https://cursor.com/changelog/rss.xml,scrape,2026-06-17,research blog has no RSS
+Ben Thompson (Stratechery),creator,main,AI industry strategy & frontier,S,Blog (free weekly),https://stratechery.com/feed/,rss,2026-06-17,daily/podcast are paid+tokenized
+Azeem Azhar (Exponential View),newsletter,main,AI industry strategy & frontier,S,Substack,https://www.exponentialview.co/feed,rss,2026-06-17,
+Ethan Mollick (One Useful Thing),creator,main,AI industry strategy & frontier,S,Substack,https://www.oneusefulthing.org/feed,rss,2026-06-09,
+Dwarkesh Patel,creator,main,AI industry strategy & frontier,S,Substack,https://www.dwarkesh.com/feed,rss,2026-06-16,net-new vs your podcast feed
+Dylan Patel (SemiAnalysis),research-lab,main,AI industry strategy & frontier,S,Substack,https://newsletter.semianalysis.com/feed,rss,2026-06-16,
+Jack Clark (Import AI),practitioner,main,AI industry strategy & frontier,S,Substack,https://importai.substack.com/feed,rss,2026-06-15,Anthropic co-founder
+Zvi Mowshowitz,creator,main,AI industry strategy & frontier,S,Substack,https://thezvi.substack.com/feed,rss,2026-06-17,
+Sangeet Paul Choudary,practitioner,main,AI industry strategy & frontier,S,Substack,https://platforms.substack.com/feed,rss,2026-06-17,LinkedIn heavy
+Gergely Orosz (Pragmatic Engineer),creator,main,AI industry strategy & frontier,S,Substack,https://newsletter.pragmaticengineer.com/feed,rss,2026-06-17,also job-search/comp signal
+Matt Levine (Money Stuff),newsletter,main,AI industry strategy & frontier,S,Bloomberg author RSS,https://www.bloomberg.com/opinion/authors/ARbTQlRLRjE/matthew-s-levine.rss,rss,2026-06-17,or email
+Brad Gerstner & Bill Gurley (BG2),vc,main,AI industry strategy & frontier,S,YouTube,https://www.youtube.com/feeds/videos.xml?channel_id=UC-yRDvpR99LUc5l7i7jLzew,rss,2026-06-16,fits podcast pipeline
+Benedict Evans,creator,main,AI industry strategy & frontier,S,Newsletter (email),email: ben-evans.com/newsletter,email,-,
+Martin Casado & Sarah Wang (AI + a16z),vc,main,AI industry strategy & frontier,A,AI+a16z podcast,https://feeds.simplecast.com/Hb_IuXOo,rss,2026-06-15,or a16z.news Substack
+Aaron Levie (Box CEO),practitioner,main,AI industry strategy & frontier,A,X / LinkedIn,https://x.com/levie,linkedin,live,no clean feed; bridge or manual
+Nikhyl Singhal (The Skip),creator,main,Exec job search & leadership hiring,S,Substack,https://theskip.substack.com/feed,rss,2026-06-10,
+Will Larson (lethain),practitioner,main,Exec job search & leadership hiring,A,Blog,https://lethain.com/feeds.xml,rss,2026-06-15,eng-exec search mechanics
+Riviera Partners,company,main,Exec job search & leadership hiring,A,Blog / Insights,https://www.rivierapartners.com/feed/,rss,2026-06-09,VP-Product/CPO comp benchmarks
+Heidrick & Struggles,company,main,Exec job search & leadership hiring,A,Leadership Agenda / podcast,https://feeds.acast.com/public/shows/heidrick,rss,2026-06-18,email newsletter too
+Andrew Seaman (Get Hired),newsletter,main,Exec job search & leadership hiring,A,LinkedIn newsletter (email),email: LinkedIn Get Hired,email,-,broad labor-market signal
+Dharmesh Shah,exec (HubSpot co-founder/CTO),linkedin-exec,Agentic AI / SaaS,S,Newsletter 'Connecting Dots' (email) / LinkedIn,email: connectingdots.com,email,live,LinkedIn primary; OnStartups RSS flaky
+April Dunford,advisor (positioning),linkedin-exec,SaaS GTM,S,Substack,https://aprildunford.substack.com/feed,rss,2026-06-11,LinkedIn primary; Substack automatable
+Des Traynor,exec (Intercom co-founder),linkedin-exec,Agentic AI / SaaS,S,Intercom blog,https://www.intercom.com/blog/feed/,rss,2026-06-15,multi-author org feed
+Pascal Bornet,author/advisor (agentic AI),linkedin-exec,Agentic AI,A,Substack (mirror of LI newsletter),https://intelligencenewsletter.substack.com/feed,rss,2026-06-05,
+Armand Ruiz,"exec (Meta AI Platform PM, ex-IBM)",linkedin-exec,Agentic AI,S,"'AI with Armand' (Beehiiv, email)",email: armand.so,email,live,LinkedIn primary
+Allie K. Miller,advisor (ex-AWS ML/Startups head),linkedin-exec,AI industry,A,"'AI with ALLIE' (Beehiiv, email)",email: aiwithallie.beehiiv.com,email,live,LinkedIn primary
+Conor Grennan,"exec (CEO AI Mindset, NYU Stern)",linkedin-exec,Agentic AI adoption,A,AI Mindset newsletter (email),email: ai-mindset.ai,email,live,LinkedIn primary
+Yamini Rangan,"exec (CEO, HubSpot)",linkedin-exec,SaaS GTM,S,LinkedIn only,LinkedIn: /in/yaminirangan,linkedin,live,no feed; bridge or manual
+Jeetu Patel,"exec (President & CPO, Cisco)",linkedin-exec,Agentic AI / enterprise,S,LinkedIn + Cisco blog,LinkedIn: /in/jeetupatel,linkedin,live,Cisco blog ~monthly
+Cem Kansu,"exec (CPO, Duolingo)",linkedin-exec,Product / monetization,S,LinkedIn only,LinkedIn: /in/cemkansu,linkedin,live,no feed; bridge or manual
+Karandeep Anand,"exec (CEO Character.AI, ex-CPO Brex)",linkedin-exec,AI industry / product,S,LinkedIn only,LinkedIn: /in/karandeep,linkedin,live,no feed; bridge or manual
+Hubert Palan,"exec (Founder/CEO, Productboard)",linkedin-exec,Agentic AI / product,S,LinkedIn (+ Pulse),LinkedIn: /in/hubertpalan,linkedin,live,no clean feed
+May Habib,"exec (Co-founder/CEO, Writer)",linkedin-exec,Agentic AI,S,LinkedIn only,LinkedIn: /in/may-habib,linkedin,live,no feed; bridge or manual
+Godard Abel,"exec (Co-founder/CEO, G2)",linkedin-exec,SaaS GTM,A,LinkedIn only,LinkedIn: /in/godardabel,linkedin,live,no feed; bridge or manual
