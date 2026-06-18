@@ -4,10 +4,10 @@ _Curated, channel-mapped, and **activity-validated** 2026-06-18. Built by the so
 
 **Automation legend:** 🟢 RSS/Atom (poll directly) · 📧 email→Gmail ingestion · 🟡 scrape/changelog (no clean RSS) · 🔴 LinkedIn/X-only (no feed; RSS.app bridge or manual VIP list)
 
-**Flags:** sources marked _infrequent_ are kept for quality but post rarely — don't expect a steady stream. 'podcast in your feed' = already covered by your YouTube podcast digest; the written channel here is the net-new complement.
+**Flags:** sources marked _infrequent_ are kept for quality but post rarely — don't expect a steady stream. 'podcast in your feed' = already covered by your YouTube podcast digest; the written channel here is the net-new complement. Rows marked **✚** were added in the cross-verification wave (authoritative best-of lists).
 
 
-## Product leadership & PM craft  (16)
+## Product leadership & PM craft  (24)
 
 | Source | Type | Tier | Channel | Feed / how to follow | Auto | Last post | Notes |
 |---|---|---|---|---|---|---|---|
@@ -27,8 +27,16 @@ _Curated, channel-mapped, and **activity-validated** 2026-06-18. Built by the so
 | Brian Balfour | practitioner | A | Blog | `https://blog.brianbalfour.com/feed` | 🟢 RSS | 2025-10-02 | FLAG: infrequent (~quarterly); X for between-posts |
 | Reforge | company | A | YouTube | `https://www.youtube.com/feeds/videos.xml?channel_id=UCG267cMJ0SN-jbFBp2y_9kA` | 🟢 RSS | 2026-05-30 | FLAG: slowing post-Miro acquisition; re-check Q3 |
 | Ken Norton (Bring the Donuts) | practitioner | A | Newsletter (email) | `email: bringthedonuts.com` | 📧 email | - | also fits job-search |
+| ✚ Pawel Huryn (Product Compass) | creator | A | Substack | `https://www.productcompass.pm/feed` | 🟢 RSS | 2026-06-11 | AI-for-PM craft; #1 PM on Favikon |
+| ✚ Peter Yang (Behind the Craft) | creator | A | Substack | `https://creatoreconomy.so/feed` | 🟢 RSS | 2026-06-17 | AI-for-PM operator playbooks |
+| ✚ Rich Mironov | practitioner | A | Blog (Product Bytes) | `https://www.mironov.com/rss` | 🟢 RSS | 2026-06-07 | B2B/interim-CPO economics; 'Money Stories' |
+| ✚ Roman Pichler | practitioner | A | Blog | `https://www.romanpichler.com/feed/` | 🟢 RSS | 2026-06-08 | strategy/vision/roadmap frameworks |
+| ✚ Itamar Gilad | practitioner | A | Blog (High Impact PM) | `https://itamargilad.com/feed/` | 🟢 RSS | 2026-06-03 | evidence-based prioritization (GIST) |
+| ✚ Petra Wille | practitioner | A | Blog | `https://www.petra-wille.com/blog?format=rss` | 🟢 RSS | 2026-06-17 | product-leadership coaching; people side of CPO |
+| ✚ Bruce McCarthy (ONE THING) | practitioner | A | Newsletter | `https://www.productculture.org/archive?format=rss` | 🟢 RSS | 2026-06-11 | roadmapping/prioritization/alignment; weekly |
+| ✚ Ami Vora | practitioner | A | Substack (Hard Parts of Growth) | `https://amivora.substack.com/feed` | 🟢 RSS | 2025-10-08 | FLAG: infrequent; now CPO @ Anthropic; LinkedIn more active |
 
-## B2B SaaS GTM, growth, pricing & scaling  (14)
+## B2B SaaS GTM, growth, pricing & scaling  (17)
 
 | Source | Type | Tier | Channel | Feed / how to follow | Auto | Last post | Notes |
 |---|---|---|---|---|---|---|---|
@@ -46,8 +54,11 @@ _Curated, channel-mapped, and **activity-validated** 2026-06-18. Built by the so
 | Maja Voje (GTM Strategist) | creator | A | Substack | `https://knowledge.gtmstrategist.com/feed` | 🟢 RSS | 2026-06-12 |  |
 | Ben Murray (The SaaS CFO) | practitioner | A | Blog | `https://www.thesaascfo.com/feed/` | 🟢 RSS | 2026-06-16 |  |
 | Dave Kellogg (Kellblog) | practitioner | A | Blog | `https://kellblog.com/feed/` | 🟢 RSS | 2026-06-08 |  |
+| ✚ Leah Tharin (ProducTea) | creator | A | Substack | `https://www.leahtharin.com/feed` | 🟢 RSS | 2026-05-23 | PLG + product-led-sales; product->revenue |
+| ✚ Andrew Chen | vc | A | Substack | `https://andrewchen.substack.com/feed` | 🟢 RSS | 2025-11-05 | FLAG: irregular; network effects/consumer-growth (a16z GP) |
+| ✚ Peep Laja | exec (Wynter founder) | A | LinkedIn | `https://www.linkedin.com/in/peeplaja` | 🔴 LIN/X | live | B2B positioning/message-market-fit; LinkedIn-primary (hard) |
 
-## Agentic AI & AI engineering  (16)
+## Agentic AI & AI engineering  (21)
 
 | Source | Type | Tier | Channel | Feed / how to follow | Auto | Last post | Notes |
 |---|---|---|---|---|---|---|---|
@@ -67,8 +78,13 @@ _Curated, channel-mapped, and **activity-validated** 2026-06-18. Built by the so
 | Marily Nika | practitioner | A | Substack | `https://marily.substack.com/feed` | 🟢 RSS | 2026-06-08 | LinkedIn heavy |
 | Jerry Liu / LlamaIndex | company | A | Newsletter (email) | `email: llamaindex.ai` | 📧 email | - |  |
 | Cursor Engineering | company | A | Changelog RSS | `https://cursor.com/changelog/rss.xml` | 🟡 scrape | 2026-06-17 | research blog has no RSS |
+| ✚ Sebastian Raschka (Ahead of AI) | practitioner | S | Substack | `https://magazine.sebastianraschka.com/feed` | 🟢 RSS | 2026-06-06 | LLM architecture/training internals; deep technical |
+| ✚ Jesus Rodriguez (TheSequence) | creator | A | Substack | `https://thesequence.substack.com/feed` | 🟢 RSS | 2026-06-17 | ML systems / LLM system design; ~4x/week |
+| ✚ Cameron R. Wolfe (Deep Learning Focus) | research-lab | A | Substack | `https://cameronrwolfe.substack.com/feed` | 🟢 RSS | 2026-05-18 | first-principles agent/RAG/eval deep dives; ~monthly |
+| ✚ Chip Huyen | practitioner | A | Blog | `https://huyenchip.com/feed.xml` | 🟢 RSS | 2025-01-16 | FLAG: owned blog ~1/yr; reference (AI Engineering author); active via talks/X |
+| ✚ Lilian Weng (Lil'Log) | research-lab | A | Blog | `https://lilianweng.github.io/index.xml` | 🟢 RSS | 2025-05-01 | FLAG: ~1 deep survey/yr; canonical agent/reasoning surveys |
 
-## AI industry strategy & frontier  (14)
+## AI industry strategy & frontier  (18)
 
 | Source | Type | Tier | Channel | Feed / how to follow | Auto | Last post | Notes |
 |---|---|---|---|---|---|---|---|
@@ -86,6 +102,10 @@ _Curated, channel-mapped, and **activity-validated** 2026-06-18. Built by the so
 | Benedict Evans | creator | S | Newsletter (email) | `email: ben-evans.com/newsletter` | 📧 email | - |  |
 | Martin Casado & Sarah Wang (AI + a16z) | vc | A | AI+a16z podcast | `https://feeds.simplecast.com/Hb_IuXOo` | 🟢 RSS | 2026-06-15 | or a16z.news Substack |
 | Aaron Levie (Box CEO) | practitioner | A | X / LinkedIn | `https://x.com/levie` | 🔴 LIN/X | live | no clean feed; bridge or manual |
+| ✚ Ksenia Se (Turing Post) | newsletter | S | Substack | `https://turingpost.substack.com/feed` | 🟢 RSS | 2026-06-16 | 'why it matters' AI research/agent synthesis for leaders |
+| ✚ Packy McCormick (Not Boring) | creator | A | Substack | `https://www.notboring.co/feed` | 🟢 RSS | 2026-06-12 | tech/business-model strategy narratives |
+| ✚ Melanie Mitchell | research-lab | A | Substack | `https://aiguide.substack.com/feed` | 🟢 RSS | 2026-06-09 | AI capabilities realism; anti-hype reasoning check |
+| ✚ Cassie Kozyrkov | practitioner | A | Substack (Decision Intelligence) | `https://decision.substack.com/feed` | 🟢 RSS | 2026-06-17 | enterprise AI decision-making; rigor over hype |
 
 ## Exec job search & leadership hiring  (5)
 
@@ -120,5 +140,6 @@ _Execs whose best thought leadership lives primarily on LinkedIn. Where an autom
 
 ## Totals
 
-- **79 sources** — 55 🟢 RSS · 14 📧 email · 2 🟡 scrape · 8 🔴 LinkedIn/X-only
-- Pipeline-automatable today (RSS+email): **69**
+- **99 sources** — 74 🟢 RSS · 14 📧 email · 2 🟡 scrape · 9 🔴 LinkedIn/X-only
+- Pipeline-automatable today (RSS+email): **88**
+- Provenance: 65 core research · 14 LinkedIn execs · 20 cross-verified adds
