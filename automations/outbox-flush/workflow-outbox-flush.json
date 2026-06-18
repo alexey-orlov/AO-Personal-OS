@@ -147,7 +147,6 @@
       "retryOnFail": true,
       "maxTries": 3,
       "waitBetweenTries": 2000,
-      "onError": "continueErrorOutput",
       "parameters": {
         "method": "POST",
         "url": "https://api.telegram.org/botREDACTED_BOT_TOKEN/sendMessage",
@@ -159,7 +158,8 @@
         "options": {
           "timeout": 20000
         }
-      }
+      },
+      "onError": "continueErrorOutput"
     },
     {
       "id": "del-card",
@@ -170,9 +170,9 @@
         1540,
         -200
       ],
-      "retryOnFail": false,
+      "retryOnFail": true,
       "maxTries": 3,
-      "waitBetweenTries": 2000,
+      "waitBetweenTries": 3000,
       "parameters": {
         "method": "DELETE",
         "url": "=https://api.github.com/repos/alexey-orlov/AO-Personal-OS/contents/{{ $('Decode card').item.json.path }}",
@@ -208,7 +208,104 @@
           "id": "BNjgcEg64fLzU1gU",
           "name": "GitHub PAT (AO-Personal-OS) v2"
         }
-      }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "id": "refetch-sha",
+      "name": "Refetch sha",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1760,
+        40
+      ],
+      "parameters": {
+        "method": "GET",
+        "url": "=https://api.github.com/repos/alexey-orlov/AO-Personal-OS/contents/{{ $('Decode card').item.json.path }}?ref=main",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Accept",
+              "value": "application/vnd.github+json"
+            },
+            {
+              "name": "User-Agent",
+              "value": "n8n-ao-secondbrain"
+            },
+            {
+              "name": "X-GitHub-Api-Version",
+              "value": "2022-11-28"
+            }
+          ]
+        },
+        "options": {
+          "timeout": 30000
+        }
+      },
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "BNjgcEg64fLzU1gU",
+          "name": "GitHub PAT (AO-Personal-OS) v2"
+        }
+      },
+      "onError": "continueErrorOutput",
+      "retryOnFail": true,
+      "maxTries": 2,
+      "waitBetweenTries": 2000
+    },
+    {
+      "id": "del-retry",
+      "name": "DELETE retry",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1980,
+        40
+      ],
+      "parameters": {
+        "method": "DELETE",
+        "url": "=https://api.github.com/repos/alexey-orlov/AO-Personal-OS/contents/{{ $('Decode card').item.json.path }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Accept",
+              "value": "application/vnd.github+json"
+            },
+            {
+              "name": "User-Agent",
+              "value": "n8n-ao-secondbrain"
+            },
+            {
+              "name": "X-GitHub-Api-Version",
+              "value": "2022-11-28"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "json",
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ message: 'notify: flush outbox ' + $('Decode card').item.json.name, sha: $json.sha, branch: 'main' }) }}",
+        "options": {
+          "timeout": 30000
+        }
+      },
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "BNjgcEg64fLzU1gU",
+          "name": "GitHub PAT (AO-Personal-OS) v2"
+        }
+      },
+      "onError": "continueErrorOutput",
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 4000
     }
   ],
   "connections": {
@@ -272,6 +369,29 @@
         [
           {
             "node": "DELETE card",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "DELETE card": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Refetch sha",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Refetch sha": {
+      "main": [
+        [
+          {
+            "node": "DELETE retry",
             "type": "main",
             "index": 0
           }
