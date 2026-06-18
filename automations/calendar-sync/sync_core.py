@@ -184,6 +184,9 @@ def build_description(ev):
     note = clean_notes(ev.get("notes"))
     if note:
         blocks.append(note)
+    # The user's own RSVP, stated plainly — this is the honest "did I accept?" signal,
+    # since Google forces the owner's attendee responseStatus to 'accepted' regardless.
+    blocks.append("Your response: " + _STATUS_LABEL.get(ev.get("my_status") or "", "no response"))
     org, orgmail = (ev.get("organizer") or "").strip(), (ev.get("organizer_email") or "").strip()
     if org or orgmail:
         blocks.append("Organizer: " + ("%s <%s>" % (org, orgmail) if (org and orgmail) else (org or orgmail)))
@@ -201,7 +204,21 @@ def build_description(ev):
 
 
 def response_status(my):
-    return {"accepted": "accepted", "declined": "declined", "tentative": "tentative"}.get(my or "", "accepted")
+    """SS participation -> Google attendee responseStatus.
+
+    Crucially, an absent/unknown/unanswered RSVP maps to 'needsAction', NEVER to
+    'accepted' — we must not assert an acceptance the user didn't make (the bug this
+    fixes). NOTE: Google forces the calendar OWNER's responseStatus to 'accepted' on
+    events they own, so this field is best-effort; the user-visible Busy/Free signal is
+    carried by `transparency`, and the honest RSVP is spelled out in the description."""
+    return {"accepted": "accepted", "declined": "declined",
+            "tentative": "tentative", "needsAction": "needsAction"}.get(my or "", "needsAction")
+
+
+def is_busy(my):
+    """Block time only for meetings the user positively committed to: accepted or
+    tentative -> Busy. Declined / not-yet-answered / unknown -> Free (don't hold time)."""
+    return (my or "") in ("accepted", "tentative")
 
 
 def build_payload(ev, start_kiev, end_kiev, cfg):
@@ -216,8 +233,9 @@ def build_payload(ev, start_kiev, end_kiev, cfg):
         "visibility": "private",
         "notificationLevel": "NONE",
         "timeZone": cfg["tz"],
-        # declined meetings shouldn't block your time -> Free; everything else stays Busy
-        "transparency": "transparent" if ev.get("my_status") == "declined" else "opaque",
+        # Busy only for meetings the user positively committed to (accepted/tentative);
+        # declined / unanswered / unknown -> Free, so they never silently hold the user's time.
+        "transparency": "opaque" if is_busy(ev.get("my_status")) else "transparent",
     }
     if ev.get("all_day"):
         payload["allDay"] = True
