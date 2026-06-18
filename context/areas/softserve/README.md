@@ -67,4 +67,3 @@ Theirs (engagement lead):
 - 2026-06-11 — [Jumpstart program walkthrough with Inna](calls/2026-06-11_135929_default_20260611130042C37F547F.md) — PM-extension mandate confirmed; detail folded into [jumpstart-pm](jumpstart-pm.md).
 - 2026-06-09 — [1:1: engagement scope, Oracle, strategy session](calls/2026-06-09_183633_one-on-one_2026060917013100B193F3.md) — engagement format decided; onboarding plan set.
 - 2026-06-08 — [Iris bootcamp onboarding](calls/2026-06-09_183201_default_20260608180354E83F642F.md) — Product-stream scope + logistics → [iris-bootcamp](iris-bootcamp.md).
-- 2026-05-20 — [Conga AI-PM enablement session](calls/2026-05-24_175717_default_202605201757381C904D81.md) — delivered; slides/repo follow-ups open. Raw transcript: [docs/conga-ai-pm-bootcamp-transcript.md](docs/conga-ai-pm-bootcamp-transcript.md).
