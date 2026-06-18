@@ -1,87 +1,124 @@
-# calendar-sync — SoftServe (OWA) → Google Calendar mirror
+# calendar-sync — SoftServe (Apple Calendar) → Google Calendar mirror
 
 One-way, always-on mirror of Alex's **SoftServe** work calendar into his **Google** calendar
-(`orlov.alexej@gmail.com`) as `SS:`-prefixed copies, for **this week + next week**. Reads SS from
-**Outlook-on-the-web** in a background Chrome tab (no focus-steal); writes Google via the connector.
+(`orlov.alexej@gmail.com`) as `SS:`-prefixed copies, for **this week + next week**. Reads SS from the
+**SoftServe Exchange account in Apple Calendar (EventKit)**; writes Google via the **Calendar API**.
 Runs **hourly, weekdays 08:00–20:00 EET**. Sends **one** Telegram status per day.
 
-## Architecture — agentic shell around a deterministic core
-The OWA read (Chrome MCP) and the Google write (connector) only exist inside a live Claude session,
-so this is a skill orchestrating a pure-Python core — **not** a headless script.
+## Architecture — pure code, no Claude session, no browser
+SoftServe is Intune/VPN-managed (no third-party API login) and the new Outlook for Mac keeps no
+parseable local store — so the only headless read is **EventKit**. The whole pipeline is deterministic
+code; there is no live Claude session, no Chrome MCP, no Google connector.
 
-- **`.claude/skills/calendar-sync/`** — the agentic skill: read OWA → `reconcile` → apply via connector.
-  References: `read-owa.md`, `matching-rules.md`, `google-payload.md`.
-- **`sync_core.py`** — deterministic brain: timezone self-calibration, matching, diff, ledger,
-  payload building, the schedule gate, the daily-summary aggregation. Stdlib only.
-- **`.claude/skills/calendar-sync-loop/`** — one tick: clock gate → run `/calendar-sync` → (08:00) daily summary.
-- **Host:** `com.user.calendar-sync` (launchd → Terminal → `start.sh` → tmux `caffeinate claude`
-  running `/loop 1h /calendar-sync-loop`). Terminal gives it the user TCC context the connectors/Chrome need.
+```
+Apple Calendar (EventKit, Swift)  →  sync_core.reconcile (brain)  →  Google Calendar API
+   ss_cal_read.swift                    sync_core.py                    gcal.py
+                         orchestrated by run.py, hosted by launchd → Terminal → run.sh
+```
+
+- **`ss_cal_read.swift`** → compiled to `.work/ss-cal-read`. Reads the SS Exchange calendar and emits
+  one JSON row per event: uid, title, start/end (local Kyiv wall time), `all_day`, `recurring`,
+  location, organizer (+email), **`my_status`** (the user's RSVP), online/join_url, notes, and
+  `attendees[{name,email,status,is_me}]`.
+- **`sync_core.py`** — deterministic brain: timezone math, per-occurrence keys, content-hash diff,
+  ledger, payload + description building, status→Busy/Free mapping, schedule gate, daily-summary
+  aggregation. Stdlib only, fully unit-tested.
+- **`gcal.py`** — dependency-free Google client (stdlib urllib). OAuth installed-app flow; list /
+  create / update / delete, always `sendUpdates=none`.
+- **`run.py`** — one pass: EventKit read → `reconcile` → apply via `gcal`. Skips all-day events
+  (holidays). Writes the last raw read to `.work/state/last-read.json` for diagnostics.
+- **Host:** launchd `com.user.calendar-sync` fires `osascript → Terminal → run.sh daemon` hourly on the
+  hour, Mon–Fri 08:00–20:00. Terminal is the host because EventKit + Full-Disk need its TCC grants — a
+  plain background process is denied Calendar access.
 
 ## Files
 | File | Role |
 |---|---|
+| `ss_cal_read.swift` | EventKit reader (built to `.work/ss-cal-read` by `setup.sh`) |
 | `sync_core.py` | deterministic core (`reconcile` / `extract` / `schedule` / `log-run` / `daily-summary` / `commit`) |
-| `test_sync_core.py` | unit tests (15) |
-| `core.sh` | TCC-safe runner — `cd /tmp; python3 -I sync_core.py …` |
-| `config.sh` | constants (calendar id, window, prefix, attendee, DRY_RUN flag) |
-| `start.sh` | brings up the always-on tmux session |
-| `setup.sh` | installs the launchd agent (one-time) |
-| `com.user.calendar-sync.plist` | launchd agent (`__REPO__` templated by setup.sh) |
-| `.work/state/` | ledger.json, run-log.jsonl, last-summary-date, LIVE flag (git-ignored) |
+| `gcal.py` | dependency-free Google Calendar client (`auth` once, then library calls) |
+| `run.py` | orchestrator — EventKit → reconcile → Google |
+| `run.sh` | Terminal-hosted runner: `now` (force) / `daemon` (gated + 08:00 daily summary) |
+| `test_sync_core.py` | unit tests (28) |
+| `config.sh` | constants + Keychain creds + `LIVE` flag |
+| `setup.sh` | builds the reader (swiftc) + installs the launchd agent (one-time) |
+| `.work/state/` | ledger.json, run-log.jsonl, gtoken.json, last-read.json, last-summary-date, LIVE (git-ignored) |
 
 ## Rules it enforces
 - **One-way** SS → Google. Sole attendee is **always** `orlov.alexej@gmail.com`; every write uses
-  `notificationLevel: NONE` — **nothing is emailed to SS colleagues**.
-- Only events carrying the hidden `[[ss-sync:…]]` marker are ever updated/deleted — **never** a native event.
-- Cancellations (`Отменено:`/`Cancelled:` …) and out-of-window meetings → the copy is **deleted**
-  (suppressed entirely if the OWA read was incomplete).
+  `sendUpdates=none` — **nothing is emailed to SS colleagues**.
+- Only events carrying our `extendedProperties.private.ssSync` marker (legacy: `[[ss-sync:…]]` in the
+  description) are ever updated/deleted — **never** a native event.
+- Cancellations (`Отменено:` / `Cancelled:` …) and out-of-window meetings → the copy is **deleted**
+  (suppressed entirely if the read was incomplete).
 - **Native dedup:** an SS meeting already on Google (same title, `olekorlov@softserveinc.com` as
   organizer/attendee) is **skipped**, not duplicated.
 
-## Timezone gotcha (important)
-OWA renders this mailbox in **US/Pacific**, not Kyiv. The core self-calibrates from OWA's displayed
-"current time" (or an explicit `owa_tz`) and converts to `Europe/Kyiv`. Verified end-to-end:
-`T-shirt kick-off` 8:00 AM PDT → **18:00 Kyiv**, matching the desktop app.
+## Status sync — Busy/Free + "Your response"
+Each copy mirrors the user's real SS RSVP:
 
-## Setup
-1. From a Terminal **with Full Disk Access**: `bash automations/calendar-sync/setup.sh`
-2. In the opened `calendar-sync` tmux session, confirm: the **Google Calendar** connector and the
-   **Claude-for-Chrome** MCP are available, and you're signed into `outlook.office.com` in the **"SS laptop"** Chrome.
-3. It runs in **DRY-RUN** (plans only, no writes) until you go live:
-   `touch automations/calendar-sync/.work/state/LIVE`
+| SS status (`my_status`) | Google `transparency` | Description line |
+|---|---|---|
+| accepted | **Busy** (opaque) | `Your response: accepted` |
+| tentative | **Busy** (opaque) | `Your response: tentative` |
+| declined | **Free** (transparent) | `Your response: declined` |
+| not answered / unknown / not individually invited | **Free** (transparent) | `Your response: no response` |
+
+Only meetings you positively committed to (accepted/tentative) hold your time. The description also
+lists the organizer and the full participant roster with each person's status.
+
+## Platform gotchas (hard-won — don't regress these)
+1. **EventKit times default to GMT.** The reader sets `iso.timeZone = .current` so start/end are Kyiv
+   wall time. (Verified: `T-shirt kick-off` reads 18:00 Kyiv, matching the desktop app.)
+2. **A recurring series shares ONE EventKit id across all instances.** `source_key` therefore appends
+   the Kyiv date for recurring events — otherwise weekly/daily occurrences collide on one key and one
+   copy goes stale. The delete pass dedupes by Google event id so old collided copies get cleaned up.
+3. **EventKit returns `attendees` in an unstable order across reads.** `build_description` sorts the
+   roster deterministically — without this the description re-hashes every run and the daemon never
+   converges (phantom hourly "N modified").
+4. **Google forces the calendar OWNER's attendee `responseStatus` to `accepted`** on events you own, so
+   the RSVP badge can't show tentative/needsAction. The honest signal is `transparency` (Busy/Free) plus
+   the `Your response:` description line — not the attendee status.
+5. **Read "my status" via `EKParticipant.isCurrentUser`**, not an SMTP email match — Exchange attendee
+   URLs are often X500/DN and miss. An empty/unknown status is treated as **no response** (never accepted).
+6. **TCC:** EventKit + Full-Disk are granted to **Terminal**, so the daemon runs via
+   launchd→osascript→Terminal. A plain background/CLI process gets `EVENTKIT_DENIED`.
+
+## Setup (one-time)
+Run from a **Terminal with Full Disk Access + Calendar access**:
+1. Add the SoftServe Exchange account to **Apple Calendar** (System Settings → Internet Accounts), so SS
+   events appear in EventKit.
+2. `bash automations/calendar-sync/setup.sh` — builds the reader and installs the launchd agent. It then
+   prints the **Google OAuth** steps:
+   - Enable the Calendar API; create a **Desktop-app** OAuth client; set the consent screen to **In
+     production** (a "Testing" app expires the refresh token every 7 days).
+   - Store the client id/secret in Keychain (`CALSYNC_GOOGLE_CLIENT_ID` / `_SECRET`).
+   - `source config.sh && python3 -I gcal.py auth` to authorize once.
+3. It runs in **DRY-RUN** (plans only) until you go live: `touch .work/state/LIVE`.
 
 ## Schedule & notifications
-- Hourly, **Mon–Fri 08:00–20:00 Europe/Kyiv** (in-skill gate; off-hours/weekend ticks are no-ops).
+- Hourly, **Mon–Fri 08:00–20:00 Europe/Kyiv** (launchd `StartCalendarInterval`; `run.sh daemon`
+  re-checks the gate so a stray tick is a no-op).
 - **One** message/day to the **General** Telegram topic right after the 08:00 run:
   `SoftServe calendar sync: X attempts, Y successful. A events added/modified.` (+ error lines if any).
   It covers every run since the previous summary (previous working day 09:00–20:00 + today 08:00).
 
 ## Test / verify
 ```bash
-# unit tests
+# unit tests (no Calendar/network needed)
 cd /tmp && python3 -I /Users/olekorlov/Documents/GitHub/AO-Personal-OS/automations/calendar-sync/test_sync_core.py
-# a dry reconcile (plan only)
-printf '%s' '{"now_utc":"2026-06-17T09:00:00Z","owa_tz":"America/Los_Angeles","source_events":[…]}' \
-  | bash automations/calendar-sync/core.sh reconcile
+# force one real pass (from a Terminal with the grants)
+automations/calendar-sync/run.sh now
+# trigger the installed daemon out-of-cycle
+launchctl kickstart -k "gui/$(id -u)/com.user.calendar-sync"
 ```
 
-## OWA session handling
-The OWA access token lapses ~hourly and shows the "Pick an account" picker. The read procedure
-**auto-restores** it: it clicks the already-**"Signed in"** SoftServe account (session selection — **no
-credentials entered**) and continues. It **only** stops for a genuine password / MFA / consent wall,
-which it reports via the daily summary so you sign in once. Tick **"Stay signed in?"** at that sign-in
-to keep the session alive for weeks and make full re-auths rare.
-
 ## Limits
-- Runs only while the **Mac is awake/unlocked**. Intra-day token lapses are auto-handled (above); a
-  full re-auth (per SoftServe Conditional Access) needs you and is surfaced in the daily summary.
-- The browser-session dependency disappears entirely with the **Apple Calendar / EventKit** upgrade below.
-- The new Outlook for Mac keeps **no parseable local calendar store**, so OWA is the read path. If the SS
-  Exchange account is ever added to macOS **Calendar.app**, an EventKit read would be more robust (works while
-  locked, fully headless) — see the plan's "Future upgrade".
+- Runs only while the **Mac is awake/unlocked**. The daily summary makes liveness observable.
+- A Google refresh-token lapse (only if the consent screen reverts to "Testing") needs a re-`auth`;
+  surfaced via the daily summary as a write error.
 
 ## Uninstall
 ```bash
 launchctl bootout "gui/$(id -u)" "$HOME/Library/LaunchAgents/com.user.calendar-sync.plist"
-tmux kill-session -t calendar-sync 2>/dev/null || true
 ```
