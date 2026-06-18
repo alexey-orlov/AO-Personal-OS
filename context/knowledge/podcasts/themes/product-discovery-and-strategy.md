@@ -2,7 +2,7 @@
 
 _status: live theme — discovery, prioritization, roadmap, positioning, product strategy_
 _slug: product-discovery-and-strategy_
-_updated: 2026-06-16 · 18 insights from 9 episodes_
+_updated: 2026-06-18 · 19 insights from 10 episodes_
 
 ## The throughline
 The strategy conversation organizes around three beats. (1) Discovery discipline: the fastest signal is money — demand WTP before building, because most "ChatGPT ideas" are fake problems; category-creating 1.0s need a 'benevolent dictatorship of taste' instead (Fadell/Jobs). Consumer discovery runs on a complementary protocol: copy proven UX patterns first before adding novelty (Pincus's Proven/Better/New — fake onboarding killed Sid Meier's Facebook Civ), 'kill hope before hope kills you' by building intentionally cheap/wrong prototypes for fast signal, and track day-365 retention + social loops as the north star rather than short viral spikes (Zynga's ASN metric: 0→1 gives ~80% return next month; ASN 4 → active 22/30 days). (2) Moats: feature differentiation has gone short-lived (AI writes ~80%+ of code in AI-native orgs, so feature gaps close in weeks), and what remains durable is proprietary inputs/outputs, enterprise workflows, user behavior, network effects, hardware, compliance, and brand. Legora's bundled multi-feature roadmap beating a single-feature competitor with 50× the early ARR is the operational lesson — longer-horizon platform bets compound where point solutions get cloned. (3) Shape the whole system, not just the feature: products are ecosystems (installation, distribution, marketing language — Fadell's iPod/Nest cases), the chatbot isn't a product (Evans: real work needs tooling/domain data/UIs, so vertical apps and consultancies capture the value above commoditized models), and AI-first builders should *refound* boundaries rather than tack models onto legacy flows — minimize customer-facing surface area, concentrate one core interaction (Brex/Pedro, Stripe/Airbnb analogies). A Groww-pattern complements beat (1): full product transparency (every option, frictionless choice) tripled expected signups on launch day and triggered organic PMF; a deliberate four-year 'zero revenue' phase deepened customer love until monetization was the natural next step — the counter-case to charge-early when consumer trust is the scarce resource.
@@ -96,6 +96,11 @@ The founders personally used the app daily, created WhatsApp groups, engaged on 
 — Y Combinator · 2026-06-15 · guest: La Kishray (Groww) · [▶ 10:27](https://www.youtube.com/watch?v=ObBAxL2dFzw&t=627) · `pi-ObBAxL2dFzw-03`
 related: [Find and serve the power users — the online‑native resellers — to discover product‑market fit](#find-and-serve-the-power-users--the-online-native-resellers--to-discover-product-market-fit) (both: granular personal customer contact is the discovery method)
 
+### Validate depth by whether you could run the customer's business
+The best test of product-market understanding is practical: could you operate the customer's business tomorrow and handle its daily crises? John uses the example of voice agents for cleaning services — it's not enough to have 20 conversations; you must know if answering the phone is a top problem, how much revenue is lost to missed calls, and what customers would actually pay to fix it. Reach that level by combining customer conversations with doing the work yourself and iterating product and learning in a tight loop.
+— Y Combinator · 2026-06-17 · guest: — · [▶ 4:43](https://www.youtube.com/watch?v=R56RJFZBasQ&t=283) · `pi-R56RJFZBasQ-03`
+related: [Founders must be power users and talk directly to customers](#founders-must-be-power-users-and-talk-directly-to-customers) (Groww's WhatsApp groups and theater outreach is the same hands-on instinct — this insight gives the test to know when you've gone deep enough) · [Charge customers early — get commitments before building](#charge-customers-early--get-commitments-before-building) (complementary heuristics: WTP validates the problem exists; running-their-business validates you understand it deeply enough to solve it)
+
 ## Related themes
 - [Founders & fundraising](founders-and-fundraising.md) — pivot decisions are how the discipline shows up at company level
 - [Growth, GTM & pricing](growth-gtm-and-pricing.md) — pilots and pricing close the loop on willingness-to-pay
@@ -111,3 +116,4 @@ related: [Find and serve the power users — the online‑native resellers — t
 - [Y Combinator — How Meesho Became India's Biggest Shopping App (2026-06-11)](../episodes/2026/2026-06-11--yc--meesho-became-indias-biggest-shopping-app.md)
 - [Lenny's Podcast — The hidden pattern behind successful products | Mark Pincus (2026-06-14)](../episodes/2026/2026-06-14--lenny--hidden-pattern-behind-successful-products-mark-pincus.md)
 - [Y Combinator — Groww: If Your Customers Don't Love It or Hate It, You've Already Lost (2026-06-15)](../episodes/2026/2026-06-15--yc--groww-customers-dont-love-hate-already-lost.md)
+- [Y Combinator — How To Pick A Startup Idea (2026-06-17)](../episodes/2026/2026-06-17--yc--how-to-pick-a-startup-idea.md)
