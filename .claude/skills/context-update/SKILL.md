@@ -46,6 +46,7 @@ If more than ~15 are new, process newest-first and report what was left for the 
 
 **3. Route.** The area is the path segment after `context/areas/` — its page is that area's `README.md`. Then route within the area:
 - **Slug mapping**: a subproject page shares its slug with its calls sub-context — `calls/vacancy-interviews/zipify/` ↔ `zipify.md`, `calls/iris-bootcamp/` ↔ `iris-bootcamp.md`. A note matching an existing subproject page folds there FIRST; touch the area README only when area-level state shifts (status line, Subprojects one-liner, anything Now-worthy).
+- **Companion reference docs (reconcile, don't just fold the headline)**: an area/subproject often has durable reference docs beside its README/subproject page (e.g. `softserve/oracle-team.md`, `softserve/oracle-ai-offerings.md`, `job-search/positioning.md`). When a new artifact carries a fact that **extends or contradicts** one of these — a stakeholder's role/seniority/ownership/decision-power changes, a product or offering detail shifts, a positioning angle moves — you MUST reconcile that doc too, not only fold the headline into the subproject page + Now snapshot (a headline in index.md while the detailed doc stays stale leaves the wiki self-contradictory). Rewrite only the affected lines to current truth, preserve the doc's `_source`/`(inferred)` labels, and bump its `_updated:` date + add the new provenance. Find these docs by scanning the area dir for non-`README` `.md` pages whose subject the artifact's facts touch — check them on every fold, not just when a subproject page exists.
 - `job-search` specifics: `calls/intro-chats/` and recruiter-pipeline/campaign artifacts → `outreach.md`; vacancy calls → that vacancy's page.
 - `context/_inbox/` files route by TYPE first — see step 3b. Notes in `areas/other/calls/` → judge by content (repo/tooling topics → `personal-os`).
 
@@ -166,6 +167,7 @@ One short block: `processed N (folded F · junk J · dup D · pending-voice V) �
 - Preserved any `_source files:` header line on pages I rewrote; if Alex named a new external source root, the registry (`_meta/external-sources.md`) + that README pointer were updated.
 - Superseded facts removed, not stacked; sections use "-" when empty; pages within budget.
 - `index.md` "Now" is dated and consistent with the pages.
+- Companion reference docs reconciled (step 3): if the artifact changed a stakeholder/product/positioning fact, the durable doc that holds it (`oracle-team.md`, `oracle-ai-offerings.md`, `positioning.md`, …) was rewritten to match — not left stale while only the Now snapshot moved.
 - Ledger updated for EVERY artifact handled, including junk and duplicates (but NOT pending-voice — those stay in the backlog).
 - Drops routed by TYPE (step 3b): no goal/task/insight/book/explore item buried in an area page; prefix hints overridden where content said otherwise; duplicates collapsed to one item.
 - Bare URLs were fetched, images were read.
