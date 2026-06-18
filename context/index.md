@@ -19,7 +19,7 @@ Each area folder holds: `README.md` (live state), `<subproject>.md` pages (one p
 
 | Area | Status | Subprojects | Last artifact |
 |---|---|---|---|
-| [SoftServe](areas/softserve/README.md) | ramping in: part-time R&D product lead + agentic SME; Wed Jun 17 R&D cross-team update delivered (SoftServe = Oracle "partner of choice", 5 cases) | [oracle](areas/softserve/oracle.md) · [iris-bootcamp](areas/softserve/iris-bootcamp.md) · [jumpstart-pm](areas/softserve/jumpstart-pm.md) | 2026-06-17 |
+| [SoftServe](areas/softserve/README.md) | ramping in: part-time R&D product lead + agentic SME; onboarding into the Oracle productization workstream (Gero = owner, discovery call being set up) | [oracle](areas/softserve/oracle.md) · [iris-bootcamp](areas/softserve/iris-bootcamp.md) · [jumpstart-pm](areas/softserve/jumpstart-pm.md) | 2026-06-18 |
 | [Job search](areas/job-search/README.md) | active — one page per vacancy + outreach | [zipify](areas/job-search/zipify.md) · [outreach](areas/job-search/outreach.md) · [archive-resale](areas/job-search/archive-resale.md) (closed) | 2026-06-02 |
 | [GigaCloud](areas/gigacloud/README.md) | CPO role; no call artifacts in the OS yet | - | - |
 | [Laba](areas/laba/README.md) | PM-course tutoring; no artifacts yet | - | - |
