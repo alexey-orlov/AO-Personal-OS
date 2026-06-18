@@ -85,6 +85,11 @@ flush survived, hence the rename.
   it in the URL path — no n8n auth type can inject it; same gotcha as telegram-inbox).
   After a token rotation, update the URL in n8n by hand.
 - GitHub access: Header-Auth credential "GitHub PAT (AO-Personal-OS) v2" (Contents RW).
+- **Don't collapse the delete-recovery chain into one Code node.** This n8n cloud instance runs
+  the external JS task runner, where `helpers.httpRequestWithAuthentication` is unavailable in
+  Code nodes (verified 2026-06-18 — it throws "not supported in the Code Node"). Authenticated
+  GitHub calls must therefore be **HTTP Request** nodes — which is why `Refetch sha` / `DELETE
+  retry` are separate HTTP nodes wired through error outputs, not one tidy Code loop.
 
 ## Files
 
