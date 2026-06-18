@@ -53,6 +53,7 @@ _updated: 2026-06-18_
 
 ## Decisions
 
+- 2026-06-18 — Gero confirmed (by Karsten) as the owner of the Oracle productization/accelerator questions (commercial + technical); Karsten to set up a dedicated discovery call next week for Alex's onboarding into that workstream. [onboarding call 2026-06-18](calls/oracle/2026-06-18_144751_sales-call_2026061814320114A9106F.md)
 - 2026-06-15 — All Oracle stakeholder outreach routes through Karsten (NVIDIA partner sales); after Tue Jun 16 first Oracle call, request peer-to-peer monthly syncs with each package owner (AIQ / cuOpt / VSS) through him. [1:1 2026-06-15](calls/oracle/2026-06-15_200833_one-on-one_20260615190118D7E7175C.md)
 - 2026-06-15 — Phase 1 (through end of Jun 2026): reactive familiarization with Oracle's packages; Phase 2: generalize the practice and productize. [1:1 2026-06-15](calls/oracle/2026-06-15_200833_one-on-one_20260615190118D7E7175C.md)
 - 2026-06-15 — First Oracle engagements (Bosch-style) billed on value, not hours (learning phase); managed-services / hourly model only from Phase 2 onward. [1:1 2026-06-15](calls/oracle/2026-06-15_200833_one-on-one_20260615190118D7E7175C.md)
@@ -64,12 +65,17 @@ _updated: 2026-06-18_
 ## Open loops
 
 Mine:
-- Via Karsten: arrange targeted 1:1 follow-ups with AIQ / cuOpt / VSS product leads; ask who owns final accelerator/package decisions on Oracle's product side; request peer-to-peer monthly sync per package owner.
+- Prepare a ~45–60 min question list for the upcoming Gero productization/discovery call (next week): use-case prioritization, scalability criteria, required GTM artifacts, NVIDIA-vs-OCI platform direction, the rumored internal Oracle accelerator. [onboarding call 2026-06-18](calls/oracle/2026-06-18_144751_sales-call_2026061814320114A9106F.md)
+- Join all forward-going accelerator / t-shirt-sizing meetings (ongoing).
+- Via Karsten: arrange targeted 1:1 follow-ups with AIQ / cuOpt / VSS product leads; request peer-to-peer monthly sync per package owner. (Owner of accelerator/package decisions resolved 2026-06-18 → Gero.)
 - Re-confirm with Bohdan whether the client pays anything for the initial POC (Olha's ~80% read: no).
 - Get Olya Hanushchak's contact from Olha, then sync with her on Bosch technical depth + the Oracle packaging meetings.
 - Sync with Dmytro Duchenko after his vacation on Riyad Air AIQ / text-recognition.
 - After Olya/Dmytro syncs: form own view on productization viability — universal product vs. standardized engagement SKUs (Oracle may be leaning toward shaped/templatized process: questionnaire → branching → vibe-coded UI per case).
 - After meeting the PdMs: align team ↔ S/M/L packages, sketch Roadmap v0; decide whether to introduce Olya/Leonid to package-owner conversations once cadence is established.
+
+Theirs (Karsten):
+- Email Gero to arrange the productization/discovery call (sent ~2026-06-18; call expected next week); can also intro Alex to Gero and to NVIDIA Q-Opt / AIQ experts when ready. [onboarding call 2026-06-18](calls/oracle/2026-06-18_144751_sales-call_2026061814320114A9106F.md)
 
 Theirs (engagement lead):
 - Intro Alex to Karsten (gateway to all Oracle stakeholder access).
