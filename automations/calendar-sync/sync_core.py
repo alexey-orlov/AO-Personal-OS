@@ -199,6 +199,10 @@ def build_description(ev):
         blocks.append("Organizer: " + ("%s <%s>" % (org, orgmail) if (org and orgmail) else (org or orgmail)))
     atts = ev.get("attendees") or []
     if atts:
+        # EventKit returns attendees in an UNSTABLE order across reads — sort deterministically
+        # so an identical roster yields an identical description (no phantom hourly updates).
+        atts = sorted(atts, key=lambda a: ((a.get("name") or a.get("email") or "").casefold(),
+                                           (a.get("email") or "").casefold()))
         lines = ["Participants (%d):" % len(atts)]
         for a in atts[:25]:
             nm = (a.get("name") or a.get("email") or "").strip()

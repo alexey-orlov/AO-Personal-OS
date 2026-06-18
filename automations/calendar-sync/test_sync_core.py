@@ -256,6 +256,28 @@ class TestEnrichment(unittest.TestCase):
         out = sc.reconcile(base([b], ledger=ledger))
         self.assertEqual(out["counts"]["update"], 1)
 
+    def test_description_participant_order_is_stable(self):
+        a1 = [{"name": "Zoe", "email": "z@x", "status": "accepted"},
+              {"name": "Amy", "email": "a@x", "status": "declined"}]
+        d1 = sc.build_description({"attendees": a1})
+        d2 = sc.build_description({"attendees": list(reversed(a1))})
+        self.assertEqual(d1, d2)                      # order must not depend on EventKit's read order
+        self.assertLess(d1.index("Amy"), d1.index("Zoe"))   # sorted by name
+
+    def test_attendee_reorder_does_not_churn(self):
+        # the daemon must CONVERGE: an identical roster in a different read order = skip, not update
+        atts = [{"name": "Zoe", "email": "z@x", "status": "accepted"},
+                {"name": "Amy", "email": "a@x", "status": "accepted"},
+                {"name": "Max", "email": "m@x", "status": "tentative"}]
+        ev1 = src("Sync", "2026-06-18T06:00:00", "2026-06-18T06:30:00", owa_id="X", my_status="accepted", attendees=atts)
+        c = sc.reconcile(base([ev1]))["creates"][0]
+        ledger = {c["source_key"]: {"google_event_id": "g", "content_hash": c["content_hash"],
+                                    "start_kiev": c["start_kiev"]}}
+        ev2 = src("Sync", "2026-06-18T06:00:00", "2026-06-18T06:30:00", owa_id="X", my_status="accepted",
+                  attendees=[atts[2], atts[0], atts[1]])    # same people, shuffled
+        out = sc.reconcile(base([ev2], ledger=ledger))
+        self.assertEqual(out["counts"], {"create": 0, "update": 0, "delete": 0, "skip": 1})
+
     def test_clean_notes_and_status_helpers(self):
         self.assertEqual(sc.clean_notes("____\nMicrosoft Teams meeting\nJoin: https://x\nMeeting ID: 1"), "")
         self.assertEqual(sc.clean_notes("Real note.\nMicrosoft Teams meeting\nJoin: x"), "Real note.")
