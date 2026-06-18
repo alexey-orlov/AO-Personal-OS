@@ -340,20 +340,32 @@ def reconcile(inp):
         else:
             creates.append({**rec, "payload": payload})
 
-    # Deletions: copies we own whose source vanished (cancelled / removed / moved
-    # out of window). Guard: never prune on an incomplete OWA read.
+    # Deletions: every copy we own — from the ledger AND the live Google read, deduped by
+    # event id — whose source occurrence vanished (cancelled, removed, moved out of window)
+    # or is a stale duplicate left by the old shared-key scheme. Deduping by event id (not by
+    # source_key) is what lets us prune BOTH copies when two collided on one legacy key.
+    # Guard: never prune on an incomplete read.
     deletes = []
     if inp.get("source_complete", True):
-        for key, cur in existing.items():
-            if key in seen:
-                continue
-            sk = cur.get("start_kiev")
+        owned = {}   # google_event_id -> (source_key, start_kiev)
+        for k, cur in existing.items():
+            gid = cur.get("google_event_id")
+            if gid:
+                owned.setdefault(gid, (k, cur.get("start_kiev")))
+        for c in inp.get("google_copies") or []:
+            gid = c.get("google_event_id")
+            if gid:
+                owned.setdefault(gid, (c.get("source_key"), c.get("start_kiev")))
+        updated_gids = {u["google_event_id"] for u in updates if u.get("google_event_id")}
+        for gid, (key, sk) in owned.items():
+            if key in seen or gid in updated_gids:
+                continue   # a current source occurrence still maps to this copy -> keep
             try:
                 future = sk is None or _utc(sk) >= win_start.astimezone(timezone.utc)
             except Exception:
                 future = True
-            if future and cur.get("google_event_id"):
-                deletes.append({"source_key": key, "google_event_id": cur["google_event_id"],
+            if future:
+                deletes.append({"source_key": key, "google_event_id": gid,
                                "reason": "gone-or-cancelled"})
 
     return {

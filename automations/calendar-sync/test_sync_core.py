@@ -114,6 +114,30 @@ class TestReconcile(unittest.TestCase):
         guarded = sc.reconcile(base([], ledger=ledger, source_complete=False))
         self.assertEqual(guarded["counts"]["delete"], 0)
 
+    def test_recurring_instances_get_distinct_keys(self):
+        # a recurring series shares one EventKit id; two occurrences must NOT collide on one key
+        a = src("Weekly sync-up", "2026-06-18T13:30:00", "2026-06-18T14:00:00", owa_id="S1", recurring=True)
+        b = src("Weekly sync-up", "2026-06-25T13:30:00", "2026-06-25T14:00:00", owa_id="S1", recurring=True)
+        out = sc.reconcile(base([a, b]))
+        self.assertEqual(out["counts"]["create"], 2)
+        self.assertEqual(len({c["source_key"] for c in out["creates"]}), 2)
+
+    def test_stale_duplicate_copies_deleted(self):
+        # migration: two legacy Google copies collided on one shared key; the live source now
+        # has two distinct occurrences -> both legacy copies pruned, two fresh ones created.
+        a = src("Weekly sync-up", "2026-06-18T13:30:00", "2026-06-18T14:00:00", owa_id="S1", recurring=True)
+        b = src("Weekly sync-up", "2026-06-25T13:30:00", "2026-06-25T14:00:00", owa_id="S1", recurring=True)
+        legacy = [
+            {"google_event_id": "gOld18", "source_key": "id:S1", "content_hash": "h1",
+             "start_kiev": "2026-06-18T13:30:00+03:00"},
+            {"google_event_id": "gOld25", "source_key": "id:S1", "content_hash": "h2",
+             "start_kiev": "2026-06-25T13:30:00+03:00"},
+        ]
+        out = sc.reconcile(base([a, b], google_copies=legacy))
+        self.assertEqual(out["counts"]["create"], 2)
+        self.assertEqual(out["counts"]["delete"], 2)
+        self.assertEqual({d["google_event_id"] for d in out["deletes"]}, {"gOld18", "gOld25"})
+
 
 class TestExtract(unittest.TestCase):
     def test_split_copies_and_natives(self):
