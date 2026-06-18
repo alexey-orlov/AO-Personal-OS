@@ -30,22 +30,41 @@ canonical spec lives there):
   continueErrorOutput`), which is unconnected — so the card stays queued (no DELETE) and is
   retried next day, while every *successfully* sent card in the same batch is deleted
   immediately. `.gitkeep` and non-JSON files are ignored.
+- **DELETE is idempotent + self-healing** (see the git-autosync race below). `DELETE card`
+  retries transient failures (`retryOnFail`, 3×/3s) — re-issuing re-reads `main`'s head, which
+  resolves the common 409. If it still errors, its error output → `Refetch sha` (GET the file
+  at `?ref=main`): a **404 there means the card is already gone = success** (terminal); a 200
+  means it really still exists, so → `DELETE retry` with the **freshly-read sha**. Every node in
+  this chain is `onError: continueErrorOutput`, so a card that genuinely can't be deleted just
+  stays queued and is reported in the execution log — it never aborts the batch or blocks the
+  other cards' per-item deletes.
 - **2026-06-18 incident — one card delivered 3× (root cause + fix).** Two of three queued
   explore briefs had malformed inline buttons (`url` field = `"label https://…"`, invalid →
   Telegram `BUTTON_URL_INVALID`). The Send node had no `onError` handler, so after the two
   failed and the third (Enterprise) succeeded, the node **threw and stopped the workflow
   before `DELETE card` ran** — nothing was dequeued. Every later flush re-ran and re-sent the
   one card that succeeds, so Enterprise arrived 3× while the two malformed cards never
-  delivered. Two structural fixes, both needed:
+  delivered. Three structural fixes:
   1. **Send `onError: continueErrorOutput`** — a failed send no longer stops the batch; the
      success output (main 0) → DELETE, so each sent card is dequeued per-item and can never
      be re-sent because a sibling failed. (This is the real duplication fix.)
   2. **Button sanitize (Decode card node)** — drops any button whose `url` isn't a bare
      `https://…`, so a malformed card still delivers its text instead of erroring at all.
+  3. **Idempotent, retrying DELETE (git-autosync race).** A follow-up manual flush surfaced a
+     second cause: `DELETE card` 409'd on the 2nd of 2 cards. git-autosync commits to `main`
+     every ~minute, so `main`'s head is a moving target — the first delete advances it and the
+     second races the ref update (`is at <new> but expected <old>`); the card was delivered but
+     left queued, so it would re-send next run. Fix: `DELETE card` now `retryOnFail`s (re-issuing
+     re-reads head), and on a persistent error falls through `Refetch sha` → `DELETE retry` with a
+     freshly-read sha; **404 anywhere = already gone = success**. All three nodes are
+     `onError: continueErrorOutput` so a stuck delete is reported, not fatal. The delete must be
+     idempotent + retrying — it can never assume a stable head.
   Source-side fix: `.claude/skills/explore-brief/SKILL.md` (build cards via
   `telegram_send_with_button.sh` with separate `text`/`url` args; never hand-assemble the
-  JSON). **The repo JSON change is inert until re-imported into the live n8n workflow via the
-  n8n MCP** (see Ops notes) — until then the live flow still has the duplication bug.
+  JSON). **All three live-workflow fixes were applied via the n8n MCP and verified end-to-end on
+  2026-06-18** (a 2-card self-test flush: both delivered once, both dequeued, the deliberate
+  race on the 2nd delete absorbed by the recovery chain with the run still `success`). `export.sh`
+  re-synced this repo copy to live.
 
 ## History
 
