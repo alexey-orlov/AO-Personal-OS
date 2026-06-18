@@ -235,8 +235,14 @@ class TestEnrichment(unittest.TestCase):
     def test_clean_notes_and_status_helpers(self):
         self.assertEqual(sc.clean_notes("____\nMicrosoft Teams meeting\nJoin: https://x\nMeeting ID: 1"), "")
         self.assertEqual(sc.clean_notes("Real note.\nMicrosoft Teams meeting\nJoin: x"), "Real note.")
-        self.assertEqual(sc.response_status(""), "accepted")
+        self.assertEqual(sc.response_status(""), "needsAction")          # absent RSVP must NOT read as accepted
+        self.assertEqual(sc.response_status("needsAction"), "needsAction")
         self.assertEqual(sc.response_status("declined"), "declined")
+        self.assertEqual(sc.response_status("tentative"), "tentative")
+        self.assertFalse(sc.is_busy(""))                                 # unanswered -> Free
+        self.assertFalse(sc.is_busy("declined"))
+        self.assertTrue(sc.is_busy("accepted"))
+        self.assertTrue(sc.is_busy("tentative"))
 
     def test_declined_is_free_accepted_is_busy(self):
         pd = sc.reconcile(base([src("X", "2026-06-18T06:00:00", "2026-06-18T06:30:00", my_status="declined")]))["creates"][0]["payload"]
@@ -244,6 +250,55 @@ class TestEnrichment(unittest.TestCase):
         self.assertEqual(pd["transparency"], "transparent")              # declined -> Free
         self.assertEqual(pd["attendees"][0]["responseStatus"], "declined")
         self.assertEqual(pa["transparency"], "opaque")                  # accepted -> Busy
+
+
+class TestStatusSemantics(unittest.TestCase):
+    """The status-sync contract — regression cover for the 'unanswered invite shows as
+    accepted + Busy' bug on 'SS: Weekly sync-up - R&D Product'."""
+
+    def _payload(self, my):
+        ev = src("Weekly sync-up - R&D Product", "2026-06-18T13:30:00", "2026-06-18T14:00:00",
+                 my_status=my,
+                 attendees=[{"name": "Oleksii Orlov", "email": "olekorlov@softserveinc.com", "status": my}])
+        return sc.reconcile(base([ev]))["creates"][0]["payload"]
+
+    def test_unanswered_is_not_accepted_or_busy(self):
+        for my in ("", "needsAction"):
+            p = self._payload(my)
+            self.assertEqual(p["transparency"], "transparent", my)       # Free, not Busy
+            self.assertNotEqual(p["attendees"][0]["responseStatus"], "accepted", my)
+            self.assertEqual(p["attendees"][0]["responseStatus"], "needsAction", my)
+            self.assertIn("Your response: no response", p["description"])
+
+    def test_accepted_is_busy(self):
+        p = self._payload("accepted")
+        self.assertEqual(p["transparency"], "opaque")
+        self.assertEqual(p["attendees"][0]["responseStatus"], "accepted")
+        self.assertIn("Your response: accepted", p["description"])
+
+    def test_tentative_is_busy(self):
+        p = self._payload("tentative")
+        self.assertEqual(p["transparency"], "opaque")
+        self.assertEqual(p["attendees"][0]["responseStatus"], "tentative")
+        self.assertIn("Your response: tentative", p["description"])
+
+    def test_declined_is_free(self):
+        p = self._payload("declined")
+        self.assertEqual(p["transparency"], "transparent")
+        self.assertEqual(p["attendees"][0]["responseStatus"], "declined")
+        self.assertIn("Your response: declined", p["description"])
+
+    def test_status_change_forces_resync(self):
+        # an already-synced copy created while 'accepted' must UPDATE (not skip) once the real
+        # status is unanswered — this is what re-syncs the live calendar after the fix.
+        acc = src("Weekly sync-up - R&D Product", "2026-06-18T13:30:00", "2026-06-18T14:00:00", my_status="accepted")
+        created = sc.reconcile(base([acc]))["creates"][0]
+        ledger = {created["source_key"]: {"google_event_id": "g1", "content_hash": created["content_hash"],
+                                          "start_kiev": created["start_kiev"]}}
+        unanswered = src("Weekly sync-up - R&D Product", "2026-06-18T13:30:00", "2026-06-18T14:00:00", my_status="")
+        out = sc.reconcile(base([unanswered], ledger=ledger))
+        self.assertEqual(out["counts"]["update"], 1)
+        self.assertEqual(out["updates"][0]["payload"]["transparency"], "transparent")
 
 
 if __name__ == "__main__":
