@@ -1,0 +1,99 @@
+{
+  "schema": 1,
+  "generatedAt": "2026-06-18T04:03:30.544Z",
+  "runStamp": "20260618T0403",
+  "episodes": [
+    {
+      "videoId": "JoXbk2fm7jM",
+      "videoTitle": "Loop engineering for beginners",
+      "videoUrl": "https://www.youtube.com/watch?v=JoXbk2fm7jM",
+      "channelName": "How I AI",
+      "publishedDate": "2026-06-17",
+      "guests": [],
+      "summary": "The video explains what an AI \"loop\" is, how it differs from manual chat prompting, and how to design simple, reliable automated agents that run on schedules or goals. The host demonstrates loop types and concrete examples in Claude Code and Codex (scheduled routines, automations, goal-based loops and sub-agents), lists the engineering building blocks you need, and warns about costs and brittle prompts.",
+      "insights": [
+        {
+          "headline": "A loop is an autonomous, scheduled automation an agent runs itself",
+          "detail": "A loop is not a human typing messages; it's an autonomous or semi-autonomous automation that kicks off an agent on a schedule or until a measurable outcome is reached. The host defines a loop as something that can prompt itself, run repeatedly (heartbeat/cron/hooks), and either stop when time is up or when the job's success criteria are met. Understanding this distinction reframes loops as low-touch 'employees' you design and onboard with explicit jobs and exit conditions.",
+          "anchorQuote": "a loop is a scheduled or kind of semi-autonomous automation",
+          "tSeconds": 350,
+          "link": "https://www.youtube.com/watch?v=JoXbk2fm7jM&t=350"
+        },
+        {
+          "headline": "You trigger loops three practical ways: heartbeats, crons, and hooks",
+          "detail": "Common trigger patterns are heartbeats (regular intervals), crons (fixed schedule times), and hooks (internal lifecycle events or external webhooks). The host gives the heartbeat example: \"Every 5 minutes, check if I have a new Jira ticket, and if so, start a coding agent to triage and fix that Jira,\" showing how existing automation idioms map directly to prompting agents. Choosing the right trigger matters because it determines latency, cost, and how much data the loop can gather before acting.",
+          "anchorQuote": "Every 5 minutes, check if I have a new Jira ticket,",
+          "tSeconds": 238,
+          "link": "https://www.youtube.com/watch?v=JoXbk2fm7jM&t=238"
+        },
+        {
+          "headline": "Goal loops run until a measurable outcome is validated",
+          "detail": "A goal loop sets a concrete outcome and keeps an agent working (and spending compute) until that outcome can be validated or the agent is blocked. The video contrasts simple scheduled routines (e.g., morning briefings) with goal-based loops such as babysitting PRs until all merge checks pass, which Claude Code and Codex now support as first-class features. Goal loops are powerful because they turn open-ended work into verifiable tasks, but they require precise success criteria to avoid wasted compute.",
+          "anchorQuote": "A goal is a type of loop",
+          "tSeconds": 332,
+          "link": "https://www.youtube.com/watch?v=JoXbk2fm7jM&t=332"
+        },
+        {
+          "headline": "Five engineering primitives make loops reliable and composable",
+          "detail": "To keep loops clean and safe you need: work trees (isolate agent code and avoid cross-contamination), skills (reusable task patterns), plugins/connectors (GitHub, Slack, Google Docs, etc.), sub-agents (spawned threads for federated tasks and validation), and state tracking (a to-do list or tracker like Linear). The host shows these in action—e.g., Claude Code routines using GitHub and Slack connectors and Codex spawning sub-agents to validate new skills—demonstrating how these primitives prevent conflicts and enable scale.",
+          "anchorQuote": "To write an effective loop, you need these five things.",
+          "tSeconds": 381,
+          "link": "https://www.youtube.com/watch?v=JoXbk2fm7jM&t=381"
+        },
+        {
+          "headline": "Loops can burn money and produce poor results without precise prompts",
+          "detail": "Two main warnings: loops are easy to run continuously and can quickly consume tokens (cost), and goal-based loops in particular demand precise evaluation criteria and prompt engineering or they'll loop inefficiently. The speaker points to real examples (automations that spawn sub-agents and run validations) and recommends monitoring cost and writing strict success criteria—otherwise you get diligent agents that keep consuming compute for marginal returns.",
+          "anchorQuote": "One, loops can get expensive.",
+          "tSeconds": 1544,
+          "link": "https://www.youtube.com/watch?v=JoXbk2fm7jM&t=1544"
+        }
+      ]
+    },
+    {
+      "videoId": "R56RJFZBasQ",
+      "videoTitle": "How To Pick A Startup Idea",
+      "videoUrl": "https://www.youtube.com/watch?v=R56RJFZBasQ",
+      "channelName": "Y Combinator",
+      "publishedDate": "2026-06-17",
+      "guests": [],
+      "summary": "John (YC partner) explains a practical rubric for founders who can't choose between startup ideas: stop overthinking, pick one, and commit deeply so you can get real customer signal. He shows how to go deep (burn other boats, learn the customer's business, iterate with product), and what kinds of ideas are especially valuable in the AI era (edge-of-models, verticalized outcome ownership, and ambitious scope).",
+      "insights": [
+        {
+          "headline": "Don't overthink — commit and get customer feedback",
+          "detail": "You can't find a \"perfect\" idea in the abstract; real truth comes from contact with customers. John argues founders should pick an idea they're curious about and start talking to users and building — you can acquire deep domain knowledge quickly if you go deep, as shown by YC examples like Blake Scho of Boom Supersonic who moved from adtech to aviation. The point: commitment accelerates learning; hesitation produces only hypothetical reasoning.",
+          "anchorQuote": "The most important piece of advice I'd give",
+          "tSeconds": 41,
+          "link": "https://www.youtube.com/watch?v=R56RJFZBasQ&t=41"
+        },
+        {
+          "headline": "Work on one idea; burn the other boats",
+          "detail": "Juggling multiple ideas produces poor, mixed signals that make it impossible to tell what actually works; shallow experimentation leads either to prematurely killing good ideas or to sticking with bad ones. John recommends explicitly halting other projects, changing your company identity if needed, and immersing yourself in the chosen domain — the example GovDash pivoted many times but only after truly becoming domain experts on government procurement did demand explode and lead to a Series B. Going deep should feel like adopting a new skin so you generate high-quality data fast.",
+          "anchorQuote": "The first thing is that you should burn the other boats.",
+          "tSeconds": 202,
+          "link": "https://www.youtube.com/watch?v=R56RJFZBasQ&t=202"
+        },
+        {
+          "headline": "Validate depth by whether you could run the customer's business",
+          "detail": "The best test of product-market understanding is practical: could you operate the customer's business tomorrow and handle its daily crises? John uses the example of voice agents for cleaning services — it's not enough to have 20 conversations; you must know if answering the phone is a top problem, how much revenue is lost to missed calls, and what customers would actually pay to fix it. Reach that level by combining customer conversations with doing the work yourself and iterating product and learning in a tight loop.",
+          "anchorQuote": "could you actually run your customers business?",
+          "tSeconds": 283,
+          "link": "https://www.youtube.com/watch?v=R56RJFZBasQ&t=283"
+        },
+        {
+          "headline": "In AI era, verticalize — sell outcomes, not just software",
+          "detail": "As AI lowers the cost of producing software, the real value shifts to trust, regulatory permission, licenses, and owning customer outcomes rather than merely providing a tool. John cites Corgi Insurance (YC S24) which became a full-stack commercial insurer — even acquiring a carrier during YC — so it could underwrite, serve customers, and own the economics with far fewer people and better pricing. The lesson: aim to be the provider of the outcome (insurer, bank, care provider), not just a software vendor to that industry.",
+          "anchorQuote": "The second quality of a good idea is that it should verticalize.",
+          "tSeconds": 410,
+          "link": "https://www.youtube.com/watch?v=R56RJFZBasQ&t=410"
+        },
+        {
+          "headline": "Aim for the most ambitious version; bigger ambition buys a stronger moat",
+          "detail": "Pursuing a wildly ambitious vision usually costs about the same as a modest one because both are extremely hard, so you should aim for the version that, if it works, rewrites a sector. John explains that big goals attract top talent, deter competitors, and justify building defensible moats — examples include attacking highly regulated fields (healthcare, finance), taking on $10B incumbents, or doing hard tech like space robotics. Ambition shapes hiring, strategy, and the potential upside in ways modest goals cannot.",
+          "anchorQuote": "It should be the most ambitious version of itself.",
+          "tSeconds": 502,
+          "link": "https://www.youtube.com/watch?v=R56RJFZBasQ&t=502"
+        }
+      ]
+    }
+  ]
+}
