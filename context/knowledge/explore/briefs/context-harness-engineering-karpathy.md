@@ -1,7 +1,7 @@
 # Context engineering & harness engineering (Karpathy/Hashimoto framing) — research brief
 
 _question: AI engineering has moved through three eras: prompt → context → harness (Karpathy/Hashimoto framing). Scope of each, divide, tooling, best practices. Why "moved" if context is still active. Single go-to topology resource._
-_date: 2026-06-18 · sources: 8 · provenance: (chat)_
+_date: 2026-06-18 · sources: 8 · provenance: [drop](../../../../_inbox/processed/tg-20260617-221224-113.md)_
 
 ## TL;DR
 

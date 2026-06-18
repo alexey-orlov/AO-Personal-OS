@@ -1,7 +1,7 @@
 # Agentic SDLC role changes — research brief
 
 _question: Real world case studies or books about SDLC role changes / agile SDLC process changes with respect to agentic coding, agentic SDLC & SDD. Practitioner consensus on changed role boundaries, role profiles, artifacts and rituals, team compositions. Most challenging aspects._
-_date: 2026-06-18 · sources: 9 · provenance: (chat)_
+_date: 2026-06-18 · sources: 9 · provenance: [drop](../../../../_inbox/processed/tg-20260617-154256-110.md)_
 
 ## TL;DR
 Senior engineers are becoming agent orchestrators; junior developer hiring has collapsed (entry-level dev jobs down ~67% since 2022, Stanford data shows 22-25yo employment down ~20% post-ChatGPT). QA is not eliminated but de-manned — humans define quality objectives, agents run tests. Spec-Driven Development (SDD) is the emerging canonical answer to agentic drift: write a formal spec first, generate code from it. The hardest open problem is governance of agentic output — agents produce code faster than teams can verify it, with ~70% of hidden defects invisible in diff view.
