@@ -49,6 +49,7 @@ class TestReconcile(unittest.TestCase):
     def test_create_shape(self):
         out = sc.reconcile(base([src("T-shirt packages kick-off",
                                      "2026-06-17T08:00:00", "2026-06-17T08:30:00",
+                                     my_status="accepted",
                                      online=True, join_url="https://teams.microsoft.com/l/meetup-join/X",
                                      location="Microsoft Teams Meeting")]))
         self.assertEqual(out["counts"]["create"], 1)
@@ -212,6 +213,7 @@ class TestEnrichment(unittest.TestCase):
         d = p["description"]
         self.assertIn("Agenda: review Q3 roadmap.", d)
         self.assertIn("Organizer: Bohdan Khomych <bkhomych@softserveinc.com>", d)
+        self.assertIn("Your response: accepted", d)
         self.assertIn("Oleksii Orlov — accepted", d)
         self.assertIn("Pawel Domal — no response", d)
         for junk in ("Microsoft Teams", "Meeting ID", "Passcode", "confidential", "teams.microsoft.com"):
