@@ -98,10 +98,12 @@ def _sha(*parts):
     return h.hexdigest()
 
 
-def content_hash(norm_title, start_kiev_iso, end_kiev_iso, location, join_url, description="", resp=""):
-    # description carries note + organizer + participants, so any of those changing -> update
+def content_hash(norm_title, start_kiev_iso, end_kiev_iso, location, join_url,
+                 description="", resp="", transparency=""):
+    # description carries note + organizer + participants + the user's RSVP; resp + transparency
+    # carry the Busy/Free state. Any of these changing -> the copy is updated.
     return _sha(norm_title, start_kiev_iso, end_kiev_iso, location or "", join_url or "",
-                description or "", resp or "")[:16]
+                description or "", resp or "", transparency or "")[:16]
 
 
 def source_key(ev, start_kiev):
@@ -317,7 +319,8 @@ def reconcile(inp):
         chash = content_hash(normalize_title(ev.get("title", "")),
                              start_kiev.isoformat(), end_kiev.isoformat(),
                              payload["location"], ev.get("join_url"),
-                             payload["description"], payload["attendees"][0].get("responseStatus", ""))
+                             payload["description"], payload["attendees"][0].get("responseStatus", ""),
+                             payload.get("transparency", ""))
         rec = {"source_key": key, "content_hash": chash,
                "start_kiev": start_kiev.isoformat(), "title": payload["summary"]}
 

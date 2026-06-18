@@ -101,15 +101,22 @@ for e in evs {
     let url = meetingURL(e)
     var attJson: [String] = []
     var myStatus = ""
+    var myStatusFound = false          // pinned once EventKit's own isCurrentUser flag matches my entry
     for p in (e.attendees ?? []) {
         let email = mailFrom(p.url)
         let nm = p.name ?? email
         let st = pstatus(p.participantStatus)
-        attJson.append("{\"name\":\"\(esc(nm))\",\"email\":\"\(esc(email))\",\"status\":\"\(st)\"}")
-        if email.lowercased() == ssEmail { myStatus = st }
+        let isMe = p.isCurrentUser
+        attJson.append("{\"name\":\"\(esc(nm))\",\"email\":\"\(esc(email))\",\"status\":\"\(st)\",\"is_me\":\(isMe)}")
+        if isMe {                                      // primary: trust EventKit's current-user flag
+            myStatus = st; myStatusFound = true
+        } else if !myStatusFound && email.lowercased() == ssEmail {   // fallback: SMTP match (Exchange URLs are often X500/DN -> can miss)
+            myStatus = st
+        }
     }
     let orgEmail = mailFrom(e.organizer?.url)
-    if myStatus.isEmpty && orgEmail.lowercased() == ssEmail { myStatus = "accepted" }  // I'm the organizer
+    let orgIsMe = (e.organizer?.isCurrentUser ?? false) || (orgEmail.lowercased() == ssEmail)
+    if myStatus.isEmpty && orgIsMe { myStatus = "accepted" }  // I'm the organizer -> implicitly attending
     var f = [String]()
     f.append("\"uid\":\"\(esc(e.calendarItemIdentifier))\"")
     f.append("\"title\":\"\(esc(e.title ?? ""))\"")

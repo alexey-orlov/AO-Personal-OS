@@ -47,6 +47,11 @@ def read_ss():
         raw = json.loads(out.stdout or "[]")
     except json.JSONDecodeError as e:
         return [], False, "reader bad JSON: %s" % e
+    try:    # keep the last raw EventKit read for diagnostics (local-only; .work is git-ignored)
+        with open(os.path.join(HERE, ".work/state/last-read.json"), "w", encoding="utf-8") as f:
+            f.write(out.stdout or "[]")
+    except OSError:
+        pass
     evs = []
     for e in raw:
         if e.get("all_day"):        # skip all-day holidays / placeholders — mirror timed meetings only
