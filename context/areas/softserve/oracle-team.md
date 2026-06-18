@@ -2,7 +2,7 @@
 
 _status: reference doc — decoded roster of the Oracle people on the SoftServe partnership, the two motions they sit in, and Oracle's goals_
 _updated: 2026-06-18_
-_source: LinkedIn + public-web research run in-session 2026-06-16 (per-profile subagents); product pages verified 2026-06-16/18. Companion to [oracle.md](oracle.md) (partnership state) and [oracle-ai-offerings.md](oracle-ai-offerings.md) (product catalog). Inferences marked (inferred)._
+_source: LinkedIn + public-web research run in-session 2026-06-16 (per-profile subagents); product pages verified 2026-06-16/18; Gero role updated from the [2026-06-18 onboarding call](calls/oracle/2026-06-18_144751_sales-call_2026061814320114A9106F.md). Companion to [oracle.md](oracle.md) (partnership state) and [oracle-ai-offerings.md](oracle-ai-offerings.md) (product catalog). Inferences marked (inferred)._
 
 ## Headline
 
@@ -32,7 +32,7 @@ Structure: **US build/product** = Kennetz, Gupta, Kammari, Sindhwani. **EMEA sol
 
 | Person | Role / title | Seniority | Notes | Base |
 |---|---|---|---|---|
-| **Gero Gunkel** (gero.gunkel@oracle.com) | AIDP call **host/sponsor**; customer-facing enterprise-AI product/strategy (likely "Speaker G" in the NDA-chase loops) | Senior IC / AI-product specialist — **exec *pedigree*, not a confirmed buyer** (inferred) | Ex-Group/Global Head of AI, **Zurich Insurance** (~2016–2020; Gartner innovation award 2017); then COO of ZCAM; WEF AI-in-finserv working group; LSE + IMD; NLP/doc-extraction patents. Absent from all Oracle exec rosters/AI World speaker lists; personally chases the NHS/DHL NDAs (hands-on, not VP). **Read: best champion ≠ check-signer.** | Zürich, CH |
+| **Gero Gunkel** (gero.gunkel@oracle.com) | AIDP call **host/sponsor**; per Karsten (2026-06-18) Oracle **"customer CTO,"** customer-facing across data & AI, pre-sales + commercial, **leading the accelerator activities** — Karsten's main Oracle contact and the **owner of the productization/scaling workstream** Alex is joining (spans Motion B *and* Motion A) | Senior IC / AI-product specialist — **exec *pedigree*; treated as the de-facto owner/decision-maker for the accelerator workstream, but still not a confirmed budget owner** (inferred) | Ex-Group/Global Head of AI, **Zurich Insurance** (~2016–2020; Gartner innovation award 2017); then COO of ZCAM; WEF AI-in-finserv working group; LSE + IMD; NLP/doc-extraction patents. Absent from all Oracle exec rosters/AI World speaker lists; personally chases the NHS/DHL NDAs (hands-on, not VP). **Read: best champion, now also the routing/decision point for accelerator scope & prioritization — confirm whether his "commercial" remit extends to package/accelerator funding.** Alex's dedicated discovery call with him being set up (week of 2026-06-22). | Zürich, CH |
 | **Amit Tyagi** (amit.tyagi@oracle.com) | AIDP **technical lead** (ran deck + live demo); title "Data Management Domain Expert – Analytics, Cloud Solutions Architect"; **author of Oracle's official AIDP onboarding blog series** | Senior IC solution architect | "Black Belt" = Oracle internal expert-SE/specialist designation. Data-platform lineage (Oracle Analytics Cloud, Autonomous DW). India-origin (possible recent relocation). | Utrecht, NL |
 | **Milo** (Oracle) | AIDP **sales/partner lead**; owns commercials + joint-GTM follow-up | Unknown — **not yet researched** | **The Oracle node most likely to hold real commercial authority → research next.** | ? |
 
@@ -44,7 +44,7 @@ Structure: **US build/product** = Kennetz, Gupta, Kammari, Sindhwani. **EMEA sol
 
 ## How they treat the engagement
 
-- Engaged at the **senior-technical-specialist + PM tier**; genuinely strong people, but **no confirmed economic buyer** in either motion. Gero is the best champion (pedigree) but not the buyer.
+- Engaged at the **senior-technical-specialist + PM tier**; genuinely strong people, but **no confirmed economic buyer** in either motion. Gero is the best champion (pedigree) and — as of 2026-06-18 — the **owner/decision point for accelerator scope & prioritization**; still unconfirmed whether his remit reaches package/accelerator *funding* (the open buyer question).
 - Commercial authority most likely sits with **Milo** (Motion B) and with someone **above the specialists** on Motion A whom Alex hasn't met.
 - Relationship is **technically serious but commercially early** — partner-managed from the specialist tier, not sponsored from the alliance/exec tier.
 - **Highest-value next move:** map Milo + ask (via Milo and Karsten) "who owns package/accelerator funding and pricing decisions?" — the confirmed economic-buyer gap on both fronts.
