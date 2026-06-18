@@ -66,6 +66,8 @@ def read_ss():
             "join_url": e.get("join_url"),
             "location": e.get("location", ""),
             "organizer": e.get("organizer", ""),
+            "organizer_email": e.get("organizer_email", ""),
+            "my_status": e.get("my_status", ""),    # the user's RSVP — drives Busy/Free + the description
             "attendees": e.get("attendees", []),
         })
     return evs, True, None
