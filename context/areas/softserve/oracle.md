@@ -1,7 +1,7 @@
 # Oracle partnership — joint IP
 
 _status: onboarding — Phase 1 (through end of Jun 2026): reactive familiarization with Oracle's three NVIDIA-built packages (AIQ / cuOpt / VSS) via Karsten as the single Oracle gateway; AIDP co-sell parallel. First Oracle call done (Bosch cuOpt tech sync, 2026-06-16); Wed Jun 17 R&D cross-team update delivered — SoftServe positioned as Oracle's primary "vendor of choice" for verticalized AI accelerator packs._
-_updated: 2026-06-17_
+_updated: 2026-06-18_
 
 ## Snapshot
 
@@ -23,6 +23,7 @@ _updated: 2026-06-17_
 - AIDP differentiation Oracle leads with: 20–60% TCO advantage on migrated workloads, forthcoming ontology/semantic-layer SKU, zero-copy catalog-of-catalogs, multi-cloud + on-prem. Acknowledged gaps: no dedicated Databricks/Snowflake migration tooling, NVIDIA Enterprise AI / Omniverse not a top priority, SAP S/4HANA native connector not confirmed. [AIDP sales call](calls/oracle/2026-06-12_173159_sales-call_2026061216024378A29A99.md)
 - NDA blockers in flight on AIDP-adjacent deals (separate workstreams): SPG (ball in client's court, Khaled chasing 2x), NHS (Oracle chasing, ~50K medical records complexity), DHL (debating whether existing Oracle-customer status removes NDA need). Gero owns the chase. [AIDP sales call](calls/oracle/2026-06-12_173159_sales-call_2026061216024378A29A99.md)
 - SoftServe has unused Oracle subscription credits that could fund an AIDP pilot — Pavel owns the check. [AIDP sales call](calls/oracle/2026-06-12_173159_sales-call_2026061216024378A29A99.md)
+- **Oracle-side team & motions (mapped 2026-06-16/18):** "Oracle" here = two motions — **Motion A** OCI AI Infrastructure (+NVIDIA; the weekly sync + the AIQ/cuOpt/VSS packs) and **Motion B** AIDP (data platform). All known contacts are senior ICs/specialists; **no confirmed economic buyer yet** (Gero = champion with exec pedigree, not the check-signer; Milo = likeliest commercial node, research next). Decoded roster + Oracle's goals → [oracle-team.md](oracle-team.md); Oracle's AI product catalog the packs build on → [oracle-ai-offerings.md](oracle-ai-offerings.md).
 
 ## People
 
