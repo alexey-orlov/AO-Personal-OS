@@ -6,8 +6,9 @@ _source: LinkedIn + public-web research run in-session 2026-06-16 (per-profile s
 
 ## Headline
 
-"The Oracle side" is **two parallel motions**, each staffed by senior technical specialists + PMs — and **no confirmed economic buyer in either**. Every named Oracle contact so far resolves to a senior IC or specialist, not a budget owner. Center of gravity: **US = product/strategy HQ; EMEA = the people SoftServe works with day-to-day.** NVIDIA (via gateway Karsten) is currently more central than Oracle itself.
+"The Oracle side" is **one AI Accelerators engagement that Gero Gunkel leads end-to-end (across data & AI)**, delivered through **two parallel motions** each staffed by senior technical specialists + PMs. Below Gero, **no confirmed economic buyer in either motion** — every other named Oracle contact resolves to a senior IC or specialist, not a budget owner. Center of gravity: **US = product/strategy HQ; EMEA = the people SoftServe works with day-to-day.** NVIDIA (via gateway Karsten) is currently more central than Oracle itself.
 
+- **Gero Gunkel — engagement lead (across both motions):** Oracle "customer CTO," customer-facing across data & AI, pre-sales + commercial; leads the overall AI Accelerators engagement and owns the productization/scaling workstream Alex is joining (confirmed by Karsten, 2026-06-18). Sits *above* the motion split, not inside it.
 - **Motion A — OCI AI Infrastructure (+ NVIDIA):** the weekly technical sync; the NVIDIA-built packs (AIQ / cuOpt / VSS); GPU / inference / agentic. US builds it, an EMEA "AI Centre of Excellence" deploys it.
 - **Motion B — AIDP (AI Data Platform):** Oracle's Databricks/Snowflake answer; data + analytics + GenAI over enterprise/Fusion data. The 2026-06-12 AIDP call team. EMEA-anchored (Zürich, Utrecht).
 
