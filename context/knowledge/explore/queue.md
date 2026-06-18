@@ -14,6 +14,7 @@ Format: `- [ ] YYYY-MM-DD — topic — why it matters ([drop](provenance))[ →
 
 ## Open
 
+- [ ] 2026-06-18 — context engineering & harness engineering (Karpathy/Hashimoto framing) — scope of each era, divide, tooling, best practices, canonical topology resources → [brief](briefs/context-harness-engineering-karpathy.md)
 - [ ] 2026-06-18 — enterprise workflow AI equilibrium — NL layer replacing SaaS UI, platform AI vs SaaS-embedded agents, deterministic vs agentic, SaaS vs custom builds; where is the equilibrium across CRM/ERP/ops → [brief](briefs/enterprise-workflow-ai-equilibrium.md)
 - [ ] 2026-06-18 — agentic SDLC role changes — practitioner consensus on changed roles, artifacts, rituals, team compositions; SDD in agentic context; hardest challenges (chat) → [brief](briefs/agentic-sdlc-role-changes.md)
 - [ ] 2026-06-16 — spec-driven development — what it is specifically, its techniques, and relevance to Alex's product/AI-engineering work ([drop](../../_inbox/processed/tg-20260616-134617-107.md)) → [brief](briefs/spec-driven-development.md)
