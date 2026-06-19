@@ -384,6 +384,115 @@ def reconcile(inp):
 
 
 # --------------------------------------------------------------------------- #
+# reverse leg: Google busy -> SS "Busy" placeholders (1:1, content-free)
+# --------------------------------------------------------------------------- #
+def _rev_hash(start_iso, end_iso):
+    """Hash over the ABSOLUTE instants (UTC), not the raw strings — Google and EventKit render
+    the same moment with different offsets, so we must normalize or an unchanged slot never skips."""
+    def norm(s):
+        try:
+            return _utc(s).isoformat()
+        except Exception:
+            return s or ""
+    return _sha(norm(start_iso), norm(end_iso))[:16]
+
+
+def _google_is_busy(ev):
+    """A timed, busy, not-cancelled, not-self-declined Google event = time the user actually holds."""
+    if ev.get("status") == "cancelled":
+        return False
+    if not (ev.get("start") or {}).get("dateTime"):        # all-day events don't hold a time slot
+        return False
+    if ev.get("transparency") == "transparent":            # explicitly marked Free
+        return False
+    for a in ev.get("attendees") or []:
+        if a.get("self") and a.get("responseStatus") == "declined":
+            return False
+    return True
+
+
+def _google_is_ss_related(ev, cfg):
+    """Anti-recursion (Loop A): skip our own forward copies AND events already on SS."""
+    if _PREFIX_RE.match(ev.get("summary") or ""):                       # forward "SS: ..." copy
+        return True
+    if ((ev.get("extendedProperties") or {}).get("private") or {}).get("ssSync"):
+        return True
+    ss = cfg["softserve_email"].casefold()
+    if ss in ((ev.get("organizer") or {}).get("email") or "").casefold():
+        return True
+    return any(ss in (a.get("email") or "").casefold() for a in (ev.get("attendees") or []))
+
+
+def reverse_sources(inp):
+    """Google events (each tagged with `_cal`) -> busy slots to block in SS, anti-recursion applied."""
+    cfg = dict(DEFAULT_CONFIG); cfg.update(inp.get("config") or {})
+    out = []
+    for ev in inp.get("events") or []:
+        if not _google_is_busy(ev) or _google_is_ss_related(ev, cfg):
+            continue
+        out.append({"key": "%s::%s" % (ev.get("_cal", ""), ev.get("id", "")),
+                    "start": (ev.get("start") or {}).get("dateTime"),
+                    "end": (ev.get("end") or {}).get("dateTime")})
+    return {"busy_events": out}
+
+
+def reverse_reconcile(inp):
+    """Busy slots + known placeholders -> {create, update, delete} writer commands.
+
+    1:1 and content-free: each placeholder is just "Busy" at the slot's time, carrying a
+    [[gcal-busy:<key>]] note so the forward leg skips it and we can re-link if the ledger is lost.
+    Idempotency hash is over absolute instants; delete-guard mirrors the forward leg."""
+    cfg = dict(DEFAULT_CONFIG); cfg.update(inp.get("config") or {})
+    title, mk = cfg.get("busy_title", "Busy"), cfg.get("reverse_marker", "gcal-busy")
+    placeholders = inp.get("ss_placeholders") or []
+
+    existing = {}   # key -> {ss_id, hash}
+    for k, v in (inp.get("reverse_ledger") or {}).items():
+        existing[k] = {"ss_id": v.get("ss_id"), "hash": v.get("hash")}
+    for p in placeholders:
+        k = p.get("key")
+        if not k:
+            continue
+        existing.setdefault(k, {})
+        existing[k]["ss_id"] = existing[k].get("ss_id") or p.get("ss_id")
+        existing[k].setdefault("hash", _rev_hash(p.get("start"), p.get("end")))
+
+    seen, creates, updates, skips = set(), [], [], []
+    for b in inp.get("busy_events") or []:
+        key = b["key"]; seen.add(key)
+        h = _rev_hash(b.get("start"), b.get("end"))
+        cmd = {"key": key, "start": b.get("start"), "end": b.get("end"),
+               "title": title, "marker": "[[%s:%s]]" % (mk, key), "hash": h}
+        cur = existing.get(key)
+        if cur and cur.get("ss_id"):
+            if cur.get("hash") == h:
+                skips.append({"key": key, "reason": "up-to-date"})
+            else:
+                updates.append({**cmd, "op": "update", "ss_id": cur["ss_id"]})
+        else:
+            creates.append({**cmd, "op": "create"})
+
+    deletes = []
+    if inp.get("source_complete", True):
+        owned = {}   # ss_id -> key  (dedup so a stale duplicate placeholder is still pruned)
+        for k, v in existing.items():
+            if v.get("ss_id"):
+                owned.setdefault(v["ss_id"], k)
+        for p in placeholders:
+            if p.get("ss_id"):
+                owned.setdefault(p["ss_id"], p.get("key"))
+        upd_ids = {u["ss_id"] for u in updates}
+        for ssid, key in owned.items():
+            if key in seen or ssid in upd_ids:
+                continue
+            deletes.append({"op": "delete", "ss_id": ssid, "key": key})
+
+    return {"creates": creates, "updates": updates, "deletes": deletes, "skips": skips,
+            "counts": {"create": len(creates), "update": len(updates),
+                       "delete": len(deletes), "skip": len(skips)}}
+
+
+# --------------------------------------------------------------------------- #
 # schedule gate  (hourly, Mon–Fri, 08:00–20:00 EET)
 # --------------------------------------------------------------------------- #
 def schedule(inp):
@@ -537,6 +646,8 @@ def extract(inp):
 _COMMANDS = {
     "reconcile": reconcile,
     "extract": extract,
+    "reverse-sources": reverse_sources,
+    "reverse-reconcile": reverse_reconcile,
     "schedule": schedule,
     "log-run": log_run,
     "daily-summary": daily_summary,
