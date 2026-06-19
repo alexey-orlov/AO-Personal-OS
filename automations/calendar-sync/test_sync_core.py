@@ -347,5 +347,79 @@ class TestStatusSemantics(unittest.TestCase):
         self.assertEqual(out["updates"][0]["payload"]["transparency"], "transparent")
 
 
+class TestReverse(unittest.TestCase):
+    """Reverse leg: Google busy -> SS 'Busy' placeholders."""
+
+    def gev(self, id="e1", cal="cal1", summary="GigaCloud sync",
+            start="2026-06-20T15:00:00+03:00", end="2026-06-20T15:30:00+03:00", **kw):
+        e = {"id": id, "_cal": cal, "summary": summary,
+             "start": {"dateTime": start}, "end": {"dateTime": end}}
+        e.update(kw)
+        return e
+
+    def test_busy_and_antirecursion_filters(self):
+        events = [
+            self.gev(id="keep", summary="GigaCloud <> Rafay"),
+            {"id": "ad", "_cal": "c", "summary": "Trip",
+             "start": {"date": "2026-06-20"}, "end": {"date": "2026-06-21"}},     # all-day -> skip
+            self.gev(id="free", transparency="transparent"),                       # Free -> skip
+            self.gev(id="canc", status="cancelled"),                               # cancelled -> skip
+            self.gev(id="dec", attendees=[{"self": True, "responseStatus": "declined"}]),  # declined -> skip
+            self.gev(id="sscopy", summary="SS: Weekly sync-up"),                   # forward copy -> skip
+            self.gev(id="ssmark", extendedProperties={"private": {"ssSync": "id:abc"}}),   # forward marker -> skip
+            self.gev(id="ssorg", organizer={"email": "olekorlov@softserveinc.com"}),       # SS organizer -> skip
+            self.gev(id="ssatt", attendees=[{"email": "olekorlov@softserveinc.com"}]),     # SS attendee -> skip
+        ]
+        out = sc.reverse_sources({"events": events})["busy_events"]
+        self.assertEqual([b["key"] for b in out], ["cal1::keep"])
+
+    def test_create_update_delete_idempotent(self):
+        busy = sc.reverse_sources({"events": [self.gev(id="m1")]})["busy_events"]
+        plan = sc.reverse_reconcile({"busy_events": busy, "reverse_ledger": {}, "ss_placeholders": []})
+        self.assertEqual(plan["counts"], {"create": 1, "update": 0, "delete": 0, "skip": 0})
+        c = plan["creates"][0]
+        self.assertEqual(c["title"], "Busy")
+        self.assertEqual(c["marker"], "[[gcal-busy:cal1::m1]]")
+        ledger = {c["key"]: {"ss_id": "SS1", "hash": c["hash"]}}
+        # idempotent
+        again = sc.reverse_reconcile({"busy_events": busy, "reverse_ledger": ledger, "ss_placeholders": []})
+        self.assertEqual(again["counts"]["skip"], 1)
+        # moved -> update (same ss_id)
+        moved = sc.reverse_sources({"events": [self.gev(id="m1", start="2026-06-20T16:00:00+03:00",
+                                                        end="2026-06-20T16:30:00+03:00")]})["busy_events"]
+        up = sc.reverse_reconcile({"busy_events": moved, "reverse_ledger": ledger, "ss_placeholders": []})
+        self.assertEqual(up["counts"]["update"], 1)
+        self.assertEqual(up["updates"][0]["ss_id"], "SS1")
+        # gone -> delete
+        gone = sc.reverse_reconcile({"busy_events": [], "reverse_ledger": ledger, "ss_placeholders": []})
+        self.assertEqual(gone["counts"]["delete"], 1)
+        self.assertEqual(gone["deletes"][0]["ss_id"], "SS1")
+
+    def test_converges_across_tz_representation(self):
+        # placeholder read back from EventKit (Kyiv) must SKIP vs the Google source (other offset, same instant)
+        busy = sc.reverse_sources({"events": [self.gev(id="m1", start="2026-06-20T05:00:00-07:00",
+                                                       end="2026-06-20T05:30:00-07:00")]})["busy_events"]
+        ph = [{"ss_id": "SS1", "key": "cal1::m1",
+               "start": "2026-06-20T15:00:00+03:00", "end": "2026-06-20T15:30:00+03:00"}]
+        plan = sc.reverse_reconcile({"busy_events": busy, "reverse_ledger": {}, "ss_placeholders": ph})
+        self.assertEqual(plan["counts"]["skip"], 1, plan)
+
+    def test_relink_via_placeholder_when_ledger_lost(self):
+        # ledger empty but the placeholder still on SS -> recognized (skip), not duplicated
+        busy = sc.reverse_sources({"events": [self.gev(id="m1")]})["busy_events"]
+        ph = [{"ss_id": "SS1", "key": "cal1::m1",
+               "start": "2026-06-20T15:00:00+03:00", "end": "2026-06-20T15:30:00+03:00"}]
+        plan = sc.reverse_reconcile({"busy_events": busy, "reverse_ledger": {}, "ss_placeholders": ph})
+        self.assertEqual(plan["counts"]["skip"], 1)
+
+    def test_delete_guarded_on_incomplete_read(self):
+        ledger = {"cal1::gone": {"ss_id": "SSx", "hash": "h"}}
+        full = sc.reverse_reconcile({"busy_events": [], "reverse_ledger": ledger, "ss_placeholders": []})
+        self.assertEqual(full["counts"]["delete"], 1)
+        guarded = sc.reverse_reconcile({"busy_events": [], "reverse_ledger": ledger,
+                                        "ss_placeholders": [], "source_complete": False})
+        self.assertEqual(guarded["counts"]["delete"], 0)
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)
