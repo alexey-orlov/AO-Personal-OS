@@ -20,7 +20,9 @@ import urllib.request
 AUTH_URI = "https://accounts.google.com/o/oauth2/v2/auth"
 TOKEN_URI = "https://oauth2.googleapis.com/token"
 API = "https://www.googleapis.com/calendar/v3"
-SCOPE = "https://www.googleapis.com/auth/calendar.events"
+# events: forward leg writes SS: copies. readonly: reverse leg enumerates calendars +
+# reads busy events across all of them (calendarList/freeBusy need more than events scope).
+SCOPE = "https://www.googleapis.com/auth/calendar.events https://www.googleapis.com/auth/calendar.readonly"
 
 CLIENT_ID = os.environ.get("CALSYNC_GOOGLE_CLIENT_ID", "")
 CLIENT_SECRET = os.environ.get("CALSYNC_GOOGLE_CLIENT_SECRET", "")
@@ -125,14 +127,31 @@ def auth():
 # --------------------------------------------------------------------------- #
 # calendar ops
 # --------------------------------------------------------------------------- #
-def list_events(time_min, time_max, max_results=2500):
+def list_calendars():
+    """Every calendar in the user's list (primary, Family, subscribed 'other' ones like GigaCloud).
+    Each item carries id, summary, accessRole ('owner'/'reader'/'freeBusyReader'/'writer')."""
+    out, page = [], None
+    while True:
+        p = {"maxResults": 250}
+        if page:
+            p["pageToken"] = page
+        res = _api("GET", "/users/me/calendarList", params=p)
+        out.extend(res.get("items", []))
+        page = res.get("nextPageToken")
+        if not page:
+            break
+    return out
+
+
+def list_events(time_min, time_max, max_results=2500, calendar_id=None):
+    cal = calendar_id or CAL_ID
     out, page = [], None
     while True:
         p = {"timeMin": time_min, "timeMax": time_max, "singleEvents": "true",
              "maxResults": 250, "showDeleted": "false"}
         if page:
             p["pageToken"] = page
-        res = _api("GET", "/calendars/%s/events" % urllib.parse.quote(CAL_ID), params=p)
+        res = _api("GET", "/calendars/%s/events" % urllib.parse.quote(cal), params=p)
         out.extend(res.get("items", []))
         page = res.get("nextPageToken")
         if not page or len(out) >= max_results:
