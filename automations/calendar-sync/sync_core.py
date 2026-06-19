@@ -43,6 +43,8 @@ DEFAULT_CONFIG = {
     "tz": "Europe/Kyiv",
     "marker": "ss-sync",
     "match_overlap_minutes": 90,            # native-dup time tolerance
+    "busy_title": "Busy",                   # reverse-leg placeholder title
+    "reverse_marker": "gcal-busy",          # reverse placeholders carry [[gcal-busy:<key>]] in notes
 }
 
 # Titles that mean "this meeting is off" — RU / UK / EN. Case-insensitive.
