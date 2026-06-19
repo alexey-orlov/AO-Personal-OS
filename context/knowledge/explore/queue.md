@@ -14,6 +14,7 @@ Format: `- [ ] YYYY-MM-DD — topic — why it matters ([drop](provenance))[ →
 
 ## Open
 
+- [ ] 2026-06-19 — Kiro.dev (Amazon's agentic spec-driven IDE) — how does it work hands-on; Hooks, spec pipeline, vs Claude Code ([drop](../../_inbox/processed/tg-20260618-130859-126.md)) → [brief](briefs/kiro-dev.md)
 - [ ] 2026-06-18 — context & harness engineering (Karpathy/Hashimoto three-eras framing) — scope of each era, divide, tooling, why "moved", canonical topology ([drop](../../_inbox/processed/tg-20260617-221224-113.md)) → [brief](briefs/context-harness-engineering-karpathy.md)
 - [ ] 2026-06-18 — enterprise workflow AI equilibrium — NL layer replacing SaaS UI, platform AI vs SaaS-embedded agents, deterministic vs agentic, SaaS vs custom builds; where is the equilibrium across CRM/ERP/ops ([drop](../../_inbox/processed/tg-20260617-202524-112.md)) → [brief](briefs/enterprise-workflow-ai-equilibrium.md)
 - [ ] 2026-06-18 — agentic SDLC role changes — practitioner consensus on changed roles, artifacts, rituals, team compositions; SDD in agentic context; hardest challenges ([drop](../../_inbox/processed/tg-20260617-154256-110.md)) → [brief](briefs/agentic-sdlc-role-changes.md)
