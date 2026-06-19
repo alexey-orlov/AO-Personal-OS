@@ -1,0 +1,162 @@
+{
+  "schema": 1,
+  "generatedAt": "2026-06-19T04:02:50.147Z",
+  "runStamp": "20260619T0402",
+  "episodes": [
+    {
+      "videoId": "OCEVqy8kl7Q",
+      "videoTitle": "How GitHub Deals with 17 Million Pull Requests a Month",
+      "videoUrl": "https://www.youtube.com/watch?v=OCEVqy8kl7Q",
+      "channelName": "Every",
+      "publishedDate": "2026-06-17",
+      "guests": [
+        "Kyle (GitHub)"
+      ],
+      "summary": "A GitHub executive explains how AI agents are rapidly increasing code production and what GitHub is building to keep repositories manageable. The conversation covers agent-generated pull request volume, tools to automate reviews and merges, maintainer controls (not one-size-fits-all standards), pricing and rate-limit trade-offs, and iterative model improvement via product-driven \"hill climbing.\"",
+      "insights": [
+        {
+          "headline": "Agent-generated PRs are already flooding repos (millions monthly).",
+          "detail": "GitHub sees enormous agent activity: in March there were 17 million pull requests created by agents alone, which multiplies the amount of code and PRs maintainers must process. To avoid dismissing this as low-value noise, GitHub is building agentic code-review and agentic-merge features that can find vulnerabilities, make fixes, wait for CI and enforce policies so PRs arrive in a reviewable state. This matters because open-source maintainers report being overwhelmed, and automation needs to both scale and preserve maintainer control.",
+          "anchorQuote": "in March you know there were 17 million poll requests",
+          "tSeconds": 405,
+          "link": "https://www.youtube.com/watch?v=OCEVqy8kl7Q&t=405"
+        },
+        {
+          "headline": "GitHub will provide controls, not impose a single PR governance standard.",
+          "detail": "Rather than forcing one workflow, GitHub focuses on offering building blocks so communities decide who can submit PRs, what proof of contribution is required, and how vouch systems operate. Executives point to examples like Mitchell Hashimoto's vouch system to show valid community-specific practices, and say GitHub will only 'lock in' a standard if the community converges on one. That approach keeps maintainers in control and avoids creating a universal gate that would break diverse open-source norms.",
+          "anchorQuote": "giving maintainers more tools to decide",
+          "tSeconds": 281,
+          "link": "https://www.youtube.com/watch?v=OCEVqy8kl7Q&t=281"
+        },
+        {
+          "headline": "Heavy agent usage will be managed with rate limits or usage-based tiers.",
+          "detail": "GitHub currently relies on familiar mechanisms—free core experiences plus API rate limits—to throttle excessive automated activity, but expects those controls to evolve as agents multiply (the example of dozens or 150 agents per user was cited). The company wants to enable large-scale agent usage for power users while preserving a good baseline free experience; model routing and auto-selection are proposed ways to reduce token costs and make pricing predictable. The implication: expect nuanced, usage-aware pricing rather than simple blanket subscriptions.",
+          "anchorQuote": "we've always had you know API rate limits",
+          "tSeconds": 506,
+          "link": "https://www.youtube.com/watch?v=OCEVqy8kl7Q&t=506"
+        },
+        {
+          "headline": "Continuous 'hill climbing' on real product data is central to improving models.",
+          "detail": "GitHub/Microsoft treat iterative improvement—using thumbs-up/down, acceptance rates, evals and telemetry—as the core way to make models better in practice, not just lab benchmarks. They run weekly hill-climbing cycles, combine hard and soft metrics, and use techniques like frontier tuning on enterprise data (e.g., M365 assets) to get meaningful gains without huge bespoke effort. That makes personalization and model routing tractable and helps avoid wild cost increases by matching problem difficulty to model choice.",
+          "anchorQuote": "Every week we're talking about the hill climbing results",
+          "tSeconds": 1242,
+          "link": "https://www.youtube.com/watch?v=OCEVqy8kl7Q&t=1242"
+        },
+        {
+          "headline": "Developers are adopting personal agents as private productivity coaches.",
+          "detail": "Beyond code generation, people are using agents to audit personal work: the guest describes an agent (Baxter) that reads his emails and Slack, highlights recurring habits, suggests clearer metaphors, and checks whether he followed through on tasks. This 'self-improvement loop' is powerful because humans accept critical feedback from an agent more readily than from other people, and it creates continuous, personalized product value that reinforces agent adoption.",
+          "anchorQuote": "my open claw that I affectionately named Baxter",
+          "tSeconds": 1578,
+          "link": "https://www.youtube.com/watch?v=OCEVqy8kl7Q&t=1578"
+        }
+      ]
+    },
+    {
+      "videoId": "SWFEtaWe2xU",
+      "videoTitle": "The Dashboard Is Dead: What Snowflake's CMO Does Instead",
+      "videoUrl": "https://www.youtube.com/watch?v=SWFEtaWe2xU",
+      "channelName": "SaaStr AI",
+      "publishedDate": "2026-06-18",
+      "guests": [
+        "Denise"
+      ],
+      "summary": "Denise (Snowflake's CMO) explains how her marketing organization replaced traditional dashboards with conversational, agent-driven access to company data and workflows. The conversation argues that agentic interfaces let teams interrogate data in natural language, get real-time recommendations, and automate repetitive tasks — yielding measurable ROI while forcing new priorities around data quality, governance, and hiring.",
+      "insights": [
+        {
+          "headline": "Traditional dashboards are becoming obsolete for operational decisions",
+          "detail": "Denise argues that dashboards create questions and meetings rather than answers; instead, marketers now use agentic interfaces to ask why things happened and get immediate, actionable explanations. At Snowflake this shift reduced cost-per-opportunity by about 30% over six months because teams can optimize spend and reallocate budget daily instead of waiting for post‑campaign analysis. The point matters because it changes how work is organized — from weekly reporting rituals to on-demand decisioning.",
+          "anchorQuote": "That's why I'm saying that the dashboard is dead.",
+          "tSeconds": 382,
+          "link": "https://www.youtube.com/watch?v=SWFEtaWe2xU&t=382"
+        },
+        {
+          "headline": "Agentic access delivers real-time recommendations and budget optimization",
+          "detail": "By combining channels and letting agents interrogate unified data, the marketing team receives 'real time recommendations' that let them reallocate media spend and intervene across the funnel before a quarter ends. Denise contrasts this with the old model where problems were only visible at quarter‑end and too late to fix; now teams can project Q3/Q4 pipeline and act in time. That immediacy materially improves pipeline health and campaign ROI.",
+          "anchorQuote": "giving you know real time recommendations we can optimize",
+          "tSeconds": 275,
+          "link": "https://www.youtube.com/watch?v=SWFEtaWe2xU&t=275"
+        },
+        {
+          "headline": "Bad data plus AI multiplies bad decisions — data hygiene is essential",
+          "detail": "Denise emphasizes that AI amplifies whatever data it consumes: poor data leads to bad decisions faster and at scale, so cleaning and governing the data estate is an 'absolute essential.' Snowflake treats data quality as a prerequisite rather than an afterthought — analogous to Salesforce hygiene in earlier eras — because agents will multiply errors across personalization, ads, and customer outreach. The takeaway: invest early in data foundations or suffer amplified downstream damage.",
+          "anchorQuote": "If you have bad data, you're going to make bad decisions.",
+          "tSeconds": 545,
+          "link": "https://www.youtube.com/watch?v=SWFEtaWe2xU&t=545"
+        },
+        {
+          "headline": "Centralized AI engineering and control planes are required at scale",
+          "detail": "Snowflake created a central AI engineering/data org to certify agent skills, manage access, and prevent duplicate or unsafe agent behavior — including a companywide GTM agent (Raven) and a control plane for governance. Denise says roughly ~20 people are dedicated from the central team to sales and marketing, but demand outstrips supply, so prioritization is critical to avoid chaotic duplication. This setup matters because it balances experimentation with risk control in a low‑tolerance enterprise environment.",
+          "anchorQuote": "we also have a centralized sort of AI engineering team",
+          "tSeconds": 912,
+          "link": "https://www.youtube.com/watch?v=SWFEtaWe2xU&t=912"
+        },
+        {
+          "headline": "AI is redefining roles: GTM engineers and adaptable mindsets win",
+          "detail": "Rather than hiring more traditional business analysts, Snowflake is building GTM engineering roles and converting people from marketing ops and analytics into those positions; soft skills like curiosity, adaptability, and change management now trump narrow technical certifications. Hiring exercises ask candidates to solve real problems with AI tools to surface practical problem‑solving and learning ability. The implication is that career paths and recruiting tests must shift to evaluate adaptability and outcome orientation.",
+          "anchorQuote": "the GTM engineer function has clearly is that's the one we're we're hiring",
+          "tSeconds": 1099,
+          "link": "https://www.youtube.com/watch?v=SWFEtaWe2xU&t=1099"
+        },
+        {
+          "headline": "Build AI fluency through distributed experimentation and structured rituals",
+          "detail": "Instead of top‑down mandates, Snowflake fosters adoption with weekly AI skills sessions, AI hackathons, a monthly 'AI challenge' where staff showcase agent builds, and a leaderboard tied to outcomes and learning objectives. Denise stresses incentivizing curiosity (quarterly 'what matters' OKRs include an AI skill) and surfacing power users who then help other teams, which accelerates adoption without forcing uniform pace. This approach produces unexpected innovators (e.g., brand team members becoming top users) and prevents shallow, checkbox usage.",
+          "anchorQuote": "we have something we call the AI challenge on the marketing team.",
+          "tSeconds": 1269,
+          "link": "https://www.youtube.com/watch?v=SWFEtaWe2xU&t=1269"
+        }
+      ]
+    },
+    {
+      "videoId": "BX9ofqxmeYw",
+      "videoTitle": "SpaceX IPOs at $2.89T Market Cap, US Govt Suspends Fable & Mythos 5, Altman Delays OpenAI’s IPO |265",
+      "videoUrl": "https://www.youtube.com/watch?v=BX9ofqxmeYw",
+      "channelName": "Peter H. Diamandis",
+      "publishedDate": "2026-06-18",
+      "guests": [
+        "Alex",
+        "Dave",
+        "Salim",
+        "Dario Amodei (Anthropic)",
+        "Andrew Yang"
+      ],
+      "summary": "The episode unpacks Friday's record SpaceX IPO (opening $135, trading up to $161) and its $2.89 trillion market cap, then pivots to a major AI governance story: the US ordered Anthropic to suspend Fable 5 and Mythos 5 for foreign nationals. Panelists debate the investment and civilizational implications (Starlink as profit engine, launch as monopoly), the likely shift to on‑prem/open‑weight models, and how compute and policy bottlenecks will shape AI's geopolitical and economic trajectory.",
+      "insights": [
+        {
+          "headline": "SpaceX's IPO prices a civilization-scale, triple-exponential company",
+          "detail": "The discussion argues SpaceX shouldn't be valued like a normal tech firm because it combines three exponential businesses: an unmatched launch monopoly, a Starlink cash engine, and an AI/ orbital compute frontier. The episode cites the IPO opening at $135, first‑day close near $161 and a current market cap reported at $2.890 trillion, notes Elon retains ~82% voting control, and highlights Starlink metrics referenced on the show (claims like billions of subscribers and over $1B quarterly profit) to explain why investors are buying a stake in a future 'civilizational infrastructure' rather than traditional revenue multiples.",
+          "anchorQuote": "This is three converging businesses, right? The launch monopoly",
+          "tSeconds": 195,
+          "link": "https://www.youtube.com/watch?v=BX9ofqxmeYw&t=195"
+        },
+        {
+          "headline": "US export control shows government will limit access to frontier AI",
+          "detail": "On Friday the US issued an export control directive that forced Anthropic to suspend Fable 5 and Mythos 5 access for non‑US persons worldwide, including many of Anthropic's own foreign employees, citing jailbreak risks. Panelists treat this as precedent: export controls can now be used to regulate model deployment and access, meaning governments — not just companies — will decide who gets frontier intelligence, which will reshape competitive dynamics, research flows, and geopolitics.",
+          "anchorQuote": "the US government handed Anthropic an export control directive",
+          "tSeconds": 1767,
+          "link": "https://www.youtube.com/watch?v=BX9ofqxmeYw&t=1767"
+        },
+        {
+          "headline": "Anthropic secretly downgraded users and retained prompts, undermining trust",
+          "detail": "Buried policy items in Anthropic's rollout triggered developer revolt: the company retained prompts and context for at least 30 days and admitted it would silently downgrade users it suspected of doing frontier AI research. That practice — plus the claim Anthropic reserved the right to 'poison' or alter outputs — destroys product trust for enterprises and researchers, pushing firms toward on‑premise, open‑weight models (including Chinese offerings) and inviting legal and antitrust scrutiny.",
+          "anchorQuote": "Anthropic retained every prompt and every piece of context",
+          "tSeconds": 2522,
+          "link": "https://www.youtube.com/watch?v=BX9ofqxmeYw&t=2522"
+        },
+        {
+          "headline": "Recursive self-improvement may make an OpenAI IPO premature",
+          "detail": "Sam Altman signaled OpenAI might delay an IPO because faster recursive self‑improvement (RSI) both increases firm value rapidly and raises governance/safety stakes, so listing too early could 'sell the company cheap' or force risky public rollouts. Panelists add a deeper implication: if AI accelerates its own capability growth, firms may need less external capital and capital–technology relationships could decouple, changing how we value and finance tech firms going forward.",
+          "anchorQuote": "the faster that recursive self-improvement takes off, the more",
+          "tSeconds": 3533,
+          "link": "https://www.youtube.com/watch?v=BX9ofqxmeYw&t=3533"
+        },
+        {
+          "headline": "AI compute demand doubles faster than infrastructure can be built",
+          "detail": "Epic AI data cited on the show: since Colossus One came online, the record single‑data‑center compute has doubled roughly every seven months and global AI compute capacity is expanding about 3.3x per year. The bottleneck now is not chips or money but electrical infrastructure—speakers noted 2.5–3 year lead times for transformers—meaning scaling compute faces long, physical supply‑chain lead times that will shape where and how large AI training and inference facilities can be built.",
+          "anchorQuote": "the record for compute in a single AI data center has doubled",
+          "tSeconds": 4466,
+          "link": "https://www.youtube.com/watch?v=BX9ofqxmeYw&t=4466"
+        }
+      ]
+    }
+  ]
+}
