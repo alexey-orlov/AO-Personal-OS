@@ -124,6 +124,31 @@ def auth():
     print("Saved refresh token to %s — auth complete." % TOKEN_PATH)
 
 
+def authurl():
+    """Print the consent URL only (no local server) — for authorizing from another device."""
+    if not CLIENT_ID or not CLIENT_SECRET:
+        sys.exit("Set CALSYNC_GOOGLE_CLIENT_ID / _SECRET first.")
+    print(AUTH_URI + "?" + urllib.parse.urlencode({
+        "client_id": CLIENT_ID, "redirect_uri": "http://localhost:8765/", "response_type": "code",
+        "scope": SCOPE, "access_type": "offline", "prompt": "consent"}))
+
+
+def exchange(arg):
+    """Cross-device: exchange an auth code (or the full failed-redirect URL pasted from the
+    browser address bar) for a refresh token. Pairs with `authurl`."""
+    code = arg.strip()
+    if "code=" in code:
+        q = urllib.parse.urlparse(code).query or code.split("?", 1)[-1]
+        code = urllib.parse.parse_qs(q).get("code", [code])[0]
+    tok = _post(TOKEN_URI, {"client_id": CLIENT_ID, "client_secret": CLIENT_SECRET,
+                            "code": code, "redirect_uri": "http://localhost:8765/",
+                            "grant_type": "authorization_code"})
+    if "refresh_token" not in tok:
+        sys.exit("No refresh_token returned (code expired/used, or no re-consent — re-run authurl).")
+    _save_token({"refresh_token": tok["refresh_token"]})
+    print("Saved refresh token to %s — auth complete." % TOKEN_PATH)
+
+
 # --------------------------------------------------------------------------- #
 # calendar ops
 # --------------------------------------------------------------------------- #
@@ -175,9 +200,14 @@ def delete_event(event_id):
 
 
 if __name__ == "__main__":
-    if len(sys.argv) > 1 and sys.argv[1] == "auth":
+    cmd = sys.argv[1] if len(sys.argv) > 1 else ""
+    if cmd == "auth":
         auth()
-    elif len(sys.argv) > 1 and sys.argv[1] == "selftest":
+    elif cmd == "authurl":
+        authurl()
+    elif cmd == "exchange" and len(sys.argv) > 2:
+        exchange(sys.argv[2])
+    elif cmd == "selftest":
         print("access token OK:", _access_token()[:12] + "...")
     else:
-        sys.exit("usage: gcal.py {auth|selftest}")
+        sys.exit("usage: gcal.py {auth|authurl|exchange <code>|selftest}")
