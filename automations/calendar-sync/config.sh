@@ -5,8 +5,10 @@ export CALSYNC_REPO="${CALSYNC_REPO:-$HOME/Documents/GitHub/AO-Personal-OS}"
 export CALSYNC_HERE="$CALSYNC_REPO/automations/calendar-sync"
 export CALSYNC_STATE="$CALSYNC_HERE/.work/state"
 export CALSYNC_LEDGER="$CALSYNC_STATE/ledger.json"
+export CALSYNC_REV_LEDGER="$CALSYNC_STATE/reverse-ledger.json"   # reverse leg: key -> {ss_id, hash}
 export CALSYNC_RUNLOG="$CALSYNC_STATE/run-log.jsonl"
 export CALSYNC_READER="$CALSYNC_HERE/.work/ss-cal-read"
+export CALSYNC_WRITER="$CALSYNC_HERE/.work/ss-cal-write"
 export CALSYNC_GTOKEN="$CALSYNC_STATE/gtoken.json"
 
 # --- sync parameters -------------------------------------------------------

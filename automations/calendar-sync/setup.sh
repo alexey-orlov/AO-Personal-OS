@@ -10,8 +10,9 @@ LABEL="com.user.calendar-sync"
 mkdir -p "$HERE/.work/state"
 chmod +x "$HERE/run.sh" "$HERE/setup.sh" 2>/dev/null || true
 
-echo "[setup] building the EventKit reader..."
+echo "[setup] building the EventKit reader + writer..."
 swiftc "$HERE/ss_cal_read.swift" -o "$HERE/.work/ss-cal-read"
+swiftc "$HERE/ss_cal_write.swift" -o "$HERE/.work/ss-cal-write"   # reverse leg: SS 'Busy' placeholders
 
 # launchd plist: fire run.sh (gated) hourly on the hour, Mon-Fri 08:00-20:00 local (EET).
 # Routed via Terminal so it inherits the Calendar + Full-Disk grants.
