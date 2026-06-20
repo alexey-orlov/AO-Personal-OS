@@ -31,6 +31,11 @@ The optional `was:` records the original text when it was corrected from a missp
 
 ## Non-fiction (psychology / business / technology)
 
+- **What Technology Wants** — Kevin Kelly, 2010 · added 2026-06-20 · note: «технум» как 7-е эволюционное царство; смысл tech-работы как соучастие в эволюции; из explore drop tg-133
+
 ## Non-fiction (philosophy)
+
+- **Shop Class as Soulcraft** — Matthew B. Crawford, 2009 · added 2026-06-20 · note: философ + механик; о смысле в мастерском техническом деле; из explore drop tg-133
+- **The Technological Society** — Jacques Ellul, 1964 · added 2026-06-20 · note: ключевая философская работа о технике как автономной силе; из explore drop tg-133
 
 ## Other
