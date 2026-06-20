@@ -80,6 +80,24 @@ Each copy mirrors the user's real SS RSVP:
 Only meetings you positively committed to (accepted/tentative) hold your time. The description also
 lists the organizer and the full participant roster with each person's status.
 
+## Reverse leg — Google busy → SS "Busy"
+After the forward pass, `run.py` blocks SS time wherever Alex is busy in Google:
+- **Source:** every Google calendar (`list_calendars`) — primary, Family, **GigaCloud** (a `reader`-role
+  imported calendar) — read in-window. A slot counts as **busy** if it is timed (not all-day), not
+  `transparent` (Free), not cancelled, and not self-declined.
+- **1:1 placeholders:** each busy slot → one SS event titled **"Busy"**, `availability=.busy`, **no
+  attendees** (nothing emailed), **no details** (colleagues see only that the time is taken). Keyed by
+  `calendarId::eventId`; create/update/delete tracked in `reverse-ledger.json`. The idempotency hash is
+  over the **absolute UTC instant** (Google and EventKit render the same moment with different offsets).
+- **Anti-recursion (two loops, both broken):**
+  - *SS→Google→SS:* the reverse source filter skips forward copies (`SS:` prefix **or** `ssSync` marker)
+    and any event with `olekorlov@softserveinc.com` as organizer/attendee — so real SS meetings and our
+    own copies are never blocked back.
+  - *Google→SS→Google:* every placeholder carries a `[[gcal-busy:<key>]]` note; the forward reader pulls
+    those out of its source, so placeholders are never mirrored into Google as `SS: Busy`.
+- **Disable** with `CALSYNC_REVERSE=0`. Scope/granularity (e.g. work-hours only, or a calendar subset) is
+  a small change in `sync_core.reverse_sources`.
+
 ## Platform gotchas (hard-won — don't regress these)
 1. **EventKit times default to GMT.** The reader sets `iso.timeZone = .current` so start/end are Kyiv
    wall time. (Verified: `T-shirt kick-off` reads 18:00 Kyiv, matching the desktop app.)
@@ -101,12 +119,14 @@ lists the organizer and the full participant roster with each person's status.
 Run from a **Terminal with Full Disk Access + Calendar access**:
 1. Add the SoftServe Exchange account to **Apple Calendar** (System Settings → Internet Accounts), so SS
    events appear in EventKit.
-2. `bash automations/calendar-sync/setup.sh` — builds the reader and installs the launchd agent. It then
-   prints the **Google OAuth** steps:
+2. `bash automations/calendar-sync/setup.sh` — builds the reader **and writer** and installs the launchd
+   agent. It then prints the **Google OAuth** steps:
    - Enable the Calendar API; create a **Desktop-app** OAuth client; set the consent screen to **In
      production** (a "Testing" app expires the refresh token every 7 days).
    - Store the client id/secret in Keychain (`CALSYNC_GOOGLE_CLIENT_ID` / `_SECRET`).
-   - `source config.sh && python3 -I gcal.py auth` to authorize once.
+   - `source config.sh && python3 -I gcal.py auth` to authorize once. Scopes: **`calendar.events`**
+     (forward writes) **+ `calendar.readonly`** (reverse multi-calendar read). Authorizing from another
+     device? Use `gcal.py authurl` (prints the consent URL) then `gcal.py exchange '<pasted redirect URL>'`.
 3. It runs in **DRY-RUN** (plans only) until you go live: `touch .work/state/LIVE`.
 
 ## Schedule & notifications
