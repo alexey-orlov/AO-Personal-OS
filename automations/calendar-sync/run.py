@@ -42,26 +42,37 @@ _REVKEY = re.compile(r"\[\[%s:([^\]]+)\]\]" % re.escape(CFG["reverse_marker"]))
 
 
 def read_ss():
-    """Apple Calendar (Exchange source) -> source_events for reconcile. Returns (events, complete)."""
+    """Apple Calendar (Exchange source) -> (forward source_events, reverse placeholders, complete, err).
+
+    Splits the single EventKit read: our own reverse 'Busy' placeholders (notes carry the
+    [[gcal-busy:...]] marker) are pulled OUT of the forward source — that's the Loop-B
+    recursion break — and returned separately so the reverse leg can reconcile them."""
     try:
         out = subprocess.run([READER, "--exchange", "--days", str(DAYS)],
                              capture_output=True, text=True, timeout=60)
     except Exception as e:
-        return [], False, "reader spawn failed: %s" % e
+        return [], [], False, "reader spawn failed: %s" % e
     if out.returncode != 0:
-        return [], False, "reader exit %s: %s" % (out.returncode, (out.stderr or "")[:200])
+        return [], [], False, "reader exit %s: %s" % (out.returncode, (out.stderr or "")[:200])
     try:
         raw = json.loads(out.stdout or "[]")
     except json.JSONDecodeError as e:
-        return [], False, "reader bad JSON: %s" % e
+        return [], [], False, "reader bad JSON: %s" % e
     try:    # keep the last raw EventKit read for diagnostics (local-only; .work is git-ignored)
         with open(os.path.join(HERE, ".work/state/last-read.json"), "w", encoding="utf-8") as f:
             f.write(out.stdout or "[]")
     except OSError:
         pass
-    evs = []
+    evs, placeholders = [], []
+    marker = "[[" + CFG["reverse_marker"]
     for e in raw:
         if e.get("all_day"):        # skip all-day holidays / placeholders — mirror timed meetings only
+            continue
+        notes = e.get("notes") or ""
+        if marker in notes:         # our own reverse 'Busy' placeholder -> NOT a forward source (anti-recursion)
+            m = _REVKEY.search(notes)
+            placeholders.append({"ss_id": e.get("uid"), "key": m.group(1) if m else None,
+                                 "start": e.get("start"), "end": e.get("end")})
             continue
         evs.append({
             "owa_id": e.get("uid"),                 # stable EventKit id -> reschedules = updates
@@ -78,7 +89,7 @@ def read_ss():
             "my_status": e.get("my_status", ""),    # the user's RSVP — drives Busy/Free + the description
             "attendees": e.get("attendees", []),
         })
-    return evs, True, None
+    return evs, placeholders, True, None
 
 
 def to_api_body(p, source_key=None, content_hash=None):
