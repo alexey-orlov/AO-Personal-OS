@@ -11,6 +11,7 @@ CALSYNC_ATTENDEE, CALSYNC_SS_EMAIL, CALSYNC_TZ, CALSYNC_PREFIX, CALSYNC_DAYS_AHE
 CALSYNC_DRY_RUN, CALSYNC_GOOGLE_CLIENT_ID/_SECRET.
 """
 import os
+import re
 import sys
 import json
 import subprocess
@@ -21,17 +22,23 @@ import sync_core as sc  # noqa: E402
 
 HERE = os.environ.get("CALSYNC_HERE", os.path.dirname(os.path.abspath(__file__)))
 READER = os.path.join(HERE, ".work", "ss-cal-read")
+WRITER = os.path.join(HERE, ".work", "ss-cal-write")
 LEDGER = os.environ.get("CALSYNC_LEDGER", os.path.join(HERE, ".work/state/ledger.json"))
+REV_LEDGER = os.environ.get("CALSYNC_REV_LEDGER", os.path.join(HERE, ".work/state/reverse-ledger.json"))
 RUNLOG = os.environ.get("CALSYNC_RUNLOG", os.path.join(HERE, ".work/state/run-log.jsonl"))
 DAYS = int(os.environ.get("CALSYNC_DAYS_AHEAD", "14"))
 DRY = os.environ.get("CALSYNC_DRY_RUN", "1") == "1"
+REVERSE = os.environ.get("CALSYNC_REVERSE", "1") == "1"   # reverse leg on by default; CALSYNC_REVERSE=0 disables
 CFG = {
     "days_ahead": DAYS,
     "prefix": os.environ.get("CALSYNC_PREFIX", "SS: "),
     "attendee": os.environ.get("CALSYNC_ATTENDEE", "orlov.alexej@gmail.com"),
     "softserve_email": os.environ.get("CALSYNC_SS_EMAIL", "olekorlov@softserveinc.com"),
     "tz": os.environ.get("CALSYNC_TZ", "Europe/Kyiv"),
+    "reverse_marker": os.environ.get("CALSYNC_REVERSE_MARKER", "gcal-busy"),
+    "busy_title": os.environ.get("CALSYNC_BUSY_TITLE", "Busy"),
 }
+_REVKEY = re.compile(r"\[\[%s:([^\]]+)\]\]" % re.escape(CFG["reverse_marker"]))
 
 
 def read_ss():
