@@ -16,6 +16,7 @@ import sys
 import json
 import subprocess
 from datetime import datetime, timedelta, timezone
+from zoneinfo import ZoneInfo
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import sync_core as sc  # noqa: E402
