@@ -133,7 +133,8 @@ Run from a **Terminal with Full Disk Access + Calendar access**:
 - Hourly, **Mon–Fri 08:00–20:00 Europe/Kyiv** (launchd `StartCalendarInterval`; `run.sh daemon`
   re-checks the gate so a stray tick is a no-op).
 - **One** message/day to the **General** Telegram topic right after the 08:00 run:
-  `SoftServe calendar sync: X attempts, Y successful. A events added/modified.` (+ error lines if any).
+  `SoftServe calendar sync: X attempts, Y successful. A events added/modified.` — plus a
+  `Google→SS busy-blocks: N added/updated` line when the reverse leg was active, and error lines if any.
   It covers every run since the previous summary (previous working day 09:00–20:00 + today 08:00).
 
 ## Test / verify
