@@ -538,6 +538,9 @@ def log_run(inp):
         "added": int(inp.get("added", 0)),
         "modified": int(inp.get("modified", 0)),
         "deleted": int(inp.get("deleted", 0)),
+        "rev_added": int(inp.get("rev_added", 0)),        # reverse leg: SS 'Busy' placeholders
+        "rev_modified": int(inp.get("rev_modified", 0)),
+        "rev_deleted": int(inp.get("rev_deleted", 0)),
         "error": inp.get("error"),
         "reported": False,
     }
@@ -554,10 +557,15 @@ def daily_summary(inp):
     ok = sum(1 for r in pending if r.get("ok"))
     events = sum(int(r.get("added", 0)) + int(r.get("modified", 0)) for r in pending)
     deleted = sum(int(r.get("deleted", 0)) for r in pending)
+    rev = sum(int(r.get("rev_added", 0)) + int(r.get("rev_modified", 0)) for r in pending)
+    rev_del = sum(int(r.get("rev_deleted", 0)) for r in pending)
     msg = "SoftServe calendar sync: %d attempts, %d successful. %d events added/modified." % (
         attempts, ok, events)
     if deleted:
         msg += " %d removed." % deleted
+    if rev or rev_del:
+        msg += "\nGoogle→SS busy-blocks: %d added/updated%s." % (
+            rev, (", %d removed" % rev_del) if rev_del else "")
     errs = [r for r in pending if r.get("error")]
     if errs:
         msg += "\n\nErrors:"

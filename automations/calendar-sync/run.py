@@ -116,36 +116,38 @@ def to_api_body(p, source_key=None, content_hash=None):
     return body
 
 
-def main():
-    now = datetime.now(timezone.utc)
-    source, complete, err = read_ss()
-    if not complete:
-        sc.log_run({"path": RUNLOG, "ok": False, "error": err or "incomplete read"})
-        print("ERROR: %s" % err)
-        return 1
+def ss_write(commands):
+    """Apply create/update/delete commands to the SS Exchange calendar via the EventKit writer."""
+    if not commands:
+        return []
+    p = subprocess.run([WRITER], input=json.dumps(commands), capture_output=True, text=True, timeout=120)
+    if p.returncode != 0:
+        raise RuntimeError("writer exit %s: %s" % (p.returncode, (p.stderr or "")[:200]))
+    return json.loads(p.stdout or "[]")
 
-    # Window for reading Google (a hair wider than the reconcile window).
-    from zoneinfo import ZoneInfo
+
+def _load_json(path, default):
+    try:
+        with open(path) as f:
+            return json.load(f)
+    except (FileNotFoundError, json.JSONDecodeError):
+        return default
+
+
+def window_bounds(now):
+    """[Monday 00:00 this week, +DAYS+2) as RFC3339-Z strings for the Google reads."""
     z = now.astimezone(ZoneInfo(CFG["tz"]))
     start = (z - timedelta(days=z.weekday())).replace(hour=0, minute=0, second=0, microsecond=0)
-    g_min = start.astimezone(timezone.utc).isoformat()
-    g_max = (start + timedelta(days=DAYS + 2)).astimezone(timezone.utc).isoformat()
+    g_min = start.astimezone(timezone.utc).isoformat().replace("+00:00", "Z")
+    g_max = (start + timedelta(days=DAYS + 2)).astimezone(timezone.utc).isoformat().replace("+00:00", "Z")
+    return g_min, g_max
 
-    import gcal
-    try:
-        gevents = gcal.list_events(g_min.replace("+00:00", "Z"), g_max.replace("+00:00", "Z"))
-    except Exception as e:
-        sc.log_run({"path": RUNLOG, "ok": False, "error": "google list failed: %s" % e})
-        print("ERROR: google list failed: %s" % e)
-        return 1
+
+def forward_pass(now, source, g_min, g_max, gcal):
+    """SS -> Google (SS: copies). Returns (counts, errors)."""
+    gevents = gcal.list_events(g_min, g_max)
     ext = sc.extract({"events": gevents, "config": CFG})
-
-    try:
-        with open(LEDGER) as f:
-            ledger = json.load(f)
-    except (FileNotFoundError, json.JSONDecodeError):
-        ledger = {}
-
+    ledger = _load_json(LEDGER, {})
     plan = sc.reconcile({
         "now_utc": now.isoformat(), "owa_tz": CFG["tz"], "source_complete": True,
         "source_events": source, "ledger": ledger,
@@ -153,42 +155,115 @@ def main():
     })
     c = plan["counts"]
     if DRY:
-        print("DRY-RUN plan: +%d create  ~%d update  -%d delete  =%d skip (no writes)"
-              % (c["create"], c["update"], c["delete"], c["skip"]))
+        print("[forward] DRY plan: +%d ~%d -%d =%d skip" % (c["create"], c["update"], c["delete"], c["skip"]))
         for x in plan["creates"]:
             print("   would create %s @ %s" % (x["payload"]["summary"], x["payload"]["startTime"]))
-        sc.log_run({"path": RUNLOG, "ok": True, "added": 0, "modified": 0, "deleted": 0})
-        return 0
-
-    applied = {"creates": [], "updates": [], "deletes": []}
-    errors = []
+        return {"added": 0, "modified": 0, "deleted": 0}, []
+    applied, errors = {"creates": [], "updates": [], "deletes": []}, []
     for x in plan["creates"]:
         try:
             ev = gcal.create_event(to_api_body(x["payload"], x["source_key"], x["content_hash"]))
             applied["creates"].append({**{k: x[k] for k in ("source_key", "content_hash", "start_kiev", "title")},
                                        "google_event_id": ev["id"]})
         except Exception as e:
-            errors.append("create '%s': %s" % (x["payload"]["summary"], e))
+            errors.append("fwd create '%s': %s" % (x["payload"]["summary"], e))
     for x in plan["updates"]:
         try:
             gcal.update_event(x["google_event_id"], to_api_body(x["payload"], x["source_key"], x["content_hash"]))
             applied["updates"].append({k: x[k] for k in ("source_key", "content_hash", "start_kiev", "title", "google_event_id")})
         except Exception as e:
-            errors.append("update '%s': %s" % (x["payload"]["summary"], e))
+            errors.append("fwd update '%s': %s" % (x["payload"]["summary"], e))
     for x in plan["deletes"]:
         try:
             gcal.delete_event(x["google_event_id"])
             applied["deletes"].append({"source_key": x["source_key"]})
         except Exception as e:
-            errors.append("delete %s: %s" % (x["google_event_id"], e))
-
+            errors.append("fwd delete %s: %s" % (x["google_event_id"], e))
     sc.commit({"path": LEDGER, "applied": applied})
+    return {"added": len(applied["creates"]), "modified": len(applied["updates"]),
+            "deleted": len(applied["deletes"])}, errors
+
+
+def reverse_pass(placeholders, g_min, g_max, gcal):
+    """Google busy (all calendars) -> SS 'Busy' placeholders. Returns (counts, errors)."""
+    events, complete = [], True
+    try:
+        cals = gcal.list_calendars()
+    except Exception as e:
+        return {"rev_added": 0, "rev_modified": 0, "rev_deleted": 0}, ["rev list_calendars: %s" % e]
+    for cal in cals:
+        try:
+            for ev in gcal.list_events(g_min, g_max, calendar_id=cal["id"]):
+                ev["_cal"] = cal["id"]
+                events.append(ev)
+        except Exception:
+            complete = False                      # a calendar failed -> don't prune placeholders this run
+    busy = sc.reverse_sources({"events": events, "config": CFG})["busy_events"]
+    rledger = _load_json(REV_LEDGER, {})
+    plan = sc.reverse_reconcile({"busy_events": busy, "reverse_ledger": rledger,
+                                 "ss_placeholders": placeholders, "source_complete": complete, "config": CFG})
+    c = plan["counts"]
+    if DRY:
+        print("[reverse] DRY plan: +%d ~%d -%d =%d skip (complete=%s)"
+              % (c["create"], c["update"], c["delete"], c["skip"], complete))
+        return {"rev_added": 0, "rev_modified": 0, "rev_deleted": 0}, []
+    by_key = {x["key"]: x for x in (plan["creates"] + plan["updates"])}
+    try:
+        results = ss_write(plan["creates"] + plan["updates"] + plan["deletes"])
+    except Exception as e:
+        return {"rev_added": 0, "rev_modified": 0, "rev_deleted": 0}, ["rev writer: %s" % e]
+    ra = rm = rd = 0
+    errors = []
+    for r in results:
+        if not r.get("ok"):
+            errors.append("rev %s %s: %s" % (r.get("op"), r.get("key") or r.get("ss_id"), r.get("error")))
+            continue
+        op = r.get("op")
+        if op in ("create", "update"):
+            rledger[r["key"]] = {"ss_id": r.get("ss_id"), "hash": by_key.get(r["key"], {}).get("hash")}
+            ra += (op == "create"); rm += (op == "update")
+        elif op == "delete":
+            rledger.pop(r.get("key"), None); rd += 1
+    try:
+        with open(REV_LEDGER, "w", encoding="utf-8") as f:
+            json.dump(rledger, f, ensure_ascii=False, indent=2, sort_keys=True)
+    except OSError as e:
+        errors.append("rev ledger save: %s" % e)
+    return {"rev_added": ra, "rev_modified": rm, "rev_deleted": rd}, errors
+
+
+def main():
+    now = datetime.now(timezone.utc)
+    source, placeholders, complete, err = read_ss()
+    if not complete:
+        sc.log_run({"path": RUNLOG, "ok": False, "error": err or "incomplete read"})
+        print("ERROR: %s" % err)
+        return 1
+    g_min, g_max = window_bounds(now)
+    import gcal
+
+    counts = {"added": 0, "modified": 0, "deleted": 0, "rev_added": 0, "rev_modified": 0, "rev_deleted": 0}
+    errors = []
+    try:
+        fwd, ferr = forward_pass(now, source, g_min, g_max, gcal)
+        counts.update(fwd); errors += ferr
+    except Exception as e:
+        errors.append("forward pass: %s" % e)
+    if REVERSE:
+        try:
+            rev, rerr = reverse_pass(placeholders, g_min, g_max, gcal)
+            counts.update(rev); errors += rerr
+        except Exception as e:
+            errors.append("reverse pass: %s" % e)
+
     sc.log_run({"path": RUNLOG, "ok": not errors,
-                "added": len(applied["creates"]), "modified": len(applied["updates"]),
-                "deleted": len(applied["deletes"]), "error": ("; ".join(errors)[:400] or None)})
-    print("applied: +%d created  ~%d updated  -%d deleted%s"
-          % (len(applied["creates"]), len(applied["updates"]), len(applied["deletes"]),
-             ("  (%d errors)" % len(errors)) if errors else ""))
+                "added": counts["added"], "modified": counts["modified"], "deleted": counts["deleted"],
+                "rev_added": counts["rev_added"], "rev_modified": counts["rev_modified"],
+                "rev_deleted": counts["rev_deleted"], "error": ("; ".join(errors)[:400] or None)})
+    print("%s  SS->G: +%d ~%d -%d   G->SS: +%d ~%d -%d%s" % (
+        "DRY-RUN" if DRY else "applied", counts["added"], counts["modified"], counts["deleted"],
+        counts["rev_added"], counts["rev_modified"], counts["rev_deleted"],
+        ("  (%d errors)" % len(errors)) if errors else ""))
     return 0
 
 
