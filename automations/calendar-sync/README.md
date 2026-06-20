@@ -1,9 +1,15 @@
-# calendar-sync — SoftServe (Apple Calendar) → Google Calendar mirror
+# calendar-sync — SoftServe ↔ Google two-way busy sync
 
-One-way, always-on mirror of Alex's **SoftServe** work calendar into his **Google** calendar
-(`orlov.alexej@gmail.com`) as `SS:`-prefixed copies, for **this week + next week**. Reads SS from the
-**SoftServe Exchange account in Apple Calendar (EventKit)**; writes Google via the **Calendar API**.
-Runs **hourly, weekdays 08:00–20:00 EET**. Sends **one** Telegram status per day.
+Always-on, **two-way busy sync** between Alex's **SoftServe** work calendar and his **Google** calendars,
+for **this week + next week**:
+- **Forward** — each SoftServe meeting is mirrored into Google as an `SS:`-prefixed copy (with the real
+  Busy/Free status + organizer/participants).
+- **Reverse** — wherever Alex is busy in **any** Google calendar (Alex Orlov / Family / GigaCloud), a
+  content-free **"Busy"** placeholder is written into SoftServe so colleagues can't book over it.
+
+Reads SS from the **SoftServe Exchange account in Apple Calendar (EventKit)**, reads/writes Google via the
+**Calendar API**, and writes SS placeholders back via **EventKit**. Runs **hourly, weekdays 08:00–20:00
+EET**. Sends **one** Telegram status per day. Both legs guard against feedback loops (see Reverse leg).
 
 ## Architecture — pure code, no Claude session, no browser
 SoftServe is Intune/VPN-managed (no third-party API login) and the new Outlook for Mac keeps no
