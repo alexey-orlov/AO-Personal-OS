@@ -17,22 +17,28 @@ parseable local store — so the only headless read is **EventKit**. The whole p
 code; there is no live Claude session, no Chrome MCP, no Google connector.
 
 ```
-Apple Calendar (EventKit, Swift)  →  sync_core.reconcile (brain)  →  Google Calendar API
-   ss_cal_read.swift                    sync_core.py                    gcal.py
-                         orchestrated by run.py, hosted by launchd → Terminal → run.sh
+forward:  Apple Calendar (EventKit read)  →  sync_core.reconcile          →  Google Calendar API
+reverse:  Google Calendar API (all cals)  →  sync_core.reverse_reconcile  →  Apple Calendar (EventKit write)
+            ss_cal_read.swift / gcal.py        sync_core.py                   ss_cal_write.swift / gcal.py
+                            both passes orchestrated by run.py, hosted by launchd → Terminal → run.sh
 ```
 
 - **`ss_cal_read.swift`** → compiled to `.work/ss-cal-read`. Reads the SS Exchange calendar and emits
   one JSON row per event: uid, title, start/end (local Kyiv wall time), `all_day`, `recurring`,
   location, organizer (+email), **`my_status`** (the user's RSVP), online/join_url, notes, and
   `attendees[{name,email,status,is_me}]`.
+- **`ss_cal_write.swift`** → compiled to `.work/ss-cal-write`. Reverse leg: reads `create|update|delete`
+  JSON commands on stdin and writes/removes `availability=.busy` "Busy" events (no attendees, a
+  `[[gcal-busy:<key>]]` note) in the SS Exchange calendar; echoes each event's `calendarItemIdentifier`.
 - **`sync_core.py`** — deterministic brain: timezone math, per-occurrence keys, content-hash diff,
-  ledger, payload + description building, status→Busy/Free mapping, schedule gate, daily-summary
-  aggregation. Stdlib only, fully unit-tested.
-- **`gcal.py`** — dependency-free Google client (stdlib urllib). OAuth installed-app flow; list /
-  create / update / delete, always `sendUpdates=none`.
-- **`run.py`** — one pass: EventKit read → `reconcile` → apply via `gcal`. Skips all-day events
-  (holidays). Writes the last raw read to `.work/state/last-read.json` for diagnostics.
+  ledgers, payload + description building, status→Busy/Free mapping, the reverse busy-filter +
+  `reverse_reconcile`, schedule gate, daily-summary aggregation. Stdlib only, fully unit-tested.
+- **`gcal.py`** — dependency-free Google client (stdlib urllib). OAuth installed-app flow (scopes:
+  `calendar.events` for forward writes + `calendar.readonly` for the reverse multi-calendar read);
+  `list_calendars` / list / create / update / delete, always `sendUpdates=none`.
+- **`run.py`** — one tick = **forward pass** (EventKit read → `reconcile` → `gcal`) then **reverse pass**
+  (all Google calendars → `reverse_reconcile` → `ss-cal-write`). Skips all-day events; pulls our own
+  `[[gcal-busy]]` placeholders out of the forward source. Writes `.work/state/last-read.json` for diagnostics.
 - **Host:** launchd `com.user.calendar-sync` fires `osascript → Terminal → run.sh daemon` hourly on the
   hour, Mon–Fri 08:00–20:00. Terminal is the host because EventKit + Full-Disk need its TCC grants — a
   plain background process is denied Calendar access.
@@ -40,15 +46,16 @@ Apple Calendar (EventKit, Swift)  →  sync_core.reconcile (brain)  →  Google 
 ## Files
 | File | Role |
 |---|---|
-| `ss_cal_read.swift` | EventKit reader (built to `.work/ss-cal-read` by `setup.sh`) |
-| `sync_core.py` | deterministic core (`reconcile` / `extract` / `schedule` / `log-run` / `daily-summary` / `commit`) |
-| `gcal.py` | dependency-free Google Calendar client (`auth` once, then library calls) |
-| `run.py` | orchestrator — EventKit → reconcile → Google |
+| `ss_cal_read.swift` | EventKit **reader** (built to `.work/ss-cal-read` by `setup.sh`) |
+| `ss_cal_write.swift` | EventKit **writer** — reverse-leg "Busy" placeholders (built to `.work/ss-cal-write`) |
+| `sync_core.py` | deterministic core (`reconcile` / `extract` / `reverse-sources` / `reverse-reconcile` / `schedule` / `log-run` / `daily-summary` / `commit`) |
+| `gcal.py` | dependency-free Google Calendar client (`auth`/`authurl`/`exchange` once, then library calls) |
+| `run.py` | orchestrator — forward pass (SS→Google) then reverse pass (Google→SS) |
 | `run.sh` | Terminal-hosted runner: `now` (force) / `daemon` (gated + 08:00 daily summary) |
-| `test_sync_core.py` | unit tests (28) |
+| `test_sync_core.py` | unit tests (33) |
 | `config.sh` | constants + Keychain creds + `LIVE` flag |
-| `setup.sh` | builds the reader (swiftc) + installs the launchd agent (one-time) |
-| `.work/state/` | ledger.json, run-log.jsonl, gtoken.json, last-read.json, last-summary-date, LIVE (git-ignored) |
+| `setup.sh` | builds the reader + writer (swiftc) + installs the launchd agent (one-time) |
+| `.work/state/` | ledger.json, **reverse-ledger.json**, run-log.jsonl, gtoken.json, last-read.json, last-summary-date, LIVE (git-ignored) |
 
 ## Rules it enforces
 - **One-way** SS → Google. Sole attendee is **always** `orlov.alexej@gmail.com`; every write uses
