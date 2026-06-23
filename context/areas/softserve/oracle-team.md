@@ -1,8 +1,8 @@
 # Oracle-side team — who we deal with & what they want (reference)
 
 _status: reference doc — decoded roster of the Oracle people on the SoftServe partnership, the two motions they sit in, and Oracle's goals_
-_updated: 2026-06-18_
-_source: LinkedIn + public-web research run in-session 2026-06-16 (per-profile subagents); product pages verified 2026-06-16/18; Gero role updated from the [2026-06-18 onboarding call](calls/oracle/2026-06-18_144751_sales-call_2026061814320114A9106F.md). Companion to [oracle.md](oracle.md) (partnership state) and [oracle-ai-offerings.md](oracle-ai-offerings.md) (product catalog). Inferences marked (inferred)._
+_updated: 2026-06-23_
+_source: LinkedIn + public-web research run in-session 2026-06-16 (per-profile subagents); product pages verified 2026-06-16/18; Gero role updated from the [2026-06-18 onboarding call](calls/oracle/2026-06-18_144751_sales-call_2026061814320114A9106F.md); **Neil + Gero-reports-into-Neil restructure** from the [2026-06-23 AIDP strategy call](calls/oracle/2026-06-23_190622_default_2026062315031101B18AE2.md). Companion to [oracle.md](oracle.md) (partnership state) and [oracle-ai-offerings.md](oracle-ai-offerings.md) (product catalog). Inferences marked (inferred)._
 
 ## Headline
 

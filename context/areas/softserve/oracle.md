@@ -68,6 +68,7 @@ _updated: 2026-06-23_
 ## Open loops
 
 Mine:
+- **Define the AI-use-case pod approach** + an "AI CoE future-state" overview (pod compositions + monthly cost) for the Oracle AIDP pitch; consolidate with the big-data input into the deck; draft for the **beginning of the week of Jun 29** (a SoftServe colleague follows up ~Thu Jun 25). [strategy call 2026-06-23](calls/oracle/2026-06-23_190622_default_2026062315031101B18AE2.md)
 - Prepare a ~45–60 min question list for the upcoming Gero productization/discovery call (next week): use-case prioritization, scalability criteria, required GTM artifacts, NVIDIA-vs-OCI platform direction, the rumored internal Oracle accelerator. [onboarding call 2026-06-18](calls/oracle/2026-06-18_144751_sales-call_2026061814320114A9106F.md)
 - Join all forward-going accelerator / t-shirt-sizing meetings (ongoing).
 - Via Karsten: arrange targeted 1:1 follow-ups with AIQ / cuOpt / VSS product leads; request peer-to-peer monthly sync per package owner. (Owner of accelerator/package decisions resolved 2026-06-18 → Gero.)
@@ -107,6 +108,7 @@ Theirs (SoftServe partnership team — AIDP):
 
 ## Activity
 
+- 2026-06-23 — [AIDP pitch strategy call](calls/oracle/2026-06-23_190622_default_2026062315031101B18AE2.md) — internal SoftServe deck-assembly: pitch SoftServe as Oracle's ready-now AIDP delivery partner via a big-data pod model → monthly recurring revenue; surfaced **Neil** (above Gero; halted Oracle's internal staffing); Alex owns the AI-use-case pod definition, draft for week of Jun 29; "Data Factory" migration angle.
 - 2026-06-18 — [Onboarding call: Oracle productization workstream + stakeholder](calls/oracle/2026-06-18_144751_sales-call_2026061814320114A9106F.md) — Karsten welcomes Alex into the accelerator/productization workstream; confirms Gero owns prioritization / scope / platform-direction questions; dedicated Gero discovery call to be set up next week. New open questions: NVIDIA-vs-OCI platform direction, a rumored competing internal Oracle accelerator.
 - 2026-06-17 — [R&D cross-team update: Oracle GTM showcase](calls/oracle/2026-06-17_180940_default_20260617170801ABB6DADE.md) — SoftServe positioned as Oracle's primary partner of choice for verticalized accelerator packs (~10 new accounts, ~$1B+ annualized per deck); five Oracle+NVIDIA cases (NHS / Verilon / DHL-research / Riyad Air / Bosch) walked through; Verilon VSS SOW signed; Alex introduced as product advisor driving repeatability.
 - 2026-06-16 — [First Oracle call: Bosch cuOpt POC tech sync](calls/oracle/2026-06-16_191926_sales-call_202606161831156E88BEC4.md) — Bosch ↔ Oracle/NVIDIA technical sync on GPU 2 failures in cuOpt POC; debug path agreed without disturbing UAT on GPU 1; tenancy confirmed extended to 2026-08-26; performance-tuning topics deferred.
