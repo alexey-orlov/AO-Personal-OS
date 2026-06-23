@@ -1,7 +1,7 @@
 # Oracle partnership — joint IP
 
-_status: onboarding — Phase 1 (through end of Jun 2026): reactive familiarization with Oracle's three NVIDIA-built packages (AIQ / cuOpt / VSS) via Karsten as the single Oracle gateway; AIDP co-sell parallel. First Oracle call done (Bosch cuOpt tech sync, 2026-06-16); Wed Jun 17 R&D cross-team update delivered — SoftServe positioned as Oracle's primary "vendor of choice" for verticalized AI accelerator packs._
-_updated: 2026-06-18_
+_status: onboarding — Phase 1 (through end of Jun 2026): reactive familiarization with Oracle's three NVIDIA-built packages (AIQ / cuOpt / VSS) via Karsten as the single Oracle gateway; AIDP co-sell parallel. First Oracle call done (Bosch cuOpt tech sync, 2026-06-16); Wed Jun 17 R&D cross-team update delivered — SoftServe positioned as Oracle's primary "vendor of choice" for verticalized AI accelerator packs. AIDP motion advancing to a concrete pitch (2026-06-23): SoftServe as Oracle's ready-now delivery partner for AIDP on OCI via a big-data-practice "pod" model — Alex (R&D) owns the AI-use-case pod definition, draft for the week of Jun 29._
+_updated: 2026-06-23_
 
 ## Snapshot
 
