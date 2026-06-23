@@ -54,10 +54,10 @@ Structure: **US build/product** = Kennetz, Gupta, Kammari, Sindhwani. **EMEA sol
 
 ## How they treat the engagement
 
-- Engaged at the **senior-technical-specialist + PM tier**; genuinely strong people, but **no confirmed economic buyer** in either motion. Gero is the best champion (pedigree) and — as of 2026-06-18 — the **owner/decision point for accelerator scope & prioritization**; still unconfirmed whether his remit reaches package/accelerator *funding* (the open buyer question).
-- Commercial authority most likely sits with **Milo** (Motion B) and with someone **above the specialists** on Motion A whom Alex hasn't met.
-- Relationship is **technically serious but commercially early** — partner-managed from the specialist tier, not sponsored from the alliance/exec tier.
-- **Highest-value next move:** map Milo + ask (via Milo and Karsten) "who owns package/accelerator funding and pricing decisions?" — the confirmed economic-buyer gap on both fronts.
+- Engaged at the **senior-technical-specialist + PM tier**; genuinely strong people. Gero is the best champion (pedigree) and — as of 2026-06-18 — the day-to-day **owner of accelerator scope & prioritization**; but as of 2026-06-23 **he reports into Neil's team on the data/AIDP side**, and **Neil holds the build-vs-partner / staffing decision** — the first real budget/build call surfaced on the Oracle side.
+- Commercial authority: **Neil** (build-vs-partner on the data motion), **Milo** (Motion B sales/commercials), and likely someone **above the specialists** on Motion A whom Alex hasn't met. Neil is the newest and most decision-relevant of these.
+- Relationship is **technically serious but commercially early** — partner-managed from the specialist tier, with the decisive build-vs-partner call now traced to Neil.
+- **Highest-value next move:** research **Neil** (full name, title, reporting line, whether his remit spans beyond AIDP) and **Milo** — they are the two named figures closest to real funding/build authority.
 
 ## Product ownership → catalog
 

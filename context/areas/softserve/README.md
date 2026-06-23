@@ -16,7 +16,7 @@ _source files: local `~/Documents/Documents/SoftServe` (this Mac only) → [regi
 
 ## Subprojects
 
-- [oracle](oracle.md) — Oracle partnership / joint IP — onboarding (Phase 1, through Jun): three NVIDIA-built packages (AIQ / cuOpt / VSS) via Karsten as single Oracle gateway, plus AIDP co-sell; first Oracle call done (Bosch cuOpt tech sync, 2026-06-16); Wed Jun 17 R&D cross-team update delivered (SoftServe = Oracle "partner of choice"; 5 cases showcased); Jun 18 onboarding into the productization workstream — Gero confirmed owner, discovery call being set up.
+- [oracle](oracle.md) — Oracle partnership / joint IP — onboarding (Phase 1, through Jun): three NVIDIA-built packages (AIQ / cuOpt / VSS) via Karsten as single Oracle gateway, plus AIDP co-sell; first Oracle call done (Bosch cuOpt tech sync, 2026-06-16); Wed Jun 17 R&D cross-team update delivered (SoftServe = Oracle "partner of choice"; 5 cases showcased); Jun 18 onboarding into the productization workstream — Gero confirmed owner, discovery call being set up. AIDP motion advancing to a pitch (2026-06-23): SoftServe as ready-now AIDP delivery partner via a big-data "pod" model → monthly recurring revenue; Alex owns the AI-use-case pod definition (draft for week of Jun 29); new senior stakeholder **Neil** (above Gero) holds Oracle's build-vs-partner decision.
 - [iris-bootcamp](iris-bootcamp.md) — Product stream of the Iris client bootcamp — prep; tentative start Jun 29.
 - [jumpstart-pm](jumpstart-pm.md) — PM-focused Jumpstart offering design — v0.1 one-pager drafted 2026-06-12; review with Inna ~week of Jun 15.
 
