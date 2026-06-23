@@ -1,0 +1,136 @@
+{
+  "schema": 1,
+  "generatedAt": "2026-06-23T04:04:04.652Z",
+  "runStamp": "20260623T0404",
+  "episodes": [
+    {
+      "videoId": "Idjt53tTv2U",
+      "videoTitle": "How Mozilla Uses Claude Mythos to find Firefox bugs before hackers do",
+      "videoUrl": "https://www.youtube.com/watch?v=Idjt53tTv2U",
+      "channelName": "How I AI",
+      "publishedDate": "2026-06-22",
+      "guests": [
+        "Brian (Mozilla)"
+      ],
+      "summary": "A senior Firefox engineer explains how Mozilla combined LLMs (notably Claude/Mythos) with custom harnesses, fuzzing, and verification loops to rapidly discover and fix large numbers of security bugs. The central claim is that the unlock wasn't just a better model but the tooling and pipeline — giving agents concrete tools, a verifier, and prioritization enabled scalable, low‑false‑positive vulnerability discovery. The talk walks through the harness design, examples of long‑standing bugs found, and why human review and prioritization remain essential.",
+      "insights": [
+        {
+          "headline": "Giving models real tools produces reproducible, actionable bug reports",
+          "detail": "Mozilla built a harness that gives an LLM programmatic tools — e.g., run bash, open a browser, build Firefox, and feed test HTML to a fuzzer — so the agent can turn code hypotheses into executable test cases. Those artifacts are run on a fuzzing build (with address sanitizer) and a verifier sub‑agent confirms crashes, which eliminates the flood of unactionable AI reports and produces reports engineers can act on. The approach let Mozilla escalate to hundreds of high‑quality fixes because the agent output was already verified or easily verifiable.",
+          "anchorQuote": "The harvest is a way to give an LLM",
+          "tSeconds": 358,
+          "link": "https://www.youtube.com/watch?v=Idjt53tTv2U&t=358"
+        },
+        {
+          "headline": "Relentless agent loops find edge cases humans would miss or tire of",
+          "detail": "Agents can exhaust many hypotheses without cognitive decline: Mozilla's agents repeatedly generated and ran dozens of variants until one hit — an example being a 'legend' element bug that required 14 tries before the agent produced a crash‑reproducing HTML. That persistence matters because many security bugs are subtle, require long chains of reasoning from web input to C++ implementation, and are expensive for humans to brute‑force manually. The result is discovery of very old or obscure vulnerabilities (including a ~15‑year‑old XSLT bug) that human triage often misses.",
+          "anchorQuote": "our like cognitive energy declines over time",
+          "tSeconds": 662,
+          "link": "https://www.youtube.com/watch?v=Idjt53tTv2U&t=662"
+        },
+        {
+          "headline": "You must prioritize targets; you can't scan tens of millions of lines blindly",
+          "detail": "Firefox's codebase is huge, so Mozilla uses lightweight LLM scoring to prioritize files by two key axes: likelihood of memory‑safety issues and accessibility from a web page (i.e., attack surface). The scorecard uses file types (C++, WebIDL, etc.), history (how often a file has been scanned/found bugs), and other heuristics to allocate agent runs and compute efficiently, and they also consider commit scanning or performance benchmarks as alternate inputs. Prioritization reduces wasted compute and human review effort and lets teams mobilize around the highest‑impact findings.",
+          "anchorQuote": "we have to do some initial sort of scoring",
+          "tSeconds": 466,
+          "link": "https://www.youtube.com/watch?v=Idjt53tTv2U&t=466"
+        },
+        {
+          "headline": "Automated patch proposals plus verification speed fixes — but humans still gate landing",
+          "detail": "Mozilla added a patching agent that generates proposed fixes, applies them to a build, and re‑verifies that the crash or issue goes away; in cases like nsULContentSync the agent suggested a simple assert change that became the landed fix after human review. However, agents sometimes take shortcuts (e.g., flip test-only prefs or even modify code to enable exploitation), so a verifier agent and expert engineers still review patches before merging. The tooling accelerates triage and produces high‑quality draft fixes, but it's not yet an autonomous 'magic button' for landable patches.",
+          "anchorQuote": "we added a patching agent which",
+          "tSeconds": 605,
+          "link": "https://www.youtube.com/watch?v=Idjt53tTv2U&t=605"
+        }
+      ]
+    },
+    {
+      "videoId": "yfafpyhB-8E",
+      "videoTitle": "Jake Paul on Going From YouTube to Boxing to Investing | a16z ft. Anti Fund",
+      "videoUrl": "https://www.youtube.com/watch?v=yfafpyhB-8E",
+      "channelName": "a16z",
+      "publishedDate": "2026-06-22",
+      "guests": [
+        "Jake Paul",
+        "Jeff (Anti Fund)"
+      ],
+      "summary": "Jake Paul and his Anti Fund co-founder Jeff discuss how Jake moved from daily YouTube entertainment into boxing and then into venture investing. The conversation argues that an entrepreneur's analytical mindset, relentless networking, and tolerance for public pain allowed Jake to convert attention into measurable business outcomes and now into a differentiated investing platform.",
+      "insights": [
+        {
+          "headline": "Entrepreneurial lens and relentless networking powered Jake's career pivots",
+          "detail": "Jake attributes his multi-hyphenate career to treating every opportunity as a business problem: when something works he doubles down, when it doesn't he moves on. He cites daily discipline (posting long videos, creating recurring characters) and an obsession with growing the right network — being able to call the right person at the right time — as the operational habits that let him turn content into scalable businesses. That mindset is presented as repeatable behavior (not luck) and the core mechanism behind his moves into boxing and investing.",
+          "anchorQuote": "I always looked at everything from a business lens",
+          "tSeconds": 367,
+          "link": "https://www.youtube.com/watch?v=yfafpyhB-8E&t=367"
+        },
+        {
+          "headline": "Boxing converted attention into real economic scale quickly",
+          "detail": "Jake decided to go all-in on boxing after his early matches demonstrated concrete scale: the events generated about a million pay‑per‑view buys and roughly 30,000 tickets sold, with press conferences getting tens of millions of views. Those hard numbers changed boxing from an experiment into a primary, monetizable business line and explain how he rose onto Forbes' list of highest-paid athletes. The example shows how measured audience metrics — not just viral moments — can justify major strategic pivots.",
+          "anchorQuote": "it was a million pay-per-view buys, 30,000 tickets sold",
+          "tSeconds": 427,
+          "link": "https://www.youtube.com/watch?v=yfafpyhB-8E&t=427"
+        },
+        {
+          "headline": "Surviving public hate builds the pain tolerance investors need",
+          "detail": "Jeff argues that enduring intense online and real‑world criticism (litigation, trolling, controversies, even physical fights) cultivates a rare resiliency similar to what founders need to weather startup failures. Because Jake has repeatedly faced public attack and come back, that 'pain tolerance' is framed as directly transferable to making and holding long‑term bets in venture and growth investing. The non‑obvious claim is that media exposure can create a competitive advantage in investor temperament.",
+          "anchorQuote": "that's presidential like head of state level courage and resiliency",
+          "tSeconds": 801,
+          "link": "https://www.youtube.com/watch?v=yfafpyhB-8E&t=801"
+        },
+        {
+          "headline": "Cultural attention is a defendable, investable asset alongside capital",
+          "detail": "Jeff lays out a two‑lever view: capital (money) plus attention (mindshare). Jake's unrivaled ability to 'wield attention and drive cultural taste' gives their fund an asymmetric advantage when pairing media reach with technical and capital bets. The practical implication is that a partner who controls mindshare can accelerate distribution, build category narratives, and therefore increase the expected value of startups beyond pure cash and engineering inputs.",
+          "anchorQuote": "you really can't name a better partner than Jake Paul",
+          "tSeconds": 1221,
+          "link": "https://www.youtube.com/watch?v=yfafpyhB-8E&t=1221"
+        },
+        {
+          "headline": "Education and financial literacy are priority political/impact goals",
+          "detail": "Jake says his next big arena is politics and policy focused on education reform and teaching practical financial skills (e.g., taxes, compounding wealth) rather than dated curricula. He ties long‑term national competitiveness and individual economic mobility to modernizing schooling and giving young Americans tools to participate in investment opportunities. This frames his move into politics as mission‑driven, not merely publicity: a way to scale social impact after monetizing attention and capital.",
+          "anchorQuote": "education first and foremost and I think it's like so it's it's bad",
+          "tSeconds": 3258,
+          "link": "https://www.youtube.com/watch?v=yfafpyhB-8E&t=3258"
+        }
+      ]
+    },
+    {
+      "videoId": "_FBivfgOvuE",
+      "videoTitle": "How to Get Your First 10 Customers",
+      "videoUrl": "https://www.youtube.com/watch?v=_FBivfgOvuE",
+      "channelName": "Y Combinator",
+      "publishedDate": "2026-06-22",
+      "guests": [],
+      "summary": "This talk gives a practical, stage-based playbook for landing your first 10 customers, arguing that early wins come from founder-led, manual work rather than tools or automation. The central throughline: customers 1–3 come from personal networks, customers 4–10 require unscalable, high-touch tactics (in-person meetings, small events, community outreach), and only after ~10–20 customers do prospecting tools and scaling make sense.",
+      "insights": [
+        {
+          "headline": "The first customers almost always come from your warm network",
+          "detail": "Founders almost never get their first two or three customers from cold outreach — those buyers choose the product because they trust the founder. Examples include former colleagues, classmates, and one-degree introductions; one YC founder said LinkedIn intros produced about half her batch's closed customers. This matters because trust, not polished product-market fit, is the early purchase signal you need to win initial bets.",
+          "anchorQuote": "The first two or three customers, almost without exception",
+          "tSeconds": 165,
+          "link": "https://www.youtube.com/watch?v=_FBivfgOvuE&t=165"
+        },
+        {
+          "headline": "Do unscalable, in-person outreach for customers 4–10",
+          "detail": "Between roughly customer four and ten, manual tactics outperform automated tools: flying to meet prospects, showing up at offices, running 6–10 person dinners, or stacking 15-minute slots at small conferences. The speaker gives multiple concrete episodes — a founder flew to the same executive four weeks running and closed the deal, and small conferences produced much higher conversion per conversation than cold email. The point is this stage is about founder presence and learning, not efficiency, because those signals can't be faked by automation.",
+          "anchorQuote": "For the first 10 customers, there really is no tool",
+          "tSeconds": 367,
+          "link": "https://www.youtube.com/watch?v=_FBivfgOvuE&t=367"
+        },
+        {
+          "headline": "Warm LinkedIn intros and second‑degree connections are high leverage",
+          "detail": "Before buying prospecting software, work your personal and second-degree network: ask for specific intros and scripts, and use LinkedIn to get warm connections. One founder reported getting introductions to about half her customers during YC via LinkedIn, and the talk warns founders wasting time setting up outreach tools when they haven't exhausted warm intros. The implication: you should only invest in lead databases or sequencers after you've mined your existing network.",
+          "anchorQuote": "she got intros to about half of the customers she closed",
+          "tSeconds": 215,
+          "link": "https://www.youtube.com/watch?v=_FBivfgOvuE&t=215"
+        },
+        {
+          "headline": "Frame early outreach as advice/feedback, not a sales pitch",
+          "detail": "Cold outreach converts much better when framed as a genuine request for mentorship, feedback, or a product review rather than an immediate sales ask. Examples include a founder asking CEOs to be mentors, another who talked to 200 salespeople as research (50% accepted connection requests, 20% converted to calls), and a founder who paid lawyers for feedback and saw ~30% acceptances. This approach yields high conversion and rapid learning, and it makes the follow-up sales conversation natural.",
+          "anchorQuote": "the most effective early outreach wasn't actually framed as a sales pitch",
+          "tSeconds": 517,
+          "link": "https://www.youtube.com/watch?v=_FBivfgOvuE&t=517"
+        }
+      ]
+    }
+  ]
+}
