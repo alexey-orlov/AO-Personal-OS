@@ -61,6 +61,7 @@ _updated: 2026-06-23_
 
 ## Decisions
 
+- 2026-06-23 — Oracle reorg: Accelerator Packs product+eng ownership moves to Nathan Thomas's org (incoming PM Pulkit Sindhwani, eng Wei Li); Vishnu Kammari + Dennis Kennetz move to a compute org (Mahesh's); roadmap to be presented to SoftServe in ~2–3 weeks. SoftServe to bring a prioritized list of proposed new packs to the next packs sync (Pulkit joining). [packs sync 2026-06-23](calls/oracle/2026-06-23_192203_sales-call_20260623183616C79A9EC5.md)
 - 2026-06-23 — AIDP pitch to Oracle: lead with the **data part** (big-data practice → pod model → monthly recurring revenue), present OCI deployment only as "available if needed"; target a tight ~10–15-slide deck without timelines (team composition + monthly price + tech options). Alex (R&D) to define the AI-use-case pod approach + an "AI CoE future-state" overview (pods + monthly cost), draft for the beginning of the week of Jun 29. [strategy call 2026-06-23](calls/oracle/2026-06-23_190622_default_2026062315031101B18AE2.md)
 - 2026-06-18 — Gero confirmed (by Karsten) as the owner of the Oracle productization/accelerator questions (commercial + technical); Karsten to set up a dedicated discovery call next week for Alex's onboarding into that workstream. [onboarding call 2026-06-18](calls/oracle/2026-06-18_144751_sales-call_2026061814320114A9106F.md)
 - 2026-06-15 — All Oracle stakeholder outreach routes through Karsten (NVIDIA partner sales); after Tue Jun 16 first Oracle call, request peer-to-peer monthly syncs with each package owner (AIQ / cuOpt / VSS) through him. [1:1 2026-06-15](calls/oracle/2026-06-15_200833_one-on-one_20260615190118D7E7175C.md)
@@ -73,7 +74,8 @@ _updated: 2026-06-23_
 
 ## Open loops
 
-Mine:
+Mine / SoftServe:
+- Prepare a **prioritized list of proposed new accelerator packs** to discuss at the next packs sync (Pulkit joining). [packs sync 2026-06-23](calls/oracle/2026-06-23_192203_sales-call_20260623183616C79A9EC5.md)
 - **Define the AI-use-case pod approach** + an "AI CoE future-state" overview (pod compositions + monthly cost) for the Oracle AIDP pitch; consolidate with the big-data input into the deck; draft for the **beginning of the week of Jun 29** (a SoftServe colleague follows up ~Thu Jun 25). [strategy call 2026-06-23](calls/oracle/2026-06-23_190622_default_2026062315031101B18AE2.md)
 - Prepare a ~45–60 min question list for the upcoming Gero productization/discovery call (next week): use-case prioritization, scalability criteria, required GTM artifacts, NVIDIA-vs-OCI platform direction, the rumored internal Oracle accelerator. [onboarding call 2026-06-18](calls/oracle/2026-06-18_144751_sales-call_2026061814320114A9106F.md)
 - Join all forward-going accelerator / t-shirt-sizing meetings (ongoing).
@@ -91,7 +93,15 @@ Theirs (engagement lead):
 - Intro Alex to Karsten (gateway to all Oracle stakeholder access).
 - Send the Oracle case-study deck (outstanding since 2026-06-09).
 - Continue pushing two Olyas (Hanushchak + Terendiy) to publish Oracle clickable UI prototypes on the SoftServe internal portal so sales can demo.
-- Ask Vishnu whether internal go-to-market promotion of the Oracle UI prototypes is OK — not covered at 2026-06-16 call (technical agenda took the slot); carry to next Oracle touchpoint.
+- Ask whether internal go-to-market promotion of the Oracle UI prototypes is OK — not covered at 2026-06-16 call (technical agenda took the slot); carry to the incoming packs team (Pulkit) given Vishnu's move off packs.
+
+Theirs (Oracle — Accelerator Packs):
+- Pulkit + Vishnu → finalize the Accelerator Packs roadmap; present to SoftServe in ~2–3 weeks. [packs sync 2026-06-23](calls/oracle/2026-06-23_192203_sales-call_20260623183616C79A9EC5.md)
+- Vishnu → bring Pulkit onto next week's packs sync; Vishnu/Dennis → KT to the incoming Pulkit/Wei Li team over the next few weeks. [packs sync 2026-06-23](calls/oracle/2026-06-23_192203_sales-call_20260623183616C79A9EC5.md)
+
+Theirs (SoftServe delivery — packs POCs):
+- Denis → consolidated POC summary (ETAs, blockers, status) to Vishnu + Pulkit, aligning with Volodymyr first → ~EOD Jun 24 (flexible). [packs sync 2026-06-23](calls/oracle/2026-06-23_192203_sales-call_20260623183616C79A9EC5.md)
+- Denis → internal due-diligence on retail's 4 post-POC functionalities (with Hamad + Saad) → EOW. Oleh Mamchych → share UI templates/design-system + scaffolding docs with Bohdan + Alex. [packs sync 2026-06-23](calls/oracle/2026-06-23_192203_sales-call_20260623183616C79A9EC5.md)
 
 Theirs (Olha Terendii):
 - Send Olya Hanushchak's contact to Alex.
