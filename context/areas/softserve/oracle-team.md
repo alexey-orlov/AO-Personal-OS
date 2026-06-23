@@ -66,9 +66,10 @@ Structure: **US build/product** = Kennetz, Gupta, Kammari, Sindhwani, + Nathan T
 
 Full catalog + the stack picture in [oracle-ai-offerings.md](oracle-ai-offerings.md). Who works on what:
 
-- **Vishnu Kammari** — AI Infrastructure, GPU Instances, OCI Enterprise AI, AI Services (his title spans infra + applied AI).
-- **Pulkit Sindhwani** — OCI Enterprise AI (GenAI/agentic) + multicloud DB (Database@Azure/AWS/Google) + Autonomous AI Database.
-- **Dennis Kennetz / Ritika Gupta** — AI Blueprints / GPU Scanner (under AI Infrastructure).
+- **Vishnu Kammari** — AI Infrastructure, GPU Instances, OCI Enterprise AI, AI Services (his title spans infra + applied AI); **moving off Accelerator Packs to a compute org 2026-06-23**.
+- **Pulkit Sindhwani** — OCI Enterprise AI (GenAI/agentic) + multicloud DB (Database@Azure/AWS/Google) + Autonomous AI Database; **+ incoming owner of Accelerator Packs (AIQ/cuOpt/VSS) from 2026-06-23**.
+- **Wei Li** — incoming Accelerator Packs engineer (from Dennis Kennetz), under **Nathan Thomas's** org.
+- **Dennis Kennetz / Ritika Gupta** — AI Blueprints / GPU Scanner (under AI Infrastructure); **Kennetz moving to the compute org (Mahesh's) 2026-06-23**.
 - **Gero Gunkel** — leads the overall AI Accelerators engagement across both motions; AIDP strategy/sponsor on the data-platform side.
 - **Amit Tyagi** — Oracle AI Data Platform + Analytics Cloud + Autonomous AI Database/Lakehouse + Select AI; author of the AIDP onboarding blog series.
 - **Mirjana Rakuljić** — Select AI / OCI AI Agents over Autonomous DB (bridges A↔B).
