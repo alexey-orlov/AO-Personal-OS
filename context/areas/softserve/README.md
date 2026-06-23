@@ -1,7 +1,7 @@
 # SoftServe — R&D advisory & product lead (part-time)
 
 _status: ramping in — part-time (~50–80 h/mo from Ukraine): product lead for the R&D Delivery Unit + agentic-AI SME; full-time possible after US move_
-_updated: 2026-06-18_
+_updated: 2026-06-23_
 _source files: local `~/Documents/Documents/SoftServe` (this Mac only) → [registry](../../_meta/external-sources.md)_
 
 ## Snapshot
@@ -57,6 +57,7 @@ Theirs (engagement lead):
 
 ## Activity
 
+- 2026-06-23 — [AIDP pitch strategy call](calls/oracle/2026-06-23_190622_default_2026062315031101B18AE2.md) — pitch SoftServe as Oracle's ready-now AIDP delivery partner via a big-data pod model → monthly recurring revenue; surfaced **Neil** (above Gero; halted Oracle's internal staffing); Alex owns the AI-use-case pod definition, draft for week of Jun 29 → [oracle](oracle.md).
 - 2026-06-18 — [Onboarding call: Oracle productization workstream](calls/oracle/2026-06-18_144751_sales-call_2026061814320114A9106F.md) — Karsten onboards Alex into the accelerator/productization scaling workstream; Gero confirmed as owner of prioritization/scope/platform-direction questions, discovery call being set up; new open questions (NVIDIA-vs-OCI platform, rumored internal Oracle accelerator) → [oracle](oracle.md).
 - 2026-06-17 — [R&D cross-team update: Oracle GTM + R&D IP showcase](calls/oracle/2026-06-17_180940_default_20260617170801ABB6DADE.md) — SoftServe positioned as Oracle's primary partner of choice (~10 new accounts via Oracle's motion); 5 Oracle+NVIDIA cases shown; plus data-science IP wins (Siemens Energy, APA Insights Platform phase 1, Agents for Everything, MS/Teams delivery assistant) → [oracle](oracle.md).
 - 2026-06-16 — [First Oracle call: Bosch cuOpt POC tech sync](calls/oracle/2026-06-16_191926_sales-call_202606161831156E88BEC4.md) — Bosch ↔ Oracle/NVIDIA debug on GPU 2 cuOpt failures; tenancy extended to 2026-08-26 → [oracle](oracle.md).
@@ -66,4 +67,3 @@ Theirs (engagement lead):
 - 2026-06-12 — [Olha Terendii sync — Bosch POC + Oracle productization](calls/oracle/2026-06-12_151312_one-on-one_20260612143223E84CB5DA.md) — Oracle onboarding deepened; pipeline + Bosch case context → [oracle](oracle.md).
 - 2026-06-11 — [Jumpstart program walkthrough with Inna](calls/2026-06-11_135929_default_20260611130042C37F547F.md) — PM-extension mandate confirmed; detail folded into [jumpstart-pm](jumpstart-pm.md).
 - 2026-06-09 — [1:1: engagement scope, Oracle, strategy session](calls/2026-06-09_183633_one-on-one_2026060917013100B193F3.md) — engagement format decided; onboarding plan set.
-- 2026-06-08 — [Iris bootcamp onboarding](calls/2026-06-09_183201_default_20260608180354E83F642F.md) — Product-stream scope + logistics → [iris-bootcamp](iris-bootcamp.md).
