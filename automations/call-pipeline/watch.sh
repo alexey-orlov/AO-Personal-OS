@@ -34,6 +34,22 @@ fi
 
 count_fails() { local n; n=$(grep -cxF "$1" "$FAILS" 2>/dev/null) || n=0; echo "$n"; }
 
+# notify_failure <fname> <runlog> — alert Alex on Telegram (General topic) when
+# the pipeline gives up on a recording after MAX_TRIES, so a silent failure
+# pings the phone instead of sitting unnoticed. Fires exactly once per file
+# (the file is skipped on subsequent loops once it hits MAX_TRIES). Best-effort:
+# a Telegram failure must never break the watcher.
+notify_failure() {
+  local fname="$1" runlog="$2" sender tail_err
+  sender="$REPO_ROOT/automations/telegram/telegram_send.sh"
+  [ -x "$sender" ] || return 0
+  tail_err="$(tail -c 700 "$runlog" 2>/dev/null || true)"
+  # No TG_TOPIC => General topic (Alex's request). Link previews already off.
+  printf '⚠️ Call pipeline FAILED — note NOT created\n\nRecording: %s\nGave up after %s attempts.\n\nLast output:\n%s\n\nFix: re-run process_one.sh on the file (full log at .work/state/last_failure.log).' \
+    "$fname" "$MAX_TRIES" "$tail_err" \
+    | "$sender" >/dev/null 2>&1 || echo "[watch] telegram alert failed (non-fatal)" >&2
+}
+
 echo "[watch] polling: $VOICE_MEMOS_DIR  every ${INTERVAL}s"
 echo "[watch] notes -> $OUT_DIR   ($(date '+%Y-%m-%d %H:%M'))"
 
@@ -66,13 +82,27 @@ while true; do
     done
     [ "$stable" = 1 ] || continue
     echo "[watch] processing: $fname"
-    if "$HERE/process_one.sh" "$path"; then
+    # Capture this run's output to a file so the cause survives even when the
+    # launchd StandardErrorPath under /tmp gets reaped by macOS's periodic
+    # tmp-cleaner (it deletes files >3 days old while the long-lived watcher
+    # holds the handle open — output then goes to an unlinkable ghost inode).
+    runlog="$STATE/lastrun.$$.log"
+    if "$HERE/process_one.sh" "$path" >"$runlog" 2>&1; then
+      cat "$runlog"
       echo "$key" >> "$LEDGER"
+      rm -f "$runlog"
     else
+      cat "$runlog" >&2
       echo "$key" >> "$FAILS"
       n="$(count_fails "$key")"
-      echo "[watch] FAILED ($n/$MAX_TRIES, will retry): $(basename "$path")" >&2
-      [ "$n" -ge "$MAX_TRIES" ] && echo "[watch] giving up on $(basename "$path") after $MAX_TRIES tries." >&2
+      echo "[watch] FAILED ($n/$MAX_TRIES, will retry): $fname" >&2
+      if [ "$n" -ge "$MAX_TRIES" ]; then
+        echo "[watch] giving up on $fname after $MAX_TRIES tries." >&2
+        # Keep the last failed run's output at a stable path for inspection.
+        cp "$runlog" "$STATE/last_failure.log" 2>/dev/null || true
+        notify_failure "$fname" "$runlog"
+      fi
+      rm -f "$runlog"
     fi
   done < <(find "$VOICE_MEMOS_DIR" -name '*.m4a' -type f -print0 2>/dev/null)
   sleep "$INTERVAL"
