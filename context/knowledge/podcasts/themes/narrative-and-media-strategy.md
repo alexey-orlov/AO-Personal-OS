@@ -2,10 +2,10 @@
 
 _status: live theme — founder communications, personal brand, new media vs. legacy PR, going direct_
 _slug: narrative-and-media-strategy_
-_updated: 2026-06-20 · 5 insights from 1 episode_
+_updated: 2026-06-23 · 6 insights from 2 episodes_
 
 ## The throughline
-The media landscape has inverted: where legacy broadcast media demanded corporate polish and atomic soundbites, new media rewards sustained human conversations and strong personal identities. The unified playbook has four beats. (1) Lead with the person — audiences follow individuals (Elon, Palmer, Alex Karp) not logos, so deciding who carries the company's narrative publicly is a foundational strategic choice. (2) Go direct — own your channels (podcasts, newsletters, Substack, posts) rather than depending on legacy press to carry your message; this gives control over context and cadence. (3) Message before distribution — crystallize the desired outcome (hiring, fundraising, enterprise sales) and the audience it must move before chasing reach; distribution multiplies the message, good or bad. (4) Be interesting enough to be hated — neutral audiences mean invisibility; strategic controversy amplifies reach and builds distinct brand identity.
+The media landscape has inverted: where legacy broadcast media demanded corporate polish and atomic soundbites, new media rewards sustained human conversations and strong personal identities. The unified playbook has four beats. (1) Lead with the person — audiences follow individuals (Elon, Palmer, Alex Karp) not logos, so deciding who carries the company's narrative publicly is a foundational strategic choice. (2) Go direct — own your channels (podcasts, newsletters, Substack, posts) rather than depending on legacy press to carry your message; this gives control over context and cadence. (3) Message before distribution — crystallize the desired outcome (hiring, fundraising, enterprise sales) and the audience it must move before chasing reach; distribution multiplies the message, good or bad. (4) Be interesting enough to be hated — neutral audiences mean invisibility; strategic controversy amplifies reach and builds distinct brand identity. (5) Attention is a capital asset — Anti Fund's thesis makes the economic argument explicit: cultural mindshare (the ability to drive taste and distribution) is a co-investment lever as tangible as cash, capable of accelerating category narratives and increasing startup expected value. Attention and capital are no longer separate inputs; the most powerful investors wield both.
 
 ## Insights
 
@@ -32,9 +32,15 @@ A common mistake is chasing distribution (going viral, booking big podcasts) bef
 — a16z · 2026-06-19 · guest: — · [▶ 30:27](https://www.youtube.com/watch?v=XROaLetSxg0&t=1827) · `pi-XROaLetSxg0-05`
 related: theme → [Growth, GTM & pricing](growth-gtm-and-pricing.md) (message-first is the narrative prerequisite for the distribution tactics in Growth, GTM; the Jude Law ad in that theme is the intersection — premium creative as distribution)
 
+### Cultural attention is a defendable, investable asset alongside capital
+Jeff lays out a two‑lever view: capital (money) plus attention (mindshare). Jake's unrivaled ability to 'wield attention and drive cultural taste' gives their fund an asymmetric advantage when pairing media reach with technical and capital bets. The practical implication is that a partner who controls mindshare can accelerate distribution, build category narratives, and therefore increase the expected value of startups beyond pure cash and engineering inputs.
+— a16z · 2026-06-22 · guest: Jake Paul, Jeff (Anti Fund) · [▶ 20:21](https://www.youtube.com/watch?v=yfafpyhB-8E&t=1221) · `pi-yfafpyhB-8E-04`
+related: [In new media the company brand becomes the founder-person brand](#in-new-media-the-company-brand-becomes-the-founder-person-brand) (person-as-brand is the narrative claim; this insight monetizes it — attention controlled by a person becomes a direct investment input, not just brand value) · theme → [Founders & fundraising](founders-and-fundraising.md) (Jake's career as founder-investor validates how the same principles land across domains)
+
 ## Related themes
 - [Founders & fundraising](founders-and-fundraising.md) — founder personal brand + company-building playbooks
 - [Growth, GTM & pricing](growth-gtm-and-pricing.md) — distribution, GTM motions, and channel fit
 
 ## Source episodes
 - [a16z — The Media Game Has Changed (2026-06-19)](../episodes/2026/2026-06-19--a16z--the-media-game-has-changed.md)
+- [a16z — Jake Paul on Going From YouTube to Boxing to Investing (2026-06-22)](../episodes/2026/2026-06-22--a16z--jake-paul-youtube-boxing-investing-anti-fund.md)

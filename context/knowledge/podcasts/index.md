@@ -4,7 +4,7 @@ Self-updating knowledge base of insights mined from Alex's tracked AI / product 
 
 **For agents:** to answer "what has Alex's podcast feed said about X" — `grep -ri "<concept>" context/knowledge/podcasts/themes/`, open the matching theme page, follow an insight's ▶ link to the source moment or its `episodes/` card for full context. An insight ID (`pi-…`) anywhere resolves with `grep -r pi-… context/knowledge/podcasts/`. Update only via `/podcast-insights` — don't hand-edit theme pages.
 
-_updated: 2026-06-22 · 206 insights · 11 themes · 44 episodes — ⚠⚠ agent-engineering at 38/30, tech-frontier at 32/30, ai-agents at 32/30: all flagged for split at next recluster (25th)_
+_updated: 2026-06-23 · 219 insights · 11 themes · 47 episodes — ⚠⚠ agent-engineering at 42/30 (12 over!), tech-frontier at 32/30, ai-agents at 32/30: all flagged for split at next recluster (25th)_
 
 ## Themes
 
@@ -13,17 +13,20 @@ _updated: 2026-06-22 · 206 insights · 11 themes · 44 episodes — ⚠⚠ agen
 | [AI agents & applications](themes/ai-agents-and-applications.md) | 32 | 2026-06-20 | integration into existing tools is where value lands; context-is-moat; agents as org-boundary crossers and renewal counterparties; Snowflake marketing: dashboards dead (-30% cost/opp); personal-agent coaching loops; Ploy: legacy site → production-ready site in ~75s |
 | [AI & the PM craft](themes/ai-and-the-pm-craft.md) | 12 | 2026-06-11 | PMs ride coding agents; VP-level craft is choosing sources + target form and restraining the model |
 | [Product discovery & strategy](themes/product-discovery-and-strategy.md) | 19 | 2026-06-17 | feature moats died; taste-led 1.0s, Proven/Better/New copy-first (Pincus), kill-hope-fast, day-365 retention; Groww: transparency-first PMF + 4-yr zero-revenue love phase; validate depth by running customer's business |
-| [Growth, GTM & pricing](themes/growth-gtm-and-pricing.md) | 13 | 2026-06-20 | self-service + inbound agents as primary channel; B2B Cambrian explosion; AI winners bifurcate from legacy; WhatsApp-style channel fit; usage-aware tier pricing; Ploy: always-on GTM brain (50 integrations → nightly SEO + outreach) |
-| [Founders & fundraising](themes/founders-and-fundraising.md) | 21 | 2026-06-20 | mission-control governance + the AI cycle's lean, concentrated outcomes; regulated-zone risk mgmt + shared values; commit-to-one-idea + verticalize-sell-outcomes (Corgi Insurance) + aim-for-most-ambitious; AI = 400–1,000 logical clones of founder judgment (Bryant Chou / Ploy) |
+| [Growth, GTM & pricing](themes/growth-gtm-and-pricing.md) | 17 | 2026-06-23 | self-service + inbound agents as primary channel; B2B Cambrian explosion; AI winners bifurcate from legacy; WhatsApp-style channel fit; usage-aware tier pricing; Ploy: always-on GTM brain; warm-network + unscalable in-person tactics = only route to first 10 customers |
+| [Founders & fundraising](themes/founders-and-fundraising.md) | 25 | 2026-06-23 | mission-control governance + the AI cycle's lean, concentrated outcomes; regulated-zone risk mgmt + shared values; commit-to-one-idea + verticalize-sell-outcomes (Corgi Insurance) + aim-for-most-ambitious; AI = 400–1,000 logical clones of founder judgment; Jake Paul: pivot-by-metrics + pain-tolerance as investor temperament |
 | [Leadership, careers & teams](themes/leadership-careers-and-teams.md) | 16 | 2026-06-21 | tasks automate, jobs are bundles; CEO must be the chief AI officer; engineering is a different craft, not dead; GTM engineers + distributed AI fluency rituals (Snowflake); Fung: 8x throughput, non-engineers ship code, managers must stay IC, hire creative builders + systems specialists |
 | [Tech frontier & abundance](themes/tech-frontier-and-abundance.md) | 32 | 2026-06-19 | ⚠⚠ over split limit — SpaceX $2.89T IPO (triple-exponential) + export-control suspension (Fable/Mythos) + RSI delays OpenAI IPO + compute doubling every 7mo (electrical infra bottleneck) |
 | [Generative media & multimodal production](themes/generative-media-and-multimodal.md) | 6 | 2026-06-11 | video/image tools cross usability threshold for short-form; avatar/emotion limits persist; compose specialized models |
-| [Agent engineering & production infra](themes/agent-engineering-patterns.md) | 38 | 2026-06-22 | overnight delegation + software-factory pipelines + guardrail debt + RTS-style parallel workers + Lean verification + streaming RAG + eval-driven infra benchmarking + loop design primitives + 17M agent PRs/GitHub control-plane + data hygiene prerequisite + 3,500 curated prompts = AI-slop antidote (Ploy); Fung: verification (bad-vs-sad) is the new bottleneck |
+| [Agent engineering & production infra](themes/agent-engineering-patterns.md) | 42 | 2026-06-23 | overnight delegation + software-factory pipelines + guardrail debt + RTS-style parallel workers + Lean verification + streaming RAG + eval-driven infra benchmarking + loop design primitives + 17M agent PRs/GitHub control-plane + data hygiene prerequisite + 3,500 curated prompts = AI-slop antidote; Mozilla security harness: harness + verifier sub-agent → hundreds of verified Firefox fixes + 15-yr-old bugs |
 | [Model reviews & benchmarks](themes/model-reviews-and-benchmarks.md) | 12 | 2026-06-19 | Opus 4.8 strong one-shot, fails last 10%; Fable 5 burns 2× tokens; grounded self-play beats naive curriculum; GitHub weekly hill-climbing narrows lab-to-production gap; Fable 5 trust failure (silent downgrade + prompt retention) |
-| [Narrative & media strategy](themes/narrative-and-media-strategy.md) | 5 | 2026-06-20 | person-is-the-brand; go direct via own channels; message before distribution; controversy > invisibility |
+| [Narrative & media strategy](themes/narrative-and-media-strategy.md) | 6 | 2026-06-23 | person-is-the-brand; go direct via own channels; message before distribution; controversy > invisibility; attention is a co-investment asset alongside capital (Anti Fund thesis) |
 
 ## Recent (last 7 days)
 
+- 2026-06-22 · How I AI — How Mozilla Uses Claude Mythos to find Firefox bugs before hackers do (4 insights → agent-engineering [4])
+- 2026-06-22 · a16z — Jake Paul on Going From YouTube to Boxing to Investing (5 insights → founders [4], narrative-media [1])
+- 2026-06-22 · Y Combinator — How to Get Your First 10 Customers (4 insights → growth-gtm [4])
 - 2026-06-21 · Lenny's Podcast — Building the most AI-pilled engineering team in the world | Fiona Fung (4 insights → leadership [3], agent-engineering [1])
 - 2026-06-20 · Y Combinator — The Age Of The 40-Year-Old Solo Founder Is Here (4 insights → founders [1], ai-agents [1], growth-gtm [1], agent-engineering [1])
 - 2026-06-20 · a16z — The Media Game Has Changed (5 insights → narrative-media [5, new theme])
@@ -33,8 +36,6 @@ _updated: 2026-06-22 · 206 insights · 11 themes · 44 episodes — ⚠⚠ agen
 - 2026-06-17 · How I AI — Loop engineering for beginners (5 insights → agent-engineering [5])
 - 2026-06-17 · Y Combinator — How To Pick A Startup Idea (5 insights → founders [4], product-discovery [1])
 - 2026-06-16 · SaaStr AI — Our Agent Negotiated a Vendor Renewal, Became a CFO and a Better SDR (5 insights → agent-engineering [1], ai-agents [3], growth-gtm [1])
-- 2026-06-15 · How I AI — How this startup uses AI agents to eliminate bugs and optimize infrastructure (4 insights → agent-engineering [4])
-- 2026-06-15 · Y Combinator — Groww: If Your Customers Don't Love It or Hate It, You've Already Lost (5 insights → product-discovery [3], founders [2])
 
 ## Cross-theme links
 
@@ -55,6 +56,9 @@ _updated: 2026-06-22 · 206 insights · 11 themes · 44 episodes — ⚠⚠ agen
 - Agent engineering ↔ Leadership — Snowflake's data-hygiene-as-prerequisite (`pi-SWFEtaWe2xU-03`) + centralized AI engineering control plane (`pi-SWFEtaWe2xU-04`) are the technical complement to GTM-engineer hiring (`pi-SWFEtaWe2xU-05`) + distributed AI fluency rituals (`pi-SWFEtaWe2xU-06`) — same org, opposite angles on the same AI adoption challenge; Fung's 8x throughput (`pi-Ybrl4FYM57c-01`, Leadership) + verification-as-new-bottleneck (`pi-Ybrl4FYM57c-02`, Agent engineering) are the same episode told from two theme angles — throughput surge is the management story, the verification gap is the infra story
 - Narrative & media strategy ↔ Founders — founder-person-brand (`pi-XROaLetSxg0-02`) is the external narrative layer of YC's "burn the boats and sell" playbook (`pi-R56RJFZBasQ-01..02`); the Jude Law ad (`pi-mjmswQurIU4-01`, in Growth, GTM) is the intersection — premium creative as distribution
 - Narrative & media strategy ↔ Growth, GTM — message-first (`pi-XROaLetSxg0-05`) is the strategic prerequisite for the distribution tactics in Growth, GTM (self-service, inbound agents); "go direct" (`pi-XROaLetSxg0-03`) is the channel-selection layer above the GTM motion
+- Founders ↔ Narrative & media strategy — Jake Paul's pivot-by-metrics (`pi-yfafpyhB-8E-02`, Founders) and attention-as-investable-asset (`pi-yfafpyhB-8E-04`, Narrative) are the same career from two angles: the pivot discipline is the Founders story, monetizing that attention is the Narrative story; both corroborate person-as-brand (`pi-XROaLetSxg0-02`) — the person IS the investable asset
+- Growth, GTM ↔ Founders — warm-network-first-customers (`pi-_FBivfgOvuE-01`, Growth) is the founder-led pre-scale layer of the Legora-bunker relentless-sales claim (`pi-mjmswQurIU4-02`, Founders) and Jake's networking-as-operational-habit insight (`pi-yfafpyhB-8E-01`, Founders): same underlying mechanic, different stages of company scale
+- Agent engineering ↔ Model reviews — Mozilla's harness explicitly uses Claude Mythos (the export-controlled model, `pi-BX9ofqxmeYw-02` in Tech frontier); the harness + verifier loop (`pi-Idjt53tTv2U-01..04`) shows what practitioners can accomplish with the model before regulatory suspension — a practitioner use-case that spans agent-engineering infra and the model-reviews reliability theme
 
 ## Channels tracked
 
