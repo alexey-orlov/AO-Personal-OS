@@ -33,8 +33,10 @@ _source files: local `~/Documents/Documents/SoftServe` (this Mac only) → [regi
 - Bohdan Khomych — Associate Director of R&D, SoftServe; Alex's engagement lead and 1:1 counterpart ("Speaker A"); owns vision input, Oracle intros, bootcamp materials. Likely the same "Bogdan" driving Jumpstart-PM (inferred). → [people page](../../people/bohdan-khomych.md)
 - Inna Abolikhina — Jumpstart presales + program management → [people page](../../people/inna-abolikhina.md). (The 2026-06-11 calendar header confirms "Inna Abolikhina"; an earlier guess that this was "Anna Boiarska" was wrong — Anna is a personal contact, unrelated.)
 - Oleh Marchevich — exec side of Jumpstart methodology; IP-collab brainstorm 2026-06-11.
-- Oleh Mamchych — R&D; organized the 2026-06-25 reusable-assets / case-study IP brainstorm (omamchyc@softserveinc.com).
+- Oleh Mamchych — R&D; organized the 2026-06-25 reusable-assets / case-study IP brainstorm (omamchyc@softserveinc.com). Likely the "Oleg" with the cross-cluster "helicopter view" in the [asset-investment 1:1](calls/oracle/2026-06-25_124657_one-on-one_202606251220277BB56A15.md), who will inventory existing cluster work (inferred).
 - Liudmyla Tatura — non-technical content manager (replaced Alla, on maternity leave); to design/own the unified case-study DB; standardizing the case-study process is in her area's 2026 goals.
+- Max — Life Sciences cluster lead; over-allocated (~3 projects), the bottleneck for asset/IP work despite having a PM available. [asset-investment 1:1](calls/oracle/2026-06-25_124657_one-on-one_202606251220277BB56A15.md)
+- Daria — product; paired with Leonid to package cluster work into reusable assets (inferred).
 - Arkadiusz — co-holder of Jumpstart exec ownership.
 - Dmytro, Olya (new, ex-Semenov slot), Leonid, Vladyslav (joining) — R&D PdM team.
 - Enok — engineering-heavy, ex-Engineering Director of an acquired company · William — agentic, observability/security angle (intros pending).
@@ -43,6 +45,7 @@ _source files: local `~/Documents/Documents/SoftServe` (this Mac only) → [regi
 
 ## Decisions
 
+- 2026-06-25 — Inventory existing cluster work first (Speaker B ↔ Oleg 1:1, Oleg has the cross-cluster view) before deciding investment direction, then reconvene as three; frame future asset investment as shared across product + clusters. [asset-investment 1:1](calls/oracle/2026-06-25_124657_one-on-one_202606251220277BB56A15.md)
 - 2026-06-25 — Asset-ownership model endorsed as the direction: L3–L4 expert owns a domain + assets, paired with a coached trainee who produces them. [brainstorm](calls/2026-06-25_112719_default_202606251114264E8BD2B7.md)
 - 2026-06-25 — Build one unified, filterable case-study DB (vs. dispersed cluster repos), with capture gated at engagement start and end; content owner to design it and roll out across practices. [brainstorm](calls/2026-06-25_112719_default_202606251114264E8BD2B7.md)
 - 2026-06-11 — Alex to design a PM-focused extension of the Jumpstart offering across Jun–Jul 2026 → details in [jumpstart-pm](jumpstart-pm.md).
@@ -56,12 +59,14 @@ Mine:
 - Attend 2026-06-11 brainstorm with Oleh Marchevich.
 - Strategy alignment call with lead (week of Jun 9); review his written vision input.
 - Connect with Enok and William once the lead introduces them.
+- Write up the asset-investment action items in chat with deadlines; set up the discussed material in a reviewable/commentable (video) format. [asset-investment 1:1](calls/oracle/2026-06-25_124657_one-on-one_202606251220277BB56A15.md)
 
 Theirs (engagement lead):
 - Written vision input for the strategy session by ~Jun 13; schedule the 1h alignment call.
 - Intros: Enok, William.
 - Liudmyla Tatura (content owner) — design a vision for the unified case-study DB, gather feedback, roll out across practices (no date) (inferred executor).
 - Define the per-project case-study-ownership role — Engineering Lead leaning, with a gap acknowledged where no PM/PdM/Eng Lead exists (not finalized).
+- Oleg — send existing artifacts/notes (or walk Speaker B through them) as pre-work; free up Max for asset work; provide two people for next-steps staffing. Speaker B + Oleg — hold the inventory 1:1, then schedule the three-way follow-up. [asset-investment 1:1](calls/oracle/2026-06-25_124657_one-on-one_202606251220277BB56A15.md)
 
 ## Activity
 
