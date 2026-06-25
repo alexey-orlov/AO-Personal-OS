@@ -69,5 +69,6 @@ context/areas/softserve/calls/oracle/2026-06-23_190622_default_2026062315031101B
 context/areas/softserve/calls/oracle/2026-06-23_191757_sales-call_20260623183616C79A9EC5.md
 context/areas/softserve/calls/oracle/2026-06-23_192203_sales-call_20260623183616C79A9EC5.md
 context/areas/softserve/calls/oracle/2026-06-25_124657_one-on-one_202606251220277BB56A15.md
+context/areas/softserve/calls/oracle/2026-06-25_131530_default_20260625123708F9E8088F.md
 context/areas/softserve/docs/conga-ai-pm-bootcamp-transcript.md
 context/areas/softserve/docs/oracle-packages-tshirt-sizing.md
