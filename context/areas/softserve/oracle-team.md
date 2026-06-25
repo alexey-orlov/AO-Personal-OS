@@ -58,7 +58,7 @@ Decoded from Alex's engagement "helicopter-view" — a one-source verbal map; ph
 | **Neil** ("Neal") | Leads the **pre-sales / value-realization / enablement** function; holds build-vs-partner (see engagement-lead table) | Regional directors report up to him |
 | **Gero Gunkel** ("Gera") | **Europe** AI director/enabler — SoftServe's **main entry point** | = the day-to-day engagement lead Alex deals with |
 | **Adrian James** | **UK** AI director/enabler; ex-lawyer; "**Neil's right hand**" | (inferred) newly surfaced |
-| **Hamad** | **Middle East** AI director/enabler | also drove retail-POC due diligence ("Hamad + Saad", [packs sync](calls/oracle/2026-06-23_192203_sales-call_20260623183616C79A9EC5.md)) |
+| **Hamad** | **Middle East** AI director/enabler; **champion on the Riyadh/ME cuOpt pilot** — holds the integration vision (OFS / Fusion Apps via adapters / IDS); SoftServe to re-validate integration estimates with him | also drove retail-POC due diligence ("Hamad + Saad", [packs sync](calls/oracle/2026-06-23_192203_sales-call_20260623183616C79A9EC5.md)); **= the "Hiro"** of the [WfO alignment 2026-06-25](calls/oracle/2026-06-25_134850_one-on-one_20260625131028FE4E3D44.md) (inferred) |
 | **Pankaj Sharma** | Owns **pre-sales teams + pre-sale-level architecture** support; his team built the **OCR + UI accelerator packs** | Denis Kintsern (inferred) reports to him |
 | **Ainur & Canon** | Product teams ("Black Veil / Panora") — own **accelerator-pack re-deploy / IaaS** infra; Canon = go-to | (inferred names) |
 
