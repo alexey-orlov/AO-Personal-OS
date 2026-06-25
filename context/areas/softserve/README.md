@@ -1,7 +1,7 @@
 # SoftServe — R&D advisory & product lead (part-time)
 
 _status: ramping in — part-time (~50–80 h/mo from Ukraine): product lead for the R&D Delivery Unit + agentic-AI SME; full-time possible after US move_
-_updated: 2026-06-23_
+_updated: 2026-06-25_
 _source files: local `~/Documents/Documents/SoftServe` (this Mac only) → [registry](../../_meta/external-sources.md)_
 
 ## Snapshot
@@ -24,6 +24,7 @@ _source files: local `~/Documents/Documents/SoftServe` (this Mac only) → [regi
 
 - **R&D strategy session design** — reframed as cross-functional idea generation (Pre-sales + Product + Marketing + Delivery), not a decision forum; tentative framing: "which 3 fixes / 3 introductions give +100% growth". Lead owes written vision input (~by Jun 13) and a 1h alignment call (week of Jun 9); Lviv on-site portion deferred. Alex's concern on record: without strategy pre-work the session leaves an "unclosed gestalt". [1:1](calls/2026-06-09_183633_one-on-one_2026060917013100B193F3.md)
 - **IP-collaboration brainstorm with Oleh Marchevich** — Thursday 2026-06-11; open brainstorm, explicitly NOT Oracle onboarding.
+- **Reusable-assets / case-study IP model (R&D)** — brainstorm 2026-06-25 (org. Oleh Mamchych). Two strands: (1) **asset-ownership model** — L3–L4 cluster experts own a domain + its reusable assets and coach a paired trainee/junior who does the hands-on asset production after project involvement; cluster team likes the direction → next: find owners for promising directions (e.g. Oracle accelerators) and train them up. (2) **Centralized case-study hub** — replace today's cluster-dispersed, end-of-project (stale/never-created) case studies with one shared filterable table (SharePoint-style, sales can filter by cloud provider etc.) + a "gated" capture process at engagement start (target value) and end. Content owner Liudmyla Tatura (non-technical content manager, replaced Alla/maternity) to design the unified DB → feedback → roll out across practices; standardizing this is in the content owner's 2026 goals. Open: per-project accountability (Engineering Lead favored; PMs cover ~20%, PdMs absent on many) and whether presales/free POCs/research count as assets. [brainstorm](calls/2026-06-25_112719_default_202606251114264E8BD2B7.md)
 - **Conga follow-ups** (enablement session 2026-05-20): share session slides with attendees; publish demo repo via Conga microsite (routed through Ramya). [session note](calls/2026-05-24_175717_default_202605201757381C904D81.md)
 
 ## People
