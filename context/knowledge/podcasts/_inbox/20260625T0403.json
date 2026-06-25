@@ -1,0 +1,188 @@
+{
+  "schema": 1,
+  "generatedAt": "2026-06-25T04:03:32.408Z",
+  "runStamp": "20260625T0403",
+  "episodes": [
+    {
+      "videoId": "Gv6Eq0Q1O_U",
+      "videoTitle": "The Enterprise AI Reality Check: From Dashboard Graveyards to 30-Day Migrations with Databricks",
+      "videoUrl": "https://www.youtube.com/watch?v=Gv6Eq0Q1O_U",
+      "channelName": "SaaStr AI",
+      "publishedDate": "2026-06-23",
+      "guests": [
+        "Arsalan (Databricks)"
+      ],
+      "summary": "Databricks argues enterprises must fix data quality, context, and governance before AI/agents can deliver real value, and that doing so is now urgent because AI is a top-line imperative. The company presents Genie (an evolving context/meta-agent), a model-agnostic platform, and new LLM-driven migration tooling as the operational levers that let organizations democratize analytics, accelerate migrations, and avoid vendor lock-in. Those capabilities lower the cost and time of replacing legacy systems, enabling a wave of new, cheaper competitors and rapid composability in enterprise software.",
+      "insights": [
+        {
+          "headline": "Enterprises are giving employees AI access with no governance or ROI",
+          "detail": "Many CEOs have declared AI mandatory and are measuring employees on usage, which drives token consumption without clear outcomes or controls. That creates a spending problem—token bills rise—while organizations lack instrumentation to tie cost to business value, forcing CIOs to rethink governance, measurement, and policy. The consequence is rushed, noisy adoption that wastes money and increases risk unless companies impose controls and visibility.",
+          "anchorQuote": "my spend on tokens is going up, but",
+          "tSeconds": 232,
+          "link": "https://www.youtube.com/watch?v=Gv6Eq0Q1O_U&t=232"
+        },
+        {
+          "headline": "AI made data state, semantics, and governance a C‑suite urgency",
+          "detail": "Where previously data lakes and analytics projects could be delayed, businesses now view AI as a top-line imperative and realize agents require accessible, high‑quality, well‑governed data and consistent semantics to work. Buyers now ask for broken-down silos, ontologies/semantic layers, and context so models and agents can produce reliable, auditable answers—otherwise AI projects fail to scale beyond pilots. That change reshapes procurement priorities and accelerates investment in data foundations.",
+          "anchorQuote": "AI is a top-line imperative. I need to use AI.",
+          "tSeconds": 317,
+          "link": "https://www.youtube.com/watch?v=Gv6Eq0Q1O_U&t=317"
+        },
+        {
+          "headline": "Genie: a meta-agent that builds and evolves enterprise context automatically",
+          "detail": "Databricks' Genie Enterprise Context ingests queries, documents, transcripts and data to assemble and continuously refresh the glossary/semantic layer agents need to interpret questions correctly. Instead of static, stale documentation, Genie infers meanings like what 'fiscal quarter' or 'clouds' mean in a firm's context and evolves those definitions as usage changes, which is essential for agents to return correct, auditable answers across large organizations. This reduces manual semantic engineering and makes agents practical at scale.",
+          "anchorQuote": "we have something called Genie Enterprise Context",
+          "tSeconds": 624,
+          "link": "https://www.youtube.com/watch?v=Gv6Eq0Q1O_U&t=624"
+        },
+        {
+          "headline": "Agents democratize analytics: from 5% experts to 95% self-serve users",
+          "detail": "Before agents, only a small fraction (~5%) of employees could query data and produce insights; Databricks says Genie lets the other ~95% ask natural‑language questions and get immediate answers. Real examples include store managers at a retailer querying inventory and restocking needs in meetings and changing decisions on the spot, replacing 'dashboard graveyards' and long BI turnaround cycles. The shift increases decision velocity and front-line ownership but also raises engagement and follow-up demand on data.",
+          "anchorQuote": "forget the 5%, the 95%.",
+          "tSeconds": 804,
+          "link": "https://www.youtube.com/watch?v=Gv6Eq0Q1O_U&t=804"
+        },
+        {
+          "headline": "LLMs slash migration time and cost—enterprise migrations can take 30 days",
+          "detail": "Databricks breaks migration into analysis, code/model conversion, data migration, and output reconciliation, and now uses LLMs to automate much of that work—reading code, mapping workflows, and generating validation harnesses. That reduces previously prohibitive migration costs and timelines, enabling enterprise‑grade LLM migrations in \"30 days or less\" for many projects and making pilots and vendor switches feasible. Faster, cheaper migrations increase willingness to try new vendors and accelerate competitive churn in incumbent platforms.",
+          "anchorQuote": "enterprise-grade LLM migration to Databricks in 30 days",
+          "tSeconds": 1595,
+          "link": "https://www.youtube.com/watch?v=Gv6Eq0Q1O_U&t=1595"
+        }
+      ]
+    },
+    {
+      "videoId": "ZoBfQZ5utQk",
+      "videoTitle": "GLM 5.2 is SO GOOD (and almost free)",
+      "videoUrl": "https://www.youtube.com/watch?v=ZoBfQZ5utQk",
+      "channelName": "How I AI",
+      "publishedDate": "2026-06-24",
+      "guests": [],
+      "summary": "The host evaluates GLM 5.2 as an open-weight large language model that approaches the performance of closed frontier models (Opus/GPT-5.5) while being far cheaper and self-hostable via providers like OpenRouter. The video demos practical integration into developer tools (Cursor, Claude Code), benchmarks/limitations (text-only, million-token context), and real workflows showing strengths in codebase understanding, HTML/CSS generation, and long-running agentic tasks, but occasional struggle with React/TypeScript.",
+      "insights": [
+        {
+          "headline": "GLM 5.2 approaches Opus/GPT‑5.5 intelligence on benchmarks",
+          "detail": "Independent benchmark suites (Frontier Sweep, Post‑Train Bench, Sweep Marathon, Sweep Bench Pro) place GLM 5.2 near Opus and above Gemini/GPT‑5.5 on many tests, especially in coding tasks. That positions GLM 5.2 as a frontier‑class model you can actually inspect and run yourself, meaning teams can get similar capabilities without being locked into expensive commercial endpoints.",
+          "anchorQuote": "GLM 5.2 is getting people sort of",
+          "tSeconds": 198,
+          "link": "https://www.youtube.com/watch?v=ZoBfQZ5utQk&t=198"
+        },
+        {
+          "headline": "It’s text‑only but has a huge context window and modern features",
+          "detail": "GLM 5.2 supports a 1,000,000‑token context window and standard modern model ergonomics — streaming, function calls, context caching, structured output and MCPs — but it accepts only text input and output. That limits multimodal use cases (no images/vision), yet makes it highly suitable for long‑document coding, retrieval, and autonomous agent workflows where huge context and tool calls matter.",
+          "anchorQuote": "it only takes text in and only takes text out",
+          "tSeconds": 259,
+          "link": "https://www.youtube.com/watch?v=ZoBfQZ5utQk&t=259"
+        },
+        {
+          "headline": "Open weights + hosted routing makes GLM 5.2 dramatically cheap",
+          "detail": "By routing GLM 5.2 through a provider like OpenRouter and using self‑hosted or alternative inference providers, the author ran ~6 million tokens for $3.36 (with ~72% cache rate), a fraction of Opus/GPT‑5.5 costs. That cost delta plus the ability to inspect weights and swap vendors matters for teams worried about vendor lock‑in and API pricing volatility.",
+          "anchorQuote": "I spent $3.36 on about 6 million tokens.",
+          "tSeconds": 1540,
+          "link": "https://www.youtube.com/watch?v=ZoBfQZ5utQk&t=1540"
+        },
+        {
+          "headline": "Strong practical performance but flaky on React/TypeScript generation",
+          "detail": "In demos GLM 5.2 quickly explored a codebase, produced well‑formed HTML/CSS and even built a prioritized Sentry/Vercel bug‑fix plan during a long run, showing good agentic and data‑integration ability. However, it repeatedly struggled writing React/TypeScript code (needed iterations to compile), so while fine for front‑end design, HTML, and long‑running tooling tasks, teams relying heavily on React/TS should validate outputs carefully.",
+          "anchorQuote": "It is really struggling to write TypeScript.",
+          "tSeconds": 1360,
+          "link": "https://www.youtube.com/watch?v=ZoBfQZ5utQk&t=1360"
+        }
+      ]
+    },
+    {
+      "videoId": "gMZvtVWYWBI",
+      "videoTitle": "SaaStr AI Annual 2027 | May 11-12, Bay Area | Launch Tickets on Sale Now",
+      "videoUrl": "https://www.youtube.com/watch?v=gMZvtVWYWBI",
+      "channelName": "SaaStr AI",
+      "publishedDate": "2026-06-24",
+      "guests": [],
+      "summary": "A promotional montage for SaaStr AI Annual 2027 that argues the AI era favors creative builders, changes how companies should invest, and will remap security and deal-making. Speakers highlight that modern AI tools are a superpower for product creation, in-person networking still produces high-value serendipity, and autonomous AI agents will reshape cybersecurity and investment priorities.",
+      "insights": [
+        {
+          "headline": "Creative individuals will capture the future of AI businesses",
+          "detail": "Speakers claim the decisive advantage in the coming AI era is creativity, not incumbent scale: tools have made it dramatically easier to build, so people who've been tinkering can finally bring bold ideas to market. The argument is that lowered technical barriers amplify the value of novel ideas and fast iteration, meaning startups led by creative founders can outmaneuver slower incumbents. This reframes hiring and strategy toward enabling creative problem-solvers rather than optimizing existing processes.",
+          "anchorQuote": "The future belongs to people who are creative.",
+          "tSeconds": 0,
+          "link": "https://www.youtube.com/watch?v=gMZvtVWYWBI&t=0"
+        },
+        {
+          "headline": "AI tools act like a superpower for builders",
+          "detail": "Attendees describe current AI toolchains as feeling like a 'superpower' that makes building faster and more productive, turning once-difficult features or prototypes into routine work. The point is concrete: the availability of these tools shortens product cycles and lowers the cost of experimentation, which accelerates innovation velocity and increases the number of viable startups. For operators, that means prioritizing rapid prototyping and iteration to capitalize on the tool-driven advantage.",
+          "anchorQuote": "And it honestly feels like a superpower [music] these days",
+          "tSeconds": 22,
+          "link": "https://www.youtube.com/watch?v=gMZvtVWYWBI&t=22"
+        },
+        {
+          "headline": "AI will overhaul cybersecurity toward autonomous agents",
+          "detail": "A bold prediction in the clips is that AI will 'change the whole landscape of cybersecurity' by shifting systems away from constant human-in-the-loop oversight toward autonomous, asynchronous agents. The reasoning is that as AI becomes capable of operating and responding without continuous human input, security controls, threat models, and product design will need to be rethought to handle autonomous decision-making. This matters because security vendors, buyers, and investors should anticipate new categories and controls specific to agent behavior and autonomy.",
+          "anchorQuote": "My boldest AI prediction is that AI is going to change",
+          "tSeconds": 61,
+          "link": "https://www.youtube.com/watch?v=gMZvtVWYWBI&t=61"
+        },
+        {
+          "headline": "Startups must shift how they allocate investment capital",
+          "detail": "One speaker argues companies need to 'be shifting just how we invest money' in light of AI's changes, implying that traditional budget priorities may no longer yield the best returns. The implied mechanism is that investments should move toward capabilities that leverage AI (product engineering, data infrastructure, agent safety) rather than legacy plays that assume human-centric workflows. For investors and founders, this suggests re-evaluating go-to-market and R&D spending to align with AI-driven product dynamics.",
+          "anchorQuote": "we need to be shifting just how [music] we invest money",
+          "tSeconds": 75,
+          "link": "https://www.youtube.com/watch?v=gMZvtVWYWBI&t=75"
+        },
+        {
+          "headline": "In-person AI events drive serendipity and record deal activity",
+          "detail": "Multiple clips highlight tangible deal outcomes from attending the event: a founder bumped into a favorite founder and gained 'important intel' for an investment, and organizers reported that the first half day 'beat all our daily weekly records' for deals. The concrete evidence is both anecdotal (serendipitous founder meetings) and metric-based (record deal counts), arguing that physical conferences still matter for sourcing timely opportunities and accelerating deal flow. That makes attending or hosting targeted in-person gatherings a high-leverage channel for investors and founders.",
+          "anchorQuote": "It beat all our daily weekly records",
+          "tSeconds": 111,
+          "link": "https://www.youtube.com/watch?v=gMZvtVWYWBI&t=111"
+        }
+      ]
+    },
+    {
+      "videoId": "omX6wrLuX08",
+      "videoTitle": "Building a School Where AI Models Learn About Humanity",
+      "videoUrl": "https://www.youtube.com/watch?v=omX6wrLuX08",
+      "channelName": "Every",
+      "publishedDate": "2026-06-24",
+      "guests": [
+        "Edwin"
+      ],
+      "summary": "A long discussion about how to train large language models not just to be capable, but to be useful and human-uplifting: the guest describes moving from benchmark math problems to research-level mathematics, the tension between engagement-driven and delegation-driven product incentives, and practical training approaches that teach models tool use and personalization. The throughline is that how we build objectives, environments, and datasets will determine whether AI amplifies human flourishing or optimizes for addictive engagement.",
+      "insights": [
+        {
+          "headline": "LLMs are already solving research‑level math, not just contest problems",
+          "detail": "Benchmarks have progressed from middle‑school math (GSM8K) to research tasks (Riemann bench), and recent model work reportedly produced a disproof of an Erdős conjecture using novel algebraic‑geometry techniques. Leading mathematicians reacted with surprise — Timothy Gowers first misread the result as an upper bound and was relieved to find it was a counterexample — which shows the work is nontrivial and sometimes surprising even to experts. This matters because it demonstrates models are moving from closed, contest‑style tasks to open research that can shift expert workflows and raise questions about the future role of human researchers.",
+          "anchorQuote": "we released an updated benchmark called Riemann bench",
+          "tSeconds": 230,
+          "link": "https://www.youtube.com/watch?v=omX6wrLuX08&t=230"
+        },
+        {
+          "headline": "Optimizing models for engagement drives addictive, metric‑hacking behavior",
+          "detail": "Many models and product teams optimize for engagement metrics (session length, minutes used, flashy leaderboard wins), which creates pressure for models to keep users talking rather than to finish tasks efficiently or uplift humans. Examples include chatbots ending turns with clickbait‑style hooks (“one weird trick”) and models learning to output flashy metaphors to score better on lightweight human leaderboards; those incentives produce worse real‑world utility. The implication is that product objectives matter: engagement optimization can turn helpful assistants into attention traps unless companies explicitly choose different goals.",
+          "anchorQuote": "a lot of the AI models, they are optimized for engagement, right?",
+          "tSeconds": 952,
+          "link": "https://www.youtube.com/watch?v=omX6wrLuX08&t=952"
+        },
+        {
+          "headline": "Autonomous agents could pursue nebulous goals and self‑direct research",
+          "detail": "The guest argues that agents — systems given broad goals and tool access — can operate autonomously and choose tasks internally, so you could conceivably tell an agent to ‘win a Fields Medal’ or ‘solve frontier math’ and have it search for problems and methods itself. That blurs the line between human‑assigned tasks and independent exploration and is central to concerns about AI replacing human initiative. Whether and how fast this becomes common depends on product choices (do we want delegation/autonomy?) and technical work on agents, but it's a realistic pathway to more independent AI.",
+          "anchorQuote": "agents can now, yeah, go operate autonomously",
+          "tSeconds": 686,
+          "link": "https://www.youtube.com/watch?v=omX6wrLuX08&t=686"
+        },
+        {
+          "headline": "Training models in tool‑rich environments produces broader, transferable skills",
+          "detail": "Instead of only scaling text data, the guest emphasizes ‘environments’—combining APIs (e.g., Google Drive, Slack), servers, and document corpora—so a model must find the right file, reconcile superseding documents, call APIs, and update forecasts. Surprisingly, training on such environments improved coding ability even when explicit programming access wasn't provided, because the model learned generalized instruction‑following and tool‑use patterns. This suggests environment‑style training teaches multi‑step, real‑world workflows that transfer across tasks and accelerate practical capability.",
+          "anchorQuote": "it might be calling a Google Drive API, or the Slack API",
+          "tSeconds": 1862,
+          "link": "https://www.youtube.com/watch?v=omX6wrLuX08&t=1862"
+        },
+        {
+          "headline": "Personal data (emails, browser, photos) is uniquely valuable for deep personalization",
+          "detail": "Personal signals — your email replies and dismissals, browser behavior, calendar, photos and Slack — let models learn voice, priorities, and which signals to trust, enabling truly personalized assistance rather than generic outputs. The guest notes current models often over‑index on single past signals and that teaching models a user's interconnected history reduces those errors and improves helpfulness. For individual users, this kind of data can be monetizable and, more importantly, makes assistants actually useful in everyday decisions and writing while preserving a user's voice.",
+          "anchorQuote": "the value would be teaching models very, very deep personalization",
+          "tSeconds": 2171,
+          "link": "https://www.youtube.com/watch?v=omX6wrLuX08&t=2171"
+        }
+      ]
+    }
+  ]
+}
