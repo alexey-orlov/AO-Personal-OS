@@ -32,6 +32,8 @@ _source files: local `~/Documents/Documents/SoftServe` (this Mac only) → [regi
 - Bohdan Khomych — Associate Director of R&D, SoftServe; Alex's engagement lead and 1:1 counterpart ("Speaker A"); owns vision input, Oracle intros, bootcamp materials. Likely the same "Bogdan" driving Jumpstart-PM (inferred). → [people page](../../people/bohdan-khomych.md)
 - Inna Abolikhina — Jumpstart presales + program management → [people page](../../people/inna-abolikhina.md). (The 2026-06-11 calendar header confirms "Inna Abolikhina"; an earlier guess that this was "Anna Boiarska" was wrong — Anna is a personal contact, unrelated.)
 - Oleh Marchevich — exec side of Jumpstart methodology; IP-collab brainstorm 2026-06-11.
+- Oleh Mamchych — R&D; organized the 2026-06-25 reusable-assets / case-study IP brainstorm (omamchyc@softserveinc.com).
+- Liudmyla Tatura — non-technical content manager (replaced Alla, on maternity leave); to design/own the unified case-study DB; standardizing the case-study process is in her area's 2026 goals.
 - Arkadiusz — co-holder of Jumpstart exec ownership.
 - Dmytro, Olya (new, ex-Semenov slot), Leonid, Vladyslav (joining) — R&D PdM team.
 - Enok — engineering-heavy, ex-Engineering Director of an acquired company · William — agentic, observability/security angle (intros pending).
@@ -40,6 +42,8 @@ _source files: local `~/Documents/Documents/SoftServe` (this Mac only) → [regi
 
 ## Decisions
 
+- 2026-06-25 — Asset-ownership model endorsed as the direction: L3–L4 expert owns a domain + assets, paired with a coached trainee who produces them. [brainstorm](calls/2026-06-25_112719_default_202606251114264E8BD2B7.md)
+- 2026-06-25 — Build one unified, filterable case-study DB (vs. dispersed cluster repos), with capture gated at engagement start and end; content owner to design it and roll out across practices. [brainstorm](calls/2026-06-25_112719_default_202606251114264E8BD2B7.md)
 - 2026-06-11 — Alex to design a PM-focused extension of the Jumpstart offering across Jun–Jul 2026 → details in [jumpstart-pm](jumpstart-pm.md).
 - 2026-06-09 — Part-time ~50–80 h/mo, product-lead + agentic-SME combo; no people-management while contingent. [1:1](calls/2026-06-09_183633_one-on-one_2026060917013100B193F3.md)
 - 2026-06-09 — SME scope = product/process-of-work angle, not bespoke technical advisory.
@@ -55,9 +59,12 @@ Mine:
 Theirs (engagement lead):
 - Written vision input for the strategy session by ~Jun 13; schedule the 1h alignment call.
 - Intros: Enok, William.
+- Liudmyla Tatura (content owner) — design a vision for the unified case-study DB, gather feedback, roll out across practices (no date) (inferred executor).
+- Define the per-project case-study-ownership role — Engineering Lead leaning, with a gap acknowledged where no PM/PdM/Eng Lead exists (not finalized).
 
 ## Activity
 
+- 2026-06-25 — [IP brainstorm: reusable assets + case-study hub](calls/2026-06-25_112719_default_202606251114264E8BD2B7.md) — R&D brainstorm (org. Oleh Mamchych) on an asset-ownership model (expert + coached trainee) and a unified, filterable, gated case-study DB to replace dispersed/late case studies; content owner Liudmyla Tatura to design the DB; open debate on per-project accountability (Eng Lead) and whether presales/POCs count as assets.
 - 2026-06-23 — [Accelerator Packs partnership/roadmap sync](calls/oracle/2026-06-23_192203_sales-call_20260623183616C79A9EC5.md) — first direct Oracle↔SoftServe packs sync Alex joined; Oracle reorg (Vishnu + Dennis Kennetz → compute org; packs → Nathan Thomas's org, PM Pulkit + eng Wei Li; roadmap in ~2–3 weeks); both live POCs tentatively green; SoftServe to bring a prioritized pack list next session → [oracle](oracle.md).
 - 2026-06-23 — [AIDP pitch strategy call](calls/oracle/2026-06-23_190622_default_2026062315031101B18AE2.md) — pitch SoftServe as Oracle's ready-now AIDP delivery partner via a big-data pod model → monthly recurring revenue; surfaced **Neil** (above Gero; halted Oracle's internal staffing); Alex owns the AI-use-case pod definition, draft for week of Jun 29 → [oracle](oracle.md).
 - 2026-06-18 — [Onboarding call: Oracle productization workstream](calls/oracle/2026-06-18_144751_sales-call_2026061814320114A9106F.md) — Karsten onboards Alex into the accelerator/productization scaling workstream; Gero confirmed as owner of prioritization/scope/platform-direction questions, discovery call being set up; new open questions (NVIDIA-vs-OCI platform, rumored internal Oracle accelerator) → [oracle](oracle.md).
@@ -67,4 +74,3 @@ Theirs (engagement lead):
 - 2026-06-12 — [Jumpstart-PM v0.1 one-pager](../../../outputs/jumpstart-pm/jumpstart-pm-program-one-pager.md) — offering draft produced from Inna's materials (received same day) → [jumpstart-pm](jumpstart-pm.md).
 - 2026-06-12 — [Oracle AIDP sales/enablement call](calls/oracle/2026-06-12_173159_sales-call_2026061216024378A29A99.md) — Oracle introduced AIDP as a parallel co-sell motion alongside cuOpt → [oracle](oracle.md).
 - 2026-06-12 — [Olha Terendii sync — Bosch POC + Oracle productization](calls/oracle/2026-06-12_151312_one-on-one_20260612143223E84CB5DA.md) — Oracle onboarding deepened; pipeline + Bosch case context → [oracle](oracle.md).
-- 2026-06-11 — [Jumpstart program walkthrough with Inna](calls/2026-06-11_135929_default_20260611130042C37F547F.md) — PM-extension mandate confirmed; detail folded into [jumpstart-pm](jumpstart-pm.md).
