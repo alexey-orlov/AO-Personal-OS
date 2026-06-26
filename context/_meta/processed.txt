@@ -73,3 +73,5 @@ context/areas/softserve/calls/oracle/2026-06-25_131530_default_20260625123708F9E
 context/areas/softserve/calls/oracle/2026-06-25_134850_one-on-one_20260625131028FE4E3D44.md
 context/areas/softserve/docs/conga-ai-pm-bootcamp-transcript.md
 context/areas/softserve/docs/oracle-packages-tshirt-sizing.md
+context/areas/softserve/calls/oracle/2026-06-26_sales-call_gero-tshirt-packaging.md
+context/areas/softserve/docs/2026-06-26_gero-tshirt-packaging-transcript.md
