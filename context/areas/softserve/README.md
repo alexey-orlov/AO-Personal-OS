@@ -1,7 +1,7 @@
 # SoftServe — R&D advisory & product lead (part-time)
 
 _status: ramping in — part-time (~50–80 h/mo from Ukraine): product lead for the R&D Delivery Unit + agentic-AI SME; full-time possible after US move_
-_updated: 2026-06-25_
+_updated: 2026-06-26_
 _source files: local `~/Documents/Documents/SoftServe` (this Mac only) → [registry](../../_meta/external-sources.md)_
 
 ## Snapshot
@@ -16,7 +16,7 @@ _source files: local `~/Documents/Documents/SoftServe` (this Mac only) → [regi
 
 ## Subprojects
 
-- [oracle](oracle.md) — Oracle partnership / joint IP — onboarding (Phase 1, through Jun): three NVIDIA-built packages (AIQ / cuOpt / VSS) via Karsten as single Oracle gateway, plus AIDP co-sell; first Oracle call done (Bosch cuOpt tech sync, 2026-06-16); Wed Jun 17 R&D cross-team update delivered (SoftServe = Oracle "partner of choice"; 5 cases showcased); Jun 18 onboarding into the productization workstream — Gero confirmed owner, discovery call being set up. AIDP motion advancing to a pitch (2026-06-23): SoftServe as ready-now AIDP delivery partner via a big-data "pod" model → monthly recurring revenue; Alex owns the AI-use-case pod definition (draft for week of Jun 29); new senior stakeholder **Neil** (above Gero) holds Oracle's build-vs-partner decision. Packs partnership/roadmap sync (Jun 23): **Oracle reorg** — Vishnu + Dennis Kennetz → compute org, Accelerator Packs ownership → Nathan Thomas's org (PM Pulkit Sindhwani, eng Wei Li), roadmap in ~2–3 weeks; SoftServe to bring a prioritized pack list next session.
+- [oracle](oracle.md) — Oracle partnership / joint IP — onboarding (Phase 1, through Jun): three NVIDIA-built packages (AIQ / cuOpt / VSS) via Karsten as single Oracle gateway, plus AIDP co-sell; first Oracle call done (Bosch cuOpt tech sync, 2026-06-16); Wed Jun 17 R&D cross-team update delivered (SoftServe = Oracle "partner of choice"; 5 cases showcased); Jun 18 onboarding into the productization workstream — Gero confirmed owner, discovery call being set up. AIDP motion advancing to a pitch (2026-06-23): SoftServe as ready-now AIDP delivery partner via a big-data "pod" model → monthly recurring revenue; Alex owns the AI-use-case pod definition (draft for week of Jun 29); new senior stakeholder **Neil** (above Gero) holds Oracle's build-vs-partner decision. Packs partnership/roadmap sync (Jun 23): **Oracle reorg** — Vishnu + Dennis Kennetz → compute org, Accelerator Packs ownership → Nathan Thomas's org (PM Pulkit Sindhwani, eng Wei Li), roadmap in ~2–3 weeks; SoftServe to bring a prioritized pack list next session. **Gero packaging session (Jun 26):** co-designed the S/M/L "t-shirt" model (S=POV / M=Integration / L=Scale by integration depth; S & L optional), anchored to **Oracle Fusion Apps** with Bosch/OFS as "step zero" — SoftServe sends it as an Excel file (Gero works it over the weekend); Gero owes the CSS "Activate AI" packages + AIDP pricing reference (~$200–300K).
 - [iris-bootcamp](iris-bootcamp.md) — Product stream of the Iris client bootcamp — prep; tentative start Jun 29.
 - [jumpstart-pm](jumpstart-pm.md) — PM-focused Jumpstart offering design — v0.1 one-pager drafted 2026-06-12; review with Inna ~week of Jun 15.
 
@@ -70,6 +70,7 @@ Theirs (engagement lead):
 
 ## Activity
 
+- 2026-06-26 — [Oracle packaging session with Gero (S/M/L "t-shirt" packages)](calls/oracle/2026-06-26_sales-call_gero-tshirt-packaging.md) — Gero co-designed the S/M/L model live (integration-depth tiers, S & L optional), anchored to Oracle Fusion Apps with Bosch/OFS as "step zero"; complex cases (RIAD/VSS) stay opportunistic; SoftServe sends the model as Excel, Gero owes CSS "Activate AI" packages + AIDP pricing → [oracle](oracle.md) · [refined model](docs/oracle-packages-tshirt-sizing.md).
 - 2026-06-25 — [Asset-investment 1:1 (R&D clusters)](calls/oracle/2026-06-25_124657_one-on-one_202606251220277BB56A15.md) — when to invest in repeatable accelerators vs bespoke delivery per niche cluster; two entry models (build-expertise-first vs demand-validated); graduation signal ~3–6 similar projects; product–cluster pairing (Leonid + Daria) to package assets; staffing shortage (Max stretched); next = Oleg↔Speaker B inventory 1:1 then three-way.
 - 2026-06-25 — [IP brainstorm: reusable assets + case-study hub](calls/2026-06-25_112719_default_202606251114264E8BD2B7.md) — R&D brainstorm (org. Oleh Mamchych) on an asset-ownership model (expert + coached trainee) and a unified, filterable, gated case-study DB to replace dispersed/late case studies; content owner Liudmyla Tatura to design the DB; open debate on per-project accountability (Eng Lead) and whether presales/POCs count as assets.
 - 2026-06-23 — [Accelerator Packs partnership/roadmap sync](calls/oracle/2026-06-23_192203_sales-call_20260623183616C79A9EC5.md) — first direct Oracle↔SoftServe packs sync Alex joined; Oracle reorg (Vishnu + Dennis Kennetz → compute org; packs → Nathan Thomas's org, PM Pulkit + eng Wei Li; roadmap in ~2–3 weeks); both live POCs tentatively green; SoftServe to bring a prioritized pack list next session → [oracle](oracle.md).
