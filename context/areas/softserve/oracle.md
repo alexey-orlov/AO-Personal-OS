@@ -102,8 +102,11 @@ Mine / SoftServe:
 - After Olya/Dmytro syncs: form own view on productization viability — universal product vs. standardized engagement SKUs (Oracle may be leaning toward shaped/templatized process: questionnaire → branching → vibe-coded UI per case).
 - After meeting the PdMs: align team ↔ S/M/L packages, sketch Roadmap v0; decide whether to introduce Olya/Leonid to package-owner conversations once cadence is established.
 
+Theirs (Gero / Oracle):
+- Get SoftServe the **CSS "Activate AI" packages** (Oracle-internal; reference, with the ~10×-simpler / more-caveats-needed warning) + the **AIDP professional-services pricing** (~$200–300K / 6-mo CSS pilot) as a headline-price reference; after the AIDP onboarding session, walk through components + bring AIDP experts; loop in AJ + Milo on target verticals; work on the SoftServe Excel model over the weekend. [Gero packaging session 2026-06-26](calls/oracle/2026-06-26_sales-call_gero-tshirt-packaging.md)
+
 Theirs (Karsten):
-- Email Gero to arrange the productization/discovery call (sent ~2026-06-18; call expected next week); can also intro Alex to Gero and to NVIDIA Q-Opt / AIQ experts when ready. [onboarding call 2026-06-18](calls/oracle/2026-06-18_144751_sales-call_2026061814320114A9106F.md)
+- Email Gero to arrange the productization/discovery call (sent ~2026-06-18; the call landed 2026-06-26 as the packaging session — done); can also intro Alex to NVIDIA Q-Opt / AIQ experts when ready. [onboarding call 2026-06-18](calls/oracle/2026-06-18_144751_sales-call_2026061814320114A9106F.md)
 
 Theirs (engagement lead):
 - Intro Alex to Karsten (gateway to all Oracle stakeholder access).
@@ -140,6 +143,7 @@ Theirs (SoftServe partnership team — AIDP):
 
 ## Activity
 
+- 2026-06-26 — [Oracle packaging session with Gero (S/M/L "t-shirt" packages)](calls/oracle/2026-06-26_sales-call_gero-tshirt-packaging.md) — the dedicated Gero discovery/packaging call; Gero co-designed the S/M/L model live (S POV / M Integration / L Scale by integration depth; S & L optional), anchored to Oracle Fusion Apps with Bosch/OFS as "step zero," then SCM/OTM; complex cases (RIAD/VSS) stay opportunistic. Open: OCI free-credit incentive vs EMEA GPU cap, cuOpt per-service packageability, Fusion↔OCI attach. Next: SoftServe sends the model as Excel (Gero works it over the weekend); Gero owes the CSS "Activate AI" packages + AIDP pricing (~$200–300K). Refined model → [docs](docs/oracle-packages-tshirt-sizing.md).
 - 2026-06-25 — [Workforce-Optimization packaging + roadmap alignment (Alex↔Volodymyr)](calls/oracle/2026-06-25_134850_one-on-one_20260625131028FE4E3D44.md) — Oracle's two asks (WfO service proposition + cross-pipeline implementation roadmap); base-pack + customization model (Oracle wants to shrink customization); Bosch now a semi-product (no OFS/Fusion integration); roadmap = range not estimate, re-validate integration with champion Hiro/Hamad; capability & continuity risks (practice skill gap, leadership churn, single-champion, NVIDIA dependency); start by closing the BA gap internally.
 - 2026-06-25 — [Engagement helicopter-view (onboarding a new SoftServe joiner)](calls/oracle/2026-06-25_131530_default_20260625123708F9E8088F.md) — Alex synthesized the full Oracle org map (Neil-led enablement + regional directors Gero/Adrian James/Hamad; Pankaj's pre-sales/architecture; accounts upsell org; AADP), the competitive reality (IBM/Capgemini/DXC/Sky; multi-partner; OCI-consumption-driven, no shared KPIs), and the dual C-level-narrative + tangible-proof delivery bar; Belron RFI case surfaced.
 - 2026-06-23 — [Accelerator Packs partnership/roadmap sync](calls/oracle/2026-06-23_192203_sales-call_20260623183616C79A9EC5.md) — first direct Oracle↔SoftServe packs sync Alex joined; **Oracle reorg** (Vishnu + Dennis Kennetz → compute org under Mahesh; Accelerator Packs → Nathan Thomas's org, PM Pulkit Sindhwani + eng Wei Li; roadmap in ~2–3 weeks); both live POCs tentatively green (Bosch acceptance / Eriks/retail demo delivered); SoftServe to bring a prioritized pack list next session, Pulkit joining.
