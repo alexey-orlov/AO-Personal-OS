@@ -1,0 +1,103 @@
+{
+  "schema": 1,
+  "generatedAt": "2026-06-26T04:02:36.434Z",
+  "runStamp": "20260626T0402",
+  "episodes": [
+    {
+      "videoId": "qsDX0PMKcaE",
+      "videoTitle": "The GitHub Repo That Runs Her $100M Startup",
+      "videoUrl": "https://www.youtube.com/watch?v=qsDX0PMKcaE",
+      "channelName": "Aakash Gupta",
+      "publishedDate": "2026-06-24",
+      "guests": [
+        "JZ (Laurel)"
+      ],
+      "summary": "The episode explains how one CPO rebuilt her company around an AI-native operating system: engineering-style 'skill' files stored like a GitHub repo, surfaced as agents and just-in-time playbooks inside Slack and email. The central argument is that codifying repeatable work (playbooks → skill files → agents) lets a small number of AI‑savvy builders scale their workflows across the whole organization, enabling nontechnical teams and PMs to operate at much higher leverage. Implementation requires culture, governance, and a dedicated AI‑ops function to run experiments, ship safely, and diffuse best practices.",
+      "insights": [
+        {
+          "headline": "A company OS stores workflows as GitHub-style 'skill' files",
+          "detail": "Laurel maps every function and its repeatable activities into a folder/file structure (playbooks → skill files) that can be uploaded to LLMs like Claude. Those skill files act as canonical knowledge — the same briefing, email templates, and task procedures are then surfaced to employees in-context (calendar, Slack), which enforces consistency and speeds onboarding. The non-obvious payoff is that the OS is not a dashboard but a living repo of executable skills that drive daily work.",
+          "anchorQuote": "your file structure, your folder structure",
+          "tSeconds": 181,
+          "link": "https://www.youtube.com/watch?v=qsDX0PMKcaE&t=181"
+        },
+        {
+          "headline": "Mega-agents route requests to task-specific sub-agents in workflows",
+          "detail": "Instead of asking individual sub-agents, Laurel builds higher-level 'mega' agents (e.g., a go-to-market agent) that accept team-level asks and route them to specialized sub-agents (email drafting, triage, RFPs). This architecture lets people invoke one familiar interface (Slack/email) and get routed, which removes friction and prevents knowledge of individual agent names from being a barrier to adoption. Practically, it means playbooks become composable automated steps rather than ad-hoc scripts scattered across silos.",
+          "anchorQuote": "go-to-market agent that can be called",
+          "tSeconds": 1097,
+          "link": "https://www.youtube.com/watch?v=qsDX0PMKcaE&t=1097"
+        },
+        {
+          "headline": "Encoding 'skills' democratizes 1% AI users' workflows across teams",
+          "detail": "Companies often have a small set of power users who tinker and invent high-leverage workflows; the OS captures those patterns as reusable skill files and distributes them company-wide. By surfacing the right skill at the right moment, the organization raises the baseline competency of the 90–99% who are less AI-proficient, creating consistent customer experiences and reducing variance in execution. The surprising effect is cultural — it turns isolated hacks into standardized capabilities that shape brand and service quality.",
+          "anchorQuote": "sing from one voice and say the same thing",
+          "tSeconds": 255,
+          "link": "https://www.youtube.com/watch?v=qsDX0PMKcaE&t=255"
+        },
+        {
+          "headline": "Senior PMs can now build and ship end-to-end production features",
+          "detail": "With agentic dev tools (e.g., 'Devon'), PMs at Laurel ship full front-end + back-end features themselves — the transcript cites a 'temporary initiatives' feature developed end-to-end by a PM. LLM-based code assistants plus GitHub/Claude integration let PMs own the hardest parts of a feature (content, experience, business logic) while engineers focus on high-leverage architecture. That changes org design: smaller, more senior product teams (captains) own outcomes rather than handing off work through rigid handoffs.",
+          "anchorQuote": "temporary initiatives is really powerful",
+          "tSeconds": 1458,
+          "link": "https://www.youtube.com/watch?v=qsDX0PMKcaE&t=1458"
+        },
+        {
+          "headline": "Adoption needs culture and a dedicated AI-operations function",
+          "detail": "Technical tooling alone won’t scale; Laurel ran company-wide hackathons, created training, and appointed an AI-operations lead to prototype and demonstrate value (Sasha). That dedicated role (AI ops) drove cross-functional buy‑in: when one team sees tangible automations, others want their own, which accelerates organizational adoption. The practical lesson is to pair top-down endorsement with a committed builder/operator who can ship, document, and package repeatable skills.",
+          "anchorQuote": "we actually have an AI operations team",
+          "tSeconds": 3012,
+          "link": "https://www.youtube.com/watch?v=qsDX0PMKcaE&t=3012"
+        }
+      ]
+    },
+    {
+      "videoId": "oHwUD9b9_pg",
+      "videoTitle": "Zynga Founder: Consumer Is Not Investible Right Now - Thats Why You Should Build It",
+      "videoUrl": "https://www.youtube.com/watch?v=oHwUD9b9_pg",
+      "channelName": "Y Combinator",
+      "publishedDate": "2026-06-25",
+      "guests": [
+        "Mark Pincus (Zynga)"
+      ],
+      "summary": "Mark Pincus (Zynga) traces computing waves — web, social/mobile, now AI — and argues that although consumer startups are currently hard to fund because distribution and cost aren't solved, this is exactly when founders should be building. He offers practical frameworks (Proven/Better/New), concrete product instincts (always‑on AI agents), and founder advice (presence, alignment, expect many pivots) to survive the long lead time while compute and models get cheaper.",
+      "insights": [
+        {
+          "headline": "An always‑on conversational AI agent is a huge unbuilt consumer opportunity",
+          "detail": "Pincus describes a simple product idea — an AI that literally listens to conversations and behaves like a smart person at the table — and calls it a likely $10–100B consumer company nobody has built yet. He gives personal examples: using a live transcript of a therapy session, pasting it into another model to summarize missed topics, and his own plans to open‑source a Gemini live voice plugin, showing the technical building blocks already work. The point: the feature set (real‑time transcription + contextual agent access to your data) is both compelling to users and not yet productized at scale.",
+          "anchorQuote": "have my AI listening in on this conversation",
+          "tSeconds": 448,
+          "link": "https://www.youtube.com/watch?v=oHwUD9b9_pg&t=448"
+        },
+        {
+          "headline": "Use a 'Proven / Better / New' test to reduce risky product bets",
+          "detail": "Pincus recommends decomposing a concept into what is proven (copy existing mechanics), what you will make measurably better (speed, price, friction), and what is new (the novel spike that drives trials). He shows this method on Granola‑style note takers: legally copy proven parts, focus the 'better' metric so ten of ten users agree, and treat the always‑listening new feature as a hypothesis you expect to fail often and must test quickly. That discipline prevents teams from conflating novelty with core product‑market fit and preserves energy for testing many variants.",
+          "anchorQuote": "proven better new would start with an instinct",
+          "tSeconds": 598,
+          "link": "https://www.youtube.com/watch?v=oHwUD9b9_pg&t=598"
+        },
+        {
+          "headline": "Consumer startups currently lack proven distribution; investors prefer enterprise",
+          "detail": "Pincus argues the primary constraint for consumer today is distribution — there is no reliably repeatable path to reach users at scale right now, so many VCs push founders into enterprise because it looks fundable. He contrasts this with past cycles (1999 consumer mania then enterprise survival) and urges founders to hunt for distribution hacks or viral hooks if they insist on consumer. The implication is tactical: build viral/integrated flows or accept slower timelines rather than surrendering to an investor's enterprise pivot by default.",
+          "anchorQuote": "there is no proven path for distribution right now",
+          "tSeconds": 860,
+          "link": "https://www.youtube.com/watch?v=oHwUD9b9_pg&t=860"
+        },
+        {
+          "headline": "The consumer AI moment is delayed until compute gets orders‑of‑magnitude cheaper",
+          "detail": "Pincus says the current frontier models are powerful but expensive — many early heavy users are 'token maxing' (he cites friends spending ~$1M/year or $1.1M/month) — so truly ubiquitous, free consumer AI is still about orders of magnitude away. He frames it as a timing problem: the 'ideal consumer moment' is roughly three orders of magnitude of cost reduction out, and he predicts the consumer revolution around 2029 as inference costs fall and compute becomes effectively 'free' for typical apps. That timeline reframes how founders should think about building primitives now versus expecting mass adoption immediately.",
+          "anchorQuote": "consumer revolution is actually in 2029",
+          "tSeconds": 1977,
+          "link": "https://www.youtube.com/watch?v=oHwUD9b9_pg&t=1977"
+        },
+        {
+          "headline": "Founder presence and alignment matter more than formal management playbooks",
+          "detail": "Pincus emphasizes 'be in the room as much as you can' — founders should lead by presence to ensure teams do the right thing when they're absent, and only then codify replacements (people/processes). He also describes the emotional management of product pivots: expect many novel ideas to fail, preserve team morale by being dispassionate about variants while passionate about the vision, and watch for the unambiguous 'fish are running' product signals before scaling. The takeaway is practical: hands‑on founder leadership and cultural context for smart pivoting beats generic scaling checklists.",
+          "anchorQuote": "be in the room as much as you can",
+          "tSeconds": 1238,
+          "link": "https://www.youtube.com/watch?v=oHwUD9b9_pg&t=1238"
+        }
+      ]
+    }
+  ]
+}
