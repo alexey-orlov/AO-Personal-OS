@@ -2,7 +2,7 @@
 
 _status: live theme — how AI reshapes product management work, skills, workflows, and roles_
 _slug: ai-and-the-pm-craft_
-_updated: 2026-06-11 · 12 insights from 7 episodes_
+_updated: 2026-06-26 · 13 insights from 8 episodes_
 
 ## The throughline
 PMs and full-stack designers gain leverage in the coding-agent era because the gap between "knowing what to build" and "shipping it" collapses. The skill shift is from raw implementation to defining what to build, evaluating quality, and designing where humans and agents collaborate — Shipper bets PMs who "ride the models" out-ship engineers, an OpenAI PM uses Codex to drive prototypes to 70–80% completion and replace PRDs with runnable artifacts, and a non-technical builder ships a production iPhone app and clears App Store review using LLMs as her stepwise architect + engineer. Lovable extends this to "anyone": vibe coding democratizes product creation, with a student hitting $130k ARR in 30 days. The same craft scales up the org chart: Customer.io's VP of Product rebuilds a third of an all-hands deck in a morning, but only by treating Claude like an eager junior — rolling context in, forcing clarifying questions, blocking premature deliverables — and the leader's residual value collapses to two choices: *which sources* (recordings, docs, metrics) and *which target form* (deck, Notion page, one-pager). The model-selection beat also sharpens: Fable's "seasoned engineer" verbosity wrecks PRDs, so pair Mythos-class models with cheaper Opus/Sonnet by task type. The operational kit that recurs: hyper-literal prompts, screenshots-as-examples, prototypes-not-PRDs, a beginner's mindset, and the discipline to restrain the model until the foundations are set.
@@ -64,6 +64,11 @@ He argues AI has largely commoditized the translation task (turning docs into sl
 — Aakash Gupta · 2026-06-11 · guest: Matthew (Customer.io) · [▶ 29:57](https://www.youtube.com/watch?v=yDeFGKaSoX8&t=1797) · `pi-yDeFGKaSoX8-03`
 related: theme → [Leadership, careers & teams](leadership-careers-and-teams.md) (the tasks-vs-jobs lens — translation automates, judgment doesn't) · theme → [Product discovery & strategy](product-discovery-and-strategy.md) (input choice as the lever)
 
+### Senior PMs can now build and ship end-to-end production features
+With agentic dev tools (e.g., 'Devon'), PMs at Laurel ship full front-end + back-end features themselves — the transcript cites a 'temporary initiatives' feature developed end-to-end by a PM. LLM-based code assistants plus GitHub/Claude integration let PMs own the hardest parts of a feature (content, experience, business logic) while engineers focus on high-leverage architecture. That changes org design: smaller, more senior product teams ('captains') own outcomes rather than handing off work through rigid handoffs.
+— Aakash Gupta · 2026-06-24 · guest: JZ (Laurel) · [▶ 24:18](https://www.youtube.com/watch?v=qsDX0PMKcaE&t=1458) · `pi-qsDX0PMKcaE-04`
+related: [PMs and full-stack designers will be unusually valuable in near term](#pms-and-full-stack-designers-will-be-unusually-valuable-in-near-term) (Shipper's prediction; Laurel's experience is a live data point — senior PMs are already the 'captains' Shipper foresaw)
+
 ## Related themes
 - [AI agents & applications](ai-agents-and-applications.md) — the surfaces PMs build in
 - [Leadership, careers & teams](leadership-careers-and-teams.md) — how the manager/IC mix is shifting alongside
@@ -76,3 +81,4 @@ related: theme → [Leadership, careers & teams](leadership-careers-and-teams.md
 - [SaaStr AI — Feature Differentiation Is Dead. Here's What Actually Wins Now (2026-06-06)](../episodes/2026/2026-06-06--saastr--feature-differentiation-dead-lovable-elena-verna.md)
 - [How I AI — Claude Fable 5 - is this Mythos model worth the wait? (2026-06-10)](../episodes/2026/2026-06-10--howiai--claude-fable-5-mythos-worth-the-wait.md)
 - [Aakash Gupta — The Claude Workflow Nobody at the VP Level Is Showing You (Customer.io) (2026-06-11)](../episodes/2026/2026-06-11--aakash--claude-workflow-vp-level-customerio.md)
+- [Aakash Gupta — The GitHub Repo That Runs Her $100M Startup (2026-06-24)](../episodes/2026/2026-06-24--aakash--the-github-repo-that-runs-her-100m-startup.md)
