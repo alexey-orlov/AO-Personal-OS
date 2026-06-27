@@ -2,7 +2,7 @@
 
 _status: live theme — regulatory escalation from ethical framing to hard export controls; golden shares, voluntary review, AI personhood, recursive self-improvement as a governance trigger_
 _slug: ai-governance-and-policy_
-_updated: 2026-06-25 · 8 insights from 4 episodes · (split from tech-frontier-and-abundance, 2026-06-25)_
+_updated: 2026-06-27 · 9 insights from 5 episodes · (split from tech-frontier-and-abundance, 2026-06-25)_
 
 ## The throughline
 A regulatory escalation in four steps maps the progression from soft to hard governance. (1) Ethical framing — the Vatican's 42,000-word encyclical reframes AI as a human-dignity and theological-anthropology issue, flagging data/profit concentration as a "Babel syndrome" and rejecting AI personhood outright; the text is structurally entangled with frontier labs (evidence of AI-assisted drafting + possible Anthropic lobbying). (2) Failed mandate — a planned 90-day pre-release review EO was scuttled by industry pushback; traditional linear regulation can't match model iteration cadence and immediately triggers the geostrategic-race frame. (3) Soft mechanisms and market alternatives — a 30-day voluntary review replaced the mandate; golden-share proposals (5–10% government equity, Intel precedent, packaged as sovereign-wealth / permanent-fund mechanisms, spanning Sanders's 50% proposal to Trump's single-digit-to-low-double-digit variants) occupy the market-oriented design space; Argentina offers the jurisdictional-race counterpole — a "nonhuman corporation" SEZ that codifies AI personhood and offers low taxes to attract compute and regulatory experimentation. (4) Hard enforcement — the US issued its first direct export-control suspension for a frontier model class (Fable 5 + Mythos 5 banned for non-US persons), establishing that governments will regulate model access, not just lab behavior. Simultaneously, Anthropic's public pause request functions as an RSI confession (8× internal code velocity, engineers not writing code for months) and a signal that capital–technology relationships are decoupling — Altman's OpenAI IPO delay confirms the same dynamic: RSI makes listing "selling the company cheap" or forces premature public rollouts.
@@ -37,6 +37,7 @@ related: [U.S. chose voluntary pre-release review over heavy regulation](#us-cho
 ### Argentina's 'nonhuman corporation' plan creates a legal haven for AI personhood
 Argentina proposed a package: keep AI lightly regulated, create a legal category called 'nonhuman corporation' for AI agents, and offer low corporate taxes to attract AI activity. The hosts argue this would let firms redomicile AI agents or companies under Argentinian law, turning the country into an AI special economic zone that could capture data centers, compute, talent, and regulatory experimentation. That matters because it begins a jurisdictional race: countries that move fastest to legalize and commercialize autonomous agents will attract capital and rapid real-world experiments in AI governance and business models.
 — Peter H. Diamandis · 2026-06-11 · guest: Alex/Dave/Salem · [▶ 30:19](https://www.youtube.com/watch?v=P2HJEz3oqLs&t=1819) · `pi-P2HJEz3oqLs-04`
+— also: Peter H. Diamandis · 2026-06-26 · guest: Will Marshall (Planet) · [▶ 1:44:48](https://www.youtube.com/watch?v=kPSLLeccrik&t=6288) · `pi-kPSLLeccrik-05` (corroboration; adds Harari's sharp accountability rebuttal and names the enforcement-mechanism layer any AI personhood framework needs: compute revocation, credential suspension, asset bonding)
 related: [The Vatican formally reframed AI as a human-dignity issue, not just a safety problem](#the-vatican-formally-reframed-ai-as-a-human-dignity-issue-not-just-a-safety-problem) (opposite-pole framing: Vatican rejects AI personhood, Argentina codifies it)
 
 ### US export control shows government will limit access to frontier AI
@@ -49,9 +50,15 @@ Sam Altman signaled OpenAI might delay an IPO because faster recursive self-impr
 — Peter H. Diamandis · 2026-06-18 · guest: Alex, Dave, Salim · [▶ 58:53](https://www.youtube.com/watch?v=BX9ofqxmeYw&t=3533) · `pi-BX9ofqxmeYw-04`
 related: [Anthropic's public pause request signals recursive self-improvement is near](#anthropics-public-pause-request-signals-recursive-self-improvement-is-near) (Anthropic confesses RSI via its pause request; Altman's IPO delay signals OpenAI pricing the same trajectory — both labs implying RSI is already underway) · theme → [Founders & fundraising](founders-and-fundraising.md) (IPO timing + capital-technology decoupling as a structural venture-capital shift)
 
+### Frontier intelligence can no longer be monopolized — GLM 5.2 shows open models closing the gap
+China's GLM 5.2 (about 753B parameters, MoE, 1M token context) recently topped open-weight rankings and matches or exceeds western models on some benchmarks, demonstrating that high-quality, open models are competitive. That matters because open-weight diffusion undermines any one-lab ability to control capability distribution, complicates export-control strategies, and accelerates the timeline for powerful models reaching a broad set of actors and jurisdictions.
+— Peter H. Diamandis · 2026-06-26 · guest: Will Marshall (Planet) · [▶ 1:59:24](https://www.youtube.com/watch?v=kPSLLeccrik&t=7164) · `pi-kPSLLeccrik-04`
+related: [US export control shows government will limit access to frontier AI](#us-export-control-shows-government-will-limit-access-to-frontier-ai) (export controls presuppose a concentrable distribution path; open-weight diffusion undermines that very assumption — the two mechanisms are in direct tension)
+
 ## Open questions
 - The four mechanisms bracket escalating government control: scuttled 90-day mandate → voluntary 30-day window → proposed golden shares → direct export-control suspension. If this progression continues, what comes next — model licensing regimes? Mandatory safety evals before release?
-- Argentina's nonhuman corporation plan has no corroboration yet — watch whether other jurisdictions follow or whether the proposal collapses under legal scrutiny.
+- Argentina's nonhuman corporation plan now has a second source (Diamandis/kPSLLeccrik — adds Harari's accountability rebuttal and enforcement-mechanism framing); watch whether other jurisdictions follow or whether the proposal collapses under legal scrutiny.
+- Open-weight diffusion (GLM 5.2) puts export-control strategy in direct tension with the reality that capable models can't be kept off-limits — what's the governance response when controls presuppose a concentrable distribution path that no longer exists?
 - The RSI confession embedded in Anthropic's pause request: is this primarily a PR/policy play, or is the capability evidence (8× code velocity, months without engineers writing code) credible enough to drive actual governance changes?
 
 ## Related themes
@@ -64,3 +71,4 @@ related: [Anthropic's public pause request signals recursive self-improvement is
 - [Peter H. Diamandis — Anthropic Files $965B IPO, ChatGPT Crosses 1B Users (2026-06-07)](../episodes/2026/2026-06-07--diamandis--anthropic-965b-ipo-chatgpt-1b-ep-262.md)
 - [Peter H. Diamandis — Anthropic's Global Pause, Recursive Self-Improvement, AI Personhood (2026-06-11)](../episodes/2026/2026-06-11--diamandis--anthropic-global-pause-recursive-self-improvement.md)
 - [Peter H. Diamandis — SpaceX IPOs at $2.89T, US Govt Suspends Fable & Mythos 5 (2026-06-18)](../episodes/2026/2026-06-18--diamandis--spacex-ipo-289t-us-govt-suspends-fable-mythos.md)
+- [Peter H. Diamandis — The $10B Satellite Empire Putting AI in Orbit, Why Chips Beat Rockets & China's #1 Open Model | #266 (2026-06-26)](../episodes/2026/2026-06-26--diamandis--10b-satellite-empire-ai-in-orbit-ep-266.md)

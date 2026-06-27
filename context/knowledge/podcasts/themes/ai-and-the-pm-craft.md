@@ -2,7 +2,7 @@
 
 _status: live theme — how AI reshapes product management work, skills, workflows, and roles_
 _slug: ai-and-the-pm-craft_
-_updated: 2026-06-26 · 13 insights from 8 episodes_
+_updated: 2026-06-27 · 14 insights from 9 episodes_
 
 ## The throughline
 PMs and full-stack designers gain leverage in the coding-agent era because the gap between "knowing what to build" and "shipping it" collapses. The skill shift is from raw implementation to defining what to build, evaluating quality, and designing where humans and agents collaborate — Shipper bets PMs who "ride the models" out-ship engineers, an OpenAI PM uses Codex to drive prototypes to 70–80% completion and replace PRDs with runnable artifacts, and a non-technical builder ships a production iPhone app and clears App Store review using LLMs as her stepwise architect + engineer. Lovable extends this to "anyone": vibe coding democratizes product creation, with a student hitting $130k ARR in 30 days. The same craft scales up the org chart: Customer.io's VP of Product rebuilds a third of an all-hands deck in a morning, but only by treating Claude like an eager junior — rolling context in, forcing clarifying questions, blocking premature deliverables — and the leader's residual value collapses to two choices: *which sources* (recordings, docs, metrics) and *which target form* (deck, Notion page, one-pager). The model-selection beat also sharpens: Fable's "seasoned engineer" verbosity wrecks PRDs, so pair Mythos-class models with cheaper Opus/Sonnet by task type. The operational kit that recurs: hyper-literal prompts, screenshots-as-examples, prototypes-not-PRDs, a beginner's mindset, and the discipline to restrain the model until the foundations are set.
@@ -69,6 +69,11 @@ With agentic dev tools (e.g., 'Devon'), PMs at Laurel ship full front-end + back
 — Aakash Gupta · 2026-06-24 · guest: JZ (Laurel) · [▶ 24:18](https://www.youtube.com/watch?v=qsDX0PMKcaE&t=1458) · `pi-qsDX0PMKcaE-04`
 related: [PMs and full-stack designers will be unusually valuable in near term](#pms-and-full-stack-designers-will-be-unusually-valuable-in-near-term) (Shipper's prediction; Laurel's experience is a live data point — senior PMs are already the 'captains' Shipper foresaw)
 
+### Give your agent one clear metric or goal to optimize
+They recommend defining a single objective (10K's phrasing was to "own the number") so the agent's recommendations and actions are goal-directed rather than scattered. Practically, that means feeding it the right data up front—marketing-sourced revenue, pipeline via Salesforce API, campaign and email metrics—so its suggestions prioritize measurable outcomes like pipeline conversion or ticket revenue. Keeping agents narrowly focused also motivates using multiple agents for different functions (marketing, CS, events) rather than one overloaded system.
+— SaaStr AI · 2026-06-26 · guest: — · [▶ 8:30](https://www.youtube.com/watch?v=pi_tqHweR70&t=510) · `pi-pi_tqHweR70-02`
+related: [Treat AI like a junior employee that must be restrained](#treat-ai-like-a-junior-employee-that-must-be-restrained) (Matthew blocks premature output; 10K's single-metric mandate shows why — without a clear goal the agent sprawls; narrow framing is the input-side enforcement)
+
 ## Related themes
 - [AI agents & applications](ai-agents-and-applications.md) — the surfaces PMs build in
 - [Leadership, careers & teams](leadership-careers-and-teams.md) — how the manager/IC mix is shifting alongside
@@ -82,3 +87,4 @@ related: [PMs and full-stack designers will be unusually valuable in near term](
 - [How I AI — Claude Fable 5 - is this Mythos model worth the wait? (2026-06-10)](../episodes/2026/2026-06-10--howiai--claude-fable-5-mythos-worth-the-wait.md)
 - [Aakash Gupta — The Claude Workflow Nobody at the VP Level Is Showing You (Customer.io) (2026-06-11)](../episodes/2026/2026-06-11--aakash--claude-workflow-vp-level-customerio.md)
 - [Aakash Gupta — The GitHub Repo That Runs Her $100M Startup (2026-06-24)](../episodes/2026/2026-06-24--aakash--the-github-repo-that-runs-her-100m-startup.md)
+- [SaaStr AI — How to Build Your Own AI VP of Marketing Step-by-Step (2026-06-26)](../episodes/2026/2026-06-26--saastr--how-to-build-your-own-ai-vp-of-marketing.md)
