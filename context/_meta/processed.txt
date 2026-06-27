@@ -34,6 +34,7 @@ context/_inbox/tg-20260617-224502-114.md
 context/_inbox/tg-20260618-130859-126.md
 context/_inbox/tg-20260619-202053-133.md
 context/_inbox/tg-20260625-082403-153.md
+context/_inbox/tg-20260626-190559-158.md
 context/areas/job-search/calls/vacancy-interviews/_unknown/2026-05-21_1806_interview.md
 context/areas/job-search/calls/vacancy-interviews/archive-resale/2026-05-22_122349_interview_202604271827556FAF460B.md
 context/areas/job-search/calls/vacancy-interviews/archive-resale/2026-05-22_131921_interview_20260420200248D548EF59.md
@@ -71,7 +72,7 @@ context/areas/softserve/calls/oracle/2026-06-23_192203_sales-call_20260623183616
 context/areas/softserve/calls/oracle/2026-06-25_124657_one-on-one_202606251220277BB56A15.md
 context/areas/softserve/calls/oracle/2026-06-25_131530_default_20260625123708F9E8088F.md
 context/areas/softserve/calls/oracle/2026-06-25_134850_one-on-one_20260625131028FE4E3D44.md
-context/areas/softserve/docs/conga-ai-pm-bootcamp-transcript.md
-context/areas/softserve/docs/oracle-packages-tshirt-sizing.md
 context/areas/softserve/calls/oracle/2026-06-26_sales-call_gero-tshirt-packaging.md
 context/areas/softserve/docs/2026-06-26_gero-tshirt-packaging-transcript.md
+context/areas/softserve/docs/conga-ai-pm-bootcamp-transcript.md
+context/areas/softserve/docs/oracle-packages-tshirt-sizing.md
