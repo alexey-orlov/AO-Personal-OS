@@ -1,0 +1,211 @@
+{
+  "schema": 1,
+  "generatedAt": "2026-06-27T04:03:23.286Z",
+  "runStamp": "20260627T0403",
+  "episodes": [
+    {
+      "videoId": "pi_tqHweR70",
+      "videoTitle": "How to Build Your Own AI VP of Marketing Step-by-Step",
+      "videoUrl": "https://www.youtube.com/watch?v=pi_tqHweR70",
+      "channelName": "SaaStr AI",
+      "publishedDate": "2026-06-26",
+      "guests": [],
+      "summary": "The speaker shows how SaaStr built an \"AI VP of Marketing\" (nicknamed 10K) by starting with a simple dashboard and iteratively adding capabilities until the agent could autonomously run campaigns and operational tasks. The walkthrough emphasizes writing a detailed spec, hooking up real data (Salesforce, analytics, CSVs), stair-stepping features one workflow at a time, and adding guardrails so the agent acts reliably.",
+      "insights": [
+        {
+          "headline": "Start as a dashboard and stair-step to autonomy",
+          "detail": "SaaStr's 10K began purely as a dashboard fed by Salesforce and CSVs and, over about five months of iterative work, evolved into a semi-autonomous marketing co-pilot. The speaker argues you should build one workflow at a time (dashboards → triggered emails → newsletters → autonomous campaigns) because small wins validate the data connections and make it manageable to add complexity. This approach reduces risk and delivers usable features quickly: a basic agent can be launched in 15–20 minutes, while full autonomy takes months.",
+          "anchorQuote": "10K started as a dashboard. Maybe you don't",
+          "tSeconds": 951,
+          "link": "https://www.youtube.com/watch?v=pi_tqHweR70&t=951"
+        },
+        {
+          "headline": "Give your agent one clear metric or goal to optimize",
+          "detail": "They recommend defining a single objective (10K's phrasing was to \"own the number\") so the agent's recommendations and actions are goal-directed rather than scattered. Practically, that means feeding it the right data up front—marketing-sourced revenue, pipeline via Salesforce API, campaign and email metrics—so its suggestions prioritize measurable outcomes like pipeline conversion or ticket revenue. Keeping agents narrowly focused also motivates using multiple agents for different functions (marketing, CS, events) rather than one overloaded system.",
+          "anchorQuote": "make sure you give your agent one goal.",
+          "tSeconds": 510,
+          "link": "https://www.youtube.com/watch?v=pi_tqHweR70&t=510"
+        },
+        {
+          "headline": "Agents can autonomously handle recurring marketing operations",
+          "detail": "The agent performs mundane but time-consuming tasks—sending attendee newsletters, triggered site follow-ups, speaker Google Calendar invites, win-back campaigns and daily Slack summaries—freeing humans for strategy. Concrete examples: 10K sent attendee reminders that correlated with ticket spikes, and it generated hundreds of personalized speaker invites in ~20 minutes (a task that previously took a week). Building these operational automations first yields high ROI and immediate time savings.",
+          "anchorQuote": "don't forget to send the attendee newsletter.",
+          "tSeconds": 201,
+          "link": "https://www.youtube.com/watch?v=pi_tqHweR70&t=201"
+        },
+        {
+          "headline": "Human-in-the-loop guardrails are essential to prevent mistakes",
+          "detail": "The team enforces two layers: things the agent may do autonomously (data pulls, idea generation) and actions that require approval (mass emails). Guardrails matter because the agent can hallucinate or fabricate outputs—one example the speaker gives is the agent initially inventing counts and then being corrected after querying the real data. The recommendation is to test sends, require permission for risky actions, and treat guardrails as more important than tweak-heavy prompt engineering.",
+          "anchorQuote": "guardrails is, you know, better than prompt engineering",
+          "tSeconds": 1854,
+          "link": "https://www.youtube.com/watch?v=pi_tqHweR70&t=1854"
+        }
+      ]
+    },
+    {
+      "videoId": "kPSLLeccrik",
+      "videoTitle": "The $10B Satellite Empire Putting AI in Orbit, Why Chips Beat Rockets & China's #1 Open Model | #266",
+      "videoUrl": "https://www.youtube.com/watch?v=kPSLLeccrik",
+      "channelName": "Peter H. Diamandis",
+      "publishedDate": "2026-06-26",
+      "guests": [
+        "Will Marshall (Planet)"
+      ],
+      "summary": "The episode centers on Planet CEO Will Marshall describing \"planetary intelligence\": building large earth models by combining Planet's multi‑year satellite imagery archive with LLMs and eventually putting AI compute into orbit. The conversation ties that work to the economics and engineering of orbital compute (GPUs/TPUs in space), the strategic implications of open‑weight models (China's GLM 5.2), and the legal/political debate over AI personhood and who controls the emerging intelligence economy.",
+      "insights": [
+        {
+          "headline": "Large earth models pair Planet's global imagery archive with LLMs to answer physical questions",
+          "detail": "Planet is building \"large earth models\" — multimodal models trained on daily global imagery to let users ask concrete, physical questions about the planet rather than abstract theory. Planet operates ~200 satellites producing ~25 TB of imagery per day and claims ~3,000 images for every land point over the last 10 years (roughly 150 PB of archived data), which is what enables comparative, time‑series queries for farmers, journalists, and national security users. Making that archive searchable and accessible via embeddings + APIs is the immediate commercial market before predictive/video‑future models are scaled.",
+          "anchorQuote": "planetary intelligence to me is sort of",
+          "tSeconds": 279,
+          "link": "https://www.youtube.com/watch?v=kPSLLeccrik&t=279"
+        },
+        {
+          "headline": "Putting compute in orbit cuts latency and could become cheaper than ground data centers",
+          "detail": "Planet and partners have started experimenting with GPUs/TPUs on satellites to do edge inference in space so results can be returned in minutes instead of hours; Will reports Nvidia GPUs were flown in a test and Google is funding TPU tech demos. Their economic study says when launch costs fall to ~$200–$300/kg, it becomes cheaper to run energy‑heavy compute in orbit (abundant solar, removes terrestrial energy/water constraints), making orbital inference the likely near‑term use case and a candidate frontier for large‑scale data center migration.",
+          "anchorQuote": "putting the compute up next to the sensors into space",
+          "tSeconds": 323,
+          "link": "https://www.youtube.com/watch?v=kPSLLeccrik&t=323"
+        },
+        {
+          "headline": "Planet's data advantage is a unique, daily global historical imagery stack",
+          "detail": "Planet claims to image the entire land mass every day and to be the only provider with high‑quality historical coverage for any lat/long (archive back ~10 years). That capability includes multiple fleets (3 m daily scan, high‑res ~30–50 cm 'pelicans', and a hyperspectral imager with ~400 bands) and underpins use cases from crop diagnostics to tracking construction of data centers and military activity — where trend comparison to the archive is essential to detect anomalies.",
+          "anchorQuote": "we have 3,000 images for every point on the land mass of the Earth over the last 10 years",
+          "tSeconds": 438,
+          "link": "https://www.youtube.com/watch?v=kPSLLeccrik&t=438"
+        },
+        {
+          "headline": "Frontier intelligence can no longer be monopolized — GLM 5.2 shows open models closing the gap",
+          "detail": "China's GLM 5.2 (about 753B parameters, MoE, 1M token context) recently topped open‑weight rankings and matches or exceeds western models on some benchmarks, demonstrating that high‑quality, open models are competitive. That matters because open‑weight diffusion undermines any one‑lab ability to control capability distribution, complicates export‑control strategies, and accelerates the timeline for powerful models reaching a broad set of actors and jurisdictions.",
+          "anchorQuote": "Just became the number one openweight model",
+          "tSeconds": 7164,
+          "link": "https://www.youtube.com/watch?v=kPSLLeccrik&t=7164"
+        },
+        {
+          "headline": "Jurisdictional competition: Argentina's push for AI corporate personhood forces hard legal questions",
+          "detail": "Argentina's president proposed recognizing non‑human corporate entities that let AI sign contracts, hire, sue and hold assets — a jurisdictional bid to attract AI business by creating machine‑native legal forms. The proposal triggered sharp rebuttals (e.g., Harari warning about accountability) and highlights the policymaker dilemma: edge experimentation can accelerate adoption but requires new enforcement mechanisms (compute revocation, credential suspension, asset bonding) and coordinated legal frameworks to avoid novel accountability gaps.",
+          "anchorQuote": "AI should be able to incorporate, sign contracts",
+          "tSeconds": 6288,
+          "link": "https://www.youtube.com/watch?v=kPSLLeccrik&t=6288"
+        }
+      ]
+    },
+    {
+      "videoId": "whJjXOkZ4hQ",
+      "videoTitle": "8,000 Leads No One Was Calling. +50% Conversions. How PayPal Rolled Out Agentforce",
+      "videoUrl": "https://www.youtube.com/watch?v=whJjXOkZ4hQ",
+      "channelName": "SaaStr AI",
+      "publishedDate": "2026-06-26",
+      "guests": [],
+      "summary": "PayPal and Salesforce discuss how they deployed AI agents (Agent Force) in production to reengage thousands of previously ignored leads, raise meeting conversion rates, and free sellers to focus on high-value conversations. The throughline is pragmatic: you don't need perfect data to start, headless integrations (Slack/API) let nontechnical users work with CRM data, and successful scale requires cross-functional governance and ongoing agent curation.",
+      "insights": [
+        {
+          "headline": "Agents raised meeting conversion rates by ~50% in 14 weeks",
+          "detail": "PayPal put Agent Force into full production for an activation use case and within 14 weeks reported meeting conversion rates about 50% higher than humans. The improvement came from agents doing disciplined multi-step outreach, better deliverability, and pulling richer context from CRM and conversation transcripts so sellers show up to higher-quality, prequalified meetings. This matters because it shifts sellers to revenue-focused tasks while agents handle repeatable qualification work at scale.",
+          "anchorQuote": "His meeting conversion rate went up 50% already with agents",
+          "tSeconds": 407,
+          "link": "https://www.youtube.com/watch?v=whJjXOkZ4hQ&t=407"
+        },
+        {
+          "headline": "Agents turned 'no-one-will-call' leads into a new revenue channel",
+          "detail": "PayPal had huge pools of leads that sales reps wouldn't prioritize; agents systematically contacted them and enabled tens of millions of dollars of business on channels that previously went unaddressed. Examples: outbound agents reached stale inbound lists and a help-agent handled renewals at scale, capturing opportunities humans would have ignored. That means AI can monetize low-touch demand that was previously wasted rather than just replace existing workflows.",
+          "anchorQuote": "nobody was going to call these leads back",
+          "tSeconds": 618,
+          "link": "https://www.youtube.com/watch?v=whJjXOkZ4hQ&t=618"
+        },
+        {
+          "headline": "You can deploy agents before your data is perfect — start with web agents",
+          "detail": "Speakers argued against waiting for immaculate data: a web agent that understands your website, FAQs and product data can have safe, accurate conversations and start collecting better intel while you clean systems. Salesforce reported roughly 70% deliverability with their SDR agent — better than average humans — and emphasized short training cycles (often days) instead of long data projects. The practical takeaway: action bias yields rapid learning and incremental data improvements driven by the agent's usage.",
+          "anchorQuote": "they can set up a web agent that can understand",
+          "tSeconds": 527,
+          "link": "https://www.youtube.com/watch?v=whJjXOkZ4hQ&t=527"
+        },
+        {
+          "headline": "Headless integrations let people use CRM data without logging into Salesforce",
+          "detail": "Teams used headless Salesforce via APIs and Slackbot so users (even CEOs) can query and act on CRM data without a Salesforce seat — an agent pulled sponsorship pipelines, booked meetings, and sent emails from Replit/Slack integrations. This reduces friction, centralizes execution in chat, and empowers non-technical staff to run campaigns directly from the agent interface. The result is faster speed-to-lead and more immediate, context-rich meetings for reps.",
+          "anchorQuote": "Jason doesn't even have an account on Salesforce",
+          "tSeconds": 795,
+          "link": "https://www.youtube.com/watch?v=whJjXOkZ4hQ&t=795"
+        },
+        {
+          "headline": "Enterprise agent rollouts require cross-functional buy-in and ongoing curation",
+          "detail": "At regulated, large orgs like PayPal you cannot launch agents in isolation: marketing, compliance, sellers and engineering must approve flows and messages, and teams must continuously tune agents like living employees. The panel recommended defining outcomes (agents can carry quotas), assigning caretakers ('virtual moms'), and iterating on training and tooling to avoid the same failures an untrained human employee would have. Governance and active maintenance are the difference between a pilot and a scalable program.",
+          "anchorQuote": "you will never be able to kick off an agent without work",
+          "tSeconds": 1385,
+          "link": "https://www.youtube.com/watch?v=whJjXOkZ4hQ&t=1385"
+        }
+      ]
+    },
+    {
+      "videoId": "A_8nO0iacJ8",
+      "videoTitle": "Vercel Took a 10-Person SDR Team Down to 1. The Whole Thing Costs $5,000 a Year.",
+      "videoUrl": "https://www.youtube.com/watch?v=A_8nO0iacJ8",
+      "channelName": "SaaStr AI",
+      "publishedDate": "2026-06-26",
+      "guests": [],
+      "summary": "Jean (COO, Vercel) describes how a go-to-market engineering team automated core GTM functions with agents, shifting headcount into higher-value roles rather than simple layoffs. She lays out the technical and organizational prerequisites—headless composable APIs, a rigorous data/semantic layer, and agent-aware infrastructure (Fluid)—and shows concrete ROI and operating metrics from lead qualification, support, and analytics agents. The central argument: when built with the right architecture and data, agents are cheap, scalable, and transform how GTM works, but they also expose new infrastructure constraints at production scale.",
+      "insights": [
+        {
+          "headline": "A lead-qualification agent replaced a 10-person SDR team for $5,000/year",
+          "detail": "Vercel launched a lead qualification agent that started as 20% of an engineer and a six-week human-in-loop trial, and it reduced a 10-person SDR function down to one full-time US person and 20% of another for EMEA/APAC. The running cost is under $5,000 a year for infrastructure and tokens, yielding a reported 32x ROI compared with the saved salaries, while maintaining human-equivalent lead quality and 24/7 operation. The case demonstrates that small, focused agent projects can rapidly outcompete headcount-heavy workflows when instrumented and validated by top reps.",
+          "anchorQuote": "we launched a lead qualification agent back in August of last year",
+          "tSeconds": 93,
+          "link": "https://www.youtube.com/watch?v=A_8nO0iacJ8&t=93"
+        },
+        {
+          "headline": "Agents require headless, composable product surfaces to be useful",
+          "detail": "Agents don’t live in UIs—they call APIs, webhooks and MCP servers—so products without developer surfaces are effectively invisible to agentic workflows. Vercel built Deal One and the Playbook platform as headless workflows that operate inside Slack and leverage Gong, Salesforce webhooks, and other APIs so reps never leave their environment; when external tools lacked composable surfaces they were replaced. The implication: if you want agents to automate or amplify your product, invest in developer-accessible endpoints first or risk being excluded from the agent stack.",
+          "anchorQuote": "agents need headless, composable architecture",
+          "tSeconds": 398,
+          "link": "https://www.youtube.com/watch?v=A_8nO0iacJ8&t=398"
+        },
+        {
+          "headline": "A strong semantic data layer is the difference between useful agents and hallucinations",
+          "detail": "Vercel’s D0 data-analyst agent answers questions in under a minute that previously took a week to ticket, because it translates natural-language queries into SQL against a curated semantic layer and knowledge base. That layer—built by the head of data science—breaks the business into causal units and enriches them with first- and third-party signals so every agent (Deal One, Playbook, D0) grounds actions on accurate facts. Without this investment agents produce generic answers or hallucinate; with it they execute actionable workflows and democratize analytics across the company.",
+          "anchorQuote": "D-Zero translates natural language questions into SQL queries",
+          "tSeconds": 709,
+          "link": "https://www.youtube.com/watch?v=A_8nO0iacJ8&t=709"
+        },
+        {
+          "headline": "Agent workloads break traditional cloud rules and need purpose-built infra",
+          "detail": "Agents perform long-duration thinking, tool-calling, and sub-agent orchestration that a simple request/response cloud model wasn't designed for, so Vercel built Fluid: multi mini-servers that trigger compute only when needed and reuse resources. Early adopters saw compute cost reductions up to 85%; Vercel’s customer-support agent (Vertex) runs at scale for roughly $150k/year (about $300/month infra plus $12k in tokens) with just three engineers, versus competitors running similar workflows with far larger teams and cost. The upshot: architecture choices determine whether an agent succeeds at production scale or becomes prohibitively expensive.",
+          "anchorQuote": "Most rules of cloud infrastructure are broken by agents",
+          "tSeconds": 1012,
+          "link": "https://www.youtube.com/watch?v=A_8nO0iacJ8&t=1012"
+        }
+      ]
+    },
+    {
+      "videoId": "JNu6c4G6q5M",
+      "videoTitle": "This is New Media",
+      "videoUrl": "https://www.youtube.com/watch?v=JNu6c4G6q5M",
+      "channelName": "a16z",
+      "publishedDate": "2026-06-26",
+      "guests": [],
+      "summary": "The video argues that legacy media's gatekeeping and prestige no longer define where respectability or influence lives. New media has removed restrictive channels and formats, so creators and brands must stop deferring to old institutions and fully embrace experimental approaches. The speaker illustrates this by describing a rapid, first-of-its-kind virtual production they greenlit despite a four-week timeline.",
+      "insights": [
+        {
+          "headline": "Legacy media's gatekeeping is gone; it no longer grants prestige",
+          "detail": "Old-media structures—limited channels, fixed formats, and companies as brand gatekeepers—used to concentrate prestige, but that model is broken. The speaker notes that those restrictions are gone and that respectability no longer inherently resides in legacy outlets, meaning influence can come from newer platforms and formats. This matters because continued deference to legacy media will hold creators and brands back from where audiences actually are now.",
+          "anchorQuote": "old media, you had very restricted channels",
+          "tSeconds": 0,
+          "link": "https://www.youtube.com/watch?v=JNu6c4G6q5M&t=0"
+        },
+        {
+          "headline": "You must purge the anxiety that legacy outlets equal legitimacy",
+          "detail": "People still cling to the idea that being in legacy media confers respectability, but the speaker argues that anxiety is misplaced and should be 'gotten out of their system.' The underlying point is that the world 'can't be half and half'—half reverence for old media and half participation in new media—so full commitment to new formats is necessary to succeed. The non-obvious takeaway is behavioral: it's not just about platforms changing, it's about changing how creators value and pursue recognition.",
+          "anchorQuote": "legacy media somehow is like where the respectability is",
+          "tSeconds": 8,
+          "link": "https://www.youtube.com/watch?v=JNu6c4G6q5M&t=8"
+        },
+        {
+          "headline": "Be willing to greenlight risky, unprecedented production experiments quickly",
+          "detail": "As an example of embracing new media, the team approved a virtual-production idea with only four weeks until the scheduled shoot, even though 'no one has ever done this before.' That willingness to take on 'crazy ideas' and move fast is presented as a strategic advantage: it enables novel content that stands out and leverages emerging production tools. The concrete evidence is the anecdote of approving the virtual-production project despite the short timeline and lack of precedent.",
+          "anchorQuote": "working with a virtual production",
+          "tSeconds": 40,
+          "link": "https://www.youtube.com/watch?v=JNu6c4G6q5M&t=40"
+        }
+      ]
+    }
+  ]
+}
