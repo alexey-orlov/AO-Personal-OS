@@ -4,7 +4,7 @@ Self-updating knowledge base of insights mined from Alex's tracked AI / product 
 
 **For agents:** to answer "what has Alex's podcast feed said about X" — `grep -ri "<concept>" context/knowledge/podcasts/themes/`, open the matching theme page, follow an insight's ▶ link to the source moment or its `episodes/` card for full context. An insight ID (`pi-…`) anywhere resolves with `grep -r pi-… context/knowledge/podcasts/`. Update only via `/podcast-insights` — don't hand-edit theme pages.
 
-_updated: 2026-06-27 · 266 insights · 13 themes · 58 episodes — ⚠ ai-agents at 38/30: no clean seam found; ⚠ agent-engineering at 36/30: headless/infra/stair-step cluster forming_
+_updated: 2026-06-28 · 270 insights · 13 themes · 59 episodes — ⚠ ai-agents at 38/30: no clean seam found; ⚠ agent-engineering at 36/30: headless/infra/stair-step cluster forming; ⚠ founders at 32/30: split candidate "Governance & mission permanence" (pi-7VKliOQXQ9M-* cluster, 4 insights)_
 
 ## Themes
 
@@ -14,7 +14,7 @@ _updated: 2026-06-27 · 266 insights · 13 themes · 58 episodes — ⚠ ai-agen
 | [AI & the PM craft](themes/ai-and-the-pm-craft.md) | 14 | 2026-06-27 | PMs ride coding agents; VP-level craft is choosing sources + target form and restraining the model; senior PMs ship end-to-end production features with agentic dev tools — 'captain' org model (Laurel); give agent one clear metric or goal to optimize (SaaStr 10K) |
 | [Product discovery & strategy](themes/product-discovery-and-strategy.md) | 20 | 2026-06-26 | feature moats died; taste-led 1.0s, Proven/Better/New copy-first (Pincus — confirmed across two episodes), kill-hope-fast, day-365 retention; Groww: transparency-first PMF + 4-yr zero-revenue love phase; validate depth by running customer's business; engagement-optimization turns assistants into attention traps |
 | [Growth, GTM & pricing](themes/growth-gtm-and-pricing.md) | 25 | 2026-06-27 | self-service + inbound agents as primary channel; B2B Cambrian explosion; AI winners bifurcate from legacy; usage-aware tier pricing; Ploy: always-on GTM brain; warm-network + unscalable in-person tactics = only route to first 10 customers; Vercel: 10-person SDR → 1 for $5k/yr (32x ROI); PayPal: +50% conversion in 14 weeks + 8,000 uncalled leads → new revenue channel |
-| [Founders & fundraising](themes/founders-and-fundraising.md) | 28 | 2026-06-26 | mission-control governance + the AI cycle's lean, concentrated outcomes; regulated-zone risk mgmt + shared values; commit-to-one-idea + verticalize-sell-outcomes (Corgi Insurance) + aim-for-most-ambitious; AI = 400–1,000 logical clones of founder judgment; Jake Paul: pivot-by-metrics + pain-tolerance as investor temperament; creativity (not incumbent scale) captures AI era; capital allocation must shift toward AI-leveraged capabilities; founder presence + dispassionate pivot management beat formal scaling playbooks (Pincus/YC) |
+| [Founders & fundraising](themes/founders-and-fundraising.md) | 32 | 2026-06-27 | mission-control governance + the AI cycle's lean, concentrated outcomes; regulated-zone risk mgmt + shared values; commit-to-one-idea + verticalize-sell-outcomes (Corgi Insurance) + aim-for-most-ambitious; AI = 400–1,000 logical clones of founder judgment; Jake Paul: pivot-by-metrics + pain-tolerance as investor temperament; creativity (not incumbent scale) captures AI era; capital allocation must shift toward AI-leveraged capabilities; founder presence + dispassionate pivot management beat formal scaling playbooks (Pincus/YC); India origin viable for global AI companies; AI favors young tinkerers; second-mover execution beats incumbency when no network effects; 'let it rip' token spending surfaces product opportunities ⚠ 32/30 |
 | [Leadership, careers & teams](themes/leadership-careers-and-teams.md) | 19 | 2026-06-27 | tasks automate, jobs are bundles; CEO must be the chief AI officer; engineering is a different craft, not dead; GTM engineers + distributed AI fluency rituals (Snowflake); Fung: 8x throughput, non-engineers ship code, managers must stay IC, hire creative builders + systems specialists; skill-file OS democratizes 1% power-user workflows company-wide; dedicated AI-ops role drives cross-team adoption (Laurel); enterprise agent rollouts need cross-functional buy-in + active curation (PayPal/Agentforce) |
 | [Tech frontier & abundance](themes/tech-frontier-and-abundance.md) | 30 | 2026-06-27 | SpaceX $2.89T IPO (triple-exponential); compute doubling every 7mo (electrical infra bottleneck); token prices −75% + Jevons paradox; supply-constrained into 2028–2029; Erdős conjecture disproof; ESM Cambrian scales protein LMs; AI overhauling cybersecurity; consumer AI revolution ~2029; Planet: large earth models on 150 PB daily satellite imagery; orbital compute approaches cost parity with ground ⚠ satellite cluster at 3 insights |
 | [AI governance, regulation & policy](themes/ai-governance-and-policy.md) | 9 | 2026-06-27 | Vatican rejects AI personhood → scuttled 90-day EO → voluntary 30-day review → proposed golden shares → export-control suspension (Fable 5/Mythos 5); Argentina 'nonhuman corporation' SEZ (corroborated + Harari rebuttal + enforcement mechanism layer); GLM 5.2 open-weight parity undermines export-control strategy; Anthropic pause = RSI confession; Altman IPO delay = capital-tech decoupling |
@@ -26,6 +26,7 @@ _updated: 2026-06-27 · 266 insights · 13 themes · 58 episodes — ⚠ ai-agen
 
 ## Recent (last 7 days)
 
+- 2026-06-27 · Y Combinator — India Can Create The Largest AI Companies (4 insights → founders [4])
 - 2026-06-26 · a16z — This is New Media (3 insights → narrative-media [3])
 - 2026-06-26 · SaaStr AI — Vercel Took a 10-Person SDR Team Down to 1. The Whole Thing Costs $5,000 a Year. (4 insights → agent-engineering [3], growth-gtm [1])
 - 2026-06-26 · SaaStr AI — 8,000 Leads No One Was Calling. +50% Conversions. How PayPal Rolled Out Agentforce (5 insights → growth-gtm [4], leadership [1])
@@ -41,8 +42,6 @@ _updated: 2026-06-27 · 266 insights · 13 themes · 58 episodes — ⚠ ai-agen
 - 2026-06-22 · a16z — Jake Paul on Going From YouTube to Boxing to Investing (5 insights → founders [4], narrative-media [1])
 - 2026-06-22 · Y Combinator — How to Get Your First 10 Customers (4 insights → growth-gtm [4])
 - 2026-06-21 · Lenny's Podcast — Building the most AI-pilled engineering team in the world | Fiona Fung (4 insights → leadership [3], agent-engineering [1])
-- 2026-06-20 · Y Combinator — The Age Of The 40-Year-Old Solo Founder Is Here (4 insights → founders [1], ai-agents [1], growth-gtm [1], agent-engineering [1])
-- 2026-06-20 · a16z — The Media Game Has Changed (5 insights → narrative-media [5, new theme])
 
 ## Cross-theme links
 
