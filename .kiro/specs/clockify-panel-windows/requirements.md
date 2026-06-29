@@ -32,7 +32,7 @@ The result is feature parity with the Mac widget: same UI, same behavior, same s
 #### Acceptance Criteria
 
 1. WHEN the Setup_Script is invoked with a Clockify API key argument, THE Setup_Script SHALL store the key in Credential_Manager under the target name `clockify-panel` using `cmdkey.exe`.
-2. WHEN the Setup_Script is invoked without an argument and a key is already present in Credential_Manager, THE Setup_Script SHALL read the existing key and proceed without prompting.
+2. WHEN the Setup_Script is invoked without an argument and a key is already present in Credential_Manager, THE Setup_Script SHALL read the existing key and proceed silently without any notification to the user.
 3. IF no API key is found in Credential_Manager and none is provided as an argument, THEN THE Setup_Script SHALL exit with a descriptive error message instructing the user to run `setup_windows.ps1 <API_KEY>`.
 4. WHEN the Run_Script starts the Panel_Server, THE Run_Script SHALL read the API key from Credential_Manager and export it as the `CLOCKIFY_API_KEY` environment variable for the server process.
 5. THE Setup_Script SHALL NOT write the API key to any file on disk (no plain-text config file, no `.env` file).
@@ -46,7 +46,7 @@ The result is feature parity with the Mac widget: same UI, same behavior, same s
 #### Acceptance Criteria
 
 1. WHEN the Setup_Script has obtained an API key, THE Setup_Script SHALL call `GET https://api.clockify.me/api/v1/user` with the key.
-2. IF the Clockify API returns a non-2xx response, THEN THE Setup_Script SHALL exit with an error message stating the key was rejected.
+2. IF the Clockify API returns a non-2xx response, THEN THE Setup_Script SHALL exit with an error message stating the key was rejected. WHEN the API call succeeds, THE Setup_Script SHALL NOT display any error messages related to the validation step.
 3. WHEN the API call succeeds, THE Setup_Script SHALL extract and display the active workspace ID to confirm identity.
 
 ---
@@ -61,6 +61,7 @@ The result is feature parity with the Mac widget: same UI, same behavior, same s
 2. IF a project is not found in the workspace, THEN THE Setup_Script SHALL log a warning for that project and continue with the remaining projects.
 3. IF the Clockify API returns HTTP 403 when updating a project color, THEN THE Setup_Script SHALL log a non-fatal warning instructing the user to change the color manually in the Clockify web UI, and continue.
 4. IF a project color already matches the target value, THEN THE Setup_Script SHALL skip the update for that project and log that it is already correct.
+5. IF a project color update fails for any reason (network error, unexpected HTTP status, etc.), THEN THE Setup_Script SHALL log a warning for that failure and continue processing the remaining projects.
 
 ---
 
