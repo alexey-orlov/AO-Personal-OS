@@ -137,9 +137,9 @@ The result is feature parity with the Mac widget: same UI, same behavior, same s
 
 #### Acceptance Criteria
 
-1. WHEN the Desktop_Wrapper window has focus and the user presses `Ctrl+R`, THE Desktop_Wrapper SHALL reload `http://localhost:7878`.
+1. WHEN the Desktop_Wrapper window has focus and the user presses `Ctrl+R`, THE Desktop_Wrapper SHALL reload `http://localhost:7878`, equivalent to selecting **Reload** from the tray menu.
 2. WHEN the Desktop_Wrapper window has focus and the user presses `Ctrl+W` or `Ctrl+Q`, THE Desktop_Wrapper SHALL hide the window (equivalent to "Hide" from the tray menu).
-3. WHEN the Desktop_Wrapper window has focus and the user presses `Ctrl+T`, THE Desktop_Wrapper SHALL toggle the Always-on-Top state.
+3. WHEN the Desktop_Wrapper window has focus and the user presses `Ctrl+T`, THE Desktop_Wrapper SHALL toggle the Always-on-Top state and update the tray menu checkmark and persisted preference to reflect the new state.
 
 ---
 
@@ -149,9 +149,9 @@ The result is feature parity with the Mac widget: same UI, same behavior, same s
 
 #### Acceptance Criteria
 
-1. WHEN the Desktop_Wrapper first loads `http://localhost:7878` and the connection is refused, THE Desktop_Wrapper SHALL display a "Connecting…" placeholder and retry every 2 seconds.
-2. WHEN the Panel_Server becomes reachable after a retry, THE Desktop_Wrapper SHALL load the panel UI automatically without user intervention.
-3. THE retry loop SHALL continue indefinitely until either the server responds or the Desktop_Wrapper is quit.
+1. WHEN the Desktop_Wrapper first attempts to load `http://localhost:7878` and receives a TCP connection refusal, a connection timeout, or a non-200 HTTP response, THE Desktop_Wrapper SHALL display a "Connecting…" placeholder in the window and retry every 2 seconds.
+2. WHEN `http://localhost:7878` returns an HTTP 200 response after a retry, THE Desktop_Wrapper SHALL load the panel UI automatically without user intervention.
+3. IF the Desktop_Wrapper has not yet received an HTTP 200 response, THEN THE Desktop_Wrapper SHALL continue retrying every 2 seconds until either an HTTP 200 response is received or the user quits the Desktop_Wrapper.
 
 ---
 
@@ -161,9 +161,9 @@ The result is feature parity with the Mac widget: same UI, same behavior, same s
 
 #### Acceptance Criteria
 
-1. THE Windows implementation SHALL NOT modify `server.py`.
-2. THE Windows implementation SHALL NOT modify `index.html`.
-3. THE Windows implementation SHALL source `server.py` and `index.html` from the same directory as the Mac version (`automations/clockify-panel/`).
+1. THE Windows implementation SHALL NOT alter the content of `server.py` at any point — during build, setup, or runtime.
+2. THE Windows implementation SHALL NOT alter the content of `index.html` at any point — during build, setup, or runtime.
+3. THE canonical source of `server.py` and `index.html` is `automations/clockify-panel/`; copies installed to `%LOCALAPPDATA%\clockify-panel\` SHALL be byte-for-byte identical to those source files at the time of installation.
 
 ---
 
