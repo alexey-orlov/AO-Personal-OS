@@ -1,0 +1,55 @@
+{
+  "schema": 1,
+  "generatedAt": "2026-06-29T04:01:42.201Z",
+  "runStamp": "20260629T0401",
+  "episodes": [
+    {
+      "videoId": "P3KDebPTUrw",
+      "videoTitle": "OpenAI Codex lead on the new shape of product work | Andrew Ambrosino",
+      "videoUrl": "https://www.youtube.com/watch?v=P3KDebPTUrw",
+      "channelName": "Lenny's Podcast",
+      "publishedDate": "2026-06-28",
+      "guests": [
+        "Andrew Ambrosino (OpenAI)"
+      ],
+      "summary": "Andrew Ambrosino explains how frontier AI is reversing traditional product processes: implementation is cheap and ubiquitous, so the new scarcities are taste, curation, and timing. He argues teams must pick the right medium (document vs prototype), preserve domain specialties while enabling role fluidity, and build artifacts now that can be re-evaluated as model capability improves.",
+      "insights": [
+        {
+          "headline": "Implementation is cheap; curation and taste are the real bottlenecks",
+          "detail": "With powerful models available, many people inside companies can stand up polished prototypes quickly, so the costly part is no longer implementation but deciding which of dozens of experiments to keep, fold together, or refine. Ambrosino describes an environment with roughly \"90 different explorations\" for the same idea and says product work now centers on curation, framing, and deciding what to ship. That matters because companies that can't surface signal from noise will waste resources and ship incoherent experiences despite high output.",
+          "anchorQuote": "anybody can build anything right like I I",
+          "tSeconds": 200,
+          "link": "https://www.youtube.com/watch?v=P3KDebPTUrw&t=200"
+        },
+        {
+          "headline": "Prototypes don't replace documents; choose medium to fit uncertainty",
+          "detail": "Ambrosino rejects the binary claim that \"PRDs are dead\" and argues the right artifact depends on the question: use documents to clarify fuzzy strategy or product intent, and prototypes to stress-test interaction and implementation assumptions. He warns that abundant prototypes can falsely signal readiness—teams may over-anchor to a polished-looking prototype that hasn't derisked the right assumptions. Picking the correct medium prevents premature decisions and better guides downstream work.",
+          "anchorQuote": "PRDS are dead prototypes are in",
+          "tSeconds": 431,
+          "link": "https://www.youtube.com/watch?v=P3KDebPTUrw&t=431"
+        },
+        {
+          "headline": "Design and taste remain hard to automate and still need humans",
+          "detail": "He explains that design is harder to grade than code because aesthetic judgment, cultural context, novelty, and abstractions that connect UI to code are difficult to specify as training signals. Models can reproduce patterns (e.g., many sites copying Linear), but design demands novelty and system-level thinking—deciding how components semantically relate across a product—which current models struggle to evaluate and generalize. Therefore human taste and systems judgment remain key differentiators for product outcomes.",
+          "anchorQuote": "design's a little bit harder to grade",
+          "tSeconds": 773,
+          "link": "https://www.youtube.com/watch?v=P3KDebPTUrw&t=773"
+        },
+        {
+          "headline": "Roles will blur but specialties and best practices must survive",
+          "detail": "Ambrosino describes role collapse on the Codex team—designers who speak engineering, PMs writing code—but cautions against abolishing roles wholesale because disciplines hold accumulated best practices. He recommends hiring high-agency people who can operate across boundaries while preserving depth where it matters; teams should expect people to be the \"average of what they spend time on\" rather than fixed labels. The implication: embrace cross-functional fluency, but keep domain expertise and processes that encode hard-won knowledge.",
+          "anchorQuote": "we have seen more role collapse in the codeex org",
+          "tSeconds": 1304,
+          "link": "https://www.youtube.com/watch?v=P3KDebPTUrw&t=1304"
+        },
+        {
+          "headline": "Model timing can flip product–market fit; build artifacts to revisit later",
+          "detail": "Ambrosino recounts that the Codex app released in February succeeded where the same shape would have failed in November—mere months of model progress changed outcomes dramatically. His team intentionally prototypes and preserves features that aren't yet successful so they can be re-evaluated when models improve, rather than discarding them as failures. Practically, this means long-range plans must stay fuzzy and teams should keep ambitious artifacts alive to capitalize on future capability leaps.",
+          "anchorQuote": "if that had been ready in November",
+          "tSeconds": 2018,
+          "link": "https://www.youtube.com/watch?v=P3KDebPTUrw&t=2018"
+        }
+      ]
+    }
+  ]
+}
