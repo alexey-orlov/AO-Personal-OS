@@ -71,11 +71,11 @@ The result is feature parity with the Mac widget: same UI, same behavior, same s
 
 #### Acceptance Criteria
 
-1. WHEN the Setup_Script completes successfully, THE Setup_Script SHALL register two Task Scheduler tasks: `ClockifyPanelServer` (runs `run_windows.ps1` to start Panel_Server) and `ClockifyPanelDesktop` (runs `desktop_windows.py` to start Desktop_Wrapper).
+1. WHEN the Setup_Script completes successfully AND `–SkipTaskScheduler` is not specified, THE Setup_Script SHALL register two Task Scheduler tasks: `ClockifyPanelServer` (runs `run_windows.ps1` to start Panel_Server) and `ClockifyPanelDesktop` (runs `desktop_windows.py` to start Desktop_Wrapper).
 2. THE Task Scheduler tasks SHALL be configured with trigger `AtLogon` scoped to the current user.
 3. THE Task Scheduler tasks SHALL be configured to run with the highest available privilege for the current user's account.
 4. WHEN the Setup_Script is run again, THE Setup_Script SHALL overwrite existing tasks of the same name (idempotent).
-5. WHEN the Setup_Script registers the tasks, THE Setup_Script SHALL also start both tasks immediately without requiring a logout/login cycle.
+5. WHEN the Setup_Script registers the tasks, THE Setup_Script SHALL attempt to start both tasks immediately; IF immediate startup of a task fails, THE Setup_Script SHALL log a warning but report overall success as long as the tasks were registered successfully.
 6. THE Setup_Script SHALL accept a `–SkipTaskScheduler` switch to register the key and validate without installing the scheduled tasks (for users who prefer manual launch).
 
 ---
@@ -88,7 +88,7 @@ The result is feature parity with the Mac widget: same UI, same behavior, same s
 
 1. WHEN `run_windows.ps1` is executed, THE Run_Script SHALL read the `CLOCKIFY_API_KEY` from Credential_Manager and set it as an environment variable for the child process.
 2. WHEN the key is retrieved, THE Run_Script SHALL start `server.py` using the system `python` (or `python3`) executable and forward all output to the console.
-3. IF no API key is found in Credential_Manager, THEN THE Run_Script SHALL exit with a descriptive error before attempting to start the server.
+3. IF no API key is found in Credential_Manager, or IF key retrieval fails for any reason (e.g., Credential_Manager is inaccessible), THEN THE Run_Script SHALL exit with a descriptive error before attempting to start the server.
 4. THE Run_Script SHALL support an optional `PORT` environment variable override, passing it to the server process (default `7878`).
 
 ---
@@ -103,7 +103,7 @@ The result is feature parity with the Mac widget: same UI, same behavior, same s
 2. THE Desktop_Wrapper SHALL display the window as always-on-top by default.
 3. THE Desktop_Wrapper window SHALL be resizable by dragging its edges or corners.
 4. THE Desktop_Wrapper window SHALL persist its position and size across restarts using a local preferences file.
-5. WHEN the Panel_Server is not yet reachable at startup, THE Desktop_Wrapper SHALL retry loading `http://localhost:7878` every 2 seconds until it succeeds, so that login start order does not matter.
+5. WHEN the Panel_Server is not yet reachable at startup, THE Desktop_Wrapper SHALL retry loading `http://localhost:7878` approximately every 2 seconds (with a tolerance of ±0.5 seconds) until it succeeds, so that login start order does not matter.
 6. THE Desktop_Wrapper window SHALL have rounded corners to match the panel's visual style.
 7. THE Desktop_Wrapper SHALL support moving the window by holding a modifier key (Ctrl) and left-click-dragging anywhere in the window.
 
@@ -117,8 +117,8 @@ The result is feature parity with the Mac widget: same UI, same behavior, same s
 
 1. WHEN the Desktop_Wrapper launches, THE Desktop_Wrapper SHALL place an icon in the Windows system tray.
 2. WHEN the user right-clicks the tray icon, THE Desktop_Wrapper SHALL display a context menu with these items: **Show / Hide** (toggles window visibility), **Always on Top** (checkmark, toggles), **Center on Screen**, **Reload**, a separator, and **Quit**.
-3. WHEN **Always on Top** is toggled off, THE Desktop_Wrapper SHALL lower the window to normal Z-order so it sits among other windows.
-4. WHEN **Always on Top** is toggled on, THE Desktop_Wrapper SHALL raise the window above all other windows.
+3. WHEN **Always on Top** is toggled off, THE Desktop_Wrapper SHALL lower the window to normal Z-order so it sits among other windows; IF the window is currently hidden, THE Desktop_Wrapper SHALL defer the Z-order change until the window is next shown.
+4. WHEN **Always on Top** is toggled on, THE Desktop_Wrapper SHALL raise the window above all other windows; IF the window is currently hidden, THE Desktop_Wrapper SHALL defer the Z-order change until the window is next shown.
 5. THE Desktop_Wrapper SHALL persist the Always-on-Top state across restarts.
 6. WHEN the user double-clicks the tray icon, THE Desktop_Wrapper SHALL show the window and bring it to the foreground.
 7. WHEN the window is closed via the OS close button (if any), THE Desktop_Wrapper SHALL hide the window rather than quitting, keeping the tray icon active.
