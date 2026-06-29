@@ -60,10 +60,11 @@ The result is feature parity with the Mac widget: same UI, same behavior, same s
 #### Acceptance Criteria
 
 1. WHEN the Setup_Script successfully validates the API key, THE Setup_Script SHALL attempt to set project colors: SS to `#7E57C2`, GC to `#F44336`, JS to `#2196F3`, EF to `#4CAF50`.
-2. IF a project is not found in the workspace, THEN THE Setup_Script SHALL log a warning for that project and continue with the remaining projects.
-3. IF the Clockify API returns HTTP 403 when updating a project color, THEN THE Setup_Script SHALL log a non-fatal warning instructing the user to change the color manually in the Clockify web UI, and continue.
+2. IF a project is not found in the workspace, THEN THE Setup_Script SHALL log a warning identifying the project name and continue with the remaining projects.
+3. IF the Clockify API returns HTTP 403 when updating a project color, THEN THE Setup_Script SHALL log a non-fatal warning identifying the project name and instructing the user to change the color manually in the Clockify web UI, and continue.
 4. IF a project color already matches the target value, THEN THE Setup_Script SHALL skip the update for that project and log that it is already correct.
-5. IF a project color update fails for any reason (network error, unexpected HTTP status, etc.), THEN THE Setup_Script SHALL log a warning for that failure and continue processing the remaining projects.
+5. IF a project color update fails for any reason other than HTTP 403 (network error, unexpected HTTP status, etc.), THEN THE Setup_Script SHALL log a warning identifying the project name and the failure reason, and continue processing the remaining projects.
+6. WHEN all four projects have been processed, THE Setup_Script SHALL log a summary of how many projects were updated, skipped (already correct), and failed.
 
 ---
 
