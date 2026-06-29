@@ -121,7 +121,7 @@ The result is feature parity with the Mac widget: same UI, same behavior, same s
 4. WHEN **Always on Top** is toggled on, THE Desktop_Wrapper SHALL raise the window above all other windows; IF the window is currently hidden, THE Desktop_Wrapper SHALL defer the Z-order change until the window is next shown.
 5. THE Desktop_Wrapper SHALL persist the Always-on-Top state across restarts.
 6. WHEN the user double-clicks the tray icon, THE Desktop_Wrapper SHALL show the window and bring it to the foreground.
-7. WHEN the window is closed via the OS close button (if any), THE Desktop_Wrapper SHALL hide the window rather than quitting, keeping the tray icon active.
+7. WHEN the window is closed via the OS close button (if any), THE Desktop_Wrapper SHALL hide the window rather than quitting, keeping the tray icon active; IF the underlying window process encounters an error or becomes unresponsive, THE Desktop_Wrapper SHALL keep the tray icon functional so that the user can still access Quit and other controls.
 8. WHEN **Quit** is selected from the tray menu, THE Desktop_Wrapper SHALL terminate the process completely.
 
 ---
@@ -183,7 +183,7 @@ The result is feature parity with the Mac widget: same UI, same behavior, same s
 
 #### Acceptance Criteria
 
-1. WHEN the Setup_Script installs the runtime copy, THE Setup_Script SHALL copy `server.py`, `index.html`, `desktop_windows.py`, and `run_windows.ps1` to `%LOCALAPPDATA%\clockify-panel\`.
+1. WHEN the Setup_Script installs the runtime copy, THE Setup_Script SHALL copy `server.py`, `index.html`, `desktop_windows.py`, and `run_windows.ps1` to `%LOCALAPPDATA%\clockify-panel\`; IF any required file fails to copy, THE Setup_Script SHALL abort the installation and report the failure.
 2. WHEN files are already present in the install directory, THE Setup_Script SHALL overwrite them (idempotent).
 3. THE Task Scheduler tasks SHALL reference the installed copies in `%LOCALAPPDATA%\clockify-panel\`, not the repo path, so that the repo directory can be on a network share or moved.
 
@@ -195,6 +195,6 @@ The result is feature parity with the Mac widget: same UI, same behavior, same s
 
 #### Acceptance Criteria
 
-1. WHEN the Panel_Server is started by the Task Scheduler task, THE Panel_Server's stdout and stderr SHALL be redirected to `%LOCALAPPDATA%\clockify-panel\logs\panel.log`.
+1. WHEN the Panel_Server is started by the Task Scheduler task, THE Panel_Server's stdout and stderr SHALL be redirected to `%LOCALAPPDATA%\clockify-panel\logs\panel.log`; IF the log redirection setup fails, THE Panel_Server SHALL continue running without logging rather than failing to start.
 2. WHEN the Desktop_Wrapper encounters an unhandled exception at startup, THE Desktop_Wrapper SHALL write the traceback to `%LOCALAPPDATA%\clockify-panel\logs\wrapper.log`.
 3. THE log files SHALL be appended to (not overwritten) on each start, so that recent history is preserved.
