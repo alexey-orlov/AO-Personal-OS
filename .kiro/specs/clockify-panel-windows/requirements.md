@@ -75,11 +75,12 @@ The result is feature parity with the Mac widget: same UI, same behavior, same s
 #### Acceptance Criteria
 
 1. WHEN the Setup_Script completes successfully AND `–SkipTaskScheduler` is not specified, THE Setup_Script SHALL register two Task Scheduler tasks: `ClockifyPanelServer` (runs `run_windows.ps1` to start Panel_Server) and `ClockifyPanelDesktop` (runs `desktop_windows.py` to start Desktop_Wrapper).
-2. THE Task Scheduler tasks SHALL be configured with trigger `AtLogon` scoped to the current user.
-3. THE Task Scheduler tasks SHALL be configured to run with the highest available privilege for the current user's account.
+2. WHEN a Task Scheduler task is registered, THE task SHALL be configured with trigger `AtLogon` scoped to the current user.
+3. WHEN a Task Scheduler task is registered, THE task SHALL be configured to run with the highest privilege level available to the current user's account.
 4. WHEN the Setup_Script is run again, THE Setup_Script SHALL overwrite existing tasks of the same name (idempotent).
-5. WHEN the Setup_Script registers the tasks, THE Setup_Script SHALL attempt to start both tasks immediately; IF immediate startup of a task fails, THE Setup_Script SHALL log a warning but report overall success as long as the tasks were registered successfully.
-6. THE Setup_Script SHALL accept a `–SkipTaskScheduler` switch to register the key and validate without installing the scheduled tasks (for users who prefer manual launch).
+5. WHEN the Setup_Script registers the tasks, THE Setup_Script SHALL attempt to start both tasks immediately within a 30-second timeout; IF immediate startup of a task fails or times out, THE Setup_Script SHALL log a warning but report overall success as long as both tasks were registered successfully.
+6. IF task registration fails for either task, THEN THE Setup_Script SHALL exit with an error message identifying which task failed to register and the reason.
+7. THE Setup_Script SHALL accept a `–SkipTaskScheduler` switch; WHEN `–SkipTaskScheduler` is specified, THE Setup_Script SHALL perform API key storage, validation, project color normalisation, dependency checks, and file installation, but SHALL NOT register or start Task Scheduler tasks.
 
 ---
 
@@ -90,9 +91,9 @@ The result is feature parity with the Mac widget: same UI, same behavior, same s
 #### Acceptance Criteria
 
 1. WHEN `run_windows.ps1` is executed, THE Run_Script SHALL read the `CLOCKIFY_API_KEY` from Credential_Manager and set it as an environment variable for the child process.
-2. WHEN the key is retrieved, THE Run_Script SHALL start `server.py` using the system `python` (or `python3`) executable and forward all output to the console.
-3. IF no API key is found in Credential_Manager, or IF key retrieval fails for any reason (e.g., Credential_Manager is inaccessible), THEN THE Run_Script SHALL exit with a descriptive error before attempting to start the server.
-4. THE Run_Script SHALL support an optional `PORT` environment variable override, passing it to the server process (default `7878`).
+2. WHEN the key is retrieved, THE Run_Script SHALL start `server.py` by resolving `python` then `python3` on `PATH` (in that order) and forward both stdout and stderr to the console.
+3. IF no API key is found in Credential_Manager, or IF key retrieval fails for any reason (e.g., Credential_Manager is inaccessible), THEN THE Run_Script SHALL exit with a non-zero exit code and a descriptive error message before attempting to start the server.
+4. THE Run_Script SHALL read the `PORT` environment variable if set and pass it to the server process; IF `PORT` is not set, THE Run_Script SHALL default to `7878`; IF `PORT` is set to a value outside the range 1–65535, THE Run_Script SHALL exit with an error message before starting the server.
 
 ---
 
