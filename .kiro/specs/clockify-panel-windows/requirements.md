@@ -174,11 +174,13 @@ The result is feature parity with the Mac widget: same UI, same behavior, same s
 #### Acceptance Criteria
 
 1. WHEN the Setup_Script runs, THE Setup_Script SHALL verify that Python 3.8 or later is available on `PATH`.
-2. IF Python is not found, THEN THE Setup_Script SHALL exit with an error message instructing the user to install Python from `python.org` and re-run.
-3. WHEN Python is confirmed available, THE Setup_Script SHALL verify that `pywebview` is installed.
-4. IF `pywebview` is not installed, THEN THE Setup_Script SHALL install it via `pip install pywebview` and confirm success before continuing.
-5. WHEN the Setup_Script runs, THE Setup_Script SHALL verify that `keyring` is installed (used for Credential_Manager access from Python).
-6. IF `keyring` is not installed, THEN THE Setup_Script SHALL install it via `pip install keyring` and confirm success before continuing.
+2. IF Python is not found on `PATH`, or IF the found Python version is below 3.8, THEN THE Setup_Script SHALL exit with an error message instructing the user to install Python 3.8 or later from `python.org` and re-run.
+3. WHEN Python is confirmed available, THE Setup_Script SHALL verify that `pip` is available on `PATH`.
+4. IF `pip` is not found on `PATH`, THEN THE Setup_Script SHALL exit with an error message instructing the user to install `pip` and re-run.
+5. WHEN `pip` is confirmed available, THE Setup_Script SHALL verify that `pywebview` is importable.
+6. IF `pywebview` is not importable, THEN THE Setup_Script SHALL install it via `pip install pywebview`; IF installation fails or `pywebview` is still not importable after installation, THE Setup_Script SHALL exit with an error message.
+7. WHEN the Setup_Script runs, THE Setup_Script SHALL verify that `keyring` is importable.
+8. IF `keyring` is not importable, THEN THE Setup_Script SHALL install it via `pip install keyring`; IF installation fails or `keyring` is still not importable after installation, THE Setup_Script SHALL exit with an error message.
 
 ---
 
@@ -188,9 +190,10 @@ The result is feature parity with the Mac widget: same UI, same behavior, same s
 
 #### Acceptance Criteria
 
-1. WHEN the Setup_Script installs the runtime copy, THE Setup_Script SHALL copy `server.py`, `index.html`, `desktop_windows.py`, and `run_windows.ps1` to `%LOCALAPPDATA%\clockify-panel\`; IF any required file fails to copy, THE Setup_Script SHALL abort the installation and report the failure.
-2. WHEN files are already present in the install directory, THE Setup_Script SHALL overwrite them (idempotent).
-3. THE Task Scheduler tasks SHALL reference the installed copies in `%LOCALAPPDATA%\clockify-panel\`, not the repo path, so that the repo directory can be on a network share or moved.
+1. WHEN the Setup_Script installs the runtime copy, THE Setup_Script SHALL create `%LOCALAPPDATA%\clockify-panel\` if it does not already exist.
+2. WHEN the install directory exists, THE Setup_Script SHALL copy `server.py`, `index.html`, `desktop_windows.py`, and `run_windows.ps1` into `%LOCALAPPDATA%\clockify-panel\`; IF any file fails to copy, THE Setup_Script SHALL exit with an error message identifying the file and the reason, leaving the install directory in its pre-copy state.
+3. WHEN files are already present in the install directory, THE Setup_Script SHALL overwrite them; IF an overwrite fails, THE Setup_Script SHALL halt further copying and exit with an error message identifying the file and the reason.
+4. THE Task Scheduler tasks SHALL reference the installed copies in `%LOCALAPPDATA%\clockify-panel\`, not the repo path.
 
 ---
 
@@ -200,6 +203,7 @@ The result is feature parity with the Mac widget: same UI, same behavior, same s
 
 #### Acceptance Criteria
 
-1. WHEN the Panel_Server is started by the Task Scheduler task, THE Panel_Server's stdout and stderr SHALL be redirected to `%LOCALAPPDATA%\clockify-panel\logs\panel.log`; IF the log redirection setup fails, THE Panel_Server SHALL continue running without logging rather than failing to start.
-2. WHEN the Desktop_Wrapper encounters an unhandled exception at startup, THE Desktop_Wrapper SHALL write the traceback to `%LOCALAPPDATA%\clockify-panel\logs\wrapper.log`.
+1. WHEN the Panel_Server is started by the Task Scheduler task, THE Panel_Server's stdout and stderr SHALL be redirected to `%LOCALAPPDATA%\clockify-panel\logs\panel.log`; IF the log directory does not exist, THE task SHALL create it before redirecting; IF log redirection fails, THE Panel_Server SHALL continue running without logging rather than failing to start.
+2. WHEN the Desktop_Wrapper encounters an unhandled exception at any point from process initialisation through the first successful API call, THE Desktop_Wrapper SHALL write the full traceback to `%LOCALAPPDATA%\clockify-panel\logs\wrapper.log`; IF the log directory does not exist, THE Desktop_Wrapper SHALL create it before writing.
 3. THE log files SHALL be appended to (not overwritten) on each start, so that recent history is preserved.
+4. WHEN a log file reaches 5 MB, THE log file SHALL be rotated: the existing file SHALL be renamed to `panel.log.1` (or `wrapper.log.1`) and a new file SHALL be started; only one rotated backup SHALL be kept per log file.
