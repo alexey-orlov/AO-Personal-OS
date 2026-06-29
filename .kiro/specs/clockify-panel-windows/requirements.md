@@ -105,11 +105,11 @@ The result is feature parity with the Mac widget: same UI, same behavior, same s
 
 1. WHEN the Desktop_Wrapper launches, THE Desktop_Wrapper SHALL open a frameless window loading `http://localhost:7878`.
 2. THE Desktop_Wrapper SHALL display the window as always-on-top by default.
-3. THE Desktop_Wrapper window SHALL be resizable by dragging its edges or corners.
-4. THE Desktop_Wrapper window SHALL persist its position and size across restarts using a local preferences file.
+3. THE Desktop_Wrapper window SHALL be resizable by dragging its edges or corners, with a minimum size of 200×150 pixels.
+4. WHEN the Desktop_Wrapper launches for the first time (no saved preferences), THE Desktop_Wrapper SHALL open the window at 400×600 pixels positioned in the bottom-right corner of the primary display with a 20-pixel margin from each edge; WHEN saved preferences exist, THE Desktop_Wrapper SHALL restore the last saved position and size; IF the preferences file is missing or corrupt, THE Desktop_Wrapper SHALL silently fall back to the first-launch defaults.
 5. WHEN the Panel_Server is not yet reachable at startup, THE Desktop_Wrapper SHALL retry loading `http://localhost:7878` approximately every 2 seconds (with a tolerance of ±0.5 seconds) until it succeeds, so that login start order does not matter.
-6. THE Desktop_Wrapper window SHALL have rounded corners to match the panel's visual style.
-7. THE Desktop_Wrapper SHALL support moving the window by holding a modifier key (Ctrl) and left-click-dragging anywhere in the window.
+6. THE Desktop_Wrapper window SHALL apply the same corner radius as rendered by the Panel_UI's `.app` element.
+7. WHEN the user holds Ctrl and left-click-drags anywhere in the window, THE Desktop_Wrapper SHALL move the window continuously to track the pointer until the mouse button is released.
 
 ---
 
@@ -123,10 +123,11 @@ The result is feature parity with the Mac widget: same UI, same behavior, same s
 2. WHEN the user right-clicks the tray icon, THE Desktop_Wrapper SHALL display a context menu with these items: **Show / Hide** (toggles window visibility), **Always on Top** (checkmark, toggles), **Center on Screen**, **Reload**, a separator, and **Quit**.
 3. WHEN **Always on Top** is toggled off, THE Desktop_Wrapper SHALL lower the window to normal Z-order so it sits among other windows; IF the window is currently hidden, THE Desktop_Wrapper SHALL defer the Z-order change until the window is next shown.
 4. WHEN **Always on Top** is toggled on, THE Desktop_Wrapper SHALL raise the window above all other windows; IF the window is currently hidden, THE Desktop_Wrapper SHALL defer the Z-order change until the window is next shown.
-5. THE Desktop_Wrapper SHALL persist the Always-on-Top state across restarts.
+5. THE Desktop_Wrapper SHALL persist the Always-on-Top state across restarts; WHEN the Desktop_Wrapper launches, THE tray menu checkmark for **Always on Top** SHALL reflect the persisted state.
 6. WHEN the user double-clicks the tray icon, THE Desktop_Wrapper SHALL show the window and bring it to the foreground.
 7. WHEN the window is closed via the OS close button (if any), THE Desktop_Wrapper SHALL hide the window rather than quitting, keeping the tray icon active; IF the underlying window process encounters an error or becomes unresponsive, THE Desktop_Wrapper SHALL keep the tray icon functional so that the user can still access Quit and other controls.
-8. WHEN **Quit** is selected from the tray menu, THE Desktop_Wrapper SHALL terminate the process completely.
+8. WHEN **Reload** is selected from the tray menu, THE Desktop_Wrapper SHALL reload `http://localhost:7878` in the window, equivalent to pressing `Ctrl+R`.
+9. WHEN **Quit** is selected from the tray menu, THE Desktop_Wrapper SHALL remove the tray icon and terminate the process completely.
 
 ---
 
