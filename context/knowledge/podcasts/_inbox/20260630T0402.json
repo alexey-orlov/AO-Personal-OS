@@ -1,0 +1,94 @@
+{
+  "schema": 1,
+  "generatedAt": "2026-06-30T04:02:46.873Z",
+  "runStamp": "20260630T0402",
+  "episodes": [
+    {
+      "videoId": "5FKBkUCaLa8",
+      "videoTitle": "How Gusto’s CTO uses Claude Code to ship like a startup",
+      "videoUrl": "https://www.youtube.com/watch?v=5FKBkUCaLa8",
+      "channelName": "How I AI",
+      "publishedDate": "2026-06-29",
+      "guests": [
+        "Eddie (CTO, Gusto)"
+      ],
+      "summary": "Gusto’s CTO describes how a five-person cross-functional team used Claude/Cloud Code, feature flags, and a minimal stack to prototype and ship “Gusto Co‑founder” from idea to production in ten weeks. The throughline is that modern AI tools plus a permissive, small-team process (no docs, perma-zoom, rapid PR cycles) make zero-to-one product work fast, cheap, and repeatable inside large R&D orgs. He argues this lowers the cost of experimentation, lets non-engineers ship code, and changes how companies should allocate risk and autonomy.",
+      "insights": [
+        {
+          "headline": "A five-person team built a production agent product in 10 weeks",
+          "detail": "Gusto Co‑founder was created by four engineers and one designer and moved from prototype to a tier‑one launch in about ten weeks. They started from a vibe‑coded prototype made on a layover, then iteratively shipped behind a feature flag on a hidden production page while chipping away at backend and frontend pieces. The result shows that a tiny, focused team plus AI tooling can deliver marketable, integrated B2B features extremely quickly inside a large company.",
+          "anchorQuote": "we we built it over the course of 10 weeks",
+          "tSeconds": 258,
+          "link": "https://www.youtube.com/watch?v=5FKBkUCaLa8&t=258"
+        },
+        {
+          "headline": "The cost of writing production code is low enough to build-and-trash experiments",
+          "detail": "With AI-assisted development the team routinely opened full PRs as experiments and was comfortable deleting or rebuilding them if they didn't meet product or architectural standards. Eddie describes creating working pull requests that were ready for human review and then closing them when the idea changed, and even throwing away his original prototype to rebuild in TypeScript + Cloudflare Workers. That cheap iterative cycle (and willingness to trash code) shortens validation loops and makes higher‑risk, higher‑reward bets affordable.",
+          "anchorQuote": "The cost to write code is now so low",
+          "tSeconds": 878,
+          "link": "https://www.youtube.com/watch?v=5FKBkUCaLa8&t=878"
+        },
+        {
+          "headline": "Non-engineer designers can ship high-quality production PRs when paired with engineers",
+          "detail": "Their designer, Katie, shipped front-end experiences into production (initially faked UI responses) and, with active pairing and code review from engineers, ranked in the 94th percentile of PR throughput across R&D. The team invested in mentorship—engineers reviewed and taught prompting, testing, and quality judgment—so designers could write deployable code and iterate product UI directly in prod behind flags. This expands who can move product forward and accelerates delivery when review cycles are prioritized.",
+          "anchorQuote": "she actually shipped started shipping to production like a a faked experience",
+          "tSeconds": 1213,
+          "link": "https://www.youtube.com/watch?v=5FKBkUCaLa8&t=1213"
+        },
+        {
+          "headline": "Agentic AI products can run on a very simple stack: Cloudflare Workers + Vercel AI SDK",
+          "detail": "Rather than a complex custom agent-platform, Gusto built the agent loop on Cloudflare Workers and used the Vercel AI SDK; other needs (memory, artifacts) were implemented as simple database columns or in‑house bits. Eddie says there was no heavy harness required—memory is just a DB column—demonstrating that the barrier to building agentic features is much lower than teams expect. This matters because simpler stacks reduce ops friction and let teams prototype real integrations (Slack/SMS, QuickBooks, Google Sheets) rapidly.",
+          "anchorQuote": "We use Cloudflare worker for the actual agent loop",
+          "tSeconds": 1063,
+          "link": "https://www.youtube.com/watch?v=5FKBkUCaLa8&t=1063"
+        }
+      ]
+    },
+    {
+      "videoId": "-H7J_-zr7pA",
+      "videoTitle": "US Government Blocks GPT-5.6, Alibaba's AI Theft, and Why OpenAI Is Stalling Their IPO | #267",
+      "videoUrl": "https://www.youtube.com/watch?v=-H7J_-zr7pA",
+      "channelName": "Peter H. Diamandis",
+      "publishedDate": "2026-06-29",
+      "guests": [],
+      "summary": "This episode reviews a fast-moving week in AI: the U.S. government has intervened to limit commercial releases of the most capable models, Anthropic and OpenAI have had previews throttled, and OpenAI is delaying a near-term IPO. The hosts argue we are in a regulatory and capability endgame where governments, model distillation, 'harness' software, and international competition (especially China) together determine who actually gets frontier AI and how quickly it spreads.",
+      "insights": [
+        {
+          "headline": "The US government now gates frontier model releases customer-by-customer.",
+          "detail": "For the first time the executive branch has placed national-security holds on commercial AI: Anthropic’s Mythos was restricted to a preview for 100 approved companies and OpenAI was asked to slow GPT‑5.6 and only release it to about 20 select customers. The White House will approve access during limited previews and this puts the government into the operational loop of who can use top models — not just the companies themselves. That changes product rollouts, competitive dynamics and who can build on latest capabilities.",
+          "anchorQuote": "the executive branch has placed a national security",
+          "tSeconds": 415,
+          "link": "https://www.youtube.com/watch?v=-H7J_-zr7pA&t=415"
+        },
+        {
+          "headline": "Government gating creates an internal frontier and an externally lagging public.",
+          "detail": "Panelists contend the U.S. regime functions as a synchronization mechanism that can keep internal lab capabilities ahead while restricting public access, effectively creating an \"inner horizon\" of capability inside frontier labs and a slower outer horizon for everyone else. That split raises risks: concentration of talent and incentives to join frontier labs, protectionist controls (e.g., citizen‑only access), and pushback from foreign customers who may adopt alternative models. If applied unevenly it can alter valuations and the global competitive balance without removing the underlying technical capability.",
+          "anchorQuote": "customer by customer, selecting who gets access",
+          "tSeconds": 453,
+          "link": "https://www.youtube.com/watch?v=-H7J_-zr7pA&t=453"
+        },
+        {
+          "headline": "Anthropic accuses Alibaba of distilling Claude with 28.8M fake interactions.",
+          "detail": "Anthropic alleges Alibaba ran a massive distillation campaign—using 28.8 million fraudulent exchanges and 25,000 fake accounts—to extract Claude’s capabilities and train its own models, which would be the largest such theft claim to date. Distillation (teacher→student extraction) is now a frontline tactic in the US–China AI rivalry and raises legal, export‑control and IP questions: is distillation espionage, a ToS breach, or an inevitable leakage problem? The accusation is fueling arguments for stricter API and data‑use controls and potential bans on using Chinese models in U.S. corporations.",
+          "anchorQuote": "running a massive distillation campaign against Claude",
+          "tSeconds": 4778,
+          "link": "https://www.youtube.com/watch?v=-H7J_-zr7pA&t=4778"
+        },
+        {
+          "headline": "External 'harnesses' can turbocharge older models to frontier performance.",
+          "detail": "A harness—software scaffolding that orchestrates prompts, chains of models, post‑processing and agents—can push older or cheaper base models (e.g., GPT‑5.5 or Opus 4.8) to match or exceed newer frontier previews like Mythos in certain benchmarks. The hosts cite examples (Fugu, Blitzy harnesses, GLM 5.2) and argue this means the capability is already diffusible: the 'cat is out of the bag' and regulators may be chasing downstream uses rather than the original weights. That undermines simple controls based solely on model binaries and focuses attention on runtime, tooling and usage controls.",
+          "anchorQuote": "put enough of a brilliant harness around it to make it better",
+          "tSeconds": 1028,
+          "link": "https://www.youtube.com/watch?v=-H7J_-zr7pA&t=1028"
+        },
+        {
+          "headline": "Frontier models are being oriented toward automated cyber defense, not offense.",
+          "detail": "OpenAI’s Daybreak (GPT‑5.5 cyber) scored a record 85.6 on the CyberGym benchmark and Sam Altman framed the goal as not just finding vulnerabilities but automatically writing and testing fixes across stacks. The implication is a pivot: models could bulk‑remediate open‑source and supply‑chain bugs faster than attackers find them, but trust becomes central — who is allowed to merge AI‑written fixes, and how do we prevent poisoned or back‑doored updates? The hosts emphasize that only AI can realistically keep up with AI in this cyber arms race, so governance of the 'trust layer' is decisive.",
+          "anchorQuote": "automatically writing and testing the fixes",
+          "tSeconds": 2101,
+          "link": "https://www.youtube.com/watch?v=-H7J_-zr7pA&t=2101"
+        }
+      ]
+    }
+  ]
+}
