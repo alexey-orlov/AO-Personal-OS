@@ -35,6 +35,8 @@ context/_inbox/tg-20260618-130859-126.md
 context/_inbox/tg-20260619-202053-133.md
 context/_inbox/tg-20260625-082403-153.md
 context/_inbox/tg-20260626-190559-158.md
+context/_inbox/tg-20260630-074509-168.md
+context/_inbox/tg-20260630-082644-170.md
 context/areas/job-search/calls/vacancy-interviews/_unknown/2026-05-21_1806_interview.md
 context/areas/job-search/calls/vacancy-interviews/archive-resale/2026-05-22_122349_interview_202604271827556FAF460B.md
 context/areas/job-search/calls/vacancy-interviews/archive-resale/2026-05-22_131921_interview_20260420200248D548EF59.md
