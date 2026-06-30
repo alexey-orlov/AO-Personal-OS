@@ -14,6 +14,7 @@ Format: `- [ ] YYYY-MM-DD — topic — why it matters ([drop](provenance))[ →
 
 ## Open
 
+- [ ] 2026-06-30 — agentic AI minimal stack (Gusto: Cloudflare Workers + Vercel AI SDK) — practical proof that complex custom agent platforms are unnecessary; Gusto built the agent loop on CF Workers + Vercel AI SDK, memory/artifacts as simple DB columns; implications for architecture decisions in agentic products ([drop](../../_inbox/processed/tg-20260630-074509-168.md))
 - [ ] 2026-06-26 — context maintenance best practices — how to keep a living wiki / knowledge base current and useful when the project underneath it constantly evolves; patterns to prevent "wiki rot"; hooks to AI-assisted context management ([drop](../../_inbox/processed/tg-20260626-190559-158.md)) → [brief](briefs/context-maintenance-best-practices.md)
 - [ ] 2026-06-25 — Genie by Databricks — what it is, how it works, relevance to enterprise AI analytics and agentic data layer patterns ([drop](../../_inbox/processed/tg-20260625-082403-153.md)) → [brief](briefs/genie-databricks.md)
 - [ ] 2026-06-19 — философский смысл технологий — книги от философов: экзистенциальная польза tech-работы, смысл посвящать жизнь IT/AI, technology → progress → meaning ([drop](../../_inbox/processed/tg-20260619-202053-133.md)) → [brief](briefs/philosophy-of-technology-books.md)
