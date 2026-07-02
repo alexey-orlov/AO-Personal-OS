@@ -1,8 +1,8 @@
 ---
 note: GC Todo
 area: gigacloud
-snapshot: 2026-07-02 09:49
-chars: 16638
+snapshot: 2026-07-02 11:43
+chars: 16804
 scope: above relevance marker
 ---
 GC Todo
@@ -40,6 +40,8 @@ Delivery timelines
 Delivery & support processes
 Requests to delivery
 
+
+
 Фиксы после поставки:
 Обновить price type по всем ценам после поставки на проде
 Проставить gov coefficient = 1
@@ -47,6 +49,9 @@ Requests to delivery
 
 Автоматизация
 Quote validation
+Добавить поле рибейт в заявках на лицензии
+Автоматизировать минулого маржу для случая наличия рибейтов
+Добавить возможность проставить direct input USD (UA office)
 Bulk price creation
 Тип цены “госы” - доработка процессов в CRM
 Product description or dedicated field?
