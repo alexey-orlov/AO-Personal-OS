@@ -2,7 +2,7 @@
 
 _status: live theme — how AI reshapes product management work, skills, workflows, and roles_
 _slug: ai-and-the-pm-craft_
-_updated: 2026-06-29 · 16 insights from 10 episodes_
+_updated: 2026-07-02 · 17 insights from 11 episodes_
 
 ## The throughline
 PMs and full-stack designers gain leverage in the coding-agent era because the gap between "knowing what to build" and "shipping it" collapses. The skill shift is from raw implementation to defining what to build, evaluating quality, and designing where humans and agents collaborate — Shipper bets PMs who "ride the models" out-ship engineers, an OpenAI PM uses Codex to drive prototypes to 70–80% completion and replace PRDs with runnable artifacts, and a non-technical builder ships a production iPhone app and clears App Store review using LLMs as her stepwise architect + engineer. Lovable extends this to "anyone": vibe coding democratizes product creation, with a student hitting $130k ARR in 30 days. The same craft scales up the org chart: Customer.io's VP of Product rebuilds a third of an all-hands deck in a morning, but only by treating Claude like an eager junior — rolling context in, forcing clarifying questions, blocking premature deliverables — and the leader's residual value collapses to two choices: *which sources* (recordings, docs, metrics) and *which target form* (deck, Notion page, one-pager). The model-selection beat also sharpens: Fable's "seasoned engineer" verbosity wrecks PRDs, so pair Mythos-class models with cheaper Opus/Sonnet by task type. Ambrosino (OpenAI Codex) sharpens the picture from the supply side: when dozens of people inside a company can stand up polished prototypes from the same idea, implementation is no longer the bottleneck — *curation* is: deciding which of ~90 explorations to keep, fold together, or refine. The same abundance makes design and taste distinctly non-automatable: aesthetic judgment, novelty, and system-level UI coherence lack the grading signals needed to train models to generalize, so models copy patterns (Linear-clone proliferation) but cannot generate the novelty or cross-component semantic reasoning that defines good design. The operational kit that recurs: hyper-literal prompts, screenshots-as-examples, prototypes-not-PRDs, a beginner's mindset, and the discipline to restrain the model until the foundations are set.
@@ -84,6 +84,11 @@ He explains that design is harder to grade than code because aesthetic judgment,
 — Lenny's Podcast · 2026-06-28 · guest: Andrew Ambrosino (OpenAI) · [▶ 12:53](https://www.youtube.com/watch?v=P3KDebPTUrw&t=773) · `pi-P3KDebPTUrw-03`
 related: [PMs and full-stack designers will be unusually valuable in near term](#pms-and-full-stack-designers-will-be-unusually-valuable-in-near-term) (Shipper predicts taste/judgment roles win; Ambrosino explains *why* — design lacks the grading signal to be fully automated) · theme → [Leadership, careers & teams](leadership-careers-and-teams.md) (role specialization: why design depth must survive role collapse)
 
+### Codex lets non‑engineers build production automation rapidly
+Using Codex (with terminal and browser in chat and powerful models), the guest moved from hesitance to shipping apps and automations without deep engineering skills—examples include a customized email triage app and a family care portal. Concretely, she gave Codex the goal of setting up their CRM across hundreds of conversations and woke up six hours later to a populated CRM—work that would have taken weeks manually.
+— Every · 2026-07-01 · guest: Natalya (Head of Consulting, Every) · [▶ 11:43](https://www.youtube.com/watch?v=IiGt2_-NmbI&t=703) · `pi-IiGt2_-NmbI-03`
+related: [Senior PMs can now build and ship end-to-end production features](#senior-pms-can-now-build-and-ship-end-to-end-production-features) (same overnight-delegation-to-a-non-engineer pattern, applied to ops/CRM setup rather than a product feature) · [A non-technical person can build and ship a production iPhone app today](#a-non-technical-person-can-build-and-ship-a-production-iphone-app-today)
+
 ## Related themes
 - [AI agents & applications](ai-agents-and-applications.md) — the surfaces PMs build in
 - [Leadership, careers & teams](leadership-careers-and-teams.md) — how the manager/IC mix is shifting alongside
@@ -99,3 +104,4 @@ related: [PMs and full-stack designers will be unusually valuable in near term](
 - [Aakash Gupta — The GitHub Repo That Runs Her $100M Startup (2026-06-24)](../episodes/2026/2026-06-24--aakash--the-github-repo-that-runs-her-100m-startup.md)
 - [SaaStr AI — How to Build Your Own AI VP of Marketing Step-by-Step (2026-06-26)](../episodes/2026/2026-06-26--saastr--how-to-build-your-own-ai-vp-of-marketing.md)
 - [Lenny's Podcast — OpenAI Codex lead on the new shape of product work | Andrew Ambrosino (2026-06-28)](../episodes/2026/2026-06-28--lenny--openai-codex-lead-on-the-new-shape-of-product-work.md)
+- [Every — How Every's Head of Consulting Uses Codex Every Day (2026-07-01)](../episodes/2026/2026-07-01--every--everys-head-of-consulting-uses-codex-every-day.md)
