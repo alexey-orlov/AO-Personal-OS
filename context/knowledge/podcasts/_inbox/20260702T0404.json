@@ -1,0 +1,183 @@
+{
+  "schema": 1,
+  "generatedAt": "2026-07-02T04:04:12.710Z",
+  "runStamp": "20260702T0404",
+  "episodes": [
+    {
+      "videoId": "yJ-1LB2hF-Q",
+      "videoTitle": "I benchmarked the NEW Sonnet 5. The results shocked me.",
+      "videoUrl": "https://www.youtube.com/watch?v=yJ-1LB2hF-Q",
+      "channelName": "How I AI",
+      "publishedDate": "2026-06-30",
+      "guests": [],
+      "summary": "The host built a repeatable, partly-blind benchmark (the How I AI bench) to compare recent paid frontier models across tasks like PRDs, prototypes, agentic code searches, and agentic voice. The automatic leaderboard surprised him: automated LLM judges favored Gemini 3 Pro and Sonnet 5, while his human taste preferred Sonnet 46 and GPT 5.5; he argues model choice should be task-driven and that human 'vibe' still matters in evaluation.",
+      "insights": [
+        {
+          "headline": "Sonnet 5 excels at agentic tool use and is cost-competitive",
+          "detail": "Sonnet 5 produces longer-running agentic tool sessions and better browser/computer usage than Sonnet 46, and it approaches Opus 48's pass rates on long, complex tool tasks while being cheaper. The host cites launch pricing of $2 per million input tokens and $10 per million output tokens (introductory rate through the summer), making Sonnet 5 attractive for extended agentic workflows where Opus would be more expensive. That combination—strong agentic behavior plus lower price—makes it worth testing now despite some prototype instability noted later.",
+          "anchorQuote": "Well, it's really good at agentic tool use.",
+          "tSeconds": 168,
+          "link": "https://www.youtube.com/watch?v=yJ-1LB2hF-Q&t=168"
+        },
+        {
+          "headline": "Automated LLM judges and human taste can sharply disagree",
+          "detail": "When the host ran a blind leaderboard that combined his vibe checks with LLM judges, models the automated judges ranked highly (Gemini 3 Pro and Sonnet 5 tied with GPT 5.5) differed from his human ranking, where he preferred Sonnet 46 and GPT 5.5. He observed that LLM judges tend to compress scores toward the middle and flag issues (broken code, ignored constraints) that a human rater might overlook when evaluating first-glance visuals or 'taste.' That divergence shows automated evals can miss qualities humans care about, so human-in-the-loop scoring remains important.",
+          "anchorQuote": "I am the opposite of the automated benchmark",
+          "tSeconds": 951,
+          "link": "https://www.youtube.com/watch?v=yJ-1LB2hF-Q&t=951"
+        },
+        {
+          "headline": "How I AI bench: frozen inputs, blind human scoring, plus LLM judges",
+          "detail": "The benchmark uses frozen inputs and blind presentation of models A–E, stores every model output in a local HTML page for structured human 'vibe' 1–5 scoring, and then adds two LLM judges (GPT 5.5 and Opus 48) to produce a combined, Clare-weighted index. Tasks tested included PRDs, prototype/wireframe generations (dozens of variants), an agentic multi-step code search, and agentic voice persona checks; the host saved JSON of human scores to compare against automated judgments. The setup aims to be repeatable and to let the host encode subjective taste alongside objective failure modes.",
+          "anchorQuote": "frozen inputs, blind scoring where possible, a rubric",
+          "tSeconds": 379,
+          "link": "https://www.youtube.com/watch?v=yJ-1LB2hF-Q&t=379"
+        },
+        {
+          "headline": "No single model is best — strengths depend on the task",
+          "detail": "Results were task-specific: GPT 5.5 performed best for PRD writing (comprehensive and clear), Sonnet 46 scored highest on agentic voice and certain prototypes (preferred 'vibe'), and Opus 48 shone on dense, complex front-end prototypes and coding tasks. Sonnet 5 showed promise on agentic/tool flows and affordability but produced more broken prototypes in this run, while Gemini 3 Pro was concise and ranked highly by automated judges despite the host finding it bare-bones. The practical takeaway is to choose the model by the job—PRD, prototyping, coding, or conversational persona—rather than expecting a universal best model.",
+          "anchorQuote": "If you're writing a PRD, use GPT 5.5",
+          "tSeconds": 1437,
+          "link": "https://www.youtube.com/watch?v=yJ-1LB2hF-Q&t=1437"
+        }
+      ]
+    },
+    {
+      "videoId": "dF_RcN4BkQU",
+      "videoTitle": "The Agents #008: Agents Are Merging, Not Multiplying. Plus, Sam Blond on Why Outbound Isn't Dead.",
+      "videoUrl": "https://www.youtube.com/watch?v=dF_RcN4BkQU",
+      "channelName": "SaaStr AI",
+      "publishedDate": "2026-07-01",
+      "guests": [
+        "Sam Blonde (Monaco)"
+      ],
+      "summary": "The episode shows how integrating an AI agent across existing SaaS (Salesforce, Bill.com, QuickBooks, Brex, Panda) turns it from a narrow helper into a single, operational VP of finance that automates contracts, invoices, reminders and even commission calculations. The hosts argue you should start with a real, high‑pain use case (collections) and that properly built agents make outbound work again while changing how GTM teams allocate human effort.",
+      "insights": [
+        {
+          "headline": "Agent automated finance reduced invoice creation time to seconds",
+          "detail": "Hooking a single agent (their AIVP of finance) into Bill.com, Salesforce, QuickBooks and Brex cut a process that used to take up to a day down to under 30 seconds. The agent reads the signed contract, flips the deal stage in Salesforce, creates and attaches invoices in Bill.com and triggers collection workflows automatically — giving immediate, measurable speed and removing human lag on critical cash collection. That speed matters because startups suffered six‑figure collection shortfalls and needed automation to avoid awkward, late payment follow‑ups and write‑offs.",
+          "anchorQuote": "it will create the invoices in less than 30 seconds",
+          "tSeconds": 304,
+          "link": "https://www.youtube.com/watch?v=dF_RcN4BkQU&t=304"
+        },
+        {
+          "headline": "Agents reveal and enable unused features inside existing SaaS",
+          "detail": "When the finance agent inspected Bill.com it recommended turning on built‑in automatic invoice reminders that the human team never enabled, immediately improving collections without buying new software. The agent also found outdated docs and surfaced faster integration paths (and API quirks) across products, which increased the value of tools like Bill.com, QuickBooks and Brex simply by orchestrating them. This matters because much of the low‑hanging ROI from AI comes from making existing platforms work smarter, not from replacing them.",
+          "anchorQuote": "Bill.com has these really nice automatic invoice reminders",
+          "tSeconds": 524,
+          "link": "https://www.youtube.com/watch?v=dF_RcN4BkQU&t=524"
+        },
+        {
+          "headline": "Start with one high‑pain problem, not broad automation",
+          "detail": "The team deliberately began by automating collections because it was a clear, high‑pain area where humans had degraded performance and the financial impact was tangible. By solving collections first the agent paid for itself and then enabled adjacent automations (contract routing, invoicing, commissions), showing that targeted agent projects scale better than trying to automate everything at once. The practical lesson: pick the workflow that is causing real cash or operational pain and automate that before expanding.",
+          "anchorQuote": "Start with a problem, which is what we did.",
+          "tSeconds": 942,
+          "link": "https://www.youtube.com/watch?v=dF_RcN4BkQU&t=942"
+        },
+        {
+          "headline": "Agents make outbound effective again and boost rep efficiency",
+          "detail": "Sam Blonde argues outbound isn't dead — agents like Monaco's can build TAMs, run personalized outbound at scale and free reps for higher‑value conversations, effectively increasing bookings per rep. The hosts report using Monaco to secure meetings (even with high‑value targets) and claim agents can double to triple output with fewer people by handling volume tasks and surfacing prioritized, qualified prospects for humans to close. The implication is that sales teams will shift toward fewer reps doing higher‑value work and more agentic volume generation.",
+          "anchorQuote": "Outbound is dead and and that sort of thing",
+          "tSeconds": 2840,
+          "link": "https://www.youtube.com/watch?v=dF_RcN4BkQU&t=2840"
+        },
+        {
+          "headline": "Agents become daily collaborators, adding features and workflows",
+          "detail": "The finance agent didn't just run canned scripts — after being given commission rules it took ~30 minutes to implement a commissions calculation step and suggested replacing or consolidating tools like Panda for contract generation. Agents can therefore invent new, practical automations once integrated into a company's data plane, becoming a collaborator that proposes and executes improvements rather than a one‑off helper. That changes vendor choices: teams may prefer a single agentic platform that can extend into CPQ, contracts and ride‑along note‑taking, rather than many brittle point tools.",
+          "anchorQuote": "he took probably 30 minutes to add in this feature",
+          "tSeconds": 1441,
+          "link": "https://www.youtube.com/watch?v=dF_RcN4BkQU&t=1441"
+        }
+      ]
+    },
+    {
+      "videoId": "IiGt2_-NmbI",
+      "videoTitle": "How Every's Head of Consulting Uses Codex Every Day",
+      "videoUrl": "https://www.youtube.com/watch?v=IiGt2_-NmbI",
+      "channelName": "Every",
+      "publishedDate": "2026-07-01",
+      "guests": [
+        "Natalya (Head of Consulting, Every)"
+      ],
+      "summary": "A conversation with Every's head of consulting about how she uses Codex and internal agents (like 'Claudia') to automate operations, triage email, build apps, and run CRM setup. The throughline: agents and LLM tools massively expand what non‑engineers can do, but real software and human management remain essential for durable, rule-heavy systems.",
+      "insights": [
+        {
+          "headline": "Agents excel at SOPs but cannot replace human judgment",
+          "detail": "Claudia, Every's internal agent, reliably executes standard operating procedures and populates dashboards, but still needs constant oversight and managerial direction for taste, quality, and improvement. The guest emphasizes that while agents automate repetitive work, humans must surface interesting signals from dashboards, lead conversations, and handle judgment calls—otherwise you just shift the burden to supervision rather than eliminate it.",
+          "anchorQuote": "AI is really good at executing against a standard operating procedure",
+          "tSeconds": 217,
+          "link": "https://www.youtube.com/watch?v=IiGt2_-NmbI&t=217"
+        },
+        {
+          "headline": "Specialized software beats DIY for complex, rule-heavy workflows",
+          "detail": "They moved from a Google Sheets + Claudia glue solution to Atio (a CRM) because production software embodies thousands of deterministic rules that govern pipelines and data quality. The argument: an LLM can help automate and write logic, but it won't instant‑oneshot the full set of rules and maintenance that a dedicated vendor already compiles—so buying a well‑scoped product often costs less time than building and continuously training an agent.",
+          "anchorQuote": "real software is a compilation. It's like a logical machine",
+          "tSeconds": 564,
+          "link": "https://www.youtube.com/watch?v=IiGt2_-NmbI&t=564"
+        },
+        {
+          "headline": "Codex lets non‑engineers build production automation rapidly",
+          "detail": "Using Codex (with terminal and browser in chat and powerful models), the guest moved from hesitance to shipping apps and automations without deep engineering skills—examples include a customized email triage app and a family care portal. Concretely, she gave Codex the goal of setting up their CRM across hundreds of conversations and woke up six hours later to a populated CRM—work that would have taken weeks manually.",
+          "anchorQuote": "codeex has been maybe the single greatest improvement",
+          "tSeconds": 703,
+          "link": "https://www.youtube.com/watch?v=IiGt2_-NmbI&t=703"
+        },
+        {
+          "headline": "Build 'loops'—systems that automate work and compound improvements",
+          "detail": "A 'loop' is a system you create that performs recurring tasks (like email triage or pipeline management) and learns from outcomes, so you intervene primarily at the start and end (the \"human sandwich\"). This gardening metaphor reframes knowledge work: invest in small, well‑documented processes, wire them into agents, and compound learnings instead of trying to remake everything at once.",
+          "anchorQuote": "This is an example of a loop. And the way to think",
+          "tSeconds": 1579,
+          "link": "https://www.youtube.com/watch?v=IiGt2_-NmbI&t=1579"
+        }
+      ]
+    },
+    {
+      "videoId": "XjOLz--C_nQ",
+      "videoTitle": "Sonnet 5 Drops, Fable 5 Will Return & Fusion’s First Plant Gets Licensed W/ Philip Johnston | #268",
+      "videoUrl": "https://www.youtube.com/watch?v=XjOLz--C_nQ",
+      "channelName": "Peter H. Diamandis",
+      "publishedDate": "2026-07-01",
+      "guests": [
+        "Philip Johnson (StarCloud)"
+      ],
+      "summary": "The episode surveys recent technology milestones across robotics, drones, nuclear/fusion energy, frontier AI, and space-based data centers, arguing that multiple exponential trends are accelerating simultaneously and creating both abundance opportunities and governance frictions. The hosts connect concrete signals—cheap humanoid hardware, police drones in the field, a licensed commercial fusion plant, AI model export controls, and a working orbital GPU—to show how falling costs and rising capability will rapidly shift value layers and regulatory pressure.",
+      "insights": [
+        {
+          "headline": "Experts systematically underproject exponential technology growth",
+          "detail": "Historical forecasts repeatedly miss exponential adoption because experts extrapolate linearly from past norms rather than the compounding ecosystem effects. The hosts point to concrete charts showing solar power, EV adoption and battery sales where actual curves went vertical while professional forecasts stayed flat; the implication is persistent underinvestment and surprised policy-makers even as technologies scale faster than anticipated. This matters because planning, regulation and corporate strategy must assume much faster adoption curves or risk being locked out by competitors who do.",
+          "anchorQuote": "experts consistently underestimate exponential growth",
+          "tSeconds": 225,
+          "link": "https://www.youtube.com/watch?v=XjOLz--C_nQ&t=225"
+        },
+        {
+          "headline": "Humanoid robots are heading toward commodity pricing; software becomes the value",
+          "detail": "Hardware costs are collapsing—examples include China’s Unitry R1 selling for about $4,900 and Morgan Stanley raising China robot rollouts from 14k to projections of 500k by 2030—so the long-term value will sit in software, apps and specialized use-case integrations. The speakers argue billions of specialized, lower-cost robotic units will enable broad markets (industrial logistics, gutter/window cleaning—$20B global example—kitchens, biotech automation), and once robots can help assemble robots the marginal cost of physical labor could approach near zero. For investors and entrepreneurs this implies a shift from AI-only bets toward hardware-enabled app stacks and many niche robotics companies.",
+          "anchorQuote": "we're heading towards commodity pricing on these on these things",
+          "tSeconds": 1036,
+          "link": "https://www.youtube.com/watch?v=XjOLz--C_nQ&t=1036"
+        },
+        {
+          "headline": "Drones are already acting as first responders and will scale fast in cities",
+          "detail": "U.S. police pilots are fielding drones for 911 responses—Orlando’s trial used Skyo drones and an Axon-managed system, with a single-drone trial beating patrol arrival a third of the time and offering useful live information 97% of cases. The pod highlights a Sacramento incident where a magnet-equipped drone disarmed a suspect and discusses broader public-health use cases (rapid AED delivery, wildfire suppression) and national-security implications (DJI import curbs, domestic manufacturers more costly). The upshot: drones lower time-to-presence dramatically but will force urgent policy discussions on privacy, arming, export controls and urban deployment density.",
+          "anchorQuote": "Orlando Police Department is now using drones as first responders",
+          "tSeconds": 1306,
+          "link": "https://www.youtube.com/watch?v=XjOLz--C_nQ&t=1306"
+        },
+        {
+          "headline": "Commercial fusion just reached a regulatory milestone with a 2028 plant deal",
+          "detail": "Helion secured Washington-state regulatory approval for its Orion reactor and has a deal to provide Microsoft 50 MW from 2028, marking one of the first licensed commercial fusion projects. Helion has raised roughly $1B at a $5.4B valuation; other firms like Commonwealth Fusion aim for larger tokamak plants (≈400 MW by circa 2032). Even a modest 50 MW is strategically significant because clean, dense energy at scale would lower costs across desalination, manufacturing, data centers and space propulsion—unlocking many downstream abundance effects.",
+          "anchorQuote": "Helion cleared the required Washington state regulatory approvals",
+          "tSeconds": 2298,
+          "link": "https://www.youtube.com/watch?v=XjOLz--C_nQ&t=2298"
+        },
+        {
+          "headline": "Space-based data centers are commercially viable and scaling now",
+          "detail": "StarCloud launched StarCloud-1 (Nov 2025) carrying multiple GPUs including an NVIDIA H100 and trained a tiny GPT model in orbit, then ran inference on SAR imagery—demonstrating both feasibility and utility for orbit-side processing. The company plans StarCloud-3 (≈200 kW, 3-ton chassis) sized to launch many units per Starship (≈50 per Starship → ~10 MW per launch), arguing falling heavy-launch costs (Starship cadence) plus cheap deployable radiators make orbital compute competitive for many new workloads. Practically, on-orbit processing cuts downlink needs (send insights, not raw terabytes), opens new edge use-cases for EO and defense, and reframes where future compute capacity will be built.",
+          "anchorQuote": "we were the first to train a model in space",
+          "tSeconds": 4612,
+          "link": "https://www.youtube.com/watch?v=XjOLz--C_nQ&t=4612"
+        }
+      ]
+    }
+  ]
+}
