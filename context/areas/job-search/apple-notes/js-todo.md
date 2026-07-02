@@ -1,14 +1,16 @@
 ---
 note: JS todo
 area: job-search
-snapshot: 2026-06-12 17:55
-chars: 5103
+snapshot: 2026-07-02 09:49
+chars: 5112
 scope: above relevance marker
 ---
 JS todo
 
 "There is no passion to be found playing small and settling for a life less than you are capable of living." -Nelson Mandela
 
+
+Posting
 
 
 Campaigns
@@ -27,8 +29,8 @@ Startup CEOs / Founders
 
 General efficiency
 
-English
-LinkedIn posting
+English 
+LinkedIn posting 
 SoftServe experiences
 Personal experience
 Market researches

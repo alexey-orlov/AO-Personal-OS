@@ -1,10 +1,17 @@
 ---
 note: "Other  Todo"
 area: other
-snapshot: 2026-06-12 17:55
-chars: 120
+snapshot: 2026-07-02 09:49
+chars: 306
 scope: above relevance marker
 ---
 Other  Todo
 
-ToDO
+Priorities:
+SoftServe Jumpstart program
+SoftServe Oracle roadmap v0
+Job applications system:
+Vacancy finder in target companies
+LinkedIn vacancy finder
+
+GigaCloud operating system for PMs
