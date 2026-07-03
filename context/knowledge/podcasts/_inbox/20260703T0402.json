@@ -1,0 +1,48 @@
+{
+  "schema": 1,
+  "generatedAt": "2026-07-03T04:02:12.955Z",
+  "runStamp": "20260703T0402",
+  "episodes": [
+    {
+      "videoId": "viISne4eLEY",
+      "videoTitle": "LET'S RIP FABLE TOKENS FROM THE JACUZZI",
+      "videoUrl": "https://www.youtube.com/watch?v=viISne4eLEY",
+      "channelName": "Every",
+      "publishedDate": "2026-07-02",
+      "guests": [
+        "Mike Taylor (head of AI tech consulting)"
+      ],
+      "summary": "A live, informal session testing Anthropic's returned 'Fable' (Lutnik) model: the host runs real workflows, asks whether safety classifiers have hamstrung the model, and uses Fable to audit an internal copy-editing benchmark. The conversation surfaces a concrete critique from Fable about the team's evaluation design and proposes shifting to human-in-the-loop acceptance labeling and live suggestion loops to get practical gains. The stream also raises operational concerns — token spend, memory, and agent control — that determine whether teams can actually put Fable into production.",
+      "insights": [
+        {
+          "headline": "Fable's safety classifiers currently hobble practical workflows",
+          "detail": "The host found the Lutnik release frequently tripped safety filters on innocuous actions (for example, tallying token spend or issuing a local process-kill), sometimes reverting the conversation back to an older model (Opus 4.8). This sensitivity affects agent-style uses and any workflow that interacts with local processes or sensitive context, meaning teams will need to test where classifiers block legitimate automation and may have to disable memory or change prompts to avoid false positives.",
+          "anchorQuote": "how labbotomized is it? Are the safety",
+          "tSeconds": 274,
+          "link": "https://www.youtube.com/watch?v=viISne4eLEY&t=274"
+        },
+        {
+          "headline": "Their copy-edit benchmark optimized an unvalidated target",
+          "detail": "Fable's own review called out that the team spent weeks and hundreds of agent threads optimizing for strict recall to Kate's historical edits with a 70% target before validating whether that target was achievable. The recorded sealed failures (around 47.5–50%) may already be near the human ceiling, so the effort was wasted on an ill-posed objective instead of cheaper, higher-information fixes.",
+          "anchorQuote": "it spent five weeks, 180 agent threads",
+          "tSeconds": 1166,
+          "link": "https://www.youtube.com/watch?v=viISne4eLEY&t=1166"
+        },
+        {
+          "headline": "Switch evaluation from exact recall to acceptance precision",
+          "detail": "Because humans (even the target editor 'Kate') are inconsistent, the recommended forward path is to flip evaluation from exact historical-recall to acceptance precision in a live suggestion loop — i.e., have the model produce edits and collect binary accept/reject judgments from humans to build a label factory. This approach (one human spending two hours to judge ~60 cases) is far cheaper and yields training data aligned to whether an editor would accept an edit, not whether it matches a noisy past.",
+          "anchorQuote": "flip the objective from recall versus history to acceptance precision",
+          "tSeconds": 1206,
+          "link": "https://www.youtube.com/watch?v=viISne4eLEY&t=1206"
+        },
+        {
+          "headline": "Token costs and orchestration decide real-world viability",
+          "detail": "Token spend is a central operational constraint: the host asks Fable to compile three months of personal token usage across APIs and apps to quantify costs, and the stream references heavy prior spend (e.g., a $1.5M experimental burn mentioned for a power user). High token cost changes decisions about enabling memory, frequency of live-loop calls, and whether to run expensive multi-agent experiments versus cheap human labeling.",
+          "anchorQuote": "token spend which is like a really big deal now",
+          "tSeconds": 759,
+          "link": "https://www.youtube.com/watch?v=viISne4eLEY&t=759"
+        }
+      ]
+    }
+  ]
+}
