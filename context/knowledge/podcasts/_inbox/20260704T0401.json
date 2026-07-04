@@ -1,0 +1,46 @@
+{
+  "schema": 1,
+  "generatedAt": "2026-07-04T04:01:37.058Z",
+  "runStamp": "20260704T0401",
+  "episodes": [
+    {
+      "videoId": "XwfUzW32cIA",
+      "videoTitle": "a16z Goes Global: Why American Tech Must Lead the World",
+      "videoUrl": "https://www.youtube.com/watch?v=XwfUzW32cIA",
+      "channelName": "a16z",
+      "publishedDate": "2026-07-03",
+      "guests": [],
+      "summary": "A16z partners explain why U.S. technology leadership must scale globally by partnering with allied governments, investors, and local adopters. The throughline is that private-sector-built AI and infrastructure both project values and become tools of national power, so the firm is building cross-border relationships to help startups expand safely and to ensure allied countries can adopt and shape these technologies.",
+      "insights": [
+        {
+          "headline": "Who builds AI shapes global values; U.S. models project American values",
+          "detail": "AI models embed cultural and political assumptions (about history, ethics, censorship) so the provenance of models matters: countries prefer models that won't silently inject another government's political will. A16z argues that if allied countries run on American and Western tech, they get systems aligned with pluralistic norms (e.g., non-censorship) — illustrated by concerns about Chinese models altering translations and the firm's work ensuring localized content stays true to creators.",
+          "anchorQuote": "it's important that the world run on America and on western tech",
+          "tSeconds": 425,
+          "link": "https://www.youtube.com/watch?v=XwfUzW32cIA&t=425"
+        },
+        {
+          "headline": "Critical defense and economic capabilities are now built by the private sector",
+          "detail": "Supply chains for chips and drug components, plus cyber and autonomous systems, are developed in industry not government, so national security depends on private-sector innovation and government–industry relationships. The speakers cite chip supply chains, cyber vulnerabilities in power/water, and autonomous maritime systems as examples, and argue the U.S. must cultivate ties at government, investor, and adoption levels so allies can co-develop and deploy these capabilities.",
+          "anchorQuote": "They're being built by the private sector.",
+          "tSeconds": 391,
+          "link": "https://www.youtube.com/watch?v=XwfUzW32cIA&t=391"
+        },
+        {
+          "headline": "Products globalize faster than companies, forcing earlier international expansion",
+          "detail": "APIs and AI let products be discovered and used worldwide instantly, so startups must internationalize sooner even if setting up a local entity remains costly (often $5–10M to open a market). A16z leverages government and enterprise relationships to get portfolio companies access to top buyers (top-5 customers often drive a country), exemplified by helping a Mexican broadcaster use 11 Labs to localize content and land a Netflix deal.",
+          "anchorQuote": "products and technology travel faster than companies can right",
+          "tSeconds": 578,
+          "link": "https://www.youtube.com/watch?v=XwfUzW32cIA&t=578"
+        },
+        {
+          "headline": "AI increases cyber attack surface but also makes defense tractable",
+          "detail": "Models make finding vulnerabilities in code far easier for attackers, but they also let defenders automate discovery and patching; because defenders must cover many paths while attackers need one, the speakers believe models ultimately help defense more. They point to ransomware crippling rural hospitals and a 20-year legacy code base as drivers: the cost of not fixing insecure code has risen while the cost of addressing it has fallen thanks to AI tools.",
+          "anchorQuote": "models make the step of finding vulnerabilities in code far easier",
+          "tSeconds": 1795,
+          "link": "https://www.youtube.com/watch?v=XwfUzW32cIA&t=1795"
+        }
+      ]
+    }
+  ]
+}
