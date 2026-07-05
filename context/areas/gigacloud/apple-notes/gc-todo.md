@@ -1,8 +1,8 @@
 ---
 note: GC Todo
 area: gigacloud
-snapshot: 2026-07-05 17:32
-chars: ~17000 (approx — helper tooling unavailable this run, count not exact)
+snapshot: 2026-07-05 19:19
+chars: 17047
 scope: above relevance marker
 ---
 GC Todo
