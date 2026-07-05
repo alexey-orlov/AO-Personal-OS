@@ -1,8 +1,8 @@
 ---
 note: GC Todo
 area: gigacloud
-snapshot: 2026-07-03
-chars: 17046
+snapshot: 2026-07-05
+chars: ~17000 (approx — helper tooling unavailable this run, count not exact)
 scope: above relevance marker
 ---
 GC Todo
@@ -41,6 +41,9 @@ Delivery & support processes
 Requests to delivery
 
 
+ToDo:
+Видео по Gov prices
+
 
 Фиксы после поставки:
 Обновить price type по всем ценам после поставки на проде
@@ -55,6 +58,16 @@ Quote validation
 Новая цена - не создается
 Не скопировалась цена в евро
 Тип цены “госы” - доработка процессов в CRM
+Custom tabs
+Components - show gov prices only / no gov prices only
+Billing
+General
+Tabs to decide
+Revisions
+Compatibility
+Проверить корректность расчета маржи и прочего
+Совместимые продукты (включая изменения)
+Тестирование
 Триггеры копирования 
 Триггеры при удалении (удаление цены, удаление компонента в продукте)
 Изменение цены, компонента в продукте
@@ -82,17 +95,6 @@ Tech details
 Delivery
 Presales
 R&D
-Custom tabs
-Components - show gov prices only / no gov prices only
-Billing
-General
-Тестирование
-Проверить корректность расчета маржи и прочего
-Алерты о рассинхронизации
-Совместимые продукты (включая изменения)
-Tabs to decide
-Compatibility
-Revisions
 Квоты
 Биллинг
 Product description or dedicated field?
