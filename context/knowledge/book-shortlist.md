@@ -26,6 +26,10 @@ The optional `was:` records the original text when it was corrected from a missp
 - **Ubik** — Philip K. Dick, 1969 · added 2026-05-29
 - **A Scanner Darkly** — Philip K. Dick, 1977 · added 2026-05-29 · was: "Помутнение"
 - **White Noise** — Don DeLillo, 1985 · added 2026-05-29 · was: "Белый шум"
+- **Beloved** — Toni Morrison, 1987 · added 2026-07-05 · note: slavery/Reconstruction aftermath, Ohio 1870s; Pulitzer 1988; from explore drop tg-186 (historical-fiction-by-US-era request)
+- **The Grapes of Wrath** — John Steinbeck, 1939 · added 2026-07-05 · note: Dust Bowl migration, 1930s; Pulitzer 1940; ~21h audio, long but definitive for the era; from explore drop tg-186
+- **Hotel on the Corner of Bitter and Sweet** — Jamie Ford, 2009 · added 2026-07-05 · note: WWII Japanese-American internment, Seattle 1942; from explore drop tg-186
+- **The Secret Life of Bees** — Sue Monk Kidd, 2002 · added 2026-07-05 · note: civil rights era, South Carolina 1964; from explore drop tg-186
 
 ## History
 
