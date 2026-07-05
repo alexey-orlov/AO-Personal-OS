@@ -1,7 +1,7 @@
 ---
 note: AI Product expertise ToDo
 area: personal-os
-snapshot: 2026-07-02 09:49
+snapshot: 2026-07-05 16:59
 chars: 1559
 scope: above relevance marker
 ---
