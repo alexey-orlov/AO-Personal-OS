@@ -93,7 +93,7 @@ The bar is the root cause: if I only patch the exact phrase Alex flagged, I'll r
 - Conventional-commit-style messages (`feat:`, `fix:`, `call-note:`).
 
 ## Conventions for generated content
-Evidence-bound, specific, no filler or praise. Mark inferences as "(inferred)". Use "-" for empty sections.
+Evidence-bound, specific, no filler or praise. Mark inferences as "(inferred)". Use "-" for empty sections. When filling into an existing table/template that already has an exemplar row/cell, match that exemplar's altitude, length, and phrasing — the existing cells are the spec, not the source docs. Distill to the reference's register; don't dump every detail you found.
 
 For any research, analysis, or comparative output (explore briefs, company/topic research, vacancy analysis, decision memos) follow `.claude/references/research-standards.md` — Alex's standing rules for labeled claims, source tiers, named specifics, explicit gaps, and lead-with-the-answer structure.
 
