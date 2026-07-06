@@ -58,13 +58,10 @@ _source files: local `~/Documents/Documents/SoftServe` (this Mac only) → [regi
 ## Open loops (area-level — subproject loops live on their pages)
 
 Mine:
-- Attend 2026-06-11 brainstorm with Oleh Marchevich.
-- Strategy alignment call with lead (week of Jun 9); review his written vision input.
-- Connect with Enok and William once the lead introduces them.
+- Connect with Enok and William once the lead introduces them (both appeared in the 2026-07-06 session, ~3 mo tenure).
 - Write up the asset-investment action items in chat with deadlines; set up the discussed material in a reviewable/commentable (video) format. [asset-investment 1:1](calls/oracle/2026-06-25_124657_one-on-one_202606251220277BB56A15.md)
 
 Theirs (engagement lead):
-- Written vision input for the strategy session by ~Jun 13; schedule the 1h alignment call.
 - Intros: Enok, William.
 - Liudmyla Tatura (content owner) — design a vision for the unified case-study DB, gather feedback, roll out across practices (no date) (inferred executor).
 - Define the per-project case-study-ownership role — Engineering Lead leaning, with a gap acknowledged where no PM/PdM/Eng Lead exists (not finalized).
@@ -72,6 +69,7 @@ Theirs (engagement lead):
 
 ## Activity
 
+- 2026-07-06 — [R&D H1 strategic session](calls/2026-07-06_172238_default_20260706153858763EF88E.md) — Bohdan-led leadership offsite (16 attendees): retrospective + 2027 North Star (double to ~$30M, ≥60% net-new, 60%+ margin, ~5–6 bets) + Amazon-style backcast Miro workshop; new net-new/growth KPI model; operating principles (ownership, velocity, T-shaped, AI-native personal "AI wikis"); Alex raised team-level AI context as the fix for AI "slop".
 - 2026-07-01 — [Puket (Pulkit) POC walkthrough](calls/oracle/2026-07-01_200832_default_20260701190225719D2348.md) — new Oracle packs PM Pulkit took over from Vishnu (Jun-23 reorg now in effect) and was walked through the two live POCs; Bosch (cuOpt) in an operator-rejection iteration loop, both POCs blocked on the path to production; packs judged ~1 week of savings → investment gated on repeat demand; Alex to prep a standard-vs-custom split for the WfO pack → [oracle](oracle.md).
 - 2026-06-26 — [Oracle packaging session with Gero (S/M/L "t-shirt" packages)](calls/oracle/2026-06-26_sales-call_gero-tshirt-packaging.md) — Gero co-designed the S/M/L model live (integration-depth tiers, S & L optional), anchored to Oracle Fusion Apps with Bosch/OFS as "step zero"; complex cases (RIAD/VSS) stay opportunistic; SoftServe sends the model as Excel, Gero owes CSS "Activate AI" packages + AIDP pricing → [oracle](oracle.md) · [refined model](docs/oracle-packages-tshirt-sizing.md).
 - 2026-06-25 — [Asset-investment 1:1 (R&D clusters)](calls/oracle/2026-06-25_124657_one-on-one_202606251220277BB56A15.md) — when to invest in repeatable accelerators vs bespoke delivery per niche cluster; two entry models (build-expertise-first vs demand-validated); graduation signal ~3–6 similar projects; product–cluster pairing (Leonid + Daria) to package assets; staffing shortage (Max stretched); next = Oleg↔Speaker B inventory 1:1 then three-way.
