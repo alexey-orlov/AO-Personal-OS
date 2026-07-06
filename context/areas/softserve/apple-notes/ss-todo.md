@@ -3,6 +3,7 @@ note: SS Todo
 area: softserve
 snapshot: 2026-07-06 16:40
 chars: 3711
+scope: above relevance marker
 ---
 SS Todo
 
