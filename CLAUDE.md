@@ -41,6 +41,7 @@ Currently job-searching for product leadership roles (VP Product / CPO) at US co
 ## Location & remote
 - Local: `~/Documents/GitHub/AO-Personal-OS` (macOS, case-insensitive filesystem)
 - Remote: `github.com/<user>/AO-Personal-OS` 
+- **Document rendering on this Mac (`KN7X2Y65NX`):** LibreOffice / `soffice` is blocked by Gatekeeper (unsigned → SIGKILLed, exit 137), so the `anthropic-skills:docx`/`pptx`/`pdf` helpers can't use it for PDF conversion or previews here — don't retry it. To verify a generated doc visually, build a geometry-faithful HTML twin and render it with **headless Google Chrome** (`--headless --print-to-pdf`, then `pdftoppm`); this doubles as a reliable one-page-fit check. MS Word is installed for true docx→PDF (AppleScript export) but may hang on first-launch dialogs. Default: deliver the editable file and let Alex export the PDF himself.
 
 ## Structure (where things go)
 - `.claude/skills/<name>/SKILL.md` — reusable agent skills with frontmatter (`name`, `description`, `disable-model-invocation`, `user-invocable`). Discoverable as slash commands (`/<name>`) in Claude Code AND inlined by automations as plain prompt text.
