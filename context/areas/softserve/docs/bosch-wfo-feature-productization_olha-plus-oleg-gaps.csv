@@ -1,0 +1,96 @@
+Area,Category,Feature,Bosch specific (can not be used elsewhere)?,"Nvidia cuOpt-specific (not relevant if other ""engine"" is used)?","Workforce optimization-specific? (only relevant to workforce optimization; not relevant to supply-chain, warehouse operations, route / fleet optimization)","Home / commercial services workforce specific? (Applicable to the industry where Bosch sits in; not applicable to Telco / Manufacturing/med equipment service / Utilities, etc.)"
+Optimization business rules,Work Zone Planning,Stable work zone assignment with temporary overrides,TRUE,FALSE,TRUE,TRUE
+,,Technician -> Work Zone allocation for 2-4 week horizon,FALSE,FALSE,TRUE,FALSE
+,Allocation,"Allocation rules (skills availabvility, distance, load etc)",TRUE,TRUE,TRUE,TRUE
+,,Low-demand work zones covered only selected weekdays,TRUE,FALSE,TRUE,FALSE
+,,One primary work zone + neighboring zones,TRUE,FALSE,TRUE,TRUE
+,,Reach the maximal load of the technician per day,TRUE,TRUE,FALSE,FALSE
+,,Existing work-zone philosophy,TRUE,FALSE,FALSE,FALSE
+,,Busy zones coverage,TRUE,FALSE,TRUE,FALSE
+,,Neighboring logic,TRUE,FALSE,TRUE,FALSE
+,Demand,Historical demand-based workforce allocation,FALSE,FALSE,TRUE,FALSE
+,Optimization,"Multi-objective optimization (productivity, waiting time, workload balance)",FALSE,TRUE,TRUE,FALSE
+,,Penalty/reward optimization,TRUE,TRUE,FALSE,FALSE
+,Constraints,Hard/soft constraint optimization,FALSE,TRUE,TRUE,FALSE
+,,Minimal disruption (Preserve current allocation where possible (minimal disruption),TRUE,FALSE,TRUE,TRUE
+,Skills,Specialist technicians crossing work-zone boundaries,TRUE,FALSE,TRUE,TRUE
+,Absence,Planned vacation reallocation,FALSE,TRUE,TRUE,FALSE
+,,Same-day sickness handling,FALSE,FALSE,FALSE,FALSE
+,Booking,Non-movable appointments / spare-part constraints,TRUE,FALSE,FALSE,FALSE
+,,,,,,
+Allocation approval workflow,Review,Compare baseline vs optimized allocation,FALSE,FALSE,TRUE,FALSE
+,,Dispatcher approve/reject recommendations,FALSE,FALSE,TRUE,FALSE
+,,Comments and export back to OFS,TRUE,FALSE,FALSE,TRUE
+,,,,,,
+KPIs,KPI,Productivity (Jobs / Technician / Day),FALSE,FALSE,TRUE,FALSE
+,,Capacity Utilization,FALSE,FALSE,TRUE,FALSE
+,,Travel Reduction,FALSE,FALSE,TRUE,FALSE
+,,Workload Balance,FALSE,FALSE,TRUE,FALSE
+,,,,,,
+UI,Vizualization,Map,FALSE,FALSE,TRUE,FALSE
+,,Table,TRUE,FALSE,FALSE,FALSE
+,,Upload,,,,
+,,,,,,
+Optimization modes,Roster mode,Allocation based on WZ to Tech based on historical data,TRUE,FALSE,TRUE,FALSE
+,Visits mode,Allocation absed on available visits,FALSE,TRUE,TRUE,FALSE
+,,Allocation based on current and historical visits,TRUE,FALSE,TRUE,FALSE
+,,,,,,
+,,,,,,
+"=== ADDED: in the Bosch product per Oleg's assessment, not covered in the list above (headings only; portability cells left blank to fill per your axes) ===",,,,,,
+Optimization business rules - Daily (visit) mode,Home location,"Technician home anchor + prefer-close tiered distance cost (HOME/NEIGHBOR/FAR/VERY_FAR + haversine)",,,,
+,Home location,Missing-location handling (warning / fallback) [partial],,,,
+,Work-zone allocation,Work zones defined by zip-code sets (WZ_Zip); demand drives zone -> tech allocation,,,,
+,Work-zone allocation,Multi-zone per tech-day up to a cap (MAX_ZONES_TD = 5),,,,
+,Work-zone allocation,Booking-date gate (no scheduling before a visit's booking date),,,,
+,Coverage,Forced coverage of all regular visits (primary hard guarantee),,,,
+,Objective (soft),Zone-open + extra-zone penalties (lean footprint),,,,
+,Objective (soft),Early-day scheduling bonus,,,,
+,Objective (soft),Regular-vs-historical visit priority bonuses,,,,
+Optimization business rules - Roster (standing weekly) mode,Presence,Minimum presence weekdays (>=1 staffed weekday per coverable zone; soft target 2-3),,,,
+,Coverage,Weekly demand coverage (soft; convex penalty tiers; real visits protected),,,,
+,Skill matching,Skill-coverage gap floor (roster a skill-holder per zone / skill-day),,,,
+,Fallback ladder,3-rung feasibility fallback (relax coverage / presence floors in a fixed order),,,,
+"Data ingestion, validation & cleaning",Input contract,"Fixed input-workbook schema (mandatory Visits/Calendars/Skills/TechLocation; optional WZ_Zip/WZ_Assignments/SpecialSkills)",,,,
+,Tolerant parsing,Header canonicalization + NULL-token vs empty-cell distinction + skip unparseable rows,,,,
+,Validation,"Input validation suite (per-column formats, cross-field logic, structural checks)",,,,
+,Validation,Country postcode/ZIP validators (NL / UK / US) with opt-in strict mode,,,,
+,Validation,Cross-sheet ID reference checks (non-blocking warnings),,,,
+,Error UX,"Fixable-message rejection (structured, actionable validation errors)",,,,
+,Cleaning (REJECT),Reject unserviceable pinned visits (no-calendar / ghost / over-capacity / absent / unskilled),,,,
+,Cleaning (REMOVE),"Remove unplannable data (ghost techs, no-zone visits, empty zones, excess history; keep >=1/zone)",,,,
+,Cleaning (CLAMP),Reallocate movable visits + clamp hours to 7/day + zero absences,,,,
+,Cleaning (demand),Visit-selection modes + demand trim to capacity (preserve >=1 visit per zone),,,,
+,Country config,Country/region gate & filename cross-check (supported NL / US / UK),,,,
+,Country config,"US-only ""drop SpecialSkills sheet"" quirk",,,,
+Scenarios & absence handling,Long-term absence,Per-day capacity feasibility gate -> baseline fallback (if roster can't absorb the absence),,,,
+Historical demand augmentation,Trigger,Historical top-up trigger (utilization < 95%),,,,
+,Source,"Per-country full-year historical asset files (NL / US / GB), cached server-side",,,,
+,Smoothing,"Multi-year weekday-aligned demand smoothing (anchor -364d, 3yr x +/-2wk)",,,,
+,Backfill,Uncovered-zone backfill (nearest-in-time historical visit),,,,
+,Integrity,"Real visits protected; demand capped at max(hist,current) then capacity; historical tagged & hidden",,,,
+Allocation approval workflow & pipeline,Persistence,"Client-side persistence of decisions & comments (localStorage; browser-local, not server-persisted)",,,,
+,Config selection,"Country/region selection + assignment-cost mode (tiered vs legacy, A/B)",,,,
+,Integration mode,File-batch output only; no live OFS API write-back,,,,
+"KPIs, metrics & reporting",Day-fill,"Day-fill simulation (seat each real visit: earliest staffed day on/after booking, least-loaded skilled available tech)",,,,
+,Coverage,Served / unserved counts with cause breakdown (no-presence gap / capacity loss / availability loss / not-in-demand),,,,
+,Footprint,"Roster footprint accounting (zone-days, tech-days, cells, technicians)",,,,
+,Demand summary,Demand-cut summary (actualDemandVisits / afterCutVisits / cutVisits),,,,
+,Coverage report,Coverage report & warnings (at-risk visits; uncovered / over-capacity / no-eligible-tech cells),,,,
+,Dashboard,Dashboard metrics bundle (capacity / productivity / wait; baseline vs optimized),,,,
+,Export,"e2e KPI Excel report (deltas, improvement coloring, diagnostics flattening)",,,,
+Output generation & integration,Roster fill,Past-same-calendar-day historical zone inference (1-4y) + default-zone fallback for unassigned tech-days,,,,
+Frontend / visualization,Zone map,"Technician markers + home -> zone arrows (working-only filter, stable color, assignment-type line styling)",,,,
+,,,,,,
+"=== ADDED (internal / engineering components) - present in the build but likely below product-scope altitude; delete this block if not needed ===",,,,,,
+Optimization business rules,Structural,"Structural bookkeeping constraints (visit-coverage link, zone activation/usage, one-zone-per-visit, every-zone-used, extra-zone counter)",,,,
+,Solver workaround,"VERY_FAR zones excluded in phase-1, auto re-enabled in phase-2 if infeasible",,,,
+,Structural (roster),Allocation-presence link & no-phantom coupling (a <= cap*(r+temp); a >= r),,,,
+Pipeline / infra,Orchestration,"Async job orchestration (job store, status polling, on-disk run artifacts with rotation)",,,,
+,Download,Download endpoint (job payload -> streamed .xlsx attachment),,,,
+,JSON contract,JSON output contract (assignedVisits / visitZones / summary),,,,
+Solver integration,Solver decode,"cuOpt engine invocation (CSR-matrix payload build, request, 120s / 1% MIP-gap stop)",,,,
+,Solver decode,cuOpt solver-variable decoding (x_*/b_* -> assignments & roster) + baseline fallback + status readout,,,,
+,Multi-run envelope,Multi-run result envelope unpacking (baseline / long-term / short-term blocks),,,,
+Output generation,Historical hygiene,Historical-visit stripping from output (JSON + recomputed summaries),,,,
+,Geometry,Postcode -> polygon builder + country shapefile loader + zone-centroid computation,,,,
+Frontend,Adapter,"Backend payload -> FE model adapter (dual baseline/optimized; coordinate normalization; synthetic ghost placements)",,,,
