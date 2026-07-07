@@ -8,7 +8,7 @@ HERE="$(cd "$(dirname "$0")" && pwd)"
 REPO_ROOT="$(cd "$HERE/../.." && pwd)"
 
 mkdir -p "$HERE/.work"
-chmod +x "$HERE"/notes_list.sh "$HERE"/notes_body.sh "$HERE"/notes_set_body.sh "$HERE"/run.sh
+chmod +x "$HERE"/notes_list.sh "$HERE"/notes_body.sh "$HERE"/notes_set_body.sh "$HERE"/archive_card.sh "$HERE"/run.sh
 
 echo "[setup] probing Apple Notes access (approve the Automation prompt if one appears) ..."
 "$HERE/notes_list.sh" >/dev/null
