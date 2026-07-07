@@ -6,11 +6,14 @@ _captured: 2026-07-07 · source: Alex's draft curriculum ([Google Sheet](https:/
 
 - The draft curriculum below is a **strict backbone**. **No extra modules, no extra topics.** Only **elaborate / evolve** the existing ones.
 - Elaborate the program text with methods/frameworks from Alex's course — **only where needed**, not abundantly.
-- Sessions are **2 hours**. Home assignments done in **3–4 groups**.
+- Sessions are **2 hours**. Home assignments done in **3–4 groups**, **~2–3 hours** each.
 - **Workshop-driven**: every lecture = "theory + Alex's examples + discussion on their examples"; workshops = collaborative exercises on the participants' own domain.
-- **Part-advisory**: the program should drive the org toward real decisions on how to transform (portfolio decisions, productization-level decisions, a transformation roadmap), not just teach.
+- **Part-advisory** (INTERNAL framing only — never named in the client doc): the program should drive the org toward real decisions on how to transform (portfolio decisions, productization-level decisions, a transformation roadmap), not just teach.
 - The **final session = defining next steps**.
-- The curriculum lives **inside the offer docx**, not as a separate file.
+- The curriculum lives **inside the offer docx** — as a detailed program table in a **landscape addendum** after the portrait core (core ≤3 pages, table ≤4 pages).
+- **Offer voice & mirroring** (Alex, 2026-07-07): third person only ("the instructor", never I/we); don't echo the client's brief verbatim — restate it and add Alex's educated read of the typical services-org challenge (moderate inference, no SoftServe internals).
+- **M6 (AI) practical work**: workshop + homework are about **AI-powered PM** (agents/skills/context systems accelerating the participants' own PM work — focus areas + first experiments), NOT about embedding AI into the asset or evals/guardrails. Evals & governance stay as a demo/seminar topic only.
+- **Before the program**: discovery call (needs, situation, expectations) + information request (products/services/accelerators/initiatives participants work on now — feeds workshops, homework, and working-asset selection). Stated in the offer's Next steps + Pre-work.
 
 ## Source draft curriculum (verbatim structure)
 
@@ -37,9 +40,9 @@ Module topics (verbatim, condensed):
 
 ## Workshops: given vs. designed-by-me
 
-- **Given by Alex** (I elaborated): M1 portfolio inspection; M2 offer→hypotheses; M6 AI focus-areas; M7 transformation brainstorm.
-- **Theme given, detailed by me**: M3 "3 defining workshops" → detailed as Product Map pt.1 (customer & problem), Product Map pt.2 (solution/alternatives/business value), Discovery & validation planning.
-- **Designed by me** (no format specified): M4 platformization & packaging clinic; M5 adoption & roadmap workshop.
+- **Given by Alex** (elaborated by agent): M1 portfolio inspection; M2 offer→hypotheses; M6 AI-powered-PM focus areas (per the 2026-07-07 correction: PM-workflow acceleration, not AI-in-the-asset); M7 transformation brainstorm.
+- **Theme given, detailed by agent**: M3 "3 defining workshops" → detailed as Product Map pt.1 (customer & problem), Product Map pt.2 (solution/alternatives/business value), Discovery & validation planning.
+- **Designed by agent** (no format specified): M4 platformization & packaging clinic; M5 adoption & roadmap workshop.
 
 ## Take-home model (added by me, from PrivatBank pattern)
 
