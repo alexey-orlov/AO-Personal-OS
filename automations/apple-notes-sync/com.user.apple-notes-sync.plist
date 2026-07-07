@@ -9,12 +9,19 @@
     <string>/bin/bash</string>
     <string>__REPO__/automations/apple-notes-sync/run.sh</string>
   </array>
-  <!-- Every 30 min; run.sh exits instantly when the queue is empty.
-       Mac asleep → launchd skips; next wake catches up. -->
-  <key>StartInterval</key>
-  <integer>1800</integer>
-  <key>RunAtLoad</key>
-  <true/>
+  <!-- Once daily at 08:00 local. run.sh exits instantly when the queue is empty
+       and snapshots are fresh, so most days it opens nothing; it only activates
+       Notes when there's a queued card or a stale snapshot. Mac asleep at 08:00 →
+       launchd runs it once on next wake (StartCalendarInterval catch-up). No
+       RunAtLoad on purpose: that would fire a Notes-activating run at every
+       login/reload, which is exactly what we're avoiding. -->
+  <key>StartCalendarInterval</key>
+  <dict>
+    <key>Hour</key>
+    <integer>8</integer>
+    <key>Minute</key>
+    <integer>0</integer>
+  </dict>
   <key>StandardOutPath</key>
   <string>__REPO__/automations/apple-notes-sync/.work/launchd.log</string>
   <key>StandardErrorPath</key>
