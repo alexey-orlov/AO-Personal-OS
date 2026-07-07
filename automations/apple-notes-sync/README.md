@@ -9,7 +9,7 @@ the Apple Notes **`_ToDo`** folder — not in repo markdown files (the old
 📥 Drop Zone ─▶ n8n capture ─▶ context/_inbox/ ─▶ daily cloud fold (context-update)
         A-type drops (goal/task/insight) ─▶ queue cards in context/_inbox/apple-notes/
                                                       │  (cloud can't reach Apple Notes)
-   THIS automation (launchd, every 30 min, this Mac) ◀┘
+   THIS automation (launchd, daily at 08:00, this Mac) ◀┘
         ─▶ insert item into the matching _ToDo note (bullet, "📥" suffix)
         ─▶ refresh note snapshots → context/areas/<area>/apple-notes/<slug>.md
 ```
@@ -32,8 +32,11 @@ wait if the laptop is closed — nothing is lost.
   path: scoped to `_ToDo`, refuses notes with native-checklist markup, backs up
   body + plaintext to `.work/backups/` before every write, prints post-write
   plaintext for verification.
-- `com.user.apple-notes-sync.plist` + `setup.sh` — launchd install (every 30 min +
-  at load; idle runs are free — no Claude invocation).
+- `com.user.apple-notes-sync.plist` + `setup.sh` — launchd install (daily at 08:00,
+  with wake catch-up; idle runs are free — no Claude invocation, Notes not opened).
+  Blocked-on-Accessibility cards are parked in `context/_inbox/apple-notes/_blocked/`
+  (out of the `-maxdepth 1` queue glob) so they don't force a run every cycle — see
+  that folder's `README.md` to unblock.
 
 ## Platform constraints (why it works the way it does)
 

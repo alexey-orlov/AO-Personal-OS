@@ -20,5 +20,5 @@ sed "s|__REPO__|$REPO_ROOT|g" "$PLIST_SRC" >"$PLIST_DST"
 
 launchctl bootout "gui/$(id -u)" "$PLIST_DST" 2>/dev/null || true
 launchctl bootstrap "gui/$(id -u)" "$PLIST_DST"
-echo "[setup] launchd agent installed: com.user.apple-notes-sync (every 30 min)"
+echo "[setup] launchd agent installed: com.user.apple-notes-sync (daily at 08:00)"
 echo "[setup] logs: $HERE/.work/launchd.log"

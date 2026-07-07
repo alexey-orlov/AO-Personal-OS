@@ -3,7 +3,7 @@
 # cards from context/_inbox/apple-notes/ into Alex's pinned Apple Notes (_ToDo
 # folder), then refresh the per-area note snapshots in the repo.
 #
-# Invoked by launchd every 30 min (com.user.apple-notes-sync). Cheap when idle:
+# Invoked by launchd once daily at 08:00 (com.user.apple-notes-sync). Cheap when idle:
 # exits before touching Claude unless the queue has cards or snapshots are stale.
 # The cloud fold (claude.ai routine) WRITES the queue; only this Mac can reach
 # Apple Notes, so this is deliberately a local launchd job, not a cloud routine.
