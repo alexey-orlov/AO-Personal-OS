@@ -12,6 +12,18 @@ _captured: 2026-07-07 · source: Alex's draft curriculum ([Google Sheet](https:/
 - The **final session = defining next steps**.
 - The curriculum lives **inside the offer docx** — as a detailed program table in a **landscape addendum** after the portrait core (core ≤3 pages, table ≤4 pages).
 - **Offer voice & mirroring** (Alex, 2026-07-07): third person only ("the instructor", never I/we); don't echo the client's brief verbatim — restate it and add Alex's educated read of the typical services-org challenge (moderate inference, no SoftServe internals).
+- **v3 comment-pass rules (Alex's Word comments, 2026-07-07):**
+  - SoftServe is **expanding**, not "moving" from services — repeatable IP + productized value-based offers as response to customer expectations / competitive edge. Admit **multiple productization scenarios** (product / tech enabler / productized service), never one ideal case.
+  - No "in the instructor's experience" or salesy framing in context; framing line = "**bespoke leadership training and transformation program**".
+  - The group's working item is a "**product**", never "asset" (asset stays only as portfolio-category vocabulary). Working products selected **by program start**, not in Module 1.
+  - Home assignments: classic homework with written feedback **or preparatory work for the next session** — NO facilitated-live-session option.
+  - Workshops: "in groups or all together"; outcome = PM artifact **or** decisions/action items/ideas.
+  - Seminars may include review of typical questions + good/bad examples from preceding homework.
+  - No "demo" at summary level (glance table, legend, counts) — M6's live demo appears only inside module-6 topics. No word "clinic".
+  - No em-dashes (use ":" or "-"); "customers", never "users" (b2c keyword); "<>" not "↔"; no bank-precedent bullet; no internal reference pricing in the doc.
+  - Addendum = 4 columns (Module / Topics / Workshop / Home assignment; Sessions column removed as redundant, "Topics" not "Topics & key frameworks") + explicit "preliminary, adjusted after discovery call + info request" note.
+  - Instructor bio: Creatio → Jooble → GigaCloud order + fractional-engagements bullet + SoftServe R&D advisory bullet (Alex chose to disclose the role).
+  - **Price: €44,000** (decided 2026-07-07).
 - **M6 (AI) practical work**: workshop + homework are about **AI-powered PM** (agents/skills/context systems accelerating the participants' own PM work — focus areas + first experiments), NOT about embedding AI into the asset or evals/guardrails. Evals & governance stay as a demo/seminar topic only.
 - **Before the program**: discovery call (needs, situation, expectations) + information request (products/services/accelerators/initiatives participants work on now — feeds workshops, homework, and working-asset selection). Stated in the offer's Next steps + Pre-work.
 
