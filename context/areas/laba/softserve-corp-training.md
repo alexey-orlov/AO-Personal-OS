@@ -37,7 +37,7 @@ A **workshop-driven** corporate training on Product Management & product mindset
 
 ## Open loops (Alex's decisions)
 
-- **Pricing** — not invented. Offer carries a marked placeholder + a recommendation anchored to the PrivatBank course (€14,900 for 22 sessions / larger group / homework-checking). Fewer but more senior participants + more advisory/customization + 2h sessions → similar-or-higher total. Alex + Laba to set the final number and split.
+- **Pricing** — market-researched from scratch 2026-07-07 (see [pricing-research.md](docs/softserve-corp-training/pricing-research.md)). Same program = ~€15k in a UA frame vs. ~$90–110k in a US frame; positioning (not content) sets which applies, and selling _through Laba_ caps the credible ask. Three tiers: **A** UA-commodity €15–18k (floor, avoid — = the old PrivatBank number), **B** premium-blended €40–55k (**recommended opening ask**; ~$3k/participant = one Reforge seat), **C** US specialist-advisory $75–120k (stretch, needs US/global budget + transformation mandate). Rec: open ~€50k, floor ~€30–35k. Offer keeps `[€ — to be confirmed]`. Alex + Laba to set the number **and** the split (Laba prices client-facing + takes a cut).
 - **Contracting entity / branding** — offer authored as Alex's program (like PrivatBank). If Laba must be the contracting brand, the cover + commercials adjust.
 - **Delivery mode** — assumed online/live (distributed audience). Confirm.
 - **Audience products** — need SoftServe to supply the list of assets/services participants own, to jointly pick the 3–4 course-long working assets (mirrors the PrivatBank product-selection step).
