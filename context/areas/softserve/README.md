@@ -1,7 +1,7 @@
 # SoftServe — R&D advisory & product lead (part-time)
 
 _status: ramping in — part-time (~50–80 h/mo from Ukraine): product lead for the R&D Delivery Unit + agentic-AI SME; full-time possible after US move_
-_updated: 2026-07-06_
+_updated: 2026-07-07_
 _source files: local `~/Documents/Documents/SoftServe` (this Mac only) → [registry](../../_meta/external-sources.md)_
 
 ## Snapshot
@@ -69,6 +69,7 @@ Theirs (engagement lead):
 
 ## Activity
 
+- 2026-07-07 — [WfO pack feature-classification working session](calls/oracle/2026-07-07_222059_default_20260707091040BC4E37CC.md) — team split the Bosch scheduling-product features into Bosch-specific / reusable / QOpt-specific (Alex's Jul-1 deliverable): business logic hardcoded → per-client custom, UI + approval workflow most reusable but Work-Zone-bound, QOpt/NVIDIA swappable, Oracle's own package largely unused; Alex to distill a stakeholder summary → [oracle](oracle.md).
 - 2026-07-06 — [R&D H1 strategic session](calls/2026-07-06_172238_default_20260706153858763EF88E.md) — Bohdan-led leadership offsite (16 attendees): retrospective + 2027 North Star (double to ~$30M, ≥60% net-new, 60%+ margin, ~5–6 bets) + Amazon-style backcast Miro workshop; new net-new/growth KPI model; operating principles (ownership, velocity, T-shaped, AI-native personal "AI wikis"); Alex raised team-level AI context as the fix for AI "slop".
 - 2026-07-01 — [Puket (Pulkit) POC walkthrough](calls/oracle/2026-07-01_200832_default_20260701190225719D2348.md) — new Oracle packs PM Pulkit took over from Vishnu (Jun-23 reorg now in effect) and was walked through the two live POCs; Bosch (cuOpt) in an operator-rejection iteration loop, both POCs blocked on the path to production; packs judged ~1 week of savings → investment gated on repeat demand; Alex to prep a standard-vs-custom split for the WfO pack → [oracle](oracle.md).
 - 2026-06-26 — [Oracle packaging session with Gero (S/M/L "t-shirt" packages)](calls/oracle/2026-06-26_sales-call_gero-tshirt-packaging.md) — Gero co-designed the S/M/L model live (integration-depth tiers, S & L optional), anchored to Oracle Fusion Apps with Bosch/OFS as "step zero"; complex cases (RIAD/VSS) stay opportunistic; SoftServe sends the model as Excel, Gero owes CSS "Activate AI" packages + AIDP pricing → [oracle](oracle.md) · [refined model](docs/oracle-packages-tshirt-sizing.md).
@@ -78,4 +79,3 @@ Theirs (engagement lead):
 - 2026-06-23 — [AIDP pitch strategy call](calls/oracle/2026-06-23_190622_default_2026062315031101B18AE2.md) — pitch SoftServe as Oracle's ready-now AIDP delivery partner via a big-data pod model → monthly recurring revenue; surfaced **Neil** (above Gero; halted Oracle's internal staffing); Alex owns the AI-use-case pod definition, draft for week of Jun 29 → [oracle](oracle.md).
 - 2026-06-18 — [Onboarding call: Oracle productization workstream](calls/oracle/2026-06-18_144751_sales-call_2026061814320114A9106F.md) — Karsten onboards Alex into the accelerator/productization scaling workstream; Gero confirmed as owner of prioritization/scope/platform-direction questions, discovery call being set up; new open questions (NVIDIA-vs-OCI platform, rumored internal Oracle accelerator) → [oracle](oracle.md).
 - 2026-06-17 — [R&D cross-team update: Oracle GTM + R&D IP showcase](calls/oracle/2026-06-17_180940_default_20260617170801ABB6DADE.md) — SoftServe positioned as Oracle's primary partner of choice (~10 new accounts via Oracle's motion); 5 Oracle+NVIDIA cases shown; plus data-science IP wins (Siemens Energy, APA Insights Platform phase 1, Agents for Everything, MS/Teams delivery assistant) → [oracle](oracle.md).
-- 2026-06-16 — [First Oracle call: Bosch cuOpt POC tech sync](calls/oracle/2026-06-16_191926_sales-call_202606161831156E88BEC4.md) — Bosch ↔ Oracle/NVIDIA debug on GPU 2 cuOpt failures; tenancy extended to 2026-08-26 → [oracle](oracle.md).
