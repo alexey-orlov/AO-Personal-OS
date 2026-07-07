@@ -46,4 +46,5 @@ A **workshop-driven** corporate training on Product Management & product mindset
 
 - [brief.md](docs/softserve-corp-training/brief.md) — client brief (verbatim + parameters).
 - [curriculum-source.md](docs/softserve-corp-training/curriculum-source.md) — Alex's strict draft curriculum + design constraints + workshop given/designed map + take-home model.
+- [pricing-research.md](docs/softserve-corp-training/pricing-research.md) — UA + US market pricing research (4 streams), the 3-tier recommendation, and the levers/caveats behind it.
 - Reference: PrivatBank "PB PM Course" Google Drive folder (offer, program, homework, decks); SoftServe R&D strategy materials (local `~/Documents/Documents/SoftServe/Strategy/`, background only); Eisha Armstrong _Productize_ / _Commercialize_.
