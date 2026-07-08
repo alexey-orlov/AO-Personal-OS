@@ -1,0 +1,56 @@
+{
+  "schema": 1,
+  "generatedAt": "2026-07-08T04:02:45.319Z",
+  "runStamp": "20260708T0402",
+  "episodes": [
+    {
+      "videoId": "Mxs4erDxOEE",
+      "videoTitle": "Software in the Age of Agents | The a16z Show",
+      "videoUrl": "https://www.youtube.com/watch?v=Mxs4erDxOEE",
+      "channelName": "a16z",
+      "publishedDate": "2026-07-07",
+      "guests": [
+        "Sema",
+        "Stephen"
+      ],
+      "summary": "The conversation explains how the rise of agent-driven interfaces and 'headless' products is changing what matters in software: data and business logic rather than UIs. It argues that agents expose gaps—context, exception handling, permissioning—that incumbents' systems of record (CRM, ERP, SAP) weren't designed to capture, and that startups should build in-between layers or vertical, context-rich products rather than try to rip out core enterprise systems. The throughline is pragmatic: headless APIs alone don't solve the hard long tail of enterprise work; capturing context and handling exceptions is.",
+      "insights": [
+        {
+          "headline": "Headless products surface data/logic as the real product",
+          "detail": "Recent announcements like Salesforce's 'headless 360' are largely rebrands of existing APIs, but they signal a shift: the valuable asset is the underlying data and business logic, not the human-facing UI. That matters because agents (chatbots, Slackbots, MCPs) will access systems via APIs or messaging rather than clicking through screens, so vendors need to expose reliable programmatic access while preserving business rules. Notion's headless move is a clearer example because its users are more likely to build agentic workflows themselves.",
+          "anchorQuote": "the data, the logic, everything stored below it",
+          "tSeconds": 179,
+          "link": "https://www.youtube.com/watch?v=Mxs4erDxOEE&t=179"
+        },
+        {
+          "headline": "Agents fall into three functionally different categories",
+          "detail": "An agent can (1) look something up (a lightweight read), (2) 'do something' (write/change, which triggers impersonation, credential and seat/licensing issues), or (3) analyze (multi-system, iterative work that amplifies hallucination risk). These categories change the engineering and product requirements: lookups are forgiving, actions require identity/permission models, and analyses need verification and multi-source grounding because incorrect steps compound. Treating all agent interactions as equivalent (just another API) hides these distinct safety and UX problems.",
+          "anchorQuote": "Is it looking something up? Because that's actually",
+          "tSeconds": 474,
+          "link": "https://www.youtube.com/watch?v=Mxs4erDxOEE&t=474"
+        },
+        {
+          "headline": "Enterprise stickiness comes from embedded workflows, money collection, and compliance",
+          "detail": "Software becomes 'sticky' not merely because of UIs but because it codifies workflows, regulatory constraints, billing flows, and money collection—Stripe succeeded by solving payments complexity at scale, SAP is sticky because it encodes business rules for manufacturing and compliance. That embedded logic, customizations, and the fact that companies actually send money through these systems make displacement costly and slow. So agents may change access patterns but can't trivially replace the domain logic that runs the business.",
+          "anchorQuote": "the stickiest software is software that's getting used somewhere",
+          "tSeconds": 736,
+          "link": "https://www.youtube.com/watch?v=Mxs4erDxOEE&t=736"
+        },
+        {
+          "headline": "Agents require external context and exception handling beyond records",
+          "detail": "CRMs and ERPs often lack the informal rules and edge-case policies in humans' heads—region-specific responses, permission exceptions, and ad hoc SOPs—that agents must observe to act correctly. The panel argues this context graph (exception logic, permission rules, and nuance) is what agents need to act autonomously; capturing it requires instrumenting conversations, voice agents, or observing human workflows over time. That data exhaust is slower and messier than API reads, so trust and incremental evidence accumulation matter for adoption.",
+          "anchorQuote": "It's the edge cases and the permissioning",
+          "tSeconds": 1763,
+          "link": "https://www.youtube.com/watch?v=Mxs4erDxOEE&t=1763"
+        },
+        {
+          "headline": "Middleware/abstraction layers rarely displace incumbents directly",
+          "detail": "An intermediate layer that merely abstracts multiple enterprise systems (MCPs, headless stacks) often fails because incumbents are incentivized to remain central and to extend their product rather than be disintermediated. The safer startup paths are: augment incumbents with agentic overlays that enhance discovery and action, target the handoffs between functions inside companies, or attack verticals where physical-world data and context are poorly captured today. History and examples (Workday/APIs, SAP, the unstable middleware market) show that being 'in between' or vertical is more actionable than a head-on replacement.",
+          "anchorQuote": "no software wants to be disintermediated by some other layer above it",
+          "tSeconds": 2826,
+          "link": "https://www.youtube.com/watch?v=Mxs4erDxOEE&t=2826"
+        }
+      ]
+    }
+  ]
+}
