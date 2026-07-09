@@ -1,7 +1,7 @@
 # Laba × SoftServe — PM & product-mindset corporate training
 
 _status: offer stage — offer v3 built 2026-07-07 (Alex's 20 Word comments applied + €44,000 price + "bespoke leadership training and transformation program" framing); pending delivery-mode/branding confirmation_
-_updated: 2026-07-07_
+_updated: 2026-07-09_
 
 ## What this is
 
@@ -33,7 +33,8 @@ A **workshop-driven** corporate training on Product Management & product mindset
 
 ## Deliverable
 
-- [docs/softserve-corp-training/SoftServe_PM_Product_Training_Offer_v3.docx](docs/softserve-corp-training/SoftServe_PM_Product_Training_Offer_v3.docx) — **current version** (English): 3-page portrait core (context reframed as *expansion* toward repeatable IP / productized value-based offers, multi-scenario productization, de-salesed; goal; audience; formats; at-a-glance; duration; instructor with fractional + SoftServe R&D bullets, Creatio→Jooble→GigaCloud order; included+investment **€44,000**; next steps) + 3-page landscape **Addendum A: Detailed program** (4 columns: module × topics × workshop × home assignment; "preliminary, adjusted after discovery + info request" note). Framing line: "A bespoke leadership training and transformation program". No em-dashes, no "users"/"clinic"/"demo"-at-summary, no bank-precedent or reference-price mentions. Page counts verified via HTML-twin → headless-Chrome render. Alex exports PDF himself.
+- [docs/softserve-corp-training/SoftServe_PM_Product_Training_Offer_v3.docx](docs/softserve-corp-training/SoftServe_PM_Product_Training_Offer_v3.docx) — **current version** (English): 3-page portrait core (context reframed as *expansion* toward repeatable IP / productized value-based offers, multi-scenario productization, de-salesed; goal; audience; formats; at-a-glance; duration; instructor with fractional + SoftServe R&D bullets, Creatio→Jooble→GigaCloud order; included+investment **€44,000**; next steps) + 3-page landscape **Addendum A: Detailed program** (4 columns: module × topics × workshop × home assignment; "preliminary, adjusted after discovery + info request" note). Framing line: "A bespoke leadership training and transformation program". No em-dashes, no "users"/"clinic"/"demo"-at-summary, no bank-precedent or reference-price mentions. Page counts verified via HTML-twin → headless-Chrome render.
+- [docs/softserve-corp-training/PM training program - SoftServe.docx](<docs/softserve-corp-training/PM training program - SoftServe.docx>) + [.pdf](<docs/softserve-corp-training/PM training program - SoftServe.pdf>) — client-facing-named copy of v3, PDF exported by Alex 2026-07-09 (content identical to v3 — same deliverable, ready to send).
 - `docs/softserve-corp-training/SoftServe_PM_Product_Training_Offer.docx` — **v2 with Alex's 20 review comments** (all applied in v3; kept for the comment record, also in git history). Safe to delete once v3 is confirmed.
 
 ## Open loops (Alex's decisions)

@@ -1,3 +1,4 @@
+context/_inbox/processed/tg-20260708-174023-197.md
 context/_inbox/tg-20260611-190724-14.md
 context/_inbox/tg-20260611-190755-15-photo.jpg
 context/_inbox/tg-20260611-190755-15.md
@@ -50,11 +51,14 @@ context/areas/job-search/calls/vacancy-interviews/archive-resale/2026-05-22_2239
 context/areas/job-search/calls/vacancy-interviews/archive-resale/2026-05-22_224625_interview_20260423203149112E481A.md
 context/areas/job-search/calls/vacancy-interviews/zipify/2026-06-02_181532_interview_202606021729498781C179.md
 context/areas/job-search/docs/archive-resale-case-presentation-transcript.md
+context/areas/laba/docs/softserve-corp-training/PM training program - SoftServe.docx
+context/areas/laba/docs/softserve-corp-training/PM training program - SoftServe.pdf
 context/areas/laba/docs/softserve-corp-training/SoftServe_PM_Product_Training_Offer.docx
 context/areas/laba/docs/softserve-corp-training/SoftServe_PM_Product_Training_Offer_v3.docx
 context/areas/laba/docs/softserve-corp-training/brief.md
 context/areas/laba/docs/softserve-corp-training/curriculum-source.md
 context/areas/laba/docs/softserve-corp-training/pricing-research.md
+context/areas/laba/docs/softserve-corp-training/~$ training program - SoftServe.docx
 context/areas/other/calls/2026-05-24_163308_default_202605241023515D3845EE.md
 context/areas/other/calls/2026-06-08_195244_default_20260608195200.md
 context/areas/other/calls/2026-06-08_200648_default_20260608200558.md
