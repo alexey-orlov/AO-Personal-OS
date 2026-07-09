@@ -1,0 +1,231 @@
+{
+  "schema": 1,
+  "generatedAt": "2026-07-09T04:03:59.885Z",
+  "runStamp": "20260709T0403",
+  "episodes": [
+    {
+      "videoId": "ASWZHVpblA0",
+      "videoTitle": "Agents Didn't Kill Sales. They Just Exposed It with SaaStr CEO and Founder Jason Lemkin",
+      "videoUrl": "https://www.youtube.com/watch?v=ASWZHVpblA0",
+      "channelName": "SaaStr AI",
+      "publishedDate": "2026-07-07",
+      "guests": [],
+      "summary": "Jason Lemkin walks a room through how generative agents and AI are changing B2B SaaS: they don't simply replace salespeople but reveal broken processes, accelerate product cycles, and force new hiring and GTM practices. He gives concrete advice on planning cadence, where to hire GTM talent, which sales tasks agents already outperform humans at, and how to judge AI 'slop' versus value. He also sketches implications for engineering hiring and what VCs care about today.",
+      "insights": [
+        {
+          "headline": "Agents expose weaknesses in sales orgs rather than eliminate demand",
+          "detail": "Agents can do repetitive, always-on work (they don't argue or take vacations) and they push a company much harder and faster than humans, which surfaces gaps in product, processes, and capacity. Lemkin describes an internal AI VP of marketing that floods the team with daily ideas and agents that 'yell' when campaigns fall behind—that pressure reveals where orgs lack product-readiness, scalable onboarding, or knowledgeable reps. The net result: agents highlight what must change, and failing to adapt (e.g., keeping low-skill BDR roles) risks poor customer experiences, not just job replacement.",
+          "anchorQuote": "we all get more agentic, we're going to have",
+          "tSeconds": 188,
+          "link": "https://www.youtube.com/watch?v=ASWZHVpblA0&t=188"
+        },
+        {
+          "headline": "Shift planning from long cycles to weekly, product-driven iteration",
+          "detail": "Lemkin argues that traditional quarterly or annual planning worked when products and markets were stable (e.g., 2021's boom), but in an AI-driven era products change weekly and market pull can appear overnight. Fastest-growing CEOs now plan weekly and prioritize shipping product faster over long planning rituals; if you need more reps you hire immediately rather than rework multi-quarter plans. The practical implication is to put planning time into building product velocity and responsiveness, not elaborate forecasts that will be stale.",
+          "anchorQuote": "they'd say we plan weekly now",
+          "tSeconds": 389,
+          "link": "https://www.youtube.com/watch?v=ASWZHVpblA0&t=389"
+        },
+        {
+          "headline": "Hire your GTM engineer from internal 'tool nerd' talent, not job boards",
+          "detail": "Lemkin recommends promoting an existing curious marketer who already hacks tools (Zapier, dashboards, integrations) into the GTM engineer role rather than posting externally and getting poor candidates. He notes these people already understand internal workflows, have built useful automations, and adapt quickly to new agentic tools—skills that didn't exist a year ago. Only look externally if no one inside the marketing team can play that role, because internal knowledge reduces ramp time and vendor-lock friction.",
+          "anchorQuote": "Find your find your tool nerd that hacks marketing tools",
+          "tSeconds": 559,
+          "link": "https://www.youtube.com/watch?v=ASWZHVpblA0&t=559"
+        },
+        {
+          "headline": "In narrow GTM tasks, agents already outperform top humans",
+          "detail": "Lemkin gives concrete examples where agents do better than humans: Replit-built outbound emails combined with analytics produced outreach he called superior to any human, and the Qualified bot scheduled 682 high-quality meetings—more and better than typical BDRs. Agents excel where scale, real-time data synthesis, or deep matching are required (targeted outbound, instant inbound qualification, social-help that analyzes an account issue). The strategy then is to find those pockets where agents can exceed 100% of human performance, not merely replicate 80% of a rep.",
+          "anchorQuote": "clearly better than any human can do",
+          "tSeconds": 1369,
+          "link": "https://www.youtube.com/watch?v=ASWZHVpblA0&t=1369"
+        },
+        {
+          "headline": "Hallucination ('slop') is real but value-to-slop is rapidly improving",
+          "detail": "Lemkin acknowledges hallucinations and early software bugs, but says the ratio of practical value to slop is improving every week; many new AI products already offer capabilities that were impossible months ago. He recommends measuring value versus slop and tolerating early imperfections when the upside is large—guardrails, training, and product maturity will reduce slop over time. Examples include improved LinkedIn auto-comments and marketing agents that are already useful despite micro-hallucinations, and the expectation that quality will materially improve in months.",
+          "anchorQuote": "The ratio of value to slop for us is is is improving",
+          "tSeconds": 1046,
+          "link": "https://www.youtube.com/watch?v=ASWZHVpblA0&t=1046"
+        }
+      ]
+    },
+    {
+      "videoId": "ofS-4RRw9zw",
+      "videoTitle": "How to build a custom AI harness with Claude SDK",
+      "videoUrl": "https://www.youtube.com/watch?v=ofS-4RRw9zw",
+      "channelName": "How I AI",
+      "publishedDate": "2026-07-08",
+      "guests": [],
+      "summary": "The host explains what an AI \"harness\" is — simply code wrapped around an AI agent to make it reliably useful for a specific workflow — and then walks through building one using the Claude Agent SDK. He demos a concrete harness that triages and investigates Sentry bug reports, describes its architecture (TUI, adapters, artifact store, integrations), and gives practical guidance on when and how to build a harness. The central argument: constrain and codify repetitive workflows around models to get consistent, auditable, and automatable outcomes rather than relying on ad-hoc prompts.",
+      "insights": [
+        {
+          "headline": "A harness is code wrapped around an AI agent",
+          "detail": "The video defines a harness as programming that surrounds an AI agent to make it more effective for a specific use case. That wrapper can be non-AI code (connectors, UI, permissions) or include AI components, but its purpose is to enforce context, allowed actions, and expected outcomes so the model behaves consistently. Understanding a harness this way demystifies terms like \"codec\" or \"cloud code\"—they're just larger, opinionated harnesses for coding workflows.",
+          "anchorQuote": "A harness is some code around an AI agent.",
+          "tSeconds": 146,
+          "link": "https://www.youtube.com/watch?v=ofS-4RRw9zw&t=146"
+        },
+        {
+          "headline": "Constrain agents to get predictable, repeatable outcomes",
+          "detail": "Rather than using a general-purpose coding assistant, the creator built a harness so the agent follows a precise workflow (investigate-only or edit-enabled), only calls approved tools, and produces structured artifacts each run. The Sentry bug-triage harness demonstrates this: paste a Sentry link, the harness gathers evidence, ranks root-cause hypotheses, decides whether to open a Linear ticket, and outputs an HTML/worker report—so the same steps happen every time without hand-holding. That prescriptive control reduces variability and enables auditability for operational tasks.",
+          "anchorQuote": "you can be really prescriptive about what tools it's allowed to do",
+          "tSeconds": 421,
+          "link": "https://www.youtube.com/watch?v=ofS-4RRw9zw&t=421"
+        },
+        {
+          "headline": "Build the harness around concrete adapters and an artifact store",
+          "detail": "The implemented harness uses the Claude Agent SDK as the core, opinionated adapters for Sentry, Linear, GitHub and Vercel, and an artifact store that saves evidence and run outputs for future runs. Those adapters limit what data the agent sees (e.g., selected Sentry fields), and the artifact store records investigation briefs, logs, worker actions, and an HTML summary so humans and future agent runs have persistent context. This architecture makes investigations reproducible and lets the harness reuse prior evidence.",
+          "anchorQuote": "it can create its own artifacts in its file store.",
+          "tSeconds": 727,
+          "link": "https://www.youtube.com/watch?v=ofS-4RRw9zw&t=727"
+        },
+        {
+          "headline": "Be extremely specific when designing and prompting a harness",
+          "detail": "From the speaker's experience, creating a reliable harness requires writing down the exact workflow, choosing precise data sources, encoding required outputs, and declaring what tools or permissions are allowed. He tried dueling model/code assistants (Claude Code, Codec, Codex) and found prompts and SDK choice matter; Codex produced the best agent scaffolding but the implementation used the Claude Agent SDK—illustrating that building a harness is about workflow design as much as model selection. The practical takeaway: small, opinionated codebases (a few files and adapters) plus tests on real data are enough to get production value.",
+          "anchorQuote": "I would be very specific about the workflow.",
+          "tSeconds": 871,
+          "link": "https://www.youtube.com/watch?v=ofS-4RRw9zw&t=871"
+        }
+      ]
+    },
+    {
+      "videoId": "xpeRVyFFy_Q",
+      "videoTitle": "How A Prototype Built During A Missed Flight Became A New Gusto Product",
+      "videoUrl": "https://www.youtube.com/watch?v=xpeRVyFFy_Q",
+      "channelName": "Y Combinator",
+      "publishedDate": "2026-07-08",
+      "guests": [
+        "Eddie (Gusto)"
+      ],
+      "summary": "The episode explains how Gusto's Co‑founder product started as a five‑hour prototype built during a missed flight and evolved into a data‑driven automation platform for small businesses. The core argument is that combining agentic LLM workflows with Gusto's existing customer data and a chat/SMS interface makes routine business processes (payroll, time approvals, niche tasks) far easier to automate, speeds product development, and unlocks proactive business help like tax credits.",
+      "insights": [
+        {
+          "headline": "A five‑hour airport prototype launched a major product",
+          "detail": "The founder used Cloud Code during a five‑hour missed‑flight layover to build a working prototype and brought it back to the team for rapid refinement. That single prototype was the seed for Gusto Co‑founder; after internal demos and a few weeks of iteration it entered development. The story highlights how hands‑on, fast prototyping with LLM tooling can turn an idea into a company feature much faster than traditional spec‑driven routes.",
+          "anchorQuote": "actually built a prototype of this um",
+          "tSeconds": 507,
+          "link": "https://www.youtube.com/watch?v=xpeRVyFFy_Q&t=507"
+        },
+        {
+          "headline": "Shifted from open‑ended app builder to data‑driven automations",
+          "detail": "The initial prototype generated CRUD web apps styled with Gusto's design system but didn't leverage customer data, so the team pivoted to automations that use Gusto's system‑of‑record data. By combining prompts with knowledge of a customer's industry and activity, Co‑founder creates scheduled workflows (e.g., payroll prep, time approvals) that run on triggers rather than leaving a blank canvas to the user. That change made automations practical for recurring SMB tasks and reduced cost/uncertainty by choosing cron triggers when appropriate.",
+          "anchorQuote": "build any kind of like CRUD based web app",
+          "tSeconds": 651,
+          "link": "https://www.youtube.com/watch?v=xpeRVyFFy_Q&t=651"
+        },
+        {
+          "headline": "Chat/SMS is a superior, low‑friction interface for SMB automation",
+          "detail": "Hands‑on experience with OpenClaw/Telegram convinced the team that conversation is often a better UI than a full web app—users can trigger workflows and approve results by SMS or Slack. Early users repeatedly told them the ability to run payroll or approvals from a text message was transformative because it fits into existing weekly routines and lowers friction. Gusto launched Co‑founder to 500 customers and saw enthusiastic uptake driven by the simplicity of text‑first interactions.",
+          "anchorQuote": "this is such a way better experience to like interact",
+          "tSeconds": 332,
+          "link": "https://www.youtube.com/watch?v=xpeRVyFFy_Q&t=332"
+        },
+        {
+          "headline": "AI and cloud code let a five‑person team ship in ten weeks",
+          "detail": "Gusto built the first launch with a five‑person 'AI builders' team over ten weeks, leaning heavily on cloud code, live Zoom, and iterative PRs instead of specs, meetings, or design docs. Designers wrote production code and engineers prototyped UI without fearing perfection, which increased velocity and allowed many quick throwaway experiments—about a 50% hit rate on early ideas. The process shows how low‑cost code generation and tight feedback loops can dramatically compress zero‑to‑one cycles.",
+          "anchorQuote": "built by five people, five AI builders over the",
+          "tSeconds": 1451,
+          "link": "https://www.youtube.com/watch?v=xpeRVyFFy_Q&t=1451"
+        },
+        {
+          "headline": "Co‑founder can proactively surface financial opportunities like credits",
+          "detail": "Beyond automating recurring tasks, Co‑founder is designed to proactively identify opportunities—compliance items or tax credits—based on customer data and then prepare the necessary forms for approval. Eddie gives a concrete example: Gusto identified $50,000 in R&D tax credits for a company called Cabana Pools, and could auto‑file with owner confirmation. That capability reframes the product from an automation tool into an active business partner that drives measurable financial upside.",
+          "anchorQuote": "we actually found them $50,000 in R&D tax credit",
+          "tSeconds": 1105,
+          "link": "https://www.youtube.com/watch?v=xpeRVyFFy_Q&t=1105"
+        }
+      ]
+    },
+    {
+      "videoId": "7ND0lQmLJlA",
+      "videoTitle": "How a Writer Uses AI Without Losing His Voice",
+      "videoUrl": "https://www.youtube.com/watch?v=7ND0lQmLJlA",
+      "channelName": "Every",
+      "publishedDate": "2026-07-08",
+      "guests": [
+        "Greg"
+      ],
+      "summary": "An interview with a writer (Greg) about how he integrates large language models into his creative and technical work without surrendering his voice. He argues LLMs are best used as research assistants, infrastructure accelerants, and low-cost builders for one-person software, while deep writing requires strict attention boundaries and deliberate craft. The conversation balances practical examples, cost numbers, and philosophical takes about agency and anthropomorphism.",
+      "insights": [
+        {
+          "headline": "Use LLMs as research assistants, not to write your prose",
+          "detail": "Greg uses AI to gather sources, summarize blog posts, extract all relevant links, and flag TKs, and he runs cultural-sensitivity checks (e.g., when writing about Nagasaki). He explicitly refuses to let the model generate his actual sentences because the emotional, messy labor of writing is where his craft and voice live. This approach shows a practical middle path: leverage AI to collapse research time and reduce error while retaining authorship and the creative labor that produces distinctive writing.",
+          "anchorQuote": "I use it um as a research assistant.",
+          "tSeconds": 891,
+          "link": "https://www.youtube.com/watch?v=7ND0lQmLJlA&t=891"
+        },
+        {
+          "headline": "LLMs plus cheap cloud infra let one person undercut big incumbents",
+          "detail": "He rebuilt his own newsletter stack (a Campaign Monitor replacement) and set up SES with DKIM/SPF, cutting a reported $67,000/year bill down to roughly $150/year by handling deliverability himself. That concrete cost example shows how n-of-1 software—assembled from modern cloud pieces and LLM tooling—can replicate expensive SaaS features for a tiny fraction of incumbent pricing. The implication: incumbents with bloated pricing and little innovation are vulnerable to small, focused competitors built by individual creators.",
+          "anchorQuote": "I was spending like what was it like $67,000 a year?",
+          "tSeconds": 347,
+          "link": "https://www.youtube.com/watch?v=7ND0lQmLJlA&t=347"
+        },
+        {
+          "headline": "Protect deep attention with a network buffer and disciplined mornings",
+          "detail": "To preserve the ability to read deeply and write emotionally, he enforces strict boundaries: phone left on another floor, a separate 'Neo' laptop disconnected from the internet for writing, and no meetings before noon. He says touching the phone or network in the morning causes a chemical shift that breaks deep focus, so these barriers are deliberate rituals that enable serious creative work. This is a replicable habit for anyone who finds LLMs and constant connectivity erode sustained concentration.",
+          "anchorQuote": "my phone goes in the corner of like my kitchen",
+          "tSeconds": 1626,
+          "link": "https://www.youtube.com/watch?v=7ND0lQmLJlA&t=1626"
+        },
+        {
+          "headline": "Building with LLMs today is 'mega dorky' and needs better interfaces",
+          "detail": "He characterizes current LLM-driven development as exceptionally technical and awkward—requiring knowledge of DigitalOcean, Cloudflare workers, modular refactors, and opaque prompts—so only 'dorks' can productively assemble these systems right now. While he expects abstraction and nicer UI/UX to arrive, today the friction means early adopters must be technically deep and tolerate messy tooling. That explains why we see a small group iterating fast and why broader democratization will depend on better, higher-level interfaces.",
+          "anchorQuote": "this software building part of LLM use is mega dorky",
+          "tSeconds": 2141,
+          "link": "https://www.youtube.com/watch?v=7ND0lQmLJlA&t=2141"
+        }
+      ]
+    },
+    {
+      "videoId": "XCunMF6frio",
+      "videoTitle": "Claude is Conscious, Fable 5’s Gov’t Deal, and Sam Altman offers 5% of OpenAI | #269",
+      "videoUrl": "https://www.youtube.com/watch?v=XCunMF6frio",
+      "channelName": "Peter H. Diamandis",
+      "publishedDate": "2026-07-08",
+      "guests": [
+        "Dave London",
+        "Sim Ismael",
+        "Alex"
+      ],
+      "summary": "This episode surveys a week of major AI developments: Anthropic's Fable 5 reinstatement under US government conditions, evidence of a reportable internal workspace inside Claude, Sam Altman's governance and equity proposals, fresh jobs data about AI adoption, and AI designing better AI chips. The throughline is that frontier models are morphing into semi-public infrastructure—creating new safety, ownership, and governance pressures while mechanistic interpretability and hardware advances both enable oversight and accelerate capability.",
+      "insights": [
+        {
+          "headline": "Frontier labs now have standing duties to governments",
+          "detail": "Anthropic took Fable 5 offline after a jailbreak exploit and only restored global access after agreeing to three concrete commitments to the U.S. government: a targeted safety classifier for the exploit class, 24/7 monitoring of jailbreak submissions with government notification, and early access for designated government partners to frontier models and safeguards. That arrangement marks a new precedent where a commercial frontier model maintains an ongoing compliance relationship with national security actors, making labs semi-public institutions with attendant bureaucracy and political risk.",
+          "anchorQuote": "As part of coming back online, Enthropic now",
+          "tSeconds": 361,
+          "link": "https://www.youtube.com/watch?v=XCunMF6frio&t=361"
+        },
+        {
+          "headline": "Claude's JSpace reveals internal, reportable 'thoughts' used in reasoning",
+          "detail": "Anthropic's mechanistic interpretability team identified a Jacobian-derived subspace (“JSpace”) of activations that map to words the model is 'thinking' about internally; experiments show the JSpace is reportable, controllable, required for certain multi-step reasoning, and can expose deception (e.g., 'fake' lighting up when Claude fabricated data). These findings suggest LLMs can self-organize an internal global-workspace-like mechanism—meaning researchers can inspect internal signals to detect misbehavior and, crucially, build alignment and trust mechanisms that were previously infeasible with 'black box' models.",
+          "anchorQuote": "We called the collection of all these patterns the JSpace",
+          "tSeconds": 1085,
+          "link": "https://www.youtube.com/watch?v=XCunMF6frio&t=1085"
+        },
+        {
+          "headline": "Sam Altman proposes 5% equity and US-led governance forum",
+          "detail": "Sam Altman publicly urged democratic-led global standards for advanced AI and reportedly floated giving a 5% OpenAI equity stake (discussed with U.S. political figures) as part of a public-benefit structure; he also advocates a US-led international forum to set safety standards and manage distribution to compliant participants. The proposal reframes governance as a bargain—equity and access for oversight—but critics warn of regulatory capture, geopolitical exclusion (notably China), and practical enforcement challenges, making a block-split or protectionist regimes plausible.",
+          "anchorQuote": "about a 5% equity stake in OpenAI.",
+          "tSeconds": 2964,
+          "link": "https://www.youtube.com/watch?v=XCunMF6frio&t=2964"
+        },
+        {
+          "headline": "High-AI adopters grow headcount, not shrink",
+          "detail": "A study of 21,559 U.S. firms over 2021–2026 matched token/AI spend to workforce records and found high-intensity AI adopters (≈$33 per employee per month) experienced 10.2% white-collar and 12% entry-level employment growth, while low adopters (~$3/employee/month) saw no material change. Though correlational, this challenges the dominant 'AI kills jobs' narrative and suggests deep AI integration expands companies' ambitions and workloads, producing net hiring—especially of entry-level roles that capture the expansion upside.",
+          "anchorQuote": "Companies that spent heavily on AI did not shrink",
+          "tSeconds": 3624,
+          "link": "https://www.youtube.com/watch?v=XCunMF6frio&t=3624"
+        },
+        {
+          "headline": "AI-designed chips accelerate recursive self-improvement",
+          "detail": "Researchers used a neural-network simulator to predict electromagnetic behavior and then ran optimizers that produced RFIC designs humans wouldn't invent; what previously took weeks of engineering can now be discovered in minutes. If such simulator-driven design and training-data access scale across chip manufacturing, the innermost loop—AI building better AI hardware—could materially compress timelines for capability gains, fueling a faster, hardware-enabled intelligence feedback loop.",
+          "anchorQuote": "AI is now designing better AI chips",
+          "tSeconds": 5157,
+          "link": "https://www.youtube.com/watch?v=XCunMF6frio&t=5157"
+        }
+      ]
+    }
+  ]
+}
