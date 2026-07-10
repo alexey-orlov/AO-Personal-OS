@@ -31,7 +31,7 @@ Cloud `Location` examples for when they arrive — gdrive: `https://drive.google
 
 | Area | Type | Location | Machine scope | Added |
 |---|---|---|---|---|
-| [softserve](../areas/softserve/README.md) | local | `~/Documents/Documents/SoftServe` | this Mac (`KN7X2Y65NX`) | 2026-06-16 |
+| [softserve](../areas/softserve/README.md) | local | `~/Documents/Documents/SoftServe` | this Mac (`KN7X2Y65NX`) | 2026-06-16 (refreshed 2026-07-10) |
 
 ## Entries
 

@@ -1,7 +1,7 @@
 # Oracle AI — offering topology (reference)
 
 _status: reference doc — Oracle's AI product catalog, the layer SoftServe's verticalized accelerator packs build on_
-_updated: 2026-06-18_
+_updated: 2026-07-10_
 _source: oracle.com product pages, fetched 2026-06-18; structure list provided by Alex. Companion to [oracle.md](oracle.md) (partnership) and [oracle-team.md](oracle-team.md) (who we deal with)._
 
 ## Why this is here
