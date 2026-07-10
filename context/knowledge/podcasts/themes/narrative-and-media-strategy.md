@@ -2,7 +2,7 @@
 
 _status: live theme — founder communications, personal brand, new media vs. legacy PR, going direct_
 _slug: narrative-and-media-strategy_
-_updated: 2026-06-27 · 9 insights from 3 episodes_
+_updated: 2026-07-09 · 10 insights from 4 episodes_
 
 ## The throughline
 The media landscape has inverted: where legacy broadcast media demanded corporate polish and atomic soundbites, new media rewards sustained human conversations and strong personal identities. The unified playbook has four beats. (1) Lead with the person — audiences follow individuals (Elon, Palmer, Alex Karp) not logos, so deciding who carries the company's narrative publicly is a foundational strategic choice. (2) Go direct — own your channels (podcasts, newsletters, Substack, posts) rather than depending on legacy press to carry your message; this gives control over context and cadence. (3) Message before distribution — crystallize the desired outcome (hiring, fundraising, enterprise sales) and the audience it must move before chasing reach; distribution multiplies the message, good or bad. (4) Be interesting enough to be hated — neutral audiences mean invisibility; strategic controversy amplifies reach and builds distinct brand identity. (5) Attention is a capital asset — Anti Fund's thesis makes the economic argument explicit: cultural mindshare (the ability to drive taste and distribution) is a co-investment lever as tangible as cash, capable of accelerating category narratives and increasing startup expected value. Attention and capital are no longer separate inputs; the most powerful investors wield both. A third a16z voice sharpens the psychological corollary: the world 'can't be half and half' — prestige anxiety about legacy outlets is the residual drag that blocks full adoption, and the winning disposition is complete commitment to new formats paired with a bias for precedent-free production bets (a four-week virtual-production approved before anyone had done it before).
@@ -52,11 +52,17 @@ As an example of embracing new media, the team approved a virtual-production ide
 — a16z · 2026-06-26 · guest: — · [▶ 0:40](https://www.youtube.com/watch?v=JNu6c4G6q5M&t=40) · `pi-JNu6c4G6q5M-03`
 related: [Be interesting — neutral audiences mean you're invisible](#be-interesting--neutral-audiences-mean-youre-invisible) (both: the winning play is to risk being wrong rather than play safe — controversy and novel production are twin expressions of bias-for-distinctiveness)
 
+### Synthetic content is a net tailwind for Instagram because people seek authenticity
+Mosseri argues the flood of AI‑generated material ultimately increases demand for human creativity and authentic points of view; he expects creators (broadly defined) to benefit because audiences will prefer distinct voices over generic synthetic output. He cautions Instagram must get better at ranking AI content, labeling when content or accounts use AI, and policing spam vectors, but believes being the largest creator platform positions Instagram to benefit from a shift toward individual creators. He illustrates the point with examples of distinctive AI creators like "Plastic dream sequence" and "If Only AI" who use synthetic tools to express a clear aesthetic.
+— Lenny's Podcast · 2026-07-09 · guest: Adam Mosseri (Instagram/Meta) · [▶ 42:42](https://www.youtube.com/watch?v=yQ_EWmtfWvQ&t=2562) · `pi-yQ_EWmtfWvQ-05`
+related: [Authentic, conversational public speaking outperforms staged corporate rhetoric](#authentic-conversational-public-speaking-outperforms-staged-corporate-rhetoric) (same authenticity-beats-polish instinct, applied to platform content rather than founder speech)
+
 ## Related themes
 - [Founders & fundraising](founders-and-fundraising.md) — founder personal brand + company-building playbooks
 - [Growth, GTM & pricing](growth-gtm-and-pricing.md) — distribution, GTM motions, and channel fit
 
 ## Source episodes
+- [Lenny's Podcast — Adam Mosseri: AI is a tailwind for authenticity (2026-07-09)](../episodes/2026/2026-07-09--lenny--adam-mosseri-ai-tailwind-for-authenticity.md)
 - [a16z — The Media Game Has Changed (2026-06-19)](../episodes/2026/2026-06-19--a16z--the-media-game-has-changed.md)
 - [a16z — Jake Paul on Going From YouTube to Boxing to Investing (2026-06-22)](../episodes/2026/2026-06-22--a16z--jake-paul-youtube-boxing-investing-anti-fund.md)
 - [a16z — This is New Media (2026-06-26)](../episodes/2026/2026-06-26--a16z--this-is-new-media.md)

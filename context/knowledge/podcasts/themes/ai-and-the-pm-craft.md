@@ -2,7 +2,7 @@
 
 _status: live theme — how AI reshapes product management work, skills, workflows, and roles_
 _slug: ai-and-the-pm-craft_
-_updated: 2026-07-09 · 18 insights from 12 episodes_
+_updated: 2026-07-09 · 19 insights from 13 episodes_
 
 ## The throughline
 PMs and full-stack designers gain leverage in the coding-agent era because the gap between "knowing what to build" and "shipping it" collapses. The skill shift is from raw implementation to defining what to build, evaluating quality, and designing where humans and agents collaborate — Shipper bets PMs who "ride the models" out-ship engineers, an OpenAI PM uses Codex to drive prototypes to 70–80% completion and replace PRDs with runnable artifacts, and a non-technical builder ships a production iPhone app and clears App Store review using LLMs as her stepwise architect + engineer. Lovable extends this to "anyone": vibe coding democratizes product creation, with a student hitting $130k ARR in 30 days. The same craft scales up the org chart: Customer.io's VP of Product rebuilds a third of an all-hands deck in a morning, but only by treating Claude like an eager junior — rolling context in, forcing clarifying questions, blocking premature deliverables — and the leader's residual value collapses to two choices: *which sources* (recordings, docs, metrics) and *which target form* (deck, Notion page, one-pager). The model-selection beat also sharpens: Fable's "seasoned engineer" verbosity wrecks PRDs, so pair Mythos-class models with cheaper Opus/Sonnet by task type. Ambrosino (OpenAI Codex) sharpens the picture from the supply side: when dozens of people inside a company can stand up polished prototypes from the same idea, implementation is no longer the bottleneck — *curation* is: deciding which of ~90 explorations to keep, fold together, or refine. The same abundance makes design and taste distinctly non-automatable: aesthetic judgment, novelty, and system-level UI coherence lack the grading signals needed to train models to generalize, so models copy patterns (Linear-clone proliferation) but cannot generate the novelty or cross-component semantic reasoning that defines good design. The operational kit that recurs: hyper-literal prompts, screenshots-as-examples, prototypes-not-PRDs, a beginner's mindset, and the discipline to restrain the model until the foundations are set.
@@ -94,12 +94,18 @@ A writer (Greg) uses AI to gather sources, summarize blog posts, extract all rel
 — Every · 2026-07-08 · guest: Greg · [▶ 14:51](https://www.youtube.com/watch?v=7ND0lQmLJlA&t=891) · `pi-7ND0lQmLJlA-01`
 related: (inferred fit) [Design and taste remain hard to automate and still need humans](#design-and-taste-remain-hard-to-automate-and-still-need-humans) (same craft-preservation instinct outside the PM role — restrain the model, keep the human-judgment core)
 
+### Designers keep their value because 'taste' resists automation
+Mosseri insists designers remain crucial because they provide taste and distinct creative judgment that AI struggles to replicate; he expects many top designers to migrate into product staff roles but believes the craft itself will thrive. He points to the obvious AI 'vibes' in synthetic outputs — you can tell which tool made a piece — and warns that while many can now produce polished things quickly, authentic aesthetic judgment and product strategy will differentiate great work. That implies hiring and career paths should reward taste and cross‑disciplinary influence, not just mechanical production skills.
+— Lenny's Podcast · 2026-07-09 · guest: Adam Mosseri (Instagram/Meta) · [▶ 8:39](https://www.youtube.com/watch?v=yQ_EWmtfWvQ&t=519) · `pi-yQ_EWmtfWvQ-02`
+related: [Design and taste remain hard to automate and still need humans](#design-and-taste-remain-hard-to-automate-and-still-need-humans) (Ambrosino: design lacks a gradable training signal; Mosseri: taste is visible in the finished product as detectable AI "vibes" — same claim, complementary reasoning)
+
 ## Related themes
 - [AI agents & applications](ai-agents-and-applications.md) — the surfaces PMs build in
 - [Leadership, careers & teams](leadership-careers-and-teams.md) — how the manager/IC mix is shifting alongside
 - [Product discovery & strategy](product-discovery-and-strategy.md) — feature differentiation is dead; moats sit elsewhere
 
 ## Source episodes
+- [Lenny's Podcast — Adam Mosseri: AI is a tailwind for authenticity (2026-07-09)](../episodes/2026/2026-07-09--lenny--adam-mosseri-ai-tailwind-for-authenticity.md)
 - [Every — How a Writer Uses AI Without Losing His Voice (2026-07-08)](../episodes/2026/2026-07-08--every--how-a-writer-uses-ai-without-losing-his-voice.md)
 - [Lenny's Podcast — The AI paradox: More automation, more humans, more work (2026-05-26)](../episodes/2026/2026-05-26--lenny--ai-paradox-more-automation-more-humans.md)
 - [How I AI — She vibe coded an iPhone app and launched it to the App Store (2026-06-02)](../episodes/2026/2026-06-02--howiai--vibe-coded-iphone-app-app-store.md)
