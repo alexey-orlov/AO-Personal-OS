@@ -62,7 +62,7 @@ From the nav shared across every oracle.com/artificial-intelligence page — Ora
 - **What it is:** Deep-learning image (and stored-video) analysis at scale; prebuilt models out of the box + custom models on your own data.
 - **Capabilities:** object detection · image classification · text/OCR detection in images · **custom** vision models · stored-video analysis (labels/objects/text/faces with timestamps, GA Dec 2024) · input from OCI Object Storage.
 - **Use cases:** manufacturing defect/anomaly detection, digital-asset management/tagging, scene monitoring (e.g. powerline vegetation), product/shipment counting.
-- **Partnership relevance:** the vision lineage behind **VSS** (visual analysis) — e.g. the Verilon image/damage-processing case.
+- **Partnership relevance:** the vision lineage behind **VSS** (visual analysis) — e.g. the Belron windscreen image/damage-processing case (earlier mis-transcribed as "Verilon").
 
 ### 7. OCI Document Understanding
 - **URL:** https://www.oracle.com/artificial-intelligence/document-understanding/
