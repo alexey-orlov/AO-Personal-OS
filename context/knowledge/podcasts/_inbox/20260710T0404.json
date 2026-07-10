@@ -1,0 +1,140 @@
+{
+  "schema": 1,
+  "generatedAt": "2026-07-10T04:04:52.011Z",
+  "runStamp": "20260710T0404",
+  "episodes": [
+    {
+      "videoId": "yQ_EWmtfWvQ",
+      "videoTitle": "Adam Mosseri: AI is a tailwind for authenticity",
+      "videoUrl": "https://www.youtube.com/watch?v=yQ_EWmtfWvQ",
+      "channelName": "Lenny's Podcast",
+      "publishedDate": "2026-07-09",
+      "guests": [
+        "Adam Mosseri (Instagram / Meta)"
+      ],
+      "summary": "Adam Mosseri explains how AI is reshaping product teams, workflows, and content on Instagram: it accelerates execution, pushes organizations toward smaller cross‑functional pods and generalist \"product staff,\" and makes taste and human authenticity comparatively more valuable. He argues that AI will change what people do (planning, reviewing, curating, steering models) more than it will eliminate high‑level judgment and strategy, and that new model capabilities (embeddings + LLMs) let platforms make recommendations more legible and give users agency over their feeds.",
+      "insights": [
+        {
+          "headline": "AI is accelerating a shift to small, cross‑functional pods",
+          "detail": "Mosseri says Instagram reorganized into pods — four to six engineers plus a \"product staff\" generalist — and a much smaller core leadership (six to seven people) to reduce coordination costs. He gives concrete examples: product staff now use internal tools and models to run analyses (like automated waterfall funnels) that used to require a dedicated data scientist, enabling faster decisions and less design‑by‑committee. That matters because teams with fewer handoffs and broader skill sets move faster with AI tooling doing mechanical work.",
+          "anchorQuote": "we've adopted what we call pods",
+          "tSeconds": 195,
+          "link": "https://www.youtube.com/watch?v=yQ_EWmtfWvQ&t=195"
+        },
+        {
+          "headline": "Designers keep their value because 'taste' resists automation",
+          "detail": "Mosseri insists designers remain crucial because they provide taste and distinct creative judgment that AI struggles to replicate; he expects many top designers to migrate into product staff roles but believes the craft itself will thrive. He points to the obvious AI 'vibes' in synthetic outputs — you can tell which tool made a piece — and warns that while many can now produce polished things quickly, authentic aesthetic judgment and product strategy will differentiate great work. That implies hiring and career paths should reward taste and cross‑disciplinary influence, not just mechanical production skills.",
+          "anchorQuote": "they tend to have taste and I think that is something",
+          "tSeconds": 519,
+          "link": "https://www.youtube.com/watch?v=yQ_EWmtfWvQ&t=519"
+        },
+        {
+          "headline": "Engineering work is shifting from writing code to steering and reviewing AI",
+          "detail": "Mosseri observes engineers today increasingly spend their time planning, reviewing, and steering models rather than hand‑typing most lines of code; he says historical coding percentages (40–60% writing code) no longer hold at AI labs. He gives a personal example — he can \"program again\" thanks to tools despite being a mediocre engineer — and warns organizations will need to treat model tokens, GPUs and other compute like constrained resources with budgets and possibly caps. The operational implication: performance and career success will depend on aligning strengths with model‑driven workflows and on managing cloud/compute economics.",
+          "anchorQuote": "they're spending most of their time planning and reviewing code",
+          "tSeconds": 1048,
+          "link": "https://www.youtube.com/watch?v=yQ_EWmtfWvQ&t=1048"
+        },
+        {
+          "headline": "LLMs can make opaque embedding recommenders human‑legible ('see your algorithm')",
+          "detail": "Mosseri describes how embeddings create huge, unreadable vectors that correlate with interests, and explains that LLMs can now translate those regions of embedding space into English labels — e.g., a cluster might be described as \"deep pourover coffee snobbery.\" He says Instagram is experimenting with letting users \"see your algorithm\" and adjust topics surfaced in their feed, giving people agency over personalization rather than assuming the system knows semantically what they want. That matters because it turns black‑box recommenders into adjustable interfaces and helps rebuild trust by exposing why content is shown.",
+          "anchorQuote": "have an LLM just be like describe that part",
+          "tSeconds": 2178,
+          "link": "https://www.youtube.com/watch?v=yQ_EWmtfWvQ&t=2178"
+        },
+        {
+          "headline": "Synthetic content is a net tailwind for Instagram because people seek authenticity",
+          "detail": "Mosseri argues the flood of AI‑generated material ultimately increases demand for human creativity and authentic points of view; he expects creators (broadly defined) to benefit because audiences will prefer distinct voices over generic synthetic output. He cautions Instagram must get better at ranking AI content, labeling when content or accounts use AI, and policing spam vectors, but believes being the largest creator platform positions Instagram to benefit from a shift toward individual creators. He illustrates the point with examples of distinctive AI creators like \"Plastic dream sequence\" and \"If Only AI\" who use synthetic tools to express a clear aesthetic.",
+          "anchorQuote": "people are going to seek out creativity and authenticity and people",
+          "tSeconds": 2562,
+          "link": "https://www.youtube.com/watch?v=yQ_EWmtfWvQ&t=2562"
+        }
+      ]
+    },
+    {
+      "videoId": "e5-6rEwzxLs",
+      "videoTitle": "See How Customers Actually Use Your Product",
+      "videoUrl": "https://www.youtube.com/watch?v=e5-6rEwzxLs",
+      "channelName": "Y Combinator",
+      "publishedDate": "2026-07-09",
+      "guests": [],
+      "summary": "The video teaches founders how to use per-user \"dot plots\" (a grid of days × users with dots for key events) to see real behavior patterns that aggregate metrics hide. The central argument is that dot plots reveal weekday/weekend segments, retention failures, feature-driven engagement, and at-risk contracts — insights you can't get from DAU or cohort curves alone — and they scale by sampling.",
+      "insights": [
+        {
+          "headline": "Dot plots expose user-level patterns hidden by aggregates",
+          "detail": "Plot each user as a row and mark a dot for a meaningful daily event (e.g., \"listen to a song\"). Doing so surfaces clusters — weekday listeners vs weekend listeners, one-off trialers versus habitual users, and how individual feature use (search, playlists) correlates with sustained activity — that a DAU line would flatten into noise. The video shows a Spotify example and notes GitHub's contribution graph as a familiar implementation, arguing these visual patterns suggest product and marketing changes you would otherwise miss.",
+          "anchorQuote": "we're going to put a dot.",
+          "tSeconds": 183,
+          "link": "https://www.youtube.com/watch?v=e5-6rEwzxLs&t=183"
+        },
+        {
+          "headline": "Dot plots can flag at-risk B2B contracts before churn",
+          "detail": "In a concrete YC example a company sold a $80,000/year contract for 10 seats but only three seats ever activated; usage was sporadic and limited to ≤2 days/week. A dot plot of that account would have revealed the low penetration and weak engagement early, signaling the customer was at high risk (which later materialized when the internal champion left and the buyer chose not to renew). This shows dot plots aren't just for consumer apps — they surface renewal risk and seat adoption issues in enterprise deals.",
+          "anchorQuote": "The company bought 10 seats, but only three seats ever activated.",
+          "tSeconds": 675,
+          "link": "https://www.youtube.com/watch?v=e5-6rEwzxLs&t=675"
+        },
+        {
+          "headline": "Chart the right event and use fine time granularity",
+          "detail": "The most common mistake is plotting easy but meaningless events like \"opened the app\" or coarse bins like weeks; those hide whether value is created. Instead, choose events that represent real user value (listen to a song, shared a photo, joined a playlist) and use day or sub-day granularity so behavioral patterns and feature causality become visible. The speaker emphasizes that until you have hundreds of users, a dot plot can be your primary dashboard because it's just a parsed-log visualization.",
+          "anchorQuote": "U the number one thing is to just chart the wrong event.",
+          "tSeconds": 715,
+          "link": "https://www.youtube.com/watch?v=e5-6rEwzxLs&t=715"
+        },
+        {
+          "headline": "Use dot plots alongside cohort retention curves, not instead",
+          "detail": "Cohort retention curves tell you in aggregate whether groups of users stick over time, but they don't show how or why users behave day-to-day. Dot plots provide the qualitative color — where to probe, which features correlate with retention, and which user segments behave differently — so you can ask targeted questions, build the right features, and fix onboarding problems. The two tools together guide both measurement and investigation.",
+          "anchorQuote": "These are best used in conjunction with cohort retention curves.",
+          "tSeconds": 783,
+          "link": "https://www.youtube.com/watch?v=e5-6rEwzxLs&t=783"
+        }
+      ]
+    },
+    {
+      "videoId": "13tHN3iP5kQ",
+      "videoTitle": "I Tested GPT‑5.6 Sol for a Month",
+      "videoUrl": "https://www.youtube.com/watch?v=13tHN3iP5kQ",
+      "channelName": "Every",
+      "publishedDate": "2026-07-09",
+      "guests": [],
+      "summary": "The presenter gives a month-long hands-on evaluation of GPT‑5.6 (Soul), comparing it to Fable, Opus, and 4.8 across coding, writing, design, and knowledge-work automation. The central argument is that 5.6 is an ergonomically excellent, fast, and cost-effective model that you should use by default for most tasks, while reserving larger models like Fable for the hardest, world‑changing engineering jobs.",
+      "insights": [
+        {
+          "headline": "GPT‑5.6 is A‑tier: fast, inexpensive, and highly usable",
+          "detail": "After a month of use the reviewer reports 5.6 is the default model for almost everything because it balances speed, cost, and capability. It consistently delivers usable outputs across coding, writing, and design without long waits or high token costs, making it practical for day‑to‑day workflows and collaboration. The conclusion is that 5.6 is the pragmatic sweet spot for most users who value ergonomics over ultimate raw power.",
+          "anchorQuote": "It's really fast. It's relatively inexpensive.",
+          "tSeconds": 167,
+          "link": "https://www.youtube.com/watch?v=13tHN3iP5kQ&t=167"
+        },
+        {
+          "headline": "Fable outperforms 5.6 on complex senior‑engineer coding tasks",
+          "detail": "On a senior‑engineer benchmark that asks models to rewrite a messy codebase from first principles, GPT‑5.6 scored 56/100 versus Fable's 91/100, and even 5.5 had runs as high as 62.5. In practice 5.6 can rewrite codebases effectively but tends to produce more complicated abstractions, whereas Fable produces simpler, more senior‑engineer‑level architectures. That means use 5.6 for most coding, but switch to Fable (or use Fable with 5.6 as a subagent) for the biggest, hardest rethinks.",
+          "anchorQuote": "GPT-5.6 got a 56 out of 100 on this benchmark.",
+          "tSeconds": 244,
+          "link": "https://www.youtube.com/watch?v=13tHN3iP5kQ&t=244"
+        },
+        {
+          "headline": "GPT‑5.6 is unusually strong at concise, practical writing",
+          "detail": "The reviewer finds 5.6 superior to both 4.8 and Fable for one‑shot, pragmatic writing: emails, marketing copy, taglines, and short reflections. Where Fable and 4.8 tend to over‑explain or produce florid, long outputs, 5.6 gives clear, to‑the‑point text quickly — enabling reliable single‑prompt marketing emails and fast compositional workflows. That speed and brevity makes it a go‑to for daily knowledge‑work communication.",
+          "anchorQuote": "I think it's a better writer than 4.8.",
+          "tSeconds": 391,
+          "link": "https://www.youtube.com/watch?v=13tHN3iP5kQ&t=391"
+        },
+        {
+          "headline": "5.6 makes reliable agentized knowledge‑work automation practical",
+          "detail": "Because 5.6 is smart, fast, and a good writer, the reviewer uses it as the intelligence inside systems that automate rote knowledge tasks — e.g., turning emails into action cards (the Tend app), summarizing meeting transcripts, tracking meals from photos, and managing marketplace purchases. The model can run in a loop as a subagent, surfacing decisions for a human to approve, which lets people 'work on the system' instead of doing every task manually. This is presented as a step change: 5.6 is the first model the reviewer trusts to reliably run those end‑to‑end workflows.",
+          "anchorQuote": "5.6 ushers in this new era where",
+          "tSeconds": 552,
+          "link": "https://www.youtube.com/watch?v=13tHN3iP5kQ&t=552"
+        },
+        {
+          "headline": "OpenAI appears to favor smaller, well post‑trained models over giant models",
+          "detail": "The reviewer frames 5.6 (Soul) as a strategic contrast to Fable: rather than being enormous and slow, Soul seems smaller but heavily post‑trained to maximize ergonomics, speed, and cost‑effectiveness. Fable shows the 'big model smell'—greater capability at the absolute top end but higher latency and cost—whereas 5.6 is tuned for collaboration and everyday use. The implication is that for most users and most tasks this design choice is a smarter product bet.",
+          "anchorQuote": "Fable is like it has a lot of big model smell.",
+          "tSeconds": 751,
+          "link": "https://www.youtube.com/watch?v=13tHN3iP5kQ&t=751"
+        }
+      ]
+    }
+  ]
+}
