@@ -2,7 +2,7 @@
 
 _status: live theme — discovery, prioritization, roadmap, positioning, product strategy_
 _slug: product-discovery-and-strategy_
-_updated: 2026-07-09 · 29 insights from 19 episodes_
+_updated: 2026-07-09 · 33 insights from 20 episodes · ⚠ at 33/30: new dot-plots-analytics cluster (4 insights, one episode) is a plausible split seam — flagging for next recluster_
 
 ## The throughline
 The strategy conversation organizes around three beats. (1) Discovery discipline: the fastest signal is money — demand WTP before building, because most "ChatGPT ideas" are fake problems; category-creating 1.0s need a 'benevolent dictatorship of taste' instead (Fadell/Jobs). Consumer discovery runs on a complementary protocol: copy proven UX patterns first before adding novelty (Pincus's Proven/Better/New — fake onboarding killed Sid Meier's Facebook Civ), 'kill hope before hope kills you' by building intentionally cheap/wrong prototypes for fast signal, and track day-365 retention + social loops as the north star rather than short viral spikes (Zynga's ASN metric: 0→1 gives ~80% return next month; ASN 4 → active 22/30 days). (2) Moats: feature differentiation has gone short-lived (AI writes ~80%+ of code in AI-native orgs, so feature gaps close in weeks), and what remains durable is proprietary inputs/outputs, enterprise workflows, user behavior, network effects, hardware, compliance, and brand. Legora's bundled multi-feature roadmap beating a single-feature competitor with 50× the early ARR is the operational lesson — longer-horizon platform bets compound where point solutions get cloned. (3) Shape the whole system, not just the feature: products are ecosystems (installation, distribution, marketing language — Fadell's iPod/Nest cases), the chatbot isn't a product (Evans: real work needs tooling/domain data/UIs, so vertical apps and consultancies capture the value above commoditized models), and AI-first builders should *refound* boundaries rather than tack models onto legacy flows — minimize customer-facing surface area, concentrate one core interaction (Brex/Pedro, Stripe/Airbnb analogies). A Groww-pattern complements beat (1): full product transparency (every option, frictionless choice) tripled expected signups on launch day and triggered organic PMF; a deliberate four-year 'zero revenue' phase deepened customer love until monetization was the natural next step — the counter-case to charge-early when consumer trust is the scarce resource. Ambrosino (OpenAI Codex) adds a fourth beat: model capability timing can flip PMF — the same product shape that failed in November 2025 succeeded in February 2026 after months of model progress; teams should preserve ambitious artifacts rather than discarding them as failures, keep long-range plans fuzzy enough to capitalize on future capability leaps, and choose artifact type by the question being resolved (documents for fuzzy strategy, prototypes for interaction assumptions — abundant prototypes can falsely signal readiness if they haven't derisked the core assumptions).
@@ -151,12 +151,31 @@ The initial prototype generated CRUD web apps styled with Gusto's design system 
 — Y Combinator · 2026-07-08 · guest: Eddie (Gusto) · [▶ 10:51](https://www.youtube.com/watch?v=xpeRVyFFy_Q&t=651) · `pi-xpeRVyFFy_Q-02`
 related: [Building and discarding production PRs is now an affordable experimentation loop](#building-and-discarding-production-prs-is-now-an-affordable-experimentation-loop) (same Gusto discipline — cheap iteration on production code, applied here to the CRUD-builder → data-driven-automations pivot)
 
+### Dot plots expose user-level patterns hidden by aggregates
+Plot each user as a row and mark a dot for a meaningful daily event (e.g., "listen to a song"). Doing so surfaces clusters — weekday listeners vs weekend listeners, one-off trialers versus habitual users, and how individual feature use (search, playlists) correlates with sustained activity — that a DAU line would flatten into noise. The video shows a Spotify example and notes GitHub's contribution graph as a familiar implementation, arguing these visual patterns suggest product and marketing changes you would otherwise miss.
+— Y Combinator · 2026-07-09 · guest: — · [▶ 3:03](https://www.youtube.com/watch?v=e5-6rEwzxLs&t=183) · `pi-e5-6rEwzxLs-01`
+
+### Dot plots can flag at-risk B2B contracts before churn
+In a concrete YC example a company sold a $80,000/year contract for 10 seats but only three seats ever activated; usage was sporadic and limited to ≤2 days/week. A dot plot of that account would have revealed the low penetration and weak engagement early, signaling the customer was at high risk (which later materialized when the internal champion left and the buyer chose not to renew). This shows dot plots aren't just for consumer apps — they surface renewal risk and seat adoption issues in enterprise deals.
+— Y Combinator · 2026-07-09 · guest: — · [▶ 11:15](https://www.youtube.com/watch?v=e5-6rEwzxLs&t=675) · `pi-e5-6rEwzxLs-02`
+related: [Validate depth by whether you could run the customer's business](#validate-depth-by-whether-you-could-run-the-customers-business) (both: granular, ground-level observation surfaces risk/depth that summary metrics or conversations alone miss)
+
+### Chart the right event and use fine time granularity
+The most common mistake is plotting easy but meaningless events like "opened the app" or coarse bins like weeks; those hide whether value is created. Instead, choose events that represent real user value (listen to a song, shared a photo, joined a playlist) and use day or sub-day granularity so behavioral patterns and feature causality become visible. The speaker emphasizes that until you have hundreds of users, a dot plot can be your primary dashboard because it's just a parsed-log visualization.
+— Y Combinator · 2026-07-09 · guest: — · [▶ 11:55](https://www.youtube.com/watch?v=e5-6rEwzxLs&t=715) · `pi-e5-6rEwzxLs-03`
+
+### Use dot plots alongside cohort retention curves, not instead
+Cohort retention curves tell you in aggregate whether groups of users stick over time, but they don't show how or why users behave day-to-day. Dot plots provide the qualitative color — where to probe, which features correlate with retention, and which user segments behave differently — so you can ask targeted questions, build the right features, and fix onboarding problems. The two tools together guide both measurement and investigation.
+— Y Combinator · 2026-07-09 · guest: — · [▶ 13:03](https://www.youtube.com/watch?v=e5-6rEwzxLs&t=783) · `pi-e5-6rEwzxLs-04`
+related: [Long‑term retention (day‑365) and social loops predict durable success](#long-term-retention-day-365-and-social-loops-predict-durable-success) (Pincus's ASN metric is an aggregate retention signal; dot plots are the day-to-day qualitative complement to it)
+
 ## Related themes
 - [Founders & fundraising](founders-and-fundraising.md) — pivot decisions are how the discipline shows up at company level
 - [Growth, GTM & pricing](growth-gtm-and-pricing.md) — pilots and pricing close the loop on willingness-to-pay
 - [AI agents & applications](ai-agents-and-applications.md) — proprietary context/workflow is where defensibility manifests
 
 ## Source episodes
+- [Y Combinator — See How Customers Actually Use Your Product (2026-07-09)](../episodes/2026/2026-07-09--yc--see-how-customers-actually-use-your-product.md)
 - [SaaStr AI — Agents Didn't Kill Sales. They Just Exposed It with SaaStr CEO and Founder Jason Lemkin (2026-07-07)](../episodes/2026/2026-07-07--saastr--agents-didnt-kill-sales-they-just-exposed-it-jason-lemkin.md)
 - [Y Combinator — How A Prototype Built During A Missed Flight Became A New Gusto Product (2026-07-08)](../episodes/2026/2026-07-08--yc--prototype-built-during-missed-flight-became-gusto-product.md)
 - [Y Combinator — Why Two IIT Engineers Turned Down $550K Jobs (2026-05-30)](../episodes/2026/2026-05-30--yc--two-iit-engineers-turned-down-550k-jobs.md)

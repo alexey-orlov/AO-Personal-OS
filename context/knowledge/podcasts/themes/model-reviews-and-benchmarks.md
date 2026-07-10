@@ -2,7 +2,7 @@
 
 _status: live theme — hands-on practitioner reviews and benchmark findings for frontier models_
 _slug: model-reviews-and-benchmarks_
-_updated: 2026-07-03 · 22 insights from 8 episodes · (split from ai-agents-and-applications, 2026-06-11)_
+_updated: 2026-07-09 · 27 insights from 9 episodes · (split from ai-agents-and-applications, 2026-06-11)_
 
 ## The throughline
 Two hands-on reviews — Opus 4.8 and Fable 5 — find the same wall from different angles. Opus 4.8 is strong on one-shot scaffolding and ergonomics (voice, token efficiency, platform tooling) but hallucinates under follow-up pressure, latches onto narrow signals with overconfidence, and fails the "last 10%" of real engineering tasks (bugs at edge cases, failure to integrate into live codebases). Fable 5 is purpose-built for long-horizon multi-agent runs and stands out on vision and document formatting, but burns ~2× the tokens and stalls after ~3 hours of continuous operation. Neither closes the gap between benchmark wins and production ROI; both carry the same operational lesson: match model to task type (Fable for long-form/vision, Opus/Sonnet for iterative spec work), validate outputs carefully on any accuracy-sensitive task, and never conflate one-shot success with real-world iteration reliability. These findings sit in deliberate tension with benchmark headlines elsewhere in the base: the same model releases that set leaderboard records are the ones this reviewer found "100% made up things based on hypothesis." Two new dimensions extend the picture. GitHub/Microsoft's weekly 'hill climbing' — thumbs-up/down signals, acceptance rates, frontier tuning on enterprise data — is the product-cycle answer to the lab-to-production gap: systematic telemetry-driven improvement that narrows the benchmark-vs.-iteration-ROI divide without huge bespoke training runs. And a developer-trust failure for Fable 5 (panelists on a Diamandis podcast reporting 30-day prompt retention and silent user downgrading to an inferior model) reveals a new production-risk category: vendor policy can undermine enterprise deployment even when the underlying model is technically superior, pushing adoption toward on-prem or open-weight alternatives. GLM 5.2 concretizes the open-weight alternative: benchmarks near Opus/GPT-5.5 on coding tasks, 1M-token context, full modern ergonomics (streaming, function calls, MCP, structured output), at ~$0.56/million tokens via OpenRouter — with strong agentic and long-document performance and a confirmed React/TypeScript reliability weakness. It establishes that the benchmark-vs.-production-ROI and model-choice tradeoff analyses in this cluster now apply equally to open-weight frontier-class models. A blind, dual-scored benchmark (human vibe + LLM judges) sharpens the task-specific-strengths thesis further: Sonnet 5 launches strong and cheap on agentic tool use but unreliable on prototypes, and automated judges (which compress scores toward the middle and catch technical failures human raters miss) rank models differently than hands-on human taste — reinforcing that no single leaderboard number substitutes for task-fit evaluation.
@@ -113,6 +113,30 @@ Results were task-specific: GPT 5.5 performed best for PRD writing (comprehensiv
 — How I AI · 2026-06-30 · guest: — · [▶ 23:57](https://www.youtube.com/watch?v=yJ-1LB2hF-Q&t=1437) · `pi-yJ-1LB2hF-Q-04`
 related: [Strong practical performance but flaky on React/TypeScript generation](#strong-practical-performance-but-flaky-on-reacttypescript-generation) (same match-model-to-task discipline, now spanning GLM 5.2 and the full Sonnet/Opus/GPT lineup)
 
+### GPT‑5.6 is A‑tier: fast, inexpensive, and highly usable
+After a month of use the reviewer reports 5.6 is the default model for almost everything because it balances speed, cost, and capability. It consistently delivers usable outputs across coding, writing, and design without long waits or high token costs, making it practical for day‑to‑day workflows and collaboration. The conclusion is that 5.6 is the pragmatic sweet spot for most users who value ergonomics over ultimate raw power.
+— Every · 2026-07-09 · guest: — · [▶ 2:47](https://www.youtube.com/watch?v=13tHN3iP5kQ&t=167) · `pi-13tHN3iP5kQ-01`
+related: [No single model is best — strengths depend on the task](#no-single-model-is-best--strengths-depend-on-the-task) (5.6 is this reviewer's pick for the "default, most tasks" slot in the same match-model-to-task framework)
+
+### Fable outperforms 5.6 on complex senior‑engineer coding tasks
+On a senior‑engineer benchmark that asks models to rewrite a messy codebase from first principles, GPT‑5.6 scored 56/100 versus Fable's 91/100, and even 5.5 had runs as high as 62.5. In practice 5.6 can rewrite codebases effectively but tends to produce more complicated abstractions, whereas Fable produces simpler, more senior‑engineer‑level architectures. That means use 5.6 for most coding, but switch to Fable (or use Fable with 5.6 as a subagent) for the biggest, hardest rethinks.
+— Every · 2026-07-09 · guest: — · [▶ 4:04](https://www.youtube.com/watch?v=13tHN3iP5kQ&t=244) · `pi-13tHN3iP5kQ-02`
+related: [Built for multi-day, long-running workflows but reliability still uneven](#built-for-multi-day-long-running-workflows-but-reliability-still-uneven) (Fable's long-horizon/complex-task strength recurs here as its edge on the hardest codebase rewrites)
+
+### GPT‑5.6 is unusually strong at concise, practical writing
+The reviewer finds 5.6 superior to both 4.8 and Fable for one‑shot, pragmatic writing: emails, marketing copy, taglines, and short reflections. Where Fable and 4.8 tend to over‑explain or produce florid, long outputs, 5.6 gives clear, to‑the‑point text quickly — enabling reliable single‑prompt marketing emails and fast compositional workflows. That speed and brevity makes it a go‑to for daily knowledge‑work communication.
+— Every · 2026-07-09 · guest: — · [▶ 6:31](https://www.youtube.com/watch?v=13tHN3iP5kQ&t=391) · `pi-13tHN3iP5kQ-03`
+related: theme → [AI & the PM craft](ai-and-the-pm-craft.md) — [Fable overthinks like a 'seasoned engineer,' producing unreadable specs](ai-and-the-pm-craft.md#fable-overthinks-like-a-seasoned-engineer-producing-unreadable-specs) (same verbosity complaint about Fable, opposite finding for 5.6 on the same writing task class)
+
+### 5.6 makes reliable agentized knowledge‑work automation practical
+Because 5.6 is smart, fast, and a good writer, the reviewer uses it as the intelligence inside systems that automate rote knowledge tasks — e.g., turning emails into action cards (the Tend app), summarizing meeting transcripts, tracking meals from photos, and managing marketplace purchases. The model can run in a loop as a subagent, surfacing decisions for a human to approve, which lets people 'work on the system' instead of doing every task manually. This is presented as a step change: 5.6 is the first model the reviewer trusts to reliably run those end‑to‑end workflows.
+— Every · 2026-07-09 · guest: — · [▶ 9:12](https://www.youtube.com/watch?v=13tHN3iP5kQ&t=552) · `pi-13tHN3iP5kQ-04`
+
+### OpenAI appears to favor smaller, well post‑trained models over giant models
+The reviewer frames 5.6 (Soul) as a strategic contrast to Fable: rather than being enormous and slow, Soul seems smaller but heavily post‑trained to maximize ergonomics, speed, and cost‑effectiveness. Fable shows the 'big model smell'—greater capability at the absolute top end but higher latency and cost—whereas 5.6 is tuned for collaboration and everyday use. The implication is that for most users and most tasks this design choice is a smarter product bet.
+— Every · 2026-07-09 · guest: — · [▶ 12:31](https://www.youtube.com/watch?v=13tHN3iP5kQ&t=751) · `pi-13tHN3iP5kQ-05`
+related: [Fable 5 consumes roughly twice the tokens of other models](#fable-5-consumes-roughly-twice-the-tokens-of-other-models) (the "big model smell" cost/latency tradeoff is the same token-burn finding from a different practitioner)
+
 ## Open questions
 - The same week Opus 4.8 set SWEBench Pro records (`pi-aMyubFA106U-01` in Tech frontier), this reviewer found it "100% made up things based on hypothesis not data." What's the bridge between benchmark scores and real iteration ROI? Benchmarks test one-shot completion; practitioners test loops — the datasets may be measuring different things.
 - SGS's grounding fix (`pi-3rWSvrFahIY-02`) implies that today's RL-trained reasoning models face the same problem at scale: the harder the curriculum, the more likely the training signal drifts from real task distributions. Whether this surfaces as the "last 10%" gap seen in Opus 4.8/Fable 5 remains an open question.
@@ -123,6 +147,7 @@ related: [Strong practical performance but flaky on React/TypeScript generation]
 - [Generative media & multimodal production](generative-media-and-multimodal.md) — the "last 10%" reliability wall recurs in video generation
 
 ## Source episodes
+- [Every — I Tested GPT‑5.6 Sol for a Month (2026-07-09)](../episodes/2026/2026-07-09--every--i-tested-gpt-5-6-sol-for-a-month.md)
 - [How I AI — No hype Claude Opus 4.8 review (2026-05-29)](../episodes/2026/2026-05-29--howiai--no-hype-claude-opus-4-8-review.md)
 - [How I AI — Claude Fable 5 - is this Mythos model worth the wait? (2026-06-10)](../episodes/2026/2026-06-10--howiai--claude-fable-5-mythos-worth-the-wait.md)
 - [Every — How Anthropic Uses Claude Fable 5 With Mike Krieger (2026-06-10)](../episodes/2026/2026-06-10--every--anthropic-uses-claude-fable-5-mike-krieger.md)
