@@ -42,7 +42,8 @@ Cloud `Location` examples for when they arrive — gdrive: `https://drive.google
 - **Backed up:** sits under `~/Documents`, so likely iCloud Desktop & Documents (inferred — unverified). Treat as machine-local; it is **not** committed to this repo.
 - **Contents** (top folder → wiki home):
   - `Jumpstart/` → [jumpstart-pm](../areas/softserve/jumpstart-pm.md) — ADLC framework, Express SDLC assessment checklist, Conga AI-PM + Agentic-metrics decks, anonymized SDLC status reports, Daxko metrics.
-  - `Oracle/` → [oracle](../areas/softserve/oracle.md) — `General materials/`, `RiyahdAir/`.
+  - `Oracle/` → [oracle](../areas/softserve/oracle.md) — the partnership working set. Per-customer subfolders each with a numbered use-case scope doc: `Bosch/` (UC #3, cuOpt workforce opt), `DHL/` (UC #6, deep-research "Client Compass"), `Belron/` (UC #8, VSS visual inspection), `NHS/` (UC #9, complaints-review case assistant), `KPN/` (UC #10, CS/billing case assistant), `RiyahdAir/` (AIQ doc extraction), `SBG/` (Saudi Binladin Group — discovery-stage), `AIDP/`. Plus `General materials/` (GTM decks, accelerator-pack research), the **productization pipeline spreadsheet** (`SoftServe-NVIDIA-Productization Use cases-Pipeline_Oracle solutions — SS-work split + packaging.xlsx` — the canonical customer×use-case×pack map), the **agentic pattern taxonomy** (`AI workflow patterns - AIDP-NVIDIA-OracleAI mapping.xlsx`, mirrors the "patterns" Google Sheet), WfO one-pager + service-packages deck. Note: `Conga/` moved up to the SoftServe root.
+  - `Strategy/` → area-level (added since 2026-06-16) — Product Workshop deck + agenda, "Strategic options" deck.
   - `Monthly presentation/` → area-level — "R&D GenAI Solutions Monthly Update" decks (May'26, Jun'26).
-  - `Meta/` → misc / meta (screenshots).
-- **Added:** 2026-06-16
+  - `Conga/`, `Meta/` → area-level / misc (Conga enablement materials; screenshots).
+- **Added:** 2026-06-16 (contents refreshed 2026-07-10)
