@@ -1,0 +1,227 @@
+{
+  "schema": 1,
+  "generatedAt": "2026-07-11T04:03:36.658Z",
+  "runStamp": "20260711T0403",
+  "episodes": [
+    {
+      "videoId": "xlu4mKwDElY",
+      "videoTitle": "$0 to $500M ARR in 13 Months. Inside Higgsfield's AI Growth with Alex Mashrabov, co-founder and CEO",
+      "videoUrl": "https://www.youtube.com/watch?v=xlu4mKwDElY",
+      "channelName": "SaaStr AI",
+      "publishedDate": "2026-07-08",
+      "guests": [
+        "Alex Mashrabov (co-founder and CEO, Higgsfield)"
+      ],
+      "summary": "Alex Mashrabov explains how Higgsfield scaled rapidly by building an AI-native, social-first video studio that consolidates many generative video models and agentic workflows. The throughline: product features (camera control, collaboration, agents) plus agency customers and outcome-based pricing turned technical novelty into high recurring revenue and rapid monetization.",
+      "insights": [
+        {
+          "headline": "Camera controls and social-first UX drove explosive ARR growth",
+          "detail": "Higgsfield prioritized camera controls and a social-first interface that made AI video usable for professional directors and non-technical marketers. That product bet produced viral adoption — the company reached roughly $10M ARR within about 5–6 weeks after launch and later reports $300M ARR — because it closed the gap between creative intent and model output. The non-obvious point: ease-of-use features (camera, lens, lighting control) mattered more than raw model quality for commercial adoption on social platforms.",
+          "anchorQuote": "we got to 10 million ARR",
+          "tSeconds": 253,
+          "link": "https://www.youtube.com/watch?v=xlu4mKwDElY&t=253"
+        },
+        {
+          "headline": "Creative-engineering pairing lets one director deliver ads in a day",
+          "detail": "Higgsfield intentionally staffs both engineering and creative teams (≈80 engineers and ≈70 creatives) so product development is driven by filmmaking workflows, not just ML research. That collaboration enabled efficiency gains where a single creative director can produce an end-to-end ad in a day — work that formerly required crews, equipment and weeks — which reduces cost and increases iteration speed for buyers. This operational model matters because it converts the tech into repeatable commercial output, not just experiments.",
+          "anchorQuote": "one creative director can now make ad end-to-end",
+          "tSeconds": 366,
+          "link": "https://www.youtube.com/watch?v=xlu4mKwDElY&t=366"
+        },
+        {
+          "headline": "Agencies supply ~70% revenue; platform both enables and disrupts them",
+          "detail": "Contrary to an expectation that individual creators would dominate early usage, Higgsfield found creative agencies are its largest customer segment and drive most revenue — roughly 70% of the cited $300M ARR. Agencies use the platform to scale output (many more assets, faster turnarounds) and to win experimental budgets, even while the product displaces some traditional agency labor. The result is a strong go-to-market flywheel: agencies bring recurring high-volume spend and accelerate enterprise adoption.",
+          "anchorQuote": "most of that's like almost 70% are agencies",
+          "tSeconds": 1558,
+          "link": "https://www.youtube.com/watch?v=xlu4mKwDElY&t=1558"
+        },
+        {
+          "headline": "Shifting to outcome pricing: charging by video, not tokens",
+          "detail": "Higgsfield is moving from raw model/token billing toward outcome-based pricing and agentic workflows (e.g., their Supercomputer marketing agent), recognizing customers pay for repeatable results more than underlying model calls. Evidence: average customer spending is about $1,000/year and the company sees ACV rising as customers adopt higher-value cinematography and bulk creative workflows; they explicitly plan to charge by outcome/video for those agentic services. This matters because it transforms model commoditization into a differentiated service sale.",
+          "anchorQuote": "On average, customers on AE field spend around $1,000 a year",
+          "tSeconds": 1306,
+          "link": "https://www.youtube.com/watch?v=xlu4mKwDElY&t=1306"
+        }
+      ]
+    },
+    {
+      "videoId": "g3a4qyFfSho",
+      "videoTitle": "GPT-5.6 SOL: THE GOLD STANDARD FOR KNOWLEDGE WORK",
+      "videoUrl": "https://www.youtube.com/watch?v=g3a4qyFfSho",
+      "channelName": "Every",
+      "publishedDate": "2026-07-09",
+      "guests": [
+        "Dom (OpenAI)",
+        "Roman (OpenAI)",
+        "Kyle Cobber (OpenAI)",
+        "Claire Vo (Chat PRD / How I AI)"
+      ],
+      "summary": "This session is a hands-on vibe check of OpenAI's GPT‑5.6 (Soul) and the recently merged ChatGPT/Codex desktop app (ChatGPT Work / Codex). The hosts argue 5.6 hits a new sweet spot for everyday knowledge work — fast, steerable, and resourceful enough to let non‑developers run agentic \"loop\" workflows — while acknowledging Fable still outperforms it on the highest‑precision coding benchmarks. The discussion covers practical examples (email automation, finance close dashboards, design and slide generation), differences in model style, and how the merged product surface unlocks integrations like local file and in‑browser actions.",
+      "insights": [
+        {
+          "headline": "GPT‑5.6 plus the merged Codex app becomes a knowledge‑work default",
+          "detail": "The hosts call GPT‑5.6 (Soul) combined with the Codex desktop experience the new \"gold standard\" for knowledge work because it balances power, speed, and usability. They say it replaced most of their daily workflows — writing, design, coding, and routine office automations — because it’s fast to iterate with and returns usable outputs quickly, which reduces friction for non‑specialists. That matters because tool adoption depends more on steady productivity gains than peak technical capability.",
+          "anchorQuote": "5.6 in chat GPT codeex and chatbt work",
+          "tSeconds": 172,
+          "link": "https://www.youtube.com/watch?v=g3a4qyFfSho&t=172"
+        },
+        {
+          "headline": "You can delegate long, multi‑step tasks to 5.6 without being a programmer",
+          "detail": "5.6 in the ChatGPT/Codex environment supports 'loop' workflows where users set rails and let the agent run end‑to‑end: find emails, pull 46 CSVs, compile analyses, or run negotiation loops on Marketplace listings. Multiple guests showed concrete examples (email handling, a monthly finance compute close, an automated food log using photos and speech input) where the model fetched files, asked clarifying questions, and produced final artifacts with minimal human intervention. That’s important because it lowers the technical bar for building persistent agent workflows across real apps and local files.",
+          "anchorQuote": "I don't do the work myself I build the system",
+          "tSeconds": 580,
+          "link": "https://www.youtube.com/watch?v=g3a4qyFfSho&t=580"
+        },
+        {
+          "headline": "GPT‑5.6 prioritizes speed, steerability, and revision ergonomics",
+          "detail": "Reviewers repeatedly emphasized that 5.6 is noticeably fast and \"steerable\": you can make many rapid iterations, tell the model what's off, and get a high‑quality second pass quickly. The team cited workflows that went through dozens of drafts in a short span (24 drafts of a vibe check) and praised the model for maintaining context while applying corrections, which keeps momentum in collaborative work. This matters because cheap, reliable revision often beats stronger one‑shot intelligence in day‑to‑day productivity.",
+          "anchorQuote": "combination of power, performance, and usability, and speed",
+          "tSeconds": 280,
+          "link": "https://www.youtube.com/watch?v=g3a4qyFfSho&t=280"
+        },
+        {
+          "headline": "On raw engineering benchmarks Fable still outperforms 5.6 (56 vs. 90)",
+          "detail": "In their 'senior engineer' coding benchmark 5.6 scored 56/100 while Fable scored about 90/100; the observed gap came from 5.6 producing larger, less simplified rewrites and leaving needless code intact. Hosts view the numeric gap as real but nuanced: 5.6 is 'good enough' for many production tasks because of its usability and speed, and it works well as a cheaper sub‑agent under Fable for expensive, high‑precision jobs. The takeaway: choose Fable for top‑tier engineering autonomy and 5.6 for broader, more accessible developer and non‑developer workflows.",
+          "anchorQuote": "it got a 56 out of 100",
+          "tSeconds": 2128,
+          "link": "https://www.youtube.com/watch?v=g3a4qyFfSho&t=2128"
+        },
+        {
+          "headline": "The merged app + agent features let models act on your computer and browser",
+          "detail": "OpenAI integrated Codex into ChatGPT with a Work tab and in‑app browser and emphasized 'computer use' and connectors; team demos showed agents taking screenshots, inspecting videos, rebuilding interactive visualizations, accessing local files, and navigating Google Docs. Dom/Roman and Kyle described how that integration lets models cross‑reference Slack/Drive/email and produce artifacts (dashboard closes, slide decks) that previously required heavy engineering. This matters because it turns language models into practical automation engines that can reliably interact with real workplace systems.",
+          "anchorQuote": "computer use is basically solved at this point",
+          "tSeconds": 3517,
+          "link": "https://www.youtube.com/watch?v=g3a4qyFfSho&t=3517"
+        }
+      ]
+    },
+    {
+      "videoId": "gAWbvEwUoiI",
+      "videoTitle": "GPT-5.6 Sol: Better AND cheaper than Fable",
+      "videoUrl": "https://www.youtube.com/watch?v=gAWbvEwUoiI",
+      "channelName": "How I AI",
+      "publishedDate": "2026-07-09",
+      "guests": [],
+      "summary": "This is a hands-on comparison of OpenAI's GPT-5.6 'Soul' versus Anthropic's Fable (plus other models) using a custom benchmark focused on PRDs, prototyping, coding, and conversational/agentic voice. The presenter finds Soul both materially cheaper per token and practically superior for day-to-day product work — clearer writing, more opinionated and functional designs, better end-to-end prototypes, and strong browser/video automation — while characterizing Fable as technically precise but pedantic and hard to collaborate with.",
+      "insights": [
+        {
+          "headline": "GPT-5.6 'Soul' is the author's preferred model overall",
+          "detail": "After blind, repeatable bench tests across PRDs, prototyping, code debugging, and agentic voice, the reviewer gave Soul the highest 'taste' score using a 70/30 human-to-LLM weighting. Soul consistently produced the outputs the reviewer found most useful and inspiring across dozens of evals, and she reports favoring Soul's outputs by a wide margin in full-fidelity prototype tasks. This preference wasn't just subjective fluff — it was the outcome of a structured evaluation harness and manual grading of artifacts.",
+          "anchorQuote": "your girl loves 56 soul. She just does.",
+          "tSeconds": 460,
+          "link": "https://www.youtube.com/watch?v=gAWbvEwUoiI&t=460"
+        },
+        {
+          "headline": "Soul is materially cheaper than Fable per token",
+          "detail": "The presenter lists API pricing: Soul charges $5 per million input tokens and $30 per million output tokens, while Fable is about $10 input and $50 output per million. That price gap makes Soul substantially more affordable for heavy prototyping and production usage, and could affect how vendors include models in subscription tiers. Lower cost plus comparable or better performance changes the practical calculus for teams choosing a default model.",
+          "anchorQuote": "Soul is a lot more affordable than Fable.",
+          "tSeconds": 137,
+          "link": "https://www.youtube.com/watch?v=gAWbvEwUoiI&t=137"
+        },
+        {
+          "headline": "Fable is technically precise but poor at human collaboration",
+          "detail": "The reviewer describes Fable as highly intelligent and good at security/technical tasks, but writes that its outputs are pedantic, inscrutable, and geared 'for agents by agents,' which makes it hard to collaborate with as a human product worker. She gives examples where Fable produced hardened architectures and tool-calling loops that only worked with GPT-5.5, blocking broader integration and iteration. In short, Fable excels when you need deterministic, exhaustive technical analysis, but struggles when you need pragmatic, user-focused product work.",
+          "anchorQuote": "Fable is very much like a for agents by agents communication mechanism",
+          "tSeconds": 1200,
+          "link": "https://www.youtube.com/watch?v=gAWbvEwUoiI&t=1200"
+        },
+        {
+          "headline": "Soul delivers more usable, opinionated end-to-end prototypes and designs",
+          "detail": "Across multiple prototype types (dense ops dashboards, dev tools, creative websites, habit trackers, and a gamified homework app), Soul produced cleaner visual hierarchy, semantic color choices, and more functional, click-through-ready designs than Fable. The reviewer repeatedly preferred Soul's opinionated aesthetic and functionality because it yielded actionable prototypes and inspiration rather than generic wireframes. She also used Soul to rebuild her chat PRD into a comprehensive 0→1 prototype and found the result easier to parse and iterate on.",
+          "anchorQuote": "full fidelity prototype, I just really preferred 56 soul",
+          "tSeconds": 629,
+          "link": "https://www.youtube.com/watch?v=gAWbvEwUoiI&t=629"
+        },
+        {
+          "headline": "GPT-5.6 shines at browser automation and social video editing",
+          "detail": "The reviewer used CodeX + GPT-5.6 with Chrome to automate high-value LinkedIn replies (processing ~500 messages), test web apps, and fill forms, and she reports that rolling back to 5.5 made those workflows worse. Separately, she dropped long talks into a video editor and asked the model to cut multiple hype clips for social, receiving tight, platform-ready outputs. These practical automation and media workflows are presented as high-leverage, everyday use cases where Soul materially speeds the owner's work.",
+          "anchorQuote": "it went through and burned through probably 500 messages.",
+          "tSeconds": 2068,
+          "link": "https://www.youtube.com/watch?v=gAWbvEwUoiI&t=2068"
+        }
+      ]
+    },
+    {
+      "videoId": "tTTG1Nn-kkw",
+      "videoTitle": "Everyone's Using Claude. This PM Tool Does More",
+      "videoUrl": "https://www.youtube.com/watch?v=tTTG1Nn-kkw",
+      "channelName": "Aakash Gupta",
+      "publishedDate": "2026-07-09",
+      "guests": [
+        "Mang (founder of Aura, New Form, Dream Cut)"
+      ],
+      "summary": "A hands-on walkthrough of using Codeex (the speaker's spelling of Codex) and the surrounding toolchain to turn chat-based AI into a project-first development and product workflow. The episode argues that local-first projects, agent-driven 'computer use', skill/plugin ecosystems, and eval/tracing are the practical levers PMs and founders should use to build apps, presentations, videos, and product workflows faster. It closes by arguing PMs must become more technical — not to write code but to orchestrate agents and maintain quality — or risk being displaced.",
+      "insights": [
+        {
+          "headline": "Codex turns chat into a project-based local development environment",
+          "detail": "Codeex (Codex) is presented not as a simple chat UI but as a full project workspace: projects are folders on your machine that the agent can read, edit and run, and it can generate slides, HTML, mobile apps and more. The host shows a concrete workflow — create a Projects folder in Downloads, give the agent full access, use planning mode, and then have the agent read local files, take screenshots and build deliverables — which lets the AI work with richer context and control actual tools (Figma, Xcode, Keynote) via 'computer use'. This matters because it converts chat into an operational environment, replacing many point tools and speeding iteration.",
+          "anchorQuote": "the chat GBT but 10x like",
+          "tSeconds": 249,
+          "link": "https://www.youtube.com/watch?v=tTTG1Nn-kkw&t=249"
+        },
+        {
+          "headline": "Local-first file access massively boosts AI's effectiveness and privacy",
+          "detail": "The speaker emphasizes keeping everything local (projects, markdown, assets) and using a knowledge-organizer like Obsidian so the AI can use richer, private context without depending on remote databases. He attributes this local-first mindset to the 'open claw' movement and shows how Obsidian organizes MD files while Codeex reads HTML/MD/images locally; the result is more powerful, faster and private agent behavior. The practical upshot: store and structure context on your machine so agents can act with higher accuracy and less leakage risk.",
+          "anchorQuote": "this is the superpower that kind of open claw uh",
+          "tSeconds": 628,
+          "link": "https://www.youtube.com/watch?v=tTTG1Nn-kkw&t=628"
+        },
+        {
+          "headline": "Tracing and eval loops are essential to stop agent hallucinations",
+          "detail": "When agents call tools and make multi-step decisions you must trace and evaluate each span: the creator demonstrates Arise instrumenting Claude Code to capture every tool call, which revealed a resume-feedback agent hallucinating 'React' instead of the job posting's 'Python'. Using Arise, Claude suggested four evaluation criteria, the creator ran evals, found a ~12% failure rate, implemented fixes, and saw it drop under 2% — all in about 20 minutes. The lesson: without tracing+eval you ship blind; with them you can systematically find and fix agent errors.",
+          "anchorQuote": "Trace what's happening, evaluate where it fails, then fix it.",
+          "tSeconds": 738,
+          "link": "https://www.youtube.com/watch?v=tTTG1Nn-kkw&t=738"
+        },
+        {
+          "headline": "Product managers must get technical and orchestrate agents to stay relevant",
+          "detail": "The speaker argues layoffs are revealing: non-technical PMs are most at risk while PMs who know AI tooling, models and orchestration survive and thrive. He explains 'technical' doesn't mean writing lines of code — it means understanding models, skills, and how to deploy fleets of agents, then applying human judgment to the final 8–10% of quality control. Evidence: he runs multiple products (Aura, New Form, Dream Cut), manages agents and a small team, and says AI removes bureaucracy so PMs' value shifts to strategy, vision and QA.",
+          "anchorQuote": "you need to get more technical",
+          "tSeconds": 3989,
+          "link": "https://www.youtube.com/watch?v=tTTG1Nn-kkw&t=3989"
+        }
+      ]
+    },
+    {
+      "videoId": "VbqaL_eHhKY",
+      "videoTitle": "New Ways To Design With AI Tools",
+      "videoUrl": "https://www.youtube.com/watch?v=VbqaL_eHhKY",
+      "channelName": "Y Combinator",
+      "publishedDate": "2026-07-10",
+      "guests": [
+        "Ev"
+      ],
+      "summary": "The conversation shows how designers are using AI agents to change workflows: recording project conversations, feeding that context to models, and one-shoting many design iterations to discover surprising, usable ideas. The central argument is that treating transcripts and markdown 'souls' as source-of-truth plus lightweight, disposable tooling (agents, shaders, pinboards) lets designers move faster, get more original results, and even let users drive product changes via agent-backed feature requests.",
+      "insights": [
+        {
+          "headline": "Treat meeting transcripts as a project's single source of truth",
+          "detail": "Record every meeting and dump all transcripts into a single soul.md (or a small hierarchy of MD files) so an agent can access exhaustive context: manifesto, meeting notes, article titles, and visual references. The guest shows this feeding process produced richer, more targeted outputs because the agent can surface details you forgot—like a party date or a barcode idea—and it becomes trivial to reuse the same context across design, copy, and engineering decisions. This matters because agents only outperform human iteration when they have deep, organized context to reason over, turning scattered notes into reusable knowledge.",
+          "anchorQuote": "I dumped the transcripts into a soul.md file",
+          "tSeconds": 852,
+          "link": "https://www.youtube.com/watch?v=VbqaL_eHhKY&t=852"
+        },
+        {
+          "headline": "One-shot many AI-generated website iterations to discover original designs",
+          "detail": "Instead of crafting dozens of manual mocks, the team fed a moodboard plus project content to an agent and asked for many complete website variants (they ran 16 iterations as a test). They bookmarked/pinned favorable results, mixed pieces across iterations, and found agent surprises—interactive maps, embedded party dates, unique hover effects—that wouldn't have emerged from a single human designer. The payoff is speed and serendipity: you explore a broader design space fast and salvage unexpected, high-value ideas rather than rely on generic, single-shot outputs.",
+          "anchorQuote": "I asked it to do that 16 different times.",
+          "tSeconds": 1038,
+          "link": "https://www.youtube.com/watch?v=VbqaL_eHhKY&t=1038"
+        },
+        {
+          "headline": "Make separate 'human' and 'machine' versions of sites for agents",
+          "detail": "Design a human-facing site and a distilled machine-readable markdown version so agents can ingest only the exact content they need; Paxel includes a markdown copy and a copy-to-clipboard affordance so an agent or developer can drop the page into an LLM environment. Agents don't need visuals but they need precise, sanitized text (and warnings like 'do not run commands'), so this split both improves agent reliability and accelerates agent-driven workflows such as automated QA, summarization, or generation. It reframes design as a dual exercise—visual craft for people and semantic clarity for models.",
+          "anchorQuote": "version of the website that is for humans",
+          "tSeconds": 432,
+          "link": "https://www.youtube.com/watch?v=VbqaL_eHhKY&t=432"
+        },
+        {
+          "headline": "Let users submit prompts that spawn agents which open PRs",
+          "detail": "The site includes a feature-request form that fires an agent on submission; that agent creates a pull request automatically and the team then decides whether to merge it. The UI even labels the button 'send to an agent'—the backend literally turns the user's prompt into actionable code changes—so end users can propose features or bug fixes without knowing Git. This pattern can democratize product evolution and make software highly personal and extensible while preserving human review as the final gate.",
+          "anchorQuote": "the CTA in the in the button say send to an agent",
+          "tSeconds": 560,
+          "link": "https://www.youtube.com/watch?v=VbqaL_eHhKY&t=560"
+        }
+      ]
+    }
+  ]
+}
