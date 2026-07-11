@@ -2,7 +2,7 @@
 
 _status: live theme — how AI reshapes product management work, skills, workflows, and roles_
 _slug: ai-and-the-pm-craft_
-_updated: 2026-07-09 · 19 insights from 13 episodes_
+_updated: 2026-07-11 · 20 insights from 14 episodes_
 
 ## The throughline
 PMs and full-stack designers gain leverage in the coding-agent era because the gap between "knowing what to build" and "shipping it" collapses. The skill shift is from raw implementation to defining what to build, evaluating quality, and designing where humans and agents collaborate — Shipper bets PMs who "ride the models" out-ship engineers, an OpenAI PM uses Codex to drive prototypes to 70–80% completion and replace PRDs with runnable artifacts, and a non-technical builder ships a production iPhone app and clears App Store review using LLMs as her stepwise architect + engineer. Lovable extends this to "anyone": vibe coding democratizes product creation, with a student hitting $130k ARR in 30 days. The same craft scales up the org chart: Customer.io's VP of Product rebuilds a third of an all-hands deck in a morning, but only by treating Claude like an eager junior — rolling context in, forcing clarifying questions, blocking premature deliverables — and the leader's residual value collapses to two choices: *which sources* (recordings, docs, metrics) and *which target form* (deck, Notion page, one-pager). The model-selection beat also sharpens: Fable's "seasoned engineer" verbosity wrecks PRDs, so pair Mythos-class models with cheaper Opus/Sonnet by task type. Ambrosino (OpenAI Codex) sharpens the picture from the supply side: when dozens of people inside a company can stand up polished prototypes from the same idea, implementation is no longer the bottleneck — *curation* is: deciding which of ~90 explorations to keep, fold together, or refine. The same abundance makes design and taste distinctly non-automatable: aesthetic judgment, novelty, and system-level UI coherence lack the grading signals needed to train models to generalize, so models copy patterns (Linear-clone proliferation) but cannot generate the novelty or cross-component semantic reasoning that defines good design. The operational kit that recurs: hyper-literal prompts, screenshots-as-examples, prototypes-not-PRDs, a beginner's mindset, and the discipline to restrain the model until the foundations are set.
@@ -99,6 +99,11 @@ Mosseri insists designers remain crucial because they provide taste and distinct
 — Lenny's Podcast · 2026-07-09 · guest: Adam Mosseri (Instagram/Meta) · [▶ 8:39](https://www.youtube.com/watch?v=yQ_EWmtfWvQ&t=519) · `pi-yQ_EWmtfWvQ-02`
 related: [Design and taste remain hard to automate and still need humans](#design-and-taste-remain-hard-to-automate-and-still-need-humans) (Ambrosino: design lacks a gradable training signal; Mosseri: taste is visible in the finished product as detectable AI "vibes" — same claim, complementary reasoning)
 
+### Product managers must get technical and orchestrate agents to stay relevant
+The speaker argues layoffs are revealing: non-technical PMs are most at risk while PMs who know AI tooling, models and orchestration survive and thrive. He explains 'technical' doesn't mean writing lines of code — it means understanding models, skills, and how to deploy fleets of agents, then applying human judgment to the final 8–10% of quality control. Evidence: he runs multiple products (Aura, New Form, Dream Cut), manages agents and a small team, and says AI removes bureaucracy so PMs' value shifts to strategy, vision and QA.
+— Aakash Gupta · 2026-07-09 · guest: Mang (Aura, New Form, Dream Cut) · [▶ 1:06:29](https://www.youtube.com/watch?v=tTTG1Nn-kkw&t=3989) · `pi-tTTG1Nn-kkw-04`
+related: [PMs and full-stack designers will be unusually valuable in near term](#pms-and-full-stack-designers-will-be-unusually-valuable-in-near-term) (Shipper's prediction; this is another live practitioner data point for the same "ride the models or fall behind" claim)
+
 ## Related themes
 - [AI agents & applications](ai-agents-and-applications.md) — the surfaces PMs build in
 - [Leadership, careers & teams](leadership-careers-and-teams.md) — how the manager/IC mix is shifting alongside
@@ -117,3 +122,4 @@ related: [Design and taste remain hard to automate and still need humans](#desig
 - [SaaStr AI — How to Build Your Own AI VP of Marketing Step-by-Step (2026-06-26)](../episodes/2026/2026-06-26--saastr--how-to-build-your-own-ai-vp-of-marketing.md)
 - [Lenny's Podcast — OpenAI Codex lead on the new shape of product work | Andrew Ambrosino (2026-06-28)](../episodes/2026/2026-06-28--lenny--openai-codex-lead-on-the-new-shape-of-product-work.md)
 - [Every — How Every's Head of Consulting Uses Codex Every Day (2026-07-01)](../episodes/2026/2026-07-01--every--everys-head-of-consulting-uses-codex-every-day.md)
+- [Aakash Gupta — Everyone's Using Claude. This PM Tool Does More (2026-07-09)](../episodes/2026/2026-07-09--aakash--everyones-using-claude-this-pm-tool-does-more.md)
