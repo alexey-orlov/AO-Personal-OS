@@ -1,7 +1,7 @@
 # Oracle-side team — who we deal with & what they want (reference)
 
 _status: reference doc — decoded roster of the Oracle people on the SoftServe partnership, the two motions they sit in, and Oracle's goals_
-_updated: 2026-07-01_
+_updated: 2026-07-13_
 _source: LinkedIn + public-web research run in-session 2026-06-16 (per-profile subagents); product pages verified 2026-06-16/18; Gero role updated from the [2026-06-18 onboarding call](calls/oracle/2026-06-18_144751_sales-call_2026061814320114A9106F.md); **Neil + Gero-reports-into-Neil restructure** from the [2026-06-23 AIDP strategy call](calls/oracle/2026-06-23_190622_default_2026062315031101B18AE2.md); **Motion A Accelerator Packs reorg** (Vishnu + Dennis Kennetz → compute org; packs → Nathan Thomas's org under PM Pulkit Sindhwani + eng Wei Li) from the [2026-06-23 packs partnership sync](calls/oracle/2026-06-23_192203_sales-call_20260623183616C79A9EC5.md); **Neil-led enablement org + regional directors (Gero/Adrian James/Hamad), Pankaj Sharma's pre-sales/architecture org, accounts + AADP teams** from Alex's [2026-06-25 engagement helicopter-view](calls/oracle/2026-06-25_131530_default_20260625123708F9E8088F.md) (one-source verbal map; phonetic names + roles marked (inferred)); **Value Realization team scale/behavior (grew ~10→~100, renaming to "AI", EMEA GTM, active presales) + Neil = its manager** from the [2026-07-01 strategy debrief](calls/oracle/2026-07-06_154022_default_202607011859547232E577.md). Companion to [oracle.md](oracle.md) (partnership state) and [oracle-ai-offerings.md](oracle-ai-offerings.md) (product catalog). Inferences marked (inferred)._
 
 ## Headline
