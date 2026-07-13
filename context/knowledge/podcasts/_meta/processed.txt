@@ -222,6 +222,11 @@ pi-_FBivfgOvuE-01
 pi-_FBivfgOvuE-02
 pi-_FBivfgOvuE-03
 pi-_FBivfgOvuE-04
+pi-_cmpIveXnvE-01
+pi-_cmpIveXnvE-02
+pi-_cmpIveXnvE-03
+pi-_cmpIveXnvE-04
+pi-_cmpIveXnvE-05
 pi-aMyubFA106U-01
 pi-aMyubFA106U-02
 pi-aMyubFA106U-03
