@@ -78,5 +78,5 @@ _HQ codes: SA = Saudi Arabia · ND = Netherlands · UK · Germany · Austria. Pk
 - **Channel 4** (VSS, media) now carries **SOW ✅ + PO ✅** — furthest-along of the "Next" band commercially despite the open NDA.
 - **DHL NDA now ✅** — closes the wiki's open question ("debating whether existing Oracle-customer status removes the NDA need").
 - **Both Active POCs delivered & in UAT** (Bosch 11.06, Riyadh Air 09.06), full mini SOW→PO stack closed on both.
-- **POC financials captured** (new): total pipeline value ≈ €1.65M across 11 costed POCs; largest = DHL €226k→192k, NHS & KPN €198.5k each; smallest = Riyadh Air €68k, Channel 4 €83k.
+- **POC financials captured** (new): total pipeline value ≈ €1.6M across 11 costed POCs; largest = DHL €226k→192k, NHS & KPN €198.5k each; smallest = Riyadh Air €68k, Channel 4 €83k.
 - **Name reconciliation:** "Riyadh Air" = the wiki's Riyad Air / "RIAD" / "Rioter"; "Work Zone Optimization" = the Bosch cuOpt workforce case; "AI-Q" = AIQ.
