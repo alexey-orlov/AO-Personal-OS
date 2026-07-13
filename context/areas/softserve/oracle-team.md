@@ -58,7 +58,7 @@ Decoded from Alex's engagement "helicopter-view" — a one-source verbal map; ph
 | **Neil** ("Neal") | Leads the **pre-sales / value-realization / enablement** function; holds build-vs-partner (see engagement-lead table) | Regional directors report up to him |
 | **Gero Gunkel** ("Gera") | **Europe** AI director/enabler — SoftServe's **main entry point** | = the day-to-day engagement lead Alex deals with |
 | **Adrian James** ("**A. J.**") | **UK** AI director/enabler; ex-lawyer; "**Neil's right hand**"; **Oracle owner of the Channel 4 (VSS) + Sky Group (cuOpt) deals** (per the [2026-07-13 pipeline](oracle-pipeline.md), listed there as "A. J.") | (inferred) newly surfaced |
-| **Hamad** | **Middle East** AI director/enabler; **champion on the Riyadh/ME cuOpt pilot** — holds the integration vision (OFS / Fusion Apps via adapters / IDS); SoftServe to re-validate integration estimates with him | also drove retail-POC due diligence ("Hamad + Saad", [packs sync](calls/oracle/2026-06-23_192203_sales-call_20260623183616C79A9EC5.md)); **= the "Hiro"** of the [WfO alignment 2026-06-25](calls/oracle/2026-06-25_134850_one-on-one_20260625131028FE4E3D44.md) (inferred) |
+| **Hamad** — full name **Hammad Hussain** (per the [2026-07-13 pipeline](oracle-pipeline.md)) | **Middle East** AI director/enabler; **Oracle owner of the Riyadh Air (AIQ document-extraction) deal**; champion on the Riyadh/ME pilot — holds the integration vision (OFS / Fusion Apps via adapters / IDS); SoftServe to re-validate integration estimates with him | also drove retail-POC due diligence ("Hamad + Saad", [packs sync](calls/oracle/2026-06-23_192203_sales-call_20260623183616C79A9EC5.md)); **= the "Hiro"** of the [WfO alignment 2026-06-25](calls/oracle/2026-06-25_134850_one-on-one_20260625131028FE4E3D44.md) (inferred) |
 | **Pankaj Sharma** | Owns **pre-sales teams + pre-sale-level architecture** support; his team built the **OCR + UI accelerator packs** | Denis Kintsern (inferred) reports to him |
 | **Ainur & Canon** | Product teams ("Black Veil / Panora") — own **accelerator-pack re-deploy / IaaS** infra; Canon = go-to | (inferred names) |
 
@@ -75,9 +75,9 @@ Two more orgs SoftServe doesn't yet work with directly: an **Accounts** org (acc
 ## How they treat the engagement
 
 - Engaged at the **senior-technical-specialist + PM tier**; genuinely strong people. Gero is the best champion (pedigree) and — as of 2026-06-18 — the day-to-day **owner of accelerator scope & prioritization**; but as of 2026-06-23 **he reports into Neil's team on the data/AIDP side**, and **Neil holds the build-vs-partner / staffing decision** — the first real budget/build call surfaced on the Oracle side.
-- Commercial authority: **Neil** (build-vs-partner on the data motion), **Milo** (Motion B sales/commercials), and likely someone **above the specialists** on Motion A whom Alex hasn't met. Neil is the newest and most decision-relevant of these.
+- Commercial authority: **Neil** (build-vs-partner on the data motion), **Milo Honegger** (Motion B sales/commercials + owns the Belron/Nesma pipeline deals), and likely someone **above the specialists** on Motion A whom Alex hasn't met. Neil is the newest and most decision-relevant of these.
 - Relationship is **technically serious but commercially early** — partner-managed from the specialist tier, with the decisive build-vs-partner call now traced to Neil.
-- **Highest-value next move:** research **Neil** (full name, title, reporting line, whether his remit spans beyond AIDP) and **Milo** — they are the two named figures closest to real funding/build authority.
+- **Highest-value next move:** research **Neil** (full name, title, reporting line, whether his remit spans beyond AIDP) and **Milo Honegger** (surname surfaced 2026-07-13) — they are the two named figures closest to real funding/build authority.
 
 ## Product ownership → catalog
 
