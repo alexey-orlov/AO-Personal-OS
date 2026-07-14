@@ -1,6 +1,6 @@
 # Jumpstart — PM-focused offering (design)
 
-_status: PM-offering design (v0.8 one-pager — Coverage map + Appendix A implementation playbook, 2026-06-13); now first live application — GI Partners (PE) asked SoftServe for a PM-upskilling offering for portfolio co DAX; first deck given feedback Jul 13; slide package (trainer bios + tiered training-vs-"transformation" offering) due ~Fri Jul 17; Jun–Jul 2026 mandate (Bogdan-driven)_
+_status: program structure v1 authored by Alex 2026-07-14 (working-group + shared work-OS + rolling use-case wave; his Google Doc is the authoritative concept, supersedes the v0.8 design) with a client-ready 2-page outline built and in review; in parallel first live application — GI Partners (PE) PM-upskilling package for portfolio co DAX, due ~Fri Jul 17; Jun–Jul 2026 mandate (Bogdan-driven)_
 _updated: 2026-07-14_
 
 ## Snapshot
