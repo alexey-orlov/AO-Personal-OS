@@ -75,6 +75,7 @@ context/areas/softserve/calls/2026-06-09_183633_one-on-one_2026060917013100B193F
 context/areas/softserve/calls/2026-06-11_135929_default_20260611130042C37F547F.md
 context/areas/softserve/calls/2026-06-25_112719_default_202606251114264E8BD2B7.md
 context/areas/softserve/calls/2026-07-06_172238_default_20260706153858763EF88E.md
+context/areas/softserve/calls/jumpstart-pm/2026-07-14_194924_sales-call_2026071417472224FB611D.md
 context/areas/softserve/calls/oracle/2026-06-12_151312_one-on-one_20260612143223E84CB5DA.md
 context/areas/softserve/calls/oracle/2026-06-12_173159_sales-call_2026061216024378A29A99.md
 context/areas/softserve/calls/oracle/2026-06-15_200833_one-on-one_20260615190118D7E7175C.md
