@@ -1,7 +1,7 @@
 # Jumpstart — PM-focused offering (design)
 
-_status: v0.8 program one-pager — Coverage map (topics × artifacts × activities × week) + Appendix A implementation playbook (5-round adversarial review 7→8.5; all blockers/majors/citations fixed) 2026-06-12 — review with Inna ~week of Jun 15; Jun–Jul 2026 mandate (Bogdan-driven)_
-_updated: 2026-06-13_
+_status: PM-offering design (v0.8 one-pager — Coverage map + Appendix A implementation playbook, 2026-06-13); now first live application — GI Partners (PE) asked SoftServe for a PM-upskilling offering for portfolio co DAX; first deck given feedback Jul 13; slide package (trainer bios + tiered training-vs-"transformation" offering) due ~Fri Jul 17; Jun–Jul 2026 mandate (Bogdan-driven)_
+_updated: 2026-07-14_
 
 ## Snapshot
 
@@ -19,6 +19,7 @@ _updated: 2026-06-13_
 ## Active threads
 
 - **Offering definition** — v0.1 drafted ([one-pager](../../../outputs/jumpstart-pm/jumpstart-pm-program-one-pager.md)); next: review with Inna, then Bogdan. Open decisions carried in the draft: standalone vs. 4th-seat extension of engineering Jumpstart; CPO-direct GTM now vs. after 2 reference cases; PM skills library as SoftServe IP (recommended yes); pricing/sizing for smaller, higher-touch PM pods.
+- **DAX PM offering (GI Partners request)** — first live application of the offering. GI Partners asked SoftServe for a PM-upskilling offering for portfolio co DAX; the first deck drew feedback (Jul 13): add trainer **bios** + make it PM-oriented (it "looked made by a technical person"). Team leaning toward proposing **tiered options** — a ~4-week practical training vs. a ~6–8-week program with real implementation ("transformation") — but wary that "transformation" reads as unwanted BCG-style strategy consulting, so keep it short/practical. Context: SoftServe's DAX activation pod has no PM yet is asked to support DAX's PMs; DAX PMs already use Claude (e.g. user stories); a reporting misalignment (PMs report to a VP Product, not the CTO) is now resolved. Deliverable: bios (~2 slides) + offering (~3–5 slides), draft circulated first, due ~**Fri Jul 17**. Blocked on GI Partners' true intent (training vs. outcome) + access to the real request owner (a DAX VP Product) — Speaker A to try a 15-min client scoping call and confirm the deadline with Daniel/Sales. [sync](calls/jumpstart-pm/2026-07-14_194924_sales-call_2026071417472224FB611D.md)
 
 ## People
 
