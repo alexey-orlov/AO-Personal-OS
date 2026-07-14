@@ -1,8 +1,8 @@
 ---
 note: GC Todo
 area: gigacloud
-snapshot: 2026-07-05 19:19
-chars: 17047
+snapshot: 2026-07-14 08:00
+chars: 17152
 scope: above relevance marker
 ---
 GC Todo
@@ -26,6 +26,7 @@ Max discount = 1 – (Total COGS, UA Region, UAH / Price, UAH + Min margin, %) *
 
 
 Фиксы на деве
+Price item. Field auto-filling: current margin, max discount - поменять версию
 Active (spec infra products): required fields - (2) business rules, product page
 Product catalogue. Publication: Verify draft product - product catalogue, verification
 
@@ -46,8 +47,8 @@ ToDo:
 
 
 Фиксы после поставки:
-Обновить price type по всем ценам после поставки на проде
 Проставить gov coefficient = 1
+Обновить price type по всем ценам после поставки на проде
 Проставить всем комп ин продуктам Is Active = true
 
 Автоматизация
