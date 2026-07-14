@@ -35,15 +35,15 @@ _updated: 2026-07-14_
 
 ## Decisions
 
+- 2026-07-14 — Program concept set: shared AI work-OS + working-group model (champions / power adopters) + rolling 5-block use-case wave, W0-W9 with W13/W17 health checks; Alex's Google-Doc structure is the authoritative agenda, superseding the v0.8 design. (chat, 2026-07-14)
 - 2026-07-14 — For the GI Partners DAX PM ask, propose **tiered options** (a practical PM training tier vs. a short outcome/"transformation" tier with real implementation), kept weeks-not-months to avoid reading as BCG-style strategy consulting. [sync](calls/jumpstart-pm/2026-07-14_194924_sales-call_2026071417472224FB611D.md)
 - 2026-06-11 — Alex owns the design of the PM-focused Jumpstart extension across Jun–Jul 2026. [walkthrough](calls/2026-06-11_135929_default_20260611130042C37F547F.md)
 
 ## Open loops
 
 Mine:
-- Send the existing draft/full version of the DAX PM proposal to the team (today evening or tomorrow). [sync](calls/jumpstart-pm/2026-07-14_194924_sales-call_2026071417472224FB611D.md)
+- Review the 2-page program outline (title/wording, add contact email), then send the program draft to the team (evening Jul 14 / Jul 15). [sync](calls/jumpstart-pm/2026-07-14_194924_sales-call_2026071417472224FB611D.md) + (chat, 2026-07-14)
 - Assemble the DAX PM package with the team — trainer bios (~2 slides) + offering (~3–5 slides) framed as tiered options — by ~**Fri Jul 17** (draft circulated first).
-- Review the v0.1 one-pager with Inna (~week of Jun 15); fold in feedback, then take to Bogdan.
 - Reach out to Nadia Zerchak (DAX) and Jorge Rojas / Inok (Payworks) for project depth. (inferred)
 
 Theirs:
