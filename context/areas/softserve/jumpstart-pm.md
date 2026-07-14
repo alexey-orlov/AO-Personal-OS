@@ -32,19 +32,25 @@ _updated: 2026-07-14_
 
 ## Decisions
 
+- 2026-07-14 — For the GI Partners DAX PM ask, propose **tiered options** (a practical PM training tier vs. a short outcome/"transformation" tier with real implementation), kept weeks-not-months to avoid reading as BCG-style strategy consulting. [sync](calls/jumpstart-pm/2026-07-14_194924_sales-call_2026071417472224FB611D.md)
 - 2026-06-11 — Alex owns the design of the PM-focused Jumpstart extension across Jun–Jul 2026. [walkthrough](calls/2026-06-11_135929_default_20260611130042C37F547F.md)
 
 ## Open loops
 
 Mine:
+- Send the existing draft/full version of the DAX PM proposal to the team (today evening or tomorrow). [sync](calls/jumpstart-pm/2026-07-14_194924_sales-call_2026071417472224FB611D.md)
+- Assemble the DAX PM package with the team — trainer bios (~2 slides) + offering (~3–5 slides) framed as tiered options — by ~**Fri Jul 17** (draft circulated first).
 - Review the v0.1 one-pager with Inna (~week of Jun 15); fold in feedback, then take to Bogdan.
 - Reach out to Nadia Zerchak (DAX) and Jorge Rojas / Inok (Payworks) for project depth. (inferred)
 
 Theirs:
+- Speaker A (DAX account/engagement lead) — write the offering structure/outline + bios; ask the delivery team which PM-specific skills were already built for DAX; try to arrange a 15-min client scoping call; confirm the final deadline with Daniel/Sales.
+- GI Partners — confirm whether they want training only or training + implementation/transformation; possibly grant access to a client-side owner (DAX VP Product) for a 15-min scoping call.
 - Inna: check with Bogdan whether the DAX project folder + proposals can be shared with Alex.
 
 ## Activity
 
+- 2026-07-14 — [DAX PM offering sync (GI Partners request)](calls/jumpstart-pm/2026-07-14_194924_sales-call_2026071417472224FB611D.md) — internal team planning for GI Partners' request of a PM-upskilling offering for portfolio co DAX; feedback on the first deck (add trainer bios, make it PM-oriented); leaning tiered options (practical training vs. a short implementation/"transformation" program); package (bios + offering slides) due ~Fri Jul 17, draft first; blocked on GI Partners' true intent + access to the DAX VP Product owner.
 - 2026-06-13 — [v0.8 Coverage map](../../../outputs/jumpstart-pm/jumpstart-pm-program-one-pager.md) — added an executive **Coverage map** mapping all 11 PM topics + the foundational artifacts (default repo, context-sources integration, context metadata, training, responsibilities, success-metrics+governance) + the activity formats (workshop / hackathon / brainstorm / live-Slack / pairing) to weeks W0–W6 + Enablement; compressed the redundant body week-list into a one-line spine so the doc stays focused. Self-scored 8.5→9.5→10 over 3 passes against clarity/systematic/non-abundant criteria (Alex's topic+artifact list as the spec).
 - 2026-06-13 — [v0.7 implementation appendix](../../../outputs/jumpstart-pm/jumpstart-pm-program-one-pager.md) — added **Appendix A** (context-system build sequence + eval/test method, underperformance triage playbook, day-/week-by-week W0–W6 + Enablement with owners + exit gates + watch-outs, 18-row risk register). Built from a source-grounded research workflow (8 dimensions, adversarially verified) then hardened across **5 adversarial review rounds** (scored 7→8→8→8→8.5; each round citation-checked by fetching sources). Key fixes landed: post-pod handover-cliff risk, pilot-selection-bias risk, eval-as-tests method, context-saturation triage, EU AI Act date correction (Nov-2025 Digital Omnibus → Dec-2027), MIT/Lenny's/HubSpot citation corrections, model-tiering + memory-as-architecture + meeting-intel/deep-research frontier additions.
 - 2026-06-12 — [v0.2 field calibration](../../../outputs/jumpstart-pm/jumpstart-pm-program-one-pager.md) — external research sweep (HubSpot, Shopify/First Round, Zapier, Anthropic, Stanford, Lenny's survey, MIT GenAI Divide, METR, Gartner, BCG) folded into the one-pager over 4 review turns; references section now groups company programs / frontier practice / adoption-reality research.
