@@ -1,0 +1,48 @@
+{
+  "schema": 1,
+  "generatedAt": "2026-07-17T04:02:02.538Z",
+  "runStamp": "20260717T0402",
+  "episodes": [
+    {
+      "videoId": "Fso3Z-DCIkY",
+      "videoTitle": "The Ex-Google PM Secret to Landing the Offer",
+      "videoUrl": "https://www.youtube.com/watch?v=Fso3Z-DCIkY",
+      "channelName": "Aakash Gupta",
+      "publishedDate": "2026-07-16",
+      "guests": [
+        "Gal (iGotAnOffer; ex‑Google PM)"
+      ],
+      "summary": "Akash interviews Gal, an ex‑Google PM turned coach, about how to prepare for modern Google PM interviews by using storytelling to signal 'Googliness.' The discussion defines Googliness, walks through concrete behavioral and case examples, outlines the 2026 Google PM interview loop, and explains how AI‑PM roles differ in expectations. The episode ends with live coaching on a \"tell me about yourself\" answer and practical prep advice.",
+      "insights": [
+        {
+          "headline": "Tell a coherent story — interviewers will invent one otherwise",
+          "detail": "Gal argues that candidates must convert facts into a clear narrative because humans are \"Homo narrans\" and will automatically build a story from fragments. He demonstrates with two versions of the same resume and two versions of the same neighbor anecdote to show how highlighting different facts yields very different impressions (e.g., \"hard worker\" vs \"empathetic collaborator\"). The practical takeaway: pick a theme for each behavioral answer and color facts to lead the interviewer to the conclusion you want.",
+          "anchorQuote": "we are now Homo narrans. Homo narrans is the narrative uh human",
+          "tSeconds": 325,
+          "link": "https://www.youtube.com/watch?v=Fso3Z-DCIkY&t=325"
+        },
+        {
+          "headline": "Googliness gauges humility, collaboration, ethics, and comfort with ambiguity",
+          "detail": "Rather than testing raw smarts, Googliness looks for intellectual humility, collaborative spirit, conscientious ownership, and the willingness to do the right thing even at cost. Gal cites Laszlo Bock's framing and contrasts two Gmail stories to show that interviewers prefer answers demonstrating listening, low ego, and teamwork — traits that make people easy to work with (he even says 99% of Google meetings end with consensus). Candidates should select and color stories to surface these values honestly.",
+          "anchorQuote": "Googliness is a real thing and is a really",
+          "tSeconds": 1623,
+          "link": "https://www.youtube.com/watch?v=Fso3Z-DCIkY&t=1623"
+        },
+        {
+          "headline": "The 2026 Google PM loop is five hybrid interview types",
+          "detail": "Gal lists the current rounds candidates should expect: product vision (product sense), product analysis (metrics/experiments), strategic insights (company‑level strategy), execute with judgment (cross‑func execution/prioritization), and the new problem‑space understanding round (defining problem boundaries and tradeoffs). He warns interviews are fluid — interviewers can combine types and ask unexpected follow‑ups — so prepare distinct practice for each domain rather than relying on old single‑case prep.",
+          "anchorQuote": "the five types of interviews that are currently",
+          "tSeconds": 2502,
+          "link": "https://www.youtube.com/watch?v=Fso3Z-DCIkY&t=2502"
+        },
+        {
+          "headline": "AI PM roles demand probabilistic thinking, data focus, and humility",
+          "detail": "Gal explains AI PMs face different constraints: solutions are probabilistic (not deterministic), \"done\" is tied to model accuracy and failure rates rather than a fixed spec, and data becomes part of the product itself. That increases uncertainty and the need for intellectual humility and comfort with ambiguity; his coaching advice is to be honest about gaps in formal AI experience while surfacing any hands‑on ML/app work and genuine passion for the space.",
+          "anchorQuote": "an AI PM would have a probabilistic way of solving things",
+          "tSeconds": 3988,
+          "link": "https://www.youtube.com/watch?v=Fso3Z-DCIkY&t=3988"
+        }
+      ]
+    }
+  ]
+}
