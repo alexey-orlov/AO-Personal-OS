@@ -2,7 +2,7 @@
 
 _status: live theme — how AI reshapes product management work, skills, workflows, and roles_
 _slug: ai-and-the-pm-craft_
-_updated: 2026-07-17 · 24 insights from 16 episodes_
+_updated: 2026-07-17 · 27 insights from 17 episodes_
 
 ## The throughline
 PMs and full-stack designers gain leverage in the coding-agent era because the gap between "knowing what to build" and "shipping it" collapses. The skill shift is from raw implementation to defining what to build, evaluating quality, and designing where humans and agents collaborate — Shipper bets PMs who "ride the models" out-ship engineers, an OpenAI PM uses Codex to drive prototypes to 70–80% completion and replace PRDs with runnable artifacts, and a non-technical builder ships a production iPhone app and clears App Store review using LLMs as her stepwise architect + engineer. Lovable extends this to "anyone": vibe coding democratizes product creation, with a student hitting $130k ARR in 30 days. The same craft scales up the org chart: Customer.io's VP of Product rebuilds a third of an all-hands deck in a morning, but only by treating Claude like an eager junior — rolling context in, forcing clarifying questions, blocking premature deliverables — and the leader's residual value collapses to two choices: *which sources* (recordings, docs, metrics) and *which target form* (deck, Notion page, one-pager). The model-selection beat also sharpens: Fable's "seasoned engineer" verbosity wrecks PRDs, so pair Mythos-class models with cheaper Opus/Sonnet by task type. Ambrosino (OpenAI Codex) sharpens the picture from the supply side: when dozens of people inside a company can stand up polished prototypes from the same idea, implementation is no longer the bottleneck — *curation* is: deciding which of ~90 explorations to keep, fold together, or refine. The same abundance makes design and taste distinctly non-automatable: aesthetic judgment, novelty, and system-level UI coherence lack the grading signals needed to train models to generalize, so models copy patterns (Linear-clone proliferation) but cannot generate the novelty or cross-component semantic reasoning that defines good design. The operational kit that recurs: hyper-literal prompts, screenshots-as-examples, prototypes-not-PRDs, a beginner's mindset, and the discipline to restrain the model until the foundations are set.
@@ -123,12 +123,27 @@ Gal explains AI PMs face different constraints: solutions are probabilistic (not
 — Aakash Gupta · 2026-07-16 · guest: Gal (iGotAnOffer; ex-Google PM) · [▶ 66:28](https://www.youtube.com/watch?v=Fso3Z-DCIkY&t=3988) · `pi-Fso3Z-DCIkY-04`
 related: theme → [Leadership, careers & teams](leadership-careers-and-teams.md) (the Google PM interview loop this maps onto, `pi-Fso3Z-DCIkY-03`)
 
+### AI can produce a ship-ready technical plan from a non-engineer idea
+A team member used ChatGPT to do deep research on gift links, their effectiveness, implementation steps, and tracking metrics, then circulated that single comprehensive report to stakeholders. That output turned a vague request into a concrete, engineer-actionable proposal—so the idea could be evaluated on engineering and business grounds instead of dying as a suggestion. This matters because it collapses the gap between idea and spec, letting product-adjacent people meaningfully contribute features without owning deep engineering knowledge.
+— Every · 2026-07-17 · guest: — · [▶ 2:49](https://www.youtube.com/watch?v=u_3q5rMkAds&t=169) · `pi-u_3q5rMkAds-01`
+related: [Codex lets non‑engineers build production automation rapidly](#codex-lets-nonengineers-build-production-automation-rapidly) (same non-engineer-spec pattern, a second Every episode two weeks later — deep-research-to-spec instead of overnight CRM automation)
+
+### AI risk-checks removed a key blocker and unlocked the experiment
+The head of growth fed the implementation plan to Codex and asked whether it would break the site or leak too much paywalled content; Codex reported no critical issues. That rapid, automated sanity check replaced a long debate about safety and business risk, convincing skeptical stakeholders to let the team run the test. The non-obvious payoff is organizational: a fast, authoritative AI second opinion can resolve subjective disputes and move experiments forward.
+— Every · 2026-07-17 · guest: — · [▶ 6:46](https://www.youtube.com/watch?v=u_3q5rMkAds&t=406) · `pi-u_3q5rMkAds-02`
+
+### Building personal projects (a CMS) builds confidence to ship at work
+The speakers recommend editorial people prototype personal projects—example: 'build your own CMS'—so they learn to push PRs and use models safely before touching the company site. Practicing on private projects reduces fear of breaking production and makes non-engineers more comfortable contributing code or specs in a real job context. This practical route accelerates adoption of AI-assisted workflows by increasing team fluency and psychological safety.
+— Every · 2026-07-17 · guest: — · [▶ 11:38](https://www.youtube.com/watch?v=u_3q5rMkAds&t=698) · `pi-u_3q5rMkAds-05`
+related: [A non-technical person can build and ship a production iPhone app today](#a-non-technical-person-can-build-and-ship-a-production-iphone-app-today) (same practice-on-a-personal-project-first discipline)
+
 ## Related themes
 - [AI agents & applications](ai-agents-and-applications.md) — the surfaces PMs build in
 - [Leadership, careers & teams](leadership-careers-and-teams.md) — how the manager/IC mix is shifting alongside
 - [Product discovery & strategy](product-discovery-and-strategy.md) — feature differentiation is dead; moats sit elsewhere
 
 ## Source episodes
+- [Every — I Vibecoded This Feature Using Codex (2026-07-17)](../episodes/2026/2026-07-17--every--i-vibecoded-this-feature-using-codex.md)
 - [Aakash Gupta — The Ex-Google PM Secret to Landing the Offer (2026-07-16)](../episodes/2026/2026-07-16--aakash--ex-google-pm-secret-landing-the-offer.md)
 - [Lenny's Podcast — Adam Mosseri: AI is a tailwind for authenticity (2026-07-09)](../episodes/2026/2026-07-09--lenny--adam-mosseri-ai-tailwind-for-authenticity.md)
 - [Every — How a Writer Uses AI Without Losing His Voice (2026-07-08)](../episodes/2026/2026-07-08--every--how-a-writer-uses-ai-without-losing-his-voice.md)
