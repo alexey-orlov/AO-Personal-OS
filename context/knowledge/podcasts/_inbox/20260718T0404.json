@@ -1,0 +1,196 @@
+{
+  "schema": 1,
+  "generatedAt": "2026-07-18T04:04:39.737Z",
+  "runStamp": "20260718T0404",
+  "episodes": [
+    {
+      "videoId": "utdNZItYwMA",
+      "videoTitle": "How Agents Will Steal Your Customers. Plus: The $10K App Our Agent Replaced and the $14 Migration",
+      "videoUrl": "https://www.youtube.com/watch?v=utdNZItYwMA",
+      "channelName": "SaaStr AI",
+      "publishedDate": "2026-07-17",
+      "guests": [],
+      "summary": "The hosts describe how connecting LLM agents (Claude) to agent-hosting apps (Replet) via MCP turned agents into an orchestration and product-design layer that can run, coordinate, and even build features across systems. They give concrete case studies: an agent rebuilt an events stack that used to cost $10K/year, another migrated 10 years of marketing data and 300 campaigns in an hour for about $14, and agents reconciled a multi-year pension mess by combining emails and finance systems. The throughline: agent-to-agent connectivity collapses vendor moats, lowers switching costs, and creates new vendor risk because agents will recommend, replace, or even “steal” customers from incumbents.",
+      "insights": [
+        {
+          "headline": "Agents talking over MCP can become an orchestration and product VP",
+          "detail": "By connecting Claude (Anthropic) to Replet via the MCP connector, the team turned Claude into an 'AI VP of product' that riffs on ideas, debates bugs with Replet, shares code, and drives feature design. That combination gave the author a higher-fidelity product partner that expanded his daily productive time from a self-imposed 15 minutes to many hours because the agents could explore, argue, and finish work autonomously. This matters because it turns models into continuous, goal-seeking collaborators that orchestrate other agents and external systems instead of just answering prompts.",
+          "anchorQuote": "Claude has become our my AIVP of product",
+          "tSeconds": 255,
+          "link": "https://www.youtube.com/watch?v=utdNZItYwMA&t=255"
+        },
+        {
+          "headline": "An agent replaced a $10K/year events vendor and rebuilt the site in an hour",
+          "detail": "The Replet agent inspected the old Squarespace/HeySummit setup, recommended rebuilding the registration flow in-house, and executed the rebuild automatically — removing the need for the $10K/year HeySummit plan. The host reports the agent moved the registration/Zoom integration and registration flows in roughly an hour and made the third-party vendor redundant; that consolidation is an example of how agents can cut recurring vendor spend and implementation friction. For event and niche SaaS vendors, this shows how easily a well-connected agent can eliminate low-value vendor relationships.",
+          "anchorQuote": "he did it in an hour. In an hour.",
+          "tSeconds": 2421,
+          "link": "https://www.youtube.com/watch?v=utdNZItYwMA&t=2421"
+        },
+        {
+          "headline": "An agent migrated 300 campaigns and years of marketing data for about $14",
+          "detail": "Faced with a previously quoted one-year, $100K migration from Marketo to Salesforce Marketing Cloud, the team's 10K agent analyzed both platforms and force-ranked ~300 campaigns worth moving, then executed the transfer in about an hour. The migration run cost roughly $14 on the Replet bill, demonstrating an 'LLM lift' where the heavy, error-prone human data-mapping work is automated cheaply and quickly. This undermines traditional migration moats and shows that previously prohibitive transitions can become practical and low-cost.",
+          "anchorQuote": "it was $14.28 or whatever it was",
+          "tSeconds": 1693,
+          "link": "https://www.youtube.com/watch?v=utdNZItYwMA&t=1693"
+        },
+        {
+          "headline": "Agents reconcile complex financials and solve problems humans couldn't for years",
+          "detail": "By giving the agents access to financial systems (QuickBooks, Brex), pension documents, and the host's email threads, Claude and Replet's finance agent (10K) reconciled transaction history and produced a concrete recommendation about a long-standing, opaque pension issue that had frustrated humans for five years. The agents combined structured system data with unstructured email context much faster than human teams had managed, illustrating how agent collaboration short-circuits institutional knowledge gaps. That makes agents valuable not only for execution but for diagnosing and advising on complex, cross-system business problems.",
+          "anchorQuote": "Now, it's our AIVP of revenue",
+          "tSeconds": 503,
+          "link": "https://www.youtube.com/watch?v=utdNZItYwMA&t=503"
+        },
+        {
+          "headline": "Agents lower UX and switching moats — they'll 'steal' customers from small vendors",
+          "detail": "Because agents can access APIs, rebuild flows, and autonomously recommend or implement replacements, small SaaS vendors with narrow UX moats (registration tools, event platforms, niche data apps) are especially vulnerable to being replaced or absorbed. The host notes examples where agents suggested building the feature in-house and then did it, and warns that customers may never notice the handoff — an agent simply stops calling the vendor's API and migrates the work. The implication for founders: deliver surprise-and-delight agentic features and built-in connectors, because otherwise an agent will recommend and enact a cheaper or tighter integration and 'steal' your customers.",
+          "anchorQuote": "Your competitor's agents will steal you",
+          "tSeconds": 3634,
+          "link": "https://www.youtube.com/watch?v=utdNZItYwMA&t=3634"
+        }
+      ]
+    },
+    {
+      "videoId": "u_3q5rMkAds",
+      "videoTitle": "I Vibecoded This Feature Using Codex",
+      "videoUrl": "https://www.youtube.com/watch?v=u_3q5rMkAds",
+      "channelName": "Every",
+      "publishedDate": "2026-07-17",
+      "guests": [],
+      "summary": "The team describes using AI (ChatGPT/Codex) to research, spec, and safely ship a 'gift links' feature that shares paywalled articles. Their central argument is that AI lowers the friction for non-engineers to propose implementable product experiments, which lets small teams run fast, data-driven tests without derailing engineering priorities.",
+      "insights": [
+        {
+          "headline": "AI can produce a ship-ready technical plan from a non-engineer idea",
+          "detail": "A team member used ChatGPT to do deep research on gift links, their effectiveness, implementation steps, and tracking metrics, then circulated that single comprehensive report to stakeholders. That output turned a vague request into a concrete, engineer-actionable proposal—so the idea could be evaluated on engineering and business grounds instead of dying as a suggestion. This matters because it collapses the gap between idea and spec, letting product-adjacent people meaningfully contribute features without owning deep engineering knowledge.",
+          "anchorQuote": "I had ChatGPT do deep research about gift links",
+          "tSeconds": 169,
+          "link": "https://www.youtube.com/watch?v=u_3q5rMkAds&t=169"
+        },
+        {
+          "headline": "AI risk-checks removed a key blocker and unlocked the experiment",
+          "detail": "The head of growth fed the implementation plan to Codex and asked whether it would break the site or leak too much paywalled content; Codex reported no critical issues. That rapid, automated sanity check replaced a long debate about safety and business risk, convincing skeptical stakeholders to let the team run the test. The non-obvious payoff is organizational: a fast, authoritative AI second opinion can resolve subjective disputes and move experiments forward.",
+          "anchorQuote": "I shared your plan with Codex and basically all I asked",
+          "tSeconds": 406,
+          "link": "https://www.youtube.com/watch?v=u_3q5rMkAds&t=406"
+        },
+        {
+          "headline": "Delegating small product work frees engineers for high-impact projects",
+          "detail": "Because editorial staff can now spec and ship smaller features themselves, the team can 'free up our engineer to work on really big projects' like system-wide improvements. Letting editorial own lightweight changes avoids clogging the main engineer's roadmap with many low-impact requests, so engineering time is concentrated on work with outsized effects. This shifts priorities: engineers tackle platform-scale work while domain experts iterate on product experiments that matter to their workflows.",
+          "anchorQuote": "free up our engineer to work on really big projects",
+          "tSeconds": 587,
+          "link": "https://www.youtube.com/watch?v=u_3q5rMkAds&t=587"
+        },
+        {
+          "headline": "Treat features as quick experiments and let data decide scale-up",
+          "detail": "Rather than building a full P0-quality rollout, the team treated gift links as an experiment: ship a limited implementation, track conversion and redemption metrics, and iterate or disable based on results. That approach avoids long debates about hypothetical ROI and lets real user journeys reveal whether the feature drives new free and paid subscribers. The non-obvious benefit is reduced politics: analytics, not authority, becomes the arbiter of whether to expand a feature.",
+          "anchorQuote": "more like truly like an experiment",
+          "tSeconds": 663,
+          "link": "https://www.youtube.com/watch?v=u_3q5rMkAds&t=663"
+        },
+        {
+          "headline": "Building personal projects (a CMS) builds confidence to ship at work",
+          "detail": "The speakers recommend editorial people prototype personal projects—example: 'build your own CMS'—so they learn to push PRs and use models safely before touching the company site. Practicing on private projects reduces fear of breaking production and makes non-engineers more comfortable contributing code or specs in a real job context. This practical route accelerates adoption of AI-assisted workflows by increasing team fluency and psychological safety.",
+          "anchorQuote": "you can actually just build your own CMS, right?",
+          "tSeconds": 698,
+          "link": "https://www.youtube.com/watch?v=u_3q5rMkAds&t=698"
+        }
+      ]
+    },
+    {
+      "videoId": "rghTqkclDqA",
+      "videoTitle": "Replit CEO Amjad Masad on Media, Politics, and Power | The a16z Show",
+      "videoUrl": "https://www.youtube.com/watch?v=rghTqkclDqA",
+      "channelName": "a16z",
+      "publishedDate": "2026-07-17",
+      "guests": [
+        "Amjad Masad (Replit)"
+      ],
+      "summary": "Replit CEO Amjad Masad explains why founders should 'build public'—practicing communication openly to desensitize themselves, shape narratives, and manage crises. He gives concrete tactics: when to apologize, how platforms differ (Twitter for news, Instagram/YouTube for broader reach), and why authenticity and staying visible are strategic advantages against cancel culture.",
+      "insights": [
+        {
+          "headline": "Practice public communication: exposure therapy and 'build public'.",
+          "detail": "Masad argues that CEOs should get intentional reps speaking and writing publicly so mistakes happen when attention is low and you become desensitized. He learned this with improv and gradual growth at Replit—early, linear attention let him make PR mistakes privately (e.g., Hacker News controversy) and improve over time. He recommends biasing internal writing to public posts and treating communication as progressive overload: you take on bigger audiences as you get better.",
+          "anchorQuote": "I'm like a big fan of exposure therapy.",
+          "tSeconds": 200,
+          "link": "https://www.youtube.com/watch?v=rghTqkclDqA&t=200"
+        },
+        {
+          "headline": "Staying public neutralizes cancel culture; silence makes canceling permanent.",
+          "detail": "Masad says being 'canceled' often becomes durable only if the person retreats; those who keep communicating tend to recover. He cites a book, So You Think You've Been Shamed, and public figures like Trump and Elon as examples where continued visibility and the 'next thing' blunt long-term damage. The practical implication: don't reflexively vanish—answer strategically or keep showing up so critics move on.",
+          "anchorQuote": "Being canceled is a choice. Uh so you can",
+          "tSeconds": 554,
+          "link": "https://www.youtube.com/watch?v=rghTqkclDqA&t=554"
+        },
+        {
+          "headline": "Own business-impacting mistakes quickly and show the fix.",
+          "detail": "When Replit's Agent caused a production database problem for Jason Lemkin, Masad avoided defensive blame and instead publicly admitted the lacking production/dev separation and rolled out the fix two days later. That ownership produced positive airplay and business-focused outcomes; by contrast, engaging trolls or issuing immediate denials can amplify harm. His rule: respond when there's clear business impact, and do so principledly rather than emotionally.",
+          "anchorQuote": "the right thing to do was to own own up",
+          "tSeconds": 1007,
+          "link": "https://www.youtube.com/watch?v=rghTqkclDqA&t=1007"
+        },
+        {
+          "headline": "Twitter/X starts news cycles; choose platforms to match audiences.",
+          "detail": "Masad recommends beginning with Twitter because journalists and early-adopter tech communities still seed stories there, giving outsized influence for shaping narratives. But it's risky—algorithms and gatekeepers can change reach—so use Instagram and YouTube for reaching the early majority and repurpose longform (podcasts, essays) into clips. The strategic point: pick channels by desired audience and convert longform content into other formats to multiply reach.",
+          "anchorQuote": "that's where the news starts to happen",
+          "tSeconds": 1306,
+          "link": "https://www.youtube.com/watch?v=rghTqkclDqA&t=1306"
+        },
+        {
+          "headline": "Authenticity and well-timed essays can reframe public narratives.",
+          "detail": "Being genuinely yourself—rather than a PR-polished persona—lets leaders shift how audiences interpret them; Masad points to Elon, Zuckerberg's direct outreach, and long essays (e.g., Satya Nadella-style pieces) as tools that changed public framing. The work isn't just posting: it's understanding the current debate and dressing your worldview to fit the zeitgeist so a longform piece can get massive attention. In short, authenticity plus strategic timing amplifies persuasive power.",
+          "anchorQuote": "being really being yourself uh is is kind",
+          "tSeconds": 388,
+          "link": "https://www.youtube.com/watch?v=rghTqkclDqA&t=388"
+        }
+      ]
+    },
+    {
+      "videoId": "bAoXVyibE6Q",
+      "videoTitle": "Mira Murati's 975B Open Model, Ramin Hasani on Post-Transformer AI, and Demis' AI FINRA | EP #271",
+      "videoUrl": "https://www.youtube.com/watch?v=bAoXVyibE6Q",
+      "channelName": "Peter H. Diamandis",
+      "publishedDate": "2026-07-17",
+      "guests": [
+        "Ramin Hasani (Liquid AI)",
+        "Mira Murati (Thinking Machines)"
+      ],
+      "summary": "This episode reviews three linked themes: frontier-AI governance (CEOs calling for a FINRA-like regulator), a surge in powerful open-weight models (Mira Murati's Thinking Machines release), and new architecture/business approaches to on-device and efficient models (Ramin Hasani/Liquid AI). The throughline is how capability growth, business incentives, and governance interact — incumbents want standards, startups push open and customizable models, and new technical approaches (post-transformer, small multimodal models, and AI-for-AI research loops) are changing who can deploy and control high-end AI.",
+      "insights": [
+        {
+          "headline": "Frontier CEOs are asking for an industry-style AI regulator now",
+          "detail": "Several leading CEOs (Sam Altman, Elon Musk, Demis Hassabis) publicly advocated a US-led, industry-involved regulator or standards body for 'frontier' AI — Demis explicitly proposed a FINRA-like system that would test models pre-release. Proponents argue industry-run self-regulation plus technical evaluation could scale faster than static law; critics warn incumbents will capture the body, raise barriers to entry, and freeze adaptive standards, harming open research and competition.",
+          "anchorQuote": "He called for a US-led frontier AI standards body",
+          "tSeconds": 309,
+          "link": "https://www.youtube.com/watch?v=bAoXVyibE6Q&t=309"
+        },
+        {
+          "headline": "A proposed US policy would cap open releases relative to China's open models",
+          "detail": "Reported White House thinking would allow US labs to release open models only up to the capability of China's best openly published models, effectively pegging a release ceiling to whatever China has already placed online. That creates perverse strategic incentives (rewarding China to accelerate openness to free up US releases), risks throttling Western researchers, and hands a de facto lever of global capability policy to Beijing.",
+          "anchorQuote": "pegged to what China has already put out",
+          "tSeconds": 1225,
+          "link": "https://www.youtube.com/watch?v=bAoXVyibE6Q&t=1225"
+        },
+        {
+          "headline": "Mira Murati's Inkling is a 975B open-weight MoE built for on‑prem customization",
+          "detail": "Thinking Machines released 'Inkling', a mixture-of-experts foundation model with 975 billion total parameters that activates ~41 billion parameters at inference and was trained on ~45 trillion tokens across text, image, audio and video. Murati's pitch is not leaderboard dominance but sovereign, fine-tunable, on‑prem deployment: anyone can download, adapt and run Inkling locally, which matters for enterprises and governments wanting control and privacy over custom models.",
+          "anchorQuote": "fine-tuned and run on prem on your own hardware",
+          "tSeconds": 1597,
+          "link": "https://www.youtube.com/watch?v=bAoXVyibE6Q&t=1597"
+        },
+        {
+          "headline": "Post-transformer, efficiency-first architectures enable powerful on-device AI",
+          "detail": "Liquid AI and similar labs are pursuing alternatives to vanilla transformers (liquid neural nets, gated, continuous-time and hybrid architectures) to pack more capability into far smaller models. Ramin describes multimodal foundation models under ~1GB that can run on typical in‑car chips (2–8GB RAM), enabling private, offline, OTA-updatable assistants for automakers (Mercedes partnership) and unlocking edge deployments where cloud latency, privacy, or connectivity are constraints.",
+          "anchorQuote": "it can go inside the car's chip",
+          "tSeconds": 5064,
+          "link": "https://www.youtube.com/watch?v=bAoXVyibE6Q&t=5064"
+        },
+        {
+          "headline": "AI-driven research loops can accelerate progress and police reward-hacking",
+          "detail": "A startup (Wo AI) reported an experiment where an outer AI rewrote an inner AI’s code/strategy and achieved, they claim, in eight days what experts did in two years — evidence of a pre-ignition recursive self-improvement effect. The episode frames this as defensively co-scaling (AI policing AI): such meta-loops compound innovation speed and can reduce reward-hacking, but reproducibility, compute cost, and broader safety implications remain open questions.",
+          "anchorQuote": "experimental evidence for the first recursive self-improvement",
+          "tSeconds": 2641,
+          "link": "https://www.youtube.com/watch?v=bAoXVyibE6Q&t=2641"
+        }
+      ]
+    }
+  ]
+}
