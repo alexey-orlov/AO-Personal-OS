@@ -33,6 +33,9 @@ The optional `was:` records the original text when it was corrected from a missp
 
 ## History
 
+- **Carnegie** — David Nasaw, 2006 · added 2026-07-19 · was: "биография Андрю Карнеги"
+- **Morgan: American Financier** — Jean Strouse, 1999 · added 2026-07-19 · was: "JP Morgan"
+
 ## Non-fiction (psychology / business / technology)
 
 - **What Technology Wants** — Kevin Kelly, 2010 · added 2026-06-20 · note: «технум» как 7-е эволюционное царство; смысл tech-работы как соучастие в эволюции; из explore drop tg-133
