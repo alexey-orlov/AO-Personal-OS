@@ -37,6 +37,14 @@ A **workshop-driven** corporate training on Product Management & product mindset
 - [docs/softserve-corp-training/PM training program - SoftServe.docx](<docs/softserve-corp-training/PM training program - SoftServe.docx>) + [.pdf](<docs/softserve-corp-training/PM training program - SoftServe.pdf>) — client-facing-named copy of v3, PDF exported by Alex 2026-07-09 (content identical to v3 — same deliverable, ready to send).
 - `docs/softserve-corp-training/SoftServe_PM_Product_Training_Offer.docx` — **v2 with Alex's 20 review comments** (all applied in v3; kept for the comment record, also in git history). Safe to delete once v3 is confirmed.
 
+## Intro program (6h, separate offer)
+
+- **What:** three 2h live online sessions, no home assignments. Goal: navigate productization levels + key PM concepts, self-assess the current initiative portfolio, define next steps on productization strategy & competence building. S1 = workshop on their pre-prepared initiative list (ladder mapping, strategic questions, alignment w/ impact mapping & OKRs); S2 = Define overview (Product Map/Lean canvas, market, problem, GTM, discovery & validation) as lecture + active Q&A with constrained exercise; S3 = Measure & manage overview (hypotheses, qualitative feedback, feedback loop & metrics), closing with program-level reflection.
+- **Deliverable:** [docs/softserve-corp-training/SoftServe_PM_Intro_Program_Offer.docx](docs/softserve-corp-training/SoftServe_PM_Intro_Program_Offer.docx) — 2-page offer, same style family/voice rules as v3. Price = placeholder.
+- **Brief + condensation constraints:** [docs/softserve-corp-training/intro-brief.md](docs/softserve-corp-training/intro-brief.md). Note: brief's S3 contained a verbatim duplicate of S2's "Define the problem" bullet — treated as copy-paste artifact (kept in S2 only), flagged to Alex.
+- **Pre-program:** they compile the list of products/initiatives (S1 working material) + a discovery session.
+- **Open:** intro price (agent's UA-frame suggestion: client-facing ~€4.5–5.5k; Alex's fee to Laba ~€3.8k with ≤€5.5k client guardrail).
+
 ## Open loops (Alex's decisions)
 
 - **Pricing — DECIDED 2026-07-07: €44,000** (tier B of [pricing-research.md](docs/softserve-corp-training/pricing-research.md); ~€2,930/participant, ~€2,000/session, ~€1,000/live-hour). In the offer as "Total cost of the corporate training: €44,000." Remaining: the Laba split.
