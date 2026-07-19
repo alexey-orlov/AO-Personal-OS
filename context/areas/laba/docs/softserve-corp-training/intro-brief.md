@@ -1,4 +1,4 @@
-# 6-hour introductory program — Alex's brief (2026-07-07, verbatim)
+# 6-hour introductory program — Alex's brief (2026-07-19, verbatim)
 
 A **separate, standalone** program (not a cut of the 22-session offer): 6h / three 2-hour sessions, no home assignments. Goal (Alex's words): "help them navigate the key concepts and self-assess their status quo + define next steps on their productization strategy + competence building."
 

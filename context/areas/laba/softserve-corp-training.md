@@ -1,7 +1,11 @@
 # Laba × SoftServe — PM & product-mindset corporate training
 
-_status: offer stage — offer v3 built 2026-07-07 (Alex's 20 Word comments applied + €44,000 price + "bespoke leadership training and transformation program" framing); pending delivery-mode/branding confirmation_
-_updated: 2026-07-09_
+_status: offer stage — full-program offer v3 (€44,000, 2026-07-07) + separate 6h intro-program offer (2026-07-19, price TBD); pending intro pricing + delivery-mode/branding confirmation_
+_updated: 2026-07-19_
+
+**Two offers exist for this client:**
+1. **Full program** — 22 sessions / 44h, €44,000 (offer v3).
+2. **6h introductory program** — standalone 3×2h intro (concepts + self-assessment + next steps), own offer doc; price TBD. See "Intro program" section.
 
 ## What this is
 
