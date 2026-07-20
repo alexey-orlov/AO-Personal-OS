@@ -344,6 +344,11 @@ pi-omX6wrLuX08-02
 pi-omX6wrLuX08-03
 pi-omX6wrLuX08-04
 pi-omX6wrLuX08-05
+pi-pSUyLfirP8Y-01
+pi-pSUyLfirP8Y-02
+pi-pSUyLfirP8Y-03
+pi-pSUyLfirP8Y-04
+pi-pSUyLfirP8Y-05
 pi-pi_tqHweR70-01
 pi-pi_tqHweR70-02
 pi-pi_tqHweR70-03
@@ -368,6 +373,11 @@ pi-rghTqkclDqA-02
 pi-rghTqkclDqA-03
 pi-rghTqkclDqA-04
 pi-rghTqkclDqA-05
+pi-t0GiTyz4syY-01
+pi-t0GiTyz4syY-02
+pi-t0GiTyz4syY-03
+pi-t0GiTyz4syY-04
+pi-t0GiTyz4syY-05
 pi-t1jgk8BzE7Q-01
 pi-t1jgk8BzE7Q-02
 pi-t1jgk8BzE7Q-03

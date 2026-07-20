@@ -2,7 +2,7 @@
 
 _status: live theme — matching hardware to model tradeoffs for self-hosted, always-on AI fleets_
 _slug: local-ai-hardware-and-infra_
-_updated: 2026-07-14 · 5 insights from 1 episode_
+_updated: 2026-07-19 · 6 insights from 2 episodes_
 
 ## The throughline
 Running frontier-capable models at home is now a hardware-selection problem with three distinct tradeoffs, not a single "best machine" choice: Mac Studios trade speed for unified memory (512GB lets a single machine load models like GLM 5.2, at the cost of multi-minute response times), the DGX Spark trades some memory for much better bandwidth (128GB at ~$4k, a practical middle ground for mid-size models), and discrete GPUs like the RTX 5090 trade model size for near-cloud speed (32GB VRAM, lightning-fast inference). Agent frameworks (OpenClaw, Hermes) paired with Tailscale remove the sysadmin burden of provisioning across a heterogeneous fleet, letting a single operator orchestrate multiple machines without deep systems expertise. The payoff of owning this stack is economic: local models running 24/7 make continuous background work (security scans, code review, social listening) affordable in a way cloud-metered tokens aren't, with cloud models like Claude reserved for the high-value review/closing step — a federated-by-cost-and-capability compute pattern.
@@ -30,9 +30,15 @@ By keeping local models continuously burning tokens, Alex runs background tasks 
 — How I AI · 2026-07-13 · guest: Alex Spin · [▶ 4:06](https://www.youtube.com/watch?v=dAQsmhAiews&t=246) · `pi-dAQsmhAiews-05`
 related: theme → [Agent engineering & production infra](agent-engineering-patterns.md) (Holtz's local-inference-for-latency setup, `pi-fQmlML9Lay4-04`, is the same local-vs-cloud hardware choice made for responsiveness rather than cost)
 
+### Ternary/3‑bit quantization already enables 27B models to run on phones
+Prism ML's Bonsai 27B demonstrates the practical payoff of extreme quantization: ternary/3‑bit schemes reduce a 27B model to ~6GB (4GB at ~15% accuracy loss) with only small accuracy tradeoffs and big speedups (reported ~5× from 16→3 bits). The hosts highlight that distillation plus low-bit quantization will let progressively larger capabilities run locally (on phones and laptops), meaning 'Grok‑class' assistants can be persistent, offline and cheap to run on-device. This decentralizes intelligence, enabling pervasive private agents and reducing reliance on centralized APIs.
+— Peter H. Diamandis · 2026-07-19 · guest: Emad Mostaque (Stability AI) · [▶ 62:36](https://www.youtube.com/watch?v=pSUyLfirP8Y&t=3756) · `pi-pSUyLfirP8Y-04`
+related: [Mac Studio unified memory lets you run frontier models locally](#mac-studio-unified-memory-lets-you-run-frontier-models-locally) (same on-device-intelligence thesis, opposite end of the hardware spectrum — a workstation loading a frontier model vs. an aggressively quantized model fitting on a phone)
+
 ## Related themes
 - [Agent engineering & production infra](agent-engineering-patterns.md) — production agent architecture that runs on top of this hardware layer
 - [Agent delegation, loops & software factories](agent-delegation-and-loops.md) — the build+review loop pattern from the same episode
 
 ## Source episodes
+- [Peter H. Diamandis — Urgent Update- AI Sputnik Moment: Kimi K3 Released w/ Emad Mostaque | Ep. 272 (2026-07-19)](../episodes/2026/2026-07-19--diamandis--ai-sputnik-moment-kimi-k3-ep-272.md)
 - [How I AI — Local AI models explained: How to run a fleet of Mac Studios and GPUs at home (2026-07-13)](../episodes/2026/2026-07-13--howiai--local-ai-models-explained-mac-studios-gpus.md)
