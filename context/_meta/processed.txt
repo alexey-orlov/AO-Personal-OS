@@ -54,12 +54,17 @@ context/areas/job-search/calls/vacancy-interviews/zipify/2026-06-02_181532_inter
 context/areas/job-search/docs/archive-resale-case-presentation-transcript.md
 context/areas/laba/docs/softserve-corp-training/PM training program - SoftServe.docx
 context/areas/laba/docs/softserve-corp-training/PM training program - SoftServe.pdf
+context/areas/laba/docs/softserve-corp-training/SoftServe_PM_Intro_Program_Offer.docx
+context/areas/laba/docs/softserve-corp-training/SoftServe_PM_Intro_Program_Offer.pdf
 context/areas/laba/docs/softserve-corp-training/SoftServe_PM_Product_Training_Offer.docx
 context/areas/laba/docs/softserve-corp-training/SoftServe_PM_Product_Training_Offer_v3.docx
 context/areas/laba/docs/softserve-corp-training/brief.md
 context/areas/laba/docs/softserve-corp-training/curriculum-source.md
+context/areas/laba/docs/softserve-corp-training/intro-brief.md
 context/areas/laba/docs/softserve-corp-training/pricing-research.md
 context/areas/laba/docs/softserve-corp-training/~$ training program - SoftServe.docx
+context/areas/laba/docs/softserve-corp-training/~$ftServe_PM_Intro_Program_Offer.docx
+context/areas/laba/docs/softserve-corp-training/~$ftServe_PM_Product_Training_Offer_v3.docx
 context/areas/other/calls/2026-05-24_163308_default_202605241023515D3845EE.md
 context/areas/other/calls/2026-06-08_195244_default_20260608195200.md
 context/areas/other/calls/2026-06-08_200648_default_20260608200558.md
