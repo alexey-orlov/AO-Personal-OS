@@ -153,7 +153,7 @@ def exchange(arg):
 # calendar ops
 # --------------------------------------------------------------------------- #
 def list_calendars():
-    """Every calendar in the user's list (primary, Family, subscribed 'other' ones like GigaCloud).
+    """Every calendar in the user's list (primary, plus any shared or subscribed calendars).
     Each item carries id, summary, accessRole ('owner'/'reader'/'freeBusyReader'/'writer')."""
     out, page = [], None
     while True:

@@ -226,20 +226,20 @@ class TestDailySummary(unittest.TestCase):
 class TestEnrichment(unittest.TestCase):
     def test_description_status_and_note(self):
         ev = src("Products: weekly meeting", "2026-06-17T05:00:00", "2026-06-17T05:30:00",
-                 my_status="accepted", organizer="Bohdan Khomych", organizer_email="bkhomych@softserveinc.com",
+                 my_status="accepted", organizer="Dana Lead", organizer_email="organizer@example.com",
                  notes=("Agenda: review Q3 roadmap.\n________________________________\nMicrosoft Teams meeting\n"
                         "Join: https://teams.microsoft.com/x\nMeeting ID: 123\nPasscode: abc\n"
                         "Need help? https://aka.ms\nThis email may contain confidential material."),
                  attendees=[{"name": "Oleksii Orlov", "email": "olekorlov@softserveinc.com", "status": "accepted"},
-                            {"name": "Pawel Domal", "email": "pdomal@softserveinc.com", "status": "needsAction"}])
+                            {"name": "Sam Attendee", "email": "attendee@example.com", "status": "needsAction"}])
         p = sc.reconcile(base([ev]))["creates"][0]["payload"]
         self.assertEqual(p["attendees"][0]["responseStatus"], "accepted")
         d = p["description"]
         self.assertIn("Agenda: review Q3 roadmap.", d)
-        self.assertIn("Organizer: Bohdan Khomych <bkhomych@softserveinc.com>", d)
+        self.assertIn("Organizer: Dana Lead <organizer@example.com>", d)
         self.assertIn("Your response: accepted", d)
         self.assertIn("Oleksii Orlov — accepted", d)
-        self.assertIn("Pawel Domal — no response", d)
+        self.assertIn("Sam Attendee — no response", d)
         for junk in ("Microsoft Teams", "Meeting ID", "Passcode", "confidential", "teams.microsoft.com"):
             self.assertNotIn(junk, d)
 
@@ -350,7 +350,7 @@ class TestStatusSemantics(unittest.TestCase):
 class TestReverse(unittest.TestCase):
     """Reverse leg: Google busy -> SS 'Busy' placeholders."""
 
-    def gev(self, id="e1", cal="cal1", summary="GigaCloud sync",
+    def gev(self, id="e1", cal="cal1", summary="Team sync",
             start="2026-06-20T15:00:00+03:00", end="2026-06-20T15:30:00+03:00", **kw):
         e = {"id": id, "_cal": cal, "summary": summary,
              "start": {"dateTime": start}, "end": {"dateTime": end}}
@@ -359,7 +359,7 @@ class TestReverse(unittest.TestCase):
 
     def test_busy_and_antirecursion_filters(self):
         events = [
-            self.gev(id="keep", summary="GigaCloud <> Rafay"),
+            self.gev(id="keep", summary="Partner review"),
             {"id": "ad", "_cal": "c", "summary": "Trip",
              "start": {"date": "2026-06-20"}, "end": {"date": "2026-06-21"}},     # all-day -> skip
             self.gev(id="free", transparency="transparent"),                       # Free -> skip
