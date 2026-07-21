@@ -1,0 +1,128 @@
+{
+  "schema": 1,
+  "generatedAt": "2026-07-21T04:03:03.261Z",
+  "runStamp": "20260721T0403",
+  "episodes": [
+    {
+      "videoId": "bghV183c418",
+      "videoTitle": "Why GPT-5.6 Beats Fable, Claude & Sonnet on Design (Taking Risks Wins)",
+      "videoUrl": "https://www.youtube.com/watch?v=bghV183c418",
+      "channelName": "Every",
+      "publishedDate": "2026-07-20",
+      "guests": [],
+      "summary": "The video compares visual design outputs from several large-model design systems and argues GPT-5.6 wins because it takes creative risks and better understands human needs. The hosts show side-by-side examples (timelines, wireframes, dark-mode UIs) to demonstrate GPT-5.6's clearer semantic coloring, white space, and user-oriented choices versus other models' conservative or model-centric outputs.",
+      "insights": [
+        {
+          "headline": "Risk-taking model produced more distinctive, usable designs",
+          "detail": "GPT-5.6 diverged from the crowd and produced visually distinct, more usable designs—semantic color coding, clearer red/yellow meanings, and more white space—whereas Fable, Tara, Luna, and Sonnet converged on similar dark-mode, dense wireframes. The speaker judged GPT-5.6 superior because its design was easier to parse at-a-glance, fulfilling the prompt goal of immediate comprehension. That matters because conservative model behavior can produce functional but indistinguishable outputs; creative risk-taking yields clarity and recognizability.",
+          "anchorQuote": "5/6 was the only one that ever did a different design",
+          "tSeconds": 81,
+          "link": "https://www.youtube.com/watch?v=bghV183c418&t=81"
+        },
+        {
+          "headline": "GPT-5.6 demonstrates stronger theory-of-mind for user needs",
+          "detail": "Evaluators found GPT-5.6 better at anticipating the human reader's goal—e.g., making a timeline of Israel and Judah instantly readable—claiming it showed a 'better theory of mind' about what a user needs from a visual. This translated to layout, color semantics, and information density choices that prioritized immediate human understanding. The implication is that models tuned for human-facing outputs can be more effective collaborators than those optimized for internal model workflows.",
+          "anchorQuote": "better theory of mind for the user",
+          "tSeconds": 167,
+          "link": "https://www.youtube.com/watch?v=bghV183c418&t=167"
+        },
+        {
+          "headline": "Fable excels at agent-to-agent workflows, not human collaboration",
+          "detail": "The panel observed Fable produces technically strong, dense wireframes that seem optimized for model-to-model handoffs (agent-to-agent work) rather than direct human consumption. In practice that meant Fable's outputs were complete and precise but felt less friendly or legible to a human viewer compared with GPT-5.6's teammate-like responses. Choose Fable when you want automation and multi-agent orchestration; choose models like GPT-5.6 when you want outputs immediately usable by people.",
+          "anchorQuote": "Fable is exceptional at managing agent-to-agent work",
+          "tSeconds": 173,
+          "link": "https://www.youtube.com/watch?v=bghV183c418&t=173"
+        },
+        {
+          "headline": "Models carry recognizable stylistic fingerprints that affect outputs",
+          "detail": "The speakers could immediately identify Claude's recurring visual motif—'burnt orange glowy suns'—and said they penalized Claude for predictable styling that didn't fit the brief. That shows models develop stable aesthetic habits which can bias results away from the user's needs unless explicitly corrected in prompts. For designers, that means model selection and prompt specification must account for each model's signature tendencies.",
+          "anchorQuote": "Claude burnt orange glowy suns a mile away",
+          "tSeconds": 95,
+          "link": "https://www.youtube.com/watch?v=bghV183c418&t=95"
+        }
+      ]
+    },
+    {
+      "videoId": "drUU7zwLKgM",
+      "videoTitle": "Don’t Join an AI Company Until You Watch This",
+      "videoUrl": "https://www.youtube.com/watch?v=drUU7zwLKgM",
+      "channelName": "Aakash Gupta",
+      "publishedDate": "2026-07-20",
+      "guests": [
+        "Eric Ries (author; Lean Startup)"
+      ],
+      "summary": "Eric Ries argues that before joining or building an AI company you must understand governance: legal charters and board structures determine which actors actually hold power and whether a mission survives success. He explains practical governance tools — public benefit corporations, mission guardians, mission-lock vehicles like long-term benefit trusts — and shows with cases (OpenAI, Anthropic, Costco, Novo Nordisk) how those structures either failed or protected a company’s ethos. The core throughline: technical quality and product teams matter, but without constitutional structures that resist financial pressure, success itself will corrupt purpose.",
+      "insights": [
+        {
+          "headline": "Formal governance rarely equals actual control in a crisis",
+          "detail": "Charters and board powers on paper do not guarantee who will control outcomes during high-stakes moments. Ries uses OpenAI as an example: although the nonprofit board technically had the authority to fire the CEO, the financial realities — a tender offer tied to employee payouts and Microsoft as a major investor/supplier — meant employees, investors and suppliers held real leverage. The lesson is governance analysis must map real power relationships (investors, suppliers, employees), not just legal text, because misreading that map risks catastrophic instability.",
+          "anchorQuote": "governance means whatever it says",
+          "tSeconds": 245,
+          "link": "https://www.youtube.com/watch?v=drUU7zwLKgM&t=245"
+        },
+        {
+          "headline": "Mission-lock trusts can convert short-term pressure into long-term stewardship",
+          "detail": "To prevent a mission being erased as a company scales, Ries highlights Anthropic’s long-term benefit trust (LTBT): trustees who are AI-safety experts can appoint directors to the for-profit board progressively as milestones are met. That mechanism was enacted in Anthropic’s Series C and is designed so the trust gains power over time, binding the company to safety-oriented decisions and enabling founders and employees to resist profit-driven temptations. It's a concrete structural fix that explains why some labs (Anthropic) appear 'more courageous' — not just character but embedded checks.",
+          "anchorQuote": "enacted what they call the long-term benefit trust",
+          "tSeconds": 497,
+          "link": "https://www.youtube.com/watch?v=drUU7zwLKgM&t=497"
+        },
+        {
+          "headline": "Financial gravity: success makes mission betrayal more likely",
+          "detail": "Ries defines 'financial gravity' as the pull success creates — the more valuable a firm becomes, the stronger the incentives to monetize or cut corners, often at the mission’s expense. He contrasts Sol Price’s FedMart collapse with Costco’s governance fortress and gives a concrete performance stat: $10,000 in the S&P 500 from 1985 would be ~$151,000 today versus ~$8.7 million had it been invested in Costco’s IPO, showing that putting customers first (a fiduciary hierarchy with shareholders last) can produce superior long-term shareholder returns and resist short-term financial pressures.",
+          "anchorQuote": "financial gravity is this force",
+          "tSeconds": 1180,
+          "link": "https://www.youtube.com/watch?v=drUU7zwLKgM&t=1180"
+        },
+        {
+          "headline": "Public benefit corp plus a mission guardian writes mission into law",
+          "detail": "A Public Benefit Corporation (PBC) lets you embed a public purpose into the corporate charter, legally permitting directors to prioritize that mission even when it conflicts with short-term shareholder returns. Ries explains how Answer AI and Anthropic used PBC clauses and relied on 'mission guardians' (trusted founders or trustees) to recruit talent and assure investors that the lab will pursue safety-aligned research. The practical point: you can sequence governance (start with founder control, add mission-lock vehicles later) but you must intentionally create legal commitments if you want a durable mission.",
+          "anchorQuote": "write your corporate mission directly into your corporate charter",
+          "tSeconds": 3680,
+          "link": "https://www.youtube.com/watch?v=drUU7zwLKgM&t=3680"
+        }
+      ]
+    },
+    {
+      "videoId": "RC4_MWFUHr0",
+      "videoTitle": "American Dynamism Presents",
+      "videoUrl": "https://www.youtube.com/watch?v=RC4_MWFUHr0",
+      "channelName": "a16z",
+      "publishedDate": "2026-07-20",
+      "guests": [
+        "Turner Caldwell (Moriana Minerals)"
+      ],
+      "summary": "The video presents short statements from founders working on two different technologies: Ulysses, an underwater-robotics company, and Moriana Minerals, which is developing mass-produced nuclear microreactors. The throughline is applying modern, scalable technologies to overlooked domains — ocean operations and minerals/energy — with the claim that distributed, reliable hardware (robots or reactors) enables new capabilities and even long-term civilization-scale goals. Each speaker frames their effort as solving a concrete operational problem while pointing to much larger opportunities if scaled.",
+      "insights": [
+        {
+          "headline": "Ulysses was founded to build underwater robots for one specific problem",
+          "detail": "Ulysses began three years ago with a narrow, operational focus: build underwater robots that solve a particular, practical challenge. The emphasis on a concrete, solvable problem guides product development rather than aiming immediately for a broad platform — a classic startup approach to de-risk engineering before scaling. That origin explains why their roadmap emphasizes reliable fielded systems rather than speculative capabilities.",
+          "anchorQuote": "in the effort to build underwater robots",
+          "tSeconds": 14,
+          "link": "https://www.youtube.com/watch?v=RC4_MWFUHr0&t=14"
+        },
+        {
+          "headline": "Ulysses' real ambition is a 24/7 network of sea vehicles",
+          "detail": "Beyond a single robot, the company's broader vision is a persistent network of surface and undersea vehicles working around the clock to perform critical ocean tasks. They explicitly frame the goal as continuous, distributed operations — vehicles that coordinate to \"solve these critical tasks all around the ocean\" — which implies investments in autonomy, communications, and fleet management rather than one-off hardware. If achieved, that transforms many marine industries from episodic to continuous monitoring and intervention.",
+          "anchorQuote": "they're operating 24/7 to solve these critical",
+          "tSeconds": 24,
+          "link": "https://www.youtube.com/watch?v=RC4_MWFUHr0&t=24"
+        },
+        {
+          "headline": "The minerals industry hasn't adopted modern tech holistically",
+          "detail": "The speakers argue the minerals sector is ripe for disruption because no one has yet applied today's modern technologies across the whole value chain. They present this as an underexploited opportunity: combining robotics, sensing, and systems engineering could materially change how minerals are found, extracted, and managed. Recognizing the sector-level technology gap reframes mining as a software-and-systems problem, not just geology and heavy equipment.",
+          "anchorQuote": "applied it holistically to the industry",
+          "tSeconds": 35,
+          "link": "https://www.youtube.com/watch?v=RC4_MWFUHr0&t=35"
+        },
+        {
+          "headline": "Mass-produced nuclear microreactors are positioned as a civilization enabler",
+          "detail": "Moriana Minerals (via Turner Caldwell) pitches mass-produced microreactors that are \"reliable in the most wild scenario\" as not just an energy solution but a strategic enabler for human expansion beyond Earth. The argument links production-scale, rugged reactors to both terrestrial resilience and the long-term ability to leave our star, framing such hardware as necessary infrastructure for civilization-scale goals. The claim is ambitious: scalable, dependable reactors could unlock missions and settlements that current power systems cannot support.",
+          "anchorQuote": "mass produced that are reliable in the most",
+          "tSeconds": 47,
+          "link": "https://www.youtube.com/watch?v=RC4_MWFUHr0&t=47"
+        }
+      ]
+    }
+  ]
+}
