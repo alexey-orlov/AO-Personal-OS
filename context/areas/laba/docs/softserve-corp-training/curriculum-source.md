@@ -65,5 +65,5 @@ Each of the 3–4 groups carries **one real reusable asset / service** through t
 
 - PrivatBank commercial offer + program + homework sheet + session decks (Google Drive "PB PM Course" folder) — structure and format language.
 - PrivatBank final deck (Заняття 22) — the full framework arsenal (Product Map, impact mapping, hypotheses validation, JTBD, user story map, service blueprint, OKRs, MVP, RICE, feature hamburger, HEART-style metrics, growth loops).
-- SoftServe R&D strategy materials (local `~/Documents/Documents/SoftServe/Strategy/`) — SoftServe-specific productization vocabulary (Initial Insight, Superpowers, Products-vs-Features, asset inventory, Innovation Matrix). Background only; not referenced in the client offer.
+- SoftServe R&D strategy materials (local `~/Library/CloudStorage/OneDrive-SoftServe,Inc/Projects/R&D Products strategy/`) — SoftServe-specific productization vocabulary (Initial Insight, Superpowers, Products-vs-Features, asset inventory, Innovation Matrix). Background only; not referenced in the client offer.
 - Eisha Armstrong, _Productize_ & _Commercialize_ — conceptual inspiration for the services-productization framing.

@@ -35,15 +35,17 @@ Cloud `Location` examples for when they arrive — gdrive: `https://drive.google
 
 ## Entries
 
-### softserve — `~/Documents/Documents/SoftServe`
-- **Type:** local
-- **Location:** `~/Documents/Documents/SoftServe` (resolves to `/Users/olekorlov/Documents/Documents/SoftServe` on this Mac). The nested `Documents/Documents` is real, not a typo.
-- **Machine scope:** this Mac only — ComputerName `KN7X2Y65NX` (the device git-autosync commits as). Not present on other synced devices or in cloud runs.
-- **Backed up:** sits under `~/Documents`, so likely iCloud Desktop & Documents (inferred — unverified). Treat as machine-local; it is **not** committed to this repo.
+### softserve — `~/Library/CloudStorage/OneDrive-SoftServe,Inc` (OneDrive root)
+- **Type:** `local + onedrive` — the **SoftServe-tenant OneDrive**. The *entire* OneDrive is SoftServe context; treat the **root as the master directory for all SoftServe local files**. Synced to disk on this Mac AND reachable via the `ms365` MCP off-machine.
+- **Location (local, primary):** `~/Library/CloudStorage/OneDrive-SoftServe,Inc` (resolves to `/Users/olekorlov/Library/CloudStorage/OneDrive-SoftServe,Inc` on this Mac). Convenience symlink alias: `~/OneDrive - SoftServe, Inc` → the same folder.
+- **Off-machine access:** reachable through the `ms365` MCP (Microsoft Graph / OneDrive, SoftServe tenant) — so unlike the old iCloud-Documents path, cloud routines and other devices CAN read these files (resolve items by path or `search-onedrive-files`). The `ms365` server must be authenticated first (`/mcp` or `claude mcp`); it is **not** logged in by default.
+- **Machine scope:** the local path resolves on this Mac (ComputerName `KN7X2Y65NX`) and any device with this OneDrive account mounted; the `ms365` route is machine-independent.
+- **Backed up:** yes — OneDrive cloud sync (SoftServe tenant). Not committed to this repo.
 - **Contents** (top folder → wiki home):
-  - `Jumpstart/` → [jumpstart-pm](../areas/softserve/jumpstart-pm.md) — ADLC framework, Express SDLC assessment checklist, Conga AI-PM + Agentic-metrics decks, anonymized SDLC status reports, Daxko metrics.
-  - `Oracle/` → [oracle](../areas/softserve/oracle.md) — the partnership working set. Per-customer subfolders each with a numbered use-case scope doc: `Bosch/` (UC #3, cuOpt workforce opt), `DHL/` (UC #6, deep-research "Client Compass"), `Belron/` (UC #8, VSS visual inspection), `NHS/` (UC #9, complaints-review case assistant), `KPN/` (UC #10, CS/billing case assistant), `RiyahdAir/` (AIQ doc extraction), `SBG/` (Saudi Binladin Group — discovery-stage), `AIDP/`. Plus `General materials/` (GTM decks, accelerator-pack research), the **productization pipeline spreadsheet** (`SoftServe-NVIDIA-Productization Use cases-Pipeline_Oracle solutions — SS-work split + packaging.xlsx` — the canonical customer×use-case×pack map), the **agentic pattern taxonomy** (`AI workflow patterns - AIDP-NVIDIA-OracleAI mapping.xlsx`, mirrors the "patterns" Google Sheet), WfO one-pager + service-packages deck. Note: `Conga/` moved up to the SoftServe root.
-  - `Strategy/` → area-level (added since 2026-06-16) — Product Workshop deck + agenda, "Strategic options" deck.
-  - `Monthly presentation/` → area-level — "R&D GenAI Solutions Monthly Update" decks (May'26, Jun'26).
-  - `Conga/`, `Meta/` → area-level / misc (Conga enablement materials; screenshots).
-- **Added:** 2026-06-16 (contents refreshed 2026-07-10)
+  - `Projects/Oracle/` → [oracle](../areas/softserve/oracle.md) — the partnership working set. Per-customer subfolders (`AIDP/`, `Belron/`, `Bosch/`, `DHL/`, `KPN/`, `NHS/`, `RiyahdAir/`, `SBG/`); `General/` (GTM deck, the partnership-vision deck drafts, pipeline review copies); `Use case maps/` (the canonical **productization pipeline spreadsheet** `SoftServe-NVIDIA-Productization Use cases-Pipeline…xlsx` + the **agentic pattern taxonomy** `AI workflow patterns - AIDP-NVIDIA-OracleAI mapping.xlsx`); `Workforce optimization package/` (WfO service-packages deck, sales one-pager, accelerator-pack one-pager); `KPIs.xlsx`; `Presentation.pptx`.
+  - `Projects/Jumpstart/` → [jumpstart-pm](../areas/softserve/jumpstart-pm.md) — ADLC framework, Express SDLC assessment checklist, Conga AI-PM + Agentic-metrics decks, the AI PM Jumpstart / Jumpstart Express program outlines (v1 + v2, `.html`/`.pdf`), anonymized SDLC status reports, Daxko metrics.
+  - `Projects/R&D Products strategy/` → area-level (was the old `Strategy/`) — "Strategic options" deck, product-management / product-strategy workshop files, `Workshop/`.
+  - `Projects/Conga - AI-powered Product Management/`, `Projects/Meta/` → area-level / misc (Conga enablement materials; screenshots).
+  - `Projects/Presentation templates/` → the SoftServe-brand deck templates (base for the partnership-vision + WfO decks).
+  - Root-level context beyond `Projects/`: `Meetings/`, `Recordings/`, `Hiring/`, `Monthly AI products overviews/`, `Productization - General/` (`Customer projects.xlsx`), `Attachments/`, Teams / Copilot chat files, `Agentic Engineering.xlsx`.
+- **Added:** 2026-06-16 (moved from the now-obsolete `~/Documents/Documents/SoftServe` to this OneDrive root on 2026-07-21)
