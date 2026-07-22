@@ -35,6 +35,7 @@ The optional `was:` records the original text when it was corrected from a missp
 
 - **Carnegie** — David Nasaw, 2006 · added 2026-07-19 · was: "биография Андрю Карнеги"
 - **Morgan: American Financier** — Jean Strouse, 1999 · added 2026-07-19 · was: "JP Morgan"
+- **The Origins of Totalitarianism** — Hannah Arendt, 1951 · added 2026-07-22 · was: "ханна арендт истоки тоталитаризма"
 
 ## Non-fiction (psychology / business / technology)
 
