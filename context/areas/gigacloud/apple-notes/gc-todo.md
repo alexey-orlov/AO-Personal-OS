@@ -1,12 +1,14 @@
 ---
 note: GC Todo
 area: gigacloud
-snapshot: 2026-07-14 08:00
-chars: 17152
+snapshot: 2026-07-23 08:00
+chars: 18216
 scope: above relevance marker
 ---
 GC Todo
 
+
+[redacted by notes-sync: 24-char key-like string]
 
 Формула
 
@@ -25,7 +27,19 @@ Max discount = 1 – (Total COGS, UA Region, UAH / Price, UAH + Min margin, %) *
 Актуальность проектов в Jira
 
 
-Фиксы на деве
+Todo
+
+
+
+Gov
+531b5fdd-ebd8-49fa-8bab-fa4446b25921
+
+Non-gov
+36e6677e-f441-4d9d-867b-66e772837a9a
+
+Фиксы на вроде
+Component. Field auto-filling: Hardware details (Comp node, GPU only) + Min margin - поменять версию
+Product catalogue. Sync gov product - поменять версию после поставки
 Price item. Field auto-filling: current margin, max discount - поменять версию
 Active (spec infra products): required fields - (2) business rules, product page
 Product catalogue. Publication: Verify draft product - product catalogue, verification
@@ -43,7 +57,19 @@ Requests to delivery
 
 
 ToDo:
+Цены
+Может ли быть Quote-only цена current price item? - НЕТ, исправить данные и процесс
+Может ли не быть current Price item? - НЕТ, найти проблему + исправить данные
+
+Синк с Настей по Price upon request: использование хелперов + именование процессов и складывание в папки + условия с датами
+Эдик - дать атрибуты gov версий договоров
+Дефиниции полей Infrastructure type, Virtualization platform
+Allowed infrastructure types - добавилить поле add-on mode; 
+Allowed infrastructure types - для лицензий и our services указать, что private / public только для add-on.
+В заявках на custom software выделить отдельный шаг на продакта по заведению продукта, компонент группы
+Allowed responsible for product design - добавить поле с product category (для инфосека в add-on tools)
 Видео по Gov prices
+Vendors - read-only поля
 
 
 Фиксы после поставки:
