@@ -2,7 +2,7 @@
 
 _status: live theme — how AI reshapes product management work, skills, workflows, and roles_
 _slug: ai-and-the-pm-craft_
-_updated: 2026-07-17 · 27 insights from 17 episodes_
+_updated: 2026-07-22 · 31 insights from 20 episodes · ⚠ at 31/30: just over budget, no clean seam yet_
 
 ## The throughline
 PMs and full-stack designers gain leverage in the coding-agent era because the gap between "knowing what to build" and "shipping it" collapses. The skill shift is from raw implementation to defining what to build, evaluating quality, and designing where humans and agents collaborate — Shipper bets PMs who "ride the models" out-ship engineers, an OpenAI PM uses Codex to drive prototypes to 70–80% completion and replace PRDs with runnable artifacts, and a non-technical builder ships a production iPhone app and clears App Store review using LLMs as her stepwise architect + engineer. Lovable extends this to "anyone": vibe coding democratizes product creation, with a student hitting $130k ARR in 30 days. The same craft scales up the org chart: Customer.io's VP of Product rebuilds a third of an all-hands deck in a morning, but only by treating Claude like an eager junior — rolling context in, forcing clarifying questions, blocking premature deliverables — and the leader's residual value collapses to two choices: *which sources* (recordings, docs, metrics) and *which target form* (deck, Notion page, one-pager). The model-selection beat also sharpens: Fable's "seasoned engineer" verbosity wrecks PRDs, so pair Mythos-class models with cheaper Opus/Sonnet by task type. Ambrosino (OpenAI Codex) sharpens the picture from the supply side: when dozens of people inside a company can stand up polished prototypes from the same idea, implementation is no longer the bottleneck — *curation* is: deciding which of ~90 explorations to keep, fold together, or refine. The same abundance makes design and taste distinctly non-automatable: aesthetic judgment, novelty, and system-level UI coherence lack the grading signals needed to train models to generalize, so models copy patterns (Linear-clone proliferation) but cannot generate the novelty or cross-component semantic reasoning that defines good design. The operational kit that recurs: hyper-literal prompts, screenshots-as-examples, prototypes-not-PRDs, a beginner's mindset, and the discipline to restrain the model until the foundations are set.
@@ -137,12 +137,35 @@ The speakers recommend editorial people prototype personal projects—example: '
 — Every · 2026-07-17 · guest: — · [▶ 11:38](https://www.youtube.com/watch?v=u_3q5rMkAds&t=698) · `pi-u_3q5rMkAds-05`
 related: [A non-technical person can build and ship a production iPhone app today](#a-non-technical-person-can-build-and-ship-a-production-iphone-app-today) (same practice-on-a-personal-project-first discipline)
 
+### Persona-driven browser runs produce research-style product critiques
+You can prompt Codex to impersonate specific user personas, let it use the app like that persona, and then produce a research-style critique covering friction, delights, and improvements. The host (crediting EJ Lawless) had the agent act as a product manager, an engineer, and a team leader; it exercised the chat/PRD flows and surfaced real handoff problems—like inability to reference one document from another—and UX issues such as slow, opaque loading states. This technique is useful because it simulates fresh eyes across roles and discovers structural breaks in workflows that developers and designers may be blind to.
+— How I AI · 2026-07-22 · guest: — · [▶ 12:25](https://www.youtube.com/watch?v=lk63Sl-LRKE&t=745) · `pi-lk63Sl-LRKE-02`
+related: [Use LLMs as research assistants, not to write your prose (inferred fit)](#use-llms-as-research-assistants-not-to-write-your-prose-inferred-fit) (same agent-as-research-instrument instinct, applied to product critique rather than writing)
+
+### Product managers will shift to configuring intent, not writing features
+When models can digest every sales call, support ticket, email and user trace, James argues the superhuman pattern-detection part of product discovery can be automated. The new role of PMs/CPOs becomes setting the product intent, rules and policies — the 'rule book' — and curating/validating model proposals, rather than being the primary source of feature ideas or PRs. That matters because it reframes hiring, org design and how companies capture customer context: humans guide vision and edge-cases while models handle scale detection and execution.
+— Y Combinator · 2026-07-22 · guest: James (PostHog) · [▶ 4:34](https://www.youtube.com/watch?v=ALJQHSgCl2E&t=274) · `pi-ALJQHSgCl2E-03`
+related: [Implementation is cheap; curation and taste are the real bottlenecks](#implementation-is-cheap-curation-and-taste-are-the-real-bottlenecks) (Ambrosino's curation bottleneck is the same shift — PM value moves from generating ideas to configuring and validating what the model proposes)
+
+### Grounding via retrieval or tools is the practical cure for hallucination
+When correctness matters, the speaker recommends grounding LLM answers by retrieving real content or calling authoritative tools rather than relying on the model's internal probabilities. Practically, the model emits a structured JSON tool call; your application executes the function (e.g., weather, search), returns results to the model, and the model composes a grounded answer — shown in demos that returned population and weather with sources. You should also measure faithfulness (does the answer trace to retrieved text) and retrieval quality as separate evals.
+— Aakash Gupta · 2026-07-22 · guest: — · [▶ 36:04](https://www.youtube.com/watch?v=iBKrijO1PBQ&t=2164) · `pi-iBKrijO1PBQ-03`
+related: theme → [Model reviews & benchmarks](model-reviews-and-benchmarks.md) (LLMs predict next tokens, not facts — the mechanism behind why grounding is necessary, `pi-iBKrijO1PBQ-01`)
+
+### Route queries to different models to balance cost and quality
+Not every query needs the biggest model: a lightweight classifier or embedding match can route trivial requests (e.g., "what is 2+2") to cheap models and reserve large models for complex reasoning. The video demos a router that selects GPT-4-mini for simple math and a larger model for harder tasks, then compares token counts and costs to show how per-call savings scale dramatically over millions of queries. Building an explicit router is a core PM-level trade-off between latency, accuracy, and cost.
+— Aakash Gupta · 2026-07-22 · guest: — · [▶ 25:49](https://www.youtube.com/watch?v=iBKrijO1PBQ&t=1549) · `pi-iBKrijO1PBQ-05`
+related: [Use the right Claude model: Haiku for volume, Sonnet for most PM work, Opus for edge-case reasoning](#use-the-right-claude-model-haiku-for-volume-sonnet-for-most-pm-work-opus-for-edge-case-reasoning) (same task-fit model-selection discipline — Ji Nucla's is a PM's manual practice, this is the underlying automated-router architecture)
+
 ## Related themes
 - [AI agents & applications](ai-agents-and-applications.md) — the surfaces PMs build in
 - [Leadership, careers & teams](leadership-careers-and-teams.md) — how the manager/IC mix is shifting alongside
 - [Product discovery & strategy](product-discovery-and-strategy.md) — feature differentiation is dead; moats sit elsewhere
 
 ## Source episodes
+- [How I AI — I let Codex control my browser so I don't have to (2026-07-22)](../episodes/2026/2026-07-22--howiai--i-let-codex-control-my-browser-so-i-dont-have-to.md)
+- [Y Combinator — Why Ambitious Startup Ideas Are Actually Easier To Sell (2026-07-22)](../episodes/2026/2026-07-22--yc--why-ambitious-startup-ideas-easier-to-sell.md)
+- [Aakash Gupta — Prepare for this round before your next AI PM interview... (2026-07-22)](../episodes/2026/2026-07-22--aakash--prepare-for-your-next-ai-pm-interview-round.md)
 - [Every — I Vibecoded This Feature Using Codex (2026-07-17)](../episodes/2026/2026-07-17--every--i-vibecoded-this-feature-using-codex.md)
 - [Aakash Gupta — The Ex-Google PM Secret to Landing the Offer (2026-07-16)](../episodes/2026/2026-07-16--aakash--ex-google-pm-secret-landing-the-offer.md)
 - [Lenny's Podcast — Adam Mosseri: AI is a tailwind for authenticity (2026-07-09)](../episodes/2026/2026-07-09--lenny--adam-mosseri-ai-tailwind-for-authenticity.md)
