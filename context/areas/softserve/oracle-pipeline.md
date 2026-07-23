@@ -1,9 +1,11 @@
 # Oracle engagements — pipeline status
 
 _Source: Miro board **"INT Oracle Program"**, **June** view (marked **Confidential**). Screenshot shared by Alex 2026-07-13; this is the program manager's live pipeline tracker. Sibling boards exist on the same Miro (tabs: Henkel Program, REWE Stakeholders, RX PoC, Oracle AIDP, Schwarz Program, Montblanc) — not captured here._
-_updated: 2026-07-13_
+_updated: 2026-07-23_
 
 The single structured source of truth for **who is in the Oracle/NVIDIA accelerator-pack pipeline, at what commercial stage, and worth how much**. Complements the narrative in [oracle.md](oracle.md) (strategy/decisions/people) and the org map in [oracle-team.md](oracle-team.md). Twelve opportunities across four status bands.
+
+> **Priority signal (2026-07-22 Neil+Gero session):** of the NVIDIA-funded pipeline, Oracle flags **NHS, Belron, and KPN** as the **most-certain upcoming opportunities** — all three currently sit in the **"Next"** band below (NHS & KPN = AIQ, €198.5k / 15 wks each, Gero owns; Belron = VSS, €171k / 12 wks, Milo Honegger owns). Oracle also offered to **add SoftServe to its pipeline-review calls** so SoftServe can see / scope / engage directly (Oracle to follow up). Separately, Oracle projects **~1,000 AI-Lakehouse + 100s AIDP qualified leads** from its Sept events at **15–20% → PoC** — a forward lead-gen funnel that will feed this pipeline. (chat, 2026-07-23)
 
 ## Legend
 
