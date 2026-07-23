@@ -68,6 +68,20 @@ Decoded from Alex's engagement "helicopter-view" — a one-source verbal map; ph
 
 Two more orgs SoftServe doesn't yet work with directly: an **Accounts** org (account managers who **upsell the AI packs + OCI to *existing* enterprise customers** — not net-new logos; platform ~1 yr old, weak in Europe, ~$1M revenue) and a separate **AADP / Data Platform** team (Ankur gave an overview — inferred). A further **(inferred, uncorroborated)** reorg signal: a "Niu/Nieu" took over **AI & Data Business**, with AI Platform + ADP reporting to him and co-sell/GTM strategy forming — possibly the same restructure as the [2026-06-23 packs reorg](calls/oracle/2026-06-23_192203_sales-call_20260623183616C79A9EC5.md), not independently confirmed. [helicopter-view 2026-06-25](calls/oracle/2026-06-25_131530_default_20260625123708F9E8088F.md)
 
+### Oracle's own AI-&-Data professional-services capability (under Gero) — surfaced 2026-07-22
+
+At the [2026-07-22 Neil+Gero strategic alignment session](oracle.md#snapshot), Oracle disclosed that **Gero's AI-&-Data GTM team is standing up its own delivery / PS capability** — directly shaping how SoftServe should position its practice:
+
+- **FDE team** — Oracle has built / is building an internal **Forward-Deployed-Engineer team**: **2–4 FDEs** who can start building a customer use case in **1–2 weeks, not months**. Oracle's own answer to fast, hands-on PoC delivery.
+- **Managed service — "AIDP Innovation service"** — a packaged managed service **priced per use case**. Oracle wants to build it and ensure adoption, **but** (a) long-term is willing to **offload those customers to partners**, (b) **won't have the headcount** to support many projects as the pipeline grows, and (c) is open to **blended pods** where either Oracle's FDE team **or SoftServe's team** takes the lead.
+- **AIDP industry solutions** — the AIDP Innovation service launch may lead Oracle to build **industry-tailored solutions** (presumably by Gero's team — inferred).
+
+**Read:** this is the concrete texture of the long-open "does Oracle build or partner?" question — Oracle **is** building internal delivery (FDE + managed service) **but** explicitly plans to lean on partners as volume outstrips headcount, and is open to co-delivery (blended pods). It's exactly the opening SoftServe's "dedicated practice" pitch aimed at. **Next: deep-dive follow-up with Gero** to understand the FDE team / managed service and align a joint-engagement framework. [oracle.md](oracle.md)
+
+**Kevin Kimber (Oracle) — UK SVP & GM:** the exec over Oracle's **~180 OFS (Oracle Field Service) customer base**; Neil/Gero offered a SoftServe intro (2026-07-22) as the route to work that pipeline with SoftServe's packaged **workforce-optimization app**. Full name / exact title TBD; intro not yet made.
+
+**Product-engineering teams to connect with (Oracle to broker, per 2026-07-22):** the **AIDP product team** (Oracle admits they're hard to reach) and the **AI Lakehouse product team** — plus a check on whether SoftServe can access Oracle's **8 industry-specific internal AI-Lakehouse accelerators** for packaging alignment. These are product teams distinct from Gero's GTM/PS org and from the Motion-A Accelerator-Packs team (Pulkit/Nathan Thomas). See [oracle-ai-offerings.md](oracle-ai-offerings.md) for the AIDP / AI-Lakehouse product topology.
+
 ## What Oracle wants (goals — inference, well-grounded)
 
 - **Motion A:** maximize **OCI GPU consumption** + turn NVIDIA blueprints into **repeatable, productized accelerators with reference logos** (land-grab — cf. Kennetz's $20M→$100M ARR math). SoftServe = the SI that operationalizes/hardens the IP.
