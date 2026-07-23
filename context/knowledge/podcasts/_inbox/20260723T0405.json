@@ -1,0 +1,303 @@
+{
+  "schema": 1,
+  "generatedAt": "2026-07-23T04:05:03.292Z",
+  "runStamp": "20260723T0405",
+  "episodes": [
+    {
+      "videoId": "lk63Sl-LRKE",
+      "videoTitle": "I let Codex control my browser so I don't have to",
+      "videoUrl": "https://www.youtube.com/watch?v=lk63Sl-LRKE",
+      "channelName": "How I AI",
+      "publishedDate": "2026-07-22",
+      "guests": [],
+      "summary": "The host demos using Codex's browser and computer control features to automate web tasks and product work. Central argument: giving an agent controlled access to your browser/computer can replace tedious QA, persona testing, and everyday chores—surfacing edge-case bugs and saving hours while still needing light human verification.",
+      "insights": [
+        {
+          "headline": "Browser-driven agents find exhaustive QA edge cases humans miss",
+          "detail": "Running Codex as a browser agent can automatically exercise web flows across viewports, error states, and accessibility checks while taking screenshots and producing a tracked bug list. The host used it to test an onboarding flow: the agent changed viewport sizes, tested multiple sign-up paths, discovered 11 issues including one high-severity navigation blocker (a required field that still let you continue), and exported a prioritized Google Sheet with screenshots and remediation notes. This matters because automated exhaustive testing surfaces failure states a tired human QAer often skips and produces reproducible artifacts for developers.",
+          "anchorQuote": "using browser use alongside a coding agent to validate changes",
+          "tSeconds": 264,
+          "link": "https://www.youtube.com/watch?v=lk63Sl-LRKE&t=264"
+        },
+        {
+          "headline": "Persona-driven browser runs produce research-style product critiques",
+          "detail": "You can prompt Codex to impersonate specific user personas, let it use the app like that persona, and then produce a research-style critique covering friction, delights, and improvements. The host (crediting EJ Lawless) had the agent act as a product manager, an engineer, and a team leader; it exercised the chat/PRD flows and surfaced real handoff problems—like inability to reference one document from another—and UX issues such as slow, opaque loading states. This technique is useful because it simulates fresh eyes across roles and discovers structural breaks in workflows that developers and designers may be blind to.",
+          "anchorQuote": "impersonate specific personas of his applications and then",
+          "tSeconds": 745,
+          "link": "https://www.youtube.com/watch?v=lk63Sl-LRKE&t=745"
+        },
+        {
+          "headline": "Letting Codex control the browser replaces many tedious web chores",
+          "detail": "Granting browser/computer access (via @browser, @chrome, or @computer) lets Codex carry out everyday tasks like triaging LinkedIn messages, curating and adding items to shopping carts, filling long forms, or even controlling a mirrored iPhone to update routers and SSH into home machines. The host shows practical examples: the agent populated a Free People cart with 10 medium items totaling $352 pre-tax, triaged unread LinkedIn messages and drafted replies, and used iPhone mirroring to adjust Wi‑Fi settings remotely. The tradeoff is occasional human verification—agents can pick inappropriate items or interpret UI states incorrectly—so a light human-in-the-loop is still recommended.",
+          "anchorQuote": "reduced so much personal toil and personal digital toil",
+          "tSeconds": 174,
+          "link": "https://www.youtube.com/watch?v=lk63Sl-LRKE&t=174"
+        }
+      ]
+    },
+    {
+      "videoId": "ALJQHSgCl2E",
+      "videoTitle": "Why Ambitious Startup Ideas Are Actually Easier To Sell",
+      "videoUrl": "https://www.youtube.com/watch?v=ALJQHSgCl2E",
+      "channelName": "Y Combinator",
+      "publishedDate": "2026-07-22",
+      "guests": [
+        "James (PostHog)"
+      ],
+      "summary": "A founder (James of PostHog) argues that being bold makes hiring, fundraising, and marketing easier, and explains how AI is changing product development. The conversation ties together practical lessons from multiple pivots, how to operationalize model-driven engineering, and why founders should simultaneously hold an audacious long-term vision and ruthless short-term shipping discipline.",
+      "insights": [
+        {
+          "headline": "The more ambitious a startup, the easier it is to hire and market",
+          "detail": "Contrary to the intuition that big ideas are harder to sell, James says greater ambition made PostHog more recruitable and more remarkable in go-to-market. Strong engineers and operators prefer working on inspiring, large problems, and ambitious products create easier word-of-mouth and press because they stand out versus undifferentiated niche SaaS. That means choosing a bigger, riskier vision can lower customer-acquisition friction and attract higher-quality hires, even if execution still requires ruthless short-term focus.",
+          "anchorQuote": "The more ambitious we've gotten, it's been far easier",
+          "tSeconds": 873,
+          "link": "https://www.youtube.com/watch?v=ALJQHSgCl2E&t=873"
+        },
+        {
+          "headline": "AI can autonomously surface and ship product fixes as pull requests",
+          "detail": "PostHog built a system that ingests engineering and product intent and usage traces so models can detect issues and generate pull requests that developers only need to merge. They report a nontrivial fraction of their internal PRs are now generated this way, speeding iteration and freeing engineers to build larger features; trace data also lets them backward-test how alternative prompts or configs would have performed. This shows a practical pathway where LMs plus instrumentation move from suggestions to concrete code changes in production workflows.",
+          "anchorQuote": "harness that grabs all of the intent data",
+          "tSeconds": 176,
+          "link": "https://www.youtube.com/watch?v=ALJQHSgCl2E&t=176"
+        },
+        {
+          "headline": "Product managers will shift to configuring intent, not writing features",
+          "detail": "When models can digest every sales call, support ticket, email and user trace, James argues the superhuman pattern-detection part of product discovery can be automated. The new role of PMs/CPOs becomes setting the product intent, rules and policies — the 'rule book' — and curating/validating model proposals, rather than being the primary source of feature ideas or PRs. That matters because it reframes hiring, org design and how companies capture customer context: humans guide vision and edge-cases while models handle scale detection and execution.",
+          "anchorQuote": "we can't build something that's far superior to a product manager",
+          "tSeconds": 274,
+          "link": "https://www.youtube.com/watch?v=ALJQHSgCl2E&t=274"
+        },
+        {
+          "headline": "Pitch investors the 'what if it all goes right' upside",
+          "detail": "James emphasizes that top VC returns come from a tiny number of home-run companies, so founders should present the plausible, massive upside — not a conservative downside case. Practically, that means articulating the audacious end-state (what the product looks like if everything works) while breaking progress into immediate, testable steps so you ship and learn. Investors he wants partner with think in asymmetric bets: a 1% path to a multi-billion outcome is far more attractive than safe, limited upside.",
+          "anchorQuote": "Just ask yourself what if it all goes right?",
+          "tSeconds": 1326,
+          "link": "https://www.youtube.com/watch?v=ALJQHSgCl2E&t=1326"
+        }
+      ]
+    },
+    {
+      "videoId": "pogKlhNAEV8",
+      "videoTitle": "How Every's Team Used AI to Ship Its Biggest Launch Ever",
+      "videoUrl": "https://www.youtube.com/watch?v=pogKlhNAEV8",
+      "channelName": "Every",
+      "publishedDate": "2026-07-22",
+      "guests": [
+        "Yash (Every)",
+        "Douglas (Every, Creative Director)"
+      ],
+      "summary": "A group from Every explains how they used agents, models, and an integrated AI tooling stack (the \"builder pack\") to automate routine product and growth work so the team could focus on creative experiments. The throughline: connect agents to your analytics, deployable infra, and content tools to go from idea to execution quickly and reliably — sometimes overnight and at real scale.",
+      "insights": [
+        {
+          "headline": "Automating routine growth tasks unlocks time for creative tests",
+          "detail": "Yash describes automating the AB-testing and segmentation pipeline with Claude and other agents so he no longer spends hours clicking in dashboards. He rebuilt the product many times and says the manual work was \"very boring\"; automating it lets him focus on higher-leverage questions like which homepage takeover to run and who to target. This matters because marginal experiments (2% lifts) compound when you can run many more of them without manual overhead.",
+          "anchorQuote": "this is very boring because it's it's very straightforward",
+          "tSeconds": 261,
+          "link": "https://www.youtube.com/watch?v=pogKlhNAEV8&t=261"
+        },
+        {
+          "headline": "Agents can execute a marketing idea overnight and drive real revenue",
+          "detail": "The team gave an agent a Slack screenshot and a goal to email users who showed checkout intent; the agent created audience cohorts, drafted tailored emails, ran them through the company's writing MCP, selected proven creative, scheduled sends, and posted the plan to Slack for review. That single agent-driven workflow required about ten minutes of human tweaking and generated more than $25,000 in revenue the next morning, illustrating how connected agents can turn ideas into immediate, measurable outcomes.",
+          "anchorQuote": "you had an idea for something, you went to bed,",
+          "tSeconds": 625,
+          "link": "https://www.youtube.com/watch?v=pogKlhNAEV8&t=625"
+        },
+        {
+          "headline": "The Builder Pack removes cost barriers so individuals can experiment",
+          "detail": "Every argues the bundled credits and partner offers in the Builder Pack (OpenAI/Codex credits, model credits, hosting credits, etc.) make AI experimentation affordable for individuals and small teams who otherwise couldn't afford monthly model spend. They contrast an anecdote of an engineer hearing others spend $30k/month with the Builder Pack's one-month credits and overage allowances, saying that access to these credits materially accelerates experimentation and learning.",
+          "anchorQuote": "this stuff is expensive. Um, and the stack that you use",
+          "tSeconds": 1345,
+          "link": "https://www.youtube.com/watch?v=pogKlhNAEV8&t=1345"
+        },
+        {
+          "headline": "Best workflows make humans the strategic 'top and bottom' of AI",
+          "detail": "The team uses the metaphor of being \"at the top and bottom of the AI sandwich\": humans define problems, set outcomes, and review results while agents do the execution. They show this across use cases — emails, analytics, video editing, and design — where agents fetch context from Notion/PostHog/Descript and produce a first-pass output that humans refine, yielding speed without losing control.",
+          "anchorQuote": "you're at the top and bottom of the AI sandwich",
+          "tSeconds": 1085,
+          "link": "https://www.youtube.com/watch?v=pogKlhNAEV8&t=1085"
+        }
+      ]
+    },
+    {
+      "videoId": "z6gH_v0buUc",
+      "videoTitle": "Building a Company in Stealth | Travis Kalanick with a16z",
+      "videoUrl": "https://www.youtube.com/watch?v=z6gH_v0buUc",
+      "channelName": "a16z",
+      "publishedDate": "2026-07-22",
+      "guests": [
+        "Travis Kalanick (founder, Uber; founder, Adams/CloudKitchens/City Storage Systems)"
+      ],
+      "summary": "Travis Kalanick recounts why he built his new venture (Adams / CloudKitchens / City Storage Systems) in stealth after Uber and lays out a unified framework for digitizing the physical world. His central argument is that industries can be treated like computers—manufacturing as CPU, real estate as storage, and transport as network—and that starting with a focused beachhead (food) lets you build the infrastructure, talent and management capacity to scale into mining, transport and other industrial AI opportunities.",
+      "insights": [
+        {
+          "headline": "Stealth preserves internal focus and prevents external distraction",
+          "detail": "Kalanick intentionally built CloudKitchens/Adams in stealth after a brutally negative press period following his Uber exit so the team could iterate without daily headlines shaping decisions. He recruited cold (stealth LinkedIn signatures), signed customers quietly, and found that long stealth periods make leaks hard to contextualize; he still amassed hundreds of facilities in 30 countries while keeping the narrative under wraps. The payoff was cultural: decisions could be driven by internal correctness rather than external validation, which he argues is essential for hard, long-term engineering and operational work.",
+          "anchorQuote": "build without bringing that negativity into the system",
+          "tSeconds": 1940,
+          "link": "https://www.youtube.com/watch?v=z6gH_v0buUc&t=1940"
+        },
+        {
+          "headline": "Digitizing the physical world creates an atoms-based computer",
+          "detail": "Kalanick maps computer concepts onto the physical world: CPU → manufacturing, storage → real estate, network → transport, arguing the same CS frameworks (algorithms, routing, caches) apply to atoms. He gives concrete metaphors—e.g., a 30-kitchen facility as a multi‑core processor, corridors as a network bus, and couriers as TCP packets—and notes they already use TCP-like demand routing for kitchens. That framing matters because it makes industrial problems tractable to software/ML thinking and defines what 'industrial AI' should build around.",
+          "anchorQuote": "CPU manipulates bits, storage stores bits,",
+          "tSeconds": 2144,
+          "link": "https://www.youtube.com/watch?v=z6gH_v0buUc&t=2144"
+        },
+        {
+          "headline": "Automation can reduce delivered meal costs to grocery-store levels",
+          "detail": "By combining digitized warehouses, multi-tenant kitchen real estate, automated food production (robots) and robotic couriers, Kalanick projects steep cost declines: distribution per meal can fall from about $12 to $0.50–$1, production can become ~50% cheaper once robotics scale, and occupancy/labor costs drop too. He uses these numbers to argue an $8–$10 delivered meal becomes feasible, changing restaurant economics and turning delivery into a massive scalable market. The concrete cost pathway explains why food was a compelling beachhead for Adams’ vision.",
+          "anchorQuote": "from $12 a drop for each meal to 50 cents,",
+          "tSeconds": 1865,
+          "link": "https://www.youtube.com/watch?v=z6gH_v0buUc&t=1865"
+        },
+        {
+          "headline": "Problem creation must not outpace problem-solving capacity",
+          "detail": "Kalanick offers a 'meta problem' rule: the rate at which you create new problems must be less than or equal to your rate of solving them, otherwise the company drowns. This applies both to organizational scale (adding geographies or product lines) and to a founder's personal bandwidth—creating too many big initiatives without corresponding management capacity leads to being 'underwater.' The practical takeaway is to build management processes and hire leaders before or alongside aggressive expansion.",
+          "anchorQuote": "I have this like framework I call the meta problem",
+          "tSeconds": 4298,
+          "link": "https://www.youtube.com/watch?v=z6gH_v0buUc&t=4298"
+        },
+        {
+          "headline": "Attack industrial AI industry-by-industry from a beachhead",
+          "detail": "His strategy is to pick a beachhead industry (food first), solve ~98% of its problems by building processes, product, and management capacity, then expand horizontally and vertically into adjacent industries like mining and transport. He stresses the importance of domain knowledge and cultural alignment—what you learn in one industry (e.g., running high-volume kitchens and real estate) supplies transferable infrastructure and talent for the next. The beachhead approach reduces integration risk and makes the company a more credible industrial AI platform owner.",
+          "anchorQuote": "you've got to find that beach head, make it flourish",
+          "tSeconds": 3933,
+          "link": "https://www.youtube.com/watch?v=z6gH_v0buUc&t=3933"
+        }
+      ]
+    },
+    {
+      "videoId": "zRxRZ-YTPCc",
+      "videoTitle": "SaaStr AI Day: The New Agentic Support Playbook",
+      "videoUrl": "https://www.youtube.com/watch?v=zRxRZ-YTPCc",
+      "channelName": "SaaStr AI",
+      "publishedDate": "2026-07-22",
+      "guests": [],
+      "summary": "The talk argues that customer support is shifting from manual workflows or attempts at full automation to an \"agentic\" model: humans orchestrate AI agents that pre-investigate, gather context, and perform routine actions while the human makes judgment calls. The speaker demos Pylon's product which runs background agents, precomputes account/context data, reduces escalations, speeds responses, and lets teams scale without proportional headcount increases.",
+      "insights": [
+        {
+          "headline": "Full replacement is overrated; human+AI augmentation scales fastest",
+          "detail": "Many vendors aim to fully automate support, but the fastest-growing companies build products that augment humans instead of replacing them. The speaker points to examples across coding, healthcare, and legal where human-in-the-loop workflows remain dominant, and notes a concrete B2B case where a 50% ticket deflection didn't reduce headcount because the remaining tickets required human context and escalations. That pattern implies product and go-to-market advantage for augmentation-focused tools versus pure autonomous agents.",
+          "anchorQuote": "a lot of them are thinking about full replacement of people",
+          "tSeconds": 197,
+          "link": "https://www.youtube.com/watch?v=zRxRZ-YTPCc&t=197"
+        },
+        {
+          "headline": "Precomputing context lets agents deliver fast, higher-quality investigations",
+          "detail": "Pylon ingests raw data sources and builds precomputed context — account setup, goals, past interactions, sentiment, related tickets and code pointers — so agents can immediately surface an investigation when a ticket arrives. In the demo, the background agent identifies similar past issues, inspects code and calls, and concludes the problem is a front-end regression, enabling the support engineer to act rather than manually hunt across tools. This front-loading of context reduces latency and error compared with ad-hoc prompting external LLMs each time.",
+          "anchorQuote": "we've taken that data, that raw data layer",
+          "tSeconds": 476,
+          "link": "https://www.youtube.com/watch?v=zRxRZ-YTPCc&t=476"
+        },
+        {
+          "headline": "Agentic support yields measurable operational gains for customers",
+          "detail": "Early Pylon customers report concrete metrics: one client saw 70% fewer escalations within about a month, and another saw a 64.5% faster time-to-first-response, translating to better customer experience and less engineering overhead. These numbers support the claim that orchestration + background investigation not only speeds replies but also materially reduces the frequency of costly escalations and helps teams support growth without hiring proportionally.",
+          "anchorQuote": "another customer saw 64 and a half% faster time to first response",
+          "tSeconds": 1196,
+          "link": "https://www.youtube.com/watch?v=zRxRZ-YTPCc&t=1196"
+        },
+        {
+          "headline": "Building agentic workflows can be materially cheaper than naive LLM use",
+          "detail": "Because Pylon precomputes and caches contextual lookups and orchestrates smaller, targeted model calls, the company claims inference costs can be three to six times lower than simply wiring every workflow to a general LLM like Claude. Lower inference cost plus faster responses and better control makes a commercial case for platformized agent orchestration over piecemeal model usage for large-scale support teams.",
+          "anchorQuote": "Pylon uh can be like three to six times cheaper",
+          "tSeconds": 527,
+          "link": "https://www.youtube.com/watch?v=zRxRZ-YTPCc&t=527"
+        },
+        {
+          "headline": "Agents learn from human interactions, raising the team's baseline capability",
+          "detail": "Every interaction where a human queries or corrects an agent teaches the agent what to check and where to look, so subsequent investigations improve automatically; this effectively captures tribal knowledge. The speaker notes this both speeds onboarding and lets less technical staff follow prescribed troubleshooting steps (turned into reusable skills), raising the floor of who can resolve complex issues and reducing single-person dependencies.",
+          "anchorQuote": "the agent is learning from how you solve an issue",
+          "tSeconds": 1353,
+          "link": "https://www.youtube.com/watch?v=zRxRZ-YTPCc&t=1353"
+        }
+      ]
+    },
+    {
+      "videoId": "pLiXv3_wvCw",
+      "videoTitle": "Copy of SaaStr AI Day: The New Agentic Support Playbook",
+      "videoUrl": "https://www.youtube.com/watch?v=pLiXv3_wvCw",
+      "channelName": "SaaStr AI",
+      "publishedDate": "2026-07-22",
+      "guests": [
+        "Adith (Pylon)"
+      ],
+      "summary": "The talk argues that the fastest route to better customer support is 'agentic' workflows: humans orchestrating AI agents rather than trying to fully replace humans. Pylon's product runs background agents that precompute context, perform investigations across logs/docs/code, and expose skills so support reps stay in the driver's seat, work faster, and scale without big headcount increases. The presenters give concrete examples and customer results (fewer escalations, much faster first responses) to show why augmentation beats pure automation for complex B2B support. They also explain how ongoing human–agent interactions train the agents and raise the team's baseline capability over time.",
+      "insights": [
+        {
+          "headline": "Human-plus-AI augmentation outcompetes full automation for support",
+          "detail": "Rather than aiming to fully replace support staff, Pylon positions AI as an augmentation layer where humans orchestrate agents to do the heavy lifting. The presenters note many successful startups in coding and enterprise workflows use human+AI models (e.g., Cursor, Harvey) and contrast that with fully autonomous support bots that only resolve the easiest tickets and leave the hard, high-effort work to humans. This matters because ticket deflection percentages can be misleading: one 5,000-person company saw a bot deflect ~50% of tickets but no headcount reduction, proving augmentation is the faster route to practical impact.",
+          "anchorQuote": "moving to a new agentic way of working",
+          "tSeconds": 180,
+          "link": "https://www.youtube.com/watch?v=pLiXv3_wvCw&t=180"
+        },
+        {
+          "headline": "Background agents precompute investigations and context for each ticket",
+          "detail": "Pylon's background agents automatically gather and synthesize data—past tickets, logs, code, account context, call notes and docs—so that when an agent opens a ticket it's already been investigated. That precomputation produces suggested next steps, relevant past issues, and packaged context (contact, sentiment, repro steps) which a human can accept, refine, or action via one-click skills. The effect is dramatically reduced manual lookup time and fewer escalations to engineering because the rep can act on a rich, ready-made investigation.",
+          "anchorQuote": "our background agent doing all of that automatically",
+          "tSeconds": 833,
+          "link": "https://www.youtube.com/watch?v=pLiXv3_wvCw&t=833"
+        },
+        {
+          "headline": "Agentic workflows enable scaling without increasing headcount",
+          "detail": "By shifting investigators' work into precomputed agent investigations and reusable skills, teams can support more customers without hiring proportionally more staff. Pylon cites customer outcomes like 70% fewer escalations and 64.5% faster time-to-first-response after adopting agentic workflows, and explains why simple ticket-deflection rates understate real workload: the remaining human-resolved tickets consume most effort unless you augment that human work. This lets companies 'scale with the same team you have' while improving response quality and speed.",
+          "anchorQuote": "scale with the same team you have",
+          "tSeconds": 595,
+          "link": "https://www.youtube.com/watch?v=pLiXv3_wvCw&t=595"
+        },
+        {
+          "headline": "Interacting with agents trains them, so investigations improve automatically",
+          "detail": "Each time a support rep queries an agent, asks follow-ups, or runs a skill, the agent learns the team's standard checks and where to look (logs, Slack channels, code locations), encoding that expertise into future investigations. Over time this raises the floor: complex troubleshooting procedures that only one expert once knew become codified as skills anyone can invoke, improving onboarding and reducing single-person bottlenecks. The presenters describe this feedback loop as a key mechanism for continuous quality gains in support workflows.",
+          "anchorQuote": "improves the quality of its investigation",
+          "tSeconds": 919,
+          "link": "https://www.youtube.com/watch?v=pLiXv3_wvCw&t=919"
+        }
+      ]
+    },
+    {
+      "videoId": "iBKrijO1PBQ",
+      "videoTitle": "Prepare for this round before your next AI PM interview...",
+      "videoUrl": "https://www.youtube.com/watch?v=iBKrijO1PBQ",
+      "channelName": "Aakash Gupta",
+      "publishedDate": "2026-07-22",
+      "guests": [],
+      "summary": "A practical walkthrough of the technical concepts AI product managers must know for interviews and building products: how LLMs work, tool/function calling, agent design (skills), orchestration (LangChain), RAG, and routing to models. The throughline is that PMs should reason about mechanisms and engineering trade-offs (when to ground, when to use a cheap model, when to add orchestration) rather than reciting definitions.",
+      "insights": [
+        {
+          "headline": "LLMs predict next tokens; they are not databases",
+          "detail": "An LLM works by predicting the most probable next token given its input distribution — not by 'looking up' facts. That explains hallucinations: the model will confidently output a plausible token even if it's false, because nothing in the runtime forces it to check external truth. This distinction matters for product design and interviews: you fix factual correctness by grounding (retrieval or tools), not by a longer or sterner prompt.",
+          "anchorQuote": "Fundamentally, LLMs are predicting the next token",
+          "tSeconds": 202,
+          "link": "https://www.youtube.com/watch?v=iBKrijO1PBQ&t=202"
+        },
+        {
+          "headline": "Temperature is the sampling dial that trades safety for creativity",
+          "detail": "Temperature controls how peaked or flat the token probability distribution is: lower values sharpen the top tokens (deterministic, repeatable outputs) while higher values flatten it (more varied, creative responses). The presenter demoed this: at temperature 0 the model repeatedly returned the same animal; at temperature 2 it produced unusual outputs like \"axelottle.\" Understanding this helps you tune for consistency (e.g., QA, product text) versus novelty (e.g., creative copy).",
+          "anchorQuote": "So temperature sets how risky the pick is",
+          "tSeconds": 227,
+          "link": "https://www.youtube.com/watch?v=iBKrijO1PBQ&t=227"
+        },
+        {
+          "headline": "Grounding via retrieval or tools is the practical cure for hallucination",
+          "detail": "When correctness matters, the speaker recommends grounding LLM answers by retrieving real content or calling authoritative tools rather than relying on the model's internal probabilities. Practically, the model emits a structured JSON tool call; your application executes the function (e.g., weather, search), returns results to the model, and the model composes a grounded answer — shown in demos that returned population and weather with sources. You should also measure faithfulness (does the answer trace to retrieved text) and retrieval quality as separate evals.",
+          "anchorQuote": "When the answer has to be right, I ground it",
+          "tSeconds": 2164,
+          "link": "https://www.youtube.com/watch?v=iBKrijO1PBQ&t=2164"
+        },
+        {
+          "headline": "Agent skills (prompt + tool + skill) are the runtime know-how that improves outputs",
+          "detail": "Defining an agent is more than a prompt: it's the prompt, the set of callable tools/APIs, and reusable 'skills' (packaged instructions, routing, context priority and scripts). The presenter showed a PRD-drafting skill inside a PM OS that read context, found an existing PRD, and produced a launch-ready draft while asking fewer clarifying questions — demonstrating that skills reduce human input and produce higher-quality, consistent outputs without retraining the model. Skills are therefore a high-alpha design choice for production agents.",
+          "anchorQuote": "but really it's prompt plus tool plus skill",
+          "tSeconds": 737,
+          "link": "https://www.youtube.com/watch?v=iBKrijO1PBQ&t=737"
+        },
+        {
+          "headline": "Route queries to different models to balance cost and quality",
+          "detail": "Not every query needs the biggest model: a lightweight classifier or embedding match can route trivial requests (e.g., \"what is 2+2\") to cheap models and reserve large models for complex reasoning. The video demos a router that selects GPT-4-mini for simple math and a larger model for harder tasks, then compares token counts and costs to show how per-call savings scale dramatically over millions of queries. Building an explicit router is a core PM-level trade-off between latency, accuracy, and cost.",
+          "anchorQuote": "Not every query deserves the same model",
+          "tSeconds": 1549,
+          "link": "https://www.youtube.com/watch?v=iBKrijO1PBQ&t=1549"
+        }
+      ]
+    }
+  ]
+}
