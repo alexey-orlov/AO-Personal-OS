@@ -2,7 +2,7 @@
 
 _status: live theme — overnight delegation patterns, loop design vocabulary, feedback→PR pipelines, memory engineering for sustained runs_
 _slug: agent-delegation-and-loops_
-_updated: 2026-07-22 · 25 insights from 10 episodes · (split from agent-engineering-patterns, 2026-06-25)_
+_updated: 2026-07-22 · 28 insights from 12 episodes · (split from agent-engineering-patterns, 2026-06-25)_
 
 ## The throughline
 Three practitioners — Krieger (Anthropic/Instagram co-founder), the Every software-factory author, and Replit's Amjad Masad — converged independently on what makes sustained agent delegation reliable rather than brittle. The enabling layer is memory engineering: 1M+ token context windows still need domain-aware compaction (delete bug-fix noise, preserve architectural facts, write durable markdown like raffle.md), mono-repo access so agents can grep rather than query-blindly, and nightly closed-loop refinement (Replit's autonomous agent analyzes interaction traces → proposes prompt changes → A/B tests in production → merges what passes sentiment and deploy-rate metrics). On top of that sits the delegation pattern itself: give Fable complex overnight jobs and wake to completions or documented fallbacks; automate the feedback→PR pipeline (batch Slack twice daily → classify → YAML records → Cursor/compound-engineering flow → auto-merge if CI green); use rich recordings (Rifreck: clicks + narration + network errors, not just video) so the model can reason about what to change rather than guess. The loop vocabulary generalizes these patterns: a loop is an autonomous scheduled automation — not a human typing messages — with a trigger (heartbeat / cron / hook) and either a time boundary or a validated success criterion. Goal loops (babysit PRs until merged, CI green) are the power form; they require precise success criteria or they burn tokens on marginal returns. Five composable primitives — work trees (isolation), skills (reusability), connectors (GitHub/Slack/Calendar), sub-agents (federated execution), state tracking (to-do / Linear) — are the building blocks that the other patterns assemble from. Two new data points extend the pattern: OpenAI's merged ChatGPT/Codex surface makes "set rails and let it run" loop delegation accessible to non-programmers (email triage, CSV compilation, negotiation loops), and a design team's soul.md — dumping every meeting transcript into one markdown file as durable project memory — is the same memory-engineering discipline as Replit's raffle.md, now applied outside software engineering. A YC-profiled site also demonstrates the feedback→PR pattern pushed to end users: a public "send to an agent" button turns a visitor's feature request directly into a pull request for human review, extending the internal Slack/Linear-driven pipelines to external-facing product surfaces.
@@ -132,6 +132,21 @@ An internal use case: the finance team automated a multi-source monthly close—
 — Every · 2026-07-21 · guest: Kyle Cobber (OpenAI) · [▶ 17:01](https://www.youtube.com/watch?v=B9N0P5-R4m0&t=1021) · `pi-B9N0P5-R4m0-05`
 related: [You can delegate long, multi‑step tasks to 5.6 without being a programmer](#you-can-delegate-long-multistep-tasks-to-56-without-being-a-programmer) (sharper, numbers-backed version of the "monthly finance compute close" example already named there — same underlying automation, five days to five hours)
 
+### AI can autonomously surface and ship product fixes as pull requests
+PostHog built a system that ingests engineering and product intent and usage traces so models can detect issues and generate pull requests that developers only need to merge. They report a nontrivial fraction of their internal PRs are now generated this way, speeding iteration and freeing engineers to build larger features; trace data also lets them backward-test how alternative prompts or configs would have performed. This shows a practical pathway where LMs plus instrumentation move from suggestions to concrete code changes in production workflows.
+— Y Combinator · 2026-07-22 · guest: James (PostHog) · [▶ 2:56](https://www.youtube.com/watch?v=ALJQHSgCl2E&t=176) · `pi-ALJQHSgCl2E-02`
+related: [Fable can automatically turn feedback into fixes and PRs](#fable-can-automatically-turn-feedback-into-fixes-and-prs) (same feedback→PR software-factory pattern, here driven by usage traces rather than Slack reports)
+
+### Agents can execute a marketing idea overnight and drive real revenue
+The team gave an agent a Slack screenshot and a goal to email users who showed checkout intent; the agent created audience cohorts, drafted tailored emails, ran them through the company's writing MCP, selected proven creative, scheduled sends, and posted the plan to Slack for review. That single agent-driven workflow required about ten minutes of human tweaking and generated more than $25,000 in revenue the next morning, illustrating how connected agents can turn ideas into immediate, measurable outcomes.
+— Every · 2026-07-22 · guest: Yash (Every), Douglas (Every, Creative Director) · [▶ 10:25](https://www.youtube.com/watch?v=pogKlhNAEV8&t=625) · `pi-pogKlhNAEV8-02`
+related: [You can safely auto-merge overnight if CI passes](#you-can-safely-auto-merge-overnight-if-ci-passes) (same overnight-delegation-with-morning-payoff shape, here measured in revenue rather than a merged PR)
+
+### Best workflows make humans the strategic 'top and bottom' of AI
+The team uses the metaphor of being "at the top and bottom of the AI sandwich": humans define problems, set outcomes, and review results while agents do the execution. They show this across use cases — emails, analytics, video editing, and design — where agents fetch context from Notion/PostHog/Descript and produce a first-pass output that humans refine, yielding speed without losing control.
+— Every · 2026-07-22 · guest: Yash (Every), Douglas (Every, Creative Director) · [▶ 18:05](https://www.youtube.com/watch?v=pogKlhNAEV8&t=1085) · `pi-pogKlhNAEV8-04`
+related: [Build 'loops'—systems that automate work and compound improvements](#build-loopssystems-that-automate-work-and-compound-improvements) (same "human sandwich" metaphor from an earlier Every episode — this is a second, more concrete instantiation with named tools and use cases)
+
 ## Related themes
 - [Agent engineering & production infra](agent-engineering-patterns.md) — parent theme; architectural boundaries, security, eval infrastructure, and platform-scale governance that the delegation patterns depend on
 - [Model reviews & benchmarks](model-reviews-and-benchmarks.md) — the reliability wall (last 10%, overnight stalls) that verification workflows address
@@ -139,6 +154,8 @@ related: [You can delegate long, multi‑step tasks to 5.6 without being a progr
 - [Leadership, careers & teams](leadership-careers-and-teams.md) — the human-role shift driven by delegation depth: verification as the new bottleneck, manager-as-IC imperative
 
 ## Source episodes
+- [Y Combinator — Why Ambitious Startup Ideas Are Actually Easier To Sell (2026-07-22)](../episodes/2026/2026-07-22--yc--why-ambitious-startup-ideas-easier-to-sell.md)
+- [Every — How Every's Team Used AI to Ship Its Biggest Launch Ever (2026-07-22)](../episodes/2026/2026-07-22--every--how-everys-team-used-ai-to-ship-biggest-launch.md)
 - [Every — How Anthropic Uses Claude Fable 5 With Mike Krieger (2026-06-10)](../episodes/2026/2026-06-10--every--anthropic-uses-claude-fable-5-mike-krieger.md)
 - [Every — How I Built an AI Software Factory With Fable 5 (2026-06-11)](../episodes/2026/2026-06-11--every--ai-software-factory-with-fable-5.md)
 - [SaaStr AI — What Agents That Actually Work Look Like Right Now (Replit) (2026-06-11)](../episodes/2026/2026-06-11--saastr--agents-that-actually-work-replit-amjad.md)
