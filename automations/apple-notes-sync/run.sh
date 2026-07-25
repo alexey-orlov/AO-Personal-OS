@@ -66,10 +66,16 @@ fi
 
 NOTES_MODEL="${NOTES_MODEL:-claude-fable-5}"
 
+# The Bash gate below allows only this automation's helpers, so the skill has no
+# clock — without this it guesses the snapshot: stamp (observed drifting ~24 min
+# on 2026-07-25). Pass the time in rather than widening the allowlist to `date`.
+NOW="$(date '+%Y-%m-%d %H:%M')"
+HEADLESS="You are headless: no git (the wrapper commits), no Telegram. Bash is allowed ONLY for the automations/apple-notes-sync/ helper scripts. You have no clock access — use exactly \"$NOW\" as the snapshot: timestamp; never guess or carry over an old one."
+
 if [ "$queue_count" -gt 0 ]; then
-  PROMPT="Sweep mode: process every queue card in $QUEUE_DIR following the apple-notes-sync skill exactly, then refresh the note snapshots. You are headless: no git (the wrapper commits), no Telegram. Bash is allowed ONLY for the automations/apple-notes-sync/ helper scripts."
+  PROMPT="Sweep mode: process every queue card in $QUEUE_DIR following the apple-notes-sync skill exactly, then refresh the note snapshots. $HEADLESS"
 else
-  PROMPT="Snapshot mode: the queue is empty — only refresh the Apple Notes snapshots per the apple-notes-sync skill (no insertions). You are headless: no git, no Telegram. Bash is allowed ONLY for the automations/apple-notes-sync/ helper scripts."
+  PROMPT="Snapshot mode: the queue is empty — only refresh the Apple Notes snapshots per the apple-notes-sync skill (no insertions). $HEADLESS"
 fi
 
 log "queue: $queue_count card(s); running skill ..."
