@@ -63,7 +63,7 @@ If `.work/state.json` doesn't exist, create it with `{"acquired": []}` (or run `
    "language": "en | ru", "media": "audio | reading",
    "source": "audible | play-audiobook | play-ebook | knigavuhe | download",
    "result": "<url or absolute file path>",
-   "status": "link | downloaded | skipped-exists | not-found",
+   "status": "link | downloaded | skipped-exists | not-found | deferred",
    "ts": "<ISO-8601 UTC>"}
 ]}
 ```

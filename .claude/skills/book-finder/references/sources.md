@@ -82,6 +82,13 @@ real one, fall to the next source — don't fabricate.
 - URL shape: `https://play.google.com/store/audiobooks/details?id=<id>` (opens Play Books app).
 
 ### knigavuhe.org (Russian audio — free streaming; the primary RU listening source)
+- **Reachability caveat (verified 2026-07-25):** on Alex's Mac `knigavuhe.org` is **blocked by OpenDNS
+  content filtering** (direct fetches land on `block.opendns.com`), and the site also returns `403` to
+  WebFetch/curl even with a browser user-agent. So the site itself usually can't be opened from here —
+  use WebSearch with `site:knigavuhe.org` (its pages ARE indexed, including the
+  `knigavuhe.org/author/<slug>/` pages, which is the reliable way to enumerate one author's titles).
+  If neither the search index nor a fetch can confirm, the RU-audio track is **`deferred`, not
+  `not-found`** — a DNS block is not evidence about the book.
 - Russian queries work best — translate/transliterate the title+author to Russian if needed.
 - Search: WebSearch `<russian title> <author> site:knigavuhe.org`, or fetch
   `https://knigavuhe.org/search/?q=<url-encoded RU query>` and take the first real book result.
