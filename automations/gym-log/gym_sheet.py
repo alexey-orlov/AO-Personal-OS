@@ -333,6 +333,89 @@ def cmd_dump():
                      ensure_ascii=False, indent=1))
 
 
+def _to_num(s):
+    try:
+        return float(str(s).replace(",", "."))
+    except (TypeError, ValueError):
+        return None
+
+
+def _delta(today, then):
+    if today is None or then is None or then == 0:
+        return None
+    kg = round(today - then, 1)
+    return {"delta_kg": kg, "delta_pct": round(kg / then * 100, 1)}
+
+
+def cmd_progress():
+    from datetime import datetime, timedelta
+
+    if len(sys.argv) < 3:
+        _die("usage: gym_sheet.py progress M/D/YYYY")
+    try:
+        target = datetime.strptime(sys.argv[2], "%m/%d/%Y")
+    except ValueError:
+        _die(f"bad date {sys.argv[2]!r} (want M/D/YYYY)")
+    horizon = target - timedelta(days=90)
+
+    svc = _service()
+    m = Model(svc)
+    dated = []
+    for b in m.blocks():
+        try:
+            dated.append({"dt": datetime.strptime(b["date"], "%m/%d/%Y"), **b})
+        except ValueError:
+            continue
+    cur = next((b for b in dated if b["dt"] == target), None)
+    if cur is None:
+        _die(f"no logged session on {sys.argv[2]}")
+
+    def block_entry(r, b):
+        if not m._cell(r, b["col"]):
+            return None
+        s, rp, ws, we = (m._cell(r, b["col"] + i) for i in range(BLOCK_W))
+        return {"date": b["date"], "sets": s, "reps": rp,
+                "w_start": _to_num(ws), "w_end": _to_num(we)}
+
+    exercises = []
+    for c in m.categories():
+        for r in range(c["start"], c["end"] + 1):
+            today = block_entry(r, cur)
+            if today is None:
+                continue
+            earlier = [x for b in dated if b["dt"] < target
+                       for x in [block_entry(r, b)] if x]
+            prev = earlier[-1] if earlier else None
+            in_win = [x for x, b in zip(
+                [block_entry(r, b) for b in dated if b["dt"] < target],
+                [b for b in dated if b["dt"] < target])
+                if x and b["dt"] >= horizon]
+            base = in_win[0] if in_win else None
+            item = {"category": c["name"], "exercise": m._cell(r, 1),
+                    "today": today, "is_new": prev is None}
+            if prev:
+                item["prev"] = {**prev, **(_delta(today["w_end"], prev["w_end"]) or {})}
+            if base and prev and base["date"] != prev["date"]:
+                item["base_3mo"] = {**base, **(_delta(today["w_end"], base["w_end"]) or {})}
+            exercises.append(item)
+
+    w_today = _to_num(m._cell(2, cur["col"]))
+    w_prevs = [(b, _to_num(m._cell(2, b["col"])))
+               for b in dated if b["dt"] < target]
+    w_prevs = [(b, v) for b, v in w_prevs if v is not None]
+    my_weight = {"today": w_today}
+    if w_today is not None and w_prevs:
+        b, v = w_prevs[-1]
+        my_weight["prev"] = {"date": b["date"], "value": v,
+                             "delta_kg": round(w_today - v, 1)}
+    print(json.dumps({
+        "ok": True, "date": sys.argv[2], "my_weight": my_weight,
+        "exercises": exercises,
+        "new_count": sum(1 for e in exercises if e["is_new"]),
+        "compared_count": sum(1 for e in exercises if not e["is_new"]),
+    }, ensure_ascii=False, indent=1))
+
+
 def cmd_log():
     try:
         payload = json.load(sys.stdin)
@@ -370,10 +453,12 @@ def main():
         _auth()
     elif cmd == "dump":
         cmd_dump()
+    elif cmd == "progress":
+        cmd_progress()
     elif cmd == "log":
         cmd_log()
     else:
-        _die("usage: gym_sheet.py auth|dump|log")
+        _die("usage: gym_sheet.py auth|dump|progress|log")
 
 
 if __name__ == "__main__":
