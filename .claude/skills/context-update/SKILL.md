@@ -66,7 +66,7 @@ If more than ~15 are new, process newest-first and report what was left for the 
 | Task | concretely doable item — automation idea, post/content idea, errand | queue card `kind: task` in `context/_inbox/apple-notes/` |
 | Completion | "done X" / "сделал X" naming a finished item | no programmatic home (Alex ticks/edits his Apple Notes himself) — ledger the drop, mention in the run summary, route nothing |
 | Insight | a claim, idea, article, screenshot worth keeping | queue card `kind: insight` in `context/_inbox/apple-notes/` — distill to ONE self-contained claim line first (fetch URLs, read screenshots; the card body is what will appear verbatim in the note) |
-| Book | a title to read, a rec, a cover screenshot | `knowledge/book-shortlist.md` per the `book-shortlist` skill's rules (resolve Title + Author, categorize, dedup), then INVOKE the `book-finder` skill for the new title — its Telegram delivery lands in 📚 Books. Skip file downloads when running headless/cloud. |
+| Book | a title to read, a rec, a cover screenshot | `knowledge/book-shortlist.md` per the `book-shortlist` skill's rules (resolve Title + Author, categorize, dedup), then INVOKE the `book-finder` skill for the new title — its Telegram delivery lands in 📚 Books. Skip file downloads when running headless/cloud. **A book drop must ALWAYS produce exactly one Telegram message — including a miss.** In a sandboxed cloud run that can't reach the sources, the result is `deferred` (retry later), never `not-found`; either way it gets a message, so a drop is never silently swallowed. |
 | Explore topic | "look into X", a URL to digest, an open question | `knowledge/explore/queue.md` `## Open` line, then INVOKE the `explore-brief` skill for it — brief + 🔭 Telegram delivery |
 | Area/project material | meeting outcome, document, fact about an active thread | `context/areas/…` per steps 3–5 |
 | People fact | durable fact about a person | step 5 (people pages) |
@@ -121,7 +121,9 @@ When running as the daily cloud routine, also `git push` — the push lands on a
 
 **9. Notify (sweep / interactive modes only — never headless).** Only books and explore items produce Telegram notifications, via `automations/telegram/` scripts. **Cloud/no-Keychain environments: `export TG_OUTBOX=1` first** — sends are then queued as JSON files in `context/_inbox/outbox/` (include them in the commit) and flushed by the n8n "Outbox flush (cloud)" workflow; locally they send immediately.
 - **Goals / tasks / insights / completions** — SILENT by design: no Telegram message. The item surfaces as a `📥`-marked bullet in Alex's Apple Note once the local leg files it. Count them as "queued (apple-notes)" in the run summary.
-- **Books** — handled by the invoked `book-finder` run (`TG_TOPIC=books`); don't double-send.
+- **Books** — handled by the invoked `book-finder` run (`TG_TOPIC=books`); don't double-send. But DO
+  confirm a message actually went out (sent or queued to the outbox): a `not-found`/`deferred` book that
+  notifies nothing is a silent drop, and the run summary must not count it as routed if nothing was sent.
 - **Explore** — handled by the invoked `explore-brief` run (`TG_TOPIC=explore`); don't double-send.
 - Treat any send failure as non-fatal: report it in the run summary, never abort the fold.
 
@@ -173,6 +175,7 @@ One short block: `processed N (folded F · junk J · dup D · pending-voice V) �
 - Drops routed by TYPE (step 3b): no goal/task/insight/book/explore item buried in an area page; prefix hints overridden where content said otherwise; duplicates collapsed to one item.
 - Bare URLs were fetched, images were read.
 - Every goal/task/insight drop produced exactly one apple-notes queue card (verbatim body, frontmatter complete); books/explore produced their notifications via their skills; outbox + queue files, if any, are committed.
+- **No drop ended in silence.** Every book/explore drop sent (or outbox-queued) exactly one Telegram message — a miss included, labelled `not-found` only if the sources were actually reachable, otherwise `deferred`. If a drop produced no message and no queue card, the fold is NOT complete, whatever the shortlist says.
 - Every queued outbox card is well-formed before commit: each `buttons[][].url` is a bare `https://…` (no spaces, no label prefix). Malformed button URLs are rejected by Telegram (`BUTTON_URL_INVALID`) and can poison the whole flush batch — a frequent failure when a fan-out subagent hand-builds the card JSON instead of going through `telegram_send_with_button.sh` (separate `text` and `url` args). Re-generate any bad card via the script.
 - Folded `context/_inbox/` files moved to `processed/` so the staging dir holds only the backlog.
 - Sweep/interactive: changes committed as `context: …`; headless: no git, no Telegram.

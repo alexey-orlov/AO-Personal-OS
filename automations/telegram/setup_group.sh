@@ -78,6 +78,7 @@ TOPIC_DEFS=(
   "books|📚 Books|9367192"
   "dropzone|📥 Drop Zone|16749490"
   "explore|🔭 Articles & Topics|7322096"
+  "trainings|🏋️ Trainings|16478047"
 )
 
 declare -a lines=()
