@@ -1,8 +1,8 @@
 ---
 note: GC Todo
 area: gigacloud
-snapshot: 2026-07-23 08:00
-chars: 18216
+snapshot: 2026-07-25 18:30
+chars: 19698
 scope: above relevance marker
 ---
 GC Todo
@@ -64,10 +64,37 @@ ToDo:
 Синк с Настей по Price upon request: использование хелперов + именование процессов и складывание в папки + условия с датами
 Эдик - дать атрибуты gov версий договоров
 Дефиниции полей Infrastructure type, Virtualization platform
+Продакт категории для Third-party service
 Allowed infrastructure types - добавилить поле add-on mode; 
 Allowed infrastructure types - для лицензий и our services указать, что private / public только для add-on.
+Allowed component families - указать product category для кейса memory tiering
+Allowed contract types - Add-on mode заполнить 
 В заявках на custom software выделить отдельный шаг на продакта по заведению продукта, компонент группы
 Allowed responsible for product design - добавить поле с product category (для инфосека в add-on tools)
+Bundles (protected cloud package + Gov Data Protection Package) - Contract type исправить
+Подтверждение от вендор менеджмент, что они ответственные за product design
+Delivery processes для бесплатных продуктов и некоторых лицензий:
+Client-controlled incident support
+Managed cloud support 
+Zimbra license
+SysElegance Application Server License
+Zerto Licenses
+Microsoft Azure
+Amazon Web Services (AWS)
+Kubernetes for Private Cloud on Azure Local
+Relational DB for Private Cloud on VMware
+AI Enterprise by NVIDIA
+Virtual Desktops by Omnissa for Private Cloud on VMware
+Private Spare Node
+GPU for Private Infrastructure
+Private Backup
+Private Cloud Disaster Recovery on VMware
+Veeam Backup & Replication License (https://crm.gigacloud.eu/0/Shell/#Card/UsrProductCatalogue_FormPage/edit/ea295454-48e9-470e-a3dc-f8dc405843fd) 
+Private Cloud on OpenStack HCI  - указан процесс, описание которого не соответствует продукту. По идее, у нас есть отдельный процесс для разовой настройки силами РнД - наверное, стоит указать его? “Infrastructure / Flow 1: First setup by R&D, then - hand-off to Delivery”
+Разрешить пустой delivery process для бантов
+VMware, Microsoft, Cisco - не реселл ли? Квал доход? Наценка?
+Список продуктов, которые не реселл - 
+Vendors - поля для галочек про возможность дистрибуции в других регионах
 Видео по Gov prices
 Vendors - read-only поля
 
