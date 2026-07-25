@@ -383,13 +383,10 @@ def cmd_progress():
             today = block_entry(r, cur)
             if today is None:
                 continue
-            earlier = [x for b in dated if b["dt"] < target
-                       for x in [block_entry(r, b)] if x]
-            prev = earlier[-1] if earlier else None
-            in_win = [x for x, b in zip(
-                [block_entry(r, b) for b in dated if b["dt"] < target],
-                [b for b in dated if b["dt"] < target])
-                if x and b["dt"] >= horizon]
+            earlier = [(b, block_entry(r, b)) for b in dated if b["dt"] < target]
+            earlier = [(b, x) for b, x in earlier if x]
+            prev = earlier[-1][1] if earlier else None
+            in_win = [x for b, x in earlier if b["dt"] >= horizon]
             base = in_win[0] if in_win else None
             item = {"category": c["name"], "exercise": m._cell(r, 1),
                     "today": today, "is_new": prev is None}
