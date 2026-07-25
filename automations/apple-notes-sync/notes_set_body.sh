@@ -11,6 +11,18 @@
 #     (must equal old plaintext + the inserted lines, nothing else changed).
 #
 # Recovery: notes_set_body.sh "<note>" .work/backups/<stamp>-<slug>.html
+#
+# ESCAPE HATCH for the empty-<li> false positive (added 2026-07-25):
+#   A stray trailing empty bullet — a human leaving a blank list row — produces the
+#   exact same <li><br></li> markup as a hidden checklist item, so the guard above
+#   refuses perfectly safe notes. The ONLY way to tell the two apart is to look at
+#   what's actually on screen. So the caller may override, but only by proving it:
+#     1. run notes_ax_read.sh "<note>" and compare with `plaintext` — equal length /
+#        no AX-only lines means nothing is invisible, so no checklist exists;
+#     2. pass that verified length as NOTES_VERIFIED_PLAINTEXT_LEN=<n>.
+#   This script re-measures the note and refuses if the length no longer matches, so
+#   a stale assertion (note edited since step 1) can never write blind.
+#     NOTES_VERIFIED_PLAINTEXT_LEN=1559 notes_set_body.sh "My Note" new.html
 set -euo pipefail
 HERE="$(cd "$(dirname "$0")" && pwd)"
 # shellcheck source=config.sh
@@ -26,12 +38,13 @@ STAMP="$(date +%Y%m%d-%H%M%S)"
 SLUG="$(printf '%s' "$NOTE_NAME" | tr -cs 'A-Za-z0-9' '-' | tr 'A-Z' 'a-z' | sed 's/^-*//;s/-*$//')"
 BK_BASE="$BACKUP_DIR/$STAMP-$SLUG"
 
-osascript - "$NOTES_FOLDER" "$NOTE_NAME" "$HTML_FILE" "$BK_BASE" <<'EOF'
+osascript - "$NOTES_FOLDER" "$NOTE_NAME" "$HTML_FILE" "$BK_BASE" "${NOTES_VERIFIED_PLAINTEXT_LEN:-}" <<'EOF'
 on run argv
   set folderName to item 1 of argv
   set noteName to item 2 of argv
   set htmlPath to item 3 of argv
   set bkBase to item 4 of argv
+  set verifiedLen to item 5 of argv
   set newBody to read POSIX file htmlPath as «class utf8»
   tell application "Notes"
     set f to folder folderName
