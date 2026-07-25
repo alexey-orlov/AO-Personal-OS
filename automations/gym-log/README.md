@@ -19,6 +19,11 @@ merged in column A, template formatting cloned onto new blocks/rows).
     `spreadsheets` (read-write).
   - `dump` — JSON snapshot: dates, body weights, categories → exercises →
     per-date entries. Also the cheapest auth check.
+  - `progress M/D/YYYY` — per-exercise w_end deltas (kg + %) for that
+    session vs the previous occurrence and vs the ~3-month baseline
+    (earliest entry in the prior 90 days; omitted when it IS the previous
+    occurrence), plus body-weight delta. Feeds the 🏋️ Trainings Telegram
+    digest (`TG_TOPIC=trainings`, thread in `automations/telegram/topics.env`).
   - `log` — upsert one session from stdin JSON:
     `{"date":"7/22/2026","my_weight":73.6,"entries":[{"category":"Back",
     "exercise":"Верт. тяга","sets":3,"reps":10,"w_start":52,"w_end":62},…]}`

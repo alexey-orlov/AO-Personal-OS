@@ -113,7 +113,42 @@ compact per-date table of what was logged, what was skipped as crossed-out /
 warm-up / crossfit, uncertain readings, and new exercises/categories created.
 No invented data anywhere: only what the page shows or Alex said.
 
-### 7. Learn
+### 7. Telegram digest → 🏋️ Trainings topic
+
+After a successful log, always send a digest to the `trainings` topic —
+one message per training date (a multi-session backfill gets ONE combined
+message instead). Numbers come from the helper, never from mental math:
+
+```bash
+"$PYTHON_BIN" "$GYM_SHEET" progress 7/24/2026   # deltas vs prev + vs 3-mo baseline
+echo "$MSG" | TG_TOPIC=trainings automations/telegram/telegram_send.sh
+```
+
+Message spec — short, structured, motivating; plain text; aim well under
+~1500 chars; EN labels, RU exercise names as in the sheet; dates as DD.MM:
+
+```
+🏋️ 24.07 — Legs, Glutes, Shoulders
+⚖️ 73.8 kg (+0.2 vs 22.07)
+
+ГАКК присед 4×10 → 120 kg
+  vs last (22.07): +10 kg (+9.1%) 📈
+  vs 3 mo (12.05): +20 kg (+20%)
+Сгиб. голени 3×12 → 63 kg
+  vs last (22.07): −3 kg (−4.5%) 📉
+✨ Верт. тяга 3×10 → 62 kg — first log, baseline set
+```
+
+- Per exercise: `sets×reps → end-weight kg`; then `vs last (DD.MM)` and, when
+  the 3-month baseline is a DIFFERENT session (`base_3mo` present), a
+  `vs 3 mo (DD.MM)` line. Signs always explicit, negatives shown honestly
+  (📉, no sugarcoating) — both directions are information.
+- All-new session (`compared_count` 0): collapse to a 3–4-line note — session
+  logged, N exercises, baselines set, comparisons start next time 💪.
+- Close with ONE short motivating line only when there's real progress to
+  point at; never invent praise after a down session.
+
+### 8. Learn
 
 New exercise, new alias spotted, or a parsing correction from Alex → update
 `references/exercises.md` (aliases/stack hints) or this file's rules (root
