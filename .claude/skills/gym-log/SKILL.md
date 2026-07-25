@@ -1,6 +1,6 @@
 ---
 name: gym-log
-description: Parse a photo of Alex's handwritten gym notebook page and log the core strength-training part into his "My training" Google Sheet (one row per exercise, one 4-column block per date, body-weight row), keeping the same exercise matched to the same row across sessions. Also records a body-weight measurement when given. Use when Alex shares a training-note photo, says "log my training / workout", "добавь тренировку", "log this to my training sheet", or sends just a weigh-in for the training log. Photo + optional comment + optional weight in, updated sheet + short report out.
+description: Parse a photo of Alex's handwritten gym notebook page and log the core strength-training part into his "My training" Google Sheet (one row per exercise, one 4-column block per date, body-weight row), keeping the same exercise matched to the same row across sessions. Also records a body-weight measurement when given, and closes by sending a short progress digest (deltas in kg and % vs last occurrence and vs 3-month baseline) to the 🏋️ Trainings Telegram topic. Use when Alex shares a training-note photo, says "log my training / workout", "добавь тренировку", "log this to my training sheet", or sends just a weigh-in for the training log. Photo + optional comment + optional weight in; updated sheet + Telegram digest out.
 disable-model-invocation: false
 user-invocable: true
 ---
