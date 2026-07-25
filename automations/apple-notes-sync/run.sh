@@ -16,6 +16,22 @@ source "$HERE/config.sh"
 SKILL="$REPO_ROOT/.claude/skills/apple-notes-sync/SKILL.md"
 [ -f "$SKILL" ] || { echo "[notes-sync] missing skill: $SKILL" >&2; exit 1; }
 
+mkdir -p "$HERE/.work"
+RUN_OUT="$HERE/.work/last_run.out"      # full transcript of the most recent skill run
+FAIL_COUNT="$HERE/.work/consecutive_failures"
+
+# Timestamped, so launchd.log can actually be correlated with a day's outcome
+# (it previously had no dates at all, which made diagnosis guesswork).
+log() { echo "[notes-sync $(date '+%F %T')] $*" >&2; }
+
+# Best-effort Telegram alert → General topic. telegram_send.sh falls back to the
+# outbox queue when creds are unavailable, so the n8n cloud flush still delivers it.
+# Never let a notification problem change the run's outcome.
+alert() {
+  printf '%s\n' "$1" | "$REPO_ROOT/automations/telegram/telegram_send.sh" >/dev/null 2>&1 \
+    || log "alert send failed (offline / no creds) — details in $RUN_OUT"
+}
+
 cd "$REPO_ROOT" || exit 1
 
 # Pick up queue cards committed by the cloud fold (best-effort; autosync also pulls).
@@ -94,6 +110,17 @@ if git status --porcelain -- context/ | grep -q .; then
   if ! git pull --rebase --autostash --no-edit >/dev/null 2>&1; then
     git rebase --abort >/dev/null 2>&1 || true
   fi
-  git push >/dev/null 2>&1 || echo "[notes-sync] push deferred (offline?) — autosync will sync later." >&2
+  git push >/dev/null 2>&1 || log "push deferred (offline?) — autosync will sync later."
 fi
-echo "[notes-sync] done." >&2
+
+# The run "succeeded" but couldn't file everything: also worth surfacing. Three cards
+# sat un-filed from mid-June to 2026-07-25 because a clean exit said nothing about
+# them. A card the skill knows is permanently unfilable belongs in _blocked/ (outside
+# this glob), so anything left here is genuinely unresolved and should be seen.
+left="$(find "$QUEUE_DIR" -maxdepth 1 -name '*.md' -type f 2>/dev/null | wc -l | tr -d ' ')"
+if [ "$left" -gt 0 ]; then
+  log "completed, but $left card(s) remain queued"
+  alert "⚠️ apple-notes-sync: ${left} card(s) could not be filed this run and are still queued.
+Transcript: automations/apple-notes-sync/.work/last_run.out"
+fi
+log "done."
