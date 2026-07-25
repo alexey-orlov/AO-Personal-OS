@@ -1,8 +1,8 @@
 ---
 note: AI Product expertise ToDo
 area: personal-os
-snapshot: 2026-07-05 17:32
-chars: 1559
+snapshot: 2026-07-25 18:07
+chars: 1735
 scope: above relevance marker
 ---
 AI Product expertise ToDo
@@ -10,6 +10,7 @@ AI Product expertise ToDo
 
 Insights:
 AI engineering has moved through three eras: prompt → context → harness (Karpathy / Hashimoto framing) 📥
+
 SDD research insights: 
 It doesn’t replace PMs USs and acceptance criteria
 SDD is mostly the Dev approach
@@ -26,6 +27,7 @@ Files should be processed either, recommendations to maintain some level of meta
 
 
 
+
 Goals:
 personal→team AI OS
 
@@ -38,6 +40,10 @@ CV optimizer — tailor the CV to a specific job description
 Company researcher research a target company before interviews/outreach
 Save screenshots taken during the calls and add them to the call transcript 
 Find relevant screenshots in the video and store them / enrich
+comprehensive backlog of improvements for Personal OS 📥
+podcast monitoring — extend with monitoring substack articles 📥
+To test Hyperagent 📥
+posthog: need to play with it 📥
 
 
 LIN Posts:
