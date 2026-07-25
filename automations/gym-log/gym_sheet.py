@@ -112,7 +112,8 @@ class Model:
         self.svc = svc
         meta = svc.spreadsheets().get(
             spreadsheetId=SHEET_ID,
-            fields="sheets(properties(sheetId,title,gridProperties),merges)",
+            fields="sheets(properties(sheetId,title,gridProperties),merges,"
+                   "data(columnMetadata(pixelSize)))",
         ).execute()
         sheet = next((s for s in meta["sheets"] if s["properties"]["title"] == TAB), None)
         if sheet is None:
@@ -120,6 +121,8 @@ class Model:
         self.sheet_id = sheet["properties"]["sheetId"]
         self.n_cols = sheet["properties"]["gridProperties"]["columnCount"]
         self.merges = sheet.get("merges", [])
+        self.col_px = [cm.get("pixelSize", 100)
+                       for cm in sheet.get("data", [{}])[0].get("columnMetadata", [])]
         resp = svc.spreadsheets().values().get(
             spreadsheetId=SHEET_ID, range=f"'{TAB}'", majorDimension="ROWS",
             valueRenderOption="FORMATTED_VALUE",
@@ -238,12 +241,12 @@ class Model:
                 self._copy_fmt(FIRST_DATA_ROW, last + 1, src, src + BLOCK_W,
                                FIRST_DATA_ROW, last + 1, col, col + BLOCK_W)
             for i in range(BLOCK_W):
-                self.requests.append({"copyPaste": {
-                    "source": {"sheetId": self.sheet_id, "startRowIndex": 0, "endRowIndex": 1,
-                               "startColumnIndex": src + i, "endColumnIndex": src + i + 1},
-                    "destination": {"sheetId": self.sheet_id, "startRowIndex": 0, "endRowIndex": 1,
-                                    "startColumnIndex": col + i, "endColumnIndex": col + i + 1},
-                    "pasteType": "PASTE_COLUMN_WIDTHS", "pasteOrientation": "NORMAL"}})
+                if src + i < len(self.col_px):
+                    self.requests.append({"updateDimensionProperties": {
+                        "range": {"sheetId": self.sheet_id, "dimension": "COLUMNS",
+                                  "startIndex": col + i, "endIndex": col + i + 1},
+                        "properties": {"pixelSize": self.col_px[src + i]},
+                        "fields": "pixelSize"}})
         self._merge(0, 1, col, col + BLOCK_W)      # date header
         self._merge(2, 3, col, col + BLOCK_W)      # my-weight cell
         self._write(0, col, date)
