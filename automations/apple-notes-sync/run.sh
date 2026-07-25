@@ -56,13 +56,36 @@ else
   PROMPT="Snapshot mode: the queue is empty — only refresh the Apple Notes snapshots per the apple-notes-sync skill (no insertions). You are headless: no git, no Telegram. Bash is allowed ONLY for the automations/apple-notes-sync/ helper scripts."
 fi
 
-echo "[notes-sync] queue: $queue_count card(s); running skill ..." >&2
+log "queue: $queue_count card(s); running skill ..."
+set -o pipefail
 "$CLAUDE_BIN" -p "$PROMPT" \
   --append-system-prompt "$(cat "$SKILL")" \
   ${NOTES_MODEL:+--model "$NOTES_MODEL"} \
   --allowedTools "Read,Glob,Grep,Edit,Write,Bash(automations/apple-notes-sync/:*)" \
   --max-turns 80 \
-  --output-format text || { echo "[notes-sync] skill run failed (non-fatal)" >&2; exit 0; }
+  --output-format text 2>&1 | tee "$RUN_OUT"
+rc=${PIPESTATUS[0]}
+
+# A broken delivery leg must be LOUD. Until 2026-07-25 this branch only echoed
+# "skill run failed (non-fatal)" into .work/launchd.log and exited 0 — so two days
+# of "Not logged in" went unnoticed and a queued card silently missed Apple Notes.
+if [ "$rc" -ne 0 ] || grep -qiE 'not logged in|please run /login' "$RUN_OUT" 2>/dev/null; then
+  fails=$(( $(cat "$FAIL_COUNT" 2>/dev/null || echo 0) + 1 ))
+  echo "$fails" > "$FAIL_COUNT"
+  reason="skill run failed (exit $rc)"
+  hint=""
+  if grep -qiE 'not logged in|please run /login' "$RUN_OUT" 2>/dev/null; then
+    reason="Claude CLI is not authenticated (\"Not logged in\")"
+    hint="
+Fix: run  claude login  in a terminal on this Mac."
+  fi
+  log "FAILED — $reason (day $fails); $queue_count card(s) left queued"
+  alert "⚠️ apple-notes-sync failed — ${fails} day(s) in a row
+${reason}
+${queue_count} card(s) still queued (nothing lost; they wait for the next run).${hint}"
+  exit 0
+fi
+: > "$FAIL_COUNT"
 
 # Deliberate commit so git-autosync doesn't scoop a generic message. Best-effort.
 if git status --porcelain -- context/ | grep -q .; then
