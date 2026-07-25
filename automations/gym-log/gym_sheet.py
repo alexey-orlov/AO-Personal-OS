@@ -15,6 +15,9 @@ Layout contract (tab GYM_TAB, default "Sheet1"):
 Commands (JSON out on stdout):
   auth              interactive OAuth consent (opens browser once)
   dump              structure snapshot for the calling agent
+  progress M/D/YYYY per-exercise deltas for that session vs the previous
+                    occurrence and vs a ~3-month baseline (earliest entry in
+                    the 90 days before the date) — feeds the Telegram digest
   log < payload     upsert one training session:
                     {"date": "7/22/2026",          # M/D/YYYY, US style
                      "my_weight": 73.6,            # optional
