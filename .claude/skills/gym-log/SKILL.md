@@ -1,0 +1,120 @@
+---
+name: gym-log
+description: Parse a photo of Alex's handwritten gym notebook page and log the core strength-training part into his "My training" Google Sheet (one row per exercise, one 4-column block per date, body-weight row), keeping the same exercise matched to the same row across sessions. Also records a body-weight measurement when given. Use when Alex shares a training-note photo, says "log my training / workout", "добавь тренировку", "log this to my training sheet", or sends just a weigh-in for the training log. Photo + optional comment + optional weight in, updated sheet + short report out.
+disable-model-invocation: false
+user-invocable: true
+---
+
+# gym-log — handwritten training note → "My training" Google Sheet
+
+Input: photo(s) of a notebook page (HEIC/JPG path, pasted image, or a
+Telegram message's `image_path`), optionally a text comment and a body-weight
+measurement. Output: the strength part logged into the sheet, plus a short
+report of what was written, skipped, and any doubts.
+
+Sheet: "My training" (`GYM_SHEET_ID` in `automations/gym-log/config.sh`).
+Layout: rows = exercises grouped by Category (EN muscle groups: Chest / Back /
+Legs / Glutes / Shoulders / ...); each training date = 4 columns
+(Sets | Reps per set | Weight start | Weight end) under a merged date header;
+row 3 = "My weight" per date. The whole point: **same exercise lands in the
+same row every time**, so weight/rep dynamics read left-to-right.
+
+## Procedure
+
+### 1. Prep the image
+
+Work in the session scratchpad dir. HEIC → JPEG, and fix rotation (phone
+photos of the notebook usually need 90° CW — letters' tops face right in the
+raw file):
+
+```bash
+sips -s format jpeg -s formatOptions 90 IN.HEIC --out page.jpg
+sips -r 90 page.jpg --out page_r.jpg   # verify by Reading; if wrong try -r 270
+```
+
+Read the rotated image. For any unclear line, crop + upscale that region and
+re-read (far more legible than squinting at the full page):
+
+```bash
+# crop(x0,y0,x1,y1): sips -c H W --cropOffset Y0 X0, then upscale ~1.4x
+sips -c 600 2700 --cropOffset 1800 950 page_r.jpg --out zoom.jpg
+sips -z 840 3780 zoom.jpg
+```
+
+### 2. Date
+
+`mdls -name kMDItemContentCreationDate <photo>` gives the shoot time — Alex
+photographs the page right after the morning workout, so it pins the training
+date. Cross-check against the handwritten header (DD.MM.YYг). On conflict the
+EXIF date wins (pen slips happen — 2026-07-22 was handwritten "28.07.26"),
+but say so in the report. Sheet date format is **M/D/YYYY without leading
+zeros** ("7/22/2026") — block lookup is an exact string match.
+
+### 3. Parse the page — strength section only
+
+A session is three parts, usually separated by horizontal rules and circled
+markers: **I** warm-up → **II** core strength → **III** crossfit closing
+(often with `(x3)` rounds and a boxed finish time). **Log section II only.**
+When markers are missing, recognize parts by vocabulary —
+`references/exercises.md` lists known warm-up and crossfit items; strength
+lines have per-set weights in kg, warm-up/crossfit lines have times (40",
+12'), cal counts, or bodyweight reps.
+
+Line rules:
+- **Crossed-out exercise = planned but not done — never log it.** A struck
+  name with sets/weights still written next to it is still skipped.
+- Sets notation `3x10` = 3 sets × 10 reps.
+- Weights: one number → start = end = it; `A→B` / `A-B` → start A, end B;
+  a series `A/B/C/D` or `A-B-C` → start = first, end = last.
+- A small number-series squeezed above/below a line belongs to the adjacent
+  exercise that has **no inline weights** — each exercise ends up with exactly
+  one weight series. Match series length to set count when attributing.
+- Ambiguous digits: machine stacks step by one tile — see per-exercise stack
+  hints in `references/exercises.md` (e.g. Сведение рук tiles ...52/59/66/73);
+  weights grow monotonically within an exercise. Use that to disambiguate.
+- Overwritten/corrected digits: read the correction, and confirm with Alex in
+  the report ("read 52→62 — corrected digits").
+- **If a line stays unreadable after zooming — ask Alex** (AskUserQuestion or
+  a Telegram reply), don't guess silently.
+
+### 4. Canonicalize exercise names
+
+Alex names the same exercise slightly differently across notes. Resolve each
+parsed name against `references/exercises.md` (canonical RU name + aliases +
+category) AND the live sheet state from `dump` (step 5). Adjacent-exercise
+context helps: e.g. a pull day's "Тяга верт." next to "Горизонт. тяга" is
+"Верт. тяга". Genuinely new exercise → keep his wording as the new canonical
+name, assign an EN muscle-group category (reuse existing categories before
+inventing one), and **add a row to the registry file** after logging.
+
+### 5. Write to the sheet
+
+```bash
+source automations/gym-log/config.sh
+"$PYTHON_BIN" "$GYM_SHEET" dump            # current rows/dates — also validates auth
+echo '{"date":"7/22/2026","my_weight":73.6,"entries":[
+  {"category":"Back","exercise":"Верт. тяга","sets":3,"reps":10,"w_start":52,"w_end":62}
+]}' | "$PYTHON_BIN" "$GYM_SHEET" log
+```
+
+- One `log` call per training date; several photos/sessions → chronological
+  order. Upsert semantics: re-logging a date overwrites that block, never
+  duplicates.
+- `my_weight` only when Alex gave a weigh-in (kg, one decimal). Weight-only
+  update (no training): `{"date":"...","my_weight":74.2,"entries":[]}`.
+- Numbers as JSON numbers (22.5, not "22,5"). Exit code 3 → token expired:
+  run `"$PYTHON_BIN" "$GYM_SHEET" auth` (browser consent; ask Alex first).
+
+### 6. Verify & report
+
+`dump` again; confirm every entry landed in the right row/block. Report to
+Alex (in-session, or Telegram reply if the request came via the bridge): a
+compact per-date table of what was logged, what was skipped as crossed-out /
+warm-up / crossfit, uncertain readings, and new exercises/categories created.
+No invented data anywhere: only what the page shows or Alex said.
+
+### 7. Learn
+
+New exercise, new alias spotted, or a parsing correction from Alex → update
+`references/exercises.md` (aliases/stack hints) or this file's rules (root
+cause, not the instance), per the repo's self-correction loop.

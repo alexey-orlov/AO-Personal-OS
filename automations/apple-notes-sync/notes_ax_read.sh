@@ -31,13 +31,24 @@ on run argv
   tell application "System Events"
     if frontmost of process "Notes" is false then error number 3
     tell process "Notes"
-      set els to entire contents of window 1
-      repeat with e in els
+      -- NEVER use `entire contents` here: it recursively materialises the whole
+      -- AX tree (folder list + note list + body) and hangs for minutes once any
+      -- note is large — that silently broke every checklist read until 2026-07-25.
+      -- The editor is a direct scroll-area child of the splitter group, so walk
+      -- only those and match on the note name in the text area's value.
+      repeat with sa in scroll areas of splitter group 1 of window 1
         try
-          if class of e is text area then
-            set v to value of e
+          set v to value of text area 1 of sa
+          if v contains noteName then return v
+        end try
+      end repeat
+      -- Fallback: some macOS builds nest the editor one group deeper.
+      repeat with grp in groups of splitter group 1 of window 1
+        try
+          repeat with sa in scroll areas of grp
+            set v to value of text area 1 of sa
             if v contains noteName then return v
-          end if
+          end repeat
         end try
       end repeat
     end tell
