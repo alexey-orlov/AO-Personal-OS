@@ -2,7 +2,7 @@
 
 _status: live theme — founder communications, personal brand, new media vs. legacy PR, going direct_
 _slug: narrative-and-media-strategy_
-_updated: 2026-07-17 · 15 insights from 5 episodes_
+_updated: 2026-07-25 · 16 insights from 6 episodes_
 
 ## The throughline
 The media landscape has inverted: where legacy broadcast media demanded corporate polish and atomic soundbites, new media rewards sustained human conversations and strong personal identities. The unified playbook has four beats. (1) Lead with the person — audiences follow individuals (Elon, Palmer, Alex Karp) not logos, so deciding who carries the company's narrative publicly is a foundational strategic choice. (2) Go direct — own your channels (podcasts, newsletters, Substack, posts) rather than depending on legacy press to carry your message; this gives control over context and cadence. (3) Message before distribution — crystallize the desired outcome (hiring, fundraising, enterprise sales) and the audience it must move before chasing reach; distribution multiplies the message, good or bad. (4) Be interesting enough to be hated — neutral audiences mean invisibility; strategic controversy amplifies reach and builds distinct brand identity. (5) Attention is a capital asset — Anti Fund's thesis makes the economic argument explicit: cultural mindshare (the ability to drive taste and distribution) is a co-investment lever as tangible as cash, capable of accelerating category narratives and increasing startup expected value. Attention and capital are no longer separate inputs; the most powerful investors wield both. A third a16z voice sharpens the psychological corollary: the world 'can't be half and half' — prestige anxiety about legacy outlets is the residual drag that blocks full adoption, and the winning disposition is complete commitment to new formats paired with a bias for precedent-free production bets (a four-week virtual-production approved before anyone had done it before).
@@ -81,11 +81,17 @@ Being genuinely yourself—rather than a PR-polished persona—lets leaders shif
 — a16z · 2026-07-17 · guest: Amjad Masad (Replit) · [▶ 6:28](https://www.youtube.com/watch?v=rghTqkclDqA&t=388) · `pi-rghTqkclDqA-05`
 related: [In new media the company brand becomes the founder-person brand](#in-new-media-the-company-brand-becomes-the-founder-person-brand) (same authenticity-over-polish claim, applied to essay-writing rather than founder visibility broadly)
 
+### Vendor attempts to block OpenCode became a viral growth engine
+When Anthropic tried to block users from leveraging its Claude Code subscriptions through OpenCode (rejecting requests if the system prompt mentioned 'open code'), the action raised awareness and implicitly equated OpenCode with the major frontier offerings. The CEO argues this public conflict served as an inflection point: people heard about OpenCode for the first time and tried it, fueling signups from an already large base (they started the year at ~650k MAU).
+— Y Combinator · 2026-07-24 · guest: Jay (OpenCode) · [▶ 4:05](https://www.youtube.com/watch?v=_O6x4ktK6JA&t=245) · `pi-_O6x4ktK6JA-02`
+related: [Be interesting — neutral audiences mean you're invisible](#be-interesting--neutral-audiences-mean-youre-invisible) (same controversy-amplifies-reach mechanism, here an unintended vendor-conflict version rather than a deliberate strategic fight)
+
 ## Related themes
 - [Founders & fundraising](founders-and-fundraising.md) — founder personal brand + company-building playbooks
 - [Growth, GTM & pricing](growth-gtm-and-pricing.md) — distribution, GTM motions, and channel fit
 
 ## Source episodes
+- [Y Combinator — Opencode CEO: Blocked, 20X Growth in 6 Months, Building the Coding Agent for the World (2026-07-24)](../episodes/2026/2026-07-24--yc--opencode-ceo-blocked-20x-growth-in-6-months.md)
 - [a16z — Replit CEO Amjad Masad on Media, Politics, and Power (2026-07-17)](../episodes/2026/2026-07-17--a16z--replit-ceo-amjad-masad-media-politics-power.md)
 - [Lenny's Podcast — Adam Mosseri: AI is a tailwind for authenticity (2026-07-09)](../episodes/2026/2026-07-09--lenny--adam-mosseri-ai-tailwind-for-authenticity.md)
 - [a16z — The Media Game Has Changed (2026-06-19)](../episodes/2026/2026-06-19--a16z--the-media-game-has-changed.md)
