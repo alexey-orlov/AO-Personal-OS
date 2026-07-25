@@ -27,6 +27,14 @@ wait if the laptop is closed — nothing is lost.
 - `run.sh` — launchd entrypoint: git pull → exit fast if the queue is empty and
   snapshots are fresh → otherwise run the skill headlessly (`claude -p`, Bash limited
   to these helpers) → deliberate `notes-sync:` commit + push.
+  **Failures are alerted, not swallowed** (2026-07-25): the run is timestamped, its full
+  transcript is kept at `.work/last_run.out`, and any failure — or a clean run that still
+  leaves cards queued — sends Alex a Telegram message with the consecutive-failure count.
+  `Not logged in` is called out specifically with the `claude login` fix. Before this, a
+  failure only echoed "skill run failed (non-fatal)" into `.work/launchd.log` and exited 0,
+  so two days of expired CLI auth passed unnoticed and a queued card never reached Notes.
+  **Residual gap:** if the agent never runs at all (launchd unloaded, Mac asleep for days)
+  nothing can alert from here — a staleness check belongs in a cloud routine.
 - `notes_list.sh [--full]` / `notes_body.sh <name>` / `notes_set_body.sh <name> <html>` —
   the only sanctioned AppleScript surface. `notes_set_body.sh` is the single write
   path: scoped to `_ToDo`, refuses notes with native-checklist markup, backs up
@@ -59,6 +67,18 @@ wait if the laptop is closed — nothing is lost.
     checklist-bound cards stay queued (bullet-note cards are unaffected).
   - Optional upgrade: granting **Full Disk Access** would enable a direct (read-only)
     NoteStore.sqlite reader — full checklist text + checked state, headless. Not built yet.
+  - **Never use `entire contents` on the Notes AX tree** (fixed in `notes_ax_read.sh`
+    2026-07-25). It recursively materialises folder list + note list + body and takes
+    minutes / effectively hangs once any note is large — with a 19k-char note present it
+    never returned inside 90 s, so *every* checklist read silently failed for ~6 weeks and
+    the -1719 permission error masked it. Walk the `scroll areas of splitter group 1` and
+    match the note name in the text area's value instead: ~3 s.
+  - **Empty `<li>` is ambiguous, and the guard over-refuses.** A human leaving a stray blank
+    bullet produces the same `<li><br></li>` markup as a hidden checklist item, so
+    `notes_set_body.sh` refuses notes that are perfectly safe to write. To resolve it, prove
+    nothing is hidden — `notes_ax_read.sh` output vs `plaintext`; equal line sets means no
+    invisible content — then pass `NOTES_VERIFIED_PLAINTEXT_LEN=<n>`. The script re-measures
+    and refuses a stale assertion, so the override can't be used blind.
 - **Pinned status isn't scriptable** — folder membership is the contract: every note
   in `_ToDo` is a routing candidate. Add/remove notes there to change the set.
 - **HTML round-trip collapses consecutive spaces** in existing text (verified
