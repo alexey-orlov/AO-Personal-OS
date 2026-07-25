@@ -59,8 +59,18 @@ on run argv
     -- (verified 2026-06-12). A body write would DESTROY them. Empty <li>s are
     -- the only AppleScript-visible signature, so any empty list item = refuse;
     -- the UI insertion path (notes_ax_insert.sh) handles those notes.
-    if (oldBody contains "<li><br></li>") or (oldBody contains "checklist") or (oldBody contains "<input") then
-      error "refusing to write: '" & noteName & "' has AppleScript-invisible list items (native checklist?) — use notes_ax_insert.sh"
+    if (oldBody contains "checklist") or (oldBody contains "<input") then
+      error "refusing to write: '" & noteName & "' carries explicit native-checklist markup — use notes_ax_insert.sh"
+    end if
+    -- Empty <li>s: ambiguous (stray blank bullet vs hidden checklist item). Refuse
+    -- unless the caller proved on-screen equality and pinned the plaintext length.
+    if oldBody contains "<li><br></li>" then
+      if verifiedLen is "" then
+        error "refusing to write: '" & noteName & "' has empty list items (native checklist?) — use notes_ax_insert.sh, or prove it's checklist-free per the header and pass NOTES_VERIFIED_PLAINTEXT_LEN"
+      end if
+      if (length of oldText) as text is not equal to verifiedLen then
+        error "stale verification for '" & noteName & "': asserted plaintext length " & verifiedLen & " but note is now " & ((length of oldText) as text) & " chars — re-verify with notes_ax_read.sh"
+      end if
     end if
     -- backups before touching anything
     set bkHtml to open for access POSIX file (bkBase & ".html") with write permission
