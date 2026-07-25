@@ -159,6 +159,14 @@ source of truth.
   For Fiction with both EN and RU found, send two separate messages (one per link).
 - **Download result** → `telegram_send.sh` (text only — a file path isn't a URL): filename + absolute
   iCloud path + "Open Files → Books to import into Play Books."
+- **`not-found` or `deferred` result → STILL SEND ONE MESSAGE** (`telegram_send.sh`, no button):
+  title · author · what was tried · the suggested next step. **Silence is never an acceptable
+  outcome** — when a book drop produces no Telegram message at all, Alex has no way to tell a miss
+  from a broken pipeline, and the item just evaporates. (This is exactly what happened to the
+  2026-07-21 Arendt drop: the cloud fold logged `not-found` and sent nothing, so the drop looked
+  processed while Alex got nothing for four days.) Say which it is:
+  - `not-found` → "searched X, Y, Z — no edition exists in <language> <format>."
+  - `deferred` → "couldn't check from this environment (<reason>) — will retry; title is on the shortlist."
 
 ## Step 6 — Log to state
 
@@ -171,6 +179,15 @@ Before downloading, the script's dup-guard already prevents re-fetching; if a bo
 - **A dead source is normal, not an error.** No Audible hit, a blocked fetch, an empty knigavuhe search →
   fall to the next source in the ranked list. Only when *all* sources for a book fail do you report
   `not-found` for it, with a one-line note of what was tried and a suggested manual next step.
+- **"Couldn't look" is NOT "isn't there" — never collapse the two.** `not-found` is a claim about the
+  *book* and may only be used when the sources were actually reachable and came back empty. When the
+  *environment* blocked the check — sandboxed cloud run with no external fetches, DNS/content filter
+  (knigavuhe is blocked by OpenDNS on this Mac — see `references/sources.md` §3), Google Books API
+  `429`, repeated `403`/`503` — the status is **`deferred`**, not `not-found`. Deferred books are
+  re-attempted on the next run from an unblocked environment; recording `not-found` instead closes the
+  item forever on the strength of a network failure. Verify-then-report: also treat a search hit whose
+  page fails to resolve as unverified (an Audible ASIN that opens "Audiobook is not available" is not a
+  result), and say which sources were unreachable versus genuinely empty.
 - **gbooks_search.py / download_book.py degrade gracefully** — they always print JSON. Read the `error`
   / `status` field and route around failures; never crash the run on one book.
 - **Telegram unconfigured or failing** → keep going; the in-chat block already delivered the result. Note
