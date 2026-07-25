@@ -1,11 +1,34 @@
 ---
 note: SS Todo
 area: softserve
-snapshot: 2026-07-06 16:40
-chars: 3711
+snapshot: 2026-07-25 18:30
+chars: 3011
 scope: above relevance marker
 ---
 SS Todo
+
+
+CV
+Todo and meeting with Mamchych
+Update one-pager
+Questions to Oracle
+Packaged offer - JS program (2 versions; internal team composition; Code and Codex??)
+Oracle slides (adsditions for all parts)
+Oracle request
+Review Vlad’s inputs
+
+
+Oracle
+
+Goal: better sales enablement and customer acquisition with packaged proven use cases
+
+Layers: OCI + Nvidia platform (quOpt) + Accelerator business app + Custom configuration
+
+Bosch case: logo, key metrics
+
+Packages structure:
+
+Screenshot of the detailed capabilities list
 
 
 What I want to get from it:
@@ -14,7 +37,7 @@ Customer success stories
 
 
 Misc:
-
+ 
 Ping Olya, Leonid, Patrick about Wednesday presentation; ask Patrick to help build slides by EOD tomorrow following the established template
 Get marketing (Lyudmyla) to share AIQ Kit furniture-placement video for inclusion in slide deck
 Rehearse Wednesday deck Wednesday morning
@@ -25,44 +48,27 @@ AI research: comprehensive plan so far 📥
 
 Strategic session
 Startup style
+ 
 
+Other todo 
+Гиг-контракт?
+Условия в США?
+Цели сейчас: Оракл + не-Оракл?
+Виза в UK
+
+
+Agentic SDLC / Agentic Knowledge work - todo
+Package the PM offer
+Mamchych - action plan
 
 Oracle todo
-
-2562m
-Value realisation team
-Understand pipelines per use case - where to invest
-
-Accelerators product team
-
-
-Questions
-Shed some light onto your priorities and prioritization approach? Any roadmap of the use cases / future customer scenarios you’re going to be working on?
-
-T-shirt sizing / packaging questions
-Package L: can be separated from M? (Deployment without harness?)
-Timing: Fine with current timelines OR Need to accelerate?
-Artifacts: 
-Package scope + price
-ROI-focused sales material: pptx/pdf
-Demo instances with demo data
-Discovery & Design acceleration pack (questionary forms, AI skills, template reports, use case-specific knowledge base articles)
-Generalized solutions
-Standardized discovery and design: expert opinion, how much is that feasible?
-Phase-based packages (S-M-L): confirm the goal and approach 
-Integration to be priced on a T&M basis as per discovery? Paid by Oracle/Nvidia, or by customer?
-PoC fixed price; Integration not! - ?
-Optimizing for cost-efficiency or Predictability OR confidence?
-Vertical / use case package boundaries: need to clarify / confirm
-
-Packages
-Doublecheck scopes of the projects DHL, SBG, Northumbrian Water, OMV
-Patryk - used package or not?
-Scope of harness included in all packs
-Analyze SoW for Bosch / RiyahdAir -> Update packages breakdown
-Come up with description of the 3rd package (rollout support / COE building and managed support)
-Update use cases table
-Update general narrative document
+Neil meeting prep
+Neil meeting - align with Bohdan
+Workforce optimization - repack
+Vladislav: AI-Q pack
+DHL PoC: 
+make sure I’m included, 
+follow up with Vladislav: expectations, how we collaborate
 
 
 Open questions (internally):
@@ -77,12 +83,6 @@ Packages scoping
 
 
 JUMPSTART
-
-
-Options to cover separately:
-Customer-facing products
-Internal products
-jumpstart - divide between personal and company-wide 📥
 
 Jumpstart program topics:
 Building product context system

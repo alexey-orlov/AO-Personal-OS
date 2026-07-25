@@ -1,16 +1,15 @@
 ---
 note: AI Product expertise ToDo
 area: personal-os
-snapshot: 2026-07-25 18:07
-chars: 1735
+snapshot: 2026-07-25 18:30
+chars: 1734
 scope: above relevance marker
 ---
 AI Product expertise ToDo
 
 
 Insights:
-AI engineering has moved through three eras: prompt → context → harness (Karpathy / Hashimoto framing) 📥
-
+AI engineering has moved through three eras: prompt → context → harness (Karpathy / Hashimoto framing) 📥 
 SDD research insights: 
 It doesn’t replace PMs USs and acceptance criteria
 SDD is mostly the Dev approach
@@ -24,8 +23,7 @@ Distill (decision logs - ADR, summaries of changes (calls, docs), progressive su
 Curate (log of processed raw data; ongoing current-truth updates; cross-linkage) -> 
 Govern (manual + automated - like staleness, etc.; human to maintain taxonomy)
 Files should be processed either, recommendations to maintain some level of metadata
-
-
+ 
 
 
 Goals:
