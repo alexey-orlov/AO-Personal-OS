@@ -1,0 +1,103 @@
+{
+  "schema": 1,
+  "generatedAt": "2026-07-27T04:01:41.399Z",
+  "runStamp": "20260727T0401",
+  "episodes": [
+    {
+      "videoId": "tivaWTTVRhY",
+      "videoTitle": "Anthropic’s first technical PM on token maxing, the jagged edge, and living in the future",
+      "videoUrl": "https://www.youtube.com/watch?v=tivaWTTVRhY",
+      "channelName": "Lenny's Podcast",
+      "publishedDate": "2026-07-26",
+      "guests": [
+        "Dan (Anthropic)"
+      ],
+      "summary": "An early product leader at Anthropic describes how the company discovered product-market identity while shipping frontier models (Claude/Opus series) and why product practice must change to match rapidly improving AI. The throughline: rapid experimentation, tight product–research loops, and concrete, testable evaluation (evals) — not blind token-spend — are what let teams spot emergent capabilities, keep users safe, and ship useful experiences.",
+      "insights": [
+        {
+          "headline": "Evals are the new PRDs",
+          "detail": "Product work around models increasingly requires machine-checkable evaluation suites rather than traditional long-form specs. The guest explains that user feedback must be translated into small, reproducible evals (for example: 30–40 JSON-format failures showing Claude couldn't follow a schema) so researchers can measure regressions and improvements across model releases. That makes product work test-driven and shortens the distance from user problem to engineering action — the company now runs those evals against each model version to confirm fixes.",
+          "anchorQuote": "evals are the new PRDs, right?",
+          "tSeconds": 2502,
+          "link": "https://www.youtube.com/watch?v=tivaWTTVRhY&t=2502"
+        },
+        {
+          "headline": "Token-spending is an input; experimentation is the real output",
+          "detail": "Spending lots of tokens only matters to the extent it enables rapid prototyping and discovery of new use cases; the PM reframes 'token maxing' as a means to accelerate experimentation. Anthropic’s culture encouraged company-wide public experiments (a Slack channel, cloud.ai demos like the Golden Gate Bridge quirky feature) where small, repeated interactions produced emergent products and patterns that individual token-use alone wouldn’t have revealed. The point: the strategic goal is communal, iterative discovery, not raw token consumption for its own sake.",
+          "anchorQuote": "token spin is more the input",
+          "tSeconds": 1242,
+          "link": "https://www.youtube.com/watch?v=tivaWTTVRhY&t=1242"
+        },
+        {
+          "headline": "Frontier models produce discontinuous, unpredictable capability jumps",
+          "detail": "Scaling laws show a smooth decline in loss but some capabilities appear abruptly as you scale compute/data, producing discontinuous 'emergent' behaviors. The guest warns these jumps make pre-release evals and red‑teaming essential because models can suddenly do — or misuse — abilities teams didn't anticipate (she cites the Golden Gate Bridge interpretability quirk as an early surprising feature). That unpredictability both creates product opportunities and raises safety/testing requirements.",
+          "anchorQuote": "you essentially see these actually discontinuous emerging capabilities jump",
+          "tSeconds": 1112,
+          "link": "https://www.youtube.com/watch?v=tivaWTTVRhY&t=1112"
+        },
+        {
+          "headline": "PMs and managers must be hands-on; 'sweat the tokens' like pixels",
+          "detail": "Hiring and onboarding expectations haven't changed, but success now requires PMs and leaders to be deeply practical with the models: experimenting, reading transcripts, building evals, and shipping features themselves. The guest insists managers should still own workstreams and 'sweat the tokens as much as you sweat the pixels' so they retain the mental model needed to guide teams and make forward‑compatible product decisions as models improve.",
+          "anchorQuote": "sweat the tokens as much as you sweat the pixels",
+          "tSeconds": 2572,
+          "link": "https://www.youtube.com/watch?v=tivaWTTVRhY&t=2572"
+        },
+        {
+          "headline": "Small, founder-like labs pods drive 10x discontinuous bets",
+          "detail": "Anthropic’s Labs is organized as small, autonomous pods that pursue big, discontinuous bets outside the core roadmap (examples: Cloud Code, skills, Cloud Design MCP). The team selects for people who enjoy zero‑to‑one experimentation, keeps opinions strong on themes but flexible on weekly prototypes, and accepts many bets will be shut down or revisited across model generations — a structure that accelerates learning and lets the company 'see around corners.'",
+          "anchorQuote": "discontinuous large bets that might not be in the core road map",
+          "tSeconds": 1443,
+          "link": "https://www.youtube.com/watch?v=tivaWTTVRhY&t=1443"
+        }
+      ]
+    },
+    {
+      "videoId": "I4B37S1dyQQ",
+      "videoTitle": "Jensen Huang: The Mindset That Built NVIDIA",
+      "videoUrl": "https://www.youtube.com/watch?v=I4B37S1dyQQ",
+      "channelName": "Y Combinator",
+      "publishedDate": "2026-07-26",
+      "guests": [
+        "Jensen Huang (NVIDIA)"
+      ],
+      "summary": "Jensen Huang recounts how Nvidia grew by learning fundamentals, confronting failure, and focusing on accelerating algorithmic domains rather than just building chips. He argues that systems thinking, rapid self-education, and an emphasis on controllable agentic systems (from software to physical robots) are the core mindset drivers that enabled Nvidia to lead in graphics, deep learning, and the emerging physical-AI era.",
+      "insights": [
+        {
+          "headline": "You can become a technological leader by learning fundamentals fast",
+          "detail": "Nvidia's founding technology for 3D graphics failed, so Huang bought OpenGL textbooks, taught the engineers, and they reinvented computer graphics — becoming world leaders. The lesson is that confronting reality and re-learning first principles can pivot a startup from near-extinction to leadership; the specific technology matters less than the team's ability to learn and execute. This underpins Nvidia's repeated pattern of entering new algorithmic domains by teaching itself the relevant fundamentals.",
+          "anchorQuote": "we learned it from a textbook",
+          "tSeconds": 254,
+          "link": "https://www.youtube.com/watch?v=I4B37S1dyQQ&t=254"
+        },
+        {
+          "headline": "Great tech companies accelerate algorithmic domains, not just make chips",
+          "detail": "Huang says Nvidia's success comes from accelerating whole algorithm domains (e.g., molecular dynamics, image processing, inverse physics, deep learning) rather than focusing solely on silicon. That perspective shaped Nvidia's product and software strategy — designing hardware, middleware, and developer ecosystems (the 'five layer cake') to scale specific algorithms — and explains why GPUs became central to AI and other compute-heavy fields. The non-obvious move is prioritizing the algorithmic workload over the chip as the defining product.",
+          "anchorQuote": "it's about accelerating an algorithm domain",
+          "tSeconds": 372,
+          "link": "https://www.youtube.com/watch?v=I4B37S1dyQQ&t=372"
+        },
+        {
+          "headline": "Deep learning is a universal function approximator that reshapes software",
+          "detail": "When AlexNet proved effective, Huang realized it wasn't just a single model but evidence that neural nets are universal function approximators able to learn many real-world functions. That insight motivated Nvidia to reimagine the entire computing stack — processors, middleware, algorithms, and applications — because if models can learn functions broadly, you must redesign systems to scale and deploy them. The implication: AI changes what software is and where innovation will occur across industries.",
+          "anchorQuote": "we just learned the universal function approximator",
+          "tSeconds": 706,
+          "link": "https://www.youtube.com/watch?v=I4B37S1dyQQ&t=706"
+        },
+        {
+          "headline": "Fine-grain controllability of agents is the key missing breakthrough",
+          "detail": "Huang argues current agentic systems improve iteratively but lack precise, low-level control — the ability to condition outputs down to a single word, pixel, triangle, or CAD connection. He claims that enabling humans to make tiny, deterministic changes and have the agent regenerate everything else will unlock practical collaboration; agents need not be perfect (80–99% is often enough) if they are controllable. This controllability is critical for adoption across design, engineering, and production workflows.",
+          "anchorQuote": "controllability is probably the single biggest breakthrough",
+          "tSeconds": 1400,
+          "link": "https://www.youtube.com/watch?v=I4B37S1dyQQ&t=1400"
+        },
+        {
+          "headline": "Generative video was the tipping point toward practical robotics (physical AI)",
+          "detail": "Seeing neural models generate realistic video made Huang conclude that robots could learn articulation and manipulation by analogy — if you can generate a finger moving in video, you can teach a robot that motion. That realization led Nvidia to invest in simulation, world foundation models, and sim-to-real pipelines (Isaac Sim, Cosmos) to ground learning in physics; he sees self-driving and warehouse/autonomous navigation as first high-value applications. Nvidia already counts its physical-AI/robotics business in the billions and expects it to become a major industry over the next decade.",
+          "anchorQuote": "The moment that I saw us generating video",
+          "tSeconds": 2061,
+          "link": "https://www.youtube.com/watch?v=I4B37S1dyQQ&t=2061"
+        }
+      ]
+    }
+  ]
+}
