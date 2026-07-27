@@ -2,7 +2,7 @@
 
 _status: live theme — how AI reshapes product management work, skills, workflows, and roles_
 _slug: ai-and-the-pm-craft_
-_updated: 2026-07-22 · 31 insights from 20 episodes · ⚠ at 31/30: just over budget, no clean seam yet_
+_updated: 2026-07-27 · 33 insights from 21 episodes · ⚠ at 33/30: just over budget, no clean seam yet_
 
 ## The throughline
 PMs and full-stack designers gain leverage in the coding-agent era because the gap between "knowing what to build" and "shipping it" collapses. The skill shift is from raw implementation to defining what to build, evaluating quality, and designing where humans and agents collaborate — Shipper bets PMs who "ride the models" out-ship engineers, an OpenAI PM uses Codex to drive prototypes to 70–80% completion and replace PRDs with runnable artifacts, and a non-technical builder ships a production iPhone app and clears App Store review using LLMs as her stepwise architect + engineer. Lovable extends this to "anyone": vibe coding democratizes product creation, with a student hitting $130k ARR in 30 days. The same craft scales up the org chart: Customer.io's VP of Product rebuilds a third of an all-hands deck in a morning, but only by treating Claude like an eager junior — rolling context in, forcing clarifying questions, blocking premature deliverables — and the leader's residual value collapses to two choices: *which sources* (recordings, docs, metrics) and *which target form* (deck, Notion page, one-pager). The model-selection beat also sharpens: Fable's "seasoned engineer" verbosity wrecks PRDs, so pair Mythos-class models with cheaper Opus/Sonnet by task type. Ambrosino (OpenAI Codex) sharpens the picture from the supply side: when dozens of people inside a company can stand up polished prototypes from the same idea, implementation is no longer the bottleneck — *curation* is: deciding which of ~90 explorations to keep, fold together, or refine. The same abundance makes design and taste distinctly non-automatable: aesthetic judgment, novelty, and system-level UI coherence lack the grading signals needed to train models to generalize, so models copy patterns (Linear-clone proliferation) but cannot generate the novelty or cross-component semantic reasoning that defines good design. The operational kit that recurs: hyper-literal prompts, screenshots-as-examples, prototypes-not-PRDs, a beginner's mindset, and the discipline to restrain the model until the foundations are set.
@@ -157,12 +157,23 @@ Not every query needs the biggest model: a lightweight classifier or embedding m
 — Aakash Gupta · 2026-07-22 · guest: — · [▶ 25:49](https://www.youtube.com/watch?v=iBKrijO1PBQ&t=1549) · `pi-iBKrijO1PBQ-05`
 related: [Use the right Claude model: Haiku for volume, Sonnet for most PM work, Opus for edge-case reasoning](#use-the-right-claude-model-haiku-for-volume-sonnet-for-most-pm-work-opus-for-edge-case-reasoning) (same task-fit model-selection discipline — Ji Nucla's is a PM's manual practice, this is the underlying automated-router architecture)
 
+### Token-spending is an input; experimentation is the real output
+Spending lots of tokens only matters to the extent it enables rapid prototyping and discovery of new use cases; the PM reframes 'token maxing' as a means to accelerate experimentation. Anthropic's culture encouraged company-wide public experiments (a Slack channel, cloud.ai demos like the Golden Gate Bridge quirky feature) where small, repeated interactions produced emergent products and patterns that individual token-use alone wouldn't have revealed. The point: the strategic goal is communal, iterative discovery, not raw token consumption for its own sake.
+— Lenny's Podcast · 2026-07-26 · guest: Dan (Anthropic) · [▶ 20:42](https://www.youtube.com/watch?v=tivaWTTVRhY&t=1242) · `pi-tivaWTTVRhY-02`
+related: [PMs and managers must be hands-on; 'sweat the tokens' like pixels](#pms-and-managers-must-be-hands-on-sweat-the-tokens-like-pixels) (same episode's practical corollary — experimentation is the goal, hands-on token literacy is how managers stay able to guide it)
+
+### PMs and managers must be hands-on; 'sweat the tokens' like pixels
+Hiring and onboarding expectations haven't changed, but success now requires PMs and leaders to be deeply practical with the models: experimenting, reading transcripts, building evals, and shipping features themselves. The guest insists managers should still own workstreams and 'sweat the tokens as much as you sweat the pixels' so they retain the mental model needed to guide teams and make forward-compatible product decisions as models improve.
+— Lenny's Podcast · 2026-07-26 · guest: Dan (Anthropic) · [▶ 42:52](https://www.youtube.com/watch?v=tivaWTTVRhY&t=2572) · `pi-tivaWTTVRhY-04`
+related: [Token-spending is an input; experimentation is the real output](#token-spending-is-an-input-experimentation-is-the-real-output)
+
 ## Related themes
 - [AI agents & applications](ai-agents-and-applications.md) — the surfaces PMs build in
 - [Leadership, careers & teams](leadership-careers-and-teams.md) — how the manager/IC mix is shifting alongside
 - [Product discovery & strategy](product-discovery-and-strategy.md) — feature differentiation is dead; moats sit elsewhere
 
 ## Source episodes
+- [Lenny's Podcast — Anthropic's first technical PM on token maxing, the jagged edge, and living in the future (2026-07-26)](../episodes/2026/2026-07-26--lenny--anthropics-first-technical-pm-token-maxing-jagged-edge.md)
 - [How I AI — I let Codex control my browser so I don't have to (2026-07-22)](../episodes/2026/2026-07-22--howiai--i-let-codex-control-my-browser-so-i-dont-have-to.md)
 - [Y Combinator — Why Ambitious Startup Ideas Are Actually Easier To Sell (2026-07-22)](../episodes/2026/2026-07-22--yc--why-ambitious-startup-ideas-easier-to-sell.md)
 - [Aakash Gupta — Prepare for this round before your next AI PM interview... (2026-07-22)](../episodes/2026/2026-07-22--aakash--prepare-for-your-next-ai-pm-interview-round.md)
