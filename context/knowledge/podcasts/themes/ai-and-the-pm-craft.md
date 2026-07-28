@@ -2,7 +2,7 @@
 
 _status: live theme — how AI reshapes product management work, skills, workflows, and roles_
 _slug: ai-and-the-pm-craft_
-_updated: 2026-07-27 · 33 insights from 21 episodes · ⚠ at 33/30: just over budget, no clean seam yet_
+_updated: 2026-07-28 · 34 insights from 22 episodes · ⚠ at 34/30: just over budget, no clean seam yet_
 
 ## The throughline
 PMs and full-stack designers gain leverage in the coding-agent era because the gap between "knowing what to build" and "shipping it" collapses. The skill shift is from raw implementation to defining what to build, evaluating quality, and designing where humans and agents collaborate — Shipper bets PMs who "ride the models" out-ship engineers, an OpenAI PM uses Codex to drive prototypes to 70–80% completion and replace PRDs with runnable artifacts, and a non-technical builder ships a production iPhone app and clears App Store review using LLMs as her stepwise architect + engineer. Lovable extends this to "anyone": vibe coding democratizes product creation, with a student hitting $130k ARR in 30 days. The same craft scales up the org chart: Customer.io's VP of Product rebuilds a third of an all-hands deck in a morning, but only by treating Claude like an eager junior — rolling context in, forcing clarifying questions, blocking premature deliverables — and the leader's residual value collapses to two choices: *which sources* (recordings, docs, metrics) and *which target form* (deck, Notion page, one-pager). The model-selection beat also sharpens: Fable's "seasoned engineer" verbosity wrecks PRDs, so pair Mythos-class models with cheaper Opus/Sonnet by task type. Ambrosino (OpenAI Codex) sharpens the picture from the supply side: when dozens of people inside a company can stand up polished prototypes from the same idea, implementation is no longer the bottleneck — *curation* is: deciding which of ~90 explorations to keep, fold together, or refine. The same abundance makes design and taste distinctly non-automatable: aesthetic judgment, novelty, and system-level UI coherence lack the grading signals needed to train models to generalize, so models copy patterns (Linear-clone proliferation) but cannot generate the novelty or cross-component semantic reasoning that defines good design. The operational kit that recurs: hyper-literal prompts, screenshots-as-examples, prototypes-not-PRDs, a beginner's mindset, and the discipline to restrain the model until the foundations are set.
@@ -167,12 +167,18 @@ Hiring and onboarding expectations haven't changed, but success now requires PMs
 — Lenny's Podcast · 2026-07-26 · guest: Dan (Anthropic) · [▶ 42:52](https://www.youtube.com/watch?v=tivaWTTVRhY&t=2572) · `pi-tivaWTTVRhY-04`
 related: [Token-spending is an input; experimentation is the real output](#token-spending-is-an-input-experimentation-is-the-real-output)
 
+### No-code AI tools let non-coders design hardware-integrated products (inferred fit)
+A maker used Cursor as a conversational design and implementation partner—dumping her project idea into it, brainstorming questions, and getting a shopping list and implementation plan—then wired a Raspberry Pi to a mini thermal receipt printer to accept web messages (maddiedeere.com/message). The evidence is concrete: she built a public message form that logs to a Convex database and prints instantly on her desk, showing that modern LLM-driven tools can turn high-level ideas into end-to-end physical prototypes without deep formal coding skills. That matters because it changes who can invent interactive hardware experiences: not just professional firmware engineers but curious makers.
+— How I AI · 2026-07-27 · guest: MaddieDReese (maker) · [▶ 7:08](https://www.youtube.com/watch?v=KCGKb3huDsY&t=428) · `pi-KCGKb3huDsY-01`
+related: [Codex lets non‑engineers build production automation rapidly](#codex-lets-nonengineers-build-production-automation-rapidly) (same non-engineer-plus-conversational-AI pattern, here applied to physical hardware instead of software automation)
+
 ## Related themes
 - [AI agents & applications](ai-agents-and-applications.md) — the surfaces PMs build in
 - [Leadership, careers & teams](leadership-careers-and-teams.md) — how the manager/IC mix is shifting alongside
 - [Product discovery & strategy](product-discovery-and-strategy.md) — feature differentiation is dead; moats sit elsewhere
 
 ## Source episodes
+- [How I AI — How this "non-coder" used Cursor to add AI to retro hardware (2026-07-27)](../episodes/2026/2026-07-27--howiai--non-coder-cursor-ai-retro-hardware.md)
 - [Lenny's Podcast — Anthropic's first technical PM on token maxing, the jagged edge, and living in the future (2026-07-26)](../episodes/2026/2026-07-26--lenny--anthropics-first-technical-pm-token-maxing-jagged-edge.md)
 - [How I AI — I let Codex control my browser so I don't have to (2026-07-22)](../episodes/2026/2026-07-22--howiai--i-let-codex-control-my-browser-so-i-dont-have-to.md)
 - [Y Combinator — Why Ambitious Startup Ideas Are Actually Easier To Sell (2026-07-22)](../episodes/2026/2026-07-22--yc--why-ambitious-startup-ideas-easier-to-sell.md)
