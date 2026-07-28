@@ -1,0 +1,192 @@
+{
+  "schema": 1,
+  "generatedAt": "2026-07-28T04:04:09.406Z",
+  "runStamp": "20260728T0404",
+  "episodes": [
+    {
+      "videoId": "KCGKb3huDsY",
+      "videoTitle": "How this “non-coder” used Cursor to add AI to retro hardware",
+      "videoUrl": "https://www.youtube.com/watch?v=KCGKb3huDsY",
+      "channelName": "How I AI",
+      "publishedDate": "2026-07-27",
+      "guests": [
+        "MaddieDReese (maker)"
+      ],
+      "summary": "A maker named Maddie explains how she used Cursor (a conversational coding/IDE tool) to brainstorm, plan purchases, and implement playful hardware projects that integrate AI. She demonstrates three concrete builds—a web-to-thermal-printer message system, a Twitter→pager bridge, and a personal \"Maddie API\"—and argues that no-code/AI tooling lowers the barrier to building meaningful physical experiences. The throughline: accept messy multi-step engineering when it gets you a delightful endpoint, but apply a trust‑but‑verify discipline to hardware buys and designs.",
+      "insights": [
+        {
+          "headline": "No-code AI tools let non-coders design hardware-integrated products",
+          "detail": "Maddie used Cursor as a conversational design and implementation partner—dumping her project idea into it, brainstorming questions, and getting a shopping list and implementation plan—then wired a Raspberry Pi to a mini thermal receipt printer to accept web messages (maddiedeere.com/message). The evidence is concrete: she built a public message form that logs to a Convex database and prints instantly on her desk, showing that modern LLM-driven tools can turn high-level ideas into end-to-end physical prototypes without deep formal coding skills. That matters because it changes who can invent interactive hardware experiences: not just professional firmware engineers but curious makers.",
+          "anchorQuote": "I just dumped everything out from my brain into Cursor.",
+          "tSeconds": 428,
+          "link": "https://www.youtube.com/watch?v=KCGKb3huDsY&t=428"
+        },
+        {
+          "headline": "Trust-but-verify with AI prevents bad hardware purchases",
+          "detail": "She relies on Cursor to recommend parts but always double- or triple-checks before buying—catching a few wrong wire or part suggestions during that verification step. The procedure is pragmatic: ask the agent targeted 'what if' questions to probe edge cases, then validate compatibility manually, which minimized wasted purchases while still letting the AI accelerate decision-making. The non-obvious takeaway is that AI accelerates procurement only when paired with simple human QA practices.",
+          "anchorQuote": "I make sure to double or triple check.",
+          "tSeconds": 533,
+          "link": "https://www.youtube.com/watch?v=KCGKb3huDsY&t=533"
+        },
+        {
+          "headline": "Messy multi-step cloud chains can connect modern APIs to retro pagers",
+          "detail": "To revive a 1990s pager on the Spok paging network, Maddie accepted an inelegant but working chain: Twitter events → Cloudflare Worker → Resend email → Gmail → pager email address → pager display. She bought the pager from an authorized reseller (the paging network won't sell end-user devices directly) and tolerated legacy quirks like restrictive pager email domains to reach the physical endpoint. The practical insight: when the goal is a delightful endpoint (a beeping pager), coherence and elegance of the pipeline can be sacrificed for feasibility—especially for playful projects.",
+          "anchorQuote": "every interaction that anyone has with my Twitter account",
+          "tSeconds": 831,
+          "link": "https://www.youtube.com/watch?v=KCGKb3huDsY&t=831"
+        },
+        {
+          "headline": "Personal APIs let agents handle small social coordination tasks",
+          "detail": "Maddie built a 'Maddie API' to expose preferred social details—coffee order, pets, favorite restaurants, time zone—so others (or their software agents) can personalize gestures without interrupting her. She frames this as reducing friction: instead of asking someone for their coffee order, an agent can hit the API and arrange a treat or reservation automatically. The implication is forward-looking: as agents take on scheduling and gifting tasks, small personal APIs become useful primitives for frictionless, human-centered automation.",
+          "anchorQuote": "hit an API and you get all of this",
+          "tSeconds": 1188,
+          "link": "https://www.youtube.com/watch?v=KCGKb3huDsY&t=1188"
+        }
+      ]
+    },
+    {
+      "videoId": "nV_lyWrkBs8",
+      "videoTitle": "Jared Isaacman: NASA's Moon Base by 2028, Optimus Robots on the Moon, The Truth About UFOs | Ep #274",
+      "videoUrl": "https://www.youtube.com/watch?v=nV_lyWrkBs8",
+      "channelName": "Peter H. Diamandis",
+      "publishedDate": "2026-07-27",
+      "guests": [
+        "Jared Isaacman"
+      ],
+      "summary": "Jared Isaacman lays out an aggressive, phased plan for returning to the Moon (boots by 2028/29) and building a lunar base using iterative, high-cadence missions, commercial launchscale, humanoid robots, AI autonomy, and stepped nuclear propulsion. He argues NASA must focus on a few hard things, partner with industry for launch capacity, use AI to mine vast archival and new data, and pursue practical nuclear electric propulsion to enable repeatable crewed Mars missions.",
+      "insights": [
+        {
+          "headline": "High-cadence 'lots of littles' missions will precede a lunar base",
+          "detail": "NASA will adopt a phased approach: phase one drops many low-cost landers and rovers (monthly cadence) to learn in situ at the lunar south pole, accept lots of early failures and debris, then scale to phase two once mass transport economics improve. Isaacman says those early missions are intended to validate survival, resource and power strategies before locking into a final base design; once Starship-style rapid reusability and orbital aggregation make moving mass cheap, humanoid robots and larger infrastructure follow. He gives a concrete target: astronauted lunar landings around 2028–29 and humanoid robot demonstrations within a similar multi-year window.",
+          "anchorQuote": "we're going to be dropping landers and rovers on a near monthly basis",
+          "tSeconds": 1802,
+          "link": "https://www.youtube.com/watch?v=nV_lyWrkBs8&t=1802"
+        },
+        {
+          "headline": "On-mission AI autonomy will be permitted for time-limited probes",
+          "detail": "NASA plans to let mission AIs make real-time choices about what scientific data to collect and send back when a probe has only a short operational window. Isaacman points to the DaVinci Venus probe as a designed example: the craft will operate in an environment that won’t last long so it must autonomously prioritize and transmit the most useful observations. The implication is that as AI models get embedded into probes, exploration efficiency and discovery rates will jump—especially for harsh, short-lived missions.",
+          "anchorQuote": "there's already a mission designed for that, which is Da Vinci",
+          "tSeconds": 446,
+          "link": "https://www.youtube.com/watch?v=nV_lyWrkBs8&t=446"
+        },
+        {
+          "headline": "Rapid reusability is the rate‑limiting enabler for lunar infrastructure",
+          "detail": "Bringing mass cheaply to orbit and the lunar surface is the single biggest lever for scaling bases, robots, and industrial activity; Isaacman names Starship as the prototype that changes that calculus. With genuinely rapid reusability and on‑orbit aggregation, the cost-per-kg plummets and NASA can afford dozens of missions, depot architectures, and the large payloads needed for humanoid robot fleets and surface power systems. He stresses multiple commercial vehicles (SpaceX, Blue Origin, Rocket Lab) will collectively drive the launch-cost revolution NASA needs.",
+          "anchorQuote": "Starship is obviously the first example of a vehicle",
+          "tSeconds": 1512,
+          "link": "https://www.youtube.com/watch?v=nV_lyWrkBs8&t=1512"
+        },
+        {
+          "headline": "Stepwise nuclear electric propulsion (SR1) is the pragmatic Mars path",
+          "detail": "Rather than a single grand leap, NASA will repurpose existing hardware into an incremental SR1 nuclear-electric program to demonstrate useful propulsion and surface power capability. Isaacman describes SR1 as a practical 'win' built from matured components (PPE elements, INL reactor parts), likening it to Nautilus giving birth to the nuclear navy: not optimized at first but a foundation to iterate toward higher temperature materials and smaller radiators. The goal is crewed Mars missions with fewer operational miracles—he suggests government-led nuclear investment plus industry could put astronauts on Mars in a 10–15 year span under favorable conditions.",
+          "anchorQuote": "which is what SR1 freedom is",
+          "tSeconds": 2747,
+          "link": "https://www.youtube.com/watch?v=nV_lyWrkBs8&t=2747"
+        },
+        {
+          "headline": "AI must scour archival and incoming datasets to find missed science",
+          "detail": "NASA has more historical and incoming data (e.g., upcoming Nancy Grace Roman telescope) than scientists can manually comb, so Isaacman supports a Genesis-style consolidated AI compute effort to discover overlooked signals and extend scientific reach. He cites a teenager who used AI to find previously unnoticed galaxies in archival data as a concrete example of what automated analysis can reveal, and argues consolidating government compute (leveraging DOE capacities) will prevent missed discoveries as data volumes explode. This matters because future flagship science gains will increasingly come from better data triage and pattern-finding, not just bigger telescopes.",
+          "anchorQuote": "what have we missed and what are we likely to miss",
+          "tSeconds": 618,
+          "link": "https://www.youtube.com/watch?v=nV_lyWrkBs8&t=618"
+        }
+      ]
+    },
+    {
+      "videoId": "qyPCVqFUyDo",
+      "videoTitle": "Boris Cherny: Building Claude Code",
+      "videoUrl": "https://www.youtube.com/watch?v=qyPCVqFUyDo",
+      "channelName": "Y Combinator",
+      "publishedDate": "2026-07-27",
+      "guests": [
+        "Boris Cherny"
+      ],
+      "summary": "Boris Cherny describes how he builds Claude Code (a harness/product around Claude) by repeatedly deleting and re‑building prompts, harness code, and tooling each model generation to elicit new capabilities. He argues for an empirical, ablation-driven workflow (\"unhobbling\") that pairs strong safety layers with dynamic orchestration of many agents to solve long, complex engineering tasks faster than humans.",
+      "insights": [
+        {
+          "headline": "Three complementary defenses eliminate prompt injection attacks",
+          "detail": "Claude Code combines a mechanistic-interpretability prompt-injection classifier (they literally watch neurons that light up on injections), an auto-mode classifier, and additional harness protections. After roughly three years of work using these layers together they report they \"cannot demonstrate prompt injection anymore,\" which matters because it enables agentic, write-access workflows without trivial adversarial override. This is an architecture-level safety claim backed by their internal research and instrumentation.",
+          "anchorQuote": "a prompt injection classifier which we run for all traffic",
+          "tSeconds": 171,
+          "link": "https://www.youtube.com/watch?v=qyPCVqFUyDo&t=171"
+        },
+        {
+          "headline": "Delete most system prompts each model release and re-add only what’s needed",
+          "detail": "For Opus 5 they removed over 80% of the system prompt and run ablations: delete the prompt, then bring lines back one at a time to measure impact. Models increasingly internalize behaviors older prompts were correcting for, so prompts can become unnecessary or even hobbling; the right approach is to empirically observe repeated failures and only restore instructions that the model demonstrably needs. They provide a \"simple mode\" to strip prompts as an intentional experiment to find what truly matters.",
+          "anchorQuote": "we deleted 80% of the system prompt.",
+          "tSeconds": 270,
+          "link": "https://www.youtube.com/watch?v=qyPCVqFUyDo&t=270"
+        },
+        {
+          "headline": "Evals last longer than prompts but still saturate quickly",
+          "detail": "Evaluation suites are more stable than harness code or system prompts and you should append to them across generations, but they typically only survive one to a few model generations before saturating. Boris says an eval might live for \"one, two, three model generations\" because exponential model improvements often hit and exhaust old evals, forcing new, empirically derived tests. The practical implication: keep evals, but continually refresh them when models outgrow the checks.",
+          "anchorQuote": "an EVO might live for maybe one, two, three model generations.",
+          "tSeconds": 602,
+          "link": "https://www.youtube.com/watch?v=qyPCVqFUyDo&t=602"
+        },
+        {
+          "headline": "Unhobbling products reveals massive latent model capabilities",
+          "detail": "Hobbling is when product scaffolding prevents the model from showing what it can do; product overhang is the set of capabilities models already have but products don't surface. The original Claude Code removed restrictive scaffolding (e.g., single-line autocompletes) so the model could write whole files and features; today similar removal of constraints lets models do much harder tasks like rewriting entire runtimes. Recognizing and removing unnecessary constraints is a repeatable path to new product breakthroughs.",
+          "anchorQuote": "We call this product overhang.",
+          "tSeconds": 722,
+          "link": "https://www.youtube.com/watch?v=qyPCVqFUyDo&t=722"
+        },
+        {
+          "headline": "Dynamic workflows scale test-time compute to thousands of agents",
+          "detail": "Claude Code’s dynamic workflows spin up bun sandboxes and orchestrate agents in parallel and sequence (an algebra for agents) so a single task can fan out into thousands of workers, verifying and summarizing results. They used this to rewrite a major runtime (Zig→Rust for Bun) in about 11 days—work that previously would take engineers many months—plus they run daily routines (dead-code cleanup, abstraction unification) that operate like hundreds to thousands of tiny maintenance agents. This reframes orchestration as a new form of test‑time compute that multiplies developer throughput.",
+          "anchorQuote": "To use dynamic workflows is a fairly new feature",
+          "tSeconds": 1525,
+          "link": "https://www.youtube.com/watch?v=qyPCVqFUyDo&t=1525"
+        }
+      ]
+    },
+    {
+      "videoId": "ZIaOBAjvc38",
+      "videoTitle": "Sam Altman: \"Never a Better Time to Do a Startup\"",
+      "videoUrl": "https://www.youtube.com/watch?v=ZIaOBAjvc38",
+      "channelName": "Y Combinator",
+      "publishedDate": "2026-07-28",
+      "guests": [
+        "Sam Altman (OpenAI)"
+      ],
+      "summary": "Sam Altman argues that right now is a uniquely fertile moment to start companies because AI is rapidly lowering costs and cycle times, letting small teams accomplish projects that previously required much larger organizations. He gives practical startup advice — embrace contrarian long-term convictions, find co‑founders and networks, and be helpful to others — while warning that AI also creates real safety and concentration risks that must be managed.",
+      "insights": [
+        {
+          "headline": "This is the best moment in history to start a startup",
+          "detail": "Altman's central claim is that falling costs, shorter cycle times, and agent-driven automation make ambitious startups far easier now than before. He points to YC data showing hard‑tech companies rising from single digits to ~15–25% of batches and says small teams can automate large amounts of work that used to take months. The implication: founders should swing bigger because previously infeasible ideas are now tractable with much smaller teams and capital.",
+          "anchorQuote": "never a better time to do a startup than right now",
+          "tSeconds": 1865,
+          "link": "https://www.youtube.com/watch?v=ZIaOBAjvc38&t=1865"
+        },
+        {
+          "headline": "AI will make startups more important for distributing power",
+          "detail": "Altman argues AI can either concentrate power in a few models/companies or — if startups thrive — spread capability widely across the economy. He frames startups as the mechanism that prevents monopoly capture of AI's benefits, saying their role will be amplified if the field continues to move fast and costs fall. That matters because whether AI increases freedom or centralizes control depends in large part on whether a healthy startup ecosystem can absorb and reapply the technology.",
+          "anchorQuote": "startups will be much more important to making",
+          "tSeconds": 310,
+          "link": "https://www.youtube.com/watch?v=ZIaOBAjvc38&t=310"
+        },
+        {
+          "headline": "Being contrarian and patient is a competitive advantage",
+          "detail": "He recounts OpenAI's early years when the field mocked their AGI ambitions, and notes that being willing to hold a contrarian conviction and endure dismissal bought them time and space to build. Altman recommends finding heretical ideas you can back with data and recruiting the small crew that believes them — you don't need many believers to get started. The non‑obvious lesson: temporary ridicule can be a strategic asset if it reduces competition while you iterate toward proof.",
+          "anchorQuote": "Everybody was calling us an idiot",
+          "tSeconds": 793,
+          "link": "https://www.youtube.com/watch?v=ZIaOBAjvc38&t=793"
+        },
+        {
+          "headline": "Co‑founders and networks compound over years; help people now",
+          "detail": "Altman says the co‑founder matching problem used to cap how many strong startups formed and credits physical communities (e.g., moving to the Bay Area) and networks like YC for creating serendipitous collisions. He gives the concrete anecdote of meeting Greg Brockman by helping Stripe years earlier, which later enabled OpenAI. Practical takeaway: cultivate relationships and be mildly helpful to many people now — those loose ties often convert into co‑founders, hires, or pivotal introductions years later.",
+          "anchorQuote": "you don't need a ton of people",
+          "tSeconds": 915,
+          "link": "https://www.youtube.com/watch?v=ZIaOBAjvc38&t=915"
+        },
+        {
+          "headline": "AI safety and concentration are real, demonstrated risks",
+          "detail": "Reacting to a recent incident (the Hugging Face event), Altman says loss‑of‑control accidents and alignment/security failures are now within the realm of real, not theoretical, problems. He calls the episode 'the real deal' and recommends the field learn from it while balancing openness with defensive measures to avoid repeat accidents. For founders, the consequence is twofold: build with safety in mind, and recognize startups themselves are part of the solution to prevent power concentration.",
+          "anchorQuote": "This this is the real deal",
+          "tSeconds": 1473,
+          "link": "https://www.youtube.com/watch?v=ZIaOBAjvc38&t=1473"
+        }
+      ]
+    }
+  ]
+}
