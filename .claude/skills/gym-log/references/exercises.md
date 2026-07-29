@@ -12,10 +12,12 @@ spellings show up in the notes. Categories are EN muscle groups.
 | Жим лёжа | Chest | Жим лежа | barbell bench press; 70 kg (2026-07) |
 | Жим сидя | Chest | | seated chest press machine; 70 kg (2026-07) |
 | Сведение рук | Chest | Сведение | pec fly machine; 7-kg tiles: 45/52/59/66/73 |
-| Верт. тяга | Back | Вертикальная тяга, Тяга верт. | lat pulldown; 52→62 (2026-07) |
+| Верт. тяга | Back | Вертикальная тяга, Тяга верт., Верт. тяга (шир. хват) | lat pulldown; 52→62 (2026-07) |
 | Горизонт. тяга | Back | Горизонтальная тяга | seated row; 45→59 (2026-07) |
 | Тяга верт. одной рукой | Back | Тяга одной рукой | single-arm pulldown; 36→45 |
 | Пулловер с колен | Back | Пулловер | kneeling pullover; 36→45 |
+| Тяга в упоре | Back | Тяга в упоре (лёжа) | chest-supported row; plate-loaded, 25→35 (first done 2026-07-29) |
+| Сгиб. на бицепс | Arms | Сгибание на бицепс, Сгиб. бицепс | biceps curl machine; 7-kg tiles 45/52/59 (first done 2026-07-29) |
 | Жим L 45° | Legs | Жим ногами 45° | 45° leg press ("L" = legs); 30→40 |
 | ГАКК присед | Legs | ГАКК приседания, Гакк | hack squat; plate-loaded, 75→120 |
 | Разгиб. голени | Legs | Разгибание голени | leg extension; 7-kg tiles 59/66/73 |
@@ -25,8 +27,14 @@ spellings show up in the notes. Categories are EN muscle groups.
 | Махи на плечи | Shoulders | Махи | lateral-raise machine; 32/36 |
 
 Planned-but-skipped so far (crossed out, never logged): Шаги на плечи,
-«Реверс» (reverse fly — the Сведение рук machine reversed), Тяга в упоре,
-Сгиб. на бицепс.
+«Реверс» (reverse fly — the Сведение рук machine reversed).
+
+**A parenthetical after an exercise name is usually a grip/stance annotation,
+not a new exercise** — "Верт. тяга (шир. хват)" is the same lat-pulldown row as
+"Верт. тяга". Open a new row only when the movement pattern itself differs
+(hence "Тяга верт. одной рукой" IS its own row). When unsure, keep the existing
+row and flag the call to Alex — a wrongly split row silently breaks the
+left-to-right dynamics the sheet exists for.
 
 ## Not logged — section recognition vocabulary
 

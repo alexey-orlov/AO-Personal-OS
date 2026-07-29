@@ -30,6 +30,15 @@ merged in column A, template formatting cloned onto new blocks/rows).
     Creates the date block / category / exercise row if missing, overwrites
     if present (idempotent). Date = `M/D/YYYY`, no leading zeros. Exit 3 =
     re-run `auth`.
+- `flush_pending.sh` — applies staged sessions from `pending/` to the sheet
+  (see below), then writes each session's `progress` JSON beside it for the
+  digest. A failed write leaves the payload staged, alerts the 🏋️ Trainings
+  topic, and exits non-zero — work is never silently dropped.
+- `pending/` — committed staging area for sessions parsed where the sheet
+  can't be written. A cloud/web Claude session can read the notebook photo but
+  has no OAuth token (it lives in git-ignored `.work/`, Mac-only), so it writes
+  `pending/<YYYY-MM-DD>.json` in `log` payload format instead. Flush on the Mac:
+  `automations/gym-log/flush_pending.sh`. Empty in the normal local flow.
 - `.work/` — git-ignored; holds `sheets/token.json`.
 
 ## Auth

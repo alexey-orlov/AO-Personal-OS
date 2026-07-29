@@ -41,13 +41,20 @@ sips -c 600 2700 --cropOffset 1800 950 page_r.jpg --out zoom.jpg
 sips -z 840 3780 zoom.jpg
 ```
 
+**Off the Mac** (cloud/web session — no `sips`, no `mdls`): `pip install Pillow`
+and do the same with PIL — `Image.open(p).transpose(Image.ROTATE_270)` is 90° CW,
+`.crop((x0,y0,x1,y1)).resize(...,Image.LANCZOS)` is the zoom. Check
+`im.getexif()` first: `Orientation = 6` means the raw pixels need 90° CW.
+
 ### 2. Date
 
 `mdls -name kMDItemContentCreationDate <photo>` gives the shoot time — Alex
 photographs the page right after the morning workout, so it pins the training
 date. Cross-check against the handwritten header (DD.MM.YYг). On conflict the
 EXIF date wins (pen slips happen — 2026-07-22 was handwritten "28.07.26"),
-but say so in the report. Sheet date format is **M/D/YYYY without leading
+but say so in the report. Upload pipelines (Telegram, the web/cloud client)
+often strip the timestamp — when there is no EXIF date, the handwritten header
+is all you have: use it and say so. Sheet date format is **M/D/YYYY without leading
 zeros** ("7/22/2026") — block lookup is an exact string match.
 
 ### 3. Parse the page — strength section only
@@ -104,6 +111,22 @@ echo '{"date":"7/22/2026","my_weight":73.6,"entries":[
   update (no training): `{"date":"...","my_weight":74.2,"entries":[]}`.
 - Numbers as JSON numbers (22.5, not "22,5"). Exit code 3 → token expired:
   run `"$PYTHON_BIN" "$GYM_SHEET" auth` (browser consent; ask Alex first).
+
+**Off the Mac the write is impossible, not optional.** The OAuth token and
+`credentials.json` live in git-ignored `.work/`, so a cloud/web session has no
+way to reach the sheet (the Google Drive connector can READ the sheet — use it
+for the `dump` equivalent — but it cannot write cells). Never fake it and never
+duplicate the sheet via `create_file`. Instead:
+
+1. Stage the exact payload as `automations/gym-log/pending/<YYYY-MM-DD>.json`
+   (committed, so it survives the sandbox), and commit it.
+2. Tell Alex plainly that the sheet is NOT yet updated, and give him the flush:
+   `automations/gym-log/flush_pending.sh` — applies every staged payload, leaves
+   it in place + alerts Telegram on failure, and writes the `progress` JSON next
+   to it for the digest.
+3. Skip step 7's digest in that session — a "logged ✅" message before the write
+   lands is exactly the success-shaped lie the repo's hard rule forbids. Send it
+   after the flush, off the real `progress` output.
 
 ### 6. Verify & report
 
