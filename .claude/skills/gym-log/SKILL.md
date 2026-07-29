@@ -121,12 +121,13 @@ duplicate the sheet via `create_file`. Instead:
 1. Stage the exact payload as `automations/gym-log/pending/<YYYY-MM-DD>.json`
    (committed, so it survives the sandbox), and commit it.
 2. Tell Alex plainly that the sheet is NOT yet updated, and give him the flush:
-   `automations/gym-log/flush_pending.sh` — applies every staged payload, leaves
-   it in place + alerts Telegram on failure, and writes the `progress` JSON next
-   to it for the digest.
-3. Skip step 7's digest in that session — a "logged ✅" message before the write
-   lands is exactly the success-shaped lie the repo's hard rule forbids. Send it
-   after the flush, off the real `progress` output.
+   `automations/gym-log/flush_pending.sh` — applies every staged payload and
+   sends the step-7 digest itself; on failure it leaves the payload staged and
+   alerts the 🏋️ topic.
+3. Skip step 7's digest in that session, and say so — a "logged ✅" message
+   before the write lands is exactly the success-shaped lie the repo's hard
+   rule forbids, and the outbox (`TG_OUTBOX=1`) would only deliver it at the
+   next 08:50 Kyiv flush anyway. The flush sends it live instead.
 
 ### 6. Verify & report
 
@@ -143,9 +144,13 @@ one message per training date (a multi-session backfill gets ONE combined
 message instead). Numbers come from the helper, never from mental math:
 
 ```bash
-"$PYTHON_BIN" "$GYM_SHEET" progress 7/24/2026   # deltas vs prev + vs 3-mo baseline
-echo "$MSG" | TG_TOPIC=trainings automations/telegram/telegram_send.sh
+"$PYTHON_BIN" "$GYM_SHEET" progress 7/24/2026 \
+  | "$PYTHON_BIN" automations/gym-log/digest.py \
+  | TG_TOPIC=trainings automations/telegram/telegram_send.sh
 ```
+
+`digest.py` implements the spec below, so the format and the arithmetic live in
+one place. Compose by hand only when you need to say something it can't.
 
 Message spec — short, structured, motivating; plain text; aim well under
 ~1500 chars; EN labels, RU exercise names as in the sheet; dates as DD.MM:

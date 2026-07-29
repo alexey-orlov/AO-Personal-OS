@@ -52,12 +52,23 @@ for f in "${files[@]}"; do
   fi
   echo "$out"
 
-  # Deltas for the digest, straight from the sheet - never hand-computed.
-  "$PYTHON_BIN" "$GYM_SHEET" progress "$date_str" \
-    > "$PENDING_DIR/$(basename "${f%.json}").progress.json" || true
-  echo "[gym-log] progress -> $PENDING_DIR/$(basename "${f%.json}").progress.json"
-
   rm -f "$f"
+
+  # Digest: deltas straight from the sheet, composed by digest.py - the
+  # numbers are never hand-computed, and the send happens only after the
+  # write above actually succeeded.
+  if prog="$("$PYTHON_BIN" "$GYM_SHEET" progress "$date_str" 2>&1)"; then
+    if ! printf '%s' "$prog" | "$PYTHON_BIN" "$HERE/digest.py" \
+         | TG_TOPIC=trainings "$REPO_ROOT/automations/telegram/telegram_send.sh"; then
+      echo "[gym-log] digest send failed for $date_str" >&2
+      alert "$date_str written to the sheet, but the digest did not send."
+      rc=1
+    fi
+  else
+    echo "$prog" >&2
+    alert "$date_str written to the sheet, but progress/digest failed: $prog"
+    rc=1
+  fi
 done
 
 if [ "$rc" -ne 0 ]; then
@@ -65,4 +76,4 @@ if [ "$rc" -ne 0 ]; then
   exit "$rc"
 fi
 
-echo "[gym-log] done. Send the 🏋️ digest with: /gym-log digest"
+echo "[gym-log] done — sheet updated and 🏋️ digest sent."

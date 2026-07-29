@@ -30,10 +30,14 @@ merged in column A, template formatting cloned onto new blocks/rows).
     Creates the date block / category / exercise row if missing, overwrites
     if present (idempotent). Date = `M/D/YYYY`, no leading zeros. Exit 3 =
     re-run `auth`.
+- `digest.py` — `progress` JSON (stdin) → 🏋️ Telegram digest text (stdout).
+  One code path for the digest format and arithmetic; used by the skill and by
+  `flush_pending.sh`.
 - `flush_pending.sh` — applies staged sessions from `pending/` to the sheet
-  (see below), then writes each session's `progress` JSON beside it for the
-  digest. A failed write leaves the payload staged, alerts the 🏋️ Trainings
-  topic, and exits non-zero — work is never silently dropped.
+  (see below) and sends each one's 🏋️ digest. A failed write leaves the payload
+  staged, alerts the Trainings topic, and exits non-zero — work is never
+  silently dropped; a write that lands but whose digest fails alerts too, so a
+  missing message can't be mistaken for a missing workout.
 - `pending/` — committed staging area for sessions parsed where the sheet
   can't be written. A cloud/web Claude session can read the notebook photo but
   has no OAuth token (it lives in git-ignored `.work/`, Mac-only), so it writes
