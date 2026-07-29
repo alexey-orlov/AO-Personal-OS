@@ -1,0 +1,135 @@
+{
+  "schema": 1,
+  "generatedAt": "2026-07-29T04:03:17.623Z",
+  "runStamp": "20260729T0403",
+  "episodes": [
+    {
+      "videoId": "H4jlCNVDgPA",
+      "videoTitle": "Build Your Own Repeatable AI Design Workflow",
+      "videoUrl": "https://www.youtube.com/watch?v=H4jlCNVDgPA",
+      "channelName": "Every",
+      "publishedDate": "2026-07-28",
+      "guests": [
+        "Katherine (Flora)"
+      ],
+      "summary": "A short demo and walkthrough of Flora, a node-based creative canvas that helps designers turn image generation processes into repeatable, shareable techniques. The host and guest show how to extract a system prompt from a base image, adapt it to article content to produce multiple variations, and publish the workflow as an app for teammates. The central argument: codifying visual workflows reduces repetitive effort, speeds iteration, and makes high-concept creative work scalable across a team.",
+      "insights": [
+        {
+          "headline": "You can codify an end-to-end image workflow into a reusable 'technique'.",
+          "detail": "Flora lets you convert a set of connected nodes (text, image, model choices) into a named technique that accepts simple inputs (e.g., a one-line theme) and outputs multiple image variations. Once built you can publish it to your workspace or open it in an 'app mode' so non-designers can run the exact same process without touching the canvas. That turns ad-hoc prompt engineering into a repeatable, team-safe tool for producing consistent visuals.",
+          "anchorQuote": "select build technique, and the first thing",
+          "tSeconds": 405,
+          "link": "https://www.youtube.com/watch?v=H4jlCNVDgPA&t=405"
+        },
+        {
+          "headline": "You can reverse-engineer a reusable system prompt from an example image.",
+          "detail": "By attaching a base image to a text node and asking the model to 'write a system prompt that would recreate an image', Flora generates a robust template prompt that captures composition, collage quality, illustration style, and color treatment. That system prompt becomes the canonical visual language you can adapt to new article content, so different topics still yield images that fit the brand's look. The process makes stylistic consistency easier than hand-writing prompts each time.",
+          "anchorQuote": "write a system prompt that would recreate an image",
+          "tSeconds": 109,
+          "link": "https://www.youtube.com/watch?v=H4jlCNVDgPA&t=109"
+        },
+        {
+          "headline": "Flora turns one brief into multiple, distinct image concepts automatically.",
+          "detail": "After creating a template prompt, you paste an article blurb (anything from one word to a paragraph) and ask the model to 'Give me three different options numbered 1 2 3', producing three distinct, numbered prompt variations. Flora can split that list into separate text nodes, funnel each into an image node, and render three different visualizations (the demo used Nano Banana Pro 4K/2K models). This accelerates 'throwing pasta at the wall' experimentation while keeping every variant linked to the same visual spec.",
+          "anchorQuote": "Give me three different options numbered 1 2 3",
+          "tSeconds": 214,
+          "link": "https://www.youtube.com/watch?v=H4jlCNVDgPA&t=214"
+        },
+        {
+          "headline": "Small tooling features (split nodes, auto-populate prompts) speed iterative design work.",
+          "detail": "Flora includes conveniences like a toolbar command to 'split list into nodes' which converts a generated list of prompts into individual nodes and automatically populates each image node with its prompt and model settings. That reduces manual copy-paste, lets you try different models/aspect ratios quickly, and makes it trivial to inspect or tweak each variant independently. These micro-features matter because they turn iterative exploration from a slow chore into a fast, repeatable step in the creative process.",
+          "anchorQuote": "option at the toolbar at the top called split list into nodes",
+          "tSeconds": 325,
+          "link": "https://www.youtube.com/watch?v=H4jlCNVDgPA&t=325"
+        },
+        {
+          "headline": "Flora is most valuable for teams doing repetitive, high-concept creative work.",
+          "detail": "The guest observes that teams who 'find themselves doing very repetitive work, very conceptual work' get the most value because Flora codifies experimental processes so you can iterate without burning out. Instead of many people individually experimenting with prompts and styles, a single repeatable technique produces consistent outputs that teams can review and scale. That reduces wasted time and helps decide which concepts are worth further development.",
+          "anchorQuote": "doing very repetitive work, very conceptual work",
+          "tSeconds": 512,
+          "link": "https://www.youtube.com/watch?v=H4jlCNVDgPA&t=512"
+        }
+      ]
+    },
+    {
+      "videoId": "byAj35QlGbs",
+      "videoTitle": "Blake Scholl: \"The Future Was Supposed to Be Faster\"",
+      "videoUrl": "https://www.youtube.com/watch?v=byAj35QlGbs",
+      "channelName": "Y Combinator",
+      "publishedDate": "2026-07-28",
+      "guests": [],
+      "summary": "Founder Blake Scholl recounts Boom's decade-long effort to revive supersonic passenger travel and argues that faster, quieter supersonic flight is both technologically feasible and societally transformative. He explains how a small, vertically integrated team used software-like engineering, rapid physical iteration, and creative business models to cut cost, prove safety (including eliminating the sonic boom), change regulation, and attract funding. Interwoven are practical lessons for founders about mission, hiring, and how to learn hard technical domains.",
+      "insights": [
+        {
+          "headline": "Supersonic passenger flight can be quiet and legal",
+          "detail": "Boom's XB1 demonstrator broke the sound barrier multiple times while producing no audible sonic boom on the ground by exploiting 'mach cutoff' at the right altitude and speed. That physical demonstration removed the central regulatory objection to supersonic overland flight, triggered an executive order and bipartisan legislation, and turned legality from a barrier into a solved problem. The practical implication is that supersonic airliners can be developed without inheriting the Concorde-era ban if they control or eliminate ground booms.",
+          "anchorQuote": "Each time no audible sonic boom in the ground.",
+          "tSeconds": 587,
+          "link": "https://www.youtube.com/watch?v=byAj35QlGbs&t=587"
+        },
+        {
+          "headline": "Treat hardware engineering like software to iterate faster",
+          "detail": "Boom converted traditionally siloed spreadsheet engineering into integrated code tools (Makeboom for whole-aircraft simulation and Bladeunner for turbine blades), letting designers run full aircraft or blade simulations in minutes rather than months. That digital-first tooling let a small team (~50 people) explore far more design variants, find the right product-market fit, and compress engineering cycles the way software teams use CI/CD. The effect: complex trade-offs across propulsion, aerodynamics and structures become tractable at startup scale.",
+          "anchorQuote": "And we built a system called Makeboom.",
+          "tSeconds": 849,
+          "link": "https://www.youtube.com/watch?v=byAj35QlGbs&t=849"
+        },
+        {
+          "headline": "Vertical integration unlocked a novel financing path",
+          "detail": "By building its own propulsion stack, Boom repackaged its supersonic engine as a ground power turbine product called Superpower that can be sold independently from the airplane. Selling turbines generates revenue, test data, and customer relationships while funding ongoing R&D for the aircraft; Boom expects first Superpower deliveries in under 12 months. This shows deep-tech startups can de-risk billion-dollar programs by finding adjacent commercial uses for core components.",
+          "anchorQuote": "sell it separately on the ground as a natural gas power turbine",
+          "tSeconds": 1080,
+          "link": "https://www.youtube.com/watch?v=byAj35QlGbs&t=1080"
+        },
+        {
+          "headline": "Mission-driven persistence outlasts credentials and near-death moments",
+          "detail": "Scholl emphasizes picking a mission you love and persevering through the worst days — Boom nearly ran out of cash (seven days left) and the board urged shutdown, yet the founder refused and the company later achieved historic supersonic flights. The talk argues that credentials matter less than sustained commitment: building something important attracts regulatory change, partners, and funding only if leaders persist through repeated setbacks. For founders, the practical lesson is to optimize for both the worst day (survivability) and the best day (breakthrough) by choosing work that keeps you going.",
+          "anchorQuote": "The worst day and the best day.",
+          "tSeconds": 518,
+          "link": "https://www.youtube.com/watch?v=byAj35QlGbs&t=518"
+        }
+      ]
+    },
+    {
+      "videoId": "-tabaM5l3s0",
+      "videoTitle": "The Next Frontier of AI Is Spatial Intelligence | Fei-Fei Li on a16z",
+      "videoUrl": "https://www.youtube.com/watch?v=-tabaM5l3s0",
+      "channelName": "a16z",
+      "publishedDate": "2026-07-28",
+      "guests": [
+        "Yunu (Scenix)"
+      ],
+      "summary": "Fei-Fei Li and a guest from Scenix discuss how spatial intelligence and high-fidelity simulated worlds can unlock scalable robotics by solving data scarcity and evaluation bottlenecks. Their throughline: build geometrically and temporally consistent digital worlds (using models like World Labs' Marble) to train, test, and iterate robot policies more quickly and safely than relying solely on real-world data.",
+      "insights": [
+        {
+          "headline": "Real-to-sim-to-real digital worlds can replace scarce robotics data",
+          "detail": "Scenix's core approach is to reconstruct real environments into digitally aligned worlds so behaviors in simulation match the real world; this lets teams generate scalable training and evaluation data without exhaustive real-world collection. World Labs' Marble is an example base model that turns images/text prompts into geometrically consistent 3D representations, giving robots consistent spatial scenes to learn from. That matters because robotic development today is bottlenecked by limited and slow real-world data collection; a faithful digital twin lets you iterate and test far faster.",
+          "anchorQuote": "we want to map the real environments into the digital world",
+          "tSeconds": 278,
+          "link": "https://www.youtube.com/watch?v=-tabaM5l3s0&t=278"
+        },
+        {
+          "headline": "Robotics foundation models must include actions as a core modality",
+          "detail": "A true foundation model for robotics is multimodal and must treat actions not just as outputs but as inputs too: frames+actions can serve as a forward simulator and action outputs become policies. This action-aware, omni-modal framing lets a single backbone predict how the world evolves under interventions and also propose the actions that achieve goals, making fine-tuning into concrete robotic tasks possible. Without action as a first-class modality, models risk lacking the coupling between perception and control that real-world robotics requires.",
+          "anchorQuote": "it's very likely going to involve actions",
+          "tSeconds": 682,
+          "link": "https://www.youtube.com/watch?v=-tabaM5l3s0&t=682"
+        },
+        {
+          "headline": "Simulation is essential because it enables counterfactual reasoning and scale",
+          "detail": "Simulations let you play out counterfactuals and scenarios you cannot or do not have enough real data for, a capability the speakers argue is fundamental to learning robust policies. They point to industrial examples like self-driving companies that rely on billions of hours of simulation and note teleoperation data collection is often slower than human task speed, so simulation provides both coverage and speed. The non-obvious takeaway: simulation isn't a substitute that will always fail — it's a complementary tool that provides systematic variability and safety that real data alone cannot supply.",
+          "anchorQuote": "counterfactual reasoning is that you play out events",
+          "tSeconds": 1208,
+          "link": "https://www.youtube.com/watch?v=-tabaM5l3s0&t=1208"
+        },
+        {
+          "headline": "Model- and embodiment-agnostic simulated environments accelerate training and evaluation",
+          "detail": "The platform described is intentionally agnostic to robot body and learning model: the same digital world can host many embodiments (arms, mobile manipulators, grippers) and train or evaluate different policies. That matters because customers already use diverse hardware and need a single, consistent environment to compare checkpoints (e.g., distinguish 90% vs 92% performance) and to run systematic randomizations of lighting, friction, and object geometry for reliability. Being agnostic makes the infrastructure a practical integration point for companies at many stages rather than a single-vendor robot.",
+          "anchorQuote": "this infrastructures is naturally model agnostic and embodiment agnostic",
+          "tSeconds": 1673,
+          "link": "https://www.youtube.com/watch?v=-tabaM5l3s0&t=1673"
+        }
+      ]
+    }
+  ]
+}
