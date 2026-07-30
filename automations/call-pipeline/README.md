@@ -17,6 +17,7 @@ report -> the `context-update` skill folds the note into the context wiki
 - `process_one.sh` orchestrates one recording end-to-end, then calls git_sync
 - `git_sync.sh`   commit + push one or more notes in a single commit (best-effort, offline-safe)
 - `watch.sh`      polls the folder; processes new recordings once; fills gaps after downtime
+- `sync_guard.sh` self-heals a wedged Mac-side Voice Memos iCloud sync (sourced by watch.sh; also runs standalone)
 - `com.user.callpipeline.plist` launchd agent for hands-off background running
 
 ## Privacy

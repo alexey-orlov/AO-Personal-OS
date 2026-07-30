@@ -36,7 +36,7 @@ Test recordings and predominantly-RU/UA calls (where Alex's English is just scat
 - Keychain: use `security add-generic-password -U …` to OVERWRITE a key; plain `add` errors "already exists" and silently keeps the old value.
 - The Voice Memos store is a TCC-protected Group Container, auto-detected into `$VOICE_MEMOS_DIR`. It is invisible on iPhone and not on iCloud.com; only an iCloud-synced Mac exposes the real `.m4a` files.
 - iCloud sync to the Mac takes minutes and occasionally needs Voice Memos opened on the phone to push.
-- **Mac-side sync can wedge silently after days of app uptime (2026-07-30 incident).** A long-running `VoiceMemos.app`/`voicememod` instance (13 days old) stopped importing from CloudKit — no new `.m4a`, no `CloudRecordings.db-wal` writes for 9 days, and even foregrounding the app fetched nothing, while the phone had uploaded everything fine. The pipeline sees an empty feed and looks healthy. Diagnosis: newest `.m4a` mtime and `CloudRecordings.db-wal` mtime both stale despite recent recordings on the phone. Fix (pulls everything within seconds): `osascript -e 'quit app id "com.apple.VoiceMemos"'` (the AppleScript *name* "Voice Memos" may not resolve — use the bundle id), `kill <voicememod pid>`, then `open -gj -b com.apple.VoiceMemos` (relaunches hidden; watcher picks the files up on its next 30 s tick). Note for debugging in zsh: `log` is a zsh BUILTIN — `log show …` silently runs the builtin and returns nothing; call `/usr/bin/log` explicitly.
+- **Mac-side sync can wedge silently after days of app uptime (2026-07-30 incident).** A long-running `VoiceMemos.app`/`voicememod` instance (13 days old) stopped importing from CloudKit — no new `.m4a`, no `CloudRecordings.db-wal` writes for 9 days, and even foregrounding the app fetched nothing, while the phone had uploaded everything fine. The pipeline sees an empty feed and looks healthy. Diagnosis: newest `.m4a` mtime and `CloudRecordings.db-wal` mtime both stale despite recent recordings on the phone. Fix (pulls everything within seconds): `osascript -e 'quit app id "com.apple.VoiceMemos"'` (the AppleScript *name* "Voice Memos" may not resolve — use the bundle id), `kill <voicememod pid>`, then `open -gj -b com.apple.VoiceMemos` (relaunches hidden; watcher picks the files up on its next 30 s tick). Note for debugging in zsh: `log` is a zsh BUILTIN — `log show …` silently runs the builtin and returns nothing; call `/usr/bin/log` explicitly. **Since 2026-07-30 the watcher self-heals this:** `sync_guard.sh` (sourced by `watch.sh`) checks the wal mtime hourly; older than `SYNC_STALE_HOURS` (config.sh, default 72, 0=off) ⇒ it runs exactly that restart recipe (never while an `.m4a` is open for write — lsof check), max one kick per 24h, and if the wal is *still* stale a day after a kick it alerts on Telegram (General). State + persistent event log in `.work/state/sync_guard*`. Manual immediate check: `./sync_guard.sh` (add `SYNC_GUARD_DRYRUN=1` to only look). Known blind spot: if a mere app relaunch rewrites the wal without importing, a real wedge reads as "recovered" and the alert never fires — if that's ever observed, track newest-`.m4a` mtime too.
 - `.work/` holds audio + transcripts (private, git-ignored).
 
 ## Calendar matching
@@ -49,10 +49,10 @@ Test recordings and predominantly-RU/UA calls (where Alex's English is just scat
 - Failures (no creds, API down, bad timestamp) degrade to "no match" — the pipeline never breaks because of the calendar step.
 
 ## Files
-`config.sh` · `setup.sh` · `transcribe.py` · `calendar_lookup.py` · `process_one.sh` · `git_sync.sh` · `watch.sh` · `com.user.callpipeline.plist`
+`config.sh` · `setup.sh` · `transcribe.py` · `calendar_lookup.py` · `process_one.sh` · `git_sync.sh` · `watch.sh` · `sync_guard.sh` · `com.user.callpipeline.plist`
 
 ## Deploying changes
-- Editing `watch.sh` or `config.sh` requires reloading the launchd agent — they are read once by the long-lived watcher process. Reload with:
+- Editing `watch.sh`, `sync_guard.sh`, or `config.sh` requires reloading the launchd agent — they are read once by the long-lived watcher process. Reload with:
   ```
   launchctl unload ~/Library/LaunchAgents/com.user.callpipeline.plist
   launchctl load   ~/Library/LaunchAgents/com.user.callpipeline.plist

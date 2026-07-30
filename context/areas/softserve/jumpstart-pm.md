@@ -31,6 +31,11 @@ _updated: 2026-07-30_
 - Bogdan — exec driver behind the PM extension; gatekeeper for sharing the DAX folder/proposals.
 - Nadia Zerchak — PM on DAX; built the Claude skill that generates Jumpstart's process board.
 - Jorge Rojas, Inok — engineering leads on Payworks.
+- David — SoftServe senior lead / decision-maker on the Payworks engagement (scope, cadence, staffing; liaises with Roman, Scott Forrest, Marlene). [planning call](calls/jumpstart-pm/2026-07-30_133224_sales-call_20260729180444E25F29B5.md)
+- Roberto (rendered "Alberto" in parts of the transcript) — client-facing engagement lead on Payworks; maps the PDLC, single "window person" with Marlene.
+- Marlene — senior PM at Payworks, oversees most product initiatives; key client stakeholder (owns the "smooth handoff" success definition).
+- Pavel (Paweł) — holds the ADLC-process knowledge, available ~2 more weeks; transferring it to Vladislav.
+- Vladislav (Vlad) — SoftServe; slated product↔BA link on Payworks, mentored by Pavel.
 - Greg — Poland-based trainer, runs most Jumpstart workshops (LLM/agents intro, coding agents, context engineering).
 - Arkadiusz, Oleh Marchevich — exec co-holders of Jumpstart ownership.
 - GI Partners buyer — PE-side sponsor overseeing the portfolio; controls intros to portfolio companies and the provider-consolidation decision (name uncertain, possibly "Sandeshan"). [sales call](calls/jumpstart-pm/2026-07-30_132405_sales-call_2026072717330524296792.md)
@@ -38,6 +43,7 @@ _updated: 2026-07-30_
 
 ## Decisions
 
+- 2026-07-29 — **Payworks Jumpstart**: proceed proactively (map the current PDLC + prioritize an AI-skills "menu" independent of process changes) rather than wait on the client's requirements-mapping; one client "window person" (Roberto) with Marlene; reframe the kickoff "workshop" as a 1-hour discovery call. [planning call](calls/jumpstart-pm/2026-07-30_133224_sales-call_20260729180444E25F29B5.md)
 - 2026-07-27 — GI Partners buyer chose the **committed pilot tier** (measured ROI) over the self-paced track for the DAX PM program; next step is a pitch call with DAX's CPO/CTO backed by a fuller doc + directional pricing. [sales call](calls/jumpstart-pm/2026-07-30_132405_sales-call_2026072717330524296792.md)
 - 2026-07-14 — Program concept set: shared AI work-OS + working-group model (champions / power adopters) + rolling 5-block use-case wave, W0-W9 with W13/W17 health checks; Alex's Google-Doc structure is the authoritative agenda, superseding the v0.8 design. (chat, 2026-07-14)
 - 2026-07-14 — For the GI Partners DAX PM ask, propose **tiered options** (a practical PM training tier vs. a short outcome/"transformation" tier with real implementation), kept weeks-not-months to avoid reading as BCG-style strategy consulting. [sync](calls/jumpstart-pm/2026-07-14_194924_sales-call_2026071417472224FB611D.md)
@@ -50,14 +56,17 @@ Mine:
 - Review the 2-page program outline (swap the footer's softserveinc.com for an internal alias if one exists), then send the program draft to the team (evening Jul 14 / Jul 15). [sync](calls/jumpstart-pm/2026-07-14_194924_sales-call_2026071417472224FB611D.md) + (chat, 2026-07-14)
 - Review Alex's own bio slide (2026-07-27, `~/Downloads/PM-Jumpstart-Bio-Alex Orlov v2.pptx`) — esp. location "San Francisco, USA" + languages "EN / UA / RU" framing — then hand to the team for the DAX package.
 - Reach out to Nadia Zerchak (DAX) and Jorge Rojas / Inok (Payworks) for project depth. (inferred)
+- **Payworks**: maintain/prepare the skills roster + context-items doc + discovery-workshop template for the engagement, and align internally with Vladislav on the ADLC process (no client needed). [planning call](calls/jumpstart-pm/2026-07-30_133224_sales-call_20260729180444E25F29B5.md)
 
 Theirs:
+- **Payworks (Marlene)** — come back with requirements input once the product team + HD Capital finish mapping; agree to and attend a kickoff/discovery call (gates all context inputs); provide reference PRDs + system access + integration decisions once discovery lands. [planning call](calls/jumpstart-pm/2026-07-30_133224_sales-call_20260729180444E25F29B5.md)
 - **GI Partners buyer** — reply-all to bring in Sean Turner + get DAX's CPO/CTO (Wes Gillett, Pat Harper) on a pitch call next week; make intros to up to 6 portfolio companies within ~2 weeks. [sales call](calls/jumpstart-pm/2026-07-30_132405_sales-call_2026072717330524296792.md)
 - Inna — share the PM-program one-pager over email; check completed customers' NDA status to arrange a **reference call** with a GI-lookalike customer.
 - Inna: check with Bogdan whether the DAX project folder + proposals can be shared with Alex.
 
 ## Activity
 
+- 2026-07-29 — [Payworks Jumpstart delivery planning call](calls/jumpstart-pm/2026-07-30_133224_sales-call_20260729180444E25F29B5.md) — vendor-side planning for the 4-week agentic-PDLC engagement (week 1), scoped to the product→BA handoff; team chose to lead proactively (map the PDLC + prioritize an AI-skills menu) instead of waiting on the client; single window person (Roberto) with Marlene; "workshop" reframed to a 1-hour discovery call; Pavel→Vladislav knowledge transfer; daily standup 4:30 PM CET from Friday.
 - 2026-07-27 — [DAX PM offering pitched to the GI Partners buyer](calls/jumpstart-pm/2026-07-30_132405_sales-call_2026072717330524296792.md) — Inna + Alex walked the PE buyer through the two-mode PM program (committed pilot 5-10 PMs w/ measured ROI vs. lighter self-paced training); buyer bought in, prefers the committed pilot, wants AI enablement extended from DAX engineering to its bottlenecked PM teams; next step a pitch call with DAX's CPO/CTO (Wes Gillett / Pat Harper) backed by a fuller doc + directional pricing; buyer eyeing rollout to up to 6 more portfolio cos and consolidating providers 3→2 (SoftServe one of 2); open: program track-record proof + an NDA-cleared reference call.
 - 2026-07-27 — trainer-bio slide (chat, 2026-07-27) — SoftServe one-slide bio template filled with Alex's data (profile, domain expertise, AI & agentic delivery, quick facts, studio headshot); AI section then reworked to four anonymized examples (Code Maestro / Creatio ML engine / GigaCloud / ThriveState) → `~/Downloads/PM-Jumpstart-Bio-Alex Orlov v2.pptx`, awaiting review; advances the DAX/GI Partners bios deliverable.
 - 2026-07-14 — program structure v1 + client outline (chat, 2026-07-14) — Alex authored the new program structure ([Google Doc](https://docs.google.com/document/d/1wJ9Pn5RiPDn_gGmtf9tDy5zv5SNxOT5lERbewpNuPOg/edit): working-group + shared work-OS + rolling use-case wave); client-ready 2-page outline built in the WfO one-pager visual system (local Jumpstart folder), in review.
