@@ -36,6 +36,7 @@ Test recordings and predominantly-RU/UA calls (where Alex's English is just scat
 - Keychain: use `security add-generic-password -U …` to OVERWRITE a key; plain `add` errors "already exists" and silently keeps the old value.
 - The Voice Memos store is a TCC-protected Group Container, auto-detected into `$VOICE_MEMOS_DIR`. It is invisible on iPhone and not on iCloud.com; only an iCloud-synced Mac exposes the real `.m4a` files.
 - iCloud sync to the Mac takes minutes and occasionally needs Voice Memos opened on the phone to push.
+- **Mac-side sync can wedge silently after days of app uptime (2026-07-30 incident).** A long-running `VoiceMemos.app`/`voicememod` instance (13 days old) stopped importing from CloudKit — no new `.m4a`, no `CloudRecordings.db-wal` writes for 9 days, and even foregrounding the app fetched nothing, while the phone had uploaded everything fine. The pipeline sees an empty feed and looks healthy. Diagnosis: newest `.m4a` mtime and `CloudRecordings.db-wal` mtime both stale despite recent recordings on the phone. Fix (pulls everything within seconds): `osascript -e 'quit app id "com.apple.VoiceMemos"'` (the AppleScript *name* "Voice Memos" may not resolve — use the bundle id), `kill <voicememod pid>`, then `open -gj -b com.apple.VoiceMemos` (relaunches hidden; watcher picks the files up on its next 30 s tick). Note for debugging in zsh: `log` is a zsh BUILTIN — `log show …` silently runs the builtin and returns nothing; call `/usr/bin/log` explicitly.
 - `.work/` holds audio + transcripts (private, git-ignored).
 
 ## Calendar matching
