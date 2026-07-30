@@ -1,9 +1,8 @@
 # SoftServe — R&D advisory & product lead (part-time)
 
 _status: ramping in — part-time (~50–80 h/mo from Ukraine): product lead for the R&D Delivery Unit + agentic-AI SME; full-time possible after US move_
-_updated: 2026-07-23_
+_updated: 2026-07-30_
 _source files: SoftServe OneDrive `~/Library/CloudStorage/OneDrive-SoftServe,Inc` (synced on this Mac; also via ms365 MCP) → [registry](../../_meta/external-sources.md)_
-<!-- _updated: 2026-07-30 -->_
 
 ## Snapshot
 
