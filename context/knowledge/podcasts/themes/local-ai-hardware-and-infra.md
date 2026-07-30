@@ -2,7 +2,7 @@
 
 _status: live theme — matching hardware to model tradeoffs for self-hosted, always-on AI fleets_
 _slug: local-ai-hardware-and-infra_
-_updated: 2026-07-19 · 6 insights from 2 episodes_
+_updated: 2026-07-30 · 7 insights from 3 episodes_
 
 ## The throughline
 Running frontier-capable models at home is now a hardware-selection problem with three distinct tradeoffs, not a single "best machine" choice: Mac Studios trade speed for unified memory (512GB lets a single machine load models like GLM 5.2, at the cost of multi-minute response times), the DGX Spark trades some memory for much better bandwidth (128GB at ~$4k, a practical middle ground for mid-size models), and discrete GPUs like the RTX 5090 trade model size for near-cloud speed (32GB VRAM, lightning-fast inference). Agent frameworks (OpenClaw, Hermes) paired with Tailscale remove the sysadmin burden of provisioning across a heterogeneous fleet, letting a single operator orchestrate multiple machines without deep systems expertise. The payoff of owning this stack is economic: local models running 24/7 make continuous background work (security scans, code review, social listening) affordable in a way cloud-metered tokens aren't, with cloud models like Claude reserved for the high-value review/closing step — a federated-by-cost-and-capability compute pattern.
@@ -35,10 +35,16 @@ Prism ML's Bonsai 27B demonstrates the practical payoff of extreme quantization:
 — Peter H. Diamandis · 2026-07-19 · guest: Emad Mostaque (Stability AI) · [▶ 62:36](https://www.youtube.com/watch?v=pSUyLfirP8Y&t=3756) · `pi-pSUyLfirP8Y-04`
 related: [Mac Studio unified memory lets you run frontier models locally](#mac-studio-unified-memory-lets-you-run-frontier-models-locally) (same on-device-intelligence thesis, opposite end of the hardware spectrum — a workstation loading a frontier model vs. an aggressively quantized model fitting on a phone)
 
+### Most user queries could be served locally for far less energy
+The 'intelligence per watt' study measures delivered capabilities per power and shows local consumer accelerators plus open models can handle a large share of inference traffic: roughly 80–89% of queries could be routed to local inference today. Over the past ~16–24 months they observed ~3× improvement in intelligence per watt and ~18× improvement in intelligence per joule (energy efficiency) driven by better local models, consumer GPUs with more memory (e.g., Apple M4, Nvidia laptop GPUs), and quantization/optimization advances — implying big energy, cost, and data‑center demand reductions if routing is implemented well.
+— Y Combinator · 2026-07-29 · guest: Stuart (Stanford, Cursor), John, Mark (Core Auto, GPU Mode), Misha Manski, Brennan · [▶ 24:51](https://www.youtube.com/watch?v=n8dz2FX0_uY&t=1491) · `pi-n8dz2FX0_uY-02`
+related: [Running local models 24/7 creates affordable ambient automation](#running-local-models-247-creates-affordable-ambient-automation) (same local-inference-is-cheaper-and-viable-at-scale thesis, here backed by a formal efficiency study rather than one operator's practice) · theme → [Tech frontier & abundance](tech-frontier-and-abundance.md) (the same episode's kernel-engineering and heterogeneous-inference insights, `pi-n8dz2FX0_uY-01,04,05`)
+
 ## Related themes
 - [Agent engineering & production infra](agent-engineering-patterns.md) — production agent architecture that runs on top of this hardware layer
 - [Agent delegation, loops & software factories](agent-delegation-and-loops.md) — the build+review loop pattern from the same episode
 
 ## Source episodes
+- [Y Combinator — Multi-GPU Kernels, Intelligence per Watt, Heterogeneous Inference, and More | YC Paper Club (2026-07-29)](../episodes/2026/2026-07-29--yc--multi-gpu-kernels-intelligence-per-watt-paper-club.md)
 - [Peter H. Diamandis — Urgent Update- AI Sputnik Moment: Kimi K3 Released w/ Emad Mostaque | Ep. 272 (2026-07-19)](../episodes/2026/2026-07-19--diamandis--ai-sputnik-moment-kimi-k3-ep-272.md)
 - [How I AI — Local AI models explained: How to run a fleet of Mac Studios and GPUs at home (2026-07-13)](../episodes/2026/2026-07-13--howiai--local-ai-models-explained-mac-studios-gpus.md)

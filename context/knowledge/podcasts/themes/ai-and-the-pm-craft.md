@@ -2,7 +2,7 @@
 
 _status: live theme — how AI reshapes product management work, skills, workflows, and roles_
 _slug: ai-and-the-pm-craft_
-_updated: 2026-07-28 · 34 insights from 22 episodes · ⚠ at 34/30: just over budget, no clean seam yet_
+_updated: 2026-07-30 · 36 insights from 23 episodes · ⚠ at 36/30: over budget, no clean seam yet_
 
 ## The throughline
 PMs and full-stack designers gain leverage in the coding-agent era because the gap between "knowing what to build" and "shipping it" collapses. The skill shift is from raw implementation to defining what to build, evaluating quality, and designing where humans and agents collaborate — Shipper bets PMs who "ride the models" out-ship engineers, an OpenAI PM uses Codex to drive prototypes to 70–80% completion and replace PRDs with runnable artifacts, and a non-technical builder ships a production iPhone app and clears App Store review using LLMs as her stepwise architect + engineer. Lovable extends this to "anyone": vibe coding democratizes product creation, with a student hitting $130k ARR in 30 days. The same craft scales up the org chart: Customer.io's VP of Product rebuilds a third of an all-hands deck in a morning, but only by treating Claude like an eager junior — rolling context in, forcing clarifying questions, blocking premature deliverables — and the leader's residual value collapses to two choices: *which sources* (recordings, docs, metrics) and *which target form* (deck, Notion page, one-pager). The model-selection beat also sharpens: Fable's "seasoned engineer" verbosity wrecks PRDs, so pair Mythos-class models with cheaper Opus/Sonnet by task type. Ambrosino (OpenAI Codex) sharpens the picture from the supply side: when dozens of people inside a company can stand up polished prototypes from the same idea, implementation is no longer the bottleneck — *curation* is: deciding which of ~90 explorations to keep, fold together, or refine. The same abundance makes design and taste distinctly non-automatable: aesthetic judgment, novelty, and system-level UI coherence lack the grading signals needed to train models to generalize, so models copy patterns (Linear-clone proliferation) but cannot generate the novelty or cross-component semantic reasoning that defines good design. The operational kit that recurs: hyper-literal prompts, screenshots-as-examples, prototypes-not-PRDs, a beginner's mindset, and the discipline to restrain the model until the foundations are set.
@@ -172,12 +172,23 @@ A maker used Cursor as a conversational design and implementation partner—dump
 — How I AI · 2026-07-27 · guest: MaddieDReese (maker) · [▶ 7:08](https://www.youtube.com/watch?v=KCGKb3huDsY&t=428) · `pi-KCGKb3huDsY-01`
 related: [Codex lets non‑engineers build production automation rapidly](#codex-lets-nonengineers-build-production-automation-rapidly) (same non-engineer-plus-conversational-AI pattern, here applied to physical hardware instead of software automation)
 
+### Interviews now require live AI prototyping, not just product talk
+The mock interview forces the candidate to speed-run product sense and then switch to live AI-powered prototyping inside a 28-minute window. He uses a flow: rapid user/problem segmentation → PRD → then parallel prompts across Claude Code, Magic Patterns, and Fable/Lovable to generate multiple UI concepts and HTML. The point: interviewers are evaluating a PM's ability to frame problems quickly and orchestrate models/tools to deliver tangible prototypes, not merely to narrate product strategy.
+— Aakash Gupta · 2026-07-29 · guest: Akash (PM candidate) · [▶ 2:23](https://www.youtube.com/watch?v=iNFE_u5hw3U&t=143) · `pi-iNFE_u5hw3U-01`
+related: [AI PM roles demand probabilistic thinking, data focus, and humility](#ai-pm-roles-demand-probabilistic-thinking-data-focus-and-humility) (a second practitioner data point on how AI PM interview loops are changing) · theme → [Agent harness engineering](agent-harness-engineering.md) (this episode's harness-building insight, `pi-iNFE_u5hw3U-02`)
+
+### AI can do the middle 60% of prototyping; humans handle edges
+The candidate explicitly frames the division of labor: humans should do the initial thinking and final refinement while AI handles the bulk of generation and iteration (the 'middle 60%'). He demonstrates this by writing the PRD, defining weak-connection criteria, then letting models generate five UI concepts and HTML drafts that he reviews and selects from. This matters because it reframes the PM skillset toward rapid problem definition, tooling choices, and judgment rather than hand-coding every detail.
+— Aakash Gupta · 2026-07-29 · guest: Akash (PM candidate) · [▶ 4:16](https://www.youtube.com/watch?v=iNFE_u5hw3U&t=256) · `pi-iNFE_u5hw3U-03`
+related: [Implementation is cheap; curation and taste are the real bottlenecks](#implementation-is-cheap-curation-and-taste-are-the-real-bottlenecks) (same human-does-the-edges-model-does-the-middle division of labor, here as an explicit interview-round framing)
+
 ## Related themes
 - [AI agents & applications](ai-agents-and-applications.md) — the surfaces PMs build in
 - [Leadership, careers & teams](leadership-careers-and-teams.md) — how the manager/IC mix is shifting alongside
 - [Product discovery & strategy](product-discovery-and-strategy.md) — feature differentiation is dead; moats sit elsewhere
 
 ## Source episodes
+- [Aakash Gupta — The New AI PM Interview Round Where You Build Live, Not Just Talk (2026-07-29)](../episodes/2026/2026-07-29--aakash--new-ai-pm-interview-round-build-live.md)
 - [How I AI — How this "non-coder" used Cursor to add AI to retro hardware (2026-07-27)](../episodes/2026/2026-07-27--howiai--non-coder-cursor-ai-retro-hardware.md)
 - [Lenny's Podcast — Anthropic's first technical PM on token maxing, the jagged edge, and living in the future (2026-07-26)](../episodes/2026/2026-07-26--lenny--anthropics-first-technical-pm-token-maxing-jagged-edge.md)
 - [How I AI — I let Codex control my browser so I don't have to (2026-07-22)](../episodes/2026/2026-07-22--howiai--i-let-codex-control-my-browser-so-i-dont-have-to.md)
