@@ -60,6 +60,13 @@ export ANALYZE_MODEL=""    # e.g. "sonnet"
 export USE_EU_ENDPOINT="0" # 1 = AssemblyAI EU data residency
 export WATCH_INTERVAL="30"
 export MAX_TRIES="3"
+
+# Voice Memos iCloud-sync staleness guard (sync_guard.sh, sourced by watch.sh;
+# 2026-07-30 incident): if CloudRecordings.db-wal goes unwritten for this many
+# hours, the watcher restarts VoiceMemos.app + voicememod (max one kick per
+# 24h) and sends a Telegram alert when a kick doesn't help within a day.
+# 0 = guard off.
+export SYNC_STALE_HOURS="72"
 export AUTO_GIT="1"        # 1 = auto commit+push each note, 0 = off
 
 # Context-wiki step: fold each new call note into context/ (project pages +

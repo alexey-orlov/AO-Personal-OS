@@ -5,6 +5,9 @@ set -euo pipefail
 HERE="$(cd "$(dirname "$0")" && pwd)"
 # shellcheck source=/dev/null
 source "$HERE/config.sh"
+# Voice Memos iCloud-sync staleness self-heal (2026-07-30 incident).
+# shellcheck source=/dev/null
+source "$HERE/sync_guard.sh"
 
 mkdir -p "$STATE" "$OUT_DIR"
 LEDGER="$STATE/processed.log"; touch "$LEDGER"
@@ -105,5 +108,9 @@ while true; do
       rm -f "$runlog"
     fi
   done < <(find "$VOICE_MEMOS_DIR" -name '*.m4a' -type f -print0 2>/dev/null)
+  # Hourly (self-gated): detect a wedged Mac-side Voice Memos iCloud sync via
+  # CloudRecordings.db-wal staleness and restart the app stack (sync_guard.sh).
+  # Must never break the watcher.
+  sync_guard_tick || true
   sleep "$INTERVAL"
 done
