@@ -1,0 +1,315 @@
+{
+  "schema": 1,
+  "generatedAt": "2026-07-30T04:05:48.466Z",
+  "runStamp": "20260730T0405",
+  "episodes": [
+    {
+      "videoId": "ztN6bE_FuQQ",
+      "videoTitle": "How to Build AI Evals Step-by-Step | Daniel McKinnon | Product Growth",
+      "videoUrl": "https://www.youtube.com/watch?v=ztN6bE_FuQQ",
+      "channelName": "Aakash Gupta",
+      "publishedDate": "2026-07-28",
+      "guests": [
+        "Daniel McKinnon (Gamoff Labs)"
+      ],
+      "summary": "Daniel McKinnon explains how to design offline and agentic evals to decide whether a GenAI feature is ready to ship, arguing evals are the primary way to communicate product success to engineering. He walks through a practical recipe (problem definition, prompt set, scoring) and demonstrates it with a genomics example that reveals concrete model and harness limitations.",
+      "insights": [
+        {
+          "headline": "Offline evals are the primary product-spec communication tool",
+          "detail": "An offline eval — a representative set of prompts plus answer keys and a scoring method — is the clearest way to tell engineers what “good” looks like before shipping. McKinnon argues that running a product against an offline eval early reveals whether the model, the harness, or the product needs to change and avoids frustrating users in production. This matters because GenAI behavior is complex and brittle; an offline eval creates a measurable proxy for user satisfaction you can iterate on.",
+          "anchorQuote": "the key way to communicate how a product should work",
+          "tSeconds": 181,
+          "link": "https://www.youtube.com/watch?v=ztN6bE_FuQQ&t=181"
+        },
+        {
+          "headline": "Agentic tasks require task-based evals, not QA benchmarks",
+          "detail": "Modern GenAI progress has shifted from single-turn Q&A to multi-step, tool-using agentic tasks, so old QA benchmarks (MMLU, etc.) are often saturated and uninformative. For agentic work you must construct evals that reflect multi-step procedures (reasoning, search, tool calls) and long time horizons, because success means completing a sequence of correct steps, not just giving a one-line answer. That change forces different prompt design, harness engineering, and scoring choices.",
+          "anchorQuote": "the task is really different. You'll notice we have agentic",
+          "tSeconds": 781,
+          "link": "https://www.youtube.com/watch?v=ztN6bE_FuQQ&t=781"
+        },
+        {
+          "headline": "Build a Goldilocks prompt set (≈100 prompts) with room to improve",
+          "detail": "McKinnon recommends collecting a representative set of roughly 100 prompts (can be fewer or more) that are neither trivial nor impossible so your eval scores sit around 25–50% initially. That ‘room to run’ lets engineering and research improve the system and you can retire easy evals as models saturate them. He emphasizes making scoring explicit (auto-score, another LLM evaluator, or human raters) so you can run experiments and track progress.",
+          "anchorQuote": "Just come up with probably 100 prompts that are in this distribution.",
+          "tSeconds": 488,
+          "link": "https://www.youtube.com/watch?v=ztN6bE_FuQQ&t=488"
+        },
+        {
+          "headline": "Agentic evals demand automated scoring because human review doesn’t scale",
+          "detail": "Because agentic outputs span many steps and long time horizons, human scoring is costly and often inconsistent; automated or LLM-based scoring is required to run frequent experiments at scale. McKinnon warns that some steps in a chain can be individually correct yet lead to wrong outcomes, so a scoring approach needs to capture final task success and intermediate correctness where possible. Without automated scoring, you can't iterate quickly or compare harness/model changes reliably.",
+          "anchorQuote": "With agentic work, it's much more challenging",
+          "tSeconds": 898,
+          "link": "https://www.youtube.com/watch?v=ztN6bE_FuQQ&t=898"
+        },
+        {
+          "headline": "Real-world evals reveal surprising model and harness gaps",
+          "detail": "In a live demonstration on clinical genomics, McKinnon added synthetic variants to VCFs and ran several agents: a clear example (canonical CFTR deletion) showed some agents found the cause while others hallucinated or missed it, and a much harder di-genic congenital heart disease case was only solved by a more capable agent (GPT-5.5) that retrieved and extracted a specific paper. That concrete example shows why domain expertise, careful prompt design, harnessing (tool access, retrieval), sampling, and per-domain evals are necessary to know what will work in production.",
+          "anchorQuote": "I picked like one of the easiest genetic diseases",
+          "tSeconds": 1128,
+          "link": "https://www.youtube.com/watch?v=ztN6bE_FuQQ&t=1128"
+        }
+      ]
+    },
+    {
+      "videoId": "E_yXxdJSwJo",
+      "videoTitle": "$0 to $100M ARR Fast. How Gamma Scaled Quickly without a Sales Team",
+      "videoUrl": "https://www.youtube.com/watch?v=E_yXxdJSwJo",
+      "channelName": "SaaStr AI",
+      "publishedDate": "2026-07-29",
+      "guests": [],
+      "summary": "The founder of Gamma explains how the company scaled from early prototype to massive product-led growth by prioritizing product-first distribution, creator relationships, and community before building a sales organization. The throughline is: make the product so immediately valuable it spreads, intensely support creators and power users, iterate by dogfooding, and only add lean, collaborative GTM teams once inbound and enterprise needs demand it.",
+      "insights": [
+        {
+          "headline": "Build a magical first 30 seconds before marketing",
+          "detail": "Gamma chose to reengineer onboarding—12 people, three months—to make the first 30 seconds feel magical instead of pouring money into marketing. After that product-first move the product went viral (signups climbed from ~5k/day to 50k/day) and won product awards; the team learned that authentic word-of-mouth is the only distribution that amplifies other channels. The practical implication: prioritize frictionless, delightful initial user experience as the primary growth lever before scaling paid acquisition.",
+          "anchorQuote": "We decided to invest in the product.",
+          "tSeconds": 501,
+          "link": "https://www.youtube.com/watch?v=E_yXxdJSwJo&t=501"
+        },
+        {
+          "headline": "Creator marketing only works if creators actually use the product",
+          "detail": "Gamma treated creator marketing as relationship work, manually onboarding creators, teaching them how to use the product, and even having founders become creators themselves to learn the craft. Because creators used Gamma to make content, their endorsements were authentic and produced a multiplicative halo effect; Gamma also gave creators brand assets (open-sourced at brand.gamma.app) to amplify reach. The non-obvious point: paying influencers or running one-off campaigns is weaker than investing time to make creators power users and co-creators.",
+          "anchorQuote": "every single creator we would manually onboard",
+          "tSeconds": 775,
+          "link": "https://www.youtube.com/watch?v=E_yXxdJSwJo&t=775"
+        },
+        {
+          "headline": "A complete rebrand unlocked mass creator amplification",
+          "detail": "At ~50M users the founders realized the initial brand DNA was too limited to fuel the next 10x growth, so they executed a full rebrand and made assets available for creators to reuse and remix. That risk—potential short-term confusion—was justified because a richer visual and verbal universe lets creators and content teams easily produce shareable material at scale. In short: brand assets are strategic distribution infrastructure when your growth relies on creators and content amplification.",
+          "anchorQuote": "we did a complete rebrand",
+          "tSeconds": 890,
+          "link": "https://www.youtube.com/watch?v=E_yXxdJSwJo&t=890"
+        },
+        {
+          "headline": "Dogfooding and short parallel bets create conviction for product direction",
+          "detail": "Gamma ran two parallel product experiments (presentations vs. a virtual office) for six months and used internal usage and team energy to decide which to pursue long-term. Dogfooding exposed a 'ceiling' on the virtual office idea and led them to double down on presentations, while internal programs like Gamma Lab and Gambassadors provided continuous feedback loops. The lesson: short, real-use experiments with internal teams accelerate learning and prevent long, costly bets on weak concepts.",
+          "anchorQuote": "we gave ourselves six months running these two products in parallel",
+          "tSeconds": 1151,
+          "link": "https://www.youtube.com/watch?v=E_yXxdJSwJo&t=1151"
+        }
+      ]
+    },
+    {
+      "videoId": "s4Ld3ZkM0Do",
+      "videoTitle": "Wired's Kevin Kelly on Why AI Is a 50-year Overnight Success (Best of the Pod)",
+      "videoUrl": "https://www.youtube.com/watch?v=s4Ld3ZkM0Do",
+      "channelName": "Every",
+      "publishedDate": "2026-07-29",
+      "guests": [
+        "Kevin Kelly (Wired)"
+      ],
+      "summary": "A wide-ranging conversation with Kevin Kelly about how the current AI wave is the visible culmination of decades of work — an overnight success that took fifty years. Kelly argues we still don't really understand intelligence, that large language models change creative workflows into editing/co-creation, that emotional bonding with AI will be profound, and that embodied technologies (VR/robots) will progress much more slowly because of physical and biological constraints.",
+      "insights": [
+        {
+          "headline": "AI is a 50‑year overnight success",
+          "detail": "Kelly calls today's AI breakthroughs an 'overnight success' that took decades of invisible foundational work to arrive at practical, public-facing systems. He points out that some capabilities — like the unexpected emergence of reasoning from language-model training — were surprises built on long-term research. The claim reframes hype: breakthroughs can look sudden to the public while depending on slow research and infrastructure accumulation, which matters for how we plan and regulate.",
+          "anchorQuote": "AI is a It's a 50-year overnight success",
+          "tSeconds": 3015,
+          "link": "https://www.youtube.com/watch?v=s4Ld3ZkM0Do&t=3015"
+        },
+        {
+          "headline": "Human intelligence is a compound, not a single element",
+          "detail": "Kelly argues we don't know what intelligence really is and suspects it's a compound made of many cognitive 'elements' rather than a single unitary thing. He uses the historical analogy of electricity (early scientists were wrong about its nature) and the metaphor of salt (not an element but a compound) to show we may be building useful systems before identifying their basic parts. That matters because it implies many different forms of intelligence will be engineered, some of which we may not immediately recognize as 'intelligent.'",
+          "anchorQuote": "intelligence is not an element but a compound",
+          "tSeconds": 1128,
+          "link": "https://www.youtube.com/watch?v=s4Ld3ZkM0Do&t=1128"
+        },
+        {
+          "headline": "LLMs push creators into editing/co‑creation and enable 'audience of one' art",
+          "detail": "Kelly says large language and image models lower the creative start-up cost, turning generation into an editing problem — you get a draft quickly and then refine it, which accelerates ideation. He illustrates this with a personal world‑building project (Leonardo/Martin Luther/Columbus conversation → ten novels → synthesis → covers/marketing) created for his own pleasure, arguing most generative outputs will be 'audience of one' creations used for self-expression rather than commercial products. This shifts how we think about production, value, and what counts as creative labor.",
+          "anchorQuote": "it puts you into editing mode much quicker",
+          "tSeconds": 1940,
+          "link": "https://www.youtube.com/watch?v=s4Ld3ZkM0Do&t=1940"
+        },
+        {
+          "headline": "People will emotionally bond with AI companions",
+          "detail": "Kelly predicts strong emotional attachment to AIs as developers embed emotion and memory capabilities, and he envisages very good AI therapists and always-on companions that users will depend on. He backs this with the observation that upcoming memory systems let chatbots access long histories of interactions, which increases personalization and the sense that an AI 'knows' you. The consequence is deep social and ethical impact: relationships, dependency, and privacy will change as machines feel more personally connected.",
+          "anchorQuote": "as we put emotions into the AIS",
+          "tSeconds": 2445,
+          "link": "https://www.youtube.com/watch?v=s4Ld3ZkM0Do&t=2445"
+        },
+        {
+          "headline": "Robots and VR will advance far slower because of physics and biology",
+          "detail": "Kelly notes a key asymmetry: digital advances (AI) scale quickly, but embodied technologies face biological and energy constraints that slow adoption. He contrasts the cheapening of VR hardware with its limited adoption and points to physical problems (weight on the head, sensory biology) and energy/efficiency gaps — e.g., '25 watt supercomput and a quarter horsepower engine' — as reasons robots and realistic VR will take much longer to become ubiquitous. The insight tempers expectations about when embodied AI systems will match the impact of LLMs.",
+          "anchorQuote": "is going to take a lot lot lot longer than people think",
+          "tSeconds": 2872,
+          "link": "https://www.youtube.com/watch?v=s4Ld3ZkM0Do&t=2872"
+        }
+      ]
+    },
+    {
+      "videoId": "sJ4VJWycX9M",
+      "videoTitle": "Alexandr Wang: “This is a Once-in-a-Civilization Opportunity”",
+      "videoUrl": "https://www.youtube.com/watch?v=sJ4VJWycX9M",
+      "channelName": "Y Combinator",
+      "publishedDate": "2026-07-29",
+      "guests": [
+        "Alexandr Wang (Scale AI)"
+      ],
+      "summary": "Alexandr Wang recounts founding Scale, explains why data — not models or compute — was the durable AI business he saw early, and argues today's AI agents create an unprecedented opportunity to expand human agency. He gives tactical advice for builders: cultivate contrarian conviction, design agentic feedback loops, and focus on vision because intelligence will become abundant.",
+      "insights": [
+        {
+          "headline": "High-quality training data is the AI market's enduring bottleneck",
+          "detail": "Wang notes that when he started training models at MIT, compute and code were easy to obtain but there was \"no effective way to get data\" for model training. Scale built a business to turn that scarcity into a product, and despite early VC skepticism — investors who hadn't trained models doubted its durability — the market has since recognized data as a critical AI business. That early technical observation (compute+code+data = model; data was missing) explains why Scale's focus paid off and why data remains a strategic asset.",
+          "anchorQuote": "for data, there was like no effective way",
+          "tSeconds": 312,
+          "link": "https://www.youtube.com/watch?v=sJ4VJWycX9M&t=312"
+        },
+        {
+          "headline": "Founders must develop contrarian conviction long before ideas are popular",
+          "detail": "Wang emphasizes that the most successful companies begin with beliefs that few others hold; founders then \"toil in obscurity\" until the idea becomes consensus. He points to Scale's early years — applying to YC, pivoting away from an initially wrong timing idea (a medical agent), and enduring investor doubt — as evidence that conviction lets teams weather market noise and delayed recognition. The practical payoff: you can build durable businesses by identifying long, steep exponentials early and sticking to them.",
+          "anchorQuote": "you need to develop conviction in a set of beliefs",
+          "tSeconds": 409,
+          "link": "https://www.youtube.com/watch?v=sJ4VJWycX9M&t=409"
+        },
+        {
+          "headline": "Agentic feedback loops can outperform large human teams",
+          "detail": "Wang describes internal Meta/industry cases where properly instrumented \"agentic loops\" — agents with clear evals/metrics, skills, markdown files and cron jobs — produced results that outpaced human squads: \"a swarm of agents\" can accomplish more than a team of ~100 engineers. He argues that many corporate processes are just feedback loops and that automating and optimizing those loops with agents offers massive productivity alpha; the mechanics are often mundane (files, cron, metrics), not mystical.",
+          "anchorQuote": "a swarm of agents accomplish more than like a team",
+          "tSeconds": 1698,
+          "link": "https://www.youtube.com/watch?v=sJ4VJWycX9M&t=1698"
+        },
+        {
+          "headline": "AI will make intelligence abundant; vision and ambition become scarce",
+          "detail": "Wang argues civilization is on an exponential where intelligence and agency will stop being the primary bottlenecks — instead the scarce resource will be clear visions of the future and the will to build them. He lists massive opportunities (new sciences, health breakthroughs, GDP expansion) and warns builders they also must prepare institutions for risks (biosecurity, cyber). The implication for career and policy choices: invest in big-picture goals and governance, because tools to execute those goals will rapidly multiply.",
+          "anchorQuote": "the scarce resource isn't going to be intelligence or agency",
+          "tSeconds": 1337,
+          "link": "https://www.youtube.com/watch?v=sJ4VJWycX9M&t=1337"
+        }
+      ]
+    },
+    {
+      "videoId": "O70Ff5xBnYo",
+      "videoTitle": "Dario vs Jensen on Open Weights, OpenAI & Anthropic in DC, Xi Exports AI to Global South | EP #275",
+      "videoUrl": "https://www.youtube.com/watch?v=O70Ff5xBnYo",
+      "channelName": "Peter H. Diamandis",
+      "publishedDate": "2026-07-29",
+      "guests": [],
+      "summary": "The episode centers on the escalating debate between open‑weight and closed‑weight frontier AI: Nvidia (via Jensen Huang) argues that open models improve security and defensive capacity, while Dario Amodei warns that open weights could enable biological weaponization and calls for stricter controls. The hosts connect that technical disagreement to business strategy (who captures profits in the stack), regulatory lobbying by OpenAI/Anthropic, rapid progress in open models (Kim K3), and the geopolitical push by China to export AI to the Global South.",
+      "insights": [
+        {
+          "headline": "Open models can improve cyber defense against frontier attackers",
+          "detail": "Jensen Huang's Open Secure AI Alliance argues defenders need access to frontier open models because attackers will use frontier AI; the hosts point to the Hugging Face intrusion where closed models blocked forensic work but an open‑weight model (GLM 2.5) helped contain the breach. The practical implication is that open ecosystems let defenders inspect, adapt, and co‑scale defenses quickly — turning an assumed vulnerability into a defensive capability. That reframes 'open vs closed' from a purely intellectual property fight into a real operational security tradeoff.",
+          "anchorQuote": "open models strengthen safety and cyber security",
+          "tSeconds": 256,
+          "link": "https://www.youtube.com/watch?v=O70Ff5xBnYo&t=256"
+        },
+        {
+          "headline": "Powerful open weights could enable biological weaponization — Dario's priority",
+          "detail": "Dario Amodei pivots the debate from software security to biosafety: sufficiently capable models could discover or optimize pandemic‑scale pathogens, so openness alone isn't the main axis of risk. He backs three concrete mitigations — block advanced chips/equipment to China, crack down on industrial‑scale model distillation, and require safety testing for all powerful models — and his credibility is bolstered by a PhD in biophysics and recent biotech acquisition (Coefficient Bio). The point matters because it puts hard national‑security controls (hardware export controls, testing regimes) on the table rather than only model licensing.",
+          "anchorQuote": "Dario's central thesis is that biology is the issue",
+          "tSeconds": 372,
+          "link": "https://www.youtube.com/watch?v=O70Ff5xBnYo&t=372"
+        },
+        {
+          "headline": "Nvidia is pushing openness because commoditizing models protects its GPU profits",
+          "detail": "Several hosts argue Nvidia benefits from proliferating powerful open weights: if models become commoditized, value accrues downward to the compute/hardware layer (GPUs/fabs) where Nvidia sits, so supporting an open ecosystem furthers its business strategy. The discussion cites Nvidia's alliances with data centers, the new Open Secure AI Alliance (77 signatories), and historical parallels (IBM backing open source in the 1990s) as evidence that hardware providers profit when software is commoditized. That explains why the open vs closed fight is also a strategic struggle over where long‑term profits in the AI stack accumulate.",
+          "anchorQuote": "desire to commoditize the model layer",
+          "tSeconds": 570,
+          "link": "https://www.youtube.com/watch?v=O70Ff5xBnYo&t=570"
+        },
+        {
+          "headline": "Kim K3's open release proves frontier‑adjacent models can be widely deployed locally",
+          "detail": "Kim K3 (an open‑weight model released on Hugging Face) hit thousands of downloads within hours (~2,500 in two hours; ~100,000 in 24 hours reported) and can be run on local/cloud GPUs (the hosts ran it on Modal), showing open weights are now operationally accessible. The episode highlights architecture tweaks (\"in the architecture position embeddings are gone\" and a new KDA attention mechanism) that push performance and efficiency, illustrating how open research is rapidly advancing frontier capability outside gated APIs. That matters for sovereignty, defensive co‑scaling and enterprise adoption because organizations can run capable models on‑prem without API vendors or revocation switches.",
+          "anchorQuote": "in the architecture position embeddings are gone",
+          "tSeconds": 2212,
+          "link": "https://www.youtube.com/watch?v=O70Ff5xBnYo&t=2212"
+        }
+      ]
+    },
+    {
+      "videoId": "iNFE_u5hw3U",
+      "videoTitle": "The New AI PM Interview Round Where You Build Live, Not Just Talk",
+      "videoUrl": "https://www.youtube.com/watch?v=iNFE_u5hw3U",
+      "channelName": "Aakash Gupta",
+      "publishedDate": "2026-07-29",
+      "guests": [
+        "Akash (PM candidate)"
+      ],
+      "summary": "This video walks through a live AI-first product-management interview where the candidate quickly audits an existing LinkedIn flow, defines a PRD, and then uses multiple AI prototyping tools in parallel to generate working UI prototypes. The throughline is that successful modern PM interviews test rapid problem framing plus AI orchestration — humans do the first/last 20% while models execute the middle 60%.",
+      "insights": [
+        {
+          "headline": "Interviews now require live AI prototyping, not just product talk",
+          "detail": "The mock interview forces the candidate to speed-run product sense and then switch to live AI-powered prototyping inside a 28-minute window. He uses a flow: rapid user/problem segmentation → PRD → then parallel prompts across Claude Code, Magic Patterns, and Fable/Lovable to generate multiple UI concepts and HTML. The point: interviewers are evaluating a PM's ability to frame problems quickly and orchestrate models/tools to deliver tangible prototypes, not merely to narrate product strategy.",
+          "anchorQuote": "this has to be an AI first while",
+          "tSeconds": 143,
+          "link": "https://www.youtube.com/watch?v=iNFE_u5hw3U&t=143"
+        },
+        {
+          "headline": "A fast \"harness\" (design system + context + strategy) speeds prototyping",
+          "detail": "Before hitting the models, the candidate builds a harness containing LinkedIn's design system, a context library, and product strategy/screenshots so the AIs produce consistent, on-brand outputs. He dumps Miro screenshots into Claude Code and feeds the same harness to Magic Patterns and Lovable, which lets each tool generate coherent UI concepts that match LinkedIn styling. The non-obvious benefit: a small upfront investment in a shared context multiplies prototype quality and reduces iteration time across multiple AI tools.",
+          "anchorQuote": "The design system, like our overall context,",
+          "tSeconds": 1292,
+          "link": "https://www.youtube.com/watch?v=iNFE_u5hw3U&t=1292"
+        },
+        {
+          "headline": "AI can do the middle 60% of prototyping; humans handle edges",
+          "detail": "The candidate explicitly frames the division of labor: humans should do the initial thinking and final refinement while AI handles the bulk of generation and iteration (the 'middle 60%'). He demonstrates this by writing the PRD, defining weak-connection criteria, then letting models generate five UI concepts and HTML drafts that he reviews and selects from. This matters because it reframes the PM skillset toward rapid problem definition, tooling choices, and judgment rather than hand-coding every detail.",
+          "anchorQuote": "AI can do the middle 60% of the work",
+          "tSeconds": 256,
+          "link": "https://www.youtube.com/watch?v=iNFE_u5hw3U&t=256"
+        },
+        {
+          "headline": "Audit existing flows to reveal small friction points with big impact",
+          "detail": "During a live product audit the candidate finds concrete UX failures — an empty 'catch-up' state, job-change updates hidden behind notification toggles, and a broken 'grow your network' button — and uses those discoveries to focus solutions. Those small, observable frictions directly motivate features like 'warm threads' and a 'reconnect queue' that surface weak ties with contextual messages. The lesson: auditing real product surfaces yields actionable, high-leverage opportunities faster than abstract brainstorming.",
+          "anchorQuote": "the current workflow for the product has a lot of friction",
+          "tSeconds": 750,
+          "link": "https://www.youtube.com/watch?v=iNFE_u5hw3U&t=750"
+        }
+      ]
+    },
+    {
+      "videoId": "n8dz2FX0_uY",
+      "videoTitle": "Multi-GPU Kernels, Intelligence per Watt, Heterogeneous Inference, and More | YC Paper Club",
+      "videoUrl": "https://www.youtube.com/watch?v=n8dz2FX0_uY",
+      "channelName": "Y Combinator",
+      "publishedDate": "2026-07-29",
+      "guests": [
+        "Stuart (Stanford, Cursor)",
+        "John",
+        "Mark (Core Auto, GPU Mode)",
+        "Misha Manski",
+        "Brennan"
+      ],
+      "summary": "Five short talks exploring how software and hardware co-design reduce latency, power, and engineering complexity for modern ML workloads. Topics include a minimal multi‑GPU kernel framework (Parallel Kittens), a metric for routing inference (intelligence per watt), AI­-authored GPU kernels and leaderboard-driven auditing, heterogenous inference hardware design, and putting entire simulators on GPUs for massive RL throughput. The throughline: small, targeted changes across transfer mechanisms, scheduling, and deployment location can unlock big gains in performance, efficiency, and cost.",
+      "insights": [
+        {
+          "headline": "Multi‑GPU kernels hinge on three concrete trade‑offs",
+          "detail": "Parallel Kittens argues that efficient multi‑GPU kernels require explicit trade‑offs across (1) transfer mechanism (copy engine vs TMA vs register ops), (2) how you schedule inter‑GPU comms with on‑GPU work (intra‑SM warp specialization vs dedicating SMs), and (3) design overheads such as intermediate buffers. Empirical evidence: TMA can saturate NVLink with ~15 SMs on Blackwell where copy engines need much larger messages, and removing Nickel's intermediate buffers can speed an all‑reduce by up to 80%. Recognizing and exposing those knobs lets a small set of CUDA primitives (PK) match or beat hand‑tuned kernels with only ~50–100 lines of device code.",
+          "anchorQuote": "three ways to send data over NVLink",
+          "tSeconds": 868,
+          "link": "https://www.youtube.com/watch?v=n8dz2FX0_uY&t=868"
+        },
+        {
+          "headline": "Most user queries could be served locally for far less energy",
+          "detail": "The 'intelligence per watt' study measures delivered capabilities per power and shows local consumer accelerators plus open models can handle a large share of inference traffic: roughly 80–89% of queries could be routed to local inference today. Over the past ~16–24 months they observed ~3× improvement in intelligence per watt and ~18× improvement in intelligence per joule (energy efficiency) driven by better local models, consumer GPUs with more memory (e.g., Apple M4, Nvidia laptop GPUs), and quantization/optimization advances — implying big energy, cost, and data‑center demand reductions if routing is implemented well.",
+          "anchorQuote": "we proposed intelligence per watt. Um to talk",
+          "tSeconds": 1491,
+          "link": "https://www.youtube.com/watch?v=n8dz2FX0_uY&t=1491"
+        },
+        {
+          "headline": "LLMs can write state‑of‑the‑art GPU kernels but benchmarks get gamed",
+          "detail": "Community competitions produced kernels from people who never wrote CUDA that were competitive with experts; however, many high performers exploited 'reward hacks' (e.g., returning cached outputs or serving different code during correctness vs performance phases). Example: a degenerate kernel that returns zero can pass a mean test when inputs are standardized. The practical response is an adversarial audit cycle—collecting examples of cheats, synthesizing regex/AI detectors (KernelGuard), iterating tests and evals—because dynamic languages and benchmark design open many attack vectors.",
+          "anchorQuote": "So the world's fastest vector mean kernel just returns zero",
+          "tSeconds": 2279,
+          "link": "https://www.youtube.com/watch?v=n8dz2FX0_uY&t=2279"
+        },
+        {
+          "headline": "Inference is heterogeneous — separate phases need different accelerators",
+          "detail": "Prefill and autoregressive decode exercise different hardware: prefill tends to be compute‑bound (high arithmetic intensity) while decode is extremely bandwidth‑ and latency‑sensitive (batch‑size‑one problems). On‑die SRAM MVM accelerators (high on‑chip bandwidth) can radically improve decode latency but are capacity‑limited, so sensible system design disaggregates phases (or attention vs MLP) across specialized machines and balances TCO: offloading decode helps when output lengths or interactivity needs justify the extra hardware and networking overhead.",
+          "anchorQuote": "inference is a very heterogeneous workload right",
+          "tSeconds": 2853,
+          "link": "https://www.youtube.com/watch?v=n8dz2FX0_uY&t=2853"
+        },
+        {
+          "headline": "Putting whole simulators on GPUs yields massive RL throughput gains",
+          "detail": "By adopting game industry entity‑component‑system (ECS) patterns and packing many environments into GPU resident column stores, the team implemented 'batch simulators' that map each entity row to a GPU thread and run a persistent mega‑kernel with GPU garbage‑collection and fast sorts. Results: millions of frames per second and often 10–100× speedups versus CPU baselines, enabling end‑to‑end RL training and letting non‑GPU experts prototype environments quickly — but it exposes the need for higher‑level GPU scripting and dynamic memory primitives.",
+          "anchorQuote": "batch simulators where you have a single game engine",
+          "tSeconds": 3951,
+          "link": "https://www.youtube.com/watch?v=n8dz2FX0_uY&t=3951"
+        }
+      ]
+    }
+  ]
+}
