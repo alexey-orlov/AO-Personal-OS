@@ -32,6 +32,8 @@ _updated: 2026-07-30_
 - Jorge Rojas, Inok — engineering leads on Payworks.
 - Greg — Poland-based trainer, runs most Jumpstart workshops (LLM/agents intro, coding agents, context engineering).
 - Arkadiusz, Oleh Marchevich — exec co-holders of Jumpstart ownership.
+- GI Partners buyer — PE-side sponsor overseeing the portfolio; controls intros to portfolio companies and the provider-consolidation decision (name uncertain, possibly "Sandeshan"). [sales call](calls/jumpstart-pm/2026-07-30_132405_sales-call_2026072717330524296792.md)
+- Wes Gillett, Pat Harper — DAX CPO/CTO, targets of the next PM-program pitch call; Sean Turner — DAX-side contact to be looped in via reply-all. (inferred roles)
 
 ## Decisions
 
@@ -55,6 +57,7 @@ Theirs:
 
 ## Activity
 
+- 2026-07-27 — [DAX PM offering pitched to the GI Partners buyer](calls/jumpstart-pm/2026-07-30_132405_sales-call_2026072717330524296792.md) — Inna + Alex walked the PE buyer through the two-mode PM program (committed pilot 5-10 PMs w/ measured ROI vs. lighter self-paced training); buyer bought in, prefers the committed pilot, wants AI enablement extended from DAX engineering to its bottlenecked PM teams; next step a pitch call with DAX's CPO/CTO (Wes Gillett / Pat Harper) backed by a fuller doc + directional pricing; buyer eyeing rollout to up to 6 more portfolio cos and consolidating providers 3→2 (SoftServe one of 2); open: program track-record proof + an NDA-cleared reference call.
 - 2026-07-27 — trainer-bio slide (chat, 2026-07-27) — SoftServe one-slide bio template filled with Alex's data (profile, domain expertise, AI & agentic delivery, quick facts, studio headshot); AI section then reworked to four anonymized examples (Code Maestro / Creatio ML engine / GigaCloud / ThriveState) → `~/Downloads/PM-Jumpstart-Bio-Alex Orlov v2.pptx`, awaiting review; advances the DAX/GI Partners bios deliverable.
 - 2026-07-14 — program structure v1 + client outline (chat, 2026-07-14) — Alex authored the new program structure ([Google Doc](https://docs.google.com/document/d/1wJ9Pn5RiPDn_gGmtf9tDy5zv5SNxOT5lERbewpNuPOg/edit): working-group + shared work-OS + rolling use-case wave); client-ready 2-page outline built in the WfO one-pager visual system (local Jumpstart folder), in review.
 - 2026-07-14 — [DAX PM offering sync (GI Partners request)](calls/jumpstart-pm/2026-07-14_194924_sales-call_2026071417472224FB611D.md) — internal team planning for GI Partners' request of a PM-upskilling offering for portfolio co DAX; feedback on the first deck (add trainer bios, make it PM-oriented); leaning tiered options (practical training vs. a short implementation/"transformation" program); package (bios + offering slides) due ~Fri Jul 17, draft first; blocked on GI Partners' true intent + access to the DAX VP Product owner.
