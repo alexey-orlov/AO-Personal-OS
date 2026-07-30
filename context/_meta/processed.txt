@@ -47,6 +47,7 @@ context/_inbox/tg-20260723-075000-244.md
 context/_inbox/tg-20260725-144246-258.md
 context/areas/gigacloud/calls/other/2026-07-21_180038_default_202607171304495CACCF1A.md
 context/areas/job-search/calls/vacancy-interviews/_unknown/2026-05-21_1806_interview.md
+context/areas/job-search/calls/vacancy-interviews/_unknown/2026-07-30_164042_interview_20260730160351A5D10919.md
 context/areas/job-search/calls/vacancy-interviews/archive-resale/2026-05-22_122349_interview_202604271827556FAF460B.md
 context/areas/job-search/calls/vacancy-interviews/archive-resale/2026-05-22_131921_interview_20260420200248D548EF59.md
 context/areas/job-search/calls/vacancy-interviews/archive-resale/2026-05-22_132125_interview_202604271827552AEE26C0.md

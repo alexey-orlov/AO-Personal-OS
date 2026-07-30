@@ -35,6 +35,7 @@ Positioning (public vs. backend framing, recruiter story, target roles) lives in
 
 ## Activity
 
+- 2026-07-30 — [Oxenham Head-of-Product screen (Joe Schriner)](calls/vacancy-interviews/_unknown/2026-07-30_164042_interview_20260730160351A5D10919.md) → [oxenham-head-of-product](oxenham-head-of-product.md) — new vacancy, recruiter opportunity-discussion; 0→1 mandate, strong AI-defensibility read.
 - 2026-06-02 — [Zipify deep-dive](calls/vacancy-interviews/zipify/2026-06-02_181532_interview_202606021729498781C179.md) → [zipify](zipify.md).
 - 2026-05-22 — [Archive Resale final loop + rejection debrief](calls/vacancy-interviews/archive-resale/2026-05-22_223525_interview_202605222200194502EF2C.md) → closed, [archive-resale](archive-resale.md).
 - 2026-05-21 — [unidentified interview eval](calls/vacancy-interviews/_unknown/2026-05-21_1806_interview.md) — company unconfirmed (note text suggests Creatio, inferred).
