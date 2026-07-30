@@ -68,6 +68,27 @@ A PID in the left column = running. Missing/`-` = not running → `launchctl loa
 | Note written but not on GitHub | git push failed (auth/offline) | run `git push` in the repo; re-enter token if asked |
 | Note pushed but no Telegram message | Telegram unconfigured / network / token wrong | `automations/telegram/setup.sh`; smoke-test with `echo hi \| automations/telegram/telegram_send.sh` |
 | `[skip] ... iCloud stub` | file not fully downloaded | turn off Optimize Mac Storage, or open the memo in Voice Memos |
+| Telegram alert "Voice Memos iCloud sync looks WEDGED" | Mac-side CloudKit import stuck even after the guard's auto-restart | run the 3 commands from the alert, open Voice Memos on the iPhone, watch for new `.m4a`; see `.work/state/sync_guard.log` |
+
+**Voice Memos sync staleness guard.** A long-running `VoiceMemos.app`/`voicememod`
+can silently stop importing from iCloud while the watcher looks healthy
+(2026-07-30 incident: 9 days of recordings missed). `watch.sh` therefore runs an
+hourly check via `sync_guard.sh`: if `CloudRecordings.db-wal` hasn't been written
+for `SYNC_STALE_HOURS` (config.sh, default 72; `0` disables), it restarts the app
+stack — quit by bundle id, kill `voicememod`, relaunch hidden — never while an
+`.m4a` is open for write, max one kick per 24h. If the wal is still stale a day
+after a kick, it alerts on Telegram (General topic) with the manual fix. Events
+log to `.work/state/sync_guard.log`; episode markers are
+`.work/state/sync_guard_kicked` / `_alerted` (cleared on recovery). Manual check
+right now (no hourly gate):
+
+    cd ~/Documents/GitHub/AO-Personal-OS/automations/call-pipeline
+    ./sync_guard.sh                    # real check; may actually restart the app
+    SYNC_GUARD_DRYRUN=1 ./sync_guard.sh   # look only, no kick / no alert
+
+`sync_guard.sh` (like `watch.sh`/`config.sh`) is read once by the long-lived
+agent — after editing it or changing `SYNC_STALE_HOURS`, reload:
+`launchctl unload ~/Library/LaunchAgents/com.user.callpipeline.plist && launchctl load ~/Library/LaunchAgents/com.user.callpipeline.plist`.
 
 **After a macOS major upgrade:** TCC can reset. Re-check Full Disk Access for `/bin/bash` and `claude`, restart the agent, and if Claude Code misbehaves run `rm -rf /tmp/claude-$(id -u)`.
 
