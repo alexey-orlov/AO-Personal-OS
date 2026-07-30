@@ -2,7 +2,7 @@
 
 _status: live theme — the discipline of wrapping an AI agent in enforced structure: human-only zones, PR gates, precise workflows, adapters, and local-first context_
 _slug: agent-harness-engineering_
-_updated: 2026-07-25 · 9 insights from 4 episodes · (split from agent-engineering-patterns, 2026-07-11)_
+_updated: 2026-07-30 · 10 insights from 5 episodes · (split from agent-engineering-patterns, 2026-07-11)_
 
 ## The throughline
 A harness is code wrapped around an agent to make it behave consistently for a specific use case — and every practitioner in this cluster converges on the same core moves. Reserve architecture and UX decisions for humans (Conductor's "slot-free zones," "do not touch if you are an AI" markers — corroborated independently by Tony Fadell on the hardware-product side); force agent output through a review chokepoint before it lands (Conductor's strict PR-first workflow; the Sentry bug-triage harness's investigate-only vs. edit-enabled modes); and be extremely specific — write down the exact workflow, data sources, and allowed tools rather than reaching for a general-purpose assistant. Concrete adapters (Sentry, Linear, GitHub, Vercel) plus a persistent artifact store make investigations reproducible, though this is a choice, not a prerequisite — Gusto's much lighter "memory is just a DB column" stack proves harnesses can be minimal too. Codex-as-local-project-environment extends the same instinct beyond bespoke harnesses: a general-purpose local workspace (files on your machine, computer-use access to real tools) that lets an agent work with richer context, reinforced by a local-first/Obsidian-style memory discipline for privacy and accuracy.
@@ -54,11 +54,17 @@ When existing skills don't match their needs, the team used Codex to inspect, an
 — Every · 2026-07-24 · guest: Ryan · [▶ 11:34](https://www.youtube.com/watch?v=qtKkzsQjAy0&t=694) · `pi-qtKkzsQjAy0-04`
 related: [Be extremely specific when designing and prompting a harness](#be-extremely-specific-when-designing-and-prompting-a-harness) (same workflow-precision-over-model-choice instinct, here applied to iterating a skill live inside a product rather than a bespoke standalone harness)
 
+### A fast "harness" (design system + context + strategy) speeds prototyping
+Before hitting the models, the candidate builds a harness containing LinkedIn's design system, a context library, and product strategy/screenshots so the AIs produce consistent, on-brand outputs. He dumps Miro screenshots into Claude Code and feeds the same harness to Magic Patterns and Lovable, which lets each tool generate coherent UI concepts that match LinkedIn styling. The non-obvious benefit: a small upfront investment in a shared context multiplies prototype quality and reduces iteration time across multiple AI tools.
+— Aakash Gupta · 2026-07-29 · guest: Akash (PM candidate) · [▶ 21:32](https://www.youtube.com/watch?v=iNFE_u5hw3U&t=1292) · `pi-iNFE_u5hw3U-02`
+related: [Be extremely specific when designing and prompting a harness](#be-extremely-specific-when-designing-and-prompting-a-harness) (same precise-context-up-front discipline, here applied to a live PM interview instead of a bug-triage harness) · theme → [AI & the PM craft](ai-and-the-pm-craft.md) (this episode's live-prototyping-interview insights, `pi-iNFE_u5hw3U-01,03`)
+
 ## Related themes
 - [Agent engineering & production infra](agent-engineering-patterns.md) — parent theme; the broader verification/governance/cost discipline this harness-building cluster sits alongside
 - [Agent delegation, loops & software factories](agent-delegation-and-loops.md) — the sustained-execution patterns that run inside these harnesses
 
 ## Source episodes
+- [Aakash Gupta — The New AI PM Interview Round Where You Build Live, Not Just Talk (2026-07-29)](../episodes/2026/2026-07-29--aakash--new-ai-pm-interview-round-build-live.md)
 - [Every — How to Build a Multi-Agent Review Swarm (2026-07-24)](../episodes/2026/2026-07-24--every--how-to-build-a-multi-agent-review-swarm.md)
 - [How I AI — Conductor CEO Charlie Holtz Walks Us Through His AI Coding Setup (2026-06-05)](../episodes/2026/2026-06-05--howiai--conductor-charlie-holtz-ai-coding-setup.md)
 - [Lenny's Podcast — Tony Fadell: How to build real taste (2026-06-08)](../episodes/2026/2026-06-08--lenny--tony-fadell-real-taste-ai-matters-more.md)
