@@ -1,7 +1,7 @@
 # Job search — VP Product / CPO (US)
 
-_status: active — Zipify Head-of-Product process live; recruiter pipeline + outreach waves running_
-_updated: 2026-06-11_
+_status: active — Zipify Head-of-Product process live; Oxenham Head-of-Product screen done Jul 30; recruiter pipeline + outreach waves running_
+_updated: 2026-07-30_
 
 Positioning (public vs. backend framing, recruiter story, target roles) lives in [positioning.md](positioning.md) — durable doc, never duplicated here.
 
@@ -13,6 +13,7 @@ Positioning (public vs. backend framing, recruiter story, target roles) lives in
 ## Subprojects
 
 - [zipify](zipify.md) — Head of Product — in process; deep-dive 2026-06-02, next round to drive.
+- [oxenham-head-of-product](oxenham-head-of-product.md) — Head of Product, PE-owned animal-health/livestock-cert SaaS (merged w/ TraceFirst) — early; recruiter screen 2026-07-30, next step awaited.
 - [outreach](outreach.md) — LSN recruiter waves, re-engagement campaigns, recruiter pipeline (Matt Levy) — running.
 - [archive-resale](archive-resale.md) — VP Product — closed (rejected 2026-05-22 at final round; lessons captured).
 
