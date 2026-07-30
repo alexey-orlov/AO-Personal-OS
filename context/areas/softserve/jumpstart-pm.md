@@ -32,13 +32,14 @@ _updated: 2026-07-30_
 - Nadia Zerchak — PM on DAX; built the Claude skill that generates Jumpstart's process board.
 - Jorge Rojas, Inok — engineering leads on Payworks.
 - David — SoftServe senior lead / decision-maker on the Payworks engagement (scope, cadence, staffing; liaises with Roman, Scott Forrest, Marlene). [planning call](calls/jumpstart-pm/2026-07-30_133224_sales-call_20260729180444E25F29B5.md)
-- Roberto (rendered "Alberto" in parts of the transcript) — client-facing engagement lead on Payworks; maps the PDLC, single "window person" with Marlene.
+- Roberto Bautista (rendered "Alberto"/"Roberto" in parts of the transcript) — PDM unit (COE Product Management & BA); client-facing engagement lead on Payworks, part-time; maps the PDLC, single "window person" with Marlene.
 - Marlene — senior PM at Payworks, oversees most product initiatives; key client stakeholder + AI-adoption champion (owns the "smooth handoff" success definition).
 - Amy, Steve — PMs at Payworks, report to Marlene.
-- Roman — SoftServe; owns the Payworks SOW (wrote in the 3× "next steps" door-opener) and drives the follow-on sale (with Daniel, David).
+- Roman — SoftServe program manager; put Roberto on the engagement, owns the Payworks SOW (wrote in the 3× "next steps" door-opener) and drives the follow-on sale (with Daniel, David).
 - Daniel — SoftServe; logs engagement gaps for the Payworks next-step sale (with Roman, David).
 - Bogdan Komich — decision partner with David on whether Paweł stays on the payroll/team track.
-- Pavel (Paweł) — holds the ADLC-process knowledge, available ~2 more weeks; transferring it to Vladislav.
+- Pavel Knapp (Paweł) — delivered the BA workflow skills; holds the ADLC-process knowledge, available ~2 more weeks; being pulled off the team (Bogdan doesn't want him distracted) → transferring it to Vladislav.
+- Enoch — dev-workflow owner; could cover the BA workflow but David prefers not to. (inferred)
 - Vladislav (Vlad) — SoftServe; slated product↔BA link on Payworks, mentored by Pavel.
 - Greg — Poland-based trainer, runs most Jumpstart workshops (LLM/agents intro, coding agents, context engineering).
 - Arkadiusz, Oleh Marchevich — exec co-holders of Jumpstart ownership.
