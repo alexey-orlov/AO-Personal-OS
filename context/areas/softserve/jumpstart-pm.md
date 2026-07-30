@@ -1,7 +1,7 @@
 # Jumpstart — PM-focused offering (design)
 
-_status: program structure v1 authored by Alex 2026-07-14 (working-group + shared work-OS + rolling use-case wave; his Google Doc is the authoritative concept, supersedes the v0.8 design) with a client-ready 2-page outline built and in review; in parallel first live application — GI Partners (PE) PM-upskilling package for portfolio co DAX (Alex's trainer-bio slide built 2026-07-27; package originally due ~Fri Jul 17); Jun–Jul 2026 mandate (Bogdan-driven)_
-_updated: 2026-07-27_
+_status: program structure v1 authored by Alex 2026-07-14 (working-group + shared work-OS + rolling use-case wave; his Google Doc is the authoritative concept, supersedes the v0.8 design) with client-ready 2-page outlines (full + Express) in review; first live application now **pitched** — the two-mode PM program presented to the GI Partners (PE) buyer 2026-07-27 for portfolio co DAX, buyer bought in and prefers the committed pilot tier, next step a call with DAX's CPO/CTO (Wes Gillett / Pat Harper) backed by a fuller doc + directional pricing; GI eyeing rollout to up to 6 more portfolio cos; Jun–Jul 2026 mandate (Bogdan-driven)_
+_updated: 2026-07-30_
 
 ## Snapshot
 
