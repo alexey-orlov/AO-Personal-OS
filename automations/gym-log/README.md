@@ -50,6 +50,42 @@ refresh token (`invalid_grant`), any command exits 3 — re-run:
 source automations/gym-log/config.sh && "$PYTHON_BIN" "$GYM_SHEET" auth
 ```
 
+## Running off the Mac (Claude Code cloud sessions)
+
+The token lives in the git-ignored `.work/`, so a cloud session has no
+credentials — and the sandbox has no `google-api-python-client` either.
+Both are handled:
+
+- **Credentials** — `gym_sheet.py` also accepts the same authorized-user
+  JSON inline, in `GYM_SHEETS_TOKEN_JSON` (raw or base64). Copy it once on
+  the Mac and paste it into the environment's variables at
+  [claude.ai/code](https://claude.ai/code) → the environment for this repo →
+  *Environment variables* (see the [env docs](https://code.claude.com/docs/en/claude-code-on-the-web)):
+
+  ```bash
+  base64 < automations/gym-log/.work/sheets/token.json | tr -d '\n' | pbcopy
+  ```
+
+- **Dependencies** — with the google libs absent, the script talks to the
+  Sheets REST API over stdlib `urllib` (the four calls it needs). `python3`
+  alone is enough. `GYM_FORCE_REST=1` forces that path on the Mac too, which
+  is how it stays tested.
+
+Caveats worth knowing:
+
+- That JSON is a **secret**: env var only. Never commit it, never paste it
+  into a chat message or an issue — a transcript is not a vault.
+- Its scope (`spreadsheets`) is read-write to **every** sheet in the account,
+  not just this one. Tighter alternative if that ever matters: a service
+  account shared only with "My training" (needs `google-auth` installed for
+  the RS256 JWT — the stdlib path cannot sign it).
+- Re-running `auth` on the Mac mints a **new** refresh token and invalidates
+  the old one — re-copy it into the env var or cloud runs start failing with
+  exit 3.
+- If the GCP consent screen is still in *Testing*, Google expires refresh
+  tokens after 7 days. Publishing the app (still unverified, personal use)
+  is what makes them durable.
+
 ## Sheet layout contract
 
 Row 1–2: `Category` (A1:A2) | `Excercise` (B1:B2) | per date a merged
