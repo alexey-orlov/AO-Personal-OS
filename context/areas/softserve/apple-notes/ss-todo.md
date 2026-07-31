@@ -1,17 +1,27 @@
 ---
 note: SS Todo
 area: softserve
-snapshot: 2026-07-25 18:30
-chars: 3011
+snapshot: 2026-07-31 08:06
+chars: 3168
 scope: above relevance marker
 ---
 SS Todo
 
 
+
+Oracle
+RiyahdAir - final one-pager
+DHL approach - review
+BA program - review
+
+Jumpstart
+Payworks - follow-up
+BA presale - follow-up
+GI meeting - follow-up
 CV
 Todo and meeting with Mamchych
 Update one-pager
-Questions to Oracle
+Questions to Oracle 
 Packaged offer - JS program (2 versions; internal team composition; Code and Codex??)
 Oracle slides (adsditions for all parts)
 Oracle request

@@ -1,8 +1,8 @@
 ---
 note: GC Todo
 area: gigacloud
-snapshot: 2026-07-25 18:30
-chars: 19698
+snapshot: 2026-07-31 08:06
+chars: 19784
 scope: above relevance marker
 ---
 GC Todo
@@ -38,6 +38,7 @@ Non-gov
 36e6677e-f441-4d9d-867b-66e772837a9a
 
 Фиксы на вроде
+Price item: Field calculation helper: Pricing fields - поменять версию после поставки
 Component. Field auto-filling: Hardware details (Comp node, GPU only) + Min margin - поменять версию
 Product catalogue. Sync gov product - поменять версию после поставки
 Price item. Field auto-filling: current margin, max discount - поменять версию
