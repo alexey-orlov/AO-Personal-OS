@@ -1,0 +1,11 @@
+{
+  "date": "7/31/2026",
+  "my_weight": 73.2,
+  "entries": [
+    {"category": "Chest", "exercise": "Жим лёжа", "sets": 3, "reps": 10, "w_start": 60, "w_end": 80},
+    {"category": "Chest", "exercise": "Жим сидя", "sets": 3, "reps": 10, "w_start": 60, "w_end": 70},
+    {"category": "Chest", "exercise": "Жим L 45°", "sets": 3, "reps": 10, "w_start": 40, "w_end": 45},
+    {"category": "Chest", "exercise": "Сведение рук", "sets": 3, "reps": 10, "w_start": 59, "w_end": 68.3},
+    {"category": "Chest", "exercise": "Жим в брусьях сидя", "sets": 3, "reps": 10, "w_start": 63.5, "w_end": 63.5}
+  ]
+}

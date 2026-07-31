@@ -30,6 +30,13 @@ merged in column A, template formatting cloned onto new blocks/rows).
     Creates the date block / category / exercise row if missing, overwrites
     if present (idempotent). Date = `M/D/YYYY`, no leading zeros. Exit 3 =
     re-run `auth`.
+- `apply_pending.sh` — flushes queued payloads (`pending/*.json`) into the
+  sheet, moving each applied one to `pending/applied/`. Re-running is a no-op.
+- `pending/` — committed queue for sessions parsed where the token is not
+  available (Claude Code cloud runs, fresh clones — the token lives in the
+  git-ignored `.work/`). The skill writes the ready `log` payload here
+  instead of dropping the training, and says it is queued rather than
+  reporting it logged.
 - `.work/` — git-ignored; holds `sheets/token.json`.
 
 ## Auth
