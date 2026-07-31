@@ -1,0 +1,141 @@
+{
+  "schema": 1,
+  "generatedAt": "2026-07-31T04:02:59.151Z",
+  "runStamp": "20260731T0402",
+  "episodes": [
+    {
+      "videoId": "DXknnapb_GU",
+      "videoTitle": "WATCH ME WRITE LIVE WITH CHATGPT VOICE",
+      "videoUrl": "https://www.youtube.com/watch?v=DXknnapb_GU",
+      "channelName": "Every",
+      "publishedDate": "2026-07-29",
+      "guests": [
+        "Alex (OpenAI)",
+        "Greg (OpenAI)",
+        "Tibo (OpenAI)",
+        "Mia (OpenAI)"
+      ],
+      "summary": "The creator writes live while using ChatGPT voice mode and walks through a draft section about how 'thinking' UIs and test-time compute enabled Codeex's comeback. The core argument: models that can spend extra compute at inference — producing hidden 'thinking' tokens and running tests/tools before answering — changed both how models are built and how products like Codeex succeeded. The session mixes technical explanation (multiply-and-add as the atomic operation, RL/reward on verifiable tasks) with writing craft and metaphors to make the idea readable.",
+      "insights": [
+        {
+          "headline": "Test-time compute lets models think privately before answering",
+          "detail": "When a user sees the UI label 'thinking' the model is not merely showing a loading animation but running extra, often hidden, computation specific to that query. Those hidden tokens act like private working notes: the model can draft intermediate steps, run tools or tests, fold results back in, and only then emit the public answer. That change — paying for extra compute at inference for hard problems — is credited as essential to making Codeex compelling and commercially successful.",
+          "anchorQuote": "you will see that word thinking shimmering in the place",
+          "tSeconds": 2291,
+          "link": "https://www.youtube.com/watch?v=DXknnapb_GU&t=2291"
+        },
+        {
+          "headline": "First-gen chat models thought in public, like improv actors",
+          "detail": "Early large language models were 'external processors' — their entire reasoning had to be expressed as the answer token stream, so every trial was visible to the user. Prompting tricks like 'chain of thought' forced the model to show intermediate reasoning and often improved results, but it was a manual hack; the next wave turned that visible rehearsal into a private capability the model could use automatically. The difference explains why asking a model to 'think step by step' used to be a user trick and later became an engineered feature.",
+          "anchorQuote": "The first generation of large language models were external processes.",
+          "tSeconds": 4603,
+          "link": "https://www.youtube.com/watch?v=DXknnapb_GU&t=4603"
+        },
+        {
+          "headline": "Verifiable, multi-step outcomes made long inference trainable and valuable",
+          "detail": "Researchers shifted toward training and rewarding behaviors that produced verifiable outcomes (tests passing, tasks completing), so models learned multi-step trajectories that tend to succeed. That training plus letting the model actually spend more compute at inference (test-time compute) produced measurable performance gains — summed up by the quote, 'If we could increase test time compute, we got better performance.' Those gains enabled product bets (like desktop/cloud Codeex) that scaled quickly and drew millions of users.",
+          "anchorQuote": "If we could increase test time compute, we got better performance",
+          "tSeconds": 6157,
+          "link": "https://www.youtube.com/watch?v=DXknnapb_GU&t=6157"
+        },
+        {
+          "headline": "The microscopic unit of model work is multiply-and-add",
+          "detail": "At hardware level model inference is built from trivial operations: multiply one number by another and add it to a running total; matrix multiplies are simply billions of those operations in parallel. Framing 'thinking' in these physical terms makes clear what's changing: we pay for many more of those tiny operations (and loops of them) at inference so the system can explore options before committing to the next public token. That demystifies 'reasoning' as extended, repeated arithmetic rather than magic.",
+          "anchorQuote": "Multiply one number by another, add it to a total.",
+          "tSeconds": 2830,
+          "link": "https://www.youtube.com/watch?v=DXknnapb_GU&t=2830"
+        }
+      ]
+    },
+    {
+      "videoId": "Fpg_8aiBxx4",
+      "videoTitle": "How Lassie Is Automating Healthcare Administration",
+      "videoUrl": "https://www.youtube.com/watch?v=Fpg_8aiBxx4",
+      "channelName": "a16z",
+      "publishedDate": "2026-07-30",
+      "guests": [
+        "Frederick",
+        "Alex"
+      ],
+      "summary": "Founders of Lassie explain how they built AI agents that run the back-office work of small healthcare practices (especially dental offices), moving from manual service to largely autonomous software. Their throughline: embed in offices to capture context and build tools, then swap in better models so the software does labor rather than just store data. They argue this makes the addressable market far larger than traditional SaaS and outline the technical, operational, and go-to-market work required to scale across distributed, nontechnical SMBs.",
+      "insights": [
+        {
+          "headline": "Lassie replaces most practice admin by running offices autonomously",
+          "detail": "Lassie built an agent that performs the day-to-day administrative labor of dental practices rather than offering a toolkit the staff must use. They reached roughly 95–98% automation for initial jobs (the first agent does ~30 hours of labor/month) and charge five-figure contracts because that labor comes out of the practice's payroll budget. That degree of automation turns a chronic hiring problem (staff like \"Betty\" quitting) into a product doctors will pay for and recommend by word of mouth.",
+          "anchorQuote": "we were always obsessed with automating",
+          "tSeconds": 358,
+          "link": "https://www.youtube.com/watch?v=Fpg_8aiBxx4&t=358"
+        },
+        {
+          "headline": "Software that performs labor multiplies addressable markets dramatically",
+          "detail": "The founders argue the big change versus past enterprise software is that AI can do the work, not just digitize filing cabinets; that expansion is orders of magnitude larger than previous software markets. They compare it to fintech bundling (Toast) which enlarged markets by embedding payments, and point to 160,000 U.S. dental practices spending roughly $200,000/year on administrative costs as an example of a large, addressable labor market that AI can unlock. Anecdotally, doctors say they would not have retired had this automation existed, demonstrating latent demand caused by labor shortages.",
+          "anchorQuote": "software do the job of labor, which Alex, I",
+          "tSeconds": 446,
+          "link": "https://www.youtube.com/watch?v=Fpg_8aiBxx4&t=446"
+        },
+        {
+          "headline": "Start by doing the work yourself, then automate it",
+          "detail": "Lassie spent years working inside dental offices—initially acting as the humans-in-the-loop—to learn workflows, build the context layer, and develop read/write integrations with practice systems and insurance portals. That in-field experience let them 'automate away' the tasks they were doing and only hand control back when automation hit a high reliability threshold (they target ~95%+ before broad sell-in). This approach reduces onboarding friction and trust barriers for nontechnical, time-constrained practice owners.",
+          "anchorQuote": "initially we were actually the the humans in the loop",
+          "tSeconds": 1123,
+          "link": "https://www.youtube.com/watch?v=Fpg_8aiBxx4&t=1123"
+        },
+        {
+          "headline": "Distribution and onboarding are the primary obstacles for SMB AI adoption",
+          "detail": "Reaching and activation of small, distributed, non-technical businesses is the hardest part: owners aren't in typical B2B databases, are very busy, and will abandon tools that don't work quickly. Lassie invests heavily in consumer-like, under-the-hood onboarding—bank linking, system-of-record integration, insurance portal hookups—so offices can plug in with minimal friction; they say self-serve onboarding is months away but essential to scale beyond early customers. Solving this GTM puzzle, not model quality alone, determines how fast agents spread across 'Iowa and Paducah' main-street businesses.",
+          "anchorQuote": "how do you adopt and spread AI in small businesses",
+          "tSeconds": 1792,
+          "link": "https://www.youtube.com/watch?v=Fpg_8aiBxx4&t=1792"
+        }
+      ]
+    },
+    {
+      "videoId": "CxXgV54KzpQ",
+      "videoTitle": "Jeff Dean: The 1% Rule for Building in AI",
+      "videoUrl": "https://www.youtube.com/watch?v=CxXgV54KzpQ",
+      "channelName": "Y Combinator",
+      "publishedDate": "2026-07-30",
+      "guests": [
+        "Jeff Dean (Google)"
+      ],
+      "summary": "Jeff Dean explains that the next big wins in AI come from systems-level thinking: specializing inference hardware, minimizing energy/data movement, and building agent/ orchestration layers (retrieval, memory, tools) around models. He argues founders should target narrow domains where general models fail or where they have unique data, and that automating fast experiment loops will accelerate science and engineering.",
+      "insights": [
+        {
+          "headline": "Specialized inference hardware massively cuts latency and energy",
+          "detail": "Designing chips tuned for low-precision dense linear algebra (not general-purpose CPUs) can yield orders-of-magnitude savings in both energy and latency. Jeff cites the original TPU work: a chip generation that was 30–80× more energy efficient than CPUs/GPUs of the day and 20–30× lower latency, which made real-time, widely available ML services practical. The lesson: co-design hardware to match ML primitives if you want huge cost or responsiveness advantages.",
+          "anchorQuote": "30 to 80 times more energy efficient",
+          "tSeconds": 494,
+          "link": "https://www.youtube.com/watch?v=CxXgV54KzpQ&t=494"
+        },
+        {
+          "headline": "Data movement, not arithmetic, usually dominates AI energy cost",
+          "detail": "Moving data into the processor can consume roughly 1,000× more energy than doing the arithmetic on it, so system design must prioritize minimizing I/O and memory traffic. That gap explains why batching is required for efficient training, why low-latency single-request inference is costly, and why hardware and software that reduce data motion (on-chip memory, reduced precision, specialized interconnects) unlock new product possibilities. In practice, many problems framed as \"model\" issues are actually energy or IO constraints.",
+          "anchorQuote": "moving the data and doing data IO costs thousand times",
+          "tSeconds": 741,
+          "link": "https://www.youtube.com/watch?v=CxXgV54KzpQ&t=741"
+        },
+        {
+          "headline": "Agents can run for days or weeks to solve complex problems",
+          "detail": "Dean argues agent-based systems are not limited to short sessions; with sufficiently capable models and orchestration they can run for days or weeks and accomplish complex multi-step tasks. He gives concrete examples like instructing agents to implement entire software systems in new languages with different safety or performance profiles and then iterating over those tasks. The implication is product design should anticipate long-running, stateful agents rather than only ephemeral prompts.",
+          "anchorQuote": "run for days or weeks and do really really complicated tasks",
+          "tSeconds": 312,
+          "link": "https://www.youtube.com/watch?v=CxXgV54KzpQ&t=312"
+        },
+        {
+          "headline": "Context engineering (retrieval, tools, memory) beats just scaling models",
+          "detail": "The model is only one component of a problem-solving system; giving a model clear context (retrieved documents, tool access, a memory of prior interactions) often produces far better, more reliable results than simply increasing model size. Dean notes that context provides unambiguous, task-specific information unlike the diffuse training corpus, and that skills/harnesses that teach models how to call tools or fetch logs dramatically extend capabilities. For builders, investing in retrieval, skill design, and orchestration yields outsized returns versus raw parameter scaling.",
+          "anchorQuote": "the model is really only one piece",
+          "tSeconds": 1002,
+          "link": "https://www.youtube.com/watch?v=CxXgV54KzpQ&t=1002"
+        },
+        {
+          "headline": "Founders should target domains where general models succeed 0–1%",
+          "detail": "Small teams win by picking problems where frontier general models produce almost no usable results (0–1% success), or where they have exclusive access to crucial data, enabling niche specialized models or tailored UIs. Dean advises testing general APIs early: if the base model already does 20% of the job, it will likely improve quickly and erode your advantage; if it fails entirely, a focused product or specialized model can be durable. The strategic rule is to find problem shapes with high barriers to generalist takeover.",
+          "anchorQuote": "the model succeeds 0% or 1% of the time",
+          "tSeconds": 1728,
+          "link": "https://www.youtube.com/watch?v=CxXgV54KzpQ&t=1728"
+        }
+      ]
+    }
+  ]
+}
