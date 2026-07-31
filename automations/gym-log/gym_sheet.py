@@ -37,18 +37,30 @@ stripped trailing dots). Fuzzy "Жим лёжа" vs "Жим лежа рукам�
 the calling agent's job — see .claude/skills/gym-log/references/exercises.md.
 
 Env (set by config.sh): GYM_SHEET_ID, GYM_TAB, GYM_SHEETS_TOKEN, SHEETS_CREDS.
+Credentials come from the GYM_SHEETS_TOKEN file, or — where there is no
+.work/ (cloud sessions, fresh clones) — from GYM_SHEETS_TOKEN_JSON holding
+the same JSON inline (raw or base64). With neither googleapiclient nor
+google-auth installed the file falls back to a stdlib REST client, so
+python3 alone is enough; GYM_FORCE_REST=1 forces that path.
 Exit codes: 0 ok, 2 bad input, 3 auth problem (re-run `gym_sheet.py auth`).
 """
+import base64
 import json
 import os
 import re
 import sys
+import urllib.error
+import urllib.parse
+import urllib.request
 
 SHEET_ID = os.environ.get("GYM_SHEET_ID", "")
 TAB = os.environ.get("GYM_TAB", "Sheet1")
 TOKEN = os.environ.get("GYM_SHEETS_TOKEN", "")
+TOKEN_ENV = "GYM_SHEETS_TOKEN_JSON"   # same JSON, inline — for machines with no .work/
 CREDS = os.environ.get("SHEETS_CREDS", "")
 SCOPES = ["https://www.googleapis.com/auth/spreadsheets"]
+API = "https://sheets.googleapis.com/v4/spreadsheets"
+TOKEN_URL = "https://oauth2.googleapis.com/token"
 
 FIRST_BLOCK_COL = 2   # zero-based index of column C
 BLOCK_W = 4           # Sets | Reps | Weight start | Weight end
@@ -76,22 +88,142 @@ def _col_letter(idx):
     return out
 
 
-def _service():
-    from google.auth.transport.requests import Request
-    from google.oauth2.credentials import Credentials
-    from googleapiclient.discovery import build
+# ---- credentials -------------------------------------------------------
+# Same authorized-user JSON, two sources: the .work/ file on the Mac, or the
+# GYM_SHEETS_TOKEN_JSON env var (raw or base64) anywhere the repo is only a
+# clone — a Claude Code cloud session, a fresh checkout. Never in the repo.
 
-    if not (TOKEN and os.path.exists(TOKEN)):
-        _die(f"no token at GYM_SHEETS_TOKEN={TOKEN!r}; run `gym_sheet.py auth`", 3)
-    creds = Credentials.from_authorized_user_file(TOKEN, SCOPES)
+def _token_dict():
+    raw = os.environ.get(TOKEN_ENV, "").strip()
+    src = TOKEN_ENV
+    if raw:
+        if not raw.startswith("{"):
+            try:
+                raw = base64.b64decode(raw).decode()
+            except Exception:
+                _die(f"${TOKEN_ENV} is neither JSON nor base64-encoded JSON", 3)
+        try:
+            tok = json.loads(raw)
+        except Exception as e:
+            _die(f"${TOKEN_ENV} is not valid JSON ({e})", 3)
+    elif TOKEN and os.path.exists(TOKEN):
+        src = TOKEN
+        with open(TOKEN) as f:
+            tok = json.load(f)
+    else:
+        _die(f"no credentials — set ${TOKEN_ENV} (see automations/gym-log/README.md) "
+             f"or run `gym_sheet.py auth` on the Mac (GYM_SHEETS_TOKEN={TOKEN!r})", 3)
+    missing = [k for k in ("client_id", "client_secret", "refresh_token") if not tok.get(k)]
+    if missing:
+        _die(f"credentials from {src} are missing {', '.join(missing)}", 3)
+    return tok, src
+
+
+def _access_token(tok):
+    data = urllib.parse.urlencode({
+        "client_id": tok["client_id"], "client_secret": tok["client_secret"],
+        "refresh_token": tok["refresh_token"], "grant_type": "refresh_token",
+    }).encode()
+    req = urllib.request.Request(
+        TOKEN_URL, data=data,
+        headers={"Content-Type": "application/x-www-form-urlencoded"})
     try:
-        if not creds.valid:
-            creds.refresh(Request())
-            with open(TOKEN, "w") as f:
-                f.write(creds.to_json())
+        with urllib.request.urlopen(req, timeout=30) as r:
+            return json.loads(r.read().decode())["access_token"]
+    except urllib.error.HTTPError as e:
+        body = e.read().decode(errors="replace")[:200]
+        _die(f"token refresh rejected ({e.code}: {body}); re-run `gym_sheet.py auth` "
+             f"on the Mac, then refresh ${TOKEN_ENV}", 3)
     except Exception as e:
-        _die(f"token refresh failed ({e}); run `gym_sheet.py auth`", 3)
-    return build("sheets", "v4", credentials=creds, cache_discovery=False)
+        _die(f"token refresh failed ({type(e).__name__}: {e})", 3)
+
+
+# ---- transport ---------------------------------------------------------
+# googleapiclient when it is installed (the Mac venvs have it), else a stdlib
+# stand-in covering exactly the four call shapes this file uses — so a box
+# with nothing but python3 can still log a session. GYM_FORCE_REST=1 picks
+# the stdlib path everywhere, which is how the fallback stays exercised.
+
+def _http(method, path, token, query=None, body=None):
+    url = API + path + (("?" + urllib.parse.urlencode(query)) if query else "")
+    payload = json.dumps(body).encode() if body is not None else None
+    req = urllib.request.Request(url, data=payload, method=method, headers={
+        "Authorization": f"Bearer {token}",
+        "Content-Type": "application/json; charset=utf-8"})
+    try:
+        with urllib.request.urlopen(req, timeout=90) as r:
+            return json.loads(r.read().decode() or "{}")
+    except urllib.error.HTTPError as e:
+        body = e.read().decode(errors="replace")[:400]
+        _die(f"Sheets API {method} {path} → {e.code}: {body}",
+             3 if e.code in (401, 403) else 2)
+    except Exception as e:
+        _die(f"Sheets API {method} {path} failed ({type(e).__name__}: {e})")
+
+
+class _Call:
+    """Deferred request — googleapiclient hands back an object you .execute()."""
+
+    def __init__(self, *args):
+        self.args = args
+
+    def execute(self):
+        return _http(*self.args)
+
+
+class _RestValues:
+    def __init__(self, token):
+        self.token = token
+
+    def get(self, spreadsheetId, range, **kw):
+        query = {k: v for k, v in kw.items() if v is not None}
+        path = f"/{spreadsheetId}/values/{urllib.parse.quote(range, safe='')}"
+        return _Call("GET", path, self.token, query)
+
+    def batchUpdate(self, spreadsheetId, body):
+        return _Call("POST", f"/{spreadsheetId}/values:batchUpdate",
+                     self.token, None, body)
+
+
+class _RestSheets:
+    def __init__(self, token):
+        self.token = token
+
+    def spreadsheets(self):
+        return self
+
+    def values(self):
+        return _RestValues(self.token)
+
+    def get(self, spreadsheetId, fields=None):
+        return _Call("GET", f"/{spreadsheetId}", self.token,
+                     {"fields": fields} if fields else None)
+
+    def batchUpdate(self, spreadsheetId, body):
+        return _Call("POST", f"/{spreadsheetId}:batchUpdate", self.token, None, body)
+
+
+def _service():
+    tok, src = _token_dict()
+    if os.environ.get("GYM_FORCE_REST") != "1":
+        try:
+            from google.auth.transport.requests import Request
+            from google.oauth2.credentials import Credentials
+            from googleapiclient.discovery import build
+        except ImportError:
+            pass
+        else:
+            creds = Credentials.from_authorized_user_info(tok, SCOPES)
+            try:
+                if not creds.valid:
+                    creds.refresh(Request())
+                    if src != TOKEN_ENV:  # refresh the file, never the env var
+                        with open(src, "w") as f:
+                            f.write(creds.to_json())
+            except Exception as e:
+                _die(f"token refresh failed ({e}); run `gym_sheet.py auth`", 3)
+            return build("sheets", "v4", credentials=creds, cache_discovery=False)
+    return _RestSheets(_access_token(tok))
 
 
 def _auth():
@@ -104,7 +236,10 @@ def _auth():
     os.makedirs(os.path.dirname(TOKEN), exist_ok=True)
     with open(TOKEN, "w") as f:
         f.write(creds.to_json())
-    print(json.dumps({"ok": True, "token": TOKEN}))
+    print(json.dumps({"ok": True, "token": TOKEN, "next": (
+        f"a new refresh token invalidates the old one — re-copy it into "
+        f"${TOKEN_ENV} in the Claude Code web environment, else cloud runs "
+        f"start failing: base64 < {TOKEN} | tr -d '\\n' | pbcopy")}))
 
 
 class Model:

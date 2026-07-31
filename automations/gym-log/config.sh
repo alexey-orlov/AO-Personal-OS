@@ -4,7 +4,10 @@
 # (credentials.json) but keeps its OWN token, because this one carries the
 # read-write `spreadsheets` scope while the CRM token is readonly.
 
-export REPO_ROOT="$HOME/Documents/GitHub/AO-Personal-OS"
+# Derived, not hardcoded: the same checkout is at ~/Documents/GitHub on the
+# Mac and elsewhere in a cloud session / fresh clone.
+REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]:-$0}")/../.." && pwd)"
+export REPO_ROOT
 
 export GYM_DIR="$REPO_ROOT/automations/gym-log"
 export GYM_WORK="$GYM_DIR/.work"

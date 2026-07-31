@@ -113,8 +113,13 @@ echo '{"date":"7/22/2026","my_weight":73.6,"entries":[
   matches by name only. Re-categorizing means moving the row into the other
   group by hand in the sheet; say so explicitly instead of assuming the
   payload fixed it.
-- **No token (cloud run, fresh clone — no `.work/`)?** Never drop the
-  session and never report it as logged. Write the exact payload to
+- **Off the Mac (cloud run, fresh clone — no `.work/`)?** It still writes:
+  credentials come from the `GYM_SHEETS_TOKEN_JSON` env var and the script
+  falls back to a stdlib REST client when the google libs are missing — see
+  "Running off the Mac" in `automations/gym-log/README.md`. Exit 3 there
+  means that env var is unset or stale, and only Alex can refresh it.
+- **No credentials at all?** Never drop the session and never report it as
+  logged. Write the exact payload to
   `automations/gym-log/pending/<YYYY-MM-DD>.json`, commit it, and tell Alex
   it is queued plus the one command that applies it:
   `automations/gym-log/apply_pending.sh` (run on the Mac). Skip the step-7
