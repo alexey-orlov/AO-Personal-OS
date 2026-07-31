@@ -83,7 +83,12 @@ Alex names the same exercise slightly differently across notes. Resolve each
 parsed name against `references/exercises.md` (canonical RU name + aliases +
 category) AND the live sheet state from `dump` (step 5). Adjacent-exercise
 context helps: e.g. a pull day's "Тяга верт." next to "Горизонт. тяга" is
-"Верт. тяга". Genuinely new exercise → keep his wording as the new canonical
+"Верт. тяга". **Never infer the muscle group from a letter or symbol inside
+the name** — the block Alex actually trained decides it. A press sitting
+between two chest presses on a push day is Chest, whatever the glyph next to
+it looks like (`Жим ∠45°` was filed as a leg press for a week because the
+angle symbol read as "L for legs"). When the abbreviation is what decides the
+category, ask instead of guessing. Genuinely new exercise → keep his wording as the new canonical
 name, assign an EN muscle-group category (reuse existing categories before
 inventing one), and **add a row to the registry file** after logging.
 
@@ -104,6 +109,17 @@ echo '{"date":"7/22/2026","my_weight":73.6,"entries":[
   update (no training): `{"date":"...","my_weight":74.2,"entries":[]}`.
 - Numbers as JSON numbers (22.5, not "22,5"). Exit code 3 → token expired:
   run `"$PYTHON_BIN" "$GYM_SHEET" auth` (browser consent; ask Alex first).
+- **Category is ignored for an exercise that already has a row** — `log`
+  matches by name only. Re-categorizing means moving the row into the other
+  group by hand in the sheet; say so explicitly instead of assuming the
+  payload fixed it.
+- **No token (cloud run, fresh clone — no `.work/`)?** Never drop the
+  session and never report it as logged. Write the exact payload to
+  `automations/gym-log/pending/<YYYY-MM-DD>.json`, commit it, and tell Alex
+  it is queued plus the one command that applies it:
+  `automations/gym-log/apply_pending.sh` (run on the Mac). Skip the step-7
+  digest in that case — it must be built from real post-write sheet numbers,
+  not from the payload.
 
 ### 6. Verify & report
 
