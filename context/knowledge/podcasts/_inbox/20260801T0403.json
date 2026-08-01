@@ -1,0 +1,180 @@
+{
+  "schema": 1,
+  "generatedAt": "2026-08-01T04:03:45.625Z",
+  "runStamp": "20260801T0403",
+  "episodes": [
+    {
+      "videoId": "jhVKliA9Jpk",
+      "videoTitle": "WATCH MY WRITING PROCESS LIVE WITH CHATGPT FOR WORK",
+      "videoUrl": "https://www.youtube.com/watch?v=jhVKliA9Jpk",
+      "channelName": "Every",
+      "publishedDate": "2026-07-30",
+      "guests": [
+        "Greg Brockman (OpenAI)",
+        "Tibo Sautio (OpenAI)",
+        "Alexander (OpenAI)"
+      ],
+      "summary": "Dan Shipper live-streams his process of writing a definitive history of Codex while using ChatGPT (voice mode) as a drafting partner. The session alternates between editing the draft, asking the model to make technical clarifications and placeholder notes, and explaining two linked arguments: that reasoning models + a \"thinking\" UI created a new scaling axis (test-time compute), and that programming was the clearest strategic application because code gives machine-checkable feedback. He also frames the project as \"open kitchen storytelling\": publishing with transparent source material so readers can inspect interviews and evidence.",
+      "insights": [
+        {
+          "headline": "Reasoning models plus a shimmering “thinking” UI created test‑time compute as a new scaling axis",
+          "detail": "Dan explains that early LLMs answered immediately and publicly, while the next generation—reasoning models—can 'think' before answering. That shift means performance on hard problems improves if you allow the model more compute at query time (test‑time compute) instead of only buying improvement through larger pre‑training; OpenAI’s development of such models (e.g., their ’01’ reasoning model) made longer, internal deliberation a lever for better results. This is important because it reframes how teams prioritize product work and compute allocation: you can now scale capability on hard tasks at run time rather than only by training bigger models in advance.",
+          "anchorQuote": "thinking shimmering where the response will appear",
+          "tSeconds": 318,
+          "link": "https://www.youtube.com/watch?v=jhVKliA9Jpk&t=318"
+        },
+        {
+          "headline": "Programming became the strategic bet because code provides a closed loop of machine‑checkable feedback",
+          "detail": "Greg Brockman and Dan argue programming is unusually well suited to the reasoning paradigm because an agent can edit a real repository, run a compiler or tests, and get immediate, objective signals about success or failure. That closed verification loop means extra test‑time compute can be spent iterating (try, check, revise) and produce measurable improvement, not just longer prose; training signals can also reinforce trajectories that lead to correct outcomes. In short, software engineering combines scale, verifiability, and high economic value, making it a strong domain for applying reasoning models.",
+          "anchorQuote": "Programming was unusually suited to the new reasoning paradigm",
+          "tSeconds": 1127,
+          "link": "https://www.youtube.com/watch?v=jhVKliA9Jpk&t=1127"
+        },
+        {
+          "headline": "Declaring coding a company priority triggered many overlapping, bottom‑up efforts toward Codex",
+          "detail": "When OpenAI made \"coding/software engineering\" a top‑level company goal in early 2025, that mandate didn't produce a single linear project but unlocked multiple parallel experiments across teams—examples include Tibo Sautio joining an internal coding‑agent effort (Dec 2024) to accelerate research infrastructure and Alexander pushing an interactive coding product concept. Dan frames Codex’s origin as 'many beginnings': the priority served as a rallying name that encouraged diverse teams to explore different approaches and keep those that produced evidence. That explains why Codex emerged from a spreading set of initiatives rather than one centrally planned route.",
+          "anchorQuote": "coding software engineering as a top level company goal",
+          "tSeconds": 634,
+          "link": "https://www.youtube.com/watch?v=jhVKliA9Jpk&t=634"
+        },
+        {
+          "headline": "Open‑kitchen storytelling: publish with transparent sources and live investigable quotes",
+          "detail": "Dan proposes making articles clickable so any quoted line opens the full interview in a sidebar (and allows agents to inspect the source), calling this approach 'open kitchen storytelling.' The idea is to avoid isolated quotes that lack context by exposing source material and letting readers (or automated agents) follow the chain of evidence themselves, improving trust and enabling independent verification. It's both a reporting practice and a product idea that complements transparent, agent‑driven reading workflows.",
+          "anchorQuote": "open kitchen storytelling is exactly it's such a good term",
+          "tSeconds": 219,
+          "link": "https://www.youtube.com/watch?v=jhVKliA9Jpk&t=219"
+        }
+      ]
+    },
+    {
+      "videoId": "pU2T0N9NWYo",
+      "videoTitle": "Moonshots LIVE 2026",
+      "videoUrl": "https://www.youtube.com/watch?v=pU2T0N9NWYo",
+      "channelName": "Peter H. Diamandis",
+      "publishedDate": "2026-07-30",
+      "guests": [
+        "Ben Lam (Colossal)",
+        "Astro Teller (Google X)",
+        "Palmer Lucky (Anduril)"
+      ],
+      "summary": "This clip promotes Moonshots LIVE, a September 25th event in Los Angeles that celebrates optimistic builders and awards two major X Prizes totaling $5 million. One prize funds an optimistic science‑fiction film and the other is a large AI-focused hackathon that emphasizes real users and revenues. Finalists pitch live to industry judges and the audience votes, and the day features notable entrepreneurs and moonshot leaders. The event frames storytelling and commercially viable AI products as complementary ways to steer humanity toward better futures.",
+      "insights": [
+        {
+          "headline": "An X Prize awards $3.5M for optimistic sci‑fi filmmaking",
+          "detail": "The Future Vision X Prize is a $3.5 million competition that specifically solicits a science‑fiction movie depicting an optimistic, hopeful future. Using a large cash prize to incentivize genre storytelling is unusual: it treats narrative and cultural imagination as deliberate levers for shaping public expectations about technology and society. By funding optimistic fiction, the organizers aim to counterbalance dystopian tech narratives and inspire builders and audiences toward actionable, positive futures.",
+          "anchorQuote": "Future Vision X Prize, a $3.5 million competition",
+          "tSeconds": 22,
+          "link": "https://www.youtube.com/watch?v=pU2T0N9NWYo&t=22"
+        },
+        {
+          "headline": "Build with Gemini is a $2M hackathon demanding real customers",
+          "detail": "The Build with Gemini X Prize is described as the world’s largest hackathon with $2 million in prizes that rewards businesses solving problems with AI — explicitly valuing \"Real users, real revenues, real problems.\" That requirement shifts focus from prototype demos to commercially viable products, signaling organizers want solutions that scale and generate measurable impact. Positioning the hackathon this way increases the chance that winning entries become sustainable companies rather than one‑off demos.",
+          "anchorQuote": "the world's largest hackathon with $2 million in prizes",
+          "tSeconds": 30,
+          "link": "https://www.youtube.com/watch?v=pU2T0N9NWYo&t=30"
+        },
+        {
+          "headline": "More than 25,000 contenders compete for a combined $5M purse",
+          "detail": "The two X Prizes together offer $5 million in purses and drew over 25,000 global contenders, indicating broad international engagement. That scale matters because it shows both cultural (film) and technical (AI) communities are responding, increasing the odds of finding breakout ideas and building a community of practice. Large participation also lends legitimacy and publicity, amplifying whatever winners emerge.",
+          "anchorQuote": "more than 25,000 contenders from around the world",
+          "tSeconds": 18,
+          "link": "https://www.youtube.com/watch?v=pU2T0N9NWYo&t=18"
+        },
+        {
+          "headline": "Finalists pitch live and the audience votes alongside expert judges",
+          "detail": "Five finalists from each X Prize will present live to a panel of industry figures, and attendees get to vote alongside the judges. Combining expert evaluation with audience voting democratizes selection and creates immediate market feedback — a way to test whether ideas resonate with both insiders and broader communities. The live format also turns the awards into a participatory celebration that can accelerate networking, investment, and adoption.",
+          "anchorQuote": "you get to vote right alongside them",
+          "tSeconds": 46,
+          "link": "https://www.youtube.com/watch?v=pU2T0N9NWYo&t=46"
+        }
+      ]
+    },
+    {
+      "videoId": "cO1f2wOxSH4",
+      "videoTitle": "Decagon’s Playbook for Building Enterprise AI Applications",
+      "videoUrl": "https://www.youtube.com/watch?v=cO1f2wOxSH4",
+      "channelName": "a16z",
+      "publishedDate": "2026-07-31",
+      "guests": [],
+      "summary": "Founders of Decagon explain how they build, tune, and deploy conversational AI for large enterprises: favoring small, fine‑tuned open‑source models for task-specific agent components, using frontier models for exploratory or broadly reasoning tasks, and productizing the hands‑on work done by forward‑deployed teams. Their throughline: turn bespoke deployment work into repeatable product features and tooling (Duet, Autopilot, AOPs) so enterprises can iterate quickly while meeting governance, testing, and integration needs.",
+      "insights": [
+        {
+          "headline": "Fine‑tuned small models often beat big models on single tasks",
+          "detail": "Decagon runs ~90% of its production workflow on fine‑tuned open‑source models because each agent subtask (topic classification, abuse detection, etc.) doesn't need full frontier intelligence. By tailoring smaller models to a single function you can reduce latency, lower inference cost, and—after careful tuning and evaluation—achieve equal or better task performance than general large models. Frontier models are still used roughly 10% of the time for open‑ended, exploratory jobs (e.g., their Autopilot that analyzes millions of conversations).",
+          "anchorQuote": "each individual task doesn't need all",
+          "tSeconds": 207,
+          "link": "https://www.youtube.com/watch?v=cO1f2wOxSH4&t=207"
+        },
+        {
+          "headline": "Enterprises will move to open‑source fine‑tuning, but adoption will be slow",
+          "detail": "Moving from frontier APIs to in‑house open models requires more than flipping a switch: you need the right data, bespoke evaluation metrics tied to customer outcomes, model risk governance, and the tooling/infrastructure to retrain and deploy quickly. Decagon argues that once a use case is stable and in scale it's strictly better (latency, cost, control) to run fine‑tuned open models, but many deployments remain on frontier APIs while teams experiment and validate new use cases.",
+          "anchorQuote": "fine-tuning these models is non-trivial it's not just like oh",
+          "tSeconds": 442,
+          "link": "https://www.youtube.com/watch?v=cO1f2wOxSH4&t=442"
+        },
+        {
+          "headline": "Forward‑deployed teams must productize learnings, not just deliver one‑offs",
+          "detail": "Decagon's forward‑deployed engineers and agent PMs are embedded with customers to discover workflows, but their output is always turned into core product improvements (not one‑off integrations). That discipline—capturing repeatable patterns like Agent Operating Procedures (AOPs) and tests—prevents the company from becoming bespoke consulting and lets future customers benefit immediately from prior deployments.",
+          "anchorQuote": "forward deployed engineers eat pain and excrete product",
+          "tSeconds": 1562,
+          "link": "https://www.youtube.com/watch?v=cO1f2wOxSH4&t=1562"
+        },
+        {
+          "headline": "Agent tooling (Duet, Autopilot, AOPs) converts bespoke work into scale",
+          "detail": "They built Duet (a larger, slower agent) and Autopilot to automate the operational heavy lifting that forward teams used to do manually: writing procedures, creating integrations and tests, reviewing conversations, surfacing trends, and proposing improvements. That productization speeds iteration (example: a customer spun up seven journeys in a month after switching to Decagon versus three in a year with a competitor) and reduces ongoing manual engineering toil.",
+          "anchorQuote": "So what duet is is it's kind of a separate agent",
+          "tSeconds": 1876,
+          "link": "https://www.youtube.com/watch?v=cO1f2wOxSH4&t=1876"
+        }
+      ]
+    },
+    {
+      "videoId": "5d6y3poKwK4",
+      "videoTitle": "Patrick Collison: \"What If You Succeed?\"",
+      "videoUrl": "https://www.youtube.com/watch?v=5d6y3poKwK4",
+      "channelName": "Y Combinator",
+      "publishedDate": "2026-07-31",
+      "guests": [
+        "Patrick Collison (Stripe)"
+      ],
+      "summary": "Patrick Collison discusses the interplay between human cognitive skill and AI, practical startup choices (dropping out, launch timing), and what Stripe's data reveals about entrepreneurship today. His throughline is that human judgment and institutional complexity still matter, AI expands opportunities rather than concentrates them, and founders should ask not only how to avoid failure but whether they'll want to live with success.",
+      "insights": [
+        {
+          "headline": "Memorized knowledge remains faster than asking an AI agent",
+          "detail": "Collison argues that retrieving knowledge from your own brain — \"neuronal lookups\" or cognitive L1 cache — is materially faster and allows many more mental 'round trips' than invoking an external model or agent. He notes that even given powerful models, companies like Stripe still place enormous premium on cognitive ability, and he personally prefers to write and reason himself rather than rely on model-generated prose. This matters because it implies AI will be an augmenting tool, not an immediate substitute for deep human expertise in many domains.",
+          "anchorQuote": "That's a hell of a lot slower than knowing it",
+          "tSeconds": 166,
+          "link": "https://www.youtube.com/watch?v=5d6y3poKwK4&t=166"
+        },
+        {
+          "headline": "Dropping out isn't irreversible and often has minimal long-term cost",
+          "detail": "Drawing from his experience of dropping out of college twice (and returning once), Collison says leaving school to start a company is not a 'trapdoor' — you can return and the reputational costs are typically small. He recommends finishing college if you enjoy it, but reassures students that the urgency many feel is often unnecessary and parents' worst fears rarely materialize. This reframes the usual all-or-nothing narrative for students weighing entrepreneurship against completing a degree.",
+          "anchorQuote": "dropped out of college twice to start a company.",
+          "tSeconds": 341,
+          "link": "https://www.youtube.com/watch?v=5d6y3poKwK4&t=341"
+        },
+        {
+          "headline": "Slow public launches can be the right choice for complex, regulated products",
+          "detail": "Stripe intentionally waited nearly two years to publicly launch (first production user early, public launch September 2011) because payments required heavy investment in security, banking partners, reliability and infrastructure before scaling. They used private beta with gradually increasing customer numbers and built functionality just-in-time based on real user requests, which let them learn while avoiding premature exposure. The lesson: in domains where the cost of failure is high, deliberate build and early production feedback can beat the 'launch fast' orthodoxy.",
+          "anchorQuote": "We launched publicly September 2011.",
+          "tSeconds": 837,
+          "link": "https://www.youtube.com/watch?v=5d6y3poKwK4&t=837"
+        },
+        {
+          "headline": "Startup formation is accelerating and new companies are performing better",
+          "detail": "Using Stripe's platform data, Collison says there are many more businesses starting now than a year ago and that, strikingly, the median new business is doing better year-over-year; Stripe sees roughly a ~2x year-over-year increase in new signups. He also reports higher probabilities of new firms reaching revenue milestones and shorter time-to-revenue for Atlas incorporations, indicating that it's a particularly fertile time to found companies. This undercuts the fatalist claim that now is a worse moment to start something because of AI or concentration.",
+          "anchorQuote": "there are many more businesses getting started now",
+          "tSeconds": 1492,
+          "link": "https://www.youtube.com/watch?v=5d6y3poKwK4&t=1492"
+        },
+        {
+          "headline": "AI is unlikely to produce a single hegemonic winner; decentralization is more likely",
+          "detail": "Collison cautions that while model capabilities may obviate specific vertical tasks and big labs are powerful, large organizations historically fail to execute across every domain; human organizational complexity constrains monopoly outcomes. Based on Stripe data showing broad, rapid adoption of AI and many companies building on these capabilities, he expects thousands of winners and broader prosperity rather than total centralization. The implication is that founders shouldn't be paralyzed by fear of being 'trampled' by the labs — there remains ample room to build.",
+          "anchorQuote": "I don't worry about the centralization in the same way.",
+          "tSeconds": 1813,
+          "link": "https://www.youtube.com/watch?v=5d6y3poKwK4&t=1813"
+        }
+      ]
+    }
+  ]
+}
