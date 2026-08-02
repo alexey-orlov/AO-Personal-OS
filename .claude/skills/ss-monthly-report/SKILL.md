@@ -119,6 +119,12 @@ Run from the repo root. Scripts live in `automations/ss-monthly-report/`; use it
 - **Anomalies to surface, not fix:** entries naming another group without its prefix; a
   description that looks personal or non-billable; a day with implausible total hours; a
   midnight-crossing entry (legitimate — `09/07 22:00→00:00` — but worth a line).
+- **Overlapping timers.** `report_verify.py` prints a `WARN` for any two entries on the same
+  day whose intervals intersect: those minutes are billed twice, and when the two sit in
+  different groups they land on two different client projects. Jul'26 had exactly one
+  (27/07, 1h15m ≈ $150). Always repeat these warnings verbatim in the summary with the dollar
+  figure — they are a warning, not a failure, because only Alex knows if the double-booking
+  was real work.
 
 ## Hard-won facts
 
@@ -142,5 +148,5 @@ Run from the repo root. Scripts live in `automations/ss-monthly-report/`; use it
 3. Do the hours equal the source total (PDF header / API sum) to the second?
 4. Is the business trip present exactly once, with the amount unchanged, in the group I named?
 5. Are the `PR-…` codes the ones for *this* month, or cloned and unconfirmed?
-6. Did I state every flagged entry with its dollar value?
+6. Did I state every flagged entry — and every `WARN` overlap — with its dollar value?
 7. `BT details` untouched, and the `Details` header still the six expected columns?
