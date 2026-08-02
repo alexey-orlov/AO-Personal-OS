@@ -206,6 +206,17 @@ def main():
     if not entries:
         die('entries file is empty -- nothing to bill')
 
+    # Guard against billing the wrong month: a stale export in ~/Downloads, or an API
+    # fetch for the wrong period, otherwise produces a perfectly plausible workbook.
+    want_y, want_m = (int(x) for x in a.month.split('-'))
+    stray = sorted({e['date'] for e in entries
+                    if datetime.datetime.strptime(e['date'], '%d/%m/%Y').year != want_y
+                    or datetime.datetime.strptime(e['date'], '%d/%m/%Y').month != want_m})
+    if stray:
+        die(f'{len(stray)} entry date(s) fall outside {a.month}: {stray[:5]}'
+            f'{"…" if len(stray) > 5 else ""}. Wrong timesheet for this month -- '
+            f'check the source file.')
+
     wb = openpyxl.load_workbook(a.template)
     if 'Details' not in wb.sheetnames:
         die(f'template has no "Details" tab (tabs: {wb.sheetnames})')

@@ -68,9 +68,13 @@ if [ -n "${CLOCKIFY_API_KEY:-}" ]; then
 fi
 
 if [ -z "$SOURCE" ]; then
-  # Fallback: a detailed-report PDF Alex exported by hand. Newest match wins.
-  PDF="$(find "$PDF_SEARCH_DIR" -maxdepth 1 -name 'Clockify_Time_Report_Detailed_*.pdf' \
-         -newermt "$MONTH-01" 2>/dev/null | sort | tail -1)"
+  # Fallback: a detailed-report PDF Alex exported by hand. Clockify names the export
+  # after the period it covers (…_01_07_2026-31_07_2026.pdf), so pin the glob to THIS
+  # month. A loose glob plus `sort | tail -1` silently grabs the wrong month across a
+  # year boundary (reporting Jan'27 would pick up Dec'26, whose name sorts later).
+  PDF="$(find "$PDF_SEARCH_DIR" -maxdepth 1 \
+         -name "Clockify_Time_Report_Detailed_01_${M}_${Y}-*.pdf" 2>/dev/null \
+         | xargs -r ls -t 2>/dev/null | head -1)"
   if [ -n "$PDF" ] && "$PY" "$HERE/pdf_parse.py" "$PDF" -o "$ENTRIES" 2>>"$RUN_OUT"; then
     SOURCE="pdf:$(basename "$PDF")"
     log "parsed $PDF"
