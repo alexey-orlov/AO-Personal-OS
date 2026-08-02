@@ -307,9 +307,9 @@ def main():
 
         group_cells.append(money_cell)
         summary.cell(row=target['row'], column=6).value = f'=Details!{money_cell}'
-        r += 1                                            # spacer between groups
+        r += 1                                            # blank spacer after the group
 
-    grand = r - 1
+    grand = r                                             # ...so GRAND TOTAL sits below it
     ws[f'A{grand}'] = 'GRAND TOTAL'
     ws[f'E{grand}'] = '=' + '+'.join(hour_cells)
     ws[f'F{grand}'] = '=' + '+'.join(group_cells)
