@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.user.ss-monthly-report</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>/bin/bash</string>
+    <string>__REPO__/automations/ss-monthly-report/run.sh</string>
+  </array>
+  <!-- 08:00 on the 1st of every month; run.sh reports on the month that just ended.
+       Mac asleep at 08:00 → launchd fires it once on the next wake (StartCalendarInterval
+       catch-up), so a closed lid delays the report but never skips it. No RunAtLoad:
+       this writes a client billing file, and it should happen on a schedule, not at
+       every login. Re-running the same month is safe — the build is idempotent and
+       always re-reads the workbook from disk. -->
+  <key>StartCalendarInterval</key>
+  <dict>
+    <key>Day</key>
+    <integer>1</integer>
+    <key>Hour</key>
+    <integer>8</integer>
+    <key>Minute</key>
+    <integer>0</integer>
+  </dict>
+  <key>StandardOutPath</key>
+  <string>__REPO__/automations/ss-monthly-report/.work/launchd.log</string>
+  <key>StandardErrorPath</key>
+  <string>__REPO__/automations/ss-monthly-report/.work/launchd.log</string>
+</dict>
+</plist>
