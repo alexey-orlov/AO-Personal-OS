@@ -119,6 +119,11 @@ per project, grand total, and every flag a human needs to check before sending."
 : > "$WORK/summary.txt"
 log "building $LABEL from $SOURCE ..."
 set -o pipefail
+# MUST run from the repo root: --allowedTools matches Bash commands by their literal
+# prefix, so "automations/ss-monthly-report/…" only resolves — and only matches — when
+# cwd is the repo. Launched from anywhere else, every helper call is denied and the
+# agent is pushed into improvising a workaround inside a billing job.
+cd "$REPO_ROOT" || { log "cannot cd to $REPO_ROOT"; exit 1; }
 "$CLAUDE_BIN" -p "$PROMPT" \
   --append-system-prompt "$(cat "$SKILL")" \
   ${SSR_MODEL:+--model "$SSR_MODEL"} \

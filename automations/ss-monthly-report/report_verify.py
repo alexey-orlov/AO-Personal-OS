@@ -149,7 +149,29 @@ def main():
     for pr, amt in sum_amounts:
         notes.append(f'  {pr}: {amt:,.2f} USD')
 
+    # Overlapping timers bill the same minutes twice, and across two projects nothing
+    # downstream can notice. A warning, not a failure: only Alex knows if it was real.
+    # (Jul'26 had exactly one -- 1h15m double-counted between the two projects, $150.)
+    warns = []
+    by_day = {}
+    for e in src['entries']:
+        beg = to_secs(datetime.time(*map(int, e['start'].split(':'))))
+        end = to_secs(datetime.time(*map(int, e['end'].split(':'))))
+        by_day.setdefault(e['date'], []).append(
+            (beg, end + 86400 if end <= beg else end, e['desc']))
+    for day, items in sorted(by_day.items()):
+        items.sort()
+        for i in range(len(items)):
+            for j in range(i + 1, len(items)):
+                ov = min(items[i][1], items[j][1]) - max(items[i][0], items[j][0])
+                if ov > 0:
+                    cost = a.rate * round(ov / 3600, 2)
+                    warns.append(f'{day}: {hms(ov)} overlap (~{cost:,.2f} USD billed twice) '
+                                 f'between {items[i][2][:45]!r} and {items[j][2][:45]!r}')
+
     print('\n'.join(f'  ok   {n}' for n in notes))
+    if warns:
+        print('\n'.join(f'  WARN {w}' for w in warns))
     if fails:
         print('\n'.join(f'  FAIL {f}' for f in fails), file=sys.stderr)
         sys.exit(f'report_verify: {len(fails)} check(s) failed -- DO NOT SEND this workbook')
