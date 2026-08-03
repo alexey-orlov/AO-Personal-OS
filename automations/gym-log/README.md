@@ -107,6 +107,16 @@ the template styling propagates.
 
 Single-number weights in the notebook ("70кг") land as start = end = 70.
 
+⚠️ Known bug in `log`: value writes are planned against row indices captured
+before the batch's structural inserts run, so when one call both matches an
+existing row and creates a new exercise row above it, the existing row's
+values land one row off and get overwritten (2026-08-03: the 31.07
+«Жим L 45°» entry was displaced by the «Жим в брусьях сидя» insert).
+`log` is an upsert, so re-running the same payload — now with no new rows to
+create — heals the date. Until the planner renumbers writes after inserts:
+after any run whose output lists `created.exercises`, re-run `log` with the
+same payload and re-check `dump`.
+
 ## Consumers
 
 - `.claude/skills/gym-log/` — the only caller today.
