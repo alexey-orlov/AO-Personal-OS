@@ -1,0 +1,82 @@
+# Writes queued training sessions into the "My training" Google Sheet.
+#
+# Why CI: the read-write Sheets token lives in the git-ignored .work/ on the
+# Mac, so a session running anywhere else (Claude Code cloud, phone, a fresh
+# clone) cannot write the sheet — it can only commit a payload to
+# automations/gym-log/pending/. This workflow is the arm that applies them,
+# so logging a workout no longer needs the laptop to be awake.
+#
+# Setup, once: repo Settings → Secrets and variables → Actions → new secret
+# GYM_SHEETS_TOKEN_JSON = the contents of
+# automations/gym-log/.work/sheets/token.json (raw or base64).
+#
+# Failure is loud by design: the payload stays in pending/ (nothing is lost,
+# `log` is an upsert so a re-run is safe) and an issue is filed naming the
+# cause. A silent success-shaped exit here would mean a lost workout.
+name: gym-log — apply pending sessions
+
+on:
+  push:
+    paths: ['automations/gym-log/pending/*.json']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  apply:
+    # The flush commit removes files matching the same path filter, which
+    # re-triggers this workflow; that run finds an empty queue and exits, but
+    # skip it outright rather than burn a runner on it.
+    if: "!contains(github.event.head_commit.message, '[gym-log applied]')"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Apply the queue
+        env:
+          GYM_SHEETS_TOKEN_JSON: ${{ secrets.GYM_SHEETS_TOKEN_JSON }}
+          GYM_FORCE_REST: '1'   # runners have no google-api-python-client
+        run: |
+          if [ -z "${GYM_SHEETS_TOKEN_JSON:-}" ]; then
+            echo "::error::secret GYM_SHEETS_TOKEN_JSON is not set — nothing written, queue left intact"
+            exit 1
+          fi
+          automations/gym-log/apply_pending.sh
+
+      - name: Commit the flush
+        run: |
+          if [ -n "$(git status --porcelain automations/gym-log/pending)" ]; then
+            git config user.name  "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add automations/gym-log/pending
+            git commit -m "chore(gym-log): [gym-log applied] flush pending queue"
+            git push
+          else
+            echo "queue was already empty — nothing to commit"
+          fi
+
+      - name: Report a failure where it can be seen
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { owner, repo } = context.repo;
+            const url = `${context.serverUrl}/${owner}/${repo}/actions/runs/${context.runId}`;
+            await github.rest.issues.create({
+              owner, repo,
+              title: 'gym-log: pending queue was not applied',
+              body: [
+                `A queued training session did not reach the "My training" sheet.`,
+                ``,
+                `Run: ${url}`,
+                ``,
+                `The payload is still in \`automations/gym-log/pending/\` — nothing is lost,`,
+                `and \`log\` is an upsert, so re-running is safe once the cause is fixed.`,
+                ``,
+                `Usual causes:`,
+                `- the \`GYM_SHEETS_TOKEN_JSON\` secret is unset, or stale after a re-\`auth\` on the Mac`,
+                `- Google expired the refresh token (consent screen still in *Testing* = 7 days)`,
+              ].join('\n'),
+            });

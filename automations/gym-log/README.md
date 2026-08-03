@@ -71,6 +71,14 @@ Both are handled:
   alone is enough. `GYM_FORCE_REST=1` forces that path on the Mac too, which
   is how it stays tested.
 
+- **Or let CI do the write** — `.github/workflows/gym-log-apply.yml` applies
+  anything committed to `pending/*.json` (any branch), then commits the flush.
+  Same JSON, pasted once into repo *Settings → Secrets and variables →
+  Actions* as `GYM_SHEETS_TOKEN_JSON`. This is the only route that works from
+  a session that has already started (env vars are fixed at session start)
+  and from a phone. On failure the payload stays queued and the workflow
+  files an issue naming the cause.
+
 Caveats worth knowing:
 
 - That JSON is a **secret**: env var only. Never commit it, never paste it
