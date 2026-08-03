@@ -18,7 +18,7 @@ spellings show up in the notes. Categories are EN muscle groups.
 | Горизонт. тяга | Back | Горизонтальная тяга | seated row; 45→59 (2026-07) |
 | Тяга верт. одной рукой | Back | Тяга одной рукой | single-arm pulldown; 36→45 |
 | Пулловер с колен | Back | Пулловер | kneeling pullover; 36→45 |
-| Жим L 45° | Chest | Жим ∠45°, Жим 45° | **Seated 45° press with the ARMS, not a leg press** (Alex, 31.07.26 — applies to every past entry too). The notebook glyph is the angle symbol `∠`, not an "L for legs". 30→40 (20.07), 40→45 (31.07). ⚠️ The sheet row still sits in the **Legs** group — move it into Chest by hand; `log` matches by name only and will not move it. A real leg press, if it ever appears, is a NEW exercise |
+| Жим L 45° | Chest | Жим ∠45°, Жим 45° | **Seated 45° press with the ARMS, not a leg press** (Alex, 31.07.26 — applies to every past entry too). The notebook glyph is the angle symbol `∠`, not an "L for legs". 30→40 (20.07), 40→45 (31.07). Sheet row moved into the Chest group on 03.08.26 (merge boundary shifted; `log` matches by name only and never moves rows). A real leg press, if it ever appears, is a NEW exercise |
 | ГАКК присед | Legs | ГАКК приседания, Гакк | hack squat; plate-loaded, 75→120 |
 | Разгиб. голени | Legs | Разгибание голени | leg extension; 7-kg tiles 59/66/73 |
 | Сгиб. голени | Legs | Сгибание голени | leg curl; 59/59/63 seen — stack has small steps at top |
