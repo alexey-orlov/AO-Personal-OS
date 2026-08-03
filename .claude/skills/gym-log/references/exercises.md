@@ -9,10 +9,11 @@ spellings show up in the notes. Categories are EN muscle groups.
 
 | Canonical (sheet row) | Category | Aliases / variants seen | Notes, stack hints |
 | --- | --- | --- | --- |
-| Жим лёжа | Chest | Жим лежа, Жим лёжа в тренажере | chest-press machine; 70 (20.07), 60→80 (31.07, last set 80×6) |
-| Жим сидя | Chest | | seated chest press machine; 70 (20.07), 60→70 (31.07) |
-| Сведение рук | Chest | Сведение, Сведение рук перед собой | pec fly machine; 7-kg tiles 45/52/59/66/73 **plus a fine-tune add-on** — 68.3 logged 31.07, so non-tile decimals are real, not a misread |
-| Жим в брусьях сидя | Chest | | seated dip / chest-press-in-bars machine; 63.5 (31.07, first log). Filed under Chest as part of the push day — no Arms category in the sheet yet |
+| Жим лёжа | Chest | Жим лежа, Жим лёжа в тренажере | chest-press machine; 70 (20.07), 60→80 (31.07, last set 80×6), 75 4×8 (03.08) |
+| Жим сидя | Chest | | seated chest press machine; 70 (20.07), 60→70 (31.07), 70 (03.08) |
+| Сведение рук | Chest | Сведение, Сведение рук перед собой | pec fly machine; 7-kg tiles 45/52/59/66/73 **plus a fine-tune add-on** — 68.3 (31.07), 66→68.5 (03.08); non-tile decimals are real, not a misread |
+| Жим в брусьях сидя | Chest | | seated dip / chest-press-in-bars machine; 63.5 (31.07, 03.08). Filed under Chest as part of the push day — no Arms category in the sheet yet |
+| Жим 45° (Смитт) | Chest | Жим ∠45° (Смитт), Жим L 45° (смитт) | Incline 45° press **in the Smith machine** — a different machine from `Жим L 45°`, so its own row (Alex, 03.08.26). Bar weight, not a stack: 50→40 (03.08, started too heavy and dropped) |
 | Верт. тяга | Back | Вертикальная тяга, Тяга верт. | lat pulldown; 52→62 (2026-07) |
 | Горизонт. тяга | Back | Горизонтальная тяга | seated row; 45→59 (2026-07) |
 | Тяга верт. одной рукой | Back | Тяга одной рукой | single-arm pulldown; 36→45 |

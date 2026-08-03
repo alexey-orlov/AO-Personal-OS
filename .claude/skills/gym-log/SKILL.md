@@ -88,7 +88,12 @@ the name** — the block Alex actually trained decides it. A press sitting
 between two chest presses on a push day is Chest, whatever the glyph next to
 it looks like (`Жим ∠45°` was filed as a leg press for a week because the
 angle symbol read as "L for legs"). When the abbreviation is what decides the
-category, ask instead of guessing. Genuinely new exercise → keep his wording as the new canonical
+category, ask instead of guessing. **Same movement on a different machine is
+a different exercise** — a Smith-machine 45° press and the plate 45° press
+share a name in the notebook but not a scale, so merging them into one row
+fabricates a drop that never happened. Split into its own row, named with the
+machine in brackets, whenever Alex flags the machine or the weights jump
+inexplicably. Genuinely new exercise → keep his wording as the new canonical
 name, assign an EN muscle-group category (reuse existing categories before
 inventing one), and **add a row to the registry file** after logging.
 
