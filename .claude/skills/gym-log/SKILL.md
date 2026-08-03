@@ -118,7 +118,12 @@ echo '{"date":"7/22/2026","my_weight":73.6,"entries":[
   falls back to a stdlib REST client when the google libs are missing — see
   "Running off the Mac" in `automations/gym-log/README.md`. Exit 3 there
   means that env var is unset or stale, and only Alex can refresh it.
-- **No credentials at all?** Never drop the session and never report it as
+- **No credentials in the session?** Committing the payload to
+  `automations/gym-log/pending/*.json` on any branch makes CI do the write
+  (`.github/workflows/gym-log-apply.yml`, secret `GYM_SHEETS_TOKEN_JSON`).
+  Watch the run and report its real outcome — a queued payload is not a
+  logged session until the run is green.
+- **No credentials anywhere?** Never drop the session and never report it as
   logged. Write the exact payload to
   `automations/gym-log/pending/<YYYY-MM-DD>.json`, commit it, and tell Alex
   it is queued plus the one command that applies it:
