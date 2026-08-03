@@ -2,7 +2,7 @@
 
 _status: live theme — how AI reshapes product management work, skills, workflows, and roles_
 _slug: ai-and-the-pm-craft_
-_updated: 2026-08-01 · 37 insights from 23 episodes · ⚠ at 37/30: over budget, no clean seam yet_
+_updated: 2026-08-03 · 38 insights from 24 episodes · ⚠ at 38/30: over budget, no clean seam yet_
 
 ## The throughline
 PMs and full-stack designers gain leverage in the coding-agent era because the gap between "knowing what to build" and "shipping it" collapses. The skill shift is from raw implementation to defining what to build, evaluating quality, and designing where humans and agents collaborate — Shipper bets PMs who "ride the models" out-ship engineers, an OpenAI PM uses Codex to drive prototypes to 70–80% completion and replace PRDs with runnable artifacts, and a non-technical builder ships a production iPhone app and clears App Store review using LLMs as her stepwise architect + engineer. Lovable extends this to "anyone": vibe coding democratizes product creation, with a student hitting $130k ARR in 30 days. The same craft scales up the org chart: Customer.io's VP of Product rebuilds a third of an all-hands deck in a morning, but only by treating Claude like an eager junior — rolling context in, forcing clarifying questions, blocking premature deliverables — and the leader's residual value collapses to two choices: *which sources* (recordings, docs, metrics) and *which target form* (deck, Notion page, one-pager). The model-selection beat also sharpens: Fable's "seasoned engineer" verbosity wrecks PRDs, so pair Mythos-class models with cheaper Opus/Sonnet by task type. Ambrosino (OpenAI Codex) sharpens the picture from the supply side: when dozens of people inside a company can stand up polished prototypes from the same idea, implementation is no longer the bottleneck — *curation* is: deciding which of ~90 explorations to keep, fold together, or refine. The same abundance makes design and taste distinctly non-automatable: aesthetic judgment, novelty, and system-level UI coherence lack the grading signals needed to train models to generalize, so models copy patterns (Linear-clone proliferation) but cannot generate the novelty or cross-component semantic reasoning that defines good design. The operational kit that recurs: hyper-literal prompts, screenshots-as-examples, prototypes-not-PRDs, a beginner's mindset, and the discipline to restrain the model until the foundations are set.
@@ -187,12 +187,18 @@ The candidate explicitly frames the division of labor: humans should do the init
 — Aakash Gupta · 2026-07-29 · guest: Akash (PM candidate) · [▶ 4:16](https://www.youtube.com/watch?v=iNFE_u5hw3U&t=256) · `pi-iNFE_u5hw3U-03`
 related: [Implementation is cheap; curation and taste are the real bottlenecks](#implementation-is-cheap-curation-and-taste-are-the-real-bottlenecks) (same human-does-the-edges-model-does-the-middle division of labor, here as an explicit interview-round framing)
 
+### AI allows individual contributors to perform product-management tasks quickly
+Tom says AI and modern data tools give ICs enormous leverage to pull cohorts, inspect logs, prototype, and estimate effort without a PM acting as a bottleneck. Tools like Hex and conversational models (he mentions Claude) let senior ICs validate hypotheses, forecast impacts, and query the codebase in minutes rather than weeks, which makes hands-on decision-making faster and lowers the need for many junior PMs. This isn't that AI created the idea, but it materially reduces the cost of enabling ICs to do PM-y work.
+— Lenny's Podcast · 2026-08-02 · guest: Tom Verrilli (CPO of Whatnot) · [▶ 12:53](https://www.youtube.com/watch?v=ruvis-VWg2s&t=773) · `pi-ruvis-VWg2s-02`
+related: theme → [Leadership, careers & teams](leadership-careers-and-teams.md) (Verrilli's structural critique of PM-as-default-layer, this insight's organizational counterpart, `pi-ruvis-VWg2s-01`)
+
 ## Related themes
 - [AI agents & applications](ai-agents-and-applications.md) — the surfaces PMs build in
 - [Leadership, careers & teams](leadership-careers-and-teams.md) — how the manager/IC mix is shifting alongside
 - [Product discovery & strategy](product-discovery-and-strategy.md) — feature differentiation is dead; moats sit elsewhere
 
 ## Source episodes
+- [Lenny's Podcast — This CPO regrets that product management exists | Tom Verrilli (CPO of Whatnot) (2026-08-02)](../episodes/2026/2026-08-02--lenny--this-cpo-regrets-that-product-management-exists.md)
 - [Y Combinator — Patrick Collison: "What If You Succeed?" (2026-07-31)](../episodes/2026/2026-07-31--yc--patrick-collison-what-if-you-succeed.md)
 - [Aakash Gupta — The New AI PM Interview Round Where You Build Live, Not Just Talk (2026-07-29)](../episodes/2026/2026-07-29--aakash--new-ai-pm-interview-round-build-live.md)
 - [How I AI — How this "non-coder" used Cursor to add AI to retro hardware (2026-07-27)](../episodes/2026/2026-07-27--howiai--non-coder-cursor-ai-retro-hardware.md)
