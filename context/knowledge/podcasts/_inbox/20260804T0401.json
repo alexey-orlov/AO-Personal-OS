@@ -1,0 +1,48 @@
+{
+  "schema": 1,
+  "generatedAt": "2026-08-04T04:01:55.002Z",
+  "runStamp": "20260804T0401",
+  "episodes": [
+    {
+      "videoId": "EgrI2rUmM48",
+      "videoTitle": "How this OpenAI engineer uses Codex + ChatGPT Work to automate everything",
+      "videoUrl": "https://www.youtube.com/watch?v=EgrI2rUmM48",
+      "channelName": "How I AI",
+      "publishedDate": "2026-08-03",
+      "guests": [
+        "Nick Bowman (OpenAI)"
+      ],
+      "summary": "OpenAI engineer Nick Bowman demonstrates how he combines Codex, the ChatGPT app (Work/mobile), plugins, and a new voice layer to create always-on assistants that actually do work for him. The throughline: by letting models fork threads, see your screen, use browser sessions and plugins, and accept voice dictation, you can delegate scheduling, expenses, site-building, and even end-to-end video editing. These features change work from prompting single replies to orchestrating background workflows and continuous monitoring.",
+      "insights": [
+        {
+          "headline": "AI can manage multi-step tasks by forking threads and seeing your screen",
+          "detail": "Codex/ChatGPT can spawn new threads, maintain separate task contexts, and use an appshot (smart screenshot) of whatever window you have open to act on that UI. Bowman demonstrates asking the assistant to check a Slack offsite, compare calendar availability, and then run a travel-search task in the background using his Chrome session and plugins — the model keeps those subtasks as separate threads and reports back when ready. That matters because it moves the model from a single-turn helper into a persistent, stateful assistant that can parallelize and track complex workflows for you.",
+          "anchorQuote": "it can see your screen, can see what you're working on",
+          "tSeconds": 266,
+          "link": "https://www.youtube.com/watch?v=EgrI2rUmM48&t=266"
+        },
+        {
+          "headline": "Mobile ChatGPT Work proactively monitors accounts and notifies you",
+          "detail": "On his phone Bowman runs ChatGPT Work with connected plugins (Gmail, Calendar, etc.) to create 'heartbeats' — small automations that periodically check email, packages, or finance feeds and push actionable notifications. He gives concrete examples: getting notified about an unexpected purchase or a arriving package without constantly watching email. This reduces busywork and surface-level anxiety by letting the agent continuously watch for small but important signals you’d otherwise miss.",
+          "anchorQuote": "a few times a day I'll just get like a notification saying",
+          "tSeconds": 381,
+          "link": "https://www.youtube.com/watch?v=EgrI2rUmM48&t=381"
+        },
+        {
+          "headline": "Upload raw clips and Codex will edit, redact, and output formats",
+          "detail": "Bowman uses a UGC-video plugin: dump dozens of raw mobile clips into Codex, it transcribes them, analyzes frames, picks best takes, applies blurs/redactions for sensitive text, and produces multi-format outputs (9:16, 4:5, trailers, shorts). He uses it to auto-generate hype clips, social edits, and cleaned-up UGC without manually reviewing every clip — he notes it even follows screen-shared blurs and validates its own redactions. For creators, that automates tedious editing and privacy work, lowering the barrier to produce short-form content at scale.",
+          "anchorQuote": "dump them in, make it the model's problem",
+          "tSeconds": 2087,
+          "link": "https://www.youtube.com/watch?v=EgrI2rUmM48&t=2087"
+        },
+        {
+          "headline": "Voice (the 'yappers' pattern) makes delegation natural and discoverable",
+          "detail": "Bowman points to a 'yappers API' pattern — speaking aloud to the model — as a high-bandwidth input that reduces 'blank chat window' paralysis and enables natural delegation (even dictating requirements from someone else, e.g., his mother via speakerphone). Voice lets users iterate, ask the agent to create background tasks, and hand off multi-step jobs conversationally, which drives discovery of novel use cases that typing alone doesn’t surface. That changes adoption dynamics: people who struggle to craft prompts can simply explain or ramble and still get structured automation back.",
+          "anchorQuote": "the yappers API which is like the best highest bandwidth way",
+          "tSeconds": 698,
+          "link": "https://www.youtube.com/watch?v=EgrI2rUmM48&t=698"
+        }
+      ]
+    }
+  ]
+}
