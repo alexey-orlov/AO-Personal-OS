@@ -2,7 +2,7 @@
 
 _status: live theme — overnight delegation patterns, loop design vocabulary, feedback→PR pipelines, memory engineering for sustained runs_
 _slug: agent-delegation-and-loops_
-_updated: 2026-07-31 · 35 insights from 18 episodes · (split from agent-engineering-patterns, 2026-06-25)_
+_updated: 2026-08-04 · 36 insights from 19 episodes · (split from agent-engineering-patterns, 2026-06-25)_
 
 ## The throughline
 Three practitioners — Krieger (Anthropic/Instagram co-founder), the Every software-factory author, and Replit's Amjad Masad — converged independently on what makes sustained agent delegation reliable rather than brittle. The enabling layer is memory engineering: 1M+ token context windows still need domain-aware compaction (delete bug-fix noise, preserve architectural facts, write durable markdown like raffle.md), mono-repo access so agents can grep rather than query-blindly, and nightly closed-loop refinement (Replit's autonomous agent analyzes interaction traces → proposes prompt changes → A/B tests in production → merges what passes sentiment and deploy-rate metrics). On top of that sits the delegation pattern itself: give Fable complex overnight jobs and wake to completions or documented fallbacks; automate the feedback→PR pipeline (batch Slack twice daily → classify → YAML records → Cursor/compound-engineering flow → auto-merge if CI green); use rich recordings (Rifreck: clicks + narration + network errors, not just video) so the model can reason about what to change rather than guess. The loop vocabulary generalizes these patterns: a loop is an autonomous scheduled automation — not a human typing messages — with a trigger (heartbeat / cron / hook) and either a time boundary or a validated success criterion. Goal loops (babysit PRs until merged, CI green) are the power form; they require precise success criteria or they burn tokens on marginal returns. Five composable primitives — work trees (isolation), skills (reusability), connectors (GitHub/Slack/Calendar), sub-agents (federated execution), state tracking (to-do / Linear) — are the building blocks that the other patterns assemble from. Two new data points extend the pattern: OpenAI's merged ChatGPT/Codex surface makes "set rails and let it run" loop delegation accessible to non-programmers (email triage, CSV compilation, negotiation loops), and a design team's soul.md — dumping every meeting transcript into one markdown file as durable project memory — is the same memory-engineering discipline as Replit's raffle.md, now applied outside software engineering. A YC-profiled site also demonstrates the feedback→PR pattern pushed to end users: a public "send to an agent" button turns a visitor's feature request directly into a pull request for human review, extending the internal Slack/Linear-driven pipelines to external-facing product surfaces.
@@ -182,6 +182,11 @@ Dean argues agent-based systems are not limited to short sessions; with sufficie
 — Y Combinator · 2026-07-30 · guest: Jeff Dean (Google) · [▶ 5:12](https://www.youtube.com/watch?v=CxXgV54KzpQ&t=312) · `pi-CxXgV54KzpQ-03`
 related: [You can safely delegate long-running engineering tasks to the model](#you-can-safely-delegate-long-running-engineering-tasks-to-the-model) (Krieger's overnight-jobs practice is the same long-horizon-delegation claim, now from a Google systems-research vantage point)
 
+### Mobile ChatGPT Work proactively monitors accounts and notifies you
+On his phone Bowman runs ChatGPT Work with connected plugins (Gmail, Calendar, etc.) to create 'heartbeats' — small automations that periodically check email, packages, or finance feeds and push actionable notifications. He gives concrete examples: getting notified about an unexpected purchase or a arriving package without constantly watching email. This reduces busywork and surface-level anxiety by letting the agent continuously watch for small but important signals you'd otherwise miss.
+— How I AI · 2026-08-03 · guest: Nick Bowman (OpenAI) · [▶ 6:21](https://www.youtube.com/watch?v=EgrI2rUmM48&t=381) · `pi-EgrI2rUmM48-02`
+related: [You trigger loops three practical ways: heartbeats, crons, and hooks](#you-trigger-loops-three-practical-ways-heartbeats-crons-and-hooks) (a concrete consumer-facing instance of the heartbeat trigger pattern, seven weeks later)
+
 ## Related themes
 - [Agent engineering & production infra](agent-engineering-patterns.md) — parent theme; architectural boundaries, security, eval infrastructure, and platform-scale governance that the delegation patterns depend on
 - [Model reviews & benchmarks](model-reviews-and-benchmarks.md) — the reliability wall (last 10%, overnight stalls) that verification workflows address
@@ -189,6 +194,7 @@ related: [You can safely delegate long-running engineering tasks to the model](#
 - [Leadership, careers & teams](leadership-careers-and-teams.md) — the human-role shift driven by delegation depth: verification as the new bottleneck, manager-as-IC imperative
 
 ## Source episodes
+- [How I AI — How this OpenAI engineer uses Codex + ChatGPT Work to automate everything (2026-08-03)](../episodes/2026/2026-08-03--howiai--openai-engineer-codex-chatgpt-work-automate.md)
 - [Y Combinator — Jeff Dean: The 1% Rule for Building in AI (2026-07-30)](../episodes/2026/2026-07-30--yc--jeff-dean-the-1-rule-for-building-in-ai.md)
 - [Y Combinator — Alexandr Wang: "This is a Once-in-a-Civilization Opportunity" (2026-07-29)](../episodes/2026/2026-07-29--yc--alexandr-wang-once-in-a-civilization-opportunity.md)
 - [Y Combinator — Boris Cherny: Building Claude Code (2026-07-27)](../episodes/2026/2026-07-27--yc--boris-cherny-building-claude-code.md)
