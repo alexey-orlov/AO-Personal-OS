@@ -1,0 +1,145 @@
+{
+  "schema": 1,
+  "generatedAt": "2026-08-05T04:02:29.655Z",
+  "runStamp": "20260805T0402",
+  "episodes": [
+    {
+      "videoId": "1cdaf3tM4cQ",
+      "videoTitle": "SaaStr AI Day: The New Agentic Support Playbook",
+      "videoUrl": "https://www.youtube.com/watch?v=1cdaf3tM4cQ",
+      "channelName": "SaaStr AI",
+      "publishedDate": "2026-08-03",
+      "guests": [
+        "Amit (Pylon)"
+      ],
+      "summary": "Pylon presents an \"agentic\" approach to customer support: humans orchestrate AI agents that precompute context, investigate tickets, and perform routine actions while humans retain judgment. The central argument is that human+AI augmentation — not full autonomous resolution — is the fastest path to meaningful scale, better quality, and lower cost in B2B support. The talk demos background agents, Slack integrations, and skills that draft replies, create feature requests, and read logs, and it cites customer outcomes (fewer escalations, faster responses).",
+      "insights": [
+        {
+          "headline": "Agentic human+AI orchestration outperforms full automation in B2B support",
+          "detail": "Pylon argues the fastest-growing support products augment humans with agents rather than replace them, because fully autonomous resolution only handles a small, easy subset of tickets. They give a concrete example: a 5,000-person company with 1,000 support staff deployed a fully automated resolver that deflected ~50% of tickets but did not reduce headcount, since the remaining, high-effort work still needed humans. The practical takeaway is to invest in AI that empowers agents and reduces escalations, not only in end-to-end bots that hit diminishing returns.",
+          "anchorQuote": "moving to a new agentic way of working",
+          "tSeconds": 179,
+          "link": "https://www.youtube.com/watch?v=1cdaf3tM4cQ&t=179"
+        },
+        {
+          "headline": "Precomputing context across tools makes agents faster, cheaper, and higher quality",
+          "detail": "Instead of querying a foundation model ad hoc over raw documents, Pylon precomputes account context (past tickets, calls, feature requests, code, sentiment) so agents can reference structured knowledge instantly. That design both reduces inference cost (they claim 3–6x cheaper) and improves answer quality and speed, because the agent doesn’t waste cycles re-scanning every source for every ticket. This matters because practical support work depends on stitched context across systems, not isolated LLM queries.",
+          "anchorQuote": "we've created essentially context on top",
+          "tSeconds": 479,
+          "link": "https://www.youtube.com/watch?v=1cdaf3tM4cQ&t=479"
+        },
+        {
+          "headline": "Background agents proactively investigate tickets and learn from agent-human interactions",
+          "detail": "Pylon runs a background agent for every incoming ticket that inspects logs, code, docs, past tickets, and account interactions, then surfaces an investigation and suggested next steps to the human agent. In demos it drafted Linear issues, checked code, pulled timestamps from logs, and wrote draft replies that humans edited and sent — and the agent improves over time by learning the team's diagnostic steps. That enables agents to prepare work in parallel so support staff can juggle many pre-investigated tickets and ask targeted follow-ups.",
+          "anchorQuote": "background agent, which runs in the background automatically",
+          "tSeconds": 643,
+          "link": "https://www.youtube.com/watch?v=1cdaf3tM4cQ&t=643"
+        },
+        {
+          "headline": "Agentic workflows cut escalations and let teams scale without adding headcount",
+          "detail": "Early Pylon customers report major operational improvements: one customer saw about a month, 70% fewer escalations and another saw 64.5% faster time-to-first-response, enabling growth without proportionate hiring. The system also \"raises the floor\": technical experts can turn their troubleshooting steps into reusable skills so junior staff can resolve problems they previously couldn't, improving onboarding and organizational leverage. Those hard outcomes are the business case for shifting to agentic support rather than only pursuing full automation.",
+          "anchorQuote": "about a month, 70% fewer escalations",
+          "tSeconds": 1180,
+          "link": "https://www.youtube.com/watch?v=1cdaf3tM4cQ&t=1180"
+        }
+      ]
+    },
+    {
+      "videoId": "Gp4zrV3-6N8",
+      "videoTitle": "Waymo Co-CEO Dmitri Dolgov: The Demo Is Only 1% Of The Work",
+      "videoUrl": "https://www.youtube.com/watch?v=Gp4zrV3-6N8",
+      "channelName": "Y Combinator",
+      "publishedDate": "2026-08-03",
+      "guests": [
+        "Dmitri Dolgov (Waymo)"
+      ],
+      "summary": "Dmitri Dolgov explains why building autonomous vehicles exposed to the public is fundamentally different and far harder than producing a working demo. He outlines a playbook—set the reliability 'nines', pick architectures that scale, use multimodal sensing, build high-fidelity closed-loop simulation, and make evaluation the strategic driver—to move from prototype to safe, scalable product. The talk is grounded in Waymo’s decade-plus journey, metrics (hundreds of millions of autonomous miles), and concrete engineering choices.",
+      "insights": [
+        {
+          "headline": "The demo is only 1%—many-nines reliability required",
+          "detail": "A working prototype is trivial compared with an operational product: Waymo’s early demo phase took ~18 months, but turning that into a deployable product took about 15 years and then rapid scale. Reliability follows an exponential ladder of 'nines'—each additional nine of reliability typically costs ~10x more effort—so you must decide upfront how many nines your product truly needs. That decision dictates staffing, architecture and where to invest (don’t spend demo dollars you’ll need for production-grade reliability).",
+          "anchorQuote": "a working demo is 1% at best",
+          "tSeconds": 500,
+          "link": "https://www.youtube.com/watch?v=Gp4zrV3-6N8&t=500"
+        },
+        {
+          "headline": "Physical AI faces four unique gaps absent in digital AI",
+          "detail": "Dolgov enumerates four show-stopping gaps: cost-of-error (mistakes can cost lives, not tokens), latency (cars move ~100 feet per second so milliseconds matter), data (no centralized 'internet' of physical-world labels), and validation (you need very high confidence before first deployment). Each gap forces radically different system constraints—on-board inference, redundancy, careful validation—and explains why solutions that work in cloud-based ML often fail when transferred to robots or cars. Understanding these gaps is necessary to design safe deployment strategies and operating envelopes.",
+          "anchorQuote": "First, there is the cost of error gaps",
+          "tSeconds": 239,
+          "link": "https://www.youtube.com/watch?v=Gp4zrV3-6N8&t=239"
+        },
+        {
+          "headline": "Multimodal, redundant sensing is necessary for superhuman safety",
+          "detail": "Waymo combines cameras, lidar, and radar so the strengths of one sensor cover weaknesses of others: cameras give color/high-res, lidar provides direct 3D structure in darkness, and radar penetrates adverse weather and measures velocity. Dolgov shows real examples (dust storm, night with no lighting, dogs/kids off to the side, and a branch stuck on a sensor) where single sensors fail but fused modalities detect hazards early enough to avoid incidents. He also stresses designing hardware for future price declines—Waymo iterated through multiple hardware generations to increase capability while lowering cost.",
+          "anchorQuote": "we use cameras, lighters, and radars",
+          "tSeconds": 1012,
+          "link": "https://www.youtube.com/watch?v=Gp4zrV3-6N8&t=1012"
+        },
+        {
+          "headline": "A good large-scale closed-loop simulator is indispensable",
+          "detail": "Closed-loop simulation—where the agent acts, the world responds, and the agent re-senses—is required to evaluate counterfactuals and train for rare events you can’t safely or economically expose cars to in real life. Dolgov argues the simulator must itself be a high-fidelity generative world model (behavioral + sensing realism) so training in sim transfers to the physical world; Waymo uses such models to synthesize rare scenarios (planes on freeways, animals, extreme weather) and to produce safer agents faster. Without realistic closed-loop sim, validation and RL-style training remain impractical for safety-critical physical agents.",
+          "anchorQuote": "a good large scale realistic highfidelity simulator",
+          "tSeconds": 2206,
+          "link": "https://www.youtube.com/watch?v=Gp4zrV3-6N8&t=2206"
+        },
+        {
+          "headline": "Evaluation and metrics are strategic—build them before the product",
+          "detail": "Dolgov insists you must define 'good enough' quantitatively before building, because model architectures are easy to iterate but data and metric design steer progress; Waymo calls this their safety and readiness framework. He shows evidence-grade results (220+ million autonomous miles; Waymo ~17× better than humans on crashes causing serious injury), and notes public safety data and repeatable evals are core to earning trust and creating a defensible business advantage. In short: eval + metrics are the flywheel’s control system—without them you’re just iterating on demos.",
+          "anchorQuote": "build your eval before you build your technology",
+          "tSeconds": 2589,
+          "link": "https://www.youtube.com/watch?v=Gp4zrV3-6N8&t=2589"
+        }
+      ]
+    },
+    {
+      "videoId": "iHv-vNM_XtU",
+      "videoTitle": "How the White House Plans to 10x Scientific Productivity | Michael Kratsios | EP #276",
+      "videoUrl": "https://www.youtube.com/watch?v=iHv-vNM_XtU",
+      "channelName": "Peter H. Diamandis",
+      "publishedDate": "2026-08-04",
+      "guests": [
+        "Michael Kratsios (former U.S. Chief Technology Officer)",
+        "Dr. Don Mucalem (Chief Medical Officer, Fountain Life)"
+      ],
+      "summary": "Former U.S. CTO Michael Kratsios explains the White House's strategy to accelerate scientific discovery using AI, combining policy changes, procurement, and new funding mechanisms. The central argument is that government must both get out of the way for \"born free\" technologies and actively rework rules, incentives, and infrastructure for \"born in captivity\" technologies so AI can transform labs, grants, and national missions—potentially doubling or even 10x scientific productivity. He lays out concrete tools (Genesis mission, long grants, fast reviews, prizes, autonomous labs, and exportable American AI stacks) to operationalize that vision.",
+      "insights": [
+        {
+          "headline": "Regulation must distinguish 'born free' vs 'born in captivity' technologies",
+          "detail": "Kratsios argues policy should treat technologies differently: let \"born free\" innovations like the early internet develop with light touch, while actively enabling \"born in captivity\" technologies—examples: commercial drone operations and AI-powered medical diagnostics—that require affirmative government action to be commercialized safely. The distinction matters because premature or blanket regulation can choke innovation (EU AI Act finalized before ChatGPT), whereas targeted changes (e.g., regulatory tweaks enabling drone or medical deployments) unlock public benefits.",
+          "anchorQuote": "technologies kind of in in two buckets.",
+          "tSeconds": 208,
+          "link": "https://www.youtube.com/watch?v=iHv-vNM_XtU&t=208"
+        },
+        {
+          "headline": "The White House launched Genesis to double U.S. scientific productivity",
+          "detail": "Genesis is an AI-for-science national mission the administration announced to dramatically speed discovery: Kratsios says the goal is to double scientific productivity in a decade by applying large language models and other AI across federal labs and datasets and by funding $5 billion in mission grants. The program bundles actions—making federal scientific data AI-ready, building autonomous labs, and changing funding models—because legacy grant processes and siloed data limit how fast science scales today.",
+          "anchorQuote": "applying this unbelievable technology called artificial intelligence to scientific discovery",
+          "tSeconds": 342,
+          "link": "https://www.youtube.com/watch?v=iHv-vNM_XtU&t=342"
+        },
+        {
+          "headline": "The U.S. must lead both closed-source and open-source AI ecosystems",
+          "detail": "Kratsios stresses a dual strategy: preserve a competitive American edge in proprietary frontier models while cultivating a robust open-source ecosystem that startups worldwide can build on. To operationalize this, the administration launched an American AI exports program to package an \"American stack\" (chips, models, applications) with financing options so other countries can buy turnkey, vetted solutions rather than turn to subsidized foreign alternatives.",
+          "anchorQuote": "lead the world both in closed and open source models",
+          "tSeconds": 1202,
+          "link": "https://www.youtube.com/watch?v=iHv-vNM_XtU&t=1202"
+        },
+        {
+          "headline": "An AI-native scientific marketplace (agents, DAOs, bounties) can accelerate discovery",
+          "detail": "The report imagines a decentralized, machine-speed research economy where funders post bounties, AI agents identify leads, autonomous labs run experiments, and smart contracts release payments on verified milestones. Kratsios argues this aligns incentives, reduces slow institutional coordination, and leverages private philanthropic and venture capital (he notes large private capital pools and examples like OpenAI-type valuation-scale money) to fund high-risk, high-reward science continuously.",
+          "anchorQuote": "Imagine a scientific marketplace where funders post bounties for breakthroughs.",
+          "tSeconds": 2579,
+          "link": "https://www.youtube.com/watch?v=iHv-vNM_XtU&t=2579"
+        },
+        {
+          "headline": "Administrative drag kills scientist productivity; faster grants and longer funding fix it",
+          "detail": "Kratsios cites studies showing researchers spend roughly 45% of their time on administrative work tied to grants, and he proposes concrete fixes: five-year guaranteed grants for long horizons, rapid \"fast track\" reviews under a month for proof-of-concept work, and \"golden tickets\" on review panels to fund risky ideas. Those reforms are intended to reduce paperwork, enable risktaking, and let scientists iterate at AI-driven speeds rather than inside a slow, tenure-driven publishing pipeline.",
+          "anchorQuote": "45% of the time that a researcher spends",
+          "tSeconds": 2036,
+          "link": "https://www.youtube.com/watch?v=iHv-vNM_XtU&t=2036"
+        }
+      ]
+    }
+  ]
+}
