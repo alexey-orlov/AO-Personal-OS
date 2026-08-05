@@ -14,10 +14,12 @@ spellings show up in the notes. Categories are EN muscle groups.
 | Сведение рук | Chest | Сведение, Сведение рук перед собой | pec fly machine; 7-kg tiles 45/52/59/66/73 **plus a fine-tune add-on** — 68.3 (31.07), 66→68.5 (03.08); non-tile decimals are real, not a misread |
 | Жим в брусьях сидя | Chest | | seated dip / chest-press-in-bars machine; 63.5 (31.07, 03.08). Filed under Chest as part of the push day — no Arms category in the sheet yet |
 | Жим 45° (Смитт) | Chest | Жим ∠45° (Смитт), Жим L 45° (смитт) | Incline 45° press **in the Smith machine** — a different machine from `Жим L 45°`, so its own row (Alex, 03.08.26). Bar weight, not a stack: 50→40 (03.08, started too heavy and dropped) |
-| Верт. тяга | Back | Вертикальная тяга, Тяга верт. | lat pulldown; 52→62 (2026-07) |
-| Горизонт. тяга | Back | Горизонтальная тяга | seated row; 45→59 (2026-07) |
-| Тяга верт. одной рукой | Back | Тяга одной рукой | single-arm pulldown; 36→45 |
-| Пулловер с колен | Back | Пулловер | kneeling pullover; 36→45 |
+| Верт. тяга | Back | Вертикальная тяга, Тяга верт., Тяга вертикального блока | lat pulldown; 52→62 (2026-07); grip variants share this row with the grip noted in the report — «шир. хват» 52-59-59 (29.07) |
+| Горизонт. тяга | Back | Горизонтальная тяга, Тяга горизонт. блока | seated row; 45→59 (2026-07); 7-kg tiles 45/52/59 |
+| Тяга верт. одной рукой | Back | Тяга одной рукой, Тяга верт. бл. одной рукой | single-arm pulldown; 36→45 |
+| Пулловер с колен | Back | Пулловер, Пуловер с колен | kneeling pullover; 36→45; stack 36/41/45 |
+| Тяга в упоре | Back | | chest-supported row, plate-loaded; 25→35 (29.07) |
+| Сгиб. на бицепс | Back | Сгибание на бицепс | biceps curl; 7-kg tiles 45/52. Filed under Back as part of the pull day — no Arms category in the sheet yet (same precedent as Жим в брусьях сидя → Chest) |
 | Жим L 45° | Chest | Жим ∠45°, Жим 45° | **Seated 45° press with the ARMS, not a leg press** (Alex, 31.07.26 — applies to every past entry too). The notebook glyph is the angle symbol `∠`, not an "L for legs". 30→40 (20.07), 40→45 (31.07). Sheet row moved into the Chest group on 03.08.26 (merge boundary shifted; `log` matches by name only and never moves rows). A real leg press, if it ever appears, is a NEW exercise |
 | ГАКК присед | Legs | ГАКК приседания, Гакк | hack squat; plate-loaded, 75→120 |
 | Разгиб. голени | Legs | Разгибание голени | leg extension; 7-kg tiles 59/66/73 |
@@ -27,8 +29,7 @@ spellings show up in the notes. Categories are EN muscle groups.
 | Махи на плечи | Shoulders | Махи | lateral-raise machine; 32/36 |
 
 Planned-but-skipped so far (crossed out, never logged): Шаги на плечи,
-«Реверс» (reverse fly — the Сведение рук machine reversed), Тяга в упоре,
-Сгиб. на бицепс.
+«Реверс» (reverse fly — the Сведение рук machine reversed).
 
 ## Not logged — section recognition vocabulary
 
@@ -37,5 +38,5 @@ Warm-up (section I): Dog birds, Бок. планка, Удержание рез�
 
 Crossfit closing (section III): Thrusters (24кг), T2B, Sit-ups, Скакалка,
 Канат, Row (N cal), Pull-ups, Lunges, Burpees, Squats, Протяжка с приседом,
-Hand stand push-ups. Markers: `(x3)` rounds, `12'` time cap, boxed finish
+Hand stand push-ups, Wall-ball. Markers: `(x3)` rounds, `12'` time cap, boxed finish
 time like `11'53"`.

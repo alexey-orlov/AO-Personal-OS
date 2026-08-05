@@ -1,0 +1,7 @@
+{"date": "7/29/2026", "entries": [
+  {"category": "Back", "exercise": "Верт. тяга", "sets": 3, "reps": 10, "w_start": 52, "w_end": 59},
+  {"category": "Back", "exercise": "Горизонт. тяга", "sets": 3, "reps": 10, "w_start": 45, "w_end": 59},
+  {"category": "Back", "exercise": "Тяга в упоре", "sets": 3, "reps": 10, "w_start": 25, "w_end": 35},
+  {"category": "Back", "exercise": "Пулловер с колен", "sets": 3, "reps": 10, "w_start": 36, "w_end": 45},
+  {"category": "Back", "exercise": "Сгиб. на бицепс", "sets": 3, "reps": 10, "w_start": 45, "w_end": 52}
+]}
