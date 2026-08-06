@@ -1,7 +1,7 @@
 ---
 note: JS todo
 area: job-search
-snapshot: 2026-08-04 08:10
+snapshot: 2026-08-06 08:00
 chars: 5112
 scope: above relevance marker
 ---
