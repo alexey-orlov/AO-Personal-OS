@@ -2,7 +2,7 @@
 
 _status: live theme — the discipline of wrapping an AI agent in enforced structure: human-only zones, PR gates, precise workflows, adapters, and local-first context_
 _slug: agent-harness-engineering_
-_updated: 2026-07-30 · 10 insights from 5 episodes · (split from agent-engineering-patterns, 2026-07-11)_
+_updated: 2026-08-06 · 12 insights from 6 episodes · (split from agent-engineering-patterns, 2026-07-11)_
 
 ## The throughline
 A harness is code wrapped around an agent to make it behave consistently for a specific use case — and every practitioner in this cluster converges on the same core moves. Reserve architecture and UX decisions for humans (Conductor's "slot-free zones," "do not touch if you are an AI" markers — corroborated independently by Tony Fadell on the hardware-product side); force agent output through a review chokepoint before it lands (Conductor's strict PR-first workflow; the Sentry bug-triage harness's investigate-only vs. edit-enabled modes); and be extremely specific — write down the exact workflow, data sources, and allowed tools rather than reaching for a general-purpose assistant. Concrete adapters (Sentry, Linear, GitHub, Vercel) plus a persistent artifact store make investigations reproducible, though this is a choice, not a prerequisite — Gusto's much lighter "memory is just a DB column" stack proves harnesses can be minimal too. Codex-as-local-project-environment extends the same instinct beyond bespoke harnesses: a general-purpose local workspace (files on your machine, computer-use access to real tools) that lets an agent work with richer context, reinforced by a local-first/Obsidian-style memory discipline for privacy and accuracy.
@@ -59,11 +59,22 @@ Before hitting the models, the candidate builds a harness containing LinkedIn's 
 — Aakash Gupta · 2026-07-29 · guest: Akash (PM candidate) · [▶ 21:32](https://www.youtube.com/watch?v=iNFE_u5hw3U&t=1292) · `pi-iNFE_u5hw3U-02`
 related: [Be extremely specific when designing and prompting a harness](#be-extremely-specific-when-designing-and-prompting-a-harness) (same precise-context-up-front discipline, here applied to a live PM interview instead of a bug-triage harness) · theme → [AI & the PM craft](ai-and-the-pm-craft.md) (this episode's live-prototyping-interview insights, `pi-iNFE_u5hw3U-01,03`)
 
+### Vercel Eve drastically reduces the work to deploy chat-and-review agents
+Eve is essentially a directory-of-instructions model that bundles skills, tools, a sandbox, and managed connectors for Slack and GitHub, so you avoid building authentication, token refresh, and multi-channel plumbing yourself. The host finds Eve simpler and faster than alternatives (OpenClaw, Hermes) because it exposes ready-made channels, a chat SDK, and a wizard-like setup for enterprise integrations.
+— How I AI · 2026-08-05 · guest: — · [▶ 6:29](https://www.youtube.com/watch?v=cmATJGbA8bI&t=389) · `pi-cmATJGbA8bI-02`
+related: [A harness is code wrapped around an AI agent](#a-harness-is-code-wrapped-around-an-ai-agent) (same wrap-the-agent-in-managed-plumbing instinct, here as a vendor product rather than a bespoke build)
+
+### A compact risk rubric lets the agent auto-approve low-risk PRs
+The agent reads the diff, scores risk using six factors (change surface/blast radius, reversibility, data/security impact, operational changes, verification/tests, and CI status), and maps numeric scores to actions: under 24 = low (auto-approve), 25–64 = medium, 65+ = high (require human). In practice the bot annotated docs PRs as low risk (e.g., 6/10 or 7/10) and auto-approved them, while a 45/100 deprecation PR was classified medium and blocked for human review.
+— How I AI · 2026-08-05 · guest: — · [▶ 15:49](https://www.youtube.com/watch?v=cmATJGbA8bI&t=949) · `pi-cmATJGbA8bI-03`
+related: [Conductor enforces a strict PR-first workflow; no direct edits](#conductor-enforces-a-strict-pr-first-workflow-no-direct-edits) (same PR-gate discipline, here with a scored, tiered threshold instead of a blanket human-review requirement) · theme → [AI-approved PRs can be faster and safer than human-only reviews](agent-engineering-patterns.md#ai-approved-prs-can-be-faster-and-safer-than-human-only-reviews) (same episode's outcome data behind this rubric)
+
 ## Related themes
 - [Agent engineering & production infra](agent-engineering-patterns.md) — parent theme; the broader verification/governance/cost discipline this harness-building cluster sits alongside
 - [Agent delegation, loops & software factories](agent-delegation-and-loops.md) — the sustained-execution patterns that run inside these harnesses
 
 ## Source episodes
+- [How I AI — Build an AI code review agent with Vercel Eve (full tutorial) (2026-08-05)](../episodes/2026/2026-08-05--howiai--build-an-ai-code-review-agent-with-vercel-eve.md)
 - [Aakash Gupta — The New AI PM Interview Round Where You Build Live, Not Just Talk (2026-07-29)](../episodes/2026/2026-07-29--aakash--new-ai-pm-interview-round-build-live.md)
 - [Every — How to Build a Multi-Agent Review Swarm (2026-07-24)](../episodes/2026/2026-07-24--every--how-to-build-a-multi-agent-review-swarm.md)
 - [How I AI — Conductor CEO Charlie Holtz Walks Us Through His AI Coding Setup (2026-06-05)](../episodes/2026/2026-06-05--howiai--conductor-charlie-holtz-ai-coding-setup.md)
