@@ -2,7 +2,7 @@
 
 _status: live theme — how AI reshapes product management work, skills, workflows, and roles_
 _slug: ai-and-the-pm-craft_
-_updated: 2026-08-03 · 38 insights from 24 episodes · ⚠ at 38/30: over budget, no clean seam yet_
+_updated: 2026-08-07 · 41 insights from 25 episodes · ⚠ at 41/30: over budget, no clean seam yet_
 
 ## The throughline
 PMs and full-stack designers gain leverage in the coding-agent era because the gap between "knowing what to build" and "shipping it" collapses. The skill shift is from raw implementation to defining what to build, evaluating quality, and designing where humans and agents collaborate — Shipper bets PMs who "ride the models" out-ship engineers, an OpenAI PM uses Codex to drive prototypes to 70–80% completion and replace PRDs with runnable artifacts, and a non-technical builder ships a production iPhone app and clears App Store review using LLMs as her stepwise architect + engineer. Lovable extends this to "anyone": vibe coding democratizes product creation, with a student hitting $130k ARR in 30 days. The same craft scales up the org chart: Customer.io's VP of Product rebuilds a third of an all-hands deck in a morning, but only by treating Claude like an eager junior — rolling context in, forcing clarifying questions, blocking premature deliverables — and the leader's residual value collapses to two choices: *which sources* (recordings, docs, metrics) and *which target form* (deck, Notion page, one-pager). The model-selection beat also sharpens: Fable's "seasoned engineer" verbosity wrecks PRDs, so pair Mythos-class models with cheaper Opus/Sonnet by task type. Ambrosino (OpenAI Codex) sharpens the picture from the supply side: when dozens of people inside a company can stand up polished prototypes from the same idea, implementation is no longer the bottleneck — *curation* is: deciding which of ~90 explorations to keep, fold together, or refine. The same abundance makes design and taste distinctly non-automatable: aesthetic judgment, novelty, and system-level UI coherence lack the grading signals needed to train models to generalize, so models copy patterns (Linear-clone proliferation) but cannot generate the novelty or cross-component semantic reasoning that defines good design. The operational kit that recurs: hyper-literal prompts, screenshots-as-examples, prototypes-not-PRDs, a beginner's mindset, and the discipline to restrain the model until the foundations are set.
@@ -192,12 +192,27 @@ Tom says AI and modern data tools give ICs enormous leverage to pull cohorts, in
 — Lenny's Podcast · 2026-08-02 · guest: Tom Verrilli (CPO of Whatnot) · [▶ 12:53](https://www.youtube.com/watch?v=ruvis-VWg2s&t=773) · `pi-ruvis-VWg2s-02`
 related: theme → [Leadership, careers & teams](leadership-careers-and-teams.md) (Verrilli's structural critique of PM-as-default-layer, this insight's organizational counterpart, `pi-ruvis-VWg2s-01`)
 
+### Engineers are accelerating with AI, and PMs are becoming the bottleneck
+Developers who adopt AI tools move much faster, but product managers who don't speed up their product judgment and orchestration become the throughput constraint. The host demonstrates this by showing how Product Mind's skills automate business-level decisions so PMs can match engineering cadence without sacrificing testing, security, or architecture rigor. This matters because faster engineer output without aligned product judgment wastes time building things customers don't need.
+— Aakash Gupta · 2026-08-07 · guest: Oji Udezue (3x CPO) · [▶ 3:15](https://www.youtube.com/watch?v=Eo26_4JcyNA&t=195) · `pi-Eo26_4JcyNA-01`
+related: [Product managers must get technical and orchestrate agents to stay relevant](#product-managers-must-get-technical-and-orchestrate-agents-to-stay-relevant) (same speeding-up-or-fall-behind claim, here framed as a skills-driven scaffolding practice)
+
+### Collapse PM, design, and engineering artifacts into one shared repo to keep context aligned
+Instead of PMs in Notion, designers in Figma, and code in GitHub, the demo shows packaging market research, PRDs, claude MDs, prototypes, tests, and CI into the same Git repo so everyone accesses the same sources of truth. The benefit is shared, auditable context (including 'why' decisions captured by tools like Vibe Memo) and fewer one-off forks; organizations can centralize and govern the skill outputs so learnings spread rather than fragment. This is important for scaling AI-native workflows without losing governance or historical rationale.
+— Aakash Gupta · 2026-08-07 · guest: Oji Udezue (3x CPO) · [▶ 54:51](https://www.youtube.com/watch?v=Eo26_4JcyNA&t=3291) · `pi-Eo26_4JcyNA-04`
+related: [Senior PMs can now build and ship end-to-end production features](#senior-pms-can-now-build-and-ship-end-to-end-production-features) (Laurel's PM-owns-the-feature pattern generalized into a shared-repo governance discipline) · theme → [Agent harness engineering](agent-harness-engineering.md) (this episode's scaffolding-skill insights, `pi-Eo26_4JcyNA-02,03`)
+
+### Customer discovery is enforced: the plan won't proceed without real recruitable targets
+The customer-discovery skill generates a full week plan, interview scripts, a survey, a synthesis template, and time budget, but it refuses to advance unless you supply a confirmed list of recruitable target users. The demo explains the skill treats fewer than five real target contacts as a failure signal, because access to genuine customers is essential to validate hypotheses. That enforces PM fundamentals and prevents building based solely on model output or founder networks.
+— Aakash Gupta · 2026-08-07 · guest: Oji Udezue (3x CPO) · [▶ 49:34](https://www.youtube.com/watch?v=Eo26_4JcyNA&t=2974) · `pi-Eo26_4JcyNA-05`
+
 ## Related themes
 - [AI agents & applications](ai-agents-and-applications.md) — the surfaces PMs build in
 - [Leadership, careers & teams](leadership-careers-and-teams.md) — how the manager/IC mix is shifting alongside
 - [Product discovery & strategy](product-discovery-and-strategy.md) — feature differentiation is dead; moats sit elsewhere
 
 ## Source episodes
+- [Aakash Gupta — Use these skills to supercharge your claude code setup | Oji Udezue | 3x CPO (2026-08-07)](../episodes/2026/2026-08-07--aakash--use-these-skills-to-supercharge-claude-code.md)
 - [Lenny's Podcast — This CPO regrets that product management exists | Tom Verrilli (CPO of Whatnot) (2026-08-02)](../episodes/2026/2026-08-02--lenny--this-cpo-regrets-that-product-management-exists.md)
 - [Y Combinator — Patrick Collison: "What If You Succeed?" (2026-07-31)](../episodes/2026/2026-07-31--yc--patrick-collison-what-if-you-succeed.md)
 - [Aakash Gupta — The New AI PM Interview Round Where You Build Live, Not Just Talk (2026-07-29)](../episodes/2026/2026-07-29--aakash--new-ai-pm-interview-round-build-live.md)

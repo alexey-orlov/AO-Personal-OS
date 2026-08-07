@@ -2,7 +2,7 @@
 
 _status: live theme — the discipline of wrapping an AI agent in enforced structure: human-only zones, PR gates, precise workflows, adapters, and local-first context_
 _slug: agent-harness-engineering_
-_updated: 2026-08-06 · 12 insights from 6 episodes · (split from agent-engineering-patterns, 2026-07-11)_
+_updated: 2026-08-07 · 14 insights from 7 episodes · (split from agent-engineering-patterns, 2026-07-11)_
 
 ## The throughline
 A harness is code wrapped around an agent to make it behave consistently for a specific use case — and every practitioner in this cluster converges on the same core moves. Reserve architecture and UX decisions for humans (Conductor's "slot-free zones," "do not touch if you are an AI" markers — corroborated independently by Tony Fadell on the hardware-product side); force agent output through a review chokepoint before it lands (Conductor's strict PR-first workflow; the Sentry bug-triage harness's investigate-only vs. edit-enabled modes); and be extremely specific — write down the exact workflow, data sources, and allowed tools rather than reaching for a general-purpose assistant. Concrete adapters (Sentry, Linear, GitHub, Vercel) plus a persistent artifact store make investigations reproducible, though this is a choice, not a prerequisite — Gusto's much lighter "memory is just a DB column" stack proves harnesses can be minimal too. Codex-as-local-project-environment extends the same instinct beyond bespoke harnesses: a general-purpose local workspace (files on your machine, computer-use access to real tools) that lets an agent work with richer context, reinforced by a local-first/Obsidian-style memory discipline for privacy and accuracy.
@@ -69,11 +69,22 @@ The agent reads the diff, scores risk using six factors (change surface/blast ra
 — How I AI · 2026-08-05 · guest: — · [▶ 15:49](https://www.youtube.com/watch?v=cmATJGbA8bI&t=949) · `pi-cmATJGbA8bI-03`
 related: [Conductor enforces a strict PR-first workflow; no direct edits](#conductor-enforces-a-strict-pr-first-workflow-no-direct-edits) (same PR-gate discipline, here with a scored, tiered threshold instead of a blanket human-review requirement) · theme → [AI-approved PRs can be faster and safer than human-only reviews](agent-engineering-patterns.md#ai-approved-prs-can-be-faster-and-safer-than-human-only-reviews) (same episode's outcome data behind this rubric)
 
+### A scaffolding skill can run viability, market research, PRD, and create a full repo with CI
+The "new project scaffolding" skill orchestrates an 11-step workflow: it runs a viability gate, crawls the web for market research, writes a product brief/PRD, decides architecture, generates folder structure and tests, and can push an initial commit to GitHub. The demo shows the skill producing a market-research doc, a product brief, prototype folders, CLAUDE.md patterns, and continuous integration templates — giving non-technical founders and PMs a production-ready starting repo. That reduces handoff friction and ensures the first developer sees both business reasoning and engineering artifacts in one place.
+— Aakash Gupta · 2026-08-07 · guest: Oji Udezue (3x CPO) · [▶ 3:55](https://www.youtube.com/watch?v=Eo26_4JcyNA&t=235) · `pi-Eo26_4JcyNA-02`
+related: [Build the harness around concrete adapters and an artifact store](#build-the-harness-around-concrete-adapters-and-an-artifact-store) (same multi-step-orchestration instinct, here as a project-scaffolding pipeline instead of a bug-triage harness)
+
+### This system will explicitly say 'no' — it gates ideas with a SHARP-style test
+The skills embed a viability/SHARP problem test that evaluates clarity, urgency, differentiation, technical feasibility, and revenue; if three dimensions are weak the skill recommends abandoning the idea. The speaker emphasizes LLMs rarely refuse an idea, but this orchestrator returns a hard stop or 'proceed with eyes open' when competition, unclear users, or weak differentiation make a project poor ROI (demonstrated when the "Standup Zero" idea scored moderate/weak). That prevents wasting engineering time on undifferentiated or non‑viable projects.
+— Aakash Gupta · 2026-08-07 · guest: Oji Udezue (3x CPO) · [▶ 17:06](https://www.youtube.com/watch?v=Eo26_4JcyNA&t=1026) · `pi-Eo26_4JcyNA-03`
+related: [A compact risk rubric lets the agent auto-approve low-risk PRs](#a-compact-risk-rubric-lets-the-agent-auto-approve-low-risk-prs) (same scored-gate-that-can-say-no discipline, here applied pre-build to idea viability rather than post-hoc to a PR diff)
+
 ## Related themes
 - [Agent engineering & production infra](agent-engineering-patterns.md) — parent theme; the broader verification/governance/cost discipline this harness-building cluster sits alongside
 - [Agent delegation, loops & software factories](agent-delegation-and-loops.md) — the sustained-execution patterns that run inside these harnesses
 
 ## Source episodes
+- [Aakash Gupta — Use these skills to supercharge your claude code setup | Oji Udezue | 3x CPO (2026-08-07)](../episodes/2026/2026-08-07--aakash--use-these-skills-to-supercharge-claude-code.md)
 - [How I AI — Build an AI code review agent with Vercel Eve (full tutorial) (2026-08-05)](../episodes/2026/2026-08-05--howiai--build-an-ai-code-review-agent-with-vercel-eve.md)
 - [Aakash Gupta — The New AI PM Interview Round Where You Build Live, Not Just Talk (2026-07-29)](../episodes/2026/2026-07-29--aakash--new-ai-pm-interview-round-build-live.md)
 - [Every — How to Build a Multi-Agent Review Swarm (2026-07-24)](../episodes/2026/2026-07-24--every--how-to-build-a-multi-agent-review-swarm.md)
