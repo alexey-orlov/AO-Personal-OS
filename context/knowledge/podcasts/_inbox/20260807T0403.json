@@ -1,0 +1,145 @@
+{
+  "schema": 1,
+  "generatedAt": "2026-08-07T04:03:10.787Z",
+  "runStamp": "20260807T0403",
+  "episodes": [
+    {
+      "videoId": "dlI-5W7d7uU",
+      "videoTitle": "Why the Next Hit AI Product Will Be Social  (Best of the Pod)",
+      "videoUrl": "https://www.youtube.com/watch?v=dlI-5W7d7uU",
+      "channelName": "Every",
+      "publishedDate": "2026-08-05",
+      "guests": [
+        "Sarah"
+      ],
+      "summary": "The conversation argues that as base AI models and infrastructure mature, the next breakout consumer AI products will shift from single‑player, model‑centric experiences (ChatGPT/Character AI) to multiplayer, social products driven by product designers. Success will depend less on raw model performance and more on social mechanics—discoverability, reputation, trust, shared training data, and status incentives—that create network effects. The discussion covers early signals (custom GPTs, prompt libraries, AI friends), incumbent lock‑in risks (memory, habits), and investing instincts for founders who can build social, networked experiences.",
+      "insights": [
+        {
+          "headline": "The next dominant AI product will be multiplayer/social, not single-player",
+          "detail": "Early AI consumer wins (ChatGPT, Character AI) were backend/model led, like Google was in search. As infrastructure stabilizes, creators with product and social instincts will layer multiplayer features and networks on top of those models, unlocking much larger consumer opportunities than single‑user text boxes. The host and guest see custom GPTs and AI companions as early categories that could evolve into platformized social experiences.",
+          "anchorQuote": "But I don't think chat GPT is the single player mode product",
+          "tSeconds": 405,
+          "link": "https://www.youtube.com/watch?v=dlI-5W7d7uU&t=405"
+        },
+        {
+          "headline": "Custom GPTs and prompt ecosystems fail without trust and visibility",
+          "detail": "A social layer needs discoverability, clear provenance, and transparency about what a given GPT actually does; current custom GPT listings show usage counts but hide underlying prompts and documents. Without visibility into how an agent was built or what data it uses, users can't reliably choose or follow creators, which blocks social adoption and prevents status‑driven incentives from emerging. Building trust (credentials, surfaced prompt/docs, followable authors) is therefore a product priority if these ecosystems are to scale.",
+          "anchorQuote": "custom GPTs falls down is just in building trust",
+          "tSeconds": 1160,
+          "link": "https://www.youtube.com/watch?v=dlI-5W7d7uU&t=1160"
+        },
+        {
+          "headline": "Prompt creators will be the new influencers and utility providers",
+          "detail": "People already copy and paste high‑quality prompts found in forums (the speaker cites using a Reddit prompt for blood‑test interpretation), showing that curated, reusable prompts have real demand. As models improve, users will follow and apply experts' prompt collections or personalized training data for niches like health, recipes, or productivity, creating a creator economy around prompt libraries and 'training data authors.' This turns prompt authors into social players whose signals and reputations matter for discoverability and reuse.",
+          "anchorQuote": "there was a great prompt in in Reddit",
+          "tSeconds": 790,
+          "link": "https://www.youtube.com/watch?v=dlI-5W7d7uU&t=790"
+        },
+        {
+          "headline": "Memory and integrated personal data are powerful incumbent lock-ins",
+          "detail": "A major switching cost for users is that large incumbents can store memories, conversation histories, and personal datasets that make their agent uniquely tailored to you over time. That persistent personalization — the product knowing your history, preferences, documents and prior decisions — creates strong gravitational pull toward incumbents and raises the bar for new entrants hoping to displace them. Any challenger must either replicate that personalized memory or offer a compelling social/value tradeoff to overcome it.",
+          "anchorQuote": "memory is a big is a big sort of lock-in",
+          "tSeconds": 2102,
+          "link": "https://www.youtube.com/watch?v=dlI-5W7d7uU&t=2102"
+        }
+      ]
+    },
+    {
+      "videoId": "78-6dUROziQ",
+      "videoTitle": "How Open Source Became AI's Backbone | Inferact with a16z",
+      "videoUrl": "https://www.youtube.com/watch?v=78-6dUROziQ",
+      "channelName": "a16z",
+      "publishedDate": "2026-08-06",
+      "guests": [
+        "Matt",
+        "Simon (Infact)"
+      ],
+      "summary": "The discussion traces how open-source (open-weight) models moved from experimental curiosities to essential infrastructure for AI products and businesses. It argues that inference infrastructure and developer control—rather than purely model accuracy—drove adoption, and that sustainable licensing and operational ecosystems are now required to support ongoing frontier model development. The guests explain where an inference engine fits, why companies choose open weights, and what community maintenance and economics look like going forward.",
+      "insights": [
+        {
+          "headline": "Open-source models became operationally critical around 2023",
+          "detail": "The turning point was when model-driven products like GitHub Copilot and ChatGPT became indispensable to users, pushing many application teams to stop relying solely on closed APIs. Around 2023 a new wave of startups decided they couldn't be mere wrappers on closed models and instead adopted open-weight stacks to enable fine-tuning, inference tricks, and full control. That shift made open-source model support a hidden but foundational part of many production systems.",
+          "anchorQuote": "So maybe 2023 when GitHub copilot and chat GBT",
+          "tSeconds": 365,
+          "link": "https://www.youtube.com/watch?v=78-6dUROziQ&t=365"
+        },
+        {
+          "headline": "Inference engines (like VLM) are the plumbing that run models in production",
+          "detail": "VLM’s role is to convert available GPUs into production endpoints — it supports over a thousand model architectures and coordinates with hardware vendors to optimize each new chip. This 'day-zero' support (getting a model running as soon as weights are released) plus hardware co-design is what lets organizations deploy frontier open-weight models reliably and at scale. Without that layer, research releases remain terabytes on the internet, not usable services.",
+          "anchorQuote": "VLM is a inference engine. That means its job",
+          "tSeconds": 511,
+          "link": "https://www.youtube.com/watch?v=78-6dUROziQ&t=511"
+        },
+        {
+          "headline": "Customers choose open weights primarily for control; cost followed later",
+          "detail": "Control—over latency, data retention, customization, and SLA behavior—has long driven companies to run open-weight models in their own stacks so they can tune performance or enforce guardrails. Cost sensitivity has become acute only recently as token spend and pricing surprises mounted, pushing migrations off expensive closed APIs. The result: teams want both technical control and predictable economics, and open stacks offer finer-grained speed/cost tradeoffs (multiple performance modes) than vendor APIs.",
+          "anchorQuote": "the closed models are too expensive and then",
+          "tSeconds": 870,
+          "link": "https://www.youtube.com/watch?v=78-6dUROziQ&t=870"
+        },
+        {
+          "headline": "Open-weight licensing is evolving to fund model R&D sustainably",
+          "detail": "Historically models were released with permissive licenses (think Apache 2), but model labs now experiment with commercial-trigger clauses (e.g., Llama-era terms requiring agreements past revenue or DAU thresholds) to capture value and finance future training. Training frontier models is capital intensive, so many labs are seeking ways to monetize while still enabling wide use; guests liken the economic model to pharmaceutical R&D where returns on successful artifacts fund the next round of risky research.",
+          "anchorQuote": "Historically the um the open way model are just like Apache 2",
+          "tSeconds": 1205,
+          "link": "https://www.youtube.com/watch?v=78-6dUROziQ&t=1205"
+        },
+        {
+          "headline": "A 'village' of operators and researchers is required to make models work widely",
+          "detail": "Once a model is released, community and partner effort is needed to adapt it to diverse cluster topologies, hardware, and use cases (edge, large-scale services, voice vs. coding agents). That broad operationalization uncovers rare bugs, performance modes, and specialized optimizations, so open-source inference stacks and many contributors are essential to make the model reliably usable across workloads. In practice this means open-source inference engines, cloud providers, hardware vendors, and labs collaborating to turn research artifacts into deployable systems.",
+          "anchorQuote": "once it's out there is a whole community effort",
+          "tSeconds": 1580,
+          "link": "https://www.youtube.com/watch?v=78-6dUROziQ&t=1580"
+        }
+      ]
+    },
+    {
+      "videoId": "Eo26_4JcyNA",
+      "videoTitle": "Use these skills to supercharge your claude code setup | Oji Udezue | 3x CPO",
+      "videoUrl": "https://www.youtube.com/watch?v=Eo26_4JcyNA",
+      "channelName": "Aakash Gupta",
+      "publishedDate": "2026-08-07",
+      "guests": [
+        "Oji Udezue (3x CPO)"
+      ],
+      "summary": "Oji Udezue demos a set of open-source \"skills\" that embed product judgment, market research, and engineering scaffolding into Claude/Cloud Code to speed up product development. The central argument is that engineers are accelerating with AI, so product managers must adopt structured, AI-native workflows (viability gates, PRDs, CI setup, customer discovery) to avoid becoming the bottleneck and to produce repos developers can immediately use.",
+      "insights": [
+        {
+          "headline": "Engineers are accelerating with AI, and PMs are becoming the bottleneck",
+          "detail": "Developers who adopt AI tools move much faster, but product managers who don't speed up their product judgment and orchestration become the throughput constraint. The host demonstrates this by showing how Product Mind's skills automate business-level decisions so PMs can match engineering cadence without sacrificing testing, security, or architecture rigor. This matters because faster engineer output without aligned product judgment wastes time building things customers don't need.",
+          "anchorQuote": "developers are speeding up very quickly, especially if they're early adopters.",
+          "tSeconds": 195,
+          "link": "https://www.youtube.com/watch?v=Eo26_4JcyNA&t=195"
+        },
+        {
+          "headline": "A scaffolding skill can run viability, market research, PRD, and create a full repo with CI",
+          "detail": "The \"new project scaffolding\" skill orchestrates an 11-step workflow: it runs a viability gate, crawls the web for market research, writes a product brief/PRD, decides architecture, generates folder structure and tests, and can push an initial commit to GitHub. The demo shows the skill producing a market-research doc, a product brief, prototype folders, CLAUDE.md patterns, and continuous integration templates — giving non-technical founders and PMs a production-ready starting repo. That reduces handoff friction and ensures the first developer sees both business reasoning and engineering artifacts in one place.",
+          "anchorQuote": "The best instantiation of this is the pro new project scaffolding skill",
+          "tSeconds": 235,
+          "link": "https://www.youtube.com/watch?v=Eo26_4JcyNA&t=235"
+        },
+        {
+          "headline": "This system will explicitly say 'no' — it gates ideas with a SHARP-style test",
+          "detail": "The skills embed a viability/SHARP problem test that evaluates clarity, urgency, differentiation, technical feasibility, and revenue; if three dimensions are weak the skill recommends abandoning the idea. The speaker emphasizes LLMs rarely refuse an idea, but this orchestrator returns a hard stop or 'proceed with eyes open' when competition, unclear users, or weak differentiation make a project poor ROI (demonstrated when the \"Standup Zero\" idea scored moderate/weak). That prevents wasting engineering time on undifferentiated or non‑viable projects.",
+          "anchorQuote": "LLMs very rarely tell you no. And this skill",
+          "tSeconds": 1026,
+          "link": "https://www.youtube.com/watch?v=Eo26_4JcyNA&t=1026"
+        },
+        {
+          "headline": "Collapse PM, design, and engineering artifacts into one shared repo to keep context aligned",
+          "detail": "Instead of PMs in Notion, designers in Figma, and code in GitHub, the demo shows packaging market research, PRDs, claude MDs, prototypes, tests, and CI into the same Git repo so everyone accesses the same sources of truth. The benefit is shared, auditable context (including 'why' decisions captured by tools like Vibe Memo) and fewer one-off forks; organizations can centralize and govern the skill outputs so learnings spread rather than fragment. This is important for scaling AI-native workflows without losing governance or historical rationale.",
+          "anchorQuote": "collapse the separation of tasks of PM live in notion",
+          "tSeconds": 3291,
+          "link": "https://www.youtube.com/watch?v=Eo26_4JcyNA&t=3291"
+        },
+        {
+          "headline": "Customer discovery is enforced: the plan won’t proceed without real recruitable targets",
+          "detail": "The customer-discovery skill generates a full week plan, interview scripts, a survey, a synthesis template, and time budget, but it refuses to advance unless you supply a confirmed list of recruitable target users. The demo explains the skill treats fewer than five real target contacts as a failure signal, because access to genuine customers is essential to validate hypotheses. That enforces PM fundamentals and prevents building based solely on model output or founder networks.",
+          "anchorQuote": "A confirmed list of recruitable people with real target cohorts",
+          "tSeconds": 2974,
+          "link": "https://www.youtube.com/watch?v=Eo26_4JcyNA&t=2974"
+        }
+      ]
+    }
+  ]
+}
