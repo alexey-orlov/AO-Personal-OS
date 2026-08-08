@@ -1,7 +1,7 @@
 ---
 note: GC Todo
 area: gigacloud
-snapshot: 2026-08-07 08:00
+snapshot: 2026-08-08 08:00
 chars: 19784
 scope: above relevance marker
 ---
