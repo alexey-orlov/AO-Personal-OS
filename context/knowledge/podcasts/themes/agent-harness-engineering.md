@@ -2,7 +2,7 @@
 
 _status: live theme — the discipline of wrapping an AI agent in enforced structure: human-only zones, PR gates, precise workflows, adapters, and local-first context_
 _slug: agent-harness-engineering_
-_updated: 2026-08-07 · 14 insights from 7 episodes · (split from agent-engineering-patterns, 2026-07-11)_
+_updated: 2026-08-08 · 15 insights from 8 episodes · (split from agent-engineering-patterns, 2026-07-11)_
 
 ## The throughline
 A harness is code wrapped around an agent to make it behave consistently for a specific use case — and every practitioner in this cluster converges on the same core moves. Reserve architecture and UX decisions for humans (Conductor's "slot-free zones," "do not touch if you are an AI" markers — corroborated independently by Tony Fadell on the hardware-product side); force agent output through a review chokepoint before it lands (Conductor's strict PR-first workflow; the Sentry bug-triage harness's investigate-only vs. edit-enabled modes); and be extremely specific — write down the exact workflow, data sources, and allowed tools rather than reaching for a general-purpose assistant. Concrete adapters (Sentry, Linear, GitHub, Vercel) plus a persistent artifact store make investigations reproducible, though this is a choice, not a prerequisite — Gusto's much lighter "memory is just a DB column" stack proves harnesses can be minimal too. Codex-as-local-project-environment extends the same instinct beyond bespoke harnesses: a general-purpose local workspace (files on your machine, computer-use access to real tools) that lets an agent work with richer context, reinforced by a local-first/Obsidian-style memory discipline for privacy and accuracy.
@@ -79,11 +79,17 @@ The skills embed a viability/SHARP problem test that evaluates clarity, urgency,
 — Aakash Gupta · 2026-08-07 · guest: Oji Udezue (3x CPO) · [▶ 17:06](https://www.youtube.com/watch?v=Eo26_4JcyNA&t=1026) · `pi-Eo26_4JcyNA-03`
 related: [A compact risk rubric lets the agent auto-approve low-risk PRs](#a-compact-risk-rubric-lets-the-agent-auto-approve-low-risk-prs) (same scored-gate-that-can-say-no discipline, here applied pre-build to idea viability rather than post-hoc to a PR diff)
 
+### Skill files are executable cognition; owning them preserves your power
+Tan shows that 'skill files'—plain-English markdown instructions (e.g., transcribe a meeting, extract commitments, file summaries)—are effectively programs the agent executes, and if written clearly anyone or any agent can run them. That makes cognition portable: if your skill files live in your repo you compound judgment and can take it to a new job; if they live in an employer's repo, your judgment is extracted and the company keeps working without you. The political and career implication is explicit: treat skill files as assets, keep provenance and hygiene, and hold custody from day one.
+— Y Combinator · 2026-08-06 · guest: Garry Tan · [▶ 29:36](https://www.youtube.com/watch?v=eRrc1pUY5oU&t=1776) · `pi-eRrc1pUY5oU-05`
+related: [Local-first file access massively boosts AI's effectiveness and privacy](#local-first-file-access-massively-boosts-ais-effectiveness-and-privacy) (same durable-personal-markdown-as-owned-asset discipline) · theme → [AI agents & applications](ai-agents-and-applications.md#a-company-os-stores-workflows-as-github-style-skill-files) (Laurel's company-level skill-file OS is the same mechanism Tan argues should be owned by the individual, not the employer)
+
 ## Related themes
 - [Agent engineering & production infra](agent-engineering-patterns.md) — parent theme; the broader verification/governance/cost discipline this harness-building cluster sits alongside
 - [Agent delegation, loops & software factories](agent-delegation-and-loops.md) — the sustained-execution patterns that run inside these harnesses
 
 ## Source episodes
+- [Y Combinator — Garry Tan: "Personal AGI Is How You Stay Under Your Own Power" (2026-08-06)](../episodes/2026/2026-08-06--yc--garry-tan-personal-agi-stay-under-own-power.md)
 - [Aakash Gupta — Use these skills to supercharge your claude code setup | Oji Udezue | 3x CPO (2026-08-07)](../episodes/2026/2026-08-07--aakash--use-these-skills-to-supercharge-claude-code.md)
 - [How I AI — Build an AI code review agent with Vercel Eve (full tutorial) (2026-08-05)](../episodes/2026/2026-08-05--howiai--build-an-ai-code-review-agent-with-vercel-eve.md)
 - [Aakash Gupta — The New AI PM Interview Round Where You Build Live, Not Just Talk (2026-07-29)](../episodes/2026/2026-07-29--aakash--new-ai-pm-interview-round-build-live.md)
