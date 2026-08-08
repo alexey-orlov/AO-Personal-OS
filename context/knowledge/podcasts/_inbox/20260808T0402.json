@@ -1,0 +1,172 @@
+{
+  "schema": 1,
+  "generatedAt": "2026-08-08T04:02:42.418Z",
+  "runStamp": "20260808T0402",
+  "episodes": [
+    {
+      "videoId": "eRrc1pUY5oU",
+      "videoTitle": "Garry Tan: \"Personal AGI Is How You Stay Under Your Own Power\"",
+      "videoUrl": "https://www.youtube.com/watch?v=eRrc1pUY5oU",
+      "channelName": "Y Combinator",
+      "publishedDate": "2026-08-06",
+      "guests": [],
+      "summary": "Garry Tan argues that the next phase of AI will arrive not as a single godlike event but as diffuse, personal agents that run on your context and compound over time. He advances a practical and political case: build an owned personal AGI—your library, skill files, and harness—so your cognitive work is an asset you control rather than a rented product. He gives concrete how-to steps, product receipts from YC startups and his GBrain system, and a warning that ownership of skill files determines whether your judgment compounds for you or is extracted from you.",
+      "insights": [
+        {
+          "headline": "AGI will arrive as personal agents, not a single event",
+          "detail": "Rather than a one-time breakthrough in a data center, Tan claims AGI is already diffusing into infrastructure: agents running on your context, files, and workflows. He uses a Spinoza analogy—intelligence spreading through everything—to argue that the meaningful change is agents embedded in your day-to-day work (terminals, markdown, scheduled jobs) rather than a public announcement or threshold metric. That reframes the timeline and where to build: look inward at your processes and data, not upward at model roadmaps.",
+          "anchorQuote": "AGI isn't arriving as an event. It's arriving diffused",
+          "tSeconds": 354,
+          "link": "https://www.youtube.com/watch?v=eRrc1pUY5oU&t=354"
+        },
+        {
+          "headline": "Personal AGI must be owned infrastructure, not a rented product",
+          "detail": "Tan distinguishes corporate AI (chatbots you subscribe to) from personal AGI you control: the former is a product you consume and can be altered or reset by a vendor, while the latter runs on your infra, reads memory you own, executes your procedures, and compounds with use. Ownership matters because a personal agent improves from your private context daily and becomes an asset rather than a disposable subscription; if custody lies elsewhere, your cognitive capital can be captured or removed when platforms change policy.",
+          "anchorQuote": "I do not mean a chatbot you pay $20 a month to.",
+          "tSeconds": 392,
+          "link": "https://www.youtube.com/watch?v=eRrc1pUY5oU&t=392"
+        },
+        {
+          "headline": "AI agents multiply individual productivity by orders of magnitude",
+          "detail": "Tan reports his own coding throughput rose dramatically—'about 400x' versus his 2013 output, and even using conservative assumptions the multiplier is large (floor ~8x)—and YC portfolio data shows batches with AI-generated code growing quickly. He argues the multiplier is not the model weights but the contextual harness: giving the same model relevant private context, integration, and steps turns it into a workforce that can do design, PM, growth and more. That changes startup physics: single founders can execute formerly unscalable work at scale and produce outsized revenue-per-person.",
+          "anchorQuote": "I'm at about 400x what I did in 2013.",
+          "tSeconds": 508,
+          "link": "https://www.youtube.com/watch?v=eRrc1pUY5oU&t=508"
+        },
+        {
+          "headline": "An agent's memory dwarfs human working memory; context selection decides outcomes",
+          "detail": "Humans hold ~7±2 items in working memory, while Tan points out agents hold ~1,000,000 tokens (~1,000 pages) and can synthesize across them instantly. The crucial question becomes not raw capacity but which subset of your library is 'open' at the right moment—who or what decides those three books on your desk—so the architecture needs a library (your stored context) plus a librarian (the agent that selects and surfaces relevant context). His GBrain example (220,000 markdown pages, morning briefings, meeting prep) shows how the right context transforms an assistant into a knowledgeable colleague.",
+          "anchorQuote": "An AI agent though holds a million tokens.",
+          "tSeconds": 806,
+          "link": "https://www.youtube.com/watch?v=eRrc1pUY5oU&t=806"
+        },
+        {
+          "headline": "Skill files are executable cognition; owning them preserves your power",
+          "detail": "Tan shows that 'skill files'—plain-English markdown instructions (e.g., transcribe a meeting, extract commitments, file summaries)—are effectively programs the agent executes, and if written clearly anyone or any agent can run them. That makes cognition portable: if your skill files live in your repo you compound judgment and can take it to a new job; if they live in an employer's repo, your judgment is extracted and the company keeps working without you. The political and career implication is explicit: treat skill files as assets, keep provenance and hygiene, and hold custody from day one.",
+          "anchorQuote": "Every skill you teach an agent is you externalized.",
+          "tSeconds": 1776,
+          "link": "https://www.youtube.com/watch?v=eRrc1pUY5oU&t=1776"
+        }
+      ]
+    },
+    {
+      "videoId": "P06RgnUKX_I",
+      "videoTitle": "How To Design In The Agent Era",
+      "videoUrl": "https://www.youtube.com/watch?v=P06RgnUKX_I",
+      "channelName": "Y Combinator",
+      "publishedDate": "2026-08-07",
+      "guests": [
+        "Stephen (Paper)"
+      ],
+      "summary": "The episode demonstrates how design workflows are being remade by agent-capable tools and argues that effective new design tooling must be 'agent-native' — i.e., built on web primitives so both humans and agents can read and act on designs. The guest shows Paper (a design tool) integrating shaders, image generation, and agent integrations (Conductor, Cursor, GPT-5.5) to automate iterations, export production code, and let designers curate model output instead of prompt-only workflows.",
+      "insights": [
+        {
+          "headline": "Build design tools on HTML/CSS so agents and humans share a language",
+          "detail": "Paper is built to render with HTML and CSS so designers get a familiar canvas while agents can directly read and write the same format. That lets agents output HTML (or React/Tailwind) that Paper renders natively, reduces translation errors and token waste, and enables one-click \"copy as React\" handoffs that actually ship. The result: faster, less hallucination-prone design→code loops and better alignment between design and engineering.",
+          "anchorQuote": "using HTML and CSS as the rendering engine",
+          "tSeconds": 199,
+          "link": "https://www.youtube.com/watch?v=P06RgnUKX_I&t=199"
+        },
+        {
+          "headline": "Agents + visual canvas create a scalable, iterative inspiration loop",
+          "detail": "Instead of prompting only, teams can leave comments or selections on a live canvas and dispatch agents (via Conductor/Cursor/GPT-5.5) to generate dozens or hundreds of variations overnight. The agents produce concrete artboards or HTML, check their own work (e.g., fix text overflow), and designers then curate and combine the best parts — turning ideation into a high-velocity curation process. Stephen shows real examples of designers running loops of variations and using the generated outputs as inspiration rather than final designs.",
+          "anchorQuote": "spitting out a bunch of different variations",
+          "tSeconds": 1180,
+          "link": "https://www.youtube.com/watch?v=P06RgnUKX_I&t=1180"
+        },
+        {
+          "headline": "AI-generated designs have repeatable 'tells' designers must remove",
+          "detail": "Models tend to produce recognizable, overused patterns — excessive bold weights, many font sizes, purple gradients, extra badges, and gratuitous cards — that make interfaces look \"vibecoded\" and erode trust, especially for sensitive products like finance. Practical fixes the guest recommends are behavioral guardrails (model instructions) plus manual edits: pull font weights down, constrain to three sizes, delete decorative widgets, and simplify contrast to regain credibility. These small edits consistently transform model output into more intentional, trustworthy interfaces.",
+          "anchorQuote": "models love having five, six, seven, eight different font sizes",
+          "tSeconds": 1501,
+          "link": "https://www.youtube.com/watch?v=P06RgnUKX_I&t=1501"
+        },
+        {
+          "headline": "Treat the codebase as the single source of truth for design and shipping",
+          "detail": "Newer teams stop maintaining parallel design systems by letting agents read and update the live codebase: Paper can copy frames as React or Tailwind, its Chrome extension can snapshot live pages into editable canvases, and agents can create or update components directly in a repo. By aligning visual edits with the actual code, teams remove sync costs, make iterations shippable faster, and avoid the 'two copies' maintenance problem that historically broke handoffs.",
+          "anchorQuote": "the code is the source of truth",
+          "tSeconds": 958,
+          "link": "https://www.youtube.com/watch?v=P06RgnUKX_I&t=958"
+        }
+      ]
+    },
+    {
+      "videoId": "RtNrvPBkwfA",
+      "videoTitle": "AI Is Learning to Hack. Faster Than We Expected.",
+      "videoUrl": "https://www.youtube.com/watch?v=RtNrvPBkwfA",
+      "channelName": "a16z",
+      "publishedDate": "2026-08-07",
+      "guests": [],
+      "summary": "The conversation explains how contemporary AI models are being leveraged to perform real-world cyberattacks by following the path of least resistance — stealing credentials, abusing package registries, and automating social engineering — rather than inventing exotic zero-days. The speakers argue this shortens the window between vulnerability discovery and exploitation, forces rethinking of patching, secrets management, and registry funding, and documents concrete incidents (HuggingFace training-set keys, npm worms) that show the problem is already material.",
+      "insights": [
+        {
+          "headline": "AI attackers prefer stolen secrets and supply-chain entry points",
+          "detail": "Rather than inventing new zero-day exploits, models and attackers are optimized to use the easiest way in: leaked API keys, backdooring packages, or social engineering. The transcript gives multiple concrete examples — an administrative API key for the Apache Foundation, and attackers publishing malware to public registries — showing that a credential lying openly is a far cheaper, faster route to data access than hunting for a zero-day. That matters because it reshapes defensive priorities toward secrets hygiene and registry vetting rather than only patching exotic vulnerabilities.",
+          "anchorQuote": "they will do the path of least resistance to accomplish the task",
+          "tSeconds": 181,
+          "link": "https://www.youtube.com/watch?v=RtNrvPBkwfA&t=181"
+        },
+        {
+          "headline": "Frontier models dramatically shorten discovery-to-exploit timelines",
+          "detail": "The speakers say large models can discover and exploit vulnerabilities far faster than humans used to, creating a 'massive reduction in the time between the vulnerability discovery and vulnerability exploitation.' This means exploits that used to take days or weeks can be weaponized the same afternoon a vuln is public, so traditional slow, manual patch-and-upgrade workflows (major-version refactors, lengthy owner approvals) become untenable. The consequence: organizations must build faster, less burdensome patching and mitigation patterns or risk near-immediate exploitation.",
+          "anchorQuote": "massive reduction in the time between the vulnerability discovery",
+          "tSeconds": 475,
+          "link": "https://www.youtube.com/watch?v=RtNrvPBkwfA&t=475"
+        },
+        {
+          "headline": "Malware is becoming AI-assisted (‘vibecoded’) and harder to detect",
+          "detail": "Attacks are increasingly produced or enhanced by AI — the speakers note malware they suspect was 'vibecoded' and point to an npm worm that spread across hundreds of packages — and authors are even open-sourcing toolkits for others. These AI-augmented payloads often use developers' own CLI tools and prompt-like files as payloads, which can bypass endpoint detection because they look like normal markdown/JSON artifacts. The result is higher-quality, more stealthy malware that propagates through the software supply chain and hunts for credentials post-install to self-propagate.",
+          "anchorQuote": "that malware I think we have pretty good reason to believe",
+          "tSeconds": 828,
+          "link": "https://www.youtube.com/watch?v=RtNrvPBkwfA&t=828"
+        },
+        {
+          "headline": "Training data and public repos leaked hundreds of thousands of live secrets",
+          "detail": "Scanning public training sets uncovered about a quarter million live API keys on one platform, including at least one key with push access to a foundational Linux library that could have distributed malware broadly. The transcript links this finding to real risk: keys embedded in scraped training data or repos become direct supply-chain weapons when models or attackers use them as the path of least resistance. This underlines the need to systematically find and revoke live credentials in public datasets and to fund better vetting of community-run registries.",
+          "anchorQuote": "about a quarter million live keys in their training sets",
+          "tSeconds": 730,
+          "link": "https://www.youtube.com/watch?v=RtNrvPBkwfA&t=730"
+        }
+      ]
+    },
+    {
+      "videoId": "Xc4klGbq8v8",
+      "videoTitle": "Max Hodak: What Really Kills Deep Tech Startups?",
+      "videoUrl": "https://www.youtube.com/watch?v=Xc4klGbq8v8",
+      "channelName": "Y Combinator",
+      "publishedDate": "2026-08-07",
+      "guests": [],
+      "summary": "Max Hodak argues that deep‑tech startups rarely die for lack of a good idea; they die because they can't iterate quickly enough once the company scales. Iteration speed is determined by mundane infrastructure — purchasing, budgeting, hiring, performance systems and internal software — and getting those operational systems right compounds far more than any single technical decision. He illustrates with concrete practices (procurement workflows, a companywide voting ATS, an internal database called Helix, and continuous peer reviews) that shorten feedback loops and expose problems early.",
+      "insights": [
+        {
+          "headline": "Speed of iteration determines startup success.",
+          "detail": "Hodak claims that learning frequency compounds: a team that learns one thing per week will massively outperform a rival that learns one thing per month. That compounding effect makes iteration rate the single biggest lever for competitive advantage in deep tech, so founders should prioritize shortening feedback loops even when a slower approach looks technically superior. Infrastructure — not cleverness alone — is what creates those fast loops.",
+          "anchorQuote": "rate of iteration separates success from failure",
+          "tSeconds": 1126,
+          "link": "https://www.youtube.com/watch?v=Xc4klGbq8v8&t=1126"
+        },
+        {
+          "headline": "Poor procurement and budgeting wreck deep‑tech velocity.",
+          "detail": "Unlike pure software shops, deep‑tech teams 'buy many many thousands of things' and naive expense controls create either wasted time or uncontrolled burn. Hodak gives examples: founders can buy with credit cards but scaling employees face vendor onboarding that can delay orders weeks, and bulk material practices make experiments feel free so teams undershoot true costs (he cites iterations that can cost ~$40,000). He argues you must design purchasing, budgeting and attribution systems up front — he built Helix to track purchases through manufacturing so cost and runway are visible.",
+          "anchorQuote": "you will be buying many many thousands of things",
+          "tSeconds": 197,
+          "link": "https://www.youtube.com/watch?v=Xc4klGbq8v8&t=197"
+        },
+        {
+          "headline": "Distributed, company‑wide voting prevents recruiting bottlenecks.",
+          "detail": "Instead of centralizing top‑of‑funnel screening, Hodak's team routes initial applications to a variable set of 7–8 employees to vote, which spreads load, averages judgment, and avoids single-person bottlenecks. This feed into a four-step hiring funnel (company voting → phone screen → AI‑resistant homework → full interview) that yields measurable conversions (about 17% of top‑funnel apps go to phone screen) and preserves founder time while surfacing diverse perspectives. He prefers homeworks that are scorable by a few objective metrics so candidate results can be compared despite AI assistance.",
+          "anchorQuote": "it goes to companywide voting",
+          "tSeconds": 673,
+          "link": "https://www.youtube.com/watch?v=Xc4klGbq8v8&t=673"
+        },
+        {
+          "headline": "Continuous peer‑weighted reviews (IGEN) surface issues far sooner.",
+          "detail": "To replace slow annual 360 reviews, Hodak's company asks colleagues every 4–6 weeks a single question — essentially 'would you hire this person again?' — and builds a graph where votes are weighted by voters' reputations (akin to PageRank/ eigenvector centrality). They add Monte‑Carlo dropout to detect anomalous voting blocs; the resulting monthly signal highlights underperformers and cultural problems early, reducing the trauma and lag associated with yearly HR cycles and enabling faster corrective action.",
+          "anchorQuote": "would you vote again today for their hire?",
+          "tSeconds": 1023,
+          "link": "https://www.youtube.com/watch?v=Xc4klGbq8v8&t=1023"
+        }
+      ]
+    }
+  ]
+}
