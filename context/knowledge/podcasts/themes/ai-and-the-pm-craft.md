@@ -2,7 +2,7 @@
 
 _status: live theme — how AI reshapes product management work, skills, workflows, and roles_
 _slug: ai-and-the-pm-craft_
-_updated: 2026-08-07 · 41 insights from 25 episodes · ⚠ at 41/30: over budget, no clean seam yet_
+_updated: 2026-08-08 · 42 insights from 26 episodes · ⚠ at 42/30: over budget, no clean seam yet_
 
 ## The throughline
 PMs and full-stack designers gain leverage in the coding-agent era because the gap between "knowing what to build" and "shipping it" collapses. The skill shift is from raw implementation to defining what to build, evaluating quality, and designing where humans and agents collaborate — Shipper bets PMs who "ride the models" out-ship engineers, an OpenAI PM uses Codex to drive prototypes to 70–80% completion and replace PRDs with runnable artifacts, and a non-technical builder ships a production iPhone app and clears App Store review using LLMs as her stepwise architect + engineer. Lovable extends this to "anyone": vibe coding democratizes product creation, with a student hitting $130k ARR in 30 days. The same craft scales up the org chart: Customer.io's VP of Product rebuilds a third of an all-hands deck in a morning, but only by treating Claude like an eager junior — rolling context in, forcing clarifying questions, blocking premature deliverables — and the leader's residual value collapses to two choices: *which sources* (recordings, docs, metrics) and *which target form* (deck, Notion page, one-pager). The model-selection beat also sharpens: Fable's "seasoned engineer" verbosity wrecks PRDs, so pair Mythos-class models with cheaper Opus/Sonnet by task type. Ambrosino (OpenAI Codex) sharpens the picture from the supply side: when dozens of people inside a company can stand up polished prototypes from the same idea, implementation is no longer the bottleneck — *curation* is: deciding which of ~90 explorations to keep, fold together, or refine. The same abundance makes design and taste distinctly non-automatable: aesthetic judgment, novelty, and system-level UI coherence lack the grading signals needed to train models to generalize, so models copy patterns (Linear-clone proliferation) but cannot generate the novelty or cross-component semantic reasoning that defines good design. The operational kit that recurs: hyper-literal prompts, screenshots-as-examples, prototypes-not-PRDs, a beginner's mindset, and the discipline to restrain the model until the foundations are set.
@@ -206,12 +206,18 @@ related: [Senior PMs can now build and ship end-to-end production features](#sen
 The customer-discovery skill generates a full week plan, interview scripts, a survey, a synthesis template, and time budget, but it refuses to advance unless you supply a confirmed list of recruitable target users. The demo explains the skill treats fewer than five real target contacts as a failure signal, because access to genuine customers is essential to validate hypotheses. That enforces PM fundamentals and prevents building based solely on model output or founder networks.
 — Aakash Gupta · 2026-08-07 · guest: Oji Udezue (3x CPO) · [▶ 49:34](https://www.youtube.com/watch?v=Eo26_4JcyNA&t=2974) · `pi-Eo26_4JcyNA-05`
 
+### AI-generated designs have repeatable 'tells' designers must remove
+Models tend to produce recognizable, overused patterns — excessive bold weights, many font sizes, purple gradients, extra badges, and gratuitous cards — that make interfaces look "vibecoded" and erode trust, especially for sensitive products like finance. Practical fixes the guest recommends are behavioral guardrails (model instructions) plus manual edits: pull font weights down, constrain to three sizes, delete decorative widgets, and simplify contrast to regain credibility. These small edits consistently transform model output into more intentional, trustworthy interfaces.
+— Y Combinator · 2026-08-07 · guest: Stephen (Paper) · [▶ 25:01](https://www.youtube.com/watch?v=P06RgnUKX_I&t=1501) · `pi-P06RgnUKX_I-03`
+related: [Designers keep their value because 'taste' resists automation](#designers-keep-their-value-because-taste-resists-automation) (Mosseri's detectable AI "vibes" and Paper's "tells" name the same visible-signature phenomenon) · [Design and taste remain hard to automate and still need humans](#design-and-taste-remain-hard-to-automate-and-still-need-humans) (same non-automatable-taste thesis — this insight supplies the concrete checklist for correcting what taste catches)
+
 ## Related themes
 - [AI agents & applications](ai-agents-and-applications.md) — the surfaces PMs build in
 - [Leadership, careers & teams](leadership-careers-and-teams.md) — how the manager/IC mix is shifting alongside
 - [Product discovery & strategy](product-discovery-and-strategy.md) — feature differentiation is dead; moats sit elsewhere
 
 ## Source episodes
+- [Y Combinator — How To Design In The Agent Era (2026-08-07)](../episodes/2026/2026-08-07--yc--how-to-design-in-the-agent-era.md)
 - [Aakash Gupta — Use these skills to supercharge your claude code setup | Oji Udezue | 3x CPO (2026-08-07)](../episodes/2026/2026-08-07--aakash--use-these-skills-to-supercharge-claude-code.md)
 - [Lenny's Podcast — This CPO regrets that product management exists | Tom Verrilli (CPO of Whatnot) (2026-08-02)](../episodes/2026/2026-08-02--lenny--this-cpo-regrets-that-product-management-exists.md)
 - [Y Combinator — Patrick Collison: "What If You Succeed?" (2026-07-31)](../episodes/2026/2026-07-31--yc--patrick-collison-what-if-you-succeed.md)
