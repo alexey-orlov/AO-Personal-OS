@@ -30,12 +30,16 @@ The optional `was:` records the original text when it was corrected from a missp
 - **The Grapes of Wrath** — John Steinbeck, 1939 · added 2026-07-05 · note: Dust Bowl migration, 1930s; Pulitzer 1940; ~21h audio, long but definitive for the era; from explore drop tg-186
 - **Hotel on the Corner of Bitter and Sweet** — Jamie Ford, 2009 · added 2026-07-05 · note: WWII Japanese-American internment, Seattle 1942; from explore drop tg-186
 - **The Secret Life of Bees** — Sue Monk Kidd, 2002 · added 2026-07-05 · note: civil rights era, South Carolina 1964; from explore drop tg-186
+- **Giants in the Earth** — O. E. Rølvaag, 1927 · added 2026-08-08 · note: Norwegian settlers in Dakota Territory; frontier as psychological trial; from drop tg-334
+- **The Gilded Age: A Tale of To-Day** — Mark Twain & Charles Dudley Warner, 1873 · added 2026-08-08 · note: the novel that named the era; from drop tg-336
+- **Ragtime** — E. L. Doctorow, 1975 · added 2026-08-08 · note: 1900–1917 US in one novel — immigrants, Houdini, Emma Goldman, Morgan, Ford; entry point per drop; from drop tg-336
 
 ## History
 
 - **Carnegie** — David Nasaw, 2006 · added 2026-07-19 · was: "биография Андрю Карнеги"
 - **Morgan: American Financier** — Jean Strouse, 1999 · added 2026-07-19 · was: "JP Morgan"
 - **The Origins of Totalitarianism** — Hannah Arendt, 1951 · added 2026-07-22 · was: "ханна арендт истоки тоталитаризма"
+- **World of Our Fathers** — Irving Howe, 1976 · added 2026-08-08 · note: Eastern European Jewish immigration & the Lower East Side; National Book Award; from drop tg-336
 
 ## Non-fiction (psychology / business / technology)
 
