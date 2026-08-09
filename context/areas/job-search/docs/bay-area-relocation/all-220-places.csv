@@ -1,0 +1,221 @@
+Place,County,Type,Data status,"Drive to SF (min, off-peak)",Miles to SF (straight line),Urban rank (1=most urban),Population,2BR median rent $,3BR median rent $,2BR under $4k supply,3BR under $4k supply,Violent crime /1k,Property crime /1k,School district,Sources
+Alameda,Alameda,City,Measured,23.7,8.6,46,78280,2980,3760,Plenty,Some,3.2,49.1,Alameda Unified School District,"apartments.com; homesnacks.com (violent rate, 2025 report); areavibes.com (property rate); crimegrade.org (geographic variation, MV theft)"
+Albany,Alameda,City,Partly measured (2/6),23.1,8.2,55,20271,2257,,Plenty,-,2.9,,Albany Unified School District,apartments.com; crimegrade.org
+Berkeley,Alameda,City,Measured,23.5,8.4,51,124321,3341,4195,Plenty,Some,6.4,52.3,Berkeley Unified School District,apartments.com; plaincrime.com
+Dublin,Alameda,City,Measured,40.9,25.8,122,72589,3110,3732,Plenty,Some,2.5,13.7,Dublin Unified School District,apartments.com; crimegrade.org
+Emeryville,Alameda,City,Partly measured (3/6),20.4,6.4,39,12905,3615,,Plenty,-,12.3,134.9,Emery Unified School District,rentcafe.com; plaincrime.com / opencrime.us (FBI UCR 2024)
+Fremont,Alameda,City,Measured,43.6,28.0,76,230504,3265,3659,Plenty,Plenty,3.1,15.8,Fremont Unified School District,apartments.com; crimegrade.org
+Newark,Alameda,City,Partly measured (3/6),42.0,26.7,75,47529,2834,3827,Plenty,Some,3.2,,Newark Unified School District,rentometer.com; crimegrade.org (3.157/1k); neighborhoodscout.com (4/1k)
+Oakland,Alameda,City,Measured,20.9,6.7,36,440646,2650,4070,Plenty,Some,16.9,60.2,Oakland Unified School District,zumper.com; eufy.com (2024 rates); oaklandreport.org (2025 trend)
+Piedmont,Alameda,City,Partly measured (1/6),24.5,9.1,48,11270,3297,,Plenty,-,,,,apartments.com
+Bayview Hunters Point,San Francisco,SF neighbourhood,Partly measured (3/6),16.3,4.6,29,37700,4398,,Some,-,8.3,31.6,San Francisco Unified School District,apartments.com; crimegrade.org
+Bernal Heights,San Francisco,SF neighbourhood,Partly measured (2/6),14.8,4.0,10,25900,4795,,Few,-,6.2,,San Francisco Unified School District,rentable.co; crimegrade.org
+Castro/Upper Market,San Francisco,SF neighbourhood,Measured,12.5,3.2,2,22000,3547,5498,Plenty,Few,9.4,45.9,San Francisco Unified School District,apartments.com; crimegrade.org
+Chinatown,San Francisco,SF neighbourhood,Partly measured (3/6),5.3,0.7,17,14800,4471,7752,Some,Almost none,17.4,,San Francisco Unified School District,apartments.com; crimegrade.org
+Excelsior,San Francisco,SF neighbourhood,Partly measured (1/6),18.4,5.3,19,40300,,,-,-,5.2,,San Francisco Unified School District,crimegrade.org
+Financial District/South Beach,San Francisco,SF neighbourhood,Partly measured (3/6),4.0,0.3,20,19000,5797,8464,Very few,Almost none,26.9,,San Francisco Unified School District,apartments.com; crimegrade.org
+Glen Park,San Francisco,SF neighbourhood,Partly measured (2/6),17.0,4.8,14,8500,3995,,Some,-,4.6,,San Francisco Unified School District,rentable.co; crimegrade.org
+Golden Gate Park,San Francisco,SF neighbourhood,Parkland - not ranked,18.3,5.2,34,50,,,-,-,,,San Francisco Unified School District,safe-route.app; safemap.io
+Haight Ashbury,San Francisco,SF neighbourhood,Measured,12.9,3.4,9,17000,5203,7667,Few,Almost none,8.4,43.6,San Francisco Unified School District,zumper.com; crimegrade.org
+Hayes Valley,San Francisco,SF neighbourhood,Partly measured (2/6),9.6,2.2,3,9500,5954,8774,Very few,Almost none,,,San Francisco Unified School District,"rental aggregator result, exact publisher unresolved (rent.com / rentcafe.com results set); safemap.io (with niche.com corroborating the 'higher than most' read)"
+Inner Richmond,San Francisco,SF neighbourhood,Measured,14.8,4.0,28,23800,3695,5495,Plenty,Few,3.4,40.0,San Francisco Unified School District,renthop.com; crimegrade.org
+Inner Sunset,San Francisco,SF neighbourhood,Partly measured (3/6),17.0,4.8,26,22000,4795,,Few,-,6.6,37.6,San Francisco Unified School District,zumper.com; crimegrade.org
+Lakeshore,San Francisco,SF neighbourhood,Partly measured (1/6),23.4,7.0,37,14000,3251,,Plenty,-,,,San Francisco Unified School District,apartmenthomeliving.com
+Lincoln Park,San Francisco,SF neighbourhood,Parkland - not ranked,20.6,6.0,50,50,,,-,-,,,San Francisco Unified School District,
+Lone Mountain/USF,San Francisco,SF neighbourhood,Partly measured (2/6),13.0,3.4,16,24000,2834,4303,Plenty,Some,,,San Francisco Unified School District,apartments.com; niche.com
+Marina,San Francisco,SF neighbourhood,Partly measured (3/6),10.0,2.4,30,24000,3878,5373,Some,Few,7.6,,San Francisco Unified School District,apartments.com; crimegrade.org
+McLaren Park,San Francisco,SF neighbourhood,Parkland - not ranked,19.1,5.5,25,80,,,-,-,,,San Francisco Unified School District,
+Mission,San Francisco,SF neighbourhood,Partly measured (3/6),11.0,2.7,1,58800,4097,11672,Some,Almost none,12.4,,San Francisco Unified School District,apartments.com; crimegrade.org
+Mission Bay,San Francisco,SF neighbourhood,Partly measured (2/6),8.3,1.8,13,17000,6644,7032,Very few,Very few,,,San Francisco Unified School District,apartments.com; safemap.io
+Nob Hill,San Francisco,SF neighbourhood,Partly measured (3/6),6.7,1.2,15,26000,3490,4568,Plenty,Some,11.0,,San Francisco Unified School District,apartments.com; crimegrade.org
+Noe Valley,San Francisco,SF neighbourhood,Measured,14.2,3.8,4,22000,5995,8834,Very few,Almost none,5.5,40.2,San Francisco Unified School District,renthop.com; crimegrade.org
+North Beach,San Francisco,SF neighbourhood,Partly measured (3/6),5.9,0.9,23,13000,5422,,Few,-,7.5,88.0,San Francisco Unified School District,zumper.com; crimegrade.org; wesanfrancisco.org
+Oceanview/Merced/Ingleside,San Francisco,SF neighbourhood,Partly measured (1/6),21.8,6.4,33,28800,3710,,Plenty,-,,,San Francisco Unified School District,rentable.co; crimegrade.org; goodmigrations.com
+Outer Mission,San Francisco,SF neighbourhood,Partly measured (3/6),21.6,6.4,31,26000,3500,,Plenty,-,4.0,22.9,San Francisco Unified School District,rentable.co; crimegrade.org
+Outer Richmond,San Francisco,SF neighbourhood,Partly measured (1/6),19.3,5.6,42,45000,,,-,-,6.1,,San Francisco Unified School District,crimegrade.org
+Pacific Heights,San Francisco,SF neighbourhood,Measured,9.9,2.3,18,24000,5282,8119,Few,Almost none,8.1,59.1,San Francisco Unified School District,apartments.com; crimegrade.org
+Portola,San Francisco,SF neighbourhood,Partly measured (1/6),17.4,4.9,22,17000,3975,,Some,-,,,San Francisco Unified School District,rentable.co; niche.com; doorprofit.com
+Potrero Hill,San Francisco,SF neighbourhood,Partly measured (3/6),10.7,2.6,8,15000,6500,8206,Very few,Almost none,9.3,,San Francisco Unified School District,zumper.com; crimegrade.org
+Presidio,San Francisco,SF neighbourhood,Parkland - not ranked,14.6,4.0,35,4000,,,-,-,,,San Francisco Unified School District,reolink.com
+Presidio Heights,San Francisco,SF neighbourhood,Partly measured (2/6),13.1,3.4,27,11000,4616,,Some,-,7.3,,San Francisco Unified School District,rentable.co; crimegrade.org
+Russian Hill,San Francisco,SF neighbourhood,Partly measured (3/6),7.3,1.4,24,18900,7495,11045,Almost none,Almost none,10.8,,San Francisco Unified School District,zumper.com; crimegrade.org
+Seacliff,San Francisco,SF neighbourhood,Partly measured (1/6),18.5,5.3,43,2500,,,-,-,6.5,,San Francisco Unified School District,crimegrade.org
+South of Market,San Francisco,SF neighbourhood,Partly measured (3/6),7.4,1.5,5,19000,4839,5795,Few,Very few,13.4,,San Francisco Unified School District,apartments.com; crimegrade.org
+Sunset/Parkside,San Francisco,SF neighbourhood,Partly measured (3/6),21.8,6.4,38,84600,5248,7733,Few,Almost none,6.1,,San Francisco Unified School District,renthop.com; crimegrade.org
+Tenderloin,San Francisco,SF neighbourhood,Partly measured (2/6),7.1,1.4,7,28000,2995,,Plenty,-,37.0,,San Francisco Unified School District,zumper.com; yahoo.com (syndicated news analysis of 2025 SFPD neighborhood data); composition stats from niche.com / civichub.us
+Treasure Island,San Francisco,SF neighbourhood,Partly measured (1/6),9.8,2.3,40,2500,5579,,Few,-,,,San Francisco Unified School District,apartments.com; safemap.io
+Twin Peaks,San Francisco,SF neighbourhood,Measured,15.6,4.3,11,7000,3043,5183,Plenty,Few,3.9,34.7,San Francisco Unified School District,rentable.co; crimegrade.org (rates); areavibes.com (violent-crime odds)
+Visitacion Valley,San Francisco,SF neighbourhood,Measured,19.9,5.8,32,19000,5051,3972,Few,Some,4.9,17.8,San Francisco Unified School District,apartmenthomeliving.com; crimegrade.org
+West of Twin Peaks,San Francisco,SF neighbourhood,Partly measured (3/6),19.1,5.5,21,39000,4367,,Some,-,2.6,28.6,San Francisco Unified School District,apartmenthomeliving.com; areavibes.com (rates); philipfarrproperties.com / reolink.com (Grade A / safest-neighborhood ranking)
+Western Addition,San Francisco,SF neighbourhood,Partly measured (3/6),10.3,2.4,6,25000,4109,,Some,-,10.6,47.6,San Francisco Unified School District,renthop.com; crimegrade.org (violent rate); areavibes.com (property odds); safemap.io / doorprofit.com (grades)
+Ashland,Alameda,Unincorporated community,NOT YET MEASURED - search budget exhausted,29.7,16.8,60,23192,,,-,-,,,,
+Castro Valley,Alameda,Unincorporated community,NOT YET MEASURED - search budget exhausted,31.4,18.2,62,66441,,,-,-,,,,
+Cherryland,Alameda,Unincorporated community,NOT YET MEASURED - search budget exhausted,31.2,18.0,58,15882,,,-,-,,,,
+Fairview,Alameda,Unincorporated community,NOT YET MEASURED - search budget exhausted,35.2,21.3,72,10003,,,-,-,,,,
+Hayward,Alameda,City,NOT YET MEASURED - search budget exhausted,32.7,19.2,64,162954,,,-,-,,,,
+Livermore,Alameda,City,NOT YET MEASURED - search budget exhausted,52.5,35.1,161,87955,,,-,-,,,,
+Pleasanton,Alameda,City,NOT YET MEASURED - search budget exhausted,45.9,29.8,134,79871,,,-,-,,,,
+San Leandro,Alameda,City,NOT YET MEASURED - search budget exhausted,26.0,13.9,63,91008,,,-,-,,,,
+San Lorenzo,Alameda,Unincorporated community,NOT YET MEASURED - search budget exhausted,29.6,16.7,61,29581,,,-,-,,,,
+Sunol,Alameda,Unincorporated community,NOT YET MEASURED - search budget exhausted,47.4,31.0,137,913,,,-,-,,,,
+Union City,Alameda,City,NOT YET MEASURED - search budget exhausted,38.3,23.7,77,70143,,,-,-,,,,
+Acalanes Ridge,Contra Costa,Unincorporated community,NOT YET MEASURED - search budget exhausted,33.8,18.8,108,1137,,,-,-,,,,
+Alamo,Contra Costa,Unincorporated community,NOT YET MEASURED - search budget exhausted,37.9,20.1,118,14570,,,-,-,,,,
+Antioch,Contra Costa,City,NOT YET MEASURED - search budget exhausted,56.3,35.2,154,115291,,,-,-,,,,
+Bay Point,Contra Costa,Unincorporated community,NOT YET MEASURED - search budget exhausted,48.4,28.7,151,25275,,,-,-,,,,
+Bethel Island,Contra Costa,Unincorporated community,NOT YET MEASURED - search budget exhausted,66.9,43.8,185,2137,,,-,-,,,,
+Blackhawk,Contra Costa,Unincorporated community,NOT YET MEASURED - search budget exhausted,47.5,26.4,150,9354,,,-,-,,,,
+Brentwood,Contra Costa,City,NOT YET MEASURED - search budget exhausted,61.3,39.2,170,64292,,,-,-,,,,
+Byron,Contra Costa,Unincorporated community,NOT YET MEASURED - search budget exhausted,64.2,41.5,191,1277,,,-,-,,,,
+Clayton,Contra Costa,City,NOT YET MEASURED - search budget exhausted,45.9,26.9,148,11070,,,-,-,,,,
+Concord,Contra Costa,City,NOT YET MEASURED - search budget exhausted,40.7,23.5,126,125410,,,-,-,,,,
+Contra Costa Centre,Contra Costa,Unincorporated community,NOT YET MEASURED - search budget exhausted,36.4,20.6,112,6097,,,-,-,,,,
+Crockett,Contra Costa,Unincorporated community,NOT YET MEASURED - search budget exhausted,41.6,20.3,142,3268,,,-,-,,,,
+Danville,Contra Costa,Town,NOT YET MEASURED - search budget exhausted,40.2,21.6,125,43582,,,-,-,,,,
+Diablo,Contra Costa,Unincorporated community,NOT YET MEASURED - search budget exhausted,43.7,23.9,141,1113,,,-,-,,,,
+Discovery Bay,Contra Costa,Unincorporated community,NOT YET MEASURED - search budget exhausted,67.2,44.0,192,15235,,,-,-,,,,
+El Cerrito,Contra Costa,City,NOT YET MEASURED - search budget exhausted,25.1,9.5,67,25962,,,-,-,,,,
+El Sobrante,Contra Costa,Unincorporated community,NOT YET MEASURED - search budget exhausted,31.3,13.6,106,14169,,,-,-,,,,
+Hercules,Contra Costa,City,NOT YET MEASURED - search budget exhausted,35.6,16.4,129,26016,,,-,-,,,,
+Kensington,Contra Costa,Unincorporated community,NOT YET MEASURED - search budget exhausted,25.8,9.9,65,5077,,,-,-,,,,
+Knightsen,Contra Costa,Unincorporated community,NOT YET MEASURED - search budget exhausted,64.4,41.7,176,1568,,,-,-,,,,
+Lafayette,Contra Costa,City,NOT YET MEASURED - search budget exhausted,30.1,16.3,100,25391,,,-,-,,,,
+Martinez,Contra Costa,City,NOT YET MEASURED - search budget exhausted,37.0,21.0,136,37287,,,-,-,,,,
+Moraga,Contra Costa,Town,NOT YET MEASURED - search budget exhausted,27.7,14.7,88,16870,,,-,-,,,,
+North Richmond,Contra Costa,Unincorporated community,NOT YET MEASURED - search budget exhausted,27.3,10.9,98,4079,,,-,-,,,,
+Oakley,Contra Costa,City,NOT YET MEASURED - search budget exhausted,61.9,39.7,166,43357,,,-,-,,,,
+Orinda,Contra Costa,City,NOT YET MEASURED - search budget exhausted,25.2,13.0,78,19514,,,-,-,,,,
+Pacheco,Contra Costa,Unincorporated community,NOT YET MEASURED - search budget exhausted,38.0,21.6,127,4022,,,-,-,,,,
+Pinole,Contra Costa,City,NOT YET MEASURED - search budget exhausted,34.1,15.3,124,19038,,,-,-,,,,
+Pittsburg,Contra Costa,City,NOT YET MEASURED - search budget exhausted,52.5,32.1,152,76416,,,-,-,,,,
+Pleasant Hill,Contra Costa,City,NOT YET MEASURED - search budget exhausted,37.1,21.0,114,34613,,,-,-,,,,
+Richmond,Contra Costa,City,NOT YET MEASURED - search budget exhausted,25.9,10.0,73,116448,,,-,-,,,,
+Rodeo,Contra Costa,Unincorporated community,NOT YET MEASURED - search budget exhausted,37.8,17.8,132,10563,,,-,-,,,,
+San Pablo,Contra Costa,City,NOT YET MEASURED - search budget exhausted,28.7,11.8,97,31845,,,-,-,,,,
+San Ramon,Contra Costa,City,NOT YET MEASURED - search budget exhausted,41.9,22.7,121,84605,,,-,-,,,,
+Saranap,Contra Costa,Unincorporated community,NOT YET MEASURED - search budget exhausted,33.3,18.5,109,5652,,,-,-,,,,
+Tara Hills,Contra Costa,Unincorporated community,NOT YET MEASURED - search budget exhausted,33.1,14.7,119,5126,,,-,-,,,,
+Vine Hill,Contra Costa,Unincorporated community,NOT YET MEASURED - search budget exhausted,37.8,21.5,135,3761,,,-,-,,,,
+Walnut Creek,Contra Costa,City,NOT YET MEASURED - search budget exhausted,35.0,19.6,111,70127,,,-,-,,,,
+Belvedere,Marin,City,NOT YET MEASURED - search budget exhausted,19.4,6.6,82,2126,,,-,-,,,,
+Black Point-Green Point,Marin,Unincorporated community,NOT YET MEASURED - search budget exhausted,35.2,23.2,179,1306,,,-,-,,,,
+Bolinas,Marin,Unincorporated community,NOT YET MEASURED - search budget exhausted,49.2,17.8,184,1620,,,-,-,,,,
+Corte Madera,Marin,Town,NOT YET MEASURED - search budget exhausted,24.2,11.6,133,10222,,,-,-,,,,
+Fairfax,Marin,Town,NOT YET MEASURED - search budget exhausted,29.3,17.0,162,7605,,,-,-,,,,
+Greenbrae,Marin,Unincorporated community,NOT YET MEASURED - search budget exhausted,25.1,12.6,139,1586,,,-,-,,,,
+Inverness,Marin,Unincorporated community,NOT YET MEASURED - search budget exhausted,69.1,32.9,216,1304,,,-,-,,,,
+Kentfield,Marin,Unincorporated community,NOT YET MEASURED - search budget exhausted,26.5,14.0,147,6485,,,-,-,,,,
+Lagunitas-Forest Knolls,Marin,Unincorporated community,NOT YET MEASURED - search budget exhausted,54.9,22.1,195,1435,,,-,-,,,,
+Larkspur,Marin,City,NOT YET MEASURED - search budget exhausted,24.9,12.3,140,13064,,,-,-,,,,
+Lucas Valley-Marinwood,Marin,Unincorporated community,NOT YET MEASURED - search budget exhausted,31.5,19.3,169,6043,,,-,-,,,,
+Marin City,Marin,Unincorporated community,NOT YET MEASURED - search budget exhausted,20.9,8.1,107,3061,,,-,-,,,,
+Mill Valley,Marin,City,NOT YET MEASURED - search budget exhausted,23.9,11.2,138,14231,,,-,-,,,,
+Novato,Marin,City,NOT YET MEASURED - search budget exhausted,35.6,23.6,174,53225,,,-,-,,,,
+Point Reyes Station,Marin,Unincorporated community,NOT YET MEASURED - search budget exhausted,64.4,29.3,212,848,,,-,-,,,,
+Ross,Marin,Town,NOT YET MEASURED - search budget exhausted,27.0,14.5,149,2338,,,-,-,,,,
+San Anselmo,Marin,Town,NOT YET MEASURED - search budget exhausted,27.8,15.4,153,12830,,,-,-,,,,
+San Rafael,Marin,City,NOT YET MEASURED - search budget exhausted,26.9,14.4,145,61271,,,-,-,,,,
+Santa Venetia,Marin,Unincorporated community,NOT YET MEASURED - search budget exhausted,28.2,15.8,155,4834,,,-,-,,,,
+Sausalito,Marin,City,NOT YET MEASURED - search budget exhausted,19.5,6.7,83,7269,,,-,-,,,,
+Sleepy Hollow,Marin,Unincorporated community,NOT YET MEASURED - search budget exhausted,29.0,16.6,157,2428,,,-,-,,,,
+Stinson Beach,Marin,Unincorporated community,NOT YET MEASURED - search budget exhausted,46.1,15.5,171,632,,,-,-,,,,
+Strawberry,Marin,Unincorporated community,NOT YET MEASURED - search budget exhausted,21.8,9.0,117,5393,,,-,-,,,,
+Tamalpais-Homestead Valley,Marin,Unincorporated community,NOT YET MEASURED - search budget exhausted,22.3,9.6,128,10377,,,-,-,,,,
+Tiburon,Marin,Town,NOT YET MEASURED - search budget exhausted,19.3,6.4,80,9148,,,-,-,,,,
+Woodacre,Marin,Unincorporated community,NOT YET MEASURED - search budget exhausted,52.6,20.3,181,1566,,,-,-,,,,
+American Canyon,Napa,City,NOT YET MEASURED - search budget exhausted,44.8,27.2,165,21837,,,-,-,,,,
+Angwin,Napa,Unincorporated community,NOT YET MEASURED - search budget exhausted,80.8,53.9,215,3051,,,-,-,,,,
+Calistoga,Napa,City,NOT YET MEASURED - search budget exhausted,82.3,55.1,208,5228,,,-,-,,,,
+Deer Park,Napa,Unincorporated community,NOT YET MEASURED - search budget exhausted,76.4,50.7,210,1200,,,-,-,,,,
+Napa,Napa,City,NOT YET MEASURED - search budget exhausted,55.5,35.2,178,79246,,,-,-,,,,
+St. Helena,Napa,City,NOT YET MEASURED - search budget exhausted,74.4,49.2,209,5438,,,-,-,,,,
+Yountville,Napa,Town,NOT YET MEASURED - search budget exhausted,64.6,41.9,204,2933,,,-,-,,,,
+Japantown,San Francisco,SF neighbourhood,NOT YET MEASURED - search budget exhausted,9.3,2.1,12,3900,,,-,-,,,San Francisco Unified School District,doorprofit.com; safemap.io
+Atherton,San Mateo,Town,NOT YET MEASURED - search budget exhausted,34.8,25.5,94,7188,,,-,-,,,,
+Belmont,San Mateo,City,NOT YET MEASURED - search budget exhausted,28.1,20.1,104,28335,,,-,-,,,,
+Brisbane,San Mateo,City,NOT YET MEASURED - search budget exhausted,13.2,7.9,47,4851,,,-,-,,,,
+Broadmoor,San Mateo,Unincorporated community,NOT YET MEASURED - search budget exhausted,15.7,8.7,53,4176,,,-,-,,,,
+Burlingame,San Mateo,City,NOT YET MEASURED - search budget exhausted,22.2,15.2,90,31386,,,-,-,,,,
+Burlingame Hills,San Mateo,Unincorporated community,NOT YET MEASURED - search budget exhausted,23.8,15.5,99,1545,,,-,-,,,,
+Colma,San Mateo,Town,NOT YET MEASURED - search budget exhausted,16.0,9.0,52,1507,,,-,-,,,,
+Daly City,San Mateo,City,NOT YET MEASURED - search budget exhausted,15.5,8.5,49,104901,,,-,-,,,,
+East Palo Alto,San Mateo,City,NOT YET MEASURED - search budget exhausted,36.0,26.5,81,30034,,,-,-,,,,
+El Granada,San Mateo,Unincorporated community,NOT YET MEASURED - search budget exhausted,31.9,20.7,164,5417,,,-,-,,,,
+Emerald Lake Hills,San Mateo,Unincorporated community,NOT YET MEASURED - search budget exhausted,33.8,23.8,116,4528,,,-,-,,,,
+Foster City,San Mateo,City,NOT YET MEASURED - search budget exhausted,25.2,17.7,96,33805,,,-,-,,,,
+Half Moon Bay,San Mateo,City,NOT YET MEASURED - search budget exhausted,36.1,23.0,168,11795,,,-,-,,,,
+Highlands-Baywood Park,San Mateo,Unincorporated community,NOT YET MEASURED - search budget exhausted,27.9,18.9,120,4376,,,-,-,,,,
+Hillsborough,San Mateo,Town,NOT YET MEASURED - search budget exhausted,23.6,15.3,103,11387,,,-,-,,,,
+La Honda,San Mateo,Unincorporated community,NOT YET MEASURED - search budget exhausted,54.9,33.6,175,928,,,-,-,,,,
+Ladera,San Mateo,Unincorporated community,NOT YET MEASURED - search budget exhausted,41.3,30.0,130,1499,,,-,-,,,,
+Menlo Oaks,San Mateo,Unincorporated community,NOT YET MEASURED - search budget exhausted,35.1,25.7,85,3127,,,-,-,,,,
+Menlo Park,San Mateo,City,NOT YET MEASURED - search budget exhausted,35.9,26.4,89,33780,,,-,-,,,,
+Millbrae,San Mateo,City,NOT YET MEASURED - search budget exhausted,20.2,13.6,87,23216,,,-,-,,,,
+Montara,San Mateo,Unincorporated community,NOT YET MEASURED - search budget exhausted,28.1,18.5,160,2833,,,-,-,,,,
+Moss Beach,San Mateo,Unincorporated community,NOT YET MEASURED - search budget exhausted,30.1,19.7,167,3103,,,-,-,,,,
+North Fair Oaks,San Mateo,Unincorporated community,NOT YET MEASURED - search budget exhausted,33.7,24.6,92,14687,,,-,-,,,,
+Pacifica,San Mateo,City,NOT YET MEASURED - search budget exhausted,19.2,13.5,113,38640,,,-,-,,,,
+Pescadero,San Mateo,Unincorporated community,NOT YET MEASURED - search budget exhausted,61.5,37.3,207,643,,,-,-,,,,
+Portola Valley,San Mateo,Town,NOT YET MEASURED - search budget exhausted,41.0,29.7,144,4456,,,-,-,,,,
+Redwood City,San Mateo,City,NOT YET MEASURED - search budget exhausted,31.8,23.1,101,84292,,,-,-,,,,
+San Bruno,San Mateo,City,NOT YET MEASURED - search budget exhausted,17.5,11.4,68,43908,,,-,-,,,,
+San Carlos,San Mateo,City,NOT YET MEASURED - search budget exhausted,29.5,21.2,102,30722,,,-,-,,,,
+San Mateo,San Mateo,City,NOT YET MEASURED - search budget exhausted,23.7,16.5,93,105661,,,-,-,,,,
+South San Francisco,San Mateo,City,NOT YET MEASURED - search budget exhausted,15.4,9.8,56,66105,,,-,-,,,,
+West Menlo Park,San Mateo,Unincorporated community,NOT YET MEASURED - search budget exhausted,38.5,27.6,110,3712,,,-,-,,,,
+Woodside,San Mateo,Town,NOT YET MEASURED - search budget exhausted,37.0,26.4,131,5309,,,-,-,,,,
+Alum Rock,Santa Clara,Unincorporated community,NOT YET MEASURED - search budget exhausted,55.3,42.9,70,13479,,,-,-,,,,
+Burbank,Santa Clara,Unincorporated community,NOT YET MEASURED - search budget exhausted,53.3,41.2,44,5157,,,-,-,,,,
+Cambrian Park,Santa Clara,Unincorporated community,NOT YET MEASURED - search budget exhausted,57.6,45.0,86,3281,,,-,-,,,,
+Campbell,Santa Clara,City,NOT YET MEASURED - search budget exhausted,55.0,42.7,57,42726,,,-,-,,,,
+Cupertino,Santa Clara,City,NOT YET MEASURED - search budget exhausted,50.0,38.2,59,60381,,,-,-,,,,
+East Foothills,Santa Clara,Unincorporated community,NOT YET MEASURED - search budget exhausted,54.9,42.6,71,8269,,,-,-,,,,
+Gilroy,Santa Clara,City,NOT YET MEASURED - search budget exhausted,86.7,70.9,197,59520,,,-,-,,,,
+Lexington Hills,Santa Clara,Unincorporated community,NOT YET MEASURED - search budget exhausted,60.6,47.6,156,2530,,,-,-,,,,
+Los Altos,Santa Clara,City,NOT YET MEASURED - search budget exhausted,43.1,32.2,74,31625,,,-,-,,,,
+Los Altos Hills,Santa Clara,Town,NOT YET MEASURED - search budget exhausted,43.7,32.0,95,8489,,,-,-,,,,
+Los Gatos,Santa Clara,Town,NOT YET MEASURED - search budget exhausted,58.0,45.3,115,33529,,,-,-,,,,
+Loyola,Santa Clara,Unincorporated community,NOT YET MEASURED - search budget exhausted,46.8,34.6,84,3477,,,-,-,,,,
+Milpitas,Santa Clara,City,NOT YET MEASURED - search budget exhausted,48.5,36.9,69,80273,,,-,-,,,,
+Monte Sereno,Santa Clara,City,NOT YET MEASURED - search budget exhausted,57.0,44.4,123,3479,,,-,-,,,,
+Morgan Hill,Santa Clara,City,NOT YET MEASURED - search budget exhausted,75.8,61.3,187,45952,,,-,-,,,,
+Mountain View,Santa Clara,City,NOT YET MEASURED - search budget exhausted,44.0,33.0,66,82376,,,-,-,,,,
+Palo Alto,Santa Clara,City,NOT YET MEASURED - search budget exhausted,37.9,28.0,79,68572,,,-,-,,,,
+San Jose,Santa Clara,City,NOT YET MEASURED - search budget exhausted,54.3,42.1,45,983489,,,-,-,,,,
+San Martin,Santa Clara,Unincorporated community,NOT YET MEASURED - search budget exhausted,80.3,65.3,200,7027,,,-,-,,,,
+Santa Clara,Santa Clara,City,NOT YET MEASURED - search budget exhausted,50.7,38.8,41,127647,,,-,-,,,,
+Saratoga,Santa Clara,City,NOT YET MEASURED - search budget exhausted,54.2,42.0,105,31051,,,-,-,,,,
+Stanford,Santa Clara,Unincorporated community,NOT YET MEASURED - search budget exhausted,38.5,28.5,91,21150,,,-,-,,,,
+Sunnyvale,Santa Clara,City,NOT YET MEASURED - search budget exhausted,47.0,35.4,54,155805,,,-,-,,,,
+Benicia,Solano,City,NOT YET MEASURED - search budget exhausted,36.2,21.7,143,27131,,,-,-,,,,
+Dixon,Solano,City,NOT YET MEASURED - search budget exhausted,66.4,54.6,206,18988,,,-,-,,,,
+Fairfield,Solano,City,NOT YET MEASURED - search budget exhausted,50.1,36.8,158,119881,,,-,-,,,,
+Rio Vista,Solano,City,NOT YET MEASURED - search budget exhausted,58.2,45.6,203,10265,,,-,-,,,,
+Suisun City,Solano,City,NOT YET MEASURED - search budget exhausted,49.5,36.1,159,29518,,,-,-,,,,
+Vacaville,Solano,City,NOT YET MEASURED - search budget exhausted,57.3,44.6,172,102386,,,-,-,,,,
+Vallejo,Solano,City,NOT YET MEASURED - search budget exhausted,37.0,22.6,146,126090,,,-,-,,,,
+Bodega Bay,Sonoma,Unincorporated community,NOT YET MEASURED - search budget exhausted,93.6,51.4,219,1077,,,-,-,,,,
+Boyes Hot Springs,Sonoma,Unincorporated community,NOT YET MEASURED - search budget exhausted,57.1,36.1,193,6656,,,-,-,,,,
+Cloverdale,Sonoma,City,NOT YET MEASURED - search budget exhausted,86.8,77.5,218,8995,,,-,-,,,,
+Cotati,Sonoma,City,NOT YET MEASURED - search budget exhausted,51.7,40.6,177,7584,,,-,-,,,,
+El Verano,Sonoma,Unincorporated community,NOT YET MEASURED - search budget exhausted,55.4,34.9,190,4282,,,-,-,,,,
+Fetters Hot Springs-Agua Caliente,Sonoma,Unincorporated community,NOT YET MEASURED - search budget exhausted,58.0,36.7,196,2500,,,-,-,,,,
+Forestville,Sonoma,Unincorporated community,NOT YET MEASURED - search budget exhausted,97.0,54.0,202,3293,,,-,-,,,,
+Geyserville,Sonoma,Unincorporated community,NOT YET MEASURED - search budget exhausted,78.4,68.7,217,862,,,-,-,,,,
+Glen Ellen,Sonoma,Unincorporated community,NOT YET MEASURED - search budget exhausted,62.7,40.0,199,1101,,,-,-,,,,
+Graton,Sonoma,Unincorporated community,NOT YET MEASURED - search budget exhausted,61.7,51.1,198,1815,,,-,-,,,,
+Guerneville,Sonoma,Unincorporated community,NOT YET MEASURED - search budget exhausted,103.5,59.0,213,4534,,,-,-,,,,
+Healdsburg,Sonoma,City,NOT YET MEASURED - search budget exhausted,72.0,61.9,205,11340,,,-,-,,,,
+Kenwood,Sonoma,Unincorporated community,NOT YET MEASURED - search budget exhausted,67.6,43.3,201,1028,,,-,-,,,,
+Larkfield-Wikiup,Sonoma,Unincorporated community,NOT YET MEASURED - search budget exhausted,63.2,52.7,180,8884,,,-,-,,,,
+Monte Rio,Sonoma,Unincorporated community,NOT YET MEASURED - search budget exhausted,101.1,57.1,214,1152,,,-,-,,,,
+Occidental,Sonoma,Unincorporated community,NOT YET MEASURED - search budget exhausted,94.2,51.9,211,1115,,,-,-,,,,
+Penngrove,Sonoma,Unincorporated community,NOT YET MEASURED - search budget exhausted,49.0,37.7,183,2362,,,-,-,,,,
+Petaluma,Sonoma,City,NOT YET MEASURED - search budget exhausted,44.5,33.0,182,59776,,,-,-,,,,
+Rohnert Park,Sonoma,City,NOT YET MEASURED - search budget exhausted,52.3,41.1,173,44390,,,-,-,,,,
+Santa Rosa,Sonoma,City,NOT YET MEASURED - search budget exhausted,58.6,47.8,163,178127,,,-,-,,,,
+Sea Ranch,Sonoma,Unincorporated community,NOT YET MEASURED - search budget exhausted,137.9,85.1,220,1305,,,-,-,,,,
+Sebastopol,Sonoma,City,NOT YET MEASURED - search budget exhausted,58.8,48.0,186,7521,,,-,-,,,,
+Sonoma,Sonoma,City,NOT YET MEASURED - search budget exhausted,54.7,34.5,188,10739,,,-,-,,,,
+Temelec,Sonoma,Unincorporated community,NOT YET MEASURED - search budget exhausted,52.9,33.2,189,1344,,,-,-,,,,
+Windsor,Sonoma,Town,NOT YET MEASURED - search budget exhausted,67.1,56.8,194,26344,,,-,-,,,,
