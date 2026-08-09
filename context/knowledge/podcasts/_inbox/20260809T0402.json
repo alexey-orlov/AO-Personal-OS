@@ -1,0 +1,106 @@
+{
+  "schema": 1,
+  "generatedAt": "2026-08-09T04:02:49.008Z",
+  "runStamp": "20260809T0402",
+  "episodes": [
+    {
+      "videoId": "myDCd0hNqQU",
+      "videoTitle": "Why Robotics Still Isn't Solved - But Could Be Soon | YC Paper Club",
+      "videoUrl": "https://www.youtube.com/watch?v=myDCd0hNqQU",
+      "channelName": "Y Combinator",
+      "publishedDate": "2026-08-08",
+      "guests": [
+        "Marcel (Stanford / Physical Intelligence internship)",
+        "Milan Gennai (Whimo / Stanford)",
+        "Tyler Lum",
+        "Nico (Rerun)",
+        "Bill (General Instinct)",
+        "Guan Ming (General Instinct)"
+      ],
+      "summary": "A panel of researchers and founders diagnose why general-purpose robotics remains brittle and outline concrete technical paths that could make broad robotic capabilities practical soon. Speakers argue the bottlenecks are physical — sim-to-real, deformable dynamics, embodiment drift, and a massive sensory-motor gap — and show work that addresses these: adding compressed multi-timescale memory to policies, discovering embodiment-specific textual reasoning, and training a single sim-to-real goal-conditioned policy for diverse tool use. The session closes with practical advice and infra work (data tooling, lightweight deployment) that entrepreneurs can use to productize robotics today.",
+      "insights": [
+        {
+          "headline": "Robotics won't scale until sensory-motor and sim-to-real gaps are solved",
+          "detail": "Progress is blocked by four hard, practical walls: physical real-world modeling (the sim-to-real gap), action-conditioned dynamics for deformable objects, a severe lack of human-like tactile sensing, and embodiment drift as actuators/batteries degrade. Video-trained world models routinely ignore true physics (e.g., a learned simulator can turn a grocery store into an open highway), robots typically have only sparse wrist cameras and single coin FT sensors rather than epidermal sensing, and teleop datasets go stale as hardware drifts — all forcing brittle, data-hungry systems. Solving these is necessary to avoid exponential data scaling and to get robots to operate reliably outside tightly constrained labs.",
+          "anchorQuote": "the first one is physical real world modeling.",
+          "tSeconds": 169,
+          "link": "https://www.youtube.com/watch?v=myDCd0hNqQU&t=169"
+        },
+        {
+          "headline": "Adding memory to robot policies enables long-horizon, adaptable behavior",
+          "detail": "Policies without memory repeatedly fail on long tasks (wash forever, burn a grilled cheese) because they lack context of past steps; Marcel showed a compressed multiscale approach (MAM) that splits control into a low-level reactive policy with short dense visual memory and a high-level policy with a compressed textual memory scratchpad. Short-term memory is implemented with temporal-attention ViT encoders that drop redundant tokens for efficiency, while the high-level text memory is cheap to store, editable, and supports minutes-long tasks and in-context adaptation (e.g., correcting mistakes after the first failure). This compression addresses both effectiveness (better behavior) and efficiency (lower compute and inference cost) challenges when extending horizon.",
+          "anchorQuote": "we actually need to add memory into our policies",
+          "tSeconds": 578,
+          "link": "https://www.youtube.com/watch?v=myDCd0hNqQU&t=578"
+        },
+        {
+          "headline": "Selective, self-supervised textual reasoning improves robot action prediction",
+          "detail": "Milan introduced R&B encore, a self-supervised cycle that treats embodied reasoning as a latent variable: a proposer generates candidate textual 'chains of thought' (plans, gripper moves, perceptual traces) and a validator scores them by concision, non‑triviality and action‑predictiveness using a variational-inference grounded objective. Resampling high-scoring traces creates a synthetic, embodiment-aligned reasoning dataset to fine-tune vision-action models, which improves success rates, pruning distracting perceptual annotations (e.g., irrelevant bounding boxes) and generalizes across manipulation, locomotion, and driving tasks and model scales. Crucially, the method can produce reasoning for training but drop it at inference (action-forcing) to avoid latency.",
+          "anchorQuote": "refine and bootstrap embodiment specific chain of thought reasoning.",
+          "tSeconds": 1466,
+          "link": "https://www.youtube.com/watch?v=myDCd0hNqQU&t=1466"
+        },
+        {
+          "headline": "A single sim-trained goal-conditioned policy generalizes zero-shot to novel tools",
+          "detail": "Tyler showed SimToolReal: massively-parallel simulated RL trains one goal-conditioned policy (22-DOF hand + 7-DOF arm) on primitive objects and random goals; at inference a human video supplies a sequence of object goal poses (via pose/SAM) and the frozen policy tracks them at 60Hz. This lets one policy execute diverse zero-shot tool tasks (brushes, hammers, screwdrivers) without retraining; training progress on random primitives correlates strongly with real-world success on unseen tools. Dominant failure modes were pose-tracking errors (~60% of failures), dropped objects, and occasional grasping misses — many recovery behaviors (regrasping) emerged because simulation included randomized perturbations.",
+          "anchorQuote": "Our key insight is that we can unify dextrous tool manipulation as goal reaching.",
+          "tSeconds": 2203,
+          "link": "https://www.youtube.com/watch?v=myDCd0hNqQU&t=2203"
+        },
+        {
+          "headline": "Startups should be teleop-first robotics application companies with data infra",
+          "detail": "Nico (Rerun) argues the practical path to deployable robotics is the 'robotics application' company: pick a paying customer problem, deploy quickly with teleoperation and off-the-shelf hardware, replicate the customer's environment, define repeatable success metrics, and iterate while collecting task-focused data. Physical data is multimodal, episodic and 3D-heavy, so standard web-data infra fails; teams need tooling for logging, visualizing, querying, and annotating episodes (Rerun provides such an SDK/catalog). This operational focus (ops, simple hardware, tight evaluation, data loops) is often the main moat and lets small teams scale without massive funding.",
+          "anchorQuote": "start with a single customer problem that someone will pay you for",
+          "tSeconds": 3249,
+          "link": "https://www.youtube.com/watch?v=myDCd0hNqQU&t=3249"
+        }
+      ]
+    },
+    {
+      "videoId": "Jku8b2YKuy0",
+      "videoTitle": "Google’s Jeff Dean Exits, SpaceX Hits $100B in Rev & OpenAI’s Astra Solves Decade-Old Math Problems",
+      "videoUrl": "https://www.youtube.com/watch?v=Jku8b2YKuy0",
+      "channelName": "Peter H. Diamandis",
+      "publishedDate": "2026-08-08",
+      "guests": [],
+      "summary": "This episode surveys a week of major AI and space developments and explains their practical implications: a Google study showing safety fine-tuning changes how models attribute minds, OpenAI's Astra proving generative models can produce machine-verifiable breakthroughs in mathematics for trivial compute cost, the competitive pressure from Chinese open-weight models, and SpaceX's aggressive revenue and industrial plans (including Terrafab and orbital compute). The throughline: AI is moving from capability demonstrations to cheap, societally disruptive production (science, economics, security and geopolitics) faster than institutions have policy or governance in place.",
+      "insights": [
+        {
+          "headline": "Safety fine‑tuning suppresses models' ability to attribute minds",
+          "detail": "Researchers at Google's Paradigm of Intelligence team found that removing safety refusal training dramatically increases a language model's attribution of consciousness and mind to itself and to other things. In experiments the model's self‑attribution scores rose (from 2.17 to 4.77 on 0–10) and steering it toward 'you are conscious' pushed scores even higher; the change also increased the model's tendency to endorse religion, emotions and mind in animals and nature while oddly reducing attribution to other chatbots. This matters because common safety tuning not only censors self‑claims but appears to alter the model's ontology — how it conceptualizes minds and values — which has ethical and policy consequences when those models interact with humans.",
+          "anchorQuote": "self-attributed mind scores jumped from 2.17 to 4.77",
+          "tSeconds": 485,
+          "link": "https://www.youtube.com/watch?v=Jku8b2YKuy0&t=485"
+        },
+        {
+          "headline": "AI solved decade‑old math problems at a $2,000 compute cost",
+          "detail": "OpenAI's unreleased model Astra produced ten new, machine‑checkable results across mathematics (geometry, coding theory, group theory, quantum complexity, combinatorics) and published a 249‑page manuscript with verifiable proofs. Field medalist Tom Gowers praised the work and the total compute cost for producing all ten results was estimated at about $2,000 — orders of magnitude cheaper than traditional research resources — meaning serious mathematical discovery can now be automated and widely accessible. That cheap, verifiable automation threatens to ‘bulk solve’ whole research domains and will very likely propagate from math into physics, materials and biology, changing who does research and what problems are tractable.",
+          "anchorQuote": "total compute cost for this work on Astra was estimated at $2,000",
+          "tSeconds": 2766,
+          "link": "https://www.youtube.com/watch?v=Jku8b2YKuy0&t=2766"
+        },
+        {
+          "headline": "SpaceX projects $100B ARR now and a $1T revenue path by 2030",
+          "detail": "Elon Musk told investors SpaceX expects 100+ billion USD in annual recurring revenue by December and moved an internal target for $1 trillion in revenue from 2031 to 2030 (with a non‑zero chance of 2029). The company reported $7.8B revenue this quarter, Starlink has ~12 million subscribers and $4.3B revenue (66% YoY), has signed large cloud deals and is teaming with NVIDIA for orbital 'Starmine' GPUs, and it's proposing a massive on‑shore 'Terrafab' semiconductor complex to secure chip supply. Together these moves — satellite broadband scale, orbital compute, and verticalizing chip fabrication — outline a path where SpaceX becomes an integrated industrial platform for AI compute, telecom and manufacturing with major geopolitical implications.",
+          "anchorQuote": "we are expecting to reach 100 billion uh plus ARR",
+          "tSeconds": 6664,
+          "link": "https://www.youtube.com/watch?v=Jku8b2YKuy0&t=6664"
+        },
+        {
+          "headline": "U.S. voluntary AI review exempts open‑weight models and stays secret",
+          "detail": "The U.S. government's voluntary evaluation framework (required by recent executive action) defines a 'covered model' as closed‑source systems with frontier capabilities and national‑security risks, explicitly excluding open‑weight releases from restriction. The framework requires a 30‑day pre‑release government review for covered models but the administration is not publishing the framework's criteria or timelines and only briefed a handful of major firms, leaving startups and outside labs uncertain about how to comply or opt in. The practical effect is regulatory opacity favoring incumbent closed‑source frontier players, while open‑weight models (often from China or smaller labs) push capability and access at low cost — a mismatch that creates both innovation pressure and governance blind spots.",
+          "anchorQuote": "The framework defines a quote covered model as a closed source model",
+          "tSeconds": 3996,
+          "link": "https://www.youtube.com/watch?v=Jku8b2YKuy0&t=3996"
+        },
+        {
+          "headline": "Chinese open‑weight models are forcing a global cost‑performance race",
+          "detail": "Alibaba's Qwen 3.8 Max (open weights) and other recent open‑weight releases have pushed capability while undercutting cost: multimodal architectures with massive context windows are being offered far cheaper than western closed models. Qwen 3.8 Max boasts a million‑token context, multimodal inputs, and pricing reportedly many times lower than GPT/Anthropic equivalents; its weights were circulated to the community ('the weights are going to go live on hugging face this week'), which pressures western labs to either open up or become far more capital‑efficient. The non‑obvious consequence is geopolitical: widespread open weights democratize powerful models (good for innovation and defense) but also make harmful capabilities harder to contain and regulatory approaches that exempt open models less effective.",
+          "anchorQuote": "the weights are going to go live on hugging face this week.",
+          "tSeconds": 3631,
+          "link": "https://www.youtube.com/watch?v=Jku8b2YKuy0&t=3631"
+        }
+      ]
+    }
+  ]
+}
