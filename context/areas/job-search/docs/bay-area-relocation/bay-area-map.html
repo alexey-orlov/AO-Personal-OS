@@ -45,6 +45,9 @@ body{
 header{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 18px;border-bottom:1px solid var(--line);padding-bottom:14px}
 h1{margin:0;font-size:23px;font-weight:660;letter-spacing:-.021em;text-wrap:balance}
 .sub{color:var(--ink-2);font-size:13.5px;max-width:74ch}
+.srcs{font-size:12px;color:var(--ink-3);margin-top:5px}
+.srcs a{color:var(--accent);text-decoration:none;font-weight:560}
+.srcs a:hover{text-decoration:underline}
 .stats{margin-left:auto;display:flex;gap:16px;font-variant-numeric:tabular-nums}
 .stat b{display:block;font-size:17px;font-weight:640;letter-spacing:-.01em}
 .stat span{font-size:10.5px;text-transform:uppercase;letter-spacing:.085em;color:var(--ink-3)}
@@ -156,6 +159,9 @@ footer a{color:var(--accent)}
         map and shaded by score — darker is better. Switch the shading to any single criterion, and
         filter on real values — rent in dollars, crime per 1,000, test scores, drive minutes —
         combining as many as you like.</div>
+      <div class="srcs">Data: <a href="https://docs.google.com/spreadsheets/d/1EaibAz0BCISjOyYDsIJCx6v_q6jW6cFDz-mD2dUxOYc/edit"
+        target="_blank" rel="noopener">the full ranking table (Google Sheet)</a> — every figure
+        on this map, with sources per row.</div>
     </div>
     <div class="stats">
       <div class="stat"><b id="s-count">0</b><span>places drawn</span></div>
@@ -482,10 +488,8 @@ svg.addEventListener('mousemove', e=>{
 });
 svg.addEventListener('mouseleave', ()=>{ tip.classList.remove('on'); hovered=null;
   if(!selected) renderDetail(null); });
-svg.addEventListener('click', e=>{
-  const t = e.target.closest('.place');
-  setSel(t ? (t.dataset.name===selected ? null : t.dataset.name) : null);
-});
+// Pinning happens on pointerup (see the drag block): pointer capture retargets the click
+// event to the svg element itself, so a click handler here would never see the place.
 
 /* ---------- detail ---------- */
 function renderDetail(name){
@@ -567,16 +571,29 @@ svg.addEventListener('wheel', e=>{
   vb.w = nw; vb.h = nh; clampVB(); setVB();
 }, {passive:false});
 let drag=null;
-svg.addEventListener('pointerdown', e=>{ drag={x:e.clientX,y:e.clientY,vx:vb.x,vy:vb.y};
-  svg.classList.add('dragging'); svg.setPointerCapture(e.pointerId); });
+svg.addEventListener('pointerdown', e=>{
+  drag={x:e.clientX, y:e.clientY, vx:vb.x, vy:vb.y, moved:false,
+        target: e.target.closest ? e.target.closest('.place') : null};
+  svg.classList.add('dragging');
+  try{ svg.setPointerCapture(e.pointerId); }catch(_){}
+});
 svg.addEventListener('pointermove', e=>{
   if(!drag) return;
+  if(!drag.moved && Math.hypot(e.clientX-drag.x, e.clientY-drag.y) > 4) drag.moved = true;
+  if(!drag.moved) return;                       // a still press is a click, not a pan
   const r = svg.getBoundingClientRect();
   vb.x = drag.vx - (e.clientX-drag.x)/r.width*vb.w;
   vb.y = drag.vy - (e.clientY-drag.y)/r.height*vb.h;
   clampVB(); setVB();
 });
-for (const ev of ['pointerup','pointercancel','pointerleave'])
+svg.addEventListener('pointerup', ()=>{
+  if (drag && !drag.moved){
+    const t = drag.target;
+    setSel(t ? (t.dataset.name===selected ? null : t.dataset.name) : null);
+  }
+  drag=null; svg.classList.remove('dragging');
+});
+for (const ev of ['pointercancel','pointerleave'])
   svg.addEventListener(ev, ()=>{ drag=null; svg.classList.remove('dragging'); });
 function clampVB(){
   vb.x = Math.max(-W*0.1, Math.min(W*1.1-vb.w, vb.x));
