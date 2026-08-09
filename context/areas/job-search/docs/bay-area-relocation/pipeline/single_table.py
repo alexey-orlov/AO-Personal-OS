@@ -18,9 +18,13 @@ Six criteria, each 1/6 of the score, each a 0-100 percentile rank within the ran
 Percentile ranking is what makes equal weighting actually equal: every criterion gets the same
 0-100 spread, so rent's long tail cannot silently outweigh drive time.
 
-NO IMPUTATION. A place is ranked only when all six criteria are present. Anything missing a
-criterion stays in the table, keeps every value that WAS measured, and carries an explicit
-reason in "Rank status" instead of a made-up score.
+Every figure is MEASURED first. Nothing is ever filled from a county average or a global median.
+Where a place genuinely has no data of its own -- a 1,100-person unincorporated community has no
+rental market, no police department and no school district that anyone publishes figures for --
+the cell is borrowed from the nearest LARGER place, and every borrowed cell is labelled: the
+donor is named in "Approximated from" and the row's Data basis reads "Approximated". A row that
+is entirely measured says so, so the two can always be told apart and the ranking can be read
+either way. See fill_from_parent().
 """
 import csv
 import json
@@ -35,7 +39,8 @@ sys.path.insert(0, HERE)
 REPO = os.path.dirname(HERE)
 
 from places import PLACES                                    # noqa: E402
-from geo import build_drive_model, drive_minutes, urbanicity  # noqa: E402
+from geo import (build_drive_model, drive_minutes, urbanicity,  # noqa: E402
+                 haversine_mi)
 import caaspp                                                 # noqa: E402
 import sf_crime                                               # noqa: E402
 from score import pct_rank, num                               # noqa: E402
@@ -248,6 +253,67 @@ def capacity_score(trend_pct, assignment, tk_note):
 
 
 # ------------------------------------------------------------------------------ build
+FILLABLE = [
+    ("rent_2br", "2BR rent"), ("rent_3br", "3BR rent"),
+    ("violent", "violent crime"), ("property", "property crime"),
+    ("elem_pct", "elementary schools"), ("midhigh_pct", "middle/high schools"),
+    ("capacity_raw", "school/TK capacity"),
+]
+
+
+def fill_from_parent(rows, max_miles=25.0):
+    """
+    Fill a small place's missing cells from the larger place it sits inside or beside.
+
+    A 1,100-person unincorporated community has no rental market of its own, no police
+    department of its own, and no school district of its own -- so no publisher reports figures
+    for it, and a single missing input (usually rent) cascades: no rent -> no supply band ->
+    no rent score -> no total -> no rank. Rather than leave the row blank, each missing cell is
+    borrowed from the nearest LARGER place that has it, preferring the same county.
+
+    This is an approximation and it is labelled as one on every row it touches: the donor is
+    named in "Approximated from" and the row's Data basis becomes "Approximated". The measured
+    rows are still distinguishable, so the ranking can be read either way.
+    """
+    donors_by_field = {f: [r for r in rows if r["residential"] and r.get(f) is not None]
+                       for f, _ in FILLABLE}
+    filled = 0
+    for r in rows:
+        if not r["residential"]:
+            continue
+        borrowed = []
+        for field, label in FILLABLE:
+            if r.get(field) is not None:
+                continue
+            best, best_d = None, None
+            for d in donors_by_field[field]:
+                if d is r or d["pop"] <= r["pop"]:      # borrow DOWN the hierarchy only
+                    continue
+                miles = haversine_mi(r["lat"], r["lon"], d["lat"], d["lon"])
+                if miles > max_miles:
+                    continue
+                # same county first, then nearest
+                key = (0 if d["county"] == r["county"] else 1, miles)
+                if best_d is None or key < best_d:
+                    best, best_d = d, key
+            if best is not None:
+                r[field] = best[field]
+                r.setdefault("approx_fields", []).append(label)
+                r.setdefault("approx_donors", []).append(best["place"])
+                borrowed.append(field)
+        if borrowed:
+            filled += 1
+            # name the donors once, deduped, in the order the fields were filled
+            seen, donors = set(), []
+            for d in r["approx_donors"]:
+                if d not in seen:
+                    seen.add(d)
+                    donors.append(d)
+            r["approx_from"] = ", ".join(donors)
+    fill_from_parent.rows_filled = filled
+    return filled
+
+
 def load_research():
     path = os.path.join(HERE, "research.json")
     R = json.load(open(path))
@@ -357,6 +423,7 @@ def build():
         r2, r3 = num(r.get("rent_2br_usd")), num(r.get("rent_3br_usd"))
         rows.append({
             "place": name, "county": county, "kind": kind, "pop": pop,
+            "lat": lat, "lon": lon,          # used by fill_from_parent and the map build
             "residential": name not in NON_RESIDENTIAL,
             "drive_min": round(t, 1), "gc_mi": round(gc, 1),
             "urban_index": urb[name],
@@ -380,6 +447,7 @@ def build():
         })
 
     premium, _ = _repair_rent_inversions(rows)
+    fill_from_parent(rows)
 
     # ------- criteria -------
     live = [r for r in rows if r["residential"]]
@@ -422,7 +490,9 @@ def build():
             unranked.append(r)
         else:
             r["total"] = sum(r[c] for c in CRITS) / 6.0
-            r["rank_status"] = "Ranked"
+            r["rank_status"] = ("Ranked" if not r.get("approx_fields")
+                                else "Ranked - " + ", ".join(dict.fromkeys(r["approx_fields"]))
+                                     + " approximated from " + r["approx_from"])
             ranked.append(r)
 
     ranked.sort(key=lambda r: -r["total"])
@@ -503,6 +573,8 @@ COLUMNS = [
     ("assignment", "School assignment system"),
     ("tk_note", "TK capacity"),
     ("rank_status", "Rank status"),
+    ("data_basis", "Data basis"),
+    ("approx_from", "Approximated from"),
     ("sources", "Sources"),
     ("notes", "Notes"),
 ]
@@ -561,6 +633,9 @@ def present(r):
         "assignment": r.get("assignment") or "",
         "tk_note": r.get("tk_note") or ("not established" if r.get("capacity_raw") is not None else ""),
         "rank_status": r.get("rank_status") or "",
+        "data_basis": ("Approximated" if r.get("approx_fields")
+                       else ("Measured" if r.get("residential") else "")),
+        "approx_from": r.get("approx_from") or "",
         "sources": "; ".join(dict.fromkeys(srcs)),
         "notes": "; ".join(x for x in (r.get("capacity_why"), (r.get("notes") or "")[:520]) if x),
     }

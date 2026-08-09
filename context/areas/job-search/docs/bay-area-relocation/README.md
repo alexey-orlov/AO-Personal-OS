@@ -5,10 +5,14 @@ and one of middle/high-school age. Six equally-weighted criteria: crime and safe
 cost, distance from downtown SF, ease of getting a free public school / TK seat, and how urban the
 area is.
 
-**Google Sheet:** https://docs.google.com/spreadsheets/d/1PuVMIdO7yx9IwEDgyM9iBqA46fl9j1Qb-vcVdNjVFQY/edit
-— one tab, one table, 220 rows sorted by total score.
-(The older Sheet at `1HiSmOvkFYEFvI31Pvsp7xWGYtrfPHiwdGqd-bXcOHXk` is superseded — it held the
-four-tab split.)
+**Google Sheet:** https://docs.google.com/spreadsheets/d/1EaibAz0BCISjOyYDsIJCx6v_q6jW6cFDz-mD2dUxOYc/edit
+— one tab, one table, 220 rows sorted by total score, every criterion filled.
+
+**Map:** https://claude.ai/code/artifact/4174db4c-d08a-464e-8e19-3e18fce02ed4 — every place drawn
+in its real boundary, shaded by score, switchable to any single criterion.
+
+Superseded Sheets: `1HiSmOvkFYEFvI31Pvsp7xWGYtrfPHiwdGqd-bXcOHXk` (the old four-tab split) and
+`1PuVMIdO7yx9IwEDgyM9iBqA46fl9j1Qb-vcVdNjVFQY` (before the small-place cells were filled).
 
 ## The deliverable
 
@@ -19,11 +23,15 @@ supply, violent and property crime per 1,000, elementary and middle/high school 
 CAASPP results, drive time, urbanicity, population, district enrolment trend, assignment system and
 TK capacity, plus per-row sources and notes.
 
-Places that could not be scored on all six criteria stay in the table with everything that *was*
-measured and a stated reason in **Rank status**. Nothing is imputed.
+All 216 residential places are ranked. Where a place is too small for any publisher to report its
+rent, crime or school data, the cell is borrowed from the nearest larger place it sits beside —
+never from a county average — and the row says so: **Data basis** reads `Approximated` and
+**Approximated from** names the donor. 159 rows are measured throughout; 57 borrow at least one
+figure. The four parkland rows stay unranked.
 
 ## Files
 - `bay-area-ranking.csv` — **the table**. Start here.
+- `bay-area-map.html` — the choropleth (self-contained; generated, not hand-written).
 - `methodology.md` — place list, per-criterion sources and rubric, known limitations, and
   section 0 on what is complete.
 - `pipeline/` — re-runnable code:
@@ -33,7 +41,8 @@ measured and a stated reason in **Rank status**. Nothing is imputed.
   - `sf_crime.py` — SF neighbourhood crime from SFPD incident data, calibrated
   - `single_table.py` — scoring and the single-table build
   - `merge_research.py` — folds a research fan-out into `research.json` field by field
-  - `test_scoring.py` — regression tests for the two bugs that previously shipped
+  - `build_map.py` / `build_map_page.py` — boundary fetch + match, and the map page generator
+  - `test_scoring.py` — regression tests for the bugs that previously shipped
   - `extract_policy.py` — pulls district assignment / TK findings into `district-policy.json`
   - `research.json` — collected figures with per-value source attribution
   - `district-policy.json` — per-district assignment system and TK capacity, with sources

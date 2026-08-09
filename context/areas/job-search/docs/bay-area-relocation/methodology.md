@@ -23,11 +23,15 @@ San Francisco was the only part with enough measured data to rank, and that is n
 | Rent (2BR + 3BR) | Measured where a rental market exists and a publisher covers it |
 | Crime (violent + property) | Measured for every incorporated place and every SF neighbourhood |
 
-**Nothing is imputed.** A place is ranked only when all six criteria are present. Anything missing
-one stays in the table with every value that *was* measured and an explicit reason in the
-**Rank status** column — never a filled-in county median. Where a blank is a finding rather than
-an unfinished lookup ("no rental market", "unincorporated, policed by the county sheriff, no
-place-level rate published"), the reason is stated.
+**Measured first, borrowed only where nothing exists.** No cell is ever filled from a county
+average or a global median. But a 1,100-person unincorporated community genuinely has no rental
+market, no police department and no school district of its own, so no publisher reports figures
+for it — and a single missing input cascades: no rent → no supply band → no rent score → no total
+→ no rank. Rather than leave those rows blank, each missing cell is taken from the **nearest
+larger place it sits beside**, and every borrowed cell is labelled: **Data basis** reads
+`Approximated` and **Approximated from** names the donor (Sunol ← Pleasanton, Diablo ← Danville,
+Marin City ← Sausalito). 159 of 216 rows are measured throughout; 57 borrow at least one figure.
+The two can always be told apart, so the ranking can be read either way.
 
 ### What changed since the first run, and why
 
@@ -218,6 +222,22 @@ confirmed against the source or nulled.
 
 ---
 
+## 5a. The map
+
+`bay-area-map.html` draws every place in its real boundary, shaded by score. Boundaries come from
+the same authorities the ranking is built on: San Francisco's 41 Analysis Neighborhoods from
+DataSF (an exact join — same geography, no name matching), and Census TIGER place files for every
+other city, town and unincorporated community.
+
+A polygon is accepted for a place only if its **centroid falls within 12 miles** of the
+coordinates already held for that place. California reuses names relentlessly and the query
+envelope reaches into the Delta, so a name match alone would quietly paint the wrong shape.
+
+Three communities — Menlo Oaks, Burlingame Hills and Greenbrae — have no published boundary at
+all (the Census has never delineated them, in the current vintage or in 2010), so they are drawn
+as marked points rather than invented polygons. Highlands-Baywood Park is one row here but two
+Census CDPs, so both polygons are drawn together.
+
 ## 6. Re-running
 
 ```bash
@@ -226,6 +246,8 @@ python3 test_scoring.py        # regression tests -- run first
 python3 caaspp.py              # district school data from the CAASPP files
 python3 sf_crime.py            # SF neighbourhood crime from DataSF (--refresh to re-pull)
 python3 single_table.py        # writes ../bay-area-ranking.csv
+python3 build_map.py           # fetch + match boundaries -> map-data.json
+python3 build_map_page.py      # writes ../bay-area-map.html
 ```
 
 `merge_research.py <workflow-run-dir>` folds a research fan-out's output into `research.json`,

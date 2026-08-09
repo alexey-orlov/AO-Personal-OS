@@ -2,3 +2,7 @@
 # published, immutable, and not worth carrying in git.
 caaspp-data/
 __pycache__/
+
+# Raw boundary downloads (~10 MB). build_map.py re-fetches them on demand from DataSF and
+# Census TIGERweb; the derived map-data.json is what the page actually uses and IS committed.
+map-cache/
