@@ -238,6 +238,19 @@ all (the Census has never delineated them, in the current vintage or in 2010), s
 as marked points rather than invented polygons. Highlands-Baywood Park is one row here but two
 Census CDPs, so both polygons are drawn together.
 
+**Base map.** Water and land come from the Census *cartographic* county boundaries (1:500k),
+which — unlike the legal TIGER boundaries — are clipped to the shoreline. They serve twice: as
+the land layer under the places, and as a clip on the place layer itself, so a legal city
+boundary that extends into the bay (Alameda, Richmond and Sausalito all do) stops at the water's
+edge instead of painting it. Anything land-coloured on the map is real territory that simply
+is not one of the 220 ranked places. One implementation note: the clip must be a single merged
+path with uniform ring winding — Chrome quietly dropped all but one child of a multi-child SVG
+clipPath, which clipped the whole map to San Francisco county until merged.
+
+**Filters.** The page carries a minimum-score slider per criterion; active filters combine (a
+place must pass all of them), the map dims everything that fails, and the ranked list and a
+counter follow.
+
 ## 6. Re-running
 
 ```bash

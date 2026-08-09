@@ -28,10 +28,19 @@ REPO = os.path.dirname(HERE)
 CACHE = os.path.join(HERE, "map-cache")
 
 MATCH_MILES = 12.0        # a polygon centroid further than this from our point is a different place
-SIMPLIFY_DEG = 0.0012     # ~130 m; keeps coastlines readable without carrying 200k vertices
+SIMPLIFY_DEG = 0.0009     # ~100 m cap; keeps coastlines readable without carrying 200k vertices
 BBOX = "-123.7,36.7,-121.1,39.0"
 
 SF_NEIGHBOURHOODS = "https://data.sfgov.org/resource/ajp5-b2md.geojson?$limit=100"
+
+# Census CARTOGRAPHIC county boundaries (cb_*_500k via plotly's mirror). Unlike the legal TIGER
+# boundaries -- which extend into the bay and three miles into the Pacific -- these are clipped
+# to the shoreline, which is what makes them usable as a land/water base layer AND as a mask
+# that clips place polygons to the coast.
+COUNTIES_URL = "https://eric.clst.org/assets/wiki/uploads/Stuff/gz_2010_us_050_00_500k.json"
+BAY_FIPS = {"06001", "06013", "06041", "06055", "06075", "06081", "06085", "06095", "06097"}
+# generous envelope: every county that could appear while panning
+CO_BOX = (-124.3, -120.7, 36.2, 39.4)
 TIGER = ("https://tigerweb.geo.census.gov/arcgis/rest/services/TIGERweb/tigerWMS_Current/"
          "MapServer/{layer}/query")
 
@@ -54,11 +63,12 @@ SF_ALIASES = {
 
 def _fetch(url, path):
     if os.path.exists(path) and os.path.getsize(path) > 1000:
-        return json.load(open(path))
+        # tolerant decode: the 500k county file carries a few stray Latin-1 bytes in place names
+        return json.loads(open(path, "rb").read().decode("utf-8", "replace"))
     os.makedirs(os.path.dirname(path), exist_ok=True)
-    out = subprocess.run(["curl", "-sSL", "--max-time", "240", url],
-                         capture_output=True, text=True).stdout
-    data = json.loads(out)
+    raw = subprocess.run(["curl", "-sSL", "--max-time", "240", url],
+                         capture_output=True).stdout
+    data = json.loads(raw.decode("utf-8", "replace"))
     with open(path, "w") as f:
         json.dump(data, f)
     return data
@@ -148,7 +158,7 @@ def simplify(ring, tol=None):
         xs = [p[0] for p in ring]
         ys = [p[1] for p in ring]
         diag = math.hypot(max(xs) - min(xs), max(ys) - min(ys))
-        tol = min(SIMPLIFY_DEG, max(0.00008, 0.006 * diag))
+        tol = min(SIMPLIFY_DEG, max(0.00006, 0.0035 * diag))
     closed = ring[0] == ring[-1]
     pts = ring[:-1] if closed else list(ring)
     if len(pts) < 4:
@@ -192,6 +202,40 @@ def miles(lat1, lon1, lat2, lon2):
 
 def norm(s):
     return " ".join((s or "").lower().replace(".", "").replace("'", "").split())
+
+
+def county_layer():
+    """
+    Shoreline-clipped county polygons for the base map.
+
+    Deliberately NOT simplified: the same rings are drawn twice -- as the land fill under the
+    places and as the holes in the water mask above them -- and simplifying each independently
+    would open slivers along shared county borders that the even-odd fill would paint as thin
+    water lines across dry land. The source file is already generalised (1:500k), so the full
+    rings are only a few thousand vertices for the whole Bay Area.
+    """
+    try:
+        d = _fetch(COUNTIES_URL, os.path.join(CACHE, "us_counties.geojson"))
+    except Exception as exc:
+        print(f"  ! county base layer unavailable ({exc}); map will render without land/water")
+        return []
+    x0, x1, y0, y1 = CO_BOX
+    out = []
+    for f in d.get("features", []):
+        props = f.get("properties") or {}
+        if props.get("STATE") != "06":
+            continue
+        fid = "06" + (props.get("COUNTY") or "")
+        keep = []
+        for ring in rings_of(f.get("geometry")):
+            xs = [p[0] for p in ring]
+            ys = [p[1] for p in ring]
+            if max(xs) < x0 or min(xs) > x1 or max(ys) < y0 or min(ys) > y1:
+                continue
+            keep.append([[round(x, 5), round(y, 5)] for x, y in ring])
+        if keep:
+            out.append({"fips": fid, "study": fid in BAY_FIPS, "rings": keep})
+    return out
 
 
 # ------------------------------------------------------------------------- build
@@ -279,6 +323,7 @@ def build():
 
     out = {"metrics": [{"key": k, "label": lab} for k, lab in CRIT],
            "places": feats,
+           "counties": county_layer(),
            "unmatched": unmatched,
            "rejected": rejected}
     path = os.path.join(HERE, "map-data.json")

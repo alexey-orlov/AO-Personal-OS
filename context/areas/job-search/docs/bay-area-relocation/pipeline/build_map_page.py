@@ -2,8 +2,16 @@
 """
 Generate the self-contained map page from map-data.json.
 
-Written as a generator rather than a hand-authored HTML file because the geometry is ~400 KB of
+Written as a generator rather than a hand-authored HTML file because the geometry is ~900 KB of
 coordinates: it belongs in the file, not in a prompt. Run build_map.py first.
+
+The page has three geographic layers, bottom to top:
+  water   -- the SVG background colour; anything not covered by land IS water
+  land    -- shoreline-clipped Census cartographic county polygons (the 9 study counties in a
+             slightly brighter tone than the surrounding context counties)
+  places  -- the 220 ranked polygons, clipped to the UNION of the county land via an SVG
+             clipPath, so a legal TIGER boundary that extends into the bay (Alameda, Richmond,
+             Sausalito all do) is cut at the actual shoreline instead of painting the water
 
 Output: ../bay-area-map.html -- page content only (no doctype/html/head/body), ready for Artifact.
 """
@@ -20,31 +28,35 @@ CSS = """
 :root{
   --bg:#F2F4F4; --panel:#FFFFFF; --ink:#16232B; --ink-2:#425864; --ink-3:#7C929D;
   --line:#DBE2E4; --line-2:#C3CFD3; --accent:#B4671F; --accent-soft:#F0E0CE; --on-accent:#FFFFFF;
-  --ramp-0:#EDF2F1; --ramp-1:#C9DCDA; --ramp-2:#97C1C0; --ramp-3:#5F9FA3;
-  --ramp-4:#357A85; --ramp-5:#134E5C; --nodata:#E4E7E7; --park:#DFE6DF;
+  --ramp-0:#E4EDEB; --ramp-1:#C9DCDA; --ramp-2:#97C1C0; --ramp-3:#5F9FA3;
+  --ramp-4:#357A85; --ramp-5:#134E5C; --nodata:#E4E7E7; --park:#DCE5DA;
+  --water:#D3E0E7; --land:#E6E2D9; --land-2:#F0EDE6; --land-line:#D3CDC0; --water-ink:#89A2AF;
   --shadow:0 1px 2px rgba(16,35,43,.06),0 8px 24px rgba(16,35,43,.06);
 }
 @media (prefers-color-scheme:dark){
   :root{
     --bg:#0E1619; --panel:#16232A; --ink:#EAF1F2; --ink-2:#A7BCC3; --ink-3:#6D858E;
     --line:#243740; --line-2:#31474F; --accent:#E39B4E; --accent-soft:#3A2A17; --on-accent:#17110A;
-    --ramp-0:#1B2A30; --ramp-1:#22454C; --ramp-2:#2A6069; --ramp-3:#3A8189;
-    --ramp-4:#5FA8AC; --ramp-5:#9BCFCC; --nodata:#1D2A2F; --park:#22302A;
+    --ramp-0:#22333A; --ramp-1:#284A51; --ramp-2:#2F646D; --ramp-3:#3F858D;
+    --ramp-4:#63ACB0; --ramp-5:#9FD3D0; --nodata:#1D2A2F; --park:#233028;
+    --water:#0A1114; --land:#161D21; --land-2:#1C2429; --land-line:#27313A; --water-ink:#3A505C;
     --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.35);
   }
 }
 :root[data-theme="light"]{
   --bg:#F2F4F4; --panel:#FFFFFF; --ink:#16232B; --ink-2:#425864; --ink-3:#7C929D;
   --line:#DBE2E4; --line-2:#C3CFD3; --accent:#B4671F; --accent-soft:#F0E0CE; --on-accent:#FFFFFF;
-  --ramp-0:#EDF2F1; --ramp-1:#C9DCDA; --ramp-2:#97C1C0; --ramp-3:#5F9FA3;
-  --ramp-4:#357A85; --ramp-5:#134E5C; --nodata:#E4E7E7; --park:#DFE6DF;
+  --ramp-0:#E4EDEB; --ramp-1:#C9DCDA; --ramp-2:#97C1C0; --ramp-3:#5F9FA3;
+  --ramp-4:#357A85; --ramp-5:#134E5C; --nodata:#E4E7E7; --park:#DCE5DA;
+  --water:#D3E0E7; --land:#E6E2D9; --land-2:#F0EDE6; --land-line:#D3CDC0; --water-ink:#89A2AF;
   --shadow:0 1px 2px rgba(16,35,43,.06),0 8px 24px rgba(16,35,43,.06);
 }
 :root[data-theme="dark"]{
   --bg:#0E1619; --panel:#16232A; --ink:#EAF1F2; --ink-2:#A7BCC3; --ink-3:#6D858E;
   --line:#243740; --line-2:#31474F; --accent:#E39B4E; --accent-soft:#3A2A17; --on-accent:#17110A;
-  --ramp-0:#1B2A30; --ramp-1:#22454C; --ramp-2:#2A6069; --ramp-3:#3A8189;
-  --ramp-4:#5FA8AC; --ramp-5:#9BCFCC; --nodata:#1D2A2F; --park:#22302A;
+  --ramp-0:#22333A; --ramp-1:#284A51; --ramp-2:#2F646D; --ramp-3:#3F858D;
+  --ramp-4:#63ACB0; --ramp-5:#9FD3D0; --nodata:#1D2A2F; --park:#233028;
+  --water:#0A1114; --land:#161D21; --land-2:#1C2429; --land-line:#27313A; --water-ink:#3A505C;
   --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.35);
 }
 *{box-sizing:border-box}
@@ -80,16 +92,20 @@ h1{margin:0;font-size:23px;font-weight:660;letter-spacing:-.021em;text-wrap:bala
 .mapcard{position:relative;background:var(--panel);border:1px solid var(--line);border-radius:14px;
   overflow:hidden;box-shadow:var(--shadow)}
 svg#map{display:block;width:100%;height:min(76vh,820px);touch-action:none;cursor:grab;
-  background:var(--panel)}
+  background:var(--water)}
 svg#map.dragging{cursor:grabbing}
+.county{fill:var(--land);stroke:var(--land-line);stroke-width:.6;vector-effect:non-scaling-stroke;
+  pointer-events:none}
+.county.study{fill:var(--land-2)}
 .place{stroke:var(--panel);stroke-width:.6;stroke-linejoin:round;transition:fill .15s ease;
   vector-effect:non-scaling-stroke}
 .place:hover{stroke:var(--accent);stroke-width:1.6;paint-order:stroke}
 .place.sel{stroke:var(--accent);stroke-width:2.2;paint-order:stroke}
-.place.dim{opacity:.24}
+.place.dim{opacity:.22}
 .pt{stroke:var(--panel);stroke-width:1;vector-effect:non-scaling-stroke}
 .lbl{fill:var(--ink-3);font-size:7.2px;font-weight:560;letter-spacing:.02em;pointer-events:none;
-  paint-order:stroke;stroke:var(--panel);stroke-width:2.2px}
+  paint-order:stroke;stroke:var(--land-2);stroke-width:2.2px}
+.wlbl{fill:var(--water-ink);font-size:9px;font-weight:560;letter-spacing:.2em;pointer-events:none}
 .legend{position:absolute;left:14px;bottom:14px;background:var(--panel);border:1px solid var(--line);
   border-radius:10px;padding:9px 11px;box-shadow:var(--shadow);font-size:11px}
 .legend .t{font-size:10px;text-transform:uppercase;letter-spacing:.085em;color:var(--ink-3);margin-bottom:6px}
@@ -97,6 +113,9 @@ svg#map.dragging{cursor:grabbing}
 .bar i{flex:1}
 .ticks{display:flex;justify-content:space-between;color:var(--ink-3);margin-top:3px;
   font-variant-numeric:tabular-nums;font-size:10px}
+.keys{display:flex;flex-wrap:wrap;gap:4px 12px;margin-top:7px;font-size:10px;color:var(--ink-3)}
+.keys i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:4px;
+  vertical-align:-1px;border:1px solid var(--line)}
 .hint{position:absolute;right:14px;top:14px;background:var(--panel);border:1px solid var(--line);
   border-radius:8px;padding:5px 9px;font-size:11px;color:var(--ink-3);box-shadow:var(--shadow)}
 .rail{display:flex;flex-direction:column;gap:12px;position:sticky;top:16px}
@@ -117,7 +136,18 @@ dt{color:var(--ink-3)}
 dd{margin:0;text-align:right;font-variant-numeric:tabular-nums}
 .flag{margin-top:10px;padding:7px 9px;border-radius:8px;background:var(--accent-soft);color:var(--accent);
   font-size:11.5px;line-height:1.42}
-.list{max-height:330px;overflow:auto}
+.filters{display:flex;flex-direction:column}
+.frow{display:grid;grid-template-columns:86px 1fr 34px;gap:8px;align-items:center;font-size:11.5px;
+  padding:3px 0}
+.frow span{color:var(--ink-2)}
+.frow b{text-align:right;font-weight:580;font-variant-numeric:tabular-nums;color:var(--ink-3)}
+.frow.on b{color:var(--accent)}
+.frow input{width:100%;accent-color:var(--accent);height:14px;margin:0}
+.fhead{display:flex;justify-content:space-between;align-items:baseline}
+.reset{appearance:none;border:0;background:transparent;color:var(--accent);font:inherit;
+  font-size:10.5px;cursor:pointer;padding:0}
+.reset:hover{text-decoration:underline}
+.list{max-height:300px;overflow:auto}
 .list ol{margin:0;padding:0;list-style:none;display:flex;flex-direction:column}
 .list li{display:grid;grid-template-columns:26px 1fr auto;gap:8px;padding:4px 6px;border-radius:6px;
   cursor:pointer;font-size:12px;align-items:baseline}
@@ -145,9 +175,9 @@ BODY = """
   <header>
     <div>
       <h1>Where the ranking lands on the map</h1>
-      <div class="sub">Every place in the ranking, drawn in its real boundary and shaded by score.
-        Darker is better. Switch the shading to any single criterion to see what is driving a place
-        up or down.</div>
+      <div class="sub">Every place in the ranking, drawn in its real boundary on a land/water base
+        map and shaded by score — darker is better. Switch the shading to any single criterion, or
+        set minimum-score filters and combine them.</div>
     </div>
     <div class="stats">
       <div class="stat"><b id="s-count">0</b><span>places drawn</span></div>
@@ -166,17 +196,28 @@ BODY = """
 
   <div class="layout">
     <div class="mapcard">
-      <svg id="map" role="img" aria-label="Choropleth of Bay Area places shaded by relocation score"></svg>
+      <svg id="map" role="img" aria-label="Choropleth of Bay Area places shaded by relocation score, on a land and water base map"></svg>
       <div class="legend">
         <div class="t" id="leg-title">Total score</div>
         <div class="bar"><i style="background:var(--ramp-0)"></i><i style="background:var(--ramp-1)"></i><i style="background:var(--ramp-2)"></i><i style="background:var(--ramp-3)"></i><i style="background:var(--ramp-4)"></i><i style="background:var(--ramp-5)"></i></div>
         <div class="ticks"><span id="leg-lo">0</span><span>worse ← → better</span><span id="leg-hi">100</span></div>
+        <div class="keys">
+          <span><i style="background:var(--water)"></i>water</span>
+          <span><i style="background:var(--land-2)"></i>land, not a ranked place</span>
+          <span><i style="background:var(--park)"></i>parkland</span>
+        </div>
       </div>
       <div class="hint">Scroll to zoom · drag to pan · click a place to pin it</div>
     </div>
 
     <div class="rail">
       <div class="card" id="detail"></div>
+      <div class="card">
+        <div class="fhead"><div class="ttl">Filters — minimum score</div>
+          <button class="reset" id="f-reset" type="button">Reset</button></div>
+        <div class="filters" id="filters"></div>
+        <div class="meta" id="f-count" style="margin:8px 0 0"></div>
+      </div>
       <div class="card">
         <div class="ttl">Ranked places</div>
         <div class="list"><ol id="rank"></ol></div>
@@ -189,6 +230,10 @@ BODY = """
       town and unincorporated community from the US Census TIGER place files. Each polygon was
       accepted only if its centroid fell within 12 miles of the coordinates already held for that
       place, so a name collision cannot paint the wrong shape.</div>
+    <div><b>Base map:</b> Census cartographic county boundaries (1:500k), clipped to the shoreline —
+      and the place polygons are clipped to that same land, so a legal city boundary that extends
+      into the bay does not paint the water. Anything land-coloured is territory outside the 220
+      ranked places.</div>
     <div><b>Reading the shading:</b> scores are percentile ranks within this set of places, so the
       colour says how a place compares with the other 215 — not an absolute grade.</div>
     <div id="foot-approx"></div>
@@ -206,15 +251,17 @@ def main():
         f.write(CSS + BODY + js)
     print(f"wrote {OUT} ({os.path.getsize(OUT)//1024} KB)")
     print(f"  {len(data['places'])} places, "
-          f"{sum(1 for p in data['places'] if not p['rings'])} drawn as points")
+          f"{sum(1 for p in data['places'] if not p['rings'])} drawn as points, "
+          f"{len(data.get('counties', []))} county land polygons")
 
 
 SCRIPT = r"""
 <script>
 const DATA = __DATA__;
-const PLACES = DATA.places, METRICS = DATA.metrics;
+const PLACES = DATA.places, METRICS = DATA.metrics, COUNTIES = DATA.counties || [];
 const RAMP = ['--ramp-0','--ramp-1','--ramp-2','--ramp-3','--ramp-4','--ramp-5'];
 let metric = 'total', selected = null, hovered = null, query = '';
+const filters = {};      // metric key -> minimum score
 
 const svg = document.getElementById('map');
 const tip = document.getElementById('tip');
@@ -236,8 +283,11 @@ const py = y => PAD + (la1-y)*SC;
 svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
 svg.setAttribute('preserveAspectRatio','xMidYMid meet');
 
+function pathOf(rings){
+  return rings.map(r=>'M'+r.map(([x,y])=>px(x).toFixed(1)+','+py(y).toFixed(1)).join('L')+'Z').join(' ');
+}
+
 /* ---------- scales ---------- */
-function values(m){ return PLACES.map(p=>p.scores[m]).filter(v=>v!=null); }
 function shade(p){
   const v = p.scores[metric];
   if (!p.residential) return 'var(--park)';
@@ -248,17 +298,51 @@ function shade(p){
 const fmtMoney = v => v==null ? '—' : '$'+Math.round(v).toLocaleString();
 const fmt1 = v => v==null ? '—' : (Math.round(v*10)/10).toLocaleString();
 
-/* ---------- draw ---------- */
+/* ---------- layers, bottom to top ---------- */
+// The place layer is clipped to the county land so a legal TIGER boundary that runs into the
+// bay (Alameda, Richmond, Sausalito) stops at the water's edge instead of painting it.
+// One merged path, NOT one clip child per county: Chrome quietly dropped all but one child of
+// a multi-child clipPath here, which clipped the whole map to San Francisco county alone. All
+// rings are wound the same way so the nonzero clip-rule takes their union.
+const defs = document.createElementNS(NS,'defs');
+const clip = document.createElementNS(NS,'clipPath');
+clip.id = 'landclip';
+let dClip = '';
+for (const c of COUNTIES) for (const r of c.rings){
+  const pts = r.map(([x,y]) => [px(x), py(y)]);
+  let a = 0;
+  for (let i=0;i<pts.length;i++){
+    const [u1,v1]=pts[i], [u2,v2]=pts[(i+1)%pts.length];
+    a += u1*v2 - u2*v1;
+  }
+  const ring = a < 0 ? pts.slice().reverse() : pts;
+  dClip += 'M'+ring.map(p=>p[0].toFixed(1)+','+p[1].toFixed(1)).join('L')+'Z';
+}
+const cp = document.createElementNS(NS,'path');
+cp.setAttribute('d', dClip);
+clip.appendChild(cp);
+defs.appendChild(clip);
+svg.appendChild(defs);
+
+const gLand = document.createElementNS(NS,'g');
 const gPlaces = document.createElementNS(NS,'g');
 const gLabels = document.createElementNS(NS,'g');
-svg.append(gPlaces, gLabels);
-const nodes = new Map();
+svg.append(gLand, gPlaces, gLabels);
+if (COUNTIES.length) gPlaces.setAttribute('clip-path','url(#landclip)');
 
+for (const c of COUNTIES){
+  const el = document.createElementNS(NS,'path');
+  el.setAttribute('d', pathOf(c.rings));
+  el.setAttribute('class', 'county' + (c.study ? ' study' : ''));
+  gLand.appendChild(el);
+}
+
+const nodes = new Map();
 for (const p of PLACES){
   let el;
   if (p.rings.length){
     el = document.createElementNS(NS,'path');
-    el.setAttribute('d', p.rings.map(r=>'M'+r.map(([x,y])=>px(x).toFixed(1)+','+py(y).toFixed(1)).join('L')+'Z').join(' '));
+    el.setAttribute('d', pathOf(p.rings));
     el.setAttribute('class','place');
   } else {
     el = document.createElementNS(NS,'circle');
@@ -273,32 +357,35 @@ for (const p of PLACES){
   nodes.set(p.name, el);
 }
 
-/* orientation labels: the few places big enough to anchor the eye, plus the city itself */
-const anchors = PLACES.filter(p=>p.pop>=95000 && p.rings.length)
-  .sort((a,b)=>b.pop-a.pop).slice(0,9);
+/* labels: water bodies for orientation, the largest cities, and the city itself */
+function addLabel(text, x, y, cls, base){
+  const t = document.createElementNS(NS,'text');
+  t.setAttribute('x', px(x).toFixed(1)); t.setAttribute('y', py(y).toFixed(1));
+  t.setAttribute('text-anchor','middle'); t.setAttribute('class', cls);
+  t.dataset.base = base;
+  t.style.fontSize = base + 'px';
+  t.textContent = text;
+  gLabels.appendChild(t);
+}
+addLabel('PACIFIC  OCEAN', -123.28, 37.33, 'wlbl', 9);
+addLabel('SAN FRANCISCO BAY', -122.33, 37.605, 'wlbl', 6.5);
+addLabel('SAN PABLO BAY', -122.40, 38.06, 'wlbl', 6);
+
 function ringCentre(p){
   let best=null,bl=0;
   for(const r of p.rings){ if(r.length>bl){bl=r.length;best=r;} }
   let sx=0,sy=0; for(const [x,y] of best){sx+=x;sy+=y;}
   return [sx/best.length, sy/best.length];
 }
-for (const p of anchors){
+for (const p of PLACES.filter(p=>p.pop>=95000 && p.rings.length).sort((a,b)=>b.pop-a.pop).slice(0,9)){
   const [cx,cy] = ringCentre(p);
-  const t = document.createElementNS(NS,'text');
-  t.setAttribute('x', px(cx).toFixed(1)); t.setAttribute('y', py(cy).toFixed(1));
-  t.setAttribute('text-anchor','middle'); t.setAttribute('class','lbl');
-  t.textContent = p.name;
-  gLabels.appendChild(t);
+  addLabel(p.name, cx, cy, 'lbl', 7.2);
 }
 const sfp = PLACES.filter(p=>p.county==='San Francisco' && p.rings.length);
 if (sfp.length){
   let sx=0,sy=0,n=0;
   for(const p of sfp){ const [x,y]=ringCentre(p); sx+=x; sy+=y; n++; }
-  const t = document.createElementNS(NS,'text');
-  t.setAttribute('x', px(sx/n).toFixed(1)); t.setAttribute('y', (py(sy/n)-16).toFixed(1));
-  t.setAttribute('text-anchor','middle'); t.setAttribute('class','lbl');
-  t.textContent = 'SAN FRANCISCO';
-  gLabels.appendChild(t);
+  addLabel('SAN FRANCISCO', sx/n, sy/n + 0.012, 'lbl', 7.2);
 }
 
 /* ---------- metric buttons ---------- */
@@ -310,6 +397,46 @@ for (const m of METRICS){
   b.onclick = ()=>{ metric = m.key; repaint(); };
   segs.appendChild(b);
 }
+
+/* ---------- filters: one minimum-score slider per criterion, all combinable ---------- */
+const fWrap = document.getElementById('filters');
+const fCount = document.getElementById('f-count');
+function passes(p){
+  for (const k in filters){
+    const v = p.scores[k];
+    if (v == null || v < filters[k]) return false;
+  }
+  return true;
+}
+function fSummary(){
+  const active = Object.keys(filters).length;
+  if (!active){ fCount.textContent = 'No filters — all 216 ranked places shown.'; return; }
+  const n = PLACES.filter(p=>p.rank && passes(p)).length;
+  fCount.textContent = `${n} of 216 places pass ${active} filter${active>1?'s':''}.`;
+}
+for (const m of METRICS){
+  const row = document.createElement('div');
+  row.className = 'frow';
+  row.innerHTML = `<span>${m.label}</span>
+    <input type="range" min="0" max="100" step="5" value="0" aria-label="Minimum ${m.label} score"><b>any</b>`;
+  const inp = row.querySelector('input'), val = row.querySelector('b');
+  inp.addEventListener('input', ()=>{
+    const v = +inp.value;
+    if (v > 0){ filters[m.key] = v; val.textContent = '≥'+v; row.classList.add('on'); }
+    else { delete filters[m.key]; val.textContent = 'any'; row.classList.remove('on'); }
+    applyFilter(); renderList(); fSummary();
+  });
+  fWrap.appendChild(row);
+}
+document.getElementById('f-reset').onclick = ()=>{
+  for (const k in filters) delete filters[k];
+  for (const row of fWrap.children){
+    row.querySelector('input').value = 0;
+    row.querySelector('b').textContent = 'any';
+    row.classList.remove('on');
+  }
+  applyFilter(); renderList(); fSummary();
+};
 
 /* ---------- interaction ---------- */
 function repaint(){
@@ -325,7 +452,8 @@ function applyFilter(){
   const q = query.trim().toLowerCase();
   for (const p of PLACES){
     const el = nodes.get(p.name);
-    const hit = !q || p.name.toLowerCase().includes(q) || p.county.toLowerCase().includes(q);
+    const hit = passes(p) &&
+      (!q || p.name.toLowerCase().includes(q) || p.county.toLowerCase().includes(q));
     el.classList.toggle('dim', !hit);
   }
 }
@@ -397,7 +525,7 @@ function renderDetail(name){
 function renderList(){
   const ol = document.getElementById('rank');
   const q = query.trim().toLowerCase();
-  const rows = PLACES.filter(p=>p.rank && (!q || p.name.toLowerCase().includes(q)
+  const rows = PLACES.filter(p=>p.rank && passes(p) && (!q || p.name.toLowerCase().includes(q)
       || p.county.toLowerCase().includes(q)))
     .sort((a,b)=> (b.scores[metric]??-1) - (a.scores[metric]??-1));
   ol.innerHTML = rows.slice(0,60).map(p=>`<li data-n="${p.name}" class="${p.name===selected?'on':''}">
@@ -410,15 +538,15 @@ function renderList(){
 
 /* ---------- zoom / pan ---------- */
 let vb = {x:0,y:0,w:W,h:H};
-const LBL_BASE = 7.2, LBL_STROKE = 2.2;
 function setVB(){
   svg.setAttribute('viewBox', `${vb.x} ${vb.y} ${vb.w} ${vb.h}`);
   // SVG text is measured in user units, so it would balloon as the viewBox shrinks.
-  // Rescale it with the zoom so labels stay a constant size on screen.
+  // Rescale every label with the zoom so it stays a constant size on screen.
   const k = vb.w / W;
   for (const t of gLabels.children){
-    t.style.fontSize = (LBL_BASE * k).toFixed(2) + 'px';
-    t.style.strokeWidth = (LBL_STROKE * k).toFixed(2) + 'px';
+    const base = parseFloat(t.dataset.base || '7.2');
+    t.style.fontSize = (base * k).toFixed(2) + 'px';
+    if (t.classList.contains('lbl')) t.style.strokeWidth = (2.2 * k).toFixed(2) + 'px';
   }
 }
 svg.addEventListener('wheel', e=>{
@@ -485,6 +613,7 @@ document.getElementById('foot-approx').innerHTML =
    ${PLACES.filter(p=>p.rank&&!p.approx).length} are measured throughout.`;
 repaint();
 renderDetail(null);
+fSummary();
 </script>
 """
 
