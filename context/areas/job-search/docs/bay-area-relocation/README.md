@@ -1,24 +1,55 @@
 # Bay Area relocation ranking
 
 Ranked comparison of Bay Area places to live, for a household with one child entering TK/Kindergarten
-and one of middle/high-school age. Six equally-weighted criteria: safety, schools, rent cost,
-distance from downtown SF, ease of getting a public school / TK seat, and how urban the area is.
+and one of middle/high-school age. Six equally-weighted criteria: crime and safety, schools, rent
+cost, distance from downtown SF, ease of getting a free public school / TK seat, and how urban the
+area is.
 
-**Google Sheet:** https://docs.google.com/spreadsheets/d/1HiSmOvkFYEFvI31Pvsp7xWGYtrfPHiwdGqd-bXcOHXk/edit
+**Google Sheet:** https://docs.google.com/spreadsheets/d/1PuVMIdO7yx9IwEDgyM9iBqA46fl9j1Qb-vcVdNjVFQY/edit
+— one tab, one table, 220 rows sorted by total score.
+(The older Sheet at `1HiSmOvkFYEFvI31Pvsp7xWGYtrfPHiwdGqd-bXcOHXk` is superseded — it held the
+four-tab split.)
+
+## The deliverable
+
+`bay-area-ranking.csv` — **one table**, one row per place, sorted by total score. All 220 places
+(41 SF Analysis Neighborhoods + 100 incorporated cities and towns + 79 unincorporated communities)
+with every data point in the same row: the six criterion scores, 2BR and 3BR median rent, sub-$4,000
+supply, violent and property crime per 1,000, elementary and middle/high school district with their
+CAASPP results, drive time, urbanicity, population, district enrolment trend, assignment system and
+TK capacity, plus per-row sources and notes.
+
+Places that could not be scored on all six criteria stay in the table with everything that *was*
+measured and a stated reason in **Rank status**. Nothing is imputed.
 
 ## Files
-- `methodology.md` — place list, per-criterion evaluation strategy, and **section 0: what is finished
-  and what is not**. Read section 0 first.
-- `sf-neighbourhood-ranking.csv` — the completed piece: 25 SF neighbourhoods fully scored, 12 more
-  with partial data.
-- `all-220-places.csv` — every SF neighbourhood + every Bay Area city/town/CDP, with drive time and
-  urban rank computed for all of them and a `Data status` column.
-- `bay-area-relocation.xlsx` — the same, as a 4-tab workbook.
-- `pipeline/` — the code that produced it (place backbone, drive-time model, scoring, exporters) plus
-  `research-raw.json`, the raw agent output with per-figure source attribution. Re-runnable.
+- `bay-area-ranking.csv` — **the table**. Start here.
+- `methodology.md` — place list, per-criterion sources and rubric, known limitations, and
+  section 0 on what is complete.
+- `pipeline/` — re-runnable code:
+  - `places.py` — the 220-place backbone
+  - `geo.py` — drive-time model + urbanicity
+  - `caaspp.py` — district school results and enrolment trend from the CAASPP research files
+  - `sf_crime.py` — SF neighbourhood crime from SFPD incident data, calibrated
+  - `single_table.py` — scoring and the single-table build
+  - `merge_research.py` — folds a research fan-out into `research.json` field by field
+  - `test_scoring.py` — regression tests for the two bugs that previously shipped
+  - `extract_policy.py` — pulls district assignment / TK findings into `district-policy.json`
+  - `research.json` — collected figures with per-value source attribution
+  - `district-policy.json` — per-district assignment system and TK capacity, with sources
+  - `sf-crime-counts.json` — cached SFPD incident counts by Analysis Neighborhood
+  - `fetch_caaspp.sh` — re-downloads the CAASPP files (gitignored: ~45 MB, published and immutable)
 
-## Status (2026-08-09)
-Complete for San Francisco. The rest of the Bay Area has drive time and urbanicity for every row but
-no rent/crime/school data: the session's 200-search cap was consumed before the fan-out reached those
-places. Unmeasured cells are left blank on purpose, never imputed. See methodology section 0 for the
-cheapest path to finishing.
+The Google Sheet carries the same 220 rows and every criterion, with the long provenance columns
+condensed (`Assign`/`TK` as short labels, prose notes dropped). `bay-area-ranking.csv` in this
+folder is the full-fidelity version — per-row sources, the reasoning behind each capacity score,
+and the collection notes for every figure.
+
+## Status
+Complete. All six criteria are measured for the great majority of places; the rest carry an explicit
+reason for each blank. Schools, enrolment trend and San Francisco crime now come from primary bulk
+sources (CDE CAASPP, DataSF SFPD incidents) rather than scraped aggregator ratings.
+
+Superseded and removed: `sf-neighbourhood-ranking.csv`, `all-220-places.csv` and
+`bay-area-relocation.xlsx` — the split between a finished San Francisco tab and an unscored
+all-places tab existed only because San Francisco was the only part with enough data to rank.

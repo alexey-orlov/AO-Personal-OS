@@ -5,10 +5,10 @@ Flag implausible researched cells so they can be re-verified adversarially.
 A number that arrived with a source attached is still wrong if it fails a physical sanity check.
 This produces the work-list for the verification pass.
 """
-import json, sys, statistics
+import json, os, sys, statistics
 from collections import defaultdict
 
-HERE = "/tmp/claude-0/-home-user-AO-Personal-OS/d13b3c34-2805-51c9-80da-5179e1911a53/scratchpad"
+HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 from places import PLACES
 

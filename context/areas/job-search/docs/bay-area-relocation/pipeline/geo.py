@@ -20,7 +20,8 @@ is computable entirely from the backbone, needing no land-area data.
 import math
 import sys
 
-sys.path.insert(0, "/tmp/claude-0/-home-user-AO-Personal-OS/d13b3c34-2805-51c9-80da-5179e1911a53/scratchpad")
+import os
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from places import PLACES
 
 SF_DOWNTOWN = (37.7955, -122.3937)  # Ferry Building

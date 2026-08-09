@@ -1,0 +1,4 @@
+# CAASPP statewide research files (~45 MB). Re-fetch with fetch_caaspp.sh -- they are
+# published, immutable, and not worth carrying in git.
+caaspp-data/
+__pycache__/
