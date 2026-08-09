@@ -247,9 +247,13 @@ is not one of the 220 ranked places. One implementation note: the clip must be a
 path with uniform ring winding — Chrome quietly dropped all but one child of a multi-child SVG
 clipPath, which clipped the whole map to San Francisco county until merged.
 
-**Filters.** The page carries a minimum-score slider per criterion; active filters combine (a
-place must pass all of them), the map dims everything that fails, and the ranked list and a
-counter follow.
+**Filters.** The page filters on real values, not abstract scores: 2BR and 3BR rent in dollars,
+violent and property crime per 1,000, elementary and middle/high CAASPP percentages, drive
+minutes to the Ferry Building, population, plus two categorical switches — "no lottery school
+assignment" and "no constrained TK" — and one score slider for the total ranking itself. Active
+filters combine (a place must pass all of them); the map dims everything that fails, and the
+ranked list and a counter follow. A place missing a filtered value fails that filter rather than
+slipping through.
 
 ## 6. Re-running
 

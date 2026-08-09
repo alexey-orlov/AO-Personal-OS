@@ -312,6 +312,8 @@ def build():
             "violent": r.get("violent"), "property": r.get("property"),
             "elem": r.get("elem_pct"), "midhigh": r.get("midhigh_pct"),
             "elemD": r.get("elem_district"), "midhighD": r.get("high_district"),
+            "assign": ST.classify_assignment(r.get("assignment")),
+            "tk": ST.classify_tk(r.get("tk_note")),
             "approx": bool(r.get("approx_fields")),
             "approxFrom": r.get("approx_from"),
             "approxFields": ", ".join(dict.fromkeys(r.get("approx_fields") or [])) or None,

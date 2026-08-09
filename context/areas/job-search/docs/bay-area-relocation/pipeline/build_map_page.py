@@ -137,12 +137,16 @@ dd{margin:0;text-align:right;font-variant-numeric:tabular-nums}
 .flag{margin-top:10px;padding:7px 9px;border-radius:8px;background:var(--accent-soft);color:var(--accent);
   font-size:11.5px;line-height:1.42}
 .filters{display:flex;flex-direction:column}
-.frow{display:grid;grid-template-columns:86px 1fr 34px;gap:8px;align-items:center;font-size:11.5px;
+.frow{display:grid;grid-template-columns:80px 1fr 56px;gap:8px;align-items:center;font-size:11.5px;
   padding:3px 0}
 .frow span{color:var(--ink-2)}
 .frow b{text-align:right;font-weight:580;font-variant-numeric:tabular-nums;color:var(--ink-3)}
 .frow.on b{color:var(--accent)}
 .frow input{width:100%;accent-color:var(--accent);height:14px;margin:0}
+.fchk{display:flex;gap:7px;align-items:center;font-size:11.5px;color:var(--ink-2);padding:5px 0 2px;
+  cursor:pointer}
+.fchk input{accent-color:var(--accent);margin:0}
+.fchk.on span{color:var(--ink);font-weight:560}
 .fhead{display:flex;justify-content:space-between;align-items:baseline}
 .reset{appearance:none;border:0;background:transparent;color:var(--accent);font:inherit;
   font-size:10.5px;cursor:pointer;padding:0}
@@ -176,8 +180,9 @@ BODY = """
     <div>
       <h1>Where the ranking lands on the map</h1>
       <div class="sub">Every place in the ranking, drawn in its real boundary on a land/water base
-        map and shaded by score — darker is better. Switch the shading to any single criterion, or
-        set minimum-score filters and combine them.</div>
+        map and shaded by score — darker is better. Switch the shading to any single criterion, and
+        filter on real values — rent in dollars, crime per 1,000, test scores, drive minutes —
+        combining as many as you like.</div>
     </div>
     <div class="stats">
       <div class="stat"><b id="s-count">0</b><span>places drawn</span></div>
@@ -213,7 +218,7 @@ BODY = """
     <div class="rail">
       <div class="card" id="detail"></div>
       <div class="card">
-        <div class="fhead"><div class="ttl">Filters — minimum score</div>
+        <div class="fhead"><div class="ttl">Filters</div>
           <button class="reset" id="f-reset" type="button">Reset</button></div>
         <div class="filters" id="filters"></div>
         <div class="meta" id="f-count" style="margin:8px 0 0"></div>
@@ -261,7 +266,6 @@ const DATA = __DATA__;
 const PLACES = DATA.places, METRICS = DATA.metrics, COUNTIES = DATA.counties || [];
 const RAMP = ['--ramp-0','--ramp-1','--ramp-2','--ramp-3','--ramp-4','--ramp-5'];
 let metric = 'total', selected = null, hovered = null, query = '';
-const filters = {};      // metric key -> minimum score
 
 const svg = document.getElementById('map');
 const tip = document.getElementById('tip');
@@ -398,44 +402,86 @@ for (const m of METRICS){
   segs.appendChild(b);
 }
 
-/* ---------- filters: one minimum-score slider per criterion, all combinable ---------- */
+/* ---------- filters: real units, not scores -- all combinable ---------- */
 const fWrap = document.getElementById('filters');
 const fCount = document.getElementById('f-count');
+// dir 'min' = "at least" (slider off at its left end), dir 'max' = "at most" (off at the right)
+const FDEFS = [
+  {id:'total', label:'Total score',  get:p=>p.scores.total, dir:'min', min:0,    max:100,    step:5,    fmt:v=>'\u2265 '+v},
+  {id:'rent2', label:'2BR rent',     get:p=>p.rent2,        dir:'max', min:1500, max:8000,   step:250,  fmt:v=>'\u2264 $'+v.toLocaleString()},
+  {id:'rent3', label:'3BR rent',     get:p=>p.rent3,        dir:'max', min:2000, max:14000,  step:500,  fmt:v=>'\u2264 $'+v.toLocaleString()},
+  {id:'viol',  label:'Violent /1k',  get:p=>p.violent,      dir:'max', min:1,    max:20,     step:0.5,  fmt:v=>'\u2264 '+v},
+  {id:'prop',  label:'Property /1k', get:p=>p.property,     dir:'max', min:5,    max:100,    step:5,    fmt:v=>'\u2264 '+v},
+  {id:'elem',  label:'Elem CAASPP',  get:p=>p.elem,         dir:'min', min:0,    max:90,     step:5,    fmt:v=>'\u2265 '+v+'%'},
+  {id:'mh',    label:'M/H CAASPP',   get:p=>p.midhigh,      dir:'min', min:0,    max:90,     step:5,    fmt:v=>'\u2265 '+v+'%'},
+  {id:'drive', label:'Drive to SF',  get:p=>p.drive,        dir:'max', min:10,   max:100,    step:5,    fmt:v=>'\u2264 '+v+' min'},
+  {id:'pop',   label:'Population',   get:p=>p.pop,          dir:'min', min:0,    max:150000, step:5000, fmt:v=>'\u2265 '+Math.round(v/1000)+'k'},
+];
+const CHECKS = [
+  {id:'nolot', label:'No lottery school assignment', test:p=>p.assign!=='lottery'},
+  {id:'notk',  label:'No constrained TK',            test:p=>p.tk!=='tight'},
+];
+const active = {}, checksOn = {};
 function passes(p){
-  for (const k in filters){
-    const v = p.scores[k];
-    if (v == null || v < filters[k]) return false;
+  for (const d of FDEFS){
+    const want = active[d.id];
+    if (want === undefined) continue;
+    const v = d.get(p);
+    if (v == null) return false;
+    if (d.dir === 'min' ? v < want : v > want) return false;
   }
+  for (const c of CHECKS) if (checksOn[c.id] && !c.test(p)) return false;
   return true;
 }
 function fSummary(){
-  const active = Object.keys(filters).length;
-  if (!active){ fCount.textContent = 'No filters — all 216 ranked places shown.'; return; }
-  const n = PLACES.filter(p=>p.rank && passes(p)).length;
-  fCount.textContent = `${n} of 216 places pass ${active} filter${active>1?'s':''}.`;
+  const n = Object.keys(active).length + CHECKS.filter(c=>checksOn[c.id]).length;
+  if (!n){ fCount.textContent = 'No filters \u2014 all 216 ranked places shown.'; return; }
+  const m = PLACES.filter(p=>p.rank && passes(p)).length;
+  fCount.textContent = `${m} of 216 places pass ${n} filter${n>1?'s':''}.`;
 }
-for (const m of METRICS){
+function refilter(){ applyFilter(); renderList(); fSummary(); }
+for (const d of FDEFS){
+  const off = d.dir==='min' ? d.min : d.max;
   const row = document.createElement('div');
   row.className = 'frow';
-  row.innerHTML = `<span>${m.label}</span>
-    <input type="range" min="0" max="100" step="5" value="0" aria-label="Minimum ${m.label} score"><b>any</b>`;
+  row.innerHTML = `<span>${d.label}</span>
+    <input type="range" min="${d.min}" max="${d.max}" step="${d.step}" value="${off}"
+      aria-label="${d.label} filter"><b>any</b>`;
   const inp = row.querySelector('input'), val = row.querySelector('b');
   inp.addEventListener('input', ()=>{
     const v = +inp.value;
-    if (v > 0){ filters[m.key] = v; val.textContent = '≥'+v; row.classList.add('on'); }
-    else { delete filters[m.key]; val.textContent = 'any'; row.classList.remove('on'); }
-    applyFilter(); renderList(); fSummary();
+    if (v === off){ delete active[d.id]; val.textContent = 'any'; row.classList.remove('on'); }
+    else { active[d.id] = v; val.textContent = d.fmt(v); row.classList.add('on'); }
+    refilter();
+  });
+  fWrap.appendChild(row);
+}
+for (const c of CHECKS){
+  const row = document.createElement('label');
+  row.className = 'fchk';
+  row.innerHTML = `<input type="checkbox"><span>${c.label}</span>`;
+  const inp = row.querySelector('input');
+  inp.addEventListener('change', ()=>{
+    checksOn[c.id] = inp.checked;
+    row.classList.toggle('on', inp.checked);
+    refilter();
   });
   fWrap.appendChild(row);
 }
 document.getElementById('f-reset').onclick = ()=>{
-  for (const k in filters) delete filters[k];
-  for (const row of fWrap.children){
-    row.querySelector('input').value = 0;
+  for (const k in active) delete active[k];
+  for (const k in checksOn) delete checksOn[k];
+  for (const row of fWrap.querySelectorAll('.frow')){
+    const inp = row.querySelector('input');
+    inp.value = inp.getAttribute('value');
     row.querySelector('b').textContent = 'any';
     row.classList.remove('on');
   }
-  applyFilter(); renderList(); fSummary();
+  for (const row of fWrap.querySelectorAll('.fchk')){
+    row.querySelector('input').checked = false;
+    row.classList.remove('on');
+  }
+  refilter();
 };
 
 /* ---------- interaction ---------- */
@@ -512,6 +558,8 @@ function renderDetail(name){
       <dt>Property crime /1k</dt><dd>${fmt1(p.property)}</dd>
       <dt>Elementary CAASPP</dt><dd>${p.elem==null?'—':fmt1(p.elem)+'%'}</dd>
       <dt>Middle/high CAASPP</dt><dd>${p.midhigh==null?'—':fmt1(p.midhigh)+'%'}</dd>
+      <dt>Assignment</dt><dd>${p.assign==='lottery'?'Choice lottery':p.assign==='address'?'Address-based':'—'}</dd>
+      <dt>TK capacity</dt><dd>${p.tk==='tight'?'Constrained':p.tk==='open'?'Open':'—'}</dd>
     </dl>
     ${p.elemD?`<div class="meta" style="margin:9px 0 0">${p.elemD}${
       p.midhighD&&p.midhighD!==p.elemD?' · '+p.midhighD:''}</div>`:''}
