@@ -1,0 +1,55 @@
+{
+  "schema": 1,
+  "generatedAt": "2026-08-10T04:01:56.997Z",
+  "runStamp": "20260810T0401",
+  "episodes": [
+    {
+      "videoId": "zegYJ6dhIg4",
+      "videoTitle": "The playbook for building high talent density teams | Adam Ward, Head of Talent at Cursor",
+      "videoUrl": "https://www.youtube.com/watch?v=zegYJ6dhIg4",
+      "channelName": "Lenny's Podcast",
+      "publishedDate": "2026-08-09",
+      "guests": [
+        "Adam Ward (Head of Talent, Cursor)"
+      ],
+      "summary": "Adam Ward explains how to hire for extreme \"talent density\" by abandoning mass funnels and treating each hire like a targeted executive search. He lays out a repeatable process — precise scoping, market-mapping the top candidates, relentless personalized outreach, high-signal work samples/on-sites, and continuous closing — and shows why those practices scale to build better teams over time. The throughline: quality-first, bespoke recruiting beats volume-driven funnels if talent is your company's top priority.",
+      "insights": [
+        {
+          "headline": "Treat every hire like an executive search for the top 1%",
+          "detail": "Instead of casting a wide funnel and hiring whoever drops out the bottom, Ward recommends scoping what “top 1%” means for your company, building a targeted list (he suggests thinking in terms of the top ~50 global fits), and relentlessly activating that list. That scoping sets sourcing, the interview agenda, and the pitch; market-mapping and probing trusted advisors then triangulate the same standout names. The payoff is predictable: you start by courting the highest-impact people rather than hoping one slips through a noisy funnel, which materially raises long-term talent density.",
+          "anchorQuote": "you treat every hire as an executive recruiting",
+          "tSeconds": 965,
+          "link": "https://www.youtube.com/watch?v=zegYJ6dhIg4&t=965"
+        },
+        {
+          "headline": "Traditional recruiting funnels produce suboptimal 'remainder' hires",
+          "detail": "Ward calls the common model the “funnel of doom”: reach out to a hundred people, only a fraction reply, and you end up hiring from that remainder rather than the true top candidates. He illustrates this with a simple 100→20 example to show why passive reply rates don't represent the best available talent and why we regress to the mean if we optimize that pipeline. Recognizing this explains why many companies plateau on talent quality and why a targeted, pillar-of-excellence approach is a superior alternative.",
+          "anchorQuote": "I am going to reach out to 100 people.",
+          "tSeconds": 795,
+          "link": "https://www.youtube.com/watch?v=zegYJ6dhIg4&t=795"
+        },
+        {
+          "headline": "Work samples give the strongest signal of future success",
+          "detail": "Ward cites research and Cursor’s practice that work samples or side-by-side project trials are the highest predictors of on-the-job success, so the company runs long, curated on-site projects and side-by-side technical sessions. These exercises are two-way: they provide hiring teams high-fidelity signal about skills and collaboration, and they give candidates realistic preview and self-selection power (Michael Terrell’s experiment that removed trials tanked signal). For roles where fit matters beyond résumé badges, investing in work trials markedly reduces costly hiring mistakes.",
+          "anchorQuote": "work samples are the highest predictor",
+          "tSeconds": 2728,
+          "link": "https://www.youtube.com/watch?v=zegYJ6dhIg4&t=2728"
+        },
+        {
+          "headline": "Closing is built throughout the process and requires a team",
+          "detail": "Rather than treating the offer as the moment to sell, Cursor 'closes' candidates continuously by discovering motivations early, orchestrating the right interviewers, and removing objections along the way; for high-profile targets they hold daily standups to coordinate outreach. They also use personal rituals — curated meals, small bespoke gifts (an example: a specialty instrument for a candidate who was a violinist), dedicated Slack channels, and pre-boarding touches like sending a laptop — to convert acceptances into joins. In a hyper-competitive market with reneges and counteroffers, sustained, personalized engagement is the difference between an offer and an actual hire.",
+          "anchorQuote": "the closing is happening throughout the process",
+          "tSeconds": 3737,
+          "link": "https://www.youtube.com/watch?v=zegYJ6dhIg4&t=3737"
+        },
+        {
+          "headline": "Recruiters must be empowered, strategic, and highly compensated",
+          "detail": "Ward argues recruiting should be treated as a strategic function: recruiters are the 'confidence engine' who quarterback the experience, curate interviewers, and keep hiring managers accountable, not mere schedulers. Because truly strategic recruiters are rare and have outsized impact on which people a company can attract, he believes organizations should compensate and empower them accordingly and avoid offloading hiring accountability to recruiting teams alone. Making recruiting a first-class, well-resourced capability is essential when talent is the leading lever of company success.",
+          "anchorQuote": "the recruiting team should be the highest paid",
+          "tSeconds": 4136,
+          "link": "https://www.youtube.com/watch?v=zegYJ6dhIg4&t=4136"
+        }
+      ]
+    }
+  ]
+}
