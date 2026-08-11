@@ -1,0 +1,149 @@
+{
+  "schema": 1,
+  "generatedAt": "2026-08-11T04:02:29.260Z",
+  "runStamp": "20260811T0402",
+  "episodes": [
+    {
+      "videoId": "o_eg2TtXAO0",
+      "videoTitle": "Claude Code for normal people: skills, voice mode, and how to collaborate with AI",
+      "videoUrl": "https://www.youtube.com/watch?v=o_eg2TtXAO0",
+      "channelName": "How I AI",
+      "publishedDate": "2026-08-10",
+      "guests": [
+        "Grace Clark"
+      ],
+      "summary": "Grace Clark demonstrates how non-engineers can build practical, production-ready workflows with Claude Code and Claude Co‑work by encoding their voice, SOPs, and connectors into reusable skills. Her throughline: stop treating AI as one-off prompting and instead build intent-driven skills, a forcing function to default to the model, and small automated pipelines that materially reduce admin and improve client-facing service.",
+      "insights": [
+        {
+          "headline": "A lightweight hourly pipeline can replace 20 hours of admin",
+          "detail": "Grace built a 'pipeline operator' skill that runs once an hour, ingests email, correlates context, nudges clients, and generates branded interactive artifacts like proposals and prework. She says this moved her from juggling 20 tabs and roughly 20 hours a week of administration to an automated flow that surfaces client progress and produces warm, HTML-based touchpoints automatically. For small businesses and consultants this is a repeatable way to scale relationship work without hiring staff.",
+          "anchorQuote": "The most impactful is my pipeline operator",
+          "tSeconds": 287,
+          "link": "https://www.youtube.com/watch?v=o_eg2TtXAO0&t=287"
+        },
+        {
+          "headline": "Intent engineering matters more than crafty prompt templates",
+          "detail": "Instead of obsessing over prompt wording, Grace argues for documenting desired intent and behavior (voice guides, SOPs) and letting Claude study you and act. She demonstrates this by voice‑noting a 2–3 minute problem into Claude Code, iterating conversationally, then letting Claude spend an hour producing an HTML proposal — a workflow that produced usable output far faster than hand‑crafting prompts. The implication: invest time in codifying outcomes and constraints once, then invoke them repeatedly.",
+          "anchorQuote": "prompt engineering is dead, but intent engineering",
+          "tSeconds": 886,
+          "link": "https://www.youtube.com/watch?v=o_eg2TtXAO0&t=886"
+        },
+        {
+          "headline": "Train the muscle: force a habit of deferring to Claude with screenshots",
+          "detail": "Grace recommends a simple forcing function—set a Slack/Calendar reminder to screenshot whatever you're doing and ask Claude to help—because Claude can infer context from images without typed prompts. She uses this habit to build the routine of 'defaulting to Claude,' which she finds is the real adoption hurdle, not technical complexity. The practice converts occasional use into muscle memory and surfaces quick wins that keep people engaged.",
+          "anchorQuote": "screenshot it and put it into Claude",
+          "tSeconds": 656,
+          "link": "https://www.youtube.com/watch?v=o_eg2TtXAO0&t=656"
+        },
+        {
+          "headline": "HTML (interactive branded pages) is the practical output for client UX",
+          "detail": "Rather than static docs, Grace builds branded, password‑protected HTML artifacts (proposals, onboarding pages, interactive prework) that clients can log into and interact with; these pages reflect conversation context and increase perceived service quality. She treats HTML as the successor to markdown for visualization — it personalizes communication and acts as both deliverable and demonstration of what AI-enabled work can look like.",
+          "anchorQuote": "HTML is the new markdown",
+          "tSeconds": 987,
+          "link": "https://www.youtube.com/watch?v=o_eg2TtXAO0&t=987"
+        },
+        {
+          "headline": "Rebuilding Gmail with an agent lets your AI learn and compound",
+          "detail": "Grace rebuilt her email workflow in Claude so replies, triage, and training data live where she wants them, rather than being trapped in Gmail. She argues that if you keep responding inside Gmail the models don't capture and compound your behavior; by moving email triage into Claude (via connectors and code→co‑work handoffs) you both reduce friction and feed the AI a dataset it can learn from. She claims the exercise is accessible (a half‑hour project) and yields a proactive EA‑style agent.",
+          "anchorQuote": "all that learning and all that writing",
+          "tSeconds": 1340,
+          "link": "https://www.youtube.com/watch?v=o_eg2TtXAO0&t=1340"
+        }
+      ]
+    },
+    {
+      "videoId": "n34CIw3gk1k",
+      "videoTitle": "Kavak's Playbook for Rebuilding a Company Around AI",
+      "videoUrl": "https://www.youtube.com/watch?v=n34CIw3gk1k",
+      "channelName": "a16z",
+      "publishedDate": "2026-08-10",
+      "guests": [
+        "Ali (Kavak)"
+      ],
+      "summary": "Kavak rebuilt itself from a transaction-focused used-car marketplace into an agent-driven, AI-native company by designing long-running, customer-specific agents, investing heavily in evaluation systems, and retraining its workforce. The argument: to get outsized gains from AI you must redesign organization, measurement, and feedback loops (not just bolt on models), then iterate aggressively at production scale.",
+      "insights": [
+        {
+          "headline": "Rebuild the company around long-running agents, not workflows.",
+          "detail": "Kavak decided to design the firm as a system of persistent, goal-driven agents — one per customer — rather than bolting chatbots onto existing processes. Each agent holds memory of years of interactions, has long-term objectives (e.g., maximize lifetime value), and can call company APIs to act autonomously; this architectural choice required reworking APIs and data flows so agents can perform end-to-end tasks. The non-obvious payoff is that this lets the company optimize relationships over time instead of treating every contact as an isolated transaction.",
+          "anchorQuote": "we bet the company in transforming to a company run",
+          "tSeconds": 202,
+          "link": "https://www.youtube.com/watch?v=n34CIw3gk1k&t=202"
+        },
+        {
+          "headline": "Customer-specific agents outperform humans at selling and retention.",
+          "detail": "Kavak reports that agents tripled NPS and initially converted 50% more than humans, now converting ~2.1x more; agents handle ~96% of interactions and ~95% of transactions. They spawn 100,000–200,000 agents daily, each with its own VM, memory and skills, and agents improve collectively because a mistake learned by one updates the system for all. That combination of infinite patience, full history, and integrated skills makes agents better sellers and relationship managers than siloed human experts.",
+          "anchorQuote": "agent will get spawned specifically for this customer",
+          "tSeconds": 224,
+          "link": "https://www.youtube.com/watch?v=n34CIw3gk1k&t=224"
+        },
+        {
+          "headline": "Evals are the 'brakes' — invest as much in them as in agents.",
+          "detail": "Kavak treats evaluation systems (evals) as essential safety and learning infrastructure and spends roughly equal engineering time, tokens, and budget on evals as on the agents themselves. Good evals let them move fast without catastrophic errors by measuring business outcomes (conversion, lifetime value, re-engagement) rather than superficial KPIs like call minutes. That discipline closes feedback loops: agents deployed to customers generate real data and labels that are used to fine-tune models and skills, producing rapid systemic improvement.",
+          "anchorQuote": "in order to move fast, you need to have brakes",
+          "tSeconds": 543,
+          "link": "https://www.youtube.com/watch?v=n34CIw3gk1k&t=543"
+        },
+        {
+          "headline": "Top-down mandate plus company-wide retraining accelerates adoption.",
+          "detail": "Kavak made the transformation explicit and compulsory: leadership set the vision and launched an internal 'Jedi Academy' to teach everyone — from the CEO to mechanics — to build and collaborate with agents. This created a flattened, cross-functional org where teams either build agents, work for agents, or operate in the physical world with agent sidekicks, and humans now often act on agent prompts. The result: faster rollout, cultural alignment, and practical reskilling so staff can work productively in an agentic organization.",
+          "anchorQuote": "We launched a program inside Quebec that's called the Jedi Academy",
+          "tSeconds": 1224,
+          "link": "https://www.youtube.com/watch?v=n34CIw3gk1k&t=1224"
+        },
+        {
+          "headline": "Superficial adoption yields small gains; rebuilding can unlock 10x value.",
+          "detail": "Ali argues that simply adding AI to legacy structures produces marginal (single-digit percent) improvements; to get 3x+ productivity you must redesign processes and organization around the new capability, the same way factories were redesigned for electricity. This is the basis for creative destruction: incumbents that only adopt superficially will be outcompeted by new entrants built natively around agentic AI, so founders should consider deep, vertical designs rather than horizontal add-ons.",
+          "anchorQuote": "the first instinct is okay let's adopt AI",
+          "tSeconds": 319,
+          "link": "https://www.youtube.com/watch?v=n34CIw3gk1k&t=319"
+        }
+      ]
+    },
+    {
+      "videoId": "whcfSGN6CAU",
+      "videoTitle": "Peter Steinberger: What Happens When 4.7 Million People Let It Cook",
+      "videoUrl": "https://www.youtube.com/watch?v=whcfSGN6CAU",
+      "channelName": "Y Combinator",
+      "publishedDate": "2026-08-10",
+      "guests": [],
+      "summary": "Peter Steinberger tells the story of building OpenClaw (originally Claudius/claudebot), an open-source personal agent that went viral and exposed the gap between prototyping and running production software used by millions. He walks through the project's explosive adoption, the security and maintenance burdens that followed, how model-provider dependencies shaped the project's fate, and the personal lessons about fun, focus, and being the first user.",
+      "insights": [
+        {
+          "headline": "An open-source agent attracted millions of installs and thousands of contributors",
+          "detail": "Steinberger's agent went viral: in eight months many thousands engaged — \"In 8 months, more than 18,000\" people opened issues or PRs, over 111,000 total interactions, and nearly 3,000 people have commits. Download traffic swung from a low of about 835,000 weekly downloads to a peak weekly 4.7 million, which created intense media attention, bug reports, and community contributions that overwhelmed a small core team. That scale shifted the project from a personal hack to a global social and engineering problem overnight.",
+          "anchorQuote": "In 8 months, more than 18,000",
+          "tSeconds": 561,
+          "link": "https://www.youtube.com/watch?v=whcfSGN6CAU&t=561"
+        },
+        {
+          "headline": "Maintaining a popular open-source agent is much harder than building the prototype",
+          "detail": "What began as a one-developer hack ballooned into a maintenance challenge: Steinberger counted \"around nine and a half thousand configuration options,\" had to add sandboxing, allow-lists, and atomic file writes, and spent months dealing with security reports, press, and legal work. The work to harden, test, and evolve software for real users slowed feature velocity and introduced regressions users depended on, showing that shipping a fun prototype doesn't prepare you for long-term reliability and governance.",
+          "anchorQuote": "around nine and a half thousand configuration options",
+          "tSeconds": 1013,
+          "link": "https://www.youtube.com/watch?v=whcfSGN6CAU&t=1013"
+        },
+        {
+          "headline": "Being your product's first user and having fun drives better outcomes",
+          "detail": "He emphasizes that the first user should be you: he used the agent obsessively, demonstrated it to friends, and iterated from his own annoyances, which produced emotional reactions and early product-market fit signals. Steinberger argues \"Fun is velocity\": weeks he enjoyed building delivered visible product improvements, while weeks spent firefighting or appeasing everyone led to bloated configuration and lost momentum. This frames a practical rule: build what solves your pain and keeps you engaged before scaling.",
+          "anchorQuote": "User number one should be you.",
+          "tSeconds": 1951,
+          "link": "https://www.youtube.com/watch?v=whcfSGN6CAU&t=1951"
+        },
+        {
+          "headline": "Your project's fate mirrors the business model of its model provider",
+          "detail": "He admits he optimized OpenClaw for a dominant provider's models and tooling, and when that provider changed subscriptions with ~24 hours' notice it hurt the project’s ability to pivot quickly. He distills the lesson bluntly: \"Your dependencies business model is your business model,\" meaning reliance on closed-provider pricing, quotas, or product decisions can suddenly impose limits or downtime on your users. Diversifying to open-weight models helped later, but the damage from being tied to a vendor's policy was already felt.",
+          "anchorQuote": "Your dependencies business model is your business model",
+          "tSeconds": 1125,
+          "link": "https://www.youtube.com/watch?v=whcfSGN6CAU&t=1125"
+        },
+        {
+          "headline": "Always-on proactive agents are possible but token-costs and orchestration limit practicality",
+          "detail": "Steinberger says the technical barrier to an always-on, proactive agent is smaller than the economic one: continuous heartbeats and broad checks can consume hundreds of thousands of tokens and become prohibitively expensive for subscribers. He highlights the need for smarter orchestration — selective heartbeats, local caches, and work that avoids burning tokens unnecessarily — before ubiquitous always-on agents become affordable and reliable at scale. That explains why fully persistent agents remain an open product design and business problem, not purely an engineering one.",
+          "anchorQuote": "perpetually running that are proactive in their work",
+          "tSeconds": 2240,
+          "link": "https://www.youtube.com/watch?v=whcfSGN6CAU&t=2240"
+        }
+      ]
+    }
+  ]
+}
