@@ -2,7 +2,7 @@
 
 _status: live theme — the discipline of wrapping an AI agent in enforced structure: human-only zones, PR gates, precise workflows, adapters, and local-first context_
 _slug: agent-harness-engineering_
-_updated: 2026-08-08 · 15 insights from 8 episodes · (split from agent-engineering-patterns, 2026-07-11)_
+_updated: 2026-08-10 · 17 insights from 10 episodes · (split from agent-engineering-patterns, 2026-07-11)_
 
 ## The throughline
 A harness is code wrapped around an agent to make it behave consistently for a specific use case — and every practitioner in this cluster converges on the same core moves. Reserve architecture and UX decisions for humans (Conductor's "slot-free zones," "do not touch if you are an AI" markers — corroborated independently by Tony Fadell on the hardware-product side); force agent output through a review chokepoint before it lands (Conductor's strict PR-first workflow; the Sentry bug-triage harness's investigate-only vs. edit-enabled modes); and be extremely specific — write down the exact workflow, data sources, and allowed tools rather than reaching for a general-purpose assistant. Concrete adapters (Sentry, Linear, GitHub, Vercel) plus a persistent artifact store make investigations reproducible, though this is a choice, not a prerequisite — Gusto's much lighter "memory is just a DB column" stack proves harnesses can be minimal too. Codex-as-local-project-environment extends the same instinct beyond bespoke harnesses: a general-purpose local workspace (files on your machine, computer-use access to real tools) that lets an agent work with richer context, reinforced by a local-first/Obsidian-style memory discipline for privacy and accuracy.
@@ -84,11 +84,23 @@ Tan shows that 'skill files'—plain-English markdown instructions (e.g., transc
 — Y Combinator · 2026-08-06 · guest: Garry Tan · [▶ 29:36](https://www.youtube.com/watch?v=eRrc1pUY5oU&t=1776) · `pi-eRrc1pUY5oU-05`
 related: [Local-first file access massively boosts AI's effectiveness and privacy](#local-first-file-access-massively-boosts-ais-effectiveness-and-privacy) (same durable-personal-markdown-as-owned-asset discipline) · theme → [AI agents & applications](ai-agents-and-applications.md#a-company-os-stores-workflows-as-github-style-skill-files) (Laurel's company-level skill-file OS is the same mechanism Tan argues should be owned by the individual, not the employer)
 
+### Intent engineering matters more than crafty prompt templates
+Instead of obsessing over prompt wording, Grace argues for documenting desired intent and behavior (voice guides, SOPs) and letting Claude study you and act. She demonstrates this by voice‑noting a 2–3 minute problem into Claude Code, iterating conversationally, then letting Claude spend an hour producing an HTML proposal — a workflow that produced usable output far faster than hand‑crafting prompts. The implication: invest time in codifying outcomes and constraints once, then invoke them repeatedly.
+— How I AI · 2026-08-10 · guest: Grace Clark · [▶ 14:46](https://www.youtube.com/watch?v=o_eg2TtXAO0&t=886) · `pi-o_eg2TtXAO0-02`
+related: [Skill files are executable cognition; owning them preserves your power](#skill-files-are-executable-cognition-owning-them-preserves-your-power) (same codify-intent-once-and-reuse discipline, here as a solo consultant's voice-guide-and-SOP practice rather than a portable skill-file asset)
+
+### Maintaining a popular open-source agent is much harder than building the prototype
+What began as a one-developer hack ballooned into a maintenance challenge: Steinberger counted "around nine and a half thousand configuration options," had to add sandboxing, allow-lists, and atomic file writes, and spent months dealing with security reports, press, and legal work. The work to harden, test, and evolve software for real users slowed feature velocity and introduced regressions users depended on, showing that shipping a fun prototype doesn't prepare you for long-term reliability and governance.
+— Y Combinator · 2026-08-10 · guest: — · [▶ 16:53](https://www.youtube.com/watch?v=whcfSGN6CAU&t=1013) · `pi-whcfSGN6CAU-02`
+related: [Be extremely specific when designing and prompting a harness](#be-extremely-specific-when-designing-and-prompting-a-harness) (same enforced-structure instinct, here as the cost of hardening a viral open-source agent rather than building a bespoke harness from scratch)
+
 ## Related themes
 - [Agent engineering & production infra](agent-engineering-patterns.md) — parent theme; the broader verification/governance/cost discipline this harness-building cluster sits alongside
 - [Agent delegation, loops & software factories](agent-delegation-and-loops.md) — the sustained-execution patterns that run inside these harnesses
 
 ## Source episodes
+- [How I AI — Claude Code for normal people: skills, voice mode, and how to collaborate with AI (2026-08-10)](../episodes/2026/2026-08-10--howiai--claude-code-for-normal-people-skills-voice-mode.md)
+- [Y Combinator — Peter Steinberger: What Happens When 4.7 Million People Let It Cook (2026-08-10)](../episodes/2026/2026-08-10--yc--peter-steinberger-4-7-million-people-let-it-cook.md)
 - [Y Combinator — Garry Tan: "Personal AGI Is How You Stay Under Your Own Power" (2026-08-06)](../episodes/2026/2026-08-06--yc--garry-tan-personal-agi-stay-under-own-power.md)
 - [Aakash Gupta — Use these skills to supercharge your claude code setup | Oji Udezue | 3x CPO (2026-08-07)](../episodes/2026/2026-08-07--aakash--use-these-skills-to-supercharge-claude-code.md)
 - [How I AI — Build an AI code review agent with Vercel Eve (full tutorial) (2026-08-05)](../episodes/2026/2026-08-05--howiai--build-an-ai-code-review-agent-with-vercel-eve.md)
