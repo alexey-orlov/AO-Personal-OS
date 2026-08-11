@@ -2,7 +2,7 @@
 
 _status: live theme — agent deployment in real products, integration patterns, where value lands_
 _slug: ai-agents-and-applications_
-_updated: 2026-08-08 · 74 insights from 50 episodes · (split 2026-06-11 → generative-media-and-multimodal, agent-engineering-patterns, model-reviews-and-benchmarks) — ⚠ at 74/30: no clean seam found, leaving for next recluster_
+_updated: 2026-08-10 · 78 insights from 52 episodes · (split 2026-06-11 → generative-media-and-multimodal, agent-engineering-patterns, model-reviews-and-benchmarks) — ⚠ at 78/30: no clean seam found, leaving for next recluster_
 
 ## The throughline
 Two patterns dominate across the cluster. (1) Integration into existing workflows — not standalone tools — is where agent value lands: Anthropic threaded Claude across six sales systems (Clay/LeanData/Salesforce/Gong/Ironclad/Slack) creating a single-source morning brief, Legora moved from task assistance to proactive M&A diligence agents, Customer.io's Chiefy audits artifacts against canonical company docs, and Amazon's Alexa converts at 3.5× keyword search by becoming an embedded commerce platform. Codex/Co-work now reaches into WhatsApp and Google Calendar via computer-use connectors, turning a coding agent into an OS-level surface. (2) "Context is the moat" repeats at every scale: enterprises differentiate via proprietary connectors and historical data, developers gain leverage by treating prompts — not code — as the primary long-lived artifact, and consumer agents (Nicole's vetted-vendors Claude project) follow the same rule. Two structural facts bracket it: coding is LLMs' first clear product-market fit (Evans — explains why adoption is racing in software first), and some agents already perform employee-level work (Replit's 10K agent, SaaStr ops headcount from ~20 to ~2), crossing the threshold from experiment to production labor substitute. More recently, the pattern extends to org-boundary crossing: a context-rich agent absorbs both marketing and finance work simultaneously (better projections than siloed alternatives, by virtue of shared sales and event context), and proactively surfaces operational fixes humans overlook — recommending a Bill.com auto-reminder toggle the team had left unconfigured for years. The starkest structural shift: agents are becoming the primary counterparty in vendor renewals, evaluating software, setting API-first contract requirements, and negotiating pricing rather than executing a human's decision. AI-first site generators extend the substitution pattern into frontend creative production: Ploy's deterministic 'slurper' converts any legacy URL (including Wayback Machine snapshots) into a production-ready responsive site in ~75 seconds — work previously requiring a 3–5 person front-end team for a week or more — and doubles as an always-on GTM system via ~50 tool integrations (nightly SEO audits, lead surfacing, outreach drafts).
@@ -370,6 +370,26 @@ Paper is built to render with HTML and CSS so designers get a familiar canvas wh
 — Y Combinator · 2026-08-07 · guest: Stephen (Paper) · [▶ 3:19](https://www.youtube.com/watch?v=P06RgnUKX_I&t=199) · `pi-P06RgnUKX_I-01`
 related: [Make separate 'human' and 'machine' versions of sites for agents](#make-separate-human-and-machine-versions-of-sites-for-agents) · [Headless products surface data/logic as the real product](#headless-products-surface-datalogic-as-the-real-product) (same expose-a-clean-shared-format instinct, here as a design tool's rendering engine)
 
+### Train the muscle: force a habit of deferring to Claude with screenshots
+Grace recommends a simple forcing function—set a Slack/Calendar reminder to screenshot whatever you're doing and ask Claude to help—because Claude can infer context from images without typed prompts. She uses this habit to build the routine of 'defaulting to Claude,' which she finds is the real adoption hurdle, not technical complexity. The practice converts occasional use into muscle memory and surfaces quick wins that keep people engaged.
+— How I AI · 2026-08-10 · guest: Grace Clark · [▶ 10:56](https://www.youtube.com/watch?v=o_eg2TtXAO0&t=656) · `pi-o_eg2TtXAO0-03`
+related: [Developers are adopting personal agents as private productivity coaches.](#developers-are-adopting-personal-agents-as-private-productivity-coaches) (same defaulting-to-the-agent adoption habit, here as a screenshot-triggered forcing function rather than an always-on coach)
+
+### HTML (interactive branded pages) is the practical output for client UX
+Rather than static docs, Grace builds branded, password‑protected HTML artifacts (proposals, onboarding pages, interactive prework) that clients can log into and interact with; these pages reflect conversation context and increase perceived service quality. She treats HTML as the successor to markdown for visualization — it personalizes communication and acts as both deliverable and demonstration of what AI-enabled work can look like.
+— How I AI · 2026-08-10 · guest: Grace Clark · [▶ 16:27](https://www.youtube.com/watch?v=o_eg2TtXAO0&t=987) · `pi-o_eg2TtXAO0-04`
+related: theme → [Agent engineering & production infra](agent-engineering-patterns.md#build-design-tools-on-htmlcss-so-agents-and-humans-share-a-language) (Paper's HTML/CSS-as-shared-language bet is the design-tool version of the same "HTML is the new markdown" instinct, here applied to client-facing deliverables)
+
+### Rebuild the company around long-running agents, not workflows.
+Kavak decided to design the firm as a system of persistent, goal-driven agents — one per customer — rather than bolting chatbots onto existing processes. Each agent holds memory of years of interactions, has long-term objectives (e.g., maximize lifetime value), and can call company APIs to act autonomously; this architectural choice required reworking APIs and data flows so agents can perform end-to-end tasks. The non-obvious payoff is that this lets the company optimize relationships over time instead of treating every contact as an isolated transaction.
+— a16z · 2026-08-10 · guest: Ali (Kavak) · [▶ 3:22](https://www.youtube.com/watch?v=n34CIw3gk1k&t=202) · `pi-n34CIw3gk1k-01`
+related: [Some agents already perform employee-level work](#some-agents-already-perform-employee-level-work) (same production-labor-substitute pattern, here as a persistent one-agent-per-customer architecture rather than a marketing/ops agent)
+
+### Superficial adoption yields small gains; rebuilding can unlock 10x value.
+Ali argues that simply adding AI to legacy structures produces marginal (single-digit percent) improvements; to get 3x+ productivity you must redesign processes and organization around the new capability, the same way factories were redesigned for electricity. This is the basis for creative destruction: incumbents that only adopt superficially will be outcompeted by new entrants built natively around agentic AI, so founders should consider deep, vertical designs rather than horizontal add-ons.
+— a16z · 2026-08-10 · guest: Ali (Kavak) · [▶ 5:19](https://www.youtube.com/watch?v=n34CIw3gk1k&t=319) · `pi-n34CIw3gk1k-05`
+related: [Rebuild the company around long-running agents, not workflows.](#rebuild-the-company-around-long-running-agents-not-workflows) (same episode — this is the "why redesign matters" companion claim to the persistent-agent architecture decision)
+
 ## Open questions
 - If every useful agent needs a human "gardener," is the FDE-replacement roadmap (`pi-2Ap1dnv-GXA-05`) optimistic on timing, or does the gardener role just migrate to fewer, higher-leverage people? Replit's "engineer-as-shepherd" framing (`pi-RdalLtvn2-M-05` in Leadership) is the strongest version of the second answer.
 
@@ -382,6 +402,8 @@ related: [Make separate 'human' and 'machine' versions of sites for agents](#mak
 - [Product discovery & strategy](product-discovery-and-strategy.md) — data/workflow context as the moat behind agent value
 
 ## Source episodes
+- [How I AI — Claude Code for normal people: skills, voice mode, and how to collaborate with AI (2026-08-10)](../episodes/2026/2026-08-10--howiai--claude-code-for-normal-people-skills-voice-mode.md)
+- [a16z — Kavak's Playbook for Rebuilding a Company Around AI (2026-08-10)](../episodes/2026/2026-08-10--a16z--kavaks-playbook-rebuilding-company-around-ai.md)
 - [Y Combinator — How To Design In The Agent Era (2026-08-07)](../episodes/2026/2026-08-07--yc--how-to-design-in-the-agent-era.md)
 - [Y Combinator — Garry Tan: "Personal AGI Is How You Stay Under Your Own Power" (2026-08-06)](../episodes/2026/2026-08-06--yc--garry-tan-personal-agi-stay-under-own-power.md)
 - [SaaStr AI — The Agents #12 - Our AI Agent Rewrote Our App Without Telling Us (2026-08-05)](../episodes/2026/2026-08-05--saastr--the-agents-12-our-ai-agent-rewrote-our-app.md)
