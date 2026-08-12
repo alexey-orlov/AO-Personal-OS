@@ -16,7 +16,29 @@ Why: it's a Ukrainian company and not a software-product business. Naming it bre
 
 Rules for using it: only when a "what are you doing now" question actually needs an answer; keep it at exactly that altitude; never name the company; never write it into a CV, profile, application, or message. It is a deliberate reframe — adjacent to the real engagement, not a literal description of it — so don't elaborate it with invented specifics (headcount, clients, metrics, dates). The standing **written** framing for the same period is "fractional product leader for agentic-AI B2B startups" (see the recruiter story below).
 
-Cross-checked in-repo (2026-08-12): two skill assets modelled the wrong framing and were corrected — `message-writing/references/linkedin.md` (a worked outreach example reading "Currently CPO at GigaCloud") and `re-engagement-outreach/SKILL.md` (a campaign-angle example). Already clean: `message-writing/references/profile.md` and the cv-tailor references (`cv-inventory.md`, `career-detail.md`), which frame the current period as fractional work. Not verifiable from here: the **master CV** and the **live LinkedIn profile** — Alex should confirm both himself. Re-check any new outward-facing asset against this rule before it ships.
+Cross-checked in-repo (2026-08-12): two skill assets modelled the wrong framing and were corrected — `message-writing/references/linkedin.md` (a worked outreach example reading "Currently CPO at GigaCloud") and `re-engagement-outreach/SKILL.md` (a campaign-angle example). Already clean: `message-writing/references/profile.md` and the cv-tailor references (`cv-inventory.md`, `career-detail.md`), which frame the current period as fractional work. **Master CV verified clean 2026-08-12** (read directly from Drive — see Canonical assets below). Still not verifiable by an agent: the **live LinkedIn profile** (bot-gated) — Alex should confirm that one himself. Re-check any new outward-facing asset against this rule before it ships.
+
+## Canonical assets — always pull the live version
+
+The artefacts a recruiter, hiring manager, or agent may need. **Open the link; never answer from a cached copy or from memory** — Alex edits these outside the repo, so anything in-repo is a snapshot, not the truth.
+
+| Asset | Link | Notes |
+|---|---|---|
+| **CV — master (.docx)** | [Google Doc](https://docs.google.com/document/d/16ZB7bDnjzpmpE0wnU9wq6pSOu1aS0c60/edit) · Drive id `16ZB7bDnjzpmpE0wnU9wq6pSOu1aS0c60` | **Source of truth.** `Alex Orlov_new.docx`, modified 2026-04-09. The base `cv-tailor` downloads for every tailored run. |
+| **CV — PDF (the one he sends)** | [Drive PDF](https://drive.google.com/file/d/1YNG1kkJO7rSoxo-1tKSQW8qam9jwC-5K/view) · short link **https://bit.ly/cv-aorlov** · id `1YNG1kkJO7rSoxo-1tKSQW8qam9jwC-5K` | `Alex_Orlov_CV.pdf`, modified 2026-03-11. |
+| **LinkedIn** | https://linkedin.com/in/aorlov | The primary public profile. |
+| **Portfolio** | https://alexorlov.co | Live (200, checked 2026-08-12). Most dated of the three, lowest priority — see rules below before sending it. |
+| Tailored CVs (output) | Drive folder **Custom CVs**, id `1ykh5bp4QMf6W0lftJwVnUpAdWG6RfBdF` | Where `/cv-tailor` delivers per-JD versions. |
+
+**Which link to send in a message** is governed by `.claude/skills/message-writing/references/profile.md` (that file owns outbound usage — e.g. don't attach the CV to cold outreach; the portfolio only when work samples are actually wanted). **This table owns which file is current.** Keep the two in sync when either changes.
+
+**Agent verification, 2026-08-12** (read against the live files, not inferred):
+
+- `bit.ly/cv-aorlov` resolves to the PDF above — same artefact, no third version in play.
+- The **PDF trails the master docx by one revision** (2026-03-11 vs 2026-04-09). Only the About paragraph's opening differs: master reads "Built B2B SaaS MarTech platform … Creatio (unicorn no-code workflow automation platform)", PDF reads "Built marketing automation platform … Creatio (unicorn in no-code CRM & workflow automation)". Roles, dates, and every number are identical, so the sent link is not misleading — but **re-exporting the PDF from the master** would close the gap.
+- ✅ **GigaCloud does not appear in the master CV.** The current period reads "Fractional CPO, multiple agentic AI startups & enterprises (July 2024 — NOW)" with Code Maestro and SoftServe R&D beneath it — exactly the sanctioned written framing. The hard exclusion holds on this asset.
+- ⚠️ **The Creatio growth figure disagrees between assets.** The CV (docx *and* PDF) says Creatio grew **"$10 to $80M"**; this doc, the message-writing blurbs, and the story Alex told on the TitanX screen all say **"$10M → $70M"**. It's a number he says out loud in interviews, so the mismatch is worth resolving — **Alex picks the correct figure**, then it gets aligned across CV, positioning, and blurbs in one pass. Nothing was changed unilaterally.
+- ⚠️ **The CV carries no location line at all**, while the public positioning is "San Francisco, CA". Deliberate omission or a gap — Alex's call.
 
 ## Public positioning (what goes out)
 
@@ -35,7 +57,7 @@ Confidential framing notes — for shaping strategy only, never to appear in a m
 ## Story for recruiters (short version)
 
 Background:
-- 10 years at **Creatio** (workflow automation & CRM unicorn) — grew $10M → $70M, as Head of Product / Director PM / SVP.
+- 10 years at **Creatio** (workflow automation & CRM unicorn) — grew $10M → $70M, as Head of Product / Director PM / SVP. ⚠️ The CV says **$80M** for the same span — unresolved, see Canonical assets above; use one figure consistently until Alex settles it.
 - **CPO at Jooble** — new HR-tech products, product innovation.
 - Most recently **fractional product leader** for agentic-AI B2B startups.
 - Tech background (CS/DS), 14 years in software products.

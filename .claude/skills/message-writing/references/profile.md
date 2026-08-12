@@ -12,6 +12,8 @@ Source of truth for the links Alex shares and the background blurbs he uses. Pul
 | CV         | https://bit.ly/cv-aorlov                         |
 | Portfolio  | alexorlov.co (https://alexorlov.co)              |
 
+**This file owns *when and how* to share these links.** Which underlying file is current — the CV master docx vs. the shareable PDF that `bit.ly/cv-aorlov` resolves to, their Drive ids, and their last-modified dates — is owned by `context/areas/job-search/positioning.md` § Canonical assets. Keep the two in sync: if a link here changes, update that table too.
+
 **Per-asset usage rules:**
 
 - **Calendly.** Paste the full URL when proposing meeting times or handing off scheduling, on any channel. Default pattern: "feel free to pick a time that works for you here in my Calendly: [URL] (or let me know if nothing works)" - the parenthetical safety valve is his real phrasing; keep it. In HTML email drafts, wrap the URL itself in an `<a>` tag so it stays visible AND clickable: `<a href="https://calendly.com/a-orlov/online-meeting">https://calendly.com/a-orlov/online-meeting</a>`.
