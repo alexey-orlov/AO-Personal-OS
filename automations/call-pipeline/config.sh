@@ -65,8 +65,14 @@ export MAX_TRIES="3"
 # 2026-07-30 incident): if CloudRecordings.db-wal goes unwritten for this many
 # hours, the watcher restarts VoiceMemos.app + voicememod (max one kick per
 # 24h) and sends a Telegram alert when a kick doesn't help within a day.
-# 0 = guard off.
+# 0 = signal off.
 export SYNC_STALE_HOURS="72"
+# Second guard signal (2026-08-12 incident): newest-.m4a age. An app relaunch
+# or reboot rewrites the wal WITHOUT importing, so wal-freshness alone read a
+# wedged sync as healthy for a week. No new .m4a for this many hours => same
+# kick/cooldown/alert path; recovery needs BOTH signals fresh. A genuinely
+# quiet stretch trips it too — the alert hedges for that. 0 = signal off.
+export M4A_STALE_HOURS="96"
 export AUTO_GIT="1"        # 1 = auto commit+push each note, 0 = off
 
 # Context-wiki step: fold each new call note into context/ (project pages +

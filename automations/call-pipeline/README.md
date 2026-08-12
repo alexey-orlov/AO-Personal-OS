@@ -73,12 +73,18 @@ A PID in the left column = running. Missing/`-` = not running → `launchctl loa
 **Voice Memos sync staleness guard.** A long-running `VoiceMemos.app`/`voicememod`
 can silently stop importing from iCloud while the watcher looks healthy
 (2026-07-30 incident: 9 days of recordings missed). `watch.sh` therefore runs an
-hourly check via `sync_guard.sh`: if `CloudRecordings.db-wal` hasn't been written
-for `SYNC_STALE_HOURS` (config.sh, default 72; `0` disables), it restarts the app
-stack — quit by bundle id, kill `voicememod`, relaunch hidden — never while an
-`.m4a` is open for write, max one kick per 24h. If the wal is still stale a day
-after a kick, it alerts on Telegram (General topic) with the manual fix. Events
-log to `.work/state/sync_guard.log`; episode markers are
+hourly check via `sync_guard.sh` on TWO signals — either one triggers: (1)
+`CloudRecordings.db-wal` unwritten for `SYNC_STALE_HOURS` (config.sh, default 72;
+`0` disables); (2) no new `.m4a` for `M4A_STALE_HOURS` (default 96; `0` disables)
+— added after the 2026-08-12 incident, where a reboot's app relaunch rewrote the
+wal without importing, so signal 1 read a still-wedged sync as "recovered" for a
+week. On either: restart the app stack — quit by bundle id, kill `voicememod`,
+relaunch hidden — never while an `.m4a` is open for write, max one kick per 24h.
+Still suspect a day after a kick ⇒ Telegram alert (General topic) with the manual
+fix; the wording hedges because a genuinely quiet stretch (nothing recorded for
+4+ days) also trips signal 2 — expect at most one benign alert per such stretch.
+Recovery (BOTH signals fresh) clears the episode. Events log to
+`.work/state/sync_guard.log`; episode markers are
 `.work/state/sync_guard_kicked` / `_alerted` (cleared on recovery). Manual check
 right now (no hourly gate):
 
@@ -87,7 +93,7 @@ right now (no hourly gate):
     SYNC_GUARD_DRYRUN=1 ./sync_guard.sh   # look only, no kick / no alert
 
 `sync_guard.sh` (like `watch.sh`/`config.sh`) is read once by the long-lived
-agent — after editing it or changing `SYNC_STALE_HOURS`, reload:
+agent — after editing it or changing `SYNC_STALE_HOURS`/`M4A_STALE_HOURS`, reload:
 `launchctl unload ~/Library/LaunchAgents/com.user.callpipeline.plist && launchctl load ~/Library/LaunchAgents/com.user.callpipeline.plist`.
 
 **After a macOS major upgrade:** TCC can reset. Re-check Full Disk Access for `/bin/bash` and `claude`, restart the agent, and if Claude Code misbehaves run `rm -rf /tmp/claude-$(id -u)`.

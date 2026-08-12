@@ -15,30 +15,43 @@
 #
 # Behavior (sync_guard_tick, called every watcher tick, ~one stat call):
 #   - At most once per SYNC_GUARD_CHECK_SECS (default 3600) run a real check.
-#   - If CloudRecordings.db-wal mtime is older than SYNC_STALE_HOURS
-#     (config.sh, default 72; 0 disables the guard): restart the stack —
-#     AppleScript-quit by BUNDLE ID (the name "Voice Memos" does not resolve
-#     on this Mac), kill voicememod, relaunch hidden with
-#     `open -gj -b com.apple.VoiceMemos`. Never while an .m4a is open for
-#     write (recording/export in flight). Max one kick per
+#   - TWO staleness signals; either one marks the sync "suspect":
+#       1. CloudRecordings.db-wal mtime older than SYNC_STALE_HOURS
+#          (config.sh, default 72; 0 disables this signal) — CloudKit
+#          activity stopped altogether.
+#       2. Newest .m4a mtime older than M4A_STALE_HOURS (config.sh, default
+#          96; 0 disables this signal) — added after the 2026-08-12 incident:
+#          an app relaunch (here: the Aug 11 reboot) rewrites the wal WITHOUT
+#          importing, resetting signal 1, so a wedged sync read as
+#          "recovered" while a week of recordings sat unfetched. Files on
+#          disk can't be faked by a relaunch. A genuinely quiet stretch
+#          (nothing recorded for days) trips it too — accepted cost: the
+#          alert wording hedges for that and fires once per episode.
+#   - Suspect: restart the stack — AppleScript-quit by BUNDLE ID (the name
+#     "Voice Memos" does not resolve on this Mac), kill voicememod, relaunch
+#     hidden with `open -gj -b com.apple.VoiceMemos`. Never while an .m4a is
+#     open for write (recording/export in flight). Max one kick per
 #     SYNC_KICK_COOLDOWN_HOURS (default 24).
-#   - Still stale one full cooldown after a kick => Telegram alert (General
+#   - Still suspect one full cooldown after a kick => Telegram alert (General
 #     topic) naming cause + manual fix — the repo hard rule that automations
 #     surface their own failures. Once per wedge episode; a failed send is
 #     retried at the next cooldown expiry. A send failure never breaks the
 #     watcher.
-#   - When the wal goes fresh again: clear episode state, log "recovered".
+#   - Recovery = BOTH signals fresh: clear episode state, log "recovered".
+#     (A long quiet stretch keeps the episode open via signal 2: kicks stay
+#     cooldown-limited and the single alert has already fired — no spam.)
 #
 # State in $STATE: sync_guard_checked (hourly gate), sync_guard_kicked +
 # sync_guard_alerted (episode markers; mtime = when), sync_guard.log
 # (persistent event log — /tmp watcher logs get reaped every ~3 days).
-#
-# Known blind spot: if merely relaunching the app rewrites the wal without
-# actually importing, a still-broken sync reads as "recovered" and the alert
-# never fires (guard then just re-kicks every ~SYNC_STALE_HOURS). Next
-# hardening step if that's ever observed: track newest-.m4a mtime too.
 
 _sg_mtime() { stat -f%m "$1" 2>/dev/null || echo 0; }
+
+_sg_newest_m4a_mtime() {
+  # Newest .m4a mtime under the store; empty if none. One batched stat, and
+  # only on the hourly real check — cheap at a few hundred files.
+  find "$VOICE_MEMOS_DIR" -name '*.m4a' -type f -exec stat -f%m {} + 2>/dev/null | sort -rn | head -1
+}
 
 sync_guard_log() {
   # Watcher stdout (/tmp log) AND the persistent event log, timestamped.
@@ -89,10 +102,10 @@ sync_guard_kick() {
 }
 
 sync_guard_alert() {
-  local wal_ts="$1" age_h="$2"
+  local detail="$1"
   local sender="${REPO_ROOT:-}/automations/telegram/telegram_send.sh" msg
   if [ "${SYNC_GUARD_DRYRUN:-0}" = "1" ]; then
-    sync_guard_log "DRY-RUN: would send Telegram alert (wal ${age_h}h stale)"
+    sync_guard_log "DRY-RUN: would send Telegram alert ($detail)"
     return 0
   fi
   if [ ! -x "$sender" ]; then
@@ -102,14 +115,14 @@ sync_guard_alert() {
   msg="$(cat <<EOF
 ⚠️ Call pipeline: Voice Memos iCloud sync looks WEDGED on the Mac
 
-CloudRecordings.db-wal last written ${wal_ts} (~${age_h}h ago; threshold ${SYNC_STALE_HOURS:-72}h). An automatic restart of VoiceMemos.app + voicememod ~${SYNC_KICK_COOLDOWN_HOURS:-24}h ago did not revive it. iPhone recordings since ${wal_ts} are likely NOT reaching the pipeline — unless there simply were none.
+${detail} An automatic restart of VoiceMemos.app + voicememod ~${SYNC_KICK_COOLDOWN_HOURS:-24}h ago did not revive it. iPhone recordings are likely NOT reaching the pipeline — unless there simply were none to sync.
 
 Manual fix on the Mac:
 osascript -e 'quit app id "com.apple.VoiceMemos"'
 pkill -x voicememod
 open -gj -b com.apple.VoiceMemos
 
-Then open Voice Memos on the iPhone once and check for new .m4a files in the Recordings folder. Details: automations/call-pipeline/CLAUDE.md → Environment gotchas.
+Then open Voice Memos on the iPhone once (that also pushes pending uploads) and check for new .m4a files in the Recordings folder. Details: automations/call-pipeline/CLAUDE.md → Environment gotchas.
 EOF
 )"
   # No TG_TOPIC => General topic (deliberate). Non-fatal by contract.
@@ -117,36 +130,58 @@ EOF
 }
 
 sync_guard_check() {
-  local stale_h="${SYNC_STALE_HOURS:-72}" cooldown_h="${SYNC_KICK_COOLDOWN_HOURS:-24}"
+  local stale_h="${SYNC_STALE_HOURS:-72}" cooldown_h="${SYNC_KICK_COOLDOWN_HOURS:-24}" m4a_stale_h="${M4A_STALE_HOURS:-96}"
   local kicked="$STATE/sync_guard_kicked" alerted="$STATE/sync_guard_alerted"
-  local now wal wal_m age_s age_h last_kick wal_ts
-  case "$stale_h"    in ''|*[!0-9]*) stale_h=72    ;; esac
-  case "$cooldown_h" in ''|*[!0-9]*) cooldown_h=24 ;; esac
-  if [ "$stale_h" -eq 0 ]; then return 0; fi
-
-  wal="$VOICE_MEMOS_DIR/CloudRecordings.db-wal"
-  if [ ! -f "$wal" ]; then wal="$VOICE_MEMOS_DIR/CloudRecordings.db"; fi
-  if [ ! -f "$wal" ]; then
-    sync_guard_log "CloudRecordings.db(-wal) not found under $VOICE_MEMOS_DIR — cannot judge staleness"
-    return 0
-  fi
+  local now wal wal_m wal_age_h wal_stale m4a_m m4a_age_h m4a_stale reason detail last_kick
+  case "$stale_h"     in ''|*[!0-9]*) stale_h=72     ;; esac
+  case "$cooldown_h"  in ''|*[!0-9]*) cooldown_h=24  ;; esac
+  case "$m4a_stale_h" in ''|*[!0-9]*) m4a_stale_h=96 ;; esac
+  if [ "$stale_h" -eq 0 ] && [ "$m4a_stale_h" -eq 0 ]; then return 0; fi
 
   now="$(date +%s)"
-  wal_m="$(_sg_mtime "$wal")"
-  age_s=$(( now - wal_m ))
-  if [ "$age_s" -lt 0 ]; then age_s=0; fi
-  age_h=$(( age_s / 3600 ))
+  wal_stale=0; m4a_stale=0; reason=""; detail=""
 
-  if [ "$age_s" -lt $(( stale_h * 3600 )) ]; then
+  # Signal 1: wal write age — CloudKit activity stopped altogether.
+  wal="$VOICE_MEMOS_DIR/CloudRecordings.db-wal"
+  if [ ! -f "$wal" ]; then wal="$VOICE_MEMOS_DIR/CloudRecordings.db"; fi
+  if [ -f "$wal" ]; then
+    wal_m="$(_sg_mtime "$wal")"
+    wal_age_h=$(( (now - wal_m) / 3600 ))
+    if [ "$wal_age_h" -lt 0 ]; then wal_age_h=0; fi
+    if [ "$stale_h" -gt 0 ] && [ "$wal_age_h" -ge "$stale_h" ]; then
+      wal_stale=1
+      reason="wal stale ${wal_age_h}h (threshold ${stale_h}h)"
+      detail="CloudRecordings.db-wal last written $(date -r "$wal_m" '+%Y-%m-%d %H:%M' 2>/dev/null || echo unknown) (~${wal_age_h}h ago; threshold ${stale_h}h)."
+    fi
+  else
+    sync_guard_log "CloudRecordings.db(-wal) not found under $VOICE_MEMOS_DIR — cannot judge wal staleness"
+  fi
+
+  # Signal 2: newest-.m4a age — catches the relaunch-rewrites-wal blind spot
+  # (2026-08-12 incident): a fresh-looking wal with no file landing for days.
+  if [ "$m4a_stale_h" -gt 0 ]; then
+    m4a_m="$(_sg_newest_m4a_mtime)"
+    if [ -n "$m4a_m" ] && [ "$m4a_m" -gt 0 ] 2>/dev/null; then
+      m4a_age_h=$(( (now - m4a_m) / 3600 ))
+      if [ "$m4a_age_h" -lt 0 ]; then m4a_age_h=0; fi
+      if [ "$m4a_age_h" -ge "$m4a_stale_h" ]; then
+        m4a_stale=1
+        reason="${reason:+$reason; }no new .m4a for ${m4a_age_h}h (threshold ${m4a_stale_h}h)"
+        detail="${detail:+$detail }Newest recording on the Mac is from $(date -r "$m4a_m" '+%Y-%m-%d %H:%M' 2>/dev/null || echo unknown) (~${m4a_age_h}h ago; threshold ${m4a_stale_h}h) — nothing has imported since."
+      fi
+    fi
+  fi
+
+  if [ "$wal_stale" -eq 0 ] && [ "$m4a_stale" -eq 0 ]; then
     if [ -e "$kicked" ] || [ -e "$alerted" ]; then
-      sync_guard_log "recovered — $(basename "$wal") fresh again (${age_h}h old); clearing kick/alert state"
+      sync_guard_log "recovered — wal and newest-.m4a both fresh; clearing kick/alert state"
       rm -f "$kicked" "$alerted"
     fi
     return 0
   fi
 
   if sync_guard_recording_active; then
-    sync_guard_log "wal stale (${age_h}h) but an .m4a is open for write / freshly touched — skipping kick"
+    sync_guard_log "suspect ($reason) but an .m4a is open for write / freshly touched — skipping kick"
     return 0
   fi
 
@@ -157,16 +192,15 @@ sync_guard_check() {
 
   # A kick a full cooldown ago didn't help — surface it before re-kicking.
   if [ -e "$kicked" ] && [ ! -e "$alerted" ]; then
-    wal_ts="$(date -r "$wal_m" '+%Y-%m-%d %H:%M' 2>/dev/null || echo unknown)"
-    if sync_guard_alert "$wal_ts" "$age_h"; then
+    if sync_guard_alert "$detail"; then
       touch "$alerted"
-      sync_guard_log "ALERT sent — still stale ${age_h}h after a kick"
+      sync_guard_log "ALERT sent — still suspect ($reason) a full cooldown after a kick"
     else
-      sync_guard_log "ALERT send FAILED — still stale ${age_h}h after a kick; will retry next cycle"
+      sync_guard_log "ALERT send FAILED — still suspect ($reason); will retry next cycle"
     fi
   fi
 
-  sync_guard_log "wal stale ${age_h}h (threshold ${stale_h}h) — restarting VoiceMemos.app + voicememod"
+  sync_guard_log "$reason — restarting VoiceMemos.app + voicememod"
   sync_guard_kick
   touch "$kicked"
   return 0
