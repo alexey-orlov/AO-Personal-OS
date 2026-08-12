@@ -30,7 +30,7 @@ never to invent. Everything here is defensible cold in an interview. Pair with `
    architecture + best-in-class CI/CD** → seamless monthly releases of 400+ apps with low adoption
    friction in highly customized enterprise envs. **200+ developers, 50+ standalone commercial
    solutions; 60%+ of customers used ≥1 app within 2 years.** Drove positioning shift CRM → no-code
-   platform; new line of business, **up to ~4% of revenue in 2 years.**
+   platform; became a **new line of business & additional revenue stream.**
 3. **No-code ML engine for CRM apps** — ML predictive engine for sales/marketing/service. **Key angle:
    delivered on the no-code vision so "citizen developers" customize AI/ML with no programming.** Tasks:
    classification (auto-routing/categorizing support cases), predictive scoring & forecasting (lead
