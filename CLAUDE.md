@@ -26,7 +26,7 @@ Currently job-searching for product leadership roles (VP Product / CPO) at US co
 
 **Roles**
 
-- CPO — GigaCloud (cloud infrastructure) (current)
+- CPO — GigaCloud (cloud infrastructure) (current) — ⛔ **INTERNAL ONLY, never mentioned externally** (see the hard rule below)
 
 - Product advisor / Distinguished R&D advisor — SoftServe (current)
 
@@ -35,6 +35,8 @@ Currently job-searching for product leadership roles (VP Product / CPO) at US co
 - CPO, Innovations — Jooble (former)
 
 - VP of Product — Creatio (former)
+
+⛔ **Hard rule — GigaCloud is NEVER mentioned in anything external-facing.** Not in the CV, LinkedIn profile or DMs, outreach, applications, recruiter screens, interview answers, bios, or any draft generated for me. It's a Ukrainian company and not a software-product business, so naming it breaks the SF framing and reads as off-target for a US B2B SaaS product-leadership search. The only sanctioned substitute, **spoken in interviews only**, is "a fractional project helping a European tech company (infrastructure provider) build an AI-enabled org" — never written down, never elaborated with invented specifics, never company-named. In writing, the current period is "fractional product leader for agentic-AI B2B startups". Full rule + rationale: `context/areas/job-search/positioning.md`.
 
 **Context:** Kyiv-based in fact, but position myself as San Francisco-based for US audience (open to relocate across the US; never mention Ukraine externally); works in EN/UA/RU languages. Domain depth in enterprise B2B SaaS, product expansion, agentic AI. Full job-search positioning (public vs. backend framing, recruiter story, target roles) lives in `context/areas/job-search/positioning.md` — pull from there.
 

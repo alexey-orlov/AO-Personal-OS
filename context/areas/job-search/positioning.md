@@ -1,6 +1,22 @@
 # Job search — positioning & context
 
+_updated: 2026-08-12_
+
 Durable reference for Alex's current job search (product leadership roles — VP Product / CPO — at US companies). Source of truth for how to position him in outreach, applications, interview prep, and any externally-facing artefact. Pull from here; don't re-ask.
+
+## ⛔ Hard exclusion — GigaCloud is NEVER mentioned
+
+**GigaCloud does not exist in any external-facing artefact.** Not in the CV, not on the LinkedIn profile, not in DMs, outreach, applications, recruiter screens, interview answers, bios, or any generated draft. No exceptions, and never as a "small" aside.
+
+Why: it's a Ukrainian company and not a software-product business. Naming it breaks the San Francisco framing **and** reads as off-target experience for a US B2B SaaS product-leadership search.
+
+**The only sanctioned substitute — spoken, in interviews only:**
+
+> a fractional project helping a European tech company (infrastructure provider) build an AI-enabled org
+
+Rules for using it: only when a "what are you doing now" question actually needs an answer; keep it at exactly that altitude; never name the company; never write it into a CV, profile, application, or message. It is a deliberate reframe — adjacent to the real engagement, not a literal description of it — so don't elaborate it with invented specifics (headcount, clients, metrics, dates). The standing **written** framing for the same period is "fractional product leader for agentic-AI B2B startups" (see the recruiter story below).
+
+Cross-checked in-repo (2026-08-12): two skill assets modelled the wrong framing and were corrected — `message-writing/references/linkedin.md` (a worked outreach example reading "Currently CPO at GigaCloud") and `re-engagement-outreach/SKILL.md` (a campaign-angle example). Already clean: `message-writing/references/profile.md` and the cv-tailor references (`cv-inventory.md`, `career-detail.md`), which frame the current period as fractional work. Not verifiable from here: the **master CV** and the **live LinkedIn profile** — Alex should confirm both himself. Re-check any new outward-facing asset against this rule before it ships.
 
 ## Public positioning (what goes out)
 
@@ -23,6 +39,8 @@ Background:
 - **CPO at Jooble** — new HR-tech products, product innovation.
 - Most recently **fractional product leader** for agentic-AI B2B startups.
 - Tech background (CS/DS), 14 years in software products.
+
+Do **not** add GigaCloud to this list, in any wording — see the hard exclusion above. The "fractional product leader" line is what covers the current period in writing.
 
 ## Target roles
 

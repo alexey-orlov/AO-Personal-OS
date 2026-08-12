@@ -3,7 +3,7 @@
 _status: active — Zipify Head-of-Product process live; Oxenham Head-of-Product screen done Jul 30; recruiter pipeline + outreach waves running_
 _updated: 2026-08-12_
 
-Positioning (public vs. backend framing, recruiter story, target roles) lives in [positioning.md](positioning.md) — durable doc, never duplicated here.
+Positioning (public vs. backend framing, recruiter story, target roles) lives in [positioning.md](positioning.md) — durable doc, never duplicated here. ⛔ **Hard exclusion: GigaCloud is never mentioned in any external-facing artefact**; interviews use the sanctioned "fractional project with a European infra provider" line only — read the rule before drafting anything outward-facing.
 Written interview answers (product / scale & leadership / industry experience, with impact numbers) live in [docs/interview-experience-qa.md](docs/interview-experience-qa.md) — reusable prep asset for post-interview questionnaires; orig. Sep 2024 for the Drax/Affinity process, so check framing against positioning before reusing verbatim.
 
 ## Snapshot
@@ -28,7 +28,7 @@ Written interview answers (product / scale & leadership / industry experience, w
 
 ## Decisions
 
-- -
+- 2026-08-12 — **GigaCloud is excluded from every external-facing artefact** (CV, LinkedIn, outreach, applications, interviews, bios) — Ukrainian company, not a software-product business, so it breaks the SF framing and reads off-target. Interview-only substitute: "a fractional project helping a European tech company (infrastructure provider) build an AI-enabled org"; written framing stays "fractional product leader for agentic-AI B2B startups". [positioning](positioning.md) (chat, 2026-08-12)
 
 ## Open loops
 
