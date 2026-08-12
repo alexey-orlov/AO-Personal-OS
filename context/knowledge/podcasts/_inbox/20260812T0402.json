@@ -1,0 +1,48 @@
+{
+  "schema": 1,
+  "generatedAt": "2026-08-12T04:02:55.602Z",
+  "runStamp": "20260812T0402",
+  "episodes": [
+    {
+      "videoId": "4YWO4sSRrTE",
+      "videoTitle": "Circleback CEO Ali Haghani: Recording Company Meetings Will Become The Norm",
+      "videoUrl": "https://www.youtube.com/watch?v=4YWO4sSRrTE",
+      "channelName": "Y Combinator",
+      "publishedDate": "2026-08-11",
+      "guests": [
+        "Ali Haghani (CircleBack)"
+      ],
+      "summary": "Ali Haghani, CEO of CircleBack, argues that as LLMs and AI agents take on more work, companies will default to recording and sharing conversational context because agents need that history to act effectively. He explains how CircleBack uses recordings to replace manual workflows (hiring, CRM, prep), the product practices that make automatic notes useful, and the practical guardrails he enforces for AI agents in engineering and ops.",
+      "insights": [
+        {
+          "headline": "Recording meetings will become default because agents need conversational context",
+          "detail": "Haghani says the marginal cost of not recording is rising as LLMs and AI agents are assigned tasks that require historical context; without recordings an agent \"works in isolation\" and makes worse decisions. He argues companies will increasingly \"default to recording everything\" and to sharing context selectively across teams, while investing in controls so sensitive one-on-ones aren't inadvertently broadcast. That shift makes meeting capture a foundational piece of knowledge infrastructure rather than an optional convenience.",
+          "anchorQuote": "I think as LLMs become more capable",
+          "tSeconds": 784,
+          "link": "https://www.youtube.com/watch?v=4YWO4sSRrTE&t=784"
+        },
+        {
+          "headline": "AI meeting notes must be opinionated, precise, and action-focused",
+          "detail": "CircleBack trains evals and prompts to produce notes that read like a person and avoid generic filler — they explicitly eliminate words like \"discussed\" because it adds no value. They also filter action items so things completed during the meeting aren't duplicated as follow-ups, reducing noise and improving signal for teammates. This product discipline is used as a key differentiator: better, concise notes make downstream automation and agent behavior reliable.",
+          "anchorQuote": "we really try to never have our notes say",
+          "tSeconds": 617,
+          "link": "https://www.youtube.com/watch?v=4YWO4sSRrTE&t=617"
+        },
+        {
+          "headline": "Recorded conversation data can replace traditional ATS/CRM workflows",
+          "detail": "Haghani describes using CircleBack as his personal ATS and CRM: person pages show full timelines of emails and meetings, a YC company page aggregates all touchpoints, and action-item views surface outstanding follow-ups. He gave concrete examples — using CircleBack to prep for this interview by auto-reading past emails and meetings, and jumping to customer meeting recordings to extract wishes and tasks — showing recordings can centralize recruitment, sales, and customer feedback workflows.",
+          "anchorQuote": "I kind of use it as my ATS.",
+          "tSeconds": 176,
+          "link": "https://www.youtube.com/watch?v=4YWO4sSRrTE&t=176"
+        },
+        {
+          "headline": "Let agents build code end-to-end, but humans must architect and approve",
+          "detail": "Ali reports heavy use of orchestrating AI agents to write and scaffold code, with his role shifting toward review and high-leverage decisions. However, he enforces strict guardrails: agents can draft copy and implement features, but humans must design architecture and handle security or data-access decisions; for instance, agents never send emails autonomously. This balances productivity gains from automation with the need for human judgment on sensitive or structural work.",
+          "anchorQuote": "Never send an email on its own.",
+          "tSeconds": 746,
+          "link": "https://www.youtube.com/watch?v=4YWO4sSRrTE&t=746"
+        }
+      ]
+    }
+  ]
+}
