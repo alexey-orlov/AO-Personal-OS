@@ -61,11 +61,6 @@ context/areas/job-search/calls/vacancy-interviews/archive-resale/2026-05-22_2246
 context/areas/job-search/calls/vacancy-interviews/titanx/2026-08-12_225046_interview_202608112032153640CB0C.md
 context/areas/job-search/calls/vacancy-interviews/zipify/2026-06-02_181532_interview_202606021729498781C179.md
 context/areas/job-search/docs/archive-resale-case-presentation-transcript.md
-context/areas/job-search/docs/bay-area-relocation/methodology.md
-context/areas/job-search/docs/bay-area-relocation/pipeline/caaspp-data/sb_ca2023_1_csv_v1.txt
-context/areas/job-search/docs/bay-area-relocation/pipeline/caaspp-data/sb_ca2023entities_csv.txt
-context/areas/job-search/docs/bay-area-relocation/pipeline/caaspp-data/sb_ca2025_1_csv_v1.txt
-context/areas/job-search/docs/bay-area-relocation/pipeline/caaspp-data/sb_ca2025entities_csv.txt
 context/areas/job-search/docs/interview-experience-qa.md
 context/areas/laba/docs/softserve-corp-training/PM training program - SoftServe.docx
 context/areas/laba/docs/softserve-corp-training/PM training program - SoftServe.pdf
@@ -87,6 +82,11 @@ context/areas/other/calls/2026-06-09_181634_default_20260609181543.md
 context/areas/other/calls/2026-06-09_182243_default_202606091819404F961B03.md
 context/areas/other/calls/2026-06-09_184114_default_20260608200544C459DDB5.md
 context/areas/other/calls/2026-06-09_184159_default_202606081932498E8D3D90.md
+context/areas/relocation/docs/bay-area-relocation/methodology.md
+context/areas/relocation/docs/bay-area-relocation/pipeline/caaspp-data/sb_ca2023_1_csv_v1.txt
+context/areas/relocation/docs/bay-area-relocation/pipeline/caaspp-data/sb_ca2023entities_csv.txt
+context/areas/relocation/docs/bay-area-relocation/pipeline/caaspp-data/sb_ca2025_1_csv_v1.txt
+context/areas/relocation/docs/bay-area-relocation/pipeline/caaspp-data/sb_ca2025entities_csv.txt
 context/areas/softserve/calls/2026-05-21_190708_default_20260520175738DB70FD14.md
 context/areas/softserve/calls/2026-05-24_175717_default_202605201757381C904D81.md
 context/areas/softserve/calls/2026-06-09_182514_one-on-one_202606091701318AAD9C9F.md

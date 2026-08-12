@@ -10,7 +10,8 @@ Written interview answers (product / scale & leadership / industry experience, w
 ## Snapshot
 
 - Target: product leadership (VP Product / CPO) at US B2B SaaS, ~$5–30M revenue, workflow-automation domains; agentic-AI sweet spot. [positioning](positioning.md)
-- One subproject page per vacancy Alex actually interviews for (auto-created from the first vacancy call), plus outreach and relocation. Live state below.
+- One subproject page per vacancy Alex actually interviews for (auto-created from the first vacancy call) + one for outreach. Live state below.
+- The physical move is a separate area — [relocation](../relocation/README.md) (visa timing, where to live). Don't fold move logistics in here.
 
 ## Subprojects
 
@@ -18,7 +19,6 @@ Written interview answers (product / scale & leadership / industry experience, w
 - [titanx](titanx.md) — CPO (product + CS + product marketing) at an outbound sales-tech/dialer company, ~40 people — early; recruiter screen 2026-08-11, four written answers owed before submission to CEO Justin.
 - [oxenham-head-of-product](oxenham-head-of-product.md) — Head of Product, PE-owned animal-health/livestock-cert SaaS (merged w/ TraceFirst) — early; recruiter screen 2026-07-30, next step awaited.
 - [outreach](outreach.md) — LSN recruiter waves, re-engagement campaigns, recruiter pipeline (Matt Levy) — running.
-- [relocation](relocation.md) — where to live in the US; Bay Area ranking of 220 places complete (Moraga / Alamo / Strawberry top out the equal-weighted score), no place chosen, visa tentatively Sep–Oct 2026.
 - [archive-resale](archive-resale.md) — VP Product — closed (rejected 2026-05-22 at final round; lessons captured).
 
 ## Active threads (cross-vacancy)
@@ -44,7 +44,6 @@ Written interview answers (product / scale & leadership / industry experience, w
 ## Activity
 
 - 2026-08-12 — [canonical assets tabled + verified](positioning.md) — CV master docx / shareable PDF / `bit.ly/cv-aorlov` / LinkedIn / portfolio recorded as pullable links; master CV read against the GigaCloud rule (clean); PDF-vs-master lag, the $70M/$80M mismatch, and the missing location line surfaced (chat, 2026-08-12).
-- 2026-08-12 — [Bay Area relocation ranking](relocation.md) — folded in; 220 places scored on six equal-weighted criteria, Sheet + map + re-runnable pipeline. Built 2026-08-09, had been sitting in `docs/` unfolded since.
 - 2026-08-12 — [interview experience Q&A longread](docs/interview-experience-qa.md) — saved from Alex's GDrive as a reusable prep asset: written answers on product experience, scale & leadership, industry/AI experience (orig. Sep 2024, Drax/Affinity process).
 - 2026-08-11 — [TitanX CPO recruiter screen (Jennifer, Paraform)](calls/vacancy-interviews/titanx/2026-08-12_225046_interview_202608112032153640CB0C.md) → [titanx](titanx.md) — new vacancy; Creatio $10→$70M scaling story and sales-stack depth landed, org-design answer deferred to a written follow-up, company brief thin and second-hand.
 - 2026-07-30 — [Oxenham Head-of-Product screen (Joe Schriner)](calls/vacancy-interviews/_unknown/2026-07-30_164042_interview_20260730160351A5D10919.md) → [oxenham-head-of-product](oxenham-head-of-product.md) — new vacancy, recruiter opportunity-discussion; 0→1 mandate, strong AI-defensibility read.
