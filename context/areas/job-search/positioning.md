@@ -47,6 +47,7 @@ Do **not** add GigaCloud to this list, in any wording — see the hard exclusion
 Product leadership, ideal opportunity:
 - **B2B SaaS** company — especially workflow-automation domains (CRM, BizOps, etc.).
 - ~**$5–30M revenue**; the key product leader, or a 2-level product leader reporting into a VP/CPO in larger orgs.
+- Fit criteria Alex states to recruiters unprompted (2026-08-11, [TitanX screen](calls/vacancy-interviews/titanx/2026-08-12_225046_interview_202608112032153640CB0C.md)): the **CRM / sales-tech space**, **B2B midsize-to-enterprise** customers, and **hands-on ownership alongside strategy** — explicitly *"not just managing managers."*
 
 ## Impact framing
 
