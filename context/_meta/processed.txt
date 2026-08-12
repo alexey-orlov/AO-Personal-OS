@@ -60,6 +60,7 @@ context/areas/job-search/calls/vacancy-interviews/archive-resale/2026-05-22_2239
 context/areas/job-search/calls/vacancy-interviews/archive-resale/2026-05-22_224625_interview_20260423203149112E481A.md
 context/areas/job-search/calls/vacancy-interviews/zipify/2026-06-02_181532_interview_202606021729498781C179.md
 context/areas/job-search/docs/archive-resale-case-presentation-transcript.md
+context/areas/job-search/docs/interview-experience-qa.md
 context/areas/laba/docs/softserve-corp-training/PM training program - SoftServe.docx
 context/areas/laba/docs/softserve-corp-training/PM training program - SoftServe.pdf
 context/areas/laba/docs/softserve-corp-training/SoftServe_PM_Intro_Program_Offer.docx
