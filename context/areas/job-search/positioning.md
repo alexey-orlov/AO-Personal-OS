@@ -74,6 +74,7 @@ Product leadership, ideal opportunity:
 ## Impact framing
 
 - **Never cite stats that read as marginal — they downplay impact** even when the achievement is big (Alex, 2026-08-12). Exemplar: the product ecosystem's "up to 4% of company revenue" is banned (removed from the interview Q&A doc + cv-tailor career reference); frame that result as "new line of business / additional revenue stream" + strong absolutes (200+ developers, 50+ commercial solutions, 60%+ customer adoption). Keep a percentage only when it impresses on its face (~15% of revenue, 10–30% adoption, −30% support cost).
+- **SVP-era scope is "the platform transformation + the ecosystem", never "just the third-party ecosystem"** (Alex, 2026-08-12, TitanX org answer). The headline is the company's transformation from CRM vendor to no-code platform; the developer ecosystem is the mechanism around it. Framing the role as only the ecosystem/marketplace shrinks his biggest strategic story to a side product. Applies to CV bullets, interview answers, and any generated draft touching the SVP role.
 
 ## Sweet-spot challenges & topics
 
