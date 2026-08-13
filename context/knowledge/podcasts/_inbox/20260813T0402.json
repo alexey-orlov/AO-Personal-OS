@@ -1,0 +1,103 @@
+{
+  "schema": 1,
+  "generatedAt": "2026-08-13T04:02:55.546Z",
+  "runStamp": "20260813T0402",
+  "episodes": [
+    {
+      "videoId": "jBGo33Jkids",
+      "videoTitle": "Microsoft’s Vision for an Internet Made for Agents With CTO Kevin Scott (Best of the Pod)",
+      "videoUrl": "https://www.youtube.com/watch?v=jBGo33Jkids",
+      "channelName": "Every",
+      "publishedDate": "2026-08-12",
+      "guests": [
+        "Kevin Scott (Microsoft)"
+      ],
+      "summary": "Kevin Scott (Microsoft CTO) explains that current large models are more capable than the products built from them, creating a \"capability overhang\" that the industry must close. He argues the next wave is an \"agentic web\": simple, open protocols (like MCP and NL Web) plus persistent agent memory, identity and entitlements so agents can act on users' behalf and access distributed resources securely and at scale.",
+      "insights": [
+        {
+          "headline": "Model reasoning outpaces current product usage",
+          "detail": "Scott calls a \"capability overhang\" the situation where the reasoning abilities of models exceed how they're actually used in products. He says that while scaling laws were a hot topic before, the practical work now is to bridge the gap between model capability and the real product-level engineering (memory, tooling, protocols) needed to unlock that capability. Closing that gap will determine how much value users actually get from large models.",
+          "anchorQuote": "the reasoning capabilities of the models has",
+          "tSeconds": 169,
+          "link": "https://www.youtube.com/watch?v=jBGo33Jkids&t=169"
+        },
+        {
+          "headline": "An agentic web needs simple open protocols like HTTP did",
+          "detail": "Scott argues agents will only be broadly useful if there's an ecosystem—protocols and formats—that lets agents discover and interact with diverse services (APIs, sites, data sources) the same way the web did. He points to MCP and NL Web as nascent, lightweight primitives analogous to HTTP/HTML that let providers 'wire up' to an agentic world without heavy vertical integration. If these primitives reach ubiquity, agents can compose capabilities across the internet rather than being locked into single-vendor stacks.",
+          "anchorQuote": "super awesome simple open protocols like MCP",
+          "tSeconds": 333,
+          "link": "https://www.youtube.com/watch?v=jBGo33Jkids&t=333"
+        },
+        {
+          "headline": "Agents require persistent memory and identities to delegate",
+          "detail": "Current agents tend to be transactional and forgetful across sessions, which prevents effective delegation of multi-step or long-running tasks. Scott emphasizes the need for 'agentic memory' and standardized identities/entitlement checks so an agent can say which systems it must touch, request the permissions it needs from the user, and operate coherently over time. Microsoft is pushing for internal standard protocols so teams don't 'ship their org chart' (Conway's law) and to enable consistent agent behavior across services.",
+          "anchorQuote": "we need better agentic memory",
+          "tSeconds": 238,
+          "link": "https://www.youtube.com/watch?v=jBGo33Jkids&t=238"
+        },
+        {
+          "headline": "MCP's simplicity lets the community build security and entitlements",
+          "detail": "Rather than baking a proprietary security model into MCP, Scott says its coherent simplicity makes it easier for the community to layer identities, entitlement flows, and permission prompts on top. He describes concrete patterns: agents having identities, asking users for permission to access specific resources, and having administrators approve agent activity across systems, and even AI-assisted local agents that triangulate suspicious events (he gives his wife's 2FA incident as an example). The implication: open protocols plus standard entitlements can balance permissionless innovation with enterprise-grade safety.",
+          "anchorQuote": "it is so coherently simple",
+          "tSeconds": 624,
+          "link": "https://www.youtube.com/watch?v=jBGo33Jkids&t=624"
+        },
+        {
+          "headline": "Agents will shift from synchronous to asynchronous, long-running work",
+          "detail": "Scott predicts a move away from the current prompt-and-wait interaction model toward agents that run tasks over time—making many calls, integrating diverse responses, iterating, and then reporting progress back to the user. That shift enables agents to coordinate complex workflows (fetching data, modifying systems, negotiating permissions) without the user attending every step, which materially expands the kinds of problems agents can solve. This asynchronous capability depends on the memory, identity, and web plumbing he describes.",
+          "anchorQuote": "from this synchronous mode of interaction",
+          "tSeconds": 1560,
+          "link": "https://www.youtube.com/watch?v=jBGo33Jkids&t=1560"
+        }
+      ]
+    },
+    {
+      "videoId": "fsTtKywmWlU",
+      "videoTitle": "Y Combinator CEO on Founder Psychology in the Age of AI",
+      "videoUrl": "https://www.youtube.com/watch?v=fsTtKywmWlU",
+      "channelName": "a16z",
+      "publishedDate": "2026-08-12",
+      "guests": [
+        "Garry Tan (Y Combinator)"
+      ],
+      "summary": "Garry Tan (Y Combinator) explains how founder psychology — earnestness, courage, and choosing the right people — matters more than chasing trends, and how agentic AI is reshaping company design. He argues founders should build from unique domain knowledge, use agents to turn processes into reusable 'skill files', and that societal adoption of AI will be slower than apocalyptic narratives suggest.",
+      "insights": [
+        {
+          "headline": "Don't chase what's hot; build what you uniquely know",
+          "detail": "The right question for founders is not “what's hot?” but “what are you interested in and what do you know uniquely.” Garry uses his own regrets — leaving web work for Windows Mobile and turning down early Palantir offers — to show that working with people who understand a domain or who you trust yields far better outcomes than following market noise. This matters because founders who build from domain expertise and strong co-founder ties can out-execute trend-followers and create durable advantages.",
+          "anchorQuote": "\"What's hot and what should I work on?\"",
+          "tSeconds": 253,
+          "link": "https://www.youtube.com/watch?v=fsTtKywmWlU&t=253"
+        },
+        {
+          "headline": "Earnestness signals maturity and founder courage",
+          "detail": "What looks like naivety is often earnestness born of experience and conviction: founders who stick to their direct experience resist crowd signals and hostile noise. Garry frames earnestness as a form of courage — the ability to trust your own five years of domain experience against mainstream commentary — which helps founders pursue fringe but high-impact ideas. Recognizing earnestness as a virtue changes hiring, fundraising, and product decisions because it privileges long-term conviction over viral trends.",
+          "anchorQuote": "often when we hear earnest, we think naive,",
+          "tSeconds": 190,
+          "link": "https://www.youtube.com/watch?v=fsTtKywmWlU&t=190"
+        },
+        {
+          "headline": "Agentic 'skill files' can replace middle-management processes",
+          "detail": "Garry describes turning repeatable business processes into markdown + code artifacts that agents can run as cron jobs — 'a markdown file is an employee' — so companies automate tasks from QA to sales escalation. Those skill files carry tests, provenance and feedback loops so errors become bugs to fix rather than human bottlenecks, letting small teams scale to large outputs (he cites startups going from zero to $15M ARR with a few people and hundreds of skill files). This reframes org design: instead of hiring layers of managers to coordinate work, founders can encode and iterate processes via agents.",
+          "anchorQuote": "a markdown file is an employee.",
+          "tSeconds": 1448,
+          "link": "https://www.youtube.com/watch?v=fsTtKywmWlU&t=1448"
+        },
+        {
+          "headline": "Token‑maxed agents let founders 'live in 2028' now",
+          "detail": "By loading very large contexts (hundreds of thousands to a million tokens) into tuned agent stacks like OpenClaw or Hermes, leaders can give their companies near‑future cognitive capacity today — Garry says you 'basically get to live in 2028.' He notes this currently comes with material compute costs (order tens of thousands to low hundreds of thousands of dollars per year at full strength) but gives CEOs outsized decision and product advantages. The implication: early token‑max adopters can dramatically compress product cycles and organizational learning.",
+          "anchorQuote": "you basically get to live in 2028.",
+          "tSeconds": 1384,
+          "link": "https://www.youtube.com/watch?v=fsTtKywmWlU&t=1384"
+        },
+        {
+          "headline": "Bureaucracy will slow AI disruption — a 'white pill'",
+          "detail": "Garry pushes back on doom narratives by pointing out that governments, enterprises, media and organizational inertia are structural brakes: 'these things are going to be slower than you think.' He argues that adoption will take decades (he estimates ~20 years of transformation), giving society time to adapt and opening a path for constructive policy and local action. This tempering view matters because it reframes AI as an extended transition with real opportunity to guide outcomes, not an overnight collapse.",
+          "anchorQuote": "these things are going to be slower than you think.",
+          "tSeconds": 2418,
+          "link": "https://www.youtube.com/watch?v=fsTtKywmWlU&t=2418"
+        }
+      ]
+    }
+  ]
+}
