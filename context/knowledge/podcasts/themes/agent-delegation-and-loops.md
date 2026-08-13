@@ -2,7 +2,7 @@
 
 _status: live theme — overnight delegation patterns, loop design vocabulary, feedback→PR pipelines, memory engineering for sustained runs_
 _slug: agent-delegation-and-loops_
-_updated: 2026-08-10 · 38 insights from 21 episodes · (split from agent-engineering-patterns, 2026-06-25)_
+_updated: 2026-08-13 · 40 insights from 22 episodes · (split from agent-engineering-patterns, 2026-06-25)_
 
 ## The throughline
 Three practitioners — Krieger (Anthropic/Instagram co-founder), the Every software-factory author, and Replit's Amjad Masad — converged independently on what makes sustained agent delegation reliable rather than brittle. The enabling layer is memory engineering: 1M+ token context windows still need domain-aware compaction (delete bug-fix noise, preserve architectural facts, write durable markdown like raffle.md), mono-repo access so agents can grep rather than query-blindly, and nightly closed-loop refinement (Replit's autonomous agent analyzes interaction traces → proposes prompt changes → A/B tests in production → merges what passes sentiment and deploy-rate metrics). On top of that sits the delegation pattern itself: give Fable complex overnight jobs and wake to completions or documented fallbacks; automate the feedback→PR pipeline (batch Slack twice daily → classify → YAML records → Cursor/compound-engineering flow → auto-merge if CI green); use rich recordings (Rifreck: clicks + narration + network errors, not just video) so the model can reason about what to change rather than guess. The loop vocabulary generalizes these patterns: a loop is an autonomous scheduled automation — not a human typing messages — with a trigger (heartbeat / cron / hook) and either a time boundary or a validated success criterion. Goal loops (babysit PRs until merged, CI green) are the power form; they require precise success criteria or they burn tokens on marginal returns. Five composable primitives — work trees (isolation), skills (reusability), connectors (GitHub/Slack/Calendar), sub-agents (federated execution), state tracking (to-do / Linear) — are the building blocks that the other patterns assemble from. Two new data points extend the pattern: OpenAI's merged ChatGPT/Codex surface makes "set rails and let it run" loop delegation accessible to non-programmers (email triage, CSV compilation, negotiation loops), and a design team's soul.md — dumping every meeting transcript into one markdown file as durable project memory — is the same memory-engineering discipline as Replit's raffle.md, now applied outside software engineering. A YC-profiled site also demonstrates the feedback→PR pattern pushed to end users: a public "send to an agent" button turns a visitor's feature request directly into a pull request for human review, extending the internal Slack/Linear-driven pipelines to external-facing product surfaces.
@@ -197,6 +197,16 @@ Grace built a 'pipeline operator' skill that runs once an hour, ingests email, c
 — How I AI · 2026-08-10 · guest: Grace Clark · [▶ 4:47](https://www.youtube.com/watch?v=o_eg2TtXAO0&t=287) · `pi-o_eg2TtXAO0-01`
 related: [You trigger loops three practical ways: heartbeats, crons, and hooks](#you-trigger-loops-three-practical-ways-heartbeats-crons-and-hooks) (same hourly-trigger pattern, here applied to a solo consultant's admin pipeline instead of a Jira triage example)
 
+### Agents require persistent memory and identities to delegate
+Current agents tend to be transactional and forgetful across sessions, which prevents effective delegation of multi-step or long-running tasks. Scott emphasizes the need for "agentic memory" and standardized identities/entitlement checks so an agent can say which systems it must touch, request the permissions it needs from the user, and operate coherently over time. Microsoft is pushing for internal standard protocols so teams don't "ship their org chart" (Conway's law) and to enable consistent agent behavior across services.
+— Every · 2026-08-12 · guest: Kevin Scott (Microsoft) · [▶ 3:58](https://www.youtube.com/watch?v=jBGo33Jkids&t=238) · `pi-jBGo33Jkids-03`
+related: theme → [Agent engineering & production infra](agent-engineering-patterns.md) (Scott's protocol/security argument from the same interview, `pi-jBGo33Jkids-02`, `pi-jBGo33Jkids-04`)
+
+### Agents will shift from synchronous to asynchronous, long-running work
+Scott predicts a move away from the current prompt-and-wait interaction model toward agents that run tasks over time—making many calls, integrating diverse responses, iterating, and then reporting progress back to the user. That shift enables agents to coordinate complex workflows (fetching data, modifying systems, negotiating permissions) without the user attending every step, which materially expands the kinds of problems agents can solve. This asynchronous capability depends on the memory, identity, and web plumbing he describes.
+— Every · 2026-08-12 · guest: Kevin Scott (Microsoft) · [▶ 26:00](https://www.youtube.com/watch?v=jBGo33Jkids&t=1560) · `pi-jBGo33Jkids-05`
+related: [Agents require persistent memory and identities to delegate](#agents-require-persistent-memory-and-identities-to-delegate) (same interview — memory/identity is the enabling layer, async execution is the resulting capability)
+
 ## Related themes
 - [Agent engineering & production infra](agent-engineering-patterns.md) — parent theme; architectural boundaries, security, eval infrastructure, and platform-scale governance that the delegation patterns depend on
 - [Model reviews & benchmarks](model-reviews-and-benchmarks.md) — the reliability wall (last 10%, overnight stalls) that verification workflows address
@@ -204,6 +214,7 @@ related: [You trigger loops three practical ways: heartbeats, crons, and hooks](
 - [Leadership, careers & teams](leadership-careers-and-teams.md) — the human-role shift driven by delegation depth: verification as the new bottleneck, manager-as-IC imperative
 
 ## Source episodes
+- [Every — Microsoft's Vision for an Internet Made for Agents With CTO Kevin Scott (Best of the Pod) (2026-08-12)](../episodes/2026/2026-08-12--every--microsoft-cto-kevin-scott-internet-made-for-agents.md)
 - [How I AI — Claude Code for normal people: skills, voice mode, and how to collaborate with AI (2026-08-10)](../episodes/2026/2026-08-10--howiai--claude-code-for-normal-people-skills-voice-mode.md)
 - [Y Combinator — How To Design In The Agent Era (2026-08-07)](../episodes/2026/2026-08-07--yc--how-to-design-in-the-agent-era.md)
 - [How I AI — How this OpenAI engineer uses Codex + ChatGPT Work to automate everything (2026-08-03)](../episodes/2026/2026-08-03--howiai--openai-engineer-codex-chatgpt-work-automate.md)
