@@ -1,0 +1,11 @@
+{
+  "date": "8/14/2026",
+  "entries": [
+    {"category": "Legs", "exercise": "Жим ногами сидя", "sets": 3, "reps": 10, "w_start": 95, "w_end": 113},
+    {"category": "Legs", "exercise": "ГАКК присед", "sets": 3, "reps": 10, "w_start": 100, "w_end": 120},
+    {"category": "Legs", "exercise": "Сгиб. голени", "sets": 3, "reps": 12, "w_start": 64, "w_end": 68},
+    {"category": "Glutes", "exercise": "Разгиб. бедра в упоре", "sets": 3, "reps": 10, "w_start": 22.5, "w_end": 32},
+    {"category": "Shoulders", "exercise": "Жим на плечи сидя", "sets": 3, "reps": 10, "w_start": 45, "w_end": 54},
+    {"category": "Shoulders", "exercise": "Махи на плечи", "sets": 3, "reps": 10, "w_start": 36, "w_end": 39}
+  ]
+}

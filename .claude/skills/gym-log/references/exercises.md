@@ -21,12 +21,13 @@ spellings show up in the notes. Categories are EN muscle groups.
 | Тяга в упоре | Back | | chest-supported row, plate-loaded; 25→35 (29.07) |
 | Сгиб. на бицепс | Back | Сгибание на бицепс | biceps curl; 7-kg tiles 45/52. Filed under Back as part of the pull day — no Arms category in the sheet yet (same precedent as Жим в брусьях сидя → Chest) |
 | Жим L 45° | Chest | Жим ∠45°, Жим 45° | **Seated 45° press with the ARMS, not a leg press** (Alex, 31.07.26 — applies to every past entry too). The notebook glyph is the angle symbol `∠`, not an "L for legs". 30→40 (20.07), 40→45 (31.07). Sheet row moved into the Chest group on 03.08.26 (merge boundary shifted; `log` matches by name only and never moves rows). A real leg press, if it ever appears, is a NEW exercise |
-| ГАКК присед | Legs | ГАКК приседания, Гакк | hack squat; plate-loaded, 75→120 |
+| ГАКК присед | Legs | ГАКК приседания, Гакк | hack squat; plate-loaded, 75→120; 100/120/120 (14.08) |
+| Жим ногами сидя | Legs | Жим ногами | **Seated leg press** — the first real leg press in the log (14.08.26). NOT related to `Жим L 45°` / `Жим 45° (Смитт)`, which are arm presses despite the similar wording. Plate-loaded, steps of 9: 95/104/113 |
 | Разгиб. голени | Legs | Разгибание голени | leg extension; 7-kg tiles 59/66/73 |
-| Сгиб. голени | Legs | Сгибание голени | leg curl; 59/59/63 seen — stack has small steps at top |
-| Разгиб. бедра в упоре | Glutes | Разгибание бедра | kickback; half-tiles: 22.5/27.5/29.5 |
-| Жим на плечи сидя | Shoulders | Жим сидя на плечи | shoulder press machine; stack 36/41/45 |
-| Махи на плечи | Shoulders | Махи | lateral-raise machine; 32/36 |
+| Сгиб. голени | Legs | Сгибание голени, Сгибание голени сидя | leg curl (seated — «сидя» is just fuller wording for the same machine, weights run continuous: 63 on 29.07 → 64/66/68 on 14.08); stack has small steps at top |
+| Разгиб. бедра в упоре | Glutes | Разгибание бедра | kickback; half-tiles: 22.5/27.5/29.5/32 |
+| Жим на плечи сидя | Shoulders | Жим сидя на плечи | shoulder press machine; stack 36/41/45/50/54 |
+| Махи на плечи | Shoulders | Махи, Махи на плечи в тренаж. | lateral-raise machine; 32/36/39 |
 
 Planned-but-skipped so far (crossed out, never logged): Шаги на плечи,
 «Реверс» (reverse fly — the Сведение рук machine reversed).
@@ -36,7 +37,7 @@ Planned-but-skipped so far (crossed out, never logged): Шаги на плечи
 Warm-up (section I): Dog birds, Бок. планка, Удержание резины / Удерж.
 резины, Ягодичный мост. Format: `2x15`, `2x40"` (seconds).
 
-Crossfit closing (section III): Thrusters (24кг), T2B, Sit-ups, Скакалка,
+Crossfit closing (section III): Thrusters (24–25кг), T2B, Sit-ups, Скакалка,
 Канат, Row (N cal), Pull-ups, Lunges, Burpees, Squats, Протяжка с приседом,
 Hand stand push-ups, Wall-ball. Markers: `(x3)` rounds, `12'` time cap, boxed finish
 time like `11'53"`.

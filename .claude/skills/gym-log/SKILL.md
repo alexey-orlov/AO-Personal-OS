@@ -118,6 +118,13 @@ echo '{"date":"7/22/2026","my_weight":73.6,"entries":[
   matches by name only. Re-categorizing means moving the row into the other
   group by hand in the sheet; say so explicitly instead of assuming the
   payload fixed it.
+- **Put every NEW exercise FIRST in `entries`.** `log` plans each value write
+  the moment it walks that entry, so an entry planned *before* a later row
+  insert that sits *above* it gets written one row off (the known bug in
+  `automations/gym-log/README.md`). Ordering new exercises first makes all
+  inserts happen before any write is planned, so the bug cannot fire — and it
+  is the only defence on the CI route, which applies each payload once and
+  can't do the "re-run to heal" workaround.
 - **Off the Mac (cloud run, fresh clone — no `.work/`)?** It still writes:
   credentials come from the `GYM_SHEETS_TOKEN_JSON` env var and the script
   falls back to a stdlib REST client when the google libs are missing — see
