@@ -1,21 +1,25 @@
 # GigaCloud — CPO
 
-_status: CPO role; first product artifact landed — a requirements-scoping effort for the CREASHO/Krayshu catalog ↔ Billing integration is in flight_
-_updated: 2026-07-21_
+_status: CPO role; Q2'2026 product plan tracked (8 OKRs → 24 Jira epics, single-sheet tracker in docs); catalog ↔ Billing integration requirements-scoping in flight_
+_updated: 2026-08-16_
 
 ## Snapshot
 
 - Alex is CPO at GigaCloud (cloud infrastructure). [CLAUDE.md]
+- Q2'2026 product-dept plan: 2 goals (GTM · Business efficiency) → 3 GTM directions (IaaS · Resell · Services) → 8 OKRs → 24 Jira epics (PG project); tracked via a weekly status deck (Wednesdays) + Miro "Q2'2026 Plans" board. Full status sheet: [docs/2026-q2-product-initiatives.xlsx](docs/2026-q2-product-initiatives.xlsx).
 - Expected note streams (classify Axis 2 → `calls/` subfolders): `product-issues-sukhenko` (recurring weekly), `product-team-weekly`, `other`.
 - Active product problem: automating the CREASHO/Krayshu product-catalog (CRM) → Billing integration, today a semi-manual Excel-over-email + Jira flow. [calls/other/2026-07-21_180038_default_202607171304495CACCF1A.md](calls/other/2026-07-21_180038_default_202607171304495CACCF1A.md)
 
 ## Active threads
+
+- **Q2'2026 initiative tracking.** Tracker built 2026-08-16 from the 12.08 weekly deck + Jira PG timeline + Miro goal breakdown: 20 epics in progress, 1 done (Security Profile Services Enablement, PG-5479), Churn reasons (PG-5481) removed from Q2; deadlines cluster 30.08–30.09. Two Jira epics carry no deck slide — PG-5475 "Коректна маржинальність. Запит на фіксовані ціни" (likely the same per-customer fixed-prices thread being designed with Lyubomir — inferred) and PG-5485 "PLM: Автоматизація контролю коректності цін". [tracker](docs/2026-q2-product-initiatives.xlsx)
 
 - **Catalog ↔ Billing integration — requirements scoping.** Working session (2026-07-21) scoped the business scenarios / edge cases for syncing catalog changes into Billing. Three layers named: (1) catalog data model, (2) an intermediate proxy model in CREASHO that reshapes catalog data into Billing format, (3) business scenarios — this call targeted layer 3. Complexity clusters around **price changes** (transactional model mismatch, GAF/government products, price-upon-request, quote-only, repricing existing customers, per-customer fixed prices). Guidance from Speaker B: don't re-invent the existing working mapping — describe already-implemented scenarios high-level, write a detailed per-scenario flow table only for price changes. → next: Alex collects/structures everything, reviews fresh, returns to Speaker B for clarifications, then takes it to Zhenya (object model + field-level mapping owner). Owner: Mine. [call](calls/other/2026-07-21_180038_default_202607171304495CACCF1A.md)
   - _possible subproject: catalog↔billing integration? — promote to its own page on the next artifact._
 
 ## People
 
+- Product-team PMs (Miro Q2-board owner legend): Анастасія, Едуард, Олексій, Василина. (inferred)
 - Sukhenko — counterpart of the recurring product-issues weekly (inferred from the call taxonomy; no notes yet).
 - Zhenya — owns the object model / field-level catalog→Billing mapping; the requirements write-up goes to him. [call](calls/other/2026-07-21_180038_default_202607171304495CACCF1A.md)
 - Yaroslav — a key requirements person; Speaker B flagged his absence from the 2026-07-21 session. [call](calls/other/2026-07-21_180038_default_202607171304495CACCF1A.md)
@@ -36,4 +40,5 @@ _updated: 2026-07-21_
 
 ## Activity
 
+- 2026-08-16 — [Q2'2026 initiatives tracker](docs/2026-q2-product-initiatives.xlsx) — built the goal-tree × 24-epics status sheet from the 12.08 weekly deck + Jira timeline + Miro Q2 plans board.
 - 2026-07-21 — [catalog↔billing requirements](calls/other/2026-07-21_180038_default_202607171304495CACCF1A.md) — scoped the business scenarios/edge cases for automating the catalog→Billing sync; first GigaCloud product artifact in the OS.
