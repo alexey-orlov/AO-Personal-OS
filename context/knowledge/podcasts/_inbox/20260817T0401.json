@@ -1,0 +1,55 @@
+{
+  "schema": 1,
+  "generatedAt": "2026-08-17T04:01:48.367Z",
+  "runStamp": "20260817T0401",
+  "episodes": [
+    {
+      "videoId": "BV0hy6NET-U",
+      "videoTitle": "OpenAI’s Head of Design: This is the best time in history to be a designer | Ian Silber",
+      "videoUrl": "https://www.youtube.com/watch?v=BV0hy6NET-U",
+      "channelName": "Lenny's Podcast",
+      "publishedDate": "2026-08-16",
+      "guests": [
+        "Ian Silber (OpenAI)"
+      ],
+      "summary": "Ian Silber (Head of Design, OpenAI) explains why AI is simultaneously destabilizing and empowering designers: many feel anxious because expectations and workflows are shifting, but the tools also give designers unprecedented ability to prototype, iterate, and shape product experience. The throughline is that designers who embrace AI, prototype fast, and think in systems will gain outsized influence while humans remain essential for deep user understanding and novel interactions.",
+      "insights": [
+        {
+          "headline": "This is the best time in history to be a designer",
+          "detail": "Silber argues designers today can learn and execute far faster than before: an idea can be turned into a working prototype in minutes using AI tools, lowering the barrier to entry and broadening who can practice design. That amplifies designers' agency at startups and big companies alike, increases demand for design thinking, and makes the human elements of empathy and point of view more valuable as generic craft becomes commoditized.",
+          "anchorQuote": "the best time in history to be a designer",
+          "tSeconds": 824,
+          "link": "https://www.youtube.com/watch?v=BV0hy6NET-U&t=824"
+        },
+        {
+          "headline": "Designers are currently the most anxious and uncertain role",
+          "detail": "A major industry survey found designers and user researchers ranked worst across wellbeing metrics (most overwhelmed, anxious, tired, and least likely to recommend the role). Silber explains why: expectations are unclear, engineers have seen huge productivity multipliers from coding agents while design work remains messy and iterative, and alignment/operational overhead at large companies magnifies the pressure.",
+          "anchorQuote": "designers and user researchers are just the most unhappy",
+          "tSeconds": 167,
+          "link": "https://www.youtube.com/watch?v=BV0hy6NET-U&t=167"
+        },
+        {
+          "headline": "Designers who use AI across the process feel amplified and thrive",
+          "detail": "Silber finds a clear pattern: people enjoying their work most report that AI amplifies them — they use it to generate many ideas, prototype quickly, and iterate, which raises the team's bar and thinking. Practically, teams that treat AI as a prototyping and exploration partner, build community around experimenting, and accept rapid change see creativity and impact increase.",
+          "anchorQuote": "they feel amplified by AI",
+          "tSeconds": 569,
+          "link": "https://www.youtube.com/watch?v=BV0hy6NET-U&t=569"
+        },
+        {
+          "headline": "Roles will blur but specializations and responsibilities still matter",
+          "detail": "While PMs, engineers, and designers increasingly overlap, Silber insists companies still need distinct hats — especially at scale — because responsibilities like alignment, resourcing, and system reliability require focused ownership. His prescription: at early-stage startups hire versatile generalists; at larger orgs keep role clarity but enable fluid collaboration so people can move between disciplines.",
+          "anchorQuote": "there's always been overlap as far as I've seen it",
+          "tSeconds": 1134,
+          "link": "https://www.youtube.com/watch?v=BV0hy6NET-U&t=1134"
+        },
+        {
+          "headline": "Systems thinking and reusable building blocks are now central design skills",
+          "detail": "Because engineering cycles and capabilities are accelerating, Silber urges designers to prioritize durable work: composable primitives, design systems, and platform-level thinking let teams move faster without reinventing UI for every feature. He also recommends 'do less'—favor extending existing components or compostable systems over shipping bespoke features that won't survive rapid platform changes.",
+          "anchorQuote": "systems thinking is becoming more and more important",
+          "tSeconds": 1820,
+          "link": "https://www.youtube.com/watch?v=BV0hy6NET-U&t=1820"
+        }
+      ]
+    }
+  ]
+}
