@@ -1,8 +1,8 @@
 ---
 note: GC Todo
 area: gigacloud
-snapshot: 2026-08-12 08:00
-chars: 19881
+snapshot: 2026-08-17 08:00
+chars: 19919
 scope: above relevance marker
 ---
 GC Todo
@@ -42,6 +42,7 @@ Non-gov
 Удалить чеклисты для гос
 Обновить текущие статусы в чекисте
 Component. Field auto-filling: Hardware details (Comp node, GPU only) + Min margin - поменять версию
+Revisions. Approval - поменять версию
 Product catalogue. Sync gov product - поменять версию после поставки
 Price item: Field calculation helper: Pricing fields - поменять версию после поставки
 Price item. Field auto-filling: current margin, max discount - поменять версию
