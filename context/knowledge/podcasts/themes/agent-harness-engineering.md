@@ -2,7 +2,7 @@
 
 _status: live theme — the discipline of wrapping an AI agent in enforced structure: human-only zones, PR gates, precise workflows, adapters, and local-first context_
 _slug: agent-harness-engineering_
-_updated: 2026-08-10 · 17 insights from 10 episodes · (split from agent-engineering-patterns, 2026-07-11)_
+_updated: 2026-08-18 · 18 insights from 11 episodes · (split from agent-engineering-patterns, 2026-07-11)_
 
 ## The throughline
 A harness is code wrapped around an agent to make it behave consistently for a specific use case — and every practitioner in this cluster converges on the same core moves. Reserve architecture and UX decisions for humans (Conductor's "slot-free zones," "do not touch if you are an AI" markers — corroborated independently by Tony Fadell on the hardware-product side); force agent output through a review chokepoint before it lands (Conductor's strict PR-first workflow; the Sentry bug-triage harness's investigate-only vs. edit-enabled modes); and be extremely specific — write down the exact workflow, data sources, and allowed tools rather than reaching for a general-purpose assistant. Concrete adapters (Sentry, Linear, GitHub, Vercel) plus a persistent artifact store make investigations reproducible, though this is a choice, not a prerequisite — Gusto's much lighter "memory is just a DB column" stack proves harnesses can be minimal too. Codex-as-local-project-environment extends the same instinct beyond bespoke harnesses: a general-purpose local workspace (files on your machine, computer-use access to real tools) that lets an agent work with richer context, reinforced by a local-first/Obsidian-style memory discipline for privacy and accuracy.
@@ -93,6 +93,11 @@ related: [Skill files are executable cognition; owning them preserves your power
 What began as a one-developer hack ballooned into a maintenance challenge: Steinberger counted "around nine and a half thousand configuration options," had to add sandboxing, allow-lists, and atomic file writes, and spent months dealing with security reports, press, and legal work. The work to harden, test, and evolve software for real users slowed feature velocity and introduced regressions users depended on, showing that shipping a fun prototype doesn't prepare you for long-term reliability and governance.
 — Y Combinator · 2026-08-10 · guest: — · [▶ 16:53](https://www.youtube.com/watch?v=whcfSGN6CAU&t=1013) · `pi-whcfSGN6CAU-02`
 related: [Be extremely specific when designing and prompting a harness](#be-extremely-specific-when-designing-and-prompting-a-harness) (same enforced-structure instinct, here as the cost of hardening a viral open-source agent rather than building a bespoke harness from scratch)
+
+### Treat prompts as product specs to get reliable outputs
+Yana insists that the single best move is to write the process and a definition of 'complete'—a prompt that reads like a product spec (silhouette, fabric behavior, construction, even sound). That specificity forces the model to follow measurable criteria, yields outputs humans can act on (illustrations, tech packs, photos), and mirrors what you'd give a human collaborator; the result is predictable, production‑ready creative assets.
+— How I AI · 2026-08-17 · guest: Yana (YanaBana) · [▶ 11:57](https://www.youtube.com/watch?v=P03ZNceXe2A&t=717) · `pi-P03ZNceXe2A-02`
+related: [Be extremely specific when designing and prompting a harness](#be-extremely-specific-when-designing-and-prompting-a-harness) (same write-the-precise-spec-first discipline, here applied to fashion-design image prompts instead of a bug-triage harness)
 
 ## Related themes
 - [Agent engineering & production infra](agent-engineering-patterns.md) — parent theme; the broader verification/governance/cost discipline this harness-building cluster sits alongside
