@@ -1,0 +1,96 @@
+{
+  "schema": 1,
+  "generatedAt": "2026-08-18T04:03:24.684Z",
+  "runStamp": "20260818T0403",
+  "episodes": [
+    {
+      "videoId": "P03ZNceXe2A",
+      "videoTitle": "How I use ChatGPT to run my fashion business",
+      "videoUrl": "https://www.youtube.com/watch?v=P03ZNceXe2A",
+      "channelName": "How I AI",
+      "publishedDate": "2026-08-17",
+      "guests": [
+        "Yana (YanaBana)"
+      ],
+      "summary": "Founder Yana explains how she built an AI-native fashion brand by using large-language and image models at every step: ideation, design, visualization, prototyping, vendor sourcing, and the website/operations. Her central argument is that AI can act as a technical co‑founder and production assistant, lowering the cost and friction of executing unusual designs while shifting remaining hard problems to pattern accuracy and fine-grained image realism.",
+      "insights": [
+        {
+          "headline": "AI can act as a practical technical co‑founder",
+          "detail": "She uses ChatGPT/Codex not just for prompts but to implement engineering work—building the ecommerce site, wiring Stripe, creating databases for voting, and automating outreach. By combining agents (Codex, browser automation) with SaaS like Clo, she avoids hiring a full engineering team and treats the AI as an on‑demand engineering partner that executes tasks she would otherwise outsource. This lets a solo founder ship product and ops quickly and iterate by voice commands alone.",
+          "anchorQuote": "it's literally my technical co-founder, and so I",
+          "tSeconds": 199,
+          "link": "https://www.youtube.com/watch?v=P03ZNceXe2A&t=199"
+        },
+        {
+          "headline": "Treat prompts as product specs to get reliable outputs",
+          "detail": "Yana insists that the single best move is to write the process and a definition of 'complete'—a prompt that reads like a product spec (silhouette, fabric behavior, construction, even sound). That specificity forces the model to follow measurable criteria, yields outputs humans can act on (illustrations, tech packs, photos), and mirrors what you'd give a human collaborator; the result is predictable, production‑ready creative assets.",
+          "anchorQuote": "write down your process and write down what a definition",
+          "tSeconds": 717,
+          "link": "https://www.youtube.com/watch?v=P03ZNceXe2A&t=717"
+        },
+        {
+          "headline": "Choose image models that follow visual direction precisely",
+          "detail": "After testing many generators she found that newer Image Gen 2 (and Nano Banana in her tests) are best at following sketches and visual directions, which is critical when a design must match a specific sketch. Other models either change the design too much (making it look like an existing runway look) or follow the sketch so literally the output looks non‑fabric; Image Gen 2 strikes the most useful balance for turning sketches into realistic product photos.",
+          "anchorQuote": "Are the best at following visual directions.",
+          "tSeconds": 631,
+          "link": "https://www.youtube.com/watch?v=P03ZNceXe2A&t=631"
+        },
+        {
+          "headline": "AI unlocks previously impractical manufacturing like 3D prints",
+          "detail": "Yana used image prompts and Codex to convert a wire‑sculpture‑inspired dress into CAD and 3D‑printable parts—work that was once technically or economically infeasible because creating CAD was tedious. While Codex alone didn't produce perfect final CAD, coupling it with domain software (and agents to operate that software) made prototyping and sending files to 3D print realistic. The takeaway: AI lowers the barrier to complex, previously 'unmanufacturable' designs, though it may still require human iteration.",
+          "anchorQuote": "this garment is previously unmanufacturable.",
+          "tSeconds": 1015,
+          "link": "https://www.youtube.com/watch?v=P03ZNceXe2A&t=1015"
+        }
+      ]
+    },
+    {
+      "videoId": "P5iICDVn5gc",
+      "videoTitle": "Inside Stripe's AI Strategy with Will Gaybrick",
+      "videoUrl": "https://www.youtube.com/watch?v=P5iICDVn5gc",
+      "channelName": "a16z",
+      "publishedDate": "2026-08-17",
+      "guests": [
+        "Will Gaybrick (Stripe)"
+      ],
+      "summary": "Will Gaybrick (Stripe) explains how Stripe is using AI to dramatically accelerate product development, enable new business models, and build primitives for agent-driven commerce. The throughline: treat AI-driven productivity as an opportunity to ship more user-facing products and expand the market (not primarily to cut costs), while building the rails — payments, microtransactions, and stablecoins — that agents will need to transact on the internet.",
+      "insights": [
+        {
+          "headline": "AI agents (Minions) now author a large share of code changes",
+          "detail": "Stripe built an internal agent system called Minions that generates one-shot PRs which then pass through CI/CD and human review. Minions grew from ~1,200 PRs/week early in the year to about 7,000 PRs in a recent week, accounting for roughly 30% of PRs that week — a scale that forces org changes (flatter teams, founder-like agency) and strains back-office release and enablement systems. The practical effect: single senior engineers plus agents can replace multi-team timelines, letting Stripe ship many more products faster.",
+          "anchorQuote": "So we created something called Stripe Minions",
+          "tSeconds": 872,
+          "link": "https://www.youtube.com/watch?v=P5iICDVn5gc&t=872"
+        },
+        {
+          "headline": "AI is driving a surge in software company creation",
+          "detail": "Gaybrick attributes a jump in signups and cohort revenue growth to AI lowering the cost of building software and enabling products that were impossible years ago. He cites Stripe metrics: first-half signups grew ~50% year-over-year, the median 2026 cohort generates ~50% more revenue than the 2025 cohort, and the 2025 cohort generated ~70% more than 2024. That demand is especially strong for Billing and platforms that support software monetization, expanding Stripe's addressable market.",
+          "anchorQuote": "AI is giving rise to so much opportunity for new business creation",
+          "tSeconds": 510,
+          "link": "https://www.youtube.com/watch?v=P5iICDVn5gc&t=510"
+        },
+        {
+          "headline": "Productivity gains should be reinvested to build, not just cut costs",
+          "detail": "Stripe treats AI-driven productivity as leverage to hire and build more rather than to shrink headcount: their internal knowledge tool Kai (built by two people) reaches ~83% weekly active usage and ~60% daily, and Gaybrick says seller productivity rose ~20%. Instead of firing sellers, Stripe sees better payback and wants more sellers and more product teams to serve the expanding market. The company therefore prioritizes enabling people with better tools and reducing back-office friction so teams can ship faster.",
+          "anchorQuote": "seller productivity has increased by 20%",
+          "tSeconds": 1205,
+          "link": "https://www.youtube.com/watch?v=P5iICDVn5gc&t=1205"
+        },
+        {
+          "headline": "Microtransactions and stablecoins are prerequisites for agent commerce",
+          "detail": "Stripe is building primitives for agents to transact — Tempo (a machine payments protocol), a Link agent wallet, and support for ephemeral/one-off consumption — because agents need lightweight ways to pay without creating full accounts. Gaybrick argues microtransactions become viable now because agents can manage budgets and use stablecoins as rail; Stripe Treasury already exposes stable balances and supports stable usage in roughly 150 countries versus about 60 for fiat. Those primitives enable agents to adopt B2B services, provision hosting, and perform tiny purchases that compound into new commerce patterns.",
+          "anchorQuote": "we created with Tempo the machine payments protocol",
+          "tSeconds": 1729,
+          "link": "https://www.youtube.com/watch?v=P5iICDVn5gc&t=1729"
+        },
+        {
+          "headline": "Win startups early, then retain them as enterprises",
+          "detail": "Stripe’s product strategy is explicitly to capture startups first and 'win them again' as they scale into large companies; startups act as high-standard, fast-moving customers that surface product needs. Gaybrick notes Stripe captured companies like DoorDash and Instacart early and now serves many Fortune 500s, explaining why features built for demanding startup users elevate enterprise offerings. Practically, this drives product quality, forces improvements in reporting and UX, and forms a durable go-to-market motion.",
+          "anchorQuote": "win all the startups and then win them again.",
+          "tSeconds": 366,
+          "link": "https://www.youtube.com/watch?v=P5iICDVn5gc&t=366"
+        }
+      ]
+    }
+  ]
+}
