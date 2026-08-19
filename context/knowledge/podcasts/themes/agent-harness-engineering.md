@@ -2,7 +2,7 @@
 
 _status: live theme — the discipline of wrapping an AI agent in enforced structure: human-only zones, PR gates, precise workflows, adapters, and local-first context_
 _slug: agent-harness-engineering_
-_updated: 2026-08-18 · 18 insights from 11 episodes · (split from agent-engineering-patterns, 2026-07-11)_
+_updated: 2026-08-19 · 21 insights from 12 episodes · (split from agent-engineering-patterns, 2026-07-11)_
 
 ## The throughline
 A harness is code wrapped around an agent to make it behave consistently for a specific use case — and every practitioner in this cluster converges on the same core moves. Reserve architecture and UX decisions for humans (Conductor's "slot-free zones," "do not touch if you are an AI" markers — corroborated independently by Tony Fadell on the hardware-product side); force agent output through a review chokepoint before it lands (Conductor's strict PR-first workflow; the Sentry bug-triage harness's investigate-only vs. edit-enabled modes); and be extremely specific — write down the exact workflow, data sources, and allowed tools rather than reaching for a general-purpose assistant. Concrete adapters (Sentry, Linear, GitHub, Vercel) plus a persistent artifact store make investigations reproducible, though this is a choice, not a prerequisite — Gusto's much lighter "memory is just a DB column" stack proves harnesses can be minimal too. Codex-as-local-project-environment extends the same instinct beyond bespoke harnesses: a general-purpose local workspace (files on your machine, computer-use access to real tools) that lets an agent work with richer context, reinforced by a local-first/Obsidian-style memory discipline for privacy and accuracy.
@@ -99,11 +99,27 @@ Yana insists that the single best move is to write the process and a definition 
 — How I AI · 2026-08-17 · guest: Yana (YanaBana) · [▶ 11:57](https://www.youtube.com/watch?v=P03ZNceXe2A&t=717) · `pi-P03ZNceXe2A-02`
 related: [Be extremely specific when designing and prompting a harness](#be-extremely-specific-when-designing-and-prompting-a-harness) (same write-the-precise-spec-first discipline, here applied to fashion-design image prompts instead of a bug-triage harness)
 
+### Every Grokbot ships with a small virtual machine for real actions
+Each Grokbot includes a built-in 'computer'—a VM that can run Chrome, a terminal, and hold files—so agents can interact with the web and execute tasks rather than only replying in chat. The host compares it to an 'OpenClaw light', emphasizing that this execution environment enables agents to do practical work (run commands, access connectors, open web pages) which raises the utility of agent assistants beyond just conversational UI. This matters because it narrows the gap between agent suggestions and concrete actions in a user's toolchain.
+— How I AI · 2026-08-18 · guest: — · [▶ 6:10](https://www.youtube.com/watch?v=8ONFvAtboZ4&t=370) · `pi-8ONFvAtboZ4-02`
+related: [Codex turns chat into a project-based local development environment](#codex-turns-chat-into-a-project-based-local-development-environment) (same wrap-the-agent-in-an-executable-environment instinct, here a bundled VM rather than a local-project workspace)
+
+### Grokbot prioritizes simplicity over hackability and deep control
+The product intentionally favors a streamlined, out-of-the-box experience at the cost of fine-grained control: you can't pick the model, deeply tune personality, or run it locally. The host contrasts this with OpenClaw/Hermes, which are more technical and high-maintenance but allow heavy customization; Grokbot is easier to set up and manage but less satisfying for power users who want to craft agents 'out of clay.' That tradeoff will appeal to enterprise adopters wanting low-friction agents but frustrate developers who need transparency and tunability.
+— How I AI · 2026-08-18 · guest: — · [▶ 7:40](https://www.youtube.com/watch?v=8ONFvAtboZ4&t=460) · `pi-8ONFvAtboZ4-03`
+related: [Maintaining a popular open-source agent is much harder than building the prototype](#maintaining-a-popular-open-source-agent-is-much-harder-than-building-the-prototype) (Steinberger's OpenClaw is the customizable-but-high-maintenance side of the same tradeoff this insight names from the managed-product side)
+
+### Cursor Origin is an 'agent-native' GitHub replacement, but early and not yet compelling
+Origin provides the git primitives (repos, diffs, pull requests) wrapped in a Cursor UI designed for agent collaboration: agents can comment, be assigned reviewers, and there are CI/CD extensions. In practice the host found the initial import a thin wrapper over GitHub's API, experienced sync issues (GitHub had an outage during launch), and concluded that early Origin lacks the differentiating 'wow' features needed for teams deeply embedded in GitHub automations. The strategic point is that if Cursor can truly make code hosting agent-native, it could become a centralized code surface for agents, but it must prove more value than a migration cost now.
+— How I AI · 2026-08-18 · guest: — · [▶ 13:00](https://www.youtube.com/watch?v=8ONFvAtboZ4&t=780) · `pi-8ONFvAtboZ4-04`
+related: [Conductor enforces a strict PR-first workflow; no direct edits](#conductor-enforces-a-strict-pr-first-workflow-no-direct-edits) (same PR-gate-and-reviewer-assignment discipline, here as a GitHub-replacement product rather than a coding-agent IDE)
+
 ## Related themes
 - [Agent engineering & production infra](agent-engineering-patterns.md) — parent theme; the broader verification/governance/cost discipline this harness-building cluster sits alongside
 - [Agent delegation, loops & software factories](agent-delegation-and-loops.md) — the sustained-execution patterns that run inside these harnesses
 
 ## Source episodes
+- [How I AI — Grok Bot + Grok 4.6 + Cursor Origin - is Claude Code dead? (2026-08-18)](../episodes/2026/2026-08-18--howiai--grok-bot-grok-46-cursor-origin.md)
 - [How I AI — Claude Code for normal people: skills, voice mode, and how to collaborate with AI (2026-08-10)](../episodes/2026/2026-08-10--howiai--claude-code-for-normal-people-skills-voice-mode.md)
 - [Y Combinator — Peter Steinberger: What Happens When 4.7 Million People Let It Cook (2026-08-10)](../episodes/2026/2026-08-10--yc--peter-steinberger-4-7-million-people-let-it-cook.md)
 - [Y Combinator — Garry Tan: "Personal AGI Is How You Stay Under Your Own Power" (2026-08-06)](../episodes/2026/2026-08-06--yc--garry-tan-personal-agi-stay-under-own-power.md)
