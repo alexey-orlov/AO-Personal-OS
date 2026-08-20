@@ -132,6 +132,7 @@ context/areas/softserve/calls/payworks-jumpstart/2026-07-30_140626_sales-call_20
 context/areas/softserve/calls/payworks-jumpstart/2026-07-30_183729_sales-call_20260730181915ACFCA574.md
 context/areas/softserve/calls/payworks-jumpstart/2026-07-31_180150_default_20260731170216303DD71C.md
 context/areas/softserve/calls/payworks-jumpstart/2026-08-12_224607_default_202608111711523BA77978.md
+context/areas/softserve/calls/sbg-poc/2026-08-20_one-on-one_dmytro-sbg-poc-shaping.md
 context/areas/softserve/docs/2026-06-26_gero-tshirt-packaging-transcript.md
 context/areas/softserve/docs/2026-08-17_sbg-poc-workshop-debrief.md
 context/areas/softserve/docs/2026-08-17_sbg-workshop-transcript-1of2.md
