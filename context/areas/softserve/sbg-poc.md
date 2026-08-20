@@ -109,7 +109,7 @@ Dmytro deliberately renamed stage 3 from prediction to **recommendation**, and f
 - **Ahmed** (Oracle, solution engineering) — mapped subcontractor performance onto Oracle procurement / supplier performance review; asked for the manual-decision simulation; owns confirming SBG's licensing. → [oracle-team](oracle-team.md)
 - **Milo · Waldemar** — vendor side (Oracle's Ahmed defers to "Bohdan and Waldemar" on the flow comparison, so Waldemar is a technical/solution counterpart alongside Bohdan; Milo is likely **Milo Honegger**, Oracle AIDP sales/partner lead — inferred). Milo asked the feedback-loop and relationship-based-packaging questions; Waldemar pressed on per-project vs per-package granularity and post-performance capture.
 - **Bohdan Khomych** (SoftServe) — scope framing, the hybrid proposal, the data-availability session ask → [people page](../../people/bohdan-khomych.md).
-- **Dmytro Dundych** (SoftServe, PdM) — owns the PoC scope draft; Alex joins him 2026-08-24.
+- **Dmytro Dundych** (SoftServe, PdM) — **owns the scope proposal to SBG** (asked by Volodymyr Chornyy off the workshop). Thinks in staged value; the closest thing we have to a working model of the client's process, though he flags his own gaps: he does not know what the Oracle control system is by name, and "I don't know their process" on how SBG breaks and groups work packages. [Dmytro 1:1 2026-08-20](calls/sbg-poc/2026-08-20_one-on-one_dmytro-sbg-poc-shaping.md)
 
 ## Decisions
 
@@ -121,6 +121,8 @@ Dmytro deliberately renamed stage 3 from prediction to **recommendation**, and f
 ## Open loops
 
 **Mine**
+- **Write the staged plan with explicit go/no-go gates — due EOD 2026-08-20**, in a form that can be put to the client (per stage: what we do + the condition that must hold to proceed). Dmytro then folds it into his scope proposal. Delivery format open — possibly a screenshot from the Miro board rather than a document. [Dmytro 1:1 2026-08-20](calls/sbg-poc/2026-08-20_one-on-one_dmytro-sbg-poc-shaping.md)
+- **Get into the Miro board** "Discovery Workshop / Business case refinement" (password sent in chat; frame 7 is where Alex's scheme goes) — everything from the workshop and the client case is collected there.
 - **Join Dmytro Dundych Monday 2026-08-24 to shape and finalize the use case**, and reconcile his retrospective-only draft against Flow A + Mustafa's floor. A **one-pager describing the use case** is owed before the next SBG meeting.
 - Land the **written scope proposal** — recommended focus, spelled-out data requirements, success criteria in the terms SBG already accepted (concept validation · data readiness · target-state design, **not** accuracy), **2–3 costed options**. Joint SoftServe + Oracle + NVIDIA. Critical path.
 - **Name the platform** (AIQ vs AIDP/Lakehouse + semantic layer) and settle whether Oracle procurement / supplier performance review is in or out.
@@ -128,6 +130,7 @@ Dmytro deliberately renamed stage 3 from prediction to **recommendation**, and f
 - Draft the coexistence answer for Michael's question; decide the handling protocol for politically loaded findings.
 
 **Theirs**
+- **SBG — the data-volume answer is expected the week of 2026-08-24**: how many projects, how many work packages per project, whether they are comparable, and the portfolio mix (stadiums vs housing vs offices). This gates everything downstream of stage 1.
 - **SBG — grant access to the data file already sent**, and schedule the **data-availability session** with sample raw exports in advance (answered "Okay", not yet booked).
 - **SBG — name the accountable decision-maker for scope sign-off**; confirm the two reference projects; confirm zone/package/trade granularity; rule on CPI-adjacent data; provide a project director for the manual-decision walkthrough.
 - **Ahmed (Oracle)** — confirm SBG's Oracle procurement / supplier performance licensing.
@@ -135,6 +138,8 @@ Dmytro deliberately renamed stage 3 from prediction to **recommendation**, and f
 
 ## Risks
 
+- **⚠️ Sample size may not support the analytics at all — the sharpest open risk, raised twice by Alex and unresolved.** ~100 projects company-wide across different object types; a work type like "dig a pit" might have ~15 instances, ~7 comparable after conditions differ, spread across ~6 contractors doing them once or twice. "Any conclusion **dissolves in fog** — you can't draw a data-based conclusion, only an expert one." Even 5 stadiums in different countries yield different contractors and "**it's Excel** — a table, apply a filter, two rows per action item. I don't see where the added value from NVIDIA and AI is." On the PoC's own one-project scope each action item has **one data point**. Dmytro's partial answer: one project holds "maybe hundreds of work packages" → dozens of deviations and explanations, which is enough to validate *mechanics* (all stage 1 claims) — but he cannot confirm the volume: "**I don't know the answer. I think we'll know next week.**" → Gate the proposal on this; do not promise recommendation quality before the data volume is known. [Dmytro 1:1 2026-08-20](calls/sbg-poc/2026-08-20_one-on-one_dmytro-sbg-poc-shaping.md)
+- **Cause/driver analysis may be undeliverable — and may not be needed.** Agreed with Dmytro: plan/fact alone may suffice for contractor selection ("if a contractor screws up, why hardly matters"), the "why" is hard and may not be findable in the exports. **Treat it as an optional path** — good if it works, fine if it doesn't. Counterweight: attribution matters where the cause is **SBG's own** ("the accountant failed to send the payment"), because then the output becomes "watch these drivers" rather than "avoid this contractor". [Dmytro 1:1 2026-08-20](calls/sbg-poc/2026-08-20_one-on-one_dmytro-sbg-poc-shaping.md)
 - **Scope never formally agreed** — no mechanism beyond "send us an email". → Ship the document fast with costed options; SBG has said it cannot be one person's decision.
 - **Data granularity insufficient** at zone/package/trade level. → Make data-readiness a **named deliverable**, so the PoC produces value even when the news is bad (Dmytro's draft already counts an unreachable insight as a valid finding).
 - **Too narrow → "doesn't capture the story"** vs **too broad → nothing demonstrable.** → Full workflow breadth, selective automation depth, design-not-build for the rest.
@@ -145,6 +150,7 @@ Dmytro deliberately renamed stage 3 from prediction to **recommendation**, and f
 
 ## Activity
 
+- 2026-08-20 — [1:1 with Dmytro Dundych](calls/sbg-poc/2026-08-20_one-on-one_dmytro-sbg-poc-shaping.md) — Alex onboarded onto the PoC. Target end state pinned (packaging + execution-model decisions, evidence-backed), the three-stage roadmap surfaced, the LLM's real job located in normalisation, and the **sample-size risk** raised and left open. Alex owes the staged plan with gates by EOD.
 - 2026-08-20 — [workshop recordings logged](docs/2026-08-17_sbg-workshop-transcript-1of2.md) — primary source obtained; corrected the Michael/Mustafa attribution, the origin of the written-proposal ask, and the definition of "segment"; surfaced Mustafa's scope floor, his find-it-in-the-data steer, the ongoing status of the reference projects, and our own "two scenarios" proposal.
 - 2026-08-20 — [scope draft (Dundych)](docs/2026-08-20_sbg-poc-scope-draft-dundych.md) — PoC objective, in/out of scope, analytical flow, three success measures; KFSC as retrospective anchor; narrower than Flow A.
 - 2026-08-17 — [workshop debrief (Khomych)](docs/2026-08-17_sbg-poc-workshop-debrief.md) — scope did not converge; written proposal requested.
