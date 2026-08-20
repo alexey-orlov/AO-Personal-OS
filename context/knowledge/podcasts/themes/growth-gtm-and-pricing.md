@@ -2,7 +2,7 @@
 
 _status: live theme — growth loops, distribution, GTM motions, pricing, packaging, monetization_
 _slug: growth-gtm-and-pricing_
-_updated: 2026-08-18 · 62 insights from 42 episodes · (absorbed b2b-saas-and-scaling, 2026-06-11) — ⚠ at 62/30: over budget, no clean seam yet_
+_updated: 2026-08-20 · 65 insights from 44 episodes · (absorbed b2b-saas-and-scaling, 2026-06-11) — ⚠ at 62/30: over budget, no clean seam yet_
 
 ## The throughline
 GTM is reorganizing around three new realities. (1) Self-service and conversational agents together form the primary enterprise acquisition channel: 54% of Anthropic's 2026 new enterprise logos came from AI-qualified self-service, and dedicated inbound chat agents (SaaStr's Amelia AI: 614 meetings from 442,000 chats across 2.2M sessions) show that rich-context conversational qualification scales at pipeline efficiency no human SDR team can match. (2) "Token economics" now determines commercial viability: buyers won't grow their IT budget to absorb rising AI costs, so where you sit on the token-consumption path is the strategic question — and the SaaS-vendor corollary is that margin survival requires designing products for agent consumption (CLIs, accessible HTML, logs, rollback) rather than bundling costly model inference into pricing. Evans's broader bet is that foundation models commoditize while value accrues to the app/UX/distribution layer above. (3) In a low-excitement enterprise category, premium brand creative still moves the needle: Legora's Jude Law ad (writer from SNL, cinematographer from Oppenheimer) went viral on professional networks and produced inbound. Smallness still wins enterprise deals when paired with a rigorous pilot and measurable metrics. As agent usage multiplies per user (dozens to 150 agents per power user), platform pricing evolves toward usage-aware tiers and model routing — GitHub's rate-limit evolution is the platform-side complement to the 'token path' thesis: the same cost calculus that shapes SaaS product design now shapes infrastructure pricing design too. A new product category — the AI-powered "company brain" — now bundles website generation and always-on GTM automation (Ploy: ~50 integrations → nightly SEO audits, lead surfacing, outreach drafts), collapsing what was previously a 3–5 person marketing/design function into a single solo-founder-operable system. The pre-scale layer (customers 1–10) remains resolutely human and unscalable: the first two or three buyers choose the founder, not the product (warm network trust), customers four to ten require in-person presence (flying to the same executive four weeks running beats cold email), and all prospecting tooling is wasteful until warm intros are exhausted. Framing outreach as advice/mentorship rather than a sales pitch reliably doubles acceptance rates — the human relationship is the distribution before distribution exists. The GTM-agent thesis has now cleared production-scale proof points: Vercel collapsed a 10-person SDR team to one for $5,000/year (32x ROI); PayPal reached a 50% uplift in meeting conversion in 14 weeks and turned 8,000 stale, uncalled leads into tens of millions in new business. The stair-step pattern recurs — dashboard → triggered ops → full autonomy — and the most consequential unlock is monetizing previously ignored demand, not just replacing headcount.
@@ -308,6 +308,19 @@ Stripe's product strategy is explicitly to capture startups first and 'win them 
 — a16z · 2026-08-17 · guest: Will Gaybrick (Stripe) · [▶ 6:06](https://www.youtube.com/watch?v=P5iICDVn5gc&t=366) · `pi-P5iICDVn5gc-05`
 related: [A tiny team beat a well-funded rival to win DoorDash](#a-tiny-team-beat-a-well-funded-rival-to-win-doordash) (same company, opposite angle — DoorDash as the vendor's own pilot-win story rather than the customer being captured young by Stripe)
 
+### Pivoting to AI-first drove 83% of new customers in two years
+After deciding in early 2023 to build AI-native experiences, Owner grew faster in 2025 than 2024 and reports that more than 83% of new customers began their journey using the company's AI product (Gradar). That adoption came from a viral, low-touch flow that analyzes and fixes a restaurant's online presence in minutes, replacing a prior salesperson-onboarding funnel and becoming the primary acquisition mechanism.
+— SaaStr AI · 2026-08-19 · guest: — · [▶ 3:50](https://www.youtube.com/watch?v=sJM9BrgpxwI&t=230) · `pi-sJM9BrgpxwI-01`
+
+### Live commerce is demand-expanding and can reshape markets
+Live formats don't just shift existing purchases online — they create new demand by letting people discover items they wouldn't have searched for. Grant points to Asia where live commerce is already 30–40% of total commerce and calls it "a trillion dollar plus market today," arguing the U.S. is currently single digits but will close the gap because live is a richer, more efficient channel for many brands.
+— a16z · 2026-08-19 · guest: Grant (Whatnot) · [▶ 11:42](https://www.youtube.com/watch?v=XqEr7hk89HY&t=702) · `pi-XqEr7hk89HY-02`
+related: [Whatnot materially empowers and monetizes small businesses](#whatnot-materially-empowers-and-monetizes-small-businesses) (same episode, the seller-economics counterpart to this market-sizing claim) · theme → [Product discovery & strategy](product-discovery-and-strategy.md#live-shopping-is-entertainment-first-driving-massive-engagement) (same episode's product/engagement angle on the same live-shopping bet)
+
+### Whatnot materially empowers and monetizes small businesses
+The platform enables one-person shops to scale into serious businesses: Whatnot reports sellers ranging up to ~$100M+ in revenue with strong EBITDA margins (20–40%), and the company processes multi‑billion dollars of GMV yearly while taking only a small fraction. By exposing shop owners and their personalities on video, Whatnot preserves brand identity and repeat buyers rather than obscuring sellers like large commodity marketplaces.
+— a16z · 2026-08-19 · guest: Grant (Whatnot) · [▶ 22:29](https://www.youtube.com/watch?v=XqEr7hk89HY&t=1349) · `pi-XqEr7hk89HY-03`
+
 ## Related themes
 - [Tech frontier & abundance](tech-frontier-and-abundance.md) — token-economics story behind the GTM constraint
 - [Founders & fundraising](founders-and-fundraising.md) — small-team enterprise wins
@@ -315,6 +328,8 @@ related: [A tiny team beat a well-funded rival to win DoorDash](#a-tiny-team-bea
 - [AI agents & applications](ai-agents-and-applications.md) — the consumption surface SaaS now serves
 
 ## Source episodes
+- [SaaStr AI — From 0% to 83% AI-First Customers in 2 Years: How Owner's CEO Rebuilt a $100M Vertical SaaS Company (2026-08-19)](../episodes/2026/2026-08-19--saastr--owners-ceo-0-to-83pct-ai-first-vertical-saas.md)
+- [a16z — Inside Whatnot's Bet on Live Shopping (2026-08-19)](../episodes/2026/2026-08-19--a16z--inside-whatnots-bet-on-live-shopping.md)
 - [a16z — Choosing Your Sales Strategy: Lighthouse vs. Landgrab (2026-08-13)](../episodes/2026/2026-08-13--a16z--choosing-your-sales-strategy-lighthouse-vs-landgrab.md)
 - [a16z — Kavak's Playbook for Rebuilding a Company Around AI (2026-08-10)](../episodes/2026/2026-08-10--a16z--kavaks-playbook-rebuilding-company-around-ai.md)
 - [a16z — How Open Source Became AI's Backbone | Inferact with a16z (2026-08-06)](../episodes/2026/2026-08-06--a16z--how-open-source-became-ais-backbone.md)
