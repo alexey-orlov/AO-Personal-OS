@@ -58,8 +58,10 @@ context/areas/job-search/calls/vacancy-interviews/archive-resale/2026-05-22_1324
 context/areas/job-search/calls/vacancy-interviews/archive-resale/2026-05-22_223525_interview_202605222200194502EF2C.md
 context/areas/job-search/calls/vacancy-interviews/archive-resale/2026-05-22_223910_interview_20260420200248B41FB951.md
 context/areas/job-search/calls/vacancy-interviews/archive-resale/2026-05-22_224625_interview_20260423203149112E481A.md
+context/areas/job-search/calls/vacancy-interviews/titanx/2026-08-12_225046_interview_202608112032153640CB0C.md
 context/areas/job-search/calls/vacancy-interviews/zipify/2026-06-02_181532_interview_202606021729498781C179.md
 context/areas/job-search/docs/archive-resale-case-presentation-transcript.md
+context/areas/job-search/docs/interview-experience-qa.md
 context/areas/laba/docs/softserve-corp-training/PM training program - SoftServe.docx
 context/areas/laba/docs/softserve-corp-training/PM training program - SoftServe.pdf
 context/areas/laba/docs/softserve-corp-training/SoftServe_PM_Intro_Program_Offer.docx
@@ -80,6 +82,11 @@ context/areas/other/calls/2026-06-09_181634_default_20260609181543.md
 context/areas/other/calls/2026-06-09_182243_default_202606091819404F961B03.md
 context/areas/other/calls/2026-06-09_184114_default_20260608200544C459DDB5.md
 context/areas/other/calls/2026-06-09_184159_default_202606081932498E8D3D90.md
+context/areas/relocation/docs/bay-area-relocation/methodology.md
+context/areas/relocation/docs/bay-area-relocation/pipeline/caaspp-data/sb_ca2023_1_csv_v1.txt
+context/areas/relocation/docs/bay-area-relocation/pipeline/caaspp-data/sb_ca2023entities_csv.txt
+context/areas/relocation/docs/bay-area-relocation/pipeline/caaspp-data/sb_ca2025_1_csv_v1.txt
+context/areas/relocation/docs/bay-area-relocation/pipeline/caaspp-data/sb_ca2025entities_csv.txt
 context/areas/softserve/calls/2026-05-21_190708_default_20260520175738DB70FD14.md
 context/areas/softserve/calls/2026-05-24_175717_default_202605201757381C904D81.md
 context/areas/softserve/calls/2026-06-09_182514_one-on-one_202606091701318AAD9C9F.md
@@ -89,16 +96,12 @@ context/areas/softserve/calls/2026-06-09_183633_one-on-one_2026060917013100B193F
 context/areas/softserve/calls/2026-06-11_135929_default_20260611130042C37F547F.md
 context/areas/softserve/calls/2026-06-25_112719_default_202606251114264E8BD2B7.md
 context/areas/softserve/calls/2026-07-06_172238_default_20260706153858763EF88E.md
+context/areas/softserve/calls/2026-08-18_141300_one-on-one_20260818132936005C1280.md
 context/areas/softserve/calls/jumpstart-pm/2026-07-14_194924_sales-call_2026071417472224FB611D.md
 context/areas/softserve/calls/jumpstart-pm/2026-07-30_132405_sales-call_2026072717330524296792.md
-context/areas/softserve/calls/jumpstart-pm/2026-07-30_133224_sales-call_20260729180444E25F29B5.md
-context/areas/softserve/calls/jumpstart-pm/2026-07-30_135646_default_20260728174009FE3CAD55.md
-context/areas/softserve/calls/jumpstart-pm/2026-07-30_140626_sales-call_20260727190421FAFCCD62.md
-context/areas/softserve/calls/jumpstart-pm/2026-07-30_183729_sales-call_20260730181915ACFCA574.md
 context/areas/softserve/calls/jumpstart-pm/2026-07-30_202249_sales-call_20260730190421E7393EB4.md
 context/areas/softserve/calls/jumpstart-pm/2026-07-30_222401_sales-call_20260730190421E7393EB4.md
 context/areas/softserve/calls/jumpstart-pm/2026-07-31_002602_sales-call_20260730190421E7393EB4.md
-context/areas/softserve/calls/jumpstart-pm/2026-07-31_180150_default_20260731170216303DD71C.md
 context/areas/softserve/calls/oracle/2026-06-12_151312_one-on-one_20260612143223E84CB5DA.md
 context/areas/softserve/calls/oracle/2026-06-12_173159_sales-call_2026061216024378A29A99.md
 context/areas/softserve/calls/oracle/2026-06-15_200833_one-on-one_20260615190118D7E7175C.md
@@ -121,6 +124,14 @@ context/areas/softserve/calls/oracle/2026-07-21_175011_sales-call_20260717164102
 context/areas/softserve/calls/oracle/2026-07-30_134222_sales-call_20260724123234A771B64E.md
 context/areas/softserve/calls/oracle/2026-07-30_141406_sales-call_20260728150352C40DCE8E.md
 context/areas/softserve/calls/oracle/2026-08-05_125052_default_20260805113131F0734A55.md
+context/areas/softserve/calls/oracle/2026-08-18_124942_default_202608181205216609E8E0.md
+context/areas/softserve/calls/oracle/2026-08-18_sales-call_ismail-collaboration-infra.md
+context/areas/softserve/calls/payworks-jumpstart/2026-07-30_133224_sales-call_20260729180444E25F29B5.md
+context/areas/softserve/calls/payworks-jumpstart/2026-07-30_135646_default_20260728174009FE3CAD55.md
+context/areas/softserve/calls/payworks-jumpstart/2026-07-30_140626_sales-call_20260727190421FAFCCD62.md
+context/areas/softserve/calls/payworks-jumpstart/2026-07-30_183729_sales-call_20260730181915ACFCA574.md
+context/areas/softserve/calls/payworks-jumpstart/2026-07-31_180150_default_20260731170216303DD71C.md
+context/areas/softserve/calls/payworks-jumpstart/2026-08-12_224607_default_202608111711523BA77978.md
 context/areas/softserve/docs/2026-06-26_gero-tshirt-packaging-transcript.md
 context/areas/softserve/docs/conga-ai-pm-bootcamp-transcript.md
 context/areas/softserve/docs/oracle-packages-tshirt-sizing.md

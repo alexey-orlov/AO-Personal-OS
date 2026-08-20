@@ -89,6 +89,24 @@ defensible reason it was skipped — AND the role's mandate sits somewhere in th
 The JD wording would force unnatural phrasing; the existing line already covers the requirement
 in Alex's words; or the change would dilute the leadership through-line.
 
+## Bullet-level voice rules (from Alex's live feedback, 2026-08-12)
+
+Apply to any CV/bio bullet work — master-CV edits and tailoring alike:
+
+1. **Beneficiary check (advisory/fractional roles).** The outcome clause names the value Alex
+   delivered to the org that engaged him (e.g. for SoftServe: enterprise customer acquisition,
+   time-to-value), NOT the end-client's internal metric (a client's $/yr savings, their
+   workflow-time cut). Deep-in-project customer numbers read as someone else's win and invite
+   probing. A figure being cleared for one artifact (bio slide) does not make it CV-appropriate.
+2. **External-reader test ("what was it actually?").** Every bullet must parse for a reader with
+   zero project context. Program/internal mechanics (working groups, week counts, repo/asset
+   composition) fail this test; state what the thing IS in plain category language first
+   ("a program that makes enterprise product teams AI-native"), mechanism second, and only if
+   it fits.
+3. **Verb altitude matches the mandate.** "Packaged pilots" downplays a productization mandate;
+   pick the verb at the level of what Alex actually drove ("Productizing enterprise AI
+   solutions..."), not the artifact produced along the way.
+
 ## Executive (VP/CPO) nuances
 - Lead with scope + quantified transformation, not operational duties.
 - Keep P&L scope, team size, current title in plain text near the top (search-firm partners gate

@@ -1,0 +1,1311 @@
+{
+ "window": [
+  "2025-07-01T00:00:00",
+  "2026-07-01T00:00:00"
+ ],
+ "rows": [
+  {
+   "analysis_neighborhood": "South of Market",
+   "incident_category": "Motor Vehicle Theft",
+   "count": "282"
+  },
+  {
+   "analysis_neighborhood": "Excelsior",
+   "incident_category": "Assault",
+   "count": "146"
+  },
+  {
+   "analysis_neighborhood": "Japantown",
+   "incident_category": "Burglary",
+   "count": "18"
+  },
+  {
+   "analysis_neighborhood": "Tenderloin",
+   "incident_category": "Burglary",
+   "count": "283"
+  },
+  {
+   "analysis_neighborhood": "McLaren Park",
+   "incident_category": "Larceny Theft",
+   "count": "5"
+  },
+  {
+   "analysis_neighborhood": "Lakeshore",
+   "incident_category": "Motor Vehicle Theft",
+   "count": "70"
+  },
+  {
+   "analysis_neighborhood": "Outer Mission",
+   "incident_category": "Rape",
+   "count": "1"
+  },
+  {
+   "analysis_neighborhood": "Glen Park",
+   "incident_category": "Larceny Theft",
+   "count": "75"
+  },
+  {
+   "analysis_neighborhood": "Presidio Heights",
+   "incident_category": "Burglary",
+   "count": "59"
+  },
+  {
+   "analysis_neighborhood": "Inner Sunset",
+   "incident_category": "Robbery",
+   "count": "16"
+  },
+  {
+   "analysis_neighborhood": "Inner Sunset",
+   "incident_category": "Larceny Theft",
+   "count": "218"
+  },
+  {
+   "analysis_neighborhood": "Chinatown",
+   "incident_category": "Arson",
+   "count": "7"
+  },
+  {
+   "analysis_neighborhood": "Bayview Hunters Point",
+   "incident_category": "Assault",
+   "count": "546"
+  },
+  {
+   "analysis_neighborhood": "Japantown",
+   "incident_category": "Arson",
+   "count": "4"
+  },
+  {
+   "analysis_neighborhood": "Seacliff",
+   "incident_category": "Burglary",
+   "count": "10"
+  },
+  {
+   "analysis_neighborhood": "Potrero Hill",
+   "incident_category": "Robbery",
+   "count": "5"
+  },
+  {
+   "analysis_neighborhood": "Twin Peaks",
+   "incident_category": "Larceny Theft",
+   "count": "77"
+  },
+  {
+   "analysis_neighborhood": "Tenderloin",
+   "incident_category": "Homicide",
+   "count": "5"
+  },
+  {
+   "analysis_neighborhood": "Marina",
+   "incident_category": "Arson",
+   "count": "5"
+  },
+  {
+   "analysis_neighborhood": "Hayes Valley",
+   "incident_category": "Larceny Theft",
+   "count": "558"
+  },
+  {
+   "analysis_neighborhood": "Mission",
+   "incident_category": "Rape",
+   "count": "4"
+  },
+  {
+   "analysis_neighborhood": "Mission Bay",
+   "incident_category": "Robbery",
+   "count": "34"
+  },
+  {
+   "analysis_neighborhood": "Bernal Heights",
+   "incident_category": "Larceny Theft",
+   "count": "279"
+  },
+  {
+   "analysis_neighborhood": "Pacific Heights",
+   "incident_category": "Assault",
+   "count": "46"
+  },
+  {
+   "analysis_neighborhood": "Lakeshore",
+   "incident_category": "Arson",
+   "count": "3"
+  },
+  {
+   "analysis_neighborhood": "Treasure Island",
+   "incident_category": "Motor Vehicle Theft",
+   "count": "23"
+  },
+  {
+   "analysis_neighborhood": "Presidio",
+   "incident_category": "Robbery",
+   "count": "1"
+  },
+  {
+   "analysis_neighborhood": "Nob Hill",
+   "incident_category": "Larceny Theft",
+   "count": "674"
+  },
+  {
+   "analysis_neighborhood": "Inner Richmond",
+   "incident_category": "Larceny Theft",
+   "count": "184"
+  },
+  {
+   "analysis_neighborhood": "Haight Ashbury",
+   "incident_category": "Motor Vehicle Theft",
+   "count": "57"
+  },
+  {
+   "analysis_neighborhood": "Inner Richmond",
+   "incident_category": "Motor Vehicle Theft",
+   "count": "46"
+  },
+  {
+   "analysis_neighborhood": "Tenderloin",
+   "incident_category": "Assault",
+   "count": "1140"
+  },
+  {
+   "analysis_neighborhood": "Sunset/Parkside",
+   "incident_category": "Motor Vehicle Theft",
+   "count": "115"
+  },
+  {
+   "analysis_neighborhood": "Inner Richmond",
+   "incident_category": "Arson",
+   "count": "4"
+  },
+  {
+   "analysis_neighborhood": "Potrero Hill",
+   "incident_category": "Assault",
+   "count": "51"
+  },
+  {
+   "incident_category": "Burglary",
+   "count": "36"
+  },
+  {
+   "analysis_neighborhood": "Hayes Valley",
+   "incident_category": "Assault",
+   "count": "139"
+  },
+  {
+   "analysis_neighborhood": "Visitacion Valley",
+   "incident_category": "Rape",
+   "count": "1"
+  },
+  {
+   "analysis_neighborhood": "Marina",
+   "incident_category": "Robbery",
+   "count": "28"
+  },
+  {
+   "analysis_neighborhood": "Bayview Hunters Point",
+   "incident_category": "Robbery",
+   "count": "98"
+  },
+  {
+   "analysis_neighborhood": "Oceanview/Merced/Ingleside",
+   "incident_category": "Assault",
+   "count": "59"
+  },
+  {
+   "analysis_neighborhood": "Lincoln Park",
+   "incident_category": "Larceny Theft",
+   "count": "16"
+  },
+  {
+   "analysis_neighborhood": "Mission Bay",
+   "incident_category": "Larceny Theft",
+   "count": "329"
+  },
+  {
+   "analysis_neighborhood": "Portola",
+   "incident_category": "Robbery",
+   "count": "26"
+  },
+  {
+   "analysis_neighborhood": "Presidio Heights",
+   "incident_category": "Robbery",
+   "count": "4"
+  },
+  {
+   "incident_category": "Robbery",
+   "count": "12"
+  },
+  {
+   "analysis_neighborhood": "Nob Hill",
+   "incident_category": "Burglary",
+   "count": "123"
+  },
+  {
+   "analysis_neighborhood": "Mission Bay",
+   "incident_category": "Burglary",
+   "count": "92"
+  },
+  {
+   "analysis_neighborhood": "Noe Valley",
+   "incident_category": "Larceny Theft",
+   "count": "473"
+  },
+  {
+   "analysis_neighborhood": "Nob Hill",
+   "incident_category": "Rape",
+   "count": "5"
+  },
+  {
+   "analysis_neighborhood": "Western Addition",
+   "incident_category": "Assault",
+   "count": "248"
+  },
+  {
+   "analysis_neighborhood": "Haight Ashbury",
+   "incident_category": "Burglary",
+   "count": "89"
+  },
+  {
+   "analysis_neighborhood": "Mission Bay",
+   "incident_category": "Motor Vehicle Theft",
+   "count": "69"
+  },
+  {
+   "analysis_neighborhood": "Oceanview/Merced/Ingleside",
+   "incident_category": "Robbery",
+   "count": "12"
+  },
+  {
+   "analysis_neighborhood": "Western Addition",
+   "incident_category": "Burglary",
+   "count": "110"
+  },
+  {
+   "analysis_neighborhood": "Outer Mission",
+   "incident_category": "Robbery",
+   "count": "36"
+  },
+  {
+   "analysis_neighborhood": "Treasure Island",
+   "incident_category": "Assault",
+   "count": "31"
+  },
+  {
+   "analysis_neighborhood": "Lakeshore",
+   "incident_category": "Assault",
+   "count": "94"
+  },
+  {
+   "analysis_neighborhood": "Presidio Heights",
+   "incident_category": "Larceny Theft",
+   "count": "151"
+  },
+  {
+   "analysis_neighborhood": "Nob Hill",
+   "incident_category": "Assault",
+   "count": "218"
+  },
+  {
+   "analysis_neighborhood": "Mission",
+   "incident_category": "Motor Vehicle Theft",
+   "count": "405"
+  },
+  {
+   "analysis_neighborhood": "Lone Mountain/USF",
+   "incident_category": "Assault",
+   "count": "44"
+  },
+  {
+   "analysis_neighborhood": "Excelsior",
+   "incident_category": "Burglary",
+   "count": "40"
+  },
+  {
+   "analysis_neighborhood": "Noe Valley",
+   "incident_category": "Assault",
+   "count": "35"
+  },
+  {
+   "analysis_neighborhood": "Lone Mountain/USF",
+   "incident_category": "Arson",
+   "count": "4"
+  },
+  {
+   "analysis_neighborhood": "Outer Mission",
+   "incident_category": "Larceny Theft",
+   "count": "143"
+  },
+  {
+   "analysis_neighborhood": "Mission",
+   "incident_category": "Larceny Theft",
+   "count": "1459"
+  },
+  {
+   "analysis_neighborhood": "Lincoln Park",
+   "incident_category": "Burglary",
+   "count": "1"
+  },
+  {
+   "analysis_neighborhood": "Golden Gate Park",
+   "incident_category": "Robbery",
+   "count": "7"
+  },
+  {
+   "analysis_neighborhood": "Haight Ashbury",
+   "incident_category": "Assault",
+   "count": "99"
+  },
+  {
+   "analysis_neighborhood": "Oceanview/Merced/Ingleside",
+   "incident_category": "Motor Vehicle Theft",
+   "count": "65"
+  },
+  {
+   "analysis_neighborhood": "Sunset/Parkside",
+   "incident_category": "Homicide",
+   "count": "1"
+  },
+  {
+   "analysis_neighborhood": "Hayes Valley",
+   "incident_category": "Arson",
+   "count": "5"
+  },
+  {
+   "analysis_neighborhood": "Tenderloin",
+   "incident_category": "Larceny Theft",
+   "count": "1233"
+  },
+  {
+   "analysis_neighborhood": "Tenderloin",
+   "incident_category": "Robbery",
+   "count": "248"
+  },
+  {
+   "analysis_neighborhood": "Financial District/South Beach",
+   "incident_category": "Assault",
+   "count": "380"
+  },
+  {
+   "analysis_neighborhood": "Presidio",
+   "incident_category": "Larceny Theft",
+   "count": "22"
+  },
+  {
+   "incident_category": "Motor Vehicle Theft",
+   "count": "50"
+  },
+  {
+   "analysis_neighborhood": "Outer Richmond",
+   "incident_category": "Assault",
+   "count": "101"
+  },
+  {
+   "analysis_neighborhood": "Pacific Heights",
+   "incident_category": "Robbery",
+   "count": "18"
+  },
+  {
+   "analysis_neighborhood": "North Beach",
+   "incident_category": "Arson",
+   "count": "3"
+  },
+  {
+   "analysis_neighborhood": "Haight Ashbury",
+   "incident_category": "Robbery",
+   "count": "20"
+  },
+  {
+   "analysis_neighborhood": "Hayes Valley",
+   "incident_category": "Robbery",
+   "count": "26"
+  },
+  {
+   "analysis_neighborhood": "Haight Ashbury",
+   "incident_category": "Arson",
+   "count": "4"
+  },
+  {
+   "analysis_neighborhood": "Lakeshore",
+   "incident_category": "Burglary",
+   "count": "54"
+  },
+  {
+   "analysis_neighborhood": "Nob Hill",
+   "incident_category": "Homicide",
+   "count": "2"
+  },
+  {
+   "analysis_neighborhood": "Castro/Upper Market",
+   "incident_category": "Arson",
+   "count": "6"
+  },
+  {
+   "incident_category": "Arson",
+   "count": "2"
+  },
+  {
+   "analysis_neighborhood": "Potrero Hill",
+   "incident_category": "Larceny Theft",
+   "count": "298"
+  },
+  {
+   "analysis_neighborhood": "Potrero Hill",
+   "incident_category": "Arson",
+   "count": "5"
+  },
+  {
+   "analysis_neighborhood": "Mission",
+   "incident_category": "Homicide",
+   "count": "15"
+  },
+  {
+   "analysis_neighborhood": "Inner Richmond",
+   "incident_category": "Assault",
+   "count": "69"
+  },
+  {
+   "analysis_neighborhood": "Inner Sunset",
+   "incident_category": "Motor Vehicle Theft",
+   "count": "43"
+  },
+  {
+   "analysis_neighborhood": "Seacliff",
+   "incident_category": "Assault",
+   "count": "4"
+  },
+  {
+   "analysis_neighborhood": "Visitacion Valley",
+   "incident_category": "Larceny Theft",
+   "count": "106"
+  },
+  {
+   "analysis_neighborhood": "Japantown",
+   "incident_category": "Assault",
+   "count": "32"
+  },
+  {
+   "analysis_neighborhood": "Sunset/Parkside",
+   "incident_category": "Arson",
+   "count": "8"
+  },
+  {
+   "analysis_neighborhood": "Bayview Hunters Point",
+   "incident_category": "Burglary",
+   "count": "157"
+  },
+  {
+   "analysis_neighborhood": "West of Twin Peaks",
+   "incident_category": "Assault",
+   "count": "79"
+  },
+  {
+   "analysis_neighborhood": "West of Twin Peaks",
+   "incident_category": "Motor Vehicle Theft",
+   "count": "69"
+  },
+  {
+   "analysis_neighborhood": "Inner Richmond",
+   "incident_category": "Burglary",
+   "count": "59"
+  },
+  {
+   "analysis_neighborhood": "Excelsior",
+   "incident_category": "Larceny Theft",
+   "count": "266"
+  },
+  {
+   "analysis_neighborhood": "Western Addition",
+   "incident_category": "Arson",
+   "count": "7"
+  },
+  {
+   "analysis_neighborhood": "Japantown",
+   "incident_category": "Motor Vehicle Theft",
+   "count": "18"
+  },
+  {
+   "analysis_neighborhood": "Chinatown",
+   "incident_category": "Homicide",
+   "count": "2"
+  },
+  {
+   "analysis_neighborhood": "Western Addition",
+   "incident_category": "Motor Vehicle Theft",
+   "count": "126"
+  },
+  {
+   "analysis_neighborhood": "Excelsior",
+   "incident_category": "Arson",
+   "count": "5"
+  },
+  {
+   "analysis_neighborhood": "Presidio Heights",
+   "incident_category": "Assault",
+   "count": "20"
+  },
+  {
+   "analysis_neighborhood": "Oceanview/Merced/Ingleside",
+   "incident_category": "Larceny Theft",
+   "count": "127"
+  },
+  {
+   "analysis_neighborhood": "South of Market",
+   "incident_category": "Robbery",
+   "count": "228"
+  },
+  {
+   "analysis_neighborhood": "Mission",
+   "incident_category": "Arson",
+   "count": "37"
+  },
+  {
+   "analysis_neighborhood": "Presidio",
+   "incident_category": "Burglary",
+   "count": "5"
+  },
+  {
+   "analysis_neighborhood": "Western Addition",
+   "incident_category": "Larceny Theft",
+   "count": "600"
+  },
+  {
+   "analysis_neighborhood": "Japantown",
+   "incident_category": "Larceny Theft",
+   "count": "103"
+  },
+  {
+   "analysis_neighborhood": "Tenderloin",
+   "incident_category": "Rape",
+   "count": "2"
+  },
+  {
+   "analysis_neighborhood": "Lone Mountain/USF",
+   "incident_category": "Motor Vehicle Theft",
+   "count": "48"
+  },
+  {
+   "analysis_neighborhood": "Presidio",
+   "incident_category": "Motor Vehicle Theft",
+   "count": "4"
+  },
+  {
+   "analysis_neighborhood": "Tenderloin",
+   "incident_category": "Motor Vehicle Theft",
+   "count": "262"
+  },
+  {
+   "analysis_neighborhood": "Bayview Hunters Point",
+   "incident_category": "Motor Vehicle Theft",
+   "count": "420"
+  },
+  {
+   "analysis_neighborhood": "Visitacion Valley",
+   "incident_category": "Homicide",
+   "count": "1"
+  },
+  {
+   "analysis_neighborhood": "South of Market",
+   "incident_category": "Assault",
+   "count": "919"
+  },
+  {
+   "analysis_neighborhood": "Outer Mission",
+   "incident_category": "Arson",
+   "count": "4"
+  },
+  {
+   "analysis_neighborhood": "Golden Gate Park",
+   "incident_category": "Larceny Theft",
+   "count": "145"
+  },
+  {
+   "analysis_neighborhood": "Inner Sunset",
+   "incident_category": "Assault",
+   "count": "49"
+  },
+  {
+   "analysis_neighborhood": "Financial District/South Beach",
+   "incident_category": "Rape",
+   "count": "1"
+  },
+  {
+   "analysis_neighborhood": "North Beach",
+   "incident_category": "Robbery",
+   "count": "23"
+  },
+  {
+   "analysis_neighborhood": "Lone Mountain/USF",
+   "incident_category": "Larceny Theft",
+   "count": "308"
+  },
+  {
+   "analysis_neighborhood": "Russian Hill",
+   "incident_category": "Larceny Theft",
+   "count": "381"
+  },
+  {
+   "analysis_neighborhood": "Mission Bay",
+   "incident_category": "Arson",
+   "count": "6"
+  },
+  {
+   "analysis_neighborhood": "Glen Park",
+   "incident_category": "Robbery",
+   "count": "4"
+  },
+  {
+   "incident_category": "Larceny Theft",
+   "count": "1319"
+  },
+  {
+   "analysis_neighborhood": "Pacific Heights",
+   "incident_category": "Burglary",
+   "count": "210"
+  },
+  {
+   "analysis_neighborhood": "Outer Mission",
+   "incident_category": "Homicide",
+   "count": "7"
+  },
+  {
+   "analysis_neighborhood": "Lakeshore",
+   "incident_category": "Larceny Theft",
+   "count": "619"
+  },
+  {
+   "analysis_neighborhood": "Seacliff",
+   "incident_category": "Larceny Theft",
+   "count": "15"
+  },
+  {
+   "analysis_neighborhood": "West of Twin Peaks",
+   "incident_category": "Arson",
+   "count": "4"
+  },
+  {
+   "analysis_neighborhood": "Financial District/South Beach",
+   "incident_category": "Burglary",
+   "count": "236"
+  },
+  {
+   "analysis_neighborhood": "Castro/Upper Market",
+   "incident_category": "Larceny Theft",
+   "count": "664"
+  },
+  {
+   "analysis_neighborhood": "Castro/Upper Market",
+   "incident_category": "Motor Vehicle Theft",
+   "count": "83"
+  },
+  {
+   "analysis_neighborhood": "Mission",
+   "incident_category": "Assault",
+   "count": "1118"
+  },
+  {
+   "analysis_neighborhood": "Oceanview/Merced/Ingleside",
+   "incident_category": "Burglary",
+   "count": "32"
+  },
+  {
+   "analysis_neighborhood": "Visitacion Valley",
+   "incident_category": "Burglary",
+   "count": "20"
+  },
+  {
+   "analysis_neighborhood": "Chinatown",
+   "incident_category": "Larceny Theft",
+   "count": "414"
+  },
+  {
+   "analysis_neighborhood": "Chinatown",
+   "incident_category": "Robbery",
+   "count": "37"
+  },
+  {
+   "analysis_neighborhood": "Pacific Heights",
+   "incident_category": "Motor Vehicle Theft",
+   "count": "72"
+  },
+  {
+   "analysis_neighborhood": "Outer Mission",
+   "incident_category": "Assault",
+   "count": "129"
+  },
+  {
+   "analysis_neighborhood": "Castro/Upper Market",
+   "incident_category": "Robbery",
+   "count": "45"
+  },
+  {
+   "analysis_neighborhood": "Visitacion Valley",
+   "incident_category": "Motor Vehicle Theft",
+   "count": "50"
+  },
+  {
+   "analysis_neighborhood": "Potrero Hill",
+   "incident_category": "Burglary",
+   "count": "107"
+  },
+  {
+   "analysis_neighborhood": "Bernal Heights",
+   "incident_category": "Robbery",
+   "count": "52"
+  },
+  {
+   "analysis_neighborhood": "Portola",
+   "incident_category": "Burglary",
+   "count": "23"
+  },
+  {
+   "analysis_neighborhood": "Inner Sunset",
+   "incident_category": "Arson",
+   "count": "1"
+  },
+  {
+   "analysis_neighborhood": "Visitacion Valley",
+   "incident_category": "Assault",
+   "count": "118"
+  },
+  {
+   "analysis_neighborhood": "North Beach",
+   "incident_category": "Motor Vehicle Theft",
+   "count": "39"
+  },
+  {
+   "analysis_neighborhood": "Bernal Heights",
+   "incident_category": "Assault",
+   "count": "156"
+  },
+  {
+   "analysis_neighborhood": "Marina",
+   "incident_category": "Larceny Theft",
+   "count": "604"
+  },
+  {
+   "analysis_neighborhood": "Lincoln Park",
+   "incident_category": "Motor Vehicle Theft",
+   "count": "1"
+  },
+  {
+   "analysis_neighborhood": "North Beach",
+   "incident_category": "Larceny Theft",
+   "count": "368"
+  },
+  {
+   "analysis_neighborhood": "Golden Gate Park",
+   "incident_category": "Motor Vehicle Theft",
+   "count": "32"
+  },
+  {
+   "analysis_neighborhood": "McLaren Park",
+   "incident_category": "Motor Vehicle Theft",
+   "count": "9"
+  },
+  {
+   "analysis_neighborhood": "Lone Mountain/USF",
+   "incident_category": "Burglary",
+   "count": "79"
+  },
+  {
+   "analysis_neighborhood": "Financial District/South Beach",
+   "incident_category": "Robbery",
+   "count": "71"
+  },
+  {
+   "analysis_neighborhood": "Seacliff",
+   "incident_category": "Motor Vehicle Theft",
+   "count": "4"
+  },
+  {
+   "incident_category": "Assault",
+   "count": "23"
+  },
+  {
+   "analysis_neighborhood": "Inner Richmond",
+   "incident_category": "Robbery",
+   "count": "5"
+  },
+  {
+   "analysis_neighborhood": "Presidio",
+   "incident_category": "Assault",
+   "count": "2"
+  },
+  {
+   "analysis_neighborhood": "Glen Park",
+   "incident_category": "Arson",
+   "count": "2"
+  },
+  {
+   "analysis_neighborhood": "Sunset/Parkside",
+   "incident_category": "Assault",
+   "count": "152"
+  },
+  {
+   "analysis_neighborhood": "Japantown",
+   "incident_category": "Robbery",
+   "count": "4"
+  },
+  {
+   "analysis_neighborhood": "South of Market",
+   "incident_category": "Rape",
+   "count": "2"
+  },
+  {
+   "analysis_neighborhood": "Bayview Hunters Point",
+   "incident_category": "Larceny Theft",
+   "count": "820"
+  },
+  {
+   "analysis_neighborhood": "Chinatown",
+   "incident_category": "Assault",
+   "count": "146"
+  },
+  {
+   "analysis_neighborhood": "South of Market",
+   "incident_category": "Larceny Theft",
+   "count": "2015"
+  },
+  {
+   "analysis_neighborhood": "Western Addition",
+   "incident_category": "Robbery",
+   "count": "50"
+  },
+  {
+   "analysis_neighborhood": "McLaren Park",
+   "incident_category": "Arson",
+   "count": "1"
+  },
+  {
+   "analysis_neighborhood": "Castro/Upper Market",
+   "incident_category": "Burglary",
+   "count": "181"
+  },
+  {
+   "analysis_neighborhood": "Outer Richmond",
+   "incident_category": "Larceny Theft",
+   "count": "370"
+  },
+  {
+   "analysis_neighborhood": "Chinatown",
+   "incident_category": "Burglary",
+   "count": "57"
+  },
+  {
+   "analysis_neighborhood": "Russian Hill",
+   "incident_category": "Motor Vehicle Theft",
+   "count": "52"
+  },
+  {
+   "analysis_neighborhood": "Treasure Island",
+   "incident_category": "Arson",
+   "count": "3"
+  },
+  {
+   "analysis_neighborhood": "North Beach",
+   "incident_category": "Assault",
+   "count": "135"
+  },
+  {
+   "analysis_neighborhood": "Russian Hill",
+   "incident_category": "Robbery",
+   "count": "19"
+  },
+  {
+   "analysis_neighborhood": "McLaren Park",
+   "incident_category": "Robbery",
+   "count": "7"
+  },
+  {
+   "analysis_neighborhood": "Treasure Island",
+   "incident_category": "Burglary",
+   "count": "15"
+  },
+  {
+   "analysis_neighborhood": "Marina",
+   "incident_category": "Motor Vehicle Theft",
+   "count": "58"
+  },
+  {
+   "analysis_neighborhood": "Noe Valley",
+   "incident_category": "Motor Vehicle Theft",
+   "count": "53"
+  },
+  {
+   "analysis_neighborhood": "Twin Peaks",
+   "incident_category": "Motor Vehicle Theft",
+   "count": "16"
+  },
+  {
+   "analysis_neighborhood": "Marina",
+   "incident_category": "Assault",
+   "count": "104"
+  },
+  {
+   "analysis_neighborhood": "South of Market",
+   "incident_category": "Homicide",
+   "count": "7"
+  },
+  {
+   "analysis_neighborhood": "Bernal Heights",
+   "incident_category": "Arson",
+   "count": "10"
+  },
+  {
+   "analysis_neighborhood": "West of Twin Peaks",
+   "incident_category": "Larceny Theft",
+   "count": "396"
+  },
+  {
+   "analysis_neighborhood": "Western Addition",
+   "incident_category": "Homicide",
+   "count": "1"
+  },
+  {
+   "analysis_neighborhood": "Inner Sunset",
+   "incident_category": "Burglary",
+   "count": "82"
+  },
+  {
+   "analysis_neighborhood": "Presidio Heights",
+   "incident_category": "Motor Vehicle Theft",
+   "count": "21"
+  },
+  {
+   "analysis_neighborhood": "Lakeshore",
+   "incident_category": "Robbery",
+   "count": "25"
+  },
+  {
+   "analysis_neighborhood": "Hayes Valley",
+   "incident_category": "Motor Vehicle Theft",
+   "count": "90"
+  },
+  {
+   "analysis_neighborhood": "Financial District/South Beach",
+   "incident_category": "Arson",
+   "count": "17"
+  },
+  {
+   "analysis_neighborhood": "Russian Hill",
+   "incident_category": "Arson",
+   "count": "4"
+  },
+  {
+   "analysis_neighborhood": "Pacific Heights",
+   "incident_category": "Arson",
+   "count": "2"
+  },
+  {
+   "analysis_neighborhood": "Bayview Hunters Point",
+   "incident_category": "Arson",
+   "count": "51"
+  },
+  {
+   "analysis_neighborhood": "Potrero Hill",
+   "incident_category": "Motor Vehicle Theft",
+   "count": "80"
+  },
+  {
+   "analysis_neighborhood": "Castro/Upper Market",
+   "incident_category": "Assault",
+   "count": "180"
+  },
+  {
+   "analysis_neighborhood": "Excelsior",
+   "incident_category": "Robbery",
+   "count": "53"
+  },
+  {
+   "analysis_neighborhood": "Glen Park",
+   "incident_category": "Assault",
+   "count": "9"
+  },
+  {
+   "analysis_neighborhood": "Sunset/Parkside",
+   "incident_category": "Larceny Theft",
+   "count": "516"
+  },
+  {
+   "analysis_neighborhood": "North Beach",
+   "incident_category": "Burglary",
+   "count": "56"
+  },
+  {
+   "analysis_neighborhood": "Noe Valley",
+   "incident_category": "Robbery",
+   "count": "2"
+  },
+  {
+   "analysis_neighborhood": "Noe Valley",
+   "incident_category": "Burglary",
+   "count": "145"
+  },
+  {
+   "analysis_neighborhood": "Sunset/Parkside",
+   "incident_category": "Robbery",
+   "count": "28"
+  },
+  {
+   "analysis_neighborhood": "Outer Mission",
+   "incident_category": "Burglary",
+   "count": "52"
+  },
+  {
+   "analysis_neighborhood": "Chinatown",
+   "incident_category": "Motor Vehicle Theft",
+   "count": "33"
+  },
+  {
+   "analysis_neighborhood": "Portola",
+   "incident_category": "Motor Vehicle Theft",
+   "count": "62"
+  },
+  {
+   "analysis_neighborhood": "Portola",
+   "incident_category": "Larceny Theft",
+   "count": "194"
+  },
+  {
+   "analysis_neighborhood": "Marina",
+   "incident_category": "Burglary",
+   "count": "177"
+  },
+  {
+   "analysis_neighborhood": "South of Market",
+   "incident_category": "Burglary",
+   "count": "259"
+  },
+  {
+   "analysis_neighborhood": "Haight Ashbury",
+   "incident_category": "Larceny Theft",
+   "count": "315"
+  },
+  {
+   "analysis_neighborhood": "Glen Park",
+   "incident_category": "Burglary",
+   "count": "36"
+  },
+  {
+   "analysis_neighborhood": "Portola",
+   "incident_category": "Assault",
+   "count": "95"
+  },
+  {
+   "analysis_neighborhood": "Lone Mountain/USF",
+   "incident_category": "Robbery",
+   "count": "22"
+  },
+  {
+   "analysis_neighborhood": "Golden Gate Park",
+   "incident_category": "Burglary",
+   "count": "20"
+  },
+  {
+   "analysis_neighborhood": "Russian Hill",
+   "incident_category": "Assault",
+   "count": "57"
+  },
+  {
+   "analysis_neighborhood": "Lakeshore",
+   "incident_category": "Rape",
+   "count": "2"
+  },
+  {
+   "analysis_neighborhood": "Russian Hill",
+   "incident_category": "Homicide",
+   "count": "1"
+  },
+  {
+   "analysis_neighborhood": "Portola",
+   "incident_category": "Arson",
+   "count": "3"
+  },
+  {
+   "analysis_neighborhood": "Financial District/South Beach",
+   "incident_category": "Homicide",
+   "count": "2"
+  },
+  {
+   "analysis_neighborhood": "Mission",
+   "incident_category": "Burglary",
+   "count": "389"
+  },
+  {
+   "analysis_neighborhood": "McLaren Park",
+   "incident_category": "Assault",
+   "count": "13"
+  },
+  {
+   "analysis_neighborhood": "Mission",
+   "incident_category": "Robbery",
+   "count": "293"
+  },
+  {
+   "analysis_neighborhood": "Bernal Heights",
+   "incident_category": "Burglary",
+   "count": "87"
+  },
+  {
+   "analysis_neighborhood": "Tenderloin",
+   "incident_category": "Arson",
+   "count": "41"
+  },
+  {
+   "analysis_neighborhood": "Pacific Heights",
+   "incident_category": "Larceny Theft",
+   "count": "539"
+  },
+  {
+   "analysis_neighborhood": "South of Market",
+   "incident_category": "Arson",
+   "count": "30"
+  },
+  {
+   "analysis_neighborhood": "West of Twin Peaks",
+   "incident_category": "Robbery",
+   "count": "16"
+  },
+  {
+   "analysis_neighborhood": "Oceanview/Merced/Ingleside",
+   "incident_category": "Arson",
+   "count": "1"
+  },
+  {
+   "incident_category": "Homicide",
+   "count": "1"
+  },
+  {
+   "analysis_neighborhood": "Visitacion Valley",
+   "incident_category": "Arson",
+   "count": "2"
+  },
+  {
+   "analysis_neighborhood": "Treasure Island",
+   "incident_category": "Robbery",
+   "count": "1"
+  },
+  {
+   "analysis_neighborhood": "Glen Park",
+   "incident_category": "Motor Vehicle Theft",
+   "count": "29"
+  },
+  {
+   "analysis_neighborhood": "Outer Richmond",
+   "incident_category": "Motor Vehicle Theft",
+   "count": "70"
+  },
+  {
+   "analysis_neighborhood": "Golden Gate Park",
+   "incident_category": "Assault",
+   "count": "43"
+  },
+  {
+   "analysis_neighborhood": "Nob Hill",
+   "incident_category": "Robbery",
+   "count": "51"
+  },
+  {
+   "analysis_neighborhood": "Visitacion Valley",
+   "incident_category": "Robbery",
+   "count": "22"
+  },
+  {
+   "analysis_neighborhood": "Financial District/South Beach",
+   "incident_category": "Motor Vehicle Theft",
+   "count": "149"
+  },
+  {
+   "analysis_neighborhood": "Excelsior",
+   "incident_category": "Motor Vehicle Theft",
+   "count": "105"
+  },
+  {
+   "analysis_neighborhood": "Financial District/South Beach",
+   "incident_category": "Larceny Theft",
+   "count": "1077"
+  },
+  {
+   "analysis_neighborhood": "Twin Peaks",
+   "incident_category": "Assault",
+   "count": "11"
+  },
+  {
+   "analysis_neighborhood": "Outer Richmond",
+   "incident_category": "Robbery",
+   "count": "28"
+  },
+  {
+   "analysis_neighborhood": "Treasure Island",
+   "incident_category": "Larceny Theft",
+   "count": "31"
+  },
+  {
+   "analysis_neighborhood": "Nob Hill",
+   "incident_category": "Motor Vehicle Theft",
+   "count": "121"
+  },
+  {
+   "analysis_neighborhood": "Bayview Hunters Point",
+   "incident_category": "Rape",
+   "count": "1"
+  },
+  {
+   "analysis_neighborhood": "Bayview Hunters Point",
+   "incident_category": "Homicide",
+   "count": "6"
+  },
+  {
+   "analysis_neighborhood": "West of Twin Peaks",
+   "incident_category": "Burglary",
+   "count": "95"
+  },
+  {
+   "analysis_neighborhood": "Hayes Valley",
+   "incident_category": "Burglary",
+   "count": "159"
+  },
+  {
+   "analysis_neighborhood": "Bernal Heights",
+   "incident_category": "Motor Vehicle Theft",
+   "count": "92"
+  },
+  {
+   "analysis_neighborhood": "Outer Richmond",
+   "incident_category": "Burglary",
+   "count": "104"
+  },
+  {
+   "analysis_neighborhood": "Nob Hill",
+   "incident_category": "Arson",
+   "count": "8"
+  },
+  {
+   "analysis_neighborhood": "Oceanview/Merced/Ingleside",
+   "incident_category": "Homicide",
+   "count": "3"
+  },
+  {
+   "analysis_neighborhood": "Twin Peaks",
+   "incident_category": "Burglary",
+   "count": "15"
+  },
+  {
+   "analysis_neighborhood": "Outer Mission",
+   "incident_category": "Motor Vehicle Theft",
+   "count": "56"
+  },
+  {
+   "analysis_neighborhood": "Sunset/Parkside",
+   "incident_category": "Burglary",
+   "count": "139"
+  },
+  {
+   "analysis_neighborhood": "Mission Bay",
+   "incident_category": "Assault",
+   "count": "175"
+  },
+  {
+   "analysis_neighborhood": "Russian Hill",
+   "incident_category": "Burglary",
+   "count": "104"
+  }
+ ]
+}

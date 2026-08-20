@@ -126,10 +126,12 @@ If the recipient's email is visible elsewhere (their LIN profile, a mutual intro
 4. One low-friction ask.
 5. Light close.
 
+⛔ **Never name GigaCloud in any message** — it's excluded from all external-facing artefacts (Ukrainian company, not a software-product business). The current period is written as "fractional product leader / fractional product work in agentic AI", never as a named employer. Full rule: `context/areas/job-search/positioning.md`.
+
 **Worked example - peer product leader, post-connection-accept (~70 words):**
 > Hi Dana, thanks for connecting! Saw [Company] is pushing into vertical CRM - that's a transition I went through at Creatio, including the horizontal-vs-vertical roadmap tension.
 >
-> Currently CPO at GigaCloud, looking at agentic AI in this space.
+> Currently doing fractional product work in agentic AI, so this is right in my lane.
 >
 > Would be great to compare notes if you're up for a quick chat.
 >

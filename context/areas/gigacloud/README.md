@@ -1,7 +1,9 @@
 # GigaCloud — CPO
 
 _status: CPO role; first product artifact landed — a requirements-scoping effort for the CREASHO/Krayshu catalog ↔ Billing integration is in flight_
-_updated: 2026-07-21_
+_updated: 2026-08-12_
+
+> ⛔ **Internal-only area.** GigaCloud is never named in any external-facing artefact — CV, LinkedIn profile or DMs, outreach, applications, interviews, bios, generated drafts. In interviews this period is referred to only as "a fractional project helping a European tech company (infrastructure provider) build an AI-enabled org"; in writing, as "fractional product leader for agentic-AI B2B startups". Rule + rationale: [job-search/positioning.md](../job-search/positioning.md).
 
 ## Snapshot
 

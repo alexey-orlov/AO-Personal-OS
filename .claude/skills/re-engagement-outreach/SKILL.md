@@ -57,7 +57,9 @@ Auto-detect one-contact-per-line vs comma-separated by comparing newline count t
 
 `slugify(angle) + "-" + YYYY-MM-DD` (UTC). Lowercase, alphanumeric + hyphen, max 60 chars (truncate the angle portion if needed).
 
-Example: `"re-engage about agentic AI work at GigaCloud"` on 2026-05-26 → `re-engage-about-agentic-ai-work-at-gigacloud-2026-05-26`.
+Example: `"re-engage about fractional agentic AI work"` on 2026-05-26 → `re-engage-about-fractional-agentic-ai-work-2026-05-26`.
+
+⛔ Never build an angle (or a draft) around GigaCloud — it is excluded from every external-facing artefact; see `context/areas/job-search/positioning.md`.
 
 ## Step 4 — Load state
 

@@ -1,0 +1,788 @@
+{
+ "districts": [
+  {
+   "district": "Acalanes Union High",
+   "assignment_system": "address-based attendance area",
+   "tk_capacity_note": "Not applicable \u2014 high school district. Enrollment page covers entry at grades 9 and 10 (grades 9\u201312 only) and contains no TK program or TK enrollment content.",
+   "source": "acalanes.k12.ca.us",
+   "enrollment_note": "Enrollment page: \"Your neighborhood high school is based on your street address.\" Provides a Schoolsite Locator tool and attendance boundary maps. Transfers exist as a separate process; no lottery or preference ranking appears anywhere on the page."
+  },
+  {
+   "district": "Alameda Unified",
+   "assignment_system": "address-based attendance area",
+   "tk_capacity_note": "CONSTRAINED \u2014 TK offered at only 5 elementary sites for 2026-27 (Bay Farm, Earhart, Love, Paden, Ruby Bridges); \"Since TK is not offered at every school site, these programs are not zoned\" and \"we cannot guarantee that your child's TK year will be in their home school\"; placement is \"given space availability\"",
+   "enrollment_note": "District describes itself as a \"neighborhood school system\" \u2014 \"in most cases your child will go to schools that are zoned for your home address\"; provides a School Finder tool. No lottery mentioned for general enrollment.",
+   "source": "alamedaunified.org"
+  },
+  {
+   "district": "Albany City Unified",
+   "assignment_system": null,
+   "tk_capacity_note": null,
+   "source": null,
+   "enrollment_note": "NOT ESTABLISHED. ausdk12.org dropped every connection (TLS/socket hang up) across 5 attempted paths (/enrollment, /enroll-in-ausd, /tkkfaq, /transitional-kindergarten-home, non-www variant) and also failed via direct curl \u2014 no district page was ever read. Search results did surface district-page text indicating parents list school preferences after an enrollment appointment with 'no guarantee of placement at a specific school', which would cut against a pure address guarantee, but since no page was read this is NOT reported as fact. Needs manual check."
+  },
+  {
+   "district": "Antioch Unified",
+   "assignment_system": "address-based attendance area",
+   "tk_capacity_note": null,
+   "enrollment_note": "Enrollment page states \"All student enrollment occurs online and with the residential school site\" and offers a \"School Locator\" tool; intra-district transfers are a separate opt-in process under BP 5116.1. Reached the TK & Kindergarten enrollment link but could not load a page stating TK seat capacity, waitlist, or lottery, so TK constraint is not established.",
+   "source": "antiochschools.net"
+  },
+  {
+   "district": "Belmont-Redwood Shores Elementary",
+   "assignment_system": "address-based attendance area \u2014 assignment is driven by home address (walking distance), not by family-ranked choice",
+   "tk_capacity_note": "Constrained \u2014 TK is offered at only some sites (Cipriani, Fox, Redwood Shores, Sandpiper; Nesbit beginning 2026-27), and the district states \"Many students will not attend Transitional Kindergarten at their school of assignment.\"",
+   "enrollment_note": "District assigns students using \"linear optimization to assign incoming students to schools close to their homes and within the limits of each school's enrollment capacity\"; intradistrict transfer process exists separately.",
+   "source": "brssd.org"
+  },
+  {
+   "district": "Benicia Unified",
+   "assignment_system": "address-based attendance area",
+   "tk_capacity_note": "Constrained when a grade level fills. Neighborhood placement is only \"Automatic placement guaranteed when space is available\"; schools \"that do not have enough room in a grade level to accommodate all students living within the boundary\" place students \"on a waitlist at their resident school and assigned, or overflowed, to another school\" that has space. This overflow/waitlist policy is stated district-wide for all grade levels (TK-12), not specifically for TK.",
+   "enrollment_note": "New student enrollment opens February 1 each year for grades TK-12 and \"continues throughout the school year.\" Enrollment is for Benicia residents only (94510). Board Policy 5117 sets an enrollment priority hierarchy; intradistrict Open Enrollment transfers are subject to available space. Overflowed students return to their resident school when space opens.",
+   "source": "beniciaunified.org"
+  },
+  {
+   "district": "Berkeley Unified",
+   "assignment_system": "choice lottery \u2014 \"controlled choice\" within three elementary zones; address sets your zone, not your school",
+   "tk_capacity_note": "Constrained \u2014 TK enrolls through the same centralized elementary assignment process; waitlist FAQ states \"Through a lottery, students are given a waitlist number\" and zone residency \"does not guarantee\" a seat. No TK-specific capacity statement found.",
+   "enrollment_note": "Admissions page: elementary registrations run through a \"centralized student assignment process\"; assignment plan says the plan gives \"families a choice of schools within one of three zones\" to meet zone-wide diversity targets (+/- 5-10%). Waitlist FAQ adds sibling priority, diversity categories, and random lottery for Longfellow middle school. Requests after April 6 go to the end of the waitlist.",
+   "source": "berkeleyschools.net"
+  },
+  {
+   "district": "Bolinas-Stinson Union",
+   "assignment_system": null,
+   "tk_capacity_note": null,
+   "enrollment_note": "Not established. The district's own enrollment page (bolinas-stinson.org/page/enrollment) returns HTTP 200, but the fetcher truncated the body before any enrollment text on three separate attempts with different prompts; alternate paths (/page/enrollment-registration) 404. No assignment-method or TK language was actually read, so both fields are null rather than guessed.",
+   "source": null
+  },
+  {
+   "district": "Brentwood Union",
+   "assignment_system": "address-based attendance area \u2014 but the district warns placement at your specific neighborhood school is not guaranteed",
+   "tk_capacity_note": null,
+   "enrollment_note": "District maintains an \"Attendance Boundaries\" page; families verify their boundary and then \"contact your boundary school to complete the enrollment process.\" District states that as a growing community, placement at your neighborhood school may not be possible \u2014 placement within the district is assured, but not at your specific neighborhood school. TK-specific capacity language could not be read: the district's TK/Kindergarten and Attendance Boundaries pages returned truncated content on every fetch, so the TK field is left null rather than guessed.",
+   "source": "brentwood.k12.ca.us (page text surfaced via search; direct fetches of /page/attendance-boundaries and /o/busd/page/tk-kindergarten returned truncated bodies)"
+  },
+  {
+   "district": "Brisbane Elementary",
+   "assignment_system": null,
+   "tk_capacity_note": null,
+   "enrollment_note": "NOT ESTABLISHED \u2014 brisbanesd.org returned HTTP 403 to every fetch attempt (/enrollment, /fast-facts, /apps/pages/Enrollment, enrollment FAQ), so no district page was read. UNVERIFIED SIGNAL, do not treat as fact: a search-result summary attributed to brisbanesd.org pages described no attendance boundaries within the district (families request either Brisbane Elementary or Panorama Elementary), first-come/first-served by online-enrollment timestamp, and TK offered only at Panorama Elementary. If true this fits NEITHER label cleanly \u2014 open choice allocated first-come, not a lottery and not an attendance area. Needs a direct read before use.",
+   "source": null
+  },
+  {
+   "district": "Burlingame Elementary",
+   "assignment_system": "address-based attendance area \u2014 but placement not guaranteed; capacity overflow to another district elementary",
+   "tk_capacity_note": "Constrained \u2014 enrollment is first-come, first-served and \"placement of each student is subject to capacity at each school\"; when a school reaches capacity in any grade level (TK\u20135), overflow students are placed at another district elementary. NOTE: this is grade-general language, not a TK-specific waitlist or lottery.",
+   "source": "burlingameschools.org (read via search-result excerpt only \u2014 burlingameschools.org returned HTTP 403 to every direct fetch, including through a real browser session hitting a Cloudflare challenge; treat as lower-confidence than the districts read directly)",
+   "enrollment_note": "Boundaries list is used to find the neighborhood school, but the district states there is \"no guarantee of attendance in the student's neighborhood school.\" District advises enrolling early. TK described as year one of a two-year kindergarten program, open to children turning four by September 1."
+  },
+  {
+   "district": "Byron Union Elementary",
+   "assignment_system": null,
+   "tk_capacity_note": null,
+   "enrollment_note": "NOT ESTABLISHED. District site confirmed as byronunionschooldistrict.us (Byron + Discovery Bay, Contra Costa), but the enrollment, TK/kindergarten, student-services, and home pages all returned content truncated before any assignment or TK-capacity language. Only fact visible: TK eligibility requires turning 4 by Sept 1, 2026 \u2014 which is statewide eligibility, not a discriminating fact. Both fields left null rather than guessed.",
+   "source": null
+  },
+  {
+   "district": "Cabrillo Unified",
+   "assignment_system": "address-based attendance area",
+   "tk_capacity_note": null,
+   "source": "cabrillo.us",
+   "enrollment_note": "Confirmed on the district's own enrollment and parent-FAQ pages (cabrillo.us, redirected from cabrillo.k12.ca.us): an 'Elementary School Boundary Finder' is linked, 'There is a school locator within the online registration', and attending elsewhere requires an Open Enrollment request to go 'outside your assigned boundary'. A lottery IS mentioned ('informed in writing within 2 weeks after the lottery whether your child has received a space or been put on a waitlist') but it governs open-enrollment/transfer requests, not base assignment \u2014 an address still yields an assigned school. TK capacity specifically: the TK/K information page carried no capacity, waitlist, or seat-limit language, so TK is left null."
+  },
+  {
+   "district": "Calistoga Joint Unified",
+   "assignment_system": null,
+   "tk_capacity_note": null,
+   "enrollment_note": "Could not establish either fact. calistogaschools.org is behind a bot-protection \"Client Challenge\" that blocked every fetch, and guessed enrollment paths 404'd. The district's own Aeries online-enrollment portal (calistogajusd.asp.aeries.net) loaded but contains no assignment-method, boundary, or TK-capacity text \u2014 it only names an Elementary and a Jr/Sr High School in contact info. Both fields left null rather than inferred.",
+   "source": "calistogajusd.asp.aeries.net (loaded, but carried neither fact)"
+  },
+  {
+   "district": "Campbell Union",
+   "assignment_system": "address-based attendance area \u2014 \"Your elementary or middle school is determined by your child's home address\"; district provides an online School Locator (search by address)",
+   "tk_capacity_note": null,
+   "enrollment_note": "Open Enrollment window (Jan 20 - Feb 13, 2026 for 2026-27) lets families request a different in-district school. District notes \"our TK-8 schools have special enrollment conditions\" and directs families to contact enrollment staff. No TK capacity/waitlist/lottery information found on the enrollment or find-my-school pages.",
+   "source": "campbellusd.org"
+  },
+  {
+   "district": "Campbell Union High",
+   "assignment_system": "address-based attendance area",
+   "tk_capacity_note": "Not applicable \u2014 this is a 9-12 high school district (five comprehensive high schools: Branham, Del Mar, Leigh, Prospect, Westmont), so it offers no TK.",
+   "enrollment_note": "District Boundaries page states: \"Attendance at each school is determined by student home address. Students are enrolled directly at the high school of residence. See the SCHOOL LOCATOR for information about your home address and the assigned school.\" Important caveat on the same page: \"Capacity limitations at campuses within the school district may require that your child attend a school other than your indicated home school,\" and locator results are not \"a guarantee of student placement at any school.\" Site sits behind Cloudflare bot protection; page was read via browser after direct fetchers were blocked.",
+   "source": "cuhsd.org"
+  },
+  {
+   "district": "Castro Valley Unified",
+   "assignment_system": null,
+   "tk_capacity_note": null,
+   "enrollment_note": "Not established. Official domain identified as cv.k12.ca.us (enrollment pages at /enrollment-registration, /new-student-enrollment, /enrollment-timeline-2026), but every fetch attempt to that domain \u2014 https, http, with and without www, five separate paths \u2014 returned a socket hang up or connection refusal. No district page was actually read, so both fields are null rather than assumed.",
+   "source": null
+  },
+  {
+   "district": "Cloverdale Unified",
+   "assignment_system": null,
+   "tk_capacity_note": null,
+   "enrollment_note": "Not established. cusd.org \u2014 the district domain identified for Cloverdale Unified (97 School Street, Cloverdale, CA 95425) \u2014 returned HTTP 403 Forbidden on every fetch attempt (root and /enrollment, http and https). cloverdaleusd.org does not resolve (ENOTFOUND). No district page was read.",
+   "source": null
+  },
+  {
+   "district": "Cotati-Rohnert Park Unified",
+   "assignment_system": "address-based attendance area \u2014 with an intra-district school-choice option at TK/K",
+   "tk_capacity_note": "Constrained \u2014 TK/K families may choose their school, and \"If a school is full, a lottery will take place.\"",
+   "enrollment_note": "District enrollment page directs families to a school-locator tool: \"Input your home address in the requested field, and it will list your resident schools.\" Grades 6-12 seeking a non-resident school must file an intradistrict transfer under Board Policy 5116.1 priorities. So the base assignment is by address, but TK/K adds a choice layer that falls back to lottery when oversubscribed.",
+   "source": "crpusd.org"
+  },
+  {
+   "district": "Cupertino Union",
+   "assignment_system": "address-based attendance area",
+   "tk_capacity_note": "Constrained. The 2026-27 Open Enrollment page lists \"Transitional Kindergarten (TK): No sites available\" among attendance-area schools, and states Open Enrollment \"is not a backup plan for students who are overflowed to another attendance area school because their home attendance area school is too full\" \u2014 schools do fill and overflow students. Only the alternative school McAuliffe (TK-8) took TK through that pathway.",
+   "enrollment_note": "School Locator Tool: \"displays the preliminary school assignments based on CUSD boundaries for the provided address. Official school assignment will be provided at the time of registration through the Student Assignment department.\" Registration page refers to the \"home attendance area school\". Open Enrollment is a separate waitlist-based transfer process on top of the address assignment, not the base mechanism.",
+   "source": "cusdk8.org"
+  },
+  {
+   "district": "Dixon Unified",
+   "assignment_system": "address-based attendance area",
+   "tk_capacity_note": "Weak signal only, not TK-specific: enrollment page states \"If space is unavailable at their grade level, your student may be reassigned to another school.\" No TK waitlist, TK lottery, or TK seat-count language appears on the page. Treat TK capacity as not established.",
+   "source": "dixonusd.org",
+   "enrollment_note": "Enrollment page: \"Based on your address, your student will be enrolled in your neighborhood school.\" Boundary map tool provided; intradistrict transfer is a separate post-enrollment request. TK content on the page is age-eligibility only (turn four on or before September 1, 2026)."
+  },
+  {
+   "district": "Dublin Unified",
+   "assignment_system": "address-based attendance area",
+   "tk_capacity_note": null,
+   "enrollment_note": "\"In order to accommodate DUSD students, each residential area is assigned to a particular school at each grade level.\" District publishes a \"School Boundaries, Assignments & School Locator\" page and a school-site locator tool. Intra-district transfers exist but are the exception, approved \"based on space availability\"; overcrowded schools may divert students. TK page states only the age rule (turning 4 by Sept 1, 2026) \u2014 no capacity, waitlist, or site-list language found, so TK left null.",
+   "source": "dublinusd.org"
+  },
+  {
+   "district": "Emery Unified",
+   "assignment_system": null,
+   "tk_capacity_note": null,
+   "source": null,
+   "enrollment_note": "NOT ESTABLISHED. Every route returned HTTP 403: emeryusd.org/enrollment, emeryusd.k12.ca.us/enrollment, emeryusd.k12.ca.us/enrollment.html, the site root, and the school site annayatesk8.com/enrollment.html. No district page was read. Search results indicated the district operates only two schools (Anna Yates Elementary and Emery Secondary) on a shared campus, which would make intra-district assignment largely moot, but this was not verified on a district page and no TK capacity language was seen."
+  },
+  {
+   "district": "Fairfield-Suisun Unified",
+   "assignment_system": "address-based attendance area",
+   "tk_capacity_note": "Not TK-specific. District-wide overflow rule applies to any grade at capacity: a late-registered student \"could be temporarily 'overflowed' to a school outside of their own assigned resident zone school if the grade is at capacity,\" with a right to transfer back when space opens. No TK waitlist, TK lottery, or TK seat limit stated.",
+   "enrollment_note": "District's own enrollment portal (air.fsusd.org, which redirects to fairfieldsuisunusd.aeries.net) describes an \"assigned resident zone school\" and notes the Superintendent \"may place some students in a school outside of their attendance area in order to alleviate overcrowding.\" The main fsusd.org site was bot-gated and could not be read directly.",
+   "source": "fairfieldsuisunusd.aeries.net (the district's own enrollment system, linked from fsusd.org as air.fsusd.org)"
+  },
+  {
+   "district": "Forestville Union Elementary",
+   "assignment_system": "address-based attendance area \u2014 single-campus district (one TK-8 campus), so an in-district address means that campus; no intra-district choice or lottery, and out-of-district families must file an interdistrict transfer at their school of residence",
+   "tk_capacity_note": "Widely available \u2014 \"Enrollment is available year round\" and \"Forestville School will take your contact information for incoming Kindergarten students at any time\"; no waitlist, lottery, or limited-seat language anywhere on the enrollment or FAQ pages",
+   "enrollment_note": "District advertises rolling admissions; annual Kinder Fair each April. Grades 1-8 applicants are asked to visit campus and do a parent/guardian interview.",
+   "source": "forestvilleusd.org"
+  },
+  {
+   "district": "Fremont Unified",
+   "assignment_system": "address-based attendance area",
+   "tk_capacity_note": "Widely available by site, constrained by placement. TK page states: \"All Elementary within Fremont Unified School District have at least one TK class at each school with the exception of Warm Springs Elementary with Grade 3-5.\" However the enrollment page warns \"Students may be placed outside their home school based on availability,\" and \"Elementary schools participate in a kindergarten lottery/wait lists when more kindergarten students are enrolled than available space\" (that lottery/waitlist sentence is written about kindergarten, not TK specifically).",
+   "enrollment_note": "Enrollment page directs families to a \"School Locator (woolpert.com) to find a home school (boundaries) by residence address.\" Student must live full-time in Fremont. Separate optional programs (Spanish/Mandarin immersion, Science Magnet, Arts Magnet) require a program application on top of enrollment; TK immersion is at Blacow (Spanish) and Lila Bringhurst (Mandarin). District maintains a dedicated \"School Wait Lists & Overloads\" page and an Overload Complaint Form.",
+   "source": "fremontunified.org"
+  },
+  {
+   "district": "Fremont Unified (Alameda County) \u2014 DUPLICATE GUARD",
+   "assignment_system": null,
+   "tk_capacity_note": null,
+   "enrollment_note": "IGNORE THIS ROW \u2014 placeholder removed; see the Fremont Unified row above.",
+   "source": null
+  },
+  {
+   "district": "Fremont Union High",
+   "assignment_system": "address-based attendance area",
+   "tk_capacity_note": "Not applicable \u2014 high school district (5 comprehensive high schools, grades 9-12); no TK program appears anywhere on its enrollment pages.",
+   "enrollment_note": "Boundary-maps page: \"The District's Boundary Map specifies the attendance areas served by each high school. Students must live in the attendance area to attend a high school.\" District provides an address-check tool (schfinder.com/fuhsd). Residency page: \"the public school responsible for a student's education is the one in which the parent/guardian primary residence is located.\" Intra-district transfer options exist separately.",
+   "source": "fuhsd.org"
+  },
+  {
+   "district": "Geyserville Unified",
+   "assignment_system": "address-based attendance area \u2014 residence-based enrollment; no in-district choice or lottery application exists on the district site",
+   "tk_capacity_note": null,
+   "enrollment_note": "gusd.com confirmed as Geyserville Unified, 1300 Moody Lane, Geyserville (Sonoma County). Enrollment is a single district-wide PDF form that collects 'Residence Address' with no school selection, no ranked preferences, and no application window; the only transfer forms published are Interdistrict Transfer and School District of Choice, both for out-of-district families. Caveat on the assignment call: it rests on the absence of any choice/lottery mechanism plus the residence-address form, not on an explicit 'attendance area' statement \u2014 the site has no boundary map or school locator, and /enrollment.html and /enrollment both 404. TK: no TK page and no TK mention anywhere read, so TK capacity is left null.",
+   "source": "gusd.com"
+  },
+  {
+   "district": "Gilroy Unified",
+   "assignment_system": "address-based attendance area",
+   "tk_capacity_note": "Widely available \u2014 TK is offered \"At all elementary schools.\" The only waitlist is for the optional Dual Immersion TK strand at Glen View Elementary: \"Students that are not placed in the Dual Immersion TK program will be assigned to a waiting list.\"",
+   "enrollment_note": "\"The neighborhood school is determined by the physical address of the family.\" District directs families to the GUSD School Locator to \"ensure you enroll your student in the school corresponding to your address.\" No lottery or ranked application for general enrollment. Dual Immersion TK placement gives priority to Glen View attendance-area candidates, siblings, and employees' children, but those priorities \"do not guarantee placement.\"",
+   "source": "gilroyunified.org"
+  },
+  {
+   "district": "Guerneville Elementary",
+   "assignment_system": null,
+   "tk_capacity_note": null,
+   "enrollment_note": "NOT ESTABLISHED \u2014 no district page could be read. guernevilleschool.org refused connections (ECONNREFUSED 104.232.38.112:443) on every attempt; a search returned no district enrollment page, and the CDE school directory lookup was blocked by a WAF redirect. Both fields genuinely unknown.",
+   "source": null
+  },
+  {
+   "district": "Harmony Union Elementary",
+   "assignment_system": null,
+   "tk_capacity_note": null,
+   "source": null,
+   "enrollment_note": "NOT ESTABLISHED \u2014 harmonyusd.org was unreachable throughout this task. DNS resolves (18.233.124.95 / 54.221.139.169, same Edlio-style host as martinezusd.net), but every HTTPS request failed (empty reply / HTTP-2 protocol error) via WebFetch, curl with browser headers, forced HTTP/1.1, and the browser pane. No district-authored page was read, so both fields are null rather than guessed. Search results returned only third-party pages (Wikipedia, CDE, SCOE), which do not satisfy the source requirement."
+  },
+  {
+   "district": "Hayward Unified",
+   "assignment_system": "address-based attendance area",
+   "tk_capacity_note": null,
+   "enrollment_note": "Confirmed via the intradistrict-transfer definition: a transfer is when parents wish to enroll \"at a school other than the designated school that is in their attendance area\" \u2014 i.e. an attendance-area default exists. Also \"students will move to the school based on your current address\", plus a Boundaries page and School Locator. TK page describes the program only (a two-year kindergarten program) with no capacity, waitlist, lottery, or site-list statement; the Early Learning enrollment page carries no TK capacity detail either. TK left null.",
+   "source": "husd.us"
+  },
+  {
+   "district": "Healdsburg Unified",
+   "assignment_system": null,
+   "tk_capacity_note": null,
+   "source": null,
+   "enrollment_note": "NOT ESTABLISHED. husd.com returned HTTP 403 on /enrollment, on the registration page (apps/pages/index.jsp), on the site root, on the school site hes.husd.com, and on the legacy schoolloop registration mirror. No district page was read. Search results suggested the district runs ~5 schools on four campuses with Healdsburg Elementary serving TK-2, and quoted old (2022-23) 'space availability' language that applied only to summer-birthday early admits under pre-universal-TK rules \u2014 outdated and not reported."
+  },
+  {
+   "district": "Hillsborough City Elementary",
+   "assignment_system": "address-based attendance area",
+   "tk_capacity_note": "Constrained. Space is capped at the home school across TK-5: \"If there is a lack of classroom space at your home school, your student will be placed on a waiting list for your home school but, in the meantime, will be assigned to another school within the Hillsborough City School District with the available classroom space.\" Over-subscribed grades are filled in date order of completed registration, and TK families are not told their school placement until spring.",
+   "enrollment_note": "\"If your family resides in the Town of Hillsborough, home schools are based on the school boundaries.\" A priority registration window (early December) grants top placement odds at the home school \u2014 siblings first, then on-time registrants; after that window, placement is \"based on the student's home address and classroom space availability.\" Grades 6-8 all attend Crocker Middle School.",
+   "source": "hcsdk8.org"
+  },
+  {
+   "district": "Howell Mountain Elementary",
+   "assignment_system": null,
+   "tk_capacity_note": null,
+   "enrollment_note": "Not established \u2014 the district site (hmesd.org) returned a CloudFront 403 \"Request blocked\" on every attempt (WebFetch, curl with full browser headers, and the browser pane). No district page could be read, so both facts are left null rather than guessed.",
+   "source": null
+  },
+  {
+   "district": "Jefferson Elementary",
+   "assignment_system": null,
+   "tk_capacity_note": null,
+   "enrollment_note": "NOT ESTABLISHED \u2014 could not read any district page. The district's own site (www.jsd.k12.ca.us, 101 Lincoln Avenue, Daly City; serves PreK-8 in Daly City, Colma, Broadmoor and part of Pacifica) refused connections on both HTTPS and HTTP from every available fetcher (curl, WebFetch, and the browser: ECONNREFUSED on 104.232.38.112:443 and 67.218.121.212:443). jeffersonelementary.org was checked and is a different entity (a single school, \"Thomas Jefferson Elementary\"), so it was not used. Both facts left null rather than inferred.",
+   "source": null
+  },
+  {
+   "district": "Jefferson Union High",
+   "assignment_system": "address-based attendance area \u2014 assignment by zip code, with a school-selection/lottery layer on top for out-of-area choices",
+   "tk_capacity_note": "Not applicable \u2014 high school district (Jefferson, Oceana, Terra Nova, Thornton, Westmoor + Adult Ed, 3,715 students); no TK program.",
+   "enrollment_note": "Student Services enrollment policy: \"After the [January] school selection deadline, students will be automatically assigned to the school of attendance established in the Board Policy\" \u2014 94014 to Jefferson HS, 94015 to Westmoor HS, 94044 to Terra Nova HS. Choice layer is capped: 30 out-of-area students get Westmoor, \"The 31st student and beyond will be placed on a waiting list\"; Oceana caps at 210 with a lottery if oversubscribed. Bayshore/Brisbane feeder students are guaranteed first choice. Verified as the Daly City (123 Edgemont Dr) district, not another Jefferson district.",
+   "source": "juhsd.net"
+  },
+  {
+   "district": "John Swett Unified",
+   "assignment_system": null,
+   "tk_capacity_note": null,
+   "enrollment_note": "Not established. jsusd.org was confirmed as the district's official site (John Swett Unified, 400 Parker Avenue, Rodeo, CA \u2014 Crockett/Port Costa/Rodeo/Hercules), but the server closed the connection ('socket hang up') on five fetch attempts across the homepage, /enrollment, and /apps/pages/enrollment. No district page was read.",
+   "source": null
+  },
+  {
+   "district": "Kentfield Elementary",
+   "assignment_system": "address-based attendance area \u2014 residency-based; single-elementary district (Bacich)",
+   "tk_capacity_note": "Constrained \u2014 the district does not run a standard full-day in-district TK classroom: \"KSD provides access to a 3 hour UTK program for KSD families through a partnership with local community agencies,\" and the College of Marin partner program has \"limited space for prioritized enrollment (CSPP eligibility criteria).\"",
+   "enrollment_note": "Registration page requires residency verification for students new to the district, returning after a leave, or matriculating Bacich\u2192Kent, and points families to a \"District Boundary Address List\" to \"Confirm your address is within district boundaries.\" No choice or lottery process appears. District has only two schools (Bacich K-4, Kent 5-8), so the attendance area is effectively district-wide. Overall UTK seat counts and any district-run waitlist were not stated on the pages read.",
+   "source": "kentfieldschools.org"
+  },
+  {
+   "district": "Kenwood",
+   "assignment_system": "address-based attendance area \u2014 qualifier: single-school district (one TK-6 school), so the district boundary is effectively the attendance area; no lottery was described. Notably 49% of students come from outside the boundary via interdistrict transfer.",
+   "tk_capacity_note": null,
+   "enrollment_note": "Read on kenwoodschool.org: \"Presently, 49% of our students reside outside of the Kenwood District boundaries\" and those families \"choose our school through the interdistrict transfer process.\" Also \"We have one class for each grade level from transitional kindergarten through sixth grade\" and \"Our classrooms average less than 20 students in each room\" (122 students TK-6). TK capacity NOT established \u2014 a single TK class with ~20-student classrooms implies a hard cap, but no waitlist, lottery, or \"limited seats\" language was read, so the field is left null rather than inferred.",
+   "source": "kenwoodschool.org"
+  },
+  {
+   "district": "Knightsen Elementary",
+   "assignment_system": "address-based attendance area",
+   "tk_capacity_note": null,
+   "source": "knightsen.k12.ca.us",
+   "enrollment_note": "Registration page requires \"verification of address\" plus a Residency Verification form, and its District Boundaries section links a \"District Boundary Map (PDF)\" and a \"See What School District You're In\" lookup; separate Intra-District and Inter-District Transfer processes exist. No lottery, ranking, or application-period language anywhere. TK section gives eligibility only (\"Children who turn five years of age on or between September 2 and June 2 ... are eligible to enroll in Transitional Kindergarten\" \u2014 stale pre-universal-TK wording) and points to an Aeries online enrollment portal; it says nothing about waitlists, seat limits, or lotteries, so TK capacity is left null."
+  },
+  {
+   "district": "La Honda-Pescadero Unified",
+   "assignment_system": null,
+   "tk_capacity_note": null,
+   "enrollment_note": "NOT ESTABLISHED. Correct district site is lhpusd.com (lhpusd.org does not resolve), and the homepage was confirmed as La Honda-Pescadero Unified, but page content returned truncated to the header and both guessed enrollment paths (/enrollment, /page/enrollment) returned 404. No assignment or TK-capacity language was read. Both fields left null.",
+   "source": null
+  },
+  {
+   "district": "Lafayette Elementary",
+   "assignment_system": null,
+   "tk_capacity_note": null,
+   "source": null,
+   "enrollment_note": "NOT ESTABLISHED. lafsd.org returned HTTP 403 on /enrollment, /schoolboundaries, the site root, and lafsd.k12.ca.us/kidergartentransitionalk. No page was read. Search results listed an lafsd.org page literally titled 'Attendance Boundaries \u2013 Student Enrollment' plus a boundary-map reference and noted 4 elementary schools (K-5) and 1 middle school \u2014 this points strongly to address-based attendance areas, and search text also flagged that K-5 students sometimes attend a school other than their boundary school, but because no page could be read it is not reported as fact. Highest-confidence null in the set; worth one manual check."
+  },
+  {
+   "district": "Lagunitas Elementary",
+   "assignment_system": "address-based attendance area",
+   "tk_capacity_note": "Widely available. District handbook states plainly: \"Space will be available for all eligible students who reside within the Lagunitas School District boundaries.\" No waitlist, lottery, or seat cap. TK is taught in a combined TK/K class at the single community school.",
+   "enrollment_note": "Residency-based: \"Parents and guardians must provide the district office the required proof of residency paperwork prior to enrollment,\" with residence defined as where the student sleeps a majority of the school week. The district runs one school (Lagunitas Community School, TK-8), so there is no inter-school choice or lottery. Read from the district's official 2025-2026 handbook PDF; the enrollment web page body is JavaScript-rendered and would not load.",
+   "source": "lagunitas.org (official Lagunitas Community School Handbook 2025-2026 PDF on the district's CMS asset host)"
+  },
+  {
+   "district": "Larkspur-Corte Madera",
+   "assignment_system": "address-based attendance area with a lottery overflow \u2014 students inside a school's neighborhood attendance parameters (The Cove or Neil Cummins) get priority placement; \"All others will be placed in the lottery,\" and parents may only state a preference",
+   "tk_capacity_note": "Constrained in the extreme \u2014 no TK at all: \"The Larkspur-Corte Madera School District is not offering Transitional Kindergarten (TK) during the 2025-2026 or 2026-2027 school years.\"",
+   "enrollment_note": "\"Enrollments are prioritized based on enrollment dates,\" so early registration matters.",
+   "source": "lcmschools.org"
+  },
+  {
+   "district": "Liberty Union High",
+   "assignment_system": "address-based attendance area",
+   "tk_capacity_note": "Not applicable \u2014 this is a 9-12 high school district fed by separate elementary districts, so it offers no TK.",
+   "enrollment_note": "Registration page provides \"Find My School - School Locator\" and repeatedly references the \"assigned high school site\": \"In-person RESIDENCY VERIFICATIONS FOR ALL INCOMING 9th AT THEIR ASSIGNED HIGH SCHOOL SITE\"; \"Students 10-12 who have moved MUST complete in-person residency verification at their assigned school site.\" Intradistrict transfers exist for students wanting a different LUHSD school (example given: \"assigned to Heritage wanting to go to Freedom\"). Residency is enforced strictly under BP 5111.1, including investigation and possible home visitation where residency rests on a Declaration of Residency.",
+   "source": "luhsd.net"
+  },
+  {
+   "district": "Livermore Valley Joint Unified",
+   "assignment_system": "address-based attendance area",
+   "tk_capacity_note": "Widely available \u2014 \"Transitional kindergarten is the first year of a two-year kindergarten experience provided at all elementary and K-8 schools in our district.\" No waitlist, lottery, or seat-limit language on the TK page.",
+   "enrollment_note": "Enrollment page: \"LVJUSD makes every effort to place students at their home school,\" with a \"School Assignment Street Guide\" mapping neighborhoods to schools. Choice exists only as a space-available overlay: students \"can, if space is available, attend the school of their choosing,\" and transfers are granted \"if there is space available in the grade level requested.\"",
+   "source": "livermoreschools.org"
+  },
+  {
+   "district": "Los Altos Elementary",
+   "assignment_system": "address-based attendance area",
+   "tk_capacity_note": "Constrained \u2014 but stated district-wide across grades, not TK-specifically",
+   "enrollment_note": "Assignment: 'Students who currently live within the Los Altos School District residency boundaries are eligible to attend our schools,' with a school locator tool to find the school of residence. An optional intradistrict open-enrollment lottery runs the first 10 school days of March for transfers into schools with space \u2014 a choice add-on layered on top of address assignment, not the base mechanism. TK caveat: the constraint language covers TK-8 registration generally, not TK alone \u2014 'due to increased and growing enrollment at certain school sites for specific grade levels, some families may be assigned to a school other than their school of residence,' and overflowed students are kept 'on a waitlist' with no callbacks from overflow after October 31. No TK-only waitlist, TK lottery, or list of TK sites was found on the pages read.",
+   "source": "lasdschools.org"
+  },
+  {
+   "district": "Los Gatos Union Elementary",
+   "assignment_system": "address-based attendance area \u2014 but TK year specifically is site-preference with a lottery when oversubscribed",
+   "tk_capacity_note": "Constrained \u2014 for 2026-27 \"all families registering for TK will indicate their site preference,\" and \"In the event demand exceeds capacity, those who register between February 2 and February 27 will be entered into a lottery to determine which site they will attend. Priority will be given to families with siblings at the requested school and then by attendance area.\"",
+   "enrollment_note": "Eligibility is residency-based: \"Children residing in the Los Gatos Union School District attendance boundaries.\" After the TK year, \"students will automatically be enrolled in their home school for kindergarten\" \u2014 so the lottery affects the TK year only, and K onward reverts to the address-assigned home school. CAVEAT: lgusd.org returned HTTP 403 to every direct fetch attempt (root and two deep links); this content came from search results quoting the district's own TK Overview / TK FAQ pages, not from a page I loaded directly. Treat as slightly lower confidence than the other rows.",
+   "source": "lgusd.org (via search-result content; site blocked direct fetch with 403)"
+  },
+  {
+   "district": "Los Gatos-Saratoga Union High",
+   "assignment_system": "address-based attendance area \u2014 qualifier: residence within district boundaries is required, verified by a boundary-check tool; the page did not state how students are assigned between Los Gatos High and Saratoga High.",
+   "tk_capacity_note": null,
+   "enrollment_note": "Read on lgsuhsd.org/enrollment: \"Click HERE to verify that your residence is within the Los Gatos-Saratoga Union High School District boundaries. Students must reside within the district boundaries to attend.\" No lottery or ranked-choice language on the page. TK is not applicable \u2014 this is a union high school district serving grades 9-12 \u2014 but the page carried no TK statement, so the field is null rather than \"widely available\".",
+   "source": "lgsuhsd.org"
+  },
+  {
+   "district": "Martinez Unified",
+   "assignment_system": "address-based attendance area (\"resident school\")",
+   "tk_capacity_note": "Constrained after the initial window \u2014 TK/K enrollment runs a December 1 \u2013 January 12 window; applications after it \"are processed on a first come, first serve basis for space at your resident school.\" No TK lottery or named waitlist was found.",
+   "source": "martinezusd.net (read via search-result excerpt only \u2014 martinezusd.net was unreachable directly: HTTP-2 PROTOCOL_ERROR / empty reply on every attempt via WebFetch, curl, and the browser pane; lower-confidence than directly-read districts)",
+   "enrollment_note": "District-authored wording available only through search excerpts of martinezusd.net/registration and martinezusd.net/18445_3 (TK & Kindergarten Information). The repeated term \"resident school\" is the basis for the address-based call; an actual boundary map was never rendered, so this is an inference from district vocabulary rather than a boundary page read end to end."
+  },
+  {
+   "district": "Menlo Park City Elementary",
+   "assignment_system": "address-based attendance area",
+   "tk_capacity_note": "WIDELY AVAILABLE district-wide, but specific school not guaranteed \u2014 asked whether there is space, the district answers \"Yes, for all students who are age eligible\", while also stating \"The district does not offer guaranteed placement in a specific school for TK\" and no priority registration for TK",
+   "enrollment_note": "Residency in the MPCSD attendance boundaries is the gate (verify address via the School Locator before registering); families refer to the School Locator to identify their neighborhood school. Caveat on seats: \"MPCSD does its best to place students at their neighborhood school; however, school assignment is based on space availability at the time registration is complete\" \u2014 if the neighborhood school is full for a grade, students are assigned to one of the other elementary schools. So address determines the district and the default school, but not an ironclad seat at that campus.",
+   "source": "district.mpcsd.org"
+  },
+  {
+   "district": "Mill Valley Elementary",
+   "assignment_system": null,
+   "tk_capacity_note": null,
+   "source": null,
+   "enrollment_note": "NOT ESTABLISHED, and flagged as the most consequential unknown. mvschools.org dropped every connection (socket hang up) across 5 paths (/enrollment, /registration, /registration-and-school-placement, /116149_3, /domain/29, /Page/73) and also failed via direct curl. Search summaries of mvschools.org pages stated repeatedly that placement is NOT done by neighborhood school boundaries but district-wide, and that TK is a district-wide program placed by space available at any district school rather than by K-5 placement priorities. That would make Mill Valley a rare non-boundary district and would materially change a family's ranking \u2014 precisely why it must not be recorded from an unread snippet. Verify manually before relying on the default address-based assumption."
+  },
+  {
+   "district": "Miller Creek Elementary",
+   "assignment_system": "address-based attendance area",
+   "tk_capacity_note": "Constrained. \"All eligible TK students will be enrolled and assigned to a TK program within the district. Assignment may be at a different school than the student's school of residence.\" The district also notes that for 2027-2028 all TK classes will be consolidated at one centralized location (380 Nova Albion Way), so the home school is explicitly not guaranteed for TK.",
+   "enrollment_note": "\"Attendance areas have been established for each school\" and \"Attendance areas are based on home address,\" with a District Boundaries Street Grid lookup. Overflow is possible district-wide: students may be assigned outside their attendance area for capacity or class-balance reasons, and when that happens those enrolling before March 15 go into a lottery for placement (siblings prioritized), with results by April 1.",
+   "source": "millercreeksd.org"
+  },
+  {
+   "district": "Milpitas Unified",
+   "assignment_system": null,
+   "tk_capacity_note": null,
+   "enrollment_note": "Not established \u2014 musd.org was unreachable from this environment on every attempt (WebFetch socket hang up on www.musd.org, musd.org, /enrollment and deep pages; curl connection failure; browser-pane navigation denied). Search results referenced a resident-school boundary map and TK at all elementary sites, but no district page could actually be read, so both facts are left null rather than reported from a search snippet.",
+   "source": null
+  },
+  {
+   "district": "Moraga Elementary",
+   "assignment_system": "address-based attendance area",
+   "tk_capacity_note": null,
+   "enrollment_note": "School's Boundary Information page states: \"The Moraga School District has established neighborhood attendance areas for each of the district's schools. These attendance areas determine a student's home school when they first enroll in a school.\" An intradistrict open enrollment policy allows transfer requests (due July 1, ranked against 1-5 criteria set by the MSD Governing Board, BP 5116.1). TK capacity NOT established: the district's TK and Kindergarten Information page covers only age eligibility (\"students who turn four years old on/before September 1st\") and schedules \u2014 no waitlist, lottery, limited-seat, or all-schools-availability language was found.",
+   "source": "moraga.k12.ca.us"
+  },
+  {
+   "district": "Morgan Hill Unified",
+   "assignment_system": "address-based attendance area \u2014 \"school of residence\"",
+   "tk_capacity_note": "Constrained \u2014 TK is hosted at designated sites, not necessarily your home school: \"Students attending TK are already enrolled for kindergarten at their school of residence, regardless of where they attend our TK program.\" TK transfers are capacity-gated: \"We will only accept TK transfer requests for TK students with siblings at the requested school and only if there is capacity.\"",
+   "enrollment_note": "Enrollment page offers a \"Find Your School\" home-school locator (\"Search for your home school\"). TK/Kinder Roundup FAQ gives priority enrollment to families who enroll online before the roundup deadline and check in at their school of residence. Separate transfer page notes waitlists are worked through summer and the first 3 weeks of school.",
+   "source": "mhusd.org"
+  },
+  {
+   "district": "Mountain View-Los Altos Union High",
+   "assignment_system": null,
+   "tk_capacity_note": null,
+   "enrollment_note": "Not established. mvla.net closed the connection ('socket hang up') on five fetch attempts (homepage with and without www, /enrollment, /Enrollment/index.html, /apps/pages/enrollment, /Departments/Student-Services/). A search surfaced only third-party attendance-zone maps for Mountain View HS and Los Altos HS, which were not opened and are not the district's own publication, so nothing is reported.",
+   "source": null
+  },
+  {
+   "district": "Mt. Diablo Unified",
+   "assignment_system": "address-based attendance area",
+   "tk_capacity_note": "Constrained \u2014 \"TK locations are determined according to feeder pattern clusters,\" meaning TK is not hosted at every elementary school and a family's TK site may not be its home school.",
+   "enrollment_note": "\"MDUSD assigns neighborhood elementary, middle, and high schools based on street address.\" School Site Locator is offered as \"a general guide to school assignments based upon address... not a binding determination.\" Two exceptions to pure address assignment: some streets are flagged \"Choice (High School)\" (student may attend any MDUSD high school), and Sequoia Elementary/Sequoia Middle are district-wide schools open to any resident. No lottery or ranked application for standard enrollment.",
+   "source": "mdusd.org"
+  },
+  {
+   "district": "Napa Valley Unified",
+   "assignment_system": "address-based attendance area",
+   "tk_capacity_note": "Constrained. The district TK page states: \"If your resident school is at capacity for TK and your child is placed at another campus, your child will automatically be enrolled at your school of residence for kindergarten.\" TK seats at the home school can and do run out, with placement at another campus as the fallback.",
+   "enrollment_note": "Read on nvusd.org: \"Any child whose family resides in NVUSD's boundaries is guaranteed access by the California constitution to a free public education in NVUSD\", plus a \"Find Your School\" section and school locator in the navigation, and \"resident school\" / \"school of residence\" language on the TK page. Out-of-boundary families use interdistrict transfer, \"processed as they are received\".",
+   "source": "nvusd.org"
+  },
+  {
+   "district": "New Haven Unified",
+   "assignment_system": "address-based attendance area",
+   "tk_capacity_note": "Likely constrained, stated indirectly: the enrollment FAQ says \"Kindergarten and transitional kindergarten availability is the hardest to predict,\" and a transfer applicant \"would have to start the year in his/her home school until we are sure that space is available.\" This appears in the intra-district transfer context, not as a description of resident TK enrollment; no TK lottery or formal waitlist is described.",
+   "source": "mynhusd.org",
+   "enrollment_note": "\"Students in New Haven are assigned to a resident school determined by their home address,\" with an interactive map (\"Click on the map to search for your address's school of residence\"). Ten of twelve schools serve their neighborhoods; the two alternative-education schools use a separate application. Enrollment is centralized at the Union City Family Center."
+  },
+  {
+   "district": "Newark Unified",
+   "assignment_system": "address-based attendance area",
+   "tk_capacity_note": "CONSTRAINED for home-school placement \u2014 \"The location of the Transitional Kindergarten class may not be at a student's home school\"; no waitlist, lottery, or seat-count language found, and the district's TK site list was not published on the page",
+   "enrollment_note": "Assignment inferred from district-published artifacts read this task: a \"Find Your School\" locator (newark-unified.schoolexplorerapp.com) linked from the homepage, plus the TK page's use of \"a student's home school\", which presupposes address-assigned home schools. The registration-guidelines page covers documents and residency verification only and never states the assignment method explicitly \u2014 so this is slightly softer evidence than the districts quoted verbatim above. No choice-lottery language appears anywhere on the site.",
+   "source": "newarkunified.org"
+  },
+  {
+   "district": "Novato Unified",
+   "assignment_system": null,
+   "tk_capacity_note": null,
+   "source": null,
+   "enrollment_note": "NOT ESTABLISHED. nusd.org returned HTTP 403 on /enrollment, /enroll, /tkk-eligibility, the site root, and a registration news post. No district page was read. Search results quoted nusd.org text about priority enrollment giving 'the best chance for your student to attend their neighborhood school' and reducing 'the chance of being overflowed or reassigned to another school due to space limitations' \u2014 which would indicate address-based assignment with capacity-driven overflow \u2014 but this was not verified on a readable page."
+  },
+  {
+   "district": "Oakland Unified",
+   "assignment_system": "choice lottery",
+   "tk_capacity_note": "Constrained, and the tightest grade in the district. \"The district has rapidly expanded full-day TK programs over the last three years, but we still operate only one TK class for every 2.5 kindergarten classes. As such, current demand for TK is outpacing available seats.\" Also: \"TK spaces tend to be more limited than Kindergarten seats, and are not always able to accommodate all of the families residing in a neighborhood boundary.\"",
+   "enrollment_note": "Explicitly stated by the district: \"OUSD is a choice district, with no automatic school assignment.\" Families rank up to six schools and are placed by lottery-plus-priority algorithm. Neighborhood residence is only a mid-tier priority, not a guarantee \u2014 asked \"Are families guaranteed their neighborhood school?\" the district answers \"No.\" Note the enrollment guarantee covers K-12, not TK: \"all K-12 students are guaranteed enrollment in OUSD.\"",
+   "source": "ousd.org"
+  },
+  {
+   "district": "Oakley Union Elementary",
+   "assignment_system": "address-based attendance area \u2014 \"If you are unsure which school is your school of residence, you can utilize our interactive attendance boundary map on our District website\"; enrollment requires two proofs of residence",
+   "tk_capacity_note": "Widely available \u2014 \"Transitional Kindergarten is available for all students who have turned 4 years of age by September 1, 2026\"; TK enrollment is at the school of residence and no waitlist, lottery, or limited-seat language appears on the TK page",
+   "enrollment_note": "Online TK/K new-student enrollment for 2026-27 opens February 4, 2026. Boundary and transfer questions are handled on the district's Enrollment and Transfer page.",
+   "source": "ouesd.k12.ca.us"
+  },
+  {
+   "district": "Orinda Union",
+   "assignment_system": "address-based attendance area",
+   "tk_capacity_note": null,
+   "enrollment_note": "Attendance Area page states: \"School attendance is generally based on a student's residence address,\" with an address checker for the Orinda Union School District attendance area. Residency Verification is a separate required step. TK capacity NOT established: the TK/Kindergarten Enrollment page covers only the enrollment window (2026-27 window opened December 8, 2025 at 9:00 am) and age eligibility, noting \"Orinda USD strictly follows the California Education Code on age eligibility.\" No waitlist, lottery, limited-seat, or all-schools-availability language was found.",
+   "source": "orindaschools.org"
+  },
+  {
+   "district": "Pacifica",
+   "assignment_system": "choice lottery \u2014 entry-grade seats allocated by a district-wide TK/Kindergarten lottery; residency inside PSD boundaries is the eligibility gate, not a school guarantee",
+   "tk_capacity_note": "Constrained \u2014 TK is offered at only 4 of the district's schools (\"offered at Cabrillo, Ortega, Sunset Ridge and Vallemar Schools in fall 2026\") and seats are allocated by lottery: \"The 2026-2027 TK/Kindergarten Lottery was held on Friday, February 6, 2026.\"",
+   "enrollment_note": "District TK/K/Lottery page: families submit \"Sibling/Priority lottery cards\" (due Feb 2) and \"Transitional Kindergarten and New Enrollment lottery cards\" (due Feb 4); results posted at the District Office. Eligibility requires being \"a Pacifica resident residing within PSD boundaries or a PSD employee.\" TK-8 district; no attendance-area or school-locator language found on the enrollment pages.",
+   "source": "pacificasd.org"
+  },
+  {
+   "district": "Palo Alto Unified",
+   "assignment_system": "address-based attendance area",
+   "tk_capacity_note": "Constrained \u2014 TK at only 7 of the district's elementary schools, cluster placement 'if space is available'",
+   "enrollment_note": "Assignment: 'Your school assignment is determined by your home address, known as your neighborhood school.' If the neighborhood school is full a student 'may be overflowed to another school in your cluster' and is automatically waitlisted for the neighborhood school. Optional Choice Programs exist at elementary and middle levels alongside the address assignment. TK: 'Transitional kindergarten does not follow the neighborhood school placement process.' TK classrooms exist at seven elementary schools only \u2014 Barron Park, Duveneck, El Carmelo, Fairmeadow, Greendell, Palo Verde, Walter Hays \u2014 and 'PAUSD will place TK students in the school that is in the same cluster as the student's neighborhood elementary school (if space is available),' with students moving to their actual neighborhood school for kindergarten. So a TK family should not expect a seat at their home school.",
+   "source": "pausd.org"
+  },
+  {
+   "district": "Petaluma City Elementary",
+   "assignment_system": "address-based attendance area",
+   "tk_capacity_note": null,
+   "enrollment_note": "District defines \"school of residence/neighborhood school\" as \"the school that you are zoned to based on your home address,\" and provides a PCS Elementary School Boundaries Map (TK-6) and a Street School Lookup (7-12). The Aeries online enrollment application doubles as an intradistrict transfer application and lets families \"select two schools and rank them in your preferred order\" \u2014 a choice layer on top of the address assignment, not a replacement for it. TK capacity was not addressed on the enrollment, find-your-school, or FAQ pages read (only the age cutoff: \"must turn 4 on or before September 1\"), so that field is null.",
+   "source": "petalumacityschools.org"
+  },
+  {
+   "district": "Petaluma Joint Union High",
+   "assignment_system": "address-based attendance area",
+   "tk_capacity_note": null,
+   "enrollment_note": "Read on petalumacityschools.org (Casa Grande High enrollment-process page): students must identify \"your school of residence\", and \"if you are registering for a school outside of your school of residence, you must complete and return a transfer form\" (Intra-district Transfer Form offered for 2025-26 and 2026-27). Feeder junior-high students are \"automatically pre-enrolled\". No lottery or ranked-preference language. TK not applicable \u2014 high school district (grades 9-12) \u2014 but no TK statement was read, so null.",
+   "source": "petalumacityschools.org"
+  },
+  {
+   "district": "Piedmont City Unified",
+   "assignment_system": "address-based attendance area \u2014 home-school placement is space-conditional",
+   "tk_capacity_note": "Mixed: a TK seat in the district is guaranteed for eligible residents, but the specific site is not \u2014 \"We make every effort to enroll students at their school of residence, however if classes at one site are full, students will be redirected to one of the other school sites.\" So: program access open, site placement constrained. No lottery or waitlist.",
+   "source": "piedmont.k12.ca.us",
+   "enrollment_note": "\"Students are enrolled in their neighborhood school whenever possible, space allowing\"; enrollment boundaries page and a \"Find Your Piedmont School\" tool. Caution: the TK guarantee sentence on the page is still written for the 2024-25 year (birthdates Sept 2, 2024 \u2013 June 2, 2025), so the page is not fully current even though enrollment for 2026-27 is described as opening January 14."
+  },
+  {
+   "district": "Pittsburg Unified",
+   "assignment_system": "address-based attendance area",
+   "tk_capacity_note": null,
+   "enrollment_note": "Explicit: \"All students are assigned to a school site by their residence address\", with a \"Find My School\" PowerSchool locator. General (not TK-specific) capacity caveat on the registration page: \"Depending on space availability, your student may be overflowed to another school site.\" Because that sentence covers all students rather than TK, TK-specific capacity is left null.",
+   "source": "pittsburgusd.net"
+  },
+  {
+   "district": "Pleasanton Unified",
+   "assignment_system": "address-based attendance area",
+   "tk_capacity_note": "CONSTRAINED \u2014 site-level TK/K lotteries are held when enrollment exceeds available space; overflowed students are placed at another PUSD school and kept on a waitlist",
+   "source": "pleasantonusd.net",
+   "enrollment_note": "Both facts read directly on the district enrollment page. Assignment: 'Students are enrolled in a school-based on their address', with a 'School Locator' tool provided. TK capacity: 'TK/Kindergarten lotteries are held at schools when the number of students that enroll exceeds the available space at the school site'; 'If a school site does not have space remaining in that particular grade level, the student will be overflowed (placed) at one of our other PUSD schools'; and 'staff will keep your child on a waitlist and call you during the school year if space becomes available.' Note the address guarantees a district seat but not necessarily the home-school seat at TK/K. Enrollments after Feb 28 are handled first-come, first-served rather than by lottery."
+  },
+  {
+   "district": "Portola Valley Elementary",
+   "assignment_system": "address-based attendance area",
+   "tk_capacity_note": null,
+   "enrollment_note": "Registration step 1 is an Address Verification form, after which \"District staff will verify your address is in the PVSD attendance area\" before releasing the registration portal link. There is no school choice to make within the district: all TK-3rd grade students attend Ormondale School and 4th-8th attend Corte Madera School. Read no statement about TK seat limits, waitlist, or lottery, so TK constraint is not established.",
+   "source": "pvsd.net"
+  },
+  {
+   "district": "Ravenswood City Elementary",
+   "assignment_system": "choice lottery \u2014 address does not fix an elementary school: \"Elementary students (grades TK-5) can choose from any of our three elementary schools\" (all middle schoolers attend the single Ravenswood Middle School). Note: the page describes family choice but does not spell out a lottery mechanism or any attendance boundaries.",
+   "tk_capacity_note": null,
+   "enrollment_note": "Registration page states \"If your child turns 4 by September 1, 2026, they are eligible for free, full-day transitional kindergarten (TK)\" but says nothing about capacity, waitlists, or how placement is resolved if a chosen school is oversubscribed. Registration office at 2160 Euclid Ave, open weekdays 8am-3pm.",
+   "source": "ravenswoodschools.org"
+  },
+  {
+   "district": "Redwood City Elementary",
+   "assignment_system": "address-based attendance area (with an optional \"School of Choice\" lottery layered on top for specialized/immersion programs only)",
+   "tk_capacity_note": "Constrained. Enrollment page (which explicitly covers \"new 2026-27 students entering TK and K-8 grades\"): \"If space is not available at the neighborhood school at the time the family is enrolling during the spring and summer, students are placed at a different school until space becomes available at their neighborhood school. Students are enrolled in the order in which they submit their application.\" School of Choice page adds: \"If a student moves into the area after the open enrollment period and their neighborhood school is full, they will be placed at a school that has openings,\" and \"seats are limited and families transferring from another neighborhood school may be placed on a waitlist.\"",
+   "enrollment_note": "\"Find Your Neighborhood School\" school locator: \"This is how you will find the neighborhood school assigned to your home address. Simply enter your address to discover your child's assigned elementary or middle school.\" Address governs the default seat; the lottery applies only to non-neighborhood specialized programs. Students attend TK-2 (or TK-5) at their neighborhood school \u2014 Clifford, Garfield, Henry Ford, Hoover, Roosevelt, Roy Cloud, or Taft. School of Choice options include Mandarin Immersion and Parent Co-Op at Orion Alternative and Spanish Immersion at Adelante Selby; new families must first register and be confirmed at their assigned neighborhood school before a School of Choice application is processed. Neighborhood residents get priority, then remaining seats go to transfer requests \"via a random lottery.\"",
+   "source": "rcsdk8.net"
+  },
+  {
+   "district": "Reed Union Elementary",
+   "assignment_system": "address-based attendance area \u2014 effectively district-wide, since there is one school per grade span (Reed PreK-2, Bel Aire 3-5, Del Mar 6-8), so no intra-district school choice exists",
+   "tk_capacity_note": "No constraint found \u2014 no waitlist, lottery, or seat-limit language on the PreK/TK registration page or FAQ; eligibility is age (\"turn 4 years old on or before September 1st\") plus residency (\"reside within the RUSD boundaries\"), with online registration opening January 21, 2026. Read as open, but the district publishes no explicit capacity statement.",
+   "enrollment_note": "Verified as the Tiburon/Belvedere Marin district serving Belvedere, Tiburon, and part of east Corte Madera. District publishes an \"RUSD District Boundary Map\" and a \"Corte Madera Detail Map\"; registration requires checking your address against district boundaries. No address-lookup tool and no lottery or choice policy appears on the boundary or registration pages.",
+   "source": "reedschools.org"
+  },
+  {
+   "district": "Ross Elementary",
+   "assignment_system": "address-based attendance area \u2014 single-school district, so residence inside district boundaries is the whole test",
+   "tk_capacity_note": null,
+   "enrollment_note": "Assignment: 'The Ross School District (Board Policy and Administrative Regulation 5111.1) requires all students to demonstrate proof of residence within the Ross School District boundaries.' The district profile describes 'a single-site public school district serving approximately 340 students in kindergarten through 8th grade' \u2014 one school, so there is no school-selection or lottery step; no lottery, ranking, or application-window language appears anywhere on the pages read. TK: not mentioned on the residency, registration, or district-profile pages. The profile's stated grade span is K-8, which hints the district may not run TK, but the district never says so directly, so TK capacity is left null rather than inferred.",
+   "source": "rossbears.org"
+  },
+  {
+   "district": "Ross Valley Elementary",
+   "assignment_system": "address-based attendance area",
+   "tk_capacity_note": null,
+   "enrollment_note": "\"Your home address determines which elementary school your child will be assigned to.\" District publishes a street listing to identify the assigned school among Brookside, Hidden Valley, Manor, and Wade Thomas; \"All middle school students who live within the Ross Valley School District join us at White Hill.\" No choice or lottery process appears on the boundaries page. The district TK page describes only curriculum and philosophy \u2014 no host sites, seat counts, waitlist, or lottery \u2014 so the TK field is null.",
+   "source": "rossvalleyschools.org"
+  },
+  {
+   "district": "Saint Helena Unified",
+   "assignment_system": null,
+   "tk_capacity_note": null,
+   "enrollment_note": "NOT ESTABLISHED \u2014 sthelenaunified.org and shps.sthelenaunified.org dropped every connection (socket hang up) across multiple paths, including the TK page and the enrollment/residency-verification page found via search. No district page was read; a search summary confirmed a TK page exists and gave only the TK age-eligibility window, which is not the discriminating fact. Both fields genuinely unknown.",
+   "source": null
+  },
+  {
+   "district": "San Bruno Park Elementary",
+   "assignment_system": "address-based attendance area",
+   "tk_capacity_note": "Not TK-specific, but the district twice states enrollment is space-gated: \"All students in the District are assigned to a school based on their address of residence, however, actual enrollment is based on space availability at the school site,\" and the locator gives only \"a preliminary school assignment.\" No TK waitlist, TK lottery, or TK seat cap is stated, so TK capacity itself is not established.",
+   "source": "sbpsd.org",
+   "enrollment_note": "Boundaries were redrawn from five areas to four, adopted January 11, 2023, effective 2023-24; district provides a School Locator, a boundary directory, and a final map. TK 2026-27 opens January 13, 2026 for children turning four by September 1, 2026. Site sits behind a JS bot challenge (plain fetches return only the challenge shell); content was read by rendering the page in a browser."
+  },
+  {
+   "district": "San Carlos Elementary",
+   "assignment_system": null,
+   "tk_capacity_note": "LIKELY CONSTRAINED \u2014 UNVERIFIED: search excerpts attributed to scsdk8.org state TK, K, 1st and 6th are \"nearing enrollment limits\" due to \"high demand and limited capacity\", placement \"first-come, first-served\", siblings placed first and others \"assigned to a school based on space available\". Treat as a lead, not a confirmed fact",
+   "enrollment_note": "District site scsdk8.org returned HTTP 403 on every fetch (root, TK page, over both https and http), so no district page could be read directly. The TK signal above comes only from search-result excerpts quoting that domain \u2014 flagged unverified. Assignment method left null because nothing read distinguished an attendance-area default from space-available placement.",
+   "source": "scsdk8.org (search excerpt only; district site blocked with 403 \u2014 not directly read)"
+  },
+  {
+   "district": "San Francisco Unified",
+   "assignment_system": "choice lottery",
+   "tk_capacity_note": "CONSTRAINED \u2014 oversubscribed schools allocate limited TK openings by tiebreakers plus random numbers; families join waitlists after assignment",
+   "source": "sfusd.edu",
+   "enrollment_note": "Both facts read directly on sfusd.edu. Assignment: 'After researching schools, families list their school choices in order of preference and submit an application'; 'If more students request a particular school than there are seats available, then the assignment process uses a series of priorities, called tiebreakers, and random numbers to assign students to the limited number of openings.' Address is only a fallback \u2014 unmatched students are 'assigned to a school with available seats closest to the student's home.' TK specifically: 'If there are more students applying than there are openings at a school, choice assignments will be made by looking to all the possible combinations of tiebreakers in the order outlined here,' with TK tiebreakers being sibling, equity, and prekindergarten. Note an elementary student-assignment policy change is phasing in for 2026-27."
+  },
+  {
+   "district": "San Jose Unified",
+   "assignment_system": "address-based attendance area",
+   "tk_capacity_note": "Not TK-specific. The district-wide capacity rule covers every grade including TK: when \"the neighborhood school may be at capacity for the enrolling grade level... the student will be overloaded to the nearest school with available space\" and is \"placed on a waitlist to return to the neighborhood school should space become available.\" Enrollment itself is open year-round TK-12. No TK-only waitlist or lottery stated.",
+   "enrollment_note": "\"School assignment is based on the legal guardian's residential address within a designated school boundary, commonly referred to as the neighborhood school.\" The district publishes a School Locator to \"view your default school assignment.\" Staying at an overload school instead of returning to the neighborhood school requires an Intradistrict Transfer.",
+   "source": "sjusd.org"
+  },
+  {
+   "district": "San Leandro Unified",
+   "assignment_system": "address-based attendance area \u2014 the district's own enrollment portal runs a \"Find my neighborhood school\" tool: \"Type in your address and select a grade to look up your neighborhood school and see the boundary or zone for your location\" (grade bands include Elementary TK-5)",
+   "tk_capacity_note": null,
+   "enrollment_note": "Read on sanleandro.schoolmint.net, SLUSD's own branded enrollment portal (it links back to the SLUSD website); slusd.us itself was unreachable from this environment (connection refused via WebFetch, curl, and browser pane), so no TK capacity page could be read and that field is left null.",
+   "source": "sanleandro.schoolmint.net (SLUSD enrollment portal)"
+  },
+  {
+   "district": "San Lorenzo Unified",
+   "assignment_system": "address-based attendance area (elementary and middle; high school placement is by Small Learning Community preference, not address)",
+   "tk_capacity_note": "Widely available. District states it \"is welcoming new students in its transitional kindergarten (TK) and kindergarten programs for the 2026-27 school year,\" describes TK as part of a statewide initiative \"available to all,\" and notes \"Families do not need to live in the San Lorenzo Unified School District to attend our schools.\" Enrollment is open with \"Central Enrollment ... open through summer.\" No waitlist, TK lottery, or limited-seat language appears on the enrollment or TK pages.",
+   "enrollment_note": "New Student Enrollment page: \"Go to SLzUSD School Boundary Locator to locate your school attendance area based on your home address,\" and \"Note: High School placement is by Small Learning Community and not based on address\" \u2014 SLC \"placement will be determined by the Enrollment Office, pending available space.\" Out-of-district families need an approved Inter-District Transfer from their home district. TK eligibility: turn 4 by Sept. 1. Site sits behind bot protection; pages were read via browser after direct fetchers were blocked.",
+   "source": "slzusd.org"
+  },
+  {
+   "district": "San Mateo Union High",
+   "assignment_system": "address-based attendance area",
+   "tk_capacity_note": "Not applicable \u2014 high school district (grades 9-12, \"10 Schools | 6 Cities | 1 District\"); no TK program mentioned.",
+   "enrollment_note": "District site routes families to \"School Locator and Boundaries\" to determine the assigned school; the only 8th-grade content is transition material for incoming 9th graders. No lottery or ranked-choice process surfaced.",
+   "source": "smuhsd.org"
+  },
+  {
+   "district": "San Mateo-Foster City",
+   "assignment_system": "address-based attendance area",
+   "tk_capacity_note": "Constrained \u2014 TK at only 15 named schools (3 of them transfer-only); overflow placement to another school when the TK class is full",
+   "enrollment_note": "Assignment: registration is address-based \u2014 'Students must be physically living with their parent/guardian within district boundaries at the time of registration' \u2014 with a School Locator tool and an intradistrict transfer process as the optional exception. Priority registration closes January 5; later registrations are processed after seats may already be filled, and 'if classes are already filled at the time of registration, the Enrollment Office will assign...students to a school that has space available.' TK: offered at Audubon, Baywood, Beach Park, Brewer Island, Cottage Grove, Fiesta Gardens (transfer only), Foster City Elementary, George Hall, Highlands, Laurel, Meadow Heights, North Shoreview Montessori (transfer only), Parkside Montessori (transfer only), San Mateo Park, and Sunnybrae \u2014 not every elementary school. 'If your school of assignment does not have a TK program, your child will be placed at a school that does for their TK year and then return to their school of assignment for Kindergarten,' and 'If the Transitional Kindergarten (TK) class is full at the time a new student registers, the new student will be temporarily placed at the next closest school with space in the TK class' \u2014 an overflow placement, not a formal waitlist or lottery.",
+   "source": "smfcsd.net"
+  },
+  {
+   "district": "San Rafael City Elementary",
+   "assignment_system": "address-based attendance area",
+   "tk_capacity_note": "Widely available \u2014 \"Every SRCS elementary school will have at least one TK class next year, as well as Kindergarten classes.\" Note a timing condition: completed TK registration packets are due by an early-March deadline \"to be considered for neighborhood school placement.\"",
+   "enrollment_note": "\"Every effort is made to place students at their neighborhood school\"; to attend a district school outside your attendance area a family files an intradistrict transfer by the March deadline. District publishes a \"School Attendance Boundary Information\" page and a Student Enrollment & Family Center. CAVEAT: srcs.org repeatedly dropped the connection (socket hang up) on four separate fetch attempts across the root and three deep links; this content came from search results quoting the district's own enrollment and TK/K enrollment pages. Slightly lower confidence than directly-fetched rows. Also note the deadline nuance \u2014 TK seats exist district-wide, but late registration risks placement away from the neighborhood school.",
+   "source": "srcs.org (via search-result content; site dropped every direct fetch)"
+  },
+  {
+   "district": "San Rafael City High",
+   "assignment_system": null,
+   "tk_capacity_note": null,
+   "enrollment_note": "NOT ESTABLISHED \u2014 srcs.org dropped every connection (socket hang up) across www/non-www and multiple paths, including the enrollment page and the school-attendance-boundary page. UNVERIFIED SIGNAL, do not treat as fact and worth checking first: a search-result summary attributed to srcs.org stated the San Rafael HIGH school district \"operates as an open enrollment district, meaning any student living within San Rafael may choose to attend either San Rafael High School or Terra Linda High School\", with interdistrict transfer required for out-of-city students. If accurate this would flip the answer away from address-based for the high school district specifically (the elementary district does appear to use attendance boundaries), so it should not be defaulted to attendance-area. TK is in any case not applicable to a high school district.",
+   "source": null
+  },
+  {
+   "district": "San Ramon Valley Unified",
+   "assignment_system": "address-based attendance area",
+   "tk_capacity_note": "Space-conditional rather than open-ended: a priority enrollment window runs November 1\u201330, after which \"applications will continue to be accepted after November 30 and throughout the year on a first-come, first-served basis, as space allows at your resident school.\" No TK-specific lottery or named waitlist on the page.",
+   "source": "srvusd.net",
+   "enrollment_note": "Enrollment page instructs families to \"Find your resident school using our School Site Locator\" (schoolsitelocator.com/apps/sanramon) and refers throughout to the \"resident school\"; intra- and inter-district transfers are separate programs. The TK page does not say whether TK runs at every elementary site."
+  },
+  {
+   "district": "Santa Clara Unified",
+   "assignment_system": "address-based attendance area (with an optional open-enrollment lottery layered on top for transfers)",
+   "tk_capacity_note": "CONSTRAINED \u2014 \"Students will be placed at one of the TK sites based on availability\" (stated twice); TK runs at \"most SCUSD elementary school sites\", not all; and \"Open Enrollment does not apply to Transitional Kindergarten students\", so the K-12 choice route is unavailable for TK",
+   "enrollment_note": "Default placement is the residence-based home school \u2014 eligibility is defined by living \"within the Santa Clara Unified School District residency boundaries\" per Board Policy 5111.1, with a School Locator tool. Choice exists only as an add-on: families \"first enroll at your home school and then apply for the open enrollment lottery\" for other schools/programs, as space allows. Address therefore does determine a school; the lottery is optional and secondary. Note TK students get no transportation.",
+   "source": "santaclarausd.org"
+  },
+  {
+   "district": "Santa Rosa Elementary",
+   "assignment_system": "address-based attendance area",
+   "tk_capacity_note": null,
+   "source": "srcschools.org",
+   "enrollment_note": "Santa Rosa Elementary (K-6) is administered as part of Santa Rosa City Schools, so srcschools.org is the correct publisher. Assignment: the district FAQ page carries a 'Find my school of residence' locator task, and district text describes residence-area priority for the neighborhood school with a street grid of addresses used to determine school of residence; a valid in-boundary address is required to use online enrollment. The only lottery referenced is for charter schools, not for regular elementary assignment. TK capacity: the kindergarten/TK registration page and the FAQ page carried no waitlist, lottery, seat-limit, or per-school TK availability language, so TK is left null."
+  },
+  {
+   "district": "Santa Rosa High",
+   "assignment_system": "address-based attendance area",
+   "tk_capacity_note": null,
+   "enrollment_note": "Santa Rosa City Schools' Find My School page: \"Use the webtool linked below to locate the school of attendance for your address. We do not provide location services for addresses that are not part of the attendance boundary of our high school district.\" The registration menu lists \"Find my school of residence\"; the only lottery referenced is for charter schools. Important caveat: this is the secondary district of the two that SRCS administers \u2014 its own page treats the high school district boundary as distinct from the elementary school district boundary, and directs out-of-boundary addresses to their separate elementary district. TK/K registration therefore runs through the paired elementary district, so there is no TK seat to compete for at this district; TK capacity is left null rather than guessed.",
+   "source": "srcschools.org"
+  },
+  {
+   "district": "Saratoga Union Elementary",
+   "assignment_system": "choice lottery \u2014 address does NOT determine the elementary school: \"Parents may therefore request the transitional kindergarten (TK) through fifth grade school within the district they wish their student to attend, provided the student resides within the boundaries of the District and space permits,\" and \"Proximity to school is not a criteria in placement.\" \"Occasionally, a 'lottery' is required when registration requests for a particular grade level at an elementary school site exceed the space available.\" (Middle school is single-site: all residents attend Redwood.)",
+   "tk_capacity_note": "Constrained \u2014 placement is space-dependent: TK-eligible-birthday students \"will be offered the TK option first and then, space permitting, we will open it up to families\" with slightly older children, and elementary placement at an oversubscribed site goes to a lottery",
+   "enrollment_note": "Three elementary schools (Argonaut, Foothill, Saratoga) plus Redwood Middle. District runs an open-enrollment/request model rather than boundary assignment for TK-5.",
+   "source": "saratogausd.org"
+  },
+  {
+   "district": "Sausalito Marin City",
+   "assignment_system": null,
+   "tk_capacity_note": null,
+   "enrollment_note": "NOT ESTABLISHED. The district's Enrollment & Registration page was read in full and contains only immunization requirements, calendar/ParentSquare links, tour contacts, and an Aeries \"CLICK HERE TO ENROLL\" link \u2014 no attendance-area, boundary, school-locator, lottery, choice, or TK-capacity language anywhere. The district's own navigation lists a single district school, Dr. Martin Luther King Jr. Academy (mlkacademy.smcsd.org), whose site is JavaScript-rendered and returned no enrollment or TK detail. A single-school district plausibly makes the assignment question moot, but no page said so, so both fields are left null rather than inferred.",
+   "source": "smcsd.org"
+  },
+  {
+   "district": "Sebastopol Union Elementary",
+   "assignment_system": null,
+   "tk_capacity_note": null,
+   "enrollment_note": "Not established. Domain identified as sebastopolschools.org (Park Side K/TK-4, Brook Haven 5-8); sebusd.org returned HTTP 403 and every sebastopolschools.org fetch \u2014 district root over https and http, /enrollment, /aeries, and both school subdomains \u2014 returned a socket hang up. No district page was read, so both fields are null. Note: only one school per grade span exists district-wide, which would make intra-district choice moot, but that inference is not sourced from a district page read during this task.",
+   "source": null
+  },
+  {
+   "district": "Sequoia Union High",
+   "assignment_system": "address-based attendance area",
+   "tk_capacity_note": "Not applicable \u2014 grades 9-12 high school district; no TK program appears on any district page read",
+   "enrollment_note": "Assignment: 'Once the process is completed in its entirety, your student will be assigned to a high school based on your home address.' The district publishes a Boundary Search tool (schfinder.com/SUHSD). Incoming 9th graders may request a different school through Open Enrollment Transfers, which uses a random drawing when seats are available at the requested school and closes February 1 \u2014 an opt-in transfer layered on address assignment, not a district-wide lottery. TK caveat: the district serves grades 9-12 and its enrollment pages address incoming 9th graders only; no TK program is referenced. TK is therefore irrelevant here rather than constrained or open.",
+   "source": "seq.org"
+  },
+  {
+   "district": "Shoreline Unified",
+   "assignment_system": null,
+   "tk_capacity_note": null,
+   "enrollment_note": "NOT ESTABLISHED \u2014 both fields deliberately null. shorelineunified.org loaded but returned only the page title with the body truncated on every attempt, and three guessed enrollment paths (/enrollment, /enroll, /page/enrollment) all 404'd. The single permitted web search returned almost entirely Shoreline School District 412 in Washington State (ssd412.org, serving Shoreline and Lake Forest Park) \u2014 a completely different district that happens to share the name; none of its enrollment, kindergarten-registration, or attendance-area content was used. Nothing about the California district's assignment system or TK capacity was read from a district-owned page, so nothing is reported.",
+   "source": null
+  },
+  {
+   "district": "Sonoma Valley Unified",
+   "assignment_system": null,
+   "tk_capacity_note": null,
+   "enrollment_note": "NOT ESTABLISHED \u2014 sonomaschools.org dropped every connection (socket hang up) across www/non-www and four paths (/enrollment, /schoolboundarymap, registration FAQ, TK page); browser navigation was also denied in this session. UNVERIFIED SIGNALS, do not treat as fact: a search-result summary attributed to sonomaschools.org described address-based assignment via a School Boundary Map; every SVUSD elementary school hosting at least one TK class; TK children sometimes \"assigned to a non-neighborhood school for TK\" for the TK year only, returning to the neighborhood school for Kindergarten (which would indicate CONSTRAINED TK); and Flowery Elementary converting to a School of Choice model with no attendance area from 2026-27, alongside a Prestwood Elementary closure/consolidation. Boundaries are actively changing here, so a direct read is especially warranted.",
+   "source": null
+  },
+  {
+   "district": "South San Francisco Unified",
+   "assignment_system": "address-based attendance area",
+   "tk_capacity_note": "CONSTRAINED \u2014 TK runs a lottery with a waitlist. Applications by the February 28 deadline \"are entered into the March lottery\"; later ones are \"processed in the order received and assigned based on space availability\"; and \"Students will either be assigned a school or placed on a waitlist based on the lottery results.\" Students are placed at their \"school of residence whenever possible,\" \"Transfers are not available for TK,\" and \"All TK placements are temporary; children will return to their home school for Kindergarten.\" Mitigating: \"TK classrooms are located at all elementary schools.\"",
+   "source": "ssfusd.org",
+   "enrollment_note": "Note the split: general K-12 assignment is boundary-based (address-entry school locator; \"If your home is located near a school boundary, your assigned school may vary\"), but TK alone is lottery-allocated. This is the one district of the twelve where a TK seat at a named school genuinely cannot be assumed from an address."
+  },
+  {
+   "district": "Sunol Glen Unified",
+   "assignment_system": "address-based attendance area (single-school district \u2014 one TK-8 school serves the whole district, so there is no inter-school assignment to win)",
+   "tk_capacity_note": null,
+   "enrollment_note": "District operates a single school: \"Sunol Glen Unified School District is a public district serving grades TK-8, located in Sunol, CA.\" The new-student enrollment page sets a priority hierarchy with \"Sunol Residents\" first, ahead of interdistrict transfer applicants \u2014 residency is the gate, and no lottery or ranking process appears. No TK capacity, waitlist, or seat-limit language was published on the enrollment page, so TK is left null.",
+   "source": "sunol.k12.ca.us"
+  },
+  {
+   "district": "Tamalpais Union High",
+   "assignment_system": "address-based attendance area \u2014 residence determines district attendance; intra-district school boundaries not confirmed on the page read",
+   "tk_capacity_note": "Not applicable \u2014 district serves grades 9-12 only, so it offers no TK",
+   "source": "tamdistrict.org",
+   "enrollment_note": "Read on the district enrollment page: 'Students are required to attend school in the district where their parent or guardian resides, unless they obtain an approved Interdistrict Transfer', and the district serves high school grades 9-12. No lottery or ranked-choice process appeared. Caveat worth carrying: the quoted language establishes residence-based attendance at the DISTRICT level; the page did not spell out how a given address maps to one of the district's individual high schools, so the intra-district boundary detail is unverified. Because this is a 9-12 district, TK is structurally not offered \u2014 treat this row as no-TK rather than as a TK-availability data point, and pair the address with the feeder elementary district for any TK question."
+  },
+  {
+   "district": "Union Elementary",
+   "assignment_system": "address-based attendance area",
+   "tk_capacity_note": "Not TK-specific, and a seat in the district is guaranteed: \"Resident registrations are always welcome and placement is always guaranteed at one of our Union School District schools.\" The home school is not guaranteed, however \u2014 \"If a grade level is closed, you can still register, and placement at another District school will be offered.\" No TK waitlist or TK lottery stated.",
+   "enrollment_note": "Step 1 of enrollment is \"Find your Attendance Area\" using a SchoolFinder tool to identify the \"neighborhood (home) school,\" and \"All new students will register with their neighborhood (home) school.\" One wrinkle: since 2014 the board has run Dual Enrollment Zones \u2014 addresses in those zones may pick between two named sites, and the chosen one becomes the home school; if that site fills during registration the family is assigned to another site with space. Neighborhood children have priority at their neighborhood schools.",
+   "source": "unionsd.org"
+  },
+  {
+   "district": "Vacaville Unified",
+   "assignment_system": "address-based attendance area \u2014 \"All incoming students are assigned to their school of residence\"; district provides a school locator tool and school boundary maps. A short list of schools/programs is boundary-exempt (Buckingham Charter, Ernest Kimme Charter, Sierra Vista K-8, Fairmont Elementary).",
+   "tk_capacity_note": "Widely available with a space caveat \u2014 \"TK is offered at all elementary schools in the Vacaville Unified School District\" (10 sites listed; Alamo is PM-class only and Fairmont is AM-class only). No waitlist or lottery, but \"Students are placed in schools on a space-available basis. If your school of residence is full at the time you enroll your child, your child may be 'overflowed' to another school within the District\" \u2014 an overflowed student is guaranteed a spot at the school of residence the following year.",
+   "enrollment_note": "TK/K online and in-person registration for 2026-27 began January 5, 2026. Intradistrict transfers (formerly \"Open Enrollment\") are approved subject to available space.",
+   "source": "vacavilleusd.org"
+  },
+  {
+   "district": "Vallejo City Unified",
+   "assignment_system": "address-based attendance area (with two district \"Lottery Schools\" as optional specialized alternatives)",
+   "tk_capacity_note": null,
+   "enrollment_note": "Enroll at VCUSD page: \"Find out which school will be automatically assigned to your student based on street address.\" Intradistrict transfers are defined as moving \"to another VCUSD school other than the one assigned to their home address.\" The district separately lists \"Lottery Schools \u2014 Explore VCUSD's two lottery schools which provide specialized learning environments,\" so the lottery is an opt-in alternative rather than the assignment mechanism. TK capacity NOT established: the district's Transitional Kindergarten and Kindergarten page describes TK only as \"an optional, free program available to age-eligible children\" \u2014 an availability statement, not a seat-capacity statement \u2014 and shows no waitlist, TK lottery, or limited-seat language. Context worth flagging for a family: the district site carries an active \"School Closures\" section with intradistrict transfer windows specifically \"for families impacted by closure\" (Feb. 2-27, 2026), so school assignments may be in flux.",
+   "source": "vcusd.org"
+  },
+  {
+   "district": "Walnut Creek Elementary",
+   "assignment_system": null,
+   "tk_capacity_note": null,
+   "enrollment_note": "Not established. Domain identified as walnutcreeksd.org with enrollment pages at /new-student-enrollment, /enrollment-information-enrollment-p, /235048_2, and /transitional-kindergarten-and-kinde, plus an \"Intra-District Transfer/Open Enrollment\" option \u2014 but all eight fetch attempts (https/http, with and without www, district root and school subdomain wh.walnutcreeksd.org) returned socket hang ups. The only TK content surfaced was age-eligibility windows for 2026-27, which is not a capacity fact. Both fields left null rather than inferred.",
+   "source": null
+  },
+  {
+   "district": "West Contra Costa Unified",
+   "assignment_system": "address-based attendance area",
+   "tk_capacity_note": "Constrained \u2014 a TK seat somewhere is guaranteed, but not at the resident school",
+   "enrollment_note": "Assignment: families 'Find your Resident School' using an interactive SchoolSite Locator by entering an address, and 'STUDENT PLACEMENT IS ON A FIRST COME FIRST SERVE BASIS UPON SUBMITTING A COMPLETE REGISTRATION APPLICATION' \u2014 order of application, not lottery. Priority Transfers and Open Enrollment exist as optional exceptions. TK: 'By 2025-2026 school year, all elementary school sites in WCCUSD will offer TK,' and 'All students turning 4 by September 1, 2025 are guaranteed a space in the Transitional Kindergarten Program... Due to space constraints, space may not be available at a student's resident school,' in which case a neighboring school is assigned. Enrollment runs on a first-come, first-served priority window rather than a formal waitlist or lottery, so registering early is what protects the home-school seat.",
+   "source": "wccusd.net"
+  },
+  {
+   "district": "West Sonoma County Union High",
+   "assignment_system": null,
+   "tk_capacity_note": "Not applicable \u2014 this is a union HIGH school district serving grades 9-12 only (Analy High, Laguna High, and the Academy of Innovative Arts), so it does not serve TK at all. Grade span read from state/profile sources, not a district enrollment page.",
+   "enrollment_note": "Assignment system NOT ESTABLISHED. wscuhsd.org loaded but returned only the page title with the body truncated on both attempts; /enrollment, /registration, and /parents all 404'd; the alternate domain wscuhsd.k12.ca.us failed TLS (cert resolves to tls.apptegy.com). The search results carried no attendance-boundary or school-of-residence language, only that roughly one-third of district students transfer in from neighboring areas \u2014 which is suggestive but not a statement of the assignment mechanism, so the field is null. For a family ranking places, the practical point is that this district is high-school-only and cannot be compared on TK access; elementary and TK seats in this footprint come from the underlying elementary districts (Sebastopol Union, Harmony Union, Forestville Union, etc.), which were not in scope.",
+   "source": "ed-data.org and cde.ca.gov school directory via search (grade span only); wscuhsd.org enrollment pages unreachable"
+  },
+  {
+   "district": "Windsor Unified",
+   "assignment_system": null,
+   "tk_capacity_note": null,
+   "enrollment_note": "NOT ESTABLISHED \u2014 wusd.org dropped every connection (socket hang up) across https/http and three paths including both enrollment pages found via search. A search summary confirmed only registration mechanics (two proof-of-residency documents required; PK/TK/K registration opening February 2026) and explicitly noted it contained no information about attendance boundaries or waitlists. Proof-of-residency alone does not establish an attendance-area system, so both fields are null.",
+   "source": null
+  },
+  {
+   "district": "Woodside Elementary",
+   "assignment_system": "address-based attendance area \u2014 single-school district, so residence inside district boundaries determines the school",
+   "tk_capacity_note": null,
+   "source": "woodsideschool.us",
+   "enrollment_note": "District operates one K-8 school (plus preschool); the boundaries page asks \"Wondering if your home or prospective home is within the Woodside School District boundaries?\" and directs families to confirm the address with the office, with a boundary map PDF and a separate interdistrict-transfer path for outside families. Both the TK Information page and the TK FAQs were read in full: they cover age eligibility (born Sept 2, 2021 \u2013 Sept 1, 2022 for 2026-27), the half-day-to-full-day schedule, registration opening January 9, 2026, and tours \u2014 and say nothing about seat counts, class caps, waitlists, lotteries, or what happens if demand exceeds capacity. TK capacity therefore left null."
+  }
+ ]
+}
