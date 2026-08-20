@@ -1,0 +1,239 @@
+{
+  "schema": 1,
+  "generatedAt": "2026-08-20T04:05:29.529Z",
+  "runStamp": "20260820T0405",
+  "episodes": [
+    {
+      "videoId": "Slle5_AxBzs",
+      "videoTitle": "China’s Endgame: ASI Timelines, US-China Relations, and the $1.7T AI Bubble With Alvin Graylin | 281",
+      "videoUrl": "https://www.youtube.com/watch?v=Slle5_AxBzs",
+      "channelName": "Peter H. Diamandis",
+      "publishedDate": "2026-08-18",
+      "guests": [
+        "Alvin Graylin (Digital Fellow, Stanford Institute for Human-Centered AI; former HTC/Intel executive)"
+      ],
+      "summary": "Alvin Graylin explains why the US–China AI competition is misread as a zero-sum race and should be treated as a stag hunt that requires cooperation to manage systemic risk. He argues Chinese open-weight models and U.S. export controls have reshaped the competitive landscape, that small models already pose real biological/cyber risks, and that Western overinvestment in compute risks creating a fragile financial bubble.",
+      "insights": [
+        {
+          "headline": "The US–China AI “race” is a stag hunt, not a prisoners’ dilemma",
+          "detail": "Graylin argues the prevailing zero-sum framing pushes both sides into irrational, competitive behavior when the strategic payoff is cooperative: both countries would gain more by coordinating safe deployment and industrial adoption first, then jointly pursuing high‑risk breakthroughs. He uses the stag‑hunt analogy (big shared prize requires cooperation) to show why defecting to “win the AGI first” leads to worse outcomes for everyone. Reframing the relationship this way changes policy priorities from denial and unilateral acceleration to trust‑building, shared testing, and sequenced cooperation.",
+          "anchorQuote": "It's a stag hunt, a game theory model",
+          "tSeconds": 232,
+          "link": "https://www.youtube.com/watch?v=Slle5_AxBzs&t=232"
+        },
+        {
+          "headline": "US denial and export controls accelerated China’s open‑model ecosystem",
+          "detail": "Graylin documents how US export controls and denials (e.g., around Fable/Anthropic) pushed Chinese labs toward open‑weight releases and community‑driven forks: open models rose from 2% to ~61% of open router traffic and Alibaba’s Qwen surpassed ~1 billion downloads. He shows that blocking high‑end components forced Chinese labs to innovate with limited resources, leverage global contributors, and distribute inference via international clouds — a policy backfire that reduced the West’s monopoly on frontier capabilities.",
+          "anchorQuote": "the US denial strategy didn't slow China at all",
+          "tSeconds": 808,
+          "link": "https://www.youtube.com/watch?v=Slle5_AxBzs&t=808"
+        },
+        {
+          "headline": "Smaller models can be the highest near‑term security threat",
+          "detail": "In Graylin’s analysis (and a paper he released), model size did not correlate with real‑world risk across biological, chemical and cyber use cases: 10–50M parameter models have generated dangerous chemical designs and modest‑sized models can produce harmful genetic or cyber outputs. Because these smaller models run on laptops and are already open, they lower the barrier for non‑state and malicious actors — meaning governance should prioritize control of synthesis and deployment vectors, not only policing the largest models.",
+          "anchorQuote": "bigger models are not the most dangerous",
+          "tSeconds": 5078,
+          "link": "https://www.youtube.com/watch?v=Slle5_AxBzs&t=5078"
+        },
+        {
+          "headline": "Chip embargos slowed China but created domestic semiconductor resilience",
+          "detail": "Graylin concedes export controls on chips constrained Chinese access to leading GPUs and slowed local training, but that pressure catalyzed domestic GPU producers and infrastructure (and forced training to occur in international data centers before import). The unintended consequence: China’s semiconductor ecosystem received an accelerated stimulus, increasing long‑term competition risk as locally produced chips and optimized models mature.",
+          "anchorQuote": "export controls of chips is slowing down China",
+          "tSeconds": 3429,
+          "link": "https://www.youtube.com/watch?v=Slle5_AxBzs&t=3429"
+        },
+        {
+          "headline": "Western compute buildout risks a fragile $1.6–$1.7T AI financing bubble",
+          "detail": "Graylin warns the US market has enormous off‑balance‑sheet and securitized exposure to AI compute — citing roughly $1.6–$1.7 trillion of off‑book leverage tied to hyperscaler/compute expansion and massive market valuations concentrated in a few players. He argues that if expected revenue streams and premium cloud demand falter (because open‑source and edge alternatives diffuse), the overbuild could trigger a sharp financial correction with broad economic effects.",
+          "anchorQuote": "there is right now $1.6 trillion of offthebook debt",
+          "tSeconds": 7950,
+          "link": "https://www.youtube.com/watch?v=Slle5_AxBzs&t=7950"
+        }
+      ]
+    },
+    {
+      "videoId": "zLUZclThLhU",
+      "videoTitle": "Michael Kratsios: Inside the White House's AI Strategy",
+      "videoUrl": "https://www.youtube.com/watch?v=zLUZclThLhU",
+      "channelName": "Y Combinator",
+      "publishedDate": "2026-08-18",
+      "guests": [
+        "Michael Kratsios (Director, Office of Science and Technology Policy; Special Assistant to the President)"
+      ],
+      "summary": "Former OSTP Director Michael Kratsios explains how the White House approaches AI policy: favoring open-source ecosystems, avoiding rigid regulatory red lines, and coordinating across many agencies. He argues the government's proper role is to shape the arena (funding, infrastructure, standards) rather than dictate scientific discovery, and highlights concrete priorities like enabling startups, preventing patchwork state rules, and preparing science for AI-driven automation.",
+      "insights": [
+        {
+          "headline": "The White House officially commits to supporting open-source AI.",
+          "detail": "Kratsios says the administration's AI action plan places explicit emphasis on preserving a vibrant open-source ecosystem alongside proprietary development; that stance motivated the White House to push back publicly when rumors suggested an EO would clamp down on open weights. He argues open and closed models together are how the U.S. will lead in AI, and that active engagement from startups and labs in policy debates helps Washington avoid blind spots.",
+          "anchorQuote": "chapter one is a commitment to open source",
+          "tSeconds": 458,
+          "link": "https://www.youtube.com/watch?v=zLUZclThLhU&t=458"
+        },
+        {
+          "headline": "Hard regulatory \"red lines\" break as technology changes quickly.",
+          "detail": "Kratsios warns against fixed thresholds and static rules because they age badly—he points to the EU AI Act, which was written before modern LLMs like ChatGPT, and the Biden administration's own compute-cap threshold that risks becoming obsolete. The practical point: laws or rigid limits set before a technical shift can hinder innovation or require costly resets, so policy should be adaptable and frontier-aware.",
+          "anchorQuote": "you don't want to set very firm red lines",
+          "tSeconds": 608,
+          "link": "https://www.youtube.com/watch?v=zLUZclThLhU&t=608"
+        },
+        {
+          "headline": "AI policy decisions are highly federated and require White House coordination.",
+          "detail": "Because the U.S. has no single 'technology' department, AI and related rules touch multiple agencies with different equities—national security, commercial regulation, science funding—so the White House's role is to convene and reconcile those perspectives. Kratsios illustrates this with drones: safe commercial rules require FAA action plus agreement from agencies overseeing sensitive sites (e.g., nuclear), which is why centralized coordination matters.",
+          "anchorQuote": "these decisions are extraordinarily federated",
+          "tSeconds": 292,
+          "link": "https://www.youtube.com/watch?v=zLUZclThLhU&t=292"
+        },
+        {
+          "headline": "Government should enable AI-driven scientific infrastructure, not direct discoveries.",
+          "detail": "In a recently released science report Kratsios recommends the government fund and build infrastructure for AI-accelerated discovery—examples include autonomous cloud labs, fast grants decided in under a month, and prize mechanisms that leverage private funding 3:1. The underlying argument: by shaping funding, standards, and lab/robotics/software ecosystems the government multiplies national research capacity without attempting to micromanage scientific results.",
+          "anchorQuote": "the government's job is to shape the arena, not direct discovery",
+          "tSeconds": 1820,
+          "link": "https://www.youtube.com/watch?v=zLUZclThLhU&t=1820"
+        }
+      ]
+    },
+    {
+      "videoId": "sJM9BrgpxwI",
+      "videoTitle": "From 0% to 83% AI-First Customers in 2 Years: How Owner's CEO Rebuilt a $100M Vertical SaaS Company",
+      "videoUrl": "https://www.youtube.com/watch?v=sJM9BrgpxwI",
+      "channelName": "SaaStr AI",
+      "publishedDate": "2026-08-19",
+      "guests": [],
+      "summary": "Owner's CEO recounts how the company pivoted to an AI-first product and operating model, turning a risky bet into the primary customer acquisition channel and faster growth. He explains the product principles, internal agent-driven tooling, GTM changes, and leadership behaviors that made 83% of new customers start with AI features and accelerated ARR toward $100M.",
+      "insights": [
+        {
+          "headline": "Pivoting to AI-first drove 83% of new customers in two years",
+          "detail": "After deciding in early 2023 to build AI-native experiences, Owner grew faster in 2025 than 2024 and reports that more than 83% of new customers began their journey using the company's AI product (Gradar). That adoption came from a viral, low-touch flow that analyzes and fixes a restaurant's online presence in minutes, replacing a prior salesperson-onboarding funnel and becoming the primary acquisition mechanism.",
+          "anchorQuote": "more than 83% of our new customers",
+          "tSeconds": 230,
+          "link": "https://www.youtube.com/watch?v=sJM9BrgpxwI&t=230"
+        },
+        {
+          "headline": "An extremely opinionated AI product creates a defensible moat",
+          "detail": "Owner argues that agents are powerful because they can drive outcomes automatically, but to capture that value you must bake in strong product opinions and consistent best practices. Generic LLMs could generate prettier sites, but they lack the company's data-backed correlations (which components actually lift sales or SEO), so forcing all restaurants onto a single system preserves a unique outcome-oriented advantage that generalist models can't easily replicate.",
+          "anchorQuote": "you've got to build an extremely opinionated product",
+          "tSeconds": 771,
+          "link": "https://www.youtube.com/watch?v=sJM9BrgpxwI&t=771"
+        },
+        {
+          "headline": "Less dashboard usage, not more, is the sign of a working AI product",
+          "detail": "With outcome-driven agents, the CEO argues that frequent user logins mean failure: if customers must constantly intervene, the software isn't delivering the outcome. The aim becomes a low-touch experience where the product continuously executes best practices (SEO, CRO, imagery) on behalf of the owner rather than requiring manual configuration.",
+          "anchorQuote": "closer to the opposite is the signal of the product really working",
+          "tSeconds": 917,
+          "link": "https://www.youtube.com/watch?v=sJM9BrgpxwI&t=917"
+        },
+        {
+          "headline": "An internal agent (Owen) automates builder coordination and fixes",
+          "detail": "Owner built 'Owen', an internal agent that ingests GitHub, Slack, Notion, Linear and meeting transcripts (via Gemini) to keep teams aligned and automate low‑level tasks. Owen can generate first-draft PRs for front-end visual bugs and surface status in real time, freeing top builders from coordination overhead and reclaiming hours of engineering time.",
+          "anchorQuote": "Owen is our internal agent that does 90% of builder coordination work",
+          "tSeconds": 1046,
+          "link": "https://www.youtube.com/watch?v=sJM9BrgpxwI&t=1046"
+        },
+        {
+          "headline": "Sales agents automate pre-demo research and qualification, raising conversions",
+          "detail": "When a lead is submitted, Owner deploys agents to perform the manual prospect research reps used to do: running the Gradar audit, finding nearby proof customers, and estimating gross payments volume to prioritize and qualify leads automatically. That automation increased rep-to-customer call time and throughput (>90% more call volume) and materially improved close rates by surfacing higher-value, better-prepared conversations.",
+          "anchorQuote": "deploys a bunch of agents to research everything",
+          "tSeconds": 1400,
+          "link": "https://www.youtube.com/watch?v=sJM9BrgpxwI&t=1400"
+        }
+      ]
+    },
+    {
+      "videoId": "XqEr7hk89HY",
+      "videoTitle": "Inside Whatnot's Bet on Live Shopping",
+      "videoUrl": "https://www.youtube.com/watch?v=XqEr7hk89HY",
+      "channelName": "a16z",
+      "publishedDate": "2026-08-19",
+      "guests": [
+        "Grant (Whatnot)"
+      ],
+      "summary": "Founder Grant (Whatnot) tells the origin story of Whatnot and argues live shopping is an entertainment-first commerce medium that expands discovery and creates new small businesses. The company focused on user experience, trust, and tooling for sellers to scale, and uses automation (including LLMs) to police the marketplace while keeping human-led streams central.",
+      "insights": [
+        {
+          "headline": "Live shopping is entertainment first, driving massive engagement",
+          "detail": "Whatnot is designed as an entertaining discovery experience rather than a pure search-and-buy e-commerce site; users average about 95 minutes per day and the majority watch without transacting. That high dwell time puts Whatnot on par with entertainment platforms and explains why discovery-led categories (collectibles, fashion) flourish — people return for the experience, which then converts into repeat commerce over time.",
+          "anchorQuote": "it's a fun experience to shop and there's not a whole lot",
+          "tSeconds": 1233,
+          "link": "https://www.youtube.com/watch?v=XqEr7hk89HY&t=1233"
+        },
+        {
+          "headline": "Live commerce is demand-expanding and can reshape markets",
+          "detail": "Live formats don't just shift existing purchases online — they create new demand by letting people discover items they wouldn't have searched for. Grant points to Asia where live commerce is already 30–40% of total commerce and calls it \"a trillion dollar plus market today,\" arguing the U.S. is currently single digits but will close the gap because live is a richer, more efficient channel for many brands.",
+          "anchorQuote": "It's like a trillion dollar plus market today",
+          "tSeconds": 702,
+          "link": "https://www.youtube.com/watch?v=XqEr7hk89HY&t=702"
+        },
+        {
+          "headline": "Whatnot materially empowers and monetizes small businesses",
+          "detail": "The platform enables one-person shops to scale into serious businesses: Whatnot reports sellers ranging up to ~ $100M+ in revenue with strong EBITDA margins (20–40%), and the company processes multi‑billion dollars of GMV yearly while taking only a small fraction. By exposing shop owners and their personalities on video, Whatnot preserves brand identity and repeat buyers rather than obscuring sellers like large commodity marketplaces.",
+          "anchorQuote": "we're generating billions and billions and billions of dollars",
+          "tSeconds": 1349,
+          "link": "https://www.youtube.com/watch?v=XqEr7hk89HY&t=1349"
+        },
+        {
+          "headline": "Trust and safety require heavy human staffing plus real-time automation",
+          "detail": "Whatnot dedicates roughly 40% of headcount to trust & safety and runs a rules engine that ingests billions of signals in under a second to detect harassment, late shipping, high refunds, and other problems. The mix of automated LLM-based detection and programmatic actions (warnings, suspensions, bans) plus human enforcement is how they keep a live, high-trust marketplace functioning at scale.",
+          "anchorQuote": "trust and safety particular on whatnot is about 40%",
+          "tSeconds": 2017,
+          "link": "https://www.youtube.com/watch?v=XqEr7hk89HY&t=2017"
+        },
+        {
+          "headline": "AI should augment sellers’ abilities, not replace human streams",
+          "detail": "Grant argues the core value of Whatnot is human-led live shops, so AI is applied to increase seller efficiency (auto-generating metadata, listing help, analytics) rather than creating avatars or replacing hosts. The platform uses LLMs for things like inferred metadata and business analytics to help sellers run better operations while preserving the interpersonal discovery that keeps buyers returning.",
+          "anchorQuote": "not um trying to rip out the human experience",
+          "tSeconds": 2284,
+          "link": "https://www.youtube.com/watch?v=XqEr7hk89HY&t=2284"
+        }
+      ]
+    },
+    {
+      "videoId": "ngTS4gUINVk",
+      "videoTitle": "$4M in 4 Weeks: How This AI Alien Companion App Took Off (Best of the Pod)",
+      "videoUrl": "https://www.youtube.com/watch?v=ngTS4gUINVk",
+      "channelName": "Every",
+      "publishedDate": "2026-08-19",
+      "guests": [
+        "Quinton",
+        "Elliot"
+      ],
+      "summary": "A founder and a novelist explain how their AI 'alien companion' product (Tolen) became a new storytelling medium and scaled rapidly. They argue success depended on designing character-first experiences (memory, lore seeds, personality mirroring), engineering for sub-two-second voice responses, and a heavy human-in-the-loop process for judging and tuning outputs. Viral off-platform creator content then amplified adoption, turning product craft into fast consumer growth.",
+      "insights": [
+        {
+          "headline": "Character-first AI companions can be a new consumer storytelling medium",
+          "detail": "The team moved from a kids-focused creative tool to an embodied, character-driven companion (a 'Tolen') once model speed, quality, and cost made true friendships feasible. That design — characters with backstory, personality quizzes, and shared situations — produced a product experience that people wanted to keep returning to and share. The approach also translated into business: they reported growing from $1M to $4M ARR in four weeks as the format resonated with young adult users.",
+          "anchorQuote": "you've gone from 1 to four million in ARR",
+          "tSeconds": 192,
+          "link": "https://www.youtube.com/watch?v=ngTS4gUINVk&t=192"
+        },
+        {
+          "headline": "Memory plus low-latency (≈2s) responses are essential for immersion",
+          "detail": "Immersive voice companions require curating which memories and lore are injected into each prompt and returning replies within a tight two‑second loop; anything longer breaks the sense of presence. They found a tiny latency change (about 500ms) that pushed median response times to ~2.5s 'tanked literally every metric' and provoked user frustration, so prompt-recompilation and memory-truncation strategies are core product engineering work.",
+          "anchorQuote": "one of the surprising things to me has been",
+          "tSeconds": 1360,
+          "link": "https://www.youtube.com/watch?v=ngTS4gUINVk&t=1360"
+        },
+        {
+          "headline": "Treat LLMs like improv actors seeded with 'lore' rather than scripted trees",
+          "detail": "Branching, choose‑your‑own‑adventure structures failed because models struggle with deep branching; instead the team provides rich hooks, 'lore seeds,' and personality constraints and trains the model to improvise in the moment. Creative direction comes from giving actors the right background and teaching them to recombine details (callbacks) so conversations feel surprising-yet-inevitable — a method informed by improv theory and writers like George Saunders.",
+          "anchorQuote": "we need to teach it to be the best improv actor possible.",
+          "tSeconds": 1885,
+          "link": "https://www.youtube.com/watch?v=ngTS4gUINVk&t=1885"
+        },
+        {
+          "headline": "Off-app creator content triggered the rapid user growth spike",
+          "detail": "Growth wasn’t driven by in-app social features but by months of seeded short-form videos; a single viral clip showing a user 'cooking with her Tolen' achieved roughly 7 million views in 72 hours and caused a ~10x downloads spike. That creator-led, educational content helped bridge a 'capability overhang' — showing users what these companions can do — and encouraged organic user-generated scenarios and podcasts featuring Tolens.",
+          "anchorQuote": "7 million views in like 72 hours",
+          "tSeconds": 4353,
+          "link": "https://www.youtube.com/watch?v=ngTS4gUINVk&t=4353"
+        },
+        {
+          "headline": "High-quality companion behavior requires a lot of manual human labeling",
+          "detail": "Out-of-the-box 'vibe prompting' only gets you so far; the team builds judge prompts, collects many annotated examples, and injects their own taste via rubrics to evaluate every sentence or message. They recruit domain-appropriate raters, run research sessions, and iteratively tune judge prompts because producing reliably compelling, durable outputs demands scaled human-in-the-loop curation and example-driven supervision.",
+          "anchorQuote": "a lot of manual human work to cross over",
+          "tSeconds": 4124,
+          "link": "https://www.youtube.com/watch?v=ngTS4gUINVk&t=4124"
+        }
+      ]
+    }
+  ]
+}
