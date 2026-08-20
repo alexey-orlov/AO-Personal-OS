@@ -24,7 +24,9 @@ never to invent. Everything here is defensible cold in an interview. Pair with `
    analytics & marketing attribution, flexible campaign engine, seamless sales↔marketing integration.
    **0 → 400+ enterprise customers in 3 years.** Expanded the company from pure SFA into marketing
    automation; ultimately up to **~15% of company revenue.**
-2. **Product ecosystem & 3rd-party developer platform** — platform for 3rd-party devs to build/market
+2. **Product ecosystem & 3rd-party developer platform** — frame the SVP scope as the **platform
+   transformation (CRM vendor → no-code platform) + the ecosystem around it**, never "just" the
+   marketplace/ecosystem (see positioning.md, Impact framing) — platform for 3rd-party devs to build/market
    apps on Creatio's no-code platform. Uniquely enabled end-to-end vertical/horizontal solutions (not
    just extensions) — devs built their own product businesses on the platform. Built **composable
    architecture + best-in-class CI/CD** → seamless monthly releases of 400+ apps with low adoption
@@ -61,6 +63,10 @@ details matter (edge cases, technical approach, UX/UI, product language — even
 - **Team sizes managed (10 yrs leading):** Head of Product — 2 directs; **Director, PM — 8 (incl. 3
   Heads of Product)**; **SVP — 25–30 (2 directors, 3 lead PMs, 1 eng lead)**; **CPO (Innovation) — 11
   (5 product leaders).** Owned hiring, mentorship, performance, talent dev in all; **budget** at SVP & CPO.
+- **CRM-portfolio era framing (Alex, 2026-08-12):** title = **Director of Product (CRM)**; a **PM-only
+  org of 6 → 8** (PMs + Heads of Product — design/PMM/support did NOT report in). The scale story is the
+  **process build** (continuous-discovery cadence, the feedback-clustering system, delivery KPIs), not
+  headcount. Lead org-building answers about this era with process, not team growth.
 - **Growth-environment challenges he's handled:** growing leaders/managers, expanding teams >25–30%/yr,
   scaling operations, managing quality/tech-debt/commitments. Levers: A-player leaders w/ growth
   mindset, deliberate early planning, owning hiring as hiring manager, continuous-improvement cadence,
