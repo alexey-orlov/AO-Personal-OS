@@ -56,6 +56,7 @@ _source files: SoftServe OneDrive `~/Library/CloudStorage/OneDrive-SoftServe,Inc
 ## Open loops
 
 Mine:
+- **Proactively engage the Payworks account on the next phase** — Bohdan's ask in the [2026-08-18 1:1](calls/2026-08-18_141300_one-on-one_20260818132936005C1280.md): the follow-on the SOW was written to open ([Roman's 3× "next steps"](#snapshot)) is the concrete way Alex contributes to the **Q3 $300k signed-contracts goal**, which he otherwise reaches only indirectly.
 - **S3 deck follow-ups (Tue Aug 18):** confirm the agenda timings and per-assignment time budgets with Roberto (the deck's timings are indicative — 00:10 prototyping · 00:45 access rights & os-admin · 01:00 demo + practice · 01:50 Q&A); export the PDF from PowerPoint if true Azurio divider titles are needed (the delivered PDF is a LibreOffice export). (chat, 2026-08-18)
 - **Execute the demo-repo upgrade spec** (`SPEC-demo-repo-upgrades-2026-08-11.md`, Payworks AIPM Jumpstart OneDrive folder) — P0 work packages (git history, W33 seed, PII fixes, mock codebase for /code-qa, root-CLAUDE.md text repairs) before S1 Wed Aug 12 morning; P1 (research-corpus import, ARR mock, Product Brief template, /microjob-brief-draft skill, competitive pass) before S2 Fri Aug 14. Run via a dedicated agent session. (chat, 2026-08-11)
 - Hold the live PAT/API integration session with **Vladislav** for Azure DevOps (deadline Aug 12 = S1 day). [setup call](calls/payworks-jumpstart/2026-08-12_224607_default_202608111711523BA77978.md)

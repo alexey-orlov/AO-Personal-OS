@@ -1,7 +1,7 @@
 # Relocation — moving the household to the US
 
-_status: active — Bay Area place ranking complete (220 places scored, 2026-08-09); visa timing tentatively Sep–Oct 2026; no place chosen_
-_updated: 2026-08-12_
+_status: active — Bay Area place ranking complete (220 places scored, 2026-08-09); visa timing tentatively Sep–Oct 2026; no place chosen. **October logistics now on SoftServe's agenda** — a dedicated meeting is being set to settle location, cost and the base-vs-quarterly-bonus split_
+_updated: 2026-08-18_
 
 The move itself: visa timing, where the household lands, schools, and the logistics around them. Distinct from the [job search](../job-search/README.md) — that area owns roles and how Alex is positioned (including the SF-based public framing); this one owns the physical move. The two share a dependency in both directions (an offer's location can constrain the place; the visa date gates when a start date is real) but they are not the same thread.
 
@@ -13,6 +13,7 @@ The move itself: visa timing, where the household lands, schools, and the logist
 
 ## Active threads
 
+- **October logistics with SoftServe — a dedicated meeting, not a 1:1 topic (2026-08-18).** The move's employer-facing side came up in Alex's [SoftServe 1:1](../softserve/calls/2026-08-18_141300_one-on-one_20260818132936005C1280.md) and was deliberately split out into its own session, to be held **before Bohdan's Friday 07:30 meeting**. Four things to settle: **location · cost · expectations · impact framing**, plus the **split between base and quarterly bonus** in the post-move compensation shape. Alex sends the invite and prepares the inputs; **Bohdan prepares the internal argumentation/justification for the relocation costs** ahead of that Friday meeting. Related: US replication of SoftServe's managed-service offering is floated as possibly tied to the move ([jumpstart-pm](../softserve/jumpstart-pm.md)), and full-time SoftServe employment stays "possible after the US move" ([softserve](../softserve/README.md)). Owner: Mine (invite + inputs) / Theirs (cost case).
 - **Where to live — ranking done, decision open.** The 220-place Bay Area comparison is complete and re-runnable. Next natural step when the move firms up: re-score with Alex's own criterion weights rather than accepting the equal-weight default — the pipeline supports it. Owner: Mine.
 - **Visa timing.** Waiting on the Sep–Oct 2026 window to become concrete. Owner: Theirs (processing), then Mine.
 
@@ -39,7 +40,7 @@ Superseded, kept only as pointers: Sheets `1HiSmOvkFYEFvI31Pvsp7xWGYtrfPHiwdGqd-
 
 ## People
 
-- -
+- Bohdan Khomych — SoftServe engagement lead; owns the internal cost justification for the October move → [people page](../../people/bohdan-khomych.md).
 
 ## Decisions
 
@@ -48,10 +49,13 @@ Superseded, kept only as pointers: Sheets `1HiSmOvkFYEFvI31Pvsp7xWGYtrfPHiwdGqd-
 
 ## Open loops
 
+- **Mine** — send the calendar invite for the dedicated SoftServe relocation/logistics meeting (before Bohdan's Friday 07:30 call) and prepare the inputs: location, cost, expectations, impact framing.
+- **Theirs (Bohdan)** — prepare the argumentation/justification for the October relocation costs ahead of that meeting.
 - **Mine** — no place chosen; the ranking is decision input. Re-run the scoring with Alex's own weights when the move firms up.
 - **Mine** — visa timing tentatively Sep–Oct 2026; relocation planning stays provisional until that date is real.
 
 ## Activity
 
+- 2026-08-18 — [October logistics split into its own SoftServe meeting](../softserve/calls/2026-08-18_141300_one-on-one_20260818132936005C1280.md) — location, cost, expectations, impact framing and the base-vs-quarterly-bonus split to be settled before Bohdan's Friday 07:30 call; Alex sends the invite, Bohdan prepares the internal cost case.
 - 2026-08-12 — area created and the ranking folded in — the deliverable had been sitting in `docs/` since 2026-08-09 with no wiki entry (chat, 2026-08-12).
 - 2026-08-09 — [ranking + map complete](docs/bay-area-relocation/README.md) — built and finished in one day (6 commits): 220-place framework → one uniform table with all six criteria measured → small-place blanks filled from parent areas → map gained real boundaries, per-criterion filters, click-to-pin.

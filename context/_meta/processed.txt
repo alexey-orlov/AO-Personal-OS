@@ -96,6 +96,7 @@ context/areas/softserve/calls/2026-06-09_183633_one-on-one_2026060917013100B193F
 context/areas/softserve/calls/2026-06-11_135929_default_20260611130042C37F547F.md
 context/areas/softserve/calls/2026-06-25_112719_default_202606251114264E8BD2B7.md
 context/areas/softserve/calls/2026-07-06_172238_default_20260706153858763EF88E.md
+context/areas/softserve/calls/2026-08-18_141300_one-on-one_20260818132936005C1280.md
 context/areas/softserve/calls/jumpstart-pm/2026-07-14_194924_sales-call_2026071417472224FB611D.md
 context/areas/softserve/calls/jumpstart-pm/2026-07-30_132405_sales-call_2026072717330524296792.md
 context/areas/softserve/calls/jumpstart-pm/2026-07-30_202249_sales-call_20260730190421E7393EB4.md
