@@ -1,5 +1,7 @@
 # SBG scoping workshop 2026-08-17 — raw transcript, part 2 of 2
 
+_⚠️ SUPERSEDED 2026-08-20 by the [full diarized transcript](2026-08-17_sbg-workshop-transcript-full.md) — kept for provenance; this partial covers only ~30 min and has no speaker labels._
+
 _source: TurboScribe transcript of Alex's recording ("New Recording 42"), supplied 2026-08-20. **SOURCE OF TRUTH for this meeting** — Bohdan's [debrief](2026-08-17_sbg-poc-workshop-debrief.md) and Dmytro's [scope draft](2026-08-20_sbg-poc-scope-draft-dundych.md) are interpretations of it._
 _Covers the SECOND half: the subcontractor-selection discussion with Oracle SE Ahmed, the self-perform-vs-subcontract criteria, the Flow A / Flow B resolution, the written-proposal-by-email request, Raja's expectation setting, the raw-data-vs-live-integration decision, the end-to-end-vs-segment scope question, the "agent" terminology correction and the ad-hoc-agents challenge._
 _⚠️ No speaker labels — attributions in the distilled pages are inferred from context and marked as such. ⚠️ Truncated by the transcription service at ~30 min; the meeting ran longer._

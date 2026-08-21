@@ -126,6 +126,8 @@ Dmytro deliberately renamed stage 3 from prediction to **recommendation**, and f
 ## Open loops
 
 **Mine**
+- **Data checklist to SBG before Monday 2026-08-24** — promised "today" in the workshop (the previously shared document "covers the entire—" i.e. too broad); confirm it actually went out. The **Monday session Alex joins with Dmytro is the same day as the booked client data session** — likely the same meeting or its prep (inferred).
+- **Name the pack/architecture** — "AI Accelerator" umbrella ≠ a validated pack choice; and write the proposal in **Mustafa's vocabulary** (insights from fragmented data, accuracy journey, human-in-the-loop, path to MVP/board) — never "single source of truth", never "agent".
 - **Write the staged plan with explicit go/no-go gates — due EOD 2026-08-20**, in a form that can be put to the client (per stage: what we do + the condition that must hold to proceed). Dmytro then folds it into his scope proposal. Delivery format open — possibly a screenshot from the Miro board rather than a document. [Dmytro 1:1 2026-08-20](calls/sbg-poc/2026-08-20_one-on-one_dmytro-sbg-poc-shaping.md)
 - **Get into the Miro board** "Discovery Workshop / Business case refinement" (password sent in chat; frame 7 is where Alex's scheme goes) — everything from the workshop and the client case is collected there.
 - **Join Dmytro Dundych Monday 2026-08-24 to shape and finalize the use case**, and reconcile his retrospective-only draft against Flow A + Mustafa's floor. A **one-pager describing the use case** is owed before the next SBG meeting.
@@ -151,10 +153,13 @@ Dmytro deliberately renamed stage 3 from prediction to **recommendation**, and f
 - **Everything defers to the end-2027 ERP.** → Reframe the PoC as ERP requirements de-risking, not as something the ERP replaces.
 - **Politically loaded findings** (relationship-based awards, CPI) stall the engagement. → Protocol agreed in advance; out of written materials.
 - **Project-director resistance** to what reads as surveillance. → Make the PD the beneficiary of the output.
-- **Source record is partial** — both transcripts truncated at ~30 min, no speaker labels. → Attributions are inferred; cross-check against SBG's own minutes before acting.
+- **Mustafa's PoC impatience** — he tried to skip to MVP and benchmarks against market "AI-enabled scheduling software". → The proposal must read as **speed-to-value with an explicit MVP path**, not PoC theater; differentiate from off-the-shelf schedulers.
+- **Vocabulary traps** — "single source of truth" (Ramadan invites it, Mustafa rejects it) and "agent" (banned). → Write "insights from fragmented data", "recommendation workflow".
+- Diarization in the full transcript is imperfect (merged SoftServe voices; Ramadan/Bondo). → Residual attributions marked inferred; SBG's own minutes still worth a cross-check.
 
 ## Activity
 
+- 2026-08-20 — [FULL diarized transcript logged](docs/2026-08-17_sbg-workshop-transcript-full.md) — complete meeting, supersedes the partials. Resolves attributions (agents challenge = **Mustafa**; email ask = **Ahmed-DT**; "Waldemar" = Volodymyr; live-integration = Muhammad; Milo confirmed SPOC), names the platform umbrella (**OCI + AI Accelerator Packs**) and the **NDA as in place**, and adds: the PoC-vs-MVP challenge, the 23→81% reference case, the "totally ad hoc" admission, the SSOT rejection, the package-design debate (Seven concrete example), the 3–5-project assumption, target user = PD, and the close (kickoff ~Sep 1, 12 wks + 2–4 UAT, Monday data session + checklist).
 - 2026-08-20 — [1:1 with Dmytro Dundych](calls/sbg-poc/2026-08-20_one-on-one_dmytro-sbg-poc-shaping.md) — Alex onboarded onto the PoC. Target end state pinned (packaging + execution-model decisions, evidence-backed), the three-stage roadmap surfaced, the LLM's real job located in normalisation, and the **sample-size risk** raised and left open. Alex owes the staged plan with gates by EOD.
 - 2026-08-20 — [workshop recordings logged](docs/2026-08-17_sbg-workshop-transcript-1of2.md) — primary source obtained; corrected the Michael/Mustafa attribution, the origin of the written-proposal ask, and the definition of "segment"; surfaced Mustafa's scope floor, his find-it-in-the-data steer, the ongoing status of the reference projects, and our own "two scenarios" proposal.
 - 2026-08-20 — [scope draft (Dundych)](docs/2026-08-20_sbg-poc-scope-draft-dundych.md) — PoC objective, in/out of scope, analytical flow, three success measures; KFSC as retrospective anchor; narrower than Flow A.

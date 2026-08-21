@@ -1,5 +1,7 @@
 # SBG scoping workshop 2026-08-17 — raw transcript, part 1 of 2
 
+_⚠️ SUPERSEDED 2026-08-20 by the [full diarized transcript](2026-08-17_sbg-workshop-transcript-full.md) — kept for provenance; this partial covers only ~30 min and has no speaker labels._
+
 _source: TurboScribe transcript of Alex's recording ("New Recording 41"), supplied 2026-08-20. **SOURCE OF TRUTH for this meeting** — Bohdan's [debrief](2026-08-17_sbg-poc-workshop-debrief.md) and Dmytro's [scope draft](2026-08-20_sbg-poc-scope-draft-dundych.md) are interpretations of it._
 _Covers the FIRST half: Dr. Ramadan's walkthrough of the target PMO operating model, the performance-review / granularity probing (Waldemar), and Milo's structural questions ending in the King Fahd Stadium case._
 _⚠️ No speaker labels — attributions in the distilled pages are inferred from context and marked as such. ⚠️ Truncated by the transcription service at ~30 min; the meeting ran longer._
