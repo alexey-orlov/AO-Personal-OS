@@ -458,3 +458,73 @@ Speaker J: We can, yes, we can use it in this. So this is one of the inputs, but
 Speaker I: Yeah, this is—
 
 Speaker J: if you can simulate, if you can do something like simulation of the project director without AI, without applications, how they are doing this manually currently on the running projects, and we can take it from here to I think, Ahmed, you've been interrupted.
+
+Speaker I: We cannot hear you now. I think the point of Ahmed was clear, right? To do that kind of criteria of selection and identify the necessary data we need. So let me just say, like, 2 minutes of that. So we agreed that this particular flow for the self-service with vendor selection will be the primary flow of the POC. or those are 2 parallel flows, one kind of for the project design from the input documents based on the template, and second is like selection of the, um, and decision on the supplier list. I'm just trying to connect the dots here, sorry, and correctly put the, um, correctly put the the boundaries for that initial POC scope.
+
+Speaker H: Actually, now you— the scenario which proposed by you, this may mean that we already skipped this period milestone, the decision taken by the project director, and now the ball in the court, in the side of the procurement, ARB, and decision-making for the— before, between the subcontractor/vendor list. We are— what we are discussing now is to take proactive decision from the project director starting from day 1 in the project.
+
+Speaker I: Okay, so, uh, what, what, uh, uh, so initially, right, we discussed that, uh, we'll need to get the inputs from, uh, 2 sources, right? Uh, one is, uh, from the, um, information that, that the information about the new project is available, another collect data inputs from the project manager and team, and then use the comparable historical packages to create the templated project design kind of format document. That was kind of the one particular flow that we discussed, and I'm referring to that flow.
+
+Speaker C: Yeah, but the guys, as BG mentioned, that on the screen currently there's a flow is post-planning already. Like, you have already—
+
+Speaker I: Yeah, here it's post-planning. Yeah, it's kind of, it's a different flow. So we agreed that we are focusing on that project design step, not on the ones that we have currently on the screens, that is performance review, right? So we focus on project design, and on the project design we want to have kind of those 3 steps: get inputs from the project manager, information about the current project that is available, and then review comparable historical packages to get insights from there. Obviously, vendors— information about vendors is a big separate piece, right? And but then other available data, mostly it still will be about the subcontractors' information, and then create the target project design document that can be a recommendation for the project manager, and then they can iterate with it, giving, for example, different sources of data or getting some other inputs or ideas. Is it the correct direction, or it requires some adjustment?
+
+Speaker H: Needs to be experimented. You cannot say like that from now.
+
+Speaker I: Okay, okay. Um, so, um, Oliver, I see that we have 5 minutes left. We have that initial idea that we need to, to dive deeper into. Let's think how we can leverage that if you efficiently and then plan the next steps to fill the gaps of what we are missing to have the overall scoping being finalized.
+
+Speaker C: Yeah, so from my perspective—
+
+Speaker A: yeah, Raja, are you here? Sorry.
+
+Speaker B: Yes, I'm here.
+
+Speaker A: Um, to finalize the scope of the POC, or at least to choose what we are going to work on. I just have a suggestion and you are leading this. Why don't we receive by email, for example, what do you suggest from your side as Oracle and NVIDIA to focus on? And then, and what information is required for the POC to be successful? And then we can study it and reply back to you if this is what the POC should focus on instead of just deciding right now in the meeting. Because this is a critical decision.
+
+Speaker H: If we don't—
+
+Speaker A: if the data is not there, the POC will fail. Not because, you know, you don't have the system, not because the AI is wrong, because we didn't choose the right project or the right area where the data is available within the scope of the POC, within the scale of the POC that is being offered here.
+
+Speaker B: I think we had multiple discussions before, and it's, it's not any one person decision. That is what I would recommend. The reason why we have the this workshop is to take the feedback from everyone, particularly from the business. So we are only facilitators. Though I'm facilitating, I'm coordinating, but it purely depends on the kind of data that we have and how comfortable businesses are sharing those data. And from the— from our and NVIDIA, what, what's possible to achieve in terms of the, the data available with us, right? So it's a freewheeling discussion so far, what I, what I have seen. But as you said, I think we have to agree on a scope, uh, not just by one person. All, all the relevant stakeholders are here, so So we have to agree on a, on a scope, you know, the achievable scope based on the data available. Okay, and end of day, I'm sure I have been listening to the conversation, we may not be able to cover the entire processes. There are 2 sides of conversations I've heard. So if we are not covering all the steps and all the processes, the outcome is not real. Right, so this is one, one part of the conversation. And the other side, we may not be able to cover the entire processes because some— somewhere the data will mislead because the, the data is not just, uh, um, you know, both internal and external factors. Sometimes the— there will be an issue in the cash flow which may not be able to capture as an insight to derive the output.
+
+Speaker A: Right?
+
+Speaker B: So the output, whatever we receive from this AI model, may not be accurate and, you know, cannot be considered as a basis for the new package. But all of this, we need to remember, this is a proof of concept and we may not be able to achieve, you know, 100% efficient outcome. Okay, so all that we are trying to do is the data that we have, the process that we understand, and the AI model that can develop based on the data and process knowledge that we have and bring an estimated outcome. That's the proof of concept. This is what I would suggest from my side. But once we go for a full-fledged investment, by the time— because we don't have a solid integrated solution in place right now, so we have distributed or isolated systems. The project control is running in a system and we don't have a solid ERP, and all these data are not integrated, right? So currently we are working on a consolidated unified ERP. So we will have the finance data, the subcontracting data, uh, we will have so much of integrated, meaningful, and the actual data and the planned data because we are planning to integrate the Primavera, we are planning to integrate the finance with the unified So we will have a full-fledged system by end of 2027. So once, once we have that system, all the data that we have are populated in these systems will be more reliable. Then we can, we can focus on the realistic outcome based on these data, right? So whatever the data that we have based on the knowledge or the process knowledge knowledge that we have. So we have to, you know, estimate an outcome and see this model works or not. So that's the whole idea of POC. This is my thought process.
+
+Speaker C: I believe we're fully aligned with this strategy, so we will use the available data and can extend the end-to-end POC. see like project to MVP production stage later. But what is important topic is left after we discuss like potential scenarios of the use of this AI assistant is actually the data availability, and this is like was planned for like second half of our workshop. How would like PMO team, like project control team, Would like to proceed with project overview and data evaluation.
+
+Speaker E: Regarding data, I was just imagining that the agent should be alive. It should be giving you the insights based on the updated historical data, and as two projects seven and Stadiums, they are already alive. They are ongoing.
+
+Speaker G: It didn't finish.
+
+Speaker E: So it should be linked directly to the data in the database itself, not to export the data and give it to you. Cost data and subcontractors data are already existing in Oracle, as Ahmed mentioned, and the planning data already exists in Primavera. So if we are going to export it today, we have updates and it's Transactions every single day, so it's not going to be realistic. So why not just link it directly to Oracle as we already are connected?
+
+Speaker B: But Muhammad, we agreed we will not do any live integration with our system. Again, this is only a POC; it's it's not the real project, or we don't have any contract. That is my understanding.
+
+Speaker D: So far.
+
+Speaker B: So we will not do any live integration. This is a model that we built and we see the outcome as an— again, it's a concept. We are, we are testing the concept. We are not going to rely on the outcome.
+
+Speaker G: Okay.
+
+Speaker B: And you are not, you are not going to design your package, the next project package, based on this POC outcome.
+
+Speaker H: No.
+
+Speaker B: So you will We may not be able to rely on the outcome of this POC, but we are going to, you know, test the concept and see how this, this works. And, and we can— we will do the tweaking, we will take the learning, and then we will work on this in the investment. That's the whole point.
+
+Speaker E: Any worries? But in this case, we should provide the raw data as exported from the systems so the Agent is trained of this kind of data, so in the future we will when we start linking it, it will be workable. But if we provided our manipulated data currently from the working files, it will be trained of something that will not be provided in the future, so it will totally be failing in the future.
+
+Speaker B: Of course, I agree with you. I'm I'm saying only not to integrate, but providing raw data ideology. I'm okay with it. The data should not be manipulated by any means.
+
+Speaker E: Okay, so what I'd like to provide, Roodat, as I supported, and I would like to hear from Jim Mustafa opinion in this point, if you allow me.
+
+Speaker G: Yeah, okay. To your point, Raja, you know, you mentioned something fundamental. I think, you know, we should keep it in mind. For the next session. Do we test an end-to-end workflow regardless of the quality of data that we are going to input into it? That's one option. Or do we truncate the workflow on only the part of the workflow where we have sort of good quality data that we can put into that truncated workflow? I don't know the answer to this. Our partners should be able to— you need to select something. You see, the argument for the, you know, first proposal is improve with time. You know, the first batch of data may not be representative, may be distorted, you know, the whole story, and you improve with iterations. So that's an end-to-end. with bad or lesser than ideal quality data. So that's one option. The other one is we say no, let's do the proof of concept on a shorter or a segment of the full workflow where we have representative data that's of good quality.
+
+Speaker I: I don't know the answer, but we need to think about this because I think, Mustafa, from, from my experience is that, uh, taking one particular segment of the workflow, uh, is, uh, but at the same time spending a little of the time during such a project to design the target workflow overall without implementing it might be the, you know, optimal balanced approach. Because if you take such a big ambition as taking the whole the whole workflow, the risk is that you'll get, you know, we wouldn't achieve the, uh, the result, uh, that we expect. But if you take a segment of it and start thinking in more details and design it, but maybe without yet implementing the part of that, of the, of the bigger, uh, workflow scope where you will need to make, you know, the future investment decision on, that can be the, the path.
+
+Speaker G: Just a comment. It should not be a very small web view.
+
+Speaker H: A very limited view.
+
+Speaker G: Remember, already you're just picking one element of, you know, the whole construction cycle. So you're already limited. And to limit it further, you may not capture the story there, you know. So maybe if, you know, for example, you limit it to how do you select vendors, you know, for subcontractor, that doesn't represent the scheduling cycle, if you know what I mean. Or, you know, maybe you can drop some of the difficult elements from AI and let human, you know, intervene for them. But have a full scheduled workflow, but decide many elements of it will not be automated or will not have AI in it. So maybe that's, you know, an option.
