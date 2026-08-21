@@ -338,3 +338,69 @@ Speaker D: Super, thank you so much. That's very helpful. Last question from my 
 Speaker G: No comment. Okay, understood.
 
 Speaker D: Good, let's move on. Tony, thank you so much for your answers, really appreciate it. Let's continue with the agenda.
+
+Speaker I: Yeah, so I think, uh, uh, any more questions?
+
+Speaker C: So Yeah, let's move on. Thank you.
+
+Speaker I: All right, yeah, go ahead. You have hand raised, do you have something to ask?
+
+Speaker D: Oh, sorry, sorry, let me take it down. It was from before.
+
+Speaker G: Okay, perfect.
+
+Speaker I: Uh, so, um, We have another step, right, Mudra, around the challenges and business value. We already touched that, so I'm not sure to which extent we would go deeper into the actual problems because you mentioned that the current goal of the data transparency strategy, obviously, that there is the challenges of explaining the variance, maybe the variances that happens during their performance at the package level, and the execution model visibility is limited, right, because of the high project director ownership. And that's something that kind of can be on the side of the challenges that we identified, and I think they are confirmed by our conversation. And in terms of the Like value that solution of the challenges can bring. Obviously, if there are the transparent insights, it can reduce cost and schedule for the future and improve the subcontractor resource planning model, maybe work packages decision, and have transparency with kind of comparable evidence why that or the other, you know, option is better for this particular project. Anything on this side to say that this is the most important, this is the least important from your side, or kind of this is in general good pain points from your perspective? Because I think that's where we want this to double-check with you, where our assumptions are correct.
+
+Speaker E: I think from my side it is missing a challenge that the company assets are not considered. You may grow for the decision that subcontracting in historical data for roads packages has a bad performance in cost and time. So you decide, or the agent suggests, that it's going to be self-execution. But actually the company doesn't have the required equipment to execute this package for road slabs, for example. So you should also consider the current assets, experience, and the equipment that are in the company to be used for self-execution. Sometimes you may have to go for it. For this, some— we have some work packages we call it special packages. Usually we subcontract these packages because we don't have the experience or the equipment to do it self-execution. So this is one of the charges I think it is must.
+
+Speaker G: Okay.
+
+Speaker A: If you allow me just to go a little bit high level, to make a successful proof of concept for construction projects or for an entity such as SBG, where you look at, you know, 3 to 5 completed projects and you conclude, make some conclusions and assumptions based on that data. I'm not sure how this can be successful because there are a lot of information that is not there. This is construction, so maybe the whole project is stopped because maybe cash flow is not there, maybe some other issues. And this you would not capture it in data. So for a proof of concept, why are we looking at a very long process that requires huge amount of data and all data should be accurate? One missing information will really affect the whole outcome of the proof of concept and the conclusions. I'm just thinking loudly here. I'm not sure. But I feel we the scope of this POC is bigger than it should. Why don't we focus on one set of process that where we can guarantee that all the information is there, all the data is there, and then we can utilize AI? Because if the data capturing is legacy, if the data capturing is not there and we put AI, you know, it's junk in, junk out.
+
+Speaker I: So yeah, that's a very good point, Ahmed. That's actually what's our next step, right? Try to narrow it down to the actual scope of the POC. So I think it's a very important point, uh, and, and, uh, let's, let's prepare the rest of the discussion there. So we know that how the overall problem and strategy looks like, understand it better. And now, yeah, what can be the actual feasible scope of the POCs that we can do? based on the already available data and the insights that we just discussed. Maybe from SBG side perspective, if you can share, and based on what we just discussed from this kind of— and we can go maybe also to to-be target state already, but it's also to-be target state of overall process, right? Not of the subset of process. So let's let's brainstorm together what can be that first point that you think if we take, we can have available data and and get.
+
+Speaker H: Excuse me, excuse me. I I think what stated by our colleague Ahmed, it is it is very crucial. Switch but let's rephrase it. It he he he raised it. I I can rephrase it to. be single line of truth. Single line of truth, this is very crucial for us as a pain and as a challenge, which it is a very essential advantage or beneficial from any application like that.
+
+Speaker G: Uh, let me interrupt here.
+
+Speaker A: This is—
+
+Speaker G: remember we spoke earlier about this, why AI, why not just standard ERP? So, you know, typically ERP, everything is deterministic. You bring AI, it's probabilistic, heuristic. It's able to look at hazy data and come up with insights. In fact, this is the reason we are getting into AI because it will be able to get insights from fragmented data. So the single source of truth is not necessarily needed in this proof of concept. In fact, if there is always one single source of truth, we'll just continue with Oracle ERP with the standard workflows, you know, Machine learning, the whole thing in a basic way. We're getting into the AI world because it's probabilistic. You sense things from fragmented data. So I hope you guys— I think one thing you need to do is, you see, Ahmed mentioned something very important. Instead of digging and looking at that, you know, since maybe this data is not representative, and that's something very important in AI, your data that you use should be representative. My argument here is, okay, we'll not start with representative data, but with human in the loop, we'll improve with time. with further insights, more samples getting into the model, you know, it improves with time. And, you know, you mentioned the 82%, for example, in your first slide. So it is a journey for us and we will be improving as we're progressing. We're not going to, you know, have high accuracy rates or single source of truth At all from the beginning. And this is where actually AI is very powerful for us to get insights from the fragmented data that we have.
+
+Speaker I: So if you turn it into the process, right, I think, Mustafa, thank you so much for sharing that point of view. And we can validate also with everyone if everyone is aligned with that vision. If so, let's take it as a working assumption that this is what we are targeting. Maybe Dr. Ramadan and team, are you aligned with that vision as well, or any additional thoughts, comments from your side in terms of the scope, how you see that? Okay, so what we want to define now is the is the stages of the target flow of the POC that we want to develop. So our current assumption was that we have historical samples of the package context, and the process will be that currently user manually uploads all the context around the particular project or its work packages. After that, and then the question, who will be that user? Who will be the target user of such insights generation? Just also for us to confirm, is it project director or is it some different role for whom those insights about the project will be the most valuable? Is it correct to assume that this is project director, project manager?
+
+Speaker G: Yeah, yes, it's the project director.
+
+Speaker I: Okay, so the process will be that, uh, the, um, after the project is completed, right, the project director uploads the data to generate the, um, to run certain process with AI. And check if all the sources are missing, or maybe AI proposes what sources are missing or information is not covered. And then the report with the proposed decisions are generated. So let's discuss in more details when does it happen, this process.
+
+Speaker G: Is it—
+
+Speaker I: We'll tackle the process of project performance review and completion. Right stage or some other step? Maybe from that perspective you can share inputs. Uh, based on retrospective data, I would assume it's performance review of the project step, right? Oh, it's in the middle of the project.
+
+Speaker G: Can you hear me now?
+
+Speaker B: Sorry, can you hear me?
+
+Speaker H: Yes.
+
+Speaker E: Okay, sir, you were muted and they were talking. Um, I think that I'm totally not aligned with this process because, as per my understanding, the main purpose of this agent— we have a main delivery and the secondary delivery. The main delivery is to design the packages itself of the project. The secondary delivery will be to make it subcontracted or self-execution. But let's firstly begin with package design. For example, should I give the insulation of the steel structure under the steel structure package, or should I group all insulation work for insulation package? Should I make the concrete package including purchasing of the steel reinforcement, or should I make another purchase order different for the steel bars, and then I provide to subcontractors. Such decisions are part of the package design itself. The process— the process here starts with the user going to review comparable historical packages. This means that the user already has a package and is going to compare it to the previous historical data. No, this is the second step. The first step should be that the user gives the agent the new project POQ scope for contract document data, suggest the package design itself. When I give it to the whole scope for the new project that we are already starting, or it has been contracted, whatever, the agent suggests to me the packaging design, the package itself, which means split the POQ into packages, group some lines, separate some lines, relying on the historical data. So I think that should be the first step. I don't know if you agree with me or someone has a different opinion.
+
+Speaker I: That's, that's, that's a very valid point. Um, I think that's, that makes sense, right? If you are talking about a project design stage, right? That's the stage we are talking about. I believe, yeah. And in that context, within the retrospective data that you provide, do we have this information that was collected before the project was started, or what data does it include? Does it support—
+
+Speaker E: Prime contract, BOQ, and the agent should do it in SPC way to design packages for this new project. So yeah, answer is yes, we have the data for historical projects and we have the data of the new projects. Okay, this is just my opinion. I'm discussing it with my, my team and my colleagues.
+
+Speaker H: Actually, I, I don't agree with this.
+
+Speaker E: Yeah, please.
+
+Speaker H: Actually, I don't agree with this because this completely under the, the decision should be based on the decisions of the project director or project manager who will decide maybe, and the strategic business perspective as overall, maybe they will take it all subcontractor as one general contractor. From up, maybe they will break down until the level of discipline overall. This is decision yes or no, up to which level they will break down the project. Maybe they will go to the level of doors, hardware and software, hardware and wood and leaves and that. This is all the decisions of the Subcontractor. We cannot give the key of this decision just for AI. There are some essential decisions need to be taken strategic since day one.
+
+Speaker E: But if the agent is just supporting the project director or is it serving to think? The agent, the AI will not take the decision. It will just support the decision maker which is a project director. With ideas, but he is not enforcing the project director to make this decision. It is just a tool for the project director to think faster and more accurate. Just a tool, not a decision maker. The agent is not a decision maker. He can chat with— first proposal of the agent can be make roads packages, steel packages, and concrete packages. So the project director will chat with him.
+
+Speaker J: No.
+
+Speaker E: I'm not intending to give the steel structure in one package. I need 3 subcontractors. So the agent will give another suggestion. Okay, I have separated the steel structure into 3 packages as you asked.
+
+Speaker H: So what is the strategic business of the corporate in this project? Mainly that I am the corporate, I want to make this as a subcontractor.
+
+Speaker E: He mentioned it's this in use. This is a step he makes, record the human decisions and the previous one. We can add it. Yeah, we can add it to the agent that it should collect ideas from corporate and from project directors. At the end, the package plan will be approved by the COO. At the end, he should go to the COO and approve the package plan.
