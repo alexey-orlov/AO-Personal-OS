@@ -528,3 +528,75 @@ Speaker G: Just a comment. It should not be a very small web view.
 Speaker H: A very limited view.
 
 Speaker G: Remember, already you're just picking one element of, you know, the whole construction cycle. So you're already limited. And to limit it further, you may not capture the story there, you know. So maybe if, you know, for example, you limit it to how do you select vendors, you know, for subcontractor, that doesn't represent the scheduling cycle, if you know what I mean. Or, you know, maybe you can drop some of the difficult elements from AI and let human, you know, intervene for them. But have a full scheduled workflow, but decide many elements of it will not be automated or will not have AI in it. So maybe that's, you know, an option.
+
+Speaker C: But definitely we shouldn't take a pretty small flow, so we believe so it should gain still proof of value, right? So it's proof of concept which gains proof of value to move to the further stage. So, and we, as Bohdan mentioned, we can expand to design the end-to-end flow and check also the data readiness during the POC based on the Primavera integration or any other tools, Oracle tools, where the data is holding on. So, but for this POC, we can like took maybe 2 scenarios which we wanted to automate and based on the historical data, on the raw data that you have. The thing actually we wanted to ask you, like maybe we can have one more meeting dedicated to the data availability so you can guide us through what you have, like raw data export. And if you can provide this before the meeting, we can have a look also and be prepared as well.
+
+Speaker H: Okay.
+
+Speaker G: Yeah, yes, just for clarity, because I'm hearing the word agent, my understanding is we're not at the stage of making agents, you know, to do certain activities. That's not the purpose of this.
+
+Speaker D: Yes.
+
+Speaker G: Is that correct?
+
+Speaker C: Yes, that's correct.
+
+Speaker I: Yeah, those will be the recommendations, right? Maybe in the future state, some of the part of the process can evolve to that level of maturity, and that's obviously where the industry goes. But here we are targeting the previous state where agent provides— the workflow provides recommendations. We can call it rather workflow.
+
+Speaker G: Yeah, I mean, why I'm saying this, because, you know, there are many initiatives call them ad hoc, call them one-off, call them personal initiatives, call them anything you want. And especially with, you know, having good models out in the market, LLM models, there's a lot of work that can be done today using these models. Okay, and it's automated doesn't mean, you know, us to have sessions like this. But my response to this, these are one-off ad hoc agents creation.
+
+Speaker B: Mm-hmm.
+
+Speaker G: It is not at this level, corporate level, of having something with an IP for the company going forward. So I agree with Raja, what he's doing, this is a representation of a lot of things going forward rather than a one-off person solution. You enter the computer, you, you know, you do a model and create an agent. We can all do this individually, but this is something different, and I would like to hear from Mr. Raja on this.
+
+Speaker B: राजा मैंने इंटरेस्ट फ्रॉम योर साइड ऑन दिस। हाँ, आई एग्रीड। सो वी आर टेस्टिंग द कॉन्सेप्ट। आई जस्ट वांट टू रिएटरेट। वी आर टेस्टिंग द कॉन्सेप्ट ऑफ़ द मॉडल। सो आई डोंट आई डोंट थिंक वी कैन कवर द इंटर कंस्ट्रक्शन प्रोसेस हियर। या बट टू माय पॉइंट, सम पीपल आर Developing agents as we speak to do certain tasks.
+
+Speaker G: Now, how does this reconcile with what we're now doing with Oracle and with video? I know they don't conflict, but if we want to roll out things at—
+
+Speaker B: No, who's developing agents, Engineer Mustafa?
+
+Speaker G: Me, I'm developing agents. I can develop agents on little tasks, chatbots, things. I can do that. Anyone can do that. But is this the purpose, or we're talking about solutions that can be embedded within our workflow?
+
+Speaker B: No, I see. So far what I— We can build agents. So, but anyway, we need an investment, right? And we need to understand all of these processes and data available, and we have to build our own model. I don't think we have, you know, gone far with this conversation and we get into the execution of the model itself. I'm not sure why I'll be going back to that question, why we need this exercise with NVIDIA. Um, see, we, we, we can build agents. I know our team has built some agents in, uh, um, um, Copilot and other, uh, um, other, other platforms, uh, and, and that is, that is solving some of the purposes. They, they read the set of documents and giving you the, you know, the legal clause and quick check. And of course it adds value to the business. But on the other hand, we cannot deny the capabilities of NVIDIA and Oracle and the capabilities they bring to the construction sector. So we are just exploring. We are exploring.
+
+Speaker G: To your point, Matt, it's exactly the point I wanted to bring. The importance of having Laura and Ophelia with us. And we are a bit— again, we have a lot of data that can be used to take this forward. I am 100% aligned on this. That's what I wanted to highlight.
+
+Speaker B: Yeah, yeah, see, but again, so The whole exercise what we are trying to do is understand the processes. You want to go for the full process, as long as you have all the data and inputs for these processes, we can cover the full process. Or we can truncate the processes, certain, you know, take a certain input, couple of steps and see the outcome based on the data available. It's completely up to business what is practically possible, what kind of data that you can share, and the process that you can share and cover, right? So we have— see, okay, so we have 2 approaches here, okay? Either business, if you wanted to cover the entire process. Are we ready to share the data? Are we— have the practical data for all these, all these steps so that we can see the outcome?
+
+Speaker G: Okay.
+
+Speaker B: Or truncate the process, take a use case, because again, this is not a full-fledged contract, so we have a certain time limitation. Uh, take a, you know, few steps and ensure we have the data for these steps, and then we build the model and see the outcome. So again, we understand the concept, and then you extend it to a bigger audience, bigger processes, bigger datasets in, in a real project. So, um, this is what I would say.
+
+Speaker I: Just quickly adding, Mustafa, to your point on how does it compare to like some, um, agents that can be created within just low-code or just in general with that, with the AI tooling itself that probably each of us does in everyday job to speed up their processes, right? So I think when everyone does it on a personal level, right, it's a different approach, different input data, context is different. So quality output is different and cost of that workflow is different. So that's kind of something that on the level of company like yours, it's hard to control and hard to ensure the consistency. And the goal here is also, if there are such knowledge already, as you mentioned, you build some agents for some of the steps of the workflow that helps you, that will be more than, you know, um, kind of encouraged to bring it there. And you think what can we incorporate that you already proven and, and made sense. But essentially the goal also to make it as some workflow that benefits everyone and delivers the necessary level of quality with optimal level of cost as well, right? Because cost is also important component there. So that's what I want to highlight as well. So, well, yeah, well, yeah, I am— I'm from your proposal in terms of additional kind of session on the data. I think it might be reasonably next step, and maybe between now and then we can think around that. We can refine the target user flow based on what we discussed. That can It's my proposal, but yeah, that's also—
+
+Speaker B: I think we are running out of time. We have other meetings as well. We have to schedule another session to have the final scoping and decision before we could start your actual model, you know, start building the model.
+
+Speaker C: Mr. Rajaj, I just wanted to— guys, I'm from engineering. I wanted to onboard you about the process quickly. Dmytro, can you go to the last slide for the timelines? Just timeline-wise, upon all our alignment, I wanted to stick a little bit to the— so potentially we see like for the project overall, for the kickoff, the beginning of September is a good time for the kickoff of the project, and for this time we can use the 2 following weeks for the alignment and data for the data alignment and the selection, what we wanted to do. So from our side, we debriefing the POV/POC scope, we are analyzing the data that you have and sharing with us, and we can kick off like beginning of September the whole project. And whole project actually will take 12 weeks, so we'll still do more detailed discovery, technical setup, and work with data. on the use case, so following with 2 to 4 weeks of the UAT and acceptance from your side. So the sooner we kick off the project, the better we will fit in our year enumeration, the calendar one.
+
+Speaker B: Yeah, yes, so I agree. I think the first week of September we can kickstart it. We have another 2 weeks to define our scope and Check on the available data. I think we need to have one more session in this week, or I'm okay with it. I would appreciate listeners to participate actively as as we have done today. I really appreciate the efforts from everybody today sharing their opinions and stuff. I think the next next week. We should focus more on the data availability next session, and then we can we can start.
+
+Speaker C: Mr. Rajah, maybe we can have a meeting on Monday the same time dedicated for data.
+
+Speaker B: Yes, I'm I'm okay with that. Dr. Ramadan and Engineer Mustafa, is it okay next Monday sometime?
+
+Speaker C: Just propose a slot time slot and please the same slot but in one week.
+
+Speaker G: It's okay from my side, that's fine.
+
+Speaker B: Okay, we'll schedule it.
+
+Speaker C: Okay, thank you. And feel free to share the data we have already in place. If you can share some like datasets already from your side, from project, we can have a look up front the meeting and be prepared already asking the concrete questions.
+
+Speaker B: Okay, but to the— to our business team, so to— you know what data to be shared with them, or do we need a checklist? Uh, you need a checklist?
+
+Speaker H: It will be great if you share checklist, please.
+
+Speaker B: Uh, yeah, please. I think last time there was a document shared, but it covers the entire Okay, we're prepared to release and share with the team today. Just an email, just share the checklist and whatever the data we'll have, we'll share a raw sample of data to you to look at.
+
+Speaker H: Okay, thank you very much.
+
+Speaker B: Okay, thank you everyone.
+
+Speaker C: Thank you.
+
+Speaker I: Thank you very much for your time today.
