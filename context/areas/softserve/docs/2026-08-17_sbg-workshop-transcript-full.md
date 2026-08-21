@@ -110,3 +110,77 @@ Speaker B: Okay, good, go ahead.
 Speaker C: Okay, okay, thank you. So, and yeah, we will be building this proof of concept based on the NVIDIA and Oracle technologies like OCI and Oracle AI accelerator parks, which enable actually to speed up technology-wise proofing of the solution. So as well as like we will have some like more technical project activities, and we will discuss this on the discussion for the KPIs or what we intended to do. Then actually, this is from the introduction perspective, we also have the reference study, if we move on the bottom. So this is actually what software, what we, the partner, already did implementing the different technologies, and I pass the stage probably to Bohdan to get overview.
 
 Speaker I: Yeah, so we just want to share that as was mentioned by also Mustafa, the technology is ready for a long time there, right, and And we know that it works. And from our experience of working with the construction domain, with the US-based partners, we know that that brings the value. And this is just one of many examples where we've been applying the technology for the construction setup. In this particular scenario, situation was a little bit different from where we are. So partner already built solution. That was an AI-powered solution to work with the complex construction dataset. But the problem was that when it was introduced to production, the accuracy was 23%. So that's the bottleneck. And from our experience, we know that it's very important to have a proper solution set up to get to really decent accuracy level. So what we did, we developed the production evaluation framework. And for you just to get an idea, that's what's important to understand whether AI is doing right or it's drifting from the correct answers in order to be able for subject matter expert team like on your side to improve the datasets, to improve the solution. And then over that collaboration, we managed to take the solution from its, you know, from its state and move to 81% of accuracy. to justify the actual business case, right? Because if it's such a low accuracy as 23%, the team will be spending more time on just reviewing the outputs and there will be no speedup. You can't trust it, the solution. You can't move with that in that automatic manner. But when you reach the 80+% accuracy, that's the threshold where, you know, when you can be confident that, like, you will save more time while reviewing the results rather than doing that from scratch. So essentially, this is an example of the very similar direction of his case where we helped to move it to the actual production, also to make you confident that we know how to make such setup, especially with Oracle and NVIDIA technology.
+
+Speaker A: If you allow me, actually, just to— if you can go back just to the previous slide. I wasn't involved in peer discussions. So if you just go over very quickly, what are we trying to do in this proof of concept? From what I understand is you're going to take the full data of 3 to 5 completed projects and you're going to evaluate if the AI will help us in future projects or not. Did I understand here correctly?
+
+Speaker I: So that will be validating today with you. Our assumption as for now is that we will take those 3 to 5 past projects you mentioned, and we will compare the planned and actual data if you measure the performance of those projects. Something like whether delays happened, there was some insufficient subcontractor usage, or others, and we'll help you to get kind of insight from the previous projects. That's our assumption number 1. Then we will relate together with you whether these insights can impact your future projects, right? So that's— those are the 2 value points which try to understand. First, speed up your time of evaluation of the performance of previous projects to make the right decision about vendors, procurement, and stuff. And second, how can it impact the future new projects so you can set up it with its more informed insights manner? So that's essentially 2 points, Ahmed, to your point.
+
+Speaker A: Clear. For the security of the data— or sorry, for the privacy of the data, I believe a lot of these data data is related to clients. So handing it over, I'm not sure what policies we're following. Also, in regards of training AI module on those data, are you going to train the AI module on those data or not? Or only the data is being used for this project only?
+
+Speaker I: So data will be used.
+
+Speaker D: Maybe I can jump in here quickly.
+
+Speaker H: Great questions.
+
+Speaker D: So I think for the privacy data security thing, question that you asked, Ahmed, we have basically got an NDA in place, right? We have the master services agreement between Oracle and BIH, the SPG, and there's an additional NDA between SoftServe and SPG that is already in place. And of course, for the second question on training the AI, the data that you provide is exclusively used for this project and it's going to stay in OCI, right? So OCI, Oracle Cloud Infrastructure. It's not used to train any other AI project or LLM or anything like that.
+
+Speaker I: Go ahead.
+
+Speaker A: But I just wanted to say that for now, we just have an assumption and we're going to decide how to move forward in this meeting.
+
+Speaker H: Yes, clear.
+
+Speaker A: Thank you.
+
+Speaker H: Thank you.
+
+Speaker C: Okay, so let's then move to the— sorry, let's move to the next part of the discussion. If there is no question about the reference case study, we can start our workshop internally and we would appreciate if we, like, from project planning, from project control team, from business team, we can identify the current process. Maybe you explain more and show us examples based on the reference projects. So thank you.
+
+Speaker I: Yeah, so here we can see our assumption, how we do see the process, right? So first you project planning and then define work package definition. But even that assumption has a lot of minor details. So, Tim, if you can explain please, how does it work, uh, who defines the packages based on which criteria, and how is it standardized across different projects? Let's start with this step of the current process so we all can understand it better.
+
+Speaker C: And also, yeah, and please don't hesitate if you have already some overview. You can just take control and show it your side.
+
+Speaker I: And just in case, in the room you are muted, so so we can't hear you. No.
+
+Speaker G: Okay, Jim Mustafa, can you speak about these steps? And we will show them our data, our files, after you speak about the process.
+
+Speaker H: Unless we are talking about the standard process happened currently, Starting from the tender phase, actually this doesn't reflect exactly what happened because actually we have the process of planning starting from before this shown in the front of us because we we always starting from the tender phase. Engineer Mustafa, you are not muted.
+
+Speaker G: Okay, it's a good question. I would—
+
+Speaker E: you see, we can look at it 2 ways: pre-tender, post-tender.
+
+Speaker G: That's one way. And the other simpler way is to look at the typical project. In reality, you know, when you win a project, the project director comes And he starts the process exactly like what you have here, gentlemen. It starts with project planning. In fact, you know, the project director starts deciding how he wants to think of this project. So I would like to skip the pretender bit for the time being, and in the future we can revisit it. But, you know, I want to leave the floor to you, PMO department, to take it as if now we have signed the contract, we have a project director in place. What is the process that you typically follow for a new project that you just signed? So maybe, you know, you can get started on this.
+
+Speaker H: Actually, this exactly happened because starting from the hiring or assigning the project director, he started putting his vision how to accomplish the scope within the contractual duration and budgeted cost. post to the required level of quality. Thus, based on that, he had prepared his own construction methodology, how to execute the scope. He started to prepare his packaging strategy, which is shown or demonstrated in front of us, how to break down the scope to packages, which package will be executed, self-execution, which by subcontractors based on each discipline qualification of, or, and the capabilities of the self-execution, or if we are looking for know-how from specific specialist subcontractor, something like that. Based on that, all these data is reflected on the baseline schedule.
+
+Speaker I: I'm sorry if I might a little bit interrupt before we go to the actual scheduling, because this is a very important question, right? You outlined that a project director is responsible responsible for selecting the work package strategy. And the question is, it's very interesting, how does it typically happen? Is it, is there some standardized criteria that this person uses across and it's applied across all the projects? And if so, how does those criteria typically stored internally at SBG?
+
+Speaker H: Recently we are working as a central EPPM using Oracle iCloud to have standards for all the company. We are working recently also to make it as— to deal with this as a portfolio for the overall corporate level. But we are talking now about project by project. and not at the level of corporate, to— because, you know, we are working not only in a specific area but on maybe some project all over the Kingdom or maybe abroad. So maybe you have some capabilities of the subcontractors allocation based on geographical location in all over the kingdom. So some may be in the eastern zone, maybe in the central zone, maybe in the western zone. So we have to respect the geographical location of each subcontractor in addition to their capabilities. I hope that covers your query. Before I open—
+
+Speaker I: So those are 2 things, like central database to inform the decision using Oracle, and second, as you mentioned, the geographical and capabilities definition of the subcontractors, right? I understand that correctly, that you have kind of centralized databases, let's say, one that has to some extent the standards on approach to the project and other is related to the subcontractor database, let's call it like that.
+
+Speaker G: No, I don't agree with what you said. Let me clarify here. I think you are Podan?
+
+Speaker I: Yeah, of course.
+
+Speaker G: It's a very good question you asked. Your question was what goes behind the decision to subcontract versus self-execute? And is it a formal procedure or is it an ad hoc one based on the, you know, the tacit knowledge of the project director, the circumstances at the time?
+
+Speaker D: Exactly.
+
+Speaker G: Is that understood from your question?
+
+Speaker I: Yeah, this is the next step of the question. Yeah.
+
+Speaker G: Okay, okay. The answer is very simple. It is totally ad hoc.
+
+Speaker I: Okay.
+
+Speaker G: Okay. And it depends on the tacit knowledge of the project director based on the conditions at the time. Mr. Bunduk is right. He said, you know, it's corporate versus project. Here we're talking about strong matrix with weak matrix. What does the project director do when he's appointed for the project? And as you correctly said, really these things should start at the tender stage. The company should be knowing how it wants to approach this project. That's the theory. In reality, each project director comes in and he has his own, let's call it, preferences. So he will look at, you know, the variables and the facts on the ground, and he will come up with a plan. That plan may coincide with what was prepared during tender stage, or it may not coincide, or coincide fully, partially. So all the conditions are there Of course, he is controlled by a DOA, the project director. So let's say, you know, when you're packaging, this relates to supply chain. So supply chain, is it projectized? No, there's threshold and it's centralized at a certain threshold. So things are interrelated. You know, when he makes a decision about subcontracting, It's a big decision and many factors play into it. One obvious factor is the available resources. So as Mr. Buntuk said, you know, they are— they have a PMO that looks at all projects and, you know, resource leveling across projects, for example, so that we don't have people maybe even in certain regions like Riyadh Central Or maybe we're in a very remote place where it does not make sense to send our people. It makes more sense to use the local contractors in that remote area. So you've asked a very difficult question. In fact, you know, it's, you know, so many variables that go into it. Now, if you want to use AI to dig into the data available, You will find the facts, but you will not understand the rationale behind these facts. If you know, maybe you do reverse engineering on it. I don't know. And maybe that's where AI is strong.
+
+Speaker I: So what you're referring to is that it might be hard to get rationale or criteria of selection of, for example, this particular subcontractor or subcontracted versus self-performing based on the current completed data of the projects, right? That's what you mean?
+
+Speaker G: Yes.
+
+Speaker I: Okay. Because just to share here the insight with you that with AI, it's very powerful when it has this context, right? Because you and the team are the experts and they have this context in their head, like for example, project director. And if AI has this context as well, the way of thinking, the criteria, then the decisions might be very powerful, right? But if it lacks this context, so we will need to think to which extent or whether it makes sense to enrich the context for AI if it doesn't exist yet to be able to get that, you know, that kind of insights quality, right? Because as you mentioned, if it might not be obvious, that might be— obviously, I see that as a potential risk there. Okay, thanks for sharing that. Maybe some on our team side has some additional question on the work package definition or execution model side at that stage? Okay, so let's proceed to the scheduling. Sorry for interrupting you, Dr. Ramadan and team, so we can— you continue to go with the scheduling piece so we can proceed to that very next step.
