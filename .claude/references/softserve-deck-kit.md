@@ -41,8 +41,8 @@ folder are content decks, not templates.
 
 - Left margin / content x: `358732`; content width: `11493500` (right margin ≈ left).
 - Title: y `1081987`, cy `396858`.
-- Table: y `1850000`; row h `940000` (4 rows); label col `3300000`, value col `8193500`.
-- Footnote: y `5760000`, sz 1000, `lIns/tIns/rIns/bIns=0`.
+- Table: y `1850000`; row h `940000` (4 rows) or `760000` (5 rows); label col `3300000`, value col `8193500`.
+- Footnote: y `5760000` cy `320000` (one line) or y `5800000` cy `480000` (two lines, e.g. `*` + `**` markers); sz 1000, `lIns/tIns/rIns/bIns=0`.
 - Table cell idiom (the base embodies it — copy cells, don't rebuild): insets
   `marL/R 72009, marT/B 72000`, `anchor="ctr"`; fills transparent (`FFFFFF` alpha 0);
   no vertical rules (`lnL/lnR w="0"`); first row `lnT` = orange `12700`, every other
