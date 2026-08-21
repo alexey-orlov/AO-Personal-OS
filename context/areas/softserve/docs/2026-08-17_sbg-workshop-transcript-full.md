@@ -250,3 +250,91 @@ Speaker C: Yeah, yeah, it's covered. So this is part of your strategy for bringi
 Speaker H: Actually, what you are talking about is very crucial and this is a real challenge. We will not. I mean, we are talking transparently. What I am telling you, this is a challenge for data collection and transparency back to back with the project between the legacy projects and new projects. We we are working hardly, and we put we evaluate. The role of NVIDIA, Oracle, XYZ to enhance the transparency and make by clear and restricted transparency strategy for data sharing between each group with the managerial level for hit or miss.
 
 Speaker C: Okay, thank you.
+
+Speaker I: Yeah, that, um, that's, uh, clear. Thanks for sharing that. And, um, um, also trying to combine our— obviously the, the goals of the future POCs that you'll go to it right now because they always finish on the SE state and this big goal. So, um, where you are currently in terms of that enhancement of data transparency strategy process. You mentioned a couple of points already. This is the progress measurement tool, right? But is there like some already governance how to share the data between projects in place. So that's already, let's say, part of our historical data that you provided, or it's something that's to be done in order to be able to share those data between each project to the extent that it's possible transparently. Also, it provides the insights.
+
+Speaker G: Let me answer this. All these projects are within the SPG domain, so, you know, it just follows the DOA— who's authorized to see what. But of course, you know, at the central head office, each department gets to see all the related data for all the projects. So PMO, for example, I'm speaking on their behalf, they get to see everything that's related to schedule and cost control for sure.
+
+Speaker I: From other projects?
+
+Speaker G: Yeah, from all projects.
+
+Speaker I: Okay, so that's to some extent already in place. You can go and, and check those data, but it's maybe not automatically collected project director need to go and explore it, right?
+
+Speaker G: Correct.
+
+Speaker I: Okay, so if you're talking about the biggest efforts point there, what would you say takes in this process the most manual time and how often does it happen, right? For example, collection of certain data, For the— if you're talking about the goal of establishing data transparency between the projects and measurements of the insights, what currently takes the most time, the most manual time? Maybe on behalf of project director, maybe on behalf of the planning team, maybe all together.
+
+Speaker H: You are asking about the Regular, can it, uh, regular reporting duration?
+
+Speaker I: Uh, on the stage after execution of performance review, right, when you try to do this, uh, when project is finished, right, and, uh, or maybe on the project, maybe even on the project planning phase, right? So, uh, maybe for the reporting collection, this is the biggest time effort. Manual-wise, or it's done automatically, or yeah, Milo, go ahead.
+
+Speaker B: No, no, no.
+
+Speaker D: I just have two or three additional questions once before we wrap up the essay, just to ask at the end.
+
+Speaker B: Okay.
+
+Speaker I: So so then maybe at this point, just just trying to understand on initially if we went through all the stage, we made some insights, right? But if you would say on all the stages for project, you know, director and and and the team who who tried to to when they try to gain certain insights, which step is the most manual and time-consuming right now from your perspective? And yeah, and it takes a lot of manual time to complete.
+
+Speaker G: Look, let me try to answer this question. It's a very good question. It depends on the level of granularity we want to reach when we're reporting. You can report the whole project as just 2 numbers. One is the cost and one is the schedule where we are. That's at a very high level. So we will not know at the project level what they used to consolidate these numbers. So that's one way of looking at it. So the other way is at every node, every activity, man-hours are measured and costing is done. So that's the other extreme. And then you have me. And in fact, this is where I think AI can do a fantastic job. look at this fragmented, unstructured data that comes in different formats, multimodal, and it can get insights from it. So rather than asking us which part takes the most effort, it depends on the project itself, the project director, what's the project director focusing on measurement, What is the central PMO pushing the project director to report on? So, you know, it's— you have all the answers there. But my recommendation to you, since we're talking about, you know, a POC here, maybe this will be the outcome from Looking at all the data, not the other way around. Data science. Okay, so, you know, it's a two-way interaction, it's iterative, human in the loop, you know the whole story. But good question, thank you. Yeah?
+
+Speaker D: No, I agree.
+
+Speaker I: Okay, thanks for explanation. Milo, to your part, you had a few more questions.
+
+Speaker D: So, you know, just as the discussion was going on, I was just writing down 2 or 3 things. I think they're not related to any— just one of the boxes, basically, of these, you know, 6 boxes that you see on screen, but more to the SS process today. And the first question I had was, you know, when you— so how well does the original hypothesis— you said you have a central control department, right? lay out the plan, the hypothesis for the project execution, the timeline, and the packaging, how well does that overlap in your experience now from these past 2 years with what the project director or the project manager then does after? Does he like usually follow it? Is it very superficial? And then, you know, things in reality on the ground are very different, so it's thrown out of the window and he does something completely completely different, or what is, what is, what is your first, what is your first insights from the first 2 years of transitioning to this new operating model? Is it totally different, or does it follow in line, or vary case by case?
+
+Speaker G: I intentionally don't want to answer this and leave it to the PMO team. Okay, good. And then let me—
+
+Speaker H: I think this is related to each project is unique.
+
+Speaker A: You can just— but you can—
+
+Speaker H: it needs to be tackled case by case. You cannot pick one hypothesis and follow it as a standard horizontally for all of the projects. This is by multiple—
+
+Speaker D: I understand that, but what you said is that during the pre- pre-tender stage, they will come up already with a timeline for the specific project at hand, right? They will have milestones, they will break it down into different phases. And so my question to you is, how well does that original plan that comes from corporate align with what's being done in the end by the project director, what's being decided?
+
+Speaker H: Very, very good question, but it— this is one of the strong voice for SPG as a huge company with long history in construction industry. We have the capabilities who can have 2 scenarios. If this is in tender stage, sometimes we have specific time for for the project execution. So they are the one who— that we have the capabilities to judge if this is logic or not.
+
+Speaker E: Correct.
+
+Speaker H: Logic to be achieved, is it applicable or not? This is scenario number 1. Scenario number 2, we go to the logic or the achievable timeframe and we put it on the table with the client, what we have. So this is a very strong part in SPG for decision-making, as we call it in our meeting, from square zero for each project.
+
+Speaker D: Very good.
+
+Speaker H: Thank you for elaborating on that.
+
+Speaker G: Let me give you, you know, further input. Answer, in my opinion, is very rarely has execution come even closely to our original assumptions.
+
+Speaker H: Very rarely.
+
+Speaker G: In the past, in the old past and in the recent past.
+
+Speaker J: Okay?
+
+Speaker G: For many, many reasons, and maybe these are the insights we will use AI to dig into the data and, you know, come up with. Yes, absolutely.
+
+Speaker D: That's— no, thank you for elaborating. It's what I was sort of expecting as an answer. You know, my question there would really be like, I almost feel like there's a feedback loop missing back, you know, because over time, if that original hypothesis is bad, you would also expect the feedback loop to be there. And then for Central or corporate to get better over time as it learns from the experience on the ground, so on and so forth. But we don't have to worry about that. Let's dig into the data later on.
+
+Speaker G: But so to your point, you know, in all fairness to PMO, they are getting the feedback from the projects and they are getting insights and they are reporting in their executive management on this. Comes the question, how reliable is this data coming from the projects themselves?
+
+Speaker C: Yes.
+
+Speaker G: There are always, you know, side stories to every story. Of course. I understand.
+
+Speaker D: And then it's not just the question of how reliable is the data, the question is also, is the data acted upon and so on and so forth. We get into a whole can of worms there. But anyway, have you, have you, or, you know, have we ever tried to understand, like, if overruling of central planning by, you know, a project director has an impact on the project delays, quality shortcomings, cost overruns, and so on? This is something I would expect us to look into, right?
+
+Speaker G: But I can answer Easily, we have a recent case. And please, gentlemen, Dr. Ramadan, Mr. Bundug, everybody, please interject. We have the recent case of King Fahd Stadium. It's a very fast-track job with the ultimatum, and we spent a good part of nine months where the project director was isolated, sitting in Riyadh, making. decisions without the support of headquarters. That is a case that everyone knows about. Good night, gentlemen.
+
+Speaker J: This is—
+
+Speaker H: we are not working in a factory, we are working in construction industry. So this is common practice here. It is, it is really challenges from day to day. I answer certainty for a lot of constraints related to time, related to risks, related to—
+
+Speaker G: so— Sorry to interrupt. The question here was not this. The question here was the impact of projects going solo. Did we— do we have examples of this, and was there an impact? So A live example, we lost a good part of 6 months in King Fahd Stadium, and then we had to take remedial measures, very, very harsh ones. And you guys as PMO were not getting the feedback from the project to the level of details that you guys wanted. So they reported at a very high level rather than even, you know, by sector, by zone, by package, by, you know, trade. You weren't getting that feedback because the project was isolated. Later on, it's a different ballgame altogether. So that's an example. And, you know, records are there. Maybe, you know, when you dig into them, you'll find some—
+
+Speaker D: Super, thank you so much. That's very helpful. Last question from my side, a bit political. Feel free to not answer. Maybe it's also something we see in the data later, but just, are packaging decisions by project managers, project directors sometimes relationship-based versus based on overall cost, quality, scope, past experience, and so on and so forth?
+
+Speaker G: No comment. Okay, understood.
+
+Speaker D: Good, let's move on. Tony, thank you so much for your answers, really appreciate it. Let's continue with the agenda.
