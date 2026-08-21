@@ -184,3 +184,69 @@ Speaker I: So what you're referring to is that it might be hard to get rationale
 Speaker G: Yes.
 
 Speaker I: Okay. Because just to share here the insight with you that with AI, it's very powerful when it has this context, right? Because you and the team are the experts and they have this context in their head, like for example, project director. And if AI has this context as well, the way of thinking, the criteria, then the decisions might be very powerful, right? But if it lacks this context, so we will need to think to which extent or whether it makes sense to enrich the context for AI if it doesn't exist yet to be able to get that, you know, that kind of insights quality, right? Because as you mentioned, if it might not be obvious, that might be— obviously, I see that as a potential risk there. Okay, thanks for sharing that. Maybe some on our team side has some additional question on the work package definition or execution model side at that stage? Okay, so let's proceed to the scheduling. Sorry for interrupting you, Dr. Ramadan and team, so we can— you continue to go with the scheduling piece so we can proceed to that very next step.
+
+Speaker H: Excuse me. Well, actually, I, I, I, what was stated by Engineer Mustafa, it's very crucial. And this, I think, clarifies some issues related to the how it goes. for the previous project. But actually, we need to highlight that we started since about 2 years a central department called Corporate Planning Department, called, as stated by Engineer Mustafa, Control Department, who take the lead starting from the tender stage and try to standardize The the schedules, the projects, the the process and procedure for the overall project from early stage, which is the tender. Preparing taking the same process and procedure, the same quality of all the projects scheduled. This is never contradict with the vision of. the project manager who in this stage may be assigned/not yet in this stage.
+
+Speaker G: Right.
+
+Speaker H: So we need at this stage to take the lead from the corporate control team, and we started already this process for— in the new project such as 7 projects. Stadium project, Jeddah Tower project. But for sure, the point raised by Engineer Mustafa related the supply chain and to have the portfolio for the subcontractors database, all that not yet activated as stated by Helmut self. So, but I just wanted to raise that at this stage, recently we have, as we said, new corporate planning department who took the lead starting from tender until the— when this finish, when this lead finished by the approval of each project baseline schedule. So we have one step ahead starting from the tender Between cost and planning to understand the project and to with the hand in hand with the each project director. Once we get, once we get, do you want to add something, G Mustafa?
+
+Speaker G: No, no, go ahead, go ahead. I fully agree with what you said, hundred percent.
+
+Speaker H: Yes. So after we reach to this stage, we got the approval. The project director took the lead. He started assigning his own team mobilized on site. Then all the control shifted with the project manager or the project director to be for completely 100% from site after signing the contract.
+
+Speaker I: So sorry, the qualification question. of this new department, the goal will be to have a smooth transition, as you mentioned, from the pre-tender stage towards the project planning stage, and the transition of, let's say, knowledge and artifacts towards the assigned project manager.
+
+Speaker H: Not only that, but the one we have due to limited staff, we have the people who started the project starting from day 1, maybe they— a lot of scenarios. Maybe they shift to the site themselves with the project manager or the project director, and this happened, this scenario happened. Maybe they transfer— we transfer those roles to be the project sponsor from the corporate control department, maybe like that. So he— they will— they have real knowledge. about the project since day 1, and they continue hand in hand because all of our target win-win strategy with the project director. We are not— we have just came to take the lead starting from day 0, let's say. After, any question?
+
+Speaker I: No, no, no, thanks for clarification. Go ahead.
+
+Speaker H: Starting from this stage, we can go now only and only now to the node or the code execution. And this execution we transfer from planning to control. At this stage, we have again the standard methodology for how to control the project. We have standard— we are not here working— Before we go there, I just want to confirm what stated Very valuable information by engineer Mustafa that previously it was projectized. They working in island for each project based on the old strategy because he only the one who know what happened in the project and it was it is very hard to penetrate that this privacy for and this separate island doing the new strategy this give us. an opportunity to penetrate each project with our one step ahead, as I clarified before, and working hand in hand with each project. So we try not only to be weak matrix, but— or functional matrix. At least we have a strong matrix working with the projects, each project. And to have more transparency, more clarified progress status hand in hand with the project to confirm the transparency. So starting from that, we go to execution. Execution, as I said before, we have to— we cannot dictate the projects about the control 100% methodology because we, as you know, in construction industry, we have plenty of stakeholders, internal and external, and the lead for sure with the client and his supervision team, his PMC, PMO at site. So we have to respect their vision of how to control or how to, uh, measuring, uh, progress measuring tool. So we respect this criteria, but may— in the meantime, we need by any meaning to implement our earned value management strategy on site. It means that we have since day one, when we prepare our baseline schedule We inject this progress measuring tool to be able to see what is the actual earned value achieved and what is the remaining. Is it within budget, out of budget? And this role covered for sure hand in hand with the cost control department and the control team and the corporate, corporate control team. So whatever the progress measuring tool from the site, we— one of our roles to have earned value management controlling the site. This during execution, this is what I want to see. And regarding that, so maybe we have— if this progress measuring tool accepted from all the stakeholders, it's okay. If not, we keep this in addition to any other Progress measuring tool requested by each project stakeholders. Then this also cover the performance review with you, and if you want, I don't, I don't this exactly. I want clarify from you what do you mean with performance review?
+
+Speaker I: So thank you so much for that overview. It gives a lot of clarity and also interesting maybe to dive in that progress measurement tool that you mentioned. But for performance review, so that's our core assumption here that we want to validate with you. So when the project finishes and you have this defined, as you mentioned, on the day zero, criteria, metrics, the vendor selection, and they are due after the project the review of the performance was, uh, you know, uh, lessons learned, uh, you know, planned versus fact. Um, so both qualitative and quantitative. I assume quantitative are happening in this program, this measurement tool that you have. But yeah, curious to learn more if there is the formal procedure of doing review after the completed project and comparing the plan to Clear question, uh, and I—
+
+Speaker H: this exactly what I just wanted to confirm, that this what you mean.
+
+Speaker G: Yeah.
+
+Speaker H: Uh, it is— we are talking about the same coin with 2 faces. You are talking about the quantity, I'm talking about the earned value. The quantity executed, when you multiply with the price, From the BQ, you will get the earned value. So this, if we plan, if we plan, if we plan for the, uh, we have planned quantities, uh, uh, we versus the actual executed quantities, we can, we always present the standard Projects KPIs, maybe SBI, maybe CBI. CBI actually it is not that easy because we we have to get drop internet as usual like that. We have to. I'm talking to you.
+
+Speaker G: I have to connect to you. Yeah, yeah.
+
+Speaker H: I'm just connecting.
+
+Speaker B: Sorry.
+
+Speaker E: What's the last time?
+
+Speaker I: Sorry, we stopped hear you. I don't know if that's intended or yeah, continue to talk, but we stopped to hear you.
+
+Speaker D: I think the room also froze, right? Yeah, my connection went.
+
+Speaker I: Doctor, Doctor Ram. Can you hear us now?
+
+Speaker G: Yes, yes.
+
+Speaker I: Yeah, I think, I think we haven't heard the last minute because I think you get frozen and muted. So if you can repeat, please, if there— if you describe that performance part in more details. You stopped at the project KPIs are presented, I assume, at the end of the project and monitored throughout the project. But if you can elaborate More details on that.
+
+Speaker H: Yeah, and I give you. I just give you two examples as I told you. So we we usually present SPI and CPI. SPI directly from the schedule we can get it. But regarding the CPI, we it is not that easy because sometimes it needs some confidential information related. to finance, related to actual paid expenses. So it is not maybe internal presentation or something like that. It is not common to present that. So I actually, I just want to add something. Sometimes we deal with what you call performance. Here we deal with this as the Efficiency. What is the meaning of efficiency? Efficiency, I noted that I transfer the quantities to manpower. So when we based on productivity manual, sometimes we after we execute, our colleague raise his hand. You can ask the point.
+
+Speaker I: Problem.
+
+Speaker C: No, no, please continue. I will ask my question after your explanation. So you mentioned that you do the evaluation also by efficiency, comparing the manpower planned versus actual. But my question, so you mentioned about collection of the key KPIs of the projects, CPI, SPI, and the end of the project for the lesson learned. Are you doing this per whole project or per each work package too?
+
+Speaker H: Actually, I mean, we are now, as clarified by Engineer Mustafa in the beginning, We, we have current status and we have targeted status which we are moving to. And we already, as I told you, we started since 2 years working to achieve this. So it is not that far, but we already started. But what currently we are dealing and presenting project by project because also we cannot— sometimes you cannot take standard from project to project. We need to agree together with the corporate level to agree how to unify the progress measuring tool on the portfolio level because sometimes, as I said previously, Some stakeholder, client stakeholder, even requested to use man-hour as a progress measuring tool. Some clients, they requested to use money as a cost. Sometimes they, they want to use something third or fourth progress measuring tool, mix it between any 2 ways. So you cannot until we agree about how to combine all by specific way, we cannot mix all together in one way. I hope that it's clear.
+
+Speaker C: Okay, understood. And my last question would be, is there any Post performance of the subcontractor is is collected or to be collected as part of this reorganization.
+
+Speaker H: Again, we we as as I I. It is it is a So if you have the progress measuring tool ready in one baseline schedule and separated by packages, as what it— by activity code, by activity ID, by any meaning, by the end of the day you can take any fragment as you like if you have the overall progress measuring tool which will rolling up to the project level. So when you segregate the project work packages, work breakdown structure, to which level, or you create new fragment based on the subcontractor work package, you can take this fragment and with the implemented with the progress measuring tool, which is cost, which is the earned value, which is man-hour, which is whatever And using back-to-back with the subcontractor. Clear?
+
+Speaker C: Okay, yeah.
+
+Speaker H: I hope that's covered your point or your question.
+
+Speaker C: Yeah, yeah, it's covered. So this is part of your strategy for bringing the performance tool for the measurement of each such work package KPIs. And we actually thought like if such insights about the performance between the subcontractors and the variances would be beneficial for you to know as historical data available from the projects.
+
+Speaker H: Actually, what you are talking about is very crucial and this is a real challenge. We will not. I mean, we are talking transparently. What I am telling you, this is a challenge for data collection and transparency back to back with the project between the legacy projects and new projects. We we are working hardly, and we put we evaluate. The role of NVIDIA, Oracle, XYZ to enhance the transparency and make by clear and restricted transparency strategy for data sharing between each group with the managerial level for hit or miss.
+
+Speaker C: Okay, thank you.
