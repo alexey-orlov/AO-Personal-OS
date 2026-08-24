@@ -2,7 +2,7 @@
 
 _status: live theme — growth loops, distribution, GTM motions, pricing, packaging, monetization_
 _slug: growth-gtm-and-pricing_
-_updated: 2026-08-20 · 65 insights from 44 episodes · (absorbed b2b-saas-and-scaling, 2026-06-11) — ⚠ at 62/30: over budget, no clean seam yet_
+_updated: 2026-08-24 · 71 insights from 45 episodes · (absorbed b2b-saas-and-scaling, 2026-06-11) — ⚠ at 71/30: over budget, no clean seam yet_
 
 ## The throughline
 GTM is reorganizing around three new realities. (1) Self-service and conversational agents together form the primary enterprise acquisition channel: 54% of Anthropic's 2026 new enterprise logos came from AI-qualified self-service, and dedicated inbound chat agents (SaaStr's Amelia AI: 614 meetings from 442,000 chats across 2.2M sessions) show that rich-context conversational qualification scales at pipeline efficiency no human SDR team can match. (2) "Token economics" now determines commercial viability: buyers won't grow their IT budget to absorb rising AI costs, so where you sit on the token-consumption path is the strategic question — and the SaaS-vendor corollary is that margin survival requires designing products for agent consumption (CLIs, accessible HTML, logs, rollback) rather than bundling costly model inference into pricing. Evans's broader bet is that foundation models commoditize while value accrues to the app/UX/distribution layer above. (3) In a low-excitement enterprise category, premium brand creative still moves the needle: Legora's Jude Law ad (writer from SNL, cinematographer from Oppenheimer) went viral on professional networks and produced inbound. Smallness still wins enterprise deals when paired with a rigorous pilot and measurable metrics. As agent usage multiplies per user (dozens to 150 agents per power user), platform pricing evolves toward usage-aware tiers and model routing — GitHub's rate-limit evolution is the platform-side complement to the 'token path' thesis: the same cost calculus that shapes SaaS product design now shapes infrastructure pricing design too. A new product category — the AI-powered "company brain" — now bundles website generation and always-on GTM automation (Ploy: ~50 integrations → nightly SEO audits, lead surfacing, outreach drafts), collapsing what was previously a 3–5 person marketing/design function into a single solo-founder-operable system. The pre-scale layer (customers 1–10) remains resolutely human and unscalable: the first two or three buyers choose the founder, not the product (warm network trust), customers four to ten require in-person presence (flying to the same executive four weeks running beats cold email), and all prospecting tooling is wasteful until warm intros are exhausted. Framing outreach as advice/mentorship rather than a sales pitch reliably doubles acceptance rates — the human relationship is the distribution before distribution exists. The GTM-agent thesis has now cleared production-scale proof points: Vercel collapsed a 10-person SDR team to one for $5,000/year (32x ROI); PayPal reached a 50% uplift in meeting conversion in 14 weeks and turned 8,000 stale, uncalled leads into tens of millions in new business. The stair-step pattern recurs — dashboard → triggered ops → full autonomy — and the most consequential unlock is monetizing previously ignored demand, not just replacing headcount.
@@ -292,7 +292,7 @@ related: [Markets split into lighthouse and land-grab sales strategies](#markets
 ### Box proofs-of-concept with end dates and success criteria
 POCs in modern AI sales risk becoming open-ended 'science projects' unless tightly scoped: pick a fixed duration (30/45/60 days) and measurable success criteria up front. The hosts recommend resisting endless custom work by defining what success looks like and an explicit end date, which speeds decision-making and prevents trials from stalling purchasing momentum. Where regulation blocks POCs, founders must instead build governance-focused proof to win lighthouse accounts.
 — a16z · 2026-08-13 · guest: — · [▶ 23:27](https://www.youtube.com/watch?v=aakZLqxRQfo&t=1407) · `pi-aakZLqxRQfo-04`
-related: [Lighthouse plays require marquee clients to create social proof](#lighthouse-plays-require-marquee-clients-to-create-social-proof)
+related: [Lighthouse plays require marquee clients to create social proof](#lighthouse-plays-require-marquee-clients-to-create-social-proof) · [Use short, time-boxed pilots (48–72 hours) unless integrations force longer](#use-short-time-boxed-pilots-4872-hours-unless-integrations-force-longer) (the same fixed-duration-and-success-criteria discipline applied to $100K+ enterprise pilots)
 
 ### Regulatory timing and mandates create massive tailwinds for entrants
 Market timing — especially regulatory mandates — can convert a risky category into a land-grab opportunity overnight. Samsara's telematics example: the U.S. ELD mandate (implemented around 2016–2019) forced fleets to budget for electronic logging, creating a rising tide that helped new entrants win rapid adoption even against established incumbents. The lesson: product-market fit often depends on external timing as much as product quality.
@@ -321,6 +321,36 @@ related: [Whatnot materially empowers and monetizes small businesses](#whatnot-m
 The platform enables one-person shops to scale into serious businesses: Whatnot reports sellers ranging up to ~$100M+ in revenue with strong EBITDA margins (20–40%), and the company processes multi‑billion dollars of GMV yearly while taking only a small fraction. By exposing shop owners and their personalities on video, Whatnot preserves brand identity and repeat buyers rather than obscuring sellers like large commodity marketplaces.
 — a16z · 2026-08-19 · guest: Grant (Whatnot) · [▶ 22:29](https://www.youtube.com/watch?v=XqEr7hk89HY&t=1349) · `pi-XqEr7hk89HY-03`
 
+### Target only the executive or their N−1 to start enterprise conversations
+There are only two viable entry points for a true $100K+ enterprise deal: the executive (e.g., a chief legal officer/general counsel) or an N−1 who can reliably loop the exec in. Going further down the org turns executive value into user feedback — a game of telephone that kills budget conversations — so Abel recommends founder-led outreach to the exec paired with an AE targeting the N−1 (the "pincher" model) to compress the storyline.
+— Lenny's Podcast · 2026-08-23 · guest: Jen Abel · [▶ 9:59](https://www.youtube.com/watch?v=YS9In813jJ0&t=599) · `pi-YS9In813jJ0-01`
+related: [The intro call is the richest source of intel—don't demo or record it](#the-intro-call-is-the-richest-source-of-inteldont-demo-or-record-it)
+
+### The intro call is the richest source of intel—don't demo or record it
+The first 30-minute, informal call is where you get unconstrained information: no slides, no demo, no recording — let the prospect speak first. That raw input lets you tailor a compelling executive storyline (the "alpha") for the group demo and prevents prospects from clamming up once they realize they're in a sales process; much of the advantage is lost if you treat this like a scripted demo-first interaction.
+— Lenny's Podcast · 2026-08-23 · guest: Jen Abel · [▶ 18:48](https://www.youtube.com/watch?v=YS9In813jJ0&t=1128) · `pi-YS9In813jJ0-02`
+related: [Target only the executive or their N−1 to start enterprise conversations](#target-only-the-executive-or-their-n1-to-start-enterprise-conversations) · [Co-design the demo with your internal champion so it feels like theirs](#co-design-the-demo-with-your-internal-champion-so-it-feels-like-theirs)
+
+### Co-design the demo with your internal champion so it feels like theirs
+Before the group demo, run a 15–30 minute prep call with the internal champion to map who should attend, which features to highlight, and which questions the champion will ask. That co-authorship gives the buyer ownership and aligns the demo to decision-makers' language, avoiding the "checkbox" demo that incumbents survive, and narrows the pitch to the ~20% of product that delivers ~80% of the value.
+— Lenny's Podcast · 2026-08-23 · guest: Jen Abel · [▶ 31:52](https://www.youtube.com/watch?v=YS9In813jJ0&t=1912) · `pi-YS9In813jJ0-03`
+related: [The intro call is the richest source of intel—don't demo or record it](#the-intro-call-is-the-richest-source-of-inteldont-demo-or-record-it) · [Use short, time-boxed pilots (48–72 hours) unless integrations force longer](#use-short-time-boxed-pilots-4872-hours-unless-integrations-force-longer)
+
+### Use short, time-boxed pilots (48–72 hours) unless integrations force longer
+Run a tight 2–3 day pilot with 3–4 power users and co-author specific success metrics up front, so users complete predefined tasks and you capture measurable outcomes. This accelerates the sales cycle and preserves momentum; if the product genuinely requires integrations, charge for the longer pilot and credit that fee on signing — which also signals strong buying intent. Narrow pilots prevent noisy, inconsistent experiences and let the seller control the narrative.
+— Lenny's Podcast · 2026-08-23 · guest: Jen Abel · [▶ 49:39](https://www.youtube.com/watch?v=YS9In813jJ0&t=2979) · `pi-YS9In813jJ0-04`
+related: [Box proofs-of-concept with end dates and success criteria](#box-proofs-of-concept-with-end-dates-and-success-criteria) (same fixed-duration-and-success-criteria discipline, here for enterprise pilots rather than land-grab POCs) · [Co-design the demo with your internal champion so it feels like theirs](#co-design-the-demo-with-your-internal-champion-so-it-feels-like-theirs) · [Enterprise sales is project management—own papering and procurement](#enterprise-sales-is-project-managementown-papering-and-procurement)
+
+### Enterprise sales is project management—own papering and procurement
+Closing means reverse-engineering the procurement timeline: agree contract milestones before the pilot starts, send editable Word papers (not PDFs), and get procurement/legal on live calls to resolve redlines quickly. Build in incentives for hitting signing dates, pick battles in legal negotiations, and identify the actual signatory early so routing doesn't stall — procurement can delay a deal, but it's also the gatekeeper that enables payment.
+— Lenny's Podcast · 2026-08-23 · guest: Jen Abel · [▶ 41:53](https://www.youtube.com/watch?v=YS9In813jJ0&t=2513) · `pi-YS9In813jJ0-05`
+related: [Use short, time-boxed pilots (48–72 hours) unless integrations force longer](#use-short-time-boxed-pilots-4872-hours-unless-integrations-force-longer) · [A healthy enterprise win rate is ~25–35%; price accordingly](#a-healthy-enterprise-win-rate-is-2535-price-accordingly)
+
+### A healthy enterprise win rate is ~25–35%; price accordingly
+Conversion from qualified opportunity to signed contract should land around 25–35%; a much higher win rate probably means the price is too low. The implication: accept that many deals won't close now (some will boomerang later), keep prices disciplined, and use pilot/contract structure (e.g., year-two expansion) to capture full value rather than discounting to inflate win rates.
+— Lenny's Podcast · 2026-08-23 · guest: Jen Abel · [▶ 68:33](https://www.youtube.com/watch?v=YS9In813jJ0&t=4113) · `pi-YS9In813jJ0-06`
+related: [Enterprise sales is project management—own papering and procurement](#enterprise-sales-is-project-managementown-papering-and-procurement)
+
 ## Related themes
 - [Tech frontier & abundance](tech-frontier-and-abundance.md) — token-economics story behind the GTM constraint
 - [Founders & fundraising](founders-and-fundraising.md) — small-team enterprise wins
@@ -328,6 +358,7 @@ The platform enables one-person shops to scale into serious businesses: Whatnot 
 - [AI agents & applications](ai-agents-and-applications.md) — the consumption surface SaaS now serves
 
 ## Source episodes
+- [Lenny's Podcast — How to close $100K+ enterprise deals, step by step | Jen Abel (2026-08-23)](../episodes/2026/2026-08-23--lenny--how-to-close-100k-enterprise-deals-step-by-step.md)
 - [SaaStr AI — From 0% to 83% AI-First Customers in 2 Years: How Owner's CEO Rebuilt a $100M Vertical SaaS Company (2026-08-19)](../episodes/2026/2026-08-19--saastr--owners-ceo-0-to-83pct-ai-first-vertical-saas.md)
 - [a16z — Inside Whatnot's Bet on Live Shopping (2026-08-19)](../episodes/2026/2026-08-19--a16z--inside-whatnots-bet-on-live-shopping.md)
 - [a16z — Choosing Your Sales Strategy: Lighthouse vs. Landgrab (2026-08-13)](../episodes/2026/2026-08-13--a16z--choosing-your-sales-strategy-lighthouse-vs-landgrab.md)
