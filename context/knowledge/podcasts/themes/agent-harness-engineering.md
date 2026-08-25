@@ -2,7 +2,7 @@
 
 _status: live theme — the discipline of wrapping an AI agent in enforced structure: human-only zones, PR gates, precise workflows, adapters, and local-first context_
 _slug: agent-harness-engineering_
-_updated: 2026-08-19 · 21 insights from 12 episodes · (split from agent-engineering-patterns, 2026-07-11)_
+_updated: 2026-08-24 · 23 insights from 13 episodes · (split from agent-engineering-patterns, 2026-07-11)_
 
 ## The throughline
 A harness is code wrapped around an agent to make it behave consistently for a specific use case — and every practitioner in this cluster converges on the same core moves. Reserve architecture and UX decisions for humans (Conductor's "slot-free zones," "do not touch if you are an AI" markers — corroborated independently by Tony Fadell on the hardware-product side); force agent output through a review chokepoint before it lands (Conductor's strict PR-first workflow; the Sentry bug-triage harness's investigate-only vs. edit-enabled modes); and be extremely specific — write down the exact workflow, data sources, and allowed tools rather than reaching for a general-purpose assistant. Concrete adapters (Sentry, Linear, GitHub, Vercel) plus a persistent artifact store make investigations reproducible, though this is a choice, not a prerequisite — Gusto's much lighter "memory is just a DB column" stack proves harnesses can be minimal too. Codex-as-local-project-environment extends the same instinct beyond bespoke harnesses: a general-purpose local workspace (files on your machine, computer-use access to real tools) that lets an agent work with richer context, reinforced by a local-first/Obsidian-style memory discipline for privacy and accuracy.
@@ -49,6 +49,11 @@ The speaker emphasizes keeping everything local (projects, markdown, assets) and
 — Aakash Gupta · 2026-07-09 · guest: Mang (Aura, New Form, Dream Cut) · [▶ 10:28](https://www.youtube.com/watch?v=tTTG1Nn-kkw&t=628) · `pi-tTTG1Nn-kkw-02`
 related: theme → [Agent delegation, loops & software factories](agent-delegation-and-loops.md) (Replit's raffle.md and this design team's soul.md are the same local-markdown-as-memory pattern this insight generalizes)
 
+### A cloud coding-agent platform can become your primary dev environment
+Carson moved almost entirely into a cloud coding agent platform (Devon/Cognition), saying "I live in Devon. I live in the cloud," and ran up to $20k/month in usage until vendor credits arrived. He uses cloud threads, playbooks, and background agents to ship many PRs, run reviews, and record verification videos — effectively treating the cloud agent as his always-on engineering team. The payoff is asynchronous, 24/7 progress and orchestration across code, QA, and ops, at the cost of nontrivial cloud spend and vendor lock-in.
+— How I AI · 2026-08-24 · guest: Ryan Carson (Untangle) · [▶ 10:17](https://www.youtube.com/watch?v=zPfxlcVpFgs&t=617) · `pi-zPfxlcVpFgs-02`
+related: [Codex turns chat into a project-based local development environment](#codex-turns-chat-into-a-project-based-local-development-environment) (same agent-as-primary-workspace instinct, here a cloud platform with real vendor-spend/lock-in trade-offs instead of a local project folder)
+
 ### You can quickly customize agent skills using Codex inside Notion
 When existing skills don't match their needs, the team used Codex to inspect, analyze, and build new skills tailored to their criteria (for example, the particular review rules they care about). Because Notion is the source of truth and the agents update notes and specs as they work, the custom skill becomes a living, reproducible workflow rather than ad-hoc automation. The implication is democratized automation: engineers can iterate on and own their review/automation logic instead of waiting for vendor features.
 — Every · 2026-07-24 · guest: Ryan · [▶ 11:34](https://www.youtube.com/watch?v=qtKkzsQjAy0&t=694) · `pi-qtKkzsQjAy0-04`
@@ -68,6 +73,11 @@ related: [A harness is code wrapped around an AI agent](#a-harness-is-code-wrapp
 The agent reads the diff, scores risk using six factors (change surface/blast radius, reversibility, data/security impact, operational changes, verification/tests, and CI status), and maps numeric scores to actions: under 24 = low (auto-approve), 25–64 = medium, 65+ = high (require human). In practice the bot annotated docs PRs as low risk (e.g., 6/10 or 7/10) and auto-approved them, while a 45/100 deprecation PR was classified medium and blocked for human review.
 — How I AI · 2026-08-05 · guest: — · [▶ 15:49](https://www.youtube.com/watch?v=cmATJGbA8bI&t=949) · `pi-cmATJGbA8bI-03`
 related: [Conductor enforces a strict PR-first workflow; no direct edits](#conductor-enforces-a-strict-pr-first-workflow-no-direct-edits) (same PR-gate discipline, here with a scored, tiered threshold instead of a blanket human-review requirement) · theme → [AI-approved PRs can be faster and safer than human-only reviews](agent-engineering-patterns.md#ai-approved-prs-can-be-faster-and-safer-than-human-only-reviews) (same episode's outcome data behind this rubric)
+
+### A narrated-video approval gate lets a risk-scoring bot safely auto-merge
+Carson and the host use an agent (Merge Mommy) that triggers after CI and scores each PR on multiple risk dimensions, auto-approving low-risk PRs while flagging medium/high ones for human review. The guest also runs a 'land PR' playbook that executes two review loops, records a narrated verification video, and requires a 'video approved' action before merging. This setup preserves compliance and safety while dramatically increasing merge throughput for routine changes.
+— How I AI · 2026-08-24 · guest: Ryan Carson (Untangle) · [▶ 27:27](https://www.youtube.com/watch?v=zPfxlcVpFgs&t=1647) · `pi-zPfxlcVpFgs-04`
+related: [A compact risk rubric lets the agent auto-approve low-risk PRs](#a-compact-risk-rubric-lets-the-agent-auto-approve-low-risk-prs) (same triggered-after-CI risk-scored auto-approve pattern, here paired with a narrated-verification-video approval gate on top)
 
 ### A scaffolding skill can run viability, market research, PRD, and create a full repo with CI
 The "new project scaffolding" skill orchestrates an 11-step workflow: it runs a viability gate, crawls the web for market research, writes a product brief/PRD, decides architecture, generates folder structure and tests, and can push an initial commit to GitHub. The demo shows the skill producing a market-research doc, a product brief, prototype folders, CLAUDE.md patterns, and continuous integration templates — giving non-technical founders and PMs a production-ready starting repo. That reduces handoff friction and ensures the first developer sees both business reasoning and engineering artifacts in one place.
@@ -119,6 +129,7 @@ related: [Conductor enforces a strict PR-first workflow; no direct edits](#condu
 - [Agent delegation, loops & software factories](agent-delegation-and-loops.md) — the sustained-execution patterns that run inside these harnesses
 
 ## Source episodes
+- [How I AI — How I manage 15 AI agents 24/7 as a solo founder | Ryan Carson (2026-08-24)](../episodes/2026/2026-08-24--howiai--how-i-manage-15-ai-agents-247-solo-founder.md)
 - [How I AI — Grok Bot + Grok 4.6 + Cursor Origin - is Claude Code dead? (2026-08-18)](../episodes/2026/2026-08-18--howiai--grok-bot-grok-46-cursor-origin.md)
 - [How I AI — Claude Code for normal people: skills, voice mode, and how to collaborate with AI (2026-08-10)](../episodes/2026/2026-08-10--howiai--claude-code-for-normal-people-skills-voice-mode.md)
 - [Y Combinator — Peter Steinberger: What Happens When 4.7 Million People Let It Cook (2026-08-10)](../episodes/2026/2026-08-10--yc--peter-steinberger-4-7-million-people-let-it-cook.md)
