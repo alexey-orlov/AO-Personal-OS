@@ -33,6 +33,7 @@ The optional `was:` records the original text when it was corrected from a missp
 - **Giants in the Earth** — O. E. Rølvaag, 1927 · added 2026-08-08 · note: Norwegian settlers in Dakota Territory; frontier as psychological trial; from drop tg-334
 - **The Gilded Age: A Tale of To-Day** — Mark Twain & Charles Dudley Warner, 1873 · added 2026-08-08 · note: the novel that named the era; from drop tg-336
 - **Ragtime** — E. L. Doctorow, 1975 · added 2026-08-08 · note: 1900–1917 US in one novel — immigrants, Houdini, Emma Goldman, Morgan, Ford; entry point per drop; from drop tg-336
+- **Девятое термидора (The Ninth Thermidor)** — Mark Aldanov, 1923 · added 2026-08-25 · was: "марк алданов" · note: opening novel of his "Мыслитель" tetralogy on the French Revolution/Napoleon era; his most acclaimed entry point (author-only drop, title resolved); from drop tg-405
 
 ## History
 
