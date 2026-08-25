@@ -82,6 +82,7 @@ Whenever Alex pushes back on, corrects, or rejects something I produced (a draft
 The bar is the root cause: if I only patch the exact phrase Alex flagged, I'll reproduce the same mistake in a new disguise next time.
 
 ## Hard rules
+- **Make-before-break when replacing any keep-alive / liveness mechanism** (caffeinate sleep holds, watchers, sync daemons): start the replacement and verify it holds BEFORE stopping the incumbent — assertions stack safely, and a seconds-long gap IS the outage (2026-08-25: killing the old caffeinate before the new one was up put the lid-closed Mac to sleep mid-remote-session). Exception: exclusive-resource mechanisms where overlap itself is the failure (e.g. the Telegram single-poller) — there, sequence deliberately and keep the gap minimal.
 - NEVER commit secrets. API keys live in macOS Keychain (e.g. `ASSEMBLYAI_API_KEY`) and are read at runtime.
 - NEVER commit a live trigger URL (webhook endpoint, n8n `/webhook/...` path, Zapier/Make hook, etc.) for any side-effectful or paid automation — not in docs, not in exported workflow JSON. git-autosync pushes within ~30s and GitHub-commit-scraping bots probe new URLs within the hour; an unauthenticated trigger then gets fired by strangers (this happened 2026-06-11 with the podcast webhook). If a programmatic trigger is genuinely needed, require auth (Header-Auth credential) AND keep the URL out of the repo; otherwise prefer schedule/manual triggers.
 - NEVER commit `.work/` — it holds venvs, audio copies, transcripts, and per-machine state, and may contain private call content.
