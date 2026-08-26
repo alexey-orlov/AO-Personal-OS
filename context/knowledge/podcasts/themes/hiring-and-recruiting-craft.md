@@ -2,7 +2,7 @@
 
 _status: live theme — sourcing, screening, deciding, and closing talent in the AI era_
 _slug: hiring-and-recruiting-craft_
-_updated: 2026-08-24 · 13 insights from 8 episodes_
+_updated: 2026-08-26 · 14 insights from 9 episodes_
 
 ## The throughline
 Across five founders/talent leaders, the craft of hiring splits into distinct, addressable stages: sourcing (Snowflake/Lemkin promote existing internal 'tool nerds' into new roles rather than posting externally; Ward scopes a targeted top-1% list and relentlessly courts it rather than trusting a passive funnel), screening (Hodak distributes top-of-funnel judgment across 7-8 employee voters and uses AI-resistant homework scored on objective metrics; Ward leans on long work-sample trials as the strongest predictor of on-the-job success), deciding (Datadog's Pomel and Encord both argue for hiring and firing fast — act on early signal rather than rationalizing sunk cost), and closing (Ward treats closing as a continuous, team-orchestrated process — daily standups, personalized rituals — not a single offer-stage sales pitch). Two structural claims cut across all of this: recruiting itself deserves strategic, well-compensated ownership rather than being treated as scheduling overhead (Ward), and simple cultural filters — like PhotoRoom's English-fluency requirement — can proxy for harder-to-screen traits like global ambition. Hodak's continuous peer-weighted review (IGEN) extends the same distribute-and-quantify-judgment logic from hiring into ongoing performance management.
@@ -72,11 +72,17 @@ Instead of early-stage interviews, Carson asks applicants to submit a full-scree
 — How I AI · 2026-08-24 · guest: Ryan Carson (Untangle) · [▶ 40:36](https://www.youtube.com/watch?v=zPfxlcVpFgs&t=2436) · `pi-zPfxlcVpFgs-05`
 related: [Work samples give the strongest signal of future success](#work-samples-give-the-strongest-signal-of-future-success) (same work-sample-over-resume discipline, here as a solo-founder's screen-recording + paid-task screen instead of Cursor's on-site trial)
 
+### Hire for upward trajectory and cultural fit over impressive resumes
+Legora abandoned chasing fancy logos on CVs and instead prioritized candidates with high growth potential and cultural alignment; their top seller is a 23‑year‑old with no prior sales background who has sold over $10M. They codified three core values (Lean in, Fight for excellence, Grow together—LFG), maintained hands‑on interview practices during scale, and use Stockholm onboarding to transmit culture globally. The consequence: a self-selecting, high‑velocity team able to out-execute larger incumbents.
+— Y Combinator · 2026-08-25 · guest: Max Junestrand (Legora) · [▶ 17:58](https://www.youtube.com/watch?v=o0ORPbSEgd8&t=1078) · `pi-o0ORPbSEgd8-03`
+related: theme → [Founders & fundraising](founders-and-fundraising.md) (this episode's domain-expertise and sales-freeze insights, `pi-o0ORPbSEgd8-01,04`)
+
 ## Related themes
 - [Leadership, careers & teams](leadership-careers-and-teams.md) — parent theme; split off 2026-08-11. Org design, role-fluidity, and manager-effectiveness threads stay there.
 - [Founders & fundraising](founders-and-fundraising.md) — ambition/culture threads that intersect with hiring filters (PhotoRoom)
 
 ## Source episodes
+- [Y Combinator — Max Junestrand: You Need The Willingness To Learn Faster Than Anyone Else (2026-08-25)](../episodes/2026/2026-08-25--yc--max-junestrand-willingness-to-learn-faster.md)
 - [How I AI — How I manage 15 AI agents 24/7 as a solo founder | Ryan Carson (2026-08-24)](../episodes/2026/2026-08-24--howiai--how-i-manage-15-ai-agents-247-solo-founder.md)
 - [Lenny's Podcast — The playbook for building high talent density teams | Adam Ward, Head of Talent at Cursor (2026-08-09)](../episodes/2026/2026-08-09--lenny--playbook-for-building-high-talent-density-teams.md)
 - [Y Combinator — Max Hodak: What Really Kills Deep Tech Startups? (2026-08-07)](../episodes/2026/2026-08-07--yc--max-hodak-what-really-kills-deep-tech-startups.md)
