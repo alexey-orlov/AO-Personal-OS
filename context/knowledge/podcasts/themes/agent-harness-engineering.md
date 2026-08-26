@@ -2,7 +2,7 @@
 
 _status: live theme — the discipline of wrapping an AI agent in enforced structure: human-only zones, PR gates, precise workflows, adapters, and local-first context_
 _slug: agent-harness-engineering_
-_updated: 2026-08-24 · 23 insights from 13 episodes · (split from agent-engineering-patterns, 2026-07-11)_
+_updated: 2026-08-26 · 24 insights from 14 episodes · (split from agent-engineering-patterns, 2026-07-11)_
 
 ## The throughline
 A harness is code wrapped around an agent to make it behave consistently for a specific use case — and every practitioner in this cluster converges on the same core moves. Reserve architecture and UX decisions for humans (Conductor's "slot-free zones," "do not touch if you are an AI" markers — corroborated independently by Tony Fadell on the hardware-product side); force agent output through a review chokepoint before it lands (Conductor's strict PR-first workflow; the Sentry bug-triage harness's investigate-only vs. edit-enabled modes); and be extremely specific — write down the exact workflow, data sources, and allowed tools rather than reaching for a general-purpose assistant. Concrete adapters (Sentry, Linear, GitHub, Vercel) plus a persistent artifact store make investigations reproducible, though this is a choice, not a prerequisite — Gusto's much lighter "memory is just a DB column" stack proves harnesses can be minimal too. Codex-as-local-project-environment extends the same instinct beyond bespoke harnesses: a general-purpose local workspace (files on your machine, computer-use access to real tools) that lets an agent work with richer context, reinforced by a local-first/Obsidian-style memory discipline for privacy and accuracy.
@@ -124,11 +124,17 @@ Origin provides the git primitives (repos, diffs, pull requests) wrapped in a Cu
 — How I AI · 2026-08-18 · guest: — · [▶ 13:00](https://www.youtube.com/watch?v=8ONFvAtboZ4&t=780) · `pi-8ONFvAtboZ4-04`
 related: [Conductor enforces a strict PR-first workflow; no direct edits](#conductor-enforces-a-strict-pr-first-workflow-no-direct-edits) (same PR-gate-and-reviewer-assignment discipline, here as a GitHub-replacement product rather than a coding-agent IDE)
 
+### AI must be a governed co-pilot; human judgment still prevents hallucination
+Raghavan emphasizes that AI in product development is a co‑pilot, not an autopilot: initialization scripts, documented references, CPO review agents and a knowledge hub are used to pin versions and sources so outputs stay grounded. He repeatedly shows examples where the agent's first pass needed human correction (UI components, narrow-monitor layouts, Sankey chart rendering), underlining that judgment — picking correct data versions, prompting the model, and validating designs — remains essential. For a company serving 75k customers, governance prevents dangerous hallucinations and preserves quality.
+— Aakash Gupta · 2026-08-24 · guest: Srini Raghavan (Freshworks) · [▶ 26:05](https://www.youtube.com/watch?v=0qNZVlW8IR4&t=1565) · `pi-0qNZVlW8IR4-05`
+related: [A compact risk rubric lets the agent auto-approve low-risk PRs](#a-compact-risk-rubric-lets-the-agent-auto-approve-low-risk-prs) (same governed-not-autonomous discipline, here a 'CPO check' review agent rather than a scored PR-risk rubric) · theme → [AI agents & applications](ai-agents-and-applications.md) (this episode's ticket-automation insight, `pi-0qNZVlW8IR4-04`)
+
 ## Related themes
 - [Agent engineering & production infra](agent-engineering-patterns.md) — parent theme; the broader verification/governance/cost discipline this harness-building cluster sits alongside
 - [Agent delegation, loops & software factories](agent-delegation-and-loops.md) — the sustained-execution patterns that run inside these harnesses
 
 ## Source episodes
+- [Aakash Gupta — Product Managers will be replaced by Product Builders -$3.4B CPO, Srini Raghavan (Freshworks) (2026-08-24)](../episodes/2026/2026-08-24--aakash--product-managers-will-be-replaced-by-product-builders.md)
 - [How I AI — How I manage 15 AI agents 24/7 as a solo founder | Ryan Carson (2026-08-24)](../episodes/2026/2026-08-24--howiai--how-i-manage-15-ai-agents-247-solo-founder.md)
 - [How I AI — Grok Bot + Grok 4.6 + Cursor Origin - is Claude Code dead? (2026-08-18)](../episodes/2026/2026-08-18--howiai--grok-bot-grok-46-cursor-origin.md)
 - [How I AI — Claude Code for normal people: skills, voice mode, and how to collaborate with AI (2026-08-10)](../episodes/2026/2026-08-10--howiai--claude-code-for-normal-people-skills-voice-mode.md)
