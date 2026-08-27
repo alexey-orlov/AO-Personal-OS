@@ -1,0 +1,99 @@
+{
+  "schema": 1,
+  "generatedAt": "2026-08-27T04:03:07.148Z",
+  "runStamp": "20260827T0403",
+  "episodes": [
+    {
+      "videoId": "zEZ0rQ8Ef-Y",
+      "videoTitle": "The State of AI: Models, Moats, and the Consumer Renaissance",
+      "videoUrl": "https://www.youtube.com/watch?v=zEZ0rQ8Ef-Y",
+      "channelName": "a16z",
+      "publishedDate": "2026-08-26",
+      "guests": [],
+      "summary": "The talk surveys where AI is going next: market structure, how models translate into products, and the sudden consumer opportunity. The central argument is that compute supply constraints and domain-specialized models create durable opportunities at the application layer, while consumer-facing personal agents and lower-cost open-weight models are catalyzing a renaissance in paid consumer AI products.",
+      "insights": [
+        {
+          "headline": "Compute is supply-constrained while demand looks effectively infinite",
+          "detail": "Several market indicators show unusually tight supply of inference capacity — not just cutting-edge chips but mid-tier GPUs — while usage and willingness to pay are surging. The speaker points to rising per-hour prices for B200-class GPUs as atypical (these resources usually deflate in price), arguing that this divergence signals constrained supply meeting extremely high demand and is a core reason to be optimistic about AI's economic trajectory.",
+          "anchorQuote": "essentially infinite demand and highly constrained supply",
+          "tSeconds": 230,
+          "link": "https://www.youtube.com/watch?v=zEZ0rQ8Ef-Y&t=230"
+        },
+        {
+          "headline": "Most classic moats survive; the integration moat is the main exception",
+          "detail": "Network effects, scale (distribution), and brand remain powerful defenses despite abundant low-cost intelligence — examples include Instagram and Nike, where value is social or brand-based, not engineering complexity. The one moat exposed by coding agents is the integration moat: companies whose value depended on being the difficult integration point (e.g., legacy ERP integrators around SAP) now face real risk because automation makes migrations and integrations much easier.",
+          "anchorQuote": "the integration mode is the most obvious one",
+          "tSeconds": 373,
+          "link": "https://www.youtube.com/watch?v=zEZ0rQ8Ef-Y&t=373"
+        },
+        {
+          "headline": "Pay for frontier models where upside is unbounded; cheap models for bounded tasks",
+          "detail": "For roles or decisions with unbounded economic upside — product decisions, sales closures, high-impact engineering — it's rational to use the highest-quality (frontier) models because even a small IQ gain can be worth large outcomes. Conversely, bounded, precision-focused tasks like finance or close-the-books favor lower-cost open or specialized models where accuracy and predictable unit economics matter more than creative leaps.",
+          "anchorQuote": "you always want to use frontier tokens",
+          "tSeconds": 433,
+          "link": "https://www.youtube.com/watch?v=zEZ0rQ8Ef-Y&t=433"
+        },
+        {
+          "headline": "Models aren't commodities — domain specialization and harnesses create value",
+          "detail": "Different models display distinct 'personalities' (literal/neurotic versus open/creative) and are optimized for different domains — e.g., OpenAI's GPTs for knowledge work, Cloud Code for engineering, 11 Labs for voice — so product-level specialization and UI 'harnesses' matter. Aggregating multiple best-in-class models inside one product (the Expedia analogy for travel inventory) creates composable advantages: planning on a frontier model + cheaper execution models, or adversarially querying multiple models for richer research.",
+          "anchorQuote": "So definitely not commodities in our view",
+          "tSeconds": 773,
+          "link": "https://www.youtube.com/watch?v=zEZ0rQ8Ef-Y&t=773"
+        },
+        {
+          "headline": "A consumer renaissance is starting as open-weight models slash costs",
+          "detail": "Three historical barriers to consumer AI — users resisting paid software, high marginal distribution/engagement costs, and lack of consumer-native UI paradigms — are being eroded by much cheaper open-weight models and better product design. That enables personal agents and coding agents that let nontechnical creators or small businesses build revenue-generating products and services (mom-and-pop SaaS, personal assistants that compound value via memory), producing willingness to pay well above historical consumer software ceilings.",
+          "anchorQuote": "openw weightight models, dramatically cheaper and more performant",
+          "tSeconds": 1084,
+          "link": "https://www.youtube.com/watch?v=zEZ0rQ8Ef-Y&t=1084"
+        }
+      ]
+    },
+    {
+      "videoId": "IfL_OY-wRBM",
+      "videoTitle": "Why This $10B Hedge Fund Made AI Training Mandatory (Best of the Pod)",
+      "videoUrl": "https://www.youtube.com/watch?v=IfL_OY-wRBM",
+      "channelName": "Every",
+      "publishedDate": "2026-08-26",
+      "guests": [],
+      "summary": "The CEO of a large hedge fund explains why he made firm‑wide AI training mandatory and how he turned that mandate into concrete tools, culture, and data infrastructure. He argues AI is an operational necessity—an efficiency multiplier that shifts job expectations, unlocks new trading and risk-insight capabilities, and requires leaders to act decisively to avoid being left behind.",
+      "insights": [
+        {
+          "headline": "Mandatory AI training for every employee was instituted by leadership",
+          "detail": "The firm required baseline AI proficiency across all departments—investment, accounting, compliance, legal—so everyone uses LLMs for writing and analysis. The mandate started from the CEO's conviction and early demos (an internal project called \"current\" began in 2023) and was reinforced with incentives and social rituals (leaderboards, meetups, referral-style rewards). That combination—top-down mandate plus tooling and culture—drove rapid uptake rather than optional pilots.",
+          "anchorQuote": "we're going to train mandatorily every single person",
+          "tSeconds": 587,
+          "link": "https://www.youtube.com/watch?v=IfL_OY-wRBM&t=587"
+        },
+        {
+          "headline": "Using LLMs is not cheating—it's an immediate productivity multiplier",
+          "detail": "The CEO reframes ChatGPT usage as a legitimate operational lever, saying it can make you \"20% smarter instantly or a lot more,\" and explicitly rejects the academic 'cheating' analogy for business. He gives personal evidence: what used to take him four to five hours can now be a 15‑minute prompt-and-edit process, freeing time to think at a higher level. Normalizing this reduces stigma, increases adoption, and converts raw tool power into measurable time savings across the firm.",
+          "anchorQuote": "Using Chat GBT is not cheating",
+          "tSeconds": 899,
+          "link": "https://www.youtube.com/watch?v=IfL_OY-wRBM&t=899"
+        },
+        {
+          "headline": "Recording everything into a 'Borg' data lake enables LLM-driven insights",
+          "detail": "The firm records calls, meetings, transcripts, analyst notes and other unstructured flows and funnels them into a centralized data strategy (the speaker calls the collective the 'Borg'). LLMs then ingest that corpus to provide recall, summarization, predictive cues, and synthesized signals—examples include the internal product \"current\" that processes PDFs, earnings transcripts, and broker notes and is viewed by PMs as indispensable. Early outcomes: heavy use during earnings, broad internal adoption, and interest from 50+ external firms to beta the product.",
+          "anchorQuote": "we record pretty much every bit of information",
+          "tSeconds": 658,
+          "link": "https://www.youtube.com/watch?v=IfL_OY-wRBM&t=658"
+        },
+        {
+          "headline": "AI changes job expectations: fluency becomes an explicit job requirement",
+          "detail": "The firm treats AI fluency as part of employees' responsibilities—if you write, research, analyze, build decks, or think for a living, you must use LLMs daily. The CEO compares it to failing to learn Excel and argues managers must push adoption; failure to gain operating leverage risks obsolescence. This reframing shifts the conversation from 'will I be replaced?' to 'how do I raise my context level and manage AI as part of my job?'",
+          "anchorQuote": "This is not optional for anyone at Walleye",
+          "tSeconds": 920,
+          "link": "https://www.youtube.com/watch?v=IfL_OY-wRBM&t=920"
+        },
+        {
+          "headline": "Top quant models are opaque but human intuition still provides an edge",
+          "detail": "High-performing quant strategies rely on high-dimensional, nonlinear feature combinations that can be effectively predictive even if individual model decisions are hard for humans to parse. The speaker notes the dimensionality is \"way past what a human mind can can understand,\" yet argues humans retain an edge in low-prior or novel situations and that machines amplify human-first principles rather than fully replace them. The takeaway: expect a hybrid where LLMs and neural models expand capabilities while human judgment remains crucial for fuzzier decisions.",
+          "anchorQuote": "it's way past what a human mind can can understand",
+          "tSeconds": 3104,
+          "link": "https://www.youtube.com/watch?v=IfL_OY-wRBM&t=3104"
+        }
+      ]
+    }
+  ]
+}
