@@ -31,6 +31,7 @@ _updated: 2026-08-27_
 
 ## Decisions
 
+- 2026-08-27 — Cost-allocation approach: ONE method (causal-level allocation + margin-stack recovery), not two; day-0 pricing design validated with legacy kept in denominators; resell exempt from overhead/CtS loading; Billing dept = transactional → per-line COGS charge. [pricing-unit-economics](pricing-unit-economics.md)
 - 2026-07-21 — Requirements approach: lean on the existing working mapping, not a redo; keep implemented scenarios high-level, detail only price-change flows per-scenario. [call](calls/other/2026-07-21_180038_default_202607171304495CACCF1A.md)
 
 ## Open loops
@@ -44,4 +45,5 @@ _updated: 2026-08-27_
 
 ## Activity
 
+- 2026-08-27 — [pricing approach](pricing-cost-allocation-approach.md) — component cost-allocation & pricing approach designed and verified; new subproject page created. (chat)
 - 2026-07-21 — [catalog↔billing requirements](calls/other/2026-07-21_180038_default_202607171304495CACCF1A.md) — scoped the business scenarios/edge cases for automating the catalog→Billing sync; first GigaCloud product artifact in the OS.
