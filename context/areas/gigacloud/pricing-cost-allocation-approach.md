@@ -46,18 +46,18 @@ The shares are % of the final price, so the target price is the loaded cost divi
 | 2.1.1 ЗП Відділ архітектурних рішень | 4,484,878 | Product-% / E | Jira-tagged product work → that product's/category's product-sustaining pool (enters prices as the product-level %); untagged general research → general share | ⚠ Enforce product tags on Jira time (→ TODO 6) |
 | 2.1.2 ЗП Департамент розвитку продуктів | 2,439,518 | E | General share — product development is not caused by current sales | ⚠ Misplaced in COGS today; confirm which org team (R&D 8 or Product 4) |
 | 2.1.3 ЗП Відділ Інформаційної Безпеки | 1,912,936 | A / E split | Project hours (security components/products) → their COGS; general hours → general share | ⚠ Separate project vs general hours (Alex's todo, → TODO 6) |
-| 2.1.4 ЗП Відділ білінгу | 1,211,460 | B | ÷ line capacity → ₴/invoice-line (system processing; ВОК's collection people are separate — class D) | — |
-| 2.1.5 ЗП Департамент доставки ІТ послуг | 7,274,952 | A + B | Billable hours = services-component COGS; provisioning → ₴/setup-order | ⚠ Billable-hours share needed |
+| 2.1.4 ЗП Відділ білінгу | 1,211,460 | B | **No category split needed or attempted**: whole pool ÷ line capacity → one ₴/invoice-line rate, identical on every line of every product (client/product setup work is part of the same pool; ВОК's collection people are separate — class D). Fallback if line metering proves unworkable: class E | — |
+| 2.1.5 ЗП Департамент доставки ІТ послуг | 7,274,952 | A + B (all COGS) | Fully in COGS, two routes: billable hours = services-component COGS; provisioning → ₴/setup-order into infra components' cost | ⚠ Billable-hours share needed |
 | 2.2 Податки на ЗП (соб.) | 3,200,736 | follows | Pro-rata on each salary line above | ⚠ Effective rate 18.5% vs 13.9% on admin salaries — verify once (→ TODO 12) |
-| 2.3 Колокейшн | 16,388,920 | G-route | Per rack/kW via asset register; power follows the device class (GPU racks ≠ average) | ⚠ Asset register (→ TODO 5) |
+| 2.3 Колокейшн | 16,388,920 | A | COGS — per rack/kW via the same asset register as G; power follows the device class (GPU racks ≠ average) | ⚠ Asset register (→ TODO 5) |
 | 2.4 Тех. підтримка обладнання | 1,651,177 | A | Vendor-support contracts per device class | ⚠ Same register |
 | 2.5 Послуги передачі даних | 3,916,506 | A | Per circuit → telecom components | — |
 | 2.6 Ліцензії ПО роялті | 26,959,720 | A | Per-core/per-VM cost → license components | — |
 | 2.7 Накладні витрати (соб.) | 915,950 | E | Default general | ⚠ Review contents once (→ TODO 12) |
 | 2.8 Роялті (ресейлінг) | 7,784,196 | A | Resell component COGS; **net vendor rebates/MDF into this line** | ⚠ Find where rebates land today (→ TODO 12) |
-| 5.1.1.1 ЗП sales department | 9,456,450 | C | CRM category split → % on monthly price over lifetime | ⚠ CRM split needed; ⚠ if TAM salaries sit inside this line, split them out into D — class D has no cost basis today (→ TODO 3) |
+| 5.1.1.1 ЗП sales department | 9,456,450 | C / D split | **Hunters** (new business, incl. SDR) → C, split across categories by **closed-won new MRR — each deal's category mix read from its component lines in billing**, no surveys; **farmers** (renewal/expansion, incl. TAM) → D via customer books, like account managers; expansions carry no C by convention (cheaper motion); Sales Enablement split once pro-rata to hunter/farmer payroll | ⚠ Payroll split by role needed (→ TODO 3) |
 | 5.1.1.2 ЗП маркетинг | 2,809,000 | C / E split | Campaign-tagged → that category's sales share; brand → general | ⚠ Tagged-vs-brand % |
-| 5.1.1.3 ЗП ВОК | 1,030,714 | C / D split | Contract-signing → sales share; invoicing & collection → retention | ⚠ Activity split |
+| 5.1.1.3 ЗП ВОК | 1,030,714 | C / D split | Contract-signing → C: per new contract, weighted to categories by the contract's own new-MRR mix (from its component lines — no manual product split); invoicing & collection → D — no product split at all, it rides the retention % | ⚠ Activity split (contracting vs invoicing hours) |
 | 5.1.1.4 ЗП пресейл | 1,825,000 | C | Deal-based category split | — |
 | 5.1.1.5 ЗП тех. підтримки | 2,252,038 | B | ÷ ticket capacity → ₴/ticket, split by SLA class when data allows | ⚠ Sits in sales & marketing today, but support is cost-to-serve; ticket volumes needed |
 | 5.1.2–5.1.3 зп + податки S&M | 1,888,254 | follows | Pro-rata on the 5.1.1 lines | — |
@@ -106,6 +106,14 @@ No 4-year budget is ever needed. Running costs (support, billing, account manage
 
 **Cost sits on "Private Cloud on VMware" as a product — how does it reach the components inside it?**
 Never split by effort — impossible, and everyone who tried (telecom regulators included) standardized on a uniform spread. Product pool ÷ the product's budgeted revenue (via the taxonomy bridge, TODO 13) = a %, and **every component line billed under that product carries that % of its realized price**, joining the denominator next to sales/retention/general. A ₴50,730 node contributes ~₴4,058, a ₴180 vCPU ~₴14.40 — scales automatically, sums back exactly. Zero-priced components carry nothing — quote rules govern them. Per-event costs stay per event.
+
+**The exact recipe — ₴2,000,000/year attributed to a category (say Private cloud):**
+
+1. **Base** = the category's budgeted annual billings, **non-resell lines only** (from the billing groups via the bridge). Say ₴100M/yr.
+2. **Rate** = 2M ÷ 100M = **2.0%**. It is stored once in the rate card as {Private cloud × share-type}. Nothing is ever written into individual components.
+3. Every component's **target price** in that category is computed with that 2% inside the denominator, and every invoice line under the category's products carries 2% of its realized price: node ₴50,730 → ₴1,014.60/mo; a ₴20,000 array → ₴400/mo; a zero-priced component → ₴0.
+4. **Check:** 2% × ₴100M = ₴2M — the pool returns exactly at budgeted revenue. A weak year under-recovers; the gap is a reported variance, never a mid-year price hike.
+5. Acquisition-type pools use a different denominator only: rate = pool ÷ (new non-resell MRR added that year × lifetime months), carried on those customers' bills over their lifetime.
 
 ## Alex's TODO
 
