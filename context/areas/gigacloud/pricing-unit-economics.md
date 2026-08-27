@@ -1,6 +1,6 @@
 # Pricing & unit economics — component cost allocation
 
-_status: v4 model done (2026-08-27) — full P&L expense-attribution table + 23-item TODO; challenged by 4 independent reviews and fixed; next = Alex runs the TODO (collect 1–6, fix 7–12, structure 13–17, calculate 18–23)_
+_status: v4 model done + action-plan deck built (2026-08-27) — deck ready for CFO/department alignment; next = Alex runs the TODO (collect 1–6, fix 7–12, structure 13–17, calculate 18–23) + department/finance alignment per deck_
 _updated: 2026-08-27_
 
 ## Snapshot
@@ -10,10 +10,12 @@ _updated: 2026-08-27_
 - Three component economic types (CFO cost sheet): infra GM 20–50%, license resell 2–5%, prof services 20–30%.
 - Recommended approach: **allocate at the highest level where a causal driver operates ({product-category × component-type} cell, or per transaction); recover the rest via a required-margin stack**; floor = COGS ÷ (1 − CtS% − acq% − OH% − profit%). Full recommendation: [pricing-cost-allocation-approach.md](pricing-cost-allocation-approach.md).
 - Verified against Alex's five stated challenges + a unit-economics best-practice checklist (multi-agent adversarial review, 2026-08-27); 20 issues found and fixed, incl. quote-level (not product-level) margin governance and the resell exemption from overhead/CtS spreads.
+- **Presentation layer (⚠ lettering differs from this page's classes):** the stakeholder action-plan deck (`~/Downloads/GigaCloud_Product Margin Plan_27-AUG-2026.pptx`, 11 slides, UA, GigaCloud template) deliberately simplifies to **4 models per Alex's brief — A = direct FTE (Delivery/Support), B = specific products (Sales/CAC), C = product groups (ВОК → Resell), D = general** — which matches neither the Models-sheet block labels in `Margin.xlsx` (its "Model C" block = deck B; its "Model B" block = deck D) nor the v4 classes A–G in [pricing-cost-allocation-approach.md](pricing-cost-allocation-approach.md). When talking to Alex about "модель B/C/D", the deck lettering is canonical. (chat, 2026-08-27)
 
 ## Active threads
 
 - **Cost-allocation approach → rate card.** Approach settled; blocked on data fixes (master↔mapping reconciliation 593 vs 463 components; Cubbit ₴15.6B MRR anomaly; 187 zero-price placeholder rows; "new MRR" column semantics) and the 8 required inputs (CRM sales split, TDABC volumes/capacities, AM book map, cohort lifetimes, CFO GM bands, R&D roadmap split, practical-capacity assumption, feasibility gate). Owner: Mine. (chat, 2026-08-27)
+- **Stakeholder alignment.** Action-plan deck built (11 slides: мета/результати · price-stack стовпчик у 2 версіях · 6 principles · 4 models + worked examples from `Margin.xlsx` · P&L-restructuring slide (Excel-lookalike: InfoSec 2.1.3, ₴1 912 936/кв Q2'26 → split B + D, proportion X pending time tracking) · next steps in 3 phases incl. budget-allocation work with 15 departments). Model C example constructed for the deck: ВОК 343 571 ₴/міс → Resell group (Licences + Backup Licences, 9 958 483 ₴/міс) → +3,45% to price, ВОК share assumed 100% until the FTE survey. → next: present, then run департамент-alignment (deck's steps 1–4). Owner: Mine. (chat, 2026-08-27)
 
 ## People
 
