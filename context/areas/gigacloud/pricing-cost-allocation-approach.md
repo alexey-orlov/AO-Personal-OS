@@ -118,12 +118,12 @@ Never split by effort — impossible, and everyone who tried (telecom regulators
 ## Alex's TODO
 
 **Collect (data that doesn't exist yet):**
-1. CRM category split for sales + presale — metric decided once: **closed-won new MRR by category** (pipeline-weighted as fallback); campaign→category tags; ВОК activity split; partner-sourced revenue by category.
+1. CRM category split for sales + presale — metric decided once: **closed-won new MRR by category, read from each deal's component lines in billing** (pipeline-weighted as fallback). Marketing tagging mechanic: every spend line gets a mandatory tag at budget approval — one category, a category group, or "brand"; untagged defaults to general (E), never forced into C; UTM/campaign IDs for digital. ВОК activity split; partner-sourced revenue by category.
 2. Volumes AND capacities: tickets by product + standard min/ticket + support capacity-minutes (later split ₴/ticket by SLA class); invoice-line counts + billing capacity-minutes + standard min/line; average units per invoice line (GHz, hours); Delivery billable-hours share.
-3. AM/TAM book map (customers per tier, tier revenue by category) — and locate TAM salaries in the P&L (likely inside 5.1.1.1) so class D has a cost basis.
+3. Sales payroll split by role: hunters vs farmers (incl. TAM) — the farmer share feeds class D; AM/TAM book map (customers per tier, tier revenue by category).
 4. Retention by customer start-year per segment → real lifetimes (per-category = new-MRR-weighted average); net bad-debt rate by segment.
 5. Asset register: each device → component group, its depreciation or lease ₴, its **billed-unit capacity** (GHz per host at design overcommit, TB per array at design fill, nodes per rack), power by device class; multi-group devices split by rated-capacity share; current **sold-vs-deployed utilization per platform**; growth-reserve designation per device.
-6. Function confirmations: архітектурні рішення (pre- vs post-sale), Operations (customer-facing?), розвитку продуктів (which team), Інформаційна Безпека time split.
+6. Enforce Jira product tags on архітектурні рішення time (quarterly hours export by product); Operations (customer-facing?); розвитку продуктів (which team); Інформаційна Безпека — separate project vs general hours (Alex's todo).
 
 **Fix (known data errors):**
 7. Component master vs product-mapping reconciliation: 54 master components map to zero products (retire or map); ~130 names in the mapping have no master row (no price/COGS).
