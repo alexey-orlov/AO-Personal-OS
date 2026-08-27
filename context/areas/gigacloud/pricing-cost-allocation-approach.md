@@ -1,87 +1,67 @@
-# Component cost-allocation & pricing approach — recommendation
+# Component pricing — how company costs get into component prices
 
-_status: recommended approach, verified against best practice 2026-08-27; awaiting required inputs to compute the actual rate card_
+_status: recommended approach (plain-language version with worked examples), verified 2026-08-27; percentages are placeholders until department budgets are plugged in — formulas and mechanics are the method_
 _updated: 2026-08-27_
-_source: working session (chat, 2026-08-27); inputs = catalog exports (`component_27_08_2026_10_07.xlsx`, `components-in-products_*.xlsx`, `nproduct_27_08_2026_10_03.xlsx`, in `~/Downloads/drive-download-20260827T071524Z-1-001/`) + the cost-center Google Sheet (`docs.google.com/spreadsheets/d/1P1qZA89kObicG_k25XfF9rneTNxMCrpBT3TwCfmHADE`)_
+_source: working session (chat, 2026-08-27); inputs = catalog exports in `~/Downloads/drive-download-20260827T071524Z-1-001/` + the cost-center Google Sheet (`docs.google.com/spreadsheets/d/1P1qZA89kObicG_k25XfF9rneTNxMCrpBT3TwCfmHADE`)_
 
-Goal: attribute non-COGS expenses to components so component prices deliver predictable per-component margins. Catalog model: products are containers, only components carry prices, a sale is a case-by-case component set within a product.
+## The idea in one paragraph
 
-## The approach (one, not two)
+Every component price must cover four things: its direct cost (COGS), a fair share of the departments that sell and serve it, a share of general company costs, and profit. We charge each department's cost at the level where a real connection can be measured — per event (a support ticket, an invoice line), per customer tier (account management), or per product category (sales, marketing). We never pretend to measure deeper than that: below the measurable level, the cost is spread evenly across components in proportion to their price. The output for every component is a **floor price** (never sell below) and a **target price**. This is not invented here — it is how telecom regulators cost component catalogs, how activity-based costing says overheads should be handled, and how SaaS companies amortize sales cost over customer lifetime.
 
-**Allocate every cost pool at the highest level where a causal driver actually operates; recover everything below that level through a required-margin stack on the component price.** Two rival methods would be a false choice — practitioner reality is exactly this blend [fact — Cooper & Kaplan cost-hierarchy doctrine, HBR 1991 / *Cost & Effect* 1998; BEREC/CRTC LRIC+ "EPMU" telecom-costing standard; practitioner consensus — SaaS contribution-margin convention].
+## The formula
 
-Mechanics:
+```
+floor price = (COGS + per-event charges) ÷ (1 − sales% − retention% − general% − profit%)
+```
 
-1. **Two stages.** Stage 1: allocate each department's budget causally to a **{product-category × component-type}** cell (or to a transaction, where the driver is truly per-event). Stage 2: inside the cell, spread uniformly as a % of price (EPMU — equal proportionate mark-up). Component-level effort attribution is not attempted by anyone — even telecom regulators abandoned it for EPMU [fact — BEREC LRIC+ guidance].
-2. **Price floor per component:** `floor = COGS ÷ (1 − CtS% − acq% − OH% − profit%)`, with the four rates read from the component's cell.
-3. **Single-home rule — every cost pool lives in exactly one term:**
-   - **Component COGS (numerator):** equipment, licenses, DC, telecom + **L1–L3 support and Billing dept as TDABC per-unit charges** (per ticket / per invoice line). This resolves the CFO's open Billing question: it is genuinely transactional here, so it prices per line, not as G&A. Carve professional-services Delivery hours out of the support pool first — that labor is already services-component COGS.
-   - **CtS% (recurring cost-to-serve):** AM/TAM + VOK-invoicing/collection only.
-   - **acq% (acquisition, amortized over segment lifetime):** Sales, attributable marketing campaigns, Partner dept, VOK-contracting.
-   - **OH% (overhead recovery):** Product dept, new-product R&D, Operations, Finance, brand marketing — never allocated below company level [fact — Kaplan/Cooper: facility-sustaining allocation is arbitrary].
-4. **Margin decomposition:** target gross margin per cell = CtS% + acq% + OH% + profit%, so **profit% is derived by subtraction** (e.g. infra at 50% GM − 12% CtS − 8% acq − 10% OH = 20% operating profit). Plugging the GM band in as profit% double-loads every price.
-5. **Three margin classes, never one blended target** (matches the CFO sheet's component types):
-   - **Infra (hardware/virtualized):** target within the CFO's 20–50% GM envelope; feasibility-gated — current compute-node median GM is ~12.9% (mean −20.8%), so upper-envelope targets imply multi-x repricing: run a current-vs-target margin bridge per category + competitive price check first.
-   - **License resell:** market-priced at 2–5% GM; **exempt from OH%, acq% and the AM/TAM+VOK CtS spreads** — carries only the transactional billing charge. Loading overhead onto price-benchmarked SKUs prices you out (KVI logic) [practitioner — McKinsey distributor pricing; CSP benchmarks]. The AM's effort is caused by the infra relationship, not the license seats — so CtS spreads run over non-resell components only (by gross-profit share, which self-corrects).
-   - **Prof services:** 20–30% GP, priced off utilization; excluded from subscription math [practitioner — Service Leadership MSP benchmarks].
-6. **All capacity rates at practical capacity (80–85%)**, recomputed annually from the 1-year budget: rate = pool ÷ practical-capacity minutes × standard handle time. Unabsorbed capacity is a period variance, never loaded into prices — the anti-death-spiral guard [fact — Kaplan & Anderson, TDABC, HBR 2004].
-7. **Shared components (124 span >1 product):** the cell follows the **parent product of the invoice line at billing time** — every sold line has a defined cell. The published list price of a shared component uses its dominant parent category by revenue (a documented convention, not a derivation).
-8. **Margin governance at the quote/deal level** (CPQ-style): floor + target evaluated on each deal's actual component set (a sale is a subset — mean 8.6, max 93 components/product — so a product-level "full set" check is neither necessary nor sufficient). Zero-price components get attach rules: quotable only alongside named funding components, else reprice or kill. Auto-approve above floor, escalate near floor [fact — Zilliant/Vendavo pricing-governance docs].
+Why divide instead of add: the four shares are percentages **of the final price**. If they must add up to, say, 50% of the price, then the remaining 50% has to cover the loaded cost — so the price is the loaded cost divided by 0.50. The profit% is not chosen separately: it is what remains of the target gross margin after the three cost shares (e.g. 50% target margin − 8% sales − 12% retention − 10% general = 20% profit). Adding a full margin on top of the shares would double-charge.
 
-## Allocation-principle table
+## What happens to each department's budget
 
-| Cost pool | Attribution level | Driver | Mechanic | Worked example (illustrative UAH) |
-|---|---|---|---|---|
-| Sales | Product category | CRM-derived category split (opportunities/activities/pipeline); quarterly rep interviews only as cross-check (flag >10pp deviation — self-reported splits are biased) [fact — Kaplan & Anderson] | Category pool → amortize over segment lifetime → % line on component price | 60M/yr × 70% private cloud = 42M; ÷ annualized new-MRR base (Q1 187M × 4 ≈ 748M — first validate the column is truly monthly-recurring, not quarterly bookings); ÷ 48 mo ≈ **0.12% monthly-price line** |
-| Marketing — campaigns | Product / group | Campaign tags | Joins that category's acquisition pool | Veeam campaign loads only onto Business-continuity products |
-| Marketing — brand | Company | — | OH% only; never allocated | — |
-| Partner dept | Category | Partner-sourced new-MRR share | Acquisition, amortized like sales | 40% of resell new MRR partner-sourced → 40% of budget onto resell |
-| VOK — contracting | Category | New contracts (TDABC) | Acquisition, amortized | per-contract TDABC cost × contracts signed |
-| VOK — invoicing/collection | Transaction / customer | Invoices | Recurring CtS% — spread by gross-profit share over **non-resell** components; resell lines carry only the billing per-line charge | 6M ÷ 750k practical-capacity min × 50 std-min/invoice ≈ 400/invoice (12k invoices ≈ 80% utilization; slack = period variance) |
-| AM / TAM (retention) | Customer tier | Books: 50 high / 400 medium / ~550 reactive | Tier cost per customer-month → categories by tier revenue mix → recurring CtS over non-resell components; kept separate from CAC [practitioner — cost-of-retention convention, Benchmarkit] | 20M × 50% high tier ÷ 50 ÷ 12 ≈ 16.7k/customer-month over those accounts' non-resell mix |
-| L1–L3 support | Product; component where tickets tag one | Tickets × standard handle time (TDABC, practical capacity) | Per-unit charge into **component COGS (numerator only)**; carve out prof-services Delivery hours + one-time products' expected tickets first | 30M ÷ 2.0M practical-capacity min × 40 std-min ≈ 600/ticket |
-| Billing dept | Transaction | Invoice lines | Per-line charge into **component COGS** — genuinely transactional here (per-component monthly billing); resolves the CFO's open question | 3M ÷ 375k practical line-capacity ≈ 8/component-line/month |
-| Product + R&D | Split | Roadmap time share | Product-sustaining share → product family; **new-product development → OH%, never charged to current components** [fact — Kaplan/Cooper] | 60% sustaining VMware-platform work → IaaS families |
-| Operations, Finance, G&A | Company | — | OH% | — |
+| Department | What its cost becomes | Why this way |
+|---|---|---|
+| Sales | Split across product categories using CRM data (e.g. 70% private cloud / 30% resell), then recovered as a small % on every month's bill over the customer's expected life (~4 years) | A sale creates ~48 months of revenue; charging it all to month one would misprice. This is the standard SaaS treatment of acquisition cost |
+| Marketing — campaigns | To the product category each campaign promotes; joins that category's sales share | Campaign tags make this measurable |
+| Marketing — brand | Into general costs | Nobody can honestly tie brand spend to a category |
+| Partner department | Like sales, split by where partner-sourced revenue lands | Measurable from partner-deal records |
+| VOK — contract signing | Joins the sales share of that category | Happens once per new contract |
+| VOK — invoicing & collection | Joins the retention share | Recurring work on existing customers. (These are VOK people; the ₴8/line below is the separate billing-system team — no double count) |
+| Account managers + TAMs | Cost per customer tier (50 high-touch / 400 medium / ~550 reactive) → the **retention %**, charged on infrastructure and services only — never on resold licenses | The AM exists because of the infrastructure relationship, not the license seats. Charging licenses would wipe their 2–9% margin |
+| L1–L3 support | Cost per ticket → added into the COGS of components that cause tickets | Tickets are countable — this is the one place real per-component measurement exists. (First remove delivery hours already counted in services COGS) |
+| Billing department | Cost per invoice line (~₴8) → added into each billed line's cost | Billing effort is genuinely per-line here — this answers the CFO sheet's open question |
+| Product, R&D (new products), Operations, Finance | One **general-costs %** applied to infrastructure and services prices (not resell) | No honest driver exists; spreading them by any formula would be fake precision — so one transparent uniform rate |
 
-**OH% =** driver-less pools ÷ planned revenue of **infra + services only** (resell exempt by design — 2–5% GM can't carry it; document the exemption). Also absorbs transition-period under-recovery of the amortized acquisition lines, unless the CFO books that as growth investment.
+**Five rules that keep it honest:**
 
-## The five challenges — resolved
+1. **Every cost lives in exactly one term.** Support and billing go into COGS as per-event charges — they are NOT also inside the percentages.
+2. **Per-event rates are computed from team capacity, not actual volume.** Rate = budget ÷ what the team *can* handle (at ~80–85% utilization) × standard time per event. In a weak year the idle-capacity cost is a company loss, not a price increase — otherwise weak sales raise prices, which weakens sales further (the death spiral).
+3. **Resold licenses are exempt from all shares.** The market sets their price; the catalog shows 6–9% current margins on M365 (the cost sheet's 2–5% band looks stale — worth updating). They carry only the ₴8/line billing charge. Loading anything more prices us out of price-benchmarked SKUs.
+4. **Prices are checked per deal, not per product.** Customers buy arbitrary subsets of components (average 8.6, up to 93 per product), so the floor/target check runs on each quote's actual component set. Zero-priced components are only quotable alongside the components that fund them.
+5. **Rates are recomputed once a year** from the new budget. No multi-year forecast is ever needed.
 
-- **C1 — which depts split by product category:** Sales, campaign marketing, Partner, AM/TAM, VOK. Per-transaction (not category-split): Billing, L1–L3 support. Never split: Product, R&D, Ops, Finance, brand marketing.
-- **C2 — no component-level attribution possible:** resolved by construction. "Sales 70% private cloud / 30% resell" is exactly the right altitude — benchmark surveys measure S&M no deeper [practitioner — KeyBanc/Benchmarkit methodology]; below the cell, EPMU uniform spread is the deliberate, documented convention.
-- **C3 — one-time vs subscription, 4-year lifetime:** the recurring/acquisition split does the work. Subscription products: acquisition ÷ lifetime-months as a monthly price line (annual billing = same math, annual periodicity). One-time products: **zero recurring lines**; recover attributable acquisition in the single sale; handle post-sale support via a warranty allowance (TDABC ticket cost × expected tickets) or by excluding their tickets from the support pool. Free products: no price line; governed by deal-level attach/margin rules. Replace the blanket 4 years with 2–3 **segment lifetimes from billing-cohort survival curves** (not 1/churn) [practitioner — SaaS CFO consensus]; cap at ~5 yrs and discount far years [Skok]. Lifetime-free sanity checks: CAC ratio (annual S&M ÷ new ARR, benchmark ~1.3 blended) and GM-adjusted payback <18 mo.
-- **C4 — legacy customers:** day-0 is **right for price design** (forward-looking LRIC precedent), **wrong for cost absorption** — keep legacy customers in every capacity/revenue denominator, or the shrinking base inflates new rates (the textbook death spiral [fact — Kaplan/Cooper downward-demand-spiral]); **incomplete without migration** — move legacy at renewal/upgrade inflection points over 6–18 months on a versioned, effective-dated rate card; track a "legacy discount" waterfall line [practitioner — Simon-Kucher, ProfitWell grandfathering guidance].
-- **C5 — 1-year budget vs 4-year lifetime:** dissolves. All rates come from the 1-year budget at practical capacity; the lifetime is only the amortization divisor (+ LTV/payback tests). One caveat: a 48-month amortized line reaches full annual recovery only once ~4 cohorts stack — in transition years, absorb the shortfall in OH% or book it as growth investment; pick one and write it down. Reprice annually from each new budget.
+## Table 1 — worked examples (real components, real COGS; shares shown at the floor price)
 
-## Data fixes required first
+Illustrative rates until budgets land: infrastructure cell — sales 8%, retention 12% (AM/TAM 9 + VOK invoicing 3), general 10%, profit 20% (= 50% target margin). Services — sales 5%, general 10%, profit 15% (= 30% target margin). Resell — exempt, market-priced at 2–5% minimum.
 
-1. **Master↔mapping reconciliation:** relationship table holds 593 distinct components vs 463 in the master — ~130 mapped components lack price/COGS/type rows; 54 master components map to zero products (keep or retire). Close the join before publishing any rate.
-2. **Cubbit S3 anomaly:** Q1-2026 new MRR shows ₴15.6B (~100× the next product) — would swallow any revenue-share cascade.
-3. **Zero-price rows:** 187 components have price 0 and COGS 0 (price-upon-request placeholders) — designate each as "priced-on-quote" vs "included in parent" so attach rules can bind.
-4. **Column semantics:** validate "Q1-2026 new MRR" is truly monthly-recurring, not quarterly bookings (the CAC-ratio sanity check depends on it).
+| Component (real) | COGS ₴/mo | + Support & billing | Sales & mktg share | Retention share | General share | Profit | = Floor price | Current price | How derived |
+|---|---|---|---|---|---|---|---|---|---|
+| Node for Private Server (1×16 cores, 256 GB) | 30,440.57 | +180 support (0.3 tickets/mo × ₴600/ticket) +8 billing → loaded 30,628.57 | 4,900.57 (8%) | 7,350.86 (12%) | 6,125.71 (10%) | 12,251.43 (20%) | **61,257.14** | 50,730 | Floor = 30,628.57 ÷ 0.50. Current price covers only ~9.6% profit after the 30% cost shares — either raise toward floor or consciously accept the lower profit |
+| vCPU (Public Cloud on VMware), 1 GHz | 104.25 | +1.50 support (product ticket pool ÷ GHz base) +0.20 billing (₴8/line ÷ ~40 GHz per line) → loaded 105.95 | 16.95 | 25.43 | 21.19 | 42.38 | **211.90** | 180 | Same formula, Public-cloud cell. Note the billing charge is per invoice LINE, so it splits across the GHz on that line |
+| AI Implementation Engineer, 1 h | 2,468 (delivery labor) | ₴8/invoice-line ≈ ₴0.1/hour — negligible, charge per line | 176.29 (5%) | — (one-time work, no recurring relationship cost) | 352.57 (10%) | 528.86 (15%) | **3,525.71** | 3,530 | Floor = 2,468 ÷ 0.70. Current price exactly clears a 30% margin — IF ₴2,468 is cost per *billable* hour. If it is cost per *paid* hour, divide by ~72% billable utilization first (industry benchmark) → floor ₴4,897, and the current price is ~28% under |
+| Microsoft 365 Business Standard, 1 user, monthly | 604.80 | +8 billing → loaded 612.80 | — exempt | — exempt | — exempt | 2% min / 5% target | **625.31 floor** (2%); 645.05 = 5% target price | 660 | Market-priced resell: floor = 612.80 ÷ 0.98. Current price clears with 7.15% effective margin — pricing is fine; the 2–5% band in the cost sheet is the thing to revise |
 
-## Required inputs (to compute the rate card)
+## Table 2 — the two questions, answered straight
 
-1. Sales category split from CRM + campaign→product tags + VOK contracting/invoicing split + partner-sourced MRR share.
-2. One quarter's volumes AND capacities: tickets by product, invoice lines, contracts, available minutes per dept, standard handle times.
-3. AM/TAM book map: customers per tier, tier revenue by category.
-4. Billing-cohort retention by segment → segment lifetimes.
-5. CFO's target GM band per cell (within stated envelopes: infra 20–50%, resell 2–5%, services 20–30%); profit% is then derived.
-6. Product/R&D roadmap split: % sustaining vs new development.
-7. Practical-capacity assumption per department (default 80–85%).
-8. Feasibility gate: current-vs-target margin bridge per category + competitive price check for infra targets.
+| Question | Answer |
+|---|---|
+| **How is the 1-year budget vs 4-year customer lifetime handled?** | You never need a 4-year budget. Costs split into two kinds. **Running costs** (support, billing, account managers, VOK invoicing, general): this year's budget ÷ this year's capacity or revenue base = this year's rates; re-set annually — done. **Sales-type costs** (sales, campaigns, partner, contracting): they buy a customer who then pays for ~48 months, so each year's pool is recovered as a small % on every month's bill across the customer's life. The formula: sales % = annual pool ÷ (new MRR added that year × lifetime months). Check it recovers exactly: % × new-MRR × 48 = the pool. Use per-segment lifetimes from billing history (how long customers actually stay), not one blanket 4 years. One honest caveat: in the first years only the newest customer cohorts pay this %, so the pool under-recovers until ~4 cohorts stack; count the gap explicitly as growth investment or fold it into general costs — decide once, write it down. This is standard SaaS CAC amortization; accounting (ASC 340-40) amortizes sales commissions over the same ~4-year customer life |
+| **We allocated cost to "Private Cloud on VMware" — how does it reach all the components inside it?** | You don't split the product's pool component-by-component by effort — nobody can, and everyone who tried (telecom regulators included) gave up and standardized on a uniform spread. Convert the pool into a percentage: product pool ÷ product's expected revenue = say 8%. Then **every component line billed under that product carries 8% of its own price**. A ₴50,000 node contributes ₴4,000, a ₴180 vCPU contributes ₴14.40 — the burden scales with price automatically, and at budgeted volumes the percentages sum back to exactly the pool. (Regulators do the same thing marking up over cost instead of price; both are sanctioned conventions — pick one base, document it, never mix.) Zero-priced components carry nothing — they're governed by the quote rule instead (sellable only alongside the components that fund them). The only exception: per-event costs (tickets, invoice lines) are charged per event, never via a % |
 
-## What NOT to do
+## What we still need before computing the real rate card
 
-- No revenue-proportional peanut-butter spread **across categories/pools** as a substitute for causal allocation (documented anti-pattern [fact — Cooper & Kaplan 1988]); within a causally-allocated cell, uniform spread is the deliberate convention — that distinction IS the method.
-- No component-level effort attribution — regulators abandoned it too.
-- No overhead loading on license resell — thin margin is the business model. But if a resell category fails acquisition recovery, that's a **decision point** (confirmed attach play with tracked attach rate / motion change to self-serve or partner-led / price-floor change), not a validation — Business Software is ~₴128M of Q1 new MRR with real sales effort behind it.
-- Never compute rates at actual volume — practical capacity only; a soft year must not mechanically raise prices.
-- No single blended margin target across the three economic types.
-- No permanent grandfathering; never exclude legacy revenue from denominators.
-- No 4-year P&L forecast — the lifetime is arithmetic, not a budget.
+1. Data fixes: reconcile the component master (463 rows) with the product-mapping table (593 distinct components); fix the Cubbit S3 ₴15.6B MRR anomaly; classify the 187 zero-price placeholder rows; confirm the "Q1-2026 new MRR" column is truly monthly-recurring.
+2. Inputs: CRM sales split by category; campaign→product tags; VOK contracting/invoicing split; partner-sourced MRR share; one quarter's ticket/invoice/contract volumes + team capacities and standard handling times; AM/TAM book map by tier; billing-cohort retention by segment; CFO's target margin per cell; R&D sustaining-vs-new split.
 
-## Display variant (the only real fork)
+## Sources (what "best practice" means here)
 
-Same numbers, two renderings: **(a) per-unit charge cascade** — each component shows explicit UAH lines (support/ticket, billing/line, AM…) summing to fully-loaded cost + markup — best for CFO communication; **(b) rate stack** — % rates per cell, floor = COGS ÷ (1 − required margin) — best for operations and CPQ governance. Run (b), render (a) when explaining.
+Activity-based costing and the "allocate only where causal" rule — Cooper & Kaplan (HBR 1988/1991, *Cost & Effect* 1998). Per-event rates at practical capacity — Kaplan & Anderson, time-driven ABC (HBR 2004). Uniform mark-up over a component catalog for common costs — telecom-regulator costing practice (BEREC/ERG common position, LRIC+ models). Amortizing sales cost over customer lifetime — SaaS CAC/LTV convention (Skok; KeyBanc/Benchmarkit surveys); ASC 340-40 as the accounting analog for commissions. Market-priced resell exemption — distributor/reseller pricing practice (McKinsey; CSP benchmarks). Services priced off billable utilization — SPI Research benchmarks (~69–73% utilization).
