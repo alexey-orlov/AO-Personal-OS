@@ -1,6 +1,6 @@
 # Component pricing — cost → price model
 
-_status: v4 — challenged by 4 independent reviews (comprehension · actionability · consistency · best practice) and fixed; 2026-08-27_
+_status: v5 — v4 (4 challenge reviews applied) + Alex's department clarifications folded in; 2026-08-27_
 _updated: 2026-08-27_
 _source: working session (chat, 2026-08-27); inputs = catalog exports (components, products, mapping), the cost-center sheet, and the P&L + org-structure + attribution workbook_
 
@@ -43,9 +43,9 @@ The shares are % of the final price, so the target price is the loaded cost divi
 
 | P&L line | Q2-26 ₴ | Class | How the ₴ reaches a component | Gap / action |
 |---|---|---|---|---|
-| 2.1.1 ЗП Відділ архітектурних рішень | 4,484,878 | C or B | Pre-sale solution design → sales share by deal records; post-sale engineering → ₴/setup-order | ⚠ Confirm the team's function — largest unclear salary line (→ TODO 6) |
+| 2.1.1 ЗП Відділ архітектурних рішень | 4,484,878 | Product-% / E | Jira-tagged product work → that product's/category's product-sustaining pool (enters prices as the product-level %); untagged general research → general share | ⚠ Enforce product tags on Jira time (→ TODO 6) |
 | 2.1.2 ЗП Департамент розвитку продуктів | 2,439,518 | E | General share — product development is not caused by current sales | ⚠ Misplaced in COGS today; confirm which org team (R&D 8 or Product 4) |
-| 2.1.3 ЗП Відділ Інформаційної Безпеки | 1,912,936 | A / E split | Hours on security components → their COGS; platform security → general | ⚠ One-time time split |
+| 2.1.3 ЗП Відділ Інформаційної Безпеки | 1,912,936 | A / E split | Project hours (security components/products) → their COGS; general hours → general share | ⚠ Separate project vs general hours (Alex's todo, → TODO 6) |
 | 2.1.4 ЗП Відділ білінгу | 1,211,460 | B | ÷ line capacity → ₴/invoice-line (system processing; ВОК's collection people are separate — class D) | — |
 | 2.1.5 ЗП Департамент доставки ІТ послуг | 7,274,952 | A + B | Billable hours = services-component COGS; provisioning → ₴/setup-order | ⚠ Billable-hours share needed |
 | 2.2 Податки на ЗП (соб.) | 3,200,736 | follows | Pro-rata on each salary line above | ⚠ Effective rate 18.5% vs 13.9% on admin salaries — verify once (→ TODO 12) |
