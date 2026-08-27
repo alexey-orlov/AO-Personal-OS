@@ -1,7 +1,7 @@
 # GigaCloud — CPO
 
-_status: CPO role; first product artifact landed — a requirements-scoping effort for the CREASHO/Krayshu catalog ↔ Billing integration is in flight_
-_updated: 2026-08-12_
+_status: CPO role; two workstreams in flight — catalog ↔ Billing integration requirements + component-level cost-allocation & pricing redesign (approach settled 2026-08-27)_
+_updated: 2026-08-27_
 
 > ⛔ **Internal-only area.** GigaCloud is never named in any external-facing artefact — CV, LinkedIn profile or DMs, outreach, applications, interviews, bios, generated drafts. In interviews this period is referred to only as "a fractional project helping a European tech company (infrastructure provider) build an AI-enabled org"; in writing, as "fractional product leader for agentic-AI B2B startups". Rule + rationale: [job-search/positioning.md](../job-search/positioning.md).
 
@@ -10,11 +10,17 @@ _updated: 2026-08-12_
 - Alex is CPO at GigaCloud (cloud infrastructure). [CLAUDE.md]
 - Expected note streams (classify Axis 2 → `calls/` subfolders): `product-issues-sukhenko` (recurring weekly), `product-team-weekly`, `other`.
 - Active product problem: automating the CREASHO/Krayshu product-catalog (CRM) → Billing integration, today a semi-manual Excel-over-email + Jira flow. [calls/other/2026-07-21_180038_default_202607171304495CACCF1A.md](calls/other/2026-07-21_180038_default_202607171304495CACCF1A.md)
+- Catalog shape (from 2026-08-27 exports): 96 products / 463 priced components; products are containers, only components carry prices, a sale is a case-by-case component set. Three component economic types: infra (GM 20–50%), license resell (2–5%), prof services (20–30%). (chat, 2026-08-27)
 
 ## Active threads
 
 - **Catalog ↔ Billing integration — requirements scoping.** Working session (2026-07-21) scoped the business scenarios / edge cases for syncing catalog changes into Billing. Three layers named: (1) catalog data model, (2) an intermediate proxy model in CREASHO that reshapes catalog data into Billing format, (3) business scenarios — this call targeted layer 3. Complexity clusters around **price changes** (transactional model mismatch, GAF/government products, price-upon-request, quote-only, repricing existing customers, per-customer fixed prices). Guidance from Speaker B: don't re-invent the existing working mapping — describe already-implemented scenarios high-level, write a detailed per-scenario flow table only for price changes. → next: Alex collects/structures everything, reviews fresh, returns to Speaker B for clarifications, then takes it to Zhenya (object model + field-level mapping owner). Owner: Mine. [call](calls/other/2026-07-21_180038_default_202607171304495CACCF1A.md)
   - _possible subproject: catalog↔billing integration? — promote to its own page on the next artifact._
+- **Pricing & unit economics — component cost allocation.** Approach recommended + adversarially verified 2026-08-27: allocate non-COGS costs at the highest causally-driven level ({category × component-type} cell or transaction), recover the rest via a required-margin stack; floor = COGS ÷ (1 − CtS% − acq% − OH% − profit%). Next: 4 data fixes + 8 required inputs, then compute the rate card. Owner: Mine. → [pricing-unit-economics.md](pricing-unit-economics.md)
+
+## Subprojects
+
+- [pricing-unit-economics](pricing-unit-economics.md) — component cost-allocation & pricing redesign; approach settled 2026-08-27, rate-card computation blocked on data fixes + inputs. Full recommendation: [pricing-cost-allocation-approach.md](pricing-cost-allocation-approach.md).
 
 ## People
 
