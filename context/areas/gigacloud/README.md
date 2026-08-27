@@ -1,6 +1,6 @@
 # GigaCloud — CPO
 
-_status: CPO role; two workstreams in flight — catalog ↔ Billing integration requirements + component-level cost-allocation & pricing redesign (approach settled 2026-08-27)_
+_status: CPO role; two workstreams in flight — catalog ↔ Billing integration requirements + component-level cost-allocation & pricing redesign (approach settled + action-plan deck built 2026-08-27)_
 _updated: 2026-08-27_
 
 > ⛔ **Internal-only area.** GigaCloud is never named in any external-facing artefact — CV, LinkedIn profile or DMs, outreach, applications, interviews, bios, generated drafts. In interviews this period is referred to only as "a fractional project helping a European tech company (infrastructure provider) build an AI-enabled org"; in writing, as "fractional product leader for agentic-AI B2B startups". Rule + rationale: [job-search/positioning.md](../job-search/positioning.md).
@@ -16,11 +16,11 @@ _updated: 2026-08-27_
 
 - **Catalog ↔ Billing integration — requirements scoping.** Working session (2026-07-21) scoped the business scenarios / edge cases for syncing catalog changes into Billing. Three layers named: (1) catalog data model, (2) an intermediate proxy model in CREASHO that reshapes catalog data into Billing format, (3) business scenarios — this call targeted layer 3. Complexity clusters around **price changes** (transactional model mismatch, GAF/government products, price-upon-request, quote-only, repricing existing customers, per-customer fixed prices). Guidance from Speaker B: don't re-invent the existing working mapping — describe already-implemented scenarios high-level, write a detailed per-scenario flow table only for price changes. → next: Alex collects/structures everything, reviews fresh, returns to Speaker B for clarifications, then takes it to Zhenya (object model + field-level mapping owner). Owner: Mine. [call](calls/other/2026-07-21_180038_default_202607171304495CACCF1A.md)
   - _possible subproject: catalog↔billing integration? — promote to its own page on the next artifact._
-- **Pricing & unit economics — component cost allocation.** Approach recommended + adversarially verified 2026-08-27: allocate non-COGS costs at the highest causally-driven level ({category × component-type} cell or transaction), recover the rest via a required-margin stack; floor = COGS ÷ (1 − CtS% − acq% − OH% − profit%). Next: 4 data fixes + 8 required inputs, then compute the rate card. Owner: Mine. → [pricing-unit-economics.md](pricing-unit-economics.md)
+- **Pricing & unit economics — component cost allocation.** Approach recommended + adversarially verified 2026-08-27: allocate non-COGS costs at the highest causally-driven level ({category × component-type} cell or transaction), recover the rest via a required-margin stack; floor = COGS ÷ (1 − CtS% − acq% − OH% − profit%). Stakeholder action-plan deck built same day (11 slides, UA, GigaCloud template; simplified 4-model taxonomy A–D per Alex's brief — deck lettering is canonical in conversations, see the subproject page's lettering note). Next: present the deck + department/finance alignment, in parallel with the 4 data fixes + 8 required inputs → rate card. Owner: Mine. → [pricing-unit-economics.md](pricing-unit-economics.md)
 
 ## Subprojects
 
-- [pricing-unit-economics](pricing-unit-economics.md) — component cost-allocation & pricing redesign; approach settled 2026-08-27, rate-card computation blocked on data fixes + inputs. Full recommendation: [pricing-cost-allocation-approach.md](pricing-cost-allocation-approach.md).
+- [pricing-unit-economics](pricing-unit-economics.md) — component cost-allocation & pricing redesign; approach settled + action-plan deck built 2026-08-27; rate-card computation blocked on data fixes + inputs. Full recommendation: [pricing-cost-allocation-approach.md](pricing-cost-allocation-approach.md).
 
 ## People
 
@@ -45,5 +45,6 @@ _updated: 2026-08-27_
 
 ## Activity
 
+- 2026-08-27 — [action-plan deck](pricing-unit-economics.md) — 11-slide UA deck for CFO/department alignment built from Alex's brief + Margin.xlsx (4-model taxonomy A–D, price stack, InfoSec P&L split, next steps). (chat)
 - 2026-08-27 — [pricing approach](pricing-cost-allocation-approach.md) — component cost-allocation & pricing approach designed and verified; new subproject page created. (chat)
 - 2026-07-21 — [catalog↔billing requirements](calls/other/2026-07-21_180038_default_202607171304495CACCF1A.md) — scoped the business scenarios/edge cases for automating the catalog→Billing sync; first GigaCloud product artifact in the OS.
