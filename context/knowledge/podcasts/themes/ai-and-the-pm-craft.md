@@ -2,7 +2,7 @@
 
 _status: live theme — how AI reshapes product management work, skills, workflows, and roles_
 _slug: ai-and-the-pm-craft_
-_updated: 2026-08-26 · 36 insights from 23 episodes — recluster (2026-08-25): split → vibe-coding-and-non-technical-builders (non-engineer/non-PM builders using AI as stepwise architect-engineer)_
+_updated: 2026-08-27 · 38 insights from 25 episodes — recluster (2026-08-25): split → vibe-coding-and-non-technical-builders (non-engineer/non-PM builders using AI as stepwise architect-engineer)_
 
 ## The throughline
 PMs and full-stack designers gain leverage in the coding-agent era because the gap between "knowing what to build" and "shipping it" collapses. The skill shift is from raw implementation to defining what to build, evaluating quality, and designing where humans and agents collaborate — Shipper bets PMs who "ride the models" out-ship engineers, and an OpenAI PM uses Codex to drive prototypes to 70–80% completion and replace PRDs with runnable artifacts. The same craft scales up the org chart: Customer.io's VP of Product rebuilds a third of an all-hands deck in a morning, but only by treating Claude like an eager junior — rolling context in, forcing clarifying questions, blocking premature deliverables — and the leader's residual value collapses to two choices: *which sources* (recordings, docs, metrics) and *which target form* (deck, Notion page, one-pager). The model-selection beat also sharpens: Fable's "seasoned engineer" verbosity wrecks PRDs, so pair Mythos-class models with cheaper Opus/Sonnet by task type. Ambrosino (OpenAI Codex) sharpens the picture from the supply side: when dozens of people inside a company can stand up polished prototypes from the same idea, implementation is no longer the bottleneck — *curation* is: deciding which of ~90 explorations to keep, fold together, or refine. The same abundance makes design and taste distinctly non-automatable: aesthetic judgment, novelty, and system-level UI coherence lack the grading signals needed to train models to generalize, so models copy patterns (Linear-clone proliferation) but cannot generate the novelty or cross-component semantic reasoning that defines good design. The operational kit that recurs: hyper-literal prompts, screenshots-as-examples, prototypes-not-PRDs, a beginner's mindset, and the discipline to restrain the model until the foundations are set — the non-engineer/non-PM version of this same builder pattern now lives in [Vibe Coding & Non-Technical Builders](vibe-coding-and-non-technical-builders.md).
@@ -183,6 +183,16 @@ Freshworks built an AI Product Development Life Cycle that runs 12 specialized p
 — Aakash Gupta · 2026-08-24 · guest: Srini Raghavan (Freshworks) · [▶ 8:02](https://www.youtube.com/watch?v=0qNZVlW8IR4&t=482) · `pi-0qNZVlW8IR4-02`
 related: [AI will collapse PM, UX, and engineering into a single product builder](#ai-will-collapse-pm-ux-and-engineering-into-a-single-product-builder) (same episode — this is the concrete tool behind that role-collapse claim) · theme → [Vibe Coding & Non-Technical Builders](vibe-coding-and-non-technical-builders.md) (this episode's non-engineer-prototyping insight, `pi-0qNZVlW8IR4-03`)
 
+### Pay for frontier models where upside is unbounded; cheap models for bounded tasks
+For roles or decisions with unbounded economic upside — product decisions, sales closures, high-impact engineering — it's rational to use the highest-quality (frontier) models because even a small IQ gain can be worth large outcomes. Conversely, bounded, precision-focused tasks like finance or close-the-books favor lower-cost open or specialized models where accuracy and predictable unit economics matter more than creative leaps.
+— a16z · 2026-08-26 · guest: — · [▶ 7:13](https://www.youtube.com/watch?v=zEZ0rQ8Ef-Y&t=433) · `pi-zEZ0rQ8Ef-Y-03`
+related: [Use the right Claude model: Haiku for volume, Sonnet for most PM work, Opus for edge-case reasoning](#use-the-right-claude-model-haiku-for-volume-sonnet-for-most-pm-work-opus-for-edge-case-reasoning) (same task-fit model-selection principle, here framed as an upside-bounded-vs-unbounded rule rather than a per-tier task list)
+
+### Top quant models are opaque but human intuition still provides an edge (inferred fit)
+High-performing quant strategies rely on high-dimensional, nonlinear feature combinations that can be effectively predictive even if individual model decisions are hard for humans to parse. The speaker notes the dimensionality is "way past what a human mind can can understand," yet argues humans retain an edge in low-prior or novel situations and that machines amplify human-first principles rather than fully replace them. The takeaway: expect a hybrid where LLMs and neural models expand capabilities while human judgment remains crucial for fuzzier decisions.
+— Every · 2026-08-26 · guest: — · [▶ 51:44](https://www.youtube.com/watch?v=IfL_OY-wRBM&t=3104) · `pi-IfL_OY-wRBM-05`
+related: (inferred fit) [Memorized knowledge remains faster than asking an AI agent](#memorized-knowledge-remains-faster-than-asking-an-ai-agent) (same human-judgment-resists-substitution instinct, here in a quant-finance decision-making context)
+
 ## Related themes
 - [AI agents & applications](ai-agents-and-applications.md) — the surfaces PMs build in
 - [Leadership, careers & teams](leadership-careers-and-teams.md) — how the manager/IC mix is shifting alongside
@@ -190,6 +200,8 @@ related: [AI will collapse PM, UX, and engineering into a single product builder
 - [Vibe Coding & Non-Technical Builders](vibe-coding-and-non-technical-builders.md) — child theme; split off 2026-08-25. The non-engineer/non-PM builder pattern (hobbyists, ops/consulting staff, editorial teams, makers) moved there; PM-specific AI craft stays here.
 
 ## Source episodes
+- [a16z — The State of AI: Models, Moats, and the Consumer Renaissance (2026-08-26)](../episodes/2026/2026-08-26--a16z--the-state-of-ai-models-moats-consumer-renaissance.md)
+- [Every — Why This $10B Hedge Fund Made AI Training Mandatory (Best of the Pod) (2026-08-26)](../episodes/2026/2026-08-26--every--why-10b-hedge-fund-made-ai-training-mandatory.md)
 - [Aakash Gupta — Product Managers will be replaced by Product Builders -$3.4B CPO, Srini Raghavan (Freshworks) (2026-08-24)](../episodes/2026/2026-08-24--aakash--product-managers-will-be-replaced-by-product-builders.md)
 - [Y Combinator — How To Design In The Agent Era (2026-08-07)](../episodes/2026/2026-08-07--yc--how-to-design-in-the-agent-era.md)
 - [Aakash Gupta — Use these skills to supercharge your claude code setup | Oji Udezue | 3x CPO (2026-08-07)](../episodes/2026/2026-08-07--aakash--use-these-skills-to-supercharge-claude-code.md)
