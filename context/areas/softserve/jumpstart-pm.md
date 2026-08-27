@@ -52,6 +52,8 @@ _updated: 2026-08-27_
 ## Open loops
 
 Mine:
+- **Share the Work OS repo with the R&D product team** so members can clone it, test it against invented customers and send feedback — Inna asked directly; which repo (the Payworks demo build with mock data vs. the clean `SoftServe-Work-OS` template) and what access they need was not settled. [demo](calls/jumpstart-pm/2026-08-27_202539_default_pasted-workos-rnd-demo.md)
+- **Hold the internal-adoption session with Leonid Pavlovskyi + Vladyslav Butenko next week** (week of 2026-08-31) — turn "it's on our backlog" into a plan for running the Work OS inside SoftServe: owner, pilot team, which repo. [demo](calls/jumpstart-pm/2026-08-27_202539_default_pasted-workos-rnd-demo.md)
 - Design the **post-Jumpstart tail with Inna** — pick among the three models (0.25 FTE expert support / packaged managed service / IP-transfer subscription) and settle where it sits against the DevOps Managed Service L2/L3 layers. [1:1 2026-08-18](calls/2026-08-18_141300_one-on-one_20260818132936005C1280.md)
 - Prepare (with Inna) the **fuller-than-two-pager doc + directional pricing** for the DAX CPO/CTO pitch call next week (~within 1–2 weeks). [sales call](calls/jumpstart-pm/2026-07-30_132405_sales-call_2026072717330524296792.md)
 - Review the 2-page program outline (swap the footer's softserveinc.com for an internal alias if one exists), then send the program draft to the team (evening Jul 14 / Jul 15). [sync](calls/jumpstart-pm/2026-07-14_194924_sales-call_2026071417472224FB611D.md) + (chat, 2026-07-14)
@@ -60,12 +62,14 @@ Mine:
 - Review the **AI PM Jumpstart Light** deck (2026-07-31): confirm the tier name, the per-week integration lists added to the sheet's blank cell, and whether the Discovery+Definition week's skill-group list should carry the two Discovery groups the deck assumes. (chat, 2026-07-31)
 
 Theirs:
+- **Inna** — clone the Work OS repo once shared, test it against made-up customers, and come back with feedback. [demo](calls/jumpstart-pm/2026-08-27_202539_default_pasted-workos-rnd-demo.md)
 - **GI Partners buyer** — reply-all to bring in Sean Turner + get DAX's CPO/CTO (Wes Gillett, Pat Harper) on a pitch call next week; make intros to up to 6 portfolio companies within ~2 weeks. [sales call](calls/jumpstart-pm/2026-07-30_132405_sales-call_2026072717330524296792.md)
 - Inna — share the PM-program one-pager over email; check completed customers' NDA status to arrange a **reference call** with a GI-lookalike customer.
 - Inna: check with Bogdan whether the DAX project folder + proposals can be shared with Alex.
 
 ## Activity
 
+- 2026-08-27 — [Work OS demoed to the R&D product team](calls/jumpstart-pm/2026-08-27_202539_default_pasted-workos-rnd-demo.md) — the Payworks build shown internally (user/OS-admin split, Git-level rights + gated files with enforced acknowledgement, initiative-centric context repo); Q&A exposed the two productization gaps — Claude Code-only (GitHub + Azure Repos both fine, Codex out of scope) and no usage analytics (Payworks measured on token usage + Git activity; per-user skill analytics for the OS admin on the roadmap); Alex pushed internal SoftServe adoption and asked for a planning session next week.
 - 2026-08-18 — [Post-Jumpstart "tail" opened in the 1:1](calls/2026-08-18_141300_one-on-one_20260818132936005C1280.md) — turning one-time Jumpstart delivery into a subscription / managed service / IP-transfer model (~$5–8k/mo); to be designed with Inna, with the concept currently unowned at company and delivery-unit level.
 - 2026-08-13 — Payworks split out (chat, 2026-08-13) — the Payworks delivery became its own subproject, [payworks-jumpstart](payworks-jumpstart.md), with its own `calls/payworks-jumpstart/` sub-context; this page keeps the offering design (three tiers, pipeline, GTM) and the DAX/GI Partners pitch track.
 - 2026-07-31 — AI PM Jumpstart Light deck (chat, 2026-07-31) — third program tier built for the Payworks delivery: W1 discovery + 3 delivery weeks, W4 closing with demo & Q&A + success metrics + next steps; 4 blocks / 14 skill groups, from Alex's Google-Sheet draft on the Express deck's SoftServe template; adds a chatbot-vs-work-agent tech-defence slide and a per-week context/integrations slide (the Discovery+Definition week's integrations, blank in the draft, filled from the sheet's own use-case inventory). In Alex's review.
