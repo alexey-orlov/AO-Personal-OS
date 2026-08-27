@@ -1,6 +1,6 @@
 # Pricing & unit economics — component cost allocation
 
-_status: approach recommended + verified (2026-08-27); next = data fixes + collecting the 8 required inputs, then compute the rate card_
+_status: v4 model done (2026-08-27) — full P&L expense-attribution table + 23-item TODO; challenged by 4 independent reviews and fixed; next = Alex runs the TODO (collect 1–6, fix 7–12, structure 13–17, calculate 18–23)_
 _updated: 2026-08-27_
 
 ## Snapshot
@@ -31,6 +31,8 @@ _updated: 2026-08-27_
 - Mine — collect the 8 required inputs (see the [recommendation doc](pricing-cost-allocation-approach.md#required-inputs-to-compute-the-rate-card)); CFO decisions needed on GM band per cell + transition-shortfall treatment.
 
 ## Activity
+
+- 2026-08-27 — [v4](pricing-cost-allocation-approach.md) — added the real Q2-2026 P&L (₴216.7M revenue, EBITDA 37%), org chart and billing-group revenue from the CFO workbook; produced the full expense-line × attribution-class table + 23-item TODO. Headline finding: ~₴27M/q of hardware cost (амортизація + лізинг) sits below EBITDA — true GM ≈ 51%, not 64%. Four challenge reviews applied: two-price system (economic floor vs target price), utilization-based costing for pooled platforms, resell exemption narrowed (carries directly-caused costs; vendor rebates net into COGS), customer-profitability step added. (chat)
 
 - 2026-08-27 — [recommendation](pricing-cost-allocation-approach.md) rewritten in plain language with worked examples on 4 real components (Private Server node, Public Cloud vCPU, AI Impl. Engineer hour, M365 BS monthly) + straight answers to the 1-yr-budget-vs-4-yr-lifetime and product-pool→components questions; second adversarial pass applied (EPMU relabel, capacity wording, M365 floor/target labels; the claimed acquisition-formula "blocker" was re-derived and rejected — the formula recovers the pool exactly). Findings: node and vCPU price below illustrative floors (~9.6%/11.1% implied profit vs 20% target); AI-engineer hour clears 30% GM only if COGS is per-billable-hour; M365 catalog margins 6.4–9% vs the cost sheet's stated 2–5%. (chat)
 - 2026-08-27 — [recommendation](pricing-cost-allocation-approach.md) — cost-allocation & pricing approach designed and adversarially verified; catalog exports + cost-center sheet profiled. (chat)
