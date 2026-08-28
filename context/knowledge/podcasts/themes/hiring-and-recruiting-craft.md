@@ -2,7 +2,7 @@
 
 _status: live theme — sourcing, screening, deciding, and closing talent in the AI era_
 _slug: hiring-and-recruiting-craft_
-_updated: 2026-08-26 · 14 insights from 9 episodes_
+_updated: 2026-08-28 · 15 insights from 10 episodes_
 
 ## The throughline
 Across five founders/talent leaders, the craft of hiring splits into distinct, addressable stages: sourcing (Snowflake/Lemkin promote existing internal 'tool nerds' into new roles rather than posting externally; Ward scopes a targeted top-1% list and relentlessly courts it rather than trusting a passive funnel), screening (Hodak distributes top-of-funnel judgment across 7-8 employee voters and uses AI-resistant homework scored on objective metrics; Ward leans on long work-sample trials as the strongest predictor of on-the-job success), deciding (Datadog's Pomel and Encord both argue for hiring and firing fast — act on early signal rather than rationalizing sunk cost), and closing (Ward treats closing as a continuous, team-orchestrated process — daily standups, personalized rituals — not a single offer-stage sales pitch). Two structural claims cut across all of this: recruiting itself deserves strategic, well-compensated ownership rather than being treated as scheduling overhead (Ward), and simple cultural filters — like PhotoRoom's English-fluency requirement — can proxy for harder-to-screen traits like global ambition. Hodak's continuous peer-weighted review (IGEN) extends the same distribute-and-quantify-judgment logic from hiring into ongoing performance management.
@@ -77,11 +77,17 @@ Legora abandoned chasing fancy logos on CVs and instead prioritized candidates w
 — Y Combinator · 2026-08-25 · guest: Max Junestrand (Legora) · [▶ 17:58](https://www.youtube.com/watch?v=o0ORPbSEgd8&t=1078) · `pi-o0ORPbSEgd8-03`
 related: theme → [Founders & fundraising](founders-and-fundraising.md) (this episode's domain-expertise and sales-freeze insights, `pi-o0ORPbSEgd8-01,04`)
 
+### Have figured out how to do talent via acquisition
+Cursor used targeted acquisitions primarily as a talent strategy—buying teams and founders who fit its culture and slotting them into high-leverage roles—because talent is scarce and founder-execs accelerate execution. Examples discussed include integrating founders like Tito and Adam Ward and larger deals such as Graphite, which shifted acquisitions toward strategic capability, not just hires. The approach reduced time-to-hire, brought complementary product and go-to-market skills, and was treated as an operational lever rather than an afterthought.
+— a16z · 2026-08-27 · guest: — · [▶ 35:39](https://www.youtube.com/watch?v=GHrnbvkVPZA&t=2139) · `pi-GHrnbvkVPZA-04`
+related: [Treat every hire like an executive search for the top 1%](#treat-every-hire-like-an-executive-search-for-the-top-1) (same company, Ward's own execution of the acquisition-sourced talent Cursor recruits around) · theme → [Founders & fundraising](founders-and-fundraising.md) (same episode's competitive-resilience insight, `pi-GHrnbvkVPZA-03`)
+
 ## Related themes
 - [Leadership, careers & teams](leadership-careers-and-teams.md) — parent theme; split off 2026-08-11. Org design, role-fluidity, and manager-effectiveness threads stay there.
 - [Founders & fundraising](founders-and-fundraising.md) — ambition/culture threads that intersect with hiring filters (PhotoRoom)
 
 ## Source episodes
+- [a16z — Inside Cursor: The Anatomy of a Generational Startup (2026-08-27)](../episodes/2026/2026-08-27--a16z--inside-cursor-anatomy-of-a-generational-startup.md)
 - [Y Combinator — Max Junestrand: You Need The Willingness To Learn Faster Than Anyone Else (2026-08-25)](../episodes/2026/2026-08-25--yc--max-junestrand-willingness-to-learn-faster.md)
 - [How I AI — How I manage 15 AI agents 24/7 as a solo founder | Ryan Carson (2026-08-24)](../episodes/2026/2026-08-24--howiai--how-i-manage-15-ai-agents-247-solo-founder.md)
 - [Lenny's Podcast — The playbook for building high talent density teams | Adam Ward, Head of Talent at Cursor (2026-08-09)](../episodes/2026/2026-08-09--lenny--playbook-for-building-high-talent-density-teams.md)
