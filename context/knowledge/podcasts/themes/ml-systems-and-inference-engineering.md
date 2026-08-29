@@ -2,7 +2,7 @@
 
 _status: live theme — the hands-on engineering layer beneath AI capability gains: decoding algorithms, GPU kernels, heterogeneous inference hardware, hardware/software co-design for speed and energy efficiency_
 _slug: ml-systems-and-inference-engineering_
-_updated: 2026-08-25 · 10 insights from 3 episodes_
+_updated: 2026-08-28 · 11 insights from 4 episodes_
 
 ## The throughline
 Two YC Paper Club sessions and a Jeff Dean interview lay out the stack from algorithm down to silicon. At the algorithm layer, speculative decoding variants (SSD) and diffusion-based planners (Diffusion MPC) trade extra compute for lower latency and fewer compounding errors, while regularizers (Sigg) and ensembling/distillation recipes buy outsized data and parameter efficiency when data or model size is constrained — the throughline being that inference speed is itself a capability, not just a cost line. At the systems layer, multi-GPU kernel design comes down to a handful of concrete trade-offs (transfer mechanism, comms/compute scheduling, buffer overhead), inference splits into heterogeneous phases (compute-bound prefill vs. bandwidth-bound decode) that want different accelerators, and whole RL simulators can be moved onto the GPU for 10–100× throughput gains. At the hardware layer, Jeff Dean's TPU history makes the underlying economics explicit: purpose-built low-precision chips beat general-purpose ones by 30–80× on energy and 20–30× on latency, and the deeper reason is that moving data costs roughly 1,000× more energy than operating on it — so most "model" problems that look intractable are actually I/O or power problems in disguise.
@@ -51,10 +51,16 @@ Moving data into the processor can consume roughly 1,000× more energy than doin
 — Y Combinator · 2026-07-30 · guest: Jeff Dean (Google) · [▶ 12:21](https://www.youtube.com/watch?v=CxXgV54KzpQ&t=741) · `pi-CxXgV54KzpQ-02`
 related: [Specialized inference hardware massively cuts latency and energy](#specialized-inference-hardware-massively-cuts-latency-and-energy) (same episode, hardware co-design vs. data-movement framing of the same systems-engineering thesis)
 
+### Per‑model ASICs are now economically sensible for frontier models
+Training a frontier model costs on the order of $3–5B and inference must pay back many billions, so a 20% efficiency improvement can justify a multi‑hundred‑million to billion‑dollar ASIC design. The discussion lays out the math: if inference needs to generate ~$10B in value, saving 20% equals ~$2B — enough to fund an application‑specific chip — and models are relatively stable artifacts (fixed weights), making bespoke silicon a rational investment. That changes the hardware economics: model providers and specialized chipmakers can capture outsized returns by optimizing tokens‑per‑dollar or tokens‑per‑watt for specific model architectures.
+— a16z · 2026-08-28 · guest: — · [▶ 26:48](https://www.youtube.com/watch?v=Zx1Ec8LWFeM&t=1608) · `pi-Zx1Ec8LWFeM-05`
+related: [Specialized inference hardware massively cuts latency and energy](#specialized-inference-hardware-massively-cuts-latency-and-energy) (Jeff Dean's TPU-generation case is the historical precedent for this per-model-ASIC economics argument) · theme → [Tech frontier & abundance](tech-frontier-and-abundance.md) (the same episode's capex and supply-constraint insights, `pi-Zx1Ec8LWFeM-01..02`)
+
 ## Related themes
 - [Tech frontier & abundance](tech-frontier-and-abundance.md) — parent theme; split off 2026-08-25. The macro capability/compute/energy narrative (labs, benchmarks, AGI timelines, grid buildout, longevity, space) stays there; this page holds the hands-on decoding-algorithm/kernel/hardware-co-design layer beneath it.
 
 ## Source episodes
+- [a16z — Why Top Founders Are Racing Into AI Infrastructure (2026-08-28)](../episodes/2026/2026-08-28--a16z--top-founders-racing-into-ai-infrastructure.md)
 - [Y Combinator — Jeff Dean: The 1% Rule for Building in AI (2026-07-30)](../episodes/2026/2026-07-30--yc--jeff-dean-the-1-rule-for-building-in-ai.md)
 - [Y Combinator — Multi-GPU Kernels, Intelligence per Watt, Heterogeneous Inference, and More | YC Paper Club (2026-07-29)](../episodes/2026/2026-07-29--yc--multi-gpu-kernels-intelligence-per-watt-paper-club.md)
 - [Y Combinator — Inference, Diffusion, World Models, and More | YC Paper Club (2026-05-29)](../episodes/2026/2026-05-29--yc--inference-diffusion-world-models-paper-club.md)
