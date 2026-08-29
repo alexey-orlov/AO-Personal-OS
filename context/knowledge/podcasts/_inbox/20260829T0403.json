@@ -1,0 +1,179 @@
+{
+  "schema": 1,
+  "generatedAt": "2026-08-29T04:03:23.549Z",
+  "runStamp": "20260829T0403",
+  "episodes": [
+    {
+      "videoId": "0mOXQ4_kY04",
+      "videoTitle": "Sam Altman: Singularity Slow-Down, Emad Runs 18 Grokbots, Waymo Slashes Hardware 83% | EP #283",
+      "videoUrl": "https://www.youtube.com/watch?v=0mOXQ4_kY04",
+      "channelName": "Peter H. Diamandis",
+      "publishedDate": "2026-08-27",
+      "guests": [],
+      "summary": "Panelists review a week of AI and space news and argue the story is less about a single \"singularity\" event and more about how capability races collide with slow institutions. Key threads: Sam Altman's public reassessment that deployment will be slower than early forecasts; agentic AIs (Grockbot) creating a new form of persistent labor; and intense commercial pressure from cheaper Chinese open‑weight models that is forcing US labs and infra players to vertically integrate. The throughline is that technical progress is rapid, but adoption, governance, and organizational design determine where value and disruption actually land.",
+      "insights": [
+        {
+          "headline": "The \"singularity\" is slowing because economic and institutional inertia matters",
+          "detail": "Sam Altman publicly acknowledged he overestimated the speed of disruption: models advanced quickly but adoption has been blunted by buying habits, regulatory lag, organizational routines and abstraction layers that keep visible work looking familiar. Panelists add that this is why disruption looks like a rising tide rather than a sudden step change — institutions and the abstraction stack (e.g., how software and user interfaces are layered) absorb and delay technical change. That matters because accurate timelines shift policy, investment and the strategies frontier firms choose (vertical integration vs. pure‑play models).",
+          "anchorQuote": "the economy just has so much inertia",
+          "tSeconds": 585,
+          "link": "https://www.youtube.com/watch?v=0mOXQ4_kY04&t=585"
+        },
+        {
+          "headline": "Agentic AIs like Grockbot create a new, persistent form of digital labor",
+          "detail": "Grockbot runs many dedicated cloud agents that can control browsers, terminals and even other machines; users described fleets (one panelist runs 18) where sub‑agents coordinate and only escalate to humans for judgment calls. This converts AI from a question/answer tool into staff‑on‑demand that reduces coordination and recruiting costs but forces companies to redesign org charts, reporting and governance to manage massively parallel autonomous workers. The shift matters because it changes the human role from executor to overseer — and creates a new category of product and revenue for labs that provide persistent agent infrastructure.",
+          "anchorQuote": "you're you're making a transition from asking an AI to assigning work",
+          "tSeconds": 1457,
+          "link": "https://www.youtube.com/watch?v=0mOXQ4_kY04&t=1457"
+        },
+        {
+          "headline": "Cheap, capable Chinese open‑weight models are eating market share from the bottom up",
+          "detail": "Panelists point to new Chinese models (GLM, Kimmy variants) and Moonshot AI's Kimmy linear innovations (75% less context memory, 6x faster decoding) as examples that deliver similar practical performance at a fraction of cost. The Financial Times evidence cited shows frontier commercial models (e.g., Fable 5) plateauing because buyers prefer much cheaper alternatives that give 80–95% of capability for far lower inference fees. The economic implication: U.S. frontier labs face pricing pressure that pushes them to seek captured value via verticalization (chips, data centers, hosting) or to subsidize compute with large capital raises.",
+          "anchorQuote": "Cheaper Chinese ope models are eating the market from bottom up",
+          "tSeconds": 3350,
+          "link": "https://www.youtube.com/watch?v=0mOXQ4_kY04&t=3350"
+        },
+        {
+          "headline": "AI is increasing human work because humans become the bottleneck for judgment",
+          "detail": "A Wall Street Journal synthesis and multiple panel anecdotes show agents multiply outputs (more reports, suggestions, code), which then require human review, decisions and oversight — e.g., founders who managed five tasks now manage dozens of agent outputs. This flips the expected productivity dividend: execution is automated but attention and governance demand increase, so organizations must build permission, escalation and auditing systems rather than expect lower human labor hours. The consequence is widespread cognitive overload and a shift in hiring/training priorities toward judgment and orchestration skills.",
+          "anchorQuote": "AI is making us work harder at a level like never before",
+          "tSeconds": 4810,
+          "link": "https://www.youtube.com/watch?v=0mOXQ4_kY04&t=4810"
+        },
+        {
+          "headline": "Waymo (Whimo in transcript) cut autonomy hardware costs ~83%, making robo‑taxis far more economical",
+          "detail": "Waymo unveiled a 5nm custom chip and a hardware redesign that reduces its sixth‑generation autonomy hardware bill from about $115,000 to $20,000 and pairs that with a lower‑cost vehicle ($75k versus prior $200k+). The system reduces sensor count while increasing per‑sensor resolution and integrates heaters/wipers into sensor pods to improve real‑world performance. That dramatic cost reduction materializes the economics of robo‑taxis and accelerates fleets' path to scale because capital and per‑vehicle sensor costs were previously the largest barriers.",
+          "anchorQuote": "Helping slash their sixth generation autonomous driving hardware costs from 115,000 to 20,000",
+          "tSeconds": 5972,
+          "link": "https://www.youtube.com/watch?v=0mOXQ4_kY04&t=5972"
+        }
+      ]
+    },
+    {
+      "videoId": "zw0ww0exUe8",
+      "videoTitle": "Who Owns Your Data Now? Agents vs. Systems of Record on The Agents #013",
+      "videoUrl": "https://www.youtube.com/watch?v=zw0ww0exUe8",
+      "channelName": "SaaStr AI",
+      "publishedDate": "2026-08-28",
+      "guests": [],
+      "summary": "The conversation examines how AI agents are beginning to own customer interactions and data, potentially supplanting traditional systems of record like CRMs. Using examples (Podium vs ServiceTitan and the hosts' own headless Salesforce stack), the hosts argue this shift creates huge new data volumes, alters vendor economics, and enables scalable, personalized workflows (like automated renewal decks). They show both the technical opportunity and the commercial friction as vendors reprice API access and customers rethink where data lives.",
+      "insights": [
+        {
+          "headline": "Agents can become the system of record, displacing CRMs",
+          "detail": "Agents now do more than capture leads: they converse with customers, schedule work, track field visits, and can persist those interactions as authoritative records. The Podium–ServiceTitan example shows an agent platform effectively owning the customer lifecycle and provoking ServiceTitan to restrict data access; Podium had become “agentic” and generated substantial revenue before being cut off. This matters because when agents hold the interaction history, the traditional CRM loses its central role and vendors must rethink data ownership and integration policies.",
+          "anchorQuote": "it could even share that record and become the system of record",
+          "tSeconds": 211,
+          "link": "https://www.youtube.com/watch?v=zw0ww0exUe8&t=211"
+        },
+        {
+          "headline": "Agent activity can explode CRM data costs a thousandfold",
+          "detail": "Agent-driven automation generates far more stored interactions than pre-agent workflows, producing huge tables of records (example: a migration produced 40GB and Claude estimated 21 million records). The hosts note that moving that data to a Postgres-style store would be roughly 1,000x cheaper, and warn that agents could produce 100x more data per year than before. The non-obvious consequence: keeping all agent data in legacy, expensive systems of record becomes economically unsustainable and forces architectural re-evaluation.",
+          "anchorQuote": "if we moved it to Postgress it would be a thousandx cheaper",
+          "tSeconds": 517,
+          "link": "https://www.youtube.com/watch?v=zw0ww0exUe8&t=517"
+        },
+        {
+          "headline": "Headless CRM plus agents automates hyper-personalized renewals at scale",
+          "detail": "By running Salesforce 'headless' and connecting agents to email, social APIs, event systems (Bisbo), and a deck generator (Gamma), the team built a renewal agent that assembles contracts, engagement history, social mentions, and email threads to produce custom renewal decks. That single agent produced ~30 tailored decks in days—work that previously would only be done for top-tier accounts—leading to higher engagement from smaller sponsors. The result shows agents can democratize high-quality, account-specific outreach without manual effort.",
+          "anchorQuote": "we created a a mini renewal agent",
+          "tSeconds": 1129,
+          "link": "https://www.youtube.com/watch?v=zw0ww0exUe8&t=1129"
+        },
+        {
+          "headline": "Ratcheting API/data prices will drive customers off vendor platforms",
+          "detail": "Vendors responding to falling seat revenue by increasing API access fees risk accelerating customer migration: as agents create vastly more data, customers won't accept dramatically higher charges to use or extract their own data. The hosts argue this is a 'self-inflicted wound'—if platform vendors raise API costs while data volumes explode, customers will move data to cheaper stores or bypass vendor APIs entirely, creating synchronization and control problems for vendors.",
+          "anchorQuote": "they jack up the price for access",
+          "tSeconds": 756,
+          "link": "https://www.youtube.com/watch?v=zw0ww0exUe8&t=756"
+        }
+      ]
+    },
+    {
+      "videoId": "Zx1Ec8LWFeM",
+      "videoTitle": "Why Top Founders Are Racing Into AI Infrastructure",
+      "videoUrl": "https://www.youtube.com/watch?v=Zx1Ec8LWFeM",
+      "channelName": "a16z",
+      "publishedDate": "2026-08-28",
+      "guests": [],
+      "summary": "A group of investors and operators explain why founders are pouring into AI infrastructure: demand for compute, memory and power is exploding and the existing stack was not designed for today's token‑hungry models. The discussion argues that physical bottlenecks (chips, memory, datacenters, power, cooling) create both a sustained shortage and large opportunities for specialized startups that rethink hardware, systems and facilities. They show how economics have shifted—training frontier models costs billions so bespoke ASICs, new cooling and power architectures, and novel systems software now make commercial sense.",
+      "insights": [
+        {
+          "headline": "Hyperscalers are spending at trillion‑dollar scale on compute",
+          "detail": "Leading cloud providers have dramatically increased capital spending and are seeing demand across frontier labs, AI native companies and enterprise customers — a visible signal that demand is real and persistent. The panel cites capex rising from roughly $700B this year toward a collective ~$1T next year, and notes GPUs and memory are already selling at premiums and being resold, which demonstrates demand outpacing supply. That spending cadence validates a multiyear procurement boom that underpins long lead times for infrastructure.",
+          "anchorQuote": "it's going to reach a trillion dollars collectively",
+          "tSeconds": 290,
+          "link": "https://www.youtube.com/watch?v=Zx1Ec8LWFeM&t=290"
+        },
+        {
+          "headline": "Core AI supply is booked out years; many components are unavailable",
+          "detail": "Across the stack — GPUs, memory, power and cooling capacity — supply is effectively committed for several years, with customers pre‑booking capacity through 2027–2028. The speakers point to multi‑day GPU auctions, vendors saying current demand will take three years of capacity to satisfy, and providers reselling hardware at multiples, indicating systemic scarcity. That long booking horizon forces startups and incumbents to rethink procurement, design for availability, or locate capacity in alternative countries.",
+          "anchorQuote": "it's basically all booked out to 2028",
+          "tSeconds": 372,
+          "link": "https://www.youtube.com/watch?v=Zx1Ec8LWFeM&t=372"
+        },
+        {
+          "headline": "AI bottlenecks are physical — power, cooling, and facility design",
+          "detail": "AI workloads drive rack densities from ~5–10 kW to tens or hundreds of kilowatts, necessitating liquid cooling, DC/800V power, thicker walls, different floor loads and new electrical expertise. The panel explains that air cooling and traditional AC power won't scale, electricians certified on DC power are scarce, and data center designs (noise, water use, grid interaction) must change — creating product and service opportunities across facilities, power generation, and construction. These constraints make scaling compute a civil‑engineering and grid planning problem as much as a chip problem.",
+          "anchorQuote": "we're out of power and cooling",
+          "tSeconds": 561,
+          "link": "https://www.youtube.com/watch?v=Zx1Ec8LWFeM&t=561"
+        },
+        {
+          "headline": "AI improves by consuming more AI — token demand compounds indefinitely",
+          "detail": "Modern scaling (chain‑of‑thought, RL, agents) increases tokens per task by orders of magnitude, and many progress paths use more inference rather than less engineering, so compute consumption grows compositely. The panel frames this as an autocatalytic effect: better models enable more and heavier AI use (including AI building AI), which raises token consumption and sustains demand for more infrastructure. That explains why demand is not expected to plateau soon and why supply must be built for decades, not quarters.",
+          "anchorQuote": "AI's answer to getting better and better is to use more AI",
+          "tSeconds": 938,
+          "link": "https://www.youtube.com/watch?v=Zx1Ec8LWFeM&t=938"
+        },
+        {
+          "headline": "Per‑model ASICs are now economically sensible for frontier models",
+          "detail": "Training a frontier model costs on the order of $3–5B and inference must pay back many billions, so a 20% efficiency improvement can justify a multi‑hundred‑million to billion‑dollar ASIC design. The discussion lays out the math: if inference needs to generate ~$10B in value, saving 20% equals ~$2B — enough to fund an application‑specific chip — and models are relatively stable artifacts (fixed weights), making bespoke silicon a rational investment. That changes the hardware economics: model providers and specialized chipmakers can capture outsized returns by optimizing tokens‑per‑dollar or tokens‑per‑watt for specific model architectures.",
+          "anchorQuote": "to build a frontier model costs let's say $3 to5 billion",
+          "tSeconds": 1608,
+          "link": "https://www.youtube.com/watch?v=Zx1Ec8LWFeM&t=1608"
+        }
+      ]
+    },
+    {
+      "videoId": "zocznD8Z-6k",
+      "videoTitle": "How to build a Company Operating System with Hermes and OpenClaw",
+      "videoUrl": "https://www.youtube.com/watch?v=zocznD8Z-6k",
+      "channelName": "Aakash Gupta",
+      "publishedDate": "2026-08-28",
+      "guests": [
+        "Mikail (CPO, previously Bolt and Yandex)"
+      ],
+      "summary": "A CPO describes how his company built an internal \"company operating system\": an agentic knowledge graph + tools (OpenClaw + Hermes) that captures meetings, documents, contacts and metrics to let AI autonomously handle status, stakeholder gating, scheduling, prototypes and hiring work. The central argument: digitize organizational context into layered memory and agentic skills so AI can safely take on routine processes, freeing PMs to focus on discovery and strategic work while enabling faster iteration and measurable recall/accuracy gains.",
+      "insights": [
+        {
+          "headline": "A single digitized company knowledge store lets AI act like a junior PM",
+          "detail": "They built a knowledge graph in about five months that links products, teams, contacts, projects and funnel metrics; the team measures \"product context coverage\" (currently ~54%) and treats it as a KPI. At ~50% the agent can operate as a capable junior product manager (make backlog decisions); at ~70–90% they expect it to start assisting strategy-level decisions—so coverage is both a quality and delegation metric that directly maps to autonomy you can give the AI.",
+          "anchorQuote": "single storage of this entire business, customer product",
+          "tSeconds": 206,
+          "link": "https://www.youtube.com/watch?v=zocznD8Z-6k&t=206"
+        },
+        {
+          "headline": "The CPO must own the agentic operating system, not engineering or IT",
+          "detail": "Owning the agent lets the CPO iterate rules, imperatives and behavior quickly and ensures the agent impacts product decisions and business outcomes rather than becoming a slow engineering project. He argues this ownership speeds iteration and preserves product accountability—delegating ownership to an ops team costs speed and reduces organizational impact—so the CPO should treat the OS as a core product.",
+          "anchorQuote": "you should own this for two reasons",
+          "tSeconds": 1287,
+          "link": "https://www.youtube.com/watch?v=zocznD8Z-6k&t=1287"
+        },
+        {
+          "headline": "Automatically generated \"skills\" (Hermes) raised answer accuracy by 31%",
+          "detail": "They combined OpenClaw (scaffolding) with Hermes because Hermes auto-creates skills from frequent tasks; in A/B tests across five topic areas adding those skills improved recall/accuracy by ~31%. That made previously fuzzy retrievals and task-specific responses substantially more reliable, turning repeated patterns (hiring, board feedback, case building) into first-class agent capabilities.",
+          "anchorQuote": "it was way more accurate in responding using those skills by 31%",
+          "tSeconds": 1404,
+          "link": "https://www.youtube.com/watch?v=zocznD8Z-6k&t=1404"
+        },
+        {
+          "headline": "Store raw transcripts + vectors (not summaries) to maximize retrieval fidelity",
+          "detail": "They use a three-layer memory: knowledge graph, vector DB (for fuzzy retrieval), and raw conversation transcripts. Empirically, summarizing/transmuting transcripts reduced recall and lost nuance—\"summarization actually hurts retrieval\"—so they keep raw MD transcripts to preserve granular detail and improve matching for ambiguous queries.",
+          "anchorQuote": "it turns out that summarization actually hurts a retrieval",
+          "tSeconds": 1563,
+          "link": "https://www.youtube.com/watch?v=zocznD8Z-6k&t=1563"
+        }
+      ]
+    }
+  ]
+}
