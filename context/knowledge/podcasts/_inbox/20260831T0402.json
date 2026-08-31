@@ -1,0 +1,101 @@
+{
+  "schema": 1,
+  "generatedAt": "2026-08-31T04:02:00.756Z",
+  "runStamp": "20260831T0402",
+  "episodes": [
+    {
+      "videoId": "zMvBMfj4cSQ",
+      "videoTitle": "AI’s third era: the rise of persistent AI coworkers | Tara Seshan (OpenAI’s product lead)",
+      "videoUrl": "https://www.youtube.com/watch?v=zMvBMfj4cSQ",
+      "channelName": "Lenny's Podcast",
+      "publishedDate": "2026-08-30",
+      "guests": [
+        "Tara Seshan (OpenAI product lead)"
+      ],
+      "summary": "Tara Seshan explains how AI is entering a third era where persistent agents become co‑workers, shifting knowledge work from doing to directing. She argues product teams must move faster, build for rapidly improving models, and redesign interfaces so humans can verify process and reasoning — not just check outputs.",
+      "insights": [
+        {
+          "headline": "Agents will replace rowing; humans will steer strategy",
+          "detail": "Tara argues the future of work will be 'steering' while agents do the repetitive 'rowing': persistent, collaborative agents will run tasks, surface results, and iterate autonomously while people set goals, opinions, and direction. She describes a co‑worker model where your agent works locally or in the cloud, syncs with teammates' agents, and requires humans to make higher‑level, often opinionated decisions. This matters because it reframes job roles: value shifts from executing tasks to setting the right goals, coordinating agents, and owning outcomes.",
+          "anchorQuote": "the future of work will look more like steering",
+          "tSeconds": 682,
+          "link": "https://www.youtube.com/watch?v=zMvBMfj4cSQ&t=682"
+        },
+        {
+          "headline": "Design products for models two-to-three months ahead",
+          "detail": "With model capabilities improving rapidly, Tara says building for today's model or for a year out are both wrong; the practical cadence is about two to three months. Product teams must stay tightly coupled with research roadmaps — e.g., prioritize capabilities researchers are actively improving — and design product constructs that 'get out of the way' of near‑future models. The implication: ship quickly, iterate with live users, and align product choices to the pace of model progress to avoid being obsolete or premature.",
+          "anchorQuote": "are we building for where the models are going to be in two to three months?",
+          "tSeconds": 1641,
+          "link": "https://www.youtube.com/watch?v=zMvBMfj4cSQ&t=1641"
+        },
+        {
+          "headline": "Knowledge work demands process transparency, not only outputs",
+          "detail": "Unlike code, which can be validated with tests, knowledge work can't be trusted by inspecting only the final deck or memo; you need visibility into the model's reasoning, sources, and intermediate steps. Tara recommends product UX and tooling that expose in‑progress work, citations, chain‑of‑thought and inputs so humans can verify quality, especially for high‑stakes or regulated contexts. That distinction drives different product requirements for 'work mode' (Codex under the hood) versus chat: it's not just power, it's proof of work.",
+          "anchorQuote": "you can verify whether it did the task correctly",
+          "tSeconds": 3926,
+          "link": "https://www.youtube.com/watch?v=zMvBMfj4cSQ&t=3926"
+        },
+        {
+          "headline": "PMs must test one sharp hypothesis rapidly",
+          "detail": "Seshan says the enduring core of product management is defining the single most important hypothesis and validating it empirically and fast, rather than writing long theoretical theses. At OpenAI this shows up as 'mocks not docs' and shipping early to learn, focusing teams on pointed experiments and quick user feedback loops. The practical effect is PM craft shifts from exhaustive planning to ruthless prioritization of the key risk to test next.",
+          "anchorQuote": "what is like the most essential question",
+          "tSeconds": 569,
+          "link": "https://www.youtube.com/watch?v=zMvBMfj4cSQ&t=569"
+        },
+        {
+          "headline": "AI widens individual capability; ambition separates people",
+          "detail": "AI expands the set of things an individual can execute — design, prototype, pricing models, even CAD or sites — so many formerly rare 'unicorn' skills are now within reach. Tara argues the new differentiator is ambition: who asks bigger, faster questions and pushes teams to try transformative ideas (examples: 'sites', 'visualize', and rapid prototyping inside work/Codex). That changes hiring and career strategy: ability to imagine and aim higher becomes more important than narrow execution skills.",
+          "anchorQuote": "the set of possibilities have widened dramatically",
+          "tSeconds": 1323,
+          "link": "https://www.youtube.com/watch?v=zMvBMfj4cSQ&t=1323"
+        }
+      ]
+    },
+    {
+      "videoId": "1bmsSH9dmgQ",
+      "videoTitle": "$1,100,000,000. The Machine Age Fund | a16z",
+      "videoUrl": "https://www.youtube.com/watch?v=1bmsSH9dmgQ",
+      "channelName": "a16z",
+      "publishedDate": "2026-08-30",
+      "guests": [],
+      "summary": "The video argues that modern AI is an almost alchemical transformation—turning abundant materials and compute into ubiquitous \"thought\"—and that this is forcing a full reboot of the computing ecosystem. That reboot reveals immediate bottlenecks (data centers, power, chips, supply chains) and therefore a large, urgent need for capital to rebuild infrastructure and scale AI safely and reliably.",
+      "insights": [
+        {
+          "headline": "AI is alchemy: turning sand into thought at scale",
+          "detail": "The presenter frames AI as a literal form of alchemy: converting common inputs (e.g., silicon, data, electricity) into pervasive cognitive output. He leans on Isaac Newton's search for the philosopher's stone as an analogy and summarizes the effect as \"thought at scale for everybody in perpetuity,\" meaning AI fundamentally multiplies the economic and social value of basic physical inputs. The consequence is a broad, persistent demand for compute and data infrastructure rather than a one-off technology shift.",
+          "anchorQuote": "Imagine a form of alchemy that turns sand into thought",
+          "tSeconds": 9,
+          "link": "https://www.youtube.com/watch?v=1bmsSH9dmgQ&t=9"
+        },
+        {
+          "headline": "The computer ecosystem is being rebooted for AI",
+          "detail": "The video claims we're at a unique moment where the entire computing stack—hardware, software, and operations—is being redesigned specifically for AI workloads. That matters because architectures and business models built around cloud SaaS workloads won't automatically handle AI's different resource, latency, and scaling requirements, so incumbents and startups alike face both technical disruption and investment opportunity. Reboot implies wholesale changes rather than incremental upgrades.",
+          "anchorQuote": "The entire computer [music] ecosystem is being rebooted for AI",
+          "tSeconds": 32,
+          "link": "https://www.youtube.com/watch?v=1bmsSH9dmgQ&t=32"
+        },
+        {
+          "headline": "Existing data centers were built for SaaS, not AI",
+          "detail": "The transcript points out that current data centers were optimized for SaaS workloads, which typically have different compute, power, and cooling profiles than large-scale AI training and inference. Because AI needs far more dense compute and consistent power, many facilities will require redesign or replacement, creating demand for new real-estate, networking, and thermal solutions. That mismatch is a concrete bottleneck slowing AI deployment and a target for capital and engineering effort.",
+          "anchorQuote": "these data centers were built for SAS",
+          "tSeconds": 36,
+          "link": "https://www.youtube.com/watch?v=1bmsSH9dmgQ&t=36"
+        },
+        {
+          "headline": "The U.S. already lacks enough power, compute, and chips",
+          "detail": "The speaker explicitly warns the United States is short on three critical inputs—power, compute, and chips—predicting shortages across all of them as AI scales. This confluence of shortages means that scaling AI is not just a software or algorithm problem but a supply-chain and infrastructure challenge spanning energy grids, semiconductor fabs, and datacenter capacity. The implication is that policy, industrial strategy, and long-term investment all matter for national competitiveness.",
+          "anchorQuote": "The United States is short [music] power, short compute, short chips",
+          "tSeconds": 40,
+          "link": "https://www.youtube.com/watch?v=1bmsSH9dmgQ&t=40"
+        },
+        {
+          "headline": "Someone has to fund the infrastructure rebuild",
+          "detail": "Given the scale of the bottlenecks, the video stresses that private and public capital must pay to rebuild and expand the necessary infrastructure; \"somebody's got to fund it.\" That funding need covers new data centers, chip manufacturing, power upgrades, and supply-chain fixes, and it requires patient, large-scale investment rather than short-term VC bets. Framing it this way justifies funds (like the Machine Age Fund) that target long-cycle, capital-intensive projects enabling AI at scale.",
+          "anchorQuote": "somebody's got to fund it",
+          "tSeconds": 49,
+          "link": "https://www.youtube.com/watch?v=1bmsSH9dmgQ&t=49"
+        }
+      ]
+    }
+  ]
+}
