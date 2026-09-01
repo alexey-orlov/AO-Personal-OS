@@ -190,7 +190,9 @@ Run from the repo root. Scripts live in `automations/ss-monthly-report/`; use it
 2. Do the summary-tab amounts sum to the `Details` GRAND TOTAL?
 3. Do the hours equal the source total (PDF header / API sum) to the second — and, if I exported
    via Chrome, does that also match the `Total:` I read off the Clockify page?
-4. Is the business trip present exactly once, with the amount unchanged, in the group I named?
+4. Is the business trip present exactly once, with the amount unchanged, in the group I named —
+   and does the `BT details` tab agree with `Details`? A dropped trip means that tab must be
+   cleared too; a kept trip means it must be byte-for-byte untouched.
 5. Are the `PR-…` codes the ones for *this* month, or cloned and unconfirmed?
 6. Did I state every flagged entry — and every `WARN` overlap — with its dollar value?
 7. `BT details` untouched, and the `Details` header still the six expected columns?
