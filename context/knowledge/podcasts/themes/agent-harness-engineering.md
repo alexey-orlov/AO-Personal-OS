@@ -2,7 +2,7 @@
 
 _status: live theme — the discipline of wrapping an AI agent in enforced structure: human-only zones, PR gates, precise workflows, adapters, and local-first context_
 _slug: agent-harness-engineering_
-_updated: 2026-08-26 · 24 insights from 14 episodes · (split from agent-engineering-patterns, 2026-07-11)_
+_updated: 2026-09-01 · 25 insights from 15 episodes · (split from agent-engineering-patterns, 2026-07-11)_
 
 ## The throughline
 A harness is code wrapped around an agent to make it behave consistently for a specific use case — and every practitioner in this cluster converges on the same core moves. Reserve architecture and UX decisions for humans (Conductor's "slot-free zones," "do not touch if you are an AI" markers — corroborated independently by Tony Fadell on the hardware-product side); force agent output through a review chokepoint before it lands (Conductor's strict PR-first workflow; the Sentry bug-triage harness's investigate-only vs. edit-enabled modes); and be extremely specific — write down the exact workflow, data sources, and allowed tools rather than reaching for a general-purpose assistant. Concrete adapters (Sentry, Linear, GitHub, Vercel) plus a persistent artifact store make investigations reproducible, though this is a choice, not a prerequisite — Gusto's much lighter "memory is just a DB column" stack proves harnesses can be minimal too. Codex-as-local-project-environment extends the same instinct beyond bespoke harnesses: a general-purpose local workspace (files on your machine, computer-use access to real tools) that lets an agent work with richer context, reinforced by a local-first/Obsidian-style memory discipline for privacy and accuracy.
@@ -129,11 +129,17 @@ Raghavan emphasizes that AI in product development is a co‑pilot, not an autop
 — Aakash Gupta · 2026-08-24 · guest: Srini Raghavan (Freshworks) · [▶ 26:05](https://www.youtube.com/watch?v=0qNZVlW8IR4&t=1565) · `pi-0qNZVlW8IR4-05`
 related: [A compact risk rubric lets the agent auto-approve low-risk PRs](#a-compact-risk-rubric-lets-the-agent-auto-approve-low-risk-prs) (same governed-not-autonomous discipline, here a 'CPO check' review agent rather than a scored PR-risk rubric) · theme → [AI agents & applications](ai-agents-and-applications.md) (this episode's ticket-automation insight, `pi-0qNZVlW8IR4-04`)
 
+### Two technical rules make an agent genuinely useful: self‑rewrite and deep integrations
+Bloom argues a personal agent must (A) be able to rewrite its own core files so it continuously improves, and (B) connect deeply to your ecosystem (Notion, Slack, calendar, Chrome, transcripts). He showed this by having Claude save unknown terms into context, update knowledge files on a schedule, and use connectors to read meeting transcripts and Slack so decisions reflect current reality. Without both abilities the agent drifts from how you actually work and loses its value.
+— How I AI · 2026-08-31 · guest: Daniel Bloom (Mio) · [▶ 6:01](https://www.youtube.com/watch?v=p2qmX6TM0kw&t=361) · `pi-p2qmX6TM0kw-02`
+related: [Local-first file access massively boosts AI's effectiveness and privacy](#local-first-file-access-massively-boosts-ais-effectiveness-and-privacy) (same deep-ecosystem-integration instinct, here Notion/Slack/calendar connectors rather than a local Obsidian vault) · theme → [AI & the PM craft](ai-and-the-pm-craft.md) (this episode's week-into-a-day productivity claim, `pi-p2qmX6TM0kw-01`)
+
 ## Related themes
 - [Agent engineering & production infra](agent-engineering-patterns.md) — parent theme; the broader verification/governance/cost discipline this harness-building cluster sits alongside
 - [Agent delegation, loops & software factories](agent-delegation-and-loops.md) — the sustained-execution patterns that run inside these harnesses
 
 ## Source episodes
+- [How I AI — I built a Claude Cowork system that does a week of PM work in a day (2026-08-31)](../episodes/2026/2026-08-31--howiai--i-built-a-claude-cowork-system-that-does-a-week-of-pm-work-in-a-day.md)
 - [Aakash Gupta — Product Managers will be replaced by Product Builders -$3.4B CPO, Srini Raghavan (Freshworks) (2026-08-24)](../episodes/2026/2026-08-24--aakash--product-managers-will-be-replaced-by-product-builders.md)
 - [How I AI — How I manage 15 AI agents 24/7 as a solo founder | Ryan Carson (2026-08-24)](../episodes/2026/2026-08-24--howiai--how-i-manage-15-ai-agents-247-solo-founder.md)
 - [How I AI — Grok Bot + Grok 4.6 + Cursor Origin - is Claude Code dead? (2026-08-18)](../episodes/2026/2026-08-18--howiai--grok-bot-grok-46-cursor-origin.md)
