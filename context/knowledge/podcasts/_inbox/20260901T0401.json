@@ -1,0 +1,94 @@
+{
+  "schema": 1,
+  "generatedAt": "2026-09-01T04:01:54.383Z",
+  "runStamp": "20260901T0401",
+  "episodes": [
+    {
+      "videoId": "p2qmX6TM0kw",
+      "videoTitle": "I built a Claude Cowork system that does a week of PM work in a day",
+      "videoUrl": "https://www.youtube.com/watch?v=p2qmX6TM0kw",
+      "channelName": "How I AI",
+      "publishedDate": "2026-08-31",
+      "guests": [
+        "Daniel Bloom (Mio)"
+      ],
+      "summary": "Daniel Bloom demonstrates a personal AI workflow built on Claude + Co‑work that automates the repetitive coordination work of product management so he can do in one day what used to take him a week. The system centralizes context (Notion), ingests Slack/calendar/meeting transcripts, runs recurring automations (weekly prep, morning brief), and continuously self‑improves by turning repeated patterns into new skills and fixes. He also describes how he scaled the setup across his company using a guided \"workstation\" onboarding skill.",
+      "insights": [
+        {
+          "headline": "A well‑integrated agent can compress a week's PM overhead into a day",
+          "detail": "Bloom reports that after centralizing context and automating recurring flows with Claude + Co‑work he can complete in a single day what previously took him a full week. The system pulls from Notion, Slack, calendar, meeting transcripts and runs weekly and daily automations that surface priorities and action items, so the coordination work that used to fragment his time is handled by the agent. That frees him for deeper work (customer interviews, research) and is the crux of the productivity claim.",
+          "anchorQuote": "I'm really able to do in a day now",
+          "tSeconds": 1376,
+          "link": "https://www.youtube.com/watch?v=p2qmX6TM0kw&t=1376"
+        },
+        {
+          "headline": "Two technical rules make an agent genuinely useful: self‑rewrite and deep integrations",
+          "detail": "Bloom argues a personal agent must (A) be able to rewrite its own core files so it continuously improves, and (B) connect deeply to your ecosystem (Notion, Slack, calendar, Chrome, transcripts). He showed this by having Claude save unknown terms into context, update knowledge files on a schedule, and use connectors to read meeting transcripts and Slack so decisions reflect current reality. Without both abilities the agent drifts from how you actually work and loses its value.",
+          "anchorQuote": "rewrite its own uh, core files and that means",
+          "tSeconds": 361,
+          "link": "https://www.youtube.com/watch?v=p2qmX6TM0kw&t=361"
+        },
+        {
+          "headline": "Daily 'morning brief' and weekly prep bridge roadmap and real‑time chaos",
+          "detail": "Bloom's weekly prep automation aggregates data from Notion, calendar, Slack and Granola transcripts to recommend weekly priorities and populate his Notion board, while the morning brief scans recent meetings and messages to surface one‑line summaries and explicit action items. He uses Granola transcripts to produce concise meeting summaries and flag tasks that require follow‑up, and Notion becomes mostly read‑only as Claude manages updates. This design closes the gap between tidy plans and the messy flow of Slack/meetings so nothing important falls through the cracks.",
+          "anchorQuote": "it takes the granola transcripts uh and it gives me a oneliner",
+          "tSeconds": 1923,
+          "link": "https://www.youtube.com/watch?v=p2qmX6TM0kw&t=1923"
+        },
+        {
+          "headline": "Automated self‑improvement loops convert repeated behavior into durable skills",
+          "detail": "Bloom built a scheduled 'self‑improvement' task that runs weekly to learn from his interactions: it detects drafts he rewrote to learn his editing preferences, proposes turning recurring actions into new skills, surfaces friction telemetry from skills, and audits external tips before adopting them. Example: the system finds draft messages he rewrote and ingests the final form so Claude adapts its future drafts; another skill, 'improve', critically evaluates hype articles before implementing suggestions. These loops dramatically reduce ongoing maintenance and let the agent compound improvements with little manual work.",
+          "anchorQuote": "called the self-improvement uh loop. It's a scheduled test task",
+          "tSeconds": 1666,
+          "link": "https://www.youtube.com/watch?v=p2qmX6TM0kw&t=1666"
+        }
+      ]
+    },
+    {
+      "videoId": "FGC4ofTcg2k",
+      "videoTitle": "Why AI Demand Is Outrunning Compute Supply",
+      "videoUrl": "https://www.youtube.com/watch?v=FGC4ofTcg2k",
+      "channelName": "a16z",
+      "publishedDate": "2026-08-31",
+      "guests": [],
+      "summary": "The conversation argues that AI demand is already outpacing available compute capacity and that the next few years will be defined more by chronic under‑supply than by overbuild. That shortage reshapes business models: labs can choose to monetize inference or reallocate capacity to training (which changes reported revenue), financing structures and Nvidia's ecosystem will determine who scales, and alternatives like open source and orbital compute will influence access and inequality.",
+      "insights": [
+        {
+          "headline": "The industry is more likely to underbuild compute through 2028",
+          "detail": "Multiple speakers argue current project pipelines and political delays mean there is effectively no spare capacity coming online through 2028; instead of a flood of cheap supply, the market faces an acute shortage. That scarcity matters because it can raise access costs, create 'compute inequality' where large incumbents and wealthy users get priority, and slow consumer-priced mass adoption that depends on cheap, ad‑supported delivery.",
+          "anchorQuote": "we underbuild on the supply side",
+          "tSeconds": 1777,
+          "link": "https://www.youtube.com/watch?v=FGC4ofTcg2k&t=1777"
+        },
+        {
+          "headline": "Frontier labs can materially change their revenue by reallocating compute",
+          "detail": "A concrete example: if a lab with 10 gigs of power runs eight gigs on inference it can monetize roughly $480B/year under the transcript's conservative assumptions, but shifting allocation to training (8 gigs training, 2 inference) would drop that annualized revenue to about $120B. That means a lab's public revenues and cash flow are partly under its control — via checkpoint releases, pricing, and the split between training and inference — which makes valuation and investor expectations much more volatile and strategic.",
+          "anchorQuote": "they have 10 gigs of power and they're allocating eight to inference",
+          "tSeconds": 354,
+          "link": "https://www.youtube.com/watch?v=FGC4ofTcg2k&t=354"
+        },
+        {
+          "headline": "Compute deployments often pay back inside a year and are highly financable",
+          "detail": "Speakers give examples like Nebius (9–10 month paybacks) and SpaceX clusters with even faster economics, and note private capital firms (Blackstone, KKR, Apollo) are actively financing GPU/TPU builds. Fast paybacks plus extended useful lives make large capex financable at low cost of capital, enabling companies to scale compute rapidly despite apparent upfront cost — a dynamic that accelerates buildouts even in a constrained supply environment.",
+          "anchorQuote": "you can kind of get to a 9 to 10 month payback",
+          "tSeconds": 717,
+          "link": "https://www.youtube.com/watch?v=FGC4ofTcg2k&t=717"
+        },
+        {
+          "headline": "Open-source models still consume the same compute — they aren't a free escape",
+          "detail": "The transcript stresses that creating open‑source tokens uses roughly the same compute as closed frontier tokens, so open models do not magically eliminate hardware demand; they shift who captures margins. It also notes licensing nuances (e.g., the 'Kimmy' license takes a 30% revenue share on open weights) and that some open variants are actually less token-efficient, so open source helps diffusion and competition but does not remove the underlying supply constraint.",
+          "anchorQuote": "it takes the exact same amount of compute",
+          "tSeconds": 1936,
+          "link": "https://www.youtube.com/watch?v=FGC4ofTcg2k&t=1936"
+        },
+        {
+          "headline": "Nvidia (and Jensen Huang) are central because they combine chips, supply and financing",
+          "detail": "Nvidia is described as at the center of the stack: multiple chip families, control over system supply chains, land/power deals and standardized financing structures (RVGs) that make large data center builds bankable. That vertical+horizontal position — plus large portions of capacity allocations — gives Nvidia pricing power and ecosystem leverage, so plugging into Nvidia's stack is presented as the pragmatic move for other hardware or accelerator players.",
+          "anchorQuote": "Nvidia is at the center of all of it",
+          "tSeconds": 528,
+          "link": "https://www.youtube.com/watch?v=FGC4ofTcg2k&t=528"
+        }
+      ]
+    }
+  ]
+}
