@@ -2,7 +2,7 @@
 
 _status: live theme — how AI reshapes product management work, skills, workflows, and roles_
 _slug: ai-and-the-pm-craft_
-_updated: 2026-08-31 · 43 insights from 27 episodes — recluster (2026-08-25): split → vibe-coding-and-non-technical-builders (non-engineer/non-PM builders using AI as stepwise architect-engineer)_
+_updated: 2026-09-01 · 44 insights from 28 episodes — recluster (2026-08-25): split → vibe-coding-and-non-technical-builders (non-engineer/non-PM builders using AI as stepwise architect-engineer)_
 
 ## The throughline
 PMs and full-stack designers gain leverage in the coding-agent era because the gap between "knowing what to build" and "shipping it" collapses. The skill shift is from raw implementation to defining what to build, evaluating quality, and designing where humans and agents collaborate — Shipper bets PMs who "ride the models" out-ship engineers, and an OpenAI PM uses Codex to drive prototypes to 70–80% completion and replace PRDs with runnable artifacts. The same craft scales up the org chart: Customer.io's VP of Product rebuilds a third of an all-hands deck in a morning, but only by treating Claude like an eager junior — rolling context in, forcing clarifying questions, blocking premature deliverables — and the leader's residual value collapses to two choices: *which sources* (recordings, docs, metrics) and *which target form* (deck, Notion page, one-pager). The model-selection beat also sharpens: Fable's "seasoned engineer" verbosity wrecks PRDs, so pair Mythos-class models with cheaper Opus/Sonnet by task type. Ambrosino (OpenAI Codex) sharpens the picture from the supply side: when dozens of people inside a company can stand up polished prototypes from the same idea, implementation is no longer the bottleneck — *curation* is: deciding which of ~90 explorations to keep, fold together, or refine. The same abundance makes design and taste distinctly non-automatable: aesthetic judgment, novelty, and system-level UI coherence lack the grading signals needed to train models to generalize, so models copy patterns (Linear-clone proliferation) but cannot generate the novelty or cross-component semantic reasoning that defines good design. The operational kit that recurs: hyper-literal prompts, screenshots-as-examples, prototypes-not-PRDs, a beginner's mindset, and the discipline to restrain the model until the foundations are set — the non-engineer/non-PM version of this same builder pattern now lives in [Vibe Coding & Non-Technical Builders](vibe-coding-and-non-technical-builders.md).
@@ -217,6 +217,11 @@ related: theme → [Agent harness engineering](agent-harness-engineering.md) (Fr
 Seshan says the enduring core of product management is defining the single most important hypothesis and validating it empirically and fast, rather than writing long theoretical theses. At OpenAI this shows up as 'mocks not docs' and shipping early to learn, focusing teams on pointed experiments and quick user feedback loops. The practical effect is PM craft shifts from exhaustive planning to ruthless prioritization of the key risk to test next.
 — Lenny's Podcast · 2026-08-30 · guest: Tara Seshan (OpenAI product lead) · [▶ 9:29](https://www.youtube.com/watch?v=zMvBMfj4cSQ&t=569) · `pi-zMvBMfj4cSQ-04`
 
+### A well‑integrated agent can compress a week's PM overhead into a day
+Bloom reports that after centralizing context and automating recurring flows with Claude + Co‑work he can complete in a single day what previously took him a full week. The system pulls from Notion, Slack, calendar, meeting transcripts and runs weekly and daily automations that surface priorities and action items, so the coordination work that used to fragment his time is handled by the agent. That frees him for deeper work (customer interviews, research) and is the crux of the productivity claim.
+— How I AI · 2026-08-31 · guest: Daniel Bloom (Mio) · [▶ 22:56](https://www.youtube.com/watch?v=p2qmX6TM0kw&t=1376) · `pi-p2qmX6TM0kw-01`
+related: theme → [Agent delegation, loops & software factories](agent-delegation-and-loops.md) (this episode's morning-brief/weekly-prep and self-improvement-loop insights, `pi-p2qmX6TM0kw-03,04`) · theme → [Agent harness engineering](agent-harness-engineering.md) (this episode's self-rewrite/deep-integration harness rule, `pi-p2qmX6TM0kw-02`)
+
 ## Related themes
 - [AI agents & applications](ai-agents-and-applications.md) — the surfaces PMs build in
 - [Leadership, careers & teams](leadership-careers-and-teams.md) — how the manager/IC mix is shifting alongside
@@ -224,6 +229,7 @@ Seshan says the enduring core of product management is defining the single most 
 - [Vibe Coding & Non-Technical Builders](vibe-coding-and-non-technical-builders.md) — child theme; split off 2026-08-25. The non-engineer/non-PM builder pattern (hobbyists, ops/consulting staff, editorial teams, makers) moved there; PM-specific AI craft stays here.
 
 ## Source episodes
+- [How I AI — I built a Claude Cowork system that does a week of PM work in a day (2026-08-31)](../episodes/2026/2026-08-31--howiai--i-built-a-claude-cowork-system-that-does-a-week-of-pm-work-in-a-day.md)
 - [Aakash Gupta — How to build a Company Operating System with Hermes and OpenClaw (2026-08-28)](../episodes/2026/2026-08-28--aakash--how-to-build-a-company-os-hermes-openclaw.md)
 - [a16z — The State of AI: Models, Moats, and the Consumer Renaissance (2026-08-26)](../episodes/2026/2026-08-26--a16z--the-state-of-ai-models-moats-consumer-renaissance.md)
 - [Every — Why This $10B Hedge Fund Made AI Training Mandatory (Best of the Pod) (2026-08-26)](../episodes/2026/2026-08-26--every--why-10b-hedge-fund-made-ai-training-mandatory.md)
