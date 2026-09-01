@@ -62,17 +62,32 @@ Run from the repo root. Scripts live in `automations/ss-monthly-report/`; use it
    - Template: the target **if it already exists**, otherwise the previous month's file.
    - Headless runs get `month`, `entries`, `template`, `target`, `template_is_target` in the prompt — use them and do not re-derive.
 
-2. **Get the entries** (skip if the wrapper already produced an entries JSON):
+2. **Get the entries** (skip if the wrapper already produced an entries JSON). Three routes, in
+   priority order — always take the highest one available:
+
+   **(a) Clockify REST API** — the only route that works headless/unattended:
    ```bash
    automations/ss-monthly-report/.work/venv/bin/python \
      automations/ss-monthly-report/clockify_fetch.py --month 2026-07 --project SS -o /tmp/e.json
    ```
-   No API key? Parse an exported detailed-report PDF instead — same output schema:
+
+   **(b) An already-exported detailed-report PDF** in `~/Downloads`:
    ```bash
    … /pdf_parse.py ~/Downloads/Clockify_Time_Report_Detailed_01_07_2026-31_07_2026.pdf -o /tmp/e.json
    ```
-   `pdf_parse.py` aborts if its own row sum disagrees with the PDF's `Total:` header. That gate
-   is not advisory — it caught two silently-dropped entries (6h48m) during the first build.
+
+   **(c) Export the PDF yourself via the Chrome extension** — interactive sessions only, when
+   there is no API key and no PDF on disk. Procedure in
+   [`automations/chrome-mcp/clockify-export.md`](../../automations/chrome-mcp/clockify-export.md).
+   Do **not** invent a fourth route: never scrape the report DOM (see Hard-won facts) and never
+   try to lift the app's auth token — that is credential interception, it is correctly blocked,
+   and it must not be worked around.
+
+   Whichever route produced the file, `pdf_parse.py` aborts if its own row sum disagrees with the
+   PDF's `Total:` header. That gate is not advisory — it caught two silently-dropped entries
+   (6h48m) during the first build. When you used route (c) you also have the `Total:` read off the
+   Clockify page: state both and confirm they agree (Aug'26: 90:54:50 on screen == 90:54:50
+   parsed), which makes the entry count independently corroborated rather than self-reported.
 
 3. **Read the target workbook from disk before building.** Alex edits these files in Excel
    after delivery (he rewrote a `BT details` formula 7 minutes after the Jul'26 hand-off).
