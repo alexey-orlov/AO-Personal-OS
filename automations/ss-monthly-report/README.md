@@ -63,15 +63,28 @@ automations/ss-monthly-report/run.sh 2026-07    # a specific month
 Idempotent: re-running a month rebuilds from the workbook currently on disk. Override
 `REPORTS_DIR` to build somewhere harmless while testing.
 
-## Why not drive the browser
+## Why the browser is never the *automated* route
 
 Alex's first instinct was the Chrome extension, since Clockify is a web app. It doesn't survive
 the schedule: per [`automations/chrome-mcp/preflight.md`](../chrome-mcp/preflight.md) the
 `mcp__claude-in-chrome__*` tools only exist when the extension is live in an interactive
-session, so a headless `claude -p` under launchd has no browser tools at all. On top of that the
-"Print PDF" button opens an OS print dialog, which is not scriptable unattended. The REST API
-returns the same rows with no browser, and the PDF parser covers the manual path — so the
-browser is never the automated route, only the human one.
+session, so a headless `claude -p` under launchd has no browser tools at all. The REST API
+returns the same rows with no browser, and the PDF parser covers the manual path — so for the
+1st-of-month job the browser is out, full stop.
+
+**In an interactive session it is a supported fallback**, added 2026-09-01 and used to build
+Aug'26: the agent opens the pre-filtered report and drives `EXPORT → Save as PDF`, then hands the
+file to the same `pdf_parse.py`. Procedure and its failure modes:
+[`.claude/skills/ss-monthly-report/references/chrome-export.md`](../../.claude/skills/ss-monthly-report/references/chrome-export.md).
+
+Two corrections to what this section used to claim:
+
+- The unscriptable OS dialog belongs to the **`Print`** button. `Export → Save as PDF` is a
+  separate control and a plain download — the earlier note conflated them.
+- The export can still fail **silently**: the save-file picker is a native window the extension
+  cannot touch, and if it is dismissed the PDF never lands while the page looks fine (Chrome logs
+  `state=2`, `interrupt_reason=40`, empty `target_path`). So the browser path must always poll
+  `~/Downloads` for the file rather than trusting the click — a click is not a download.
 
 ## Failure behaviour
 
