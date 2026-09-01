@@ -12,6 +12,8 @@ actually matter for an invoice:
   3. GRAND TOTAL == the sum of the group subtotals.
   4. Summary "Amount gross" column == the group subtotals it points at.
   5. Summary total == GRAND TOTAL, so the two tabs cannot disagree.
+  6. Entry Start/End/Duration cells carry a time format, so they render as
+     "02:00:00" and not as the raw serial fraction "0.08333333".
 
 This exists because the failure it guards against is silent: a formula that
 points one row off still produces a plausible number, and nobody re-adds an
@@ -21,6 +23,7 @@ import argparse
 import datetime
 import json
 import os
+import re
 import shutil
 import subprocess
 import sys
@@ -32,6 +35,7 @@ import openpyxl
 SOFFICE_CANDIDATES = ['/Applications/LibreOffice.app/Contents/MacOS/soffice',
                       '/opt/homebrew/bin/soffice', 'soffice']
 EPS = 0.005
+DATE_RE = re.compile(r'^\d{2}/\d{2}/\d{4}$')
 
 
 def to_secs(v):
@@ -168,6 +172,26 @@ def main():
                     cost = a.rate * round(ov / 3600, 2)
                     warns.append(f'{day}: {hms(ov)} overlap (~{cost:,.2f} USD billed twice) '
                                  f'between {items[i][2][:45]!r} and {items[j][2][:45]!r}')
+
+    # 6. entry time cells must render as times, not raw serial fractions.
+    #    Read the ORIGINAL file, not the LibreOffice recalc copy, which rewrites
+    #    format strings. Aug'26 shipped once with 'General' here because the entry
+    #    style got snapshotted from the grey band row (report_build.find_entry_row).
+    rd = openpyxl.load_workbook(a.xlsx)['Details']
+    bad_fmt = []
+    for r in range(2, rd.max_row + 1):
+        b = rd.cell(row=r, column=2).value
+        if not (isinstance(b, str) and DATE_RE.match(b.strip())):
+            continue
+        for col in (3, 4, 5):
+            c = rd.cell(row=r, column=col)
+            if c.value is not None and 'h' not in (c.number_format or '').lower():
+                bad_fmt.append(f'{c.coordinate}={c.number_format!r}')
+    if bad_fmt:
+        fails.append(f'{len(bad_fmt)} entry time cell(s) lack a time format and will show as '
+                     f'decimals: {", ".join(bad_fmt[:6])}{" ..." if len(bad_fmt) > 6 else ""}')
+    else:
+        notes.append('entry Start/End/Duration cells all render as times')
 
     print('\n'.join(f'  ok   {n}' for n in notes))
     if warns:
