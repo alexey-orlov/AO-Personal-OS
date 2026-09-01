@@ -50,6 +50,7 @@ EXPECTED_HEADER = ['Description', 'Start Date', 'Start Time', 'End Time',
 PREFIX_RE = re.compile(r'^\[([^\]]+)\]\s*')
 DATE_RE = re.compile(r'^\d{2}/\d{2}/\d{4}$')
 TIME_FMT = 'h:mm:ss'                       # entry Start/End/Duration cells (C, D, E)
+BT_SHEET = 'BT details'
 R_NS = 'http://schemas.openxmlformats.org/officeDocument/2006/relationships'
 
 
@@ -363,6 +364,28 @@ def main():
     for target in rows:
         summary.cell(row=target['row'], column=1).value = datetime.datetime(y, mo, 1)
 
+    # --- BT details: clear it when there is no trip this month -------------------
+    # 'BT details' is the supporting maths for the Business trip line. With --bt keep
+    # it is Alex's hand-built sheet and must never be touched. With --bt drop there is
+    # no trip, so leaving the template's numbers in place ships LAST month's travel
+    # cost to the client as apparent support for a line that no longer exists --
+    # the same billing error --bt exists to prevent (Aug'26 shipped once with July's
+    # "Stay at Wroclaw" maths intact). Clear the figures, keep the scaffolding:
+    # row 1 headers stay, and plain text labels from column D on stay, so the sheet
+    # stays a ready template for the next trip.
+    bt_cleared = 0
+    if a.bt == 'drop' and BT_SHEET in wb.sheetnames:
+        bts = wb[BT_SHEET]
+        for row in bts.iter_rows(min_row=2, max_row=bts.max_row):
+            for c in row:
+                if c.value is None:
+                    continue
+                is_label = (isinstance(c.value, str) and not c.value.startswith('=')
+                            and c.column >= 4)
+                if not is_label:
+                    c.value = None
+                    bt_cleared += 1
+
     wb.save(a.out)
     reinject(a.template, a.out)
 
@@ -370,6 +393,7 @@ def main():
         'out': a.out, 'month': a.month, 'rate': a.rate,
         'entries': len(entries), 'period_total': payload.get('period_total'),
         'business_trip': (bt_vals[5] if bt_vals else None),
+        'bt_details_cells_cleared': bt_cleared,
         'groups': [{'prefix': p or '(none)', 'pr': mapping[p]['pr'],
                     'name': mapping[p]['name'], 'entries': len(g)}
                    for p, g in groups.items()],
