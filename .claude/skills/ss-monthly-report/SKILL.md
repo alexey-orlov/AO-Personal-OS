@@ -146,6 +146,17 @@ Run from the repo root. Scripts live in `automations/ss-monthly-report/`; use it
 - **Dates are written as `dd/mm/yyyy` TEXT.** Real dates get parsed US-style by Excel, which
   silently mangles every day ≤ 12 — the Jun'26 sheet has seven cells reading as December,
   November, October… Do not "improve" this to real date cells.
+- **The entry-row style must be snapshotted from a real entry row, never from row 2.** In any
+  workbook this script has already built, row 2 is the grey group band — so `snapshot(ws, 2)`
+  handed every entry the band's bold font, grey fill and `General` format, and the times rendered
+  as raw serial fractions (`0.08333333` instead of `02:00:00`). It stayed hidden for a generation:
+  Jun'26 was hand-made with no band rows, so Jul'26 built from it was fine, and only Aug'26 —
+  the first workbook built from a script-built template — showed it. `find_entry_row()` now locates
+  the row by its data (dd/mm/yyyy text in B, a time in C) and aborts if there is none, and the
+  builder re-asserts `h:mm:ss` on C/D/E after stamping. `report_verify.py` check 6 fails the run if
+  any entry time cell lacks a time format. **When a bug is generational like this, rebuild from the
+  last GOOD workbook, not from the corrupted one** — rebuilding Aug from Aug would have re-inherited
+  the broken style.
 - **openpyxl round-trips drop parts.** `customXml/*` (SharePoint content-type metadata) and
   `printerSettings` vanish; `report_build.py` re-injects them. `calcChain`/`sharedStrings` are
   deliberately not restored — Excel rebuilds the first, and openpyxl writes inline strings.
