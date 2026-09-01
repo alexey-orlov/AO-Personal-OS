@@ -48,6 +48,8 @@ COLS = 'ABCDEF'
 EXPECTED_HEADER = ['Description', 'Start Date', 'Start Time', 'End Time',
                    'Duration (h)', 'Amount, USD']
 PREFIX_RE = re.compile(r'^\[([^\]]+)\]\s*')
+DATE_RE = re.compile(r'^\d{2}/\d{2}/\d{4}$')
+TIME_FMT = 'h:mm:ss'                       # entry Start/End/Duration cells (C, D, E)
 R_NS = 'http://schemas.openxmlformats.org/officeDocument/2006/relationships'
 
 
@@ -72,6 +74,23 @@ def stamp(cell, tpl, col):
     f, fl, b, al, nf = tpl[col]
     cell.font, cell.fill, cell.border, cell.alignment = copy(f), copy(fl), copy(b), copy(al)
     cell.number_format = nf
+
+
+def find_entry_row(ws):
+    """Row number of the first genuine TIME-ENTRY row, or None.
+
+    An entry row is identified by its own data, not its position: column B holds a
+    dd/mm/yyyy TEXT date and column C holds a time. Never trust row 2 for this --
+    in any workbook this script has already built, row 2 is the grey group band, and
+    snapshotting it hands every entry the band's bold font, grey fill and 'General'
+    format (which is exactly what happened to Aug'26; see the module docstring).
+    """
+    for r in range(2, ws.max_row + 1):
+        b = ws.cell(row=r, column=2).value
+        c = ws.cell(row=r, column=3).value
+        if isinstance(b, str) and DATE_RE.match(b.strip()) and c is not None:
+            return r
+    return None
 
 
 def find_row(ws, *labels):
@@ -253,7 +272,12 @@ def main():
             bt_vals = [ws.cell(row=bt_row, column=i).value for i in range(1, 7)]
 
     # --- capture styles before clearing ----------------------------------------
-    tpl_entry = snapshot(ws, 2)
+    entry_row = find_entry_row(ws)
+    if entry_row is None:
+        die('no time-entry row found in the template Details tab (looked for a '
+            'dd/mm/yyyy date in column B with a time in C). Refusing to guess an '
+            'entry style -- the sheet layout has changed.')
+    tpl_entry = snapshot(ws, entry_row)
     tot_row = find_row(ws, 'Subtotal', 'Total', 'GRAND TOTAL')
     tpl_total = snapshot(ws, tot_row) if tot_row else snapshot(ws, 1)
     tpl_bt = snapshot(ws, bt_row) if bt_row else tpl_entry
@@ -294,6 +318,12 @@ def main():
             ws.cell(row=r, column=5, value=hhmmss(e['dur']))
             for col in COLS:
                 stamp(ws[f'{col}{r}'], tpl_entry, col)
+            # Enforce the time format explicitly. openpyxl assigns it when a
+            # datetime.time is written, but stamp() then overwrites number_format
+            # from the template row -- so a template whose entry style ever drifts
+            # to 'General' would silently render these as 0.08333333 decimals.
+            for col in 'CDE':
+                ws[f'{col}{r}'].number_format = TIME_FMT
             r += 1
         last = r - 1
 
