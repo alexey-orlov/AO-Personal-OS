@@ -21,7 +21,7 @@ Three tabs, and you only ever write two of them:
 |---|---|
 | `Oleksii Orlov` (1st) | Summary. One row per SoftServe project: Period, Subcontractor ID/Name, **Project ID (PR-…)**, Project Name, **Amount gross**, Currency. You fill `Amount gross`. |
 | `Details` (2nd) | The timesheet. Columns A–F: Description, Start Date, Start Time, End Time, Duration (h), Amount USD. You rebuild this entirely. |
-| `BT details` (3rd) | Business-trip expense maths. **Never touch it.** |
+| `BT details` (3rd) | Business-trip expense maths. **Never touch it when there IS a trip** (`--bt keep`) — it is Alex's hand-built sheet. When there is **no** trip (`--bt drop`) the builder clears its figures, keeping the row-1 headers and the text labels from column D on, so the sheet stays a ready template. See the Business trip judgment call. |
 
 `Details` layout the scripts produce, one block per project, in summary-tab row order:
 
@@ -125,6 +125,11 @@ Run from the repo root. Scripts live in `automations/ss-monthly-report/`; use it
   - The trip belongs to the project whose work occasioned it — for the recurring
     `GenAI Lab: R&D Team Onsite Presence` row that is the un-prefixed group (`--bt-group ''`).
     Say which group you put it in, every time.
+  - **`--bt drop` must clear the `BT details` tab too, and the builder now does.** Dropping the
+    Details line while leaving that tab populated ships last month's travel maths to the client as
+    apparent support for a line that no longer exists — the same billing error `--bt` exists to
+    prevent, just one tab over. Aug'26 went out once with July's "Stay at Wroclaw" figures intact.
+    Report `bt_details_cells_cleared` from the build output so the clearing is visible, not assumed.
 - **Project rows.** SoftServe issues the `PR-…` codes; they are **not** derivable from Clockify.
   If the target was cloned from last month, its PR codes are last month's — flag that they must
   be confirmed. If a prefix has no matching row, `report_build.py` aborts: report the abort, do
