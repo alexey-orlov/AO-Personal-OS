@@ -1,6 +1,6 @@
 ---
 name: ss-monthly-report
-description: Build the monthly SoftServe "Contingent Worker Subcontractor" hours report from Clockify — pull the month's SS time entries (Clockify API, or a detailed-report PDF), rebuild the Details tab grouped by the "[Prefix]" in each entry description, subtotal each group at the contract rate, preserve the business-trip line, and write each group's amount into its project row on the summary tab. Use on /ss-monthly-report, "build my SoftServe monthly report", "do the Clockify report for last month", "prepare the contingent worker report", "update the hours in the Jul'26 report", or when Alex drops a Clockify detailed-report PDF and asks to turn it into the client Excel. Also the engine behind the monthly launchd job (automations/ss-monthly-report/run.sh, 08:00 on the 1st).
+description: Build the monthly SoftServe "Contingent Worker Subcontractor" hours report from Clockify — pull the month's SS time entries (Clockify API, an already-exported detailed-report PDF, or by exporting one via the Chrome extension in an interactive session), rebuild the Details tab grouped by the "[Prefix]" in each entry description, subtotal each group at the contract rate, preserve the business-trip line, and write each group's amount into its project row on the summary tab. Use on /ss-monthly-report, "build my SoftServe monthly report", "do the Clockify report for last month", "prepare the contingent worker report", "update the hours in the Jul'26 report", or when Alex drops a Clockify detailed-report PDF and asks to turn it into the client Excel. Also the engine behind the monthly launchd job (automations/ss-monthly-report/run.sh, 08:00 on the 1st).
 disable-model-invocation: false
 user-invocable: true
 ---
@@ -77,8 +77,8 @@ Run from the repo root. Scripts live in `automations/ss-monthly-report/`; use it
    ```
 
    **(c) Export the PDF yourself via the Chrome extension** — interactive sessions only, when
-   there is no API key and no PDF on disk. Procedure in
-   [`automations/chrome-mcp/clockify-export.md`](../../automations/chrome-mcp/clockify-export.md).
+   there is no API key and no PDF on disk. Follow the procedure in
+   [`references/chrome-export.md`](references/chrome-export.md).
    Do **not** invent a fourth route: never scrape the report DOM (see Hard-won facts) and never
    try to lift the app's auth token — that is credential interception, it is correctly blocked,
    and it must not be worked around.
@@ -155,12 +155,25 @@ Run from the repo root. Scripts live in `automations/ss-monthly-report/`; use it
   poll-loop plus `kill`, as `report_verify.py` does.
 - The Clockify project is `SS`; the split into two billing projects happens purely through
   description prefixes, not through Clockify projects.
+- **Never rebuild the timesheet by scraping the report DOM.** It looks readable and is not
+  (verified 2026-09-01): the date cell renders a *relative label* (`Today`), start/end/duration
+  live in `<input>` values that `innerText` returns empty, midnight crossings show only as a
+  `+1` badge, and a `SHOW MORE` button means what is in the DOM is not the whole month. Every one
+  of those is a silent wrong-number path into a billing document. Export, then parse.
+- **A Clockify export can fail silently in Chrome.** The save-file picker is a native OS window
+  the extension cannot touch; if it is dismissed, the PDF never lands while the page looks
+  perfectly normal. Chrome records it as `state=2` (cancelled), `interrupt_reason=40`
+  (user-canceled), empty `target_path` — readable from
+  `~/Library/Application Support/Google/Chrome/Default/History` (copy it first; it is locked while
+  Chrome runs). So **never treat the export click as success** — poll `~/Downloads` for the file
+  and only proceed once it exists. Re-clicking Export worked on the second try (2026-09-01).
 
 ## Self-check before delivering
 
 1. Did `report_verify.py` exit 0? If not, stop — say what failed.
 2. Do the summary-tab amounts sum to the `Details` GRAND TOTAL?
-3. Do the hours equal the source total (PDF header / API sum) to the second?
+3. Do the hours equal the source total (PDF header / API sum) to the second — and, if I exported
+   via Chrome, does that also match the `Total:` I read off the Clockify page?
 4. Is the business trip present exactly once, with the amount unchanged, in the group I named?
 5. Are the `PR-…` codes the ones for *this* month, or cloned and unconfirmed?
 6. Did I state every flagged entry — and every `WARN` overlap — with its dollar value?
