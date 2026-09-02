@@ -1,0 +1,149 @@
+{
+  "schema": 1,
+  "generatedAt": "2026-09-02T04:02:35.008Z",
+  "runStamp": "20260902T0402",
+  "episodes": [
+    {
+      "videoId": "tQI35CSNB08",
+      "videoTitle": "Can AI Learn Mathematical Intuition?",
+      "videoUrl": "https://www.youtube.com/watch?v=tQI35CSNB08",
+      "channelName": "a16z",
+      "publishedDate": "2026-09-01",
+      "guests": [
+        "Daniel"
+      ],
+      "summary": "An interview with Daniel about what current large language models can and cannot do in mathematical research. The central argument is that LLMs are already strong at applying known techniques, grinding computations, and producing human-like chains of thought, but they struggle with fuzzy theory-building, developing deep intuition, and the high-level conceptual analogies that often drive new mathematics. The guest expects capabilities to improve with better training/harnesses and curricula, but warns the community must adapt incentives to preserve human learning and avoid low‑quality, automated 'slot‑machine' research.",
+      "insights": [
+        {
+          "headline": "LLMs produce human-like reasoning but lack deep mathematical intuition",
+          "detail": "The models' outputs often read like a human mathematician's chain of thought—recognizable summaries and stepwise arguments—yet they rarely generate the fuzzy, big‑picture conceptual analogies that drive new theory. Evidence: the guest felt the released chain‑of‑thoughts were recognizable and that many model results look like humans applying known techniques; models are strong at computation and combining technical ideas but weak at proposing new high‑level philosophies or analogies. That matters because deep mathematical progress typically requires proposing conceptual frameworks, not just grinding proofs.",
+          "anchorQuote": "I actually think the argument was very human like",
+          "tSeconds": 382,
+          "link": "https://www.youtube.com/watch?v=tQI35CSNB08&t=382"
+        },
+        {
+          "headline": "Reasoning scales in natural language, not formal proof corpora",
+          "detail": "Progress appears to come from models learning to reason in natural language rather than being trained on large bodies of machine‑checkable proofs, so their outputs generalize across informal mathematical writing and explanations. Evidence: the guest points out labs scaled natural‑language reasoning (chain‑of‑thought) even though textbooks and papers are polished and lack thought traces, which helps models be useful in many tasks but leaves them missing the informal motivations and experimental traces human mathematicians use. This explains why models can produce plausible human‑style proofs but often miss the motivations or the unwritten intuition.",
+          "anchorQuote": "reasoning in natural language is actually what they happen to scale up",
+          "tSeconds": 480,
+          "link": "https://www.youtube.com/watch?v=tQI35CSNB08&t=480"
+        },
+        {
+          "headline": "AI is most useful for experiments, examples, and coding tasks",
+          "detail": "Models excel as tools for running many parallel examples, exploring constructions, and doing technical computation or coding—tasks that speed up the exploratory steps of research. Evidence: the guest uses models as a substitute for literature searches, to run mass examples, and to handle coding chores that he otherwise would have postponed; in one paper he describes finding a better lemma statement by hand, after which the model quickly produced the formal proof. This makes AI a powerful accelerant for iterative experimentation but not a replacement for human conceptual insight.",
+          "anchorQuote": "I might use it to like learn about some related topic",
+          "tSeconds": 1155,
+          "link": "https://www.youtube.com/watch?v=tQI35CSNB08&t=1155"
+        },
+        {
+          "headline": "Cheap AI proofs risk incentivizing low-quality 'slot-machine' papers",
+          "detail": "Because models can generate many proofs quickly, there is a surge of low‑value or duplicated arXiv submissions where the human author hasn't meaningfully engaged, which can distort academic incentives. Evidence: the guest notes multiple near‑identical papers appearing within days and describes the temptation for early‑career researchers to ‘produce a lot of papers’ by repeatedly prompting models until a proof appears. This matters because it undermines the development of human mathematical understanding and the pipeline that trains future researchers.",
+          "anchorQuote": "you can do that by playing the slot machine",
+          "tSeconds": 2200,
+          "link": "https://www.youtube.com/watch?v=tQI35CSNB08&t=2200"
+        },
+        {
+          "headline": "Theory-building can be learned by models with the right curriculum",
+          "detail": "The guest believes models can eventually acquire the fuzzier skills of theory development given appropriate environments, reward structures, and curricula of increasingly difficult conjectures. Evidence: he expects continued capability growth and suggests using a graded sequence of mathematical conjectures and better RL/harness designs to teach models intermediate goals and reward signals that correspond to building understanding, not just producing checked proofs. If correct, this path would move models from applied technique‑generators to creators of new mathematical frameworks.",
+          "anchorQuote": "my expectation is just like that the trajectory will continue upwards",
+          "tSeconds": 1619,
+          "link": "https://www.youtube.com/watch?v=tQI35CSNB08&t=1619"
+        }
+      ]
+    },
+    {
+      "videoId": "nM86DBOqgPM",
+      "videoTitle": "The World’s Largest Electric Aircraft Just Flew",
+      "videoUrl": "https://www.youtube.com/watch?v=nM86DBOqgPM",
+      "channelName": "Y Combinator",
+      "publishedDate": "2026-09-01",
+      "guests": [
+        "Andrew Porceland (Hart Aerospace)"
+      ],
+      "summary": "The video documents Hart Aerospace's milestone: the largest electric airplane yet to fly and the company's path from a 3D-printed model to a full-scale prototype. It argues that hybrid-electric regional airliners—made practical by simple, scalable electric motors, improving battery energy density, and a pragmatic hybrid reserve engine—can cut operating costs, unlock short routes, and be iterated faster than traditional aerospace projects.",
+      "insights": [
+        {
+          "headline": "The prototype is the world's largest electric airplane and very cheap to operate for takeoff",
+          "detail": "Hart's prototype has a 100-foot wingspan, a max takeoff weight of ~25,000 lb, and required only about $5 of electricity to get off the ground during tests. The company calls the successor ES-30, which it expects to fly up to ~125 miles on battery alone and up to ~500 miles as a hybrid; positioning the design to serve short regional routes with much lower per-flight fuel/electricity costs than current turboprops. That scale matters because it proves electric propulsion works not only for tiny drones but for true regional passenger aircraft.",
+          "anchorQuote": "the electricity to get it off the ground cost just $5.",
+          "tSeconds": 7,
+          "link": "https://www.youtube.com/watch?v=nM86DBOqgPM&t=7"
+        },
+        {
+          "headline": "Electric motors radically simplify propulsion compared with jet engines",
+          "detail": "Unlike jet engines that have thousands of parts and high-maintenance thermal stress, Hart uses scaled-up electric motors (they developed a ~400 kW motor) that have essentially one moving part, constant torque, far less wear, and are much quieter at distance. That simplicity lowers manufacturing and maintenance cost, reduces failure modes tied to combustion, and enables cheaper, more frequent iteration—key to making regional air service economical.",
+          "anchorQuote": "An electric motor has essentially only one moving part.",
+          "tSeconds": 132,
+          "link": "https://www.youtube.com/watch?v=nM86DBOqgPM&t=132"
+        },
+        {
+          "headline": "Pure battery aircraft need heavy reserves, so a hybrid is the practical near-term solution",
+          "detail": "Because regulatory and diversion scenarios require significant reserve energy, a battery-only design would need to carry about two-thirds more battery capacity for reserves, which doesn't get lighter in flight. Hart's approach pairs batteries with a simple turborop reserve engine: the airplane can fly ~125 miles all-electric and ~500 miles using the hybrid system, trading an approximate ~20% upfront aircraft-cost increase for operational resilience and vastly expanded usable routes.",
+          "anchorQuote": "you kind of have to carry 2/3 of your battery needs",
+          "tSeconds": 592,
+          "link": "https://www.youtube.com/watch?v=nM86DBOqgPM&t=592"
+        },
+        {
+          "headline": "There's a large, immediate market: half of global flights are short-haul",
+          "detail": "About 50% of flights worldwide are under two hours—a segment poorly served because jet engines and current aircraft designs are optimized for longer routes and scale, not short hops. Hart argues replacing 40-year-old regional designs with cheaper hybrid-electric aircraft unlocks routes (island hops, fjord towns) that become cost-effective, reducing travel time dramatically and lowering per-seat operating costs, especially as fuel prices rise.",
+          "anchorQuote": "Half of all flights in the world are under 2 hours.",
+          "tSeconds": 211,
+          "link": "https://www.youtube.com/watch?v=nM86DBOqgPM&t=211"
+        },
+        {
+          "headline": "Building parts in-house and showing real hardware accelerated sales and funding",
+          "detail": "Hart deliberately built critical components and a functioning 400 kW motor in-house rather than relying on slow suppliers; that tangible hardware converted LOIs into airline orders (United among them) and attracted capital. The company runs its plant as 'one giant test bench,' enabling fast iteration on actuators, batteries, and avionics—shortening supplier lead times from many months to rapid cycles—which is how a ~40-person team progressed from a 3D model to a full-scale flying prototype.",
+          "anchorQuote": "The whole plant is wired like one giant test bench.",
+          "tSeconds": 465,
+          "link": "https://www.youtube.com/watch?v=nM86DBOqgPM&t=465"
+        }
+      ]
+    },
+    {
+      "videoId": "yZddAiz4HP8",
+      "videoTitle": "We Tested Anthropic's Fable 5.1 for a Week",
+      "videoUrl": "https://www.youtube.com/watch?v=yZddAiz4HP8",
+      "channelName": "Every",
+      "publishedDate": "2026-09-01",
+      "guests": [],
+      "summary": "The video reviews Anthropic's Fable 5.1 after a week of hands-on testing and benchmarks, arguing it is a rare generational jump in both capability and usability. The host demonstrates that Fable 5.1 can autonomously build complex apps, produce high-quality analysis and slide decks, and is significantly more token- and latency-efficient than prior Claude/Opus releases—making long-horizon delegation practical and affordable for more people.",
+      "insights": [
+        {
+          "headline": "Fable 5.1 can autonomously build complex end-to-end desktop apps",
+          "detail": "The presenter showed a fully usable desktop agent that Fable 5.1 built from a couple of prompts, with screenshots, logs, and 40 sub-agents spun up on Ultra Code. That app would normally take months of engineering but emerged after the model ran 'overnight'; the run was large (the speaker estimates a 3–5 million token job) so it's powerful but can be expensive. This demonstrates Fable's ability to coordinate many moving parts and deliver production-like artifacts with minimal human orchestration.",
+          "anchorQuote": "This was built end to end by Fable 5.1",
+          "tSeconds": 162,
+          "link": "https://www.youtube.com/watch?v=yZddAiz4HP8&t=162"
+        },
+        {
+          "headline": "Fable 5.1 is roughly twice as fast and half as token-hungry as Opus 5",
+          "detail": "On the internal agent benchmark the model averaged about 766 tokens per request and ~22 seconds latency, compared with Opus 5 at nearly 2,000 tokens and ~37 seconds. That means typical runs are both materially cheaper (fewer tokens) and faster, enabling more practical iteration on agent-style and knowledge-work tasks. These concrete numbers explain why long-horizon 'set it and come back' jobs become economically realistic.",
+          "anchorQuote": "about 766 tokens for each run",
+          "tSeconds": 308,
+          "link": "https://www.youtube.com/watch?v=yZddAiz4HP8&t=308"
+        },
+        {
+          "headline": "It reliably extracts and packages genuinely interesting insights",
+          "detail": "In a survey/NPS analysis the model not only computed distributions and scores but identified nuanced patterns—e.g., 'writing is the core of the love, apps are the bonus'—and turned them into crisp sentences that stakeholders would understand. The host stresses that previous models often produced plausible-sounding but weak or sloppily connected takeaways; Fable 5.1 shows higher discernment, reducing 'people-pleasing' correlations and surfacing connections that actually matter. That makes it useful for surfacing signals in company data and meetings, not just generating summaries.",
+          "anchorQuote": "it did an incredibly good job at pulling out real insights",
+          "tSeconds": 471,
+          "link": "https://www.youtube.com/watch?v=yZddAiz4HP8&t=471"
+        },
+        {
+          "headline": "Writing quality has returned to Claude-class levels and competes with GPT",
+          "detail": "Anthropic's writing model had regressed in prior releases, but Fable 5.1 produces clearer, easier-to-read prose—higher reading-ease and lower grade-level scores versus Opus 5 and the speaker's GPT 5.6 baseline—and can generate well-structured blog posts from small prompts and long transcripts. Some stylistic 'literariness' remains, so writers may prefer different models for different voices, but several staff writers returned to Claude for substantial writing tasks. Practically, that means teams can use Fable for one-shot drafts, analysis writeups, and decks with less editing.",
+          "anchorQuote": "with Fable 5.1 it's not only better than Opus at writing",
+          "tSeconds": 785,
+          "link": "https://www.youtube.com/watch?v=yZddAiz4HP8&t=785"
+        },
+        {
+          "headline": "Best use pattern: set large tasks to 'cook' and use interactive models for day-to-day",
+          "detail": "On Ultra Code, Fable 5.1 is less conversational and more of a 'launch-and-return' tool—the presenter says big jobs 'run for like a day' and then deliver ready artifacts—whereas more interactive daily work still happens in ChatGPT-style models. This bifurcation (a fast, cheap cooker for big, long-horizon work plus an interactive model for edits) is how the host integrated Fable into his workflow, increasing delegation without replacing conversational tooling. It changes how teams can offload entire projects rather than only getting small snippets of help.",
+          "anchorQuote": "it's going to run for like a day",
+          "tSeconds": 222,
+          "link": "https://www.youtube.com/watch?v=yZddAiz4HP8&t=222"
+        }
+      ]
+    }
+  ]
+}
