@@ -1,7 +1,7 @@
 # Job search — VP Product / CPO (US)
 
-_status: active — Zipify Head-of-Product process live; TitanX CPO screen done Aug 11 (written answers owed); Oxenham Head-of-Product screen done Jul 30; recruiter pipeline + outreach waves running_
-_updated: 2026-08-12_
+_status: active — new inbound 2026-09-02: "Randstad USA" confidential VP-Product (AI & Ecosystem) brief, legitimacy unverified, reply drafted; Zipify Head-of-Product process live; TitanX CPO screen done Aug 11 (written answers owed); Oxenham Head-of-Product screen done Jul 30; recruiter pipeline + outreach waves running_
+_updated: 2026-09-03_
 
 Positioning (public vs. backend framing, recruiter story, target roles) lives in [positioning.md](positioning.md) — durable doc, never duplicated here. ⛔ **Hard exclusion: GigaCloud is never mentioned in any external-facing artefact**; interviews use the sanctioned "fractional project with a European infra provider" line only — read the rule before drafting anything outward-facing.
 **Canonical assets — CV (master docx + shareable PDF + `bit.ly/cv-aorlov`), LinkedIn, portfolio — are tabled in [positioning.md § Canonical assets](positioning.md#canonical-assets--always-pull-the-live-version).** Always open the live link; Alex edits these outside the repo, so any in-repo copy is a snapshot.
@@ -18,6 +18,7 @@ Written interview answers (product / scale & leadership / industry experience, w
 - [zipify](zipify.md) — Head of Product — in process; deep-dive 2026-06-02, next round to drive.
 - [titanx](titanx.md) — CPO (product + CS + product marketing) at an outbound sales-tech/dialer company, ~40 people — early; recruiter screen 2026-08-11, four written answers owed before submission to CEO Justin.
 - [oxenham-head-of-product](oxenham-head-of-product.md) — Head of Product, PE-owned animal-health/livestock-cert SaaS (merged w/ TraceFirst) — early; recruiter screen 2026-07-30, next step awaited.
+- [randstad-vp-product-ai-ecosystem](randstad-vp-product-ai-ecosystem.md) — VP Product, AI & Ecosystem Growth at a confidential HR-tech SaaS (>$650M ARR claimed; SF hybrid / US-remote; $380–440K base) via a "Randstad USA" recruiter writing from a personal Gmail — early; brief received 2026-09-02, ⚠ legitimacy unverified, second reply drafted 2026-09-03.
 - [outreach](outreach.md) — LSN recruiter waves, re-engagement campaigns, recruiter pipeline (Matt Levy) — running.
 - [archive-resale](archive-resale.md) — VP Product — closed (rejected 2026-05-22 at final round; lessons captured).
 
@@ -43,6 +44,7 @@ Written interview answers (product / scale & leadership / industry experience, w
 
 ## Activity
 
+- 2026-09-03 — [Randstad inbound logged](randstad-vp-product-ai-ecosystem.md) — confidential VP-Product brief transcribed to [docs](docs/randstad-vp-product-ai-ecosystem-brief.md); personal-Gmail sender + candidate-personalised "client brief" flagged as scam signals; reply with three questions + Calendly drafted (chat, 2026-09-03).
 - 2026-08-12 — [canonical assets tabled + verified](positioning.md) — CV master docx / shareable PDF / `bit.ly/cv-aorlov` / LinkedIn / portfolio recorded as pullable links; master CV read against the GigaCloud rule (clean); PDF-vs-master lag, the $70M/$80M mismatch, and the missing location line surfaced (chat, 2026-08-12).
 - 2026-08-12 — [interview experience Q&A longread](docs/interview-experience-qa.md) — saved from Alex's GDrive as a reusable prep asset: written answers on product experience, scale & leadership, industry/AI experience (orig. Sep 2024, Drax/Affinity process).
 - 2026-08-11 — [TitanX CPO recruiter screen (Jennifer, Paraform)](calls/vacancy-interviews/titanx/2026-08-12_225046_interview_202608112032153640CB0C.md) → [titanx](titanx.md) — new vacancy; Creatio $10→$70M scaling story and sales-stack depth landed, org-design answer deferred to a written follow-up, company brief thin and second-hand.
