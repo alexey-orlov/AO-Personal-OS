@@ -2,7 +2,7 @@
 
 _status: live theme — the discipline of wrapping an AI agent in enforced structure: human-only zones, PR gates, precise workflows, adapters, and local-first context_
 _slug: agent-harness-engineering_
-_updated: 2026-09-01 · 25 insights from 15 episodes · (split from agent-engineering-patterns, 2026-07-11)_
+_updated: 2026-09-03 · 29 insights from 18 episodes · (split from agent-engineering-patterns, 2026-07-11)_
 
 ## The throughline
 A harness is code wrapped around an agent to make it behave consistently for a specific use case — and every practitioner in this cluster converges on the same core moves. Reserve architecture and UX decisions for humans (Conductor's "slot-free zones," "do not touch if you are an AI" markers — corroborated independently by Tony Fadell on the hardware-product side); force agent output through a review chokepoint before it lands (Conductor's strict PR-first workflow; the Sentry bug-triage harness's investigate-only vs. edit-enabled modes); and be extremely specific — write down the exact workflow, data sources, and allowed tools rather than reaching for a general-purpose assistant. Concrete adapters (Sentry, Linear, GitHub, Vercel) plus a persistent artifact store make investigations reproducible, though this is a choice, not a prerequisite — Gusto's much lighter "memory is just a DB column" stack proves harnesses can be minimal too. Codex-as-local-project-environment extends the same instinct beyond bespoke harnesses: a general-purpose local workspace (files on your machine, computer-use access to real tools) that lets an agent work with richer context, reinforced by a local-first/Obsidian-style memory discipline for privacy and accuracy.
@@ -134,11 +134,34 @@ Bloom argues a personal agent must (A) be able to rewrite its own core files so 
 — How I AI · 2026-08-31 · guest: Daniel Bloom (Mio) · [▶ 6:01](https://www.youtube.com/watch?v=p2qmX6TM0kw&t=361) · `pi-p2qmX6TM0kw-02`
 related: [Local-first file access massively boosts AI's effectiveness and privacy](#local-first-file-access-massively-boosts-ais-effectiveness-and-privacy) (same deep-ecosystem-integration instinct, here Notion/Slack/calendar connectors rather than a local Obsidian vault) · theme → [AI & the PM craft](ai-and-the-pm-craft.md) (this episode's week-into-a-day productivity claim, `pi-p2qmX6TM0kw-01`)
 
+### Grockbot is single-player today — team/shared in-chat use is limited
+Although Grockbot added a share-a-bot template feature, the platform still functions primarily as a single-user agent and cannot live natively inside a shared group chat the way some competitors do. The creator misses a true multiplayer/group-chat agent that multiple teammates could interact with simultaneously, and argues that lack lowers collaborative adoption even when templates exist. In short, sharing setups is possible, but simultaneous multi-user interactions remain a gap in the UX.
+— How I AI · 2026-09-02 · guest: — · [▶ 7:02](https://www.youtube.com/watch?v=QBmgF1kJSK4&t=422) · `pi-QBmgF1kJSK4-04`
+related: [Grokbot prioritizes simplicity over hackability and deep control](#grokbot-prioritizes-simplicity-over-hackability-and-deep-control) (same managed-product-tradeoff logic, here the collaboration gap rather than the customization gap)
+
+### Security and recovery agents must be extremely accurate to preserve trust
+In cyber-recovery use cases (Rubrik) a wrong recommendation or autonomous action can damage production systems and cost customers — so agents must produce high-accuracy, explainable plans. Rubrik describes turning an hours-or-days capacity-planning task into an agentic workflow, but stresses those plans must be deterministic (not probabilistic) and human-approved before execution. That requirement drives a very different architecture and evaluation approach than a generic chat assistant and explains why security teams are cautious about full autonomy.
+— SaaStr AI · 2026-09-02 · guest: — · [▶ 6:28](https://www.youtube.com/watch?v=3ZiEl5YoSno&t=388) · `pi-3ZiEl5YoSno-01`
+related: [AI must be a governed co-pilot; human judgment still prevents hallucination](#ai-must-be-a-governed-copilot-human-judgment-still-prevents-hallucination) (same governed-not-autonomous discipline, here a security/recovery domain rather than a PM-tooling one) · theme → [Law firms want agentic work but demand verification and firm governance](ai-agents-and-applications.md#law-firms-want-agentic-work-but-demand-verification-and-firm-governance) (same episode's vertical-adoption case)
+
+### Shipping agents shifts responsibility and requires deterministic guardrails
+Panelists emphasize that once agents act at scale (headless or through partners/GSIs), vendors will be held responsible for failures, so platforms must provide explainability, tracing, identity, and human-approval flows. Rubrik explains they use LLMs to draft plans but insist the recovery steps are deterministic and explainable; Glean discusses trace and persistence so agents learn from user corrections; and vendors are building platform-level evals and governance to reduce mistakes while enabling automation.
+— SaaStr AI · 2026-09-02 · guest: — · [▶ 22:37](https://www.youtube.com/watch?v=3ZiEl5YoSno&t=1357) · `pi-3ZiEl5YoSno-04`
+related: [Security and recovery agents must be extremely accurate to preserve trust](#security-and-recovery-agents-must-be-extremely-accurate-to-preserve-trust) (same episode, the Rubrik case example that grounds this broader vendor-responsibility argument)
+
+### Give models rich context so they produce unique, high‑quality content
+Rather than asking a model for generic outputs, Katie builds persistent context docs (brand messaging, audience personas, product specifics, style guides) and copies them into project contexts so the model has rails to run on. With that upfront work she could fulfill impossible content loads — e.g., eight blog posts, three ebooks, 24 LinkedIn posts, 24 X posts, 16 Instagram posts in a short period — because the AI handled iteration and repurposing while the human supplied the distinctive inputs. The non‑obvious point: the AI is fast only if you invest in structured inputs; otherwise outputs are commoditized and bland.
+— Every · 2026-09-02 · guest: Katie · [▶ 9:30](https://www.youtube.com/watch?v=vey_dBnDTAU&t=570) · `pi-vey_dBnDTAU-02`
+related: [Intent engineering matters more than crafty prompt templates](#intent-engineering-matters-more-than-crafty-prompt-templates) (same write-the-context-once-and-reuse discipline, here brand/persona/style docs for content production rather than a solo consultant's voice guides and SOPs)
+
 ## Related themes
 - [Agent engineering & production infra](agent-engineering-patterns.md) — parent theme; the broader verification/governance/cost discipline this harness-building cluster sits alongside
 - [Agent delegation, loops & software factories](agent-delegation-and-loops.md) — the sustained-execution patterns that run inside these harnesses
 
 ## Source episodes
+- [How I AI — 7 Grok Bot agents I use every day (2026-09-02)](../episodes/2026/2026-09-02--howiai--7-grok-bot-agents-i-use-every-day.md)
+- [SaaStr AI — Shipping Enterprise AI Agents with the CPOs of Rubrik, Glean, and Harvey (2026-09-02)](../episodes/2026/2026-09-02--saastr--shipping-enterprise-ai-agents-rubrik-glean-harvey.md)
+- [Every — How a Professional Writer Writes With AI (2026-09-02)](../episodes/2026/2026-09-02--every--how-a-professional-writer-writes-with-ai.md)
 - [How I AI — I built a Claude Cowork system that does a week of PM work in a day (2026-08-31)](../episodes/2026/2026-08-31--howiai--i-built-a-claude-cowork-system-that-does-a-week-of-pm-work-in-a-day.md)
 - [Aakash Gupta — Product Managers will be replaced by Product Builders -$3.4B CPO, Srini Raghavan (Freshworks) (2026-08-24)](../episodes/2026/2026-08-24--aakash--product-managers-will-be-replaced-by-product-builders.md)
 - [How I AI — How I manage 15 AI agents 24/7 as a solo founder | Ryan Carson (2026-08-24)](../episodes/2026/2026-08-24--howiai--how-i-manage-15-ai-agents-247-solo-founder.md)
