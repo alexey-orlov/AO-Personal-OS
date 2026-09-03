@@ -35,3 +35,25 @@ deck or one-pager work.
    forms. Mix directions: pair a narrow vertical stack against a wide vertical list in a
    two-column band, keep true sequences horizontal (flows with arrows), and reserve
    repeated same-form rows for genuinely peer content.
+10. **Structure by hierarchy, not by tinting every group** (2026-09-02, Toyota/Oracle
+    practice slide): a slide where every content group sits in its own coloured panel
+    (three grey cards + blue panel + orange panel + chip row + two stat bands) gives the
+    reader no entry point. Pick ONE primary structure (e.g. numbered rows with hairlines)
+    and at most ONE tinted panel for the secondary structure; colour carries ≤ 2 meanings
+    per slide, and two stages of the same thing are two tints of one hue (rule 5).
+11. **Peer claims: all or none** (2026-09-02, packs slide): when outcome/KPI evidence
+    exists for only some items in a peer set, drop the evidence row for every item rather
+    than showing "—" / "pending" next to proven ones — a visible gap undermines the whole
+    set. Rule 3's "empty instance" applies to structure (an unfilled panel), never to
+    proof. Likewise no "NEW" / status badges that single out the unproven peer.
+12. **Partner-facing stacks: partner first, with official logos, and layers that differ
+    in weight, not just hue** (2026-09-02): when the audience is the partner (Oracle
+    sellers), the partner's layer leads (top) and each layer carries the official logo —
+    pull it from a brand deck's vector asset (recolour the white-on-dark SVG, render, crop
+    to bounds, make the background transparent) rather than a text stand-in. Differentiate
+    the layers by weight and shape (solid ink tiles on a framed band vs light rounded cards
+    on a tinted band), not by tint alone.
+13. **External slides carry no internal operating numbers** (2026-09-02): headcount,
+    POD counts, capacity commitments, prices of internal packages are for internal
+    alignment decks; a customer/partner-facing slide describes capabilities and operating
+    model qualitatively. Strip them before the deck leaves SoftServe.
