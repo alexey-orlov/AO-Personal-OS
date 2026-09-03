@@ -3,7 +3,7 @@
 _status: active — three tracks agreed 2026-08-18 (Participation · Content · Implementation). Lakehouse Summit is the high-leverage venue and Hammad offered stage time; AI Experience (16 cities) is panel-only. **Blocked on Hammad's nomination of the 4–5 AIDP demand areas** — our whole content track hangs off it. Follow-up call slipped from w/c Aug 24 to **2026-09-03**._
 _updated: 2026-09-03_
 
-The **demand-side** counterpart to [oracle.md](oracle.md) (partnership state) and the Ismail collaboration/supply track. Oracle's AI org splits demand ↔ supply; **Hammad Hussain owns demand generation** and is therefore the door to Oracle's event channel — see [oracle-team.md](oracle-team.md#demand-generation--hammad-hussain-surfaced-2026-08-18).
+The **demand-side** counterpart to [oracle.md](oracle.md) (partnership state) and the Ismail collaboration/supply track. Oracle's AI org splits demand ↔ supply; **Hammad Hussain owns demand generation** and is therefore the door to Oracle's event channel — see [oracle-team.md](oracle-team.md#demand-generation-hammad-hussain-surfaced-2026-08-18).
 
 ## Snapshot
 
@@ -42,11 +42,11 @@ A named, priced-shaped package placed in front of the client at the event, with 
 | Frankfurt | 8-Dec (proposed) | 150 | DACH |
 | Amsterdam | 15-Dec (proposed) | 300 | BNL |
 
-2027 cities (Istanbul · Riyadh · Doha · Milan · Madrid · Johannesburg · Lisbon · Bucharest · Stockholm) and the full table → [Hammad events-GTM note](calls/oracle/2026-08-18_sales-call_hammad-events-gtm.md#addendum--2026-08-31-mon-hammads-message--the-ai-experience-city-table). Biggest rooms: **Amsterdam / Paris / London (300 cust.)**, then Milan + Madrid (300 / 450 attend.) in the new year. **London is both a Summit city and the largest confirmed AI Experience — home turf, and the natural anchor for the whole push.**
+2027 cities (Istanbul · Riyadh · Doha · Milan · Madrid · Johannesburg · Lisbon · Bucharest · Stockholm) and the full table → [Hammad events-GTM note](calls/oracle/2026-08-18_sales-call_hammad-events-gtm.md#addendum-2026-08-31-the-ai-experience-city-table). Biggest rooms: **Amsterdam / Paris / London (300 cust.)**, then Milan + Madrid (300 / 450 attend.) in the new year. **London is both a Summit city and the largest confirmed AI Experience — home turf, and the natural anchor for the whole push.**
 
 ## People
 
-- **Hammad Hussain** (Oracle) — owns **demand generation** across AIDP / Lakehouse / GenAI services / dedicated AI clusters / accelerators; controls the Lakehouse Summit agenda; our door to the event channel. Thinks in packages, reads our material unprompted. → [oracle-team.md](oracle-team.md#demand-generation--hammad-hussain-surfaced-2026-08-18)
+- **Hammad Hussain** (Oracle) — owns **demand generation** across AIDP / Lakehouse / GenAI services / dedicated AI clusters / accelerators; controls the Lakehouse Summit agenda; our door to the event channel. Thinks in packages, reads our material unprompted. → [oracle-team.md](oracle-team.md#demand-generation-hammad-hussain-surfaced-2026-08-18)
 - **Bohdan Khomych** (SoftServe) — owns the relationship, follow-ups, city shortlist, profitability review. → [people/bohdan-khomych.md](../../people/bohdan-khomych.md)
 - **Gero Gunkel** (Oracle CTO) — his 30-day managed-service timeline is the shape our entry package should mirror; owns the handover into scale.
 - **Neil London** (Oracle, VP AI & Data EMEA) — the earlier call whose notes Hammad drew his packaging fix from.
@@ -91,5 +91,5 @@ A named, priced-shaped package placed in front of the client at the event, with 
 ## Activity
 
 - 2026-09-03 — follow-up call with Hammad (rebooked from w/c Aug 24) — agenda: content + implementation
-- 2026-08-31 — [Hammad's message + AI Experience city table](calls/oracle/2026-08-18_sales-call_hammad-events-gtm.md#addendum--2026-08-31-mon-hammads-message--the-ai-experience-city-table) — 16 cities / 3,150 customer goal, only London confirmed; **Lakehouse Summit moved to "the day after AI World" (~29 Oct)**
+- 2026-08-31 — [Hammad's message + AI Experience city table](calls/oracle/2026-08-18_sales-call_hammad-events-gtm.md#addendum-2026-08-31-the-ai-experience-city-table) — 16 cities / 3,150 customer goal, only London confirmed; **Lakehouse Summit moved to "the day after AI World" (~29 Oct)**
 - 2026-08-18 — [Hammad events-GTM call](calls/oracle/2026-08-18_sales-call_hammad-events-gtm.md) — three tracks agreed; event landscape corrected (16 AI Experience + 2 Lakehouse Summits, not 30 labs); stage time offered; AIDP pulled off the lab agenda; 30-vs-60-day anchor surfaced

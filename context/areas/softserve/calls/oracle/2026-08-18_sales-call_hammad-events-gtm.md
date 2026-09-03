@@ -125,7 +125,7 @@ A clean, honest alignment statement — **reuse it internally.**
 
 ---
 
-## Addendum — 2026-08-31 (Mon): Hammad's message + the AI Experience city table
+## Addendum 2026-08-31: the AI Experience city table
 
 Hammad sent the AI Experience city list as a screenshot, with the message:
 

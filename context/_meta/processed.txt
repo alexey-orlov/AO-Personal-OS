@@ -128,6 +128,7 @@ context/areas/softserve/calls/oracle/2026-07-30_134222_sales-call_20260724123234
 context/areas/softserve/calls/oracle/2026-07-30_141406_sales-call_20260728150352C40DCE8E.md
 context/areas/softserve/calls/oracle/2026-08-05_125052_default_20260805113131F0734A55.md
 context/areas/softserve/calls/oracle/2026-08-18_124942_default_202608181205216609E8E0.md
+context/areas/softserve/calls/oracle/2026-08-18_sales-call_hammad-events-gtm.md
 context/areas/softserve/calls/oracle/2026-08-18_sales-call_ismail-collaboration-infra.md
 context/areas/softserve/calls/payworks-jumpstart/2026-07-30_133224_sales-call_20260729180444E25F29B5.md
 context/areas/softserve/calls/payworks-jumpstart/2026-07-30_135646_default_20260728174009FE3CAD55.md
