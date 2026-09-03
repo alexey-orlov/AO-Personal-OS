@@ -1,8 +1,8 @@
 # Oracle AI — offering topology (reference)
 
 _status: reference doc — Oracle's AI product catalog, the layer SoftServe's verticalized accelerator packs build on_
-_updated: 2026-08-21_
-_source: oracle.com product pages, fetched 2026-06-18; structure list provided by Alex; the Motion-B data layer added 2026-07-23 and the **Autonomous AI Lakehouse product detail decoded at Oracle's 2026-08-05 enablement session** ([note](calls/oracle/2026-08-05_125052_default_20260805113131F0734A55.md)). Companion to [oracle.md](oracle.md) (partnership) and [oracle-team.md](oracle-team.md) (who we deal with)._
+_updated: 2026-09-03_
+_source: oracle.com product pages, fetched 2026-06-18; structure list provided by Alex; the Motion-B data layer added 2026-07-23 and the **Autonomous AI Lakehouse product detail decoded at Oracle's 2026-08-05 enablement session** ([note](calls/oracle/2026-08-05_125052_default_20260805113131F0734A55.md)). Companion to [oracle.md](oracle.md) (partnership) and [oracle-team.md](oracle-team.md) (who we deal with). **Oracle's own EMEA enablement lab catalogue, the AIDP-off-the-lab-agenda move, and the accelerator→dedicated-AI-cluster monetisation link** added 2026-09-03 from the [Hammad events-GTM call](calls/oracle/2026-08-18_sales-call_hammad-events-gtm.md)._
 
 ## Why this is here
 
@@ -110,3 +110,18 @@ _From Oracle's AI Lakehouse enablement session #1 for SoftServe (Javier, Oracle 
 - **Relationship (AIDP ↔ AI Lakehouse) — partly answered 2026-08-05, still genuinely open at Oracle.** Public sources are fuzzy (at AI World 2025 Oracle "finalized not one but two lakehouses," and AIDP itself embeds a lakehouse architecture), and **Oracle presents them as two distinct GTM motions** (separate product teams, event tracks, lead funnels) — so treat them as two engagement surfaces. The concrete boundary as of 2026-08-05: **ADP works with Delta only; Autonomous works with Iceberg only** — but treat this as the enablement-session read, not a public claim: **Oracle's public AIDP materials state both Delta AND Iceberg** (likely shipped-vs-roadmap nuance) — **never state "AIDP is Delta-only" externally** (web check, 2026-08-21). Today's options are (a) **recommended** — move/copy data to the gold layer via **Spark JDBC** into Autonomous, or (b) a PM workaround using **Uniform metadata + manual catalog integration**. **Native catalog integration is expected once ADP supports Iceberg ("soon", no date).** **Gero stated plainly that nobody at Oracle has a clean answer yet on how AIDP and AI Lakehouse will be *fully* integrated long-term** — so this is an Oracle-internal open question, not a SoftServe knowledge gap.
 
 _Sources: [Pythian — AIDP overview](https://www.pythian.com/blog/oracle-ai-data-platform-aidp-no-nonsense-platform-overview), [Vigilant — AIDP market fit](https://vigilant-inc.com/oracle-ai-data-platform-what-it-is-and-where-it-fits-in-the-market/), [LeMagIT — Oracle's two lakehouses](https://www.lemagit.fr/actualites/366632762/AI-World-Oracle-finalise-non-pas-un-mais-deux-lakehouse) (web, 2026-07-23); the AI-Lakehouse-as-distinct-GTM-motion + 8 accelerators + AIDP-Innovation managed service from the 2026-07-22 session (chat, 2026-07-23)._
+
+## How Oracle takes this catalog to market (2026-08-18, Hammad)
+
+**The EMEA enablement lab catalogue** — what Oracle actually teaches customers hands-on at its AI Experience events (all OCI-based). Useful as a read on where Oracle is putting its own enablement weight:
+
+- **Foundation** — AI applications with Oracle AI Database · Unified data layer with **Oracle Autonomous AI Lakehouse** · Assemble and deploy an AI agent using **RAG and SQL** (AI Data Platform foundation)
+- **Advanced** — Build AI agents with **Python, RAG and LangChain** · Implement **persistent state, recall and adaptive reasoning** · **Optimise AI workload with intelligent model selection**
+- **Business applications track** — Fusion-oriented
+- Keynote themes: **agentic enterprise** + **AI economics**
+
+**⚠️ AIDP is being pulled off the live-lab agenda; AI Lakehouse stays** (Hammad escalated this mid-call 2026-08-18; outcome unknown). **Read:** Oracle's internal centre of gravity for *hands-on enablement* is **Lakehouse**, even though AIDP remains a named demand priority. Partner-facing event content should lead with Lakehouse and carry AIDP as the forward-looking layer.
+
+**How the accelerator motion monetises:** **accelerator-type projects tend to land as dedicated AI clusters** — client-committed, client-paid GPU capacity (a capability listed under *OCI Enterprise AI* above). The pack is the on-ramp; the compute commitment is the revenue. This is why Oracle's demand side pushes low-friction pilots so hard.
+
+**SoftServe read:** the lab catalogue maps almost one-for-one onto SoftServe's own agentic-engineering capability (agent state/memory, RAG+SQL, model routing/selection economics) — **the constraint on partner content is access, not capability**. Full thread → [oracle-events-gtm.md](oracle-events-gtm.md)
