@@ -57,6 +57,33 @@ the layout files + their `_rels` by hand, strip their `<Override>` entries from
 `[Content_Types].xml`, then delete media no longer referenced by any surviving `.rels` →
 `validate.py out.pptx --original <full template>`. Result should be ~40 KB.
 
+## The wide automotive deck family (`Presales/Toyota Oracle.pptx`, 2026-09-02)
+
+Scott's automotive/Toyota deck is SoftServe-branded but on a **different, larger canvas —
+18288000 × 10287000 EMU (20" × 11.25")** with four masters / 56 layouts; nothing from the
+12192000-wide kit above transfers geometrically. What worked when adding the Oracle
+partnership section (slides 30–34):
+- **Section header idiom** = layout `DEFAULT` (slideLayout1) with hand-drawn shapes: bg
+  `26292B`, left rect 6949380 wide with a top-down gradient `459FDD → C1DFF3 → FFFFFF`,
+  the number in `Roboto Mono SS` sz 16500 at (914400, 4000500), `SECTION NN` label sz 975
+  bold blue `459FDD` spc 78 right-aligned, title `Azurio` sz 4500 white right-aligned in a
+  4165890 × 1295400 box (two lines max). Duplicate slide 6 with `add_slide.py` and swap the
+  three `<a:t>` runs.
+- **Content slides** = layout `Title-1Column` (slideLayout17): placeholders `body idx=34`
+  (top-right running label), `sldNum idx=4`, `title` — title run is `Replica LL TT` bold
+  sz 4800 `26292B`, UPPERCASE, at (538101, 1622980); keep it to ONE line (≤ ~40 chars at
+  16.4M width) or it eats the intro line. Content area y 3.45M → 9.5M, x 538101 → 17772000.
+- **Palette in use:** blue accent `459FDD` (labels, stat numbers) / `1485C3` (diagram
+  fills), ink `26292B`, body `262626`, muted `4C5156`, panel `F7F9FA`, hairline `E1E7EB`,
+  rule `BDCBD7`; orange `F36949` appears sparingly. Stat-tile idiom: `F7F9FA` tile, number
+  in `Roboto Mono SS` (blue), caption mono sz 825 `4C5156` spc 33.
+- The pack "solution layers" colour stack (from the R&D monthly deck) transfers as-is:
+  tint/bar pairs `FDEDE8/F36949` (SoftServe) · `D2E7F6/1485C3` (Oracle + SoftServe) ·
+  `EAF3FB/6DB2E2` (NVIDIA) · `EEF1F3/6B7680` (OCI), bar width 45720.
+- QA trick for a 270 MB deck: copy the unpacked dir, prune `<p:sldIdLst>` to the new
+  slides, run `clean.py`, zip → a ~15 MB deck that soffice renders in seconds; the full
+  deck only needs `validate.py --original`.
+
 ## QA gotchas (this template family)
 
 - `markitdown` returns EMPTY for these table slides — for content QA use `pdftotext` on
