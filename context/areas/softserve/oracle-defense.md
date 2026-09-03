@@ -64,7 +64,8 @@ Capability strip: AI/CV · autonomous systems · digital twins & simulation · s
 
 Mine:
 - **Post the NATO use-case menu in Karsten's thread by ~Fri 2026-09-04** — draft ready: lift the report's §0 (12 rows + tier legend + "not on the menu" line + the first-wave call) into a one-pager; decide whether to lead with the first wave (#1/#2/#4/#5 + #3) or the full 12.
-- **Oksana + Denys pre-alignment** — bring the §9 cards as the packs ↔ needs mapping; collect per-case reusable-asset status for FreeTech 01–06 and the OCI answer to #06's Greengrass dependency.
+- **Oksana + Denys pre-alignment** — bring the §9 cards + the **NATO pattern map** ([docs/2026-09-03_nato-pattern-map.csv](docs/2026-09-03_nato-pattern-map.csv); xlsx twin delivered for OneDrive `Projects/Oracle/Use case maps/`) as the packs ↔ needs mapping; collect per-case reusable-asset status for FreeTech 01–06 and the OCI answer to #06's Greengrass dependency.
+- **Re-check the NATO map against the deck renderings** (partnership-vision + Business Alignment pptx in OneDrive — not reachable from the cloud session) before any slide is cut; the NATO cards were built from the Sheet twin of the xlsx.
 - **Fold the Sep-2 team call outcome** (⚠ not in the wiki; if it happened, its steer supersedes the report's tiering).
 - Nemotron drill-down — done in the report; residue: verify licence text per model and whether Nemotron import works in the EU Sovereign Cloud.
 
@@ -76,5 +77,6 @@ Theirs:
 
 ## Activity
 
+- 2026-09-03 — [NATO pattern map](docs/2026-09-03_nato-pattern-map.csv) — the card-level adaptation of the Business-Alignment map (7 L1 × 24 L2 + 4 EXT L1s; 92 defence cards with AIDP / NVIDIA / Oracle-AI fit, Applies / Proof / Menu / Highlight-view columns; report §6.1); xlsx delivered to Alex.
 - 2026-09-03 — [NATO AI use-case map — working report](docs/2026-09-03_nato-ai-use-case-map.md) — four angles (defence-AI clusters with OCI/NVIDIA/SoftServe coverage · Oracle × NATO known ground · FreeTech base · the 7-L1 map adapted + packs mapping), a starting-point list, PoV scorecard C1–C9 and a 12-case menu with first wave #1/#2/#4/#5 + #3; premise corrected (enterprise-tier Oracle inside a multi-cloud NCIA) and Nemotron-on-OCI decoded (import-only onto a Dedicated AI Cluster). Published as an artifact for the brainstorm.
 - 2026-08-29 — Stream folded: Bohdan's DM + Karsten clarification chat + "Oracle Defense - prep meeting" thread history + FreeTech one-pager contents — page created. (chat, 2026-08-29)
