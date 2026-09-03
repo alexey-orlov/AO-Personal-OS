@@ -2,7 +2,7 @@
 
 _status: reference doc — Oracle's AI product catalog, the layer SoftServe's verticalized accelerator packs build on_
 _updated: 2026-09-03_
-_source: oracle.com product pages, fetched 2026-06-18; structure list provided by Alex; the Motion-B data layer added 2026-07-23 and the **Autonomous AI Lakehouse product detail decoded at Oracle's 2026-08-05 enablement session** ([note](calls/oracle/2026-08-05_125052_default_20260805113131F0734A55.md)). Companion to [oracle.md](oracle.md) (partnership) and [oracle-team.md](oracle-team.md) (who we deal with). **Oracle's own EMEA enablement lab catalogue, the AIDP-off-the-lab-agenda move, and the accelerator→dedicated-AI-cluster monetisation link** added 2026-09-03 from the [Hammad events-GTM call](calls/oracle/2026-08-18_sales-call_hammad-events-gtm.md)._
+_source: oracle.com product pages, fetched 2026-06-18; structure list provided by Alex; the Motion-B data layer added 2026-07-23 and the **Autonomous AI Lakehouse product detail decoded at Oracle's 2026-08-05 enablement session** ([note](calls/oracle/2026-08-05_125052_default_20260805113131F0734A55.md)). Companion to [oracle.md](oracle.md) (partnership) and [oracle-team.md](oracle-team.md) (who we deal with). **Oracle's own EMEA enablement lab catalogue, the AIDP-off-the-lab-agenda move, and the accelerator→dedicated-AI-cluster monetisation link** added 2026-09-03 from the [Hammad events-GTM call](calls/oracle/2026-08-18_sales-call_hammad-events-gtm.md); the **sovereign / defence deployment line + Nemotron-on-OCI section** added 2026-09-03 from the [NATO use-case report](docs/2026-09-03_nato-ai-use-case-map.md)._
 
 ## Why this is here
 
@@ -125,3 +125,25 @@ _Sources: [Pythian — AIDP overview](https://www.pythian.com/blog/oracle-ai-dat
 **How the accelerator motion monetises:** **accelerator-type projects tend to land as dedicated AI clusters** — client-committed, client-paid GPU capacity (a capability listed under *OCI Enterprise AI* above). The pack is the on-ramp; the compute commitment is the revenue. This is why Oracle's demand side pushes low-friction pilots so hard.
 
 **SoftServe read:** the lab catalogue maps almost one-for-one onto SoftServe's own agentic-engineering capability (agent state/memory, RAG+SQL, model routing/selection economics) — **the constraint on partner content is access, not capability**. Full thread → [oracle-events-gtm.md](oracle-events-gtm.md)
+
+## Sovereign / defence deployment line + NVIDIA on OCI (added 2026-09-03)
+
+_From the NATO use-case research ([oracle-defense](oracle-defense.md) · [report §3.2 + §4.3](docs/2026-09-03_nato-ai-use-case-map.md)); web facts reached as search extracts of oracle.com / NVIDIA docs (the sandbox blocked the doc domains) — re-verify before client use._
+
+**Deployment rungs a partner can build on** (public OCI → disconnected edge):
+
+| Rung | Substance | GPUs | Accreditation |
+|---|---|---|---|
+| **OCI AI Accelerator Packs** (catalog announced 2026-01-12; Jun-2026 demo-day catalog = 7 packs: Vehicle Route Optimizer · Warehouse Pick Path Optimizer · Video Search & Summarization · Enterprise Knowledge Chat Agent (self-hosted + managed) · Agentic AI Starter Kit (AI-Q) · AI Document Extraction) | Terraform-deployed into the customer's own tenancy, open-source, Nemotron pre-integrated, RBAC + audit log, SSO via identity domains | public shapes L40S · H100 · H200 · B200 · B300 · GB200 · GB300 | — |
+| **Oracle EU Sovereign Cloud** | Frankfurt + Madrid; EU entities + EU-resident staff; **OCI Generative AI live in Frankfurt** | L40S, Hopper, Blackwell orderable | C5 · ISO 27001/17/18/701 · DORA/NIS2 alignment |
+| **UK Sovereign Cloud** | dual-region; **UK MoD agreement 2026-01-14** (Defence Digital; joins AWS + Microsoft under MODCloud) | — | OFFICIAL-SENSITIVE |
+| **OCI Dedicated Region** / **Alloy** | full region in the customer's DC (100–150+ services incl. GenAI and Fusion SaaS); 5-year commitment; Alloy = partner-operated (Italy PSN) | L40S · H100/H200 · B200/GB200 (GB200 NVL72 superclusters) | national |
+| **Compute Cloud@Customer Isolated** (2025-06-17) | single-rack air-gapped entry point, 6–8-week fast-start, upgrade path to an Isolated Region | 4 → 48 L40S | — |
+| **Oracle Cloud Isolated Region** | air-gapped from 3 racks; Oracle-/customer-/partner-operated; reference Singapore MINDEF | GPU list unpublished (parity implied) | customer-defined |
+| **Oracle National Security Regions** | US Secret / Top Secret; OCI GenAI GA in Top Secret regions 2026-01-13 | B300 | DISA IL6 — **US-only** |
+| **Roving Edge** | RED v2 (2U, MIL-STD-810 case option), Ultra backpack, Station container | up to 3× L4 per RED v2 | — |
+| **Oracle Defense Ecosystem** (2025-06-17 →) | 3 cohorts × 10 defence-tech partners; discounted Palantir Foundry + AIP on OCI; co-sell; Oracle Defence Tech Summit 2026, Brussels | — | — |
+
+⚠ **No NATO RESTRICTED / NATO SECRET accreditation is public for any Oracle offering**; US and NATO accreditation paths are separate. NATO's own verifiable Oracle footprint = NCIA's E-Business Suite + Fusion ERP estate and the Sep-2025 NCIA→OCI selection (Thales prime; no value/term/region/classification published) — detail on [oracle-defense](oracle-defense.md).
+
+**Nemotron on OCI — the nuance that changes PoV pricing:** Nemotron 3 Super (2026-03-11, first NVIDIA model there), Ultra-NVFP4 (Dedicated AI Cluster shape B200_X4) and Nano Omni (OCI Enterprise AI, ~May 2026) arrive via **OCI Generative AI Model Import onto a Dedicated AI Cluster**, or as NIM on OKE / OCI Marketplace / AI Quick Actions — **not** in the on-demand hosted catalog (Cohere, Meta Llama, xAI Grok, gpt-oss beta, Google Gemma). OCI US-Gov regions "plan to host" Nemotron (2026-03-31, not GA). Related GA items: Oracle AI Database 26ai GPU-accelerated vector indexing with NVIDIA cuVS (2026-03-17); OCI AI Blueprints (OKE stacks — vLLM serving, RAG, LoRA fine-tuning); NIM air-gapped deployment is documented on the NVIDIA side (download-to-cache → copy → run offline).

@@ -144,5 +144,6 @@ context/areas/softserve/docs/2026-08-17_sbg-workshop-transcript-2of2.md
 context/areas/softserve/docs/2026-08-17_sbg-workshop-transcript-full.md
 context/areas/softserve/docs/2026-08-20_sbg-poc-scope-draft-dundych.md
 context/areas/softserve/docs/2026-08-24_sbg-data-scoping-workshop-analysis.md
+context/areas/softserve/docs/2026-09-03_nato-ai-use-case-map.md
 context/areas/softserve/docs/conga-ai-pm-bootcamp-transcript.md
 context/areas/softserve/docs/oracle-packages-tshirt-sizing.md
