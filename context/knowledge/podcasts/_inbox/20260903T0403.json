@@ -1,0 +1,236 @@
+{
+  "schema": 1,
+  "generatedAt": "2026-09-03T04:03:29.668Z",
+  "runStamp": "20260903T0403",
+  "episodes": [
+    {
+      "videoId": "5--QWPk8jN0",
+      "videoTitle": "FABLE 5.1 IS A BEAST",
+      "videoUrl": "https://www.youtube.com/watch?v=5--QWPk8jN0",
+      "channelName": "Every",
+      "publishedDate": "2026-09-01",
+      "guests": [
+        "Alex Albert (Anthropic)"
+      ],
+      "summary": "The panel tests Anthropic's Fable 5.1 and argues it keeps Fable's high capability while becoming friendlier, faster, and more token-efficient. The throughline is that this release finally makes Fable practical as a daily driver and for delegated, long-running knowledge and coding work — from one-shot apps to multi-hour agents — without losing the model's judgment and polish.",
+      "insights": [
+        {
+          "headline": "Fable 5.1 is the accessible, “for everyone” version of Fable",
+          "detail": "Where Fable 5 felt like a high-skill tool for power users, Fable 5.1 preserves the deep capability but speaks and responds in everyday English, making iterative collaboration and one-shot tasks both easier. Panelists repeatedly said it no longer feels like an elitist model — it’s friendlier, faster, and better tuned to people who want delegated knowledge work without having to be highly technical. That matters because it lowers the bar for teams to adopt a single capable model rather than maintaining different tools for experts versus general users.",
+          "anchorQuote": "this is fable for everyone.",
+          "tSeconds": 279,
+          "link": "https://www.youtube.com/watch?v=5--QWPk8jN0&t=279"
+        },
+        {
+          "headline": "It’s materially more token-efficient and a practical Opus 5 replacement",
+          "detail": "The hosts report Fable 5.1 is about 50% more token-efficient than Opus 5 while being faster and delivering higher-quality outputs, so switching to it yields similar or better cost/performance. Multiple examples—long-running code generation, slide and blog production—show comparable or better results for roughly the same or lower cost. For teams already paying for Opus 5, that makes 5.1 a pragmatic daily-driver swap rather than an experimental niche model.",
+          "anchorQuote": "about uh 50% more token efficient than Opus 5",
+          "tSeconds": 2606,
+          "link": "https://www.youtube.com/watch?v=5--QWPk8jN0&t=2606"
+        },
+        {
+          "headline": "It reliably runs long, autonomous, agent-style tasks",
+          "detail": "Fable 5.1 can run multi-hour to multi-day agent workflows and return polished products: the demo built a collaborative editor (Proof) in a ~6-hour run, a Mac agent app called Hands that automates local actions from Slack, and even headless Blender renderings and simulated towns. These aren’t flaky one-off outputs—panelists emphasized the model’s ability to keep context, use external libraries/APIs, and finish complex pipelines without constant human loop intervention. That capability changes what teams can delegate to a model: full end‑to‑end coding and media pipelines instead of just short edits.",
+          "anchorQuote": "it runs for days at a time doing things",
+          "tSeconds": 2594,
+          "link": "https://www.youtube.com/watch?v=5--QWPk8jN0&t=2594"
+        },
+        {
+          "headline": "Fable 5.1 shows improved discernment for knowledge work",
+          "detail": "The team found the model better at surfacing genuinely relevant items—e.g., it produced meeting-feed summaries and flagged 50/50 decisions worth human attention—where earlier models brought noisy or irrelevant highlights. Katie describes a feed of meeting summaries that pulled out decisions and signals she actually cared about, which gave a new lens into company operations. Stronger discernment matters because it converts raw transcripts and logs into actionable signals, enabling personal feeds and better managerial triage without massive data engineering.",
+          "anchorQuote": "it created a feed of all the meetings",
+          "tSeconds": 1657,
+          "link": "https://www.youtube.com/watch?v=5--QWPk8jN0&t=1657"
+        },
+        {
+          "headline": "Small design and judgment details distinguish its outputs",
+          "detail": "Panelists repeatedly praised Fable 5.1 for the little touches—layout decisions, tasteful animations, correct judgment about when not to add content—that make outputs feel polished and useful without extra prompting. Examples include slide layouts with properly pointing arrows, tasteful UX tweaks in the Proof editor, and better in‑place edits that avoid verbosity. Those small decisions reduce manual cleanup and are what make a one-shot deck, landing page, or UI more truly 'delegated' rather than a draft that still needs human polishing.",
+          "anchorQuote": "all these little details that it just does",
+          "tSeconds": 1148,
+          "link": "https://www.youtube.com/watch?v=5--QWPk8jN0&t=1148"
+        }
+      ]
+    },
+    {
+      "videoId": "QBmgF1kJSK4",
+      "videoTitle": "7 Grok Bot agents I use every day",
+      "videoUrl": "https://www.youtube.com/watch?v=QBmgF1kJSK4",
+      "channelName": "How I AI",
+      "publishedDate": "2026-09-02",
+      "guests": [],
+      "summary": "A product tour and practical playbook for using Grockbot (an agent platform) through seven real agents the creator runs daily. The central argument: Grockbot's simple UI, multi-account connectors, and per-bot VM+routine model make it especially effective for automating recurring, cross-tool workflows at work and at home. It can replace many repetitive human tasks today, though it lacks native multiplayer/group-chat agent features. The video demonstrates specific, repeatable agent designs for chief-of-staff, family coordination, engineering ops, helpdesk, shopping, and finance automation.",
+      "insights": [
+        {
+          "headline": "Name-and-role inference makes a bot-per-job approach natural",
+          "detail": "Grockbot infers an agent's likely job from the name you give it, which encourages a 'bot-per-job' workflow where each agent is treated like a colleague with a narrowly defined scope. The creator recommends intentionally naming and hiring bots for specific responsibilities (e.g., 'Chief' for inbox/calendar sweeps, 'Tadbot' for family ops) because that structure keeps agents focused and easier to manage than one polyglot assistant. This matters because clear boundaries reduce accidental scope creep and make automation predictable and auditable.",
+          "anchorQuote": "Fun fact, if you create a new bot",
+          "tSeconds": 204,
+          "link": "https://www.youtube.com/watch?v=QBmgF1kJSK4&t=204"
+        },
+        {
+          "headline": "Multi-account connectors are a kill‑feature for busy people",
+          "detail": "Grockbot allows you to connect multiple accounts per plugin (Gmail, Calendar, Drive, Slack, etc.), so a single agent can switch among six or more inboxes and slacks the user runs. The presenter—who says they have 6–10 email addresses—calls this elegant and critical for entrepreneurs who juggle businesses and personal accounts, and notes other platforms are only recently adopting multi-Gmail/Calendar connectors. The capability transforms agents from single‑account toys into practical assistants that operate across your real-world stack.",
+          "anchorQuote": "you can connect multiple accounts per plug-in.",
+          "tSeconds": 311,
+          "link": "https://www.youtube.com/watch?v=QBmgF1kJSK4&t=311"
+        },
+        {
+          "headline": "Each agent runs on its own cloud 'computer' and scheduled routines",
+          "detail": "Every Grockbot has a cloud VM where it can run code, log into websites, install things, run repos, and execute scheduled routines so tasks continue across devices with continuity. That VM+routine model enables agents to kick off coding jobs (cursor cloud), rebase PRs, run monitors, or perform hourly inbox sweeps without manual intervention. The practical upshot: agents can actually execute work—not just draft replies—so they can maintain engineering pipelines, compliance dashboards, or periodic family notifications autonomously.",
+          "anchorQuote": "a Grockbot has a computer and it has routines.",
+          "tSeconds": 364,
+          "link": "https://www.youtube.com/watch?v=QBmgF1kJSK4&t=364"
+        },
+        {
+          "headline": "Grockbot is single-player today — team/shared in-chat use is limited",
+          "detail": "Although Grockbot added a share-a-bot template feature, the platform still functions primarily as a single-user agent and cannot live natively inside a shared group chat the way some competitors do. The creator misses a true multiplayer/group-chat agent that multiple teammates could interact with simultaneously, and argues that lack lowers collaborative adoption even when templates exist. In short, sharing setups is possible, but simultaneous multi-user interactions remain a gap in the UX.",
+          "anchorQuote": "these are still single player.",
+          "tSeconds": 422,
+          "link": "https://www.youtube.com/watch?v=QBmgF1kJSK4&t=422"
+        },
+        {
+          "headline": "Agents can run concrete, end‑to‑end workflows with approvals",
+          "detail": "Grockbot agents are used to run complete recurring workflows: Chief does hourly inbox/calendar/Slack triage and voice-mirroring for email; Tadbot prints a kitchen-table newsletter and coordinates school pickups; 'Look Good To Me' closes or rebases PRs; a SOC 2 controlbot triages vulnerabilities and opens PRs; Holly Helpdesk sweeps support, issues refunds via an 'agent action' Stripe approval, and drives weekly docs improvements. These examples show agents operating proactively, integrating with tools, and surfacing human approvals—demonstrating real operational value, not just chat-based suggestions.",
+          "anchorQuote": "how we use plug-in and computer to get jobs done.",
+          "tSeconds": 414,
+          "link": "https://www.youtube.com/watch?v=QBmgF1kJSK4&t=414"
+        }
+      ]
+    },
+    {
+      "videoId": "3ZiEl5YoSno",
+      "videoTitle": "Shipping Enterprise AI Agents with the CPOs of Rubrik, Glean, and Harvey",
+      "videoUrl": "https://www.youtube.com/watch?v=3ZiEl5YoSno",
+      "channelName": "SaaStr AI",
+      "publishedDate": "2026-09-02",
+      "guests": [],
+      "summary": "Product leaders from Rubrik, Glean, and Harvey discuss how companies are actually building, deploying, and governing enterprise AI agents today. The throughline is practical: agents can automate complex work (capacity planning, knowledge work, discovery) but only if teams invest in deterministic plans, strong organizational context, human-in-the-loop verification, and platform-level guardrails.",
+      "insights": [
+        {
+          "headline": "Security and recovery agents must be extremely accurate to preserve trust",
+          "detail": "In cyber-recovery use cases (Rubrik) a wrong recommendation or autonomous action can damage production systems and cost customers — so agents must produce high-accuracy, explainable plans. Rubrik describes turning an hours-or-days capacity-planning task into an agentic workflow, but stresses those plans must be deterministic (not probabilistic) and human-approved before execution. That requirement drives a very different architecture and evaluation approach than a generic chat assistant and explains why security teams are cautious about full autonomy.",
+          "anchorQuote": "super super high accuracy and where we're preserving",
+          "tSeconds": 388,
+          "link": "https://www.youtube.com/watch?v=3ZiEl5YoSno&t=388"
+        },
+        {
+          "headline": "Organizational, offline 'memory' is the competitive part of agents",
+          "detail": "Glean argues that the real value of enterprise agents is the offline-processed, firm-level context — connecting projects, people, precedents and acquisitions into a persistent memory — not just runtime retrieval. Users today spend huge amounts of their AI time 'building context'; Glean serves as a system of intelligence you can query directly or surface to other assistants (Claude, Co-pilot-style UIs), and its cloud integrations are among the fastest-growing usage modes. That superior context lets agents perform work on behalf of teams rather than forcing each user to re-feed documents every session.",
+          "anchorQuote": "giving me memory across everything across my organization",
+          "tSeconds": 646,
+          "link": "https://www.youtube.com/watch?v=3ZiEl5YoSno&t=646"
+        },
+        {
+          "headline": "Law firms want agentic work but demand verification and firm governance",
+          "detail": "Harvey reports strong adoption among sophisticated legal customers — they serve ~60%+ of AmLaw 100 and many Fortune 500 legal teams — but lawyers insist on provenance, citations, and ways to verify an agent's plan before relying on output. To address this Harvey supplies both self-serve agent builders and so-called forward-deployed or legal-engineer pods (about 180 legal engineers) who configure agents to reflect firm playbooks and enable partner/associate review workflows, because firms need reproducible, auditable processes not opaque autonomy.",
+          "anchorQuote": "Can I actually verify someone else's agentic plan?",
+          "tSeconds": 843,
+          "link": "https://www.youtube.com/watch?v=3ZiEl5YoSno&t=843"
+        },
+        {
+          "headline": "Shipping agents shifts responsibility and requires deterministic guardrails",
+          "detail": "Panelists emphasize that once agents act at scale (headless or through partners/GSIs), vendors will be held responsible for failures, so platforms must provide explainability, tracing, identity, and human-approval flows. Rubrik explains they use LLMs to draft plans but insist the recovery steps are deterministic and explainable; Glean discusses trace and persistence so agents learn from user corrections; and vendors are building platform-level evals and governance to reduce mistakes while enabling automation.",
+          "anchorQuote": "are deterministic and then are explainable to the",
+          "tSeconds": 1357,
+          "link": "https://www.youtube.com/watch?v=3ZiEl5YoSno&t=1357"
+        }
+      ]
+    },
+    {
+      "videoId": "yTNMEYeCgWw",
+      "videoTitle": "Inside Moderna’s Biggest mRNA Test Since COVID",
+      "videoUrl": "https://www.youtube.com/watch?v=yTNMEYeCgWw",
+      "channelName": "a16z",
+      "publishedDate": "2026-09-02",
+      "guests": [
+        "Stefan (Moderna)"
+      ],
+      "summary": "Moderna (with Merck) announced a positive phase‑3 result for an individualized mRNA cancer vaccine given with pembrolizumab (Keytruda) in melanoma, marking the first time a cancer vaccine beat Keytruda alone in this setting. The conversation explains why mRNA plus deep personalization worked where previous cancer‑vaccine efforts failed, how Moderna has industrialized manufacture for one‑patient‑at‑a‑time production, and the company's regulatory and clinical plans to expand into other cancers and disease areas.",
+      "insights": [
+        {
+          "headline": "An individualized mRNA vaccine plus Keytruda met phase‑3 endpoints in melanoma",
+          "detail": "Moderna and Merck reported a positive interim phase‑3 readout: the trial met the primary endpoint (recurrence‑free survival) and unexpectedly met a secondary endpoint (distant‑metastasis‑free survival) at the first interim analysis. Moderna frames this as the first agent in melanoma better than Keytruda alone and points to phase‑2 data showing durable disease‑free outcomes at five years for many patients — a result the company views as potentially practice‑changing and worth filing with regulators in 2027. If validated at presentation and peer review, this is the first robust, randomized evidence that a therapeutic cancer vaccine can add clinically meaningful benefit to a PD‑1 inhibitor.",
+          "anchorQuote": "that the phase 3 was positive it's a it's a first",
+          "tSeconds": 197,
+          "link": "https://www.youtube.com/watch?v=yTNMEYeCgWw&t=197"
+        },
+        {
+          "headline": "mRNA succeeded by delivering neoantigens inside antigen‑presenting cells",
+          "detail": "Moderna argues the fundamental mechanism that made prior cancer vaccines fail was how the antigen was presented: their mRNA is taken up into antigen‑presenting cells (APCs) in lymph nodes and translated inside immune cells, producing antigen presentation 'from within', which elicits stronger T‑cell education than injected proteins or peptides. That intracellular presentation, combined with selecting patient‑specific neoantigens, produced de novo T‑cell responses against encoded mutations — a mechanistic claim backed by Moderna's published work and their reported immune readouts. This difference in antigen delivery explains why an mRNA approach can generate T‑cells that actually recognize each patient's tumor.",
+          "anchorQuote": "the mRNA goes down to your lymph node and enters the APCs",
+          "tSeconds": 735,
+          "link": "https://www.youtube.com/watch?v=yTNMEYeCgWw&t=735"
+        },
+        {
+          "headline": "Personalization (tumor/normal sequencing → 34 neoantigens) is essential",
+          "detail": "Moderna sequences both tumour and normal DNA, compares them nucleotide‑by‑nucleotide, applies an internal algorithm to rank mutations and encodes up to 34 chosen neoantigens into a single mRNA made for that patient — a 30‑day manufacturing cycle in current practice. They report ~90% of selected antigens differ between patients, which means shared‑antigen approaches miss most of the actionable signals; personalization is therefore not optional but core to efficacy. Moderna treats the algorithm and the controlled process as the regulated product — they expect to submit process‑level data to regulators rather than seek approval of a single fixed molecule.",
+          "anchorQuote": "we're going to select the 34 that we believe are the most relevant",
+          "tSeconds": 331,
+          "link": "https://www.youtube.com/watch?v=yTNMEYeCgWw&t=331"
+        },
+        {
+          "headline": "They engineered a scalable, fast synthetic process: ~42 days needle‑to‑needle",
+          "detail": "Because the vaccine is made synthetically (enzyme templates → RNA → lipid nanoparticle) rather than via cell culture, Moderna says it can shrink reactors, automate production, and compress cycle time; current needle‑to‑needle turnaround is about 42 days and the Massachusetts facility can produce tens of thousands of doses with further scale‑up possible. That small, enzymatic manufacturing footprint contrasts with cell‑based therapies like CAR‑T and is central to making individualized products commercially viable and controllable for regulators. Moderna emphasizes ongoing engineering to reduce footprint, cost, and cycle time while meeting GMP/process reproducibility requirements.",
+          "anchorQuote": "So the time is around 42 days now needle to needle.",
+          "tSeconds": 1230,
+          "link": "https://www.youtube.com/watch?v=yTNMEYeCgWw&t=1230"
+        },
+        {
+          "headline": "Planned clinical expansion: combine with PD‑1 where it works, try as monotherapy early, and test in PD‑1‑resistant tumors",
+          "detail": "Moderna's near‑term strategy is threefold: pair the mRNA vaccine with PD‑1 inhibitors in cancers where PD‑1 works (they cite ongoing trials in lung, kidney, bladder), test the vaccine as a safer monotherapy in early‑stage disease (e.g., stage‑1 lung) to avoid checkpoint toxicities, and run experiments in tumors where PD‑1 historically fails (pancreatic and gastric) because the vaccine induces a different mechanism (de novo T cells). The company frames these as clinical experiments — magnitude of benefit is unknown until data mature — but the positive melanoma result justifies broad testing across indications and combinations.",
+          "anchorQuote": "we are in phase three for lung",
+          "tSeconds": 1886,
+          "link": "https://www.youtube.com/watch?v=yTNMEYeCgWw&t=1886"
+        }
+      ]
+    },
+    {
+      "videoId": "vey_dBnDTAU",
+      "videoTitle": "How a Professional Writer Writes With AI",
+      "videoUrl": "https://www.youtube.com/watch?v=vey_dBnDTAU",
+      "channelName": "Every",
+      "publishedDate": "2026-09-02",
+      "guests": [
+        "Katie"
+      ],
+      "summary": "A professional writer (Katie) explains how she uses AI tools to amplify her craft, scale production, and manage day-to-day life without surrendering authorship. The throughline: AI doesn't auto-deliver clarity or creativity — you must supply high-quality context, unique data, and iterative feedback — but when set up correctly it externalizes thinking, reduces friction, and compounds into a reliable creative system.",
+      "insights": [
+        {
+          "headline": "Cheap AI subscriptions can substitute for an expensive coach",
+          "detail": "Katie used an early ChatGPT subscription as a practical, affordable stand‑in for a professional career coach, paying roughly $20/month instead of hundreds per hour. She fed the model questions about career choices, relied on it to externalize and challenge catastrophic thinking, and credits it with nudging her to try freelancing — a move that materially changed her career. This matters because it shows AI can deliver coach‑like accountability and perspective for users who lack money or access to human experts.",
+          "anchorQuote": "I can sign up for a $20 a month Chhatch GPT",
+          "tSeconds": 226,
+          "link": "https://www.youtube.com/watch?v=vey_dBnDTAU&t=226"
+        },
+        {
+          "headline": "Give models rich context so they produce unique, high‑quality content",
+          "detail": "Rather than asking a model for generic outputs, Katie builds persistent context docs (brand messaging, audience personas, product specifics, style guides) and copies them into project contexts so the model has rails to run on. With that upfront work she could fulfill impossible content loads — e.g., eight blog posts, three ebooks, 24 LinkedIn posts, 24 X posts, 16 Instagram posts in a short period — because the AI handled iteration and repurposing while the human supplied the distinctive inputs. The non‑obvious point: the AI is fast only if you invest in structured inputs; otherwise outputs are commoditized and bland.",
+          "anchorQuote": "if I gave the model a really good foundation",
+          "tSeconds": 570,
+          "link": "https://www.youtube.com/watch?v=vey_dBnDTAU&t=570"
+        },
+        {
+          "headline": "AI frees mental bandwidth so writers can focus on higher‑order craft",
+          "detail": "Katie says AI stopped being about sentence assembly and became about reclaiming energy for big picture thinking, letting her \"wrestle with harder, bigger picture questions\" and fall back in love with writing. By automating repetitive drafting, repurposing, and editing scaffolding, the tools allowed her to spend time on unique research, voice, and argument — the elements that actually make writing valuable. The implication is that quality gains come from shifting human effort up the stack, not cutting it out.",
+          "anchorQuote": "AI has freed me to focus on the human",
+          "tSeconds": 1182,
+          "link": "https://www.youtube.com/watch?v=vey_dBnDTAU&t=1182"
+        },
+        {
+          "headline": "Compound feedback systems make AI get better over time",
+          "detail": "Katie adapted a 'compound engineering' approach into a compound writing plugin so every bit of feedback is codified into the system and improves subsequent outputs automatically. She built staged workflows (brainstorm → outline → draft → substantive edit → line edit → final pass) and baked in reviewer 'skills' inspired by writers like Vonagget and Hitchcock to evaluate structure, suspense, and voice. This matters because it turns one‑off prompts into a durable institutional memory — novice users get better work without repeating corrections.",
+          "anchorQuote": "compounding is the idea that um every piece",
+          "tSeconds": 1958,
+          "link": "https://www.youtube.com/watch?v=vey_dBnDTAU&t=1958"
+        },
+        {
+          "headline": "Agents and automations make AI a practical life‑support tool",
+          "detail": "Beyond writing, Katie uses agents (Codex/Codeex) to handle 'computer errands' — booking a primary care appointment, parsing an inbox to surface only messages needing human replies, and even filing insurance reimbursements. These automations reduced anxiety and friction so she could remain productive during depressive episodes and sustain a job she’s proud of. The broader point: AI's high value can be as a supportive, operational layer that enables people with limited time or energy to participate consistently in creative or professional work.",
+          "anchorQuote": "I could simply tell Codeex to go find",
+          "tSeconds": 1442,
+          "link": "https://www.youtube.com/watch?v=vey_dBnDTAU&t=1442"
+        }
+      ]
+    }
+  ]
+}
