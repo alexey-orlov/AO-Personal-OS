@@ -34,7 +34,7 @@ Capability strip: AI/CV · autonomous systems · digital twins & simulation · s
 - **Quick deployment of NVIDIA-related assets** — compelling, same maturity caveat (Dmytro).
 - **Reuse civil-sector Oracle use cases** as starting points (Dmytro); Bohdan's assignment to Alex: **reuse from the existing Oracle AI Packs × military expertise** — pack map in [oracle-ai-offerings](oracle-ai-offerings.md).
 - Bohdan's framing: narrow it to "a path that is easy for our counterparts to consume".
-- Dmytro's strategic fork: wait for Bram's team to bring ideas vs. invest our own time/money in a **solution accelerator** to bootstrap; Denys: we need something feasible to SHOW either way.
+- Dmytro's strategic fork — wait for Bram's team to bring ideas vs. invest own time/money in a **solution accelerator** to bootstrap — resolved as **both in parallel**: "think all together, define, prioritize, estimate and then decide" while keeping the Bram-team conversation going ("I still see some potential synergy here"). Denys: we need something feasible to SHOW either way.
 
 ## People
 
