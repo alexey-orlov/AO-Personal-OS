@@ -1,0 +1,715 @@
+[
+ {
+  "sheet_row": 2,
+  "ua_name": "Нурофен Экспресс Форте, капсулы мягкие",
+  "ua_dosage": "Ибупрофен 400 мг / капсула",
+  "ua_pack": "10 капсул",
+  "ua_price_uah": "170",
+  "us_closest": {
+   "name": "Advil Liqui-Gels Minis 200 mg",
+   "dosage": "Ибупрофен 200 мг / капсула",
+   "pack": "80 капсул",
+   "price_usd": "$10.98",
+   "difference": "В США безрецептурный ибупрофен максимум 200 мг на капсулу: украинская доза 400 мг = 2 капсулы; 400 мг в одной единице — только Rx"
+  },
+  "us_alt": {
+   "name": "Equate Ibuprofen Mini Softgels 200 mg",
+   "dosage": "Ибупрофен 200 мг / капсула",
+   "pack": "80 капсул",
+   "price_usd": "$6.48",
+   "difference": "X"
+  },
+  "source_ua": "apteka911 134 / likie 136 / tabletki 146 / apteka.net 171,5 / anc 177,5 / farmaco 184,5. Разброс 134–190. Поиск 09.2026",
+  "source_us": "Walmart: Advil Liqui-Gels Minis 200 мг 80 шт $10.98; Equate Ibuprofen Mini Softgels 200 мг 80 шт — 8,1 ¢/шт = $6.48. Поиск 09.2026"
+ },
+ {
+  "sheet_row": 3,
+  "ua_name": "Гексализ (Гексаліз, Hexalyse), таблетки для рассасывания",
+  "ua_dosage": "Биклотимол 5 мг + лизоцима г/х 5 мг + эноксолон 5 мг / таблетка",
+  "ua_pack": "30 таблеток",
+  "ua_price_uah": "250",
+  "us_closest": {
+   "name": "— (нет аналога в США)",
+   "dosage": "—",
+   "pack": "—",
+   "price_usd": "—",
+   "difference": "Биклотимол и лизоцим в США не зарегистрированы (FDA-одобренных препаратов нет); ближайшая функциональная замена — антисептически-анестезирующие пастилки с бензокаином и ментолом"
+  },
+  "us_alt": {
+   "name": "Major Sore Throat Lozenges (Benzocaine + Menthol), Cherry",
+   "dosage": "Бензокаин 15 мг + ментол / пастилка",
+   "pack": "18 пастилок",
+   "price_usd": "$7.73",
+   "difference": "Другой механизм: местный анестетик бензокаин снимает боль, но не даёт антибактериального действия биклотимола и лизоцима"
+  },
+  "source_ua": "likie 229 / anc 235,8 / tabletki 243 / apteka911 244,5 / add 254,3 / farmaco 314,5. Разброс 229–352. Поиск 09.2026",
+  "source_us": "Прямого аналога нет: поиск по biclotymol FDA — регистрации в США не найдено. Замена: Walmart, Major Sore Throat Lozenges 18 шт $7.73. Поиск 09.2026"
+ },
+ {
+  "sheet_row": 4,
+  "ua_name": "Гексаспрей (Hexaspray), спрей оромукозный",
+  "ua_dosage": "Биклотимол 2,5% — 750 мг на флакон 30 г",
+  "ua_pack": "Флакон 30 г",
+  "ua_price_uah": "245",
+  "us_closest": {
+   "name": "— (нет аналога в США)",
+   "dosage": "—",
+   "pack": "—",
+   "price_usd": "—",
+   "difference": "Биклотимол в США не зарегистрирован; ближайшая функциональная замена — безрецептурный антисептический спрей для горла с фенолом"
+  },
+  "us_alt": {
+   "name": "Chloraseptic Sore Throat Spray (Cherry)",
+   "dosage": "Фенол 1,4% (14 мг / мл)",
+   "pack": "Флакон 6 fl oz (177 мл)",
+   "price_usd": "$9.99",
+   "difference": "Другое вещество и форма: водный спрей с фенолом-анестетиком вместо дозированного аэрозоля биклотимола, флакон в 6 раз больше"
+  },
+  "source_ua": "apteka911 233,5 / liki.ua 237,1 / likie 240,3 / anc 249,5 / liki24 250 / tabletki 267,5. Разброс 233–412. Поиск 09.2026",
+  "source_us": "Прямого аналога нет (biclotymol в США не зарегистрирован). Замена: Walmart, Chloraseptic Sore Throat Spray 6 fl oz $9.99. Поиск 09.2026"
+ },
+ {
+  "sheet_row": 5,
+  "ua_name": "Дефлю Сильвер Нос Стронг (Deflu Silver), спрей назальный",
+  "ua_dosage": "Коллоидное серебро 45–55 ppm + исландский мох, масла туи/мяты/пихты. Доза на впрыск не нормирована",
+  "ua_pack": "Флакон 15 мл (≈120–150 доз)",
+  "ua_price_uah": "205",
+  "us_closest": {
+   "name": "Sovereign Silver Bio-Active Silver Hydrosol — Sinus Relief Nasal Spray",
+   "dosage": "Коллоидное серебро 10 ppm; доза на впрыск не нормирована",
+   "pack": "Флакон 1 fl oz (29 мл)",
+   "price_usd": "$12.79",
+   "difference": "В США это БАД (dietary supplement), а не лекарство — FDA не признаёт коллоидное серебро безопасным и эффективным; концентрация вчетверо-впятеро ниже (10 ppm против 45–55 ppm), растительных компонентов (исландский мох, масла туи/мяты/пихты) нет"
+  },
+  "us_alt": {
+   "name": "—",
+   "dosage": "—",
+   "pack": "—",
+   "price_usd": "—",
+   "difference": "—"
+  },
+  "source_ua": "apteka911 188 / apteka.net 191,4 / anc 196,3 / doc.ua 204,1 / farmaco 216,8 / add 250. Поиск 09.2026",
+  "source_us": "Walmart: Sovereign Silver Sinus Relief Nasal Spray 1 fl oz $12.79. Более дешёвого назального спрея с коллоидным серебром в поиске не найдено (Natural Path Silver Wings 1 oz $13.99 дороже). Поиск 09.2026"
+ },
+ {
+  "sheet_row": 6,
+  "ua_name": "Дефлю Сильвер Горло (Deflu Silver), лосьон-спрей",
+  "ua_dosage": "Коллоидное серебро 45–55 ppm + растительные экстракты, лизоцим. Доза на впрыск не нормирована",
+  "ua_pack": "Флакон 30 мл",
+  "ua_price_uah": "200",
+  "us_closest": {
+   "name": "Source Naturals Wellness Colloidal Silver Throat Spray",
+   "dosage": "Коллоидное серебро 30 ppm; доза на впрыск не нормирована",
+   "pack": "Флакон 1 fl oz (30 мл)",
+   "price_usd": "$8.37",
+   "difference": "В США это БАД, а не медизделие/лекарство; серебра меньше (30 ppm против 45–55 ppm), лизоцима и растительных экстрактов в составе нет"
+  },
+  "us_alt": {
+   "name": "—",
+   "dosage": "—",
+   "pack": "—",
+   "price_usd": "—",
+   "difference": "—"
+  },
+  "source_ua": "anc 175,4 / liki24 186 (средняя 192) / apteka.net 208 / doc.ua 219,8 / add 223,2. Поиск 09.2026",
+  "source_us": "Walmart: Source Naturals Wellness Colloidal Silver 30 ppm Throat Spray 1 oz $8.37. Поиск 09.2026"
+ },
+ {
+  "sheet_row": 7,
+  "ua_name": "Имупрет (Імупрет, Tonsilgon N), таблетки п/о",
+  "ua_dosage": "48 мг суммы растительного сырья / таблетка (орех 12 + хвощ 10 + алтей 8 + ромашка 6 + тысячелистник 4 + дуб 4 + одуванчик 4)",
+  "ua_pack": "50 таблеток",
+  "ua_price_uah": "235",
+  "us_closest": {
+   "name": "— (нет аналога в США)",
+   "dosage": "—",
+   "pack": "—",
+   "price_usd": "—",
+   "difference": "Имупрет / Tonsilgon N (Bionorica) в розницу в США не продаётся — только зарубежные интернет-аптеки с доставкой; ближайшая функциональная замена — растительные капсулы для иммунной поддержки с эхинацеей"
+  },
+  "us_alt": {
+   "name": "Nature's Way Echinacea Purpurea Herb Capsules",
+   "dosage": "Эхинацея пурпурная 400 мг / капсула (1200 мг на приём из 3 капсул)",
+   "pack": "180 капсул",
+   "price_usd": "$22.98",
+   "difference": "Совсем другой растительный состав (эхинацея вместо смеси 7 трав), и в США это БАД, а не лекарство"
+  },
+  "source_ua": "anc 224,9 / apteka911 227 / apteki 227,05 / etabletka 262,8 / apteka.net 318,4. Поиск 09.2026",
+  "source_us": "Прямого аналога нет: поиск Tonsilgon N USA даёт только экспортные онлайн-аптеки, не розницу США. Замена: Walmart, Nature's Way Echinacea Purpurea 180 капс $22.98. Поиск 09.2026"
+ },
+ {
+  "sheet_row": 8,
+  "ua_name": "Кандибиотик, ушные капли",
+  "ua_dosage": "Хлорамфеникол 50 мг + клотримазол 10 мг + беклометазона дипропионат 0,25 мг + лидокаина г/х 20 мг / 1 мл",
+  "ua_pack": "Флакон 5 мл",
+  "ua_price_uah": "260",
+  "us_closest": {
+   "name": "— (нет аналога в США)",
+   "dosage": "—",
+   "pack": "—",
+   "price_usd": "—",
+   "difference": "Комбинации хлорамфеникол + клотримазол + беклометазон + лидокаин в США не существует, хлорамфеникол в США не продаётся; ближайшая функциональная замена — рецептурные ушные капли Cortisporin Otic (неомицин + полимиксин B + гидрокортизон)"
+  },
+  "us_alt": {
+   "name": "Neomycin / Polymyxin B / Hydrocortisone Otic Suspension (дженерик Cortisporin Otic)",
+   "dosage": "Неомицин 3,5 мг + полимиксин B 10 000 ЕД + гидрокортизон 10 мг / 1 мл",
+   "pack": "Флакон 10 мл",
+   "price_usd": "$30.84 (GoodRx cash)",
+   "difference": "Rx в США, как и в Украине; нет противогрибкового клотримазола и обезболивающего лидокаина, вместо хлорамфеникола — два других антибиотика"
+  },
+  "source_ua": "liki.ua 232 / apteka.net 235,1 / tabletki 245 / add 274,8 / anc 297,4 / ceapteka 299,5. Поиск 09.2026",
+  "source_us": "Прямого аналога нет. Замена: GoodRx, neomycin/polymyxin B/hydrocortisone otic 10 мл — $30.84 cash (retail $104.99). Офлоксацин ушной дешевле ($19.57), но снят с производства всеми производителями. Поиск 09.2026"
+ },
+ {
+  "sheet_row": 9,
+  "ua_name": "Отипакс (Otipax), ушные капли",
+  "ua_dosage": "Феназон 40 мг + лидокаина г/х 10 мг на 1 г (≈45,5 + 11,4 мг на 1 мл)",
+  "ua_pack": "Флакон 16 г (≈15 мл)",
+  "ua_price_uah": "230",
+  "us_closest": {
+   "name": "— (нет аналога в США)",
+   "dosage": "—",
+   "pack": "—",
+   "price_usd": "—",
+   "difference": "Феназон + лидокаин в ушных каплях в США нет: аналог Auralgan (антипирин + бензокаин) FDA изъяло с рынка в 2015 г. как неодобренный, и с тех пор обезболивающих ушных капель по рецепту в США не продают; ближайшая замена — гомеопатические OTC-капли и приём анальгетика внутрь"
+  },
+  "us_alt": {
+   "name": "Similasan Earache Relief Ear Drops",
+   "dosage": "Гомеопатические разведения (Chamomilla, Mercurius solubilis, Sulphur); действующего анестетика нет",
+   "pack": "Флакон 0,33 fl oz (10 мл)",
+   "price_usd": "$7.88",
+   "difference": "Гомеопатия без доказанного обезболивающего действия — реального эквивалента лидокаину/феназону в каплях в США не существует; врачи США при боли в ухе назначают ибупрофен или парацетамол внутрь"
+  },
+  "source_ua": "liki24 174 / tabletki 184 / anc 187,7 / apteka911 186,5–328,5 (средняя по УА 231) / farmaco 239,8 / apteka.net 242,3. Поиск 09.2026",
+  "source_us": "Прямого аналога нет: Federal Register 02.07.2015 — FDA изъяло antipyrine/benzocaine otic (Auralgan/Aurodex) как неодобренные, на рынке США отсутствуют. Замена: Walmart, Similasan Earache Relief 0,33 oz $7.88. Поиск 09.2026"
+ },
+ {
+  "sheet_row": 10,
+  "ua_name": "Цитрамон-Дарница, таблетки",
+  "ua_dosage": "АСК 240 мг + парацетамол 180 мг + кофеин 30 мг / таблетка",
+  "ua_pack": "6 таблеток",
+  "ua_price_uah": "15",
+  "us_closest": {
+   "name": "Excedrin Extra Strength Caplets",
+   "dosage": "Ацетаминофен 250 мг + АСК 250 мг + кофеин 65 мг / таблетка",
+   "pack": "100 таблеток",
+   "price_usd": "$12.78",
+   "difference": "Другие пропорции: в США АСК и парацетамол поровну по 250 мг (в Цитрамоне 240/180), кофеина вдвое больше — 65 мг против 30; мелких упаковок по 6 таблеток в США не продают, минимум 24"
+  },
+  "us_alt": {
+   "name": "Equate Extra Strength Headache Relief Caplets",
+   "dosage": "Ацетаминофен 250 мг + АСК 250 мг + кофеин 65 мг / таблетка",
+   "pack": "200 таблеток",
+   "price_usd": "$4.17",
+   "difference": "X"
+  },
+  "source_ua": "liki.ua 10,5 / apteka911 12,5–20 / anc 13,9 / add 16,6 / apteka.net 18,1. Поиск 09.2026",
+  "source_us": "Walmart: Excedrin Extra Strength 100 шт $12.78 (12,8 ¢/шт); Equate Extra Strength Headache Relief 200 шт $4.17 (2,1 ¢/шт, на сайте помечен out of stock). Поиск 09.2026"
+ },
+ {
+  "sheet_row": 11,
+  "ua_name": "Декатилен (Decatylen), таблетки для рассасывания",
+  "ua_dosage": "Деквалиния хлорид 0,25 мг + дибукаина г/х 0,03 мг / таблетка",
+  "ua_pack": "20 таблеток",
+  "ua_price_uah": "225",
+  "us_closest": {
+   "name": "— (нет аналога в США)",
+   "dosage": "—",
+   "pack": "—",
+   "price_usd": "—",
+   "difference": "Ни деквалиния хлорид, ни дибукаин (цинхокаин) для приёма в рот в США не одобрены FDA — деквалиниевых пастилок на рынке США нет; ближайшая замена — антисептически-анестезирующие пастилки с бензокаином"
+  },
+  "us_alt": {
+   "name": "Chloraseptic Sore Throat Lozenges (Benzocaine), Cherry",
+   "dosage": "Бензокаин (оральный анестетик) / пастилка",
+   "pack": "18 пастилок",
+   "price_usd": "$8.62",
+   "difference": "Только обезболивание бензокаином, антисептического деквалиния в составе нет"
+  },
+  "source_ua": "anc 172,6 / tabletki 212+ / apteka.net 228,2 / apteka911 232 / add 238,7. Поиск 09.2026",
+  "source_us": "Прямого аналога нет: поиск по dequalinium chloride FDA — одобренных в США пастилок не найдено. Замена: Walmart, Chloraseptic Benzocaine Sore Throat Lozenges 18 шт $8.62. Поиск 09.2026"
+ },
+ {
+  "sheet_row": 12,
+  "ua_name": "Тонзилотрен (Tonsilotren), таблетки",
+  "ua_dosage": "Atropinum sulf. D5 12,5 мг + Hepar sulfuris D3 10 мг + Kalium bichromicum D4 50 мг + Silicea D2 5 мг + Mercurius bijodatus D8 25 мг / таблетка",
+  "ua_pack": "60 таблеток",
+  "ua_price_uah": "265",
+  "us_closest": {
+   "name": "— (нет аналога в США)",
+   "dosage": "—",
+   "pack": "—",
+   "price_usd": "—",
+   "difference": "Тонзилотрен (DHU) в аптечной рознице США не продаётся — только импорт через маркетплейс Amazon и зарубежные онлайн-аптеки, розничной цены в США подтвердить не удалось; ближайшая доступная замена — гомеопатические таблетки от боли в горле Boiron ThroatCalm"
+  },
+  "us_alt": {
+   "name": "Boiron ThroatCalm Tablets",
+   "dosage": "Гомеопатические разведения (Belladonna, Ferrum phosphoricum, Mercurius solubilis и др.) / таблетка",
+   "pack": "60 таблеток",
+   "price_usd": "$14.99",
+   "difference": "Другой гомеопатический состав (нет атропина, Hepar sulfuris, Kalium bichromicum); формально это OTC-гомеопатия, эффективность FDA не подтверждена"
+  },
+  "source_ua": "add 205 / tabletki 249 / anc 260,3 / liki24 296–308 / doc.ua средняя 326,3. Поиск 09.2026",
+  "source_us": "Розничной цены Tonsilotren в США нет: только Amazon-маркетплейс без цены и экспортные аптеки (rxeli от $19 за 60 шт). Замена: Walmart, Boiron ThroatCalm 60 таб $14.99. Поиск 09.2026"
+ },
+ {
+  "sheet_row": 13,
+  "ua_name": "Нокспрей (Noxprey) 0,05%, спрей назальный",
+  "ua_dosage": "Оксиметазолина г/х 0,5 мг / 1 мл; ≈0,025–0,05 мг на впрыск",
+  "ua_pack": "Флакон 10 мл",
+  "ua_price_uah": "115",
+  "us_closest": {
+   "name": "Afrin Original 12 Hour Nasal Spray",
+   "dosage": "Оксиметазолина г/х 0,05% (0,5 мг / мл)",
+   "pack": "Флакон 0,5 fl oz (15 мл)",
+   "price_usd": "$14.91",
+   "difference": "X"
+  },
+  "us_alt": {
+   "name": "Equate No Drip Severe Congestion Nasal Spray (дженерик Afrin)",
+   "dosage": "Оксиметазолина г/х 0,05% (0,5 мг / мл)",
+   "pack": "Флакон 1 fl oz (30 мл)",
+   "price_usd": "$4.88",
+   "difference": "Формула «no drip» — гуще, дополнительно ментол/камфора; действующее вещество и концентрация те же"
+  },
+  "source_ua": "apteka24 98,3 / sanitas 111,9 / apteka911 115,5 / add 117. Поиск 09.2026",
+  "source_us": "Walmart: Afrin Nasal Spray 0,5 fl oz $14.91 ($29.82/fl oz); Equate No Drip Severe Congestion 1 fl oz $4.88. Поиск 09.2026"
+ },
+ {
+  "sheet_row": 14,
+  "ua_name": "Назонекс (Nasonex), спрей назальный дозированный",
+  "ua_dosage": "Мометазона фуроат 50 мкг / доза",
+  "ua_pack": "140 доз (флакон 18 г)",
+  "ua_price_uah": "410",
+  "us_closest": {
+   "name": "Nasonex 24HR Allergy Nasal Spray",
+   "dosage": "Мометазона фуроат 50 мкг / доза",
+   "pack": "120 доз (флакон 17 мл, 0,57 fl oz)",
+   "price_usd": "$19.66",
+   "difference": "В США Назонекс с 2022 г. продаётся БЕЗ рецепта (OTC), в Украине — строго по рецепту; во флаконе 120 доз вместо 140"
+  },
+  "us_alt": {
+   "name": "—",
+   "dosage": "—",
+   "pack": "—",
+   "price_usd": "—",
+   "difference": "—"
+  },
+  "source_ua": "tabletki 366,3 / liki24 371,4 / apteki 373,2 / anc 406–483 / add 417,4 / 1sa 438,8 / apteka24 445–507. Поиск 09.2026",
+  "source_us": "Walmart: Nasonex 24HR 120 доз 17 мл $19.66. Дешевле дженерика не нашлось: Walgreens 24 Hour Mometasone Furoate 120 доз $19.99, Amazon Basic Care — цена в результатах поиска не показана. Поиск 09.2026"
+ },
+ {
+  "sheet_row": 15,
+  "ua_name": "Цетрин (Cetrin), таблетки п/о 10 мг",
+  "ua_dosage": "Цетиризина г/х 10 мг / таблетка",
+  "ua_pack": "20 таблеток",
+  "ua_price_uah": "165",
+  "us_closest": {
+   "name": "Zyrtec 24 Hour Allergy Relief Tablets",
+   "dosage": "Цетиризина г/х 10 мг / таблетка",
+   "pack": "30 таблеток",
+   "price_usd": "$19.97",
+   "difference": "X"
+  },
+  "us_alt": {
+   "name": "Equate 24 Hour Cetirizine Hydrochloride Allergy Relief Tablets",
+   "dosage": "Цетиризина г/х 10 мг / таблетка",
+   "pack": "300 таблеток",
+   "price_usd": "$32.97",
+   "difference": "Вещество и доза те же; упаковка в 10 раз больше (300 таблеток против 30), поэтому цена за пачку выше — но за таблетку 11¢ против 66,6¢, то есть в 6 раз дешевле"
+  },
+  "source_ua": "anc 149,1 / doc.ua 149,4–224,6 / apteka.net 164,3 / mypharmacy 164,6–250,9. Поиск 09.2026",
+  "source_us": "Walmart: Zyrtec 10 мг 30 шт $19.97 (66,6 ¢/таб); Equate Cetirizine 10 мг 300 шт $32.97 (11 ¢/таб). Поиск 09.2026"
+ },
+ {
+  "sheet_row": 16,
+  "ua_name": "Фезам (Phezam), капсулы",
+  "ua_dosage": "Пирацетам 400 мг + циннаризин 25 мг / капсула",
+  "ua_pack": "60 капсул",
+  "ua_price_uah": "510",
+  "us_closest": {
+   "name": "— (нет аналога в США)",
+   "dosage": "—",
+   "pack": "—",
+   "price_usd": "—",
+   "difference": "Ни пирацетам, ни циннаризин в США не одобрены FDA: пирацетам с 2004 г. запрещён даже как ингредиент БАД, циннаризин доступен только через компаундинг-аптеки; замены комбинации нет — при головокружении в США назначают меклизин, ноотропного компонента в нём нет"
+  },
+  "us_alt": {
+   "name": "Meclizine HCl 25 mg Tablets (дженерик Bonine / Antivert)",
+   "dosage": "Меклизина г/х 25 мг / таблетка",
+   "pack": "100 таблеток",
+   "price_usd": "$6.66",
+   "difference": "Заменяет только вестибулярный (циннаризиновый) компонент, ноотропного действия нет; в США продаётся без рецепта, тогда как Фезам в Украине рецептурный"
+  },
+  "source_ua": "liki24 460 / tabletki 471–501 / likie 501 / anc 502–514 / doc.ua средняя 548 / mypharmacy 569. Поиск 09.2026",
+  "source_us": "Прямого аналога нет (поиск: пирацетам не одобрен FDA и запрещён как БАД; циннаризин не одобрен FDA, только компаундинг). Замена: Walmart, 1 Laboratories Meclizine 25 мг 100 шт $6.66. Поиск 09.2026"
+ },
+ {
+  "sheet_row": 17,
+  "ua_name": "Бифрен (Біфрен), капсулы 250 мг",
+  "ua_dosage": "Фенибут 250 мг / капсула",
+  "ua_pack": "20 капсул",
+  "ua_price_uah": "300",
+  "us_closest": {
+   "name": "— (нет аналога в США)",
+   "dosage": "—",
+   "pack": "—",
+   "price_usd": "—",
+   "difference": "Фенибут в США не одобрен FDA ни как лекарство, ни как ингредиент БАД (предупредительные письма FDA 2019 г.); в аптеках не продаётся, только серый онлайн-рынок. Ближайшая легальная функциональная замена при тревоге — рецептурный гидроксизин"
+  },
+  "us_alt": {
+   "name": "Hydroxyzine HCl 25 mg Tablets (дженерик Atarax)",
+   "dosage": "Гидроксизина г/х 25 мг / таблетка",
+   "pack": "30 таблеток",
+   "price_usd": "$8.34 (GoodRx cash)",
+   "difference": "Другое вещество и механизм: антигистаминный анксиолитик вместо ГАМК-производного, без ноотропного эффекта; в США Rx, как и Бифрен в Украине"
+  },
+  "source_ua": "likie 257,1 / anc 289,3 / etabletka 297,7 / mypharmacy 303 / apteka.net 307 / add 321,2. Поиск 09.2026",
+  "source_us": "Прямого аналога нет (FDA: фенибут не соответствует определению dietary ingredient, warning letters 04.2019; аптечных продуктов в США нет). Замена: GoodRx, hydroxyzine HCl 25 мг 30 таб $8.34 cash (retail $18.43). Поиск 09.2026"
+ },
+ {
+  "sheet_row": 18,
+  "ua_name": "Миорикс (Miorix) 30 мг, капсулы пролонг. действия — ⚠ дозировки 50 мг не существует",
+  "ua_dosage": "Циклобензаприна г/х 30 мг / капсула",
+  "ua_pack": "14 капсул",
+  "ua_price_uah": "490",
+  "us_closest": {
+   "name": "Cyclobenzaprine HCl ER 30 mg capsules (генерик Amrix)",
+   "dosage": "Циклобензаприна г/х 30 мг / капсула, пролонг. высвобождение",
+   "pack": "⚠ кол-во в GoodRx-цене явно не указано (обычно 30 капсул)",
+   "price_usd": "$30.30 (GoodRx cash, минимальная)",
+   "difference": "То же вещество, доза и форма; в США тоже строго Rx. Без купона розница ~$1000-1676 за 30-60 капсул — реальна только cash-цена GoodRx"
+  },
+  "us_alt": {
+   "name": "Cyclobenzaprine HCl 10 mg tablets (генерик Flexeril)",
+   "dosage": "Циклобензаприна г/х 10 мг / таблетка, обычное высвобождение",
+   "pack": "30 таблеток",
+   "price_usd": "$5.00 (Walmart по GoodRx; средняя GoodRx $13.00)",
+   "difference": "Не пролонгированная форма: приём 3 раза в сутки вместо 1; тоже Rx в США"
+  },
+  "source_ua": "add 377,9 / zdorovi 432,3–609,3 / tabletki средняя ~492 / apteka911 489,5 / anc 522,2 / liki24 до 631,8. Поиск 09.2026",
+  "source_us": "GoodRx /cyclobenzaprine-er: as low as $30.30 (97% off avg retail $1033.87). GoodRx /cyclobenzaprine: 30 tab 10 mg avg $13.00, Walmart $5.00, Walgreens $5.00, CVS $9.00. Drugs.com: 60 caps ER 30 mg = $1675.55 retail. Поиск 09.2026"
+ },
+ {
+  "sheet_row": 19,
+  "ua_name": "Ксефокам (Xefocam), таблетки п/о 8 мг — ⚠ формы XR не существует",
+  "ua_dosage": "Лорноксикам 8 мг / таблетка",
+  "ua_pack": "10 таблеток",
+  "ua_price_uah": "235",
+  "us_closest": {
+   "name": "— (нет аналога в США)",
+   "dosage": "—",
+   "pack": "—",
+   "price_usd": "—",
+   "difference": "Лорноксикам в США не зарегистрирован FDA вообще (продаётся в ЕС/Израиле как Xefo); ближайшая функциональная замена — оксикам мелоксикам, тоже Rx"
+  },
+  "us_alt": {
+   "name": "Meloxicam 15 mg tablets (генерик Mobic)",
+   "dosage": "Мелоксикам 15 мг / таблетка",
+   "pack": "30 таблеток",
+   "price_usd": "$5.00 (Walmart по GoodRx; средняя розница $122.22, SingleCare от $4.99)",
+   "difference": "Другое вещество того же класса оксикамов; приём 1 раз в сутки вместо 2-3; в США Rx, как и в Украине"
+  },
+  "source_ua": "anc 222,9–316,4 / tabletki 234,3 / apteka911 236. Справочно Ксефокам Рапид 8 мг №6: 149–222. Поиск 09.2026",
+  "source_us": "Лорноксикам: drugs.com/international + pharmaoffer — не одобрен FDA, в США не продаётся. Мелоксикам: GoodRx — Walmart $5.00 за 30 таб 15 мг; drugs.com price-guide ~$5/30 таб; SingleCare от $4.99, средняя розница $122.22. Поиск 09.2026"
+ },
+ {
+  "sheet_row": 20,
+  "ua_name": "Гидазепам ІС, таблетки сублингвальные 0,02 г",
+  "ua_dosage": "Гидазепам 20 мг / таблетка",
+  "ua_pack": "20 таблеток",
+  "ua_price_uah": "170",
+  "us_closest": {
+   "name": "— (нет аналога в США)",
+   "dosage": "—",
+   "pack": "—",
+   "price_usd": "—",
+   "difference": "Гидазепам — советская разработка, в США не зарегистрирован и не применяется (unscheduled, нет одобрения FDA); ближайшая функциональная замена — бензодиазепиновый анксиолитик альпразолам"
+  },
+  "us_alt": {
+   "name": "Alprazolam 0.25 mg tablets (генерик Xanax)",
+   "dosage": "Альпразолам 0,25 мг / таблетка",
+   "pack": "6 таблеток (drugs.com) / 30-дневный запас по GoodRx",
+   "price_usd": "$4.88 за 6 таб (drugs.com); GoodRx от $12.12 за 30-дневный запас",
+   "difference": "Другое вещество; в США это controlled substance Schedule IV, рецепт строже украинского; нет сублингвальной формы"
+  },
+  "source_ua": "1sa 129,5 / mypharmacy 156,6–276,9 / apteka911 163 / apteka.net 165 / anc 168,9 / likie 186,5. Поиск 09.2026",
+  "source_us": "Гидазепам: drugs.ncats.io + Wikipedia + drugs.com/answers — not used in the U.S., не одобрен FDA. Альпразолам: drugs.com price-guide — 0.25 mg от $4.88 за 6 таб; GoodRx — цены от $12.12, $7-12 за 30-дневный запас. Поиск 09.2026"
+ },
+ {
+  "sheet_row": 21,
+  "ua_name": "Пшик, спрей назальный с морской водой 0,9% (взрослый)",
+  "ua_dosage": "Изотоническая морская вода 0,9% (≈9 мг солей / мл)",
+  "ua_pack": "Флакон 100 мл",
+  "ua_price_uah": "310",
+  "us_closest": {
+   "name": "Walgreens Nasal Saline Mist",
+   "dosage": "Изотонический раствор NaCl (в линейке US-солевых спреев обычно 0,65% NaCl, не морская вода)",
+   "pack": "Флакон 4,5 fl oz (≈133 мл)",
+   "price_usd": "$8.99",
+   "difference": "В США это не морская вода, а стерильный физраствор NaCl; флакон крупнее (133 мл против 100 мл); тоже не лекарство, а OTC-изделие"
+  },
+  "us_alt": {
+   "name": "Equate Saline Nasal Mist Spray (Walmart store brand)",
+   "dosage": "Изотонический раствор NaCl 0,65% (по линейке Equate)",
+   "pack": "Флакон 4,5 fl oz (≈133 мл)",
+   "price_usd": "$5.47",
+   "difference": "То же самое, но store-brand; $1.22 за унцию"
+  },
+  "source_ua": "tabletki 259 / add 270 (акция; обычная 337,5) / anc 303,7 / adonis 312–358. Поиск 09.2026",
+  "source_us": "Walgreens.com — Walgreens Nasal Saline Mist 4.5 oz $8.99 (Simply Saline Extra Strength 4.6 oz $7.99 по акции). Walmart.com — Equate Saline Nasal Mist Spray 4.5 fl oz $5.47 ($1.22/oz); Equate Premium Saline 3 fl oz $3.37, 1.5 fl oz $1.98. Поиск 09.2026"
+ },
+ {
+  "sheet_row": 22,
+  "ua_name": "Тантум Верде (Tantum Verde), спрей для полости рта 1,5 мг/мл",
+  "ua_dosage": "Бензидамина г/х 255 мкг / доза (раствор 1,5 мг/мл)",
+  "ua_pack": "Флакон 30 мл (176 доз)",
+  "ua_price_uah": "230",
+  "us_closest": {
+   "name": "— (нет аналога в США)",
+   "dosage": "—",
+   "pack": "—",
+   "price_usd": "—",
+   "difference": "Бензидамин в США не одобрен FDA (Тантум Верде продаётся в ЕС, Канаде, Австралии, но не в США); ближайшая функциональная замена — местный анестетик фенол в спрее Chloraseptic"
+  },
+  "us_alt": {
+   "name": "Chloraseptic Sore Throat Spray, Phenol 1.4%",
+   "dosage": "Фенол 1,4% (местный анестетик)",
+   "pack": "Флакон 6 fl oz (≈177 мл)",
+   "price_usd": "$6.38 (Walmart, $1.06 за унцию)",
+   "difference": "Другой механизм: только обезболивание фенолом, без противовоспалительного действия бензидамина; флакон крупнее (177 мл против 30 мл), но не дозирующий"
+  },
+  "source_ua": "anc 213,9 / tabletki 221,5+ / apteka911 224–287,5 / zdorovi 233–351. Поиск 09.2026",
+  "source_us": "Бензидамин: f1000research + PMC12203043 — not FDA-approved for marketing in the US. Chloraseptic: Walmart.com — Sore Throat Relief 1.4% Oral Spray 6 oz $6.38 ($1.06/fl oz). Store-brand Equate Sore Throat Oral Anesthetic Spray 6 fl oz есть в каталоге Walmart, цена в выдаче не показана. Поиск 09.2026"
+ },
+ {
+  "sheet_row": 23,
+  "ua_name": "Смекта (Smecta), порошок для оральной суспензии",
+  "ua_dosage": "Диосмектит 3 г / саше",
+  "ua_pack": "12 саше по 3 г",
+  "ua_price_uah": "215",
+  "us_closest": {
+   "name": "— (нет аналога в США)",
+   "dosage": "—",
+   "pack": "—",
+   "price_usd": "—",
+   "difference": "Диосмектит в США не зарегистрирован FDA (Смекта продаётся в 70+ странах, в США — только частный ввоз через eBay); ближайшая функциональная замена — адсорбент висмута субсалицилат (Pepto-Bismol и его store-brand)"
+  },
+  "us_alt": {
+   "name": "Equate Bismuth Subsalicylate Caplets (аналог Pepto-Bismol)",
+   "dosage": "Висмута субсалицилат 262 мг / каплета",
+   "pack": "40 каплет",
+   "price_usd": "$1.96 (Walmart; брендовый Pepto-Bismol 40 шт — $8.47)",
+   "difference": "Другое вещество и механизм: висмут вяжуще-антибактериальный, а не глинистый адсорбент; таблетки вместо порошка-суспензии; содержит салицилат — нельзя детям и при аллергии на аспирин"
+  },
+  "source_ua": "anc 171,5–235,2 / doc.ua 176,7 / likie 193,1 / apteka.net 210 / add 235,4 / sanitas 279+. Поиск 09.2026",
+  "source_us": "Диосмектит: PMC3132498 / clinicaltrials.gov — маркетируется в 70+ странах, но не FDA-approved в США; в выдаче только eBay/Bonanza (частный ввоз из Франции). Walmart.com — Equate Bismuth Caplets 262 mg 40 ct $1.96; Pepto Bismol Caplets 40 ct $8.47. Поиск 09.2026"
+ },
+ {
+  "sheet_row": 24,
+  "ua_name": "Регидрон (Rehydron), порошок дозированный",
+  "ua_dosage": "NaCl 3,5 г + KCl 2,5 г + натрия цитрат 2,9 г + глюкоза 10 г / пакет 18,9 г (на 1 л раствора)",
+  "ua_pack": "20 пакетов по 18,9 г",
+  "ua_price_uah": "380",
+  "us_closest": {
+   "name": "Pedialyte Electrolyte Powder Packets, Variety Pack",
+   "dosage": "Электролиты + декстроза на 1 пакет; разводится в 8 fl oz (≈240 мл) воды, а не в литре",
+   "pack": "8 пакетов (0,3 oz каждый)",
+   "price_usd": "$8.87",
+   "difference": "Пакет рассчитан на 240 мл, а не на 1 л: концентрация иная и натрия меньше, чем в формуле ВОЗ (Регидрон); в США продаётся как напиток-электролит, а не как лекарство"
+  },
+  "us_alt": {
+   "name": "TRIORAL Oral Rehydration Salts (формула ВОЗ, low osmolarity)",
+   "dosage": "Глюкоза 13,5 г + натрия цитрат 2,9 г + NaCl 2,6 г + KCl 1,5 г / пакет — на 1 л воды",
+   "pack": "Коробки 15 / 50 / 100 пакетов (Amazon, triselfcare.com); коробка 100 шт",
+   "price_usd": "$30 за коробку 100 пакетов ($0,30 за пакет; ≈$6 за 20 пакетов — столько же, сколько в упаковке Регидрона)",
+   "difference": "Состав почти совпадает с Регидроном и пакет так же разводится на 1 л — это самый точный аналог; втрое дешевле Pedialyte за порцию, но продаётся онлайн (Amazon), а не в обычной аптеке"
+  },
+  "source_ua": "anc 363 / doc.ua 366 / tabletki 360–371 / apteka911 370 / liki.ua 372,3 / etabletka 393,3 / add 421,2. Поиск 09.2026",
+  "source_us": "Walmart.com — Pedialyte Electrolyte Powder Variety Pack 8 packets $8.87 (~$1.11/пакет; AdvancedCare Plus 6 шт $11.87). TRIORAL: состав по карточкам Amazon B0BRT9TRFT / B00OG8G9UM и triselfcare.com; цена $0.30 за порцию в коробке 100 шт — обзор getevident.co/supplements/electrolytes/trioral-ors (др. ритейлер $0.40/порция). Поиск 09.2026"
+ },
+ {
+  "sheet_row": 25,
+  "ua_name": "Метеоспазмил (Meteospasmyl), капсулы мягкие",
+  "ua_dosage": "Альверина цитрат 60 мг + симетикон 300 мг / капсула",
+  "ua_pack": "30 капсул",
+  "ua_price_uah": "405",
+  "us_closest": {
+   "name": "— (нет аналога в США)",
+   "dosage": "—",
+   "pack": "—",
+   "price_usd": "—",
+   "difference": "Комбинации нет: альверин в США не продаётся (был одобрен в 1947 как Profenil, статус US Previously Marketed); из двух компонентов доступен только симетикон — он и есть ближайшая функциональная замена, но без спазмолитика"
+  },
+  "us_alt": {
+   "name": "Equate Extra Strength Gas Relief Simethicone Softgels (аналог Gas-X)",
+   "dosage": "Симетикон 125 мг / капсула",
+   "pack": "72 капсулы",
+   "price_usd": "$3.98 (Walmart, 5,5 цента за капсулу)",
+   "difference": "Только пеногаситель, спазмолитического компонента (альверина) нет — при спазме понадобится отдельный препарат; доза симетикона ниже (125 мг против 300 мг)"
+  },
+  "source_ua": "liki.ua 352,8 / tabletki 374 / podorozhnyk 385,8 / anc 386,3 / likie 423,5 / apteka.net 434,8 / add 438,4. Поиск 09.2026",
+  "source_us": "Альверин: drugs.ncats.io/substance/9JFB58YK1E — US Previously Marketed (Profenil, 1947), сейчас в США не продаётся; drugs.com/international подтверждает зарубежный статус. Walmart.com — Equate Extra Strength Gas Relief Simethicone 125 mg 72 ct $3.98 (5.5 c/count, на момент выдачи out of stock). Поиск 09.2026"
+ },
+ {
+  "sheet_row": 26,
+  "ua_name": "Но-шпа (No-Spa), таблетки 40 мг",
+  "ua_dosage": "Дротаверина г/х 40 мг / таблетка",
+  "ua_pack": "24 таблетки",
+  "ua_price_uah": "122",
+  "us_closest": {
+   "name": "— (нет аналога в США)",
+   "dosage": "—",
+   "pack": "—",
+   "price_usd": "—",
+   "difference": "Дротаверин в США не одобрен FDA и не продаётся вообще; ближайшая функциональная замена — спазмолитик дицикломин, но в США он рецептурный, тогда как Но-шпа в Украине безрецептурная"
+  },
+  "us_alt": {
+   "name": "Dicyclomine HCl 20 mg tablets (генерик Bentyl)",
+   "dosage": "Дицикломина г/х 20 мг / таблетка",
+   "pack": "30 таблеток",
+   "price_usd": "$9.20 (GoodRx cash; Walmart от $6.08, средняя розница $22.22)",
+   "difference": "Другое вещество и механизм: холинолитик, а не миотропный спазмолитик — отсюда сухость во рту и сонливость; в США строго Rx"
+  },
+  "source_ua": "liki.ua 107,2 / anc 110,6–149,8 / apteka.net 121 / add 122,2 / farmaco 124 / apteka911 122,5–148,5. Поиск 09.2026",
+  "source_us": "Дротаверин: drugs.com/international/no-spa + Wikipedia — not FDA approved, в США не продаётся. Дицикломин: GoodRx as low as $9.20 (59% off avg retail $22.22, 30 таб 20 мг); RxSaver — Walmart $11.22 / от $6.08 с купоном, Walgreens $13.26, CVS $29.36. Поиск 09.2026"
+ },
+ {
+  "sheet_row": 27,
+  "ua_name": "Дип Рилиф (Deep Relief), гель для наружного применения",
+  "ua_dosage": "Ибупрофен 50 мг + левоментол 30 мг / 1 г геля (5% / 3%)",
+  "ua_pack": "Туба 100 г",
+  "ua_price_uah": "400",
+  "us_closest": {
+   "name": "— (нет аналога в США)",
+   "dosage": "—",
+   "pack": "—",
+   "price_usd": "—",
+   "difference": "Наружного ибупрофена в США нет: FDA запретила такие продукты ещё в 2009 г., единственный одобренный местный НПВС — диклофенак; ближайшая функциональная замена — гель диклофенака 1% OTC (левоментола в нём тоже нет)"
+  },
+  "us_alt": {
+   "name": "Equate Arthritis Pain Reliever Gel 1% Diclofenac Sodium (аналог Voltaren Arthritis Pain)",
+   "dosage": "Диклофенак натрия 10 мг / 1 г геля (1%)",
+   "pack": "Туба 3,53 oz (100 г)",
+   "price_usd": "$13.88 (Walmart, по указанной цене $3.93 за унцию)",
+   "difference": "Другое действующее вещество (диклофенак вместо ибупрофена) и нет охлаждающего левоментола; в США одобрен только для суставной боли у взрослых 18+"
+  },
+  "source_ua": "apteka.net 245,5 / 3i 352,6–504,6 / apteka911 363,5 / ceapteka 400 / epicentrk 417,3 / anc 418,9–441,7. Поиск 09.2026",
+  "source_us": "Наружный ибупрофен: GSK press release + Houston Chronicle + Arthritis Foundation — diclofenac is the only FDA-approved topical NSAID в США, топический ибупрофен запрещён FDA с 2009. Walmart.com — Equate Arthritis Pain Reliever Gel 1% Diclofenac 3.53 oz (100 г) $3.93/oz => $13.88 за тубу; Voltaren 100 г — цена в сниппете не подтверждена. Поиск 09.2026"
+ },
+ {
+  "sheet_row": 28,
+  "ua_name": "Олфен, пластырь трансдермальный 140 мг/12 ч",
+  "ua_dosage": "Диклофенак натрия 140 мг / пластырь (140 см²)",
+  "ua_pack": "5 пластырей",
+  "ua_price_uah": "445",
+  "us_closest": {
+   "name": "Diclofenac Epolamine Topical System 1.3% (генерик Flector Patch)",
+   "dosage": "Диклофенака эполамин 1,3% — 180 мг / пластырь, смена каждые 12 ч",
+   "pack": "30 пластырей",
+   "price_usd": "$120.94 (GoodRx cash; средняя розница $364.46, drugs.com ~$340 за 30 шт)",
+   "difference": "Соль другая (эполамин вместо натриевой) и в пластыре 180 мг вместо 140 мг; главное отличие — в США это строго Rx, а в Украине Олфен-пластырь безрецептурный"
+  },
+  "us_alt": {
+   "name": "Equate Arthritis Pain Reliever Gel 1% Diclofenac Sodium (аналог Voltaren)",
+   "dosage": "Диклофенак натрия 10 мг / 1 г геля (1%)",
+   "pack": "Туба 3,53 oz (100 г)",
+   "price_usd": "$13.88 (Walmart, по указанной цене $3.93 за унцию)",
+   "difference": "То же вещество, но гель вместо пластыря: нужно втирать 4 раза в сутки, нет 12-часовой трансдермальной подачи; зато OTC и в 9 раз дешевле"
+  },
+  "source_ua": "1sa 273 / anc 379,9 / add 457,2 / apteki 443,8 / farmaco 482,5. Справочно №2: 247–317, №10: 794–858. Поиск 09.2026",
+  "source_us": "GoodRx /diclofenac-epolamine — as low as $120.94 (67% off avg retail $364.46). Drugs.com price-guide/flector-patch — ~$340 за 30 films 1.3%/12 hr. Walmart.com — Equate Diclofenac Sodium Gel 1% 3.53 oz (100 г) $3.93/oz => $13.88. Поиск 09.2026"
+ },
+ {
+  "sheet_row": 29,
+  "ua_name": "Траумель С (Traumeel S), мазь",
+  "ua_dosage": "Arnica montana D3 1,5 г / 100 г (15 мг на 1 г) + 13 др. компонентов в гомеопат. разведениях",
+  "ua_pack": "Туба 50 г",
+  "ua_price_uah": "598,5",
+  "us_closest": {
+   "name": "MediNatura Traumeel Ointment (Arnica +13 active ingredients)",
+   "dosage": "Arnica montana и ещё 13 компонентов в гомеопат. разведениях (состав тот же, что у Траумель С)",
+   "pack": "Туба 3,53 oz (100 г) — в США выпускается только этот размер, тубы 50 г нет",
+   "price_usd": "$22.24 (VitaNet, туба 100 г); по 4 продавцам диапазон $22.24-30.19, медиана ~$26.5",
+   "difference": "Тот же немецкий препарат, в США продаётся под именем Traumeel от MediNatura (бренд Heel ушёл, часть линейки переименована в T-Relief); туба вдвое больше — 100 г вместо 50 г"
+  },
+  "us_alt": {
+   "name": "Boiron Arnicare Gel",
+   "dosage": "Arnica montana 1X HPUS (только арника, без 13 доп. компонентов)",
+   "pack": "Туба 2,6 oz (≈74 г)",
+   "price_usd": "$8.54 (Walmart; 2 шт — $17.08, $3.29 за унцию)",
+   "difference": "Однокомпонентная арника вместо многокомпонентной композиции; гель, а не мазь"
+  },
+  "source_ua": "Медиана по 3 аптекам: anc.ua 547,46 / apteka.net.ua 598,5 / add.ua 639,30. Общий разброс по выдаче 547,46-639,94. Поиск 09.2026",
+  "source_us": "Traumeel 100 г (в США только этот размер, тубы 50 г нет — карточки Amazon B0C7BCNZH4, Walmart 193358143, medinatura.com): VitaNet $22.24 / Fusion Specialty Pharmacy $25.99 / Covenant Health $26.99 / USA MedPremium $30.19; ранее встречалась цена $22.13 при MSRP $26.99. Boiron Arnicare Gel 2.6 oz: Walmart от $8.54, 2-pack $17.08 ($3.29/oz). Поиск 09.2026"
+ },
+ {
+  "sheet_row": 30,
+  "ua_name": "Пантенол, спрей-пена накожная",
+  "ua_dosage": "Декспантенол 46,3 мг / 1 г (4,63%)",
+  "ua_pack": "Баллон 58 г",
+  "ua_price_uah": "68,4",
+  "us_closest": {
+   "name": "— (нет аналога в аптеках США)",
+   "dosage": "—",
+   "pack": "—",
+   "price_usd": "—",
+   "difference": "Декспантенол-спрея в аптечной рознице США нет: на Amazon есть только импортные европейские пены (Pamex 130 г, VHOB 58 г, D-Panthenol 4,36%) как косметика, а не как лекарство, и цены в результатах поиска не подтвердились. Ближайшая аптечная замена того же назначения — заживляющая мазь-барьер типа Aquaphor"
+  },
+  "us_alt": {
+   "name": "Equate Advanced Healing Ointment (аналог Aquaphor)",
+   "dosage": "Петролатум 41% (защитно-заживляющая основа), декспантенола нет",
+   "pack": "Банка 1,75 oz (≈50 г)",
+   "price_usd": "$3.46 (Walmart; 14 oz — $10.52; брендовый Aquaphor First Aid 3,5 oz — $14.99)",
+   "difference": "Другое действующее начало: окклюзивная мазь-барьер вместо декспантенола; мазь, а не спрей-пена — нельзя наносить на болезненный ожог без касания"
+  },
+  "source_ua": "Медиана по 3 аптекам для лекарственной формы (аэрозоль-пена нашкірна 58 г, Мікрофарм): podorozhnyk от 52 / etabletka 68,44 / farmaco 105,50. Справочно medbrowse 98-142 (Фармаком, Флорі-Спрей). НЕ учтён anc 175,75 — это Пантенол-спрей бальзам КОСМЕТИЧНИЙ, другой продукт. Поиск 09.2026",
+  "source_us": "Декспантенол-спрей: 2 поиска (amazon/US availability) — только импортные косметические пены (Pamex B07CGSL1L3, VHOB B01MXEWKJH, D-Panthenol 4.36% B01LZTOMYW), цен в сниппетах нет, аптечного US-продукта не найдено. Walmart.com — Equate Advanced Healing Ointment 1.75 oz $3.46, 14 oz $10.52; Aquaphor First Aid Healing Ointment 3.5 oz $14.99 (out of stock). Поиск 09.2026"
+ },
+ {
+  "sheet_row": 31,
+  "ua_name": "Бетадин (Betadine), раствор накожный 10%",
+  "ua_dosage": "Повидон-йод 100 мг / 1 мл (10%)",
+  "ua_pack": "Флакон 30 мл",
+  "ua_price_uah": "172,5",
+  "us_closest": {
+   "name": "Betadine Antiseptic First Aid Solution, Povidone-Iodine 10%",
+   "dosage": "Повидон-йод 100 мг / 1 мл (10%) — идентично украинскому",
+   "pack": "Флакон 8 fl oz (≈237 мл)",
+   "price_usd": "$16.52 (Walmart; в сниппете цена дана с оговоркой)",
+   "difference": "Тот же бренд и та же концентрация; отличие только в объёме — минимальный флакон в США 6-8 унций (177-237 мл) против 30 мл в Украине"
+  },
+  "us_alt": {
+   "name": "Major Povidone Iodine 10% Topical Solution (генерик Betadine)",
+   "dosage": "Повидон-йод 100 мг / 1 мл (10%)",
+   "pack": "Флакон 8 fl oz (≈237 мл)",
+   "price_usd": "$6.94 за флакон ($13.88 за 2 шт, Walmart)",
+   "difference": "X"
+  },
+  "source_ua": "Медиана по 6 аптекам: tabletki 149,73 (диапазон 149,73-225) / etabletka от 168,04 / anc 171,80 (171,80-198,94) / apteka.net 173,10 / add.ua 174,20 / 3i 185,30 (185,3-198,9). Поиск 09.2026",
+  "source_us": "Walmart.com — Betadine Antiseptic First Aid Solution Povidone-Iodine 10% 8 oz ~$16.52 (сниппет с оговоркой appears to be listed); Major Povidone Iodine 10% Topical Solution 8 oz 2-pack $13.88 => $6.94/флакон; Equate First Aid Antiseptic Topical Solution 8 fl oz $6.56 — не взят, состав (повидон-йод или бензалкония хлорид) в выдаче не подтверждён. Поиск 09.2026"
+ },
+ {
+  "sheet_row": 32,
+  "ua_name": "Нурофен для детей, суспензия оральная",
+  "ua_dosage": "Ибупрофен 100 мг / 5 мл (20 мг/мл)",
+  "ua_pack": "Флакон 100 мл",
+  "ua_price_uah": "154,4",
+  "us_closest": {
+   "name": "Equate Children's Ibuprofen Oral Suspension (аналог Children's Motrin)",
+   "dosage": "Ибупрофен 100 мг / 5 мл (20 мг/мл) — идентично украинскому",
+   "pack": "Флакон 8 fl oz (≈237 мл)",
+   "price_usd": "$6.48 (Walmart, было $7.24)",
+   "difference": "То же вещество и та же концентрация; флакон больше (237 мл против 100 мл), есть и 4 fl oz (≈118 мл) — цена на него в выдаче не подтвердилась. Брендовый эквивалент — Children's Motrin; маркировка США: возраст 2-11 лет"
+  },
+  "us_alt": {
+   "name": "—",
+   "dosage": "—",
+   "pack": "—",
+   "price_usd": "—",
+   "difference": "—"
+  },
+  "source_ua": "Медиана по 3 аптекам (суспензия 100 мг/5 мл, флакон 100 мл): apteka911 149,50 (диапазон 149,50-193,50) / anc 154,43 апельсин, 149,85 полуниця (до 212-216) / add.ua 183,10 апельсин. НЕ учтён Нурофен Форте 200 мг/5 мл (add.ua 257,50, anc 205,32) — другая дозировка. Поиск 09.2026",
+  "source_us": "Walmart.com — Equate Children Ibuprofen Oral Suspension 100 mg/5 mL 8 fl oz $6.48 (было $7.24), Compare to Children Motrin. Флаконы 4 fl oz (bubble gum / grape) в каталоге есть, цена в сниппете не показана. J не заполнен: Equate — уже самый дешёвый store-brand, более дешёвого эквивалента нет. Поиск 09.2026"
+ }
+]
