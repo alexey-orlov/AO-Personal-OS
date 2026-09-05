@@ -36,15 +36,16 @@ Exercise matching here is EXACT (normalized: casefold, collapsed spaces,
 stripped trailing dots). Fuzzy "Жим лёжа" vs "Жим лежа руками" matching is
 the calling agent's job — see .claude/skills/gym-log/references/exercises.md.
 
-Env (set by config.sh): GYM_SHEET_ID, GYM_TAB, GYM_SHEETS_TOKEN, SHEETS_CREDS.
-Credentials come from the GYM_SHEETS_TOKEN file, or — where there is no
-.work/ (cloud sessions, fresh clones) — from GYM_SHEETS_TOKEN_JSON holding
-the same JSON inline (raw or base64). With neither googleapiclient nor
-google-auth installed the file falls back to a stdlib REST client, so
-python3 alone is enough; GYM_FORCE_REST=1 forces that path.
-Exit codes: 0 ok, 2 bad input, 3 auth problem (re-run `gym_sheet.py auth`).
+Env (set by config.sh): GYM_SHEET_ID, GYM_TAB, plus the shared Google Sheets
+credential exported by automations/gsheets/config.sh — the GSHEETS_TOKEN file
+on the Mac, or GSHEETS_TOKEN_JSON holding the same JSON inline (raw or
+base64) where there is no .work/ (cloud sessions, CI, fresh clones). See
+automations/gsheets/README.md. With neither googleapiclient nor google-auth
+installed the file falls back to a stdlib REST client, so python3 alone is
+enough; GYM_FORCE_REST=1 forces that path.
+Exit codes: 0 ok, 2 bad input, 3 auth problem (re-run `gsheets.py auth` on
+the Mac, then refresh every copy of GSHEETS_TOKEN_JSON).
 """
-import base64
 import json
 import os
 import re
@@ -55,12 +56,13 @@ import urllib.request
 
 SHEET_ID = os.environ.get("GYM_SHEET_ID", "")
 TAB = os.environ.get("GYM_TAB", "Sheet1")
-TOKEN = os.environ.get("GYM_SHEETS_TOKEN", "")
-TOKEN_ENV = "GYM_SHEETS_TOKEN_JSON"   # same JSON, inline — for machines with no .work/
-CREDS = os.environ.get("SHEETS_CREDS", "")
 SCOPES = ["https://www.googleapis.com/auth/spreadsheets"]
 API = "https://sheets.googleapis.com/v4/spreadsheets"
-TOKEN_URL = "https://oauth2.googleapis.com/token"
+
+# The ONE Google Sheets credential, shared by every sheet consumer in the repo
+# (automations/gsheets/README.md): loader + refresh live there, not here.
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "gsheets"))
+import gsheets  # noqa: E402
 
 FIRST_BLOCK_COL = 2   # zero-based index of column C
 BLOCK_W = 4           # Sets | Reps | Weight start | Weight end
@@ -88,54 +90,7 @@ def _col_letter(idx):
     return out
 
 
-# ---- credentials -------------------------------------------------------
-# Same authorized-user JSON, two sources: the .work/ file on the Mac, or the
-# GYM_SHEETS_TOKEN_JSON env var (raw or base64) anywhere the repo is only a
-# clone — a Claude Code cloud session, a fresh checkout. Never in the repo.
-
-def _token_dict():
-    raw = os.environ.get(TOKEN_ENV, "").strip()
-    src = TOKEN_ENV
-    if raw:
-        if not raw.startswith("{"):
-            try:
-                raw = base64.b64decode(raw).decode()
-            except Exception:
-                _die(f"${TOKEN_ENV} is neither JSON nor base64-encoded JSON", 3)
-        try:
-            tok = json.loads(raw)
-        except Exception as e:
-            _die(f"${TOKEN_ENV} is not valid JSON ({e})", 3)
-    elif TOKEN and os.path.exists(TOKEN):
-        src = TOKEN
-        with open(TOKEN) as f:
-            tok = json.load(f)
-    else:
-        _die(f"no credentials — set ${TOKEN_ENV} (see automations/gym-log/README.md) "
-             f"or run `gym_sheet.py auth` on the Mac (GYM_SHEETS_TOKEN={TOKEN!r})", 3)
-    missing = [k for k in ("client_id", "client_secret", "refresh_token") if not tok.get(k)]
-    if missing:
-        _die(f"credentials from {src} are missing {', '.join(missing)}", 3)
-    return tok, src
-
-
-def _access_token(tok):
-    data = urllib.parse.urlencode({
-        "client_id": tok["client_id"], "client_secret": tok["client_secret"],
-        "refresh_token": tok["refresh_token"], "grant_type": "refresh_token",
-    }).encode()
-    req = urllib.request.Request(
-        TOKEN_URL, data=data,
-        headers={"Content-Type": "application/x-www-form-urlencoded"})
-    try:
-        with urllib.request.urlopen(req, timeout=30) as r:
-            return json.loads(r.read().decode())["access_token"]
-    except urllib.error.HTTPError as e:
-        body = e.read().decode(errors="replace")[:200]
-        _die(f"token refresh rejected ({e.code}: {body}); re-run `gym_sheet.py auth` "
-             f"on the Mac, then refresh ${TOKEN_ENV}", 3)
-    except Exception as e:
-        _die(f"token refresh failed ({type(e).__name__}: {e})", 3)
+# ---- credentials: gsheets.load_token / gsheets.fetch_access_token (shared) ----
 
 
 # ---- transport ---------------------------------------------------------
@@ -204,7 +159,10 @@ class _RestSheets:
 
 
 def _service():
-    tok, src = _token_dict()
+    try:
+        tok, src = gsheets.load_token()
+    except gsheets.SheetsError as e:
+        _die(str(e), e.code)
     if os.environ.get("GYM_FORCE_REST") != "1":
         try:
             from google.auth.transport.requests import Request
@@ -217,29 +175,25 @@ def _service():
             try:
                 if not creds.valid:
                     creds.refresh(Request())
-                    if src != TOKEN_ENV:  # refresh the file, never the env var
+                    if gsheets.is_file_source(src):  # refresh the file, never the env var
                         with open(src, "w") as f:
                             f.write(creds.to_json())
             except Exception as e:
-                _die(f"token refresh failed ({e}); run `gym_sheet.py auth`", 3)
+                _die(f"token refresh failed ({e}); run `gsheets.py auth` on the Mac", 3)
             return build("sheets", "v4", credentials=creds, cache_discovery=False)
-    return _RestSheets(_access_token(tok))
+    try:
+        return _RestSheets(gsheets.fetch_access_token(tok))
+    except gsheets.SheetsError as e:
+        _die(str(e), e.code)
 
 
 def _auth():
-    from google_auth_oauthlib.flow import InstalledAppFlow
-
-    if not (CREDS and os.path.exists(CREDS)):
-        _die(f"no OAuth client at SHEETS_CREDS={CREDS!r}", 3)
-    flow = InstalledAppFlow.from_client_secrets_file(CREDS, SCOPES)
-    creds = flow.run_local_server(port=0, prompt="consent")
-    os.makedirs(os.path.dirname(TOKEN), exist_ok=True)
-    with open(TOKEN, "w") as f:
-        f.write(creds.to_json())
-    print(json.dumps({"ok": True, "token": TOKEN, "next": (
-        f"a new refresh token invalidates the old one — re-copy it into "
-        f"${TOKEN_ENV} in the Claude Code web environment, else cloud runs "
-        f"start failing: base64 < {TOKEN} | tr -d '\\n' | pbcopy")}))
+    """Delegates to the shared consent flow: the token it writes is the one
+    every Sheets consumer in the repo uses, not a gym-log copy."""
+    try:
+        print(json.dumps(gsheets.run_consent_flow(), ensure_ascii=False))
+    except gsheets.SheetsError as e:
+        _die(str(e), e.code)
 
 
 class Model:

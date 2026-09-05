@@ -119,13 +119,13 @@ echo '{"date":"7/22/2026","my_weight":73.6,"entries":[
   group by hand in the sheet; say so explicitly instead of assuming the
   payload fixed it.
 - **Off the Mac (cloud run, fresh clone — no `.work/`)?** It still writes:
-  credentials come from the `GYM_SHEETS_TOKEN_JSON` env var and the script
-  falls back to a stdlib REST client when the google libs are missing — see
-  "Running off the Mac" in `automations/gym-log/README.md`. Exit 3 there
-  means that env var is unset or stale, and only Alex can refresh it.
+  credentials are the shared Google Sheets credential in the
+  `GSHEETS_TOKEN_JSON` env var (`automations/gsheets/README.md`), and the
+  script falls back to a stdlib REST client when the google libs are missing.
+  Exit 3 means that env var is unset or stale, and only Alex can refresh it.
 - **No credentials in the session?** Committing the payload to
   `automations/gym-log/pending/*.json` on any branch makes CI do the write
-  (`.github/workflows/gym-log-apply.yml`, secret `GYM_SHEETS_TOKEN_JSON`).
+  (`.github/workflows/gym-log-apply.yml`, secret `GSHEETS_TOKEN_JSON`).
   Watch the run and report its real outcome — a queued payload is not a
   logged session until the run is green.
 - **No credentials anywhere?** Never drop the session and never report it as

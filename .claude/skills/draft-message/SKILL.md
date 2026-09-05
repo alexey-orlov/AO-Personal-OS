@@ -36,8 +36,8 @@ Routing heuristics in case of ambiguity:
 ## Paths (anchored at the repo root)
 
 - State log (gitignored, append-only): `automations/draft-message/.work/state.json`
-- Config: `automations/draft-message/config.sh` (defines `STATE_FILE`, `REPO_ROOT`, sources telegram config; reuses re-engagement's Sheet lookup)
-- Sheet lookup (reused from re-engagement): `automations/re-engagement-outreach/sheets_lookup.py`
+- Config: `automations/draft-message/config.sh` (defines `STATE_FILE`, `REPO_ROOT`, sources telegram config; reuses the shared CRM lookup)
+- Sheet lookup (shared): `$CRM_LOOKUP` → `automations/crm-spreadsheet/sheets_lookup.py` (exported by the sourced config). Credentials: the shared Google Sheets credential, `automations/gsheets/README.md` — works on the Mac and in cloud sessions alike.
 - Telegram (text + URL button): `automations/telegram/telegram_send_with_button.sh`
 - **Every Telegram send in this skill sets `TG_TOPIC=inbox-drafts`** (env prefix on the script invocation) — routes to the 📨 Inbox & Drafts topic of the notification group.
 - TG message template: `.claude/skills/draft-message/references/tg-templates.md` — read this before posting any TG message.
@@ -119,7 +119,7 @@ If Alex already provided the email or LIN URL but there's no thread, skip Sheet 
 
 ```bash
 source automations/draft-message/config.sh
-echo '<JSON payload>' | "$PYTHON_BIN" automations/re-engagement-outreach/sheets_lookup.py
+echo '<JSON payload>' | "$PYTHON_BIN" "$CRM_LOOKUP"
 ```
 
 Payload (single contact, payload shape matches sheets_lookup contract):

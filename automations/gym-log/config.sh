@@ -1,26 +1,23 @@
 # config.sh — gym training log integration (Google Sheet "My training").
 #
-# Sourced by the gym-log skill. Reuses the crm-spreadsheet OAuth client
-# (credentials.json) but keeps its OWN token, because this one carries the
-# read-write `spreadsheets` scope while the CRM token is readonly.
+# Sourced by the gym-log skill. Credentials are the shared Google Sheets
+# credential from automations/gsheets/ — one token for every sheet: the
+# .work/token.json file on the Mac, the GSHEETS_TOKEN_JSON env var in cloud
+# sessions and CI. This file adds only what is specific to the training sheet.
 
 # Derived, not hardcoded: the same checkout is at ~/Documents/GitHub on the
 # Mac and elsewhere in a cloud session / fresh clone.
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]:-$0}")/../.." && pwd)"
 export REPO_ROOT
 
+# Shared credential + python: exports GSHEETS_TOKEN, SHEETS_CREDS, PYTHON_BIN, GSHEETS.
+# shellcheck source=/dev/null
+source "$REPO_ROOT/automations/gsheets/config.sh"
+
 export GYM_DIR="$REPO_ROOT/automations/gym-log"
 export GYM_WORK="$GYM_DIR/.work"
 
 export GYM_SHEET_ID="19JNFjYcnJJ-_haU_vLIf5nC5UVqDTEAR0P-LazbTUt0"
 export GYM_TAB="Sheet1"
-
-export GYM_SHEETS_TOKEN="$GYM_WORK/sheets/token.json"
-export SHEETS_CREDS="$REPO_ROOT/automations/crm-spreadsheet/.work/sheets/credentials.json"
-
-# Reuse the crm-spreadsheet venv (google-api-python-client lives there).
-export PYTHON_BIN="$REPO_ROOT/automations/crm-spreadsheet/.work/venv/bin/python3"
-[ -x "$PYTHON_BIN" ] || export PYTHON_BIN="$REPO_ROOT/automations/call-pipeline/.work/venv/bin/python3"
-[ -x "$PYTHON_BIN" ] || export PYTHON_BIN="$(command -v python3)"
 
 export GYM_SHEET="$GYM_DIR/gym_sheet.py"

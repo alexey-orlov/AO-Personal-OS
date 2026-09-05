@@ -7,8 +7,10 @@
 # so logging a workout no longer needs the laptop to be awake.
 #
 # Setup, once: repo Settings → Secrets and variables → Actions → new secret
-# GYM_SHEETS_TOKEN_JSON = the contents of
-# automations/gym-log/.work/sheets/token.json (raw or base64).
+# GSHEETS_TOKEN_JSON = the shared Google Sheets credential, i.e. the contents
+# of automations/gsheets/.work/token.json (raw or base64) — see
+# automations/gsheets/README.md. The pre-2026-09 secret name
+# GYM_SHEETS_TOKEN_JSON is honoured as a fallback until it is deleted.
 #
 # Failure is loud by design: the payload stays in pending/ (nothing is lost,
 # `log` is an upsert so a re-run is safe) and an issue is filed naming the
@@ -36,11 +38,11 @@ jobs:
 
       - name: Apply the queue
         env:
-          GYM_SHEETS_TOKEN_JSON: ${{ secrets.GYM_SHEETS_TOKEN_JSON }}
+          GSHEETS_TOKEN_JSON: ${{ secrets.GSHEETS_TOKEN_JSON || secrets.GYM_SHEETS_TOKEN_JSON }}
           GYM_FORCE_REST: '1'   # runners have no google-api-python-client
         run: |
-          if [ -z "${GYM_SHEETS_TOKEN_JSON:-}" ]; then
-            echo "::error::secret GYM_SHEETS_TOKEN_JSON is not set — nothing written, queue left intact"
+          if [ -z "${GSHEETS_TOKEN_JSON:-}" ]; then
+            echo "::error::secret GSHEETS_TOKEN_JSON is not set — nothing written, queue left intact"
             exit 1
           fi
           automations/gym-log/apply_pending.sh
@@ -76,7 +78,7 @@ jobs:
                 `and \`log\` is an upsert, so re-running is safe once the cause is fixed.`,
                 ``,
                 `Usual causes:`,
-                `- the \`GYM_SHEETS_TOKEN_JSON\` secret is unset, or stale after a re-\`auth\` on the Mac`,
+                `- the \`GSHEETS_TOKEN_JSON\` secret is unset, or stale after a re-\`auth\` on the Mac (automations/gsheets/README.md)`,
                 `- Google expired the refresh token (consent screen still in *Testing* = 7 days)`,
               ].join('\n'),
             });

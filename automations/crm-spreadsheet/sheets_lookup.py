@@ -26,21 +26,21 @@ Output shape:
    ],
    "errors": ["..."]}
 
-Env (set by config.sh):
-  SHEETS_CREDS   OAuth Desktop-app client_secret JSON path
-  SHEETS_TOKEN   refreshable user token JSON path (written on first run)
+Credentials: the shared Google Sheets credential from automations/gsheets/
+(GSHEETS_TOKEN_JSON inline in cloud sessions / CI, or the GSHEETS_TOKEN file
+on the Mac) — see automations/gsheets/README.md. Nothing CRM-specific, no
+google libs needed (the API client is stdlib). rapidfuzz is optional:
+without it fuzzy-name matching degrades to "no match".
 """
 import json
-import os
 import re
 import sys
 from pathlib import Path
 
 
-CREDS = os.environ.get("SHEETS_CREDS", "")
-TOKEN = os.environ.get("SHEETS_TOKEN", "")
-
-SCOPES = ["https://www.googleapis.com/auth/spreadsheets.readonly"]
+# The ONE Google Sheets credential (automations/gsheets/README.md).
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "gsheets"))
+import gsheets  # noqa: E402
 
 # Column-name synonyms. Header strings from the sheet are normalized
 # (lowercased, non-alphanumeric stripped) before lookup. Unknown columns
@@ -115,29 +115,10 @@ def _normalize_lin_url(url):
 
 
 def _sheets_service():
-    from google.auth.transport.requests import Request
-    from google.oauth2.credentials import Credentials
-    from google_auth_oauthlib.flow import InstalledAppFlow
-    from googleapiclient.discovery import build
-
-    creds = None
-    if TOKEN and Path(TOKEN).exists():
-        creds = Credentials.from_authorized_user_file(TOKEN, SCOPES)
-    if not creds or not creds.valid:
-        if creds and creds.expired and creds.refresh_token:
-            creds.refresh(Request())
-        else:
-            if not (CREDS and Path(CREDS).exists()):
-                raise RuntimeError(
-                    f"no Google OAuth client at SHEETS_CREDS={CREDS!r}. "
-                    "Drop a Desktop-app credentials.json into .work/sheets/."
-                )
-            flow = InstalledAppFlow.from_client_secrets_file(CREDS, SCOPES)
-            creds = flow.run_local_server(port=0)
-        if TOKEN:
-            Path(TOKEN).parent.mkdir(parents=True, exist_ok=True)
-            Path(TOKEN).write_text(creds.to_json())
-    return build("sheets", "v4", credentials=creds, cache_discovery=False)
+    """Shared credential → Sheets handle (stdlib REST, googleapiclient call
+    shapes). Raises gsheets.SheetsError on a credential problem; main() turns
+    it into matched:false + an `auth:` error, per the always-exit-0 contract."""
+    return gsheets.service()
 
 
 def _read_tab(svc, sheet_id, tab_name):

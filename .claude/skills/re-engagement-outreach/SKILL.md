@@ -25,7 +25,7 @@ You are the re-engagement-outreach agent. Alex pastes a contact list + a campaig
 - State file (gitignored): `automations/re-engagement-outreach/.work/state.json`
 - Skill config: `automations/re-engagement-outreach/config.sh` — source this. It re-exports everything below by sourcing the shared CRM + Telegram configs, and adds `STATE_FILE`.
 - Sheet reader (shared): `$CRM_LOOKUP` — resolves to `automations/crm-spreadsheet/sheets_lookup.py` after sourcing config. Invoke with `"$PYTHON_BIN" "$CRM_LOOKUP"`.
-- Sheet env vars (shared, exported by the CRM config): `CRM_SHEET_ID`, `CRM_CONTACTS_TAB`, `CRM_ACCOUNTS_TAB`, `SHEETS_CREDS`, `SHEETS_TOKEN`, `PYTHON_BIN`.
+- Sheet env vars (shared, exported by the CRM config): `CRM_SHEET_ID`, `CRM_CONTACTS_TAB`, `CRM_ACCOUNTS_TAB`, `PYTHON_BIN`. Credentials are the shared Google Sheets credential (`automations/gsheets/README.md`: token file on the Mac, `GSHEETS_TOKEN_JSON` env var in cloud sessions) — nothing to configure per skill; exit 3 from the lookup = credential problem, tell Alex.
 - Telegram (text + URL button): `automations/telegram/telegram_send_with_button.sh`
 - Telegram (text only): `automations/telegram/telegram_send.sh`
 - **Every Telegram send in this skill sets `TG_TOPIC=inbox-drafts`** (env prefix on the script invocation) — routes to the 📨 Inbox & Drafts topic of the notification group.

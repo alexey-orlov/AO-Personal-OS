@@ -12,11 +12,13 @@ merged in column A, template formatting cloned onto new blocks/rows).
 
 ## Files
 
-- `config.sh` — env (`GYM_SHEET_ID`, `GYM_TAB`, `GYM_SHEETS_TOKEN`,
-  `SHEETS_CREDS`, `PYTHON_BIN`, `GYM_SHEET`). Source before use.
+- `config.sh` — env (`GYM_SHEET_ID`, `GYM_TAB`, `GYM_SHEET`) on top of the
+  shared Google Sheets credential it sources from
+  `automations/gsheets/config.sh` (`GSHEETS_TOKEN`, `SHEETS_CREDS`,
+  `PYTHON_BIN`, `GSHEETS`). Source before use.
 - `gym_sheet.py` — CLI. Commands:
-  - `auth` — interactive OAuth consent (opens a browser once). Scope:
-    `spreadsheets` (read-write).
+  - `auth` — the shared consent flow (same as `gsheets.py auth`), kept here
+    for muscle memory. Scope: `spreadsheets` (read-write).
   - `dump` — JSON snapshot: dates, body weights, categories → exercises →
     per-date entries. Also the cheapest auth check.
   - `progress M/D/YYYY` — per-exercise w_end deltas (kg + %) for that
@@ -29,67 +31,60 @@ merged in column A, template formatting cloned onto new blocks/rows).
     "exercise":"Верт. тяга","sets":3,"reps":10,"w_start":52,"w_end":62},…]}`
     Creates the date block / category / exercise row if missing, overwrites
     if present (idempotent). Date = `M/D/YYYY`, no leading zeros. Exit 3 =
-    re-run `auth`.
+    credential problem (see Auth).
 - `apply_pending.sh` — flushes queued payloads (`pending/*.json`) into the
   sheet, moving each applied one to `pending/applied/`. Re-running is a no-op.
-- `pending/` — committed queue for sessions parsed where the token is not
-  available (Claude Code cloud runs, fresh clones — the token lives in the
-  git-ignored `.work/`). The skill writes the ready `log` payload here
-  instead of dropping the training, and says it is queued rather than
-  reporting it logged.
-- `.work/` — git-ignored; holds `sheets/token.json`.
+- `pending/` — committed queue for sessions parsed where the credential is
+  not available (a cloud session whose environment lacks
+  `GSHEETS_TOKEN_JSON`, a fresh clone without `.work/`). The skill writes the
+  ready `log` payload here instead of dropping the training, and says it is
+  queued rather than reporting it logged.
+- `.work/` — git-ignored. Nothing lives here any more: the token moved to
+  `automations/gsheets/.work/token.json` (2026-09). The old
+  `.work/sheets/token.json` is still honoured as a fallback until
+  `automations/gsheets/setup.sh` has copied it over.
 
 ## Auth
 
-Reuses the crm-spreadsheet GCP OAuth client (`SHEETS_CREDS` points at its
-`credentials.json`) but keeps a SEPARATE token: this one is read-write,
-the CRM one is readonly. First grant done 2026-07-25. If Google expires the
-refresh token (`invalid_grant`), any command exits 3 — re-run:
+The credential is the shared one — `automations/gsheets/README.md`: one
+read-write token for every sheet in Alex's account. It reaches the script as
+the `automations/gsheets/.work/token.json` file on the Mac, and as the
+`GSHEETS_TOKEN_JSON` env var in Claude Code cloud sessions and in GitHub
+Actions (secret of the same name). Nothing gym-specific to set up.
 
-```bash
-source automations/gym-log/config.sh && "$PYTHON_BIN" "$GYM_SHEET" auth
-```
+If Google rejects the refresh token (`invalid_grant`), any command exits 3.
+Rotate per that README: re-run `auth` on the Mac, then re-copy the token
+into the cloud environment and the repo secret — the new refresh token
+invalidates the old one everywhere.
 
 ## Running off the Mac (Claude Code cloud sessions)
 
-The token lives in the git-ignored `.work/`, so a cloud session has no
-credentials — and the sandbox has no `google-api-python-client` either.
-Both are handled:
-
-- **Credentials** — `gym_sheet.py` also accepts the same authorized-user
-  JSON inline, in `GYM_SHEETS_TOKEN_JSON` (raw or base64). Copy it once on
-  the Mac and paste it into the environment's variables at
-  [claude.ai/code](https://claude.ai/code) → the environment for this repo →
-  *Environment variables* (see the [env docs](https://code.claude.com/docs/en/claude-code-on-the-web)):
-
-  ```bash
-  base64 < automations/gym-log/.work/sheets/token.json | tr -d '\n' | pbcopy
-  ```
-
+- **Credentials** — the session's environment must carry
+  `GSHEETS_TOKEN_JSON` (`automations/gsheets/README.md`, "Claude Code cloud
+  environment"). Exit 3 = it is unset, mis-pasted, or stale — only Alex can
+  fix that; never report a session as logged on the strength of a queued
+  payload.
 - **Dependencies** — with the google libs absent, the script talks to the
   Sheets REST API over stdlib `urllib` (the four calls it needs). `python3`
   alone is enough. `GYM_FORCE_REST=1` forces that path on the Mac too, which
   is how it stays tested.
-
 - **Or let CI do the write** — `.github/workflows/gym-log-apply.yml` applies
   anything committed to `pending/*.json` (any branch), then commits the flush.
-  Same JSON, pasted once into repo *Settings → Secrets and variables →
-  Actions* as `GYM_SHEETS_TOKEN_JSON`. This is the only route that works from
-  a session that has already started (env vars are fixed at session start)
-  and from a phone. On failure the payload stays queued and the workflow
-  files an issue naming the cause.
+  It reads the repo secret `GSHEETS_TOKEN_JSON` (same README, "GitHub
+  Actions"). This is the only route that works from a session that has
+  already started (env vars are fixed at session start) and from a phone. On
+  failure the payload stays queued and the workflow files an issue naming
+  the cause.
 
 Caveats worth knowing:
 
-- That JSON is a **secret**: env var only. Never commit it, never paste it
-  into a chat message or an issue — a transcript is not a vault.
+- That JSON is a **secret**: env var / secret store only. Never commit it,
+  never paste it into a chat message or an issue — a transcript is not a vault.
 - Its scope (`spreadsheets`) is read-write to **every** sheet in the account,
-  not just this one. Tighter alternative if that ever matters: a service
-  account shared only with "My training" (needs `google-auth` installed for
-  the RS256 JWT — the stdlib path cannot sign it).
-- Re-running `auth` on the Mac mints a **new** refresh token and invalidates
-  the old one — re-copy it into the env var or cloud runs start failing with
-  exit 3.
+  not just this one — by design: one credential for every sheet use case.
+- Re-running `auth` mints a **new** refresh token and invalidates the old
+  one — re-copy it into the cloud environment and the repo secret, or cloud
+  runs and CI start failing with exit 3.
 - If the GCP consent screen is still in *Testing*, Google expires refresh
   tokens after 7 days. Publishing the app (still unverified, personal use)
   is what makes them durable.

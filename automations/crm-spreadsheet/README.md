@@ -5,32 +5,36 @@ Shared CRM integration backed by Alex's Google Sheet at
 Tabs: `CRM Contacts` (per-person rows) and `CRM Accounts` (per-company rows).
 
 Any skill that needs to look up a contact's email / LIN URL / company /
-angle / last-touch date pulls from here. One OAuth grant, one venv, one
-lookup script — reused across skills.
+angle / last-touch date pulls from here. One lookup script, one venv
+(rapidfuzz) — reused across skills. The credential is NOT here: it is the
+shared Google Sheets credential in `automations/gsheets/` (one read-write
+token for every sheet; the `GSHEETS_TOKEN_JSON` env var in cloud sessions),
+so the lookup works on the Mac and in Claude Code cloud sessions alike.
 
 ## Files
 
-- `config.sh` — env vars (`CRM_SHEET_ID`, `CRM_CONTACTS_TAB`,
-  `CRM_ACCOUNTS_TAB`, `SHEETS_CREDS`, `SHEETS_TOKEN`, `PYTHON_BIN`,
-  `CRM_LOOKUP`). Source from a consuming skill.
-- `setup.sh` — one-time per machine. Builds venv, installs google libs +
-  rapidfuzz, prints GCP OAuth-client placement instructions.
+- `config.sh` — sources `automations/gsheets/config.sh` (credential,
+  `PYTHON_BIN`, `GSHEETS`) and adds the CRM-specific env: `CRM_SHEET_ID`,
+  `CRM_CONTACTS_TAB`, `CRM_ACCOUNTS_TAB`, `CRM_LOOKUP`; prefers this
+  automation's venv when it exists. Source from a consuming skill.
+- `setup.sh` — one-time per machine. Builds the venv with rapidfuzz and
+  checks that the shared credential is in place.
 - `sheets_lookup.py` — the matched-rows reader. JSON in on stdin, JSON out
   on stdout. Always exits 0; auth/API errors degrade to `matched:false`.
-- `.work/` — gitignored. Holds the venv, `sheets/credentials.json`,
-  `sheets/token.json`.
+  Stdlib Sheets client via `gsheets.py`; rapidfuzz optional.
+- `.work/` — gitignored. Holds the venv. Until 2026-09 it also held the
+  OAuth client and a read-only token: `automations/gsheets/setup.sh` copies
+  the client to the shared location; the read-only token is no longer used.
 
 ## One-time setup
 
 ```bash
-./setup.sh
-# follow the printed instructions to enable Sheets API in GCP and
-# drop credentials.json at .work/sheets/credentials.json
+automations/gsheets/setup.sh          # the shared credential (skip if done)
+automations/crm-spreadsheet/setup.sh  # venv + rapidfuzz
 ```
 
-First call to `sheets_lookup.py` opens a browser once to authorise
-`spreadsheets.readonly`. Token caches at `.work/sheets/token.json` and
-refreshes silently afterward.
+No browser consent here — `gsheets.py auth` (run by the first script only
+when there is no token yet) is the single consent flow in the repo.
 
 ## How other skills consume this
 
@@ -101,11 +105,11 @@ Unknown columns pass through verbatim under their original header name.
 
 - `.claude/skills/re-engagement-outreach/` — per-contact angle / company /
   last-touch enrichment for campaign drafts.
+- `.claude/skills/draft-message/` — fallback lookup of an email / LIN URL
+  when Alex gives only a name and no prior thread exists.
 
 ## Likely future consumers
 
-- `.claude/skills/draft-message/` — look up email or LIN URL when Alex
-  gives only a name.
 - `.claude/skills/inbox-sweep/` — enrich unknown senders with company /
   notes context before drafting.
 - Any outbound-campaign skill (cold outreach, event follow-up, etc.).

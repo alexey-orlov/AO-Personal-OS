@@ -2,13 +2,16 @@
 #
 # draft-message reuses re-engagement-outreach's Sheet lookup as a fallback
 # when no prior thread is found and Alex didn't provide an address directly.
-# The Sheet OAuth client and venv are the ones already wired up there — this
-# skill does not maintain its own Sheets credentials.
+# The Sheet credential is the shared one from automations/gsheets/ (reached
+# through the CRM config) — this skill does not maintain its own.
 #
 # Telegram credentials come from the shared automations/telegram/config.sh,
 # which sources them from macOS Keychain.
 
-export REPO_ROOT="$HOME/Documents/GitHub/AO-Personal-OS"
+# Derived, not hardcoded: the same checkout is at ~/Documents/GitHub on the
+# Mac and elsewhere in a cloud session / fresh clone.
+REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]:-$0}")/../.." && pwd)"
+export REPO_ROOT
 
 export DM_DIR="$REPO_ROOT/automations/draft-message"
 export WORK="$DM_DIR/.work"
