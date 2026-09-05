@@ -2,7 +2,7 @@
 
 _status: live theme — the hands-on engineering layer beneath AI capability gains: decoding algorithms, GPU kernels, heterogeneous inference hardware, hardware/software co-design for speed and energy efficiency_
 _slug: ml-systems-and-inference-engineering_
-_updated: 2026-08-28 · 11 insights from 4 episodes_
+_updated: 2026-09-04 · 13 insights from 6 episodes_
 
 ## The throughline
 Two YC Paper Club sessions and a Jeff Dean interview lay out the stack from algorithm down to silicon. At the algorithm layer, speculative decoding variants (SSD) and diffusion-based planners (Diffusion MPC) trade extra compute for lower latency and fewer compounding errors, while regularizers (Sigg) and ensembling/distillation recipes buy outsized data and parameter efficiency when data or model size is constrained — the throughline being that inference speed is itself a capability, not just a cost line. At the systems layer, multi-GPU kernel design comes down to a handful of concrete trade-offs (transfer mechanism, comms/compute scheduling, buffer overhead), inference splits into heterogeneous phases (compute-bound prefill vs. bandwidth-bound decode) that want different accelerators, and whole RL simulators can be moved onto the GPU for 10–100× throughput gains. At the hardware layer, Jeff Dean's TPU history makes the underlying economics explicit: purpose-built low-precision chips beat general-purpose ones by 30–80× on energy and 20–30× on latency, and the deeper reason is that moving data costs roughly 1,000× more energy than operating on it — so most "model" problems that look intractable are actually I/O or power problems in disguise.
@@ -56,10 +56,21 @@ Training a frontier model costs on the order of $3–5B and inference must pay b
 — a16z · 2026-08-28 · guest: — · [▶ 26:48](https://www.youtube.com/watch?v=Zx1Ec8LWFeM&t=1608) · `pi-Zx1Ec8LWFeM-05`
 related: [Specialized inference hardware massively cuts latency and energy](#specialized-inference-hardware-massively-cuts-latency-and-energy) (Jeff Dean's TPU-generation case is the historical precedent for this per-model-ASIC economics argument) · theme → [Tech frontier & abundance](tech-frontier-and-abundance.md) (the same episode's capex and supply-constraint insights, `pi-Zx1Ec8LWFeM-01..02`)
 
+### Very efficient 'flash' models will become the backbone for 80% of tasks
+A new class of ultra‑efficient models (e.g., DeepSeek Flash) delivers far lower cost per token and per task and is already meeting the needs of roughly 80% of common workloads. Morgan points to platform adoption where DeepSeek Flash leads the fastest growth on Ollama Cloud and argues these models let companies ignore token limits the way consumer ChatGPT did — enabling heavy, inexpensive usage and composition of many small models for bigger problems. For startups and enterprises this means cheaper scale and new architectures that stitch many flash models together.
+— Y Combinator · 2026-09-04 · guest: Jeffrey Morgan (Ollama) · [▶ video](https://www.youtube.com/watch?v=rY0wnfFHYbs) · `pi-rY0wnfFHYbs-04`
+
+### Performance improves predictably with scale and more compute
+The team reports that every time they scaled model size and training time, Atlas improved significantly, and current limits are largely training compute rather than a fundamental architecture ceiling. They describe an iterative scaling ladder of experiments that culminated in the released checkpoint and emphasize that more compute, more data, and longer training will yield better spatial and temporal fidelity (including richer dynamics). That suggests present results are strong but not final—further scaling will broaden capabilities, especially for dynamic 4D scenes.
+— a16z · 2026-09-04 · guest: Justin, Ben, Fei-Fei Li · [▶ video](https://www.youtube.com/watch?v=qn1QDDBnTA0) · `pi-qn1QDDBnTA0-05`
+related: theme → [Generative media & multimodal production](generative-media-and-multimodal.md#view-prediction-is-a-new-primitive-for-3d-world-models) (same episode's Atlas view-prediction/reconstruction insights, `pi-qn1QDDBnTA0-01..03`)
+
 ## Related themes
 - [Tech frontier & abundance](tech-frontier-and-abundance.md) — parent theme; split off 2026-08-25. The macro capability/compute/energy narrative (labs, benchmarks, AGI timelines, grid buildout, longevity, space) stays there; this page holds the hands-on decoding-algorithm/kernel/hardware-co-design layer beneath it.
 
 ## Source episodes
+- [Y Combinator — Open Models Change The Economics of AI (2026-09-04)](../episodes/2026/2026-09-04--yc--open-models-change-the-economics-of-ai.md)
+- [a16z — Why World Models Could Change Robotics, 3D, and Creativity (2026-09-04)](../episodes/2026/2026-09-04--a16z--why-world-models-could-change-robotics-3d.md)
 - [a16z — Why Top Founders Are Racing Into AI Infrastructure (2026-08-28)](../episodes/2026/2026-08-28--a16z--top-founders-racing-into-ai-infrastructure.md)
 - [Y Combinator — Jeff Dean: The 1% Rule for Building in AI (2026-07-30)](../episodes/2026/2026-07-30--yc--jeff-dean-the-1-rule-for-building-in-ai.md)
 - [Y Combinator — Multi-GPU Kernels, Intelligence per Watt, Heterogeneous Inference, and More | YC Paper Club (2026-07-29)](../episodes/2026/2026-07-29--yc--multi-gpu-kernels-intelligence-per-watt-paper-club.md)
