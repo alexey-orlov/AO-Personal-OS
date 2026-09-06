@@ -32,6 +32,7 @@ Cloud `Location` examples for when they arrive — gdrive: `https://drive.google
 | Area | Type | Location | Machine scope | Added |
 |---|---|---|---|---|
 | [softserve](../areas/softserve/README.md) | local + onedrive | `~/Library/CloudStorage/OneDrive-SoftServe,Inc` | this Mac (`KN7X2Y65NX`); OneDrive-synced, also via `ms365` MCP | 2026-06-16 (moved to OneDrive 2026-07-21) |
+| [civitta](../areas/civitta/README.md) (+ the Laba/PrivatBank course decks) | gdrive | Teaching-materials folder `1N6zCtx5VWja5vtT89seShWrOcsi1azK-`; GBSW 2026 folder `18Hx32ZlQpab6UGwpbr1WjBStkKbNclMa` | - (Google Drive MCP) | 2026-09-07 |
 
 ## Entries
 
