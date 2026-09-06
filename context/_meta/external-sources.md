@@ -52,3 +52,16 @@ Cloud `Location` examples for when they arrive — gdrive: `https://drive.google
   - `Presentation templates/` (OneDrive **root**, NOT under `Projects/` — path corrected 2026-08-20 after a failed lookup) → the SoftServe-brand deck templates; canonical pick: `BEST_TEMPLATE_Oracle SoftServe EMEA Business Alignment July 2026.pptx` (base for the partnership-vision + WfO decks). Agent build kit + stripped 41 KB base: `.claude/references/softserve-deck-kit.md`.
   - Root-level context beyond `Projects/`: `Meetings/`, `Recordings/`, `Hiring/`, `Monthly AI products overviews/`, `Productization - General/` (`Customer projects.xlsx`), `Attachments/`, Teams / Copilot chat files, `Agentic Engineering.xlsx`.
 - **Added:** 2026-06-16 (moved from the now-obsolete `~/Documents/Documents/SoftServe` to this OneDrive root on 2026-07-21)
+
+### civitta — Alex's teaching-materials folder in Google Drive (gdrive root)
+- **Type:** `gdrive` — Alex's personal Google Drive, reachable through the Google Drive MCP (`search_files` with `parentId`, `read_file_content`; Google Slides files come back slide-by-slide between `-----` markers). Also the source root for the Laba and PrivatBank course decks, so the [laba](../areas/laba/README.md) area reads from here too.
+- **Location:** folder id `1N6zCtx5VWja5vtT89seShWrOcsi1azK-` (`https://drive.google.com/drive/folders/1N6zCtx5VWja5vtT89seShWrOcsi1azK-`).
+- **Machine scope:** - (cloud; no local Google Drive sync on this Mac).
+- **Backed up:** Google Drive.
+- **Contents** (top folder → wiki home):
+  - `Civitta GBSW 2026 - Market positioning & value proposition/` (`18Hx32ZlQpab6UGwpbr1WjBStkKbNclMa`) → [gbsw-2026](../areas/civitta/gbsw-2026.md) — the assembled source-slides pack (Google Slides).
+  - `Challenger 3.0_Alex Orlov_Product management - startup challenges.pdf` + the Google Slides original "Product managementL startup challenges" (My Drive root, `135ioMdYH261mcX0-y8uNcDAd0Ypvp4-V1kuriPcKObw`) → [civitta](../areas/civitta/README.md) — the EN accelerator deck (used for Challenger AI 2.0 and 3.0).
+  - `PB - Контент - Product management/` (`1chWxhfhwb8XTiz8OEebQAeX8vEu5P3n5`) → [laba](../areas/laba/README.md) — PrivatBank corporate PM course 2024-25: `Заняття 1..22` Google Slides, `Product management / Lectures / PDFs/`, `PB PM Course/` (offer, program + homework sheet, lecture outlines).
+  - `Laba - Контент - Product management/` (`18kszvy1yCrpTT-qz71nhp7TUqekTWq-_`) → [laba](../areas/laba/README.md) — Laba PM course: `Презентації - Product management/` (`Заняття 1..17` Google Slides 2024 + 2023 `.pptx`), homework and practice folders, content plan xlsx.
+  - `Lections structure/`, `Samples/`, `New requests/`, `AOrlov - Product management - Програма курсу` (sheet) — course design working files.
+- **Added:** 2026-09-07 (discovered while assembling the GBSW pack; confirm with Alex if a different root is canonical).
