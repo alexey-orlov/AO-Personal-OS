@@ -91,3 +91,10 @@ partnership section (slides 30–34):
 - soffice substitutes Azurio → serif in renders (geometry true, glyphs wrong); the
   true-font path and the `timeout`-not-installed guard live in `document-rendering.md`.
 - A soffice convert immediately after `pkill -x soffice` can fail silently once — rerun.
+- **Headless (cloud) QA without the brand fonts** (2026-09-06, NATO map slide): the default
+  fallback (DejaVu Sans) is ~15% wider than Replica, so every 2-line tile looks like a 3-line
+  overflow and lane labels wrap that won't wrap on a Mac. Render a throwaway twin instead:
+  copy the pptx and in its XML replace `typeface="ReplicaLLTT-Regular"` → `Liberation Sans`
+  and `typeface="Roboto Mono"` → `Liberation Mono` (Helvetica-metric fonts that soffice has
+  by default) — wraps and fits then match the real deck closely; never deliver the twin.
+  Layout-only checks, per the geometry rule; glyph shapes are still wrong.
