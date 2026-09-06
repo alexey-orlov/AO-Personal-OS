@@ -732,7 +732,7 @@ _Each card: scope · why fit · stack · data path (C1) · KPI (C9) · buyer(s) 
 
 ---
 
-## 10. Bench — kept out of the 12, kept for the brainstorm
+## 10. Bench — kept off the map, kept for the brainstorm
 
 _Since 2026-09-06 every bench item is a **variant of a parent case** on the map (segregation rule, §3.1) — it is listed here so the brainstorm can still see it, and promoted only when its trigger fires. Promoted by the red team: AAR analytics → phase 2 of **#18**; EO pipelines → **#14**; personnel self-service → **#17**; ITOps RCA → **#15**._
 
@@ -774,7 +774,7 @@ _Since 2026-09-06 every bench item is a **variant of a parent case** on the map 
 
 **Gaps in this report** — ⚠ FreeTech one-pager not read directly · ⚠ Aug-31 and Sep-2 call outcomes unknown · ⚠ Karsten's "major private cloud for NATO" claim: §4 shows what is public (enterprise tier, multi-cloud NCIA) · ⚠ the Oracle NATO VP and the EMEA Public leader are unnamed in every source; Robert Friedrich's employer is not on record · ⚠ no SoftServe defence reference in cyber (#11) or speech (#7) — both rest on packs/models, not delivered proof (#11 now has NVIDIA's CrowdStrike reference) · ⚠ **NATO/NVIDIA-docs/Oracle-docs facts other than the NCIA release are search-engine extracts** (the sandbox's egress policy blocked the primary domains) — re-read before any client-facing use · ⚠ the two NVIDIA decks are general customer decks with no Public & Defense content, and one slide is marked NVIDIA confidential · ⚠ Nemotron licence text differs across model cards (OpenMDW-1.1 vs NVIDIA Nemotron Open Model License) · ⚠ Ukraine "Kropyva" and Unmanned Systems Forces programme lines unverified · ⚠ AI-Q GA status and VSS 3.0 GA date unverified.
 
-**Suggested next step (deliverable for Sep 4):** lift §0 into a one-page "NATO use-case menu" for Karsten's thread (the 12 rows + tier legend + the "not on the menu" line), and bring the §9 cards to the Oksana/Denys pre-alignment as the packs ↔ needs mapping.
+**Suggested next step (deliverable owed since Sep 4):** post the map slide + §0's first wave / second wave / "off the map" lines in Karsten's thread once the fifth-slot call (Q5) is made, and bring the §9 cards + the pattern map v3 to the Oksana/Denys pre-alignment as the packs ↔ needs mapping.
 
 ---
 
