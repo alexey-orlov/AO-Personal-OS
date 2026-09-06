@@ -1,9 +1,9 @@
 # NATO AI use-case map — Oracle Defense stream (working report)
 
 _status: working report for Alex's brainstorm → feeds the use-case suggestions owed in Karsten's shared thread (~Fri 2026-09-04) and the AI-packs ↔ needs alignment with Oksana + Denys_
-_updated: 2026-09-03_
+_updated: 2026-09-06 — v3: Karsten's 2026-08-28 email (two Oracle channels · distributed cloud · selection rule), the NCIA→OCI release read directly, and the two NVIDIA decks (Nemotron Master Deck · Agent Toolkit Customer Deck, Aug 2026) folded in; first wave re-ordered by demand_
 _scope: four angles requested — (A) defence-AI clustering coverable by OCI + NVIDIA / AI Lakehouse / AIDP with SoftServe services on top · (B) what NATO already runs on Oracle · (C) SoftServe's delivered defence base (FreeTech one-pager) · (D) the existing Oracle use-case map adapted to NATO — then a starting-point list and a ≤12-case PoV menu_
-_sources: [oracle-defense.md](../oracle-defense.md) (stream page) · [oracle-ai-offerings.md](../oracle-ai-offerings.md) · [oracle-pipeline.md](../oracle-pipeline.md) · the ["patterns" Google Sheet](https://docs.google.com/spreadsheets/d/1RXbabrjupmJPpMr80VKyB_SSjDZ4o9r4rYWe0hNSQN4/) (7 L1 × 24 L2, 2026-07-10) + its [AIDP-NVIDIA-OracleAI mapping twin](https://docs.google.com/spreadsheets/d/1KA-Ad5d-3eB7gAKnyO5m7FlmKORSI4JoNoZyPcwS1I4/) (the deck's 83-card map with fit columns) · the ["Productization use cases × AI Accelerator Packs" sheet](https://docs.google.com/spreadsheets/d/1wMe7VtcKW5tj_nYKwxOS_TII5Oh-N_0BlRFfjwKelaQ/) (2026-06-18) · Oracle×NVIDIA "Live Demo Day" webinar summary (Drive PDF, Jun 2026) · [AI Lakehouse Quick Start use cases](https://docs.google.com/spreadsheets/d/10x489OhM_ElzEiXCPSEdRn9gktEIjaO9JFsR39waAds/) (2026-08-22) · web research 2026-09-03 (labeled per claim; see §4, §3 and Sources)_
+_sources: [oracle-defense.md](../oracle-defense.md) (stream page) · [oracle-ai-offerings.md](../oracle-ai-offerings.md) · [oracle-pipeline.md](../oracle-pipeline.md) · the ["patterns" Google Sheet](https://docs.google.com/spreadsheets/d/1RXbabrjupmJPpMr80VKyB_SSjDZ4o9r4rYWe0hNSQN4/) (7 L1 × 24 L2, 2026-07-10) + its [AIDP-NVIDIA-OracleAI mapping twin](https://docs.google.com/spreadsheets/d/1KA-Ad5d-3eB7gAKnyO5m7FlmKORSI4JoNoZyPcwS1I4/) (the deck's 83-card map with fit columns) · the ["Productization use cases × AI Accelerator Packs" sheet](https://docs.google.com/spreadsheets/d/1wMe7VtcKW5tj_nYKwxOS_TII5Oh-N_0BlRFfjwKelaQ/) (2026-06-18) · Oracle×NVIDIA "Live Demo Day" webinar summary (Drive PDF, Jun 2026) · [AI Lakehouse Quick Start use cases](https://docs.google.com/spreadsheets/d/10x489OhM_ElzEiXCPSEdRn9gktEIjaO9JFsR39waAds/) (2026-08-22) · web research 2026-09-03 (labeled per claim; see §4, §3 and Sources) · Karsten's email "AW: Nemotron @Oracle Public&Defense EMEA" (2026-08-28) · the NCIA→OCI press release read directly 2026-09-06 · NVIDIA "Nemotron — Master Deck" + "Agent Toolkit with NemoClaw — Customer Deck" (Aug 2026; NVIDIA-confidential, internal use)_
 
 > **Labels used:** [Fact / source] · [Practitioner consensus] · [Inference] · [Speculation] · ⚠ gap. Repo-internal facts (calls, chats, sheets) are cited as (wiki: …). Nothing below has been shared with Oracle yet.
 
@@ -32,9 +32,28 @@ _Tier legend: **MENU-now** = pack-backed, demoable on open/synthetic data, 4–8
 
 **What is deliberately not on the menu** (and why): pilot simulator on a game engine (Denys/Dmytro: no data, no asset library — bench); interceptor / air-defence / targeting (kinetic, export-controlled, un-demoable without classified data); full COA/wargaming decision support (needs C2 system data and a doctrine model — bench as phase 2 of #5). See §10.
 
-**Suggested first wave for Karsten's thread (4 + 1):** #1 · #2 · #4 · #5, with #3 as the low-cost add-on. Reason: each has a shipping pack or GA data layer underneath, a FreeTech or pipeline proof, an open-data demo path, and a named NATO-side demand signal (table below). #6/#7 follow as fast seconds; #8–#10 are the "only SoftServe can" tier for the miltech conversation; #11/#12 are the Oracle-consumption tier.
+**Suggested first wave for Karsten's thread (re-ordered 2026-09-06 by Karsten's own rule — "the real compelling ones, with the greatest demand"):** **#5 · #1 · #4 · #3 · #2.** Ranking by strength of *verifiable* demand: #5 (USAF PANDA, two UK DAIC cases, two DIANA areas) · #1 (DIANA 2027, Uranos KI €136M, Avengers) · #4 and #3 (GenAI.mil 3M seats; NCIA's own EBS/Fusion estate; UK DAIC document-discovery case) · #2 (FreeTech-proven, AI-Q is NVIDIA's flagship blueprint, but its NATO demand signal is an unverified SITCEN RFP). Assumption: #2 is kept over **#11** as the fifth; #11 is the first alternate and the stronger pick if the **EMEA Public-sector** buyer weighs more than the NATO VP (cyber budgets are steady-state in every ministry; CrowdStrike is NVIDIA's own customised-Nemotron proof). Every first-wave case also has a shipping pack or GA data layer, a FreeTech or pipeline proof and an open-data demo path. #6/#7 follow as fast seconds; #8–#10 are the "only SoftServe can" tier for the miltech conversation; #11/#12 are the Oracle-consumption tier.
 
 **What the 2026-09-03 research changed in this picture** (detail in §3.2–§4): (1) Oracle's verifiable NATO position is the **enterprise tier** — NCIA's ERP is Oracle E-Business Suite + Fusion and NCIA picked OCI in Sep 2025 for "mission-critical workloads" and three data centres — while the **classified operational tier is Google (JATEC) and Palantir (Maven Smart System NATO)**; so the menu leads with enterprise, analytics, edge and national-MoD work, not classified C2. (2) **Nemotron on OCI is import-only** onto a Dedicated AI Cluster (Super since Mar 2026, Ultra needs B200_X4, Nano Omni in OCI Enterprise AI since ~May 2026) — a cluster line item in every PoV price. (3) Every funded source splits **mission vs enterprise, and the enterprise half is bigger** — Karsten's five topics omit enterprise/back-office, logistics/sustainment and cyber, the three most PoV-friendly clusters; the menu adds them deliberately. (4) The **UK MoD is on Oracle since 2026-01-14** and its Defence AI Centre playbook publishes case studies that map almost one-for-one onto #1, #3, #5, #6, #8 — the strongest single-nation doorway.
+
+**What the 2026-09-06 inputs changed** (detail in §1, §3.2, §4): (1) **Two Oracle buyers, not one** — Karsten's 2026-08-28 email puts SoftServe in "very good talks" with **the Oracle VP in charge of NATO activities** (the NCIA→OCI account) *and* **Oracle's EMEA Leader for Public**, who "also would like to add our use cases"; the enterprise-half cases are dual-use, so each case now carries a **public-sector reuse** read. (2) **Target environment is Oracle's "distributed cloud"** — the VP wants use cases "running on their distributed Cloud", which Oracle's own boilerplate defines as Dedicated Region / Alloy / Government & Isolated regions / Cloud@Customer / Roving Edge, "a full cloud and AI stack that customers can deploy as a Sovereign Cloud" — so each case now names its **deployment rung + GPU fit**, and **#12 moves up** the narrative. (3) **Selection rule = "compelling + greatest demand"** → the demand-evidence table is the ranking instrument and the first wave is re-ordered above. (4) **The NCIA release, read directly:** enterprise-tier facts confirmed (three legacy data centres, "mission-critical workloads", integration "into the NATO Information System"), the incumbent delivery chain named (**Thales prime, Red Reply / Shield Reply, Proximus**), Oracle's exec voice **Richard Smith** (EVP technology & GM EMEA), no NCIA quote, no classification level — SoftServe's entry is use cases *on top* of a migration others already run. (5) **The two NVIDIA decks carry no Public & Defense-specific content** — they are NVIDIA's general Nemotron and Agent Toolkit customer decks (Aug 2026, marked NVIDIA confidential); the defence demand case stays ours to make, while NVIDIA supplies the sovereignty narrative ("U.S.-built open-weight… data control, vendor comfort"), the blueprint components and new runtime blocks (OpenShell secure runtime, NeMo Switchyard routing, NeMo Relay observability, NemoClaw always-on agents) plus one directly usable proof for #11 (CrowdStrike: 96% structured-query accuracy, 5× faster investigations, 3× triage accuracy on customised Nemotron).
+
+**Buyer fit and deployment rung per menu case** (added 2026-09-06; rungs per §4.3 — GPUs inside Dedicated Region: L40S · H100/H200 · B200/GB200; Compute Cloud@Customer Isolated: 4–48 L40S; Roving Edge RED v2: up to 3× L4):
+
+| # | NATO / defence buyer | Public-sector reuse (EMEA Public) | Distributed-cloud rung that carries the PoV | GPU / model fit |
+|---|---|---|---|---|
+| 1 | forces · agencies · sensor vendors | ✅ police CCTV, transport, border agencies | Dedicated Region (archive scale) · CC@C Isolated (smaller archives) · Roving Edge (live edge ingest only) | VSS on H100/H200 or L40S; edge: Nano Omni / Lightning VLM on L4 |
+| 2 | intel & policy staffs · agencies | ✅ ministries, regulators (policy/OSINT briefs) | EU Sovereign Cloud or Dedicated Region; CC@C Isolated with Lightning/Nano | Super on H100/H200; Ultra needs B200; Lightning on L40S |
+| 3 | forces (training, maintenance, staff) · miltech | ✅ legislation / policy / procedure assistants | any rung incl. CC@C Isolated | Lightning + Nemotron Embed/Rerank on L40S |
+| 4 | procurement agencies · MoD commercial · miltech | ✅ permits, tenders, records, casework | Dedicated Region · CC@C Isolated | Nano Omni / Nemotron Parse on L40S |
+| 5 | logistics & maintenance commands · NSPA-type agencies · MRO | ◐ asset-heavy agencies, utilities, transport | Dedicated Region (Autonomous DB + Select AI inside); not an edge case | Lakehouse first, GPU optional |
+| 6 | movement control · maintenance units · fleet operators | ✅ municipal fleets, emergency services, waste/transport | any GPU rung | cuOpt on L40S is enough |
+| 7 | HQ staffs · multinational units · NATO bodies | ✅ courts, parliaments, emergency call centres | Roving Edge (ASR NIM) · CC@C Isolated · Dedicated Region | Nemotron ASR / Parakeet on L4–L40S; Nano Omni for summaries |
+| 8 | EW units · EW/SDR vendors | ◐ spectrum regulators, critical infrastructure | CC@C Isolated / Isolated Region (captures); Dedicated Region for training | RAPIDS/cuML on L40S–H100 |
+| 9 | drone/UGV makers · innovation units | — | Dedicated Region (Isaac Sim / Cosmos need H100+) | H100/H200/B200 |
+| 10 | naval/aero/vehicle OEMs · R&D labs | ◐ infrastructure, energy agencies | Dedicated Region | PhysicsNeMo on H100+ |
+| 11 | MoD/agency SOCs (NCSC-type) · miltech product security | ✅ national CERTs, agency SOCs | any rung; Dedicated Region · CC@C Isolated | AI-Q + Nemotron on L40S–H100 |
+| 12 | MoD/NATO CIO & security offices · miltech handling controlled data | ✅ any ministry (data-centric security) | EU Sovereign Cloud · Dedicated Region · CC@C Isolated (Autonomous DB) | Lakehouse first; agent on L40S |
 
 **Demand evidence per menu case** (named programmes, not "typically"; labels and sources in §3.3–§4.4):
 
@@ -66,6 +85,7 @@ _Tier legend: **MENU-now** = pack-backed, demoable on open/synthetic data, 4–8
 | NVIDIA angle = **Nemotron** ("#1 Public/Government topic at GTC; everyone will go for it") | Karsten from NVIDIA (wiki) | Every case states its Nemotron role; §3 carries what Nemotron actually is (research). |
 | Karsten's 5 framing topics (1 Sensor & Detection · 2 Data/Analysis/Comms · 3 C2D · 4 Air Defence/Interceptors · 5 Training) | prep meeting 2026-08-19 (wiki) | Menu tags each case to a topic; topic 4 is covered only at its non-kinetic end. |
 | **Sovereignty is the wedge**: militaries insist on on-prem; NATO accepts Oracle because it is a *private* cloud | Denys (wiki) | Prefer cases whose phase-2 path is Dedicated / Isolated Region + open-weight models (§4). |
+| **Two Oracle buyers + the target environment + the selection rule** — "very good talks" with **the Oracle VP in charge of NATO activities** ("new use cases they can sell to NATO, running on their **distributed Cloud**") and with **Oracle's EMEA Leader for Public** ("would also like to add our use cases"); "we need to select the real compelling ones, with the greatest demand"; a call on Mon 2026-08-31 | Karsten's email 2026-08-28 to Robert Friedrich + Bohdan + Alex (wiki: oracle-defense.md) — [Fact / email] | Menu doubles as a public-sector menu (buyer-fit table in §0); every case names its distributed-cloud rung; demand evidence ranks the first wave. ⚠ Aug-31 call outcome not in the wiki. |
 | Deadline: suggestions in Karsten's thread **~Fri 2026-09-04**; team call was proposed for **Wed 2026-09-02** | wiki decisions | ⚠ gap — the Sep-2 call outcome is not in the wiki; if it happened, its steer supersedes §0's tiering. |
 | Team's own reads: Control Tower = simplest/most visual (Denys) but "too back-end-ish" (Dmytro); simulator "not there yet"; reuse civil Oracle cases (Dmytro); reuse AI Packs × military expertise (Bohdan); "a path easy for our counterparts to consume" (Bohdan) | thread 2026-08-25/26 (wiki) | Every case gets a human-in-the-loop UI; the packs map (§7) is the spine of the menu. |
 
@@ -147,6 +167,23 @@ _Named instances per cluster (programmes, vendors, countries, years, 2025–26 f
 
 **Corrections to internal assumptions:** there is **no "Nemotron for Government" SKU** — the gov packaging is the AI Factory for Government design + partner engines; the **licence is contested across sources** (OpenMDW-1.1 on some model cards vs the NVIDIA Nemotron Open Model License PDF of 2025-12-12 — both permissive: commercial use, derivatives, outputs owned by the customer) → verify per model before any contract; **Roving Edge's L4s will not hold Super/Ultra** — an edge PoV runs Nano/Lightning NVFP4, an ASR NIM or a DeepStream pipeline. [Inference]
 
+#### 3.2.1 What the two NVIDIA decks add (read 2026-09-06)
+
+_"NVIDIA Nemotron — Open Models, Datasets, and Techniques for Agentic AI" (master deck, 59 slides) and "NVIDIA Agent Toolkit with NemoClaw — Build & Deploy Always-On Agents for Enterprise" (customer deck, August 2026, Nicola Sessions, Director of Product Marketing). Both are NVIDIA's **general** customer decks — **neither contains a Public & Defense or NATO slide**; the "Public&Defense EMEA" framing is the email thread's, not the decks'. One slide is marked "NVIDIA CONFIDENTIAL. DO NOT DISTRIBUTE" — treat both as internal inputs; do not lift slides into client-facing material without NVIDIA's OK. All items below: [Fact / NVIDIA deck — tier 2 vendor material]._
+
+| What the decks establish | Where it lands in this report |
+|---|---|
+| **Family framing = five capabilities**: Reasoning (3.5 Lightning 30B-A3B · 3 Super 120B-A12B · 3 Ultra 550B-A55B, all "available now") · Vision (3 Nano Omni; Nemotron Parse 1.1; Nano 2 VL with Efficient Video Sampling — "up to 4× fewer tokens" for video) · Retrieval (Nemotron 3 Embed, Llama Nemotron Rerank, Nemotron Page Elements, Nemotron Table Structure) · Safety (Nemotron 3.5 Content Safety, Llama Nemotron Topic Control, Nemotron Jailbreak Detection) · Speech (Nemotron ASR, Magpie TTS Multilingual, Nemotron 3 VoiceChat) | confirms and extends the §3.2 table; the Retrieval + Vision rows are the stack for #4 (Parse / Page Elements / Table Structure = document intelligence), the Speech row for #7, the Safety trio for #12's governability story |
+| **Openness numbers**: 10T pre-training tokens, 15M coding problems, 50M SFT samples, 2M RL/RLVR tasks, 100 RL environments (NeMo Gym: 21 training environments), 55M personas, 11K agentic-safety traces; recipes + technical reports + starter kits | the "own the model outright" argument (weights + data + recipes) is NVIDIA's own headline — safe to reuse in NATO wording |
+| **Sovereignty language NVIDIA itself uses**: OpenRouter quote "a U.S.-built open-weight model … where speed, deployability, **data control, and vendor comfort** matter"; Lightning "run on local AI and hybrid AI for maximum privacy"; "#1 U.S. Open Model", 100M+ downloads, 5T+ tokens generated | the sovereign-deployment narrative for every rung in §4.3; note the "U.S.-built" framing is an asset with NATO and a nuance with the EU-sovereignty crowd [Inference] |
+| **Cost/efficiency claims**: Ultra "5× faster inference", "saves up to 30%" cost-to-task-completion vs GLM-5.1 / Qwen3.5 / Kimi-K2.6; Super "4× throughput with NVFP4"; Lightning "30% faster at the same frontier accuracy as Qwen3.6"; "60% savings with Thinking Budget"; NeMo Relay "69% inference cost reduction" on OpenClaw/PinchBench; Switchyard "frontier accuracy at 1/3 of the cost"; LangChain Deep Agents on Ultra "near-frontier accuracy at ~10× lower cost (Opus 4.8)" | the AI-economics line for the OCI Dedicated-AI-Cluster pricing conversation — vendor benchmarks, quote as NVIDIA's claims |
+| **Agent runtime blocks new to this report**: **OpenShell** (policy-based secure runtime: sandbox, policy authoring & signing, gateway, enforcement; Ubuntu / Windows / OpenShift) · **NeMo Switchyard** (task-aware model routing; a "Privacy Router" between open frontier models and cloud models in NemoClaw for OpenClaw) · **NeMo Relay** (trajectory capture, observability, OpenTelemetry exporters) · **NemoClaw** blueprints (always-on "super agents" for OpenClaw, LangChain Deep Agents, Hermes; bring-your-own harness) · **Dynamo** (distributed inference) · **AI-Q now available as a skill**, its diagram sourcing from files, an "AI Data Platform", documents, web search (Tavily), MCP | OpenShell + Guardrails + Content Safety = the concrete answer to NATO's "governability / explainability & traceability" principles (§4.4) → strengthens **#12** and the harness value-add on **#2/#3/#11**; the Privacy Router is the sovereign-vs-cloud routing story for Dedicated Region deployments. ⚠ "AI Data Platform" in the AI-Q diagram is NVIDIA's generic term, not Oracle AIDP |
+| **Blueprint internals**: AI-Q Deep Research (Nemotron reasoning + NeMo Retriever embed/rerank/extract + cuVS + Tavily; report generation on Llama 3.3) · VSS (NeMo Curator, Cosmos Nemotron VLM, cuVS + graph DB, Guardrails, **3D real-time multi-view spatial AI**) · RAG blueprint (Super, Safety, Parse, Rerank, Embed, OCR, Page Elements, Table Structure) · Voice Agent collection; developer examples: LLM Router, Streaming Data to RAG, Ambient Healthcare Agents, Retail Shopping Assistant | #1 gains the multi-view spatial capability (base/perimeter); #2 the AI-Q reference architecture as-is; #4 the RAG-blueprint document stack; #7 the Voice Agent collection |
+| **Customer proofs**: **CrowdStrike** — customised Nemotron: 96% structured-query-generation accuracy, 5× faster investigations, 3× triage accuracy · **Harvey** — post-trained Ultra "in under 24 hours", +30% accuracy · **H Company** — Holotron-12B on Nano VL, +65% accuracy, 2× throughput · **Glean** — Waldo on Nano, 50% lower latency, 25% fewer tokens · **CodeRabbit** — 30% token-cost reduction · ServiceNow using Nemotron; platform examples incl. an **L1 IT Service Desk Specialist (99% faster ticket resolution)** and a **Cyber Defense Agent (2× security-operations performance)** | **#11 gets a named NVIDIA reference (CrowdStrike)**; Harvey/H Company are the "fine-tune on your own corpus in a day" proof for #3/#9; the IT-service-desk example supports the bench "employee service fulfilment" row |
+| **Model-customisation loop**: NeMo RL + NeMo Gym (verifiers, environments, reward profiling), NeMo Customizer, Evaluator, Data Designer, Curator; "domain-customised agent" trajectory training | the phase-2 story for any case: fine-tune Nemotron on the nation's own data inside its Dedicated Region — matches the Palantir sovereign-engine pattern in §3.2 |
+
+**Net for the Nemotron angle:** NVIDIA gives us the *why-open* narrative, the components and the cost claims; **the defence demand evidence and the use-case selection stay ours** (§3.3–§3.4). Karsten's "wants a SoftServe offer built around it" should therefore read as: *Nemotron-on-Oracle-distributed-cloud as the common stack under the menu*, with OpenShell/Guardrails as the governance layer — not a Nemotron-specific use case.
+
 ### 3.3 How primary sources cluster defence AI — and the reconciliation with Karsten's 5 topics
 
 **Call:** no primary defence source publishes a use-case taxonomy in an integrator's sense — NATO's two AI strategies are **governance** documents (levels "enterprise / mission support / operational", six principles, interoperability, test-evaluation-verification-validation). Usable clusterings sit at three layers: **challenge calls** (DIANA 2023→2027, EDF), **functional splits** (US CDAO warfighting vs enterprise; UK DAIC "problem spaces") and **named delivery programmes**. Every source that actually spends money splits the same two ways — **mission/warfighting vs enterprise/back-office — and the enterprise half is larger, less contested and easier to sell** (GenAI.mil: 3M seats; Task Force Lima: ~60% of 180+ GenAI use cases were chatbot-shaped). [Fact + Inference / research 2026-09-03, all items secondary extracts — see method caveat in §4]
@@ -199,13 +236,13 @@ _Named instances per cluster (programmes, vendors, countries, years, 2025–26 f
 
 **Call: "Oracle is the major private cloud for NATO" is not supported by public evidence.** What is supported: Oracle holds NATO's **enterprise/business tier** — NCIA's ERP estate runs on Oracle E-Business Suite + Fusion, and NCIA chose OCI in Sep 2025 for "mission-critical workloads" and three legacy data centres — inside an NCIA that is **explicitly multi-cloud**, where the **classified operational tier is visibly held by Google (JATEC) and Palantir (Maven Smart System NATO)**. [Inference from the facts in 4.1–4.2] Treat Karsten's line as Oracle's internal framing, not a fact to repeat to a NATO buyer.
 
-⚠ Method caveat (research 2026-09-03): `nato.int`, `ncia.nato.int`, `act.nato.int`, `diana.nato.int`, `docs.oracle.com`, `blogs.oracle.com` and most trade press were unreachable from this sandbox; `oracle.com` was fetched directly. NATO-side items are search-engine extracts of the primary pages — re-read against the primary page before anything goes into a client document.
+⚠ Method caveat (research 2026-09-03): `nato.int`, `ncia.nato.int`, `act.nato.int`, `diana.nato.int`, `docs.oracle.com`, `blogs.oracle.com` and most trade press were unreachable from this sandbox; `oracle.com` was fetched directly, and the **NCIA→OCI release was re-read in full on 2026-09-06**. NATO-side items are search-engine extracts of the primary pages — re-read against the primary page before anything goes into a client document.
 
 ### 4.1 Verified NATO-side Oracle footprint
 
 | Entity | Evidence | Label · date |
 |---|---|---|
-| **NCIA — cloud** | NCIA to move mission-critical workloads + **three legacy data centres** to OCI; **Thales** prime, Red Reply + Shield Reply as Oracle partners, Proximus networking; Oracle cites "sovereign cloud capabilities… data residency… operational controls". **No value, term, region type or classification level published.** | [Fact / Oracle press release — tier 2] 2025-09-11 |
+| **NCIA — cloud** (release **read directly 2026-09-06**) | "NCIA will move its mission-critical workloads to OCI" — on-premises workloads, "**migration of three legacy data centres**", OCI integrated "**into the NATO Information System**" with "end-to-end data security"; **prime contractor Thales** (Alexandre Bottero, VP Network & Infrastructure Systems), **Red Reply + Shield Reply** (Reply Group; Filippo Rizzante, CTO — "discovery and secure design to the migration"), **Proximus** (networking); Oracle voice **Richard Smith, EVP of technology & GM Oracle EMEA** ("manage, analyse, and protect their data… control and peace of mind where data is stored and where workloads run… Oracle's AI-optimized cloud"); sovereignty wording "OCI's sovereign cloud capabilities… data residency, services at hyperscale, and operational controls". **No NCIA spokesperson; no value, term, region type or classification level.** The release's boilerplate defines Oracle's **distributed cloud** (public regions incl. EU sovereignty controls · Dedicated Region / Alloy / US-UK-Australian Government Clouds / Isolated Cloud Regions, "a full cloud and AI stack that customers can deploy as a Sovereign Cloud" · Exadata & Compute Cloud@Customer · Roving Edge "remote AI inferencing at the edge" · multicloud) — the environment Karsten's email names as the target. | [Fact / Oracle press release — tier 2, read directly] 2025-09-11 |
 | **NCIA — ERP** | Primary ERP = **Oracle E-Business Suite + Oracle Fusion** (Finance, HR, Acquisition, Asset Management; Service Support & Business Applications portfolio) | [Fact / ncia.nato.int, secondary extract] undated |
 | **NCIA — ERP corroboration** | Live contractor roles at NCIA Mons for "Oracle EBS 12.2", EBS Finance SME, EBS Architect, EBS inventory/asset data migration | [Fact / recruiter listings — tier 3] 2025–2026 |
 | **NCIA — cyber** | Industry Partnership Agreement with Oracle for bilateral exchange of **non-classified** cyber-threat data (NICP; Oracle one of 20 firms) | [Fact / ncia.nato.int, secondary extract] 2019-05-21 |
@@ -256,6 +293,8 @@ _Named instances per cluster (programmes, vendors, countries, years, 2025–26 f
 3. **The miltech buyer has a named Oracle vehicle: ODE.** Three cohorts of defence-tech firms and a Brussels Defence Tech Summit are Oracle's own miltech channel; **#8, #9, #10** are shaped as "SoftServe builds it on OCI for an ODE member" offers, and the ODE benefit list (discounted Palantir Foundry/AIP on OCI) tells us Palantir is a co-resident on the platform, not only a competitor. [Inference]
 4. **DIANA's published challenge areas are NATO's own demand statement — use them as the "why" column.** Mapping: sensing & data processing for ISR → #1, #8 · Contested Electromagnetic Environments → #8 · Advanced Communications → #7 · Critical Infrastructure & Logistics / responsive logistics → #5, #6 · Autonomy & Uncrewed Systems / multidomain autonomy → #9 · Data-Assisted Decision Making → #2, #5, #11 · scalable air-defence countermeasures → bench only (kinetic).
 5. **Accreditation is the honest limit.** No Oracle NATO-SECRET path is public; every PoV on the menu must be sold as unclassified-first, with Dedicated Region / CC@C Isolated (6–8-week fast-start, 4–48 L40S) as the named phase-2 environment.
+6. **A second Oracle buyer — the EMEA Leader for Public — turns the menu into a dual menu** (Karsten, 2026-08-28). The enterprise-half cases (#3, #4, #7, #11, #12, and bench items such as bid response and records classification) are reusable across ministries and agencies with no defence framing; the buyer-fit table in §0 carries the per-case read. The two Oracle sponsors also sit outside Neil's enablement org (see [oracle-team.md](../oracle-team.md), "Public & Defense channel") — a different sponsor chain from the AI-Accelerators motion, and one with Thales/Reply already inside the NATO estate. [Inference]
+7. **"Distributed cloud" is the environment constraint the AI-Accelerators motion never had.** The VP's use cases must run on Dedicated Region / Cloud@Customer / Isolated / Roving Edge rungs — hence the rung + GPU-fit column in §0 and the deployment line on every card in §9; Nemotron reaches those rungs via NVIDIA AI Enterprise on the distributed cloud (Oracle's 2025-03-18 announcement) and Model Import onto a Dedicated AI Cluster. [Fact / release + Oracle announcement; fit per case = Inference]
 
 ---
 
@@ -322,7 +361,7 @@ _Read: 15 of 24 existing L2s re-skin to a high-applicability defence job; the fo
 
 The map Oracle saw in the Neil Business Alignment session is the **card-level** rendering of this taxonomy — 7 L1 groups → 24 L2 runs → 83 example cards, with the **AIDP fit / NVIDIA blueprint / Oracle AI service** columns from the working file (`AI workflow patterns - AIDP-NVIDIA-OracleAI mapping.xlsx`; its Google-Sheet twin is the second "patterns" sheet of 2026-07-10), shown three ways in the deck (neutral → ramp-up-highlighted → strategic ≈60%). The NATO adaptation rebuilds exactly that structure with defence cards:
 
-- **File:** `2026-09-03_nato-pattern-map.csv` (this folder; the xlsx twin "NATO adaptation - AI workflow patterns - AIDP-NVIDIA-OracleAI mapping - 2026-09-03.xlsx" was delivered to Alex for the OneDrive `Projects/Oracle/Use case maps/` folder). Same 12 columns as the source + four NATO columns: **Applies** (✅ / ◐ / ✖) · **Proof** (FreeTech # / pipeline client) · **Menu #** · **Highlight view** (first-wave / menu / —), plus Karsten topic and Buyer.
+- **File:** `2026-09-03_nato-pattern-map.csv` (this folder; the xlsx twin "NATO adaptation - AI workflow patterns - AIDP-NVIDIA-OracleAI mapping - 2026-09-03.xlsx" was delivered to Alex for the OneDrive `Projects/Oracle/Use case maps/` folder; **v2 of 2026-09-06** adds three columns). Same 12 columns as the source + NATO columns: **Applies** (✅ / ◐ / ✖) · **Proof** (FreeTech # / pipeline client) · **Menu #** · **Highlight view** (first-wave / menu / —) · Karsten topic · Buyer · **Public-sector reuse** (EMEA Public channel) · **Distributed-cloud rung** · **GPU / model fit** (the last three added 2026-09-06 after Karsten's email).
 - **Size:** 36 L2 rows — the 24 enterprise L2s (names unchanged, every card re-written for a defence actor in the source's "Actor — job; outcome" register) + 12 L2s under the four **EXT** L1s (sensor & signal perception · autonomy & robotics, non-kinetic · simulation, twins & physics-AI · optimisation & planning / cuOpt) — **92 cards** vs the source's 83.
 - **The three renderings, NATO version:** (1) neutral = all 92 cards · (2) **proven** = 18 rows / 49 cards carrying a FreeTech # or a pipeline client (Riyadh Air, DHL, NHS, Nesma, Channel 4, Belron, Bosch, Sky, OMV) · (3) **NATO menu** = 20 rows / 57 cards on the 12-case menu, with the **first wave** (#1 #2 #4 #5 + #3) bold at 7 rows / 24 cards. The ≈60% "strategic" band of the enterprise deck becomes ≈62% (57/92) here — the same shape of story.
 - **Stack-fit columns kept from the source** wherever the L2 is unchanged (so the NATO map stays reconcilable with the enterprise one); updated only where a newer fact applies (Ambient scribe → Nemotron Nano Omni / ASR NIMs; IDP → the AI Document Extraction pack; VSS-lite → the VSS pack; SecOps → the AI-Q-based Vulnerability Analysis blueprint). EXT rows carry their own fit (Metropolis/TAO, RAPIDS, Isaac/Cosmos, PhysicsNeMo/Omniverse, cuOpt packs; Roving Edge as the OCI edge runtime).
@@ -382,6 +421,7 @@ _Each card: scope · why fit · stack · data path (C1) · KPI (C9) · buyer(s) 
 - **KPI:** analyst minutes per hour of footage reviewed; recall on a labelled event set.
 - **Buyers:** forces (ISR units, base security); miltech (drone/sensor vendors adding search to their product).
 - **Nemotron role:** VLM/LLM swap-in for the sovereign phase; Nano Omni for the video-to-text path.
+- **Distributed-cloud rung / public-sector reuse:** Dedicated Region for archive-scale VSS (H100/H200 or L40S); CC@C Isolated for smaller archives; Roving Edge only for live edge ingest with Nano Omni / Lightning on L4. Public reuse ✅ — police CCTV, transport, border agencies.
 - **Risks:** footage classification; edge ingestion outside the PoV.
 - **Scorecard:** C1 ✅ C2 ✅ C3 ✅ C4 ✅ C5 ✅ C6 ✅ C7 ✅ C8 ✅ C9 ✅
 
@@ -393,6 +433,7 @@ _Each card: scope · why fit · stack · data path (C1) · KPI (C9) · buyer(s) 
 - **KPI:** brief preparation time; citation precision on the question set.
 - **Buyers:** forces/MoD intel & policy staffs; NATO agencies; miltech (threat-intel product teams).
 - **Nemotron role:** the reasoning model of record.
+- **Distributed-cloud rung / public-sector reuse:** EU Sovereign Cloud or Dedicated Region (Super on H100/H200; Ultra needs B200); CC@C Isolated with Lightning/Nano. Public reuse ✅ — ministries and regulators (policy / OSINT briefs).
 - **Risks:** hallucination optics in an intel context → citations + eval harness mandatory; source-licensing for scraped feeds.
 - **Scorecard:** C1 ✅ C2 ◐ (baseline = current manual brief time) C3 ✅ C4 ✅ C5 ✅ C6 ✅ C7 ✅ C8 ✅ C9 ✅
 
@@ -404,6 +445,7 @@ _Each card: scope · why fit · stack · data path (C1) · KPI (C9) · buyer(s) 
 - **KPI:** answer accuracy on a 100-question set; time-to-answer vs manual lookup.
 - **Buyers:** forces (training, maintenance, staff); miltech (product manuals for their operators).
 - **Nemotron role:** generation + embedding path (NeMo Retriever).
+- **Distributed-cloud rung / public-sector reuse:** any rung including CC@C Isolated (Lightning + Nemotron Embed/Rerank on L40S). Public reuse ✅ — legislation / policy / procedure assistants.
 - **Risks:** "commodity RAG" pressure — differentiate on the permission model and multilingual corpus.
 - **Scorecard:** C1 ✅ C2 ✅ C3 ✅ C4 ✅ C5 ✅ C6 ✅ C7 ✅ C8 ✅ C9 ✅
 
@@ -415,6 +457,7 @@ _Each card: scope · why fit · stack · data path (C1) · KPI (C9) · buyer(s) 
 - **KPI:** minutes per document; field-level accuracy; exception rate.
 - **Buyers:** procurement agencies; MoD commercial teams; miltech vendors (bid/contract ops).
 - **Nemotron role:** Nano Omni replaces the third-party VLM in the sovereign phase.
+- **Distributed-cloud rung / public-sector reuse:** Dedicated Region or CC@C Isolated (Nano Omni / Nemotron Parse + Page Elements + Table Structure on L40S). Public reuse ✅ — permits, tenders, records, casework.
 - **Risks:** scanned-PDF quality; multi-language forms.
 - **Scorecard:** C1 ✅ C2 ✅ C3 ✅ C4 ✅ C5 ✅ C6 ✅ C7 ✅ C8 ✅ C9 ✅
 
@@ -426,6 +469,7 @@ _Each card: scope · why fit · stack · data path (C1) · KPI (C9) · buyer(s) 
 - **KPI:** time to readiness picture; exceptions caught before due date.
 - **Buyers:** forces (logistics/maintenance commands); NATO agencies (NSPA-type); miltech (fleet operators, MRO providers).
 - **Nemotron role:** the NL layer over the mart in the sovereign phase (Select AI is Oracle-native; Nemotron via OCI Enterprise AI).
+- **Distributed-cloud rung / public-sector reuse:** Dedicated Region (Autonomous AI Lakehouse + Select AI run inside it); not an edge case; GPU optional. Public reuse ◐ — asset-heavy agencies, utilities, transport.
 - **Risks:** "too back-end-ish" if the UI is skimped; data extraction from legacy EAM.
 - **Scorecard:** C1 ✅ (synthetic) C2 ◐ C3 ✅ C4 ◐ (Lakehouse GA, no pack) C5 ✅ C6 ✅ C7 ✅ C8 ◐ C9 ✅
 
@@ -437,6 +481,7 @@ _Each card: scope · why fit · stack · data path (C1) · KPI (C9) · buyer(s) 
 - **KPI:** planning time; km/fuel; coverage; baseline established in week 1 (C2).
 - **Buyers:** forces (movement control, maintenance units); NATO logistics agencies; miltech (fleet/MRO operators).
 - **Nemotron role:** optional NL "talk to your plan" layer (webinar demo pattern).
+- **Distributed-cloud rung / public-sector reuse:** any GPU rung — cuOpt runs on L40S (CC@C Isolated is enough). Public reuse ✅ — municipal fleets, emergency services, waste and transport.
 - **Risks:** no baseline (Sky); constraint explosion → cap at 5 rules as in the WfO M-package.
 - **Scorecard:** C1 ✅ C2 ◐ C3 ✅ C4 ✅ C5 ✅ C6 ✅ C7 ✅ C8 ◐ C9 ✅
 
@@ -447,7 +492,8 @@ _Each card: scope · why fit · stack · data path (C1) · KPI (C9) · buyer(s) 
 - **Data path:** public multilingual speech corpora + customer recordings. Demand evidence: DIANA "Advanced Communications"; interoperability is a named 2024 NATO AI-strategy priority; JATEC's Google scope includes machine translation (the competitor's foothold).
 - **KPI:** word-error rate per language; minutes saved per meeting/net hour.
 - **Buyers:** forces (HQ staffs, multinational units); NATO bodies; miltech (radio/C2 vendors).
-- **Nemotron role:** the whole pipeline.
+- **Nemotron role:** the whole pipeline (Nemotron ASR / Magpie TTS Multilingual / VoiceChat per the master deck; Voice Agent blueprint).
+- **Distributed-cloud rung / public-sector reuse:** Roving Edge (ASR NIM on L4) · CC@C Isolated · Dedicated Region; Nano Omni for summaries on L40S. Public reuse ✅ — courts, parliaments, emergency call centres.
 - **Risks:** radio audio quality; low-resource languages; Roving Edge's L4s hold the ASR NIM and Nano/Lightning NVFP4, not Super/Ultra (edge variant must be scoped accordingly).
 - **Scorecard:** C1 ✅ C2 ✅ C3 ✅ C4 ✅ C5 ✅ C6 ✅ C7 ✅ C8 ✅ C9 ✅
 
@@ -459,6 +505,7 @@ _Each card: scope · why fit · stack · data path (C1) · KPI (C9) · buyer(s) 
 - **KPI:** clustering purity on a labelled set; time from capture to insight.
 - **Buyers:** forces (EW units); miltech (EW/SDR vendors).
 - **Nemotron role:** none in the core (classic ML); optional LLM report layer.
+- **Distributed-cloud rung / public-sector reuse:** CC@C Isolated or an Isolated Region for real captures; Dedicated Region (L40S–H100) for training on open data. Public reuse ◐ — spectrum regulators, critical infrastructure.
 - **Risks:** demo credibility on synthetic data; export-control sensitivity of real work; no pack → 8+ wks.
 - **Scorecard:** C1 ◐ C2 ◐ C3 ✅ C4 ✖ C5 ✅ C6 ✅ C7 ◐ C8 ✖ C9 ◐
 
@@ -469,7 +516,8 @@ _Each card: scope · why fit · stack · data path (C1) · KPI (C9) · buyer(s) 
 - **Data path:** synthetic + public datasets.
 - **KPI:** model accuracy vs baseline; sim-to-real gap on a fixed test; pipeline wall-clock.
 - **Buyers:** miltech (drone/UGV makers) first; forces' innovation units second.
-- **Nemotron role:** VLM annotation/QA in the data loop (Nemotron Nano Omni; the physical-AI VLM line is **Cosmos Reason 2**, a separate family — "Cosmos-Nemotron" is not a current product name).
+- **Nemotron role:** VLM annotation/QA in the data loop (Nemotron Nano Omni; the physical-AI VLM line is **Cosmos Reason 2**, a separate family — "Cosmos-Nemotron" is not a current product name). Customisation proof from the decks: Harvey post-trained Ultra "in under 24 hours"; H Company built Holotron-12B on Nano VL.
+- **Distributed-cloud rung / public-sector reuse:** Dedicated Region only (Isaac Sim / Cosmos need H100/H200/B200). Public reuse — none.
 - **Risks:** not a "menu" case for a general; edge hardware outside scope; Greengrass dependency in FreeTech #06 must be replaced.
 - **Scorecard:** C1 ✅ C2 ◐ C3 ✅ C4 ◐ C5 ◐ C6 ✅ C7 ◐ C8 ◐ C9 ✅
 
@@ -481,6 +529,7 @@ _Each card: scope · why fit · stack · data path (C1) · KPI (C9) · buyer(s) 
 - **KPI:** surrogate speed-up × accuracy vs simulator; scenarios per day.
 - **Buyers:** miltech (naval/aero/vehicle OEMs); defence R&D labs.
 - **Nemotron role:** none in core.
+- **Distributed-cloud rung / public-sector reuse:** Dedicated Region (PhysicsNeMo on H100+). Public reuse ◐ — infrastructure and energy agencies.
 - **Risks:** needs an engineering partner with data; 12 wks tests the PoV envelope.
 - **Scorecard:** C1 ◐ C2 ✅ C3 ✅ C4 ◐ C5 ◐ C6 ✅ C7 ◐ C8 ✖ C9 ✅
 
@@ -491,7 +540,8 @@ _Each card: scope · why fit · stack · data path (C1) · KPI (C9) · buyer(s) 
 - **Data path:** open feeds + synthetic alerts. Demand evidence: NCIA's NATO Cyber Security Centre end-of-life replacement (est. €27.1M); Leonardo's AI multi-agent cyber platform inside the €200M PBN; EDA TAID "Active Autonomous Cyber Defence".
 - **KPI:** mean time to triage; analyst hours per incident.
 - **Buyers:** forces/MoD SOCs; NATO agencies; miltech (product security).
-- **Nemotron role:** reasoning + report generation.
+- **Nemotron role:** reasoning + report generation. NVIDIA's own reference: **CrowdStrike** on customised Nemotron — 96% structured-query-generation accuracy, 5× faster investigations, 3× triage accuracy (master deck); a "Cyber Defense Agent — 2× security-operations performance" platform example (Agent Toolkit deck).
+- **Distributed-cloud rung / public-sector reuse:** any rung — Dedicated Region or CC@C Isolated (AI-Q + Nemotron on L40S–H100). Public reuse ✅ — national CERTs, agency SOCs.
 - **Risks:** crowded market (Palantir/Microsoft/Google-class incumbents); needs a SoftServe cyber reference ⚠.
 - **Scorecard:** C1 ✅ C2 ◐ C3 ✅ C4 ✅ C5 ✅ C6 ✅ C7 ✅ C8 ✅ C9 ✅
 
@@ -502,7 +552,8 @@ _Each card: scope · why fit · stack · data path (C1) · KPI (C9) · buyer(s) 
 - **Data path:** synthetic personnel/logistics dataset.
 - **KPI:** policy coverage; zero cross-clearance leakage on a test suite.
 - **Buyers:** MoD/NATO CIO & security offices; miltech handling controlled data.
-- **Nemotron role:** the agent model in the sovereign phase.
+- **Nemotron role:** the agent model in the sovereign phase; **OpenShell** (policy-based secure runtime), NeMo Guardrails and the Nemotron Safety trio (Content Safety, Topic Control, Jailbreak Detection) are the governance layer NATO's "governability / explainability & traceability" principles ask for.
+- **Distributed-cloud rung / public-sector reuse:** EU Sovereign Cloud · Dedicated Region · CC@C Isolated (Autonomous AI Lakehouse inside; agent on L40S). Public reuse ✅ — any ministry (data-centric security is the EDA's own term).
 - **Risks:** ⚠ Iceberg-side masking undocumented (Lakehouse QS note — verify with Javier); "config ≠ product" — only sells attached to #3/#5.
 - **Scorecard:** C1 ✅ C2 ✅ C3 ✅ C4 ✅ C5 ✅ C6 ✅ C7 ✅ C8 ◐ C9 ◐
 
@@ -541,7 +592,7 @@ _Each card: scope · why fit · stack · data path (C1) · KPI (C9) · buyer(s) 
 9. Is there an Oracle public-sector Nemotron story to align with — the OCI US-Gov "plans to host Nemotron" (Mar 2026) is not GA, and AWS GovCloud already runs Nemotron at FedRAMP High / IL5 (Jun 2026)?
 10. Does Oracle's Thales / Red Reply / Shield Reply NCIA delivery chain leave room for a SoftServe pod, or is the NATO agency work already staffed?
 
-**Gaps in this report** — ⚠ FreeTech one-pager not read directly · ⚠ Sep-2 call outcome unknown · ⚠ Karsten's "major private cloud for NATO" claim: §4 shows what is public (enterprise tier, multi-cloud NCIA) · ⚠ no SoftServe defence reference in cyber (#11) or speech (#7) — both rest on packs/models, not delivered proof · ⚠ **all NATO/NVIDIA/Oracle-docs facts are search-engine extracts** (the sandbox's egress policy blocked the primary domains) — re-read before any client-facing use · ⚠ Nemotron licence text differs across model cards (OpenMDW-1.1 vs NVIDIA Nemotron Open Model License) · ⚠ Ukraine "Kropyva" and Unmanned Systems Forces programme lines unverified · ⚠ AI-Q GA status and VSS 3.0 GA date unverified.
+**Gaps in this report** — ⚠ FreeTech one-pager not read directly · ⚠ Aug-31 and Sep-2 call outcomes unknown · ⚠ Karsten's "major private cloud for NATO" claim: §4 shows what is public (enterprise tier, multi-cloud NCIA) · ⚠ the Oracle NATO VP and the EMEA Public leader are unnamed in every source; Robert Friedrich's employer is not on record · ⚠ no SoftServe defence reference in cyber (#11) or speech (#7) — both rest on packs/models, not delivered proof (#11 now has NVIDIA's CrowdStrike reference) · ⚠ **NATO/NVIDIA-docs/Oracle-docs facts other than the NCIA release are search-engine extracts** (the sandbox's egress policy blocked the primary domains) — re-read before any client-facing use · ⚠ the two NVIDIA decks are general customer decks with no Public & Defense content, and one slide is marked NVIDIA confidential · ⚠ Nemotron licence text differs across model cards (OpenMDW-1.1 vs NVIDIA Nemotron Open Model License) · ⚠ Ukraine "Kropyva" and Unmanned Systems Forces programme lines unverified · ⚠ AI-Q GA status and VSS 3.0 GA date unverified.
 
 **Suggested next step (deliverable for Sep 4):** lift §0 into a one-page "NATO use-case menu" for Karsten's thread (the 12 rows + tier legend + the "not on the menu" line), and bring the §9 cards to the Oksana/Denys pre-alignment as the packs ↔ needs mapping.
 
