@@ -2,7 +2,7 @@
 
 _status: live theme — the discipline of wrapping an AI agent in enforced structure: human-only zones, PR gates, precise workflows, adapters, and local-first context_
 _slug: agent-harness-engineering_
-_updated: 2026-09-03 · 29 insights from 18 episodes · (split from agent-engineering-patterns, 2026-07-11)_
+_updated: 2026-09-06 · 30 insights from 19 episodes · (split from agent-engineering-patterns, 2026-07-11)_
 
 ## The throughline
 A harness is code wrapped around an agent to make it behave consistently for a specific use case — and every practitioner in this cluster converges on the same core moves. Reserve architecture and UX decisions for humans (Conductor's "slot-free zones," "do not touch if you are an AI" markers — corroborated independently by Tony Fadell on the hardware-product side); force agent output through a review chokepoint before it lands (Conductor's strict PR-first workflow; the Sentry bug-triage harness's investigate-only vs. edit-enabled modes); and be extremely specific — write down the exact workflow, data sources, and allowed tools rather than reaching for a general-purpose assistant. Concrete adapters (Sentry, Linear, GitHub, Vercel) plus a persistent artifact store make investigations reproducible, though this is a choice, not a prerequisite — Gusto's much lighter "memory is just a DB column" stack proves harnesses can be minimal too. Codex-as-local-project-environment extends the same instinct beyond bespoke harnesses: a general-purpose local workspace (files on your machine, computer-use access to real tools) that lets an agent work with richer context, reinforced by a local-first/Obsidian-style memory discipline for privacy and accuracy.
@@ -154,11 +154,17 @@ Rather than asking a model for generic outputs, Katie builds persistent context 
 — Every · 2026-09-02 · guest: Katie · [▶ 9:30](https://www.youtube.com/watch?v=vey_dBnDTAU&t=570) · `pi-vey_dBnDTAU-02`
 related: [Intent engineering matters more than crafty prompt templates](#intent-engineering-matters-more-than-crafty-prompt-templates) (same write-the-context-once-and-reuse discipline, here brand/persona/style docs for content production rather than a solo consultant's voice guides and SOPs)
 
+### Start skills by hand; human-authored constraints outperform blind AI authorship
+He advises authoring the first pass of a skill manually (skill.md) because human-written constraints and decision patterns produce better initial behavior than letting AI autogenerate everything. Folkman uses the 'ebike' metaphor: once you rely entirely on AI you'll stop injecting your own thinking, so writing the boundaries yourself preserves intent and makes subsequent improvements more controlled. Combined with git-based versioning and PR review, this approach gives teams the ability to revert, audit, and 'revert forward' as models and requirements change.
+— Aakash Gupta · 2026-09-04 · guest: Tyler Folkman (Chief AI Officer, JobNimbus) · [▶ 29:44](https://www.youtube.com/watch?v=XsnSvFo4MHQ&t=1784) · `pi-XsnSvFo4MHQ-05`
+related: [Skill files are executable cognition; owning them preserves your power](#skill-files-are-executable-cognition-owning-them-preserves-your-power) (same human-authored-constraint discipline, here the "write it yourself first" argument for why that ownership produces better behavior in the first place)
+
 ## Related themes
 - [Agent engineering & production infra](agent-engineering-patterns.md) — parent theme; the broader verification/governance/cost discipline this harness-building cluster sits alongside
 - [Agent delegation, loops & software factories](agent-delegation-and-loops.md) — the sustained-execution patterns that run inside these harnesses
 
 ## Source episodes
+- [Aakash Gupta — How to Build Effective Product Loops in Claude Code | Tyler Folkman | Chief AI Officer, JobNimbus (2026-09-04)](../episodes/2026/2026-09-04--aakash--how-to-build-effective-product-loops-in-claude-code.md)
 - [How I AI — 7 Grok Bot agents I use every day (2026-09-02)](../episodes/2026/2026-09-02--howiai--7-grok-bot-agents-i-use-every-day.md)
 - [SaaStr AI — Shipping Enterprise AI Agents with the CPOs of Rubrik, Glean, and Harvey (2026-09-02)](../episodes/2026/2026-09-02--saastr--shipping-enterprise-ai-agents-rubrik-glean-harvey.md)
 - [Every — How a Professional Writer Writes With AI (2026-09-02)](../episodes/2026/2026-09-02--every--how-a-professional-writer-writes-with-ai.md)

@@ -2,7 +2,7 @@
 
 _status: live theme — the concrete craft of building, scoring, and maintaining eval suites for agentic AI: dataset/prompt-set design, automated scoring, benchmark gaming, judge-rubric calibration, "evals as the new PRD"_
 _slug: eval-design-and-practice_
-_updated: 2026-08-25 · 15 insights (16 attributions — one insight double-cited) from 11 episodes_
+_updated: 2026-09-06 · 16 insights (17 attributions — one insight double-cited) from 12 episodes_
 
 ## The throughline
 
@@ -84,10 +84,16 @@ Out-of-the-box 'vibe prompting' only gets you so far; the team builds judge prom
 — Every · 2026-08-19 · guest: Quinton, Elliot (Tolen) · [▶ 68:44](https://www.youtube.com/watch?v=ngTS4gUINVk&t=4124) · `pi-ngTS4gUINVk-05`
 related: [Evals are the 'brakes' — invest as much in them as in agents.](#evals-are-the-brakes--invest-as-much-in-them-as-in-agents) (same evals-as-core-infrastructure discipline, here for consumer-companion quality rather than enterprise agent reliability)
 
+### Make gates deterministic (tests, hooks, synthetic users) to limit AI slop
+He emphasizes that the most important part of a loop is a gate that can validate results deterministically—unit tests, policy hooks, or synthetic customer checks derived from stored transcripts. JobNimbus builds prototypes live (three variants) and then runs them against synthetic customers created from their call transcripts in a data warehouse to quickly filter ideas before real customer tests. This reduces false positives from LLM judgment and makes agent outputs actionable and reliable enough to push as PRs or prototypes.
+— Aakash Gupta · 2026-09-04 · guest: Tyler Folkman (Chief AI Officer, JobNimbus) · [▶ 12:42](https://www.youtube.com/watch?v=XsnSvFo4MHQ&t=762) · `pi-XsnSvFo4MHQ-03`
+related: [Agentic evals demand automated scoring because human review doesn't scale](#agentic-evals-demand-automated-scoring-because-human-review-doesnt-scale) (same deterministic-gate discipline, here synthetic customers built from real call transcripts rather than a scored prompt set)
+
 ## Related themes
 - [Agent engineering & production infra](agent-engineering-patterns.md) — parent theme; split off 2026-08-25. Production infra, guardrail/governance patterns, and the still-unresolved headless/infra/stair-step, multimodel-orchestration, and agentic-web-protocols clusters stay there.
 
 ## Source episodes
+- [Aakash Gupta — How to Build Effective Product Loops in Claude Code | Tyler Folkman | Chief AI Officer, JobNimbus (2026-09-04)](../episodes/2026/2026-09-04--aakash--how-to-build-effective-product-loops-in-claude-code.md)
 - [Every — $4M in 4 Weeks: How This AI Alien Companion App Took Off (Best of the Pod) (2026-08-19)](../episodes/2026/2026-08-19--every--4m-in-4-weeks-ai-alien-companion-app-tolen.md)
 - [a16z — Kavak's Playbook for Rebuilding a Company Around AI (2026-08-10)](../episodes/2026/2026-08-10--a16z--kavaks-playbook-rebuilding-company-around-ai.md)
 - [How I AI — Build an AI code review agent with Vercel Eve (full tutorial) (2026-08-05)](../episodes/2026/2026-08-05--howiai--build-an-ai-code-review-agent-with-vercel-eve.md)
