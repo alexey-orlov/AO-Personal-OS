@@ -98,3 +98,20 @@ partnership section (slides 30–34):
   and `typeface="Roboto Mono"` → `Liberation Mono` (Helvetica-metric fonts that soffice has
   by default) — wraps and fits then match the real deck closely; never deliver the twin.
   Layout-only checks, per the geometry rule; glyph shapes are still wrong.
+- **Fit-check text widths in the builder, don't eyeball the render** (2026-09-06, NATO map
+  v4): measure every string that must stay on one line with PIL on the Liberation stand-ins
+  (`ImageFont.truetype(".../LiberationSans-Regular.ttf", pt*20).getlength(s)/20*12700`, +6%
+  safety for the brand fonts) against its box width and print a `need vs have` report — the
+  render only shows wraps for the stand-in font, the report catches the ones Replica will
+  add. Same trick sizes legend rows before they overflow the content column.
+- **Map/menu slides — the geometry that survived two feedback rounds** (NATO map v4):
+  tinted (F1F2F5) hairline-framed L1 containers with a two-line header (outlined oval badge +
+  13 pt bold name; 9 pt grey one-liner on line 2), white hairline L2 tiles justified inside,
+  container gap ≈ 3.7× the tile gap (220000 vs 60000 EMU), tile number in 808080 bold so the
+  17 names form the scan layer, a bottom tag row with fixed-width chips left (7.5 pt mono;
+  lit = 595959 fill/white text, unused = DCDCDC outline/808080 text) and pills right, and a
+  visual key in the footer (sample tag + 8 pt label per family, tile order) instead of a
+  text legend. The "recommended" view is the identical slide with orange-tint tiles + an
+  orange border; its ranking lives in the key row (a miniature "4.1" tile + bold label), so
+  slide 1 stays fully greyscale and the reveal lands. Builder: the session scratchpad's
+  `build_slide.py` + `slide_data.json` pattern (data-driven; views = neutral / highlight).
