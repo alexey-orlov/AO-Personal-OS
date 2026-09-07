@@ -131,4 +131,12 @@ partnership section (slides 30–34):
   view order, never hard-code them — the requester reordered the deck between rounds and the
   old text went stale silently; and re-derive a chip rule from a sharp definition ("lit = the
   case's analytical engine, not a results table") before a reviewer finds the two tiles that
-  contradict each other.
+  contradict each other. What the Opus design-QA pass on the renders then caught (measure,
+  don't eyeball): white 7 pt text on brand orange F36949 is 3.0:1 — use ink on orange pills
+  (5.7:1) and keep white only on hues ≥ 6:1 (595959 lit chips 7.0:1, violet 6A4C9C 6.7:1);
+  an outlined pill at 1.25 pt out-weighs the filled pills next to it — outline at 0.75 pt;
+  808080 values on the F1F2F5 panel are 3.6:1 — use 595959 for anything that must be read;
+  a tile or source that carries no tag gets an empty pill instance in the slot, not a bare gap
+  (rule 3), and the key shows that empty instance next to the ghost chip; a highlight sample
+  in the key leads and matches its peers' weight; wrapped card bodies hang from a shared top
+  edge and the row height is sized to the longest body (+160000 EMU), never to the column.
