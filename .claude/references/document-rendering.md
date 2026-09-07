@@ -56,3 +56,18 @@ When exact brand-font fidelity matters, the **PowerPoint AppleScript export** (`
 ## Hand-off default
 
 Deliver the editable file and let Alex export the PDF himself.
+
+## UPDATE 2026-09-07 — soffice conversion hangs; QuickLook is the working fallback
+
+- `soffice --headless --convert-to pdf …` **hung on every input** this morning (even a 12-byte
+  `.txt`), with no PDF and no stderr, across five guarded attempts (fresh
+  `-env:UserInstallation` profile included); `soffice --version` still answers instantly
+  (26.2.4.2). Treat the soffice path as broken until re-verified — do not loop on it.
+- **Working fallback: macOS QuickLook** — `perl -e 'alarm 90; exec @ARGV' qlmanage -t -s 2600
+  -o <outdir> "<file.pptx>"` writes `<outdir>/<file>.pptx.png` in ~2 s (first slide only —
+  for one specific slide, save a single-slide deck first by dropping the other `sldId`
+  entries; python-pptx then writes only reachable parts, so the file shrinks to tens of KB).
+  Geometry and fills are true; brand fonts substitute as with soffice; the SoftServe logo
+  placeholder may draw as an empty square (renderer limitation, verify in PowerPoint).
+- Guard rule unchanged: no bare `sleep` loops in Bash (the tool blocks foreground sleep);
+  wrap long calls with `perl -e 'alarm N; exec @ARGV'`.
