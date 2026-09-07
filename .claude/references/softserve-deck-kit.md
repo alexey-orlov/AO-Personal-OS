@@ -115,3 +115,20 @@ partnership section (slides 30–34):
   orange border; its ranking lives in the key row (a miniature "4.1" tile + bold label), so
   slide 1 stays fully greyscale and the reveal lands. Builder: the session scratchpad's
   `build_slide.py` + `slide_data.json` pattern (data-driven; views = neutral / highlight).
+- **Evidence slides + pill semantics that survived the fourth round** (NATO map v7, 2026-09-07):
+  one renderer for every "evidence behind the tags" slide — a container per source (a NATO
+  body, a delivered case) with the exact pill it puts on the map in a reserved slot (an empty
+  slot when the source drives no tag — rule 3), a 13 pt bold name, a 9 pt plain-language line,
+  then rows of `text · map case` with a right-aligned mono "MAP CASE(S)" column heading; the
+  row pitch is computed once for the whole slide, so a 7-row block and a 1-row block share a
+  baseline grid. Pill grammar: **outlined = demand, solid = delivered proof**, one hue per
+  proof source (brand orange for own deliveries on the partner's stack, a single off-palette
+  hue — violet 6A4C9C — when the requester wants a second proof source told apart); pill
+  width follows the label (`text_w() + 60000`) so a name like "Riyadh Air" fits without
+  shrinking the family. Three mechanics worth keeping: copy the base slide's slide-number
+  placeholder onto every added slide with a fresh `cNvPr.id` (`shapes._next_shape_id`) or
+  PowerPoint "repairs" the file; generate footnote cross-references ("…on slide 2") from the
+  view order, never hard-code them — the requester reordered the deck between rounds and the
+  old text went stale silently; and re-derive a chip rule from a sharp definition ("lit = the
+  case's analytical engine, not a results table") before a reviewer finds the two tiles that
+  contradict each other.
