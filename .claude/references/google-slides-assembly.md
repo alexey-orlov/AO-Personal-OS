@@ -71,6 +71,41 @@ and those slides ARE editable even when the single summary slide is a flat pictu
   Import dialog's buttons shift position once an injected mirror `<input>` is removed, so
   re-screenshot before clicking `Select all` / `Import slides`.
 
+## Gotchas learned 2026-09-09 (rebuilding the lecture deck)
+
+- **THE BIG ONE — new slides silently overwrite kept slides in a trimmed deck.**
+  `Slides.add_slide` names the new part `/ppt/slides/slide{len(sldIdLst)+1}.xml`, but a trimmed
+  deck keeps its slides' ORIGINAL part numbers (27, 52, … 115). So once you have added enough
+  new slides, one of them is handed a partname a kept slide still uses; the zip holds one entry
+  for that name and **the kept slide is gone**, replaced by a duplicate of the new one. It fails
+  silently: the deck still has the right slide COUNT, and only a title-by-title readback catches
+  it. Fix: right after trimming and before adding anything, renumber the kept parts contiguously —
+  `for i, sl in enumerate(list(prs.slides), 1): sl.part.partname = PackURI('/ppt/slides/slide%d.xml' % i)`.
+  Then assert no two `sldId` entries resolve to the same target before saving.
+- **Never map slides to their sldId elements via parts or rIds after a `drop_rel` pass** — freed
+  rIds get reused, so a rel-based lookup aliases two slides together. Capture each element when
+  the slide is created (`list(prs.slides._sldIdLst)[-1]` right after `add_slide`) and order from
+  that.
+- **Import slides inserts AFTER the current selection, not at the end.** Skipping the `End`
+  keypress puts the whole imported block behind slide 1. Click a filmstrip thumbnail and press
+  `End` before every import — including the second and third.
+- **This makes multi-file assembly easy:** to insert a block in the middle, split the deck at the
+  insertion point and import part A → the block → part B, pressing `End` between each. No
+  thumbnail dragging, and the order is exact. To replace one slide in place, select the slide
+  BEFORE it, import a one-slide file, then delete the old one.
+- **`<p:sld show="0">` (skip in slideshow) survives export, trimming and import.** A slide copied
+  from a deck where it was hidden arrives hidden, showing an eye-with-slash on the thumbnail and
+  silently vanishing in presentation mode. Check `slide.element.get('show')` across the deck and
+  `del slide.element.attrib['show']` on anything flagged.
+- **Real brand logos:** corporate marks are usually non-free, so Wikimedia Commons only has
+  sub-brands. Get the genuine one from the Wikipedia infobox —
+  `en.wikipedia.org/w/api.php?action=query&titles=<Company>&prop=pageimages&piprop=original` —
+  then fetch it through `Special:FilePath/<File>.svg?width=600`, which renders SVG to a
+  transparent PNG that python-pptx can place directly. Check what came back: the pageimage is
+  sometimes a photo of the HQ rather than the logo.
+- **`add_picture` then reposition**: place at (0,0), read `Emu(pic.height).inches`, then set
+  `left`/`top` to centre on a tick and bottom-align a row of logos of different aspect ratios.
+
 ## Dead ends (do not retry)
 
 - `drive.google.com` navigation is refused by the extension's site allowlist ("Navigation to this domain is not allowed"), so the Drive web UI cannot be used for uploads; `docs.google.com` works (permission prompt on first standalone `computer` call).
