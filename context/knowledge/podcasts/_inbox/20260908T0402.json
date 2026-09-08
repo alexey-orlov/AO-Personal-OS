@@ -1,0 +1,104 @@
+{
+  "schema": 1,
+  "generatedAt": "2026-09-08T04:02:56.992Z",
+  "runStamp": "20260908T0402",
+  "episodes": [
+    {
+      "videoId": "AbZODZ_4VaM",
+      "videoTitle": "Stripe built a company brain: Meet Kai",
+      "videoUrl": "https://www.youtube.com/watch?v=AbZODZ_4VaM",
+      "channelName": "How I AI",
+      "publishedDate": "2026-09-07",
+      "guests": [],
+      "summary": "This episode explains why Stripe built Kai, an internal, always-on AI agent platform, and how it scales AI safely across a complex enterprise. The central argument is that successful enterprise AI requires contextualization and governance layered on top of models — plus substantial platform and data investments — not just exposing LLMs to employees.",
+      "insights": [
+        {
+          "headline": "Enterprise AI needs governance and contextualization, not just models",
+          "detail": "Stripe built Kai because the hard problem was replicating company workflows and making AI do the right thing for every employee — not just providing model access. Kai injects personal and org-level context (org chart, projects, permissions) so responses are relevant and constrained, and it runs inside Stripe's security boundaries to reduce risk. That makes the difference between a neat demo and a trustworthy, company-wide tool.",
+          "anchorQuote": "how do we get AI to everyone, right?",
+          "tSeconds": 213,
+          "link": "https://www.youtube.com/watch?v=AbZODZ_4VaM&t=213"
+        },
+        {
+          "headline": "Projects become governance layers controlling models, tools, and permissions",
+          "detail": "Stripe uses 'projects' as a configuration and governance unit: a project bundles the right skills, default models, tool policies, and human-in-the-loop rules for a given team or initiative. Projects let admins limit token spend or forbid expensive models, isolate sensitive tool access for HR, and share consistent settings across many users — reducing ad-hoc decisions and safety risks while keeping workflows low-friction for end users.",
+          "anchorQuote": "projects are primarily a governance mechanism",
+          "tSeconds": 473,
+          "link": "https://www.youtube.com/watch?v=AbZODZ_4VaM&t=473"
+        },
+        {
+          "headline": "Skills platform packages sessions into reusable, evaluable automation",
+          "detail": "Kai includes a skill-builder that converts a multi-step interactive session (like creating a dashboard) into a reusable skill with a standard spec, editable draft, and evaluative suggestions. That lets non-engineers turn ad‑hoc work into repeatable, shareable automation while the platform applies telemetry and quality checks so shared skills stay reliable. The result: users can trust agents to run parts of the business instead of redoing manual steps every time.",
+          "anchorQuote": "I can create a skill that basically takes what I've done",
+          "tSeconds": 1776,
+          "link": "https://www.youtube.com/watch?v=AbZODZ_4VaM&t=1776"
+        },
+        {
+          "headline": "Pre-AI platform investments multiply agents' effectiveness",
+          "detail": "Stripe's prior investments in developer experience, a resilient query layer (Trino), a data catalog, and a blessed analytics tier made agents far more effective and reliable. The platform provides a triage: use curated analytics reports first, fall back to high-quality datasets, then to raw queries — which helps agents find correct queries and avoids brittle or incorrect outputs. The conclusion: double down on platform and data teams to get the most out of agents.",
+          "anchorQuote": "prior to AI there's been a commitment to developer experience",
+          "tSeconds": 1052,
+          "link": "https://www.youtube.com/watch?v=AbZODZ_4VaM&t=1052"
+        },
+        {
+          "headline": "Agents amplify failure modes — infra hardening and agent identity are essential",
+          "detail": "Because agents can automate and parallelize many actions, they tend to 'hammer' systems, invent unexpected workflows, or go rogue; Stripe experienced near-misses early on. To manage this, Kai uses cloud-hosted sandboxes, tool policies, load-shedding tied to an 'agentic identity', and human-in-the-loop gates for sensitive actions. These infrastructure and policy measures are crucial to prevent automation from multiplying operational risk.",
+          "anchorQuote": "agents are very creative at bringing your intro down",
+          "tSeconds": 1164,
+          "link": "https://www.youtube.com/watch?v=AbZODZ_4VaM&t=1164"
+        }
+      ]
+    },
+    {
+      "videoId": "n9xKblqyQ28",
+      "videoTitle": "Self-Improving Harnesses, Local Personal AI And YC's Agent For Work | YC Paper Club",
+      "videoUrl": "https://www.youtube.com/watch?v=n9xKblqyQ28",
+      "channelName": "Y Combinator",
+      "publishedDate": "2026-09-07",
+      "guests": [
+        "Seth (Prime Agent / Prime Intellect)",
+        "John Sadvalone (Open Jarvis / Stanford)",
+        "Josh (YC, QM)",
+        "Rean (YC, QM)"
+      ],
+      "summary": "Speakers survey the recent wave of agent harnesses — software scaffolding around LLMs — showing how orchestration, persistent state, and meta‑learning of the harness itself can far outsize raw model improvements. The session presents three concrete systems (Prime Agent, Open Jarvis, and QM) with experiments and design patterns for long‑horizon work, local on‑device personal AI, and deployable org‑scale assistants.",
+      "insights": [
+        {
+          "headline": "A lightweight harness wrapper can multiply model performance dramatically",
+          "detail": "Simple scaffolding around an existing model — not new weights — produced massive gains on hard holdouts: a private ARC‑style holdout that one model reached 30% with raw prompts was driven to ~95% by adding harness wrappers, and Nvidia reached 100% in the same setup. The point demonstrated is that task orchestration, tool calling, and context management often unlock capabilities that are invisible in single‑call model benchmarks, so engineering the harness can be more impactful (and cheaper) than chasing small model upgrades.",
+          "anchorQuote": "And just with um some harness uh this thing",
+          "tSeconds": 235,
+          "link": "https://www.youtube.com/watch?v=n9xKblqyQ28&t=235"
+        },
+        {
+          "headline": "Harnesses can be learned and evolved — meta‑harnesses produce better agents over time",
+          "detail": "Teams described systems that do CRUD on system prompts and even modify harness code: DSPY uses search/merge/genetic programming to optimize prompts, Darwin machines mutate harnesses in an archive and evaluate fitness, and meta‑harnesses can produce new harnesses. That means the harness is no longer static config but an evolvable object: you can hill‑climb harness behavior, run Dagger‑style online updates, and eventually bootstrap stronger agent families without manual redesign.",
+          "anchorQuote": "where you're letting the harness itself learn.",
+          "tSeconds": 854,
+          "link": "https://www.youtube.com/watch?v=n9xKblqyQ28&t=854"
+        },
+        {
+          "headline": "Local, on‑device LLM stacks can already rival cloud assistants for personal AI use cases",
+          "detail": "Open Jarvis shows that recent local models (e.g., Qwen 3.8 27B comparable to older Claude/Opus generations) can serve many personal workflows while cutting inference cost and latency dramatically — the team reports up to ~800x lower running cost versus cloud setups. They also use cloud LMs as an offline optimizer to autotune the local stack, achieving practical parity on many tasks and making on‑device personal AI feasible and private today.",
+          "anchorQuote": "the local LMS are finally good enough",
+          "tSeconds": 2313,
+          "link": "https://www.youtube.com/watch?v=n9xKblqyQ28&t=2313"
+        },
+        {
+          "headline": "Persistent ripple state, subagents and CRUD let agents sustain long‑horizon, multi‑day work",
+          "detail": "Prime Agent implements an IPython‑style 'ripple' (in‑memory variables), persistent sub‑sessions, compaction, and CRUD for memories/skills so agents don't re‑encode long histories into context windows. This architecture enabled runs like a 7‑day factorial using 633 agents and ~23M output tokens that continued progressing the simulated tech tree without getting stuck — demonstrating that durable state and modular subagents are essential for long‑horizon research and automation.",
+          "anchorQuote": "create read, update, delete on the context itself",
+          "tSeconds": 612,
+          "link": "https://www.youtube.com/watch?v=n9xKblqyQ28&t=612"
+        },
+        {
+          "headline": "Centralizing state and treating sandboxes as resources scales better than per‑agent VMs",
+          "detail": "YC's QM moved from giving each agent its own VM to offloading conversations and state into a central Postgres and exposing sandboxes as selectable resources. That change reduced administrative overhead, enabled cross‑session context reuse and evaluation trace accumulation, and let agents choose runtimes/providers dynamically — making organization‑wide deployments manageable while keeping agents customizable.",
+          "anchorQuote": "we just offload everything into Postgress.",
+          "tSeconds": 3162,
+          "link": "https://www.youtube.com/watch?v=n9xKblqyQ28&t=3162"
+        }
+      ]
+    }
+  ]
+}
