@@ -17,6 +17,22 @@ _Learned 2026-09-06/07 while building the Civitta GBSW "source slides" pack (155
 7. **Import into the destination Google Slides deck** (create it with Drive MCP `create_file`, mimeType presentation, in the right folder). In Chrome, per file: click a filmstrip thumbnail, press `End` (so the import appends at the end), click `File` -> `Import slides` (click the menu item by coordinates; `find`-ref clicks and the menu-search shortcut did not open it), click the `Upload` tab. The picker's file input sits in a same-origin `docs.google.com` iframe that `find`/`read_page` do not traverse, so: create a visible top-level `<input type=file id=aoMirror>` with `javascript_tool`, `find` it, `file_upload` into it, then in JS copy `mirror.files` into the iframe's input and dispatch `change`. Wait ~10 s, click `Select all`, then `Import slides` (both are top-document buttons; click via JS by text). "Keep original theme" is on by default. Each import took under 15 s; verify by pressing `End` and reading the last slide number in a screenshot. One file per `browser_batch`: the batch pre-validates the total upload size across all `file_upload` items.
 8. Afterwards delete the default blank slide 1 (`Home`, `Delete` in the filmstrip) and remove the mirror input. Import-slides uploads did not leave `.pptx` files behind in Drive (checked with a mimeType + modifiedTime search).
 
+## When Alex says a slide EXISTS (rule, 2026-09-08)
+
+If the brief marks a slide `[Exist; PB]` / `[EXIST, Laba]` / "exists in the X deck" and you cannot
+find it — or you find it but it is unusable (a baked image that cannot be translated or
+re-exampled, or it breaks a hard rule like naming GigaCloud) — **report that and ask.** Do not
+quietly design a replacement and carry on. Alex knows his own decks; a "can't find it" is
+information he can act on (he may know the other lesson it lives in), whereas a silent
+substitution reads as done and he only discovers it in the room.
+
+This is the deck-specific case of the standing rule that an environment limitation is never a
+factual conclusion. "Not editable in the deck I looked at" is a finding, not a licence.
+
+Practically: before substituting anything, sweep the other lessons for a build-up sequence of the
+same framework — these decks often assemble a diagram across several slides out of real shapes,
+and those slides ARE editable even when the single summary slide is a flat picture.
+
 ## Gotchas learned 2026-09-08 (building the lecture deck from the pack)
 
 - **`read_file_content` silently TRUNCATES a large presentation.** On the 129-slide pack it
