@@ -17,6 +17,44 @@ _Learned 2026-09-06/07 while building the Civitta GBSW "source slides" pack (155
 7. **Import into the destination Google Slides deck** (create it with Drive MCP `create_file`, mimeType presentation, in the right folder). In Chrome, per file: click a filmstrip thumbnail, press `End` (so the import appends at the end), click `File` -> `Import slides` (click the menu item by coordinates; `find`-ref clicks and the menu-search shortcut did not open it), click the `Upload` tab. The picker's file input sits in a same-origin `docs.google.com` iframe that `find`/`read_page` do not traverse, so: create a visible top-level `<input type=file id=aoMirror>` with `javascript_tool`, `find` it, `file_upload` into it, then in JS copy `mirror.files` into the iframe's input and dispatch `change`. Wait ~10 s, click `Select all`, then `Import slides` (both are top-document buttons; click via JS by text). "Keep original theme" is on by default. Each import took under 15 s; verify by pressing `End` and reading the last slide number in a screenshot. One file per `browser_batch`: the batch pre-validates the total upload size across all `file_upload` items.
 8. Afterwards delete the default blank slide 1 (`Home`, `Delete` in the filmstrip) and remove the mirror input. Import-slides uploads did not leave `.pptx` files behind in Drive (checked with a mimeType + modifiedTime search).
 
+## Gotchas learned 2026-09-08 (building the lecture deck from the pack)
+
+- **`read_file_content` silently TRUNCATES a large presentation.** On the 129-slide pack it
+  returned ~64 k chars and stopped mid-word, ~128 slides in — with no error. Never derive
+  slide numbering from it for a deck of this size. Export the `.pptx` and enumerate with
+  python-pptx instead; that also gives the exact 1:1 numbering the user sees in the Slides UI.
+- **Trimming without `drop_rel` leaves every removed slide in the package.** Removing
+  `sldId` entries alone hides the slides but their parts stay reachable through
+  `ppt/_rels/presentation.xml.rels`, so the file keeps its full size and `save()` emits
+  `Duplicate name:` zipfile warnings. Always pair the `sldIdLst` removal with
+  `prs.part.drop_rel(rId)` for each dropped slide (31 MB -> 12.5 MB on this deck).
+- **The slide-duplication recipe does not work on python-pptx 1.0.2**:
+  `_Relationships.add_relationship` no longer exists, and hand-building `_Relationship`
+  objects fails the `isinstance(self._target, Part)` assert on save. If a slide is needed
+  twice, rebuild the second copy natively from the first one's geometry (read positions
+  with `Emu(sh.left).inches`) — it is quicker than fighting the OPC layer, and it lets you
+  vary the copy (e.g. dim/highlight states) which is usually why you wanted the duplicate.
+- **Position lookups must disambiguate label vs backing rectangle.** These decks stack a
+  text shape a few hundredths of an inch over its coloured fill shape, so a tolerant
+  position match hits the rectangle first and writes text nobody sees. Filter for shapes
+  that already carry text.
+- **Reorder by splicing an explicit target list, never by index arithmetic** after
+  deletions and appends — off-by-one silently drops a slide (a section divider went
+  missing this way and only a full title-by-title readback caught it). Build
+  `target = before[:1] + [new] + before[2:32] + [new2]`, assert its length, then re-append.
+- **Drop `ppt/fonts/` before uploading to Google Slides.** Google has Montserrat and Caveat
+  natively, so the embedded font parts are dead weight (2.3 MB here). Remove the parts, the
+  `<p:embeddedFontLst>` in `presentation.xml`, their `.rels` entries and their
+  `[Content_Types]` overrides. With image downscaling this took 12.5 MB -> 2.1 MB.
+- **QA in Google Slides, not locally.** `soffice --headless --convert-to pdf` still produced
+  no output on 2026-09-08 (the hang documented in `document-rendering.md` persists), and
+  Montserrat/Caveat are not installed on this Mac anyway. Importing and screenshotting the
+  grid view is both faster and truer — it renders the real fonts.
+- **Re-importing a corrected build:** select a slide, `cmd+a`, `Delete` empties the deck to
+  0 slides (Google allows this), then import again — the URL and file stay the same. The
+  Import dialog's buttons shift position once an injected mirror `<input>` is removed, so
+  re-screenshot before clicking `Select all` / `Import slides`.
+
 ## Dead ends (do not retry)
 
 - `drive.google.com` navigation is refused by the extension's site allowlist ("Navigation to this domain is not allowed"), so the Drive web UI cannot be used for uploads; `docs.google.com` works (permission prompt on first standalone `computer` call).
