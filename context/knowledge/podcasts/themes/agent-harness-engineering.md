@@ -2,7 +2,7 @@
 
 _status: live theme — the discipline of wrapping an AI agent in enforced structure: human-only zones, PR gates, precise workflows, adapters, and local-first context_
 _slug: agent-harness-engineering_
-_updated: 2026-09-06 · 30 insights from 19 episodes · (split from agent-engineering-patterns, 2026-07-11)_
+_updated: 2026-09-08 · 34 insights from 21 episodes · (split from agent-engineering-patterns, 2026-07-11)_
 
 ## The throughline
 A harness is code wrapped around an agent to make it behave consistently for a specific use case — and every practitioner in this cluster converges on the same core moves. Reserve architecture and UX decisions for humans (Conductor's "slot-free zones," "do not touch if you are an AI" markers — corroborated independently by Tony Fadell on the hardware-product side); force agent output through a review chokepoint before it lands (Conductor's strict PR-first workflow; the Sentry bug-triage harness's investigate-only vs. edit-enabled modes); and be extremely specific — write down the exact workflow, data sources, and allowed tools rather than reaching for a general-purpose assistant. Concrete adapters (Sentry, Linear, GitHub, Vercel) plus a persistent artifact store make investigations reproducible, though this is a choice, not a prerequisite — Gusto's much lighter "memory is just a DB column" stack proves harnesses can be minimal too. Codex-as-local-project-environment extends the same instinct beyond bespoke harnesses: a general-purpose local workspace (files on your machine, computer-use access to real tools) that lets an agent work with richer context, reinforced by a local-first/Obsidian-style memory discipline for privacy and accuracy.
@@ -159,11 +159,33 @@ He advises authoring the first pass of a skill manually (skill.md) because human
 — Aakash Gupta · 2026-09-04 · guest: Tyler Folkman (Chief AI Officer, JobNimbus) · [▶ 29:44](https://www.youtube.com/watch?v=XsnSvFo4MHQ&t=1784) · `pi-XsnSvFo4MHQ-05`
 related: [Skill files are executable cognition; owning them preserves your power](#skill-files-are-executable-cognition-owning-them-preserves-your-power) (same human-authored-constraint discipline, here the "write it yourself first" argument for why that ownership produces better behavior in the first place)
 
+### Enterprise AI needs governance and contextualization, not just models
+Stripe built Kai because the hard problem was replicating company workflows and making AI do the right thing for every employee — not just providing model access. Kai injects personal and org-level context (org chart, projects, permissions) so responses are relevant and constrained, and it runs inside Stripe's security boundaries to reduce risk. That makes the difference between a neat demo and a trustworthy, company-wide tool.
+— How I AI · 2026-09-07 · guest: — · [▶ 3:33](https://www.youtube.com/watch?v=AbZODZ_4VaM&t=213) · `pi-AbZODZ_4VaM-01`
+related: [AI must be a governed co-pilot; human judgment still prevents hallucination](#ai-must-be-a-governed-copilot-human-judgment-still-prevents-hallucination) (same context-plus-governance-over-raw-model-access discipline, here Kai's org-chart/permissions injection instead of Freshworks' CPO-check review agent)
+
+### Projects become governance layers controlling models, tools, and permissions
+Stripe uses 'projects' as a configuration and governance unit: a project bundles the right skills, default models, tool policies, and human-in-the-loop rules for a given team or initiative. Projects let admins limit token spend or forbid expensive models, isolate sensitive tool access for HR, and share consistent settings across many users — reducing ad-hoc decisions and safety risks while keeping workflows low-friction for end users.
+— How I AI · 2026-09-07 · guest: — · [▶ 7:53](https://www.youtube.com/watch?v=AbZODZ_4VaM&t=473) · `pi-AbZODZ_4VaM-02`
+related: [Shipping agents shifts responsibility and requires deterministic guardrails](#shipping-agents-shifts-responsibility-and-requires-deterministic-guardrails) (same bundled-governance-unit instinct, here Stripe's per-team 'project' config instead of Rubrik/Glean's platform-level explainability and identity flows)
+
+### Agents amplify failure modes — infra hardening and agent identity are essential
+Because agents can automate and parallelize many actions, they tend to 'hammer' systems, invent unexpected workflows, or go rogue; Stripe experienced near-misses early on. To manage this, Kai uses cloud-hosted sandboxes, tool policies, load-shedding tied to an 'agentic identity', and human-in-the-loop gates for sensitive actions. These infrastructure and policy measures are crucial to prevent automation from multiplying operational risk.
+— How I AI · 2026-09-07 · guest: — · [▶ 19:24](https://www.youtube.com/watch?v=AbZODZ_4VaM&t=1164) · `pi-AbZODZ_4VaM-05`
+related: [Maintaining a popular open-source agent is much harder than building the prototype](#maintaining-a-popular-open-source-agent-is-much-harder-than-building-the-prototype) (Steinberger's sandboxing/allow-list hardening is the same agents-can-go-rogue-at-scale lesson from a viral open-source agent instead of an enterprise platform)
+
+### Harnesses can be learned and evolved — meta‑harnesses produce better agents over time
+Teams described systems that do CRUD on system prompts and even modify harness code: DSPY uses search/merge/genetic programming to optimize prompts, Darwin machines mutate harnesses in an archive and evaluate fitness, and meta‑harnesses can produce new harnesses. That means the harness is no longer static config but an evolvable object: you can hill‑climb harness behavior, run Dagger‑style online updates, and eventually bootstrap stronger agent families without manual redesign.
+— Y Combinator · 2026-09-07 · guest: Seth (Prime Agent / Prime Intellect), John Sadvalone (Open Jarvis / Stanford), Josh (YC, QM), Rean (YC, QM) · [▶ 14:14](https://www.youtube.com/watch?v=n9xKblqyQ28&t=854) · `pi-n9xKblqyQ28-02`
+related: theme → [Agents can autonomously improve themselves via closed-loop prompt engineering](agent-delegation-and-loops.md#agents-can-autonomously-improve-themselves-via-closed-loop-prompt-engineering) (Replit's nightly prompt-A/B-test loop is the same self-improving-harness principle at a single-product scale, here generalized into a meta-harness class)
+
 ## Related themes
 - [Agent engineering & production infra](agent-engineering-patterns.md) — parent theme; the broader verification/governance/cost discipline this harness-building cluster sits alongside
 - [Agent delegation, loops & software factories](agent-delegation-and-loops.md) — the sustained-execution patterns that run inside these harnesses
 
 ## Source episodes
+- [How I AI — Stripe built a company brain: Meet Kai (2026-09-07)](../episodes/2026/2026-09-07--howiai--stripe-built-a-company-brain-meet-kai.md)
+- [Y Combinator — Self-Improving Harnesses, Local Personal AI And YC's Agent For Work | YC Paper Club (2026-09-07)](../episodes/2026/2026-09-07--yc--self-improving-harnesses-local-ai-agent-for-work.md)
 - [Aakash Gupta — How to Build Effective Product Loops in Claude Code | Tyler Folkman | Chief AI Officer, JobNimbus (2026-09-04)](../episodes/2026/2026-09-04--aakash--how-to-build-effective-product-loops-in-claude-code.md)
 - [How I AI — 7 Grok Bot agents I use every day (2026-09-02)](../episodes/2026/2026-09-02--howiai--7-grok-bot-agents-i-use-every-day.md)
 - [SaaStr AI — Shipping Enterprise AI Agents with the CPOs of Rubrik, Glean, and Harvey (2026-09-02)](../episodes/2026/2026-09-02--saastr--shipping-enterprise-ai-agents-rubrik-glean-harvey.md)
