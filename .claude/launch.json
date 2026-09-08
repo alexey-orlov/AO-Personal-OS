@@ -7,12 +7,6 @@
       "runtimeArgs": ["-lc", "exec \"$HOME/Library/Application Support/clockify-panel/launch.sh\""],
       "port": 7878,
       "autoPort": true
-    },
-    {
-      "name": "payworks-console",
-      "runtimeExecutable": "bash",
-      "runtimeArgs": ["-lc", "OS_CONSOLE_PORT=4821 exec node /private/tmp/claude-502/-Users-olekorlov-Documents-GitHub-AO-Personal-OS/fb1bc804-dfcc-410b-a1bf-6af135c39233/scratchpad/payworks-os/os-console/server.js"],
-      "port": 4821
     }
   ]
 }
