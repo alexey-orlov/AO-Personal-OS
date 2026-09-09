@@ -117,3 +117,36 @@ and those slides ARE editable even when the single summary slide is a flat pictu
 ## Deliverable pattern
 
 Google Slides deck = placeholder slides (cover, index with source deck + slide numbers, mapping to the brief, Reforge-note summaries, caveats) generated with python-pptx (`make_placeholders.py`, grey background, "PLACEHOLDER" footer) + the untouched copied blocks. Offline copy of the trimmed decks + `selection.json` manifest on the Desktop.
+
+## Replacing a whole deck in place (keeping its URL)
+
+When a deck you built earlier needs wholesale replacement, don't create a second presentation —
+import the new file at the end and delete the old block, so the link Alex may already have shared
+keeps working. Google Slides version history makes this reversible.
+
+1. Click any thumbnail in the filmstrip, press **End** — import lands *after the selection*, so
+   this is what appends rather than inserting at the top.
+2. `File → Import slides → Upload`. Don't click *Browse* (native picker is invisible to you):
+   create a mirror `<input type=file>` in the **top** document, `file_upload` into its `ref`, then
+   move the file across with a `DataTransfer` into the `input[type=file]` inside the same-origin
+   `/picker/v2/home` iframe and dispatch `change`. Enumerate frames by `contentDocument` — the
+   picker frame is the one reporting a file input.
+3. Wait ~20 s for the thumbnail grid, then **Select all** (confirm it reads "N out of N"), keep
+   **Keep original theme** checked, and **Import slides**. Give it another ~30 s.
+4. Verify the count doubled (press End; the filmstrip tooltip shows "N total slides") and that the
+   last slide is the *new* one.
+5. Delete the old block: press **Home**, then `shift+Down` × (old_count − 1), scroll the filmstrip
+   to confirm the selection stops exactly at the old last slide, then **Delete**.
+
+Hidden slides survive the round trip: `show="0"` in the pptx arrives as Google's *Skip slide*
+(crossed-eye badge on the thumbnail).
+
+## Product cut-outs for recurring example markers
+
+`rembg` (`pip install rembg onnxruntime`) with the `isnet-general-use` session and alpha matting
+turns a Commons product photo into a clean transparent PNG in one call — good enough for a
+0.7–1.0 in corner marker. Crop to `getbbox()` afterwards. It works on isolated products (an air
+purifier on a table) and on a single well-lit door/panel; it produces mush on near-white subjects
+against near-white walls. Commons has real branded product photos for consumer hardware but almost
+nothing brandable-and-keyable for architecture-scale things (elevators) — check before promising
+"transparent background *and* visible branding". CC BY-SA images need a credit line on the deck.

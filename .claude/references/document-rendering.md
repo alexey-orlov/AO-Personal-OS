@@ -71,3 +71,27 @@ Deliver the editable file and let Alex export the PDF himself.
   placeholder may draw as an empty square (renderer limitation, verify in PowerPoint).
 - Guard rule unchanged: no bare `sleep` loops in Bash (the tool blocks foreground sleep);
   wrap long calls with `perl -e 'alarm N; exec @ARGV'`.
+
+## UPDATE 2026-09-09 — LibreOffice is gone; QuickLook + installed brand fonts is the real QA loop
+
+- **`soffice` is no longer installed on this Mac at all** (neither `/Applications/LibreOffice.app`
+  nor `/opt/homebrew/bin/soffice`; `pdftoppm` absent too). Don't spend attempts on it — go
+  straight to QuickLook.
+- **Per-slide QuickLook works and is fast (~2 s/slide).** QuickLook only ever renders slide 1, so
+  render slide *N* by saving a single-slide copy first: with python-pptx, drop every other
+  `sldId` from `prs.slides._sldIdLst` **and** `prs.part.drop_rel(rId)` for each, save, then
+  `perl -e 'alarm 60; exec @ARGV' qlmanage -t -s 1600 -o <dir> <one-slide.pptx>`. Unreachable
+  parts aren't written, so each temp file is tens of KB.
+- **Install the deck's brand fonts and the renders become font-accurate.** Google Fonts families
+  (Montserrat, Caveat, …) come as single variable TTFs from the `google/fonts` repo, e.g.
+  `https://github.com/google/fonts/raw/main/ofl/montserrat/Montserrat%5Bwght%5D.ttf` → drop in
+  `~/Library/Fonts/`. (`fonts.google.com/download?family=X` returns an HTML page, not a zip.)
+  Tell Alex if you leave fonts installed; removal is `rm ~/Library/Fonts/<file>`.
+- **Measure text fit with the same font file rather than eyeballing a render.** PIL
+  `ImageFont.truetype(path, pt)` + `set_variation_by_name('Bold'|'Medium')` + `getlength(s)/72`
+  gives inches directly (points == px at 72 dpi). This is the reliable way to prove a heading
+  fits on one row: usable width = box_W − lIns − rIns.
+- **QuickLook silently ignores some valid DrawingML** — `<a:highlight>` (text highlight bands) and
+  the fill of `prstGeom round2SameRect` both render as nothing, and a table stretches to fill an
+  oversized `graphicFrame` instead of sizing to its rows. Verify those three in Google Slides /
+  PowerPoint, not in the QuickLook PNG, and set table frame heights to the real content height.
