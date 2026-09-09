@@ -2,7 +2,7 @@
 
 _status: live theme — the discipline of wrapping an AI agent in enforced structure: human-only zones, PR gates, precise workflows, adapters, and local-first context_
 _slug: agent-harness-engineering_
-_updated: 2026-09-08 · 34 insights from 21 episodes · (split from agent-engineering-patterns, 2026-07-11)_
+_updated: 2026-09-09 · 34 insights from 22 episodes · (split from agent-engineering-patterns, 2026-07-11)_
 
 ## The throughline
 A harness is code wrapped around an agent to make it behave consistently for a specific use case — and every practitioner in this cluster converges on the same core moves. Reserve architecture and UX decisions for humans (Conductor's "slot-free zones," "do not touch if you are an AI" markers — corroborated independently by Tony Fadell on the hardware-product side); force agent output through a review chokepoint before it lands (Conductor's strict PR-first workflow; the Sentry bug-triage harness's investigate-only vs. edit-enabled modes); and be extremely specific — write down the exact workflow, data sources, and allowed tools rather than reaching for a general-purpose assistant. Concrete adapters (Sentry, Linear, GitHub, Vercel) plus a persistent artifact store make investigations reproducible, though this is a choice, not a prerequisite — Gusto's much lighter "memory is just a DB column" stack proves harnesses can be minimal too. Codex-as-local-project-environment extends the same instinct beyond bespoke harnesses: a general-purpose local workspace (files on your machine, computer-use access to real tools) that lets an agent work with richer context, reinforced by a local-first/Obsidian-style memory discipline for privacy and accuracy.
@@ -112,6 +112,7 @@ related: [Be extremely specific when designing and prompting a harness](#be-extr
 ### Every Grokbot ships with a small virtual machine for real actions
 Each Grokbot includes a built-in 'computer'—a VM that can run Chrome, a terminal, and hold files—so agents can interact with the web and execute tasks rather than only replying in chat. The host compares it to an 'OpenClaw light', emphasizing that this execution environment enables agents to do practical work (run commands, access connectors, open web pages) which raises the utility of agent assistants beyond just conversational UI. This matters because it narrows the gap between agent suggestions and concrete actions in a user's toolchain.
 — How I AI · 2026-08-18 · guest: — · [▶ 6:10](https://www.youtube.com/watch?v=8ONFvAtboZ4&t=370) · `pi-8ONFvAtboZ4-02`
+— also: Lenny's Podcast · 2026-09-08 · guest: Roman Ugarte (SpaceXAI) · link unavailable (no timestamp in source) · `pi-maSdsTLaMuU-02` (corroborated by the product's own builder: the cloud VM lets bots click pixels and log into apps like a human rather than only calling APIs, removing dependence on a user's local machine — the design goal is agents trusted to execute end-to-end, not stop at a 90%-helpful answer)
 related: [Codex turns chat into a project-based local development environment](#codex-turns-chat-into-a-project-based-local-development-environment) (same wrap-the-agent-in-an-executable-environment instinct, here a bundled VM rather than a local-project workspace)
 
 ### Grokbot prioritizes simplicity over hackability and deep control
@@ -184,6 +185,7 @@ related: theme → [Agents can autonomously improve themselves via closed-loop p
 - [Agent delegation, loops & software factories](agent-delegation-and-loops.md) — the sustained-execution patterns that run inside these harnesses
 
 ## Source episodes
+- [Lenny's Podcast — How we built Grok Bot in a month | Roman Ugarte (SpaceXAI) (2026-09-08)](../episodes/2026/2026-09-08--lenny--how-we-built-grok-bot-in-a-month.md)
 - [How I AI — Stripe built a company brain: Meet Kai (2026-09-07)](../episodes/2026/2026-09-07--howiai--stripe-built-a-company-brain-meet-kai.md)
 - [Y Combinator — Self-Improving Harnesses, Local Personal AI And YC's Agent For Work | YC Paper Club (2026-09-07)](../episodes/2026/2026-09-07--yc--self-improving-harnesses-local-ai-agent-for-work.md)
 - [Aakash Gupta — How to Build Effective Product Loops in Claude Code | Tyler Folkman | Chief AI Officer, JobNimbus (2026-09-04)](../episodes/2026/2026-09-04--aakash--how-to-build-effective-product-loops-in-claude-code.md)
