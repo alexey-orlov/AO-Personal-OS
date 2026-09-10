@@ -126,3 +126,28 @@ Correcting the 2026-09-09 note above: the binaries are **not** gone.
   `<a:highlight>` and `round2SameRect`.
 - **Contact sheets: build them from the QuickLook PNGs with PIL**, not `pdftoppm`. Downscale each
   render to a fixed thumb width, paste on a grid, label each cell with its slide number.
+
+### Same day, second run (10-deck / 192-slide inventory) — two corrections + a much faster loop
+
+- **soffice can HANG rather than exit 255.** Three attempts here (default profile, and a fresh
+  `-env:UserInstallation`) produced no PDF, no stderr, and **no exit at all** — still running after
+  8 min on a 48 KB file, and `perl -e 'alarm N; exec @ARGV'` did not kill it because the alarm dies
+  with the launcher script while `soffice.bin` runs on. So do **not** rely on a non-zero rc to
+  detect the failure: always `ls` the outdir, and clean up with `pkill -x soffice; pkill -f
+  soffice.bin`. Conclusion is unchanged — the soffice path is dead; don't spend attempts on it.
+- **PowerPoint and Keynote AppleScript export are also dead right now** (both produced nothing,
+  silently). Two notes if you try anyway: PowerPoint's `open` does **not** return a document
+  reference on this version — `open inPath` then `set d to active presentation` — and Alex normally
+  has ~9 of his own decks open, so never `close` anything you didn't open.
+- **Build the single-slide copy at the zip level, not with python-pptx — ~50× faster.** Read the
+  source zip once; write a new one keeping only the target `<p:sldId .../>` inside
+  `<p:sldIdLst>` in `ppt/presentation.xml`, and copy **every other entry verbatim** with
+  `ZIP_STORED` (no re-compress, no rels bookkeeping, no `drop_rel`). ~0.04 s per temp file even for
+  a 19 MB deck. **Whole run: 192 slides across 10 decks in ~71 s (~0.37 s/slide including the temp
+  build)** — the "~2 s/slide" figure above is pessimistic. Reusable script:
+  `oneslide.py` + `render.py` pattern (build → `qlmanage` → move PNG → delete temp immediately).
+- **Delete `docProps/thumbnail.*` from the temp zip.** Office embeds a cover thumbnail, and without
+  dropping it QuickLook can serve that cached cover instead of rendering your slide — a silent
+  wrong-image failure. Verify once per deck that slide 1 and slide N render *differently*.
+- Temp files are full deck size with this trick (all media kept), so budget disk and delete as you
+  go — 192 slides never held more than one temp file at a time.
