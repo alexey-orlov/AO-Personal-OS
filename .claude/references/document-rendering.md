@@ -104,9 +104,14 @@ Correcting the 2026-09-09 note above: the binaries are **not** gone.
   **both installed and answer `--version` instantly.** So "LibreOffice is gone" was wrong — or has
   since been undone. Don't repeat the "binary is absent" claim without checking `which`.
 - **But conversion still produces nothing**, exactly as on 2026-09-07. Two guarded attempts on a
-  94 MB `.pptx`: with a custom `-env:UserInstallation=file://…` profile → **rc=255**; with the
-  plain default profile → **rc=0** — and in both cases **no PDF in `--outdir` and an empty
-  stderr/stdout log**. A zero exit code here does NOT mean success; always `ls` the outdir.
+  94 MB `.pptx` — one with a custom `-env:UserInstallation=file://…` profile, one with the plain
+  default profile — **both exited rc=255 with no PDF in `--outdir` and a completely empty
+  stdout/stderr log.** The failure is silent but at least it is a non-zero exit, so a wrapper can
+  detect it; still `ls` the outdir rather than trusting rc alone.
+- **Read a backgrounded run's output only after the task reports completion.** Mid-run the output
+  file is empty, and an empty `cat` sitting above unrelated output in the same command block reads
+  as if it were the task's result — that is how the first draft of this note recorded a bogus
+  "rc=0" for the second attempt. Wait for the completion notification, then re-read the file.
 - **Consequence: any recipe that starts "soffice → PDF → `pdftoppm -r N`" is dead**, including
   contact-sheet/thumbnail workflows. `pdftoppm` itself is fine — there is just never a PDF to feed
   it.
