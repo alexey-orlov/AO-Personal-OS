@@ -1,7 +1,7 @@
 # Oracle engagements — pipeline status
 
 _Source: Miro board **"INT Oracle Program"**, **June** view (marked **Confidential**). Screenshot shared by Alex 2026-07-13; this is the program manager's live pipeline tracker. Sibling boards exist on the same Miro (tabs: Henkel Program, REWE Stakeholders, RX PoC, Oracle AIDP, Schwarz Program, Montblanc) — not captured here._
-_updated: 2026-08-18_
+_updated: 2026-09-10_
 
 The single structured source of truth for **who is in the Oracle/NVIDIA accelerator-pack pipeline, at what commercial stage, and worth how much**. Complements the narrative in [oracle.md](oracle.md) (strategy/decisions/people) and the org map in [oracle-team.md](oracle-team.md). Twelve opportunities across four status bands.
 
