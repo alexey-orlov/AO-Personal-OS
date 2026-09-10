@@ -1,7 +1,7 @@
 # SoftServe — R&D advisory & product lead (part-time)
 
 _status: engaged part-time (~50–80 h/mo from Ukraine): product lead for the R&D Delivery Unit + agentic-AI SME; carrying Q3 OKRs (3 Oracle packages ready by 31 Aug · 3 contracts / $300k booked by 30 Sep · >$1M qualified pipeline attributable to packages); October relocation terms (location, cost, base-vs-quarterly-bonus split) to be settled in a dedicated session; full-time possible after the US move_
-_updated: 2026-09-07_
+_updated: 2026-09-10_
 _source files: SoftServe OneDrive `~/Library/CloudStorage/OneDrive-SoftServe,Inc` (synced on this Mac; also via ms365 MCP) → [registry](../../_meta/external-sources.md)_
 
 ## Snapshot

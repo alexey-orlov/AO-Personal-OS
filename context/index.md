@@ -4,7 +4,7 @@ One-screen map of what Alex is working on right now. Maintained by the `context-
 
 **For agents:** read this file first for any task touching Alex's work; open the relevant `areas/<area>/README.md` before answering area questions. Update only via `context-update` — don't hand-edit.
 
-## Now (2026-09-07)
+## Now (2026-09-10)
 
 - **Civitta GBSW lecture** (new area [civitta](areas/civitta/README.md)): the UNOPS x Civitta "Blueing the Black Sea" accelerator booked Alex for "Market Positioning & Value Proposition" — online lecture **Wed 2026-09-09 15:00 EEST**, then a homework brief and a peer-to-peer feedback session (17 or 23 Sep), USD 1,000; 6 pre-revenue Black Sea eco-innovation teams (5 TR, 1 ES). Source-slides pack (155 slides, Google Slides) built 2026-09-07 from the Challenger EN deck + PrivatBank/Laba UA lessons; next: translate/adapt, write the homework brief, confirm the peer date, chase the team one-pagers ([gbsw-2026](areas/civitta/gbsw-2026.md)).
 
