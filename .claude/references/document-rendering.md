@@ -95,3 +95,29 @@ Deliver the editable file and let Alex export the PDF himself.
   the fill of `prstGeom round2SameRect` both render as nothing, and a table stretches to fill an
   oversized `graphicFrame` instead of sizing to its rows. Verify those three in Google Slides /
   PowerPoint, not in the QuickLook PNG, and set table frame heights to the real content height.
+
+## UPDATE 2026-09-11 — soffice/pdftoppm are back on disk, but conversion is STILL broken
+
+Correcting the 2026-09-09 note above: the binaries are **not** gone.
+
+- `/opt/homebrew/bin/soffice` (26.2.4.2) and `/opt/homebrew/bin/pdftoppm` (poppler 26.06.0) are
+  **both installed and answer `--version` instantly.** So "LibreOffice is gone" was wrong — or has
+  since been undone. Don't repeat the "binary is absent" claim without checking `which`.
+- **But conversion still produces nothing**, exactly as on 2026-09-07. Two guarded attempts on a
+  94 MB `.pptx`: with a custom `-env:UserInstallation=file://…` profile → **rc=255**; with the
+  plain default profile → **rc=0** — and in both cases **no PDF in `--outdir` and an empty
+  stderr/stdout log**. A zero exit code here does NOT mean success; always `ls` the outdir.
+- **Consequence: any recipe that starts "soffice → PDF → `pdftoppm -r N`" is dead**, including
+  contact-sheet/thumbnail workflows. `pdftoppm` itself is fine — there is just never a PDF to feed
+  it.
+- **The per-slide QuickLook loop above remains the working path** and is fast enough for whole-deck
+  inventory work: 11 slides of a 94 MB deck rendered at `-s 1600` in well under a minute.
+  Caveat for big decks — a single-slide copy is only small when the *other* slides owned the media;
+  here each temp file still weighed ~73 MB because a shared media pool stayed reachable, so budget
+  disk (11 × 73 MB ≈ 800 MB) and delete the temp dir afterwards.
+- **QuickLook also drops `<a:blip>` SVG images** (`asvg:svgBlip` in the `a:extLst`) — an SVG arrow
+  or icon renders as an empty white rectangle, so a diagram can look like it has missing connectors
+  when the PPTX is fine. Add this to the "verify in PowerPoint, not the PNG" list alongside
+  `<a:highlight>` and `round2SameRect`.
+- **Contact sheets: build them from the QuickLook PNGs with PIL**, not `pdftoppm`. Downscale each
+  render to a fixed thumb width, paste on a grid, label each cell with its slide number.
