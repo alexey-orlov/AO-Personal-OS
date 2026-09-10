@@ -140,3 +140,30 @@ partnership section (slides 30–34):
   (rule 3), and the key shows that empty instance next to the ghost chip; a highlight sample
   in the key leads and matches its peers' weight; wrapped card bodies hang from a shared top
   edge and the row height is sized to the longest body (+160000 EMU), never to the column.
+- **Opener · case · close — the three slide kinds that turned a map into a deck** (NATO map
+  v10–v11, 2026-09-07/08). *Criteria opener*: one card per selection criterion (outlined
+  badge, bold name, 9 pt gloss) with an "On the map:" slot showing the exact tag family the
+  criterion drives (pills / chips / an empty pill when it drives none), then a matrix of the
+  selected cases × criteria with three-state dots — filled = strong, outlined = partial, empty
+  = none; the empty ring must still be visible (B0B0B0 on white, not DCDCDC at 1.4:1) and the
+  three states need three text weights (ink / 595959 / 808080). The matrix row order IS a
+  ranking statement — it has to agree with the priority order the map's key states, or the
+  deck contradicts itself. *Case slide* (six siblings, identical geometry): title `num  name`,
+  L1 eyebrow + one-liner, THE PROBLEM / THE SOLUTION columns with a red / blue accent rule and
+  a headline verb ("APPROVE THE ROUTE, NOT DRAW IT"), tinted KPI pills, then a diagram band
+  `source panel → OCI container [app box ↔ engine box]` where a coloured bar on each box names
+  its owner (brand orange SoftServe · blue Oracle cloud · red Oracle data platform · green
+  NVIDIA) and a four-entry legend spells the code out; the story is anchored on the delivered
+  case it reuses (FreeTech Cn, Bosch, Riyadh Air) and the tech is named only with the agreed
+  terms (OCI / AI Lakehouse / AIDP / NeMo + AI-Q / NeMo + VSS / NeMo). *Next-steps close*:
+  numbered blocks of `question — what the answer changes` rows, sized to fill the band.
+  What the second QA round caught on these: any geometry derived from text (band top, box
+  height, accent-bar length) must be computed in a pre-pass over ALL sibling slides and the
+  maximum shared — per-slide layout made one of six siblings jump by 0.17 in; a legend entry
+  the slide does not use is drawn as an empty instance, not omitted and not left lit; a
+  bidirectional arrow carries a label (rule 7); a second highlight must differ in kind (2 pt
+  border + coloured number), a 2/255 tint shift is invisible at slide scale; chip labels are
+  data, so one typo ("QOpt", "AIQ") propagates to every tile — standardise product spellings
+  in the data file (cuOpt, AI-Q, AI Lakehouse) before building; "on Oracle OCI" expands to
+  "Oracle Oracle Cloud Infrastructure" — say "on OCI"; and a two-block close that ends 0.75 in
+  above the hairline reads unfinished — fill the band or add the missing block.
