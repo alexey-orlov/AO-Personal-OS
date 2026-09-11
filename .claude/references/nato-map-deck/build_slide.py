@@ -287,16 +287,22 @@ def tile(slide, x, y, w, c, highlight=None):
         ghost_pill(slide, rx - DEM_W, ty)
 
 
-def container(slide, x, y, w, h, name, desc=None, badge_text=None, right_label=None, tag=None, tag_style="demand"):
-    """tinted, hairline-framed panel with a header; returns the y where content may start"""
+TAG_PILL = {"demand": demand_pill, "ft": ft_pill, "pipe": pipe_pill}
+TAG_SLOT = {"demand": DEM_W, "ft": FT_W}                   # "pipe" pills size to their name, so their slot is passed in
+
+
+def container(slide, x, y, w, h, name, desc=None, badge_text=None, right_label=None, tag=None, tag_style="demand", slot_w=None):
+    """tinted, hairline-framed panel with a header; returns the y where content may start.
+    slot_w: ONE header-pill slot width for the whole slide, so the card names line up (rule 2) even when the pill family
+    sizes to its label; None keeps the fixed per-family width."""
     box(slide, x, y, w, h, fill=PANEL, line=HAIR)
     hy = y + PAD_TOP
     hx = x + PAD_X
     if tag is not None:                                    # the same pill this source puts on the map
-        slot = DEM_W if tag_style == "demand" else FT_W
+        slot = slot_w or TAG_SLOT.get(tag_style, FT_W)
         py = hy + (HEAD_NAME_H - TAG_H) // 2
         if tag:
-            (demand_pill if tag_style == "demand" else ft_pill)(slide, hx, py, tag)
+            TAG_PILL[tag_style](slide, hx, py, tag)
         else:                                              # "": this source drives no tag — an empty instance keeps the slot (rule 3)
             ghost_pill(slide, hx, py, slot)
         hx += slot + 70000
@@ -347,6 +353,8 @@ def key_row(slide, y, items, fit_label):
             ft_pill(slide, x, y, it.get("sample_text", "FT C1")); x += FT_W
         elif s == "oracle":
             t = it.get("sample_text", "Bosch"); oracle_pill(slide, x, y, t); x += ora_w(t)
+        elif s == "pipe":                                  # same width rule as the delivered pill — its unfilled twin
+            t = it.get("sample_text", "DHL"); pipe_pill(slide, x, y, t); x += ora_w(t)
         elif s == "demand":
             demand_pill(slide, x, y, it.get("sample_text", "NCIA")); x += DEM_W
         elif s in ("wave", "wave_red"):                    # a highlighted tile in miniature, not an empty swatch (rule 1)
