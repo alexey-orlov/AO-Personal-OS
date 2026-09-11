@@ -35,6 +35,7 @@ _updated: 2026-09-11_
 
 ## Activity
 
+- 2026-09-11 — `.claude/references/document-rendering.md` rewritten to current truth (chat, 2026-09-11) — it had stacked three contradictory dated updates; now one verified state table: **QuickLook (`qlmanage`) with the zip-level single-slide trick is THE deck/doc QA path** (~0.4 s/slide), **soffice `--convert-to` is dead on this Mac** (LibreOffice 26.2.4.2 answers `--version` but hangs or exits 255 with an empty outdir — verified 09-07, 09-09, 09-11 across fresh profiles), `pdftoppm` only for PDFs that already exist, PowerPoint/Keynote AppleScript export a last resort. Same day 88 Bash-prefix allow rules were added to `.claude/settings.json` to end the permission-prompt storm during deck builds.
 - 2026-06-12 — Second-brain restructure: knowledge tree v2 (goals-tasks.md, insights/, explore/ briefs, book-shortlist moved under knowledge/); Drop Zone goal/todo captures moved from this page's open loops into [goals-tasks.md](../../knowledge/goals-tasks.md) (g1–g2, t1–t5); root `inbox/` retired; per-category Telegram notifications added.
 - 2026-06-12 — Drop Zone sweep: 5 automation ideas + team-OS direction goal captured; 2 explore topics → explore queue; AI engineering eras screenshot → knowledge insights.
 - 2026-06-11 — podcast-streaming v3 documented in-repo (n8n cloud; rebuilt for resilience after six of seven YouTube feeds silently failed Jun 9–10, all seven Jun 11).
