@@ -1,7 +1,7 @@
 # SBG — Project Planning AI PoC (AIQ · Oracle × NVIDIA × SoftServe)
 
 _status: pre-contract — **the SoW package is essentially built (2026-09-10)**. The SOW's red Aconex-template sections are rewritten (§2.4 architecture · §3 team · §5.2 infrastructure, now a real PoC-phase BoM), and the WBS is fully migrated off the Sky workbook to **v0.9.2** with its own Readme, input-data checklist, risk register, timeline, per-person plan and BoM. **Only §5.1 delivery cost is still red** (EUR 143,068 + EUR 27,872 optional OCI setup). Scope is UC 1 only, run on **one anchor project**. Three things still open: the anchor project's identity vs. the Aug-24 "KFSC unreachable" finding · provisional-sum segregation (still absent from the SOW) · SBG data access. The Sep-1 kickoff target has passed._
-_updated: 2026-09-10_
+_updated: 2026-09-11_
 _sources: SOW `UC #5.1 SGB A-IQ PoC Historical Package Performance Insights.docx` + WBS `SBG_AI-Q_PoC_WBS_Historical_Package_Performance_Insights_v0.9.2.xlsx` (OneDrive `Projects/Oracle/Customers/SBG/`, both read 2026-09-10) · [Aug-24 data-scoping workshop analysis](docs/2026-08-24_sbg-data-scoping-workshop-analysis.md) (Bohdan's — data inventory, risks, S1–S14/V1–V14) · for Aug-17 the [full diarized transcript](docs/2026-08-17_sbg-workshop-transcript-full.md) is source of truth (supersedes [1](docs/2026-08-17_sbg-workshop-transcript-1of2.md) · [2](docs/2026-08-17_sbg-workshop-transcript-2of2.md); the [debrief](docs/2026-08-17_sbg-poc-workshop-debrief.md) and Dmytro's [scope draft](docs/2026-08-20_sbg-poc-scope-draft-dundych.md) are interpretations) · [Dmytro 1:1 2026-08-20](calls/sbg-poc/2026-08-20_one-on-one_dmytro-sbg-poc-shaping.md)_
 
 ## Snapshot
@@ -88,6 +88,7 @@ _sources: SOW `UC #5.1 SGB A-IQ PoC Historical Package Performance Insights.docx
 - **Force a recalculation of the WBS totals** (300.02/307.66 vs the sheet's 292.19/299.65) before any figure reaches the commercial track.
 - **Decide on the success criteria** — the SOW kept the original three and deferred thresholds to Discovery. If forecast stability (the client's own metric) is not going in, that should be a stated choice, not an omission.
 - Locate or reconstruct the numbered SOW review the WBS cites (findings F4, F7) — it exists outside the repo.
+- **Fold the outcome of the Mon 2026-09-07 "SS: SBG review" meeting** — it shows in the calendar (13:00–14:00 EEST) with no call note and no drop, so the wiki has a gap ⚠; whatever it settled about the SoW, kickoff or data access is unrecorded.
 
 **Theirs**
 - **Volodymyr** — commercial sign-off + the Oracle-side paperwork chain; **Taras/delivery team** — validate the FOR REVIEW estimates and team composition; **Pawel** — reconcile the OCI consumption estimate with the BoM now in the WBS.
@@ -105,6 +106,7 @@ _sources: SOW `UC #5.1 SGB A-IQ PoC Historical Package Performance Insights.docx
 
 ## Activity
 
+- 2026-09-11 — Status check (chat) — no artifact newer than the 2026-09-10 SoW + WBS v0.9.2 in `Projects/Oracle/Customers/SBG/`; whether the SoW went to Oracle, whether kickoff happened and whether data access is resolved all remain unknown, and the Sep-7 "SS: SBG review" meeting left no note ⚠. SBG UC 1 was placed on the NATO use-case map as the funded-pipeline proof on tile **4.1** (the normalisation + evidence layer; readiness forecasts stay Lakehouse-native) → [oracle-defense.md](oracle-defense.md).
 - 2026-09-10 — SOW + WBS v0.9.2 read and folded (chat) — red §2.4/§3/§5.2 rewritten, one-anchor-project narrowing, option 2 written out of scope, normalization confirmed as 1a, §5.3 prerequisites added, Discovery compressed to 2 wks, reserve removed, Phase 7 costed, BoM added; residual Aconex text, GPU-sizing contradiction, effort-total mismatch and missing provisional-sum treatment logged.
 - 2026-08-29 — [Aug-24 workshop analysis folded](docs/2026-08-24_sbg-data-scoping-workshop-analysis.md) — premise flip to completed packages, time-series confirmed, client-articulated normalization + forecast-volatility metric, access = critical path, S1–S14/V1–V14.
 - 2026-08-29 — Teams thread + SoW/WBS state folded (chat) — UC1-only decision, normalization-as-foundation, 4-track split, Dmytro's draft delivered, WBS started in the Sky-workbook copy.
