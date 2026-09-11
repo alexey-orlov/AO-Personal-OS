@@ -277,9 +277,11 @@ def tile(slide, x, y, w, c, highlight=None):
         rx -= DEM_W; demand_pill(slide, rx, ty, c["demand"]); rx -= PILL_GAP
     if c.get("ft"):
         rx -= FT_W; ft_pill(slide, rx, ty, "FT " + c["ft"]); rx -= PILL_GAP
+    if c.get("pipe"):                                      # funded pipeline sits next to the delivery it is not yet one of
+        rx -= ora_w(c["pipe"]); pipe_pill(slide, rx, ty, c["pipe"]); rx -= PILL_GAP
     if c.get("oracle"):
         rx -= ora_w(c["oracle"]); oracle_pill(slide, rx, ty, c["oracle"]); rx -= PILL_GAP
-    if c.get("demand") or c.get("ft") or c.get("oracle"):  # min 60000 EMU of air between the chip group and the pills
+    if c.get("demand") or c.get("ft") or c.get("pipe") or c.get("oracle"):  # min 60000 EMU of air between chips and pills
         FIT.append(("tag row " + c["num"], 60000, (rx + PILL_GAP) - right))
     else:                                                  # no tag at all: an empty pill in the slot, not a bare gap (rule 3)
         ghost_pill(slide, rx - DEM_W, ty)
