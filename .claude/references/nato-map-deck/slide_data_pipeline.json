@@ -205,7 +205,7 @@
           "nvidia": "vss",
           "aidp": false,
           "lakehouse": false,
-          "pipe": "Channel 4 · Belron"
+          "pipe": "Channel 4"
         },
         {
           "num": "3.2",
@@ -766,7 +766,7 @@
         "tag": "DHL",
         "items": [
           {
-            "signal": "Takes one real-world signal — a news item, filing or disclosure — and writes what it means for every affected account: opportunities and risks mapped to the company's service lines, ripple effects across suppliers, customers and competitors, a magnitude and confidence score, and a citation for each claim; a reviewer approves or rejects each item.",
+            "signal": "Takes one real-world signal — a news item, filing or disclosure — and writes what it means for each affected account: opportunities and risks by service line, ripple effects on suppliers, customers and competitors, a magnitude and confidence score, a citation per claim; a reviewer approves or rejects each item.",
             "refs": "2.1"
           },
           {
@@ -781,7 +781,7 @@
         "tag": "SBG",
         "items": [
           {
-            "signal": "Rebuilds a consistent package-level record from schedule exports, monthly cost reports and scanned subcontracts, then shows where work packages deviated from plan, how stable their forecasts were and which drivers the evidence supports — every finding cited to its source and validated by the client's own experts; decisions stay with the project director.",
+            "signal": "Rebuilds a consistent package-level record from schedule exports, monthly cost reports and scanned subcontracts, then shows deviations from plan, forecast stability and the drivers the evidence supports — every finding cited to its source and validated by the client's own experts; the project director decides.",
             "refs": "4.1"
           },
           {
@@ -808,7 +808,7 @@
       "c4": {
         "name": "Channel 4 · Belron — Video review on the VSS pack",
         "desc": "two contracted video cases on the NVIDIA Video Search and Summarization pack",
-        "tag": "Channel 4 · Belron",
+        "tag": "Channel 4",
         "items": [
           {
             "signal": "Channel 4 checks broadcast video against compliance rules on the pack's review UI; Belron applies the same pack to a vehicle-glass repair-or-replace vision case — reviewers decide in both.",
