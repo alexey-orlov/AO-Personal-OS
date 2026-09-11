@@ -11,7 +11,16 @@ _source files: SoftServe OneDrive `Projects/Oracle/Packs/` → [registry](../../
 - **Folder reorg (~2026-09-10):** `Projects/Oracle/` now separates `Customers/` (Belron · Bosch · DHL · KPN · NATO · NHS · RiyahdAir · SBG) from `Packs/` (`AI Lakehouse quick start` · `Account Insights` · `Large Document Extraction and review package` · `Workforce optimization package` · `Use case maps`) plus the tracker. Packs became a first-class stream instead of an artifact inside a customer folder.
 - **Standard artifact set per pack** (from the tracker): Sales deck · Sales one-pager · Feature list · Demo video · Package for Oracle Marketplace · **Oracle Marketplace listing**. The Marketplace end-state is new to the wiki — the packs are being aimed at a distribution channel, not only at Oracle reps.
 - **Pricing converges on the S/M/L "t-shirt" model** Gero co-designed [2026-06-26](oracle.md) (PoV → Roll-out → Scaling) — now carrying real numbers for the first time on the document pack.
-- **Naming is unsettled on two of three packs**: folder, filename and tracker row disagree. Externally-facing artifacts are the ones to trust.
+- **Naming is unsettled on two of three packs**: folder, filename and tracker row disagree. Externally-facing artifacts are the ones to trust. **Pack 3 settled 2026-09-11 as "Account Insights"** (Alex's call) — the one-pager PDF still carries the old name.
+
+## The internal section deck — `Oracle AI Packages - section slides.pptx` (2026-09-11)
+
+_10 slides, SoftServe OneDrive `Monthly AI products overviews/AI Solutions review - Sep/`, beside `WF_draft.pptx` and the parent deck **"SoftServe AI Repeatable IP-Based Customer Stories"**. Audience: SoftServe delivery + sales. Built on the parent deck's own master (master3 / `Title-1Column`) so the slides paste straight in — the parent already carries earlier drafts of them as its slides 33–41._
+
+- **Shape:** section opener → **Oracle dedicated practice** (four platform cards) → **Oracle packs roadmap** (the partner-variant [AI use-case map](oracle.md), imported and re-chromed) → **three packs we cover today** → **two slides per pack**. Slide A = goal · use case · solution layers · proof · verticals · service packages · artifacts. Slide B = architecture · capabilities · product screenshot · **commercial proof** (customer logo + one line) · contacts.
+- **The proof blocks are deliberately not uniform** — "PROOF OF VALUE · BOSCH" / "PROOF OF VALUE · RIYADH AIR" / "FIRST ENGAGEMENT · DHL". Alex chose honest variation over one forced label; "PROVEN WITH" was dropped because both source one-pagers caveat their figures as *illustrative, not contractual* and Riyadh Air's −20% is an explicit PoC target.
+- **Account Insights has no S/M/L, so its packages block is reframed** as **"WHAT THE POC BUYS"** — PoC · 12 weeks · €192.5K with IN / NOT IN SCOPE lists — rather than inventing indicative tiers. It states on-slide that *"the scope below is the pack's PoC, not the DHL SoW deliverable"*, which is the first concrete handling of the DHL divergence below; the divergence itself is still unresolved.
+- **⚠️ Internal-only by construction** (slide-design rule 13): it carries package prices, DHL's €192.5K contract value, and DHL's named accounts (Meta, HPE, Vertiv) inside the reviewer-UI screenshot. Slides 5, 7 and 9 must be stripped before any external cut.
 
 ## The tracker — `Packs/Oracle packages.xlsx`, "Packaging activities" (read 2026-09-10)
 
@@ -27,6 +36,7 @@ The tracker lags the files: the doc pack's deck **and** one-pager and the Signal
 
 - One-pager rebuilt 2026-09-10 as a `.docx` ("Workforce Optimization App by SoftServe"): a one-line app definition, then a large feature matrix — **Area / Category / Feature / Current status (● available · ○ not) / Standard customization scope**. Areas: allocation rules (availability · distance · dynamic · work-zone · forecast · commitment · other, plus optimization function & rule weights) · review-and-approval workflow (dispatcher UI, approval, model-decision explanations, feedback loop) · KPIs & analytics (productivity, capacity utilization, travel reduction, workload balance, baseline-vs-optimized) · integrations (Oracle Field Service as source/destination, demand forecasting, visits booking).
 - Its ●/○ statuses re-state the [2026-07-07 standard-vs-custom split](oracle.md): work-zone-based rules and forecast-based allocation are in; distance/travel-time, dynamic within-day reassignment, spare parts, crew assignments and the feedback loop are not.
+- **Pricing (authoritative — the Jul-13 sales one-pager, re-read 2026-09-11):** PoV·S **€90K** services + **€4K/month** infra · Roll-out·M **€300–500K** + **~€25K/month** · Scaling·L to be defined. The section deck's first draft carried **€100K** for the PoV; Alex confirmed that was a slip and it was corrected to €90K. WfO is the only pack whose one-pager prices infrastructure at both tiers.
 - **(my read) Format diverges from the other two packs' one-pagers** — a feature matrix rather than a narrative sales page. The series has not converged on one anatomy; worth a deliberate call before the Marketplace round.
 
 ## Pack 2 — Large Document Extraction and Validation (AIQ ← Riyadh Air)
@@ -77,7 +87,9 @@ _`Packs/Account Insights/AI Signal-Impact Engine - Accelerator One-pager.pdf`, 3
 **Mine**
 - **Provide the doc-pack one-pager HTML to Vlad** (tracker item, due 15.09.26) — with the deck and PDF already built, confirm what is still owed.
 - **Feature lists due 15.09.26** for Workforce Optimization and Large Document Extraction — the tracker's only dated commitments.
-- **Decide the AI Signal-Impact Engine / Account Insights name** and apply it to folder, files and tracker row before anything goes to Oracle.
+- **Rename the pack-3 one-pager PDF** — the name is settled as **Account Insights**, but `AI Signal-Impact Engine - Accelerator One-pager.pdf` still carries the old one, and its thumbnail appears on the section deck. Apply to folder, file and tracker row before anything goes to Oracle.
+- **Decide the section deck's running label** — all 10 slides still read "SoftServe Commitment & Execution Model", carried over from `WF_draft.pptx`. The parent deck labels its sections "AI Repeatable IP-Based Customer Stories" / "AI Solutions Playbook", so this reads as a leftover from a third deck. One-line fix across the section.
+- **Verify `RnDrequest@softserveinc.com`** — the contact address on every pack slide B appears in no source file; Bohdan Khomych's address on record is `bkhomy@softserveinc.com`. Confirm the alias exists before the deck circulates.
 - **Reconcile the packaging spreadsheet with the shifted DHL pack** — its DHL row and custom-work columns still describe briefings/discussion guides; there is no "Pkg — Account insights" sheet.
 - **Resolve the DHL divergence:** the signed UC #6 scope promises briefings + discussion guides; the pack promises signal→opportunity JSON. Either the DHL PoC is delivering the new shape (and the SoW needs an agreed change) or the pack is a generalization DHL never asked for. Unanswered from the artifacts.
 - Decide whether the one-pager series converges on one anatomy (WfO feature matrix vs. narrative sales page) before the Marketplace round.
