@@ -108,7 +108,8 @@ related: theme → [Physical abundance signals](physical-abundance-signals.md#at
 
 ## Related themes
 - [AI agents & applications](ai-agents-and-applications.md) — parent theme; agent deployment and integration use cases
-- [Model reviews & benchmarks](model-reviews-and-benchmarks.md) — the "last 10%" reliability wall recurs across code and video generation, and the new Astra hands-on review (`pi-AniiF8rOu9c-02,05`)
+- [Model reviews & benchmarks](model-reviews-and-benchmarks.md) — the "last 10%" reliability wall recurs across code and video generation
+- [GPT-6 Astra — launch-week hands-on reviews](gpt-6-astra-launch-reviews.md) — Astra's creative-pipeline and 3D-generation capability jump (`pi-AniiF8rOu9c-02,05`)
 
 ## Source episodes
 - [Peter H. Diamandis — GPT-6 Astra Saturates ARC-AGI-3, Tesla Cybercab Hits Austin, Anthropic Proves Fermat's Last Theorem (2026-09-05)](../episodes/2026/2026-09-05--diamandis--gpt-6-astra-saturates-arc-agi-3-tesla-cybercab-fermat.md)
