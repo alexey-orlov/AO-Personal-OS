@@ -1,7 +1,7 @@
 # Personal OS (this repo)
 
-_status: live and under active build-out — call pipeline, git-autosync, inbox-sweep, second-brain pipeline running; build backlog tracked in Apple Notes (_ToDo)_
-_updated: 2026-06-14_
+_status: live and under active build-out — call pipeline, git-autosync, inbox-sweep, second-brain pipeline running; build backlog tracked in Apple Notes (_ToDo). Document-rendering QA on this Mac moved to QuickLook 2026-09-11 (soffice `--convert-to` is dead)_
+_updated: 2026-09-11_
 
 ## Snapshot
 
@@ -27,6 +27,8 @@ _updated: 2026-06-14_
 
 ## Open loops
 
+- **Decide whether to blanket-allow `python3` in the repo's Claude Code permission allowlist.** 88 Bash-prefix rules were added to `.claude/settings.json` on 2026-09-11 to stop a permission-prompt storm during deck builds; `python3` was deliberately left prompting pending Alex's call, since it is the one prefix that can do anything. (chat, 2026-09-11)
+- **Root `CLAUDE.md` still contradicts the rendering reference.** Its "Location & remote" TL;DR reads "soffice works again (2026-07-23)", but `.claude/references/document-rendering.md` was rewritten 2026-09-11 to the verified opposite — `soffice --convert-to` produces nothing on this Mac (checked 09-07, 09-09, 09-11). Fix the TL;DR line so agents don't burn attempts on it. (chat, 2026-09-11)
 - **Calendar OAuth token expired** — notes since Jun 8 carry `invalid_grant` instead of calendar headers; re-run consent or publish the OAuth app to production (procedure in `automations/call-pipeline/CLAUDE.md`); optionally backfill Jun 8–9 headers.
 - Duplicate notes exist from re-processing the same recordings (softserve Jun 8–9 pairs, archive-resale Emily call ×3) — decide whether to prune.
 - (Cosmetic, optional) Reload the call-pipeline launchd agent to refresh the watcher's log banner to the new `OUT_DIR`. Not required — note routing is already correct since `process_one.sh` re-sources config every run; the watcher only uses `OUT_DIR` for a startup mkdir + log line.
