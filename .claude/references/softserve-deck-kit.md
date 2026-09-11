@@ -129,8 +129,10 @@ partnership section (slides 30–34):
   brand orange = the same source family, not yet delivered** (funded + scoped pipeline: DHL,
   SBG, NHS, Channel 4 / Belron) — hue = source, fill = maturity, exactly as the outlined demand
   pill sits next to solid proof; ink text (orange on white fails at 7 pt), 0.75 pt outline,
-  slot between the FreeTech and the Oracle pill, key sample `DHL` · "funded pipeline on
-  Oracle", and on a criteria matrix such a case is partial proof, never strong. A third hue
+  slot between the FreeTech and the Oracle pill, and on a criteria matrix such a case is partial
+  proof, never strong. **Call the state what the requester calls it** — Alex's term is **WinP**
+  (work in progress), not "pipeline", so the key entry reads `DHL` · "WinP — in progress on
+  Oracle" (2026-09-11; the review deck had shipped with "funded pipeline on Oracle"). A third hue
   was rejected (rule 10's two-meanings budget). Width lesson: a two-name pill ("Channel 4 ·
   Belron") overflows a 5-tile lane by 0.4 in — one name on the tile, both on the evidence card. Three mechanics worth keeping: copy the base slide's slide-number
   placeholder onto every added slide with a fresh `cNvPr.id` (`shapes._next_shape_id`) or
