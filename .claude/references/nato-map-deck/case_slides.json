@@ -1,0 +1,316 @@
+{
+  "case_slides": [
+    {
+      "num": "4.1",
+      "id": "5",
+      "l1": "4 · PLANNING & OPTIMISATION AI",
+      "name": "Fleet readiness analytics",
+      "scope_weeks": "6–8 wks",
+      "one_liner": "Readiness picture, failure forecasts and an exception watchdog on the AI Lakehouse.",
+      "problem": {
+        "intro": "Logistics and maintenance commands track fleet readiness across maintenance, supply and mission systems that were never joined up.",
+        "bullets": [
+          [
+            "Slow readiness picture:",
+            "the state of the fleet is assembled by hand, command by command"
+          ],
+          [
+            "Late exceptions:",
+            "maintenance due dates and spares shortfalls surface after the fact"
+          ],
+          [
+            "No failure forecast:",
+            "spares demand is planned from past usage, not predicted failures"
+          ]
+        ]
+      },
+      "solution": {
+        "headline": "SEE THE FLEET, CATCH THE EXCEPTIONS",
+        "kpis": [
+          "Readiness picture time ↓",
+          "Exceptions caught early ↑",
+          "Spares shortfalls ↓"
+        ],
+        "text": "SoftServe's operations control tower, rebuilt on the AI Lakehouse: fleet, maintenance and mission data land in a gold layer that forecasts failures and spares demand. The duty officer reads readiness on one screen, asks the mart in plain language, and a watchdog agent routes each exception with a proposed fix."
+      },
+      "diagram": {
+        "source": {
+          "name": "EAM, ERP & mission systems",
+          "sub": "fleet, maintenance and mission records"
+        },
+        "in": "synthetic or customer fleet extract",
+        "out": "readiness picture, forecasts, exceptions",
+        "oci_header": "ORACLE CLOUD INFRASTRUCTURE · AI LAKEHOUSE",
+        "app": {
+          "name": "Lakehouse Quick Start",
+          "sub": "readiness dashboard + exception review UI"
+        },
+        "engine": {
+          "name": "AI Lakehouse + AIDP",
+          "sub": "gold layer, NL-to-SQL, forecasts"
+        }
+      },
+      "proof": "Proof: FreeTech C4 Operations control tower, delivered — fleet readiness, missions and resources on one platform · Demand: USAF PANDA/CBM+ system of record; UK DAIC spare-parts and Typhoon maintenance cases; DIANA logistics"
+    },
+    {
+      "num": "4.2",
+      "id": "6",
+      "l1": "4 · PLANNING & OPTIMISATION AI",
+      "name": "Route & crew planning",
+      "scope_weeks": "6–8 wks",
+      "one_liner": "Convoy routing and crew scheduling with NVIDIA cuOpt on OCI: the dispatcher approves the plan.",
+      "problem": {
+        "intro": "Movement control and maintenance units plan convoys, resupply runs and crew rosters by hand, against time windows, vehicle capacities and avoid-zones.",
+        "bullets": [
+          [
+            "Slow replanning:",
+            "a changed route or a lost vehicle means rebuilding the plan by hand"
+          ],
+          [
+            "Risk left to memory:",
+            "avoid-zones and convoy spacing sit with the planner, not in the plan"
+          ],
+          [
+            "No baseline:",
+            "km, fuel and coverage go unmeasured, so no improvement can be shown"
+          ]
+        ]
+      },
+      "solution": {
+        "headline": "APPROVE THE ROUTE, NOT DRAW IT",
+        "kpis": [
+          "Planning time ↓",
+          "Km and fuel ↓",
+          "Coverage ↑"
+        ],
+        "text": "The Bosch dispatcher loop, transposed: cuOpt takes stops, time windows, vehicle capacities, avoid-zones and convoy spacing, and returns routes, crew schedules and allocations in minutes. The movement planner reviews the plan on a map, re-optimises, and writes the approved version back to the tasking system."
+      },
+      "diagram": {
+        "source": {
+          "name": "Demand file & open maps",
+          "sub": "stops, time windows, vehicle capacities"
+        },
+        "in": "demand, constraints, avoid-zones",
+        "out": "approved routes, schedules, allocations",
+        "oci_header": "ORACLE CLOUD INFRASTRUCTURE · DEDICATED AI CLUSTER",
+        "app": {
+          "name": "Vehicle Route Optimizer pack",
+          "sub": "constraint mapping + dispatcher approve UI"
+        },
+        "engine": {
+          "name": "NVIDIA cuOpt",
+          "sub": "GPU-accelerated solver"
+        }
+      },
+      "proof": "Proof: Bosch workforce scheduling on cuOpt, delivered on Oracle — 2 days → 30 minutes per plan; two shipping cuOpt packs · Demand: UK DAIC last-mile resupply; DIANA 2027 responsive logistics"
+    },
+    {
+      "num": "3.1",
+      "id": "1",
+      "l1": "3 · PERCEPTION AI",
+      "name": "Surveillance footage search",
+      "scope_weeks": "6 wks",
+      "one_liner": "Natural-language search over drone, FMV and CCTV archives with NVIDIA VSS on OCI.",
+      "problem": {
+        "intro": "ISR units and base security hold hours of drone, FMV and CCTV footage that can only be found by an analyst watching it.",
+        "bullets": [
+          [
+            "Review by scrubbing:",
+            "finding one event means watching the archive at speed, hour by hour"
+          ],
+          [
+            "Recall is unknown:",
+            "nobody can say what share of the events in an archive was found"
+          ],
+          [
+            "Footage cannot leave:",
+            "classification keeps real FMV in the estate, so tools go untested"
+          ]
+        ]
+      },
+      "solution": {
+        "headline": "ASK THE ARCHIVE, DO NOT WATCH IT",
+        "kpis": [
+          "Review minutes per hour ↓",
+          "Event recall ↑",
+          "Time to locate an event ↓"
+        ],
+        "text": "The VSS search Channel 4 and Belron run on media archives, pointed at drone, FMV and CCTV: the pack indexes the footage with its audio track and answers plain-language questions with timestamped event summaries. The analyst opens the clip behind each hit and annotates it; the annotations feed the next tuning round."
+      },
+      "diagram": {
+        "source": {
+          "name": "Drone / FMV / CCTV archive",
+          "sub": "stored collections, incl. audio track"
+        },
+        "in": "archive files, open drone datasets",
+        "out": "search hits, event summaries, clips",
+        "oci_header": "ORACLE CLOUD INFRASTRUCTURE · DEDICATED AI CLUSTER",
+        "app": {
+          "name": "VSS pack",
+          "sub": "ISR review UI + reviewer annotations"
+        },
+        "engine": {
+          "name": "NeMo + VSS",
+          "sub": "video search & summarisation blueprint"
+        }
+      },
+      "proof": "Proof: Channel 4 and Belron on the same VSS pack, contracted; FreeTech C6 EdgeInsight, delivered, as adjacent defence-vision proof · Demand: DIANA 2027 ISR sensing; UK DAIC AI at the Edge; Uranos KI (DE, €136M)"
+    },
+    {
+      "num": "1.2",
+      "id": "4",
+      "l1": "1 · KNOWLEDGE & DOCUMENT AI",
+      "name": "Contract & record extraction",
+      "scope_weeks": "6 wks",
+      "one_liner": "Tenders, contracts and movement records into validated fields in the system of record, on OCI.",
+      "problem": {
+        "intro": "Procurement agencies and MoD commercial teams retype tenders, contracts, maintenance records and movement documents into the systems that hold them.",
+        "bullets": [
+          [
+            "Days per document:",
+            "a contract takes days to read, key and check before it can be used"
+          ],
+          [
+            "Errors reach the record:",
+            "typed fields land in procurement and asset systems unchecked"
+          ],
+          [
+            "Volume, not headcount:",
+            "NCIA alone runs a €1.4bn tender pipeline on Oracle EBS and Fusion"
+          ]
+        ]
+      },
+      "solution": {
+        "headline": "REVIEW THE FIELDS, NOT THE FILE",
+        "kpis": [
+          "Minutes per document ↓",
+          "Field-level accuracy ↑",
+          "Exception rate ↓"
+        ],
+        "text": "The Riyadh Air extraction line, pointed at tenders, contracts and maintenance and movement records: the pack classifies each page, extracts the fields for that type with citations, and validates them deterministically. A reviewer clears the exceptions in a queue, and approved fields land in the system of record."
+      },
+      "diagram": {
+        "source": {
+          "name": "Documents + record system",
+          "sub": "tenders, contracts, maintenance records"
+        },
+        "in": "scanned and digital document sets",
+        "out": "validated fields, confidence, exceptions",
+        "oci_header": "ORACLE CLOUD INFRASTRUCTURE · DEDICATED AI CLUSTER",
+        "app": {
+          "name": "AI Document Extraction pack",
+          "sub": "validation rules + human review queue"
+        },
+        "engine": {
+          "name": "NeMo",
+          "sub": "Nemotron Parse / Nano Omni document models"
+        }
+      },
+      "proof": "Proof: Riyadh Air on the same pack, delivered on Oracle — 3–5 days → 15 minutes per contract, 90–95% dry-run accuracy · Demand: NCIA runs procurement on Oracle EBS and Fusion; US Task Force Lima enterprise bucket"
+    },
+    {
+      "num": "1.1",
+      "id": "3",
+      "l1": "1 · KNOWLEDGE & DOCUMENT AI",
+      "name": "Doctrine & manual search",
+      "scope_weeks": "4–6 wks",
+      "one_liner": "Cited, role-scoped answers from STANAGs, doctrine and S1000D manuals with NVIDIA NeMo on OCI.",
+      "problem": {
+        "intro": "Staff, trainers and maintainers look up answers in STANAGs, national doctrine and S1000D manuals that run to thousands of pages in several languages.",
+        "bullets": [
+          [
+            "Answers take a search:",
+            "the right clause sits in a corpus nobody reads end to end"
+          ],
+          [
+            "Not everyone sees all:",
+            "one corpus, many clearances — retrieval has to respect the role"
+          ],
+          [
+            "Multilingual by default:",
+            "the same corpus has to answer in the language the reader works in"
+          ]
+        ]
+      },
+      "solution": {
+        "headline": "ANSWER WITH THE CLAUSE, NOT A GUESS",
+        "kpis": [
+          "Answer accuracy ↑",
+          "Time to answer ↓",
+          "Manual lookups ↓"
+        ],
+        "text": "The Knowledge Chat Agent pack indexes STANAGs, national doctrine and sample S1000D manuals next to one customer corpus — the same job as Nesma's engineering archive. A staff officer asks in their own language, gets the answer with its clause cited, and sees only what their role is cleared to see."
+      },
+      "diagram": {
+        "source": {
+          "name": "Doctrine & manual corpus",
+          "sub": "STANAGs, doctrine, S1000D manuals"
+        },
+        "in": "public corpus + customer manuals",
+        "out": "cited answers, scoped to the role",
+        "oci_header": "ORACLE CLOUD INFRASTRUCTURE · DEDICATED AI CLUSTER",
+        "app": {
+          "name": "Knowledge Chat Agent pack",
+          "sub": "role-scoped access + citation UI"
+        },
+        "engine": {
+          "name": "NeMo",
+          "sub": "Nemotron models + NeMo Retriever"
+        }
+      },
+      "proof": "Proof: Nesma technical-corpus search, pending; the NHS and KPN permission-and-observability harness · Demand: NATO ACT's AI FELIX read board; UK DAIC document discovery and LLMs for Defence; GenAI.mil, 3M seats"
+    },
+    {
+      "num": "2.1",
+      "id": "2",
+      "l1": "2 · RESEARCH & INVESTIGATION AI",
+      "name": "Open-source intelligence briefing",
+      "scope_weeks": "6–8 wks",
+      "one_liner": "Cited INTSUM-style briefs and entity dossiers from open sources, with NVIDIA AI-Q on OCI.",
+      "problem": {
+        "intro": "Intelligence and policy staffs build the daily brief by hand, reading news, official releases and open ship and flight feeds one source at a time.",
+        "bullets": [
+          [
+            "The brief eats the day:",
+            "collection and formatting take the hours meant for analysis"
+          ],
+          [
+            "Claims lose their source:",
+            "by the time a line reaches the brief, its origin is no longer at hand"
+          ],
+          [
+            "No way to check quality:",
+            "there is no fixed question set to measure the brief against"
+          ]
+        ]
+      },
+      "solution": {
+        "headline": "EVERY LINE CARRIES ITS SOURCE",
+        "kpis": [
+          "Brief preparation time ↓",
+          "Citation precision ↑",
+          "Sources per brief ↑"
+        ],
+        "text": "SoftServe's Foresight analytics engine, rebuilt on NeMo + AI-Q: the agent fuses news, official releases, ship and flight feeds and one customer corpus into cited dossiers and a scheduled INTSUM-style brief. The analyst edits or approves each item against its sources; an eval harness scores a fixed question set."
+      },
+      "diagram": {
+        "source": {
+          "name": "Open sources + one corpus",
+          "sub": "news, releases, ship and flight feeds"
+        },
+        "in": "open feeds, customer document set",
+        "out": "cited dossiers, scheduled brief",
+        "oci_header": "ORACLE CLOUD INFRASTRUCTURE · DEDICATED AI CLUSTER",
+        "app": {
+          "name": "AI-Q Agentic starter kit",
+          "sub": "analyst approve/edit UI + eval harness"
+        },
+        "engine": {
+          "name": "NeMo + AI-Q",
+          "sub": "deep-research agent blueprint"
+        }
+      },
+      "proof": "Proof: FreeTech C2 Foresight analytics engine, delivered — multi-source fusion into analyst-ready reports; DHL Client Compass, same architecture, in delivery · Demand: NATO SITCEN OSINT alerting RFP (unverified)"
+    }
+  ]
+}
