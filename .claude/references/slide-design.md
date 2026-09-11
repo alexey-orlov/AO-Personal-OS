@@ -57,3 +57,18 @@ deck or one-pager work.
     POD counts, capacity commitments, prices of internal packages are for internal
     alignment decks; a customer/partner-facing slide describes capabilities and operating
     model qualitatively. Strip them before the deck leaves SoftServe.
+14. **Card-grid slides: header, gutter, legend and emphasis craft** (2026-09-11, design pass on
+    the Oracle use-case map, approved by Alex): (a) a panel header is two lines — the bold
+    L1 name, then the grey L2 list on its own line — never one mixed paragraph, which wraps
+    mid-name as soon as the list is long; (b) inter-panel gutters are one value across every
+    row, and the grid snaps to the master's own rules and furniture (left/right edges, the
+    bottom hairline with ≥ 0.09" clearance), not to round numbers; (c) the emphasised cards
+    (orange tiers) are never set in the slide's smallest type — same size as their peers,
+    bold/colour carry the emphasis; (d) a card that spans two columns to fit its label is a
+    rule-2 violation — normalise the width and break the label instead; (e) legends
+    right-anchor to the grid edge with one pitch and swatches shaped like the things they
+    stand for; (f) for a partner/exec audience, do not add a legend row for the default state
+    ("no offering yet" on ~90% of cards) — it advertises the gap (rule 11's spirit); the
+    unmarked state reads as neutral context on its own. Peer geometry (rule 2) still wins over
+    "half-empty" (rule 1) when a row-mate forces the height and no re-deal of the rows fits
+    the width — say so in the notes rather than shrinking the box.
