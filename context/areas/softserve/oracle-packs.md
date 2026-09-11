@@ -1,7 +1,7 @@
 # Oracle accelerator packs — productization
 
-_status: three packs in flight against Alex's Q3 OKR ("3 packages ready"). **Workforce Optimization** — deck + one-pager done, feature list due 15 Sep. **Large Document Extraction and Validation** — sales one-pager + 10-slide service-packages deck built 2026-09-10, with real S/M/L pricing. **AI Signal-Impact Engine / Account Insights** — one-pager built 2026-09-10, every other artifact still open. New end-state per pack: an **Oracle Marketplace listing**._
-_updated: 2026-09-10_
+_status: three packs in flight against Alex's Q3 OKR ("3 packages ready"). **Workforce Optimization** — deck + one-pager done, feature list due 15 Sep. **Large Document Extraction and Validation** — sales one-pager + 10-slide service-packages deck built 2026-09-10, with real S/M/L pricing. **Account Insights** — one-pager built 2026-09-10, every other artifact still open. All three now also have a **10-slide internal section deck** (2026-09-11) for SoftServe delivery + sales. End-state per pack: an **Oracle Marketplace listing**._
+_updated: 2026-09-11_
 _source files: SoftServe OneDrive `Projects/Oracle/Packs/` → [registry](../../_meta/external-sources.md)_
 
 ## Snapshot
