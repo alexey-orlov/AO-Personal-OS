@@ -91,3 +91,79 @@ partnership section (slides 30–34):
 - soffice substitutes Azurio → serif in renders (geometry true, glyphs wrong); the
   true-font path and the `timeout`-not-installed guard live in `document-rendering.md`.
 - A soffice convert immediately after `pkill -x soffice` can fail silently once — rerun.
+- **Headless (cloud) QA without the brand fonts** (2026-09-06, NATO map slide): the default
+  fallback (DejaVu Sans) is ~15% wider than Replica, so every 2-line tile looks like a 3-line
+  overflow and lane labels wrap that won't wrap on a Mac. Render a throwaway twin instead:
+  copy the pptx and in its XML replace `typeface="ReplicaLLTT-Regular"` → `Liberation Sans`
+  and `typeface="Roboto Mono"` → `Liberation Mono` (Helvetica-metric fonts that soffice has
+  by default) — wraps and fits then match the real deck closely; never deliver the twin.
+  Layout-only checks, per the geometry rule; glyph shapes are still wrong.
+- **Fit-check text widths in the builder, don't eyeball the render** (2026-09-06, NATO map
+  v4): measure every string that must stay on one line with PIL on the Liberation stand-ins
+  (`ImageFont.truetype(".../LiberationSans-Regular.ttf", pt*20).getlength(s)/20*12700`, +6%
+  safety for the brand fonts) against its box width and print a `need vs have` report — the
+  render only shows wraps for the stand-in font, the report catches the ones Replica will
+  add. Same trick sizes legend rows before they overflow the content column.
+- **Map/menu slides — the geometry that survived two feedback rounds** (NATO map v4):
+  tinted (F1F2F5) hairline-framed L1 containers with a two-line header (outlined oval badge +
+  13 pt bold name; 9 pt grey one-liner on line 2), white hairline L2 tiles justified inside,
+  container gap ≈ 3.7× the tile gap (220000 vs 60000 EMU), tile number in 808080 bold so the
+  17 names form the scan layer, a bottom tag row with fixed-width chips left (7.5 pt mono;
+  lit = 595959 fill/white text, unused = DCDCDC outline/808080 text) and pills right, and a
+  visual key in the footer (sample tag + 8 pt label per family, tile order) instead of a
+  text legend. The "recommended" view is the identical slide with orange-tint tiles + an
+  orange border; its ranking lives in the key row (a miniature "4.1" tile + bold label), so
+  slide 1 stays fully greyscale and the reveal lands. Builder: the session scratchpad's
+  `build_slide.py` + `slide_data.json` pattern (data-driven; views = neutral / highlight).
+- **Evidence slides + pill semantics that survived the fourth round** (NATO map v7, 2026-09-07):
+  one renderer for every "evidence behind the tags" slide — a container per source (a NATO
+  body, a delivered case) with the exact pill it puts on the map in a reserved slot (an empty
+  slot when the source drives no tag — rule 3), a 13 pt bold name, a 9 pt plain-language line,
+  then rows of `text · map case` with a right-aligned mono "MAP CASE(S)" column heading; the
+  row pitch is computed once for the whole slide, so a 7-row block and a 1-row block share a
+  baseline grid. Pill grammar: **outlined = demand, solid = delivered proof**, one hue per
+  proof source (brand orange for own deliveries on the partner's stack, a single off-palette
+  hue — violet 6A4C9C — when the requester wants a second proof source told apart); pill
+  width follows the label (`text_w() + 60000`) so a name like "Riyadh Air" fits without
+  shrinking the family. Three mechanics worth keeping: copy the base slide's slide-number
+  placeholder onto every added slide with a fresh `cNvPr.id` (`shapes._next_shape_id`) or
+  PowerPoint "repairs" the file; generate footnote cross-references ("…on slide 2") from the
+  view order, never hard-code them — the requester reordered the deck between rounds and the
+  old text went stale silently; and re-derive a chip rule from a sharp definition ("lit = the
+  case's analytical engine, not a results table") before a reviewer finds the two tiles that
+  contradict each other. What the Opus design-QA pass on the renders then caught (measure,
+  don't eyeball): white 7 pt text on brand orange F36949 is 3.0:1 — use ink on orange pills
+  (5.7:1) and keep white only on hues ≥ 6:1 (595959 lit chips 7.0:1, violet 6A4C9C 6.7:1);
+  an outlined pill at 1.25 pt out-weighs the filled pills next to it — outline at 0.75 pt;
+  808080 values on the F1F2F5 panel are 3.6:1 — use 595959 for anything that must be read;
+  a tile or source that carries no tag gets an empty pill instance in the slot, not a bare gap
+  (rule 3), and the key shows that empty instance next to the ghost chip; a highlight sample
+  in the key leads and matches its peers' weight; wrapped card bodies hang from a shared top
+  edge and the row height is sized to the longest body (+160000 EMU), never to the column.
+- **Opener · case · close — the three slide kinds that turned a map into a deck** (NATO map
+  v10–v11, 2026-09-07/08). *Criteria opener*: one card per selection criterion (outlined
+  badge, bold name, 9 pt gloss) with an "On the map:" slot showing the exact tag family the
+  criterion drives (pills / chips / an empty pill when it drives none), then a matrix of the
+  selected cases × criteria with three-state dots — filled = strong, outlined = partial, empty
+  = none; the empty ring must still be visible (B0B0B0 on white, not DCDCDC at 1.4:1) and the
+  three states need three text weights (ink / 595959 / 808080). The matrix row order IS a
+  ranking statement — it has to agree with the priority order the map's key states, or the
+  deck contradicts itself. *Case slide* (six siblings, identical geometry): title `num  name`,
+  L1 eyebrow + one-liner, THE PROBLEM / THE SOLUTION columns with a red / blue accent rule and
+  a headline verb ("APPROVE THE ROUTE, NOT DRAW IT"), tinted KPI pills, then a diagram band
+  `source panel → OCI container [app box ↔ engine box]` where a coloured bar on each box names
+  its owner (brand orange SoftServe · blue Oracle cloud · red Oracle data platform · green
+  NVIDIA) and a four-entry legend spells the code out; the story is anchored on the delivered
+  case it reuses (FreeTech Cn, Bosch, Riyadh Air) and the tech is named only with the agreed
+  terms (OCI / AI Lakehouse / AIDP / NeMo + AI-Q / NeMo + VSS / NeMo). *Next-steps close*:
+  numbered blocks of `question — what the answer changes` rows, sized to fill the band.
+  What the second QA round caught on these: any geometry derived from text (band top, box
+  height, accent-bar length) must be computed in a pre-pass over ALL sibling slides and the
+  maximum shared — per-slide layout made one of six siblings jump by 0.17 in; a legend entry
+  the slide does not use is drawn as an empty instance, not omitted and not left lit; a
+  bidirectional arrow carries a label (rule 7); a second highlight must differ in kind (2 pt
+  border + coloured number), a 2/255 tint shift is invisible at slide scale; chip labels are
+  data, so one typo ("QOpt", "AIQ") propagates to every tile — standardise product spellings
+  in the data file (cuOpt, AI-Q, AI Lakehouse) before building; "on Oracle OCI" expands to
+  "Oracle Oracle Cloud Infrastructure" — say "on OCI"; and a two-block close that ends 0.75 in
+  above the hairline reads unfinished — fill the band or add the missing block.

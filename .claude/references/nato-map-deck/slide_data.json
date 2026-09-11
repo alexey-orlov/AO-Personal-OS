@@ -1,0 +1,784 @@
+{
+  "out": "NATO AI use-case map.pptx",
+  "title": "NATO AI use-case map on Oracle distributed cloud",
+  "running": "Oracle Defense — NATO use-case map",
+  "note": "OCI + AI-Q / VSS / cuOpt = the NVIDIA blueprint or engine the case is built on; OCI + NeMo = other NVIDIA models and frameworks on OCI GPU; AIDP and AI Lakehouse where they are the case's data layer. Pills = the evidence behind a case: NATO / NCIA demand signals on slide {demand}, FreeTech deliveries on slide {ft}; orange = delivered by SoftServe on Oracle (Riyadh Air, Bosch).",
+  "views": [
+    {
+      "key": "criteria",
+      "kind": "criteria"
+    },
+    {
+      "key": "demand",
+      "kind": "demand"
+    },
+    {
+      "key": "ft",
+      "kind": "ft"
+    },
+    {
+      "key": "neutral",
+      "kind": "map"
+    },
+    {
+      "key": "first_wave",
+      "kind": "map"
+    },
+    {
+      "key": "case-4.1",
+      "kind": "case",
+      "num": "4.1"
+    },
+    {
+      "key": "case-4.2",
+      "kind": "case",
+      "num": "4.2"
+    },
+    {
+      "key": "case-3.1",
+      "kind": "case",
+      "num": "3.1"
+    },
+    {
+      "key": "case-1.2",
+      "kind": "case",
+      "num": "1.2"
+    },
+    {
+      "key": "case-1.1",
+      "kind": "case",
+      "num": "1.1"
+    },
+    {
+      "key": "case-2.1",
+      "kind": "case",
+      "num": "2.1"
+    },
+    {
+      "key": "next",
+      "kind": "next"
+    }
+  ],
+  "key": [
+    {
+      "sample": "lit",
+      "label": "stack in use"
+    },
+    {
+      "sample": "ghost",
+      "label": "not used, no tag"
+    },
+    {
+      "sample": "ft",
+      "label": "FreeTech proof"
+    },
+    {
+      "sample": "oracle",
+      "sample_text": "Bosch",
+      "label": "delivered on Oracle"
+    },
+    {
+      "sample": "demand",
+      "label": "NATO / NCIA demand"
+    }
+  ],
+  "key_first_wave": {
+    "sample": "wave",
+    "sample_text": "4.1",
+    "label": "first wave, in priority order: 4.1 · 3.1 · 1.2 · 1.1 · 2.1",
+    "bold": false
+  },
+  "key_added": {
+    "sample": "wave_red",
+    "sample_text": "4.2",
+    "label": "added: the delivered Oracle reference (Bosch), the solver step of 4.1",
+    "bold": false
+  },
+  "first_wave_extra": {
+    "4.2": "red"
+  },
+  "first_wave": [
+    "4.1",
+    "3.1",
+    "1.2",
+    "1.1",
+    "2.1"
+  ],
+  "nvidia_labels": {
+    "aiq": "OCI + AI-Q",
+    "vss": "OCI + VSS",
+    "qopt": "OCI + cuOpt",
+    "nemo": "OCI + NeMo",
+    "off": "OCI + NeMo"
+  },
+  "layout": [
+    [
+      "1"
+    ],
+    [
+      "2"
+    ],
+    [
+      "3"
+    ],
+    [
+      "4",
+      "5"
+    ]
+  ],
+  "lanes": [
+    {
+      "n": "1",
+      "name": "Knowledge & document AI",
+      "desc": "reads documents so people don't have to: answers from manuals, data pulled out of contracts, first drafts written",
+      "cases": [
+        {
+          "num": "1.1",
+          "id": "3",
+          "name": "Doctrine & manual search",
+          "demand": "NATO",
+          "ft": null,
+          "oracle": null,
+          "nvidia": "nemo",
+          "aidp": false,
+          "lakehouse": false
+        },
+        {
+          "num": "1.2",
+          "id": "4",
+          "name": "Contract & record extraction",
+          "demand": "NCIA",
+          "ft": null,
+          "oracle": "Riyadh Air",
+          "nvidia": "nemo",
+          "aidp": false,
+          "lakehouse": false
+        },
+        {
+          "num": "1.3",
+          "id": "17",
+          "name": "Personnel & entitlements casework",
+          "demand": "NCIA",
+          "ft": null,
+          "oracle": null,
+          "nvidia": "nemo",
+          "aidp": false,
+          "lakehouse": false
+        },
+        {
+          "num": "1.4",
+          "id": "18",
+          "name": "Exercise scenario drafting",
+          "demand": "NATO",
+          "ft": null,
+          "oracle": null,
+          "nvidia": "aiq",
+          "aidp": false,
+          "lakehouse": false
+        }
+      ]
+    },
+    {
+      "n": "2",
+      "name": "Research & investigation AI",
+      "desc": "gathers evidence from many sources and writes up what it found: intelligence briefs, alerts checked, incidents explained",
+      "cases": [
+        {
+          "num": "2.1",
+          "id": "2",
+          "name": "Open-source intelligence briefing",
+          "demand": null,
+          "ft": "C2",
+          "oracle": null,
+          "nvidia": "aiq",
+          "aidp": false,
+          "lakehouse": false
+        },
+        {
+          "num": "2.2",
+          "id": "11",
+          "name": "Cyber alert investigation",
+          "demand": "NCIA",
+          "ft": null,
+          "oracle": null,
+          "nvidia": "aiq",
+          "aidp": false,
+          "lakehouse": false
+        },
+        {
+          "num": "2.3",
+          "id": "15",
+          "name": "Network incident investigation",
+          "demand": "NCIA",
+          "ft": null,
+          "oracle": null,
+          "nvidia": "aiq",
+          "aidp": false,
+          "lakehouse": true
+        },
+        {
+          "num": "2.4",
+          "id": "16",
+          "name": "Information environment monitoring",
+          "demand": "NATO",
+          "ft": null,
+          "oracle": null,
+          "nvidia": "aiq",
+          "aidp": false,
+          "lakehouse": false
+        }
+      ]
+    },
+    {
+      "n": "3",
+      "name": "Perception AI",
+      "desc": "turns video, satellite images, speech and radio signals into things people can search, spot and act on",
+      "cases": [
+        {
+          "num": "3.1",
+          "id": "1",
+          "name": "Surveillance footage search",
+          "demand": null,
+          "ft": null,
+          "oracle": null,
+          "nvidia": "vss",
+          "aidp": false,
+          "lakehouse": false
+        },
+        {
+          "num": "3.2",
+          "id": "13",
+          "name": "Live video monitoring",
+          "demand": "NATO",
+          "ft": "C6",
+          "oracle": null,
+          "nvidia": "vss",
+          "aidp": false,
+          "lakehouse": false
+        },
+        {
+          "num": "3.3",
+          "id": "14",
+          "name": "Satellite change detection",
+          "demand": "NCIA",
+          "ft": null,
+          "oracle": null,
+          "nvidia": "nemo",
+          "aidp": false,
+          "lakehouse": false
+        },
+        {
+          "num": "3.4",
+          "id": "7",
+          "name": "Multilingual speech transcription",
+          "demand": null,
+          "ft": null,
+          "oracle": null,
+          "nvidia": "nemo",
+          "aidp": false,
+          "lakehouse": false
+        },
+        {
+          "num": "3.5",
+          "id": "8",
+          "name": "Radio signal clustering",
+          "demand": null,
+          "ft": "C3",
+          "oracle": null,
+          "nvidia": "off",
+          "aidp": false,
+          "lakehouse": false
+        }
+      ]
+    },
+    {
+      "n": "4",
+      "name": "Planning & optimisation AI",
+      "desc": "forecasts and plans from operational data: vehicle readiness, best routes and crews",
+      "cases": [
+        {
+          "num": "4.1",
+          "id": "5",
+          "name": "Fleet readiness analytics",
+          "demand": null,
+          "ft": "C4",
+          "oracle": null,
+          "nvidia": "off",
+          "aidp": true,
+          "lakehouse": true
+        },
+        {
+          "num": "4.2",
+          "id": "6",
+          "name": "Route & crew planning",
+          "demand": null,
+          "ft": null,
+          "oracle": "Bosch",
+          "nvidia": "qopt",
+          "aidp": false,
+          "lakehouse": false
+        }
+      ]
+    },
+    {
+      "n": "5",
+      "name": "Simulation & autonomy AI",
+      "desc": "trains and tests machines in a virtual world first: drone navigation, vehicle physics",
+      "cases": [
+        {
+          "num": "5.1",
+          "id": "9",
+          "name": "Autonomy model training",
+          "demand": null,
+          "ft": "C1",
+          "oracle": null,
+          "nvidia": "nemo",
+          "aidp": false,
+          "lakehouse": false
+        },
+        {
+          "num": "5.2",
+          "id": "10",
+          "name": "Physics surrogate modelling",
+          "demand": null,
+          "ft": "C5",
+          "oracle": null,
+          "nvidia": "nemo",
+          "aidp": false,
+          "lakehouse": false
+        }
+      ]
+    }
+  ],
+  "demand_slide": {
+    "title": "The NATO demand signals",
+    "cases_label": "MAP CASES",
+    "note": "Each block carries the tag its signals put on the map. Rows marked “all” apply across the whole map, so they drive no individual tag — DIANA's challenge areas are the clearest case. Sources: NATO, NCIA and Oracle public statements, September 2026; cases with no tag are backed by allied national programmes (US, UK, Germany, the Netherlands) instead.",
+    "columns": [
+      [
+        "ncia",
+        "act"
+      ],
+      [
+        "hq",
+        "aco",
+        "diana",
+        "stratcom"
+      ]
+    ],
+    "sources": {
+      "ncia": {
+        "name": "NCIA",
+        "desc": "NATO's IT agency — buys and runs the alliance's networks and business systems",
+        "items": [
+          {
+            "signal": "Runs NATO's networks and service desk 24/7",
+            "refs": "2.3"
+          },
+          {
+            "signal": "IT modernisation and protected business network",
+            "refs": "2.3"
+          },
+          {
+            "signal": "Three data centres moving to Oracle Cloud",
+            "refs": "all"
+          },
+          {
+            "signal": "Procurement and HR already run on Oracle",
+            "refs": "1.2 · 1.3"
+          },
+          {
+            "signal": "Replacing its cyber security centre",
+            "refs": "2.2"
+          },
+          {
+            "signal": "Alliance satellite surveillance programme",
+            "refs": "3.3"
+          },
+          {
+            "signal": "Space-data and geospatial tenders",
+            "refs": "3.3"
+          }
+        ],
+        "tag": "NCIA"
+      },
+      "act": {
+        "name": "Allied Command Transformation",
+        "desc": "NATO's modernisation command — runs training, exercises and technology projects",
+        "items": [
+          {
+            "signal": "AI adoption project across the alliance",
+            "refs": "1.1"
+          },
+          {
+            "signal": "AI-drafted exercise injects at its warfare centre",
+            "refs": "1.4"
+          }
+        ],
+        "tag": "NATO"
+      },
+      "hq": {
+        "name": "NATO Headquarters",
+        "desc": "the political level in Brussels — sets alliance strategy and policy",
+        "items": [
+          {
+            "signal": "2024 AI strategy: countering disinformation",
+            "refs": "2.4"
+          },
+          {
+            "signal": "Rapid Adoption Action Plan for new technology",
+            "refs": "all"
+          },
+          {
+            "signal": "Alliance assessment of the information environment",
+            "refs": "2.4"
+          }
+        ],
+        "tag": "NATO"
+      },
+      "aco": {
+        "name": "Allied Command Operations",
+        "desc": "NATO's operational command — runs the alliance's missions and patrols",
+        "items": [
+          {
+            "signal": "Baltic and Arctic Sentry infrastructure patrols",
+            "refs": "3.2"
+          }
+        ],
+        "tag": "NATO"
+      },
+      "diana": {
+        "name": "DIANA",
+        "desc": "NATO's innovation accelerator — publishes the problems it wants solved",
+        "items": [
+          {
+            "signal": "Published challenge areas for 2026 and 2027",
+            "refs": "all"
+          }
+        ],
+        "tag": null
+      },
+      "stratcom": {
+        "name": "StratCom COE",
+        "desc": "NATO-accredited research centre on hostile information campaigns",
+        "items": [
+          {
+            "signal": "AI lab and experimentation programme",
+            "refs": "2.4"
+          }
+        ],
+        "tag": "NATO"
+      }
+    }
+  },
+  "ft_slide": {
+    "title": "The FreeTech delivered cases",
+    "cases_label": "MAP CASES",
+    "note": "SoftServe's delivered defence work as listed on the FreeTech one-pager (six cases, SoftServe Confidential); each case carries the violet pill it puts on the map. Orange pills on the map are SoftServe deliveries on Oracle: Riyadh Air — contract extraction (1.2) · Bosch — workforce scheduling (4.2).",
+    "columns": [
+      [
+        "c1",
+        "c2",
+        "c3"
+      ],
+      [
+        "c4",
+        "c5",
+        "c6"
+      ]
+    ],
+    "sources": {
+      "c1": {
+        "name": "Autonomous last-mile air delivery",
+        "desc": "a delivery drone that flies itself when the link is lost",
+        "tag": "FT C1",
+        "items": [
+          {
+            "signal": "Fail-safe AI navigation under lost pilot link, GPS or signal: real-time monitoring and obstacle avoidance keep the aircraft flying until it finishes the delivery or diverts to a safe location on its own.",
+            "refs": "5.1"
+          }
+        ]
+      },
+      "c2": {
+        "name": "Foresight analytics engine",
+        "desc": "an analysis engine for an intelligence desk",
+        "tag": "FT C2",
+        "items": [
+          {
+            "signal": "Fuses multi-source data for faster threat detection and decision-making; an integrated platform automates routine analysis and turns fragmented data into actionable, customisable intelligence reports.",
+            "refs": "2.1"
+          }
+        ]
+      },
+      "c3": {
+        "name": "Radio cluster intelligence",
+        "desc": "makes sense of raw radio traffic for an operator",
+        "tag": "FT C3",
+        "items": [
+          {
+            "signal": "Automated RF signal clustering surfaces patterns and emerging activity in real time; clustering, pattern recognition and multi-layer visualisation turn raw signal data into actionable insight.",
+            "refs": "3.5"
+          }
+        ]
+      },
+      "c4": {
+        "name": "Operations control tower",
+        "desc": "the operations picture on one screen",
+        "tag": "FT C4",
+        "items": [
+          {
+            "signal": "Real-time tracking of fleet readiness, missions and resource allocation; one platform combines mission tracking, performance analytics and maintenance planning to drive data-based operational decisions.",
+            "refs": "4.1"
+          }
+        ]
+      },
+      "c5": {
+        "name": "UUV digital twin",
+        "desc": "a virtual underwater vehicle instead of physical tests",
+        "tag": "FT C5",
+        "items": [
+          {
+            "signal": "A digital twin for depths of 50–250 ft, built on a coupled CFD/PINN physics model and visualised in NVIDIA Omniverse; physics-informed simulation cut underwater-vehicle testing time and cost.",
+            "refs": "5.2"
+          }
+        ]
+      },
+      "c6": {
+        "name": "EdgeInsight visual intelligence",
+        "desc": "cameras that inspect and spot hazards on the device itself",
+        "tag": "FT C6",
+        "items": [
+          {
+            "signal": "NVIDIA-powered edge vision for real-time inspection and safety monitoring: a modular accelerator on Jetson/DeepStream with TAO, deployed and updated over the air at scale, even offline.",
+            "refs": "3.2"
+          }
+        ]
+      }
+    }
+  },
+  "next_slide": {
+    "title": "Next steps",
+    "note": "Sources: Karsten's 2026-08-28 email and the 2026-08-26 chat; open questions §11 of the working report.",
+    "blocks": [
+      {
+        "badge": "1",
+        "name": "Discovery with Oracle",
+        "desc": "the questions that turn the map's signals into confirmed demand — asked of Karsten's Oracle counterparts (the VP for NATO activities, the EMEA Public leader, Bram / Michael)",
+        "rows": [
+          {
+            "q": "What do we know about the NATO bodies Oracle works with?",
+            "a": "confirms or corrects the NCIA / NATO pills on the map"
+          },
+          {
+            "q": "What data already lives in Oracle systems?",
+            "a": "which cases start with data in place — NCIA's EBS / Fusion estate, the OCI migration"
+          },
+          {
+            "q": "Which use cases have they shared explicit demand for?",
+            "a": "re-ranks the first wave by Karsten's rule: compelling, greatest demand"
+          }
+        ]
+      },
+      {
+        "badge": "2",
+        "name": "Then",
+        "desc": "what follows the discovery",
+        "rows": [
+          {
+            "q": "Post the first wave in Karsten's thread — 2.1 holds the fifth slot unless discovery favours 3.2",
+            "a": "the deliverable owed since Sep 4"
+          },
+          {
+            "q": "Pre-align packs ↔ needs with Oksana and Denys; per-case reuse of FreeTech C1–C6",
+            "a": "IP, code vs know-how, the OCI edge answer for C6"
+          }
+        ]
+      }
+    ]
+  },
+  "criteria_slide": {
+    "title": "How the use cases were selected",
+    "criteria": [
+      {
+        "n": "1",
+        "name": "Proof we can show",
+        "desc": "a delivered SoftServe case behind it: FreeTech C1–C6, Riyadh Air or Bosch on Oracle, or a funded pipeline client",
+        "samples": [
+          "ft:FT C4",
+          "oracle:Bosch"
+        ],
+        "short": "PROOF"
+      },
+      {
+        "n": "2",
+        "name": "Runs on the Oracle + NVIDIA stack",
+        "desc": "built on OCI + NeMo (AI-Q, VSS or other NVIDIA models) or on AIDP / AI Lakehouse — not a generic cloud workload",
+        "samples": [
+          "chips"
+        ],
+        "short": "STACK"
+      },
+      {
+        "n": "3",
+        "name": "A NATO demand signal",
+        "desc": "a named sign that NCIA or another NATO body wants this — a programme, tender, strategy line or public statement (slide 2)",
+        "samples": [
+          "demand:NCIA",
+          "demand:NATO"
+        ],
+        "short": "NATO DEMAND"
+      },
+      {
+        "n": "4",
+        "name": "Low risk, tangible return",
+        "desc": "unclassified or synthetic data path, GA components, a baseline to measure against, 4–8 weeks to a visible result with a KPI readout",
+        "samples": [
+          "ghost",
+          "text:no tag · PoV scorecard C1–C9"
+        ],
+        "short": "RISK & RETURN"
+      }
+    ],
+    "rows": [
+      {
+        "num": "4.1",
+        "name": "Fleet readiness analytics",
+        "hl": "orange",
+        "cells": [
+          [
+            "strong",
+            "FreeTech C4 control tower"
+          ],
+          [
+            "strong",
+            "AI Lakehouse + AIDP"
+          ],
+          [
+            "partial",
+            "national: USAF PANDA, UK DAIC"
+          ],
+          [
+            "strong",
+            "synthetic fleet data, GA Lakehouse"
+          ]
+        ]
+      },
+      {
+        "num": "3.1",
+        "name": "Surveillance footage search",
+        "hl": "orange",
+        "cells": [
+          [
+            "partial",
+            "Channel 4 · Belron, contracted"
+          ],
+          [
+            "strong",
+            "OCI + NeMo + VSS"
+          ],
+          [
+            "partial",
+            "national: DIANA, UK DAIC, Uranos KI"
+          ],
+          [
+            "strong",
+            "open drone data, pack-exact, 6 wks"
+          ]
+        ]
+      },
+      {
+        "num": "1.2",
+        "name": "Contract & record extraction",
+        "hl": "orange",
+        "cells": [
+          [
+            "strong",
+            "Riyadh Air, delivered on Oracle"
+          ],
+          [
+            "strong",
+            "OCI + NeMo (Parse / Nano Omni)"
+          ],
+          [
+            "strong",
+            "NCIA procurement on EBS / Fusion"
+          ],
+          [
+            "strong",
+            "public tenders, GA pack, 6 wks"
+          ]
+        ]
+      },
+      {
+        "num": "1.1",
+        "name": "Doctrine & manual search",
+        "hl": "orange",
+        "cells": [
+          [
+            "partial",
+            "Nesma pending; NHS / KPN harness"
+          ],
+          [
+            "strong",
+            "OCI + NeMo (Retriever)"
+          ],
+          [
+            "strong",
+            "ACT AI FELIX, UK DAIC, GenAI.mil"
+          ],
+          [
+            "strong",
+            "public corpus, flagship pack, 4–6 wks"
+          ]
+        ]
+      },
+      {
+        "num": "2.1",
+        "name": "Open-source intelligence briefing",
+        "hl": "orange",
+        "cells": [
+          [
+            "strong",
+            "FreeTech C2; DHL in delivery"
+          ],
+          [
+            "strong",
+            "OCI + NeMo + AI-Q"
+          ],
+          [
+            "none",
+            "SITCEN RFP, unverified"
+          ],
+          [
+            "strong",
+            "open sources, AI-Q kit, 6–8 wks"
+          ]
+        ]
+      },
+      {
+        "num": "4.2",
+        "name": "Route & crew planning",
+        "hl": "red",
+        "cells": [
+          [
+            "strong",
+            "Bosch on cuOpt, delivered on Oracle"
+          ],
+          [
+            "strong",
+            "OCI + NVIDIA cuOpt packs"
+          ],
+          [
+            "partial",
+            "national: UK DAIC resupply, DIANA"
+          ],
+          [
+            "partial",
+            "GA packs, 6–8 wks; baseline to build"
+          ]
+        ]
+      }
+    ],
+    "note": "Ranked by criterion 3 — Karsten's rule, \"the compelling ones with the greatest demand\" — among the cases that pass 1, 2 and 4; 4.2 is added for its delivered Oracle reference (red on the map). Dot filled = strong, outlined = partial, empty = none; the full PoV scorecard (C1–C9) is in the working report."
+  }
+}
