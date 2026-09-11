@@ -34,12 +34,14 @@ HERE = pathlib.Path(__file__).resolve().parent             # lives in .claude/re
 BASE = pathlib.Path(os.environ.get("DECK_BASE", HERE.parent / "softserve-deck-base.pptx"))
 DATA_FILE = pathlib.Path(os.environ.get("DECK_DATA", HERE / "slide_data.json"))   # DECK_DATA=<variant>.json builds a variant deck
 DATA = json.loads(DATA_FILE.read_text(encoding="utf-8"))
-CASES_FILE = DATA_FILE.with_name(DATA.get("cases_file", "case_slides.json"))       # one entry per case slide; merged in below
-try:
-    DATA["case_slides"] = json.loads(CASES_FILE.read_text(encoding="utf-8"))["case_slides"]
-except Exception as e:                                     # missing/malformed → build the rest, loudly (never a silent skip)
-    DATA["case_slides"] = []
-    print("WARNING: no case slides —", CASES_FILE.name, "|", type(e).__name__, e)
+CASES_NAME = DATA.get("cases_file", "case_slides.json")    # one entry per case slide; merged in below
+CASES_FILE = DATA_FILE.with_name(CASES_NAME) if CASES_NAME else None   # "cases_file": null = this variant HAS no case slides
+DATA["case_slides"] = []
+if CASES_FILE is not None:                                 # …so only a named-but-unreadable file is a problem worth shouting about
+    try:
+        DATA["case_slides"] = json.loads(CASES_FILE.read_text(encoding="utf-8"))["case_slides"]
+    except Exception as e:                                 # missing/malformed → build the rest, loudly (never a silent skip)
+        print("WARNING: no case slides —", CASES_FILE.name, "|", type(e).__name__, e)
 OUT_DIR = pathlib.Path(os.environ.get("DECK_OUT_DIR", HERE / "out")); OUT_DIR.mkdir(parents=True, exist_ok=True)   # git-ignored
 OUT = OUT_DIR / DATA.get("out", "NATO AI use-case map.pptx")
 # metric stand-ins for the brand fonts (Replica ≈ Helvetica ≈ Liberation Sans / Arial; Roboto Mono ≈ Liberation Mono / Courier New)
@@ -223,6 +225,13 @@ def oracle_pill(slide, x, y, text):
     """SoftServe delivery on Oracle (Riyadh Air, Bosch) — solid brand orange, ink text (white on F36949 is 3.0:1 at 7 pt;
     ink is 5.7:1 — design QA 2026-09-07); width follows the name"""
     return pill(slide, x, y, ora_w(text), text, fill=ORANGE, line=None, color=INK, bold=True)
+
+
+def pipe_pill(slide, x, y, text):
+    """funded SoftServe pipeline on the Oracle stack, not yet delivered — hue = source family (the same brand orange as the
+    delivered pill), fill = maturity (outlined like the demand pill). Ink text: orange on white fails contrast at 7 pt
+    (F36949 on white is 2.9:1); width follows the name, like the delivered pill it is the unfilled twin of"""
+    return pill(slide, x, y, ora_w(text), text, fill=WHITE, line=ORANGE, color=INK, bold=True, line_w=9525)
 
 
 def demand_pill(slide, x, y, text="NCIA"):
