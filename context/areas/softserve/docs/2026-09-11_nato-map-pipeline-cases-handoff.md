@@ -5,6 +5,10 @@ local session because the inputs that matter now — the Sep 10–11 "Account In
 SBG / NHS files — live in the SoftServe OneDrive on Alex's Mac, unreachable from the cloud. Everything the local
 session needs that is NOT on the Mac is in this repo (branch `claude/nato-ai-use-cases-map-rmpxg0`)._
 
+## Outcome (2026-09-11)
+
+**Placements confirmed as §4's minimal options** — DHL / Account Insights → **2.1**, SBG UC 1 → **4.1**, NHS complaints review → **1.3**, plus **3.1 Channel 4 · Belron** for consistency (the matrix already counts them as partial proof). **No new tile and no regrouping:** 4.3 programme & contract performance analytics and 2.5 incident & lessons-learned analysis are both benched — ⚠ demand unverified in each case, and SBG is still pre-contract. The state became a **fourth pill family**: outlined orange = funded (MDF ✅) + scoped, not delivered — the rule shifted from §4's "in delivery on Oracle" once the local files showed the four cases are funded and scoped rather than in flight. Deliverable: `NATO AI usecase map - pipeline cases (review) 2026-09-11.pptx` + two slide previews → OneDrive `Projects/Oracle/Customers/NATO/`, built on builder **v11.1** (`slide_data_pipeline.json`). The record: report [§3.1](2026-09-03_nato-ai-use-case-map.md#31-the-map) (deck paragraph + the pill rule), [§9](2026-09-03_nato-ai-use-case-map.md#9-the-18-cases--detail-cards) cards for #1 / #2 / #5 / #17, [§10](2026-09-03_nato-ai-use-case-map.md#10-bench--kept-off-the-map-kept-for-the-brainstorm) bench, and [oracle-defense.md](../oracle-defense.md) (decisions · open loops · activity).
+
 ## 1. The ask (Alex, 2026-09-11, verbatim)
 
 > Now I have this slide [the neutral map, his working copy]. Think where SBG use case, DHL use case and NHS use cases
