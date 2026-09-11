@@ -37,7 +37,7 @@ Currently job-searching for product leadership roles (VP Product / CPO) at US co
 
 ## Location & remote
 - Local: `~/Documents/GitHub/AO-Personal-OS` (macOS, case-insensitive filesystem); remote: `github.com/<user>/AO-Personal-OS`.
-- **Rendering / visual QA of `.pptx`/`.docx` on this Mac (`KN7X2Y65NX`):** read `.claude/references/document-rendering.md` FIRST — the working soffice → pdftoppm QA path, the brand-font substitution trap + the true-font fix, the PowerPoint AppleScript alternative with its failure modes, and the no-`timeout`-installed guard. TL;DR: soffice works again (2026-07-23); trust geometry, not glyph widths, unless you install the brand fonts per that doc.
+- **Rendering / visual QA of `.pptx`/`.docx` on this Mac (`KN7X2Y65NX`):** read `.claude/references/document-rendering.md` FIRST — the QuickLook per-slide QA loop (zip-level single-slide trick), what QuickLook renders wrong, the brand-font install + text-fit proof, the PowerPoint AppleScript failure modes, and the no-`timeout`-installed guard. TL;DR: soffice is installed but its `--convert-to` has been dead since 2026-09-07 (don't spend attempts on it); render with QuickLook; trust geometry, not glyph widths, unless you install the brand fonts per that doc.
 
 ## Structure (where things go)
 - `.claude/skills/<name>/SKILL.md` — reusable agent skills with frontmatter (`name`, `description`, `disable-model-invocation`, `user-invocable`). Discoverable as slash commands (`/<name>`) in Claude Code AND inlined by automations as plain prompt text.
