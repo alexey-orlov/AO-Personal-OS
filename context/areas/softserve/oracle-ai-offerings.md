@@ -1,12 +1,27 @@
 # Oracle AI — offering topology (reference)
 
 _status: reference doc — Oracle's AI product catalog, the layer SoftServe's verticalized accelerator packs build on_
-_updated: 2026-09-07_
+_updated: 2026-09-11_
 _source: oracle.com product pages, fetched 2026-06-18; structure list provided by Alex; the Motion-B data layer added 2026-07-23 and the **Autonomous AI Lakehouse product detail decoded at Oracle's 2026-08-05 enablement session** ([note](calls/oracle/2026-08-05_125052_default_20260805113131F0734A55.md)). Companion to [oracle.md](oracle.md) (partnership) and [oracle-team.md](oracle-team.md) (who we deal with). **Oracle's own EMEA enablement lab catalogue, the AIDP-off-the-lab-agenda move, and the accelerator→dedicated-AI-cluster monetisation link** added 2026-09-03 from the [Hammad events-GTM call](calls/oracle/2026-08-18_sales-call_hammad-events-gtm.md)._
 
 ## Why this is here
 
 Reference map of Oracle's AI offerings so partnership/prep work doesn't re-derive it. SoftServe's joint-IP packages (AIQ / cuOpt / VSS) are **verticalized "AI Accelerator Packs"** that sit on top of these services — see the mapping at the bottom. Naming reflects Oracle's post–AI World 2025 catalog (heavy rebrand: "Autonomous AI Database," GenAI pages consolidated under "OCI Enterprise AI").
+
+## Naming — get these right in partner-facing material
+
+_Verified against Oracle's and NVIDIA's own current product pages 2026-09-11 while building the [Oracle AI Packages section deck](oracle-packs.md); two of four labels an internal draft used were wrong._
+
+| Write this | Not this | Evidence |
+|---|---|---|
+| **Oracle Autonomous AI Lakehouse** | "Oracle AI Lakehouse" | H1 on `oracle.com/autonomous-database/autonomous-ai-lakehouse/`; the old `…/autonomous-data-warehouse/` URL now **301-redirects** to it. Same Oct-2025 wave renamed Autonomous Database → **Oracle Autonomous AI Database** and 23ai → **26ai**. Sharpens the rebrand note below. |
+| **Oracle AI Data Platform** | "AIDP" in anything a customer or partner reads | Oracle never uses "AIDP" in customer-facing copy — on its own product page the string appears only inside an internal analytics tracking attribute. Fine as internal shorthand (this wiki uses it throughout); strip it from slides and decks. |
+| **NVIDIA NeMo Agent Toolkit** | "NVIDIA NeMo Agents" | `developer.nvidia.com/nemo-agent-toolkit`; Oracle uses this exact string in its 2026-03-16 GTC blog. Renamed from "NVIDIA Agent Intelligence Toolkit" (docs v1.1 → v1.2). **NVIDIA NeMo** is the umbrella; **NVIDIA AI Enterprise** is the commercial platform sold on OCI Marketplace. |
+| **Oracle AI for Fusion Applications** (umbrella) or **Oracle AI Agent Studio for Fusion Applications** (the build surface) | "Oracle Fusion AI" | Not a product name — only the URL slug `oracle.com/applications/fusion-ai/`, whose `<title>` and H1 both read "Oracle AI for Fusion Applications". A third layer, **Fusion Agentic Applications**, sits between them. Avoid "Fusion AI Studio" (an ambiguous link label on that page). |
+
+**Negative finding:** there is **no joint OCI+NVIDIA product brand**. `oracle.com/cloud/nvidia/` is a campaign page ("Accelerate AI Anywhere with Oracle Cloud and NVIDIA"), not a SKU; its only named sub-offering is NVIDIA AI Enterprise on OCI Marketplace. A card naming one thing has to pick a side of the "+". Oracle's own agent runtime, **Enterprise AI Agents in OCI Generative AI**, GA'd 2026-03-31 and is separate again.
+
+**Unconfirmed, flagged:** the "Fusion Data Intelligence → Oracle Fusion AI Data Platform" rename cited at the bottom of this page could **not** be confirmed from a primary Oracle page on 2026-09-11 — the live product page still shows H1 "Fusion Data Intelligence", and the announcing blog 403s to automated fetching. Treat that rename as in-flight; the FDI-pipelines-into-Autonomous claim itself is separately documented (FDI 26R2 docs) and stands.
 
 ## Oracle's AI taxonomy (master structure)
 
@@ -94,7 +109,7 @@ _Added 2026-07-23 from the [2026-07-22 Neil+Gero strategic alignment session](or
 
 _From Oracle's AI Lakehouse enablement session #1 for SoftServe (Javier, Oracle Lakehouse specialist; Gero hosting) — the delivery of the Jul-22 product-team-intro commitment. → [oracle.md#snapshot](oracle.md#snapshot)._
 
-- **It is the Autonomous Data Warehouse, renamed.** Autonomous Data Warehouse → **Autonomous (AI) Lakehouse** is a **rebrand only — nothing changed functionally**. **"26ai" is the *version*** (vs 19c), **not a separate product**; 26ai is the version carrying the **vector** capabilities agents need. Treat "AI Lakehouse" in Oracle GTM material as this product, not a new engine.
+- **It is the Autonomous Data Warehouse, renamed.** Autonomous Data Warehouse → **Oracle Autonomous AI Lakehouse** (full current name — see § Naming) is a **rebrand only — nothing changed functionally**. **"26ai" is the *version*** (vs 19c), **not a separate product**; 26ai is the version carrying the **vector** capabilities agents need. Treat "AI Lakehouse" in Oracle GTM material as this product, not a new engine.
 - **Managed-service shape:** Oracle owns backups, patching, upgrades; **granular CPU scaling** (no T-shirt sizes); **workload-based auto-configuration** (e.g. hybrid columnar compression on by default for Lakehouse, off for transaction processing).
 - **Claimed differentiators vs Databricks/Snowflake:** **Exadata** hardware vs their standard hardware · **converged data** — JSON, spatial, graph and vector in one database, avoiding a Mongo/Neo4j/Elastic/Snowflake engine sprawl (knowledge-graph traversal runs over the same relational data through a metadata layer, **no duplication or ETL to Neo4j**; example given: real-time circular-transaction fraud detection) · **translytical** — transactions + analytics in one DB, which matters because **agents need real-time, not historical, data**.
 - **Security (a package-able strength):** SQL firewall · **virtual private database** row-level policies (e.g. country-scoped) · **dynamic data redaction / on-the-fly masking** (e.g. last 4 digits of an account) — enforced **consistently across the DB, Iceberg and the AI capabilities**. Directly relevant to the **NHS** opportunity, where masking was a hard requirement.
