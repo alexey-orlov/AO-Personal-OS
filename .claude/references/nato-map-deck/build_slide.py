@@ -9,7 +9,9 @@ Map slide: title → four rows of L1 containers (lanes 4 and 5 share the last ro
 Container = tinted, hairline-framed panel; header line 1 = outlined number badge + bold name, line 2 = plain-language
 one-liner; below it a justified row of white L2 tiles. Tile tag row = stack chips left (OCI + AI-Q / VSS / cuOpt / NeMo ·
 AIDP · Lakehouse; ghosted when unused) · pills right, outer to inner: demand (NATO / NCIA, outlined) · FreeTech proof
-(FT Cn, solid violet) · Oracle delivery (Riyadh Air / Bosch, solid brand orange, width follows the name).
+(FT Cn, solid violet) · Oracle pipeline (DHL / SBG / NHS, outlined brand orange — funded, not yet delivered) ·
+Oracle delivery (Riyadh Air / Bosch, solid brand orange). Hue = the source family, fill = its maturity; the two
+orange pills share one width rule (the name sets it).
 Evidence slides (demand, FreeTech) share one renderer: a container per source with the pill it puts on the map, a
 plain-language line, and rows (signal or delivered scope) with the map case(s) at the right.
 Case slides (one per entry of case_slides.json, after the two map views): title = "num  name", a mono lane label +
@@ -861,6 +863,8 @@ for slide, view in zip(slides, VIEWS):
         render_rows(slide, DATA["demand_slide"], title_txbody, "demand")
     elif kind == "ft":
         render_rows(slide, DATA["ft_slide"], title_txbody, "ft", wrap=True)
+    elif kind == "pipe":
+        render_rows(slide, DATA["pipe_slide"], title_txbody, "pipe", wrap=True)
     elif kind == "case":
         render_case(slide, CASES[view["num"]], title_txbody)
     elif kind == "criteria":
