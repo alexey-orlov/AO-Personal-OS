@@ -426,10 +426,13 @@ def render_map(slide, view, title_txbody):
 
 
 def render_rows(slide, d, title_txbody, tag_style="demand", wrap=False):
-    """evidence slides — one container per source (a NATO body, or a FreeTech case): who / what it is in plain words,
-    then its rows (signal, or delivered scope) with the map case(s) at the right. wrap=True lets a row run to several lines."""
+    """evidence slides — one container per source (a NATO body, a FreeTech case, a pipeline case): who / what it is in
+    plain words, then its rows (signal, delivered or contracted scope) with the map case(s) at the right.
+    wrap=True lets a row run to several lines."""
     set_header(slide, d["title"], title_txbody)
     cols = d["columns"]; src = d["sources"]; label = d.get("cases_label", "MAP CASES")
+    # a pill family whose width follows its label needs ONE slot across the slide, or the card names step (rule 2)
+    slot_w = max([ora_w(s["tag"]) for s in src.values() if s.get("tag")] or [FT_W]) if tag_style == "pipe" else None
     ref_w = max(text_w(i["refs"], D_REF_PT) for s in src.values() for i in s["items"])
     ref_w = max(ref_w, text_w(label, D_SRC_PT, mono=True)) + 20000
     chrome = PAD_TOP + HEAD_H + HEAD_GAP + PAD_BOTTOM      # header = source name + plain-language line
@@ -453,7 +456,8 @@ def render_rows(slide, d, title_txbody, tag_style="demand", wrap=False):
             s = src[sid]
             n = len(s["items"])
             h = chrome + n * ih
-            iy = container(slide, x, y, cw, h, s["name"], desc=s["desc"], right_label=label, tag=s.get("tag") or "", tag_style=tag_style)
+            iy = container(slide, x, y, cw, h, s["name"], desc=s["desc"], right_label=label, tag=s.get("tag") or "",
+                           tag_style=tag_style, slot_w=slot_w)
             for j, it in enumerate(s["items"]):
                 # one-liners sit on the row's centre line; wrapped bodies hang from a shared top edge so row-mates align (rule 2)
                 gb = box(slide, x + PAD_X, iy + j * ih, sig_w, ih, margins=(0, TILE_MY if wrap else 0))
