@@ -98,6 +98,14 @@ _`Packs/Account Insights/AI Signal-Impact Engine - Accelerator One-pager.pdf`, 3
 - **Vlad** — check existing materials for demo videos on both packs.
 - Oracle Marketplace packaging + listing: no owner, no date, no process captured yet for any pack.
 
+## Decisions
+
+- 2026-09-11 — Pack 3 is **"Account Insights"** on all slides, not "AI Signal-Impact Engine". (chat, 2026-09-11)
+- 2026-09-11 — Proof blocks stay **non-uniform** across the three packs rather than forced to one label; "PROVEN WITH" retired in favour of "PROOF OF VALUE · <customer>" because the underlying figures are PoV targets under an explicit caveat. (chat, 2026-09-11)
+- 2026-09-11 — Account Insights gets **no invented S/M/L pricing**; its packages block is reframed as "WHAT THE POC BUYS" against the contracted DHL PoC. (chat, 2026-09-11)
+- 2026-09-11 — Infrastructure run-rate **dropped from the doc-pack Roll-out card** so the packs' package tables stay symmetric (WfO's slide shows none). Both one-pagers still carry their infra prices. (chat, 2026-09-11)
+
 ## Activity
 
+- 2026-09-11 — `Oracle AI Packages - section slides.pptx` — 10-slide internal deck built for SS delivery + sales; WfO PoV price corrected €100K → €90K; Oracle platform names verified, two corrected → [oracle-ai-offerings.md](oracle-ai-offerings.md). (chat, 2026-09-11)
 - 2026-09-10 — Pack stream folded: `Packs/` reorg, `Oracle packages.xlsx` tracker, the AI Signal-Impact Engine one-pager, the Large Document Extraction one-pager + service-packages deck, and the rebuilt WfO one-pager. Page created. (chat, 2026-09-10)
