@@ -33,9 +33,10 @@
         "</li>";
     }).join("");
 
-    return '<section class="product-hero services-hero">' +
+    return '<section class="product-hero services-hero has-hero-bg">' +
+      UI.heroBackdrop(h.image) +
       '<span class="hero-glow" aria-hidden="true"></span>' +
-      '<div class="wrap product-hero-inner">' +
+      '<div class="wrap product-hero-inner product-hero-inner--single">' +
         '<p class="eyebrow">' + UI.esc(content.site.owner) + " · Services</p>" +
         UI.headline(h.headline, "h1", "h1 product-title services-title") +
         '<p class="lead product-lead">' + UI.esc(h.lead) + "</p>" +

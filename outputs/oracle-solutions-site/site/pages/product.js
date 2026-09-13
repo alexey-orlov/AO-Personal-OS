@@ -3,17 +3,17 @@
 
   window.PAGES = window.PAGES || {};
 
-  var GROUP_MARK = {
-    "Oracle Cloud Infrastructure": { src: "assets/img/oracle-wordmark-white.svg", alt: "Oracle" },
-    "Oracle AI Data Platform": { src: "assets/img/oracle-wordmark-white.svg", alt: "Oracle" },
-    "Oracle Autonomous AI Lakehouse": { src: "assets/img/oracle-wordmark-white.svg", alt: "Oracle" },
-    "NVIDIA": { src: "assets/img/nvidia-wordmark.svg", alt: "NVIDIA" }
+  var VENDOR_MARK = {
+    oracle: { src: "assets/img/oracle-wordmark-white.svg", alt: "Oracle" },
+    nvidia: { src: "assets/img/nvidia-wordmark.svg", alt: "NVIDIA" },
+    softserve: { src: "assets/img/softserve-wordmark-white.svg", alt: "SoftServe" }
   };
 
   var lastView = { slug: null, tab: null };
 
   function C() { return window.SITE_CONTENT; }
   function cfg(slug) { return window.SITE_CONFIG.products[slug] || {}; }
+  function label(key) { return window.UI.sectionLabel(key); }
 
   function findProduct(slug) {
     var list = C().products;
@@ -38,16 +38,6 @@
     return '<h2 class="h3 block-title">' + window.UI.esc(title) + "</h2>";
   }
 
-  function noteBlock(block, extraClass) {
-    if (!block) return "";
-    var UI = window.UI;
-    return '<section class="panel reveal' + (extraClass ? " " + extraClass : "") + '">' +
-      blockHead(block.title) +
-      '<p class="body-text">' + UI.esc(block.body) + "</p>" +
-      (block.extra ? '<p class="body-text panel-extra">' + UI.esc(block.extra) + "</p>" : "") +
-      "</section>";
-  }
-
   function bulletList(items, className) {
     var UI = window.UI;
     return '<ul class="tick-list' + (className ? " " + className : "") + '">' + items.map(function (item) {
@@ -62,6 +52,13 @@
     }).join("") + "</ul>";
   }
 
+  function iconList(items) {
+    var UI = window.UI;
+    return '<ul class="icon-list">' + items.map(function (item) {
+      return "<li>" + UI.icon(item.icon) + "<span>" + UI.esc(item.text) + "</span></li>";
+    }).join("") + "</ul>";
+  }
+
   function defGrid(items, columns) {
     var UI = window.UI;
     return '<div class="def-grid' + (columns ? " def-grid--" + columns : "") + '">' +
@@ -73,21 +70,64 @@
       }).join("") + "</div>";
   }
 
-  function factRow(items) {
+  function mediaRow(slug, inner, reverse) {
+    var figure = window.UI.figure(slug);
+    if (!figure) return '<section class="panel reveal">' + inner + "</section>";
+    return '<section class="panel media-row' + (reverse ? " media-row--reverse" : "") + ' reveal">' +
+      '<div class="media-copy">' + inner + "</div>" + figure + "</section>";
+  }
+
+  /* one band shape, used for ROI and for the Lakehouse governance note */
+  function calloutBand(iconName, eyebrow, text) {
     var UI = window.UI;
-    var cells = items.filter(function (item) { return item && item.value; }).map(function (item) {
-      return '<div class="fact">' +
-        '<p class="fact-label">' + UI.esc(item.label) + "</p>" +
-        '<p class="fact-value">' + UI.esc(item.value) + "</p>" +
-        (item.note ? '<p class="footnote">' + UI.esc(item.note) + "</p>" : "") +
-        "</div>";
-    }).join("");
-    return cells ? '<div class="fact-row">' + cells + "</div>" : "";
+    if (!text) return "";
+    return '<section class="panel panel--flat reveal"><div class="roi-band">' +
+      '<span class="roi-mark">' + UI.icon(iconName || "roi") + "</span>" +
+      '<div class="roi-copy">' +
+        '<p class="eyebrow eyebrow--accent">' + UI.esc(eyebrow) + "</p>" +
+        '<p class="roi-text">' + UI.esc(text) + "</p>" +
+      "</div></div></section>";
   }
 
   /* ————— hero ————— */
 
-  function heroCtas(product) {
+  function youtubeId(url) {
+    var found = String(url || "").match(
+      /(?:youtube\.com\/(?:watch\?(?:.*&)?v=|embed\/|shorts\/|live\/)|youtu\.be\/)([A-Za-z0-9_-]{6,})/i
+    );
+    return found ? found[1] : "";
+  }
+
+  function posterFor(product) {
+    var conf = cfg(product.slug);
+    if (conf.videoPoster) return conf.videoPoster;
+    var id = youtubeId(conf.videoUrl);
+    if (id) return "https://img.youtube.com/vi/" + id + "/maxresdefault.jpg";
+    return (product.hero && product.hero.image && product.hero.image.file) || "";
+  }
+
+  function heroMedia(product) {
+    var UI = window.UI;
+    var conf = cfg(product.slug);
+    if (!conf.videoUrl) return "";
+    var poster = posterFor(product);
+    var caption = C().shared.videoCaption;
+    return '<div class="hero-media">' +
+      '<button class="video-card" type="button"' +
+        ' data-video="' + UI.esc(conf.videoUrl) + '"' +
+        ' data-video-title="' + UI.esc(product.name) + '"' +
+        ' aria-label="' + UI.esc(caption + " — " + product.name) + '">' +
+        (poster
+          ? '<img class="video-card-poster" src="' + UI.esc(poster) +
+            '" alt="" loading="eager" decoding="async">'
+          : "") +
+        '<span class="video-card-veil" aria-hidden="true"></span>' +
+        '<span class="video-card-play" aria-hidden="true">' + UI.icon("play", "icon--solid") + "</span>" +
+        '<span class="video-card-caption">' + UI.esc(caption) + "</span>" +
+      "</button></div>";
+  }
+
+  function heroCtas(product, hasMedia) {
     var UI = window.UI;
     var conf = cfg(product.slug);
     var out = [UI.button({
@@ -95,9 +135,9 @@
       href: "#/products/" + product.slug + "/demo",
       kind: "primary"
     })];
-    if (conf.videoUrl) {
+    if (conf.videoUrl && !hasMedia) {
       out.push(UI.button({
-        label: "Watch the demo", kind: "secondary", icon: "play",
+        label: C().shared.videoCaption, kind: "secondary", icon: "play",
         attrs: { "data-video": conf.videoUrl, "data-video-title": product.name }
       }));
     }
@@ -114,23 +154,6 @@
       }));
     }
     return '<div class="cta-row product-hero-cta">' + out.join("") + "</div>";
-  }
-
-  function heroAside(product) {
-    var UI = window.UI;
-    var outcomes = product.tile && product.tile.outcomes;
-    if (!outcomes || !outcomes.length) return "";
-    var duration = product.pov && product.pov.durationShort;
-    return '<aside class="hero-aside">' +
-      '<p class="eyebrow eyebrow--accent">' + UI.esc(C().shared.heroAsideTitle) + "</p>" +
-      bulletList(outcomes, "hero-aside-list") +
-      (duration
-        ? '<div class="hero-aside-foot">' +
-            '<p class="tier-label">' + UI.esc(C().shared.heroAsideFootLabel) + "</p>" +
-            '<p class="tier-value">' + UI.esc(duration) + "</p>" +
-          "</div>"
-        : "") +
-      "</aside>";
   }
 
   function hero(product) {
@@ -151,11 +174,12 @@
         }).join("") + "</ul>"
       : "";
 
-    var aside = heroAside(product);
+    var media = heroMedia(product);
 
-    return '<section class="product-hero">' +
+    return '<section class="product-hero has-hero-bg' + (media ? " product-hero--media" : "") + '">' +
+      UI.heroBackdrop(product.hero && product.hero.image) +
       '<span class="hero-glow" aria-hidden="true"></span>' +
-      '<div class="wrap product-hero-inner' + (aside ? "" : " product-hero-inner--single") + '">' +
+      '<div class="wrap product-hero-inner' + (media ? "" : " product-hero-inner--single") + '">' +
       '<div class="product-hero-copy">' +
         '<nav class="crumbs" aria-label="Breadcrumb">' +
           '<a href="#/products">' + UI.esc(C().productsPage.title) + "</a>" +
@@ -168,10 +192,10 @@
         '<p class="lead product-lead">' + UI.esc(product.oneLiner) + "</p>" +
         (product.subLine ? '<p class="body-text product-subline">' + UI.esc(product.subLine) + "</p>" : "") +
         badges +
-        heroCtas(product) +
+        heroCtas(product, !!media) +
         (product.heroCaption ? '<p class="hero-caption">' + UI.esc(product.heroCaption) + "</p>" : "") +
       "</div>" +
-      aside +
+      media +
       "</div>" +
       "</section>";
   }
@@ -190,90 +214,106 @@
 
   /* ————— tab: overview ————— */
 
-  function problemBlock(block) {
+  function problemSolution(block) {
     var UI = window.UI;
     if (!block) return "";
-    return '<section class="panel reveal">' +
-      blockHead(block.title) +
-      '<p class="lead">' + UI.esc(block.lead) + "</p>" +
-      (block.bullets && block.bullets.length ? defGrid(block.bullets, "3") : "") +
-      (block.context ? '<p class="body-text panel-extra">' + UI.esc(block.context) + "</p>" : "") +
-      "</section>";
-  }
-
-  function mediaRow(slug, inner, reverse) {
-    var figure = window.UI.figure(slug);
-    if (!figure) return '<section class="panel reveal">' + inner + "</section>";
-    return '<section class="panel media-row' + (reverse ? " media-row--reverse" : "") + ' reveal">' +
-      '<div class="media-copy">' + inner + "</div>" + figure + "</section>";
-  }
-
-  function solutionBlock(product) {
-    var UI = window.UI;
-    var block = product.overview.solution;
-    if (!block) return "";
-    var head = blockHead(block.title) +
-      '<p class="lead">' + UI.esc(block.lead) + "</p>" +
-      (block.valueStrip ? '<p class="value-strip">' + UI.esc(block.valueStrip) + "</p>" : "");
-    var rest = (block.items && block.items.length ? defGrid(block.items, "3") : "") +
-      (block.expanded
-        ? '<details class="disclosure"><summary><span>How it works in detail</span>' +
-            UI.icon("chevronDown") + "</summary>" +
-            '<p class="body-text">' + UI.esc(block.expanded) + "</p></details>"
-        : "") +
-      (block.closing ? '<p class="body-text panel-extra">' + UI.esc(block.closing) + "</p>" : "");
-    return mediaRow(product.slug, head) +
-      (rest ? '<section class="panel reveal panel--tight">' + rest + "</section>" : "");
-  }
-
-  function todayTomorrow(block) {
-    var UI = window.UI;
-    if (!block) return "";
-    return '<section class="panel reveal">' +
-      '<div class="split-two">' +
-        '<div class="split-col">' +
-          '<p class="eyebrow">' + UI.esc(block.today.title) + "</p>" +
-          '<p class="body-text">' + UI.esc(block.today.body) + "</p>" +
-        "</div>" +
-        '<div class="split-col split-col--accent">' +
-          '<p class="eyebrow eyebrow--accent">' + UI.esc(block.tomorrow.title) + "</p>" +
-          '<p class="body-text">' + UI.esc(block.tomorrow.body) + "</p>" +
-        "</div>" +
+    function panel(side, isSolution) {
+      return '<article class="ps-panel' + (isSolution ? " ps-panel--solution" : "") + '">' +
+        '<span class="ps-mark">' + UI.icon(side.icon) + "</span>" +
+        '<p class="eyebrow' + (isSolution ? " eyebrow--accent" : "") + '">' + UI.esc(side.title) + "</p>" +
+        '<p class="ps-text">' + UI.esc(side.text) + "</p>" +
+        "</article>";
+    }
+    return '<section class="panel panel--flat reveal"><div class="ps-strip">' +
+      panel(block.problem, false) +
+      '<span class="ps-arrow" aria-hidden="true">' + UI.icon("arrow") + "</span>" +
+      panel(block.solution, true) +
       "</div></section>";
   }
 
-  function metricsBlock(block) {
+  function metricTiles(o) {
     var UI = window.UI;
-    if (!block) return "";
-    var body;
-    if (block.rows && block.rows.length) {
-      body = '<dl class="metric-rows">' + block.rows.map(function (row) {
-        return '<div class="metric-row">' +
-          "<dt>" + UI.esc(row.label) + "</dt>" +
-          "<dd>" + UI.esc(row.value) + "</dd>" +
-          "</div>";
-      }).join("") + "</dl>" +
-      (block.footnote ? '<p class="footnote">' + UI.esc(block.footnote) + "</p>" : "");
-    } else {
-      body = UI.empty(block.emptyState || "");
-    }
-    return '<section class="panel panel--metrics reveal">' + blockHead(block.title) + body +
-      (block.proofLine ? '<p class="body-text panel-extra">' + UI.esc(block.proofLine) + "</p>" : "") +
+    if (!o.metrics || !o.metrics.length) return "";
+    var tiles = o.metrics.map(function (metric) {
+      var hasValue = metric.value !== null && metric.value !== undefined && metric.value !== "";
+      return '<div class="stat-tile">' +
+        '<div class="stat-tile-top">' +
+          (hasValue
+            ? '<p class="stat-tile-value nums">' + UI.esc(metric.value) + "</p>"
+            : '<span class="stat-tile-mark">' + UI.icon(metric.icon) + "</span>") +
+        "</div>" +
+        '<p class="stat-tile-label">' +
+          (hasValue ? UI.icon(metric.icon) : "") +
+          "<span>" + UI.esc(metric.label) + "</span></p>" +
+        '<p class="stat-tile-qual">' + UI.esc(metric.qualifier) + "</p>" +
+        "</div>";
+    }).join("");
+    return '<section class="panel panel--metrics reveal">' +
+      blockHead(label("metrics")) +
+      '<div class="stat-tiles">' + tiles + "</div>" +
+      (o.metricsNote ? '<p class="footnote stat-tiles-note">' + UI.esc(o.metricsNote) + "</p>" : "") +
       "</section>";
   }
 
-  function scopeLists(product) {
+  function featuresBlock(o) {
     var UI = window.UI;
-    var overview = product.overview;
-    if (!overview.inScope && !overview.outOfScope) return "";
-    var columns = [overview.inScope, overview.outOfScope].filter(Boolean).map(function (block) {
-      return '<div class="scope-col">' +
-        '<p class="eyebrow' + (block === overview.inScope ? " eyebrow--accent" : "") + '">' +
-          UI.esc(block.title) + "</p>" +
-        (block === overview.inScope ? bulletList(block.items) : plainList(block.items)) +
+    if (!o.features || !o.features.length) return "";
+    return '<section class="panel reveal">' + blockHead(label("features")) +
+      '<ul class="check-cols">' + o.features.map(function (item) {
+        return "<li>" + UI.icon("check") + "<span>" + UI.esc(item) + "</span></li>";
+      }).join("") + "</ul>" +
+      (o.featuresNote ? '<p class="footnote">' + UI.esc(o.featuresNote) + "</p>" : "") +
+      "</section>";
+  }
+
+  function industriesBlock(o) {
+    var UI = window.UI;
+    if (!o.industries || !o.industries.length) return "";
+    return '<section class="panel panel--tight reveal">' + blockHead(label("industries")) +
+      UI.industryChips(o.industries) +
+      (o.industriesNote ? '<p class="footnote">' + UI.esc(o.industriesNote) + "</p>" : "") +
+      "</section>";
+  }
+
+  function scopeBlock(o) {
+    var UI = window.UI;
+    if (!o.scope) return "";
+    return '<section class="panel reveal"><div class="scope-grid">' +
+      '<div class="scope-col">' +
+        '<p class="eyebrow eyebrow--accent">' + UI.esc(label("scopeIn")) + "</p>" +
+        bulletList(o.scope.in) +
+      "</div>" +
+      '<div class="scope-col">' +
+        '<p class="eyebrow">' + UI.esc(label("scopeOut")) + "</p>" +
+        plainList(o.scope.out) +
+      "</div></div></section>";
+  }
+
+  function detailEntries(items) {
+    var UI = window.UI;
+    return (items || []).map(function (item) {
+      return '<div class="detail-entry">' +
+        '<h3 class="detail-title">' + UI.esc(item.title) + "</h3>" +
+        '<p class="detail-text">' + UI.esc(item.body) + "</p>" +
         "</div>";
     }).join("");
-    return '<section class="panel reveal"><div class="scope-grid">' + columns + "</div></section>";
+  }
+
+  function moreDetail(o) {
+    var UI = window.UI;
+    var main = detailEntries(o.moreDetail);
+    var features = detailEntries(o.featuresDetail);
+    if (!main && !features) return "";
+    return '<section class="panel panel--flat reveal">' +
+      '<details class="disclosure disclosure--detail">' +
+        "<summary><span>" + UI.esc(label("moreDetail")) + "</span>" + UI.icon("chevronDown") + "</summary>" +
+        '<div class="detail-wrap">' +
+          main +
+          (features
+            ? '<p class="eyebrow detail-sub">' + UI.esc(label("moreDetailFeatures")) + "</p>" + features
+            : "") +
+        "</div>" +
+      "</details></section>";
   }
 
   function successStory(product) {
@@ -312,55 +352,48 @@
         "</div>"
       : "";
 
-    return '<section class="panel reveal">' +
+    return '<section class="panel panel--flat reveal">' +
       '<div class="story-band' + (hasResults ? "" : " story-band--single") + '">' +
         copy + metrics +
       "</div></section>";
   }
 
   function overviewTab(product) {
-    var UI = window.UI;
     var o = product.overview;
-    var parts = [
-      noteBlock(o.pattern),
-      problemBlock(o.problem),
-      solutionBlock(product),
-      todayTomorrow(o.todayTomorrow),
-      o.pullQuote ? '<blockquote class="pull-quote reveal">' + UI.esc(o.pullQuote) + "</blockquote>" : "",
-      o.whatWeHear ? '<section class="panel reveal">' + blockHead(o.whatWeHear.title) +
-        defGrid(o.whatWeHear.items, "2") + "</section>" : "",
-      noteBlock(o.scopeParagraph),
-      noteBlock(o.evidenceDefinition),
-      noteBlock(o.useCaseBoundaries),
-      noteBlock(o.scopeBoundary),
-      noteBlock(o.exclusions),
-      metricsBlock(o.metrics),
-      noteBlock(o.roi),
-      o.whereItApplies ? '<section class="panel reveal">' + blockHead(o.whereItApplies.title) +
-        (o.whereItApplies.lead ? '<p class="lead">' + UI.esc(o.whereItApplies.lead) + "</p>" : "") +
-        defGrid(o.whereItApplies.items, "2") + "</section>" : "",
-      '<section class="panel reveal">' + blockHead(o.features.title) +
-        defGrid(o.features.items, "2") +
-        (o.features.footnote ? '<p class="footnote">' + UI.esc(o.features.footnote) + "</p>" : "") +
-        "</section>",
-      scopeLists(product),
-      noteBlock(o.deliveredAtRollout),
-      noteBlock(o.roadmap),
-      successStory(product),
-      o.closingDisclaimer ? '<p class="footnote closing-note">' + UI.esc(o.closingDisclaimer) + "</p>" : ""
-    ];
-    return parts.join("");
+    return [
+      problemSolution(o.problemSolution),
+      metricTiles(o),
+      calloutBand(o.roi && o.roi.icon, label("roi"), o.roi && o.roi.text),
+      featuresBlock(o),
+      industriesBlock(o),
+      scopeBlock(o),
+      moreDetail(o),
+      successStory(product)
+    ].join("");
   }
 
   /* ————— tab: technology ————— */
 
+  function flowDiagram(tech) {
+    var UI = window.UI;
+    if (!tech.flow || !tech.flow.length) return "";
+    var steps = tech.flow.map(function (step, index) {
+      return '<li class="flow-step">' +
+        '<span class="flow-index nums">' + UI.esc(index + 1) + "</span>" +
+        '<p class="flow-name">' + UI.esc(step.step) + "</p>" +
+        '<p class="flow-label">' + UI.esc(step.label) + "</p>" +
+        "</li>";
+    }).join("");
+    return '<section class="panel reveal">' + blockHead(label("flow")) +
+      '<ol class="flow">' + steps + "</ol></section>";
+  }
+
   function componentGroup(group) {
     var UI = window.UI;
-    var mark = GROUP_MARK[group.group];
-    var muted = group.items.length === 1 && /^Not (used|required)/i.test(group.items[0]);
-    return '<div class="component-group' + (muted ? " is-muted" : "") + '">' +
+    var mark = VENDOR_MARK[group.vendor];
+    return '<div class="component-group">' +
       '<div class="component-head">' +
-        '<p class="component-name">' + UI.esc(group.group) + "</p>" +
+        '<p class="component-name">' + UI.esc(group.label) + "</p>" +
         (mark ? '<img class="group-mark" src="' + UI.esc(mark.src) + '" alt="' + UI.esc(mark.alt) + '">' : "") +
       "</div>" +
       '<ul class="component-items">' + group.items.map(function (item) {
@@ -373,7 +406,7 @@
     var UI = window.UI;
     var tech = product.technology;
     var layers = tech.layers && tech.layers.length
-      ? '<section class="panel reveal">' + blockHead("Solution stack") +
+      ? '<section class="panel reveal">' + blockHead(label("stack")) +
           '<div class="layer-table">' + tech.layers.map(function (layer) {
             return '<div class="layer-row">' +
               '<p class="layer-name">' + UI.esc(layer.layer) + "</p>" +
@@ -383,34 +416,83 @@
           }).join("") + "</div></section>"
       : "";
 
-    return mediaRow(product.slug, blockHead("Architecture") +
+    var notUsed = tech.notUsed && tech.notUsed.length
+      ? '<p class="footnote component-notused">' +
+        UI.esc(label("notUsed") + ": " + tech.notUsed.join(" · ")) + "</p>"
+      : "";
+
+    return mediaRow(product.slug, blockHead(label("architecture")) +
         '<p class="lead">' + UI.esc(tech.narrative) + "</p>", true) +
+      flowDiagram(tech) +
+      '<section class="panel reveal">' + blockHead(label("components")) +
+        '<div class="component-grid">' + tech.groups.map(componentGroup).join("") + "</div>" +
+        notUsed +
+      "</section>" +
       layers +
-      '<section class="panel reveal">' + blockHead("Components") +
-        '<div class="component-grid">' + tech.components.map(componentGroup).join("") + "</div></section>" +
-      noteBlock(tech.governance) +
+      (tech.governance
+        ? calloutBand("shield", tech.governance.title, tech.governance.body)
+        : "") +
       '<section class="panel reveal"><div class="scope-grid">' +
         '<div class="scope-col">' +
-          '<p class="eyebrow eyebrow--accent">Integration</p>' + plainList(tech.integration) +
+          '<p class="eyebrow eyebrow--accent">' + UI.esc(label("integration")) + "</p>" +
+          iconList(tech.integration) +
         "</div>" +
         '<div class="scope-col">' +
-          '<p class="eyebrow eyebrow--accent">Security and deployment</p>' + plainList(tech.security) +
+          '<p class="eyebrow eyebrow--accent">' + UI.esc(label("security")) + "</p>" +
+          iconList(tech.security) +
         "</div>" +
       "</div></section>";
   }
 
   /* ————— tab: POV Jumpstart ————— */
 
+  function factStrip(pov) {
+    var UI = window.UI;
+    var facts = pov.facts;
+    if (!facts) return "";
+    var cells = [
+      { label: label("povFactDuration"), value: facts.duration },
+      { label: label("povFactTeam"), value: facts.team },
+      { label: label("povFactPrice"), value: facts.price },
+      { label: label("povFactDeliverables"), value: String(facts.deliverablesCount) }
+    ].map(function (cell) {
+      return '<div class="fact-tile">' +
+        '<p class="fact-tile-value">' + UI.esc(cell.value) + "</p>" +
+        '<p class="fact-tile-label">' + UI.esc(cell.label) + "</p>" +
+        "</div>";
+    }).join("");
+    return '<div class="fact-strip">' + cells + "</div>";
+  }
+
+  function povDetailRows(pov) {
+    var UI = window.UI;
+    var rows = [
+      pov.inScope ? { label: label("povScopeIn"), value: pov.inScope } : null,
+      pov.notInScope ? { label: label("povScopeOut"), value: pov.notInScope } : null,
+      pov.thenRollout ? { label: label("povRollout"), value: pov.thenRollout } : null,
+      pov.phases ? { label: label("povPhases"), value: pov.phases } : null,
+      pov.howMeasured ? { label: label("povMeasured"), value: pov.howMeasured } : null
+    ].filter(Boolean);
+    if (!rows.length) return "";
+    var notes = [pov.durationNote, pov.gateNote].filter(Boolean).map(function (note) {
+      return '<p class="footnote">' + UI.esc(note) + "</p>";
+    }).join("");
+    return '<dl class="metric-rows">' + rows.map(function (row) {
+      return '<div class="metric-row"><dt>' + UI.esc(row.label) + "</dt><dd>" +
+        UI.esc(row.value) + "</dd></div>";
+    }).join("") + "</dl>" + notes;
+  }
+
   function ladder(product) {
     var UI = window.UI;
     var columns = C().shared.ladderColumns;
     var cards = product.pov.ladder.map(function (tier, index) {
-      var label = columns[index] && columns[index] !== tier.title
+      var tierLabel = columns[index] && columns[index] !== tier.title
         ? columns[index] : "Step " + (index + 1);
       return '<article class="tier">' +
         '<div class="tier-body">' +
           '<p class="eyebrow' + (index === 0 ? " eyebrow--accent" : "") + '">' +
-            UI.esc(label) + "</p>" +
+            UI.esc(tierLabel) + "</p>" +
           '<h3 class="tier-title">' + UI.esc(tier.title) + "</h3>" +
           '<p class="tier-scope">' + UI.esc(tier.scope) + "</p>" +
           bulletList(tier.includes, "tier-list") +
@@ -421,7 +503,7 @@
         "</div>" +
         "</article>";
     }).join("");
-    return '<section class="panel reveal">' + blockHead("From proof of value to scale") +
+    return '<section class="panel reveal">' + blockHead(label("ladder")) +
       '<div class="tier-grid">' + cards + "</div>" +
       (product.pov.ladderFootnote ? '<p class="footnote">' + UI.esc(product.pov.ladderFootnote) + "</p>" : "") +
       "</section>";
@@ -440,7 +522,7 @@
         '<td class="nums">' + UI.esc(row.rollout) + "</td>" +
         '<td class="nums">' + UI.esc(row.scaling) + "</td></tr>";
     }).join("");
-    return '<section class="panel reveal">' + blockHead("What is included at each step") +
+    return '<section class="panel reveal">' + blockHead(label("matrix")) +
       '<div class="table-scroll"><table class="matrix"><thead>' + head + "</thead><tbody>" + rows +
       "</tbody></table></div>" +
       '<p class="footnote">' + UI.esc(matrix.legend) + "</p></section>";
@@ -449,18 +531,6 @@
   function povTab(product) {
     var UI = window.UI;
     var pov = product.pov;
-    var facts = factRow([
-      { label: "Duration", value: pov.duration, note: pov.durationNote },
-      { label: "Team", value: pov.team },
-      { label: "Phases", value: pov.phases, note: pov.gateNote },
-      { label: "How it is measured", value: pov.howMeasured }
-    ]);
-
-    var scopeLines = [
-      pov.inScope ? { label: "In scope", value: pov.inScope } : null,
-      pov.notInScope ? { label: "Not in the proof of value", value: pov.notInScope } : null,
-      pov.thenRollout ? { label: "Then at roll-out", value: pov.thenRollout } : null
-    ].filter(Boolean);
 
     var pricing = '<div class="price-table">' + pov.pricing.map(function (line) {
       return '<div class="price-row">' +
@@ -479,13 +549,12 @@
     return '<section class="panel reveal">' + blockHead(pov.heading) +
         '<p class="lead">' + UI.esc(pov.scope) + "</p>" +
         (pov.statStrip ? '<p class="value-strip">' + UI.esc(pov.statStrip) + "</p>" : "") +
-        facts +
-        (scopeLines.length ? '<dl class="metric-rows">' + scopeLines.map(function (line) {
-          return '<div class="metric-row"><dt>' + UI.esc(line.label) + "</dt><dd>" +
-            UI.esc(line.value) + "</dd></div>";
-        }).join("") + "</dl>" : "") +
+        factStrip(pov) +
+        povDetailRows(pov) +
       "</section>" +
-      (pov.statNotes ? '<section class="panel reveal">' + blockHead("The terms, in full") +
+      '<section class="panel reveal">' + blockHead(pov.deliverablesTitle || label("deliverables")) +
+        bulletList(pov.deliverables) + "</section>" +
+      (pov.statNotes ? '<section class="panel reveal">' + blockHead(label("terms")) +
         defGrid(pov.statNotes, "3") + "</section>" : "") +
       (pov.prerequisites ? '<section class="panel reveal">' + blockHead(pov.prerequisites.title) +
         plainList(pov.prerequisites.items) + "</section>" : "") +
@@ -497,10 +566,8 @@
         }).join("") + "</ol>" +
         (pov.howItRuns.closing ? '<p class="body-text panel-extra">' + UI.esc(pov.howItRuns.closing) + "</p>" : "") +
         "</section>" : "") +
-      '<section class="panel reveal">' + blockHead(pov.deliverablesTitle || "Deliverables") +
-        bulletList(pov.deliverables) + "</section>" +
-      '<section class="panel reveal">' + blockHead("Pricing") + pricing + "</section>" +
       capabilityMatrix(pov.capabilityMatrix) +
+      '<section class="panel reveal">' + blockHead(label("pricing")) + pricing + "</section>" +
       ladder(product) +
       '<section class="panel reveal gate-note">' + blockHead(C().shared.preFlightGate.title) +
         '<p class="body-text">' + UI.esc(C().shared.preFlightGate.body) + "</p></section>" +
@@ -740,7 +807,8 @@
     else body = overviewTab(item);
 
     return hero(item) + tabbar(item, active) +
-      '<section class="section section--tight"><div class="wrap tab-body" id="tab-body">' +
+      '<section class="section section--tight"><div class="wrap tab-body' +
+        (active === "overview" ? " tab-body--compact" : "") + '" id="tab-body">' +
         body +
       "</div></section>" +
       related(item) + neighbours(item);

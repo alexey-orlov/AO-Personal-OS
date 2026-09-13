@@ -21,9 +21,9 @@
         "</li>";
     }).join("");
 
-    return '<section class="hero">' +
+    return '<section class="hero has-hero-bg">' +
+      UI.heroBackdrop(h.image) +
       '<span class="hero-glow" aria-hidden="true"></span>' +
-      '<img class="hero-sphere" src="assets/img/sphere.webp" alt="" aria-hidden="true" width="1920" height="1920" loading="eager" decoding="async" fetchpriority="high">' +
       '<div class="wrap hero-inner">' +
         '<p class="eyebrow">' + UI.esc(C.site.owner) + " · " + UI.esc(C.site.tagline) + "</p>" +
         UI.headline(h.headline, "h1", "h1 hero-title") +
