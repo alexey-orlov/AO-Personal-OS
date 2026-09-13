@@ -632,7 +632,7 @@ window.SITE_CONTENT = {
           { step: "Sources", label: "Case management, correspondence, operational records, document stores" },
           { step: "Ingest", label: "Exports landed in your tenancy, read-only" },
           { step: "Reason", label: "Multi-document reasoning, timeline construction, citation binding" },
-          { step: "Deliver", label: "Investigator UI: amend, approve or flag, with a full audit log" }
+          { step: "Deliver", label: "Investigator UI: amend, approve or flag, fully audited" }
         ],
         groups: [
           { vendor: "oracle", label: "Oracle Cloud Infrastructure", items: ["Tenancy, object storage and the AI cluster", "Oracle enterprise AI services for multi-tool orchestration over live systems"] },
