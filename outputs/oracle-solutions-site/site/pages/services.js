@@ -155,10 +155,12 @@
     var UI = window.UI;
     var columns = C().shared.ladderColumns;
     var cards = engage.ladder.map(function (tier, index) {
+      var label = columns[index] && columns[index] !== tier.title
+        ? columns[index] : "Step " + (index + 1);
       return '<article class="tier ladder-step">' +
         '<span class="ladder-mark" aria-hidden="true"><span class="ladder-dot"></span></span>' +
         '<p class="eyebrow' + (index === 0 ? " eyebrow--accent" : "") + '">' +
-          UI.esc(columns[index] || tier.title) + "</p>" +
+          UI.esc(label) + "</p>" +
         '<h3 class="tier-title">' + UI.esc(tier.title) + "</h3>" +
         '<p class="tier-scope">' + UI.esc(tier.whatItIs) + "</p>" +
         '<div class="tier-foot">' +
