@@ -45,6 +45,45 @@ window.SITE_CONTENT = {
     }
   },
 
+  media: {
+    "account-insights": {
+      src: "assets/img/heroes/account-insights.jpg",
+      alt: "A network of connected signal nodes — people, messages, documents, charts — converging on one glowing hub above a night-time city skyline"
+    },
+    "case-evidence-collection": {
+      src: "assets/img/heroes/case-evidence-collection.jpg",
+      alt: "Silhouetted analyst mapping a case on a backlit glass board covered in linked boxes and connecting lines"
+    },
+    "plan-vs-actual-investigation": {
+      src: "assets/img/heroes/plan-vs-actual-investigation.jpg",
+      alt: "Analyst at a dark multi-screen desk reviewing trend charts, variance dashboards and mapped operations data"
+    },
+    "large-document-extraction": {
+      src: "assets/img/heroes/large-document-extraction.jpg",
+      alt: "A deep stack of hundreds of thin layered plates receding into darkness, edges lit like the pages of a long document"
+    },
+    "workforce-optimization": {
+      src: "assets/img/heroes/workforce-optimization.jpg",
+      alt: "Container terminal at blue hour — gantry crane, stacked containers and service vehicles moving under work lights"
+    },
+    "cross-system-erp-qa": {
+      src: "assets/img/heroes/cross-system-erp-qa.jpg",
+      alt: "Abstract dark graph of separate enterprise system panes linked by thin teal data flows converging on one lit core"
+    },
+    "business-metrics-qa": {
+      src: "assets/img/heroes/business-metrics-qa.jpg",
+      alt: "Abstract landscape of flowing data points and light trails rolling across a dark blue field"
+    },
+    overview: {
+      src: "assets/img/heroes/overview.jpg",
+      alt: "A luminous elliptical aperture opening in a dark wall, warm rim light spilling across the floor"
+    },
+    services: {
+      src: "assets/img/heroes/services.jpg",
+      alt: "Engineer working at a dark multi-monitor workstation filled with code, city lights blurred behind"
+    }
+  },
+
   disclaimers: {
     kpiTile: "KPIs measured before/after on proof-of-value data; figures are illustrative, not contractual.",
     kpiTileTargets: "Targets from the proof-of-value; figures are illustrative, not contractual.",
