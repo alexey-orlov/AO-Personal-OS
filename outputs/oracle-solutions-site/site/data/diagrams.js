@@ -8,7 +8,7 @@ window.SITE_DIAGRAMS = {
     group: {
       label: ["Oracle Cloud Infrastructure", "dedicated AI cluster"],
       nodes: [
-        { title: ["Account Insights app"], sub: ["Filter, fan out,", "reason, score, cite"] },
+        { title: ["Account Insights"], sub: ["Filter, fan out, reason,", "score and cite"] },
         { title: ["NVIDIA AI-Q"], sub: ["Vector search", "and reranking"] }
       ]
     },
@@ -19,7 +19,7 @@ window.SITE_DIAGRAMS = {
   "case-evidence-collection": {
     layout: "flow",
     sources: [
-      { title: ["Source exports"], sub: ["Case records,", "correspondence, docs"] }
+      { title: ["Source", "exports"], sub: ["Case records,", "correspondence"] }
     ],
     group: {
       label: ["Oracle Cloud Infrastructure", "dedicated AI cluster"],
@@ -35,7 +35,7 @@ window.SITE_DIAGRAMS = {
   "plan-vs-actual-investigation": {
     layout: "flow",
     sources: [
-      { title: ["Approved exports"], sub: ["Schedule, cost,", "progress, contracts"] }
+      { title: ["Approved", "exports"], sub: ["Schedule, cost,", "progress, contracts"] }
     ],
     group: {
       label: ["Oracle Cloud Infrastructure", "dedicated AI cluster"],
@@ -51,7 +51,7 @@ window.SITE_DIAGRAMS = {
   "large-document-extraction": {
     layout: "flow",
     sources: [
-      { title: ["Contract repository"], sub: ["Source PDFs,", "field rules"] }
+      { title: ["Contract", "repository"], sub: ["Source PDFs,", "field rules"] }
     ],
     group: {
       label: ["Oracle Cloud Infrastructure", "dedicated AI cluster"],
@@ -60,14 +60,14 @@ window.SITE_DIAGRAMS = {
         { title: ["NVIDIA AI-Q"], sub: ["Vision-language models", "plus retrieval"] }
       ]
     },
-    target: { title: ["Split-view review"], sub: ["Approved rows export", "to cost or ERP"], accent: true },
+    target: { title: ["Split-view", "review"], sub: ["Approved rows export", "to cost or ERP"], accent: true },
     note: "Human in the loop by design — unattended extraction is out of scope"
   },
 
   "workforce-optimization": {
     layout: "flow",
     sources: [
-      { title: ["Oracle Field", "Service"], sub: ["Technicians, availability,", "bookings"] }
+      { title: ["Oracle Field", "Service"], sub: ["Staff, availability,", "bookings"] }
     ],
     group: {
       label: ["Oracle Cloud Infrastructure", "dedicated AI cluster"],
@@ -83,12 +83,12 @@ window.SITE_DIAGRAMS = {
   "cross-system-erp-qa": {
     layout: "hub",
     sources: [
-      { title: ["Oracle applications"], sub: ["Prebuilt pipelines,", "no extract engineering"] },
+      { title: ["Oracle", "applications"], sub: ["Prebuilt pipelines,", "no extract work"] },
       { title: ["One or two", "other sources"], sub: ["Linked or landed"] }
     ],
     hub: {
       title: ["Oracle Autonomous", "AI Lakehouse"],
-      items: ["Governed data model", "Masking and row rules", "SQL firewall on every query", "Select AI answers in words"]
+      items: ["Governed data model", "Masking and row rules", "SQL firewall on every query", "Select AI answers questions"]
     },
     target: { title: ["Plain-language", "answers"], sub: ["Certified views,", "dashboards"], accent: true },
     note: "Governance sits in the data layer, not in the prompt"
@@ -97,13 +97,13 @@ window.SITE_DIAGRAMS = {
   "business-metrics-qa": {
     layout: "hub",
     sources: [
-      { title: ["Existing catalogs"], sub: ["Iceberg, mounted"] },
-      { title: ["Linked databases"], sub: ["Queried where they live"] },
-      { title: ["Existing platforms"], sub: ["Stay where they are"] }
+      { title: ["Existing", "catalogs"], sub: ["Iceberg, mounted"] },
+      { title: ["Linked", "databases"], sub: ["Queried in place"] },
+      { title: ["Existing", "platforms"], sub: ["Stay where they are"] }
     ],
     hub: {
       title: ["Oracle Autonomous", "AI Lakehouse"],
-      items: ["The governed gold layer", "Business definitions", "Masking and row rules", "Select AI answers in words"]
+      items: ["The governed gold layer", "Business definitions", "Masking and row rules", "Select AI answers questions"]
     },
     target: { title: ["Answers across", "every source"], sub: ["No data movement"], accent: true },
     note: "Coexistence, not migration — the join happens at the catalog"
@@ -152,10 +152,10 @@ window.SITE_DIAGRAMS = {
   }
 
   function flow(d) {
-    var leftX = 36, leftW = 248;
-    var groupX = 320, groupW = 320, groupY = 90, groupH = 360;
-    var rightX = 676, rightW = 248;
-    var innerX = 344, innerW = 272, innerH = 120;
+    var leftX = 30, leftW = 236;
+    var groupX = 302, groupW = 344, groupY = 90, groupH = 360;
+    var rightX = 682, rightW = 248;
+    var innerX = 318, innerW = 312, innerH = 120;
     var sources = d.sources || [];
     var height = d.loop ? 560 : 500;
     var out = "";
@@ -182,8 +182,8 @@ window.SITE_DIAGRAMS = {
     out += arrowRight(groupX + groupW, rightX, 280);
 
     if (d.loop) {
-      out += '<path class="dg-loop" d="M800 350V500H160V359"></path>' +
-        '<path class="dg-head dg-head--dim" d="M160 350l-6 10h12z"></path>' +
+      out += '<path class="dg-loop" d="M806 350V500H148V359"></path>' +
+        '<path class="dg-head dg-head--dim" d="M148 350l-6 10h12z"></path>' +
         line("dg-note", W / 2, 488, d.loop, "middle");
     } else if (d.note) {
       out += line("dg-note", W / 2, 468, d.note, "middle");
@@ -193,14 +193,14 @@ window.SITE_DIAGRAMS = {
   }
 
   function hub(d) {
-    var leftX = 36, leftW = 236;
-    var hubX = 330, hubW = 300, hubY = 92;
-    var rightX = 688, rightW = 236;
+    var leftX = 30, leftW = 220;
+    var hubX = 286, hubW = 372, hubY = 80;
+    var rightX = 694, rightW = 236;
     var sources = d.sources || [];
     var slots = sources.length > 2
-      ? [{ y: 110, h: 116 }, { y: 242, h: 116 }, { y: 374, h: 116 }]
-      : [{ y: 160, h: 130 }, { y: 310, h: 130 }];
-    var hubH = 398;
+      ? [{ y: 96, h: 124 }, { y: 230, h: 124 }, { y: 364, h: 124 }]
+      : [{ y: 150, h: 124 }, { y: 310, h: 124 }];
+    var hubH = 420;
     var out = "";
 
     sources.forEach(function (source, i) {
@@ -221,12 +221,12 @@ window.SITE_DIAGRAMS = {
       out += line("dg-sub", hubX + 50, y, text);
     });
 
-    out += box(d.target, rightX, 226, rightW, 130);
-    out += arrowRight(hubX + hubW, rightX, 291);
+    out += box(d.target, rightX, 230, rightW, 140);
+    out += arrowRight(hubX + hubW, rightX, 300);
 
-    if (d.note) out += line("dg-note", W / 2, 540, d.note, "middle");
+    if (d.note) out += line("dg-note", W / 2, 550, d.note, "middle");
 
-    return { height: 570, body: out };
+    return { height: 580, body: out };
   }
 
   window.SITE_DIAGRAMS.render = function (slug) {
