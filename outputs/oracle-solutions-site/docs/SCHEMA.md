@@ -85,6 +85,7 @@ Flat map of reusable strings: `kpiTile`, `kpiTileTargets`, `packageTable`, `lake
 
 | Key | Type | Notes |
 |---|---|---|
+| `hero.image` | `{ file, alt, focal }` | The hero background image. `file` is relative to `site/index.html`, `focal` is a CSS `object-position`. Mirrors the entry in `site/assets/img/heroes/heroes.json` — keep them in sync. See `VISUAL-GRAMMAR.md` §1. |
 | `hero.headline` | `{ accent, rest }` | `accent` renders in teal, `rest` in white, one H1. |
 | `hero.subhead` | string | |
 | `hero.ctas` | `[{ label, route, kind }]` | `kind` is `primary` or `secondary`. |
@@ -156,6 +157,7 @@ Seven entries, in the order the Products page should list them:
 | `oneLiner` | string | The tile description and the hero lead. |
 | `subLine?` | string | A second hero line where the one-liner is very short. |
 | `heroLine?` | string | A short slogan that heads the hero above the name (two Lakehouse products). |
+| `hero` | `{ image: { file, alt, focal } }` | The product hero's background image. Same contract as `overview.hero.image`. Required on all seven. |
 | `heroCaption?` | string | Caption under the hero media frame. |
 | `badges?` | `[string]` | Small uppercase hero badges (two Lakehouse products). |
 | `tags` | `[string]` | Filled navy metadata pills on the tile, in order. Facts, not toggles. |
@@ -163,23 +165,22 @@ Seven entries, in the order the Products page should list them:
 
 ### `overview`
 
-Every key is optional except `metrics`, `roi`, `features` and `successStory`; render only the blocks present, in the order below.
+**The Overview tab follows the fixed component grammar in `VISUAL-GRAMMAR.md`. Every product fills every slot** — a product with no published number fills its metric row with qualitative tiles rather than rendering a shorter page. Render the blocks in the order below; none is optional.
 
 | Key | Type | Notes |
 |---|---|---|
-| `pattern?` | `{ title, body }` | "The pattern" / "What this covers". |
-| `problem` | `{ title, lead, bullets: [{ title, body }], context? }` | `bullets` may be empty. |
-| `solution` | `{ title, lead, valueStrip?, expanded?, items?, closing? }` | `expanded` is a longer version behind a disclosure control. `items[]` is used where the solution is a set of named outputs. |
-| `todayTomorrow?` | `{ today: { title, body }, tomorrow: { title, body } }` | Two-column block. |
-| `pullQuote?` | string | |
-| `scopeParagraph?`, `evidenceDefinition?`, `useCaseBoundaries?`, `scopeBoundary?`, `exclusions?`, `deliveredAtRollout?`, `roadmap?`, `whatWeHear?` | `{ title, body }` or `{ title, body, extra }` or `{ title, items[] }` | Product-specific blocks; render if present. |
-| `metrics` | `{ title, rows: [{ label, value }], footnote?, emptyState?, proofLine? }` | When `rows` is empty, render the same tile container with `emptyState` as its one honest line. `proofLine` renders under the block where present. `footnote` is mandatory to render whenever `rows` is non-empty. |
-| `roi` | `{ title, body }` | |
-| `whereItApplies?` | `{ title, lead?, items: [{ title, body }] }` | |
-| `features` | `{ title, items: [{ title, body }], footnote? }` | 6–8 items. |
-| `inScope?`, `outOfScope?` | `{ title, items: [string] }` | |
-| `closingDisclaimer?` | string | Print verbatim at the bottom of the tab. |
-| `successStory` | object | See below. |
+| `problemSolution` | `{ problem: { title, text, icon }, solution: { title, text, icon } }` | The paired two-panel strip. `text` is 1–2 sentences per panel; `icon` is an icon-registry key (today `alert` / `spark` on all seven). |
+| `metrics` | `[{ value, label, qualifier, icon }]` | 3–4 stat tiles. **`value: null` is a qualitative tile** — the icon renders at display size where the number would be, and the tile keeps its height so the row stays level. `value` as a string is ≤ 20 characters. `qualifier` is the baseline or caveat, ≤ 14 words. |
+| `metricsNote` | string | **Mandatory on every product.** Renders as one footnote line under the metric row, in the same block. Carries the disclaimer that travels with the figures, or the honest "no published metrics yet" line where there are none. |
+| `roi` | `{ icon, text }` | One callout band, 1–2 sentences. |
+| `features` | `[string]` | 6–8 items, **each ≤ 12 words**, rendered as a two-column checklist with check icons. |
+| `featuresNote?` | string | An asterisked caveat under the checklist. Only `workforce-optimization` carries one. |
+| `featuresDetail` | `[{ title, body }]` | The long-form feature list from the shipped one-pagers. Not rendered in the checklist — it renders inside the More detail disclosure, so no fact is lost. |
+| `industries` | `[string]` | Keys from the **fixed set of 16** in `VISUAL-GRAMMAR.md` §5. Rendered as icon chips. `cross-industry` is the reserved honest answer where no vertical list exists. |
+| `industriesNote` | string | One line under the chips: who this is for. Present on all seven. |
+| `scope` | `{ in: [string], out: [string] }` | Two compact side-by-side lists, 4–6 items each, ≤ 14 words each. |
+| `moreDetail` | `[{ title, body }]` | The collapsible disclosure at the end of the tab. Everything that used to be a prose block above the fold lives here: today/tomorrow, the pattern, pull quotes, per-persona "where it applies" paragraphs, scope boundaries, roadmap notes, evaluation disclaimers. ≥ 3 entries. |
+| `successStory` | object | Unchanged — see below. |
 
 #### `overview.successStory`
 
@@ -201,12 +202,14 @@ The block renders as a two-tone light band: the narrative on the neutral half, t
 
 | Key | Type | Notes |
 |---|---|---|
-| `narrative` | string | One paragraph. |
-| `layers` | `[{ layer, providedBy, body }]` | Bottom → top. **May be empty** (the two Lakehouse products have no four-tier stack); render nothing rather than an empty table. |
-| `components` | `[{ group, items: [string] }]` | Groups are `Oracle Cloud Infrastructure`, `NVIDIA`, `Oracle AI Data Platform`, `Oracle Autonomous AI Lakehouse`, `Other`. A group whose only item reads "Not used by this product" is a deliberate honest row — render it, muted. |
+| `narrative` | string | **Three sentences maximum.** One paragraph. |
+| `flow` | `[{ step, label }]` | **Exactly four steps**, rendered as the standard compact flow diagram — identical geometry on all seven pages. `step` is the canonical stage name (`Sources`, `Ingest`/`Extract`/`Mount`, `Reason`/`Optimize`/`Govern`/`Validate`, `Deliver`); `label` is the product-specific line, ≤ 10 words. |
+| `groups` | `[{ vendor, label, items: [string] }]` | Component groups as vendor-marked columns. `vendor` is `oracle`, `nvidia`, `softserve` or `other` and selects the wordmark above the column; `label` disambiguates the several `oracle` groups (OCI, Autonomous AI Lakehouse, Fusion Applications). Every product has at least one `oracle` group and exactly one `softserve` group. |
+| `notUsed` | `[string]` | The honest "not used by this product" line, rendered muted under the columns. May be empty; the key must exist. |
+| `layers` | `[{ layer, providedBy, body }]` | The four-tier layer cake, bottom → top. **Empty on the two Lakehouse products** — render nothing rather than an empty table. |
 | `governance?` | `{ title, body }` | The two Lakehouse products. |
-| `integration` | `[string]` | |
-| `security` | `[string]` | |
+| `integration` | `[{ icon, text }]` | Icon-led list. Icons by convention `inbound` / `outbound` / `trigger` / `link`. |
+| `security` | `[{ icon, text }]` | Icon-led list. Icons by convention `shield` / `lock` / `eye` / `audit`. |
 
 ### `pov`
 
@@ -250,7 +253,7 @@ After the ladder, every POV tab renders, in order: `shared.preFlightGate`, `shar
 
 | Key | Type |
 |---|---|
-| `hero` | `{ headline: { accent, rest }, lead, secondParagraph, platformsTitle, platforms: [{ name, short, long }], cta }` |
+| `hero` | `{ image: { file, alt, focal }, headline: { accent, rest }, lead, secondParagraph, stats, platformsTitle, platforms: [{ name, short, long }], cta }` — `image` is the hero background, same contract as `overview.hero.image` |
 | `whatWeDo` | `{ title, lead, layering: [{ band, body }], familiesTitle, families: [string], familiesSuffix, solutionStack: { title, layers: [{ layer, providedBy }] }, whoYouWorkWith, whoDeliversIt, wrapAroundServices: { title, items: [{ title, body }] }, attachesToEvery }` |
 | `howWeEngage` | `{ title, anchor, lead, ladder: [{ tier, title, whatItIs, duration, pricing }], ladderRules: [string], ladderFootnote, howAPovRuns: { title, steps: [{ title, body }], closing } }` |
 | `whySoftServe` | `{ title, items: [{ title, body }] }` |
