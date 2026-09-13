@@ -144,9 +144,41 @@
     return found || { label: id, fullLabel: id };
   }
 
+  function media(key) {
+    return (C.media && C.media[key]) || null;
+  }
+
+  function figure(key, options) {
+    var opts = options || {};
+    var item = media(key);
+    if (!item) return "";
+    var classes = ["media-figure"];
+    if (opts.className) classes.push(opts.className);
+    return '<figure class="' + classes.join(" ") + '">' +
+      '<img src="' + esc(item.src) + '" alt="' + esc(opts.alt === false ? "" : item.alt) +
+      '" loading="lazy" decoding="async">' +
+      "</figure>";
+  }
+
+  function tilePlate(product) {
+    var facet = facetLabel(product.facet);
+    var item = media(product.slug);
+    var art = item
+      ? '<img class="tile-plate-img" src="' + esc(item.src) + '" alt="" loading="lazy" decoding="async">'
+      : '<span class="tile-plate-name"><span class="accent">' + esc(product.headline.accent) +
+        "</span> " + esc(product.headline.rest) + "</span>";
+    return '<a class="tile-plate' + (item ? " tile-plate--art" : "") + '" href="#/products/' +
+      esc(product.slug) + '" aria-label="' + esc(product.name) + '">' +
+      art +
+      '<span class="tile-plate-foot">' +
+        '<span class="tile-plate-facet" title="' + esc(facet.fullLabel) + '">' + esc(facet.label) + "</span>" +
+        icon("arrow") +
+      "</span>" +
+      "</a>";
+  }
+
   function card(product, options) {
     var opts = options || {};
-    var facet = facetLabel(product.facet);
     var marketplace = CFG.products[product.slug] && CFG.products[product.slug].marketplace;
     var chips = [
       chip({ label: product.categoryChip }),
@@ -156,14 +188,7 @@
       chips.push(chip({ label: C.facets.marketplace.badge }));
     }
     return '<article class="tile reveal">' +
-      '<a class="tile-plate" href="#/products/' + esc(product.slug) + '">' +
-        '<span class="tile-plate-name"><span class="accent">' + esc(product.headline.accent) +
-          "</span> " + esc(product.headline.rest) + "</span>" +
-        '<span class="tile-plate-foot">' +
-          '<span class="tile-plate-facet" title="' + esc(facet.fullLabel) + '">' + esc(facet.label) + "</span>" +
-          icon("arrow") +
-        "</span>" +
-      "</a>" +
+      tilePlate(product) +
       '<div class="chip-row">' + chips.join("") + "</div>" +
       '<h3 class="tile-title"><a href="#/products/' + esc(product.slug) + '">' + esc(product.name) + "</a></h3>" +
       '<p class="tile-desc clamp-3">' + esc(product.oneLiner) + "</p>" +
@@ -247,6 +272,9 @@
     sectionHead: sectionHead,
     empty: emptyState,
     card: card,
+    tilePlate: tilePlate,
+    media: media,
+    figure: figure,
     facetLabel: facetLabel,
     modal: { open: openModal, close: closeModal }
   };
@@ -499,6 +527,19 @@
     });
   }
 
+  function initHashLinks() {
+    document.addEventListener("click", function (event) {
+      if (event.defaultPrevented || event.button !== 0) return;
+      if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+      var link = event.target.closest ? event.target.closest('a[href^="#"]') : null;
+      if (!link || link.id === "skip-link" || link.hasAttribute("target")) return;
+      var href = link.getAttribute("href");
+      if (!href || href === "#") return;
+      event.preventDefault();
+      window.ROUTER.go(href);
+    });
+  }
+
   function initSkipLink() {
     var link = document.getElementById("skip-link");
     var app = document.getElementById("app");
@@ -526,6 +567,7 @@
   renderNav();
   renderFooter();
   initHeader();
+  initHashLinks();
   initSkipLink();
   window.addEventListener("hashchange", render);
   render();
