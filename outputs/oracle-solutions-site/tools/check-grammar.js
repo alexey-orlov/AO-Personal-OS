@@ -35,7 +35,9 @@ var VENDORS = ["oracle", "nvidia", "softserve", "other"];
 var TIERS = ["proof-of-value", "rollout", "scaling"];
 
 var failures = [];
+var warnings = [];
 function fail(where, message) { failures.push(where + " — " + message); }
+function warn(where, message) { warnings.push(where + " — " + message); }
 
 function str(v) { return typeof v === "string" && v.trim().length > 0; }
 function arr(v) { return Array.isArray(v); }
@@ -48,6 +50,10 @@ function checkHeroImage(where, image) {
   });
   if (!/^assets\/img\/heroes\/[a-z0-9-]+\.(jpg|jpeg|png|webp)$/.test(image.file)) {
     fail(where, 'hero.image.file "' + image.file + '" is not assets/img/heroes/<name>.<ext>');
+  }
+  /* Not a failure: the data layer and the imagery ship on separate tracks. */
+  if (!fs.existsSync(path.join(root, "site", image.file))) {
+    warn(where, "hero image not on disk yet: site/" + image.file);
   }
 }
 
@@ -215,6 +221,12 @@ var raw = fs.readFileSync(path.join(root, "site/data/content.js"), "utf8");
 ].forEach(function (pair) {
   if (raw.indexOf(pair[0]) !== -1) fail("content.js", 'contains banned string "' + pair[0] + '" (' + pair[1] + ")");
 });
+
+if (warnings.length) {
+  console.warn("check-grammar: " + warnings.length + " warning(s)");
+  warnings.forEach(function (x) { console.warn("  ! " + x); });
+  console.warn("");
+}
 
 if (failures.length) {
   console.error("check-grammar: " + failures.length + " failure(s)\n");

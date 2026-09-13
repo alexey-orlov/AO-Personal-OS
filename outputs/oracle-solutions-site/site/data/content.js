@@ -394,12 +394,12 @@ window.SITE_CONTENT = {
             "Magnitude and confidence scoring, citations, one JSON per affected account"
           ],
           out: [
-            "Acting on opportunities — auto-outreach, CRM tasks, workflow automation",
-            "Validating candidates against the pipeline already in flight",
-            "Monetary sizing, and interactive Q&A over the output",
-            "CRM write-back, a persistent signal store and the feedback loop",
-            "Deep financial or quantitative modeling",
-            "Native multilingual processing — single-language at proof of value"
+            "Acting on opportunities — auto-outreach, CRM tasks, workflow automation; decisioning is downstream",
+            "Validating candidates against deals already in flight — a post-proof step",
+            "Monetary sizing, and conversational follow-up over the output",
+            "CRM write-back, a persistent historical signal store, and the feedback loop",
+            "Deep financial modeling — the engine reasons over disclosures, it does not compute them",
+            "Native multilingual processing — single-language primary; more languages are a future extension"
           ]
         },
         moreDetail: [
@@ -1032,10 +1032,10 @@ window.SITE_CONTENT = {
           ],
           out: [
             "Matching or reconciliation against another system of record",
-            "Non-document data sources — reference tables, catalogs, external systems",
+            "Non-document data sources — reference tables, catalogs or external systems, not document text",
             "Full automation without human validation — a human validates by design",
             "Write-back and system integration — delivered at Roll-out",
-            "Native multi-language processing — English at proof of value",
+            "Native multi-language processing — English at proof of value; more is custom work",
             "Production hardening: enterprise scale, security audit, HA/DR, IAM/SSO"
           ]
         },
