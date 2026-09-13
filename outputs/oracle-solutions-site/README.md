@@ -14,15 +14,19 @@ oracle-solutions-site/
 ├── docs/                     internal notes — never deployed
 │   ├── CONFIG.md             every switch in data/config.js, field by field
 │   ├── SCHEMA.md             the shape of data/content.js
+│   ├── VISUAL-GRAMMAR.md     the one component grammar all seven product pages follow
 │   ├── PROVENANCE.md         where each fact and number on the site came from
 │   └── asset-candidates/     images considered but not shipped
+├── tools/
+│   └── check-grammar.js      asserts every product fills every grammar slot
 └── site/                     ← THE DEPLOYABLE ROOT. Everything below is served.
     ├── index.html            the single page: head, header, <main>, footer, script tags
     ├── assets/
     │   ├── site.css          all styling — design tokens in :root, then components
     │   ├── app.js            UI helpers (window.UI), header, footer, router, modal
     │   ├── forms.js          the demo and contact forms (window.FORMS)
-    │   └── img/              logos (SVG) and the hero sphere (WebP)
+    │   └── img/              logos (SVG), the hero sphere (WebP)
+    │       └── heroes/       per-page hero background images + heroes.json
     ├── data/
     │   ├── config.js         window.SITE_CONFIG — links, gate, form destination
     │   ├── content.js        window.SITE_CONTENT — every word on the site
@@ -92,7 +96,17 @@ The seller gate is a client-side convenience, not security. It checks the domain
 
 ### `site/data/content.js` — the words
 
-Every headline, description, chip label, price line and disclaimer. Structure documented in `docs/SCHEMA.md`; sources for the facts and numbers in `docs/PROVENANCE.md`. Prices ship with their disclaimers attached — keep them together.
+Every headline, description, chip label, price line and disclaimer. Structure documented in `docs/SCHEMA.md`; the component grammar the seven product pages share in `docs/VISUAL-GRAMMAR.md`; sources for the facts and numbers in `docs/PROVENANCE.md`. Prices ship with their disclaimers attached — keep them together.
+
+After any edit to either data file, run:
+
+```
+node --check site/data/content.js
+node --check site/data/config.js
+node tools/check-grammar.js
+```
+
+`check-grammar.js` fails if a product stops filling a grammar slot, if a metric row loses its disclaimer, if an industry key is not in the fixed set, or if an internal string reaches the data layer.
 
 ---
 
