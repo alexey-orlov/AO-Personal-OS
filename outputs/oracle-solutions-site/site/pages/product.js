@@ -536,9 +536,10 @@
     var UI = window.UI;
     if (!window.FORMS) return UI.empty(C().forms.demo.sub);
     var steps = engagementSteps();
-    var form = '<div class="panel panel--form" id="product-demo-form">' +
-      window.FORMS.render("demo", { product: product.slug }) + "</div>";
-    if (!steps) return '<section class="panel reveal">' + form + "</section>";
+    if (!steps) {
+      return '<section class="panel panel--form reveal" id="product-demo-form">' +
+        window.FORMS.render("demo", { product: product.slug }) + "</section>";
+    }
     return '<section class="panel reveal">' +
       '<div class="demo-split">' +
         '<div class="demo-aside">' +
@@ -546,7 +547,9 @@
           '<p class="body-text">' + UI.esc(C().forms.demo.sub) + "</p>" +
           steps +
         "</div>" +
-        form +
+        '<div class="panel--form" id="product-demo-form">' +
+          window.FORMS.render("demo", { product: product.slug, heading: false }) +
+        "</div>" +
       "</div></section>";
   }
 
