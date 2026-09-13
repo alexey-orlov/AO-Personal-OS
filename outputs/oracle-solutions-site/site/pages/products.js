@@ -230,9 +230,9 @@
 
   function revealNow(container) {
     var nodes = container.querySelectorAll(".reveal");
-    window.requestAnimationFrame(function () {
+    window.setTimeout(function () {
       Array.prototype.forEach.call(nodes, function (node) { node.classList.add("is-in"); });
-    });
+    }, 0);
   }
 
   products.mount = function (params, root) {

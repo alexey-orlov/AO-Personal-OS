@@ -410,13 +410,7 @@
       if (target) {
         window.requestAnimationFrame(function () {
           var top = target.getBoundingClientRect().top + window.pageYOffset - 96;
-          var from = window.pageYOffset;
           window.scrollTo({ top: top, behavior: sameView ? "smooth" : "auto" });
-          window.setTimeout(function () {
-            if (Math.abs(window.pageYOffset - from) < 2 && Math.abs(top - from) > 2) {
-              window.scrollTo({ top: top, behavior: "auto" });
-            }
-          }, 240);
         });
       }
     } else if (!sameView) {
