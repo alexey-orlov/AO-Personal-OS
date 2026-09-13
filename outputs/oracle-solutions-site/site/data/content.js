@@ -110,6 +110,8 @@ window.SITE_CONTENT = {
       { id: "sellers", label: "For sellers", locked: true }
     ],
     ladderColumns: ["Proof of value", "Roll-out", "Scaling"],
+    heroAsideTitle: "What you get",
+    heroAsideFootLabel: "Proof of value",
     materialStates: {
       "link-pending": "Link pending",
       "coming-soon": "Coming soon",
@@ -1853,7 +1855,13 @@ window.SITE_CONTENT = {
     rejected: "That domain is not on the list. Use a SoftServe or Oracle work address.",
     linkPendingLabel: "Link pending",
     downloadLabel: "Download",
-    unlockedIntro: "Materials for Oracle and SoftServe account teams. Rows marked Link pending have a document but no share link yet.",
+    unlockedIntro: "Materials for Oracle and SoftServe account teams.",
+    stateLegend: {
+      "link-pending": "Link pending — the document exists, the share link does not yet",
+      "coming-soon": "Coming soon — not written yet",
+      "superseded": "Superseded — do not distribute",
+      "planned": "Planned — scoped, not started"
+    },
     packagingNotes: [
       "Packages compress over time. Service-delivery packages are expected to compress as the accelerator pack matures and absorbs more of the work.",
       "Pricing assumes the accelerator pack already exists — a first-of-kind engagement is scoped separately."
