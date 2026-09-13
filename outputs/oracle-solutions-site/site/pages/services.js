@@ -37,7 +37,11 @@
         '<p class="body-text product-subline">' + UI.esc(h.secondParagraph) + "</p>" +
         '<div class="cta-row product-hero-cta">' +
           UI.button({ label: h.cta.label, href: h.cta.route, kind: "primary" }) +
-          UI.button({ label: content.productsPage.title, href: "#/products", kind: "quiet", iconAfter: "arrow" }) +
+          UI.button({
+            label: content.overview.hero.ctas[1].label,
+            href: content.overview.hero.ctas[1].route,
+            kind: "quiet", iconAfter: "arrow"
+          }) +
         "</div>" +
         (stats ? '<ul class="stat-row services-stats">' + stats + "</ul>" : "") +
       "</div></section>";
