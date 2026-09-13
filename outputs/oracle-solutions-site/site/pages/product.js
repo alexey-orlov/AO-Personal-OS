@@ -807,7 +807,7 @@
     else body = overviewTab(item);
 
     return hero(item) + tabbar(item, active) +
-      '<section class="section section--tight"><div class="wrap tab-body' +
+      '<section class="section section--tight section--tabs"><div class="wrap tab-body' +
         (active === "overview" ? " tab-body--compact" : "") + '" id="tab-body">' +
         body +
       "</div></section>" +
