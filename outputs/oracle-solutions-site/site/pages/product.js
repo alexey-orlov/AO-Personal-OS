@@ -258,34 +258,41 @@
     var UI = window.UI;
     var story = product.overview.successStory;
     var conf = cfg(product.slug);
-    var results = story.results && story.results.length
-      ? '<div class="proof-metrics">' + story.results.map(function (item) {
-          return '<div class="metric">' +
-            '<p class="metric-value nums">' + UI.esc(item.value) + "</p>" +
-            '<p class="metric-label">' + UI.esc(item.label) + "</p>" +
-            "</div>";
-        }).join("") +
-        (story.footnotes && story.footnotes.length
-          ? '<div class="proof-footnotes">' + story.footnotes.map(function (note) {
-              return '<p class="footnote">' + UI.esc(note) + "</p>";
-            }).join("") + "</div>"
-          : "") +
-        "</div>"
-      : UI.empty(story.emptyLabel);
+    var hasResults = !!(story.results && story.results.length);
 
-    return '<section class="panel reveal">' + blockHead(story.title) +
-      '<div class="story-grid">' +
-        '<div class="story-copy">' +
-          (story.blurb ? '<p class="body-text">' + UI.esc(story.blurb) + "</p>" : "") +
-          (story.scopeLine ? '<p class="proof-scope">' + UI.esc(story.scopeLine) + "</p>" : "") +
-          (conf.successStoryUrl
-            ? UI.button({
-                label: "Download the success story", href: conf.successStoryUrl,
-                kind: "secondary", icon: "download", attrs: { download: "" }
-              })
+    var copy = '<div class="story-band-copy">' +
+      '<p class="band-label">' + UI.esc(story.title) + "</p>" +
+      '<p class="band-body">' + UI.esc(story.blurb || story.emptyLabel || "") + "</p>" +
+      (story.scopeLine ? '<p class="band-scope">' + UI.esc(story.scopeLine) + "</p>" : "") +
+      (story.blurb && !hasResults && story.emptyLabel
+        ? '<p class="band-note">' + UI.esc(story.emptyLabel) + "</p>" : "") +
+      (conf.successStoryUrl
+        ? UI.button({
+            label: "Download the success story", href: conf.successStoryUrl,
+            kind: "dark", icon: "download", attrs: { download: "" }
+          })
+        : "") +
+      "</div>";
+
+    var metrics = hasResults
+      ? '<div class="story-band-metrics">' +
+          '<ul class="band-metrics">' + story.results.map(function (item) {
+            return "<li>" +
+              '<p class="band-metric-value nums">' + UI.esc(item.value) + "</p>" +
+              '<p class="band-metric-label">' + UI.esc(item.label) + "</p>" +
+              "</li>";
+          }).join("") + "</ul>" +
+          (story.footnotes && story.footnotes.length
+            ? '<div class="band-notes">' + story.footnotes.map(function (note) {
+                return '<p class="band-footnote">' + UI.esc(note) + "</p>";
+              }).join("") + "</div>"
             : "") +
-        "</div>" +
-        results +
+        "</div>"
+      : "";
+
+    return '<section class="panel reveal">' +
+      '<div class="story-band' + (hasResults ? "" : " story-band--single") + '">' +
+        copy + metrics +
       "</div></section>";
   }
 
@@ -295,7 +302,7 @@
     var parts = [
       noteBlock(o.pattern),
       problemBlock(o.problem),
-      solutionBlock(o.solution),
+      solutionBlock(product),
       todayTomorrow(o.todayTomorrow),
       o.pullQuote ? '<blockquote class="pull-quote reveal">' + UI.esc(o.pullQuote) + "</blockquote>" : "",
       o.whatWeHear ? '<section class="panel reveal">' + blockHead(o.whatWeHear.title) +
@@ -354,8 +361,8 @@
           }).join("") + "</div></section>"
       : "";
 
-    return '<section class="panel reveal">' + blockHead("Architecture") +
-        '<p class="lead">' + UI.esc(tech.narrative) + "</p></section>" +
+    return mediaRow(product.slug, blockHead("Architecture") +
+        '<p class="lead">' + UI.esc(tech.narrative) + "</p>", true) +
       layers +
       '<section class="panel reveal">' + blockHead("Components") +
         '<div class="component-grid">' + tech.components.map(componentGroup).join("") + "</div></section>" +
