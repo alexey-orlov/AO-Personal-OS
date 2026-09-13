@@ -1775,7 +1775,7 @@ window.SITE_CONTENT = {
       },
       mailto: {
         title: "Your mail client opened with the request.",
-        body: "Send the message that was composed and someone from the Oracle practice will come back within two working days. If nothing opened, your browser may be blocking mail links — copy the details into a mail to the address shown and we will pick it up the same way."
+        body: "Send the message that was composed and someone from the Oracle practice will come back within two working days. If nothing opened, your browser is blocking mail links — allow them for this page and submit the form again."
       },
       contactPosted: {
         title: "Thanks — we have it.",
