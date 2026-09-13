@@ -705,11 +705,11 @@
     if (contact) {
       contact.addEventListener("click", function () {
         window.UI.modal.open(
-          window.FORMS.render("contact", { product: item.slug, role: "oracle-seller" }),
-          { label: C().forms.contact.heading }
+          window.FORMS.render("demo", { product: item.slug, role: "oracle-seller" }),
+          { label: C().forms.demo.heading }
         );
         var panel = document.querySelector(".modal-panel");
-        if (panel) window.FORMS.mount(panel, "contact");
+        if (panel) window.FORMS.mount(panel, "demo");
       });
     }
   }
