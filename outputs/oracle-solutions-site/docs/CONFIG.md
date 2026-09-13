@@ -27,6 +27,7 @@ window.SITE_CONFIG = {
       marketplace: false,
       marketplaceUrl: "",
       videoUrl: "",
+      videoPoster: "",
       successStoryUrl: "",
       materials: { "sales-deck": "", "one-pager": "", ... }
     }
@@ -138,7 +139,12 @@ Set `marketplace: true` and `marketplaceUrl` together when a listing goes live.
 
 ### `videoUrl`
 
-A demo video. When non-empty, the hero's primary CTA becomes **"Watch the demo"** and "Request a demo" moves to secondary. When empty, "Request a demo" is the only primary CTA and no video frame, poster or placeholder is rendered.
+A demo video. **This single field switches the product hero between its two layouts.**
+
+| Value | Hero layout |
+|---|---|
+| `""` (empty — today) | Single column: text over the hero background image. No video frame, no poster, no greyed play button, no "coming soon" line. |
+| A URL | Two columns: text left, a 16:9 media frame right showing a poster image with a play button and the caption "Watch the demo". Clicking it opens the video in a modal. The hero's primary CTA becomes **"Watch the demo"** and "Request a demo" moves to secondary. |
 
 ```js
 videoUrl: "https://www.youtube.com/watch?v=…",
@@ -147,6 +153,26 @@ videoUrl: "https://www.youtube.com/watch?v=…",
 A normal share link is fine. YouTube `watch?v=`, `youtu.be/`, `youtube.com/shorts/` and `vimeo.com/<id>` links are converted to their embed form before the player is framed; links already in embed/player form are passed through unchanged.
 
 Expected to be filled first for `workforce-optimization`, `large-document-extraction` and `account-insights`. Empty on all seven today.
+
+### `videoPoster`
+
+The still image shown inside that media frame before the video plays. **Only ever used when `videoUrl` is non-empty** — on a product with no video it is dead weight, which is why it is safe to leave empty everywhere.
+
+```js
+videoPoster: "assets/img/posters/workforce-optimization.jpg",
+```
+
+A path relative to `site/index.html`, or an absolute `https://` URL. Landscape, 16:9, at least 1280×720.
+
+The renderer resolves the poster in this order, first non-empty wins:
+
+1. **`videoPoster`** — what you set here.
+2. **The YouTube thumbnail** — `https://img.youtube.com/vi/<id>/maxresdefault.jpg`, derived automatically when `videoUrl` is a YouTube link.
+3. **The product's own hero image** — `products[].hero.image.file` in `content.js`.
+
+So a YouTube demo needs nothing here at all. Set `videoPoster` when the auto-derived thumbnail is a bad frame, when the video is on Vimeo or Stream (no public thumbnail), or when you want a designed still rather than a screenshot.
+
+Empty on all seven today.
 
 ### `successStoryUrl`
 
@@ -188,10 +214,42 @@ A row whose `state` in `content.js` is `superseded` stays disabled even if a URL
 
 ---
 
+## 3b. Hero images — where they live and how to swap one
+
+Hero background images are **not** in `config.js`. They are content, so they live in `content.js`:
+
+| Surface | Key |
+|---|---|
+| Overview page | `overview.hero.image` |
+| Services page | `services.hero.image` |
+| Each product page | `products[].hero.image` |
+
+Each is `{ file, alt, focal }`:
+
+```js
+hero: {
+  image: {
+    file: "assets/img/heroes/workforce-optimization.jpg",
+    alt: "Service territory rendered as routes and coverage zones over a dark map",
+    focal: "55% 50%"
+  }
+}
+```
+
+- **`file`** — path relative to `site/index.html`. The files sit in `site/assets/img/heroes/`, named by product slug, plus `overview.jpg` and `services.jpg`.
+- **`alt`** — a plain description of the picture. The image is a background, so the renderer applies it as the hero's `aria-label` (or hides the image from assistive tech when the hero is already labelled by its headline).
+- **`focal`** — a CSS `object-position` value, e.g. `"55% 40%"`. This is the knob to turn when a crop clips the wrong part of the image on a wide screen; it changes nothing else.
+
+`site/assets/img/heroes/heroes.json` is the source of truth for `alt` and `focal` and carries each image's provenance. `content.js` holds a copy so the page needs no runtime fetch — **when you change one, change the other.**
+
+**To swap a hero image:** drop the new file into `site/assets/img/heroes/`, point `file` at it, adjust `focal` until the crop sits right, and update the same entry in `heroes.json`. The image is the background of the **top block only** — never the Overview tab, never a full-screen wash. It renders at 60–70vh maximum on desktop with a dark gradient over it so the headline stays on near-black.
+
+---
+
 ## 4. Adding an eighth product
 
 1. Add the product object to `products[]` in `content.js` (see `SCHEMA.md` for every field).
-2. Add a matching `products["<new-slug>"]` block to `config.js` with all five keys.
+2. Add a matching `products["<new-slug>"]` block to `config.js` with all six keys (`marketplace`, `marketplaceUrl`, `videoUrl`, `videoPoster`, `successStoryUrl`, `materials`).
 3. If it lands on a technology facet that currently has no products, nothing else is needed — the facet is already declared and will stop rendering its empty state once a product carries it.
 
 If the config block is missing, the product page still renders; every optional control simply stays hidden, exactly as if all its URLs were empty.
@@ -205,6 +263,9 @@ After editing either data file:
 ```
 node --check site/data/config.js
 node --check site/data/content.js
+node tools/check-grammar.js
 ```
 
-Both must print nothing. A syntax error here blanks the whole site, because the page cannot read its own content — a trailing comma in the wrong place is the usual cause.
+The first two must print nothing. A syntax error there blanks the whole site, because the page cannot read its own content — a trailing comma in the wrong place is the usual cause.
+
+`check-grammar.js` must print `OK`. It asserts that every product still fills every slot of the component grammar (see `VISUAL-GRAMMAR.md`): hero image, problem/solution pair, 3–4 metric tiles with their note, ROI band, 6–8 short feature lines, industry keys from the fixed set, in/out of scope, the four-step flow, vendor groups, and the POV fact strip. It also fails on any banned string — internal vocabulary or an uncleared customer name — reaching the data layer. It exits non-zero and names each failure.
