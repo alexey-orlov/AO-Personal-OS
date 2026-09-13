@@ -126,7 +126,7 @@
       UI.availabilityChip(product)
     ];
     if (conf.marketplace) {
-      chips.push(UI.chip({ label: C().facets.marketplace.badge, kind: "accent" }));
+      chips.push(UI.chip({ label: C().facets.marketplace.badge }));
     }
     var badges = product.badges
       ? '<ul class="hero-badges">' + product.badges.map(function (badge) {

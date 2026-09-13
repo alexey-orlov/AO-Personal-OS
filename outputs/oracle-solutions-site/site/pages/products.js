@@ -73,7 +73,7 @@
       UI.availabilityChip(product)
     ];
     if (isMarketplace(product)) {
-      chips.push(UI.chip({ label: window.SITE_CONTENT.facets.marketplace.badge, kind: "accent" }));
+      chips.push(UI.chip({ label: window.SITE_CONTENT.facets.marketplace.badge }));
     }
     var outcomes = product.tile.outcomes.map(function (line) {
       return "<li>" + UI.icon("check") + "<span>" + UI.esc(line) + "</span></li>";
