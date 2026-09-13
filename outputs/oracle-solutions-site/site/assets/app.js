@@ -440,7 +440,9 @@
       if (target) {
         var scrollToAnchor = function () {
           var top = target.getBoundingClientRect().top + window.pageYOffset - 96;
-          window.scrollTo({ top: top, behavior: sameView ? "smooth" : "auto" });
+          var smooth = sameView && !document.hidden &&
+            !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+          window.scrollTo({ top: top, behavior: smooth ? "smooth" : "auto" });
         };
         scrollToAnchor();
         window.requestAnimationFrame(scrollToAnchor);
