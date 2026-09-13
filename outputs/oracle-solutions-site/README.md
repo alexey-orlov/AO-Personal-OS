@@ -1,0 +1,127 @@
+# Oracle AI Solutions — site
+
+A small marketing site for SoftServe's Oracle-based AI solutions: seven packaged applications built on Oracle Cloud Infrastructure with NVIDIA and on Oracle Autonomous AI Lakehouse, plus the services of the Oracle dedicated practice that delivers them. It is used two ways — sent to customers as a link, and opened live by SoftServe and Oracle sellers during a call.
+
+Static site. No build step, no framework, no package manager: plain HTML, CSS and vanilla JavaScript, rendered client-side by a hash router. It runs from a `file://` path, from any static host, and as a multi-file artifact. The only external resource is Google Fonts (Montserrat + Open Sans); everything else is local.
+
+---
+
+## Folder layout
+
+```
+oracle-solutions-site/
+├── README.md                 this file
+├── docs/                     internal notes — never deployed
+│   ├── CONFIG.md             every switch in data/config.js, field by field
+│   ├── SCHEMA.md             the shape of data/content.js
+│   ├── PROVENANCE.md         where each fact and number on the site came from
+│   └── asset-candidates/     images considered but not shipped
+└── site/                     ← THE DEPLOYABLE ROOT. Everything below is served.
+    ├── index.html            the single page: head, header, <main>, footer, script tags
+    ├── assets/
+    │   ├── site.css          all styling — design tokens in :root, then components
+    │   ├── app.js            UI helpers (window.UI), header, footer, router, modal
+    │   ├── forms.js          the demo and contact forms (window.FORMS)
+    │   └── img/              logos (SVG) and the hero sphere (WebP)
+    ├── data/
+    │   ├── config.js         window.SITE_CONFIG — links, gate, form destination
+    │   └── content.js        window.SITE_CONTENT — every word on the site
+    └── pages/
+        ├── overview.js       window.PAGES.overview   →  #/
+        ├── products.js       window.PAGES.products   →  #/products
+        ├── product.js        window.PAGES.product    →  #/products/<slug>[/<tab>]
+        └── services.js       window.PAGES.services   →  #/services
+```
+
+Script order in `index.html` matters: `data/*` → `assets/forms.js` → `pages/*` → `assets/app.js`, which renders on load. A new page script goes before `assets/app.js`.
+
+### Routes
+
+| Hash | Page |
+|---|---|
+| `#/` | Overview — hero, products, customer evidence, services teaser, demo form |
+| `#/products` | Product marketplace — facet rail (technology, category, marketplace), search, tiles |
+| `#/products/<slug>` | One product — hero plus tabs |
+| `#/products/<slug>/<tab>` | `overview` · `technology` · `pov` · `demo` · `sellers` |
+| `#/services` | The Oracle dedicated practice — platforms, what we do, how we engage, why SoftServe, proof, contact form |
+| anything else | A designed not-found page |
+
+An anchor can follow the route: `#/services#contact`, `#/#request-a-demo`. The router scrolls to that element with a 96 px offset. Query parameters work too — `#/products?tech=lakehouse` opens the marketplace with that facet applied, which makes filtered views shareable.
+
+---
+
+## Run it locally
+
+Open `site/index.html` in a browser. That is the whole procedure — the site is written to work from `file://`.
+
+If a browser blocks local file access, serve the folder over HTTP instead:
+
+```bash
+python3 -m http.server 8765 --directory site
+# then open http://localhost:8765/
+```
+
+Any static server will do. Nothing needs to be installed or compiled.
+
+---
+
+## Configure it
+
+Two data files hold everything that changes after launch. Edit, save, reload — there is nothing to rebuild.
+
+### `site/data/config.js` — links, gate, form destination
+
+Full field-by-field reference: `docs/CONFIG.md`. In short:
+
+| Key | What it does |
+|---|---|
+| `contactEmail` | Mailbox the forms fall back to when no endpoint is set. Never printed on a page. |
+| `formEndpoint` | Empty → forms compose a `mailto:`. A URL → forms `POST` JSON to it and show the confirmation only on a 2xx response. |
+| `sellerGate.allowedDomains` | Email domains that unlock the "For sellers" tab. Today: `softserveinc.com`, `oracle.com`. |
+| `sellerGate.storageKey` | `localStorage` key holding the unlock. Change it to invalidate every existing unlock. |
+| `products.<slug>.marketplace` | `true` shows the "Available on Oracle Marketplace" badge and includes the product in that filter. |
+| `products.<slug>.marketplaceUrl` | Non-empty → the "View on Oracle Marketplace" button appears in the product hero. |
+| `products.<slug>.videoUrl` | Non-empty → a "Watch the demo" button appears and plays the video in a modal (YouTube, Vimeo, SharePoint and Stream URLs embed as an iframe; anything else plays natively). |
+| `products.<slug>.successStoryUrl` | Non-empty → a "Download the success story" button appears. |
+| `products.<slug>.materials.<key>` | Non-empty → that row in the seller panel gets a download button instead of a disabled "Link pending" control. |
+
+**The rule behind every URL field: an empty string means the control is not rendered at all** — no placeholder, no greyed-out button, no "coming soon" line. Paste a URL and it appears on the next reload. Every URL is empty today, so none of those controls ship yet.
+
+The seller gate is a client-side convenience, not security. It checks the domain of a typed email and stores a flag in `localStorage`. Anything that must not leak belongs behind a real login, not in this repo.
+
+### `site/data/content.js` — the words
+
+Every headline, description, chip label, price line and disclaimer. Structure documented in `docs/SCHEMA.md`; sources for the facts and numbers in `docs/PROVENANCE.md`. Prices ship with their disclaimers attached — keep them together.
+
+---
+
+## Deploy it
+
+Upload the **contents of `site/`** to any static host, so that `index.html` sits at the root of whatever URL is handed out. No server-side logic, no redirects, no rewrite rules: the router lives in the hash, so every route is the same `index.html`.
+
+```bash
+# a few examples — all of them just copy files
+aws s3 sync site/ s3://<bucket>/ --delete
+netlify deploy --dir=site --prod
+gh-pages -d site
+scp -r site/* user@host:/var/www/oracle-ai-solutions/
+```
+
+Notes that matter in production:
+
+- **Serve over HTTPS.** The forms post from the browser; mixed content will be blocked.
+- **Do not deploy `docs/`.** It is internal.
+- **Google Fonts must be reachable.** If the target network blocks it, self-host the two families into `assets/` and change the `<link>` in `index.html`; the CSS already falls back to system faces.
+- **Caching:** `index.html` should be served with a short cache lifetime, `assets/` and `data/` can be cached longer — but remember that `config.js` and `content.js` are how the site is edited, so do not put them behind a year-long cache.
+- **Add `<meta property="og:url" content="…">`** to `index.html` once the final address is known; the other OpenGraph and Twitter tags are already there (title, description, site name, type — no image).
+
+---
+
+## Conventions worth keeping
+
+- **One accent.** Teal `#35CCBA` on near-black `#131313`, and the accent carries the first word of each headline. Nothing else competes.
+- **Filled navy pill = a fact** (category, platform, availability, marketplace). **Outlined pill = a filter you can toggle.** Never mix the two meanings.
+- **Absence renders as an empty instance of the same component** (`UI.empty(...)`), not as a sentence where the component should be.
+- **The light two-tone band is the only inversion** and appears at most once per page. The sphere image is used exactly once, in the Overview hero.
+- **No customer names anywhere**, including in the data files. Evidence is anonymized by industry.
+- **Motion is subtle:** blocks fade up 14 px once on first view, interactions run at 250 ms, and everything collapses to instant under `prefers-reduced-motion`.
