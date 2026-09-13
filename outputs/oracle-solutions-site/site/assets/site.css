@@ -1321,7 +1321,7 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 .crumbs a { border-bottom: 1px solid transparent; }
 .crumbs a:hover { color: var(--accent); border-bottom-color: var(--accent); }
 
-.product-title { font-size: var(--fs-hero-sm); max-width: 20ch; }
+.product-title { font-size: clamp(2rem, 5.9vw, 5.25rem); max-width: 20ch; }
 .hero-line { margin-bottom: -.5rem; }
 .product-lead { max-width: 44rem; font-size: 1.1875rem; }
 .product-subline { max-width: 46rem; color: var(--text-muted); }
