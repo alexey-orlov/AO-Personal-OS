@@ -442,13 +442,13 @@
           var top = target.getBoundingClientRect().top + window.pageYOffset - 96;
           var smooth = sameView && !document.hidden &&
             !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-          window.scrollTo({ top: top, behavior: smooth ? "smooth" : "auto" });
+          window.scrollTo({ top: top, behavior: smooth ? "smooth" : "instant" });
         };
         scrollToAnchor();
         window.requestAnimationFrame(scrollToAnchor);
       }
     } else if (!sameView) {
-      window.scrollTo({ top: 0, behavior: "auto" });
+      window.scrollTo({ top: 0, behavior: "instant" });
     }
 
     lastKey = key;
@@ -507,7 +507,7 @@
       event.preventDefault();
       app.setAttribute("tabindex", "-1");
       app.focus({ preventScroll: true });
-      window.scrollTo({ top: 0, behavior: "auto" });
+      window.scrollTo({ top: 0, behavior: "instant" });
     });
   }
 

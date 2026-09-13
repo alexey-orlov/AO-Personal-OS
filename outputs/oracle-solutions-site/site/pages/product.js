@@ -724,7 +724,7 @@
       var tabs = root.querySelector("#product-tabs");
       if (tabs) {
         var top = tabs.getBoundingClientRect().top + window.pageYOffset - 76;
-        if (window.pageYOffset > top) window.scrollTo({ top: top, behavior: "auto" });
+        if (window.pageYOffset > top) window.scrollTo({ top: top, behavior: "instant" });
       }
     }
   };
