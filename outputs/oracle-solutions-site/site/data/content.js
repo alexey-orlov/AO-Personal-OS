@@ -919,7 +919,13 @@ window.SITE_CONTENT = {
           title: "SUCCESS STORY",
           state: "published",
           blurb: "Ground-handling contract rates were keyed into a cost-management system by hand — 60–100-page agreements read page by page, 3–5 days per contract. With the extraction app on OCI (NVIDIA AI-Q), reviewers now validate AI-extracted rates side-by-side with the source PDF — every value cited to its page — and export in minutes.",
-          emptyLabel: "No case summary is published yet.",
+          results: [
+            { value: "3–5 days → 5–15 min", label: "to extract a 60–100-page ground-handling contract end to end" },
+            { value: "up to −20%", label: "targeted reduction in manual data-entry effort (proof of value)" }
+          ],
+          footnotes: [
+            "Targets from the proof of value; figures are illustrative, not contractual."
+          ],
           evidenceId: "extraction-proof"
         }
       },
@@ -1258,12 +1264,12 @@ window.SITE_CONTENT = {
         },
         problem: {
           title: "THE PROBLEM",
-          lead: "The ERP knows orders and invoices; the CRM knows customers; carriers, e-commerce and spreadsheets know the rest. Every real question crosses two systems or more, lands in a BI queue, and comes back days later, already stale.",
+          lead: "Business questions cross application boundaries; the reporting does not. Each cross-system answer becomes a request in a queue, and it lands after the decision it was meant to inform.",
           bullets: []
         },
         solution: {
           title: "THE SOLUTION",
-          lead: "Business-app data flows into one governed layer — for Oracle applications through pipelines that exist out of the box — joined with one or two non-Oracle sources. On top: plain-English answers and dashboards that treat it all as one system, using definitions the business signed off."
+          lead: "Do the join once, in the data, rather than once per question: one governed layer under the applications, and a plain-English answer surface on top of it."
         },
         metrics: {
           title: "METRICS IMPROVED",
@@ -1438,12 +1444,12 @@ window.SITE_CONTENT = {
         },
         problem: {
           title: "THE PROBLEM",
-          lead: "Data lives in AWS, Azure, Google and on-prem databases. Each platform has its own catalog, its own security model, its own team. A cross-cloud question takes a data engineer, three extracts and a week — and AI initiatives stall because no single system sees the whole picture.",
+          lead: "Every cloud governs its own data, so a question that spans them is an engineering project rather than a query — and no single system sees enough of the picture for AI to be useful on it.",
           bullets: []
         },
         solution: {
           title: "THE SOLUTION",
-          lead: "One governed engine mounts the catalogs you already have — AWS Glue, Databricks Unity, Snowflake — and links your databases, querying data where it lives. No migration. On top: an AI assistant answers plain-English questions across all of it, and obeys your access rules."
+          lead: "Move the answer layer to the data instead of the data to the answer layer: one governed engine over the catalogs and databases already in place, answering under the access rules those systems already enforce."
         },
         whatWeHear: {
           title: "WHAT WE HEAR",
@@ -1751,9 +1757,18 @@ window.SITE_CONTENT = {
       message: "What are you trying to fix?",
       messagePlaceholder: "The workflow, the volume, and what \"good\" would look like.",
       submitDemo: "Request a demo",
-      submitContact: "Send",
+      submitContact: "Request a scoping call",
       required: "Required",
       invalidEmail: "Enter a valid work email address."
+    },
+    engagementSteps: {
+      title: "WHAT HAPPENS NEXT",
+      steps: [
+        { title: "One scoping conversation", body: "Bring the workflow, a rough volume and the current cycle time. That is most of what the first call needs." },
+        { title: "A shaped proof of value", body: "We come back with the scope, the success metrics and what the fixed-price engagement covers." },
+        { title: "Built in your tenancy", body: "The proof runs on your own data, under your security rules, and what is built stays with you." }
+      ],
+      responseLine: "Someone from the Oracle practice comes back within two working days."
     },
     demo: {
       anchor: "request-a-demo",
