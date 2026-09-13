@@ -180,7 +180,7 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 .muted { color: var(--text-muted); }
 .dim { color: var(--text-dim); }
 .small { font-size: var(--fs-sm); line-height: 1.6; }
-.footnote { font-size: var(--fs-xs); line-height: 1.65; color: var(--text-dim); max-width: 46rem; }
+.footnote { font-size: var(--fs-xs); line-height: 1.65; color: var(--text-note); max-width: 46rem; }
 .nums { font-variant-numeric: tabular-nums; }
 .clamp-2 { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; line-clamp: 2; overflow: hidden; }
 .clamp-3 { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; line-clamp: 3; overflow: hidden; }
@@ -367,7 +367,7 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 
 .chip-row { display: flex; flex-wrap: wrap; gap: .5rem; }
 
-.chip-dot { width: .4375rem; height: .4375rem; border-radius: var(--r-pill); flex: none; background: var(--text-dim); }
+.chip-dot { width: .4375rem; height: .4375rem; border-radius: var(--r-pill); flex: none; background: var(--decor-dim); }
 .chip-dot--available { background: var(--accent); }
 .chip-dot--offer { background: var(--panel-lightest); }
 .chip-dot--preparation { background: transparent; box-shadow: inset 0 0 0 1px var(--text-muted); }
@@ -520,7 +520,8 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
   position: absolute;
   right: -11rem;
   top: 1rem;
-  width: min(48rem, 54vw);
+  width: min(42rem, 48vw);
+  height: auto;
   opacity: .78;
   pointer-events: none;
   filter: saturate(1.05);
@@ -535,6 +536,7 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 .hero-cta { margin-top: clamp(2.5rem, 5vw, 4.5rem); }
 
 .stat-row {
+  position: relative;
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 0;
@@ -542,10 +544,23 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
   border-top: 1px solid var(--border-subtle);
 }
 
-.stat { padding: 1.5rem 1.5rem 0 0; }
-.stat + .stat { border-left: 1px solid var(--border-subtle); padding-left: 1.5rem; }
+.stat-row::before {
+  content: "";
+  position: absolute;
+  inset: -3rem -2rem -1rem;
+  z-index: -1;
+  background: linear-gradient(to bottom, rgba(19, 19, 19, 0) 0, var(--bg) 3rem, var(--bg) 100%);
+  pointer-events: none;
+}
+
+.stat { padding: 1.5rem 1.5rem 0 1.5rem; }
+.stat:first-child { padding-left: 0; }
+.stat + .stat { border-left: 1px solid var(--border-subtle); }
 
 .stat-value {
+  display: flex;
+  align-items: flex-end;
+  min-height: 2em;
   font-family: var(--font-display);
   font-weight: 900;
   font-size: clamp(1.75rem, 2.6vw, 2.75rem);
@@ -646,6 +661,32 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 
 .tile-plate-name .accent { color: var(--accent); }
 
+.tile-plate--art { padding: 0; justify-content: flex-end; gap: 0; }
+.tile-plate--art::after { display: none; }
+
+.tile-plate-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: .88;
+  transition: transform .6s var(--ease), opacity .6s var(--ease);
+}
+
+.tile:hover .tile-plate-img,
+.tile:focus-within .tile-plate-img,
+.market-tile:hover .tile-plate-img,
+.market-tile:focus-within .tile-plate-img { transform: scale(1.04); opacity: 1; }
+
+.tile-plate--art .tile-plate-foot {
+  padding: 3rem 1.5rem 1.25rem;
+  background: linear-gradient(to top, rgba(0, 0, 0, .86) 0, rgba(0, 0, 0, .55) 45%, rgba(0, 0, 0, 0) 100%);
+}
+
+.tile-plate--art .tile-plate-facet { color: var(--text-muted); }
+.tile-plate--art .icon { color: var(--text); }
+
 .tile-plate-foot {
   display: flex;
   align-items: center;
@@ -672,13 +713,13 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
   grid-column: 1 / -1;
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  grid-template-rows: auto auto 1fr;
+  grid-template-rows: auto auto auto;
   column-gap: clamp(2rem, 4vw, 3.5rem);
   row-gap: .875rem;
   align-content: center;
 }
 
-.tile-grid > .tile:last-child:nth-child(odd) .tile-plate { grid-column: 1; grid-row: 1 / span 3; aspect-ratio: auto; min-height: 15rem; }
+.tile-grid > .tile:last-child:nth-child(odd) .tile-plate { grid-column: 1; grid-row: 1 / span 3; aspect-ratio: 21 / 9; min-height: 0; }
 .tile-grid > .tile:last-child:nth-child(odd) .chip-row { grid-column: 2; grid-row: 1; align-self: end; }
 .tile-grid > .tile:last-child:nth-child(odd) .tile-title { grid-column: 2; grid-row: 2; }
 .tile-grid > .tile:last-child:nth-child(odd) .tile-desc { grid-column: 2; grid-row: 3; align-self: start; }
@@ -846,7 +887,7 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 .segment:active { transform: scale(.97); }
 
 .search-field { position: relative; }
-.search-field .icon { position: absolute; left: .875rem; top: 50%; transform: translateY(-50%); color: var(--text-dim); }
+.search-field .icon { position: absolute; left: .875rem; top: 50%; transform: translateY(-50%); color: var(--decor-dim); }
 
 .input, .textarea, .select {
   width: 100%;
@@ -983,7 +1024,7 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 .footer-legal a, .footer-legal p { font-size: var(--fs-sm); color: var(--text); opacity: .75; line-height: 1.75; }
 .footer-legal a:hover { opacity: 1; color: var(--accent); }
 .footer-legal .legal-line { margin-left: auto; }
-.trademark { font-size: var(--fs-xs); color: var(--text-dim); line-height: 1.6; max-width: 62rem; padding-bottom: 3rem; }
+.trademark { font-size: var(--fs-xs); color: var(--text-note); line-height: 1.6; max-width: 62rem; padding-bottom: 3rem; }
 
 @media (max-width: 900px) {
   .footer-grid { grid-template-columns: 1fr; }
@@ -1200,7 +1241,7 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 
 .dash-list { display: flex; flex-direction: column; gap: .625rem; }
 .dash-list li { position: relative; padding-left: 1.25rem; font-size: var(--fs-sm); line-height: 1.6; color: var(--text-body); }
-.dash-list li::before { content: ""; position: absolute; left: 0; top: .75rem; width: .5rem; height: 1px; background: var(--text-dim); }
+.dash-list li::before { content: ""; position: absolute; left: 0; top: .75rem; width: .5rem; height: 1px; background: var(--decor-dim); }
 
 .value-strip {
   align-self: flex-start;
