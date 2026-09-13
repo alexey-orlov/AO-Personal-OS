@@ -2174,7 +2174,9 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 
   .tile, .tier, .brief, .plat-card, .panel, .split-col, .price-row, .layer-band,
   .light-band, .light-band-media, .light-band-copy, .form-confirm,
-  .story-band, .story-band-copy, .story-band-metrics, .media-figure {
+  .story-band, .story-band-copy, .story-band-metrics, .media-figure,
+  .ps-panel, .stat-tiles, .stat-tile, .roi-band, .ind-chip, .flow-step,
+  .fact-strip, .fact-tile, .video-card {
     background: #fff !important;
     border-color: #bbb !important;
     box-shadow: none !important;
