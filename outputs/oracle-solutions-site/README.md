@@ -25,7 +25,8 @@ oracle-solutions-site/
     │   └── img/              logos (SVG) and the hero sphere (WebP)
     ├── data/
     │   ├── config.js         window.SITE_CONFIG — links, gate, form destination
-    │   └── content.js        window.SITE_CONTENT — every word on the site
+    │   ├── content.js        window.SITE_CONTENT — every word on the site
+    │   └── diagrams.js       window.SITE_DIAGRAMS — the per-product architecture diagrams, drawn as inline SVG
     └── pages/
         ├── overview.js       window.PAGES.overview   →  #/
         ├── products.js       window.PAGES.products   →  #/products

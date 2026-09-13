@@ -56,9 +56,9 @@ window.SITE_CONTENT = {
 
 ## `media`
 
-A map of **key → `{ src, alt }`**. Keys are the seven product slugs plus `overview` and `services`. `src` is a path relative to `site/index.html`; `alt` is a plain description of the picture.
+A map of **key → `{ diagram, alt }`** or **key → `{ src, alt }`**. Keys are the seven product slugs. `diagram` names an entry in `data/diagrams.js`, which is rendered inline as SVG at the site's own design tokens; `src` is a path to an image file relative to `site/index.html`, preferred over `diagram` when both are present. `alt` is a plain description, applied as the figure's `aria-label` for a diagram and as the image `alt` for a picture.
 
-Used in three places: the image plate on every product tile (decorative there — the tile heading carries the name, so the plate renders `alt=""` and the link carries the product name), the 50/50 media row beside THE SOLUTION on a product Overview tab, and the mirrored media row beside ARCHITECTURE on its Technology tab. A missing key degrades cleanly: the tile falls back to a type plate and the media row to a plain text panel.
+Used in two places: the 50/50 media row beside THE SOLUTION on a product Overview tab, and the mirrored media row beside ARCHITECTURE on its Technology tab. Product tile plates use artwork only when a key carries a raster `src`; with a diagram-only entry — the current state — they render the typographic plate instead, since a full architecture diagram is illegible at tile size. A missing key degrades cleanly: the tile falls back to the type plate and the media row to a plain text panel.
 
 ---
 
