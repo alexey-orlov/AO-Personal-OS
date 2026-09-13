@@ -1,0 +1,105 @@
+{
+  "schema": 1,
+  "generatedAt": "2026-09-13T04:02:56.934Z",
+  "runStamp": "20260913T0402",
+  "episodes": [
+    {
+      "videoId": "AxzcWOxzkiw",
+      "videoTitle": "Three Lab Warnings in Five Days, Researcher Flags “Gambling with Our Lives,” and Labs Race",
+      "videoUrl": "https://www.youtube.com/watch?v=AxzcWOxzkiw",
+      "channelName": "Peter H. Diamandis",
+      "publishedDate": "2026-09-11",
+      "guests": [
+        "Immad Wak (Intelligent Internet)",
+        "Dave Blondon (AI investor)",
+        "Salem Ismael (Organizational Singularity)",
+        "Alex",
+        "Emod"
+      ],
+      "summary": "A Moonshots roundtable surveys a rapid re-acceleration of AI: progress is increasingly driven by proprietary data, labs are internally warning about catastrophic alignment risks, and frontier models are already solving grand scientific problems while compute and memory become strategic bottlenecks. The hosts argue these trends reshape who wins in AI (data-rich organizations), will force fast policy and industrial responses, and open near-term commercial and biomedical opportunities such as AI-designed drugs and genome-scale prediction.",
+      "insights": [
+        {
+          "headline": "Training data, not architectures, is driving most AI efficiency gains",
+          "detail": "A six-year experiment found that better training data produced a 12x improvement in compute efficiency, while architecture and recipe improvements produced about 3.7x. That implies the largest moat in the next phase of AI will be proprietary, curated data pipelines—not just novel model papers—so organizations with unique, clean datasets can outcompete published architectures. Practically, industry winners will be labs that invest in data engineering, curation and private training loops because those gains are harder to copy than architectures.",
+          "anchorQuote": "So the answer better data produces 12x improvement in compute efficiency.",
+          "tSeconds": 482,
+          "link": "https://www.youtube.com/watch?v=AxzcWOxzkiw&t=482"
+        },
+        {
+          "headline": "Insiders are publicly warning labs may be 'gambling with our lives'",
+          "detail": "Multiple high-profile internal signals—an employee resignation and tweets from alignment leads—assert frontier teams believe sufficiently powerful systems could pose catastrophic risk yet continue rapid development; one alignment lead estimated >10% risk of human extinction within a decade. Those inside-the-lab alarms are driving public debate, congressional attention, and calls to define measurable alignment benchmarks, meaning policy and corporate governance will become immediate, high-stakes battlegrounds. The practical upshot: expect governance demands, PR tightening, and friction between safety claims and commercial/deployment incentives.",
+          "anchorQuote": "Neither company is acting responsibly in the race",
+          "tSeconds": 1177,
+          "link": "https://www.youtube.com/watch?v=AxzcWOxzkiw&t=1177"
+        },
+        {
+          "headline": "Frontier models are solving classic scientific problems now, lowering barriers to research",
+          "detail": "OpenAI announced a claimed solution to the Navier–Stokes Millennium Prize problem by coordinating thousands of agents, and speakers argued several other Clay Millennium problems may soon fall. These feats show complex math and scientific challenges are being bulk-solved by compute-driven approaches, which will rapidly democratize advanced scientific capability and collapse the cost to attack grand challenges. The implication is twofold: scientific discovery accelerates massively, and the bottleneck shifts from ideation to engineering and physical implementation.",
+          "anchorQuote": "claimed a breakthrough on the Navier Stokes",
+          "tSeconds": 2866,
+          "link": "https://www.youtube.com/watch?v=AxzcWOxzkiw&t=2866"
+        },
+        {
+          "headline": "GPUs and HBM have become strategic, revenue-generating assets",
+          "detail": "Speakers note three-year-old H100 GPUs rose in rental price (22% month over month to $3.28/hr) and describe GPUs as “fungible, durable, revenue generating assets,” while high-bandwidth memory (HBM) scarcity is reshaping data-center design. Chinese labs and model authors are also innovating algorithmically to reduce HBM dependence (e.g., routing lookups to SSD/DDR or engram caches), which radically affects capex, fab priorities and where compute bottlenecks will be. For entrepreneurs and CIOs this means planning for constrained compute supply, new hardware investment strategies, and opportunities in memory-efficient model designs and alternative inference stacks.",
+          "anchorQuote": "GPUs are funible, durable, revenue generating assets.",
+          "tSeconds": 142,
+          "link": "https://www.youtube.com/watch?v=AxzcWOxzkiw&t=142"
+        },
+        {
+          "headline": "AI-designed drugs are crossing clinical milestones and showing biological age effects",
+          "detail": "InSilico Medicine’s AI-designed molecule (rento seratib) has advanced to late-stage trials for idiopathic pulmonary fibrosis, and phase 2a proteomic aging clocks reported 3–6 years of biological age reversal in treated patients. This is the first time an AI-designed small molecule has reached these stages and multiple independent aging clocks moving in the same direction is strong signal. The larger consequence: AI-driven drug design is becoming a production-ready pipeline that could make longevity interventions and other therapeutics vastly cheaper and faster to discover and iterate.",
+          "anchorQuote": "An AI designed longevity drug that is reversing",
+          "tSeconds": 238,
+          "link": "https://www.youtube.com/watch?v=AxzcWOxzkiw&t=238"
+        }
+      ]
+    },
+    {
+      "videoId": "wr6PMD06hP0",
+      "videoTitle": "How To Get Better At Outbound Sales",
+      "videoUrl": "https://www.youtube.com/watch?v=wr6PMD06hP0",
+      "channelName": "Y Combinator",
+      "publishedDate": "2026-09-12",
+      "guests": [],
+      "summary": "A practical guide for founders on how to run effective outbound sales: who to target, how to write messages that get replies, and how to iterate using measurable feedback. The central argument is that success comes from precise targeting (right person and right company), concise, credibility-focused messaging, disciplined follow-up, and using reply data and customer language to improve. Doing the founder-led outreach consistently pays off because founders learn signals no outside salesperson can.",
+      "insights": [
+        {
+          "headline": "Target the right person and company, not just a job title search",
+          "detail": "Different buyers at the same company can have opposite incentives — e.g., a chief security officer fears breaches and will care about employee device monitoring, while an engineering manager would resist being monitored. Broad searches in tools like LinkedIn Sales Navigator often return the wrong types of companies (the speaker cites 'tech' searches that return IT implementation consultancies). The fix is to verify each company and persona manually so your message lands on someone who actually has the problem and authority to act.",
+          "anchorQuote": "A chief security officer might get fired",
+          "tSeconds": 171,
+          "link": "https://www.youtube.com/watch?v=wr6PMD06hP0&t=171"
+        },
+        {
+          "headline": "Use intent signals (job posts and company growth) to time outreach",
+          "detail": "Look for concrete signals that a company needs your product: job postings reveal priorities and hiring patterns, and headcount thresholds indicate when certain tooling becomes necessary. The video gives the compensation-planning example: companies under ~100 employees usually don't introduce levels, companies over ~500 already have bands, so firms crossing the ~100-500 range are ideal targets. Finding these signals raises conversion rates by reaching buyers when action is most likely.",
+          "anchorQuote": "A great place to look is often at job postings",
+          "tSeconds": 219,
+          "link": "https://www.youtube.com/watch?v=wr6PMD06hP0&t=219"
+        },
+        {
+          "headline": "Write one-sentence product explanations that focus on buyer pain",
+          "detail": "Executives care about outcomes (hitting quarterly targets, avoiding firing) not technical features, so your message should state the top 1–3 pains you solve and a one-sentence explanation of how you help. Establish credibility with recognizable customer names or your relevant background (the Aptton founder example cites 'I used to be a software engineer at Tesla' and SMS conversion experience). End with a very specific CTA (e.g., 'Got 20 minutes to hop on a call this week?') and keep emails ~5–8 sentences and LinkedIn messages 2–5 lines.",
+          "anchorQuote": "craft a message worth reading",
+          "tSeconds": 270,
+          "link": "https://www.youtube.com/watch?v=wr6PMD06hP0&t=270"
+        },
+        {
+          "headline": "Follow up persistently and reply faster than the prospect",
+          "detail": "Don't stop after one email: follow up 2–4 times spaced over days and use a low-pressure breakup email as the final touch — the speaker gives a sample breakup line that often prompts a reply and provides useful 'no' data. When a prospect does reply, respond immediately and prioritize getting them on the calendar because 'time kills deals.' Speed and persistence materially increase conversion and prevent deals from stalling.",
+          "anchorQuote": "And when they reply, reply fast.",
+          "tSeconds": 585,
+          "link": "https://www.youtube.com/watch?v=wr6PMD06hP0&t=585"
+        },
+        {
+          "headline": "Use reply rates as a diagnostic and iterate in a strict order",
+          "detail": "A starting benchmark is a few replies per 100 emails; even 2–3 replies/100 is a workable baseline to iterate from. If reply rates are low, debug in this order: correct person, correct companies, subject lines, messaging, supporting materials (website/LinkedIn), then deliverability — if all look fine, zero replies may indicate a product-market fit problem. This ordered approach prevents chasing the wrong fixes and accelerates improvement.",
+          "anchorQuote": "know what your reply rates are telling you",
+          "tSeconds": 533,
+          "link": "https://www.youtube.com/watch?v=wr6PMD06hP0&t=533"
+        }
+      ]
+    }
+  ]
+}
