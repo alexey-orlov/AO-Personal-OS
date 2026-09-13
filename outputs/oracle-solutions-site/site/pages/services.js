@@ -292,6 +292,25 @@
 
   /* ————— contact ————— */
 
+  function engagementSteps(content) {
+    var UI = window.UI;
+    var block = content.forms.engagementSteps;
+    if (!block) return "";
+    var steps = block.steps.map(function (step, index) {
+      return '<li class="next-step">' +
+        '<span class="next-step-index nums">' + (index + 1) + "</span>" +
+        "<div>" +
+          '<p class="next-step-title">' + UI.esc(step.title) + "</p>" +
+          '<p class="next-step-body">' + UI.esc(step.body) + "</p>" +
+        "</div></li>";
+    }).join("");
+    return '<div class="next-block">' +
+      '<p class="eyebrow eyebrow--accent">' + UI.esc(block.title) + "</p>" +
+      '<ol class="next-list">' + steps + "</ol>" +
+      (block.responseLine ? '<p class="next-response">' + UI.esc(block.responseLine) + "</p>" : "") +
+      "</div>";
+  }
+
   function contact(content) {
     var UI = window.UI;
     var form = content.forms.contact;
@@ -300,6 +319,7 @@
         '<div class="contact-copy">' +
           '<h2 class="h2">' + UI.esc(content.services.contact.heading) + "</h2>" +
           '<p class="lead">' + UI.esc(content.services.contact.sub) + "</p>" +
+          engagementSteps(content) +
         "</div>" +
         '<div class="contact-form" id="contact-form-slot">' +
           (window.FORMS && typeof window.FORMS.render === "function"
