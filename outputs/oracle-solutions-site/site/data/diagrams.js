@@ -193,13 +193,13 @@ window.SITE_DIAGRAMS = {
   }
 
   function hub(d) {
-    var leftX = 30, leftW = 220;
-    var hubX = 286, hubW = 372, hubY = 80;
-    var rightX = 694, rightW = 236;
+    var leftX = 30, leftW = 236;
+    var hubX = 302, hubW = 344, hubY = 80;
+    var rightX = 682, rightW = 248;
     var sources = d.sources || [];
     var slots = sources.length > 2
-      ? [{ y: 96, h: 124 }, { y: 230, h: 124 }, { y: 364, h: 124 }]
-      : [{ y: 150, h: 124 }, { y: 310, h: 124 }];
+      ? [{ y: 96, h: 128 }, { y: 228, h: 128 }, { y: 360, h: 128 }]
+      : [{ y: 148, h: 140 }, { y: 308, h: 140 }];
     var hubH = 420;
     var out = "";
 

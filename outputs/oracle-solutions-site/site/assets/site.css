@@ -1455,8 +1455,8 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 .dg-card--accent { fill: rgba(53, 204, 186, .06); stroke: var(--accent); }
 .dg-card--hub { fill: rgba(14, 45, 77, .55); stroke: var(--border); }
 .dg-group { fill: rgba(14, 45, 77, .28); stroke: var(--decor-dim); stroke-width: 1; }
-.dg-title { font-family: var(--font-display); font-weight: 700; font-size: 27px; fill: var(--text); }
-.dg-title--hub { font-size: 30px; }
+.dg-title { font-family: var(--font-display); font-weight: 700; font-size: 26px; fill: var(--text); }
+.dg-title--hub { font-size: 28px; }
 .dg-sub { font-family: var(--font-body); font-weight: 300; font-size: 21px; fill: var(--text-muted); }
 .dg-label { font-family: var(--font-display); font-weight: 600; font-size: 15px; letter-spacing: 1.5px; text-transform: uppercase; fill: var(--text-dim); }
 .dg-note { font-family: var(--font-body); font-weight: 400; font-size: 20px; fill: var(--text-note); }
