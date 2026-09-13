@@ -4,9 +4,24 @@
     {
       "name": "clockify-panel",
       "runtimeExecutable": "bash",
-      "runtimeArgs": ["-lc", "exec \"$HOME/Library/Application Support/clockify-panel/launch.sh\""],
+      "runtimeArgs": [
+        "-lc",
+        "exec \"$HOME/Library/Application Support/clockify-panel/launch.sh\""
+      ],
       "port": 7878,
       "autoPort": true
+    },
+    {
+      "name": "oracle-site",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": [
+        "-m",
+        "http.server",
+        "8765",
+        "--directory",
+        "/Users/olekorlov/Documents/GitHub/AO-Personal-OS/outputs/oracle-solutions-site/site"
+      ],
+      "port": 8765
     }
   ]
 }
