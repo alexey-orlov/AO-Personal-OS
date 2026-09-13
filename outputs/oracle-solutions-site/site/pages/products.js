@@ -66,10 +66,8 @@
 
   function marketTile(product) {
     var UI = window.UI;
-    var facet = UI.facetLabel(product.facet);
     var chips = [
       UI.chip({ label: product.categoryChip }),
-      UI.chip({ label: facet.label, title: facet.fullLabel }),
       UI.availabilityChip(product)
     ];
     if (isMarketplace(product)) {
@@ -80,14 +78,7 @@
     }).join("");
 
     return '<article class="market-tile reveal">' +
-      '<a class="tile-plate" href="#/products/' + UI.esc(product.slug) + '">' +
-        '<span class="tile-plate-name"><span class="accent">' + UI.esc(product.headline.accent) +
-          "</span> " + UI.esc(product.headline.rest) + "</span>" +
-        '<span class="tile-plate-foot">' +
-          '<span class="tile-plate-facet">' + UI.esc(facet.label) + "</span>" +
-          UI.icon("arrow") +
-        "</span>" +
-      "</a>" +
+      UI.tilePlate(product) +
       '<div class="market-copy">' +
         '<div class="chip-row">' + chips.join("") + "</div>" +
         '<h2 class="market-title"><a href="#/products/' + UI.esc(product.slug) + '">' +
@@ -116,7 +107,10 @@
 
   function railOption(options) {
     var UI = window.UI;
-    return '<button class="rail-option" type="button" role="radio" data-group="' + UI.esc(options.group) +
+    var empty = options.count === 0 && !options.on;
+    return '<button class="rail-option' + (empty ? " is-empty" : "") +
+      '" type="button" role="radio" tabindex="' + (options.on ? "0" : "-1") +
+      '" data-group="' + UI.esc(options.group) +
       '" data-value="' + UI.esc(options.value) + '" aria-checked="' + (options.on ? "true" : "false") + '"' +
       (options.title ? ' title="' + UI.esc(options.title) + '"' : "") + ">" +
       '<span class="rail-option-label">' + UI.esc(options.label) + "</span>" +

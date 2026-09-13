@@ -153,14 +153,34 @@
       "</div></section>";
   }
 
+  function engagementSteps(C) {
+    var UI = window.UI;
+    var block = C.forms.engagementSteps;
+    if (!block) return "";
+    var steps = block.steps.map(function (step, index) {
+      return '<li class="next-step">' +
+        '<span class="next-step-index nums">' + (index + 1) + "</span>" +
+        "<div>" +
+          '<p class="next-step-title">' + UI.esc(step.title) + "</p>" +
+          '<p class="next-step-body">' + UI.esc(step.body) + "</p>" +
+        "</div></li>";
+    }).join("");
+    return '<div class="next-block">' +
+      '<p class="eyebrow eyebrow--accent">' + UI.esc(block.title) + "</p>" +
+      '<ol class="next-list">' + steps + "</ol>" +
+      (block.responseLine ? '<p class="next-response">' + UI.esc(block.responseLine) + "</p>" : "") +
+      "</div>";
+  }
+
   function closing(C) {
     var UI = window.UI;
     var demo = C.forms.demo;
     return '<section class="closing" id="' + UI.esc(demo.anchor) + '">' +
       '<div class="wrap closing-inner">' +
-        "<div>" +
+        '<div class="closing-copy">' +
           '<h2 class="h2">' + UI.esc(demo.heading) + "</h2>" +
           '<p class="lead" style="margin-top:1.25rem">' + UI.esc(demo.sub) + "</p>" +
+          engagementSteps(C) +
         "</div>" +
         '<div id="demo-form-slot">' +
           '<div class="cta-row">' +
@@ -179,7 +199,7 @@
   overview.mount = function (params, root) {
     var slot = root.querySelector("#demo-form-slot");
     if (slot && window.FORMS && typeof window.FORMS.render === "function") {
-      slot.innerHTML = window.FORMS.render("demo");
+      slot.innerHTML = window.FORMS.render("demo", { heading: false });
       if (typeof window.FORMS.mount === "function") window.FORMS.mount(slot, "demo");
     }
   };
