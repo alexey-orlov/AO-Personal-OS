@@ -275,6 +275,33 @@ Each of these changes published copy that `SPEC` prescribed verbatim. They are l
 
 ### Imagery wired in this round
 
-The nine staged hero images (`site/assets/img/heroes/`, provenance in §5's sibling manifest `heroes.json`) are now referenced from `content.js` under the top-level `media` map — the product-tile plates, the 50/50 media row beside THE SOLUTION, and the mirrored row beside ARCHITECTURE. Only `src` and `alt` reach the browser; the source deck and slide numbers stay in `heroes.json`, which is not loaded by the page.
+Superseded by the second fix round — see §8.
 
-**Still true:** there are no product screenshots for any of the seven. The design brief asks for real screenshots in the glow frame; these atmospheric images stand in for them and are the reason the METRICS IMPROVED block took a distinct framed treatment rather than a third 50/50 image row. When screenshots exist, point `media` at them and the layout needs no change. The `Account Insights` rule still applies: any screenshot ever made for it must use synthetic accounts — that is a production instruction, and it is deliberately recorded here and nowhere inside `site/`.
+---
+
+## 8. Imagery — second fix round
+
+The nine staged hero images and their manifest (`site/assets/img/heroes/`, including `heroes.json`) were **deleted from the served root**. Two reasons:
+
+1. `heroes.json` shipped inside `site/` and was publicly fetchable. It carried internal source-deck filenames and media paths — exactly the "src:" note class the locked decisions forbid, including one filename keyed to a customer/opportunity code. Nothing in the page ever loaded it.
+2. Every image was generic dark stock photography with no relationship to the product it illustrated — a container terminal for a dispatcher-scheduling app, a glowing-network plate for Account Insights. That is the loudest generic-page tell the design brief names, and the first question a customer asks in a live demo.
+
+The retired manifest, recorded here so the mapping is not lost:
+
+| Key | Source |
+|---|---|
+| `account-insights` | `SoftServe AI Repeatable IP-Based Customer Stories.pptx` / `ppt/media/image92.jpeg` |
+| `case-evidence-collection` | same deck / `ppt/media/image84.jpeg` |
+| `plan-vs-actual-investigation` | same deck / `ppt/media/image89.jpeg` |
+| `workforce-optimization` | same deck / `ppt/media/image91.jpeg` |
+| `business-metrics-qa` | same deck / `ppt/media/image93.jpeg` |
+| `services` | same deck / `ppt/media/image85.jpeg` |
+| `large-document-extraction` | `OCI AI accelerators - GTM deck.pptx` / `ppt/media/image9.png`, recomposed on a dark field |
+| `overview` | `SBG - PoV approach and options.pptx` / `ppt/media/image4.png` |
+| `cross-system-erp-qa` | generated |
+
+**What replaced them.** `site/data/diagrams.js` — seven authored architecture/flow diagrams, one per product, rendered as inline SVG at the site's own design tokens (teal `#35CCBA` flows, `#0E2D4D` group field, Montserrat titles, Open Sans labels). They inherit the page's fonts and colours because they are inlined into the DOM rather than loaded as image files, so they work from `file://`, in a static host, and in a multi-file Artifact with no extra request. Every box and label traces to that product's own `technology.narrative`, `technology.layers` and `technology.integration` strings in `content.js` — no new facts are introduced by the artwork. They render in the 50/50 row beside THE SOLUTION and the mirrored row beside ARCHITECTURE.
+
+The product-tile plates no longer carry artwork at all: they fall back to the typographic plate that was already in `UI.tilePlate` — the product headline set large, first word in teal, on the black plate with its teal glow. A designed container with the product's own name in it beats a stock photograph of something else.
+
+**Still true:** there are no product screenshots for any of the seven. When screenshots exist, add `src` back to that product's `media` entry and `UI.figure` / `UI.tilePlate` prefer the image with no other change. The `Account Insights` rule still applies: any screenshot ever made for it must use synthetic accounts — a production instruction, recorded here and deliberately nowhere inside `site/`.
