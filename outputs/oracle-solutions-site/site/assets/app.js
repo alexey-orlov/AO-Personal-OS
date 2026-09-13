@@ -438,10 +438,12 @@
     if (parsed.anchor) {
       var target = document.getElementById(parsed.anchor);
       if (target) {
-        window.requestAnimationFrame(function () {
+        var scrollToAnchor = function () {
           var top = target.getBoundingClientRect().top + window.pageYOffset - 96;
           window.scrollTo({ top: top, behavior: sameView ? "smooth" : "auto" });
-        });
+        };
+        scrollToAnchor();
+        window.requestAnimationFrame(scrollToAnchor);
       }
     } else if (!sameView) {
       window.scrollTo({ top: 0, behavior: "auto" });
