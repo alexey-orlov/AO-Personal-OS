@@ -1431,3 +1431,21 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 }
 
 .market-grid > .empty { grid-column: 1 / -1; min-height: 16rem; }
+
+/* ——— tooltip: keep it out of the scrollable overflow area ——— */
+
+.tip::after { display: none; }
+
+.tip:hover::after, .tip:focus-visible::after {
+  display: block;
+  animation: tip-in .25s var(--ease) both;
+}
+
+@keyframes tip-in {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tip:hover::after, .tip:focus-visible::after { animation: none; opacity: 1; visibility: visible; transform: none; }
+}
