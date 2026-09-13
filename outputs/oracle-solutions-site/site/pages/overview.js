@@ -157,8 +157,8 @@
         "</div>" +
         '<div id="demo-form-slot">' +
           '<div class="cta-row">' +
-            UI.button({ label: C.site.footer.contactCta.label, href: C.site.footer.contactCta.route, kind: "primary" }) +
-            UI.button({ label: C.overview.servicesTeaser.cta.label.replace(/\s*→\s*$/, ""), href: C.overview.servicesTeaser.cta.route, kind: "quiet" }) +
+            UI.button({ label: demo.submitLabel, href: "#/services#" + C.forms.contact.anchor, kind: "primary" }) +
+            UI.button({ label: C.overview.hero.ctas[1].label, href: C.overview.hero.ctas[1].route, kind: "quiet" }) +
           "</div>" +
         "</div>" +
       "</div></section>";
