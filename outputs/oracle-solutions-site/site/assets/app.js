@@ -201,7 +201,8 @@
     document.body.appendChild(backdrop);
     document.body.style.overflow = "hidden";
     modalState.node = backdrop;
-    var focusable = backdrop.querySelector("input, button, a, textarea, select");
+    var focusable = backdrop.querySelector("input:not([tabindex='-1']), textarea, select") ||
+      backdrop.querySelector("button, a");
     if (focusable) focusable.focus();
     return backdrop;
   }
