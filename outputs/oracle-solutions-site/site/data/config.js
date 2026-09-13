@@ -52,7 +52,8 @@ window.SITE_CONFIG = {
         "sales-deck": "",
         "one-pager": "",
         "feature-list": "",
-        "demo-video": ""
+        "demo-video": "",
+        "marketplace-package": ""
       }
     },
     "workforce-optimization": {
@@ -64,7 +65,8 @@ window.SITE_CONFIG = {
         "sales-deck": "",
         "one-pager": "",
         "feature-list": "",
-        "demo-video": ""
+        "demo-video": "",
+        "marketplace-package": ""
       }
     },
     "cross-system-erp-qa": {
