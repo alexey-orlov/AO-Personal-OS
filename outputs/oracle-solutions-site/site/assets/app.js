@@ -466,14 +466,18 @@
     if (parsed.anchor) {
       var target = document.getElementById(parsed.anchor);
       if (target) {
-        var scrollToAnchor = function () {
+        var startedAt = window.pageYOffset;
+        var scrollToAnchor = function (force) {
           var top = target.getBoundingClientRect().top + window.pageYOffset - 96;
-          var smooth = sameView && !document.hidden &&
+          var smooth = !force && sameView && !document.hidden &&
             !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
           window.scrollTo({ top: top, behavior: smooth ? "smooth" : "instant" });
         };
         scrollToAnchor();
-        window.requestAnimationFrame(scrollToAnchor);
+        window.requestAnimationFrame(function () { scrollToAnchor(); });
+        window.setTimeout(function () {
+          if (Math.abs(window.pageYOffset - startedAt) < 2) scrollToAnchor(true);
+        }, 700);
       }
     } else if (!sameView) {
       window.scrollTo({ top: 0, behavior: "instant" });
@@ -536,7 +540,11 @@
       var href = link.getAttribute("href");
       if (!href || href === "#") return;
       event.preventDefault();
+      var sameHash = window.location.hash === href;
       window.ROUTER.go(href);
+      if (sameHash && href.indexOf("#", 1) < 0 && link.classList.contains("nav-link")) {
+        window.scrollTo({ top: 0, behavior: "instant" });
+      }
     });
   }
 
