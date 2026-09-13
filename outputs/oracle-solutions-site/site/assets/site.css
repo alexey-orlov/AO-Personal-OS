@@ -1102,6 +1102,8 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
   }
   .js-reveal .reveal { opacity: 1; transform: none; }
   .btn:active, .chip--filter:active, .segment:active, .icon-btn:active, .link-arrow:active { transform: none; }
+  .video-card:hover { transform: none; }
+  .video-card:hover .video-card-play { transform: translate(-50%, -50%); }
 }
 
 /* ——— route placeholder ————————————————————————————————— */
