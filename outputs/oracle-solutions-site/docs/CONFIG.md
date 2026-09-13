@@ -144,6 +144,8 @@ A demo video. When non-empty, the hero's primary CTA becomes **"Watch the demo"*
 videoUrl: "https://www.youtube.com/watch?v=…",
 ```
 
+A normal share link is fine. YouTube `watch?v=`, `youtu.be/`, `youtube.com/shorts/` and `vimeo.com/<id>` links are converted to their embed form before the player is framed; links already in embed/player form are passed through unchanged.
+
 Expected to be filled first for `workforce-optimization`, `large-document-extraction` and `account-insights`. Empty on all seven today.
 
 ### `successStoryUrl`
@@ -175,8 +177,8 @@ Keys in use, per product:
 | account-insights | `accelerator-pack-onepager`, `sales-deck`, `one-pager`, `feature-list`, `demo-video` |
 | case-evidence-collection | `sales-deck`, `one-pager`, `feature-list`, `demo-video` |
 | plan-vs-actual-investigation | `sales-deck`, `one-pager`, `feature-list`, `demo-video` |
-| large-document-extraction | `sales-deck`, `one-pager`, `feature-list`, `demo-video` |
-| workforce-optimization | `sales-deck`, `one-pager`, `feature-list`, `demo-video` |
+| large-document-extraction | `sales-deck`, `one-pager`, `feature-list`, `demo-video`, `marketplace-package` |
+| workforce-optimization | `sales-deck`, `one-pager`, `feature-list`, `demo-video`, `marketplace-package` |
 | cross-system-erp-qa | `lakehouse-jumpstart-deck`, `lakehouse-quickstart-deck`, `one-pager`, `feature-list`, `demo-video` |
 | business-metrics-qa | `lakehouse-jumpstart-deck`, `lakehouse-quickstart-deck`, `one-pager`, `feature-list`, `demo-video` |
 
