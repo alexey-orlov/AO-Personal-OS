@@ -50,7 +50,7 @@
 
   function bulletList(items, className) {
     var UI = window.UI;
-    return '<ul class="' + (className || "tick-list") + '">' + items.map(function (item) {
+    return '<ul class="tick-list' + (className ? " " + className : "") + '">' + items.map(function (item) {
       return "<li>" + UI.icon("check") + "<span>" + UI.esc(item) + "</span></li>";
     }).join("") + "</ul>";
   }
@@ -116,6 +116,23 @@
     return '<div class="cta-row product-hero-cta">' + out.join("") + "</div>";
   }
 
+  function heroAside(product) {
+    var UI = window.UI;
+    var outcomes = product.tile && product.tile.outcomes;
+    if (!outcomes || !outcomes.length) return "";
+    var duration = product.pov && product.pov.durationShort;
+    return '<aside class="hero-aside">' +
+      '<p class="eyebrow eyebrow--accent">' + UI.esc(C().shared.heroAsideTitle) + "</p>" +
+      bulletList(outcomes, "hero-aside-list") +
+      (duration
+        ? '<div class="hero-aside-foot">' +
+            '<p class="tier-label">' + UI.esc(C().shared.heroAsideFootLabel) + "</p>" +
+            '<p class="tier-value">' + UI.esc(duration) + "</p>" +
+          "</div>"
+        : "") +
+      "</aside>";
+  }
+
   function hero(product) {
     var UI = window.UI;
     var facet = UI.facetLabel(product.facet);
@@ -134,9 +151,12 @@
         }).join("") + "</ul>"
       : "";
 
+    var aside = heroAside(product);
+
     return '<section class="product-hero">' +
       '<span class="hero-glow" aria-hidden="true"></span>' +
-      '<div class="wrap product-hero-inner">' +
+      '<div class="wrap product-hero-inner' + (aside ? "" : " product-hero-inner--single") + '">' +
+      '<div class="product-hero-copy">' +
         '<nav class="crumbs" aria-label="Breadcrumb">' +
           '<a href="#/products">' + UI.esc(C().productsPage.title) + "</a>" +
           "<span aria-hidden=\"true\">/</span>" +
@@ -150,6 +170,8 @@
         badges +
         heroCtas(product) +
         (product.heroCaption ? '<p class="hero-caption">' + UI.esc(product.heroCaption) + "</p>" : "") +
+      "</div>" +
+      aside +
       "</div>" +
       "</section>";
   }
@@ -386,11 +408,13 @@
       var label = columns[index] && columns[index] !== tier.title
         ? columns[index] : "Step " + (index + 1);
       return '<article class="tier">' +
-        '<p class="eyebrow' + (index === 0 ? " eyebrow--accent" : "") + '">' +
-          UI.esc(label) + "</p>" +
-        '<h3 class="tier-title">' + UI.esc(tier.title) + "</h3>" +
-        '<p class="tier-scope">' + UI.esc(tier.scope) + "</p>" +
-        bulletList(tier.includes, "tier-list") +
+        '<div class="tier-body">' +
+          '<p class="eyebrow' + (index === 0 ? " eyebrow--accent" : "") + '">' +
+            UI.esc(label) + "</p>" +
+          '<h3 class="tier-title">' + UI.esc(tier.title) + "</h3>" +
+          '<p class="tier-scope">' + UI.esc(tier.scope) + "</p>" +
+          bulletList(tier.includes, "tier-list") +
+        "</div>" +
         '<div class="tier-foot">' +
           '<p class="tier-label">Duration</p><p class="tier-value">' + UI.esc(tier.duration) + "</p>" +
           '<p class="tier-label">Pricing</p><p class="tier-value">' + UI.esc(tier.pricing) + "</p>" +
@@ -489,10 +513,41 @@
 
   /* ————— tab: request a demo ————— */
 
+  function engagementSteps() {
+    var UI = window.UI;
+    var block = C().forms.engagementSteps;
+    if (!block) return "";
+    var steps = block.steps.map(function (step, index) {
+      return '<li class="next-step">' +
+        '<span class="next-step-index nums">' + (index + 1) + "</span>" +
+        "<div>" +
+          '<p class="next-step-title">' + UI.esc(step.title) + "</p>" +
+          '<p class="next-step-body">' + UI.esc(step.body) + "</p>" +
+        "</div></li>";
+    }).join("");
+    return '<div class="next-block">' +
+      '<p class="eyebrow eyebrow--accent">' + UI.esc(block.title) + "</p>" +
+      '<ol class="next-list">' + steps + "</ol>" +
+      (block.responseLine ? '<p class="next-response">' + UI.esc(block.responseLine) + "</p>" : "") +
+      "</div>";
+  }
+
   function demoTab(product) {
-    if (!window.FORMS) return window.UI.empty(C().forms.demo.sub);
-    return '<section class="panel panel--form reveal" id="product-demo-form">' +
-      window.FORMS.render("demo", { product: product.slug }) + "</section>";
+    var UI = window.UI;
+    if (!window.FORMS) return UI.empty(C().forms.demo.sub);
+    var steps = engagementSteps();
+    var form = '<div class="panel panel--form" id="product-demo-form">' +
+      window.FORMS.render("demo", { product: product.slug }) + "</div>";
+    if (!steps) return '<section class="panel reveal">' + form + "</section>";
+    return '<section class="panel reveal">' +
+      '<div class="demo-split">' +
+        '<div class="demo-aside">' +
+          blockHead(C().forms.demo.heading) +
+          '<p class="body-text">' + UI.esc(C().forms.demo.sub) + "</p>" +
+          steps +
+        "</div>" +
+        form +
+      "</div></section>";
   }
 
   /* ————— tab: for sellers ————— */
@@ -539,6 +594,18 @@
     return gate.cta.body.replace("{duration}", duration);
   }
 
+  function stateLegend(product) {
+    var UI = window.UI;
+    var legend = C().sellerGate.stateLegend || {};
+    var seen = [];
+    product.sellers.materials.forEach(function (material) {
+      var url = (cfg(product.slug).materials || {})[material.key] || "";
+      var state = url && material.state !== "superseded" ? "available" : material.state;
+      if (legend[state] && seen.indexOf(legend[state]) < 0) seen.push(legend[state]);
+    });
+    return seen.length ? '<p class="footnote">' + UI.esc(seen.join(" · ")) + "</p>" : "";
+  }
+
   function sellersTab(product) {
     var UI = window.UI;
     var gate = C().sellerGate;
@@ -581,6 +648,7 @@
         "</div>" +
         blockHead(gate.heading) +
         '<p class="body-text">' + UI.esc(gate.unlockedIntro) + "</p>" +
+        stateLegend(product) +
         (allLocked && product.sellers.emptyPanelCopy
           ? '<p class="body-text panel-extra">' + UI.esc(product.sellers.emptyPanelCopy) + "</p>" : "") +
         '<ul class="material-list">' + product.sellers.materials.map(function (material) {

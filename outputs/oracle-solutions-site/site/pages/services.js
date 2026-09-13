@@ -5,6 +5,11 @@
 
   function C() { return window.SITE_CONTENT; }
 
+  function divider(label, title) {
+    var same = String(label || "").trim().toLowerCase() === String(title || "").trim().toLowerCase();
+    return same ? "" : window.UI.divider(label);
+  }
+
   function blockHead(title) {
     return '<h2 class="h3 block-title">' + window.UI.esc(title) + "</h2>";
   }
@@ -61,7 +66,7 @@
     }).join("");
 
     return '<section class="section section--tight" id="platforms"><div class="wrap">' +
-      UI.divider(content.site.dividerLabels.builtOn) +
+      divider(content.site.dividerLabels.builtOn, h.platformsTitle) +
       '<h2 class="h2 plat-title">' + UI.esc(h.platformsTitle) + "</h2>" +
       '<div class="plat-grid">' + cards + "</div>" +
       "</div></section>";
@@ -158,11 +163,13 @@
       var label = columns[index] && columns[index] !== tier.title
         ? columns[index] : "Step " + (index + 1);
       return '<article class="tier ladder-step">' +
-        '<span class="ladder-mark" aria-hidden="true"><span class="ladder-dot"></span></span>' +
-        '<p class="eyebrow' + (index === 0 ? " eyebrow--accent" : "") + '">' +
-          UI.esc(label) + "</p>" +
-        '<h3 class="tier-title">' + UI.esc(tier.title) + "</h3>" +
-        '<p class="tier-scope">' + UI.esc(tier.whatItIs) + "</p>" +
+        '<div class="tier-body">' +
+          '<span class="ladder-mark" aria-hidden="true"><span class="ladder-dot"></span></span>' +
+          '<p class="eyebrow' + (index === 0 ? " eyebrow--accent" : "") + '">' +
+            UI.esc(label) + "</p>" +
+          '<h3 class="tier-title">' + UI.esc(tier.title) + "</h3>" +
+          '<p class="tier-scope">' + UI.esc(tier.whatItIs) + "</p>" +
+        "</div>" +
         '<div class="tier-foot">' +
           '<p class="tier-label">Duration</p><p class="tier-value">' + UI.esc(tier.duration) + "</p>" +
           '<p class="tier-label">Pricing</p><p class="tier-value">' + UI.esc(tier.pricing) + "</p>" +
@@ -184,7 +191,7 @@
 
     return '<section class="section" id="' + UI.esc(engage.anchor) + '"><div class="wrap stack-lg">' +
       "<div>" +
-        UI.divider(content.site.dividerLabels.howWeEngage) +
+        divider(content.site.dividerLabels.howWeEngage, engage.title) +
         '<div class="section-head services-head"><h2 class="h2">' + UI.esc(engage.title) + "</h2></div>" +
         '<p class="lead services-lead">' + UI.esc(engage.lead) + "</p>" +
       "</div>" +
@@ -284,7 +291,7 @@
       : UI.empty("Proof points are published once a customer clears them.");
 
     return '<section class="section" id="proof"><div class="wrap">' +
-      UI.divider(block.dividerLabel) +
+      divider(block.dividerLabel, block.title) +
       '<div class="section-head services-head"><h2 class="h2">' + UI.esc(block.title) + "</h2></div>" +
       body +
       "</div></section>";

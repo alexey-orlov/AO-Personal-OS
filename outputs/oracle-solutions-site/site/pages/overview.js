@@ -3,6 +3,11 @@
 
   window.PAGES = window.PAGES || {};
 
+  function divider(label, title, center) {
+    var same = String(label || "").trim().toLowerCase() === String(title || "").trim().toLowerCase();
+    return same ? "" : window.UI.divider(label, center);
+  }
+
   function hero(C) {
     var UI = window.UI;
     var h = C.overview.hero;
@@ -45,7 +50,7 @@
     }).join("");
     return '<section class="section section--tight">' +
       '<div class="wrap">' +
-        UI.divider(strip.dividerLabel, true) +
+        divider(strip.dividerLabel, "", true) +
         '<div class="logo-strip">' + logos + "</div>" +
       "</div></section>";
   }
@@ -115,7 +120,7 @@
 
     return '<section class="section" id="proof">' +
       '<div class="wrap">' +
-        UI.divider(C.site.dividerLabels.proof) +
+        divider(C.site.dividerLabels.howWeProveIt, intro.title) +
         '<div class="section-head" style="margin-top:2.5rem">' +
           '<h2 class="h2">' + UI.esc(intro.title) + "</h2>" +
         "</div>" +
@@ -137,7 +142,7 @@
 
     return '<section class="section" id="practice">' +
       '<div class="wrap">' +
-        UI.divider(C.site.dividerLabels.howWeEngage) +
+        divider(C.site.dividerLabels.howWeEngage, teaser.title) +
         '<div class="light-band reveal" style="margin-top:2.5rem">' +
           '<div class="light-band-media">' +
             '<p class="band-label">Oracle platforms we focus on</p>' +
