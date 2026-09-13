@@ -1234,8 +1234,8 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 .product-hero {
   position: relative;
   overflow: hidden;
-  padding-top: clamp(2.5rem, 5vw, 4.5rem);
-  padding-bottom: clamp(2rem, 4vw, 3.5rem);
+  padding-top: clamp(2.25rem, 4vw, 3.5rem);
+  padding-bottom: clamp(1.75rem, 3vw, 2.75rem);
 }
 
 .product-hero.has-hero-bg {
@@ -1255,7 +1255,7 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
   column-gap: clamp(2rem, 4vw, 4.5rem);
 }
 
-.product-hero-copy { display: flex; flex-direction: column; align-items: flex-start; gap: 1.25rem; }
+.product-hero-copy { display: flex; flex-direction: column; align-items: flex-start; gap: 1rem; }
 .product-hero-inner--single { grid-template-columns: minmax(0, 1fr); }
 .product-hero-inner--single .product-hero-copy { max-width: 56rem; }
 
@@ -1479,7 +1479,7 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 .story-band .band-scope { font-size: var(--fs-sm); line-height: 1.6; color: var(--text-on-light-soft); border-left: 2px solid var(--surface-navy); padding-left: 1rem; }
 .story-band .band-note { font-size: var(--fs-xs); line-height: 1.55; color: #4E6076; }
 
-.band-metrics { display: flex; flex-direction: column; gap: 1.25rem; }
+.band-metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(10.5rem, 1fr)); gap: 1.125rem 1.5rem; }
 .band-metric-value { font-family: var(--font-display); font-weight: 900; font-size: 1.5rem; line-height: 1.05; letter-spacing: -.01em; color: var(--text-on-light); font-variant-numeric: tabular-nums; }
 .band-metric-label { margin-top: .375rem; font-size: var(--fs-xs); line-height: 1.5; color: var(--text-on-light-soft); }
 .band-notes { display: flex; flex-direction: column; gap: .375rem; padding-top: 1rem; border-top: 1px solid rgba(7, 9, 13, .16); }
