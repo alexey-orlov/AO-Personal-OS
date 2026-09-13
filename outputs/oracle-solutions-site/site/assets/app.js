@@ -148,12 +148,25 @@
     return (C.media && C.media[key]) || null;
   }
 
+  function diagram(key) {
+    var registry = window.SITE_DIAGRAMS;
+    if (!registry || typeof registry.render !== "function") return "";
+    return registry.render(key);
+  }
+
   function figure(key, options) {
     var opts = options || {};
     var item = media(key);
     if (!item) return "";
     var classes = ["media-figure"];
     if (opts.className) classes.push(opts.className);
+    var art = item.diagram ? diagram(item.diagram) : "";
+    if (art) {
+      classes.push("media-figure--diagram");
+      return '<figure class="' + classes.join(" ") + '" role="img" aria-label="' +
+        esc(opts.alt === false ? "" : item.alt) + '">' + art + "</figure>";
+    }
+    if (!item.src) return "";
     return '<figure class="' + classes.join(" ") + '">' +
       '<img src="' + esc(item.src) + '" alt="' + esc(opts.alt === false ? "" : item.alt) +
       '" loading="lazy" decoding="async">' +
@@ -163,11 +176,12 @@
   function tilePlate(product) {
     var facet = facetLabel(product.facet);
     var item = media(product.slug);
-    var art = item
+    var hasArt = !!(item && item.src);
+    var art = hasArt
       ? '<img class="tile-plate-img" src="' + esc(item.src) + '" alt="" loading="lazy" decoding="async">'
       : '<span class="tile-plate-name"><span class="accent">' + esc(product.headline.accent) +
         "</span> " + esc(product.headline.rest) + "</span>";
-    return '<a class="tile-plate' + (item ? " tile-plate--art" : "") + '" href="#/products/' +
+    return '<a class="tile-plate' + (hasArt ? " tile-plate--art" : "") + '" href="#/products/' +
       esc(product.slug) + '" aria-label="' + esc(product.name) + '">' +
       art +
       '<span class="tile-plate-foot">' +
@@ -275,6 +289,7 @@
     tilePlate: tilePlate,
     media: media,
     figure: figure,
+    diagram: diagram,
     facetLabel: facetLabel,
     modal: { open: openModal, close: closeModal }
   };
