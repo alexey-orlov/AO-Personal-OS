@@ -254,10 +254,10 @@
           '"][data-value="' + activeKey.split(":")[1] + '"]');
         if (next) next.focus();
       }
-      if (window.ROUTER && window.history && window.history.replaceState) {
+      if (window.history && window.history.replaceState) {
         window.history.replaceState(null, "", hashForState());
       }
-      window.dispatchEvent(new CustomEvent("site:reveal", { detail: results }));
+      revealNow(results);
     }
 
     rail.addEventListener("click", function (event) {
@@ -302,7 +302,7 @@
         if (window.history && window.history.replaceState) {
           window.history.replaceState(null, "", hashForState());
         }
-        window.dispatchEvent(new CustomEvent("site:reveal", { detail: results }));
+        revealNow(results);
       });
       search.addEventListener("keydown", function (event) {
         if (event.key === "Escape" && search.value) {
