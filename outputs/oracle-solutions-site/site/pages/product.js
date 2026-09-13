@@ -510,6 +510,20 @@
       "</li>";
   }
 
+  function printsPrice(product) {
+    var pov = product.pov || {};
+    var priced = /[€$£]/;
+    return (pov.pricing || []).some(function (line) { return priced.test(line.value); }) ||
+      (pov.ladder || []).some(function (tier) { return priced.test(tier.pricing); });
+  }
+
+  function sellerCtaBody(product) {
+    var gate = C().sellerGate;
+    var duration = product.pov && product.pov.durationShort;
+    if (!duration) return gate.cta.bodyFallback || gate.cta.body;
+    return gate.cta.body.replace("{duration}", duration);
+  }
+
   function sellersTab(product) {
     var UI = window.UI;
     var gate = C().sellerGate;
@@ -536,9 +550,13 @@
         "</section>";
     }
 
-    var notes = product.sellers.notes.length
+    var noteLines = product.sellers.notes.slice();
+    if (printsPrice(product)) {
+      noteLines = noteLines.concat(gate.packagingNotes || []);
+    }
+    var notes = noteLines.length
       ? '<section class="panel reveal">' + blockHead("Seller notes") +
-          plainList(product.sellers.notes) + "</section>"
+          plainList(noteLines) + "</section>"
       : "";
 
     return '<section class="panel reveal" id="seller-panel">' +
@@ -557,7 +575,7 @@
       notes +
       '<section class="panel panel--cta reveal">' +
         blockHead(gate.cta.heading) +
-        '<p class="body-text">' + UI.esc(gate.cta.body) + "</p>" +
+        '<p class="body-text">' + UI.esc(sellerCtaBody(product)) + "</p>" +
         '<p class="footnote">' + UI.esc(gate.cta.contactLabel) + "</p>" +
         '<div class="cta-row">' +
           UI.button({
@@ -572,10 +590,16 @@
 
   function related(product) {
     var UI = window.UI;
+    function rank(item) {
+      return (item.category === product.category ? 2 : 0) + (item.facet === product.facet ? 1 : 0);
+    }
     var list = C().products.filter(function (item) {
-      return item.slug !== product.slug &&
-        (item.category === product.category || item.facet === product.facet);
-    }).slice(0, 3);
+      return item.slug !== product.slug && rank(item) > 0;
+    }).map(function (item, index) {
+      return { item: item, index: index };
+    }).sort(function (a, b) {
+      return rank(b.item) - rank(a.item) || a.index - b.index;
+    }).slice(0, 3).map(function (entry) { return entry.item; });
     if (!list.length) return "";
     var cards = list.map(function (item) {
       return '<a class="related-card" href="#/products/' + UI.esc(item.slug) + '">' +
@@ -648,9 +672,15 @@
         var at = value.lastIndexOf("@");
         var domain = at >= 0 ? value.slice(at + 1) : "";
         var allowed = window.SITE_CONFIG.sellerGate.allowedDomains.some(function (item2) {
-          return domain === item2 || domain.indexOf("." + item2) === domain.length - item2.length - 1;
+          return domain === item2 || domain.slice(-(item2.length + 1)) === "." + item2;
         });
-        if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(value) || !allowed) {
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(value)) {
+          error.textContent = C().forms.labels.invalidEmail;
+          error.hidden = false;
+          input.focus();
+          return;
+        }
+        if (!allowed) {
           error.textContent = gate.rejected;
           error.hidden = false;
           input.focus();
@@ -684,15 +714,29 @@
     }
   }
 
+  function embedUrl(url) {
+    var value = String(url || "");
+    var found;
+    if (/youtube\.com\/embed\/|youtube-nocookie\.com\/embed\/|player\.vimeo\.com\/video\//i.test(value)) {
+      return value;
+    }
+    found = value.match(/youtube\.com\/(?:watch\?(?:.*&)?v=|shorts\/|live\/)([A-Za-z0-9_-]{6,})/i) ||
+      value.match(/youtu\.be\/([A-Za-z0-9_-]{6,})/i);
+    if (found) return "https://www.youtube.com/embed/" + found[1];
+    found = value.match(/vimeo\.com\/(?:video\/)?(\d+)/i);
+    if (found) return "https://player.vimeo.com/video/" + found[1];
+    return value;
+  }
+
   function bindVideo(root, item) {
     Array.prototype.forEach.call(root.querySelectorAll("[data-video]"), function (button) {
       button.addEventListener("click", function () {
         var url = button.getAttribute("data-video");
         var title = button.getAttribute("data-video-title") || item.name;
-        var embed = /youtube\.com|youtu\.be|vimeo\.com|\.sharepoint\.com|web\.microsoftstream\.com/i.test(url)
-          ? '<iframe class="video-frame" src="' + window.UI.esc(url) +
+        var embed = /youtube\.com|youtu\.be|youtube-nocookie\.com|vimeo\.com|\.sharepoint\.com|web\.microsoftstream\.com/i.test(url)
+          ? '<iframe class="video-frame" src="' + window.UI.esc(embedUrl(url)) +
             '" title="' + window.UI.esc(title) +
-            '" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>'
+            '" allow="autoplay; fullscreen; picture-in-picture"></iframe>'
           : '<video class="video-frame" src="' + window.UI.esc(url) + '" controls playsinline></video>';
         window.UI.modal.open('<h2 class="h3 modal-title">' + window.UI.esc(title) + "</h2>" +
           '<div class="video-wrap">' + embed + "</div>", { label: title });
