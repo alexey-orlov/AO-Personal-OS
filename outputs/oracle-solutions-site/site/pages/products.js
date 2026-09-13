@@ -290,7 +290,9 @@
       var group = option.parentNode.querySelectorAll(".rail-option");
       var index = Array.prototype.indexOf.call(group, option);
       var next = group[(index + (event.key === "ArrowDown" ? 1 : group.length - 1)) % group.length];
-      if (next) next.click();
+      if (!next) return;
+      next.focus();
+      next.click();
     });
 
     if (search) {
