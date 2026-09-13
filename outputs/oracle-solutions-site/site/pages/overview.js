@@ -18,7 +18,7 @@
 
     return '<section class="hero">' +
       '<span class="hero-glow" aria-hidden="true"></span>' +
-      '<img class="hero-sphere" src="assets/img/sphere.webp" alt="" aria-hidden="true" loading="eager" decoding="async">' +
+      '<img class="hero-sphere" src="assets/img/sphere.webp" alt="" aria-hidden="true" width="1920" height="1920" loading="eager" decoding="async" fetchpriority="high">' +
       '<div class="wrap hero-inner">' +
         '<p class="eyebrow">' + UI.esc(C.site.owner) + " · " + UI.esc(C.site.tagline) + "</p>" +
         UI.headline(h.headline, "h1", "h1 hero-title") +
@@ -32,9 +32,16 @@
   function trustStrip(C) {
     var UI = window.UI;
     var strip = C.overview.trustStrip;
+    var SIZES = {
+      Oracle: { w: 231, h: 30 },
+      NVIDIA: { w: 92, h: 18 },
+      SoftServe: { w: 149, h: 26 }
+    };
     var logos = strip.logos.map(function (logo) {
       var big = logo.name === "Oracle" ? " logo-strip-lg" : "";
-      return '<img class="logo' + big + '" src="' + UI.esc(logo.file) + '" alt="' + UI.esc(logo.name) + '">';
+      var size = SIZES[logo.name] || { w: 120, h: 24 };
+      return '<img class="logo' + big + '" src="' + UI.esc(logo.file) + '" alt="' + UI.esc(logo.name) +
+        '" width="' + size.w + '" height="' + size.h + '" loading="lazy" decoding="async">';
     }).join("");
     return '<section class="section section--tight">' +
       '<div class="wrap">' +

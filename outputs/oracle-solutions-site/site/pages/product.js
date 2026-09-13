@@ -162,7 +162,8 @@
         (tab.id === active ? ' aria-current="page"' : "") + ">" +
         (tab.locked ? UI.icon("lock") : "") + "<span>" + UI.esc(tab.label) + "</span></a>";
     }).join("");
-    return '<div class="tabbar" id="product-tabs"><div class="wrap tabbar-inner">' + tabs + "</div></div>";
+    return '<nav class="tabbar" id="product-tabs" aria-label="' + UI.esc(product.name) +
+      ' sections"><div class="wrap tabbar-inner">' + tabs + "</div></nav>";
   }
 
   /* ————— tab: overview ————— */

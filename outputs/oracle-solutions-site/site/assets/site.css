@@ -1589,3 +1589,69 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 @media (max-width: 560px) {
   .brief-metrics { grid-template-columns: 1fr; }
 }
+
+/* ——— skip link ———————————————————————————————————————— */
+
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -4rem;
+  z-index: 60;
+  padding: .75rem 1.25rem;
+  border-radius: var(--r-pill);
+  background: var(--text);
+  color: var(--text-on-light);
+  font-family: var(--font-display);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  transition: top .25s var(--ease);
+}
+
+.skip-link:focus-visible { top: 1rem; outline-offset: 2px; }
+#app:focus { outline: none; }
+
+/* ——— print ————————————————————————————————————————————— */
+
+@media print {
+  :root { color-scheme: light; }
+
+  body { background: #fff; color: #111; font-size: 11pt; }
+
+  .topbar,
+  .masthead,
+  .mobile-menu,
+  .menu-toggle,
+  .skip-link,
+  .tabbar,
+  .pager,
+  .hero-glow,
+  .hero-sphere,
+  .social-row,
+  .modal-backdrop,
+  .rail,
+  .form-trap { display: none !important; }
+
+  .h1, .h2, .h3, .h4, .tile-title, .tier-title, .brief-title, .note-title, .plat-name,
+  .stat-value, .metric-value, .brief-value, .price-value { color: #111; }
+
+  .lead, .body-text, .small, .footnote, .def-body, .tier-scope, .brief-body, .note-body,
+  .plat-body, .layer-band-body, .stat-label, .metric-label, .brief-label { color: #333; }
+
+  .accent, .eyebrow--accent, .layer-band--lead .layer-band-label { color: #0B6E63; }
+
+  .tile, .tier, .brief, .plat-card, .panel, .split-col, .price-row, .layer-band,
+  .light-band, .light-band-media, .light-band-copy, .form-confirm {
+    background: #fff !important;
+    border-color: #bbb !important;
+    box-shadow: none !important;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .tile-plate { background: #f2f2f2 !important; color: #111 !important; }
+  .chip { background: #f2f2f2 !important; color: #111 !important; border-color: #bbb !important; }
+  .section { padding-block: 1.5rem; }
+  .js-reveal .reveal { opacity: 1 !important; transform: none !important; }
+
+  a[href^="http"]::after { content: " (" attr(href) ")"; font-size: 9pt; color: #555; word-break: break-all; }
+}

@@ -293,8 +293,8 @@
           "</div>" +
           '<div class="footer-right">' +
             '<div class="built-with">' +
-              '<img src="assets/img/oracle-wordmark-white.svg" alt="Oracle" height="18">' +
-              '<img src="assets/img/nvidia-wordmark.svg" alt="NVIDIA" height="18">' +
+              '<img src="assets/img/oracle-wordmark-white.svg" alt="Oracle" width="139" height="18" loading="lazy" decoding="async">' +
+              '<img src="assets/img/nvidia-wordmark.svg" alt="NVIDIA" width="92" height="18" loading="lazy" decoding="async">' +
               '<span class="built-label">' + esc(f.builtWith) + "</span>" +
             "</div>" +
           "</div>" +
