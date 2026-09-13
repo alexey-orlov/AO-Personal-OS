@@ -248,7 +248,7 @@
         '<p class="stat-tile-qual">' + UI.esc(metric.qualifier) + "</p>" +
         "</div>";
     }).join("");
-    return '<section class="panel panel--metrics reveal">' +
+    return '<section class="panel reveal">' +
       blockHead(label("metrics")) +
       '<div class="stat-tiles">' + tiles + "</div>" +
       (o.metricsNote ? '<p class="footnote stat-tiles-note">' + UI.esc(o.metricsNote) + "</p>" : "") +

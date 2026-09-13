@@ -1946,6 +1946,13 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
   .product-title { max-width: none; }
 }
 
+@media (max-width: 560px) {
+  .fact-strip { grid-template-columns: minmax(0, 1fr); }
+  .fact-tile { min-height: 0; }
+  .video-card-play { width: 3.25rem; height: 3.25rem; }
+  .video-card-play .icon { width: 1.125rem; height: 1.125rem; }
+}
+
 @media (max-width: 720px) {
   .rail-layout { align-items: stretch; }
   .rail-content { width: 100%; }
@@ -2151,7 +2158,7 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
   .tabbar,
   .pager,
   .hero-glow,
-  .hero-sphere,
+  .hero-bg,
   .social-row,
   .modal-backdrop,
   .rail,
