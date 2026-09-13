@@ -52,7 +52,7 @@ window.SITE_CONTENT = {
     lakehousePricing: "*Price indicative, to be confirmed per scope; Oracle partner funding programs may reduce the customer's net cost. All features used are generally available product.",
     accountInsightsEvaluation: "The engine is a non-deterministic reasoning system, so a dedicated evaluation plan (correctness and confidence calibration) is part of the work.",
     publicPricingFootnote: "Framed scope, flexible add-ons. Each package's price and timing are set by specific constraints. Custom features beyond the frame are added for additional price and time.",
-    modelledResults: "Results are modelled simulations against a historical baseline, not measured production outcomes.",
+    modeledResults: "Results are modeled simulations against a historical baseline, not measured production outcomes.",
     ladderFallback: "No fixed package price is published for this application yet. The scope above is the shape every engagement follows; the price is set once the sample, the sources and the success metrics are agreed."
   },
 
@@ -133,15 +133,15 @@ window.SITE_CONTENT = {
         customer: "A global home-appliance manufacturer",
         industry: "Manufacturing — residential appliance and white-goods field service",
         body: "Dispatchers planned a residential appliance-repair field force by hand: ZIP-code work zones and technician allocations, region by region. With the cuOpt-powered dispatcher app on OCI, they now review, approve or re-run an optimized plan and export it straight to Oracle Field Service.",
-        scopeLine: "A three-month proof of value across three countries, with around thirty real-world constraints modelled — skills, availability, existing bookings, travel and holidays — and dispatcher approval in the loop.",
+        scopeLine: "A three-month proof of value across three countries, with around thirty real-world constraints modeled — skills, availability, existing bookings, travel and holidays — and dispatcher approval in the loop.",
         metrics: [
           { value: "~30 min", label: "to optimize and approve a region's four-week plan: down from ~2 days" },
-          { value: "83%", label: "of twelve modelled simulations positive, at a median of +4.5% jobs per technician per day" },
+          { value: "83%", label: "of twelve modeled simulations positive, at a median of +4.5% jobs per technician per day" },
           { value: "15–20%", label: "dispatcher productivity gain observed in the pilot; the case was built on the conservative 15%" },
-          { value: "~5x", label: "modelled ROI within three years on a phased rollout" }
+          { value: "~5x", label: "modeled ROI within three years on a phased rollout" }
         ],
         footnotes: [
-          "Results are modelled simulations against a historical baseline, not measured production outcomes.",
+          "Results are modeled simulations against a historical baseline, not measured production outcomes.",
           "KPIs measured before/after on proof-of-value data; figures are illustrative, not contractual."
         ],
         product: { slug: "workforce-optimization", name: "Workforce optimization" }
@@ -400,6 +400,7 @@ window.SITE_CONTENT = {
         heading: "WHAT THE PROOF OF VALUE BUYS",
         scope: "Signal ingestion and grounding, the filter and account fan-out, opportunity and risk reasoning, cross-account ripples, scoring and citations, and the reviewer UI with its evaluation harness — run across your in-scope account list.",
         duration: "about 12 weeks, scoped per engagement",
+        durationShort: "about 12 weeks",
         team: "One team: AI, data and OCI architects, a product manager and a project manager, and senior AI and data engineers. The team grows with the scope.",
         inScope: "Signal ingestion and grounding · filter and account fan-out · opportunity and risk reasoning · cross-account ripples · scoring and citations · reviewer UI and evaluation.",
         notInScope: "Acting on opportunities · pipeline validation · monetary sizing · CRM write-back and persistence · financial modeling · native multilingual.",
@@ -530,7 +531,7 @@ window.SITE_CONTENT = {
         },
         scopeBoundary: {
           title: "SCOPE BOUNDARY",
-          body: "The system assembles and drafts; a person decides. Anonymisation and masking of source records are a data-supply precondition, not a feature of the pack — historical, non-production data is supplied already fit for processing."
+          body: "The system assembles and drafts; a person decides. Anonymization and masking of source records are a data-supply precondition, not a feature of the pack — historical, non-production data is supplied already fit for processing."
         },
         successStory: {
           title: "SUCCESS STORY",
@@ -568,6 +569,7 @@ window.SITE_CONTENT = {
         heading: "PROOF-OF-VALUE SCOPE",
         scope: "One case category, on historical non-production records, with a validated sample the customer's experts have already adjudicated. Prove that an assembled, cited case file is faster to produce and holds up to review.",
         duration: "12–15 weeks (indicative; scoped per engagement)",
+        durationShort: "12–15 weeks",
         team: "One team: AI, data and OCI architects, a product manager and a project manager, and senior AI and data engineers. The team grows with the scope.",
         prerequisites: {
           title: "PREREQUISITES WE ASK OF YOU",
@@ -744,6 +746,7 @@ window.SITE_CONTENT = {
         heading: "PROOF-OF-VALUE SCOPE",
         scope: "One anchor portfolio or project, one agreed sample. Reconstruct, compare, and produce evidence-backed findings a subject-matter expert can validate.",
         duration: "12 weeks, plus a two-week acceptance phase",
+        durationShort: "12 weeks plus a two-week acceptance phase",
         durationNote: "Discovery is compressed into the first two weeks and ends at a gate.",
         phases: "Discovery (2 weeks, gated) → technical framework setup (2 weeks) → analysis logic and orchestration (4 weeks) → evidence-backed output (2 weeks) → validation, demo and roadmap.",
         team: "One team: AI, data and OCI architects, a product manager and a project manager, and senior AI and data engineers. The team grows with the scope.",
@@ -886,7 +889,7 @@ window.SITE_CONTENT = {
             { title: "Field schema and business rules", body: "The target fields and the rules they must satisfy, defined per document type." },
             { title: "Per-field confidence scoring", body: "With tuned thresholds, and fallback logic when a page label or a field scores low." },
             { title: "Source-page citations", body: "Every extracted value points back to the page or section it came from." },
-            { title: "Structured data model", body: "Complex entities modelled into normalized rows, with ranges and tiers expanded and parent-child relationships preserved." },
+            { title: "Structured data model", body: "Complex entities modeled into normalized rows, with ranges and tiers expanded and parent-child relationships preserved." },
             { title: "Validators and reviewer warnings", body: "A business-rule validator set that flags what a human must look at." },
             { title: "Split-view reviewer UI", body: "Source PDF beside extracted rows, per-row confidence badges, approve/edit/reject with bulk actions, auto-save and an audit trail." },
             { title: "Export", body: "JSON, CSV or XLSX against a reference template, into the cost or ERP system." }
@@ -960,6 +963,7 @@ window.SITE_CONTENT = {
         heading: "PROOF-OF-VALUE SCOPE",
         scope: "Manual upload, core field schema: prove accuracy and effort savings on the customer's contracts.",
         duration: "2 months",
+        durationShort: "2 months",
         team: "One team: AI, data and OCI architects, a product manager and a project manager, and senior AI and data engineers. The team grows with the scope.",
         deliverables: [
           "Your own contracts extracted end to end, with per-field confidence and page citations",
@@ -1045,7 +1049,7 @@ window.SITE_CONTENT = {
       tags: ["Data analysis & optimization", "OCI + NVIDIA", "cuOpt", "Oracle Field Service", "Available now"],
       tile: {
         outcomes: [
-          "A region's four-week plan optimised and approved in ~30 minutes, down from ~2 days",
+          "A region's four-week plan optimized and approved in ~30 minutes, down from ~2 days",
           "Dispatchers review the plan instead of building it — then export it straight to Oracle Field Service",
           "Native Oracle Field Service integration: known endpoints, no requirement engineering"
         ]
@@ -1095,7 +1099,7 @@ window.SITE_CONTENT = {
         features: {
           title: "KEY FEATURES — AVAILABLE TODAY",
           items: [
-            { title: "Work-zone and availability rules", body: "Skill-based allocation, maximum load per day, planned-vacation reallocation, same-day sickness handling, default and neighbouring work zones, cross-zone allocation." },
+            { title: "Work-zone and availability rules", body: "Skill-based allocation, maximum load per day, planned-vacation reallocation, same-day sickness handling, default and neighboring work zones, cross-zone allocation." },
             { title: "Forecast-based allocation", body: "Allocate against a demand forecast you supply." },
             { title: "Commitment rules", body: "Non-movable appointments and different SLA types per appointment.*" },
             { title: "Multi-objective optimization", body: "Productivity, waiting time and workload balance, with hard/soft rule weighting and minimal disruption of the current allocation." },
@@ -1117,15 +1121,15 @@ window.SITE_CONTENT = {
           title: "SUCCESS STORY",
           state: "published",
           blurb: "Dispatchers at a global home-appliance manufacturer planned a residential appliance-repair field force by hand: ZIP-code work zones and technician allocations, region by region. With the cuOpt-powered dispatcher app on OCI, they now review, approve or re-run an optimized plan and export it straight to Oracle Field Service.",
-          scopeLine: "A three-month proof of value across three countries, with around thirty real-world constraints modelled — skills, availability, existing bookings, travel and holidays — and dispatcher approval in the loop.",
+          scopeLine: "A three-month proof of value across three countries, with around thirty real-world constraints modeled — skills, availability, existing bookings, travel and holidays — and dispatcher approval in the loop.",
           results: [
             { value: "~30 min", label: "to optimize and approve a region's four-week plan: down from ~2 days" },
-            { value: "83%", label: "of twelve modelled simulations positive, at a median of +4.5% jobs per technician per day" },
+            { value: "83%", label: "of twelve modeled simulations positive, at a median of +4.5% jobs per technician per day" },
             { value: "15–20%", label: "dispatcher productivity gain observed in the pilot; the case was built on the conservative 15%" },
-            { value: "~5x", label: "modelled ROI within three years on a phased rollout" }
+            { value: "~5x", label: "modeled ROI within three years on a phased rollout" }
           ],
           footnotes: [
-            "Results are modelled simulations against a historical baseline, not measured production outcomes.",
+            "Results are modeled simulations against a historical baseline, not measured production outcomes.",
             "KPIs measured before/after on proof-of-value data; figures are illustrative, not contractual."
           ],
           emptyLabel: "No case summary is published yet.",
@@ -1166,6 +1170,7 @@ window.SITE_CONTENT = {
         inScope: "Foundational allocation with the recurring, most-typical constraints — zones, skills, planned absences · core KPIs predicted at scheduling against benchmarks · the dispatcher review UI · sandboxed deployment.",
         notInScope: "Oracle Field Service integration · additional data sources and BI · the re-optimization feedback loop.",
         duration: "2 months",
+        durationShort: "2 months",
         team: "One team: AI, data and OCI architects, a product manager and a project manager, and senior AI and data engineers. The team grows with the scope.",
         deliverables: [
           "An optimized plan for a real region, computed on your own historical data",
@@ -1345,6 +1350,7 @@ window.SITE_CONTENT = {
           { title: "GA features only", body: "Select AI agent, NL2SQL, vector search, Iceberg — nothing in scope waits on a roadmap item." }
         ],
         duration: "30–45 days",
+        durationShort: "30–45 days",
         team: "One team: AI, data and OCI architects, a product manager and a project manager, and senior AI and data engineers. The team grows with the scope.",
         howItRuns: {
           title: "HOW IT RUNS",
@@ -1482,7 +1488,7 @@ window.SITE_CONTENT = {
           items: [
             { title: "Catalog federation", body: "Mount the Iceberg catalogs you already run (Glue, Unity, Polaris) rather than copying data." },
             { title: "Database links", body: "To the systems that are not in a catalog, including on-prem." },
-            { title: "A governed gold layer", body: "With business definitions the organisation signs off." },
+            { title: "A governed gold layer", body: "With business definitions the organization signs off." },
             { title: "Plain-English question answering", body: "Via Select AI over that layer." },
             { title: "Converged data in one database", body: "Relational, JSON, spatial, graph and vector." },
             { title: "Role-scoped answers and a full audit trail", body: "Enforced in the data layer." }
@@ -1532,6 +1538,7 @@ window.SITE_CONTENT = {
           { title: "GA features only", body: "Select AI agent, NL2SQL, vector search, Iceberg." }
         ],
         duration: "30–45 days",
+        durationShort: "30–45 days",
         team: "One team: AI, data and OCI architects, a product manager and a project manager, and senior AI and data engineers. The team grows with the scope.",
         howItRuns: {
           title: "HOW IT RUNS",
@@ -1665,7 +1672,7 @@ window.SITE_CONTENT = {
       },
       attachesToEvery: {
         title: "WHAT ATTACHES TO EVERY ENGAGEMENT",
-        body: "Evaluation, observability and model routing · guardrails and governance hardening · model customisation (distillation, fine-tuning) · CoE build-out · managed run. Scoped and priced on top of whichever package you choose."
+        body: "Evaluation, observability and model routing · guardrails and governance hardening · model customization (distillation, fine-tuning) · CoE build-out · managed run. Scoped and priced on top of whichever package you choose."
       }
     },
 
