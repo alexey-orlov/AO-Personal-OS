@@ -179,21 +179,29 @@
       "</section>";
   }
 
-  function solutionBlock(block) {
+  function mediaRow(slug, inner, reverse) {
+    var figure = window.UI.figure(slug);
+    if (!figure) return '<section class="panel reveal">' + inner + "</section>";
+    return '<section class="panel media-row' + (reverse ? " media-row--reverse" : "") + ' reveal">' +
+      '<div class="media-copy">' + inner + "</div>" + figure + "</section>";
+  }
+
+  function solutionBlock(product) {
     var UI = window.UI;
+    var block = product.overview.solution;
     if (!block) return "";
-    return '<section class="panel reveal">' +
-      blockHead(block.title) +
+    var head = blockHead(block.title) +
       '<p class="lead">' + UI.esc(block.lead) + "</p>" +
-      (block.valueStrip ? '<p class="value-strip">' + UI.esc(block.valueStrip) + "</p>" : "") +
-      (block.items && block.items.length ? defGrid(block.items, "3") : "") +
+      (block.valueStrip ? '<p class="value-strip">' + UI.esc(block.valueStrip) + "</p>" : "");
+    var rest = (block.items && block.items.length ? defGrid(block.items, "3") : "") +
       (block.expanded
         ? '<details class="disclosure"><summary><span>How it works in detail</span>' +
             UI.icon("chevronDown") + "</summary>" +
             '<p class="body-text">' + UI.esc(block.expanded) + "</p></details>"
         : "") +
-      (block.closing ? '<p class="body-text panel-extra">' + UI.esc(block.closing) + "</p>" : "") +
-      "</section>";
+      (block.closing ? '<p class="body-text panel-extra">' + UI.esc(block.closing) + "</p>" : "");
+    return mediaRow(product.slug, head) +
+      (rest ? '<section class="panel reveal panel--tight">' + rest + "</section>" : "");
   }
 
   function todayTomorrow(block) {
@@ -227,7 +235,7 @@
     } else {
       body = UI.empty(block.emptyState || "");
     }
-    return '<section class="panel reveal">' + blockHead(block.title) + body +
+    return '<section class="panel panel--metrics reveal">' + blockHead(block.title) + body +
       (block.proofLine ? '<p class="body-text panel-extra">' + UI.esc(block.proofLine) + "</p>" : "") +
       "</section>";
   }
