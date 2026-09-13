@@ -455,8 +455,7 @@ window.SITE_CONTENT = {
           { key: "demo-video", title: "Demo video", description: "A recorded walkthrough of the reviewer UI.", state: "coming-soon" }
         ],
         notes: [
-          "Earlier product name on the cover; the content is current.",
-          "Any screenshot or live demo must use synthetic accounts."
+          "Earlier product name on the cover; the content is current."
         ]
       }
     },
