@@ -797,7 +797,7 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 .platform-item { padding-block: .875rem; border-top: 1px solid rgba(7, 9, 13, .16); }
 .platform-item:first-child { border-top: 0; padding-top: 0; }
 .platform-name { font-weight: 600; font-size: 1rem; line-height: 1.35; color: var(--text-on-light); }
-.platform-body { font-size: var(--fs-sm); color: #4E6076; font-weight: 300; }
+.platform-body { font-size: var(--fs-sm); color: var(--text-on-light-soft); font-weight: 300; }
 
 @media (max-width: 900px) {
   .light-band { grid-template-columns: 1fr; }
@@ -1382,9 +1382,9 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 
 .band-metrics { display: flex; flex-direction: column; gap: 1.25rem; }
 .band-metric-value { font-family: var(--font-display); font-weight: 900; font-size: 1.5rem; line-height: 1.05; letter-spacing: -.01em; color: var(--text-on-light); font-variant-numeric: tabular-nums; }
-.band-metric-label { margin-top: .375rem; font-size: var(--fs-xs); line-height: 1.5; color: #4E6076; }
+.band-metric-label { margin-top: .375rem; font-size: var(--fs-xs); line-height: 1.5; color: var(--text-on-light-soft); }
 .band-notes { display: flex; flex-direction: column; gap: .375rem; padding-top: 1rem; border-top: 1px solid rgba(7, 9, 13, .16); }
-.band-footnote { font-size: var(--fs-xs); line-height: 1.5; color: #4E6076; }
+.band-footnote { font-size: var(--fs-xs); line-height: 1.5; color: var(--text-on-light-soft); }
 
 .panel--tight { gap: 1rem; }
 
