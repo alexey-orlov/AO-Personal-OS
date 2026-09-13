@@ -47,40 +47,32 @@ window.SITE_CONTENT = {
 
   media: {
     "account-insights": {
-      src: "assets/img/heroes/account-insights.jpg",
-      alt: "A network of connected signal nodes — people, messages, documents, charts — converging on one glowing hub above a night-time city skyline"
+      diagram: "account-insights",
+      alt: "Flow diagram: signal feeds and client context enter the Account Insights app and NVIDIA AI-Q on a dedicated AI cluster on Oracle Cloud Infrastructure, which filter, fan out, reason, score and cite; a reviewer approves before one JSON per account goes to the CRM"
     },
     "case-evidence-collection": {
-      src: "assets/img/heroes/case-evidence-collection.jpg",
-      alt: "Silhouetted analyst mapping a case on a backlit glass board covered in linked boxes and connecting lines"
+      diagram: "case-evidence-collection",
+      alt: "Flow diagram: source exports enter evidence assembly and NVIDIA AI-Q multi-document reasoning on a dedicated AI cluster on Oracle Cloud Infrastructure, and the assembled case reaches an investigator UI with amend, approve and a full audit log"
     },
     "plan-vs-actual-investigation": {
-      src: "assets/img/heroes/plan-vs-actual-investigation.jpg",
-      alt: "Analyst at a dark multi-screen desk reviewing trend charts, variance dashboards and mapped operations data"
+      diagram: "plan-vs-actual-investigation",
+      alt: "Flow diagram: approved exports enter a conformed data model and hybrid retrieval on Oracle Cloud Infrastructure, and the review app presents variances, drivers and citations, with unresolved records reported as coverage gaps"
     },
     "large-document-extraction": {
-      src: "assets/img/heroes/large-document-extraction.jpg",
-      alt: "A deep stack of hundreds of thin layered plates receding into darkness, edges lit like the pages of a long document"
+      diagram: "large-document-extraction",
+      alt: "Flow diagram: contracts from the repository enter the extraction pipeline and NVIDIA AI-Q vision-language models on a dedicated AI cluster on Oracle Cloud Infrastructure, and a reviewer validates in a split view before approved rows export to the cost or ERP system"
     },
     "workforce-optimization": {
-      src: "assets/img/heroes/workforce-optimization.jpg",
-      alt: "Container terminal at blue hour — gantry crane, stacked containers and service vehicles moving under work lights"
+      diagram: "workforce-optimization",
+      alt: "Flow diagram: Oracle Field Service data enters the workforce app and the NVIDIA cuOpt solver on a dedicated AI cluster on Oracle Cloud Infrastructure, a dispatcher approves the plan, and the approved plan is written back to Oracle Field Service"
     },
     "cross-system-erp-qa": {
-      src: "assets/img/heroes/cross-system-erp-qa.jpg",
-      alt: "Abstract dark graph of separate enterprise system panes linked by thin teal data flows converging on one lit core"
+      diagram: "cross-system-erp-qa",
+      alt: "Diagram: Oracle applications and one or two other sources connect into Oracle Autonomous AI Lakehouse — governed data model, masking and row rules, SQL firewall, Select AI — which answers in plain language over certified views and dashboards"
     },
     "business-metrics-qa": {
-      src: "assets/img/heroes/business-metrics-qa.jpg",
-      alt: "Abstract landscape of flowing data points and light trails rolling across a dark blue field"
-    },
-    overview: {
-      src: "assets/img/heroes/overview.jpg",
-      alt: "A luminous elliptical aperture opening in a dark wall, warm rim light spilling across the floor"
-    },
-    services: {
-      src: "assets/img/heroes/services.jpg",
-      alt: "Engineer working at a dark multi-monitor workstation filled with code, city lights blurred behind"
+      diagram: "business-metrics-qa",
+      alt: "Diagram: existing catalogs, linked databases and existing platforms stay where they are and connect into Oracle Autonomous AI Lakehouse as the governed gold layer, which answers across every source with no data movement"
     }
   },
 
