@@ -1118,7 +1118,7 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 .market-grid > .market-tile:last-child:nth-child(odd) .tile-plate { aspect-ratio: auto; height: 100%; min-height: 17rem; }
 
 @media (max-width: 1024px) {
-  .market-grid { grid-template-columns: 1fr; }
+  .market-grid { grid-template-columns: minmax(0, 1fr); }
   .market-grid > .market-tile:last-child:nth-child(odd) { display: flex; flex-direction: column; }
   .market-grid > .market-tile:last-child:nth-child(odd) .tile-plate { aspect-ratio: 16 / 8; min-height: 11rem; height: auto; }
 }
@@ -1422,6 +1422,8 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 }
 
 @media (max-width: 720px) {
+  .rail-layout { align-items: stretch; }
+  .rail-content { width: 100%; }
   .rail { border-bottom: 1px solid var(--border-subtle); padding-bottom: 1.75rem; margin-bottom: 2rem; }
   .rail-options { flex-direction: row; flex-wrap: wrap; }
   .rail-option { width: auto; border: 1px solid var(--border); border-radius: var(--r-pill); padding: .5rem .875rem; }
