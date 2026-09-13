@@ -21,7 +21,7 @@ Three rules the renderers must hold to, because the copy depends on them:
 
 ```
 window.SITE_CONTENT = {
-  site, disclaimers, shared,
+  site, media, disclaimers, shared,
   overview, productsPage, facets, availability,
   products[], services, forms, sellerGate
 }
@@ -51,6 +51,14 @@ window.SITE_CONTENT = {
 | `legalLine` | string | Verbatim, no year. |
 | `builtWith` | string | `Built with Oracle and NVIDIA` — the short line beside the logo row. |
 | `trademarkLine` | string | Full trademark sentence. Render once, in the footer. |
+
+---
+
+## `media`
+
+A map of **key → `{ src, alt }`**. Keys are the seven product slugs plus `overview` and `services`. `src` is a path relative to `site/index.html`; `alt` is a plain description of the picture.
+
+Used in three places: the image plate on every product tile (decorative there — the tile heading carries the name, so the plate renders `alt=""` and the link carries the product name), the 50/50 media row beside THE SOLUTION on a product Overview tab, and the mirrored media row beside ARCHITECTURE on its Technology tab. A missing key degrades cleanly: the tile falls back to a type plate and the media row to a plain text panel.
 
 ---
 
@@ -181,11 +189,13 @@ Every key is optional except `metrics`, `roi`, `features` and `successStory`; re
 | `state` | `published` / `first-engagement` / `none` | Drives which shape renders. |
 | `blurb` | string | Empty on `none`. |
 | `scopeLine?`, `results?`, `footnotes?` | as on `EvidenceCard` | Present where the product has delivered proof. |
-| `emptyLabel` | string | The one honest line shown when there is nothing to publish, and the label of the download control while `config.products[slug].successStoryUrl` is empty. |
+| `emptyLabel` | string | The one honest line shown when there is nothing to publish. Rendered as the band body when the story has neither `blurb` nor `results`; omitted entirely once `results` are present. |
 | `evidenceId?` | string | Renders the matching `overview.evidence[]` card rather than duplicating it. |
 | `adjacentMethodId?` | string | A `METHOD` card that may render alongside as method proof. |
 
-The **Download the success story** button renders only when `SITE_CONFIG.products[slug].successStoryUrl` is non-empty. Otherwise the control renders in its empty state carrying `emptyLabel`.
+The **Download the success story** button renders only when `SITE_CONFIG.products[slug].successStoryUrl` is non-empty; otherwise no control renders in its place.
+
+The block renders as a two-tone light band: the narrative on the neutral half, the `results` metrics and `footnotes` on the blue-grey half. With no `results` the band collapses to a single tone carrying `emptyLabel` alone.
 
 ### `technology`
 
@@ -208,6 +218,7 @@ Renders the `POV Jumpstart` tab.
 | `scope` | string | One paragraph: what the proof of value covers. |
 | `inScope?`, `notInScope?`, `thenRollout?` | string | Single-line lists separated by `·`. |
 | `duration` | string | |
+| `durationShort` | string | The same duration in its shortest honest form (e.g. `2 months`, `30–45 days`). Interpolated into `sellerGate.cta.body` at `{duration}`; never rendered on its own. |
 | `durationNote?`, `phases?`, `gateNote?` | string | |
 | `team` | string | Who delivers the proof of value. |
 | `prerequisites?` | `{ title, items: [string] }` | |
@@ -231,7 +242,7 @@ After the ladder, every POV tab renders, in order: `shared.preFlightGate`, `shar
 |---|---|---|
 | `materials` | `[{ key, title, description, state }]` | `key` is the lookup into `SITE_CONFIG.products[slug].materials`. A non-empty URL there renders an enabled Download; an empty one renders a disabled control labelled from `shared.materialStates[state]`. A row with `state: "superseded"` stays disabled regardless of URL. |
 | `emptyPanelCopy?` | string | Shown above the list where every row is unavailable. |
-| `notes` | `[string]` | Short seller-facing notes; may be empty. |
+| `notes` | `[string]` | Short seller-facing notes; may be empty. Rendered followed by `sellerGate.packagingNotes` on every product whose `pov.pricing` or `pov.ladder` carries a currency figure. |
 
 ---
 
@@ -261,7 +272,8 @@ One field set serves both forms. Fields, in order: **full name · work email · 
 | `consent` | `{ label, linkLabel, linkUrl }` | Required checkbox. Render `linkLabel` inside `label` as a link to `linkUrl`. |
 | `productPlaceholder` | string | The extra option in the product select, alongside the seven product names. On a product page the select is pre-filled with that product and stays editable. |
 | `labels` | map | Field labels, the message placeholder, submit labels and the two validation messages. |
-| `demo`, `contact` | `{ anchor, heading, sub, submitLabel }` | The two form instances. |
+| `demo`, `contact` | `{ anchor, heading, sub, submitLabel }` | The two form instances. A surface that already prints the heading renders the form with its own head suppressed, so the heading appears once. |
+| `engagementSteps` | `{ title, steps: [{ title, body }], responseLine }` | The three-step "what happens next" block that fills the copy column beside both contact forms. |
 | `confirmations` | `{ posted, mailto, contactPosted, error }` | Each `{ title, body }`. Pick by outcome: `posted` after a successful POST to `SITE_CONFIG.formEndpoint`; `mailto` after composing a `mailto:` because the endpoint is empty; `contactPosted` for the Services form; `error` on failure. **Never show a success confirmation for an action that did not happen.** |
 
 ---
@@ -273,7 +285,8 @@ One field set serves both forms. Fields, in order: **full name · work email · 
 | `heading`, `lockedBody`, `accessNote` | string | `accessNote` is the one-line note under the input. |
 | `emailLabel`, `emailPlaceholder`, `unlockLabel`, `lockLabel`, `rejected` | string | |
 | `linkPendingLabel`, `downloadLabel`, `unlockedIntro` | string | |
-| `cta` | `{ heading, body, contactLabel, action }` | `contactLabel` is a **role alias**, not a person and not an address. `action` opens the contact form with `I am a…` pre-set to `oracle-seller`. |
+| `packagingNotes` | `[string]` | The two seller-only packaging notes. Appended to `sellers.notes` on every product page that prints a price. |
+| `cta` | `{ heading, body, bodyFallback, contactLabel, action }` | `body` carries the `{duration}` placeholder, filled from that product's `pov.durationShort`; `bodyFallback` is used when a product has none. `contactLabel` is a **role alias**, not a person and not an address. `action` opens the demo form with the product pre-selected and `I am a…` pre-set to `oracle-seller`. |
 
 The gate checks the domain of the entered email against `SITE_CONFIG.sellerGate.allowedDomains` and stores the unlock under `SITE_CONFIG.sellerGate.storageKey`. It is a convenience, not access control: nothing in either data file is secret, and nothing secret may be added to them.
 
