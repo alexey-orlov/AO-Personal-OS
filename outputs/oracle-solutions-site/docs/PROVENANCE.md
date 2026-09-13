@@ -305,3 +305,75 @@ The retired manifest, recorded here so the mapping is not lost:
 The product-tile plates no longer carry artwork at all: they fall back to the typographic plate that was already in `UI.tilePlate` — the product headline set large, first word in teal, on the black plate with its teal glow. A designed container with the product's own name in it beats a stock photograph of something else.
 
 **Still true:** there are no product screenshots for any of the seven. When screenshots exist, add `src` back to that product's `media` entry and `UI.figure` / `UI.tilePlate` prefer the image with no other change. The `Account Insights` rule still applies: any screenshot ever made for it must use synthetic accounts — a production instruction, recorded here and deliberately nowhere inside `site/`.
+
+---
+
+## 9. The visual-grammar round — what moved, what was written, and where the industries came from
+
+Alex's feedback F1–F3 (2026-09-13) replaced the free-form product Overview with **one component grammar shared by all seven pages** (`docs/VISUAL-GRAMMAR.md`). This section records what that did to the data layer.
+
+### 9.1 The restructure — no fact was dropped
+
+Every prose block that used to render above the fold was either compressed into a grammar component or moved, verbatim, into `overview.moreDetail[]` (the collapsible disclosure at the end of the tab). Mapping:
+
+| Old key | Where it went |
+|---|---|
+| `overview.problem` (lead + bullets + context) | Panel text of `overview.problemSolution.problem`, compressed. The bullets and the `context` sentence moved verbatim to `moreDetail` (`large-document-extraction`, `workforce-optimization`). |
+| `overview.solution` (lead, expanded, items, closing, valueStrip) | Panel text of `overview.problemSolution.solution`, compressed. `expanded`, `items[]` and `closing` moved verbatim to `moreDetail`. `valueStrip` was dropped — it duplicated the metric row it sat beside. |
+| `overview.metrics` (`{ title, rows, footnote, emptyState, proofLine }`) | `overview.metrics[]` tiles + `overview.metricsNote`. Every `footnote` and every `emptyState` string survives **verbatim** as the `metricsNote`. `workforce-optimization`'s four KPI-definition rows moved to `moreDetail` as "How the KPIs are defined"; its tiles now carry the four business-case figures that already shipped in its `successStory.results`. |
+| `overview.roi` (`{ title, body }`) | `overview.roi` (`{ icon, text }`). `text` is the same body, trimmed to two sentences on four products; nothing was added. |
+| `overview.features` (`{ title, items[{title,body}], footnote }`) | `overview.features[]` — 6–8 lines of ≤12 words each, each a compression of one `{title, body}` pair. **The original pairs are kept in full** as `overview.featuresDetail[]`. `footnote` → `overview.featuresNote`. |
+| `overview.whereItApplies` (`{ title, lead, items }`) | `overview.industries[]` icon chips + `overview.industriesNote` (from `lead` where one existed). **Every `items[]` entry survives verbatim** as a `moreDetail` entry. |
+| `overview.inScope` / `.outOfScope` | `overview.scope.in` / `.out`, compressed to ≤14 words per line. |
+| `overview.pattern`, `.todayTomorrow`, `.pullQuote`, `.scopeParagraph`, `.evidenceDefinition`, `.useCaseBoundaries`, `.scopeBoundary`, `.exclusions`, `.deliveredAtRollout`, `.roadmap`, `.whatWeHear`, `.closingDisclaimer` | All verbatim into `moreDetail[]`. |
+| `technology.components` (`[{ group, items }]`) | `technology.groups` (`[{ vendor, label, items }]`) — same items, now vendor-marked so they render as Oracle / NVIDIA / SoftServe columns. The "Not used by this product" rows became `technology.notUsed[]`, still rendered, still muted. |
+| `technology.integration` / `.security` (`[string]`) | `[{ icon, text }]` — the same strings, each given an icon key. |
+| `technology.narrative` | Rewritten to three sentences on all seven. The facts are unchanged; the sentence count is the only edit. |
+| `technology.layers` | Unchanged (empty on the two Lakehouse products, as before). |
+| `pov.*` | Unchanged, plus the new `pov.facts` fact strip. `pricing`, `disclaimers` and `ladder` are byte-identical. |
+
+`technology.flow` and `pov.facts` are **new containers for existing facts** — see 9.3.
+
+### 9.2 Industries — source per product
+
+The industry chips are an icon-set rendering of the verticals each pack already publishes. No new vertical was invented, and no customer name is implied by any key.
+
+| Product | Keys | Source |
+|---|---|---|
+| `account-insights` | logistics · financial-services · manufacturing · professional-services | `RESEARCH/02` §3.4, the accelerator one-pager's verbatim four-vertical list (Logistics & supply chain · Financial services & banking · Industrial & manufacturing · Private equity funds); `professional-services` from the same section's use-case-map card verticals ("Logistics · financial services · professional services · technology"). Private equity is carried by `financial-services`; the full PE paragraph survives in `moreDetail`. |
+| `case-evidence-collection` | financial-services · manufacturing · professional-services · public-sector | `RESEARCH/01` §5.2 — the L2 card's generic persona examples. financial-crime analyst → financial-services; quality manager → manufacturing; employee-relations partner → professional-services; incident investigator / vetting officer / SOC analyst (the map's defence re-skin) → public-sector. **No pack one-pager exists for this product**, so this is the strongest available source. |
+| `plan-vs-actual-investigation` | construction · manufacturing · professional-services · retail | `RESEARCH/01` §5.3 — the generalised card text names the class as "projects, work packages, orders, engagements, campaigns", and the architecture names zone layouts, bills of quantity and contract amendments (capital-project shaped) → construction; order portfolios → manufacturing; client engagements → professional-services; campaigns → retail. Each maps 1:1 to a persona already shipping in the product's own copy. **Adapted, not quoted** — the source names personas, not industries. |
+| `large-document-extraction` | travel-transport · professional-services · insurance · financial-services | `RESEARCH/02` §2.5, the one-pager's verbatim list: "Aviation - ground-handling contracts (SGHA) · Legal & commercial contracts · Insurance - policies & claims · Financial & regulatory filings". Aviation → travel-transport; legal & commercial → professional-services. |
+| `workforce-optimization` | manufacturing · utilities · telecom · healthcare | `RESEARCH/02` §1.5, the one-pager's verbatim list: "Appliance & white-goods repair · Utilities: water, gas, electric · Telecom & cable · Industrial, medical & IT equipment". Appliance repair and industrial/IT equipment service → manufacturing; medical-device service → healthcare, corroborated by the same section's wider GTM list ("Hospital/health system"). |
+| `cross-system-erp-qa` | cross-industry | `RESEARCH/02` (Jumpstart deck, "WHAT WE HEAR FROM IT AND DATA LEADERS"): *"The same two pains, every industry, regardless of stack."* No vertical list exists for either Lakehouse product, and inventing one would be fabrication. |
+| `business-metrics-qa` | cross-industry | Same source, same reasoning. |
+
+`energy`, `automotive` and `life-sciences` are declared in the fixed set and currently unused — the source decks name them as adjacent verticals but no pack claims them.
+
+### 9.3 Copy written new for the grammar
+
+| Where | What was written | Built on | Risk if wrong |
+|---|---|---|---|
+| `overview.metrics[].label` / `.qualifier` (all seven) | The tile captions | Each is a compression of the product's own `metrics.rows`, `metrics.emptyState` or `successStory.results` string. **No figure appears that was not already in `content.js`.** Four products have no numbers at all and ship four `value: null` tiles apiece | Low — but check the four all-qualitative products read as *"this is what we will measure"*, not as claims |
+| `overview.metricsNote` (all seven) | — | **Verbatim** from the old `metrics.footnote` or `metrics.emptyState`. `workforce-optimization`'s is the two existing footnotes concatenated, in order | None |
+| `overview.industriesNote` (all seven) | One line under the chips | account-insights' is the one-pager's verbatim lead ("Any business that needs to turn market and customer developments into pursuable opportunities across its account base, quickly."). The Lakehouse pair adapt the Jumpstart deck's "same two pains, every industry, regardless of stack". The other four are **written** — one sentence each, restating the class of work the product already describes | Low |
+| `overview.scope.in` / `.out` (all seven) | — | account-insights and large-document-extraction: compressions of their own shipped `inScope` / `outOfScope` lists. workforce-optimization: its own `pov.inScope` / `pov.notInScope` strings, split on `·`, plus its roadmap items as out-of-scope lines. case-evidence-collection, plan-vs-actual-investigation and the two Lakehouse products: composed from their own `pov.scope`, `pov.ladder[0].includes` and the exclusion blocks that now sit in `moreDetail` | Low — every line restates something already on the same page |
+| `technology.flow[].step` / `.label` (all seven) | The four-step diagram labels | Composed from each product's own `technology.narrative` and `technology.integration` strings. The canonical stage vocabulary (Sources → Ingest/Extract/Mount → Reason/Optimize/Govern/Validate → Deliver) is **written**, and is the thing that makes the seven diagrams comparable | Low — no new component or vendor is named |
+| `technology.groups[].label` (all seven) | Column headings | The old `components[].group` names, plus a `SoftServe application layer` / `SoftServe delivery layer` heading over what used to be filed under `Other` | None |
+| `pov.facts` (all seven) | The four-tile fact strip | `duration` is `durationShort` shortened further; `price` is the headline of `pov.pricing[0]` or `Scoped per engagement`; `deliverablesCount` is `deliverables.length`, asserted by the checker; `team` is **written** as *"One SoftServe team"* — a compression of the standing `pov.team` sentence, which still ships in full on the same tab | Low |
+| `products[*].hero.image.alt` (all seven, plus overview and services) | Image descriptions | Written against the generated images. `site/assets/img/heroes/heroes.json` is the authority; these are copies so the page needs no runtime fetch | Low — but they must be re-checked against the final images |
+
+### 9.4 Hero imagery — the §8 deletion is reversed, with one condition carried forward
+
+§8 of this file records that nine staged hero images and their `heroes.json` were deleted from the served root. F1 reinstates hero imagery, and the two reasons §8 gave are addressed differently:
+
+- **Generic stock photography** — the objection stands and is the reason the new images are generated per product, each one keyed to that product's essence, rather than pulled from a deck's media folder.
+- **`heroes.json` shipping inside `site/`** — the objection also stands. The manifest is publicly fetchable from the served root, so **it must carry no internal source-deck filename, no customer or opportunity code, and no internal path.** Its `source` field records how an image was produced, not which internal deck it came out of. This is a ship-gate check, not a style preference: it is the same class of leak §8 caught.
+
+`content.js` carries a copy of each image's `file`, `alt` and `focal` so the page never fetches the manifest at runtime. Keep the two in sync; `docs/CONFIG.md` §3b is the operator-facing version of this rule.
+
+The images are the background of the **top block only** — the hero — on the Overview page, the Services page and each product page. They are never the background of a tab body, and never a full-screen wash.
+
+### 9.5 `config.products[*].videoPoster`
+
+New key, empty on all seven, documented in `CONFIG.md` §3. It is inert unless that product's `videoUrl` is non-empty. The renderer falls back to the YouTube thumbnail and then to the product's own hero image, so a YouTube demo needs nothing set here — which is why shipping it empty is the correct state and not an unfinished one.
