@@ -287,6 +287,11 @@
     { pattern: /^\/services$/, page: "services", params: function () { return {}; } }
   ];
 
+  function decodePart(value) {
+    try { return decodeURIComponent(String(value).replace(/\+/g, " ")); }
+    catch (error) { return String(value); }
+  }
+
   function parseHash() {
     var raw = window.location.hash.replace(/^#/, "");
     if (!raw) raw = "/";
@@ -296,9 +301,20 @@
       anchor = raw.slice(anchorIndex + 1);
       raw = raw.slice(0, anchorIndex);
     }
+    var query = {};
+    var queryIndex = raw.indexOf("?");
+    if (queryIndex >= 0) {
+      raw.slice(queryIndex + 1).split("&").forEach(function (pair) {
+        if (!pair) return;
+        var eq = pair.indexOf("=");
+        var key = decodePart(eq < 0 ? pair : pair.slice(0, eq));
+        query[key] = eq < 0 ? "" : decodePart(pair.slice(eq + 1));
+      });
+      raw = raw.slice(0, queryIndex);
+    }
     if (!raw) raw = "/";
     if (raw.length > 1) raw = raw.replace(/\/+$/, "");
-    return { path: raw || "/", anchor: anchor };
+    return { path: raw || "/", anchor: anchor, query: query };
   }
 
   function matchRoute(path) {
@@ -377,6 +393,7 @@
     } else {
       var params = matched.params;
       params.anchor = parsed.anchor;
+      params.query = parsed.query;
       app.innerHTML = window.PAGES[matched.page](params);
       var page = window.PAGES[matched.page];
       if (typeof page.mount === "function") page.mount(params, app);
