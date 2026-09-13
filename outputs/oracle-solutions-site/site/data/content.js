@@ -97,7 +97,7 @@ window.SITE_CONTENT = {
         { label: "Browse the products", route: "#/products", kind: "secondary" }
       ],
       stats: [
-        { value: "7", label: "applications on the Oracle stack — three packaged today, four in preparation" },
+        { value: "7", label: "applications on the Oracle stack — three packaged today, two sellable as a fixed-price offer, two in preparation" },
         { value: "4", label: "Oracle platforms the practice focuses on" },
         { value: "30 days–4 months", label: "from kickoff to a measured proof of value on your own data" },
         { value: "30", label: "Fortune 500 clients in SoftServe's data and analytics practice" }
@@ -567,7 +567,7 @@ window.SITE_CONTENT = {
       pov: {
         heading: "PROOF-OF-VALUE SCOPE",
         scope: "One case category, on historical non-production records, with a validated sample the customer's experts have already adjudicated. Prove that an assembled, cited case file is faster to produce and holds up to review.",
-        duration: "scoped per engagement — comparable investigation proofs run 12–15 weeks",
+        duration: "12–15 weeks (indicative; scoped per engagement)",
         team: "One team: AI, data and OCI architects, a product manager and a project manager, and senior AI and data engineers. The team grows with the scope.",
         prerequisites: {
           title: "PREREQUISITES WE ASK OF YOU",
@@ -587,7 +587,7 @@ window.SITE_CONTENT = {
         ],
         pricing: [
           { label: "Services (one-time)", value: "Scoped per engagement", note: "No package price is published for this application." },
-          { label: "Timeline", value: "12–15 weeks" }
+          { label: "Timeline", value: "12–15 weeks (indicative; scoped per engagement)" }
         ],
         disclaimers: [
           "Framed scope, flexible add-ons. Each package's price and timing are set by specific constraints. Custom features beyond the frame are added for additional price and time."
@@ -598,7 +598,7 @@ window.SITE_CONTENT = {
             title: "Proof of value",
             scope: "Prove the gains on your own data and rules, in a separate environment. Zero integration.",
             includes: ["One case category on historical, non-production records", "Assembled, cited case files for the agreed sample", "The investigator UI, sandboxed on your tenancy"],
-            duration: "12–15 weeks",
+            duration: "12–15 weeks (indicative; scoped per engagement)",
             pricing: "Scoped per engagement"
           },
           {
@@ -1000,7 +1000,7 @@ window.SITE_CONTENT = {
             scope: "Scaling across document types, volume and business units: type-specific schemas and validation.",
             includes: ["Every Roll-out capability, multi-type / advanced", "Type-specific schemas and validation", "Multi-business-unit deployment"],
             duration: "3–12 months",
-            pricing: "to be defined"
+            pricing: "Scoped per engagement"
           }
         ],
         capabilityMatrix: {
@@ -1205,7 +1205,7 @@ window.SITE_CONTENT = {
             scope: "Scaling across locations: heterogeneous rules and data workflows per region.",
             includes: ["Every Roll-out capability, multi-region / advanced", "Per-region rule sets and data workflows", "Multi-zone deployment"],
             duration: "3–12 months",
-            pricing: "to be defined"
+            pricing: "Scoped per engagement"
           }
         ],
         capabilityMatrix: {
@@ -1303,7 +1303,7 @@ window.SITE_CONTENT = {
           title: "SUCCESS STORY",
           state: "none",
           blurb: "",
-          emptyLabel: "Built to prove, not promise — the readout is a measurement, not a story."
+          emptyLabel: "No customer engagement published yet — this is a new fixed-price offer. Proof points will be published here."
         }
       },
       technology: {
@@ -1490,7 +1490,7 @@ window.SITE_CONTENT = {
           title: "SUCCESS STORY",
           state: "none",
           blurb: "",
-          emptyLabel: "Built to prove, not promise — the readout is a measurement, not a story."
+          emptyLabel: "No customer engagement published yet — this is a new fixed-price offer. Proof points will be published here."
         }
       },
       technology: {
