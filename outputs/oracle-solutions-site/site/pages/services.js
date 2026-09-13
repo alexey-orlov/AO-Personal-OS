@@ -21,12 +21,7 @@
   function hero(content) {
     var UI = window.UI;
     var h = content.services.hero;
-    var stats = [
-      { value: "500+", label: "data and analytics experts in the practice now pointed at the Oracle stack" },
-      { value: "150+", label: "active data and analytics projects running today" },
-      { value: "30", label: "Fortune 500 clients delivered by that practice" },
-      { value: String(h.platforms.length), label: "Oracle platforms the dedicated practice builds on" }
-    ].map(function (stat) {
+    var stats = (h.stats || []).map(function (stat) {
       return '<li class="stat">' +
         '<p class="stat-value nums">' + UI.esc(stat.value) + "</p>" +
         '<p class="stat-label">' + UI.esc(stat.label) + "</p>" +
@@ -44,7 +39,7 @@
           UI.button({ label: h.cta.label, href: h.cta.route, kind: "primary" }) +
           UI.button({ label: content.productsPage.title, href: "#/products", kind: "quiet", iconAfter: "arrow" }) +
         "</div>" +
-        '<ul class="stat-row services-stats">' + stats + "</ul>" +
+        (stats ? '<ul class="stat-row services-stats">' + stats + "</ul>" : "") +
       "</div></section>";
   }
 
@@ -301,7 +296,11 @@
           '<p class="lead">' + UI.esc(content.services.contact.sub) + "</p>" +
         "</div>" +
         '<div class="contact-form" id="contact-form-slot">' +
-          window.FORMS.render("contact", { heading: false }) +
+          (window.FORMS && typeof window.FORMS.render === "function"
+            ? window.FORMS.render("contact", { heading: false })
+            : '<div class="cta-row">' +
+                UI.button({ label: content.services.hero.cta.label, href: "#/products", kind: "primary" }) +
+              "</div>") +
         "</div>" +
       "</div></section>";
   }

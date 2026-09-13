@@ -1598,6 +1598,12 @@ window.SITE_CONTENT = {
       headline: { accent: "ORACLE", rest: "DEDICATED PRACTICE" },
       lead: "SoftServe's Oracle practice pairs the delivery depth of a 500-strong data and analytics practice with architects and engineers dedicated to the Oracle AI stack.",
       secondParagraph: "The practice focuses on two things: joint delivery with Oracle's AI & Data organization, and repeatable accelerator packs on four Oracle platforms.",
+      stats: [
+        { value: "500+", label: "data experts in SoftServe's data and analytics practice" },
+        { value: "150+", label: "active projects in that practice" },
+        { value: "30", label: "Fortune 500 clients in SoftServe's data and analytics practice" },
+        { value: "4", label: "Oracle platforms the practice focuses on" }
+      ],
       platformsTitle: "ORACLE PLATFORMS WE FOCUS ON",
       platforms: [
         { name: "Oracle Cloud Infrastructure + NVIDIA NeMo Agent Toolkit", short: "GPU cloud plus agent tooling", long: "OCI GPU compute with NVIDIA accelerated computing, NIM microservices and AI blueprints — AI-Q, cuOpt, VSS." },
