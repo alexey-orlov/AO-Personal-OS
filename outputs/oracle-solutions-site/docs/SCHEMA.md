@@ -14,6 +14,7 @@ Three rules the renderers must hold to, because the copy depends on them:
 1. **A number never renders without the disclaimer that sits beside it.** Where a block has `footnote`, `footnotes[]` or `disclaimers[]`, render them in the same visual block as the figures.
 2. **Absence renders as an empty instance of the same component.** A missing price, video or case study renders the component with its `emptyState` / `emptyLabel` line — never a sentence saying the component is missing, and never a disabled placeholder where a locked decision says nothing should render.
 3. **Facets and availability are data, not classes.** Read the chip label and tooltip from `facets` / `availability`; do not hard-code either.
+4. **Every product fills every grammar slot.** The seven product pages share one component grammar, documented in `VISUAL-GRAMMAR.md`. A product with no published number fills its metric row with *qualitative* tiles (`value: null`); it never renders a shorter page than its peers. `tools/check-grammar.js` enforces this.
 
 ---
 
@@ -218,6 +219,7 @@ Renders the `POV Jumpstart` tab.
 | Key | Type | Notes |
 |---|---|---|
 | `heading` | string | |
+| `facts` | `{ duration, team, price, deliverablesCount }` | The four-tile fact strip at the top of the tab. All four are short display strings except `deliverablesCount`, which is a **number** and must equal `deliverables.length`. `price` reads `Scoped per engagement` where none is published — the tile is never empty. |
 | `scope` | string | One paragraph: what the proof of value covers. |
 | `inScope?`, `notInScope?`, `thenRollout?` | string | Single-line lists separated by `·`. |
 | `duration` | string | |
@@ -302,4 +304,6 @@ The gate checks the domain of the entered email against `SITE_CONFIG.sellerGate.
 - Every product's `category` is one of the three `facets.categories[].id` values.
 - Every product's `pov.ladder.length === 3`, in the order proof-of-value → rollout → scaling.
 - Every product has `tile.outcomes.length === 3`.
+- Every product fills every slot of the visual grammar: `hero.image`, `overview.problemSolution`, 3–4 `overview.metrics` plus `metricsNote`, `overview.roi`, 6–8 `overview.features`, `overview.industries` (keys from the fixed set of 16) plus `industriesNote`, `overview.scope.in/.out`, `overview.moreDetail`, exactly four `technology.flow` steps, `technology.groups` with an Oracle and a SoftServe column, and `pov.facts`.
+- `tools/check-grammar.js` asserts all of the above. Run `node tools/check-grammar.js` after any edit to either data file; it exits non-zero and names every failure.
 - No customer name, person's name, mailbox, internal file name, internal state name or meeting date appears anywhere in `content.js`.
