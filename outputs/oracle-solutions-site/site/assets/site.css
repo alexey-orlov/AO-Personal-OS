@@ -682,7 +682,7 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 .tile-grid > .tile:last-child:nth-child(odd) .tile-desc { grid-column: 2; grid-row: 3; align-self: start; }
 
 @media (max-width: 1024px) {
-  .tile-grid { grid-template-columns: 1fr; }
+  .tile-grid { grid-template-columns: minmax(0, 1fr); }
   .tile-grid > .tile:last-child:nth-child(odd) { display: flex; flex-direction: column; gap: .875rem; }
   .tile-grid > .tile:last-child:nth-child(odd) .tile-plate { aspect-ratio: 16 / 9; min-height: 13rem; }
 }
