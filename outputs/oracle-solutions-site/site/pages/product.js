@@ -651,9 +651,9 @@
         "</div>" +
         blockHead(gate.heading) +
         '<p class="body-text">' + UI.esc(gate.unlockedIntro) + "</p>" +
-        stateLegend(product) +
         (allLocked && product.sellers.emptyPanelCopy
           ? '<p class="body-text panel-extra">' + UI.esc(product.sellers.emptyPanelCopy) + "</p>" : "") +
+        stateLegend(product) +
         '<ul class="material-list">' + product.sellers.materials.map(function (material) {
           return materialRow(product, material);
         }).join("") + "</ul>" +
