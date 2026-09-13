@@ -322,8 +322,8 @@
     var muted = group.items.length === 1 && /^Not (used|required)/i.test(group.items[0]);
     return '<div class="component-group' + (muted ? " is-muted" : "") + '">' +
       '<div class="component-head">' +
-        (mark ? '<img class="group-mark" src="' + UI.esc(mark.src) + '" alt="' + UI.esc(mark.alt) + '">' : "") +
         '<p class="component-name">' + UI.esc(group.group) + "</p>" +
+        (mark ? '<img class="group-mark" src="' + UI.esc(mark.src) + '" alt="' + UI.esc(mark.alt) + '">' : "") +
       "</div>" +
       '<ul class="component-items">' + group.items.map(function (item) {
         return "<li>" + UI.esc(item) + "</li>";

@@ -1266,8 +1266,8 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 .component-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); gap: 1.75rem var(--gap); }
 .component-group { display: flex; flex-direction: column; gap: .875rem; padding-top: 1rem; border-top: 1px solid var(--border-subtle); }
 .component-group.is-muted { opacity: .55; }
-.component-head { display: flex; align-items: center; gap: .75rem; min-height: 1.25rem; }
-.group-mark { height: .875rem; width: auto; opacity: .7; filter: grayscale(1) brightness(1.6); }
+.component-head { display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 1.25rem; padding-bottom: .25rem; }
+.group-mark { height: .75rem; width: auto; flex: none; opacity: .5; filter: grayscale(1) brightness(1.6); }
 .component-name { font-size: var(--fs-xs); letter-spacing: .1em; text-transform: uppercase; color: var(--text-dim); }
 .component-items { display: flex; flex-direction: column; gap: .625rem; }
 .component-items li { font-size: var(--fs-sm); line-height: 1.55; color: var(--text-body); }
