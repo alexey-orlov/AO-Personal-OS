@@ -10,6 +10,7 @@ window.SITE_CONFIG = {
       marketplace: false,
       marketplaceUrl: "",
       videoUrl: "",
+      videoPoster: "",
       successStoryUrl: "",
       materials: {
         "accelerator-pack-onepager": "",
@@ -23,6 +24,7 @@ window.SITE_CONFIG = {
       marketplace: false,
       marketplaceUrl: "",
       videoUrl: "",
+      videoPoster: "",
       successStoryUrl: "",
       materials: {
         "sales-deck": "",
@@ -35,6 +37,7 @@ window.SITE_CONFIG = {
       marketplace: false,
       marketplaceUrl: "",
       videoUrl: "",
+      videoPoster: "",
       successStoryUrl: "",
       materials: {
         "sales-deck": "",
@@ -47,6 +50,7 @@ window.SITE_CONFIG = {
       marketplace: true,
       marketplaceUrl: "",
       videoUrl: "",
+      videoPoster: "",
       successStoryUrl: "",
       materials: {
         "sales-deck": "",
@@ -60,6 +64,7 @@ window.SITE_CONFIG = {
       marketplace: true,
       marketplaceUrl: "",
       videoUrl: "",
+      videoPoster: "",
       successStoryUrl: "",
       materials: {
         "sales-deck": "",
@@ -73,6 +78,7 @@ window.SITE_CONFIG = {
       marketplace: false,
       marketplaceUrl: "",
       videoUrl: "",
+      videoPoster: "",
       successStoryUrl: "",
       materials: {
         "lakehouse-jumpstart-deck": "",
@@ -86,6 +92,7 @@ window.SITE_CONFIG = {
       marketplace: false,
       marketplaceUrl: "",
       videoUrl: "",
+      videoPoster: "",
       successStoryUrl: "",
       materials: {
         "lakehouse-jumpstart-deck": "",
