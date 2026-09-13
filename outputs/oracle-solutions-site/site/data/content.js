@@ -27,7 +27,7 @@ window.SITE_CONTENT = {
     footer: {
       heading: "CONTACT US",
       description: "Tell us which account or workflow you have in mind. One scoping conversation starts it.",
-      contactCta: { label: "Contact us", route: "#/services#contact" },
+      contactCta: { label: "Request a scoping call", route: "#/services#contact" },
       socialLabel: "Follow SoftServe",
       social: [
         { label: "SoftServe", url: "https://www.softserveinc.com/en-us" },
@@ -208,7 +208,7 @@ window.SITE_CONTENT = {
     bottomBlock: {
       heading: "NOT SEEING YOUR WORKFLOW?",
       body: "These seven are the patterns packaged so far. New ones are packaged after their first live customer — tell us the workflow you need fixed and we will say whether it is close to something we already run.",
-      cta: { label: "Talk to us about a workflow that isn't here →", route: "#/#request-a-demo" }
+      cta: { label: "Request a scoping call", route: "#/services#contact" }
     }
   },
 
@@ -1798,12 +1798,17 @@ window.SITE_CONTENT = {
     rejected: "That domain is not on the list. Use a SoftServe or Oracle work address.",
     linkPendingLabel: "Link pending",
     downloadLabel: "Download",
-    unlockedIntro: "Materials for Oracle and SoftServe account teams. Paste a share link into the site configuration to turn a pending row into a download.",
+    unlockedIntro: "Materials for Oracle and SoftServe account teams. Rows marked Link pending have a document but no share link yet.",
+    packagingNotes: [
+      "Packages compress over time. Service-delivery packages are expected to compress as the accelerator pack matures and absorbs more of the work.",
+      "Pricing assumes the accelerator pack already exists — a first-of-kind engagement is scoped separately."
+    ],
     cta: {
       heading: "SEE THE FIT IN ONE OF YOUR ACCOUNTS?",
-      body: "Let's discuss a Proof of Value on the customer's own data: 2 months to measurable KPIs.",
+      body: "Let's discuss a Proof of Value on the customer's own data — {duration}, ending in measurable KPIs.",
+      bodyFallback: "Let's discuss a Proof of Value on the customer's own data: a fixed-scope engagement with signed success metrics.",
       contactLabel: "SoftServe Oracle practice — alliances and partnerships",
-      action: "Get in touch"
+      action: "Request a demo"
     }
   }
 };
