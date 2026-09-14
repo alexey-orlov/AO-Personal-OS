@@ -23,6 +23,16 @@ same row every time**, so weight/rep dynamics read left-to-right.
 
 ### 1. Prep the image
 
+**Where the photo comes from.** A path or pasted image in the session, a
+Telegram message's `image_path`, or a drop-zone attachment under
+`context/_inbox/` that `context-update` routed here (step 3b, "Training log").
+Note that a photo pasted into a session never lands in the repo — so there is
+NO repo backlog of un-logged workouts to sweep, and "process the other
+workouts in the repo" has an empty answer by construction unless drops came
+in through the 📥 Drop Zone. The sheet itself is the only record of which
+sessions are logged: `dump` lists every date, and a gap there is a session
+Alex never sent, not a session sitting unprocessed somewhere.
+
 Work in the session scratchpad dir. HEIC → JPEG, and fix rotation (phone
 photos of the notebook usually need 90° CW — letters' tops face right in the
 raw file):
@@ -41,14 +51,27 @@ sips -c 600 2700 --cropOffset 1800 950 page_r.jpg --out zoom.jpg
 sips -z 840 3780 zoom.jpg
 ```
 
+**Off the Mac (cloud run): `sips` does not exist** — it's macOS-only, and so is
+`mdls` in step 2. Use Pillow instead (`pip install pillow`, then crop with
+fractional coords and upscale with `Image.LANCZOS`); phone uploads usually
+arrive already upright there, so check the orientation before rotating
+anything. Verified 14.09.26 on a cloud run — a full page at ~1900x2600 reads
+fine, and 2-3 zooms of the weights column settle the ambiguous digits.
+
 ### 2. Date
 
-`mdls -name kMDItemContentCreationDate <photo>` gives the shoot time — Alex
-photographs the page right after the morning workout, so it pins the training
-date. Cross-check against the handwritten header (DD.MM.YYг). On conflict the
-EXIF date wins (pen slips happen — 2026-07-22 was handwritten "28.07.26"),
-but say so in the report. Sheet date format is **M/D/YYYY without leading
-zeros** ("7/22/2026") — block lookup is an exact string match.
+`mdls -name kMDItemContentCreationDate <photo>` (macOS only) gives the shoot
+time — Alex photographs the page right after the morning workout, so it pins
+the training date. Cross-check against the handwritten header (DD.MM.YYг). On
+conflict the EXIF date wins (pen slips happen — 2026-07-22 was handwritten
+"28.07.26"), but say so in the report. Uploads often reach a cloud run with
+EXIF stripped; then the handwritten header is all you have — cross-check it
+against today's date and against `dump`, where a date already present means a
+re-log, not a new session. Watch for a REUSED page: a struck-through old
+header above a fresh one (14.09.26 was written over a crossed-out 21.08.26)
+dates the page by the live header, and says nothing about whether the struck
+date was ever logged. Sheet date format is **M/D/YYYY without leading zeros**
+("7/22/2026") — block lookup is an exact string match.
 
 ### 3. Parse the page — strength section only
 
