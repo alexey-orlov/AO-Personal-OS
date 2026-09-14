@@ -467,6 +467,75 @@ window.SITE_CONTENT = {
         ],
         industries: ["logistics", "financial-services", "manufacturing"],
         industriesNote: "Any business that needs to turn market and customer developments into pursuable opportunities across its account base, quickly.",
+        steps: [
+          {
+            n: 1,
+            title: "Bring in the signal",
+            text: "News, filings and disclosures arrive on a scheduled scan or by manual submit, grounded in your CRM context, service catalog and public filings.",
+            image: "assets/img/steps/account-insights-1.jpg",
+            features: ["Signal ingestion grounded in CRM context, service catalog and public filings"]
+          },
+          {
+            n: 2,
+            title: "Filter it, then fan it out",
+            text: "One story across many sources is de-duplicated into a single signal, and every in-scope account it touches gets its own record.",
+            image: "assets/img/steps/account-insights-2.jpg",
+            features: [
+              "Relevance filter and de-duplication: one story becomes one signal",
+              "Account fan-out — one JSON per affected account"
+            ]
+          },
+          {
+            n: 3,
+            title: "Reason the “so what” per account",
+            text: "Opportunities and material risks are derived for each account and mapped to a real service line, with ripples traced across suppliers, customers and competitors.",
+            image: "assets/img/steps/account-insights-3.jpg",
+            features: [
+              "Opportunity and risk reasoning, mapped to a real service line",
+              "Cross-account ripples across suppliers, customers and competitors"
+            ]
+          },
+          {
+            n: 4,
+            title: "Score, cite, review",
+            text: "Every item carries a magnitude and confidence score and a citation to its evidence; a reviewer approves or rejects before anything moves downstream.",
+            image: "assets/img/steps/account-insights-4.jpg",
+            features: [
+              "Magnitude and confidence scored 0–10, with a configurable threshold",
+              "Reviewer UI with citations, approve or reject with a comment"
+            ]
+          }
+        ],
+        industryCases: [
+          {
+            industry: "logistics",
+            label: "Logistics & supply chain",
+            image: "assets/img/industries/logistics.jpg",
+            problem: "A shipper announces a plant expansion or a new market, and the account team hears about it once the logistics has already been scoped by somebody else. Disruptions move the same way: a strike, a port closure or a supplier fire hits many accounts at once, and working out which ones is manual.",
+            solution: "One signal is resolved to every in-scope shipper account it touches, and the “so what” is reasoned per account — warehousing, forwarding, an inbound or a mitigation play. Each candidate is mapped to a service line you actually sell, scored, and cited back to the filing or article it came from."
+          },
+          {
+            industry: "financial-services",
+            label: "Financial services",
+            image: "assets/img/industries/financial-services.jpg",
+            problem: "Coverage teams read the same few feeds as everyone else. An event at a counterparty or a portfolio company usually matters for several related names as well, and nobody has time to trace the holdings before the opening closes.",
+            solution: "The engine reasons what an issuer or counterparty event means for each in-scope relationship, then follows the cross-holding ripples to the related names — up to two levels, descriptively. Every opportunity is scored for magnitude and confidence and cited, and a reviewer approves before anything reaches the CRM."
+          },
+          {
+            industry: "manufacturing",
+            label: "Manufacturing",
+            image: "assets/img/industries/manufacturing.jpg",
+            problem: "A signal at a supplier or an OEM customer reshapes supply chains, production sites and trade lanes at the same time. Deciding which accounts are affected, and how, is slow enough that the reallocation conversation happens after the decision has been taken.",
+            solution: "Each in-scope account is reasoned against the signal — supply-chain exposure, reallocation opportunities, second-order effects on sites and lanes — with every item tied to a real service line. The magnitude and confidence scores let the team work the top of the list first."
+          }
+        ],
+        sideFacts: {
+          category: "Deep research & investigation",
+          platform: "Oracle Cloud Infrastructure + NVIDIA",
+          availability: "Available now",
+          povDuration: "~12 weeks",
+          povPrice: "Scoped per engagement"
+        },
         scope: {
           in: [
             "A signal plus first-party CRM context, the service catalog and the in-scope account list",
@@ -507,6 +576,63 @@ window.SITE_CONTENT = {
           { step: "Ingest", label: "Relevance filter, de-duplication, account fan-out" },
           { step: "Reason", label: "Opportunity and risk reasoning, ripples, scoring" },
           { step: "Deliver", label: "Reviewer approves; one JSON per account to the CRM" }
+        ],
+        stack: [
+          {
+            key: "application",
+            label: "Application / accelerator",
+            summary: "The SoftServe pack: filter, fan-out, reasoning, scoring and the reviewer UI.",
+            vendors: ["softserve"],
+            items: [
+              { name: "Filter, fan-out, reason and score pipeline", required: true },
+              { name: "Reviewer UI with citations and the reasoning behind every item", required: true },
+              { name: "Evaluation harness — correctness and confidence calibration", required: true },
+              { name: "CRM export connector", required: false, note: "Roll-out scope" }
+            ]
+          },
+          {
+            key: "ai-engine",
+            label: "AI engine",
+            summary: "NVIDIA AI-Q supplies the retrieval baseline every conclusion is grounded in.",
+            vendors: ["nvidia"],
+            items: [
+              { name: "NVIDIA AI-Q retrieval baseline — vector search and reranking", required: true }
+            ]
+          },
+          {
+            key: "data-platform",
+            label: "Data & platform",
+            summary: "Object storage holds the signals, the context and the output; a lakehouse only where the runs are scheduled workflows.",
+            vendors: ["oracle"],
+            items: [
+              { name: "OCI Object Storage for signals, first-party context and output", required: true },
+              { name: "Oracle AI Data Platform — sources landed and curated, dossiers run as scheduled workflows", required: false }
+            ]
+          },
+          {
+            key: "infrastructure",
+            label: "Infrastructure",
+            summary: "A dedicated AI cluster inside your own OCI tenancy, in a delivered landing zone.",
+            vendors: ["oracle"],
+            items: [
+              { name: "OCI dedicated AI cluster (GPU)", required: true },
+              { name: "Landing zone — VCN, IAM, networking", required: true }
+            ]
+          },
+          {
+            key: "custom",
+            label: "Custom configuration",
+            summary: "The sources, the mappings, the scoring rubric and where the output lands — set per engagement.",
+            vendors: ["softserve"],
+            items: [
+              { name: "Signal feeds — news, filings, disclosures — and commercial data feeds", required: true, direction: "inbound" },
+              { name: "First-party CRM records and account framing", required: true, direction: "inbound" },
+              { name: "Capability / service-line catalog, public filings, the in-scope account list", required: true, direction: "inbound" },
+              { name: "One JSON per affected account, into the CRM or sales system", required: false, direction: "outbound", note: "Roll-out scope" },
+              { name: "Trigger: scheduled scan by default, plus manual submit", required: true },
+              { name: "Client field mapping and the scoring rubric", required: true }
+            ]
+          }
         ],
         groups: [
           { vendor: "oracle", label: "Oracle Cloud Infrastructure", items: ["Dedicated AI cluster", "Object storage", "Landing zone"] },
