@@ -25,8 +25,8 @@ The hero is the only block that carries a background image.
 
 **Two hero layouts, chosen by data — nothing else changes.**
 
-- **Single column** (default) — text over the background image. Used when `SITE_CONFIG.products[slug].videoUrl` is empty.
-- **Two column** — text left, a 16:9 media frame right, when `videoUrl` is non-empty. The frame has a thin border and a slight lift, shows a poster image with a teal circular play button overlay and the caption **"Watch the demo"**, and opens the existing video modal on click.
+- **Single column** (default) — text over the background image. Used when `SITE_CONFIG.products[slug].video` is `false` and `videoUrl` is empty.
+- **Two column** — text left, a 16:9 media frame right, when `video` is `true` **or** `videoUrl` is non-empty. The frame has a thin border and a slight lift, shows a poster image with a teal circular play button overlay and the caption **"Watch the demo"**. With a URL it opens the video modal; without one it opens the pending panel — product name, `shared.videoPending.body`, and a primary button to that product's Request-a-demo tab. Same frame either way, so a product does not change layout the day its recording lands.
 
 Poster resolution order, first non-empty wins:
 
@@ -34,7 +34,9 @@ Poster resolution order, first non-empty wins:
 2. `https://img.youtube.com/vi/<id>/maxresdefault.jpg` — only when `videoUrl` is a YouTube link
 3. `products[].hero.image.file` — the product's own hero image
 
-A product without a video never renders an empty frame, a greyed play button, or a "video coming soon" line.
+A frame waiting for its recording lands on step 3, so it carries the product's own photograph; the hero backdrop is veiled harder on this layout so the card still reads as a card. The frame's own veil stays light enough to keep the poster a picture rather than a grey field — only the caption's corner is shaded.
+
+A product with neither flag nor URL never renders an empty frame, a greyed play button, or a "video coming soon" line.
 
 ---
 
