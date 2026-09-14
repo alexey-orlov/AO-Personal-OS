@@ -48,16 +48,16 @@ There is no separate tile artwork and no typographic fallback here: a product wi
 
 ## 2. Overview tab — two columns, a fixed order in each
 
-**Target: the Overview reads in ~1.5 desktop screens at 1440×900 without feeling cramped.** If a product exceeds that, prose moves into §2.7 — it does not stay on the page.
+**Target: the MAIN column reads in ~1.5 desktop screens at 1440×900 without feeling cramped.** If a product exceeds that, prose moves into §2.7 — it does not stay on the page. (The pager and the site footer sit below the tab body and add about two thirds of a screen of their own; the target is about the tab, not about the scroll height of the document.)
 
-The tab is a **two-column layout on desktop**: a MAIN column at roughly two thirds, and a **sticky SIDE rail** at roughly one third, on the right. The rail is capped at the viewport height and scrolls inside itself when its three cards exceed it, so nothing in it is ever unreachable behind the stick. Below 1100 px the layout collapses to one column, the rail goes static, and it follows the main column.
+The tab is a **two-column layout on desktop**: a MAIN column at roughly two thirds, and a SIDE rail at roughly one third, on the right. The rail cell **stretches to the height of MAIN**, and the card that pins is §2.5 At a glance — the last card in the rail, so nothing scrolls underneath it while it is held. §2.4 is too tall to pin at 900 px and scrolls with the page. Below 1100 px the layout collapses to one column, the rail goes static, and it follows the main column.
 
 | Column | Order |
 |---|---|
-| **MAIN** | §2.1 Problem ↔ Solution → §2.2 How it works (the stepper) → §2.3 Industry use cases (the tabs) → §2.7 More detail (one disclosure) |
-| **SIDE rail** | §2.4 Outcomes & ROI → §2.5 At a glance → §2.6 Success story |
+| **MAIN** | §2.1 Problem ↔ Solution → §2.2 How it works (the stepper) → §2.3 Industry use cases (the tabs) → §2.6 Success story → §2.7 More detail (one disclosure) |
+| **SIDE rail** | §2.4 Outcomes & ROI → §2.5 At a glance (pinned) |
 
-Nothing else is a top-level block. The old standalone key-features checklist, in-scope/out-of-scope pair, industry chip row and long-form feature list are all still in the data and all render **inside** §2.7 — the compactness target is met by moving prose, never by dropping a fact.
+**The rail is never taller than MAIN.** That is the constraint that decides what goes in it: a rail that out-runs its column leaves dead gutter at the foot of the page, and a pinned card that is taller than the viewport hides its own bottom for the whole scroll. Nothing else is a top-level block. The old standalone key-features checklist, in-scope/out-of-scope pair and long-form feature list are all still in the data and all render **inside** §2.7 — the compactness target is met by moving prose, never by dropping a fact.
 
 ### 2.1 Problem → Solution — paired two-panel strip
 
@@ -96,7 +96,7 @@ A row of tabs, each an industry icon (§5) plus its label. The selected tab show
 - The two Lakehouse products lead with the `cross-industry` tab, because "the same two pains in every industry, regardless of stack" is their honest answer; the vertical tabs beside it are illustrations of it, not a claim of vertical focus.
 - The failure mode to watch: a `problem`/`solution` pair that would read identically under any other tab. If it would, it is not an industry case.
 
-This block also **replaces the industry chip row** on the Overview. `overview.industries[]` and `industriesNote` are unchanged in the data and render inside §2.7.
+This block **is** the Overview's industry telling. The old `overview.industries[]` chip row is gone from the data: every key it held was already a tab here, so the disclosure was saying the same verticals a second time. `industriesNote` survives and renders as the footnote line closing this block — one telling per vertical, per product. A `moreDetail` entry that repeats a vertical already covered by a tab is the same defect and is removed on sight.
 
 ### 2.4 Outcomes & ROI (SIDE rail)
 
@@ -115,7 +115,7 @@ Tile shape:
 | `qualifier` | The honest caveat or baseline: "Down from ~2 days", "Targeted reduction at proof of value". ≤ 12 words. |
 | `icon` | An icon-registry key (§4). Always present, on numeric and qualitative tiles alike. |
 
-In the rail the tiles **stack vertically** rather than sitting in a row — 3–4 tiles, then the `roi` callout in its compact single-column form, then `metricsNote` as the footnote line closing the block. All three stay in the same visual block: rule 2 of this file is that a number never renders away from its disclaimer, and a sticky rail that scrolls the figure past its footnote breaks it as surely as a missing footnote would.
+In the rail the tiles **stack vertically** rather than sitting in a row — 3–4 tiles in their compact form, then the `roi` callout in its compact single-column form, then `metricsNote` as the footnote line closing the block. All three stay in the same visual block: rule 2 of this file is that a number never renders away from its disclaimer, and a rail that scrolled the figure past its footnote would break it as surely as a missing footnote would.
 
 **The heading follows the data.** When at least one tile carries a `value`, the block is headed `sectionLabels.metrics` ("Metrics improved"). When every tile is qualitative it is headed `sectionLabels.metricsPlanned` ("What the proof of value measures") instead — a heading asserting improvement over four tiles with no number, closed by a footnote saying no metrics are published, contradicts itself two lines later.
 
@@ -129,9 +129,9 @@ A compact definition-list card: five label/value rows, labels from `sectionLabel
 
 Every value is a denormalised copy of a fact that already exists elsewhere in the product object — the card is a summary, never a new claim. `povPrice` never carries a bare asterisk: an asterisk with no footnote in view is the defect this block was shaped to avoid.
 
-### 2.6 Success story (SIDE rail)
+### 2.6 Success story (MAIN)
 
-`overview.successStory` renders as it does today (see `SCHEMA.md`), at the foot of the rail. The **Open the success story** control renders only when `SITE_CONFIG.products[slug].successStoryUrl` is non-empty; a product with `state: "none"` renders no block at all.
+`overview.successStory` renders as it does today (see `SCHEMA.md`), at the foot of the MAIN column under the industry tabs. It sits in MAIN rather than in the rail for one measured reason: in the rail it made the rail taller than the column beside it on all seven products. The **Open the success story** control renders only when `SITE_CONFIG.products[slug].successStoryUrl` is non-empty; a product with `state: "none"` renders no block at all.
 
 ### 2.7 More detail — one collapsible disclosure (MAIN)
 
@@ -139,9 +139,8 @@ Collapsed by default, one control at the end of the MAIN column. Inside, in orde
 
 1. `overview.moreDetail[]` — `[{ title, body }]`: the today/tomorrow pairs, the pattern definitions, the pull quotes, the per-persona "where it applies" paragraphs, the scope boundaries, the roadmap notes, the evaluation disclaimer.
 2. `overview.scope` → in / out, the two compact lists, under `sectionLabels.scope`.
-3. `overview.industries[]` + `industriesNote` — the icon chip row, under `sectionLabels.industries`.
-4. `overview.featuresDetail[]` — the long-form feature list, under `sectionLabels.moreDetailFeatures`.
-5. `overview.featuresNote?` — the asterisked caveat, where the product carries one. Only `workforce-optimization` does.
+3. `overview.featuresDetail[]` — the long-form feature list, under `sectionLabels.moreDetailFeatures`.
+4. `overview.featuresNote?` — the asterisked caveat, where the product carries one. Only `workforce-optimization` does.
 
 Nothing that reads as a wall of text sits above the fold. Equally, **nothing is dropped**: every one of those five is a shipped fact that used to have a top-level block, and the disclosure is where it went.
 ## 3. Technology tab
