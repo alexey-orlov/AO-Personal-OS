@@ -561,12 +561,22 @@
   var lastKey = null;
 
   function render() {
-    try { renderInner(); }
-    catch (error) {
+    try { renderInner(); debugLine(""); }
+    catch (error) { debugLine(String(error && error.stack || error));
       var appEl = document.getElementById("app");
       if (appEl) appEl.innerHTML = '<section class="container" style="padding:6rem 0;color:#fff"><p>Render error: ' + String(error && error.stack || error).replace(/</g, "&lt;") + '</p><p>Route: ' + String(window.location.href).replace(/</g, "&lt;") + '</p></section>';
       if (window.console) console.error(error);
     }
+  }
+
+  function debugLine(err) {
+    var appEl = document.getElementById("app");
+    var foot = document.getElementById("site-footer");
+    var parsed = parseHash();
+    var msg = "DEBUG route=" + parsed.path + " matched=" + JSON.stringify(matchRoute(parsed.path)) + " pages=" + Object.keys(window.PAGES || {}).join(",") + " appChildren=" + (appEl ? appEl.childElementCount : "none") + " appHTML=" + (appEl ? appEl.innerHTML.length : 0) + " appH=" + (appEl ? appEl.offsetHeight : 0) + " href=" + window.location.href + (err ? " ERR=" + err : "");
+    var el = document.getElementById("debug-line");
+    if (!el && foot) { el = document.createElement("p"); el.id = "debug-line"; el.style.cssText = "color:#35CCBA;font:14px monospace;white-space:pre-wrap;padding:1rem;"; foot.insertAdjacentElement("afterbegin", el); }
+    if (el) el.textContent = msg.replace(/</g, "&lt;");
   }
 
   function renderInner() {
