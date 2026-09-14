@@ -144,7 +144,7 @@ A demo video. **This single field switches the product hero between its two layo
 | Value | Hero layout |
 |---|---|
 | `""` (empty — today) | Single column: text over the hero background image. No video frame, no poster, no greyed play button, no "coming soon" line. |
-| A URL | Two columns: text left, a 16:9 media frame right showing a poster image with a play button and the caption "Watch the demo". Clicking it opens the video in a modal. The hero's primary CTA becomes **"Watch the demo"** and "Request a demo" moves to secondary. |
+| A URL | Two columns: text left, a 16:9 media frame right showing a poster image with a play button and the caption "Watch the demo". Clicking the frame opens the video in a modal. The frame *is* the watch affordance, so the separate secondary "Watch the demo" button drops out of the CTA row; **"Request a demo"** stays the primary CTA. |
 
 ```js
 videoUrl: "https://www.youtube.com/watch?v=…",

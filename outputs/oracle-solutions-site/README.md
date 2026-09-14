@@ -25,7 +25,7 @@ oracle-solutions-site/
     │   ├── site.css          all styling — design tokens in :root, then components
     │   ├── app.js            UI helpers (window.UI), header, footer, router, modal
     │   ├── forms.js          the demo and contact forms (window.FORMS)
-    │   └── img/              logos (SVG), the hero sphere (WebP)
+    │   └── img/              logos and wordmarks (SVG)
     │       └── heroes/       per-page hero background images + heroes.json
     ├── data/
     │   ├── config.js         window.SITE_CONFIG — links, gate, form destination
@@ -137,6 +137,7 @@ Notes that matter in production:
 - **One accent.** Teal `#35CCBA` on near-black `#131313`, and the accent carries the first word of each headline. Nothing else competes.
 - **Filled navy pill = a fact** (category, platform, availability, marketplace). **Outlined pill = a filter you can toggle.** Never mix the two meanings.
 - **Absence renders as an empty instance of the same component** (`UI.empty(...)`), not as a sentence where the component should be.
-- **The light two-tone band is the only inversion** and appears at most once per page. The sphere image is used exactly once, in the Overview hero.
+- **The light two-tone band is the only inversion** and appears at most once per page.
+- **Only the top block carries a background image.** Every page hero sits on its own image under a left-to-right dark gradient plus a bottom fade into `#131313`, so the headline and CTAs always sit on near-black; heroes run 60–70 vh on desktop and auto height on mobile with the image faded harder. Below the hero, no section takes a photographic background.
 - **No customer names anywhere**, including in the data files. Evidence is anonymized by industry.
 - **Motion is subtle:** blocks fade up 14 px once on first view, interactions run at 250 ms, and everything collapses to instant under `prefers-reduced-motion`.
