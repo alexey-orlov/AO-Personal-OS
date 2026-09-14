@@ -260,8 +260,8 @@ Each is `{ file, alt, focal }`:
 hero: {
   image: {
     file: "assets/img/heroes/workforce-optimization.jpg",
-    alt: "Container terminal at blue hour — gantry crane, stacked containers and service vehicles moving under work lights",
-    focal: "55% 50%"
+    alt: "An overhead field of interlocking hexagonal plates, with loose ones still settling into the pattern from above",
+    focal: "50% 55%"
   }
 }
 ```
@@ -270,15 +270,29 @@ hero: {
 - **`alt`** — a plain description of the picture, kept as a record of what the file actually shows. The hero image is decorative — the headline beside it carries the meaning — so it ships as `alt=""` and is hidden from assistive tech. Keep the description truthful anyway: it is how the next person knows which file is which without opening all nine.
 - **`focal`** — a CSS `object-position` value, e.g. `"55% 40%"`. This is the knob to turn when a crop clips the wrong part of the image on a wide screen; it changes nothing else.
 
-`site/assets/img/heroes/heroes.json` is the source of truth for `alt` and `focal`. `content.js` holds a copy so the page needs no runtime fetch — **when you change one, change the other.**
+### The manifest — `site/assets/img/heroes/heroes.json`
 
-`heroes.json` is served from the site root and is therefore publicly fetchable, so it carries **no provenance field**. An honest provenance line would have to name where each file came from, and that belongs in `PROVENANCE.md`, which is not served; a generic one asserting SoftServe ownership of files SoftServe does not own is worse than none. Record where a new image came from in `PROVENANCE.md` §9 instead.
+The manifest is the source of truth for `alt` and `focal`. `content.js` holds a copy so the page needs no runtime fetch — **when you change one, change the other.** Nothing in the page ever loads `heroes.json`; it is an operator record that happens to sit in the served root.
 
-**All nine heroes share one visual register** — near-black ground, a single soft teal core, thin line work, nothing representational. That is the constraint, not a coincidence: a hero set assembled from three different looks reads as whatever was to hand rather than as one system, and a photographic or generated hero on a page a seller demos live is where an "AI page" tell shows up first. A replacement must hold that register, carry no rendered text or fake UI labels, and keep its brightest element clear of the bottom edge, which fades into the page ground.
+Each entry carries five fields — `file`, `alt`, `focal`, `source` and `credit` — and `source` / `credit` are **deliberately generic** on every entry: `"SoftServe deck imagery"` and `"SoftServe"`.
+
+> **Ship-gate rule:** `heroes.json` is publicly fetchable. It must carry **no source-deck filename, no media path, no customer or opportunity code, no internal path.** A per-file provenance line belongs in `PROVENANCE.md` §11.1, which is not served — record a new image's real source there, and leave the manifest generic.
+
+### The register a replacement has to hold
+
+**All nine heroes are photography from SoftServe's own decks, put through one grade** — cool slate-teal, median luminance 55–63, 1920 × 900, progressive JPEG at quality 84. That is the constraint, not a coincidence: a hero set assembled from several looks reads as whatever was to hand rather than as one system.
+
+A replacement image must therefore:
+
+- land in the same grade — cool (blue above green above red), median luminance in the 45–65 band, bright points at p99 ≥ 200, 1920 × 900, under 350 KB;
+- carry **no rendered text, no fake UI labels, no identifiable face and no legible customer name, logo or screen text** — a hero carrying garbled glyphs or malformed anatomy is the loudest "AI page" tell on a surface sellers demo live;
+- keep its brightest element clear of the bottom edge, which fades into the page ground, and clear of the left third, which the veil darkens for the headline.
+
+The grade recipe and its constants are in `PROVENANCE.md` §11.1. Do not compensate with a CSS filter: `.hero-bg-img` ships near-neutral (`opacity: 1`, `brightness(1.05) contrast(1.02) saturate(1.05)`) precisely because the grade is baked into the pixels, and an image that needs the filter bent to fit is the wrong image.
 
 **If a hero image is missing**, the renderer drops the `<img>` and the hero falls back to the gradient alone. That is a safety net, not a mode to ship in: it makes every hero identical and flat, which is exactly what the per-product image is there to prevent. `node tools/check-grammar.js` warns for each hero file that is not on disk.
 
-**To swap a hero image:** drop the new file into `site/assets/img/heroes/`, point `file` at it, adjust `focal` until the crop sits right, and update the same entry in `heroes.json`. The image is the background of the **top block only** — never the Overview tab, never a full-screen wash. It renders at 60–70vh maximum on desktop with a dark gradient over it so the headline stays on near-black.
+**To swap a hero image:** drop the new file into `site/assets/img/heroes/`, point `file` at it, adjust `focal` until the crop sits right, update the same entry in `heroes.json` (generic `source` / `credit` only), and record where it actually came from in `PROVENANCE.md` §11.1. The image is the background of the **top block only** — never the Overview tab, never a full-screen wash. It renders at 60–70vh maximum on desktop under a left-to-right dark veil plus a bottom fade, so the headline always sits on near-black; below 900 px the veil becomes a top-to-bottom fade and the image drops to `opacity: .62`.
 
 ---
 
