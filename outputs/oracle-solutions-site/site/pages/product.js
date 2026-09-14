@@ -506,10 +506,47 @@
         '<td class="nums">' + UI.esc(row.rollout) + "</td>" +
         '<td class="nums">' + UI.esc(row.scaling) + "</td></tr>";
     }).join("");
-    return '<section class="panel reveal">' + blockHead(label("matrix")) +
-      '<div class="table-scroll"><table class="matrix"><thead>' + head + "</thead><tbody>" + rows +
+    return '<div class="table-scroll"><table class="matrix"><thead>' + head + "</thead><tbody>" + rows +
       "</tbody></table></div>" +
-      '<p class="footnote">' + UI.esc(matrix.legend) + "</p></section>";
+      '<p class="footnote">' + UI.esc(matrix.legend) + "</p>";
+  }
+
+  function stepList(block) {
+    var UI = window.UI;
+    return '<ol class="step-list">' + block.steps.map(function (step, index) {
+      return '<li class="step"><span class="step-index nums">' + (index + 1) + "</span>" +
+        '<div><p class="step-title">' + UI.esc(step.title) + "</p>" +
+        '<p class="step-body">' + UI.esc(step.body) + "</p></div></li>";
+    }).join("") + "</ol>" +
+      (block.closing ? '<p class="body-text panel-extra">' + UI.esc(block.closing) + "</p>" : "");
+  }
+
+  /* Everything a POV carries beyond the four canonical blocks lives here, so
+     the tab has the same shape on every product and a seller can flip between
+     them without the page moving underneath the customer. */
+  function povMoreDetail(pov) {
+    var UI = window.UI;
+    var parts = [];
+
+    function push(title, body) {
+      if (!body) return;
+      parts.push('<p class="eyebrow detail-sub">' + UI.esc(title) + "</p>" + body);
+    }
+
+    if (pov.statStrip) parts.push('<p class="value-strip">' + UI.esc(pov.statStrip) + "</p>");
+    parts.push(povDetailRows(pov));
+    if (pov.statNotes) push(label("terms"), defGrid(pov.statNotes, "3"));
+    if (pov.prerequisites) push(pov.prerequisites.title, plainList(pov.prerequisites.items));
+    if (pov.howItRuns) push(pov.howItRuns.title, stepList(pov.howItRuns));
+    if (pov.capabilityMatrix) push(label("matrix"), capabilityMatrix(pov.capabilityMatrix));
+
+    var body = parts.filter(Boolean).join("");
+    if (!body) return "";
+    return '<section class="panel panel--flat reveal">' +
+      '<details class="disclosure disclosure--detail">' +
+        "<summary><span>" + UI.esc(label("moreDetail")) + "</span>" + UI.icon("chevronDown") + "</summary>" +
+        '<div class="detail-wrap detail-wrap--stack">' + body + "</div>" +
+      "</details></section>";
   }
 
   function povTab(product) {
@@ -530,36 +567,31 @@
 
     var credibility = C().shared.credibilityBlock;
 
-    return '<section class="panel reveal">' + blockHead(pov.heading) +
+    return '<section class="panel reveal">' + blockHead(label("povHeading")) +
         '<p class="lead">' + UI.esc(pov.scope) + "</p>" +
-        (pov.statStrip ? '<p class="value-strip">' + UI.esc(pov.statStrip) + "</p>" : "") +
         factStrip(pov) +
-        povDetailRows(pov) +
       "</section>" +
-      '<section class="panel reveal">' + blockHead(pov.deliverablesTitle || label("deliverables")) +
+      '<section class="panel reveal">' + blockHead(label("deliverables")) +
         bulletList(pov.deliverables) + "</section>" +
-      (pov.statNotes ? '<section class="panel reveal">' + blockHead(label("terms")) +
-        defGrid(pov.statNotes, "3") + "</section>" : "") +
-      (pov.prerequisites ? '<section class="panel reveal">' + blockHead(pov.prerequisites.title) +
-        plainList(pov.prerequisites.items) + "</section>" : "") +
-      (pov.howItRuns ? '<section class="panel reveal">' + blockHead(pov.howItRuns.title) +
-        '<ol class="step-list">' + pov.howItRuns.steps.map(function (step, index) {
-          return '<li class="step"><span class="step-index nums">' + (index + 1) + "</span>" +
-            "<div><p class=\"step-title\">" + UI.esc(step.title) + "</p>" +
-            '<p class="step-body">' + UI.esc(step.body) + "</p></div></li>";
-        }).join("") + "</ol>" +
-        (pov.howItRuns.closing ? '<p class="body-text panel-extra">' + UI.esc(pov.howItRuns.closing) + "</p>" : "") +
-        "</section>" : "") +
-      capabilityMatrix(pov.capabilityMatrix) +
       '<section class="panel reveal">' + blockHead(label("pricing")) + pricing + "</section>" +
       ladder(product) +
+      povMoreDetail(pov) +
       '<section class="panel reveal gate-note">' + blockHead(C().shared.preFlightGate.title) +
         '<p class="body-text">' + UI.esc(C().shared.preFlightGate.body) + "</p></section>" +
       '<section class="panel reveal">' + blockHead(credibility.heading) +
         defGrid(credibility.items, "4") + "</section>" +
-      '<p class="panel-link">' + UI.linkArrow({
-        label: C().shared.engageLink.label, href: C().shared.engageLink.route
-      }) + "</p>";
+      '<section class="panel panel--flat reveal">' +
+        '<div class="cta-row">' +
+          UI.button({
+            label: C().site.primaryCta.label,
+            href: "#/products/" + product.slug + "/demo",
+            kind: "primary"
+          }) +
+        "</div>" +
+        '<p class="panel-link">' + UI.linkArrow({
+          label: C().shared.engageLink.label, href: C().shared.engageLink.route
+        }) + "</p>" +
+      "</section>";
   }
 
   /* ————— tab: request a demo ————— */
