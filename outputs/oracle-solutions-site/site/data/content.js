@@ -467,7 +467,6 @@ window.SITE_CONTENT = {
           title: "SUCCESS STORY",
           state: "first-engagement",
           blurb: "A first engagement is under way with a global logistics and supply-chain operator, on the customer's own account base. What it measures: the accuracy and the confidence calibration of the generated opportunities, against reviewer approve/reject decisions.",
-          emptyLabel: "Results to follow",
           evidenceId: "account-insights-first-engagement"
         }
       },
@@ -674,8 +673,7 @@ window.SITE_CONTENT = {
         successStory: {
           title: "SUCCESS STORY",
           state: "none",
-          blurb: "",
-          emptyLabel: "First engagement in preparation — proof points will be published here."
+          blurb: ""
         }
       },
       technology: {
@@ -884,7 +882,6 @@ window.SITE_CONTENT = {
           title: "SUCCESS STORY",
           state: "none",
           blurb: "",
-          emptyLabel: "First engagement in preparation — proof points will be published here.",
           adjacentMethodId: "method-accuracy-journey"
         }
       },
@@ -1547,8 +1544,7 @@ window.SITE_CONTENT = {
         successStory: {
           title: "SUCCESS STORY",
           state: "none",
-          blurb: "",
-          emptyLabel: "No customer engagement published yet — this is a new fixed-price offer. Proof points will be published here."
+          blurb: ""
         }
       },
       technology: {
@@ -1566,7 +1562,12 @@ window.SITE_CONTENT = {
           { vendor: "softserve", label: "SoftServe delivery layer", items: ["The decision domain and its certified views", "Business definitions signed off with the owner", "Masking, row-level access and the SQL firewall configuration", "The agreed question set and the dashboards"] }
         ],
         notUsed: ["NVIDIA — not required; Lakehouse first, GPU optional", "Oracle AI Data Platform — coexists where the customer already runs one"],
-        layers: [],
+        layers: [
+          { layer: "Cloud tenancy", providedBy: "Oracle", body: "Your own tenancy — OCI, or Autonomous inside AWS, Azure or Google Cloud regions" },
+          { layer: "Oracle Autonomous AI Lakehouse", providedBy: "Oracle", body: "Oracle Autonomous AI Database 26ai as the governed layer, with Select AI, vector search, Apache Iceberg and Data Studio" },
+          { layer: "Source connectivity", providedBy: "Oracle", body: "The prebuilt extract path from Oracle Fusion Applications, plus database links for one or two non-Oracle sources" },
+          { layer: "Custom configuration", providedBy: "SoftServe", body: "The decision domain and its certified views, business definitions, masking, row-level access, the SQL firewall, the agreed question set and the dashboards" }
+        ],
         governance: {
           title: "GOVERNANCE LAYER — THE PART SECURITY ASKS ABOUT",
           body: "Masking, row-level access and a SQL firewall live in the data layer itself, applied to every query — including the ones AI writes. Every interaction is logged. Proof you can watch: the same question asked in two roles returns two different, correctly filtered answers — enforced by the database, not by the prompt."
@@ -1769,8 +1770,7 @@ window.SITE_CONTENT = {
         successStory: {
           title: "SUCCESS STORY",
           state: "none",
-          blurb: "",
-          emptyLabel: "No customer engagement published yet — this is a new fixed-price offer. Proof points will be published here."
+          blurb: ""
         }
       },
       technology: {
