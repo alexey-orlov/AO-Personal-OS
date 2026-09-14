@@ -20,11 +20,11 @@ window.SITE_CONFIG = {
   formEndpoint: "",
   sellerGate: {
     allowedDomains: ["softserveinc.com", "oracle.com"],
-    storageKey: "oracle-ai-solutions:seller-unlocked"
+    storageKey: "oracle-ai-solutions:seller-unlocked",
+    notesUrl: ""
   },
   products: {
     "<slug>": {
-      marketplace: false,
       marketplaceUrl: "",
       videoUrl: "",
       videoPoster: "",
@@ -121,21 +121,22 @@ cross-system-erp-qa
 business-metrics-qa
 ```
 
-### `marketplace` (true / false)
-
-Drives two things: the **"On Oracle Marketplace" badge** on the product tile and product hero, and whether the product is returned by the **"Available on Oracle Marketplace"** checkbox on the Products page. It is a flag about the listing's existence — it does not itself produce a link.
-
-Today: `true` on `workforce-optimization` and `large-document-extraction`, `false` on the other five.
-
 ### `marketplaceUrl`
 
-The public Oracle Cloud Marketplace listing URL. **Only when this is non-empty** does the product hero gain its secondary **"View on Oracle Marketplace"** button. Empty today on all seven.
+The public Oracle Cloud Marketplace listing URL, and **the only thing that puts Oracle Marketplace on a customer-facing surface.** Empty today on all seven, because no pack is listed yet.
 
 ```js
 marketplaceUrl: "https://cloudmarketplace.oracle.com/marketplace/en_US/listing/000000",
 ```
 
-Set `marketplace: true` and `marketplaceUrl` together when a listing goes live.
+Paste a real listing URL and four things appear together, on the next reload:
+
+- the **"On Oracle Marketplace"** badge on the product hero,
+- the same badge on the product's card in the Products list and on its overview tile,
+- the **"Available on Oracle Marketplace"** checkbox in the Products facet rail (the rail hides that group entirely while no product has a listing),
+- the secondary **"View on Oracle Marketplace"** button in the product hero.
+
+There is deliberately no separate boolean. A badge claiming a listing that has no URL behind it is a claim the site cannot honour, so the URL is the single switch.
 
 ### `videoUrl`
 
@@ -244,9 +245,11 @@ hero: {
 - **`alt`** — a plain description of the picture, kept as a record of what the file actually shows. The hero image is decorative — the headline beside it carries the meaning — so it ships as `alt=""` and is hidden from assistive tech. Keep the description truthful anyway: it is how the next person knows which file is which without opening all nine.
 - **`focal`** — a CSS `object-position` value, e.g. `"55% 40%"`. This is the knob to turn when a crop clips the wrong part of the image on a wide screen; it changes nothing else.
 
-`site/assets/img/heroes/heroes.json` is the source of truth for `alt` and `focal` and carries each image's provenance. `content.js` holds a copy so the page needs no runtime fetch — **when you change one, change the other.**
+`site/assets/img/heroes/heroes.json` is the source of truth for `alt` and `focal`. `content.js` holds a copy so the page needs no runtime fetch — **when you change one, change the other.**
 
-`heroes.json` is served from the site root and is therefore publicly fetchable. Keep its `source` field generic — never an internal deck filename, an opportunity code or a customer name.
+`heroes.json` is served from the site root and is therefore publicly fetchable, so it carries **no provenance field**. An honest provenance line would have to name where each file came from, and that belongs in `PROVENANCE.md`, which is not served; a generic one asserting SoftServe ownership of files SoftServe does not own is worse than none. Record where a new image came from in `PROVENANCE.md` §9 instead.
+
+**All nine heroes share one visual register** — near-black ground, a single soft teal core, thin line work, nothing representational. That is the constraint, not a coincidence: a hero set assembled from three different looks reads as whatever was to hand rather than as one system, and a photographic or generated hero on a page a seller demos live is where an "AI page" tell shows up first. A replacement must hold that register, carry no rendered text or fake UI labels, and keep its brightest element clear of the bottom edge, which fades into the page ground.
 
 **If a hero image is missing**, the renderer drops the `<img>` and the hero falls back to the gradient alone. That is a safety net, not a mode to ship in: it makes every hero identical and flat, which is exactly what the per-product image is there to prevent. `node tools/check-grammar.js` warns for each hero file that is not on disk.
 
@@ -257,7 +260,7 @@ hero: {
 ## 4. Adding an eighth product
 
 1. Add the product object to `products[]` in `content.js` (see `SCHEMA.md` for every field).
-2. Add a matching `products["<new-slug>"]` block to `config.js` with all six keys (`marketplace`, `marketplaceUrl`, `videoUrl`, `videoPoster`, `successStoryUrl`, `materials`).
+2. Add a matching `products["<new-slug>"]` block to `config.js` with all five keys (`marketplaceUrl`, `videoUrl`, `videoPoster`, `successStoryUrl`, `materials`).
 3. If it lands on a technology facet that currently has no products, nothing else is needed — the facet is already declared and will stop rendering its empty state once a product carries it.
 
 If the config block is missing, the product page still renders; every optional control simply stays hidden, exactly as if all its URLs were empty.
