@@ -115,7 +115,7 @@
     if (conf.videoPoster) return conf.videoPoster;
     var id = youtubeId(conf.videoUrl);
     if (id) return "https://img.youtube.com/vi/" + id + "/maxresdefault.jpg";
-    return (product.hero && product.hero.image && product.hero.image.file) || "";
+    return "";
   }
 
   /* The frame is promised before the file exists: `video: true` puts it on the
