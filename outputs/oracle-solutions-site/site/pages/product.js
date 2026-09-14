@@ -168,6 +168,7 @@
     if (conf.marketplace) {
       chips.push(UI.chip({ label: C().facets.marketplace.badge }));
     }
+    var line = product.heroLine || product.heroCaption || "";
     var badges = product.badges
       ? '<ul class="hero-badges">' + product.badges.map(function (badge) {
           return "<li>" + UI.esc(badge) + "</li>";
@@ -186,14 +187,13 @@
           "<span aria-hidden=\"true\">/</span>" +
           "<span>" + UI.esc(product.categoryChip) + "</span>" +
         "</nav>" +
-        (product.heroLine ? '<p class="eyebrow eyebrow--accent hero-line">' + UI.esc(product.heroLine) + "</p>" : "") +
+        (line ? '<p class="eyebrow eyebrow--accent hero-line">' + UI.esc(line) + "</p>" : "") +
         UI.headline(product.headline, "h1", "h1 product-title") +
         '<div class="chip-row product-hero-chips">' + chips.join("") + "</div>" +
         '<p class="lead product-lead">' + UI.esc(product.oneLiner) + "</p>" +
         (product.subLine ? '<p class="body-text product-subline">' + UI.esc(product.subLine) + "</p>" : "") +
         badges +
         heroCtas(product, !!media) +
-        (product.heroCaption ? '<p class="hero-caption">' + UI.esc(product.heroCaption) + "</p>" : "") +
       "</div>" +
       media +
       "</div>" +

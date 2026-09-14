@@ -177,8 +177,8 @@ window.SITE_CONTENT = {
     hero: {
       image: {
         file: "assets/img/heroes/overview.jpg",
-        alt: "A luminous elliptical aperture opening in a dark wall, warm rim light spilling across the floor",
-        focal: "50% 50%"
+        alt: "Concentric teal apertures opening around a single lit core on a near-black field",
+        focal: "50% 40%"
       },
       headline: { accent: "ORACLE", rest: "AI SOLUTIONS" },
       subhead: "Packaged AI applications for Oracle customers — built on Oracle Cloud Infrastructure with NVIDIA and on Oracle Autonomous AI Lakehouse. Each one an accelerator pack plus tailored SoftServe services, delivered in three steps: a fixed-scope proof of value on your own data, roll-out at one site, then scale.",
@@ -384,8 +384,8 @@ window.SITE_CONTENT = {
       hero: {
         image: {
           file: "assets/img/heroes/account-insights.jpg",
-          alt: "A network of connected signal nodes — people, messages, documents, charts — converging on one glowing hub above a night-time city skyline",
-          focal: "50% 45%"
+          alt: "Thin teal signal lines converging from across a dark field onto one lit hub inside concentric rings",
+          focal: "50% 44%"
         }
       },
       tile: {
@@ -588,8 +588,8 @@ window.SITE_CONTENT = {
       hero: {
         image: {
           file: "assets/img/heroes/case-evidence-collection.jpg",
-          alt: "Silhouetted analyst mapping a case on a backlit glass board covered in linked boxes and connecting lines",
-          focal: "50% 50%"
+          alt: "Scattered fragment cards linked down onto a single lit horizontal spine",
+          focal: "50% 52%"
         }
       },
       tile: {
@@ -797,7 +797,7 @@ window.SITE_CONTENT = {
       hero: {
         image: {
           file: "assets/img/heroes/plan-vs-actual-investigation.jpg",
-          alt: "Analyst at a dark multi-screen desk reviewing trend charts, variance dashboards and mapped operations data",
+          alt: "A dashed planned trace and a solid measured trace over a faint grid, the gap between them shaded",
           focal: "50% 50%"
         }
       },
@@ -1012,7 +1012,7 @@ window.SITE_CONTENT = {
       hero: {
         image: {
           file: "assets/img/heroes/large-document-extraction.jpg",
-          alt: "A deep stack of hundreds of thin layered plates receding into darkness, edges lit like the pages of a long document",
+          alt: "A deep stack of thin lit lines receding into darkness, three of them resolving into a grid of small panels",
           focal: "50% 45%"
         }
       },
@@ -1235,8 +1235,8 @@ window.SITE_CONTENT = {
       hero: {
         image: {
           file: "assets/img/heroes/workforce-optimization.jpg",
-          alt: "Container terminal at blue hour — gantry crane, stacked containers and service vehicles moving under work lights",
-          focal: "55% 50%"
+          alt: "Right-angled routes fanning out from one lit core to a field of small endpoint markers",
+          focal: "50% 46%"
         }
       },
       tile: {
@@ -1679,8 +1679,8 @@ window.SITE_CONTENT = {
       hero: {
         image: {
           file: "assets/img/heroes/business-metrics-qa.jpg",
-          alt: "Abstract landscape of flowing data points and light trails rolling across a dark blue field",
-          focal: "50% 50%"
+          alt: "A rising series of outlined columns under a smooth trend curve, the last point ringed and lit",
+          focal: "50% 48%"
         }
       },
       tile: {
@@ -1892,8 +1892,8 @@ window.SITE_CONTENT = {
     hero: {
       image: {
         file: "assets/img/heroes/services.jpg",
-        alt: "Engineer working at a dark multi-monitor workstation filled with code, city lights blurred behind",
-        focal: "50% 50%"
+        alt: "Six stacked planes seen in perspective, each edged in teal light above a near-black field",
+        focal: "50% 45%"
       },
       headline: { accent: "ORACLE", rest: "DEDICATED PRACTICE" },
       lead: "SoftServe’s Oracle practice pairs the delivery depth of a 500-strong data and analytics practice with architects and engineers dedicated to the Oracle AI stack.",
