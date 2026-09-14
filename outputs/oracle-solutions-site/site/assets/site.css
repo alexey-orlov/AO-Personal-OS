@@ -1284,8 +1284,19 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 
 .market-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 1.75rem; margin-top: auto; padding-top: .25rem; }
 
+/* One column means a tile grows past twice the image's own aspect, and a
+   full-bleed cover crop at that height shows a sliver too zoomed to read as
+   anything. The image keeps a band at the top of the card instead. */
 @media (max-width: 1024px) {
   .market-grid { grid-template-columns: minmax(0, 1fr); }
+  .market-tile-bg { bottom: auto; height: 17rem; }
+  .market-tile-veil {
+    background: linear-gradient(to bottom,
+      rgba(19, 19, 19, .46) 0,
+      rgba(19, 19, 19, .5) 46%,
+      rgba(19, 19, 19, .8) 80%,
+      var(--bg-inset) 100%);
+  }
 }
 
 @media (max-width: 560px) {
