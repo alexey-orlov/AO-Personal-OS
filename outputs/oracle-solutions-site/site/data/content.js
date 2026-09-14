@@ -177,7 +177,7 @@ window.SITE_CONTENT = {
     hero: {
       image: {
         file: "assets/img/heroes/overview.jpg",
-        alt: "Abstract dark composition of connected data planes over a deep blue field",
+        alt: "A luminous elliptical aperture opening in a dark wall, warm rim light spilling across the floor",
         focal: "50% 50%"
       },
       headline: { accent: "ORACLE", rest: "AI SOLUTIONS" },
@@ -384,7 +384,7 @@ window.SITE_CONTENT = {
       hero: {
         image: {
           file: "assets/img/heroes/account-insights.jpg",
-          alt: "Abstract dark field of scattered signal points resolving into connected clusters",
+          alt: "A network of connected signal nodes — people, messages, documents, charts — converging on one glowing hub above a night-time city skyline",
           focal: "50% 45%"
         }
       },
@@ -589,7 +589,7 @@ window.SITE_CONTENT = {
       hero: {
         image: {
           file: "assets/img/heroes/case-evidence-collection.jpg",
-          alt: "Layered records and correspondence converging into a single assembled file",
+          alt: "Silhouetted analyst mapping a case on a backlit glass board covered in linked boxes and connecting lines",
           focal: "50% 50%"
         }
       },
@@ -799,7 +799,7 @@ window.SITE_CONTENT = {
       hero: {
         image: {
           file: "assets/img/heroes/plan-vs-actual-investigation.jpg",
-          alt: "Planned and actual progress lines diverging across a dark technical grid",
+          alt: "Analyst at a dark multi-screen desk reviewing trend charts, variance dashboards and mapped operations data",
           focal: "50% 50%"
         }
       },
@@ -1015,7 +1015,7 @@ window.SITE_CONTENT = {
       hero: {
         image: {
           file: "assets/img/heroes/large-document-extraction.jpg",
-          alt: "Dense printed contract pages resolving into clean structured rows",
+          alt: "A deep stack of hundreds of thin layered plates receding into darkness, edges lit like the pages of a long document",
           focal: "50% 45%"
         }
       },
@@ -1239,7 +1239,7 @@ window.SITE_CONTENT = {
       hero: {
         image: {
           file: "assets/img/heroes/workforce-optimization.jpg",
-          alt: "Service territory rendered as routes and coverage zones over a dark map",
+          alt: "Container terminal at blue hour — gantry crane, stacked containers and service vehicles moving under work lights",
           focal: "55% 50%"
         }
       },
@@ -1462,7 +1462,7 @@ window.SITE_CONTENT = {
       hero: {
         image: {
           file: "assets/img/heroes/cross-system-erp-qa.jpg",
-          alt: "Separate enterprise systems converging into one governed layer",
+          alt: "Abstract dark graph of separate enterprise system panes linked by thin teal data flows converging on one lit core",
           focal: "50% 50%"
         }
       },
@@ -1686,7 +1686,7 @@ window.SITE_CONTENT = {
       hero: {
         image: {
           file: "assets/img/heroes/business-metrics-qa.jpg",
-          alt: "Data catalogs across several clouds linked into a single answer layer",
+          alt: "Abstract landscape of flowing data points and light trails rolling across a dark blue field",
           focal: "50% 50%"
         }
       },
@@ -1901,7 +1901,7 @@ window.SITE_CONTENT = {
     hero: {
       image: {
         file: "assets/img/heroes/services.jpg",
-        alt: "Abstract dark data landscape suggesting an engineering practice at work",
+        alt: "Engineer working at a dark multi-monitor workstation filled with code, city lights blurred behind",
         focal: "50% 50%"
       },
       headline: { accent: "ORACLE", rest: "DEDICATED PRACTICE" },
