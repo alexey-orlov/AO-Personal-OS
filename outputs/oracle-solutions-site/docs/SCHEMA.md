@@ -168,6 +168,8 @@ Seven entries, in the order the Products page should list them:
 | `tags` | `[string]` | Filled navy metadata pills on the tile, in order. Facts, not toggles. |
 | `tile.outcomes` | `[string]` | Exactly three outcome bullets. |
 
+**One hero shape on all seven products.** The slots render in a fixed order and an unset one simply does not render: breadcrumb → `heroLine`/`heroCaption` → `headline` → chips → `oneLiner` → `subLine` → `badges` → CTA row. **The CTA row is always last** — nothing is appended below the primary action, so "Request a demo" is the last thing in every hero.
+
 ### `overview`
 
 **The Overview tab follows the fixed component grammar in `VISUAL-GRAMMAR.md`. Every product fills every slot** — a product with no published number fills its metric row with qualitative tiles rather than rendering a shorter page. Render the blocks in the order below; none is optional.
@@ -177,6 +179,9 @@ Seven entries, in the order the Products page should list them:
 | `problemSolution` | `{ problem: { title, text, icon }, solution: { title, text, icon } }` | The paired two-panel strip. `text` is 1–2 sentences per panel; `icon` is an icon-registry key (today `alert` / `spark` on all seven). |
 | `metrics` | `[{ value, label, qualifier, icon }]` | 3–4 stat tiles. **`value: null` is a qualitative tile** — the icon renders at display size where the number would be, and the tile keeps its height so the row stays level. `value` as a string is ≤ 20 characters. `qualifier` is the baseline or caveat, ≤ 14 words. |
 | `metricsNote` | string | **Mandatory on every product.** Renders as one footnote line under the metric row, in the same block. Carries the disclaimer that travels with the figures, or the honest "no published metrics yet" line where there are none. |
+
+**The section heading follows the data.** When at least one tile carries a `value`, the block is headed `sectionLabels.metrics` ("Metrics improved"). When every tile is qualitative, it is headed `sectionLabels.metricsPlanned` ("What the proof of value measures") instead — a heading asserting improvement over four tiles with no number, closed by a footnote saying no metrics are published, contradicts itself two lines later, and it is the first claim a seller lands on in a live demo.
+
 | `roi` | `{ icon, text }` | One callout band, 1–2 sentences. |
 | `features` | `[string]` | 6–8 items, **each ≤ 12 words**, rendered as a two-column checklist with check icons. |
 | `featuresNote?` | string | An asterisked caveat under the checklist. Only `workforce-optimization` carries one. |
