@@ -528,17 +528,24 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
   height: 100%;
   object-fit: cover;
   object-position: 50% 50%;
-  opacity: .95;
-  filter: saturate(1.04) contrast(1.06);
+  opacity: 1;
+  filter: brightness(2.55) contrast(.94) saturate(1.1);
 }
 
 .hero-bg-veil {
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(to right, var(--bg) 0%, rgba(19, 19, 19, .93) 26%, rgba(19, 19, 19, .50) 52%, rgba(19, 19, 19, .06) 100%),
-    linear-gradient(to bottom, rgba(19, 19, 19, .45) 0%, rgba(19, 19, 19, .08) 30%, rgba(19, 19, 19, .58) 76%, var(--bg) 100%),
-    radial-gradient(110% 85% at 76% 26%, rgba(53, 204, 186, .16), rgba(53, 204, 186, 0) 62%);
+    linear-gradient(to right, var(--bg) 0%, rgba(19, 19, 19, .94) 18%, rgba(19, 19, 19, .76) 38%, rgba(19, 19, 19, .46) 55%, rgba(19, 19, 19, .18) 70%, rgba(19, 19, 19, 0) 84%),
+    linear-gradient(to bottom, rgba(19, 19, 19, .24) 0%, rgba(19, 19, 19, 0) 42%, rgba(19, 19, 19, .30) 75%, var(--bg) 100%),
+    radial-gradient(100% 78% at 70% 32%, rgba(53, 204, 186, .09), rgba(53, 204, 186, 0) 62%);
+}
+
+.product-hero--media .hero-bg-veil {
+  background:
+    linear-gradient(to right, var(--bg) 0%, rgba(19, 19, 19, .95) 20%, rgba(19, 19, 19, .82) 42%, rgba(19, 19, 19, .64) 62%, rgba(19, 19, 19, .48) 82%, rgba(19, 19, 19, .40) 100%),
+    linear-gradient(to bottom, rgba(19, 19, 19, .24) 0%, rgba(19, 19, 19, 0) 42%, rgba(19, 19, 19, .30) 75%, var(--bg) 100%),
+    radial-gradient(100% 78% at 70% 32%, rgba(53, 204, 186, .07), rgba(53, 204, 186, 0) 62%);
 }
 
 .hero.has-hero-bg { min-height: min(66vh, 46rem); display: flex; flex-direction: column; justify-content: center; }
@@ -1915,11 +1922,12 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
   .def-grid, .def-grid--3, .def-grid--4 { grid-template-columns: 1fr; }
   .product-hero-inner { grid-template-columns: minmax(0, 1fr); row-gap: 2rem; }
   .product-hero.has-hero-bg, .hero.has-hero-bg { min-height: 0; display: block; }
-  .hero-bg-img { opacity: .46; }
-  .hero-bg-veil {
+  .hero-bg-img { opacity: .62; }
+  .hero-bg-veil,
+  .product-hero--media .hero-bg-veil {
     background:
-      linear-gradient(to bottom, rgba(19, 19, 19, .74) 0%, rgba(19, 19, 19, .58) 38%, rgba(19, 19, 19, .9) 82%, var(--bg) 100%),
-      radial-gradient(120% 70% at 70% 12%, rgba(53, 204, 186, .1), rgba(53, 204, 186, 0) 66%);
+      linear-gradient(to bottom, rgba(19, 19, 19, .52) 0%, rgba(19, 19, 19, .34) 34%, rgba(19, 19, 19, .62) 72%, var(--bg) 100%),
+      radial-gradient(120% 66% at 68% 16%, rgba(53, 204, 186, .08), rgba(53, 204, 186, 0) 64%);
   }
   .ps-strip { grid-template-columns: minmax(0, 1fr); }
   .ps-arrow { transform: rotate(90deg); justify-self: center; }
