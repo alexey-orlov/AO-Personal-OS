@@ -505,7 +505,6 @@ window.SITE_CONTENT = {
         ]
       },
       pov: {
-        heading: "WHAT THE PROOF OF VALUE BUYS",
         facts: {
           duration: "~12 weeks",
           team: "One SoftServe team",
@@ -711,7 +710,6 @@ window.SITE_CONTENT = {
         ]
       },
       pov: {
-        heading: "PROOF-OF-VALUE SCOPE",
         facts: {
           duration: "12–15 weeks",
           team: "One SoftServe team",
@@ -920,7 +918,6 @@ window.SITE_CONTENT = {
         ]
       },
       pov: {
-        heading: "PROOF-OF-VALUE SCOPE",
         facts: {
           duration: "12 weeks + 2",
           team: "One SoftServe team",
@@ -1144,7 +1141,6 @@ window.SITE_CONTENT = {
         ]
       },
       pov: {
-        heading: "PROOF-OF-VALUE SCOPE",
         facts: {
           duration: "2 months",
           team: "One SoftServe team",
@@ -1367,7 +1363,6 @@ window.SITE_CONTENT = {
         ]
       },
       pov: {
-        heading: "PROOF-OF-VALUE SCOPE",
         facts: {
           duration: "2 months",
           team: "One SoftServe team",
@@ -1584,7 +1579,6 @@ window.SITE_CONTENT = {
         ]
       },
       pov: {
-        heading: "THE OFFER",
         facts: {
           duration: "30–45 days",
           team: "One SoftServe team",
@@ -1620,7 +1614,6 @@ window.SITE_CONTENT = {
           "A governed foundation that persists: semantic model and security policies.",
           "A costed expansion proposal: what Roll-out takes and what it returns."
         ],
-        deliverablesTitle: "WHAT YOU KEEP",
         pricing: [
           { label: "Fixed price", value: "€30–50K fixed per use case", note: "Indicative — aligned per use case and Oracle funding; infrastructure runs on trial credits or the customer’s tenancy." },
           { label: "Duration", value: "30–45 days", note: "30 for one clean source system; 45 for up to three sources or a stricter security setup." },
@@ -1810,7 +1803,6 @@ window.SITE_CONTENT = {
         ]
       },
       pov: {
-        heading: "THE OFFER",
         facts: {
           duration: "30–45 days",
           team: "One SoftServe team",
@@ -1839,7 +1831,6 @@ window.SITE_CONTENT = {
             { title: "PROVE · W5–6", body: "Measured against the signed baseline: time-to-answer versus today, share of questions served without a data engineer. Executive readout plus a costed expansion plan." }
           ]
         },
-        deliverablesTitle: "WHAT YOU KEEP",
         deliverables: [
           "A working AI use case — agent plus curated views — live on your data, in your tenancy.",
           "A measured KPI readout against success criteria signed before the clock starts.",
