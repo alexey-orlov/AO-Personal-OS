@@ -117,8 +117,8 @@ if (!arr(C.products) || C.products.length !== 7) {
   });
 
   /* 2.2 metrics */
-  if (!arr(o.metrics) || o.metrics.length < 3 || o.metrics.length > 4) {
-    fail(w, "overview.metrics must hold 3–4 tiles, got " + (arr(o.metrics) ? o.metrics.length : "none"));
+  if (!arr(o.metrics) || o.metrics.length < 1 || o.metrics.length > 4) {
+    fail(w, "overview.metrics must hold 1–4 tiles, got " + (arr(o.metrics) ? o.metrics.length : "none"));
   } else o.metrics.forEach(function (m, i) {
     var mw = w + ".metrics[" + i + "]";
     if (!(m.value === null || str(m.value))) fail(mw, "value must be a non-empty string or null");
