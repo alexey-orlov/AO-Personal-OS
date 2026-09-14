@@ -435,7 +435,7 @@ window.SITE_CONTENT = {
           { title: "Magnitude and confidence scoring", body: "0–10 per item, with a configurable threshold that filters low-confidence output." },
           { title: "Reviewer UI with citations and the reasoning behind every item", body: "Read the opportunities, follow the source links, approve or reject with a comment." }
         ],
-        industries: ["logistics", "financial-services", "manufacturing", "professional-services"],
+        industries: ["logistics", "financial-services", "manufacturing"],
         industriesNote: "Any business that needs to turn market and customer developments into pursuable opportunities across its account base, quickly.",
         scope: {
           in: [
@@ -640,7 +640,7 @@ window.SITE_CONTENT = {
           { title: "Investigator UI", body: "Navigate to source, amend, approve or flag." },
           { title: "Full audit log", body: "Of every review decision." }
         ],
-        industries: ["financial-services", "manufacturing", "professional-services", "public-sector"],
+        industries: ["financial-services", "manufacturing"],
         industriesNote: "The pattern is the same wherever an event opens a case and the evidence sits in several systems at once.",
         scope: {
           in: [
@@ -850,7 +850,7 @@ window.SITE_CONTENT = {
           { title: "An evidence layer over documents", body: "Text extraction, chunking, embeddings and entity extraction, with semantic, lexical and entity retrieval routed per question." },
           { title: "A purpose-built lightweight application", body: "Where the results are presented and reviewed." }
         ],
-        industries: ["construction", "manufacturing", "professional-services", "retail"],
+        industries: ["construction", "manufacturing", "professional-services"],
         industriesNote: "Wherever completed units of work — projects, work packages, orders, engagements, campaigns — have to be compared against what was planned for them.",
         scope: {
           in: [
@@ -1041,7 +1041,7 @@ window.SITE_CONTENT = {
         metrics: [
           { value: "5–15 min", label: "To extract a 60–100-page contract end to end", qualifier: "Down from 3–5 days by hand", icon: "clock" },
           { value: "up to −20%", label: "Manual data-entry effort", qualifier: "Targeted reduction at proof of value", icon: "trendDown" },
-          { value: "7–12%", label: "Of an airline's direct operating cost", qualifier: "Carried in ground-handling rates — the error class this protects", icon: "alert" },
+          { value: null, label: "Business-rule validators", qualifier: "Flag what a human must look at, before anything is exported", icon: "alert" },
           { value: null, label: "Confidence and a page citation", qualifier: "On every extracted value, before anything is exported", icon: "shield" }
         ],
         metricsNote: "Targets from the proof-of-value; figures are illustrative, not contractual.",
