@@ -246,17 +246,13 @@ window.SITE_CONTENT = {
         band: 1,
         label: "PROOF OF VALUE",
         customer: "A global home-appliance manufacturer",
-        industry: "Manufacturing — residential appliance and white-goods field service",
+        industry: "Manufacturing — consumer-durables field service",
         body: "Dispatchers planned a residential appliance-repair field force by hand: ZIP-code work zones and technician allocations, region by region. With the cuOpt-powered dispatcher app on OCI, they now review, approve or re-run an optimized plan and export it straight to Oracle Field Service.",
         scopeLine: "A three-month proof of value across three countries, with around thirty real-world constraints modeled — skills, availability, existing bookings, travel and holidays — and dispatcher approval in the loop.",
         metrics: [
-          { value: "~30 min", label: "to optimize and approve a region’s four-week plan: down from ~2 days" },
-          { value: "83%", label: "of twelve modeled simulations positive, at a median of +4.5% jobs per technician per day" },
-          { value: "15–20%", label: "dispatcher productivity gain observed in the pilot; the case was built on the conservative 15%" },
-          { value: "~5x", label: "modeled ROI within three years on a phased rollout" }
+          { value: "~30 min", label: "to optimize and approve a region’s four-week plan: down from ~2 days" }
         ],
         footnotes: [
-          "Results are modeled simulations against a historical baseline, not measured production outcomes.",
           "KPIs measured before/after on proof-of-value data; figures are illustrative, not contractual."
         ],
         product: { slug: "workforce-optimization", name: "Workforce optimization" }
@@ -527,7 +523,7 @@ window.SITE_CONTENT = {
           category: "Deep research & investigation",
           platform: "Oracle Cloud Infrastructure + NVIDIA",
           availability: "Available now",
-          povDuration: "~12 weeks",
+          povDuration: "Scoped per engagement",
           povPrice: "Scoped per engagement"
         },
         scope: {
@@ -634,14 +630,13 @@ window.SITE_CONTENT = {
       },
       pov: {
         facts: {
-          duration: "~12 weeks",
+          duration: "Scoped per engagement",
           team: "One SoftServe team",
           price: "Scoped per engagement",
           deliverablesCount: 4
         },
         scope: "Signal ingestion and grounding, the filter and account fan-out, opportunity and risk reasoning, cross-account ripples, scoring and citations, and the reviewer UI with its evaluation harness — run across your in-scope account list.",
-        duration: "about 12 weeks, scoped per engagement",
-        durationShort: "about 12 weeks",
+        duration: "Scoped per engagement",
         team: "One team: AI, data and OCI architects, a product manager and a project manager, and senior AI and data engineers. The team grows with the scope.",
         inScope: "Signal ingestion and grounding · filter and account fan-out · opportunity and risk reasoning · cross-account ripples · scoring and citations · reviewer UI and evaluation.",
         notInScope: "Acting on opportunities · pipeline validation · monetary sizing · CRM write-back and persistence · financial modeling · native multilingual.",
@@ -655,7 +650,7 @@ window.SITE_CONTENT = {
         ],
         pricing: [
           { label: "Services (one-time)", value: "Scoped per engagement", note: "No package price is published for this application." },
-          { label: "Timeline", value: "about 12 weeks, scoped per engagement" }
+          { label: "Timeline", value: "Scoped per engagement" }
         ],
         disclaimers: [
           "Framed scope, flexible add-ons. Each package’s price and timing are set by specific constraints. Custom features beyond the frame are added for additional price and time."
@@ -666,7 +661,7 @@ window.SITE_CONTENT = {
             title: "Proof of value",
             scope: "Prove the gains on your own data and rules, in a separate environment. Zero integration.",
             includes: ["Signal ingestion, fan-out, reasoning and scoring", "Reviewer UI and the evaluation harness", "Sandboxed deployment on your tenancy"],
-            duration: "about 12 weeks",
+            duration: "Scoped per engagement",
             pricing: "Scoped per engagement"
           },
           {
@@ -837,7 +832,7 @@ window.SITE_CONTENT = {
           category: "Deep research & investigation",
           platform: "Oracle Cloud Infrastructure + NVIDIA",
           availability: "In preparation",
-          povDuration: "12–15 weeks",
+          povDuration: "Scoped per engagement",
           povPrice: "Scoped per engagement"
         },
         scope: {
@@ -948,14 +943,13 @@ window.SITE_CONTENT = {
       },
       pov: {
         facts: {
-          duration: "12–15 weeks",
+          duration: "Scoped per engagement",
           team: "One SoftServe team",
           price: "Scoped per engagement",
           deliverablesCount: 4
         },
         scope: "One case category, on historical non-production records, with a validated sample the customer’s experts have already adjudicated. Prove that an assembled, cited case file is faster to produce and holds up to review.",
-        duration: "12–15 weeks (indicative; scoped per engagement)",
-        durationShort: "12–15 weeks",
+        duration: "Scoped per engagement",
         team: "One team: AI, data and OCI architects, a product manager and a project manager, and senior AI and data engineers. The team grows with the scope.",
         prerequisites: {
           title: "PREREQUISITES WE ASK OF YOU",
@@ -975,7 +969,7 @@ window.SITE_CONTENT = {
         ],
         pricing: [
           { label: "Services (one-time)", value: "Scoped per engagement", note: "No package price is published for this application." },
-          { label: "Timeline", value: "12–15 weeks (indicative; scoped per engagement)" }
+          { label: "Timeline", value: "Scoped per engagement" }
         ],
         disclaimers: [
           "Framed scope, flexible add-ons. Each package’s price and timing are set by specific constraints. Custom features beyond the frame are added for additional price and time."
@@ -986,7 +980,7 @@ window.SITE_CONTENT = {
             title: "Proof of value",
             scope: "Prove the gains on your own data and rules, in a separate environment. Zero integration.",
             includes: ["One case category on historical, non-production records", "Assembled, cited case files for the agreed sample", "The investigator UI, sandboxed on your tenancy"],
-            duration: "12–15 weeks (indicative; scoped per engagement)",
+            duration: "Scoped per engagement",
             pricing: "Scoped per engagement"
           },
           {
@@ -1715,12 +1709,9 @@ window.SITE_CONTENT = {
           }
         },
         metrics: [
-          { value: "~30 min", label: "To optimize and approve a region’s four-week plan", qualifier: "Down from ~2 days", icon: "clock" },
-          { value: "+4.5%", label: "Median jobs per technician per day", qualifier: "83% of twelve modeled simulations positive", icon: "trendUp" },
-          { value: "15–20%", label: "Dispatcher productivity gain in the pilot", qualifier: "The case was built on the conservative 15%", icon: "users" },
-          { value: "~5x", label: "Modeled ROI within three years", qualifier: "On a phased rollout", icon: "roi" }
+          { value: "~30 min", label: "To optimize and approve a region’s four-week plan", qualifier: "Down from ~2 days", icon: "clock" }
         ],
-        metricsNote: "Results are modeled simulations against a historical baseline, not measured production outcomes. KPIs measured before/after on proof-of-value data; figures are illustrative, not contractual.",
+        metricsNote: "KPIs measured before/after on proof-of-value data; figures are illustrative, not contractual.",
         roi: {
           icon: "roi",
           text: "The gain is not a faster dispatcher — it is the same field force doing more jobs per day, with less travel and less waiting. A single-digit percentage runs across every region."
@@ -1790,8 +1781,8 @@ window.SITE_CONTENT = {
             industry: "manufacturing",
             label: "Manufacturing",
             image: "assets/img/industries/manufacturing.jpg",
-            problem: "Residential appliance and white-goods repair is planned by hand: ZIP-code work zones and technician allocations, region by region, juggling skills, spare parts, travel and absences. Urgent call-outs and no-shows mean re-planning the day.",
-            solution: "The solver plans the whole region against skills, parts, travel and existing bookings at once, and the dispatcher reviews the result rather than building it. The proof of value for this pattern modeled around thirty real-world constraints across three countries, with dispatcher approval kept in the loop."
+            problem: "In-home repair of manufactured goods is planned by hand: work zones and technician allocations, region by region, juggling skills, spare parts, travel and absences. Urgent call-outs and no-shows mean re-planning the day.",
+            solution: "The solver plans the whole region against skills, parts, travel and existing bookings at once, and the dispatcher reviews the result rather than building it. Rules that differ by market — working time, holidays, service commitments — are configuration, so a new region is set up rather than re-planned."
           },
           {
             industry: "utilities",
@@ -2735,7 +2726,7 @@ window.SITE_CONTENT = {
           tier: "proof-of-value",
           title: "Proof of value",
           whatItIs: "Prove the gains on your own data and rules — manual imports, a limited rule set, a separate environment. Zero integration.",
-          duration: "30–45 days on the Lakehouse Quick Start · about 2 months on the packaged Oracle Cloud Infrastructure + NVIDIA packs · 12–15 weeks on the deep-research investigations",
+          duration: "30–45 days on the Lakehouse Quick Start · about 2 months on the packaged Oracle Cloud Infrastructure + NVIDIA packs · scoped per engagement on the deep-research investigations",
           pricing: "A fixed price for the packaged scope; scoped per engagement where no package price is published"
         },
         {
@@ -2766,7 +2757,7 @@ window.SITE_CONTENT = {
           { title: "Model and guard", body: "A small governed model, or the pack configured against your rules: business definitions, masking, row-level access." },
           { title: "Prove", body: "Measurement against the signed baseline, an executive readout, and a costed expansion plan." }
         ],
-        closing: "Six weeks on the Lakehouse Quick Start; about two months on the packaged Oracle Cloud Infrastructure + NVIDIA accelerator packs; 12–15 weeks where the work is a deep-research investigation over historical records."
+        closing: "30–45 days on the Lakehouse Quick Start; about two months on the packaged Oracle Cloud Infrastructure + NVIDIA accelerator packs; scoped per engagement where the work is a deep-research investigation over historical records."
       }
     },
 
