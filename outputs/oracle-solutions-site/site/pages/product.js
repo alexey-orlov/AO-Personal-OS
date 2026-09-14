@@ -1166,6 +1166,22 @@
     roving(tabs, select, true);
   }
 
+  /* Sticky is a convenience, not the point: a rail taller than the viewport
+     would pin its top and hide its own last card for the whole scroll, so it
+     only sticks while it fits. Measured here because CSS cannot ask. */
+  function fitRail() {
+    var rail = document.querySelector(".ov-rail");
+    if (!rail) return;
+    rail.classList.remove("is-sticky");
+    var offset = document.documentElement.clientHeight * 0.06 + 40;
+    if (rail.scrollHeight + offset <= window.innerHeight) rail.classList.add("is-sticky");
+  }
+
+  if (!window.PAGES.__railFit) {
+    window.PAGES.__railFit = true;
+    window.addEventListener("resize", fitRail);
+  }
+
   function bindStack(root) {
     var block = root.querySelector("[data-stack]");
     if (!block) return;
@@ -1203,6 +1219,7 @@
     bindStepper(root);
     bindIndustryTabs(root);
     bindStack(root);
+    fitRail();
 
     if (active === "sellers" && gateUnlocked()) loadSellerNotes(root, item);
 

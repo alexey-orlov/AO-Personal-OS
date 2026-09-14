@@ -1801,18 +1801,19 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 
 .ov-main { display: flex; flex-direction: column; gap: clamp(1.75rem, 2.6vw, 2.5rem); min-width: 0; }
 
+/* The rail sticks only while it fits the viewport — `.is-sticky` is set by the
+   renderer after measuring. A rail taller than the screen would pin its top and
+   put its own footer permanently out of reach, and an inner scrollbar would eat
+   the page scroll under the pointer; either one is worse than a column that
+   simply scrolls with the page. */
 .ov-rail {
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
   min-width: 0;
-  position: sticky;
-  top: calc(var(--nav-h) + 1.25rem);
-  max-height: calc(100vh - var(--nav-h) - 2.5rem);
-  overflow-y: auto;
-  overscroll-behavior: contain;
-  scrollbar-width: thin;
 }
+
+.ov-rail.is-sticky { position: sticky; top: calc(var(--nav-h) + 1.25rem); }
 
 .rail-card {
   padding: clamp(1.125rem, 1.8vw, 1.5rem);
@@ -2203,7 +2204,7 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 @media (max-width: 1100px) {
   .def-grid--4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .ov-layout { grid-template-columns: minmax(0, 1fr); }
-  .ov-rail { position: static; max-height: none; overflow: visible; }
+  .ov-rail.is-sticky { position: static; }
   .tier-grid { grid-template-columns: 1fr; grid-template-rows: auto; }
   .tier { grid-row: auto; display: flex; flex-direction: column; }
   .tier-body { flex: 1; }
