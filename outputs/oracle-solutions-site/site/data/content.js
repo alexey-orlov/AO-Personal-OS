@@ -113,7 +113,7 @@ window.SITE_CONTENT = {
       name: "Karsten Tramborg",
       title: "Alliances & Partnerships Director, SoftServe",
       email: "oracle@softserveinc.com",
-      photo: "assets/img/people/karsten-tramborg.jpg",
+      photo: "",
       blurb: "Bring the account and the workflow: a fit check, a live walkthrough, or the scope of a proof of value on your own data."
     },
     ladderColumns: ["Proof of value", "Roll-out", "Scaling"],

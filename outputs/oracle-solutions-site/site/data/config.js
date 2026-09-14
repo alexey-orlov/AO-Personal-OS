@@ -1,5 +1,5 @@
 window.SITE_CONFIG = {
-  contactEmail: "RnDrequest@softserveinc.com",
+  contactEmail: "oracle@softserveinc.com",
   formEndpoint: "",
   sellerGate: {
     allowedDomains: ["softserveinc.com", "oracle.com"],

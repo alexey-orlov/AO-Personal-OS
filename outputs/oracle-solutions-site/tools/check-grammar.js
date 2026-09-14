@@ -147,11 +147,9 @@ if (!arr(C.products) || C.products.length !== 7) {
     fail(w, "overview.featuresDetail must keep the long-form list (≥6 entries)");
   }
 
-  /* 2.5 industries */
-  if (!arr(o.industries) || !o.industries.length) fail(w, "overview.industries missing");
-  else o.industries.forEach(function (key) {
-    if (INDUSTRIES.indexOf(key) === -1) fail(w, 'industry key "' + key + '" is not in the fixed set');
-  });
+  /* 2.5 industries — the chips are superseded by the industryCases tabs; only
+     the "where else this applies" line survives, under the tab component. */
+  if (o.industries !== undefined) fail(w, "overview.industries is superseded by overview.industryCases — nothing renders it");
   if (!str(o.industriesNote)) fail(w, "overview.industriesNote missing");
 
   /* 2.6 scope */
@@ -259,11 +257,9 @@ if (!arr(C.products) || C.products.length !== 7) {
     if (str(s.label) && words(s.label) > 10) fail(w, "flow[" + i + "].label is " + words(s.label) + " words (max 10)");
   });
 
-  /* 3.3 the honest "not used" line under the accordion */
-  if (!arr(t.notUsed)) fail(w, "technology.notUsed missing (may be empty, must exist)");
-  /* The three shapes the layered stack replaced are gone from the data. A
+  /* The shapes the layered stack replaced are gone from the data. A
      re-introduced one would render nowhere and drift out of sync in silence. */
-  ["groups", "layers", "integration"].forEach(function (k) {
+  ["groups", "layers", "integration", "notUsed"].forEach(function (k) {
     if (t[k] !== undefined) fail(w, "technology." + k + " is superseded by technology.stack — nothing renders it");
   });
 
@@ -355,9 +351,13 @@ if (!arr(C.products) || C.products.length !== 7) {
 (function () {
   var k = C.shared && C.shared.contact;
   if (!k) return fail("shared.contact", "missing — the Contacts tab and the Services contact section both render it");
-  ["name", "email", "photo", "blurb"].forEach(function (f) {
+  ["name", "email", "blurb"].forEach(function (f) {
     if (!str(k[f])) fail("shared.contact", f + " missing");
   });
+  /* The photo is allowed to be empty — the card falls back to initials — but
+     the key must exist so the renderer can test it. */
+  if (typeof k.photo !== "string") fail("shared.contact", "photo must be a string (empty when no confirmed headshot ships)");
+  else if (!k.photo.trim()) warn("shared.contact", "photo is empty — the card renders the initials avatar");
   /* The title is allowed to be empty — it is only printed when a source
      actually carries it — but the key must exist so the renderer can test it. */
   if (typeof k.title !== "string") fail("shared.contact", "title must be a string (empty when no source states it)");
@@ -395,7 +395,15 @@ var raw = fs.readFileSync(path.join(root, "site/data/content.js"), "utf8");
   ["(assumed)", "internal marker"],
   ["ktram@", "personal mailbox — the site prints the practice address only"],
   ["AIDP", "internal abbreviation; write Oracle AI Data Platform"],
-  ["AltraDOC", "third-party product named in a customer's own estate"]
+  ["AltraDOC", "third-party product named in a customer's own estate"],
+  ["modelled", "British spelling — the corpus is US English (modeled)"],
+  ["minimis", "British spelling — the corpus is US English (minimize)"],
+  ["optimis", "British spelling — the corpus is US English (optimize)"],
+  ["organis", "British spelling — the corpus is US English (organize)"],
+  ["normalis", "British spelling — the corpus is US English (normalize)"],
+  ["enquir", "British spelling — the corpus is US English (inquiry)"],
+  ["catalogue", "British spelling — the corpus is US English (catalog)"],
+  ["prioritis", "British spelling — the corpus is US English (prioritize)"]
 ].forEach(function (pair) {
   if (raw.indexOf(pair[0]) !== -1) fail("content.js", 'contains banned string "' + pair[0] + '" (' + pair[1] + ")");
 });
