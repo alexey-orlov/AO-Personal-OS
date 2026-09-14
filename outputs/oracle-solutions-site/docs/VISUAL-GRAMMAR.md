@@ -155,28 +155,31 @@ Render as inline SVG or a CSS flex row: four equal boxes, three connecting arrow
 
 The canonical shape is **Sources → Ingest/Extract → Reason/Optimize → Deliver**. Step 2 and step 3 take the verb the product actually uses.
 
-### 3.3 Component groups — vendor-marked columns
+### 3.3 Solution stack — one accordion, organised by layer
 
-`technology.groups[]` — `{ vendor, label, items: [string] }`.
+`technology.stack[]` — `{ key, label, summary, vendors, items }`. Heading from `sectionLabels.stack`.
 
-| `vendor` | Mark rendered above the group |
-|---|---|
-| `oracle` | `assets/img/oracle-wordmark-white.svg` |
-| `nvidia` | `assets/img/nvidia-wordmark.svg` |
-| `softserve` | `assets/img/softserve-wordmark-white.svg` |
-| `other` | No mark — the `label` alone, in the same slot |
+**This one block replaces three.** The vendor-marked component columns, the four-tier solution-stack table and the integration list were three views of the same architecture, printed one under another; a technical buyer comparing two products had to reconcile them himself. They are now one thing, read top to bottom the way an architect draws it.
 
-A product may have more than one `oracle` group (OCI, Autonomous AI Lakehouse, Fusion Applications). Render each as its own column with the same mark; `label` disambiguates. Items are short strings, one per line, no sentences.
+| Order | `key` | What sits there | Mark |
+|---|---|---|---|
+| 1 | `application` | The SoftServe accelerator / business app | SoftServe |
+| 2 | `ai-engine` | NVIDIA AI-Q · cuOpt · NeMo · NIM-served models | NVIDIA |
+| 3 | `data-platform` | Oracle Autonomous AI Lakehouse · Oracle AI Data Platform · Oracle data services · the source application where it is the system of record | Oracle |
+| 4 | `infrastructure` | OCI compute, GPUs, networking, storage, tenancy | Oracle |
+| 5 | `custom` | Integrations, connectors, signal sources, tenancy specifics — everything set per engagement | SoftServe |
 
-`technology.notUsed[]` — an honest muted line under the columns: what the product deliberately does **not** use. Present on all seven; never dropped, never expanded into a card.
+- **A layer may be omitted, never re-ordered.** The two Lakehouse products carry no `ai-engine`: NVIDIA is not required on that route, and an empty engine row would be a worse answer than its absence. `application`, `data-platform`, `infrastructure` and `custom` are present on all seven.
+- **Row, collapsed:** layer name · one-line `summary` · vendor mark(s) from `vendors` · chevron. **Row, expanded:** the `items`, each tagged **Required** or **Optional** from its boolean `required`, with `note` as a small trailing line. Every layer carries at least one Required item — a layer where nothing is required is not a layer of this stack.
+- **Integrations live in the `custom` layer**, as items carrying `direction: "inbound" | "outbound" | "both"`. Where a product has both, render them as two labelled lines — **Inbound** and **Outbound**, from `sectionLabels.directionInbound` / `directionOutbound` — inside the expanded layer. `direction` is illegal anywhere but `custom`.
+- `technology.notUsed[]` — the honest muted line under the accordion: what the product deliberately does **not** use. Keep it while it still says something the layer summaries do not; where a summary already carries the same fact, fold it in and drop the line rather than printing it twice.
+- `technology.governance?` — the two Lakehouse products. One band, same shape as the ROI band, below the accordion.
 
-`technology.layers[]` is the four-tier layer cake carried forward from the one-pagers. Two products (both Lakehouse) have an empty array — render nothing rather than an empty table. Where present, it belongs below the groups, not above the flow.
+`technology.groups[]`, `technology.layers[]` and `technology.integration[]` are the three superseded shapes. They stay in `content.js` until the implementer confirms no renderer reads them; nothing new should be written into them.
 
-`technology.governance?` — the two Lakehouse products. One band, same shape as the ROI band.
+### 3.4 Security and deployment
 
-### 3.4 Integration and security — two icon-led lists
-
-`technology.integration[]` and `technology.security[]` — both `[{ icon, text }]`. Two equal columns, each item an icon plus one line. Integration items conventionally use `inbound` / `outbound` / `trigger` / `link`; security items use `shield` / `lock` / `eye` / `audit`.
+`technology.security[]` — `[{ icon, text }]`, ≥ 3. An icon-led list below the stack, each item an icon plus one line. Icons by convention `shield` / `lock` / `eye` / `audit`.
 
 ### 3.5 Media row
 
