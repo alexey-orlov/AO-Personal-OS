@@ -1281,7 +1281,7 @@ window.SITE_CONTENT = {
         metricsNote: "Results are modeled simulations against a historical baseline, not measured production outcomes. KPIs measured before/after on proof-of-value data; figures are illustrative, not contractual.",
         roi: {
           icon: "roi",
-          text: "The gain is not a faster dispatcher — it is the same field force doing more jobs per day, with less travel and less waiting. A single-digit percentage improvement in technician productivity is a large absolute number once it runs across every region, which is why the proof measures productivity, capacity utilization and wait time before and after on your own historical data."
+          text: "The gain is not a faster dispatcher — it is the same field force doing more jobs per day, with less travel and less waiting. A single-digit percentage runs across every region."
         },
         features: [
           "Work-zone and availability rules, with skill-based allocation",
@@ -1355,7 +1355,7 @@ window.SITE_CONTENT = {
         }
       },
       technology: {
-        narrative: "Oracle Field Service is the primary data source and the destination: technician, availability and booking data flows into a dedicated AI cluster on Oracle Cloud Infrastructure. NVIDIA cuOpt computes the allocation and the workforce-optimization app presents it to a dispatcher on a live map. Nothing reaches the field until a person approves it, and the approved plan is written back to Oracle Field Service.",
+        narrative: "Oracle Field Service is both the source and the destination. NVIDIA cuOpt computes the allocation on a dedicated AI cluster on Oracle Cloud Infrastructure, and the approved plan is written back — nothing reaches the field until a dispatcher approves it.",
         flow: [
           { step: "Sources", label: "Oracle Field Service: staff, availability, bookings" },
           { step: "Ingest", label: "Demand, skills, work zones and constraints loaded" },
@@ -1570,7 +1570,7 @@ window.SITE_CONTENT = {
         }
       },
       technology: {
-        narrative: "Oracle Autonomous AI Lakehouse is the governed layer: data from Oracle applications arrives through pipelines that ship with the products — no extract engineering — and one or two non-Oracle sources are linked or landed alongside. A small governed data model (business definitions, masking, row-level access) sits over it, and Select AI answers questions against that model in plain language. Everything runs in the customer's own tenancy, and the governed foundation persists after the proof.",
+        narrative: "Oracle Autonomous AI Lakehouse is the governed layer. Data from Oracle applications arrives through pipelines that ship with the products, one or two other sources are linked alongside, and Select AI answers in plain language over that model.",
         flow: [
           { step: "Sources", label: "Oracle applications, plus one or two non-Oracle systems" },
           { step: "Ingest", label: "Prebuilt pipelines switched on; other sources linked or landed" },
@@ -1792,7 +1792,7 @@ window.SITE_CONTENT = {
         }
       },
       technology: {
-        narrative: "Bronze and silver stay where they are: Oracle Autonomous AI Lakehouse becomes the governed gold layer, mounting existing Iceberg catalogs and linking the databases that are not in one, querying data where it lives. A small governed model — business definitions, masking, row-level access — sits on top, and Select AI answers in plain language against it. It is coexistence, not migration: unlike the ERP route, nothing here depends on prebuilt Oracle pipelines, because the join happens at the catalog.",
+        narrative: "Bronze and silver stay where they are. Oracle Autonomous AI Lakehouse becomes the governed gold layer — existing catalogs mounted, other databases linked — and Select AI answers across all of them with no data movement.",
         flow: [
           { step: "Sources", label: "Existing catalogs and databases across clouds and on-prem" },
           { step: "Mount", label: "Catalogs mounted, databases linked — zero data movement" },
