@@ -1133,6 +1133,75 @@ window.SITE_CONTENT = {
         ],
         industries: ["construction", "manufacturing", "professional-services"],
         industriesNote: "Wherever completed units of work — projects, work packages, orders, engagements, campaigns — have to be compared against what was planned for them.",
+        steps: [
+          {
+            n: 1,
+            title: "Ingest the exports",
+            text: "Approved static exports from the available source systems are landed and profiled, with lineage preserved from the file through to the finding.",
+            image: "assets/img/steps/plan-vs-actual-investigation-1.jpg",
+            features: ["Ingest and profile approved static exports, preserving lineage"]
+          },
+          {
+            n: 2,
+            title: "Resolve records to the unit",
+            text: "A configuration-driven mapping layer resolves records to project, zone and unit at the lowest reliable level. Anything unresolved is reported, not dropped.",
+            image: "assets/img/steps/plan-vs-actual-investigation-2.jpg",
+            features: [
+              "Configuration-driven mapping to project, zone and unit level",
+              "Unresolved records reported as coverage gaps, not dropped"
+            ]
+          },
+          {
+            n: 3,
+            title: "Compare plan against actual",
+            text: "Cost and schedule are compared at unit level, and variances, recurring patterns and candidate drivers are assembled as evidence-backed candidates.",
+            image: "assets/img/steps/plan-vs-actual-investigation-3.jpg",
+            features: [
+              "Plan-versus-actual comparison at unit level, on cost and schedule",
+              "Variances, recurring patterns and candidate drivers as evidence-backed candidates"
+            ]
+          },
+          {
+            n: 4,
+            title: "Review the evidence",
+            text: "An evidence layer over the documents backs each finding, and a purpose-built review app presents findings, citations and the coverage-gap report.",
+            image: "assets/img/steps/plan-vs-actual-investigation-4.jpg",
+            features: [
+              "An evidence layer over documents: extraction, embeddings, entity retrieval",
+              "A purpose-built lightweight review app, not a chat interface"
+            ]
+          }
+        ],
+        industryCases: [
+          {
+            industry: "construction",
+            label: "Construction",
+            image: "assets/img/industries/construction.jpg",
+            problem: "Historical package performance is spread across a schedule tool, cost reports, progress reports and scanned contracts, at inconsistent granularity. Nobody can say reliably which work packages deviated from plan, by how much, and what the record says about why.",
+            solution: "The records are reconstructed into a consistent package-level view: plan versus actual on cost and schedule, supported variances, recurring patterns and candidate drivers — each material finding tied to source evidence and validated by your own planning experts. Whatever could not be resolved is reported as a coverage gap."
+          },
+          {
+            industry: "manufacturing",
+            label: "Manufacturing",
+            image: "assets/img/industries/manufacturing.jpg",
+            problem: "Completed orders are measured against what was planned for them only in aggregate. The ledger shows the gap; the systems that could explain it — scheduling, cost, progress reporting — are not joined to it.",
+            solution: "Every order in the sample is compared plan against actual at unit level, and the cost and schedule gaps are traced back to the records that explain them. Findings arrive as evidence-backed candidates, each with its analytical basis and a review status, never as conclusions."
+          },
+          {
+            industry: "professional-services",
+            label: "Professional services",
+            image: "assets/img/industries/professional-services.jpg",
+            problem: "Closed engagements are reviewed one at a time, usually by the person who ran them. Where effort and schedule diverged from the plan is known anecdotally, and the pattern across a portfolio is never assembled.",
+            solution: "The whole sample is swept at once: plan versus actual per engagement, the recurring patterns across them, and the candidate drivers assembled from the systems that hold the effort, the schedule and the outcome. A subject-matter expert validates before anything is acted on."
+          }
+        ],
+        sideFacts: {
+          category: "Deep research & investigation",
+          platform: "Oracle Cloud Infrastructure + NVIDIA",
+          availability: "In preparation",
+          povDuration: "12 + 2 weeks",
+          povPrice: "Scoped per engagement"
+        },
         scope: {
           in: [
             "One anchor portfolio or project, one agreed sample",
@@ -1173,6 +1242,67 @@ window.SITE_CONTENT = {
           { step: "Ingest", label: "Zoned OCI storage with lineage; conformed model and mapping layer" },
           { step: "Reason", label: "Plan-versus-actual comparison, drivers, hybrid retrieval over evidence" },
           { step: "Deliver", label: "Review app: findings, citations and the coverage-gap report" }
+        ],
+        stack: [
+          {
+            key: "application",
+            label: "Application / accelerator",
+            summary: "The SoftServe pack: the conformed model, the comparison, the driver assembly and the review app.",
+            vendors: ["softserve"],
+            items: [
+              { name: "Conformed data model and the mapping layer", required: true },
+              { name: "Plan-versus-actual comparison and driver assembly", required: true },
+              { name: "Context manager and response handler", required: true },
+              { name: "The review app — findings, citations and the coverage-gap report", required: true }
+            ]
+          },
+          {
+            key: "ai-engine",
+            label: "AI engine",
+            summary: "NVIDIA AI-Q with NIM-served models does the reasoning, the embedding and the reranking.",
+            vendors: ["nvidia"],
+            items: [
+              { name: "NVIDIA AI-Q framework", required: true },
+              { name: "NVIDIA NIM serving the Nemotron model family", required: true },
+              { name: "NVIDIA NIM embedding and reranker models", required: true }
+            ]
+          },
+          {
+            key: "data-platform",
+            label: "Data & platform",
+            summary: "Zoned storage with lineage, plus hybrid semantic and lexical retrieval over the evidence base.",
+            vendors: ["oracle"],
+            items: [
+              { name: "Oracle AI Database 26ai with Oracle AI Vector Search for semantic retrieval", required: true },
+              { name: "OCI Search with OpenSearch for lexical retrieval (hybrid)", required: true },
+              { name: "OCI Object Storage, zoned, with lineage preserved", required: true },
+              { name: "Oracle Document Understanding for OCR and layout", required: true },
+              { name: "Oracle AI Data Platform — where the reconciled evidence base is built in the data layer", required: false }
+            ]
+          },
+          {
+            key: "infrastructure",
+            label: "Infrastructure",
+            summary: "GPU compute and the serving plumbing, in your own OCI tenancy.",
+            vendors: ["oracle"],
+            items: [
+              { name: "OCI GPU compute", required: true },
+              { name: "OCI Functions and Streaming, API Gateway, Functions/OKE", required: true }
+            ]
+          },
+          {
+            key: "custom",
+            label: "Custom configuration",
+            summary: "Source mapping, the unit identifier, variance rules and the evidence thresholds.",
+            vendors: ["softserve"],
+            items: [
+              { name: "Approved static exports — schedule, cost and forecast reporting, progress reporting", required: true, direction: "inbound" },
+              { name: "Layouts, contracts, bills of quantity and amendments", required: true, direction: "inbound" },
+              { name: "The unit-level performance view and its evidence pack, in the review app", required: true, direction: "outbound" },
+              { name: "A unified work-unit identifier across the exported datasets", required: true, note: "The one hard input requirement" },
+              { name: "Variance rules, evidence thresholds and the coverage-gap report", required: true }
+            ]
+          }
         ],
         groups: [
           { vendor: "oracle", label: "Oracle Cloud Infrastructure", items: ["Object Storage (zoned, with lineage)", "Document Understanding for OCR and layout", "Functions and Streaming, API Gateway, Functions/OKE", "GPU compute"] },
