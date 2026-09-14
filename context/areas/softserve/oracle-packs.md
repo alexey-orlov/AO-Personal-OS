@@ -14,6 +14,20 @@ _source files: SoftServe OneDrive `Projects/Oracle/Packs/` → [registry](../../
 - **Naming is unsettled on two of three packs**: folder, filename and tracker row disagree. Externally-facing artifacts are the ones to trust. **Pack 3 settled 2026-09-11 as "Account Insights"** (Alex's call) — the one-pager PDF still carries the old name. The mini-site now forces the same call on pack 2: it ships as **"Large Docs Extraction and Review"** while the sales artifacts say "…and Validation".
 - **The stream outgrew "three packs" on 2026-09-14.** The mini-site presents **seven** products in three categories — the three tracked packs plus four that have no packaging artifacts of their own: Case evidence collection, Plan vs actual investigation, Cross-system ERP Q&A, Business metrics Q&A. The last two are the [AI Lakehouse Quick Start](oracle.md) use cases, so the site is the first surface carrying **both** motions (NVIDIA packs + Lakehouse) as one catalog. *(my read: the three categories read as a customer-facing compression of the 7-L1 [agentic pattern map](oracle.md).)*
 
+## The customer-facing mini-site (v1, built 2026-09-13/14)
+
+_`AO-Personal-OS/outputs/oracle-solutions-site/` — served root `site/`; static, no build step, hash-routed SPA. Docs beside it: `CONFIG.md` · `SCHEMA.md` · `PROVENANCE.md` · `VISUAL-GRAMMAR.md`. Private preview (sign-in required): https://claude.ai/code/artifact/41e4f3b6-47d9-4ef2-af99-99c40c02b89b. Alex's brief: a master page promoting SoftServe's Oracle-based solutions **both internally and externally**, sent to customers as a link and opened live by SoftServe and Oracle sellers during a call. (chat, 2026-09-14)_
+
+- **Shape:** Overview (hero → products → customer evidence → services teaser) · **Products marketplace** (facets: OCI + NVIDIA / Oracle AI Data Platform / Oracle Autonomous AI Lakehouse / Other, an "Available on Oracle Marketplace" checkbox, a category filter and search) · **seven product pages on one identical tab set** (Overview · Technology · POV Jumpstart · Request a demo · **For sellers**, gated on a work-email domain — `softserveinc.com` | `oracle.com`) · a **Services** page on the Oracle dedicated practice, closing on a contact form.
+- **The seven products, by category:** *Deep research* — Account Insights · Case evidence collection · Plan vs actual investigation. *Processing pipelines* — Large Docs Extraction and Review. *Data analysis & optimization* — Workforce optimization · Cross-system ERP Q&A · Business metrics Q&A.
+- **Locked v1 decisions:**
+  - **No customer is named anywhere**, including in the data files. The workforce-optimization business case ships anonymized as *"a global home-appliance manufacturer"* with external-safe figures only: **83% of 12 simulations positive · median +4.5% jobs/technician/day · 15–20% dispatcher productivity · ~5× three-year ROI**, no € figures. *(The site's sources name this case **BSH**, where this wiki records the WfO proof point as **Bosch**/cuOpt — one confirmation worth having before either label is quoted.)*
+  - **Tier prices are published**, carrying the one-pagers' own disclaimers with them.
+  - **Every optional control is URL-gated**: demo-video, Marketplace, success-story and seller-material buttons render only once a URL is pasted into `site/data/config.js`. None exist in any source today, so none of those controls ship — no placeholders, no greyed-out buttons.
+  - **Forms fall back to `mailto:RnDrequest@softserveinc.com`** until a form endpoint is configured — the same alias the section deck uses and that is still unverified (open loop below).
+  - **Hero images are SoftServe deck photography**, uniformly graded; the deck imagery is AI-generated art commissioned inside those decks, so **rights confirmation from the deck owner is a pre-launch gate** (`docs/PROVENANCE.md` §11.1).
+- **Not in the six-artifact tracker.** The site is a new artifact class the packaging checklist has no row for, and it covers four products the tracker does not list at all.
+
 ## The internal section deck — `Oracle AI Packages - section slides.pptx` (2026-09-11)
 
 _10 slides, SoftServe OneDrive `Monthly AI products overviews/AI Solutions review - Sep/`, beside `WF_draft.pptx` and the parent deck **"SoftServe AI Repeatable IP-Based Customer Stories"**. Audience: SoftServe delivery + sales. Built on the parent deck's own master (master3 / `Title-1Column`) so the slides paste straight in — the parent already carries earlier drafts of them as its slides 33–41._
@@ -88,6 +102,11 @@ _`Packs/Account Insights/AI Signal-Impact Engine - Accelerator One-pager.pdf`, 3
 ## Open loops
 
 **Mine**
+- **The mini-site is blocked on Alex's inputs, not on build** (full list in its `docs/PROVENANCE.md`). Grouped:
+  - *Links and files that turn controls on:* Oracle Marketplace listing URLs (**research found none exist** — consistent with the tracker's To-do rows) · demo-video URLs (WfO, Large Docs, Account Insights) · success-story files (WfO, Large Docs) · per-product OneDrive share links for sales decks and one-pagers (`ms365` was not authenticated during the build).
+  - *Deployment:* the public contact alias · the form endpoint / lead route · the hosting subdomain.
+  - *Policy calls:* may customer names ever be shown · may package prices be public · rights confirmation for the deck imagery.
+  - *Product facts:* name confirmations — "Case evidence collection" vs "Complaint evidence assembly", and "Large Document Extraction and **Review**" vs "…and **Validation**" · the Large-Doc NVIDIA engine (**AI-Q or NeMo Retriever**) · what the two Q&A products actually map to · what fills the empty **Oracle AI Data Platform** and **Other** facets.
 - **Provide the doc-pack one-pager HTML to Vlad** (tracker item, due 15.09.26) — with the deck and PDF already built, confirm what is still owed.
 - **Feature lists due 15.09.26** for Workforce Optimization and Large Document Extraction — the tracker's only dated commitments.
 - **Rename the pack-3 one-pager PDF** — the name is settled as **Account Insights**, but `AI Signal-Impact Engine - Accelerator One-pager.pdf` still carries the old one, and its thumbnail appears on the section deck. Apply to folder, file and tracker row before anything goes to Oracle.
