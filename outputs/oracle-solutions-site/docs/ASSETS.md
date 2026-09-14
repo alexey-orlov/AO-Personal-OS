@@ -198,7 +198,7 @@ or contract value from the Bosch business case ships with the name.
 |---|---|---|---|
 | `bosch.png` | 720 × 161, 21 KB | Bosch supergraphic + wordmark, **all-white**, transparent | `WF_draft.pptx` (Monthly AI product overviews / AI Solutions review – Sep), `ppt/media/image7.png` — 960 × 216 transparent PNG of the official brand lockup |
 | `riyadh-air.svg` | 14.8 KB | Riyadh Air roundel + Latin/Arabic wordmark, **all-white**, vector | `NEW_09.06 Riyadh Air – Oracle – SoftServe PoC Demo.pptx` (Projects/Oracle/Customers/RiyahdAir), `ppt/media/image15.svg` — the deck's own vector logo, single-fill `#250852` |
-| `riyadh-air.png` | 720 × 247, 42 KB | raster fallback of the same, transparent | rendered from `riyadh-air.svg` |
+| `riyadh-air.png` | 720 × 247, 25 KB | raster fallback of the same, transparent | rendered from `riyadh-air.svg` |
 
 **Treatment.** Both are reduced to a **single white ink** so they sit on the dark
 surface the same way the shipped `softserve-logo-white.svg` and
