@@ -272,6 +272,60 @@ if (!arr(C.products) || C.products.length !== 7) {
   if (vendors.indexOf("oracle") === -1) fail(w, "technology.groups has no Oracle column");
   if (!arr(t.notUsed)) fail(w, "technology.notUsed missing (may be empty, must exist)");
 
+  /* E3 · the layered solution stack */
+  if (!arr(t.stack) || t.stack.length < 4 || t.stack.length > 5) {
+    fail(w, "technology.stack must hold 4–5 layers, got " + (arr(t.stack) ? t.stack.length : "none"));
+  } else {
+    var lastIdx = -1;
+    var sawSoftServe = false;
+    t.stack.forEach(function (layer, i) {
+      var lw = w + ".stack[" + i + "]";
+      var idx = STACK_KEYS.indexOf(layer.key);
+      if (idx === -1) return fail(lw, 'key "' + layer.key + '" is not one of ' + STACK_KEYS.join(" / "));
+      if (idx <= lastIdx) fail(lw, 'layer "' + layer.key + '" is out of order — the stack renders ' + STACK_KEYS.join(" → "));
+      lastIdx = idx;
+      ["label", "summary"].forEach(function (k) {
+        if (!str(layer[k])) fail(lw, k + " missing");
+      });
+      if (str(layer.summary) && sentences(layer.summary) > 1) fail(lw, "summary is " + sentences(layer.summary) + " sentences (the accordion row holds one line)");
+      if (!arr(layer.vendors) || !layer.vendors.length) fail(lw, "vendors missing — every layer carries at least one vendor mark");
+      else layer.vendors.forEach(function (vn) {
+        if (STACK_VENDORS.indexOf(vn) === -1) fail(lw, 'vendor "' + vn + '" is not oracle / nvidia / softserve');
+        if (vn === "softserve") sawSoftServe = true;
+      });
+      if (!arr(layer.items) || !layer.items.length) return fail(lw, "items empty");
+      var required = 0;
+      layer.items.forEach(function (item, j) {
+        var iw = lw + ".items[" + j + "]";
+        if (!str(item.name)) fail(iw, "name missing");
+        if (typeof item.required !== "boolean") fail(iw, "required must be a boolean — Required / Optional is a tag, not a guess");
+        else if (item.required) required += 1;
+        if (item.direction !== undefined && DIRECTIONS.indexOf(item.direction) === -1) {
+          fail(iw, 'direction "' + item.direction + '" is not inbound / outbound / both');
+        }
+        if (item.direction !== undefined && layer.key !== "custom") {
+          fail(iw, "direction belongs on the custom layer — that is where integrations render as Inbound / Outbound lines");
+        }
+      });
+      if (!required) fail(lw, "no Required item — a layer with nothing required is not a layer of this stack");
+    });
+    var keys = t.stack.map(function (l) { return l.key; });
+    ["application", "data-platform", "infrastructure", "custom"].forEach(function (k) {
+      if (keys.indexOf(k) === -1) fail(w, 'technology.stack has no "' + k + '" layer');
+    });
+    if (!sawSoftServe) fail(w, "technology.stack carries no SoftServe vendor mark");
+    var custom = t.stack.filter(function (l) { return l.key === "custom"; })[0];
+    if (custom && arr(custom.items)) {
+      var dirs = custom.items.map(function (x) { return x.direction; }).filter(Boolean);
+      if (dirs.indexOf("inbound") === -1 && dirs.indexOf("both") === -1) {
+        fail(w, "stack custom layer names no inbound integration");
+      }
+      if (dirs.indexOf("outbound") === -1 && dirs.indexOf("both") === -1) {
+        fail(w, "stack custom layer names no outbound integration");
+      }
+    }
+  }
+
   /* 3.4 integration + security */
   ["integration", "security"].forEach(function (k) {
     if (!arr(t[k]) || t[k].length < 3) return fail(w, "technology." + k + " needs ≥3 entries");
@@ -304,6 +358,37 @@ if (!arr(C.products) || C.products.length !== 7) {
   if (!p.tile || !arr(p.tile.outcomes) || p.tile.outcomes.length !== 3) fail(w, "tile.outcomes must hold exactly 3");
 });
 
+/* ---- E5 · the contact card ---- */
+(function () {
+  var k = C.shared && C.shared.contact;
+  if (!k) return fail("shared.contact", "missing — the Contacts tab and the Services contact section both render it");
+  ["name", "email", "photo", "blurb"].forEach(function (f) {
+    if (!str(k[f])) fail("shared.contact", f + " missing");
+  });
+  /* The title is allowed to be empty — it is only printed when a source
+     actually carries it — but the key must exist so the renderer can test it. */
+  if (typeof k.title !== "string") fail("shared.contact", "title must be a string (empty when no source states it)");
+  else if (!k.title.trim()) warn("shared.contact", "title is empty — the card renders name + email only");
+  if (k.email !== "oracle@softserveinc.com") {
+    fail("shared.contact", 'email must be the practice mailbox "oracle@softserveinc.com", got "' + k.email + '"');
+  }
+  if (str(k.blurb) && sentences(k.blurb) > 1) fail("shared.contact", "blurb is more than one line");
+  if (str(k.photo)) {
+    if (!/^assets\/img\/people\/[a-z0-9-]+\.(jpg|jpeg|png|webp)$/.test(k.photo)) {
+      fail("shared.contact", 'photo "' + k.photo + '" is not assets/img/people/<name>.<ext>');
+    } else checkAsset("shared.contact", "contact photo", k.photo);
+  }
+  if (k.linkedin !== undefined && !/^https:\/\/([a-z]{2,3}\.)?linkedin\.com\//.test(k.linkedin)) {
+    fail("shared.contact", "linkedin, when present, must be a public linkedin.com URL — omit the key otherwise");
+  }
+  var tabs = (C.shared.productTabs || []).map(function (x) { return x.id; });
+  if (tabs.indexOf("contacts") === -1) fail("shared.productTabs", 'no "contacts" tab — the demo tab was renamed in E5');
+  if (tabs.indexOf("demo") !== -1) fail("shared.productTabs", 'the "demo" tab id is retired; /demo redirects to /contacts');
+  if (!str(C.forms.demo && C.forms.demo.secondaryHeading)) {
+    fail("forms.demo", "secondaryHeading missing — the form under the contact card is headed separately");
+  }
+})();
+
 /* ---- banned strings, site-wide ---- */
 var raw = fs.readFileSync(path.join(root, "site/data/content.js"), "utf8");
 [
@@ -314,7 +399,10 @@ var raw = fs.readFileSync(path.join(root, "site/data/content.js"), "utf8");
   ["Riyadh Air", "uncleared customer name"],
   ["DHL", "uncleared customer name"],
   ["TODO", "internal marker"],
-  ["(assumed)", "internal marker"]
+  ["(assumed)", "internal marker"],
+  ["ktram@", "personal mailbox — the site prints the practice address only"],
+  ["AIDP", "internal abbreviation; write Oracle AI Data Platform"],
+  ["AltraDOC", "third-party product named in a customer's own estate"]
 ].forEach(function (pair) {
   if (raw.indexOf(pair[0]) !== -1) fail("content.js", 'contains banned string "' + pair[0] + '" (' + pair[1] + ")");
 });
