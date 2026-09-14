@@ -2054,7 +2054,7 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 }
 
 .contact-card--form { margin-bottom: 2rem; }
-.contact-card--lead { max-width: 42rem; }
+.contact-card--lead { max-width: 48rem; }
 
 .contact-photo {
   position: relative;
