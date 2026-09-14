@@ -212,7 +212,8 @@ window.SITE_CONTENT = {
 
     evidenceIntro: {
       title: "PROOF",
-      body: "Two of these applications have been through a delivered proof of value. We say so where it is true, and we say what is still in preparation where it is not."
+      body: "Two of these applications have been through a delivered proof of value. We say so where it is true, and we say what is still in preparation where it is not.",
+      cta: { label: "How we measure it, and what is still in preparation", route: "#/services#proof" }
     },
 
     evidence: [
@@ -1762,8 +1763,8 @@ window.SITE_CONTENT = {
           { title: "Today", body: "Data lives in AWS, Azure, Google and on-prem databases. Each platform has its own catalog, its own security model, its own team. So a cross-cloud question — group revenue by product, all regions, today — takes a data engineer, three extracts and a week. AI initiatives stall: no single system sees the whole picture." },
           { title: "Tomorrow", body: "One governed engine mounts the catalogs you already have — AWS Glue, Databricks Unity, Snowflake — and links your databases, querying data where it lives. No migration. On top: an AI assistant answers plain-English questions across all of it, and obeys your access rules. The platform runs inside whichever cloud you prefer; your apps stay where they are." },
           { title: "Why the answer layer moves", body: "The answer layer moves to your data — your data does not move to it." },
-          { title: "TIME — \"Every answer is a project.\"", body: "The BI backlog runs in weeks, so the business answers itself in Excel. Same KPI, two dashboards, two different numbers — nobody trusts either. Every acquisition and every new app adds an island nobody has integrated." },
-          { title: "TRUST — \"AI is stuck in security review.\"", body: "Pilots die in review: no one can prove what the model can see or show. Access rules live app by app; AI cuts across all of them at once. When auditors ask who saw what through AI, there is no answer today." },
+          { title: "TIME — every answer is a project", body: "The BI backlog runs in weeks, so the business answers itself in Excel. Same KPI, two dashboards, two different numbers — nobody trusts either. Every acquisition and every new app adds an island nobody has integrated." },
+          { title: "TRUST — AI is stuck in security review", body: "Pilots die in review: no one can prove what the model can see or show. Access rules live app by app; AI cuts across all of them at once. When auditors ask who saw what through AI, there is no answer today." },
           { title: "Business manager", body: "Ask revenue, churn or inventory questions in plain language; get charts back from governed data, no report request." },
           { title: "Merchandiser", body: "Sales by SKU, region and promotion compared on demand." }
         ],
