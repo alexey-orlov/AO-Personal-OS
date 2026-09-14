@@ -166,14 +166,29 @@ Paste a real listing URL and four things appear together, on the next reload:
 
 There is deliberately no separate boolean. A badge claiming a listing that has no URL behind it is a claim the site cannot honour, so the URL is the single switch.
 
+### `video`
+
+A boolean — the only non-URL field in a product block. **It decides whether the hero carries a demo frame at all**, which is also the switch between the hero's two layouts.
+
+```js
+video: true,
+```
+
+| `video` | `videoUrl` | Product hero |
+|---|---|---|
+| `false` | `""` | Single column: text over the hero background image. No video frame, no poster, no greyed play button, no "coming soon" line. |
+| `true` | `""` — today on the three | Two columns: text left, a 16:9 media frame right — poster, teal play button, caption "Watch the demo". Clicking it opens a small panel: the product name, the line *"The demo recording is being prepared."*, and a **"Request a live demo"** button that goes to that product's Request-a-demo tab and closes the panel. Escape and the close button work as on any modal. |
+| `true` or `false` | a URL | Same two-column frame; clicking it plays the video in a modal. A URL turns the frame on by itself, so a product whose video arrives before anyone edits this flag still gets its frame. |
+
+In every case where the frame renders, the frame *is* the watch affordance, so the separate secondary "Watch the demo" button drops out of the CTA row and **"Request a demo"** stays the only primary CTA.
+
+`true` today on `workforce-optimization`, `large-document-extraction` and `account-insights` — the three that will have a recording. `false` on the other four.
+
+**Why a boolean here when `marketplaceUrl` has none.** A badge claiming a marketplace listing that does not exist is a claim about a third party the site cannot honour, and nothing behind the click can repair it. A demo frame is a promise about our own recording, and the panel behind the click keeps it honest: it says the recording is being prepared and hands over the thing that *is* available, a live demo. The flag is therefore only for a video someone is actually making — if a recording stops being planned, set `video: false` and the frame goes, rather than leaving a promise on the page.
+
 ### `videoUrl`
 
-A demo video. **This single field switches the product hero between its two layouts.**
-
-| Value | Hero layout |
-|---|---|
-| `""` (empty — today) | Single column: text over the hero background image. No video frame, no poster, no greyed play button, no "coming soon" line. |
-| A URL | Two columns: text left, a 16:9 media frame right showing a poster image with a play button and the caption "Watch the demo". Clicking the frame opens the video in a modal. The frame *is* the watch affordance, so the separate secondary "Watch the demo" button drops out of the CTA row; **"Request a demo"** stays the primary CTA. |
+The demo video itself. Empty while the recording is being made; paste the link when it lands and the same frame stops opening the pending panel and starts playing the video. Nothing else needs to change — leave `video: true` where it is.
 
 ```js
 videoUrl: "https://www.youtube.com/watch?v=…",
@@ -185,7 +200,7 @@ Expected to be filled first for `workforce-optimization`, `large-document-extrac
 
 ### `videoPoster`
 
-The still image shown inside that media frame before the video plays. **Only ever used when `videoUrl` is non-empty** — on a product with no video it is dead weight, which is why it is safe to leave empty everywhere.
+The still image shown inside that media frame. **Only ever used where the frame renders** — that is, where `video` is `true` or `videoUrl` is set; on a product with neither it is dead weight, which is why it is safe to leave empty everywhere.
 
 ```js
 videoPoster: "assets/img/posters/workforce-optimization.jpg",
@@ -199,7 +214,9 @@ The renderer resolves the poster in this order, first non-empty wins:
 2. **The YouTube thumbnail** — `https://img.youtube.com/vi/<id>/maxresdefault.jpg`, derived automatically when `videoUrl` is a YouTube link.
 3. **The product's own hero image** — `products[].hero.image.file` in `content.js`.
 
-So a YouTube demo needs nothing here at all. Set `videoPoster` when the auto-derived thumbnail is a bad frame, when the video is on Vimeo or Stream (no public thumbnail), or when you want a designed still rather than a screenshot.
+So a YouTube demo needs nothing here at all, and a frame waiting for its recording (`video: true`, no URL) falls to step 3 and shows the product's hero photograph, which is why it looks finished rather than empty. The backdrop behind the hero is held a stop darker on this layout so the frame still reads as a card and not as a hole cut in the background.
+
+Set `videoPoster` when the auto-derived thumbnail is a bad frame, when the video is on Vimeo or Stream (no public thumbnail), when you want a designed still rather than a screenshot, or when a pending frame would be better with a product screenshot than with the hero photograph.
 
 **If the poster cannot be loaded, it is dropped rather than shown broken.** The media frame keeps its veil, teal play button and caption over the inset panel, which already reads as a deliberate frame. One case needs naming: YouTube has `maxresdefault.jpg` only for videos uploaded above 720p, and for the rest it answers `200` with a 120×90 grey stand-in instead of a `404`. The renderer therefore treats a 120-pixel-wide YouTube thumbnail as a miss, retries `hqdefault.jpg` (which exists for every real video), and drops the poster only if that fails too. Nothing about this reaches the console.
 
@@ -302,7 +319,7 @@ The grade recipe and its constants are in `PROVENANCE.md` §11.1. Do not compens
 ## 4. Adding an eighth product
 
 1. Add the product object to `products[]` in `content.js` (see `SCHEMA.md` for every field).
-2. Add a matching `products["<new-slug>"]` block to `config.js` with all five keys (`marketplaceUrl`, `videoUrl`, `videoPoster`, `successStoryUrl`, `materials`).
+2. Add a matching `products["<new-slug>"]` block to `config.js` with all six keys (`marketplaceUrl`, `video`, `videoUrl`, `videoPoster`, `successStoryUrl`, `materials`). `video` must be a real boolean — `check-grammar.js` rejects a missing one and a quoted `"false"`, which would be truthy and turn the frame on.
 3. If it lands on a technology facet that currently has no products, nothing else is needed — the facet is already declared and will stop rendering its empty state once a product carries it.
 
 If the config block is missing, the product page still renders; every optional control simply stays hidden, exactly as if all its URLs were empty.
