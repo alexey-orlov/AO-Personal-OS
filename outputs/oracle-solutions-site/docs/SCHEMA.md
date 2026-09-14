@@ -78,6 +78,10 @@ Flat map of reusable strings: `kpiTile`, `kpiTileTargets`, `packageTable`, `lake
 | `engageLink` | `{ label, route }` | The single link out of each POV tab. |
 | `productTabs` | `[{ id, label, locked? }]` | Tab bar order for every product page: `overview`, `technology`, `pov`, `demo`, `sellers`. `locked: true` draws the lock icon. The `id` is also the optional third route segment: `#/products/<slug>/<id>`. |
 | `ladderColumns` | `[string]` | Column headers for the three-tier ladder. |
+| `heroAsideTitle`, `heroAsideFootLabel` | `string` | Carried for reference; no surface renders them since the product hero became a single-column block over its background image. |
+| `videoCaption` | `string` | Caption printed on the hero video frame, and the label of the fallback "watch" button. |
+| `industryLabels` | map | The sixteen fixed industry keys → display label. A product's `overview.industries[]` holds bare keys; the renderer looks the label up here and the icon up as `industry-<key>`. No product may use a key absent from this map. |
+| `sectionLabels` | map | The standing headings of the visual grammar — the Overview, Technology and POV section titles that are the same on all seven products (`metrics`, `roi`, `features`, `industries`, `scopeIn`, `scopeOut`, `moreDetail`, `moreDetailFeatures`, `architecture`, `flow`, `components`, `stack`, `notUsed`, `integration`, `security`, `povFact*`, `deliverables`, `pricing`, `terms`, `matrix`, `ladder`, `povScopeIn`, `povScopeOut`, `povRollout`, `povPhases`, `povMeasured`). Product-specific headings stay in the product object. |
 | `materialStates` | map | `state` value → button label for seller materials. |
 
 ---
