@@ -253,9 +253,10 @@ window.SITE_CONTENT = {
         id: "extraction-proof",
         band: 1,
         label: "PROOF OF VALUE",
-        customer: "An international airline",
+        customer: "Riyadh Air",
+        logo: "assets/img/logos/riyadh-air.svg",
         industry: "Aviation — ground-handling contract management",
-        body: "Ground-handling contract rates were keyed into a cost-management system by hand — 60–100-page agreements read page by page, 3–5 days per contract. With the extraction app on OCI (NVIDIA AI-Q), reviewers now validate AI-extracted rates side-by-side with the source PDF — every value cited to its page — and export in minutes.",
+        body: "Riyadh Air keyed ground-handling contract rates into a cost-management system by hand — 60–100-page agreements read page by page, 3–5 days per contract. With the extraction app on OCI (NVIDIA AI-Q), reviewers now validate AI-extracted rates side-by-side with the source PDF — every value cited to its page — and export in minutes.",
         metrics: [
           { value: "3–5 days → 5–15 min", label: "to extract a 60–100-page ground-handling contract end to end" },
           { value: "up to −20%", label: "targeted reduction in manual data-entry effort (proof of value)" }
@@ -2712,7 +2713,7 @@ window.SITE_CONTENT = {
         "Proof of value and Scaling are both optional. A customer who is already bought in can start at Roll-out; a customer whose process is uniform everywhere may never need Scaling.",
         "Integration means background data exchange over existing APIs — not a new screen inside an Oracle application."
       ],
-      ladderFootnote: "Framed scope, flexible add-ons. Each package’s price and timing are set by specific constraints. Custom features beyond the frame are added for additional price and time.",
+      ladderFootnote: "Figures are illustrative and confirmed in scoping.",
       howAPovRuns: {
         title: "HOW A PROOF OF VALUE RUNS",
         steps: [

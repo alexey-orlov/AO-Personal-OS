@@ -39,6 +39,20 @@ var TIERS = ["proof-of-value", "rollout", "scaling"];
 var STACK_KEYS = ["application", "ai-engine", "data-platform", "infrastructure", "custom"];
 var STACK_VENDORS = ["oracle", "nvidia", "softserve"];
 var DIRECTIONS = ["inbound", "outbound", "both"];
+/* G: the Jumpstart block is the same three pillars on all seven, in this order. */
+var PILLARS = ["fast", "low-risk", "tangible"];
+var NEXT_TIERS = ["Integration", "Scale"];
+var CAP_STATES = ["supported", "roadmap"];
+/* E: a one-liner says what the product does, for whom, with what outcome. It is
+   not the place for the packaging story — that is what the Jumpstart tab is. */
+var PACKAGING_PHRASES = [
+  "packaged from proof of value",
+  "from proof of value to enterprise scale",
+  "fixed-price",
+  "fixed price",
+  "quick start",
+  "proof of value to enterprise"
+];
 
 var failures = [];
 var warnings = [];
@@ -91,6 +105,15 @@ if (!arr(C.products) || C.products.length !== 7) {
   ["slug", "name", "oneLiner"].forEach(function (k) {
     if (!str(p[k])) fail(w, k + " missing");
   });
+  if (str(p.oneLiner)) {
+    var lowOne = p.oneLiner.toLowerCase();
+    PACKAGING_PHRASES.forEach(function (phrase) {
+      if (lowOne.indexOf(phrase) !== -1) {
+        fail(w, 'oneLiner carries the packaging phrase "' + phrase + '" — the one-liner says what the product does, not how it is sold');
+      }
+    });
+  }
+  if (p.pov !== undefined) fail(w, "pov is superseded by jumpstart — nothing renders it");
   if (!arr(p.tags) || !p.tags.length) fail(w, "tags missing");
   if (!p.hero) fail(w, "hero missing"); else checkHeroImage(w, p.hero.image);
   if (!CFG.products[p.slug]) fail(w, "no matching SITE_CONFIG.products entry");
