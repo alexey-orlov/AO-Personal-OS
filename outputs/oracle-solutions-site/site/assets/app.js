@@ -655,6 +655,15 @@
 
   window.PAGES = window.PAGES || {};
 
+  /* A hero whose image cannot be fetched falls back to the gradient alone,
+     never to a broken-image glyph over the headline. */
+  window.addEventListener("error", function (event) {
+    var node = event.target;
+    if (node && node.tagName === "IMG" && node.classList.contains("hero-bg-img")) {
+      node.remove();
+    }
+  }, true);
+
   document.documentElement.classList.add("js-reveal");
   renderNav();
   renderFooter();
