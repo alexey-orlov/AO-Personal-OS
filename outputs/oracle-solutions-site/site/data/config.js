@@ -9,6 +9,7 @@ window.SITE_CONFIG = {
   products: {
     "account-insights": {
       marketplaceUrl: "",
+      video: true,
       videoUrl: "",
       videoPoster: "",
       successStoryUrl: "",
@@ -22,6 +23,7 @@ window.SITE_CONFIG = {
     },
     "case-evidence-collection": {
       marketplaceUrl: "",
+      video: false,
       videoUrl: "",
       videoPoster: "",
       successStoryUrl: "",
@@ -34,6 +36,7 @@ window.SITE_CONFIG = {
     },
     "plan-vs-actual-investigation": {
       marketplaceUrl: "",
+      video: false,
       videoUrl: "",
       videoPoster: "",
       successStoryUrl: "",
@@ -46,6 +49,7 @@ window.SITE_CONFIG = {
     },
     "large-document-extraction": {
       marketplaceUrl: "",
+      video: true,
       videoUrl: "",
       videoPoster: "",
       successStoryUrl: "",
@@ -59,6 +63,7 @@ window.SITE_CONFIG = {
     },
     "workforce-optimization": {
       marketplaceUrl: "",
+      video: true,
       videoUrl: "",
       videoPoster: "",
       successStoryUrl: "",
@@ -72,6 +77,7 @@ window.SITE_CONFIG = {
     },
     "cross-system-erp-qa": {
       marketplaceUrl: "",
+      video: false,
       videoUrl: "",
       videoPoster: "",
       successStoryUrl: "",
@@ -85,6 +91,7 @@ window.SITE_CONFIG = {
     },
     "business-metrics-qa": {
       marketplaceUrl: "",
+      video: false,
       videoUrl: "",
       videoPoster: "",
       successStoryUrl: "",

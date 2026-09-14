@@ -113,6 +113,10 @@ window.SITE_CONTENT = {
     heroAsideTitle: "What you get",
     heroAsideFootLabel: "Proof of value",
     videoCaption: "Watch the demo",
+    videoPending: {
+      body: "The demo recording is being prepared.",
+      cta: "Request a live demo"
+    },
     industryLabels: {
       "manufacturing": "Manufacturing",
       "logistics": "Logistics & supply chain",
