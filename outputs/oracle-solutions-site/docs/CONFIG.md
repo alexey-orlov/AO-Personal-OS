@@ -26,6 +26,7 @@ window.SITE_CONFIG = {
   products: {
     "<slug>": {
       marketplaceUrl: "",
+      video: false,
       videoUrl: "",
       videoPoster: "",
       successStoryUrl: "",
@@ -36,6 +37,8 @@ window.SITE_CONFIG = {
 ```
 
 **The rule that governs every URL field: an empty string means the control is not rendered at all.** No placeholder, no greyed-out button, no "coming soon" line in its place. The page simply does not show it. Paste a URL and the control appears on the next reload.
+
+`video` is the one field that is not a URL, and the one deliberate exception to that rule — §3 says what it does and why it exists.
 
 ---
 
