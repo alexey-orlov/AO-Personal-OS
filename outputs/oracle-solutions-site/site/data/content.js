@@ -146,7 +146,6 @@ window.SITE_CONTENT = {
       metrics: "Metrics improved",
       metricsPlanned: "What the proof of value measures",
       roi: "ROI",
-      features: "Key features",
       industries: "Industries",
       scope: "Scope",
       scopeIn: "In scope",
@@ -155,10 +154,8 @@ window.SITE_CONTENT = {
       moreDetailFeatures: "Every feature, in full",
       architecture: "Architecture",
       flow: "How it runs",
-      components: "Components",
       stack: "Solution stack",
       notUsed: "Not used by this application",
-      integration: "Integration",
       security: "Security and deployment",
       howItWorks: "How it works",
       industryCases: "Industry use cases",
@@ -634,24 +631,7 @@ window.SITE_CONTENT = {
             ]
           }
         ],
-        groups: [
-          { vendor: "oracle", label: "Oracle Cloud Infrastructure", items: ["Dedicated AI cluster", "Object storage", "Landing zone"] },
-          { vendor: "nvidia", label: "NVIDIA", items: ["AI-Q retrieval baseline — vector search and reranking"] },
-          { vendor: "oracle", label: "Oracle AI Data Platform", items: ["Optional — sources landed and curated in a lakehouse, dossiers run as scheduled workflows"] },
-          { vendor: "softserve", label: "SoftServe application layer", items: ["Filter, fan-out, reason and score pipeline", "Reviewer UI with citations and reasoning", "Evaluation harness", "CRM export connector"] }
-        ],
         notUsed: ["Oracle Autonomous AI Lakehouse"],
-        layers: [
-          { layer: "OCI infrastructure + GPUs", providedBy: "Oracle", body: "Oracle OCI with NVIDIA GPUs — compute, storage, networking, security" },
-          { layer: "NVIDIA AI-Q engine", providedBy: "NVIDIA", body: "The retrieval baseline — vector search and reranking" },
-          { layer: "Accelerator business app", providedBy: "Oracle + SoftServe", body: "Pre-built, reusable pack: filter, fan-out, reason, score, reviewer UI" },
-          { layer: "Custom configuration", providedBy: "SoftServe", body: "Signal sources, client field mapping, the service-line catalog, scoring rubric, CRM export" }
-        ],
-        integration: [
-          { icon: "inbound", text: "In: signal feeds (news, filings, disclosures), commercial data feeds, first-party CRM records and account framing, a capability/service-line catalog, public filings, the in-scope account list" },
-          { icon: "outbound", text: "Out: one JSON per affected account — account, trigger, article summary, impact reasoning, and an opportunities array with each item flagged as opportunity or risk — into the CRM or sales system" },
-          { icon: "trigger", text: "Trigger: scheduled scan by default, plus manual submit" }
-        ],
         security: [
           { icon: "shield", text: "Runs in the customer’s own OCI tenancy." },
           { icon: "lock", text: "The reviewer gate is architectural, not optional: nothing is pushed downstream unapproved." },
@@ -967,24 +947,7 @@ window.SITE_CONTENT = {
             ]
           }
         ],
-        groups: [
-          { vendor: "oracle", label: "Oracle Cloud Infrastructure", items: ["Tenancy, object storage and the AI cluster", "Oracle enterprise AI services for multi-tool orchestration over live systems"] },
-          { vendor: "nvidia", label: "NVIDIA", items: ["AI-Q Blueprint for multi-document reasoning and output generation"] },
-          { vendor: "oracle", label: "Oracle AI Data Platform", items: ["Optional — where the evidence base is reconciled in the data layer rather than at query time"] },
-          { vendor: "softserve", label: "SoftServe application layer", items: ["Evidence assembly", "Timeline construction", "Citation binding", "Investigator UI"] }
-        ],
         notUsed: ["Oracle Autonomous AI Lakehouse"],
-        layers: [
-          { layer: "OCI infrastructure + GPUs", providedBy: "Oracle", body: "Oracle OCI with NVIDIA GPUs, plus Oracle enterprise AI services for multi-tool orchestration" },
-          { layer: "NVIDIA AI-Q engine", providedBy: "NVIDIA", body: "Multi-document reasoning and output generation" },
-          { layer: "Accelerator business app", providedBy: "Oracle + SoftServe", body: "Evidence assembly, timeline construction, citation binding, investigator UI" },
-          { layer: "Custom configuration", providedBy: "SoftServe", body: "Source mapping, case categories, citation granularity, approval workflow" }
-        ],
-        integration: [
-          { icon: "inbound", text: "In: exports from the systems that hold case evidence — case management, correspondence, operational records, rostering, document stores" },
-          { icon: "outbound", text: "Out: the assembled case file and draft sections, plus the approval record" },
-          { icon: "trigger", text: "Trigger: an event opens a case, or a batch sweep opens many" }
-        ],
         security: [
           { icon: "shield", text: "Runs in the customer’s own tenancy; source access is read-only." },
           { icon: "lock", text: "Access rules must hold in the data layer, not in the prompt — governance is configured, not requested." },
@@ -1304,24 +1267,7 @@ window.SITE_CONTENT = {
             ]
           }
         ],
-        groups: [
-          { vendor: "oracle", label: "Oracle Cloud Infrastructure", items: ["Object Storage (zoned, with lineage)", "Document Understanding for OCR and layout", "Functions and Streaming, API Gateway, Functions/OKE", "GPU compute"] },
-          { vendor: "nvidia", label: "NVIDIA", items: ["AI-Q framework", "NIM serving the Nemotron model family", "NIM embedding and reranker models"] },
-          { vendor: "oracle", label: "Oracle data layer", items: ["Oracle AI Database 26ai with Oracle AI Vector Search for semantic retrieval", "OCI Search with OpenSearch for lexical retrieval (hybrid)", "Oracle AI Data Platform, optionally, where the reconciled evidence base is built in the data layer"] },
-          { vendor: "softserve", label: "SoftServe application layer", items: ["Conformed data model and the mapping layer", "Plan-versus-actual comparison and driver assembly", "Context manager and response handler", "The review app"] }
-        ],
         notUsed: ["Oracle Autonomous AI Lakehouse"],
-        layers: [
-          { layer: "OCI infrastructure + GPUs", providedBy: "Oracle", body: "Oracle OCI with NVIDIA GPUs — compute, zoned object storage with lineage, networking, security; Oracle Document Understanding for OCR and layout" },
-          { layer: "NVIDIA engine", providedBy: "NVIDIA", body: "AI-Q, with NIM serving the Nemotron model family and NIM embedding and reranker models" },
-          { layer: "Accelerator business app", providedBy: "Oracle + SoftServe", body: "Conformed data model, the mapping layer, plan-versus-actual comparison, hybrid retrieval over Oracle AI Vector Search and OCI Search with OpenSearch on Oracle AI Database 26ai, and the review app" },
-          { layer: "Custom configuration", providedBy: "SoftServe", body: "Source mapping, the unit identifier, variance rules, evidence thresholds and the coverage-gap report" }
-        ],
-        integration: [
-          { icon: "inbound", text: "In: approved static exports — schedule, cost and forecast reporting, progress reporting, layouts, contracts, bills of quantity, amendments" },
-          { icon: "outbound", text: "Out: the unit-level performance view and its evidence pack, in the review app" },
-          { icon: "link", text: "A unified work-unit identifier across the exported datasets is the one hard input requirement" }
-        ],
         security: [
           { icon: "shield", text: "Runs in your own OCI tenancy on exported, approved data — no live system access required at proof of value." },
           { icon: "audit", text: "Lineage preserved from the source file through to the finding." },
@@ -1661,24 +1607,7 @@ window.SITE_CONTENT = {
             ]
           }
         ],
-        groups: [
-          { vendor: "oracle", label: "Oracle Cloud Infrastructure", items: ["A dedicated GenAI AI cluster (H100 class)", "Oracle Autonomous Database for the extraction store", "The landing zone (VCN, OKE, storage) delivered as Terraform", "Oracle Document Understanding for OCR and layout, where scanned input needs it"] },
-          { vendor: "nvidia", label: "NVIDIA", items: ["AI-Q for GPU-accelerated extraction — vision-language models plus retrieval"] },
-          { vendor: "oracle", label: "Oracle AI Data Platform", items: ["Only where extractions also feed analytics; not the system of record for this pack"] },
-          { vendor: "softserve", label: "SoftServe application layer", items: ["Extraction pipeline and field schema", "Validator set and confidence thresholds", "Split-view reviewer UI", "Export and target-system integration"] }
-        ],
         notUsed: ["Oracle Autonomous AI Lakehouse"],
-        layers: [
-          { layer: "OCI infrastructure + GPUs", providedBy: "Oracle", body: "Oracle OCI with NVIDIA GPUs — compute, storage, networking, security" },
-          { layer: "NVIDIA AI-Q engine", providedBy: "NVIDIA", body: "GPU-accelerated extraction — vision-language models plus retrieval" },
-          { layer: "Accelerator business app", providedBy: "Oracle + SoftServe", body: "Pre-built, reusable pack: extraction pipeline, validators, split-view reviewer UI, export" },
-          { layer: "Custom configuration", providedBy: "SoftServe", body: "Field schema, business rules, thresholds, target-system integration" }
-        ],
-        integration: [
-          { icon: "inbound", text: "In: contract repository (source PDFs), field rules" },
-          { icon: "outbound", text: "Out: extracted data, rates and terms — cited — to cost / ERP systems" },
-          { icon: "link", text: "Export formats: JSON, CSV, XLSX against a reference template" }
-        ],
         security: [
           { icon: "shield", text: "Runs in the customer’s own OCI tenancy on a dedicated AI cluster." },
           { icon: "lock", text: "Human-in-the-loop by design: unattended extraction is explicitly out of scope." },
@@ -2013,25 +1942,7 @@ window.SITE_CONTENT = {
             ]
           }
         ],
-        groups: [
-          { vendor: "oracle", label: "Oracle Cloud Infrastructure", items: ["A dedicated AI cluster (4–8 NVIDIA A100 GPUs)", "Object storage, networking, IAM"] },
-          { vendor: "nvidia", label: "NVIDIA", items: ["cuOpt, the GPU-accelerated optimization solver"] },
-          { vendor: "oracle", label: "Oracle Fusion Applications", items: ["Oracle Field Service, as source and destination"] },
-          { vendor: "softserve", label: "SoftServe application layer", items: ["Dispatcher review UI and approval workflow", "Re-solve loop", "Client rules, constraints and KPIs", "Write-back to Oracle Field Service"] }
-        ],
         notUsed: ["Oracle AI Data Platform", "Oracle Autonomous AI Lakehouse"],
-        layers: [
-          { layer: "OCI infrastructure + GPUs", providedBy: "Oracle", body: "Oracle OCI with NVIDIA GPUs — compute, storage, networking, security" },
-          { layer: "NVIDIA cuOpt engine", providedBy: "NVIDIA", body: "GPU-accelerated solver for large-scale workforce and route optimization" },
-          { layer: "Accelerator business app", providedBy: "Oracle + SoftServe", body: "Pre-built, reusable pack: dispatcher UI, approval workflow, re-solve loop, write-back to Oracle Field Service" },
-          { layer: "Custom configuration", providedBy: "SoftServe", body: "Client rules, constraints, KPIs, data integrations" }
-        ],
-        integration: [
-          { icon: "inbound", text: "In from Oracle Field Service: staff, availability, booking data" },
-          { icon: "outbound", text: "Out to Oracle Field Service: optimized allocations — zones, visits" },
-          { icon: "trigger", text: "Back in from Oracle Field Service: factual durations and times" },
-          { icon: "link", text: "Optional at Roll-out, up to five typical integrations: booking system, inventory for parts availability, HR/WFM for people availability, demand forecasting, BI" }
-        ],
         security: [
           { icon: "shield", text: "Proof of value: sandboxed deployment." },
           { icon: "lock", text: "Roll-out: enterprise-integrated — dedicated landing zone, IAM, observability." },
@@ -2346,28 +2257,11 @@ window.SITE_CONTENT = {
             ]
           }
         ],
-        groups: [
-          { vendor: "oracle", label: "Oracle Autonomous AI Lakehouse", items: ["Oracle Autonomous AI Database 26ai as the governed layer", "Select AI and Select AI Agent for natural-language querying", "Vector search", "Apache Iceberg", "Data Studio for ELT", "Database links for federation"] },
-          { vendor: "oracle", label: "Oracle Cloud Infrastructure", items: ["The tenancy the platform runs in — OCI, or Autonomous inside AWS, Azure or Google Cloud regions"] },
-          { vendor: "oracle", label: "Oracle Fusion Applications", items: ["The prebuilt extract path from Oracle business applications — what makes this the fastest of the two Lakehouse routes when Oracle apps are already in place"] },
-          { vendor: "softserve", label: "SoftServe delivery layer", items: ["The decision domain and its certified views", "Business definitions signed off with the owner", "Masking, row-level access and the SQL firewall configuration", "The agreed question set and the dashboards"] }
-        ],
         notUsed: ["NVIDIA — not required; Lakehouse first, GPU optional", "Oracle AI Data Platform — coexists where the customer already runs one"],
-        layers: [
-          { layer: "Cloud tenancy", providedBy: "Oracle", body: "Your own tenancy — OCI, or Autonomous inside AWS, Azure or Google Cloud regions" },
-          { layer: "Oracle Autonomous AI Lakehouse", providedBy: "Oracle", body: "Oracle Autonomous AI Database 26ai as the governed layer, with Select AI, vector search, Apache Iceberg and Data Studio" },
-          { layer: "Source connectivity", providedBy: "Oracle", body: "The prebuilt extract path from Oracle Fusion Applications, plus database links for one or two non-Oracle sources" },
-          { layer: "Custom configuration", providedBy: "SoftServe", body: "The decision domain and its certified views, business definitions, masking, row-level access, the SQL firewall, the agreed question set and the dashboards" }
-        ],
         governance: {
           title: "GOVERNANCE LAYER — THE PART SECURITY ASKS ABOUT",
           body: "Masking, row-level access and a SQL firewall live in the data layer itself, applied to every query — including the ones AI writes. Every interaction is logged. Proof you can watch: the same question asked in two roles returns two different, correctly filtered answers — enforced by the database, not by the prompt."
         },
-        integration: [
-          { icon: "inbound", text: "In: Oracle application data via prebuilt pipelines; one or two non-Oracle sources by link or pipeline; read-only source access" },
-          { icon: "outbound", text: "Out: plain-English answers, certified views and operational dashboards" },
-          { icon: "link", text: "Runs on OCI, or on Autonomous inside AWS, Azure or Google Cloud regions" }
-        ],
         security: [
           { icon: "shield", text: "In your tenancy: OCI, or Autonomous inside AWS, Azure or Google Cloud regions." },
           { icon: "lock", text: "Source access is read-only." },
@@ -2688,28 +2582,11 @@ window.SITE_CONTENT = {
             ]
           }
         ],
-        groups: [
-          { vendor: "oracle", label: "Oracle Autonomous AI Lakehouse", items: ["Oracle Autonomous AI Database 26ai", "Select AI and Select AI Agent", "Apache Iceberg", "Vector search", "Data Studio", "Database links", "Exadata"] },
-          { vendor: "oracle", label: "Oracle Cloud Infrastructure", items: ["The tenancy the platform runs in — OCI, or Autonomous inside AWS, Azure or Google Cloud regions"] },
-          { vendor: "other", label: "Existing platforms, unchanged", items: ["AWS Glue", "Databricks Unity Catalog", "Snowflake", "On-prem databases"] },
-          { vendor: "softserve", label: "SoftServe delivery layer", items: ["Catalog mounting and database links", "The governed gold model and its definitions", "Masking, row-level policies and the SQL firewall configuration", "The agreed 30-question set and accuracy tuning"] }
-        ],
         notUsed: ["NVIDIA — not required; Lakehouse first, GPU optional", "Oracle AI Data Platform — coexists where one is already in place"],
-        layers: [
-          { layer: "Cloud tenancy", providedBy: "Oracle", body: "Your own tenancy — OCI, or Autonomous inside AWS, Azure or Google Cloud regions" },
-          { layer: "Oracle Autonomous AI Lakehouse", providedBy: "Oracle", body: "Oracle Autonomous AI Database 26ai as the governed gold layer, with Select AI, vector search, Apache Iceberg and Exadata" },
-          { layer: "Existing platforms", providedBy: "Unchanged", body: "AWS Glue, Databricks Unity Catalog, Snowflake and on-prem databases stay where they are — catalogs mounted, databases linked, no data movement" },
-          { layer: "Custom configuration", providedBy: "SoftServe", body: "Catalog mounting and database links, the governed gold model and its definitions, masking, row-level policies, the SQL firewall and the agreed question set" }
-        ],
         governance: {
           title: "GOVERNANCE LAYER — THE PART SECURITY ASKS ABOUT",
           body: "Masking, row-level access and a SQL firewall live in the data layer itself, applied to every query — including the ones AI writes. Every interaction is logged. Proof you can watch: the same question asked in two roles returns two different, correctly filtered answers — enforced by the database, not by the prompt."
         },
-        integration: [
-          { icon: "inbound", text: "In: up to three sources at proof scope — existing catalogs mounted and databases linked, zero data movement; read-only source access" },
-          { icon: "outbound", text: "Out: plain-English answers and charts across every connected source" },
-          { icon: "link", text: "Runs on OCI, or on Autonomous inside AWS, Azure or Google Cloud regions" }
-        ],
         security: [
           { icon: "shield", text: "In your tenancy: OCI, or Autonomous inside AWS, Azure or Google Cloud regions." },
           { icon: "lock", text: "Source access is read-only." },
