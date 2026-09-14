@@ -234,17 +234,21 @@ Each is `{ file, alt, focal }`:
 hero: {
   image: {
     file: "assets/img/heroes/workforce-optimization.jpg",
-    alt: "Service territory rendered as routes and coverage zones over a dark map",
+    alt: "Container terminal at blue hour — gantry crane, stacked containers and service vehicles moving under work lights",
     focal: "55% 50%"
   }
 }
 ```
 
 - **`file`** — path relative to `site/index.html`. The files sit in `site/assets/img/heroes/`, named by product slug, plus `overview.jpg` and `services.jpg`.
-- **`alt`** — a plain description of the picture. The image is a background, so the renderer applies it as the hero's `aria-label` (or hides the image from assistive tech when the hero is already labelled by its headline).
+- **`alt`** — a plain description of the picture, kept as a record of what the file actually shows. The hero image is decorative — the headline beside it carries the meaning — so it ships as `alt=""` and is hidden from assistive tech. Keep the description truthful anyway: it is how the next person knows which file is which without opening all nine.
 - **`focal`** — a CSS `object-position` value, e.g. `"55% 40%"`. This is the knob to turn when a crop clips the wrong part of the image on a wide screen; it changes nothing else.
 
 `site/assets/img/heroes/heroes.json` is the source of truth for `alt` and `focal` and carries each image's provenance. `content.js` holds a copy so the page needs no runtime fetch — **when you change one, change the other.**
+
+`heroes.json` is served from the site root and is therefore publicly fetchable. Keep its `source` field generic — never an internal deck filename, an opportunity code or a customer name.
+
+**If a hero image is missing**, the renderer drops the `<img>` and the hero falls back to the gradient alone. That is a safety net, not a mode to ship in: it makes every hero identical and flat, which is exactly what the per-product image is there to prevent. `node tools/check-grammar.js` warns for each hero file that is not on disk.
 
 **To swap a hero image:** drop the new file into `site/assets/img/heroes/`, point `file` at it, adjust `focal` until the crop sits right, and update the same entry in `heroes.json`. The image is the background of the **top block only** — never the Overview tab, never a full-screen wash. It renders at 60–70vh maximum on desktop with a dark gradient over it so the headline stays on near-black.
 
