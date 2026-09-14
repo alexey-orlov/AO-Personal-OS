@@ -1036,6 +1036,12 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 /* A demo played in front of a room needs the width a form does not. */
 .modal-panel--media { width: min(68.75rem, 90vw); max-height: 92vh; }
 
+/* Two sentences and one button: any wider and the panel looks like it lost
+   its content. */
+.modal-panel--note { width: min(30rem, 100%); }
+.modal-panel--note .modal-title { margin-bottom: .75rem; }
+.modal-panel--note .cta-row { margin-top: 1.5rem; }
+
 .modal-close {
   position: absolute;
   top: 1rem;

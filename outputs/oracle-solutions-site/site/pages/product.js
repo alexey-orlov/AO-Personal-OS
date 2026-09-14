@@ -106,16 +106,22 @@
     return (product.hero && product.hero.image && product.hero.image.file) || "";
   }
 
+  /* The frame is promised before the file exists: `video: true` puts it on the
+     page, `videoUrl` decides whether the click plays a recording or says when
+     one is coming. Either way the hero keeps the same two-column shape, so a
+     product does not change layout the day its video lands. */
   function heroMedia(product) {
     var UI = window.UI;
     var conf = cfg(product.slug);
-    if (!conf.videoUrl) return "";
+    if (!conf.video && !conf.videoUrl) return "";
     var poster = posterFor(product);
     var caption = C().shared.videoCaption;
+    var hook = conf.videoUrl
+      ? ' data-video="' + UI.esc(conf.videoUrl) + '"' +
+        ' data-video-title="' + UI.esc(product.name) + '"'
+      : ' data-video-pending="' + UI.esc(product.slug) + '"';
     return '<div class="hero-media">' +
-      '<button class="video-card" type="button"' +
-        ' data-video="' + UI.esc(conf.videoUrl) + '"' +
-        ' data-video-title="' + UI.esc(product.name) + '"' +
+      '<button class="video-card" type="button"' + hook +
         ' aria-label="' + UI.esc(caption + " — " + product.name) + '">' +
         (poster
           ? '<img class="video-card-poster" src="' + UI.esc(poster) +
@@ -928,6 +934,28 @@
     });
   }
 
+  /* A frame with no file behind it still has to answer the click honestly:
+     name the product, say the recording is not ready, and hand over the one
+     thing that is — a live demo. */
+  function bindPendingVideo(root, item) {
+    var UI = window.UI;
+    var pending = C().shared.videoPending;
+    Array.prototype.forEach.call(root.querySelectorAll("[data-video-pending]"), function (button) {
+      button.addEventListener("click", function () {
+        var panel = UI.modal.open('<h2 class="h3 modal-title">' + UI.esc(item.name) + "</h2>" +
+          '<p class="body-text">' + UI.esc(pending.body) + "</p>" +
+          '<div class="cta-row modal-cta">' + UI.button({
+            label: pending.cta,
+            href: "#/products/" + item.slug + "/demo",
+            kind: "primary"
+          }) + "</div>",
+          { label: item.name, className: "modal-panel--note" });
+        var cta = panel.querySelector(".modal-cta a");
+        if (cta) cta.addEventListener("click", function () { UI.modal.close(); });
+      });
+    });
+  }
+
   product.mount = function (params, root) {
     var item = findProduct(params.slug);
     if (!item) return;
@@ -939,6 +967,7 @@
 
     bindGate(root, item, rerender);
     bindVideo(root, item);
+    bindPendingVideo(root, item);
 
     if (active === "sellers" && gateUnlocked()) loadSellerNotes(root, item);
 
