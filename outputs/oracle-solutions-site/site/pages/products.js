@@ -12,7 +12,7 @@
     state = {
       tech: techIds.indexOf(q.tech) >= 0 ? q.tech : "",
       cat: catIds.indexOf(q.cat) >= 0 ? q.cat : "",
-      mp: q.mp === "1",
+      mp: q.mp === "1" && anyMarketplace(),
       q: typeof q.q === "string" ? q.q : ""
     };
   }
@@ -28,7 +28,11 @@
 
   function isMarketplace(product) {
     var entry = window.SITE_CONFIG.products[product.slug];
-    return !!(entry && entry.marketplace);
+    return !!(entry && entry.marketplaceUrl);
+  }
+
+  function anyMarketplace() {
+    return window.SITE_CONTENT.products.some(isMarketplace);
   }
 
   function haystack(product) {
@@ -151,12 +155,14 @@
         '<p class="rail-label" id="facet-cat-label">' + UI.esc(C.facets.categoryLabel) + "</p>" +
         '<div class="rail-options" role="radiogroup" aria-labelledby="facet-cat-label">' + cats + "</div>" +
       "</div>" +
-      '<div class="rail-group">' +
-        '<label class="checkline"><input type="checkbox" id="facet-marketplace"' +
-          (state.mp ? " checked" : "") + ">" +
-          "<span>" + UI.esc(C.facets.marketplace.label) +
-          ' <span class="rail-option-count nums">' + filtered({ mp: true }).length + "</span></span></label>" +
-      "</div>" +
+      (anyMarketplace()
+        ? '<div class="rail-group">' +
+            '<label class="checkline"><input type="checkbox" id="facet-marketplace"' +
+              (state.mp ? " checked" : "") + ">" +
+              "<span>" + UI.esc(C.facets.marketplace.label) +
+              ' <span class="rail-option-count nums">' + filtered({ mp: true }).length + "</span></span></label>" +
+          "</div>"
+        : "") +
       '<div class="rail-group">' +
         '<button class="btn btn--quiet btn--sm rail-clear" type="button" id="facet-clear">' +
           UI.icon("close") + "<span>" + UI.esc(C.facets.clearLabel) + "</span></button>" +

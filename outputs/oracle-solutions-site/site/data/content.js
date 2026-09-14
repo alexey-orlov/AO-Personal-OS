@@ -242,7 +242,7 @@ window.SITE_CONTENT = {
         id: "extraction-proof",
         band: 1,
         label: "PROOF OF VALUE",
-        customer: "A Gulf carrier",
+        customer: "An international airline",
         industry: "Aviation — ground-handling contract management",
         body: "Ground-handling contract rates were keyed into a cost-management system by hand — 60–100-page agreements read page by page, 3–5 days per contract. With the extraction app on OCI (NVIDIA AI-Q), reviewers now validate AI-extracted rates side-by-side with the source PDF — every value cited to its page — and export in minutes.",
         metrics: [
@@ -920,7 +920,7 @@ window.SITE_CONTENT = {
       },
       pov: {
         facts: {
-          duration: "12 weeks + 2",
+          duration: "12 + 2 weeks",
           team: "One SoftServe team",
           price: "Scoped per engagement",
           deliverablesCount: 5
