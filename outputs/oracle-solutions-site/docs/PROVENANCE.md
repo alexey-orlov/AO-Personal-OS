@@ -200,6 +200,8 @@ What the data layer did to stay inside the brief:
 
 **The open item is permission, not wording.** Nothing further can be done inside the repository; someone has to ask.
 
+**Status, fourth fix round (2026-09-14):** the three unclearable ratios were withdrawn from the shipped data — see §14.1. What remains on the proof card and in the workforce Outcomes rail is the `~30 min` time metric, which `SPEC` §1.4 clears on its own source. The scope facts (three countries, ~thirty modelled constraints, human-in-the-loop) stay on the proof card, still unresolved against the same clearance. Record the sign-off here, with a date, when it arrives; the three ratios go back only then.
+
 ---
 
 ## 5. Assets — what was staged and its licensing status
@@ -437,7 +439,7 @@ The `workforce-optimization` and `large-document-extraction` proof figures — t
 1. **Written Oracle and customer clearance** for both anonymised proof strips. The copy is correctly anonymised and correctly hedged, but anonymisation is not the clearance — the research file says so in terms: nothing from it goes on a SoftServe website, one-pager or deck until the customer and Oracle approve in writing.
 2. **Alex's explicit OK** for the `method-accuracy-journey` card (the 23%→81% accuracy story), which the research marks as needing his sign-off.
 
-Until both are in hand and recorded here with a date, the fallback is the scope-and-method framing — constraints modeled, countries, what the proof of value measured — with the ratios removed. The figures were **not** stripped in this round, because doing so would discard work that may already be cleared; the decision is Alex's and it has to be made before publication, not by a QA pass.
+Until both are in hand and recorded here with a date, the fallback is the scope-and-method framing — constraints modeled, countries, what the proof of value measured — with the ratios removed. **The fourth fix round took that fallback for the three workforce ratios (§14.1).** The rest of this gate is unchanged: the anonymised scope facts, the extraction proof strip and the `method-accuracy-journey` card all still need the clearances above.
 
 ---
 
@@ -756,3 +758,132 @@ document-pack (2026-09-10) sales one-pagers, and independently from
 | Vendor marks | Normalised to one cap-height and one opacity across the five layer rows, via `.group-mark--oracle` / `--nvidia` / `--softserve`. The Oracle wordmark had been rendering wider and brighter than the other two, reading as a rank the layer order does not intend. |
 | Header CTA | `data-demo="header"` and its click handler were dead: `initHashLinks` is a capture-phase listener that `stopPropagation`s every `a[href^="#"]`, so the bubble-phase modal handler could never run. Both removed. The header pill routes to `#/#request-a-demo`, which is what it was already doing. |
 | Unknown tab segment | `#/products/<slug>/bogus` rendered the Overview and left the bogus address in the bar, while the legacy `/demo` segment corrected itself. `resolveTab` now reports the fallback as legacy too, so both `replaceState` to `/overview`. |
+
+---
+
+## 14. Fourth fix round — the two E2 peer blocks, the video poster, and four copy facts
+
+### 14.1 The workforce ratios were withdrawn (§4 ship gate, taken to its fallback)
+
+Three of the four business-case figures shipped publicly while §4 and §10.8 both
+recorded their clearance as outstanding. They are out of the data layer until a
+written Oracle **and** customer sign-off is recorded in §4:
+
+| Where | Was | Now |
+|---|---|---|
+| `overview.evidence[0].metrics` (home page + Services `#proof`) | four tiles — `~30 min`, `83%` / median `+4.5%`, `15–20%`, `~5x` | one tile: `~30 min` to optimize and approve a region's four-week plan, down from ~2 days |
+| `overview.evidence[0].footnotes` | modelled-simulations line + the KPI line | the KPI line only — no modelled figure is left for the first line to qualify |
+| `products[workforce-optimization].overview.metrics` (Outcomes rail) | four tiles, same figures | the `~30 min` tile only |
+| `products[workforce-optimization].overview.metricsNote` | modelled-simulations sentence + KPI sentence | the KPI sentence only |
+
+`RESEARCH/07` §7.1 has no independently-sourced replacement ratio: the
+Workforce Optimization sales one-pager carries the **same** customer's KPIs, so
+it is not a second source. No figure was substituted and none was invented.
+
+`shared.modeledResults` is left in place — it is the standing phrasing for the
+day the figures return.
+
+`tools/check-grammar.js` required 3–4 `overview.metrics` tiles. The rule now
+allows **1–4**: the rail stacks in one column, so a single tile is a legitimate
+shape, and a grammar rule must not be the reason an uncleared figure stays on a
+public page.
+
+### 14.2 `case-evidence-collection` — the proof-of-value duration had an invented lower bound
+
+`RESEARCH/01` §5.2 on this pack: *"No package exists. The only shape on record
+is the NHS engagement: 15 weeks."* The shipped `12–15 weeks` invented the 12,
+and the 15 is one engagement's SoW duration rather than a pack figure — the
+defect §14.3 penalises on `account-insights`. Both bounds are gone. All six
+slots (`overview.sideFacts.povDuration`, `pov.facts.duration`, `pov.duration`,
+`pov.pricing` Timeline, `pov.ladder[0].duration`) now read **`Scoped per
+engagement`**, which is what this product's own price field has always said.
+`pov.durationShort` is deleted, so the seller-gate CTA uses
+`sellerGate.cta.bodyFallback` instead of interpolating a duration the product
+does not have.
+
+The umbrella figure propagated to Services, and both occurrences are corrected
+with it — see §14.4.
+
+### 14.3 `account-insights` — open question `C19`, answered the conservative way
+
+`RESEARCH/01` §204 records the `PoC · 12 weeks · €192,525` block as **one named
+customer's contract value**, and says the deck carrying it is internal-only
+partly because of them. `C19` ("is about 12 weeks a pack duration or one
+contract's") is still open. Every other commercial field on this product reads
+*Scoped per engagement*; the duration was the single slot where a customer's
+contract terms surfaced as a product fact.
+
+All five occurrences — `overview.sideFacts.povDuration`, `pov.facts.duration`,
+`pov.duration`, `pov.pricing` Timeline, `pov.ladder[0].duration` — now read
+**`Scoped per engagement`**, and `pov.durationShort` is deleted. **`C19` stays
+open**: if the pack team confirms 12 weeks is the pack's own scoping default,
+record the confirmation here and the figure can return as a pack fact.
+
+### 14.4 Services contradicted itself on the Lakehouse Quick Start
+
+`services.howWeEngage.ladder[0].duration` said *30–45 days on the Lakehouse
+Quick Start*; `howWeEngage.howAPovRuns.closing`, two sections below on the same
+page, said *Six weeks*. Every source says 30–45 days
+(`RESEARCH/03` §172/§180/§231, `RESEARCH/04` §204, `RESEARCH/02` §855/§865) and
+so do the `cross-system-erp-qa` and `business-metrics-qa` product pages. *Six
+weeks* appears in no source and is gone. The deep-research clause in both
+strings follows §14.2: *scoped per engagement*, not *12–15 weeks*.
+
+### 14.5 The anonymised workforce label, and the Manufacturing tab that restated it
+
+`RESEARCH/07` §7.0 prescribes **"a global home-appliance manufacturer"** as the
+anonymised label, so the label itself is unchanged. What was added on top of it
+was not prescribed and did the re-identification work §4 had already tried to
+avoid by withholding the country names:
+
+- `overview.evidence[0].industry` — *Manufacturing — residential appliance and
+  white-goods field service* → **Manufacturing — consumer-durables field
+  service**.
+- `products[workforce-optimization].overview.industryCases` Manufacturing tab —
+  restated the same engagement almost verbatim (*residential appliance and
+  white-goods*, *around thirty* constraints, *three countries*), so one customer
+  read twice on one page and the "industry use case" was an anecdote rather than
+  a pattern. Rewritten to the pattern: in-home repair of manufactured goods,
+  work zones and allocations, market-specific rules as configuration. The
+  engagement's specifics stay where they belong — on the proof card, once.
+
+### 14.6 The demo frame stopped borrowing the hero photograph
+
+`posterFor()` fell through to `product.hero.image.file` whenever
+`config.videoPoster` was empty — which it is for all seven. On the three
+products with `video: true` the frame rendered the product's own hero
+photograph directly on top of the same photograph used as the hero backdrop: a
+brighter cut-out of the wallpaper with a play button on it, in the first screen
+a seller demos. The fallback is deleted; `posterFor()` returns
+`config.videoPoster`, or the YouTube thumbnail where a `videoUrl` gives one, or
+nothing.
+
+With no poster the card renders without its `<img>` — the site's own
+missing-asset rule, and the pending state `CONFIG.md` §`videoPoster` already
+documents. A `.video-card--plate` modifier gives that state its own ground (a
+navy-to-inset gradient with the accent glow) and a lighter veil, so an empty
+frame reads as a designed plate rather than a failed image. The play button and
+the WATCH THE DEMO caption are unchanged.
+
+When a still is wanted before the recordings land, `videoPoster` takes a
+**distinct** frame — a step screenshot, or a desaturated crop at another focal
+point. Never the hero file.
+
+### 14.7 The two E2 blocks now hold the peers-equal-height rule
+
+Both blocks commissioned by E2 paired a fixed-ratio image with prose of variable
+length, so the image sat short of the column beside it and the notch changed
+size as the reader clicked through.
+
+| Block | Measured before | Fix |
+|---|---|---|
+| `.ind-panel` — industry use cases | figure 245 px against 292–338 px of copy; the image appeared to grow and shrink as the tabs changed | `.ind-figure` is `align-self: stretch`; its `img` is `height: 100%` with a `15.5rem` floor and `object-fit: cover`. The `aspect-ratio` is gone from the desktop rule |
+| `.stepper` — how it works | list 370–388 px against a frame pinned at 285 px; the two columns drifted out of register on every click | `.stepper` is `align-items: stretch`; `.step-frames` is a flex row, `.step-frame` is `flex: 1 1 auto`, and its `img` is `height: 100%` with a `17rem` floor and `object-fit: cover` |
+
+Below 900 px, where both blocks collapse to one column, the images return to
+`aspect-ratio: 16 / 10` with the floor removed — the ratio the frames were
+designed at, and the one E2 asked to keep on mobile.
+
+Measured after, at 1440: stepper list and frame 370/370 then 388/388 across all
+four steps; industry figure and case 315/315, 315/315, 292/292 across the three
+tabs. At 375: both images 325 x 203, exactly 16:10, no horizontal scroll.
