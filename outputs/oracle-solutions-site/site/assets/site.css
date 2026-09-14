@@ -508,7 +508,7 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 
 /* ——— hero ———————————————————————————————————————————— */
 
-.hero { position: relative; overflow: hidden; padding-top: clamp(3.5rem, 7vw, 6.5rem); padding-bottom: clamp(3rem, 5vw, 5rem); }
+.hero { position: relative; overflow: hidden; padding-top: clamp(3rem, 5vw, 4.5rem); padding-bottom: clamp(2.5rem, 4vw, 3.5rem); }
 
 /* ——— hero background image (top block only) ——————————— */
 
@@ -558,7 +558,7 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 
 .hero-title { margin-block: 1.25rem 1.5rem; max-width: 16ch; }
 .hero-lead { max-width: 46rem; }
-.hero-cta { margin-top: clamp(2.5rem, 5vw, 4.5rem); }
+.hero-cta { margin-top: clamp(2rem, 3vw, 2.75rem); }
 
 .stat-row {
   position: relative;
