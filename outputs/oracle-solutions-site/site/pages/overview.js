@@ -14,12 +14,6 @@
     var ctas = h.ctas.map(function (cta) {
       return UI.button({ label: cta.label, href: cta.route, kind: cta.kind === "primary" ? "primary" : "secondary" });
     }).join("");
-    var stats = h.stats.map(function (stat) {
-      return '<li class="stat">' +
-        '<p class="stat-value nums">' + UI.esc(stat.value) + "</p>" +
-        '<p class="stat-label">' + UI.esc(stat.label) + "</p>" +
-        "</li>";
-    }).join("");
 
     return '<section class="hero has-hero-bg">' +
       UI.heroBackdrop(h.image) +
@@ -29,8 +23,22 @@
         UI.headline(h.headline, "h1", "h1 hero-title") +
         '<p class="lead hero-lead">' + UI.esc(h.subhead) + "</p>" +
         '<div class="cta-row hero-cta">' + ctas + "</div>" +
-        '<ul class="stat-row">' + stats + "</ul>" +
       "</div>" +
+      "</section>";
+  }
+
+  /* The stat row sits in the band under the hero, not inside the image block. */
+  function statBand(C) {
+    var UI = window.UI;
+    var stats = C.overview.hero.stats.map(function (stat) {
+      return '<li class="stat">' +
+        '<p class="stat-value nums">' + UI.esc(stat.value) + "</p>" +
+        '<p class="stat-label">' + UI.esc(stat.label) + "</p>" +
+        "</li>";
+    }).join("");
+    if (!stats) return "";
+    return '<section class="stat-band">' +
+      '<div class="wrap"><ul class="stat-row stat-row--band">' + stats + "</ul></div>" +
       "</section>";
   }
 
@@ -198,7 +206,7 @@
 
   function overview() {
     var C = window.SITE_CONTENT;
-    return hero(C) + trustStrip(C) + products(C) + evidence(C) + servicesTeaser(C) + closing(C);
+    return hero(C) + statBand(C) + trustStrip(C) + products(C) + evidence(C) + servicesTeaser(C) + closing(C);
   }
 
   overview.mount = function (params, root) {

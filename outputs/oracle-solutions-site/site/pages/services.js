@@ -26,12 +26,6 @@
   function hero(content) {
     var UI = window.UI;
     var h = content.services.hero;
-    var stats = (h.stats || []).map(function (stat) {
-      return '<li class="stat">' +
-        '<p class="stat-value nums">' + UI.esc(stat.value) + "</p>" +
-        '<p class="stat-label">' + UI.esc(stat.label) + "</p>" +
-        "</li>";
-    }).join("");
 
     return '<section class="product-hero services-hero has-hero-bg">' +
       UI.heroBackdrop(h.image) +
