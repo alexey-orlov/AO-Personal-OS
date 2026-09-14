@@ -1480,6 +1480,84 @@ window.SITE_CONTENT = {
         ],
         industries: ["travel-transport", "professional-services", "insurance", "financial-services"],
         industriesNote: "Wherever the terms that drive a downstream system are locked inside long, semi-structured documents.",
+        steps: [
+          {
+            n: 1,
+            title: "Upload and classify",
+            text: "A PDF or DOCX — native or scanned — is classified by document type, then routed page by page to the right extractor.",
+            image: "assets/img/steps/large-document-extraction-1.jpg",
+            features: ["Document-type gate, then page-level routing to the right extractor"]
+          },
+          {
+            n: 2,
+            title: "Extract against the rules",
+            text: "The target fields are pulled against the schema and business rules for that document type, and modelled into normalized rows.",
+            image: "assets/img/steps/large-document-extraction-2.jpg",
+            features: [
+              "Field schema and business rules defined per document type",
+              "Structured data model: ranges and tiers expanded, relationships preserved"
+            ]
+          },
+          {
+            n: 3,
+            title: "Score, cite, validate",
+            text: "Every value carries a confidence score and a citation to its source page, and business-rule validators flag what a human must look at.",
+            image: "assets/img/steps/large-document-extraction-3.jpg",
+            features: [
+              "Per-field confidence scoring with tuned thresholds and fallback logic",
+              "Source-page citation on every extracted value",
+              "Business-rule validators that flag what a human must look at"
+            ]
+          },
+          {
+            n: 4,
+            title: "Review and export",
+            text: "Reviewers validate row by row beside the source PDF, then export against your reference template. Nothing leaves unapproved.",
+            image: "assets/img/steps/large-document-extraction-4.jpg",
+            features: [
+              "Split-view reviewer UI with bulk actions, auto-save and an audit trail",
+              "Export to JSON, CSV or XLSX against a reference template"
+            ]
+          }
+        ],
+        industryCases: [
+          {
+            industry: "travel-transport",
+            label: "Travel & transport",
+            image: "assets/img/industries/travel-transport.jpg",
+            problem: "Ground-handling agreements run to 60–100 pages, and their rate cards are keyed into the cost system by hand — 3–5 days per contract, about a month to bring a new station online. A rate keyed wrong surfaces late, at invoice matching, and ground handling carries 7–12% of an airline's direct operating cost.",
+            solution: "Rate-card pricing is extracted from the agreement with a confidence score and a page citation on every value, and a reviewer validates it beside the source PDF before export. The same pipeline pulls rates, terms and return conditions from aircraft lease and MRO agreements."
+          },
+          {
+            industry: "professional-services",
+            label: "Professional services",
+            image: "assets/img/industries/professional-services.jpg",
+            problem: "Key terms, obligations, pricing and renewal dates sit inside master agreements and supplier contracts that nobody has time to re-read. Obligations are tracked in a spreadsheet built once, by hand, and drifting ever since.",
+            solution: "The agreed fields are extracted per contract type against business rules, each value cited to the clause it came from, and reviewed before they reach the system that acts on them. Property leases run through the same path for rent schedules, break clauses and escalation terms."
+          },
+          {
+            industry: "insurance",
+            label: "Insurance",
+            image: "assets/img/industries/insurance.jpg",
+            problem: "Coverage, limits, deductibles and endorsements are re-keyed from policy schedules, and loss details and reserve amounts from claim packs and loss-adjuster reports. Throughput depends on scarce specialists, so backlogs build.",
+            solution: "Policy and claim documents are classified and routed page by page, the target fields extracted against your rules with ranges and tiers expanded into normalized rows. Validators flag the exceptions, and the reviewer validates only those against the cited page."
+          },
+          {
+            industry: "financial-services",
+            label: "Financial services",
+            image: "assets/img/industries/financial-services.jpg",
+            problem: "Financial line items and disclosures are pulled out of annual reports by hand, and covenants, interest terms and repayment schedules out of loan and credit agreements. The work is slow, and an error is found downstream rather than at the source.",
+            solution: "Each document type gets its own field schema and validator set, and every extracted value arrives with a confidence score and a page reference. The human validates by design — unattended extraction is explicitly out of scope."
+          }
+        ],
+        sideFacts: {
+          category: "Per-item processing pipelines",
+          platform: "Oracle Cloud Infrastructure + NVIDIA",
+          availability: "Available now",
+          povDuration: "2 months",
+          povPrice: "€75K services · €0/mo infra",
+          povPriceNote: "Figures are illustrative and subject to confirmation."
+        },
         scope: {
           in: [
             "Ingestion — accept a document (PDF or DOCX, including scanned)",
@@ -1525,6 +1603,63 @@ window.SITE_CONTENT = {
           { step: "Extract", label: "Document-type gate, page-level routing, field extraction" },
           { step: "Validate", label: "Confidence scoring, business-rule validators, page citations" },
           { step: "Deliver", label: "Split-view review, then export to the cost or ERP system" }
+        ],
+        stack: [
+          {
+            key: "application",
+            label: "Application / accelerator",
+            summary: "The SoftServe pack: the extraction pipeline, the validator set, the split-view reviewer UI and export.",
+            vendors: ["softserve"],
+            items: [
+              { name: "Extraction pipeline and field schema", required: true },
+              { name: "Validator set and confidence thresholds", required: true },
+              { name: "Split-view reviewer UI with bulk actions, auto-save and an audit trail", required: true },
+              { name: "Export and target-system integration", required: false, note: "Roll-out scope" }
+            ]
+          },
+          {
+            key: "ai-engine",
+            label: "AI engine",
+            summary: "NVIDIA AI-Q reads the pages — vision-language models plus retrieval, GPU-accelerated.",
+            vendors: ["nvidia"],
+            items: [
+              { name: "NVIDIA AI-Q for GPU-accelerated extraction — vision-language models plus retrieval", required: true }
+            ]
+          },
+          {
+            key: "data-platform",
+            label: "Data & platform",
+            summary: "The extraction store, plus OCR and layout where the input is scanned.",
+            vendors: ["oracle"],
+            items: [
+              { name: "Oracle Autonomous Database as the extraction store", required: true },
+              { name: "Oracle Document Understanding for OCR and layout, where scanned input needs it", required: false },
+              { name: "Oracle AI Data Platform — only where extractions also feed analytics", required: false, note: "Not the system of record for this pack" }
+            ]
+          },
+          {
+            key: "infrastructure",
+            label: "Infrastructure",
+            summary: "A dedicated GenAI cluster in your own tenancy, with the landing zone delivered as code.",
+            vendors: ["oracle"],
+            items: [
+              { name: "A dedicated GenAI AI cluster (H100 class)", required: true },
+              { name: "The landing zone (VCN, OKE, storage) delivered as Terraform", required: true }
+            ]
+          },
+          {
+            key: "custom",
+            label: "Custom configuration",
+            summary: "The field schema, the business rules, the thresholds and the target-system integration.",
+            vendors: ["softserve"],
+            items: [
+              { name: "Source contracts from your repository — PDF and DOCX, including scanned", required: true, direction: "inbound" },
+              { name: "Extracted data, rates and terms, cited, into the cost or ERP system", required: true, direction: "outbound", note: "Roll-out scope" },
+              { name: "Field schema and business rules per document type", required: true },
+              { name: "Confidence thresholds and fallback logic", required: true },
+              { name: "Export formats: JSON, CSV or XLSX against a reference template", required: true }
+            ]
+          }
         ],
         groups: [
           { vendor: "oracle", label: "Oracle Cloud Infrastructure", items: ["A dedicated GenAI AI cluster (H100 class)", "Oracle Autonomous Database for the extraction store", "The landing zone (VCN, OKE, storage) delivered as Terraform", "Oracle Document Understanding for OCR and layout, where scanned input needs it"] },
