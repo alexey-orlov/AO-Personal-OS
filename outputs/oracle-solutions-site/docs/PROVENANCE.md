@@ -363,16 +363,13 @@ The industry chips are an icon-set rendering of the verticals each pack already 
 | `pov.facts` (all seven) | The four-tile fact strip | `duration` is `durationShort` shortened further; `price` is the headline of `pov.pricing[0]` or `Scoped per engagement`; `deliverablesCount` is `deliverables.length`, asserted by the checker; `team` is **written** as *"One SoftServe team"* — a compression of the standing `pov.team` sentence, which still ships in full on the same tab | Low |
 | `products[*].hero.image.alt` (all seven, plus overview and services) | Image descriptions | Written against the generated images. `site/assets/img/heroes/heroes.json` is the authority; these are copies so the page needs no runtime fetch | Low — but they must be re-checked against the final images |
 
-### 9.4 Hero imagery — the §8 deletion is reversed, with one condition carried forward
+### 9.4 Hero imagery — the §8 deletion is reversed, and the set was rebuilt in §11
 
-§8 of this file records that nine staged hero images and their `heroes.json` were deleted from the served root. F1 reinstates hero imagery, and the two reasons §8 gave are addressed differently:
+§8 of this file records that nine staged hero images and their `heroes.json` were deleted from the served root. F1 reinstated hero imagery. The first attempt at reinstating it staged eight sourced/generated images alongside one generated one and declared `"source": "SoftServe brand imagery"` across the manifest; **that set and that claim did not survive review and no longer ship** — see §11.1 for what replaced them and why. What stands from this round:
 
-- **Generic stock photography** — the objection is answered by selection, not by generation. Eight of the nine are SoftServe brand imagery chosen per product against that product's essence and re-cropped to 1920×900 on a dark field; `cross-system-erp-qa` is generated. §8's specific complaint — a container terminal standing in for a dispatcher-scheduling app — was reconsidered rather than inherited: a field force moving containers under work lights is the operation the pack schedules, and at hero scale under the veil it reads as that operation, not as a stock plate. Each image is checked against its own product before it ships; the nine are all different files, and a flat identical gradient across all seven products is the failure this replaces.
-- **`heroes.json` shipping inside `site/`** — the objection stands in full. The manifest is publicly fetchable from the served root, so **it must carry no internal source-deck filename, no customer or opportunity code, and no internal path.** Its `source` field now reads `SoftServe brand imagery` for every entry; the deck-and-media-path mapping lives in §8 of this file, which is not served. This is a ship-gate check, not a style preference: it is the same class of leak §8 caught.
-
-`content.js` carries a copy of each image's `file`, `alt` and `focal` so the page never fetches the manifest at runtime. Keep the two in sync; `docs/CONFIG.md` §3b is the operator-facing version of this rule.
-
-The images are the background of the **top block only** — the hero — on the Overview page, the Services page and each product page. They are never the background of a tab body, and never a full-screen wash.
+- The images are the background of the **top block only** — the hero — on the Overview page, the Services page and each product page. They are never the background of a tab body, and never a full-screen wash.
+- **`heroes.json` shipping inside `site/`** — the objection stands in full. The manifest is publicly fetchable from the served root, so **it must carry no internal source-deck filename, no customer or opportunity code, and no internal path.** The deck-and-media-path mapping for the retired staged images lives in §8 of this file, which is not served. This is a ship-gate check, not a style preference: it is the same class of leak §8 caught.
+- `content.js` carries a copy of each image's `file`, `alt` and `focal` so the page never fetches the manifest at runtime. Keep the two in sync; `docs/CONFIG.md` §3b is the operator-facing version of this rule.
 
 ### 9.5 `config.products[*].videoPoster`
 
@@ -435,3 +432,58 @@ The `workforce-optimization` and `large-document-extraction` proof figures — t
 2. **Alex's explicit OK** for the `method-accuracy-journey` card (the 23%→81% accuracy story), which the research marks as needing his sign-off.
 
 Until both are in hand and recorded here with a date, the fallback is the scope-and-method framing — constraints modeled, countries, what the proof of value measured — with the ratios removed. The figures were **not** stripped in this round, because doing so would discard work that may already be cleared; the decision is Alex's and it has to be made before publication, not by a QA pass.
+
+---
+
+## 11. Second fix round on the visual-grammar build
+
+### 11.1 The hero set was rebuilt — one register, generated in-repo, no provenance claim
+
+Four of the nine staged heroes carried visible generative artifacts in the part of the frame the veil leaves most visible: glyph-soup handwriting and a spectacle arm passing through an ear (`case-evidence-collection`), illegible on-screen UI labels over a malformed world map (`plan-vs-actual-investigation`), gibberish "code" (`services`), garbled icon medallions (`account-insights`). That is the "AI page" tell the brief forbids, on the most prominent surface of every page, in front of Oracle sellers. The nine also sat in three incompatible registers — teal vector abstract, warm-orange abstract, dark photography — so "differ per product" read as "assembled from whatever was available", and the warm sources fought the teal accent the rest of the page is built on. Two further images mis-signalled their subject: a container terminal over a pack whose own industry chips are manufacturing, utilities, telecom and healthcare, and a lone silhouette at a dark multi-monitor desk over a stat row claiming a 500-strong practice.
+
+**All eight were replaced.** `cross-system-erp-qa.jpg` — the one image in the set that was clean, teal and on-brand — was kept unchanged and became the reference register. The other eight were **generated procedurally in this repository** (deterministic Python/Pillow: near-black ground, one soft teal core, thin 1px line work, no representational subject matter, no rendered text, no depicted people or devices), each with a motif drawn from its own product:
+
+| Key | Motif |
+|---|---|
+| `overview` | Concentric apertures opening around a single lit core |
+| `services` | Six stacked planes in perspective, each edged in teal light |
+| `account-insights` | Scattered peripheral signals converging on one lit hub |
+| `case-evidence-collection` | Fragment cards linked down onto one reconstructed spine |
+| `plan-vs-actual-investigation` | A dashed planned trace and a solid measured trace, the gap between them shaded |
+| `large-document-extraction` | A deep stack of thin plates, three rows resolving into a grid of panels |
+| `workforce-optimization` | Right-angled routes from one dispatch core to a field of endpoints |
+| `business-metrics-qa` | A rising series of columns under a trend curve, the last point ringed |
+
+**`heroes.json` no longer carries a `source` field at all.** The retired value, `"SoftServe brand imagery"`, was a provenance claim the images themselves contradicted, shipped in a repo governed by a no-invent rule. An honest provenance line has to name where a file came from, and that belongs here rather than in a publicly fetchable manifest; a generic claim of SoftServe ownership over files SoftServe does not own is worse than no field. The `alt` and `focal` values in `heroes.json` and their copies in `content.js` were rewritten against the new images.
+
+Two systemic knobs moved with them, in `assets/site.css`: `.hero-bg-img` opacity `.78 → .95` with the desaturating filter dropped (`saturate(.82) → 1.04`), since the new set is already dark and already brand-teal, and the `.hero-bg-veil` right-to-left ramp and bottom fade each eased by roughly 0.1 alpha with the teal radial lifted `.13 → .16`. Mobile opacity `.32 → .46` for the same reason. Headline contrast is unaffected: the copy sits in the left third, where the veil is still ≥ 0.9.
+
+### 11.2 One hero shape on all seven products
+
+The product hero rendered in four different shapes: one product added a subline, two were bare, two appended `heroCaption` **below** the CTA row, and two added a `heroLine` above the title plus badges above the CTA. The third of those was also a hierarchy defect — the primary action was no longer the last thing in the hero. The slots now render in one fixed order, with an unset slot rendering nothing: breadcrumb → `heroLine`/`heroCaption` → `headline` → chips → `oneLiner` → `subLine` → `badges` → CTA. `heroCaption` is emitted through the same `.eyebrow.eyebrow--accent.hero-line` treatment as `heroLine`, which collapses the two variants into one; the now-unused `.hero-caption` rule was removed from the stylesheet.
+
+### 11.3 The metrics heading follows the data
+
+On four of seven products the heading **METRICS IMPROVED** sat over four tiles with no number in them and was closed by a footnote saying no metrics are published — the heading asserting an improvement the content withdrew two lines later. `metricTiles()` now heads the block with the new `sectionLabels.metricsPlanned` ("What the proof of value measures") when no tile carries a value, and keeps "Metrics improved" whenever at least one number is present. The component's own qualitative-tile fallback is unchanged.
+
+### 11.4 Oracle Marketplace is off every customer surface until a listing exists
+
+`config.js` carried `marketplace: true` on `large-document-extraction` and `workforce-optimization` with `marketplaceUrl` empty on both, so the site told customers two packs were "On Oracle Marketplace" — a hero badge, a badge on the list cards and overview tiles, and an "Available on Oracle Marketplace 2" facet — with nothing behind it, while the seller panel of the same page said "Oracle Marketplace package — Planned". No SoftServe pack is listed. `SPEC` §25/§323-325, `PROVENANCE` §83, `assumptions` §25/§112 and `open-questions` A1 all rule that no Marketplace link, badge, facet or line ships until a listing exists.
+
+**The boolean was removed from `config.js` entirely** and every render path now keys off `marketplaceUrl` (`app.js` card chips, `product.js` hero chip and hero CTA, `products.js` facet predicate). The facet checkbox is left out of the rail while no product has a listing, and an `mp=1` in the hash is ignored in that state. Paste a real listing URL and badge, facet and CTA appear together.
+
+### 11.5 The anonymised carrier label lost its region
+
+`"A Gulf carrier"` + "Aviation — ground-handling contract management" + a new-entrant narrative narrows to roughly one company. `assumptions.md` §74 says these labels ship with geography and carrier-type framing removed, and the manufacturer label on the same page already carries no geography for exactly that reason. Now `"An international airline"`; the industry line under it is unchanged, so nothing a buyer needs is lost.
+
+### 11.6 `plan-vs-actual-investigation`'s duration tile
+
+The fact strip read `12 weeks + 2` — internal shorthand with a unit-less "+ 2", and inconsistent with the prose two blocks below on the same tab. Now `12 + 2 weeks`. The full "12 weeks, plus a two-week acceptance phase" still ships in the pricing block and the ladder, where there is room for it.
+
+### 11.7 Seller-only commercial notes left the shipped bundle
+
+`sellerGate.packagingNotes` ("Packages compress over time…", "Pricing assumes the accelerator pack already exists…") and two stale-collateral notes under `sellers.notes` shipped inside `data/content.js`, gated only by a localStorage flag. The first tells the buyer the price will fall if they wait; `assumptions.md` files it as seller-panel-only for that reason, and applies the same reasoning to the named contact — "a client-side gate is not access control… scrapers read JSON".
+
+`sellers.notes` and `sellerGate.packagingNotes` are **gone from `content.js`**. The seller panel now renders an empty container and, after the gate passes, fetches `SITE_CONFIG.sellerGate.notesUrl` (`same-origin` credentials) and fills it from the response; an empty `notesUrl`, a failed fetch or an empty payload renders nothing at all — no heading, no error, no console noise. `notesUrl` ships empty, so no seller notes ship. The payload shape and the rule that the path must be one the deployment actually authenticates are documented in `CONFIG.md` §2. `sellerGate.notesHeading` is the only piece of this that stays in `content.js`, because a heading is not a commercial fact.
+
+The two retired stale-collateral notes, recorded here so the knowledge is not lost: the `account-insights` accelerator-pack one-pager carries an earlier product name on its cover, and the `large-document-extraction` sales deck is titled "Large Document Extraction and Validation" — same product, earlier name. The retired packaging notes are quoted at the top of this section.
