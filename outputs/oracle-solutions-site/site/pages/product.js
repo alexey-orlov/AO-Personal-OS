@@ -36,7 +36,7 @@
     for (i = 0; i < tabs.length; i += 1) {
       if (tabs[i].legacyId && tabs[i].legacyId === wanted) return { id: tabs[i].id, legacy: true };
     }
-    return { id: "overview", legacy: false };
+    return { id: "overview", legacy: wanted !== "overview" };
   }
 
   function tabId(params) { return resolveTab(params).id; }
@@ -307,11 +307,13 @@
     }).join("");
 
     var panels = cases.map(function (item, index) {
+      var first = index === 0;
       return '<div class="ind-panel" role="tabpanel" id="' + base + "-panel-" + index + '"' +
         ' aria-labelledby="' + base + "-tab-" + index + '" tabindex="0"' +
-        (index === 0 ? "" : " hidden") + ">" +
+        (first ? "" : " hidden") + ">" +
         '<figure class="ind-figure"><img src="' + UI.esc(item.image) +
-          '" alt="" loading="lazy" decoding="async"></figure>' +
+          '" alt="" decoding="async" loading="' + (first ? "eager" : "lazy") + '"' +
+          (first ? ' fetchpriority="high"' : "") + "></figure>" +
         '<div class="ind-case">' +
           '<h3 class="ind-case-name">' + UI.esc(item.label) + "</h3>" +
           '<p class="eyebrow">' + UI.esc(label("caseProblem")) + "</p>" +
@@ -443,7 +445,7 @@
         "</dd></div>";
     }).join("");
 
-    return '<section class="panel panel--tight rail-card reveal">' +
+    return '<section class="panel panel--tight rail-card rail-card--pin reveal">' +
       blockHead(label("atAGlance")) +
       '<dl class="glance-rows">' + rows + "</dl>" +
       '<p class="panel-link">' + UI.linkArrow({
@@ -484,12 +486,12 @@
         problemSolution(o.problemSolution) +
         stepper(product) +
         industryCases(product) +
+        successStory(product) +
         moreDetail(o) +
       "</div>" +
       '<aside class="ov-rail" aria-label="' + window.UI.esc(label("atAGlance")) + '">' +
         outcomesBlock(o) +
         atAGlance(product) +
-        successStory(product) +
       "</aside>" +
       "</div>";
   }
@@ -573,15 +575,9 @@
         "</div></div>";
     }).join("");
 
-    var notUsed = tech.notUsed && tech.notUsed.length
-      ? '<p class="footnote component-notused">' +
-        UI.esc(label("notUsed") + ": " + tech.notUsed.join(" · ")) + "</p>"
-      : "";
-
     return '<section class="panel reveal" data-stack="' + UI.esc(product.slug) + '">' +
       blockHead(label("stack")) +
       '<div class="stack-accordion">' + rows + "</div>" +
-      notUsed +
       "</section>";
   }
 
@@ -793,7 +789,7 @@
   function contactsTab(product) {
     var UI = window.UI;
     var demo = C().forms.demo;
-    var card = UI.contactCard();
+    var card = UI.contactCard({ className: "contact-card--lead" });
     var head = card
       ? '<section class="panel reveal">' + blockHead(label("contacts")) + card + "</section>"
       : "";
@@ -809,7 +805,10 @@
             engagementSteps() +
           "</div>" +
           '<div class="panel--form" id="product-demo-form">' +
-            window.FORMS.render("demo", { product: product.slug, heading: false }) +
+            window.FORMS.render("demo", {
+              product: product.slug, heading: false,
+              submitLabel: C().forms.labels.submitRequest
+            }) +
           "</div>" +
         "</div>" +
       "</section>";
@@ -1166,22 +1165,6 @@
     roving(tabs, select, true);
   }
 
-  /* Sticky is a convenience, not the point: a rail taller than the viewport
-     would pin its top and hide its own last card for the whole scroll, so it
-     only sticks while it fits. Measured here because CSS cannot ask. */
-  function fitRail() {
-    var rail = document.querySelector(".ov-rail");
-    if (!rail) return;
-    rail.classList.remove("is-sticky");
-    var offset = document.documentElement.clientHeight * 0.06 + 40;
-    if (rail.scrollHeight + offset <= window.innerHeight) rail.classList.add("is-sticky");
-  }
-
-  if (!window.PAGES.__railFit) {
-    window.PAGES.__railFit = true;
-    window.addEventListener("resize", fitRail);
-  }
-
   function bindStack(root) {
     var block = root.querySelector("[data-stack]");
     if (!block) return;
@@ -1219,7 +1202,6 @@
     bindStepper(root);
     bindIndustryTabs(root);
     bindStack(root);
-    fitRail();
 
     if (active === "sellers" && gateUnlocked()) loadSellerNotes(root, item);
 
