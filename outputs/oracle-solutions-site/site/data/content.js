@@ -1788,7 +1788,12 @@ window.SITE_CONTENT = {
           { vendor: "softserve", label: "SoftServe delivery layer", items: ["Catalog mounting and database links", "The governed gold model and its definitions", "Masking, row-level policies and the SQL firewall configuration", "The agreed 30-question set and accuracy tuning"] }
         ],
         notUsed: ["NVIDIA — not required; Lakehouse first, GPU optional", "Oracle AI Data Platform — coexists where one is already in place"],
-        layers: [],
+        layers: [
+          { layer: "Cloud tenancy", providedBy: "Oracle", body: "Your own tenancy — OCI, or Autonomous inside AWS, Azure or Google Cloud regions" },
+          { layer: "Oracle Autonomous AI Lakehouse", providedBy: "Oracle", body: "Oracle Autonomous AI Database 26ai as the governed gold layer, with Select AI, vector search, Apache Iceberg and Exadata" },
+          { layer: "Existing platforms", providedBy: "Unchanged", body: "AWS Glue, Databricks Unity Catalog, Snowflake and on-prem databases stay where they are — catalogs mounted, databases linked, no data movement" },
+          { layer: "Custom configuration", providedBy: "SoftServe", body: "Catalog mounting and database links, the governed gold model and its definitions, masking, row-level policies, the SQL firewall and the agreed question set" }
+        ],
         governance: {
           title: "GOVERNANCE LAYER — THE PART SECURITY ASKS ABOUT",
           body: "Masking, row-level access and a SQL firewall live in the data layer itself, applied to every query — including the ones AI writes. Every interaction is logged. Proof you can watch: the same question asked in two roles returns two different, correctly filtered answers — enforced by the database, not by the prompt."
