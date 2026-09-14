@@ -943,7 +943,7 @@
 
   function neighbours(product) {
     var UI = window.UI;
-    var list = C().products;
+    var list = UI.orderedProducts();
     var index = list.map(function (item) { return item.slug; }).indexOf(product.slug);
     var prev = list[(index - 1 + list.length) % list.length];
     var next = list[(index + 1) % list.length];

@@ -32,7 +32,7 @@
   }
 
   function anyMarketplace() {
-    return window.SITE_CONTENT.products.some(isMarketplace);
+    return window.UI.orderedProducts().some(isMarketplace);
   }
 
   function haystack(product) {
@@ -63,7 +63,7 @@
 
   function filtered(overrides) {
     var filters = Object.assign({}, state, overrides || {});
-    return window.SITE_CONTENT.products.filter(function (product) {
+    return window.UI.orderedProducts().filter(function (product) {
       return matches(product, filters);
     });
   }
@@ -188,7 +188,7 @@
 
   function countLine() {
     var list = filtered();
-    var total = window.SITE_CONTENT.products.length;
+    var total = window.UI.orderedProducts().length;
     return list.length === total
       ? String(total) + " products"
       : String(list.length) + " of " + total + " products";

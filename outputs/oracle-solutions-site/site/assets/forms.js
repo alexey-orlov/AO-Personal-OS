@@ -50,7 +50,7 @@
     }).join("");
 
     var productOptions = ['<option value="">' + UI.esc(C.forms.productPlaceholder) + "</option>"]
-      .concat(C.products.map(function (product) {
+      .concat(UI.orderedProducts().map(function (product) {
         return '<option value="' + UI.esc(product.slug) + '"' +
           (product.slug === opts.product ? " selected" : "") + ">" + UI.esc(product.name) + "</option>";
       })).join("");

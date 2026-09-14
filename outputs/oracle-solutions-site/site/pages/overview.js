@@ -66,7 +66,7 @@
   function products(C) {
     var UI = window.UI;
     var intro = C.overview.productsIntro;
-    var tiles = C.products.map(function (product) { return UI.card(product); }).join("");
+    var tiles = UI.orderedProducts().map(function (product) { return UI.card(product); }).join("");
     return '<section class="section" id="products">' +
       '<div class="wrap">' +
         UI.sectionHead({ title: intro.title, count: intro.count, link: { label: intro.cta.label, href: intro.cta.route } }) +

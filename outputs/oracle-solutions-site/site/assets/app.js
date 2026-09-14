@@ -279,6 +279,22 @@
       "</figure>";
   }
 
+  function orderedProducts() {
+    var order = (CFG && CFG.productOrder) || [];
+    var rank = {};
+    order.forEach(function (slug, index) {
+      if (!Object.prototype.hasOwnProperty.call(rank, slug)) rank[slug] = index;
+    });
+    return C.products.map(function (product, index) {
+      var listed = Object.prototype.hasOwnProperty.call(rank, product.slug);
+      return { product: product, index: index, rank: listed ? rank[product.slug] : order.length + index };
+    }).sort(function (a, b) {
+      return a.rank - b.rank || a.index - b.index;
+    }).map(function (entry) {
+      return entry.product;
+    });
+  }
+
   function tilePlate(product) {
     var facet = facetLabel(product.facet);
     var item = media(product.slug);
@@ -393,6 +409,7 @@
     empty: emptyState,
     card: card,
     tilePlate: tilePlate,
+    orderedProducts: orderedProducts,
     media: media,
     figure: figure,
     diagram: diagram,

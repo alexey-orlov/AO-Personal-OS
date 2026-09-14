@@ -6,6 +6,15 @@ window.SITE_CONFIG = {
     storageKey: "oracle-ai-solutions:seller-unlocked",
     notesUrl: ""
   },
+  productOrder: [
+    "large-document-extraction",
+    "account-insights",
+    "workforce-optimization",
+    "plan-vs-actual-investigation",
+    "case-evidence-collection",
+    "cross-system-erp-qa",
+    "business-metrics-qa"
+  ],
   products: {
     "account-insights": {
       marketplaceUrl: "",
