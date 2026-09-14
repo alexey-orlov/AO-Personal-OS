@@ -568,9 +568,6 @@ window.SITE_CONTENT = {
           { key: "one-pager", title: "Sales one-pager", description: "The single-page version: problem, solution, proof, engagement.", state: "coming-soon" },
           { key: "feature-list", title: "Feature list", description: "The capability matrix: baseline, built, custom per engagement.", state: "coming-soon" },
           { key: "demo-video", title: "Demo video", description: "A recorded walkthrough of the reviewer UI.", state: "coming-soon" }
-        ],
-        notes: [
-          "Earlier product name on the cover; the content is current."
         ]
       }
     },
@@ -779,8 +776,7 @@ window.SITE_CONTENT = {
           { key: "feature-list", title: "Feature list", description: "The capability matrix: baseline, built, custom per engagement.", state: "coming-soon" },
           { key: "demo-video", title: "Demo video", description: "A recorded walkthrough of the investigator UI.", state: "coming-soon" }
         ],
-        emptyPanelCopy: "Materials in preparation. This pack is being packaged now. For a scoping conversation, or a walkthrough of how the pattern works on a live system landscape, use the contact below.",
-        notes: []
+        emptyPanelCopy: "Materials in preparation. This pack is being packaged now. For a scoping conversation, or a walkthrough of how the pattern works on a live system landscape, use the contact below."
       }
     },
     {
@@ -993,8 +989,7 @@ window.SITE_CONTENT = {
           { key: "feature-list", title: "Feature list", description: "The capability matrix: baseline, built, custom per engagement.", state: "coming-soon" },
           { key: "demo-video", title: "Demo video", description: "A recorded walkthrough of the review app.", state: "coming-soon" }
         ],
-        emptyPanelCopy: "Materials in preparation. This pack is being packaged now. For a scoping conversation, or a walkthrough of how the pattern works on a live system landscape, use the contact below.",
-        notes: []
+        emptyPanelCopy: "Materials in preparation. This pack is being packaged now. For a scoping conversation, or a walkthrough of how the pattern works on a live system landscape, use the contact below."
       }
     },
     {
@@ -1214,9 +1209,6 @@ window.SITE_CONTENT = {
           { key: "feature-list", title: "Accelerator pack one-pager (capability matrix)", description: "The full matrix — what the Oracle + NVIDIA baseline provides, what SoftServe has built, and the custom work per engagement — plus use-case boundaries.", state: "superseded" },
           { key: "demo-video", title: "Demo video", description: "A recorded walkthrough of the split-view reviewer UI.", state: "coming-soon" },
           { key: "marketplace-package", title: "Oracle Marketplace package", description: "The listing package for the product’s Oracle Marketplace entry.", state: "planned" }
-        ],
-        notes: [
-          "Titled \"Large Document Extraction and Validation\" in the deck — same product, earlier name."
         ]
       }
     },
@@ -1437,8 +1429,7 @@ window.SITE_CONTENT = {
           { key: "feature-list", title: "Accelerator pack one-pager (feature list)", description: "The full capability matrix: what is out of the box, what is roadmap, and the standard customization scope per area.", state: "link-pending" },
           { key: "demo-video", title: "Demo video", description: "A recorded walkthrough of the dispatcher review UI.", state: "coming-soon" },
           { key: "marketplace-package", title: "Oracle Marketplace package", description: "The listing package for the product’s Oracle Marketplace entry.", state: "planned" }
-        ],
-        notes: []
+        ]
       }
     },
     {
@@ -1659,8 +1650,7 @@ window.SITE_CONTENT = {
           { key: "one-pager", title: "Product one-pager", description: "The single-page version: problem, offer, what you keep.", state: "coming-soon" },
           { key: "feature-list", title: "Feature list", description: "The capability matrix: baseline, built, custom per engagement.", state: "coming-soon" },
           { key: "demo-video", title: "Demo video", description: "A recorded walkthrough of the governed Q&A layer.", state: "coming-soon" }
-        ],
-        notes: []
+        ]
       }
     },
     {
@@ -1882,8 +1872,7 @@ window.SITE_CONTENT = {
           { key: "one-pager", title: "Product one-pager", description: "The single-page version: problem, offer, what you keep.", state: "coming-soon" },
           { key: "feature-list", title: "Feature list", description: "The capability matrix: baseline, built, custom per engagement.", state: "coming-soon" },
           { key: "demo-video", title: "Demo video", description: "A recorded walkthrough of the cross-cloud assistant.", state: "coming-soon" }
-        ],
-        notes: []
+        ]
       }
     }
 
@@ -2116,10 +2105,6 @@ window.SITE_CONTENT = {
       "superseded": "Superseded — do not distribute",
       "planned": "Planned — scoped, not started"
     },
-    packagingNotes: [
-      "Packages compress over time. Service-delivery packages are expected to compress as the accelerator pack matures and absorbs more of the work.",
-      "Pricing assumes the accelerator pack already exists — a first-of-kind engagement is scoped separately."
-    ],
     cta: {
       heading: "SEE THE FIT IN ONE OF YOUR ACCOUNTS?",
       body: "Let’s discuss a Proof of Value on the customer’s own data — {duration}, ending in measurable KPIs.",

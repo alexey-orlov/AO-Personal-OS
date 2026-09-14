@@ -3,7 +3,8 @@ window.SITE_CONFIG = {
   formEndpoint: "",
   sellerGate: {
     allowedDomains: ["softserveinc.com", "oracle.com"],
-    storageKey: "oracle-ai-solutions:seller-unlocked"
+    storageKey: "oracle-ai-solutions:seller-unlocked",
+    notesUrl: ""
   },
   products: {
     "account-insights": {
