@@ -16,7 +16,7 @@ Copy (headlines, product descriptions, prices, disclaimers) lives in `site/data/
 
 ```js
 window.SITE_CONFIG = {
-  contactEmail: "RnDrequest@softserveinc.com",
+  contactEmail: "oracle@softserveinc.com",
   formEndpoint: "",
   sellerGate: {
     allowedDomains: ["softserveinc.com", "oracle.com"],
@@ -46,10 +46,10 @@ window.SITE_CONFIG = {
 
 ### `contactEmail`
 
-The mailbox every form falls back to when `formEndpoint` is empty. Today: `RnDrequest@softserveinc.com`.
+The mailbox every form falls back to when `formEndpoint` is empty. Today: `oracle@softserveinc.com` — **the same address the contact card prints**, and that is the rule: the card and the form directly beneath it must reach one destination. They did not, once: the card printed the practice mailbox while the form composed to an unverified `RnDrequest@` alias, so a seller demoing the Contacts tab saw the mismatch the moment the mail client opened. If a different routing address is ever wanted here, it has to be verified first and the reason recorded in this file.
 
 ```js
-contactEmail: "RnDrequest@softserveinc.com",
+contactEmail: "oracle@softserveinc.com",
 ```
 
 This address is **never printed on a page**. It is used only as the destination of the `mailto:` the form composes. If the alias is replaced, change it here and nothing else.
