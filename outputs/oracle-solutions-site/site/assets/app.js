@@ -201,6 +201,43 @@
     }).join("") + "</ul>";
   }
 
+  function initials(name) {
+    return String(name || "").trim().split(/\s+/).slice(0, 2).map(function (part) {
+      return part.charAt(0).toUpperCase();
+    }).join("");
+  }
+
+  /* One named human, one address, one card — rendered on every product's
+     Contacts tab and above the Services form. The monogram is the avatar's own
+     background and the photograph sits on top of it, so a missing file leaves
+     initials rather than a broken frame: the image guard drops the <img>. */
+  function contactCard(options) {
+    var opts = options || {};
+    var person = (C.shared && C.shared.contact) || null;
+    if (!person || !person.name) return "";
+    return '<div class="contact-card' + (opts.className ? " " + esc(opts.className) : "") + '">' +
+      '<span class="contact-photo" aria-hidden="true">' +
+        '<span class="contact-initials">' + esc(initials(person.name)) + "</span>" +
+        (person.photo
+          ? '<img class="contact-photo-img" src="' + esc(person.photo) +
+            '" alt="" loading="lazy" decoding="async">'
+          : "") +
+      "</span>" +
+      '<div class="contact-card-copy">' +
+        '<p class="contact-name">' + esc(person.name) + "</p>" +
+        (person.title ? '<p class="contact-title">' + esc(person.title) + "</p>" : "") +
+        (person.email
+          ? '<a class="contact-mail" href="mailto:' + esc(person.email) + '">' + icon("mail") +
+            "<span>" + esc(person.email) + "</span></a>"
+          : "") +
+        (person.blurb ? '<p class="contact-blurb">' + esc(person.blurb) + "</p>" : "") +
+        (person.linkedin
+          ? '<a class="contact-social" href="' + esc(person.linkedin) +
+            '" target="_blank" rel="noopener">' + icon("linkedin") + "<span>LinkedIn</span></a>"
+          : "") +
+      "</div></div>";
+  }
+
   function heroBackdrop(image, options) {
     var opts = options || {};
     if (!image || !image.file) return "";
@@ -362,6 +399,7 @@
     facetLabel: facetLabel,
     industryLabel: industryLabel,
     industryChips: industryChips,
+    contactCard: contactCard,
     sectionLabel: sectionLabel,
     heroBackdrop: heroBackdrop,
     modal: { open: openModal, close: closeModal }
@@ -510,7 +548,7 @@
   var YT_PLACEHOLDER_W = 120;
 
   function guardHeroImages(root) {
-    Array.prototype.forEach.call(root.querySelectorAll(".hero-bg-img, .video-card-poster"), function (img) {
+    Array.prototype.forEach.call(root.querySelectorAll(".hero-bg-img, .video-card-poster, .contact-photo-img, .market-tile-img"), function (img) {
       var retried = false;
 
       function isYouTube() { return (img.getAttribute("src") || "").indexOf("img.youtube.com/") >= 0; }
