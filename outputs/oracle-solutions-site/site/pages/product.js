@@ -133,7 +133,7 @@
         ' data-video-title="' + UI.esc(product.name) + '"'
       : ' data-video-pending="' + UI.esc(product.slug) + '"';
     return '<div class="hero-media">' +
-      '<button class="video-card" type="button"' + hook +
+      '<button class="video-card' + (poster ? "" : " video-card--plate") + '" type="button"' + hook +
         ' aria-label="' + UI.esc(caption + " — " + product.name) + '">' +
         (poster
           ? '<img class="video-card-poster" src="' + UI.esc(poster) +
