@@ -780,7 +780,7 @@ written Oracle **and** customer sign-off is recorded in §4:
 Workforce Optimization sales one-pager carries the **same** customer's KPIs, so
 it is not a second source. No figure was substituted and none was invented.
 
-`shared.modeledResults` is left in place — it is the standing phrasing for the
+`disclaimers.modeledResults` is left in place — it is the standing phrasing for the
 day the figures return.
 
 `tools/check-grammar.js` required 3–4 `overview.metrics` tiles. The rule now
