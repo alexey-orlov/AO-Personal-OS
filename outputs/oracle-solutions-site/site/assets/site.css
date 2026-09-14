@@ -1789,10 +1789,13 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 
 /* ——— technology tab ——————————————————————————————————— */
 
-.group-mark { height: .6875rem; width: auto; flex: none; opacity: .62; filter: grayscale(1) brightness(1.55); }
-.group-mark[alt="ORACLE"], .group-mark[alt="Oracle"] { height: .5625rem; opacity: .56; }
-.group-mark[alt="NVIDIA"] { height: .6875rem; }
-.group-mark[alt="SoftServe"] { height: .75rem; }
+/* One cap-height across the five rows, one opacity: the layer order is what
+   ranks them, not whose wordmark happens to set widest. Heights differ only
+   because each mark's box holds a different amount above and below the caps. */
+.group-mark { width: auto; flex: none; opacity: .6; filter: grayscale(1) brightness(1.55); }
+.group-mark--oracle { height: .5625rem; }
+.group-mark--nvidia { height: .75rem; }
+.group-mark--softserve { height: .75rem; }
 
 .layer-table { display: flex; flex-direction: column; border: 1px solid var(--border-subtle); border-radius: var(--r-lg); overflow: hidden; }
 .layer-row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, .7fr) minmax(0, 1.6fr); gap: 1rem 1.5rem; padding: 1.125rem 1.25rem; background: var(--bg); }

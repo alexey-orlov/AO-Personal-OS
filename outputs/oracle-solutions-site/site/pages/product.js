@@ -513,7 +513,8 @@
     return (vendors || []).map(function (vendor) {
       var mark = VENDOR_MARK[vendor];
       return mark
-        ? '<img class="group-mark" src="' + UI.esc(mark.src) + '" alt="' + UI.esc(mark.alt) + '">'
+        ? '<img class="group-mark group-mark--' + UI.esc(vendor) + '" src="' + UI.esc(mark.src) +
+          '" alt="' + UI.esc(mark.alt) + '">'
         : "";
     }).join("");
   }
