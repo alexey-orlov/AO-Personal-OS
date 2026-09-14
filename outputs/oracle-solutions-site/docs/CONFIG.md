@@ -177,7 +177,7 @@ video: true,
 | `video` | `videoUrl` | Product hero |
 |---|---|---|
 | `false` | `""` | Single column: text over the hero background image. No video frame, no poster, no greyed play button, no "coming soon" line. |
-| `true` | `""` — today on the three | Two columns: text left, a 16:9 media frame right — poster, teal play button, caption "Watch the demo". Clicking it opens a small panel: the product name, the line *"The demo recording is being prepared."*, and a **"Request a live demo"** button that goes to that product's Request-a-demo tab and closes the panel. Escape and the close button work as on any modal. |
+| `true` | `""` — today on the three | Two columns: text left, a 16:9 media frame right — poster, teal play button, caption "Watch the demo". Clicking it opens a small panel: the product name, the line *"The demo recording is being prepared."*, and a **"Request a live demo"** button that goes to that product's Contacts tab and closes the panel. Escape and the close button work as on any modal. |
 | `true` or `false` | a URL | Same two-column frame; clicking it plays the video in a modal. A URL turns the frame on by itself, so a product whose video arrives before anyone edits this flag still gets its frame. |
 
 In every case where the frame renders, the frame *is* the watch affordance, so the separate secondary "Watch the demo" button drops out of the CTA row and **"Request a demo"** stays the only primary CTA.
@@ -312,7 +312,19 @@ The grade recipe and its constants are in `PROVENANCE.md` §11.1. Do not compens
 
 **If a hero image is missing**, the renderer drops the `<img>` and the hero falls back to the gradient alone. That is a safety net, not a mode to ship in: it makes every hero identical and flat, which is exactly what the per-product image is there to prevent. `node tools/check-grammar.js` warns for each hero file that is not on disk.
 
-**To swap a hero image:** drop the new file into `site/assets/img/heroes/`, point `file` at it, adjust `focal` until the crop sits right, update the same entry in `heroes.json` (generic `source` / `credit` only), and record where it actually came from in `PROVENANCE.md` §11.1. The image is the background of the **top block only** — never the Overview tab, never a full-screen wash. It renders at 60–70vh maximum on desktop under a left-to-right dark veil plus a bottom fade, so the headline always sits on near-black; below 900 px the veil becomes a top-to-bottom fade and the image drops to `opacity: .62`.
+**To swap a hero image:** drop the new file into `site/assets/img/heroes/`, point `file` at it, adjust `focal` until the crop sits right, update the same entry in `heroes.json` (generic `source` / `credit` only), and record where it actually came from in `PROVENANCE.md` §11.1. On a page the image is the background of the **top block only** — never the Overview tab, never a full-screen wash. It renders at 60–70vh maximum on desktop under a left-to-right dark veil plus a bottom fade, so the headline always sits on near-black; below 900 px the veil becomes a top-to-bottom fade and the image drops to `opacity: .62`.
+
+**A product hero has a second surface: its Products-page tile.** Every tile on `#/products` is that product's own `hero.image`, same file and same `focal`, cropped by CSS under a heavier gradient veil so the name, chips, one-liner and outcome bullets stay legible on top of it. Swapping a hero therefore changes two things at once — check the tile as well as the page, and pick a `focal` that survives both crops (16:9-ish on the page, roughly 4:3 in the tile). A product with no hero file on disk falls back to the flat tile ground rather than a broken frame.
+
+### The other image families
+
+| Family | Path | Keyed by | Used by |
+|---|---|---|---|
+| Step frames | `assets/img/steps/<slug>-<n>.<ext>` | product **and** step number | the How-it-works stepper on the Overview tab, one 16:10 frame per step — a real product screenshot where one exists, otherwise a designed illustration built to the same frame |
+| Industry photographs | `assets/img/industries/<key>.<ext>` | **industry**, not product | the industry use-case tabs; one file serves every product whose tabs include that industry |
+| The contact portrait | `assets/img/people/<name>.<ext>` | the one person in `shared.contact` | the contact card on every Contacts tab and above the Services form, as a circle |
+
+All three are named in `content.js` (`overview.steps[].image`, `overview.industryCases[].image`, `shared.contact.photo`), not here — they are copy-side facts, not switches. A missing file is a warning from `check-grammar.js`, never a failure; the contact portrait degrades to an initials monogram, and the other two to an empty frame.
 
 ---
 
@@ -338,4 +350,4 @@ node tools/check-grammar.js
 
 The first two must print nothing. A syntax error there blanks the whole site, because the page cannot read its own content — a trailing comma in the wrong place is the usual cause.
 
-`check-grammar.js` must print `OK`. It asserts that every product still fills every slot of the component grammar (see `VISUAL-GRAMMAR.md`): hero image, problem/solution pair, 3–4 metric tiles with their note, ROI band, 6–8 short feature lines, industry keys from the fixed set, in/out of scope, the four-step flow, vendor groups, and the POV fact strip. It also fails on any banned string — internal vocabulary or an uncleared customer name — reaching the data layer. It exits non-zero and names each failure.
+`check-grammar.js` must print `OK`. It asserts that every product still fills every slot of the component grammar (see `VISUAL-GRAMMAR.md`): hero image, problem/solution pair, 3–4 metric tiles with their note, ROI band, 6–8 short feature lines each landing in exactly one workflow step, 3–5 steps, 3–6 industry cases, the at-a-glance side facts, industry keys from the fixed set, in/out of scope, the four-step flow, the 4–5 layer solution stack with a Required item in every layer and both an inbound and an outbound integration, and the POV fact strip. Site-wide it also asserts the contact card, the `contacts` tab and the absence of the retired `demo` tab. It also fails on any banned string — internal vocabulary or an uncleared customer name — reaching the data layer. It exits non-zero and names each failure.
