@@ -8,7 +8,7 @@ window.SITE_DIAGRAMS = {
     group: {
       label: ["Oracle Cloud Infrastructure", "dedicated AI cluster"],
       nodes: [
-        { title: ["Account Insights"], sub: ["Filter, fan out, reason,", "score and cite"] },
+        { title: ["Account insights"], sub: ["Filter, fan out, reason,", "score and cite"] },
         { title: ["NVIDIA AI-Q"], sub: ["Vector search", "and reranking"] }
       ]
     },

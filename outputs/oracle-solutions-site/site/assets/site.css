@@ -1255,8 +1255,8 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(to bottom, rgba(19, 19, 19, .3) 0%, rgba(19, 19, 19, .74) 36%, rgba(19, 19, 19, .93) 70%, #0C0C0C 100%),
-    linear-gradient(to right, rgba(19, 19, 19, .68), rgba(19, 19, 19, .12));
+    linear-gradient(to bottom, rgba(19, 19, 19, .55) 0, rgba(19, 19, 19, .42) 5rem, rgba(19, 19, 19, .58) 11rem, rgba(19, 19, 19, .9) 100%),
+    linear-gradient(to right, rgba(19, 19, 19, .72), rgba(19, 19, 19, .35));
 }
 
 .market-copy {
@@ -1284,12 +1284,8 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 
 .market-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 1.75rem; margin-top: auto; padding-top: .25rem; }
 
-.market-grid > .market-tile:last-child:nth-child(odd) { grid-column: 1 / -1; min-height: 22rem; }
-.market-grid > .market-tile:last-child:nth-child(odd) .market-copy { max-width: 50%; }
-
 @media (max-width: 1024px) {
   .market-grid { grid-template-columns: minmax(0, 1fr); }
-  .market-grid > .market-tile:last-child:nth-child(odd) .market-copy { max-width: none; }
 }
 
 @media (max-width: 560px) {
@@ -1782,7 +1778,10 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 
 /* ——— technology tab ——————————————————————————————————— */
 
-.group-mark { height: .75rem; width: auto; flex: none; opacity: .5; filter: grayscale(1) brightness(1.6); }
+.group-mark { height: .6875rem; width: auto; flex: none; opacity: .62; filter: grayscale(1) brightness(1.55); }
+.group-mark[alt="ORACLE"], .group-mark[alt="Oracle"] { height: .5625rem; opacity: .56; }
+.group-mark[alt="NVIDIA"] { height: .6875rem; }
+.group-mark[alt="SoftServe"] { height: .75rem; }
 
 .layer-table { display: flex; flex-direction: column; border: 1px solid var(--border-subtle); border-radius: var(--r-lg); overflow: hidden; }
 .layer-row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, .7fr) minmax(0, 1.6fr); gap: 1rem 1.5rem; padding: 1.125rem 1.25rem; background: var(--bg); }
@@ -1796,24 +1795,23 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
   display: grid;
   grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
   gap: clamp(1.75rem, 3vw, 3rem);
-  align-items: start;
+  align-items: stretch;
 }
 
 .ov-main { display: flex; flex-direction: column; gap: clamp(1.75rem, 2.6vw, 2.5rem); min-width: 0; }
 
-/* The rail sticks only while it fits the viewport — `.is-sticky` is set by the
-   renderer after measuring. A rail taller than the screen would pin its top and
-   put its own footer permanently out of reach, and an inner scrollbar would eat
-   the page scroll under the pointer; either one is worse than a column that
-   simply scrolls with the page. */
+/* The outcomes card is too tall to pin at 900 px, so the card that pins is the
+   compact one under it — and because it is the last child, nothing scrolls
+   underneath it while it is held. */
 .ov-rail {
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
   min-width: 0;
+  height: 100%;
 }
 
-.ov-rail.is-sticky { position: sticky; top: calc(var(--nav-h) + 1.25rem); }
+.rail-card--pin { position: sticky; top: calc(var(--nav-h) + 1.25rem); }
 
 .rail-card {
   padding: clamp(1.125rem, 1.8vw, 1.5rem);
@@ -1823,13 +1821,15 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 }
 
 .rail-card .block-title { font-size: 1.125rem; }
+.rail-card .stat-tile { padding: .875rem 1rem; gap: .25rem; }
+.rail-card .stat-tile-value { font-size: 1.75rem; }
+.rail-card .stat-tile-qual { margin-top: .125rem; }
+.rail-card .glance-row { padding-block: .5rem; }
 .stat-tiles--stack { grid-template-columns: minmax(0, 1fr); }
 .roi-band--compact { grid-template-columns: minmax(0, 1fr); gap: .75rem; padding: 1rem; }
 .roi-band--compact .roi-mark { width: 2.25rem; height: 2.25rem; }
 .roi-band--compact .roi-mark .icon { width: 1.125rem; height: 1.125rem; }
 .roi-band--compact .roi-text { font-size: var(--fs-xs); line-height: 1.65; }
-.ov-rail .story-band-copy { padding: clamp(1.25rem, 2vw, 1.5rem); }
-.ov-rail .band-body { font-size: var(--fs-sm); }
 
 /* at a glance */
 .glance-rows { display: flex; flex-direction: column; margin: 0; }
@@ -1898,13 +1898,22 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 
 .step-frames { min-width: 0; }
 .step-frame {
+  position: relative;
   margin: 0;
   border: 1px solid var(--border-subtle);
   border-radius: var(--r-lg);
   overflow: hidden;
   background: var(--bg-inset);
 }
-.step-frame img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; }
+.step-frame img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; display: block; }
+.step-frame::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .05);
+  border-radius: inherit;
+}
 
 /* ——— industry use cases: the tab component ————————————— */
 
@@ -1945,6 +1954,7 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 .ind-case-name { font-family: var(--font-display); font-weight: 900; font-size: 1.125rem; text-transform: uppercase; line-height: 1.15; color: var(--text); }
 .ind-case .eyebrow { margin-top: .5rem; }
 .ind-case-text { font-size: var(--fs-sm); line-height: 1.65; color: var(--text-body); }
+.ind-note { margin-top: 1.25rem; }
 
 /* ——— solution stack: one accordion, top to bottom ————— */
 
@@ -2030,6 +2040,7 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 }
 
 .contact-card--form { margin-bottom: 2rem; }
+.contact-card--lead { max-width: 42rem; }
 
 .contact-photo {
   position: relative;
@@ -2204,7 +2215,8 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 @media (max-width: 1100px) {
   .def-grid--4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .ov-layout { grid-template-columns: minmax(0, 1fr); }
-  .ov-rail.is-sticky { position: static; }
+  .ov-rail { height: auto; }
+  .rail-card--pin { position: static; }
   .tier-grid { grid-template-columns: 1fr; grid-template-rows: auto; }
   .tier { grid-row: auto; display: flex; flex-direction: column; }
   .tier-body { flex: 1; }

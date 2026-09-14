@@ -327,6 +327,9 @@
       blockHead(heading) +
       '<div class="ind-tablist" role="tablist" aria-label="' + UI.esc(heading) + '">' + tabs + "</div>" +
       '<div class="ind-panels">' + panels + "</div>" +
+      (product.overview.industriesNote
+        ? '<p class="footnote ind-note">' + UI.esc(product.overview.industriesNote) + "</p>"
+        : "") +
       "</section>";
   }
 
@@ -357,13 +360,6 @@
             '<p class="eyebrow">' + UI.esc(label("scopeOut")) + "</p>" +
             plainList(o.scope.out) +
           "</div></div></div>");
-    }
-
-    if (o.industries && o.industries.length) {
-      parts.push('<p class="eyebrow detail-sub">' + UI.esc(label("industries")) + "</p>" +
-        '<div class="detail-full">' + UI.industryChips(o.industries) +
-        (o.industriesNote ? '<p class="footnote detail-note">' + UI.esc(o.industriesNote) + "</p>" : "") +
-        "</div>");
     }
 
     var features = detailEntries(o.featuresDetail);
