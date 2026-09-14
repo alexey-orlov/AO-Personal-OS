@@ -185,7 +185,7 @@ if (!arr(C.products) || C.products.length !== 7) {
       if (str(s.text) && words(s.text) > 30) fail(sw, "text is " + words(s.text) + " words (max 30 — it has to fit two lines)");
       if (str(s.image)) {
         var want = new RegExp("^assets/img/steps/" + p.slug + "-" + (i + 1) + "\\.(jpg|jpeg|png|webp|svg)$");
-        if (!want.test(s.image)) fail(sw, 'image "' + s.image + '" must be assets/img/steps/' + p.slug + "-" + (i + 1) + ".jpg");
+        if (!want.test(s.image)) fail(sw, 'image "' + s.image + '" must be assets/img/steps/' + p.slug + "-" + (i + 1) + ".<jpg|png|webp|svg>");
         else checkAsset(sw, "step image", s.image);
       }
       if (!arr(s.features) || !s.features.length) fail(sw, "features missing — every step carries the feature bullets that belong to it");
