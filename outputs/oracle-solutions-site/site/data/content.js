@@ -398,8 +398,7 @@ window.SITE_CONTENT = {
       availability: "available",
       availabilityChip: "Available now",
       availabilityTooltip: "A packaged offering exists — collateral and a scoped proof of value, with a first engagement delivered or under way.",
-      oneLiner: "Market signals into per-account opportunities.",
-      subLine: "Turns one real-world signal — news, filing, disclosure — into structured, cited opportunities and risks for every account it touches.",
+      oneLiner: "Turns news, filings and market signals into cited, per-account opportunities and risks that sales and account teams can act on.",
       tags: ["Deep research", "OCI + NVIDIA", "AI-Q", "Available now"],
       hero: {
         image: {
@@ -519,13 +518,6 @@ window.SITE_CONTENT = {
             solution: "Each in-scope account is reasoned against the signal — supply-chain exposure, reallocation opportunities, second-order effects on sites and lanes — with every item tied to a real service line. The magnitude and confidence scores let the team work the top of the list first."
           }
         ],
-        sideFacts: {
-          category: "Deep research & investigation",
-          platform: "Oracle Cloud Infrastructure + NVIDIA",
-          availability: "Available now",
-          povDuration: "Scoped per engagement",
-          povPrice: "Scoped per engagement"
-        },
         scope: {
           in: [
             "A signal plus first-party CRM context, the service catalog and the in-scope account list",
@@ -549,21 +541,10 @@ window.SITE_CONTENT = {
           { title: "Evaluation is part of the work", body: "The engine is a non-deterministic reasoning system, so a dedicated evaluation plan — correctness and confidence calibration — is part of the work." },
           { title: "Private equity funds", body: "A market or regulatory signal turned into thesis-relevant opportunities across portfolio companies; event-driven screening of pipeline targets." }
         ],
-        successStory: {
-          title: "SUCCESS STORY",
-          state: "first-engagement",
-          blurb: "A first engagement is under way with a global logistics and supply-chain operator, on the customer’s own account base. What it measures: the accuracy and the confidence calibration of the generated opportunities, against reviewer approve/reject decisions.",
-          evidenceId: "account-insights-first-engagement"
-        }
+        successStory: null
       },
       technology: {
         narrative: "The app runs on a dedicated AI cluster in your own Oracle Cloud Infrastructure tenancy. NVIDIA AI-Q grounds every conclusion in a cited first-party or public source, and nothing reaches the CRM until a reviewer approves it.",
-        flow: [
-          { step: "Sources", label: "News, filings, CRM context, service catalog" },
-          { step: "Ingest", label: "Relevance filter, de-duplication, account fan-out" },
-          { step: "Reason", label: "Opportunity and risk reasoning, ripples, scoring" },
-          { step: "Deliver", label: "Reviewer approves; one JSON per account to the CRM" }
-        ],
         stack: [
           {
             key: "application",
@@ -621,67 +602,90 @@ window.SITE_CONTENT = {
             ]
           }
         ],
-        security: [
-          { icon: "shield", text: "Runs in the customer’s own OCI tenancy." },
-          { icon: "lock", text: "The reviewer gate is architectural, not optional: nothing is pushed downstream unapproved." },
-          { icon: "eye", text: "Citations and the reasoning behind every item, so a reviewer can check the conclusion rather than trust it." },
-          { icon: "audit", text: "A dedicated evaluation plan — correctness and confidence calibration — is part of every engagement." }
+        capabilities: [
+          {
+            stage: "Inputs & grounding",
+            items: [
+              { name: "Signal ingestion — news, filings and disclosures as the trigger" },
+              { name: "First-party context: CRM records and account framing" },
+              { name: "Service-line capability catalog" },
+              { name: "Public filings" },
+              { name: "Commercial data feeds" },
+              { name: "The in-scope account list" }
+            ]
+          },
+          {
+            stage: "Trigger & filtering",
+            items: [
+              { name: "Scheduled scan by default, plus manual submit" },
+              { name: "Relevance filter and de-duplication — one story becomes one signal" },
+              { name: "Account fan-out — one record per affected account" }
+            ]
+          },
+          {
+            stage: "Reasoning",
+            items: [
+              { name: "Account resolution — which in-scope accounts the signal affects" },
+              { name: "Opportunity and risk reasoning per account" },
+              { name: "Each opportunity mapped to a real service line" },
+              { name: "Cross-account ripple reasoning, up to two levels" },
+              { name: "Magnitude and confidence scoring, 0–10" },
+              { name: "Retrieval grounding — vector search and reranking" }
+            ]
+          },
+          {
+            stage: "Review & output",
+            items: [
+              { name: "Reviewer UI — read the items, follow the source links, approve or reject with a comment" },
+              { name: "Citations and the reasoning behind every item" },
+              { name: "Configurable confidence threshold that filters low-confidence output" },
+              { name: "Evaluation harness — correctness and confidence calibration" },
+              { name: "One JSON per affected account, for the CRM or sales system" }
+            ]
+          }
         ]
       },
-      pov: {
-        facts: {
-          duration: "Scoped per engagement",
-          team: "One SoftServe team",
+      jumpstart: {
+        title: "Jumpstart Proof-of-Value",
+        promise: "Pilot Account insights on your own account list and signal sources, at a scope agreed before the clock starts, with a decision-ready result.",
+        pillars: [
+          { key: "fast", title: "Fast", text: "One signal set, one account list. The proof is deliberately as small as it can honestly be, and the duration is set at scoping." },
+          { key: "low-risk", title: "Low-risk", text: "Fixed scope, signed before the clock starts. It runs in your own Oracle tenancy, and nothing is written back to your CRM." },
+          { key: "tangible", title: "Tangible", text: "A measured accuracy readout: the share of generated opportunities a reviewer accepts, and how well the confidence scores track those decisions." }
+        ],
+        outcomes: [
+          "Scored, cited opportunities and risks across your in-scope account list — including the ones a seller would not otherwise have seen.",
+          "An accuracy readout against a golden set your own people prepared, plus the reviewer accept rate.",
+          "The reviewer UI running in your tenancy, with the citations and the reasoning behind every item.",
+          "A costed plan for the next step: CRM export, pipeline validation, a persistent signal store."
+        ],
+        timeline: [
+          { label: "Week 0 · Gate", text: "Sponsor named, two to three success metrics signed, source access approved in writing." },
+          { label: "Build", text: "Signal feeds, CRM context and the service catalog connected; filter, fan-out, reasoning and scoring configured to your domain." },
+          { label: "Review", text: "Your reviewers work the output in the UI; accuracy is measured against the agreed golden set." },
+          { label: "Decision", text: "Readout on correctness and confidence calibration, and a costed proposal for the next step." }
+        ],
+        needs: [
+          "The in-scope account list, your CRM context and the service-line catalog",
+          "A business owner, and reviewers who will accept or reject the output",
+          "A golden set of manually prepared briefs to measure the output against"
+        ],
+        investment: {
           price: "Scoped per engagement",
-          deliverablesCount: 4
+          duration: "Scoped per engagement",
+          includes: [
+            "Signal ingestion and grounding, the relevance filter and account fan-out",
+            "Opportunity and risk reasoning, cross-account ripples, scoring and citations",
+            "The reviewer UI and the evaluation harness, deployed in your tenancy",
+            "One SoftServe team: AI, data and OCI architects, a product manager and a project manager, senior AI and data engineers"
+          ],
+          footnote: "No package price is published for this application yet; scope and price are set once the sources, the account list and the success metrics are agreed."
         },
-        scope: "Signal ingestion and grounding, the filter and account fan-out, opportunity and risk reasoning, cross-account ripples, scoring and citations, and the reviewer UI with its evaluation harness — run across your in-scope account list.",
-        duration: "Scoped per engagement",
-        team: "One team: AI, data and OCI architects, a product manager and a project manager, and senior AI and data engineers. The team grows with the scope.",
-        inScope: "Signal ingestion and grounding · filter and account fan-out · opportunity and risk reasoning · cross-account ripples · scoring and citations · reviewer UI and evaluation.",
-        notInScope: "Acting on opportunities · pipeline validation · monetary sizing · CRM write-back and persistence · financial modeling · native multilingual.",
-        thenRollout: "CRM export · pipeline validation · persistent store.",
-        howMeasured: "AI-generated output is compared against a manually prepared \"golden\" set, agreed before the project starts, per account — and against reviewer approve/reject decisions in live use.",
-        deliverables: [
-          "Signal-to-opportunity output across your in-scope account list, scored and cited",
-          "An evaluation readout: correctness and confidence calibration against the agreed golden set, plus the reviewer accept rate",
-          "The reviewer UI running on your tenancy",
-          "A costed proposal for Roll-out: CRM export, pipeline validation, a persistent signal store"
+        next: [
+          { tier: "Integration", text: "CRM export, validation against the deals already in flight, and a persistent signal store — live for one account book.", duration: "3–5 months", price: "Scoped per engagement" },
+          { tier: "Scale", text: "More account books and service lines, more signal sources, and regional rule sets.", duration: "3–12 months", price: "Scoped per engagement" }
         ],
-        pricing: [
-          { label: "Services (one-time)", value: "Scoped per engagement", note: "No package price is published for this application." },
-          { label: "Timeline", value: "Scoped per engagement" }
-        ],
-        disclaimers: [
-          "Framed scope, flexible add-ons. Each package’s price and timing are set by specific constraints. Custom features beyond the frame are added for additional price and time."
-        ],
-        ladder: [
-          {
-            tier: "proof-of-value",
-            title: "Proof of value",
-            scope: "Prove the gains on your own data and rules, in a separate environment. Zero integration.",
-            includes: ["Signal ingestion, fan-out, reasoning and scoring", "Reviewer UI and the evaluation harness", "Sandboxed deployment on your tenancy"],
-            duration: "Scoped per engagement",
-            pricing: "Scoped per engagement"
-          },
-          {
-            tier: "rollout",
-            title: "Roll-out",
-            scope: "Full setup, data integration and go-live for one domain or one location — no manual work, embedded in the workflow.",
-            includes: ["CRM export", "Pipeline validation", "A persistent signal store"],
-            duration: "3–5 months",
-            pricing: "Scoped per engagement"
-          },
-          {
-            tier: "scaling",
-            title: "Scaling",
-            scope: "Scaling across locations, domains or document types, with heterogeneous rules and data workflows per region.",
-            includes: ["Additional account books and service lines", "Additional signal sources", "Regional rule sets"],
-            duration: "3–12 months",
-            pricing: "Scoped per engagement"
-          }
-        ],
-        ladderFootnote: "No fixed package price is published for this application yet. The scope above is the shape every engagement follows; the price is set once the sample, the sources and the success metrics are agreed."
+        cta: { label: "Start a Jumpstart conversation", route: "#/products/account-insights/contacts" }
       },
       sellers: {
         materials: [
@@ -703,7 +707,7 @@ window.SITE_CONTENT = {
       availability: "in-preparation",
       availabilityChip: "In preparation",
       availabilityTooltip: "Packaged offering in preparation; scoping conversations are open today.",
-      oneLiner: "An event opens a case; the evidence is assembled from every system that holds a piece of it, into one cited file a person decides on.",
+      oneLiner: "Assembles the evidence trail for a case or complaint out of every system that holds a piece of it — cited, time-stamped, and ready for an investigator to decide on.",
       tags: ["Deep research", "OCI + NVIDIA", "AI-Q", "In preparation"],
       hero: {
         image: {
@@ -828,13 +832,6 @@ window.SITE_CONTENT = {
             solution: "Each case arrives as a summary, a timeline and draft response sections, every claim cited to its source sentence or field. Investigators spend the time on judgement, and the full audit log shows how the file was built."
           }
         ],
-        sideFacts: {
-          category: "Deep research & investigation",
-          platform: "Oracle Cloud Infrastructure + NVIDIA",
-          availability: "In preparation",
-          povDuration: "Scoped per engagement",
-          povPrice: "Scoped per engagement"
-        },
         scope: {
           in: [
             "One agreed case category, on historical non-production records",
@@ -863,20 +860,10 @@ window.SITE_CONTENT = {
           { title: "Employee-relations partner", body: "A grievance intake builds a chronology from tickets, mail and policy references." },
           { title: "Quality manager", body: "A customer complaint triggers a batch-record and supplier-history review with a draft root-cause report." }
         ],
-        successStory: {
-          title: "SUCCESS STORY",
-          state: "none",
-          blurb: ""
-        }
+        successStory: null
       },
       technology: {
         narrative: "Exports from your operational systems land read-only in your own OCI tenancy. NVIDIA AI-Q reasons across them, and every statement in the assembled case is bound to the source record it came from.",
-        flow: [
-          { step: "Sources", label: "Case management, correspondence, operational records, document stores" },
-          { step: "Ingest", label: "Exports landed in your tenancy, read-only" },
-          { step: "Reason", label: "Multi-document reasoning, timeline construction, citation binding" },
-          { step: "Deliver", label: "Investigator UI: amend, approve or flag, fully audited" }
-        ],
         stack: [
           {
             key: "application",
@@ -934,73 +921,84 @@ window.SITE_CONTENT = {
             ]
           }
         ],
-        security: [
-          { icon: "shield", text: "Runs in the customer’s own tenancy; source access is read-only." },
-          { icon: "lock", text: "Access rules must hold in the data layer, not in the prompt — governance is configured, not requested." },
-          { icon: "audit", text: "Every review action is logged; findings are traceable independently by a second reviewer." },
-          { icon: "eye", text: "Every statement is bound to the exact source sentence or field it came from." }
+        capabilities: [
+          {
+            stage: "Intake & scoping",
+            items: [
+              { name: "Case categories scoped and configured per engagement" },
+              { name: "Trigger: an event opens a case, or a batch sweep opens many" },
+              { name: "Source mapping across case management, correspondence and operational records" }
+            ]
+          },
+          {
+            stage: "Evidence assembly",
+            items: [
+              { name: "Multi-source evidence assembly across systems, correspondence and documents" },
+              { name: "Multi-document reasoning across the assembled sources" },
+              { name: "Read-only source exports landed in your own tenancy" },
+              { name: "Every piece of evidence bound to the case it belongs to" }
+            ]
+          },
+          {
+            stage: "Case file",
+            items: [
+              { name: "Case summary — the key facts and an investigative overview" },
+              { name: "Chronological timeline with timestamps and clickable source references" },
+              { name: "Sentence- and field-level citation on every statement" },
+              { name: "Draft response sections generated for review, not for sending" }
+            ]
+          },
+          {
+            stage: "Investigate & decide",
+            items: [
+              { name: "Investigator UI — navigate to source, amend, approve or flag" },
+              { name: "Full audit log of every review decision" },
+              { name: "Citation granularity and the approval workflow, configured per engagement" }
+            ]
+          }
         ]
       },
-      pov: {
-        facts: {
-          duration: "Scoped per engagement",
-          team: "One SoftServe team",
+      jumpstart: {
+        title: "Jumpstart Proof-of-Value",
+        promise: "Pilot Case evidence collection on historical cases your own experts have already adjudicated, at a scope agreed before the clock starts, with a decision-ready result.",
+        pillars: [
+          { key: "fast", title: "Fast", text: "One case category, one historical sample. The duration is set at scoping, against the sample you pick." },
+          { key: "low-risk", title: "Low-risk", text: "Historical, non-production records only, in your own Oracle tenancy, with read-only source access. The system assembles and drafts; a person decides the outcome." },
+          { key: "tangible", title: "Tangible", text: "Elapsed time and person-hours for an equivalent case file, measured before and after — on cases whose answer is already known." }
+        ],
+        outcomes: [
+          "Assembled, cited case files for your sample — a summary, a chronological timeline and draft response sections per case.",
+          "A measured readout on three criteria: time to an equivalent file, the share of findings your experts confirm, and evidence coverage.",
+          "The investigator UI running in your tenancy, with amend, approve or flag and a full audit log.",
+          "A costed proposal for the next step."
+        ],
+        timeline: [
+          { label: "Week 0 · Gate", text: "Sponsor named, two to three success metrics signed, source access approved in writing." },
+          { label: "Build", text: "Exports landed read-only; evidence assembly, timeline construction and citation binding configured for one case category." },
+          { label: "Review", text: "Your investigators work the assembled files in the UI, against cases their own experts already adjudicated." },
+          { label: "Decision", text: "Measured readout against the three criteria, and a costed proposal for the next step." }
+        ],
+        needs: [
+          "An agreed case category and a historical, non-production sample",
+          "A validation sample of cases your own experts have already adjudicated",
+          "Named subject-matter experts and data owners, and an agreed transfer route"
+        ],
+        investment: {
           price: "Scoped per engagement",
-          deliverablesCount: 4
+          duration: "Scoped per engagement",
+          includes: [
+            "One case category, assembled and cited across the agreed sample",
+            "Case summary, chronological timeline and draft response sections per case",
+            "The investigator UI and its audit log, deployed in your tenancy",
+            "One SoftServe team: AI, data and OCI architects, a product manager and a project manager, senior AI and data engineers"
+          ],
+          footnote: "No package price is published for this application yet; scope and price are set once the sample, the sources and the success metrics are agreed."
         },
-        scope: "One case category, on historical non-production records, with a validated sample the customer’s experts have already adjudicated. Prove that an assembled, cited case file is faster to produce and holds up to review.",
-        duration: "Scoped per engagement",
-        team: "One team: AI, data and OCI architects, a product manager and a project manager, and senior AI and data engineers. The team grows with the scope.",
-        prerequisites: {
-          title: "PREREQUISITES WE ASK OF YOU",
-          items: [
-            "An agreed case category and a historical sample",
-            "A validation sample of adjudicated cases, confirmed by your own experts",
-            "Named subject-matter experts and data owners",
-            "An agreed transfer route, and the security and processing requirements that apply",
-            "Tenancy and access provisioned before the start date"
-          ]
-        },
-        deliverables: [
-          "Assembled, cited case files for the sample",
-          "A measured readout against the three criteria: operational efficiency, output validation rate, evidence coverage",
-          "The investigator UI running on your tenancy",
-          "A costed proposal for the next step"
+        next: [
+          { tier: "Integration", text: "Live source integration, the production approval workflow and its audit trail, live for one case category.", duration: "3–5 months", price: "Scoped per engagement" },
+          { tier: "Scale", text: "More case categories and source systems, with regional rule and retention sets.", duration: "3–12 months", price: "Scoped per engagement" }
         ],
-        pricing: [
-          { label: "Services (one-time)", value: "Scoped per engagement", note: "No package price is published for this application." },
-          { label: "Timeline", value: "Scoped per engagement" }
-        ],
-        disclaimers: [
-          "Framed scope, flexible add-ons. Each package’s price and timing are set by specific constraints. Custom features beyond the frame are added for additional price and time."
-        ],
-        ladder: [
-          {
-            tier: "proof-of-value",
-            title: "Proof of value",
-            scope: "Prove the gains on your own data and rules, in a separate environment. Zero integration.",
-            includes: ["One case category on historical, non-production records", "Assembled, cited case files for the agreed sample", "The investigator UI, sandboxed on your tenancy"],
-            duration: "Scoped per engagement",
-            pricing: "Scoped per engagement"
-          },
-          {
-            tier: "rollout",
-            title: "Roll-out",
-            scope: "Full setup, data integration and go-live for one domain or one location — no manual work, embedded in the workflow.",
-            includes: ["Live source integration", "Production approval workflow and audit", "Production hardening"],
-            duration: "3–5 months",
-            pricing: "Scoped per engagement"
-          },
-          {
-            tier: "scaling",
-            title: "Scaling",
-            scope: "Scaling across locations, domains or document types, with heterogeneous rules and data workflows per region.",
-            includes: ["Additional case categories", "Additional source systems", "Regional rule and retention sets"],
-            duration: "3–12 months",
-            pricing: "Scoped per engagement"
-          }
-        ],
-        ladderFootnote: "No fixed package price is published for this application yet. The scope above is the shape every engagement follows; the price is set once the sample, the sources and the success metrics are agreed."
+        cta: { label: "Start a Jumpstart conversation", route: "#/products/case-evidence-collection/contacts" }
       },
       sellers: {
         materials: [
@@ -1022,7 +1020,7 @@ window.SITE_CONTENT = {
       availability: "in-preparation",
       availabilityChip: "In preparation",
       availabilityTooltip: "Packaged offering in preparation; scoping conversations are open today.",
-      oneLiner: "Sweep completed units of work, compare plan against actual, and assemble the variances and their candidate drivers — with evidence — out of fragmented source systems.",
+      oneLiner: "Compares plan against actual across completed projects, orders and engagements, and assembles each variance with its candidate drivers and the source evidence behind them.",
       tags: ["Deep research", "OCI + NVIDIA", "AI-Q", "In preparation"],
       hero: {
         image: {
@@ -1142,13 +1140,6 @@ window.SITE_CONTENT = {
             solution: "The whole sample is swept at once: plan versus actual per engagement, the recurring patterns across them, and the candidate drivers assembled from the systems that hold the effort, the schedule and the outcome. A subject-matter expert validates before anything is acted on."
           }
         ],
-        sideFacts: {
-          category: "Deep research & investigation",
-          platform: "Oracle Cloud Infrastructure + NVIDIA",
-          availability: "In preparation",
-          povDuration: "12 + 2 weeks",
-          povPrice: "Scoped per engagement"
-        },
         scope: {
           in: [
             "One anchor portfolio or project, one agreed sample",
@@ -1175,21 +1166,10 @@ window.SITE_CONTENT = {
           { title: "Delivery lead, client engagements", body: "Closed engagements swept for where effort and schedule diverged from the plan, and what the record says about why." },
           { title: "Campaign owner", body: "Completed campaigns measured against plan, with the candidate drivers assembled from the systems that hold the spend, the schedule and the outcome." }
         ],
-        successStory: {
-          title: "SUCCESS STORY",
-          state: "none",
-          blurb: "",
-          adjacentMethodId: "method-accuracy-journey"
-        }
+        successStory: null
       },
       technology: {
         narrative: "Static exports land in zoned OCI storage with lineage preserved. A conformed model resolves records to the lowest reliable unit, plan and actual are compared with cited drivers, and anything that could not be resolved is reported as a coverage gap.",
-        flow: [
-          { step: "Sources", label: "Schedule, cost and progress reporting, layouts, contracts, amendments" },
-          { step: "Ingest", label: "Zoned OCI storage with lineage; conformed model and mapping layer" },
-          { step: "Reason", label: "Plan-versus-actual comparison, drivers, hybrid retrieval over evidence" },
-          { step: "Deliver", label: "Review app: findings, citations and the coverage-gap report" }
-        ],
         stack: [
           {
             key: "application",
@@ -1251,80 +1231,88 @@ window.SITE_CONTENT = {
             ]
           }
         ],
-        security: [
-          { icon: "shield", text: "Runs in your own OCI tenancy on exported, approved data — no live system access required at proof of value." },
-          { icon: "audit", text: "Lineage preserved from the source file through to the finding." },
-          { icon: "eye", text: "The proof produces analytical output for review; it is not relied on as the basis for contracting or packaging decisions during the engagement." },
-          { icon: "lock", text: "Unresolved records are reported as coverage gaps, so nothing disappears silently from the evidence base." }
+        capabilities: [
+          {
+            stage: "Ingest & profile",
+            items: [
+              { name: "Approved static exports ingested and profiled, with lineage preserved" },
+              { name: "Zoned storage — no live system access at proof of value" },
+              { name: "OCR and layout for scanned material" },
+              { name: "Text extraction, chunking, embeddings and entity extraction over the documents" }
+            ]
+          },
+          {
+            stage: "Map & resolve",
+            items: [
+              { name: "Conformed data model across the exported datasets" },
+              { name: "Configuration-driven mapping to project, zone and unit level" },
+              { name: "Records resolved at the lowest reliable level" },
+              { name: "Unresolved records reported as coverage gaps, not dropped" }
+            ]
+          },
+          {
+            stage: "Compare & explain",
+            items: [
+              { name: "Plan-versus-actual comparison at unit level, on cost and schedule" },
+              { name: "Supported variances and recurring patterns across the sample" },
+              { name: "Candidate drivers presented as evidence-backed candidates, never conclusions" },
+              { name: "Confidence and review status on every material finding" }
+            ]
+          },
+          {
+            stage: "Review & evidence",
+            items: [
+              { name: "Semantic, lexical and entity retrieval routed per question" },
+              { name: "A purpose-built lightweight review app, not a chat interface" },
+              { name: "Citations to the source file, its version and the supporting passage" },
+              { name: "The coverage-gap report" }
+            ]
+          }
         ]
       },
-      pov: {
-        facts: {
-          duration: "12 + 2 weeks",
-          team: "One SoftServe team",
-          price: "Scoped per engagement",
-          deliverablesCount: 5
-        },
-        scope: "One anchor portfolio or project, one agreed sample. Reconstruct, compare, and produce evidence-backed findings a subject-matter expert can validate.",
-        duration: "12 weeks, plus a two-week acceptance phase",
+      jumpstart: {
+        title: "Jumpstart Proof-of-Value",
+        promise: "Pilot Plan vs actual investigation on one anchor portfolio in 12 weeks, plus a two-week acceptance phase, with a decision-ready result.",
         durationShort: "12 weeks plus a two-week acceptance phase",
-        durationNote: "Discovery is compressed into the first two weeks and ends at a gate.",
-        phases: "Discovery (2 weeks, gated) → technical framework setup (2 weeks) → analysis logic and orchestration (4 weeks) → evidence-backed output (2 weeks) → validation, demo and roadmap.",
-        team: "One team: AI, data and OCI architects, a product manager and a project manager, and senior AI and data engineers. The team grows with the scope.",
-        prerequisites: {
-          title: "PREREQUISITES WE ASK OF YOU",
-          items: [
-            "An agreed project or portfolio sample",
-            "Historical periodic records per unit since start — cost, schedule, quantity, execution model, issues, evidence",
-            "A unified work-unit identifier across the exported datasets, at the lowest reliable level",
-            "A validation sample of at least ten known variance cases each for scope and schedule, confirmed by your experts",
-            "Named subject-matter experts and data owners",
-            "An agreed transfer route, plus the security and processing requirements that apply",
-            "Tenancy, access and the accelerator pack provisioned before the start date"
-          ]
+        pillars: [
+          { key: "fast", title: "Fast", text: "Twelve weeks from kickoff to an expert-validated readout, plus a two-week acceptance phase. Discovery is compressed into the first two weeks and ends at a gate." },
+          { key: "low-risk", title: "Low-risk", text: "Approved static exports in your own Oracle tenancy — no live system access — with stage gates at framework readiness, analytical review and evidence output." },
+          { key: "tangible", title: "Tangible", text: "A unit-level plan-versus-actual view over your own sample, with every material finding tied to the record it came from." }
+        ],
+        outcomes: [
+          "A unit-level plan-versus-actual view over your sample, on cost and schedule, with lineage from the source file to the finding.",
+          "Variances, recurring patterns and candidate drivers, each evidence-backed and reviewed by your own experts.",
+          "A coverage-gap report — what could not be resolved, and why.",
+          "A measured readout on operational efficiency, output validation rate and evidence coverage."
+        ],
+        timeline: [
+          { label: "Weeks 1–2 · Discovery", text: "Sample, sources and success thresholds agreed. The phase ends at a gate before the build starts." },
+          { label: "Weeks 3–4 · Framework", text: "Exports landed in zoned storage with lineage; the conformed model and the mapping layer built against your unit identifier." },
+          { label: "Weeks 5–10 · Analysis", text: "Plan against actual at unit level, then the evidence-backed output: variances, patterns and candidate drivers with their citations." },
+          { label: "Weeks 11–14 · Validate", text: "Validation with your experts, demo and roadmap, then the two-week acceptance phase." }
+        ],
+        needs: [
+          "An agreed portfolio or project sample, with historical periodic records per unit",
+          "A unified work-unit identifier across the exported datasets, at the lowest reliable level",
+          "A validation sample of known variance cases, confirmed by your own experts"
+        ],
+        investment: {
+          price: "Scoped per engagement",
+          duration: "12 weeks, plus a two-week acceptance phase",
+          includes: [
+            "One anchor portfolio or project, one agreed sample",
+            "Ingestion with lineage, the conformed model and the mapping layer",
+            "Plan-versus-actual comparison, variances, patterns and candidate drivers with their evidence",
+            "The review app and the coverage-gap report, running in your tenancy",
+            "Stage gates at framework readiness, analytical review and evidence output"
+          ],
+          footnote: "No package price is published for this application yet; scope and price are set once the sample, the sources and the success metrics are agreed."
         },
-        deliverables: [
-          "A unit-level plan-versus-actual view over the sample, with lineage",
-          "Supported variances, recurring patterns and candidate drivers, each evidence-backed and expert-reviewed",
-          "A measured readout against operational efficiency, output validation rate and evidence coverage",
-          "A coverage-gap report — what could not be resolved, and why",
-          "A costed proposal for extension beyond the sample"
+        next: [
+          { tier: "Integration", text: "Live source feeds in place of static exports, extension beyond the anchor sample, production hardening.", duration: "3–5 months", price: "Scoped per engagement" },
+          { tier: "Scale", text: "More portfolios and unit types, regional variance rules, multi-entity evidence retention.", duration: "3–12 months", price: "Scoped per engagement" }
         ],
-        pricing: [
-          { label: "Services (one-time)", value: "Scoped per engagement", note: "No package price is published for this application." },
-          { label: "Timeline", value: "12 weeks, plus a two-week acceptance phase" }
-        ],
-        disclaimers: [
-          "Framed scope, flexible add-ons. Each package’s price and timing are set by specific constraints. Custom features beyond the frame are added for additional price and time."
-        ],
-        gateNote: "Stage gates at framework readiness, analytical review and evidence output.",
-        ladder: [
-          {
-            tier: "proof-of-value",
-            title: "Proof of value",
-            scope: "Prove the gains on your own data and rules, in a separate environment. Zero integration.",
-            includes: ["One anchor portfolio or project, one agreed sample", "Unit-level plan-versus-actual view with lineage", "Evidence-backed variances, patterns and candidate drivers", "A coverage-gap report"],
-            duration: "12 weeks, plus a two-week acceptance phase",
-            pricing: "Scoped per engagement"
-          },
-          {
-            tier: "rollout",
-            title: "Roll-out",
-            scope: "Full setup, data integration and go-live for one domain or one location — no manual work, embedded in the workflow.",
-            includes: ["Live source feeds in place of static exports", "Extension beyond the anchor sample", "Production hardening"],
-            duration: "3–5 months",
-            pricing: "Scoped per engagement"
-          },
-          {
-            tier: "scaling",
-            title: "Scaling",
-            scope: "Scaling across locations, domains or document types, with heterogeneous rules and data workflows per region.",
-            includes: ["Additional portfolios and unit types", "Regional variance rules", "Multi-entity evidence retention"],
-            duration: "3–12 months",
-            pricing: "Scoped per engagement"
-          }
-        ],
-        ladderFootnote: "No fixed package price is published for this application yet. The scope above is the shape every engagement follows; the price is set once the sample, the sources and the success metrics are agreed."
+        cta: { label: "Start a Jumpstart conversation", route: "#/products/plan-vs-actual-investigation/contacts" }
       },
       sellers: {
         materials: [
@@ -1346,7 +1334,7 @@ window.SITE_CONTENT = {
       availability: "available",
       availabilityChip: "Available now",
       availabilityTooltip: "A packaged offering exists — collateral and a scoped proof of value, with a first engagement delivered or under way.",
-      oneLiner: "Turn long, complex documents into trusted, validated structured data with NVIDIA AI-Q on Oracle OCI: packaged from proof of value to enterprise scale.",
+      oneLiner: "Turns long, complex documents into validated, structured data — every extracted value carries a confidence score and a citation to its source page.",
       heroCaption: "100-page contract in minutes.",
       tags: ["Processing pipelines", "OCI + NVIDIA", "AI-Q", "Available now"],
       hero: {
@@ -1478,14 +1466,6 @@ window.SITE_CONTENT = {
             solution: "Each document type gets its own field schema and validator set, and every extracted value arrives with a confidence score and a page reference. The human validates by design — unattended extraction is explicitly out of scope."
           }
         ],
-        sideFacts: {
-          category: "Per-item processing pipelines",
-          platform: "Oracle Cloud Infrastructure + NVIDIA",
-          availability: "Available now",
-          povDuration: "2 months",
-          povPrice: "€75K services · €0/mo infra",
-          povPriceNote: "Figures are illustrative and subject to confirmation."
-        },
         scope: {
           in: [
             "Ingestion — accept a document (PDF or DOCX, including scanned)",
@@ -1514,20 +1494,19 @@ window.SITE_CONTENT = {
           { title: "Use-case boundaries", body: "The boundary of this solution is extraction of structured data from complex documents into a validated, human-reviewed output." }
         ],
         successStory: {
-          title: "SUCCESS STORY",
-          state: "published",
-          blurb: "Ground-handling contract rates were keyed into a cost-management system by hand — 60–100-page agreements read page by page, 3–5 days per contract. With the extraction app on OCI (NVIDIA AI-Q), reviewers now validate AI-extracted rates side-by-side with the source PDF — every value cited to its page — and export in minutes.",
-          evidenceId: "extraction-proof"
+          customer: "Riyadh Air",
+          logo: "assets/img/logos/riyadh-air.svg",
+          headline: "Ground-handling agreements, from days to minutes",
+          metrics: [
+            { value: "5–15 min", label: "to extract a 60–100-page agreement end to end, down from 3–5 days" },
+            { value: "up to −20%", label: "targeted reduction in manual data-entry effort" }
+          ],
+          story: "Ground-handling contract rates were keyed into a cost-management system by hand — 60–100-page agreements read page by page, 3–5 days per contract. With the extraction app on Oracle Cloud Infrastructure, reviewers now validate AI-extracted rates beside the source PDF, every value cited to its page, and export in minutes. Targets from the proof of value; figures are illustrative, not contractual.",
+          downloadLabel: "Download the case summary"
         }
       },
       technology: {
         narrative: "Contracts land from your repository into the extraction app on a dedicated AI cluster in your own Oracle Cloud Infrastructure tenancy. NVIDIA AI-Q returns every field with a confidence score and a page citation; only approved rows are exported.",
-        flow: [
-          { step: "Sources", label: "Contract repository — PDF and DOCX, including scanned" },
-          { step: "Extract", label: "Document-type gate, page-level routing, field extraction" },
-          { step: "Validate", label: "Confidence scoring, business-rule validators, page citations" },
-          { step: "Deliver", label: "Split-view review, then export to the cost or ERP system" }
-        ],
         stack: [
           {
             key: "application",
@@ -1585,78 +1564,91 @@ window.SITE_CONTENT = {
             ]
           }
         ],
-        security: [
-          { icon: "shield", text: "Runs in the customer’s own OCI tenancy on a dedicated AI cluster." },
-          { icon: "lock", text: "Human-in-the-loop by design: unattended extraction is explicitly out of scope." },
-          { icon: "audit", text: "Full audit trail on review actions; every value traceable to its source page." },
-          { icon: "eye", text: "Production hardening — enterprise scale, security audit, HA/DR, IAM/SSO — is Roll-out scope, not proof-of-value scope." }
+        capabilities: [
+          {
+            stage: "Classification & routing",
+            items: [
+              { name: "PDF and DOCX upload, including scanned input" },
+              { name: "Format handling, OCR and page splitting" },
+              { name: "Document-type gate" },
+              { name: "Page-level routing to the right extractor" }
+            ]
+          },
+          {
+            stage: "Extraction",
+            items: [
+              { name: "Field schema and business rules per document type" },
+              { name: "Document header and metadata extraction" },
+              { name: "Per-field confidence scoring with tuned thresholds" },
+              { name: "Fallback logic when a page label or a field scores low" },
+              { name: "Structured data model — ranges and tiers expanded, parent-child relationships preserved" },
+              { name: "Source-page citation on every extracted value" }
+            ]
+          },
+          {
+            stage: "Review & export",
+            items: [
+              { name: "Split-view reviewer UI — source PDF beside the extracted rows" },
+              { name: "Per-row confidence badges" },
+              { name: "Approve, edit or reject per row, with bulk actions, auto-save and an audit trail" },
+              { name: "Exception routing for low-confidence and flagged items" },
+              { name: "Export to JSON, CSV or XLSX against a reference template" }
+            ]
+          },
+          {
+            stage: "Quality & integrations",
+            items: [
+              { name: "Business-rule validators and reviewer warnings" },
+              { name: "Accuracy measured against an annotated ground-truth set" },
+              { name: "Effort-savings KPIs against today’s cycle time" },
+              { name: "Contract repository as the source, the cost or ERP system as the target" }
+            ]
+          }
         ]
       },
-      pov: {
-        facts: {
-          duration: "2 months",
-          team: "One SoftServe team",
-          price: "€75K services · €0/mo infra",
-          deliverablesCount: 4
-        },
-        scope: "Manual upload, core field schema: prove accuracy and effort savings on the customer’s contracts.",
-        duration: "2 months",
+      jumpstart: {
+        title: "Jumpstart Proof-of-Value",
+        promise: "Pilot Large docs extraction and review on your own contracts in 2 months, at a fixed price, with a decision-ready result.",
         durationShort: "2 months",
-        team: "One team: AI, data and OCI architects, a product manager and a project manager, and senior AI and data engineers. The team grows with the scope.",
-        deliverables: [
-          "Your own contracts extracted end to end, with per-field confidence and page citations",
-          "Accuracy measured against an annotated ground-truth set, plus an effort-savings readout",
-          "The split-view reviewer UI running on your tenancy",
-          "A costed Roll-out proposal: integration to the target system, the second document type, production hardening"
+        pillars: [
+          { key: "fast", title: "Fast", text: "Two months from kickoff to a measured accuracy and effort readout on your own contracts." },
+          { key: "low-risk", title: "Low-risk", text: "Fixed scope at a fixed price: manual upload, one document type, the core field schema. It runs sandboxed in your own Oracle tenancy, and nothing is written into your cost or ERP system." },
+          { key: "tangible", title: "Tangible", text: "A 60–100-page contract extracted end to end in minutes, every value cited to its page and validated by your own reviewer before export." }
         ],
-        pricing: [
-          { label: "Services (one-time)", value: "€75K" },
-          { label: "Infrastructure (monthly, consumption)", value: "€0" },
-          { label: "Timeline", value: "2 months" }
+        outcomes: [
+          "Your own contracts extracted end to end, with per-field confidence and a page citation on every value.",
+          "Accuracy measured against an annotated ground-truth set, plus an effort-savings readout against today’s cycle time.",
+          "The split-view reviewer UI running in your tenancy.",
+          "A costed plan for integration: the target system, the second document type, production hardening."
         ],
-        disclaimers: [
-          "* Indicative; depends on document volume, page counts and pipeline complexity",
-          "Figures are illustrative and subject to confirmation.",
-          "Framed scope, flexible add-ons. Each package’s price and timing are set by specific constraints. Custom features beyond the frame are added for additional price and time."
+        timeline: [
+          { label: "Week 0 · Gate", text: "Sponsor named, two to three success metrics signed, source access approved in writing." },
+          { label: "Weeks 1–4 · Build", text: "One document type: field schema, business rules, confidence thresholds and validators configured on your own contracts." },
+          { label: "Weeks 5–7 · Review", text: "Your reviewers validate in the split-view UI; accuracy is measured against the annotated ground truth." },
+          { label: "Week 8 · Decision", text: "Accuracy and effort-savings readout against the signed baseline, and a costed roll-out proposal." }
         ],
-        ladder: [
-          {
-            tier: "proof-of-value",
-            title: "Proof of value",
-            scope: "Manual upload, core field schema: prove accuracy and effort savings on the customer’s contracts.",
-            includes: ["Classification & routing", "Extraction rules & field schema (partial)", "Confidence scoring & validation (partial)", "Human-in-the-loop review UI", "Accuracy benchmarking & KPIs", "Deployment (partial)"],
-            duration: "2 months",
-            pricing: "Services €75K · Infrastructure €0/mo"
-          },
-          {
-            tier: "rollout",
-            title: "Roll-out",
-            scope: "Full setup and integration, live for one document type: no manual plumbing, embedded in the workflow.",
-            includes: ["Classification & routing", "Extraction rules & field schema", "Confidence scoring & validation", "Human-in-the-loop review UI", "Accuracy benchmarking & KPIs", "Source / target integration", "Deployment"],
-            duration: "3–5 months",
-            pricing: "Services €300–500K · Infrastructure ~€10K/mo *"
-          },
-          {
-            tier: "scaling",
-            title: "Scaling",
-            scope: "Scaling across document types, volume and business units: type-specific schemas and validation.",
-            includes: ["Every Roll-out capability, multi-type / advanced", "Type-specific schemas and validation", "Multi-business-unit deployment"],
-            duration: "3–12 months",
-            pricing: "Scoped per engagement"
-          }
+        needs: [
+          "A sample of real contracts of one document type, and the fields you need out of them",
+          "An annotated ground-truth set to measure accuracy against",
+          "A business owner and the reviewers who will validate the output"
         ],
-        capabilityMatrix: {
-          legend: "◐ partial · ● included · ●● multi-type / advanced",
-          rows: [
-            { label: "Classification & routing", pov: "●", rollout: "●", scaling: "●●" },
-            { label: "Extraction rules & field schema", pov: "◐", rollout: "●", scaling: "●●" },
-            { label: "Confidence scoring & validation", pov: "◐", rollout: "●", scaling: "●●" },
-            { label: "Human-in-the-loop review UI", pov: "●", rollout: "●", scaling: "●●" },
-            { label: "Accuracy benchmarking & KPIs", pov: "●", rollout: "●", scaling: "●●" },
-            { label: "Source / target integration", pov: "—", rollout: "●", scaling: "●●" },
-            { label: "Deployment", pov: "◐", rollout: "●", scaling: "●●" }
-          ]
-        }
+        investment: {
+          price: "€75K services · €0/mo infrastructure",
+          duration: "2 months",
+          includes: [
+            "Classification and page-level routing",
+            "Extraction rules and the core field schema",
+            "Confidence scoring, validators and the human-in-the-loop review UI",
+            "Accuracy benchmarking and the KPI readout",
+            "Sandboxed deployment in your own tenancy"
+          ],
+          footnote: "Figures are illustrative and confirmed in scoping."
+        },
+        next: [
+          { tier: "Integration", text: "Full setup and integration, live for one document type: source and target systems connected, the full field schema, production deployment.", duration: "3–5 months", price: "€300–500K services · ~€10K/mo infrastructure, depending on document volume, page counts and pipeline complexity" },
+          { tier: "Scale", text: "Across document types, volume and business units, with type-specific schemas and validation.", duration: "3–12 months", price: "Scoped per engagement" }
+        ],
+        cta: { label: "Start a Jumpstart conversation", route: "#/products/large-document-extraction/contacts" }
       },
       sellers: {
         materials: [
@@ -1678,7 +1670,7 @@ window.SITE_CONTENT = {
       availability: "available",
       availabilityChip: "Available now",
       availabilityTooltip: "A packaged offering exists — collateral and a scoped proof of value, with a first engagement delivered or under way.",
-      oneLiner: "Intelligent field-service planning with NVIDIA cuOpt on Oracle OCI: packaged from proof of value to enterprise scale.",
+      oneLiner: "Optimizes field-service work zones and schedules with NVIDIA cuOpt — a region’s four-week plan built in minutes, approved by dispatchers, exported to Oracle Field Service.",
       heroCaption: "What if dispatchers reviewed the plan, not built it?",
       tags: ["Data analysis & optimization", "OCI + NVIDIA", "cuOpt", "Oracle Field Service", "Available now"],
       hero: {
@@ -1806,14 +1798,6 @@ window.SITE_CONTENT = {
             solution: "Contracted SLAs, engineer certifications and asset locations become the constraint set the solver works against, with uptime-critical commitments weighted as hard rules. The KPI readout compares the current and the optimized plan on identical definitions."
           }
         ],
-        sideFacts: {
-          category: "Data analysis & decision agents",
-          platform: "Oracle Cloud Infrastructure + NVIDIA",
-          availability: "Available now",
-          povDuration: "2 months",
-          povPrice: "€90K services · €4K/mo infra",
-          povPriceNote: "Figures are illustrative and subject to confirmation."
-        },
         scope: {
           in: [
             "Foundational allocation with the recurring, most-typical constraints — zones, skills, planned absences",
@@ -1840,21 +1824,19 @@ window.SITE_CONTENT = {
           { title: "On the roadmap, not in the pack today", body: "Distance and travel-time rules with live traffic · within-day dynamic reassignment and urgent-request handling · spare-parts and crew-based assignment · the human-feedback learning loop." }
         ],
         successStory: {
-          title: "SUCCESS STORY",
-          state: "published",
-          blurb: "Dispatchers at a global home-appliance manufacturer planned a residential appliance-repair field force by hand: ZIP-code work zones and technician allocations, region by region. With the cuOpt-powered dispatcher app on OCI, they now review, approve or re-run an optimized plan and export it straight to Oracle Field Service.",
-          scopeLine: "A three-month proof of value across three countries, with around thirty real-world constraints modeled — skills, availability, existing bookings, travel and holidays — and dispatcher approval in the loop.",
-          evidenceId: "workforce-proof"
+          customer: "Bosch",
+          logo: "assets/img/logos/bosch.png",
+          headline: "A field force planned by a solver, approved by dispatchers",
+          metrics: [
+            { value: "+4.5%", label: "median gain in jobs per technician per day, optimized against the current plan" },
+            { value: "~5x", label: "return within three years on the modeled rollout" }
+          ],
+          story: "Dispatchers planned a residential appliance-repair field force by hand — ZIP-code work zones and technician allocations, region by region. A three-month proof of value across three countries modeled around thirty real-world constraints: 83% of the simulations came out positive, and dispatcher productivity improved 15–20% during the pilot. Results are modeled simulations against a historical baseline, not measured production outcomes.",
+          downloadLabel: "Download the case summary"
         }
       },
       technology: {
         narrative: "Oracle Field Service is both the source and the destination. NVIDIA cuOpt computes the allocation on a dedicated AI cluster on Oracle Cloud Infrastructure, and the approved plan is written back — nothing reaches the field until a dispatcher approves it.",
-        flow: [
-          { step: "Sources", label: "Oracle Field Service: staff, availability, bookings" },
-          { step: "Ingest", label: "Demand, skills, work zones and constraints loaded" },
-          { step: "Optimize", label: "cuOpt solves the technician-to-zone-to-job plan" },
-          { step: "Deliver", label: "Dispatcher approves; plan written back to Oracle Field Service" }
-        ],
         stack: [
           {
             key: "application",
@@ -1911,79 +1893,96 @@ window.SITE_CONTENT = {
             ]
           }
         ],
-        security: [
-          { icon: "shield", text: "Proof of value: sandboxed deployment." },
-          { icon: "lock", text: "Roll-out: enterprise-integrated — dedicated landing zone, IAM, observability." },
-          { icon: "audit", text: "Scaling: enterprise-integrated, multi-zone." },
-          { icon: "eye", text: "The optimizer proposes; a dispatcher approves. No allocation reaches the field unreviewed." }
+        capabilities: [
+          {
+            stage: "Allocation rules",
+            items: [
+              { name: "Skill-based allocation", state: "supported" },
+              { name: "Maximum load per day", state: "supported" },
+              { name: "Planned-vacation reallocation and same-day sickness handling", state: "supported" },
+              { name: "Default work zones per technician, and work-zone-level demand", state: "supported" },
+              { name: "Neighboring work zones and cross-zone allocation", state: "supported" },
+              { name: "Forecast-based allocation against a demand forecast you supply", state: "supported" },
+              { name: "Non-movable appointments and SLA types per appointment — coverage confirmed in scoping", state: "supported" },
+              { name: "Multi-objective optimization with hard and soft rule weighting", state: "supported" },
+              { name: "Minimal disruption of the current allocation", state: "supported" },
+              { name: "Distance and travel-time rules with live traffic data", state: "roadmap" },
+              { name: "Within-day job reassignment and urgent-request handling", state: "roadmap" },
+              { name: "Spare-parts availability and crew-based assignment", state: "roadmap" }
+            ]
+          },
+          {
+            stage: "Review & approval",
+            items: [
+              { name: "Dispatcher UI with map and table views", state: "supported" },
+              { name: "Dispatcher approval or rejection before anything reaches the field", state: "supported" },
+              { name: "Model-decision explanations and recommendations", state: "supported" },
+              { name: "Iterative feedback-based re-optimization", state: "roadmap" },
+              { name: "Human-feedback-driven tuning and what-if alternatives", state: "roadmap" }
+            ]
+          },
+          {
+            stage: "KPIs & analytics",
+            items: [
+              { name: "Productivity — jobs per technician per working day", state: "supported" },
+              { name: "Capacity utilization — booked activity time against available capacity", state: "supported" },
+              { name: "Travel reduction", state: "supported" },
+              { name: "Workload balance", state: "supported" },
+              { name: "Current plan against optimized plan, computed identically on both", state: "supported" }
+            ]
+          },
+          {
+            stage: "Integrations",
+            items: [
+              { name: "Oracle Field Service as source and destination — delivered at roll-out" },
+              { name: "Demand forecasting, booking, inventory, HR/WFM and BI sources — delivered at roll-out" },
+              { name: "Client rules, constraints and KPI definitions, configured per engagement" }
+            ]
+          }
         ]
       },
-      pov: {
-        facts: {
-          duration: "2 months",
-          team: "One SoftServe team",
-          price: "€90K services · €4K/mo infra",
-          deliverablesCount: 4
-        },
-        scope: "Manual data import, limited rule set: prove the KPI gains on the customer’s data.",
-        inScope: "Foundational allocation with the recurring, most-typical constraints — zones, skills, planned absences · core KPIs predicted at scheduling against benchmarks · the dispatcher review UI · sandboxed deployment.",
-        notInScope: "Oracle Field Service integration · additional data sources and BI · the re-optimization feedback loop.",
-        duration: "2 months",
+      jumpstart: {
+        title: "Jumpstart Proof-of-Value",
+        promise: "Pilot Workforce optimization on your own historical data in 2 months, at a fixed price, with a decision-ready result.",
         durationShort: "2 months",
-        team: "One team: AI, data and OCI architects, a product manager and a project manager, and senior AI and data engineers. The team grows with the scope.",
-        deliverables: [
-          "An optimized plan for a real region, computed on your own historical data",
-          "A before/after KPI readout — productivity, capacity utilization, wait time — measured identically on both plans",
-          "The dispatcher review UI, running in a sandboxed environment on your tenancy",
-          "A costed proposal for Roll-out: integration scope, additional sources, timeline"
+        pillars: [
+          { key: "fast", title: "Fast", text: "Two months from kickoff to a before/after KPI readout on a real region of your own." },
+          { key: "low-risk", title: "Low-risk", text: "Fixed scope at a fixed price: manual data import, the recurring constraints, a sandboxed environment on your own tenancy. Nothing reaches the field — a dispatcher approves every plan." },
+          { key: "tangible", title: "Tangible", text: "An optimized four-week plan for one region, measured against your current plan on identical KPI definitions." }
         ],
-        pricing: [
-          { label: "Services (one-time)", value: "€90K" },
-          { label: "Infrastructure (monthly, consumption)", value: "€4K" },
-          { label: "Timeline", value: "2 months" }
+        outcomes: [
+          "An optimized four-week plan for one real region, computed on your own historical data.",
+          "A before/after KPI readout — productivity, capacity utilization and wait time — computed identically on the current and the optimized plan.",
+          "The dispatcher review UI running in a sandboxed environment on your tenancy.",
+          "A costed plan for roll-out: integration scope, additional sources, timeline."
         ],
-        disclaimers: [
-          "* Indicative; depends on the usage and optimization rules complexity",
-          "Figures are illustrative and subject to confirmation.",
-          "Framed scope, flexible add-ons. Each package’s price and timing are set by specific constraints. Custom features beyond the frame are added for additional price and time."
+        timeline: [
+          { label: "Week 0 · Gate", text: "Sponsor named, two to three success metrics signed, the baseline and source access approved in writing." },
+          { label: "Weeks 1–4 · Build", text: "The period’s data imported; zones, skills, absences and commitment rules configured and weighted against your objectives." },
+          { label: "Weeks 5–7 · Review", text: "Dispatchers compare the current and the optimized plan on a live map, approve or re-run." },
+          { label: "Week 8 · Decision", text: "Before/after KPI readout against the signed benchmark, and a costed roll-out proposal." }
         ],
-        ladder: [
-          {
-            tier: "proof-of-value",
-            title: "Proof of value",
-            scope: "Manual data import, limited rule set: prove the KPI gains on the customer’s data.",
-            includes: ["Optimization rules & guardrails (partial)", "Analytics & efficiency KPIs", "Dispatcher review UI", "Deployment (partial, sandboxed)"],
-            duration: "2 months",
-            pricing: "Services €90K · Infrastructure €4K/mo"
-          },
-          {
-            tier: "rollout",
-            title: "Roll-out",
-            scope: "Full setup and integration, live at one location: no manual work, embedded in the workflow.",
-            includes: ["Optimization rules & guardrails", "Re-optimization & feedback loop", "Analytics & efficiency KPIs", "Oracle Field Service integration", "Additional data sources & BI", "Deployment"],
-            duration: "3–5 months",
-            pricing: "Services €300–500K · Infrastructure ~€25K/mo *"
-          },
-          {
-            tier: "scaling",
-            title: "Scaling",
-            scope: "Scaling across locations: heterogeneous rules and data workflows per region.",
-            includes: ["Every Roll-out capability, multi-region / advanced", "Per-region rule sets and data workflows", "Multi-zone deployment"],
-            duration: "3–12 months",
-            pricing: "Scoped per engagement"
-          }
+        needs: [
+          "One real region and a period of historical planning data — demand, availability, skills, work zones and bookings",
+          "The allocation rules that actually apply: zones, skills, absences, service commitments",
+          "A dispatcher and a business owner who will review the plan and sign the baseline"
         ],
-        capabilityMatrix: {
-          legend: "◐ partial · ● included · ●● multi-region / advanced",
-          rows: [
-            { label: "Optimization rules & guardrails", pov: "◐", rollout: "●", scaling: "●●" },
-            { label: "Re-optimization & feedback loop", pov: "—", rollout: "●", scaling: "●●" },
-            { label: "Analytics & efficiency KPIs", pov: "●", rollout: "●", scaling: "●●" },
-            { label: "Oracle Field Service integration", pov: "—", rollout: "●", scaling: "●●" },
-            { label: "Additional data sources & BI", pov: "—", rollout: "●", scaling: "●●" },
-            { label: "Deployment", pov: "◐", rollout: "●", scaling: "●●" }
-          ]
-        }
+        investment: {
+          price: "€90K services · €4K/mo infrastructure",
+          duration: "2 months",
+          includes: [
+            "Foundational allocation with the recurring, most-typical constraints — zones, skills, planned absences",
+            "Core KPIs predicted at scheduling and measured against the signed benchmark",
+            "The dispatcher review UI, with approve, reject and re-run",
+            "Sandboxed deployment on your own tenancy"
+          ],
+          footnote: "Figures are illustrative and confirmed in scoping."
+        },
+        next: [
+          { tier: "Integration", text: "Full setup and integration, live at one location: Oracle Field Service integration, additional data sources and BI, the re-optimization feedback loop, on a dedicated landing zone with IAM and observability.", duration: "3–5 months", price: "€300–500K services · ~€25K/mo infrastructure, depending on usage and rule complexity" },
+          { tier: "Scale", text: "Across locations, with per-region rule sets and data workflows, deployed multi-zone.", duration: "3–12 months", price: "Scoped per engagement" }
+        ],
+        cta: { label: "Start a Jumpstart conversation", route: "#/products/workforce-optimization/contacts" }
       },
       sellers: {
         materials: [
@@ -2005,7 +2004,7 @@ window.SITE_CONTENT = {
       availability: "fixed-price-offer",
       availabilityChip: "Fixed-price offer",
       availabilityTooltip: "A fixed-scope, fixed-price proof of value is sellable today on Oracle Autonomous AI Lakehouse; the packaged product is still being assembled.",
-      oneLiner: "ERP, CRM and the systems around them joined in one governed layer — prebuilt pipelines for Oracle applications — answered as one system.",
+      oneLiner: "Answers plain-language questions that span the ERP, the CRM and the systems around them, from one governed layer on Oracle Autonomous AI Lakehouse.",
       heroLine: "Your ERP + everything around it.",
       badges: ["ERP + CRM + THE SYSTEMS AROUND THEM", "PREBUILT PIPELINES", "ANSWERS IN MINUTES"],
       tags: ["Data analysis & optimization", "Oracle Autonomous AI Lakehouse", "Select AI", "Fixed-price offer"],
@@ -2020,7 +2019,7 @@ window.SITE_CONTENT = {
         outcomes: [
           "Routine answers without report requests",
           "One decision domain shaped into certified views, with sensitive fields masked by role",
-          "The Quick Start offer is live today: 30–45 days, fixed price, in your own tenancy"
+          "A governed foundation that persists after the proof: certified views, definitions and security policies you keep"
         ]
       },
       overview: {
@@ -2127,14 +2126,6 @@ window.SITE_CONTENT = {
             solution: "Those sources are joined into one governed layer, and an operations lead slices SLA, backlog and throughput metrics without waiting on a data engineer. Sensitive fields stay masked by role, enforced by the database rather than by the prompt."
           }
         ],
-        sideFacts: {
-          category: "Data analysis & decision agents",
-          platform: "Oracle Autonomous AI Lakehouse",
-          availability: "Fixed-price offer",
-          povDuration: "30–45 days",
-          povPrice: "€30–50K fixed per use case",
-          povPriceNote: "Indicative, confirmed per scope; Oracle partner funding programs may reduce the net cost."
-        },
         scope: {
           in: [
             "Prebuilt Oracle application pipelines switched on",
@@ -2159,20 +2150,10 @@ window.SITE_CONTENT = {
           { title: "Procurement lead", body: "Supplier spend, purchase-order and invoice-status questions answered in plain language over ERP data joined with the systems around it; standing report requests stop." },
           { title: "Operations lead", body: "Self-serve slicing of SLA, backlog and throughput metrics without waiting on the BI queue." }
         ],
-        successStory: {
-          title: "SUCCESS STORY",
-          state: "none",
-          blurb: ""
-        }
+        successStory: null
       },
       technology: {
         narrative: "Oracle Autonomous AI Lakehouse is the governed layer. Data from Oracle applications arrives through pipelines that ship with the products, one or two other sources are linked alongside, and Select AI answers in plain language over that model.",
-        flow: [
-          { step: "Sources", label: "Oracle applications, plus one or two non-Oracle systems" },
-          { step: "Ingest", label: "Prebuilt pipelines switched on; other sources linked or landed" },
-          { step: "Govern", label: "Certified views, business definitions, masking and row rules" },
-          { step: "Deliver", label: "Select AI answers in plain language, plus operational dashboards" }
-        ],
         stack: [
           {
             key: "application",
@@ -2228,85 +2209,90 @@ window.SITE_CONTENT = {
           title: "GOVERNANCE LAYER — THE PART SECURITY ASKS ABOUT",
           body: "Masking, row-level access and a SQL firewall live in the data layer itself, applied to every query — including the ones AI writes. Every interaction is logged. Proof you can watch: the same question asked in two roles returns two different, correctly filtered answers — enforced by the database, not by the prompt."
         },
-        security: [
-          { icon: "shield", text: "In your tenancy: OCI, or Autonomous inside AWS, Azure or Google Cloud regions." },
-          { icon: "lock", text: "Source access is read-only." },
-          { icon: "eye", text: "Governed by design from day one — dynamic masking, row-level policies and a SQL firewall, the same controls across database, Iceberg and the AI layer." },
-          { icon: "audit", text: "Generally available features only: Select AI agent, NL2SQL, vector search, Iceberg. Nothing in scope waits on a roadmap item." }
-        ]
-      },
-      pov: {
-        facts: {
-          duration: "30–45 days",
-          team: "One SoftServe team",
-          price: "€30–50K fixed *",
-          deliverablesCount: 4
-        },
-        scope: "A fixed-scope enablement program on Oracle Autonomous AI Lakehouse: one use case, up to three data sources, and a working, governed AI solution live on your own data.",
-        statStrip: "30–45 days · €30–50K fixed · 1 use case",
-        statNotes: [
-          { title: "30 or 45 days", body: "30 for one clean source system; 45 for up to three sources or a stricter security setup." },
-          { title: "€30–50K fixed per use case", body: "Indicative — aligned per use case and Oracle funding; infrastructure runs on trial credits or the customer’s tenancy." },
-          { title: "In your tenancy", body: "OCI, or Autonomous inside AWS / Azure / Google Cloud regions; source access is read-only." },
-          { title: "Governed by design", body: "Dynamic masking, row-level policies and SQL firewall from day one — the same controls across database, Iceberg and AI." },
-          { title: "GA features only", body: "Select AI agent, NL2SQL, vector search, Iceberg — nothing in scope waits on a roadmap item." }
-        ],
-        duration: "30–45 days",
-        durationShort: "30–45 days",
-        team: "One team: AI, data and OCI architects, a product manager and a project manager, and senior AI and data engineers. The team grows with the scope.",
-        howItRuns: {
-          title: "HOW IT RUNS",
-          steps: [
-            { title: "Before the clock", body: "Sponsor named, two to three success metrics signed, source access approved in writing." },
-            { title: "CONNECT · W1–2", body: "Oracle application pipelines switched on; one or two non-Oracle sources linked or landed. Read-only access." },
-            { title: "MODEL + GUARD · W2–4", body: "One decision domain, say order-to-cash exceptions, shaped into certified views; sensitive fields masked by role." },
-            { title: "AI LAYER · W3–5", body: "Plain-English Q&A plus two to three operational dashboards over the joined data; the question set agreed with the business owner." },
-            { title: "PROVE · W5–6", body: "Measured against the signed baseline; executive readout plus a costed expansion plan." }
-          ],
-          closing: "One domain, end to end — narrow enough to finish, real enough to matter."
-        },
-        deliverables: [
-          "A working AI use case — agent plus curated views — live on your data, in your tenancy.",
-          "A measured KPI readout against success criteria signed before the clock starts.",
-          "A governed foundation that persists: semantic model and security policies.",
-          "A costed expansion proposal: what Roll-out takes and what it returns."
-        ],
-        pricing: [
-          { label: "Fixed price", value: "€30–50K fixed per use case", note: "Indicative — aligned per use case and Oracle funding; infrastructure runs on trial credits or the customer’s tenancy." },
-          { label: "Duration", value: "30–45 days", note: "30 for one clean source system; 45 for up to three sources or a stricter security setup." },
-          { label: "Scope", value: "1 use case, up to 3 data sources" }
-        ],
-        disclaimers: [
-          "*Price indicative, to be confirmed per scope; Oracle partner funding programs may reduce the customer’s net cost. All features used are generally available product.",
-          "Framed scope, flexible add-ons. Each package’s price and timing are set by specific constraints. Custom features beyond the frame are added for additional price and time."
-        ],
-        creditNote: "100% of the Quick Start fee credits into Roll-out signed within 90 days; stackable with Oracle and NVIDIA funding programs.",
-        ladder: [
+        capabilities: [
           {
-            tier: "proof-of-value",
-            title: "Proof of value",
-            scope: "Quick Start: one use case, up to three data sources, a working governed AI solution live on your own data.",
-            includes: ["Prebuilt Oracle application pipelines switched on", "Certified views for one decision domain", "Plain-English Q&A plus two to three dashboards", "Masking and row-level access in the data layer"],
-            duration: "30–45 days",
-            pricing: "€30–50K fixed per use case"
+            stage: "Connect",
+            items: [
+              { name: "Prebuilt pipelines from Oracle applications — no extract engineering" },
+              { name: "One or two non-Oracle sources joined in, by link or by pipeline" },
+              { name: "Data Studio for ELT" },
+              { name: "Database links for federation" },
+              { name: "Read-only source access" }
+            ]
           },
           {
-            tier: "rollout",
-            title: "Roll-out",
-            scope: "Live integration, more sources and domains, production SLAs.",
-            includes: ["Live integration", "More sources and decision domains", "Production SLAs"],
-            duration: "3–5 months",
-            pricing: "Scoped against the integration depth"
+            stage: "Model",
+            items: [
+              { name: "Certified views for one decision domain" },
+              { name: "Business definitions signed off with the owner" },
+              { name: "Apache Iceberg tables where the estate already uses them" },
+              { name: "Vector search over the governed schema" }
+            ]
           },
           {
-            tier: "scaling",
-            title: "Scaling",
-            scope: "Multi-entity, per case.",
-            includes: ["Multi-entity rollout", "Per-region governance and definitions"],
-            duration: "3–12 months",
-            pricing: "Scoped per engagement"
+            stage: "Govern",
+            items: [
+              { name: "Dynamic masking of sensitive fields by role" },
+              { name: "Row-level access policies" },
+              { name: "SQL firewall applied to every query, including the ones AI writes" },
+              { name: "Every interaction logged" }
+            ]
+          },
+          {
+            stage: "Answer",
+            items: [
+              { name: "Select AI and Select AI Agent for plain-English question answering" },
+              { name: "The agreed question set, tuned with the business owner" },
+              { name: "Two to three operational dashboards over the joined data" },
+              { name: "A governed foundation that persists after the proof" }
+            ]
           }
         ]
+      },
+      jumpstart: {
+        title: "Jumpstart Proof-of-Value",
+        promise: "Pilot Cross-system ERP Q&A on your own data in 30–45 days, at a fixed price, with a decision-ready result.",
+        durationShort: "30–45 days",
+        pillars: [
+          { key: "fast", title: "Fast", text: "30 days for one clean source system; 45 for up to three sources or a stricter security setup." },
+          { key: "low-risk", title: "Low-risk", text: "A fixed price per use case, in your own tenancy — OCI, or Autonomous inside AWS, Azure or Google Cloud regions. Source access is read-only, and every feature used is generally available product." },
+          { key: "tangible", title: "Tangible", text: "One decision domain answered end to end in plain language, measured against a baseline signed before the clock starts." }
+        ],
+        outcomes: [
+          "A working AI use case — an agent plus certified views — live on your data, in your tenancy.",
+          "Two to three operational dashboards over the same joined data, on definitions the business signed off.",
+          "A measured readout against the signed baseline: time-to-answer versus today, and the share of questions served without a data engineer.",
+          "A governed foundation that persists: the semantic model and the security policies stay with you."
+        ],
+        timeline: [
+          { label: "Week 0 · Gate", text: "Sponsor named, two to three success metrics signed, source access approved in writing." },
+          { label: "Weeks 1–2 · Connect", text: "Oracle application pipelines switched on; one or two non-Oracle sources linked or landed. Read-only access." },
+          { label: "Weeks 2–4 · Model and guard", text: "One decision domain — order-to-cash exceptions, say — shaped into certified views, with sensitive fields masked by role." },
+          { label: "Weeks 3–6 · Prove", text: "Plain-English Q&A and dashboards tuned on the agreed question set, then measured against the signed baseline." }
+        ],
+        needs: [
+          "One decision domain, and a business owner who can sign off its definitions",
+          "Read-only access to the Oracle applications and one or two systems around them",
+          "Two to three success metrics and today’s baseline, agreed before the clock starts"
+        ],
+        investment: {
+          price: "€30–50K fixed per use case",
+          duration: "30–45 days",
+          includes: [
+            "One use case, up to three data sources",
+            "Prebuilt Oracle application pipelines switched on",
+            "Certified views, masking and row-level access enforced in the data layer",
+            "Plain-English Q&A plus two to three operational dashboards",
+            "100% of the fee credits into a roll-out signed within 90 days",
+            "Oracle partner funding programs may reduce the net cost"
+          ],
+          footnote: "Price indicative, to be confirmed per scope. All features used are generally available product."
+        },
+        next: [
+          { tier: "Integration", text: "Live integration, more sources and decision domains, production SLAs.", duration: "3–5 months", price: "Scoped against the integration depth" },
+          { tier: "Scale", text: "Multi-entity rollout, with per-region governance and definitions.", duration: "3–12 months", price: "Scoped per engagement" }
+        ],
+        cta: { label: "Start a Jumpstart conversation", route: "#/products/cross-system-erp-qa/contacts" }
       },
       sellers: {
         materials: [
@@ -2328,7 +2314,7 @@ window.SITE_CONTENT = {
       availability: "fixed-price-offer",
       availabilityChip: "Fixed-price offer",
       availabilityTooltip: "A fixed-scope, fixed-price proof of value is sellable today on Oracle Autonomous AI Lakehouse; the packaged product is still being assembled.",
-      oneLiner: "One governed engine mounts the catalogs you already have — AWS, Azure, Google, on-prem — and an AI assistant answers across all of it. No migration.",
+      oneLiner: "Answers plain-language questions about business metrics from one governed gold layer over the catalogs and databases you already run — consistent definitions, no data moved.",
       heroLine: "Ask once, every cloud answers.",
       badges: ["MULTI-CLOUD", "ON-PREM TOO", "NO MIGRATION"],
       tags: ["Data analysis & optimization", "Oracle Autonomous AI Lakehouse", "Select AI", "Fixed-price offer"],
@@ -2343,7 +2329,7 @@ window.SITE_CONTENT = {
         outcomes: [
           "Cross-cloud answers in seconds, under your access rules",
           "The answer layer moves to your data — your data does not move to it",
-          "The Quick Start offer is live today: 30–45 days, fixed price, in your own tenancy"
+          "A governed gold layer that persists after the proof: definitions and security policies you keep"
         ]
       },
       overview: {
@@ -2448,14 +2434,6 @@ window.SITE_CONTENT = {
             solution: "The existing catalogs are mounted and the remaining databases linked, including on-prem, with the answer layer moving to the data rather than the other way round. An assistant answers across all of it in plain language, role-scoped and fully audited."
           }
         ],
-        sideFacts: {
-          category: "Data analysis & decision agents",
-          platform: "Oracle Autonomous AI Lakehouse",
-          availability: "Fixed-price offer",
-          povDuration: "30–45 days",
-          povPrice: "€30–50K fixed per use case",
-          povPriceNote: "Indicative, confirmed per scope; Oracle partner funding programs may reduce the net cost."
-        },
         scope: {
           in: [
             "Two to three existing catalogs mounted, one on-prem database linked",
@@ -2482,20 +2460,10 @@ window.SITE_CONTENT = {
           { title: "Business manager", body: "Ask revenue, churn or inventory questions in plain language; get charts back from governed data, no report request." },
           { title: "Merchandiser", body: "Sales by SKU, region and promotion compared on demand." }
         ],
-        successStory: {
-          title: "SUCCESS STORY",
-          state: "none",
-          blurb: ""
-        }
+        successStory: null
       },
       technology: {
         narrative: "Bronze and silver stay where they are. Oracle Autonomous AI Lakehouse becomes the governed gold layer — existing catalogs mounted, other databases linked — and Select AI answers across all of them with no data movement.",
-        flow: [
-          { step: "Sources", label: "Existing catalogs and databases across clouds and on-prem" },
-          { step: "Mount", label: "Catalogs mounted, databases linked — zero data movement" },
-          { step: "Govern", label: "Gold layer: definitions, masking, row-level access" },
-          { step: "Deliver", label: "Select AI answers across every connected source, role-scoped" }
-        ],
         stack: [
           {
             key: "application",
@@ -2551,84 +2519,88 @@ window.SITE_CONTENT = {
           title: "GOVERNANCE LAYER — THE PART SECURITY ASKS ABOUT",
           body: "Masking, row-level access and a SQL firewall live in the data layer itself, applied to every query — including the ones AI writes. Every interaction is logged. Proof you can watch: the same question asked in two roles returns two different, correctly filtered answers — enforced by the database, not by the prompt."
         },
-        security: [
-          { icon: "shield", text: "In your tenancy: OCI, or Autonomous inside AWS, Azure or Google Cloud regions." },
-          { icon: "lock", text: "Source access is read-only." },
-          { icon: "eye", text: "Governed by design from day one — dynamic masking, row-level policies and a SQL firewall, the same controls across database, Iceberg and the AI layer." },
-          { icon: "audit", text: "Generally available features only: Select AI agent, NL2SQL, vector search, Iceberg. Nothing in scope waits on a roadmap item." }
-        ]
-      },
-      pov: {
-        facts: {
-          duration: "30–45 days",
-          team: "One SoftServe team",
-          price: "€30–50K fixed *",
-          deliverablesCount: 4
-        },
-        scope: "A fixed-scope enablement program on Oracle Autonomous AI Lakehouse: one use case, up to three data sources, and a working, governed AI solution live on your own data.",
-        statStrip: "30–45 days · €30–50K fixed · 1 use case",
-        statNotes: [
-          { title: "30 or 45 days", body: "30 for one clean source system; 45 for up to three sources or a stricter security setup." },
-          { title: "€30–50K fixed per use case", body: "Indicative — aligned per use case and Oracle funding; infrastructure runs on trial credits or the customer’s tenancy." },
-          { title: "In your tenancy", body: "OCI, or Autonomous inside AWS / Azure / Google Cloud regions; source access is read-only." },
-          { title: "Governed by design", body: "Dynamic masking, row-level policies and SQL firewall from day one." },
-          { title: "GA features only", body: "Select AI agent, NL2SQL, vector search, Iceberg." }
-        ],
-        duration: "30–45 days",
-        durationShort: "30–45 days",
-        team: "One team: AI, data and OCI architects, a product manager and a project manager, and senior AI and data engineers. The team grows with the scope.",
-        howItRuns: {
-          title: "HOW IT RUNS",
-          steps: [
-            { title: "Before the clock", body: "Sponsor named, two to three success metrics signed, source access approved in writing." },
-            { title: "CONNECT · W1–2", body: "Your teams grant read-only access; we mount two to three existing catalogs and link one on-prem database. Zero data movement." },
-            { title: "MODEL + GUARD · W2–4", body: "A small governed model: business definitions, masking and row-level access." },
-            { title: "AI LAYER · W3–5", body: "An assistant answers an agreed 30-question set in plain English across every connected source; accuracy tuned live with your analysts." },
-            { title: "PROVE · W5–6", body: "Measured against the signed baseline: time-to-answer versus today, share of questions served without a data engineer. Executive readout plus a costed expansion plan." }
-          ]
-        },
-        deliverables: [
-          "A working AI use case — agent plus curated views — live on your data, in your tenancy.",
-          "A measured KPI readout against success criteria signed before the clock starts.",
-          "A governed foundation that persists: semantic model and security policies.",
-          "A costed expansion proposal: what Roll-out takes and what it returns."
-        ],
-        pricing: [
-          { label: "Fixed price", value: "€30–50K fixed per use case", note: "Indicative — aligned per use case and Oracle funding; infrastructure runs on trial credits or the customer’s tenancy." },
-          { label: "Duration", value: "30–45 days", note: "30 for one clean source system; 45 for up to three sources or a stricter security setup." },
-          { label: "Scope", value: "1 use case, up to 3 data sources" }
-        ],
-        disclaimers: [
-          "*Price indicative, to be confirmed per scope; Oracle partner funding programs may reduce the customer’s net cost. All features used are generally available product.",
-          "Framed scope, flexible add-ons. Each package’s price and timing are set by specific constraints. Custom features beyond the frame are added for additional price and time."
-        ],
-        creditNote: "100% of the Quick Start fee credits into Roll-out signed within 90 days; stackable with Oracle and NVIDIA funding programs.",
-        ladder: [
+        capabilities: [
           {
-            tier: "proof-of-value",
-            title: "Proof of value",
-            scope: "Quick Start: one use case, up to three data sources, a working governed AI solution live on your own data.",
-            includes: ["Two to three existing catalogs mounted, one on-prem database linked", "A small governed model: definitions, masking, row-level access", "An assistant answering an agreed 30-question set", "Zero data movement"],
-            duration: "30–45 days",
-            pricing: "€30–50K fixed per use case"
+            stage: "Mount",
+            items: [
+              { name: "Catalog federation — mount the Iceberg catalogs you already run" },
+              { name: "Database links to the systems not in a catalog, on-prem included" },
+              { name: "Zero data movement — queries run where the data lives" },
+              { name: "Read-only source access" }
+            ]
           },
           {
-            tier: "rollout",
-            title: "Roll-out",
-            scope: "Live integration, more sources and domains, production SLAs.",
-            includes: ["Live integration", "More catalogs, databases and decision domains", "Production SLAs"],
-            duration: "3–5 months",
-            pricing: "Scoped against the integration depth"
+            stage: "Model",
+            items: [
+              { name: "A governed gold layer with definitions the organization signs off" },
+              { name: "Bronze and silver stay where they are" },
+              { name: "Converged data in one database — relational, JSON, spatial, graph and vector" }
+            ]
           },
           {
-            tier: "scaling",
-            title: "Scaling",
-            scope: "Multi-entity, per case.",
-            includes: ["Multi-entity rollout", "Per-region governance and definitions"],
-            duration: "3–12 months",
-            pricing: "Scoped per engagement"
+            stage: "Govern",
+            items: [
+              { name: "Dynamic masking of sensitive fields by role" },
+              { name: "Row-level access policies" },
+              { name: "SQL firewall applied to every query, including the ones AI writes" },
+              { name: "Role-scoped answers with a full audit trail" }
+            ]
+          },
+          {
+            stage: "Answer",
+            items: [
+              { name: "Select AI and Select AI Agent for plain-English question answering" },
+              { name: "An agreed 30-question set, accuracy tuned live with your analysts" },
+              { name: "Answers across every connected source, with no data moved" },
+              { name: "A governed foundation that persists after the proof" }
+            ]
           }
         ]
+      },
+      jumpstart: {
+        title: "Jumpstart Proof-of-Value",
+        promise: "Pilot Business metrics Q&A on your own data in 30–45 days, at a fixed price, with a decision-ready result.",
+        durationShort: "30–45 days",
+        pillars: [
+          { key: "fast", title: "Fast", text: "30 days for one clean source system; 45 for up to three sources or a stricter security setup." },
+          { key: "low-risk", title: "Low-risk", text: "A fixed price per use case, in whichever cloud you prefer. Nothing is migrated or copied — queries run where the data lives, under read-only access, on generally available product." },
+          { key: "tangible", title: "Tangible", text: "An assistant answering an agreed 30-question set across every connected source, measured against a baseline signed before the clock starts." }
+        ],
+        outcomes: [
+          "A working AI use case — an agent plus curated views — live on your data, in your tenancy.",
+          "Answers across two to three mounted catalogs and a linked database, with no data moved.",
+          "A measured readout against the signed baseline: time-to-answer versus today, and the share of questions served without a data engineer.",
+          "A governed foundation that persists: the gold model and the security policies stay with you."
+        ],
+        timeline: [
+          { label: "Week 0 · Gate", text: "Sponsor named, two to three success metrics signed, source access approved in writing." },
+          { label: "Weeks 1–2 · Connect", text: "Your teams grant read-only access; two to three existing catalogs are mounted and one on-prem database linked. Zero data movement." },
+          { label: "Weeks 2–4 · Model and guard", text: "A small governed model: business definitions, masking and row-level access." },
+          { label: "Weeks 3–6 · Prove", text: "The assistant answers the agreed 30-question set, accuracy tuned with your analysts, then measured against the signed baseline." }
+        ],
+        needs: [
+          "Two to three existing catalogs, and one database outside them worth linking",
+          "An agreed 30-question set, and the analysts who will judge the answers",
+          "Two to three success metrics and today’s baseline, agreed before the clock starts"
+        ],
+        investment: {
+          price: "€30–50K fixed per use case",
+          duration: "30–45 days",
+          includes: [
+            "One use case, up to three data sources",
+            "Two to three existing catalogs mounted, one on-prem database linked",
+            "A governed gold model with masking and row-level access in the data layer",
+            "An assistant answering an agreed 30-question set across every connected source",
+            "100% of the fee credits into a roll-out signed within 90 days",
+            "Oracle partner funding programs may reduce the net cost"
+          ],
+          footnote: "Price indicative, to be confirmed per scope. All features used are generally available product."
+        },
+        next: [
+          { tier: "Integration", text: "Live integration, more catalogs, databases and decision domains, production SLAs.", duration: "3–5 months", price: "Scoped against the integration depth" },
+          { tier: "Scale", text: "Multi-entity rollout, with per-region governance and definitions.", duration: "3–12 months", price: "Scoped per engagement" }
+        ],
+        cta: { label: "Start a Jumpstart conversation", route: "#/products/business-metrics-qa/contacts" }
       },
       sellers: {
         materials: [
