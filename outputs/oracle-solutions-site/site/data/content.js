@@ -178,8 +178,7 @@ window.SITE_CONTENT = {
     hero: {
       image: {
         file: "assets/img/heroes/overview.jpg",
-        alt: "Concentric teal apertures opening around a single lit core on a near-black field",
-        focal: "50% 40%"
+        alt: "A tall oval of light standing open in a dark wall, its reflection running out across still water"
       },
       headline: { accent: "ORACLE", rest: "AI SOLUTIONS" },
       subhead: "Packaged AI applications for Oracle customers — built on Oracle Cloud Infrastructure with NVIDIA and on Oracle Autonomous AI Lakehouse. Each one an accelerator pack plus tailored SoftServe services, delivered in three steps: a fixed-scope proof of value on your own data, roll-out at one site, then scale.",
@@ -385,8 +384,7 @@ window.SITE_CONTENT = {
       hero: {
         image: {
           file: "assets/img/heroes/account-insights.jpg",
-          alt: "Thin teal signal lines converging from across a dark field onto one lit hub inside concentric rings",
-          focal: "50% 44%"
+          alt: "A web of linked signal nodes glowing above an out-of-focus night city, seen past a silhouetted figure"
         }
       },
       tile: {
@@ -586,8 +584,7 @@ window.SITE_CONTENT = {
       hero: {
         image: {
           file: "assets/img/heroes/case-evidence-collection.jpg",
-          alt: "Scattered fragment cards linked down onto a single lit horizontal spine",
-          focal: "50% 52%"
+          alt: "A long row of upright panels standing edge to edge and curving away into the dark, each lit along its leading edge"
         }
       },
       tile: {
@@ -794,8 +791,7 @@ window.SITE_CONTENT = {
       hero: {
         image: {
           file: "assets/img/heroes/plan-vs-actual-investigation.jpg",
-          alt: "A dashed planned trace and a solid measured trace over a faint grid, the gap between them shaded",
-          focal: "50% 50%"
+          alt: "Robotic arms working an assembly line that recedes down a long, dimly lit factory hall"
         }
       },
       tile: {
@@ -1008,8 +1004,7 @@ window.SITE_CONTENT = {
       hero: {
         image: {
           file: "assets/img/heroes/large-document-extraction.jpg",
-          alt: "A deep stack of thin lit lines receding into darkness, three of them resolving into a grid of small panels",
-          focal: "50% 45%"
+          alt: "A deep stack of thin plates seen end-on, receding into darkness with light caught between the layers"
         }
       },
       tile: {
@@ -1228,8 +1223,7 @@ window.SITE_CONTENT = {
       hero: {
         image: {
           file: "assets/img/heroes/workforce-optimization.jpg",
-          alt: "Right-angled routes fanning out from one lit core to a field of small endpoint markers",
-          focal: "50% 46%"
+          alt: "An overhead field of interlocking hexagonal plates, with loose ones still settling into the pattern from above"
         }
       },
       tile: {
@@ -1449,8 +1443,7 @@ window.SITE_CONTENT = {
       hero: {
         image: {
           file: "assets/img/heroes/cross-system-erp-qa.jpg",
-          alt: "Abstract dark graph of separate enterprise system panes linked by thin teal data flows converging on one lit core",
-          focal: "50% 50%"
+          alt: "Many parallel metal ribs sweeping together into one continuous curved surface"
         }
       },
       tile: {
@@ -1670,8 +1663,7 @@ window.SITE_CONTENT = {
       hero: {
         image: {
           file: "assets/img/heroes/business-metrics-qa.jpg",
-          alt: "A rising series of outlined columns under a smooth trend curve, the last point ringed and lit",
-          focal: "50% 48%"
+          alt: "Rolling waves of fine blue data points, brighter points picked out along the ridges"
         }
       },
       tile: {
@@ -1882,8 +1874,7 @@ window.SITE_CONTENT = {
     hero: {
       image: {
         file: "assets/img/heroes/services.jpg",
-        alt: "Six stacked planes seen in perspective, each edged in teal light above a near-black field",
-        focal: "50% 45%"
+        alt: "An engineer seen from behind at a wall of code on dark monitors in a low-lit workspace"
       },
       headline: { accent: "ORACLE", rest: "DEDICATED PRACTICE" },
       lead: "SoftServe’s Oracle practice pairs the delivery depth of a 500-strong data and analytics practice with architects and engineers dedicated to the Oracle AI stack.",
