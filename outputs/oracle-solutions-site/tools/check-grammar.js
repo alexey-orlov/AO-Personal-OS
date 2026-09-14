@@ -79,8 +79,15 @@ if (!arr(C.products) || C.products.length !== 7) {
   if (!arr(p.tags) || !p.tags.length) fail(w, "tags missing");
   if (!p.hero) fail(w, "hero missing"); else checkHeroImage(w, p.hero.image);
   if (!CFG.products[p.slug]) fail(w, "no matching SITE_CONFIG.products entry");
-  else if (typeof CFG.products[p.slug].videoPoster !== "string") {
-    fail(w, "config.videoPoster missing (must exist, may be empty)");
+  else {
+    if (typeof CFG.products[p.slug].videoPoster !== "string") {
+      fail(w, "config.videoPoster missing (must exist, may be empty)");
+    }
+    /* A string here would be truthy whatever it said, so "false" would turn
+       the frame on. The flag decides a layout — it has to be a real boolean. */
+    if (typeof CFG.products[p.slug].video !== "boolean") {
+      fail(w, "config.video missing or not a boolean (true | false)");
+    }
   }
 
   /* 2.1 problem → solution */
