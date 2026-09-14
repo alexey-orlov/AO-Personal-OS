@@ -14,7 +14,7 @@ Three hard rules:
 
 ## 1. Hero (top block) — every page
 
-The hero is the only block that carries a background image.
+The hero is the only block on a page that carries a background image — and the same file has one other job, described at the end of this section: it is the tile on the Products page.
 
 | Part | Source | Notes |
 |---|---|---|
@@ -38,13 +38,19 @@ A frame waiting for its recording lands on step 3, so it carries the product's o
 
 A product with neither flag nor URL never renders an empty frame, a greyed play button, or a "video coming soon" line.
 
+### 1.1 The same image, as a Products-page tile
+
+Every tile in the `#/products` grid is that product's own `hero.image` — same file, same `focal` — as the tile's background, cropped by CSS and darkened by a two-axis gradient veil (top-to-bottom plus left-to-right) so the facet label, chips, name, one-liner and three outcome bullets read on near-black while the picture still shows above them. Hovering lifts the border and scales the image 1.05, which `prefers-reduced-motion` disables. The tile content is unchanged, the grid stays two-up, and the seventh tile still spans the row with its copy held to half the width.
+
+There is no separate tile artwork and no typographic fallback here: a product with no hero file on disk renders the same tile on the flat ground, because the image guard drops an `<img>` that will not load. (The **home page** grid is a different component and still uses the `media[slug]` plate — see `SCHEMA.md`.)
+
 ---
 
 ## 2. Overview tab — two columns, a fixed order in each
 
 **Target: the Overview reads in ~1.5 desktop screens at 1440×900 without feeling cramped.** If a product exceeds that, prose moves into §2.7 — it does not stay on the page.
 
-The tab is a **two-column layout on desktop**: a MAIN column at roughly two thirds, and a **sticky SIDE rail** at roughly one third, on the right. On mobile it is a single column and the side rail follows the main column.
+The tab is a **two-column layout on desktop**: a MAIN column at roughly two thirds, and a **sticky SIDE rail** at roughly one third, on the right. The rail is capped at the viewport height and scrolls inside itself when its three cards exceed it, so nothing in it is ever unreachable behind the stick. Below 1100 px the layout collapses to one column, the rail goes static, and it follows the main column.
 
 | Column | Order |
 |---|---|
@@ -77,7 +83,7 @@ This block **replaces the flat key-features checklist**. The same bullets are st
 
 **The coverage invariant.** Across a product's steps, the union of `features` must equal `overview.features` exactly — every bullet in one step, no bullet in two. That is what makes it safe for the stepper to be the only surface those bullets have. `tools/check-grammar.js` asserts it in both directions.
 
-**Interaction.** Desktop: the step list sits left inside the MAIN column, the selected step's frame large on the right. Clicking a step highlights it and swaps the frame. Mobile: stacked, each step with its own frame under it. Step 1 is selected on load. The list is a keyboard-navigable set of buttons; the frame carries the step title as its accessible name.
+**Interaction.** Desktop: the step list sits left inside the MAIN column, the selected step's frame large on the right. Clicking a step highlights it, opens its `text` + `features`, and swaps the frame; the other steps collapse to number + title, which is what keeps the block to one screen. Mobile: one column, the list first and the frame under it — the same selection, never four open steps. Step 1 is selected on load. The list is a keyboard-navigable set of buttons (↑/↓, Home, End move and select; Enter/Space activate), each carrying `aria-expanded` over its own body, and the frame's image `alt` is the step title.
 
 ### 2.3 Industry use cases — the tab component (MAIN)
 
@@ -86,7 +92,7 @@ This block **replaces the flat key-features checklist**. The same bullets are st
 A row of tabs, each an industry icon (§5) plus its label. The selected tab shows: a treated industry photograph (`assets/img/industries/<key>.jpg`), the industry name, then **The problem** and **The solution** — 2–3 sentences each, headed from `sectionLabels.caseProblem` / `caseSolution`.
 
 - The images are keyed by **industry, not product**, so one file serves every product that uses that tab.
-- First tab open by default. Tabs are a proper `role="tablist"`: arrow keys move, Enter/Space selects, the panel is labelled by its tab.
+- First tab open by default. Tabs are a proper `role="tablist"` with roving `tabindex`: ←/→, Home and End move and select, Enter/Space activate, and each panel is `aria-labelledby` its tab and hidden with the `hidden` attribute.
 - The two Lakehouse products lead with the `cross-industry` tab, because "the same two pains in every industry, regardless of stack" is their honest answer; the vertical tabs beside it are illustrations of it, not a claim of vertical focus.
 - The failure mode to watch: a `problem`/`solution` pair that would read identically under any other tab. If it would, it is not an industry case.
 
@@ -109,7 +115,7 @@ Tile shape:
 | `qualifier` | The honest caveat or baseline: "Down from ~2 days", "Targeted reduction at proof of value". ≤ 12 words. |
 | `icon` | An icon-registry key (§4). Always present, on numeric and qualitative tiles alike. |
 
-In the rail the tiles **stack vertically** rather than sitting in a row — 3–4 tiles, then the `roi` callout, then `metricsNote` as the footnote line closing the block. All three stay in the same visual block: rule 2 of this file is that a number never renders away from its disclaimer, and a sticky rail that scrolls the figure past its footnote breaks it as surely as a missing footnote would.
+In the rail the tiles **stack vertically** rather than sitting in a row — 3–4 tiles, then the `roi` callout in its compact single-column form, then `metricsNote` as the footnote line closing the block. All three stay in the same visual block: rule 2 of this file is that a number never renders away from its disclaimer, and a sticky rail that scrolls the figure past its footnote breaks it as surely as a missing footnote would.
 
 **The heading follows the data.** When at least one tile carries a `value`, the block is headed `sectionLabels.metrics` ("Metrics improved"). When every tile is qualitative it is headed `sectionLabels.metricsPlanned` ("What the proof of value measures") instead — a heading asserting improvement over four tiles with no number, closed by a footnote saying no metrics are published, contradicts itself two lines later.
 
@@ -175,7 +181,9 @@ The canonical shape is **Sources → Ingest/Extract → Reason/Optimize → Deli
 - `technology.notUsed[]` — the honest muted line under the accordion: what the product deliberately does **not** use. Keep it while it still says something the layer summaries do not; where a summary already carries the same fact, fold it in and drop the line rather than printing it twice.
 - `technology.governance?` — the two Lakehouse products. One band, same shape as the ROI band, below the accordion.
 
-`technology.groups[]`, `technology.layers[]` and `technology.integration[]` are the three superseded shapes. They stay in `content.js` until the implementer confirms no renderer reads them; nothing new should be written into them.
+`technology.groups[]`, `technology.layers[]` and `technology.integration[]` were the three superseded shapes. They are **deleted** from `content.js`; `check-grammar.js` fails if one reappears, because a key nothing renders drifts out of sync in silence.
+
+**The accordion opens on its first layer** (`application`) so the pattern is visible without a click; each row toggles independently, `aria-expanded` follows the visible state, and the panel is hidden with the `hidden` attribute rather than a class.
 
 ### 3.4 Security and deployment
 
@@ -326,8 +334,8 @@ Every product object must satisfy all of the following. `tools/check-grammar.js`
 | `technology.narrative` | ≤ 3 sentences |
 | `technology.flow` | exactly 4 `{ step, label }` |
 | `technology.stack` | 4–5 layers, keys a subsequence of `application` → `ai-engine` → `data-platform` → `infrastructure` → `custom`; `application`, `data-platform`, `infrastructure` and `custom` all present; `summary` one sentence; `vendors` non-empty from `oracle` / `nvidia` / `softserve`; every layer ≥ 1 item and ≥ 1 with `required: true`; `direction` only on `custom`, and that layer names at least one inbound and one outbound |
-| `technology.groups` | ≥ 3, every `vendor` in `oracle` / `nvidia` / `softserve` / `other`, every group with ≥ 1 item — superseded by `stack`, asserted while it is still in the data |
-| `technology.integration` / `.security` | ≥ 3 `{ icon, text }` each — `integration` superseded by the `custom` stack layer |
+| `technology.groups` / `.layers` / `.integration` | **absent** — all three were folded into `stack` and deleted; the checker fails if one returns |
+| `technology.security` | ≥ 3 `{ icon, text }` |
 | `pov.facts` | `{ duration, team, price, deliverablesCount }`, all non-empty; `deliverablesCount === pov.deliverables.length` |
 | `pov.deliverables` | ≥ 4 |
 | `pov.pricing` | ≥ 2 |
