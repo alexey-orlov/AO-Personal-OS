@@ -68,8 +68,24 @@
     });
   }
 
+  /* The tile is the product's own hero photograph with the copy set over it.
+     The veil is a gradient rather than a flat wash so the picture still reads
+     as a picture at the top while the text sits on near-black at the bottom. */
+  function tileBackdrop(product) {
+    var UI = window.UI;
+    var image = product.hero && product.hero.image;
+    if (!image || !image.file) return "";
+    return '<span class="market-tile-bg" aria-hidden="true">' +
+      '<img class="market-tile-img" src="' + UI.esc(image.file) + '" alt=""' +
+      (image.focal ? ' style="object-position:' + UI.esc(image.focal) + '"' : "") +
+      ' loading="lazy" decoding="async">' +
+      '<span class="market-tile-veil"></span>' +
+      "</span>";
+  }
+
   function marketTile(product) {
     var UI = window.UI;
+    var facet = UI.facetLabel(product.facet);
     var chips = [
       UI.chip({ label: product.categoryChip }),
       UI.availabilityChip(product)
@@ -82,8 +98,9 @@
     }).join("");
 
     return '<article class="market-tile reveal">' +
-      UI.tilePlate(product) +
+      tileBackdrop(product) +
       '<div class="market-copy">' +
+        '<p class="market-facet" title="' + UI.esc(facet.fullLabel) + '">' + UI.esc(facet.label) + "</p>" +
         '<div class="chip-row">' + chips.join("") + "</div>" +
         '<h2 class="market-title"><a href="#/products/' + UI.esc(product.slug) + '">' +
           UI.esc(product.name) + "</a></h2>" +
@@ -91,7 +108,7 @@
         '<ul class="outcome-list">' + outcomes + "</ul>" +
         '<div class="market-actions">' +
           UI.linkArrow({ label: "View product", href: "#/products/" + product.slug }) +
-          '<a class="link-quiet" href="#/products/' + UI.esc(product.slug) + '/demo">' +
+          '<a class="link-quiet" href="#/products/' + UI.esc(product.slug) + '/contacts">' +
             UI.esc(window.SITE_CONTENT.site.primaryCta.label) + "</a>" +
         "</div>" +
       "</div>" +
