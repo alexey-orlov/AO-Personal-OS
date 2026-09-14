@@ -416,8 +416,7 @@
       label: C.site.primaryCta.label,
       href: C.site.primaryCta.route,
       kind: "secondary",
-      className: "nav-cta btn--sm",
-      attrs: { "data-demo": "header" }
+      className: "nav-cta btn--sm"
     });
     document.getElementById("primary-nav").innerHTML = links + cta;
     document.getElementById("mobile-menu").innerHTML = links + cta;
@@ -697,17 +696,6 @@
     };
     window.addEventListener("scroll", onScroll, { passive: true });
     onScroll();
-
-    document.addEventListener("click", function (event) {
-      var trigger = event.target.closest ? event.target.closest("[data-demo]") : null;
-      if (!trigger) return;
-      if (!window.FORMS || typeof window.FORMS.render !== "function") return;
-      event.preventDefault();
-      closeMobileMenu();
-      openModal(window.FORMS.render("demo"), { label: C.forms.demo.heading });
-      var panel = document.querySelector(".modal-panel");
-      if (panel && typeof window.FORMS.mount === "function") window.FORMS.mount(panel, "demo");
-    });
   }
 
   function initHashLinks() {
