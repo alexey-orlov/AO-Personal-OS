@@ -172,11 +172,15 @@ The renderer resolves the poster in this order, first non-empty wins:
 
 So a YouTube demo needs nothing here at all. Set `videoPoster` when the auto-derived thumbnail is a bad frame, when the video is on Vimeo or Stream (no public thumbnail), or when you want a designed still rather than a screenshot.
 
+**If the poster cannot be loaded, it is dropped rather than shown broken.** The media frame keeps its veil, teal play button and caption over the inset panel, which already reads as a deliberate frame. One case needs naming: YouTube has `maxresdefault.jpg` only for videos uploaded above 720p, and for the rest it answers `200` with a 120×90 grey stand-in instead of a `404`. The renderer therefore treats a 120-pixel-wide YouTube thumbnail as a miss, retries `hqdefault.jpg` (which exists for every real video), and drops the poster only if that fails too. Nothing about this reaches the console.
+
 Empty on all seven today.
 
 ### `successStoryUrl`
 
-A downloadable case summary. When non-empty, the Overview tab's success-story block gains a **"Download the success story"** button. When empty, the block renders its honest empty line instead (the copy for that line is in `content.js`, not here).
+A hosted case summary. When non-empty, the Overview tab's success-story block and the product hero each gain an **"Open the success story"** link, which opens the file in a new tab. It is deliberately not a forced download: browsers ignore the `download` attribute on a cross-origin URL, so a button labelled "Download" would have opened a tab anyway and the label would have been a small lie.
+
+The success-story block itself is governed by `content.js`, not by this URL: it renders only where that product has a real story to tell (a non-empty `overview.successStory.blurb`), and is omitted entirely otherwise. A section whose only content is "no customers yet" is worse than no section on a page sellers demo live.
 
 Expected first for `workforce-optimization` and `large-document-extraction`. Empty on all seven today.
 
@@ -193,7 +197,7 @@ materials: {
 }
 ```
 
-- URL present → an enabled **Download** button.
+- URL present → an enabled **Open** button, which opens the material in a new tab.
 - Empty string → a disabled **Link pending** control, with the row's title and description still shown.
 
 Keys in use, per product:
