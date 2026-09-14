@@ -106,22 +106,12 @@
       copy + metricBlock(item) + "</article>";
   }
 
-  function noteCard(item) {
-    var UI = window.UI;
-    var title = item.title || item.industry || "";
-    return '<article class="note-card reveal">' +
-      '<p class="eyebrow eyebrow--accent">' + UI.esc(item.label) + "</p>" +
-      (title ? '<h3 class="note-title">' + UI.esc(title) + "</h3>" : "") +
-      '<p class="note-body">' + UI.esc(item.body) + "</p>" +
-      (item.product ? '<p>' + UI.linkArrow({ label: item.product.name, href: "#/products/" + item.product.slug }) + "</p>" : "") +
-      "</article>";
-  }
-
+  /* The home page carries the delivered proofs; the method cards and the
+     engagements still in preparation live once, on Services. */
   function evidence(C) {
     var UI = window.UI;
     var intro = C.overview.evidenceIntro;
     var bandOne = C.overview.evidence.filter(function (item) { return item.band === 1; });
-    var bandTwo = C.overview.evidence.filter(function (item) { return item.band === 2; });
     var rows = bandOne.length
       ? bandOne.map(proofRow).join("")
       : UI.empty(intro.body);
@@ -134,7 +124,9 @@
         "</div>" +
         '<p class="lead" style="margin-bottom:2rem">' + UI.esc(intro.body) + "</p>" +
         rows +
-        (bandTwo.length ? '<div class="note-grid">' + bandTwo.map(noteCard).join("") + "</div>" : "") +
+        (intro.cta
+          ? '<p class="panel-link">' + UI.linkArrow({ label: intro.cta.label, href: intro.cta.route }) + "</p>"
+          : "") +
       "</div></section>";
   }
 
