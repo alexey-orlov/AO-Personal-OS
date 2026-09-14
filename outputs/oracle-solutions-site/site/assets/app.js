@@ -492,6 +492,19 @@
     });
   }
 
+  /* A hero whose image cannot be fetched falls back to the gradient alone,
+     never to a broken-image glyph over the headline. */
+  function guardHeroImages(root) {
+    Array.prototype.forEach.call(root.querySelectorAll(".hero-bg-img"), function (img) {
+      function drop() { if (img.parentNode) img.parentNode.removeChild(img); }
+      if (img.complete) {
+        if (!img.naturalWidth) drop();
+        return;
+      }
+      img.addEventListener("error", drop);
+    });
+  }
+
   var revealObserver = null;
 
   function initReveal(root) {
@@ -544,6 +557,7 @@
     }
 
     setActiveNav(parsed.path);
+    guardHeroImages(app);
     initReveal(app);
     closeMobileMenu();
 
@@ -654,15 +668,6 @@
   };
 
   window.PAGES = window.PAGES || {};
-
-  /* A hero whose image cannot be fetched falls back to the gradient alone,
-     never to a broken-image glyph over the headline. */
-  window.addEventListener("error", function (event) {
-    var node = event.target;
-    if (node && node.tagName === "IMG" && node.classList.contains("hero-bg-img")) {
-      node.remove();
-    }
-  }, true);
 
   document.documentElement.classList.add("js-reveal");
   renderNav();
