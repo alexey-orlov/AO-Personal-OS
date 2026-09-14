@@ -1307,9 +1307,7 @@ window.SITE_CONTENT = {
             "Oracle Field Service integration — delivered at Roll-out",
             "Additional data sources and BI integration — delivered at Roll-out",
             "The re-optimization feedback loop — delivered at Roll-out",
-            "Distance and travel-time rules with live traffic — on the roadmap",
-            "Within-day dynamic reassignment and urgent-request handling — on the roadmap",
-            "Spare-parts and crew-based assignment, and the human-feedback learning loop — on the roadmap"
+            "Live-traffic travel rules, within-day reassignment, spare-parts and crew-based assignment — on the roadmap"
           ]
         },
         moreDetail: [
