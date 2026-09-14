@@ -178,7 +178,8 @@ window.SITE_CONTENT = {
     hero: {
       image: {
         file: "assets/img/heroes/overview.jpg",
-        alt: "A tall oval of light standing open in a dark wall, its reflection running out across still water"
+        alt: "A tall oval of light standing open in a dark wall, its reflection running out across still water",
+        focal: "50% 45%"
       },
       headline: { accent: "ORACLE", rest: "AI SOLUTIONS" },
       subhead: "Packaged AI applications for Oracle customers — built on Oracle Cloud Infrastructure with NVIDIA and on Oracle Autonomous AI Lakehouse. Each one an accelerator pack plus tailored SoftServe services, delivered in three steps: a fixed-scope proof of value on your own data, roll-out at one site, then scale.",
@@ -384,7 +385,8 @@ window.SITE_CONTENT = {
       hero: {
         image: {
           file: "assets/img/heroes/account-insights.jpg",
-          alt: "A web of linked signal nodes glowing above an out-of-focus night city, seen past a silhouetted figure"
+          alt: "A web of linked signal nodes glowing above an out-of-focus night city, seen past a silhouetted figure",
+          focal: "50% 48%"
         }
       },
       tile: {
@@ -584,7 +586,8 @@ window.SITE_CONTENT = {
       hero: {
         image: {
           file: "assets/img/heroes/case-evidence-collection.jpg",
-          alt: "A long row of upright panels standing edge to edge and curving away into the dark, each lit along its leading edge"
+          alt: "A long row of upright panels standing edge to edge and curving away into the dark, each lit along its leading edge",
+          focal: "50% 42%"
         }
       },
       tile: {
@@ -791,7 +794,8 @@ window.SITE_CONTENT = {
       hero: {
         image: {
           file: "assets/img/heroes/plan-vs-actual-investigation.jpg",
-          alt: "Robotic arms working an assembly line that recedes down a long, dimly lit factory hall"
+          alt: "Robotic arms working an assembly line that recedes down a long, dimly lit factory hall",
+          focal: "50% 48%"
         }
       },
       tile: {
@@ -1004,7 +1008,8 @@ window.SITE_CONTENT = {
       hero: {
         image: {
           file: "assets/img/heroes/large-document-extraction.jpg",
-          alt: "A deep stack of thin plates seen end-on, receding into darkness with light caught between the layers"
+          alt: "A deep stack of thin plates seen end-on, receding into darkness with light caught between the layers",
+          focal: "50% 50%"
         }
       },
       tile: {
@@ -1223,7 +1228,8 @@ window.SITE_CONTENT = {
       hero: {
         image: {
           file: "assets/img/heroes/workforce-optimization.jpg",
-          alt: "An overhead field of interlocking hexagonal plates, with loose ones still settling into the pattern from above"
+          alt: "An overhead field of interlocking hexagonal plates, with loose ones still settling into the pattern from above",
+          focal: "50% 55%"
         }
       },
       tile: {
@@ -1443,7 +1449,8 @@ window.SITE_CONTENT = {
       hero: {
         image: {
           file: "assets/img/heroes/cross-system-erp-qa.jpg",
-          alt: "Many parallel metal ribs sweeping together into one continuous curved surface"
+          alt: "Many parallel metal ribs sweeping together into one continuous curved surface",
+          focal: "50% 50%"
         }
       },
       tile: {
@@ -1663,7 +1670,8 @@ window.SITE_CONTENT = {
       hero: {
         image: {
           file: "assets/img/heroes/business-metrics-qa.jpg",
-          alt: "Rolling waves of fine blue data points, brighter points picked out along the ridges"
+          alt: "Rolling waves of fine blue data points, brighter points picked out along the ridges",
+          focal: "50% 52%"
         }
       },
       tile: {
@@ -1874,7 +1882,8 @@ window.SITE_CONTENT = {
     hero: {
       image: {
         file: "assets/img/heroes/services.jpg",
-        alt: "An engineer seen from behind at a wall of code on dark monitors in a low-lit workspace"
+        alt: "An engineer seen from behind at a wall of code on dark monitors in a low-lit workspace",
+        focal: "50% 50%"
       },
       headline: { accent: "ORACLE", rest: "DEDICATED PRACTICE" },
       lead: "SoftServe’s Oracle practice pairs the delivery depth of a 500-strong data and analytics practice with architects and engineers dedicated to the Oracle AI stack.",
