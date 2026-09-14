@@ -1,7 +1,7 @@
 # Oracle accelerator packs — productization
 
-_status: three packs in flight against Alex's Q3 OKR ("3 packages ready"). **Workforce Optimization** — deck + one-pager done, feature list due 15 Sep. **Large Document Extraction and Validation** — sales one-pager + 10-slide service-packages deck built 2026-09-10, with real S/M/L pricing. **Account Insights** — one-pager built 2026-09-10, every other artifact still open. All three now also have a **10-slide internal section deck** (2026-09-11) for SoftServe delivery + sales. End-state per pack: an **Oracle Marketplace listing**._
-_updated: 2026-09-11_
+_status: three packs in flight against Alex's Q3 OKR ("3 packages ready"). **Workforce Optimization** — deck + one-pager done, feature list due 15 Sep. **Large Document Extraction and Validation** — sales one-pager + 10-slide service-packages deck built 2026-09-10, with real S/M/L pricing. **Account Insights** — one-pager built 2026-09-10, every other artifact still open. All three now also have a **10-slide internal section deck** (2026-09-11) for SoftServe delivery + sales. **A customer-facing mini-site (v1, 2026-09-13/14) now carries seven products across three categories** — the stream's first external surface, blocked on Alex's inputs, not on build. End-state per pack: an **Oracle Marketplace listing**._
+_updated: 2026-09-14_
 _source files: SoftServe OneDrive `Projects/Oracle/Packs/` → [registry](../../_meta/external-sources.md)_
 
 ## Snapshot
@@ -11,7 +11,8 @@ _source files: SoftServe OneDrive `Projects/Oracle/Packs/` → [registry](../../
 - **Folder reorg (~2026-09-10):** `Projects/Oracle/` now separates `Customers/` (Belron · Bosch · DHL · KPN · NATO · NHS · RiyahdAir · SBG) from `Packs/` (`AI Lakehouse quick start` · `Account Insights` · `Large Document Extraction and review package` · `Workforce optimization package` · `Use case maps`) plus the tracker. Packs became a first-class stream instead of an artifact inside a customer folder.
 - **Standard artifact set per pack** (from the tracker): Sales deck · Sales one-pager · Feature list · Demo video · Package for Oracle Marketplace · **Oracle Marketplace listing**. The Marketplace end-state is new to the wiki — the packs are being aimed at a distribution channel, not only at Oracle reps.
 - **Pricing converges on the S/M/L "t-shirt" model** Gero co-designed [2026-06-26](oracle.md) (PoV → Roll-out → Scaling) — now carrying real numbers for the first time on the document pack.
-- **Naming is unsettled on two of three packs**: folder, filename and tracker row disagree. Externally-facing artifacts are the ones to trust. **Pack 3 settled 2026-09-11 as "Account Insights"** (Alex's call) — the one-pager PDF still carries the old name.
+- **Naming is unsettled on two of three packs**: folder, filename and tracker row disagree. Externally-facing artifacts are the ones to trust. **Pack 3 settled 2026-09-11 as "Account Insights"** (Alex's call) — the one-pager PDF still carries the old name. The mini-site now forces the same call on pack 2: it ships as **"Large Docs Extraction and Review"** while the sales artifacts say "…and Validation".
+- **The stream outgrew "three packs" on 2026-09-14.** The mini-site presents **seven** products in three categories — the three tracked packs plus four that have no packaging artifacts of their own: Case evidence collection, Plan vs actual investigation, Cross-system ERP Q&A, Business metrics Q&A. The last two are the [AI Lakehouse Quick Start](oracle.md) use cases, so the site is the first surface carrying **both** motions (NVIDIA packs + Lakehouse) as one catalog. *(my read: the three categories read as a customer-facing compression of the 7-L1 [agentic pattern map](oracle.md).)*
 
 ## The internal section deck — `Oracle AI Packages - section slides.pptx` (2026-09-11)
 
