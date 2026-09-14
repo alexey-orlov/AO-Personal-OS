@@ -61,9 +61,40 @@ Two panels of identical height side by side, an arrow glyph (`icon("arrow")`) be
 
 Icon convention today: `problem.icon = "alert"`, `solution.icon = "spark"` on all seven. It is data so it can diverge — but only for a reason.
 
-### 2.2 Metrics improved — a row of compact stat tiles
+### 2.2 How it works — the workflow stepper (MAIN)
 
-`overview.metrics[]` (3–4 tiles) + `overview.metricsNote` (one string).
+`overview.steps[]` — **3–5 steps**, `{ n, title, text, image, features }`. Heading from `sectionLabels.howItWorks`.
+
+This block **replaces the flat key-features checklist**. The same bullets are still on the page; they now sit under the step of the workflow they belong to, so a reader learns the shape of the work rather than a list of nouns.
+
+| Field | Rule |
+|---|---|
+| `n` | 1-based, in order. The circle beside the title. |
+| `title` | The step, as a verb phrase. One line. |
+| `text` | ≤ 2 lines (≤ 30 words). What happens at this step. |
+| `image` | `assets/img/steps/<slug>-<n>.jpg` — a real product screenshot where one exists, otherwise a designed step illustration built to the same frame. Either way it renders in **one 16:10 frame with a thin border**, so the two kinds are visually interchangeable and a screenshot can replace an illustration later with no layout change. |
+| `features` | The exact `overview.features` strings that belong to this step. Rendered as check-icon bullets under the step text. |
+
+**The coverage invariant.** Across a product's steps, the union of `features` must equal `overview.features` exactly — every bullet in one step, no bullet in two. That is what makes it safe for the stepper to be the only surface those bullets have. `tools/check-grammar.js` asserts it in both directions.
+
+**Interaction.** Desktop: the step list sits left inside the MAIN column, the selected step's frame large on the right. Clicking a step highlights it and swaps the frame. Mobile: stacked, each step with its own frame under it. Step 1 is selected on load. The list is a keyboard-navigable set of buttons; the frame carries the step title as its accessible name.
+
+### 2.3 Industry use cases — the tab component (MAIN)
+
+`overview.industryCases[]` — **3–6 cases**, `{ industry, label, image, problem, solution }`. Heading from `sectionLabels.industryCases`.
+
+A row of tabs, each an industry icon (§5) plus its label. The selected tab shows: a treated industry photograph (`assets/img/industries/<key>.jpg`), the industry name, then **The problem** and **The solution** — 2–3 sentences each, headed from `sectionLabels.caseProblem` / `caseSolution`.
+
+- The images are keyed by **industry, not product**, so one file serves every product that uses that tab.
+- First tab open by default. Tabs are a proper `role="tablist"`: arrow keys move, Enter/Space selects, the panel is labelled by its tab.
+- The two Lakehouse products lead with the `cross-industry` tab, because "the same two pains in every industry, regardless of stack" is their honest answer; the vertical tabs beside it are illustrations of it, not a claim of vertical focus.
+- The failure mode to watch: a `problem`/`solution` pair that would read identically under any other tab. If it would, it is not an industry case.
+
+This block also **replaces the industry chip row** on the Overview. `overview.industries[]` and `industriesNote` are unchanged in the data and render inside §2.7.
+
+### 2.4 Outcomes & ROI (SIDE rail)
+
+`overview.metrics[]` + `overview.metricsNote` + `overview.roi`, stacked as one compact block. Heading from `sectionLabels.outcomes`.
 
 Tile shape:
 
@@ -73,50 +104,40 @@ Tile shape:
 
 | Field | Rule |
 |---|---|
-| `value` | The figure, short enough to set large (≤ 14 characters). **`null` means a qualitative tile** — the value slot renders the `icon` at display size instead of a number, and the tile keeps its full height so the row stays level. |
+| `value` | The figure, short enough to set large (≤ 14 characters). **`null` means a qualitative tile** — the value slot renders the `icon` at display size instead of a number, and the tile keeps its full height so the stack stays even. |
 | `label` | What the figure measures. One line, ≤ 8 words. |
-| `qualifier` | The honest caveat or baseline: "Down from ~2 days", "Targeted reduction at proof of value", "What the first engagement measures". ≤ 12 words. |
-| `icon` | An icon-registry key (§4). Always present, on numeric and qualitative tiles alike — on a numeric tile it is small, beside the label. |
+| `qualifier` | The honest caveat or baseline: "Down from ~2 days", "Targeted reduction at proof of value". ≤ 12 words. |
+| `icon` | An icon-registry key (§4). Always present, on numeric and qualitative tiles alike. |
 
-`metricsNote` renders as **one footnote line under the row**, small and muted. Never a paragraph, never a separate card. It is mandatory: every product has one, including the four with no numbers at all.
+In the rail the tiles **stack vertically** rather than sitting in a row — 3–4 tiles, then the `roi` callout, then `metricsNote` as the footnote line closing the block. All three stay in the same visual block: rule 2 of this file is that a number never renders away from its disclaimer, and a sticky rail that scrolls the figure past its footnote breaks it as surely as a missing footnote would.
 
-Three of the seven carry published figures (`large-document-extraction`, `workforce-optimization`, and the two Lakehouse products carry a duration). The other four are all-qualitative and still render four tiles.
+**The heading follows the data.** When at least one tile carries a `value`, the block is headed `sectionLabels.metrics` ("Metrics improved"). When every tile is qualitative it is headed `sectionLabels.metricsPlanned` ("What the proof of value measures") instead — a heading asserting improvement over four tiles with no number, closed by a footnote saying no metrics are published, contradicts itself two lines later.
 
-### 2.3 ROI — one callout band
+Three of the seven carry published figures; the other four are all-qualitative and still render a full block.
 
-`overview.roi` → `{ icon, text }`. Full-width band, icon left, 1–2 sentences. No heading beyond the standing eyebrow "ROI". Never a card grid, never bullets.
+### 2.5 At a glance (SIDE rail)
 
-### 2.4 Key features — two-column checklist
+`overview.sideFacts` → `{ category, platform, availability, povDuration, povPrice, povPriceNote? }`. Heading from `sectionLabels.atAGlance`.
 
-`overview.features[]` — 6–8 strings, **each ≤ 12 words**, each rendered with a `check` icon. Two columns on desktop, one on mobile; balanced, not sequential (fill by column height).
+A compact definition-list card: five label/value rows, labels from `sectionLabels.factCategory` / `factPlatform` / `factAvailability` / `factPovDuration` / `factPovPrice`. `povPriceNote`, where present, renders as a small line under the price row. The card closes with the `sectionLabels.povLink` link to that product's POV Jumpstart tab, where the full terms and the disclaimer stack live.
 
-- `overview.featuresNote?` — an asterisked caveat, rendered once under the list. Only `workforce-optimization` has one today.
-- `overview.featuresDetail[]` — the long-form `{ title, body }` list from the shipped one-pagers. **Not rendered in the checklist**; it renders inside the More detail disclosure (§2.7) so no fact is lost.
+Every value is a denormalised copy of a fact that already exists elsewhere in the product object — the card is a summary, never a new claim. `povPrice` never carries a bare asterisk: an asterisk with no footnote in view is the defect this block was shaped to avoid.
 
-### 2.5 Industries — icon chips from one fixed set
+### 2.6 Success story (SIDE rail)
 
-`overview.industries[]` — keys from the fixed set in §3. Rendered as chips: line icon + label, one uniform pill style, wrapping.
+`overview.successStory` renders as it does today (see `SCHEMA.md`), at the foot of the rail. The **Open the success story** control renders only when `SITE_CONFIG.products[slug].successStoryUrl` is non-empty; a product with `state: "none"` renders no block at all.
 
-`overview.industriesNote?` — one line under the chips, the "who this is for" sentence. Present on all seven.
+### 2.7 More detail — one collapsible disclosure (MAIN)
 
-The two Lakehouse products carry the single key `cross-industry` — that is the honest answer for them, and it renders as one chip plus its note, not as a blank row.
+Collapsed by default, one control at the end of the MAIN column. Inside, in order:
 
-### 2.6 In scope / Out of scope — two compact lists side by side
+1. `overview.moreDetail[]` — `[{ title, body }]`: the today/tomorrow pairs, the pattern definitions, the pull quotes, the per-persona "where it applies" paragraphs, the scope boundaries, the roadmap notes, the evaluation disclaimer.
+2. `overview.scope` → in / out, the two compact lists, under `sectionLabels.scope`.
+3. `overview.industries[]` + `industriesNote` — the icon chip row, under `sectionLabels.industries`.
+4. `overview.featuresDetail[]` — the long-form feature list, under `sectionLabels.moreDetailFeatures`.
+5. `overview.featuresNote?` — the asterisked caveat, where the product carries one. Only `workforce-optimization` does.
 
-`overview.scope` → `{ in: [string], out: [string] }`. 5–6 items each, ≤ 14 words each. `in` items take a `check` icon, `out` items take a muted dash. Equal-height columns.
-
-### 2.7 More detail — collapsible disclosure
-
-`overview.moreDetail[]` — `[{ title, body }]`. Collapsed by default, one control at the end of the tab. Inside: the `moreDetail` entries, then the `featuresDetail` entries under a sub-heading.
-
-This is where the long prose lives: the today/tomorrow pairs, the pattern definitions, the pull quotes, the per-persona "where it applies" paragraphs, the scope boundaries, the roadmap notes, the evaluation disclaimer. Nothing that reads as a wall of text sits above the fold.
-
-### 2.8 Success story — unchanged
-
-`overview.successStory` renders exactly as it does today (see `SCHEMA.md`). The **Download the success story** button renders only when `SITE_CONFIG.products[slug].successStoryUrl` is non-empty.
-
----
-
+Nothing that reads as a wall of text sits above the fold. Equally, **nothing is dropped**: every one of those five is a shipped fact that used to have a top-level block, and the disclosure is where it went.
 ## 3. Technology tab
 
 ### 3.1 Narrative
