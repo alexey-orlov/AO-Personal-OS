@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" width="1600" height="1000" role="img">
+<defs>
+<radialGradient id="g" cx="50%" cy="42%" r="72%">
+<stop offset="0" stop-color="#0E2D4D" stop-opacity=".55"/>
+<stop offset="1" stop-color="#0E2D4D" stop-opacity="0"/>
+</radialGradient>
+<linearGradient id="fade" x1="0" y1="0" x2="1" y2="0">
+<stop offset="0" stop-color="#35CCBA" stop-opacity=".9"/>
+<stop offset="1" stop-color="#35CCBA" stop-opacity=".25"/>
+</linearGradient>
+<marker id="ar" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="8" markerHeight="8" orient="auto">
+<path d="M1 1 L10 6 L1 11" fill="none" stroke="#35CCBA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</marker>
+</defs>
+<rect width="1600" height="1000" fill="#10161A"/>
+<rect width="1600" height="1000" fill="url(#g)"/>
+<g fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="300" y="280" width="760" height="130" rx="10" fill="none" stroke="#496683" stroke-width="2" opacity="0.7"/><path d="M340 322 H760.0" stroke="#496683" stroke-width="2" opacity="0.5"/><path d="M340 346 H701.2" stroke="#496683" stroke-width="2" opacity="0.5"/><path d="M340 370 H642.4" stroke="#496683" stroke-width="2" opacity="0.5"/><path d="M1137 342 l9.1 9.75 L1163 331.6" stroke="#35CCBA" stroke-width="3" opacity="1.0"/><text x="320" y="388" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="20" fill="#496683" font-weight="600" letter-spacing="1.4" text-anchor="start" stroke="none">OPPORTUNITY</text><rect x="300" y="450" width="760" height="130" rx="10" fill="none" stroke="#496683" stroke-width="2" opacity="0.7"/><path d="M340 492 H760.0" stroke="#496683" stroke-width="2" opacity="0.5"/><path d="M340 516 H701.2" stroke="#496683" stroke-width="2" opacity="0.5"/><path d="M340 540 H642.4" stroke="#496683" stroke-width="2" opacity="0.5"/><path d="M1137 512 l9.1 9.75 L1163 501.6" stroke="#35CCBA" stroke-width="3" opacity="1.0"/><text x="320" y="558" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="20" fill="#496683" font-weight="600" letter-spacing="1.4" text-anchor="start" stroke="none">OPPORTUNITY</text><rect x="300" y="620" width="760" height="130" rx="10" fill="none" stroke="#35CCBA" stroke-width="2" opacity="0.95"/><path d="M340 662 H760.0" stroke="#496683" stroke-width="2" opacity="0.5"/><path d="M340 686 H701.2" stroke="#496683" stroke-width="2" opacity="0.5"/><path d="M340 710 H642.4" stroke="#496683" stroke-width="2" opacity="0.5"/><path d="M1107 682 l9.1 9.75 L1133 671.6" stroke="#35CCBA" stroke-width="3" opacity="0.95"/><path d="M1199 671 L1221 693 M1221 671 L1199 693" stroke="#496683" stroke-width="3" opacity="0.7"/><text x="320" y="728" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="20" fill="#496683" font-weight="600" letter-spacing="1.4" text-anchor="start" stroke="none">OPPORTUNITY</text><text x="96" y="100" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="25" fill="#35CCBA" font-weight="700" letter-spacing="5" text-anchor="start" stroke="none" opacity=".85">SELLER REVIEW</text><path d="M96 132 H306" stroke="#35CCBA" stroke-width="2" opacity=".35"/></g></svg>

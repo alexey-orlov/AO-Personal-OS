@@ -1,0 +1,19 @@
+<!doctype html><meta charset="utf-8"><title>asset QA</title>
+<style>
+body{background:#131313;color:#CFD6DC;font:14px/1.4 system-ui;margin:0;padding:24px}
+.g{display:grid;grid-template-columns:repeat(2,1fr);gap:22px}
+figure{margin:0}
+img{width:100%;aspect-ratio:16/10;object-fit:cover;display:block;border:1px solid rgba(255,255,255,.16);border-radius:10px}
+.ind img{aspect-ratio:1200/750}
+figcaption{font-size:12px;color:#7C93AB;padding-top:6px}
+h2{font:600 15px system-ui;color:#35CCBA;letter-spacing:2px;margin:32px 0 10px}
+</style>
+<h2>STEP FRAMES</h2><div class="g" id="a"></div>
+<h2>INDUSTRIES</h2><div class="g ind" id="b"></div>
+<h2>HEADSHOT</h2><div class="g"><figure><img style="aspect-ratio:1;width:240px;border-radius:50%" src="assets/img/people/karsten-tramborg.jpg"><figcaption>karsten-tramborg.jpg</figcaption></figure></div>
+<script>
+const steps=["account-insights-1.svg","account-insights-2.svg","account-insights-3.svg","account-insights-4.svg","case-evidence-collection-1.svg","case-evidence-collection-2.svg","case-evidence-collection-3.svg","case-evidence-collection-4.svg","plan-vs-actual-investigation-1.svg","plan-vs-actual-investigation-2.svg","plan-vs-actual-investigation-3.svg","plan-vs-actual-investigation-4.svg","cross-system-erp-qa-1.svg","cross-system-erp-qa-2.svg","cross-system-erp-qa-3.svg","cross-system-erp-qa-4.svg","business-metrics-qa-1.svg","business-metrics-qa-2.svg","business-metrics-qa-3.svg","business-metrics-qa-4.svg","large-document-extraction-1.svg","large-document-extraction-2.jpg","large-document-extraction-3.jpg","large-document-extraction-4.svg","workforce-optimization-1.jpg","workforce-optimization-2.jpg","workforce-optimization-3.jpg","workforce-optimization-4.jpg"];
+const inds=["manufacturing","logistics","utilities","telecom","healthcare","financial-services","insurance","retail","energy","public-sector","automotive","life-sciences","professional-services","construction","travel-transport","cross-industry"];
+document.getElementById('a').innerHTML=steps.map(f=>`<figure><img src="assets/img/steps/${f}"><figcaption>${f}</figcaption></figure>`).join('');
+document.getElementById('b').innerHTML=inds.map(f=>`<figure><img src="assets/img/industries/${f}.jpg"><figcaption>${f}</figcaption></figure>`).join('');
+</script>
