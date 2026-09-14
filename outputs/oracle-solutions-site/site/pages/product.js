@@ -893,7 +893,8 @@
             '" allow="autoplay; fullscreen; picture-in-picture"></iframe>'
           : '<video class="video-frame" src="' + window.UI.esc(url) + '" controls playsinline></video>';
         window.UI.modal.open('<h2 class="h3 modal-title">' + window.UI.esc(title) + "</h2>" +
-          '<div class="video-wrap">' + embed + "</div>", { label: title });
+          '<div class="video-wrap">' + embed + "</div>",
+          { label: title, className: "modal-panel--media" });
       });
     });
   }
