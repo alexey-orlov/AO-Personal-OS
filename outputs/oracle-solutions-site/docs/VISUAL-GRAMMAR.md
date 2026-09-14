@@ -334,4 +334,31 @@ Every product object must satisfy all of the following. `tools/check-grammar.js`
 | `pov.disclaimers` | ≥ 1 |
 | `pov.ladder` | exactly 3, in the order proof-of-value → rollout → scaling |
 
+Site-level, asserted once rather than per product:
+
+| Slot | Requirement |
+|---|---|
+| `shared.contact` | `{ name, title, email, photo, blurb }`; `title` is a string and **may be empty**; `email` is exactly `oracle@softserveinc.com`; `blurb` is one sentence; `photo` is `assets/img/people/<name>.<ext>`; `linkedin`, if present, is a public `linkedin.com` URL |
+| `shared.productTabs` | carries a `contacts` tab and no `demo` tab |
+| `forms.demo.secondaryHeading` | non-empty — the heading the form takes under the contact card |
+
 A slot that cannot be filled with a fact is filled with a **qualitative** instance — a `null`-valued metric tile, a `cross-industry` chip, a `Scoped per engagement` price. It is never left out, and it never renders an apology.
+
+A **missing image file is a warning, not a failure.** Copy and imagery ship on separate tracks; the checker names each file that is not on disk yet so nothing is forgotten, and still exits 0.
+
+---
+
+## 8. Contacts tab and the contact card
+
+`shared.contact` → `{ name, title, email, photo, blurb, linkedin? }`.
+
+The tab formerly labelled **Request a demo** is now **Contacts**, at `#/products/<slug>/contacts`. `#/products/<slug>/demo` redirects to it (`legacyId: "demo"` on the tab), and every "Request a demo" control on a product page points at the contacts tab rather than at a form anchor. The header pill and the home-page CTAs are unchanged: they still open the standalone request form at `#/#request-a-demo`.
+
+The tab renders, in order:
+
+1. **The contact card** — circular photo left, then name, `title`, the `email` as a `mailto:`, and the one-line `blurb` saying what to get in touch about. `title` renders only when non-empty; an empty one leaves name + email, never a placeholder. `linkedin` renders only when the key exists.
+2. **The request form**, unchanged, headed `forms.demo.secondaryHeading` ("Or send a request") — the secondary path, below the named human rather than instead of him.
+
+The same card renders **above the form in the Services page contact section**, from the same object. One person, one address, one place to edit.
+
+**The address is the practice mailbox, never a personal one.** `oracle@softserveinc.com` is what ships; the checker bans the string `ktram@` site-wide. A personal mailbox on a public page is a scraping target and an availability risk, and the person named here is a partnerships role rather than an inbox.
