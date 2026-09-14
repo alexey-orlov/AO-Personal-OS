@@ -1915,7 +1915,7 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
   .def-grid, .def-grid--3, .def-grid--4 { grid-template-columns: 1fr; }
   .product-hero-inner { grid-template-columns: minmax(0, 1fr); row-gap: 2rem; }
   .product-hero.has-hero-bg, .hero.has-hero-bg { min-height: 0; display: block; }
-  .hero-bg-img { opacity: .32; }
+  .hero-bg-img { opacity: .46; }
   .hero-bg-veil {
     background:
       linear-gradient(to bottom, rgba(19, 19, 19, .74) 0%, rgba(19, 19, 19, .58) 38%, rgba(19, 19, 19, .9) 82%, var(--bg) 100%),
