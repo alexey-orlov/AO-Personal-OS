@@ -161,9 +161,9 @@ Seven entries, in the order the Products page should list them:
 | `availabilityChip`, `availabilityTooltip` | string | Denormalised. |
 | `oneLiner` | string | The tile description and the hero lead. |
 | `subLine?` | string | A second hero line where the one-liner is very short. |
-| `heroLine?` | string | A short slogan that heads the hero above the name (two Lakehouse products). |
+| `heroLine?` | string | A short slogan that heads the hero above the name (two Lakehouse products). Takes precedence over `heroCaption` if both are set. |
 | `hero` | `{ image: { file, alt, focal } }` | The product hero's background image. Same contract as `overview.hero.image`. Required on all seven. |
-| `heroCaption?` | string | Caption under the hero media frame. |
+| `heroCaption?` | string | An alternative to `heroLine`, for products that carry a short line rather than a slogan. Rendered in the **same slot and the same `.eyebrow.eyebrow--accent.hero-line` treatment** as `heroLine`, so every product hero has one shape. A product sets one or the other, never both. |
 | `badges?` | `[string]` | Small uppercase hero badges (two Lakehouse products). |
 | `tags` | `[string]` | Filled navy metadata pills on the tile, in order. Facts, not toggles. |
 | `tile.outcomes` | `[string]` | Exactly three outcome bullets. |

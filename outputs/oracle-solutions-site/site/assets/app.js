@@ -262,7 +262,7 @@
 
   function card(product, options) {
     var opts = options || {};
-    var marketplace = CFG.products[product.slug] && CFG.products[product.slug].marketplace;
+    var marketplace = CFG.products[product.slug] && CFG.products[product.slug].marketplaceUrl;
     var chips = [
       chip({ label: product.categoryChip }),
       availabilityChip(product)

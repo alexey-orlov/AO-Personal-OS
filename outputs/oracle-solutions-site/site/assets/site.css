@@ -1354,17 +1354,6 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
   background: var(--accent);
 }
 
-.hero-caption {
-  font-family: var(--font-display);
-  font-weight: 500;
-  font-size: 1.125rem;
-  line-height: 1.4;
-  color: var(--text-muted);
-  border-left: 2px solid var(--accent);
-  padding-left: 1rem;
-  max-width: 40rem;
-}
-
 .tabbar-inner { display: flex; }
 
 /* ——— tab body panels —————————————————————————————————— */

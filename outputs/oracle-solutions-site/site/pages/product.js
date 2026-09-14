@@ -165,7 +165,7 @@
       UI.chip({ label: facet.label, title: facet.fullLabel }),
       UI.availabilityChip(product)
     ];
-    if (conf.marketplace) {
+    if (conf.marketplaceUrl) {
       chips.push(UI.chip({ label: C().facets.marketplace.badge }));
     }
     var line = product.heroLine || product.heroCaption || "";
@@ -234,8 +234,12 @@
   function metricTiles(o) {
     var UI = window.UI;
     if (!o.metrics || !o.metrics.length) return "";
+    function valued(metric) {
+      return metric.value !== null && metric.value !== undefined && metric.value !== "";
+    }
+    var anyValue = o.metrics.some(valued);
     var tiles = o.metrics.map(function (metric) {
-      var hasValue = metric.value !== null && metric.value !== undefined && metric.value !== "";
+      var hasValue = valued(metric);
       return '<div class="stat-tile">' +
         '<div class="stat-tile-top">' +
           (hasValue
@@ -249,7 +253,7 @@
         "</div>";
     }).join("");
     return '<section class="panel reveal">' +
-      blockHead(label("metrics")) +
+      blockHead(label(anyValue ? "metrics" : "metricsPlanned")) +
       '<div class="stat-tiles">' + tiles + "</div>" +
       (o.metricsNote ? '<p class="footnote stat-tiles-note">' + UI.esc(o.metricsNote) + "</p>" : "") +
       "</section>";

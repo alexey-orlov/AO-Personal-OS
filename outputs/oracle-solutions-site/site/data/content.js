@@ -133,6 +133,7 @@ window.SITE_CONTENT = {
     },
     sectionLabels: {
       metrics: "Metrics improved",
+      metricsPlanned: "What the proof of value measures",
       roi: "ROI",
       features: "Key features",
       industries: "Industries",
