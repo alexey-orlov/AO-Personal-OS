@@ -644,7 +644,7 @@
 
   function gateUnlocked() {
     try {
-      return window.localStorage.getItem(window.SITE_CONFIG.sellerGate.storageKey) === "1";
+      try { return window.localStorage.getItem(window.SITE_CONFIG.sellerGate.storageKey) === "1"; } catch (error) { return false; }
     } catch (error) {
       return false;
     }

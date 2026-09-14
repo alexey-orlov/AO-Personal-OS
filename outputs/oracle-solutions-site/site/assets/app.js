@@ -561,6 +561,15 @@
   var lastKey = null;
 
   function render() {
+    try { renderInner(); }
+    catch (error) {
+      var appEl = document.getElementById("app");
+      if (appEl) appEl.innerHTML = '<section class="container" style="padding:6rem 0;color:#fff"><p>Render error: ' + String(error && error.stack || error).replace(/</g, "&lt;") + '</p><p>Route: ' + String(window.location.href).replace(/</g, "&lt;") + '</p></section>';
+      if (window.console) console.error(error);
+    }
+  }
+
+  function renderInner() {
     var parsed = parseHash();
     var matched = matchRoute(parsed.path);
     var app = document.getElementById("app");
