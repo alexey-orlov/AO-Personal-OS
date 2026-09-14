@@ -887,3 +887,41 @@ designed at, and the one E2 asked to keep on mobile.
 Measured after, at 1440: stepper list and frame 370/370 then 388/388 across all
 four steps; industry figure and case 315/315, 315/315, 292/292 across the three
 tabs. At 375: both images 325 x 203, exactly 16:10, no horizontal scroll.
+
+### 14.8 ⚠ `C8` — AI-Q vs NeMo Retriever on `large-document-extraction` — still open, and it is a ship gate
+
+The site names **NVIDIA AI-Q** as the required extraction engine in five places
+on this product: `oneLiner`, the tag row, `overview.steps[1].text`, the
+`technology` narrative, and the `ai-engine` layer's Required component
+(`content.js:1556`). All five follow the pack's own external sales one-pager,
+which pitches *"NVIDIA AI-Q on Oracle OCI"* and prints an architecture line
+reading *NVIDIA AI-Q (GPU-accelerated extraction, VLM + RAG)*.
+
+`RESEARCH/01` §5.4 records the direct contradiction. The internal use-case map's
+NVIDIA cell reads *"NeMo Retriever extraction (Nemotron Parse · Page Elements ·
+Table Structure) — AI Document Extraction pack … **not** the AI-Q agent"*, and
+the red-team downgraded that row explicitly **"because AI-Q does not extract"**.
+
+Nothing in the repository resolves this. Both artefacts are in the wiki, the
+wiki flags it for Alex, and the fourth fix round did **not** pick a side,
+because either choice is a technical assertion about the product that only the
+pack team can make:
+
+- The copy was left following the **external one-pager**, per the wiki's own
+  stated rule that externally-facing artefacts are the ones to trust — and
+  because the alternative is to publish a component name no customer-facing
+  artefact uses.
+- That leaves a **Required-tagged component asserting a capability its own
+  internal source says the product does not have.** It is a correctness
+  problem, not a confidentiality one, so it does not block an internal review —
+  but it must not go to customers unanswered.
+
+**What has to happen before launch:** ask the pack team which engine does the
+extraction.
+
+- If it is **NeMo Retriever**, change all five places to *NVIDIA NeMo Retriever*
+  (or *NVIDIA NeMo* generically) and keep AI-Q only where it genuinely applies
+  — note that `account-insights` and `case-evidence-collection` use AI-Q for
+  retrieval and multi-document reasoning, which is not the contested claim.
+- If it is **AI-Q**, record the confirmation here with a date, and the internal
+  use-case map is the entry that gets corrected.
