@@ -529,7 +529,7 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
   object-fit: cover;
   object-position: 50% 50%;
   opacity: 1;
-  filter: brightness(2.55) contrast(.94) saturate(1.1);
+  filter: brightness(1.05) contrast(1.02) saturate(1.05);
 }
 
 .hero-bg-veil {
