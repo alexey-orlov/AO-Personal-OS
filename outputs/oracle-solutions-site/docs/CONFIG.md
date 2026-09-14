@@ -105,6 +105,31 @@ allowedDomains: ["softserveinc.com", "oracle.com"],
 
 The `localStorage` key the unlock state is remembered under. Change it to force every seller to unlock again (for example after changing the allowed domains).
 
+### `sellerGate.notesUrl`
+
+Where the seller-only **Seller notes** block gets its text. Empty today, so no seller notes ship at all.
+
+```js
+notesUrl: "/private/seller-notes.json",
+```
+
+This exists because of the sentence two headings up: the gate is a speed bump, not access control, so **commercial notes must not live in `content.js`**. Notes of the kind this block is for — how packages are expected to compress over time, what a first-of-kind engagement does to pricing, which piece of collateral still carries an old product name — tell a buyer things a seller would not say in the room. Shipped in the bundle they are one view-source away from the customer being quoted.
+
+So they live behind whatever authentication the deployment actually has. Point `notesUrl` at a path your server only serves to an authenticated reader; the seller panel fetches it (`same-origin` credentials) after the gate passes and renders what comes back. A fetch that fails, 404s or returns nothing renders nothing — no error, no empty heading.
+
+Expected shape:
+
+```json
+{
+  "packagingNotes": ["…applies to every product that prints a price…"],
+  "products": {
+    "workforce-optimization": ["…note for this product only…"]
+  }
+}
+```
+
+`packagingNotes` are appended only on products whose `pov.pricing` or `pov.ladder` actually prints a currency figure; per-product notes always render. Leave `notesUrl` empty on any deployment that cannot authenticate the request — an unauthenticated JSON file at a guessable path is the same leak with an extra step.
+
 ---
 
 ## 3. Per-product keys — `products["<slug>"]`

@@ -81,7 +81,7 @@ Flat map of reusable strings: `kpiTile`, `kpiTileTargets`, `packageTable`, `lake
 | `heroAsideTitle`, `heroAsideFootLabel` | `string` | Carried for reference; no surface renders them since the product hero became a single-column block over its background image. |
 | `videoCaption` | `string` | Caption printed on the hero video frame, and the label of the fallback "watch" button. |
 | `industryLabels` | map | The sixteen fixed industry keys → display label. A product's `overview.industries[]` holds bare keys; the renderer looks the label up here and the icon up as `industry-<key>`. No product may use a key absent from this map. |
-| `sectionLabels` | map | The standing headings of the visual grammar — the Overview, Technology and POV section titles that are the same on all seven products (`metrics`, `roi`, `features`, `industries`, `scopeIn`, `scopeOut`, `moreDetail`, `moreDetailFeatures`, `architecture`, `flow`, `components`, `stack`, `notUsed`, `integration`, `security`, `povFact*`, `deliverables`, `pricing`, `terms`, `matrix`, `ladder`, `povScopeIn`, `povScopeOut`, `povRollout`, `povPhases`, `povMeasured`, plus `scope` and `povHeading`). Product-specific headings stay in the product object. |
+| `sectionLabels` | map | The standing headings of the visual grammar — the Overview, Technology and POV section titles that are the same on all seven products (`metrics`, `metricsPlanned`, `roi`, `features`, `industries`, `scopeIn`, `scopeOut`, `moreDetail`, `moreDetailFeatures`, `architecture`, `flow`, `components`, `stack`, `notUsed`, `integration`, `security`, `povFact*`, `deliverables`, `pricing`, `terms`, `matrix`, `ladder`, `povScopeIn`, `povScopeOut`, `povRollout`, `povPhases`, `povMeasured`, plus `scope` and `povHeading`). Product-specific headings stay in the product object. |
 | `materialStates` | map | `state` value → button label for seller materials. |
 
 ---
@@ -132,7 +132,7 @@ Flat map of reusable strings: `kpiTile`, `kpiTileTargets`, `packageTable`, `lake
 | `technologyLabel`, `categoryLabel`, `allLabel`, `clearLabel`, `noResults` | string | UI chrome for the facet rail. |
 | `technology` | `[{ id, label, fullLabel, description, emptyState }]` | **Four entries, in this order:** `oci-nvidia`, `oracle-ai-data-platform`, `oracle-autonomous-ai-lakehouse`, `other`. `label` is the compact form for the rail and for tile tags; `fullLabel` is what goes on a product hero and in any place a reader could mistake it for a product name — carry `fullLabel` as the `title` attribute on the short form. Two facets currently match no product; render `emptyState` inside the normal grid container, never a blank grid. |
 | `categories` | `[{ id, chip, full }]` | Three. `chip` on tiles and filters, `full` in tooltips and long copy. |
-| `marketplace` | `{ label, badge, heroCta }` | `label` is the checkbox facet, `badge` the tile/hero badge (driven by `config.products[slug].marketplace`), `heroCta` the secondary hero button (rendered only when `marketplaceUrl` is non-empty). |
+| `marketplace` | `{ label, badge, heroCta }` | All three are driven by one switch, `config.products[slug].marketplaceUrl`: while it is empty, the badge does not render on any surface, the `label` checkbox is left out of the facet rail entirely, and the `heroCta` button does not appear. There is no separate boolean — a badge with no listing behind it is an unsupported claim. |
 
 ---
 
@@ -254,7 +254,7 @@ After the ladder, every POV tab renders, in order: `shared.preFlightGate`, `shar
 |---|---|---|
 | `materials` | `[{ key, title, description, state }]` | `key` is the lookup into `SITE_CONFIG.products[slug].materials`. A non-empty URL there renders an enabled Download; an empty one renders a disabled control labelled from `shared.materialStates[state]`. A row with `state: "superseded"` stays disabled regardless of URL. |
 | `emptyPanelCopy?` | string | Shown above the list where every row is unavailable. |
-| `notes` | `[string]` | Short seller-facing notes; may be empty. Rendered followed by `sellerGate.packagingNotes` on every product whose `pov.pricing` or `pov.ladder` carries a currency figure. |
+No `notes` key. **Seller-facing commercial notes are not part of this file.** They are fetched after the gate passes from `SITE_CONFIG.sellerGate.notesUrl` — see `CONFIG.md` §2 — because the gate is a localStorage flag and anything in `content.js` is one view-source away from the customer being quoted. The panel renders a **Seller notes** block (heading from `sellerGate.notesHeading`) only when that fetch returns lines for the product.
 
 ---
 
@@ -297,7 +297,7 @@ One field set serves both forms. Fields, in order: **full name · work email · 
 | `heading`, `lockedBody`, `accessNote` | string | `accessNote` is the one-line note under the input. |
 | `emailLabel`, `emailPlaceholder`, `unlockLabel`, `lockLabel`, `rejected` | string | |
 | `linkPendingLabel`, `downloadLabel`, `unlockedIntro` | string | |
-| `packagingNotes` | `[string]` | The two seller-only packaging notes. Appended to `sellers.notes` on every product page that prints a price. |
+| `notesHeading` | string | Heading of the seller-notes block. The notes themselves are **not in this file** — they are fetched from `SITE_CONFIG.sellerGate.notesUrl` after the gate passes. |
 | `cta` | `{ heading, body, bodyFallback, contactLabel, action }` | `body` carries the `{duration}` placeholder, filled from that product's `pov.durationShort`; `bodyFallback` is used when a product has none. `contactLabel` is a **role alias**, not a person and not an address. `action` opens the demo form with the product pre-selected and `I am a…` pre-set to `oracle-seller`. |
 
 The gate checks the domain of the entered email against `SITE_CONFIG.sellerGate.allowedDomains` and stores the unlock under `SITE_CONFIG.sellerGate.storageKey`. It is a convenience, not access control: nothing in either data file is secret, and nothing secret may be added to them.
