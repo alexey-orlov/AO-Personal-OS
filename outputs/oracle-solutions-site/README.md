@@ -54,7 +54,7 @@ Script order in `index.html` matters: `data/*` → `assets/forms.js` → `pages/
 | `#/` | Overview — hero, products, customer evidence, services teaser, demo form |
 | `#/products` | Product marketplace — facet rail (technology, category, marketplace), search, tiles |
 | `#/products/<slug>` | One product — hero plus tabs |
-| `#/products/<slug>/<tab>` | `overview` · `technology` · `pov` · `demo` · `sellers` |
+| `#/products/<slug>/<tab>` | `overview` · `technology` · `pov` · `contacts` · `sellers`. The retired `demo` segment redirects to `contacts` in place, so Back still returns to where the reader came from. |
 | `#/services` | The Oracle dedicated practice — platforms, what we do, how we engage, why SoftServe, proof, contact form |
 | anything else | A designed not-found page |
 
@@ -93,7 +93,7 @@ Full field-by-field reference: `docs/CONFIG.md`. In short:
 | `sellerGate.storageKey` | `localStorage` key holding the unlock. Change it to invalidate every existing unlock. |
 | `sellerGate.notesUrl` | Where the seller-notes block fetches its text after the gate passes. Empty → no seller notes ship. Point it only at a path the deployment actually authenticates. |
 | `products.<slug>.marketplaceUrl` | The single Marketplace switch. Non-empty → the "On Oracle Marketplace" badge, the "Available on Oracle Marketplace" facet and the "View on Oracle Marketplace" hero button all appear together. Empty → none of them exist. |
-| `products.<slug>.video` | `true` → the product hero carries the 16:9 demo frame. With no `videoUrl` yet, clicking it opens a short panel saying the recording is being prepared, with a button to that product's Request-a-demo tab. `true` today on `workforce-optimization`, `large-document-extraction` and `account-insights`. |
+| `products.<slug>.video` | `true` → the product hero carries the 16:9 demo frame. With no `videoUrl` yet, clicking it opens a short panel saying the recording is being prepared, with a button to that product's Contacts tab. `true` today on `workforce-optimization`, `large-document-extraction` and `account-insights`. |
 | `products.<slug>.videoUrl` | Non-empty → the same frame plays the video in a modal instead (YouTube, Vimeo, SharePoint and Stream URLs embed as an iframe; anything else plays natively), and turns the frame on by itself even where `video` is `false`. |
 | `products.<slug>.successStoryUrl` | Non-empty → a "Download the success story" button appears. |
 | `products.<slug>.materials.<key>` | Non-empty → that row in the seller panel gets a download button instead of a disabled "Link pending" control. |
