@@ -31,7 +31,6 @@ var INDUSTRIES = [
   "automotive", "life-sciences", "professional-services", "construction",
   "travel-transport", "cross-industry"
 ];
-var VENDORS = ["oracle", "nvidia", "softserve", "other"];
 var TIERS = ["proof-of-value", "rollout", "scaling"];
 /* E3: the solution stack renders top → bottom in this order. A product may
    omit a layer (the Lakehouse pair has no NVIDIA engine) but may never
@@ -260,17 +259,13 @@ if (!arr(C.products) || C.products.length !== 7) {
     if (str(s.label) && words(s.label) > 10) fail(w, "flow[" + i + "].label is " + words(s.label) + " words (max 10)");
   });
 
-  /* 3.3 groups */
-  if (!arr(t.groups) || t.groups.length < 3) fail(w, "technology.groups needs ≥3 groups");
-  else t.groups.forEach(function (g, i) {
-    if (VENDORS.indexOf(g.vendor) === -1) fail(w, 'groups[' + i + '].vendor "' + g.vendor + '" is not a known vendor');
-    if (!str(g.label)) fail(w, "groups[" + i + "].label missing");
-    if (!arr(g.items) || !g.items.length) fail(w, "groups[" + i + "].items empty");
-  });
-  var vendors = (t.groups || []).map(function (g) { return g.vendor; });
-  if (vendors.indexOf("softserve") === -1) fail(w, "technology.groups has no SoftServe column");
-  if (vendors.indexOf("oracle") === -1) fail(w, "technology.groups has no Oracle column");
+  /* 3.3 the honest "not used" line under the accordion */
   if (!arr(t.notUsed)) fail(w, "technology.notUsed missing (may be empty, must exist)");
+  /* The three shapes the layered stack replaced are gone from the data. A
+     re-introduced one would render nowhere and drift out of sync in silence. */
+  ["groups", "layers", "integration"].forEach(function (k) {
+    if (t[k] !== undefined) fail(w, "technology." + k + " is superseded by technology.stack — nothing renders it");
+  });
 
   /* E3 · the layered solution stack */
   if (!arr(t.stack) || t.stack.length < 4 || t.stack.length > 5) {
@@ -326,12 +321,10 @@ if (!arr(C.products) || C.products.length !== 7) {
     }
   }
 
-  /* 3.4 integration + security */
-  ["integration", "security"].forEach(function (k) {
-    if (!arr(t[k]) || t[k].length < 3) return fail(w, "technology." + k + " needs ≥3 entries");
-    t[k].forEach(function (item, i) {
-      if (!str(item.icon) || !str(item.text)) fail(w, "technology." + k + "[" + i + "] needs { icon, text }");
-    });
+  /* 3.4 security */
+  if (!arr(t.security) || t.security.length < 3) fail(w, "technology.security needs ≥3 entries");
+  else t.security.forEach(function (item, i) {
+    if (!str(item.icon) || !str(item.text)) fail(w, "technology.security[" + i + "] needs { icon, text }");
   });
 
   /* 4 pov */
