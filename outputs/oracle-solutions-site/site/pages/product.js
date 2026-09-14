@@ -23,14 +23,26 @@
     return null;
   }
 
-  function tabId(params) {
+  /* A retired route segment resolves to the tab that replaced it and is
+     reported as legacy, so the page renders the right content on the first
+     paint and the address bar is corrected afterwards rather than bouncing. */
+  function resolveTab(params) {
     var tabs = C().shared.productTabs;
-    var wanted = params.tab || "overview";
-    for (var i = 0; i < tabs.length; i += 1) {
-      if (tabs[i].id === wanted) return wanted;
+    var wanted = (params && params.tab) || "overview";
+    var i;
+    for (i = 0; i < tabs.length; i += 1) {
+      if (tabs[i].id === wanted) return { id: wanted, legacy: false };
     }
-    return "overview";
+    for (i = 0; i < tabs.length; i += 1) {
+      if (tabs[i].legacyId && tabs[i].legacyId === wanted) return { id: tabs[i].id, legacy: true };
+    }
+    return { id: "overview", legacy: false };
   }
+
+  function tabId(params) { return resolveTab(params).id; }
+
+  function tabRoute(slug, tab) { return "#/products/" + slug + "/" + tab; }
+  function contactsRoute(slug) { return tabRoute(slug, "contacts"); }
 
   /* ————— small blocks ————— */
 
@@ -138,7 +150,7 @@
     var conf = cfg(product.slug);
     var out = [UI.button({
       label: C().site.primaryCta.label,
-      href: "#/products/" + product.slug + "/demo",
+      href: contactsRoute(product.slug),
       kind: "primary"
     })];
     if (conf.videoUrl && !hasMedia) {
@@ -210,7 +222,7 @@
     var UI = window.UI;
     var tabs = C().shared.productTabs.map(function (tab) {
       return '<a class="tab' + (tab.id === active ? " is-active" : "") +
-        '" href="#/products/' + UI.esc(product.slug) + "/" + UI.esc(tab.id) + '"' +
+        '" href="' + UI.esc(tabRoute(product.slug, tab.id)) + '"' +
         (tab.id === active ? ' aria-current="page"' : "") + ">" +
         (tab.locked ? UI.icon("lock") : "") + "<span>" + UI.esc(tab.label) + "</span></a>";
     }).join("");
@@ -237,7 +249,142 @@
       "</div></section>";
   }
 
-  function metricTiles(o) {
+  /* How it works: the workflow, not a list of nouns. Each feature bullet sits
+     under the step it belongs to, and the frame beside the list is the same
+     16:10 whether it holds a product screenshot or a designed illustration. */
+  function stepper(product) {
+    var UI = window.UI;
+    var steps = product.overview.steps;
+    if (!steps || !steps.length) return "";
+    var base = "wf-" + product.slug;
+
+    var list = steps.map(function (step, index) {
+      var on = index === 0;
+      return '<li class="stepper-step' + (on ? " is-active" : "") + '">' +
+        '<button class="stepper-head" type="button" data-step="' + index + '"' +
+          ' id="' + base + "-head-" + index + '"' +
+          ' aria-expanded="' + (on ? "true" : "false") + '"' +
+          ' aria-controls="' + base + "-body-" + index + '">' +
+          '<span class="stepper-num nums">' + UI.esc(step.n) + "</span>" +
+          '<span class="stepper-title">' + UI.esc(step.title) + "</span>" +
+        "</button>" +
+        '<div class="stepper-body" id="' + base + "-body-" + index + '"' + (on ? "" : " hidden") + ">" +
+          '<p class="stepper-text">' + UI.esc(step.text) + "</p>" +
+          bulletList(step.features || [], "stepper-features") +
+        "</div>" +
+        "</li>";
+    }).join("");
+
+    var frames = steps.map(function (step, index) {
+      return '<figure class="step-frame' + (index === 0 ? " is-active" : "") + '"' +
+        ' data-frame="' + index + '"' + (index === 0 ? "" : " hidden") + ">" +
+        '<img src="' + UI.esc(step.image) + '" alt="' + UI.esc(step.title) +
+        '" loading="lazy" decoding="async">' +
+        "</figure>";
+    }).join("");
+
+    return '<section class="panel reveal" data-stepper="' + UI.esc(product.slug) + '">' +
+      blockHead(label("howItWorks")) +
+      '<div class="stepper">' +
+        '<ol class="stepper-list">' + list + "</ol>" +
+        '<div class="step-frames">' + frames + "</div>" +
+      "</div></section>";
+  }
+
+  function industryCases(product) {
+    var UI = window.UI;
+    var cases = product.overview.industryCases;
+    if (!cases || !cases.length) return "";
+    var base = "ind-" + product.slug;
+    var heading = label("industryCases");
+
+    var tabs = cases.map(function (item, index) {
+      var on = index === 0;
+      return '<button class="ind-tab' + (on ? " is-active" : "") + '" type="button" role="tab"' +
+        ' id="' + base + "-tab-" + index + '" aria-controls="' + base + "-panel-" + index + '"' +
+        ' aria-selected="' + (on ? "true" : "false") + '" tabindex="' + (on ? "0" : "-1") + '">' +
+        UI.icon("industry-" + item.industry) + "<span>" + UI.esc(item.label) + "</span></button>";
+    }).join("");
+
+    var panels = cases.map(function (item, index) {
+      return '<div class="ind-panel" role="tabpanel" id="' + base + "-panel-" + index + '"' +
+        ' aria-labelledby="' + base + "-tab-" + index + '" tabindex="0"' +
+        (index === 0 ? "" : " hidden") + ">" +
+        '<figure class="ind-figure"><img src="' + UI.esc(item.image) +
+          '" alt="" loading="lazy" decoding="async"></figure>' +
+        '<div class="ind-case">' +
+          '<h3 class="ind-case-name">' + UI.esc(item.label) + "</h3>" +
+          '<p class="eyebrow">' + UI.esc(label("caseProblem")) + "</p>" +
+          '<p class="ind-case-text">' + UI.esc(item.problem) + "</p>" +
+          '<p class="eyebrow eyebrow--accent">' + UI.esc(label("caseSolution")) + "</p>" +
+          '<p class="ind-case-text">' + UI.esc(item.solution) + "</p>" +
+        "</div></div>";
+    }).join("");
+
+    return '<section class="panel reveal" data-industry-tabs="' + UI.esc(product.slug) + '">' +
+      blockHead(heading) +
+      '<div class="ind-tablist" role="tablist" aria-label="' + UI.esc(heading) + '">' + tabs + "</div>" +
+      '<div class="ind-panels">' + panels + "</div>" +
+      "</section>";
+  }
+
+  function detailEntries(items) {
+    var UI = window.UI;
+    return (items || []).map(function (item) {
+      return '<div class="detail-entry">' +
+        '<h3 class="detail-title">' + UI.esc(item.title) + "</h3>" +
+        '<p class="detail-text">' + UI.esc(item.body) + "</p>" +
+        "</div>";
+    }).join("");
+  }
+
+  /* Everything that used to own a block above the fold lives here: no fact is
+     dropped to hit the compactness target, it is only moved behind one click. */
+  function moreDetail(o) {
+    var UI = window.UI;
+    var parts = [detailEntries(o.moreDetail)];
+
+    if (o.scope) {
+      parts.push('<p class="eyebrow detail-sub">' + UI.esc(label("scope")) + "</p>" +
+        '<div class="detail-full"><div class="scope-grid">' +
+          '<div class="scope-col">' +
+            '<p class="eyebrow eyebrow--accent">' + UI.esc(label("scopeIn")) + "</p>" +
+            bulletList(o.scope.in) +
+          "</div>" +
+          '<div class="scope-col">' +
+            '<p class="eyebrow">' + UI.esc(label("scopeOut")) + "</p>" +
+            plainList(o.scope.out) +
+          "</div></div></div>");
+    }
+
+    if (o.industries && o.industries.length) {
+      parts.push('<p class="eyebrow detail-sub">' + UI.esc(label("industries")) + "</p>" +
+        '<div class="detail-full">' + UI.industryChips(o.industries) +
+        (o.industriesNote ? '<p class="footnote detail-note">' + UI.esc(o.industriesNote) + "</p>" : "") +
+        "</div>");
+    }
+
+    var features = detailEntries(o.featuresDetail);
+    if (features) {
+      parts.push('<p class="eyebrow detail-sub">' + UI.esc(label("moreDetailFeatures")) + "</p>" + features);
+    }
+    if (o.featuresNote) {
+      parts.push('<div class="detail-full"><p class="footnote">' + UI.esc(o.featuresNote) + "</p></div>");
+    }
+
+    var body = parts.filter(Boolean).join("");
+    if (!body) return "";
+
+    return '<section class="panel panel--flat reveal">' +
+      '<details class="disclosure disclosure--detail">' +
+        "<summary><span>" + UI.esc(label("moreDetail")) + "</span>" + UI.icon("chevronDown") + "</summary>" +
+        '<div class="detail-wrap">' + body + "</div>" +
+      "</details></section>";
+  }
+
+  /* Rule 2 of the visual grammar: a number never renders away from the
+     disclaimer that belongs to it, so tiles, ROI and footnote are one block. */
+  function outcomesBlock(o) {
     var UI = window.UI;
     if (!o.metrics || !o.metrics.length) return "";
     function valued(metric) {
@@ -258,73 +405,51 @@
         '<p class="stat-tile-qual">' + UI.esc(metric.qualifier) + "</p>" +
         "</div>";
     }).join("");
-    return '<section class="panel reveal">' +
+
+    var roi = o.roi && o.roi.text
+      ? '<div class="roi-band roi-band--compact">' +
+          '<span class="roi-mark">' + UI.icon((o.roi && o.roi.icon) || "roi") + "</span>" +
+          '<div class="roi-copy">' +
+            '<p class="eyebrow eyebrow--accent">' + UI.esc(label("roi")) + "</p>" +
+            '<p class="roi-text">' + UI.esc(o.roi.text) + "</p>" +
+          "</div></div>"
+      : "";
+
+    return '<section class="panel panel--tight rail-card reveal">' +
       blockHead(label(anyValue ? "metrics" : "metricsPlanned")) +
-      '<div class="stat-tiles">' + tiles + "</div>" +
+      '<div class="stat-tiles stat-tiles--stack">' + tiles + "</div>" +
+      roi +
       (o.metricsNote ? '<p class="footnote stat-tiles-note">' + UI.esc(o.metricsNote) + "</p>" : "") +
       "</section>";
   }
 
-  function featuresBlock(o) {
+  /* Every value here already exists elsewhere in the product object — the card
+     is a summary, never a new claim, and the price links to its full terms. */
+  function atAGlance(product) {
     var UI = window.UI;
-    if (!o.features || !o.features.length) return "";
-    return '<section class="panel reveal">' + blockHead(label("features")) +
-      '<ul class="check-cols">' + o.features.map(function (item) {
-        return "<li>" + UI.icon("check") + "<span>" + UI.esc(item) + "</span></li>";
-      }).join("") + "</ul>" +
-      (o.featuresNote ? '<p class="footnote">' + UI.esc(o.featuresNote) + "</p>" : "") +
-      "</section>";
-  }
-
-  function industriesBlock(o) {
-    var UI = window.UI;
-    if (!o.industries || !o.industries.length) return "";
-    return '<section class="panel panel--tight reveal">' + blockHead(label("industries")) +
-      UI.industryChips(o.industries) +
-      (o.industriesNote ? '<p class="footnote">' + UI.esc(o.industriesNote) + "</p>" : "") +
-      "</section>";
-  }
-
-  function scopeBlock(o) {
-    var UI = window.UI;
-    if (!o.scope) return "";
-    return '<section class="panel reveal">' + blockHead(label("scope")) +
-      '<div class="scope-grid">' +
-      '<div class="scope-col">' +
-        '<p class="eyebrow eyebrow--accent">' + UI.esc(label("scopeIn")) + "</p>" +
-        bulletList(o.scope.in) +
-      "</div>" +
-      '<div class="scope-col">' +
-        '<p class="eyebrow">' + UI.esc(label("scopeOut")) + "</p>" +
-        plainList(o.scope.out) +
-      "</div></div></section>";
-  }
-
-  function detailEntries(items) {
-    var UI = window.UI;
-    return (items || []).map(function (item) {
-      return '<div class="detail-entry">' +
-        '<h3 class="detail-title">' + UI.esc(item.title) + "</h3>" +
-        '<p class="detail-text">' + UI.esc(item.body) + "</p>" +
-        "</div>";
+    var facts = product.overview.sideFacts;
+    if (!facts) return "";
+    var rows = [
+      { label: label("factCategory"), value: facts.category },
+      { label: label("factPlatform"), value: facts.platform },
+      { label: label("factAvailability"), value: facts.availability },
+      { label: label("factPovDuration"), value: facts.povDuration },
+      { label: label("factPovPrice"), value: facts.povPrice, note: facts.povPriceNote }
+    ].filter(function (row) { return row.value; }).map(function (row) {
+      return '<div class="glance-row">' +
+        "<dt>" + UI.esc(row.label) + "</dt>" +
+        "<dd>" + UI.esc(row.value) +
+          (row.note ? '<span class="glance-note">' + UI.esc(row.note) + "</span>" : "") +
+        "</dd></div>";
     }).join("");
-  }
 
-  function moreDetail(o) {
-    var UI = window.UI;
-    var main = detailEntries(o.moreDetail);
-    var features = detailEntries(o.featuresDetail);
-    if (!main && !features) return "";
-    return '<section class="panel panel--flat reveal">' +
-      '<details class="disclosure disclosure--detail">' +
-        "<summary><span>" + UI.esc(label("moreDetail")) + "</span>" + UI.icon("chevronDown") + "</summary>" +
-        '<div class="detail-wrap">' +
-          main +
-          (features
-            ? '<p class="eyebrow detail-sub">' + UI.esc(label("moreDetailFeatures")) + "</p>" + features
-            : "") +
-        "</div>" +
-      "</details></section>";
+    return '<section class="panel panel--tight rail-card reveal">' +
+      blockHead(label("atAGlance")) +
+      '<dl class="glance-rows">' + rows + "</dl>" +
+      '<p class="panel-link">' + UI.linkArrow({
+        label: label("povLink"), href: tabRoute(product.slug, "pov")
+      }) + "</p>" +
+      "</section>";
   }
 
   /* No story, no band. A section whose only content is "nothing to show yet"
@@ -354,16 +479,19 @@
 
   function overviewTab(product) {
     var o = product.overview;
-    return [
-      problemSolution(o.problemSolution),
-      metricTiles(o),
-      calloutBand(o.roi && o.roi.icon, label("roi"), o.roi && o.roi.text),
-      featuresBlock(o),
-      industriesBlock(o),
-      scopeBlock(o),
-      moreDetail(o),
-      successStory(product)
-    ].join("");
+    return '<div class="ov-layout">' +
+      '<div class="ov-main">' +
+        problemSolution(o.problemSolution) +
+        stepper(product) +
+        industryCases(product) +
+        moreDetail(o) +
+      "</div>" +
+      '<aside class="ov-rail" aria-label="' + window.UI.esc(label("atAGlance")) + '">' +
+        outcomesBlock(o) +
+        atAGlance(product) +
+        successStory(product) +
+      "</aside>" +
+      "</div>";
   }
 
   /* ————— tab: technology ————— */
@@ -379,63 +507,98 @@
         "</li>";
     }).join("");
     return '<section class="panel reveal">' + blockHead(label("flow")) +
-      '<ol class="flow">' + steps + "</ol></section>";
+      '<ol class="flow flow--compact">' + steps + "</ol></section>";
   }
 
-  function componentGroup(group) {
+  function vendorMarks(vendors) {
     var UI = window.UI;
-    var mark = VENDOR_MARK[group.vendor];
-    return '<div class="component-group">' +
-      '<div class="component-head">' +
-        '<p class="component-name">' + UI.esc(group.label) + "</p>" +
-        (mark ? '<img class="group-mark" src="' + UI.esc(mark.src) + '" alt="' + UI.esc(mark.alt) + '">' : "") +
-      "</div>" +
-      '<ul class="component-items">' + group.items.map(function (item) {
-        return "<li>" + UI.esc(item) + "</li>";
-      }).join("") + "</ul>" +
-      "</div>";
+    return (vendors || []).map(function (vendor) {
+      var mark = VENDOR_MARK[vendor];
+      return mark
+        ? '<img class="group-mark" src="' + UI.esc(mark.src) + '" alt="' + UI.esc(mark.alt) + '">'
+        : "";
+    }).join("");
   }
 
-  function technologyTab(product) {
+  function stackItem(item) {
+    var UI = window.UI;
+    return '<li class="stack-item">' +
+      '<span class="stack-item-name">' + UI.esc(item.name) + "</span>" +
+      '<span class="stack-tag' + (item.required ? " stack-tag--required" : "") + '">' +
+        UI.esc(label(item.required ? "layerRequired" : "layerOptional")) + "</span>" +
+      (item.note ? '<span class="stack-item-note">' + UI.esc(item.note) + "</span>" : "") +
+      "</li>";
+  }
+
+  function stackItems(items) {
+    var UI = window.UI;
+    function group(iconName, title, list) {
+      if (!list.length) return "";
+      return '<p class="eyebrow eyebrow--accent stack-dir">' + UI.icon(iconName) +
+        "<span>" + UI.esc(title) + "</span></p>" +
+        '<ul class="stack-items">' + list.map(stackItem).join("") + "</ul>";
+    }
+    function has(item, direction) {
+      return item.direction === direction || item.direction === "both";
+    }
+    var plain = items.filter(function (item) { return !item.direction; });
+    var inbound = items.filter(function (item) { return has(item, "inbound"); });
+    var outbound = items.filter(function (item) { return has(item, "outbound"); });
+
+    return (plain.length ? '<ul class="stack-items">' + plain.map(stackItem).join("") + "</ul>" : "") +
+      group("inbound", label("directionInbound"), inbound) +
+      group("outbound", label("directionOutbound"), outbound);
+  }
+
+  /* One block where three used to stand: the component columns, the layer
+     table and the integration list were three views of one architecture. */
+  function solutionStack(product) {
     var UI = window.UI;
     var tech = product.technology;
-    var layers = tech.layers && tech.layers.length
-      ? '<section class="panel reveal">' + blockHead(label("stack")) +
-          '<div class="layer-table">' + tech.layers.map(function (layer) {
-            return '<div class="layer-row">' +
-              '<p class="layer-name">' + UI.esc(layer.layer) + "</p>" +
-              '<p class="layer-by">' + UI.esc(layer.providedBy) + "</p>" +
-              '<p class="layer-body">' + UI.esc(layer.body) + "</p>" +
-              "</div>";
-          }).join("") + "</div></section>"
-      : "";
+    if (!tech.stack || !tech.stack.length) return "";
+    var base = "stack-" + product.slug;
+
+    var rows = tech.stack.map(function (layer, index) {
+      var open = index === 0;
+      return '<div class="stack-layer' + (open ? " is-open" : "") + '">' +
+        '<button class="stack-row" type="button" aria-expanded="' + (open ? "true" : "false") + '"' +
+          ' aria-controls="' + base + "-body-" + index + '">' +
+          '<span class="stack-name">' + UI.esc(layer.label) + "</span>" +
+          '<span class="stack-summary">' + UI.esc(layer.summary) + "</span>" +
+          '<span class="stack-marks" aria-hidden="true">' + vendorMarks(layer.vendors) + "</span>" +
+          UI.icon("chevronDown", "stack-chev") +
+        "</button>" +
+        '<div class="stack-body" id="' + base + "-body-" + index + '"' + (open ? "" : " hidden") + ">" +
+          stackItems(layer.items || []) +
+        "</div></div>";
+    }).join("");
 
     var notUsed = tech.notUsed && tech.notUsed.length
       ? '<p class="footnote component-notused">' +
         UI.esc(label("notUsed") + ": " + tech.notUsed.join(" · ")) + "</p>"
       : "";
 
+    return '<section class="panel reveal" data-stack="' + UI.esc(product.slug) + '">' +
+      blockHead(label("stack")) +
+      '<div class="stack-accordion">' + rows + "</div>" +
+      notUsed +
+      "</section>";
+  }
+
+  function technologyTab(product) {
+    var UI = window.UI;
+    var tech = product.technology;
+
     return mediaRow(product.slug, blockHead(label("architecture")) +
         '<p class="lead">' + UI.esc(tech.narrative) + "</p>", true) +
       flowDiagram(tech) +
-      '<section class="panel reveal">' + blockHead(label("components")) +
-        '<div class="component-grid">' + tech.groups.map(componentGroup).join("") + "</div>" +
-        notUsed +
-      "</section>" +
-      layers +
+      solutionStack(product) +
       (tech.governance
         ? calloutBand("shield", tech.governance.title, tech.governance.body)
         : "") +
-      '<section class="panel reveal"><div class="scope-grid">' +
-        '<div class="scope-col">' +
-          '<p class="eyebrow eyebrow--accent">' + UI.esc(label("integration")) + "</p>" +
-          iconList(tech.integration) +
-        "</div>" +
-        '<div class="scope-col">' +
-          '<p class="eyebrow eyebrow--accent">' + UI.esc(label("security")) + "</p>" +
-          iconList(tech.security) +
-        "</div>" +
-      "</div></section>";
+      '<section class="panel reveal">' + blockHead(label("security")) +
+        iconList(tech.security) +
+      "</section>";
   }
 
   /* ————— tab: POV Jumpstart ————— */
@@ -594,7 +757,7 @@
         '<div class="cta-row">' +
           UI.button({
             label: C().site.primaryCta.label,
-            href: "#/products/" + product.slug + "/demo",
+            href: contactsRoute(product.slug),
             kind: "primary"
           }) +
         "</div>" +
@@ -604,7 +767,7 @@
       "</section>";
   }
 
-  /* ————— tab: request a demo ————— */
+  /* ————— tab: contacts ————— */
 
   function engagementSteps() {
     var UI = window.UI;
@@ -625,25 +788,31 @@
       "</div>";
   }
 
-  function demoTab(product) {
+  /* A named human first, the form second. The form is the fallback path, not
+     the only one — which is why it carries its own heading here. */
+  function contactsTab(product) {
     var UI = window.UI;
-    if (!window.FORMS) return UI.empty(C().forms.demo.sub);
-    var steps = engagementSteps();
-    if (!steps) {
-      return '<section class="panel panel--form reveal" id="product-demo-form">' +
-        window.FORMS.render("demo", { product: product.slug }) + "</section>";
-    }
-    return '<section class="panel reveal">' +
-      '<div class="demo-split">' +
-        '<div class="demo-aside">' +
-          blockHead(C().forms.demo.heading) +
-          '<p class="body-text">' + UI.esc(C().forms.demo.sub) + "</p>" +
-          steps +
+    var demo = C().forms.demo;
+    var card = UI.contactCard();
+    var head = card
+      ? '<section class="panel reveal">' + blockHead(label("contacts")) + card + "</section>"
+      : "";
+
+    if (!window.FORMS) return head || UI.empty(demo.sub);
+
+    return head +
+      '<section class="panel reveal">' +
+        '<div class="demo-split">' +
+          '<div class="demo-aside">' +
+            blockHead(demo.secondaryHeading) +
+            '<p class="body-text">' + UI.esc(demo.secondarySub || demo.sub) + "</p>" +
+            engagementSteps() +
+          "</div>" +
+          '<div class="panel--form" id="product-demo-form">' +
+            window.FORMS.render("demo", { product: product.slug, heading: false }) +
+          "</div>" +
         "</div>" +
-        '<div class="panel--form" id="product-demo-form">' +
-          window.FORMS.render("demo", { product: product.slug, heading: false }) +
-        "</div>" +
-      "</div></section>";
+      "</section>";
   }
 
   /* ————— tab: for sellers ————— */
@@ -774,34 +943,7 @@
       "</section>";
   }
 
-  /* ————— related & neighbours ————— */
-
-  function related(product) {
-    var UI = window.UI;
-    function rank(item) {
-      return (item.category === product.category ? 2 : 0) + (item.facet === product.facet ? 1 : 0);
-    }
-    var list = C().products.filter(function (item) {
-      return item.slug !== product.slug && rank(item) > 0;
-    }).map(function (item, index) {
-      return { item: item, index: index };
-    }).sort(function (a, b) {
-      return rank(b.item) - rank(a.item) || a.index - b.index;
-    }).slice(0, 3).map(function (entry) { return entry.item; });
-    if (!list.length) return "";
-    var cards = list.map(function (item) {
-      return '<a class="related-card" href="#/products/' + UI.esc(item.slug) + '">' +
-        '<p class="eyebrow">' + UI.esc(item.categoryChip) + "</p>" +
-        '<p class="related-name">' + UI.esc(item.name) + "</p>" +
-        '<p class="related-desc clamp-2">' + UI.esc(item.oneLiner) + "</p>" +
-        '<span class="related-arrow">' + UI.icon("arrow") + "</span>" +
-        "</a>";
-    }).join("");
-    return '<section class="section section--tight"><div class="wrap">' +
-      UI.sectionHead({ title: "Related products", count: list.length }) +
-      '<div class="related-grid">' + cards + "</div>" +
-      "</div></section>";
-  }
+  /* ————— neighbours ————— */
 
   function neighbours(product) {
     var UI = window.UI;
@@ -837,7 +979,7 @@
     var body;
     if (active === "technology") body = technologyTab(item);
     else if (active === "pov") body = povTab(item);
-    else if (active === "demo") body = demoTab(item);
+    else if (active === "contacts") body = contactsTab(item);
     else if (active === "sellers") body = sellersTab(item);
     else body = overviewTab(item);
 
@@ -846,7 +988,7 @@
         (active === "overview" ? " tab-body--compact" : "") + '" id="tab-body">' +
         body +
       "</div></section>" +
-      related(item) + neighbours(item);
+      neighbours(item);
   }
 
   function bindGate(root, item, rerender) {
@@ -946,7 +1088,7 @@
           '<p class="body-text">' + UI.esc(pending.body) + "</p>" +
           '<div class="cta-row modal-cta">' + UI.button({
             label: pending.cta,
-            href: "#/products/" + item.slug + "/demo",
+            href: contactsRoute(item.slug),
             kind: "primary"
           }) + "</div>",
           { label: item.name, className: "modal-panel--note" });
@@ -956,10 +1098,100 @@
     });
   }
 
+  function roving(buttons, onSelect, horizontal) {
+    buttons.forEach(function (button, index) {
+      button.addEventListener("keydown", function (event) {
+        var forward = horizontal ? "ArrowRight" : "ArrowDown";
+        var back = horizontal ? "ArrowLeft" : "ArrowUp";
+        var next = null;
+        if (event.key === forward) next = (index + 1) % buttons.length;
+        else if (event.key === back) next = (index - 1 + buttons.length) % buttons.length;
+        else if (event.key === "Home") next = 0;
+        else if (event.key === "End") next = buttons.length - 1;
+        if (next === null) return;
+        event.preventDefault();
+        onSelect(next);
+        buttons[next].focus();
+      });
+    });
+  }
+
+  function bindStepper(root) {
+    var block = root.querySelector("[data-stepper]");
+    if (!block) return;
+    var heads = Array.prototype.slice.call(block.querySelectorAll(".stepper-head"));
+    var frames = Array.prototype.slice.call(block.querySelectorAll(".step-frame"));
+    if (!heads.length) return;
+
+    function select(index) {
+      heads.forEach(function (head, i) {
+        var on = i === index;
+        head.setAttribute("aria-expanded", on ? "true" : "false");
+        head.parentNode.classList.toggle("is-active", on);
+        var body = document.getElementById(head.getAttribute("aria-controls"));
+        if (body) body.hidden = !on;
+      });
+      frames.forEach(function (frame, i) {
+        frame.hidden = i !== index;
+        frame.classList.toggle("is-active", i === index);
+      });
+    }
+
+    heads.forEach(function (head, index) {
+      head.addEventListener("click", function () { select(index); });
+    });
+    roving(heads, select, false);
+  }
+
+  function bindIndustryTabs(root) {
+    var block = root.querySelector("[data-industry-tabs]");
+    if (!block) return;
+    var tabs = Array.prototype.slice.call(block.querySelectorAll(".ind-tab"));
+    if (!tabs.length) return;
+
+    function select(index) {
+      tabs.forEach(function (tab, i) {
+        var on = i === index;
+        tab.setAttribute("aria-selected", on ? "true" : "false");
+        tab.setAttribute("tabindex", on ? "0" : "-1");
+        tab.classList.toggle("is-active", on);
+        var panel = document.getElementById(tab.getAttribute("aria-controls"));
+        if (panel) panel.hidden = !on;
+      });
+    }
+
+    tabs.forEach(function (tab, index) {
+      tab.addEventListener("click", function () { select(index); });
+    });
+    roving(tabs, select, true);
+  }
+
+  function bindStack(root) {
+    var block = root.querySelector("[data-stack]");
+    if (!block) return;
+    Array.prototype.forEach.call(block.querySelectorAll(".stack-row"), function (row) {
+      row.addEventListener("click", function () {
+        var open = row.getAttribute("aria-expanded") !== "true";
+        row.setAttribute("aria-expanded", open ? "true" : "false");
+        row.parentNode.classList.toggle("is-open", open);
+        var body = document.getElementById(row.getAttribute("aria-controls"));
+        if (body) body.hidden = !open;
+      });
+    });
+  }
+
   product.mount = function (params, root) {
     var item = findProduct(params.slug);
     if (!item) return;
-    var active = tabId(params);
+    var resolved = resolveTab(params);
+    var active = resolved.id;
+
+    /* The retired /demo segment is rewritten in place rather than pushed, so
+       Back returns to wherever the reader came from, not to the redirect. */
+    if (resolved.legacy && window.history && window.history.replaceState) {
+      try { window.history.replaceState(null, "", tabRoute(params.slug, active)); }
+      catch (error) { /* the tab is already rendered; the address bar lags */ }
+    }
 
     function rerender() {
       window.ROUTER.render();
@@ -968,10 +1200,13 @@
     bindGate(root, item, rerender);
     bindVideo(root, item);
     bindPendingVideo(root, item);
+    bindStepper(root);
+    bindIndustryTabs(root);
+    bindStack(root);
 
     if (active === "sellers" && gateUnlocked()) loadSellerNotes(root, item);
 
-    if (active === "demo" && window.FORMS) {
+    if (active === "contacts" && window.FORMS) {
       var slot = root.querySelector("#product-demo-form");
       if (slot) window.FORMS.mount(slot, "demo", { product: item.slug });
     }

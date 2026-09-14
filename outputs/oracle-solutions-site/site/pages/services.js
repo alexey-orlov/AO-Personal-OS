@@ -338,6 +338,7 @@
           engagementSteps(content) +
         "</div>" +
         '<div class="contact-form" id="contact-form-slot">' +
+          UI.contactCard({ className: "contact-card--form" }) +
           (window.FORMS && typeof window.FORMS.render === "function"
             ? window.FORMS.render("contact", { heading: false })
             : '<div class="cta-row">' +
