@@ -99,7 +99,7 @@ if (!arr(C.products) || C.products.length !== 7) {
   var w = "products[" + p.slug + "]";
   var o = p.overview || {};
   var t = p.technology || {};
-  var v = p.pov || {};
+  var v = p.jumpstart || {};
 
   /* identity + hero */
   ["slug", "name", "oneLiner"].forEach(function (k) {
@@ -188,8 +188,33 @@ if (!arr(C.products) || C.products.length !== 7) {
     if (!str(d.title) || !str(d.body)) fail(w, "moreDetail[" + i + "] needs { title, body }");
   });
 
-  /* 2.8 success story */
-  if (!o.successStory || !str(o.successStory.state)) fail(w, "overview.successStory missing");
+  /* 2.8 success story — H: a named customer callout, or null. There is no
+     empty state: a story block whose only content is "nothing published yet"
+     is worse than its absence on a page sellers demo live. */
+  if (o.successStory === undefined) fail(w, "overview.successStory missing — it is null where no named story ships");
+  else if (o.successStory !== null) {
+    var st = o.successStory;
+    ["customer", "logo", "headline", "story"].forEach(function (k) {
+      if (!str(st[k])) fail(w, "overview.successStory." + k + " missing");
+    });
+    if (st.state !== undefined) fail(w, "overview.successStory.state is superseded — the block renders when the object is non-null");
+    if (!arr(st.metrics) || st.metrics.length !== 2) {
+      fail(w, "overview.successStory.metrics must hold exactly 2 headline figures");
+    } else st.metrics.forEach(function (m, i) {
+      if (!str(m.value) || !str(m.label)) fail(w, "successStory.metrics[" + i + "] needs { value, label }");
+      if (str(m.value) && m.value.length > 14) fail(w, 'successStory.metrics[' + i + '].value "' + m.value + '" is too long to set large');
+    });
+    if (str(st.logo)) {
+      if (!/^assets\/img\/logos\/[a-z0-9-]+\.(svg|png|webp)$/.test(st.logo)) {
+        fail(w, 'successStory.logo "' + st.logo + '" is not assets/img/logos/<name>.<svg|png|webp>');
+      } else checkAsset(w, "customer logo", st.logo);
+    }
+    /* Rule 1 of VISUAL-GRAMMAR: a number never renders away from its caveat,
+       and this block has no footnote row of its own. */
+    if (str(st.story) && !/illustrative|modeled simulations|not contractual/i.test(st.story)) {
+      fail(w, "successStory.story carries figures with no caveat sentence — the block has no footnote row of its own");
+    }
+  }
 
   /* E2 · How it works — the workflow stepper */
   if (!arr(o.steps) || o.steps.length < 3 || o.steps.length > 5) {
@@ -251,19 +276,11 @@ if (!arr(C.products) || C.products.length !== 7) {
     });
   }
 
-  /* E2 · the side rail's At-a-glance card */
-  if (!o.sideFacts) fail(w, "overview.sideFacts missing — the side rail has no facts card without it");
-  else ["category", "platform", "availability", "povDuration", "povPrice"].forEach(function (k) {
-    if (!str(o.sideFacts[k])) fail(w, "overview.sideFacts." + k + " missing");
-  });
-  if (o.sideFacts && str(o.sideFacts.availability) && o.sideFacts.availability !== p.availabilityChip) {
-    fail(w, "sideFacts.availability does not match availabilityChip");
-  }
-  if (o.sideFacts && v.facts) {
-    if (str(o.sideFacts.povDuration) && o.sideFacts.povDuration !== v.facts.duration) {
-      fail(w, "sideFacts.povDuration does not match pov.facts.duration");
-    }
-  }
+  /* The At-a-glance card is gone (round 3, H): every fact it denormalised is
+     printed by the block that owns it — the chips, the Jumpstart investment
+     card, the stack. A summary card that restates them is a second place to
+     keep in sync. */
+  if (o.sideFacts !== undefined) fail(w, "overview.sideFacts is superseded — the At-a-glance card was removed; nothing renders it");
 
   /* 3.1 narrative */
   if (!str(t.narrative)) fail(w, "technology.narrative missing");
@@ -272,18 +289,14 @@ if (!arr(C.products) || C.products.length !== 7) {
     if (narrativeSentences > 3) fail(w, "technology.narrative is " + narrativeSentences + " sentences (max 3)");
   }
 
-  /* 3.2 flow */
-  if (!arr(t.flow) || t.flow.length !== 4) {
-    fail(w, "technology.flow must hold exactly 4 steps, got " + (arr(t.flow) ? t.flow.length : "none"));
-  } else t.flow.forEach(function (s, i) {
-    if (!str(s.step) || !str(s.label)) fail(w, "flow[" + i + "] needs { step, label }");
-    if (str(s.label) && words(s.label) > 10) fail(w, "flow[" + i + "].label is " + words(s.label) + " words (max 10)");
-  });
-
-  /* The shapes the layered stack replaced are gone from the data. A
-     re-introduced one would render nowhere and drift out of sync in silence. */
-  ["groups", "layers", "integration", "notUsed"].forEach(function (k) {
-    if (t[k] !== undefined) fail(w, "technology." + k + " is superseded by technology.stack — nothing renders it");
+  /* The shapes the layered stack and the capability list replaced are gone from
+     the data. A re-introduced one would render nowhere and drift out of sync in
+     silence. `flow` went with the How-it-runs diagram (the stack reads top to
+     bottom instead); `security` went with the Security-and-deployment block,
+     its facts folded into the layer summaries, the scope lists and the
+     Jumpstart pillars. */
+  ["groups", "layers", "integration", "notUsed", "flow", "security"].forEach(function (k) {
+    if (t[k] !== undefined) fail(w, "technology." + k + " is superseded — nothing renders it");
   });
 
   /* E3 · the layered solution stack */
