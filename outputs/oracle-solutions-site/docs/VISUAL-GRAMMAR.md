@@ -228,17 +228,25 @@ Sixteen keys. **No product may invent a seventeenth.** A new industry is added h
 
 ### Who uses what today
 
-| Product | Industry keys |
-|---|---|
-| `account-insights` | logistics · financial-services · manufacturing · professional-services |
-| `case-evidence-collection` | financial-services · manufacturing · professional-services · public-sector |
-| `plan-vs-actual-investigation` | construction · manufacturing · professional-services · retail |
-| `large-document-extraction` | travel-transport · professional-services · insurance · financial-services |
-| `workforce-optimization` | manufacturing · utilities · telecom · healthcare |
-| `cross-system-erp-qa` | cross-industry |
-| `business-metrics-qa` | cross-industry |
+`overview.industries[]` drives the chip row inside the More-detail disclosure. `overview.industryCases[]` drives the industry tab component in the MAIN column (§2.3) and is what a reader actually sees.
 
-Four keys — `energy`, `automotive`, `life-sciences` — are declared and currently unused. They exist because the source decks name adjacent verticals; do not delete them to tidy up.
+| Product | `industries[]` (chips) | `industryCases[]` (tabs) |
+|---|---|---|
+| `account-insights` | logistics · financial-services · manufacturing | logistics · financial-services · manufacturing |
+| `case-evidence-collection` | financial-services · manufacturing · professional-services · public-sector | financial-services · manufacturing · professional-services · public-sector |
+| `plan-vs-actual-investigation` | construction · manufacturing · professional-services | construction · manufacturing · professional-services |
+| `large-document-extraction` | travel-transport · professional-services · insurance · financial-services | travel-transport · professional-services · insurance · financial-services |
+| `workforce-optimization` | manufacturing · utilities · telecom · healthcare | manufacturing · utilities · telecom · healthcare |
+| `cross-system-erp-qa` | cross-industry | cross-industry · manufacturing · logistics |
+| `business-metrics-qa` | cross-industry | cross-industry · retail · manufacturing |
+
+The two Lakehouse products are the one place the two columns differ, and deliberately. `cross-industry` stays their only chip because the honest claim is that the constraint is the system landscape, not the sector; the vertical tabs beside it illustrate that claim on concrete estates named in the source material, and each of them leads with the `cross-industry` tab so the framing is read first.
+
+Three keys — `energy`, `automotive`, `life-sciences` — are declared and currently unused. They exist because the source decks name adjacent verticals; do not delete them to tidy up.
+
+### Industry imagery
+
+Each key used by any `industryCases[]` entry needs one treated photograph at `assets/img/industries/<key>.jpg`. The file is keyed by industry, **not** by product, so one image serves every product whose tabs include it. Thirteen are in use today: `logistics`, `financial-services`, `manufacturing`, `professional-services`, `public-sector`, `construction`, `travel-transport`, `insurance`, `utilities`, `telecom`, `healthcare`, `retail`, `cross-industry`.
 
 ---
 
@@ -306,6 +314,9 @@ Every product object must satisfy all of the following. `tools/check-grammar.js`
 | `overview.metricsNote` | non-empty string |
 | `overview.roi` | `{ icon, text }`, both non-empty |
 | `overview.features` | 6–8 strings, each ≤ 12 words |
+| `overview.steps` | 3–5 `{ n, title, text, image, features }`; `n === index + 1`; `text` ≤ 30 words; `image` is `assets/img/steps/<slug>-<n>.<ext>`; the union of `features` equals `overview.features`, no bullet twice, none missing |
+| `overview.industryCases` | 3–6 `{ industry, label, image, problem, solution }`; `industry` in the set of 16 and unique; `label` matches `shared.industryLabels[industry]`; `image` is `assets/img/industries/<key>.<ext>`; `problem` and `solution` are 2–3 sentences each |
+| `overview.sideFacts` | `{ category, platform, availability, povDuration, povPrice }`, all non-empty; `availability === availabilityChip`; `povDuration === pov.facts.duration` |
 | `overview.featuresDetail` | ≥ 6 `{ title, body }` |
 | `overview.industries` | ≥ 1 key, every key in the set of 16 |
 | `overview.industriesNote` | non-empty string |
@@ -314,8 +325,9 @@ Every product object must satisfy all of the following. `tools/check-grammar.js`
 | `overview.successStory` | present |
 | `technology.narrative` | ≤ 3 sentences |
 | `technology.flow` | exactly 4 `{ step, label }` |
-| `technology.groups` | ≥ 3, every `vendor` in `oracle` / `nvidia` / `softserve` / `other`, every group with ≥ 1 item |
-| `technology.integration` / `.security` | ≥ 3 `{ icon, text }` each |
+| `technology.stack` | 4–5 layers, keys a subsequence of `application` → `ai-engine` → `data-platform` → `infrastructure` → `custom`; `application`, `data-platform`, `infrastructure` and `custom` all present; `summary` one sentence; `vendors` non-empty from `oracle` / `nvidia` / `softserve`; every layer ≥ 1 item and ≥ 1 with `required: true`; `direction` only on `custom`, and that layer names at least one inbound and one outbound |
+| `technology.groups` | ≥ 3, every `vendor` in `oracle` / `nvidia` / `softserve` / `other`, every group with ≥ 1 item — superseded by `stack`, asserted while it is still in the data |
+| `technology.integration` / `.security` | ≥ 3 `{ icon, text }` each — `integration` superseded by the `custom` stack layer |
 | `pov.facts` | `{ duration, team, price, deliverablesCount }`, all non-empty; `deliverablesCount === pov.deliverables.length` |
 | `pov.deliverables` | ≥ 4 |
 | `pov.pricing` | ≥ 2 |
