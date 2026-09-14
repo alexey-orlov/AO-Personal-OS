@@ -31,7 +31,6 @@ var INDUSTRIES = [
   "automotive", "life-sciences", "professional-services", "construction",
   "travel-transport", "cross-industry"
 ];
-var TIERS = ["proof-of-value", "rollout", "scaling"];
 /* E3: the solution stack renders top → bottom in this order. A product may
    omit a layer (the Lakehouse pair has no NVIDIA engine) but may never
    re-order them — the Technology tab is the surface a technical buyer
