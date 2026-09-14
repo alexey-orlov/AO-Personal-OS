@@ -255,7 +255,7 @@
         if (next) next.focus();
       }
       if (window.history && window.history.replaceState) {
-        window.history.replaceState(null, "", hashForState());
+        try { window.history.replaceState(null, "", hashForState()); } catch (error) { }
       }
       revealNow(results);
     }
@@ -302,7 +302,7 @@
         count.textContent = countLine();
         rail.innerHTML = railHtml();
         if (window.history && window.history.replaceState) {
-          window.history.replaceState(null, "", hashForState());
+          try { window.history.replaceState(null, "", hashForState()); } catch (error) { }
         }
         revealNow(results);
       });

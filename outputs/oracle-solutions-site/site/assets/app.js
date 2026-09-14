@@ -438,8 +438,13 @@
     catch (error) { return String(value); }
   }
 
+  var forcedHash = null;
+  function currentHash() {
+    return forcedHash !== null ? forcedHash : window.location.hash;
+  }
+
   function parseHash() {
-    var raw = window.location.hash.replace(/^#/, "");
+    var raw = currentHash().replace(/^#/, "");
     if (!raw) raw = "/";
     var anchorIndex = raw.indexOf("#");
     var anchor = "";
@@ -669,19 +674,20 @@
 
   function initHashLinks() {
     document.addEventListener("click", function (event) {
-      if (event.defaultPrevented || event.button !== 0) return;
+      if (event.button !== 0) return;
       if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
       var link = event.target.closest ? event.target.closest('a[href^="#"]') : null;
       if (!link || link.id === "skip-link" || link.hasAttribute("target")) return;
       var href = link.getAttribute("href");
       if (!href || href === "#") return;
       event.preventDefault();
-      var sameHash = window.location.hash === href;
+      event.stopPropagation();
+      var sameHash = currentHash() === href;
       window.ROUTER.go(href);
       if (sameHash && href.indexOf("#", 1) < 0 && link.classList.contains("nav-link")) {
         window.scrollTo({ top: 0, behavior: "instant" });
       }
-    });
+    }, true);
   }
 
   function initSkipLink() {
@@ -698,8 +704,15 @@
 
   window.ROUTER = {
     go: function (hash) {
-      if (window.location.hash === hash) render();
-      else window.location.hash = hash;
+      if (currentHash() === hash) { render(); return; }
+      forcedHash = null;
+      try { window.location.hash = hash; } catch (error) { }
+      window.setTimeout(function () {
+        if (window.location.hash === hash) return;
+        try { window.history.pushState(null, "", hash); } catch (error) { }
+        forcedHash = hash;
+        render();
+      }, 60);
     },
     current: parseHash,
     render: render
@@ -713,6 +726,7 @@
   initHeader();
   initHashLinks();
   initSkipLink();
-  window.addEventListener("hashchange", render);
+  window.addEventListener("hashchange", function () { forcedHash = null; render(); });
+  window.addEventListener("popstate", function () { forcedHash = null; render(); });
   render();
 })();
