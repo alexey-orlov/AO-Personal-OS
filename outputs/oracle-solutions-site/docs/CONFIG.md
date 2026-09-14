@@ -23,6 +23,7 @@ window.SITE_CONFIG = {
     storageKey: "oracle-ai-solutions:seller-unlocked",
     notesUrl: ""
   },
+  productOrder: ["<slug>", "<slug>", ...],
   products: {
     "<slug>": {
       marketplaceUrl: "",
@@ -89,6 +90,36 @@ formEndpoint: "https://example.invalid/hook/leads",
 The endpoint must answer with a 2xx status and must allow cross-origin POSTs from the site's origin (`Access-Control-Allow-Origin`). If it does not, submissions will silently fail CORS and the visitor sees the error message — test one submission from the deployed URL, not from `file://`.
 
 **Security note.** Do not commit a live trigger URL for a paid or side-effectful automation (an n8n webhook, a Zapier hook). Bots scrape new URLs out of public repositories within the hour. If the endpoint has to be a webhook, require header auth on it and keep the URL out of version control — set it on the deployed copy only.
+
+### `productOrder`
+
+The order the seven products are presented in, everywhere at once. An array of slugs, best first.
+
+```js
+productOrder: [
+  "large-document-extraction",
+  "account-insights",
+  "workforce-optimization",
+  "plan-vs-actual-investigation",
+  "case-evidence-collection",
+  "cross-system-erp-qa",
+  "business-metrics-qa"
+],
+```
+
+One list drives every surface that shows more than one product: the Overview page's product tiles, the Products page tiles and the facet-rail counts, the Previous/Next pager at the foot of a product page, and the "Which product?" select in both forms. There is no second place to edit and no way for two surfaces to disagree — a seller who scrolls the Products page and then pages through with Previous/Next walks the same sequence both times.
+
+**It is presentation order, not a list of what exists.** The products themselves are declared in `content.js`; this array only says what sequence they are shown in. That split is what makes the three fallbacks safe:
+
+| Situation | What happens |
+|---|---|
+| A slug in `products[]` (`content.js`) is **missing** from this array | It still renders. It keeps its `content.js` position relative to the other unlisted ones and sorts after every listed product. |
+| A slug here matches **no** product in `content.js` | Ignored silently. A typo or a slug left behind after a product is removed costs nothing. |
+| `productOrder` is **empty or absent** | Every surface falls back to the order the products appear in `content.js`. |
+
+So a partial list is legitimate: name only the two or three you care about seeing first and let the rest fall in behind them in their declared order.
+
+The array is **sort order only** — it never filters. All seven products render whatever this list says, and the Products page still reports "7 products". To take a product off the site, remove it from `content.js`, not from here.
 
 ### `sellerGate.allowedDomains`
 
@@ -333,7 +364,8 @@ All three are named in `content.js` (`overview.steps[].image`, `overview.industr
 
 1. Add the product object to `products[]` in `content.js` (see `SCHEMA.md` for every field).
 2. Add a matching `products["<new-slug>"]` block to `config.js` with all six keys (`marketplaceUrl`, `video`, `videoUrl`, `videoPoster`, `successStoryUrl`, `materials`). `video` must be a real boolean — `check-grammar.js` rejects a missing one and a quoted `"false"`, which would be truthy and turn the frame on.
-3. If it lands on a technology facet that currently has no products, nothing else is needed — the facet is already declared and will stop rendering its empty state once a product carries it.
+3. Add the slug to `productOrder` where you want it to appear. Skipping this step is not an error — the product lands at the end of every list instead — but the position is a judgement about what a seller should meet first, so make it deliberately rather than by omission.
+4. If it lands on a technology facet that currently has no products, nothing else is needed — the facet is already declared and will stop rendering its empty state once a product carries it.
 
 If the config block is missing, the product page still renders; every optional control simply stays hidden, exactly as if all its URLs were empty.
 
