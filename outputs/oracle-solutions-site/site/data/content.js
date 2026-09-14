@@ -472,7 +472,7 @@ window.SITE_CONTENT = {
         }
       },
       technology: {
-        narrative: "Signal feeds and client context — CRM records and the service-line catalog — flow into the Account Insights app on a dedicated AI cluster in the customer's own Oracle Cloud Infrastructure tenancy. NVIDIA AI-Q supplies the retrieval baseline — vector search and reranking — that grounds every conclusion in a first-party or public source. The app filters, fans out, reasons, scores and cites; one JSON per affected account reaches the sales system only after a reviewer approves.",
+        narrative: "The app runs on a dedicated AI cluster in your own Oracle Cloud Infrastructure tenancy. NVIDIA AI-Q grounds every conclusion in a cited first-party or public source, and nothing reaches the CRM until a reviewer approves it.",
         flow: [
           { step: "Sources", label: "News, filings, CRM context, service catalog" },
           { step: "Ingest", label: "Relevance filter, de-duplication, account fan-out" },
@@ -679,7 +679,7 @@ window.SITE_CONTENT = {
         }
       },
       technology: {
-        narrative: "Flat-file exports from the customer's operational systems land in the customer's own OCI tenancy. NVIDIA AI-Q orchestrates multi-document reasoning across them — retrieval, cross-referencing and generation — while Oracle's enterprise AI services orchestrate the tools that reach live systems. Output is assembled per case and presented in the investigator UI with every statement bound to its source.",
+        narrative: "Exports from your operational systems land read-only in your own OCI tenancy. NVIDIA AI-Q reasons across them, and every statement in the assembled case is bound to the source record it came from.",
         flow: [
           { step: "Sources", label: "Case management, correspondence, operational records, document stores" },
           { step: "Ingest", label: "Exports landed in your tenancy, read-only" },
@@ -889,7 +889,7 @@ window.SITE_CONTENT = {
         }
       },
       technology: {
-        narrative: "File-based static exports — schedule data, cost and forecast reporting per unit, progress reporting, layouts, contracts and their amendments — land in zoned OCI storage with lineage preserved. A conformed data model and a configuration-driven mapping layer resolve records to the lowest reliable unit level, reporting what could not be resolved as coverage gaps. Plan and actual are then compared, drivers are assembled as evidence-backed candidates, and a context manager routes each question between semantic, lexical and entity retrieval before a response handler composes the cited answer in a purpose-built review app.",
+        narrative: "Static exports land in zoned OCI storage with lineage preserved. A conformed model resolves records to the lowest reliable unit, plan and actual are compared with cited drivers, and anything that could not be resolved is reported as a coverage gap.",
         flow: [
           { step: "Sources", label: "Schedule, cost and progress reporting, layouts, contracts, amendments" },
           { step: "Ingest", label: "Zoned OCI storage with lineage; conformed model and mapping layer" },
@@ -1120,7 +1120,7 @@ window.SITE_CONTENT = {
         }
       },
       technology: {
-        narrative: "Source contracts land from the contract repository into the extraction app running on a dedicated AI cluster in the customer's own Oracle Cloud Infrastructure tenancy. NVIDIA AI-Q performs the GPU-accelerated extraction — a vision-language pass over the page plus retrieval over the document — against the field rules you defined, returning every value with a confidence score and a page citation. A reviewer validates in a split view, and only approved rows are exported to the cost or ERP system.",
+        narrative: "Contracts land from your repository into the extraction app on a dedicated AI cluster in your own Oracle Cloud Infrastructure tenancy. NVIDIA AI-Q returns every field with a confidence score and a page citation; only approved rows are exported.",
         flow: [
           { step: "Sources", label: "Contract repository — PDF and DOCX, including scanned" },
           { step: "Extract", label: "Document-type gate, page-level routing, field extraction" },
