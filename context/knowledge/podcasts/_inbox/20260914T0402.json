@@ -1,0 +1,53 @@
+{
+  "schema": 1,
+  "generatedAt": "2026-09-14T04:02:16.454Z",
+  "runStamp": "20260914T0402",
+  "episodes": [
+    {
+      "videoId": "H5ZLorBJCDk",
+      "videoTitle": "Ask the Mates anything | MOONSHOTS AMA  #289",
+      "videoUrl": "https://www.youtube.com/watch?v=H5ZLorBJCDk",
+      "channelName": "Peter H. Diamandis",
+      "publishedDate": "2026-09-13",
+      "guests": [],
+      "summary": "This is a live AMA where the Moonshots hosts answer audience questions about AI, longevity, education, BCI, data monetization, and careers across life stages. The throughline is pragmatic: how individuals, companies, and governments can prepare, participate, and not be left behind as AI-driven change accelerates. Speakers emphasize concrete tactics (time allocation, packaging data, franchising models, demand-driven education) and emerging tech (BCI, autonomous discovery, new compute substrates) as levers to navigate the coming disruption.",
+      "insights": [
+        {
+          "headline": "Smaller or distant markets can quickly leapfrog incumbents",
+          "detail": "Being ‘behind’ in an exponential era is often a mindset problem rather than an infrastructure one; places like Australia can rapidly adopt newer models without unlearning decades of legacy thinking. The hosts argue that modern infrastructure and remote distance give you a playground to experiment with new organizational structures, and they recommend deliberately reserving 10–20% of time as slack to explore tools and meet collaborators rather than waiting for spare time. That matters because inertia—not lack of technology—is typically the biggest barrier to catching up, and structured experimentation can produce outsized gains fast.",
+          "anchorQuote": "you can literally jump over everybody else",
+          "tSeconds": 308,
+          "link": "https://www.youtube.com/watch?v=H5ZLorBJCDk&t=308"
+        },
+        {
+          "headline": "Two interfaces will extend human cognition: personal AI and BCIs",
+          "detail": "First, personal AIs that understand your knowledge gaps and preferences will filter and summarize information better than you can, improving your effective bandwidth. Second, brain–computer interfaces (BCIs) could deliver preformed concepts or an externalized cognitive corpus—effectively expanding your mind’s connectivity; hosts note active investments and expect rapid BCI advances that will change learning and capability. Both matter because they change the human-AI interface: one optimizes how you handle information today, the other expands the kinds of content and thought you can access in future.",
+          "anchorQuote": "there are two interfaces are going to change thing one is",
+          "tSeconds": 436,
+          "link": "https://www.youtube.com/watch?v=H5ZLorBJCDk&t=436"
+        },
+        {
+          "headline": "Modern LLMs are already capable of reasoning and novelty",
+          "detail": "The hosts push back on the claim that current models are mere stochastic parrots and emphasize that reinforcement fine-tuning and reasoning benchmarks have produced models that generate insights and emergent inventions. Framing them solely as prediction machines understates their ability to produce useful, novel reasoning and creativity in many domains, which changes how businesses and researchers should deploy and trust these systems. The implication: treat capable models as partners for ideation and complex tasks, not just autocomplete.",
+          "anchorQuote": "I don't think it's accurate to characterize them as prediction machines",
+          "tSeconds": 595,
+          "link": "https://www.youtube.com/watch?v=H5ZLorBJCDk&t=595"
+        },
+        {
+          "headline": "Frontier labs will buy proprietary domain data if you make acquisition effortless",
+          "detail": "Large AI labs are actively buying corporate data sets and will write sizable checks, but the main friction is sales friction—not price; hosts advise packaging your dataset with clear due diligence materials, a simple price proposal, and an easy signing path so busy acquisition teams can close quickly. They also recommend in-person outreach (go to the lab, meet the acquisition lead) to cut through organizational chaos. This matters for domain experts sitting on troves of operational records: packaging and accessibility can convert dormant archives into lucrative exits.",
+          "anchorQuote": "put put yourself into a package that's easy for them to sign",
+          "tSeconds": 1311,
+          "link": "https://www.youtube.com/watch?v=H5ZLorBJCDk&t=1311"
+        },
+        {
+          "headline": "Education must shift from supply-side credentials to demand-driven purpose",
+          "detail": "Traditional curricula that teach fixed roles (doctor, lawyer, engineer) will increasingly mismatch a rapidly changing job landscape; instead, hosts recommend teaching kids to start from problems or mission-driven purposes (demand-side learning) and then acquire the skills needed to solve them. Coupled with 21st-century skills (creativity, critical thinking, collaboration), this approach prepares learners to adapt as tasks are automated or redefined by AI. Practically, that means schools and parents should emphasize problem discovery, entrepreneurial mindset, and AI tool fluency rather than rote content.",
+          "anchorQuote": "go to the demand side, tell the kids to get excited",
+          "tSeconds": 2778,
+          "link": "https://www.youtube.com/watch?v=H5ZLorBJCDk&t=2778"
+        }
+      ]
+    }
+  ]
+}
