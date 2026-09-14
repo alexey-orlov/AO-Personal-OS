@@ -472,14 +472,14 @@ window.SITE_CONTENT = {
             n: 1,
             title: "Bring in the signal",
             text: "News, filings and disclosures arrive on a scheduled scan or by manual submit, grounded in your CRM context, service catalog and public filings.",
-            image: "assets/img/steps/account-insights-1.jpg",
+            image: "assets/img/steps/account-insights-1.svg",
             features: ["Signal ingestion grounded in CRM context, service catalog and public filings"]
           },
           {
             n: 2,
             title: "Filter it, then fan it out",
             text: "One story across many sources is de-duplicated into a single signal, and every in-scope account it touches gets its own record.",
-            image: "assets/img/steps/account-insights-2.jpg",
+            image: "assets/img/steps/account-insights-2.svg",
             features: [
               "Relevance filter and de-duplication: one story becomes one signal",
               "Account fan-out — one JSON per affected account"
@@ -489,7 +489,7 @@ window.SITE_CONTENT = {
             n: 3,
             title: "Reason the “so what” per account",
             text: "Opportunities and material risks are derived for each account and mapped to a real service line, with ripples traced across suppliers, customers and competitors.",
-            image: "assets/img/steps/account-insights-3.jpg",
+            image: "assets/img/steps/account-insights-3.svg",
             features: [
               "Opportunity and risk reasoning, mapped to a real service line",
               "Cross-account ripples across suppliers, customers and competitors"
@@ -499,7 +499,7 @@ window.SITE_CONTENT = {
             n: 4,
             title: "Score, cite, review",
             text: "Every item carries a magnitude and confidence score and a citation to its evidence; a reviewer approves or rejects before anything moves downstream.",
-            image: "assets/img/steps/account-insights-4.jpg",
+            image: "assets/img/steps/account-insights-4.svg",
             features: [
               "Magnitude and confidence scored 0–10, with a configurable threshold",
               "Reviewer UI with citations, approve or reject with a comment"
@@ -799,21 +799,21 @@ window.SITE_CONTENT = {
             n: 1,
             title: "A case opens",
             text: "An event — or a batch sweep over many at once — opens a case in one of the categories agreed for your engagement.",
-            image: "assets/img/steps/case-evidence-collection-1.jpg",
+            image: "assets/img/steps/case-evidence-collection-1.svg",
             features: ["Case categories scoped and configured per engagement"]
           },
           {
             n: 2,
             title: "Assemble the evidence",
             text: "Exports from operational systems, correspondence and document stores are read together, and every piece is bound to the case it belongs to.",
-            image: "assets/img/steps/case-evidence-collection-2.jpg",
+            image: "assets/img/steps/case-evidence-collection-2.svg",
             features: ["Multi-source evidence assembly across systems, correspondence and documents"]
           },
           {
             n: 3,
             title: "Build the case file",
             text: "A summary, a chronological timeline and draft response sections — every statement cited to the exact source sentence or field.",
-            image: "assets/img/steps/case-evidence-collection-3.jpg",
+            image: "assets/img/steps/case-evidence-collection-3.svg",
             features: [
               "Chronological case timeline with timestamps and clickable source references",
               "Sentence- and field-level citation on every statement",
@@ -824,7 +824,7 @@ window.SITE_CONTENT = {
             n: 4,
             title: "Investigate and decide",
             text: "The investigator navigates to source, amends, approves or flags — and every decision is written to the audit log.",
-            image: "assets/img/steps/case-evidence-collection-4.jpg",
+            image: "assets/img/steps/case-evidence-collection-4.svg",
             features: [
               "Investigator UI: navigate to source, amend, approve or flag",
               "Full audit log of every review decision"
@@ -1138,14 +1138,14 @@ window.SITE_CONTENT = {
             n: 1,
             title: "Ingest the exports",
             text: "Approved static exports from the available source systems are landed and profiled, with lineage preserved from the file through to the finding.",
-            image: "assets/img/steps/plan-vs-actual-investigation-1.jpg",
+            image: "assets/img/steps/plan-vs-actual-investigation-1.svg",
             features: ["Ingest and profile approved static exports, preserving lineage"]
           },
           {
             n: 2,
             title: "Resolve records to the unit",
             text: "A configuration-driven mapping layer resolves records to project, zone and unit at the lowest reliable level. Anything unresolved is reported, not dropped.",
-            image: "assets/img/steps/plan-vs-actual-investigation-2.jpg",
+            image: "assets/img/steps/plan-vs-actual-investigation-2.svg",
             features: [
               "Configuration-driven mapping to project, zone and unit level",
               "Unresolved records reported as coverage gaps, not dropped"
@@ -1155,7 +1155,7 @@ window.SITE_CONTENT = {
             n: 3,
             title: "Compare plan against actual",
             text: "Cost and schedule are compared at unit level, and variances, recurring patterns and candidate drivers are assembled as evidence-backed candidates.",
-            image: "assets/img/steps/plan-vs-actual-investigation-3.jpg",
+            image: "assets/img/steps/plan-vs-actual-investigation-3.svg",
             features: [
               "Plan-versus-actual comparison at unit level, on cost and schedule",
               "Variances, recurring patterns and candidate drivers as evidence-backed candidates"
@@ -1165,7 +1165,7 @@ window.SITE_CONTENT = {
             n: 4,
             title: "Review the evidence",
             text: "An evidence layer over the documents backs each finding, and a purpose-built review app presents findings, citations and the coverage-gap report.",
-            image: "assets/img/steps/plan-vs-actual-investigation-4.jpg",
+            image: "assets/img/steps/plan-vs-actual-investigation-4.svg",
             features: [
               "An evidence layer over documents: extraction, embeddings, entity retrieval",
               "A purpose-built lightweight review app, not a chat interface"
@@ -1485,7 +1485,7 @@ window.SITE_CONTENT = {
             n: 1,
             title: "Upload and classify",
             text: "A PDF or DOCX — native or scanned — is classified by document type, then routed page by page to the right extractor.",
-            image: "assets/img/steps/large-document-extraction-1.jpg",
+            image: "assets/img/steps/large-document-extraction-1.svg",
             features: ["Document-type gate, then page-level routing to the right extractor"]
           },
           {
@@ -1513,7 +1513,7 @@ window.SITE_CONTENT = {
             n: 4,
             title: "Review and export",
             text: "Reviewers validate row by row beside the source PDF, then export against your reference template. Nothing leaves unapproved.",
-            image: "assets/img/steps/large-document-extraction-4.jpg",
+            image: "assets/img/steps/large-document-extraction-4.svg",
             features: [
               "Split-view reviewer UI with bulk actions, auto-save and an audit trail",
               "Export to JSON, CSV or XLSX against a reference template"
@@ -2192,7 +2192,7 @@ window.SITE_CONTENT = {
             n: 1,
             title: "Connect the applications",
             text: "The pipelines that ship with the Oracle products are switched on; one or two non-Oracle sources are linked or landed alongside. Read-only access.",
-            image: "assets/img/steps/cross-system-erp-qa-1.jpg",
+            image: "assets/img/steps/cross-system-erp-qa-1.svg",
             features: [
               "Prebuilt pipelines from Oracle applications — no extract engineering",
               "One or two non-Oracle sources joined in, by link or by pipeline"
@@ -2202,7 +2202,7 @@ window.SITE_CONTENT = {
             n: 2,
             title: "Shape one decision domain",
             text: "One domain — order-to-cash exceptions, say — is modelled into certified views, on definitions the business owner signs off.",
-            image: "assets/img/steps/cross-system-erp-qa-2.jpg",
+            image: "assets/img/steps/cross-system-erp-qa-2.svg",
             features: [
               "Certified views for one decision domain, on signed-off definitions",
               "A governed foundation that persists after the proof"
@@ -2212,14 +2212,14 @@ window.SITE_CONTENT = {
             n: 3,
             title: "Guard it in the data layer",
             text: "Masking and row-level rules are applied to every query — including the ones AI writes — and every interaction is logged.",
-            image: "assets/img/steps/cross-system-erp-qa-3.jpg",
+            image: "assets/img/steps/cross-system-erp-qa-3.svg",
             features: ["Sensitive fields masked by role, enforced in the data layer"]
           },
           {
             n: 4,
             title: "Ask in plain language",
             text: "Select AI answers over the governed schema, with two to three operational dashboards over the same joined data.",
-            image: "assets/img/steps/cross-system-erp-qa-4.jpg",
+            image: "assets/img/steps/cross-system-erp-qa-4.svg",
             features: [
               "Plain-English question answering over the governed schema",
               "Two to three operational dashboards over the joined data"
@@ -2534,7 +2534,7 @@ window.SITE_CONTENT = {
             n: 1,
             title: "Mount what you already run",
             text: "Existing Iceberg catalogs are mounted and the databases outside them are linked, on-prem included. Nothing is copied.",
-            image: "assets/img/steps/business-metrics-qa-1.jpg",
+            image: "assets/img/steps/business-metrics-qa-1.svg",
             features: [
               "Catalog federation: mount the Iceberg catalogs you already run",
               "Database links to the systems not in a catalog, on-prem included",
@@ -2545,7 +2545,7 @@ window.SITE_CONTENT = {
             n: 2,
             title: "Build the gold layer",
             text: "A small governed model over those sources carries the business definitions the organization signs off.",
-            image: "assets/img/steps/business-metrics-qa-2.jpg",
+            image: "assets/img/steps/business-metrics-qa-2.svg",
             features: [
               "A governed gold layer with definitions the organization signs off",
               "Converged data in one database: relational, JSON, spatial, graph, vector"
@@ -2555,14 +2555,14 @@ window.SITE_CONTENT = {
             n: 3,
             title: "Scope it by role",
             text: "Masking, row-level policies and a full audit trail are enforced in the data layer, not in the prompt.",
-            image: "assets/img/steps/business-metrics-qa-3.jpg",
+            image: "assets/img/steps/business-metrics-qa-3.svg",
             features: ["Role-scoped answers and a full audit trail, enforced in the data layer"]
           },
           {
             n: 4,
             title: "Answer across every source",
             text: "Select AI answers plain-English questions across each connected source, tuned live with your analysts against an agreed question set.",
-            image: "assets/img/steps/business-metrics-qa-4.jpg",
+            image: "assets/img/steps/business-metrics-qa-4.svg",
             features: ["Plain-English question answering via Select AI over that layer"]
           }
         ],
