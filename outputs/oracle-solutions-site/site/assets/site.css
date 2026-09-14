@@ -541,9 +541,13 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
     radial-gradient(100% 78% at 70% 32%, rgba(53, 204, 186, .09), rgba(53, 204, 186, 0) 62%);
 }
 
+/* The media frame usually falls back to the product's own hero image, so the
+   same photograph sits inside the card and behind it. The backdrop is held
+   well under the card's exposure on this variant — otherwise the frame reads
+   as a cut-out of the background rather than a thing you can press. */
 .product-hero--media .hero-bg-veil {
   background:
-    linear-gradient(to right, var(--bg) 0%, rgba(19, 19, 19, .95) 20%, rgba(19, 19, 19, .82) 42%, rgba(19, 19, 19, .64) 62%, rgba(19, 19, 19, .48) 82%, rgba(19, 19, 19, .40) 100%),
+    linear-gradient(to right, var(--bg) 0%, rgba(19, 19, 19, .95) 20%, rgba(19, 19, 19, .86) 42%, rgba(19, 19, 19, .76) 62%, rgba(19, 19, 19, .70) 82%, rgba(19, 19, 19, .68) 100%),
     linear-gradient(to bottom, rgba(19, 19, 19, .24) 0%, rgba(19, 19, 19, 0) 42%, rgba(19, 19, 19, .30) 75%, var(--bg) 100%),
     radial-gradient(100% 78% at 70% 32%, rgba(53, 204, 186, .07), rgba(53, 204, 186, 0) 62%);
 }
@@ -1303,10 +1307,14 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 .video-card:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 
 .video-card-poster { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+
+/* Enough shade under the caption to read it, and no more: the poster is the
+   point of the frame, and a veil heavy enough to guarantee contrast
+   everywhere would grey out the picture it is protecting. */
 .video-card-veil {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(7, 9, 13, .78) 0%, rgba(7, 9, 13, .18) 48%, rgba(7, 9, 13, .28) 100%);
+  background: linear-gradient(to top, rgba(7, 9, 13, .72) 0%, rgba(7, 9, 13, .30) 26%, rgba(7, 9, 13, .06) 52%, rgba(7, 9, 13, .14) 100%);
 }
 
 .video-card-play {
