@@ -652,7 +652,7 @@
     var url = (cfg(product.slug).materials || {})[material.key] || "";
     var usable = url && material.state !== "superseded";
     var control = usable
-      ? UI.button({ label: gate.downloadLabel, href: url, kind: "secondary", sm: true, icon: "download" })
+      ? UI.button({ label: gate.downloadLabel, href: url, kind: "secondary", sm: true, iconAfter: "external" })
       : UI.button({
           label: C().shared.materialStates[material.state] || gate.linkPendingLabel,
           kind: "quiet", sm: true, attrs: { disabled: true, "aria-disabled": "true" }

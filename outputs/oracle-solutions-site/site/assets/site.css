@@ -1654,6 +1654,8 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 .detail-title { font-family: var(--font-body); font-size: 1rem; font-weight: 700; line-height: 1.35; color: var(--text); text-transform: none; }
 .detail-text { font-size: var(--fs-sm); line-height: 1.65; color: var(--text-muted); }
 .detail-sub { grid-column: 1 / -1; margin-top: .75rem; }
+.detail-wrap--stack { grid-template-columns: minmax(0, 1fr); gap: 1.25rem; }
+.detail-wrap--stack > .value-strip { margin-top: 0; }
 
 /* four-step flow diagram — identical geometry on every product */
 .flow { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(1.5rem, 3vw, 2.5rem); }

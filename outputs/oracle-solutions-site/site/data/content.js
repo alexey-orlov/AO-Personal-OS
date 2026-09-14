@@ -136,6 +136,7 @@ window.SITE_CONTENT = {
       roi: "ROI",
       features: "Key features",
       industries: "Industries",
+      scope: "Scope",
       scopeIn: "In scope",
       scopeOut: "Out of scope",
       moreDetail: "More detail",
@@ -147,6 +148,7 @@ window.SITE_CONTENT = {
       notUsed: "Not used by this application",
       integration: "Integration",
       security: "Security and deployment",
+      povHeading: "What the proof of value buys",
       povFactDuration: "Duration",
       povFactTeam: "Team",
       povFactPrice: "Price",
@@ -167,7 +169,7 @@ window.SITE_CONTENT = {
       "coming-soon": "Coming soon",
       "superseded": "Superseded — do not distribute",
       "planned": "Planned",
-      "available": "Download"
+      "available": "Open"
     }
   },
 
@@ -2128,7 +2130,7 @@ window.SITE_CONTENT = {
     lockLabel: "Lock again",
     rejected: "That domain is not on the list. Use a SoftServe or Oracle work address.",
     linkPendingLabel: "Link pending",
-    downloadLabel: "Download",
+    downloadLabel: "Open",
     unlockedIntro: "Materials for Oracle and SoftServe account teams.",
     stateLegend: {
       "link-pending": "Link pending — the document exists, the share link does not yet",
