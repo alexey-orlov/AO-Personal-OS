@@ -792,8 +792,82 @@ window.SITE_CONTENT = {
           { title: "Investigator UI", body: "Navigate to source, amend, approve or flag." },
           { title: "Full audit log", body: "Of every review decision." }
         ],
-        industries: ["financial-services", "manufacturing"],
+        industries: ["financial-services", "manufacturing", "professional-services", "public-sector"],
         industriesNote: "The pattern is the same wherever an event opens a case and the evidence sits in several systems at once.",
+        steps: [
+          {
+            n: 1,
+            title: "A case opens",
+            text: "An event — or a batch sweep over many at once — opens a case in one of the categories agreed for your engagement.",
+            image: "assets/img/steps/case-evidence-collection-1.jpg",
+            features: ["Case categories scoped and configured per engagement"]
+          },
+          {
+            n: 2,
+            title: "Assemble the evidence",
+            text: "Exports from operational systems, correspondence and document stores are read together, and every piece is bound to the case it belongs to.",
+            image: "assets/img/steps/case-evidence-collection-2.jpg",
+            features: ["Multi-source evidence assembly across systems, correspondence and documents"]
+          },
+          {
+            n: 3,
+            title: "Build the case file",
+            text: "A summary, a chronological timeline and draft response sections — every statement cited to the exact source sentence or field.",
+            image: "assets/img/steps/case-evidence-collection-3.jpg",
+            features: [
+              "Chronological case timeline with timestamps and clickable source references",
+              "Sentence- and field-level citation on every statement",
+              "Draft response sections generated for review, not for sending"
+            ]
+          },
+          {
+            n: 4,
+            title: "Investigate and decide",
+            text: "The investigator navigates to source, amends, approves or flags — and every decision is written to the audit log.",
+            image: "assets/img/steps/case-evidence-collection-4.jpg",
+            features: [
+              "Investigator UI: navigate to source, amend, approve or flag",
+              "Full audit log of every review decision"
+            ]
+          }
+        ],
+        industryCases: [
+          {
+            industry: "financial-services",
+            label: "Financial services",
+            image: "assets/img/industries/financial-services.jpg",
+            problem: "A flagged transaction or an alert has to be investigated across parties, accounts and linked cases before anything can be filed. The analyst pulls the same records out of the same systems every time, and the filing is drafted from scratch under a deadline.",
+            solution: "The evidence is assembled across those systems into one file with a chronological timeline, and the regulatory response sections are drafted for review rather than for sending. Every statement is bound to the record it came from, so a second reviewer can retrace the finding independently."
+          },
+          {
+            industry: "manufacturing",
+            label: "Manufacturing",
+            image: "assets/img/industries/manufacturing.jpg",
+            problem: "A customer complaint sends a quality manager back through batch records, supplier history and operational logs kept in systems that were never designed to be read together. The root-cause report varies with whoever writes it.",
+            solution: "Batch records, supplier history and the correspondence around the complaint are assembled into one cited file with a draft root-cause narrative. The quality manager amends and approves; the system assembles and drafts, it does not decide the outcome."
+          },
+          {
+            industry: "professional-services",
+            label: "Professional services",
+            image: "assets/img/industries/professional-services.jpg",
+            problem: "A grievance or employee-relations intake means rebuilding a chronology out of tickets, mail threads and policy references. It is slow, it varies by handler, and the evidence trail is hard to reconstruct later.",
+            solution: "The chronology is built automatically from those sources with timestamps and clickable references, and the response sections are drafted for amendment. The audit log records every review decision, so the handling itself stands up to scrutiny."
+          },
+          {
+            industry: "public-sector",
+            label: "Public sector",
+            image: "assets/img/industries/public-sector.jpg",
+            problem: "Complaint handling runs to a statutory clock, and the evidence sits across case management, correspondence and operational records. Investigators spend most of the clock gathering rather than deciding.",
+            solution: "Each case arrives as a summary, a timeline and draft response sections, every claim cited to its source sentence or field. Investigators spend the time on judgement, and the full audit log shows how the file was built."
+          }
+        ],
+        sideFacts: {
+          category: "Deep research & investigation",
+          platform: "Oracle Cloud Infrastructure + NVIDIA",
+          availability: "In preparation",
+          povDuration: "12–15 weeks",
+          povPrice: "Scoped per engagement"
+        },
         scope: {
           in: [
             "One agreed case category, on historical non-production records",
@@ -835,6 +909,63 @@ window.SITE_CONTENT = {
           { step: "Ingest", label: "Exports landed in your tenancy, read-only" },
           { step: "Reason", label: "Multi-document reasoning, timeline construction, citation binding" },
           { step: "Deliver", label: "Investigator UI: amend, approve or flag, fully audited" }
+        ],
+        stack: [
+          {
+            key: "application",
+            label: "Application / accelerator",
+            summary: "The SoftServe pack: evidence assembly, timeline construction, citation binding and the investigator UI.",
+            vendors: ["softserve"],
+            items: [
+              { name: "Evidence assembly across systems, correspondence and documents", required: true },
+              { name: "Chronological timeline construction", required: true },
+              { name: "Citation binding at sentence and field level", required: true },
+              { name: "Investigator UI — amend, approve or flag, with a full audit log", required: true }
+            ]
+          },
+          {
+            key: "ai-engine",
+            label: "AI engine",
+            summary: "NVIDIA AI-Q reasons across many documents at once and generates the draft sections.",
+            vendors: ["nvidia"],
+            items: [
+              { name: "NVIDIA AI-Q Blueprint — multi-document reasoning and output generation", required: true }
+            ]
+          },
+          {
+            key: "data-platform",
+            label: "Data & platform",
+            summary: "Where the exports land, plus the optional route that reconciles the evidence base in the data layer.",
+            vendors: ["oracle"],
+            items: [
+              { name: "OCI Object Storage for the read-only source exports", required: true },
+              { name: "Oracle enterprise AI services for multi-tool orchestration over live systems", required: false },
+              { name: "Oracle AI Data Platform — evidence reconciled in the data layer rather than at query time", required: false }
+            ]
+          },
+          {
+            key: "infrastructure",
+            label: "Infrastructure",
+            summary: "Your own OCI tenancy, with the AI cluster the reasoning runs on.",
+            vendors: ["oracle"],
+            items: [
+              { name: "OCI dedicated AI cluster (GPU)", required: true },
+              { name: "Tenancy, IAM and read-only source access", required: true }
+            ]
+          },
+          {
+            key: "custom",
+            label: "Custom configuration",
+            summary: "Source mapping, case categories, citation granularity and the approval workflow.",
+            vendors: ["softserve"],
+            items: [
+              { name: "Exports from case management, correspondence and operational records", required: true, direction: "inbound" },
+              { name: "Document stores and rostering exports", required: false, direction: "inbound" },
+              { name: "The assembled case file and draft sections, plus the approval record", required: true, direction: "outbound" },
+              { name: "Trigger: an event opens a case, or a batch sweep opens many", required: true },
+              { name: "Case categories, citation granularity and the approval workflow", required: true }
+            ]
+          }
         ],
         groups: [
           { vendor: "oracle", label: "Oracle Cloud Infrastructure", items: ["Tenancy, object storage and the AI cluster", "Oracle enterprise AI services for multi-tool orchestration over live systems"] },
