@@ -1,7 +1,8 @@
-# ASSETS.md — step frames, industry images, headshot
+# ASSETS.md — step frames, industry images, headshot, customer logos
 
-What the E2 stepper, the E2 industry tabs and the E5 contact card render, where
-each file came from, what was done to it, and what the licensing position is.
+What the E2 stepper, the E2 industry tabs, the E5 contact card and the named
+success stories render, where each file came from, what was done to it, and what
+the licensing position is.
 
 This file is **not served** — the site root is `site/`. It is the operator record
 that `site/assets/img/manifest-edits.json` deliberately does not carry, under the
@@ -148,28 +149,27 @@ no shopfront name and no legible screen text survives in any crop.
 
 ---
 
-## 3. Headshot — none ships
+## 3. Headshot — `assets/img/people/karsten-tramborg.jpg`
 
-`shared.contact.photo` is **empty** and the contact card renders its "KT"
-initials avatar. There is no file under `assets/img/people/`.
+Ships. 480 × 480 JPEG, progressive, q85, 33 KB. `shared.contact.photo` points at
+`assets/img/people/karsten-tramborg.jpg` and the contact card renders the
+portrait instead of the "KT" initials avatar.
 
-A candidate was prepared and then withdrawn. It came from **SoftServe AIDP
-Factory V2** (presentation templates), `ppt/media/image76.jpeg`, and it was
-identified by **position, not by face**: on the "Oracle AI DP Team at a Glance"
-slide each person's picture sits at a fixed offset to the left of their name box
-(pic `x` = name `x` − ≈ 567 000 EMU, one row down), and the picture carrying that
-offset from the text run "Karsten Tramborg" is `rId7` → `image76.jpeg`. No facial
-comparison was made, and the site prints that name, that title and a working
-mailto beside the picture on every Contacts tab. If the offset heuristic picked a
-neighbouring tile, the site publishes a different colleague's face under Karsten's
-name to customers. An unverified portrait is not a shippable asset.
+**Source.** **SoftServe AIDP Factory V2** (presentation templates),
+`ppt/media/image76.jpeg`, 460 × 460. It was located by **position, not by face**:
+on the "Oracle AI DP Team at a Glance" slide each person's picture sits at a
+fixed offset to the left of their name box (pic `x` = name `x` − ≈ 567 000 EMU,
+one row down), and the picture carrying that offset from the text run "Karsten
+Tramborg" is `rId7` → `image76.jpeg`. That heuristic alone was **not** enough to
+ship — the site prints the name, the title and a working mailto beside the
+picture on every Contacts tab, so a neighbouring tile would publish a colleague's
+face under Karsten's name. **Alex confirmed the identity on 2026-09-14**; that
+confirmation, not the offset, is what clears it.
 
-**To restore it:** get Karsten's (or Alex's) confirmation that the image is him,
-re-run the crop (Lanczos to 480 × 480, light unsharp, +4 % contrast; deliberately
-**not** teal-graded — a portrait in a contact card should read as a portrait),
-put the file back at `assets/img/people/karsten-tramborg.jpg` and set
-`shared.contact.photo` to that path. `check-grammar.js` warns while the key is
-empty; nothing else changes.
+**Treatment.** `-auto-orient` → Lanczos to 480 × 480 with a centre `^`/extent
+square crop → light unsharp (`0x0.8+0.6+0.02`) → +4 contrast → strip → progressive
+JPEG q85. Deliberately **not** teal-graded: a portrait in a contact card should
+read as a portrait, not as part of the hero system.
 
 **Title.** The pack one-pagers print his contact block as
 
@@ -187,7 +187,51 @@ instructed. The one-pagers print his personal address; it must not ship.
 
 ---
 
-## 4. Licensing and provenance caveats
+## 4. Customer logos — `assets/img/logos/`
+
+Two named customers ship, on Alex's instruction of **2026-09-14**: **Bosch**
+(workforce optimization) and **Riyadh Air** (large-document extraction). Every
+other customer on the site stays unnamed, and no euro figure, headcount, baseline
+or contract value from the Bosch business case ships with the name.
+
+| File | Size | What it is | Source |
+|---|---|---|---|
+| `bosch.png` | 720 × 161, 21 KB | Bosch supergraphic + wordmark, **all-white**, transparent | `WF_draft.pptx` (Monthly AI product overviews / AI Solutions review – Sep), `ppt/media/image7.png` — 960 × 216 transparent PNG of the official brand lockup |
+| `riyadh-air.svg` | 14.8 KB | Riyadh Air roundel + Latin/Arabic wordmark, **all-white**, vector | `NEW_09.06 Riyadh Air – Oracle – SoftServe PoC Demo.pptx` (Projects/Oracle/Customers/RiyahdAir), `ppt/media/image15.svg` — the deck's own vector logo, single-fill `#250852` |
+| `riyadh-air.png` | 720 × 247, 42 KB | raster fallback of the same, transparent | rendered from `riyadh-air.svg` |
+
+**Treatment.** Both are reduced to a **single white ink** so they sit on the dark
+surface the same way the shipped `softserve-logo-white.svg` and
+`oracle-wordmark-white.svg` do, and so no brand colour competes with the site's
+teal accent.
+
+- Bosch: `-trim` → alpha preserved, RGB set to 100 % (white) → Lanczos to 720 px
+  wide → PNG32. The source's red wordmark and black supergraphic both become
+  white; the anchor symbol's interior counters stay transparent, so the mark reads
+  correctly. Black-on-dark would have been invisible, which is why the original
+  full-colour file is not what ships.
+- Riyadh Air: the single fill class `#250852` (and the stray `#1A1A1A` presentation
+  attributes under it) rewritten to `#FFFFFF`, the Office-specific class name and
+  `id="AW"` dropped. Geometry untouched — this is the airline's own vector
+  artwork, not a trace.
+
+**No Wikimedia fallback was needed.** Both marks came out of SoftServe's own
+customer decks, so nothing was fetched from the open web and there is no external
+source URL to record.
+
+**Licensing position.** These are third-party registered trademarks reproduced to
+identify the customer in a reference story. They ship on Alex's statement that
+both customers are referenceable; the permission lives with the account teams, not
+in this repo. Recolouring to a single white ink is the standard reversed-logo
+treatment both brands publish for dark grounds, but it is still a modification —
+if either account team supplies an official reversed asset, replace the file
+rather than re-deriving it. If a reference permission is ever withdrawn, remove
+the file **and** the name from `data/content.js` in the same change; the logo is
+not the only place the customer is identified.
+
+---
+
+## 5. Licensing and provenance caveats
 
 - Every raster used is from **SoftServe's own decks**; nothing carries a
   watermark or a third-party stock mark.
@@ -202,8 +246,14 @@ instructed. The one-pagers print his personal address; it must not ship.
   engagement's real geography, its zone-naming convention, technician resource
   ids and uncleared uplift figures, and they have been withdrawn (see §1). Check
   a capture frame by frame before trusting a sentence like this one about it.
-- **No headshot ships.** The one located was matched by its position on a team
-  slide, never by a face, so it is withheld until someone confirms it is the
-  person the card names (see §3).
+- **The headshot ships on a human confirmation, not on the offset heuristic that
+  found it** (see §3). If that confirmation is ever retracted, pull the file and
+  blank `shared.contact.photo` in the same change — the card falls back to its
+  initials avatar on its own.
+- **The two customer logos are third-party trademarks** (see §4), used to identify
+  a reference customer. Everything else in `assets/img/` is SoftServe's own
+  material; these two are not, and they are the only assets on the site whose
+  right to ship rests on a customer's permission rather than on SoftServe owning
+  the file.
 - Nothing on OneDrive was modified; every extraction was a read-only
-  `unzip -p` or `pdftotext`/`pdfimages` against a copy.
+  `unzip`/`unzip -p` or `pdftotext`/`pdfimages` against a copy.
