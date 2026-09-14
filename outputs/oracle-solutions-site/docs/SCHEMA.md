@@ -179,7 +179,7 @@ Seven entries, in the order the Products page should list them:
 | Key | Type | Notes |
 |---|---|---|
 | `problemSolution` | `{ problem: { title, text, icon }, solution: { title, text, icon } }` | The paired two-panel strip. `text` is 1–2 sentences per panel; `icon` is an icon-registry key (today `alert` / `spark` on all seven). |
-| `metrics` | `[{ value, label, qualifier, icon }]` | 3–4 stat tiles. **`value: null` is a qualitative tile** — the icon renders at display size where the number would be, and the tile keeps its height so the row stays level. `value` as a string is ≤ 20 characters. `qualifier` is the baseline or caveat, ≤ 14 words. |
+| `metrics` | `[{ value, label, qualifier, icon }]` | 1–4 stat tiles — four is the designed shape, fewer where a figure has been withdrawn for clearance (`PROVENANCE.md` §14.1). **`value: null` is a qualitative tile** — the icon renders at display size where the number would be, and the tile keeps its height so the row stays level. `value` as a string is ≤ 20 characters. `qualifier` is the baseline or caveat, ≤ 14 words. |
 | `metricsNote` | string | **Mandatory on every product.** Renders as one footnote line under the metric row, in the same block. Carries the disclaimer that travels with the figures, or the honest "no published metrics yet" line where there are none. |
 
 **The section heading follows the data.** When at least one tile carries a `value`, the block is headed `sectionLabels.metrics` ("Metrics improved"). When every tile is qualitative, it is headed `sectionLabels.metricsPlanned` ("What the proof of value measures") instead — a heading asserting improvement over four tiles with no number, closed by a footnote saying no metrics are published, contradicts itself two lines later, and it is the first claim a seller lands on in a live demo.
@@ -239,7 +239,7 @@ The tab renders one fixed sequence on **all seven products**: fact strip → del
 | `scope` | string | One paragraph: what the proof of value covers. |
 | `inScope?`, `notInScope?`, `thenRollout?` | string | Single-line lists separated by `·`. |
 | `duration` | string | |
-| `durationShort` | string | The same duration in its shortest honest form (e.g. `2 months`, `30–45 days`). Interpolated into `sellerGate.cta.body` at `{duration}`; never rendered on its own. |
+| `durationShort` | string, optional | The same duration in its shortest honest form (e.g. `2 months`, `30–45 days`). Interpolated into `sellerGate.cta.body` at `{duration}`; never rendered on its own. **Omit it** where the duration is `Scoped per engagement` — there is no short form of "we do not publish one", and the CTA then uses `sellerGate.cta.bodyFallback`. |
 | `durationNote?`, `phases?`, `gateNote?` | string | |
 | `team` | string | Who delivers the proof of value. |
 | `prerequisites?` | `{ title, items: [string] }` | |
@@ -320,7 +320,7 @@ The gate checks the domain of the entered email against `SITE_CONFIG.sellerGate.
 - Every product's `category` is one of the three `facets.categories[].id` values.
 - Every product's `pov.ladder.length === 3`, in the order proof-of-value → rollout → scaling.
 - Every product has `tile.outcomes.length === 3`.
-- Every product fills every slot of the visual grammar: `hero.image`, `overview.problemSolution`, 3–4 `overview.metrics` plus `metricsNote`, `overview.roi`, 6–8 `overview.features`, 3–5 `overview.steps` covering every one of those features exactly once, 3–6 `overview.industryCases`, `overview.sideFacts`, `overview.industriesNote`, `overview.scope.in/.out`, `overview.moreDetail`, exactly four `technology.flow` steps, a 4–5 layer `technology.stack` with a required item in every layer, and `pov.facts`.
+- Every product fills every slot of the visual grammar: `hero.image`, `overview.problemSolution`, 1–4 `overview.metrics` plus `metricsNote`, `overview.roi`, 6–8 `overview.features`, 3–5 `overview.steps` covering every one of those features exactly once, 3–6 `overview.industryCases`, `overview.sideFacts`, `overview.industriesNote`, `overview.scope.in/.out`, `overview.moreDetail`, exactly four `technology.flow` steps, a 4–5 layer `technology.stack` with a required item in every layer, and `pov.facts`.
 - No product carries `technology.groups`, `technology.layers` or `technology.integration`; the layered `stack` replaced all three.
 - `shared.contact` exists, its `email` is `oracle@softserveinc.com`, and `shared.productTabs` carries a `contacts` tab and no `demo` tab.
 - `tools/check-grammar.js` asserts all of the above. Run `node tools/check-grammar.js` after any edit to either data file; it exits non-zero and names every failure. Missing image files are **warnings**, not failures: copy and imagery ship on separate tracks.

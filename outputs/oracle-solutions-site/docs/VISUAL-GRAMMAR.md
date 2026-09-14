@@ -32,9 +32,22 @@ Poster resolution order, first non-empty wins:
 
 1. `SITE_CONFIG.products[slug].videoPoster`
 2. `https://img.youtube.com/vi/<id>/maxresdefault.jpg` — only when `videoUrl` is a YouTube link
-3. `products[].hero.image.file` — the product's own hero image
 
-A frame waiting for its recording lands on step 3, so it carries the product's own photograph; the hero backdrop is veiled harder on this layout so the card still reads as a card. The frame's own veil stays light enough to keep the poster a picture rather than a grey field — only the caption's corner is shaded.
+There is no third step. **The hero image is never the poster.** Rendering the
+hero photograph inside a frame that sits on top of that same photograph makes
+the frame read as a brighter cut-out of the wallpaper rather than as a video
+still, and it is the first thing on the page a seller demos.
+
+A frame with no poster renders without its `<img>` and carries the
+`video-card--plate` modifier: a navy-to-inset gradient ground with the accent
+glow, a lighter veil, the teal play button and the caption. That is the
+documented pending state, and it is the same rule every other missing asset on
+this site follows. The frame's veil stays light enough to keep a real poster a
+picture rather than a grey field — only the caption's corner is shaded.
+
+To give a pending frame a still before the recordings land, set `videoPoster` to
+a **distinct** treated frame — a step screenshot, a desaturated crop at another
+focal point. Never the hero file.
 
 A product with neither flag nor URL never renders an empty frame, a greyed play button, or a "video coming soon" line.
 
@@ -115,7 +128,7 @@ Tile shape:
 | `qualifier` | The honest caveat or baseline: "Down from ~2 days", "Targeted reduction at proof of value". ≤ 12 words. |
 | `icon` | An icon-registry key (§4). Always present, on numeric and qualitative tiles alike. |
 
-In the rail the tiles **stack vertically** rather than sitting in a row — 3–4 tiles in their compact form, then the `roi` callout in its compact single-column form, then `metricsNote` as the footnote line closing the block. All three stay in the same visual block: rule 2 of this file is that a number never renders away from its disclaimer, and a rail that scrolled the figure past its footnote would break it as surely as a missing footnote would.
+In the rail the tiles **stack vertically** rather than sitting in a row — up to four tiles in their compact form, then the `roi` callout in its compact single-column form, then `metricsNote` as the footnote line closing the block. All three stay in the same visual block: rule 2 of this file is that a number never renders away from its disclaimer, and a rail that scrolled the figure past its footnote would break it as surely as a missing footnote would.
 
 **The heading follows the data.** When at least one tile carries a `value`, the block is headed `sectionLabels.metrics` ("Metrics improved"). When every tile is qualitative it is headed `sectionLabels.metricsPlanned` ("What the proof of value measures") instead — a heading asserting improvement over four tiles with no number, closed by a footnote saying no metrics are published, contradicts itself two lines later.
 
@@ -317,7 +330,7 @@ Every product object must satisfy all of the following. `tools/check-grammar.js`
 | `hero.image` | `{ file, alt, focal }`, all non-empty |
 | `overview.problemSolution.problem` | `{ title, text, icon }`, all non-empty |
 | `overview.problemSolution.solution` | `{ title, text, icon }`, all non-empty |
-| `overview.metrics` | 3–4 tiles; each has `label`, `qualifier`, `icon`; `value` is a non-empty string **or** `null` |
+| `overview.metrics` | 1–4 tiles; each has `label`, `qualifier`, `icon`; `value` is a non-empty string **or** `null`. Four is the shape the rail is designed at; fewer is legitimate when a figure has been withdrawn (see `PROVENANCE.md` §14.1) and never a reason to keep an uncleared number on the page |
 | `overview.metricsNote` | non-empty string |
 | `overview.roi` | `{ icon, text }`, both non-empty |
 | `overview.features` | 6–8 strings, each ≤ 12 words |
