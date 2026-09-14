@@ -20,43 +20,70 @@ Every product ships **four** steps: intake → processing → review/decision �
 delivery. Frames are 16:10. Screenshots are 1600 × 1000 JPEG (q86, ≤ 300 KB);
 illustrations are SVG at a 1600 × 1000 viewBox (≈ 3 KB each).
 
-### Real product UI (6 frames, 2 products)
+**The legibility rule, for both kinds.** The frame renders about **454 CSS px
+wide** on the Overview tab. A frame whose type does not survive that reduction is
+not a picture of the product doing the step — it is a decorative placeholder, and
+it reads as one.
+
+- Illustrations: `rendered = font-size × (454 / viewBox width)` must be **≥ 12**.
+  At a 1600 viewBox that means 44 px type or larger, which is why the scenes
+  carry few, large labels rather than many small ones.
+- Screenshots: `rendered = source px × (454 / crop width in source px)`, same
+  floor. A full application capture cannot clear it — crop to the one region the
+  step is about, and keep every heading whole inside the crop.
+
+### Real product UI (2 frames, 1 product)
 
 | File | Shows | Source deck |
 |---|---|---|
-| `workforce-optimization-1.jpg` | The Run Optimization dialog — region, period, roster upload | Work Zone Optimization PoC user guide (SoftServe), `media/image1.png` |
-| `workforce-optimization-2.jpg` | Dashboard: service zones on the map above the weekly schedule | same deck, `image12.png` |
-| `workforce-optimization-3.jpg` | Current allocation beside optimized allocation | same deck, `image4.png` |
-| `workforce-optimization-4.jpg` | Weekly schedule with accept / reject / comment per zone | same deck, `image10.png` |
-| `large-document-extraction-2.jpg` | Contract page beside the rates extracted from it | Workforce/product draft deck, `media/image16.jpeg` |
+| `large-document-extraction-2.jpg` | The extracted rate rows, column by column, against the rules for the document type | Workforce/product draft deck, `media/image16.jpeg` |
 | `large-document-extraction-3.jpg` | Reviewer console: rule, confidence, source page, approve | R&D GenAI Solutions monthly update (Jun), `media/image6.png` |
 
-**Treatment.** Focal crop to 16:10 → Lanczos to 1600 × 1000 → light unsharp
-(r 0.8 / 55 %) → a per-channel curve that takes white down to about
-`#D6DEE4` and cools it slightly, so a light product UI sits inside a dark page
-without glaring. Progressive JPEG, 4:2:2.
+**Treatment.** Crop to the legible region (2.0–2.6× into the source frame) →
+Lanczos to 1600 × 1000 → unsharp (r 1.1 / 70 %) → a per-channel curve that takes
+white down to about `#B0B8C0` and cools it, so a light product UI is no longer
+the brightest thing on a dark page. `-2` also carries a soft right-edge fade into
+the panel ground, where the source's own horizontal scroll clipped a column.
+Progressive JPEG, 4:2:2. `.step-frame` adds a 1 px inset rim in CSS so every
+frame, raster or vector, is bounded the same way.
 
-**Redaction.** `workforce-optimization-3.jpg` has both map Details drawers
-Gaussian-blurred (r 14) before the crop: those panels listed appliance-category
-job names that identify the engagement. Nothing else on any shipped frame needed
-redaction — the header reads "NVIDIA cuOPT powered by OCI", the zone names are
-Dutch place names, the technician identifiers are opaque numbers, and the
-document-extraction frames run on a **synthetic** contract ("Synthetic Envelope
-ID", invented station names) rather than a customer's.
+**Data shown.** Both frames run on a **synthetic** contract — "Synthetic Envelope
+ID", `SYN-GHA-RL-001`, invented stations "Northbridge International (NBI)" and
+"Westport Gateway (WPG)". That is the standard any future product screenshot has
+to meet before it ships.
 
-**What was rejected.** The Account Insights reviewer console exists in the decks,
-but every frame of it fans real published news to named real companies — the
-account, the news source, the cross-account effects and the opportunity chips are
-all real company names, several of them SoftServe customers. Blurring them leaves
-an empty page, so the product ships four illustrations instead. The Intelligent
-Document Extraction service-packages deck contains no product UI — its 40 images
-are slide exports, and those carry a customer name in the case study.
+**What was rejected.**
 
-### Designed step illustrations (22 frames, 6 products)
+- **The four workforce-optimization PoC captures.** They were shipped once and
+  have been withdrawn. Between them they printed the engagement's real
+  geography (ten Dutch municipalities and an airport, on a labelled service-zone
+  map), the customer's zone-naming convention (`NL_north_west_…`), the zone
+  count, and ten ten-digit technician resource ids — while the page beside them
+  calls the engagement "a global home-appliance manufacturer" and `PROVENANCE`
+  §4 records the deliberate decision to withhold the country names because the
+  geography narrows that label to roughly one company. Two of them additionally
+  printed per-technician uplift ("77% → 87% capacity", "4.98 → 6.47 jobs/day",
+  "60% → 100%", "4.2 → 7.6") six to eighteen times the median figure the product
+  is cleared to claim, under a disclaimer calling the results modeled
+  simulations. Blurring is not enough: the map, the ids and the figures are the
+  content. The product ships four designed illustrations instead, and will keep
+  doing so until the captures are regenerated against synthetic data — a
+  fictional metro, invented zone names, synthetic ids, and deltas inside the
+  cleared band.
+- **The Account Insights reviewer console.** Every frame of it fans real
+  published news to named real companies — the account, the news source, the
+  cross-account effects and the opportunity chips are all real company names,
+  several of them SoftServe customers. Blurring them leaves an empty page.
+- **The Intelligent Document Extraction service-packages deck** contains no
+  product UI — its 40 images are slide exports, and those carry a customer name
+  in the case study.
+
+### Designed step illustrations (26 frames, 7 products)
 
 `account-insights-1..4`, `case-evidence-collection-1..4`,
 `plan-vs-actual-investigation-1..4`, `cross-system-erp-qa-1..4`,
-`business-metrics-qa-1..4`, `large-document-extraction-1` and `-4`.
+`business-metrics-qa-1..4`, `workforce-optimization-1..4`,
+`large-document-extraction-1` and `-4`.
 
 Drawn, not sourced. One grammar across all of them: ground `#10161A` with a
 `#0E2D4D` radial lift, 2–3 px strokes (≈ 1.5 px on screen at the rendered size),
@@ -66,10 +93,15 @@ underneath. No emoji, no filled icons, no sentences inside the artwork — the s
 title and caption live in the page, not in the picture.
 
 Scene vocabulary, so the same step reads the same way on every product:
-fan-in (intake), graph / dossier / semantic layers / bars (processing),
-three decision rows (review), fan-out and answer card (delivery). The three
-answer cards carry a different inner glyph — bars, merge, trend — so a reader
-moving between products can tell them apart.
+fan-in (intake), graph / dossier / semantic layers / bars / weighted rules /
+constraint solve (processing), three decision rows (review), fan-out and answer
+card (delivery). The three answer cards carry a different inner glyph — bars,
+merge, trend — so a reader moving between products can tell them apart.
+
+Labels are 44–56 px in the 1600 viewBox (12.5–15.9 CSS px in the frame) and the
+eyebrow is 50 px. The scenes are laid out around that type: three or four
+labelled nodes, wide cards, generous gaps. Where a label has to cross artwork —
+the account-map frame — it sits on a soft `#10161A` plate rather than shrinking.
 
 ---
 
@@ -116,20 +148,28 @@ no shopfront name and no legible screen text survives in any crop.
 
 ---
 
-## 3. Headshot — `assets/img/people/karsten-tramborg.jpg`
+## 3. Headshot — none ships
 
-480 × 480 JPEG, q85, ~30 KB. Source: **SoftServe AIDP Factory V2** (presentation
-templates), `ppt/media/image76.jpeg`, a 460 × 460 square already framed on the
-face.
+`shared.contact.photo` is **empty** and the contact card renders its "KT"
+initials avatar. There is no file under `assets/img/people/`.
 
-Identified by **position, not by face**: on the "Oracle AI DP Team at a Glance"
-slide, each person's picture sits at a fixed offset to the left of their name box
-(pic `x` = name `x` − ≈ 567 000 EMU, one row down). The picture carrying that
+A candidate was prepared and then withdrawn. It came from **SoftServe AIDP
+Factory V2** (presentation templates), `ppt/media/image76.jpeg`, and it was
+identified by **position, not by face**: on the "Oracle AI DP Team at a Glance"
+slide each person's picture sits at a fixed offset to the left of their name box
+(pic `x` = name `x` − ≈ 567 000 EMU, one row down), and the picture carrying that
 offset from the text run "Karsten Tramborg" is `rId7` → `image76.jpeg`. No facial
-comparison was made.
+comparison was made, and the site prints that name, that title and a working
+mailto beside the picture on every Contacts tab. If the offset heuristic picked a
+neighbouring tile, the site publishes a different colleague's face under Karsten's
+name to customers. An unverified portrait is not a shippable asset.
 
-**Treatment.** Lanczos to 480 × 480, light unsharp, +4 % contrast. Deliberately
-**not** teal-graded — a portrait in a contact card should read as a portrait.
+**To restore it:** get Karsten's (or Alex's) confirmation that the image is him,
+re-run the crop (Lanczos to 480 × 480, light unsharp, +4 % contrast; deliberately
+**not** teal-graded — a portrait in a contact card should read as a portrait),
+put the file back at `assets/img/people/karsten-tramborg.jpg` and set
+`shared.contact.photo` to that path. `check-grammar.js` warns while the key is
+empty; nothing else changes.
 
 **Title.** The pack one-pagers print his contact block as
 
@@ -155,10 +195,15 @@ instructed. The one-pagers print his personal address; it must not ship.
   deck**, not licensed stock — garbled micro-glyphs survive on a couple of them.
   Worth one line of confirmation with whoever owns that deck before the site goes
   public. There is no visible external origin to flag.
-- The step screenshots are **SoftServe product UI** — the workforce optimizer and
-  the document-extraction reviewer, both built by SoftServe on OCI. They show
-  synthetic or place-name data, not a customer's records.
-- The headshot is a SoftServe colleague's own deck photograph. Confirm with him
-  before the site is published externally.
+- The two step screenshots are **SoftServe product UI** — the document-extraction
+  reviewer, built by SoftServe on OCI. Both run on a synthetic contract with
+  invented station names, not on a customer's records. This was **not** true of
+  the four workforce captures that shipped alongside them: those printed the
+  engagement's real geography, its zone-naming convention, technician resource
+  ids and uncleared uplift figures, and they have been withdrawn (see §1). Check
+  a capture frame by frame before trusting a sentence like this one about it.
+- **No headshot ships.** The one located was matched by its position on a team
+  slide, never by a face, so it is withheld until someone confirms it is the
+  person the card names (see §3).
 - Nothing on OneDrive was modified; every extraction was a read-only
   `unzip -p` or `pdftotext`/`pdfimages` against a copy.
