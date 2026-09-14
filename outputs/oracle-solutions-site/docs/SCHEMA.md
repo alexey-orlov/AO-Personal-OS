@@ -12,7 +12,7 @@ Conventions used below:
 Three rules the renderers must hold to, because the copy depends on them:
 
 1. **A number never renders without the disclaimer that sits beside it.** Where a block has `footnote`, `footnotes[]` or `disclaimers[]`, render them in the same visual block as the figures.
-2. **Absence renders as an empty instance of the same component.** A missing price, video or case study renders the component with its `emptyState` / `emptyLabel` line — never a sentence saying the component is missing, and never a disabled placeholder where a locked decision says nothing should render.
+2. **Absence renders as an empty instance of the same component, or as nothing at all.** A missing price renders the component with its `emptyState` line — never a sentence saying the component is missing. But where absence has no honest content of its own — a video, a marketplace listing, a seller material, a success story — the element does not render. A section whose only content is that there is no content is never shipped.
 3. **Facets and availability are data, not classes.** Read the chip label and tooltip from `facets` / `availability`; do not hard-code either.
 4. **Every product fills every grammar slot.** The seven product pages share one component grammar, documented in `VISUAL-GRAMMAR.md`. A product with no published number fills its metric row with *qualitative* tiles (`value: null`); it never renders a shorter page than its peers. `tools/check-grammar.js` enforces this.
 
@@ -81,7 +81,7 @@ Flat map of reusable strings: `kpiTile`, `kpiTileTargets`, `packageTable`, `lake
 | `heroAsideTitle`, `heroAsideFootLabel` | `string` | Carried for reference; no surface renders them since the product hero became a single-column block over its background image. |
 | `videoCaption` | `string` | Caption printed on the hero video frame, and the label of the fallback "watch" button. |
 | `industryLabels` | map | The sixteen fixed industry keys → display label. A product's `overview.industries[]` holds bare keys; the renderer looks the label up here and the icon up as `industry-<key>`. No product may use a key absent from this map. |
-| `sectionLabels` | map | The standing headings of the visual grammar — the Overview, Technology and POV section titles that are the same on all seven products (`metrics`, `roi`, `features`, `industries`, `scopeIn`, `scopeOut`, `moreDetail`, `moreDetailFeatures`, `architecture`, `flow`, `components`, `stack`, `notUsed`, `integration`, `security`, `povFact*`, `deliverables`, `pricing`, `terms`, `matrix`, `ladder`, `povScopeIn`, `povScopeOut`, `povRollout`, `povPhases`, `povMeasured`). Product-specific headings stay in the product object. |
+| `sectionLabels` | map | The standing headings of the visual grammar — the Overview, Technology and POV section titles that are the same on all seven products (`metrics`, `roi`, `features`, `industries`, `scopeIn`, `scopeOut`, `moreDetail`, `moreDetailFeatures`, `architecture`, `flow`, `components`, `stack`, `notUsed`, `integration`, `security`, `povFact*`, `deliverables`, `pricing`, `terms`, `matrix`, `ladder`, `povScopeIn`, `povScopeOut`, `povRollout`, `povPhases`, `povMeasured`, plus `scope` and `povHeading`). Product-specific headings stay in the product object. |
 | `materialStates` | map | `state` value → button label for seller materials. |
 
 ---
@@ -193,25 +193,28 @@ Seven entries, in the order the Products page should list them:
 |---|---|---|
 | `title` | string | Section heading. |
 | `state` | `published` / `first-engagement` / `none` | Drives which shape renders. |
-| `blurb` | string | Empty on `none`. |
-| `scopeLine?`, `results?`, `footnotes?` | as on `EvidenceCard` | Present where the product has delivered proof. |
-| `emptyLabel` | string | The one honest line shown when there is nothing to publish. Rendered as the band body when the story has neither `blurb` nor `results`; omitted entirely once `results` are present. |
+| `blurb` | string | **The whole block renders only when this is non-empty.** Empty on `none`, and the section is then omitted entirely. |
+| `scopeLine?` | string | One line naming the shape of the engagement — duration, countries, what was modelled. |
 | `evidenceId?` | string | Renders the matching `overview.evidence[]` card rather than duplicating it. |
 | `adjacentMethodId?` | string | A `METHOD` card that may render alongside as method proof. |
 
-The **Download the success story** button renders only when `SITE_CONFIG.products[slug].successStoryUrl` is non-empty; otherwise no control renders in its place.
+**No story, no band.** A success-story section whose only content is "nothing published yet" is worse than its absence on a page sellers demo live in front of a customer, so there is no empty state here — the block is simply not rendered. This is the same rule that governs every other URL-gated element on the site.
 
-The block renders as a two-tone light band: the narrative on the neutral half, the `results` metrics and `footnotes` on the blue-grey half. With no `results` the band collapses to a single tone carrying `emptyLabel` alone.
+**Figures live in the metric tiles, not here.** The card carries the narrative, the scope line and at most one link. Printing the same numbers in `overview.metrics[]` and again in the story card, each under its own copy of the same disclaimer, was the duplication the compactness target exists to prevent; the tile row's `metricsNote` carries the disclaimer once per tab.
+
+The **Open the success story** link renders only when `SITE_CONFIG.products[slug].successStoryUrl` is non-empty; otherwise no control renders in its place. It opens in a new tab rather than forcing a download, because browsers ignore `download` on a cross-origin URL.
+
+The block renders as a single-tone light band.
 
 ### `technology`
 
 | Key | Type | Notes |
 |---|---|---|
-| `narrative` | string | **Three sentences maximum.** One paragraph. |
+| `narrative` | string | **Two short sentences, ~40 words maximum.** One paragraph. The flow steps and the component groups directly beneath it carry the detail; a long paragraph here is the text dump the flow diagram was added to replace. |
 | `flow` | `[{ step, label }]` | **Exactly four steps**, rendered as the standard compact flow diagram — identical geometry on all seven pages. `step` is the canonical stage name (`Sources`, `Ingest`/`Extract`/`Mount`, `Reason`/`Optimize`/`Govern`/`Validate`, `Deliver`); `label` is the product-specific line, ≤ 10 words. |
 | `groups` | `[{ vendor, label, items: [string] }]` | Component groups as vendor-marked columns. `vendor` is `oracle`, `nvidia`, `softserve` or `other` and selects the wordmark above the column; `label` disambiguates the several `oracle` groups (OCI, Autonomous AI Lakehouse, Fusion Applications). Every product has at least one `oracle` group and exactly one `softserve` group. |
 | `notUsed` | `[string]` | The honest "not used by this product" line, rendered muted under the columns. May be empty; the key must exist. |
-| `layers` | `[{ layer, providedBy, body }]` | The four-tier layer cake, bottom → top. **Empty on the two Lakehouse products** — render nothing rather than an empty table. |
+| `layers` | `[{ layer, providedBy, body }]` | The four-tier layer cake, bottom → top. **Four rows on every product** — the Technology tab is the surface a technical buyer compares most directly across products, so it renders the same four sections everywhere. On the two Lakehouse products `providedBy` may read `Unchanged` for the existing-platforms row. |
 | `governance?` | `{ title, body }` | The two Lakehouse products. |
 | `integration` | `[{ icon, text }]` | Icon-led list. Icons by convention `inbound` / `outbound` / `trigger` / `link`. |
 | `security` | `[{ icon, text }]` | Icon-led list. Icons by convention `shield` / `lock` / `eye` / `audit`. |
@@ -220,9 +223,10 @@ The block renders as a two-tone light band: the narrative on the neutral half, t
 
 Renders the `POV Jumpstart` tab.
 
+The tab renders one fixed sequence on **all seven products**: fact strip → deliverables checklist → price table with its disclaimers as footnotes → the three-tier ladder → the standing gate and credibility blocks → one primary CTA. Everything else a product carries — `statStrip`, `inScope`/`notInScope`/`thenRollout`/`phases`/`howMeasured`, `statNotes`, `prerequisites`, `howItRuns`, `capabilityMatrix` — renders inside a single collapsed **More detail** disclosure placed after the ladder. A seller flipping between two product tabs in front of a customer must not get a different page shape each time, so none of the optional keys below may add or remove a top-level section.
+
 | Key | Type | Notes |
 |---|---|---|
-| `heading` | string | |
 | `facts` | `{ duration, team, price, deliverablesCount }` | The four-tile fact strip at the top of the tab. All four are short display strings except `deliverablesCount`, which is a **number** and must equal `deliverables.length`. `price` reads `Scoped per engagement` where none is published — the tile is never empty. |
 | `scope` | string | One paragraph: what the proof of value covers. |
 | `inScope?`, `notInScope?`, `thenRollout?` | string | Single-line lists separated by `·`. |
@@ -233,8 +237,7 @@ Renders the `POV Jumpstart` tab.
 | `prerequisites?` | `{ title, items: [string] }` | |
 | `howMeasured?` | string | |
 | `statStrip?`, `statNotes?` | string / `[{ title, body }]` | The Quick Start offer block on the two Lakehouse products. |
-| `deliverables` | `[string]` | |
-| `deliverablesTitle?` | string | Defaults to "Deliverables"; the Lakehouse products override it with "WHAT YOU KEEP". |
+| `deliverables` | `[string]` | Rendered under the shared `sectionLabels.deliverables` heading. The heading is not overridable per product — see the fixed sequence above. |
 | `howItRuns?` | `{ title, steps: [{ title, body }], closing? }` | |
 | `pricing` | `[{ label, value, note? }]` | The proof-of-value's own price lines. Render as a small table with the `disclaimers` beneath. |
 | `disclaimers` | `[string]` | Render **all** of them, in order, in the same block as the figures. The last one is always the public packaging footnote. |
