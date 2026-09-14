@@ -149,8 +149,8 @@
     }
     if (conf.successStoryUrl) {
       out.push(UI.button({
-        label: "Download the success story", href: conf.successStoryUrl,
-        kind: "quiet", icon: "download", attrs: { download: "" }
+        label: "Open the success story", href: conf.successStoryUrl,
+        kind: "quiet", iconAfter: "external"
       }));
     }
     return '<div class="cta-row product-hero-cta">' + out.join("") + "</div>";
@@ -317,45 +317,28 @@
       "</details></section>";
   }
 
+  /* No story, no band. A section whose only content is "nothing to show yet"
+     is worse than its absence on a page a seller demos live. The numbers stay
+     in the metric tiles above; the card carries the narrative and the link. */
   function successStory(product) {
     var UI = window.UI;
     var story = product.overview.successStory;
     var conf = cfg(product.slug);
-    var hasResults = !!(story.results && story.results.length);
-
-    var copy = '<div class="story-band-copy">' +
-      '<p class="band-label">' + UI.esc(story.title) + "</p>" +
-      '<p class="band-body">' + UI.esc(story.blurb || story.emptyLabel || "") + "</p>" +
-      (story.scopeLine ? '<p class="band-scope">' + UI.esc(story.scopeLine) + "</p>" : "") +
-      (story.blurb && !hasResults && story.emptyLabel
-        ? '<p class="band-note">' + UI.esc(story.emptyLabel) + "</p>" : "") +
-      (conf.successStoryUrl
-        ? UI.button({
-            label: "Download the success story", href: conf.successStoryUrl,
-            kind: "dark", icon: "download", attrs: { download: "" }
-          })
-        : "") +
-      "</div>";
-
-    var metrics = hasResults
-      ? '<div class="story-band-metrics">' +
-          '<ul class="band-metrics">' + story.results.map(function (item) {
-            return "<li>" +
-              '<p class="band-metric-value nums">' + UI.esc(item.value) + "</p>" +
-              '<p class="band-metric-label">' + UI.esc(item.label) + "</p>" +
-              "</li>";
-          }).join("") + "</ul>" +
-          (story.footnotes && story.footnotes.length
-            ? '<div class="band-notes">' + story.footnotes.map(function (note) {
-                return '<p class="band-footnote">' + UI.esc(note) + "</p>";
-              }).join("") + "</div>"
-            : "") +
-        "</div>"
-      : "";
+    if (!story || !story.blurb) return "";
 
     return '<section class="panel panel--flat reveal">' +
-      '<div class="story-band' + (hasResults ? "" : " story-band--single") + '">' +
-        copy + metrics +
+      '<div class="story-band story-band--single">' +
+        '<div class="story-band-copy">' +
+          '<p class="band-label">' + UI.esc(story.title) + "</p>" +
+          '<p class="band-body">' + UI.esc(story.blurb) + "</p>" +
+          (story.scopeLine ? '<p class="band-scope">' + UI.esc(story.scopeLine) + "</p>" : "") +
+          (conf.successStoryUrl
+            ? UI.button({
+                label: "Open the success story", href: conf.successStoryUrl,
+                kind: "dark", iconAfter: "external"
+              })
+            : "") +
+        "</div>" +
       "</div></section>";
   }
 
