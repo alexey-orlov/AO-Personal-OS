@@ -377,3 +377,61 @@ The images are the background of the **top block only** — the hero — on the 
 ### 9.5 `config.products[*].videoPoster`
 
 New key, empty on all seven, documented in `CONFIG.md` §3. It is inert unless that product's `videoUrl` is non-empty. The renderer falls back to the YouTube thumbnail and then to the product's own hero image, so a YouTube demo needs nothing set here — which is why shipping it empty is the correct state and not an unfinished one.
+
+---
+
+## 10. Fix round on the visual-grammar build
+
+This round took the F1–F3 build through QA and corrected what QA found. Nothing here introduces a new fact; every change is a restoration, a de-duplication, a removal of an unsourced claim, or a consistency repair.
+
+### 10.1 The hero images were missing from the served root
+
+The nine JPGs and `heroes.json` recorded in §9.4 as reinstated **were not on disk.** They had been deleted by an unrelated autosync commit, replaced briefly by nine byte-identical placeholder files, and deleted again. The result: every hero fell back to the same flat gradient, the per-product differentiation F1 asked for was invisible on all nine pages, and the console carried a 404 per hero request.
+
+The complete original set was recovered from git and is now committed. `heroes.json` was rewritten at the same time: its `focal` values now match the CSS `object-position` actually shipping in `content.js`, its `alt` strings describe what each photograph actually shows, and its `source` field is generic on every entry (§9.4).
+
+The nine `alt` strings in `content.js` were corrected to match. They had been written against images that were never the ones on disk — `workforce-optimization` read "service territory rendered as routes and coverage zones over a dark map" for a photograph of a container terminal. The hero image ships as `alt=""` because it is decorative, so no reader was misled; the descriptions are kept truthful as an operator record, and `CONFIG.md` §3b now says so explicitly.
+
+### 10.2 Proof figures are no longer printed twice
+
+`workforce-optimization` and `large-document-extraction` each printed the same figures in the METRICS IMPROVED tiles and again in the success-story card, with the same disclaimer sentences under both. The tiles keep the numbers; `successStory.results[]` and `successStory.footnotes[]` were deleted from both products, and the card is now narrative blurb + scope line + link. No figure was lost — each survives in the tile row, with the disclaimer carried once as `metricsNote`.
+
+`large-document-extraction`'s third tile was replaced. It had read *"7–12% / Of an airline's direct operating cost"* — an aviation cost-structure fact, not a metric this product improves, sitting in the one row meant to be comparable across all seven and narrowing a horizontal pack to a single vertical. It is now a qualitative tile, *"Business-rule validators / Flag what a human must look at"*, drawn from the product's own feature list. The 7–12% fact still ships, in the "Why the error class is expensive" card inside More detail, where it is framed as context rather than as a result.
+
+### 10.3 `technology.layers` filled for the two Lakehouse products
+
+Both shipped `layers: []`, so five products rendered a four-section Technology tab and two rendered three sections. The rows were written from each product's own `technology.groups` and `technology.integration` entries on the same tab — the Lakehouse platform, the tenancy it runs in, the source-connectivity or existing-platform layer, and the SoftServe configuration layer. No component, vendor or capability is named that was not already published on that page. `providedBy` reads `Unchanged` for `business-metrics-qa`'s existing-platforms row, because the whole claim of that pack is that those platforms are not touched.
+
+### 10.4 The success-story block renders only where there is a story
+
+It previously rendered on all seven, printing an empty-state line to the customer on four of them — *"No customer engagement published yet — this is a new fixed-price offer"* and similar. That broke the standing rule that an element with no content is not rendered, and on a page sellers demo live it handed the prospect a section whose only content was the absence of customers.
+
+The block now renders only where `overview.successStory.blurb` is non-empty: `account-insights` (a real in-flight first engagement), `large-document-extraction` and `workforce-optimization`. The five `emptyLabel` strings were deleted from `content.js` so the placeholder cannot return.
+
+### 10.5 Unsourced industry chips removed
+
+Three products lost chips that no source supports; see the corrected table in §9.2. The two Lakehouse products keep their single `cross-industry` chip — the honest answer for a horizontal offer — but it now renders as a full-width statement chip carrying the same line icon and the same geometry as a four-chip row, instead of one lonely pill in a row built for four.
+
+### 10.6 Prose trimmed to the shapes the grammar promised
+
+- `technology.narrative`, all seven: cut from 57–92 words to ~35. The detail lives in the flow-step labels and the component groups directly beneath it, which already carry it.
+- `roi.text`, `workforce-optimization` (63 words) and `plan-vs-actual-investigation` (59): cut to ~30 so the callout band holds one or two lines on every product. `workforce-optimization`'s qualifying clause about what the proof measures was already published verbatim in its `moreDetail` "How the KPIs are defined" entry, so nothing left the page.
+- `workforce-optimization`'s three roadmap out-of-scope lines merged into one; all three items still ship in full in the `moreDetail` roadmap entry.
+- *"The model finds the most optimal schedules, maximizing KPIs"* → *"The solver returns the schedule that scores best against the weighted objectives."* The original was ungrammatical and an unsupported superlative in a section otherwise written in measured, evidence-bound voice.
+- `business-metrics-qa`'s two `moreDetail` card titles lost their quotation marks. In the source deck they sat under a "WHAT WE HEAR FROM IT AND DATA LEADERS" header; stripped of that frame, quoted lines read as manufactured customer quotes on a page that otherwise never invents one. They now read as section labels, which is what they are.
+- Straight apostrophes replaced with typographic apostrophes throughout `content.js` (the dashes were already correct).
+
+### 10.7 The home page no longer repeats the Services proof block
+
+Both pages rendered all five evidence entries. The home page now carries the two delivered proofs and a link through to Services, which keeps the full block including the method cards and the engagement still in preparation. A seller demoing home → services no longer shows the same screen twice.
+
+### 10.8 ⚠ Ship gate — clearance still outstanding on the published proof strips
+
+**This is the one item in this round that is not closed, and it blocks making the site public.**
+
+The `workforce-optimization` and `large-document-extraction` proof figures — the tile rows, and the anonymised case entries in `overview.evidence[]` — are derived from `RESEARCH/07` §7.0, a deck marked *Confidential: Internal/Restricted* and under Oracle copyright, and from `RESEARCH/04`, an NDA-covered workshop transcript. §4 of this file already records the workforce clearance as outstanding. Two things are needed and neither is recorded as done:
+
+1. **Written Oracle and customer clearance** for both anonymised proof strips. The copy is correctly anonymised and correctly hedged, but anonymisation is not the clearance — the research file says so in terms: nothing from it goes on a SoftServe website, one-pager or deck until the customer and Oracle approve in writing.
+2. **Alex's explicit OK** for the `method-accuracy-journey` card (the 23%→81% accuracy story), which the research marks as needing his sign-off.
+
+Until both are in hand and recorded here with a date, the fallback is the scope-and-method framing — constraints modeled, countries, what the proof of value measured — with the ratios removed. The figures were **not** stripped in this round, because doing so would discard work that may already be cleared; the decision is Alex's and it has to be made before publication, not by a QA pass.
