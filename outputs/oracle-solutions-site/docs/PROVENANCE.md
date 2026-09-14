@@ -38,10 +38,10 @@ Every row here is a place where `BRIEF` and `SPEC` disagree and the data layer f
 | L3 | `facets.marketplace`, `config.products[*].marketplace` | **No Marketplace control anywhere on a customer-facing surface** (`SPEC` §2.2, `A1`) — no checkbox, no badge, no muted line | A `Available on Oracle Marketplace` checkbox facet, and `marketplace: true` on `workforce-optimization` and `large-document-extraction` | `BRIEF` D4, on Alex's own statement. `RESEARCH/06` §A.1 found no SoftServe listing on Oracle Cloud Marketplace for any pack and no owner, date or process; five public searches returned zero. **This is the single claim on the site that public evidence does not support — confirm the two listings exist before launch.** |
 | L4 | `products[].sellers.materials` (the two packaged packs) | An asset row `Oracle Marketplace package — Planned` (`SPEC` §3.1, §3.2) | That row is **removed** from both | It would contradict the Marketplace badge L3 puts on the same page. If L3 is reverted, reinstate the row. |
 | L5 | `shared.productTabs[2].label` | Tab label `Proof of value`; `SPEC-PROV` §C fails the build on the string `POV Jumpstart` | `POV Jumpstart` | `BRIEF` D5 spells the tab bar out. `SPEC` §3 argues "POV" reads as *point of view* outside the team. Purely a label: the tab id stays `pov`, and one string changes it back. **Worth a look before launch.** |
-| L6 | `products[3].name` | `Large Document Extraction and Review` (`SPEC` §3.2, resolved at `C7`) | `Large Docs Extraction and Review` | `BRIEF` D2's product table. `SPEC` §0.5 rule 8 says no abbreviation earns its place by being shorter, and `C7` already had three competing names for this product. The slug is unchanged. **Likeliest of the overrides to be a typo — one string, used in six places in `content.js`.** |
+| L6 | `products[3].name` | `Large Document Extraction and Review` (`SPEC` §3.2, resolved at `C7`) | `Large docs extraction and review` | `BRIEF` D2's product table. `SPEC` §0.5 rule 8 says no abbreviation earns its place by being shorter, and `C7` already had three competing names for this product. The slug is unchanged. **Two separate questions here, and only one has been answered.** The *case* was settled in §13: all seven names are sentence case now, because five of the seven already were and the seven sit side by side in the "Product of interest" dropdown on every Contacts tab. The **`Docs` vs `Document`** question is untouched and still open — it is D2's override, not a drafting slip, and it remains the likeliest of the overrides to be a typo. |
 | L7 | `forms.roles` | Three options: An Oracle customer · An Oracle seller or partner · Other (`SPEC` §3.0.5) | **Four**: adds `SoftServe` | `BRIEF` D7. |
 | L8 | `forms` field set | Ten fields including country, Oracle products in place, preferred timing (`SPEC` §3.0.5) | **Seven**: name, work email, company, role, product of interest, message, consent | `BRIEF` D7 defines the field set. The dropped fields are recoverable from `SPEC` §3.0.5 if lead routing ever wants them. |
-| L9 | `config.contactEmail` | **No address anywhere in shipped data** until a role alias is verified (`SPEC` §1.6, `F1`); `SPEC-PROV` §C fails the build on `RnDrequest` and on `@softserveinc.com` | `RnDrequest@softserveinc.com` | `BRIEF` D7 sets it as the default. It is a **role alias, not an individual's mailbox**, which is exactly what `F1` asked for — but `F1` also records that it appears in no source file and is unverified. **Confirm it resolves before launch**; a form that composes mail to a dead alias loses every lead silently. It is never printed on a page: it is only the `mailto:` destination. |
+| L9 | `config.contactEmail` | **No address anywhere in shipped data** until a role alias is verified (`SPEC` §1.6, `F1`); `SPEC-PROV` §C fails the build on `RnDrequest` and on `@softserveinc.com` | `oracle@softserveinc.com` | `BRIEF` D7 set `RnDrequest@softserveinc.com` as the default, and that is what shipped until §13. `F1` recorded that the alias appears in no source file and is unverified, and E5 then put `oracle@softserveinc.com` on the contact card directly above the form — so the Contacts tab printed one address and composed mail to a different, unverified one. The form now uses the same practice mailbox the card prints. `RnDrequest@` can come back the moment someone confirms it resolves **and** records here why the form should route somewhere the card does not name. |
 | L10 | `products[4].overview.successStory.results`, `overview.evidence[0].metrics` | Only the time metric ships; every productivity percentage is suppressed as internally disputed (`SPEC` §1.4, `C2`) | The time metric **plus** the post-proof business-case figures: 83% of 12 modelled simulations positive, median +4.5% jobs per technician per day, 15–20% dispatcher productivity (case built on 15%), ~5x modelled ROI over three years | `BRIEF` D8 authorises exactly this list from `RESEARCH/07` §7.1. Note this is **not** a reversal of `C2`: the disputed `+26%` and `€190K/month` from the sales one-pager are still absent, and so is `up to ~5%`. What ships is the business case that superseded them. See §4 below for the clearance that is still outstanding. |
 | L11 | `config.products[*].videoUrl` / `successStoryUrl` / `marketplaceUrl` | Same rule | Same rule, all empty | No override. `BRIEF` D4 restates `SPEC` §3.0.1: the control renders only when the URL is non-empty, with nothing in its place otherwise. |
 | L12 | Not in the data layer | Ship the customer-free use-case map in the hero frame (`SPEC` §1.1, `A3`) | **No map image is staged in `site/assets/img/`** | See §5. The only customer-free variant carries internal vocabulary that `BRIEF` D10/D11 ban outright. |
@@ -255,7 +255,7 @@ Also fail on:
 
 | Pattern dropped | Why |
 |---|---|
-| `RnDrequest` and `@softserveinc\.com` | `BRIEF` D7 puts `RnDrequest@softserveinc.com` in `config.js` as the form's fallback destination (L9). It is a role alias, not an individual, and it is never printed on a page. The `tramborg` / `ktram` patterns stay — those catch an actual person's mailbox, which must never appear. |
+| `@softserveinc\.com` | The practice mailbox `oracle@softserveinc.com` is both printed on the contact card and used as the form's `mailto:` destination (L9). It is a role alias, not an individual. The `tramborg` / `ktram` patterns stay — those catch an actual person's mailbox, which must never appear. `RnDrequest` is no longer in the data and the pattern could be restored, but it is left out so a future re-introduction fails the check-grammar gate rather than the ship gate. |
 | `POV Jumpstart` | `BRIEF` D5 makes it the tab label (L5). If L5 is reverted, put this pattern back. |
 | `packages compress over time` and `first-of-kind` | `BRIEF` D5 requires the spec's seller-only packaging notes (`content-spec.md:459-462`) inside the gated panel, and the first QA pass found them missing site-wide. They now live in `sellerGate.packagingNotes` and render on the four products that print a price. **This is a knowing trade-off:** the D6 gate is client-side, so both sentences are readable in `content.js` by anyone who fetches the bundle. They were judged safe to expose — neither names a customer, a person, a figure or an internal system; both are commercial caveats a seller would state aloud in the same conversation. If that judgement is reversed, delete `sellerGate.packagingNotes` and restore the pattern; nothing else depends on it. |
 
@@ -329,10 +329,10 @@ Every prose block that used to render above the fold was either compressed into 
 | `overview.metrics` (`{ title, rows, footnote, emptyState, proofLine }`) | `overview.metrics[]` tiles + `overview.metricsNote`. Every `footnote` and every `emptyState` string survives **verbatim** as the `metricsNote`. `workforce-optimization`'s four KPI-definition rows moved to `moreDetail` as "How the KPIs are defined"; its tiles now carry the four business-case figures that already shipped in its `successStory.results`. |
 | `overview.roi` (`{ title, body }`) | `overview.roi` (`{ icon, text }`). `text` is the same body, trimmed to two sentences on four products; nothing was added. |
 | `overview.features` (`{ title, items[{title,body}], footnote }`) | `overview.features[]` — 6–8 lines of ≤12 words each, each a compression of one `{title, body}` pair. **The original pairs are kept in full** as `overview.featuresDetail[]`. `footnote` → `overview.featuresNote`. |
-| `overview.whereItApplies` (`{ title, lead, items }`) | `overview.industries[]` icon chips + `overview.industriesNote` (from `lead` where one existed). **Every `items[]` entry survives verbatim** as a `moreDetail` entry. |
+| `overview.whereItApplies` (`{ title, lead, items }`) | `overview.industries[]` icon chips + `overview.industriesNote` (from `lead` where one existed). **Every `items[]` entry survives verbatim** as a `moreDetail` entry. *(Superseded in §13: the chip row is deleted — every key it held was already an `industryCases` tab — and the eleven `moreDetail` entries that repeated a tab's vertical went with it. `industriesNote` survives, moved under the tabs.)* |
 | `overview.inScope` / `.outOfScope` | `overview.scope.in` / `.out`, compressed to ≤14 words per line. |
 | `overview.pattern`, `.todayTomorrow`, `.pullQuote`, `.scopeParagraph`, `.evidenceDefinition`, `.useCaseBoundaries`, `.scopeBoundary`, `.exclusions`, `.deliveredAtRollout`, `.roadmap`, `.whatWeHear`, `.closingDisclaimer` | All verbatim into `moreDetail[]`. |
-| `technology.components` (`[{ group, items }]`) | `technology.groups` (`[{ vendor, label, items }]`) — same items, now vendor-marked so they render as Oracle / NVIDIA / SoftServe columns. The "Not used by this product" rows became `technology.notUsed[]`, still rendered, still muted. |
+| `technology.components` (`[{ group, items }]`) | `technology.groups` (`[{ vendor, label, items }]`) — same items, now vendor-marked so they render as Oracle / NVIDIA / SoftServe columns. The "Not used by this product" rows became `technology.notUsed[]`, still rendered, still muted. *(Superseded in §13: `notUsed[]` is deleted — the E3 layer summaries carry which platform each layer uses, which is the condition E3 set for dropping the line.)* |
 | `technology.integration` / `.security` (`[string]`) | `[{ icon, text }]` — the same strings, each given an icon key. |
 | `technology.narrative` | Rewritten to three sentences on all seven. The facts are unchanged; the sentence count is the only edit. Cut again to ~40 words in the round recorded in §10. |
 | `technology.layers` | Unchanged in this round (empty on the two Lakehouse products). Filled for both in the round recorded in §10 — see §10.3. |
@@ -624,3 +624,135 @@ Everything below is new prose, written to the register of the shipped one-pagers
 ### 12.9 Two industry chip rows were widened
 
 `case-evidence-collection` carried two chips (`financial-services`, `manufacturing`) where `VISUAL-GRAMMAR.md` §5 documented four. `professional-services` and `public-sector` were added, both grounded in the persona examples on the use-case map's *Case investigation* row — the employee-relations partner and the complaint-handling case investigator. The §5 table is now generated from what the data actually holds, in both columns, so the two cannot disagree again; `account-insights` and `plan-vs-actual-investigation` had the reverse drift (the table listed a key the data did not carry) and the table was corrected to the data rather than the data to the table.
+
+---
+
+## 13. Third fix round on the E2 / E3 / E5 build
+
+Twenty-two findings from a QA pass over the shipped build. Two were blockers, and both were in the same four files.
+
+### 13.1 The two blockers — the workforce PoC screenshots
+
+`workforce-optimization-1..4.jpg` were withdrawn and the product now ships four
+designed illustrations like the other five do. Full account in `ASSETS.md` §1;
+the short version is two independent failures in one asset set.
+
+**De-identification.** The frames printed the engagement's real geography — ten
+Dutch municipalities and an airport, on a labelled service-zone map — the
+customer's own zone-naming convention (`NL_north_west_AlmereEast_Weesp` and
+siblings), the zone count, and ten ten-digit technician resource ids. The page
+beside them calls the engagement "a global home-appliance manufacturer", and §4
+of this file records the deliberate decision to withhold the country names
+because the geography narrows that label to roughly one company. The screenshots
+put the country back at street level. `ASSETS.md` §4 had asserted these frames
+"show synthetic or place-name data, not a customer's records"; that claim did not
+survive looking at them, and it has been corrected rather than softened.
+
+**Uncleared figures.** Two of the frames printed per-technician uplift in the
+Weekly Schedule panel — "77% → 87% capacity", "4.98 → 6.47 jobs/day", "60% →
+100%", "4.2 → 7.6" — six to eighteen times the median (+4.5%) the metric tile a
+screen below is cleared to claim, under a disclaimer calling the results modeled
+simulations. §4's careful suppression of the mean, the maximum and the disputed
++26% was undone by a screenshot.
+
+The four replacements are drawn to the same grammar as the other twenty-two and
+carry no figure at all: intake (`PERIOD LOADED`), weighted rules (`RULES SET`,
+four rules tagged HARD / SOFT), the constraint solve (`PLAN SOLVED`), and
+dispatcher review (`DISPATCHER REVIEW`). Every label restates a capability
+already in `overview.features`. The captures can come back the moment they are
+regenerated against synthetic data — a fictional metro, invented zone names,
+synthetic ids, and deltas inside the cleared band.
+
+### 13.2 Step frames — the legibility floor
+
+All twenty-six illustrations were re-authored and the two surviving screenshots
+re-cropped, against one rule now recorded in `ASSETS.md` §1: at the shipped frame
+width of ~454 CSS px, label type must render at **≥ 12 px**. The old
+illustrations set 20–26 px type in a 1600 viewBox — 5.7–7.4 px on screen, grey
+smudges rather than words. Labels are now 44–56 px (12.5–15.9 px rendered) and
+the scenes are laid out around that type: fewer, larger labelled nodes, wider
+cards, and a soft plate behind the one label that has to cross artwork. No scene
+lost a fact; three lost a label that was repeating the eyebrow.
+
+The two document-extraction screenshots were full 1600 × 1000 application
+captures whose UI text rendered at about 3 px and whose near-white panel was the
+brightest element on a dark page. They are now 2.0–2.6× crops of the single
+region each step is about, graded two stops further down (white to ≈ `#B0B8C0`),
+with a 1 px inset rim in CSS so every frame is bounded the same way.
+
+### 13.3 The Overview rail
+
+E2's sticky rail had never once stuck: `fitRail()` only set `.is-sticky` when the
+rail fitted the viewport, and at the demo resolution of 1440 × 900 the rail
+measured 1303–1693 px on all seven products. It was also **taller than the MAIN
+column it accompanies on all seven**, leaving 9–398 px of dead gutter under
+"More detail".
+
+Three changes, no measurement in JavaScript:
+
+- The success story moved from the foot of the rail into MAIN, under the industry
+  tabs. E2 puts the success-story *download* in the rail; no product has a
+  `successStoryUrl`, and what actually rendered there was the narrative band.
+- The rail's stat tiles and glance rows are tightened (`.rail-card` overrides).
+- `.ov-layout` stretches the rail cell to MAIN's height and the **At a glance**
+  card pins (`.rail-card--pin`). It is the last card in the rail, so nothing
+  scrolls underneath it while it is held — the reason the taller Outcomes card
+  above it cannot be the one that pins.
+
+Measured after, at 1440 × 900: rail content 1203–1263 px against MAIN 1329–1652 —
+rail shorter than MAIN on all seven — and the pinned card 338–378 px, comfortably
+inside the viewport.
+
+**One target is still missed, and the finding that named it had the cause
+backwards.** E2 asks the Overview to read in ~1.5 screens. MAIN is 1.48–1.84
+screens and the rail no longer drives the tab body's height. But the measure
+"tabbar to end of document" includes the prev/next pager (114 px) and the site
+footer (479 px) — 0.66 screens that no rail change can touch — so that figure
+sits at 2.29–2.65 and shrinking the rail did not move it. Cutting it further
+means cutting blocks E2 mandates. Flagged rather than forced.
+
+### 13.4 Copy and data changes
+
+| Change | What and why |
+|---|---|
+| Product names | All seven are sentence case. Five already were; `Account Insights` and `Large Docs Extraction and Review` were Title Case, and all seven sit side by side in the "Product of interest" dropdown on every Contacts tab. Prose mentions and the `diagrams.js` node title follow. The `Docs` / `Document` question is untouched — see L6. |
+| US spelling | `modelled` → `modeled` (four places, one of them beside `modeled` in the same fact on the same page), `minimising` → `minimizing`, `enquiry` → `inquiry`. The corpus was already US everywhere else. `check-grammar.js` now fails on eight British forms so they cannot return. |
+| `overview.industries[]` | Deleted from all seven. Every key it held was already an `industryCases` tab, so the More-detail disclosure told the same verticals a second time. `industriesNote` survives and now closes the tab block. |
+| Eleven `moreDetail` entries | Deleted: the per-vertical paragraphs on `account-insights` (3), `large-document-extraction` (4) and `workforce-optimization` (4) that repeated a vertical already carried by a tab. `account-insights`' *Private equity funds* entry stays — it is the one vertical the tabs do not hold. One telling per vertical, per product. |
+| `technology.notUsed[]` | Deleted from all seven, with `sectionLabels.notUsed`. E3 set the condition: the layer summaries now state which platform each layer uses. The line rendered as orphaned micro-type below the accordion it referred to, and only on some products. |
+| `forms.labels.submitRequest` | New — "Send the request". The Contacts form's button read "Request a demo", a leftover from the retired `/demo` tab, directly under a heading calling the same action "send a request". `FORMS.render` gained a `submitLabel` option; the home page's instance is unchanged. |
+| `shared.contact.photo` | Emptied. See 13.5. |
+| `config.contactEmail` | `oracle@softserveinc.com`. See L9. |
+
+### 13.5 The headshot is withheld
+
+`ASSETS.md` §3 recorded that the portrait was identified "by position, not by
+face" — a fixed EMU offset from a text run on a team slide — and that "no facial
+comparison was made". The site prints that person's name, title and a working
+mailto beside the picture on every Contacts tab and on the Services page. If the
+offset heuristic picked a neighbouring tile, the site publishes a colleague's
+face under Karsten's name, to customers.
+
+`shared.contact.photo` is now empty and the card falls back to its "KT" initials
+avatar, which is the site's own rule for an asset that is not there. The file is
+out of `site/`. `check-grammar.js` warns while the key is empty rather than
+failing, so the state is visible on every run. **Someone has to confirm the image
+is him;** `ASSETS.md` §3 holds the exact steps to put it back.
+
+His **title** is not at issue: *Alliances & Partnerships Director, SoftServe* is
+verbatim from the CTA block of both the Workforce Optimization (2026-07-13) and
+document-pack (2026-09-10) sales one-pagers, and independently from
+`context/areas/softserve/oracle.md`.
+
+### 13.6 Layout and interaction fixes
+
+| Finding | Fix |
+|---|---|
+| Products grid | `.market-grid > .market-tile:last-child:nth-child(odd)` stretched the seventh tile to full width with its copy capped at 50 %, and re-fired on any odd filtered count — so picking a facet reshaped the last card mid-session. Both rules deleted; an odd row now ends with one tile at column width. |
+| Tile veil, desktop | The vertical layer reached a fully opaque `#0C0C0C`, and the horizontal layer ran to `.12` on the right — darkest exactly where the smallest type sits, transparent where nothing needed protecting. Rebalanced to a flatter ramp: the eyebrow and one-liner gain contrast and the imagery survives. |
+| Tile veil, mobile | At 375 px a one-column tile is roughly three times the image's own aspect, and a full-bleed cover crop at that height shows a slice too zoomed to read as anything — which is why the E1 treatment looked applied to some products and not others. Below 1024 px the image keeps a 17 rem band at the top of the card and fades into the card ground. |
+| Contact card, product pages | Spanned the full 1440 content width with its content in the left 45 %. Capped at 48 rem, the measure of the Services instance and of the form beneath it. |
+| Industry figure | The index-0 panel's image carried `loading="lazy"` although it is visible on first paint, so the block could paint an empty bordered rectangle. Panel 0 is now `eager` + `fetchpriority="high"`; hidden panels stay lazy. |
+| Vendor marks | Normalised to one cap-height and one opacity across the five layer rows, via `.group-mark--oracle` / `--nvidia` / `--softserve`. The Oracle wordmark had been rendering wider and brighter than the other two, reading as a rank the layer order does not intend. |
+| Header CTA | `data-demo="header"` and its click handler were dead: `initHashLinks` is a capture-phase listener that `stopPropagation`s every `a[href^="#"]`, so the bubble-phase modal handler could never run. Both removed. The header pill routes to `#/#request-a-demo`, which is what it was already doing. |
+| Unknown tab segment | `#/products/<slug>/bogus` rendered the Overview and left the bogus address in the bar, while the legacy `/demo` segment corrected itself. `resolveTab` now reports the fallback as legacy too, so both `replaceState` to `/overview`. |
