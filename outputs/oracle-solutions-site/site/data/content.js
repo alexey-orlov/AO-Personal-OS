@@ -2637,6 +2637,57 @@ window.SITE_CONTENT = {
           { step: "Govern", label: "Gold layer: definitions, masking, row-level access" },
           { step: "Deliver", label: "Select AI answers across every connected source, role-scoped" }
         ],
+        stack: [
+          {
+            key: "application",
+            label: "Application / accelerator",
+            summary: "What SoftServe builds on top: the gold model, its definitions, and the question set it is tuned against.",
+            vendors: ["softserve"],
+            items: [
+              { name: "The governed gold model and its business definitions", required: true },
+              { name: "Catalog mounting and database links, configured", required: true },
+              { name: "The agreed 30-question set and accuracy tuning with your analysts", required: true }
+            ]
+          },
+          {
+            key: "data-platform",
+            label: "Data & platform",
+            summary: "Oracle Autonomous AI Lakehouse becomes the governed gold layer; bronze and silver stay where they are.",
+            vendors: ["oracle"],
+            items: [
+              { name: "Oracle Autonomous AI Database 26ai as the governed gold layer", required: true },
+              { name: "Select AI and Select AI Agent", required: true },
+              { name: "Apache Iceberg for catalog federation", required: true },
+              { name: "Database links", required: true },
+              { name: "Vector search", required: false },
+              { name: "Data Studio", required: false },
+              { name: "Exadata", required: false }
+            ]
+          },
+          {
+            key: "infrastructure",
+            label: "Infrastructure",
+            summary: "A managed service in whichever cloud you prefer — your applications stay where they are.",
+            vendors: ["oracle"],
+            items: [
+              { name: "Your own tenancy — OCI, or Autonomous inside AWS, Azure or Google Cloud regions", required: true },
+              { name: "The managed Autonomous service — no cluster to size or operate", required: true }
+            ]
+          },
+          {
+            key: "custom",
+            label: "Custom configuration",
+            summary: "The catalogs mounted, the databases linked, and the governance that scopes every answer.",
+            vendors: ["softserve"],
+            items: [
+              { name: "Existing Iceberg catalogs mounted — AWS Glue, Databricks Unity Catalog, Snowflake", required: true, direction: "inbound" },
+              { name: "Databases linked, including on-prem; read-only access", required: true, direction: "inbound" },
+              { name: "Plain-English answers and charts across every connected source", required: true, direction: "outbound" },
+              { name: "Dynamic masking, row-level policies and the SQL firewall", required: true },
+              { name: "Zero data movement — queries run where the data lives", required: true }
+            ]
+          }
+        ],
         groups: [
           { vendor: "oracle", label: "Oracle Autonomous AI Lakehouse", items: ["Oracle Autonomous AI Database 26ai", "Select AI and Select AI Agent", "Apache Iceberg", "Vector search", "Data Studio", "Database links", "Exadata"] },
           { vendor: "oracle", label: "Oracle Cloud Infrastructure", items: ["The tenancy the platform runs in — OCI, or Autonomous inside AWS, Azure or Google Cloud regions"] },

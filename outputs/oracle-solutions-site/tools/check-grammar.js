@@ -33,6 +33,13 @@ var INDUSTRIES = [
 ];
 var VENDORS = ["oracle", "nvidia", "softserve", "other"];
 var TIERS = ["proof-of-value", "rollout", "scaling"];
+/* E3: the solution stack renders top → bottom in this order. A product may
+   omit a layer (the Lakehouse pair has no NVIDIA engine) but may never
+   re-order them — the Technology tab is the surface a technical buyer
+   compares most directly across products. */
+var STACK_KEYS = ["application", "ai-engine", "data-platform", "infrastructure", "custom"];
+var STACK_VENDORS = ["oracle", "nvidia", "softserve"];
+var DIRECTIONS = ["inbound", "outbound", "both"];
 
 var failures = [];
 var warnings = [];
@@ -42,6 +49,15 @@ function warn(where, message) { warnings.push(where + " — " + message); }
 function str(v) { return typeof v === "string" && v.trim().length > 0; }
 function arr(v) { return Array.isArray(v); }
 function words(s) { return s.trim().split(/\s+/).length; }
+function sentences(s) {
+  return s.split(/(?<=[.!?])\s+/).filter(function (x) { return x.trim().length; }).length;
+}
+/* Assets and copy ship on separate tracks, so a missing file is a warning. */
+function checkAsset(where, what, rel) {
+  if (!fs.existsSync(path.join(root, "site", rel))) {
+    warn(where, what + " not on disk yet: site/" + rel);
+  }
+}
 
 function checkHeroImage(where, image) {
   if (!image || typeof image !== "object") return fail(where, "hero.image missing");
