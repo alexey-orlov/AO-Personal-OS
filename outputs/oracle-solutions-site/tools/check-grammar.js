@@ -248,8 +248,8 @@ if (!arr(C.products) || C.products.length !== 7) {
   /* 3.1 narrative */
   if (!str(t.narrative)) fail(w, "technology.narrative missing");
   else {
-    var sentences = t.narrative.split(/(?<=[.!?])\s+/).filter(function (x) { return x.trim().length; });
-    if (sentences.length > 3) fail(w, "technology.narrative is " + sentences.length + " sentences (max 3)");
+    var narrativeSentences = sentences(t.narrative);
+    if (narrativeSentences > 3) fail(w, "technology.narrative is " + narrativeSentences + " sentences (max 3)");
   }
 
   /* 3.2 flow */
