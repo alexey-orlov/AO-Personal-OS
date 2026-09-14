@@ -561,22 +561,12 @@
   var lastKey = null;
 
   function render() {
-    try { renderInner(); debugLine(""); }
-    catch (error) { debugLine(String(error && error.stack || error));
+    try { renderInner(); }
+    catch (error) {
       var appEl = document.getElementById("app");
-      if (appEl) appEl.innerHTML = '<section class="container" style="padding:6rem 0;color:#fff"><p>Render error: ' + String(error && error.stack || error).replace(/</g, "&lt;") + '</p><p>Route: ' + String(window.location.href).replace(/</g, "&lt;") + '</p></section>';
+      if (appEl) appEl.innerHTML = '<section class="container" style="padding:6rem 0"><h2 class="section-title">This page could not be displayed</h2><p>Reload the page or <a href="#/">return to the overview</a>.</p></section>';
       if (window.console) console.error(error);
     }
-  }
-
-  function debugLine(err) {
-    var appEl = document.getElementById("app");
-    var foot = document.getElementById("site-footer");
-    var parsed = parseHash();
-    var msg = "DEBUG route=" + parsed.path + " matched=" + JSON.stringify(matchRoute(parsed.path)) + " pages=" + Object.keys(window.PAGES || {}).join(",") + " appChildren=" + (appEl ? appEl.childElementCount : "none") + " appHTML=" + (appEl ? appEl.innerHTML.length : 0) + " appH=" + (appEl ? appEl.offsetHeight : 0) + " href=" + window.location.href + (err ? " ERR=" + err : "");
-    var el = document.getElementById("debug-line");
-    if (!el && foot) { el = document.createElement("p"); el.id = "debug-line"; el.style.cssText = "color:#35CCBA;font:14px monospace;white-space:pre-wrap;padding:1rem;"; foot.insertAdjacentElement("afterbegin", el); }
-    if (el) el.textContent = msg.replace(/</g, "&lt;");
   }
 
   function renderInner() {
@@ -642,23 +632,25 @@
   }
 
   function initHeader() {
-    var masthead = document.getElementById("masthead");
-    var toggle = document.getElementById("menu-toggle");
-    var menu = document.getElementById("mobile-menu");
+    var masthead = document.getElementById("masthead") || document.querySelector(".masthead") || document.querySelector("header");
+    var toggle = document.getElementById("menu-toggle") || document.querySelector(".menu-toggle");
+    var menu = document.getElementById("mobile-menu") || document.querySelector(".mobile-menu");
 
-    toggle.addEventListener("click", function () {
-      var open = menu.hidden;
-      menu.hidden = !open;
-      toggle.setAttribute("aria-expanded", open ? "true" : "false");
-      toggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
-    });
+    if (toggle && menu) {
+      toggle.addEventListener("click", function () {
+        var open = menu.hidden;
+        menu.hidden = !open;
+        toggle.setAttribute("aria-expanded", open ? "true" : "false");
+        toggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+      });
 
-    menu.addEventListener("click", function (event) {
-      if (event.target.closest("a")) closeMobileMenu();
-    });
+      menu.addEventListener("click", function (event) {
+        if (event.target.closest("a")) closeMobileMenu();
+      });
+    }
 
     var onScroll = function () {
-      masthead.classList.toggle("is-scrolled", window.pageYOffset > 8);
+      if (masthead) masthead.classList.toggle("is-scrolled", window.pageYOffset > 8);
     };
     window.addEventListener("scroll", onScroll, { passive: true });
     onScroll();
