@@ -528,7 +528,7 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
   height: 100%;
   object-fit: cover;
   object-position: 50% 50%;
-  opacity: .62;
+  opacity: .78;
   filter: saturate(.82) contrast(1.04);
 }
 
@@ -536,8 +536,8 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(to right, var(--bg) 0%, rgba(19, 19, 19, .95) 28%, rgba(19, 19, 19, .68) 56%, rgba(19, 19, 19, .34) 100%),
-    linear-gradient(to bottom, rgba(19, 19, 19, .55) 0%, rgba(19, 19, 19, .12) 30%, rgba(19, 19, 19, .66) 76%, var(--bg) 100%),
+    linear-gradient(to right, var(--bg) 0%, rgba(19, 19, 19, .95) 28%, rgba(19, 19, 19, .62) 56%, rgba(19, 19, 19, .16) 100%),
+    linear-gradient(to bottom, rgba(19, 19, 19, .5) 0%, rgba(19, 19, 19, .1) 30%, rgba(19, 19, 19, .62) 76%, var(--bg) 100%),
     radial-gradient(110% 85% at 76% 26%, rgba(53, 204, 186, .13), rgba(53, 204, 186, 0) 62%);
 }
 
