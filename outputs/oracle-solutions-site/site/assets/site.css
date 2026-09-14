@@ -23,6 +23,7 @@
   --border: #496683;
   --border-subtle: rgba(255, 255, 255, .25);
   --border-hairline: rgba(255, 255, 255, .5);
+  --border-panel: rgba(255, 255, 255, .16);
   --border-card-hover: rgba(181, 225, 255, .39);
 
   --accent: #35CCBA;

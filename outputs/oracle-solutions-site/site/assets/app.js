@@ -296,7 +296,7 @@
     backdrop.setAttribute("role", "dialog");
     backdrop.setAttribute("aria-modal", "true");
     if (opts.label) backdrop.setAttribute("aria-label", opts.label);
-    backdrop.innerHTML = '<div class="modal-panel">' +
+    backdrop.innerHTML = '<div class="modal-panel' + (opts.className ? " " + esc(opts.className) : "") + '">' +
       '<button class="modal-close" type="button" aria-label="Close">' + icon("close") + "</button>" +
       html + "</div>";
     backdrop.addEventListener("click", function (event) {
@@ -492,16 +492,28 @@
     });
   }
 
-  /* A hero whose image cannot be fetched falls back to the gradient alone,
-     never to a broken-image glyph over the headline. */
+  /* A hero background or video poster that cannot be fetched falls back to the
+     gradient or the inset panel alone, never to a broken-image glyph. YouTube
+     serves maxresdefault.jpg only for videos uploaded above 720p, so a poster
+     pointing there retries hqdefault.jpg — which always exists — before it goes. */
   function guardHeroImages(root) {
-    Array.prototype.forEach.call(root.querySelectorAll(".hero-bg-img"), function (img) {
+    Array.prototype.forEach.call(root.querySelectorAll(".hero-bg-img, .video-card-poster"), function (img) {
+      var retried = false;
       function drop() { if (img.parentNode) img.parentNode.removeChild(img); }
+      function fail() {
+        var src = img.getAttribute("src") || "";
+        if (!retried && src.indexOf("img.youtube.com/") >= 0 && src.indexOf("maxresdefault") >= 0) {
+          retried = true;
+          img.setAttribute("src", src.replace("maxresdefault", "hqdefault"));
+          return;
+        }
+        drop();
+      }
       if (img.complete) {
-        if (!img.naturalWidth) drop();
+        if (!img.naturalWidth) fail();
         return;
       }
-      img.addEventListener("error", drop);
+      img.addEventListener("error", fail);
     });
   }
 
