@@ -122,6 +122,9 @@ _`Packs/Account Insights/AI Signal-Impact Engine - Accelerator One-pager.pdf`, 3
 
 ## Decisions
 
+- 2026-09-14 — The mini-site ships v1 with **no customer named anywhere**; the WfO business case is anonymized to "a global home-appliance manufacturer" with external-safe ratios only, no € figures. (chat, 2026-09-14)
+- 2026-09-14 — **Tier prices are public on the site**, carried with the one-pagers' own disclaimers rather than stripped. (chat, 2026-09-14)
+- 2026-09-14 — **Absent URLs render nothing.** Demo-video, Marketplace, success-story and seller-material controls appear only when a real URL is configured — no placeholders or "coming soon" states. (chat, 2026-09-14)
 - 2026-09-11 — Pack 3 is **"Account Insights"** on all slides, not "AI Signal-Impact Engine". (chat, 2026-09-11)
 - 2026-09-11 — Proof blocks stay **non-uniform** across the three packs rather than forced to one label; "PROVEN WITH" retired in favour of "PROOF OF VALUE · <customer>" because the underlying figures are PoV targets under an explicit caveat. (chat, 2026-09-11)
 - 2026-09-11 — Account Insights gets **no invented S/M/L pricing**; its packages block is reframed as "WHAT THE POC BUYS" against the contracted DHL PoC. (chat, 2026-09-11)
@@ -129,5 +132,6 @@ _`Packs/Account Insights/AI Signal-Impact Engine - Accelerator One-pager.pdf`, 3
 
 ## Activity
 
+- 2026-09-14 — **Oracle AI solutions mini-site v1** built (`outputs/oracle-solutions-site/`, private preview artifact live): 7 products on one tab set, faceted marketplace, gated seller tab, services page; v1 decisions locked (no customer names, published prices, URL-gated controls); blocked on Alex's inputs. Build docs corrected the same day to match the shipped photographic hero set. (chat, 2026-09-14)
 - 2026-09-11 — `Oracle AI Packages - section slides.pptx` — 10-slide internal deck built for SS delivery + sales; WfO PoV price corrected €100K → €90K; Oracle platform names verified, two corrected → [oracle-ai-offerings.md](oracle-ai-offerings.md). (chat, 2026-09-11)
 - 2026-09-10 — Pack stream folded: `Packs/` reorg, `Oracle packages.xlsx` tracker, the AI Signal-Impact Engine one-pager, the Large Document Extraction one-pager + service-packages deck, and the rebuilt WfO one-pager. Page created. (chat, 2026-09-10)
