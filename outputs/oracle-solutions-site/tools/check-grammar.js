@@ -171,6 +171,80 @@ if (!arr(C.products) || C.products.length !== 7) {
   /* 2.8 success story */
   if (!o.successStory || !str(o.successStory.state)) fail(w, "overview.successStory missing");
 
+  /* E2 · How it works — the workflow stepper */
+  if (!arr(o.steps) || o.steps.length < 3 || o.steps.length > 5) {
+    fail(w, "overview.steps must hold 3–5 workflow steps, got " + (arr(o.steps) ? o.steps.length : "none"));
+  } else {
+    var covered = [];
+    o.steps.forEach(function (s, i) {
+      var sw = w + ".steps[" + i + "]";
+      if (s.n !== i + 1) fail(sw, 'n is "' + s.n + '", expected ' + (i + 1) + " — steps are numbered in order from 1");
+      ["title", "text", "image"].forEach(function (k) {
+        if (!str(s[k])) fail(sw, k + " missing");
+      });
+      /* ≤ 2 lines in the stepper, whose column is narrow. */
+      if (str(s.text) && words(s.text) > 30) fail(sw, "text is " + words(s.text) + " words (max 30 — it has to fit two lines)");
+      if (str(s.image)) {
+        var want = new RegExp("^assets/img/steps/" + p.slug + "-" + (i + 1) + "\\.(jpg|jpeg|png|webp|svg)$");
+        if (!want.test(s.image)) fail(sw, 'image "' + s.image + '" must be assets/img/steps/' + p.slug + "-" + (i + 1) + ".jpg");
+        else checkAsset(sw, "step image", s.image);
+      }
+      if (!arr(s.features) || !s.features.length) fail(sw, "features missing — every step carries the feature bullets that belong to it");
+      else s.features.forEach(function (f) {
+        if (!arr(o.features) || o.features.indexOf(f) === -1) fail(sw, 'feature "' + f + '" is not one of overview.features');
+        else if (covered.indexOf(f) !== -1) fail(sw, 'feature "' + f + '" is claimed by more than one step');
+        else covered.push(f);
+      });
+    });
+    /* No bullet may fall between the steps: the stepper replaces the checklist. */
+    (o.features || []).forEach(function (f) {
+      if (covered.indexOf(f) === -1) fail(w, 'feature "' + f + '" belongs to no step — every overview.features item lands in exactly one');
+    });
+  }
+
+  /* E2 · Industry use cases — the tab component */
+  if (!arr(o.industryCases) || o.industryCases.length < 3 || o.industryCases.length > 6) {
+    fail(w, "overview.industryCases must hold 3–6 cases, got " + (arr(o.industryCases) ? o.industryCases.length : "none"));
+  } else {
+    var seenKeys = [];
+    o.industryCases.forEach(function (c, i) {
+      var cw = w + ".industryCases[" + i + "]";
+      if (INDUSTRIES.indexOf(c.industry) === -1) fail(cw, 'industry "' + c.industry + '" is not in the fixed set of 16');
+      else if (seenKeys.indexOf(c.industry) !== -1) fail(cw, 'industry "' + c.industry + '" appears twice — one tab per industry');
+      else seenKeys.push(c.industry);
+      ["label", "image", "problem", "solution"].forEach(function (k) {
+        if (!str(c[k])) fail(cw, k + " missing");
+      });
+      if (str(c.label) && C.shared.industryLabels[c.industry] && c.label !== C.shared.industryLabels[c.industry]) {
+        fail(cw, 'label "' + c.label + '" does not match shared.industryLabels.' + c.industry);
+      }
+      if (str(c.image)) {
+        var wantImg = new RegExp("^assets/img/industries/" + c.industry + "\\.(jpg|jpeg|png|webp)$");
+        if (!wantImg.test(c.image)) fail(cw, 'image "' + c.image + '" must be assets/img/industries/' + c.industry + ".jpg");
+        else checkAsset(cw, "industry image", c.image);
+      }
+      ["problem", "solution"].forEach(function (k) {
+        if (str(c[k]) && (sentences(c[k]) < 2 || sentences(c[k]) > 3)) {
+          fail(cw, k + " is " + sentences(c[k]) + " sentences (2–3)");
+        }
+      });
+    });
+  }
+
+  /* E2 · the side rail's At-a-glance card */
+  if (!o.sideFacts) fail(w, "overview.sideFacts missing — the side rail has no facts card without it");
+  else ["category", "platform", "availability", "povDuration", "povPrice"].forEach(function (k) {
+    if (!str(o.sideFacts[k])) fail(w, "overview.sideFacts." + k + " missing");
+  });
+  if (o.sideFacts && str(o.sideFacts.availability) && o.sideFacts.availability !== p.availabilityChip) {
+    fail(w, "sideFacts.availability does not match availabilityChip");
+  }
+  if (o.sideFacts && v.facts) {
+    if (str(o.sideFacts.povDuration) && o.sideFacts.povDuration !== v.facts.duration) {
+      fail(w, "sideFacts.povDuration does not match pov.facts.duration");
+    }
+  }
+
   /* 3.1 narrative */
   if (!str(t.narrative)) fail(w, "technology.narrative missing");
   else {
