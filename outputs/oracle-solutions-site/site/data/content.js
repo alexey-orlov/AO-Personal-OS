@@ -1957,6 +1957,62 @@ window.SITE_CONTENT = {
           { step: "Optimize", label: "cuOpt solves the technician-to-zone-to-job plan" },
           { step: "Deliver", label: "Dispatcher approves; plan written back to Oracle Field Service" }
         ],
+        stack: [
+          {
+            key: "application",
+            label: "Application / accelerator",
+            summary: "The SoftServe pack: the dispatcher UI, the approval workflow, the re-solve loop and the KPI layer.",
+            vendors: ["softserve"],
+            items: [
+              { name: "Dispatcher review UI and approval workflow", required: true },
+              { name: "Re-solve loop", required: true },
+              { name: "KPI and analytics layer — productivity, utilization, travel, workload balance", required: true },
+              { name: "Write-back to Oracle Field Service", required: false, note: "Roll-out scope" }
+            ]
+          },
+          {
+            key: "ai-engine",
+            label: "AI engine",
+            summary: "NVIDIA cuOpt solves the technician-to-zone-to-job plan on GPUs.",
+            vendors: ["nvidia"],
+            items: [
+              { name: "NVIDIA cuOpt, the GPU-accelerated optimization solver", required: true }
+            ]
+          },
+          {
+            key: "data-platform",
+            label: "Data & platform",
+            summary: "Oracle Field Service is both the source and the destination; storage holds the period's data.",
+            vendors: ["oracle"],
+            items: [
+              { name: "Oracle Field Service, as source and destination", required: true },
+              { name: "OCI Object Storage for the period's data", required: true }
+            ]
+          },
+          {
+            key: "infrastructure",
+            label: "Infrastructure",
+            summary: "A dedicated GPU cluster in your own tenancy, with its networking and IAM.",
+            vendors: ["oracle"],
+            items: [
+              { name: "A dedicated AI cluster (4–8 NVIDIA A100 GPUs)", required: true },
+              { name: "Object storage, networking and IAM", required: true }
+            ]
+          },
+          {
+            key: "custom",
+            label: "Custom configuration",
+            summary: "Client rules, constraints, KPI definitions and the data integrations.",
+            vendors: ["softserve"],
+            items: [
+              { name: "From Oracle Field Service: staff, availability and booking data", required: true, direction: "inbound" },
+              { name: "Back from Oracle Field Service: factual durations and times", required: false, direction: "inbound" },
+              { name: "To Oracle Field Service: optimized allocations — zones and visits", required: true, direction: "outbound", note: "Integration delivered at roll-out" },
+              { name: "Up to five further integrations — booking, inventory, HR/WFM, demand forecasting, BI", required: false, direction: "inbound", note: "Roll-out scope" },
+              { name: "Client rules, constraints and KPI definitions", required: true }
+            ]
+          }
+        ],
         groups: [
           { vendor: "oracle", label: "Oracle Cloud Infrastructure", items: ["A dedicated AI cluster (4–8 NVIDIA A100 GPUs)", "Object storage, networking, IAM"] },
           { vendor: "nvidia", label: "NVIDIA", items: ["cuOpt, the GPU-accelerated optimization solver"] },
@@ -2131,6 +2187,76 @@ window.SITE_CONTENT = {
         ],
         industries: ["cross-industry"],
         industriesNote: "The same two pains in every industry, regardless of stack — the constraint is the system landscape, not the sector.",
+        steps: [
+          {
+            n: 1,
+            title: "Connect the applications",
+            text: "The pipelines that ship with the Oracle products are switched on; one or two non-Oracle sources are linked or landed alongside. Read-only access.",
+            image: "assets/img/steps/cross-system-erp-qa-1.jpg",
+            features: [
+              "Prebuilt pipelines from Oracle applications — no extract engineering",
+              "One or two non-Oracle sources joined in, by link or by pipeline"
+            ]
+          },
+          {
+            n: 2,
+            title: "Shape one decision domain",
+            text: "One domain — order-to-cash exceptions, say — is modelled into certified views, on definitions the business owner signs off.",
+            image: "assets/img/steps/cross-system-erp-qa-2.jpg",
+            features: [
+              "Certified views for one decision domain, on signed-off definitions",
+              "A governed foundation that persists after the proof"
+            ]
+          },
+          {
+            n: 3,
+            title: "Guard it in the data layer",
+            text: "Masking and row-level rules are applied to every query — including the ones AI writes — and every interaction is logged.",
+            image: "assets/img/steps/cross-system-erp-qa-3.jpg",
+            features: ["Sensitive fields masked by role, enforced in the data layer"]
+          },
+          {
+            n: 4,
+            title: "Ask in plain language",
+            text: "Select AI answers over the governed schema, with two to three operational dashboards over the same joined data.",
+            image: "assets/img/steps/cross-system-erp-qa-4.jpg",
+            features: [
+              "Plain-English question answering over the governed schema",
+              "Two to three operational dashboards over the joined data"
+            ]
+          }
+        ],
+        industryCases: [
+          {
+            industry: "cross-industry",
+            label: "Every industry",
+            image: "assets/img/industries/cross-industry.jpg",
+            problem: "The same two pains turn up in every sector, whatever the stack. Every answer is a project — the BI backlog runs in weeks, so the business answers itself in a spreadsheet, and the same KPI comes back as two different numbers from two dashboards. Every acquisition and every new application adds another island nobody has integrated.",
+            solution: "The join is done once, in the data, rather than once per question: one governed layer under the applications, filled from Oracle applications by pipelines that already exist, with a plain-English answer surface on top. The constraint here is the system landscape, not the sector, so the same shape fits wherever the applications sit."
+          },
+          {
+            industry: "manufacturing",
+            label: "Manufacturing",
+            image: "assets/img/industries/manufacturing.jpg",
+            problem: "Supplier spend sits in the ERP, supplier performance in a second system and the contracts in a third. A procurement lead asking which suppliers are driving the overrun files a report request and waits, and the answer lands after the negotiation.",
+            solution: "Purchase-order, invoice-status and supplier-spend questions are answered in plain language over ERP data joined with the systems around it. The standing report requests stop, and the certified views the answers run on are the same ones the dashboards use."
+          },
+          {
+            industry: "logistics",
+            label: "Logistics & supply chain",
+            image: "assets/img/industries/logistics.jpg",
+            problem: "The ERP knows orders and invoices, the CRM knows customers, and carriers, e-commerce and spreadsheets know the rest. A question as ordinary as which delayed orders are hurting the best accounts crosses two systems or more, lands in a queue, and comes back already stale.",
+            solution: "Those sources are joined into one governed layer, and an operations lead slices SLA, backlog and throughput metrics without waiting on a data engineer. Sensitive fields stay masked by role, enforced by the database rather than by the prompt."
+          }
+        ],
+        sideFacts: {
+          category: "Data analysis & decision agents",
+          platform: "Oracle Autonomous AI Lakehouse",
+          availability: "Fixed-price offer",
+          povDuration: "30–45 days",
+          povPrice: "€30–50K fixed per use case",
+          povPriceNote: "Indicative, confirmed per scope; Oracle partner funding programs may reduce the net cost."
+        },
         scope: {
           in: [
             "Prebuilt Oracle application pipelines switched on",
