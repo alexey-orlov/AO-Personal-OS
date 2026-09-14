@@ -1,0 +1,65 @@
+{
+  "account-insights": {
+    "file": "heroes/account-insights.jpg",
+    "alt": "A network of connected signal nodes — people, messages, documents, charts — converging on one glowing hub above a night-time city skyline",
+    "focal": "center",
+    "source": "SoftServe AI Repeatable IP-Based Customer Stories.pptx / ppt/media/image92.jpeg",
+    "credit": "SoftServe brand asset"
+  },
+  "case-evidence-collection": {
+    "file": "heroes/case-evidence-collection.jpg",
+    "alt": "Silhouetted analyst mapping a case on a backlit glass board covered in linked boxes and connecting lines",
+    "focal": "center",
+    "source": "SoftServe AI Repeatable IP-Based Customer Stories.pptx / ppt/media/image84.jpeg",
+    "credit": "SoftServe brand asset"
+  },
+  "plan-vs-actual-investigation": {
+    "file": "heroes/plan-vs-actual-investigation.jpg",
+    "alt": "Analyst at a dark multi-screen desk reviewing trend charts, variance dashboards and mapped operations data",
+    "focal": "center",
+    "source": "SoftServe AI Repeatable IP-Based Customer Stories.pptx / ppt/media/image89.jpeg",
+    "credit": "SoftServe brand asset"
+  },
+  "large-document-extraction": {
+    "file": "heroes/large-document-extraction.jpg",
+    "alt": "A deep stack of hundreds of thin layered plates receding into darkness, edges lit like the pages of a long document",
+    "focal": "right",
+    "source": "OCI AI accelerators - GTM deck.pptx / ppt/media/image9.png, recomposed on a dark field",
+    "credit": "SoftServe brand asset"
+  },
+  "workforce-optimization": {
+    "file": "heroes/workforce-optimization.jpg",
+    "alt": "Container terminal at blue hour — gantry crane, stacked containers and service vehicles moving under work lights",
+    "focal": "center",
+    "source": "SoftServe AI Repeatable IP-Based Customer Stories.pptx / ppt/media/image91.jpeg",
+    "credit": "SoftServe brand asset"
+  },
+  "cross-system-erp-qa": {
+    "file": "heroes/cross-system-erp-qa.jpg",
+    "alt": "Abstract dark graph of separate enterprise system panes linked by thin teal data flows converging on one lit core",
+    "focal": "right",
+    "source": "generated",
+    "credit": "SoftServe brand asset"
+  },
+  "business-metrics-qa": {
+    "file": "heroes/business-metrics-qa.jpg",
+    "alt": "Abstract landscape of flowing data points and light trails rolling across a dark blue field",
+    "focal": "center",
+    "source": "SoftServe AI Repeatable IP-Based Customer Stories.pptx / ppt/media/image93.jpeg",
+    "credit": "SoftServe brand asset"
+  },
+  "overview": {
+    "file": "heroes/overview.jpg",
+    "alt": "A luminous elliptical aperture opening in a dark wall, warm rim light spilling across the floor",
+    "focal": "right",
+    "source": "SBG - PoV approach and options.pptx / ppt/media/image4.png",
+    "credit": "SoftServe brand asset"
+  },
+  "services": {
+    "file": "heroes/services.jpg",
+    "alt": "Engineer working at a dark multi-monitor workstation filled with code, city lights blurred behind",
+    "focal": "center",
+    "source": "SoftServe AI Repeatable IP-Based Customer Stories.pptx / ppt/media/image85.jpeg",
+    "credit": "SoftServe brand asset"
+  }
+}
