@@ -345,7 +345,7 @@ Site-level, asserted once rather than per product:
 
 | Slot | Requirement |
 |---|---|
-| `shared.contact` | `{ name, title, email, photo, blurb }`; `title` is a string and **may be empty**; `email` is exactly `oracle@softserveinc.com`; `blurb` is one sentence; `photo` is `assets/img/people/<name>.<ext>`; `linkedin`, if present, is a public `linkedin.com` URL |
+| `shared.contact` | `{ name, title, email, photo, blurb }`; `title` is a string and **may be empty**; `email` is exactly `oracle@softserveinc.com`; `blurb` is one sentence; `photo` is `assets/img/people/<name>.<ext>` and **may be empty** (the card falls back to an initials avatar — it ships empty, see `ASSETS.md` §3); `linkedin`, if present, is a public `linkedin.com` URL |
 | `shared.productTabs` | carries a `contacts` tab and no `demo` tab |
 | `forms.demo.secondaryHeading` | non-empty — the heading the form takes under the contact card |
 
