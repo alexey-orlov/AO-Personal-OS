@@ -2295,6 +2295,57 @@ window.SITE_CONTENT = {
           { step: "Govern", label: "Certified views, business definitions, masking and row rules" },
           { step: "Deliver", label: "Select AI answers in plain language, plus operational dashboards" }
         ],
+        stack: [
+          {
+            key: "application",
+            label: "Application / accelerator",
+            summary: "What SoftServe builds on top: the decision domain, its certified views, the question set and the dashboards.",
+            vendors: ["softserve"],
+            items: [
+              { name: "The decision domain and its certified views", required: true },
+              { name: "Business definitions signed off with the owner", required: true },
+              { name: "The agreed question set, tuned with the business", required: true },
+              { name: "Two to three operational dashboards over the joined data", required: true }
+            ]
+          },
+          {
+            key: "data-platform",
+            label: "Data & platform",
+            summary: "Oracle Autonomous AI Lakehouse is the governed layer, with Select AI answering over it.",
+            vendors: ["oracle"],
+            items: [
+              { name: "Oracle Autonomous AI Database 26ai as the governed layer", required: true },
+              { name: "Select AI and Select AI Agent for natural-language querying", required: true },
+              { name: "Data Studio for ELT", required: true },
+              { name: "Database links for federation", required: true },
+              { name: "Apache Iceberg", required: false },
+              { name: "Vector search", required: false }
+            ]
+          },
+          {
+            key: "infrastructure",
+            label: "Infrastructure",
+            summary: "A managed service in your own tenancy — nothing to size, nothing to run.",
+            vendors: ["oracle"],
+            items: [
+              { name: "Your own tenancy — OCI, or Autonomous inside AWS, Azure or Google Cloud regions", required: true },
+              { name: "The managed Autonomous service — no cluster to size or operate", required: true }
+            ]
+          },
+          {
+            key: "custom",
+            label: "Custom configuration",
+            summary: "The sources connected, the governance configured, and how answers come back.",
+            vendors: ["softserve"],
+            items: [
+              { name: "Oracle application data through the pipelines that ship with the products", required: true, direction: "inbound" },
+              { name: "One or two non-Oracle sources, by link or by pipeline; read-only access", required: true, direction: "inbound" },
+              { name: "Plain-English answers, certified views and operational dashboards", required: true, direction: "outbound" },
+              { name: "Dynamic masking, row-level policies and the SQL firewall", required: true },
+              { name: "Tenancy choice — OCI, or Autonomous inside AWS, Azure or Google Cloud regions", required: true }
+            ]
+          }
+        ],
         groups: [
           { vendor: "oracle", label: "Oracle Autonomous AI Lakehouse", items: ["Oracle Autonomous AI Database 26ai as the governed layer", "Select AI and Select AI Agent for natural-language querying", "Vector search", "Apache Iceberg", "Data Studio for ELT", "Database links for federation"] },
           { vendor: "oracle", label: "Oracle Cloud Infrastructure", items: ["The tenancy the platform runs in — OCI, or Autonomous inside AWS, Azure or Google Cloud regions"] },
@@ -2478,6 +2529,74 @@ window.SITE_CONTENT = {
         ],
         industries: ["cross-industry"],
         industriesNote: "The same two pains in every industry, regardless of stack — the constraint is the data estate, not the sector.",
+        steps: [
+          {
+            n: 1,
+            title: "Mount what you already run",
+            text: "Existing Iceberg catalogs are mounted and the databases outside them are linked, on-prem included. Nothing is copied.",
+            image: "assets/img/steps/business-metrics-qa-1.jpg",
+            features: [
+              "Catalog federation: mount the Iceberg catalogs you already run",
+              "Database links to the systems not in a catalog, on-prem included",
+              "Zero data movement — queries run where the data lives"
+            ]
+          },
+          {
+            n: 2,
+            title: "Build the gold layer",
+            text: "A small governed model over those sources carries the business definitions the organization signs off.",
+            image: "assets/img/steps/business-metrics-qa-2.jpg",
+            features: [
+              "A governed gold layer with definitions the organization signs off",
+              "Converged data in one database: relational, JSON, spatial, graph, vector"
+            ]
+          },
+          {
+            n: 3,
+            title: "Scope it by role",
+            text: "Masking, row-level policies and a full audit trail are enforced in the data layer, not in the prompt.",
+            image: "assets/img/steps/business-metrics-qa-3.jpg",
+            features: ["Role-scoped answers and a full audit trail, enforced in the data layer"]
+          },
+          {
+            n: 4,
+            title: "Answer across every source",
+            text: "Select AI answers plain-English questions across each connected source, tuned live with your analysts against an agreed question set.",
+            image: "assets/img/steps/business-metrics-qa-4.jpg",
+            features: ["Plain-English question answering via Select AI over that layer"]
+          }
+        ],
+        industryCases: [
+          {
+            industry: "cross-industry",
+            label: "Every industry",
+            image: "assets/img/industries/cross-industry.jpg",
+            problem: "Two pains recur whatever the sector. Time: a cross-cloud question takes a data engineer, three extracts and a week, so the business answers itself in a spreadsheet. Trust: AI pilots die in security review, because nobody can prove what the model can see or show, and when auditors ask who saw what through AI there is no answer.",
+            solution: "One governed engine mounts the catalogs already in place and links the databases outside them, then answers under the access rules those systems already enforce. The constraint here is the data estate, not the sector — so the same shape fits wherever the data sits."
+          },
+          {
+            industry: "retail",
+            label: "Retail",
+            image: "assets/img/industries/retail.jpg",
+            problem: "Sales sit in one platform, stock in another, promotions in a third, and each acquisition adds an island nobody has integrated. Comparing sales by SKU, region and promotion means an extract per system and a wait.",
+            solution: "A merchandiser asks the comparison in plain language and gets it back from the governed gold layer, across every connected source, with no data moved. The definitions behind the numbers are the ones the organization signed off, so two dashboards stop disagreeing."
+          },
+          {
+            industry: "manufacturing",
+            label: "Manufacturing",
+            image: "assets/img/industries/manufacturing.jpg",
+            problem: "Revenue, inventory and churn questions span plants, regions and the systems that came with each acquisition. Each platform has its own catalog, its own security model and its own team, so no single system sees enough of the picture for AI to be useful on it.",
+            solution: "The existing catalogs are mounted and the remaining databases linked, including on-prem, with the answer layer moving to the data rather than the other way round. An assistant answers across all of it in plain language, role-scoped and fully audited."
+          }
+        ],
+        sideFacts: {
+          category: "Data analysis & decision agents",
+          platform: "Oracle Autonomous AI Lakehouse",
+          availability: "Fixed-price offer",
+          povDuration: "30–45 days",
+          povPrice: "€30–50K fixed per use case",
+          povPriceNote: "Indicative, confirmed per scope; Oracle partner funding programs may reduce the net cost."
+        },
         scope: {
           in: [
             "Two to three existing catalogs mounted, one on-prem database linked",
