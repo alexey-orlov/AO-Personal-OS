@@ -833,7 +833,7 @@ window.SITE_CONTENT = {
         metricsNote: "No published metrics yet. The proof of value measures three things, with the thresholds agreed at discovery rather than asserted up front.",
         roi: {
           icon: "roi",
-          text: "The output is not a report; it is the ability to ask \"which of these went wrong, and what does the record actually say about why\" and get an answer with sources attached. Value shows up as the analysis that used to be too expensive to run — across every completed unit, not the three someone had time for."
+          text: "The output is not a report — it is the ability to ask which completed units went wrong and what the record says about why, with sources attached, across all of them."
         },
         features: [
           "Ingest and profile approved static exports, preserving lineage",
@@ -1109,13 +1109,6 @@ window.SITE_CONTENT = {
           title: "SUCCESS STORY",
           state: "published",
           blurb: "Ground-handling contract rates were keyed into a cost-management system by hand — 60–100-page agreements read page by page, 3–5 days per contract. With the extraction app on OCI (NVIDIA AI-Q), reviewers now validate AI-extracted rates side-by-side with the source PDF — every value cited to its page — and export in minutes.",
-          results: [
-            { value: "3–5 days → 5–15 min", label: "to extract a 60–100-page ground-handling contract end to end" },
-            { value: "up to −20%", label: "targeted reduction in manual data-entry effort (proof of value)" }
-          ],
-          footnotes: [
-            "Targets from the proof of value; figures are illustrative, not contractual."
-          ],
           evidenceId: "extraction-proof"
         }
       },
@@ -1323,7 +1316,7 @@ window.SITE_CONTENT = {
         },
         moreDetail: [
           { title: "Today", body: "Dispatchers maintain work zones and technician allocations by hand, region by region, juggling ZIP-code coverage, skills, working days and absences, with little room to optimize." },
-          { title: "Tomorrow", body: "The dispatcher uploads the period's data, runs cuOpt on OCI, and reviews the optimized allocation on a live map — comparing, approving or re-running before export to Oracle Field Service. The model finds the most optimal schedules, maximizing KPIs." },
+          { title: "Tomorrow", body: "The dispatcher uploads the period's data, runs cuOpt on OCI, and reviews the optimized allocation on a live map — comparing, approving or re-running before export to Oracle Field Service. The solver returns the schedule that scores best against the weighted objectives." },
           { title: "Suboptimal efficiency", body: "Uneven workloads and under-used capacity." },
           { title: "Lower customer satisfaction", body: "Longer wait times from suboptimal allocations." },
           { title: "Poor scalability", body: "Planning hinges on scarce senior dispatchers; new zones launch slowly." },
@@ -1340,17 +1333,6 @@ window.SITE_CONTENT = {
           state: "published",
           blurb: "Dispatchers at a global home-appliance manufacturer planned a residential appliance-repair field force by hand: ZIP-code work zones and technician allocations, region by region. With the cuOpt-powered dispatcher app on OCI, they now review, approve or re-run an optimized plan and export it straight to Oracle Field Service.",
           scopeLine: "A three-month proof of value across three countries, with around thirty real-world constraints modeled — skills, availability, existing bookings, travel and holidays — and dispatcher approval in the loop.",
-          results: [
-            { value: "~30 min", label: "to optimize and approve a region's four-week plan: down from ~2 days" },
-            { value: "83%", label: "of twelve modeled simulations positive, at a median of +4.5% jobs per technician per day" },
-            { value: "15–20%", label: "dispatcher productivity gain observed in the pilot; the case was built on the conservative 15%" },
-            { value: "~5x", label: "modeled ROI within three years on a phased rollout" }
-          ],
-          footnotes: [
-            "Results are modeled simulations against a historical baseline, not measured production outcomes.",
-            "KPIs measured before/after on proof-of-value data; figures are illustrative, not contractual."
-          ],
-          emptyLabel: "No case summary is published yet.",
           evidenceId: "workforce-proof"
         }
       },
