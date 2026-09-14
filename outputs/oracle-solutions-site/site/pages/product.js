@@ -278,7 +278,8 @@
   function scopeBlock(o) {
     var UI = window.UI;
     if (!o.scope) return "";
-    return '<section class="panel reveal"><div class="scope-grid">' +
+    return '<section class="panel reveal">' + blockHead(label("scope")) +
+      '<div class="scope-grid">' +
       '<div class="scope-col">' +
         '<p class="eyebrow eyebrow--accent">' + UI.esc(label("scopeIn")) + "</p>" +
         bulletList(o.scope.in) +

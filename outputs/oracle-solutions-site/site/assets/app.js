@@ -189,10 +189,14 @@
     return labels[key] || "";
   }
 
+  /* A horizontal offer carries one key. It gets the same chip geometry and the
+     same line icon as a four-chip row, widened so it reads as a statement
+     rather than a row that ran out of entries. */
   function industryChips(keys) {
     if (!keys || !keys.length) return "";
-    return '<ul class="ind-chips">' + keys.map(function (key) {
-      return '<li class="ind-chip">' + icon("industry-" + key) +
+    var single = keys.length === 1;
+    return '<ul class="ind-chips' + (single ? " ind-chips--single" : "") + '">' + keys.map(function (key) {
+      return '<li class="ind-chip' + (single ? " ind-chip--wide" : "") + '">' + icon("industry-" + key) +
         "<span>" + esc(industryLabel(key)) + "</span></li>";
     }).join("") + "</ul>";
   }
