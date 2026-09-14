@@ -43,8 +43,22 @@
             kind: "quiet", iconAfter: "arrow"
           }) +
         "</div>" +
-        (stats ? '<ul class="stat-row services-stats">' + stats + "</ul>" : "") +
       "</div></section>";
+  }
+
+  /* The stat row sits in the band under the hero, not inside the image block. */
+  function statBand(content) {
+    var UI = window.UI;
+    var stats = (content.services.hero.stats || []).map(function (stat) {
+      return '<li class="stat">' +
+        '<p class="stat-value nums">' + UI.esc(stat.value) + "</p>" +
+        '<p class="stat-label">' + UI.esc(stat.label) + "</p>" +
+        "</li>";
+    }).join("");
+    if (!stats) return "";
+    return '<section class="stat-band">' +
+      '<div class="wrap"><ul class="stat-row stat-row--band services-stats">' + stats + "</ul></div>" +
+      "</section>";
   }
 
   /* ————— platforms ————— */
@@ -337,7 +351,7 @@
 
   function services() {
     var content = C();
-    return hero(content) + platforms(content) + whatWeDo(content) + wrapAround(content) +
+    return hero(content) + statBand(content) + platforms(content) + whatWeDo(content) + wrapAround(content) +
       howWeEngage(content) + whySoftServe(content) + proof(content) + contact(content);
   }
 
