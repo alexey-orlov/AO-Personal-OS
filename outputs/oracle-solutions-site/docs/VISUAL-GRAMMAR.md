@@ -53,7 +53,7 @@ A product with neither flag nor URL never renders an empty frame, a greyed play 
 
 ### 1.1 The same image, as a Products-page tile
 
-Every tile in the `#/products` grid is that product's own `hero.image` — same file, same `focal` — as the tile's background, cropped by CSS and darkened by a two-axis gradient veil (top-to-bottom plus left-to-right) so the facet label, chips, name, one-liner and three outcome bullets read on near-black while the picture still shows above them. Hovering lifts the border and scales the image 1.05, which `prefers-reduced-motion` disables. The tile content is unchanged, the grid stays two-up, and the seventh tile still spans the row with its copy held to half the width.
+Every tile in the `#/products` grid is that product's own `hero.image` — same file, same `focal` — as the tile's background, cropped by CSS and darkened by a two-axis gradient veil (top-to-bottom plus left-to-right) so the facet label, chips, name, one-liner and three outcome bullets read on near-black while the picture still shows above them. Hovering lifts the border and scales the image 1.05, which `prefers-reduced-motion` disables. The tile content is unchanged and the grid stays two-up at one tile width throughout: every tile is the same size, and an odd count simply ends with the last tile alone in the left column. The home page's product grid follows the same rule.
 
 There is no separate tile artwork and no typographic fallback here: a product with no hero file on disk renders the same tile on the flat ground, because the image guard drops an `<img>` that will not load. (The **home page** grid is a different component and still uses the `media[slug]` plate — see `SCHEMA.md`.)
 
