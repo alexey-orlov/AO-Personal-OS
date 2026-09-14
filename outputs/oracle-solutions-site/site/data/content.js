@@ -2099,6 +2099,7 @@ window.SITE_CONTENT = {
     linkPendingLabel: "Link pending",
     downloadLabel: "Open",
     unlockedIntro: "Materials for Oracle and SoftServe account teams.",
+    notesHeading: "Seller notes",
     stateLegend: {
       "link-pending": "Link pending — the document exists, the share link does not yet",
       "coming-soon": "Coming soon — not written yet",

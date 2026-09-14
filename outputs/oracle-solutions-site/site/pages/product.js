@@ -677,6 +677,22 @@
       (pov.ladder || []).some(function (tier) { return priced.test(tier.pricing); });
   }
 
+  function loadSellerNotes(root, product) {
+    var slot = root.querySelector("#seller-notes");
+    var url = window.SITE_CONFIG.sellerGate.notesUrl;
+    if (!slot || !url || typeof window.fetch !== "function") return;
+    window.fetch(url, { credentials: "same-origin" }).then(function (response) {
+      return response.ok ? response.json() : null;
+    }).then(function (data) {
+      if (!data) return;
+      var lines = (data.products && data.products[product.slug]) || [];
+      if (printsPrice(product)) lines = lines.concat(data.packagingNotes || []);
+      if (!lines.length) return;
+      slot.innerHTML = blockHead(C().sellerGate.notesHeading) + plainList(lines);
+      slot.hidden = false;
+    }).catch(function () { /* no notes available to this reader */ });
+  }
+
   function sellerCtaBody(product) {
     var gate = C().sellerGate;
     var duration = product.pov && product.pov.durationShort;
@@ -722,14 +738,7 @@
         "</section>";
     }
 
-    var noteLines = product.sellers.notes.slice();
-    if (printsPrice(product)) {
-      noteLines = noteLines.concat(gate.packagingNotes || []);
-    }
-    var notes = noteLines.length
-      ? '<section class="panel reveal">' + blockHead("Seller notes") +
-          plainList(noteLines) + "</section>"
-      : "";
+    var notes = '<section class="panel reveal" id="seller-notes" hidden></section>';
 
     return '<section class="panel reveal" id="seller-panel">' +
         '<div class="gate-bar">' +
@@ -930,6 +939,8 @@
 
     bindGate(root, item, rerender);
     bindVideo(root, item);
+
+    if (active === "sellers" && gateUnlocked()) loadSellerNotes(root, item);
 
     if (active === "demo" && window.FORMS) {
       var slot = root.querySelector("#product-demo-form");
