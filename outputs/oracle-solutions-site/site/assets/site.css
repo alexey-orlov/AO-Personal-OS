@@ -84,6 +84,9 @@ body {
 }
 
 img, svg, video { display: block; max-width: 100%; height: auto; }
+/* The stepper, the industry tabs and the stack accordion all hide a panel that
+   carries its own `display`, so the attribute has to win over the component. */
+[hidden] { display: none !important; }
 button, input, select, textarea { font: inherit; color: inherit; }
 a { color: inherit; text-decoration: none; }
 ul, ol { margin: 0; padding: 0; list-style: none; }
