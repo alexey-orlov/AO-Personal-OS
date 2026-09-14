@@ -497,27 +497,38 @@
   }
 
   /* A hero background or video poster that cannot be fetched falls back to the
-     gradient or the inset panel alone, never to a broken-image glyph. YouTube
-     serves maxresdefault.jpg only for videos uploaded above 720p, so a poster
-     pointing there retries hqdefault.jpg — which always exists — before it goes. */
+     gradient or the inset panel alone, never to a broken-image glyph or a grey
+     placeholder. YouTube has maxresdefault.jpg only for videos uploaded above
+     720p; for the rest it answers 200 with a 120x90 grey stand-in rather than a
+     404, so size is the only honest test. A poster retries hqdefault.jpg, which
+     always exists for a real video, before it goes. */
+  var YT_PLACEHOLDER_W = 120;
+
   function guardHeroImages(root) {
     Array.prototype.forEach.call(root.querySelectorAll(".hero-bg-img, .video-card-poster"), function (img) {
       var retried = false;
+
+      function isYouTube() { return (img.getAttribute("src") || "").indexOf("img.youtube.com/") >= 0; }
       function drop() { if (img.parentNode) img.parentNode.removeChild(img); }
+
       function fail() {
         var src = img.getAttribute("src") || "";
-        if (!retried && src.indexOf("img.youtube.com/") >= 0 && src.indexOf("maxresdefault") >= 0) {
+        if (!retried && isYouTube() && src.indexOf("maxresdefault") >= 0) {
           retried = true;
           img.setAttribute("src", src.replace("maxresdefault", "hqdefault"));
           return;
         }
         drop();
       }
-      if (img.complete) {
-        if (!img.naturalWidth) fail();
-        return;
+
+      function settle() {
+        if (!img.naturalWidth) { fail(); return; }
+        if (isYouTube() && img.naturalWidth <= YT_PLACEHOLDER_W) fail();
       }
+
+      if (img.complete) { settle(); return; }
       img.addEventListener("error", fail);
+      img.addEventListener("load", settle);
     });
   }
 
