@@ -82,9 +82,9 @@ window.SITE_CONTENT = {
     packageTable: "Figures are illustrative and subject to confirmation.",
     lakehousePricing: "*Price indicative, to be confirmed per scope; Oracle partner funding programs may reduce the customer’s net cost. All features used are generally available product.",
     accountInsightsEvaluation: "The engine is a non-deterministic reasoning system, so a dedicated evaluation plan (correctness and confidence calibration) is part of the work.",
-    publicPricingFootnote: "Framed scope, flexible add-ons. Each package’s price and timing are set by specific constraints. Custom features beyond the frame are added for additional price and time.",
+    publicPricingFootnote: "Figures are illustrative and confirmed in scoping.",
     modeledResults: "Results are modeled simulations against a historical baseline, not measured production outcomes.",
-    ladderFallback: "No fixed package price is published for this application yet. The scope above is the shape every engagement follows; the price is set once the sample, the sources and the success metrics are agreed."
+    ladderFallback: "No package price is published for this application yet; scope and price are set once the sample, the sources and the success metrics are agreed."
   },
 
   shared: {
@@ -105,7 +105,7 @@ window.SITE_CONTENT = {
     productTabs: [
       { id: "overview", label: "Overview" },
       { id: "technology", label: "Technology" },
-      { id: "pov", label: "POV Jumpstart" },
+      { id: "jumpstart", label: "Jumpstart", legacyId: "pov" },
       { id: "contacts", label: "Contacts", legacyId: "demo" },
       { id: "sellers", label: "For sellers", locked: true }
     ],
@@ -113,8 +113,14 @@ window.SITE_CONTENT = {
       name: "Karsten Tramborg",
       title: "Alliances & Partnerships Director, SoftServe",
       email: "oracle@softserveinc.com",
-      photo: "",
-      blurb: "Bring the account and the workflow: a fit check, a live walkthrough, or the scope of a proof of value on your own data."
+      photo: "assets/img/people/karsten-tramborg.jpg",
+      blurb: "Bring the account and the workflow: a fit check, a live walkthrough, or the scope of a proof of value on your own data.",
+      bringTitle: "Bring to the call",
+      bring: [
+        "The workflow you want fixed, and roughly how much of it runs in a month",
+        "Which systems hold the data, and who can approve read-only access",
+        "The timeline you are working to, and what a good result would look like"
+      ]
     },
     ladderColumns: ["Proof of value", "Roll-out", "Scaling"],
     heroAsideTitle: "What you get",
@@ -152,41 +158,26 @@ window.SITE_CONTENT = {
       moreDetail: "More detail",
       moreDetailFeatures: "Every feature, in full",
       architecture: "Architecture",
-      flow: "How it runs",
       stack: "Solution stack",
-      security: "Security and deployment",
+      capabilities: "Capabilities",
+      stateSupported: "Supported",
+      stateRoadmap: "Roadmap",
       howItWorks: "How it works",
       industryCases: "Industry use cases",
       caseProblem: "The problem",
       caseSolution: "The solution",
       outcomes: "Outcomes & ROI",
-      atAGlance: "At a glance",
-      factCategory: "Workflow pattern",
-      factPlatform: "Oracle platform",
-      factAvailability: "Availability",
-      factPovDuration: "Proof of value",
-      factPovPrice: "Price",
-      povLink: "See what the proof of value covers →",
+      successStory: "Success story",
       layerRequired: "Required",
       layerOptional: "Optional",
       directionInbound: "Inbound",
       directionOutbound: "Outbound",
       contacts: "Contacts",
-      povHeading: "What the proof of value buys",
-      povFactDuration: "Duration",
-      povFactTeam: "Team",
-      povFactPrice: "Price",
-      povFactDeliverables: "Deliverables",
-      deliverables: "Deliverables",
-      pricing: "Pricing",
-      terms: "The terms, in full",
-      matrix: "What is included at each step",
-      ladder: "From proof of value to scale",
-      povScopeIn: "In scope",
-      povScopeOut: "Not in the proof of value",
-      povRollout: "Then at roll-out",
-      povPhases: "Phases",
-      povMeasured: "How it is measured"
+      jumpstartOutcomes: "What you get",
+      jumpstartTimeline: "How it runs",
+      jumpstartNeeds: "What we need from you",
+      jumpstartInvestment: "Investment",
+      jumpstartNext: "After the Jumpstart"
     },
     materialStates: {
       "link-pending": "Link pending",
@@ -245,9 +236,10 @@ window.SITE_CONTENT = {
         id: "workforce-proof",
         band: 1,
         label: "PROOF OF VALUE",
-        customer: "A global home-appliance manufacturer",
+        customer: "Bosch",
+        logo: "assets/img/logos/bosch.png",
         industry: "Manufacturing — consumer-durables field service",
-        body: "Dispatchers planned a residential appliance-repair field force by hand: ZIP-code work zones and technician allocations, region by region. With the cuOpt-powered dispatcher app on OCI, they now review, approve or re-run an optimized plan and export it straight to Oracle Field Service.",
+        body: "Bosch dispatchers planned a residential appliance-repair field force by hand: ZIP-code work zones and technician allocations, region by region. With the cuOpt-powered dispatcher app on OCI, they now review, approve or re-run an optimized plan and export it straight to Oracle Field Service.",
         scopeLine: "A three-month proof of value across three countries, with around thirty real-world constraints modeled — skills, availability, existing bookings, travel and holidays — and dispatcher approval in the loop.",
         metrics: [
           { value: "~30 min", label: "to optimize and approve a region’s four-week plan: down from ~2 days" }
@@ -589,7 +581,7 @@ window.SITE_CONTENT = {
           },
           {
             key: "custom",
-            label: "Custom configuration",
+            label: "Custom configuration & integrations",
             summary: "The sources, the mappings, the scoring rubric and where the output lands — set per engagement.",
             vendors: ["softserve"],
             items: [
@@ -909,7 +901,7 @@ window.SITE_CONTENT = {
           },
           {
             key: "custom",
-            label: "Custom configuration",
+            label: "Custom configuration & integrations",
             summary: "Source mapping, case categories, citation granularity and the approval workflow.",
             vendors: ["softserve"],
             items: [
@@ -1219,7 +1211,7 @@ window.SITE_CONTENT = {
           },
           {
             key: "custom",
-            label: "Custom configuration",
+            label: "Custom configuration & integrations",
             summary: "Source mapping, the unit identifier, variance rules and the evidence thresholds.",
             vendors: ["softserve"],
             items: [
@@ -1552,7 +1544,7 @@ window.SITE_CONTENT = {
           },
           {
             key: "custom",
-            label: "Custom configuration",
+            label: "Custom configuration & integrations",
             summary: "The field schema, the business rules, the thresholds and the target-system integration.",
             vendors: ["softserve"],
             items: [
@@ -1881,7 +1873,7 @@ window.SITE_CONTENT = {
           },
           {
             key: "custom",
-            label: "Custom configuration",
+            label: "Custom configuration & integrations",
             summary: "Client rules, constraints, KPI definitions and the data integrations.",
             vendors: ["softserve"],
             items: [
@@ -2193,7 +2185,7 @@ window.SITE_CONTENT = {
           },
           {
             key: "custom",
-            label: "Custom configuration",
+            label: "Custom configuration & integrations",
             summary: "The sources connected, the governance configured, and how answers come back.",
             vendors: ["softserve"],
             items: [
@@ -2503,7 +2495,7 @@ window.SITE_CONTENT = {
           },
           {
             key: "custom",
-            label: "Custom configuration",
+            label: "Custom configuration & integrations",
             summary: "The catalogs mounted, the databases linked, and the governance that scopes every answer.",
             vendors: ["softserve"],
             items: [
