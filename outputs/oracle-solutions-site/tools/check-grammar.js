@@ -353,31 +353,79 @@ if (!arr(C.products) || C.products.length !== 7) {
     }
   }
 
-  /* 3.4 security */
-  if (!arr(t.security) || t.security.length < 3) fail(w, "technology.security needs ≥3 entries");
-  else t.security.forEach(function (item, i) {
-    if (!str(item.icon) || !str(item.text)) fail(w, "technology.security[" + i + "] needs { icon, text }");
-  });
-
-  /* 4 pov */
-  if (!v.facts) fail(w, "pov.facts missing");
-  else {
-    ["duration", "team", "price"].forEach(function (k) {
-      if (!str(v.facts[k])) fail(w, "pov.facts." + k + " missing");
+  /* F · the capability list, grouped by the four workflow stages */
+  if (!arr(t.capabilities) || t.capabilities.length !== 4) {
+    fail(w, "technology.capabilities must hold exactly 4 workflow stages, got " + (arr(t.capabilities) ? t.capabilities.length : "none"));
+  } else {
+    var seenStages = [];
+    t.capabilities.forEach(function (group, i) {
+      var gw = w + ".capabilities[" + i + "]";
+      if (!str(group.stage)) fail(gw, "stage missing");
+      else if (seenStages.indexOf(group.stage) !== -1) fail(gw, 'stage "' + group.stage + '" appears twice');
+      else seenStages.push(group.stage);
+      if (!arr(group.items) || group.items.length < 3) fail(gw, "items needs ≥3 capabilities");
+      else group.items.forEach(function (item, j) {
+        if (!str(item.name)) fail(gw + ".items[" + j + "]", "name missing");
+        if (item.state !== undefined && CAP_STATES.indexOf(item.state) === -1) {
+          fail(gw + ".items[" + j + "]", 'state "' + item.state + '" is not supported / roadmap — omit the key where no source states one');
+        }
+      });
     });
-    if (typeof v.facts.deliverablesCount !== "number") fail(w, "pov.facts.deliverablesCount must be a number");
-    else if (arr(v.deliverables) && v.facts.deliverablesCount !== v.deliverables.length) {
-      fail(w, "pov.facts.deliverablesCount (" + v.facts.deliverablesCount + ") ≠ pov.deliverables.length (" + v.deliverables.length + ")");
-    }
   }
-  if (!arr(v.deliverables) || v.deliverables.length < 4) fail(w, "pov.deliverables needs ≥4");
-  if (!arr(v.pricing) || v.pricing.length < 2) fail(w, "pov.pricing needs ≥2 rows");
-  if (!arr(v.disclaimers) || !v.disclaimers.length) fail(w, "pov.disclaimers needs ≥1 — a price never renders bare");
-  if (!arr(v.ladder) || v.ladder.length !== 3) fail(w, "pov.ladder must hold exactly 3 tiers");
-  else v.ladder.forEach(function (tier, i) {
-    if (tier.tier !== TIERS[i]) fail(w, 'ladder[' + i + '].tier is "' + tier.tier + '", expected "' + TIERS[i] + '"');
-    if (!str(tier.pricing)) fail(w, "ladder[" + i + "].pricing missing");
-  });
+
+  /* G · the Jumpstart Proof-of-Value block */
+  if (!v || !Object.keys(v).length) fail(w, "jumpstart missing");
+  else {
+    ["title", "promise", "cta"].forEach(function (k) {
+      if (k === "cta" ? !(v.cta && str(v.cta.label) && str(v.cta.route)) : !str(v[k])) {
+        fail(w, "jumpstart." + k + " missing");
+      }
+    });
+    if (str(v.title) && v.title !== "Jumpstart Proof-of-Value") {
+      fail(w, 'jumpstart.title is "' + v.title + '" — the block title is the same on all seven');
+    }
+    if (!arr(v.pillars) || v.pillars.length !== 3) fail(w, "jumpstart.pillars must hold exactly 3");
+    else v.pillars.forEach(function (pillar, i) {
+      if (pillar.key !== PILLARS[i]) fail(w, 'pillars[' + i + '].key is "' + pillar.key + '", expected "' + PILLARS[i] + '"');
+      ["title", "text"].forEach(function (k) {
+        if (!str(pillar[k])) fail(w, "pillars[" + i + "]." + k + " missing");
+      });
+    });
+    if (!arr(v.outcomes) || v.outcomes.length < 3 || v.outcomes.length > 4) {
+      fail(w, "jumpstart.outcomes must hold 3–4 outcome lines, got " + (arr(v.outcomes) ? v.outcomes.length : "none"));
+    }
+    if (!arr(v.timeline) || v.timeline.length < 3 || v.timeline.length > 4) {
+      fail(w, "jumpstart.timeline must hold 3–4 nodes, got " + (arr(v.timeline) ? v.timeline.length : "none"));
+    } else v.timeline.forEach(function (node, i) {
+      if (!str(node.label) || !str(node.text)) fail(w, "timeline[" + i + "] needs { label, text }");
+    });
+    if (!arr(v.needs) || v.needs.length !== 3) fail(w, "jumpstart.needs must hold exactly 3 items");
+    var inv = v.investment;
+    if (!inv) fail(w, "jumpstart.investment missing");
+    else {
+      ["price", "duration", "footnote"].forEach(function (k) {
+        if (!str(inv[k])) fail(w, "jumpstart.investment." + k + " missing — the price tile is never empty, and a figure never renders without its footnote");
+      });
+      if (!arr(inv.includes) || inv.includes.length < 3) fail(w, "jumpstart.investment.includes needs ≥3 lines");
+      /* One footnote, not a disclaimer stack: the packaging-internal sentences
+         were removed site-wide in round 3. */
+      if (str(inv.footnote) && sentences(inv.footnote) > 2) {
+        fail(w, "jumpstart.investment.footnote is " + sentences(inv.footnote) + " sentences — one footnote line, not a disclaimer stack");
+      }
+    }
+    if (!arr(v.next) || v.next.length !== 2) fail(w, "jumpstart.next must hold exactly 2 steps — Integration and Scale");
+    else v.next.forEach(function (step, i) {
+      if (step.tier !== NEXT_TIERS[i]) fail(w, 'next[' + i + '].tier is "' + step.tier + '", expected "' + NEXT_TIERS[i] + '"');
+      if (!str(step.text)) fail(w, "next[" + i + "].text missing");
+      if (!str(step.price)) fail(w, "next[" + i + "].price missing — it reads Scoped per engagement where none is published");
+    });
+    if (v.cta && str(v.cta.route) && v.cta.route !== "#/products/" + p.slug + "/contacts") {
+      fail(w, 'jumpstart.cta.route "' + v.cta.route + '" must point at this product’s contacts tab');
+    }
+    ["facts", "deliverables", "pricing", "disclaimers", "ladder", "ladderFootnote", "capabilityMatrix", "statStrip", "statNotes", "howItRuns", "prerequisites"].forEach(function (k) {
+      if (v[k] !== undefined) fail(w, "jumpstart." + k + " is a superseded POV-tab shape — nothing renders it");
+    });
+  }
 
   /* invariants carried over from SCHEMA.md */
   if (!p.tile || !arr(p.tile.outcomes) || p.tile.outcomes.length !== 3) fail(w, "tile.outcomes must hold exactly 3");
@@ -402,6 +450,13 @@ if (!arr(C.products) || C.products.length !== 7) {
     fail("shared.contact", 'email must be the practice mailbox "oracle@softserveinc.com", got "' + k.email + '"');
   }
   if (str(k.blurb) && sentences(k.blurb) > 1) fail("shared.contact", "blurb is more than one line");
+  /* E5 / round-3 C: the card is a bounded panel beside the form, and the list
+     is what turns "get in touch" into a call someone can prepare for. */
+  if (!str(k.bringTitle)) fail("shared.contact", "bringTitle missing — the heading of the Bring-to-the-call list");
+  if (!arr(k.bring) || k.bring.length !== 3) fail("shared.contact", "bring must hold exactly 3 items");
+  else k.bring.forEach(function (item, i) {
+    if (!str(item)) fail("shared.contact", "bring[" + i + "] is not a string");
+  });
   if (str(k.photo)) {
     if (!/^assets\/img\/people\/[a-z0-9-]+\.(jpg|jpeg|png|webp)$/.test(k.photo)) {
       fail("shared.contact", 'photo "' + k.photo + '" is not assets/img/people/<name>.<ext>');
@@ -413,6 +468,10 @@ if (!arr(C.products) || C.products.length !== 7) {
   var tabs = (C.shared.productTabs || []).map(function (x) { return x.id; });
   if (tabs.indexOf("contacts") === -1) fail("shared.productTabs", 'no "contacts" tab — the demo tab was renamed in E5');
   if (tabs.indexOf("demo") !== -1) fail("shared.productTabs", 'the "demo" tab id is retired; /demo redirects to /contacts');
+  if (tabs.indexOf("jumpstart") === -1) fail("shared.productTabs", 'no "jumpstart" tab — the POV tab was renamed in round 3');
+  if (tabs.indexOf("pov") !== -1) fail("shared.productTabs", 'the "pov" tab id is retired; /pov redirects to /jumpstart');
+  var jump = (C.shared.productTabs || []).filter(function (x) { return x.id === "jumpstart"; })[0];
+  if (jump && jump.legacyId !== "pov") fail("shared.productTabs", 'the jumpstart tab must carry legacyId "pov" so the old route still lands');
   if (!str(C.forms.demo && C.forms.demo.secondaryHeading)) {
     fail("forms.demo", "secondaryHeading missing — the form under the contact card is headed separately");
   }
@@ -423,10 +482,19 @@ var raw = fs.readFileSync(path.join(root, "site/data/content.js"), "utf8");
 [
   ["GigaCloud", "internal company name"],
   ["WinP", "internal deal-state vocabulary"],
-  ["Bosch", "uncleared customer name"],
-  ["BSH", "uncleared customer name"],
-  ["Riyadh Air", "uncleared customer name"],
+  /* Bosch and Riyadh Air are named on purpose (Alex, 2026-09-14) — they are the
+     two customers whose proofs are written up on SoftServe's own external
+     one-pagers. BSH stays banned: it is the internal entity abbreviation, and
+     the business case behind it is an Oracle-confidential document. */
+  ["BSH", "internal customer abbreviation — write Bosch"],
   ["DHL", "uncleared customer name"],
+  ["€190K", "customer economics from a confidential business case"],
+  ["€5.17", "customer economics from a confidential business case"],
+  ["€11.03", "customer economics from a confidential business case"],
+  ["Framed scope", "packaging-internal disclaimer, removed in round 3"],
+  ["flexible add-ons", "packaging-internal disclaimer, removed in round 3"],
+  ["beyond the frame", "packaging-internal disclaimer, removed in round 3"],
+  ["set by specific constraints", "packaging-internal disclaimer, removed in round 3"],
   ["TODO", "internal marker"],
   ["(assumed)", "internal marker"],
   ["ktram@", "personal mailbox — the site prints the practice address only"],
