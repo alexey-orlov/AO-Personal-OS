@@ -513,3 +513,114 @@ The fact strip read `12 weeks + 2` — internal shorthand with a unit-less "+ 2"
 `sellers.notes` and `sellerGate.packagingNotes` are **gone from `content.js`**. The seller panel now renders an empty container and, after the gate passes, fetches `SITE_CONFIG.sellerGate.notesUrl` (`same-origin` credentials) and fills it from the response; an empty `notesUrl`, a failed fetch or an empty payload renders nothing at all — no heading, no error, no console noise. `notesUrl` ships empty, so no seller notes ship. The payload shape and the rule that the path must be one the deployment actually authenticates are documented in `CONFIG.md` §2. `sellerGate.notesHeading` is the only piece of this that stays in `content.js`, because a heading is not a commercial fact.
 
 The two retired stale-collateral notes, recorded here so the knowledge is not lost: the `account-insights` accelerator-pack one-pager carries an earlier product name on its cover, and the `large-document-extraction` sales deck is titled "Large Document Extraction and Validation" — same product, earlier name. The retired packaging notes are quoted at the top of this section.
+
+---
+
+## 12. The E2 / E3 / E5 round — the compact Overview, the layered stack, and the contact card
+
+Alex's locked edits of 2026-09-14. This section covers only the **data layer**: what was added to `content.js`, where each string came from, and what was written new. The renderer and the imagery are logged by their own rounds.
+
+### 12.1 Source roots used in this round
+
+| Source | What it supplied |
+|---|---|
+| `…/Packs/Use case maps/AI use case map - partner variant 2026-09-11 design pass.pptx` + `AI workflow patterns - AIDP-NVIDIA-OracleAI mapping.xlsx` (tab "Patterns v2") | The L2 pattern definitions and the per-persona examples that ground the industry cases for the four products with no packaged collateral |
+| Workforce Optimization — sales one-pager (2026-07-13), service-packages deck, Accelerator Pack one-pager | The four verticals verbatim, the capability matrix, the four-tier solution layers, the reference-architecture node labels, the CTA block |
+| Large Document Extraction and Validation — sales one-pager, Accelerator Pack one-pager, Sep playbook slides 7–8 | The four verticals verbatim, the capability matrix, the architecture node labels, the use-case boundaries, the CTA block |
+| AI Signal-Impact Engine — Accelerator Pack one-pager, Sep playbook slides 9–10 | The four verticals verbatim, the capability matrix, the architecture node labels, the in/out-of-scope lists |
+| NHS complaint-handling PoC doc (de-identified) | The three per-case outputs and the investigator-UI framing behind the `case-evidence-collection` stepper |
+| SBG historical-package PoC doc (de-identified) | The five-verb "what it does" list behind the `plan-vs-actual-investigation` stepper, and the named technology stack (AI-Q, NIM/Nemotron, AI Vector Search, OpenSearch, AI Database 26ai, Document Understanding, Object Storage, Functions/Streaming/API Gateway/OKE, GPU compute) |
+| AI Lakehouse Quick Start (2026-08-21) + AI Lakehouse Jumpstart event showcase (2026-09-03) | Everything on the two Q&A products: the TODAY/TOMORROW pairs, the TIME and TRUST pains, the CONNECT / MODEL+GUARD / AI LAYER / PROVE phases, the GA-features-only line, the governance framing |
+| Oracle post-PoC business case for the field-service engagement | Read for the workforce `manufacturing` case **in anonymised form only** — three countries, ~30 modelled constraints, dispatcher approval in the loop. No customer name, no figure, no logo, nothing marked Confidential. |
+
+### 12.2 `overview.steps[]` — the workflow stepper
+
+Four steps on every one of the seven, mapped to the workflow the pack's own material describes: intake → processing → review/decision → delivery. Titles and step text are **new copy**, written to the register of the source; the `features` arrays hold the **existing** `overview.features` strings unchanged, redistributed across the steps.
+
+Nothing was invented into the bullets, and nothing was lost: `tools/check-grammar.js` now asserts that the union of the steps' features equals `overview.features` exactly, so a bullet cannot be dropped or duplicated by a later edit.
+
+| Product | Step titles | Grounding |
+|---|---|---|
+| `account-insights` | Bring in the signal · Filter it, then fan it out · Reason the "so what" per account · Score, cite, review | The one-pager's capability groups: Inputs & grounding → Trigger & filtering → Opportunity & risk reasoning → Review & output |
+| `case-evidence-collection` | A case opens · Assemble the evidence · Build the case file · Investigate and decide | The pattern's L2 definition ("an event or a batch sweep opens a case → evidence assembled → an evidence file with a draft finding") plus the three per-case outputs |
+| `plan-vs-actual-investigation` | Ingest the exports · Resolve records to the unit · Compare plan against actual · Review the evidence | The PoC doc's five-verb list: ingest and profile → normalize and map preserving lineage → compare → identify variances/patterns/drivers → present through a lightweight interface |
+| `large-document-extraction` | Upload and classify · Extract against the rules · Score, cite, validate · Review and export | The Sep playbook's capability groups: Classification & routing → Extraction → Review → (export) |
+| `workforce-optimization` | Load the period's data · Set the rules · Solve the plan · Review, approve, measure | The TOMORROW paragraph ("uploads the period's data, runs cuOpt on OCI, and reviews the optimized allocation… before export") plus the allocation-rules / review-and-approval / KPI areas of the capability matrix |
+| `cross-system-erp-qa` | Connect the applications · Shape one decision domain · Guard it in the data layer · Ask in plain language | The Jumpstart Case 2 phases, verbatim in structure: CONNECT W1–2 → MODEL + GUARD W2–4 → AI LAYER W3–5 |
+| `business-metrics-qa` | Mount what you already run · Build the gold layer · Scope it by role · Answer across every source | The Jumpstart Case 1 phases, same four |
+
+### 12.3 `overview.industryCases[]` — the industry tabs
+
+Twenty-four cases across the seven products. Every `industry` key was already named as a vertical in a source; **the `problem` and `solution` prose is new copy in every case**, written to the source's register, because no source carries a per-industry problem/solution pair for these packs.
+
+| Product | Keys | Where the vertical is named |
+|---|---|---|
+| `account-insights` | logistics · financial-services · manufacturing | One-pager "Where it applies": Logistics & supply chain · Financial services & banking · Industrial & manufacturing · Private equity funds (the fourth folds into `financial-services`) |
+| `case-evidence-collection` | financial-services · manufacturing · professional-services · public-sector | The four persona examples on the use-case map's *Case investigation* row: financial-crime analyst · quality manager · employee-relations partner · case investigator (complaint handling) |
+| `plan-vs-actual-investigation` | construction · manufacturing · professional-services | The map's project-controller example plus the product's own `moreDetail` personas (operations manager on order portfolios, delivery lead on client engagements) |
+| `large-document-extraction` | travel-transport · professional-services · insurance · financial-services | One-pager list verbatim: Aviation — ground-handling contracts · Legal & commercial contracts · Insurance — policies & claims · Financial & regulatory filings |
+| `workforce-optimization` | manufacturing · utilities · telecom · healthcare | One-pager list verbatim: Appliance & white-goods repair · Utilities: water, gas, electric · Telecom & cable · Industrial, medical & IT equipment |
+| `cross-system-erp-qa` | cross-industry · manufacturing · logistics | Jumpstart "the same two pains, every industry"; the map's procurement-lead and operations-lead examples; the Case 2 TODAY text naming carriers and e-commerce alongside ERP and CRM |
+| `business-metrics-qa` | cross-industry · retail · manufacturing | Jumpstart TIME and TRUST pains; the map's merchandiser example ("sales by SKU, region, and promotion"); the business-manager example ("revenue, churn, or inventory questions") |
+
+Two rules held throughout:
+
+- **No customer is named, and no anonymised label is reused as a case.** The workforce `manufacturing` case draws on the delivered field-service engagement only in the terms already cleared for the evidence card — three countries, around thirty modelled constraints, dispatcher approval in the loop. No figure from the Oracle post-PoC business case appears here; that document is marked Confidential and carries no external-use clearance.
+- **A case that would read the same under any other tab is not an industry case.** Each pair names something specific to that sector: ZIP-code work zones and no-shows, crew certifications and outage spikes, 60–100-page ground-handling agreements at 7–12 % of direct operating cost, cross-holding ripples, batch records and supplier history.
+
+### 12.4 `overview.sideFacts` — the At-a-glance card
+
+No new facts. Every value is a denormalised copy: `category` from `facets.categories[].full`, `platform` from `facets.technology[].fullLabel`, `availability` from the product's own `availabilityChip`, `povDuration` and `povPrice` from `pov.facts`. The checker asserts the availability and duration copies against their originals so they cannot drift.
+
+One deliberate change of form: `pov.facts.price` on the two Lakehouse products reads `€30–50K fixed *`, whose asterisk points at a disclaimer that lives on the POV tab. The side rail has no footnote row, so the card carries `€30–50K fixed per use case` plus an explicit `povPriceNote` — "Indicative, confirmed per scope; Oracle partner funding programs may reduce the net cost", compressed from the standing Lakehouse disclaimer. `large-document-extraction` and `workforce-optimization` carry "Figures are illustrative and subject to confirmation", verbatim from their decks. A bare asterisk with no footnote in view is the defect this avoids.
+
+### 12.5 `technology.stack[]` — three blocks folded into one
+
+`technology.groups`, `technology.layers` and `technology.integration` were three views of one architecture. They are now one layered accordion: `application` → `ai-engine` → `data-platform` → `infrastructure` → `custom`, top to bottom.
+
+- **Every item is carried over, not rewritten.** The component names come from `groups[].items`; the layer summaries compress the `layers[].body` strings; the integration lines become `custom` items tagged `direction: "inbound" | "outbound"`.
+- **Required / Optional** comes from what the source material already said: an item the one-pagers describe as out-of-the-box or as the system of record is `required: true`; an item described as optional, as "only where…", or as roll-out scope is `required: false`, usually with a `note` saying which.
+- **The two Lakehouse products have no `ai-engine` layer.** Their own `notUsed` line says "NVIDIA — not required; Lakehouse first, GPU optional", and an empty engine row would contradict it.
+- The three superseded keys are **left in `content.js` on purpose**, so no fact is at risk while the renderer is rebuilt. They are to be removed only once the implementer confirms nothing reads them; nothing new should be written into them in the meantime.
+
+### 12.6 `shared.contact` — the one named human on the site
+
+```
+name:  "Karsten Tramborg"
+title: "Alliances & Partnerships Director, SoftServe"
+email: "oracle@softserveinc.com"
+```
+
+**Title source, quoted.** The CTA block of both external sales one-pagers prints, verbatim:
+
+> **Karsten Tramborg** — Alliances & Partnerships Director, SoftServe — ktram@softserveinc.com
+
+— the Workforce Optimization sales one-pager (2026-07-13) and the document-pack one-pager (2026-09-10). The research pass recorded the same string independently from the wiki (`context/areas/softserve/oracle.md`: "**Alliances & Partnerships Director, SoftServe** (title confirmed on the 2026-09-10 doc-pack one-pager, where he is the named CTA)") and from `oracle-packs.md`. So the title is not inferred: it is already printed on customer-facing collateral under this exact wording.
+
+**The address is not.** The one-pagers print a personal mailbox; the site prints the practice mailbox `oracle@softserveinc.com`, per Alex's instruction. `ktram@` is now a banned string in `tools/check-grammar.js`, so it cannot return through a later edit. `AIDP` and `AltraDOC` were added to the same ban list in this round — the first is internal shorthand for Oracle AI Data Platform, the second a third-party product named inside a customer's own estate.
+
+**No LinkedIn URL ships.** None appears in any source read for this site, and the schema omits the key rather than guessing at a profile URL.
+
+This is the only person named anywhere in `content.js`, and the research pass flagged him as the one safe candidate: of the eleven names on the practice slide, he is the only one already published by name, title and contact route on an external SoftServe artefact.
+
+### 12.7 Tab rename
+
+`shared.productTabs` — the `demo` tab became `{ id: "contacts", label: "Contacts", legacyId: "demo" }`. `legacyId` is the router's redirect instruction, not a render slot: `#/products/<slug>/demo` lands on `#/products/<slug>/contacts`.
+
+`forms.demo` keeps `heading` / `sub` — that instance still heads the standalone request form on the home page, reached from the header pill at `#/#request-a-demo`. It gains `secondaryHeading` ("OR SEND A REQUEST") and `secondarySub` for the instance that renders **under** the contact card on a product page. One form, two jobs, two headings; the alternative was renaming the home page's primary ask, which nothing asked for.
+
+### 12.8 Copy written new in this round
+
+Everything below is new prose, written to the register of the shipped one-pagers. Nothing here asserts a number, a customer, a URL or a capability that is not already in a source.
+
+- **28 step titles and 28 step texts** (four per product), §12.2. Structure grounded per the table there; the sentences are new.
+- **24 industry `problem` / `solution` pairs**, §12.3. Every vertical is sourced; every pair is new prose.
+- **35 stack layer `summary` lines** (five per product, four on the two Lakehouse products), §12.5. Compressed from the `layers[].body` strings and the source architecture descriptions.
+- **`shared.contact.blurb`** — "Bring the account and the workflow: a fit check, a live walkthrough, or the scope of a proof of value on your own data." New; it restates the engagement shape already described in `forms.engagementSteps`.
+- **`forms.demo.secondaryHeading` / `secondarySub`** — new, per Alex's instruction that the form under the contact card is headed "Or send a request".
+- **17 new `shared.sectionLabels` entries** — `howItWorks`, `industryCases`, `caseProblem`, `caseSolution`, `outcomes`, `atAGlance`, `factCategory`, `factPlatform`, `factAvailability`, `factPovDuration`, `factPovPrice`, `povLink`, `layerRequired`, `layerOptional`, `directionInbound`, `directionOutbound`, `contacts`. Section headings, not claims.
+- **Two `povPriceNote` strings**, §12.4 — one compressed from the standing Lakehouse disclaimer, one verbatim from the WFO / LDE decks.
+
+### 12.9 Two industry chip rows were widened
+
+`case-evidence-collection` carried two chips (`financial-services`, `manufacturing`) where `VISUAL-GRAMMAR.md` §5 documented four. `professional-services` and `public-sector` were added, both grounded in the persona examples on the use-case map's *Case investigation* row — the employee-relations partner and the complaint-handling case investigator. The §5 table is now generated from what the data actually holds, in both columns, so the two cannot disagree again; `account-insights` and `plan-vs-actual-investigation` had the reverse drift (the table listed a key the data did not carry) and the table was corrected to the data rather than the data to the table.
