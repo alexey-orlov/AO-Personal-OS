@@ -1834,6 +1834,84 @@ window.SITE_CONTENT = {
         ],
         industries: ["manufacturing", "utilities", "telecom", "healthcare"],
         industriesNote: "Any mobile field force planned against skills, availability and geography.",
+        steps: [
+          {
+            n: 1,
+            title: "Load the period's data",
+            text: "Demand, technician availability, skills, work zones and the period's bookings come in from Oracle Field Service.",
+            image: "assets/img/steps/workforce-optimization-1.jpg",
+            features: [
+              "Work-zone and availability rules, with skill-based allocation",
+              "Planned-vacation reallocation and same-day sickness handling"
+            ]
+          },
+          {
+            n: 2,
+            title: "Set the rules",
+            text: "Zone, forecast and commitment rules are configured, then weighted as hard or soft constraints against the objectives that matter.",
+            image: "assets/img/steps/workforce-optimization-2.jpg",
+            features: [
+              "Default, neighboring and cross-zone allocation",
+              "Forecast-based allocation against a demand forecast you supply",
+              "Commitment rules: non-movable appointments and SLA types per appointment *"
+            ]
+          },
+          {
+            n: 3,
+            title: "Solve the plan",
+            text: "cuOpt computes the technician-to-zone-to-job plan against every constraint at once, in minutes rather than days.",
+            image: "assets/img/steps/workforce-optimization-3.jpg",
+            features: ["Multi-objective optimization with hard and soft rule weighting"]
+          },
+          {
+            n: 4,
+            title: "Review, approve, measure",
+            text: "The dispatcher compares plans on a live map, approves or re-runs, and the KPI readout shows what changed.",
+            image: "assets/img/steps/workforce-optimization-4.jpg",
+            features: [
+              "Dispatcher review UI: map and table views, approve, reject, re-run",
+              "KPIs and analytics: productivity, utilization, travel, workload balance"
+            ]
+          }
+        ],
+        industryCases: [
+          {
+            industry: "manufacturing",
+            label: "Manufacturing",
+            image: "assets/img/industries/manufacturing.jpg",
+            problem: "Residential appliance and white-goods repair is planned by hand: ZIP-code work zones and technician allocations, region by region, juggling skills, spare parts, travel and absences. Urgent call-outs and no-shows mean re-planning the day.",
+            solution: "The solver plans the whole region against skills, parts, travel and existing bookings at once, and the dispatcher reviews the result rather than building it. The proof of value for this pattern modelled around thirty real-world constraints across three countries, with dispatcher approval kept in the loop."
+          },
+          {
+            industry: "utilities",
+            label: "Utilities",
+            image: "assets/img/industries/utilities.jpg",
+            problem: "Water, gas and electric crews are scheduled across service territories against SLAs, crew certifications and outage spikes. Planned and emergency work compete for the same capacity, and the balance is struck manually by a handful of senior dispatchers.",
+            solution: "Territories, certifications and SLA commitments become weighted constraints, and the plan is re-solved as the day's demand changes. Planned and emergency work are balanced against the objectives you weight, and no allocation reaches a crew until a dispatcher approves it."
+          },
+          {
+            industry: "telecom",
+            label: "Telecom & cable",
+            image: "assets/img/industries/telecom.jpg",
+            problem: "Install-and-repair technicians have to be routed to tight appointment windows across regions, matched to line skills. Missed windows cost customer satisfaction directly, and launching a new service zone depends on scarce planning expertise.",
+            solution: "Appointment windows and line skills are modelled as commitment and skill rules, and the solver routes against them while minimising travel. A new zone is a configuration change rather than a planning project."
+          },
+          {
+            industry: "healthcare",
+            label: "Healthcare",
+            image: "assets/img/industries/healthcare.jpg",
+            problem: "Medical-device and equipment service engineers are allocated to contracted assets by skill, SLA and location. Uptime on high-value machines is contractual, and the allocation is worked out by hand against a rising number of installed assets.",
+            solution: "Contracted SLAs, engineer certifications and asset locations become the constraint set the solver works against, with uptime-critical commitments weighted as hard rules. The KPI readout compares the current and the optimized plan on identical definitions."
+          }
+        ],
+        sideFacts: {
+          category: "Data analysis & decision agents",
+          platform: "Oracle Cloud Infrastructure + NVIDIA",
+          availability: "Available now",
+          povDuration: "2 months",
+          povPrice: "€90K services · €4K/mo infra",
+          povPriceNote: "Figures are illustrative and subject to confirmation."
+        },
         scope: {
           in: [
             "Foundational allocation with the recurring, most-typical constraints — zones, skills, planned absences",
