@@ -146,7 +146,6 @@ window.SITE_CONTENT = {
       metrics: "Metrics improved",
       metricsPlanned: "What the proof of value measures",
       roi: "ROI",
-      industries: "Industries",
       scope: "Scope",
       scopeIn: "In scope",
       scopeOut: "Out of scope",
