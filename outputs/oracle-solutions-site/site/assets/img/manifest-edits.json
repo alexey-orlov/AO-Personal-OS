@@ -88,8 +88,8 @@
       {
         "file": "steps/large-document-extraction-2.jpg",
         "kind": "screenshot",
-        "caption": "Extracted rates sit side by side with the source page",
-        "alt": "A contract page beside the rates extracted from it in a review table"
+        "caption": "Rates extracted against the rules for that document type",
+        "alt": "The extracted rate rows, column by column, against the rules for the type"
       },
       {
         "file": "steps/large-document-extraction-3.jpg",
@@ -106,28 +106,28 @@
     ],
     "workforce-optimization": [
       {
-        "file": "steps/workforce-optimization-1.jpg",
-        "kind": "screenshot",
-        "caption": "Upload the period roster and pick the region",
-        "alt": "The optimizer dialog, with the period, the region and the roster upload"
+        "file": "steps/workforce-optimization-1.svg",
+        "kind": "illustration",
+        "caption": "The period loads from the field-service system",
+        "alt": "Three source panels — demand, roster, zones — feeding one intake ring"
       },
       {
-        "file": "steps/workforce-optimization-2.jpg",
-        "kind": "screenshot",
-        "caption": "The optimizer returns service zones on the map",
-        "alt": "The dashboard showing service zones drawn on a map above the weekly schedule"
+        "file": "steps/workforce-optimization-2.svg",
+        "kind": "illustration",
+        "caption": "Zone, commitment and forecast rules are weighted",
+        "alt": "Four rule rows, each tagged hard or soft"
       },
       {
-        "file": "steps/workforce-optimization-3.jpg",
-        "kind": "screenshot",
-        "caption": "Current allocation beside the optimized one",
-        "alt": "Current allocation and optimized allocation shown on two maps side by side"
+        "file": "steps/workforce-optimization-3.svg",
+        "kind": "illustration",
+        "caption": "Every constraint is solved in one pass",
+        "alt": "One constraint set opening onto three solved plan rows"
       },
       {
-        "file": "steps/workforce-optimization-4.jpg",
-        "kind": "screenshot",
-        "caption": "A planner accepts or rejects each zone week",
-        "alt": "The weekly schedule grid with an accept, reject and comment control per zone"
+        "file": "steps/workforce-optimization-4.svg",
+        "kind": "illustration",
+        "caption": "A dispatcher approves, rejects or re-runs",
+        "alt": "Three zone-week rows, two decided and one still open"
       }
     ],
     "cross-system-erp-qa": [
@@ -248,9 +248,5 @@
       "file": "industries/cross-industry.jpg",
       "alt": "A broad mesh of interlocking facets curving away in every direction"
     }
-  },
-  "headshot": {
-    "file": "people/karsten-tramborg.jpg",
-    "sourceDeck": "SoftServe deck imagery"
   }
 }
