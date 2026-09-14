@@ -48,7 +48,7 @@ window.SITE_CONTENT = {
   media: {
     "account-insights": {
       diagram: "account-insights",
-      alt: "Flow diagram: signal feeds and client context enter the Account Insights app and NVIDIA AI-Q on a dedicated AI cluster on Oracle Cloud Infrastructure, which filter, fan out, reason, score and cite; a reviewer approves before one JSON per account goes to the CRM"
+      alt: "Flow diagram: signal feeds and client context enter the Account insights app and NVIDIA AI-Q on a dedicated AI cluster on Oracle Cloud Infrastructure, which filter, fan out, reason, score and cite; a reviewer approves before one JSON per account goes to the CRM"
     },
     "case-evidence-collection": {
       diagram: "case-evidence-collection",
@@ -155,7 +155,6 @@ window.SITE_CONTENT = {
       architecture: "Architecture",
       flow: "How it runs",
       stack: "Solution stack",
-      notUsed: "Not used by this application",
       security: "Security and deployment",
       howItWorks: "How it works",
       industryCases: "Industry use cases",
@@ -277,15 +276,15 @@ window.SITE_CONTENT = {
         footnotes: [
           "Targets from the proof-of-value; figures are illustrative, not contractual."
         ],
-        product: { slug: "large-document-extraction", name: "Large Docs Extraction and Review" }
+        product: { slug: "large-document-extraction", name: "Large docs extraction and review" }
       },
       {
         id: "account-insights-first-engagement",
         band: 2,
         label: "FIRST ENGAGEMENT",
         industry: "Logistics and supply chain",
-        body: "A first engagement for Account Insights is under way with a global logistics and supply-chain operator, on the customer’s own account base. What it measures: the accuracy and the confidence calibration of the generated opportunities, against reviewer approve/reject decisions. Results to follow.",
-        product: { slug: "account-insights", name: "Account Insights" }
+        body: "A first engagement for Account insights is under way with a global logistics and supply-chain operator, on the customer’s own account base. What it measures: the accuracy and the confidence calibration of the generated opportunities, against reviewer approve/reject decisions. Results to follow.",
+        product: { slug: "account-insights", name: "Account insights" }
       },
       {
         id: "method-like-for-like",
@@ -396,7 +395,7 @@ window.SITE_CONTENT = {
   products: [
     {
       slug: "account-insights",
-      name: "Account Insights",
+      name: "Account insights",
       headline: { accent: "ACCOUNT", rest: "INSIGHTS" },
       category: "deep-research",
       categoryChip: "Deep research",
@@ -462,7 +461,6 @@ window.SITE_CONTENT = {
           { title: "Magnitude and confidence scoring", body: "0–10 per item, with a configurable threshold that filters low-confidence output." },
           { title: "Reviewer UI with citations and the reasoning behind every item", body: "Read the opportunities, follow the source links, approve or reject with a comment." }
         ],
-        industries: ["logistics", "financial-services", "manufacturing"],
         industriesNote: "Any business that needs to turn market and customer developments into pursuable opportunities across its account base, quickly.",
         steps: [
           {
@@ -554,9 +552,6 @@ window.SITE_CONTENT = {
           { title: "How the reasoning is grounded", body: "For each in-scope account it reasons \"so what\" for that account’s business, derives candidate opportunities and flags material risks (each mapped to a specific client service line where relevant), foresees descriptive second-order and cross-account ripples — suppliers, customers, competitors, up to two levels — scores each item by magnitude and confidence, and cites the source evidence. The reasoning is grounded in the client’s own data: CRM and account framing, capability catalog, public filings, with a human review step. Output is one JSON per affected account that flows into downstream sales systems." },
           { title: "What the system does not do", body: "The system produces scored, cited reasoning — both opportunities and risks — for a human to review; it informs decisions and downstream systems, it does not act on them." },
           { title: "Evaluation is part of the work", body: "The engine is a non-deterministic reasoning system, so a dedicated evaluation plan — correctness and confidence calibration — is part of the work." },
-          { title: "Logistics & supply chain", body: "A signal about a shipper (plant expansion, new-market entry) turned into a concrete logistics opportunity; a disruption (strike, port closure, supplier fire) turned into an inbound or mitigation opportunity across affected accounts." },
-          { title: "Financial services & banking", body: "A signal about a counterparty or portfolio company turned into a relationship or coverage opportunity; cross-holding ripples, where one issuer’s event opens opportunities with related names." },
-          { title: "Industrial & manufacturing", body: "A signal at a supplier or OEM customer turned into supply-chain and reallocation opportunities; second-order effects on production sites and trade lanes, each tied to an opportunity." },
           { title: "Private equity funds", body: "A market or regulatory signal turned into thesis-relevant opportunities across portfolio companies; event-driven screening of pipeline targets." }
         ],
         successStory: {
@@ -631,7 +626,6 @@ window.SITE_CONTENT = {
             ]
           }
         ],
-        notUsed: ["Oracle Autonomous AI Lakehouse"],
         security: [
           { icon: "shield", text: "Runs in the customer’s own OCI tenancy." },
           { icon: "lock", text: "The reviewer gate is architectural, not optional: nothing is pushed downstream unapproved." },
@@ -772,7 +766,6 @@ window.SITE_CONTENT = {
           { title: "Investigator UI", body: "Navigate to source, amend, approve or flag." },
           { title: "Full audit log", body: "Of every review decision." }
         ],
-        industries: ["financial-services", "manufacturing", "professional-services", "public-sector"],
         industriesNote: "The pattern is the same wherever an event opens a case and the evidence sits in several systems at once.",
         steps: [
           {
@@ -947,7 +940,6 @@ window.SITE_CONTENT = {
             ]
           }
         ],
-        notUsed: ["Oracle Autonomous AI Lakehouse"],
         security: [
           { icon: "shield", text: "Runs in the customer’s own tenancy; source access is read-only." },
           { icon: "lock", text: "Access rules must hold in the data layer, not in the prompt — governance is configured, not requested." },
@@ -1094,7 +1086,6 @@ window.SITE_CONTENT = {
           { title: "An evidence layer over documents", body: "Text extraction, chunking, embeddings and entity extraction, with semantic, lexical and entity retrieval routed per question." },
           { title: "A purpose-built lightweight application", body: "Where the results are presented and reviewed." }
         ],
-        industries: ["construction", "manufacturing", "professional-services"],
         industriesNote: "Wherever completed units of work — projects, work packages, orders, engagements, campaigns — have to be compared against what was planned for them.",
         steps: [
           {
@@ -1267,7 +1258,6 @@ window.SITE_CONTENT = {
             ]
           }
         ],
-        notUsed: ["Oracle Autonomous AI Lakehouse"],
         security: [
           { icon: "shield", text: "Runs in your own OCI tenancy on exported, approved data — no live system access required at proof of value." },
           { icon: "audit", text: "Lineage preserved from the source file through to the finding." },
@@ -1355,7 +1345,7 @@ window.SITE_CONTENT = {
     },
     {
       slug: "large-document-extraction",
-      name: "Large Docs Extraction and Review",
+      name: "Large docs extraction and review",
       headline: { accent: "LARGE", rest: "DOCS EXTRACTION AND REVIEW" },
       category: "processing-pipelines",
       categoryChip: "Processing pipelines",
@@ -1424,7 +1414,6 @@ window.SITE_CONTENT = {
           { title: "Split-view reviewer UI", body: "Source PDF beside extracted rows, per-row confidence badges, approve/edit/reject with bulk actions, auto-save and an audit trail." },
           { title: "Export", body: "JSON, CSV or XLSX against a reference template, into the cost or ERP system." }
         ],
-        industries: ["travel-transport", "professional-services", "insurance", "financial-services"],
         industriesNote: "Wherever the terms that drive a downstream system are locked inside long, semi-structured documents.",
         steps: [
           {
@@ -1437,7 +1426,7 @@ window.SITE_CONTENT = {
           {
             n: 2,
             title: "Extract against the rules",
-            text: "The target fields are pulled against the schema and business rules for that document type, and modelled into normalized rows.",
+            text: "The target fields are pulled against the schema and business rules for that document type, and modeled into normalized rows.",
             image: "assets/img/steps/large-document-extraction-2.jpg",
             features: [
               "Field schema and business rules defined per document type",
@@ -1529,11 +1518,7 @@ window.SITE_CONTENT = {
           { title: "Costly errors", body: "Manual transcription causes rate mismatches and duplicate billing that surface late, at invoice matching." },
           { title: "Poor scalability", body: "Throughput hinges on scarce specialists, so contract backlogs build up." },
           { title: "Why the error class is expensive", body: "In aviation, ground-handling contracts carry 7–12% of an airline’s direct operating cost — so a rate keyed wrong is expensive, and it surfaces late." },
-          { title: "Use-case boundaries", body: "The boundary of this solution is extraction of structured data from complex documents into a validated, human-reviewed output." },
-          { title: "Aviation — ground-handling and operational contracts", body: "Extract rate-card pricing from Standard Ground Handling Agreements; pull rates, terms and return conditions from aircraft lease and MRO agreements." },
-          { title: "Legal & commercial contracts", body: "Extract key terms, obligations, pricing and renewal/termination dates from MSAs and supplier agreements; capture rent schedules, break clauses and escalation terms from property leases." },
-          { title: "Insurance — policies & claims", body: "Extract coverage, limits, deductibles and endorsements from policy schedules; pull loss details and reserve amounts from claim packs and loss-adjuster reports." },
-          { title: "Financial & regulatory filings", body: "Extract financial line items and disclosures from annual reports; capture covenants, interest terms and repayment schedules from loan and credit agreements." }
+          { title: "Use-case boundaries", body: "The boundary of this solution is extraction of structured data from complex documents into a validated, human-reviewed output." }
         ],
         successStory: {
           title: "SUCCESS STORY",
@@ -1607,7 +1592,6 @@ window.SITE_CONTENT = {
             ]
           }
         ],
-        notUsed: ["Oracle Autonomous AI Lakehouse"],
         security: [
           { icon: "shield", text: "Runs in the customer’s own OCI tenancy on a dedicated AI cluster." },
           { icon: "lock", text: "Human-in-the-loop by design: unattended extraction is explicitly out of scope." },
@@ -1761,14 +1745,13 @@ window.SITE_CONTENT = {
           { title: "Dispatcher review UI", body: "Map and table views, approve or reject, with model-decision explanations and recommendations." },
           { title: "KPIs and analytics", body: "Productivity, capacity utilization, travel reduction and workload balance." }
         ],
-        industries: ["manufacturing", "utilities", "telecom", "healthcare"],
         industriesNote: "Any mobile field force planned against skills, availability and geography.",
         steps: [
           {
             n: 1,
             title: "Load the period's data",
             text: "Demand, technician availability, skills, work zones and the period's bookings come in from Oracle Field Service.",
-            image: "assets/img/steps/workforce-optimization-1.jpg",
+            image: "assets/img/steps/workforce-optimization-1.svg",
             features: [
               "Work-zone and availability rules, with skill-based allocation",
               "Planned-vacation reallocation and same-day sickness handling"
@@ -1778,7 +1761,7 @@ window.SITE_CONTENT = {
             n: 2,
             title: "Set the rules",
             text: "Zone, forecast and commitment rules are configured, then weighted as hard or soft constraints against the objectives that matter.",
-            image: "assets/img/steps/workforce-optimization-2.jpg",
+            image: "assets/img/steps/workforce-optimization-2.svg",
             features: [
               "Default, neighboring and cross-zone allocation",
               "Forecast-based allocation against a demand forecast you supply",
@@ -1789,14 +1772,14 @@ window.SITE_CONTENT = {
             n: 3,
             title: "Solve the plan",
             text: "cuOpt computes the technician-to-zone-to-job plan against every constraint at once, in minutes rather than days.",
-            image: "assets/img/steps/workforce-optimization-3.jpg",
+            image: "assets/img/steps/workforce-optimization-3.svg",
             features: ["Multi-objective optimization with hard and soft rule weighting"]
           },
           {
             n: 4,
             title: "Review, approve, measure",
             text: "The dispatcher compares plans on a live map, approves or re-runs, and the KPI readout shows what changed.",
-            image: "assets/img/steps/workforce-optimization-4.jpg",
+            image: "assets/img/steps/workforce-optimization-4.svg",
             features: [
               "Dispatcher review UI: map and table views, approve, reject, re-run",
               "KPIs and analytics: productivity, utilization, travel, workload balance"
@@ -1809,7 +1792,7 @@ window.SITE_CONTENT = {
             label: "Manufacturing",
             image: "assets/img/industries/manufacturing.jpg",
             problem: "Residential appliance and white-goods repair is planned by hand: ZIP-code work zones and technician allocations, region by region, juggling skills, spare parts, travel and absences. Urgent call-outs and no-shows mean re-planning the day.",
-            solution: "The solver plans the whole region against skills, parts, travel and existing bookings at once, and the dispatcher reviews the result rather than building it. The proof of value for this pattern modelled around thirty real-world constraints across three countries, with dispatcher approval kept in the loop."
+            solution: "The solver plans the whole region against skills, parts, travel and existing bookings at once, and the dispatcher reviews the result rather than building it. The proof of value for this pattern modeled around thirty real-world constraints across three countries, with dispatcher approval kept in the loop."
           },
           {
             industry: "utilities",
@@ -1823,7 +1806,7 @@ window.SITE_CONTENT = {
             label: "Telecom & cable",
             image: "assets/img/industries/telecom.jpg",
             problem: "Install-and-repair technicians have to be routed to tight appointment windows across regions, matched to line skills. Missed windows cost customer satisfaction directly, and launching a new service zone depends on scarce planning expertise.",
-            solution: "Appointment windows and line skills are modelled as commitment and skill rules, and the solver routes against them while minimising travel. A new zone is a configuration change rather than a planning project."
+            solution: "Appointment windows and line skills are modeled as commitment and skill rules, and the solver routes against them while minimizing travel. A new zone is a configuration change rather than a planning project."
           },
           {
             industry: "healthcare",
@@ -1864,11 +1847,7 @@ window.SITE_CONTENT = {
           { title: "Poor scalability", body: "Planning hinges on scarce senior dispatchers; new zones launch slowly." },
           { title: "How the KPIs are defined", body: "Time to plan: how long to optimize and approve a region’s four-week plan. Productivity: jobs per technician per working day. Capacity utilization: booked activity time against available capacity. Customer wait time: calendar days between booking and appointment. Each is computed identically for the current plan and the optimized plan." },
           { title: "Delivered at roll-out", body: "Oracle Field Service integration — staff, availability and booking data in; optimized allocations (zones, visits) out; factual durations and times back. The architecture is native to Oracle Field Service; the integration itself is Roll-out scope, not proof-of-value scope. Also at Roll-out: additional data sources and BI integration (up to five typical integrations — booking, inventory for parts availability, HR/WFM for people availability, demand forecasting, BI), and the re-optimization feedback loop." },
-          { title: "On the roadmap, not in the pack today", body: "Distance and travel-time rules with live traffic · within-day dynamic reassignment and urgent-request handling · spare-parts and crew-based assignment · the human-feedback learning loop." },
-          { title: "Residential appliance & white-goods repair", body: "Dispatch home-repair technicians by skill, spare parts and travel — absorbing urgent call-outs and no-shows without re-planning the day." },
-          { title: "Utilities — water, gas, electric", body: "Schedule field crews across service territories against SLAs, outage spikes and crew certifications, balancing planned and emergency work." },
-          { title: "Telecom & cable", body: "Route install-and-repair technicians to tight appointment windows across regions, matching line skills and cutting customer wait time." },
-          { title: "Industrial, medical-device & IT equipment service", body: "Allocate asset-based service engineers to contracted equipment by skill, SLA and location — keeping high-value machines uptime-critical." }
+          { title: "On the roadmap, not in the pack today", body: "Distance and travel-time rules with live traffic · within-day dynamic reassignment and urgent-request handling · spare-parts and crew-based assignment · the human-feedback learning loop." }
         ],
         successStory: {
           title: "SUCCESS STORY",
@@ -1942,7 +1921,6 @@ window.SITE_CONTENT = {
             ]
           }
         ],
-        notUsed: ["Oracle AI Data Platform", "Oracle Autonomous AI Lakehouse"],
         security: [
           { icon: "shield", text: "Proof of value: sandboxed deployment." },
           { icon: "lock", text: "Roll-out: enterprise-integrated — dedicated landing zone, IAM, observability." },
@@ -2096,7 +2074,6 @@ window.SITE_CONTENT = {
           { title: "Two to three operational dashboards", body: "Over the joined data." },
           { title: "Sensitive fields masked by role", body: "Enforced in the data layer." }
         ],
-        industries: ["cross-industry"],
         industriesNote: "The same two pains in every industry, regardless of stack — the constraint is the system landscape, not the sector.",
         steps: [
           {
@@ -2112,7 +2089,7 @@ window.SITE_CONTENT = {
           {
             n: 2,
             title: "Shape one decision domain",
-            text: "One domain — order-to-cash exceptions, say — is modelled into certified views, on definitions the business owner signs off.",
+            text: "One domain — order-to-cash exceptions, say — is modeled into certified views, on definitions the business owner signs off.",
             image: "assets/img/steps/cross-system-erp-qa-2.svg",
             features: [
               "Certified views for one decision domain, on signed-off definitions",
@@ -2257,7 +2234,6 @@ window.SITE_CONTENT = {
             ]
           }
         ],
-        notUsed: ["NVIDIA — not required; Lakehouse first, GPU optional", "Oracle AI Data Platform — coexists where the customer already runs one"],
         governance: {
           title: "GOVERNANCE LAYER — THE PART SECURITY ASKS ABOUT",
           body: "Masking, row-level access and a SQL firewall live in the data layer itself, applied to every query — including the ones AI writes. Every interaction is logged. Proof you can watch: the same question asked in two roles returns two different, correctly filtered answers — enforced by the database, not by the prompt."
@@ -2421,7 +2397,6 @@ window.SITE_CONTENT = {
           { title: "Converged data in one database", body: "Relational, JSON, spatial, graph and vector." },
           { title: "Role-scoped answers and a full audit trail", body: "Enforced in the data layer." }
         ],
-        industries: ["cross-industry"],
         industriesNote: "The same two pains in every industry, regardless of stack — the constraint is the data estate, not the sector.",
         steps: [
           {
@@ -2582,7 +2557,6 @@ window.SITE_CONTENT = {
             ]
           }
         ],
-        notUsed: ["NVIDIA — not required; Lakehouse first, GPU optional", "Oracle AI Data Platform — coexists where one is already in place"],
         governance: {
           title: "GOVERNANCE LAYER — THE PART SECURITY ASKS ABOUT",
           body: "Masking, row-level access and a SQL firewall live in the data layer itself, applied to every query — including the ones AI writes. Every interaction is logged. Proof you can watch: the same question asked in two roles returns two different, correctly filtered answers — enforced by the database, not by the prompt."
@@ -2829,7 +2803,7 @@ window.SITE_CONTENT = {
     ],
     roleLabel: "I am a…",
     consent: {
-      label: "I agree to SoftServe processing this enquiry. See the privacy policy.",
+      label: "I agree to SoftServe processing this inquiry. See the privacy policy.",
       linkLabel: "privacy policy",
       linkUrl: "https://www.softserveinc.com/en-us/privacy-policy"
     },
@@ -2843,6 +2817,7 @@ window.SITE_CONTENT = {
       message: "What are you trying to fix?",
       messagePlaceholder: "The workflow, the volume, and what \"good\" would look like.",
       submitDemo: "Request a demo",
+      submitRequest: "Send the request",
       submitContact: "Request a scoping call",
       required: "Required",
       invalidEmail: "Enter a valid work email address."
