@@ -1440,7 +1440,7 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 /* A stacked lockup — a symbol above its wordmark — carries its type in a
    fraction of its height, so a single height rule renders the words as a
    smudge. Sized so both marks read at the same x-height. */
-.story-logo--stacked { height: 2.625rem; max-width: 11rem; }
+.story-logo--stacked { height: 3.125rem; max-width: 12rem; }
 
 .story-head-copy { display: flex; flex-direction: column; gap: .25rem; min-width: 0; }
 .story-customer { font-size: 1.0625rem; font-weight: 700; line-height: 1.2; color: var(--text); }
@@ -1494,7 +1494,7 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
   margin-bottom: .25rem;
 }
 
-.proof-logo--stacked { height: 2.5rem; max-width: 10rem; }
+.proof-logo--stacked { height: 3rem; max-width: 11rem; }
 
 @media (max-width: 560px) {
   .story-figures { grid-template-columns: minmax(0, 1fr); grid-template-rows: none; gap: 1rem 0; }
