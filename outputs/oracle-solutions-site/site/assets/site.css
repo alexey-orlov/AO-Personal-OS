@@ -1601,23 +1601,6 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 .roi-copy { display: flex; flex-direction: column; gap: .5rem; }
 .roi-text { font-size: var(--fs-sm); line-height: 1.7; color: var(--text-body); max-width: 62rem; }
 
-/* industry chips */
-.ind-chips { display: flex; flex-wrap: wrap; gap: .625rem; }
-.ind-chip {
-  display: inline-flex;
-  align-items: center;
-  gap: .5rem;
-  padding: .5rem .875rem;
-  border: 1px solid var(--border);
-  border-radius: var(--r-pill);
-  background: var(--bg-inset);
-  font-size: var(--fs-sm);
-  color: var(--text-body);
-}
-.ind-chip .icon { width: 1rem; height: 1rem; color: var(--accent); flex: none; }
-.ind-chips--single { display: block; }
-.ind-chip--wide { display: flex; width: 100%; padding: .875rem 1.25rem; border-radius: var(--r-md); }
-
 /* more-detail disclosure */
 .disclosure--detail summary { padding-block: 1.125rem; }
 .detail-wrap { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.75rem var(--gap); padding-bottom: 1.75rem; }
@@ -2392,7 +2375,7 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
   .ptile, .tier, .brief, .plat-card, .panel, .split-col, .layer-band,
   .light-band, .light-band-media, .light-band-copy, .form-confirm,
   .story-callout, .media-figure, .pillar, .invest-card, .next-tier,
-  .ps-panel, .stat-tiles, .stat-tile, .roi-band, .ind-chip, .cap-stage,
+  .ps-panel, .stat-tiles, .stat-tile, .roi-band, .cap-stage,
   .video-card, .rail-card, .step-frame, .ind-figure,
   .stack-accordion, .stack-row, .stack-body, .contact-card {
     background: #fff !important;

@@ -189,18 +189,6 @@
     return labels[key] || "";
   }
 
-  /* A horizontal offer carries one key. It gets the same chip geometry and the
-     same line icon as a four-chip row, widened so it reads as a statement
-     rather than a row that ran out of entries. */
-  function industryChips(keys) {
-    if (!keys || !keys.length) return "";
-    var single = keys.length === 1;
-    return '<ul class="ind-chips' + (single ? " ind-chips--single" : "") + '">' + keys.map(function (key) {
-      return '<li class="ind-chip' + (single ? " ind-chip--wide" : "") + '">' + icon("industry-" + key) +
-        "<span>" + esc(industryLabel(key)) + "</span></li>";
-    }).join("") + "</ul>";
-  }
-
   function initials(name) {
     return String(name || "").trim().split(/\s+/).slice(0, 2).map(function (part) {
       return part.charAt(0).toUpperCase();
@@ -465,7 +453,6 @@
     diagram: diagram,
     facetLabel: facetLabel,
     industryLabel: industryLabel,
-    industryChips: industryChips,
     contactCard: contactCard,
     contactSplit: contactSplit,
     sectionLabel: sectionLabel,
