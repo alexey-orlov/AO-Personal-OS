@@ -202,9 +202,9 @@ Nothing that reads as a wall of text sits above the fold. Equally, **nothing is 
 
 **The accordion opens on its first layer** (`application`) so the pattern is visible without a click; each row toggles independently, `aria-expanded` follows the visible state, and the panel is hidden with the `hidden` attribute rather than a class.
 
-### 3.4 Security and deployment
+### 3.4 Security and deployment — **removed** (round 3, B)
 
-`technology.security[]` — `[{ icon, text }]`, ≥ 3. An icon-led list below the stack, each item an icon plus one line. Icons by convention `shield` / `lock` / `eye` / `audit`.
+`technology.security[]` is deleted from the data. Each product's four lines restated facts that are already on the page: the tenancy and read-only access are in the `infrastructure` and `custom` layer summaries, the human gate is in the solution panel and the `low-risk` pillar, the audit trail is a capability, and "production hardening is roll-out scope" is in `overview.scope.out` and in `jumpstart.next`. `check-grammar.js` fails if the key returns.
 
 ### 3.5 Media row
 
@@ -212,17 +212,22 @@ Unchanged: the mirrored media row beside ARCHITECTURE, driven by `media[slug]`.
 
 ---
 
-## 4. POV Jumpstart tab
+## 4. Jumpstart tab
+
+Tab label **Jumpstart**; block title **Jumpstart Proof-of-Value** (`jumpstart.title`). Route `#/products/<slug>/jumpstart`, with `…/pov` redirecting to it. The tab sells one thing — *fast · low-risk · tangible* — and every product renders the same six pieces in the same order.
 
 | Order | Component | Source |
 |---|---|---|
-| 1 | **Four-tile fact strip** | `pov.facts` → `{ duration, team, price, deliverablesCount }`. Four tiles of equal height: value large, label small. `deliverablesCount` renders as the number plus "deliverables". `price` reads `Scoped per engagement` where none is published — the tile is never empty. |
-| 2 | **Deliverables checklist** | `pov.deliverables[]`, `check` icons, one column. Heading from `pov.deliverablesTitle` (default "Deliverables"). |
-| 3 | **Price table** | `pov.pricing[]` as a small table; **`pov.disclaimers[]` render as footnotes directly beneath it**, all of them, in order. `pov.creditNote?` renders under the footnotes where present. |
-| 4 | **The three-tier ladder** | `pov.ladder[]` — always exactly three, as three peer columns with **identical geometry**: same heading height, same `includes` list position, same duration and pricing rows at the bottom. `pov.ladderFootnote?` under it. |
-| 5 | **One CTA** | `shared.preFlightGate`, `shared.credibilityBlock`, then `shared.engageLink` — unchanged. |
+| 1 | **Promise line** | `jumpstart.promise`. One sentence, set as the block's lead. |
+| 2 | **Three pillars** | `jumpstart.pillars[]` — exactly three equal cards in one row, each an icon, a `title` and one short paragraph, in the fixed order `fast` → `low-risk` → `tangible`. Peers in a row are equal height. They stack on mobile. |
+| 3 | **Two columns** | LEFT: `jumpstart.outcomes[]` — 3–4 outcome lines with check icons, under `sectionLabels.jumpstartOutcomes` ("What you get"). RIGHT: `jumpstart.timeline[]` — 3–4 nodes as a compact week-by-week rail, under `sectionLabels.jumpstartTimeline` ("How it runs"). Equal height on desktop; the outcomes come first on mobile. |
+| 4 | **Needs beside the investment card** | LEFT: `jumpstart.needs[]` — exactly three short asks, under `sectionLabels.jumpstartNeeds`. RIGHT: the **investment card** — `price` and `duration` set large, `includes[]` beneath, and `footnote` as the single footnote line inside the same block as the figures. |
+| 5 | **After the Jumpstart** | `jumpstart.next[]` — exactly two compact cards, `Integration` then `Scale`, one line each plus `duration` / `price` where they exist. Heading from `sectionLabels.jumpstartNext`. This replaced the three-tier ladder. |
+| 6 | **One CTA**, then the standing blocks | `jumpstart.cta` → that product's contacts tab, then `shared.credibilityBlock` and `shared.engageLink`. |
 
-`pov.howItRuns?`, `pov.prerequisites?`, `pov.statNotes?`, `pov.capabilityMatrix?`, `pov.phases?`, `pov.gateNote?`, `pov.howMeasured?` are product-specific and render between 2 and 3 where present. They are the one place the POV tab is allowed to differ in length.
+**One footnote, not a stack.** The price card carries exactly one line. The packaging-internal disclaimers ("Framed scope, flexible add-ons", "…set by specific constraints", "…beyond the frame") are removed site-wide and banned by `check-grammar.js`: they describe how a quote is built, not what a customer gets, and four of them under one small table read as a hedge.
+
+**No product-specific extra sections.** `facts`, `deliverables`, `pricing`, `disclaimers[]`, `ladder`, `capabilityMatrix`, `statNotes`, `howItRuns` and `prerequisites` are all gone from the product data — the facts they held live in `promise`, `pillars`, `outcomes`, `timeline`, `needs`, `investment` and `next`, or (for the per-capability detail) in `technology.capabilities`. A seller flipping between two product tabs gets the same page shape every time.
 
 ---
 
