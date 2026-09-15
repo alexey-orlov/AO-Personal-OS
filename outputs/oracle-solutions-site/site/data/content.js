@@ -257,7 +257,7 @@ window.SITE_CONTENT = {
         footnotes: [
           "Targets from the proof of value; figures are illustrative, not contractual."
         ],
-        product: { slug: "large-document-extraction", name: "Large docs extraction and review" }
+        product: { slug: "large-document-extraction", name: "Large docs processing and review" }
       },
       {
         id: "account-insights-first-engagement",
@@ -1312,8 +1312,8 @@ window.SITE_CONTENT = {
     },
     {
       slug: "large-document-extraction",
-      name: "Large docs extraction and review",
-      headline: { accent: "LARGE", rest: "DOCS EXTRACTION AND REVIEW" },
+      name: "Large docs processing and review",
+      headline: { accent: "LARGE", rest: "DOCS PROCESSING AND REVIEW" },
       category: "processing-pipelines",
       categoryChip: "Processing pipelines",
       facet: "oci-nvidia",
@@ -1385,7 +1385,7 @@ window.SITE_CONTENT = {
             n: 1,
             title: "Upload and classify",
             text: "A PDF or DOCX — native or scanned — is classified by document type, then routed page by page to the right extractor.",
-            image: "assets/img/steps/large-document-extraction-1.svg",
+            image: "assets/img/steps/large-document-extraction-1.jpg",
             features: ["Document-type gate, then page-level routing to the right extractor"]
           },
           {
@@ -1413,7 +1413,7 @@ window.SITE_CONTENT = {
             n: 4,
             title: "Review and export",
             text: "Reviewers validate row by row beside the source PDF, then export against your reference template. Nothing leaves unapproved.",
-            image: "assets/img/steps/large-document-extraction-4.svg",
+            image: "assets/img/steps/large-document-extraction-4.jpg",
             features: [
               "Split-view reviewer UI with bulk actions, auto-save and an audit trail",
               "Export to JSON, CSV or XLSX against a reference template"
@@ -1593,7 +1593,7 @@ window.SITE_CONTENT = {
       },
       jumpstart: {
         title: "Jumpstart Proof-of-Value",
-        promise: "Pilot large-document extraction and review on your own contracts in 2 months, at a fixed price, and see extraction accuracy and effort saved measured against the baseline you signed.",
+        promise: "Pilot large-document processing and review on your own contracts in 2 months, at a fixed price, and see extraction accuracy and effort saved measured against the baseline you signed.",
         durationShort: "2 months",
         pillars: [
           { key: "fast", title: "Fast", text: "Two months from kickoff to a measured accuracy and effort readout on your own contracts." },
