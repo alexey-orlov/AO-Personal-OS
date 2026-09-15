@@ -41,7 +41,9 @@ var DIRECTIONS = ["inbound", "outbound", "both"];
 /* G: the Jumpstart block is the same three pillars on all seven, in this order. */
 var PILLARS = ["fast", "low-risk", "tangible"];
 var NEXT_TIERS = ["Integration", "Scale"];
-var CAP_STATES = ["supported", "roadmap"];
+/* A matrix row carrying a restrictive asterisk is PARTIAL: an unqualified
+   SUPPORTED tag on it would overstate the source. */
+var CAP_STATES = ["supported", "partial", "roadmap"];
 /* E: a one-liner says what the product does, for whom, with what outcome. It is
    not the place for the packaging story — that is what the Jumpstart tab is. */
 var PACKAGING_PHRASES = [
@@ -366,7 +368,7 @@ if (!arr(C.products) || C.products.length !== 7) {
       else group.items.forEach(function (item, j) {
         if (!str(item.name)) fail(gw + ".items[" + j + "]", "name missing");
         if (item.state !== undefined && CAP_STATES.indexOf(item.state) === -1) {
-          fail(gw + ".items[" + j + "]", 'state "' + item.state + '" is not supported / roadmap — omit the key where no source states one');
+          fail(gw + ".items[" + j + "]", 'state "' + item.state + '" is not supported / partial / roadmap — omit the key where no source states one');
         }
       });
     });

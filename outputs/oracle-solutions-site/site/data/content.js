@@ -79,7 +79,7 @@ window.SITE_CONTENT = {
   disclaimers: {
     kpiTile: "KPIs measured before/after on proof-of-value data; figures are illustrative, not contractual.",
     kpiTileTargets: "Targets from the proof of value; figures are illustrative, not contractual.",
-    lakehousePricing: "*Price indicative, to be confirmed per scope; Oracle partner funding programs may reduce the customer’s net cost. All features used are generally available product.",
+    lakehousePricing: "Price indicative, confirmed in scoping; Oracle partner funding programs may reduce the net cost.",
     accountInsightsEvaluation: "The engine is a non-deterministic reasoning system, so a dedicated evaluation plan (correctness and confidence calibration) is part of the work.",
     publicPricingFootnote: "Figures are illustrative and confirmed in scoping.",
     modeledResults: "Results are modeled simulations against a historical baseline, not measured production outcomes.",
@@ -89,15 +89,6 @@ window.SITE_CONTENT = {
     preFlightGate: {
       title: "Before the clock starts",
       body: "Sponsor named, two to three success metrics signed, source access approved in writing. The gate is what protects the fixed price."
-    },
-    credibilityBlock: {
-      heading: "BUILT TO PROVE, NOT PROMISE",
-      items: [
-        { title: "Fixed scope", body: "One use case, narrow enough to be honest." },
-        { title: "Shipping product only", body: "Everything used is generally available; nothing in scope waits on a roadmap item." },
-        { title: "Metrics signed up front", body: "The readout is a measurement, not a story." },
-        { title: "Yours either way", body: "Built in your tenancy, under your security rules. It stays." }
-      ]
     },
     engageLink: { label: "How we engage, in three packages →", route: "#/services#how-we-engage" },
     productTabs: [

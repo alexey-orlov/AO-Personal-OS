@@ -342,7 +342,8 @@
       (image && image.file
         ? '<img class="ptile-img" src="' + esc(image.file) + '" alt=""' +
           (image.focal ? ' style="object-position:' + esc(image.focal) + '"' : "") +
-          ' loading="lazy" decoding="async">'
+          (opts.eager ? ' loading="eager" fetchpriority="high"' : ' loading="lazy"') +
+          ' decoding="async">'
         : "") +
       '<span class="ptile-veil" aria-hidden="true"></span>' +
       '<span class="ptile-facet" title="' + esc(facet.fullLabel) + '">' + esc(facet.label) + "</span>" +
