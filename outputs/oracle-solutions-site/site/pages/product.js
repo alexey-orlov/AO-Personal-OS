@@ -64,29 +64,6 @@
     }).join("") + "</ul>";
   }
 
-  function defGrid(items, columns) {
-    var UI = window.UI;
-    return '<div class="def-grid' + (columns ? " def-grid--" + columns : "") + '">' +
-      items.map(function (item) {
-        return '<div class="def">' +
-          '<h3 class="def-title">' + UI.esc(item.title) + "</h3>" +
-          '<p class="def-body">' + UI.esc(item.body) + "</p>" +
-          "</div>";
-      }).join("") + "</div>";
-  }
-
-  /* one band shape, used for ROI and for the Lakehouse governance note */
-  function calloutBand(iconName, eyebrow, text) {
-    var UI = window.UI;
-    if (!text) return "";
-    return '<section class="panel panel--flat reveal"><div class="roi-band">' +
-      '<span class="roi-mark">' + UI.icon(iconName || "roi") + "</span>" +
-      '<div class="roi-copy">' +
-        '<p class="eyebrow eyebrow--accent">' + UI.esc(eyebrow) + "</p>" +
-        '<p class="roi-text">' + UI.esc(text) + "</p>" +
-      "</div></div></section>";
-  }
-
   /* ————— hero ————— */
 
   function youtubeId(url) {
@@ -407,14 +384,9 @@
       "</section>";
   }
 
-  /* No story, no callout. A section whose only content is "nothing to show yet"
-     is worse than its absence on a page a seller demos live. Five of the seven
-     products carry `successStory: null` and render nothing here.
-
-     The caveat that qualifies the figures is the last sentence of `story`, not
-     a footnote row — the panel has none, and rule 2 of the visual grammar has
-     to hold inside the block that prints the numbers. The download link renders
-     only when a URL exists; there is no disabled stand-in. */
+  /* No story, no block: products with `successStory: null` render nothing here.
+     The figure caveat is the last sentence of `story`; the download link
+     renders only when a URL exists. */
   function successStory(product) {
     var UI = window.UI;
     var story = product.overview.successStory;
@@ -509,11 +481,8 @@
       group("outbound", label("directionOutbound"), outbound);
   }
 
-  /* One block where four used to stand: the component columns, the layer table,
-     the integration list and the How-it-runs flow diagram were four views of
-     one architecture. The stack read top to bottom IS the flow, drawn once and
-     with the components attached, so the layers are bands rather than rows —
-     application on top, infrastructure at the foot, each one expandable. */
+  /* The stack read top to bottom is the flow, with the components attached:
+     application on top, infrastructure at the foot, each band expandable. */
   function solutionStack(product) {
     var UI = window.UI;
     var tech = product.technology;
@@ -580,20 +549,14 @@
     var UI = window.UI;
     var tech = product.technology;
 
-    var figure = UI.figure(product.slug, { className: "media-figure--arch" });
-
     return '<section class="panel reveal">' +
         blockHead(label("architecture")) +
-        '<div class="arch-head' + (figure ? " arch-head--media" : "") + '">' +
+        '<div class="arch-head">' +
           '<p class="lead arch-narrative">' + UI.esc(tech.narrative) + "</p>" +
-          (figure || "") +
         "</div>" +
         '<p class="eyebrow arch-stack-label">' + UI.esc(label("stack")) + "</p>" +
         solutionStack(product) +
       "</section>" +
-      (tech.governance
-        ? calloutBand("shield", tech.governance.title, tech.governance.body)
-        : "") +
       capabilities(product);
   }
 
@@ -601,17 +564,12 @@
 
   var PILLAR_ICON = { fast: "clock", "low-risk": "shield", tangible: "trendUp" };
 
-  /* Product marketing, in one screen: fast · low-risk · tangible. The same six
-     pieces in the same order on all seven products, so a seller flipping
-     between two tabs never has the page move under the customer.
-
-     One footnote, not a stack — the packaging-internal disclaimers that used to
-     sit under the price table describe how a quote is built, not what a
-     customer gets, and they are removed site-wide. */
+  /* Fast · low-risk · tangible: the same six pieces in the same order on all
+     seven products, so the page does not move when a seller changes tab.
+     One footnote under the price, never a stack. */
   function jumpstartTab(product) {
     var UI = window.UI;
     var js = product.jumpstart;
-    var credibility = C().shared.credibilityBlock;
 
     var pillars = (js.pillars || []).map(function (pillar) {
       return '<article class="pillar">' +
@@ -693,8 +651,6 @@
         blockHead(label("jumpstartNext")) +
         '<div class="next-grid">' + next + "</div>" +
       "</section>" +
-      '<section class="panel reveal">' + blockHead(credibility.heading) +
-        defGrid(credibility.items, "4") + "</section>" +
       '<section class="panel panel--flat reveal">' +
         '<div class="cta-row">' +
           UI.button({
@@ -730,9 +686,8 @@
       "</div>";
   }
 
-  /* Two columns of equal height: a named human on the left, the form on the
-     right. The form is the fallback path, not the only one — which is why it
-     carries its own heading here. Same component on Services. */
+  /* Two columns of equal height: the contact card on the left, the form (with
+     its own heading) on the right. Same component on Services. */
   function contactsTab(product) {
     var UI = window.UI;
     var demo = C().forms.demo;
@@ -999,9 +954,8 @@
     });
   }
 
-  /* A frame with no file behind it still has to answer the click honestly:
-     name the product, say the recording is not ready, and hand over the one
-     thing that is — a live demo. */
+  /* A frame with no recording behind it names the product, says the recording
+     is not ready, and offers a live demo instead. */
   function bindPendingVideo(root, item) {
     var UI = window.UI;
     var pending = C().shared.videoPending;
