@@ -68,58 +68,13 @@
     });
   }
 
-  /* The tile is the product's own hero photograph with the copy set over it.
-     The veil is a gradient rather than a flat wash so the picture still reads
-     as a picture at the top while the text sits on near-black at the bottom. */
-  function tileBackdrop(product) {
-    var UI = window.UI;
-    var image = product.hero && product.hero.image;
-    if (!image || !image.file) return "";
-    return '<span class="market-tile-bg" aria-hidden="true">' +
-      '<img class="market-tile-img" src="' + UI.esc(image.file) + '" alt=""' +
-      (image.focal ? ' style="object-position:' + UI.esc(image.focal) + '"' : "") +
-      ' loading="lazy" decoding="async">' +
-      '<span class="market-tile-veil"></span>' +
-      "</span>";
-  }
-
-  function marketTile(product) {
-    var UI = window.UI;
-    var facet = UI.facetLabel(product.facet);
-    var chips = [
-      UI.chip({ label: product.categoryChip }),
-      UI.availabilityChip(product)
-    ];
-    if (isMarketplace(product)) {
-      chips.push(UI.chip({ label: window.SITE_CONTENT.facets.marketplace.badge }));
-    }
-    var outcomes = product.tile.outcomes.map(function (line) {
-      return "<li>" + UI.icon("check") + "<span>" + UI.esc(line) + "</span></li>";
-    }).join("");
-
-    return '<article class="market-tile reveal">' +
-      tileBackdrop(product) +
-      '<div class="market-copy">' +
-        '<p class="market-facet" title="' + UI.esc(facet.fullLabel) + '">' + UI.esc(facet.label) + "</p>" +
-        '<div class="chip-row">' + chips.join("") + "</div>" +
-        '<h2 class="market-title"><a href="#/products/' + UI.esc(product.slug) + '">' +
-          UI.esc(product.name) + "</a></h2>" +
-        '<p class="market-desc">' + UI.esc(product.oneLiner) + "</p>" +
-        '<ul class="outcome-list">' + outcomes + "</ul>" +
-        '<div class="market-actions">' +
-          UI.linkArrow({ label: "View product", href: "#/products/" + product.slug }) +
-          '<a class="link-quiet" href="#/products/' + UI.esc(product.slug) + '/contacts">' +
-            UI.esc(window.SITE_CONTENT.site.primaryCta.label) + "</a>" +
-        "</div>" +
-      "</div>" +
-      "</article>";
-  }
-
   function resultsHtml() {
     var UI = window.UI;
     var C = window.SITE_CONTENT;
     var list = filtered();
-    if (list.length) return list.map(marketTile).join("");
+    if (list.length) {
+      return list.map(function (product) { return UI.productTile(product); }).join("");
+    }
     if (state.tech && !state.cat && !state.mp && !state.q) {
       return UI.empty(UI.facetLabel(state.tech).emptyState);
     }
@@ -223,7 +178,7 @@
                 '<p class="results-count" id="results-count" role="status" aria-live="polite">' +
                   UI.esc(countLine()) + "</p>" +
               "</div>" +
-              '<div class="market-grid" id="product-results">' + resultsHtml() + "</div>" +
+              '<div class="ptile-grid" id="product-results">' + resultsHtml() + "</div>" +
             "</div>" +
           "</div>" +
         "</div>" +

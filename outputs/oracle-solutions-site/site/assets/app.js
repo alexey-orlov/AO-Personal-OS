@@ -458,7 +458,7 @@
     sectionHead: sectionHead,
     empty: emptyState,
     card: card,
-    tilePlate: tilePlate,
+    productTile: productTile,
     orderedProducts: orderedProducts,
     media: media,
     figure: figure,
@@ -467,6 +467,7 @@
     industryLabel: industryLabel,
     industryChips: industryChips,
     contactCard: contactCard,
+    contactSplit: contactSplit,
     sectionLabel: sectionLabel,
     heroBackdrop: heroBackdrop,
     modal: { open: openModal, close: closeModal }
@@ -614,7 +615,7 @@
   var YT_PLACEHOLDER_W = 120;
 
   function guardHeroImages(root) {
-    Array.prototype.forEach.call(root.querySelectorAll(".hero-bg-img, .video-card-poster, .contact-photo-img, .market-tile-img"), function (img) {
+    Array.prototype.forEach.call(root.querySelectorAll(".hero-bg-img, .video-card-poster, .contact-photo-img, .ptile-img, .story-logo, .proof-logo"), function (img) {
       var retried = false;
 
       function isYouTube() { return (img.getAttribute("src") || "").indexOf("img.youtube.com/") >= 0; }

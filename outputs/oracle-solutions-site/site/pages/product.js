@@ -64,13 +64,6 @@
     }).join("") + "</ul>";
   }
 
-  function iconList(items) {
-    var UI = window.UI;
-    return '<ul class="icon-list">' + items.map(function (item) {
-      return "<li>" + UI.icon(item.icon) + "<span>" + UI.esc(item.text) + "</span></li>";
-    }).join("") + "</ul>";
-  }
-
   function defGrid(items, columns) {
     var UI = window.UI;
     return '<div class="def-grid' + (columns ? " def-grid--" + columns : "") + '">' +
