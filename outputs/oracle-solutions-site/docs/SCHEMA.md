@@ -222,38 +222,32 @@ The block renders as a **dark surface-level panel with a 3px teal left rule**, i
 | `narrative` | string | **Two short sentences, ~40 words maximum.** One paragraph, at the head of the Architecture block. The layered stack directly beneath it carries the detail. |
 | `stack` | `[{ key, label, summary, vendors, items }]` | **The layered solution stack — the block the Technology tab renders below the flow diagram.** 4–5 accordion rows, top → bottom, in the fixed order `application` → `ai-engine` → `data-platform` → `infrastructure` → `custom`. A layer may be **omitted** (the two Lakehouse products have no `ai-engine`: NVIDIA is not required there) but never re-ordered, and `application`, `data-platform`, `infrastructure` and `custom` are present on all seven. `summary` is **one sentence** — the collapsed row. `vendors` is a non-empty array of `oracle` / `nvidia` / `softserve` and selects the wordmark(s) on the row. `items` is `[{ name, required, note?, direction? }]`; `required` is a real boolean rendering as the **Required / Optional** tag, and every layer carries at least one `required: true`. `direction` is `inbound` / `outbound` / `both`, is only legal on the `custom` layer, and is what turns the old `integration` list into separate **Inbound** and **Outbound** lines inside that layer. The custom layer always names at least one inbound and one outbound item. |
 | `governance?` | `{ title, body }` | The two Lakehouse products. One band below the accordion. |
-| `security` | `[{ icon, text }]` | Icon-led list below the stack. Icons by convention `shield` / `lock` / `eye` / `audit`. |
+| `capabilities` | `[{ stage, items: [{ name, state? }] }]` | **Exactly four stage groups**, in workflow order — the same four stages the product's `overview.steps` walk through, named in the product's own vocabulary (`Classification & routing` · `Extraction` · …). `items` is that stage's complete capability list, ≥ 3 per stage; the four groups together must cover every feature the product page claims anywhere. `state` is `supported` or `roadmap` and is **omitted** unless a shipped capability matrix states one — today only `workforce-optimization` carries states, because its accelerator-pack one-pager is the only matrix whose legend defines a roadmap tier. A guessed tag is worse than no tag. |
 
-**`groups`, `layers` and `integration` are gone.** The vendor-marked component columns, the four-tier layer table and the integration list were three views of one architecture, printed one under another; `stack` is that architecture, read top to bottom, and the three keys were deleted from the data once nothing rendered them. `check-grammar.js` fails if any of them comes back — a re-introduced key would render nowhere and drift out of sync in silence.
+**`groups`, `layers`, `integration`, `flow` and `security` are gone.** The vendor-marked component columns, the four-tier layer table and the integration list were three views of one architecture; `stack` is that architecture, read top to bottom. `flow` went with the How-it-runs diagram in round 3 — the stack is the flow, drawn once — and `security` went with the Security-and-deployment block, its facts folded into the layer summaries, the scope lists and the Jumpstart `low-risk` pillar. `check-grammar.js` fails if any of the five comes back: a re-introduced key would render nowhere and drift out of sync in silence.
 
-### `pov`
+**The Technology tab is exactly two blocks:** `narrative` + `stack` under *Architecture*, then `capabilities` under *Capabilities*.
 
-Renders the `POV Jumpstart` tab.
+### `jumpstart`
 
-The tab renders one fixed sequence on **all seven products**: fact strip → deliverables checklist → price table with its disclaimers as footnotes → the three-tier ladder → the standing gate and credibility blocks → one primary CTA. Everything else a product carries — `statStrip`, `inScope`/`notInScope`/`thenRollout`/`phases`/`howMeasured`, `statNotes`, `prerequisites`, `howItRuns`, `capabilityMatrix` — renders inside a single collapsed **More detail** disclosure placed after the ladder. A seller flipping between two product tabs in front of a customer must not get a different page shape each time, so none of the optional keys below may add or remove a top-level section.
+Renders the **Jumpstart** tab (`#/products/<slug>/jumpstart`; `…/pov` redirects to it). Product-marketing shape: fast · low-risk · tangible, in one screen, identical on all seven.
 
 | Key | Type | Notes |
 |---|---|---|
-| `facts` | `{ duration, team, price, deliverablesCount }` | The four-tile fact strip at the top of the tab. All four are short display strings except `deliverablesCount`, which is a **number** and must equal `deliverables.length`. `price` reads `Scoped per engagement` where none is published — the tile is never empty. |
-| `scope` | string | One paragraph: what the proof of value covers. |
-| `inScope?`, `notInScope?`, `thenRollout?` | string | Single-line lists separated by `·`. |
-| `duration` | string | |
-| `durationShort` | string, optional | The same duration in its shortest honest form (e.g. `2 months`, `30–45 days`). Interpolated into `sellerGate.cta.body` at `{duration}`; never rendered on its own. **Omit it** where the duration is `Scoped per engagement` — there is no short form of "we do not publish one", and the CTA then uses `sellerGate.cta.bodyFallback`. |
-| `durationNote?`, `phases?`, `gateNote?` | string | |
-| `team` | string | Who delivers the proof of value. |
-| `prerequisites?` | `{ title, items: [string] }` | |
-| `howMeasured?` | string | |
-| `statStrip?`, `statNotes?` | string / `[{ title, body }]` | The Quick Start offer block on the two Lakehouse products. |
-| `deliverables` | `[string]` | Rendered under the shared `sectionLabels.deliverables` heading. The heading is not overridable per product — see the fixed sequence above. |
-| `howItRuns?` | `{ title, steps: [{ title, body }], closing? }` | |
-| `pricing` | `[{ label, value, note? }]` | The proof-of-value's own price lines. Render as a small table with the `disclaimers` beneath. |
-| `disclaimers` | `[string]` | Render **all** of them, in order, in the same block as the figures. The last one is always the public packaging footnote. |
-| `creditNote?` | string | The Quick Start fee-credit term. |
-| `ladder` | `[{ tier, title, scope, includes: [string], duration, pricing }]` | Always exactly three entries: `proof-of-value`, `rollout`, `scaling`. **Render the same three-column component on all seven pages**; where no price is published every `pricing` cell reads `Scoped per engagement`. |
-| `ladderFootnote?` | string | Present on the three products with no published price table; render under the ladder. |
-| `capabilityMatrix?` | `{ legend, rows: [{ label, pov, rollout, scaling }] }` | The two packaged products. Cell values are `●`, `◐`, `●●` or `—`. |
+| `title` | string | Always `Jumpstart Proof-of-Value` — the block title, not the tab label. |
+| `promise` | string | One line: pilot *this product* on your own data, in *this* duration, at *this* price, with a decision-ready result. Only a duration or price the research supports; otherwise the sentence says the scope is agreed at scoping rather than inventing one. |
+| `durationShort?` | string | The duration in its shortest honest form (`2 months`, `30–45 days`). Interpolated into `sellerGate.cta.body` at `{duration}`; never rendered on its own. **Omit it** where the duration is `Scoped per engagement` — there is no short form of "we do not publish one", and the CTA then uses `sellerGate.cta.bodyFallback`. |
+| `pillars` | `[{ key, title, text }]` | **Exactly three, in this order:** `fast` (kickoff to result), `low-risk` (fixed scope and price, your tenancy, no production change — only the claims the research supports for that product), `tangible` (the headline outcome). Equal cards in one row, each with an icon. |
+| `outcomes` | `[string]` | 3–4 **customer outcomes**, not deliverables: "An optimized four-week plan for one region, measured against your current plan", not "a plan document". Heads the left column, under `sectionLabels.jumpstartOutcomes`. |
+| `timeline` | `[{ label, text }]` | 3–4 nodes, week-by-week, under `sectionLabels.jumpstartTimeline`. Node 1 is the pre-flight gate wherever the product has one. |
+| `needs` | `[string]` | **Exactly three** short asks — data access, a business owner, sample material — per product. |
+| `investment` | `{ price, duration, includes: [string], footnote }` | The price card. `price` reads `Scoped per engagement` where none is published; `includes` is ≥ 3 lines; `footnote` is **one line** — `Figures are illustrative and confirmed in scoping.`, or the single legally necessary line a one-pager prints (the Lakehouse pair keeps *"Price indicative, to be confirmed per scope. All features used are generally available product."*), or the honest "no package price is published yet" sentence. Never a stack of disclaimers. |
+| `next` | `[{ tier, text, duration?, price? }]` | **Exactly two**, `Integration` then `Scale` — one line each, with the duration and price where a one-pager states them and `Scoped per engagement` where it does not. This replaced the three-column ladder: the Jumpstart tab is about the Jumpstart, and the ladder's third column was the tab the reader is already on. |
+| `cta` | `{ label, route }` | `Start a Jumpstart conversation`, routed at that product's **contacts** tab. |
 
-After the ladder, every POV tab renders, in order: `shared.preFlightGate`, `shared.credibilityBlock`, `shared.engageLink`.
+**The packaging-internal disclaimers are removed site-wide.** "Framed scope, flexible add-ons", "Each package's price and timing are set by specific constraints", "Custom features beyond the frame are added for additional price and time" and their kin describe how SoftServe builds a quote, not what a customer gets; `check-grammar.js` fails the build on those strings. What survives is one footnote per price card, plus the KPI caveats that travel with published figures.
+
+After the Jumpstart block, the tab still renders `shared.credibilityBlock` and `shared.engageLink`; `shared.preFlightGate` is carried for reference — its content is node 1 of every product's `timeline`.
 
 ### `sellers`
 
@@ -317,10 +311,10 @@ The gate checks the domain of the entered email against `SITE_CONFIG.sellerGate.
 - `products.length === 7`, and every `slug` has a matching key in `SITE_CONFIG.products`.
 - Every product's `facet` is one of the four `facets.technology[].id` values; two of those four match no product.
 - Every product's `category` is one of the three `facets.categories[].id` values.
-- Every product's `pov.ladder.length === 3`, in the order proof-of-value → rollout → scaling.
+- Every product's `jumpstart.next.length === 2`, in the order Integration → Scale, and `jumpstart.pillars` is `fast` → `low-risk` → `tangible`.
 - Every product has `tile.outcomes.length === 3`.
-- Every product fills every slot of the visual grammar: `hero.image`, `overview.problemSolution`, 1–4 `overview.metrics` plus `metricsNote`, `overview.roi`, 6–8 `overview.features`, 3–5 `overview.steps` covering every one of those features exactly once, 3–6 `overview.industryCases`, `overview.sideFacts`, `overview.industriesNote`, `overview.scope.in/.out`, `overview.moreDetail`, exactly four `technology.flow` steps, a 4–5 layer `technology.stack` with a required item in every layer, and `pov.facts`.
-- No product carries `technology.groups`, `technology.layers` or `technology.integration`; the layered `stack` replaced all three.
-- `shared.contact` exists, its `email` is `oracle@softserveinc.com`, and `shared.productTabs` carries a `contacts` tab and no `demo` tab.
+- Every product fills every slot of the visual grammar: `hero.image`, `overview.problemSolution`, 1–4 `overview.metrics` plus `metricsNote`, `overview.roi`, 6–8 `overview.features`, 3–5 `overview.steps` covering every one of those features exactly once, 3–6 `overview.industryCases`, `overview.industriesNote`, `overview.scope.in/.out`, `overview.moreDetail`, `overview.successStory` (object or `null`), a 4–5 layer `technology.stack` with a required item in every layer, exactly four `technology.capabilities` stages, and the full `jumpstart` block.
+- No product carries `technology.groups`, `.layers`, `.integration`, `.notUsed`, `.flow` or `.security`; no product carries `overview.sideFacts` or a top-level `pov`.
+- `shared.contact` exists, its `email` is `oracle@softserveinc.com`, it carries three `bring` lines, and `shared.productTabs` carries `jumpstart` (with `legacyId: "pov"`) and `contacts` (with `legacyId: "demo"`), and neither a `pov` nor a `demo` tab id.
 - `tools/check-grammar.js` asserts all of the above. Run `node tools/check-grammar.js` after any edit to either data file; it exits non-zero and names every failure. Missing image files are **warnings**, not failures: copy and imagery ship on separate tracks.
 - The only person named anywhere in `content.js` is `shared.contact` — a person already printed by name, title and contact route on SoftServe's own external one-pagers. No customer name, no personal mailbox, no internal file name, no internal state name and no meeting date appears anywhere in the file.
