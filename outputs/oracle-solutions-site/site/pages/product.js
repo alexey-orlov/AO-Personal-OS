@@ -116,6 +116,16 @@
       href: contactsRoute(product.slug),
       kind: "primary"
     })];
+    /* The interactive walkthrough opens in its own tab: it is a self-contained
+       page with its own guide, and a seller mid-call must not lose the product
+       page behind it. Rendered only when a demoUrl is configured. */
+    if (conf.demoUrl) {
+      out.push(UI.button({
+        label: C().shared.demoCta, href: conf.demoUrl,
+        kind: "secondary", iconAfter: "external",
+        attrs: { target: "_blank", rel: "noopener" }
+      }));
+    }
     if (conf.videoUrl && !hasMedia) {
       out.push(UI.button({
         label: C().shared.videoCaption, kind: "secondary", icon: "play",

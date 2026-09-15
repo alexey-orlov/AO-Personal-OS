@@ -115,6 +115,7 @@ window.SITE_CONTENT = {
     heroAsideTitle: "What you get",
     heroAsideFootLabel: "Proof of value",
     videoCaption: "Watch the demo",
+    demoCta: "Try the interactive demo",
     videoPending: {
       body: "The demo recording is being prepared.",
       cta: "Request a live demo"
