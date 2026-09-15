@@ -647,112 +647,113 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 
 .logo-strip img.logo-strip-lg { height: 1.875rem; }
 
-/* ——— product tiles ——————————————————————————————————— */
+/* ——— product tiles: one anatomy on both grids ————————— */
 
-.tile-grid {
+/* VISUAL-GRAMMAR §1.1. Image band over a solid body; text never sits on the
+   photograph. Two per row, equal height — the body is a flex column so the one
+   CTA is pinned to its foot however long the one-liner runs. */
+
+.tile-grid, .ptile-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 2.5rem var(--gap);
+  gap: var(--gap);
+  align-items: stretch;
 }
 
-.tile { display: flex; flex-direction: column; gap: .875rem; }
-
-.tile-plate {
-  position: relative;
+.ptile {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  gap: 1.5rem;
-  min-height: 13rem;
-  aspect-ratio: 16 / 9;
-  padding: 1.5rem;
+  overflow: hidden;
+  border: 1px solid var(--border-subtle);
   border-radius: var(--r-lg);
   background: var(--bg-inset);
-  border: 1px solid rgba(255, 255, 255, .1);
-  overflow: hidden;
-  transition: border-color 1s ease-in-out, box-shadow 1s ease-in-out;
+  transition: border-color .3s var(--ease), box-shadow .3s var(--ease), transform .3s var(--ease);
 }
 
-.tile-plate::after {
-  content: "";
-  position: absolute;
-  inset: auto -3rem -7rem auto;
-  width: 14rem;
-  height: 14rem;
-  border-radius: 50%;
-  background: radial-gradient(closest-side, rgba(53, 204, 186, .16), rgba(53, 204, 186, 0));
-  pointer-events: none;
-}
-
-.tile:hover .tile-plate, .tile:focus-within .tile-plate {
+.ptile:hover, .ptile:focus-within {
   border-color: var(--border-card-hover);
   box-shadow: var(--glow-card);
+  transform: translateY(-3px);
 }
 
-.tile-plate-name {
-  font-family: var(--font-display);
-  font-weight: 900;
-  text-transform: uppercase;
-  font-size: clamp(1.5rem, 2.4vw, 2.25rem);
-  line-height: .98;
-  letter-spacing: -.01em;
-  color: var(--text);
+.ptile-band {
   position: relative;
-  z-index: 1;
+  aspect-ratio: 16 / 7;
+  overflow: hidden;
+  background: var(--surface-navy);
+  flex: none;
 }
 
-.tile-plate-name .accent { color: var(--accent); }
-
-.tile-plate--art { padding: 0; justify-content: flex-end; gap: 0; }
-.tile-plate--art::after { display: none; }
-
-.tile-plate-img {
-  position: absolute;
-  inset: 0;
+.ptile-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  opacity: .88;
-  transition: transform .6s var(--ease), opacity .6s var(--ease);
+  transition: transform .6s var(--ease);
 }
 
-.tile:hover .tile-plate-img,
-.tile:focus-within .tile-plate-img,
-.market-tile:hover .tile-plate-img,
-.market-tile:focus-within .tile-plate-img { transform: scale(1.04); opacity: 1; }
+.ptile:hover .ptile-img, .ptile:focus-within .ptile-img { transform: scale(1.05); }
 
-.tile-plate--art .tile-plate-foot {
-  padding: 3rem 1.5rem 1.25rem;
-  background: linear-gradient(to top, rgba(0, 0, 0, .86) 0, rgba(0, 0, 0, .55) 45%, rgba(0, 0, 0, 0) 100%);
+.ptile-veil {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to bottom, rgba(0, 0, 0, .55) 0, rgba(0, 0, 0, .1) 38%, rgba(0, 0, 0, .12) 58%, var(--bg-inset) 100%);
 }
 
-.tile-plate--art .tile-plate-facet { color: var(--text-muted); }
-.tile-plate--art .icon { color: var(--text); }
-
-.tile-plate-foot {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  position: relative;
-  z-index: 1;
-}
-
-.tile-plate-facet {
+.ptile-facet {
+  position: absolute;
+  top: .875rem;
+  left: 1rem;
+  max-width: 60%;
   font-size: var(--fs-xs);
-  letter-spacing: .1em;
+  letter-spacing: .12em;
   text-transform: uppercase;
-  color: var(--text-dim);
+  color: var(--text);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, .7);
 }
 
-.tile-plate .icon { color: var(--text-dim); transition: color .25s var(--ease), transform .25s var(--ease); }
-.tile:hover .tile-plate .icon { color: var(--accent); transform: translateX(3px); }
+.ptile-avail { position: absolute; top: .75rem; right: 1rem; }
+.ptile-avail .chip { background: rgba(0, 0, 0, .62); backdrop-filter: blur(2px); }
 
-.tile-title { font-size: 1.25rem; font-weight: 700; line-height: 1.3; color: var(--text); }
-.tile-desc { font-size: var(--fs-sm); font-weight: 400; color: var(--text-muted); line-height: 1.55; }
+.ptile-body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: .75rem;
+  padding: 1.25rem clamp(1.125rem, 1.8vw, 1.5rem) clamp(1.25rem, 1.8vw, 1.5rem);
+}
+
+.ptile-chips { margin-bottom: .125rem; }
+
+.ptile-title {
+  font-family: var(--font-body);
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--text);
+  text-transform: none;
+}
+
+.ptile-title a:hover { color: var(--accent); }
+.ptile-desc { font-size: var(--fs-sm); line-height: 1.6; color: var(--text-muted); }
+.ptile-outcomes { margin-top: .125rem; }
+.ptile-cta { margin-top: auto; padding-top: .625rem; }
+
+/* The home page meets the reader with the same tile, one size down. */
+.ptile--compact .ptile-band { aspect-ratio: 16 / 7; }
+.ptile--compact .ptile-body { gap: .625rem; padding: 1.125rem 1.25rem 1.25rem; }
+.ptile--compact .ptile-title { font-size: 1.125rem; }
+.ptile--compact .ptile-desc,
+.ptile--compact .ptile-outcomes li { font-size: var(--fs-xs); line-height: 1.6; }
+
+@media (prefers-reduced-motion: reduce) {
+  .ptile, .ptile-img { transition: none; }
+  .ptile:hover, .ptile:focus-within { transform: none; }
+  .ptile:hover .ptile-img, .ptile:focus-within .ptile-img { transform: none; }
+}
 
 @media (max-width: 1024px) {
-  .tile-grid { grid-template-columns: minmax(0, 1fr); }
+  .tile-grid, .ptile-grid { grid-template-columns: minmax(0, 1fr); }
 }
 
 /* ——— proof rows ——————————————————————————————————————— */
@@ -1204,88 +1205,6 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 .rail-note { font-size: var(--fs-xs); line-height: 1.55; color: var(--text-dim); margin-top: .5rem; }
 .rail-clear { align-self: flex-start; }
 .rail-clear .icon { width: .75rem; height: .75rem; }
-
-.market-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--gap); }
-
-.market-tile {
-  position: relative;
-  isolation: isolate;
-  overflow: hidden;
-  display: flex;
-  min-height: 26rem;
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--r-lg);
-  background: var(--bg-inset);
-  transition: border-color .3s var(--ease), box-shadow .3s var(--ease);
-}
-
-.market-tile:hover, .market-tile:focus-within {
-  border-color: var(--border-card-hover);
-  box-shadow: var(--glow-card);
-}
-
-.market-tile-bg { position: absolute; inset: 0; z-index: -1; display: block; overflow: hidden; }
-
-.market-tile-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform .6s var(--ease);
-}
-
-.market-tile:hover .market-tile-img, .market-tile:focus-within .market-tile-img { transform: scale(1.05); }
-
-.market-tile-veil {
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(to bottom, rgba(19, 19, 19, .58) 0, rgba(19, 19, 19, .46) 4.5rem, rgba(19, 19, 19, .52) 60%, rgba(19, 19, 19, .68) 100%),
-    linear-gradient(to right, rgba(19, 19, 19, .5), rgba(19, 19, 19, .34));
-}
-
-.market-copy {
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  gap: .875rem;
-  padding: clamp(1.5rem, 2.4vw, 2rem);
-}
-
-.market-facet {
-  margin-bottom: auto;
-  font-size: var(--fs-xs);
-  letter-spacing: .12em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-}
-.market-title { font-family: var(--font-body); font-size: 1.25rem; font-weight: 700; line-height: 1.3; color: var(--text); text-transform: none; }
-.market-title a:hover { color: var(--accent); }
-.market-desc { font-size: var(--fs-sm); color: var(--text-muted); line-height: 1.6; }
-
-.outcome-list { display: flex; flex-direction: column; gap: .5rem; }
-.outcome-list li, .tick-list li, .tier-list li { display: flex; gap: .625rem; font-size: var(--fs-sm); line-height: 1.55; color: var(--text-body); }
-.outcome-list .icon, .tick-list .icon, .tier-list .icon { width: .875rem; height: .875rem; color: var(--accent); flex: none; margin-top: .3125rem; }
-
-.market-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 1.75rem; margin-top: auto; padding-top: .25rem; }
-
-/* One column means a tile grows past twice the image's own aspect, and a
-   full-bleed cover crop at that height shows a sliver too zoomed to read as
-   anything. The image keeps a band at the top of the card instead. */
-@media (max-width: 1024px) {
-  .market-grid { grid-template-columns: minmax(0, 1fr); }
-  .market-tile-bg { bottom: auto; height: 17rem; }
-  .market-tile-veil {
-    background: linear-gradient(to bottom,
-      rgba(19, 19, 19, .46) 0,
-      rgba(19, 19, 19, .5) 46%,
-      rgba(19, 19, 19, .8) 80%,
-      var(--bg-inset) 100%);
-  }
-}
-
-@media (max-width: 560px) {
-  .market-tile { min-height: 22rem; }
-}
 
 /* ——— product hero ————————————————————————————————————— */
 
@@ -2203,21 +2122,6 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 .video-frame { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
 .modal-panel .form-block { gap: 1.5rem; }
 .modal-panel .form-head .h2 { font-size: var(--fs-h3); }
-
-/* ——— pager ———————————————————————————————————————————— */
-
-.pager { border-top: 1px solid var(--border-subtle); }
-.pager-inner { display: flex; flex-wrap: wrap; gap: 1.5rem; justify-content: space-between; padding-block: 2rem; }
-.pager-link { display: inline-flex; align-items: center; gap: 1rem; color: var(--text-muted); transition: color .25s var(--ease); max-width: 22rem; }
-.pager-link span { display: flex; flex-direction: column; gap: .25rem; font-size: 1rem; font-weight: 600; color: var(--text); }
-.pager-link em { font-style: normal; font-size: var(--fs-xs); letter-spacing: .12em; text-transform: uppercase; color: var(--text-dim); font-weight: 400; }
-.pager-link .icon { flex: none; color: var(--text-dim); transition: color .25s var(--ease), transform .25s var(--ease); }
-.pager-link--prev .icon { transform: rotate(180deg); }
-.pager-link--next { text-align: right; margin-left: auto; }
-.pager-link--next span { align-items: flex-end; }
-.pager-link:hover .icon { color: var(--accent); }
-.pager-link--prev:hover .icon { transform: rotate(180deg) translateX(3px); }
-.pager-link--next:hover .icon { transform: translateX(3px); }
 
 /* ——— responsive ——————————————————————————————————————— */
 
