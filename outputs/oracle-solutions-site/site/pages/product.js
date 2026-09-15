@@ -604,163 +604,109 @@
       capabilities(product);
   }
 
-  /* ————— tab: POV Jumpstart ————— */
+  /* ————— tab: Jumpstart ————— */
 
-  function factStrip(pov) {
+  var PILLAR_ICON = { fast: "clock", "low-risk": "shield", tangible: "trendUp" };
+
+  /* Product marketing, in one screen: fast · low-risk · tangible. The same six
+     pieces in the same order on all seven products, so a seller flipping
+     between two tabs never has the page move under the customer.
+
+     One footnote, not a stack — the packaging-internal disclaimers that used to
+     sit under the price table describe how a quote is built, not what a
+     customer gets, and they are removed site-wide. */
+  function jumpstartTab(product) {
     var UI = window.UI;
-    var facts = pov.facts;
-    if (!facts) return "";
-    var cells = [
-      { label: label("povFactDuration"), value: facts.duration },
-      { label: label("povFactTeam"), value: facts.team },
-      { label: label("povFactPrice"), value: facts.price },
-      { label: label("povFactDeliverables"), value: String(facts.deliverablesCount) }
-    ].map(function (cell) {
-      return '<div class="fact-tile">' +
-        '<p class="fact-tile-value">' + UI.esc(cell.value) + "</p>" +
-        '<p class="fact-tile-label">' + UI.esc(cell.label) + "</p>" +
-        "</div>";
-    }).join("");
-    return '<div class="fact-strip">' + cells + "</div>";
-  }
-
-  function povDetailRows(pov) {
-    var UI = window.UI;
-    var rows = [
-      pov.inScope ? { label: label("povScopeIn"), value: pov.inScope } : null,
-      pov.notInScope ? { label: label("povScopeOut"), value: pov.notInScope } : null,
-      pov.thenRollout ? { label: label("povRollout"), value: pov.thenRollout } : null,
-      pov.phases ? { label: label("povPhases"), value: pov.phases } : null,
-      pov.howMeasured ? { label: label("povMeasured"), value: pov.howMeasured } : null
-    ].filter(Boolean);
-    if (!rows.length) return "";
-    var notes = [pov.durationNote, pov.gateNote].filter(Boolean).map(function (note) {
-      return '<p class="footnote">' + UI.esc(note) + "</p>";
-    }).join("");
-    return '<dl class="metric-rows">' + rows.map(function (row) {
-      return '<div class="metric-row"><dt>' + UI.esc(row.label) + "</dt><dd>" +
-        UI.esc(row.value) + "</dd></div>";
-    }).join("") + "</dl>" + notes;
-  }
-
-  function ladder(product) {
-    var UI = window.UI;
-    var columns = C().shared.ladderColumns;
-    var cards = product.pov.ladder.map(function (tier, index) {
-      var tierLabel = columns[index] && columns[index] !== tier.title
-        ? columns[index] : "Step " + (index + 1);
-      return '<article class="tier">' +
-        '<div class="tier-body">' +
-          '<p class="eyebrow' + (index === 0 ? " eyebrow--accent" : "") + '">' +
-            UI.esc(tierLabel) + "</p>" +
-          '<h3 class="tier-title">' + UI.esc(tier.title) + "</h3>" +
-          '<p class="tier-scope">' + UI.esc(tier.scope) + "</p>" +
-          bulletList(tier.includes, "tier-list") +
-        "</div>" +
-        '<div class="tier-foot">' +
-          '<p class="tier-label">Duration</p><p class="tier-value">' + UI.esc(tier.duration) + "</p>" +
-          '<p class="tier-label">Pricing</p><p class="tier-value">' + UI.esc(tier.pricing) + "</p>" +
-        "</div>" +
-        "</article>";
-    }).join("");
-    return '<section class="panel reveal">' + blockHead(label("ladder")) +
-      '<div class="tier-grid">' + cards + "</div>" +
-      (product.pov.ladderFootnote ? '<p class="footnote">' + UI.esc(product.pov.ladderFootnote) + "</p>" : "") +
-      "</section>";
-  }
-
-  function capabilityMatrix(matrix) {
-    var UI = window.UI;
-    if (!matrix) return "";
-    var columns = C().shared.ladderColumns;
-    var head = '<tr><th scope="col">Capability</th>' + columns.map(function (column) {
-      return '<th scope="col">' + UI.esc(column) + "</th>";
-    }).join("") + "</tr>";
-    var rows = matrix.rows.map(function (row) {
-      return '<tr><th scope="row">' + UI.esc(row.label) + "</th>" +
-        '<td class="nums">' + UI.esc(row.pov) + "</td>" +
-        '<td class="nums">' + UI.esc(row.rollout) + "</td>" +
-        '<td class="nums">' + UI.esc(row.scaling) + "</td></tr>";
-    }).join("");
-    return '<div class="table-scroll"><table class="matrix"><thead>' + head + "</thead><tbody>" + rows +
-      "</tbody></table></div>" +
-      '<p class="footnote">' + UI.esc(matrix.legend) + "</p>";
-  }
-
-  function stepList(block) {
-    var UI = window.UI;
-    return '<ol class="step-list">' + block.steps.map(function (step, index) {
-      return '<li class="step"><span class="step-index nums">' + (index + 1) + "</span>" +
-        '<div><p class="step-title">' + UI.esc(step.title) + "</p>" +
-        '<p class="step-body">' + UI.esc(step.body) + "</p></div></li>";
-    }).join("") + "</ol>" +
-      (block.closing ? '<p class="body-text panel-extra">' + UI.esc(block.closing) + "</p>" : "");
-  }
-
-  /* Everything a POV carries beyond the four canonical blocks lives here, so
-     the tab has the same shape on every product and a seller can flip between
-     them without the page moving underneath the customer. */
-  function povMoreDetail(pov) {
-    var UI = window.UI;
-    var parts = [];
-
-    function push(title, body) {
-      if (!body) return;
-      parts.push('<p class="eyebrow detail-sub">' + UI.esc(title) + "</p>" + body);
-    }
-
-    if (pov.statStrip) parts.push('<p class="value-strip">' + UI.esc(pov.statStrip) + "</p>");
-    parts.push(povDetailRows(pov));
-    if (pov.statNotes) push(label("terms"), defGrid(pov.statNotes, "3"));
-    if (pov.prerequisites) push(pov.prerequisites.title, plainList(pov.prerequisites.items));
-    if (pov.howItRuns) push(pov.howItRuns.title, stepList(pov.howItRuns));
-    if (pov.capabilityMatrix) push(label("matrix"), capabilityMatrix(pov.capabilityMatrix));
-
-    var body = parts.filter(Boolean).join("");
-    if (!body) return "";
-    return '<section class="panel panel--flat reveal">' +
-      '<details class="disclosure disclosure--detail">' +
-        "<summary><span>" + UI.esc(label("moreDetail")) + "</span>" + UI.icon("chevronDown") + "</summary>" +
-        '<div class="detail-wrap detail-wrap--stack">' + body + "</div>" +
-      "</details></section>";
-  }
-
-  function povTab(product) {
-    var UI = window.UI;
-    var pov = product.pov;
-
-    var pricing = '<div class="price-table">' + pov.pricing.map(function (line) {
-      return '<div class="price-row">' +
-        '<p class="price-label">' + UI.esc(line.label) + "</p>" +
-        '<p class="price-value nums">' + UI.esc(line.value) + "</p>" +
-        (line.note ? '<p class="footnote price-note">' + UI.esc(line.note) + "</p>" : "") +
-        "</div>";
-    }).join("") + "</div>" +
-      '<div class="price-disclaimers">' + pov.disclaimers.map(function (line) {
-        return '<p class="footnote">' + UI.esc(line) + "</p>";
-      }).join("") + "</div>" +
-      (pov.creditNote ? '<p class="credit-note">' + UI.esc(pov.creditNote) + "</p>" : "");
-
+    var js = product.jumpstart;
     var credibility = C().shared.credibilityBlock;
 
-    return '<section class="panel reveal">' + blockHead(label("povHeading")) +
-        '<p class="lead">' + UI.esc(pov.scope) + "</p>" +
-        factStrip(pov) +
+    var pillars = (js.pillars || []).map(function (pillar) {
+      return '<article class="pillar">' +
+        '<span class="pillar-mark">' + UI.icon(PILLAR_ICON[pillar.key] || "spark") + "</span>" +
+        '<h3 class="pillar-title">' + UI.esc(pillar.title) + "</h3>" +
+        '<p class="pillar-text">' + UI.esc(pillar.text) + "</p>" +
+        "</article>";
+    }).join("");
+
+    var timeline = (js.timeline || []).map(function (node) {
+      return '<li class="tl-node">' +
+        '<span class="tl-mark" aria-hidden="true"></span>' +
+        '<p class="tl-label">' + UI.esc(node.label) + "</p>" +
+        '<p class="tl-text">' + UI.esc(node.text) + "</p>" +
+        "</li>";
+    }).join("");
+
+    var inv = js.investment || {};
+    var includes = (inv.includes || []).map(function (line) {
+      return "<li>" + UI.icon("check") + "<span>" + UI.esc(line) + "</span></li>";
+    }).join("");
+
+    var next = (js.next || []).map(function (tier) {
+      return '<article class="next-tier">' +
+        '<p class="eyebrow eyebrow--accent">' + UI.esc(tier.tier) + "</p>" +
+        '<p class="next-tier-text">' + UI.esc(tier.text) + "</p>" +
+        '<dl class="next-tier-facts">' +
+          (tier.duration
+            ? "<div><dt>Duration</dt><dd>" + UI.esc(tier.duration) + "</dd></div>"
+            : "") +
+          (tier.price
+            ? "<div><dt>Pricing</dt><dd>" + UI.esc(tier.price) + "</dd></div>"
+            : "") +
+        "</dl>" +
+        "</article>";
+    }).join("");
+
+    return '<section class="panel reveal">' +
+        blockHead(js.title) +
+        '<p class="lead js-promise">' + UI.esc(js.promise) + "</p>" +
+        '<div class="pillar-row">' + pillars + "</div>" +
       "</section>" +
-      '<section class="panel reveal">' + blockHead(label("deliverables")) +
-        bulletList(pov.deliverables) + "</section>" +
-      '<section class="panel reveal">' + blockHead(label("pricing")) + pricing + "</section>" +
-      ladder(product) +
-      povMoreDetail(pov) +
-      '<section class="panel reveal gate-note">' + blockHead(C().shared.preFlightGate.title) +
-        '<p class="body-text">' + UI.esc(C().shared.preFlightGate.body) + "</p></section>" +
+      '<section class="panel reveal">' +
+        '<div class="js-split">' +
+          '<div class="js-col">' +
+            blockHead(label("jumpstartOutcomes")) +
+            bulletList(js.outcomes || []) +
+          "</div>" +
+          '<div class="js-col js-col--rail">' +
+            blockHead(label("jumpstartTimeline")) +
+            '<ol class="tl">' + timeline + "</ol>" +
+          "</div>" +
+        "</div>" +
+      "</section>" +
+      '<section class="panel reveal">' +
+        '<div class="js-split js-split--invest">' +
+          '<div class="js-col">' +
+            blockHead(label("jumpstartNeeds")) +
+            bulletList(js.needs || []) +
+          "</div>" +
+          '<div class="invest-card">' +
+            '<p class="eyebrow eyebrow--accent">' + UI.esc(label("jumpstartInvestment")) + "</p>" +
+            '<div class="invest-figures">' +
+              '<div class="invest-figure">' +
+                '<p class="invest-value nums">' + UI.esc(inv.price) + "</p>" +
+                '<p class="invest-label">Price</p>' +
+              "</div>" +
+              '<div class="invest-figure">' +
+                '<p class="invest-value nums">' + UI.esc(inv.duration) + "</p>" +
+                '<p class="invest-label">Duration</p>' +
+              "</div>" +
+            "</div>" +
+            '<ul class="tick-list invest-includes">' + includes + "</ul>" +
+            (inv.footnote ? '<p class="footnote invest-note">' + UI.esc(inv.footnote) + "</p>" : "") +
+          "</div>" +
+        "</div>" +
+      "</section>" +
+      '<section class="panel reveal">' +
+        blockHead(label("jumpstartNext")) +
+        '<div class="next-grid">' + next + "</div>" +
+      "</section>" +
       '<section class="panel reveal">' + blockHead(credibility.heading) +
         defGrid(credibility.items, "4") + "</section>" +
       '<section class="panel panel--flat reveal">' +
         '<div class="cta-row">' +
           UI.button({
-            label: C().site.primaryCta.label,
-            href: contactsRoute(product.slug),
+            label: js.cta.label,
+            href: js.cta.route || contactsRoute(product.slug),
             kind: "primary"
           }) +
         "</div>" +
