@@ -723,7 +723,7 @@ window.SITE_CONTENT = {
           { value: null, label: "Time to an equivalent case file", qualifier: "Elapsed time and person-hours, measured before and after", icon: "clock" },
           { value: null, label: "Findings your experts confirm", qualifier: "The share a subject-matter expert accepts on review", icon: "check" },
           { value: null, label: "Evidence coverage", qualifier: "Material findings linked to sufficient source evidence", icon: "link" },
-          { value: null, label: "Assembling versus judging", qualifier: "How much investigator time goes to gathering, not deciding", icon: "gauge" }
+          { value: null, label: "Assembling versus judging", qualifier: "How investigator time splits between gathering and deciding", icon: "gauge" }
         ],
         metricsNote: "No published metrics yet — the first engagement has not started. What the proof of value will measure: elapsed time and person-hours to produce an equivalent case file; the share of assembled findings a subject-matter expert confirms; the share of material findings linked to sufficient source evidence.",
         roi: {
@@ -1046,17 +1046,17 @@ window.SITE_CONTENT = {
         features: [
           "Ingest and profile approved static exports, preserving lineage",
           "Configuration-driven mapping to project, zone and unit level",
-          "Unresolved records reported as coverage gaps, not dropped",
+          "Unresolved records reported as coverage gaps, with their reason",
           "Plan-versus-actual comparison at unit level, on cost and schedule",
           "Variances, recurring patterns and candidate drivers as evidence-backed candidates",
           "An evidence layer over documents: extraction, embeddings, entity retrieval",
-          "A purpose-built lightweight review app, not a chat interface"
+          "A purpose-built lightweight review app for findings, citations and gaps"
         ],
         featuresDetail: [
           { title: "Ingest and profile", body: "Approved static exports from the available source systems, preserving lineage." },
-          { title: "Configuration-driven mapping layer", body: "Resolves records to project, zone and unit at the lowest reliable level — and reports unresolved records as coverage gaps rather than dropping them." },
+          { title: "Configuration-driven mapping layer", body: "Resolves records to project, zone and unit at the lowest reliable level, and reports whatever stays unresolved as a coverage gap with its reason." },
           { title: "Plan-versus-actual comparison", body: "At unit level, on cost and schedule." },
-          { title: "Supported variances, recurring patterns and candidate drivers", body: "Presented as evidence-backed candidates, never as conclusions." },
+          { title: "Supported variances, recurring patterns and candidate drivers", body: "Each one carries the evidence a reviewer needs to confirm or reject it." },
           { title: "An evidence layer over documents", body: "Text extraction, chunking, embeddings and entity extraction, with semantic, lexical and entity retrieval routed per question." },
           { title: "A purpose-built lightweight application", body: "Where the results are presented and reviewed." }
         ],
@@ -1072,11 +1072,11 @@ window.SITE_CONTENT = {
           {
             n: 2,
             title: "Resolve records to the unit",
-            text: "A configuration-driven mapping layer resolves records to project, zone and unit at the lowest reliable level. Anything unresolved is reported, not dropped.",
+            text: "A configuration-driven mapping layer resolves records to project, zone and unit at the lowest reliable level. Anything left unresolved is reported as a coverage gap, with its reason.",
             image: "assets/img/steps/plan-vs-actual-investigation-2.svg",
             features: [
               "Configuration-driven mapping to project, zone and unit level",
-              "Unresolved records reported as coverage gaps, not dropped"
+              "Unresolved records reported as coverage gaps, with their reason"
             ]
           },
           {
@@ -1096,7 +1096,7 @@ window.SITE_CONTENT = {
             image: "assets/img/steps/plan-vs-actual-investigation-4.svg",
             features: [
               "An evidence layer over documents: extraction, embeddings, entity retrieval",
-              "A purpose-built lightweight review app, not a chat interface"
+              "A purpose-built lightweight review app for findings, citations and gaps"
             ]
           }
         ],
@@ -1230,7 +1230,7 @@ window.SITE_CONTENT = {
               { name: "Conformed data model across the exported datasets" },
               { name: "Configuration-driven mapping to project, zone and unit level" },
               { name: "Records resolved at the lowest reliable level" },
-              { name: "Unresolved records reported as coverage gaps, not dropped" }
+              { name: "Unresolved records reported as coverage gaps, with their reason" }
             ]
           },
           {
@@ -1238,7 +1238,7 @@ window.SITE_CONTENT = {
             items: [
               { name: "Plan-versus-actual comparison at unit level, on cost and schedule" },
               { name: "Supported variances and recurring patterns across the sample" },
-              { name: "Candidate drivers presented as evidence-backed candidates, never conclusions" },
+              { name: "Candidate drivers, each carrying the evidence that supports it" },
               { name: "Confidence and review status on every material finding" }
             ]
           },
@@ -1689,7 +1689,7 @@ window.SITE_CONTENT = {
         metricsNote: "KPIs measured before/after on proof-of-value data; figures are illustrative, not contractual.",
         roi: {
           icon: "roi",
-          text: "The gain is not a faster dispatcher — it is the same field force doing more jobs per day, with less travel and less waiting. A single-digit percentage runs across every region."
+          text: "The gain lands in the field: the same technicians complete more jobs per day, with less travel and less waiting. A single-digit percentage runs across every region."
         },
         features: [
           "Work-zone and availability rules, with skill-based allocation",
@@ -1757,7 +1757,7 @@ window.SITE_CONTENT = {
             label: "Manufacturing",
             image: "assets/img/industries/manufacturing.jpg",
             problem: "In-home repair of manufactured goods is planned by hand: work zones and technician allocations, region by region, juggling skills, spare parts, travel and absences. Urgent call-outs and no-shows mean re-planning the day.",
-            solution: "The solver plans the whole region against skills, parts, travel and existing bookings at once, and the dispatcher reviews the result rather than building it. Rules that differ by market — working time, holidays, service commitments — are configuration, so a new region is set up rather than re-planned."
+            solution: "The solver plans the whole region against skills, parts, travel and existing bookings at once, and the dispatcher reviews and approves the result. Rules that differ by market — working time, holidays, service commitments — are configuration, so setting up a new region is a configuration job."
           },
           {
             industry: "utilities",
@@ -1771,7 +1771,7 @@ window.SITE_CONTENT = {
             label: "Telecom & cable",
             image: "assets/img/industries/telecom.jpg",
             problem: "Install-and-repair technicians have to be routed to tight appointment windows across regions, matched to line skills. Missed windows cost customer satisfaction directly, and launching a new service zone depends on scarce planning expertise.",
-            solution: "Appointment windows and line skills are modeled as commitment and skill rules, and the solver routes against them while minimizing travel. A new zone is a configuration change rather than a planning project."
+            solution: "Appointment windows and line skills are modeled as commitment and skill rules, and the solver routes against them while minimizing travel. Launching a new zone comes down to a configuration change."
           },
           {
             industry: "healthcare",
