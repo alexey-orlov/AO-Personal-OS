@@ -969,8 +969,8 @@ window.SITE_CONTENT = {
           "Named subject-matter experts and data owners, and an agreed transfer route"
         ],
         investment: {
-          price: "Scoped per engagement",
-          duration: "Scoped per engagement",
+          price: null,
+          duration: null,
           includes: [
             "One case category, assembled and cited across the agreed sample",
             "Case summary, chronological timeline and draft response sections per case",
@@ -1257,11 +1257,11 @@ window.SITE_CONTENT = {
       },
       jumpstart: {
         title: "Jumpstart Proof-of-Value",
-        promise: "Pilot Plan vs actual investigation on one anchor portfolio in 12 weeks, plus a two-week acceptance phase, with a decision-ready result.",
+        promise: "Pilot plan vs actual investigation on one anchor portfolio in 12 weeks, plus a two-week acceptance phase, and get every material variance back with its likely drivers and the evidence behind them.",
         durationShort: "12 weeks plus a two-week acceptance phase",
         pillars: [
           { key: "fast", title: "Fast", text: "Twelve weeks from kickoff to an expert-validated readout, plus a two-week acceptance phase. Discovery is compressed into the first two weeks and ends at a gate." },
-          { key: "low-risk", title: "Low-risk", text: "Approved static exports in your own Oracle tenancy, with stage gates at framework readiness, analytical review and evidence output. Every feature used is generally available." },
+          { key: "low-risk", title: "Low-risk", text: "Approved static exports in your own Oracle tenancy, with stage gates at framework readiness, analytical review and evidence output." },
           { key: "tangible", title: "Tangible", text: "A unit-level plan-versus-actual view over your own sample, with every material finding tied to the record it came from." }
         ],
         outcomes: [
@@ -1592,11 +1592,11 @@ window.SITE_CONTENT = {
       },
       jumpstart: {
         title: "Jumpstart Proof-of-Value",
-        promise: "Pilot Large docs extraction and review on your own contracts in 2 months, at a fixed price, with a decision-ready result.",
+        promise: "Pilot large-document extraction and review on your own contracts in 2 months, at a fixed price, and see extraction accuracy and effort saved measured against the baseline you signed.",
         durationShort: "2 months",
         pillars: [
           { key: "fast", title: "Fast", text: "Two months from kickoff to a measured accuracy and effort readout on your own contracts." },
-          { key: "low-risk", title: "Low-risk", text: "Fixed scope at a fixed price: manual upload, one document type, the core field schema. It runs sandboxed in your own Oracle tenancy, and nothing is written into your cost or ERP system. Every feature used is generally available." },
+          { key: "low-risk", title: "Low-risk", text: "Fixed scope at a fixed price: manual upload, one document type, the core field schema. It runs sandboxed in your own Oracle tenancy, and nothing is written into your cost or ERP system." },
           { key: "tangible", title: "Tangible", text: "A 60–100-page contract extracted end to end in minutes, every value cited to its page and validated by your own reviewer before export." }
         ],
         outcomes: [
@@ -1926,11 +1926,11 @@ window.SITE_CONTENT = {
       },
       jumpstart: {
         title: "Jumpstart Proof-of-Value",
-        promise: "Pilot Workforce optimization on your own historical data in 2 months, at a fixed price, with a decision-ready result.",
+        promise: "Pilot workforce optimization on your own historical data in 2 months, at a fixed price, and take away a before/after KPI readout your dispatchers have signed off.",
         durationShort: "2 months",
         pillars: [
           { key: "fast", title: "Fast", text: "Two months from kickoff to a before/after KPI readout on a real region of your own." },
-          { key: "low-risk", title: "Low-risk", text: "Fixed scope at a fixed price: manual data import, the recurring constraints, a sandboxed environment on your own tenancy. A dispatcher approves every plan before anything reaches the field. Every feature used is generally available." },
+          { key: "low-risk", title: "Low-risk", text: "Fixed scope at a fixed price: manual data import, the recurring constraints, a sandboxed environment on your own tenancy. A dispatcher approves every plan before anything reaches the field." },
           { key: "tangible", title: "Tangible", text: "An optimized four-week plan for one region, measured against your current plan on identical KPI definitions." }
         ],
         outcomes: [
@@ -2231,7 +2231,7 @@ window.SITE_CONTENT = {
       },
       jumpstart: {
         title: "Jumpstart Proof-of-Value",
-        promise: "Pilot Cross-system ERP Q&A on your own data in 30–45 days, at a fixed price, with a decision-ready result.",
+        promise: "Pilot cross-system ERP Q&A on your own data in 30–45 days, at a fixed price, and let your own analysts put questions that span the systems to the test.",
         durationShort: "30–45 days",
         pillars: [
           { key: "fast", title: "Fast", text: "30 days for one clean source system; 45 for up to three sources or a stricter security setup." },
