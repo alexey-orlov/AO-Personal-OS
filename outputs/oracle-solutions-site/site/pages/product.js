@@ -404,7 +404,8 @@
       '<div class="story-callout">' +
         '<div class="story-head">' +
           (story.logo
-            ? '<img class="story-logo" src="' + UI.esc(story.logo) + '" alt="" loading="lazy" decoding="async">'
+            ? '<img class="story-logo' + (story.logoStacked ? " story-logo--stacked" : "") +
+              '" src="' + UI.esc(story.logo) + '" alt="" loading="lazy" decoding="async">'
             : "") +
           '<div class="story-head-copy">' +
             '<p class="eyebrow eyebrow--accent">' + UI.esc(label("successStory")) + "</p>" +
@@ -455,9 +456,11 @@
     var UI = window.UI;
     return '<li class="stack-item">' +
       '<span class="stack-item-name">' + UI.esc(item.name) + "</span>" +
-      '<span class="stack-tag' + (item.required ? " stack-tag--required" : "") + '">' +
-        UI.esc(label(item.required ? "layerRequired" : "layerOptional")) + "</span>" +
-      (item.note ? '<span class="stack-item-note">' + UI.esc(item.note) + "</span>" : "") +
+      '<span class="stack-tags">' +
+        '<span class="stack-tag' + (item.required ? " stack-tag--required" : "") + '">' +
+          UI.esc(label(item.required ? "layerRequired" : "layerOptional")) + "</span>" +
+        (item.note ? '<span class="stack-tag stack-tag--when">' + UI.esc(item.note) + "</span>" : "") +
+      "</span>" +
       "</li>";
   }
 
@@ -571,6 +574,31 @@
 
   var PILLAR_ICON = { fast: "clock", "low-risk": "shield", tangible: "trendUp" };
 
+  function hasFigure(inv) {
+    return !!((inv && inv.price) || (inv && inv.duration));
+  }
+
+  /* The card prints the figures that are published. Where neither price nor
+     duration is set, one line says so — two tiles both reading "scoped per
+     engagement" is an unfilled template, not an investment. */
+  function investFigures(inv) {
+    var UI = window.UI;
+    if (!hasFigure(inv)) {
+      return '<p class="invest-scope">' + UI.esc(label("jumpstartScoped")) + "</p>";
+    }
+    function figure(value, name) {
+      return '<div class="invest-figure">' +
+        '<p class="invest-value nums">' + UI.esc(value) + "</p>" +
+        '<p class="invest-label">' + UI.esc(name) + "</p>" +
+        "</div>";
+    }
+    var both = inv.price && inv.duration;
+    return '<div class="invest-figures' + (both ? "" : " invest-figures--single") + '">' +
+      (inv.price ? figure(inv.price, "Price") : "") +
+      (inv.duration ? figure(inv.duration, "Duration") : "") +
+      "</div>";
+  }
+
   /* Fast · low-risk · tangible: the same six pieces in the same order on all
      seven products, so the page does not move when a seller changes tab.
      One footnote under the price, never a stack. */
@@ -639,18 +667,11 @@
           "</div>" +
           '<div class="invest-card">' +
             '<p class="eyebrow eyebrow--accent">' + UI.esc(label("jumpstartInvestment")) + "</p>" +
-            '<div class="invest-figures">' +
-              '<div class="invest-figure">' +
-                '<p class="invest-value nums">' + UI.esc(inv.price) + "</p>" +
-                '<p class="invest-label">Price</p>' +
-              "</div>" +
-              '<div class="invest-figure">' +
-                '<p class="invest-value nums">' + UI.esc(inv.duration) + "</p>" +
-                '<p class="invest-label">Duration</p>' +
-              "</div>" +
-            "</div>" +
+            investFigures(inv) +
             '<ul class="tick-list invest-includes">' + includes + "</ul>" +
-            (inv.footnote ? '<p class="footnote invest-note">' + UI.esc(inv.footnote) + "</p>" : "") +
+            (hasFigure(inv) && inv.footnote
+              ? '<p class="footnote invest-note">' + UI.esc(inv.footnote) + "</p>"
+              : "") +
           "</div>" +
         "</div>" +
       "</section>" +
@@ -1094,6 +1115,8 @@
       var slot = root.querySelector("#product-demo-form");
       if (slot) window.FORMS.mount(slot, "demo", { product: item.slug });
     }
+
+    centerActiveTab(root);
 
     var switched = lastView.slug === params.slug && lastView.tab !== active;
     lastView = { slug: params.slug, tab: active };

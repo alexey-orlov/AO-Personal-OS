@@ -167,6 +167,7 @@ window.SITE_CONTENT = {
       jumpstartTimeline: "How it runs",
       jumpstartNeeds: "What we need from you",
       jumpstartInvestment: "Investment",
+      jumpstartScoped: "Scope, price and duration are set in scoping.",
       jumpstartNext: "After the Jumpstart"
     },
     materialStates: {
