@@ -558,11 +558,13 @@
   function technologyTab(product) {
     var UI = window.UI;
     var tech = product.technology;
+    var figure = UI.figure(product.slug);
 
     return '<section class="panel reveal">' +
         blockHead(label("architecture")) +
         '<div class="arch-head">' +
           '<p class="lead arch-narrative">' + UI.esc(tech.narrative) + "</p>" +
+          figure +
         "</div>" +
         '<p class="eyebrow arch-stack-label">' + UI.esc(label("stack")) + "</p>" +
         solutionStack(product) +
