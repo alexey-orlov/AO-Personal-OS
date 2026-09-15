@@ -837,7 +837,7 @@ window.SITE_CONTENT = {
           { title: "Chronological event timeline", body: "All recorded actions, communications and decisions from intake to resolution, with timestamps and clickable source references." },
           { title: "Draft response sections", body: "Draft text for the sections of the formal response, with clear citations and provenance for every statement, presented for review, amendment and approval before any use." },
           { title: "The investigator UI is the deliverable", body: "The central deliverable is a human-in-the-loop investigator UI through which investigators interact with the outputs, navigate to cited source evidence, amend content, and record approval decisions." },
-          { title: "Scope boundary", body: "The system assembles and drafts; a person decides. Anonymization and masking of source records are a data-supply precondition, not a feature of the pack — historical, non-production data is supplied already fit for processing." },
+          { title: "Scope boundary", body: "The system assembles and drafts; a person decides. Anonymization and masking of source records are a data-supply precondition: historical, non-production data is supplied already fit for processing." },
           { title: "Case investigator", body: "A new complaint triggers evidence collection and summary from multiple systems, presented for approval." },
           { title: "Financial-crime analyst", body: "A flagged transaction or AML alert investigated across parties, accounts and linked cases into one file, with the regulatory filing drafted for review." },
           { title: "Employee-relations partner", body: "A grievance intake builds a chronology from tickets, mail and policy references." },
@@ -1113,7 +1113,7 @@ window.SITE_CONTENT = {
             label: "Manufacturing",
             image: "assets/img/industries/manufacturing.jpg",
             problem: "Completed orders are measured against what was planned for them only in aggregate. The ledger shows the gap; the systems that could explain it — scheduling, cost, progress reporting — are not joined to it.",
-            solution: "Every order in the sample is compared plan against actual at unit level, and the cost and schedule gaps are traced back to the records that explain them. Findings arrive as evidence-backed candidates, each with its analytical basis and a review status, never as conclusions."
+            solution: "Every order in the sample is compared plan against actual at unit level, and the cost and schedule gaps are traced back to the records that explain them. Findings arrive as evidence-backed candidates for a reviewer to confirm, each with its analytical basis and a review status."
           },
           {
             industry: "professional-services",
@@ -2396,7 +2396,7 @@ window.SITE_CONTENT = {
             label: "Every industry",
             image: "assets/img/industries/cross-industry.jpg",
             problem: "Two pains recur whatever the sector. Time: a cross-cloud question takes a data engineer, three extracts and a week, so the business answers itself in a spreadsheet. Trust: AI pilots die in security review, because nobody can prove what the model can see or show, and when auditors ask who saw what through AI there is no answer.",
-            solution: "One governed engine mounts the catalogs already in place and links the databases outside them, then answers under the access rules those systems already enforce. The constraint here is the data estate, not the sector — so the same shape fits wherever the data sits."
+            solution: "One governed engine mounts the catalogs already in place and links the databases outside them, then answers under the access rules those systems already enforce. What shapes the work here is the data estate, so the same shape fits wherever the data sits."
           },
           {
             industry: "retail",
