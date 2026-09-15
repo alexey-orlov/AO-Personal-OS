@@ -7,7 +7,7 @@ The rule that produced it: a reader who has seen one product page must be able t
 Three hard rules:
 
 1. **Every product fills every slot.** No product is allowed to render a shorter Overview than another. Where a product has no published number, the slot is filled with a **qualitative** instance of the same component — never a blank, never a missing section, never a sentence apologising for the absence.
-2. **A number never renders without the disclaimer beside it.** `metricsNote` renders as a footnote line directly under the metric row, in the same block. `pov.disclaimers[]` render as footnotes under the price table.
+2. **A number never renders without the disclaimer beside it.** `metricsNote` renders as a footnote line directly under the metric row, in the same block; `jumpstart.investment.footnote` under the price card, in its block; and the success-story callout, which has no footnote row, carries its caveat in the last sentence of `story`.
 3. **Icons are 1.5px line icons, teal, from the one registry in `assets/app.js`.** No emoji anywhere. No filled icons except the existing `play` and `dot`.
 
 ---
@@ -53,15 +53,22 @@ A product with neither flag nor URL never renders an empty frame, a greyed play 
 
 ### 1.1 The same image, as a Products-page tile
 
-Every tile in the `#/products` grid is that product's own `hero.image` — same file, same `focal` — as the tile's background, cropped by CSS and darkened by a two-axis gradient veil (top-to-bottom plus left-to-right) so the facet label, chips, name, one-liner and three outcome bullets read on near-black while the picture still shows above them. Hovering lifts the border and scales the image 1.05, which `prefers-reduced-motion` disables. The tile content is unchanged and the grid stays two-up at one tile width throughout: every tile is the same size, and an odd count simply ends with the last tile alone in the left column. The home page's product grid follows the same rule.
+Round 3, D: text never sits on the photograph. Every tile is **an image band over a solid body**, and both halves are the same size on every tile — two per row, equal height.
 
-There is no separate tile artwork and no typographic fallback here: a product with no hero file on disk renders the same tile on the flat ground, because the image guard drops an `<img>` that will not load. (The **home page** grid is a different component and still uses the `media[slug]` plate — see `SCHEMA.md`.)
+| Part | Content |
+|---|---|
+| **Image band** (~16:7, top) | That product's own `hero.image`, same file and `focal`, with a dark gradient at its lower edge. Overlaid: the **facet label** top-left (e.g. "OCI + NVIDIA") and the **availability chip** top-right. Nothing else. |
+| **Body** (solid dark surface) | The **category chip**, the product **name** as an H3, the `oneLiner`, the three `tile.outcomes` as check-icon bullets, and **one** CTA — `Learn more →`. |
+
+The second "Request a demo" CTA is gone from the tile: a tile with two actions makes the reader choose before they know what the product is, and the product page's hero carries the demo ask anyway. Hover lifts the tile slightly and scales the image 1.05, which `prefers-reduced-motion` disables. An odd count ends with the last tile alone in the left column.
+
+A product with no hero file on disk renders the same tile with the band on the flat ground, because the image guard drops an `<img>` that will not load. **The home page's product grid uses the same anatomy** at its compact size, so a reader meets one tile shape on both pages.
 
 ---
 
 ## 2. Overview tab — two columns, a fixed order in each
 
-**Target: the MAIN column reads in ~1.5 desktop screens at 1440×900 without feeling cramped.** If a product exceeds that, prose moves into §2.7 — it does not stay on the page. (The pager and the site footer sit below the tab body and add about two thirds of a screen of their own; the target is about the tab, not about the scroll height of the document.)
+**Target: the MAIN column reads in ~1.5 desktop screens at 1440×900 without feeling cramped.** If a product exceeds that, prose moves into §2.7 — it does not stay on the page. (The site footer sits below the tab body and adds about half a screen of its own; the target is about the tab, not about the scroll height of the document. The Previous/Next pager was removed in round 3 — the tab bar and the Products grid are the navigation.)
 
 The tab is a **two-column layout on desktop**: a MAIN column at roughly two thirds, and a SIDE rail at roughly one third, on the right. The rail cell **stretches to the height of MAIN**, and the card that pins is §2.5 At a glance — the last card in the rail, so nothing scrolls underneath it while it is held. §2.4 is too tall to pin at 900 px and scrolls with the page. Below 1100 px the layout collapses to one column, the rail goes static, and it follows the main column.
 
@@ -258,9 +265,9 @@ Sixteen keys. **No product may invent a seventeenth.** A new industry is added h
 
 ### Who uses what today
 
-`overview.industries[]` drives the chip row inside the More-detail disclosure. `overview.industryCases[]` drives the industry tab component in the MAIN column (§2.3) and is what a reader actually sees.
+`overview.industryCases[]` drives the industry tab component in the MAIN column (§2.3) and is the only industry surface on a product page; the old `overview.industries[]` chip row is deleted. The first column below is kept only to show that the two lists agreed when the chips were removed.
 
-| Product | `industries[]` (chips) | `industryCases[]` (tabs) |
+| Product | former `industries[]` (chips, deleted) | `industryCases[]` (tabs) |
 |---|---|---|
 | `account-insights` | logistics · financial-services · manufacturing | logistics · financial-services · manufacturing |
 | `case-evidence-collection` | financial-services · manufacturing · professional-services · public-sector | financial-services · manufacturing · professional-services · public-sector |
