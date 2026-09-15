@@ -2,12 +2,20 @@
 
 _status: live theme — agent deployment in real products, integration patterns, where value lands_
 _slug: ai-agents-and-applications_
-_updated: 2026-09-09 · 98 insights from 67 episodes · (split 2026-06-11 → generative-media-and-multimodal, agent-engineering-patterns, model-reviews-and-benchmarks) — ⚠ at 98/30: no clean seam found, leaving for next recluster_
+_updated: 2026-09-15 · 100 insights from 69 episodes · (split 2026-06-11 → generative-media-and-multimodal, agent-engineering-patterns, model-reviews-and-benchmarks) — ⚠ at 100/30: no clean seam found, leaving for next recluster_
 
 ## The throughline
 Two patterns dominate across the cluster. (1) Integration into existing workflows — not standalone tools — is where agent value lands: Anthropic threaded Claude across six sales systems (Clay/LeanData/Salesforce/Gong/Ironclad/Slack) creating a single-source morning brief, Legora moved from task assistance to proactive M&A diligence agents, Customer.io's Chiefy audits artifacts against canonical company docs, and Amazon's Alexa converts at 3.5× keyword search by becoming an embedded commerce platform. Codex/Co-work now reaches into WhatsApp and Google Calendar via computer-use connectors, turning a coding agent into an OS-level surface. (2) "Context is the moat" repeats at every scale: enterprises differentiate via proprietary connectors and historical data, developers gain leverage by treating prompts — not code — as the primary long-lived artifact, and consumer agents (Nicole's vetted-vendors Claude project) follow the same rule. Two structural facts bracket it: coding is LLMs' first clear product-market fit (Evans — explains why adoption is racing in software first), and some agents already perform employee-level work (Replit's 10K agent, SaaStr ops headcount from ~20 to ~2), crossing the threshold from experiment to production labor substitute. More recently, the pattern extends to org-boundary crossing: a context-rich agent absorbs both marketing and finance work simultaneously (better projections than siloed alternatives, by virtue of shared sales and event context), and proactively surfaces operational fixes humans overlook — recommending a Bill.com auto-reminder toggle the team had left unconfigured for years. The starkest structural shift: agents are becoming the primary counterparty in vendor renewals, evaluating software, setting API-first contract requirements, and negotiating pricing rather than executing a human's decision. AI-first site generators extend the substitution pattern into frontend creative production: Ploy's deterministic 'slurper' converts any legacy URL (including Wayback Machine snapshots) into a production-ready responsive site in ~75 seconds — work previously requiring a 3–5 person front-end team for a week or more — and doubles as an always-on GTM system via ~50 tool integrations (nightly SEO audits, lead surfacing, outreach drafts).
 
 ## Insights
+
+### Computer-use (agentic) ability is the defining breakthrough
+OpenAI's Brockman says the breakthrough is models that can directly use computers—keyboard, mouse, APIs and persistent context—so they can perform multi-step, real-world tasks without bespoke connectors. He argues that this shifts enormous amounts of routine human toil (e.g., clicking menus, filling forms, spreadsheet work) to models and enables novel workflows (people using agents to design houses, run simulations, or orchestrate thousands of agents), which in turn accelerates scientific discovery and entrepreneurship.
+— a16z · 2026-09-14 · guest: Greg Brockman (OpenAI) · [▶ 21:47](https://www.youtube.com/watch?v=IJn8cagMW18&t=1307) · `pi-IJn8cagMW18-02`
+
+### Figma MCP + bots automate repetitive production design work
+John (SpaceX AI) demonstrates 'Figma Bro', a bot template that connects to Figma via an MCP and performs batch tasks—placing and scaling icons, applying brand styles, swapping images, and creating marketing tiles—based on screenshots and a short voice prompt. He used it while away from his desk (at the gym), had multiple iterations returned automatically, and saved the manual, tedious Figma edits that normally block fast delivery. The outcome: designers reclaim time for higher‑value craft while letting bots handle production polishing and asset variations.
+— How I AI · 2026-09-14 · guest: John By (SpaceX AI) · [▶ 22:48](https://www.youtube.com/watch?v=zJEHbvT5_Yg&t=1368) · `pi-zJEHbvT5_Yg-02`
 
 ### Threading Claude across existing tools made a cohesive sales system
 Instead of adding Claude as a separate tool, Anthropic embedded it into six core systems—Clay, LeanData, Salesforce, Gong, Ironclad, and Slack—so Claude becomes the narrative and data glue between them. Claude pulls historical context from Slack, Gmail, Gong transcripts and Docs to produce a single-source morning brief, draft proposals, and reconcile forecasts, which reduces context-switching and speeds AE productivity. The non-obvious payoff is coherence: tools already paid for work together to create a seamless customer journey rather than isolated automations.
@@ -500,6 +508,8 @@ Grok's UX intentionally hides low-level tool calls, click streams, and model int
 - [Product discovery & strategy](product-discovery-and-strategy.md) — data/workflow context as the moat behind agent value
 
 ## Source episodes
+- [How I AI — How SpaceXAI designers use Grok Bot and Figma MCP to ship faster (2026-09-14)](../episodes/2026/2026-09-14--howiai--how-spacexai-designers-use-grok-bot-figma-mcp.md)
+- [a16z — Greg Brockman Says AGI Has Arrived (2026-09-14)](../episodes/2026/2026-09-14--a16z--greg-brockman-says-agi-has-arrived.md)
 - [Lenny's Podcast — How we built Grok Bot in a month | Roman Ugarte (SpaceXAI) (2026-09-08)](../episodes/2026/2026-09-08--lenny--how-we-built-grok-bot-in-a-month.md)
 - [Lenny's Podcast — Why companies are becoming a series of loops | Anish Acharya (a16z) (2026-09-06)](../episodes/2026/2026-09-06--lenny--why-companies-are-becoming-a-series-of-loops.md)
 - [a16z — Why AI Agents Could Finally Reinvent the Credit Card (2026-09-03)](../episodes/2026/2026-09-03--a16z--why-ai-agents-could-finally-reinvent-credit-card.md)

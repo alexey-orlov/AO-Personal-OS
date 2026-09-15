@@ -2,7 +2,7 @@
 
 _status: live theme — the concrete craft of building, scoring, and maintaining eval suites for agentic AI: dataset/prompt-set design, automated scoring, benchmark gaming, judge-rubric calibration, "evals as the new PRD"_
 _slug: eval-design-and-practice_
-_updated: 2026-09-10 · 21 insights (22 attributions — one insight double-cited) from 13 episodes_
+_updated: 2026-09-15 · 21 insights (23 attributions — two insights double-cited) from 14 episodes_
 
 ## The throughline
 
@@ -62,6 +62,7 @@ related: [GAN-inspired adversarial evaluators can red-team agents automatically 
 ### Tracing and eval loops are essential to stop agent hallucinations
 When agents call tools and make multi-step decisions you must trace and evaluate each span: the creator demonstrates Arise instrumenting Claude Code to capture every tool call, which revealed a resume-feedback agent hallucinating 'React' instead of the job posting's 'Python'. Using Arise, Claude suggested four evaluation criteria, the creator ran evals, found a ~12% failure rate, implemented fixes, and saw it drop under 2% — all in about 20 minutes. The lesson: without tracing+eval you ship blind; with them you can systematically find and fix agent errors.
 — Aakash Gupta · 2026-07-09 · guest: Mang (Aura, New Form, Dream Cut) · [▶ 12:18](https://www.youtube.com/watch?v=tTTG1Nn-kkw&t=738) · `pi-tTTG1Nn-kkw-03`
+— also: Aakash Gupta · 2026-09-14 · guest: Charles Zedlewski (Together AI) · [▶ 14:20](https://www.youtube.com/watch?v=8TgxUPSuvNQ&t=860) · `pi-8TgxUPSuvNQ-04` (a near-identical example at Together AI — an agent hallucinating React instead of Python, an eval catching it, the failure rate dropping from ~12% to under 2%)
 related: [Eval suites are the modern PRD for AI-driven features](#eval-suites-are-the-modern-prd-for-ai-driven-features) (same evals-as-ground-truth discipline, applied here to catching a live hallucination rather than shaping a spec)
 
 ### Continuous evals are required to keep the review agent reliable
@@ -131,3 +132,4 @@ related: [Firms need external evals to prove ROI for multi‑billion dollar mode
 - [Aakash Gupta — Everyone's Using Claude. This PM Tool Does More (2026-07-09)](../episodes/2026/2026-07-09--aakash--everyones-using-claude-this-pm-tool-does-more.md)
 - [Every — LET'S RIP FABLE TOKENS FROM THE JACUZZI (2026-07-02)](../episodes/2026/2026-07-02--every--lets-rip-fable-tokens-from-the-jacuzzi.md)
 - [How I AI — How this startup uses AI agents to eliminate bugs and optimize infrastructure (2026-06-15)](../episodes/2026/2026-06-15--howiai--ai-agents-eliminate-bugs-optimize-infrastructure.md)
+- [Aakash Gupta — How to Build an AI-Native Product Team in 2026 | Charles Zedlewski | Product Growth (2026-09-14)](../episodes/2026/2026-09-14--aakash--how-to-build-an-ai-native-product-team-2026.md)
