@@ -232,10 +232,11 @@ window.SITE_CONTENT = {
         body: "Bosch dispatchers planned a residential appliance-repair field force by hand: ZIP-code work zones and technician allocations, region by region. With the cuOpt-powered dispatcher app on OCI, they now review, approve or re-run an optimized plan and export it straight to Oracle Field Service.",
         scopeLine: "A three-month proof of value across three countries, with around thirty real-world constraints modeled — skills, availability, existing bookings, travel and holidays — and dispatcher approval in the loop.",
         metrics: [
-          { value: "~30 min", label: "to optimize and approve a region’s four-week plan: down from ~2 days" }
+          { value: "+4.5%", label: "median gain in jobs per technician per day, optimized against the current plan" },
+          { value: "~5x", label: "return within three years on the modeled rollout" }
         ],
         footnotes: [
-          "KPIs measured before/after on proof-of-value data; figures are illustrative, not contractual."
+          "Modeled simulations against a historical baseline, not measured production outcomes; figures are illustrative, not contractual."
         ],
         product: { slug: "workforce-optimization", name: "Workforce optimization" }
       },
@@ -245,6 +246,7 @@ window.SITE_CONTENT = {
         label: "PROOF OF VALUE",
         customer: "Riyadh Air",
         logo: "assets/img/logos/riyadh-air.svg",
+        logoStacked: true,
         industry: "Aviation — ground-handling contract management",
         body: "Riyadh Air keyed ground-handling contract rates into a cost-management system by hand — 60–100-page agreements read page by page, 3–5 days per contract. With the extraction app on OCI (NVIDIA AI-Q), reviewers now validate AI-extracted rates side-by-side with the source PDF — every value cited to its page — and export in minutes.",
         metrics: [
@@ -1479,6 +1481,7 @@ window.SITE_CONTENT = {
         successStory: {
           customer: "Riyadh Air",
           logo: "assets/img/logos/riyadh-air.svg",
+          logoStacked: true,
           headline: "Ground-handling agreements, from days to minutes",
           metrics: [
             { value: "5–15 min", label: "to extract a 60–100-page agreement end to end, down from 3–5 days" },
