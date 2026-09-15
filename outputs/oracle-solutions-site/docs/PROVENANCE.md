@@ -925,3 +925,204 @@ extraction.
   retrieval and multi-document reasoning, which is not the contested claim.
 - If it is **AI-Q**, record the confirmation here with a date, and the internal
   use-case map is the entry that gets corrected.
+
+---
+
+## 15. Round 3 — the content rewrite (E · F · G · H · C), 2026-09-14
+
+Alex's round-3 decisions, given with the task. The data layer follows `BRIEF-3`
+wherever it and an earlier round disagree; every such reversal is named below.
+
+### 15.0 The clearance that changed, and what it does not cover
+
+`BRIEF-3` **names two customers**: *Bosch* on `workforce-optimization` and
+*Riyadh Air* on `large-document-extraction`, with their real logos. Both are
+written up by name, with their logos, on SoftServe's own external sales
+one-pagers and in the September playbook (`RESEARCH/02` §1.4, §2.4, §9.5), which
+is the basis for naming them here.
+
+What the clearance does **not** cover, and what stayed out:
+
+- **No € figure, headcount, salary, operating baseline or contract value from
+  the Bosch post-POC business case.** `RESEARCH/07` §7.2 lists them; none is in
+  the data. `check-grammar.js` now bans `€190K`, `€5.17` and `€11.03` as
+  strings, alongside `BSH` — the internal entity abbreviation — and `DHL`.
+- **The ratios are back, the money is not.** §14.1 withdrew four Bosch ratios
+  pending written Oracle **and** customer sign-off. `BRIEF-3` puts them on the
+  page as the success story's figures, so the withholding is lifted **on Alex's
+  instruction**, not because §4's clearance was recorded: the source deck is
+  still an Oracle-copyright document stamped *Confidential:
+  Internal/Restricted/Highly Restricted*, and the business-side sign-off is
+  Alex's to obtain. **§4 stays open.** What ships is the external-safe tier of
+  `RESEARCH/07` §7.1 only: median **+4.5%** jobs per technician per day, **~5x**
+  return within three years, **83%** of simulations positive, **15–20%**
+  dispatcher productivity, a **three-month** proof across **three countries**,
+  **~30** modeled constraints — every one a ratio, a count or a duration, and
+  never paired with an absolute figure (§7.3's back-solving caution).
+- The `~5x` and `+4.5%` figures render inside a panel whose `story` ends
+  *"Results are modeled simulations against a historical baseline, not measured
+  production outcomes"* — `RESEARCH/07` §7.3's prescribed framing, and the
+  reason `check-grammar.js` fails a success story with no caveat clause.
+
+### 15.1 E — the seven one-liners, rewritten as product statements
+
+Each is now *what it does · for whom · the outcome*, with the packaging story
+removed; `check-grammar.js` fails the build on "packaged from proof of value",
+"from proof of value to enterprise scale", "fixed price" and "quick start" in a
+`oneLiner`. `BRIEF-3` supplied drafts; each clause was checked against
+`RESEARCH/01`/`02` and an unsupported one was **dropped, never replaced**.
+
+| Product | Source for the claims | Adjustment made to the brief's draft |
+|---|---|---|
+| `large-document-extraction` | `RESEARCH/02` §2.3 ("scoring confidence and citing the source page for every value"), §2.1 ("trusted, validated structured data") | "a **link** to its source page" → "a **citation** to its source page": the shipped artefacts say citation, and the split-view UI cites a page rather than linking out |
+| `account-insights` | `RESEARCH/02` §3.3 (signal = news, filing, disclosure → opportunities and risks per affected account, cited), §3.4 | "sales and **customer** teams" → "sales and **account** teams": the sources say commercial / account teams; "customer teams" appears nowhere. The old `subLine` was deleted — the new one-liner carries the whole statement |
+| `workforce-optimization` | `RESEARCH/02` §1.3, §1.4 (four-week plan in ~30 min; cuOpt; export to Oracle Field Service) | kept as drafted |
+| `plan-vs-actual-investigation` | `RESEARCH/01` §5.3 (the generalised class definition), `RESEARCH/02` §4.2 | "programs and systems" → "completed projects, orders and engagements" (the class as the map defines it); "**likely** drivers" → "**candidate** drivers", the source's own word — *"evidence-backed candidates, never conclusions"* |
+| `case-evidence-collection` | `RESEARCH/02` §4.2 (L2 definition), §4.2 NHS-shaped structure | "the **complete** evidence trail" → "the evidence trail": completeness is a claim no source makes for this pack (and the coverage-gap guarantee belongs to the sibling product) |
+| `cross-system-erp-qa` | `RESEARCH/02` §5.2.2 case 2 ("ERP, CRM and the systems around them joined in one governed layer") | "span several **ERP systems**" → "span the ERP, the CRM and the systems around them": the join is across an estate, not across several ERPs |
+| `business-metrics-qa` | `RESEARCH/02` §5.2.2 case 1 (mount the catalogs you already have; no migration), §5.2.1 (governed definitions) | kept the brief's "consistent definitions", added the sourced "over the catalogs and databases you already run — no data moved", which is this product's distinguishing claim |
+
+Two tile bullets changed with them: both Lakehouse products' third
+`tile.outcomes` line was *"The Quick Start offer is live today: 30–45 days,
+fixed price, in your own tenancy"* — packaging, not an outcome. Both now say
+what the customer keeps (`RESEARCH/02` §5.2.1, "What the customer keeps").
+
+### 15.2 F — the Technology tab is two blocks
+
+`technology.flow[]` and `technology.security[]` are **deleted** from all seven
+products, and `technology.capabilities[]` is new.
+
+- **`flow` (the How-it-runs diagram).** Four steps that named the same stages
+  the layered stack already reads top to bottom, minus the components. Nothing
+  was lost: each `flow.label` restated the layer summary beside it.
+- **`security`.** Twenty-eight lines across seven products, every one of which
+  restates something else on the page — tenancy and read-only access are in the
+  `infrastructure` and `custom` layer summaries, the human gate is in the
+  solution panel and now in the Jumpstart `low-risk` pillar, the audit trail is
+  a capability, "production hardening is roll-out scope" is in `scope.out` and
+  in `jumpstart.next`. Two lines carried a fact that was **not** duplicated and
+  were folded in rather than dropped: *"access rules must hold in the data
+  layer, not in the prompt"* (`case-evidence-collection`, now in the Jumpstart
+  `low-risk` pillar) and *"roll-out: dedicated landing zone, IAM,
+  observability"* (`workforce-optimization`, now in `jumpstart.next[0].text`).
+- **`capabilities`** — four stage groups per product, the complete feature list
+  under the stage that owns it. Sources: `RESEARCH/02` §3.5 (Account Insights'
+  four capability groups, used verbatim as the stage names), §2.7 (the LDE
+  capability groups, five folded to four: *Review* and *Export* merged,
+  *Quality* and *Integrations* merged), §1.8 (the Workforce accelerator-pack
+  matrix, whose four Areas are the four stages), §4.2 and §5.2 for the four
+  unpackaged products, whose stages follow their own `overview.steps`.
+- **`state` tags.** `workforce-optimization` is the **only** product whose
+  matrix legend defines a roadmap tier (`RESEARCH/02` §1.8: *"● provided OOTB …
+  ○ - roadmap"*), so it is the only product carrying `supported` / `roadmap`
+  tags — twenty-one supported, six roadmap. The Account-Insights and LDE
+  matrices grade *Oracle baseline vs SoftServe status*, and their `○` means
+  "out of current scope", not "roadmap"; tagging from them would have invented a
+  commitment. Those products' items carry no `state` at all.
+- The `custom` layer is relabelled **"Custom configuration & integrations"** on
+  all seven — the band is where the Inbound / Outbound lines live, and the label
+  now says so.
+
+### 15.3 G — POV Jumpstart → the Jumpstart block
+
+Tab id `pov` → `jumpstart` (label **Jumpstart**), with `legacyId: "pov"` so
+`#/products/<slug>/pov` still lands. The product key `pov` → `jumpstart`, in the
+shape `BRIEF-3` specifies. This retires L5 of §1: the tab is no longer labelled
+*POV Jumpstart*, which settles `SPEC`'s objection that "POV" reads as *point of
+view* outside the team.
+
+**Figures available per product, and what filled the gaps** — no figure was
+invented, and every "Scoped per engagement" is a real absence:
+
+| Product | Duration | Price | Source |
+|---|---|---|---|
+| `large-document-extraction` | 2 months | €75K services · €0/mo infra; Integration €300–500K · ~€10K/mo | `RESEARCH/02` §2.10 |
+| `workforce-optimization` | 2 months | €90K services · €4K/mo infra; Integration €300–500K · ~€25K/mo | `RESEARCH/02` §1.9 (the one-pager + Sep-playbook pair, per its own resolution of the price conflict) |
+| `cross-system-erp-qa` · `business-metrics-qa` | 30–45 days | €30–50K fixed per use case | `RESEARCH/02` §5.2.1 |
+| `plan-vs-actual-investigation` | 12 weeks + a two-week acceptance phase | Scoped per engagement | `RESEARCH/02` §4.2; price is `[INT]` (SoW value) |
+| `account-insights` · `case-evidence-collection` | Scoped per engagement | Scoped per engagement | §14.2 / §14.3 — both durations on record are one customer's contract term, and `C19` is still open |
+
+The two indicative-price asterisks ("depends on document volume, page counts
+and pipeline complexity" · "depends on the usage and optimization rules
+complexity") are folded into the `next[0].price` string itself, so no asterisk
+renders without its footnote in view.
+
+Facts that used to live in `pov` and where they went: `deliverables` →
+`outcomes`, rewritten as customer outcomes · `prerequisites` → `needs`, cut to
+the three that gate the start · `phases` / `howItRuns` → `timeline` ·
+`pricing` + `facts` → `investment` · `ladder[1]` and `ladder[2]` → `next` ·
+`team` → an `investment.includes` line · `creditNote` (100% fee credit into a
+roll-out signed within 90 days) → an `investment.includes` line on both
+Lakehouse products · `howMeasured` → the `tangible` pillar and the outcome line
+that names the measurement. **`capabilityMatrix` (the S/M/L glyph table) is not
+carried forward**: it graded the three service tiers, and the tab no longer
+renders three tiers. Its per-tier content survives as `next[].text`; the
+per-capability detail it duplicated is in `technology.capabilities`.
+
+**The packaging-internal disclaimers are gone site-wide** — *"Framed scope,
+flexible add-ons"*, *"Each package's price and timing are set by specific
+constraints"*, *"Custom features beyond the frame are added for additional price
+and time"* — from all seven products, from `disclaimers.publicPricingFootnote`
+and from `services.howWeEngage.ladderFootnote`. They describe how SoftServe
+builds a quote. What survives: one `footnote` per investment card, the KPI
+caveats that travel with published figures, and the Lakehouse pair's *"Price
+indicative, to be confirmed per scope. All features used are generally available
+product."* (`RESEARCH/02` §7.1). `check-grammar.js` bans the four strings.
+
+### 15.4 H — the Overview tab
+
+- **`overview.sideFacts` deleted** with the At-a-glance card. Every row on it
+  was a denormalised copy — category and platform from the facets, availability
+  from `availabilityChip`, duration and price from `pov.facts` — and the copy is
+  what drifts. Nothing unique was on it.
+- **`overview.successStory` reshaped** to `{ customer, logo, headline, metrics
+  ×2, story, downloadLabel }`, and set to **`null` on five products**. The
+  `state` / `blurb` / `evidenceId` / `adjacentMethodId` shape is retired; the
+  two `evidenceId` links are no loss, because the evidence cards still render on
+  the home page and on Services from `overview.evidence[]`.
+- **Bosch** (`workforce-optimization`): big figures **+4.5%** median jobs per
+  technician per day and **~5x** return within three years; the story line
+  carries the 83% positive simulations, the 15–20% dispatcher gain, the
+  three-month/three-country scope and the modeled-simulations caveat
+  (`RESEARCH/07` §4a, §4b, §4e, §7.1, §7.3).
+- **Riyadh Air** (`large-document-extraction`): **5–15 min** per 60–100-page
+  agreement, down from 3–5 days, and **up to −20%** targeted reduction in manual
+  data-entry effort, closing with the one-pager's own *"Targets from the proof
+  of value; figures are illustrative, not contractual."* (`RESEARCH/02` §2.4).
+  The customer's internal app name and the third-party SaaS product name stay
+  out, as before.
+- **The two evidence cards are named**: `workforce-proof` → `Bosch` +
+  `assets/img/logos/bosch.png`, `extraction-proof` → `Riyadh Air` +
+  `assets/img/logos/riyadh-air.svg`, each with its body line re-pointed from the
+  anonymised descriptor to the company. This supersedes §14.5's anonymised
+  label for those two cards **only** — the industry strings stay as §14.5 set
+  them, and every other evidence card is still anonymised. `SCHEMA.md`'s
+  "never a company name" rule on `EvidenceCard.customer` is narrowed to "no
+  third company name without the same explicit clearance".
+
+### 15.5 C — the contact card
+
+`shared.contact.photo` now ships: `assets/img/people/karsten-tramborg.jpg`,
+confirmed by Alex on 2026-09-14. This reverses §13.5, which withheld the
+headshot because the only file located had been matched by its position on a
+team slide rather than by a face — the confirmation is the missing input, and it
+came from the person who knows the face. `ASSETS.md` §3 is the place to record
+the file's provenance.
+
+`shared.contact.bring[3]` is **written** copy (no source): the three things a
+first scoping call actually needs, which `forms.engagementSteps` already says in
+prose — *"Bring the workflow, a rough volume and the current cycle time"*. It is
+that sentence, split into a list the panel can render beside the form.
+
+### 15.6 What the renderers must change with this data
+
+The data layer moved first; `site/pages/product.js` and `site/pages/products.js`
+still read four keys that no longer exist. Until they are updated:
+`product.overview.sideFacts` (was read unguarded), `technology.flow` (guarded,
+renders nothing), `technology.security` (renders an empty block), and
+`product.pov.*` throughout the POV tab. The seller-gate CTA's `{duration}`
+placeholder now reads `product.jumpstart.durationShort`, which is present on the
+five products that publish a duration and absent on the two that do not — the
+same contract `pov.durationShort` had. `sectionLabels` lost the keys those
+blocks used, so a renderer still calling `label("flow")` or `label("ladder")`
+prints `undefined` rather than failing loudly.
