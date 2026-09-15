@@ -83,7 +83,7 @@ Flat map of reusable strings: `kpiTile`, `kpiTileTargets`, `packageTable`, `lake
 | `videoCaption` | `string` | Caption printed on the hero video frame, and the label of the fallback "watch" button. |
 | `videoPending` | `{ body, cta }` | The panel a demo frame opens while `SITE_CONFIG.products[slug].videoUrl` is still empty and `video` is `true`. `body` says the recording is being prepared; `cta` labels the primary button, which goes to `#/products/<slug>/demo` and closes the panel. The product name is the panel's heading and comes from the product, not from here. Never write a date into `body`: the copy has to stay true on the day it is read. |
 | `industryLabels` | map | The sixteen fixed industry keys → display label. A product's `overview.industryCases[].industry` holds a bare key; the renderer looks the label up here and the icon up as `industry-<key>`. No product may use a key absent from this map. |
-| `sectionLabels` | map | The standing headings of the visual grammar — the Overview, Technology and POV section titles that are the same on all seven products (`metrics`, `metricsPlanned`, `roi`, `scope`, `scopeIn`, `scopeOut`, `moreDetail`, `moreDetailFeatures`, `architecture`, `flow`, `stack`, `security`, `howItWorks`, `industryCases`, `caseProblem`, `caseSolution`, `outcomes`, `atAGlance`, `factCategory`, `factPlatform`, `factAvailability`, `factPovDuration`, `factPovPrice`, `povLink`, `layerRequired`, `layerOptional`, `directionInbound`, `directionOutbound`, `contacts`, `povHeading`, `povFact*`, `deliverables`, `pricing`, `terms`, `matrix`, `ladder`, `povScopeIn`, `povScopeOut`, `povRollout`, `povPhases`, `povMeasured`). Product-specific headings stay in the product object. `features`, `components`, `integration`, `industries` and `notUsed` were removed with the blocks they headed — the stepper carries the feature bullets, the layered stack carries the component and integration lists, the industry tabs carry the verticals, and the layer summaries carry what a product does not use. |
+| `sectionLabels` | map | The standing headings of the visual grammar — the Overview, Technology and Jumpstart section titles that are the same on all seven products (`metrics`, `metricsPlanned`, `roi`, `scope`, `scopeIn`, `scopeOut`, `moreDetail`, `moreDetailFeatures`, `architecture`, `stack`, `capabilities`, `stateSupported`, `stateRoadmap`, `howItWorks`, `industryCases`, `caseProblem`, `caseSolution`, `outcomes`, `successStory`, `layerRequired`, `layerOptional`, `directionInbound`, `directionOutbound`, `contacts`, `jumpstartOutcomes`, `jumpstartTimeline`, `jumpstartNeeds`, `jumpstartInvestment`, `jumpstartNext`). Product-specific headings stay in the product object — the Jumpstart block title is `jumpstart.title`. Keys removed with the blocks they headed: `features`, `components`, `integration`, `industries`, `notUsed` (earlier rounds), and in round 3 `flow`, `security`, `atAGlance`, `fact*`, `povLink`, `povHeading`, `povFact*`, `deliverables`, `pricing`, `terms`, `matrix`, `ladder`, `povScopeIn`, `povScopeOut`, `povRollout`, `povPhases`, `povMeasured`. |
 | `materialStates` | map | `state` value → button label for seller materials. |
 
 ---
@@ -107,10 +107,11 @@ Flat map of reusable strings: `kpiTile`, `kpiTileTargets`, `packageTable`, `lake
 
 | Key | Type | Notes |
 |---|---|---|
-| `id` | string | Referenced by `services.proof.evidenceIds` and by a product's `overview.successStory.evidenceId`. |
+| `id` | string | Referenced by `services.proof.evidenceIds`. |
 | `band` | 1 or 2 | Band 1 = full-size proof cards **with** a metric slot. Band 2 = lighter cards **with no metric slot**; "results to follow" is not an outcome and must not sit in one. |
 | `label` | string | `PROOF OF VALUE` / `FIRST ENGAGEMENT` / `METHOD`. Deliberately not uniform — do not flatten. |
-| `customer?` | string | An anonymised descriptor. **Never a company name**; none exists anywhere in this data. |
+| `customer?` | string | **Two customers are named** — `Bosch` on `workforce-proof` and `Riyadh Air` on `extraction-proof` (Alex, 2026-09-14; both are written up by name on SoftServe's own external one-pagers). Every other card carries an **anonymised descriptor**, and no third company name may be added without the same explicit clearance. |
+| `logo?` | string | `assets/img/logos/<name>.<svg\|png>` — present only on the two named cards, rendered beside the customer name as a light mark on the dark card. Absent on anonymised cards. |
 | `industry?` | string | |
 | `title?` | string | Present on `METHOD` cards instead of `customer`. |
 | `body` | string | |
@@ -161,8 +162,8 @@ Seven entries, in the order the Products page should list them:
 | `facet` | string | A `facets.technology[].id`. |
 | `availability` | string | A key of `availability`. |
 | `availabilityChip`, `availabilityTooltip` | string | Denormalised. |
-| `oneLiner` | string | The tile description and the hero lead. |
-| `subLine?` | string | A second hero line where the one-liner is very short. |
+| `oneLiner` | string | The tile description and the hero lead, and the one string both surfaces share. It is a **product statement**: what the thing does, for whom, with what outcome. The packaging story is not allowed in it — `check-grammar.js` fails the build on "packaged from proof of value", "from proof of value to enterprise scale", "fixed price", "quick start" and their kin, because a reader who meets the product here should learn what it is, not how it is sold. Every claim in it must be traceable to a shipped one-pager; an unsupported clause is **dropped**, never swapped for a new claim. |
+| `subLine?` | string | A second hero line where the one-liner is very short. No product carries one today — `account-insights` lost its when the one-liner was rewritten to carry the whole statement. |
 | `heroLine?` | string | A short slogan that heads the hero above the name (two Lakehouse products). Takes precedence over `heroCaption` if both are set. |
 | `hero` | `{ image: { file, alt, focal } }` | The product hero's background image. Same contract as `overview.hero.image`. Required on all seven. |
 | `heroCaption?` | string | An alternative to `heroLine`, for products that carry a short line rather than a slogan. Rendered in the **same slot and the same `.eyebrow.eyebrow--accent.hero-line` treatment** as `heroLine`, so every product hero has one shape. A product sets one or the other, never both. |
