@@ -372,7 +372,7 @@
     { id: "approve-row", major: 4, side: "top", title: "Approve the value", body: "Row details show the extracted value, its evidence and why the confidence is what it is. Approve it.", target: function () { return $("#details .act-approve"); }, anchor: function () { return $("#details .details-head"); }, auto: function () { decideRow("cleaning:0", "approved"); } },
     { id: "expand-discount", major: 5, side: "left", title: "Resolve the flagged value", body: "A business-rule validator caught a gap between two discount tiers. Open Volume discounts.", target: function () { return $('.group[data-group="discount"] .group-head'); }, auto: function () { toggleGroup("discount", true); } },
     { id: "flag-row", major: 5, side: "left", title: "Open the flagged row", body: "Click the row carrying the validator warning.", target: function () { return $('.group[data-group="discount"] tr.has-flag'); }, auto: function () { selectRow("discount:3"); } },
-    { id: "fix", major: 5, side: "top", title: "Apply the suggested correction", body: "The validator names the rule and proposes the fix. One click corrects the value and records who changed what.", target: function () { return $("#details .act-fix"); }, auto: function () { applyFix("discount:3"); } },
+    { id: "fix", major: 5, side: "top", title: "Apply the suggested correction", body: "The validator names the rule and proposes the fix. One click corrects the value and records who changed what.", target: function () { return $("#details .act-fix"); }, anchor: function () { return $("#details .details-head"); }, auto: function () { applyFix("discount:3"); } },
     { id: "approve-all", major: 6, side: "left", title: "Approve everything else", body: "The remaining values are high-confidence. Approve all, then export.", target: function () { return $("#approve-all"); }, auto: approveAll },
     { id: "tab-ratecard", major: 6, side: "bottom", title: "Open the rate card", body: "The export is a flat rate card — the same columns as the file you download.", target: function () { return $('.tab[data-tab="ratecard"]'); }, auto: function () { setTab("ratecard"); } },
     { id: "download", major: 6, side: "left", title: "Download the rate card", body: "Only approved values are exported, each with its section and source page.", target: function () { return $("#download-xlsx"); }, auto: function () { $("#download-xlsx").click(); } }
@@ -418,7 +418,8 @@
     reposition: function () {
       if (!this.active || !this.target || this.el.hidden) return;
       if (!document.body.contains(this.target)) { var t = STEPS[this.i].target(); if (t) { this.target.classList.remove("tour-target"); this.target = t; t.classList.add("tour-target"); } else return; }
-      var r = this.target.getBoundingClientRect(), w = 300, h = this.el.offsetHeight || 150, gap = 16, s = STEPS[this.i].side, top, left;
+      var anchor = (STEPS[this.i].anchor && STEPS[this.i].anchor()) || this.target;
+      var r = anchor.getBoundingClientRect(), w = 300, h = this.el.offsetHeight || 150, gap = 16, s = STEPS[this.i].side, top, left;
       var fits = { right: r.right + gap + w < innerWidth, left: r.left - gap - w > 0, bottom: r.bottom + gap + h < innerHeight, top: r.top - gap - h > 0 };
       if (!fits[s]) s = ["right", "left", "bottom", "top"].filter(function (k) { return fits[k]; })[0] || "bottom";
       if (s === "right") { left = r.right + gap; top = r.top - 10; }
