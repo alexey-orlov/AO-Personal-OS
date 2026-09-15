@@ -243,11 +243,11 @@
   /* Two columns of equal height: the named human on the left, the form on the
      right. One component, rendered from one object, on both surfaces — so a
      reader who has met Karsten on a product page meets the same panel on
-     Services. There is no third column and no empty panel on either side. */
+     Services. Both columns open with a heading on the same baseline, so the
+     card and the form start level. */
   function contactSplit(options) {
     var opts = options || {};
     var card = contactCard({ className: "contact-card--panel" });
-    var aside = opts.aside || "";
     var right = '<div class="contact-split-form">' +
       (opts.heading ? '<h3 class="h3 block-title">' + esc(opts.heading) + "</h3>" : "") +
       (opts.sub ? '<p class="body-text contact-split-sub">' + esc(opts.sub) + "</p>" : "") +
@@ -255,7 +255,10 @@
       "</div>";
     if (!card) return right;
     return '<div class="contact-split">' +
-      '<div class="contact-split-card">' + card + aside + "</div>" +
+      '<div class="contact-split-card">' +
+        (opts.cardHeading ? '<h2 class="h3 block-title">' + esc(opts.cardHeading) + "</h2>" : "") +
+        card +
+      "</div>" +
       right +
       "</div>";
   }

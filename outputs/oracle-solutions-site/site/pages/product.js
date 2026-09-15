@@ -697,27 +697,9 @@
 
   /* ————— tab: contacts ————— */
 
-  function engagementSteps() {
-    var UI = window.UI;
-    var block = C().forms.engagementSteps;
-    if (!block) return "";
-    var steps = block.steps.map(function (step, index) {
-      return '<li class="next-step">' +
-        '<span class="next-step-index nums">' + (index + 1) + "</span>" +
-        "<div>" +
-          '<p class="next-step-title">' + UI.esc(step.title) + "</p>" +
-          '<p class="next-step-body">' + UI.esc(step.body) + "</p>" +
-        "</div></li>";
-    }).join("");
-    return '<div class="next-block">' +
-      '<p class="eyebrow eyebrow--accent">' + UI.esc(block.title) + "</p>" +
-      '<ol class="next-list">' + steps + "</ol>" +
-      (block.responseLine ? '<p class="next-response">' + UI.esc(block.responseLine) + "</p>" : "") +
-      "</div>";
-  }
-
-  /* Two columns of equal height: the contact card on the left, the form (with
-     its own heading) on the right. Same component on Services. */
+  /* Two columns of equal height, each opening with its own heading on the same
+     baseline: the contact card on the left, the form on the right. Same
+     component on Services. */
   function contactsTab(product) {
     var UI = window.UI;
     var demo = C().forms.demo;
@@ -731,12 +713,11 @@
     if (!form && !UI.contactCard()) return UI.empty(demo.sub);
 
     return '<section class="panel reveal">' +
-      blockHead(label("contacts")) +
       UI.contactSplit({
+        cardHeading: label("contacts"),
         heading: demo.secondaryHeading,
         sub: demo.secondarySub || demo.sub,
-        form: form,
-        aside: engagementSteps()
+        form: form
       }) +
       "</section>";
   }

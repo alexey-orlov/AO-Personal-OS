@@ -2762,21 +2762,12 @@ window.SITE_CONTENT = {
       required: "Required",
       invalidEmail: "Enter a valid work email address."
     },
-    engagementSteps: {
-      title: "WHAT HAPPENS NEXT",
-      steps: [
-        { title: "One scoping conversation", body: "Bring the workflow, a rough volume and the current cycle time. That is most of what the first call needs." },
-        { title: "A shaped proof of value", body: "We come back with the scope, the success metrics and what the fixed-price engagement covers." },
-        { title: "Built in your tenancy", body: "The proof runs on your own data, under your security rules, and what is built stays with you." }
-      ],
-      responseLine: "Someone from the Oracle practice comes back within two working days."
-    },
     demo: {
       anchor: "request-a-demo",
       heading: "REQUEST A DEMO",
       sub: "Tell us the account or workflow you have in mind. One scoping conversation starts it — we come back with what a proof of value would cover, on your data.",
       submitLabel: "Request a demo",
-      secondaryHeading: "OR SEND A REQUEST",
+      secondaryHeading: "SEND A REQUEST",
       secondarySub: "Tell us the account or workflow you have in mind. We come back with what a proof of value would cover, on your data."
     },
     contact: {
