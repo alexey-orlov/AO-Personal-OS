@@ -737,33 +737,29 @@
       "</div>";
   }
 
-  /* A named human first, the form second. The form is the fallback path, not
-     the only one — which is why it carries its own heading here. */
+  /* Two columns of equal height: a named human on the left, the form on the
+     right. The form is the fallback path, not the only one — which is why it
+     carries its own heading here. Same component on Services. */
   function contactsTab(product) {
     var UI = window.UI;
     var demo = C().forms.demo;
-    var card = UI.contactCard({ className: "contact-card--lead" });
-    var head = card
-      ? '<section class="panel reveal">' + blockHead(label("contacts")) + card + "</section>"
+    var form = window.FORMS
+      ? '<div id="product-demo-form">' + window.FORMS.render("demo", {
+          product: product.slug, heading: false,
+          submitLabel: C().forms.labels.submitRequest
+        }) + "</div>"
       : "";
 
-    if (!window.FORMS) return head || UI.empty(demo.sub);
+    if (!form && !UI.contactCard()) return UI.empty(demo.sub);
 
-    return head +
-      '<section class="panel reveal">' +
-        '<div class="demo-split">' +
-          '<div class="demo-aside">' +
-            blockHead(demo.secondaryHeading) +
-            '<p class="body-text">' + UI.esc(demo.secondarySub || demo.sub) + "</p>" +
-            engagementSteps() +
-          "</div>" +
-          '<div class="panel--form" id="product-demo-form">' +
-            window.FORMS.render("demo", {
-              product: product.slug, heading: false,
-              submitLabel: C().forms.labels.submitRequest
-            }) +
-          "</div>" +
-        "</div>" +
+    return '<section class="panel reveal">' +
+      blockHead(label("contacts")) +
+      UI.contactSplit({
+        heading: demo.secondaryHeading,
+        sub: demo.secondarySub || demo.sub,
+        form: form,
+        aside: engagementSteps()
+      }) +
       "</section>";
   }
 
@@ -798,10 +794,10 @@
   }
 
   function printsPrice(product) {
-    var pov = product.pov || {};
+    var js = product.jumpstart || {};
     var priced = /[€$£]/;
-    return (pov.pricing || []).some(function (line) { return priced.test(line.value); }) ||
-      (pov.ladder || []).some(function (tier) { return priced.test(tier.pricing); });
+    return priced.test((js.investment && js.investment.price) || "") ||
+      (js.next || []).some(function (tier) { return priced.test(tier.price || ""); });
   }
 
   function loadSellerNotes(root, product) {
@@ -822,7 +818,7 @@
 
   function sellerCtaBody(product) {
     var gate = C().sellerGate;
-    var duration = product.pov && product.pov.durationShort;
+    var duration = product.jumpstart && product.jumpstart.durationShort;
     if (!duration) return gate.cta.bodyFallback || gate.cta.body;
     return gate.cta.body.replace("{duration}", duration);
   }
@@ -895,23 +891,6 @@
       "</section>";
   }
 
-  /* ————— neighbours ————— */
-
-  function neighbours(product) {
-    var UI = window.UI;
-    var list = UI.orderedProducts();
-    var index = list.map(function (item) { return item.slug; }).indexOf(product.slug);
-    var prev = list[(index - 1 + list.length) % list.length];
-    var next = list[(index + 1) % list.length];
-    return '<nav class="pager" aria-label="Products">' +
-      '<div class="wrap pager-inner">' +
-        '<a class="pager-link pager-link--prev" href="#/products/' + UI.esc(prev.slug) + '">' +
-          UI.icon("arrow") + "<span><em>Previous</em>" + UI.esc(prev.name) + "</span></a>" +
-        '<a class="pager-link pager-link--next" href="#/products/' + UI.esc(next.slug) + '">' +
-          "<span><em>Next</em>" + UI.esc(next.name) + "</span>" + UI.icon("arrow") + "</a>" +
-      "</div></nav>";
-  }
-
   /* ————— page ————— */
 
   function product(params) {
@@ -930,7 +909,7 @@
     var active = tabId(params);
     var body;
     if (active === "technology") body = technologyTab(item);
-    else if (active === "pov") body = povTab(item);
+    else if (active === "jumpstart") body = jumpstartTab(item);
     else if (active === "contacts") body = contactsTab(item);
     else if (active === "sellers") body = sellersTab(item);
     else body = overviewTab(item);
@@ -939,8 +918,7 @@
       '<section class="section section--tight section--tabs"><div class="wrap tab-body' +
         (active === "overview" ? " tab-body--compact" : "") + '" id="tab-body">' +
         body +
-      "</div></section>" +
-      neighbours(item);
+      "</div></section>";
   }
 
   function bindGate(root, item, rerender) {
