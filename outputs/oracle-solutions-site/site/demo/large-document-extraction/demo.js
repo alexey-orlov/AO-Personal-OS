@@ -398,7 +398,10 @@
     after: function (id) { if (!this.active || !id) return; if (STEPS[this.i].id === id) this.next(); },
     next: function () {
       if (!this.active) return;
-      if (STEPS[this.i].id === "open" && !S.uploaded) return; /* processing runs; documents screen calls next() */
+      if (STEPS[this.i].id === "open" && !S.uploaded) { /* processing runs; the documents screen calls next() */
+        this.el.hidden = true; if (this.target) { this.target.classList.remove("tour-target"); this.target = null; }
+        return;
+      }
       this.i++;
       if (this.i >= STEPS.length) return this.finish();
       var self = this; setTimeout(function () { self.show(); }, 260);
