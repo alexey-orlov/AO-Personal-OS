@@ -68,7 +68,7 @@ The tab is a **two-column layout on desktop**: a MAIN column at roughly two thir
 | Column | Order |
 |---|---|
 | **MAIN** | §2.1 Problem ↔ Solution → §2.2 How it works (the stepper) → §2.3 Industry use cases (the tabs) → §2.6 Success story → §2.7 More detail (one disclosure) |
-| **SIDE rail** | §2.4 Outcomes & ROI → §2.5 At a glance (pinned) |
+| **SIDE rail** | §2.4 Outcomes & ROI — and nothing else |
 
 **The rail is never taller than MAIN.** That is the constraint that decides what goes in it: a rail that out-runs its column leaves dead gutter at the foot of the page, and a pinned card that is taller than the viewport hides its own bottom for the whole scroll. Nothing else is a top-level block. The old standalone key-features checklist, in-scope/out-of-scope pair and long-form feature list are all still in the data and all render **inside** §2.7 — the compactness target is met by moving prose, never by dropping a fact.
 
