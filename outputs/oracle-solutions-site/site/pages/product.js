@@ -75,13 +75,6 @@
       }).join("") + "</div>";
   }
 
-  function mediaRow(slug, inner, reverse) {
-    var figure = window.UI.figure(slug);
-    if (!figure) return '<section class="panel reveal">' + inner + "</section>";
-    return '<section class="panel media-row' + (reverse ? " media-row--reverse" : "") + ' reveal">' +
-      '<div class="media-copy">' + inner + "</div>" + figure + "</section>";
-  }
-
   /* one band shape, used for ROI and for the Lakehouse governance note */
   function calloutBand(iconName, eyebrow, text) {
     var UI = window.UI;

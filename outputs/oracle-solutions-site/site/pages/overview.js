@@ -96,6 +96,9 @@
     var reverse = index % 2 === 1;
     var copy = '<div class="proof-copy">' +
       '<p class="eyebrow eyebrow--accent">' + UI.esc(item.label) + "</p>" +
+      (item.logo
+        ? '<img class="proof-logo" src="' + UI.esc(item.logo) + '" alt="" loading="lazy" decoding="async">'
+        : "") +
       (item.customer ? '<h3 class="proof-customer">' + UI.esc(item.customer) + "</h3>" : "") +
       (item.industry ? '<p class="proof-industry">' + UI.esc(item.industry) + "</p>" : "") +
       '<p class="body-text">' + UI.esc(item.body) + "</p>" +

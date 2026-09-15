@@ -258,6 +258,9 @@
 
     return '<article class="brief reveal">' +
       '<p class="eyebrow eyebrow--accent">' + UI.esc(item.label) + "</p>" +
+      (item.logo
+        ? '<img class="proof-logo" src="' + UI.esc(item.logo) + '" alt="" loading="lazy" decoding="async">'
+        : "") +
       (item.customer ? '<h3 class="brief-title">' + UI.esc(item.customer) + "</h3>" : "") +
       (item.industry ? '<p class="brief-industry">' + UI.esc(item.industry) + "</p>" : "") +
       '<p class="brief-body">' + UI.esc(item.body) + "</p>" +
@@ -327,24 +330,29 @@
       "</div>";
   }
 
+  /* The same two-column component a product's Contacts tab renders, from the
+     same object: the named human on the left, the form on the right. */
   function contact(content) {
     var UI = window.UI;
     var form = content.forms.contact;
+    var body = window.FORMS && typeof window.FORMS.render === "function"
+      ? '<div id="contact-form-slot">' + window.FORMS.render("contact", { heading: false }) + "</div>"
+      : '<div class="cta-row">' +
+          UI.button({ label: content.services.hero.cta.label, href: "#/products", kind: "primary" }) +
+        "</div>";
+
     return '<section class="closing" id="' + UI.esc(form.anchor) + '">' +
-      '<div class="wrap contact-band">' +
-        '<div class="contact-copy">' +
+      '<div class="wrap">' +
+        '<div class="contact-head">' +
           '<h2 class="h2">' + UI.esc(content.services.contact.heading) + "</h2>" +
           '<p class="lead">' + UI.esc(content.services.contact.sub) + "</p>" +
-          engagementSteps(content) +
         "</div>" +
-        '<div class="contact-form" id="contact-form-slot">' +
-          UI.contactCard({ className: "contact-card--form" }) +
-          (window.FORMS && typeof window.FORMS.render === "function"
-            ? window.FORMS.render("contact", { heading: false })
-            : '<div class="cta-row">' +
-                UI.button({ label: content.services.hero.cta.label, href: "#/products", kind: "primary" }) +
-              "</div>") +
-        "</div>" +
+        UI.contactSplit({
+          heading: content.forms.demo.secondaryHeading,
+          sub: form.sub,
+          form: body,
+          aside: engagementSteps(content)
+        }) +
       "</div></section>";
   }
 
