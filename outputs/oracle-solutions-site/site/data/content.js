@@ -1016,7 +1016,7 @@ window.SITE_CONTENT = {
         outcomes: [
           "Plan-versus-actual at the level of a project, work package, order, engagement or campaign",
           "Variances and candidate drivers presented as evidence-backed candidates, never as conclusions",
-          "Unresolved records are reported as coverage gaps rather than quietly dropped"
+          "Unresolved records are reported as coverage gaps, each with the reason it could not be resolved"
         ]
       },
       overview: {
@@ -1036,12 +1036,12 @@ window.SITE_CONTENT = {
           { value: null, label: "Operational efficiency", qualifier: "Elapsed time and person-hours for an equivalent unit-level analysis", icon: "clock" },
           { value: null, label: "Output validation rate", qualifier: "Variances, patterns and drivers confirmed by ground truth or your experts", icon: "check" },
           { value: null, label: "Evidence coverage", qualifier: "Material findings linked to sufficient source evidence, with a review status", icon: "link" },
-          { value: null, label: "Coverage gaps reported", qualifier: "Unresolved records surfaced, never quietly dropped", icon: "alert" }
+          { value: null, label: "Coverage gaps reported", qualifier: "Every unresolved record surfaced, with the reason it could not be resolved", icon: "alert" }
         ],
-        metricsNote: "No published metrics yet. The proof of value measures three things, with the thresholds agreed at discovery rather than asserted up front.",
+        metricsNote: "No published metrics yet. The proof of value measures three things, with the thresholds agreed at discovery.",
         roi: {
           icon: "roi",
-          text: "The output is not a report — it is the ability to ask which completed units went wrong and what the record says about why, with sources attached, across all of them."
+          text: "The output is a standing ability to ask which completed units went wrong and what the record says about why, with sources attached, across all of them."
         },
         features: [
           "Ingest and profile approved static exports, preserving lineage",
