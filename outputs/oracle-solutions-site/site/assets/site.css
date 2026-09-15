@@ -740,7 +740,6 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 .ptile-cta { margin-top: auto; padding-top: .625rem; }
 
 /* The home page meets the reader with the same tile, one size down. */
-.ptile--compact .ptile-band { aspect-ratio: 16 / 7; }
 .ptile--compact .ptile-body { gap: .625rem; padding: 1.125rem 1.25rem 1.25rem; }
 .ptile--compact .ptile-title { font-size: 1.125rem; }
 .ptile--compact .ptile-desc,
