@@ -259,7 +259,8 @@
     return '<article class="brief reveal">' +
       '<p class="eyebrow eyebrow--accent">' + UI.esc(item.label) + "</p>" +
       (item.logo
-        ? '<img class="proof-logo" src="' + UI.esc(item.logo) + '" alt="" loading="lazy" decoding="async">'
+        ? '<img class="proof-logo' + (item.logoStacked ? " proof-logo--stacked" : "") +
+          '" src="' + UI.esc(item.logo) + '" alt="" loading="lazy" decoding="async">'
         : "") +
       (item.customer ? '<h3 class="brief-title">' + UI.esc(item.customer) + "</h3>" : "") +
       (item.industry ? '<p class="brief-industry">' + UI.esc(item.industry) + "</p>" : "") +

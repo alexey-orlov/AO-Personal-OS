@@ -89,7 +89,8 @@
     var notes = (item.footnotes || []).map(function (note) {
       return '<p class="footnote">' + UI.esc(note) + "</p>";
     }).join("");
-    return '<div class="proof-metrics">' + cells +
+    return '<div class="proof-metrics' +
+      (item.metrics.length === 1 ? " proof-metrics--single" : "") + '">' + cells +
       (notes ? '<div class="proof-footnotes">' + notes + "</div>" : "") + "</div>";
   }
 
@@ -99,7 +100,8 @@
     var copy = '<div class="proof-copy">' +
       '<p class="eyebrow eyebrow--accent">' + UI.esc(item.label) + "</p>" +
       (item.logo
-        ? '<img class="proof-logo" src="' + UI.esc(item.logo) + '" alt="" loading="lazy" decoding="async">'
+        ? '<img class="proof-logo' + (item.logoStacked ? " proof-logo--stacked" : "") +
+          '" src="' + UI.esc(item.logo) + '" alt="" loading="lazy" decoding="async">'
         : "") +
       (item.customer ? '<h3 class="proof-customer">' + UI.esc(item.customer) + "</h3>" : "") +
       (item.industry ? '<p class="proof-industry">' + UI.esc(item.industry) + "</p>" : "") +

@@ -1085,6 +1085,19 @@
     });
   }
 
+  /* The tab strip scrolls sideways on a phone, so a reader who lands on a
+     later tab would otherwise see the active one parked off-screen. The
+     bar scrolls itself, never the page. */
+  function centerActiveTab(root) {
+    var bar = root.querySelector("#product-tabs");
+    if (!bar) return;
+    var on = bar.querySelector(".tab.is-active");
+    if (!on || bar.scrollWidth <= bar.clientWidth) return;
+    var barBox = bar.getBoundingClientRect();
+    var tabBox = on.getBoundingClientRect();
+    bar.scrollLeft += (tabBox.left - barBox.left) - (bar.clientWidth - tabBox.width) / 2;
+  }
+
   product.mount = function (params, root) {
     var item = findProduct(params.slug);
     if (!item) return;
