@@ -205,6 +205,11 @@ if (!arr(C.products) || C.products.length !== 7) {
       if (!str(m.value) || !str(m.label)) fail(w, "successStory.metrics[" + i + "] needs { value, label }");
       if (str(m.value) && m.value.length > 14) fail(w, 'successStory.metrics[' + i + '].value "' + m.value + '" is too long to set large');
     });
+    /* A stacked lockup is sized optically, not by the flat height rule — the
+       flag is what tells the renderer which of the two it is. */
+    if (st.logoStacked !== undefined && typeof st.logoStacked !== "boolean") {
+      fail(w, "overview.successStory.logoStacked must be a boolean where present");
+    }
     if (str(st.logo)) {
       if (!/^assets\/img\/logos\/[a-z0-9-]+\.(svg|png|webp)$/.test(st.logo)) {
         fail(w, 'successStory.logo "' + st.logo + '" is not assets/img/logos/<name>.<svg|png|webp>');
@@ -404,9 +409,16 @@ if (!arr(C.products) || C.products.length !== 7) {
     var inv = v.investment;
     if (!inv) fail(w, "jumpstart.investment missing");
     else {
-      ["price", "duration", "footnote"].forEach(function (k) {
-        if (!str(inv[k])) fail(w, "jumpstart.investment." + k + " missing — the price tile is never empty, and a figure never renders without its footnote");
+      /* A figure is a string or null: where nothing is published the card
+         prints one scope line, not two tiles both reading the same
+         placeholder. The footnote stays required — it renders with the
+         figures, and a figure never renders without it. */
+      ["price", "duration"].forEach(function (k) {
+        if (!(inv[k] === null || str(inv[k]))) {
+          fail(w, "jumpstart.investment." + k + " must be a non-empty string, or null where none is published");
+        }
       });
+      if (!str(inv.footnote)) fail(w, "jumpstart.investment.footnote missing — a figure never renders without it");
       if (!arr(inv.includes) || inv.includes.length < 3) fail(w, "jumpstart.investment.includes needs ≥3 lines");
       /* One footnote, not a disclaimer stack: the packaging-internal sentences
          were removed site-wide in round 3. */
