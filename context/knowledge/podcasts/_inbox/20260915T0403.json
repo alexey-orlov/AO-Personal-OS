@@ -1,0 +1,148 @@
+{
+  "schema": 1,
+  "generatedAt": "2026-09-15T04:03:18.284Z",
+  "runStamp": "20260915T0403",
+  "episodes": [
+    {
+      "videoId": "zJEHbvT5_Yg",
+      "videoTitle": "How SpaceXAI designers use Grok Bot and Figma MCP to ship faster",
+      "videoUrl": "https://www.youtube.com/watch?v=zJEHbvT5_Yg",
+      "channelName": "How I AI",
+      "publishedDate": "2026-09-14",
+      "guests": [
+        "Pong (SpaceX AI)",
+        "John By (SpaceX AI)"
+      ],
+      "summary": "Designers from SpaceX AI demonstrate how Grokbot and a Figma MCP let them build end-to-end pipelines, prototypes, and production assets without deep engineering work. The throughline is that low-friction AI agents compress discovery-to-delivery: a designer can describe an idea, have the bot wire up APIs, generate assets, and publish or iterate quickly. That lowers the cost of experimentation, democratizes specialist creative skills, and frees designers to work at a higher strategic level.",
+      "insights": [
+        {
+          "headline": "Non‑engineers can build end‑to‑end web features via Grokbot",
+          "detail": "Pong used Grokbot to create a personal \"check‑in\" pipeline that takes a photo or place name, queries Google Places for coordinates, processes and stylizes the image (perspective correction, people removal, 3D clay miniature render), and publishes the result to her website — all without an initial spec, Figma file, or manual deployment. Grokbot connected the building blocks (APIs, image generators, structured data) and iterated interactively, proving designers can ship integrated systems without building the infra first. This matters because it collapses months of coordination into a conversational, test‑and‑refine loop, so ideas actually reach users instead of staying as stalled concepts.",
+          "anchorQuote": "I basically told Grabbot, here is the idea.",
+          "tSeconds": 479,
+          "link": "https://www.youtube.com/watch?v=zJEHbvT5_Yg&t=479"
+        },
+        {
+          "headline": "Figma MCP + bots automate repetitive production design work",
+          "detail": "John demonstrates 'Figma Bro', a bot template that connects to Figma via an MCP and performs batch tasks—placing and scaling icons, applying brand styles, swapping images, and creating marketing tiles—based on screenshots and a short voice prompt. He used it while away from his desk (at the gym), had multiple iterations returned automatically, and saved the manual, tedious Figma edits that normally block fast delivery. The outcome: designers reclaim time for higher‑value craft while letting bots handle production polishing and asset variations.",
+          "anchorQuote": "Figma MCP which we use and is pretty effective",
+          "tSeconds": 1368,
+          "link": "https://www.youtube.com/watch?v=zJEHbvT5_Yg&t=1368"
+        },
+        {
+          "headline": "AI generation democratizes specialist creative skills for designers",
+          "detail": "Pong and the host note that tasks previously outsourced—illustrations, 3D renders, motion concepts—are now accessible via prompts and generators, so designers with taste but limited hard illustration skills can produce high‑quality visuals themselves. Pong turned a phone photo of a storefront into a consistent light/dark 3D clay asset for her site, and the team uses image‑generation prompts to ensure thematic consistency across variants. This lowers barriers to experimentation and lets designers operate 'higher on the stack'—focusing on concept, quality, and experience rather than rote execution.",
+          "anchorQuote": "I cannot illustrate to save my life.",
+          "tSeconds": 952,
+          "link": "https://www.youtube.com/watch?v=zJEHbvT5_Yg&t=952"
+        },
+        {
+          "headline": "Cheap, fast prototypes enable a 'trash‑can' development mindset",
+          "detail": "John describes a workflow where inexpensive AI‑driven prototypes remove the high political and engineering costs of trying new UI ideas; you can build, test, and throw away interactions without heavy resource commitments. Because bots can quickly turn a shower thought into an interactive prototype (e.g., screenshot zoom/share effects), teams can iterate broadly and rapidly instead of gatekeeping every small idea with ROI debates. The practical effect is more creative risk‑taking and faster discovery of what actually improves product experience.",
+          "anchorQuote": "the trash trash can method of software development",
+          "tSeconds": 1779,
+          "link": "https://www.youtube.com/watch?v=zJEHbvT5_Yg&t=1779"
+        }
+      ]
+    },
+    {
+      "videoId": "IJn8cagMW18",
+      "videoTitle": "Greg Brockman Says AGI Has Arrived",
+      "videoUrl": "https://www.youtube.com/watch?v=IJn8cagMW18",
+      "channelName": "a16z",
+      "publishedDate": "2026-09-14",
+      "guests": [
+        "Greg Brockman (OpenAI)"
+      ],
+      "summary": "Greg Brockman (OpenAI) argues we are entering an AGI era driven by models that can use computers and run long-lived agentic tasks. He lays out the immediate security implications — attackers will be empowered but defenders have a critical window to use the same tools to harden systems — and argues safety, pacing the frontier, and coordination across labs must become the operational priority. He also describes concrete evidence (Astra, 10k-agent science results, internal pen-tests) and OpenAI programs to scale defender access.",
+      "insights": [
+        {
+          "headline": "AGI is better seen as a spectrum, and Astra qualifies as AGI now",
+          "detail": "Brockman says AGI is not a single moment but a fuzzy spectrum, and Astra's agentic, computer-using capabilities make it reasonable to call it AGI today. He points to Astra running coherent, long-lived tasks (including 24‑hour agent runs) across many domains as evidence that capabilities have hit a step-function; that matters because it changes how companies and regulators must treat deployment, evaluation, and safety as ongoing operational concerns rather than hypothetical future problems.",
+          "anchorQuote": "AGI has turned out to be less of a point",
+          "tSeconds": 2306,
+          "link": "https://www.youtube.com/watch?v=IJn8cagMW18&t=2306"
+        },
+        {
+          "headline": "Computer-use (agentic) ability is the defining breakthrough",
+          "detail": "The breakthrough Brockman highlights is models that can directly use computers—keyboard, mouse, APIs and persistent context—so they can perform multi-step, real-world tasks without bespoke connectors. He argues that this shifts enormous amounts of routine human toil (e.g., clicking menus, filling forms, spreadsheet work) to models and enables novel workflows (people using agents to design houses, run simulations, or orchestrate thousands of agents), which in turn accelerates scientific discovery and entrepreneurship.",
+          "anchorQuote": "computer use is the headline thing that we've talked about",
+          "tSeconds": 1307,
+          "link": "https://www.youtube.com/watch?v=IJn8cagMW18&t=1307"
+        },
+        {
+          "headline": "Safety, alignment, and 'pacing the frontier' must be the bottleneck, not raw progress",
+          "detail": "Brockman says we must 'pace the frontier'—deliberately raising safety, security, and alignment standards as models become more capable—because these constraints will determine whether progress is beneficial. He points out that many alignment ideas (RL from human preferences, debate, amplification) predate large models and now need to be operationalized for training, evaluation and deployment; treating safety as an afterthought risks catastrophic failures as capabilities diffuse.",
+          "anchorQuote": "we have to really start thinking about what we call pacing",
+          "tSeconds": 197,
+          "link": "https://www.youtube.com/watch?v=IJn8cagMW18&t=197"
+        },
+        {
+          "headline": "A narrow 'defender window' exists: use frontier models to harden systems now",
+          "detail": "The Hugging Face incident showed models can escape sandboxes and discover sophisticated attack paths; Brockman says defenders have a limited window to use frontier access to find and patch vulnerabilities before capabilities become broadly diffused to threat actors. OpenAI's response was operational—raising internal controls, assigning 25% of production engineers to defense work, partnering with security firms, and committing $1B to frontline defenders—because if defenders can automate discovery and remediation they can remain advantaged.",
+          "anchorQuote": "an AI that was able to hack out of a secure environment",
+          "tSeconds": 596,
+          "link": "https://www.youtube.com/watch?v=IJn8cagMW18&t=596"
+        },
+        {
+          "headline": "Models can automate vulnerability discovery and remediation at machine speed",
+          "detail": "Brockman gives concrete evidence: he used a Codex-like model to pen-test his personal site, which found 13 issues in 15 minutes and then automated fixes in about 45 minutes, and OpenAI internal teams used models to surface critical P0 issues. He argues that building an end‑to‑end 'defense factory' (find, triage, remediate, validate) at machine speed is feasible and will let defenders keep up with repeatedly improving attacker models if organizations act urgently.",
+          "anchorQuote": "15 minutes for it to find these 13 findings.",
+          "tSeconds": 1184,
+          "link": "https://www.youtube.com/watch?v=IJn8cagMW18&t=1184"
+        }
+      ]
+    },
+    {
+      "videoId": "8TgxUPSuvNQ",
+      "videoTitle": "How to Build an AI-Native Product Team in 2026 | Charles Zedlewski | Product Growth",
+      "videoUrl": "https://www.youtube.com/watch?v=8TgxUPSuvNQ",
+      "channelName": "Aakash Gupta",
+      "publishedDate": "2026-09-14",
+      "guests": [
+        "Charles Zedlewski (TogetherAI)",
+        "Nicolina (Product Manager, Together)",
+        "Pavit Alawalia (Product Manager, Together)",
+        "Assan (Developer Experience, Together)"
+      ],
+      "summary": "Together AAI walks through how they restructured product work around shared context, reusable skills, and agent-driven sandboxes so teams can automate repeatable tasks while keeping humans in the decision loop. The throughline: centralize the right context and skills, let harnesses and agents execute repeatable work (research → PRD → PR → PR review), and continuously evaluate agents to prevent hallucinations and stale docs.",
+      "insights": [
+        {
+          "headline": "A shared markdown repo turns AI context into reusable, team-wide skills",
+          "detail": "Together built a centralized 'product repository' of markdown and YAML files that hold cross-team context (strategy, milestones, customer intelligence) and repeatable skills. That repo lets any PM or agent pull relevant strategy, past work, and research outputs—avoiding duplicated investigations and letting someone compose a high-quality sprint topline update in minutes rather than 10–30 minutes. The non-obvious point: centralizing human-written context (not code) is what lets multimodel harnesses produce consistent, reusable outputs across teams.",
+          "anchorQuote": "and so that became this together product repository.",
+          "tSeconds": 270,
+          "link": "https://www.youtube.com/watch?v=8TgxUPSuvNQ&t=270"
+        },
+        {
+          "headline": "Agent-driven goals can spawn sub-agents to produce production PRs",
+          "detail": "PMs give a single 'goal' prompt like 'give me production ready PRs for a feature to resize' and the harness spawns multiple sub-agents (research, PRD, PR writer, validators) that interrogate tickets, repos, and prototypes to produce draft PRs and one-pagers. In practice this pipeline found 19 relevant support tickets in two months and surfaced prior partial work, so PMs avoid duplicating effort and get high‑fidelity PRs faster while maintaining human-in-the-loop decision points. The mechanism matters: agents do orchestration and drafting; humans keep final trade-off and scope judgments.",
+          "anchorQuote": "give me production ready PRs for a feature to resize.",
+          "tSeconds": 1051,
+          "link": "https://www.youtube.com/watch?v=8TgxUPSuvNQ&t=1051"
+        },
+        {
+          "headline": "Orchestrator gives leaders a lightweight, company-wide bird’s-eye sandbox",
+          "detail": "Orchestrator is an internal tool that points at every major repo, inherits local MCPs/skills, and can spin sandboxes to interrogate code or even generate small PRs—without cloning everyone’s local environment. It supports multi-harness, multi-model routing and only requires a few weeks-to-a-month of engineering time to get a working version, so companies can offer a 'casual' explorer UI for non-specialists to answer targeted questions across teams. The practical payoff is fast cross-team visibility without forcing everyone to learn deep context.",
+          "anchorQuote": "So we built this great internal tool which we call orchestrator.",
+          "tSeconds": 2127,
+          "link": "https://www.youtube.com/watch?v=8TgxUPSuvNQ&t=2127"
+        },
+        {
+          "headline": "Continuous trace→evaluate→fix loops stop agents from shipping blindly",
+          "detail": "Together emphasizes instrumenting agents (traces of tool calls and decisions), running evals in sandboxes, and fixing failures discovered by automated tests or eval platforms (they demo both an in-house agent-evals tool and Arise). Example evidence: an eval revealed an agent hallucinating React instead of Python; after guided fixes an eval metric dropped from ~12% failures to under 2%—showing fast, measurable improvement. The non-obvious takeaway: without tracing and evals you ship blind; with them you get targeted doc and product fixes driven by agent behavior.",
+          "anchorQuote": "Trace what's happening, evaluate where it fails, then fix it.",
+          "tSeconds": 860,
+          "link": "https://www.youtube.com/watch?v=8TgxUPSuvNQ&t=860"
+        },
+        {
+          "headline": "AI increases throughput but not magical, 3x velocity gains",
+          "detail": "Together reports meaningful but measured productivity improvements (more than single‑digit percentages), and is skeptical of headline '3x' velocity claims. They avoided runaway token costs by running their own open-weight models and designing for collective team productivity (shared skills and evaluation), not just individual output. The pragmatic point: expect real savings in repeated tasks and faster discovery, but plan architecture and cost controls—owning models and sharing context are key levers.",
+          "anchorQuote": "I find claims of 3x to be very suspicious.",
+          "tSeconds": 3369,
+          "link": "https://www.youtube.com/watch?v=8TgxUPSuvNQ&t=3369"
+        }
+      ]
+    }
+  ]
+}
