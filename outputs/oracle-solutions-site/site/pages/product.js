@@ -976,19 +976,28 @@
   }
 
   /* A frame with no recording behind it names the product, says the recording
-     is not ready, and offers a live demo instead. */
+     is not ready, and offers a live demo instead — and, where the product has an
+     interactive walkthrough, that too, in a new tab. */
   function bindPendingVideo(root, item) {
     var UI = window.UI;
     var pending = C().shared.videoPending;
+    var conf = cfg(item.slug);
     Array.prototype.forEach.call(root.querySelectorAll("[data-video-pending]"), function (button) {
       button.addEventListener("click", function () {
+        var demo = conf.demoUrl
+          ? UI.button({
+              label: C().shared.demoCta, href: conf.demoUrl,
+              kind: "secondary", iconAfter: "external",
+              attrs: { target: "_blank", rel: "noopener" }
+            })
+          : "";
         var panel = UI.modal.open('<h2 class="h3 modal-title">' + UI.esc(item.name) + "</h2>" +
           '<p class="body-text">' + UI.esc(pending.body) + "</p>" +
           '<div class="cta-row modal-cta">' + UI.button({
             label: pending.cta,
             href: contactsRoute(item.slug),
             kind: "primary"
-          }) + "</div>",
+          }) + demo + "</div>",
           { label: item.name, className: "modal-panel--note" });
         var cta = panel.querySelector(".modal-cta a");
         if (cta) cta.addEventListener("click", function () { UI.modal.close(); });
