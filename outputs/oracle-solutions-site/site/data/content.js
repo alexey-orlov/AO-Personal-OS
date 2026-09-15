@@ -2536,7 +2536,7 @@ window.SITE_CONTENT = {
       },
       jumpstart: {
         title: "Jumpstart Proof-of-Value",
-        promise: "Pilot Business metrics Q&A on your own data in 30–45 days, at a fixed price, with a decision-ready result.",
+        promise: "Pilot business metrics Q&A on your own data in 30–45 days, at a fixed price, and see your KPIs answered from one set of certified definitions.",
         durationShort: "30–45 days",
         pillars: [
           { key: "fast", title: "Fast", text: "30 days for one clean source system; 45 for up to three sources or a stricter security setup." },
@@ -2675,7 +2675,7 @@ window.SITE_CONTENT = {
           tier: "proof-of-value",
           title: "Proof of value",
           whatItIs: "Prove the gains on your own data and rules — manual imports, a limited rule set, a separate environment. Zero integration.",
-          duration: "30–45 days on the Lakehouse Quick Start · about 2 months on the packaged Oracle Cloud Infrastructure + NVIDIA packs · scoped per engagement on the deep-research investigations",
+          duration: "30–45 days on the Lakehouse Jumpstart · about 2 months on the packaged Oracle Cloud Infrastructure + NVIDIA packs · scoped per engagement on the deep-research investigations",
           pricing: "A fixed price for the packaged scope; scoped per engagement on the deep-research investigations"
         },
         {
@@ -2706,7 +2706,7 @@ window.SITE_CONTENT = {
           { title: "Model and guard", body: "A small governed model, or the pack configured against your rules: business definitions, masking, row-level access." },
           { title: "Prove", body: "Measurement against the signed baseline, an executive readout, and a costed expansion plan." }
         ],
-        closing: "30–45 days on the Lakehouse Quick Start; about two months on the packaged Oracle Cloud Infrastructure + NVIDIA accelerator packs; scoped per engagement where the work is a deep-research investigation over historical records."
+        closing: "30–45 days on the Lakehouse Jumpstart; about two months on the packaged Oracle Cloud Infrastructure + NVIDIA accelerator packs; scoped per engagement where the work is a deep-research investigation over historical records."
       }
     },
 
