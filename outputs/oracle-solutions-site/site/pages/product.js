@@ -508,6 +508,14 @@
     return '<div class="stack-accordion" data-stack="' + UI.esc(product.slug) + '">' + rows + "</div>";
   }
 
+  /* A capability matrix that prints a restrictive asterisk gets PARTIAL, not
+     SUPPORTED — an unqualified tag on a partial row is a claim. */
+  var CAP_STATE = {
+    supported: "stateSupported",
+    partial: "statePartial",
+    roadmap: "stateRoadmap"
+  };
+
   /* The complete feature list, grouped under the four workflow stages the
      Overview stepper walks through — so two products compare stage for stage.
      A state tag renders only where a shipped capability matrix states one; an
@@ -519,12 +527,11 @@
 
     var columns = groups.map(function (group, index) {
       var items = (group.items || []).map(function (item) {
-        var state = item.state === "supported" || item.state === "roadmap" ? item.state : "";
+        var state = CAP_STATE[item.state] ? item.state : "";
         return '<li class="cap-item">' +
           '<span class="cap-name">' + UI.esc(item.name) + "</span>" +
           (state
-            ? '<span class="cap-tag cap-tag--' + state + '">' +
-              UI.esc(label(state === "roadmap" ? "stateRoadmap" : "stateSupported")) + "</span>"
+            ? '<span class="cap-tag cap-tag--' + state + '">' + UI.esc(label(CAP_STATE[state])) + "</span>"
             : "") +
           "</li>";
       }).join("");

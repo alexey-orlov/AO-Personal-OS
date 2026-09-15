@@ -159,6 +159,7 @@ window.SITE_CONTENT = {
       stack: "Solution stack",
       capabilities: "Capabilities",
       stateSupported: "Supported",
+      statePartial: "Partial",
       stateRoadmap: "Roadmap",
       howItWorks: "How it works",
       industryCases: "Industry use cases",

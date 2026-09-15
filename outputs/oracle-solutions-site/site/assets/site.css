@@ -2246,6 +2246,7 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 .cap-name { flex: 1; min-width: 0; font-size: var(--fs-xs); line-height: 1.55; color: var(--text-body); }
 .cap-tag { flex: none; padding: .125rem .4375rem; border: 1px solid var(--border); border-radius: var(--r-pill); font-size: .6875rem; letter-spacing: .08em; text-transform: uppercase; color: var(--text-dim); white-space: nowrap; }
 .cap-tag--supported { border-color: var(--accent); color: var(--accent); }
+.cap-tag--partial { border-color: var(--border-strong, var(--border)); color: var(--text-muted); }
 
 /* ——— jumpstart tab ————————————————————————————————————— */
 
