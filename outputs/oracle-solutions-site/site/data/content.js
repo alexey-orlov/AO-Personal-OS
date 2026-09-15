@@ -734,7 +734,7 @@ window.SITE_CONTENT = {
           "Multi-source evidence assembly across systems, correspondence and documents",
           "Chronological case timeline with timestamps and clickable source references",
           "Sentence- and field-level citation on every statement",
-          "Draft response sections generated for review, not for sending",
+          "Draft response sections the investigator amends and approves",
           "Investigator UI: navigate to source, amend, approve or flag",
           "Full audit log of every review decision",
           "Case categories scoped and configured per engagement"
@@ -771,7 +771,7 @@ window.SITE_CONTENT = {
             features: [
               "Chronological case timeline with timestamps and clickable source references",
               "Sentence- and field-level citation on every statement",
-              "Draft response sections generated for review, not for sending"
+              "Draft response sections the investigator amends and approves"
             ]
           },
           {
@@ -791,7 +791,7 @@ window.SITE_CONTENT = {
             label: "Financial services",
             image: "assets/img/industries/financial-services.jpg",
             problem: "A flagged transaction or an alert has to be investigated across parties, accounts and linked cases before anything can be filed. The analyst pulls the same records out of the same systems every time, and the filing is drafted from scratch under a deadline.",
-            solution: "The evidence is assembled across those systems into one file with a chronological timeline, and the regulatory response sections are drafted for review rather than for sending. Every statement is bound to the record it came from, so a second reviewer can retrace the finding independently."
+            solution: "The evidence is assembled across those systems into one file with a chronological timeline, and the regulatory response sections arrive drafted for an analyst to amend and approve. Every statement is bound to the record it came from, so a second reviewer can retrace the finding independently."
           },
           {
             industry: "manufacturing",
@@ -811,7 +811,7 @@ window.SITE_CONTENT = {
             industry: "public-sector",
             label: "Public sector",
             image: "assets/img/industries/public-sector.jpg",
-            problem: "Complaint handling runs to a statutory clock, and the evidence sits across case management, correspondence and operational records. Investigators spend most of the clock gathering rather than deciding.",
+            problem: "Complaint handling runs to a statutory clock, and the evidence sits across case management, correspondence and operational records. Most of that clock goes on gathering the file before anyone can judge it.",
             solution: "Each case arrives as a summary, a timeline and draft response sections, every claim cited to its source sentence or field. Investigators spend the time on judgement, and the full audit log shows how the file was built."
           }
         ],
@@ -825,7 +825,7 @@ window.SITE_CONTENT = {
           ],
           out: [
             "Deciding the outcome — the system assembles and drafts, a person decides",
-            "Anonymization and masking of source records: a data-supply precondition, not a feature",
+            "Anonymization and masking of source records — a data-supply precondition",
             "Sending or filing the drafted response",
             "Live source integration and production approval workflow — Roll-out scope",
             "Additional case categories and source systems — Scaling scope"
@@ -928,7 +928,7 @@ window.SITE_CONTENT = {
               { name: "Case summary — the key facts and an investigative overview" },
               { name: "Chronological timeline with timestamps and clickable source references" },
               { name: "Sentence- and field-level citation on every statement" },
-              { name: "Draft response sections generated for review, not for sending" }
+              { name: "Draft response sections the investigator amends and approves" }
             ]
           },
           {
@@ -2045,7 +2045,7 @@ window.SITE_CONTENT = {
           { title: "Two to three operational dashboards", body: "Over the joined data." },
           { title: "Sensitive fields masked by role", body: "Enforced in the data layer." }
         ],
-        industriesNote: "The same two pains in every industry, regardless of stack — the constraint is the system landscape, not the sector.",
+        industriesNote: "The same two pains in every industry, regardless of stack — what varies is the system landscape.",
         steps: [
           {
             n: 1,
@@ -2091,7 +2091,7 @@ window.SITE_CONTENT = {
             label: "Every industry",
             image: "assets/img/industries/cross-industry.jpg",
             problem: "The same two pains turn up in every sector, whatever the stack. Every answer is a project — the BI backlog runs in weeks, so the business answers itself in a spreadsheet, and the same KPI comes back as two different numbers from two dashboards. Every acquisition and every new application adds another island nobody has integrated.",
-            solution: "The join is done once, in the data, rather than once per question: one governed layer under the applications, filled from Oracle applications by pipelines that already exist, with a plain-English answer surface on top. The constraint here is the system landscape, not the sector, so the same shape fits wherever the applications sit."
+            solution: "The join is done once, in the data, and every question reads from it: one governed layer under the applications, filled from Oracle applications by pipelines that already exist, with a plain-English answer surface on top. What shapes the work is the system landscape, so the same shape fits wherever the applications sit."
           },
           {
             industry: "manufacturing",
@@ -2352,7 +2352,7 @@ window.SITE_CONTENT = {
           { title: "Converged data in one database", body: "Relational, JSON, spatial, graph and vector." },
           { title: "Role-scoped answers and a full audit trail", body: "Enforced in the data layer." }
         ],
-        industriesNote: "The same two pains in every industry, regardless of stack — the constraint is the data estate, not the sector.",
+        industriesNote: "The same two pains in every industry, regardless of stack — what varies is the data estate.",
         steps: [
           {
             n: 1,
@@ -2378,7 +2378,7 @@ window.SITE_CONTENT = {
           {
             n: 3,
             title: "Scope it by role",
-            text: "Masking, row-level policies and a full audit trail are enforced in the data layer, not in the prompt.",
+            text: "Masking, row-level policies and a full audit trail are enforced by the database itself, on every query the assistant writes.",
             image: "assets/img/steps/business-metrics-qa-3.svg",
             features: ["Role-scoped answers and a full audit trail, enforced in the data layer"]
           },
@@ -2410,7 +2410,7 @@ window.SITE_CONTENT = {
             label: "Manufacturing",
             image: "assets/img/industries/manufacturing.jpg",
             problem: "Revenue, inventory and churn questions span plants, regions and the systems that came with each acquisition. Each platform has its own catalog, its own security model and its own team, so no single system sees enough of the picture for AI to be useful on it.",
-            solution: "The existing catalogs are mounted and the remaining databases linked, including on-prem, with the answer layer moving to the data rather than the other way round. An assistant answers across all of it in plain language, role-scoped and fully audited."
+            solution: "The existing catalogs are mounted and the remaining databases linked, including on-prem, with the answer layer moving to wherever the data already sits. An assistant answers across all of it in plain language, role-scoped and fully audited."
           }
         ],
         scope: {
