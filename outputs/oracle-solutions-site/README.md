@@ -54,7 +54,7 @@ Script order in `index.html` matters: `data/*` → `assets/forms.js` → `pages/
 | `#/` | Overview — hero, products, customer evidence, services teaser, demo form |
 | `#/products` | Product marketplace — facet rail (technology, category, marketplace), search, tiles |
 | `#/products/<slug>` | One product — hero plus tabs |
-| `#/products/<slug>/<tab>` | `overview` · `technology` · `pov` · `contacts` · `sellers`. The retired `demo` segment redirects to `contacts` in place, so Back still returns to where the reader came from. |
+| `#/products/<slug>/<tab>` | `overview` · `technology` · `jumpstart` · `contacts` · `sellers`. The retired segments `pov` → `jumpstart` and `demo` → `contacts` redirect in place, so Back still returns to where the reader came from and an old link still lands on the right tab. |
 | `#/services` | The Oracle dedicated practice — platforms, what we do, how we engage, why SoftServe, proof, contact form |
 | anything else | A designed not-found page |
 

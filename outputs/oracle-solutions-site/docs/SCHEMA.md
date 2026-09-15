@@ -59,7 +59,7 @@ window.SITE_CONTENT = {
 
 A map of **key → `{ diagram, alt }`** or **key → `{ src, alt }`**. Keys are the seven product slugs. `diagram` names an entry in `data/diagrams.js`, which is rendered inline as SVG at the site's own design tokens; `src` is a path to an image file relative to `site/index.html`, preferred over `diagram` when both are present. `alt` is a plain description, applied as the figure's `aria-label` for a diagram and as the image `alt` for a picture.
 
-Used by the mirrored media row beside ARCHITECTURE on a product's Technology tab, and by the home page's product tiles, which use artwork only when a key carries a raster `src` and render the typographic plate otherwise — a full architecture diagram is illegible at tile size. The **Products page** tiles do not read this map at all: each one is that product's own `hero.image` (see `VISUAL-GRAMMAR.md` §1). A missing key degrades cleanly: the home tile falls back to the type plate and the media row to a plain text panel.
+Used by the figure beside the narrative in the **Architecture** block of a product's Technology tab, and by nothing else. **No tile reads this map any more**: since round 3, D, both product grids render that product's own `hero.image` (see `VISUAL-GRAMMAR.md` §1.1), because a full architecture diagram is illegible at tile size and the two grids now share one anatomy. A missing key degrades cleanly — the Architecture block renders the narrative full width above the stack, with no empty frame.
 
 ---
 
@@ -287,7 +287,7 @@ One field set serves both forms. Fields, in order: **full name · work email · 
 | `labels` | map | Field labels, the message placeholder, submit labels and the two validation messages. |
 | `demo`, `contact` | `{ anchor, heading, sub, submitLabel }` | The two form instances. A surface that already prints the heading renders the form with its own head suppressed, so the heading appears once. |
 | `demo.secondaryHeading`, `demo.secondarySub` | string | The heading the **same** demo form takes when it renders in the **right column beside** the contact panel on a product's Contacts tab — "Or send a request" (round 3, C: two columns of equal height on desktop, stacked card-first on mobile). `heading` / `sub` stay as they are, because that instance still heads the standalone request form on the home page. Two headings for one form because the form has two jobs: the primary ask on the home page, the fallback path behind a named human on a product page. The Contacts instance also passes `labels.submitRequest` ("Send the request") as `FORMS.render`'s `submitLabel`, so the button agrees with the heading above it and with the tab it sits on; the home-page instance keeps `labels.submitDemo`. |
-| `engagementSteps` | `{ title, steps: [{ title, body }], responseLine }` | The three-step "what happens next" block that fills the copy column beside both contact forms. |
+| `engagementSteps` | `{ title, steps: [{ title, body }], responseLine }` | The three-step "what happens next" block. It renders **under the contact panel in the left column** of the two-column contact section (`VISUAL-GRAMMAR.md` §8) on both surfaces, and in the copy column of the home page's standalone request block. |
 | `confirmations` | `{ posted, mailto, contactPosted, error }` | Each `{ title, body }`. Pick by outcome: `posted` after a successful POST to `SITE_CONFIG.formEndpoint`; `mailto` after composing a `mailto:` because the endpoint is empty; `contactPosted` for the Services form; `error` on failure. **Never show a success confirmation for an action that did not happen.** |
 
 ---
@@ -300,7 +300,7 @@ One field set serves both forms. Fields, in order: **full name · work email · 
 | `emailLabel`, `emailPlaceholder`, `unlockLabel`, `lockLabel`, `rejected` | string | |
 | `linkPendingLabel`, `downloadLabel`, `unlockedIntro` | string | |
 | `notesHeading` | string | Heading of the seller-notes block. The notes themselves are **not in this file** — they are fetched from `SITE_CONFIG.sellerGate.notesUrl` after the gate passes. |
-| `cta` | `{ heading, body, bodyFallback, contactLabel, action }` | `body` carries the `{duration}` placeholder, filled from that product's `pov.durationShort`; `bodyFallback` is used when a product has none. `contactLabel` is a **role alias**, not a person and not an address. `action` opens the demo form with the product pre-selected and `I am a…` pre-set to `oracle-seller`. |
+| `cta` | `{ heading, body, bodyFallback, contactLabel, action }` | `body` carries the `{duration}` placeholder, filled from that product's `jumpstart.durationShort`; `bodyFallback` is used when a product has none. `contactLabel` is a **role alias**, not a person and not an address. `action` opens the demo form with the product pre-selected and `I am a…` pre-set to `oracle-seller`. |
 
 The gate checks the domain of the entered email against `SITE_CONFIG.sellerGate.allowedDomains` and stores the unlock under `SITE_CONFIG.sellerGate.storageKey`. It is a convenience, not access control: nothing in either data file is secret, and nothing secret may be added to them.
 

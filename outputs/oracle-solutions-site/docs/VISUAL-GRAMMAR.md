@@ -70,7 +70,7 @@ A product with no hero file on disk renders the same tile with the band on the f
 
 **Target: the MAIN column reads in ~1.5 desktop screens at 1440×900 without feeling cramped.** If a product exceeds that, prose moves into §2.7 — it does not stay on the page. (The site footer sits below the tab body and adds about half a screen of its own; the target is about the tab, not about the scroll height of the document. The Previous/Next pager was removed in round 3 — the tab bar and the Products grid are the navigation.)
 
-The tab is a **two-column layout on desktop**: a MAIN column at roughly two thirds, and a SIDE rail at roughly one third, on the right. The rail cell **stretches to the height of MAIN**, and the card that pins is §2.5 At a glance — the last card in the rail, so nothing scrolls underneath it while it is held. §2.4 is too tall to pin at 900 px and scrolls with the page. Below 1100 px the layout collapses to one column, the rail goes static, and it follows the main column.
+The tab is a **two-column layout on desktop**: a MAIN column at roughly two thirds, and a SIDE rail at roughly one third, on the right. The rail cell stretches to the height of MAIN and holds **one card, §2.4 Outcomes & ROI**, which scrolls with the page. **Nothing pins any more** — the card that used to be sticky was §2.5 At a glance, and it went with round 3, H. Below 1100 px the layout collapses to one column and the rail follows the main column.
 
 | Column | Order |
 |---|---|
@@ -213,9 +213,9 @@ Nothing that reads as a wall of text sits above the fold. Equally, **nothing is 
 
 `technology.security[]` is deleted from the data. Each product's four lines restated facts that are already on the page: the tenancy and read-only access are in the `infrastructure` and `custom` layer summaries, the human gate is in the solution panel and the `low-risk` pillar, the audit trail is a capability, and "production hardening is roll-out scope" is in `overview.scope.out` and in `jumpstart.next`. `check-grammar.js` fails if the key returns.
 
-### 3.5 Media row
+### 3.5 The architecture figure
 
-Unchanged: the mirrored media row beside ARCHITECTURE, driven by `media[slug]`.
+`media[slug]` still supplies the figure, but it is no longer a mirrored 50/50 media row of its own: it sits **inside** the Architecture block, beside the narrative, above the stack (`.arch-head--media`). Two blocks means two blocks — a third full-width row between them would put a picture where the stack has to be. A product with no `media` entry renders the narrative full width and the stack beneath it, with no empty frame.
 
 ---
 
@@ -399,7 +399,9 @@ The tab formerly labelled **Request a demo** is now **Contacts**, at `#/products
 The tab is **two columns of equal height on desktop**, one column on mobile with the card first:
 
 1. **LEFT — the contact panel**, a bounded surface (not a bare row of text): circular `photo` at the top, then `name`, `title`, a primary **mailto** button on `email`, the one-line `blurb`, and the three-line **Bring to the call** list from `bringTitle` + `bring[]`. `title` renders only when non-empty; an empty one leaves name + email, never a placeholder. `linkedin` renders only when the key exists.
-2. **RIGHT — the request form**, headed `forms.demo.secondaryHeading` ("Or send a request") with `forms.demo.secondarySub` beneath it, and `labels.submitRequest` on the button.
+2. **RIGHT — the request form**, headed `forms.demo.secondaryHeading` ("Or send a request") with `forms.demo.secondarySub` beneath it, and `labels.submitRequest` on the button. On Services the same slot takes `forms.contact.sub` and `labels.submitContact`, under the page's own `services.contact` heading.
+
+`forms.engagementSteps` — the three-step "what happens next" block — renders **under the contact panel, in the left column**, outside the panel's border. It used to fill a copy column that no longer exists; it is what keeps the left column level with the form on the right, and it answers the question the panel raises ("what happens if I write?"). The two columns are `align-items: stretch`, so they are the same height on desktop and stack card-first below 900 px.
 
 No stray empty panel on either side: the two columns are the whole section. The **same component** renders the Services page contact section, from the same object. One person, one address, one place to edit.
 

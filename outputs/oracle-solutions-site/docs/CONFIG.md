@@ -107,7 +107,7 @@ productOrder: [
 ],
 ```
 
-One list drives every surface that shows more than one product: the Overview page's product tiles, the Products page tiles and the facet-rail counts, the Previous/Next pager at the foot of a product page, and the "Which product?" select in both forms. There is no second place to edit and no way for two surfaces to disagree — a seller who scrolls the Products page and then pages through with Previous/Next walks the same sequence both times.
+One list drives every surface that shows more than one product: the Overview page's product tiles, the Products page tiles and the facet-rail counts, and the "Which product?" select in both forms. There is no second place to edit and no way for two surfaces to disagree. (The Previous/Next pager that used to sit at the foot of a product page was removed in round 3, B — the tab bar and the Products grid are the navigation, and a pager that wrapped from the last product back to the first was inventing an order the reader had not asked for.)
 
 **It is presentation order, not a list of what exists.** The products themselves are declared in `content.js`; this array only says what sequence they are shown in. That split is what makes the three fallbacks safe:
 
@@ -162,7 +162,7 @@ Expected shape:
 }
 ```
 
-`packagingNotes` are appended only on products whose `pov.pricing` or `pov.ladder` actually prints a currency figure; per-product notes always render. Leave `notesUrl` empty on any deployment that cannot authenticate the request — an unauthenticated JSON file at a guessable path is the same leak with an extra step.
+`packagingNotes` are appended only on products whose `jumpstart.investment.price` or `jumpstart.next[].price` actually prints a currency figure; per-product notes always render. Leave `notesUrl` empty on any deployment that cannot authenticate the request — an unauthenticated JSON file at a guessable path is the same leak with an extra step.
 
 ---
 
