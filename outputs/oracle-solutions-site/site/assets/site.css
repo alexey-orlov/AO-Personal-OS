@@ -1607,7 +1607,7 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 
 /* ——— architecture diagrams ———————————————————————————— */
 
-.media-figure--diagram { background: var(--bg-inset); padding: clamp(.875rem, 1.6vw, 1.25rem); max-width: 880px; margin-inline-end: auto; }
+.media-figure--diagram { background: var(--bg-inset); padding: clamp(.875rem, 1.6vw, 1.25rem); max-width: 880px; }
 .media-figure--diagram .diagram { display: block; width: 100%; height: auto; max-width: 100%; }
 
 @media (max-width: 900px) {

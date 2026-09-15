@@ -198,7 +198,8 @@
     if (S.open[id]) tour.after(id === "cleaning" ? "expand" : id === "discount" ? "expand-discount" : "");
   }
   function selectRow(key) {
-    S.selected = key; renderGroups(); renderDetails();
+    var r = findRow(key); S.selected = key; S.hiRow = key;
+    gotoPage(r.page); renderGroups(); renderDetails();
     if (S.rows[key].flag) tour.after("flag-row");
   }
   function cite(key) {
@@ -250,7 +251,7 @@
     if (!S.selected) { box.hidden = true; return; }
     var r = findRow(S.selected), g = findGroup(S.selected), rs = S.rows[S.selected], lb = confLabel(r.conf);
     var unit = /%$/.test(r.value) ? "" : " " + D.doc.currency;
-    var reason = r.conf >= 90 ? "Value sits in the schedule table under a labelled rate column; unit and currency matched the column header." : r.conf >= 75 ? "Value found in running text rather than a table; unit inferred from the surrounding clause." : "Value partially legible.";
+    var reason = rs.flag ? "Read cleanly from the tier text, but a business-rule validator disputes the boundary — see the flag." : rs.edited ? "Corrected by the reviewer against the cited page." : r.conf >= 90 ? "Value sits in the schedule table under a labelled rate column; unit and currency matched the column header." : r.conf >= 75 ? "Value found in running text rather than a table; unit inferred from the surrounding clause." : "Value partially legible.";
     var flag = rs.flag ? '<div class="d-flag"><strong>Validator: ' + esc(r.flag.rule) + "</strong>" + esc(r.flag.detail) + '<div class="sugg"><span>Suggested:</span><code>' + esc(r.flag.suggested) + '</code><button class="btn btn--ok btn--xs act-fix" type="button" data-fix="' + r.key + '">Apply correction</button></div></div>' : "";
     box.innerHTML = '<div class="details-head"><strong>Row details · ' + esc(g.name) + '</strong><button class="details-close" type="button" aria-label="Close" data-close-details><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>' +
       '<div class="details-grid"><div class="d-col"><span class="eyebrow">Extracted value</span><div class="d-val">' + esc(r.value) + unit + '</div><div class="d-sub">' + esc(rs.service) + "</div><div class=\"d-sub\">" + esc(r.basis) + " · " + esc(r.sites) + "</div>" + flag + "</div>" +
@@ -368,7 +369,7 @@
     { id: "open-doc", major: 2, side: "bottom", title: "Open the extracted document", body: "Extraction finished: 25 values from 48 pages, one of them flagged for a human. Click the row to review it.", target: function () { return $("#doc-table tr.is-new"); }, auto: openDoc },
     { id: "expand", major: 3, side: "left", title: "Expand a service group", body: "Each group holds the values extracted from one part of the schedule, with a confidence badge and a pending count. Open Routine cleaning.", target: function () { return $('.group[data-group="cleaning"] .group-head'); }, auto: function () { toggleGroup("cleaning", true); } },
     { id: "cite", major: 4, side: "left", title: "Follow the citation", body: "Every value cites its source page. Click p.7 — the viewer jumps to the page and highlights the line the value came from.", target: function () { return $('.group[data-group="cleaning"] [data-cite="cleaning:0"]'); }, auto: function () { cite("cleaning:0"); } },
-    { id: "approve-row", major: 4, side: "top", title: "Approve the value", body: "Row details show the extracted value, its evidence and why the confidence is what it is. Approve it.", target: function () { return $("#details .act-approve"); }, auto: function () { decideRow("cleaning:0", "approved"); } },
+    { id: "approve-row", major: 4, side: "top", title: "Approve the value", body: "Row details show the extracted value, its evidence and why the confidence is what it is. Approve it.", target: function () { return $("#details .act-approve"); }, anchor: function () { return $("#details .details-head"); }, auto: function () { decideRow("cleaning:0", "approved"); } },
     { id: "expand-discount", major: 5, side: "left", title: "Resolve the flagged value", body: "A business-rule validator caught a gap between two discount tiers. Open Volume discounts.", target: function () { return $('.group[data-group="discount"] .group-head'); }, auto: function () { toggleGroup("discount", true); } },
     { id: "flag-row", major: 5, side: "left", title: "Open the flagged row", body: "Click the row carrying the validator warning.", target: function () { return $('.group[data-group="discount"] tr.has-flag'); }, auto: function () { selectRow("discount:3"); } },
     { id: "fix", major: 5, side: "top", title: "Apply the suggested correction", body: "The validator names the rule and proposes the fix. One click corrects the value and records who changed what.", target: function () { return $("#details .act-fix"); }, auto: function () { applyFix("discount:3"); } },
