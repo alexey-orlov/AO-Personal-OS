@@ -207,14 +207,20 @@
     }).join("");
   }
 
-  /* One named human, one address, one card — rendered on every product's
-     Contacts tab and above the Services form. The monogram is the avatar's own
-     background and the photograph sits on top of it, so a missing file leaves
-     initials rather than a broken frame: the image guard drops the <img>. */
+  /* One named human, one address, one panel — the left column of every contact
+     section, on a product's Contacts tab and on Services. The monogram is the
+     avatar's own background and the photograph sits on top of it, so a missing
+     file leaves initials rather than a broken frame: the image guard drops the
+     <img>. The "Bring to the call" list is what turns "get in touch" into a
+     call someone can prepare for, so it is part of the panel, not a footnote. */
   function contactCard(options) {
     var opts = options || {};
     var person = (C.shared && C.shared.contact) || null;
     if (!person || !person.name) return "";
+    var bring = (person.bring || []).map(function (line) {
+      return "<li>" + icon("check") + "<span>" + esc(line) + "</span></li>";
+    }).join("");
+
     return '<div class="contact-card' + (opts.className ? " " + esc(opts.className) : "") + '">' +
       '<span class="contact-photo" aria-hidden="true">' +
         '<span class="contact-initials">' + esc(initials(person.name)) + "</span>" +
@@ -227,15 +233,43 @@
         '<p class="contact-name">' + esc(person.name) + "</p>" +
         (person.title ? '<p class="contact-title">' + esc(person.title) + "</p>" : "") +
         (person.email
-          ? '<a class="contact-mail" href="mailto:' + esc(person.email) + '">' + icon("mail") +
-            "<span>" + esc(person.email) + "</span></a>"
+          ? button({
+              label: person.email, href: "mailto:" + person.email,
+              kind: "primary", icon: "mail", className: "contact-mail-btn"
+            })
           : "") +
         (person.blurb ? '<p class="contact-blurb">' + esc(person.blurb) + "</p>" : "") +
         (person.linkedin
           ? '<a class="contact-social" href="' + esc(person.linkedin) +
             '" target="_blank" rel="noopener">' + icon("linkedin") + "<span>LinkedIn</span></a>"
           : "") +
+        (bring
+          ? '<div class="contact-bring">' +
+              '<p class="eyebrow eyebrow--accent">' + esc(person.bringTitle || "") + "</p>" +
+              '<ul class="tick-list contact-bring-list">' + bring + "</ul>" +
+            "</div>"
+          : "") +
       "</div></div>";
+  }
+
+  /* Two columns of equal height: the named human on the left, the form on the
+     right. One component, rendered from one object, on both surfaces — so a
+     reader who has met Karsten on a product page meets the same panel on
+     Services. There is no third column and no empty panel on either side. */
+  function contactSplit(options) {
+    var opts = options || {};
+    var card = contactCard({ className: "contact-card--panel" });
+    var aside = opts.aside || "";
+    var right = '<div class="contact-split-form">' +
+      (opts.heading ? '<h3 class="h3 block-title">' + esc(opts.heading) + "</h3>" : "") +
+      (opts.sub ? '<p class="body-text contact-split-sub">' + esc(opts.sub) + "</p>" : "") +
+      (opts.form || "") +
+      "</div>";
+    if (!card) return right;
+    return '<div class="contact-split">' +
+      '<div class="contact-split-card">' + card + aside + "</div>" +
+      right +
+      "</div>";
   }
 
   function heroBackdrop(image, options) {
@@ -295,40 +329,56 @@
     });
   }
 
-  function tilePlate(product) {
+  /* One tile anatomy on both grids (VISUAL-GRAMMAR §1.1): an image band over a
+     solid body. Text never sits on the photograph — the band carries only the
+     platform label and the availability chip, and everything a reader has to
+     read is on the solid surface below it. One CTA, because a tile with two
+     actions makes the reader choose before they know what the product is. */
+  function productTile(product, options) {
+    var opts = options || {};
     var facet = facetLabel(product.facet);
-    var item = media(product.slug);
-    var hasArt = !!(item && item.src);
-    var art = hasArt
-      ? '<img class="tile-plate-img" src="' + esc(item.src) + '" alt="" loading="lazy" decoding="async">'
-      : '<span class="tile-plate-name"><span class="accent">' + esc(product.headline.accent) +
-        "</span> " + esc(product.headline.rest) + "</span>";
-    return '<a class="tile-plate' + (hasArt ? " tile-plate--art" : "") + '" href="#/products/' +
-      esc(product.slug) + '" aria-label="' + esc(product.name) + '">' +
-      art +
-      '<span class="tile-plate-foot">' +
-        '<span class="tile-plate-facet" title="' + esc(facet.fullLabel) + '">' + esc(facet.label) + "</span>" +
-        icon("arrow") +
-      "</span>" +
-      "</a>";
+    var image = product.hero && product.hero.image;
+    var marketplace = CFG.products[product.slug] && CFG.products[product.slug].marketplaceUrl;
+    var href = "#/products/" + product.slug;
+
+    var chips = [chip({ label: product.categoryChip })];
+    if (marketplace && opts.marketplaceBadge !== false) {
+      chips.push(chip({ label: C.facets.marketplace.badge }));
+    }
+
+    var outcomes = ((product.tile && product.tile.outcomes) || []).map(function (line) {
+      return "<li>" + icon("check") + "<span>" + esc(line) + "</span></li>";
+    }).join("");
+
+    var band = '<div class="ptile-band">' +
+      (image && image.file
+        ? '<img class="ptile-img" src="' + esc(image.file) + '" alt=""' +
+          (image.focal ? ' style="object-position:' + esc(image.focal) + '"' : "") +
+          ' loading="lazy" decoding="async">'
+        : "") +
+      '<span class="ptile-veil" aria-hidden="true"></span>' +
+      '<span class="ptile-facet" title="' + esc(facet.fullLabel) + '">' + esc(facet.label) + "</span>" +
+      '<span class="ptile-avail">' + availabilityChip(product) + "</span>" +
+      "</div>";
+
+    return '<article class="ptile' + (opts.compact ? " ptile--compact" : "") + ' reveal">' +
+      band +
+      '<div class="ptile-body">' +
+        '<div class="chip-row ptile-chips">' + chips.join("") + "</div>" +
+        '<h3 class="ptile-title"><a href="' + esc(href) + '">' + esc(product.name) + "</a></h3>" +
+        '<p class="ptile-desc">' + esc(product.oneLiner) + "</p>" +
+        (outcomes ? '<ul class="outcome-list ptile-outcomes">' + outcomes + "</ul>" : "") +
+        '<p class="ptile-cta">' + linkArrow({ label: "Learn more", href: href }) + "</p>" +
+      "</div>" +
+      "</article>";
   }
 
   function card(product, options) {
     var opts = options || {};
-    var marketplace = CFG.products[product.slug] && CFG.products[product.slug].marketplaceUrl;
-    var chips = [
-      chip({ label: product.categoryChip }),
-      availabilityChip(product)
-    ];
-    if (marketplace && opts.marketplaceBadge !== false) {
-      chips.push(chip({ label: C.facets.marketplace.badge }));
-    }
-    return '<article class="tile reveal">' +
-      tilePlate(product) +
-      '<div class="chip-row">' + chips.join("") + "</div>" +
-      '<h3 class="tile-title"><a href="#/products/' + esc(product.slug) + '">' + esc(product.name) + "</a></h3>" +
-      '<p class="tile-desc clamp-3">' + esc(product.oneLiner) + "</p>" +
-      "</article>";
+    return productTile(product, {
+      compact: true,
+      marketplaceBadge: opts.marketplaceBadge
+    });
   }
 
   /* ————— modal ————— */
