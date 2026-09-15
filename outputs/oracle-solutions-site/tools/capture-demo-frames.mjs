@@ -1,5 +1,16 @@
-// Drive the demo in headless Chrome over CDP and capture PNGs of named scenes.
-// usage: node shoot.mjs <url> <outdir> [scene,scene,...]
+// Drive the interactive walkthrough (site/demo/large-document-extraction/) in
+// headless Chrome over the DevTools protocol and capture PNGs. No dependencies:
+// Node ≥ 22 (built-in fetch + WebSocket) and Google Chrome at the path below.
+//
+//   node tools/capture-demo-frames.mjs <url> <outdir> [scene,scene,...]
+//
+// Modes (env):
+//   default        — every guided-tour scene, with the guide visible (QA of the tour)
+//   MODE=frames    — the four step frames + the poster, tour off: open the URL with
+//                    ?tour=off&ui=clean and set DPR=2; then crop per docs/ASSETS.md §1
+//   MODE=site      — the product page: hero, stepper, pending-video panel
+// Fonts from Google are blocked (ALLOW_NET=1 to allow) so a slow network cannot
+// stall the capture; system fallbacks render instead.
 import { spawn } from "node:child_process";
 import { writeFileSync, mkdirSync } from "node:fs";
 
