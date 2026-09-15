@@ -134,17 +134,23 @@ In the rail the tiles **stack vertically** rather than sitting in a row — up t
 
 Three of the seven carry published figures; the other four are all-qualitative and still render a full block.
 
-### 2.5 At a glance (SIDE rail)
+### 2.5 At a glance — **removed** (round 3, H)
 
-`overview.sideFacts` → `{ category, platform, availability, povDuration, povPrice, povPriceNote? }`. Heading from `sectionLabels.atAGlance`.
+`overview.sideFacts` and the card it fed are gone. Every row on it — category, platform, availability, proof-of-value duration and price — was a denormalised copy of something printed on the same page: the chips in the hero, the Jumpstart investment card, the stack. It was therefore a second place to keep in sync, and the first to go stale; `check-grammar.js` fails if the key returns. The rail is §2.4 alone, which is also what keeps it shorter than MAIN without pinning anything.
 
-A compact definition-list card: five label/value rows, labels from `sectionLabels.factCategory` / `factPlatform` / `factAvailability` / `factPovDuration` / `factPovPrice`. `povPriceNote`, where present, renders as a small line under the price row. The card closes with the `sectionLabels.povLink` link to that product's POV Jumpstart tab, where the full terms and the disclaimer stack live.
+### 2.6 Success story — a dark callout (MAIN)
 
-Every value is a denormalised copy of a fact that already exists elsewhere in the product object — the card is a summary, never a new claim. `povPrice` never carries a bare asterisk: an asterisk with no footnote in view is the defect this block was shaped to avoid.
+`overview.successStory`, at the foot of the MAIN column under the industry tabs. **`null` on five of the seven products, and then nothing renders** — there is no empty state.
 
-### 2.6 Success story (MAIN)
+The block is a **surface-level dark panel with a 3px teal left rule** — not the white band it used to be, and not a card in the rail. Inside, in order:
 
-`overview.successStory` renders as it does today (see `SCHEMA.md`), at the foot of the MAIN column under the industry tabs. It sits in MAIN rather than in the rail for one measured reason: in the rail it made the rail taller than the column beside it on all seven products. The **Open the success story** control renders only when `SITE_CONFIG.products[slug].successStoryUrl` is non-empty; a product with `state: "none"` renders no block at all.
+1. The customer's **logo** (`logo`, a light mark, capped to the same cap-height the stack uses for vendor marks) beside the customer **name**.
+2. The `headline` — one line naming what the engagement did.
+3. The two `metrics`, set as **big figures** with their labels beneath. Exactly two, always: a third makes the panel a metric row competing with §2.4.
+4. The `story` — two to three sentences, the last of which carries the caveat that qualifies the figures. The panel has no footnote row, so the caveat lives in the sentence; that is how rule 2 of this file is satisfied here.
+5. **`downloadLabel`** as the one link out, rendered **only** when `SITE_CONFIG.products[slug].successStoryUrl` is non-empty. No URL, no control.
+
+Only two customers are named — Bosch and Riyadh Air (Alex, 2026-09-14) — and no € figure from a customer's business case appears in the panel.
 
 ### 2.7 More detail — one collapsible disclosure (MAIN)
 
@@ -156,22 +162,21 @@ Collapsed by default, one control at the end of the MAIN column. Inside, in orde
 4. `overview.featuresNote?` — the asterisked caveat, where the product carries one. Only `workforce-optimization` does.
 
 Nothing that reads as a wall of text sits above the fold. Equally, **nothing is dropped**: every one of those five is a shipped fact that used to have a top-level block, and the disclosure is where it went.
-## 3. Technology tab
+## 3. Technology tab — exactly two blocks
+
+**Architecture** (§3.1 narrative + §3.3 the layer stack) and **Capabilities** (§3.2). Nothing else. The How-it-runs flow diagram and the Security-and-deployment list were both removed in round 3: the stack read top to bottom *is* the flow, drawn once and with the components attached, and the security lines were four restatements of facts the layer summaries, the scope lists and the Jumpstart `low-risk` pillar already carry.
 
 ### 3.1 Narrative
 
-`technology.narrative` — **three sentences maximum**, enforced. One paragraph, no heading beyond the eyebrow.
+`technology.narrative` — **three sentences maximum**, enforced. One paragraph at the head of the Architecture block.
 
-### 3.2 Flow diagram — identical geometry on all seven
+### 3.2 Capabilities — the complete feature list, by workflow stage
 
-`technology.flow` — **exactly four steps**, `[{ step, label }]`.
+`technology.capabilities` — **exactly four stage groups**, `[{ stage, items: [{ name, state? }] }]`. Heading from `sectionLabels.capabilities`.
 
-- `step` is the canonical stage name, set large: one of a small vocabulary per product (`Sources`, `Ingest`, `Extract`, `Mount`, `Reason`, `Optimize`, `Govern`, `Validate`, `Deliver`).
-- `label` is the product-specific line under it, ≤ 10 words.
-
-Render as inline SVG or a CSS flex row: four equal boxes, three connecting arrows, identical widths and heights on every product. The diagram is the same shape everywhere; only the words differ. Stacks vertically on mobile with the arrows rotated.
-
-The canonical shape is **Sources → Ingest/Extract → Reason/Optimize → Deliver**. Step 2 and step 3 take the verb the product actually uses.
+- The four `stage` names are the product's own four workflow stages — the same sequence the §2.2 stepper walks a reader through, in the product's vocabulary (`Classification & routing` · `Extraction` · `Review & export` · `Quality & integrations`). Four on every product, so two Technology tabs compare column for column.
+- Each stage is a column on desktop (a row group on mobile) holding its `items` as a list. ≥ 3 items per stage; together the four groups cover every capability the product claims anywhere on the site.
+- `state` renders as a small tag — **Supported** or **Roadmap**, labels from `sectionLabels.stateSupported` / `stateRoadmap`. It is **absent** unless a shipped capability matrix states it; today only `workforce-optimization` carries tags. An untagged item renders with no tag at all, never with a default one: a guessed tag is a claim.
 
 ### 3.3 Solution stack — one accordion, organised by layer
 
@@ -189,7 +194,7 @@ The canonical shape is **Sources → Ingest/Extract → Reason/Optimize → Deli
 
 - **A layer may be omitted, never re-ordered.** The two Lakehouse products carry no `ai-engine`: NVIDIA is not required on that route, and an empty engine row would be a worse answer than its absence. `application`, `data-platform`, `infrastructure` and `custom` are present on all seven.
 - **Row, collapsed:** layer name · one-line `summary` · vendor mark(s) from `vendors` · chevron. The marks are normalised to **one cap-height and one opacity** across the five rows (`.group-mark--oracle` / `--nvidia` / `--softserve` set only the height each mark's own box needs to land on that cap-height). The layer order is what ranks the rows; whichever wordmark happens to set widest must not. **Row, expanded:** the `items`, each tagged **Required** or **Optional** from its boolean `required`, with `note` as a small trailing line. Every layer carries at least one Required item — a layer where nothing is required is not a layer of this stack.
-- **Integrations live in the `custom` layer**, as items carrying `direction: "inbound" | "outbound" | "both"`. Where a product has both, render them as two labelled lines — **Inbound** and **Outbound**, from `sectionLabels.directionInbound` / `directionOutbound` — inside the expanded layer. `direction` is illegal anywhere but `custom`.
+- **Integrations live in the `custom` layer** — labelled *Custom configuration & integrations*, the fifth band — as items carrying `direction: "inbound" | "outbound" | "both"`. Render them as two labelled lines — **Inbound** and **Outbound**, from `sectionLabels.directionInbound` / `directionOutbound` — inside the expanded layer, or as annotations down the side of the stack. `direction` is illegal anywhere but `custom`.
 - **No "not used" footnote.** The layer summaries carry which platform each layer actually uses, which is the condition for dropping the line; a muted micro-line below the accordion, present on some products and absent on others, read as an orphan rather than as honesty. `technology.notUsed[]` is deleted from the data and `check-grammar.js` fails if it reappears.
 - `technology.governance?` — the two Lakehouse products. One band, same shape as the ROI band, below the accordion.
 
