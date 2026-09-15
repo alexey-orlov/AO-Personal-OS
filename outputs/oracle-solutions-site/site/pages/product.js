@@ -306,8 +306,8 @@
     }).join("");
   }
 
-  /* Everything that used to own a block above the fold lives here: no fact is
-     dropped to hit the compactness target, it is only moved behind one click. */
+  /* The disclosure at the foot of the tab: detail entries, scope and the
+     feature detail, all behind one click. */
   function moreDetail(o) {
     var UI = window.UI;
     var parts = [detailEntries(o.moreDetail)];
