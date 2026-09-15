@@ -112,11 +112,12 @@ Flat map of reusable strings: `kpiTile`, `kpiTileTargets`, `packageTable`, `lake
 | `label` | string | `PROOF OF VALUE` / `FIRST ENGAGEMENT` / `METHOD`. Deliberately not uniform — do not flatten. |
 | `customer?` | string | **Two customers are named** — `Bosch` on `workforce-proof` and `Riyadh Air` on `extraction-proof` (Alex, 2026-09-14; both are written up by name on SoftServe's own external one-pagers). Every other card carries an **anonymised descriptor**, and no third company name may be added without the same explicit clearance. |
 | `logo?` | string | `assets/img/logos/<name>.<svg\|png>` — present only on the two named cards, rendered beside the customer name as a light mark on the dark card. Absent on anonymised cards. |
+| `logoStacked?` | boolean | `true` where the mark is a **stacked lockup** (a symbol above its wordmark, e.g. Riyadh Air). Adds the `--stacked` modifier, which sizes it by roughly 2.2× the flat height: a stacked mark carries its type in a fraction of its box, so the single height rule that suits a horizontal wordmark renders its words as a smudge. |
 | `industry?` | string | |
 | `title?` | string | Present on `METHOD` cards instead of `customer`. |
 | `body` | string | |
 | `scopeLine?` | string | One extra line about how the proof was run. |
-| `metrics?` | `[{ value, label }]` | Band 1 only. |
+| `metrics?` | `[{ value, label }]` | Band 1 only. On a **named** card the figures are the same two the product's `successStory` sets large — a customer who clicks through must not meet a second, different pair of headline numbers for the same engagement. One metric renders as a single column (`.proof-metrics--single`), never as a two-column grid with an empty half. |
 | `footnotes?` | `[string]` | Render all of them, in order, inside the card. Mandatory wherever `metrics` is present. |
 | `product?` | `{ slug, name }` | Renders as a link to the product page. |
 
@@ -206,8 +207,9 @@ Seven entries, in the order the Products page should list them:
 |---|---|---|
 | `customer` | string | The customer's real name. Only `Bosch` (workforce-optimization) and `Riyadh Air` (large-document-extraction) are cleared (Alex, 2026-09-14). |
 | `logo` | string | `assets/img/logos/<name>.<svg\|png>` — a light/white mark for the dark callout. |
+| `logoStacked?` | boolean | Same flag as on the evidence card: `true` for a stacked lockup, which is sized optically rather than by the flat height rule. |
 | `headline` | string | One line naming what the engagement did. |
-| `metrics` | `[{ value, label }]` | **Exactly two**, set as big figures. `value` ≤ 14 characters. |
+| `metrics` | `[{ value, label }]` | **Exactly two**, set as big figures. `value` ≤ 14 characters. Neither may repeat a side-rail tile on the same tab: the rail holds outcomes and ROI, so the story owns its two numbers and the reader meets each figure once. |
 | `story` | string | Two to three sentences: what was done, at what scale — **closing with the caveat sentence that qualifies the figures**. The callout has no footnote row of its own, so rule 1 of `VISUAL-GRAMMAR.md` is satisfied inside `story`; `check-grammar.js` fails a story with no "illustrative" / "modeled simulations" / "not contractual" clause. |
 | `downloadLabel` | string | Label of the link out. **Renders only when `SITE_CONFIG.products[slug].successStoryUrl` is non-empty**; otherwise no control renders in its place. It opens in a new tab rather than forcing a download, because browsers ignore `download` on a cross-origin URL. |
 
