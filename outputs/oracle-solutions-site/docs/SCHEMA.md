@@ -193,35 +193,33 @@ Seven entries, in the order the Products page should list them:
 | `scope` | `{ in: [string], out: [string] }` | Two compact side-by-side lists, 4–6 items each, ≤ 14 words each. Renders inside the More-detail disclosure. |
 | `steps` | `[{ n, title, text, image, features }]` | **3–5 workflow steps** — the "How it works" stepper that replaced the flat key-features checklist. `n` is the 1-based position and must equal the array index + 1. `text` is ≤ 2 lines (≤ 30 words). `image` is `assets/img/steps/<slug>-<n>.jpg` — a real product screenshot where one exists, otherwise a designed step illustration in the same 16:10 frame. `features` holds the **exact strings** from `overview.features` that belong to this step: the union across steps must equal `overview.features`, with no bullet in two steps and none left out. That invariant is what lets the stepper replace the checklist without losing a fact. |
 | `industryCases` | `[{ industry, label, image, problem, solution }]` | **3–6 cases**, rendered as the industry tab component. `industry` is a key from the fixed set of 16; no key appears twice. `label` must equal `shared.industryLabels[industry]`. `image` is `assets/img/industries/<key>.jpg` — keyed by industry, so the file is **shared across products**. `problem` and `solution` are 2–3 sentences each, specific to that industry *and* this product; a generic paragraph that would read the same under any tab is the failure mode here. The first tab is open by default. |
-| `sideFacts` | `{ category, platform, availability, povDuration, povPrice, povPriceNote? }` | The "At a glance" card in the sticky side rail. Every value is a **denormalised copy** of a fact that already exists: `category` from `facets.categories[].full`, `platform` from `facets.technology[].fullLabel`, `availability` from `availabilityChip`, `povDuration` and `povPrice` from `pov.facts`. `povPrice` never carries a bare asterisk — where the figure needs a caveat it ships as `povPriceNote`, since the side rail has no footnote row of its own. The card links to the POV Jumpstart tab, where the full terms live. |
 | `moreDetail` | `[{ title, body }]` | The collapsible disclosure at the end of the tab. Everything that used to be a prose block above the fold lives here: today/tomorrow, the pattern, pull quotes, per-persona "where it applies" paragraphs, scope boundaries, roadmap notes, evaluation disclaimers. ≥ 3 entries. With the compact Overview (§2 of `VISUAL-GRAMMAR.md`) the disclosure also absorbs `scope` and `featuresDetail`. An entry that repeats a vertical the `industryCases` tabs already cover does not belong here — one telling per vertical, per product. |
-| `successStory` | object | Unchanged — see below. |
+| `successStory` | object **or `null`** | The dark customer callout — see below. |
+
+**`overview.sideFacts` is deleted.** The At-a-glance card went with it (round 3, H): every value on it was a denormalised copy of a fact printed elsewhere on the same page — the chips, the Jumpstart investment card, the stack — so it was a second place to keep in sync and the first to drift. The side rail now holds Outcomes & ROI alone. `check-grammar.js` fails if the key reappears.
 
 #### `overview.successStory`
 
+**`null` on five of the seven.** The key is always present; it is `null` wherever no named customer story ships, and the block then does not render at all. There is no empty state: a success-story section whose only content is "nothing published yet" is worse than its absence on a page sellers demo live in front of a customer.
+
 | Key | Type | Notes |
 |---|---|---|
-| `title` | string | Section heading. |
-| `state` | `published` / `first-engagement` / `none` | Drives which shape renders. |
-| `blurb` | string | **The whole block renders only when this is non-empty.** Empty on `none`, and the section is then omitted entirely. |
-| `scopeLine?` | string | One line naming the shape of the engagement — duration, countries, what was modelled. |
-| `evidenceId?` | string | Renders the matching `overview.evidence[]` card rather than duplicating it. |
-| `adjacentMethodId?` | string | A `METHOD` card that may render alongside as method proof. |
+| `customer` | string | The customer's real name. Only `Bosch` (workforce-optimization) and `Riyadh Air` (large-document-extraction) are cleared (Alex, 2026-09-14). |
+| `logo` | string | `assets/img/logos/<name>.<svg\|png>` — a light/white mark for the dark callout. |
+| `headline` | string | One line naming what the engagement did. |
+| `metrics` | `[{ value, label }]` | **Exactly two**, set as big figures. `value` ≤ 14 characters. |
+| `story` | string | Two to three sentences: what was done, at what scale — **closing with the caveat sentence that qualifies the figures**. The callout has no footnote row of its own, so rule 1 of `VISUAL-GRAMMAR.md` is satisfied inside `story`; `check-grammar.js` fails a story with no "illustrative" / "modeled simulations" / "not contractual" clause. |
+| `downloadLabel` | string | Label of the link out. **Renders only when `SITE_CONFIG.products[slug].successStoryUrl` is non-empty**; otherwise no control renders in its place. It opens in a new tab rather than forcing a download, because browsers ignore `download` on a cross-origin URL. |
 
-**No story, no band.** A success-story section whose only content is "nothing published yet" is worse than its absence on a page sellers demo live in front of a customer, so there is no empty state here — the block is simply not rendered. This is the same rule that governs every other URL-gated element on the site.
+**No € figure from a customer's business case may appear here** — no contract values, headcounts, salaries or operating baselines. Ratios, durations and counts only. The Bosch figures come from the external-safe tier of `RESEARCH/07` §7.1; the Riyadh Air figures from the pack's own external sales one-pager.
 
-**Figures live in the metric tiles, not here.** The card carries the narrative, the scope line and at most one link. Printing the same numbers in `overview.metrics[]` and again in the story card, each under its own copy of the same disclaimer, was the duplication the compactness target exists to prevent; the tile row's `metricsNote` carries the disclaimer once per tab.
-
-The **Open the success story** link renders only when `SITE_CONFIG.products[slug].successStoryUrl` is non-empty; otherwise no control renders in its place. It opens in a new tab rather than forcing a download, because browsers ignore `download` on a cross-origin URL.
-
-The block renders as a single-tone light band.
+The block renders as a **dark surface-level panel with a 3px teal left rule**, in the MAIN column after the industry use cases — not a white band, and not in the side rail.
 
 ### `technology`
 
 | Key | Type | Notes |
 |---|---|---|
-| `narrative` | string | **Two short sentences, ~40 words maximum.** One paragraph. The flow steps and the layered stack directly beneath it carry the detail; a long paragraph here is the text dump the flow diagram was added to replace. |
-| `flow` | `[{ step, label }]` | **Exactly four steps**, rendered as the standard compact flow diagram — identical geometry on all seven pages. `step` is the canonical stage name (`Sources`, `Ingest`/`Extract`/`Mount`, `Reason`/`Optimize`/`Govern`/`Validate`, `Deliver`); `label` is the product-specific line, ≤ 10 words. |
+| `narrative` | string | **Two short sentences, ~40 words maximum.** One paragraph, at the head of the Architecture block. The layered stack directly beneath it carries the detail. |
 | `stack` | `[{ key, label, summary, vendors, items }]` | **The layered solution stack — the block the Technology tab renders below the flow diagram.** 4–5 accordion rows, top → bottom, in the fixed order `application` → `ai-engine` → `data-platform` → `infrastructure` → `custom`. A layer may be **omitted** (the two Lakehouse products have no `ai-engine`: NVIDIA is not required there) but never re-ordered, and `application`, `data-platform`, `infrastructure` and `custom` are present on all seven. `summary` is **one sentence** — the collapsed row. `vendors` is a non-empty array of `oracle` / `nvidia` / `softserve` and selects the wordmark(s) on the row. `items` is `[{ name, required, note?, direction? }]`; `required` is a real boolean rendering as the **Required / Optional** tag, and every layer carries at least one `required: true`. `direction` is `inbound` / `outbound` / `both`, is only legal on the `custom` layer, and is what turns the old `integration` list into separate **Inbound** and **Outbound** lines inside that layer. The custom layer always names at least one inbound and one outbound item. |
 | `governance?` | `{ title, body }` | The two Lakehouse products. One band below the accordion. |
 | `security` | `[{ icon, text }]` | Icon-led list below the stack. Icons by convention `shield` / `lock` / `eye` / `audit`. |
