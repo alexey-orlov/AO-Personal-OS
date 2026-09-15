@@ -632,10 +632,10 @@ window.SITE_CONTENT = {
       },
       jumpstart: {
         title: "Jumpstart Proof-of-Value",
-        promise: "Pilot Account insights on your own account list and signal sources, at a scope agreed before the clock starts, with a decision-ready result.",
+        promise: "Pilot account insights on your own account list and signal sources, at a scope agreed before the clock starts, and measure how many of the generated opportunities a reviewer actually accepts.",
         pillars: [
           { key: "fast", title: "Fast", text: "One signal set, one account list. The proof is deliberately as small as it can honestly be, and the duration is set at scoping." },
-          { key: "low-risk", title: "Low-risk", text: "Fixed scope, signed before the clock starts. It runs in your own Oracle tenancy, and nothing is written back to your CRM. Every feature used is generally available." },
+          { key: "low-risk", title: "Low-risk", text: "Fixed scope, signed before the clock starts. It runs in your own Oracle tenancy, and nothing is written back to your CRM." },
           { key: "tangible", title: "Tangible", text: "A measured accuracy readout: the share of generated opportunities a reviewer accepts, and how well the confidence scores track those decisions." }
         ],
         outcomes: [
@@ -656,8 +656,8 @@ window.SITE_CONTENT = {
           "A golden set of manually prepared briefs to measure the output against"
         ],
         investment: {
-          price: "Scoped per engagement",
-          duration: "Scoped per engagement",
+          price: null,
+          duration: null,
           includes: [
             "Signal ingestion and grounding, the relevance filter and account fan-out",
             "Opportunity and risk reasoning, cross-account ripples, scoring and citations",
@@ -945,10 +945,10 @@ window.SITE_CONTENT = {
       },
       jumpstart: {
         title: "Jumpstart Proof-of-Value",
-        promise: "Pilot Case evidence collection on historical cases your own experts have already adjudicated, at a scope agreed before the clock starts, with a decision-ready result.",
+        promise: "Pilot case evidence collection on historical cases your own experts have already adjudicated, at a scope agreed before the clock starts, and see how the assembled evidence file compares with the answer they reached.",
         pillars: [
           { key: "fast", title: "Fast", text: "One case category, one historical sample. The duration is set at scoping, against the sample you pick." },
-          { key: "low-risk", title: "Low-risk", text: "Historical, non-production records only, in your own Oracle tenancy, with read-only source access. The system assembles and drafts; a person decides the outcome. Every feature used is generally available." },
+          { key: "low-risk", title: "Low-risk", text: "Historical, non-production records only, in your own Oracle tenancy, with read-only source access. The system assembles and drafts; a person decides the outcome." },
           { key: "tangible", title: "Tangible", text: "Elapsed time and person-hours for an equivalent case file, measured before and after — on cases whose answer is already known." }
         ],
         outcomes: [
@@ -1350,12 +1350,10 @@ window.SITE_CONTENT = {
           }
         },
         metrics: [
-          { value: "5–15 min", label: "To extract a 60–100-page contract end to end", qualifier: "Down from 3–5 days by hand", icon: "clock" },
-          { value: "up to −20%", label: "Manual data-entry effort", qualifier: "Targeted reduction at proof of value", icon: "trendDown" },
           { value: null, label: "Business-rule validators", qualifier: "Flag what a human must look at, before anything is exported", icon: "alert" },
           { value: null, label: "Confidence and a page citation", qualifier: "On every extracted value, before anything is exported", icon: "shield" }
         ],
-        metricsNote: "Targets from the proof of value; figures are illustrative, not contractual.",
+        metricsNote: "The figures the delivered proof of value produced are in the Riyadh Air story on this page.",
         roi: {
           icon: "roi",
           text: "Two effects compound. Cycle time collapses — a document that took days moves in minutes, so onboarding a new counterparty stops being a month-long project. And the error class that costs the most, a rate keyed wrong and found at invoice reconciliation, is caught at review against a cited source page instead."
