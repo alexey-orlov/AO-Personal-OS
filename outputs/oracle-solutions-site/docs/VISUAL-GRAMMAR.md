@@ -4,11 +4,13 @@ This file is the contract between `site/data/content.js` and the product rendere
 
 The rule that produced it: a reader who has seen one product page must be able to read the next six without re-learning the layout. Same eyebrow treatment, same icon style, same card geometry, same order. Only the words change.
 
-Three hard rules:
+Five hard rules:
 
 1. **Every product fills every slot.** No product is allowed to render a shorter Overview than another. Where a product has no published number, the slot is filled with a **qualitative** instance of the same component — never a blank, never a missing section, never a sentence apologising for the absence.
 2. **A number never renders without the disclaimer beside it.** `metricsNote` renders as a footnote line directly under the metric row, in the same block; `jumpstart.investment.footnote` under the price card, in its block; and the success-story callout, which has no footnote row, carries its caveat in the last sentence of `story`.
 3. **Icons are 1.5px line icons, teal, from the one registry in `assets/app.js`.** No emoji anywhere. No filled icons except the existing `play` and `dot`.
+4. **Peer figures share their baselines.** Wherever a value/label pair sits beside another — the proof-row metrics, the success-story figures, the Jumpstart investment figures, the Services brief metrics — the row is one grid with two rows, so every value occupies the first and every caption the second. Laid out as independent cards, one wrapped value drops its caption half a line below its neighbour's, and two captions on different baselines is the geometry inconsistency this file exists to prevent. On mobile the pairs stack and the rule is moot.
+5. **A customer mark is sized optically, not by one height rule.** A horizontal wordmark and a stacked lockup (symbol above wordmark) at the same rendered height do not read at the same size: the stacked mark spends most of its box on the symbol and its words collapse to a smudge. The `logoStacked` flag picks the larger size, and the test is that the two wordmarks share an x-height at 1×.
 
 ---
 
@@ -228,7 +230,7 @@ Tab label **Jumpstart**; block title **Jumpstart Proof-of-Value** (`jumpstart.ti
 | 1 | **Promise line** | `jumpstart.promise`. One sentence, set as the block's lead. |
 | 2 | **Three pillars** | `jumpstart.pillars[]` — exactly three equal cards in one row, each an icon, a `title` and one short paragraph, in the fixed order `fast` → `low-risk` → `tangible`. Peers in a row are equal height. They stack on mobile. |
 | 3 | **Two columns** | LEFT: `jumpstart.outcomes[]` — 3–4 outcome lines with check icons, under `sectionLabels.jumpstartOutcomes` ("What you get"). RIGHT: `jumpstart.timeline[]` — 3–4 nodes as a compact week-by-week rail, under `sectionLabels.jumpstartTimeline` ("How it runs"). Equal height on desktop; the outcomes come first on mobile. |
-| 4 | **Needs beside the investment card** | LEFT: `jumpstart.needs[]` — exactly three short asks, under `sectionLabels.jumpstartNeeds`. RIGHT: the **investment card** — `price` and `duration` set large, `includes[]` beneath, and `footnote` as the single footnote line inside the same block as the figures. |
+| 4 | **Needs beside the investment card** | LEFT: `jumpstart.needs[]` — exactly three short asks, under `sectionLabels.jumpstartNeeds`. RIGHT: the **investment card** — `price` and `duration` set large, `includes[]` beneath, and `footnote` as the single footnote line inside the same block as the figures. Where **neither** figure is published, the card prints `sectionLabels.jumpstartScoped` as one line instead, and no footnote: two tiles both reading the same placeholder are an unfilled template, and a footnote qualifying figures that are not there qualifies nothing. |
 | 5 | **After the Jumpstart** | `jumpstart.next[]` — exactly two compact cards, `Integration` then `Scale`, one line each plus `duration` / `price` where they exist. Heading from `sectionLabels.jumpstartNext`. This replaced the three-tier ladder. |
 | 6 | **One CTA**, then the standing blocks | `jumpstart.cta` → that product's contacts tab, then `shared.credibilityBlock` and `shared.engageLink`. |
 
@@ -359,7 +361,7 @@ Every product object must satisfy all of the following. `tools/check-grammar.js`
 | `overview.industriesNote` | non-empty string |
 | `overview.scope.in` / `.out` | ≥ 4 items each |
 | `overview.moreDetail` | ≥ 3 `{ title, body }` |
-| `overview.successStory` | present — `null`, or `{ customer, logo, headline, metrics ×2, story, downloadLabel }` with a caveat clause inside `story` |
+| `overview.successStory` | present — `null`, or `{ customer, logo, logoStacked?, headline, metrics ×2, story, downloadLabel }` with a caveat clause inside `story`; `logoStacked` is a boolean where present |
 | `technology.narrative` | ≤ 3 sentences |
 | `technology.capabilities` | exactly 4 `{ stage, items }`; stages unique; ≥ 3 items each; `state`, where present, is `supported` or `roadmap` |
 | `technology.stack` | 4–5 layers, keys a subsequence of `application` → `ai-engine` → `data-platform` → `infrastructure` → `custom`; `application`, `data-platform`, `infrastructure` and `custom` all present; `summary` one sentence; `vendors` non-empty from `oracle` / `nvidia` / `softserve`; every layer ≥ 1 item and ≥ 1 with `required: true`; `direction` only on `custom`, and that layer names at least one inbound and one outbound |
@@ -371,7 +373,7 @@ Every product object must satisfy all of the following. `tools/check-grammar.js`
 | `jumpstart.outcomes` | 3–4 outcome lines |
 | `jumpstart.timeline` | 3–4 `{ label, text }` |
 | `jumpstart.needs` | exactly 3 |
-| `jumpstart.investment` | `{ price, duration, includes ≥ 3, footnote }`; `footnote` is one line (≤ 2 sentences) |
+| `jumpstart.investment` | `{ price, duration, includes ≥ 3, footnote }`; `price` and `duration` are each a non-empty string **or** `null`; `footnote` is one line (≤ 2 sentences) |
 | `jumpstart.next` | exactly 2, `Integration` then `Scale`, each with `text` and a `price` (`Scoped per engagement` where none is published) |
 | `jumpstart.cta` | `{ label, route }`, routed at `#/products/<slug>/contacts` |
 
