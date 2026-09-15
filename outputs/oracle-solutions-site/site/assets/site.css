@@ -1118,7 +1118,6 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
   .btn:active, .chip--filter:active, .segment:active, .icon-btn:active, .link-arrow:active { transform: none; }
   .video-card:hover { transform: none; }
   .video-card:hover .video-card-play { transform: translate(-50%, -50%); }
-  .market-tile:hover .market-tile-img, .market-tile:focus-within .market-tile-img { transform: none; }
 }
 
 /* ——— route placeholder ————————————————————————————————— */
@@ -2390,7 +2389,6 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
   .menu-toggle,
   .skip-link,
   .tabbar,
-  .pager,
   .hero-glow,
   .hero-bg,
   .social-row,
@@ -2398,20 +2396,21 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
   .rail,
   .form-trap { display: none !important; }
 
-  .h1, .h2, .h3, .h4, .tile-title, .tier-title, .brief-title, .note-title, .plat-name,
-  .stat-value, .metric-value, .brief-value, .price-value { color: #111; }
+  .h1, .h2, .h3, .h4, .ptile-title, .tier-title, .brief-title, .note-title, .plat-name,
+  .stat-value, .metric-value, .brief-value, .invest-value, .story-figure-value { color: #111; }
 
   .lead, .body-text, .small, .footnote, .def-body, .tier-scope, .brief-body, .note-body,
-  .plat-body, .layer-band-body, .stat-label, .metric-label, .brief-label { color: #333; }
+  .plat-body, .layer-band-body, .stat-label, .metric-label, .brief-label,
+  .ptile-desc, .story-text, .pillar-text { color: #333; }
 
   .accent, .eyebrow--accent, .layer-band--lead .layer-band-label { color: #0B6E63; }
 
-  .tile, .tier, .brief, .plat-card, .panel, .split-col, .price-row, .layer-band,
+  .ptile, .tier, .brief, .plat-card, .panel, .split-col, .layer-band,
   .light-band, .light-band-media, .light-band-copy, .form-confirm,
-  .story-band, .story-band-copy, .story-band-metrics, .media-figure,
-  .ps-panel, .stat-tiles, .stat-tile, .roi-band, .ind-chip, .flow-step,
-  .fact-strip, .fact-tile, .video-card, .rail-card, .step-frame, .ind-figure,
-  .stack-accordion, .stack-row, .stack-body, .contact-card, .market-tile {
+  .story-callout, .media-figure, .pillar, .invest-card, .next-tier,
+  .ps-panel, .stat-tiles, .stat-tile, .roi-band, .ind-chip, .cap-stage,
+  .video-card, .rail-card, .step-frame, .ind-figure,
+  .stack-accordion, .stack-row, .stack-body, .contact-card {
     background: #fff !important;
     border-color: #bbb !important;
     box-shadow: none !important;
@@ -2419,7 +2418,7 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
     page-break-inside: avoid;
   }
 
-  .tile-plate { background: #f2f2f2 !important; color: #111 !important; }
+  .ptile-band { background: #f2f2f2 !important; }
   .chip { background: #f2f2f2 !important; color: #111 !important; border-color: #bbb !important; }
   .section { padding-block: 1.5rem; }
   .js-reveal .reveal { opacity: 1 !important; transform: none !important; }
