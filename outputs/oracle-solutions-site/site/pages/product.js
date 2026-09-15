@@ -516,8 +516,11 @@
       group("outbound", label("directionOutbound"), outbound);
   }
 
-  /* One block where three used to stand: the component columns, the layer
-     table and the integration list were three views of one architecture. */
+  /* One block where four used to stand: the component columns, the layer table,
+     the integration list and the How-it-runs flow diagram were four views of
+     one architecture. The stack read top to bottom IS the flow, drawn once and
+     with the components attached, so the layers are bands rather than rows —
+     application on top, infrastructure at the foot, each one expandable. */
   function solutionStack(product) {
     var UI = window.UI;
     var tech = product.technology;
@@ -526,12 +529,13 @@
 
     var rows = tech.stack.map(function (layer, index) {
       var open = index === 0;
-      return '<div class="stack-layer' + (open ? " is-open" : "") + '">' +
+      return '<div class="stack-layer stack-layer--' + UI.esc(layer.key) +
+        (open ? " is-open" : "") + '">' +
         '<button class="stack-row" type="button" aria-expanded="' + (open ? "true" : "false") + '"' +
           ' aria-controls="' + base + "-body-" + index + '">' +
+          '<span class="stack-marks" aria-hidden="true">' + vendorMarks(layer.vendors) + "</span>" +
           '<span class="stack-name">' + UI.esc(layer.label) + "</span>" +
           '<span class="stack-summary">' + UI.esc(layer.summary) + "</span>" +
-          '<span class="stack-marks" aria-hidden="true">' + vendorMarks(layer.vendors) + "</span>" +
           UI.icon("chevronDown", "stack-chev") +
         "</button>" +
         '<div class="stack-body" id="' + base + "-body-" + index + '"' + (open ? "" : " hidden") + ">" +
@@ -539,26 +543,65 @@
         "</div></div>";
     }).join("");
 
-    return '<section class="panel reveal" data-stack="' + UI.esc(product.slug) + '">' +
-      blockHead(label("stack")) +
-      '<div class="stack-accordion">' + rows + "</div>" +
+    return '<div class="stack-accordion" data-stack="' + UI.esc(product.slug) + '">' + rows + "</div>";
+  }
+
+  /* The complete feature list, grouped under the four workflow stages the
+     Overview stepper walks through — so two products compare stage for stage.
+     A state tag renders only where a shipped capability matrix states one; an
+     untagged item gets no tag at all, because a guessed tag is a claim. */
+  function capabilities(product) {
+    var UI = window.UI;
+    var groups = product.technology.capabilities;
+    if (!groups || !groups.length) return "";
+
+    var columns = groups.map(function (group, index) {
+      var items = (group.items || []).map(function (item) {
+        var state = item.state === "supported" || item.state === "roadmap" ? item.state : "";
+        return '<li class="cap-item">' +
+          '<span class="cap-name">' + UI.esc(item.name) + "</span>" +
+          (state
+            ? '<span class="cap-tag cap-tag--' + state + '">' +
+              UI.esc(label(state === "roadmap" ? "stateRoadmap" : "stateSupported")) + "</span>"
+            : "") +
+          "</li>";
+      }).join("");
+      return '<div class="cap-stage">' +
+        '<p class="cap-stage-head">' +
+          '<span class="cap-stage-index nums">' + (index + 1) + "</span>" +
+          '<span class="cap-stage-name">' + UI.esc(group.stage) + "</span>" +
+        "</p>" +
+        '<ul class="cap-list">' + items + "</ul>" +
+        "</div>";
+    }).join("");
+
+    return '<section class="panel reveal">' +
+      blockHead(label("capabilities")) +
+      '<div class="cap-grid">' + columns + "</div>" +
       "</section>";
   }
 
+  /* Exactly two blocks (VISUAL-GRAMMAR §3): Architecture — the narrative and
+     the layer stack under one heading — then Capabilities. */
   function technologyTab(product) {
     var UI = window.UI;
     var tech = product.technology;
 
-    return mediaRow(product.slug, blockHead(label("architecture")) +
-        '<p class="lead">' + UI.esc(tech.narrative) + "</p>", true) +
-      flowDiagram(tech) +
-      solutionStack(product) +
+    var figure = UI.figure(product.slug, { className: "media-figure--arch" });
+
+    return '<section class="panel reveal">' +
+        blockHead(label("architecture")) +
+        '<div class="arch-head' + (figure ? " arch-head--media" : "") + '">' +
+          '<p class="lead arch-narrative">' + UI.esc(tech.narrative) + "</p>" +
+          (figure || "") +
+        "</div>" +
+        '<p class="eyebrow arch-stack-label">' + UI.esc(label("stack")) + "</p>" +
+        solutionStack(product) +
+      "</section>" +
       (tech.governance
         ? calloutBand("shield", tech.governance.title, tech.governance.body)
         : "") +
-      '<section class="panel reveal">' + blockHead(label("security")) +
-        iconList(tech.security) +
-      "</section>";
+      capabilities(product);
   }
 
   /* ————— tab: POV Jumpstart ————— */
