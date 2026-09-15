@@ -406,7 +406,7 @@ window.SITE_CONTENT = {
           },
           solution: {
             title: "THE SOLUTION",
-            text: "One signal becomes a scored, cited brief of the opportunities and risks it creates for every affected account — each mapped to a service line, with cross-account ripples foreseen.",
+            text: "One signal becomes a scored, cited brief of the opportunities and risks it creates for every affected account, each mapped to a service line, including the ripple onto neighbouring accounts.",
             icon: "spark"
           }
         },
@@ -1272,7 +1272,7 @@ window.SITE_CONTENT = {
           { label: "Weeks 1–2 · Discovery", text: "Sample, sources and success thresholds agreed. The phase ends at a gate before the build starts." },
           { label: "Weeks 3–4 · Framework", text: "Exports landed in zoned storage with lineage; the conformed model and the mapping layer built against your unit identifier." },
           { label: "Weeks 5–10 · Analysis", text: "Plan against actual at unit level, then the evidence-backed output: variances, patterns and candidate drivers with their citations." },
-          { label: "Weeks 11–14 · Validate", text: "Validation with your experts, demo and roadmap, then the two-week acceptance phase." }
+          { label: "Weeks 11–12 · Validate", text: "Validation with your experts, demo and roadmap. Acceptance runs in weeks 13–14, after the twelve-week build." }
         ],
         needs: [
           "An agreed portfolio or project sample, with historical periodic records per unit",
