@@ -447,8 +447,17 @@
   $("#tour-skip").addEventListener("click", function () { tour.skip(); });
   $("#tour-toggle").addEventListener("click", function () { if (tour.active) tour.exit(); else location.href = location.pathname; });
 
+  /* ---------------- keyboard ---------------- */
+  document.addEventListener("keydown", function (e) {
+    if (e.key !== "Escape" || tour.active) return;
+    if (!picker.hidden) { picker.hidden = true; return; }
+    if (!$("#gate").hidden) { $("#gate").hidden = true; return; }
+    if (S.selected) { S.selected = null; renderGroups(); renderDetails(); }
+  });
+
   /* ---------------- boot ---------------- */
   go("upload");
+  if (params.get("ui") === "clean") { $("#tour-toggle").hidden = true; } /* screenshot mode: product UI only */
   if (params.get("tour") === "off") { tour.exit(); $("#gate").hidden = true; }
   else {
     $("#gate").hidden = false;
