@@ -414,57 +414,46 @@
       "</section>";
   }
 
-  /* Every value here already exists elsewhere in the product object — the card
-     is a summary, never a new claim, and the price links to its full terms. */
-  function atAGlance(product) {
-    var UI = window.UI;
-    var facts = product.overview.sideFacts;
-    if (!facts) return "";
-    var rows = [
-      { label: label("factCategory"), value: facts.category },
-      { label: label("factPlatform"), value: facts.platform },
-      { label: label("factAvailability"), value: facts.availability },
-      { label: label("factPovDuration"), value: facts.povDuration },
-      { label: label("factPovPrice"), value: facts.povPrice, note: facts.povPriceNote }
-    ].filter(function (row) { return row.value; }).map(function (row) {
-      return '<div class="glance-row">' +
-        "<dt>" + UI.esc(row.label) + "</dt>" +
-        "<dd>" + UI.esc(row.value) +
-          (row.note ? '<span class="glance-note">' + UI.esc(row.note) + "</span>" : "") +
-        "</dd></div>";
-    }).join("");
+  /* No story, no callout. A section whose only content is "nothing to show yet"
+     is worse than its absence on a page a seller demos live. Five of the seven
+     products carry `successStory: null` and render nothing here.
 
-    return '<section class="panel panel--tight rail-card rail-card--pin reveal">' +
-      blockHead(label("atAGlance")) +
-      '<dl class="glance-rows">' + rows + "</dl>" +
-      '<p class="panel-link">' + UI.linkArrow({
-        label: label("povLink"), href: tabRoute(product.slug, "pov")
-      }) + "</p>" +
-      "</section>";
-  }
-
-  /* No story, no band. A section whose only content is "nothing to show yet"
-     is worse than its absence on a page a seller demos live. The numbers stay
-     in the metric tiles above; the card carries the narrative and the link. */
+     The caveat that qualifies the figures is the last sentence of `story`, not
+     a footnote row — the panel has none, and rule 2 of the visual grammar has
+     to hold inside the block that prints the numbers. The download link renders
+     only when a URL exists; there is no disabled stand-in. */
   function successStory(product) {
     var UI = window.UI;
     var story = product.overview.successStory;
     var conf = cfg(product.slug);
-    if (!story || !story.blurb) return "";
+    if (!story || !story.customer) return "";
+
+    var figures = (story.metrics || []).map(function (metric) {
+      return '<div class="story-figure">' +
+        '<p class="story-figure-value nums">' + UI.esc(metric.value) + "</p>" +
+        '<p class="story-figure-label">' + UI.esc(metric.label) + "</p>" +
+        "</div>";
+    }).join("");
 
     return '<section class="panel panel--flat reveal">' +
-      '<div class="story-band story-band--single">' +
-        '<div class="story-band-copy">' +
-          '<p class="band-label">' + UI.esc(story.title) + "</p>" +
-          '<p class="band-body">' + UI.esc(story.blurb) + "</p>" +
-          (story.scopeLine ? '<p class="band-scope">' + UI.esc(story.scopeLine) + "</p>" : "") +
-          (conf.successStoryUrl
-            ? UI.button({
-                label: "Open the success story", href: conf.successStoryUrl,
-                kind: "dark", iconAfter: "external"
-              })
+      '<div class="story-callout">' +
+        '<div class="story-head">' +
+          (story.logo
+            ? '<img class="story-logo" src="' + UI.esc(story.logo) + '" alt="" loading="lazy" decoding="async">'
             : "") +
+          '<div class="story-head-copy">' +
+            '<p class="eyebrow eyebrow--accent">' + UI.esc(label("successStory")) + "</p>" +
+            '<p class="story-customer">' + UI.esc(story.customer) + "</p>" +
+          "</div>" +
         "</div>" +
+        '<h3 class="story-headline">' + UI.esc(story.headline) + "</h3>" +
+        (figures ? '<div class="story-figures">' + figures + "</div>" : "") +
+        '<p class="story-text">' + UI.esc(story.story) + "</p>" +
+        (conf.successStoryUrl && story.downloadLabel
+          ? '<p class="story-link">' + UI.linkArrow({
+              label: story.downloadLabel, href: conf.successStoryUrl
+            }) + "</p>"
+          : "") +
       "</div></section>";
   }
 
@@ -478,28 +467,13 @@
         successStory(product) +
         moreDetail(o) +
       "</div>" +
-      '<aside class="ov-rail" aria-label="' + window.UI.esc(label("atAGlance")) + '">' +
+      '<aside class="ov-rail" aria-label="' + window.UI.esc(label("outcomes")) + '">' +
         outcomesBlock(o) +
-        atAGlance(product) +
       "</aside>" +
       "</div>";
   }
 
   /* ————— tab: technology ————— */
-
-  function flowDiagram(tech) {
-    var UI = window.UI;
-    if (!tech.flow || !tech.flow.length) return "";
-    var steps = tech.flow.map(function (step, index) {
-      return '<li class="flow-step">' +
-        '<span class="flow-index nums">' + UI.esc(index + 1) + "</span>" +
-        '<p class="flow-name">' + UI.esc(step.step) + "</p>" +
-        '<p class="flow-label">' + UI.esc(step.label) + "</p>" +
-        "</li>";
-    }).join("");
-    return '<section class="panel reveal">' + blockHead(label("flow")) +
-      '<ol class="flow flow--compact">' + steps + "</ol></section>";
-  }
 
   function vendorMarks(vendors) {
     var UI = window.UI;
