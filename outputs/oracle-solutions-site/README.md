@@ -38,11 +38,13 @@ oracle-solutions-site/
     │   ├── config.js         window.SITE_CONFIG — links, gate, form destination
     │   ├── content.js        window.SITE_CONTENT — every word on the site
     │   └── diagrams.js       window.SITE_DIAGRAMS — the per-product architecture diagrams, drawn as inline SVG
-    └── pages/
-        ├── overview.js       window.PAGES.overview   →  #/
-        ├── products.js       window.PAGES.products   →  #/products
-        ├── product.js        window.PAGES.product    →  #/products/<slug>[/<tab>]
-        └── services.js       window.PAGES.services   →  #/services
+    ├── pages/
+    │   ├── overview.js       window.PAGES.overview   →  #/
+    │   ├── products.js       window.PAGES.products   →  #/products
+    │   ├── product.js        window.PAGES.product    →  #/products/<slug>[/<tab>]
+    │   └── services.js       window.PAGES.services   →  #/services
+    └── demo/
+        └── large-document-extraction/   the interactive walkthrough — index.html, demo.css, demo.js, data.js
 ```
 
 Script order in `index.html` matters: `data/*` → `assets/forms.js` → `pages/*` → `assets/app.js`, which renders on load. A new page script goes before `assets/app.js`.
@@ -115,6 +117,17 @@ node tools/check-grammar.js
 ```
 
 `check-grammar.js` fails if a product stops filling a grammar slot, if a metric row loses its disclaimer, if an industry key is not in the fixed set, or if an internal string reaches the data layer.
+
+---
+
+## The interactive walkthrough
+
+`site/demo/large-document-extraction/` is a self-contained guided demo of the Large docs processing and review pack: plain HTML, CSS and JavaScript, no dependency beyond Google Fonts (Inter), no build step, and nothing leaves the page — the upload and the download are mocked. It mirrors the product's layout and information model — upload → documents → split-view review (source page beside the extracted rows, a citation on every value, confidence, business-rule validators) → rate-card export — on a synthetic supplier agreement, and walks the viewer through six steps with anchored hints that let only the designated control through. After the last step, or on "Exit guide", the workspace is free to explore.
+
+- Linked from the product hero through `products["large-document-extraction"].demoUrl` in `config.js` (`docs/CONFIG.md` §3); the button opens a new tab, and the same button sits in the pending-video panel.
+- Brand-agnostic by design: no SoftServe, Oracle or NVIDIA mark inside it, and no customer — it can be shown to any prospect in any industry.
+- URL switches: `?tour=off` skips the welcome card and the guide (free mode); `?ui=clean` also hides the guide toggle — the mode the step frames were captured in.
+- The four step frames on the product page and the video-frame poster are captures of it, made with `tools/capture-demo-frames.mjs` (`docs/ASSETS.md` §1).
 
 ---
 

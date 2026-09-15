@@ -33,25 +33,48 @@ it reads as one.
   floor. A full application capture cannot clear it — crop to the one region the
   step is about, and keep every heading whole inside the crop.
 
-### Real product UI (2 frames, 1 product)
+### Product frames from the interactive walkthrough (4 frames + 1 poster, 1 product)
 
-| File | Shows | Source deck |
+All four `large-document-extraction-*.jpg` frames are captures of the site's own
+interactive walkthrough (`site/demo/large-document-extraction/`, 2026-09-15),
+not of the delivered product. The walkthrough keeps the product's layout and
+data model — upload → documents → split-view review with a citation on every
+value, confidence and business-rule validators → rate-card export — on a
+**synthetic** supplier agreement (`MSA-2026-014`, "Meridian Facility Services
+Ltd", invented sites NGC / RDC, invented rates and clauses), so the frames carry
+no customer, no real counterparty and no real figure. That is the standard any
+future product screenshot has to meet before it ships.
+
+| File | Shows | Capture state |
 |---|---|---|
-| `large-document-extraction-2.jpg` | The extracted rate rows, column by column, against the rules for the document type | Workforce/product draft deck, `media/image16.jpeg` |
-| `large-document-extraction-3.jpg` | Reviewer console: rule, confidence, source page, approve | R&D GenAI Solutions monthly update (Jun), `media/image6.png` |
+| `large-document-extraction-1.jpg` | Upload: the pipeline stages — classify, route pages, extract, score and cite, validate | Upload screen mid-processing |
+| `large-document-extraction-2.jpg` | Extract: a service group expanded — rows, rate basis, section, confidence, status | Review tab, Routine cleaning open |
+| `large-document-extraction-3.jpg` | Score, cite, validate: the flagged row's details — evidence, confidence, the validator's rule and its suggested fix | Review tab, Volume discounts open, flagged row selected |
+| `large-document-extraction-4.jpg` | Review and export: the flat rate card and the download | Rate card tab after approval |
 
-**Treatment.** Crop to the legible region (2.0–2.6× into the source frame) →
-Lanczos to 1600 × 1000 → unsharp (r 1.1 / 70 %) → a per-channel curve that takes
-white down to about `#B0B8C0` and cools it, so a light product UI is no longer
-the brightest thing on a dark page. `-2` also carries a soft right-edge fade into
-the panel ground, where the source's own horizontal scroll clipped a column.
-Progressive JPEG, 4:2:2. `.step-frame` adds a 1 px inset rim in CSS so every
-frame, raster or vector, is bounded the same way.
+**Capture.** `tools/capture-demo-frames.mjs` drives the walkthrough in headless
+Chrome over the DevTools protocol (`MODE=frames DPR=2`, the page opened with
+`?tour=off&ui=clean` — no welcome card, no guide, no guide toggle) through the
+same clicks a viewer makes, at 1600 × 1000 CSS px and device scale 2. Each frame
+is then a **640 × 400 CSS-px crop of the region the step is about** (1280 × 800
+device px), Lanczos to 1600 × 1000, light unsharp, progressive JPEG q≈86 — the
+crop, not the full screen, is what keeps 13–14 px UI text near 10 px at the
+frame's 454 px render width, the same band the earlier video-derived frames sat
+in. The crop offsets used: `-1` (260, 150) · `-2` (880, 350, 700 × 438) · `-3`
+(880, 560, 700 × 438) · `-4` (880, 130, 700 × 438). `.step-frame` adds a 1 px
+inset rim in CSS so every frame, raster or vector, is bounded the same way.
 
-**Data shown.** Both frames run on a **synthetic** contract — "Synthetic Envelope
-ID", `SYN-GHA-RL-001`, invented stations "Northbridge International (NBI)" and
-"Westport Gateway (WPG)". That is the standard any future product screenshot has
-to meet before it ships.
+**Poster.** `assets/img/posters/large-document-extraction.jpg`, 1600 × 900: the
+full review screen with the first group open and no details panel, set as
+`videoPoster` so the pending video frame shows a still of the product instead of
+the plate. It is a distinct capture from every step frame, as VISUAL-GRAMMAR §1
+requires.
+
+**Superseded.** The two earlier real-UI frames (`-2`, `-3`, crops of the
+customer-demo recording on the synthetic `SYN-GHA-RL-001` ground-handling
+contract, with the per-channel darkening curve) and the two illustrations at
+`-1` and `-4` are gone from disk; the walkthrough frames replace all four so the
+product's stepper reads as one system.
 
 **What was rejected.**
 

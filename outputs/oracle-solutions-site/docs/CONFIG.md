@@ -197,6 +197,16 @@ Paste a real listing URL and four things appear together, on the next reload:
 
 There is deliberately no separate boolean. A badge claiming a listing that has no URL behind it is a claim the site cannot honour, so the URL is the single switch.
 
+### `demoUrl`
+
+The interactive walkthrough — a self-contained guided demo of the product on prepared data, described in `README.md` ("The interactive walkthrough"). Set today on `large-document-extraction` only, and pointed at a folder **inside** `site/`, so it deploys with the site and the link stays relative:
+
+```js
+demoUrl: "demo/large-document-extraction/index.html",
+```
+
+Non-empty → two controls appear together: the secondary **"Try the interactive demo"** button in the product hero (its label is `shared.demoCta` in `content.js`), and the same button inside the panel the pending video frame opens. Both open the walkthrough in a **new tab** — it carries its own guide and locks every control but the one it points at, and a seller mid-call must keep the product page behind it. Empty → neither control exists. An absolute URL on another host renders the same button.
+
 ### `video`
 
 A boolean — the only non-URL field in a product block. **It decides whether the hero carries a demo frame at all**, which is also the switch between the hero's two layouts.

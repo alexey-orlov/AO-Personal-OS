@@ -1126,3 +1126,49 @@ five products that publish a duration and absent on the two that do not — the
 same contract `pov.durationShort` had. `sectionLabels` lost the keys those
 blocks used, so a renderer still calling `label("flow")` or `label("ladder")`
 prints `undefined` rather than failing loudly.
+
+## 16. The interactive walkthrough round — 2026-09-15
+
+### 16.1 What was added
+
+- `site/demo/large-document-extraction/` — a guided, interactive walkthrough of
+  the Large docs pack, to Alex's brief (chat, 2026-09-15): brand-agnostic,
+  industry-neutral, no integrations and no real inputs (the upload and the
+  download are mocked), the real workflow simplified to six guided steps, hints
+  that allow only the designated action, and a UI rebuilt to a higher standard
+  while keeping the product's layout, data model and information model.
+- **Source of the narrative:** the customer-demo recording
+  `Large Document Extraction and Validation Demo.mp4` (SoftServe OneDrive,
+  `Projects/Oracle/Customers/RiyahdAir/`), read frame by frame. The recording has
+  **no narration** — its audio track transcribes to nothing — so the narrative is
+  screen-derived: upload → contracts list → split-view review with service
+  groups, a per-row citation to the source page, confidence and pending/approve
+  status → row details with evidence and actions → approve all → the flat
+  rate-card export opened in a spreadsheet.
+- **The generalisation:** the SGHA ground-handling case became a supplier Master
+  Services Agreement with a rate schedule (facility services — cleaning,
+  guarding, call-outs, volume discounts, cancellation charges), keeping the same
+  information model: document → metadata → service groups → rate rows →
+  citation + confidence + status → export. Every name, site, rate and clause is
+  invented; the one validator flag (a non-contiguous discount tier) is staged.
+
+### 16.2 What changed on the site
+
+- The product is renamed **"Large docs processing and review"** (Alex, chat
+  2026-09-15) — `name`, `headline`, the overview evidence link and the Jumpstart
+  promise. The slug stays `large-document-extraction`; this settles the
+  "…and Review" vs "…and Validation" question §15 left open, in favour of neither.
+- `config.js` gains `demoUrl` on every product (empty except Large docs) and a
+  `videoPoster` for Large docs; `content.js` gains `shared.demoCta`;
+  `product.js` renders the secondary hero button and the same button inside the
+  pending-video panel, both `target="_blank"`.
+- Step frames 1–4 for Large docs are captures of the walkthrough (`ASSETS.md`
+  §1); the two video-derived frames and the two illustrations are gone.
+
+### 16.3 Still open
+
+- The walkthrough states counts only (48 pages, 25 values, 1 flag) and makes no
+  time or effort claim; whether it should carry the one-pager's figures is
+  Alex's call.
+- The demo-video recording is still pending; the poster is a walkthrough still
+  until it lands.
