@@ -1195,6 +1195,7 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 .rail-option.is-empty .rail-option-count { color: var(--text-dim); }
 .rail-option.is-empty:hover { background: none; color: var(--text-dim); }
 .rail-option.is-empty:active { transform: none; }
+.rail-option:disabled { cursor: default; }
 .rail-option[aria-checked="true"] { background: var(--surface-navy); border-color: var(--border); color: var(--text); font-weight: 600; }
 .rail-option-label { flex: 1; min-width: 0; }
 .rail-option-count { font-size: var(--fs-xs); color: var(--text-dim); flex: none; }
@@ -2228,10 +2229,8 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 
 /* ——— technology: architecture head + capabilities ————— */
 
-.arch-head { display: grid; grid-template-columns: minmax(0, 1fr); gap: clamp(1.5rem, 3vw, 2.5rem); align-items: center; }
-.arch-head--media { grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); }
-.arch-narrative { max-width: 46rem; }
-.media-figure--arch img { aspect-ratio: 4 / 3; }
+.arch-head { display: grid; grid-template-columns: minmax(0, 1fr); gap: clamp(1.5rem, 3vw, 2.5rem); align-items: start; }
+.arch-narrative { max-width: 54rem; }
 .arch-stack-label { margin-top: clamp(1.5rem, 2.4vw, 2rem); margin-bottom: .875rem; }
 
 /* The complete feature list, grouped by the four workflow stages — four
@@ -2309,7 +2308,6 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 
 @media (max-width: 1100px) {
   .cap-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .arch-head--media { grid-template-columns: minmax(0, 1fr); }
 }
 
 @media (max-width: 900px) {

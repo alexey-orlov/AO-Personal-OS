@@ -73,7 +73,9 @@
     var C = window.SITE_CONTENT;
     var list = filtered();
     if (list.length) {
-      return list.map(function (product) { return UI.productTile(product); }).join("");
+      return list.map(function (product, index) {
+        return UI.productTile(product, { eager: index < 2 });
+      }).join("");
     }
     if (state.tech && !state.cat && !state.mp && !state.q) {
       return UI.empty(UI.facetLabel(state.tech).emptyState);
@@ -81,12 +83,15 @@
     return UI.empty(C.facets.noResults);
   }
 
+  /* A facet that can only ever return an empty result is a dead end on a page
+     someone demos live, so a zero-count option renders unclickable. */
   function railOption(options) {
     var UI = window.UI;
     var empty = options.count === 0 && !options.on;
     return '<button class="rail-option' + (empty ? " is-empty" : "") +
-      '" type="button" role="radio" tabindex="' + (options.on ? "0" : "-1") +
-      '" data-group="' + UI.esc(options.group) +
+      '" type="button" role="radio" tabindex="' + (options.on ? "0" : "-1") + '"' +
+      (empty ? ' disabled aria-disabled="true"' : "") +
+      ' data-group="' + UI.esc(options.group) +
       '" data-value="' + UI.esc(options.value) + '" aria-checked="' + (options.on ? "true" : "false") + '"' +
       (options.title ? ' title="' + UI.esc(options.title) + '"' : "") + ">" +
       '<span class="rail-option-label">' + UI.esc(options.label) + "</span>" +
@@ -261,7 +266,12 @@
       event.preventDefault();
       var group = option.parentNode.querySelectorAll(".rail-option");
       var index = Array.prototype.indexOf.call(group, option);
-      var next = group[(index + (event.key === "ArrowDown" ? 1 : group.length - 1)) % group.length];
+      var step = event.key === "ArrowDown" ? 1 : group.length - 1;
+      var next = null;
+      for (var hop = 1; hop < group.length; hop += 1) {
+        var candidate = group[(index + step * hop) % group.length];
+        if (candidate && !candidate.disabled) { next = candidate; break; }
+      }
       if (!next) return;
       next.focus();
       next.click();

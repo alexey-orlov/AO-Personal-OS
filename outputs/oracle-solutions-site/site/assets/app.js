@@ -365,6 +365,7 @@
     var opts = options || {};
     return productTile(product, {
       compact: true,
+      eager: opts.eager,
       marketplaceBadge: opts.marketplaceBadge
     });
   }

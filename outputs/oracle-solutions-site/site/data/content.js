@@ -78,13 +78,11 @@ window.SITE_CONTENT = {
 
   disclaimers: {
     kpiTile: "KPIs measured before/after on proof-of-value data; figures are illustrative, not contractual.",
-    kpiTileTargets: "Targets from the proof-of-value; figures are illustrative, not contractual.",
-    packageTable: "Figures are illustrative and subject to confirmation.",
+    kpiTileTargets: "Targets from the proof of value; figures are illustrative, not contractual.",
     lakehousePricing: "*Price indicative, to be confirmed per scope; Oracle partner funding programs may reduce the customer’s net cost. All features used are generally available product.",
     accountInsightsEvaluation: "The engine is a non-deterministic reasoning system, so a dedicated evaluation plan (correctness and confidence calibration) is part of the work.",
     publicPricingFootnote: "Figures are illustrative and confirmed in scoping.",
     modeledResults: "Results are modeled simulations against a historical baseline, not measured production outcomes.",
-    ladderFallback: "No package price is published for this application yet; scope and price are set once the sample, the sources and the success metrics are agreed."
   },
 
   shared: {
@@ -204,7 +202,7 @@ window.SITE_CONTENT = {
       stats: [
         { value: "7", label: "applications on the Oracle stack — three packaged today, two sellable as a fixed-price offer, two in preparation" },
         { value: "4", label: "Oracle platforms the practice focuses on" },
-        { value: "30 days–4 months", label: "from kickoff to a measured proof of value on your own data" },
+        { value: "30 days–3 months", label: "from kickoff to a measured proof of value on your own data" },
         { value: "30", label: "Fortune 500 clients in SoftServe’s data and analytics practice" }
       ]
     },
@@ -221,7 +219,7 @@ window.SITE_CONTENT = {
     productsIntro: {
       title: "THE PRODUCTS",
       count: 7,
-      body: "Seven packaged applications, each built on a repeatable workflow pattern rather than a one-off build: deep research and investigation, per-item processing pipelines, and data analysis and decision-making. Every one runs in the customer’s own Oracle tenancy, keeps a human in the decision, and ships with a fixed-scope proof of value.",
+      body: "Seven packaged applications, each built on a repeatable workflow pattern rather than a one-off build: deep research and investigation, per-item processing pipelines, and data analysis and decision-making. Every one runs in the customer’s own Oracle tenancy and keeps a human in the decision. Each is sold as a scoped proof of value on the customer’s own data — fixed-price where the package is published.",
       cta: { label: "See all seven →", route: "#/products" }
     },
 
@@ -262,7 +260,7 @@ window.SITE_CONTENT = {
           { value: "up to −20%", label: "targeted reduction in manual data-entry effort (proof of value)" }
         ],
         footnotes: [
-          "Targets from the proof-of-value; figures are illustrative, not contractual."
+          "Targets from the proof of value; figures are illustrative, not contractual."
         ],
         product: { slug: "large-document-extraction", name: "Large docs extraction and review" }
       },
@@ -307,8 +305,8 @@ window.SITE_CONTENT = {
   productsPage: {
     title: "PRODUCTS",
     count: 7,
-    intro: "Seven packaged AI applications on the Oracle stack. Filter by the Oracle platform each one is built on, or search by the workflow you are trying to fix. Every product ships with a fixed-scope proof of value on your own data, in your own tenancy.",
-    searchPlaceholder: "Search products, patterns, industries…",
+    intro: "Seven packaged AI applications on the Oracle stack. Filter by the Oracle platform each one is built on, or search by the workflow you are trying to fix. Each one is sold as a scoped proof of value on your own data, in your own tenancy — fixed-price where the package is published.",
+    searchPlaceholder: "Search products or workflows…",
     bottomBlock: {
       heading: "NOT SEEING YOUR WORKFLOW?",
       body: "These seven are the patterns packaged so far. New ones are packaged after their first live customer — tell us the workflow you need fixed and we will say whether it is close to something we already run.",
@@ -582,7 +580,7 @@ window.SITE_CONTENT = {
           },
           {
             key: "custom",
-            label: "Custom configuration & integrations",
+            label: "Configuration & integrations",
             summary: "The sources, the mappings, the scoring rubric and where the output lands — set per engagement.",
             vendors: ["softserve"],
             items: [
@@ -643,7 +641,7 @@ window.SITE_CONTENT = {
         promise: "Pilot Account insights on your own account list and signal sources, at a scope agreed before the clock starts, with a decision-ready result.",
         pillars: [
           { key: "fast", title: "Fast", text: "One signal set, one account list. The proof is deliberately as small as it can honestly be, and the duration is set at scoping." },
-          { key: "low-risk", title: "Low-risk", text: "Fixed scope, signed before the clock starts. It runs in your own Oracle tenancy, and nothing is written back to your CRM." },
+          { key: "low-risk", title: "Low-risk", text: "Fixed scope, signed before the clock starts. It runs in your own Oracle tenancy, and nothing is written back to your CRM. Every feature used is generally available." },
           { key: "tangible", title: "Tangible", text: "A measured accuracy readout: the share of generated opportunities a reviewer accepts, and how well the confidence scores track those decisions." }
         ],
         outcomes: [
@@ -672,7 +670,7 @@ window.SITE_CONTENT = {
             "The reviewer UI and the evaluation harness, deployed in your tenancy",
             "One SoftServe team: AI, data and OCI architects, a product manager and a project manager, senior AI and data engineers"
           ],
-          footnote: "No package price is published for this application yet; scope and price are set once the sources, the account list and the success metrics are agreed."
+          footnote: "Figures are illustrative and confirmed in scoping."
         },
         next: [
           { tier: "Integration", text: "CRM export, validation against the deals already in flight, and a persistent signal store — live for one account book.", duration: "3–5 months", price: "Scoped per engagement" },
@@ -902,7 +900,7 @@ window.SITE_CONTENT = {
           },
           {
             key: "custom",
-            label: "Custom configuration & integrations",
+            label: "Configuration & integrations",
             summary: "Source mapping, case categories, citation granularity and the approval workflow.",
             vendors: ["softserve"],
             items: [
@@ -956,7 +954,7 @@ window.SITE_CONTENT = {
         promise: "Pilot Case evidence collection on historical cases your own experts have already adjudicated, at a scope agreed before the clock starts, with a decision-ready result.",
         pillars: [
           { key: "fast", title: "Fast", text: "One case category, one historical sample. The duration is set at scoping, against the sample you pick." },
-          { key: "low-risk", title: "Low-risk", text: "Historical, non-production records only, in your own Oracle tenancy, with read-only source access. The system assembles and drafts; a person decides the outcome." },
+          { key: "low-risk", title: "Low-risk", text: "Historical, non-production records only, in your own Oracle tenancy, with read-only source access. The system assembles and drafts; a person decides the outcome. Every feature used is generally available." },
           { key: "tangible", title: "Tangible", text: "Elapsed time and person-hours for an equivalent case file, measured before and after — on cases whose answer is already known." }
         ],
         outcomes: [
@@ -985,7 +983,7 @@ window.SITE_CONTENT = {
             "The investigator UI and its audit log, deployed in your tenancy",
             "One SoftServe team: AI, data and OCI architects, a product manager and a project manager, senior AI and data engineers"
           ],
-          footnote: "No package price is published for this application yet; scope and price are set once the sample, the sources and the success metrics are agreed."
+          footnote: "Figures are illustrative and confirmed in scoping."
         },
         next: [
           { tier: "Integration", text: "Live source integration, the production approval workflow and its audit trail, live for one case category.", duration: "3–5 months", price: "Scoped per engagement" },
@@ -1212,7 +1210,7 @@ window.SITE_CONTENT = {
           },
           {
             key: "custom",
-            label: "Custom configuration & integrations",
+            label: "Configuration & integrations",
             summary: "Source mapping, the unit identifier, variance rules and the evidence thresholds.",
             vendors: ["softserve"],
             items: [
@@ -1269,7 +1267,7 @@ window.SITE_CONTENT = {
         durationShort: "12 weeks plus a two-week acceptance phase",
         pillars: [
           { key: "fast", title: "Fast", text: "Twelve weeks from kickoff to an expert-validated readout, plus a two-week acceptance phase. Discovery is compressed into the first two weeks and ends at a gate." },
-          { key: "low-risk", title: "Low-risk", text: "Approved static exports in your own Oracle tenancy — no live system access — with stage gates at framework readiness, analytical review and evidence output." },
+          { key: "low-risk", title: "Low-risk", text: "Approved static exports in your own Oracle tenancy, with stage gates at framework readiness, analytical review and evidence output. Every feature used is generally available." },
           { key: "tangible", title: "Tangible", text: "A unit-level plan-versus-actual view over your own sample, with every material finding tied to the record it came from." }
         ],
         outcomes: [
@@ -1299,7 +1297,7 @@ window.SITE_CONTENT = {
             "The review app and the coverage-gap report, running in your tenancy",
             "Stage gates at framework readiness, analytical review and evidence output"
           ],
-          footnote: "No package price is published for this application yet; scope and price are set once the sample, the sources and the success metrics are agreed."
+          footnote: "Figures are illustrative and confirmed in scoping."
         },
         next: [
           { tier: "Integration", text: "Live source feeds in place of static exports, extension beyond the anchor sample, production hardening.", duration: "3–5 months", price: "Scoped per engagement" },
@@ -1363,7 +1361,7 @@ window.SITE_CONTENT = {
           { value: null, label: "Business-rule validators", qualifier: "Flag what a human must look at, before anything is exported", icon: "alert" },
           { value: null, label: "Confidence and a page citation", qualifier: "On every extracted value, before anything is exported", icon: "shield" }
         ],
-        metricsNote: "Targets from the proof-of-value; figures are illustrative, not contractual.",
+        metricsNote: "Targets from the proof of value; figures are illustrative, not contractual.",
         roi: {
           icon: "roi",
           text: "Two effects compound. Cycle time collapses — a document that took days moves in minutes, so onboarding a new counterparty stops being a month-long project. And the error class that costs the most, a rate keyed wrong and found at invoice reconciliation, is caught at review against a cited source page instead."
@@ -1545,7 +1543,7 @@ window.SITE_CONTENT = {
           },
           {
             key: "custom",
-            label: "Custom configuration & integrations",
+            label: "Configuration & integrations",
             summary: "The field schema, the business rules, the thresholds and the target-system integration.",
             vendors: ["softserve"],
             items: [
@@ -1605,7 +1603,7 @@ window.SITE_CONTENT = {
         durationShort: "2 months",
         pillars: [
           { key: "fast", title: "Fast", text: "Two months from kickoff to a measured accuracy and effort readout on your own contracts." },
-          { key: "low-risk", title: "Low-risk", text: "Fixed scope at a fixed price: manual upload, one document type, the core field schema. It runs sandboxed in your own Oracle tenancy, and nothing is written into your cost or ERP system." },
+          { key: "low-risk", title: "Low-risk", text: "Fixed scope at a fixed price: manual upload, one document type, the core field schema. It runs sandboxed in your own Oracle tenancy, and nothing is written into your cost or ERP system. Every feature used is generally available." },
           { key: "tangible", title: "Tangible", text: "A 60–100-page contract extracted end to end in minutes, every value cited to its page and validated by your own reviewer before export." }
         ],
         outcomes: [
@@ -1874,7 +1872,7 @@ window.SITE_CONTENT = {
           },
           {
             key: "custom",
-            label: "Custom configuration & integrations",
+            label: "Configuration & integrations",
             summary: "Client rules, constraints, KPI definitions and the data integrations.",
             vendors: ["softserve"],
             items: [
@@ -1888,48 +1886,47 @@ window.SITE_CONTENT = {
         ],
         capabilities: [
           {
-            stage: "Allocation rules",
+            stage: "Load the period's data",
             items: [
+              { name: "Oracle Field Service as the source for demand, availability, skills and bookings — delivered at roll-out" },
+              { name: "Demand forecasting, booking, inventory, HR/WFM and BI sources — delivered at roll-out" },
               { name: "Skill-based allocation", state: "supported" },
               { name: "Maximum load per day", state: "supported" },
-              { name: "Planned-vacation reallocation and same-day sickness handling", state: "supported" },
+              { name: "Planned-vacation reallocation and same-day sickness handling", state: "supported" }
+            ]
+          },
+          {
+            stage: "Set the rules",
+            items: [
               { name: "Default work zones per technician, and work-zone-level demand", state: "supported" },
               { name: "Neighboring work zones and cross-zone allocation", state: "supported" },
               { name: "Forecast-based allocation against a demand forecast you supply", state: "supported" },
-              { name: "Non-movable appointments and SLA types per appointment — coverage confirmed in scoping", state: "supported" },
-              { name: "Multi-objective optimization with hard and soft rule weighting", state: "supported" },
-              { name: "Minimal disruption of the current allocation", state: "supported" },
+              { name: "Non-movable appointments and SLA types per appointment", state: "partial" },
+              { name: "Client rules, constraints and KPI definitions, configured per engagement" },
               { name: "Distance and travel-time rules with live traffic data", state: "roadmap" },
-              { name: "Within-day job reassignment and urgent-request handling", state: "roadmap" },
               { name: "Spare-parts availability and crew-based assignment", state: "roadmap" }
             ]
           },
           {
-            stage: "Review & approval",
+            stage: "Solve the plan",
+            items: [
+              { name: "Multi-objective optimization with hard and soft rule weighting", state: "supported" },
+              { name: "Minimal disruption of the current allocation", state: "supported" },
+              { name: "A region's four-week plan solved on GPU-accelerated cuOpt, in minutes" },
+              { name: "Within-day job reassignment and urgent-request handling", state: "roadmap" }
+            ]
+          },
+          {
+            stage: "Review, approve, measure",
             items: [
               { name: "Dispatcher UI with map and table views", state: "supported" },
               { name: "Dispatcher approval or rejection before anything reaches the field", state: "supported" },
               { name: "Model-decision explanations and recommendations", state: "supported" },
+              { name: "KPI readout: jobs per technician per working day, capacity utilization, travel reduction, workload balance", state: "supported" },
+              { name: "The current plan against the optimized plan, computed on identical definitions" },
+              { name: "The approved plan written back to Oracle Field Service — delivered at roll-out" },
               { name: "Iterative feedback-based re-optimization", state: "roadmap" },
               { name: "Human-feedback-driven tuning and what-if alternatives", state: "roadmap" }
-            ]
-          },
-          {
-            stage: "KPIs & analytics",
-            items: [
-              { name: "Productivity — jobs per technician per working day", state: "supported" },
-              { name: "Capacity utilization — booked activity time against available capacity", state: "supported" },
-              { name: "Travel reduction", state: "supported" },
-              { name: "Workload balance", state: "supported" },
-              { name: "Current plan against optimized plan, computed identically on both", state: "supported" }
-            ]
-          },
-          {
-            stage: "Integrations",
-            items: [
-              { name: "Oracle Field Service as source and destination — delivered at roll-out" },
-              { name: "Demand forecasting, booking, inventory, HR/WFM and BI sources — delivered at roll-out" },
-              { name: "Client rules, constraints and KPI definitions, configured per engagement" }
             ]
           }
         ]
@@ -1940,7 +1937,7 @@ window.SITE_CONTENT = {
         durationShort: "2 months",
         pillars: [
           { key: "fast", title: "Fast", text: "Two months from kickoff to a before/after KPI readout on a real region of your own." },
-          { key: "low-risk", title: "Low-risk", text: "Fixed scope at a fixed price: manual data import, the recurring constraints, a sandboxed environment on your own tenancy. Nothing reaches the field — a dispatcher approves every plan." },
+          { key: "low-risk", title: "Low-risk", text: "Fixed scope at a fixed price: manual data import, the recurring constraints, a sandboxed environment on your own tenancy. A dispatcher approves every plan before anything reaches the field. Every feature used is generally available." },
           { key: "tangible", title: "Tangible", text: "An optimized four-week plan for one region, measured against your current plan on identical KPI definitions." }
         ],
         outcomes: [
@@ -2186,7 +2183,7 @@ window.SITE_CONTENT = {
           },
           {
             key: "custom",
-            label: "Custom configuration & integrations",
+            label: "Configuration & integrations",
             summary: "The sources connected, the governance configured, and how answers come back.",
             vendors: ["softserve"],
             items: [
@@ -2198,10 +2195,6 @@ window.SITE_CONTENT = {
             ]
           }
         ],
-        governance: {
-          title: "GOVERNANCE LAYER — THE PART SECURITY ASKS ABOUT",
-          body: "Masking, row-level access and a SQL firewall live in the data layer itself, applied to every query — including the ones AI writes. Every interaction is logged. Proof you can watch: the same question asked in two roles returns two different, correctly filtered answers — enforced by the database, not by the prompt."
-        },
         capabilities: [
           {
             stage: "Connect",
@@ -2228,7 +2221,8 @@ window.SITE_CONTENT = {
               { name: "Dynamic masking of sensitive fields by role" },
               { name: "Row-level access policies" },
               { name: "SQL firewall applied to every query, including the ones AI writes" },
-              { name: "Every interaction logged" }
+              { name: "Every interaction logged" },
+              { name: "The same question asked in two roles returns two correctly filtered answers, enforced by the database itself" }
             ]
           },
           {
@@ -2248,7 +2242,7 @@ window.SITE_CONTENT = {
         durationShort: "30–45 days",
         pillars: [
           { key: "fast", title: "Fast", text: "30 days for one clean source system; 45 for up to three sources or a stricter security setup." },
-          { key: "low-risk", title: "Low-risk", text: "A fixed price per use case, in your own tenancy — OCI, or Autonomous inside AWS, Azure or Google Cloud regions. Source access is read-only, and every feature used is generally available product." },
+          { key: "low-risk", title: "Low-risk", text: "A fixed price per use case, in your own tenancy — OCI, or Autonomous inside AWS, Azure or Google Cloud regions. Source access is read-only, and every feature used is generally available." },
           { key: "tangible", title: "Tangible", text: "One decision domain answered end to end in plain language, measured against a baseline signed before the clock starts." }
         ],
         outcomes: [
@@ -2277,9 +2271,9 @@ window.SITE_CONTENT = {
             "Certified views, masking and row-level access enforced in the data layer",
             "Plain-English Q&A plus two to three operational dashboards",
             "100% of the fee credits into a roll-out signed within 90 days",
-            "Oracle partner funding programs may reduce the net cost"
+            "Every feature used is generally available — nothing in scope waits on a roadmap item"
           ],
-          footnote: "Price indicative, to be confirmed per scope. All features used are generally available product."
+          footnote: "Price indicative, confirmed in scoping; Oracle partner funding programs may reduce the net cost."
         },
         next: [
           { tier: "Integration", text: "Live integration, more sources and decision domains, production SLAs.", duration: "3–5 months", price: "Scoped against the integration depth" },
@@ -2496,7 +2490,7 @@ window.SITE_CONTENT = {
           },
           {
             key: "custom",
-            label: "Custom configuration & integrations",
+            label: "Configuration & integrations",
             summary: "The catalogs mounted, the databases linked, and the governance that scopes every answer.",
             vendors: ["softserve"],
             items: [
@@ -2508,10 +2502,6 @@ window.SITE_CONTENT = {
             ]
           }
         ],
-        governance: {
-          title: "GOVERNANCE LAYER — THE PART SECURITY ASKS ABOUT",
-          body: "Masking, row-level access and a SQL firewall live in the data layer itself, applied to every query — including the ones AI writes. Every interaction is logged. Proof you can watch: the same question asked in two roles returns two different, correctly filtered answers — enforced by the database, not by the prompt."
-        },
         capabilities: [
           {
             stage: "Mount",
@@ -2536,7 +2526,8 @@ window.SITE_CONTENT = {
               { name: "Dynamic masking of sensitive fields by role" },
               { name: "Row-level access policies" },
               { name: "SQL firewall applied to every query, including the ones AI writes" },
-              { name: "Role-scoped answers with a full audit trail" }
+              { name: "Role-scoped answers with a full audit trail" },
+              { name: "The same question asked in two roles returns two correctly filtered answers, enforced by the database itself" }
             ]
           },
           {
@@ -2556,7 +2547,7 @@ window.SITE_CONTENT = {
         durationShort: "30–45 days",
         pillars: [
           { key: "fast", title: "Fast", text: "30 days for one clean source system; 45 for up to three sources or a stricter security setup." },
-          { key: "low-risk", title: "Low-risk", text: "A fixed price per use case, in whichever cloud you prefer. Nothing is migrated or copied — queries run where the data lives, under read-only access, on generally available product." },
+          { key: "low-risk", title: "Low-risk", text: "A fixed price per use case, in whichever cloud you prefer. Nothing is migrated or copied: queries run where the data lives, under read-only access. Every feature used is generally available." },
           { key: "tangible", title: "Tangible", text: "An assistant answering an agreed 30-question set across every connected source, measured against a baseline signed before the clock starts." }
         ],
         outcomes: [
@@ -2585,9 +2576,9 @@ window.SITE_CONTENT = {
             "A governed gold model with masking and row-level access in the data layer",
             "An assistant answering an agreed 30-question set across every connected source",
             "100% of the fee credits into a roll-out signed within 90 days",
-            "Oracle partner funding programs may reduce the net cost"
+            "Every feature used is generally available — nothing in scope waits on a roadmap item"
           ],
-          footnote: "Price indicative, to be confirmed per scope. All features used are generally available product."
+          footnote: "Price indicative, confirmed in scoping; Oracle partner funding programs may reduce the net cost."
         },
         next: [
           { tier: "Integration", text: "Live integration, more catalogs, databases and decision domains, production SLAs.", duration: "3–5 months", price: "Scoped against the integration depth" },
@@ -2692,7 +2683,7 @@ window.SITE_CONTENT = {
           title: "Proof of value",
           whatItIs: "Prove the gains on your own data and rules — manual imports, a limited rule set, a separate environment. Zero integration.",
           duration: "30–45 days on the Lakehouse Quick Start · about 2 months on the packaged Oracle Cloud Infrastructure + NVIDIA packs · scoped per engagement on the deep-research investigations",
-          pricing: "A fixed price for the packaged scope; scoped per engagement where no package price is published"
+          pricing: "A fixed price for the packaged scope; scoped per engagement on the deep-research investigations"
         },
         {
           tier: "rollout",
