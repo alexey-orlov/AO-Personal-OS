@@ -346,30 +346,35 @@ Every product object must satisfy all of the following. `tools/check-grammar.js`
 | `overview.features` | 6–8 strings, each ≤ 12 words |
 | `overview.steps` | 3–5 `{ n, title, text, image, features }`; `n === index + 1`; `text` ≤ 30 words; `image` is `assets/img/steps/<slug>-<n>.<ext>`; the union of `features` equals `overview.features`, no bullet twice, none missing |
 | `overview.industryCases` | 3–6 `{ industry, label, image, problem, solution }`; `industry` in the set of 16 and unique; `label` matches `shared.industryLabels[industry]`; `image` is `assets/img/industries/<key>.<ext>`; `problem` and `solution` are 2–3 sentences each |
-| `overview.sideFacts` | `{ category, platform, availability, povDuration, povPrice }`, all non-empty; `availability === availabilityChip`; `povDuration === pov.facts.duration` |
+| `overview.sideFacts` | **absent** — the At-a-glance card was removed; the checker fails if it returns |
 | `overview.featuresDetail` | ≥ 6 `{ title, body }` |
-| `overview.industries` | ≥ 1 key, every key in the set of 16 |
+| `overview.industries` | **absent** — superseded by `industryCases` |
 | `overview.industriesNote` | non-empty string |
 | `overview.scope.in` / `.out` | ≥ 4 items each |
 | `overview.moreDetail` | ≥ 3 `{ title, body }` |
-| `overview.successStory` | present |
+| `overview.successStory` | present — `null`, or `{ customer, logo, headline, metrics ×2, story, downloadLabel }` with a caveat clause inside `story` |
 | `technology.narrative` | ≤ 3 sentences |
-| `technology.flow` | exactly 4 `{ step, label }` |
+| `technology.capabilities` | exactly 4 `{ stage, items }`; stages unique; ≥ 3 items each; `state`, where present, is `supported` or `roadmap` |
 | `technology.stack` | 4–5 layers, keys a subsequence of `application` → `ai-engine` → `data-platform` → `infrastructure` → `custom`; `application`, `data-platform`, `infrastructure` and `custom` all present; `summary` one sentence; `vendors` non-empty from `oracle` / `nvidia` / `softserve`; every layer ≥ 1 item and ≥ 1 with `required: true`; `direction` only on `custom`, and that layer names at least one inbound and one outbound |
-| `technology.groups` / `.layers` / `.integration` | **absent** — all three were folded into `stack` and deleted; the checker fails if one returns |
-| `technology.security` | ≥ 3 `{ icon, text }` |
-| `pov.facts` | `{ duration, team, price, deliverablesCount }`, all non-empty; `deliverablesCount === pov.deliverables.length` |
-| `pov.deliverables` | ≥ 4 |
-| `pov.pricing` | ≥ 2 |
-| `pov.disclaimers` | ≥ 1 |
-| `pov.ladder` | exactly 3, in the order proof-of-value → rollout → scaling |
+| `technology.groups` / `.layers` / `.integration` / `.notUsed` / `.flow` / `.security` | **absent** — all folded into `stack` and `capabilities` and deleted; the checker fails if one returns |
+| `pov` | **absent** — superseded by `jumpstart` |
+| `jumpstart.title` | exactly `Jumpstart Proof-of-Value` |
+| `jumpstart.promise` | non-empty string |
+| `jumpstart.pillars` | exactly 3, keys `fast` → `low-risk` → `tangible`, each `{ title, text }` |
+| `jumpstart.outcomes` | 3–4 outcome lines |
+| `jumpstart.timeline` | 3–4 `{ label, text }` |
+| `jumpstart.needs` | exactly 3 |
+| `jumpstart.investment` | `{ price, duration, includes ≥ 3, footnote }`; `footnote` is one line (≤ 2 sentences) |
+| `jumpstart.next` | exactly 2, `Integration` then `Scale`, each with `text` and a `price` (`Scoped per engagement` where none is published) |
+| `jumpstart.cta` | `{ label, route }`, routed at `#/products/<slug>/contacts` |
 
 Site-level, asserted once rather than per product:
 
 | Slot | Requirement |
 |---|---|
-| `shared.contact` | `{ name, title, email, photo, blurb }`; `title` is a string and **may be empty**; `email` is exactly `oracle@softserveinc.com`; `blurb` is one sentence; `photo` is `assets/img/people/<name>.<ext>` and **may be empty** (the card falls back to an initials avatar — it ships empty, see `ASSETS.md` §3); `linkedin`, if present, is a public `linkedin.com` URL |
-| `shared.productTabs` | carries a `contacts` tab and no `demo` tab |
+| `shared.contact` | `{ name, title, email, photo, blurb, bringTitle, bring ×3 }`; `title` is a string and **may be empty**; `email` is exactly `oracle@softserveinc.com`; `blurb` is one sentence; `photo` is `assets/img/people/<name>.<ext>`, may be empty (initials fallback) and **ships filled**; `bring` is exactly three lines; `linkedin`, if present, is a public `linkedin.com` URL |
+| `shared.productTabs` | carries `jumpstart` (with `legacyId: "pov"`) and `contacts` (with `legacyId: "demo"`), and neither a `pov` nor a `demo` tab id |
+| `products[].oneLiner` | carries no packaging phrase — "packaged from proof of value", "from proof of value to enterprise scale", "fixed price", "quick start" all fail the build |
 | `forms.demo.secondaryHeading` | non-empty — the heading the form takes under the contact card |
 
 A slot that cannot be filled with a fact is filled with a **qualitative** instance — a `null`-valued metric tile, a `cross-industry` chip, a `Scoped per engagement` price. It is never left out, and it never renders an apology.
@@ -384,11 +389,11 @@ A **missing image file is a warning, not a failure.** Copy and imagery ship on s
 
 The tab formerly labelled **Request a demo** is now **Contacts**, at `#/products/<slug>/contacts`. `#/products/<slug>/demo` redirects to it (`legacyId: "demo"` on the tab), and every "Request a demo" control on a product page points at the contacts tab rather than at a form anchor. The header pill and the home-page CTAs are unchanged: they still open the standalone request form at `#/#request-a-demo`.
 
-The tab renders, in order:
+The tab is **two columns of equal height on desktop**, one column on mobile with the card first:
 
-1. **The contact card** — circular photo left, then name, `title`, the `email` as a `mailto:`, and the one-line `blurb` saying what to get in touch about. `title` renders only when non-empty; an empty one leaves name + email, never a placeholder. `linkedin` renders only when the key exists.
-2. **The request form**, unchanged, headed `forms.demo.secondaryHeading` ("Or send a request") — the secondary path, below the named human rather than instead of him.
+1. **LEFT — the contact panel**, a bounded surface (not a bare row of text): circular `photo` at the top, then `name`, `title`, a primary **mailto** button on `email`, the one-line `blurb`, and the three-line **Bring to the call** list from `bringTitle` + `bring[]`. `title` renders only when non-empty; an empty one leaves name + email, never a placeholder. `linkedin` renders only when the key exists.
+2. **RIGHT — the request form**, headed `forms.demo.secondaryHeading` ("Or send a request") with `forms.demo.secondarySub` beneath it, and `labels.submitRequest` on the button.
 
-The same card renders **above the form in the Services page contact section**, from the same object. One person, one address, one place to edit.
+No stray empty panel on either side: the two columns are the whole section. The **same component** renders the Services page contact section, from the same object. One person, one address, one place to edit.
 
 **The address is the practice mailbox, never a personal one.** `oracle@softserveinc.com` is what ships; the checker bans the string `ktram@` site-wide. A personal mailbox on a public page is a scraping target and an availability risk, and the person named here is a partnerships role rather than an inbox.
