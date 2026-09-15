@@ -1607,8 +1607,12 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 
 /* ——— architecture diagrams ———————————————————————————— */
 
-.media-figure--diagram { background: var(--bg-inset); padding: clamp(1rem, 2vw, 1.75rem); }
-.media-figure--diagram .diagram { display: block; width: 100%; height: auto; }
+.media-figure--diagram { background: var(--bg-inset); padding: clamp(.875rem, 1.6vw, 1.25rem); max-width: 880px; margin-inline-end: auto; }
+.media-figure--diagram .diagram { display: block; width: 100%; height: auto; max-width: 100%; }
+
+@media (max-width: 900px) {
+  .media-figure--diagram { max-width: 100%; }
+}
 
 .dg-card { fill: #0B0F13; stroke: var(--border-subtle); stroke-width: 1; }
 .dg-card--accent { fill: rgba(53, 204, 186, .06); stroke: var(--accent); }
