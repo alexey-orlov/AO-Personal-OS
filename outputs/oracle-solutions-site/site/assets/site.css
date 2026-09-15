@@ -1437,6 +1437,11 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
   opacity: .92;
 }
 
+/* A stacked lockup — a symbol above its wordmark — carries its type in a
+   fraction of its height, so a single height rule renders the words as a
+   smudge. Sized so both marks read at the same x-height. */
+.story-logo--stacked { height: 2.625rem; max-width: 11rem; }
+
 .story-head-copy { display: flex; flex-direction: column; gap: .25rem; min-width: 0; }
 .story-customer { font-size: 1.0625rem; font-weight: 700; line-height: 1.2; color: var(--text); }
 
@@ -1450,12 +1455,19 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
   max-width: 44rem;
 }
 
+/* Peer figures share two rows, so the captions sit on one baseline even when
+   a value wraps to two lines. */
 .story-figures {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1rem 2rem;
+  grid-template-rows: auto auto;
+  gap: 0 2rem;
   padding-block: .25rem;
 }
+
+.story-figure { display: contents; }
+.story-figure-value { grid-row: 1; }
+.story-figure-label { grid-row: 2; }
 
 .story-figure-value {
   font-family: var(--font-display);
@@ -1482,8 +1494,11 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
   margin-bottom: .25rem;
 }
 
+.proof-logo--stacked { height: 2.5rem; max-width: 10rem; }
+
 @media (max-width: 560px) {
-  .story-figures { grid-template-columns: minmax(0, 1fr); }
+  .story-figures { grid-template-columns: minmax(0, 1fr); grid-template-rows: none; gap: 1rem 0; }
+  .story-figure { display: block; }
 }
 
 .panel--tight { gap: 1rem; }
@@ -1859,8 +1874,18 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 
 .stack-item:first-child { border-top: 0; }
 
-.stack-tag {
+/* The state and, where a component lands later than the Jumpstart, when it
+   lands: two chips in one row, never a caption hanging under the row. */
+.stack-tags {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  align-items: flex-start;
+  gap: .375rem;
   justify-self: end;
+}
+
+.stack-tag {
   align-self: start;
   padding: .1875rem .5rem;
   border: 1px solid var(--border);
@@ -1873,7 +1898,7 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 }
 
 .stack-tag--required { border-color: var(--accent); background: var(--accent-dim); color: var(--accent); }
-.stack-item-note { grid-column: 1 / -1; font-size: var(--fs-xs); line-height: 1.5; color: var(--text-note); }
+.stack-tag--when { border-style: dashed; border-color: var(--border-subtle); color: var(--text-note); }
 .stack-dir { display: flex; align-items: center; gap: .5rem; margin-top: .75rem; }
 .stack-dir .icon { width: .875rem; height: .875rem; }
 
