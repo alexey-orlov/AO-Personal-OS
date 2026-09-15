@@ -540,7 +540,7 @@ window.SITE_CONTENT = {
               { name: "Filter, fan-out, reason and score pipeline", required: true },
               { name: "Reviewer UI with citations and the reasoning behind every item", required: true },
               { name: "Evaluation harness — correctness and confidence calibration", required: true },
-              { name: "CRM export connector", required: false, note: "Roll-out scope" }
+              { name: "CRM export connector", required: false, note: "After the Jumpstart" }
             ]
           },
           {
@@ -581,7 +581,7 @@ window.SITE_CONTENT = {
               { name: "Signal feeds — news, filings, disclosures — and commercial data feeds", required: true, direction: "inbound" },
               { name: "First-party CRM records and account framing", required: true, direction: "inbound" },
               { name: "Capability / service-line catalog, public filings, the in-scope account list", required: true, direction: "inbound" },
-              { name: "One JSON per affected account, into the CRM or sales system", required: false, direction: "outbound", note: "Roll-out scope" },
+              { name: "One JSON per affected account, into the CRM or sales system", required: false, direction: "outbound", note: "After the Jumpstart" },
               { name: "Trigger: scheduled scan by default, plus manual submit", required: true },
               { name: "Client field mapping and the scoring rubric", required: true }
             ]
@@ -829,8 +829,8 @@ window.SITE_CONTENT = {
             "Deciding the outcome — the system assembles and drafts, a person decides",
             "Anonymization and masking of source records — a data-supply precondition",
             "Sending or filing the drafted response",
-            "Live source integration and production approval workflow — Roll-out scope",
-            "Additional case categories and source systems — Scaling scope"
+            "Live source integration and production approval workflow — after the Jumpstart",
+            "Additional case categories and source systems — at scale"
           ]
         },
         moreDetail: [
@@ -1137,7 +1137,7 @@ window.SITE_CONTENT = {
             "Ranking suppliers, selecting vendors, or making planning decisions",
             "Enterprise-wide normalization or master-data remediation",
             "Cross-project benchmarking beyond the agreed sample",
-            "Live source feeds in place of static exports — Roll-out scope",
+            "Live source feeds in place of static exports — after the Jumpstart",
             "Contracting or packaging decisions taken on the proof’s output"
           ]
         },
@@ -1461,7 +1461,7 @@ window.SITE_CONTENT = {
             "Matching or reconciliation against another system of record",
             "Non-document data sources — reference tables, catalogs or external systems, not document text",
             "Full automation without human validation — a human validates by design",
-            "Write-back and system integration — delivered at Roll-out",
+            "Write-back and system integration — delivered after the Jumpstart",
             "Native multi-language processing — English at proof of value; more is custom work",
             "Production hardening: enterprise scale, security audit, HA/DR, IAM/SSO"
           ]
@@ -1501,7 +1501,7 @@ window.SITE_CONTENT = {
               { name: "Extraction pipeline and field schema", required: true },
               { name: "Validator set and confidence thresholds", required: true },
               { name: "Split-view reviewer UI with bulk actions, auto-save and an audit trail", required: true },
-              { name: "Export and target-system integration", required: false, note: "Roll-out scope" }
+              { name: "Export and target-system integration", required: false, note: "After the Jumpstart" }
             ]
           },
           {
@@ -1541,7 +1541,7 @@ window.SITE_CONTENT = {
             vendors: ["softserve"],
             items: [
               { name: "Source contracts from your repository — PDF and DOCX, including scanned", required: true, direction: "inbound" },
-              { name: "Extracted data, rates and terms, cited, into the cost or ERP system", required: true, direction: "outbound", note: "Roll-out scope" },
+              { name: "Extracted data, rates and terms, cited, into the cost or ERP system", required: true, direction: "outbound", note: "After the Jumpstart" },
               { name: "Field schema and business rules per document type", required: true },
               { name: "Confidence thresholds and fallback logic", required: true },
               { name: "Export formats: JSON, CSV or XLSX against a reference template", required: true }
@@ -1609,7 +1609,7 @@ window.SITE_CONTENT = {
           { label: "Week 0 · Gate", text: "Sponsor named, two to three success metrics signed, source access approved in writing." },
           { label: "Weeks 1–4 · Build", text: "One document type: field schema, business rules, confidence thresholds and validators configured on your own contracts." },
           { label: "Weeks 5–7 · Review", text: "Your reviewers validate in the split-view UI; accuracy is measured against the annotated ground truth." },
-          { label: "Week 8 · Decision", text: "Accuracy and effort-savings readout against the signed baseline, and a costed roll-out proposal." }
+          { label: "Week 8 · Decision", text: "Accuracy and effort-savings readout against the signed baseline, and a costed proposal for the next step." }
         ],
         needs: [
           "A sample of real contracts of one document type, and the fields you need out of them",
@@ -1791,9 +1791,9 @@ window.SITE_CONTENT = {
             "A before/after KPI readout computed identically on both plans"
           ],
           out: [
-            "Oracle Field Service integration — delivered at Roll-out",
-            "Additional data sources and BI integration — delivered at Roll-out",
-            "The re-optimization feedback loop — delivered at Roll-out",
+            "Oracle Field Service integration — delivered after the Jumpstart",
+            "Additional data sources and BI integration — delivered after the Jumpstart",
+            "The re-optimization feedback loop — delivered after the Jumpstart",
             "Live-traffic travel rules, within-day reassignment, spare-parts and crew-based assignment — on the roadmap"
           ]
         },
@@ -1804,7 +1804,7 @@ window.SITE_CONTENT = {
           { title: "Lower customer satisfaction", body: "Longer wait times from suboptimal allocations." },
           { title: "Poor scalability", body: "Planning hinges on scarce senior dispatchers; new zones launch slowly." },
           { title: "How the KPIs are defined", body: "Time to plan: how long to optimize and approve a region’s four-week plan. Productivity: jobs per technician per working day. Capacity utilization: booked activity time against available capacity. Customer wait time: calendar days between booking and appointment. Each is computed identically for the current plan and the optimized plan." },
-          { title: "Delivered at roll-out", body: "Oracle Field Service integration — staff, availability and booking data in; optimized allocations (zones, visits) out; factual durations and times back. The architecture is native to Oracle Field Service; the integration itself is Roll-out scope, not proof-of-value scope. Also at Roll-out: additional data sources and BI integration (up to five typical integrations — booking, inventory for parts availability, HR/WFM for people availability, demand forecasting, BI), and the re-optimization feedback loop." },
+          { title: "Delivered after the Jumpstart", body: "Oracle Field Service integration — staff, availability and booking data in; optimized allocations (zones, visits) out; factual durations and times back. The architecture is native to Oracle Field Service; the integration itself comes after the Jumpstart, not inside it. Also after the Jumpstart: additional data sources and BI integration (up to five typical integrations — booking, inventory for parts availability, HR/WFM for people availability, demand forecasting, BI), and the re-optimization feedback loop." },
           { title: "On the roadmap, not in the pack today", body: "Distance and travel-time rules with live traffic · within-day dynamic reassignment and urgent-request handling · spare-parts and crew-based assignment · the human-feedback learning loop." }
         ],
         successStory: {
@@ -1831,7 +1831,7 @@ window.SITE_CONTENT = {
               { name: "Dispatcher review UI and approval workflow", required: true },
               { name: "Re-solve loop", required: true },
               { name: "KPI and analytics layer — productivity, utilization, travel, workload balance", required: true },
-              { name: "Write-back to Oracle Field Service", required: false, note: "Roll-out scope" }
+              { name: "Write-back to Oracle Field Service", required: false, note: "After the Jumpstart" }
             ]
           },
           {
@@ -1871,8 +1871,8 @@ window.SITE_CONTENT = {
             items: [
               { name: "From Oracle Field Service: staff, availability and booking data", required: true, direction: "inbound" },
               { name: "Back from Oracle Field Service: factual durations and times", required: false, direction: "inbound" },
-              { name: "To Oracle Field Service: optimized allocations — zones and visits", required: true, direction: "outbound", note: "Integration delivered at roll-out" },
-              { name: "Up to five further integrations — booking, inventory, HR/WFM, demand forecasting, BI", required: false, direction: "inbound", note: "Roll-out scope" },
+              { name: "To Oracle Field Service: optimized allocations — zones and visits", required: true, direction: "outbound", note: "After the Jumpstart" },
+              { name: "Up to five further integrations — booking, inventory, HR/WFM, demand forecasting, BI", required: false, direction: "inbound", note: "After the Jumpstart" },
               { name: "Client rules, constraints and KPI definitions", required: true }
             ]
           }
@@ -1881,8 +1881,8 @@ window.SITE_CONTENT = {
           {
             stage: "Load the period's data",
             items: [
-              { name: "Oracle Field Service as the source for demand, availability, skills and bookings — delivered at roll-out" },
-              { name: "Demand forecasting, booking, inventory, HR/WFM and BI sources — delivered at roll-out" },
+              { name: "Oracle Field Service as the source for demand, availability, skills and bookings — delivered after the Jumpstart" },
+              { name: "Demand forecasting, booking, inventory, HR/WFM and BI sources — delivered after the Jumpstart" },
               { name: "Skill-based allocation", state: "supported" },
               { name: "Maximum load per day", state: "supported" },
               { name: "Planned-vacation reallocation and same-day sickness handling", state: "supported" }
@@ -1917,7 +1917,7 @@ window.SITE_CONTENT = {
               { name: "Model-decision explanations and recommendations", state: "supported" },
               { name: "KPI readout: jobs per technician per working day, capacity utilization, travel reduction, workload balance", state: "supported" },
               { name: "The current plan against the optimized plan, computed on identical definitions" },
-              { name: "The approved plan written back to Oracle Field Service — delivered at roll-out" },
+              { name: "The approved plan written back to Oracle Field Service — delivered after the Jumpstart" },
               { name: "Iterative feedback-based re-optimization", state: "roadmap" },
               { name: "Human-feedback-driven tuning and what-if alternatives", state: "roadmap" }
             ]
@@ -1937,13 +1937,13 @@ window.SITE_CONTENT = {
           "An optimized four-week plan for one real region, computed on your own historical data.",
           "A before/after KPI readout — productivity, capacity utilization and wait time — computed identically on the current and the optimized plan.",
           "The dispatcher review UI running in a sandboxed environment on your tenancy.",
-          "A costed plan for roll-out: integration scope, additional sources, timeline."
+          "A costed plan for the next step: integration scope, additional sources, timeline."
         ],
         timeline: [
           { label: "Week 0 · Gate", text: "Sponsor named, two to three success metrics signed, the baseline and source access approved in writing." },
           { label: "Weeks 1–4 · Build", text: "The period’s data imported; zones, skills, absences and commitment rules configured and weighted against your objectives." },
           { label: "Weeks 5–7 · Review", text: "Dispatchers compare the current and the optimized plan on a live map, approve or re-run." },
-          { label: "Week 8 · Decision", text: "Before/after KPI readout against the signed benchmark, and a costed roll-out proposal." }
+          { label: "Week 8 · Decision", text: "Before/after KPI readout against the signed benchmark, and a costed proposal for the next step." }
         ],
         needs: [
           "One real region and a period of historical planning data — demand, availability, skills, work zones and bookings",
@@ -2118,10 +2118,10 @@ window.SITE_CONTENT = {
             "Masking and row-level access enforced in the data layer"
           ],
           out: [
-            "Live production integration — Roll-out scope",
-            "More sources and more decision domains — Roll-out scope",
-            "Production SLAs — Roll-out scope",
-            "Multi-entity rollout and per-region governance — Scaling scope",
+            "Live production integration — after the Jumpstart",
+            "More sources and more decision domains — after the Jumpstart",
+            "Production SLAs — after the Jumpstart",
+            "Multi-entity rollout and per-region governance — at scale",
             "Write-back to the source applications: the system retrieves, it does not act"
           ]
         },
@@ -2424,9 +2424,9 @@ window.SITE_CONTENT = {
           ],
           out: [
             "Migrating or copying data into the platform — by design",
-            "Live production integration and more catalogs — Roll-out scope",
-            "Additional decision domains and production SLAs — Roll-out scope",
-            "Multi-entity rollout and per-region governance — Scaling scope",
+            "Live production integration and more catalogs — after the Jumpstart",
+            "Additional decision domains and production SLAs — after the Jumpstart",
+            "Multi-entity rollout and per-region governance — at scale",
             "Write-back to the source systems: the system retrieves, it does not act"
           ]
         },
