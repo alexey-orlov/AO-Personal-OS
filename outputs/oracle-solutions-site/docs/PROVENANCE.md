@@ -2257,6 +2257,8 @@ Rejected or deferred: the critic's "cheaper alternative" of dropping badges from
 
 **Verification before the publish:** `node --check` clean on every changed file; `node tools/check-grammar.js` OK with the home-page contract; the deny-list grep empty; console clean on `#/`, `#/products`, `#/products/large-document-extraction`, `#/products/workforce-optimization` (+ `/contacts`), `#/services`; no horizontal overflow at 375 through 1440; nested interactive elements 0; page titles `AI Agents on Oracle — SoftServe`, `Services — …`, `<Product> — …`; the header button and the four home anchors resolve; the Services hero still offers *Browse the products* and the product heroes still open on *Request a demo*.
 
+**Follow-ups left open (not this round):** the two ladder vocabularies (home and product Jumpstart tab say Integration → Scale, the Services ladder says Roll-out → Scaling); shipped JS comments in `app.js` / `product.js` that cite VISUAL-GRAMMAR section numbers; the not-found page's hard-coded copy; the footer's CONTACT US block repeating the contact ask on every page; the "Case studies" nav item never marked active; `.claude/launch.json`'s `oracle-site` entry not starting under the preview tool on this Mac (HANDOFF §4 has the working route).
+
 
 ### 18.7 The messaging pass — personas over scaffolding (2026-09-16)
 
@@ -2445,7 +2447,6 @@ About body no longer prints *founded in 1993* or *500+ data experts* (18.2's
 "ships as" column, and §18.3's `about.body` row). §18.2's **source table is
 unaffected**: the 1993 and 500+ figures still ship, as the stat tile and the
 hero strip respectively.
-**Follow-ups left open (not this round):** the two ladder vocabularies (home and product Jumpstart tab say Integration → Scale, the Services ladder says Roll-out → Scaling); shipped JS comments in `app.js` / `product.js` that cite VISUAL-GRAMMAR section numbers; the not-found page's hard-coded copy; the footer's CONTACT US block repeating the contact ask on every page; the "Case studies" nav item never marked active; `.claude/launch.json`'s `oracle-site` entry not starting under the preview tool on this Mac (HANDOFF §4 has the working route).
 
 
 ## 19. The second walkthrough — Workforce optimization, 2026-09-16
