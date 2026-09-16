@@ -6,7 +6,7 @@
  {"click":"#picker-list li.is-main"},{"sleep":300},{"click":"#picker-open"},{"sleep":400},{"shot":"04-file-set"},
  {"click":"#run-go"},{"sleep":2600},{"shot":"05-processing"},
  {"sleep":4200},{"shot":"06-plan-v1"},
- {"shot":"06b-kpis"},{"click":"#tour-next"},{"sleep":500},
+ {"shot":"06b-kpis"},{"click":"#tour-next"},{"sleep":500},{"shot":"06c-review-step"},
  {"click":"#btn-review-changes"},{"sleep":800},{"shot":"07-review"},
  {"click":"#changes [data-change=\"vacation\"] .chg-main"},{"sleep":700},{"shot":"08-drill-vacation"},
  {"click":"#plan-seg [data-plan=\"compare\"]"},{"sleep":700},{"shot":"09-compare"},
