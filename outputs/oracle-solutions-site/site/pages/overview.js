@@ -341,7 +341,8 @@
   /* The one inverted screen on the page. The partner wordmarks sit on a navy
      strip inside the light panel rather than on the panel itself: navy is the
      surface this design system reserves for a stated fact, and the marks are
-     white. */
+     white. The company address is a link and reads as one — the filled buttons
+     on this page are kept for the two places that ask the reader for something. */
   function about(C) {
     var UI = window.UI;
     var block = C.overview.about;
@@ -365,10 +366,9 @@
           '<p class="band-label">' + UI.esc(block.eyebrow) + "</p>" +
           '<h2 class="band-title">' + UI.esc(block.title) + "</h2>" +
           '<p class="band-body">' + UI.esc(block.body) + "</p>" +
-          UI.button({
-            label: block.link.label, href: block.link.url,
-            kind: "dark", iconAfter: "external"
-          }) +
+          '<a class="band-link" href="' + UI.esc(block.link.url) + '" target="_blank" rel="noopener">' +
+            "<span>" + UI.esc(block.link.label) + "</span>" + UI.icon("external") +
+          "</a>" +
         "</div>" +
         '<div class="light-band-copy">' +
           '<div class="about-stats">' + stats + "</div>" +

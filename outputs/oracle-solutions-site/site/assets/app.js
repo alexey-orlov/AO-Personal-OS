@@ -305,10 +305,8 @@
         '<p class="contact-name">' + esc(person.name) + "</p>" +
         (person.title ? '<p class="contact-title">' + esc(person.title) + "</p>" : "") +
         (person.email
-          ? button({
-              label: person.email, href: "mailto:" + person.email,
-              kind: "primary", icon: "mail", className: "contact-mail-btn"
-            })
+          ? '<a class="contact-mail" href="mailto:' + esc(person.email) + '">' +
+            icon("mail") + "<span>" + esc(person.email) + "</span></a>"
           : "") +
         (person.blurb ? '<p class="contact-blurb">' + esc(person.blurb) + "</p>" : "") +
         (person.linkedin
