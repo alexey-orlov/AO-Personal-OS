@@ -44,6 +44,14 @@ From Alex's review of the Oracle mini-site home page: the copy "overemphasized t
 counts and the scaffolding, not the essence" and used internal vocabulary
 ("workflow patterns", "packaged") as if it were customer language.
 
+- **Structure before copy — a page is an argument, not an inventory** (2026-09-16, from
+  Alex's review of the Services page: "very poorly structured, too long, no grand
+  narrative"). Before choosing components, settle audience → positioning (what this page
+  offers that its sibling pages don't) → three or four messages, each answering a reader
+  problem → one screen per message, with a length target set up front ("a couple of
+  screens"). A block that carries no message is cut or moved to the page that owns the
+  detail; a page that repeats a sibling page's steps under different names is a structure
+  bug, not a copy one.
 - Name the readers before drafting (for the Oracle site: an Oracle rep opening the page
   live on a call, and an enterprise buyer on Oracle), and write every headline and lead
   from their seat: the job it does and the outcome, in their words. A count, a taxonomy
