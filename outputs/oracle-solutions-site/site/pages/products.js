@@ -14,8 +14,8 @@
     state = {
       tech: techIds.indexOf(q.tech) >= 0 ? q.tech : "",
       cat: catIds.indexOf(q.cat) >= 0 ? q.cat : "",
-      demo: q.demo === "1",
-      mp: q.mp === "1",
+      demo: q.demo === "1" && isLive("demo"),
+      mp: q.mp === "1" && isLive("mp"),
       q: typeof q.q === "string" ? q.q : ""
     };
   }
@@ -37,6 +37,22 @@
   function hasFlag(product, option) {
     var entry = window.SITE_CONFIG.products[product.slug] || {};
     return entry[AVAILABILITY_FLAG[option]] === true;
+  }
+
+  /* A checkbox for something no product has yet is not a filter, it is an
+     advertisement for a capability the site does not have: the row appears the
+     day a config flag flips, and the group disappears when neither is live. */
+  function liveOptions() {
+    var all = window.UI.orderedProducts();
+    return (window.SITE_CONTENT.facets.availability.options || []).filter(function (option) {
+      return all.some(function (product) { return hasFlag(product, option.id); });
+    });
+  }
+
+  function isLive(key) {
+    return liveOptions().some(function (option) {
+      return (option.id === "marketplace" ? "mp" : option.id) === key;
+    });
   }
 
   function haystack(product) {
@@ -126,6 +142,7 @@
   function railHtml() {
     var UI = window.UI;
     var C = window.SITE_CONTENT;
+    var live = liveOptions();
 
     var tech = [railOption({
       group: "tech", value: "", label: C.facets.allLabel, on: !state.tech,
@@ -156,12 +173,14 @@
         '<p class="rail-label" id="facet-cat-label">' + UI.esc(C.facets.categoryLabel) + "</p>" +
         '<div class="rail-options" role="radiogroup" aria-labelledby="facet-cat-label">' + cats + "</div>" +
       "</div>" +
-      '<div class="rail-group">' +
-        '<p class="rail-label" id="facet-avail-label">' + UI.esc(C.facets.availability.label) + "</p>" +
-        '<div class="rail-checks" role="group" aria-labelledby="facet-avail-label">' +
-          C.facets.availability.options.map(availabilityCheck).join("") +
-        "</div>" +
-      "</div>" +
+      (live.length
+        ? '<div class="rail-group">' +
+            '<p class="rail-label" id="facet-avail-label">' + UI.esc(C.facets.availability.label) + "</p>" +
+            '<div class="rail-checks" role="group" aria-labelledby="facet-avail-label">' +
+              live.map(availabilityCheck).join("") +
+            "</div>" +
+          "</div>"
+        : "") +
       '<div class="rail-group">' +
         '<button class="btn btn--quiet btn--sm rail-clear" type="button" id="facet-clear">' +
           UI.icon("close") + "<span>" + UI.esc(C.facets.clearLabel) + "</span></button>" +
