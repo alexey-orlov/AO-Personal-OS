@@ -1,6 +1,6 @@
 # AI Agents on Oracle — site
 
-A small marketing site for SoftServe's enterprise AI agents and workflows on Oracle platforms: **seven products**, grouped by the job they do and built on Oracle Cloud Infrastructure with NVIDIA and on Oracle Autonomous AI Lakehouse, plus the **dedicated Oracle AI & Data practice** that delivers them — from a fixed-scope Jumpstart proof of value to production. It is used two ways — sent to customers as a link, and opened live by SoftServe and Oracle sellers during a call.
+A small marketing site for SoftServe's enterprise AI agents and workflows on Oracle platforms: **packaged products**, grouped by the job they do and built on Oracle Cloud Infrastructure with NVIDIA and on Oracle Autonomous AI Lakehouse, plus the **dedicated Oracle AI & Data practice** that delivers them — and builds the one a customer's workflow needs — from a fixed-scope Jumpstart proof of value to production. It is used two ways — sent to customers as a link, and opened live by SoftServe and Oracle sellers during a call.
 
 The site is named **AI Agents on Oracle** (round 5; it was *Oracle AI Solutions* before). The name is data, not markup: `site.name`, `site.title` and `headerLockup.productName` in `data/content.js`.
 
@@ -59,7 +59,7 @@ Script order in `index.html` matters: `data/*` → `assets/forms.js` → `pages/
 | Hash | Page |
 |---|---|
 | `#/` | Home — hero with the built-on stack, a three-figure proof strip, two ways in, the agents by what they do, how we deliver, case studies, about SoftServe, contact |
-| `#/products` | Product marketplace — facet rail (Oracle platform, what it does, availability), search, tiles |
+| `#/products` | Product marketplace — facet rail (Oracle platform, what it does, availability), search, tiles. The rail lists **only options a click returns**: a platform with no products is not shown, the *All* options carry no count, and the results line reports what a filter returned with no denominator — nothing at all when nothing is filtered. `?tech=<id>` still resolves for every platform, rendering that facet's `emptyState` (`docs/PROVENANCE.md` §18.9) |
 | `#/products/<slug>` | One product — hero plus tabs |
 | `#/products/<slug>/<tab>` | `overview` · `technology` · `jumpstart` · `contacts` · `sellers`. The retired segments `pov` → `jumpstart` and `demo` → `contacts` redirect in place, so Back still returns to where the reader came from and an old link still lands on the right tab. |
 | `#/services` | The Oracle dedicated practice — platforms, what we do, how we engage, why SoftServe, how we measure it, contact form |
