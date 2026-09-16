@@ -3143,9 +3143,22 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 
 /* ——— site-wide, carried by the same pass ——— */
 
-/* The lockup name on one line beside the wordmark and the menu button. */
+/* The lockup name on one line beside the wordmark and the menu button. Sized for
+   the current name (26 characters): a step down where the desktop nav first
+   appears, so the name does not run into "Products", and a proportionally smaller
+   lockup on phones up to 430px; narrower than 375px it wraps to two lines.
+   Re-measure these steps whenever the name changes. */
+@media (min-width: 901px) and (max-width: 1023px) {
+  .lockup-name { font-size: 1.125rem; }
+}
 @media (max-width: 480px) {
   .lockup-name { font-size: .9375rem; }
+}
+@media (max-width: 430px) {
+  .lockup { gap: .5rem; }
+  .lockup-mark { width: 5.25rem; }
+  .lockup-rule { height: 1.25rem; }
+  .lockup-name { font-size: .8125rem; }
 }
 
 /* A link is a tap target on a phone: the text alone is under the mark. The two
