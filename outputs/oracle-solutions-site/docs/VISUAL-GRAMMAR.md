@@ -23,7 +23,7 @@ The hero is the only block on a page that carries a background image — and the
 | Background image | `products[].hero.image` · `overview.hero.image` · `services.hero.image` — `{ file, alt, focal }` | `file` is a path relative to `site/index.html`. `focal` is a CSS `object-position` value. `alt` is the accessible description; because the image is decorative background, carry it as the container's `aria-label` only if no other label exists, otherwise `aria-hidden`. The authority on `alt` and `focal` is `site/assets/img/heroes/heroes.json`; `content.js` carries a copy so nothing has to fetch JSON at runtime — **keep them in sync**. |
 | Treatment | — | Image right/top, dark gradient left-to-right plus a bottom fade into the page ground `#131313`, so headline and CTAs sit on near-black. A subtle teal tint over the image is allowed. |
 | Height | — | 60–70vh maximum on desktop. **Not** full-screen. Auto height on mobile, with the image faded harder. |
-| Content | `headline`, `heroLine?`, `badges?`, chips (`availabilityChip`, `categoryChip`, facet label), `oneLiner`, `subLine?`, CTAs | Unchanged from today. |
+| Content | `headline`, `heroLine?`, `badges?`, the chip row (§1.2), `oneLiner`, `statusNote?`, `subLine?`, CTAs | The chip row replaced the flat chip list in round 4. |
 
 **Two hero layouts, chosen by data — nothing else changes.**
 
@@ -65,6 +65,22 @@ Round 3, D: text never sits on the photograph. Every tile is **an image band ove
 The second "Request a demo" CTA is gone from the tile: a tile with two actions makes the reader choose before they know what the product is, and the product page's hero carries the demo ask anyway. Hover lifts the tile slightly and scales the image 1.05, which `prefers-reduced-motion` disables. An odd count ends with the last tile alone in the left column.
 
 A product with no hero file on disk renders the same tile with the band on the flat ground, because the image guard drops an `<img>` that will not load. **The home page's product grid uses the same anatomy** at its compact size, so a reader meets one tile shape on both pages.
+
+### 1.2 The chip row — three tag families, visibly different (round 4, T1)
+
+Before round 4 the hero and the tiles carried a run of chips that all looked the same: a workflow pattern, an Oracle platform, a technology name and a sales state, in one undifferentiated navy row. A reader had to know the taxonomy to tell which was which. There are now **three families**, each with its own shape, and each naming itself in a `title` tooltip read from `shared.tagFamilies`.
+
+| Family | Shape | Content | Tooltip |
+|---|---|---|---|
+| **Workflow pattern** | **Outlined** chip — transparent ground, 1px border | The product's `categoryChip`, with the pattern icon from `shared.tagFamilies.pattern.icons[product.category]` — a magnifier over a graph for deep research, a pipeline glyph for processing pipelines, a chart for data analysis & optimization | `Workflow pattern` |
+| **Technology** | The existing **solid navy** pill | The facet's short `label` (carrying its `fullLabel` as the `title`) and each extra `tags[]` entry, with the platform glyph from `shared.tagFamilies.tech.icons[product.facet]` — a cloud-and-GPU glyph for OCI + NVIDIA, a layers glyph for Oracle Autonomous AI Lakehouse, a generic mark otherwise | `Runs on` |
+| **Availability** | Compact **teal-tinted icon pill** — a badge, not a chip | `Demo` (play icon) where `SITE_CONFIG.products[slug].video === true`; `Oracle Marketplace` (storefront icon) where `.marketplace === true`. **Maximum two, and both are optional.** | `Demo available` / `Available on Oracle Marketplace` |
+
+**Badges are actions, not labels.** `Demo` opens the demo frame or modal, or scrolls to it where the frame is already on the page. `Oracle Marketplace` opens `marketplaceUrl` when one is set and is inert otherwise — the badge says a listing exists, and the flag that turns it on is the same flag the facet filters on, so the two can never disagree.
+
+**Placement.** In the hero, the row splits: pattern and technology chips at the left, availability badges at the **right end**, wrapping underneath on mobile. On a products-page tile and in the home grid, the badges sit **top-right of the image band**, where the availability chip used to; the platform label keeps the top-left.
+
+**The three-state availability chip is gone** — *Available now*, *Fixed-price offer* and *In preparation*, their data map, the per-product denormalised copies and the availability strings at the end of each `tags` array. What a customer can act on is whether a demo exists and whether a listing exists, and both are config flags. The one thing the badges cannot say is that no package exists yet, and that survives as a **muted status line** under the hero one-liner on the two unpackaged products only (`products[].statusNote`): *"Packaged offering in preparation — scoping conversations are open."* No chip, no badge, no legend.
 
 ---
 
@@ -147,19 +163,22 @@ In the rail the tiles **stack vertically** rather than sitting in a row — up t
 
 `overview.sideFacts` and the card it fed are gone. Every row on it — category, platform, availability, proof-of-value duration and price — was a denormalised copy of something printed on the same page: the chips in the hero, the Jumpstart investment card, the stack. It was therefore a second place to keep in sync, and the first to go stale; `check-grammar.js` fails if the key returns. The rail is §2.4 alone, which is also what keeps it shorter than MAIN without pinning anything.
 
-### 2.6 Success story — a dark callout (MAIN)
+### 2.6 Case study — a dark callout (MAIN)
 
-`overview.successStory`, at the foot of the MAIN column under the industry tabs. **`null` on five of the seven products, and then nothing renders** — there is no empty state.
+`overview.caseStudy`, at the foot of the MAIN column under the industry tabs, keeping the position and the **3px teal left rule** the success-story block had. **`null` on three of the seven products, and then nothing renders** — there is no empty state.
 
-The block is a **surface-level dark panel with a 3px teal left rule** — not the white band it used to be, and not a card in the rail. Inside, in order:
+**No customer is named and no logo is rendered** (Alex, 2026-09-16). A logo is the one element of a case study that cannot be anonymized, so the round-4 callout is built around what can: the industry.
 
-1. The customer's **logo** (`logo`, a light mark, capped to the same cap-height the stack uses for vendor marks) beside the customer **name**.
-2. The `headline` — one line naming what the engagement did.
-3. The two `metrics`, set as **big figures** with their labels beneath. Exactly two, always: a third makes the panel a metric row competing with §2.4.
-4. The `story` — two to three sentences, the last of which carries the caveat that qualifies the figures. The panel has no footnote row, so the caveat lives in the sentence; that is how rule 2 of this file is satisfied here.
-5. **`downloadLabel`** as the one link out, rendered **only** when `SITE_CONFIG.products[slug].successStoryUrl` is non-empty. No URL, no control.
+The block is a **surface-level dark panel with a 3px teal left rule**. Inside, in order:
 
-Only two customers are named — Bosch and Riyadh Air (Alex, 2026-09-14) — and no € figure from a customer's business case appears in the panel.
+1. **Header band** — the industry photograph (`image`, `assets/img/industries/<key>.jpg`) under a dark gradient, bled to the panel's edges. It is the same file the industry tabs use, so no new asset is needed for a new case.
+2. **Industry medallion** — a circle carrying the `industry-<key>` line icon, sitting where the logo used to, at the same optical weight. Beside it the `descriptor` as the title (*"A global home-appliance manufacturer"*) and the `area` on a second line (*"Field-service operations across three countries"*).
+3. **Status chip** — *"Measured in the proof of value"* or *"Proof of value in progress"*, read from `shared.caseStudyStatus` by the `status` key. It is the element that tells a reader, at a glance, whether the two numbers below are results or intentions.
+4. **Two big metrics with an eyebrow** — the eyebrow reads *Measured* on a measured case and *Target outcomes* on one in progress, and the checker asserts the pairing. Exactly two, always: a third makes the panel a metric row competing with §2.4. A case with no published figure sets a **qualitative** value (*"Hours, not weeks"*, *"Evidence-backed"*) rather than an invented number.
+5. **The story** — two to three sentences: what was done, on what data, with which stack. The last sentence carries the caveat that qualifies the figures; the panel has no footnote row, so that is how rule 2 of this file is satisfied here.
+6. **The scope row** — exactly three compact facts (`scope[]`), label above value: duration, data footprint, constraint count, the human gate. External-safe only — no contract value, no contract duration, no headcount, no € figure.
+7. **The NDA line** — *"Customer under NDA · reference call available on request"* on a measured case; on an in-progress one it says results follow at the end of the proof of value instead, because offering a reference call about an engagement with no results yet is a promise nobody can keep.
+8. **`downloadLabel`** as the one link out, rendered **only** when `SITE_CONFIG.products[slug].successStoryUrl` is non-empty. No URL, no control.
 
 ### 2.7 More detail — one collapsible disclosure (MAIN)
 
@@ -337,6 +356,23 @@ audit: '<rect x="5" y="3" width="14" height="18" rx="2"></rect><path d="M9 8h6M9
 ```
 
 Industry keys in `content.js` are bare (`"manufacturing"`); the renderer prefixes `industry-` when it calls `UI.icon()`. That keeps the data readable and the registry namespaced.
+
+### Round-4 icons still to draw
+
+`shared.tagFamilies` names eight registry keys, and **seven of them are not in `ICONS` yet** — the data layer moved first. Draw them to the same 24×24 stroke-only spec and add them to `assets/app.js`:
+
+| Key | Used by | What it should read as |
+|---|---|---|
+| `pattern-deep-research` | pattern chip, `deep-research` | A magnifier over a small node graph |
+| `pattern-processing-pipelines` | pattern chip, `processing-pipelines` | A pipeline / flow: items moving through stages |
+| `pattern-data-analysis` | pattern chip, `data-analysis` | A bar or line chart |
+| `platform-oci-nvidia` | technology chip, `oci-nvidia` | A cloud with a GPU/chip glyph |
+| `platform-oracle-ai-data-platform` | technology chip, `oracle-ai-data-platform` | A governed data store — a cylinder with a shield or a check |
+| `platform-oracle-autonomous-ai-lakehouse` | technology chip, `oracle-autonomous-ai-lakehouse` | Stacked layers |
+| `platform-other` | technology chip, `other` | A generic platform mark — a plain stack or square |
+| `storefront` | the Oracle Marketplace badge | A shop front with an awning |
+
+`play` — the Demo badge's icon — is already in the registry. Unlike the industry keys, these are written into the data **in full**: `tagFamilies.pattern.icons["deep-research"]` holds `"pattern-deep-research"`, not `"deep-research"`, because a renderer that had to know which prefix to add for which family would be inventing the key.
 
 ---
 
