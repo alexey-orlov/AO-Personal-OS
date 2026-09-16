@@ -72,8 +72,8 @@
     "pattern-data-analysis": '<path d="M3.5 20.5h17"></path><rect x="5.5" y="12" width="3.4" height="8" rx="1"></rect><rect x="10.3" y="8.5" width="3.4" height="11.5" rx="1"></rect><rect x="15.1" y="5" width="3.4" height="15" rx="1"></rect>',
     "platform-oci-nvidia": '<path d="M7.6 12.2a3.4 3.4 0 0 1 .5-6.7 4.7 4.7 0 0 1 8.8.9 3.2 3.2 0 0 1 .5 5.8"></path><rect x="8.5" y="13.2" width="7" height="7" rx="1.5"></rect><path d="M10.8 20.2v1.3M13.2 20.2v1.3M8.5 15.5H7.2M8.5 17.9H7.2M16.8 15.5h-1.3M16.8 17.9h-1.3"></path>',
     "platform-oracle-ai-data-platform": '<ellipse cx="12" cy="6" rx="7.5" ry="3"></ellipse><path d="M4.5 6v12c0 1.7 3.4 3 7.5 3s7.5-1.3 7.5-3V6"></path><path d="m8.5 13 2.6 2.6 5-5"></path>',
-    "platform-oracle-autonomous-ai-lakehouse": '<path d="m12 3 8.5 4.2L12 11.4 3.5 7.2z"></path><path d="m3.5 12 8.5 4.2 8.5-4.2"></path><path d="m3.5 16.8 8.5 4.2 8.5-4.2"></path>',
-    "platform-other": '<rect x="3.5" y="4" width="17" height="6" rx="1.8"></rect><rect x="3.5" y="14" width="17" height="6" rx="1.8"></rect><path d="M7 7h.01M7 17h.01"></path>',
+    "platform-oracle-ai-lakehouse": '<path d="m12 3 8.5 4.2L12 11.4 3.5 7.2z"></path><path d="m3.5 12 8.5 4.2 8.5-4.2"></path><path d="m3.5 16.8 8.5 4.2 8.5-4.2"></path>',
+    "platform-oracle-ai-fusion": '<rect x="3.5" y="3.5" width="7" height="7" rx="1.8"></rect><rect x="13.5" y="3.5" width="7" height="7" rx="1.8"></rect><rect x="3.5" y="13.5" width="7" height="7" rx="1.8"></rect><rect x="13.5" y="13.5" width="7" height="7" rx="1.8"></rect>',
 
     "industry-manufacturing": '<path d="M3.5 20V11l5 3V11l5 3V7l5.5 4v9Z"></path><path d="M2.5 20h19"></path>',
     "industry-logistics": '<rect x="2.5" y="7" width="10.5" height="9" rx="1.5"></rect><path d="M13 10h4l4 3.5V16h-8z"></path><circle cx="7" cy="18.3" r="1.7"></circle><circle cx="17" cy="18.3" r="1.7"></circle>',

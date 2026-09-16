@@ -315,7 +315,7 @@ window.SITE_CONTENT = {
       title: "THE PRACTICE",
       body: "SoftServe’s Oracle practice focuses on two things: joint delivery with Oracle’s AI & Data organization, and repeatable accelerator packs on four Oracle platforms.",
       platforms: [
-        { name: "Oracle Cloud Infrastructure + NVIDIA NeMo Agent Toolkit", body: "GPU cloud plus agent tooling" },
+        { name: "OCI + NVIDIA", body: "GPU cloud plus agent tooling" },
         { name: "Oracle AI Data Platform", body: "Governed enterprise data for AI" },
         { name: "Oracle Autonomous AI Lakehouse", body: "Self-managing warehouse with Iceberg" },
         { name: "Oracle AI for Fusion Applications", body: "AI agents inside Fusion applications" }
@@ -397,7 +397,7 @@ window.SITE_CONTENT = {
       categoryChip: "Deep research",
       facet: "oci-nvidia",
       oneLiner: "Turns news, filings and market signals into cited, per-account opportunities and risks that sales and account teams can act on.",
-      tags: ["Deep research", "OCI + NVIDIA", "AI-Q"],
+      tags: ["Deep research", "OCI + NVIDIA"],
       hero: {
         image: {
           file: "assets/img/heroes/account-insights.jpg",
@@ -722,7 +722,7 @@ window.SITE_CONTENT = {
       facet: "oci-nvidia",
       oneLiner: "Assembles the evidence trail for a case or complaint out of every system that holds a piece of it — cited, time-stamped, and ready for an investigator to decide on.",
       statusNote: "Packaged offering in preparation — scoping conversations are open.",
-      tags: ["Deep research", "OCI + NVIDIA", "AI-Q"],
+      tags: ["Deep research", "OCI + NVIDIA"],
       hero: {
         image: {
           file: "assets/img/heroes/case-evidence-collection.jpg",
@@ -1033,7 +1033,7 @@ window.SITE_CONTENT = {
       facet: "oci-nvidia",
       oneLiner: "Compares plan against actual across completed projects, orders and engagements, and assembles each variance with its candidate drivers and the source evidence behind them.",
       statusNote: "Packaged offering in preparation — scoping conversations are open.",
-      tags: ["Deep research", "OCI + NVIDIA", "AI-Q"],
+      tags: ["Deep research", "OCI + NVIDIA"],
       hero: {
         image: {
           file: "assets/img/heroes/plan-vs-actual-investigation.jpg",
@@ -1362,7 +1362,7 @@ window.SITE_CONTENT = {
       facet: "oci-nvidia",
       oneLiner: "Turns long, complex documents into validated, structured data — every extracted value carries a confidence score and a citation to its source page.",
       heroCaption: "100-page contract in minutes.",
-      tags: ["Processing pipelines", "OCI + NVIDIA", "AI-Q"],
+      tags: ["Processing pipelines", "OCI + NVIDIA"],
       hero: {
         image: {
           file: "assets/img/heroes/large-document-extraction.jpg",
@@ -1700,7 +1700,7 @@ window.SITE_CONTENT = {
       facet: "oci-nvidia",
       oneLiner: "Optimizes field-service work zones and schedules with NVIDIA cuOpt — a region’s four-week plan built in minutes, approved by dispatchers, exported to Oracle Field Service.",
       heroCaption: "What if dispatchers reviewed the plan, not built it?",
-      tags: ["Data analysis & optimization", "OCI + NVIDIA", "cuOpt", "Oracle Field Service"],
+      tags: ["Data analysis & optimization", "OCI + NVIDIA"],
       hero: {
         image: {
           file: "assets/img/heroes/workforce-optimization.jpg",
@@ -2039,7 +2039,7 @@ window.SITE_CONTENT = {
       oneLiner: "Answers plain-language questions that span the ERP, the CRM and the systems around them, from one governed layer on Oracle Autonomous AI Lakehouse.",
       heroLine: "Your ERP + everything around it.",
       badges: ["ERP + CRM + THE SYSTEMS AROUND THEM", "PREBUILT PIPELINES", "ANSWERS IN MINUTES"],
-      tags: ["Data analysis & optimization", "Oracle Autonomous AI Lakehouse", "Select AI"],
+      tags: ["Data analysis & optimization", "Oracle Autonomous AI Lakehouse"],
       hero: {
         image: {
           file: "assets/img/heroes/cross-system-erp-qa.jpg",
@@ -2343,7 +2343,7 @@ window.SITE_CONTENT = {
       oneLiner: "Answers plain-language questions about business metrics from one governed gold layer over the catalogs and databases you already run — consistent definitions, no data moved.",
       heroLine: "Ask once, every cloud answers.",
       badges: ["MULTI-CLOUD", "ON-PREM TOO", "NO MIGRATION"],
-      tags: ["Data analysis & optimization", "Oracle Autonomous AI Lakehouse", "Select AI"],
+      tags: ["Data analysis & optimization", "Oracle Autonomous AI Lakehouse"],
       hero: {
         image: {
           file: "assets/img/heroes/business-metrics-qa.jpg",
@@ -2656,7 +2656,7 @@ window.SITE_CONTENT = {
       ],
       platformsTitle: "ORACLE PLATFORMS WE FOCUS ON",
       platforms: [
-        { name: "Oracle Cloud Infrastructure + NVIDIA NeMo Agent Toolkit", short: "GPU cloud plus agent tooling", long: "OCI GPU compute with NVIDIA accelerated computing, NIM microservices and AI blueprints — AI-Q, cuOpt, VSS." },
+        { name: "OCI + NVIDIA", short: "GPU cloud plus agent tooling", long: "OCI GPU compute with NVIDIA accelerated computing, NIM microservices and AI blueprints — AI-Q, cuOpt, VSS." },
         { name: "Oracle AI Data Platform", short: "Governed enterprise data for AI", long: "Unified lakehouse for structured, unstructured and real-time enterprise data — governed, AI-ready, multi-cloud." },
         { name: "Oracle Autonomous AI Lakehouse", short: "Self-managing warehouse with Iceberg", long: "Oracle Autonomous AI Database 26ai as the governed gold layer — Iceberg, vector search, Select AI and Select AI Agents." },
         { name: "Oracle AI for Fusion Applications", short: "AI agents inside Fusion applications", long: "Embedded AI agents and AI Agent Studio across ERP, SCM, HCM and CX — including Oracle Field Service." }
