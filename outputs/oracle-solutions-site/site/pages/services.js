@@ -134,7 +134,7 @@
     var block = content.services.proof;
     var linkLabel = String(block.cta.label || "").replace(/\s*→\s*$/, "");
 
-    return '<section class="section home-screen" id="' + UI.esc(block.anchor) + '"><div class="wrap">' +
+    return '<section class="section home-screen services-page-proof" id="' + UI.esc(block.anchor) + '"><div class="wrap">' +
       '<div class="light-band reveal">' +
         '<div class="light-band-media">' +
           '<p class="band-label">' + UI.esc(block.eyebrow) + "</p>" +

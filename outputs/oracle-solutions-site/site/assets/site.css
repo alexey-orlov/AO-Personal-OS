@@ -2282,6 +2282,23 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
    so the after-go-live marks stay neutral. */
 .services-after .way-mark { color: var(--text-muted); }
 
+/* No one-word last lines in the page's running text. */
+.services-hero .product-lead, .services-hero .product-subline, .services-engage .home-head-lead,
+.services-engage .ladder3-body, .services-after .way-body, .services-page-proof .band-body,
+.proof-stat-label, .proof-note { text-wrap: pretty; }
+
+/* Below 900 px the page is one column — nav, panels and light band already are —
+   so the full-width track turns vertical here rather than at the home page's 720,
+   before body-size steps are squeezed into three narrow columns. */
+@media (max-width: 900px) {
+  .services-engage .ladder3 { grid-template-columns: minmax(0, 1fr); grid-template-rows: none; column-gap: 0; row-gap: 1.75rem; }
+  .services-engage .ladder3-step { display: flex; flex-direction: column; grid-row: auto; padding-top: 0; padding-left: 1.25rem; }
+  .services-engage .ladder3-step::before { top: 0; bottom: -1.75rem; left: 0; right: auto; width: 1px; height: auto; }
+  .services-engage .ladder3-step:last-child::before { bottom: 0; right: auto; }
+  .services-engage .ladder3-dot { top: .3125rem; left: -.1875rem; margin-top: 0; }
+  .services-engage .ladder3-body { max-width: 44rem; }
+}
+
 /* ——— services: the proof light band (round 6) ——————————— */
 
 .proof-stat { display: flex; flex-direction: column; gap: .625rem; }
