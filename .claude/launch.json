@@ -19,7 +19,7 @@
         "http.server",
         "8765",
         "--directory",
-        "/Users/olekorlov/Documents/GitHub/AO-Personal-OS/outputs/oracle-solutions-site/site"
+        "outputs/oracle-solutions-site/site"
       ],
       "port": 8765
     }
