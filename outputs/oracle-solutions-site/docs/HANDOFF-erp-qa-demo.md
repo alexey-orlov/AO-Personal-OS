@@ -111,7 +111,7 @@ Skip = auto-perform, as before. Hints allow only the designated control; every o
 
 ## 8. Captures and wiring
 
-- Four step stills + poster: 640 × 400 CSS-px crops at DPR 2 → 1600 × 1000 JPEG q86 ≤ 300 KB (`docs/ASSETS.md` §1): (1) Data Studio Catalog with the five mounted catalogs and the job card; (2) the band after the refresh; (3) the Agent Hub answer with source badges and the trace open; (4) Mapping review with the rejected proposal and the recomputed band. Poster: the Agent Hub answer at `state=final`.
+- Four step stills + poster: 640 × 400 CSS-px crops at DPR 2 → 1600 × 1000 JPEG q86 ≤ 300 KB (`docs/ASSETS.md` §1). Each still matches its own step copy, not the tour order: (1) Data Studio Catalog with the five mounted catalogs and the job card; (2) the band after the refresh; (3) the same answer under the analyst's role — the "Viewing as Marcus Bell" chip, four NG-NA rows and the row-policy / masking banner; (4) the controller's answer at `state=final` — the freshness line, the three `GOLD` views and the rows with their source badges. Poster: the same answer with the question bubble, at 800 × 450.
 - `site/assets/img/steps/cross-system-erp-qa-1..4.jpg`, `site/assets/img/posters/cross-system-erp-qa.jpg`; delete the four SVG illustrations; `content.js` step `image` fields → `.jpg`.
 - `config.js` → `demoUrl: "demo/cross-system-erp-qa/index.html"`, `videoPoster`, and `demoPreviewUrl` once the standalone artifact exists (main session publishes; subagents never publish and never run git).
 
@@ -155,8 +155,8 @@ mention what Oracle does or does not ship. The tour scenario was replayed at
 |---|---|---|
 | `site/assets/img/steps/cross-system-erp-qa-1.jpg` | 1600 × 1000, 203 KB | Data Studio › Catalog, five mounted catalogs (`state=start`) |
 | `site/assets/img/steps/cross-system-erp-qa-2.jpg` | 1600 × 1000, 231 KB | The health band in full after the rebuild (`state=refreshed`) |
-| `site/assets/img/steps/cross-system-erp-qa-3.jpg` | 1600 × 1000, 234 KB | The Agent Hub answer with source badges, Trace open (`state=refreshed`) |
-| `site/assets/img/steps/cross-system-erp-qa-4.jpg` | 1600 × 1000, 240 KB | The band recomputed after the steward's rejection (`state=fixed`) |
+| `site/assets/img/steps/cross-system-erp-qa-3.jpg` | 1600 × 1000, 244 KB | "Guard it in the data layer": the answer seen as the regional analyst — role chip, four NG-NA rows, row-policy / masking banner (`state=final`, `role=analyst`, `q=1`) |
+| `site/assets/img/steps/cross-system-erp-qa-4.jpg` | 1600 × 1000, 249 KB | "Ask in plain language": the controller's answer — freshness line, three `GOLD` views, seven of the eleven rows with source badges (`state=final`, `q=1`) |
 | `site/assets/img/posters/cross-system-erp-qa.jpg` | 1600 × 900, 247 KB | The Agent Hub answer at `state=final`, 11 rows, controller |
 | `tools/capture-erpqa-frames.json` | — | The frames-and-poster scenario (run at four viewports) |
 
