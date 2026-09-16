@@ -33,7 +33,7 @@ it reads as one.
   floor. A full application capture cannot clear it — crop to the one region the
   step is about, and keep every heading whole inside the crop.
 
-### Product frames from the interactive walkthroughs (8 frames + 2 posters, 2 products)
+### Product frames from the interactive walkthroughs (12 frames + 3 posters, 3 products)
 
 All four `large-document-extraction-*.jpg` frames are captures of the site's own
 interactive walkthrough (`site/demo/large-document-extraction/`, 2026-09-15),
@@ -167,12 +167,13 @@ product's stepper reads as one system.
   product UI — its 40 images are slide exports, and those carry a customer name
   in the case study.
 
-### Designed step illustrations (20 frames, 5 products)
+### Designed step illustrations (16 frames, 4 products)
 
 `account-insights-1..4`, `case-evidence-collection-1..4`,
-`plan-vs-actual-investigation-1..4`, `cross-system-erp-qa-1..4`,
-`business-metrics-qa-1..4`. Large docs and Workforce optimization are the two
-products whose frames are captures (above).
+`plan-vs-actual-investigation-1..4`, `business-metrics-qa-1..4`. Large docs,
+Workforce optimization and Cross-system ERP Q&A are the three products whose
+frames are captures (above); the four `cross-system-erp-qa-*.svg` illustrations
+were deleted from disk on 2026-09-16 when the captures replaced them.
 
 Drawn, not sourced. One grammar across all of them: ground `#10161A` with a
 `#0E2D4D` radial lift, 2–3 px strokes (≈ 1.5 px on screen at the rendered size),
