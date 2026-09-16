@@ -21,7 +21,7 @@ window.SITE_CONFIG = {
       marketplaceUrl: "",
       demoUrl: "",
       demoPreviewUrl: "",
-      video: false,
+      video: true,
       videoUrl: "",
       videoPoster: "",
       successStoryUrl: "",
@@ -66,7 +66,7 @@ window.SITE_CONFIG = {
       }
     },
     "large-document-extraction": {
-      marketplace: false,
+      marketplace: true,
       marketplaceUrl: "",
       demoUrl: "demo/large-document-extraction/index.html",
       demoPreviewUrl: "https://claude.ai/artifact/NdxY4f1D6hxC7pjyMRs6zP",
@@ -83,11 +83,11 @@ window.SITE_CONFIG = {
       }
     },
     "workforce-optimization": {
-      marketplace: false,
+      marketplace: true,
       marketplaceUrl: "",
       demoUrl: "",
       demoPreviewUrl: "",
-      video: false,
+      video: true,
       videoUrl: "",
       videoPoster: "",
       successStoryUrl: "",
