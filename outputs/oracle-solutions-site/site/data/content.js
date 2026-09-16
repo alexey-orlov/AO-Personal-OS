@@ -2704,7 +2704,7 @@ window.SITE_CONTENT = {
       },
       headline: { accent: "FROM ORACLE’S PLATFORMS", rest: "TO AGENTS IN PRODUCTION." },
       lead: "Oracle provides the platforms. SoftServe builds, integrates and runs what sits on top: the agents and workflows on this site, adapted to your systems and rules — or the one your workflow needs — and the governed data under them.",
-      secondParagraph: "Architects who own the Oracle reference architecture shape the scope; engineers on the Oracle AI stack build and integrate it; the same team runs it after go-live, or trains yours to. Joint teams with Oracle’s AI & Data organization, one contract.",
+      secondParagraph: "Architects who own the Oracle reference architecture shape the scope; engineers on the Oracle AI stack build and integrate it; the same team runs it after go-live. Joint teams with Oracle’s AI & Data organization, one contract.",
       stats: [
         { value: "500+", label: "data experts in SoftServe’s data and analytics practice" },
         { value: "150+", label: "active projects" },
@@ -2760,8 +2760,7 @@ window.SITE_CONTENT = {
           body: "The production system under SLA, kept running and re-tuned by the people who built it.",
           bullets: [
             "Incident response, monitoring and health operations",
-            "Rule and model re-tuning, platform and version upgrades",
-            "A periodic accuracy, KPI and cost review"
+            "Rule and model re-tuning, platform and version upgrades"
           ]
         },
         {
@@ -2771,8 +2770,7 @@ window.SITE_CONTENT = {
           body: "Your people, trained and equipped to maintain and extend what we delivered.",
           bullets: [
             "OCI and NVIDIA certification, plus training on the solution itself",
-            "An AI operating model with governance, intake and prioritization",
-            "Knowledge transfer and runbooks"
+            "An AI operating model with governance, intake and prioritization"
           ]
         }
       ]
@@ -2782,7 +2780,7 @@ window.SITE_CONTENT = {
       anchor: "proof",
       eyebrow: "How we measure it",
       title: "Signed before we start, scored like for like.",
-      lead: "The use case, two or three success metrics and the baseline are signed by you, Oracle and SoftServe before the clock starts, with source access approved in writing. Every KPI is then computed the same way for the current path and the new one, so the comparison holds.",
+      lead: "The use case, two or three success metrics and the baseline are signed by you, Oracle and SoftServe before the clock starts. Every KPI is then computed the same way for the current path and the new one, so the comparison holds.",
       stat: {
         value: "81%",
         label: "accuracy reached on one engagement, on a customer’s existing AI solution, after an evaluation framework and work on the data"
