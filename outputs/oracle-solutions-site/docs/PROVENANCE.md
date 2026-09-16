@@ -3183,3 +3183,52 @@ the flow, the screens or the information model.
   the short `/artifact/<id>` form. Both resolve; paste the short form into
   `demoPreviewUrl` if a shorter link is wanted.
 - The demo-video recording is still pending; the poster is a walkthrough still.
+
+### 19.8 Round 2 — the value first (2026-09-16, same day)
+
+Alex's review of the first cut: *"it didn't focus my attention on what actually
+got optimized; I expected to see that the optimization clearly shows improvement
+compared to current while letting me apply manual fixes and drill down."* The
+first cut was a faithful screen tour — run, map, compare, KPIs, decisions,
+export — with the gain buried in row-level before → after lines. The
+generalised rule is now in `CLAUDE.md` (interactive demos): lead with the value,
+then the drill-down, then the manual override.
+
+What changed, all inside the same flow and information model:
+
+- **The plan is now the uploaded allocation plus a set of named changes**
+  (`data.js` `changes[]`, `plans.v1` / `plans.v2`). Each change carries the
+  assignments it adds, the rule that produced it, the explanation, and an
+  **additive KPI effect** (jobs per technician, wait time per zone). The engine
+  computes every KPI from the current plan plus the applied changes, so an
+  undone change takes its numbers and its assignments with it, and the flags
+  are a function of what is applied (`flagsFor`): undo the vacation cover and
+  "No cover during an absence" comes back; undo the Marsh End move and
+  "Wednesday overload" reappears on Southbank.
+- **A KPI band** is the first thing after a run: jobs per technician per day,
+  capacity used, average wait and visits placed, each before → after with the
+  delta in colour, and a fifth tile counting changes, zones and flags with the
+  **Review changes** button. The tiles jump to the technician or zone view.
+- **"What the solver changed"** sits beside the map: one row per change —
+  rule, title, live effect line — with **Show** (opens the zone or technician
+  on the map, jumps the schedule to the week, highlights the rows), **Undo /
+  Restore** (the manual fix) and **Note**. A **Changes only** toggle narrows the
+  map and the schedule to what moved; changed schedule cells are tinted; the
+  optimized map's pills carry the zone's wait and its delta.
+- **The tour was rebuilt around the value:** run → *see what improved* →
+  *drill into a change* (Eastfield's vacation cover) and compare with today →
+  check the numbers per technician → *fix what the solver got wrong* (undo the
+  Marsh End move by hand, note why, re-optimize around the fix) → accept the
+  rest and export. The re-run applies the alternative the solver weighed.
+- **Figures**, computed from raw means: current 4.54 → plan v1 4.75 (+4.7%)
+  → after the manual undo +4.3% → plan v2 **+4.5%**, the cleared median;
+  capacity 65% → 68%; average wait 6.8 → 6.2 d; visits placed 1,523 → 1,586 of
+  1,631 booked. Every per-zone wait and per-technician count reconciles with
+  the change that produced it.
+- Frames and poster re-captured for the new dashboard (`ASSETS.md` §1); the
+  tour regression scenario `tools/capture-wfo-tour.json` drives the new flow.
+
+Work split, as Alex asked it to be decided: Fable designed the value-first
+model, wrote the data model and the KPI/flag engine, the UI of the band and the
+change list, and the tour; an Opus subagent re-captured and converted the
+frames and poster, checked their legibility and updated the capture notes.

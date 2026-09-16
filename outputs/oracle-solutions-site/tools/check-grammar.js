@@ -49,11 +49,12 @@ var CAP_STATES = ["supported", "partial", "roadmap"];
    have to say the same word as the story, which is what the eyebrow map below
    enforces — so a fourth value would render an empty chip. */
 var CASE_STATUSES = ["measured", "modeled", "in-preparation"];
-var CASE_EYEBROW = {
-  "measured": "Measured",
-  "modeled": "Modeled",
-  "in-preparation": "Target outcomes"
-};
+/* The status word renders ONCE per card, in the chip, read from
+   shared.caseStudyStatus — Proven / Forecast / Estimated. The eyebrow over the
+   figure used to repeat it, which put the same word on a card twice and made a
+   forecast read as a disclaimer rather than a result. Both eyebrow keys are
+   retired and the checker fails them if they come back. */
+var CASE_STATUS_CHIPS = ["Proven", "Forecast", "Estimated"];
 /* Round 4, T1: the three tag families and the two availability badges. */
 var PATTERN_IDS = ["deep-research", "processing-pipelines", "data-analysis"];
 /* Round 4, T3: ONE canonical technology set, used identically on the rail, the
@@ -285,7 +286,10 @@ if (!arr(C.products) || C.products.length !== 7) {
   if (o.successStory !== undefined) fail(w, "overview.successStory is superseded by overview.caseStudy — nothing renders it");
   if (o.caseStudy !== null && o.caseStudy !== undefined) {
     var cs = o.caseStudy;
-    ["descriptor", "area", "industry", "status", "metricsEyebrow", "story", "ndaLine", "downloadLabel"].forEach(function (k) {
+    if (cs.metricsEyebrow !== undefined) {
+      fail(w, "overview.caseStudy.metricsEyebrow is retired — the status chip carries the word once");
+    }
+    ["descriptor", "area", "industry", "status", "story", "ndaLine", "downloadLabel"].forEach(function (k) {
       if (!str(cs[k])) fail(w, "overview.caseStudy." + k + " missing");
     });
     if (cs.customer !== undefined) fail(w, "overview.caseStudy.customer is banned — no customer is named on this site");
@@ -299,14 +303,6 @@ if (!arr(C.products) || C.products.length !== 7) {
     }
     if (CASE_STATUSES.indexOf(cs.status) === -1) {
       fail(w, 'overview.caseStudy.status "' + cs.status + '" is not ' + CASE_STATUSES.join(" / "));
-    }
-    /* The eyebrow says what the figures are. A measured case may not label its
-       figures as targets, a modeled one may not label simulations as measured,
-       and an engagement in preparation may not label targets as either — that
-       is the whole point of carrying the status. */
-    var wantEyebrow = CASE_EYEBROW[cs.status];
-    if (wantEyebrow && str(cs.metricsEyebrow) && cs.metricsEyebrow !== wantEyebrow) {
-      fail(w, 'overview.caseStudy.metricsEyebrow is "' + cs.metricsEyebrow + '", expected "' + wantEyebrow + '" for status "' + cs.status + '"');
     }
     if (INDUSTRIES.indexOf(cs.industry) === -1) {
       fail(w, 'overview.caseStudy.industry "' + cs.industry + '" is not in the fixed set of 16');
@@ -600,6 +596,48 @@ if (!arr(C.products) || C.products.length !== 7) {
   }
 })();
 
+/* ---- the case-study status words ---- */
+(function () {
+  var st = (C.shared && C.shared.caseStudyStatus) || {};
+  CASE_STATUSES.forEach(function (k, i) {
+    if (!st[k]) return;
+    if (st[k].chip !== CASE_STATUS_CHIPS[i]) {
+      fail("shared.caseStudyStatus." + k, 'chip is "' + st[k].chip + '", expected "' + CASE_STATUS_CHIPS[i] +
+        '" — one plain word, not a sentence about the proof of value');
+    }
+  });
+})();
+
+/* ---- no surface states the size of the catalog (2026-09-16) ----
+   Seven agents are what is packaged today, not the offering. A total, a
+   denominator or a "so far" turns the catalog into a ceiling and invites the
+   reader to count what is missing, so none of them ships in copy. */
+(function () {
+  var pp = C.productsPage || {};
+  if (pp.count !== undefined) fail("productsPage.count", "retired — no surface prints the size of the catalog");
+  if ((C.facets || {}).footnote !== undefined) {
+    fail("facets.footnote", "retired — it existed to explain the platforms with no product, which is the gap the rail no longer shows");
+  }
+  var strings = [
+    ["productsPage.intro", pp.intro],
+    ["productsPage.bottomBlock.body", (pp.bottomBlock || {}).body],
+    ["productsPage.bottomBlock.heading", (pp.bottomBlock || {}).heading],
+    ["overview.twoWays.panels[0].body", (((C.overview || {}).twoWays || {}).panels || [])[0] && C.overview.twoWays.panels[0].body],
+    ["overview.catalog.lead", ((C.overview || {}).catalog || {}).lead],
+    ["overview.catalog.title", ((C.overview || {}).catalog || {}).title]
+  ];
+  strings.forEach(function (pair) {
+    var s = pair[1];
+    if (!str(s)) return;
+    if (/\b(seven|these seven|four are priced|three are scoped)\b/i.test(s)) {
+      fail(pair[0], "states the size of the catalog — say what a reader gets, not how many there are");
+    }
+    if (/\bso far\b|\byet\b|\bnot seeing\b/i.test(s)) {
+      fail(pair[0], "names the gap — the page says what is here, never what is not");
+    }
+  });
+})();
+
 /* ---- T1 · the three tag families ---- */
 (function () {
   var tf = C.shared && C.shared.tagFamilies;
@@ -741,7 +779,10 @@ if (!arr(C.products) || C.products.length !== 7) {
   });
   cards.forEach(function (c, i) {
     var cw = "overview.caseStudies[" + i + "]";
-    ["id", "descriptor", "area", "industry", "status", "metricEyebrow", "line", "footnote"].forEach(function (k) {
+    if (c.metricEyebrow !== undefined) {
+      fail(cw, "metricEyebrow is retired — the status chip carries the word once");
+    }
+    ["id", "descriptor", "area", "industry", "status", "line", "footnote"].forEach(function (k) {
       if (!str(c[k])) fail(cw, k + " missing");
     });
     ["customer", "logo", "logoStacked", "band", "label"].forEach(function (k) {
@@ -749,10 +790,6 @@ if (!arr(C.products) || C.products.length !== 7) {
     });
     if (CASE_STATUSES.indexOf(c.status) === -1) fail(cw, 'status "' + c.status + '" is not ' + CASE_STATUSES.join(" / "));
     if (INDUSTRIES.indexOf(c.industry) === -1) fail(cw, 'industry "' + c.industry + '" is not in the fixed set of 16');
-    var wantEyebrow = CASE_EYEBROW[c.status];
-    if (wantEyebrow && str(c.metricEyebrow) && c.metricEyebrow !== wantEyebrow) {
-      fail(cw, 'metricEyebrow is "' + c.metricEyebrow + '", expected "' + wantEyebrow + '"');
-    }
     if (!c.metric || !str(c.metric.value) || !str(c.metric.label)) fail(cw, "metric needs { value, label }");
     else if (c.metric.value.length > 20) fail(cw, 'metric.value "' + c.metric.value + '" is too long to set large');
     /* A card whose headline value is words disclaims figures it never shows. */
