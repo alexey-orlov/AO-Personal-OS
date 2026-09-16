@@ -98,9 +98,12 @@
   }
 
   /* A facet that can only ever return an empty result is a dead end on a page
-     someone demos live, so a zero-count option renders unclickable. */
+     someone demos live, so a zero-count option renders unclickable. The count
+     is optional: it is what a click on that option returns, so the option that
+     clears the group carries none. */
   function railOption(options) {
     var UI = window.UI;
+    var counted = typeof options.count === "number";
     var empty = options.count === 0 && !options.on;
     return '<button class="rail-option' + (empty ? " is-empty" : "") +
       '" type="button" role="radio" tabindex="' + (options.on ? "0" : "-1") + '"' +
@@ -109,7 +112,7 @@
       '" data-value="' + UI.esc(options.value) + '" aria-checked="' + (options.on ? "true" : "false") + '"' +
       (options.title ? ' title="' + UI.esc(options.title) + '"' : "") + ">" +
       '<span class="rail-option-label">' + UI.esc(options.label) + "</span>" +
-      '<span class="rail-option-count nums">' + UI.esc(options.count) + "</span>" +
+      (counted ? '<span class="rail-option-count nums">' + UI.esc(options.count) + "</span>" : "") +
       "</button>";
   }
 

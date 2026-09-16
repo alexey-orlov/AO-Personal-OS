@@ -451,7 +451,6 @@
           "</div>" +
           UI.caseStatusChip(item.status) +
           '<div class="case-metrics">' +
-            '<p class="eyebrow case-metrics-eyebrow">' + UI.esc(item.metricsEyebrow) + "</p>" +
             '<div class="case-figures' +
               ((item.metrics || []).length < 2 ? " case-figures--single" : "") + '">' +
               figures +

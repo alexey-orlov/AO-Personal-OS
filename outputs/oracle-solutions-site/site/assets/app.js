@@ -486,7 +486,6 @@
       "</div>" +
       caseStatusChip(item.status) +
       '<div class="case-card-metric">' +
-        '<p class="eyebrow eyebrow--accent">' + esc(item.metricEyebrow) + "</p>" +
         '<p class="case-figure-value nums">' + esc(item.metric.value) + "</p>" +
         '<p class="case-figure-label">' + esc(item.metric.label) + "</p>" +
       "</div>" +
