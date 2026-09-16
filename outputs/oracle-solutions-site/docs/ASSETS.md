@@ -167,6 +167,71 @@ product's stepper reads as one system.
   product UI — its 40 images are slide exports, and those carry a customer name
   in the case study.
 
+**Cross-system ERP Q&A (2026-09-16).** All four `cross-system-erp-qa-*.jpg`
+frames and `posters/cross-system-erp-qa.jpg` are captures of the third
+walkthrough (`site/demo/cross-system-erp-qa/`, PROVENANCE §22). There is no
+delivered product behind this pack, so the "real product" the frames have to be
+faithful to is the **platform** — Oracle Autonomous AI Lakehouse (Data Studio)
+and Oracle AI Data Platform (Agent Hub), replicated from Oracle's own product
+videos and doc figures, plus a small Redwood steward app. The world is
+synthetic throughout: a fictional multi-entity group, invented supplier names
+(Kestrel Components, Orion Fasteners, Halden Tooling …), invented ids on each
+system's real key shapes (Fusion `S-10422`, JDE `AB 118207`, NetSuite `V-4187`),
+invented balances, and a coverage band that carries **no** time-to-answer, cost,
+saving or delivery-time figure — the pack has no cleared outcome number, and the
+band shows counts and coverage only. No customer mark, no Oracle logo file, no
+currency symbol beyond the USD column header.
+
+| File | Shows | Capture state |
+|---|---|---|
+| `cross-system-erp-qa-1.jpg` | Connect the applications: Data Studio › Catalog with the five mounted source catalogs (`FUSION_ERP` · `JDE_E1` · `NETSUITE` · `CRB_INHOUSE` · `CRM_ICEBERG`), the entity-type pills and "Showing 41 entities" | `state=start`, Catalog, 640 px viewport |
+| `cross-system-erp-qa-2.jpg` | Shape one decision domain: the Mapping review health band in full — six tiles, before → after the rebuild (5 sources · 1 model · 13 certified views; 61.2 % → 93.2 % resolved; 37 → 0 unmapped accounts; ledgers 1/3 → 3/3; 14 duplicate pairs; stalest source unchanged) | `state=refreshed`, Mapping review, 676 px viewport |
+| `cross-system-erp-qa-3.jpg` | Guard it in the data layer: the Agent Hub answer to question 1 — rows carrying their source badges, the pending-review caveat, the action chips with **Trace** active, and the first trace spans | `state=refreshed`, `q=1`, `panel=trace`, 860 px viewport |
+| `cross-system-erp-qa-4.jpg` | The steward's override: the same band recomputed after the wrong match is rejected and the resolution re-run — 93.7 % resolved, 24 proposals, 13 duplicate pairs, the two changed tiles ringed | `state=fixed` (driven live, so the "moved" rings are on), Mapping review, 676 px viewport |
+
+**Capture.** `tools/capture-demo-frames.mjs` in `MODE=script` with
+`tools/capture-erpqa-frames.json`, `DPR=2`, the page opened at
+`?tour=off&ui=clean&state=start`
+(`tools/capture-erpqa-tour.json` drives the whole guided tour by real clicks and
+is the tour's regression test — `LOGS: none` is the gate). The scenario itself
+walks every state through `window.DEMO` — `prime('start'|'refreshed'|'final')`,
+`setApp`, `ask`, `openPanel`, and for `-4` a real `decide('M-ORION','reject')`
+followed by `rerun()` — so one scenario file produces all five shots and each
+**viewport** run keeps only the shot it was sized for:
+
+    MODE=script STEPS=tools/capture-erpqa-frames.json DPR=2 W=640 H=900 \
+      node tools/capture-demo-frames.mjs \
+      "file://<repo>/site/demo/cross-system-erp-qa/index.html?tour=off&ui=clean&state=start" /tmp/erp640
+    # …the same command with W=676 H=900, W=860 H=1200 and W=980 H=1100
+
+Four viewports, because each surface fits a 640 CSS-px crop at a different
+width: `-1` from the 640 run (below ~660 px the Catalog's five mounted-catalog
+chips wrap into the crop, and the whole dark L-shell fits beside them);
+`-2` and `-4` from the 676 run (the health band reflows to 3 × 2 tiles under
+1120 px and is exactly 640 px wide at a 676 px viewport, so all six tiles land
+inside the crop at the same apparent size three of six would have at 1240 px);
+`-3` from the 860 run (the answer grid is 630 px wide there, so the crop holds
+the badges, the chips and the trace); the poster from the 980 run (nav 180 px +
+page 800 px, so an 800 px crop is the whole page with nothing cut).
+
+Crop offsets in CSS px (device px are twice these, at `DPR=2`): `-1` (0, 44,
+640 × 400) · `-2` (18, 100) · `-3` (200, 675) · `-4` (18, 100). Every edge is
+placed on a real boundary — `-1` starts at the Data Studio bar and ends in the
+white below the green *View* band; `-3` starts on an answer-row boundary and
+ends on a trace-span boundary. Converted with `sips` (crop → resample to
+1600 × 1000 → progressive JPEG q86) on a Mac without ffmpeg; 208–246 KB each,
+inside the 300 KB ceiling. **`sips` gotcha, again:** `--cropOffset 0 0` means
+*centred*, so a crop anchored at the left edge needs a non-zero Y with X = 0.
+
+**Poster.** `assets/img/posters/cross-system-erp-qa.jpg`, 1600 × 900 (an
+800 × 450 CSS-px crop at `DPR=2`, offset (180, 86), no resample, q86, 247 KB):
+the Agent Hub answer at `state=final` — the question in plain English, the
+"Total rows: 11 · as of 09:02 (stalest: NetSuite, 38 min behind)" line with the
+three `GOLD` views it read, and eight of the eleven rows with their source
+badges. It is wired as `videoPoster` but **nothing renders it yet**: the product
+has `video: false`, so the hero has no media frame (`docs/CONFIG.md` §3). It is
+captured now so that turning the frame on later is a one-word change.
+
 ### Designed step illustrations (16 frames, 4 products)
 
 `account-insights-1..4`, `case-evidence-collection-1..4`,
