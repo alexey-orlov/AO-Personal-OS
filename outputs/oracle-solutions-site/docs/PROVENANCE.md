@@ -1619,12 +1619,11 @@ read the round-4 keys. What changed, file by file:
   reading.
 - `pages/products.js` — the single marketplace checkbox became the Availability
   group: faceted checkboxes on the same two config booleans, `demo=1` and `mp=1`
-  in the query, both reset by Clear filters. `liveOptions()` drops an option no
-  product carries and `readState` ignores its query param, so the group narrows
-  to one checkbox or disappears rather than offering a filter that can only
-  return nothing. A zero-count box that is live is disabled rather than a dead
-  end, matching the radio groups. The search index reads `statusNote` instead of
-  the retired `availabilityChip`.
+  in the query, both reset by Clear filters. **Both options always render**
+  (`availabilityOptions()` returns the data unfiltered) and both query params are
+  always read; a zero-count box is disabled rather than a dead end, matching the
+  radio groups. The search index reads `statusNote` instead of the retired
+  `availabilityChip`.
 - `pages/overview.js` — the proof rows became the case-study grid, one card per
   engagement that has one.
 - `pages/services.js` — the case-study grid became the method block (§17.4a):
@@ -1646,12 +1645,46 @@ gain. It is what gates the case study's download link.
 `check-grammar.js` passes with **0 failures and 0 warnings** on this data; it
 asserts the new slots and cannot see the renderers, so the renderer side was
 verified in the browser instead — the affected routes render with a clean
-console, the case study appears on exactly the three products that carry one and
-on no other, and the two unpackaged products are the only two with a status
+console, the case study appears on exactly the **four** products that carry one
+and on no other, and the two unpackaged products are the only two with a status
 note. The checker gained the round-4 fix-round rules: the three status keys and
 their eyebrow map, `metrics` of length 1–2, the ban on `caseStudy.image`, the
 footnote/figure agreement on home cards, and the shape of `services.proof`
 including the no-figure rule on its engagement lines.
+
+### 17.6 The owner's overrides restored (2026-09-16)
+
+A fix round turned three of the owner's own decisions into QA findings and
+reversed them. Each reversal was internally well argued and each was **wrong
+about who decides**: a flag that says *this exists* and a case study that says
+*this engagement exists* are the owner's statements about his own pipeline, not
+data-layer inferences a checker may overrule. Restored, with the honesty
+constraint kept in the place that actually carries it — the status chip, the
+eyebrow and the caveat sentence, not the presence or absence of the block.
+
+| # | What the fix round did | Restored to | Where the honesty lives now |
+|---|---|---|---|
+| 1 | `video: false` on `workforce-optimization` and `account-insights` (empty `videoUrl`) | `video: true` on those two and on `large-document-extraction` | The hero frame's own *recording in preparation* panel, which already existed for exactly this state |
+| 2 | `marketplace: false` on all seven | `marketplace: true` on `workforce-optimization` and `large-document-extraction` | The badge renders **unlinked** until `marketplaceUrl` is set; L3's ship-gate warning stands |
+| 3 | *On Oracle Marketplace* checkbox hidden while its count was zero; `mp=1` ignored | Both availability boxes always render with faceted counts; both query params honored | A zero-count box is disabled, not absent — the rail keeps its shape between visits |
+| 4 | `plan-vs-actual-investigation` case study withdrawn as pre-contract; home grid cut to three cards | `caseStudy` restored at `status: "in-preparation"`; the grid is four cards (2×2) again | The `in-preparation` chip, the *Target outcomes* eyebrow, *"being prepared"* in the story, and *Proof of value in preparation* in the scope row (§17.2 d) |
+
+Checker changes made with them, all narrowing rules rather than adding them:
+
+- **Badge/facet flags are booleans and a URL may be empty.** The only value
+  assertion left is the reverse case — `marketplaceUrl` set while `marketplace`
+  is `false`. No rule asserts either flag to a particular value, because neither
+  is the checker's call.
+- **`overview.caseStudies` is derived, not counted.** It must hold one card per
+  product carrying a non-null `overview.caseStudy` — `withCase.length`, whatever
+  that is — and every such product must have a card. The old rule hard-coded
+  three, so restoring a case study failed the build on an arithmetic constant.
+  `services.proof.engagements` already read `cards.length` and needed no change.
+
+The standing rule this round leaves behind: **when a QA finding and the owner's
+instruction disagree about whether something exists, the finding is at most an
+argument for how to phrase it.** Suppressing the item is not the fix available to
+a fix round.
 
 ### 16.4 Red-team round — is the demo narrower than the pack? (2026-09-16)
 
