@@ -386,3 +386,134 @@ window.ERPQA_DATA = (function () {
   pat3.forEach(function (p, i) { buildCluster(p, !!taxPick3[i], i); });
   /* the three hand-written tax-id clusters count towards the same 228 */
   handGolden.forEach(function (g) { if (g.basis === "taxId") g.records.forEach(function (rid) { byId(rid).exactBefore = true; }); });
+
+  /* ---- 3. the 25 proposals still waiting for a steward ---------------- */
+  /* Twenty-two propose a new record onto a supplier the model already
+     confirmed; three propose two loose records to each other. The Orion pair
+     is the false one the steward rejects in step 5. */
+  var PENDING = [
+    /* [aSys, aName, aCity, aTax, aBank, aSpendLocal,
+        bSys, bName, bCity, bTax, bBank, bSpendLocal, score, evidence, note] */
+    ["FUSION", "Orion Fasteners Ltd", "Manchester", "GB8842317741", "4418", 356940,
+     "JDE", "ORION FASTENING SYSTEMS INC", "Mississauga", "CA844162210", "9032", 393260, 0.86,
+     ["name 0.91", "tax id ✗", "bank ✗", "city ✗", "country ✗"],
+     "Normalised names agree, nothing else does. Both records carry Q3 invoices."],
+    ["FUSION", "Whitmore Abrasives Ltd", "Sheffield", "GB7712048830", "2207", 84220,
+     "FUSION", "Whitmoor Abrasives Limited", "Sheffield", "", "2207", 31480, 0.88,
+     ["name 0.89", "tax id —", "bank ✓", "city ✓"],
+     "Second record has no tax registration number on file."],
+    ["JDE", "NORTHLINE CARTAGE LTD", "Hamilton", "CA7719033185", "5510", 142860,
+     "NETSUITE", "Northline Cartage LLC", "Toledo", "US3644719021", "8841", 61240, 0.81,
+     ["name 0.94", "tax id ✗", "bank ✗", "city ✗"],
+     "Same trading name on two continents; no shared identifier."],
+    ["FUSION", "Pennington Valves Ltd", "Leeds", "GB7740118206", "6641", 128420,
+     "FUSION", "Pennington Valve Co", "Leeds", "GB7740118206", "6641", 22180, 0.87,
+     ["name 0.86", "tax id ✓", "bank ✓", "city ✓"], "Looks like a second site opened as its own supplier."],
+    ["FUSION", "Grantley Coatings Ltd", "Derby", "GB7788204412", "3092", 96340,
+     "NETSUITE", "Grantley Coatings Inc", "Dayton", "US3660214408", "7718", 48220, 0.83,
+     ["name 0.95", "tax id ✗", "bank ✗", "city ✗"], "Group buys from both; the legal link is unconfirmed."],
+    ["FUSION", "Sedgemoor Bearings Ltd", "Swindon", "GB7702118840", "1174", 74160,
+     "FUSION", "Sedgmoor Bearings Ltd", "Swindon", "GB7702118840", "1174", 18640, 0.89,
+     ["name 0.88", "tax id ✓", "bank ✓", "city ✓"], "One character apart; same registration."],
+    ["FUSION", "Ashcombe Adhesives Ltd", "Reading", "GB7714408820", "5548", 62740,
+     "JDE", "ASHCOMBE ADHESIVE PRODUCTS", "Brampton", "CA7788114026", "2261", 88420, 0.79,
+     ["name 0.82", "tax id ✗", "bank ✗", "city ✗"], "Trade names overlap; products differ."],
+    ["FUSION", "Larkfield Plastics Ltd", "Coventry", "GB7760228014", "8830", 58120,
+     "FUSION", "Larkfield Polymer Ltd", "Coventry", "GB7760228014", "4417", 26480, 0.77,
+     ["name 0.74", "tax id ✓", "bank ✗", "city ✓"], "Same registration, different trading name and bank."],
+    ["FUSION", "Cranbourne Filtration Ltd", "Norwich", "GB7733018842", "2206", 51480,
+     "NETSUITE", "Cranbourne Filtration Corp", "Akron", "US3690114472", "9903", 37260, 0.84,
+     ["name 0.96", "tax id ✗", "bank ✗", "city ✗"], "Sister companies or a coincidence of name."],
+    ["FUSION", "Thornby Welding Supplies Ltd", "Preston", "GB7719902244", "6618", 44920,
+     "FUSION", "Thornbury Welding Supplies", "Preston", "", "6618", 12840, 0.85,
+     ["name 0.87", "tax id —", "bank ✓", "city ✓"], "Second record predates the tax-id field being mandatory."],
+    ["FUSION", "Ebbsworth Lubricants Ltd", "Ipswich", "GB7706118834", "3374", 68240,
+     "JDE", "EBBSWORTH LUBRICANTS CANADA", "Guelph", "CA7740228116", "5529", 96180, 0.88,
+     ["name 0.93", "tax id ✗", "bank ✗", "city ✗", "contract CRB-2291 ✓"], "One group contract covers both."],
+    ["FUSION", "Marchwood Conveyors Ltd", "Luton", "GB7748820104", "7741", 39860,
+     "FUSION", "Marchwood Conveyor Systems", "Luton", "GB7748820104", "7741", 14220, 0.82,
+     ["name 0.80", "tax id ✓", "bank ✓", "city ✓"], "Probably the same entity re-registered after a rename."],
+    ["FUSION", "Rookwood Timber Ltd", "Exeter", "GB7714022890", "9917", 47320,
+     "FUSION", "Rookwood Timber Products Ltd", "Exeter", "GB7714022890", "9917", 21640, 0.86,
+     ["name 0.85", "tax id ✓", "bank ✓", "city ✓"], "Parent and its products arm on one registration."],
+    ["FUSION", "Havenbrook Safety Ltd", "Glasgow", "GB7790114408", "4462", 36480,
+     "JDE", "HAVENBROOK SAFETY EQUIPMENT", "Kitchener", "CA7702281140", "1108", 74260, 0.80,
+     ["name 0.88", "tax id ✗", "bank ✗", "city ✗"], "Distributor of the same brand, not necessarily the same party."],
+    ["FUSION", "Denholm Gaskets Ltd", "Cardiff", "GB7728804412", "5583", 33140,
+     "FUSION", "Denholme Gaskets Ltd", "Cardiff", "GB7728804412", "5583", 9840, 0.87,
+     ["name 0.90", "tax id ✓", "bank ✓", "city ✓"], "Spelling variant on the same registration."],
+    ["FUSION", "Kingsmere Calibration Ltd", "Dundee", "GB7711440228", "2238", 28620,
+     "NETSUITE", "Kingsmere Calibration LLC", "Peoria", "US3644028816", "6674", 24180, 0.78,
+     ["name 0.94", "tax id ✗", "bank ✗", "city ✗"], "No shared identifier beyond the name."],
+    ["JDE", "WESTBOURNE FABRICATION LTD", "Windsor", "CA7740118206", "8804", 118240,
+     "JDE", "WESTBOURNE FABRICATING LTD", "Windsor", "CA7740118206", "8804", 24860, 0.89,
+     ["name 0.88", "tax id ✓", "bank ✓", "city ✓"], "Two address-book numbers for one creditor."],
+    ["JDE", "CARRICK MOTORS AND CONTROLS", "Oshawa", "CA7788024411", "3317", 96420,
+     "FUSION", "Carrick Motor Controls Ltd", "Coventry", "GB7714408226", "7728", 42180, 0.83,
+     ["name 0.91", "tax id ✗", "bank ✗", "city ✗"], "Shared brand, separate legal entities on file."],
+    ["JDE", "SELWYN INDUSTRIAL CHEMICALS", "Barrie", "CA7702114408", "6690", 88140,
+     "JDE", "SELWYN INDUSTRIAL CHEMICAL CO", "Barrie", "CA7702114408", "6690", 19420, 0.86,
+     ["name 0.89", "tax id ✓", "bank ✓", "city ✓"], "Singular and plural of the same creditor."],
+    ["JDE", "FERNLEA LABORATORY SUPPLIES", "Laval", "CA7719028840", "1162", 64280,
+     "JDE", "FERNLEA LAB SUPPLIES INC", "Laval", "CA7719028840", "1162", 17240, 0.88,
+     ["name 0.84", "tax id ✓", "bank ✓", "city ✓"], "Abbreviated name opened as a second address book record."],
+    ["JDE", "CORBRIDGE MACHINING LTD", "Burnaby", "CA7733114402", "9948", 72640,
+     "FUSION", "Corbridge Machining (UK) Ltd", "Leeds", "GB7788110226", "3340", 51820, 0.81,
+     ["name 0.92", "tax id ✗", "bank ✗", "city ✗", "contract CRB-2304 ✓"], "One contract names both; ownership unclear."],
+    ["NETSUITE", "Yardley Print Services LLC", "Columbus", "US3611440228", "7702", 42860,
+     "FUSION", "Yardley Printing Services Ltd", "Norwich", "GB7740228806", "1194", 28140, 0.85,
+     ["name 0.90", "tax id ✗", "bank ✗", "city ✗"], "Same brand, two registrations."],
+    ["NETSUITE", "Elmsworth Catering Group", "Wichita", "US3690228114", "4426", 38240,
+     "FUSION", "Elmsworth Catering Ltd", "Reading", "GB7714028840", "8816", 22960, 0.75,
+     ["name 0.86", "tax id ✗", "bank ✗", "city ✗"], "Lowest-scoring proposal in the queue."],
+    ["NETSUITE", "Garrick Facilities LLC", "Omaha", "US3628811440", "3348", 34180,
+     "FUSION", "Garrick Facility Management Ltd", "Luton", "GB7702288114", "6620", 19840, 0.84,
+     ["name 0.87", "tax id ✗", "bank ✗", "city ✗"], "Facilities contracts run in both entities."],
+    ["NETSUITE", "Inverleith Seals Corp", "Boise", "US3670224408", "5561", 29640,
+     "NETSUITE", "Inverleith Seal Products Inc", "Reno", "US3670224408", "5561", 11280, 0.82,
+     ["name 0.83", "tax id ✓", "bank ✓", "city ✗"], "Same registration, two subsidiaries on file."]
+  ];
+  /* the A side of the twenty-two attach proposals is an existing confirmed
+     record: take one intra-system pair per proposal and give it the authored
+     identity, so the queue shows a real golden supplier on the left */
+  var intra = { FUSION: [], JDE: [], NETSUITE: [] };
+  genClusters.forEach(function (g) { if (g.pattern === "FF") intra.FUSION.push(g); else if (g.pattern === "JJ") intra.JDE.push(g); else if (g.pattern === "NN") intra.NETSUITE.push(g); });
+  var pendingMatches = [], looseRecords = [];
+  PENDING.forEach(function (p, i) {
+    var aSys = p[0], bSys = p[6], a, b, loose2 = i < 3;
+    if (loose2) {
+      a = mkRecord(aSys, { name: p[1], city: p[2], taxId: p[3], bank: p[4], spendLocal: p[5] });
+      looseRecords.push(a);
+    } else {
+      var host = intra[aSys].shift();
+      a = byId(host.records[0]);
+      a.name = p[1]; a.city = p[2]; a.taxId = p[3]; a.bankLast4 = p[4];
+      a.spendLocal = p[5]; a.spendUsd = r2(p[5] * SRC[aSys].rate);
+      host.name = p[1].replace(/ (Ltd|PLC|Inc|LLC|Corp|Group Ltd)$/, "");
+      host.city = p[2]; host.taxId = p[3];
+      host.spendUsd = r2(sum(host.records, function (rid) { return byId(rid).spendUsd; }));
+    }
+    b = mkRecord(bSys, { name: p[7], city: p[8], taxId: p[9], bank: p[10], spendLocal: p[11] });
+    looseRecords.push(b);
+    var m = mkMatch(a, b, p[12], "name+address", "review", p[13], p[14]);
+    m.pending = true; m.newRecords = loose2 ? [a.id, b.id] : [b.id];
+    a.proposal = a.proposal || m.id; b.proposal = m.id;
+    pendingMatches.push(m);
+  });
+  var ORION = pendingMatches[0];
+  ORION.id = "M-ORION";
+  ORION.learnedRule = "Different tax registration numbers never match, whatever the name score.";
+
+  /* ---- 4. the verified singletons ------------------------------------- */
+  /* 24 records with a unique tax registration number and no candidate above
+     0.75 — resolved, and resolved before the model too. */
+  var SINGLETON = { FUSION: 9, JDE: 9, NETSUITE: 6 };
+  Object.keys(SINGLETON).forEach(function (sys) {
+    for (var i = 0; i < SINGLETON[sys]; i++) {
+      var r = mkRecord(sys, {});
+      r.exactBefore = true; r.singleton = true;
+      var g = mkGolden(r.name.replace(/ (Ltd|PLC|Inc|LLC|Corp|Group Ltd)$/, ""), [r], "unique", 1.00, "confirmed");
+      g.pattern = sys[0]; g.singleton = true;
+      g.evidence = [chip("tax id ✓"), chip("no candidate ≥ 0.75")];
+    }
+  });
