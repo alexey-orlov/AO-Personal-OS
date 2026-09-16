@@ -672,7 +672,7 @@
   }
   function sessionsHtml() {
     var mine = S.published.map(function (p, i) {
-      return { id: "P-" + i, time: D.world.nowLabel, user: "Dana Whitfield", role: "CONTROLLER", text: "Published " + p, sqlHash: "—", rows: "—", status: "allowed" };
+      return { id: "P-" + i, time: "09:47", user: "Dana Whitfield", role: "CONTROLLER", text: "Published " + p, sqlHash: "—", rows: "—", status: "allowed" };
     });
     return '<div class="wb-pg"><h1>Sessions</h1><div class="sub">Every question asked of the model, the statement it produced and what the database did with it</div><div class="wb-rule"></div>' +
       '<table class="wb-tbl"><thead><tr><th style="width:110px">Time</th><th style="width:140px">User</th><th style="width:120px">Role</th><th>Question</th><th style="width:150px">Statement</th><th style="width:70px" class="r">Rows</th><th style="width:90px">Result</th></tr></thead><tbody>' +
