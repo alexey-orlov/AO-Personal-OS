@@ -191,7 +191,7 @@ do not fit 640 × 400 without cutting text and were dropped
 deliberately — the Trace panel in `-3` and the question bubble in `-4`;
 `docs/ASSETS.md` §1 records the measurements.
 
-**Still to do (main session only — subagents never publish and never run git).**
+**Done by the main session, 2026-09-17:** the walkthrough is published as its own artifact (https://claude.ai/code/artifact/6c822cc7-1c05-4504-ad61-7b64c86e9ceb — filled into `demoPreviewUrl` in `config.js`, the README preview table and `docs/CONFIG.md` §3), the site artifact (https://claude.ai/code/artifact/41e4f3b6-47d9-4ef2-af99-99c40c02b89b) was read and republished as a full tree of 95 files with the four SVG illustrations removed, the demo artifact was checked in the viewer, and the wiki was folded. The list below is the plan that was executed.
 
 1. Publish the walkthrough as its **own** artifact (wrapper-free copy under
    `.work/`, `demo.css` / `demo.js` / `data.js` as supporting files).
