@@ -166,9 +166,13 @@ window.SITE_CONTENT = {
         chip: "Measured in the proof of value",
         tooltip: "The figures were measured during a completed proof of value on the customer’s own data."
       },
-      "in-progress": {
-        chip: "Proof of value in progress",
-        tooltip: "The engagement is under way; the figures are what it is set up to measure, not results."
+      "modeled": {
+        chip: "Modeled in the proof of value",
+        tooltip: "The figures come from simulations run on the customer’s own historical data during a completed proof of value, not from production."
+      },
+      "in-preparation": {
+        chip: "Proof of value in preparation",
+        tooltip: "The engagement is being prepared; the figures are what it is set up to measure, not results."
       }
     },
     sectionLabels: {
@@ -252,7 +256,7 @@ window.SITE_CONTENT = {
 
     caseStudiesIntro: {
       title: "CASE STUDIES",
-      body: "Four engagements behind these applications. Two have been through a completed proof of value and carry measured figures; two are under way and carry the outcomes they are set up to measure. Every customer is under NDA, so each one is described by industry and scale.",
+      body: "Three engagements behind these applications. One carries figures measured in a completed proof of value, one carries figures modeled against the customer’s own historical baseline, and one is in preparation and carries the outcomes it is set up to measure. Every customer is under NDA, so each one is described by industry and scale.",
       cta: { label: "How we measure it, and what each engagement proved", route: "#/services#proof" }
     },
 
@@ -262,8 +266,8 @@ window.SITE_CONTENT = {
         descriptor: "A global home-appliance manufacturer",
         area: "Field-service operations across three countries",
         industry: "manufacturing",
-        status: "measured",
-        metricEyebrow: "Measured",
+        status: "modeled",
+        metricEyebrow: "Modeled",
         metric: { value: "+4.5%", label: "median gain in jobs per technician per day, against the current plan" },
         line: "Dispatchers built the four-week field-service plan by hand, region by region; NVIDIA cuOpt on Oracle Cloud Infrastructure now builds it and a dispatcher approves it.",
         footnote: "Modeled simulations against a historical baseline, not measured production outcomes; figures are illustrative, not contractual.",
@@ -278,7 +282,7 @@ window.SITE_CONTENT = {
         metricEyebrow: "Measured",
         metric: { value: "5–15 min", label: "to extract a 60–100-page agreement end to end, down from 3–5 days" },
         line: "Contract rates were keyed into a cost-management system page by page; reviewers now validate AI-extracted rates beside the source PDF, every value cited to its page, and export.",
-        footnote: "Targets from the proof of value; figures are illustrative, not contractual.",
+        footnote: "Measured in the proof of value on the customer’s own documents; figures are illustrative, not contractual.",
         product: { slug: "large-document-extraction", name: "Large docs processing and review" }
       },
       {
