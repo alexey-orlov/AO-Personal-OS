@@ -1578,6 +1578,16 @@
       }
       this.el.style.top = top + "px"; this.el.style.left = left + "px"; this.el.dataset.side = s;
     },
+    /* QA hook: does the callout currently cover the element this step names? */
+    avoidHit: function () {
+      var st = STEPS[this.i];
+      if (!this.active || this.el.hidden || !st || !st.avoid) return false;
+      var keep = st.avoid();
+      if (!keep || !document.body.contains(keep)) return false;
+      var a = this.el.getBoundingClientRect(), b = keep.getBoundingClientRect();
+      if (!b.width || !b.height) return false;
+      return !(a.right <= b.left || a.left >= b.right || a.bottom <= b.top || a.top >= b.bottom);
+    },
     nudge: function () {
       var self = this;
       this.el.classList.remove("is-nudge"); void this.el.offsetWidth; this.el.classList.add("is-nudge");
