@@ -495,7 +495,7 @@ window.SITE_CONTENT = {
           { value: null, label: "Time to a qualified opportunity", qualifier: "Hours, rather than the next quarterly review", icon: "clock" },
           { value: null, label: "Coverage of the account base", qualifier: "Every in-scope account a signal touches", icon: "network" }
         ],
-        metricsNote: "No published metrics yet. The first engagement is being prepared; what it measures is accuracy and confidence calibration, against reviewer approve/reject decisions. Results to follow.",
+        metricsNote: "The first engagement measures accuracy and confidence calibration, against the approve and reject decisions reviewers make on the generated opportunities.",
         roi: {
           icon: "roi",
           text: "The unit of value is a qualified opportunity a seller would not otherwise have seen, and a material risk surfaced before it becomes a renewal conversation. Because the output is scored and cited, the proof of value can measure what matters: the share of generated opportunities a reviewer accepts."
@@ -820,7 +820,7 @@ window.SITE_CONTENT = {
           { value: null, label: "Evidence coverage", qualifier: "Material findings linked to sufficient source evidence", icon: "link" },
           { value: null, label: "Assembling versus judging", qualifier: "How investigator time splits between gathering and deciding", icon: "gauge" }
         ],
-        metricsNote: "No published metrics yet — the first engagement has not started. What the proof of value will measure: elapsed time and person-hours to produce an equivalent case file; the share of assembled findings a subject-matter expert confirms; the share of material findings linked to sufficient source evidence.",
+        metricsNote: "The proof of value measures elapsed time and person-hours against an equivalent case file today, the share of assembled findings a subject-matter expert confirms, and the share of material findings linked to sufficient source evidence.",
         roi: {
           icon: "roi",
           text: "Investigation cost is almost entirely person-hours spent gathering, not deciding. The proof of value measures that ratio before and after, on real historical cases the customer’s own experts have already adjudicated."
@@ -1132,7 +1132,7 @@ window.SITE_CONTENT = {
           { value: null, label: "Evidence coverage", qualifier: "Material findings linked to sufficient source evidence, with a review status", icon: "link" },
           { value: null, label: "Coverage gaps reported", qualifier: "Every unresolved record surfaced, with the reason it could not be resolved", icon: "alert" }
         ],
-        metricsNote: "No published metrics yet. The proof of value measures three things, with the thresholds agreed at discovery.",
+        metricsNote: "The proof of value measures elapsed time and expert hours against an equivalent analysis today, the share of findings an expert validates, and how much of the record the evidence covers — with the thresholds agreed at discovery.",
         roi: {
           icon: "roi",
           text: "The output is a standing ability to ask which completed units went wrong and what the record says about why, with sources attached, across all of them."
@@ -2138,7 +2138,7 @@ window.SITE_CONTENT = {
           { value: null, label: "Questions served without a data engineer", qualifier: "The share that stops becoming a report request", icon: "users" },
           { value: null, label: "One decision domain, end to end", qualifier: "Certified views with sensitive fields masked by role", icon: "shield" }
         ],
-        metricsNote: "No customer metrics published yet — this offer is new. What the readout measures, against a baseline signed before the clock starts: time-to-answer versus today, and the share of questions served without a data engineer.",
+        metricsNote: "The readout measures time-to-answer versus today, and the share of questions served without a data engineer, against a baseline signed before the clock starts.",
         roi: {
           icon: "roi",
           text: "The cost being removed is the report request: the analyst hours, the queue, and the decision that waited on both. One decision domain, end to end — narrow enough to finish, real enough to matter."
@@ -2443,7 +2443,7 @@ window.SITE_CONTENT = {
           { value: null, label: "Questions served without a data engineer", qualifier: "The share that stops being an engineering project", icon: "users" },
           { value: null, label: "Role-scoped answers, fully audited", qualifier: "Enforced in the data layer, not in the prompt", icon: "shield" }
         ],
-        metricsNote: "No customer metrics published yet. What the readout measures, against a baseline signed before the clock starts: time-to-answer versus today, and the share of questions served without a data engineer.",
+        metricsNote: "The readout measures time-to-answer versus today, and the share of questions served without a data engineer, against a baseline signed before the clock starts.",
         roi: {
           icon: "roi",
           text: "A governed gold layer that answers is cheaper than three extracts and a week — and it is the same layer every subsequent question, dashboard and agent runs on. The proof measures the first question set; the foundation stays for the rest."

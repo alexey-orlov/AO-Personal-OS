@@ -626,6 +626,9 @@ if (!arr(C.products) || C.products.length !== 7) {
     ["overview.catalog.lead", ((C.overview || {}).catalog || {}).lead],
     ["overview.catalog.title", ((C.overview || {}).catalog || {}).title]
   ];
+  (C.products || []).forEach(function (pr) {
+    strings.push(["products[" + pr.slug + "].overview.metricsNote", (pr.overview || {}).metricsNote]);
+  });
   strings.forEach(function (pair) {
     var s = pair[1];
     if (!str(s)) return;
