@@ -2981,14 +2981,30 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 
 .cases { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); gap: clamp(2rem, 4vw, 4rem); align-items: start; }
 .cases-rail { position: sticky; top: calc(var(--nav-h) + 1.5rem); display: flex; flex-direction: column; gap: 1.125rem; min-width: 0; }
+/* The rail opens on the same head as the other screens; the column's own gap
+   carries the space to the method block, so the head keeps none of its own. */
+.cases-rail .home-head { margin-bottom: 0; }
 .cases-method { display: flex; flex-direction: column; gap: 1rem; margin-top: .375rem; padding-top: 1.25rem; border-top: 1px solid var(--border-subtle); }
 .cases-nda { color: var(--text-dim); }
 .cases-link { padding-top: .25rem; }
 .cases-grid { grid-auto-rows: 1fr; }
 
+/* One accent per screen: the teal here belongs to the four card figures, so the
+   rail's own figure is read in text colour. */
+.cases-rail .method-stat-value { color: var(--text); }
+
+/* A card is not a link, but the link inside it answers when the card is. */
+.cases-grid .case-card:hover .case-card-link .link-arrow,
+.cases-grid .case-card:focus-within .case-card-link .link-arrow { color: var(--accent); }
+
 @media (max-width: 1100px) {
   .cases { grid-template-columns: minmax(0, 1fr); }
   .cases-rail { position: static; }
+}
+
+/* Two up while two still fit: a tablet has the width for a pair. */
+@media (max-width: 900px) and (min-width: 721px) {
+  .cases-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
 /* ——— S6: who builds it ——— */
@@ -2996,6 +3012,10 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 /* The page's one inversion. The partner wordmarks are white, so they sit on a
    navy strip inside the light panel rather than on the panel itself — and navy
    is the surface a stated fact carries everywhere else on the site. */
+
+/* A screen of the seven, not a sub-block of one: its title is read at the same
+   size as every other screen's H2. */
+#about .band-title { font-size: clamp(1.75rem, 2.6vw, 2.25rem); }
 
 .about-stats { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
 .about-stat { padding: 1.125rem 1.25rem; min-width: 0; }
@@ -3049,6 +3069,30 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
   .about-partner-marks { margin-left: 0; }
 }
 
+/* ——— the proof strip on a phone ——— */
+
+/* Four figures single-file ran the strip past two screenfuls on a phone. Two up
+   keeps the four readable as one set. The Services strip keeps its own. */
+@media (max-width: 480px) {
+  .stat-row--home { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .stat-row--home .stat { padding-left: 0; border-left: 0; }
+  .stat-row--home .stat:nth-child(even) { padding-left: 1.25rem; border-left: 1px solid var(--border-subtle); }
+  .stat-row--home .stat:nth-child(-n + 2) { margin-top: 0; padding-top: 1.5rem; border-top: 0; }
+  .stat-row--home .stat:nth-child(n + 3) { margin-top: 1.25rem; padding-top: 1.25rem; border-top: 1px solid var(--border-subtle); }
+}
+
+/* ——— site-wide, carried by the same pass ——— */
+
+/* The lockup name on one line beside the wordmark and the menu button. */
+@media (max-width: 480px) {
+  .lockup-name { font-size: .9375rem; }
+}
+
+/* A link is a tap target on a phone: the text alone is under the mark. */
+@media (max-width: 560px) {
+  .link-arrow { padding-block: .625rem; }
+}
+
 /* ——— motion ——— */
 
 /* The drawn end state is the resting state, so zeroing the durations leaves the
@@ -3057,5 +3101,5 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
    reader who asked for no motion still waits out the stagger on a blank frame. */
 @media (prefers-reduced-motion: reduce) {
   .bo-band, .bo-link { animation-delay: 0s; }
-  .catalog-row:hover, .catalog-row:focus-visible, .pillars .pillar:hover { transform: none; }
+  .catalog-row:hover, .catalog-row:focus-within { transform: none; }
 }
