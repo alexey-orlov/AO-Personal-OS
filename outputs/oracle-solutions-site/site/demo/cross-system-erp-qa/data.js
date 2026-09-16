@@ -138,7 +138,13 @@ window.ERPQA_DATA = (function () {
     return { id: v[0], name: "GOLD." + v[0], owner: "Group Finance", definition: v[1], changed: v[2], sources: v[3] };
   });
 
-  /* ------------------------------------------------- Master catalog terms */
+  /* ---------------------------------------------------------------------- */
+  /* Catalog descriptions and column annotations that the text-to-SQL agent   */
+  /* reads before it writes SQL. Oracle ships no business glossary, ontology  */
+  /* or AI-synonym editor: what it ships is auto-populated catalog metadata   */
+  /* with a per-column Description field a person reviews (ui-anatomy §3.3b).  */
+  /* The array keeps its historical `glossary` / `synonyms` key names; every  */
+  /* label the demo puts on screen says "catalog description" instead.        */
   var glossary = [
     { term: "supplier", synonyms: ["vendor", "address book", "creditor", "payee"],
       definition: "A party we buy from. Fusion POZ_SUPPLIERS joined to HZ_PARTIES, JDE F0101 rows with search type V, NetSuite vendor. Resolved to one golden party in GOLD.SUPPLIER_360.",
@@ -940,32 +946,38 @@ window.ERPQA_DATA = (function () {
       { id: "sources", label: "Sources in one governed model",
         before: sources.length + " sources · 0 joined", after: sources.length + " sources · 1 model · " + views.length + " certified views",
         beforeValue: 0, afterValue: views.length, dir: "new",
-        note: sources.map(function (s) { return s.short; }).join(" · ") },
+        note: sources.map(function (s) { return s.short; }).join(" · "),
+        noteShort: sources.map(function (s) { return s.short; }).join(" · ") },
       { id: "resolved", label: "Supplier records resolved to one golden record",
         before: RESOLVED_BEFORE_PCT.toFixed(1) + " %", after: res.resolvedPct.toFixed(1) + " %",
         beforeValue: RESOLVED_BEFORE_PCT, afterValue: res.resolvedPct, dir: "up",
         note: records.length + " records: Fusion " + bySys.FUSION + ", JDE " + bySys.JDE + ", NetSuite " + bySys.NETSUITE
           + " · " + res.resolvedCount + " of " + records.length + " resolved · " + res.pendingProposals + " proposals ("
-          + res.pendingRecords + " records) pending review" },
+          + res.pendingRecords + " records) pending review",
+        noteShort: records.length + " records · " + res.resolvedCount + " resolved · " + res.pendingProposals + " proposals in review" },
       { id: "accounts", label: "Unmapped local accounts in the consolidated P&L",
         before: String(UNMAPPED_BEFORE), after: "0",
         beforeValue: UNMAPPED_BEFORE, afterValue: 0, dir: "down",
         note: localAccountTotal + " local accounts (Fusion " + localAccountCount.FUSION + ", JDE " + localAccountCount.JDE
           + ", NetSuite " + localAccountCount.NETSUITE + ") to " + groupAccountCount + " group accounts · " + byRule
-          + " mapped by rule, " + inReview + " provisional and queued for review" },
+          + " mapped by rule, " + inReview + " provisional and queued for review",
+        noteShort: localAccountTotal + " local → " + groupAccountCount + " group accounts · " + inReview + " in review" },
       { id: "ledgers", label: "Ledgers that tie to their trial balance",
         before: TIE_BEFORE + " / " + ledgers.length, after: ledgers.length + " / " + ledgers.length,
         beforeValue: TIE_BEFORE, afterValue: ledgers.length, dir: "up",
         note: "residual 0.00 after mapping and translation; before, " + ledgers.filter(function (l) { return !l.tiesBefore; }).map(function (l) { return l.systemShort; }).join(" and ")
-          + " carried " + fmtUsd(RESIDUAL_BEFORE) + " in unmapped accounts" },
+          + " carried " + fmtUsd(RESIDUAL_BEFORE) + " in unmapped accounts",
+        noteShort: "Residual 0.00 after mapping and translation" },
       { id: "dups", label: "Duplicate-payment pairs found across systems",
         before: "—", after: String(dups.length),
         beforeValue: null, afterValue: dups.length, dir: "new",
-        note: "same golden supplier, same normalised invoice number, amount within 0.5 % after translation, different systems · " + fmtUsd(exposure) + " in scope" },
+        note: "same golden supplier, same normalised invoice number, amount within 0.5 % after translation, different systems · " + fmtUsd(exposure) + " in scope",
+        noteShort: "Same supplier and invoice number, two systems" },
       { id: "freshness", label: "Stalest source",
         before: stalest.freshLabel, after: stalest.freshLabel,
         beforeValue: stalest.freshnessMin, afterValue: stalest.freshnessMin, dir: "flat",
-        note: "freshness per source is a platform fact (CDC, pipelines, links), not a claim · " + sources.map(function (s) { return s.short + " " + s.freshLabel; }).join(" · ") }
+        note: "freshness per source is a platform fact (CDC, pipelines, links), not a claim · " + sources.map(function (s) { return s.short + " " + s.freshLabel; }).join(" · "),
+        noteShort: "A property of the feeds, not of the model" }
     ];
     if (!on) tiles.forEach(function (t) { t.after = null; t.afterValue = null; });
     return {
@@ -1436,7 +1448,7 @@ window.ERPQA_DATA = (function () {
     var q = QBY[qid], R = roles[role] || roles.CONTROLLER, t = q.t, spans = [];
     var blocked = !!(q.blockedFor && q.blockedFor.indexOf(R.id) >= 0);
     spans.push({ n: "Parse the question", d: q.parse, ms: t[0] });
-    spans.push({ n: "Glossary terms resolved", d: q.terms.map(function (k) { return k + " → " + (GLOSS[k] ? GLOSS[k].definition.split(".")[0] : ""); }).join(" · "), ms: t[1] });
+    spans.push({ n: "Terms resolved from catalog descriptions", d: q.terms.map(function (k) { return k + " → " + (GLOSS[k] ? GLOSS[k].definition.split(".")[0] : ""); }).join(" · "), ms: t[1] });
     spans.push({ n: "SQL generated", d: "Select AI over GOLD · " + q.views.length + " certified " + (q.views.length === 1 ? "view" : "views") + " · " + q.joins + " joins · " + q.sql.split("\n").length + " lines", ms: t[2] });
     spans.push({ n: "SQL Firewall check", d: blocked ? "allow-list " + R.allowList + " · refused: " + q.blockReason.split(".")[0] : "allow-list " + R.allowList + " · SELECT only · " + q.views.length + " objects in scope · allowed", ms: t[3], status: blocked ? "blocked" : "allowed" });
     if (blocked) {
