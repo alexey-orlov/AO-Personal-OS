@@ -62,15 +62,29 @@
         </div>
       </section>
 
-      <!-- maps -->
-      <section class="maps" id="maps"></section>
+      <!-- what improved -->
+      <section class="kpi-band" id="kpi-band" hidden></section>
+
+      <!-- maps + what changed -->
+      <div class="plan-row" id="plan-row">
+        <section class="maps" id="maps"></section>
+        <section class="card changes" id="changes" hidden>
+          <div class="chg-head">
+            <div><span class="eyebrow">What the solver changed</span><h2 id="chg-title">—</h2></div>
+            <div class="chg-tools">
+              <button class="btn btn--ghost btn--xs" id="btn-changes-only" type="button" aria-pressed="false"><svg viewBox="0 0 24 24"><path d="M4 6h16M7 12h10M10 18h4"/></svg>Changes only</button>
+              <button class="btn btn--primary btn--xs" id="btn-reopt" type="button" hidden><svg viewBox="0 0 24 24"><path d="M4 12a8 8 0 1 0 2.5-5.8"/><path d="M4 4v5h5"/></svg>Re-optimize with feedback</button>
+            </div>
+          </div>
+          <ol class="chg-list" id="chg-list"></ol>
+        </section>
+      </div>
 
       <!-- weekly schedule -->
       <section class="card schedule" id="schedule">
         <div class="sched-head">
           <div class="sched-title"><h2>Weekly schedule</h2><span class="muted" id="sched-week">Week 1 · 5 – 11 Oct</span></div>
           <div class="sched-tools">
-            <button class="btn btn--ghost btn--sm" id="btn-reopt" type="button" hidden><svg viewBox="0 0 24 24"><path d="M4 12a8 8 0 1 0 2.5-5.8"/><path d="M4 4v5h5"/></svg>Re-optimize with feedback</button>
             <button class="btn btn--primary btn--sm" id="btn-accept-remaining" type="button"><svg viewBox="0 0 24 24"><path d="m5 12 4.5 4.5L19 7"/></svg>Accept remaining</button>
             <span class="seg" id="view-seg" role="group" aria-label="Schedule view"><button type="button" data-view="zone" class="is-active"><svg viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="3.5" y="13.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="13.5" width="7" height="7" rx="1.5"/></svg>Zone view</button><button type="button" data-view="tech"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M3 20a6 6 0 0 1 12 0"/><circle cx="17" cy="9" r="2.5"/><path d="M15.5 20a4.5 4.5 0 0 1 5.5-4.3"/></svg>Technician view</button></span>
             <span class="pager"><button class="btn btn--ghost btn--sm" id="week-prev" type="button" aria-label="Previous week">‹</button><button class="btn btn--ghost btn--sm" id="week-next" type="button" aria-label="Next week">›</button></span>
@@ -82,6 +96,7 @@
           <span><i class="pill pill--off">— T001</i><b>No visits</b><em>Spare capacity this day</em></span>
           <span><i class="pill pill--moved">↑ T001</i><b>Moved to another zone</b><em>Leaving the default zone</em></span>
           <span><i class="pill pill--temp">↓ T001</i><b>Temporary assignment</b><em>Working outside the default zone</em></span>
+          <span><i class="swatch swatch--changed"></i><b>Changed</b><em>Differs from today's plan</em></span>
           <span><i class="swatch swatch--nonwork"></i><b>Non-working</b><em>Weekend, public holiday</em></span>
           <span><i class="swatch swatch--absent"></i><b>Absent</b><em>Sick leave, vacation</em></span>
         </div>
@@ -122,11 +137,11 @@
   </div>
 </div>
 
-<!-- comment -->
+<!-- note / comment -->
 <div class="modal" id="comment" hidden>
   <div class="modal-card comment-card" role="dialog" aria-modal="true" aria-labelledby="comment-title">
-    <div class="modal-head"><strong id="comment-title">Comment</strong><button class="icon-btn" id="comment-close" type="button" aria-label="Close"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
-    <textarea id="comment-text" rows="4" maxlength="300" placeholder="What should the next run take into account?" aria-label="Comment"></textarea>
+    <div class="modal-head"><strong id="comment-title">Note</strong><button class="icon-btn" id="comment-close" type="button" aria-label="Close"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+    <textarea id="comment-text" rows="4" maxlength="300" placeholder="What should the next run take into account?" aria-label="Note"></textarea>
     <div class="comment-foot"><span class="muted" id="comment-count">0/300</span><span><button class="btn btn--ghost btn--sm" id="comment-cancel" type="button">Cancel</button><button class="btn btn--primary btn--sm" id="comment-save" type="button">Save</button></span></div>
   </div>
 </div>
@@ -134,7 +149,7 @@
 <!-- export -->
 <div class="modal" id="export" hidden>
   <div class="modal-card export-card" role="dialog" aria-modal="true" aria-labelledby="export-title">
-    <div class="modal-head"><div><span class="eyebrow">Export</span><strong id="export-title">Work-zone assignment file</strong><p class="muted" id="export-sub">The field-service system's import format — one row per technician and zone, the weekdays it applies to, and the dispatcher's decision and comment.</p></div><button class="icon-btn" id="export-close" type="button" aria-label="Close"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+    <div class="modal-head"><div><span class="eyebrow">Export</span><strong id="export-title">Work-zone assignment file</strong><p class="muted" id="export-sub">The field-service system's import format — one row per technician and zone, the weekdays it applies to, and the dispatcher's decision and note.</p></div><button class="icon-btn" id="export-close" type="button" aria-label="Close"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
     <div class="export-meta" id="export-meta"></div>
     <div class="table-scroll table-scroll--export"><table class="table table--dense" id="export-table"><thead></thead><tbody></tbody></table></div>
     <div class="export-foot"><span class="muted" id="export-count"></span><span><button class="btn btn--ghost btn--sm" id="export-send" type="button"><svg viewBox="0 0 24 24"><path d="M4 12h13M13 6l6 6-6 6"/></svg>Send to the field-service system</button><button class="btn btn--primary btn--sm" id="export-download" type="button"><svg viewBox="0 0 24 24"><path d="M12 5v10M7.5 10.5 12 15l4.5-4.5"/><path d="M5 19h14"/></svg>Download .xlsx</button></span></div>
@@ -154,7 +169,7 @@
   <div class="modal-card gate" role="dialog" aria-modal="true">
     <span class="eyebrow">Interactive walkthrough</span>
     <h2 id="gate-title">Workforce optimization</h2>
-    <p id="gate-body">You are the dispatcher for a metro region of twelve work zones and eighteen technicians. You will run the optimization for a four-week period, read the proposed plan on the map, compare it with today's allocation, check the KPIs, resolve the one exception the solver got wrong, and export the approved plan to the field-service system. Six steps, about two minutes. Only the highlighted control is active at each step.</p>
+    <p id="gate-body">You are the dispatcher for a metro region of twelve work zones and eighteen technicians. You will run the optimization for a four-week period, see what improved and by how much, drill into each change the solver made, fix the one it got wrong and let it re-plan around your fix, then export the approved plan to the field-service system. Six steps, about two minutes. Only the highlighted control is active at each step.</p>
     <div class="gate-actions"><button class="btn btn--primary" id="gate-start" type="button">Start the walkthrough</button><button class="btn btn--ghost" id="gate-free" type="button">Explore freely</button></div>
     <p class="gate-note">Demo data only — a fictional region, synthetic technicians; nothing is uploaded and nothing leaves this page.</p>
   </div>
