@@ -6,7 +6,7 @@ Written 2026-09-16 by the build session on Alex's Mac. Everything a new session 
 
 - Served root: `outputs/oracle-solutions-site/site/` — static, no build step, hash-routed SPA (`index.html`, `assets/site.css`, `assets/app.js`, `assets/forms.js`, `pages/*.js`, `data/content.js`, `data/config.js`, `data/diagrams.js`, `assets/img/**`).
 - Live preview (private, owned by Alex): https://claude.ai/code/artifact/41e4f3b6-47d9-4ef2-af99-99c40c02b89b — last published 2026-09-16 with the round-5 home page (label "Round 5 — home page rebuild"; the version before it, published the same afternoon by the Workforce-demo session, added `demo/workforce-optimization/**`, the workforce step frames and poster, and the `config.js` that links them). A publish from a new session must `read` the artifact first, and a publish refused as "not built on the newer version" means another session published in between: re-read, then publish the current tree again — the shared working tree is the merge.
-- Pages: **Home — seven screens** (hero with the built-on stack visual + proof strip · two ways in · products by workflow pattern · how we deliver · case studies · about SoftServe · contact; rebuilt in round 5, `PROVENANCE.md` §18, `VISUAL-GRAMMAR.md` §9), Products (facet rail + tiles), 7 product pages (Overview · Technology · Jumpstart · Contacts · For sellers), Services (practice + contact).
+- Pages: **Home — seven screens** (hero with the built-on stack visual + proof strip · two ways in · products by the job they do · how we deliver · case studies · about SoftServe · contact; rebuilt in round 5, `PROVENANCE.md` §18, `VISUAL-GRAMMAR.md` §9), Products (facet rail + tiles), 7 product pages (Overview · Technology · Jumpstart · Contacts · For sellers), Services (practice + contact).
 - Checker: `node tools/check-grammar.js` (run from `outputs/oracle-solutions-site/`) asserts the content contract; it must print `OK` before any publish.
 
 ## 2. What lives where (and what does not exist on other machines)
@@ -147,3 +147,9 @@ message.
 Nothing needs to be installed: the site has no build step, and the checker has
 no dependencies. If a real Node lands on this machine later, delete this note
 rather than keeping two procedures.
+
+**The shared local preview server is not yours alone.** Each Opus critic spawned
+in the §18.7 messaging round stopped the shared `python3 -m http.server` preview
+when it finished its read, so the next tool call hit a dead port. A session that
+runs a critic must expect to restart the server afterwards — check it before
+blaming a page for not loading.
