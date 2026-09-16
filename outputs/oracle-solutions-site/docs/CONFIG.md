@@ -211,11 +211,12 @@ With `marketplaceUrl` set, the badge opens the listing in a new tab; without one
 
 ### `demoUrl`
 
-The interactive walkthrough — a self-contained guided demo of the product on prepared data, described in `README.md` ("The interactive walkthroughs"). Set today on `large-document-extraction` and `workforce-optimization`, each pointed at a folder **inside** `site/`, so it deploys with the site and the link stays relative:
+The interactive walkthrough — a self-contained guided demo of the product on prepared data, described in `README.md` ("The interactive walkthroughs"). Set today on `large-document-extraction`, `workforce-optimization` and `cross-system-erp-qa`, each pointed at a folder **inside** `site/`, so it deploys with the site and the link stays relative:
 
 ```js
 demoUrl: "demo/large-document-extraction/index.html",
 demoUrl: "demo/workforce-optimization/index.html",
+demoUrl: "demo/cross-system-erp-qa/index.html",
 ```
 
 Non-empty → two controls appear together: the secondary **"Try the interactive demo"** button in the product hero (its label is `shared.demoCta` in `content.js`), and the same button inside the panel the pending video frame opens. Both open the walkthrough in a **new tab** — it carries its own guide and locks every control but the one it points at, and a seller mid-call must keep the product page behind it. Empty → neither control exists. An absolute URL on another host renders the same button.
@@ -227,9 +228,12 @@ Only matters while the site itself is previewed as a **claude.ai artifact**. The
 ```js
 demoPreviewUrl: "https://claude.ai/artifact/NdxY4f1D6hxC7pjyMRs6zP",
 demoPreviewUrl: "https://claude.ai/code/artifact/343ab0d5-1d99-4038-a395-6f177c3f5e2e",
+demoPreviewUrl: "",   // cross-system-erp-qa — pending the standalone publish
 ```
 
 On the site's real host it is ignored and the relative `demoUrl` is used, so nothing has to change at deployment. Keep it in step with `demoUrl`: republish the standalone demo artifact whenever the walkthrough changes, or the preview shows an older demo than the site ships.
+
+Empty while the walkthrough exists is a **known intermediate state**, not a bug: the demo ships in `site/` and works everywhere except inside the site's own artifact preview, where the button falls back to the relative path and the host refuses it. `cross-system-erp-qa` sits there until its standalone artifact is published.
 
 ### `video`
 
@@ -269,9 +273,12 @@ The still image shown inside that media frame. **Only ever used where the frame 
 
 ```js
 videoPoster: "assets/img/posters/workforce-optimization.jpg",
+videoPoster: "assets/img/posters/cross-system-erp-qa.jpg",   // set, but video: false today
 ```
 
 A path relative to `site/index.html`, or an absolute `https://` URL. Landscape, 16:9, at least 1280×720.
+
+`cross-system-erp-qa` carries a poster with `video: false`, so nothing renders it yet: the file is captured and wired so that turning the frame on is a one-word change, not another capture round.
 
 The renderer resolves the poster in this order, first non-empty wins:
 
