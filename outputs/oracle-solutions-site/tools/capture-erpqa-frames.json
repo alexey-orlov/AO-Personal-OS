@@ -1,0 +1,28 @@
+[
+ {"sleep": 1000},
+
+ {"eval": "window.DEMO.prime('start'); window.DEMO.setDsScreen('catalog'); window.DEMO.setApp('lakehouse'); document.querySelector('#toast').hidden = true; true"},
+ {"sleep": 600},
+ {"shot": "frame-1"},
+
+ {"eval": "window.DEMO.prime('refreshed'); window.DEMO.setRwTab('matches'); window.DEMO.setApp('review'); document.querySelector('#toast').hidden = true; true"},
+ {"sleep": 600},
+ {"shot": "frame-2"},
+
+ {"eval": "window.DEMO.setApp('aidp'); window.DEMO.ask('q1'); window.DEMO.openPanel('trace'); document.querySelector('#toast').hidden = true; true"},
+ {"sleep": 700},
+ {"shot": "frame-3"},
+
+ {"eval": "window.DEMO.setApp('review'); window.DEMO.decide('M-ORION', 'reject'); true"},
+ {"sleep": 400},
+ {"eval": "document.querySelector('#toast').hidden = true; window.DEMO.rerun(); true"},
+ {"sleep": 1900},
+ {"eval": "document.querySelector('#toast').hidden = true; true"},
+ {"sleep": 300},
+ {"shot": "frame-4"},
+
+ {"eval": "window.DEMO.prime('final'); window.DEMO.setApp('aidp'); window.DEMO.ask('q1'); document.querySelector('#toast').hidden = true; true"},
+ {"sleep": 800},
+ {"eval": "document.querySelector('#toast').hidden = true; true"},
+ {"shot": "poster"}
+]
