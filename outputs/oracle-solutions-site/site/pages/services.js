@@ -147,8 +147,10 @@
             '<p class="proof-stat-label">' + UI.esc(block.stat.label) + "</p>" +
           "</div>" +
           '<p class="proof-note">' + UI.esc(block.footnote) + "</p>" +
-          '<a class="band-link" href="' + UI.esc(block.cta.route) + '"><span>' + UI.esc(linkLabel) + "</span>" +
-            UI.icon("arrow") + "</a>" +
+          /* In a paragraph and set inline, so a label that wraps on a phone keeps
+             its arrow after the last word and its rule under each line. */
+          '<p class="proof-link"><a class="band-link" href="' + UI.esc(block.cta.route) + '"><span>' + UI.esc(linkLabel) + "</span>" +
+            UI.icon("arrow") + "</a></p>" +
         "</div>" +
       "</div>" +
       "</div></section>";
