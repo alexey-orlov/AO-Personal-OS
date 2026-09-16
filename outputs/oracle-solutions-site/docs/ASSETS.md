@@ -205,8 +205,11 @@ followed by `rerun()` — so one scenario file produces all five shots and each
     # …the same command with W=676 H=900, W=860 H=1200 and W=980 H=1100
 
 Four viewports, because each surface fits a 640 CSS-px crop at a different
-width: `-1` from the 640 run (below ~660 px the Catalog's five mounted-catalog
-chips wrap into the crop, and the whole dark L-shell fits beside them);
+width: `-1` from the 640 run (the left nav takes 172 px, so the five
+mounted-catalog chips only wrap inside the remaining 468 px — and therefore
+inside the crop — at a viewport that narrow; the price is that the entity-type
+pill row, which is centred and does not wrap, runs past the page and its last
+pill sits on the crop's right edge);
 `-2` and `-4` from the 676 run (the health band reflows to 3 × 2 tiles under
 1120 px and is exactly 640 px wide at a 676 px viewport, so all six tiles land
 inside the crop at the same apparent size three of six would have at 1240 px);
