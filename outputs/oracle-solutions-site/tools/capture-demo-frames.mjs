@@ -11,6 +11,10 @@
 //   MODE=site      — the product page: hero, stepper, pending-video panel
 //   MODE=script    — data-driven: STEPS=<json> of click / sleep / shot / eval / type steps
 //                    (tools/capture-policy-scenario.json walks the second document type)
+//                    Workforce optimization: tools/capture-wfo-tour.json drives the whole tour by clicks
+//                    (tour QA), tools/capture-wfo-frames.json takes its four step frames + poster with
+//                    DPR=2 and ?tour=off&ui=clean&state=start (crops per docs/ASSETS.md §1).
+//   W / H          — viewport in CSS px (default 1600 × 1000)
 // Fonts from Google are blocked (ALLOW_NET=1 to allow) so a slow network cannot
 // stall the capture; system fallbacks render instead.
 import { spawn } from "node:child_process";
@@ -20,7 +24,7 @@ const [,, URL_, OUT, SCENES] = process.argv;
 const CH = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
 const PORT = 9333;
 mkdirSync(OUT, { recursive: true });
-const W = 1600, H = 1000;
+const W = +(process.env.W || 1600), H = +(process.env.H || 1000);
 
 const chrome = spawn(CH, ["--headless=new", "--disable-gpu", "--no-first-run", "--no-default-browser-check", "--disable-extensions", "--disable-sync",
   `--remote-debugging-port=${PORT}`, `--user-data-dir=${OUT}/../chrome-profile-cdp`, `--window-size=${W},${H}`, "--hide-scrollbars", "about:blank"],

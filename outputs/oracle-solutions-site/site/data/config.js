@@ -85,11 +85,11 @@ window.SITE_CONFIG = {
     "workforce-optimization": {
       marketplace: true,
       marketplaceUrl: "",
-      demoUrl: "",
+      demoUrl: "demo/workforce-optimization/index.html",
       demoPreviewUrl: "",
       video: true,
       videoUrl: "",
-      videoPoster: "",
+      videoPoster: "assets/img/posters/workforce-optimization.jpg",
       successStoryUrl: "",
       materials: {
         "sales-deck": "",

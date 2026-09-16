@@ -1837,7 +1837,7 @@ window.SITE_CONTENT = {
             n: 1,
             title: "Load the period's data",
             text: "Demand, technician availability, skills, work zones and the period's bookings come in from Oracle Field Service.",
-            image: "assets/img/steps/workforce-optimization-1.svg",
+            image: "assets/img/steps/workforce-optimization-1.jpg",
             features: [
               "Work-zone and availability rules, with skill-based allocation",
               "Planned-vacation reallocation and same-day sickness handling"
@@ -1847,7 +1847,7 @@ window.SITE_CONTENT = {
             n: 2,
             title: "Set the rules",
             text: "Zone, forecast and commitment rules are configured, then weighted as hard or soft constraints against the objectives that matter.",
-            image: "assets/img/steps/workforce-optimization-2.svg",
+            image: "assets/img/steps/workforce-optimization-2.jpg",
             features: [
               "Default, neighboring and cross-zone allocation",
               "Forecast-based allocation against a demand forecast you supply",
@@ -1858,14 +1858,14 @@ window.SITE_CONTENT = {
             n: 3,
             title: "Solve the plan",
             text: "cuOpt computes the technician-to-zone-to-job plan against every constraint at once, in minutes rather than days.",
-            image: "assets/img/steps/workforce-optimization-3.svg",
+            image: "assets/img/steps/workforce-optimization-3.jpg",
             features: ["Multi-objective optimization with hard and soft rule weighting"]
           },
           {
             n: 4,
             title: "Review, approve, measure",
             text: "The dispatcher compares plans on a live map, approves or re-runs, and the KPI readout shows what changed.",
-            image: "assets/img/steps/workforce-optimization-4.svg",
+            image: "assets/img/steps/workforce-optimization-4.jpg",
             features: [
               "Dispatcher review UI: map and table views, approve, reject, re-run",
               "KPIs and analytics: productivity, utilization, travel, workload balance"
