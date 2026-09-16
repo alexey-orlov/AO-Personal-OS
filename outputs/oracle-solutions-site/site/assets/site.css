@@ -2254,15 +2254,15 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 /* ——— services: hero ——————————————————————————————————— */
 
 .services-hero { padding-bottom: clamp(3rem, 5vw, 5rem); }
-/* Two lines by intent: where the customer starts (teal), then where it ends. */
-.services-title { max-width: none; }
+/* A sentence, not a product name: the home H1's scale rather than the product
+   title's, in two lines by intent — where the customer starts (teal), then
+   where it ends. */
+.services-title { font-size: clamp(2.25rem, 3.9vw, 3.75rem); max-width: none; }
 .services-title .accent { display: block; }
+.services-hero .product-hero-copy { gap: 1.25rem; }
+.services-hero .product-lead, .services-hero .product-subline { max-width: 44rem; }
 .services-stats { width: 100%; }
-/* Three figures, three equal columns; the shared row's narrower breakpoints still apply. */
-@media (min-width: 901px) {
-  .services-stats { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-}
-.services-platforms { display: flex; flex-wrap: wrap; align-items: center; gap: .625rem 1rem; }
+.services-platforms { display: flex; flex-wrap: wrap; align-items: center; gap: .625rem 1rem; margin-top: .25rem; }
 .services-platforms > .eyebrow { margin: 0; }
 
 /* ——— services: engagement and after go-live (round 6) ————— */
@@ -2272,10 +2272,22 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
    of its own. */
 .services-after { margin-top: clamp(3.5rem, 6vw, 5rem); }
 
+/* The step track runs full width here rather than in the home page's 60/40
+   split, so it reads at body size instead of small print. */
+.services-engage .ladder3-title { font-size: 1.25rem; }
+.services-engage .ladder3-body { font-size: var(--fs-body); }
+.services-engage .ladder3-fact-value { font-size: 1rem; }
+
+/* One accent per screen: the eyebrow and the first step's dot carry the teal,
+   so the after-go-live marks stay neutral. */
+.services-after .way-mark { color: var(--text-muted); }
+
 /* ——— services: the proof light band (round 6) ——————————— */
 
 .proof-stat { display: flex; flex-direction: column; gap: .625rem; }
-.proof-stat-label { max-width: 32rem; font-size: var(--fs-sm); font-weight: 600; line-height: 1.45; color: var(--text-on-light); }
+/* One figure, so it is set as the band's anchor rather than a tile in a grid. */
+.proof-stat .about-stat-value { font-size: clamp(2.75rem, 4.4vw, 4rem); }
+.proof-stat-label { max-width: 32rem; font-size: 1rem; font-weight: 400; line-height: 1.5; color: var(--text-on-light); }
 .proof-note { max-width: 32rem; font-size: var(--fs-sm); font-weight: 300; line-height: 1.6; color: var(--text-on-light-soft); }
 
 /* ——— services: platform cards ————————————————————————— */
@@ -3134,30 +3146,31 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 
 /* ——— the proof strip under the hero ——— */
 
-/* Three figures, three columns: the row sets its own track count rather than
-   inheriting the four the practice page's strip runs, so the band ends where
-   the last figure does instead of leaving a column standing empty. The cells
-   carry the same padding top and bottom, which is what lets the rules between
-   them run a whole cell rather than stopping under the last line of a label,
-   and the band closes with the space it opened on, so the next screen's
-   hairline is a divider and not an underline. */
+/* Three figures, three columns — the home proof strip and, since round 6, the
+   Services band: the row sets its own track count rather than inheriting the
+   base row's four, so the band ends where the last figure does instead of
+   leaving a column standing empty. The cells carry the same padding top and
+   bottom, which is what lets the rules between them run a whole cell rather
+   than stopping under the last line of a label, and the band closes with the
+   space it opened on, so the next screen's hairline is a divider and not an
+   underline. */
 
-.stat-row--home { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-.stat-row--home .stat { padding-bottom: 1.5rem; }
-.stat-band--home { padding-bottom: clamp(2.5rem, 5vw, 4rem); }
+.stat-row--home, .services-stats { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.stat-row--home .stat, .services-stats .stat { padding-bottom: 1.5rem; }
+.stat-band--home, .services-stat-band { padding-bottom: clamp(2.5rem, 5vw, 4rem); }
 
 /* Two abreast while two read, and the odd figure takes the full width rather
    than half a row: a cell is a column of the band, not a tile in a grid. The
    cell's own padding carries the space around the rule it sits under. */
 @media (max-width: 900px) {
-  .stat-row--home { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .stat-row--home .stat:nth-child(3) { grid-column: 1 / -1; margin-top: 0; }
+  .stat-row--home, .services-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .stat-row--home .stat:nth-child(3), .services-stats .stat:nth-child(3) { grid-column: 1 / -1; margin-top: 0; }
 }
 
 /* Single file on a phone: three figures read down the page in one pass. */
 @media (max-width: 480px) {
-  .stat-row--home { grid-template-columns: minmax(0, 1fr); }
-  .stat-row--home .stat + .stat { margin-top: 0; padding-top: 1.5rem; }
+  .stat-row--home, .services-stats { grid-template-columns: minmax(0, 1fr); }
+  .stat-row--home .stat + .stat, .services-stats .stat + .stat { margin-top: 0; padding-top: 1.5rem; }
 }
 
 /* ——— site-wide, carried by the same pass ——— */
