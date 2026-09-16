@@ -44,6 +44,16 @@ var NEXT_TIERS = ["Integration", "Scale"];
 /* A matrix row carrying a restrictive asterisk is PARTIAL: an unqualified
    SUPPORTED tag on it would overstate the source. */
 var CAP_STATES = ["supported", "partial", "roadmap"];
+/* Round 4, C1: a case study is measured or in progress. The status drives the
+   chip and the metric eyebrow, so a third value would render an empty chip. */
+var CASE_STATUSES = ["measured", "in-progress"];
+/* Round 4, T1: the three tag families and the two availability badges. */
+var PATTERN_IDS = ["deep-research", "processing-pipelines", "data-analysis"];
+var FACET_IDS = ["oci-nvidia", "oracle-ai-data-platform", "oracle-autonomous-ai-lakehouse", "other"];
+/* Round 4 (Alex, 2026-09-16): no customer may be named anywhere in the shipped
+   data, and no customer logo may be referenced. The files stay on disk,
+   unreferenced, pending customer approval. */
+var CUSTOMER_NAMES = ["Bosch", "Riyadh Air", "RiyadhAir", "Riyahd", "DHL", "SBG", "BSH", "Binladin", "Belron", "Channel 4", "KPN", "NHS", "OMV"];
 /* E: a one-liner says what the product does, for whom, with what outcome. It is
    not the place for the packaging story — that is what the Jumpstart tab is. */
 var PACKAGING_PHRASES = [
@@ -115,6 +125,27 @@ if (!arr(C.products) || C.products.length !== 7) {
     });
   }
   if (p.pov !== undefined) fail(w, "pov is superseded by jumpstart — nothing renders it");
+  /* Round 4, T1: the three availability states became two badges driven by
+     config flags. Nothing renders the chip model any more. */
+  ["availability", "availabilityChip", "availabilityTooltip"].forEach(function (k) {
+    if (p[k] !== undefined) fail(w, k + " is superseded by the availability badges — nothing renders it");
+  });
+  if (p.statusNote !== undefined) {
+    if (!str(p.statusNote)) fail(w, "statusNote must be a non-empty string where present");
+    else if (UNPACKAGED.indexOf(p.slug) === -1) {
+      fail(w, "statusNote belongs only to the two unpackaged products (" + UNPACKAGED.join(", ") + ")");
+    } else if (sentences(p.statusNote) > 1) {
+      fail(w, "statusNote is " + sentences(p.statusNote) + " sentences — it is one muted line under the hero one-liner");
+    }
+  }
+  if (UNPACKAGED.indexOf(p.slug) !== -1 && !str(p.statusNote)) {
+    fail(w, "statusNote missing — an unpackaged product says so in one line, since it carries no availability badge");
+  }
+  (p.tags || []).forEach(function (tag) {
+    if (RETIRED_TAGS.indexOf(tag) !== -1) {
+      fail(w, 'tags carries the retired availability chip "' + tag + '" — availability is a badge now, not a tag');
+    }
+  });
   if (!arr(p.tags) || !p.tags.length) fail(w, "tags missing");
   if (!p.hero) fail(w, "hero missing"); else checkHeroImage(w, p.hero.image);
   if (!CFG.products[p.slug]) fail(w, "no matching SITE_CONFIG.products entry");
@@ -126,6 +157,14 @@ if (!arr(C.products) || C.products.length !== 7) {
        the frame on. The flag decides a layout — it has to be a real boolean. */
     if (typeof CFG.products[p.slug].video !== "boolean") {
       fail(w, "config.video missing or not a boolean (true | false)");
+    }
+    /* Round 4, T1/T2: the Marketplace badge and the Marketplace facet both read
+       this flag. A string would be truthy whatever it said. */
+    if (typeof CFG.products[p.slug].marketplace !== "boolean") {
+      fail(w, "config.marketplace missing or not a boolean (true | false)");
+    }
+    if (CFG.products[p.slug].marketplaceUrl && !CFG.products[p.slug].marketplace) {
+      fail(w, "config.marketplaceUrl is set but config.marketplace is false — the badge would not render for a listing that exists");
     }
   }
 
@@ -189,36 +228,52 @@ if (!arr(C.products) || C.products.length !== 7) {
     if (!str(d.title) || !str(d.body)) fail(w, "moreDetail[" + i + "] needs { title, body }");
   });
 
-  /* 2.8 success story — H: a named customer callout, or null. There is no
-     empty state: a story block whose only content is "nothing published yet"
-     is worse than its absence on a page sellers demo live. */
-  if (o.successStory === undefined) fail(w, "overview.successStory missing — it is null where no named story ships");
-  else if (o.successStory !== null) {
-    var st = o.successStory;
-    ["customer", "logo", "headline", "story"].forEach(function (k) {
-      if (!str(st[k])) fail(w, "overview.successStory." + k + " missing");
+  /* 2.8 case study — round 4, C1. An anonymized customer callout, or null.
+     There is no empty state: a block whose only content is "nothing published
+     yet" is worse than its absence on a page sellers demo live. */
+  if (o.caseStudy === undefined) fail(w, "overview.caseStudy missing — it is null where no case study ships");
+  if (o.successStory !== undefined) fail(w, "overview.successStory is superseded by overview.caseStudy — nothing renders it");
+  if (o.caseStudy !== null && o.caseStudy !== undefined) {
+    var cs = o.caseStudy;
+    ["descriptor", "area", "industry", "image", "status", "metricsEyebrow", "story", "ndaLine", "downloadLabel"].forEach(function (k) {
+      if (!str(cs[k])) fail(w, "overview.caseStudy." + k + " missing");
     });
-    if (st.state !== undefined) fail(w, "overview.successStory.state is superseded — the block renders when the object is non-null");
-    if (!arr(st.metrics) || st.metrics.length !== 2) {
-      fail(w, "overview.successStory.metrics must hold exactly 2 headline figures");
-    } else st.metrics.forEach(function (m, i) {
-      if (!str(m.value) || !str(m.label)) fail(w, "successStory.metrics[" + i + "] needs { value, label }");
-      if (str(m.value) && m.value.length > 14) fail(w, 'successStory.metrics[' + i + '].value "' + m.value + '" is too long to set large');
+    if (cs.customer !== undefined) fail(w, "overview.caseStudy.customer is banned — no customer is named on this site");
+    if (cs.logo !== undefined || cs.logoStacked !== undefined) {
+      fail(w, "overview.caseStudy carries a logo — the industry medallion replaced it and no customer mark ships");
+    }
+    if (CASE_STATUSES.indexOf(cs.status) === -1) {
+      fail(w, 'overview.caseStudy.status "' + cs.status + '" is not ' + CASE_STATUSES.join(" / "));
+    }
+    /* The eyebrow says what the two figures are. A measured case may not label
+       its figures as targets, and an in-progress one may not label targets as
+       measured — that is the whole point of carrying the status. */
+    var wantEyebrow = cs.status === "measured" ? "Measured" : "Target outcomes";
+    if (str(cs.metricsEyebrow) && cs.metricsEyebrow !== wantEyebrow) {
+      fail(w, 'overview.caseStudy.metricsEyebrow is "' + cs.metricsEyebrow + '", expected "' + wantEyebrow + '" for status "' + cs.status + '"');
+    }
+    if (INDUSTRIES.indexOf(cs.industry) === -1) {
+      fail(w, 'overview.caseStudy.industry "' + cs.industry + '" is not in the fixed set of 16');
+    } else if (str(cs.image)) {
+      var wantCase = new RegExp("^assets/img/industries/" + cs.industry + "\\.(jpg|jpeg|png|webp)$");
+      if (!wantCase.test(cs.image)) fail(w, 'overview.caseStudy.image "' + cs.image + '" must be assets/img/industries/' + cs.industry + ".jpg");
+      else checkAsset(w, "case-study header image", cs.image);
+    }
+    if (!arr(cs.metrics) || cs.metrics.length !== 2) {
+      fail(w, "overview.caseStudy.metrics must hold exactly 2 headline figures");
+    } else cs.metrics.forEach(function (m, i) {
+      if (!str(m.value) || !str(m.label)) fail(w, "caseStudy.metrics[" + i + "] needs { value, label }");
+      if (str(m.value) && m.value.length > 18) fail(w, 'caseStudy.metrics[' + i + '].value "' + m.value + '" is too long to set large');
     });
-    /* A stacked lockup is sized optically, not by the flat height rule — the
-       flag is what tells the renderer which of the two it is. */
-    if (st.logoStacked !== undefined && typeof st.logoStacked !== "boolean") {
-      fail(w, "overview.successStory.logoStacked must be a boolean where present");
-    }
-    if (str(st.logo)) {
-      if (!/^assets\/img\/logos\/[a-z0-9-]+\.(svg|png|webp)$/.test(st.logo)) {
-        fail(w, 'successStory.logo "' + st.logo + '" is not assets/img/logos/<name>.<svg|png|webp>');
-      } else checkAsset(w, "customer logo", st.logo);
-    }
+    if (!arr(cs.scope) || cs.scope.length !== 3) {
+      fail(w, "overview.caseStudy.scope must hold exactly 3 facts — the compact scope row");
+    } else cs.scope.forEach(function (f, i) {
+      if (!str(f.label) || !str(f.value)) fail(w, "caseStudy.scope[" + i + "] needs { label, value }");
+    });
     /* Rule 1 of VISUAL-GRAMMAR: a number never renders away from its caveat,
        and this block has no footnote row of its own. */
-    if (str(st.story) && !/illustrative|modeled simulations|not contractual/i.test(st.story)) {
-      fail(w, "successStory.story carries figures with no caveat sentence — the block has no footnote row of its own");
+    if (str(cs.story) && !/illustrative|modeled simulations|not contractual/i.test(cs.story)) {
+      fail(w, "caseStudy.story carries figures with no caveat sentence — the block has no footnote row of its own");
     }
   }
 
