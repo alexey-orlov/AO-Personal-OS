@@ -669,7 +669,7 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 
 @media (max-width: 480px) {
   .stat-row { grid-template-columns: 1fr; }
-  .stat-row:not(.stat-row--home) .stat { border-left: 0; padding-left: 0; }
+  .stat-row .stat { border-left: 0; padding-left: 0; }
   .stat + .stat { border-top: 1px solid var(--border-subtle); margin-top: 1.25rem; padding-top: 1.25rem; }
 }
 
@@ -3119,16 +3119,32 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
   .about-partner-marks { margin-left: 0; }
 }
 
-/* ——— the proof strip on a phone ——— */
+/* ——— the proof strip under the hero ——— */
 
-/* Four figures single-file ran the strip past two screenfuls on a phone. Two up
-   keeps the four readable as one set. The Services strip keeps its own. */
-@media (max-width: 480px) {
+/* Three figures, three columns: the row sets its own track count rather than
+   inheriting the four the practice page's strip runs, so the band ends where
+   the last figure does instead of leaving a column standing empty. The cells
+   carry the same padding top and bottom, which is what lets the rules between
+   them run a whole cell rather than stopping under the last line of a label,
+   and the band closes with the space it opened on, so the next screen's
+   hairline is a divider and not an underline. */
+
+.stat-row--home { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.stat-row--home .stat { padding-bottom: 1.5rem; }
+.stat-band { padding-bottom: clamp(2.5rem, 5vw, 4rem); }
+
+/* Two abreast while two read, and the odd figure takes the full width rather
+   than half a row: a cell is a column of the band, not a tile in a grid. The
+   cell's own padding carries the space around the rule it sits under. */
+@media (max-width: 900px) {
   .stat-row--home { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .stat-row--home .stat { padding-left: 0; border-left: 0; }
-  .stat-row--home .stat:nth-child(even) { padding-left: 1.25rem; border-left: 1px solid var(--border-subtle); }
-  .stat-row--home .stat:nth-child(-n + 2) { margin-top: 0; padding-top: 1.5rem; border-top: 0; }
-  .stat-row--home .stat:nth-child(n + 3) { margin-top: 1.25rem; padding-top: 1.25rem; border-top: 1px solid var(--border-subtle); }
+  .stat-row--home .stat:nth-child(3) { grid-column: 1 / -1; margin-top: 0; }
+}
+
+/* Single file on a phone: three figures read down the page in one pass. */
+@media (max-width: 480px) {
+  .stat-row--home { grid-template-columns: minmax(0, 1fr); }
+  .stat-row--home .stat + .stat { margin-top: 0; padding-top: 1.5rem; }
 }
 
 /* ——— site-wide, carried by the same pass ——— */
