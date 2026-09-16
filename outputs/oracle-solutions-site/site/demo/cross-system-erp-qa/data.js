@@ -428,7 +428,7 @@ window.ERPQA_DATA = (function () {
      "FUSION", "Thornbury Welding Supplies", "Preston", "", "6618", 12840, 0.85,
      ["name 0.87", "tax id —", "bank ✓", "city ✓"], "Second record predates the tax-id field being mandatory."],
     ["FUSION", "Ebbsworth Lubricants Ltd", "Ipswich", "GB7706118834", "3374", 68240,
-     "JDE", "EBBSWORTH LUBRICANTS CANADA", "Guelph", "CA7740228116", "5529", 96180, 0.88,
+     "JDE", "EBBSWORTH LUBRICANTS CANADA", "Guelph", "CA7740228116", "5529", 96180, 0.84,
      ["name 0.93", "tax id ✗", "bank ✗", "city ✗", "contract CRB-2291 ✓"], "One group contract covers both."],
     ["FUSION", "Marchwood Conveyors Ltd", "Luton", "GB7748820104", "7741", 39860,
      "FUSION", "Marchwood Conveyor Systems", "Luton", "GB7748820104", "7741", 14220, 0.82,
@@ -461,7 +461,7 @@ window.ERPQA_DATA = (function () {
      "FUSION", "Corbridge Machining (UK) Ltd", "Leeds", "GB7788110226", "3340", 51820, 0.81,
      ["name 0.92", "tax id ✗", "bank ✗", "city ✗", "contract CRB-2304 ✓"], "One contract names both; ownership unclear."],
     ["NETSUITE", "Yardley Print Services LLC", "Columbus", "US3611440228", "7702", 42860,
-     "FUSION", "Yardley Printing Services Ltd", "Norwich", "GB7740228806", "1194", 28140, 0.85,
+     "FUSION", "Yardley Printing Services Ltd", "Norwich", "GB7740228806", "1194", 28140, 0.83,
      ["name 0.90", "tax id ✗", "bank ✗", "city ✗"], "Same brand, two registrations."],
     ["NETSUITE", "Elmsworth Catering Group", "Wichita", "US3690228114", "4426", 38240,
      "FUSION", "Elmsworth Catering Ltd", "Reading", "GB7714028840", "8816", 22960, 0.75,
@@ -502,6 +502,7 @@ window.ERPQA_DATA = (function () {
   });
   var ORION = pendingMatches[0];
   ORION.id = "M-ORION";
+  ORION.records.forEach(function (rid) { byId(rid).proposal = "M-ORION"; });
   ORION.learnedRule = "Different tax registration numbers never match, whatever the name score.";
 
   /* ---- 4. the verified singletons ------------------------------------- */
