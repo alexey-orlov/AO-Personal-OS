@@ -212,10 +212,26 @@ instructed. The one-pagers print his personal address; it must not ship.
 
 ## 4. Customer logos — `assets/img/logos/`
 
-Two named customers ship, on Alex's instruction of **2026-09-14**: **Bosch**
-(workforce optimization) and **Riyadh Air** (large-document extraction). Every
-other customer on the site stays unnamed, and no euro figure, headcount, baseline
-or contract value from the Bosch business case ships with the name.
+> ⛔ **Round 4, 2026-09-16 — nothing in this folder is referenced any more, and
+> no customer is named anywhere on the site.** Alex withdrew the 2026-09-14
+> clearance that named two customers: there are now no customer names, no logos,
+> no names in alt text, captions, data files or shipped docs. Every case study
+> identifies its customer by an **anonymized descriptor** (industry and scale)
+> and an **industry medallion** — a circle carrying the industry line icon —
+> where the logo used to sit (`VISUAL-GRAMMAR.md` §2.6).
+>
+> **The files stay on disk, unreferenced, pending customer approval.** They are
+> not deleted, because the approval that would bring them back is a conversation
+> with two account teams, not a re-derivation: the recolouring recipes below are
+> the part that would be expensive to redo. `check-grammar.js` fails the build
+> if any path under `assets/img/logos/` reappears in `data/content.js`, and it
+> fails on each customer name as a string, so the files cannot come back by
+> accident — only by removing that guard deliberately, which is the record that
+> a permission arrived.
+
+The section below describes the two files as they were prepared on 2026-09-14,
+and the licensing position that applied while they shipped. It is history, not
+current state.
 
 | File | Size | What it is | Source |
 |---|---|---|---|
@@ -248,9 +264,15 @@ both customers are referenceable; the permission lives with the account teams, n
 in this repo. Recolouring to a single white ink is the standard reversed-logo
 treatment both brands publish for dark grounds, but it is still a modification —
 if either account team supplies an official reversed asset, replace the file
-rather than re-deriving it. If a reference permission is ever withdrawn, remove
-the file **and** the name from `data/content.js` in the same change; the logo is
-not the only place the customer is identified.
+rather than re-deriving it.
+
+**This is what happened on 2026-09-16**, in the other direction: the names came
+out of `data/content.js` in the same change that unreferenced the logos, because
+the logo was never the only place the customer was identified — the descriptor,
+the industry string and the story all named them too. Bringing either back is a
+three-part change (the file reference, the descriptor, the deny-list entry in
+`check-grammar.js`) and it needs the account team's written permission recorded
+here, with a date.
 
 ---
 
@@ -273,10 +295,11 @@ not the only place the customer is identified.
   found it** (see §3). If that confirmation is ever retracted, pull the file and
   blank `shared.contact.photo` in the same change — the card falls back to its
   initials avatar on its own.
-- **The two customer logos are third-party trademarks** (see §4), used to identify
-  a reference customer. Everything else in `assets/img/` is SoftServe's own
-  material; these two are not, and they are the only assets on the site whose
-  right to ship rests on a customer's permission rather than on SoftServe owning
-  the file.
+- **The two customer logos are third-party trademarks** (see §4). They were the
+  only assets on the site whose right to ship rested on a customer's permission
+  rather than on SoftServe owning the file — which is exactly why they are the
+  two that came off the site on 2026-09-16. They remain on disk and
+  **unreferenced**; nothing renders them, and the build fails if anything starts
+  to. Everything else in `assets/img/` is SoftServe's own material.
 - Nothing on OneDrive was modified; every extraction was a read-only
   `unzip`/`unzip -p` or `pdftotext`/`pdfimages` against a copy.
