@@ -2258,6 +2258,10 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 .services-title { max-width: none; }
 .services-title .accent { display: block; }
 .services-stats { width: 100%; }
+/* Three figures, three equal columns; the shared row's narrower breakpoints still apply. */
+@media (min-width: 901px) {
+  .services-stats { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
 .services-platforms { display: flex; flex-wrap: wrap; align-items: center; gap: .625rem 1rem; }
 .services-platforms > .eyebrow { margin: 0; }
 
