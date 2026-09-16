@@ -51,7 +51,11 @@
     clip: '<svg viewBox="0 0 24 24"><path d="M17 8.5 10 15.5a2.5 2.5 0 0 0 3.5 3.5l7-7a5 5 0 0 0-7-7l-7 7a7.5 7.5 0 0 0 10.5 10.5"/></svg>',
     plus: '<svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>',
     list: '<svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h11"/></svg>',
-    ledger: '<svg viewBox="0 0 24 24"><rect x="4" y="3.5" width="16" height="17" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>'
+    ledger: '<svg viewBox="0 0 24 24"><rect x="4" y="3.5" width="16" height="17" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>',
+    sliders: '<svg viewBox="0 0 24 24"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></svg>',
+    expand: '<svg viewBox="0 0 24 24"><path d="M9 4H4v5M15 4h5v5M9 20H4v-5M15 20h5v-5"/></svg>',
+    shrink: '<svg viewBox="0 0 24 24"><path d="M9 4v5H4M15 4v5h5M9 20v-5H4M15 20v-5h5"/></svg>',
+    funnel: '<svg viewBox="0 0 24 24"><path d="M4 5h16l-6 7v6l-4 2v-8Z"/></svg>'
   };
 
   var SYS_ENTITY = { "NG-EU": "FUSION", "NG-NA": "JDE", "NG-SV": "NETSUITE", GROUP: "CRM" };
@@ -704,7 +708,7 @@
       var parts = t.dataset.lincol.split("|");
       if (parts[0] !== "out") { toast("Column lineage is highlighted from the target column — pick one on <b>" + esc(S.linView) + "</b>."); return; }
       S.linCol = S.linCol === parts[1] ? null : parts[1];
-      if (S.linCol) { lineageFor(S.linView).stages[0].forEach(function (c) { if (S.linOpen.indexOf(c.id) < 0) S.linOpen.push(c.id); }); }
+      if (S.linCol) openContributors();
       renderWb(); return;
     }
     if ((t = e.target.closest("[data-lindet]"))) { S.linDetail = t.dataset.lindet || null; S.linTab = "details"; renderWb(); return; }
@@ -944,9 +948,9 @@
     return '<div class="lin" id="lin">' +
       '<div class="lin-bar"><span class="lin-title">Lineage for <span class="lin-ico lin-ico--gold sm">' + ICON.grid + "</span><b>GOLD." + esc(S.linView) + "</b></span>" +
       '<label class="lin-find"><span class="wb-mag"></span><input type="search" placeholder="Find" aria-label="Find an artifact"></label>' +
-      '<span class="lin-icons"><i>' + ICON.gear + '</i><i class="dots">&middot;&middot;&middot;</i><i>&#10530;</i><i>&#9974;</i>' +
+      '<span class="lin-icons"><i>' + ICON.sliders + '</i><i class="dots">&middot;&middot;&middot;</i><i>' + ICON.shrink + "</i><i>" + ICON.expand + "</i>" +
       '<button class="lin-x" type="button" id="lin-close" aria-label="Close lineage">&times;</button></span></div>' +
-      '<div class="lin-filters"><button class="lin-funnel" type="button" aria-label="Hide filters">&#9660;</button>' +
+      '<div class="lin-filters"><button class="lin-funnel" type="button" aria-label="Hide filters">' + ICON.funnel + "</button>" +
       ["All Catalogs", "All Schemas", "All Volumes", "All Workspaces"].map(function (f) { return '<span class="lin-sel">' + esc(f) + ICON.chevd + "</span>"; }).join("") +
       '<span class="lin-sel is-dis">All Columns' + ICON.chevd + "</span><span class=\"lin-clearx\">&times;</span>" +
       '<span class="lin-right"><span class="lin-modes"><i>&#8644;</i><i class="is-on">&#10021;</i><i>&#8646;</i></span><span class="lin-anch">&#9875;</span><span class="lin-sel">70′' + ICON.chevd + "</span></span></div>" +
@@ -988,7 +992,7 @@
     return '<div class="lin-det" id="lin-det"><div class="lin-det-h"><span class="lin-ico lin-ico--' + esc(c.tone) + ' sm">' + (c.kind === "task" ? ICON.route : ICON.grid) + "</span>" +
       "<b>" + esc(c.name) + '</b><span class="lin-type">' + esc(c.type) + "</span><i>|</i>" + toneChip(c) +
       '<span class="lin-ud">&uarr; ' + ud.up + " &darr; " + ud.down + "</span>" +
-      '<span class="lin-right"><span>&#9974;</span><button class="lin-x" type="button" data-lindet="" aria-label="Close details">&times;</button></span></div>' +
+      '<span class="lin-right"><span>' + ICON.expand + '</span><button class="lin-x" type="button" data-lindet="" aria-label="Close details">&times;</button></span></div>' +
       '<div class="lin-det-tabs"><button type="button" class="' + (S.linTab === "details" ? "is-on" : "") + '" data-lintab="details">Details</button>' +
       '<button type="button" class="' + (S.linTab === "impact" ? "is-on" : "") + '" data-lintab="impact">Impact analysis</button></div>' +
       (S.linTab === "impact"
@@ -1021,6 +1025,8 @@
     var g = lineageFor(S.linView), base = cv.getBoundingClientRect();
     svg.setAttribute("viewBox", "0 0 " + cv.scrollWidth + " " + cv.scrollHeight);
     svg.setAttribute("width", cv.scrollWidth); svg.setAttribute("height", cv.scrollHeight);
+    /* the global `svg { width:16px }` rule would shrink this to an icon */
+    svg.style.width = cv.scrollWidth + "px"; svg.style.height = cv.scrollHeight + "px";
     var defs = svg.querySelector("defs"), paths = "";
     function box(id) { var el = cv.querySelector('.lin-card[data-lin="' + id + '"]'); if (!el) return null; var r = el.getBoundingClientRect(); return { x: r.left - base.left + cv.scrollLeft, y: r.top - base.top + cv.scrollTop, w: r.width, h: r.height }; }
     function chip(id, col) {
@@ -1049,6 +1055,19 @@
       if (tb && tgt) curve(tb.x + tb.w, tb.y + Math.min(34, tb.h / 2), tgt.x - 1, tgt.y + tgt.h / 2, "lin-e lin-e--col");
     }
     svg.innerHTML = (defs ? defs.outerHTML : "") + paths;
+  }
+  /* expand exactly the upstream cards that feed the highlighted column, so the
+     graph stays inside the canvas instead of scrolling the anchor off-screen */
+  function openContributors() {
+    var g = lineageFor(S.linView), m = g.map[S.linCol];
+    S.linOpen = ["out"];
+    if (!m) return;
+    m.forEach(function (x) {
+      x[2].forEach(function (k) {
+        var cid = k.split(".")[0];
+        if (S.linOpen.indexOf(cid) < 0) S.linOpen.push(cid);
+      });
+    });
   }
   function openLineage(viewId) {
     if (S.wbPanel !== "lineage") S.linFrom = S.wbPanel;
@@ -1645,7 +1664,7 @@
     setDsScreen: function (s) { S.dsScreen = s; renderDs(); },
     setWbPanel: function (p) { S.wbPanel = p; renderWb(); },
     openLineage: openLineage,
-    lineageColumn: function (c) { S.linCol = c; lineageFor(S.linView).stages[0].forEach(function (x) { if (S.linOpen.indexOf(x.id) < 0) S.linOpen.push(x.id); }); renderWb(); },
+    lineageColumn: function (c) { S.linCol = c; openContributors(); renderWb(); },
     lineageDetail: function (id, tab) { S.linDetail = id; S.linTab = tab || "details"; renderWb(); },
     setCatalogEntity: function (id) { S.mcEntity = id; S.wbPanel = "catalog"; renderWb(); },
     setRwTab: function (t) { S.rwTab = t; renderRwTabs(); renderRwPanel(); },
