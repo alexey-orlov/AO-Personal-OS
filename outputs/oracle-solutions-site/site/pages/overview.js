@@ -77,51 +77,13 @@
       "</div></section>";
   }
 
-  function metricBlock(item) {
+  /* Four engagements, four cards of one anatomy — two measured, two under way.
+     The status chip carries that distinction, so no card needs a hand-written
+     label, and no customer is named on either surface. */
+  function caseStudies(C) {
     var UI = window.UI;
-    if (!item.metrics || !item.metrics.length) return "";
-    var cells = item.metrics.map(function (metric) {
-      return '<div class="metric">' +
-        '<p class="metric-value nums">' + UI.esc(metric.value) + "</p>" +
-        '<p class="metric-label">' + UI.esc(metric.label) + "</p>" +
-        "</div>";
-    }).join("");
-    var notes = (item.footnotes || []).map(function (note) {
-      return '<p class="footnote">' + UI.esc(note) + "</p>";
-    }).join("");
-    return '<div class="proof-metrics' +
-      (item.metrics.length === 1 ? " proof-metrics--single" : "") + '">' + cells +
-      (notes ? '<div class="proof-footnotes">' + notes + "</div>" : "") + "</div>";
-  }
-
-  function proofRow(item, index) {
-    var UI = window.UI;
-    var reverse = index % 2 === 1;
-    var copy = '<div class="proof-copy">' +
-      '<p class="eyebrow eyebrow--accent">' + UI.esc(item.label) + "</p>" +
-      (item.logo
-        ? '<img class="proof-logo' + (item.logoStacked ? " proof-logo--stacked" : "") +
-          '" src="' + UI.esc(item.logo) + '" alt="" loading="lazy" decoding="async">'
-        : "") +
-      (item.customer ? '<h3 class="proof-customer">' + UI.esc(item.customer) + "</h3>" : "") +
-      (item.industry ? '<p class="proof-industry">' + UI.esc(item.industry) + "</p>" : "") +
-      '<p class="body-text">' + UI.esc(item.body) + "</p>" +
-      (item.scopeLine ? '<p class="proof-scope">' + UI.esc(item.scopeLine) + "</p>" : "") +
-      (item.product ? '<p>' + UI.linkArrow({ label: item.product.name, href: "#/products/" + item.product.slug }) + "</p>" : "") +
-      "</div>";
-    return '<article class="proof-row reveal' + (reverse ? " proof-row--reverse" : "") + '">' +
-      copy + metricBlock(item) + "</article>";
-  }
-
-  /* The home page carries the delivered proofs; the method cards and the
-     engagements still in preparation live once, on Services. */
-  function evidence(C) {
-    var UI = window.UI;
-    var intro = C.overview.evidenceIntro;
-    var bandOne = C.overview.evidence.filter(function (item) { return item.band === 1; });
-    var rows = bandOne.length
-      ? bandOne.map(proofRow).join("")
-      : UI.empty(intro.body);
+    var intro = C.overview.caseStudiesIntro;
+    var cards = (C.overview.caseStudies || []).map(UI.caseCard).join("");
 
     return '<section class="section" id="proof">' +
       '<div class="wrap">' +
@@ -129,8 +91,8 @@
         '<div class="section-head" style="margin-top:2.5rem">' +
           '<h2 class="h2">' + UI.esc(intro.title) + "</h2>" +
         "</div>" +
-        '<p class="lead" style="margin-bottom:2rem">' + UI.esc(intro.body) + "</p>" +
-        rows +
+        '<p class="lead" style="margin-bottom:2.5rem">' + UI.esc(intro.body) + "</p>" +
+        (cards ? '<div class="case-grid">' + cards + "</div>" : UI.empty(intro.body)) +
         (intro.cta
           ? '<p class="panel-link">' + UI.linkArrow({ label: intro.cta.label, href: intro.cta.route }) + "</p>"
           : "") +
@@ -185,7 +147,8 @@
 
   function overview() {
     var C = window.SITE_CONTENT;
-    return hero(C) + statBand(C) + trustStrip(C) + products(C) + evidence(C) + servicesTeaser(C) + closing(C);
+    return hero(C) + statBand(C) + trustStrip(C) + products(C) + caseStudies(C) +
+      servicesTeaser(C) + closing(C);
   }
 
   overview.mount = function (params, root) {

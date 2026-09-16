@@ -268,17 +268,19 @@
         return;
       }
       if (event.target.closest("#facet-clear")) {
-        state = { tech: "", cat: "", mp: false, q: "" };
+        state = Object.assign({}, EMPTY);
         if (search) search.value = "";
         sync(false);
       }
     });
 
     rail.addEventListener("change", function (event) {
-      if (event.target.id === "facet-marketplace") {
-        state.mp = event.target.checked;
-        sync(false);
-      }
+      var key = event.target.getAttribute && event.target.getAttribute("data-avail");
+      if (!key) return;
+      state[key] = event.target.checked;
+      sync(false);
+      var next = rail.querySelector('[data-avail="' + key + '"]');
+      if (next && !next.disabled) next.focus();
     });
 
     rail.addEventListener("keydown", function (event) {
