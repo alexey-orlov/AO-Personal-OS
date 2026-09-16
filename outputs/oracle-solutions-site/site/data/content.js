@@ -138,6 +138,39 @@ window.SITE_CONTENT = {
       "travel-transport": "Travel & transport",
       "cross-industry": "Every industry"
     },
+    tagFamilies: {
+      pattern: {
+        tooltip: "Workflow pattern",
+        icons: {
+          "deep-research": "pattern-deep-research",
+          "processing-pipelines": "pattern-processing-pipelines",
+          "data-analysis": "pattern-data-analysis"
+        }
+      },
+      tech: {
+        tooltip: "Runs on",
+        icons: {
+          "oci-nvidia": "platform-oci-nvidia",
+          "oracle-ai-data-platform": "platform-oracle-ai-data-platform",
+          "oracle-autonomous-ai-lakehouse": "platform-oracle-autonomous-ai-lakehouse",
+          "other": "platform-other"
+        }
+      },
+      availability: {
+        demo: { label: "Demo", tooltip: "Demo available", icon: "play" },
+        marketplace: { label: "Oracle Marketplace", tooltip: "Available on Oracle Marketplace", icon: "storefront" }
+      }
+    },
+    caseStudyStatus: {
+      "measured": {
+        chip: "Measured in the proof of value",
+        tooltip: "The figures were measured during a completed proof of value on the customer’s own data."
+      },
+      "in-progress": {
+        chip: "Proof of value in progress",
+        tooltip: "The engagement is under way; the figures are what it is set up to measure, not results."
+      }
+    },
     sectionLabels: {
       metrics: "Metrics improved",
       metricsPlanned: "What the proof of value measures",
@@ -158,7 +191,7 @@ window.SITE_CONTENT = {
       caseProblem: "The problem",
       caseSolution: "The solution",
       outcomes: "Outcomes & ROI",
-      successStory: "Success story",
+      caseStudy: "Case study",
       layerRequired: "Required",
       layerOptional: "Optional",
       directionInbound: "Inbound",
