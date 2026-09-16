@@ -2257,6 +2257,194 @@ Rejected or deferred: the critic's "cheaper alternative" of dropping badges from
 
 **Verification before the publish:** `node --check` clean on every changed file; `node tools/check-grammar.js` OK with the home-page contract; the deny-list grep empty; console clean on `#/`, `#/products`, `#/products/large-document-extraction`, `#/products/workforce-optimization` (+ `/contacts`), `#/services`; no horizontal overflow at 375 through 1440; nested interactive elements 0; page titles `AI Agents on Oracle — SoftServe`, `Services — …`, `<Product> — …`; the header button and the four home anchors resolve; the Services hero still offers *Browse the products* and the product heroes still open on *Request a demo*.
 
+
+### 18.7 The messaging pass — personas over scaffolding (2026-09-16)
+
+Round 5 shipped on the strength of its own structure: seven screens, seven
+products, three patterns, four engagements. The owner read it back and said the
+structure **was** the problem.
+
+**His review, verbatim:**
+
+> You overemphasize the counts and the scaffolding, not the essence. Think as a
+> product marketer with an Oracle rep or a customer as the target persona. Don't
+> overemphasize the "workflow patterns" term, that's rather internal than
+> customer facing. Overall you overemphasize the scaffolding and don't always
+> look at this with the customer or Oracle rep lens. Do copywrite checking — you
+> use "packaged" on the same screen too much.
+
+**Two personas, five principles.** The home copy was rewritten against an
+**Oracle account executive** opening the page live on a call, and an
+**enterprise buyer on Oracle** reading it alone. The principles the rewrite
+held to:
+
+1. Lead with the **job and the outcome**, in the customer's words.
+2. Structure words — counts, *products*, *packaged*, *scope* — appear **only
+   where they carry information the reader needs**, never as scaffolding.
+3. **Name concrete jobs early**, so a rep can map them to accounts in the first
+   screen.
+4. Headlines a rep could **say out loud** on a call.
+5. Every claim still **traceable to a string in `content.js`** — the round-5 bar
+   (§18.1, §18.3) is unchanged.
+
+The pass ran in two stages: the rewrite itself, then an **Opus persona critic**
+that read the result as both personas. Its accepted findings were applied in the
+same sitting; the overruled ones are listed at the end.
+
+**Scope of the change.** `site/data/content.js` and the three description meta
+tags in `site/index.html`, and nothing else. **No renderer, no CSS, no checker
+rule, and no new key** — every row below is a string swapped in place, which is
+why `tools/check-grammar.js` still prints OK.
+
+**Before → after.** *Before* is the round-5 text as §18.5/§18.6 recorded it
+shipped; *after* is read from `content.js` as it now stands.
+
+**Site-wide**
+
+| Key | Before (round 5) | After | Why |
+|---|---|---|---|
+| `site.metaDescription`, and `index.html`'s `description` / `og:description` / `twitter:description` | *"Enterprise AI agents and workflows on Oracle platforms: packaged products you can start now, and a dedicated Oracle AI & Data practice from SoftServe."* (150 chars) | *"AI agents that read your contracts, plan your field workforce and answer questions across your ERP. Built on Oracle by SoftServe, measured on your data first."* (158) | The old sentence described the **offer**; the new one names three of the jobs, which is what a search result has to earn a click with. The critic's first cut ended *"proven on your data in weeks"* — withdrawn, see the hero lead below. Still under 160; the three tags moved with it |
+
+**S1 · `overview.hero`**
+
+| Key | Before (round 5) | After | Why |
+|---|---|---|---|
+| `eyebrow` | *"SoftServe × Oracle · AI agents and workflows"* | *"SoftServe × Oracle · Built and delivered together"* | The old tail restated the H1 one line below it. The new one says what the two logos beside it mean — grounded in `services.whySoftServe.items[1]` (*"We deliver alongside Oracle's AI & Data organization, in joint teams"*) and in `services.whatWeDo.solutionStack`, whose accelerator row is `providedBy: "Oracle + SoftServe"` |
+| `lead` | *"Oracle's AI platforms, with SoftServe's enterprise agentic-AI experience on top: packaged agents and workflows for the jobs enterprises repeat most, and a dedicated practice that takes them from a fixed-scope proof of value to production."* | *"Agents that read your contracts, plan your field workforce, answer questions across your ERP and tell your sellers what a market signal means for each account. Built on Oracle's AI platforms, run in your own tenancy, measured on your own data first."* | The old lead described the **offer**; the new one names **four concrete jobs**, one per product a rep can map to an account — `large-document-extraction`, `workforce-optimization`, `cross-system-erp-qa`, `account-insights`, each compressed from that product's own `shortLine`. The first cut closed *"proven on your data in weeks"*; **withdrawn** — `plan-vs-actual-investigation`'s Jumpstart is *"12 weeks, plus a two-week acceptance phase"*, so *in weeks* is false at the top of the range exactly as *weeks, not quarters* was (18.0 b). The close is now *measured on your own data first*, and the duration claim sits in the strip as **From 30 days** |
+| `stack.ariaLabel` | *"How the products are built: three workflow patterns and seven products on top, the SoftServe layer in the middle, the four Oracle platforms underneath"* | *"How the products are built: the jobs the agents do on top, the SoftServe layer in the middle, the four Oracle platforms underneath"* | The accessible name is the **only** way the stack reaches a screen reader (§18.3), so it has to describe what the top band shows, not the taxonomy behind it. The counts went with the term |
+| `stack.patternsLabel` | *"Workflow patterns"* | *"What they do"* | The band label a customer reads. *Workflow pattern* is internal vocabulary — the owner's words |
+| `stack.softserve.items` | *Agentic-AI patterns · Evaluation frameworks · Packaged delivery* | *Agent engineering · Evaluation & guardrails · Pilot to production* | Three nouns a rep can say. *Agentic-AI patterns* was the third *pattern* on one screen and *Packaged delivery* the fifth *packaged*; **Pilot to production** is the middle layer's actual job and the one an AE is asked about on the call |
+| `stats[0]` | **7** / *"products across three workflow patterns"* | **From 30 days** / *"to a measured result on your own data"* | The count tile was the scaffolding stated as a headline number. The strip now opens on the clock, and *proof of value* in the old `From 30 days` label became *result* — the reader does not yet know what a proof of value is |
+| `stats[1]` | **4** / *"Oracle platforms the practice focuses on"* | **Fixed price** / *"on the priced Jumpstarts, agreed before work starts"* | The commercial fact is the second thing a buyer looks for. The label is narrow on purpose: four of the seven `jumpstart.investment.price` values are money (€75K · €90K · €30–50K ×2), two are `null` and one reads *Scoped per engagement*. The first cut said *"for a Jumpstart where the package is published"* — an unsayable sentence on a call, and the critic was right about it |
+| `stats[2]` | **From 30 days** / *"to a measured proof of value on your own data"* | **4** / *"Oracle platforms the practice focuses on"* | Kept, moved to third. The first cut had replaced it with **Your tenancy** / *"everything runs inside your own Oracle environment"* — a **third** statement of a claim the hero lead and the S2 products panel already make. Platform breadth is what an Oracle rep actually sells on, so the tile came back verbatim from `services.hero.stats[3]` |
+| `stats[3]` | **500+** / *"data experts in SoftServe's data and analytics practice"* | unchanged | The only cleared credential in the row |
+
+The strip therefore reads **From 30 days · Fixed price · 4 Oracle platforms ·
+500+** — clock, commercial, breadth, credential.
+
+**S2 · `overview.twoWays`**
+
+| Key | Before (round 5) | After | Why |
+|---|---|---|---|
+| `title` | *"Products you can start now, and a practice that makes them yours."* | *"The products get you started, and the team behind them takes you to production."* | *A practice that makes them yours* is agency language. The new line is the sentence a rep says when he explains why the page has two panels — and *team* is what the buyer is buying |
+| `panels[0].title` | *"Packaged AI agents and workflows"* | *"Products you can start with"* | Two structure words in four; the panel's job is to say **you can start**. The first cut read *Solutions you can start now* — see the solution/product note below |
+| `panels[0].body` | *"Seven packaged products for the workflows enterprises repeat most: deep research, processing pipelines, data analysis and optimization. Each runs on Oracle, in your tenancy, and starts with a scoped Jumpstart. Four are priced and ready to start today; three are scoped per engagement."* | *"Each one runs on Oracle inside your own tenancy and starts with a Jumpstart: a fixed-scope pilot on your own data. Four are priced and ready to start today; three are scoped per engagement."* | The count and the three category names both went: the count is the S3 rows, and the categories are the S3 column headings one screen below. What survives is the two facts a buyer needs — where it runs, and what a Jumpstart is — plus the four/three split, which is arithmetic over the seven `jumpstart.investment` blocks and the one place the site states its commercial shape |
+| `panels[0].bullets[0]` | *"Grouped by workflow pattern, so you find the job first"* | *"Runs on OCI + NVIDIA or Oracle Autonomous AI Lakehouse"* | The dropped bullet described the **page's own filing system**. The platform bullet moved up from slot 2 |
+| `panels[0].bullets[1]` | *"Built on OCI + NVIDIA or Oracle Autonomous AI Lakehouse"* | *"Built for review: extractions, plans and findings are approved by a person before they are used"* | The human-in-the-decision claim had fallen out of the page entirely. The first cut wrote it as *"A person approves before anything moves"* — **false for the two Lakehouse Q&A products**, whose `jumpstart.investment.includes` contain no approval step at all (`cross-system-erp-qa`, `business-metrics-qa` answer questions; nothing moves). Rewritten to name the three artefacts that **are** approved — extractions, plans, findings — which is true of every product that produces one |
+| `panels[0].bullets[2]` | *"Jumpstart scope, timeline and investment on every product page"* | unchanged | Still the one claim that holds on all seven (18.0 c) |
+| `panels[0].cta.label` | *"See the products"* | unchanged **net** | It passed through *"See the solutions"* in the first cut and came back with the solution → product revert |
+| `panels[1].body` | *"One packaged delivery model — Jumpstart proof of value, integration, scale — run by the architects and engineers who build the accelerator packs themselves. One contract and one accountable team, from scoping through run."* | *"The architects and engineers who built these products adapt them to your systems, rules and data, and take them from pilot to production. One contract and one accountable team, from scoping through run."* | The three tier names are the S4 ladder two screens down, and *accelerator packs* is internal vocabulary. The people come first now; the second sentence is still `whatWeDo.whoYouWorkWith` verbatim |
+| `panels[1].bullets[0]` | *"A fixed price on the packaged scope, scoped per engagement on the deep-research investigations"* | *"Delivered alongside Oracle's AI & Data organization, in joint teams"* | Price is now stated in the hero strip and in S4, and the panel had no line about the thing an Oracle AE most needs to point at. Near-verbatim from `services.whySoftServe.items[1]`. The first cut used *"Success metrics signed with you and Oracle before work starts"* — the fourth appearance of signed metrics on the page |
+| `panels[1].bullets[1]` | *"Every KPI measured like for like against your current process"* | *"Results measured like for like against how you work today"* | Same claim (`services.proof.lead`), said the way a buyer says it: *KPI* and *current process* are both the seller's words |
+| `panels[1].bullets[2]` | *"One team: AI, data and OCI architects with senior AI and data engineers"* | *"Configured to your rules, your definitions and your access model"* | The roster is a staffing answer, and *one team* is already the panel body's last sentence. The slot now carries the adaptation promise the panel title makes, from `services.howWeEngage.howAPovRuns.steps[2]` (*"the pack configured against your rules: business definitions, masking, row-level access"*) |
+
+**S3 · `overview.catalog`**
+
+| Key | Before (round 5) | After | Why |
+|---|---|---|---|
+| `title` | *"Seven products, three workflow patterns."* | *"Find the job you need done."* | The single densest line of scaffolding on the page: a count, a count, and the internal term. The new headline tells the reader what to do with the three columns below it |
+| `lead` | *"Each product packages one workflow pattern, runs in your own Oracle tenancy and keeps a human in the decision."* | *"Each product page has how it works, what it needs from you, and the Jumpstart scope and investment."* | Tenancy and the human are now S2 bullets, so the lead stopped repeating them and became the one thing it can usefully say at the top of a list of links: **what is behind each link** |
+| `patterns[0].definition` | *"Agents that read across many sources and systems, then assemble a cited answer for a reviewer to decide on."* | *"Agents that read across your systems and outside sources, then bring back a cited answer for a person to act on."* | *Many sources and systems* → **your systems and outside sources**, which is the actual split (internal exports plus news, filings, market signals). *Assemble … for a reviewer to decide on* → *bring back … for a person to act on* |
+| `patterns[1].definition` | *"Every document or record goes through the same pipeline and comes out as validated, structured data. Each value carries a confidence score and a citation to its source page, and a reviewer checks it before export."* | *"Long documents and records turned into checked, structured data. Every value is traced to its source page and confirmed by a reviewer before it leaves."* | *Goes through the same pipeline* described the mechanism, not the result; *confidence score* is a product-page fact. 45 words → 24, which also lets the column heading sit level with its peers |
+| `patterns[2].definition` | *"Plain-language answers over governed data, and plans computed against every constraint at once, approved by the people who own the decision."* | *"Plain-language answers over your governed data, and plans computed against every constraint at once, approved by the people who own the decision."* | One word: **your** governed data. It is the customer's lakehouse, and the sentence now says so |
+| `cta.label` | *"Browse all products with filters"* | *"See all products, with filters"* | *Browse* is what a visitor does on a catalogue; *see* matches the two CTAs above it |
+
+**The category rename — site-wide, not only the home page.** `facets.categories`
+is read by the Products rail, every product's `categoryChip`, the first entry of
+every product's `tags`, and the S3 column headings, so this row changes four
+surfaces at once. The rule the new set holds: **each `full` contains its own
+`chip`**, so the rail filter and the column heading are visibly the same thing.
+
+| Key | Before (round 5) | After | Why |
+|---|---|---|---|
+| `facets.categoryLabel` | *"Workflow pattern"* | *"What it does"* | The rail's own group label, read by every visitor who filters |
+| `shared.tagFamilies.pattern.tooltip` | *"Workflow pattern"* | *"What it does"* | The tooltip on every outlined chip, site-wide |
+| `categories[0]` | chip *Deep research* · full *"Deep research & investigation"* | chip *Deep research* · full *"Deep research & investigation"* | Unchanged — it already satisfied the contains-its-chip rule. (The first cut shortened the full to *Research & investigation* and it was reverted) |
+| `categories[1]` | chip *"Processing pipelines"* · full *"Per-item processing pipelines"* | chip *"Document processing"* · full *"Document processing & review"* | *Per-item processing pipelines* is an engineering description of a mechanism. The column holds one product, about documents, with a review step — so the customer-facing name is what it processes and what it does |
+| `categories[2]` | chip *Data analysis & optimization* · full *"Data analysis & decision agents"* | chip *Data analysis & optimization* · full *"Data analysis, answers & optimization"* | *Decision agents* is a category no buyer searches for, and the full label did not contain its chip. The new full names the three things the column actually holds — analysis, plain-language answers, optimization |
+| `large-document-extraction.categoryChip`, `.tags[0]` | *"Processing pipelines"* | *"Document processing"* | Denormalised copies of the chip; they follow or the tile and the rail disagree |
+
+**S4 · `overview.delivery`**
+
+| Key | Before (round 5) | After | Why |
+|---|---|---|---|
+| `title` | *"From proof of value to production, in one packaged model."* | *"Prove it on your data first, then take it to production."* | *One packaged model* is how the practice describes itself internally. The imperative is a sentence a rep can say out loud |
+| `steps[0].body` | *"Prove the gains on your own data and a limited rule set, in a separate environment, with zero integration. Success metrics are signed before the clock starts."* | *"A fixed-scope pilot on your own data and a limited rule set, in a separate environment, with zero integration. Success metrics are signed before the clock starts."* | **Pilot** is the plain-English gloss of *Jumpstart*, placed where the tier is defined so the rest of the page can use the product name |
+| `steps[0].factLabel` / `.fact` | *Duration and price* · *"30–45 days to about two months · a fixed price on the packaged scope"* | *Duration* · *"30–45 days to about two months · scoped per engagement on the research and investigation products"* | The price half moved to the hero strip (`Fixed price`), so the label is just *Duration* and the fact carries **all three clocks**: the two packaged ones, and the third one restored from `services.howWeEngage.ladder[0].duration` (*"scoped per engagement on the deep-research investigations"*), with *deep-research* spelled out as *the research and investigation products*. An intermediate draft said *"fixed price where the package is published"* — the same unsayable phrase as the stat tile, cut with it |
+| `steps[1].body` | *"Full setup, data integration and go-live at one location or for one document type: embedded in the workflow, no manual work."* | *"We connect it to your systems, embed it in the workflow and take it live at one location or for one document type, with no manual work left in the loop."* | A noun stack became a sentence with a subject. Same three facts, in the order the work happens |
+| `steps[2].body` | *"Extend across locations and document types, with per-region rule sets and data workflows. An optional managed service keeps it running and re-tuned."* | *"Extend across locations and document types, with per-region rules and data workflows. An optional managed service keeps it running and re-tuned."* | *Rule sets* → *rules* |
+| `why.pillars[0].body` | *"OCI + NVIDIA, Oracle AI Data Platform, Oracle Autonomous AI Lakehouse and Oracle AI for Fusion Applications, with architects who own the Oracle reference architecture and the scoping."* | *"Architects who own the Oracle reference architecture across OCI + NVIDIA, Oracle AI Data Platform, Oracle Autonomous AI Lakehouse and Oracle AI for Fusion Applications."* | Same facts, inverted: the pillar is called **Platform depth**, so it opens on the people who have it rather than on a four-item list the reader must hold before reaching the claim |
+| `why.pillars[1].body` | *"A library of agentic-AI patterns, evaluation frameworks that attach to every engagement, and a human kept in every decision."* | *"Agents built and tested on real enterprise data, with evaluation, guardrails and governance hardening available on every engagement."* | *A library of patterns* is the internal term again, and *attach to* is contract language. **Available on** every engagement, not included in it: `services.whatWeDo.attachesToEvery` prices evaluation, guardrails and governance hardening *"on top of whichever package you choose"*. The human-in-the-decision claim moved to the S2 bullet where a buyer meets it earlier |
+| `why.pillars[2].title` | *"Packaged delivery"* | *"Fixed-scope delivery"* | The fifth *packaged* on the screen, and *fixed-scope* is the thing the pillar actually promises |
+| `why.pillars[2].body` | *"Fixed scope and signed success metrics, and every Jumpstart ends with an executive readout and a costed expansion plan."* | *"Signed success metrics up front, and every Jumpstart ends with an executive readout and a costed expansion plan."* | *Fixed scope* now sits in the title one line above it |
+
+**S5 · `overview.caseStudiesIntro`**
+
+| Key | Before (round 5) | After | Why |
+|---|---|---|---|
+| `title` | *"Four engagements on customer data, under NDA."* | *"What each engagement measures."* | The count was the scaffolding again, and it flattened four visibly different cards into one number. **Two of the four are in preparation**, so the honest heading is what each card carries, not how many there are. The first cut said *"The proof so far."* — which claims proof for the two that have not run |
+| `body` | *"Four engagements behind these applications. One carries figures measured in a completed proof of value, one carries figures modeled against the customer's own historical baseline, and two are in preparation and carry the outcomes they are set up to measure. Every customer is under NDA, so each one is described by industry and scale."* | *"Where a proof of value has completed, the card carries what it measured; where one is being prepared, it carries the outcomes it is set up to measure. Every customer is under NDA, so each is described by industry and scale."* | The old body enumerated the four states before the reader had seen a card; the cards say their own state in the `metricEyebrow` and the status chip. 54 words → 38, and the count is gone |
+
+**S6 · `overview.about`**
+
+| Key | Before (round 5) | After | Why |
+|---|---|---|---|
+| `body` | *"SoftServe is a digital engineering company, founded in 1993 and headquartered in Austin, Texas, that designs and builds data, cloud and AI solutions for enterprises. The Oracle AI & Data team draws on SoftServe's data and analytics practice — 500+ data experts, 150+ active projects, 30 Fortune 500 clients — and on engineering teams upskilled on the Oracle AI stack."* | *"Headquartered in Austin, Texas, SoftServe designs and builds data, cloud and AI solutions for enterprises. The Oracle AI & Data team draws on SoftServe's data and analytics practice — 150+ active projects and 30 Fortune 500 clients — and on engineering teams upskilled on the Oracle AI stack."* | Three repetitions removed, all of them **printed within the same band**: *a digital engineering company* is the first four words of `about.title` directly above it; **1993** is the first stat tile beside it; **500+** is the last tile of the hero strip at the top of the same page. Nothing was added, and the two sources stay separated as §18.2 requires — corporate facts from softserveinc.com, practice credentials from `services.hero.stats` |
+
+**Products page**
+
+| Key | Before (round 5) | After | Why |
+|---|---|---|---|
+| `productsPage.intro` | *"Seven packaged AI applications on the Oracle stack. Filter by the Oracle platform each one is built on, or search by the workflow you are trying to fix. Each one is sold as a scoped proof of value on your own data, in your own tenancy — fixed-price where the package is published."* | *"Every product runs in your own Oracle tenancy and starts with a Jumpstart on your data. Four are priced today; three are scoped per engagement. Filter by the Oracle platform it runs on, or search for the job you need done."* | The same treatment as the home page, because a rep who scrolls past S3 lands here: the count and *packaged* go, *sold as a scoped proof of value* becomes *starts with a Jumpstart*, and *fixed-price where the package is published* becomes the four-priced / three-scoped sentence. *The workflow you are trying to fix* → *the job you need done*, matching the S3 headline |
+| `products[case-evidence-collection].statusNote`, `products[plan-vs-actual-investigation].statusNote` | *"Packaged offering in preparation — scoping conversations are open."* | *"In preparation — scoping conversations are open."* | The two notes carried the last two instances of *packaged*, and the reader does not need the distinction: what is in preparation is the thing the page is selling |
+| `products[business-metrics-qa].shortLine` | *"KPIs answered from one governed gold layer, with no data moved."* | *"Business KPIs answered from one governed layer, with no data moved."* | **Gold layer** is a data-architecture term (it stays on the product page, where the Technology tab explains it); the home row says *business KPIs*, which is what the reader is looking for. Still 11 words, still ends in a period, still not the `oneLiner` |
+
+**Not changed, on purpose:** `overview.hero.headline`, `hero.ctas`,
+`panels[1].title`, `catalog.patterns[].id`, `delivery.steps[].title` and every
+`fact`, `delivery.footnote`, `why.title`, `caseStudiesIntro.ndaLine` and `cta`,
+the four case-study cards, `about.title` / `stats` / `partnerLine` / `link`,
+`overview.contact` (both keys), and the six other `shortLine`s.
+
+**One word tried and reverted: *solution*.** The first cut replaced *product*
+with *solution* throughout (*"Solutions you can start now"*, *"See the
+solutions"*, *"How the solutions are built"*) on the argument that an Oracle AE
+says *solution*. It was reverted in full: the site's navigation noun is
+**Products**, the route is `#/products`, the page is `productsPage`, and a page
+that calls the same seven things by two names makes the reader check whether
+they are the same seven things. One word names them.
+
+**Critic findings overruled.**
+
+| Finding | Why it stands |
+|---|---|
+| Alternative headlines proposed for S2, S3 and S4 | The shipped headlines are the owner's own from this pass. A critic may show a line is wrong; it does not get to substitute its taste for his |
+| *"pilot"* is a weaker word than *Jumpstart* and should go | Kept, and only where the tier is **defined** — `delivery.steps[0].body` and `panels[0].body`. *Jumpstart* is a name the reader has not learned yet at first contact; the gloss is what makes the name land. It is not used as a synonym anywhere else |
+| The eyebrow *"Built and delivered together"* claims a joint go-to-market that is not evidenced | It is evidenced twice: `services.whySoftServe.items[1]` (*"We deliver alongside Oracle's AI & Data organization, in joint teams — not as a vendor bolted on afterwards"*) and `services.whatWeDo.solutionStack`, whose accelerator-pack row reads `providedBy: "Oracle + SoftServe"`. It is a delivery claim, not a partner-tier claim, and the tier ban (§18.2) is untouched |
+
+**Repetition, measured.** A word-frequency script was run over the home-page
+copy strings — the serialized `overview` object, the `shortLine` and
+`statusNote` strings the home rows render, and `site.metaDescription` — before
+and after:
+
+| Word or phrase | Before | After | Note |
+|---|---|---|---|
+| *packaged* | 10 | **0** | On the home page. The two `statusNote`s dropped *Packaged offering* as well, so it is gone from the product pages' status line too |
+| *workflow pattern(s)* | 5 | **0** | Plus the rail label and the chip tooltip, which are not home-page strings |
+| seven / three / four **as scaffolding** | 9 | **1** | The survivor is *four-week plan* in `workforce-optimization`'s `shortLine`. The four-priced / three-scoped split and *4 Oracle platforms* are kept — they are information, not scaffolding, and are not counted here |
+| *product* | 12 | **10** | Deliberately still there: it is the site's navigation noun (see the *solution* revert) |
+| *proof of value* | 7 | **1** | It survives where the tier is named — `delivery.steps[0].title` |
+| *scope / scoped* | 11 | **5** | |
+
+**What this supersedes.** §18.0 (a), §18.1 and §18.3 quote the round-5 strings
+and are left as the record of that round; where they disagree with `content.js`,
+this section is the current text. Three of their statements are now
+specifically out of date: *packaged* is no longer the hero lead's word (18.0 a),
+`stack.patternsLabel` no longer borrows the `tagFamilies.pattern` tooltip
+(18.1, S1) — the two moved together to *What it does* / *What they do* — and the
+About body no longer prints *founded in 1993* or *500+ data experts* (18.2's
+"ships as" column, and §18.3's `about.body` row). §18.2's **source table is
+unaffected**: the 1993 and 500+ figures still ship, as the stat tile and the
+hero strip respectively.
 **Follow-ups left open (not this round):** the two ladder vocabularies (home and product Jumpstart tab say Integration → Scale, the Services ladder says Roll-out → Scaling); shipped JS comments in `app.js` / `product.js` that cite VISUAL-GRAMMAR section numbers; the not-found page's hard-coded copy; the footer's CONTACT US block repeating the contact ask on every page; the "Case studies" nav item never marked active; `.claude/launch.json`'s `oracle-site` entry not starting under the preview tool on this Mac (HANDOFF §4 has the working route).
 
 
