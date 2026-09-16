@@ -53,6 +53,10 @@ var FACET_IDS = ["oci-nvidia", "oracle-ai-data-platform", "oracle-autonomous-ai-
 /* Round 4 (Alex, 2026-09-16): no customer may be named anywhere in the shipped
    data, and no customer logo may be referenced. The files stay on disk,
    unreferenced, pending customer approval. */
+/* Round 4, T1: only these two carry the muted "in preparation" status line;
+   every other product's state is told by its availability badges. */
+var UNPACKAGED = ["case-evidence-collection", "plan-vs-actual-investigation"];
+var RETIRED_TAGS = ["Available now", "Fixed-price offer", "In preparation"];
 var CUSTOMER_NAMES = ["Bosch", "Riyadh Air", "RiyadhAir", "Riyahd", "DHL", "SBG", "BSH", "Binladin", "Belron", "Channel 4", "KPN", "NHS", "OMV"];
 /* E: a one-liner says what the product does, for whom, with what outcome. It is
    not the place for the packaging story — that is what the Jumpstart tab is. */
@@ -545,17 +549,135 @@ if (!arr(C.products) || C.products.length !== 7) {
   }
 })();
 
+/* ---- T1 · the three tag families ---- */
+(function () {
+  var tf = C.shared && C.shared.tagFamilies;
+  if (!tf) return fail("shared.tagFamilies", "missing — the chip row reads its tooltips and icons from here");
+  ["pattern", "tech"].forEach(function (fam) {
+    var g = tf[fam];
+    if (!g) return fail("shared.tagFamilies." + fam, "missing");
+    if (!str(g.tooltip)) fail("shared.tagFamilies." + fam, "tooltip missing — every family names itself on hover");
+    if (!g.icons || typeof g.icons !== "object") return fail("shared.tagFamilies." + fam, "icons map missing");
+    var want = fam === "pattern" ? PATTERN_IDS : FACET_IDS;
+    want.forEach(function (id) {
+      if (!str(g.icons[id])) fail("shared.tagFamilies." + fam, 'icons has no entry for "' + id + '"');
+    });
+    Object.keys(g.icons).forEach(function (id) {
+      if (want.indexOf(id) === -1) fail("shared.tagFamilies." + fam, 'icons carries "' + id + '", which is not one of ' + want.join(" / "));
+    });
+  });
+  var av = tf.availability;
+  if (!av) return fail("shared.tagFamilies.availability", "missing — the Demo and Marketplace badges read their labels here");
+  ["demo", "marketplace"].forEach(function (k) {
+    var b = av[k];
+    if (!b) return fail("shared.tagFamilies.availability." + k, "missing");
+    ["label", "tooltip", "icon"].forEach(function (f) {
+      if (!str(b[f])) fail("shared.tagFamilies.availability." + k, f + " missing");
+    });
+  });
+  /* The three-state chip model is gone site-wide. */
+  if (C.availability !== undefined) fail("availability", "the availability chip map is superseded by the two badges — nothing renders it");
+})();
+
+/* ---- C1 · the case-study status chips ---- */
+(function () {
+  var st = C.shared && C.shared.caseStudyStatus;
+  if (!st) return fail("shared.caseStudyStatus", "missing — the status chip reads its label from here, not from a class");
+  CASE_STATUSES.forEach(function (k) {
+    if (!st[k]) return fail("shared.caseStudyStatus." + k, "missing");
+    ["chip", "tooltip"].forEach(function (f) {
+      if (!str(st[k][f])) fail("shared.caseStudyStatus." + k, f + " missing");
+    });
+  });
+  Object.keys(st).forEach(function (k) {
+    if (CASE_STATUSES.indexOf(k) === -1) fail("shared.caseStudyStatus", 'carries "' + k + '", which is not ' + CASE_STATUSES.join(" / "));
+  });
+  if (!str(C.shared.sectionLabels && C.shared.sectionLabels.caseStudy)) {
+    fail("shared.sectionLabels", "caseStudy missing — the block title on the Overview tab");
+  }
+  if (C.shared.sectionLabels && C.shared.sectionLabels.successStory !== undefined) {
+    fail("shared.sectionLabels", "successStory is superseded by caseStudy");
+  }
+})();
+
+/* ---- T2 · the Availability facet group ---- */
+(function () {
+  var f = C.facets || {};
+  if (f.marketplace !== undefined) fail("facets.marketplace", "superseded by facets.availability — the single checkbox became a two-option group");
+  var av = f.availability;
+  if (!av) return fail("facets.availability", "missing — the rail's Availability group");
+  if (!str(av.label)) fail("facets.availability", "label missing");
+  if (!arr(av.options) || av.options.length !== 2) return fail("facets.availability", "options must hold exactly 2 checkboxes");
+  ["demo", "marketplace"].forEach(function (id, i) {
+    if (av.options[i].id !== id) fail("facets.availability", 'options[' + i + '].id is "' + av.options[i].id + '", expected "' + id + '"');
+    if (!str(av.options[i].label)) fail("facets.availability", "options[" + i + "].label missing");
+  });
+})();
+
+/* ---- C2 · the home-page case-study cards ---- */
+(function () {
+  var o = C.overview || {};
+  if (o.evidence !== undefined) fail("overview.evidence", "superseded by overview.caseStudies — nothing renders it");
+  if (o.evidenceIntro !== undefined) fail("overview.evidenceIntro", "superseded by overview.caseStudiesIntro");
+  var intro = o.caseStudiesIntro;
+  if (!intro || !str(intro.title) || !str(intro.body)) fail("overview.caseStudiesIntro", "needs { title, body }");
+  var cards = o.caseStudies;
+  if (!arr(cards) || cards.length !== 4) {
+    return fail("overview.caseStudies", "must hold exactly 4 cards — one per engagement, matching the product pages");
+  }
+  var slugs = (C.products || []).map(function (p) { return p.slug; });
+  cards.forEach(function (c, i) {
+    var cw = "overview.caseStudies[" + i + "]";
+    ["id", "descriptor", "area", "industry", "status", "metricEyebrow", "line", "footnote"].forEach(function (k) {
+      if (!str(c[k])) fail(cw, k + " missing");
+    });
+    ["customer", "logo", "logoStacked", "band", "label"].forEach(function (k) {
+      if (c[k] !== undefined) fail(cw, k + " is superseded — the card is an anonymized medallion card with no logo and no band");
+    });
+    if (CASE_STATUSES.indexOf(c.status) === -1) fail(cw, 'status "' + c.status + '" is not ' + CASE_STATUSES.join(" / "));
+    if (INDUSTRIES.indexOf(c.industry) === -1) fail(cw, 'industry "' + c.industry + '" is not in the fixed set of 16');
+    var wantEyebrow = c.status === "measured" ? "Measured" : "Target outcomes";
+    if (str(c.metricEyebrow) && c.metricEyebrow !== wantEyebrow) {
+      fail(cw, 'metricEyebrow is "' + c.metricEyebrow + '", expected "' + wantEyebrow + '"');
+    }
+    if (!c.metric || !str(c.metric.value) || !str(c.metric.label)) fail(cw, "metric needs { value, label }");
+    else if (c.metric.value.length > 18) fail(cw, 'metric.value "' + c.metric.value + '" is too long to set large');
+    if (!c.product || !str(c.product.slug) || !str(c.product.name)) fail(cw, "product needs { slug, name }");
+    else {
+      if (slugs.indexOf(c.product.slug) === -1) fail(cw, 'product.slug "' + c.product.slug + '" is not one of the seven');
+      var target = (C.products || []).filter(function (p) { return p.slug === c.product.slug; })[0];
+      if (target && target.name !== c.product.name) {
+        fail(cw, 'product.name "' + c.product.name + '" does not match products[' + c.product.slug + '].name "' + target.name + '"');
+      }
+      /* The home card and the product page tell one engagement. A card whose
+         product has no case study would link a reader to an empty page. */
+      if (target && !(target.overview && target.overview.caseStudy)) {
+        fail(cw, 'product "' + c.product.slug + '" has overview.caseStudy null — the home card would link to a page with no case study');
+      }
+      if (target && target.overview && target.overview.caseStudy) {
+        var full = target.overview.caseStudy;
+        ["descriptor", "area", "industry", "status"].forEach(function (k) {
+          if (full[k] !== c[k]) fail(cw, k + ' disagrees with products[' + c.product.slug + '].overview.caseStudy.' + k);
+        });
+      }
+    }
+  });
+  /* Services renders the same four cards; its ids must resolve. */
+  var ids = cards.map(function (c) { return c.id; });
+  var proof = C.services && C.services.proof;
+  if (!proof) return fail("services.proof", "missing");
+  if (proof.evidenceIds !== undefined) fail("services.proof", "evidenceIds is superseded by caseStudyIds");
+  if (!arr(proof.caseStudyIds) || !proof.caseStudyIds.length) fail("services.proof", "caseStudyIds missing");
+  else proof.caseStudyIds.forEach(function (id) {
+    if (ids.indexOf(id) === -1) fail("services.proof", 'caseStudyIds names "' + id + '", which is not an overview.caseStudies id');
+  });
+})();
+
 /* ---- banned strings, site-wide ---- */
 var raw = fs.readFileSync(path.join(root, "site/data/content.js"), "utf8");
 [
   ["GigaCloud", "internal company name"],
   ["WinP", "internal deal-state vocabulary"],
-  /* Bosch and Riyadh Air are named on purpose (Alex, 2026-09-14) — they are the
-     two customers whose proofs are written up on SoftServe's own external
-     one-pagers. BSH stays banned: it is the internal entity abbreviation, and
-     the business case behind it is an Oracle-confidential document. */
-  ["BSH", "internal customer abbreviation — write Bosch"],
-  ["DHL", "uncleared customer name"],
   ["€190K", "customer economics from a confidential business case"],
   ["€5.17", "customer economics from a confidential business case"],
   ["€11.03", "customer economics from a confidential business case"],
@@ -579,6 +701,19 @@ var raw = fs.readFileSync(path.join(root, "site/data/content.js"), "utf8");
 ].forEach(function (pair) {
   if (raw.indexOf(pair[0]) !== -1) fail("content.js", 'contains banned string "' + pair[0] + '" (' + pair[1] + ")");
 });
+
+/* Round 4 (Alex, 2026-09-16): NO customer may be named anywhere in the shipped
+   data — not in copy, not in alt text, not in a caption — and no customer logo
+   may be referenced. The files under assets/img/logos/ stay on disk,
+   unreferenced, pending customer approval. */
+CUSTOMER_NAMES.forEach(function (name) {
+  if (new RegExp("\\b" + name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + "\\b").test(raw)) {
+    fail("content.js", 'names the customer "' + name + '" — the site describes every customer by industry and scale only');
+  }
+});
+if (/assets\/img\/logos\//.test(raw)) {
+  fail("content.js", "references assets/img/logos/ — customer marks stay on disk, unreferenced, pending customer approval");
+}
 
 if (warnings.length) {
   console.warn("check-grammar: " + warnings.length + " warning(s)");
