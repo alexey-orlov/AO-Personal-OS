@@ -296,6 +296,18 @@ window.SITE_CONTENT = {
         line: "A first engagement is being prepared on the customer’s own account base, scoring each generated opportunity for magnitude and confidence and citing the evidence behind it.",
         footnote: "Target outcomes the proof of value is set up to measure, not results.",
         product: { slug: "account-insights", name: "Account insights" }
+      },
+      {
+        id: "plan-vs-actual-engagement",
+        descriptor: "A major construction and engineering contractor",
+        area: "Plan versus actual across completed work packages",
+        industry: "construction",
+        status: "in-preparation",
+        metricEyebrow: "Target outcomes",
+        metric: { value: "Hours, not weeks", label: "of expert time to produce an equivalent plan-versus-actual analysis" },
+        line: "A first engagement is being prepared on one completed project sample, reconstructing the customer’s own schedule, cost and contract exports into one package-level view.",
+        footnote: "Target outcomes the proof of value is set up to measure, not results.",
+        product: { slug: "plan-vs-actual-investigation", name: "Plan vs actual investigation" }
       }
     ],
 
@@ -1166,7 +1178,24 @@ window.SITE_CONTENT = {
           { title: "Delivery lead, client engagements", body: "Closed engagements swept for where effort and schedule diverged from the plan, and what the record says about why." },
           { title: "Campaign owner", body: "Completed campaigns measured against plan, with the candidate drivers assembled from the systems that hold the spend, the schedule and the outcome." }
         ],
-        caseStudy: null
+        caseStudy: {
+          descriptor: "A major construction and engineering contractor",
+          area: "Plan versus actual across completed work packages",
+          industry: "construction",
+          status: "in-preparation",
+          metricsEyebrow: "Target outcomes",
+          metrics: [
+            { value: "Hours, not weeks", label: "of expert time to produce an equivalent plan-versus-actual analysis" }
+          ],
+          story: "A first engagement is being prepared, scoped to one use case on one completed project sample — the customer’s own schedule, cost and contract exports. It will run on Oracle Cloud Infrastructure, with NVIDIA AI-Q over an evidence layer, reconstructing those records into one package-level view of plan versus actual; the figure above is a target outcome the proof of value is set up to measure, not a result, and is illustrative, not contractual.",
+          scope: [
+            { label: "Stage", value: "Proof of value in preparation" },
+            { label: "Scope", value: "One use case, one completed project sample" },
+            { label: "Data footprint", value: "Schedule, cost and contract exports" }
+          ],
+          ndaLine: "Customer under NDA · results follow at the end of the proof of value",
+          downloadLabel: "Download the case summary"
+        }
       },
       technology: {
         narrative: "Static exports land in zoned OCI storage with lineage preserved. A conformed model resolves records to the lowest reliable unit, plan and actual are compared with cited drivers, and anything that could not be resolved is reported as a coverage gap.",
