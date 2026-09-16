@@ -426,8 +426,8 @@
     var body = a.rows.map(function (row, i) {
       var key = rowKey(row, i), isOrion = /^Orion/i.test(row.supplier || row.goldenName || "");
       return "<tr" + (row.status === "review" ? ' class="is-review"' : "") + ' data-row="' + esc(key) + '"' + (isOrion ? ' data-orion="1"' : "") + ">" +
-        (hasBadgeCol ? "" : "<td>" + rowSystems(row, a).map(sysBadge).join("") + "</td>") +
-        a.columns.map(function (c) { return '<td class="' + (c.align === "right" ? "r" : "") + '">' + cell(row, c) + "</td>"; }).join("") +
+        (hasBadgeCol ? "" : '<td class="sysc">' + rowSystems(row, a).map(sysBadge).join("") + "</td>") +
+        a.columns.map(function (c) { return '<td class="' + (c.align === "right" ? "r " : "") + (c.kind === "badges" || c.kind === "badge" ? "sysc" : "") + '">' + cell(row, c) + "</td>"; }).join("") +
         '<td><button class="rowexp" type="button" data-explore="' + esc(key) + '" title="Explore this row" aria-label="Explore this row"' + (isOrion ? ' data-orion-btn="1"' : "") + ">" + ICON.search + "</button></td></tr>";
     }).join("");
     var grid = a.blocked
@@ -611,17 +611,25 @@
   }
 
   /* ---- Insights: three static dashboards ---- */
+  /* truncate at a word boundary — never mid-word — and keep the full string
+     in a <title> so the whole name is one hover away */
+  function truncWord(str, n) {
+    str = String(str);
+    if (str.length <= n) return str;
+    var cut = str.slice(0, n), sp = cut.lastIndexOf(" ");
+    return (sp > n * 0.5 ? cut.slice(0, sp) : cut).replace(/[\s,·]+$/, "") + "\u2026";
+  }
   function barChart(items, unit) {
     var max = Math.max.apply(null, items.map(function (i) { return i.v; })) || 1;
-    var h = 150, w = 300, top = 8, rowH = Math.min(24, (h - top) / items.length), maxBar = 110;
+    var h = 156, w = 360, lab = 152, top = 8, rowH = Math.min(24, (h - top) / items.length), maxBar = 140;
     return '<svg class="chart" viewBox="0 0 ' + w + " " + h + '" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Bar chart">' +
       items.map(function (it, i) {
-        var y = top + i * rowH, bw = Math.max(2, (it.v / max) * maxBar);
-        return '<text class="lb" x="0" y="' + (y + 9) + '">' + esc(it.k) + "</text>" +
-          '<rect x="104" y="' + y + '" width="' + bw + '" height="' + (rowH - 7) + '" rx="2" fill="' + (it.c || "#4d7a2c") + '"/>' +
-          '<text class="vl" x="' + (104 + bw + 5) + '" y="' + (y + 9) + '">' + esc(it.l || (it.v + (unit || ""))) + "</text>";
+        var y = top + i * rowH, bw = Math.max(2, (it.v / max) * maxBar), lbl = truncWord(it.k, 27);
+        return '<text class="lb" x="0" y="' + (y + 9) + '">' + esc(lbl) + (lbl === it.k ? "" : "<title>" + esc(it.k) + "</title>") + "</text>" +
+          '<rect x="' + (lab + 2) + '" y="' + y + '" width="' + bw + '" height="' + (rowH - 7) + '" rx="2" fill="' + (it.c || "#4d7a2c") + '"><title>' + esc(it.k) + " · " + esc(it.l || (it.v + (unit || ""))) + "</title></rect>" +
+          '<text class="vl" x="' + (lab + bw + 7) + '" y="' + (y + 9) + '">' + esc(it.l || (it.v + (unit || ""))) + "</text>";
       }).join("") +
-      '<line class="ax" x1="103" y1="' + (top - 4) + '" x2="103" y2="' + (top + items.length * rowH - 4) + '"/></svg>';
+      '<line class="ax" x1="' + (lab + 1) + '" y1="' + (top - 4) + '" x2="' + (lab + 1) + '" y2="' + (top + items.length * rowH - 4) + '"/></svg>';
   }
   function statusList(items) {
     return '<div class="statlist">' + items.map(function (it) {
@@ -631,7 +639,7 @@
   function insightsHtml() {
     var k = kpis();
     var spend = D.answer("q7", "CONTROLLER", decisions()).rows.slice(0, 6).map(function (r) {
-      return { k: r.supplier.slice(0, 16), v: r.spendUsd, l: "USD " + D.fmtM(r.spendUsd), c: "#4d7a2c" };
+      return { k: r.supplier, v: r.spendUsd, l: "USD " + D.fmtM(r.spendUsd), c: "#4d7a2c" };
     });
     var close = [
       { k: "Ledgers that tie to their trial balance", l: k.ledgers.tie + " / " + k.ledgers.total, s: "ok" },
@@ -642,7 +650,7 @@
       { k: "Duplicate-payment pairs to check", l: String(k.dupPairs.count), s: "bad" }
     ];
     var o2c = D.answer("q6", "CONTROLLER", decisions()).rows.map(function (r) {
-      return { k: r.account.slice(0, 15), v: r.daysLate, l: r.daysLate + " d", c: "#7d4064" };
+      return { k: r.account, v: r.daysLate, l: r.daysLate + " d", c: "#7d4064" };
     });
     var cards = [
       { d: D.dashboards[0], svg: barChart(spend) },
@@ -702,7 +710,7 @@
       '<span class="lab">' + esc(t.label) + "</span>" +
       '<span class="val">' + (showAfter ? '<span class="before">' + esc(t.before) + '</span><span class="arw">→</span>' : "") +
       '<span class="after' + (small ? " after--sm" : "") + '">' + esc(big) + "</span>" + d + "</span>" +
-      '<span class="note">' + esc(t.note) + "</span></div>";
+      '<span class="note">' + esc(t.noteShort || t.note) + "</span></div>";
   }
   var DECIDED_AT = "2026-10-06 09:46";
   var movedTiles = [];
