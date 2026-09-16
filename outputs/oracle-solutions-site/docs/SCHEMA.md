@@ -144,6 +144,8 @@ Round 4, C2. The home page's case-study screen renders **one card per engagement
 | `categories` | `[{ id, chip, full }]` | Three. `chip` on tiles and filters, `full` in tooltips and long copy. |
 | `availability` | `{ label, options: [{ id, label }] }` | **Round 4, T2.** The rail's Availability group — two options, `demo` then `marketplace`, with faceted counts. `demo` filters on `SITE_CONFIG.products[slug].video === true`, `marketplace` on `.marketplace === true`; the query params are `demo=1` and `mp=1`, and **Clear filters** resets both. **An option renders only while at least one product carries its flag**, and its query param is ignored while it does not: a permanently-zero checkbox advertises a capability the site does not have. With no product on the Marketplace, the group renders as one checkbox; with neither flag set anywhere the group does not render at all. Both options stay in the data — the row returns the day a config flag flips. The **badge** labels and tooltips are not here — they are in `shared.tagFamilies.availability`, because the badge and the checkbox are two surfaces of one flag and one of them had to own the strings. |
 
+**The `other` facet is removed** (round 4, T3). A catch-all named no Oracle platform, so it read as a gap in a set the rest of the site presents as complete, and the one platform it stood for has a product name of its own. Oracle's product name is **"Oracle AI for Fusion Applications"** — that exact string, in the rail, on a chip and on a platform card. *Oracle Fusion AI*, *Fusion AI Apps* and *AI for Fusion* are not Oracle product names; do not coin one. Nothing renders `other`, and `check-grammar.js` fails on an id or a label that reintroduces it.
+
 `facets.marketplace` (`{ label, badge, heroCta }`) is **removed**. Its `heroCta` went with it: the Marketplace badge in the hero chip row is the link to the listing now, so a second hero button pointing at the same URL was one control too many. The listing link still renders only where `marketplaceUrl` is non-empty; the badge itself renders on the `marketplace` boolean, and a `marketplaceUrl` set while that boolean is `false` is a build failure.
 
 ---
@@ -327,7 +329,8 @@ The gate checks the domain of the entered email against `SITE_CONFIG.sellerGate.
 ## Invariants a renderer can rely on
 
 - `products.length === 7`, and every `slug` has a matching key in `SITE_CONFIG.products`.
-- Every product's `facet` is one of the four `facets.technology[].id` values; two of those four match no product.
+- Every product's `facet` is one of the four `facets.technology[].id` values — `oci-nvidia` (five products), `oracle-ai-lakehouse` (two); `oracle-ai-data-platform` and `oracle-ai-fusion` match no product today and render their `emptyState`.
+- Every product's `tags` array holds **exactly two** entries: `categoryChip`, then that product's facet `label`. No surface names a platform in any other words — the four `facets.technology[].label` strings are the whole vocabulary, on the rail, the hero chip, the tile band, the home grid and both platform-card lists (`overview.servicesTeaser.platforms`, `services.hero.platforms`, four cards each, same order).
 - Every product's `category` is one of the three `facets.categories[].id` values.
 - Every product's `jumpstart.next.length === 2`, in the order Integration → Scale, and `jumpstart.pillars` is `fast` → `low-risk` → `tangible`.
 - Every product has `tile.outcomes.length === 3`.
