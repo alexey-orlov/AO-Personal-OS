@@ -1374,21 +1374,26 @@ follow"*; the signal→opportunity fan-out is the pack's stated differentiator) 
   evidence card (§14.5); unchanged, and now the callout's title.
 - **Area** — *"Account planning across a global enterprise account base"*,
   adapted from the pack's own framing.
-- **Metric 1** — `One signal` *fanned out to every account it affects, not only
-  the one it names*. **Qualitative, because no figure exists:** the pack has no
-  delivered proof (*"PoC in preparation, results to follow"*), and the fan-out
-  is the pack's stated differentiator — one real-world signal → structured
-  opportunity/risk output per affected account.
-- **Metric 2** — `Calibrated` *opportunity confidence, scored against reviewer
-  approve and reject decisions*. **Qualitative**, from the engagement's own
-  stated measure, which is the sentence the round-3 evidence card already
-  shipped: accuracy and confidence calibration against reviewer approve/reject
-  decisions.
-- **Story** — data footprint (CRM and account framing, the capability catalog,
-  public filings), stack (NVIDIA AI-Q on OCI), what it measures. Closes on *"The
-  figures above are target outcomes the proof of value is set up to measure, not
-  results; they are illustrative, not contractual."*
-- **Scope row** — *Proof of value under way* · the three data sources · the
+- **Metric 1** — `Hours, not quarters` *from a market signal to a qualified
+  opportunity a seller can act on*. **Qualitative, because no figure exists:** the
+  pack has no delivered proof (*"PoC in preparation, results to follow"*). The
+  value is the product's own side-rail tile — *Time to a qualified opportunity ·
+  hours, rather than the next quarterly review* — restated as an outcome. It
+  replaces `One signal`, which was the product's **mechanic**, not an outcome:
+  set at 40px in a numbers slot beside `+4.5%` and `5–15 min`, a capability
+  restatement reads as a slot that had to be filled. The sanctioned qualitative
+  form is a full turnaround or coverage statement.
+- **Metric 2** — `Every account` *a signal affects, not only the one it names*.
+  **Qualitative**, and a coverage claim rather than a mechanic: the fan-out is the
+  pack's stated differentiator, stated as what the customer gets. The
+  `Calibrated` figure it replaces said the same thing the story says in full, one
+  line below.
+- **Story** — opens *"A first engagement is being prepared"*; data footprint (CRM
+  and account framing, the capability catalog, public filings), stack (NVIDIA
+  AI-Q on OCI), what it measures. Closes on *"The figures above are target
+  outcomes the proof of value is set up to measure, not results; they are
+  illustrative, not contractual."*
+- **Scope row** — *Proof of value in preparation* · the three data sources · the
   reviewer gate. **Absent, deliberately:** the contract value and the contract
   duration. Both are on record and both are internal (`C4`, `C19`, and
   `BRIEF-4`'s explicit instruction).
@@ -1399,51 +1404,44 @@ follow"*; the signal→opportunity fan-out is the pack's stated differentiator) 
   `ndaLine` is a per-case field. One string reverts it if Alex wants the
   uniform line.
 
-#### d. `plan-vs-actual-investigation` — *"A major construction and engineering contractor"*
+#### d. `plan-vs-actual-investigation` — **no case study ships** (withdrawn)
 
-**The construction engagement**, mapped to this product. **Status
-`in-progress`, eyebrow Target outcomes.**
+**`caseStudy: null`, and no home-page card.** The construction engagement was
+written up here as `in-progress` with the story *"A first engagement is under way
+on one completed project sample, on the customer's own schedule, cost and
+contract exports"*. The wiki page `context/areas/softserve/sbg-poc.md` records
+that engagement as **pre-contract** as of 2026-09-11: the SOW's delivery-cost
+section is still open, the kickoff target passed with no new date, and
+customer-side data access is unresolved. **No exports have been received.** The
+earlier note in this section flagged the overstatement and named the fix —
+*"if the answer is that nothing has kicked off, the honest fix is to render this
+case only once it has, not to reword the chip"* — and that is what was done.
 
-- **The mapping, and its source.** The engagement is **SBG** (internal name; it never reaches the site). §12.1 of this file already records the row: *"SBG historical-package PoC doc (de-identified) → the five-verb 'what it does' list behind the `plan-vs-actual-investigation` stepper, and the named technology stack (AI-Q, NIM/Nemotron, AI Vector Search, OpenSearch, AI Database 26ai, Document Understanding, Object Storage, Functions/Streaming/API Gateway/OKE, GPU compute)"*. That is the mapping: this product was packaged off that engagement, and the wiki page `context/areas/softserve/sbg-poc.md` (SOW + WBS v0.9.2, read 2026-09-10) is current truth on its scope, success criteria and state. `RESEARCH/04` lists it among the engagements with its NDA status; `RESEARCH/02` §4.2 is the pack-side write-up. Everything in this case comes from those.
-- **Descriptor** — the wiki names the customer as a construction contractor.
-  *Major* is the scale; *and engineering* is the work. **The country is
-  withheld** — naming it would narrow the descriptor to a very small set of
-  companies, which is the same reason §4 withholds the workforce geography.
-- **Area** — *"Plan versus actual across completed work packages"*, the SOW's own
-  use-case statement, generalized off the customer's vocabulary.
-- **Metric 1** — `Hours, not weeks` *of expert time to produce an equivalent
-  plan-versus-actual analysis*. **Qualitative**, and deliberately so: the SOW's
-  first success criterion is *Operational Efficiency — elapsed time / person-hours
-  to produce an equivalent analysis*, and its **thresholds are explicitly
-  deferred to Discovery** and made a gate exit criterion. There is therefore no
-  target number to publish, and inventing one would be exactly the failure
-  `BRIEF-4` C1 names. The directional phrasing is `BRIEF-4`'s own sanctioned
-  pattern.
-- **Metric 2** — `Evidence-backed` *every material finding tied to a source
-  record, with a review status*. **Qualitative**, from the SOW's other two
-  success criteria (Output Validation Rate, Evidence Coverage) and its testable
-  definition of "evidence-backed": project and package context, a traceable
-  source file and version, the analytical basis, confidence and review status,
-  and visible gaps.
-- **Story** — the sample (one completed project), the data footprint (schedule,
-  cost and contract exports), the stack (NVIDIA AI-Q over an evidence layer,
-  Oracle AI Vector Search, Oracle AI Database 26ai, on OCI) and the coverage-gap
-  behaviour. Closes on the same target caveat as (c).
-- **Scope row** — *One completed project* · *Schedule, cost and contract exports*
-  · *Expert validation on every material finding*. **Absent, deliberately:** the
-  contract value, the 12-week + 2-week acceptance duration, the day-rate
-  workbook, the infrastructure BoM and every SAR figure. The duration is the
-  customer's contract term and `BRIEF-4` bans it; §14.2 already treats both
-  durations on record as one customer's term rather than a pack figure.
-- **⚠️ The status chip overstates where this engagement is.** The wiki records it
-  as **pre-contract** as of 2026-09-11 — the SOW and WBS package is essentially
-  built, one cost section is still open, the kickoff target has passed with no
-  new date, and customer-side data access is unresolved. `BRIEF-4` C1 assigns
-  `in-progress`, so *"Proof of value in progress"* is what renders. The story
-  says *"A first engagement is under way"*, which is the softest true reading of
-  that state. **Confirm with Alex before launch**; if the answer is that nothing
-  has kicked off, the honest fix is to render this case only once it has, not to
-  reword the chip.
+Why it matters more than a wording nicety: this is a public page that Oracle and
+SoftServe sellers demo live, sometimes in front of the customer's own account
+team. A claim that work is under way on their data while the SOW is unsigned is
+contradictable in the room.
+
+Removing it leaves no hole. The product already carries its `statusNote`
+(*"Packaged offering in preparation — scoping conversations are open."*) and a
+full *What the proof of value measures* block, which is the honest version of
+the same information.
+
+**To restore it once kickoff is confirmed:** record the kickoff date here, then
+re-add `overview.caseStudy` with `status: "in-preparation"` (or `measured` /
+`modeled` once results exist) and the fourth `overview.caseStudies` card, plus a
+fourth `services.proof.engagements` line. The material that was written for it
+stands, with the two headline values reworked to the sanctioned outcome shape —
+the mapping (§12.1: the SBG historical-package PoC doc behind this product's
+stepper and stack), the descriptor *"A major construction and engineering
+contractor"* with the country withheld, the area *"Plan versus actual across
+completed work packages"*, `Hours, not weeks` from the SOW's Operational
+Efficiency criterion (whose thresholds are deferred to Discovery, so there is no
+number to publish), the one-completed-project scope row, and the deliberate
+absences: contract value, the 12+2-week term, the day-rate workbook, the
+infrastructure BoM and every SAR figure. `Evidence-backed` does **not** come
+back as a metric value — it is a capability restatement, not an outcome (see
+(c)); the second slot stays empty unless a real second outcome exists.
 
 ### 17.3 C2 · the home-page case-study screen
 
