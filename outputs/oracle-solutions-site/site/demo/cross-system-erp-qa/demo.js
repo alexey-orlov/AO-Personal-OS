@@ -954,21 +954,25 @@
       title: "Pick the cross-system question",
       body: "Ten questions are saved against this model. Ask the first one — which suppliers we pay from more than one system, and what we paid them last quarter. No single ERP can answer it.",
       target: function () { return $('[data-ask="q1"]'); }, anchor: function () { return $("#hub-chips"); },
+      avoid: function () { return $("#hub-chips"); },
       auto: function () { ask("q1"); } },
-    { id: "trace", major: 4, side: "top",
+    { id: "trace", major: 4, side: "bottom",
       title: "See how the answer was produced",
       body: "Twelve suppliers, each with the systems it was paid from, its records, its Q3 spend in group currency and the score that resolved it. Open Trace: the terms the agent looked up, the SQL it generated against the certified views, the SQL Firewall check, and the rows it read.",
-      target: function () { return $('[data-panel="trace"]'); },
+      target: function () { return $('[data-panel="trace"]'); }, anchor: function () { return $(".ans-acts"); },
+      avoid: function () { return $(".ans-grid"); },
       auto: function () { S.panel = "trace"; renderWb(); tour.after("trace"); } },
     { id: "explore", major: 4, side: "left",
       title: "Follow one figure back to its rows",
       body: "The trace ends in the rows; now go the other way. One row is flagged for review — open it and you get the two source records behind it, one in Fusion and one in JD Edwards, the evidence the model matched them on, and why it will not stand on its own.",
       target: function () { return $("[data-orion-btn]"); }, anchor: function () { return $("tr[data-orion] td:last-child"); },
+      avoid: function () { return $(".ans-grid"); },
       auto: function () { var b = $("[data-orion-btn]"); if (b) b.click(); } },
     { id: "to-review", major: 5, side: "bottom",
       title: "Overrule the model",
       body: "The match is wrong: the names agree and nothing else does. A steward decides it, and a steward's queue is the Mapping review app — switch to it.",
       target: function () { return $('.ws-tab[data-go="review"]'); },
+      avoid: function () { return $(".ans-grid"); },
       auto: function () { setApp("review"); tour.after("to-review"); } },
     { id: "open-orion", major: 5, side: "bottom",
       title: "Open the proposal",
@@ -988,6 +992,7 @@
       title: "Back to the answer",
       body: "The band moved: resolved 93.2 % to 93.7 %, and one duplicate pair disappeared with the match it depended on. The answer moved with it — go back to the Agent Hub.",
       target: function () { return $('.ws-tab[data-go="aidp"]'); },
+      avoid: function () { return $("#rw-band"); },
       auto: function () { setApp("aidp"); tour.after("to-aidp-2"); } },
     { id: "viewas", major: 6, side: "left",
       title: "Now ask it as someone else",
@@ -1086,6 +1091,26 @@
       if (s === "top") { left = r.left; top = r.top - gap - h; }
       top = Math.max(8, Math.min(innerHeight - h - 8, top));
       left = Math.max(8, Math.min(innerWidth - w - 8, left));
+
+      /* Never cover the element the step's copy is talking about. Each step may
+         name an `avoid` element (the health band, the answer grid, the chips
+         row); if the card would land on top of it, move the card to the first
+         side of that element where the whole card still fits on screen. */
+      var keep = st.avoid && st.avoid();
+      if (keep && document.body.contains(keep)) {
+        var kr = keep.getBoundingClientRect();
+        var hit = !(left + w <= kr.left || left >= kr.right || top + h <= kr.top || top >= kr.bottom);
+        if (hit && kr.width && kr.height) {
+          var cand = [
+            { t: kr.bottom + gap, l: left, s: "bottom" },
+            { t: kr.top - gap - h, l: left, s: "top" },
+            { t: top, l: kr.right + gap, s: "right" },
+            { t: top, l: kr.left - gap - w, s: "left" }
+          ].filter(function (c) { return c.t >= 8 && c.t + h <= innerHeight - 8 && c.l >= 8 && c.l + w <= innerWidth - 8; })[0];
+          if (cand) { top = cand.t; left = cand.l; s = cand.s; }
+          else { top = Math.max(8, Math.min(innerHeight - h - 8, kr.bottom + gap)); s = "bottom"; }
+        }
+      }
       this.el.style.top = top + "px"; this.el.style.left = left + "px"; this.el.dataset.side = s;
     },
     nudge: function () {
