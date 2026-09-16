@@ -104,12 +104,12 @@ product's stepper reads as one system.
   product UI — its 40 images are slide exports, and those carry a customer name
   in the case study.
 
-### Designed step illustrations (26 frames, 7 products)
+### Designed step illustrations (24 frames, 6 products)
 
 `account-insights-1..4`, `case-evidence-collection-1..4`,
 `plan-vs-actual-investigation-1..4`, `cross-system-erp-qa-1..4`,
-`business-metrics-qa-1..4`, `workforce-optimization-1..4`,
-`large-document-extraction-1` and `-4`.
+`business-metrics-qa-1..4`, `workforce-optimization-1..4`. Large docs is the
+one product whose four frames are captures (above).
 
 Drawn, not sourced. One grammar across all of them: ground `#10161A` with a
 `#0E2D4D` radial lift, 2–3 px strokes (≈ 1.5 px on screen at the rendered size),

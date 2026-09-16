@@ -8,7 +8,7 @@ Static site. No build step, no framework, no package manager: plain HTML, CSS an
 
 ## Preview
 
-- **Private preview artifact:** https://claude.ai/code/artifact/41e4f3b6-47d9-4ef2-af99-99c40c02b89b — sign-in required.
+- **Private preview artifact:** https://claude.ai/artifact/98wafGUphFSyGSr6ctJiiN (the same artifact as the older link https://claude.ai/code/artifact/41e4f3b6-47d9-4ef2-af99-99c40c02b89b) — sign-in required. The Large docs walkthrough also stands alone at https://claude.ai/artifact/NdxY4f1D6hxC7pjyMRs6zP.
 - **Locally:** any static server pointed at `site/` — `python3 -m http.server 8765 --directory site`, or the `oracle-site` entry in `.claude/launch.json`. See [Run it locally](#run-it-locally).
 
 ---
@@ -98,6 +98,8 @@ Full field-by-field reference: `docs/CONFIG.md`. In short:
 | `products.<slug>.video` | `true` → the product hero carries the 16:9 demo frame. With no `videoUrl` yet, clicking it opens a short panel saying the recording is being prepared, with a button to that product's Contacts tab. `true` today on `workforce-optimization`, `large-document-extraction` and `account-insights`. |
 | `products.<slug>.videoUrl` | Non-empty → the same frame plays the video in a modal instead (YouTube, Vimeo, SharePoint and Stream URLs embed as an iframe; anything else plays natively), and turns the frame on by itself even where `video` is `false`. |
 | `products.<slug>.successStoryUrl` | Non-empty → a "Download the success story" button appears. |
+| `products.<slug>.demoUrl` | Non-empty → the secondary "Try the interactive demo" button in the product hero and the same button in the pending-video panel, both opening a new tab. Relative to `site/` so the walkthrough deploys with the site. Set today on `large-document-extraction`. |
+| `products.<slug>.demoPreviewUrl` | The walkthrough published as its own claude.ai artifact. Used instead of `demoUrl` only while the site itself runs as a claude.ai artifact, which refuses to open a supporting file as a page of its own. Ignored on the real host. |
 | `products.<slug>.materials.<key>` | Non-empty → that row in the seller panel gets a download button instead of a disabled "Link pending" control. |
 
 **The rule behind every URL field: an empty string means the control is not rendered at all** — no placeholder, no greyed-out button, no "coming soon" line. Paste a URL and it appears on the next reload. Every URL is empty today, so none of those controls ship yet. `video` is the one boolean and the one exception: it puts the demo frame up ahead of the recording, and the panel behind the click is what keeps that honest.
