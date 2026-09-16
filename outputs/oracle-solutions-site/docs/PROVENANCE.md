@@ -2001,10 +2001,12 @@ rather than from an internal source**. Every figure in it was read off a live
 page on 2026-09-16 and recorded verbatim before it was used; nothing came from
 memory, and nothing came from a search snippet.
 
-**What the pages print, and where.** Three of the four URLs named in `HANDOFF`
-§6.2 **404** — `/en-us/about`, `/en-us/partners`, `/en-us/partners/oracle`. The
-working paths are `/en-us/about-us`, `/en-us/our-partners`,
-`/en-us/our-partners/oracle`.
+**What the pages print, and where.** Four of the paths the fetch was pointed at
+**404** — `/en-us/about`, `/en-us/partners`, `/en-us/partners/oracle`,
+`/en-us/partners/nvidia`, each retried once. The working paths are
+`/en-us/about-us` (which `/en-us/company/overview` serves byte-identically),
+`/en-us/our-partners`, `/en-us/our-partners/oracle` and
+`/en-us/our-partners/nvidia`. Write them down before the next fetch.
 
 | Fact | As printed | Where | Fetched | Ships as |
 |---|---|---|---|---|

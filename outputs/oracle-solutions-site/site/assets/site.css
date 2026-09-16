@@ -2969,7 +2969,10 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 /* ——— motion ——— */
 
 /* The drawn end state is the resting state, so zeroing the durations leaves the
-   stack fully drawn rather than blank. */
+   stack fully drawn rather than blank. The global rule zeroes durations but not
+   delays, so the staggered bands and connectors clear theirs here — otherwise a
+   reader who asked for no motion still waits out the stagger on a blank frame. */
 @media (prefers-reduced-motion: reduce) {
+  .bo-band, .bo-link { animation-delay: 0s; }
   .catalog-row:hover, .catalog-row:focus-visible, .pillars .pillar:hover { transform: none; }
 }
