@@ -171,6 +171,13 @@ if (!arr(C.products) || C.products.length !== 7) {
     if (typeof CFG.products[p.slug].marketplace !== "boolean") {
       fail(w, "config.marketplace missing or not a boolean (true | false)");
     }
+    /* The two availability flags are the owner's statement that the thing
+       exists; the URLs are the wiring, and they arrive later. So the only rule
+       here is the type — either flag may be true with an empty URL (the badge
+       renders unlinked, the video frame says a recording is in preparation),
+       and neither flag is asserted to any particular value. The one cross-check
+       that stays is the reverse case, where a URL exists but its flag is off and
+       the control would never render. */
     if (CFG.products[p.slug].marketplaceUrl && !CFG.products[p.slug].marketplace) {
       fail(w, "config.marketplaceUrl is set but config.marketplace is false — the badge would not render for a listing that exists");
     }

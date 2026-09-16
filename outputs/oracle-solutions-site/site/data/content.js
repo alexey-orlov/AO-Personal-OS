@@ -2791,6 +2791,11 @@ window.SITE_CONTENT = {
           descriptor: "A global logistics and supply-chain operator",
           line: "Accuracy and confidence calibration, scored against the approve and reject decisions reviewers make on the generated opportunities.",
           product: { slug: "account-insights", name: "Account insights" }
+        },
+        {
+          descriptor: "A major construction and engineering contractor",
+          line: "Elapsed time and expert hours to produce an equivalent plan-versus-actual analysis, the share of findings an expert validates, and how much of the record the evidence covers.",
+          product: { slug: "plan-vs-actual-investigation", name: "Plan vs actual investigation" }
         }
       ],
       cta: { label: "The case studies, with the figures →", route: "#/#proof" },
