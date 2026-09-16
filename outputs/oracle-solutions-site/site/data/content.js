@@ -1702,7 +1702,7 @@ window.SITE_CONTENT = {
         metrics: [
           { value: "~30 min", label: "To optimize and approve a region’s four-week plan", qualifier: "Down from ~2 days", icon: "clock" }
         ],
-        metricsNote: "KPIs measured before/after on proof-of-value data; figures are illustrative, not contractual.",
+        metricsNote: "Each KPI is computed identically for the current plan and the optimized one, on the customer’s historical proof-of-value data — modeled against that baseline, not measured in production; figures are illustrative, not contractual.",
         roi: {
           icon: "roi",
           text: "The gain lands in the field: the same technicians complete more jobs per day, with less travel and less waiting. A single-digit percentage runs across every region."
