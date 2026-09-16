@@ -39,18 +39,22 @@
       UI.heroBackdrop(h.image) +
       '<span class="hero-glow" aria-hidden="true"></span>' +
       '<div class="wrap product-hero-inner product-hero-inner--single">' +
-        '<p class="eyebrow">' + UI.esc(content.site.owner) + " · Services</p>" +
-        UI.headline(h.headline, "h1", "h1 product-title services-title") +
-        '<p class="lead product-lead">' + UI.esc(h.lead) + "</p>" +
-        '<p class="body-text product-subline">' + UI.esc(h.secondParagraph) + "</p>" +
-        (chips
-          ? '<div class="services-platforms">' +
-              '<p class="eyebrow">' + UI.esc(h.platformsTitle) + "</p>" +
-              '<div class="chip-row">' + chips + "</div>" +
-            "</div>"
-          : "") +
-        '<div class="cta-row product-hero-cta">' +
-          UI.button({ label: h.cta.label, href: h.cta.route, kind: "primary" }) +
+        /* The product hero's own copy column: its gap sets the rhythm and its
+           max-width the measure, as on every product page. */
+        '<div class="product-hero-copy">' +
+          '<p class="eyebrow">' + UI.esc(content.site.owner) + " · Services</p>" +
+          UI.headline(h.headline, "h1", "h1 product-title services-title") +
+          '<p class="lead product-lead">' + UI.esc(h.lead) + "</p>" +
+          '<p class="body-text product-subline">' + UI.esc(h.secondParagraph) + "</p>" +
+          (chips
+            ? '<div class="services-platforms">' +
+                '<p class="eyebrow">' + UI.esc(h.platformsTitle) + "</p>" +
+                '<div class="chip-row">' + chips + "</div>" +
+              "</div>"
+            : "") +
+          '<div class="cta-row product-hero-cta">' +
+            UI.button({ label: h.cta.label, href: h.cta.route, kind: "primary" }) +
+          "</div>" +
         "</div>" +
       "</div></section>";
   }
@@ -65,7 +69,7 @@
         "</li>";
     }).join("");
     if (!stats) return "";
-    return '<section class="stat-band">' +
+    return '<section class="stat-band services-stat-band">' +
       '<div class="wrap"><ul class="stat-row stat-row--band services-stats">' + stats + "</ul></div>" +
       "</section>";
   }
@@ -106,7 +110,7 @@
         "</div>";
     }).join("");
 
-    return '<section class="section home-screen" id="' + UI.esc(block.anchor) + '"><div class="wrap">' +
+    return '<section class="section home-screen services-engage" id="' + UI.esc(block.anchor) + '"><div class="wrap">' +
       head({ eyebrow: block.eyebrow, title: block.title, lead: block.lead }) +
       '<div class="deliver-main reveal">' +
         '<div class="ladder3">' + steps + "</div>" +
@@ -169,10 +173,11 @@
           '<h2 class="h2">' + UI.esc(content.services.contact.heading) + "</h2>" +
           '<p class="lead">' + UI.esc(content.services.contact.sub) + "</p>" +
         "</div>" +
+        /* No sub under the form's heading: the head above already says it, and
+           `forms.contact.sub` is the same sentence. */
         UI.contactSplit({
           cardHeading: UI.sectionLabel("contacts"),
           heading: content.forms.demo.secondaryHeading,
-          sub: form.sub,
           form: body
         }) +
       "</div></section>";
