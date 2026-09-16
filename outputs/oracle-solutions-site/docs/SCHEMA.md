@@ -36,8 +36,10 @@ window.SITE_CONTENT = {
 |---|---|---|
 | `name`, `owner`, `title`, `tagline`, `metaDescription` | string | `title` goes in `<title>`; `metaDescription` in the meta tag. |
 | `headerLockup` | `{ wordmark, wordmarkAlt, divider, productName }` | Image paths are relative to `site/`. The lockup is wordmark · hairline · plain-text product name. |
-| `nav` | `[{ label, route }]` | Three items. The **Request a demo** pill is `primaryCta`, rendered separately at the right of the bar. |
-| `primaryCta` | `{ label, route }` | |
+| `nav` | `[{ label, route }]` | **Exactly three, in this order: Products (`#/products`) · Services (`#/services`) · Case studies (`#/#case-studies`).** The third is an anchor into the home page's own case-study screen, not a page of its own, and there is no *Overview* item — the lockup is the home link (round 5). `check-grammar.js` asserts all three labels and all three routes. |
+| `navCta` | `{ label, route }` | **Round 5 — the header button**, rendered separately at the right of the bar: *Talk to us* → `#/services#contact`. It replaced the *Request a demo* pill, so the one button in the bar opens a conversation with the practice rather than a product-specific form. |
+| `secondaryCta` | `{ label, route }` | **Round 5** — the quiet button in the **Services hero**: *Browse the products* → `#/products`. Services used to borrow `overview.hero.ctas[1]` for it; the home rebuild re-pointed that CTA at an on-page anchor, so the Services hero owns its own string now. |
+| `primaryCta` | `{ label, route }` | *Request a demo* → `#/#request-a-demo`. **Still the product-hero CTA label**, and still the anchor every product page deep-links to (`overview.contact.anchor`). It is no longer rendered in the header. |
 | `dividerLabels` | `{ builtOn, whatWeBuild, proof, howWeProveIt, howWeEngage }` | Labels for the rule–label–rule divider. |
 | `site.footer` | object | See below. |
 
