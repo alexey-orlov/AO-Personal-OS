@@ -322,9 +322,7 @@
     return '<section class="section home-screen" id="case-studies"><div class="wrap">' +
       '<div class="cases">' +
         '<div class="cases-rail">' +
-          '<p class="eyebrow eyebrow--accent">' + UI.esc(intro.eyebrow) + "</p>" +
-          '<h2 class="h2">' + UI.esc(intro.title) + "</h2>" +
-          '<p class="body-text">' + UI.esc(intro.body) + "</p>" +
+          head({ eyebrow: intro.eyebrow, title: intro.title, lead: intro.body }) +
           '<div class="cases-method">' +
             (method.lead ? '<p class="body-text small">' + UI.esc(method.lead) + "</p>" : "") +
             stat +
@@ -361,7 +359,7 @@
         '" height="' + UI.esc(partner.height) + '" loading="lazy" decoding="async">';
     }).join("");
 
-    return '<section class="section section--tight home-screen" id="about"><div class="wrap">' +
+    return '<section class="section home-screen" id="about"><div class="wrap">' +
       '<div class="light-band reveal">' +
         '<div class="light-band-media">' +
           '<p class="band-label">' + UI.esc(block.eyebrow) + "</p>" +

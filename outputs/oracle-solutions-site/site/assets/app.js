@@ -340,7 +340,7 @@
     if (!card) return right;
     return '<div class="contact-split">' +
       '<div class="contact-split-card">' +
-        (opts.cardHeading ? '<h2 class="h3 block-title">' + esc(opts.cardHeading) + "</h2>" : "") +
+        (opts.cardHeading ? '<h3 class="h3 block-title">' + esc(opts.cardHeading) + "</h3>" : "") +
         card +
       "</div>" +
       right +
@@ -482,7 +482,7 @@
       '<div class="case-card-head">' +
         caseMedallion(item.industry) +
         '<div class="case-head-copy">' +
-          '<p class="case-descriptor">' + esc(item.descriptor) + "</p>" +
+          '<h3 class="case-descriptor">' + esc(item.descriptor) + "</h3>" +
           '<p class="case-area">' + esc(item.area) + "</p>" +
         "</div>" +
       "</div>" +

@@ -669,7 +669,7 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 
 @media (max-width: 480px) {
   .stat-row { grid-template-columns: 1fr; }
-  .stat { border-left: 0 !important; padding-left: 0 !important; }
+  .stat-row:not(.stat-row--home) .stat { border-left: 0; padding-left: 0; }
   .stat + .stat { border-top: 1px solid var(--border-subtle); margin-top: 1.25rem; padding-top: 1.25rem; }
 }
 
@@ -898,7 +898,7 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 .light-band-copy { background: var(--panel-neutral); padding: clamp(2rem, 3.5vw, 3rem); display: flex; flex-direction: column; justify-content: center; gap: 1.25rem; }
 .light-band .band-title { font-family: var(--font-display); font-weight: 900; font-size: var(--fs-h3); text-transform: uppercase; line-height: 1.05; color: var(--text-on-light); }
 .light-band .band-body { font-weight: 300; font-size: 1rem; line-height: 1.65; color: var(--text-on-light-soft); }
-.light-band .band-label { font-size: var(--fs-xs); letter-spacing: .14em; text-transform: uppercase; font-weight: 600; color: #4E6076; }
+.light-band .band-label { font-size: var(--fs-xs); letter-spacing: .14em; text-transform: uppercase; font-weight: 600; color: var(--text-on-light-soft); }
 .light-band .btn--dark { align-self: flex-start; }
 
 .platform-list { display: flex; flex-direction: column; }
