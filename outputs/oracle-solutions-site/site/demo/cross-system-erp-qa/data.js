@@ -781,3 +781,201 @@ window.ERPQA_DATA = (function () {
       note: d[0] === "M-ORION" ? "Only a pair while the two Orion records are one supplier." : ""
     };
   });
+
+  /* ================================================================== */
+  /* RESOLUTION STATE — golden parties as a function of the decisions    */
+  /* ================================================================== */
+  /* A cross-system cluster the generator built carries Q3 invoices in one
+     system only; the eleven hand-written ones carry them in two or three.
+     That is what makes saved question 1 a twelve-row answer rather than a
+     sixty-seven-row one. */
+  genClusters.forEach(function (g) {
+    if (g.systems.length < 2) return;
+    var recs = g.records.map(byId).sort(function (a, b) { return b.spendUsd - a.spendUsd; });
+    var keep = recs[0].sys;
+    recs.forEach(function (r) { if (r.sys !== keep) { r.spendLocal = 0; r.spendUsd = 0; } });
+    g.spendUsd = r2(sum(g.records, function (rid) { return byId(rid).spendUsd; }));
+  });
+
+  /* the three proposals between two loose records get a provisional party */
+  var PROV_THRESHOLD = 0.85;   /* the model rolls a proposal up provisionally at
+                                  0.85 and above so reporting is not blocked,
+                                  and flags it pending review; below that the
+                                  records stay separate until a steward decides */
+  pendingMatches.forEach(function (m) {
+    if (m.newRecords.length !== 2) return;
+    var recs = m.records.map(byId);
+    var g = mkGolden(recs[0].name.replace(/ (Ltd|PLC|Inc|LLC|Corp|Group Ltd|LIMITED|LTD|INC)$/i, ""), recs, "name+address", m.score, "provisional");
+    g.evidence = m.evidence; g.proposal = m.id; g.provisional = true;
+    g.pattern = recs.map(function (r) { return r.sys[0]; }).join("");
+    g.multi = recs[0].sys !== recs[1].sys;
+    m.golden = g.id;
+  });
+  var goldenById = {}; suppliers.forEach(function (g) { goldenById[g.id] = g; });
+  var ORION_GOLDEN = goldenById[ORION.golden];
+  ORION_GOLDEN.name = "Orion Fasteners Ltd";
+
+  var BASE_RESOLVED = records.filter(function (r) { return r.cluster || r.singleton; }).length;
+  var PENDING_RECORD_IDS = []; pendingMatches.forEach(function (m) { m.newRecords.forEach(function (id) { PENDING_RECORD_IDS.push(id); }); });
+
+  function decisionsOf(x) {
+    if (!x) return [];
+    if (Array.isArray(x)) return x;
+    if (x.decisions) return x.decisions;
+    return [];
+  }
+  function matchDecisions(dec) { var o = {}; dec.forEach(function (d) { if (d.kind === "match") o[d.id] = d; }); return o; }
+
+  /* resolution(decisions) -> the model's state after the steward's decisions */
+  function resolution(decisions) {
+    var dec = decisionsOf(decisions), byMatch = matchDecisions(dec);
+    var open = [], decided = [], freed = 0, split = [];
+    pendingMatches.forEach(function (m) {
+      var d = byMatch[m.id];
+      if (!d) { open.push(m); return; }
+      decided.push({ match: m, decision: d });
+      freed += m.newRecords.length;
+      if (d.action === "reject") split.push(m);
+    });
+    var resolvedCount = BASE_RESOLVED + freed;
+    return {
+      resolvedCount: resolvedCount, totalRecords: records.length,
+      resolvedPct: pct1(resolvedCount, records.length),
+      pendingProposals: open.length, pendingRecords: records.length - resolvedCount,
+      openProposals: open, decidedProposals: decided, rejected: split,
+      confirmedProposals: matches.filter(function (m) { return m.status === "confirmed"; }).length
+    };
+  }
+
+  /* goldenSuppliers(decisions) -> the parties SUPPLIER_360 exposes right now */
+  function goldenSuppliers(decisions) {
+    var dec = decisionsOf(decisions), byMatch = matchDecisions(dec), out = [];
+    suppliers.forEach(function (g) {
+      if (g.status !== "provisional") { out.push(viewOf(g, "confirmed", null)); return; }
+      var m = matchesById[g.proposal], d = byMatch[g.proposal];
+      if (d && d.action === "reject") {
+        g.records.forEach(function (rid) {
+          var r = byId(rid);
+          out.push(viewOf({ id: g.id + ":" + r.sysId, name: r.name, records: [rid], systems: [r.sys], basis: "steward", score: 1.00, city: r.city, country: r.country, taxId: r.taxId }, "confirmed", "Split by " + (d.by || "the steward") + " · " + (d.reason || "")));
+        });
+        return;
+      }
+      if (d && d.action === "confirm") { out.push(viewOf(g, "confirmed", "Confirmed by " + (d.by || "the steward"))); return; }
+      if (m.score >= PROV_THRESHOLD) { out.push(viewOf(g, "review", "Applied provisionally · proposal " + m.id + " waiting for review")); return; }
+      g.records.forEach(function (rid) {
+        var r = byId(rid);
+        out.push(viewOf({ id: g.id + ":" + r.sysId, name: r.name, records: [rid], systems: [r.sys], basis: "unresolved", score: m.score, city: r.city, country: r.country, taxId: r.taxId }, "pending", "Below the 0.85 provisional threshold · proposal " + m.id));
+      });
+    });
+    /* records proposed onto a confirmed cluster: provisionally inside it when
+       the score clears the threshold, otherwise standing on their own */
+    pendingMatches.forEach(function (m) {
+      if (m.newRecords.length === 2) return;
+      var b = byId(m.newRecords[0]), host = byId(m.records[0]).cluster, d = byMatch[m.id];
+      var hg = out.filter(function (g) { return g.id === host; })[0];
+      if (d && d.action === "reject") { out.push(viewOf({ id: host + ":" + b.sysId, name: b.name, records: [b.id], systems: [b.sys], basis: "steward", score: 1.00, city: b.city, country: b.country, taxId: b.taxId }, "confirmed", "Split by " + (d.by || "the steward"))); return; }
+      if ((d && d.action === "confirm") || m.score >= PROV_THRESHOLD) {
+        if (hg) {
+          hg.records = hg.records.concat([b.id]);
+          if (hg.systems.indexOf(b.sys) < 0) hg.systems = hg.systems.concat([b.sys]);
+          hg.spendUsd = r2(hg.spendUsd + b.spendUsd);
+          hg.bySystem = spendBySystem(hg.records);
+          if (!(d && d.action === "confirm")) { hg.status = "review"; hg.reviewNote = "Proposal " + m.id + " applied provisionally"; hg.score = Math.min(hg.score, m.score); }
+        }
+        return;
+      }
+      out.push(viewOf({ id: host + ":" + b.sysId, name: b.name, records: [b.id], systems: [b.sys], basis: "unresolved", score: m.score, city: b.city, country: b.country, taxId: b.taxId }, "pending", "Below the 0.85 provisional threshold · proposal " + m.id));
+    });
+    return out;
+  }
+  var matchesById = {}; matches.forEach(function (m) { matchesById[m.id] = m; });
+  function spendBySystem(ids) {
+    var o = {};
+    ids.forEach(function (id) { var r = byId(id); o[r.sys] = r2((o[r.sys] || 0) + r.spendUsd); });
+    return o;
+  }
+  function viewOf(g, status, note) {
+    return {
+      id: g.id, name: g.name, records: g.records.slice(), systems: g.systems.slice(),
+      basis: g.basis, score: g.score, status: status, note: note || "",
+      city: g.city, country: g.country, taxId: g.taxId,
+      spendUsd: r2(sum(g.records, function (rid) { return byId(rid).spendUsd; })),
+      bySystem: spendBySystem(g.records)
+    };
+  }
+
+  /* dupPairsFor(decisions) -> the pairs that survive the steward's decisions */
+  function dupPairsFor(decisions) {
+    var byMatch = matchDecisions(decisionsOf(decisions));
+    return dupPairs.filter(function (p) {
+      if (!p.dependsOn) return true;
+      var d = byMatch[p.dependsOn];
+      return !(d && d.action === "reject");
+    });
+  }
+
+  /* ================================================================== */
+  /* KPI BAND — six tiles, every figure derived                          */
+  /* ================================================================== */
+  function initialState() { return { refreshed: false, decisions: [] }; }
+  var RESOLVED_BEFORE = records.filter(function (r) { return r.exactBefore; }).length;
+  var UNMAPPED_BEFORE = accounts.length;
+  var TIE_BEFORE = ledgers.filter(function (l) { return l.tiesBefore; }).length;
+  var RESIDUAL_BEFORE = r2(sum(ledgers, function (l) { return l.residualBeforeUsd; }));
+
+  function computeKpis(state) {
+    state = state || initialState();
+    var on = !!state.refreshed, res = resolution(state.decisions), dups = dupPairsFor(state.decisions);
+    var exposure = r2(sum(dups, function (d) { return d.amountUsd; }));
+    var byRule = accounts.filter(function (a) { return a.status === "auto"; }).length;
+    var inReview = accounts.filter(function (a) { return a.status === "review"; }).length;
+    var tiles = [
+      { id: "sources", label: "Sources in one governed model",
+        before: sources.length + " sources · 0 joined", after: sources.length + " sources · 1 model · " + views.length + " certified views",
+        beforeValue: 0, afterValue: views.length, dir: "new",
+        note: sources.map(function (s) { return s.short; }).join(" · ") },
+      { id: "resolved", label: "Supplier records resolved to one golden record",
+        before: RESOLVED_BEFORE_PCT.toFixed(1) + " %", after: res.resolvedPct.toFixed(1) + " %",
+        beforeValue: RESOLVED_BEFORE_PCT, afterValue: res.resolvedPct, dir: "up",
+        note: records.length + " records: Fusion " + bySys.FUSION + ", JDE " + bySys.JDE + ", NetSuite " + bySys.NETSUITE
+          + " · " + res.resolvedCount + " of " + records.length + " resolved · " + res.pendingProposals + " proposals ("
+          + res.pendingRecords + " records) pending review" },
+      { id: "accounts", label: "Unmapped local accounts in the consolidated P&L",
+        before: String(UNMAPPED_BEFORE), after: "0",
+        beforeValue: UNMAPPED_BEFORE, afterValue: 0, dir: "down",
+        note: localAccountTotal + " local accounts (Fusion " + localAccountCount.FUSION + ", JDE " + localAccountCount.JDE
+          + ", NetSuite " + localAccountCount.NETSUITE + ") to " + groupAccountCount + " group accounts · " + byRule
+          + " mapped by rule, " + inReview + " provisional and queued for review" },
+      { id: "ledgers", label: "Ledgers that tie to their trial balance",
+        before: TIE_BEFORE + " / " + ledgers.length, after: ledgers.length + " / " + ledgers.length,
+        beforeValue: TIE_BEFORE, afterValue: ledgers.length, dir: "up",
+        note: "residual 0.00 after mapping and translation; before, " + ledgers.filter(function (l) { return !l.tiesBefore; }).map(function (l) { return l.systemShort; }).join(" and ")
+          + " carried " + fmtUsd(RESIDUAL_BEFORE) + " in unmapped accounts" },
+      { id: "dups", label: "Duplicate-payment pairs found across systems",
+        before: "—", after: String(dups.length),
+        beforeValue: null, afterValue: dups.length, dir: "new",
+        note: "same golden supplier, same normalised invoice number, amount within 0.5 % after translation, different systems · " + fmtUsd(exposure) + " in scope" },
+      { id: "freshness", label: "Stalest source",
+        before: stalest.freshLabel, after: stalest.freshLabel,
+        beforeValue: stalest.freshnessMin, afterValue: stalest.freshnessMin, dir: "flat",
+        note: "freshness per source is a platform fact (CDC, pipelines, links), not a claim · " + sources.map(function (s) { return s.short + " " + s.freshLabel; }).join(" · ") }
+    ];
+    if (!on) tiles.forEach(function (t) { t.after = null; t.afterValue = null; });
+    return {
+      refreshed: on,
+      records: { total: records.length, bySystem: bySys },
+      resolvedBefore: { count: RESOLVED_BEFORE, pct: RESOLVED_BEFORE_PCT },
+      resolved: { count: res.resolvedCount, pct: res.resolvedPct },
+      proposals: { total: matches.length, auto: res.confirmedProposals, pending: res.pendingProposals, decided: res.decidedProposals.length },
+      accounts: { local: localAccountTotal, group: groupAccountCount, unmappedBefore: UNMAPPED_BEFORE, unmapped: 0, byRule: byRule, review: inReview },
+      ledgers: { total: ledgers.length, tieBefore: TIE_BEFORE, tie: ledgers.length, residualBeforeUsd: RESIDUAL_BEFORE, residualUsd: 0 },
+      dupPairs: { count: dups.length, exposureUsd: exposure },
+      views: { count: views.length },
+      freshness: { stalestMin: stalest.freshnessMin, stalestLabel: stalest.freshLabel, source: stalest.short, asOf: stalest.asOf },
+      tiles: tiles
+    };
+  }
+  var bySys = { FUSION: 0, JDE: 0, NETSUITE: 0 };
+  records.forEach(function (r) { bySys[r.sys]++; });
+  var RESOLVED_BEFORE_PCT = pct1(RESOLVED_BEFORE, records.length);
+  var localAccountTotal = localAccountCount.FUSION + localAccountCount.JDE + localAccountCount.NETSUITE;
