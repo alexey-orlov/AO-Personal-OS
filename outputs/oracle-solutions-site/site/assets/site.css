@@ -373,12 +373,57 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 .chip--filter:active { transform: scale(.97); }
 .chip--accent { background: var(--accent-dim); color: var(--accent); }
 
+/* Round 4, T1: the workflow-pattern family is the outlined chip — transparent
+   ground, one hairline — so a reader tells it from the solid technology pill
+   without knowing the taxonomy. */
+.chip--outline { background: none; border-color: var(--border); color: var(--text); }
+
+.chip--tag { cursor: help; }
+.chip-icon { width: .875rem; height: .875rem; flex: none; opacity: .85; }
+.chip--outline .chip-icon { color: var(--accent); opacity: 1; }
+
 .chip-row { display: flex; flex-wrap: wrap; gap: .5rem; }
 
 .chip-dot { width: .4375rem; height: .4375rem; border-radius: var(--r-pill); flex: none; background: var(--decor-dim); }
-.chip-dot--available { background: var(--accent); }
-.chip-dot--offer { background: var(--panel-lightest); }
-.chip-dot--preparation { background: transparent; box-shadow: inset 0 0 0 1px var(--text-muted); }
+
+/* ——— availability badges ————————————————————————————— */
+
+/* Not labels but actions, and read straight off the config flags that decide
+   whether the demo and the listing exist at all (VISUAL-GRAMMAR §1.2). */
+.badge-row { display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; }
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: .375rem;
+  border-radius: var(--r-pill);
+  border: 1px solid rgba(53, 204, 186, .38);
+  background: var(--accent-dim);
+  color: var(--accent);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: .02em;
+  padding: .375rem .625rem;
+  white-space: nowrap;
+}
+
+.badge-icon { width: .875rem; height: .875rem; flex: none; }
+.badge--action { cursor: pointer; transition: background-color .25s var(--ease), border-color .25s var(--ease); }
+.badge--action:hover { background: rgba(53, 204, 186, .26); border-color: var(--accent); }
+.badge--action:active { transform: scale(.97); }
+
+/* The tag row: chips left, badges at the right end; they wrap underneath on a
+   narrow screen rather than squeezing the chips. */
+.tag-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: .75rem 1.25rem;
+}
+
+.tag-row > .chip-row { flex: 1 1 auto; }
 
 /* ——— tooltip ————————————————————————————————————————— */
 
@@ -713,8 +758,9 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
   text-shadow: 0 1px 3px rgba(0, 0, 0, .7);
 }
 
-.ptile-avail { position: absolute; top: .75rem; right: 1rem; }
-.ptile-avail .chip { background: rgba(0, 0, 0, .62); backdrop-filter: blur(2px); }
+.ptile-badges { position: absolute; top: .75rem; right: 1rem; max-width: calc(100% - 2rem); justify-content: flex-end; }
+.ptile-badges .badge { background: rgba(0, 0, 0, .62); backdrop-filter: blur(2px); border-color: rgba(53, 204, 186, .5); }
+.ptile-badges .badge--action:hover { background: rgba(0, 0, 0, .78); border-color: var(--accent); }
 
 .ptile-body {
   display: flex;

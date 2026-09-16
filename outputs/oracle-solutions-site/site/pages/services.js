@@ -236,77 +236,24 @@
 
   /* ————— proof ————— */
 
-  function evidenceById(content, id) {
-    var list = content.overview.evidence;
-    for (var i = 0; i < list.length; i += 1) {
-      if (list[i].id === id) return list[i];
-    }
-    return null;
-  }
-
-  function briefCard(item) {
-    var UI = window.UI;
-    var metrics = (item.metrics || []).map(function (metric) {
-      return '<div class="brief-metric">' +
-        '<p class="brief-value nums">' + UI.esc(metric.value) + "</p>" +
-        '<p class="brief-label">' + UI.esc(metric.label) + "</p>" +
-        "</div>";
-    }).join("");
-    var notes = (item.footnotes || []).map(function (note) {
-      return '<p class="footnote">' + UI.esc(note) + "</p>";
-    }).join("");
-
-    return '<article class="brief reveal">' +
-      '<p class="eyebrow eyebrow--accent">' + UI.esc(item.label) + "</p>" +
-      (item.logo
-        ? '<img class="proof-logo' + (item.logoStacked ? " proof-logo--stacked" : "") +
-          '" src="' + UI.esc(item.logo) + '" alt="" loading="lazy" decoding="async">'
-        : "") +
-      (item.customer ? '<h3 class="brief-title">' + UI.esc(item.customer) + "</h3>" : "") +
-      (item.industry ? '<p class="brief-industry">' + UI.esc(item.industry) + "</p>" : "") +
-      '<p class="brief-body">' + UI.esc(item.body) + "</p>" +
-      (metrics ? '<div class="brief-metrics">' + metrics + "</div>" : "") +
-      (item.scopeLine ? '<p class="footnote">' + UI.esc(item.scopeLine) + "</p>" : "") +
-      (notes ? '<div class="brief-notes">' + notes + "</div>" : "") +
-      (item.product
-        ? '<p class="brief-link">' + UI.linkArrow({
-            label: item.product.name, href: "#/products/" + item.product.slug
-          }) + "</p>"
-        : "") +
-      "</article>";
-  }
-
-  function noteCard(item) {
-    var UI = window.UI;
-    var title = item.title || item.industry || "";
-    return '<article class="note-card reveal">' +
-      '<p class="eyebrow eyebrow--accent">' + UI.esc(item.label) + "</p>" +
-      (title ? '<h3 class="note-title">' + UI.esc(title) + "</h3>" : "") +
-      '<p class="note-body">' + UI.esc(item.body) + "</p>" +
-      (item.product
-        ? "<p>" + UI.linkArrow({ label: item.product.name, href: "#/products/" + item.product.slug }) + "</p>"
-        : "") +
-      "</article>";
-  }
-
+  /* The same four case-study cards the home page renders, from the same four
+     objects, with the measurement method as one paragraph beneath them. */
   function proof(content) {
     var UI = window.UI;
     var block = content.services.proof;
-    var items = block.evidenceIds.map(function (id) {
-      return evidenceById(content, id);
-    }).filter(Boolean);
-    var briefs = items.filter(function (item) { return item.metrics && item.metrics.length; });
-    var notes = items.filter(function (item) { return !(item.metrics && item.metrics.length); });
+    var items = (block.caseStudyIds || []).map(UI.caseStudyById).filter(Boolean);
 
     var body = items.length
-      ? (briefs.length ? '<div class="brief-grid">' + briefs.map(briefCard).join("") + "</div>" : "") +
-        (notes.length ? '<div class="note-grid">' + notes.map(noteCard).join("") + "</div>" : "")
-      : UI.empty("Proof points are published once a customer clears them.");
+      ? '<div class="case-grid">' + items.map(UI.caseCard).join("") + "</div>"
+      : UI.empty(content.overview.caseStudiesIntro.body);
 
     return '<section class="section" id="proof"><div class="wrap">' +
       divider(block.dividerLabel, block.title) +
       '<div class="section-head services-head"><h2 class="h2">' + UI.esc(block.title) + "</h2></div>" +
       body +
+      (block.methodNote
+        ? '<p class="footnote case-method-note">' + UI.esc(block.methodNote) + "</p>"
+        : "") +
       "</div></section>";
   }
 
