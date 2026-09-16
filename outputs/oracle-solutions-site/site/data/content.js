@@ -152,8 +152,8 @@ window.SITE_CONTENT = {
         icons: {
           "oci-nvidia": "platform-oci-nvidia",
           "oracle-ai-data-platform": "platform-oracle-ai-data-platform",
-          "oracle-autonomous-ai-lakehouse": "platform-oracle-autonomous-ai-lakehouse",
-          "other": "platform-other"
+          "oracle-ai-lakehouse": "platform-oracle-ai-lakehouse",
+          "oracle-ai-fusion": "platform-oracle-ai-fusion"
         }
       },
       availability: {
@@ -355,17 +355,17 @@ window.SITE_CONTENT = {
         emptyState: "No packaged offering on this platform yet — the practice delivers on it; see Services"
       },
       {
-        id: "oracle-autonomous-ai-lakehouse",
+        id: "oracle-ai-lakehouse",
         label: "Oracle Autonomous AI Lakehouse",
         fullLabel: "Oracle Autonomous AI Lakehouse",
         description: "The self-managing governed gold layer, with Iceberg, vector search and Select AI.",
         emptyState: "No packaged offering on this platform yet — the practice delivers on it; see Services"
       },
       {
-        id: "other",
-        label: "Other",
-        fullLabel: "Other Oracle platforms",
-        description: "Everything outside the three above, including Oracle AI for Fusion Applications.",
+        id: "oracle-ai-fusion",
+        label: "Oracle AI for Fusion Applications",
+        fullLabel: "Oracle AI for Fusion Applications",
+        description: "Embedded AI agents and AI Agent Studio across ERP, SCM, HCM and CX.",
         emptyState: "No packaged offering on this platform yet — the practice delivers on it; see Services"
       }
     ],
@@ -2035,7 +2035,7 @@ window.SITE_CONTENT = {
       headline: { accent: "CROSS-SYSTEM", rest: "ERP Q&A" },
       category: "data-analysis",
       categoryChip: "Data analysis & optimization",
-      facet: "oracle-autonomous-ai-lakehouse",
+      facet: "oracle-ai-lakehouse",
       oneLiner: "Answers plain-language questions that span the ERP, the CRM and the systems around them, from one governed layer on Oracle Autonomous AI Lakehouse.",
       heroLine: "Your ERP + everything around it.",
       badges: ["ERP + CRM + THE SYSTEMS AROUND THEM", "PREBUILT PIPELINES", "ANSWERS IN MINUTES"],
@@ -2339,7 +2339,7 @@ window.SITE_CONTENT = {
       headline: { accent: "BUSINESS", rest: "METRICS Q&A" },
       category: "data-analysis",
       categoryChip: "Data analysis & optimization",
-      facet: "oracle-autonomous-ai-lakehouse",
+      facet: "oracle-ai-lakehouse",
       oneLiner: "Answers plain-language questions about business metrics from one governed gold layer over the catalogs and databases you already run — consistent definitions, no data moved.",
       heroLine: "Ask once, every cloud answers.",
       badges: ["MULTI-CLOUD", "ON-PREM TOO", "NO MIGRATION"],
