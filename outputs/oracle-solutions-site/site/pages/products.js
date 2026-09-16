@@ -193,9 +193,13 @@
   /* The line reports what a filter returned, not how big the catalog is, so
      with nothing filtered it says nothing. The element itself stays in the
      DOM either way: it is the live region that announces the next change. */
+  /* A count is what a filter returned, never the size of the catalog — so no
+     denominator, nothing when no filter is on, and nothing at zero: the grid's
+     own empty state says that better than a nought would. */
   function countLine() {
     if (!isFiltered()) return "";
     var shown = filtered().length;
+    if (!shown) return "";
     return String(shown) + (shown === 1 ? " product" : " products");
   }
 

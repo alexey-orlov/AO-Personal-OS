@@ -327,7 +327,7 @@ window.SITE_CONTENT = {
         status: "modeled",
         metric: { value: "+4.5%", label: "median gain in jobs per technician per day, against the current plan" },
         line: "Dispatchers built the four-week field-service plan by hand, region by region; NVIDIA cuOpt on Oracle Cloud Infrastructure now builds it and a dispatcher approves it.",
-        footnote: "Forecast from simulations on the customer’s own historical operations data, scored against the plan dispatchers build today; illustrative, not contractual.",
+        footnote: "Simulated on the customer’s own historical operations data and scored against the plan dispatchers build today; illustrative, not contractual.",
         product: { slug: "workforce-optimization", name: "Workforce optimization" }
       },
       {
@@ -349,7 +349,7 @@ window.SITE_CONTENT = {
         status: "in-preparation",
         metric: { value: "Hours, not quarters", label: "from a market signal to a qualified opportunity a seller can act on" },
         line: "The first engagement will run on the customer’s own account base: every opportunity scored for magnitude and confidence, with its evidence cited.",
-        footnote: "Estimated against the customer’s own account-planning cycle today, on success metrics signed before the work starts.",
+        footnote: "The comparison is the customer’s own account-planning cycle today, on success metrics signed before the work starts.",
         product: { slug: "account-insights", name: "Account insights" }
       },
       {
@@ -360,7 +360,7 @@ window.SITE_CONTENT = {
         status: "in-preparation",
         metric: { value: "Hours, not weeks", label: "of expert time to produce an equivalent plan-versus-actual analysis" },
         line: "One completed project sample, with the customer’s own schedule, cost and contract exports reconstructed into a single package-level view.",
-        footnote: "Estimated against the expert hours the same analysis takes today, and validated by the customer’s own experts.",
+        footnote: "Against the expert hours the same analysis takes today, on a sample the customer’s own experts validate.",
         product: { slug: "plan-vs-actual-investigation", name: "Plan vs actual investigation" }
       }
     ],
