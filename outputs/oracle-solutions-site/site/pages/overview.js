@@ -10,14 +10,15 @@
      and an optional link at the right — so a reader always knows which of the
      seven they are in. */
 
+  /* One grid, so the right-hand link sits on the H2's own baseline rather than
+     wherever the lead happens to stop wrapping: eyebrow and lead span both
+     columns, the H2 takes the first and the link the second. */
   function head(opts) {
     var UI = window.UI;
     return '<div class="home-head' + (opts.link ? " home-head--split" : "") + '">' +
-      '<div class="home-head-copy">' +
-        '<p class="eyebrow eyebrow--accent">' + UI.esc(opts.eyebrow) + "</p>" +
-        '<h2 class="h2">' + UI.esc(opts.title) + "</h2>" +
-        (opts.lead ? '<p class="lead home-head-lead">' + UI.esc(opts.lead) + "</p>" : "") +
-      "</div>" +
+      '<p class="eyebrow eyebrow--accent">' + UI.esc(opts.eyebrow) + "</p>" +
+      '<h2 class="h2">' + UI.esc(opts.title) + "</h2>" +
+      (opts.lead ? '<p class="lead home-head-lead">' + UI.esc(opts.lead) + "</p>" : "") +
       (opts.link ? '<p class="home-head-link">' + UI.linkArrow(opts.link) + "</p>" : "") +
       "</div>";
   }
@@ -60,8 +61,10 @@
         return '<li class="bo-chip">' + UI.esc(product.name) + "</li>";
       }).join("");
       return '<li class="bo-tile bo-tile--pattern">' +
-        UI.icon(patternIcons[category.id]) +
-        '<span class="bo-tile-name">' + UI.esc(category.chip) + "</span>" +
+        '<span class="bo-tile-head">' +
+          UI.icon(patternIcons[category.id]) +
+          '<span class="bo-tile-name">' + UI.esc(category.chip) + "</span>" +
+        "</span>" +
         '<ul class="bo-chips">' + chips + "</ul>" +
         "</li>";
     }).join("");
@@ -72,8 +75,10 @@
 
     var platformTiles = (C.facets.technology || []).map(function (facet) {
       return '<li class="bo-tile bo-tile--platform">' +
-        UI.icon(techIcons[facet.id]) +
-        '<span class="bo-tile-name">' + UI.esc(facet.label) + "</span>" +
+        '<span class="bo-tile-head">' +
+          UI.icon(techIcons[facet.id]) +
+          '<span class="bo-tile-name">' + UI.esc(facet.label) + "</span>" +
+        "</span>" +
         "</li>";
     }).join("");
 
