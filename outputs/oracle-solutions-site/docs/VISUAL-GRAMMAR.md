@@ -9,7 +9,7 @@ Five hard rules:
 1. **Every product fills every slot.** No product is allowed to render a shorter Overview than another. Where a product has no published number, the slot is filled with a **qualitative** instance of the same component — never a blank, never a missing section, never a sentence apologising for the absence.
 2. **A number never renders without the disclaimer beside it.** `metricsNote` renders as a footnote line directly under the metric row, in the same block; `jumpstart.investment.footnote` under the price card, in its block; and the case-study callout, which has no footnote row, carries its caveat in the last sentence of `story`.
 3. **Icons are 1.5px line icons, teal, from the one registry in `assets/app.js`.** No emoji anywhere. No filled icons except the existing `play` and `dot`.
-4. **Peer figures share their baselines.** Wherever a value/label pair sits beside another — the case-study callout's two figures, the Jumpstart investment figures, the side-rail metric tiles — the row is one grid with two rows, so every value occupies the first and every caption the second. Laid out as independent cards, one wrapped value drops its caption half a line below its neighbour's, and two captions on different baselines is the geometry inconsistency this file exists to prevent. On mobile the pairs stack and the rule is moot.
+4. **Peer figures share their baselines.** Wherever a value/label pair sits beside another — the case-study callout's figures where it carries two, the Jumpstart investment figures, the side-rail metric tiles — the row is one grid with two rows, so every value occupies the first and every caption the second. Laid out as independent cards, one wrapped value drops its caption half a line below its neighbour's, and two captions on different baselines is the geometry inconsistency this file exists to prevent. On mobile the pairs stack and the rule is moot.
 5. **No customer mark is rendered at all** (Alex, 2026-09-16). A logo is the one element of a case study that cannot be anonymized, so the industry medallion — a circle carrying the `industry-<key>` line icon — stands where a mark used to, at the same optical weight, on the callout and on the compact card alike. The files under `assets/img/logos/` stay on disk, unreferenced; `check-grammar.js` fails the build if a path under them returns to `content.js`.
 
 ---
@@ -182,6 +182,12 @@ The block is a **surface-level dark panel with a 3px teal left rule, and that ru
 5. **The scope row** — exactly three compact facts (`scope[]`), label above value: duration, data footprint, constraint count, the human gate. Each must be a fact the rest of the card does not already carry — a slot spent restating the `area` line is a slot wasted. External-safe only: no contract value, no contract duration, no headcount, no € figure.
 6. **The NDA line** — *"Customer under NDA · reference call available on request"* on a measured or modeled case; on one in preparation it says results follow at the end of the proof of value instead, because offering a reference call about an engagement with no results yet is a promise nobody can keep.
 7. **`downloadLabel`** as the one link out, rendered **only** when `SITE_CONFIG.products[slug].successStoryUrl` is non-empty. No URL, no control.
+
+### 2.6a The same engagements on the other two surfaces
+
+The home page renders **one compact card per case study** — medallion, descriptor, status chip, one headline metric with its eyebrow, one line, the link to the product — from the same objects the product pages read, so the two cannot drift apart.
+
+**Services does not repeat that grid.** It carries the **method**: the measurement discipline at body size as the section's lead, the one accuracy figure as a labelled stat beside it, then one line per engagement saying what that engagement measures and against what, and a link back to the Overview cards that carry the numbers. A customer moving Overview → Services met the identical four cards twice, which flattened the Services page and made the evidence feel padded rather than deep; the split is outcomes there, method here. **No figure appears in a Services engagement line** — a number away from its caveat is rule 2, and the caveats live on the cards.
 
 ### 2.7 More detail — one collapsible disclosure (MAIN)
 
