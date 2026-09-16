@@ -419,7 +419,7 @@ window.SITE_CONTENT = {
           { value: null, label: "Time to a qualified opportunity", qualifier: "Hours, rather than the next quarterly review", icon: "clock" },
           { value: null, label: "Coverage of the account base", qualifier: "Every in-scope account a signal touches", icon: "network" }
         ],
-        metricsNote: "No published metrics yet. The first engagement is under way; what it measures is accuracy and confidence calibration, against reviewer approve/reject decisions. Results to follow.",
+        metricsNote: "No published metrics yet. The first engagement is being prepared; what it measures is accuracy and confidence calibration, against reviewer approve/reject decisions. Results to follow.",
         roi: {
           icon: "roi",
           text: "The unit of value is a qualified opportunity a seller would not otherwise have seen, and a material risk surfaced before it becomes a renewal conversation. Because the output is scored and cited, the proof of value can measure what matters: the share of generated opportunities a reviewer accepts."

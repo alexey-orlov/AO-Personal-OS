@@ -825,7 +825,7 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
    status chip carries what used to be a hand-written band label. Four peers in
    one grid, equal height, each ending on its link. */
 
-.case-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--gap); }
+.case-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--gap); }
 
 .case-card {
   display: flex;
@@ -907,6 +907,10 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 }
 
 .case-figure-label { margin-top: .375rem; font-size: var(--fs-xs); line-height: 1.5; color: var(--text-note); }
+
+@media (max-width: 1180px) {
+  .case-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
 
 @media (max-width: 900px) {
   .case-grid { grid-template-columns: 1fr; }
