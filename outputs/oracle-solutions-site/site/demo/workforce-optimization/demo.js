@@ -112,7 +112,8 @@
     });
     var wsum = 0, dsum = 0;
     D.zones.forEach(function (z) { out.zones[z.id] = { wait: z.wait[pk] }; wsum += z.wait[pk] * z.demand; dsum += z.demand; });
-    out.fleet = { prod: Math.round(sumProd / D.techs.length * 100) / 100, cap: Math.round(sumJobs / (sumWD * D.capacityPerDay) * 100), wait: Math.round(wsum / dsum * 10) / 10, jobs: sumJobs, techDays: sumWD };
+    var prods = Object.keys(out.techs).map(function (k) { return out.techs[k].prod; });
+    out.fleet = { prod: Math.round(sumProd / D.techs.length * 100) / 100, cap: Math.round(sumJobs / (sumWD * D.capacityPerDay) * 100), wait: Math.round(wsum / dsum * 10) / 10, jobs: sumJobs, techDays: sumWD, spread: Math.round((Math.max.apply(null, prods) - Math.min.apply(null, prods)) * 100) / 100 };
     kmemo[pk] = out; return out;
   }
   function pct(a, b) { return Math.round((b - a) / a * 1000) / 10; }
@@ -141,7 +142,7 @@
   function pillW(s) { return Math.round(s.length * 6.3 + 22); }
   function mapSvg(card, pk) {
     var A = alloc(pk), m = D.map, fz = S.filters.zones, ft = S.filters.techs, sel = S.sel[card];
-    var s = '<svg class="map" viewBox="0 0 ' + m.w + " " + m.h + '" preserveAspectRatio="xMidYMid meet" aria-label="Schematic map of the region">';
+    var s = '<svg class="map" viewBox="0 -30 ' + m.w + " " + (m.h + 30) + '" preserveAspectRatio="xMidYMid meet" aria-label="Schematic map of the region">';
     s += '<rect x="-400" y="-200" width="1800" height="700" fill="#F6F7F9"/>';
     s += '<polygon class="sea" points="' + m.sea.map(function (p) { return p.join(","); }).join(" ") + '"/>';
     /* zones */
@@ -208,7 +209,7 @@
 
   /* ---------------- rendering: details ---------------- */
   function kindLabel(k, partial) { return k === "temp" ? (partial ? "temporary · part of the day" : "temporary") : k === "moved" ? "moved here" : k === "pinned" ? "non-movable kept" : k === "backfill" ? "historical demand" : k === "off" ? "no visits" : "default"; }
-  function whyBox(o, cls) { if (!o) return ""; return '<div class="why' + (cls ? " " + cls : "") + '"><b>' + esc(o.rule) + "</b>" + esc(o.why) + "</div>"; }
+  function whyBox(o, cls) { if (!o) return ""; return '<div class="why' + (cls ? " " + cls : "") + '"><b>' + esc(o.rule) + "</b>" + esc(o.why) + (o.alts ? '<ul class="alts">' + o.alts.map(function (a) { return "<li" + (a.chosen ? ' class="is-chosen"' : "") + "><b>" + esc(a.name) + "</b> " + esc(a.effect) + "</li>"; }).join("") + "</ul>" : "") + "</div>"; }
   function visitsTable(pk, zid, tid) {
     var v = sampleVisits(pk, zid, tid); if (!v.rows || !v.rows.length) return '<div class="muted" style="font-size:11.5px;padding:4px 0">No booked visits on these dates — allocated on historical demand.</div>';
     return '<table class="visits">' + v.rows.map(function (r) { return "<tr><td>" + esc(fmtShort(r.date)) + "</td><td>" + esc(r.type) + "</td><td>" + esc(r.dur) + "</td><td" + (r.pinned ? ' class="pin"' : "") + ">" + (r.pinned ? "⚑ " : "") + esc(r.sla) + "</td></tr>"; }).join("") + (v.more ? '<tr><td colspan="4" class="more">+ ' + v.more + " more booked visits</td></tr>" : "") + "</table>";
@@ -281,7 +282,7 @@
       });
       if (!rows.length) body = '<tr><td colspan="' + (wk.length + 2) + '" class="empty-plan">No zone matches the filters.</td></tr>';
     } else {
-      head = '<tr><th class="first"><b>Technician</b><span class="muted">' + esc(D.period.short) + '</span><span class="kpi-line">' + ICON.gauge + delta(B.fleet.cap, K ? K.fleet.cap : undefined, { unit: "%", dp: 0 }) + ' capacity</span><span class="kpi-line">' + ICON.bolt + delta(B.fleet.prod, K ? K.fleet.prod : undefined, { dp: 2 }) + " jobs/day</span></th>" + dayHead + "</tr>";
+      head = '<tr><th class="first"><b>Technician</b><span class="muted">' + esc(D.period.short) + '</span><span class="kpi-line">' + ICON.gauge + delta(B.fleet.cap, K ? K.fleet.cap : undefined, { unit: "%", dp: 0 }) + ' capacity</span><span class="kpi-line">' + ICON.bolt + delta(B.fleet.prod, K ? K.fleet.prod : undefined, { dp: 2 }) + ' jobs/day</span><span class="kpi-line">' + ICON.users + delta(B.fleet.spread, K ? K.fleet.spread : undefined, { dp: 2, lowerIsBetter: true }) + " jobs/day spread</span></th>" + dayHead + "</tr>";
       var trows = D.techs.filter(function (t) { return (!ft.length || ft.indexOf(t.id) >= 0) && (!fz.length || t.zones.some(function (z) { return fz.indexOf(z) >= 0; }) || techZones(pk, t.id).some(function (e) { return fz.indexOf(e.zone) >= 0; })); });
       trows.forEach(function (t) {
         var tb = B.techs[t.id], tk = K ? K.techs[t.id] : null, tf = techFlag("cur", t.id), sel = S.sel[S.view === "cur" ? "cur" : "opt"], isSel = sel && sel.kind === "tech" && sel.id === t.id;
@@ -423,7 +424,7 @@
       tour.next();
     });
   }
-  $("#run-go").addEventListener("click", function () { tour.after("optimize"); startProcessing(); });
+  $("#run-go").addEventListener("click", function () { startProcessing(); tour.after("optimize"); });
   function reoptimize() {
     if (S.busy || optKey() !== "v1") return;
     S.busy = true; $("#run-title").textContent = "Re-optimize with feedback"; runForm.hidden = true; runProg.hidden = false; $("#proc-note").hidden = true;
@@ -439,7 +440,7 @@
       tour.next();
     });
   }
-  $("#btn-reopt").addEventListener("click", function () { tour.after("reopt"); reoptimize(); });
+  $("#btn-reopt").addEventListener("click", function () { reoptimize(); tour.after("reopt"); });
 
   /* ---------------- export ---------------- */
   function exportRows(pk) {
@@ -541,7 +542,7 @@
   /* ---------------- toasts ---------------- */
   var toastT;
   function toast(html, ms) {
-    var t = $("#toast"); t.innerHTML = /^</.test(html) ? html : "<span>" + html + "</span>"; t.hidden = false;
+    var t = $("#toast"); t.innerHTML = /^<(svg|span)/.test(html) ? html : "<span>" + html + "</span>"; t.hidden = false;
     clearTimeout(toastT); toastT = setTimeout(function () { t.hidden = true; }, ms || 3400);
   }
   var warnT;
