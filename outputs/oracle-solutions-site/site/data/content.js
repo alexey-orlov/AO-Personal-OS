@@ -1166,26 +1166,7 @@ window.SITE_CONTENT = {
           { title: "Delivery lead, client engagements", body: "Closed engagements swept for where effort and schedule diverged from the plan, and what the record says about why." },
           { title: "Campaign owner", body: "Completed campaigns measured against plan, with the candidate drivers assembled from the systems that hold the spend, the schedule and the outcome." }
         ],
-        caseStudy: {
-          descriptor: "A major construction and engineering contractor",
-          area: "Plan versus actual across completed work packages",
-          industry: "construction",
-          image: "assets/img/industries/construction.jpg",
-          status: "in-progress",
-          metricsEyebrow: "Target outcomes",
-          metrics: [
-            { value: "Hours, not weeks", label: "of expert time to produce an equivalent plan-versus-actual analysis" },
-            { value: "Evidence-backed", label: "every material finding tied to a source record, with a review status" }
-          ],
-          story: "A first engagement is under way on one completed project sample, on the customer’s own schedule, cost and contract exports. The records are reconstructed into one package-level view of plan versus actual on Oracle Cloud Infrastructure — NVIDIA AI-Q over an evidence layer, Oracle AI Vector Search and Oracle AI Database 26ai — and whatever cannot be resolved is reported as a coverage gap. The figures above are target outcomes the proof of value is set up to measure, not results; they are illustrative, not contractual.",
-          scope: [
-            { label: "Sample", value: "One completed project" },
-            { label: "Data footprint", value: "Schedule, cost and contract exports" },
-            { label: "Human gate", value: "Expert validation on every material finding" }
-          ],
-          ndaLine: "Customer under NDA · results follow at the end of the proof of value",
-          downloadLabel: "Download the case summary"
-        }
+        caseStudy: null
       },
       technology: {
         narrative: "Static exports land in zoned OCI storage with lineage preserved. A conformed model resolves records to the lowest reliable unit, plan and actual are compared with cited drivers, and anything that could not be resolved is reported as a coverage gap.",
@@ -1384,7 +1365,7 @@ window.SITE_CONTENT = {
           { value: null, label: "Business-rule validators", qualifier: "Flag what a human must look at, before anything is exported", icon: "alert" },
           { value: null, label: "Confidence and a page citation", qualifier: "On every extracted value, before anything is exported", icon: "shield" }
         ],
-        metricsNote: "The figures the delivered proof of value produced are in the case study on this page.",
+        metricsNote: "The figure the delivered proof of value produced is in the case study on this page.",
         roi: {
           icon: "roi",
           text: "Two effects compound. Cycle time collapses — a document that took days moves in minutes, so onboarding a new counterparty stops being a month-long project. And the error class that costs the most, a rate keyed wrong and found at invoice reconciliation, is caught at review against a cited source page instead."
@@ -1511,14 +1492,12 @@ window.SITE_CONTENT = {
           descriptor: "An international airline",
           area: "Ground-handling contract management",
           industry: "travel-transport",
-          image: "assets/img/industries/travel-transport.jpg",
           status: "measured",
           metricsEyebrow: "Measured",
           metrics: [
-            { value: "5–15 min", label: "to extract a 60–100-page agreement end to end, down from 3–5 days" },
-            { value: "up to −20%", label: "targeted reduction in manual data-entry effort" }
+            { value: "5–15 min", label: "to extract a 60–100-page agreement end to end, down from 3–5 days" }
           ],
-          story: "Ground-handling contract rates were keyed into a cost-management system by hand — 60–100-page agreements read page by page. The extraction app runs on the customer’s own Oracle Cloud Infrastructure tenancy with NVIDIA AI-Q: reviewers validate AI-extracted rates beside the source PDF, every value cited to its page, and export in minutes. Targets from the proof of value; figures are illustrative, not contractual.",
+          story: "Ground-handling contract rates were keyed into a cost-management system by hand — 60–100-page agreements read page by page. The extraction app runs on the customer’s own Oracle Cloud Infrastructure tenancy with NVIDIA AI-Q: reviewers validate AI-extracted rates beside the source PDF, every value cited to its page, and export in minutes. Measured in the proof of value on the customer’s own documents; figures are illustrative, not contractual.",
           scope: [
             { label: "Document footprint", value: "60–100-page agreements" },
             { label: "Onboarding a new station, before", value: "About one month" },
@@ -1834,7 +1813,7 @@ window.SITE_CONTENT = {
           ]
         },
         moreDetail: [
-          { title: "Today", body: "Dispatchers maintain work zones and technician allocations by hand, region by region, juggling ZIP-code coverage, skills, working days and absences, with little room to optimize." },
+          { title: "Today", body: "Dispatchers maintain work zones and technician allocations by hand, region by region, juggling postcode coverage, skills, working days and absences, with little room to optimize." },
           { title: "Tomorrow", body: "The dispatcher uploads the period’s data, runs cuOpt on OCI, and reviews the optimized allocation on a live map — comparing, approving or re-running before export to Oracle Field Service. The solver returns the schedule that scores best against the weighted objectives." },
           { title: "Suboptimal efficiency", body: "Uneven workloads and under-used capacity." },
           { title: "Lower customer satisfaction", body: "Longer wait times from suboptimal allocations." },
@@ -1847,17 +1826,16 @@ window.SITE_CONTENT = {
           descriptor: "A global home-appliance manufacturer",
           area: "Field-service operations across three countries",
           industry: "manufacturing",
-          image: "assets/img/industries/manufacturing.jpg",
-          status: "measured",
-          metricsEyebrow: "Measured",
+          status: "modeled",
+          metricsEyebrow: "Modeled",
           metrics: [
             { value: "+4.5%", label: "median gain in jobs per technician per day, optimized against the current plan" },
             { value: "~5x", label: "return within three years on the modeled rollout" }
           ],
-          story: "Dispatchers planned a residential appliance-repair field force by hand — ZIP-code work zones and technician allocations, region by region. NVIDIA cuOpt on Oracle Cloud Infrastructure was run against the customer’s own historical operations data with dispatcher approval in the loop: 83% of the simulations came out positive, and dispatcher productivity improved 15–20% during the pilot. Results are modeled simulations against a historical baseline, not measured production outcomes.",
+          story: "Dispatchers planned a residential appliance-repair field force by hand — postcode-based work zones and technician allocations, region by region. NVIDIA cuOpt on Oracle Cloud Infrastructure was run against the customer’s own historical operations data with dispatcher approval in the loop: 83% of the 12 modeled simulations came out positive, and dispatcher productivity improved 15–20% during the pilot. Results are modeled simulations against a historical baseline, not measured production outcomes.",
           scope: [
             { label: "Duration", value: "Three months" },
-            { label: "Footprint", value: "Three countries" },
+            { label: "Data footprint", value: "Historical operations data" },
             { label: "Constraints modeled", value: "Around thirty" }
           ],
           ndaLine: "Customer under NDA · reference call available on request",
