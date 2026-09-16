@@ -206,23 +206,31 @@ Seven entries, in the order the Products page should list them:
 
 **`overview.sideFacts` is deleted.** The At-a-glance card went with it (round 3, H): every value on it was a denormalised copy of a fact printed elsewhere on the same page — the chips, the Jumpstart investment card, the stack — so it was a second place to keep in sync and the first to drift. The side rail now holds Outcomes & ROI alone. `check-grammar.js` fails if the key reappears.
 
-#### `overview.successStory`
+#### `overview.caseStudy`
 
-**`null` on five of the seven.** The key is always present; it is `null` wherever no named customer story ships, and the block then does not render at all. There is no empty state: a success-story section whose only content is "nothing published yet" is worse than its absence on a page sellers demo live in front of a customer.
+**Round 4, C1** — `overview.successStory` renamed and reshaped. **`null` on three of the seven.** The key is always present; it is `null` wherever no engagement ships, and the block then does not render at all. There is no empty state: a case-study section whose only content is "nothing published yet" is worse than its absence on a page sellers demo live in front of a customer.
+
+**No customer is named and no logo is rendered** (Alex, 2026-09-16). Each case identifies its customer by an **anonymized descriptor** — industry and scale only — and an **industry medallion** (a circle carrying the `industry-<key>` line icon) sits where a logo used to.
 
 | Key | Type | Notes |
 |---|---|---|
-| `customer` | string | The customer's real name. Only `Bosch` (workforce-optimization) and `Riyadh Air` (large-document-extraction) are cleared (Alex, 2026-09-14). |
-| `logo` | string | `assets/img/logos/<name>.<svg\|png>` — a light/white mark for the dark callout. |
-| `logoStacked?` | boolean | Same flag as on the evidence card: `true` for a stacked lockup, which is sized optically rather than by the flat height rule. |
-| `headline` | string | One line naming what the engagement did. |
-| `metrics` | `[{ value, label }]` | **Exactly two**, set as big figures. `value` ≤ 14 characters. Neither may repeat a side-rail tile on the same tab: the rail holds outcomes and ROI, so the story owns its two numbers and the reader meets each figure once. |
-| `story` | string | Two to three sentences: what was done, at what scale — **closing with the caveat sentence that qualifies the figures**. The callout has no footnote row of its own, so rule 1 of `VISUAL-GRAMMAR.md` is satisfied inside `story`; `check-grammar.js` fails a story with no "illustrative" / "modeled simulations" / "not contractual" clause. |
-| `downloadLabel` | string | Label of the link out. **Renders only when `SITE_CONFIG.products[slug].successStoryUrl` is non-empty**; otherwise no control renders in its place. It opens in a new tab rather than forcing a download, because browsers ignore `download` on a cross-origin URL. |
+| `descriptor` | string | Industry and scale, no name, no country, nothing that narrows the label to one company — e.g. *"A global home-appliance manufacturer"*, *"An international airline"*. It is the callout's title. |
+| `area` | string | The operational area, one short line under the descriptor: *"Field-service operations across three countries"*, *"Ground-handling contract management"*. |
+| `industry` | string | One of the sixteen fixed industry keys. Picks the medallion icon (`industry-<key>`) **and** must match the `image` filename. |
+| `image` | string | `assets/img/industries/<industry>.jpg` — the header band of the callout, under a dark gradient. Keyed by industry, so the file is shared with the industry tabs. |
+| `status` | `"measured"` \| `"in-progress"` | Picks the status chip from `shared.caseStudyStatus` — *"Measured in the proof of value"* or *"Proof of value in progress"*. |
+| `metricsEyebrow` | string | `Measured` for a `measured` case, `Target outcomes` for an `in-progress` one. The checker asserts the pairing. |
+| `metrics` | `[{ value, label }]` | **Exactly two**, set as big figures. `value` ≤ 18 characters. Where a case publishes no figure, `value` is a short **qualitative target** (*"Hours, not weeks"*, *"Evidence-backed"*) — **never an invented number**. Neither metric may repeat a side-rail tile on the same tab. |
+| `story` | string | Two to three sentences: what was done, on what data, with which stack — **closing with the caveat sentence that qualifies the figures**. The callout has no footnote row of its own, so rule 1 of `VISUAL-GRAMMAR.md` is satisfied inside `story`; `check-grammar.js` fails a story with no *illustrative* / *modeled simulations* / *not contractual* clause. On an in-progress case that sentence also says the figures are targets, not results. |
+| `scope` | `[{ label, value }]` | **Exactly three** facts, rendered as a compact row: duration, data footprint, constraint count, the human gate — whatever is external-safe for that engagement. **No contract value, no contract duration, no headcount, no € figure**, and nothing the research marks internal. |
+| `ndaLine` | string | The footer line. *"Customer under NDA · reference call available on request"* on a measured case; *"Customer under NDA · results follow at the end of the proof of value"* on one in progress, because a reference call about a proof of value that has not produced results is not a thing to offer. |
+| `downloadLabel` | string | Label of the link out. **Renders only when `SITE_CONFIG.products[slug].successStoryUrl` is non-empty**; otherwise no control renders in its place. |
 
-**No € figure from a customer's business case may appear here** — no contract values, headcounts, salaries or operating baselines. Ratios, durations and counts only. The Bosch figures come from the external-safe tier of `RESEARCH/07` §7.1; the Riyadh Air figures from the pack's own external sales one-pager.
+`customer`, `logo` and `logoStacked` are **removed** and `check-grammar.js` fails if any of them returns.
 
-The block renders as a **dark surface-level panel with a 3px teal left rule**, in the MAIN column after the industry use cases — not a white band, and not in the side rail.
+**No € figure from a customer's business case may appear here** — no contract values, headcounts, salaries or operating baselines. Ratios, durations and counts only.
+
+The block renders as a **dark surface-level panel with a 3px teal left rule**, in the MAIN column after the industry use cases — not a white band, and not in the side rail. Anatomy: image header band → medallion + descriptor + area → status chip → two big metrics under their eyebrow → story → scope row → NDA line → the optional download link.
 
 ### `technology`
 
@@ -322,8 +330,12 @@ The gate checks the domain of the entered email against `SITE_CONFIG.sellerGate.
 - Every product's `category` is one of the three `facets.categories[].id` values.
 - Every product's `jumpstart.next.length === 2`, in the order Integration → Scale, and `jumpstart.pillars` is `fast` → `low-risk` → `tangible`.
 - Every product has `tile.outcomes.length === 3`.
-- Every product fills every slot of the visual grammar: `hero.image`, `overview.problemSolution`, 1–4 `overview.metrics` plus `metricsNote`, `overview.roi`, 6–8 `overview.features`, 3–5 `overview.steps` covering every one of those features exactly once, 3–6 `overview.industryCases`, `overview.industriesNote`, `overview.scope.in/.out`, `overview.moreDetail`, `overview.successStory` (object or `null`), a 4–5 layer `technology.stack` with a required item in every layer, exactly four `technology.capabilities` stages, and the full `jumpstart` block.
-- No product carries `technology.groups`, `.layers`, `.integration`, `.notUsed`, `.flow` or `.security`; no product carries `overview.sideFacts` or a top-level `pov`.
+- Every product fills every slot of the visual grammar: `hero.image`, `overview.problemSolution`, 1–4 `overview.metrics` plus `metricsNote`, `overview.roi`, 6–8 `overview.features`, 3–5 `overview.steps` covering every one of those features exactly once, 3–6 `overview.industryCases`, `overview.industriesNote`, `overview.scope.in/.out`, `overview.moreDetail`, `overview.caseStudy` (object or `null`), a 4–5 layer `technology.stack` with a required item in every layer, exactly four `technology.capabilities` stages, and the full `jumpstart` block.
+- No product carries `technology.groups`, `.layers`, `.integration`, `.notUsed`, `.flow` or `.security`; no product carries `overview.sideFacts`, `overview.successStory` or a top-level `pov`.
+- No product carries `availability`, `availabilityChip` or `availabilityTooltip`, and no `tags` array carries *Available now*, *Fixed-price offer* or *In preparation*. Only `case-evidence-collection` and `plan-vs-actual-investigation` carry `statusNote`, and both do.
+- `shared.tagFamilies` covers all three `facets.categories[].id` values and all four `facets.technology[].id` values, and carries both availability badges. `shared.caseStudyStatus` carries exactly `measured` and `in-progress`.
+- `overview.caseStudies.length === 4`; every card's `descriptor`, `area`, `industry` and `status` equal its product's `overview.caseStudy` values, its `product.name` equals that product's `name`, and every `services.proof.caseStudyIds` entry resolves to one of the four.
+- `SITE_CONFIG.products[slug].marketplace` is a real boolean on all seven, and no product has a `marketplaceUrl` while `marketplace` is `false`.
 - `shared.contact` exists, its `email` is `oracle@softserveinc.com`, it carries three `bring` lines, and `shared.productTabs` carries `jumpstart` (with `legacyId: "pov"`) and `contacts` (with `legacyId: "demo"`), and neither a `pov` nor a `demo` tab id.
 - `tools/check-grammar.js` asserts all of the above. Run `node tools/check-grammar.js` after any edit to either data file; it exits non-zero and names every failure. Missing image files are **warnings**, not failures: copy and imagery ship on separate tracks.
-- The only person named anywhere in `content.js` is `shared.contact` — a person already printed by name, title and contact route on SoftServe's own external one-pagers. No customer name, no personal mailbox, no internal file name, no internal state name and no meeting date appears anywhere in the file.
+- The only person named anywhere in `content.js` is `shared.contact` — a person already printed by name, title and contact route on SoftServe's own external one-pagers. **No customer name appears anywhere in the file** (Alex, 2026-09-16 — this reverses the round-3 clearance that named two), and no path under `assets/img/logos/` is referenced. No personal mailbox, no internal file name, no internal state name and no meeting date appears either. `check-grammar.js` asserts both the name deny-list and the logo-path ban.

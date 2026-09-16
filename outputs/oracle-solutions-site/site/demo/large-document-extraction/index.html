@@ -19,11 +19,11 @@
     </div>
     <nav class="nav" aria-label="Sections">
       <button class="nav-item" data-nav="upload" type="button"><svg viewBox="0 0 24 24"><path d="M12 16V5M7 10l5-5 5 5"/><path d="M4 19h16"/></svg>Upload</button>
-      <button class="nav-item" data-nav="documents" type="button"><svg viewBox="0 0 24 24"><rect x="4" y="3.5" width="16" height="17" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>Documents<span class="nav-count" id="nav-doc-count">2</span></button>
+      <button class="nav-item" data-nav="documents" type="button"><svg viewBox="0 0 24 24"><rect x="4" y="3.5" width="16" height="17" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>Documents<span class="nav-count" id="nav-doc-count">4</span></button>
       <button class="nav-item" data-nav="history" type="button"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7v5l3.5 2"/></svg>History</button>
     </nav>
     <div class="side-foot">
-      <div class="user"><span class="avatar">JM</span><div><strong>Jordan Mercer</strong><span>Reviewer · Procurement</span></div></div>
+      <div class="user"><span class="avatar">JM</span><div><strong>Jordan Mercer</strong><span>Reviewer · Operations</span></div></div>
     </div>
   </aside>
 
@@ -31,6 +31,7 @@
     <header class="topbar">
       <div class="crumbs" id="crumbs">Upload</div>
       <div class="topbar-right">
+        <span class="saved" id="saved" hidden><svg viewBox="0 0 24 24"><path d="m5 12 4.5 4.5L19 7"/></svg>All changes saved</span>
         <span class="chip chip--demo" id="tour-pill" hidden>Guided walkthrough</span>
         <button class="btn btn--ghost btn--sm" id="tour-toggle" type="button">Exit guide</button>
       </div>
@@ -38,13 +39,13 @@
 
     <!-- ===== UPLOAD ===== -->
     <section class="screen" data-screen="upload">
-      <div class="page-head"><h1>Upload a document</h1><p>Drop a PDF or DOCX to classify it, route its pages and extract the agreed fields against your rules.</p></div>
+      <div class="page-head"><h1>Upload a document</h1><p>Drop a PDF or DOCX. It is classified by document type, routed page by page and extracted against that type's schema and rules.</p></div>
       <div class="upload-wrap">
         <button class="dropzone" id="dropzone" type="button">
           <span class="drop-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 16V6M7.5 10.5 12 6l4.5 4.5"/><path d="M5 19h14"/></svg></span>
           <strong>Drop your PDF or DOCX here</strong>
           <span>or click to browse</span>
-          <em>Native or scanned · up to 500 pages</em>
+          <em>Native or scanned · up to 500 pages · any document type with a schema</em>
         </button>
         <div class="processing" id="processing" hidden>
           <div class="proc-head">
@@ -54,26 +55,29 @@
           </div>
           <div class="bar"><span id="proc-bar"></span></div>
           <ol class="stages" id="stages">
-            <li data-stage="0"><i></i><span>Classify document</span><em></em></li>
+            <li data-stage="0"><i></i><span>Classify the document</span><em></em></li>
             <li data-stage="1"><i></i><span>Route pages to extractors</span><em></em></li>
             <li data-stage="2"><i></i><span>Extract fields against the schema and rules</span><em></em></li>
             <li data-stage="3"><i></i><span>Score confidence and cite source pages</span><em></em></li>
             <li data-stage="4"><i></i><span>Run business-rule validators</span><em></em></li>
           </ol>
         </div>
+        <div class="sources"><span>Sources</span><span class="chip chip--muted">Manual upload</span><span class="chip chip--ok">Contract repository · connected</span><span class="sources-note">Documents that land in the repository are picked up on their own — the policy schedule below arrived this morning.</span></div>
       </div>
       <div class="recent">
-        <h2>Recent uploads</h2>
+        <h2>Recent documents</h2>
         <ul id="recent-list"></ul>
       </div>
     </section>
 
     <!-- ===== DOCUMENTS ===== -->
     <section class="screen" data-screen="documents" hidden>
-      <div class="page-head row"><div><h1>Documents</h1><p id="doc-count-line">3 documents</p></div><label class="search"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4 4"/></svg><input type="search" placeholder="Search documents" aria-label="Search documents"></label></div>
+      <div class="page-head row"><div><h1>Documents</h1><p id="doc-count-line">4 documents</p></div><label class="search"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4 4"/></svg><input type="search" placeholder="Search documents" aria-label="Search documents"></label></div>
+      <div class="kpis" id="kpis"></div>
+      <div class="chips" id="type-chips" role="group" aria-label="Filter by document type"></div>
       <div class="card table-card">
         <table class="table" id="doc-table">
-          <thead><tr><th>Document</th><th>Counterparty</th><th>Category</th><th>Pages</th><th>Uploaded</th><th>Status</th><th class="num">Values</th></tr></thead>
+          <thead><tr><th>Document</th><th>Type · schema</th><th>Counterparty</th><th>Pages</th><th>Arrived</th><th>Status</th><th class="num">Values</th></tr></thead>
           <tbody></tbody>
         </table>
       </div>
@@ -92,7 +96,7 @@
         <div class="panel">
           <div class="tabs" role="tablist" id="tabs">
             <button class="tab is-active" role="tab" data-tab="review" type="button">Review</button>
-            <button class="tab" role="tab" data-tab="ratecard" type="button">Rate card</button>
+            <button class="tab" role="tab" data-tab="ratecard" type="button">Export</button>
             <button class="tab" role="tab" data-tab="json" type="button">JSON</button>
             <button class="tab" role="tab" data-tab="history" type="button">History</button>
           </div>
@@ -106,8 +110,10 @@
             </div>
             <div class="tabpane" data-pane="ratecard">
               <div class="card">
-                <div class="pane-head"><div><span class="eyebrow">Export</span><h2>Rate card</h2><p>Flat rate card — the same columns as the downloaded file.</p></div><button class="btn btn--primary btn--sm" id="download-xlsx" type="button"><svg viewBox="0 0 24 24"><path d="M12 5v10M7.5 10.5 12 15l4.5-4.5"/><path d="M5 19h14"/></svg>Download .xlsx</button></div>
-                <div class="table-scroll"><table class="table table--dense" id="ratecard-table"><thead><tr><th>Document</th><th>Counterparty</th><th>Group</th><th>Service</th><th>Sites</th><th>Rate basis</th><th class="num">Rate</th><th>Currency</th><th>Section</th><th>Source page</th><th>Status</th></tr></thead><tbody></tbody></table></div>
+                <div class="pane-head"><div><span class="eyebrow">Export</span><h2>Approved values</h2><p id="export-sub">Flat table against the reference template — the same columns as the file you download.</p></div>
+                  <div class="export-controls"><span class="seg" id="format-seg"><button type="button" data-format="xlsx" class="is-active">XLSX</button><button type="button" data-format="csv">CSV</button></span><button class="btn btn--primary btn--sm" id="download-xlsx" type="button"><svg viewBox="0 0 24 24"><path d="M12 5v10M7.5 10.5 12 15l4.5-4.5"/><path d="M5 19h14"/></svg>Download .xlsx</button><button class="btn btn--ghost btn--sm" id="push-target" type="button"><svg viewBox="0 0 24 24"><path d="M4 12h13M13 6l6 6-6 6"/></svg>Send to target system</button></div></div>
+                <div class="export-meta"><span class="chip chip--muted" id="template-chip">Template: —</span><span class="chip chip--muted">Target: cost / ERP system · connector configured</span></div>
+                <div class="table-scroll"><table class="table table--dense" id="ratecard-table"><thead><tr><th>Document</th><th>Type</th><th>Group</th><th>Field</th><th>Scope</th><th>Basis</th><th class="num">Value</th><th>Currency</th><th>Section</th><th>Source page</th><th>Status</th></tr></thead><tbody></tbody></table></div>
               </div>
             </div>
             <div class="tabpane" data-pane="json"><div class="card"><div class="pane-head"><div><span class="eyebrow">Export</span><h2>JSON</h2><p>Every approved value with its citation, ready for the target system.</p></div></div><pre class="json" id="json-out"></pre></div></div>
@@ -140,8 +146,8 @@
   <div class="modal-card gate" role="dialog" aria-modal="true">
     <span class="eyebrow">Interactive walkthrough</span>
     <h2 id="gate-title">Large docs processing and review</h2>
-    <p id="gate-body">You will upload a 48-page supplier agreement, watch it get classified and extracted, follow a value back to the page it came from, resolve one flagged exception, and export the rate card. Six steps, about two minutes. Only the highlighted control is active at each step.</p>
-    <div class="gate-actions"><button class="btn btn--primary" id="gate-start" type="button">Start the walkthrough</button><button class="btn btn--ghost" id="gate-free" type="button">Explore freely</button></div>
+    <p id="gate-body">You will upload a 48-page supplier agreement, watch it get classified and extracted against that document type's schema, follow a value back to the page it came from, resolve one flagged exception, and export the approved values. Six steps, about two minutes. Only the highlighted control is active at each step.</p>
+    <div class="gate-actions"><button class="btn btn--primary" id="gate-start" type="button">Start the walkthrough</button><button class="btn btn--ghost" id="gate-free" type="button">Explore freely</button><button class="btn btn--ghost" id="gate-alt" type="button" hidden>Open the insurance policy</button></div>
     <p class="gate-note">Demo data only — no document is uploaded and nothing leaves this page.</p>
   </div>
 </div>
