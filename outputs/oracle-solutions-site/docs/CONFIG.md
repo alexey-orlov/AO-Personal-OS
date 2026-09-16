@@ -207,6 +207,16 @@ demoUrl: "demo/large-document-extraction/index.html",
 
 Non-empty → two controls appear together: the secondary **"Try the interactive demo"** button in the product hero (its label is `shared.demoCta` in `content.js`), and the same button inside the panel the pending video frame opens. Both open the walkthrough in a **new tab** — it carries its own guide and locks every control but the one it points at, and a seller mid-call must keep the product page behind it. Empty → neither control exists. An absolute URL on another host renders the same button.
 
+### `demoPreviewUrl`
+
+Only matters while the site itself is previewed as a **claude.ai artifact**. There, a relative `demoUrl` opens the artifact's supporting file as a top-level page, which the artifact host refuses (`ERR_BLOCKED_BY_RESPONSE`, seen 2026-09-16). So on that host — and only there (`pages/product.js` checks the hostname) — the two buttons go to this URL instead: the walkthrough published as its **own** artifact.
+
+```js
+demoPreviewUrl: "https://claude.ai/artifact/NdxY4f1D6hxC7pjyMRs6zP",
+```
+
+On the site's real host it is ignored and the relative `demoUrl` is used, so nothing has to change at deployment. Keep it in step with `demoUrl`: republish the standalone demo artifact whenever the walkthrough changes, or the preview shows an older demo than the site ships.
+
 ### `video`
 
 A boolean — the only non-URL field in a product block. **It decides whether the hero carries a demo frame at all**, which is also the switch between the hero's two layouts.

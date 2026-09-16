@@ -108,6 +108,21 @@
       "</button></div>";
   }
 
+  /* Where the walkthrough button goes. `demoUrl` is the canonical, relative
+     path — the walkthrough ships inside site/ and deploys with it. But while the
+     site itself is previewed as a claude.ai artifact, a relative link opens the
+     artifact's supporting file as a top-level page, which the artifact host
+     refuses (ERR_BLOCKED_BY_RESPONSE); there the button goes to the standalone
+     demo artifact in `demoPreviewUrl` instead. On any other host the relative
+     path is used and `demoPreviewUrl` is ignored. */
+  function demoHref(conf) {
+    if (!conf.demoUrl) return "";
+    var onArtifactHost = /(^|\.)claude\.ai$/i.test(window.location.hostname) ||
+      /\/code\/frame\/|\/_f\//.test(window.location.pathname);
+    if (onArtifactHost && conf.demoPreviewUrl) return conf.demoPreviewUrl;
+    return conf.demoUrl;
+  }
+
   function heroCtas(product, hasMedia) {
     var UI = window.UI;
     var conf = cfg(product.slug);
@@ -121,7 +136,7 @@
        page behind it. Rendered only when a demoUrl is configured. */
     if (conf.demoUrl) {
       out.push(UI.button({
-        label: C().shared.demoCta, href: conf.demoUrl,
+        label: C().shared.demoCta, href: demoHref(conf),
         kind: "secondary", iconAfter: "external",
         attrs: { target: "_blank", rel: "noopener" }
       }));
@@ -986,7 +1001,7 @@
       button.addEventListener("click", function () {
         var demo = conf.demoUrl
           ? UI.button({
-              label: C().shared.demoCta, href: conf.demoUrl,
+              label: C().shared.demoCta, href: demoHref(conf),
               kind: "secondary", iconAfter: "external",
               attrs: { target: "_blank", rel: "noopener" }
             })

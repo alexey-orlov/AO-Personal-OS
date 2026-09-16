@@ -19,6 +19,7 @@ window.SITE_CONFIG = {
     "account-insights": {
       marketplaceUrl: "",
       demoUrl: "",
+      demoPreviewUrl: "",
       video: true,
       videoUrl: "",
       videoPoster: "",
@@ -34,6 +35,7 @@ window.SITE_CONFIG = {
     "case-evidence-collection": {
       marketplaceUrl: "",
       demoUrl: "",
+      demoPreviewUrl: "",
       video: false,
       videoUrl: "",
       videoPoster: "",
@@ -48,6 +50,7 @@ window.SITE_CONFIG = {
     "plan-vs-actual-investigation": {
       marketplaceUrl: "",
       demoUrl: "",
+      demoPreviewUrl: "",
       video: false,
       videoUrl: "",
       videoPoster: "",
@@ -62,6 +65,7 @@ window.SITE_CONFIG = {
     "large-document-extraction": {
       marketplaceUrl: "",
       demoUrl: "demo/large-document-extraction/index.html",
+      demoPreviewUrl: "https://claude.ai/artifact/NdxY4f1D6hxC7pjyMRs6zP",
       video: true,
       videoUrl: "",
       videoPoster: "assets/img/posters/large-document-extraction.jpg",
@@ -77,6 +81,7 @@ window.SITE_CONFIG = {
     "workforce-optimization": {
       marketplaceUrl: "",
       demoUrl: "",
+      demoPreviewUrl: "",
       video: true,
       videoUrl: "",
       videoPoster: "",
@@ -92,6 +97,7 @@ window.SITE_CONFIG = {
     "cross-system-erp-qa": {
       marketplaceUrl: "",
       demoUrl: "",
+      demoPreviewUrl: "",
       video: false,
       videoUrl: "",
       videoPoster: "",
@@ -107,6 +113,7 @@ window.SITE_CONFIG = {
     "business-metrics-qa": {
       marketplaceUrl: "",
       demoUrl: "",
+      demoPreviewUrl: "",
       video: false,
       videoUrl: "",
       videoPoster: "",

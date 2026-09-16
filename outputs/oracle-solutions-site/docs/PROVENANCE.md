@@ -1162,6 +1162,11 @@ prints `undefined` rather than failing loudly.
   `videoPoster` for Large docs; `content.js` gains `shared.demoCta`;
   `product.js` renders the secondary hero button and the same button inside the
   pending-video panel, both `target="_blank"`.
+- **Found on the first click (Alex, 2026-09-16):** on the claude.ai preview the
+  relative link died with `ERR_BLOCKED_BY_RESPONSE` — the artifact host refuses
+  to serve a supporting file as a top-level page. `demoPreviewUrl` (the
+  walkthrough as its own artifact) was added and `product.js` uses it only on
+  that host; the relative path stays canonical for the real deployment.
 - Step frames 1–4 for Large docs are captures of the walkthrough (`ASSETS.md`
   §1); the two video-derived frames and the two illustrations are gone.
 
