@@ -281,7 +281,7 @@ window.SITE_CONTENT = {
       lead: "Each agent runs in your own Oracle tenancy. Open one for how it works, what it needs from you, and the Jumpstart scope.",
       patterns: [
         { id: "deep-research", definition: "Agents that read across your systems and outside sources, then bring back a cited answer for a person to act on." },
-        { id: "processing-pipelines", definition: "Long documents and records turned into checked, structured data. Every value is traced to its source page and confirmed by a reviewer before it leaves." },
+        { id: "processing-pipelines", definition: "Long documents and records become checked, structured data. Every value is traced to its source page and confirmed by a reviewer before it leaves." },
         { id: "data-analysis", definition: "Plain-language answers over your governed data, and plans computed against every constraint at once, approved by the people who own the decision." }
       ],
       cta: { label: "See all products, with filters", route: "#/products" }
@@ -315,7 +315,7 @@ window.SITE_CONTENT = {
       title: "What we’ve proven, and what we’re proving now.",
       body: "Every customer is under NDA, so each engagement is described by industry and scale.",
       ndaLine: "Reference calls on request.",
-      cta: { label: "How we measure it, engagement by engagement", route: "#/services#proof" }
+      cta: { label: "How we measure it", route: "#/services#proof" }
     },
 
     caseStudies: [
@@ -466,7 +466,7 @@ window.SITE_CONTENT = {
       categoryChip: "Deep research",
       facet: "oci-nvidia",
       oneLiner: "Turns news, filings and market signals into cited, per-account opportunities and risks that sales and account teams can act on.",
-      shortLine: "Market signals turned into cited, scored opportunities for every account.",
+      shortLine: "What a market signal means for each account, scored and sourced.",
       tags: ["Deep research", "OCI + NVIDIA"],
       hero: {
         image: {
@@ -791,7 +791,7 @@ window.SITE_CONTENT = {
       categoryChip: "Deep research",
       facet: "oci-nvidia",
       oneLiner: "Assembles the evidence trail for a case or complaint out of every system that holds a piece of it — cited, time-stamped, and ready for an investigator to decide on.",
-      shortLine: "The evidence trail for a case, assembled from every system and cited.",
+      shortLine: "The evidence trail for a case, pulled from every system involved.",
       statusNote: "In preparation — scoping conversations are open.",
       tags: ["Deep research", "OCI + NVIDIA"],
       hero: {
@@ -1433,7 +1433,7 @@ window.SITE_CONTENT = {
       categoryChip: "Document processing",
       facet: "oci-nvidia",
       oneLiner: "Turns long, complex documents into validated, structured data — every extracted value carries a confidence score and a citation to its source page.",
-      shortLine: "Long documents turned into validated, structured data, every value cited.",
+      shortLine: "Long documents read, extracted and checked against your business rules.",
       heroCaption: "100-page contract in minutes.",
       tags: ["Document processing", "OCI + NVIDIA"],
       hero: {
