@@ -1032,6 +1032,17 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 .checkline { display: flex; align-items: flex-start; gap: .625rem; font-size: var(--fs-sm); color: var(--text-body); cursor: pointer; }
 .checkline input { accent-color: var(--accent); width: 1rem; height: 1rem; margin-top: .2rem; flex: none; }
 
+/* The Availability group: two checkboxes with faceted counts, in the same
+   shape the radio groups above them use. A box that can only ever return an
+   empty grid is disabled rather than a dead end on a page demoed live. */
+.rail-checks { display: flex; flex-direction: column; gap: .5rem; }
+.rail-checks .checkline { align-items: center; gap: .5rem; padding: .25rem .125rem; }
+.rail-checks .checkline input { margin-top: 0; }
+.rail-checks .rail-option-label { flex: 1; min-width: 0; }
+.checkline.is-empty { color: var(--text-dim); opacity: .6; cursor: default; }
+.checkline:has(input:checked) { color: var(--text); font-weight: 600; }
+.checkline:has(input:checked) .rail-option-count { color: var(--accent); }
+
 .field { display: flex; flex-direction: column; gap: .5rem; }
 .field-label { font-size: var(--fs-xs); letter-spacing: .1em; text-transform: uppercase; font-weight: 600; color: var(--text-dim); }
 .field-error { font-size: var(--fs-xs); color: #FF9F8E; }
@@ -1377,6 +1388,15 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 .product-lead { max-width: 44rem; font-size: 1.1875rem; }
 .product-subline { max-width: 46rem; color: var(--text-muted); }
 .product-hero-chips { margin-top: .25rem; }
+
+/* The one thing the badges cannot say is that no package exists yet: a muted
+   status line under the one-liner, on the two unpackaged products only. */
+.hero-status-note {
+  max-width: 46rem;
+  font-size: var(--fs-sm);
+  line-height: 1.55;
+  color: var(--text-dim);
+}
 .product-hero-cta { margin-top: .75rem; }
 
 .hero-badges { display: flex; flex-wrap: wrap; gap: .5rem 1.75rem; }
