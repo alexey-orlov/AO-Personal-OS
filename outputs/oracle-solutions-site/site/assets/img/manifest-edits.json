@@ -132,28 +132,28 @@
     ],
     "cross-system-erp-qa": [
       {
-        "file": "steps/cross-system-erp-qa-1.svg",
-        "kind": "illustration",
-        "caption": "Someone asks in plain language across the estate",
-        "alt": "A question bar fanning down to four system stores"
+        "file": "steps/cross-system-erp-qa-1.jpg",
+        "kind": "screenshot",
+        "caption": "Five source catalogs mounted in one data catalog",
+        "alt": "A data catalog with five mounted source catalogs and its certified views"
       },
       {
-        "file": "steps/cross-system-erp-qa-2.svg",
-        "kind": "illustration",
-        "caption": "The question resolves onto governed tables",
-        "alt": "A question resolving through a model layer onto governed tables"
+        "file": "steps/cross-system-erp-qa-2.jpg",
+        "kind": "screenshot",
+        "caption": "The model health band after the rebuild",
+        "alt": "Six health tiles reading before and after the model rebuild"
       },
       {
-        "file": "steps/cross-system-erp-qa-3.svg",
-        "kind": "illustration",
-        "caption": "Records that disagree reconcile into one answer",
-        "alt": "Three system records merging into one checked answer"
+        "file": "steps/cross-system-erp-qa-3.jpg",
+        "kind": "screenshot",
+        "caption": "Every answer row carries the systems it came from",
+        "alt": "An answer grid with per-row source badges above an open agent trace"
       },
       {
-        "file": "steps/cross-system-erp-qa-4.svg",
-        "kind": "illustration",
-        "caption": "The answer carries the systems it came from",
-        "alt": "An answer card with a merge glyph and three source chips"
+        "file": "steps/cross-system-erp-qa-4.jpg",
+        "kind": "screenshot",
+        "caption": "A steward overrules a match and the band recomputes",
+        "alt": "The health band recomputed, with the two changed tiles ringed"
       }
     ],
     "business-metrics-qa": [
