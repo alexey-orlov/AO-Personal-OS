@@ -65,6 +65,15 @@
     trigger: '<path d="M20 12a8 8 0 1 1-2.4-5.7"></path><path d="M20.5 4v4.2h-4.2"></path>',
     eye: '<path d="M2.5 12S6 6 12 6s9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6Z"></path><circle cx="12" cy="12" r="2.8"></circle>',
     audit: '<rect x="5" y="3" width="14" height="18" rx="2"></rect><path d="M9 8h6M9 12h6M9 16h3"></path>',
+    storefront: '<path d="M4.5 10.5V20a1 1 0 0 0 1 1h13a1 1 0 0 0 1-1v-9.5"></path><path d="M3 10.2 4.8 4.4a1 1 0 0 1 1-.7h12.4a1 1 0 0 1 1 .7L21 10.2a2.5 2.5 0 0 1-4.5 1.9 2.5 2.5 0 0 1-4.5 0 2.5 2.5 0 0 1-4.5 0A2.5 2.5 0 0 1 3 10.2Z"></path><path d="M9.5 21v-5.4h5V21"></path>',
+
+    "pattern-deep-research": '<circle cx="10.5" cy="10.5" r="7"></circle><path d="m20.5 20.5-5-5"></path><circle cx="8.2" cy="12.4" r="1.3"></circle><circle cx="12.9" cy="12.4" r="1.3"></circle><circle cx="10.6" cy="8.1" r="1.3"></circle><path d="M9.5 11.3 10.1 9.4M11.6 11.3 11.1 9.4M9.5 12.4h2.1"></path>',
+    "pattern-processing-pipelines": '<rect x="2.5" y="8.5" width="6" height="7" rx="1.5"></rect><rect x="15.5" y="8.5" width="6" height="7" rx="1.5"></rect><path d="M8.5 12h7M13.5 10.1 15.5 12l-2 1.9"></path>',
+    "pattern-data-analysis": '<path d="M3.5 20.5h17"></path><rect x="5.5" y="12" width="3.4" height="8" rx="1"></rect><rect x="10.3" y="8.5" width="3.4" height="11.5" rx="1"></rect><rect x="15.1" y="5" width="3.4" height="15" rx="1"></rect>',
+    "platform-oci-nvidia": '<path d="M7.6 12.2a3.4 3.4 0 0 1 .5-6.7 4.7 4.7 0 0 1 8.8.9 3.2 3.2 0 0 1 .5 5.8"></path><rect x="8.5" y="13.2" width="7" height="7" rx="1.5"></rect><path d="M10.8 20.2v1.3M13.2 20.2v1.3M8.5 15.5H7.2M8.5 17.9H7.2M16.8 15.5h-1.3M16.8 17.9h-1.3"></path>',
+    "platform-oracle-ai-data-platform": '<ellipse cx="12" cy="6" rx="7.5" ry="3"></ellipse><path d="M4.5 6v12c0 1.7 3.4 3 7.5 3s7.5-1.3 7.5-3V6"></path><path d="m8.5 13 2.6 2.6 5-5"></path>',
+    "platform-oracle-autonomous-ai-lakehouse": '<path d="m12 3 8.5 4.2L12 11.4 3.5 7.2z"></path><path d="m3.5 12 8.5 4.2 8.5-4.2"></path><path d="m3.5 16.8 8.5 4.2 8.5-4.2"></path>',
+    "platform-other": '<rect x="3.5" y="4" width="17" height="6" rx="1.8"></rect><rect x="3.5" y="14" width="17" height="6" rx="1.8"></rect><path d="M7 7h.01M7 17h.01"></path>',
 
     "industry-manufacturing": '<path d="M3.5 20V11l5 3V11l5 3V7l5.5 4v9Z"></path><path d="M2.5 20h19"></path>',
     "industry-logistics": '<rect x="2.5" y="7" width="10.5" height="9" rx="1.5"></rect><path d="M13 10h4l4 3.5V16h-8z"></path><circle cx="7" cy="18.3" r="1.7"></circle><circle cx="17" cy="18.3" r="1.7"></circle>',
@@ -110,18 +119,91 @@
       dot + esc(opts.label) + "</" + tag + ">";
   }
 
-  var AVAILABILITY_DOT = {
-    "available": "available",
-    "fixed-price-offer": "offer",
-    "in-preparation": "preparation"
-  };
+  /* ————— the three tag families (VISUAL-GRAMMAR §1.2) —————
+     A workflow pattern, the platform it runs on and what a reader can act on
+     were one undifferentiated navy run until round 4. They are now three
+     shapes — outlined chip, solid pill, teal badge — and each names its family
+     in the tooltip, so nobody has to know the taxonomy to read the row. */
 
-  function availabilityChip(product) {
-    return chip({
-      label: product.availabilityChip,
-      tip: product.availabilityTooltip,
-      dot: AVAILABILITY_DOT[product.availability] || "preparation"
-    });
+  function tagFamilies() {
+    return (C.shared && C.shared.tagFamilies) || {};
+  }
+
+  function categoryEntry(id) {
+    var found = (C.facets.categories || []).filter(function (c) { return c.id === id; })[0];
+    return found || { id: id, chip: id, full: "" };
+  }
+
+  /* `family` is "pattern" or "tech"; `id` is the facet or category id whose
+     label and glyph the chip carries. An extra `tags[]` string has no id of its
+     own and passes its text as `options.label` — same family, no glyph. */
+  function tagChip(family, id, options) {
+    var opts = options || {};
+    var fam = tagFamilies()[family] || {};
+    var label = opts.label;
+    var full = "";
+    var glyph = "";
+
+    if (label === undefined || label === null) {
+      if (family === "pattern") {
+        var category = categoryEntry(id);
+        label = category.chip;
+        full = category.full;
+      } else {
+        var facet = facetLabel(id);
+        label = facet.label;
+        full = facet.fullLabel;
+      }
+      glyph = (fam.icons && fam.icons[id]) || "";
+    }
+
+    var hint = [fam.tooltip, full && full !== label ? full : ""].filter(Boolean).join(" · ");
+    var classes = ["chip", family === "pattern" ? "chip--outline" : "chip--meta", "chip--tag"];
+
+    return '<span class="' + classes.join(" ") + '"' +
+      attrs({ title: hint || null, "aria-label": hint ? label + " — " + hint : null }) + ">" +
+      (glyph ? icon(glyph, "chip-icon") : "") +
+      "<span>" + esc(label) + "</span></span>";
+  }
+
+  /* A badge is an action, not a label — which is why it is read off the config
+     flag that decides whether the thing it claims exists at all. */
+  function badgeHtml(def, options) {
+    var opts = options || {};
+    var inner = icon(def.icon, "badge-icon") + "<span>" + esc(def.label) + "</span>";
+    var common = ' class="badge' + (opts.href || opts.action ? " badge--action" : "") + '"' +
+      attrs({ title: def.tooltip, "aria-label": def.label + " — " + def.tooltip });
+    if (opts.href) {
+      return "<a" + common + attrs({ href: opts.href, target: "_blank", rel: "noopener" }) + ">" +
+        inner + "</a>";
+    }
+    if (opts.action) {
+      return '<button type="button"' + common + attrs(opts.attrs || {}) + ">" + inner + "</button>";
+    }
+    return "<span" + common + ">" + inner + "</span>";
+  }
+
+  /* Maximum two, both optional: Demo where the product carries a frame, and
+     Oracle Marketplace where a listing exists. A listing with no URL still
+     renders the badge — the flag says the listing is there — but it is inert
+     rather than a link to nowhere. */
+  function availabilityBadges(slug) {
+    var conf = (CFG.products && CFG.products[slug]) || {};
+    var defs = tagFamilies().availability || {};
+    var out = [];
+    if (conf.video === true && defs.demo) {
+      out.push(badgeHtml(defs.demo, { action: true, attrs: { "data-demo-badge": slug } }));
+    }
+    if (conf.marketplace === true && defs.marketplace) {
+      out.push(badgeHtml(defs.marketplace, conf.marketplaceUrl ? { href: conf.marketplaceUrl } : {}));
+    }
+    return out.join("");
+  }
+
+  function badgeRow(slug, className) {
+    var badges = availabilityBadges(slug);
+    if (!badges) return "";
+    return '<span class="badge-row' + (className ? " " + className : "") + '">' + badges + "</span>";
   }
 
   function button(options) {

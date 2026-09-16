@@ -48,9 +48,9 @@ future product screenshot has to meet before it ships.
 | File | Shows | Capture state |
 |---|---|---|
 | `large-document-extraction-1.jpg` | Upload: the pipeline stages — classify, route pages, extract, score and cite, validate | Upload screen mid-processing |
-| `large-document-extraction-2.jpg` | Extract: a service group expanded — rows, rate basis, section, confidence, status | Review tab, Routine cleaning open |
+| `large-document-extraction-2.jpg` | Extract: a group expanded in the columns its schema needs — rows, rate basis, section, confidence, status | Review tab, Routine cleaning open |
 | `large-document-extraction-3.jpg` | Score, cite, validate: the flagged row's details — evidence, confidence, the validator's rule and its suggested fix | Review tab, Volume discounts open, flagged row selected |
-| `large-document-extraction-4.jpg` | Review and export: the flat rate card and the download | Rate card tab after approval |
+| `large-document-extraction-4.jpg` | Review and export: the flat table against the reference template, XLSX / CSV, and the send to the target system | Export tab after approval |
 
 **Capture.** `tools/capture-demo-frames.mjs` drives the walkthrough in headless
 Chrome over the DevTools protocol (`MODE=frames DPR=2`, the page opened with
@@ -69,6 +69,8 @@ full review screen with the first group open and no details panel, set as
 `videoPoster` so the pending video frame shows a still of the product instead of
 the plate. It is a distinct capture from every step frame, as VISUAL-GRAMMAR §1
 requires.
+
+**Re-captured 2026-09-16** after the generalisation round — two document types, schema-specific columns per group, four validator kinds (PROVENANCE §16.4) — with the same crops and the same capture states.
 
 **Superseded.** The two earlier real-UI frames (`-2`, `-3`, crops of the
 customer-demo recording on the synthetic `SYN-GHA-RL-001` ground-handling

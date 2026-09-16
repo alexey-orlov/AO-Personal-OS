@@ -1471,3 +1471,45 @@ gain. It is what gates the case study's download link.
 
 `check-grammar.js` passes with **0 failures and 0 warnings** on this data; it
 asserts the new slots and cannot see the renderers.
+
+### 16.4 Red-team round — is the demo narrower than the pack? (2026-09-16)
+
+Alex asked whether the walkthrough was narrower than what the package docs
+generalise. Checked against the sales one-pager (rates, rules and terms; four
+verticals; the S/M/L feature rows), the Jul-27 accelerator one-pager (the
+capability matrix and its worked examples per vertical) and the site's own
+product copy. Four gaps, all closed **without touching the flow, the screens or
+the information model** (upload → documents → split-view review → export; groups
+→ rows → citation + confidence + status), so the demo stays a faithful preview of
+the delivered reviewer:
+
+- **Rates only.** The agreement now also carries **Commercial terms** (initial
+  term, renewal notice, payment terms, indexation, service credits, termination —
+  cited to clause paragraphs, not tables) and **Insurance requirements**
+  (Schedule G): 34 values in 10 groups.
+- **One document type, decorative classification.** Every document now shows its
+  **type and schema** (list and metadata card); a **second document of another
+  type opens** — an insurance policy schedule (locations, deductibles, sub-limits,
+  endorsements, premium) with its own schema; the documents list gains a type
+  filter and a KPI strip; a lease and a regulatory filing sit in the list as
+  scenery.
+- **One validator.** Now **four validator kinds plus low-confidence routing**:
+  a suggested fix (tier continuity, on the agreement), a value outside its
+  expected band against the prior document, a required field not found (enter
+  the value or mark it N/A), a cross-field check (instalments vs premium), and a
+  value under the 85% threshold routed to a reviewer. Approve all never touches a
+  flag.
+- **No integration or KPI surface.** A sources strip (manual upload · connected
+  repository), export as XLSX / CSV / JSON against a named reference template
+  with a mocked send to the cost / ERP target, and a KPI strip (documents,
+  types, values, approved-without-edit share, benchmark accuracy on an annotated
+  set). **The accuracy figure is synthetic** — flagged to Alex as the one number
+  he may want removed.
+- Also aligned with the real product: **schema-specific columns per group** —
+  the discount table carries "Visits from / to", the rate table "Rate basis /
+  Rate" — as the DOX reviewer does (its discount-handling table has different
+  columns from its basic-handling table).
+
+`tools/capture-demo-frames.mjs` gained a data-driven `MODE=script`;
+`tools/capture-policy-scenario.json` walks the second document type through its
+validator kinds. Frames and poster re-captured.

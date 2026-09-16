@@ -9,6 +9,8 @@
 //   MODE=frames    — the four step frames + the poster, tour off: open the URL with
 //                    ?tour=off&ui=clean and set DPR=2; then crop per docs/ASSETS.md §1
 //   MODE=site      — the product page: hero, stepper, pending-video panel
+//   MODE=script    — data-driven: STEPS=<json> of click / sleep / shot / eval / type steps
+//                    (tools/capture-policy-scenario.json walks the second document type)
 // Fonts from Google are blocked (ALLOW_NET=1 to allow) so a slow network cannot
 // stall the capture; system fallbacks render instead.
 import { spawn } from "node:child_process";
