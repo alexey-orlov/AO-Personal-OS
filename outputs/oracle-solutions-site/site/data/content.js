@@ -18,14 +18,6 @@ window.SITE_CONTENT = {
     ],
     navCta: { label: "Talk to us", route: "#/services#contact" },
     primaryCta: { label: "Request a demo", route: "#/#request-a-demo" },
-    secondaryCta: { label: "Browse the products", route: "#/products" },
-    dividerLabels: {
-      builtOn: "Built on",
-      whatWeBuild: "What we build",
-      proof: "Proof",
-      howWeProveIt: "How we prove it",
-      howWeEngage: "How we engage"
-    },
     footer: {
       heading: "CONTACT US",
       description: "Tell us which account or workflow you have in mind.",
@@ -92,7 +84,7 @@ window.SITE_CONTENT = {
       title: "Before the clock starts",
       body: "Sponsor named, two to three success metrics signed, source access approved in writing. The gate is what protects the fixed price."
     },
-    engageLink: { label: "How we engage, in three packages →", route: "#/services#how-we-engage" },
+    engageLink: { label: "How we engage, from proof of value to scale →", route: "#/services#how-we-engage" },
     productTabs: [
       { id: "overview", label: "Overview" },
       { id: "technology", label: "Technology" },
@@ -113,7 +105,6 @@ window.SITE_CONTENT = {
         "The timeline you are working to, and what a good result would look like"
       ]
     },
-    ladderColumns: ["Proof of value", "Roll-out", "Scaling"],
     heroAsideTitle: "What you get",
     heroAsideFootLabel: "Proof of value",
     videoCaption: "Watch the demo",
@@ -2711,166 +2702,98 @@ window.SITE_CONTENT = {
         alt: "An engineer seen from behind at a wall of code on dark monitors in a low-lit workspace",
         focal: "50% 50%"
       },
-      headline: { accent: "ORACLE", rest: "DEDICATED PRACTICE" },
-      lead: "SoftServe’s Oracle practice pairs the delivery depth of a 500-strong data and analytics practice with architects and engineers dedicated to the Oracle AI stack.",
-      secondParagraph: "The practice focuses on two things: joint delivery with Oracle’s AI & Data organization, and repeatable accelerator packs on four Oracle platforms.",
+      headline: { accent: "FROM ORACLE’S PLATFORMS", rest: "TO AGENTS IN PRODUCTION." },
+      lead: "Oracle provides the platforms. SoftServe builds, integrates and runs what sits on top: the agents and workflows on this site, adapted to your systems and rules — or the one your workflow needs — and the governed data under them.",
+      secondParagraph: "Architects who own the Oracle reference architecture shape the scope; engineers on the Oracle AI stack build and integrate it; the same team runs it after go-live, or trains yours to. Joint teams with Oracle’s AI & Data organization, one contract.",
       stats: [
         { value: "500+", label: "data experts in SoftServe’s data and analytics practice" },
-        { value: "150+", label: "active projects in that practice" },
-        { value: "30", label: "Fortune 500 clients in SoftServe’s data and analytics practice" },
-        { value: "4", label: "Oracle platforms the practice focuses on" }
+        { value: "150+", label: "active projects" },
+        { value: "30", label: "Fortune 500 clients" }
       ],
-      platformsTitle: "ORACLE PLATFORMS WE FOCUS ON",
+      platformsTitle: "Delivered on",
       platforms: [
-        { name: "OCI + NVIDIA", short: "GPU cloud plus agent tooling", long: "OCI GPU compute with NVIDIA accelerated computing, NIM microservices and AI blueprints — AI-Q, cuOpt, VSS." },
-        { name: "Oracle AI Data Platform", short: "Governed enterprise data for AI", long: "Unified lakehouse for structured, unstructured and real-time enterprise data — governed, AI-ready, multi-cloud." },
-        { name: "Oracle Autonomous AI Lakehouse", short: "Self-managing warehouse with Iceberg", long: "Oracle Autonomous AI Database 26ai as the governed gold layer — Iceberg, vector search, Select AI and Select AI Agents." },
-        { name: "Oracle AI for Fusion Applications", short: "AI agents inside Fusion applications", long: "Embedded AI agents and AI Agent Studio across ERP, SCM, HCM and CX — including Oracle Field Service." }
+        { name: "OCI + NVIDIA" },
+        { name: "Oracle AI Data Platform" },
+        { name: "Oracle Autonomous AI Lakehouse" },
+        { name: "Oracle AI for Fusion Applications" }
       ],
       cta: { label: "Request a scoping call", route: "#/services#contact" }
     },
 
-    whatWeDo: {
-      title: "WHAT WE DO",
-      lead: "Oracle provides the platforms; SoftServe builds, integrates and runs the application layer on top — packaged, verticalized AI and data applications that turn platform consumption into outcomes.",
-      layering: [
-        { band: "APPLICATION LAYER · AI & data applications", body: "Packaged, verticalized business apps — use-case discovery, agentic and data engineering, integration into Fusion applications and Oracle Field Service, value realization and run. Delivered as OCI AI Accelerator Packs plus tailored proof-of-value → roll-out → scaling services." },
-        { band: "PLATFORM LAYER · AI platform products", body: "The data, database, application and infrastructure products every SoftServe app is built on." }
-      ],
-      familiesTitle: "APPLICATION FAMILIES WE PACKAGE",
-      familyTooltip: "Application family",
-      families: [
-        "Enterprise knowledge assistants",
-        "Real-time human augmentation",
-        "Data analysis and decision agents",
-        "Deep research and investigation",
-        "Task and transaction agents",
-        "Per-item processing pipelines",
-        "Closed-loop ops agents"
-      ],
-      familiesSuffix: "+ more — new patterns are packaged after their first live customer.",
-      solutionStack: {
-        title: "THE SOLUTION STACK",
-        layers: [
-          { layer: "Custom configuration — client rules, constraints, KPIs, data integrations", providedBy: "SoftServe" },
-          { layer: "Accelerator business app — pre-built, reusable pack per use case", providedBy: "Oracle + SoftServe" },
-          { layer: "NVIDIA engine — cuOpt, AI-Q, VSS", providedBy: "NVIDIA" },
-          { layer: "OCI infrastructure + GPUs — compute, storage, networking, security", providedBy: "Oracle" }
-        ]
-      },
-      whoYouWorkWith: {
-        title: "WHO YOU WORK WITH",
-        body: "Architects who own the Oracle reference architecture and the scoping. Engineers upskilled on the Oracle AI stack — AI-Q, cuOpt, VSS, PINNs — who build the accelerator packs and deliver them. One contract and one accountable team, from scoping through run."
-      },
-      whoDeliversIt: {
-        title: "WHO DELIVERS IT",
-        body: "A proof of value runs with one team: AI, data and OCI architects, a product manager and a project manager, and senior AI and data engineers. The team grows with the scope."
-      },
-      wrapAroundServices: {
-        title: "WRAP-AROUND SERVICES",
-        items: [
-          { title: "Customer CoE build-out", body: "Build your internal CoE to maintain and expand what we deliver: OCI and NVIDIA platform training and certification, custom-solution training (architecture, rules, operations), an AI operating model with governance and intake/prioritization, knowledge transfer and runbooks." },
-          { title: "Managed service", body: "Ongoing support for the production solution: SLA support and incident response, monitoring and health operations, rules and model maintenance and re-tuning, platform and pack version upgrades, periodic accuracy/KPI review and cost optimization." }
-        ]
-      },
-      attachesToEvery: {
-        title: "WHAT ATTACHES TO EVERY ENGAGEMENT",
-        body: "Evaluation, observability and model routing · guardrails and governance hardening · model customization (distillation, fine-tuning) · CoE build-out · managed run. Scoped and priced on top of whichever package you choose."
-      }
-    },
-
     howWeEngage: {
-      title: "HOW WE ENGAGE",
       anchor: "how-we-engage",
-      lead: "One accelerator pack, three service packages by integration depth. A proof of value is deliberately as small as it can honestly be — not just on cost, but on the calendar.",
-      ladder: [
+      eyebrow: "How we engage",
+      title: "Prove it small. Take it live. Extend it when you’re ready.",
+      lead: "Three steps, each as small as it honestly can be — on cost and on the calendar. You decide the next one on measured results.",
+      steps: [
         {
-          tier: "proof-of-value",
-          title: "Proof of value",
-          whatItIs: "Prove the gains on your own data and rules — manual imports, a limited rule set, a separate environment. Zero integration.",
-          duration: "30–45 days on the Lakehouse Jumpstart · about 2 months on the packaged Oracle Cloud Infrastructure + NVIDIA packs · scoped per engagement on the deep-research investigations",
-          pricing: "A fixed price for the packaged scope; scoped per engagement on the deep-research investigations"
+          title: "Jumpstart proof of value",
+          body: "Measured on your own data, with nothing touching production: a separate environment and no connection to your systems. A fixed price where one is published; a costed plan for the next step at the end.",
+          factLabel: "Duration",
+          fact: "30–45 days to about two months · scoped per engagement on the research and investigation products"
         },
         {
-          tier: "rollout",
-          title: "Roll-out",
-          whatItIs: "Full setup, data integration and go-live at one location or for one document type — no manual work, embedded in the workflow.",
-          duration: "3–5 months",
-          pricing: "€300–500K on the packaged products; scoped against the integration depth"
+          title: "Integration",
+          body: "Go-live at one location or for one document type, with no manual work left in the loop: connected to your systems over the APIs you already have — never a new screen inside an Oracle application.",
+          factLabel: "Duration",
+          fact: "3–5 months"
         },
         {
-          tier: "scaling",
-          title: "Scaling",
-          whatItIs: "Multi-location or multi-type scaling with heterogeneous rule sets and data workflows per region.",
-          duration: "3–12 months",
-          pricing: "Scoped per engagement"
+          title: "Scale",
+          body: "Every location and document type, with the rules and data workflows that differ by region.",
+          factLabel: "Duration",
+          fact: "3–12 months"
         }
       ],
-      ladderRules: [
-        "Proof of value and Scaling are both optional. A customer who is already bought in can start at Roll-out; a customer whose process is uniform everywhere may never need Scaling.",
-        "Integration means background data exchange over existing APIs — not a new screen inside an Oracle application."
-      ],
-      ladderFootnote: "Figures are illustrative and confirmed in scoping.",
-      howAPovRuns: {
-        title: "HOW A PROOF OF VALUE RUNS",
-        steps: [
-          { title: "Before the clock", body: "The use case is picked, two to three success metrics are signed, and source access is approved in writing." },
-          { title: "Connect", body: "The platform is provisioned and data is connected, often zero-copy." },
-          { title: "Model and guard", body: "A small governed model, or the pack configured against your rules: business definitions, masking, row-level access." },
-          { title: "Prove", body: "Measurement against the signed baseline, an executive readout, and a costed expansion plan." }
-        ],
-        closing: "30–45 days on the Lakehouse Jumpstart; about two months on the packaged Oracle Cloud Infrastructure + NVIDIA accelerator packs; scoped per engagement where the work is a deep-research investigation over historical records."
-      }
+      footnote: "Both ends are optional: a customer who is already convinced can start at integration, and a process that is the same everywhere may never need to scale. Figures are illustrative and confirmed in scoping."
     },
 
-    whySoftServe: {
-      title: "WHY SOFTSERVE",
-      items: [
-        { title: "Transferred lakehouse depth", body: "500+ data experts, 150+ active projects and 30 Fortune 500 clients in the Data & Analytics practice. A Databricks partner since 2022 with 100+ certified data engineers; a Snowflake consulting partner since 2018 with 50+ certified data engineers. That practice is now pointed at the Oracle stack." },
-        { title: "Joint delivery with Oracle", body: "We deliver alongside Oracle’s AI & Data organization, in joint teams — not as a vendor bolted on afterwards." },
-        { title: "AI-driven SDLC", body: "Product, engineering and QA collaborate on specs rather than each running isolated AI tools: specs as agent input, automated ticket creation and triage, generated code with expert review where it matters. It pays off past the proof stage, once integration and application complexity appear." },
-        { title: "Value realization, not promises", body: "Scope and acceptance criteria are signed by the customer, Oracle and SoftServe before build starts, and every person on the engagement is tied to specific deliverables." }
+    afterGoLive: {
+      anchor: "after-go-live",
+      eyebrow: "After go-live",
+      title: "We run it, or your team does.",
+      panels: [
+        {
+          id: "managed-service",
+          icon: "network",
+          title: "Managed service",
+          body: "The production system under SLA, kept running and re-tuned by the people who built it.",
+          bullets: [
+            "Incident response, monitoring and health operations",
+            "Rule and model re-tuning, platform and version upgrades",
+            "A periodic accuracy, KPI and cost review"
+          ]
+        },
+        {
+          id: "your-own-team",
+          icon: "users",
+          title: "Your own team",
+          body: "Your people, trained and equipped to maintain and extend what we delivered.",
+          bullets: [
+            "OCI and NVIDIA certification, plus training on the solution itself",
+            "An AI operating model with governance, intake and prioritization",
+            "Knowledge transfer and runbooks"
+          ]
+        }
       ]
     },
 
     proof: {
-      title: "HOW WE MEASURE IT",
-      dividerLabel: "Proof",
-      lead: "Every KPI is computed identically for the current path and the optimized one, so the comparison holds — and the baseline and the success metrics are signed by the customer, Oracle and SoftServe before the clock starts.",
+      anchor: "proof",
+      eyebrow: "How we measure it",
+      title: "Signed before we start, scored like for like.",
+      lead: "The use case, two or three success metrics and the baseline are signed by you, Oracle and SoftServe before the clock starts, with source access approved in writing. Every KPI is then computed the same way for the current path and the new one, so the comparison holds.",
       stat: {
         value: "81%",
         label: "accuracy reached on one engagement, on a customer’s existing AI solution, after an evaluation framework and work on the data"
       },
-      engagementsTitle: "Engagement by engagement",
-      engagements: [
-        {
-          descriptor: "A global home-appliance manufacturer",
-          line: "The optimized four-week plan is scored against the plan dispatchers build by hand today, on the customer’s own historical operations data.",
-          product: { slug: "workforce-optimization", name: "Workforce optimization" }
-        },
-        {
-          descriptor: "An international airline",
-          line: "End-to-end extraction time and reviewer-approved accuracy, measured on the customer’s own 60–100-page agreements with every value cited to its page.",
-          product: { slug: "large-document-extraction", name: "Large docs processing and review" }
-        },
-        {
-          descriptor: "A global logistics and supply-chain operator",
-          line: "Accuracy and confidence calibration, scored against the approve and reject decisions reviewers make on the generated opportunities.",
-          product: { slug: "account-insights", name: "Account insights" }
-        },
-        {
-          descriptor: "A major construction and engineering contractor",
-          line: "Elapsed time and expert hours to produce an equivalent plan-versus-actual analysis, the share of findings an expert validates, and how much of the record the evidence covers.",
-          product: { slug: "plan-vs-actual-investigation", name: "Plan vs actual investigation" }
-        }
-      ],
-      cta: { label: "The case studies, with the figures →", route: "#/#case-studies" },
-      footnote: "Accuracy is treated as a journey with a threshold: around 80% is the practical point past which reviewing the output is faster than doing the work from scratch."
+      footnote: "Accuracy is a journey with a threshold: around 80% is the point past which reviewing the output is faster than doing the work from scratch.",
+      cta: { label: "The case studies, with the figures →", route: "#/#case-studies" }
     },
 
     contact: {
       anchor: "contact",
-      heading: "LET’S TALK",
+      heading: "Let’s talk",
       sub: "Tell us the workflow, the volume and the current cycle time. We come back with what a proof of value would cover, what it would cost, and what it would measure."
     }
   },
