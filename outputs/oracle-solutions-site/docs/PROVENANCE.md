@@ -1177,3 +1177,279 @@ prints `undefined` rather than failing loudly.
   Alex's call.
 - The demo-video recording is still pending; the poster is a walkthrough still
   until it lands.
+
+---
+
+## 17. Round 4 — anonymization, tag families and case studies, 2026-09-16
+
+Alex's round-4 decisions (T1, T2, C1, C2), given with the task. Two of them
+reverse round 3.
+
+### 17.0 The clearance that was withdrawn
+
+**§15.0 is reversed. No customer may be named anywhere on the site** — not in
+copy, not in alt text, not in a caption, not in a data file, not in a doc that
+ships. No logos. The two names round 3 cleared on the strength of SoftServe's
+own external one-pagers (§15.0) are out, along with the two logo references,
+the `customer` / `logo` / `logoStacked` keys and the `PROOF OF VALUE · <name>`
+card labels.
+
+What replaced a name: an **anonymized descriptor** — industry and scale only —
+plus an **industry medallion** where the logo sat. The descriptor is written so
+that it does not narrow to one company: no country, no city, no product line, no
+figure that back-solves to an identity. The four descriptors are in §17.2.
+
+The logo files stay on disk, unreferenced (`ASSETS.md` §4). `check-grammar.js`
+now fails on every customer name as a word-boundary string (`Bosch`,
+`Riyadh Air`, `DHL`, `SBG`, `BSH`, `Binladin`, `Belron`, `KPN`, `NHS`, `OMV`,
+`Channel 4`) **and** on any `assets/img/logos/` path in `content.js`.
+
+**§4 is still open and is now moot in one direction.** The workforce figures
+still rest on an Oracle-copyright, `Confidential: Internal/Restricted/Highly
+Restricted` deck and still need Oracle **and** customer sign-off (§4, §15.0).
+Anonymizing the customer removes one of the two re-identification vectors, not
+the copyright question. Record the sign-off here, with a date, when it arrives.
+
+### 17.1 T1 · the three tag families, and the end of the availability chip
+
+| Change | What shipped |
+|---|---|
+| `shared.tagFamilies` (new) | `pattern` (outlined chip, tooltip *Workflow pattern*, one icon key per `facets.categories[].id`) · `tech` (solid navy pill, tooltip *Runs on*, one icon key per `facets.technology[].id`) · `availability` (two teal badges: `Demo` / *Demo available* / `play`, `Oracle Marketplace` / *Available on Oracle Marketplace* / `storefront`) |
+| `availability` (top level) | **deleted** — the three-state chip map |
+| `products[].availability`, `.availabilityChip`, `.availabilityTooltip` | **deleted** on all seven |
+| `products[].tags` | the trailing availability string removed from all seven (*Available now* ×3, *In preparation* ×2, *Fixed-price offer* ×2) |
+| `products[].statusNote` (new) | *"Packaged offering in preparation — scoping conversations are open."* — verbatim from `BRIEF-4` T1, on `case-evidence-collection` and `plan-vs-actual-investigation` only |
+| `facets.footnote` | unchanged; it never referred to the availability states |
+
+The badges are driven by `SITE_CONFIG`, not by `content.js`: `Demo` on
+`products[slug].video === true` (already a real boolean on all seven,
+`CONFIG.md`), `Oracle Marketplace` on `products[slug].marketplace === true` —
+**a new boolean, added in this round and `false` on all seven.** L3 of §1 is
+unchanged by that: no SoftServe listing on Oracle Cloud Marketplace has been
+found by public search, no owner or date is on record, and `marketplaceUrl` is
+still empty everywhere. The flag exists so the facet and the badge read one
+switch instead of inferring it from a URL; the checker fails a `marketplaceUrl`
+set while the boolean is `false`, so a listing cannot appear on the site
+half-wired. **Turning either badge on for a product is a claim — confirm the
+listing exists before flipping it.**
+
+The seven icon keys `tagFamilies` names are **not in the `ICONS` registry yet**
+(`VISUAL-GRAMMAR.md` §6, "Round-4 icons still to draw"); `play` is. The data
+layer moved first, as it did in round 3.
+
+### 17.2 C1 · the four case studies, figure by figure
+
+`overview.successStory` → `overview.caseStudy`, reshaped, on the same surface
+with the same 3px teal rule. **`null` on three** (`case-evidence-collection`,
+`cross-system-erp-qa`, `business-metrics-qa`) — down from five, because the two
+in-flight engagements now render.
+
+#### a. `workforce-optimization` — *"A global home-appliance manufacturer"*
+
+- **Descriptor** — adapted from `RESEARCH/02` §1.4 / `RESEARCH/07`: a
+  residential appliance-repair field-service operation. *Home-appliance
+  manufacturer* is the industry; *global* is the scale. The country names stay
+  out (§4), so the descriptor does not narrow to one company on geography.
+- **Area** — *"Field-service operations across three countries"*, `RESEARCH/07`
+  §7.1, candidate-external-safe tier.
+- **Status** `measured`, eyebrow **Measured**.
+- **Metric 1** — `+4.5%` *median gain in jobs per technician per day, optimized
+  against the current plan*. `RESEARCH/07` §7.1 via §15.4. The mean (6.1%) and
+  the maximum (21.7%) stay out; the median leads (§4).
+- **Metric 2** — `~5x` *return within three years on the modeled rollout*.
+  `RESEARCH/07` §7.1 via §15.4. Rendered with **no absolute figure anywhere near
+  it**, per §7.3's back-solving caution.
+- **Story** — carries 83% of simulations positive and the 15–20% dispatcher
+  productivity gain (same source), the stack (NVIDIA cuOpt on OCI), the data
+  ("the customer's own historical operations data") and the human gate. Closes
+  on `RESEARCH/07` §7.3's prescribed framing: *"Results are modeled simulations
+  against a historical baseline, not measured production outcomes."*
+- **Scope row** — *Three months* · *Three countries* · *Around thirty*
+  constraints modeled. All three from `RESEARCH/07` §7.1 rows 1, 4 and 6,
+  candidate-external-safe, country names withheld. **Absent:** every € figure,
+  the ~5,300 work-zone count and the 38/75/100% phasing (medium
+  re-identification risk, §4).
+- **NDA line** — *"Customer under NDA · reference call available on request"*,
+  `BRIEF-4` C1 verbatim.
+
+#### b. `large-document-extraction` — *"An international airline"*
+
+- **Descriptor / area** — `RESEARCH/02` §2.4: an airline's ground-handling
+  contract management. Adapted; the airline's name, its internal app name and
+  the third-party SaaS product name all stay out, as in every earlier round.
+- **Status** `measured`, eyebrow **Measured**.
+- **Metric 1** — `5–15 min` *to extract a 60–100-page agreement end to end, down
+  from 3–5 days*. The pack's own external sales one-pager, `RESEARCH/02` §2.4,
+  unchanged from §15.4.
+- **Metric 2** — `up to −20%` *targeted reduction in manual data-entry effort*.
+  Same source. It is an explicit proof-of-value **target**, which is why the
+  story keeps the one-pager's own caveat.
+- **Story** — closes on *"Targets from the proof of value; figures are
+  illustrative, not contractual."* (`RESEARCH/02` §2.4, verbatim). Names the
+  stack (NVIDIA AI-Q, the customer's own OCI tenancy) and the citation model.
+- **Scope row** — *60–100-page agreements* (§2.4) · *about one month* to onboard
+  a new station before (§2.4, already shipping in this product's `moreDetail`) ·
+  the reviewer approval gate (§2.3). No contract value, no contract duration.
+- **NDA line** — as above.
+
+#### c. `account-insights` — *"A global logistics and supply-chain operator"*
+
+The logistics engagement. **Status `in-progress`, eyebrow Target outcomes.**
+
+- **Descriptor** — already the shipped anonymized descriptor on the round-3
+  evidence card (§14.5); unchanged, and now the callout's title.
+- **Area** — *"Account planning across a global enterprise account base"*,
+  adapted from the pack's own framing.
+- **Metric 1** — `One signal` *fanned out to every account it affects, not only
+  the one it names*. **Qualitative, because no figure exists:** the pack has no
+  delivered proof (*"PoC in preparation, results to follow"*), and the fan-out
+  is the pack's stated differentiator — one real-world signal → structured
+  opportunity/risk output per affected account.
+- **Metric 2** — `Calibrated` *opportunity confidence, scored against reviewer
+  approve and reject decisions*. **Qualitative**, from the engagement's own
+  stated measure, which is the sentence the round-3 evidence card already
+  shipped: accuracy and confidence calibration against reviewer approve/reject
+  decisions.
+- **Story** — data footprint (CRM and account framing, the capability catalog,
+  public filings), stack (NVIDIA AI-Q on OCI), what it measures. Closes on *"The
+  figures above are target outcomes the proof of value is set up to measure, not
+  results; they are illustrative, not contractual."*
+- **Scope row** — *Proof of value under way* · the three data sources · the
+  reviewer gate. **Absent, deliberately:** the contract value and the contract
+  duration. Both are on record and both are internal (`C4`, `C19`, and
+  `BRIEF-4`'s explicit instruction).
+- **NDA line** — *"Customer under NDA · results follow at the end of the proof of
+  value"*. This is a **deviation from `BRIEF-4` C1's single line**, which reads
+  *"reference call available on request"*. Offering a reference call about an
+  engagement that has produced no results is a promise nobody can keep, and
+  `ndaLine` is a per-case field. One string reverts it if Alex wants the
+  uniform line.
+
+#### d. `plan-vs-actual-investigation` — *"A major construction and engineering contractor"*
+
+**The construction engagement**, mapped to this product. **Status
+`in-progress`, eyebrow Target outcomes.**
+
+- **The mapping, and its source.** §12 of this file already records that the
+  de-identified historical-package PoC document is what the
+  `plan-vs-actual-investigation` stepper's five-verb "what it does" list and its
+  named technology stack (AI-Q, NIM/Nemotron, AI Vector Search, OpenSearch, AI
+  Database 26ai, Document Understanding, Object Storage, Functions/Streaming/API
+  Gateway/OKE) were built from — the same engagement, the same SOW §2.4. The
+  wiki page for it is current truth on scope and is the source for everything
+  below; `RESEARCH/04` lists it among the engagements and its NDA status.
+- **Descriptor** — the wiki names the customer as a construction contractor.
+  *Major* is the scale; *and engineering* is the work. **The country is
+  withheld** — naming it would narrow the descriptor to a very small set of
+  companies, which is the same reason §4 withholds the workforce geography.
+- **Area** — *"Plan versus actual across completed work packages"*, the SOW's own
+  use-case statement, generalized off the customer's vocabulary.
+- **Metric 1** — `Hours, not weeks` *of expert time to produce an equivalent
+  plan-versus-actual analysis*. **Qualitative**, and deliberately so: the SOW's
+  first success criterion is *Operational Efficiency — elapsed time / person-hours
+  to produce an equivalent analysis*, and its **thresholds are explicitly
+  deferred to Discovery** and made a gate exit criterion. There is therefore no
+  target number to publish, and inventing one would be exactly the failure
+  `BRIEF-4` C1 names. The directional phrasing is `BRIEF-4`'s own sanctioned
+  pattern.
+- **Metric 2** — `Evidence-backed` *every material finding tied to a source
+  record, with a review status*. **Qualitative**, from the SOW's other two
+  success criteria (Output Validation Rate, Evidence Coverage) and its testable
+  definition of "evidence-backed": project and package context, a traceable
+  source file and version, the analytical basis, confidence and review status,
+  and visible gaps.
+- **Story** — the sample (one completed project), the data footprint (schedule,
+  cost and contract exports), the stack (NVIDIA AI-Q over an evidence layer,
+  Oracle AI Vector Search, Oracle AI Database 26ai, on OCI) and the coverage-gap
+  behaviour. Closes on the same target caveat as (c).
+- **Scope row** — *One completed project* · *Schedule, cost and contract exports*
+  · *Expert validation on every material finding*. **Absent, deliberately:** the
+  contract value, the 12-week + 2-week acceptance duration, the day-rate
+  workbook, the infrastructure BoM and every SAR figure. The duration is the
+  customer's contract term and `BRIEF-4` bans it; §14.2 already treats both
+  durations on record as one customer's term rather than a pack figure.
+- **⚠️ The status chip overstates where this engagement is.** The wiki records it
+  as **pre-contract** as of 2026-09-11 — the SOW and WBS package is essentially
+  built, one cost section is still open, the kickoff target has passed with no
+  new date, and customer-side data access is unresolved. `BRIEF-4` C1 assigns
+  `in-progress`, so *"Proof of value in progress"* is what renders. The story
+  says *"A first engagement is under way"*, which is the softest true reading of
+  that state. **Confirm with Alex before launch**; if the answer is that nothing
+  has kicked off, the honest fix is to render this case only once it has, not to
+  reword the chip.
+
+### 17.3 C2 · the home-page case-study screen
+
+`overview.evidence` → `overview.caseStudies` and `overview.evidenceIntro` →
+`overview.caseStudiesIntro`; `services.proof.evidenceIds` →
+`services.proof.caseStudyIds`.
+
+- **Four cards, one anatomy.** The two measured cases and the two in progress,
+  each a compact form of the product-page callout: medallion, descriptor, status
+  chip, **one** headline metric with its eyebrow, one line, the link to the
+  product. The checker asserts that each card's descriptor, area, industry and
+  status equal the product's, and that its `product.name` equals the product's
+  `name` — the round-3 rule that a reader clicking through must not meet a
+  different pair of figures, generalized to every field the two surfaces share.
+- **The band 1 / band 2 split is gone**, and so are the `PROOF OF VALUE` /
+  `FIRST ENGAGEMENT` / `METHOD` labels. §14 kept them deliberately non-uniform
+  because the three states were genuinely different; the status chip now carries
+  that distinction in data, in two states, and a hand-written label that says the
+  same thing is a second place to drift.
+- **The two METHOD cards were folded.** `method-like-for-like` said that every
+  KPI is computed identically for the current and the optimized plan and that the
+  baseline is signed before the clock starts — which `workforce-optimization`'s
+  `moreDetail` entry *"How the KPIs are defined"* already says in full, so
+  nothing was lost. `method-accuracy-journey` had no other home, and its
+  substance (the 81% accuracy figure, the ~80% practical threshold) survives
+  verbatim as **`services.proof.methodNote`**, one paragraph under the four
+  cards on Services. Its clearance status is unchanged — §14 still lists it as
+  needing one, and moving it did not grant it.
+- `evidenceIntro` was rewritten as `caseStudiesIntro`: it used to say *"Two of
+  these applications have been through a delivered proof of value"* over a
+  five-card grid of mixed kinds. It now says four engagements, two measured and
+  two under way, and that every customer is under NDA — which is the honest
+  reason the cards carry descriptors rather than names.
+
+### 17.4 T2 · the Availability facet group
+
+`facets.marketplace` → `facets.availability` = `{ label: "Availability",
+options: [{ id: "demo", label: "Demo available" }, { id: "marketplace", label:
+"On Oracle Marketplace" }] }`, with faceted counts, query params `demo=1` /
+`mp=1`, and both reset by **Clear filters**. Search and the other two groups are
+untouched.
+
+`facets.marketplace.heroCta` (*"View on Oracle Marketplace"*) went with the
+object: the Marketplace **badge** is the link to the listing now, so a second
+hero button on the same URL was one control too many. The listing link still
+renders only where `marketplaceUrl` is non-empty.
+
+**Both options match no product today** (no `video` flag drives a listing, and
+`marketplace` is `false` everywhere) — except `demo`, which matches the three
+products flagged `video: true`. The `marketplace` option will render a zero
+count until a listing is confirmed; that is the honest state, and it is the same
+posture `facets.technology`'s two empty facets already take (L1, L2).
+
+### 17.5 What the renderers must change with this data
+
+The data layer moved first again. Until `site/pages/*.js` and `assets/app.js`
+are updated, these read keys that no longer exist:
+
+- `assets/app.js` — `availabilityChip()` reads `product.availabilityChip` /
+  `.availabilityTooltip` / `.availability`; `productTile()` calls it and reads
+  `C.facets.marketplace.badge`; `AVAILABILITY_DOT` is dead.
+- `pages/product.js` — `C().facets.marketplace.heroCta` and `.badge` in the hero;
+  `UI.availabilityChip(product)` in the chip row; `successStory()` reads
+  `product.overview.successStory` and `label("successStory")`.
+- `pages/products.js` — the `facet-marketplace` checkbox and
+  `C.facets.marketplace.label`; `product.availabilityChip` in the search index.
+- `pages/overview.js` — `C.overview.evidenceIntro`, `C.overview.evidence` and the
+  `band === 1` filter.
+- `pages/services.js` — `content.overview.evidence` and `block.evidenceIds`.
+
+`SITE_CONFIG.products[slug].successStoryUrl` keeps its name: it is a config key,
+not shipped copy, and renaming it would touch seven entries for no reader-facing
+gain. It is what gates the case study's download link.
+
+`check-grammar.js` passes with **0 failures and 0 warnings** on this data; it
+asserts the new slots and cannot see the renderers.
