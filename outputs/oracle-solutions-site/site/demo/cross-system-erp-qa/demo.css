@@ -776,7 +776,8 @@ tr.tour-target { box-shadow: none !important; animation: none; }
 /* ======================================================================== */
 /* AIDP — Lineage (ui-anatomy §3.9, built to the figures)                    */
 /* ======================================================================== */
-.lin { position: absolute; inset: 0; background: #f3f2f0; display: flex; flex-direction: column; z-index: 20; }
+.lin { position: fixed; inset: 44px 0 0 0; background: #f3f2f0; display: flex; flex-direction: column; z-index: 30; }
+body.ui-clean .lin { inset: 44px 0 0 0; }
 .lin-bar { height: 38px; flex: none; display: flex; align-items: center; gap: 10px; padding: 0 12px; background: #fff; border-bottom: 1px solid var(--wb-line); position: relative; }
 .lin-title { font-size: 13px; display: flex; align-items: center; gap: 6px; max-width: 32%; }
 .lin-title b { font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
@@ -932,7 +933,12 @@ tr.tour-target { box-shadow: none !important; animation: none; }
 .app--rw .stat { border-radius: 12px; padding: 2px 12px; font-size: 12.5px; font-weight: 400; text-transform: none; letter-spacing: 0; color: #161513; border: 0; }
 .app--rw .stat--auto { background: #cfebb3; }
 .app--rw .stat--open, .app--rw .stat--review { background: #f9ddbc; }
-.app--rw .stat--blocked { background: #ffd9d3; }
+.app--rw .stat--blocked, .app--rw .stat--unmatched { background: #ffd9d3; }
+.app--rw .stat--confirmed, .app--rw .stat--matched { background: #cfebb3; }
+.app--rw .stat--timing, .app--rw .stat--pending { background: #f9ddbc; }
+.app--rw .evc--y { background: #cfebb3; color: #161513; border-color: transparent; }
+.app--rw .evc--n { background: #ffd9d3; color: #161513; border-color: transparent; }
+.app--rw .evc--o { background: #e4e1dd; color: #161513; border-color: transparent; }
 .app--rw .tile .dlt { border-radius: 12px; padding: 2px 10px; font-weight: 400; font-size: 12px; background: #cfebb3; color: #161513; }
 .app--rw .tile .dlt--flat { background: #e4e1dd; color: #161513; }
 .app--rw .tile.up .after, .app--rw .tile.down .after, .app--rw .tile.new .after { color: #161513; }
