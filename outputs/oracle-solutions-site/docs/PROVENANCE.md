@@ -1297,14 +1297,24 @@ understates a figure the sources actually publish.
 - **Metric 2** — `~5x` *return within three years on the modeled rollout*.
   `RESEARCH/07` §7.1 via §15.4. Rendered with **no absolute figure anywhere near
   it**, per §7.3's back-solving caution.
-- **Story** — carries 83% of simulations positive and the 15–20% dispatcher
-  productivity gain (same source), the stack (NVIDIA cuOpt on OCI), the data
-  ("the customer's own historical operations data") and the human gate. Closes
-  on `RESEARCH/07` §7.3's prescribed framing: *"Results are modeled simulations
-  against a historical baseline, not measured production outcomes."*
-- **Scope row** — *Three months* · *Three countries* · *Around thirty*
-  constraints modeled. All three from `RESEARCH/07` §7.1 rows 1, 4 and 6,
-  candidate-external-safe, country names withheld. **Absent:** every € figure,
+- **Story** — carries **83% of the 12 modeled simulations** positive and the
+  15–20% dispatcher productivity gain (same source), the stack (NVIDIA cuOpt on
+  OCI), the data ("the customer's own historical operations data") and the human
+  gate. Closes on `RESEARCH/07` §7.3's prescribed framing: *"Results are modeled
+  simulations against a historical baseline, not measured production outcomes."*
+  **The denominator is restored:** §1 L10 and `oracle-packs.md` L30 both record
+  the figure as 83% of 12 simulations, and a bare 83% reads as a large-sample
+  result rather than a twelve-run sweep to exactly the audience most likely to
+  ask. **The geography vocabulary was corrected**: *ZIP-code work zones* /
+  *ZIP-code coverage* became **postcode**-based — the underlying engagement is
+  European (`oracle-packs.md` L25), the card's own area line says *across three
+  countries*, and ZIP codes exist in none of them.
+- **Scope row** — *Three months* · **Historical operations data** · *Around
+  thirty* constraints modeled, from `RESEARCH/07` §7.1 rows 1 and 6,
+  candidate-external-safe, country names withheld. The second cell used to read
+  FOOTPRINT / *Three countries*, which the area line directly above already says;
+  the row is three facts the card does not otherwise carry, so it now names the
+  data footprint, as the other cases' rows do. **Absent:** every € figure,
   the ~5,300 work-zone count and the 38/75/100% phasing (medium
   re-identification risk, §4).
 - **NDA line** — *"Customer under NDA · reference call available on request"*,
@@ -1345,8 +1355,16 @@ understates a figure the sources actually publish.
 
 #### c. `account-insights` — *"A global logistics and supply-chain operator"*
 
-The **DHL** engagement (internal name). **Status `in-progress`, eyebrow Target
-outcomes.** Sources: `context/areas/softserve/oracle-packs.md` (the pack is
+The first logistics engagement (internal name withheld). **Status
+`in-preparation`, eyebrow Target outcomes.** The status was `in-progress` and the
+story said *"A first engagement is under way on the customer's own account
+base"*, naming a data footprint as if it were already connected.
+`oracle-packs.md` L92 records the pack's proof state as *"Proof: none yet — PoC
+in preparation, results to follow"*, and **in preparation is not under way** —
+the more so on a page where `case-evidence-collection` words the equivalent
+state honestly. The chip, the story's opening clause, the scope row's STAGE cell
+and the ROI block's `metricsNote` all now say *in preparation*; the metrics, the
+caveat and the NDA line fitted that state unchanged. Sources: `context/areas/softserve/oracle-packs.md` (the pack is
 derived from this engagement; *"Proof: none yet — PoC in preparation, results to
 follow"*; the signal→opportunity fan-out is the pack's stated differentiator) and
 `oracle-pipeline.md`. The round-3 evidence card's own text (`SPEC` §1.4 Card C,
