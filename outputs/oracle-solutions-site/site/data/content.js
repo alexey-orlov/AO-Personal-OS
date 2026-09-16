@@ -256,7 +256,7 @@ window.SITE_CONTENT = {
 
     caseStudiesIntro: {
       title: "CASE STUDIES",
-      body: "Three engagements behind these applications. One carries figures measured in a completed proof of value, one carries figures modeled against the customer’s own historical baseline, and one is in preparation and carries the outcomes it is set up to measure. Every customer is under NDA, so each one is described by industry and scale.",
+      body: "Four engagements behind these applications. One carries figures measured in a completed proof of value, one carries figures modeled against the customer’s own historical baseline, and two are in preparation and carry the outcomes they are set up to measure. Every customer is under NDA, so each one is described by industry and scale.",
       cta: { label: "How we measure it, engagement by engagement", route: "#/services#proof" }
     },
 
