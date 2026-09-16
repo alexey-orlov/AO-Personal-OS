@@ -257,7 +257,7 @@ window.SITE_CONTENT = {
     caseStudiesIntro: {
       title: "CASE STUDIES",
       body: "Three engagements behind these applications. One carries figures measured in a completed proof of value, one carries figures modeled against the customer’s own historical baseline, and one is in preparation and carries the outcomes it is set up to measure. Every customer is under NDA, so each one is described by industry and scale.",
-      cta: { label: "How we measure it, and what each engagement proved", route: "#/services#proof" }
+      cta: { label: "How we measure it, engagement by engagement", route: "#/services#proof" }
     },
 
     caseStudies: [
@@ -2738,10 +2738,33 @@ window.SITE_CONTENT = {
     },
 
     proof: {
-      title: "CASE STUDIES",
-      dividerLabel: "How we prove it",
-      caseStudyIds: ["workforce-proof", "extraction-proof", "account-insights-engagement", "plan-vs-actual-engagement"],
-      methodNote: "How we measure it: every KPI is computed identically for the current path and the optimized one, so the comparison holds, and the baseline and success metrics are signed before the clock starts. Accuracy is treated as a journey with a threshold — on one engagement an evaluation framework plus work on the data took a customer’s existing AI solution to 81% accuracy, and around 80% is the practical point past which reviewing the output is faster than doing the work from scratch."
+      title: "HOW WE MEASURE IT",
+      dividerLabel: "Proof",
+      lead: "Every KPI is computed identically for the current path and the optimized one, so the comparison holds — and the baseline and the success metrics are signed by the customer, Oracle and SoftServe before the clock starts.",
+      stat: {
+        value: "81%",
+        label: "accuracy reached on one engagement, on a customer’s existing AI solution, after an evaluation framework and work on the data"
+      },
+      engagementsTitle: "What each engagement measures",
+      engagements: [
+        {
+          descriptor: "A global home-appliance manufacturer",
+          line: "The optimized four-week plan is scored against the plan dispatchers build by hand today, on the customer’s own historical operations data.",
+          product: { slug: "workforce-optimization", name: "Workforce optimization" }
+        },
+        {
+          descriptor: "An international airline",
+          line: "End-to-end extraction time and reviewer-approved accuracy, measured on the customer’s own 60–100-page agreements with every value cited to its page.",
+          product: { slug: "large-document-extraction", name: "Large docs processing and review" }
+        },
+        {
+          descriptor: "A global logistics and supply-chain operator",
+          line: "Accuracy and confidence calibration, scored against the approve and reject decisions reviewers make on the generated opportunities.",
+          product: { slug: "account-insights", name: "Account insights" }
+        }
+      ],
+      cta: { label: "The case studies, with the figures →", route: "#/#proof" },
+      footnote: "Accuracy is treated as a journey with a threshold: around 80% is the practical point past which reviewing the output is faster than doing the work from scratch."
     },
 
     contact: {
