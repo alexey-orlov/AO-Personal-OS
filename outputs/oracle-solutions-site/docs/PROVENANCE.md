@@ -1448,29 +1448,52 @@ products flagged `video: true`. The `marketplace` option will render a zero
 count until a listing is confirmed; that is the honest state, and it is the same
 posture `facets.technology`'s two empty facets already take (L1, L2).
 
-### 17.5 What the renderers must change with this data
+### 17.5 The renderers, as they now stand
 
-The data layer moved first again. Until `site/pages/*.js` and `assets/app.js`
-are updated, these read keys that no longer exist:
+The data layer moved first again; the renderers landed in the same round and
+read the round-4 keys. What changed, file by file:
 
-- `assets/app.js` — `availabilityChip()` reads `product.availabilityChip` /
-  `.availabilityTooltip` / `.availability`; `productTile()` calls it and reads
-  `C.facets.marketplace.badge`; `AVAILABILITY_DOT` is dead.
-- `pages/product.js` — `C().facets.marketplace.heroCta` and `.badge` in the hero;
-  `UI.availabilityChip(product)` in the chip row; `successStory()` reads
-  `product.overview.successStory` and `label("successStory")`.
-- `pages/products.js` — the `facet-marketplace` checkbox and
-  `C.facets.marketplace.label`; `product.availabilityChip` in the search index.
-- `pages/overview.js` — `C.overview.evidenceIntro`, `C.overview.evidence` and the
-  `band === 1` filter.
-- `pages/services.js` — `content.overview.evidence` and `block.evidenceIds`.
+- `assets/app.js` — `availabilityChip()` and `AVAILABILITY_DOT` are gone,
+  replaced by `tagChip(family, id)` (the outlined pattern chip and the solid
+  technology pill, each carrying its family tooltip and its glyph) and
+  `availabilityBadges(slug)` / `badgeRow(slug)`, which read
+  `SITE_CONFIG.products[slug].video` and `.marketplace` and nothing else. The
+  eight round-4 icons are in `ICONS`. A delegated handler makes the Demo badge
+  an action: on the product page it scrolls to the hero frame and opens it, and
+  anywhere else it routes to the product page that carries the frame. The
+  shared compact case-study card (`caseCard`, `caseMedallion`,
+  `caseStatusChip`, `caseStudyById`) lives here, so the home page and Services
+  render one component from one array.
+- `pages/product.js` — `heroChips()` builds the chip row from `category` and
+  `facet` and skips `tags[0]` and `tags[1]`, which repeat them; the badges sit
+  at the right end of the same row and `statusNote` renders under the one-liner.
+  The Marketplace and success-story hero buttons are gone — the badge is the
+  link to a listing, and the case study owns its one link out. `successStory()`
+  became `caseStudy()`: band, medallion, descriptor, area, status chip, two
+  figures under their eyebrow, story, three-fact scope row, NDA line, and the
+  download link only where `successStoryUrl` is set.
+- `pages/products.js` — the single marketplace checkbox became the Availability
+  group: two faceted checkboxes on the same two config booleans, `demo=1` and
+  `mp=1` in the query, both reset by Clear filters. A zero-count box is disabled
+  rather than a dead end, matching the radio groups. The search index reads
+  `statusNote` instead of the retired `availabilityChip`.
+- `pages/overview.js` — the proof rows became the four-card case-study grid.
+- `pages/services.js` — the brief and note cards became the same four cards,
+  resolved through `services.proof.caseStudyIds`, with `methodNote` beneath them.
+
+Dead CSS went with them: `.story-*`, `.proof-row/-copy/-customer/-industry/
+-scope/-metrics/-footnotes/-logo`, `.metric*`, `.brief*`, `.note-card/-grid/
+-title/-body` and the three `.chip-dot--*` availability states.
 
 `SITE_CONFIG.products[slug].successStoryUrl` keeps its name: it is a config key,
 not shipped copy, and renaming it would touch seven entries for no reader-facing
 gain. It is what gates the case study's download link.
 
 `check-grammar.js` passes with **0 failures and 0 warnings** on this data; it
-asserts the new slots and cannot see the renderers.
+asserts the new slots and cannot see the renderers, so the renderer side was
+verified in the browser instead — all 38 routes render with a clean console,
+the case study appears on exactly the four products that carry one and on no
+other, and the two unpackaged products are the only two with a status note.
 
 ### 16.4 Red-team round — is the demo narrower than the pack? (2026-09-16)
 

@@ -7,10 +7,10 @@ The rule that produced it: a reader who has seen one product page must be able t
 Five hard rules:
 
 1. **Every product fills every slot.** No product is allowed to render a shorter Overview than another. Where a product has no published number, the slot is filled with a **qualitative** instance of the same component — never a blank, never a missing section, never a sentence apologising for the absence.
-2. **A number never renders without the disclaimer beside it.** `metricsNote` renders as a footnote line directly under the metric row, in the same block; `jumpstart.investment.footnote` under the price card, in its block; and the success-story callout, which has no footnote row, carries its caveat in the last sentence of `story`.
+2. **A number never renders without the disclaimer beside it.** `metricsNote` renders as a footnote line directly under the metric row, in the same block; `jumpstart.investment.footnote` under the price card, in its block; and the case-study callout, which has no footnote row, carries its caveat in the last sentence of `story`.
 3. **Icons are 1.5px line icons, teal, from the one registry in `assets/app.js`.** No emoji anywhere. No filled icons except the existing `play` and `dot`.
-4. **Peer figures share their baselines.** Wherever a value/label pair sits beside another — the proof-row metrics, the success-story figures, the Jumpstart investment figures, the Services brief metrics — the row is one grid with two rows, so every value occupies the first and every caption the second. Laid out as independent cards, one wrapped value drops its caption half a line below its neighbour's, and two captions on different baselines is the geometry inconsistency this file exists to prevent. On mobile the pairs stack and the rule is moot.
-5. **A customer mark is sized optically, not by one height rule.** A horizontal wordmark and a stacked lockup (symbol above wordmark) at the same rendered height do not read at the same size: the stacked mark spends most of its box on the symbol and its words collapse to a smudge. The `logoStacked` flag picks the larger size, and the test is that the two wordmarks share an x-height at 1×.
+4. **Peer figures share their baselines.** Wherever a value/label pair sits beside another — the case-study callout's two figures, the Jumpstart investment figures, the side-rail metric tiles — the row is one grid with two rows, so every value occupies the first and every caption the second. Laid out as independent cards, one wrapped value drops its caption half a line below its neighbour's, and two captions on different baselines is the geometry inconsistency this file exists to prevent. On mobile the pairs stack and the rule is moot.
+5. **No customer mark is rendered at all** (Alex, 2026-09-16). A logo is the one element of a case study that cannot be anonymized, so the industry medallion — a circle carrying the `industry-<key>` line icon — stands where a mark used to, at the same optical weight, on the callout and on the compact card alike. The files under `assets/img/logos/` stay on disk, unreferenced; `check-grammar.js` fails the build if a path under them returns to `content.js`.
 
 ---
 
@@ -157,7 +157,7 @@ In the rail the tiles **stack vertically** rather than sitting in a row — up t
 
 **The heading follows the data.** When at least one tile carries a `value`, the block is headed `sectionLabels.metrics` ("Metrics improved"). When every tile is qualitative it is headed `sectionLabels.metricsPlanned` ("What the proof of value measures") instead — a heading asserting improvement over four tiles with no number, closed by a footnote saying no metrics are published, contradicts itself two lines later.
 
-**A rail tile never repeats a success-story figure.** The story owns the two numbers it sets large; the rail holds outcomes and ROI. Where a product's proof produced figures that the story already carries, the rail keeps the qualitative tiles and `metricsNote` points at the story — the reader meets each number once, and the two named products are built the same way.
+**A rail tile never repeats a case-study figure.** The case study owns the two numbers it sets large; the rail holds outcomes and ROI. Where a product's proof produced figures that the story already carries, the rail keeps the qualitative tiles and `metricsNote` points at the story — the reader meets each number once, and the two named products are built the same way.
 
 ### 2.5 At a glance — **removed** (round 3, H)
 
@@ -357,20 +357,21 @@ audit: '<rect x="5" y="3" width="14" height="18" rx="2"></rect><path d="M9 8h6M9
 
 Industry keys in `content.js` are bare (`"manufacturing"`); the renderer prefixes `industry-` when it calls `UI.icon()`. That keeps the data readable and the registry namespaced.
 
-### Round-4 icons still to draw
+### The round-4 icons
 
-`shared.tagFamilies` names eight registry keys, and **seven of them are not in `ICONS` yet** — the data layer moved first. Draw them to the same 24×24 stroke-only spec and add them to `assets/app.js`:
+`shared.tagFamilies` names eight registry keys. All eight are in `ICONS`, drawn
+to the same 24x24 stroke-only spec:
 
-| Key | Used by | What it should read as |
+| Key | Used by | What it reads as |
 |---|---|---|
 | `pattern-deep-research` | pattern chip, `deep-research` | A magnifier over a small node graph |
-| `pattern-processing-pipelines` | pattern chip, `processing-pipelines` | A pipeline / flow: items moving through stages |
-| `pattern-data-analysis` | pattern chip, `data-analysis` | A bar or line chart |
-| `platform-oci-nvidia` | technology chip, `oci-nvidia` | A cloud with a GPU/chip glyph |
-| `platform-oracle-ai-data-platform` | technology chip, `oracle-ai-data-platform` | A governed data store — a cylinder with a shield or a check |
+| `pattern-processing-pipelines` | pattern chip, `processing-pipelines` | Two stages with an arrow between them |
+| `pattern-data-analysis` | pattern chip, `data-analysis` | A bar chart on an axis |
+| `platform-oci-nvidia` | technology chip, `oci-nvidia` | A cloud above a pinned chip |
+| `platform-oracle-ai-data-platform` | technology chip, `oracle-ai-data-platform` | A data cylinder with a check |
 | `platform-oracle-autonomous-ai-lakehouse` | technology chip, `oracle-autonomous-ai-lakehouse` | Stacked layers |
-| `platform-other` | technology chip, `other` | A generic platform mark — a plain stack or square |
-| `storefront` | the Oracle Marketplace badge | A shop front with an awning |
+| `platform-other` | technology chip, `other` | A plain two-band stack |
+| `storefront` | the Oracle Marketplace badge | A shop front with a scalloped awning |
 
 `play` — the Demo badge's icon — is already in the registry. Unlike the industry keys, these are written into the data **in full**: `tagFamilies.pattern.icons["deep-research"]` holds `"pattern-deep-research"`, not `"deep-research"`, because a renderer that had to know which prefix to add for which family would be inventing the key.
 
