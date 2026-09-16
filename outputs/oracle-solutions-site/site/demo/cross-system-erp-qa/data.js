@@ -1448,7 +1448,7 @@ window.ERPQA_DATA = (function () {
     var q = QBY[qid], R = roles[role] || roles.CONTROLLER, t = q.t, spans = [];
     var blocked = !!(q.blockedFor && q.blockedFor.indexOf(R.id) >= 0);
     spans.push({ n: "Parse the question", d: q.parse, ms: t[0] });
-    spans.push({ n: "Terms resolved from catalog descriptions", d: q.terms.map(function (k) { return k + " → " + (GLOSS[k] ? GLOSS[k].definition.split(".")[0] : ""); }).join(" · "), ms: t[1] });
+    spans.push({ n: "Glossary terms resolved", d: q.terms.map(function (k) { return k + " → " + (GLOSS[k] ? GLOSS[k].definition.split(".")[0] : ""); }).join(" · "), ms: t[1] });
     spans.push({ n: "SQL generated", d: "Select AI over GOLD · " + q.views.length + " certified " + (q.views.length === 1 ? "view" : "views") + " · " + q.joins + " joins · " + q.sql.split("\n").length + " lines", ms: t[2] });
     spans.push({ n: "SQL Firewall check", d: blocked ? "allow-list " + R.allowList + " · refused: " + q.blockReason.split(".")[0] : "allow-list " + R.allowList + " · SELECT only · " + q.views.length + " objects in scope · allowed", ms: t[3], status: blocked ? "blocked" : "allowed" });
     if (blocked) {

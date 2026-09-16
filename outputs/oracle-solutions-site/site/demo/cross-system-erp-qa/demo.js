@@ -547,10 +547,16 @@
     return '<div class="panel-head"><b>' + esc(title) + "</b>" + (note ? '<span class="panel-note">' + note + "</span>" : "") +
       '<button class="btn btn--ghost btn--xs x" type="button" data-panel="">' + ICON.x + "Close</button></div>";
   }
+  /* Display labels for the trace spans. The data keeps its original keys (the
+     reconciliation script asserts the span order by them); what a viewer reads
+     has to be honest about the mechanism — the agent matches the question's
+     words to catalog descriptions and column annotations, because Oracle ships
+     no business glossary. */
+  var SPAN_LABEL = { "Glossary terms resolved": "Terms resolved from catalog descriptions" };
   function traceHtml(a) {
     var max = Math.max.apply(null, a.trace.map(function (s) { return s.ms; }));
     var rows = a.trace.map(function (s) {
-      return '<div class="tr' + (s.status === "blocked" ? " is-blocked" : "") + '"><span class="n"><b>' + esc(s.n) + "</b><span>" + esc(s.d) + '</span></span><span class="bar"><i style="width:' + Math.max(3, Math.round(s.ms / max * 100)) + '%"></i></span><span class="ms">' + (s.ms / 1000).toFixed(2) + "s</span></div>";
+      return '<div class="tr' + (s.status === "blocked" ? " is-blocked" : "") + '"><span class="n"><b>' + esc(SPAN_LABEL[s.n] || s.n) + "</b><span>" + esc(s.d) + '</span></span><span class="bar"><i style="width:' + Math.max(3, Math.round(s.ms / max * 100)) + '%"></i></span><span class="ms">' + (s.ms / 1000).toFixed(2) + "s</span></div>";
     }).join("");
     return panelHead("Trace", "every span the agent ran, in order") +
       '<div class="tr h"><span class="n">Agent task</span><span>Duration</span><span class="ms">Time</span></div>' + rows +
