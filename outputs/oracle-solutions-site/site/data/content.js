@@ -238,7 +238,7 @@ window.SITE_CONTENT = {
         platformsLabel: "Oracle platforms"
       },
       stats: [
-        { value: "1,000+", label: "AI and data experts at SoftServe" },
+        { value: "1,000+", label: "experts in AI, data and R&D across SoftServe" },
         { value: "30", label: "Fortune 500 clients in the data and analytics practice" },
         { value: "4–8 weeks", label: "to a proof of value on your own data" }
       ]
@@ -371,10 +371,10 @@ window.SITE_CONTENT = {
 
     about: {
       eyebrow: "About SoftServe",
-      title: "A global digital engineering company, building on Oracle and NVIDIA.",
-      body: "Headquartered in Austin, Texas, SoftServe designs and builds data, cloud and AI solutions for enterprises. The Oracle AI & Data team draws on SoftServe’s data and analytics practice — 150+ active projects and 30 Fortune 500 clients — and on engineering teams upskilled on the Oracle AI stack.",
+      title: "A digital engineering company, at the frontier of agentic AI.",
+      body: "SoftServe is a digital engineering company: more than thirty years designing and building data, cloud and AI solutions for enterprise industries, and today operating at the frontier of industrial, physical and agentic AI. The Oracle AI & Data team draws on SoftServe’s data and analytics practice and on engineers upskilled on the Oracle AI stack.",
       stats: [
-        { value: "1993", label: "founded" },
+        { value: "20K+", label: "customer projects" },
         { value: "10K", label: "employees" },
         { value: "17", label: "countries" },
         { value: "54", label: "offices" }
