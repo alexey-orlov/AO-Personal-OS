@@ -44,7 +44,8 @@ ws.onmessage = (m) => {
 };
 const send = (method, params = {}) => new Promise((res, rej) => { const i = ++id; pending.set(i, (m) => m.error ? rej(new Error(method + ": " + JSON.stringify(m.error))) : res(m.result)); ws.send(JSON.stringify({ id: i, method, params })); });
 const ev = async (expr) => { const r = await send("Runtime.evaluate", { expression: expr, awaitPromise: true, returnByValue: true }); if (r.exceptionDetails) throw new Error("eval: " + (r.exceptionDetails.exception?.description || r.exceptionDetails.text) + " in " + expr); return r.result.value; };
-const click = (sel) => ev(`(()=>{const el=document.querySelector(${JSON.stringify(sel)}); if(!el) throw new Error("no element "+${JSON.stringify(sel)}); el.click(); return true;})()`);
+// SVG elements (the walkthrough maps' zones and technician homes) have no .click(); dispatch a bubbling click instead.
+const click = (sel) => ev(`(()=>{const el=document.querySelector(${JSON.stringify(sel)}); if(!el) throw new Error("no element "+${JSON.stringify(sel)}); if (typeof el.click === "function") el.click(); else el.dispatchEvent(new MouseEvent("click", {bubbles:true, cancelable:true})); return true;})()`);
 const shot = async (name) => { const r = await send("Page.captureScreenshot", { format: "png" }); writeFileSync(`${OUT}/${name}.png`, Buffer.from(r.data, "base64")); console.log("shot", name); };
 
 await send("Page.enable"); await send("Runtime.enable"); await send("Network.enable");
