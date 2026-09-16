@@ -229,11 +229,11 @@ window.SITE_CONTENT = {
         { label: "How we deliver", route: "#/#how-we-deliver", kind: "secondary" }
       ],
       stack: {
-        ariaLabel: "How the agents are built: the agents you can start with on top, grouped by the job they do, the SoftServe layer in the middle, the four Oracle platforms underneath",
-        patternsLabel: "Agents to start with",
+        ariaLabel: "How they are built: the agents and workflows you can start with on top, grouped by the job they do, the SoftServe layer in the middle, the four Oracle platforms underneath",
+        patternsLabel: "Agents and workflows to start with",
         softserve: {
           label: "SoftServe",
-          items: ["Agent engineering", "Evaluation & guardrails", "Pilot to production"]
+          items: ["Agentic and data engineering", "Evaluation & guardrails", "Pilot to production"]
         },
         platformsLabel: "Oracle platforms"
       },
@@ -246,12 +246,12 @@ window.SITE_CONTENT = {
 
     twoWays: {
       eyebrow: "Two ways in",
-      title: "Start with an agent, keep the team that built it.",
+      title: "Start with a product, keep the team that built it.",
       panels: [
         {
           id: "products",
           icon: "cube",
-          title: "Agents ready to run",
+          title: "Agents and workflows",
           body: "Each one runs on Oracle in your own tenancy and starts with a Jumpstart on your data — at a fixed price where one is published, otherwise scoped per engagement.",
           bullets: [
             "Runs on OCI + NVIDIA or Oracle Autonomous AI Lakehouse",
@@ -264,7 +264,7 @@ window.SITE_CONTENT = {
           id: "practice",
           icon: "users",
           title: "The people who build them",
-          body: "The architects and engineers who built these agents adapt them to your systems, rules and data — or build the one your workflow needs — and take them to production. One contract, one accountable team.",
+          body: "The architects and engineers who built them adapt them to your systems, rules and data — or build the one your workflow needs — and take them to production. One contract, one accountable team.",
           bullets: [
             "Delivered with Oracle’s AI & Data organization, in joint teams",
             "Measured like for like against how you work today",
@@ -278,7 +278,7 @@ window.SITE_CONTENT = {
     catalog: {
       eyebrow: "Products",
       title: "Agents that read, extract, plan and answer.",
-      lead: "Each agent runs in your own Oracle tenancy. Open one for how it works, what it needs from you, and the Jumpstart scope.",
+      lead: "Each one runs in your own Oracle tenancy. Open one for how it works, what it needs from you, and the Jumpstart scope.",
       patterns: [
         { id: "deep-research", definition: "Agents that read across your systems and outside sources, then bring back a cited answer for a person to act on." },
         { id: "processing-pipelines", definition: "Long documents and records become checked, structured data. Every value is traced to its source page and confirmed by a reviewer before it leaves." },
@@ -301,7 +301,7 @@ window.SITE_CONTENT = {
         title: "Why SoftServe on Oracle",
         pillars: [
           { icon: "network", title: "Platform depth", body: "Architects who own the Oracle reference architecture across OCI + NVIDIA, Oracle AI Data Platform, Oracle Autonomous AI Lakehouse and Oracle AI for Fusion Applications." },
-          { icon: "spark", title: "Agentic-AI experience", body: "Agents built and tested on real enterprise data, with evaluation, guardrails and governance hardening available on every engagement." },
+          { icon: "spark", title: "Agentic-AI experience", body: "Agents and workflows built and tested on real enterprise data, with evaluation, guardrails and governance hardening available on every engagement." },
           { icon: "audit", title: "Fixed-scope delivery", body: "Signed success metrics up front, and every Jumpstart ends with an executive readout and a costed expansion plan." }
         ]
       },
@@ -396,7 +396,7 @@ window.SITE_CONTENT = {
     searchPlaceholder: "Search products or workflows…",
     bottomBlock: {
       heading: "HAVE A WORKFLOW IN MIND?",
-      body: "Tell us the workflow you need fixed. We will say which of these agents is closest, or what it would take to build one on your data.",
+      body: "Tell us the workflow you need fixed. We will say which of these is closest, or what it would take to build one on your data.",
       cta: { label: "Request a scoping call", route: "#/services#contact" }
     }
   },
