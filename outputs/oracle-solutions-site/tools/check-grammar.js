@@ -638,10 +638,25 @@ if (!arr(C.products) || C.products.length !== 7) {
   var intro = o.caseStudiesIntro;
   if (!intro || !str(intro.title) || !str(intro.body)) fail("overview.caseStudiesIntro", "needs { title, body }");
   var cards = o.caseStudies;
-  if (!arr(cards) || cards.length !== 3) {
-    return fail("overview.caseStudies", "must hold exactly 3 cards — one per engagement that has one, matching the product pages");
+  /* The grid is one card per product that carries a case study — derived, not a
+     fixed count, so adding or withdrawing a case study moves both surfaces
+     together instead of failing the build on an arithmetic constant. */
+  var withCase = (C.products || []).filter(function (p) {
+    return p.overview && p.overview.caseStudy;
+  });
+  if (!arr(cards) || cards.length !== withCase.length) {
+    return fail("overview.caseStudies", "must hold one card per product that carries a case study (" +
+      withCase.length + "), got " + (arr(cards) ? cards.length : "none"));
   }
   var slugs = (C.products || []).map(function (p) { return p.slug; });
+  /* …and the cover must be complete in the other direction too: a product with
+     a case study the home page never shows is a case study nobody finds. */
+  withCase.forEach(function (p) {
+    var shown = cards.some(function (c) { return c.product && c.product.slug === p.slug; });
+    if (!shown) {
+      fail("overview.caseStudies", 'no card for "' + p.slug + '", which carries overview.caseStudy');
+    }
+  });
   cards.forEach(function (c, i) {
     var cw = "overview.caseStudies[" + i + "]";
     ["id", "descriptor", "area", "industry", "status", "metricEyebrow", "line", "footnote"].forEach(function (k) {
