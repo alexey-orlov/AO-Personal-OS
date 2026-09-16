@@ -565,8 +565,6 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 
 /* ——— hero ———————————————————————————————————————————— */
 
-.hero { position: relative; overflow: hidden; padding-top: clamp(3rem, 5vw, 4.5rem); padding-bottom: clamp(2.5rem, 4vw, 3.5rem); }
-
 /* ——— hero background image (top block only) ——————————— */
 
 .has-hero-bg { position: relative; isolation: isolate; background-color: var(--bg); }
@@ -609,8 +607,6 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
     radial-gradient(100% 78% at 70% 32%, rgba(53, 204, 186, .07), rgba(53, 204, 186, 0) 62%);
 }
 
-.hero.has-hero-bg { min-height: min(66vh, 46rem); display: flex; flex-direction: column; justify-content: center; }
-
 .hero-glow {
   position: absolute;
   top: -18rem;
@@ -622,10 +618,6 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
   pointer-events: none;
 }
 
-.hero-inner { position: relative; z-index: 1; }
-
-.hero-title { margin-block: 1.25rem 1.5rem; max-width: 16ch; }
-.hero-lead { max-width: 46rem; }
 .hero-cta { margin-top: clamp(2rem, 3vw, 2.75rem); }
 
 .stat-row {
@@ -681,33 +673,13 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
   .stat + .stat { border-top: 1px solid var(--border-subtle); margin-top: 1.25rem; padding-top: 1.25rem; }
 }
 
-/* ——— trust strip ————————————————————————————————————— */
-
-.logo-strip {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  gap: clamp(2.5rem, 6vw, 5rem);
-  margin-top: 2.25rem;
-}
-
-.logo-strip img {
-  height: 1.5rem;
-  width: auto;
-  opacity: .68;
-  filter: grayscale(1) brightness(1.6);
-}
-
-.logo-strip img.logo-strip-lg { height: 1.875rem; }
-
 /* ——— product tiles: one anatomy on both grids ————————— */
 
 /* VISUAL-GRAMMAR §1.1. Image band over a solid body; text never sits on the
    photograph. Two per row, equal height — the body is a flex column so the one
    CTA is pinned to its foot however long the one-liner runs. */
 
-.tile-grid, .ptile-grid {
+.ptile-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   grid-auto-rows: 1fr;
@@ -814,7 +786,7 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 }
 
 @media (max-width: 1024px) {
-  .tile-grid, .ptile-grid { grid-template-columns: minmax(0, 1fr); }
+  .ptile-grid { grid-template-columns: minmax(0, 1fr); }
 }
 
 /* ——— proof rows ——————————————————————————————————————— */
