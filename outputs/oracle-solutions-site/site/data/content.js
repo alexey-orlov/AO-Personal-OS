@@ -290,24 +290,12 @@ window.SITE_CONTENT = {
         descriptor: "A global logistics and supply-chain operator",
         area: "Account planning across a global enterprise account base",
         industry: "logistics",
-        status: "in-progress",
+        status: "in-preparation",
         metricEyebrow: "Target outcomes",
-        metric: { value: "One signal", label: "fanned out to every account it affects, not only the one it names" },
-        line: "A first engagement is under way on the customer’s own account base, scoring each generated opportunity for magnitude and confidence and citing the evidence behind it.",
-        footnote: "Target outcomes the proof of value is set up to measure, not results; figures are illustrative, not contractual.",
+        metric: { value: "Hours, not quarters", label: "from a market signal to a qualified opportunity a seller can act on" },
+        line: "A first engagement is being prepared on the customer’s own account base, scoring each generated opportunity for magnitude and confidence and citing the evidence behind it.",
+        footnote: "Target outcomes the proof of value is set up to measure, not results.",
         product: { slug: "account-insights", name: "Account insights" }
-      },
-      {
-        id: "plan-vs-actual-engagement",
-        descriptor: "A major construction and engineering contractor",
-        area: "Plan versus actual across completed work packages",
-        industry: "construction",
-        status: "in-progress",
-        metricEyebrow: "Target outcomes",
-        metric: { value: "Hours, not weeks", label: "of expert time to produce an equivalent plan-versus-actual analysis" },
-        line: "A first engagement is under way on one completed project sample, reconstructing historical cost, schedule and contract records into one package-level view.",
-        footnote: "Target outcomes the proof of value is set up to measure, not results; figures are illustrative, not contractual.",
-        product: { slug: "plan-vs-actual-investigation", name: "Plan vs actual investigation" }
       }
     ],
 
@@ -421,7 +409,7 @@ window.SITE_CONTENT = {
           },
           solution: {
             title: "THE SOLUTION",
-            text: "One signal becomes a scored, cited brief of the opportunities and risks it creates for every affected account, each mapped to a service line, including the ripple onto neighbouring accounts.",
+            text: "One signal becomes a scored, cited brief of the opportunities and risks it creates for every affected account, each mapped to a service line, including the ripple onto neighboring accounts.",
             icon: "spark"
           }
         },
@@ -543,16 +531,15 @@ window.SITE_CONTENT = {
           descriptor: "A global logistics and supply-chain operator",
           area: "Account planning across a global enterprise account base",
           industry: "logistics",
-          image: "assets/img/industries/logistics.jpg",
-          status: "in-progress",
+          status: "in-preparation",
           metricsEyebrow: "Target outcomes",
           metrics: [
-            { value: "One signal", label: "fanned out to every account it affects, not only the one it names" },
-            { value: "Calibrated", label: "opportunity confidence, scored against reviewer approve and reject decisions" }
+            { value: "Hours, not quarters", label: "from a market signal to a qualified opportunity a seller can act on" },
+            { value: "Every account", label: "a signal affects, not only the one it names" }
           ],
-          story: "A first engagement is under way on the customer’s own account base — CRM and account framing, the capability catalog and public filings — with NVIDIA AI-Q on Oracle Cloud Infrastructure. It measures the accuracy and the confidence calibration of the generated opportunities against reviewer approve and reject decisions. The figures above are target outcomes the proof of value is set up to measure, not results; they are illustrative, not contractual.",
+          story: "A first engagement is being prepared on the customer’s own account base — CRM and account framing, the capability catalog and public filings — with NVIDIA AI-Q on Oracle Cloud Infrastructure. It measures the accuracy and the confidence calibration of the generated opportunities against reviewer approve and reject decisions. The figures above are target outcomes the proof of value is set up to measure, not results; they are illustrative, not contractual.",
           scope: [
-            { label: "Stage", value: "Proof of value under way" },
+            { label: "Stage", value: "Proof of value in preparation" },
             { label: "Data footprint", value: "CRM, capability catalog, public filings" },
             { label: "Human gate", value: "A reviewer approves or rejects every item" }
           ],
