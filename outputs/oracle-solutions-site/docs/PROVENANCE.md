@@ -2977,6 +2977,306 @@ as the one duration claim true of all three clocks. The strip now states
 site-wide duration promise must be true at the **top** of the range — is
 unchanged and is exactly why the narrowing word is in the label.
 
+### 18.9 The catalog is a starting point, the case studies say one word, and the positioning is agents and workflows (2026-09-16)
+
+Three instructions came back from the owner after §18.8 shipped. They are
+independent — one is about how the catalog frames itself, one is about how the
+case studies hedge, one is about the positioning the whole site claims — but
+they were implemented in one pass because all three land in `content.js` and two
+of them touch the same four case-study cards.
+
+**Scope.** `site/data/content.js`, `site/pages/products.js`, `site/pages/product.js`,
+`site/assets/app.js`, `site/assets/site.css` and `tools/check-grammar.js`. Two
+data keys deleted, one CSS rule deleted, one DOM element deleted. **No new key,
+no new component, no design token**, and the checker still prints `OK`.
+
+#### (a) The three instructions, and the principle adopted for each
+
+**1 · The catalog must not read as a ceiling.**
+
+> "Right now it emphasizes that we only cover 3 patterns and 7 apps, while it's
+> just the current (in the future there will be more, it's too few in fact). so
+> no overemphasize pls. In fact, the full picture is on the roadmap here. We
+> should also not bring attention to the gap etc."
+
+A Fable subagent read every surface that counts, totals or negates, and the
+principle that came back — adopted as written — is:
+
+> **Say what is here, never how many and never what is not.** A gap exists on a
+> page only where the page states a ceiling or a negation; breadth is stated
+> positively, and only where it is already cleared.
+
+The three shapes that violate it, all of which shipped: a **total** (*seven
+products*, `7 products`, a `5 of 7` denominator), a **negation** (*No packaged
+offering … yet*, *NOT SEEING YOUR WORKFLOW?*, *the patterns packaged so far*),
+and a **scoreboard** — a facet rail listing two of Oracle's four AI platforms
+with a `0` beside them. The one positive breadth clause the round added (*"or
+build the one your workflow needs"*) is traceable to `services.whatWeDo.lead`
+(*"SoftServe builds, integrates and runs the application layer on top"*) and to
+`layering[0].body` (*"use-case discovery, agentic and data engineering"*), so it
+states a capability the Services page already sells rather than a promise about
+a future catalog.
+
+**2 · The case studies must not drum on what is unproven.**
+
+> "in the case studies, u overemphasize that something is not proven (you
+> highlight that as keywords), while I would just say 'forecested',
+> 'estimated', 'proven' etc. depending on the case (instead of the label
+> 'Modeled in the proof of value' and sub-heading 'modeled'). + add a convincing
+> small footnote for those estimated. Fix that (check if needs to be fixed on
+> multiple pages)."
+
+The principle: **the status word is said once, in one plain word, and the
+footnote spends its line on evidence rather than on a restatement of the chip.**
+Round 4 had built the card to say the status twice on purpose — a chip *and* an
+eyebrow over the figure, with the checker asserting that the two agreed (§17.2,
+§17.3). Saying it twice is what turned a result into a disclaimer: a reader met
+*Modeled in the proof of value* in the chip, *Modeled* again over the number,
+and *modeled simulations* in the footnote before reaching the figure itself. One
+statement of the status, then evidence.
+
+**3 · The positioning is broader than agents.**
+
+> "The diagram on the front page (and maybe other places) focus specifically on
+> Agent engineering, while our positioning is broader - AI agents & workflows."
+
+The principle: **wherever the site states what the practice does, it says
+agents *and workflows*; wherever it names a specific thing that is an agent, it
+still says agent.** `site.tagline` has read *"AI agents and workflows on Oracle
+platforms"* since round 1 and `site.metaDescription` and the H1 both carry both
+halves — the narrowing had crept into the layer that describes the practice
+(the stack's middle band, the two S2 panels, the Agentic-AI-experience pillar),
+which is exactly the layer a reader uses to decide what SoftServe can build.
+
+#### (b) Before → after
+
+*Before* is the text as §18.8 recorded it shipping; *after* is read from the
+files as they now stand.
+
+**Instruction 1 — the catalog is a starting point**
+
+| Key / behaviour | Before | After |
+|---|---|---|
+| `overview.hero.stack.patternsLabel` | *"What they do"* | *"Agents and workflows to start with"* |
+| `overview.hero.stack.ariaLabel` | *"How the products are built: the jobs the agents do on top, the SoftServe layer in the middle, the four Oracle platforms underneath"* | *"How they are built: the agents and workflows you can start with on top, grouped by the job they do, the SoftServe layer in the middle, the four Oracle platforms underneath"* |
+| `overview.twoWays.panels[0].body` | *"Each one runs on Oracle in your own tenancy and starts with a Jumpstart on your data. **Four are priced today; three are scoped per engagement.**"* | *"Each one runs on Oracle in your own tenancy and starts with a Jumpstart on your data — **at a fixed price where one is published, otherwise scoped per engagement.**"* |
+| `productsPage.intro` | *"Every product runs in your own Oracle tenancy and starts with a Jumpstart on your data. **Four are priced today; three are scoped per engagement.** Filter by the Oracle platform it runs on, or search for the job you need done."* | *"Every product runs in your own Oracle tenancy and starts with a Jumpstart on your data — **at a fixed price where one is published, otherwise scoped per engagement.** Filter by the Oracle platform it runs on, or search for the job you need done."* |
+| `productsPage.bottomBlock.heading` | *"NOT SEEING YOUR WORKFLOW?"* | *"HAVE A WORKFLOW IN MIND?"* |
+| `productsPage.bottomBlock.body` | *"These seven are the patterns packaged so far. New ones are packaged after their first live customer — tell us the workflow you need fixed and we will say whether it is close to something we already run."* | *"Tell us the workflow you need fixed. We will say which of these is closest, or what it would take to build one on your data."* |
+| `productsPage.count` | `7` | **deleted** |
+| `facets.footnote` | *"We also deliver on Oracle AI Data Platform and on Oracle AI for Fusion Applications. Packaged applications are published here as each one completes its first engagement."* | **deleted** |
+| `facets.technology[*].emptyState` (all four, one string) | *"No packaged offering on this platform yet — the practice delivers on it; see Services"* | *"The practice delivers on this platform — see Services, or tell us the workflow you have in mind."* |
+| `products.js` · `countLine()` | `list.length === total ? total + " products" : list.length + " of " + total + " products"` — a total with nothing filtered, a numerator **and a denominator** with a filter on | Nothing when nothing is filtered; nothing when the filter returns zero; `"N product"` / `"N products"` with **no denominator** when it returns something. The `#results-count` element stays in the DOM either way — it is the `aria-live` region that announces the next change |
+| `products.js` · `railOption()` count | Every option printed `options.count`, including `0` | `counted = typeof options.count === "number" && options.count > 0` — **a zero renders no number at all**, and an option called without a count prints none |
+| `products.js` · the two **All** options | Called with `count: filtered({ tech: "" }).length` / `filtered({ cat: "" }).length` — i.e. the size of the catalog, twice | Called with **no `count`** — a count says what a click would return, and the option that clears the group returns the whole catalog, which is the number the round is removing |
+| `products.js` · the platform list | All four facets rendered, the two with no product **listed and disabled** at `0` | `.filter(entry => entry.count > 0 \|\| state.tech === entry.facet.id)` — **a platform with no products is not rendered**, with one exception: the facet the reader arrived on. `#/products?tech=oracle-ai-fusion` still renders its own option, selected, above the `emptyState` that explains it, so every saved deep link still resolves |
+| `products.js` · `railHtml()` | The platform group closed with `<p class="rail-note">` printing `facets.footnote` | The element is **gone** with the key |
+| `site.css` | `.rail-note { … }` and its `display: none` override in the ≤ 900 px block | Both **deleted** |
+
+The four/three sentence is the one row worth reading twice: it was **kept in
+substance and lost only its arithmetic** — see (c).
+
+**Instruction 2 — the case studies say one word**
+
+| Key / behaviour | Before | After |
+|---|---|---|
+| `shared.caseStudyStatus.measured.chip` | *"Measured in the proof of value"* | **"Proven"** |
+| `shared.caseStudyStatus.measured.tooltip` | *"The figures were measured during a completed proof of value on the customer's own data."* | *"Measured during a completed proof of value, on the customer's own data."* |
+| `shared.caseStudyStatus.modeled.chip` | *"Modeled in the proof of value"* | **"Forecast"** |
+| `shared.caseStudyStatus.modeled.tooltip` | *"The figures come from simulations run on the customer's own historical data during a completed proof of value, not from production."* | *"Forecast from simulations run on the customer's own historical data during a completed proof of value."* |
+| `shared.caseStudyStatus.in-preparation.chip` | *"Proof of value in preparation"* | **"Estimated"** |
+| `shared.caseStudyStatus.in-preparation.tooltip` | *"The engagement is being prepared; the figures are what it is set up to measure, not results."* | *"Estimated for an engagement now being prepared, against the way the work is done today."* |
+| `overview.caseStudies[].metricEyebrow` ×4 | *Modeled* · *Measured* · *Target outcomes* · *Target outcomes* | **key deleted** from all four cards |
+| `products[].overview.caseStudy.metricsEyebrow` ×4 | the same four words | **key deleted** from all four product pages |
+| `app.js` · `UI.caseCard` | `'<p class="eyebrow eyebrow--accent">' + esc(item.metricEyebrow) + "</p>"` above the figure | line removed |
+| `product.js` · `caseStudy()` | `'<p class="eyebrow case-metrics-eyebrow">' + UI.esc(item.metricsEyebrow) + "</p>"` above the figures | line removed |
+| `site.css` | `.case-metrics-eyebrow { color: var(--text-dim); margin-bottom: .75rem; }` | **deleted**; the space it held is now on the blocks themselves — `.case-metrics { margin-top: .75rem }` and `.case-card-metric { margin-top: .25rem }`, so the chip still breathes above the figure it qualifies |
+| `caseStudies[workforce-proof].footnote` | *"Modeled against a historical baseline, not live operations; illustrative, not contractual."* | *"Simulated on the customer's own historical operations data and scored against the plan dispatchers build today; illustrative, not contractual."* |
+| `caseStudies[extraction-proof].footnote` | *"Measured on the customer's own documents; illustrative, not contractual."* | *"Measured end to end on the customer's own agreements during the proof of value; illustrative, not contractual."* |
+| `caseStudies[account-insights-engagement].footnote` | *"What the proof of value will measure; no results yet."* | *"The comparison is the customer's own account-planning cycle today, on success metrics signed before the work starts."* |
+| `caseStudies[plan-vs-actual-engagement].footnote` | *"What the proof of value will measure; no results yet."* | *"Against the expert hours the same analysis takes today, on a sample the customer's own experts validate."* |
+| `workforce-optimization` · `caseStudy.story`, last sentence | *"Results are modeled simulations against a historical baseline, not measured production outcomes."* | *"Figures are forecast from those simulations against the customer's own historical baseline; illustrative, not contractual."* |
+| `large-document-extraction` · `caseStudy.story`, last sentence | *"Measured **in the proof of value** on the customer's own documents; figures are illustrative, not contractual."* | *"Measured **end to end** on the customer's own agreements **during the proof of value**; figures are illustrative, not contractual."* |
+| `account-insights` · `caseStudy.story`, last sentence | *"The figures above are **target outcomes the proof of value is set up to measure, not results**; they are illustrative, not contractual."* | *"The figures above are **estimates for that engagement, set against the customer's account-planning cycle today**; illustrative, not contractual."* |
+| `plan-vs-actual-investigation` · `caseStudy.story`, last sentence | *"the figure above is a **target outcome the proof of value is set up to measure, not a result**, and is illustrative, not contractual."* | *"the figure above is an **estimate for that engagement, set against the expert hours the same analysis takes today**; illustrative, not contractual."* |
+| `disclaimers.modeledResults` | *"Results are modeled simulations against a historical baseline, not measured production outcomes."* | *"Figures are forecast from simulations against a historical baseline, not measured in production."* |
+
+**The two `Estimated` cards now name what the estimate is measured against, and
+who validates it.** That was the owner's *"convincing small footnote"*: an
+estimate with nothing behind it is a number a customer discounts on sight. The
+account-insights card names the **comparison** (*the customer's own
+account-planning cycle today*) and the **contract** (*success metrics signed
+before the work starts*); the plan-versus-actual card names the **comparison**
+(*the expert hours the same analysis takes today*) and the **validator** (*a
+sample the customer's own experts validate*). Neither says *no results yet* any
+more — the chip says *Estimated*, which is the same fact without the negation
+(instruction 1's principle applied inside instruction 2).
+
+**§4's modeled-results caveat is unchanged in force.** §4 of this file records
+the caveat as load-bearing: every workforce figure has to be *framed as
+modelled, never delivered*, and §10.8 makes both proof strips a ship gate. The
+new wording keeps every element that does that work:
+
+| What §4 requires | Where it is, after the rewrite |
+|---|---|
+| The figures come from **simulations**, not production | `disclaimers.modeledResults`: *"Figures are **forecast from simulations** … **not measured in production**."* The card's footnote opens *"**Simulated** on the customer's own historical operations data"*; the story closes *"Figures are **forecast from those simulations**"* |
+| The baseline is the **customer's own historical** operations, not an industry benchmark | *"against a historical baseline"* (the disclaimer), *"on the customer's own historical operations data … the plan dispatchers build today"* (the footnote), *"against the customer's own historical baseline"* (the story) |
+| Nothing is presented as a delivered production outcome | *not measured in production* · *illustrative, not contractual* on the card, the story and the disclaimer |
+
+*Modeled* → *Forecast* is a change of word, not of claim: a forecast is by
+definition not a measurement, and the sentence still names the simulations and
+the baseline in the same breath. **The §4 and §10.8 clearance gates therefore
+stand exactly as written** — what is outstanding is still Oracle's and the
+customer's written permission, and nothing in this round moved a figure toward
+or away from it.
+
+**Instruction 3 — agents *and workflows***
+
+| Key | Before | After |
+|---|---|---|
+| `overview.hero.stack.softserve.items[0]` | *"Agent engineering"* | *"Agentic and data engineering"* — now sourced to `services.whatWeDo.layering[0].body`, which lists *"use-case discovery, **agentic and data engineering**, integration into Fusion applications and Oracle Field Service, value realization and run"*. The band is SoftServe's own layer, so it names what that layer does in the Services page's words |
+| `overview.hero.stack.patternsLabel` | *"What they do"* | *"Agents and workflows to start with"* — the top band now carries **both halves of the positioning** (and, per instruction 1, an invitation rather than a definition) |
+| `overview.hero.stack.ariaLabel` | *"…the jobs the agents do on top…"* | *"…the **agents and workflows** you can start with on top, grouped by the job they do…"* — the accessible name follows the band it describes; it is still the only way the figure reaches a screen reader (§18.3) |
+| `overview.twoWays.title` | *"Start with an **agent**, keep the team that built it."* | *"Start with a **product**, keep the team that built it."* — the screen's H2 covers all seven, and four of them are not a single agent |
+| `overview.twoWays.panels[0].title` | *"Agents ready to run"* | *"Agents and workflows"* |
+| `overview.twoWays.panels[1].body` | *"The architects and engineers who built **these agents** adapt them to your systems, rules and data, and take them to production. One contract, one accountable team."* | *"The architects and engineers who built **them** adapt them to your systems, rules and data — **or build the one your workflow needs** — and take them to production. One contract, one accountable team."* |
+| `overview.delivery.why.pillars[1].body` | *"**Agents** built and tested on real enterprise data, with evaluation, guardrails and governance hardening available on every engagement."* | *"**Agents and workflows** built and tested on real enterprise data, with evaluation, guardrails and governance hardening available on every engagement."* |
+| `overview.catalog.lead` | *"Each **agent** runs in your own Oracle tenancy. Open one for how it works, what it needs from you, and the Jumpstart scope."* | *"Each **one** runs in your own Oracle tenancy. Open one for how it works, what it needs from you, and the Jumpstart scope."* |
+| `productsPage.bottomBlock.body` | *"…we will say whether it is close to something we already run."* | *"…We will say which of these is closest, **or what it would take to build one on your data**."* — the same positive breadth clause as `panels[1].body`, on the page where a reader who found nothing lands |
+
+**What was deliberately left narrow, and why.** Broadening every instance would
+have cost the site the one place each word is doing work:
+
+- **`overview.catalog.title`** — *"Agents that read, extract, plan and answer."*
+  — and the three `catalog.patterns[].definition`s keep agents language because
+  **the owner asked for that block to speak it** (§18.8, item 8: *"that block
+  should speak AI and agents language"*). One instruction does not get to undo
+  the previous one; the catalog is where agents is the subject.
+- **`site.name`** — *"AI Agents on Oracle"* — is the owner's chosen site name
+  (§18.0), carried by `site.title` and `headerLockup.productName`. Renaming the
+  site is not a copy edit. The breadth is already beside it: `site.tagline` is
+  *"AI agents and workflows on Oracle platforms"* and the H1 reads *ENTERPRISE
+  AI AGENTS AND WORKFLOWS. BUILT ON ORACLE.*
+- **`overview.about.title`** — *"A digital engineering company, at the frontier
+  of agentic AI."* — keeps *agentic AI* because those are **SoftServe's own
+  public words**, quoted from `/en-us/our-partners` (§18.8 d). The About block's
+  whole point is that it is not our paraphrase.
+- **The Oracle platform descriptions** that mention agents —
+  `facets.technology[oracle-ai-fusion].description` (*"Embedded AI agents and AI
+  Agent Studio across ERP, SCM, HCM and CX"*), the `oci-nvidia` and
+  `oracle-ai-lakehouse` engine lists — are **Oracle's own product facts**.
+  Rewording a vendor's product description to match our positioning is the class
+  of error the canonical-platform rule exists to prevent (§17.7).
+
+#### (c) Two earlier decisions reversed
+
+**1 · §17.7's "The zero-count facets stay listed" is reversed.**
+
+Round 4 decided that all four platform facets render, the two with no product
+**disabled with a `0`**, on the reasoning that *"the rail's shape does not move
+under the reader between visits"*. That reasoning was about a returning reader.
+The reader that decided this round is a different one: **an Oracle account
+executive with the page open on a live call**, being shown a scoreboard that
+reads `0` against two of Oracle's own four AI platforms — `Oracle AI Data
+Platform` and `Oracle AI for Fusion Applications`. A rail is a navigation
+control, and an option that returns nothing is not navigation; printed beside an
+Oracle product name in front of an Oracle seller, it is a scorecard of what
+SoftServe has not built on his platform. The stability argument loses to that.
+
+**What survives from §17.7 unchanged:** the four canonical ids and labels, the
+ban on `other`, the per-facet `emptyState`, and — importantly — the deep link.
+`#/products?tech=oracle-ai-fusion` and `?tech=oracle-ai-data-platform` are still
+honored: the active facet renders its own option even at zero, selected, above
+the `emptyState` inside the normal grid container. A saved or pasted link never
+dead-ends, and the checker's `facets.technology` contract (four entries, in
+order, each with `fullLabel`, `description` and `emptyState`) is untouched —
+`emptyState` still has to exist on all four, because any of them can be the
+active one.
+
+**2 · §18.8 (f) row 5 defended the four/three sentence; it is now gone as
+arithmetic and kept as substance.**
+
+§18.8 (f) rejected a proposal to replace
+`twoWays.panels[0].body`'s *"Four are priced today; three are scoped per
+engagement."* for two reasons, and **both still hold**:
+
+1. *The four/three split is commercial information a buyer needs.* It still
+   ships: *"at a fixed price where one is published, otherwise scoped per
+   engagement"* states the same two commercial facts — that some are priced now
+   and some are scoped — and keeps the honest guard against implying every
+   product is ready to buy.
+2. *The replacement was already on the screen twice.* Nothing was replaced with
+   something already on the screen: the arithmetic was **deleted**, not
+   substituted.
+
+What changed is only the **counting**. A number that tells a buyer what he can
+purchase today is information (§18.8 f's own conclusion); a number that tells
+him the catalog has exactly seven members, four of which are priced, is a
+census — and a census invites the subtraction the owner asked us not to invite.
+The sentence therefore keeps its job and loses its digits, on both surfaces that
+carried it (`twoWays.panels[0].body` and `productsPage.intro`).
+
+#### (d) The new checker rules, by name
+
+`tools/check-grammar.js` lost the `CASE_EYEBROW` map and its two pairing
+assertions, and gained a constant and two blocks:
+
+| Rule | What it asserts | Message when it fires |
+|---|---|---|
+| `CASE_STATUS_CHIPS` (constant) | `["Proven", "Forecast", "Estimated"]`, positionally paired with `CASE_STATUSES` | — |
+| **the case-study status words** (new block) | `shared.caseStudyStatus.measured/.modeled/.in-preparation`'s `chip` equals its entry in `CASE_STATUS_CHIPS` | *chip is "X", expected "Y" — one plain word, not a sentence about the proof of value* |
+| `overview.caseStudies[i].metricEyebrow` | the key is `undefined` on every home card | *metricEyebrow is retired — the status chip carries the word once* |
+| `overview.caseStudy.metricsEyebrow` | the key is `undefined` on every product page | *overview.caseStudy.metricsEyebrow is retired — the status chip carries the word once* |
+| **no surface states the size of the catalog** (new block) — `productsPage.count` | the key is `undefined` | *retired — no surface prints the size of the catalog* |
+| same block — `facets.footnote` | the key is `undefined` | *retired — it existed to explain the platforms with no product, which is the gap the rail no longer shows* |
+| same block — the **total** sweep | `/\b(seven\|these seven\|four are priced\|three are scoped)\b/i` matches none of `productsPage.intro`, `productsPage.bottomBlock.body`, `productsPage.bottomBlock.heading`, `overview.twoWays.panels[0].body`, `overview.catalog.lead`, `overview.catalog.title` | *states the size of the catalog — say what a reader gets, not how many there are* |
+| same block — the **gap** sweep | `/\bso far\b\|\byet\b\|\bnot seeing\b/i` matches none of the same six strings | *names the gap — the page says what is here, never what is not* |
+
+Both eyebrow keys are now **outright failures** rather than required strings:
+the round-4 rule was *"the eyebrow must say the same word as the chip"*, and the
+round-6 rule is *"there is no eyebrow"*. The two sweeps are deliberately scoped
+to the six strings that frame the catalog, not to the whole file: *yet* and
+*so far* are legitimate English elsewhere, and `overview.catalog.title` is on
+the list only because a future round might put a count back in the headline it
+lost one in §18.7.
+
+#### (e) What this supersedes
+
+§17.2, §17.3, §17.7, §18.7 and §18.8 stay as the record of their own rounds.
+Where they disagree with the files, **this section is the current text.** The
+statements now specifically out of date:
+
+- **§17.7**, the paragraph headed *"The zero-count facets stay listed."* —
+  reversed in full; only the deep-link half of it still describes the shipped
+  rail (c).
+- **§17.2 / §17.3**, every quotation of the three chip strings (*Measured in the
+  proof of value*, *Modeled in the proof of value*, *Proof of value in
+  preparation*) and of the three eyebrow words (*Measured* / *Modeled* /
+  *Target outcomes*) — the chips are three plain words and the eyebrows do not
+  exist. The `status` keys themselves (`measured` / `modeled` /
+  `in-preparation`) are **unchanged**, and so is the rule that the chip and the
+  story's caveat sentence agree.
+- **§18.6**, the rejected-or-deferred row *"The two in-preparation case cards
+  share a sentence frame, and the status word prints in both the chip and the
+  metric eyebrow"* — declared out of scope as round-4 data. It is fixed here;
+  the shared sentence frame was already fixed in §18.8 (f).
+- **§18.7**, the `stack.patternsLabel` row (*What they do*), the
+  `stack.softserve.items` row (*Agent engineering*), and the `productsPage.intro`
+  row, whose *"Four are priced today; three are scoped per engagement"* is now
+  the fixed-price clause.
+- **§18.8 (b)**, the S2 rows for `title`, `panels[0].title`, `panels[0].body`
+  and `panels[1].body`; all four `caseStudies[].footnote` rows; and the
+  paragraph beginning *"The footnotes got shorter by dropping what the card
+  already prints"* — its reasoning (the footnote carries what the chip cannot
+  say) is **kept and extended**, but it describes a card carrying *"a status
+  chip and a `metricEyebrow`"*, and there is no eyebrow now.
+- **§18.8 (f)** row 3, which kept *Modeled* and *Measured* as the first words of
+  their footnotes on §4 grounds — the §4 requirement is satisfied by the new
+  wording instead (b), and the workforce footnote now opens on *Simulated*.
+- **§18.8 (f)** row 5's *outcome* is narrowed, not overturned: the four/three
+  sentence is gone as arithmetic, and both of the reasons that saved it still
+  describe why the clause that replaced it is there (c).
+
 
 ## 19. The second walkthrough — Workforce optimization, 2026-09-16
 
