@@ -12,7 +12,7 @@
 // Fonts from Google are blocked (ALLOW_NET=1 to allow) so a slow network cannot
 // stall the capture; system fallbacks render instead.
 import { spawn } from "node:child_process";
-import { writeFileSync, mkdirSync } from "node:fs";
+import { writeFileSync, mkdirSync, readFileSync } from "node:fs";
 
 const [,, URL_, OUT, SCENES] = process.argv;
 const CH = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
@@ -69,6 +69,20 @@ if (process.env.MODE === "frames") {
   await click("#details .act-fix"); await sleep(300); await click("#approve-all"); await sleep(3400); await click('.tab[data-tab="ratecard"]'); await sleep(600); await shot("frame-4");
   await ev("document.querySelector('#tour-toggle').hidden = true; document.querySelector('.tab[data-tab=\"review\"]').click(); true"); await sleep(400);
   await ev("(function(){ var g=document.querySelector('.group[data-group=\"discount\"]'); if (g && g.classList.contains('is-open')) g.querySelector('.group-head').click(); var c=document.querySelector('.group[data-group=\"cleaning\"]'); if (c && !c.classList.contains('is-open')) c.querySelector('.group-head').click(); document.querySelector('[data-close-details]') && document.querySelector('[data-close-details]').click(); return true; })()"); await sleep(500); await shot("poster");
+  console.log(logs.length ? "LOGS:\n" + logs.join("\n") : "LOGS: none"); ws.close(); chrome.kill(); process.exit(0);
+}
+if (process.env.MODE === "script") {
+  // Data-driven: STEPS=<json file> holding [{click:sel}|{sleep:ms}|{shot:name}|{eval:expr}|{type:{sel,text}}]
+  const steps = JSON.parse(readFileSync(process.env.STEPS, "utf8"));
+  try {
+    for (const s of steps) {
+      if (s.click) await click(s.click);
+      else if (s.sleep) await sleep(s.sleep);
+      else if (s.shot) await shot(s.shot);
+      else if (s.eval) await ev(s.eval);
+      else if (s.type) await ev(`(()=>{const el=document.querySelector(${JSON.stringify(s.type.sel)}); if(!el) throw new Error("no element "+${JSON.stringify(s.type.sel)}); el.value=${JSON.stringify(s.type.text)}; el.dispatchEvent(new Event('input',{bubbles:true})); return true;})()`);
+    }
+  } catch (e) { console.error("FAILED:", e.message); }
   console.log(logs.length ? "LOGS:\n" + logs.join("\n") : "LOGS: none"); ws.close(); chrome.kill(); process.exit(0);
 }
 const want = SCENES ? SCENES.split(",") : null;
