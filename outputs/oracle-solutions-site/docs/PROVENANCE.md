@@ -1955,21 +1955,24 @@ on the site.
 | Key | Source | Label |
 |---|---|---|
 | `eyebrow`, `title`, `anchor` | §6.2; the anchor is `how-we-deliver`, linked from the hero CTA and the S2 practice panel | verbatim |
-| `steps[0]` title / body / fact | `services.howWeEngage.ladder[0].whatItIs` (near-verbatim) + `howAPovRuns.steps[0]` for the signed-metrics sentence; `fact` = that row's `duration` and `pricing` compressed | adapted |
+| `steps[0]` title / body / fact | `services.howWeEngage.ladder[0].whatItIs` (near-verbatim; 18.5 restored its *a limited rule set*, which the first cut had dropped) + `howAPovRuns.steps[0]` for the signed-metrics sentence; `fact` = that row's `duration` and `pricing` compressed, and since 18.5 the only place on the page the two durations print | adapted |
 | `steps[1]` | `howWeEngage.ladder[1].whatItIs`; `fact` *3–5 months* verbatim from its `duration` | adapted |
-| `steps[2]` | `howWeEngage.ladder[2].whatItIs` + `whatWeDo.wrapAroundServices` (managed service); `fact` *3–12 months* verbatim | adapted |
+| `steps[2]` | `howWeEngage.ladder[2].whatItIs` + `whatWeDo.wrapAroundServices` (managed service); `fact` *3–12 months* verbatim. 18.5 re-opened the body with **Extend** — *Roll-out* is the Services ladder's name for the **Integration** tier — and marked the managed service **optional**, per `whatWeDo.attachesToEvery` (wrap-around services are priced on top of the package) | adapted |
 | `footnote` | `services.howWeEngage.ladderFootnote` | **verbatim** |
 | `why.title` | §6.2 | verbatim |
 | `why.pillars[0]` Platform depth | `facets.technology` (all four labels) + `whatWeDo.whoYouWorkWith` (*"architects who own the Oracle reference architecture and the scoping"*) | adapted |
-| `why.pillars[1]` Agentic-AI experience | `whatWeDo.families` (seven application families) + `whatWeDo.attachesToEvery` (evaluation frameworks) + the human-in-the-decision line from the retired `productsIntro` | adapted |
-| `why.pillars[2]` Packaged delivery | `howWeEngage.ladder[0].pricing` + `services.proof.lead` (the customer / Oracle / SoftServe signatories) | adapted |
+| `why.pillars[1]` Agentic-AI experience | `whatWeDo.families` — **without its count** since 18.5, as *"A library of agentic-AI patterns"* (the phrase the hero stack already uses, `hero.stack.softserve.items[0]`) — + `whatWeDo.attachesToEvery` (evaluation frameworks) + the human-in-the-decision line from the retired `productsIntro` | adapted |
+| `why.pillars[2]` Packaged delivery | `howWeEngage.ladder[0].pricing` + `howAPovRuns.steps[0]` (signed success metrics) + `howAPovRuns.steps[3]` — *"an executive readout, and a costed expansion plan"*. Until 18.5 the second half was `services.proof.lead`'s signatory list, which the S5 rail prints one screen below | adapted |
 | `ctas[0..1]` | §6.2 | verbatim |
 
-**S5 · `overview.caseStudiesIntro`** — `title` and `body` carry over from round 4
-unchanged (§17.3); `eyebrow` is new chrome; `ndaLine` is §6.2's line narrowed to
-the completed proofs of value (18.0 d); `cta` carries over. The method line
-beside them is `services.proof.lead` + `.stat` + `.footnote`, **reused, not
-copied** — one string, two pages.
+**S5 · `overview.caseStudiesIntro`** — `body` carries over from round 4 unchanged
+(§17.3); `eyebrow` is new chrome; `ndaLine` is §6.2's line narrowed to the
+completed proofs of value (18.0 d); `cta` carries over. `title` carried over from
+round 4 too until 18.5 replaced it with **"Four engagements on customer data,
+under NDA."** — the count is `overview.caseStudies.length`, where *Measured on
+customer data* was true of one of the four. The method line beside them is
+`services.proof.lead` + `.stat` + `.footnote`, **reused, not copied** — one
+string, two pages.
 
 **S6 · `overview.about`** — see §18.2.
 
