@@ -147,33 +147,34 @@
         attrs: { "data-video": conf.videoUrl, "data-video-title": product.name }
       }));
     }
-    if (conf.marketplaceUrl) {
-      out.push(UI.button({
-        label: C().facets.marketplace.heroCta, href: conf.marketplaceUrl,
-        kind: "quiet", iconAfter: "external"
-      }));
-    }
-    if (conf.successStoryUrl) {
-      out.push(UI.button({
-        label: "Open the success story", href: conf.successStoryUrl,
-        kind: "quiet", iconAfter: "external"
-      }));
-    }
+    /* No Marketplace button here: the Marketplace badge in the chip row is the
+       link to the listing, and no success-story button either — the case study
+       owns its one link out. */
     return '<div class="cta-row product-hero-cta">' + out.join("") + "</div>";
+  }
+
+  /* Three families, visibly different (VISUAL-GRAMMAR §1.2): the pattern chip
+     and the technology pills at the left, the availability badges at the right
+     end of the same row. `tags` entries 0 and 1 repeat the category chip and
+     the facet label — the renderer builds those two from `category` and
+     `facet`, so it skips them rather than emitting the same run twice. */
+  function heroChips(product) {
+    var UI = window.UI;
+    var chips = [
+      UI.tagChip("pattern", product.category),
+      UI.tagChip("tech", product.facet)
+    ];
+    (product.tags || []).slice(2).forEach(function (tag) {
+      chips.push(UI.tagChip("tech", null, { label: tag }));
+    });
+    return '<div class="tag-row product-hero-chips">' +
+      '<div class="chip-row">' + chips.join("") + "</div>" +
+      UI.badgeRow(product.slug) +
+      "</div>";
   }
 
   function hero(product) {
     var UI = window.UI;
-    var facet = UI.facetLabel(product.facet);
-    var conf = cfg(product.slug);
-    var chips = [
-      UI.chip({ label: product.categoryChip }),
-      UI.chip({ label: facet.label, title: facet.fullLabel }),
-      UI.availabilityChip(product)
-    ];
-    if (conf.marketplaceUrl) {
-      chips.push(UI.chip({ label: C().facets.marketplace.badge }));
-    }
     var line = product.heroLine || product.heroCaption || "";
     var badges = product.badges
       ? '<ul class="hero-badges">' + product.badges.map(function (badge) {
@@ -195,8 +196,11 @@
         "</nav>" +
         (line ? '<p class="eyebrow eyebrow--accent hero-line">' + UI.esc(line) + "</p>" : "") +
         UI.headline(product.headline, "h1", "h1 product-title") +
-        '<div class="chip-row product-hero-chips">' + chips.join("") + "</div>" +
+        heroChips(product) +
         '<p class="lead product-lead">' + UI.esc(product.oneLiner) + "</p>" +
+        (product.statusNote
+          ? '<p class="hero-status-note">' + UI.esc(product.statusNote) + "</p>"
+          : "") +
         (product.subLine ? '<p class="body-text product-subline">' + UI.esc(product.subLine) + "</p>" : "") +
         badges +
         heroCtas(product, !!media) +

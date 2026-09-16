@@ -747,7 +747,7 @@
   var YT_PLACEHOLDER_W = 120;
 
   function guardHeroImages(root) {
-    Array.prototype.forEach.call(root.querySelectorAll(".hero-bg-img, .video-card-poster, .contact-photo-img, .ptile-img, .story-logo, .proof-logo"), function (img) {
+    Array.prototype.forEach.call(root.querySelectorAll(".hero-bg-img, .video-card-poster, .contact-photo-img, .ptile-img, .case-band-img"), function (img) {
       var retried = false;
 
       function isYouTube() { return (img.getAttribute("src") || "").indexOf("img.youtube.com/") >= 0; }
@@ -916,6 +916,27 @@
     }, true);
   }
 
+  /* The Demo badge is an action (VISUAL-GRAMMAR §1.2). On the product page the
+     hero frame is already there, so the badge scrolls to it and opens it; on a
+     tile it goes to the page that carries the frame. */
+  function initDemoBadges() {
+    document.addEventListener("click", function (event) {
+      var badge = event.target.closest ? event.target.closest("[data-demo-badge]") : null;
+      if (!badge) return;
+      event.preventDefault();
+      var slug = badge.getAttribute("data-demo-badge");
+      var frame = document.querySelector(".product-hero .video-card");
+      if (frame && parseHash().path === "/products/" + slug) {
+        var top = frame.getBoundingClientRect().top + window.pageYOffset - 120;
+        var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        window.scrollTo({ top: Math.max(top, 0), behavior: reduce ? "instant" : "smooth" });
+        frame.click();
+        return;
+      }
+      window.ROUTER.go("#/products/" + slug);
+    });
+  }
+
   function initSkipLink() {
     var link = document.getElementById("skip-link");
     var app = document.getElementById("app");
@@ -951,6 +972,7 @@
   renderFooter();
   initHeader();
   initHashLinks();
+  initDemoBadges();
   initSkipLink();
   window.addEventListener("hashchange", function () { forcedHash = null; render(); });
   window.addEventListener("popstate", function () { forcedHash = null; render(); });
