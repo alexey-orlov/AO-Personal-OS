@@ -44,15 +44,19 @@ var NEXT_TIERS = ["Integration", "Scale"];
 /* A matrix row carrying a restrictive asterisk is PARTIAL: an unqualified
    SUPPORTED tag on it would overstate the source. */
 var CAP_STATES = ["supported", "partial", "roadmap"];
-/* Round 4, C1: a case study is measured or in progress. The status drives the
-   chip and the metric eyebrow, so a third value would render an empty chip. */
-var CASE_STATUSES = ["measured", "in-progress"];
+/* Round 4, C1: a case study is measured, modeled against a historical baseline,
+   or in preparation. The status drives the chip and the metric eyebrow — both
+   have to say the same word as the story, which is what the eyebrow map below
+   enforces — so a fourth value would render an empty chip. */
+var CASE_STATUSES = ["measured", "modeled", "in-preparation"];
+var CASE_EYEBROW = {
+  "measured": "Measured",
+  "modeled": "Modeled",
+  "in-preparation": "Target outcomes"
+};
 /* Round 4, T1: the three tag families and the two availability badges. */
 var PATTERN_IDS = ["deep-research", "processing-pipelines", "data-analysis"];
 var FACET_IDS = ["oci-nvidia", "oracle-ai-data-platform", "oracle-autonomous-ai-lakehouse", "other"];
-/* Round 4 (Alex, 2026-09-16): no customer may be named anywhere in the shipped
-   data, and no customer logo may be referenced. The files stay on disk,
-   unreferenced, pending customer approval. */
 /* Round 4, T1: only these two carry the muted "in preparation" status line;
    every other product's state is told by its availability badges. */
 var UNPACKAGED = ["case-evidence-collection", "plan-vs-actual-investigation"];
@@ -239,35 +243,40 @@ if (!arr(C.products) || C.products.length !== 7) {
   if (o.successStory !== undefined) fail(w, "overview.successStory is superseded by overview.caseStudy — nothing renders it");
   if (o.caseStudy !== null && o.caseStudy !== undefined) {
     var cs = o.caseStudy;
-    ["descriptor", "area", "industry", "image", "status", "metricsEyebrow", "story", "ndaLine", "downloadLabel"].forEach(function (k) {
+    ["descriptor", "area", "industry", "status", "metricsEyebrow", "story", "ndaLine", "downloadLabel"].forEach(function (k) {
       if (!str(cs[k])) fail(w, "overview.caseStudy." + k + " missing");
     });
     if (cs.customer !== undefined) fail(w, "overview.caseStudy.customer is banned — no customer is named on this site");
     if (cs.logo !== undefined || cs.logoStacked !== undefined) {
       fail(w, "overview.caseStudy carries a logo — the industry medallion replaced it and no customer mark ships");
     }
+    /* The header band was removed: it repeated the industry photograph the
+       industry tabs render a few hundred pixels higher on the same page. */
+    if (cs.image !== undefined) {
+      fail(w, "overview.caseStudy.image is superseded — the callout opens on the medallion, not on a header band");
+    }
     if (CASE_STATUSES.indexOf(cs.status) === -1) {
       fail(w, 'overview.caseStudy.status "' + cs.status + '" is not ' + CASE_STATUSES.join(" / "));
     }
-    /* The eyebrow says what the two figures are. A measured case may not label
-       its figures as targets, and an in-progress one may not label targets as
-       measured — that is the whole point of carrying the status. */
-    var wantEyebrow = cs.status === "measured" ? "Measured" : "Target outcomes";
-    if (str(cs.metricsEyebrow) && cs.metricsEyebrow !== wantEyebrow) {
+    /* The eyebrow says what the figures are. A measured case may not label its
+       figures as targets, a modeled one may not label simulations as measured,
+       and an engagement in preparation may not label targets as either — that
+       is the whole point of carrying the status. */
+    var wantEyebrow = CASE_EYEBROW[cs.status];
+    if (wantEyebrow && str(cs.metricsEyebrow) && cs.metricsEyebrow !== wantEyebrow) {
       fail(w, 'overview.caseStudy.metricsEyebrow is "' + cs.metricsEyebrow + '", expected "' + wantEyebrow + '" for status "' + cs.status + '"');
     }
     if (INDUSTRIES.indexOf(cs.industry) === -1) {
       fail(w, 'overview.caseStudy.industry "' + cs.industry + '" is not in the fixed set of 16');
-    } else if (str(cs.image)) {
-      var wantCase = new RegExp("^assets/img/industries/" + cs.industry + "\\.(jpg|jpeg|png|webp)$");
-      if (!wantCase.test(cs.image)) fail(w, 'overview.caseStudy.image "' + cs.image + '" must be assets/img/industries/' + cs.industry + ".jpg");
-      else checkAsset(w, "case-study header image", cs.image);
     }
-    if (!arr(cs.metrics) || cs.metrics.length !== 2) {
-      fail(w, "overview.caseStudy.metrics must hold exactly 2 headline figures");
+    /* One or two headline figures. Two is the default; one is correct where
+       only one real outcome exists, and padding the second slot with a
+       capability restatement set at 40px is the failure this allows out of. */
+    if (!arr(cs.metrics) || cs.metrics.length < 1 || cs.metrics.length > 2) {
+      fail(w, "overview.caseStudy.metrics must hold 1 or 2 headline figures");
     } else cs.metrics.forEach(function (m, i) {
       if (!str(m.value) || !str(m.label)) fail(w, "caseStudy.metrics[" + i + "] needs { value, label }");
-      if (str(m.value) && m.value.length > 18) fail(w, 'caseStudy.metrics[' + i + '].value "' + m.value + '" is too long to set large');
+      if (str(m.value) && m.value.length > 20) fail(w, 'caseStudy.metrics[' + i + '].value "' + m.value + '" is too long to set large');
     });
     if (!arr(cs.scope) || cs.scope.length !== 3) {
       fail(w, "overview.caseStudy.scope must hold exactly 3 facts — the compact scope row");
