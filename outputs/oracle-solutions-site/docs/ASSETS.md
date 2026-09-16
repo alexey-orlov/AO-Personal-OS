@@ -74,7 +74,7 @@ requires.
 
 **Workforce optimization (2026-09-16).** All four `workforce-optimization-*.jpg`
 frames and `posters/workforce-optimization.jpg` are captures of the second
-walkthrough (`site/demo/workforce-optimization/`, PROVENANCE §18), not of the
+walkthrough (`site/demo/workforce-optimization/`, PROVENANCE §19), not of the
 delivered product. The walkthrough keeps the product's flow and information
 model — run optimization (region · period · XLSX) → schematic map with zone and
 technician details → current-vs-optimized compare → weekly schedule in zone and

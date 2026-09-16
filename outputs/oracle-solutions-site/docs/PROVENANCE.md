@@ -2146,9 +2146,9 @@ missing bullet, an over-long stat value, a partner path under `logos/`, a
 `shortLine` without its period, an unknown icon, a banned word — were all caught,
 each with the message that names the fix.
 
-## 18. The second walkthrough — Workforce optimization, 2026-09-16
+## 19. The second walkthrough — Workforce optimization, 2026-09-16
 
-### 18.1 Brief, machine, tooling
+### 19.1 Brief, machine, tooling
 
 - Alex's brief (chat, 2026-09-16, carried by `HANDOFF-workforce-demo.md`):
   repeat the Large docs exercise for the Workforce optimization pack — an
@@ -2176,7 +2176,7 @@ each with the message that names the fix.
   0.5-second decode fault at 14:24 padded), so the narrative below is both
   screen- and voice-derived. The transcript is not in the repo.
 
-### 18.2 The real product, reconstructed
+### 19.2 The real product, reconstructed
 
 Dashboard ("Overview of active work zones and workers"; a backend-health chip
 and a version chip) → **Run Optimization** modal (Region · Period up to 4
@@ -2223,7 +2223,7 @@ of ZIPs; one technician per zone, several zones on selected weekdays, several
 technicians per zone when demand requires). The narration's own KPI example —
 "30 days to 2.2 days" of wait time — is test-data output and was not carried.
 
-### 18.3 The generalisation
+### 19.3 The generalisation
 
 The design note written before coding, kept verbatim in spirit:
 
@@ -2271,7 +2271,7 @@ The design note written before coding, kept verbatim in spirit:
     auto, the click guard, Skip = auto-perform, the end card, toasts for mocked
     downloads and sends.
 
-### 18.4 KPIs and figures
+### 19.4 KPIs and figures
 
 Computed in the page from the data by the pack's methodology (productivity =
 jobs ÷ days with at least one job per technician, fleet = simple mean; capacity
@@ -2292,7 +2292,7 @@ capacity and wait-time deltas are synthetic companions chosen to be modest.
 The real recording's uplifts (40% → 73% capacity, 2.81 → 5.2 jobs/day) were not
 carried, for the reason §4 records.
 
-### 18.5 Red-team against the pack specs
+### 19.5 Red-team against the pack specs
 
 Checked against the sales one-pager's S/M/L rows and the accelerator-pack
 feature matrix (`context/areas/softserve/docs/2026-09-16_wfo-pack-spec-for-demo.md`)
@@ -2317,7 +2317,7 @@ list on the feedback re-run (what-if), the workload-spread KPI, the forecast
 connector named in the demand rule, the regions list. Nothing that would change
 the flow, the screens or the information model.
 
-### 18.6 What changed on the site
+### 19.6 What changed on the site
 
 - `site/demo/workforce-optimization/` — `index.html`, `demo.css`, `demo.js`,
   `data.js`, on the Large docs pattern; the `?state=` switch is new.
@@ -2341,7 +2341,7 @@ the flow, the screens or the information model.
   `CONFIG.md` §3 (`demoUrl`, `demoPreviewUrl`, `videoPoster`), `ASSETS.md` §1,
   `HANDOFF-workforce-demo.md` (status); the wiki folded via `context-update`.
 
-### 18.7 Still open — Alex's decisions
+### 19.7 Still open — Alex's decisions
 
 - **Which figures the walkthrough may carry.** The +4.5% productivity headline
   is the cleared median; the 65% → 68% capacity and 6.8 → 6.2 d wait deltas
