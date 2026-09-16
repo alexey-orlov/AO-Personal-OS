@@ -14,13 +14,15 @@ Five hard rules:
 
 ---
 
-## 1. Hero (top block) — every page
+## 1. Hero (top block) — every page but one
 
 The hero is the only block on a page that carries a background image — and the same file has one other job, described at the end of this section: it is the tile on the Products page.
 
+**The home page is the exception** (round 5, §9): it carries no hero photograph at all. `overview.hero.image` is retired, the right column holds the built-on stack visual instead, and everything below about images, focal points, veils and posters applies to the seven product heroes and the Services hero only. The rest of the hero grammar — eyebrow, H1 with a teal part, lead, a CTA row that is always last — it keeps.
+
 | Part | Source | Notes |
 |---|---|---|
-| Background image | `products[].hero.image` · `overview.hero.image` · `services.hero.image` — `{ file, alt, focal }` | `file` is a path relative to `site/index.html`. `focal` is a CSS `object-position` value. `alt` is the accessible description; because the image is decorative background, carry it as the container's `aria-label` only if no other label exists, otherwise `aria-hidden`. The authority on `alt` and `focal` is `site/assets/img/heroes/heroes.json`; `content.js` carries a copy so nothing has to fetch JSON at runtime — **keep them in sync**. |
+| Background image | `products[].hero.image` · `services.hero.image` — `{ file, alt, focal }`; **no home-page entry since round 5** | `file` is a path relative to `site/index.html`. `focal` is a CSS `object-position` value. `alt` is the accessible description; because the image is decorative background, carry it as the container's `aria-label` only if no other label exists, otherwise `aria-hidden`. The authority on `alt` and `focal` is `site/assets/img/heroes/heroes.json`; `content.js` carries a copy so nothing has to fetch JSON at runtime — **keep them in sync**. |
 | Treatment | — | Image right/top, dark gradient left-to-right plus a bottom fade into the page ground `#131313`, so headline and CTAs sit on near-black. A subtle teal tint over the image is allowed. |
 | Height | — | 60–70vh maximum on desktop. **Not** full-screen. Auto height on mobile, with the image faded harder. |
 | Content | `headline`, `heroLine?`, `badges?`, the chip row (§1.2), `oneLiner`, `statusNote?`, `subLine?`, CTAs | The chip row replaced the flat chip list in round 4. CTAs are the primary "Request a demo" and, when `demoUrl` is set, a secondary "Try the interactive demo" that opens in a new tab (CONFIG §3). |
@@ -187,7 +189,7 @@ The block is a **surface-level dark panel with a 3px teal left rule, and that ru
 
 ### 2.6a The same engagements on the other two surfaces
 
-The home page renders **one compact card per case study** — medallion, descriptor, status chip, one headline metric with its eyebrow, one line, the link to the product — from the same objects the product pages read, so the two cannot drift apart.
+The home page renders **one compact card per case study** — medallion, descriptor, status chip, one headline metric with its eyebrow, one line, the link to the product — from the same objects the product pages read, so the two cannot drift apart. Since round 5 the four cards sit in a **2×2 grid beside the method rail** (§9, S5) rather than in a full-width three-up row: two columns from 720 px, one below it, `grid-auto-rows: 1fr` so no card is shorter than its neighbour, and the rail to their left carries the intro, the method and the one link out.
 
 **Services does not repeat that grid.** It carries the **method**: the measurement discipline at body size as the section's lead, the one accuracy figure as a labelled stat beside it, then one line per engagement saying what that engagement measures and against what, and a link back to the Overview cards that carry the numbers. A customer moving Overview → Services met the identical four cards twice, which flattened the Services page and made the evidence feel padded rather than deep; the split is outcomes there, method here. **No figure appears in a Services engagement line** — a number away from its caveat is rule 2, and the caveats live on the cards.
 
