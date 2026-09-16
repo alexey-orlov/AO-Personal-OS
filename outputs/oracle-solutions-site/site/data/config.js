@@ -103,7 +103,7 @@ window.SITE_CONFIG = {
       marketplace: false,
       marketplaceUrl: "",
       demoUrl: "demo/cross-system-erp-qa/index.html",
-      demoPreviewUrl: "",
+      demoPreviewUrl: "https://claude.ai/code/artifact/6c822cc7-1c05-4504-ad61-7b64c86e9ceb",
       video: false,
       videoUrl: "",
       videoPoster: "assets/img/posters/cross-system-erp-qa.jpg",
