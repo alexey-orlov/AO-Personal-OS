@@ -1923,8 +1923,8 @@ on the site.
 | `stack.ariaLabel` | — the figure has no source; it describes what the three bands show | **written** |
 | `stack.patternsLabel`, `stack.platformsLabel` | The two family names the site already uses: `shared.tagFamilies.pattern` tooltip *Workflow pattern*, and `facets.technologyLabel` | adapted |
 | `stack.softserve.items[3]` | §6.2 names these three exactly. Each is on the site already: *Agentic-AI patterns* ← `services.whatWeDo.families` (seven application families); *Evaluation frameworks* ← `services.whatWeDo.attachesToEvery` (*"Evaluation, observability and model routing …"*); *Packaged delivery* ← `services.howWeEngage` (one accelerator pack, three packages) | adapted |
-| `stats[0]` `7` | `products.length`; the label's *"each starting with a scoped Jumpstart on your own data"* ← `productsPage.intro` | adapted |
-| `stats[1]` `4` | `facets.technology` (the four canonical platforms, §17.7); label adapted from `services.hero.stats[3]` (*"Oracle platforms the practice focuses on"*) | adapted |
+| `stats[0]` `7` | `products.length`; the label is *"products across three workflow patterns"* ← `facets.categories` (three). Its second clause, *"each starting with a scoped Jumpstart on your own data"* ← `productsPage.intro`, was cut in 18.5 | adapted |
+| `stats[1]` `4` | `facets.technology` (the four canonical platforms, §17.7); the label is `services.hero.stats[3]` — *"Oracle platforms the practice focuses on"* — **verbatim** since 18.5, where *builds on* had no source | **verbatim** |
 | `stats[2]` `From 30 days` | `services.howWeEngage.ladder[0].duration` — the floor of the three clocks (18.0 b) | adapted |
 | `stats[3]` `500+` + label | `services.hero.stats[0]`, the cleared data-practice credential | **verbatim** |
 
@@ -1932,12 +1932,12 @@ on the site.
 
 | Key | Source | Label |
 |---|---|---|
-| `eyebrow`, `title` | §6.2, with *run now* → *start now* (18.0 a) | adapted |
-| `panels[0].title`, `.body` | §6.2 for the shape; the four-priced / three-scoped sentence from the seven `jumpstart.investment` blocks; *"in your tenancy"* ← `productsPage.intro` | adapted |
+| `eyebrow`, `title` | §6.2, with *run now* → *start now* (18.0 a); 18.5 joined the title's two sentences into one — *"Products you can start now, and a practice that makes them yours."* | adapted |
+| `panels[0].title`, `.body` | §6.2 for the shape; the three pattern names are `facets.categories[].chip` (18.5 replaced *document processing*, a fourth name for the same pattern, with **processing pipelines**); the four-priced / three-scoped sentence from the seven `jumpstart.investment` blocks; *"in your tenancy"* ← `productsPage.intro` | adapted |
 | `panels[0].bullets[0..2]` | Bullet 1 §6.2 verbatim; bullet 2 `facets.technology` (the two platforms that actually carry products); bullet 3 re-grounded, 18.0 (c) | mixed |
 | `panels[1].title` | §6.2 | verbatim |
 | `panels[1].body` | `services.howWeEngage.lead` + `services.whatWeDo.whoYouWorkWith` — its last sentence, *"One contract and one accountable team, from scoping through run."*, is verbatim | adapted |
-| `panels[1].bullets[0..2]` | `howWeEngage.ladder[0].pricing` + `.duration`; `howWeEngage.howAPovRuns.steps[0]` + `services.proof.lead`; `whatWeDo.whoDeliversIt` — all three re-grounded, 18.0 (c) | adapted |
+| `panels[1].bullets[0..2]` | `howWeEngage.ladder[0].pricing`, now near-verbatim — *"A fixed price on the packaged scope, scoped per engagement on the deep-research investigations"* (18.5 dropped the `.duration` half); `services.proof.lead` — *"Every KPI measured like for like against your current process"* (18.5 dropped the `howAPovRuns.steps[0]` half); `whatWeDo.whoDeliversIt` — all three re-grounded, 18.0 (c) | adapted |
 | both `cta`s | §6.2 — *See the products ↓*, *How we deliver ↓*, as on-page anchors | verbatim |
 
 **S3 · `overview.catalog`**
@@ -1945,8 +1945,8 @@ on the site.
 | Key | Source | Label |
 |---|---|---|
 | `eyebrow`, `title` | §6.2 | verbatim |
-| `lead` | The retired `overview.productsIntro` — *"runs in the customer's own Oracle tenancy and keeps a human in the decision"* — plus `productsPage.intro` (*"in your own tenancy"*) | adapted |
-| `patterns[].definition` ×3 | Composed from the `oneLiner` of every product in that pattern; the `processing-pipelines` definition is the long one, near-verbatim from `large-document-extraction`'s one-liner and its `overview.steps`, because that column holds one product and the definition fills the space a second row would have taken | **written** — see §18.3 |
+| `lead` | The retired `overview.productsIntro` — *"runs in the customer's own Oracle tenancy and keeps a human in the decision"* — plus `productsPage.intro` (*"in your own tenancy"*). It now reads *"Each product packages one workflow pattern, runs in your own Oracle tenancy and keeps a human in the decision."*: 18.5 cut the *Find the job first* opener (S2's first bullet already says it) and *packaged instance* (engineering jargon) | adapted |
+| `patterns[].definition` ×3 | Composed from the `oneLiner` of every product in that pattern; the `processing-pipelines` definition is the long one, near-verbatim from `large-document-extraction`'s one-liner and its `overview.steps`, because that column holds one product and the definition fills the space a second row would have taken. The first two were revised in 18.5 — the current text and the reasons are in §18.3 | **written** — see §18.3 |
 | `cta` | §6.2's footer link, re-pointed at the Products page | verbatim |
 | the rows | **Derived**: `UI.orderedProducts()` filtered by `category`, each rendering `name`, `shortLine`, `UI.badgeRow(slug)` and `statusNote` | — |
 
