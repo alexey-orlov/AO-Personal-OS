@@ -3614,3 +3614,33 @@ Verification: `node --check` clean; checker OK; deny-list grep empty; console cl
 3. Two product Jumpstart blocks still say *"100% of the fee credits into a roll-out signed within 90 days"* — a commercial term that names the old step; left as written.
 4. Deck proof points usable once cleared: an enterprise agentic AI platform at scale (response accuracy 42% → 91%, 3M+ users) and a GenAI knowledge graph (5–10× faster research) — FACTORY s.15, s.17.
 5. The decks disagree on durations (proof of value about two vs three months; integration 3–5 vs 6 months); the site keeps its published *30–45 days to about two months* and *3–5 months*.
+
+### 21.7 Layout QA and the short headings (2026-09-16, same day)
+
+**Asks** (Alex, in session): *"Do QA of the page layout as a UI web designer. fix it"*, then, looking at version 28's hero: *"don't u think it's too long of a heading? rethink headings pls"*. Opus ran the QA and the fixes; Fable rewrote the headings in one short pass, to length budgets measured on the page.
+
+| Finding (version 28) | Fix (version 29) |
+|---|---|
+| The H1 kept the product-title scale (84 px at 1440) with its 20ch cap removed, so two sentence-long lines ran the full width | The home H1's scale, `clamp(2.25rem, 3.9vw, 3.75rem)`, and `min(2rem, 8.6vw)` below 480 px; two lines from 320 to 1440 |
+| The hero copy sat outside `.product-hero-copy`: no gaps between eyebrow, H1, lead, subline, chips and button, and no measure | Wrapped like every product hero; 1.25rem rhythm; lead and subline on one 44rem measure |
+| The stat band had three columns but not the strip's geometry: dividers stopping under the labels, no bottom padding | Shares the home strip's rules through `.services-stats` / `.services-stat-band` beside the `--home` selectors |
+| The step track ran full width in small print, and squeezed into three 224 px columns at 768 | Body-size steps; the track turns vertical below 900 px |
+| Teal four times on S2 (eyebrow, first dot, two panel marks), against one accent per screen | The after-go-live marks are neutral |
+| The one proof figure was set as a 35 px tile value with a bold small label | A 44–64 px anchor with a regular-weight label |
+| On a phone the wrapped band link stranded its arrow at the right edge under a full-width rule | Inline in a paragraph with a text underline |
+| The contact paragraph printed twice (`services.contact.sub` is `forms.contact.sub`) | The form column renders no sub on Services |
+| One-word last lines in the panels | `text-wrap: pretty` on the page's running text |
+
+**Headings, before → after** (budgets: H1 ≤ ~24 characters a line, two lines; H2 ≤ ~30 characters, five words; light-band title ≤ ~28 characters; no word repeated across headings):
+
+| Key | Before | After |
+|---|---|---|
+| `hero.headline` | FROM ORACLE’S PLATFORMS / TO AGENTS IN PRODUCTION. | FROM PLATFORM / TO PRODUCTION. |
+| `howWeEngage.title` | Prove it small. Take it live. Extend it when you’re ready. | Each step earns the next. |
+| `afterGoLive.title` | We run it, or your team does. | Our team, or yours. — Fable's alternate, chosen because it follows the panel order (managed service, then your own team) |
+| `proof.title` | Signed before we start, scored like for like. | Signed before we start. |
+| `contact.heading` | Let’s talk | unchanged |
+
+Read together the headings are the page's spine — destination, method, who runs it, how you'll know, first move — and the leads under them are unchanged. One Opus copy edit followed: with *Each step earns the next.* on the screen, *step* and *next* each landed three times on S2, so `howWeEngage.steps[0].body` ends *"a costed expansion plan at the end"* instead of *"a costed plan for the next step at the end"* — the wording of `overview.delivery.why.pillars[2]`.
+
+**Verification:** checker OK; deny-list grep empty; console clean; no horizontal overflow at 320, 375, 414, 768, 1024 or 1440; every heading on one line at 1440 and two at most at 375; the repetition check clean on every screen. Page height 4.0 screens at 1440 (hero 656 px). Published as preview version 29.

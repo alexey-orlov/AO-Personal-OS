@@ -320,7 +320,7 @@ No `notes` key. **Seller-facing commercial notes are not part of this file.** Th
 | `howWeEngage` | `{ anchor: "how-we-engage", eyebrow, title, lead, steps: [{ title, body, factLabel, fact }], footnote }` — the home page's step track (`overview.delivery`). `steps[].title` **must equal** `overview.delivery.steps[].title`: one name per step across the site. `anchor` is the target of `shared.engageLink`. |
 | `afterGoLive` | `{ anchor: "after-go-live", eyebrow, title, panels[2]: [{ id, icon, title, body, bullets: [string] }] }` — the home two-panel without CTAs, closing the engagement section: the managed service, and the customer's own team. |
 | `proof` | `{ anchor: "proof", eyebrow, title, lead, stat: { value, label }, footnote, cta: { label, route } }` — the light band: the measurement discipline on the left; the one accuracy figure, its caveat and the link back to the case studies on the right. `anchor` is the target of `overview.caseStudiesIntro.cta`. |
-| `contact` | `{ anchor, heading, sub }` |
+| `contact` | `{ anchor, heading, sub }` — `sub` sits under the heading; the form column renders no sub of its own on Services, because `forms.contact.sub` is the same sentence. |
 
 Retired in round 6, and failed by the checker if they come back: `services.whatWeDo`, `services.whySoftServe`, `howWeEngage.ladder` / `ladderRules` / `ladderFootnote` / `howAPovRuns`, `proof.dividerLabel` / `engagementsTitle` / `engagements`, `hero.platforms[].short` / `long`, `site.secondaryCta`, `site.dividerLabels`, `shared.ladderColumns`.
 

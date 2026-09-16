@@ -52,6 +52,12 @@ counts and the scaffolding, not the essence" and used internal vocabulary
   screens"). A block that carries no message is cut or moved to the page that owns the
   detail; a page that repeats a sibling page's steps under different names is a structure
   bug, not a copy one.
+- **Headings are display lines, not sentences** (2026-09-16, Alex on the Services H1 *"From
+  Oracle's platforms to agents in production."*: "too long of a heading"). Uppercase display
+  type multiplies length, so budget from the rendered size before writing: an H1 is two to
+  four words (≤ ~24 characters a line, two lines at most), an H2 five words or fewer (≤ ~30
+  characters), and the argument moves into the lead. Check the phone break too: no line
+  left holding a lone short word.
 - Name the readers before drafting (for the Oracle site: an Oracle rep opening the page
   live on a call, and an enterprise buyer on Oracle), and write every headline and lead
   from their seat: the job it does and the outcome, in their words. A count, a taxonomy
