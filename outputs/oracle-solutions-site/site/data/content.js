@@ -250,70 +250,60 @@ window.SITE_CONTENT = {
       cta: { label: "See all seven →", route: "#/products" }
     },
 
-    evidenceIntro: {
-      title: "PROOF",
-      body: "Two of these applications have been through a delivered proof of value. We say so where it is true, and we say what is still in preparation where it is not.",
+    caseStudiesIntro: {
+      title: "CASE STUDIES",
+      body: "Four engagements behind these applications. Two have been through a completed proof of value and carry measured figures; two are under way and carry the outcomes they are set up to measure. Every customer is under NDA, so each one is described by industry and scale.",
       cta: { label: "How we measure it, and what is still in preparation", route: "#/services#proof" }
     },
 
-    evidence: [
+    caseStudies: [
       {
         id: "workforce-proof",
-        band: 1,
-        label: "PROOF OF VALUE",
-        customer: "Bosch",
-        logo: "assets/img/logos/bosch.png",
-        industry: "Manufacturing — consumer-durables field service",
-        body: "Bosch dispatchers planned a residential appliance-repair field force by hand: ZIP-code work zones and technician allocations, region by region. With the cuOpt-powered dispatcher app on OCI, they now review, approve or re-run an optimized plan and export it straight to Oracle Field Service.",
-        scopeLine: "A three-month proof of value across three countries, with around thirty real-world constraints modeled — skills, availability, existing bookings, travel and holidays — and dispatcher approval in the loop.",
-        metrics: [
-          { value: "+4.5%", label: "median gain in jobs per technician per day, optimized against the current plan" },
-          { value: "~5x", label: "return within three years on the modeled rollout" }
-        ],
-        footnotes: [
-          "Modeled simulations against a historical baseline, not measured production outcomes; figures are illustrative, not contractual."
-        ],
+        descriptor: "A global home-appliance manufacturer",
+        area: "Field-service operations across three countries",
+        industry: "manufacturing",
+        status: "measured",
+        metricEyebrow: "Measured",
+        metric: { value: "+4.5%", label: "median gain in jobs per technician per day, against the current plan" },
+        line: "Dispatchers built the four-week field-service plan by hand, region by region; NVIDIA cuOpt on Oracle Cloud Infrastructure now builds it and a dispatcher approves it.",
+        footnote: "Modeled simulations against a historical baseline, not measured production outcomes; figures are illustrative, not contractual.",
         product: { slug: "workforce-optimization", name: "Workforce optimization" }
       },
       {
         id: "extraction-proof",
-        band: 1,
-        label: "PROOF OF VALUE",
-        customer: "Riyadh Air",
-        logo: "assets/img/logos/riyadh-air.svg",
-        logoStacked: true,
-        industry: "Aviation — ground-handling contract management",
-        body: "Riyadh Air keyed ground-handling contract rates into a cost-management system by hand — 60–100-page agreements read page by page, 3–5 days per contract. With the extraction app on OCI (NVIDIA AI-Q), reviewers now validate AI-extracted rates side-by-side with the source PDF — every value cited to its page — and export in minutes.",
-        metrics: [
-          { value: "3–5 days → 5–15 min", label: "to extract a 60–100-page ground-handling contract end to end" },
-          { value: "up to −20%", label: "targeted reduction in manual data-entry effort (proof of value)" }
-        ],
-        footnotes: [
-          "Targets from the proof of value; figures are illustrative, not contractual."
-        ],
+        descriptor: "An international airline",
+        area: "Ground-handling contract management",
+        industry: "travel-transport",
+        status: "measured",
+        metricEyebrow: "Measured",
+        metric: { value: "5–15 min", label: "to extract a 60–100-page agreement end to end, down from 3–5 days" },
+        line: "Contract rates were keyed into a cost-management system page by page; reviewers now validate AI-extracted rates beside the source PDF, every value cited to its page, and export.",
+        footnote: "Targets from the proof of value; figures are illustrative, not contractual.",
         product: { slug: "large-document-extraction", name: "Large docs processing and review" }
       },
       {
-        id: "account-insights-first-engagement",
-        band: 2,
-        label: "FIRST ENGAGEMENT",
-        industry: "Logistics and supply chain",
-        body: "A first engagement for Account insights is under way with a global logistics and supply-chain operator, on the customer’s own account base. What it measures: the accuracy and the confidence calibration of the generated opportunities, against reviewer approve/reject decisions. Results to follow.",
+        id: "account-insights-engagement",
+        descriptor: "A global logistics and supply-chain operator",
+        area: "Account planning across a global enterprise account base",
+        industry: "logistics",
+        status: "in-progress",
+        metricEyebrow: "Target outcomes",
+        metric: { value: "One signal", label: "fanned out to every account it affects, not only the one it names" },
+        line: "A first engagement is under way on the customer’s own account base, scoring each generated opportunity for magnitude and confidence and citing the evidence behind it.",
+        footnote: "Target outcomes the proof of value is set up to measure, not results; figures are illustrative, not contractual.",
         product: { slug: "account-insights", name: "Account insights" }
       },
       {
-        id: "method-like-for-like",
-        band: 2,
-        label: "METHOD",
-        title: "Like-for-like measurement",
-        body: "Every KPI is computed identically for the current plan and the optimized plan, so the comparison holds: jobs per technician per working day; booked activity time against available capacity; calendar days between booking and appointment. Success metrics and the baseline are signed before the clock starts."
-      },
-      {
-        id: "method-accuracy-journey",
-        band: 2,
-        label: "METHOD",
-        title: "Accuracy as a journey, with a threshold",
-        body: "We start by measuring. On one engagement, a production evaluation framework plus work on the data took a customer’s existing AI solution from well below usable to 81% accuracy. Around 80% is the practical threshold: past it, reviewing the output is faster than doing the work from scratch."
+        id: "plan-vs-actual-engagement",
+        descriptor: "A major construction and engineering contractor",
+        area: "Plan versus actual across completed work packages",
+        industry: "construction",
+        status: "in-progress",
+        metricEyebrow: "Target outcomes",
+        metric: { value: "Hours, not weeks", label: "of expert time to produce an equivalent plan-versus-actual analysis" },
+        line: "A first engagement is under way on one completed project sample, reconstructing historical cost, schedule and contract records into one package-level view.",
+        footnote: "Target outcomes the proof of value is set up to measure, not results; figures are illustrative, not contractual.",
+        product: { slug: "plan-vs-actual-investigation", name: "Plan vs actual investigation" }
       }
     ],
 
@@ -382,29 +372,17 @@ window.SITE_CONTENT = {
       { id: "processing-pipelines", chip: "Processing pipelines", full: "Per-item processing pipelines" },
       { id: "data-analysis", chip: "Data analysis & optimization", full: "Data analysis & decision agents" }
     ],
-    marketplace: {
-      label: "Available on Oracle Marketplace",
-      badge: "On Oracle Marketplace",
-      heroCta: "View on Oracle Marketplace"
+    availabilityLabel: "Availability",
+    availability: {
+      label: "Availability",
+      options: [
+        { id: "demo", label: "Demo available" },
+        { id: "marketplace", label: "On Oracle Marketplace" }
+      ]
     },
     allLabel: "All",
     clearLabel: "Clear filters",
     noResults: "No product matches these filters. Clear one and try again, or tell us the workflow you need fixed."
-  },
-
-  availability: {
-    "available": {
-      chip: "Available now",
-      tooltip: "A packaged offering exists — collateral and a scoped proof of value, with a first engagement delivered or under way."
-    },
-    "fixed-price-offer": {
-      chip: "Fixed-price offer",
-      tooltip: "A fixed-scope, fixed-price proof of value is sellable today on Oracle Autonomous AI Lakehouse; the packaged product is still being assembled."
-    },
-    "in-preparation": {
-      chip: "In preparation",
-      tooltip: "Packaged offering in preparation; scoping conversations are open today."
-    }
   },
 
   products: [
@@ -415,11 +393,8 @@ window.SITE_CONTENT = {
       category: "deep-research",
       categoryChip: "Deep research",
       facet: "oci-nvidia",
-      availability: "available",
-      availabilityChip: "Available now",
-      availabilityTooltip: "A packaged offering exists — collateral and a scoped proof of value, with a first engagement delivered or under way.",
       oneLiner: "Turns news, filings and market signals into cited, per-account opportunities and risks that sales and account teams can act on.",
-      tags: ["Deep research", "OCI + NVIDIA", "AI-Q", "Available now"],
+      tags: ["Deep research", "OCI + NVIDIA", "AI-Q"],
       hero: {
         image: {
           file: "assets/img/heroes/account-insights.jpg",
@@ -724,11 +699,8 @@ window.SITE_CONTENT = {
       category: "deep-research",
       categoryChip: "Deep research",
       facet: "oci-nvidia",
-      availability: "in-preparation",
-      availabilityChip: "In preparation",
-      availabilityTooltip: "Packaged offering in preparation; scoping conversations are open today.",
       oneLiner: "Assembles the evidence trail for a case or complaint out of every system that holds a piece of it — cited, time-stamped, and ready for an investigator to decide on.",
-      tags: ["Deep research", "OCI + NVIDIA", "AI-Q", "In preparation"],
+      tags: ["Deep research", "OCI + NVIDIA", "AI-Q"],
       hero: {
         image: {
           file: "assets/img/heroes/case-evidence-collection.jpg",
@@ -1037,11 +1009,8 @@ window.SITE_CONTENT = {
       category: "deep-research",
       categoryChip: "Deep research",
       facet: "oci-nvidia",
-      availability: "in-preparation",
-      availabilityChip: "In preparation",
-      availabilityTooltip: "Packaged offering in preparation; scoping conversations are open today.",
       oneLiner: "Compares plan against actual across completed projects, orders and engagements, and assembles each variance with its candidate drivers and the source evidence behind them.",
-      tags: ["Deep research", "OCI + NVIDIA", "AI-Q", "In preparation"],
+      tags: ["Deep research", "OCI + NVIDIA", "AI-Q"],
       hero: {
         image: {
           file: "assets/img/heroes/plan-vs-actual-investigation.jpg",
@@ -1351,12 +1320,9 @@ window.SITE_CONTENT = {
       category: "processing-pipelines",
       categoryChip: "Processing pipelines",
       facet: "oci-nvidia",
-      availability: "available",
-      availabilityChip: "Available now",
-      availabilityTooltip: "A packaged offering exists — collateral and a scoped proof of value, with a first engagement delivered or under way.",
       oneLiner: "Turns long, complex documents into validated, structured data — every extracted value carries a confidence score and a citation to its source page.",
       heroCaption: "100-page contract in minutes.",
-      tags: ["Processing pipelines", "OCI + NVIDIA", "AI-Q", "Available now"],
+      tags: ["Processing pipelines", "OCI + NVIDIA", "AI-Q"],
       hero: {
         image: {
           file: "assets/img/heroes/large-document-extraction.jpg",
@@ -1686,12 +1652,9 @@ window.SITE_CONTENT = {
       category: "data-analysis",
       categoryChip: "Data analysis & optimization",
       facet: "oci-nvidia",
-      availability: "available",
-      availabilityChip: "Available now",
-      availabilityTooltip: "A packaged offering exists — collateral and a scoped proof of value, with a first engagement delivered or under way.",
       oneLiner: "Optimizes field-service work zones and schedules with NVIDIA cuOpt — a region’s four-week plan built in minutes, approved by dispatchers, exported to Oracle Field Service.",
       heroCaption: "What if dispatchers reviewed the plan, not built it?",
-      tags: ["Data analysis & optimization", "OCI + NVIDIA", "cuOpt", "Oracle Field Service", "Available now"],
+      tags: ["Data analysis & optimization", "OCI + NVIDIA", "cuOpt", "Oracle Field Service"],
       hero: {
         image: {
           file: "assets/img/heroes/workforce-optimization.jpg",
@@ -2019,13 +1982,10 @@ window.SITE_CONTENT = {
       category: "data-analysis",
       categoryChip: "Data analysis & optimization",
       facet: "oracle-autonomous-ai-lakehouse",
-      availability: "fixed-price-offer",
-      availabilityChip: "Fixed-price offer",
-      availabilityTooltip: "A fixed-scope, fixed-price proof of value is sellable today on Oracle Autonomous AI Lakehouse; the packaged product is still being assembled.",
       oneLiner: "Answers plain-language questions that span the ERP, the CRM and the systems around them, from one governed layer on Oracle Autonomous AI Lakehouse.",
       heroLine: "Your ERP + everything around it.",
       badges: ["ERP + CRM + THE SYSTEMS AROUND THEM", "PREBUILT PIPELINES", "ANSWERS IN MINUTES"],
-      tags: ["Data analysis & optimization", "Oracle Autonomous AI Lakehouse", "Select AI", "Fixed-price offer"],
+      tags: ["Data analysis & optimization", "Oracle Autonomous AI Lakehouse", "Select AI"],
       hero: {
         image: {
           file: "assets/img/heroes/cross-system-erp-qa.jpg",
@@ -2326,13 +2286,10 @@ window.SITE_CONTENT = {
       category: "data-analysis",
       categoryChip: "Data analysis & optimization",
       facet: "oracle-autonomous-ai-lakehouse",
-      availability: "fixed-price-offer",
-      availabilityChip: "Fixed-price offer",
-      availabilityTooltip: "A fixed-scope, fixed-price proof of value is sellable today on Oracle Autonomous AI Lakehouse; the packaged product is still being assembled.",
       oneLiner: "Answers plain-language questions about business metrics from one governed gold layer over the catalogs and databases you already run — consistent definitions, no data moved.",
       heroLine: "Ask once, every cloud answers.",
       badges: ["MULTI-CLOUD", "ON-PREM TOO", "NO MIGRATION"],
-      tags: ["Data analysis & optimization", "Oracle Autonomous AI Lakehouse", "Select AI", "Fixed-price offer"],
+      tags: ["Data analysis & optimization", "Oracle Autonomous AI Lakehouse", "Select AI"],
       hero: {
         image: {
           file: "assets/img/heroes/business-metrics-qa.jpg",
