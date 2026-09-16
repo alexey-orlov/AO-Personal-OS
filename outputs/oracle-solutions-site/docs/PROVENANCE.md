@@ -2222,6 +2222,44 @@ the checker sees it.
 
 Design-critic findings and the layout fix pass: see 18.6.
 
+### 18.6 The design-critic round, the fix pass and the publish (2026-09-16)
+
+**Owner's own review (Fable, one pass at 1440×900, 1440×2400 and 375):** the seven screens rendered as specified; two layout faults were called before the critic ran — the hero stack was 694px tall (S1 plus the proof strip ran 116vh) and the three stacked pillar cards in S4 (655px) towered over the ladder (377px) — plus the lockup name wrapping to two lines at 375.
+
+**Design critic (Opus, read-only, live measurements at 375 / 768 / 1024 / 1060 / 1280 / 1440).** Accepted and fixed in one pass:
+
+| Finding | Fix | Measured result |
+|---|---|---|
+| Catalog rows nested a `<button>` (Demo badge) inside the row `<a>`, and a configured `marketplaceUrl` would nest an `<a>` and split the row | Row is a `div`; the product name carries the link with a stretched `::after`; badges are siblings above it; hover/focus on the row | `a a, a button` count 3 → 0; one navigation per Demo click |
+| Platform tile names painted past the tile between 1025 and 1100px (hero broke at 1024, the rest of the page at 1100) | Hero column break moved to 1100; `overflow-wrap: anywhere`; stack left-aligned under the copy at ≤1100 | 0px overflow at 1025 / 1060 / 1100 / 1150 |
+| The three ladder fact rules sat at two heights (a two-line fact bottom-aligned by `margin-top:auto`) | Subgrid rows for index / title / body / fact | rule y 3253 / 3273 / 3273 → 3148 ×3 |
+| The three catalog columns' first hairline staggered by 45px (2 / 4 / 3-line definitions) | Subgrid: header row, rows list row | `.catalog-rows` top 2361 / 2406 / 2383 → 2243 ×3 (also level at 1280 and 1060) |
+| Arrow drifted below the name when name + badges wrapped | `align-self: start` | — |
+| Contact split rendered an `h2` card heading beside an `h3` form heading | Card heading is an `h3` (shared helper; Services and the Contacts tab inherit it) | S7 heading order H2 → H3 → H3 |
+| `.band-label` on the light band was 4.26:1 | `var(--text-on-light-soft)` in the light-band rule itself (site-wide contrast fix) | 6.29:1 |
+| S6 read as a sub-block: 27px title, tight padding, 499px | Normal section padding; `#about .band-title` 36px at 1440 | 499 → 612px |
+| Two teal roles in S4 (second accent eyebrow) and a teal 81% in the S5 rail beside four teal card figures | Column label is a dim eyebrow; the rail's stat value is white | — |
+| Three H3 treatments, two side by side in S4 | Home pillars use the ladder's body-font 700 title | — |
+| Pillars lifted on hover though nothing in them is clickable; case cards had no response | No hover on pillars; the case card's own link turns accent on hover / focus-within | — |
+| Mobile: four hero stats stacked single-file (607px); `.link-arrow` 23.4px tall; Demo badge 18px | Home-scoped 2-up stat strip (`stat-row--home`, and the 480px stat rule narrowed to `:not(.stat-row--home)` so Services is byte-identical); `.link-arrow` padding at ≤560px (site-wide tap target); badge min-height 24px | strip 607 → 389px; link-arrow 43px; badge 24px |
+| Tablet: case cards single-file from 900px | Home-scoped two-up between 721 and 900px | — |
+| S5 rail hand-rolled the section head; the head link's height depended on the lead's wrap; mobile connectors pointed at nothing; case cards had no heading | Rail uses the shared head; H2 and link share one row; one centre connector ≤560px; `caseCard` descriptor is an `h3` (computed style unchanged) | — |
+
+Owner's three items landed in the same pass: the stack is 545px at 1440, 1280 and 1060 (bands 168px ×3, icon and name on one row, tighter chips and padding); the pillars are horizontal cards on the home page (right column 655 → 443px against a 400px ladder; the column layout returns inside each card between 721 and 1100px, where a row would leave a 137px copy column); the lockup name is `.9375rem` at ≤480px, the largest size that fits on one line at 375 (the brief's 1.0625rem and 1rem both still wrapped).
+
+Rejected or deferred: the critic's "cheaper alternative" of dropping badges from the home rows (the badges are the honest state signal); the S5 height (1126px at 1440 — content-driven by four equal case cards, accepted); platform tile names wrapping to four lines at 1280 only (no overflow); the `bo-owner` rows differing between bands (per the brief).
+
+**Motion, after the pass (owner):** the stack's bands and connectors no longer run CSS animations parked at `opacity: 0` / undrawn until they play. The `.bo` container is a `.reveal` element: with no script the resting state is visible; with script, the observer (or `initReveal`'s 1.4s fallback) adds `is-in` and the bands fade in at 0 / .35 / .7s and the connectors draw over 1.2s as CSS transitions; under `prefers-reduced-motion` both take their resting state at once. This was prompted by the preview pane, which renders with `document.hidden === true` and never advanced the animations.
+
+**Screen heights as shipped (1440×900):** hero 681 + proof strip 218 · two ways in 812 · products 884 · how we deliver 778 · case studies 1126 · about 612 · contact 916.
+
+**Publish.** The artifact was republished at the same URL with the wrapper page and five files — `assets/site.css`, `assets/app.js`, `pages/overview.js`, `pages/services.js`, `data/content.js`. The first attempt was refused because the Workforce-demo session had published the whole tree (91 files: the `demo/workforce-optimization/**` walkthrough, the workforce step frames and poster, `config.js`, and this round's mid-state shell) at 13:40 local; after a re-read the same five files were published on top, which loses nothing because the shared working tree already carried both sessions' edits. `config.js`, `pages/product.js`, `pages/products.js`, the demo folders and the images were deliberately not passed: they are the other session's, and the live copies are the ones it published. The published `index.html` keeps `<header class="masthead">` — version 16 had lost it to a `<head`-prefix strip (§4 of the handoff records the rule).
+
+**Verification before the publish:** `node --check` clean on every changed file; `node tools/check-grammar.js` OK with the home-page contract; the deny-list grep empty; console clean on `#/`, `#/products`, `#/products/large-document-extraction`, `#/products/workforce-optimization` (+ `/contacts`), `#/services`; no horizontal overflow at 375 through 1440; nested interactive elements 0; page titles `AI Agents on Oracle — SoftServe`, `Services — …`, `<Product> — …`; the header button and the four home anchors resolve; the Services hero still offers *Browse the products* and the product heroes still open on *Request a demo*.
+
+**Follow-ups left open (not this round):** the two ladder vocabularies (home and product Jumpstart tab say Integration → Scale, the Services ladder says Roll-out → Scaling); shipped JS comments in `app.js` / `product.js` that cite VISUAL-GRAMMAR section numbers; the not-found page's hard-coded copy; the footer's CONTACT US block repeating the contact ask on every page; the "Case studies" nav item never marked active; `.claude/launch.json`'s `oracle-site` entry not starting under the preview tool on this Mac (HANDOFF §4 has the working route).
+
+
 ## 19. The second walkthrough — Workforce optimization, 2026-09-16
 
 ### 19.1 Brief, machine, tooling
