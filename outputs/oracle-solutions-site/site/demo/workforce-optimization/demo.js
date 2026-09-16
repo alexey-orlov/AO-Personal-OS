@@ -758,6 +758,9 @@
     if (!tour.active || !tour.target) return;
     if (e.target.closest("#tour, #tour-toggle, #gate, #warn-toast")) return;
     var el = e.target.closest("button, a, tr.clickable, .zone, .home, li[data-file], .dd-list li, .select, input, label, select, textarea, .d-item-head, .chg-main");
+    /* a passive step asks for no click at all: the target is a container (the KPI grid), so its own
+       children must NOT act either — everything outside the callout is blocked, Next is the way on */
+    if (STEPS[tour.i] && STEPS[tour.i].passive) { e.preventDefault(); e.stopPropagation(); if (el) tour.nudge(); return; }
     if (!el) return;
     if (tour.target.contains(el) || el.contains(tour.target)) return;
     e.preventDefault(); e.stopPropagation(); tour.nudge();
@@ -765,6 +768,7 @@
   window.addEventListener("resize", function () { tour.reposition(); });
   document.addEventListener("scroll", function () { tour.reposition(); }, true);
   $("#tour-skip").addEventListener("click", function () { tour.skip(); });
+  $("#tour-next").addEventListener("click", function () { tour.next(); });
   $("#tour-toggle").addEventListener("click", function () { if (tour.active) tour.exit(); else location.href = location.pathname; });
 
   /* ---------------- keyboard ---------------- */
