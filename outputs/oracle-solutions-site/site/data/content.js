@@ -4,7 +4,7 @@ window.SITE_CONTENT = {
     owner: "SoftServe",
     title: "AI Agents on Oracle — SoftServe",
     tagline: "AI agents and workflows on Oracle platforms",
-    metaDescription: "Best-of-breed enterprise AI agents and workflows on Oracle platforms: packaged products you can start now, and a dedicated Oracle AI & Data practice from SoftServe.",
+    metaDescription: "Enterprise AI agents and workflows on Oracle platforms: packaged products you can start now, and a dedicated Oracle AI & Data practice from SoftServe.",
     headerLockup: {
       wordmark: "assets/img/softserve-wordmark-white.svg",
       wordmarkAlt: "SoftServe",
@@ -223,7 +223,7 @@ window.SITE_CONTENT = {
     hero: {
       eyebrow: "SoftServe × Oracle · AI agents and workflows",
       headline: { lead: "ENTERPRISE AI AGENTS AND WORKFLOWS.", accent: "BUILT ON ORACLE." },
-      lead: "Oracle’s AI platforms, compounded by SoftServe’s enterprise agentic-AI experience: packaged agents and workflows for the jobs enterprises repeat most, and a dedicated practice that takes them from a fixed-scope proof of value to production.",
+      lead: "Oracle’s AI platforms, with SoftServe’s enterprise agentic-AI experience on top: packaged agents and workflows for the jobs enterprises repeat most, and a dedicated practice that takes them from a fixed-scope proof of value to production.",
       ctas: [
         { label: "Explore the products", route: "#/#products", kind: "primary" },
         { label: "How we deliver", route: "#/#how-we-deliver", kind: "secondary" }
@@ -238,8 +238,8 @@ window.SITE_CONTENT = {
         platformsLabel: "Oracle platforms"
       },
       stats: [
-        { value: "7", label: "products across three workflow patterns, each starting with a scoped Jumpstart on your own data" },
-        { value: "4", label: "Oracle platforms the practice builds on" },
+        { value: "7", label: "products across three workflow patterns" },
+        { value: "4", label: "Oracle platforms the practice focuses on" },
         { value: "From 30 days", label: "to a measured proof of value on your own data" },
         { value: "500+", label: "data experts in SoftServe’s data and analytics practice" }
       ]
@@ -247,13 +247,13 @@ window.SITE_CONTENT = {
 
     twoWays: {
       eyebrow: "Two ways in",
-      title: "Products you can start now. A practice that makes them yours.",
+      title: "Products you can start now, and a practice that makes them yours.",
       panels: [
         {
           id: "products",
           icon: "cube",
           title: "Packaged AI agents and workflows",
-          body: "Seven packaged products for the workflows enterprises repeat most: deep research, document processing, data analysis and optimization. Each runs on Oracle, in your tenancy, and starts with a scoped Jumpstart. Four are priced and ready to start today; three are scoped per engagement.",
+          body: "Seven packaged products for the workflows enterprises repeat most: deep research, processing pipelines, data analysis and optimization. Each runs on Oracle, in your tenancy, and starts with a scoped Jumpstart. Four are priced and ready to start today; three are scoped per engagement.",
           bullets: [
             "Grouped by workflow pattern, so you find the job first",
             "Built on OCI + NVIDIA or Oracle Autonomous AI Lakehouse",
@@ -267,8 +267,8 @@ window.SITE_CONTENT = {
           title: "A dedicated Oracle AI & Data practice",
           body: "One packaged delivery model — Jumpstart proof of value, integration, scale — run by the architects and engineers who build the accelerator packs themselves. One contract and one accountable team, from scoping through run.",
           bullets: [
-            "A fixed price on the packaged scope; 30–45 days to about two months to a result",
-            "Success metrics signed before the clock starts, every KPI measured like for like",
+            "A fixed price on the packaged scope, scoped per engagement on the deep-research investigations",
+            "Every KPI measured like for like against your current process",
             "One team: AI, data and OCI architects with senior AI and data engineers"
           ],
           cta: { label: "How we deliver", route: "#/#how-we-deliver", direction: "down" }
@@ -279,10 +279,10 @@ window.SITE_CONTENT = {
     catalog: {
       eyebrow: "Products",
       title: "Seven products, three workflow patterns.",
-      lead: "Find the job first. Every product is a packaged instance of one workflow pattern, running in your own Oracle tenancy with a human in the decision.",
+      lead: "Each product packages one workflow pattern, runs in your own Oracle tenancy and keeps a human in the decision.",
       patterns: [
-        { id: "deep-research", definition: "Agents that read across many sources and systems, then assemble a cited, scored answer for a reviewer to decide on." },
-        { id: "processing-pipelines", definition: "Every document or record goes through the same pipeline and comes out as validated, structured data: each value carries a confidence score and a citation to its source page, and a reviewer checks it before it is exported." },
+        { id: "deep-research", definition: "Agents that read across many sources and systems, then assemble a cited answer for a reviewer to decide on." },
+        { id: "processing-pipelines", definition: "Every document or record goes through the same pipeline and comes out as validated, structured data. Each value carries a confidence score and a citation to its source page, and a reviewer checks it before export." },
         { id: "data-analysis", definition: "Plain-language answers over governed data, and plans computed against every constraint at once, approved by the people who own the decision." }
       ],
       cta: { label: "Browse all products with filters", route: "#/products" }
@@ -293,17 +293,17 @@ window.SITE_CONTENT = {
       title: "From proof of value to production, in one packaged model.",
       anchor: "how-we-deliver",
       steps: [
-        { title: "Jumpstart proof of value", body: "Prove the gains on your own data and rules, in a separate environment, with zero integration. The success metrics are signed before the clock starts.", factLabel: "Duration and price", fact: "30–45 days to about two months · a fixed price on the packaged scope" },
+        { title: "Jumpstart proof of value", body: "Prove the gains on your own data and a limited rule set, in a separate environment, with zero integration. Success metrics are signed before the clock starts.", factLabel: "Duration and price", fact: "30–45 days to about two months · a fixed price on the packaged scope" },
         { title: "Integration", body: "Full setup, data integration and go-live at one location or for one document type: embedded in the workflow, no manual work.", factLabel: "Duration", fact: "3–5 months" },
-        { title: "Scale", body: "Roll-out across locations and document types, with per-region rule sets and data workflows. A managed service keeps the solution evolving.", factLabel: "Duration", fact: "3–12 months" }
+        { title: "Scale", body: "Extend across locations and document types, with per-region rule sets and data workflows. An optional managed service keeps it running and re-tuned.", factLabel: "Duration", fact: "3–12 months" }
       ],
       footnote: "Figures are illustrative and confirmed in scoping.",
       why: {
         title: "Why SoftServe on Oracle",
         pillars: [
           { icon: "network", title: "Platform depth", body: "OCI + NVIDIA, Oracle AI Data Platform, Oracle Autonomous AI Lakehouse and Oracle AI for Fusion Applications, with architects who own the Oracle reference architecture and the scoping." },
-          { icon: "spark", title: "Agentic-AI experience", body: "Seven application families packaged so far, evaluation frameworks that attach to every engagement, and a human kept in every decision." },
-          { icon: "audit", title: "Packaged delivery", body: "Fixed scope and signed success metrics, measured against a baseline the customer, Oracle and SoftServe sign before build starts." }
+          { icon: "spark", title: "Agentic-AI experience", body: "A library of agentic-AI patterns, evaluation frameworks that attach to every engagement, and a human kept in every decision." },
+          { icon: "audit", title: "Packaged delivery", body: "Fixed scope and signed success metrics, and every Jumpstart ends with an executive readout and a costed expansion plan." }
         ]
       },
       ctas: [
@@ -314,7 +314,7 @@ window.SITE_CONTENT = {
 
     caseStudiesIntro: {
       eyebrow: "Case studies",
-      title: "Measured on customer data, under NDA.",
+      title: "Four engagements on customer data, under NDA.",
       body: "Four engagements behind these applications. One carries figures measured in a completed proof of value, one carries figures modeled against the customer’s own historical baseline, and two are in preparation and carry the outcomes they are set up to measure. Every customer is under NDA, so each one is described by industry and scale.",
       ndaLine: "Reference calls are available on request for the completed proofs of value.",
       cta: { label: "How we measure it, engagement by engagement", route: "#/services#proof" }
@@ -374,14 +374,14 @@ window.SITE_CONTENT = {
     about: {
       eyebrow: "About SoftServe",
       title: "A global digital engineering company, building on Oracle and NVIDIA.",
-      body: "SoftServe is a digital engineering company, founded in 1993 and headquartered in Austin, Texas, that designs and builds data, cloud and AI solutions for enterprises. The Oracle AI & Data practice draws on SoftServe’s data and analytics practice — 500+ data experts, 150+ active projects, 30 Fortune 500 clients — and on engineering teams upskilled on the Oracle AI stack.",
+      body: "SoftServe is a digital engineering company, founded in 1993 and headquartered in Austin, Texas, that designs and builds data, cloud and AI solutions for enterprises. The Oracle AI & Data team draws on SoftServe’s data and analytics practice — 500+ data experts, 150+ active projects, 30 Fortune 500 clients — and on engineering teams upskilled on the Oracle AI stack.",
       stats: [
         { value: "1993", label: "founded" },
         { value: "10K", label: "employees" },
         { value: "17", label: "countries" },
         { value: "54", label: "offices" }
       ],
-      partnerLine: "Built with Oracle and NVIDIA",
+      partnerLine: "Built with",
       partners: [
         { name: "Oracle", file: "assets/img/oracle-wordmark-white.svg", width: 139, height: 18 },
         { name: "NVIDIA", file: "assets/img/nvidia-wordmark.svg", width: 92, height: 18 }
@@ -392,7 +392,7 @@ window.SITE_CONTENT = {
     contact: {
       anchor: "request-a-demo",
       heading: "Talk to the Oracle AI & Data team",
-      sub: "Tell us the account or workflow you have in mind. One scoping conversation starts it: we come back with what a proof of value would cover, on your data."
+      sub: "One scoping conversation starts it. We come back with what a proof of value would cover, what it would cost, and what it would measure."
     }
   },
 

@@ -392,7 +392,6 @@
       UI.contactSplit({
         cardHeading: UI.sectionLabel("contacts"),
         heading: demo.secondaryHeading,
-        sub: demo.secondarySub,
         form: form
       }) +
       "</div></section>";
