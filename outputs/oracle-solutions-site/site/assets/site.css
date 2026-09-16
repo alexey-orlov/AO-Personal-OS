@@ -2618,12 +2618,19 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
   flex-direction: column;
   gap: .5rem;
   min-height: 0;
-  animation: bo-in .45s var(--ease) both;
 }
 
-.bo-band--oracle { background: var(--bg-inset); animation-delay: 0s; }
-.bo-band--softserve { animation-delay: .35s; }
-.bo-band--patterns { animation-delay: .7s; }
+.bo-band--oracle { background: var(--bg-inset); }
+
+/* The stack rides the page's reveal mechanism instead of a CSS animation: the
+   resting state is visible with no script at all, the observer (and its 1.4 s
+   fallback) adds is-in, and the bands and connectors stagger in from there.
+   Nothing is parked at opacity 0 waiting for an animation to run. */
+.js-reveal .bo.reveal { transform: none; }
+.js-reveal .bo.reveal .bo-band { opacity: 0; transform: translateY(6px); transition: opacity .45s var(--ease), transform .45s var(--ease); }
+.js-reveal .bo.reveal.is-in .bo-band { opacity: 1; transform: none; }
+.js-reveal .bo.reveal .bo-band--softserve { transition-delay: .35s; }
+.js-reveal .bo.reveal .bo-band--patterns { transition-delay: .7s; }
 
 .bo-owner { display: flex; align-items: center; justify-content: space-between; gap: .75rem; min-height: 1rem; }
 
@@ -2686,19 +2693,16 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
   stroke-width: 1;
   vector-effect: non-scaling-stroke;
   stroke-dasharray: 16;
-  stroke-dashoffset: 16;
-  animation: bo-draw 1.2s var(--ease) forwards;
+  stroke-dashoffset: 0;
 }
 
-.bo-links--lower .bo-link:nth-child(1) { animation-delay: 0s; }
-.bo-links--lower .bo-link:nth-child(2) { animation-delay: .12s; }
-.bo-links--lower .bo-link:nth-child(3) { animation-delay: .24s; }
-.bo-links--upper .bo-link:nth-child(1) { animation-delay: .5s; }
-.bo-links--upper .bo-link:nth-child(2) { animation-delay: .62s; }
-.bo-links--upper .bo-link:nth-child(3) { animation-delay: .74s; }
-
-@keyframes bo-draw { to { stroke-dashoffset: 0; } }
-@keyframes bo-in { from { opacity: 0; transform: translateY(6px); } }
+.js-reveal .bo.reveal .bo-link { stroke-dashoffset: 16; transition: stroke-dashoffset 1.2s var(--ease); }
+.js-reveal .bo.reveal.is-in .bo-link { stroke-dashoffset: 0; }
+.js-reveal .bo.reveal .bo-links--lower .bo-link:nth-child(2) { transition-delay: .12s; }
+.js-reveal .bo.reveal .bo-links--lower .bo-link:nth-child(3) { transition-delay: .24s; }
+.js-reveal .bo.reveal .bo-links--upper .bo-link:nth-child(1) { transition-delay: .5s; }
+.js-reveal .bo.reveal .bo-links--upper .bo-link:nth-child(2) { transition-delay: .62s; }
+.js-reveal .bo.reveal .bo-links--upper .bo-link:nth-child(3) { transition-delay: .74s; }
 
 /* Under the left-aligned copy the stack is left-aligned too, not centred. */
 @media (max-width: 1100px) {
@@ -3100,11 +3104,10 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 
 /* ——— motion ——— */
 
-/* The drawn end state is the resting state, so zeroing the durations leaves the
-   stack fully drawn rather than blank. The global rule zeroes durations but not
-   delays, so the staggered bands and connectors clear theirs here — otherwise a
-   reader who asked for no motion still waits out the stagger on a blank frame. */
+/* Under reduced motion the stack is simply there: the bands and connectors take
+   their resting state at once, with no stagger to wait out. */
 @media (prefers-reduced-motion: reduce) {
-  .bo-band, .bo-link { animation-delay: 0s; }
+  .js-reveal .bo.reveal .bo-band { opacity: 1; transform: none; transition-delay: 0s; }
+  .js-reveal .bo.reveal .bo-link { stroke-dashoffset: 0; transition-delay: 0s; }
   .catalog-row:hover, .catalog-row:focus-within { transform: none; }
 }

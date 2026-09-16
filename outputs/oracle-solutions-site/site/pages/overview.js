@@ -82,7 +82,7 @@
         "</li>";
     }).join("");
 
-    return '<div class="bo" role="img" aria-label="' + UI.esc(stack.ariaLabel) + '">' +
+    return '<div class="bo reveal" role="img" aria-label="' + UI.esc(stack.ariaLabel) + '">' +
       '<div class="bo-band bo-band--patterns" aria-hidden="true">' +
         '<p class="bo-owner"><span class="bo-owner-label">' + UI.esc(stack.patternsLabel) + "</span></p>" +
         '<ul class="bo-tiles bo-tiles--3">' + patternTiles + "</ul>" +
