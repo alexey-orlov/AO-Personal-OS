@@ -2688,8 +2688,12 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
   .bo { max-width: 100%; }
 }
 
+/* Stacked, the three bands are no longer peers side by side, so holding them
+   to one height only pads the shortest one out with empty tiles: below this
+   width each band and each pattern tile takes the height of its own content. */
 @media (max-width: 560px) {
-  .bo-tiles--3 { grid-template-columns: minmax(0, 1fr); }
+  .bo { grid-template-rows: none; }
+  .bo-tiles--3 { grid-template-columns: minmax(0, 1fr); grid-auto-rows: auto; }
   .bo-tiles--4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
