@@ -16,7 +16,7 @@ Static site. No build step, no framework, no package manager: plain HTML, CSS an
 |---|---|
 | Large docs processing and review | https://claude.ai/artifact/NdxY4f1D6hxC7pjyMRs6zP |
 | Workforce optimization | https://claude.ai/code/artifact/343ab0d5-1d99-4038-a395-6f177c3f5e2e |
-| Cross-system ERP Q&A | pending |
+| Cross-system ERP Q&A | https://claude.ai/code/artifact/6c822cc7-1c05-4504-ad61-7b64c86e9ceb |
 
   A standalone URL belongs in that product's `demoPreviewUrl` in `config.js` as soon as it exists (`docs/CONFIG.md` §3) — that is the link the site's own artifact preview uses.
 - **Locally:** any static server pointed at `site/` — `python3 -m http.server 8765 --directory site`, or the `oracle-site` entry in `.claude/launch.json`. See [Run it locally](#run-it-locally).

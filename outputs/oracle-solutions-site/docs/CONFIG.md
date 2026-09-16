@@ -228,7 +228,7 @@ Only matters while the site itself is previewed as a **claude.ai artifact**. The
 ```js
 demoPreviewUrl: "https://claude.ai/artifact/NdxY4f1D6hxC7pjyMRs6zP",
 demoPreviewUrl: "https://claude.ai/code/artifact/343ab0d5-1d99-4038-a395-6f177c3f5e2e",
-demoPreviewUrl: "",   // cross-system-erp-qa — pending the standalone publish
+demoPreviewUrl: "https://claude.ai/code/artifact/6c822cc7-1c05-4504-ad61-7b64c86e9ceb",   // cross-system-erp-qa
 ```
 
 On the site's real host it is ignored and the relative `demoUrl` is used, so nothing has to change at deployment. Keep it in step with `demoUrl`: republish the standalone demo artifact whenever the walkthrough changes, or the preview shows an older demo than the site ships.
