@@ -1410,44 +1410,67 @@ follow"*; the signal→opportunity fan-out is the pack's stated differentiator) 
   `ndaLine` is a per-case field. One string reverts it if Alex wants the
   uniform line.
 
-#### d. `plan-vs-actual-investigation` — **no case study ships** (withdrawn)
+#### d. `plan-vs-actual-investigation` — *"A major construction and engineering contractor"*
 
-**`caseStudy: null`, and no home-page card.** The construction engagement was
-written up here as `in-progress` with the story *"A first engagement is under way
-on one completed project sample, on the customer's own schedule, cost and
-contract exports"*. The wiki page `context/areas/softserve/sbg-poc.md` records
-that engagement as **pre-contract** as of 2026-09-11: the SOW's delivery-cost
-section is still open, the kickoff target passed with no new date, and
-customer-side data access is unresolved. **No exports have been received.** The
-earlier note in this section flagged the overstatement and named the fix —
-*"if the answer is that nothing has kicked off, the honest fix is to render this
-case only once it has, not to reword the chip"* — and that is what was done.
+The construction engagement, on the **owner's instruction** that it ships (§17.6).
+A fix round had withdrawn it as pre-contract; the status key it now carries —
+`in-preparation`, the same one `account-insights` carries — says exactly that,
+which is what the withdrawal was protecting against. Source for every field:
+`context/areas/softserve/sbg-poc.md` (read 2026-09-16) and §12.1, the historical-package
+PoC doc behind this product's stepper and stack. The `…/scratchpad/research/`
+tree is still not on disk, so `RESEARCH/01…07` could not be re-read here either
+(§17.2's note stands); nothing below needs it.
 
-Why it matters more than a wording nicety: this is a public page that Oracle and
-SoftServe sellers demo live, sometimes in front of the customer's own account
-team. A claim that work is under way on their data while the SOW is unsigned is
-contradictable in the room.
+- **Descriptor** — *"A major construction and engineering contractor"*. Industry
+  and scale only. **The country is withheld** and so is every project name: the
+  wiki's own anchor-project question (a named stadium, unsettled as of
+  2026-09-11) is exactly the detail that would narrow the descriptor to one
+  company in one market.
+- **Area** — *"Plan versus actual across completed work packages"*, the SOW's own
+  use-case statement generalized (reconstruct historical records into a
+  package-level view of plan versus actual cost and schedule).
+- **Status `in-preparation`, eyebrow Target outcomes.** Not `in-progress`: the
+  SOW's delivery-cost section is still open, the Sep-1 kickoff target passed with
+  no new date, and customer-side data access is unresolved — **no exports have
+  been received.** The story opens *"A first engagement is being prepared"* and
+  the scope row's STAGE cell says *Proof of value in preparation*, so nothing on
+  the card claims work under way on the customer's data. That distinction is not
+  cosmetic: this is a page Oracle and SoftServe sellers demo live, sometimes in
+  front of the customer's own account team.
+- **Metric 1** — `Hours, not weeks` *of expert time to produce an equivalent
+  plan-versus-actual analysis*. **Qualitative, because no figure exists to
+  publish:** the SOW's Operational Efficiency criterion is elapsed time and
+  person-hours to produce an equivalent analysis, and its thresholds are
+  explicitly **deferred to Discovery** (a Gate G1 exit criterion). The direction
+  is sourced; the number is not, so none is invented.
+- **Metric 2 — none.** One figure, the shape the checker allows for a case with
+  one real outcome. `Evidence-backed` does **not** come back as a value: it is a
+  capability restatement, not an outcome (see (c)), and a second slot padded at
+  40px is the failure that rule exists to stop.
+- **Story, two lines** — scoped to one use case on one completed project sample
+  (the customer's own schedule, cost and contract exports); will run on Oracle
+  Cloud Infrastructure with NVIDIA AI-Q over an evidence layer, reconstructing
+  those records into one package-level view. Closes on the caveat the checker
+  requires: *a target outcome the proof of value is set up to measure, not a
+  result, and illustrative, not contractual.*
+- **Scope row (3 facts, all external-safe)** — *Stage: Proof of value in
+  preparation* · *Scope: one use case, one completed project sample* · *Data
+  footprint: schedule, cost and contract exports*.
+- **NDA line** — *"Customer under NDA · results follow at the end of the proof of
+  value"*, the same per-case wording (c) uses and for the same reason: an
+  engagement with no results cannot offer a reference call.
+- **Deliberately absent**, and to stay absent: the customer name and country, the
+  anchor project's name, the contract value, the 12+2-week term, the day-rate
+  workbook, the infrastructure BoM, every SAR and EUR figure, the named SBG and
+  Oracle individuals, and the internal vocabulary bans (*agent*, *single source
+  of truth*) the engagement itself runs under.
+- **When kickoff is confirmed**, record the date here and move the status to
+  `in-progress` wording only if a status key for it exists; when results exist,
+  `measured` (or `modeled`) with real figures replaces the qualitative metric.
 
-Removing it leaves no hole. The product already carries its `statusNote`
-(*"Packaged offering in preparation — scoping conversations are open."*) and a
-full *What the proof of value measures* block, which is the honest version of
-the same information.
-
-**To restore it once kickoff is confirmed:** record the kickoff date here, then
-re-add `overview.caseStudy` with `status: "in-preparation"` (or `measured` /
-`modeled` once results exist) and the fourth `overview.caseStudies` card, plus a
-fourth `services.proof.engagements` line. The material that was written for it
-stands, with the two headline values reworked to the sanctioned outcome shape —
-the mapping (§12.1: the SBG historical-package PoC doc behind this product's
-stepper and stack), the descriptor *"A major construction and engineering
-contractor"* with the country withheld, the area *"Plan versus actual across
-completed work packages"*, `Hours, not weeks` from the SOW's Operational
-Efficiency criterion (whose thresholds are deferred to Discovery, so there is no
-number to publish), the one-completed-project scope row, and the deliberate
-absences: contract value, the 12+2-week term, the day-rate workbook, the
-infrastructure BoM and every SAR figure. `Evidence-backed` does **not** come
-back as a metric value — it is a capability restatement, not an outcome (see
-(c)); the second slot stays empty unless a real second outcome exists.
+The product keeps its `statusNote` (*"Packaged offering in preparation — scoping
+conversations are open."*), which now agrees with the case rather than standing
+in for it.
 
 ### 17.3 C2 · the home-page case-study screen
 
@@ -1502,26 +1525,26 @@ object: the Marketplace **badge** is the link to the listing now, so a second
 hero button on the same URL was one control too many. The listing link still
 renders only where `marketplaceUrl` is non-empty.
 
-**An option renders only while a product carries its flag.** `marketplace` is
-`false` on all seven, so *On Oracle Marketplace* would render permanently at
-zero and disabled — a control advertising a capability the site does not have,
-which is a different thing from the two empty **technology** facets (L1, L2),
-where the emptiness is the message: the practice delivers on those platforms and
-the rail says so in `facets.footnote`. The row is therefore hidden, `mp=1` is
-ignored while it is, and the group renders as a single checkbox. Both options
-stay in the data and the row returns the day a listing is confirmed; if neither
-flag is set anywhere, the group does not render at all.
+**Both options always render, with their faceted counts** — the group is part of
+the rail's shape, not a function of today's config. A fix round hid an option
+whose count was zero; that moved the rail under the reader between visits and hid
+the one filter a seller reaches for first. `pages/products.js` carries no
+hide-when-zero branch: a zero-count box renders **disabled** rather than absent,
+the same way a zero-count radio option does, and `demo=1` / `mp=1` are honored
+whatever the counts are. Today the counts are **demo 3, marketplace 2**.
 
-**`demo` counts one product, not three.** `config.products[*].video` was `true`
-on `account-insights` and `workforce-optimization` with an empty `videoUrl`, so
-the badge and the facet asserted a demo whose only content was a panel saying the
-recording was being prepared — a prospect filtering on *Demo available* and a
-seller demoing that filter both landed on it. Both are now `video: false` until a
-`videoUrl` is pasted in; `large-document-extraction` keeps the flag because its
-interactive walkthrough is real. The hero video frame follows the same flag, so
-those two products render the single-column hero the four other flagless products
-already render. **Flip the flag back the day a recording lands** — that is the
-whole maintenance instruction.
+**The two flags are the owner's statement, and the URLs are wiring that arrives
+later** (§17.6). `video: true` on `workforce-optimization`,
+`large-document-extraction` and `account-insights`; `marketplace: true` on
+`workforce-optimization` and `large-document-extraction`. Both may be `true` with
+an empty URL, and the renderers already handle that state on purpose: the hero
+frame shows the *recording in preparation* panel until `videoUrl` is set, and the
+Marketplace badge renders **unlinked** until `marketplaceUrl` is set. The one
+cross-check `check-grammar.js` keeps is the reverse case — a URL set while its
+flag is `false`, where the control would never render for a thing that exists.
+L3 of §1 is unchanged and still the live risk: no SoftServe listing on Oracle
+Cloud Marketplace has been found by public search, so **the Marketplace badge
+rests on the owner's statement alone — confirm the two listings before launch.**
 
 ### 17.4a The Services proof block — the method, not a second copy of the cards
 
