@@ -404,20 +404,16 @@
 
   /* One tile anatomy on both grids (VISUAL-GRAMMAR §1.1): an image band over a
      solid body. Text never sits on the photograph — the band carries only the
-     platform label and the availability chip, and everything a reader has to
+     platform label and the availability badges, and everything a reader has to
      read is on the solid surface below it. One CTA, because a tile with two
      actions makes the reader choose before they know what the product is. */
   function productTile(product, options) {
     var opts = options || {};
     var facet = facetLabel(product.facet);
     var image = product.hero && product.hero.image;
-    var marketplace = CFG.products[product.slug] && CFG.products[product.slug].marketplaceUrl;
     var href = "#/products/" + product.slug;
 
-    var chips = [chip({ label: product.categoryChip })];
-    if (marketplace && opts.marketplaceBadge !== false) {
-      chips.push(chip({ label: C.facets.marketplace.badge }));
-    }
+    var chips = [tagChip("pattern", product.category)];
 
     var outcomes = ((product.tile && product.tile.outcomes) || []).map(function (line) {
       return "<li>" + icon("check") + "<span>" + esc(line) + "</span></li>";
@@ -432,7 +428,7 @@
         : "") +
       '<span class="ptile-veil" aria-hidden="true"></span>' +
       '<span class="ptile-facet" title="' + esc(facet.fullLabel) + '">' + esc(facet.label) + "</span>" +
-      '<span class="ptile-avail">' + availabilityChip(product) + "</span>" +
+      badgeRow(product.slug, "ptile-badges") +
       "</div>";
 
     return '<article class="ptile' + (opts.compact ? " ptile--compact" : "") + ' reveal">' +
@@ -449,11 +445,67 @@
 
   function card(product, options) {
     var opts = options || {};
-    return productTile(product, {
-      compact: true,
-      eager: opts.eager,
-      marketplaceBadge: opts.marketplaceBadge
-    });
+    return productTile(product, { compact: true, eager: opts.eager });
+  }
+
+  /* ————— case studies —————
+     No customer is named and no logo is rendered (Alex, 2026-09-16): a logo is
+     the one element of a case study that cannot be anonymized, so the card is
+     built around what can — the industry. The medallion sits where the mark
+     used to, at the same optical weight. */
+
+  function caseStatus(key) {
+    var map = (C.shared && C.shared.caseStudyStatus) || {};
+    return map[key] || null;
+  }
+
+  function caseMedallion(industry) {
+    return '<span class="case-medallion" aria-hidden="true">' + icon("industry-" + industry) + "</span>";
+  }
+
+  function caseStatusChip(key) {
+    var status = caseStatus(key);
+    if (!status) return "";
+    return '<span class="case-status case-status--' + esc(key) + '"' +
+      attrs({ title: status.tooltip, "aria-label": status.chip + " — " + status.tooltip }) + ">" +
+      '<span class="case-status-dot" aria-hidden="true"></span>' + esc(status.chip) + "</span>";
+  }
+
+  /* The compact form of the product-page callout: same anatomy, one headline
+     figure instead of two. Rendered on the home page and on Services, from the
+     same four objects, so the two surfaces cannot drift apart. */
+  function caseCard(item) {
+    if (!item) return "";
+    return '<article class="case-card reveal">' +
+      '<div class="case-card-head">' +
+        caseMedallion(item.industry) +
+        '<div class="case-head-copy">' +
+          '<p class="case-descriptor">' + esc(item.descriptor) + "</p>" +
+          '<p class="case-area">' + esc(item.area) + "</p>" +
+        "</div>" +
+      "</div>" +
+      caseStatusChip(item.status) +
+      '<div class="case-card-metric">' +
+        '<p class="eyebrow eyebrow--accent">' + esc(item.metricEyebrow) + "</p>" +
+        '<p class="case-figure-value nums">' + esc(item.metric.value) + "</p>" +
+        '<p class="case-figure-label">' + esc(item.metric.label) + "</p>" +
+      "</div>" +
+      '<p class="case-card-line">' + esc(item.line) + "</p>" +
+      '<p class="footnote case-card-note">' + esc(item.footnote) + "</p>" +
+      (item.product
+        ? '<p class="case-card-link">' + linkArrow({
+            label: item.product.name, href: "#/products/" + item.product.slug
+          }) + "</p>"
+        : "") +
+      "</article>";
+  }
+
+  function caseStudyById(id) {
+    var list = (C.overview && C.overview.caseStudies) || [];
+    for (var i = 0; i < list.length; i += 1) {
+      if (list[i].id === id) return list[i];
+    }
+    return null;
   }
 
   /* ————— modal ————— */
@@ -525,7 +577,13 @@
     attrs: attrs,
     icon: icon,
     chip: chip,
-    availabilityChip: availabilityChip,
+    tagChip: tagChip,
+    availabilityBadges: availabilityBadges,
+    badgeRow: badgeRow,
+    caseStatusChip: caseStatusChip,
+    caseMedallion: caseMedallion,
+    caseCard: caseCard,
+    caseStudyById: caseStudyById,
     button: button,
     linkArrow: linkArrow,
     divider: divider,
