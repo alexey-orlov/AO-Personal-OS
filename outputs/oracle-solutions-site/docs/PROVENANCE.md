@@ -1689,6 +1689,80 @@ instruction disagree about whether something exists, the finding is at most an
 argument for how to phrase it.** Suppressing the item is not the fix available to
 a fix round.
 
+### 17.7 T3 · one canonical technology set (2026-09-16)
+
+**The finding.** The platform a product runs on was named in two vocabularies at
+once. The Products rail offered four facet labels; the product heroes and the
+tile bands offered a per-product variant of the same platform, because `tags[]`
+carried the engine as a second pill of the same family and colour with no
+separator between them. A reader met *OCI + NVIDIA AI-Q* on the
+`account-insights` hero and *OCI + NVIDIA* on the rail one click away, and
+neither the composed string nor the rail label was wrong on its own — the
+composition was. Five of the seven read this way, and the Services platform card
+added a third spelling, *Oracle Cloud Infrastructure + NVIDIA NeMo Agent
+Toolkit*.
+
+**The set, as shipped.** Four platforms, this order, these ids, these labels —
+`facets.technology` is now the only place a platform is named:
+
+| id | label | products today |
+|---|---|---|
+| `oci-nvidia` | OCI + NVIDIA | 5 |
+| `oracle-ai-data-platform` | Oracle AI Data Platform | 0 |
+| `oracle-ai-lakehouse` | Oracle Autonomous AI Lakehouse | 2 |
+| `oracle-ai-fusion` | Oracle AI for Fusion Applications | 0 |
+
+`oracle-autonomous-ai-lakehouse` was shortened to `oracle-ai-lakehouse` in the
+same pass, so the four ids read as one family; the label it renders is unchanged.
+
+**Why `Other` had to go, and why *Oracle AI for Fusion Applications* is the
+replacement.** A catch-all facet names no platform. It read as the gap in a set
+the rest of the site presents as complete, and its own copy admitted what it
+stood for — *"Everything outside the three above, including Oracle AI for Fusion
+Applications"* — a platform the practice genuinely delivers on and Oracle
+genuinely has a product name for. The brief's four-facet shape (L1) is
+unchanged; the fourth is now named. **The name is Oracle's, spelled Oracle's
+way: "Oracle AI for Fusion Applications".** *Oracle Fusion AI*, *Fusion AI Apps*
+and *AI for Fusion* are not Oracle product names — writing one on a page aimed
+at Oracle sellers and Oracle customers is the same class of error as *AIDP*,
+which is already a banned string (§`AIDP`). The empty-state line the brief
+supplied verbatim (L2) now has a referent on all four facets and is unchanged.
+
+**What was normalised in the data.**
+
+| Where | Was | Now |
+|---|---|---|
+| `products[*].tags` (all seven) | Three or four entries — the pattern chip, the platform label, then `AI-Q` (×4), `cuOpt` + `Oracle Field Service`, or `Select AI` (×2) | Exactly two: the pattern chip and the platform label |
+| `overview.servicesTeaser.platforms[0].name`, `services.hero.platforms[0].name` | *Oracle Cloud Infrastructure + NVIDIA NeMo Agent Toolkit* | *OCI + NVIDIA* — the facet label, like the other three cards |
+| `shared.tagFamilies.tech.icons` | keyed `oracle-autonomous-ai-lakehouse`, `other` | keyed `oracle-ai-lakehouse`, `oracle-ai-fusion` |
+| `ICONS` in `assets/app.js` | `platform-other`, a two-band stack standing for nothing | `platform-oracle-ai-fusion`, a 2×2 application grid |
+
+**No fact was lost.** Every engine removed from a chip was already in that
+product's Technology tab before this round — `AI-Q` in the `ai-engine` stack
+layer of all four products that carried it, `cuOpt` in `workforce-optimization`'s,
+`Select AI` in both Lakehouse packs' `application` layer, `Oracle Field Service`
+in `workforce-optimization`'s narrative, data layer, integrations and capability
+matrix. The chips were a denormalised copy of the tab, which is the same failure
+mode that retired `overview.sideFacts` in round 3 (§15.4): a second place to keep
+in sync, and the first to go stale.
+
+**The zero-count facets stay listed.** Two of the four match no product today.
+Their rail options render disabled with a `0`, the way a zero-count availability
+checkbox does (§17.4) — the rail's shape does not move under the reader between
+visits — and `#/products?tech=oracle-ai-fusion` or `?tech=oracle-ai-data-platform`
+is still honored, rendering that facet's `emptyState` inside the normal grid
+container.
+
+**Checker rules added** (`tools/check-grammar.js`), all of them narrowing:
+`FACET_IDS` is the four ids and `FACET_LABELS` pairs each with its label;
+`facets.technology` must hold those four in that order, each with a `fullLabel`,
+a `description` and an `emptyState`, and an `other` id or label fails outright;
+every product's `facet` must be one of the four; `tags` must hold exactly two
+entries, `tags[0]` equal to `categoryChip` and `tags[1]` equal to the facet's
+label; and both platform-card lists must carry four cards whose names are the
+four labels in order. A third tag, a renamed card or a drifting label is now a
+build failure rather than a QA finding.
+
 ### 16.4 Red-team round — is the demo narrower than the pack? (2026-09-16)
 
 Alex asked whether the walkthrough was narrower than what the package docs
