@@ -69,7 +69,7 @@ window.WFO_DATA = (function () {
   ];
   var zones = zoneDefs.map(function (z, i) {
     var poly = cellPoly(z[2], z[3]), c = centroid(poly);
-    return { id: z[0], name: z[1], label: z[0] + " " + z[1], color: z[4], postcodes: pcs(i + 1, z[5]), demand: z[6], backfill: 0, wait: z[7], poly: poly, c: c, specialistOnly: false, kind: "Residential" };
+    return { id: z[0], name: z[1], label: z[0] + " " + z[1], color: z[4], postcodes: pcs(i + 1, z[5]), demand: z[6], backfill: 0, wait: z[7].cur, poly: poly, c: c, specialistOnly: false, kind: "Residential" };
   });
   function zone(id) { return zones.filter(function (z) { return z.id === id; })[0]; }
   zone("HV-07").backfill = 9; zone("HV-07").backfillDates = ["2026-10-19", "2026-10-22", "2026-10-27"];
@@ -108,50 +108,119 @@ window.WFO_DATA = (function () {
   ];
   var techs = techDefs.map(function (t) {
     var z = zone(t[2][0]);
-    return { id: t[0], skill: t[1], zones: t[2], home: [z.c[0] + t[3][0], z.c[1] + t[3][1]], homePostcode: z.postcodes[2 + (t[3][0] > 0 ? 1 : 0)], jobs: { cur: t[4], v1: t[5], v2: t[6] }, absent: t[7] || [] };
+    return { id: t[0], skill: t[1], zones: t[2], home: [z.c[0] + t[3][0], z.c[1] + t[3][1]], homePostcode: z.postcodes[2 + (t[3][0] > 0 ? 1 : 0)], jobs: t[4], absent: t[7] || [] };
   });
   function tech(id) { return techs.filter(function (t) { return t.id === id; })[0]; }
 
-  /* --------------------------------------------------- allocation deltas */
-  /* Every plan starts from each technician's default zones on every working
-     day, minus absences. Overrides are what the solver changed and why —
-     the "why" is the model-decision explanation the UI shows. */
+  /* --------------------------------------------------- what the solver changed */
+  /* Every plan is the uploaded current allocation plus a set of named changes.
+     A change carries the pill-level assignments it adds (overrides), the KPI
+     effect it has (jobs per technician, wait time per zone — additive, so an
+     undone change takes its effect with it), the rule that produced it and
+     the explanation the UI shows. Plan v1 = all of the solver's changes; plan
+     v2 = v1 with the dispatcher's fix and the alternative the re-run found. */
   var WED = ["2026-10-07", "2026-10-14", "2026-10-21", "2026-10-28"];
-  var vacationCover1 = { tech: "T-1046", zone: "HV-04", dates: ["2026-10-12", "2026-10-13", "2026-10-14"], kind: "temp", rule: "Availability · long absence", why: "T-1047 is on vacation 12–16 Oct (5 days, over the 2-day threshold), so HV-04 Eastfield is covered as whole-zone temporary assignments: T-1046 (Hillcrest, adjacent, 18 min from home) Mon–Wed and T-1051 (Stonebridge, adjacent) Thu–Fri. T-1047's usual allocation resumes on 19 Oct." };
-  var vacationCover2 = { tech: "T-1051", zone: "HV-04", dates: ["2026-10-15", "2026-10-16"], kind: "temp", rule: "Availability · long absence", why: vacationCover1.why };
-  var sickCover = { tech: "T-1053", zone: "HV-10", dates: ["2026-10-06"], kind: "temp", partial: true, rule: "Availability · short absence", why: "T-1055 is on sick leave on Tue 6 Oct (1 day, under the 2-day threshold), so the zone is not reassigned: 4 of the day's 7 visits go to T-1053 (Ridgeway, adjacent, 3 free slots) as a partial temporary assignment and T-1056 keeps the rest." };
-  var uncoveredFix = { tech: "T-1042", zone: "HV-02", dates: ["2026-10-09"], kind: "temp", partial: true, rule: "Zone-level demand · coverage", why: "T-1044 is on leave on Fri 9 Oct and HV-02 Millbrook has no second technician, so postcode HV2 7's three booked visits had no cover in the current plan. T-1042 (Northgate, adjacent, 2 free slots) takes them; his own zone keeps its Friday coverage." };
-  var capacityFix = { tech: "T-1050", zone: "HV-05", dates: ["2026-10-13"], kind: "temp", partial: true, rule: "Daily capacity · 7 visits", why: "T-1048 had 8 visits booked in HV-05 Westhaven on Tue 13 Oct against the capacity of 7 per day. Two movable visits move to T-1050 (Kingsbridge, adjacent, 2 free slots); the six with parts allocated stay with T-1048." };
-  var marshMoved = { tech: "T-1054", zone: "HV-10", dates: WED, kind: "moved", rule: "Workload balance · cross-zone allocation", why: "HV-10 Southbank runs at 96% of capacity on Wednesdays while HV-09 Marsh End has slack, so T-1054 leaves his default zone every Wednesday to work Southbank. Marsh End's Wednesday visits are rescheduled to Thursday and Friday — its average wait rises from 5.1 to 6.4 days." };
-  var marshKept = { tech: "T-1053", zone: "HV-10", dates: WED, kind: "temp", partial: true, rule: "Dispatcher feedback · re-optimization", why: "Feedback on plan v1: keep HV-09 Marsh End covered on Wednesdays. T-1054 now stays in his default zone; Southbank's Wednesday overflow (3–4 visits) goes to T-1053 (Ridgeway, adjacent, spare capacity) instead. Marsh End's average wait returns to 5.0 days; fleet productivity gives up 0.02 jobs per day.", alts: [
-    { name: "Chosen — T-1053 covers the overflow", effect: "wait 5.0 d · fleet 4.75 jobs/day · 2 assignments changed", chosen: true },
-    { name: "T-1056 takes 8 visits on Wednesdays", effect: "breaks the 7-per-day capacity rule — not allowed" },
-    { name: "Leave Southbank at 96% on Wednesdays", effect: "wait in HV-10 +0.4 d · 0 assignments changed" }
-  ] };
-  var specialistAssist = { tech: "T-1049", zone: "HV-12", dates: ["2026-10-20", "2026-10-21"], kind: "temp", partial: true, rule: "Special skills · specialist-only zone", why: "HV-12 Ferry Point requires the Specialist skill. Booked demand on 20–21 Oct exceeds T-1041's capacity, so T-1049 (Specialist, Kingsbridge) assists for two days. Standard technicians are not eligible for this zone, and a specialist may travel further than the neighbouring-zone rule allows." };
-  var pinned = { tech: "T-1057", zone: "HV-11", dates: ["2026-10-08"], kind: "pinned", rule: "Non-movable appointments", why: "Three appointments in HV-11 Old Harbour on Thu 8 Oct are non-movable (parts allocated, customer confirmed). They stay with T-1057 on that date; only the movable visits around them were reshuffled." };
-  var backfill = { tech: "T-1051", zone: "HV-07", dates: ["2026-10-19", "2026-10-22", "2026-10-27"], kind: "backfill", rule: "Zone-level demand · historical backfill", why: "HV-07 Stonebridge has only 69 visits booked for four weeks. For 19, 22 and 27 Oct the booked demand is below last year's for the same dates, so the zone is allocated on last year's demand (9 visits) to keep it covered. Only booked visits are shown; nothing is invented on the visit list." };
-  var spare = { tech: "T-1058", zone: "HV-11", dates: ["2026-10-16"], kind: "off", rule: "Zone-level demand", why: "T-1058's Friday 16 Oct visits fit into Thursday, leaving the day with no visits — spare capacity the dispatcher can use." };
-  var overrides = {
-    cur: [],
-    v1: [vacationCover1, vacationCover2, sickCover, uncoveredFix, capacityFix, marshMoved, specialistAssist, pinned, backfill, spare],
-    v2: [vacationCover1, vacationCover2, sickCover, uncoveredFix, capacityFix, marshKept, specialistAssist, pinned, backfill, spare]
+  var ALLZ = zones.map(function (z) { return z.id; }), ALLT = techs.map(function (t) { return t.id; });
+  var vacationWhy = "T-1047 is on vacation 12–16 Oct (5 days, over the 2-day threshold), so HV-04 Eastfield is covered as whole-zone temporary assignments: T-1046 (Hillcrest, adjacent, 18 min from home) Mon–Wed and T-1051 (Stonebridge, adjacent) Thu–Fri. T-1047's usual allocation resumes on 19 Oct.";
+  var changes = [
+    { id: "packing", rule: "Multi-objective packing", kind: "improves", title: "Movable visits packed tighter in every zone",
+      what: "Movable visits are regrouped by day so a technician's day fills up before another day opens; nothing moves across zones for this.",
+      why: "The objective weights favour productivity and waiting time; packing the movable visits of each zone is the solver's first lever and touches no rule.",
+      zones: ALLZ, techs: ALLT, week: 1, overrides: [],
+      effects: { jobs: { "T-1041": 4, "T-1042": 3, "T-1043": 4, "T-1044": 3, "T-1045": 3, "T-1046": 3, "T-1047": 3, "T-1048": 4, "T-1049": 3, "T-1050": 5, "T-1051": 4, "T-1052": 3, "T-1053": 4, "T-1054": 1, "T-1055": 3, "T-1056": 3, "T-1057": 3, "T-1058": 1 },
+        waits: { "HV-01": -0.7, "HV-02": -0.4, "HV-03": -0.4, "HV-04": -0.3, "HV-05": -0.2, "HV-06": -0.4, "HV-07": -0.1, "HV-08": -0.5, "HV-09": 0, "HV-10": -0.3, "HV-11": -0.3, "HV-12": -0.3 } },
+      effect: "+57 visits placed in the period · avg wait −0.4 d across the region" },
+    { id: "vacation", rule: "Availability · long absence", kind: "improves", title: "Eastfield covered during T-1047's vacation, 12–16 Oct",
+      what: "Two neighbouring technicians take the zone for the week instead of leaving it empty.", why: vacationWhy,
+      zones: ["HV-04"], techs: ["T-1047", "T-1046", "T-1051"], week: 2,
+      overrides: [
+        { tech: "T-1046", zone: "HV-04", dates: ["2026-10-12", "2026-10-13", "2026-10-14"], kind: "temp" },
+        { tech: "T-1051", zone: "HV-04", dates: ["2026-10-15", "2026-10-16"], kind: "temp" }
+      ],
+      effects: { jobs: { "T-1046": 2, "T-1051": 1 }, waits: { "HV-04": -1.6 } },
+      effect: "HV-04 wait 9.3 → 7.4 d · 5 days that had no technician are covered" },
+    { id: "sick", rule: "Availability · short absence", kind: "improves", title: "Southbank's sick day split to a neighbour, Tue 6 Oct",
+      what: "A one-day absence does not reassign the zone: part of the day's visits go to a neighbour with free slots.",
+      why: "T-1055 is on sick leave on Tue 6 Oct (1 day, under the 2-day threshold), so the zone is not reassigned: 4 of the day's 7 visits go to T-1053 (Ridgeway, adjacent, 3 free slots) as a partial temporary assignment and T-1056 keeps the rest.",
+      zones: ["HV-10"], techs: ["T-1055", "T-1053"], week: 1,
+      overrides: [{ tech: "T-1053", zone: "HV-10", dates: ["2026-10-06"], kind: "temp", partial: true }],
+      effects: { jobs: { "T-1053": 2 }, waits: { "HV-10": -0.2 } },
+      effect: "4 of the day's 7 visits kept on the day · HV-10 wait −0.2 d" },
+    { id: "coverage", rule: "Zone-level demand · coverage", kind: "improves", title: "Millbrook's uncovered postcode HV2 7 covered, Fri 9 Oct",
+      what: "Three booked visits that had no technician get one from the adjacent zone.",
+      why: "T-1044 is on leave on Fri 9 Oct and HV-02 Millbrook has no second technician, so postcode HV2 7's three booked visits had no cover in the current plan. T-1042 (Northgate, adjacent, 2 free slots) takes them; his own zone keeps its Friday coverage.",
+      zones: ["HV-02"], techs: ["T-1044", "T-1042"], week: 1,
+      overrides: [{ tech: "T-1042", zone: "HV-02", dates: ["2026-10-09"], kind: "temp", partial: true }],
+      effects: { jobs: { "T-1042": 1 }, waits: { "HV-02": -0.8 } },
+      effect: "HV-02 wait 8.1 → 6.9 d · 3 booked visits no longer slip a week" },
+    { id: "capacity", rule: "Daily capacity · 7 visits", kind: "improves", title: "T-1048's 8-visit day brought back to 7, Tue 13 Oct",
+      what: "Two movable visits move to the neighbouring technician who has room that day.",
+      why: "T-1048 had 8 visits booked in HV-05 Westhaven on Tue 13 Oct against the capacity of 7 per day. Two movable visits move to T-1050 (Kingsbridge, adjacent, 2 free slots); the six with parts allocated stay with T-1048.",
+      zones: ["HV-05"], techs: ["T-1048", "T-1050"], week: 2,
+      overrides: [{ tech: "T-1050", zone: "HV-05", dates: ["2026-10-13"], kind: "temp", partial: true }],
+      effects: { jobs: { "T-1048": -2, "T-1050": 2 }, waits: { "HV-05": -0.1 } },
+      effect: "T-1048 at 114% → 100% of capacity that day · 2 visits to T-1050" },
+    { id: "marsh-move", rule: "Workload balance · cross-zone allocation", kind: "worsens", title: "Marsh End's technician moved to Southbank on Wednesdays",
+      what: "T-1054 leaves his default zone every Wednesday to absorb Southbank's overload; Marsh End's Wednesday visits slip to Thursday and Friday.",
+      why: "HV-10 Southbank runs at 96% of capacity on Wednesdays while HV-09 Marsh End has slack, so T-1054 leaves his default zone every Wednesday to work Southbank. Marsh End's Wednesday visits are rescheduled to Thursday and Friday — its average wait rises from 5.1 to 6.4 days.",
+      zones: ["HV-09", "HV-10"], techs: ["T-1054", "T-1056"], week: 1,
+      overrides: [{ tech: "T-1054", zone: "HV-10", dates: WED, kind: "moved" }],
+      effects: { jobs: { "T-1054": 4, "T-1056": 2 }, waits: { "HV-09": 1.3, "HV-10": -0.9 } },
+      effect: "HV-10 wait 7.6 → 6.2 d, but HV-09 wait 5.1 → 6.4 d" },
+    { id: "specialist", rule: "Special skills · specialist-only zone", kind: "improves", title: "A second Specialist assists in Ferry Point, 20–21 Oct",
+      what: "Demand on two days exceeds the resident Specialist's capacity; only another Specialist may help.",
+      why: "HV-12 Ferry Point requires the Specialist skill. Booked demand on 20–21 Oct exceeds T-1041's capacity, so T-1049 (Specialist, Kingsbridge) assists for two days. Standard technicians are not eligible for this zone, and a specialist may travel further than the neighbouring-zone rule allows.",
+      zones: ["HV-12"], techs: ["T-1041", "T-1049"], week: 3,
+      overrides: [{ tech: "T-1049", zone: "HV-12", dates: ["2026-10-20", "2026-10-21"], kind: "temp", partial: true }],
+      effects: { jobs: { "T-1049": 3 }, waits: { "HV-12": -1.0 } },
+      effect: "HV-12 wait 8.4 → 7.1 d · 6 specialist visits placed on the days they were booked" },
+    { id: "pinned", rule: "Non-movable appointments", kind: "neutral", title: "Old Harbour's three confirmed appointments kept, Thu 8 Oct",
+      what: "Appointments with parts allocated keep their technician and date; the movable visits are reshuffled around them.",
+      why: "Three appointments in HV-11 Old Harbour on Thu 8 Oct are non-movable (parts allocated, customer confirmed). They stay with T-1057 on that date; only the movable visits around them were reshuffled.",
+      zones: ["HV-11"], techs: ["T-1057"], week: 1,
+      overrides: [{ tech: "T-1057", zone: "HV-11", dates: ["2026-10-08"], kind: "pinned" }],
+      effects: {}, effect: "Kept with T-1057 on the date · no effect on the KPIs" },
+    { id: "backfill", rule: "Zone-level demand · historical backfill", kind: "neutral", flagged: true, title: "Stonebridge allocated on last year's demand for three dates",
+      what: "Three sparse dates keep a technician on the zone because last year's demand for the same dates says visits will come.",
+      why: "HV-07 Stonebridge has only 69 visits booked for four weeks. For 19, 22 and 27 Oct the booked demand is below last year's for the same dates, so the zone is allocated on last year's demand (9 visits) to keep it covered. Only booked visits are shown; nothing is invented on the visit list.",
+      zones: ["HV-07"], techs: ["T-1051"], week: 3,
+      overrides: [{ tech: "T-1051", zone: "HV-07", dates: ["2026-10-19", "2026-10-22", "2026-10-27"], kind: "backfill" }],
+      effects: { waits: { "HV-07": -0.1 } }, effect: "19, 22 and 27 Oct stay covered · a dispatcher confirms or rejects" },
+    { id: "spare", rule: "Zone-level demand", kind: "neutral", title: "T-1058's Friday 16 Oct visits fit into Thursday",
+      what: "A day with no visits left — spare capacity the dispatcher can use.",
+      why: "T-1058's Friday 16 Oct visits fit into Thursday, leaving the day with no visits — spare capacity the dispatcher can use.",
+      zones: ["HV-11"], techs: ["T-1058"], week: 2,
+      overrides: [{ tech: "T-1058", zone: "HV-11", dates: ["2026-10-16"], kind: "off" }],
+      effects: {}, effect: "One day of spare capacity in Old Harbour" },
+    { id: "marsh-keep", rule: "Dispatcher feedback · re-optimization", kind: "improves", title: "Southbank's Wednesday overflow to T-1053 instead of moving T-1054",
+      what: "The re-run keeps Marsh End's technician at home and sends Southbank's Wednesday overflow to a neighbour with spare capacity.",
+      why: "Feedback on plan v1: keep HV-09 Marsh End covered on Wednesdays. T-1054 now stays in his default zone; Southbank's Wednesday overflow (3–4 visits) goes to T-1053 (Ridgeway, adjacent, spare capacity) instead. Marsh End's average wait returns to 5.0 days; fleet productivity gives up 0.02 jobs per day.",
+      zones: ["HV-10", "HV-09"], techs: ["T-1053", "T-1054"], week: 1,
+      overrides: [{ tech: "T-1053", zone: "HV-10", dates: WED, kind: "temp", partial: true }],
+      effects: { jobs: { "T-1053": 1 }, waits: { "HV-09": -0.1, "HV-10": -0.7 } },
+      effect: "HV-10 wait 7.1 → 6.4 d · Marsh End keeps its Wednesday coverage",
+      alts: [
+        { name: "Chosen — T-1053 covers the overflow", effect: "wait 5.0 d in Marsh End · fleet 4.75 jobs/day · 2 assignments changed", chosen: true },
+        { name: "T-1056 takes 8 visits on Wednesdays", effect: "breaks the 7-per-day capacity rule — not allowed" },
+        { name: "Leave Southbank at 96% on Wednesdays", effect: "wait in HV-10 +0.4 d · 0 assignments changed" }
+      ] }
+  ];
+  changes.forEach(function (c) { c.overrides.forEach(function (o) { o.change = c.id; o.rule = c.rule; o.why = c.why; if (c.alts) o.alts = c.alts; }); });
+  var plans = {
+    v1: ["packing", "vacation", "sick", "coverage", "capacity", "marsh-move", "specialist", "pinned", "backfill", "spare"],
+    v2: ["packing", "vacation", "sick", "coverage", "capacity", "specialist", "pinned", "backfill", "spare", "marsh-keep"]
   };
-  /* Things a dispatcher should look at, per plan. */
-  var flags = {
-    cur: [
-      { kind: "over-capacity", tech: "T-1048", zone: "HV-05", date: "2026-10-13", title: "Over capacity", text: "8 visits on Tue 13 Oct against a capacity of 7 per day." },
-      { kind: "uncovered", zone: "HV-02", date: "2026-10-09", title: "Uncovered postcode", text: "HV2 7 has three booked visits and no technician on Fri 9 Oct (T-1044 on leave)." },
-      { kind: "absence", zone: "HV-04", date: "2026-10-12", title: "No cover during an absence", text: "T-1047 is on vacation 12–16 Oct and nobody is allocated to Eastfield." }
-    ],
-    v1: [
-      { kind: "wait-worse", zone: "HV-09", title: "Wait time up", text: "Average wait rises from 5.1 to 6.4 days: T-1054 is moved to Southbank on Wednesdays.", decision: true },
-      { kind: "backfill", zone: "HV-07", title: "Allocated on historical demand", text: "19, 22 and 27 Oct are allocated on last year's demand for the same dates — confirm or reject.", decision: true }
-    ],
-    v2: [
-      { kind: "backfill", zone: "HV-07", title: "Allocated on historical demand", text: "19, 22 and 27 Oct are allocated on last year's demand for the same dates — confirm or reject.", decision: true }
-    ]
-  };
+  /* Problems a plan carries, as a function of which changes are applied. */
+  function flagsFor(applied) {
+    var on = function (id) { return applied.indexOf(id) >= 0; }, out = [];
+    if (!on("vacation")) out.push({ kind: "absence", zone: "HV-04", date: "2026-10-12", title: "No cover during an absence", text: "T-1047 is on vacation 12–16 Oct and nobody is allocated to Eastfield." });
+    if (!on("coverage")) out.push({ kind: "uncovered", zone: "HV-02", date: "2026-10-09", title: "Uncovered postcode", text: "HV2 7 has three booked visits and no technician on Fri 9 Oct (T-1044 on leave)." });
+    if (!on("capacity")) out.push({ kind: "over-capacity", tech: "T-1048", zone: "HV-05", date: "2026-10-13", title: "Over capacity", text: "8 visits on Tue 13 Oct against a capacity of 7 per day." });
+    if (on("marsh-move")) out.push({ kind: "wait-worse", zone: "HV-09", title: "Wait time up", text: "Average wait rises from 5.1 to 6.4 days: T-1054 is moved to Southbank on Wednesdays.", decision: true });
+    if (!on("marsh-move") && !on("marsh-keep")) out.push({ kind: "overload", zone: "HV-10", title: "Wednesday overload", text: "Southbank runs at 96% of capacity on Wednesdays; visits slip to Thursday." });
+    if (on("backfill")) out.push({ kind: "backfill", zone: "HV-07", title: "Allocated on historical demand", text: "19, 22 and 27 Oct are allocated on last year's demand for the same dates — confirm or reject.", decision: true });
+    return out;
+  }
 
   /* ------------------------------------------------------ run + settings */
   var region = { id: "harborview", name: "Harborview Metro", others: ["Northern Lakes", "Coastal South"] };
@@ -170,7 +239,7 @@ window.WFO_DATA = (function () {
     { name: "Post-process and compute KPIs", done: "productivity · capacity · wait time, before and after", ms: 800 }
   ];
   var reoptStages = [
-    { name: "Apply dispatcher feedback", done: "1 rejection · 1 comment → 1 constraint added (HV-09 Wednesday coverage)", ms: 700 },
+    { name: "Apply the dispatcher's fixes and notes", done: "1 manual fix · 1 note → 1 constraint added (keep HV-09 covered on Wednesdays)", ms: 700 },
     { name: "Re-solve with minimal disruption", done: "2 assignments changed · 10 zones unchanged", ms: 1300, tick: true },
     { name: "Recompute KPIs", done: "productivity · capacity · wait time", ms: 600 }
   ];
@@ -226,5 +295,5 @@ window.WFO_DATA = (function () {
   var slaTypes = ["Standard", "Priority 48 h", "Standard", "Standard", "Priority 48 h"];
   var suggestedComment = "Keep Marsh End covered on Wednesdays — the Wednesday visits are the coastal run and cannot slip to Thursday.";
 
-  return { days: days, weeks: weeks, period: period, holidays: holidays, map: map, zones: zones, zone: zone, techs: techs, tech: tech, overrides: overrides, flags: flags, region: region, pickerFiles: pickerFiles, inputSheets: inputSheets, stages: stages, reoptStages: reoptStages, uploadWarning: uploadWarning, settings: settings, sources: sources, exportColumns: exportColumns, priorHistory: priorHistory, user: user, jobTypes: jobTypes, slaTypes: slaTypes, suggestedComment: suggestedComment, capacityPerDay: 7 };
+  return { days: days, weeks: weeks, period: period, holidays: holidays, map: map, zones: zones, zone: zone, techs: techs, tech: tech, changes: changes, plans: plans, flagsFor: flagsFor, region: region, pickerFiles: pickerFiles, inputSheets: inputSheets, stages: stages, reoptStages: reoptStages, uploadWarning: uploadWarning, settings: settings, sources: sources, exportColumns: exportColumns, priorHistory: priorHistory, user: user, jobTypes: jobTypes, slaTypes: slaTypes, suggestedComment: suggestedComment, capacityPerDay: 7 };
 })();
