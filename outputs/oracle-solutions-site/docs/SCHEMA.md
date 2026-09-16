@@ -95,18 +95,25 @@ Flat map of reusable strings: `kpiTile`, `kpiTileTargets`, `packageTable`, `lake
 
 ## `overview`
 
+The home page. **Seven screens, one object each** — `VISUAL-GRAMMAR.md` §9 owns what each screen looks like; this table owns what it reads. Round 5 replaced the single-column brochure page (hero photograph → trust strip → products intro → case studies → services teaser) with the model below.
+
+**Removed with that page, and a build failure if any of them returns:** `trustStrip`, `productsIntro`, `servicesTeaser`, `hero.image`, `hero.subhead`, `hero.headline.rest`.
+
 | Key | Type | Notes |
 |---|---|---|
-| `hero.image` | `{ file, alt, focal }` | The hero background image. `file` is relative to `site/index.html`, `focal` is a CSS `object-position`. Mirrors the entry in `site/assets/img/heroes/heroes.json` — keep them in sync. See `VISUAL-GRAMMAR.md` §1. |
-| `hero.headline` | `{ accent, rest }` | `accent` renders in teal, `rest` in white, one H1. |
-| `hero.subhead` | string | |
-| `hero.ctas` | `[{ label, route, kind }]` | `kind` is `primary` or `secondary`. |
-| `hero.stats` | `[{ value, label }]` | Four tiles, one number and one label each. |
-| `trustStrip` | `{ dividerLabel, logos: [{ name, file }] }` | Render the logos monochrome grey. |
-| `productsIntro` | `{ title, count, body, cta }` | `count` fills the count chip. |
-| `caseStudiesIntro` | `{ title, body, cta }` | Heads the case-study screen. |
-| `caseStudies` | `[CaseStudyCard]` | **Exactly four**, one per engagement, in the order the screen lists them. See below. |
-| `servicesTeaser` | `{ title, body, platforms: [{ name, body }], secondParagraph, cta }` | |
+| `hero.eyebrow` | string | S1. The dim line above the H1. |
+| `hero.headline` | `{ lead, accent }` | The H1 in two parts: `lead` in white, `accent` in teal **starting its own line**. No `rest` key, and **no `hero.image`** — the home page is the one page on the site with no hero photograph (`VISUAL-GRAMMAR.md` §1, §9). |
+| `hero.lead` | string | **≤ 45 words** — it sits in a column beside the stack visual, not across the page. |
+| `hero.ctas` | `[{ label, route, kind }]` | Exactly two, both anchors into this page: *Explore the products* → `#/#products`, *How we deliver* → `#/#how-we-deliver`. |
+| `hero.stack` | `{ ariaLabel, patternsLabel, softserve: { label, items[3] }, platformsLabel }` | The copy of the **built-on stack visual**, this hero's only illustration. Three bands: workflow patterns on top, the SoftServe layer in the middle (`items`, exactly three), the Oracle platforms underneath. **The tiles themselves are derived, not written here** — the three pattern tiles from `facets.categories` (chip + glyph) with each pattern's product names as chips in `SITE_CONFIG.productOrder`, the four platform tiles from `facets.technology` (label + glyph). So the visual cannot name a platform in words the rail does not use. `ariaLabel` is the figure's accessible name: it renders `role="img"` with its internals `aria-hidden`. |
+| `hero.stats` | `[{ value, label }]` | Exactly four tiles, `value` ≤ 20 characters, rendered as the existing `stat-band` immediately under the hero. |
+| `twoWays` | `{ eyebrow, title, panels[2] }` | S2. Each panel is `{ id, icon, title, body, bullets[3], cta { label, route, direction } }`. **Three bullets each, because the two panels are peers** — same shape, same height, CTAs on one baseline. `icon` must be a key of the `ICONS` registry in `assets/app.js` (the checker reads the registry and fails on a name that is not there). `direction: "down"` selects the `arrowDown` glyph: both CTAs scroll to a screen further down this page. |
+| `catalog` | `{ eyebrow, title, lead, patterns[3], cta }` | S3. **One column per workflow pattern, and the definition is the only thing written here.** `patterns[i]` is `{ id, definition }`; the ids equal `facets.categories[].id` **in order**, the column heading renders `facets.categories[].full` with the glyph from `shared.tagFamilies.pattern.icons[id]`. The rows are **derived**: the products whose `category` is that pattern, in `SITE_CONFIG.productOrder`, each row rendering `name`, `shortLine`, `UI.badgeRow(slug)` and, where present, `statusNote`. The single-product column carries the longest definition and its spare space stays empty — absence is an empty container, never filler (rule 2). |
+| `delivery` | `{ eyebrow, title, anchor, steps[3], footnote, why, ctas[2] }` | S4. `anchor` is **`"how-we-deliver"`** — the hero's second CTA and the S2 practice panel both link to it. `steps[i]` is `{ title, body, factLabel, fact }`, the horizontal three-step ladder. **`footnote` is mandatory**: every `fact` carries a duration and the first carries a price, and the block has no other caveat row (rule 1). `why` is `{ title, pillars[3] { icon, title, body } }`, the rail beside the ladder — `icon` from the registry again. `ctas` is exactly two, a primary and a quiet one, and they are the screen's single CTA block. |
+| `caseStudiesIntro` | `{ eyebrow, title, body, ndaLine, cta }` | S5's left rail. `ndaLine` is round 5 and it is deliberately narrow: reference calls are offered **for the completed proofs of value only**, because two of the four cards are engagements in preparation. The measurement method is not duplicated here — the rail reuses `services.proof.lead`, `.stat` and `.footnote`, so the discipline is written once and read twice. |
+| `caseStudies` | `[CaseStudyCard]` | Unchanged: **one card per product carrying a non-null `overview.caseStudy`** — four today — in the order the screen lists them. On the home page they render as a **2×2 grid beside the rail**, `grid-auto-rows: 1fr` so all four are the same height. See below. |
+| `about` | `{ eyebrow, title, body, stats[1–4], partnerLine, partners[], link }` | S6, the page's **one light band**. `stats[i]` is `{ value, label }` with `value` ≤ 12 characters (the 2×2 tile grid). `partners[i]` is `{ name, file, width, height }` — a wordmark under `assets/img/`, **never** under `assets/img/logos/`, with both dimensions as numbers so the strip reserves its space instead of reflowing the band. `link` is `{ label, url }` and the url is on `https://www.softserveinc.com`. **Only figures printed on softserveinc.com, or already in `content.js`, may appear in this block** — a tile with no public source is left out rather than filled from memory, and **no partner-tier claim ships at all** (no *Elite*, no *Premier*, no OPN level) for Oracle or NVIDIA. The fetched facts, their URLs and what was deliberately not used are in `PROVENANCE.md` §18.2. |
+| `contact` | `{ anchor, heading, sub }` | S7. `anchor` is **`"request-a-demo"`** — `site.primaryCta` and every product page's demo CTA deep-link to `#/#request-a-demo`, so renaming it breaks seven pages at once. The card and the form beneath the heading are `shared.contact` + `forms.demo`, the same component the Contacts tab and the Services page render. |
 
 ### `CaseStudyCard`
 
