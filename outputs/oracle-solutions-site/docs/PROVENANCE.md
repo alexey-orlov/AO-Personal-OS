@@ -3515,11 +3515,13 @@ What changed, all inside the same flow and information model:
   Restore** (the manual fix) and **Note**. A **Changes only** toggle narrows the
   map and the schedule to what moved; changed schedule cells are tinted; the
   optimized map's pills carry the zone's wait and its delta.
-- **The tour was rebuilt around the value:** run → *see what improved* →
-  *drill into a change* (Eastfield's vacation cover) and compare with today →
-  check the numbers per technician → *fix what the solver got wrong* (undo the
-  Marsh End move by hand, note why, re-optimize around the fix) → accept the
-  rest and export. The re-run applies the alternative the solver weighed.
+- **The tour was rebuilt around the value:** run → *review the improved metrics*
+  (a passive step on the KPI band, advanced with Next) → *see where the gain
+  comes from* → *drill into a change* (Eastfield's vacation cover) and compare
+  with today → check the numbers per technician → *fix what the solver got
+  wrong* (undo the Marsh End move by hand, note why, re-optimize around the
+  fix) → accept the rest and export. The re-run applies the alternative the
+  solver weighed.
 - **Figures**, computed from raw means: current 4.54 → plan v1 4.76 (+4.8%)
   → after the manual undo +4.4% → plan v2 4.75, **+4.5%**, the cleared median;
   capacity 65% → 68%; average wait 6.8 → 6.2 d; visits placed 1,523 → 1,587 of
