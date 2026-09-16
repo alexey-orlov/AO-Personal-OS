@@ -1038,6 +1038,10 @@ window.ERPQA_DATA = (function () {
   }
 
   /* ------------------------------------------------------- saved questions */
+  var WORDS = ["no", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten",
+    "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen", "twenty"];
+  function words(n) { return WORDS[n] || String(n); }
+  function cap(t) { return t.charAt(0).toUpperCase() + t.slice(1); }
   function col(k, l, o) { o = o || {}; return { key: k, label: l, kind: o.kind || "text", align: o.align || (o.kind === "money" || o.kind === "num" || o.kind === "score" ? "right" : "left"), sub: o.sub || "" }; }
   var IC = [
     ["NG-EU", "NG-NA", 1284600.00, 1284600.00, "matched", "Both legs posted in period 3."],
@@ -1093,7 +1097,15 @@ window.ERPQA_DATA = (function () {
       sources: ["FUSION", "JDE", "NETSUITE"], views: ["SUPPLIER_360", "SUPPLIER_SPEND_Q", "PERIOD_MAP"],
       terms: ["supplier", "last quarter", "group spend"], joins: 2, parse: "Aggregate over suppliers · 1 metric · 1 period filter · 1 having clause",
       t: [210, 340, 980, 90, 640, 380],
-      narrate: "Twelve suppliers carry Q3 invoices in more than one source system, USD 8.6 M in total, led by Halden Tooling Group at USD 1.41 M across Fusion, JDE and NetSuite. One of the twelve is a proposal the model applied provisionally and a steward has not confirmed.",
+      narrate: function (rows, R) {
+        var tot = r2(sum(rows, function (r) { return r.spendUsd; })), pend = rows.filter(function (r) { return r.status === "review"; }).length;
+        var scope = R.id === "CONTROLLER" ? "in more than one source system" : "in more than one source system and invoices inside NG-NA";
+        var lead = rows.length ? ", led by " + rows[0].supplier + " at USD " + fmtM(rows[0].spendUsd).replace(" M", " M") + " across " + rows[0].systems.map(function (x) { return SRC[x].short; }).join(", ") : "";
+        return cap(words(rows.length)) + " suppliers carry Q3 invoices " + scope + ", USD " + fmtM(tot)
+          + (R.id === "CONTROLLER" ? " in total" : " inside your entity scope") + lead + ". "
+          + (pend ? cap(words(pend)) + " of them " + (pend === 1 ? "is a proposal" : "are proposals") + " the model applied provisionally and no steward has confirmed."
+            : "Every one of them is a match a steward or an exact identifier confirmed.");
+      },
       columns: [col("supplier", "Golden supplier"), col("systems", "Systems", { kind: "badges" }), col("records", "Records", { kind: "num" }), col("spendUsd", "Q3 spend (USD)", { kind: "money" }), col("score", "Match score", { kind: "score" }), col("status", "Status", { kind: "status" })],
       build: function (R, dec) {
         var rows = multiSystemRows(dec);
@@ -1192,7 +1204,13 @@ window.ERPQA_DATA = (function () {
       sources: ["FUSION", "JDE", "NETSUITE"], views: ["DUP_INVOICE_PAIRS", "SUPPLIER_360", "PERIOD_MAP"],
       terms: ["duplicate payment", "supplier", "last quarter"], joins: 2, parse: "Filter over candidate pairs · 1 period filter · ordered by value",
       t: [170, 280, 840, 80, 520, 340],
-      narrate: "Fourteen candidate pairs sit across two systems in Q3, USD 216,410 in total, every one of them on a supplier the model resolved to a single golden record. They are candidates, not confirmed duplicates: one pair depends on a supplier match a steward has not confirmed.",
+      narrate: function (rows) {
+        var tot = r2(sum(rows, function (r) { return r.amountUsd; })), dep = rows.filter(function (r) { return r.status === "review"; }).length;
+        return cap(words(rows.length)) + " candidate pairs sit across two systems in Q3, " + fmtUsd(tot)
+          + " in total, every one of them on a supplier the model resolved to a single golden record. "
+          + (dep ? "They are candidates, not confirmed duplicates: " + words(dep) + " of them depends on a supplier match no steward has confirmed."
+            : "They are candidates, not confirmed duplicates — each one needs a look at both documents before anything is recovered.");
+      },
       columns: [col("goldenName", "Golden supplier"), col("invoiceNorm", "Invoice (normalised)"), col("amountUsd", "Amount (USD)", { kind: "money" }), col("aRef", "First document"), col("bRef", "Second document"), col("status", "Status", { kind: "status" })],
       policyNote: "The row policy admits a pair when either leg is inside your entity scope — a duplicate is only reviewable with both legs in view.",
       build: function (R, dec) {
@@ -1272,7 +1290,7 @@ window.ERPQA_DATA = (function () {
       sources: ["FUSION", "JDE", "NETSUITE"], views: ["SUPPLIER_360", "SUPPLIER_SPEND_Q", "PERIOD_MAP"],
       terms: ["supplier", "group spend", "last quarter"], joins: 2, parse: "Ranked aggregate · 1 metric · top 20",
       t: [150, 260, 720, 70, 690, 310],
-      narrate: "The top twenty suppliers account for a little under a fifth of Q3 group spend, and the leader is a supplier no single system could have ranked first — its invoices sit in three of them. Spend is translated at the Q3 average rate.",
+      narrate: "The top twenty suppliers account for a little under a third of Q3 group spend, and the leader is a supplier no single system could have ranked first — its invoices sit in three of them. Spend is translated at the Q3 average rate.",
       columns: [col("rank", "#", { kind: "num" }), col("supplier", "Golden supplier"), col("systems", "Systems", { kind: "badges" }), col("spendUsd", "Q3 spend (USD)", { kind: "money" }), col("sharePct", "Share of Q3 spend", { kind: "score" })],
       build: function (R, dec) {
         var gs = goldenSuppliers(dec).filter(function (g) { return g.spendUsd > 0; });
@@ -1309,7 +1327,7 @@ window.ERPQA_DATA = (function () {
       sources: ["FUSION", "JDE", "NETSUITE", "CRB"], views: ["SUPPLIER_360", "SUPPLIER_SPEND_Q", "PERIOD_MAP"],
       terms: ["rebate", "group spend", "last quarter"], joins: 4, parse: "Join to the in-house contracts schema · threshold test · 1 period filter",
       t: [200, 380, 1180, 90, 740, 400],
-      narrate: "Five rebate terms cleared their Q3 threshold on group spend and carry no claim document, worth USD 57,414 together. Four of them only clear the threshold once spend from more than one system is added up.",
+      narrate: "Five rebate terms cleared their Q3 threshold on group spend and carry no claim document, worth USD 13,539.92 together on the spend above each threshold. Every one of the five clears its threshold only once spend from more than one system is added up.",
       columns: [col("supplier", "Golden supplier"), col("contract", "Contract"), col("basis", "Basis"), col("thresholdUsd", "Threshold (USD)", { kind: "money" }), col("spendUsd", "Q3 spend (USD)", { kind: "money" }), col("entitlementUsd", "Entitlement (USD)", { kind: "money" }), col("claimed", "Claimed", { kind: "status" })],
       build: function (R, dec) {
         var gs = goldenSuppliers(dec), byName = {};
@@ -1451,7 +1469,7 @@ window.ERPQA_DATA = (function () {
       blocked: blocked, columns: cols, rows: rows,
       rowCount: rows.length, displayed: rows.length,
       sql: q.sql, sqlLines: q.sql.split("\n").length,
-      narrate: blocked ? q.narrateBlocked : q.narrate,
+      narrate: blocked ? q.narrateBlocked : (typeof q.narrate === "function" ? q.narrate(rows, R, dec) : q.narrate),
       trace: traceFor(qid, R.id, rows.length),
       traceMs: traceFor(qid, R.id, rows.length).reduce(function (a, s) { return a + s.ms; }, 0),
       freshness: freshnessFor(qid),
