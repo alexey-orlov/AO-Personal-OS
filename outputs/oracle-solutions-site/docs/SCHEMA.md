@@ -140,13 +140,17 @@ Round 4, C2. The home page's case-study screen and the Services proof block rend
 | `technologyLabel`, `categoryLabel`, `allLabel`, `clearLabel`, `noResults` | string | UI chrome for the facet rail. |
 | `technology` | `[{ id, label, fullLabel, description, emptyState }]` | **Four entries, in this order:** `oci-nvidia`, `oracle-ai-data-platform`, `oracle-autonomous-ai-lakehouse`, `other`. `label` is the compact form for the rail and for tile tags; `fullLabel` is what goes on a product hero and in any place a reader could mistake it for a product name — carry `fullLabel` as the `title` attribute on the short form. Two facets currently match no product; render `emptyState` inside the normal grid container, never a blank grid. |
 | `categories` | `[{ id, chip, full }]` | Three. `chip` on tiles and filters, `full` in tooltips and long copy. |
-| `marketplace` | `{ label, badge, heroCta }` | All three are driven by one switch, `config.products[slug].marketplaceUrl`: while it is empty, the badge does not render on any surface, the `label` checkbox is left out of the facet rail entirely, and the `heroCta` button does not appear. There is no separate boolean — a badge with no listing behind it is an unsupported claim. |
+| `availability` | `{ label, options: [{ id, label }] }` | **Round 4, T2.** The rail's Availability group — exactly two checkboxes, `demo` then `marketplace`, with faceted counts. `demo` filters on `SITE_CONFIG.products[slug].video === true`, `marketplace` on `.marketplace === true`; the query params are `demo=1` and `mp=1`, and **Clear filters** resets both. The **badge** labels and tooltips are not here — they are in `shared.tagFamilies.availability`, because the badge and the checkbox are two surfaces of one flag and one of them had to own the strings. |
+
+`facets.marketplace` (`{ label, badge, heroCta }`) is **removed**. Its `heroCta` went with it: the Marketplace badge in the hero chip row is the link to the listing now, so a second hero button pointing at the same URL was one control too many. The listing link still renders only where `marketplaceUrl` is non-empty; the badge itself renders on the `marketplace` boolean, and a `marketplaceUrl` set while that boolean is `false` is a build failure.
 
 ---
 
-## `availability`
+## `availability` — **removed** (round 4, T1)
 
-Map keyed by the product's `availability` value — `available`, `fixed-price-offer`, `in-preparation` — each `{ chip, tooltip }`. Each product also carries a denormalised `availabilityChip` / `availabilityTooltip` so a tile renderer needs no lookup; they are the same strings.
+The three-state chip (*Available now* · *Fixed-price offer* · *In preparation*) is gone, along with the per-product `availability`, `availabilityChip` and `availabilityTooltip` keys and the availability strings that used to sit at the end of each `tags` array. `check-grammar.js` fails if any of them returns.
+
+What replaced it, and why: the chip asserted a *sales state* a customer has no way to act on, and it had to be kept in sync with the config flags that decide whether a demo or a listing actually exists. The two **availability badges** — `Demo` and `Oracle Marketplace` — are read straight off those flags, so they cannot disagree with the thing they claim. The one state the badges cannot express is the absence of a package, and that survives as `products[].statusNote`, a muted line under the hero one-liner on the two unpackaged products only.
 
 ---
 
@@ -165,9 +169,8 @@ Seven entries, in the order the Products page should list them:
 | `category` | string | A `facets.categories[].id`. |
 | `categoryChip` | string | The chip text, denormalised. |
 | `facet` | string | A `facets.technology[].id`. |
-| `availability` | string | A key of `availability`. |
-| `availabilityChip`, `availabilityTooltip` | string | Denormalised. |
 | `oneLiner` | string | The tile description and the hero lead, and the one string both surfaces share. It is a **product statement**: what the thing does, for whom, with what outcome. The packaging story is not allowed in it — `check-grammar.js` fails the build on "packaged from proof of value", "from proof of value to enterprise scale", "fixed price", "quick start" and their kin, because a reader who meets the product here should learn what it is, not how it is sold. Every claim in it must be traceable to a shipped one-pager; an unsupported clause is **dropped**, never swapped for a new claim. |
+| `statusNote?` | string | **Round 4, T1.** One muted line under the hero one-liner, on the **two unpackaged products only** (`case-evidence-collection`, `plan-vs-actual-investigation`): *"Packaged offering in preparation — scoping conversations are open."* It is a status line, not a chip, and no other product carries it — a fifth product saying nothing about its state is the correct rendering, because its badges say what there is. |
 | `subLine?` | string | A second hero line where the one-liner is very short. No product carries one today — `account-insights` lost its when the one-liner was rewritten to carry the whole statement. |
 | `heroLine?` | string | A short slogan that heads the hero above the name (two Lakehouse products). Takes precedence over `heroCaption` if both are set. |
 | `hero` | `{ image: { file, alt, focal } }` | The product hero's background image. Same contract as `overview.hero.image`. Required on all seven. |
@@ -176,7 +179,7 @@ Seven entries, in the order the Products page should list them:
 | `tags` | `[string]` | Filled navy metadata pills on the tile, in order. Facts, not toggles. |
 | `tile.outcomes` | `[string]` | Exactly three outcome bullets. |
 
-**One hero shape on all seven products.** The slots render in a fixed order and an unset one simply does not render: breadcrumb → `heroLine`/`heroCaption` → `headline` → chips → `oneLiner` → `subLine` → `badges` → CTA row. **The CTA row is always last** — nothing is appended below the primary action, so "Request a demo" is the last thing in every hero.
+**One hero shape on all seven products.** The slots render in a fixed order and an unset one simply does not render: breadcrumb → `heroLine`/`heroCaption` → `headline` → chip row (pattern chip and technology chip left, availability badges right) → `oneLiner` → `statusNote` → `subLine` → `badges` → CTA row. **The CTA row is always last** — nothing is appended below the primary action, so "Request a demo" is the last thing in every hero.
 
 ### `overview`
 
@@ -199,7 +202,7 @@ Seven entries, in the order the Products page should list them:
 | `steps` | `[{ n, title, text, image, features }]` | **3–5 workflow steps** — the "How it works" stepper that replaced the flat key-features checklist. `n` is the 1-based position and must equal the array index + 1. `text` is ≤ 2 lines (≤ 30 words). `image` is `assets/img/steps/<slug>-<n>.jpg` — a real product screenshot where one exists, otherwise a designed step illustration in the same 16:10 frame. `features` holds the **exact strings** from `overview.features` that belong to this step: the union across steps must equal `overview.features`, with no bullet in two steps and none left out. That invariant is what lets the stepper replace the checklist without losing a fact. |
 | `industryCases` | `[{ industry, label, image, problem, solution }]` | **3–6 cases**, rendered as the industry tab component. `industry` is a key from the fixed set of 16; no key appears twice. `label` must equal `shared.industryLabels[industry]`. `image` is `assets/img/industries/<key>.jpg` — keyed by industry, so the file is **shared across products**. `problem` and `solution` are 2–3 sentences each, specific to that industry *and* this product; a generic paragraph that would read the same under any tab is the failure mode here. The first tab is open by default. |
 | `moreDetail` | `[{ title, body }]` | The collapsible disclosure at the end of the tab. Everything that used to be a prose block above the fold lives here: today/tomorrow, the pattern, pull quotes, per-persona "where it applies" paragraphs, scope boundaries, roadmap notes, evaluation disclaimers. ≥ 3 entries. With the compact Overview (§2 of `VISUAL-GRAMMAR.md`) the disclosure also absorbs `scope` and `featuresDetail`. An entry that repeats a vertical the `industryCases` tabs already cover does not belong here — one telling per vertical, per product. |
-| `successStory` | object **or `null`** | The dark customer callout — see below. |
+| `caseStudy` | object **or `null`** | The dark case-study callout — see below. |
 
 **`overview.sideFacts` is deleted.** The At-a-glance card went with it (round 3, H): every value on it was a denormalised copy of a fact printed elsewhere on the same page — the chips, the Jumpstart investment card, the stack — so it was a second place to keep in sync and the first to drift. The side rail now holds Outcomes & ROI alone. `check-grammar.js` fails if the key reappears.
 
