@@ -284,7 +284,7 @@
         : "Sources are mounted and feeding; the model has not been rebuilt since <b>" + esc(S.lastRun) + "</b>. Run it to resolve identities, map accounts, reconcile the ledgers and rebuild the certified views.") + "</p></section>" +
       '<section class="out"><div class="out-head"><b>' + D.views.length + ' certified views</b><span>schema GOLD &middot; owner Group Finance &middot; signed-off definitions the answers cite by name</span></div>' +
       '<div class="out-grid">' + D.views.map(function (v) { return '<div><div class="vn">' + esc(v.name) + '</div><div class="vd">' + esc(v.definition) + "</div></div>"; }).join("") + "</div></section>" +
-      '<p class="ds-aside">Mocked run — no job is submitted and nothing is written back to any source system. Oracle evidences the two entry points to continuous ingestion (the <b>FEED DATA</b> card on Data Load Home and this <b>Live Feed</b> nav item) but has never shown the feed list itself; the card above is our design in the Data Studio idiom.</p>';
+      '<p class="ds-aside">Mocked run — no job is submitted and nothing is written back to any source system.</p>';
   }
   /* ---- Analysis: the natural-language Generate Query field (§1.9).
      Generate Query WRITES SQL INTO THE EDITOR and the user then presses Run —
@@ -584,7 +584,7 @@
         if (!g) return "";
         return '<div class="gl"><b>' + esc(g.term) + '</b><div class="syn">also written: ' + esc(g.synonyms.join(", ")) + '</div><div class="def">' + esc(g.definition) + '</div><div class="own">annotated by ' + esc(g.owner) + " &middot; last reviewed " + esc(g.changed) + "</div></div>";
       }).join("") +
-      '<div class="panel-note">These are the Master-catalog descriptions and column annotations on the certified views — auto-populated by the metadata extractor, reviewed by a person, and the only semantic layer in play. There is no business glossary, ontology or synonym list behind them.</div>';
+      '<div class="panel-note">These are the Master-catalog descriptions and column annotations on the certified views — auto-populated by the metadata extractor, reviewed by a person, and the only semantic layer in play.</div>';
   }
   function matchFor(recIds) {
     var out = null;
@@ -1104,7 +1104,7 @@
         return '<tr><td><span class="mc-box"></span></td><td>' + esc(c[0]) + "</td><td>Column</td><td>" +
           (c[1] ? '<span class="mc-desc">' + esc(c[1]) + "</span>" : '<span class="mc-dash">-</span>') + "</td><td>" + esc(c[2]) + '</td><td><span class="mc-dots">&middot;&middot;&middot;</span></td></tr>';
       }).join("") + "</tbody></table>" +
-      '<p class="honest">' + esc(v.definition) + " Descriptions are written by the metadata extractor and reviewed by a person; the ones still showing <b>-</b> have not been reviewed. This column metadata is what the text-to-SQL agent reads to match a question's words to columns — Oracle ships no business glossary, ontology or synonym editor, and neither does this walkthrough.</p>" +
+      '<p class="honest">' + esc(v.definition) + " Descriptions are written by the metadata extractor and reviewed by a person; the ones still showing <b>-</b> have not been reviewed. This column metadata is what the text-to-SQL agent reads to match a question's words to columns.</p>" +
       "</div></div></div>";
   }
   /* ---------------- Auto-populate catalog: the accept/reject queue ------- */
@@ -1140,7 +1140,7 @@
       APC_ROWS.map(function (r) {
         return '<tr><td><a class="mc-link">' + esc(r[0]) + '</a></td><td><span class="apc-ok">&#10003;</span> ' + esc(r[1]) + '</td><td><span class="stat stat--' + (r[2] === "Accepted" ? "auto" : "open") + '">' + esc(r[2]) + "</span></td><td>" + esc(r[3]) + "</td><td>" + esc(r[4]) + '</td><td><span class="mc-dots">&middot;&middot;&middot;</span></td></tr>';
       }).join("") + "</tbody></table>" +
-      '<p class="honest">Twelve entities were proposed by the extractor and ten accepted; the two rejected ones are out of the finance model and never reach a certified view. This accept-or-reject queue is Oracle’s own shape for &ldquo;AI enriched your catalog, now a person confirms it&rdquo; — the same idiom the steward’s mapping queue borrows.</p></div></div>';
+      '<p class="honest">Twelve entities were proposed by the extractor and ten accepted; the two rejected ones are out of the finance model and never reach a certified view. The metadata a person confirms here is what the text-to-SQL agent reads.</p></div></div>';
   }
 
   function sessionsHtml() {
