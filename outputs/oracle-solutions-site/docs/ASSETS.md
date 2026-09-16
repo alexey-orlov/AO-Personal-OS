@@ -195,14 +195,14 @@ currency symbol beyond the USD column header.
 (`tools/capture-erpqa-tour.json` drives the whole guided tour by real clicks and
 is the tour's regression test — `LOGS: none` is the gate). The scenario itself
 walks every state through `window.DEMO` — `prime('start'|'refreshed'|'final')`,
-`setApp`, `ask`, `openPanel`, and for `-4` a real `decide('M-ORION','reject')`
-followed by `rerun()` — so one scenario file produces all five shots and each
-**viewport** run keeps only the shot it was sized for:
+`setApp`, `ask`, and `setRole('ANALYST_NA')` for `-3` — so one scenario file
+produces all five shots and each **viewport** run keeps only the shot it was
+sized for:
 
     MODE=script STEPS=tools/capture-erpqa-frames.json DPR=2 W=640 H=900 \
       node tools/capture-demo-frames.mjs \
       "file://<repo>/site/demo/cross-system-erp-qa/index.html?tour=off&ui=clean&state=start" /tmp/erp640
-    # …the same command with W=676 H=900, W=860 H=1200 and W=980 H=1100
+    # …the same command with W=676 H=900, W=868 H=1000 and W=980 H=1100
 
 Four viewports, because each surface fits a 640 CSS-px crop at a different
 width: `-1` from the 640 run (the left nav takes 172 px, so the five
@@ -210,21 +210,43 @@ mounted-catalog chips only wrap inside the remaining 468 px — and therefore
 inside the crop — at a viewport that narrow; the price is that the entity-type
 pill row, which is centred and does not wrap, runs past the page and its last
 pill sits on the crop's right edge);
-`-2` and `-4` from the 676 run (the health band reflows to 3 × 2 tiles under
+`-2` from the 676 run (the health band reflows to 3 × 2 tiles under
 1120 px and is exactly 640 px wide at a 676 px viewport, so all six tiles land
 inside the crop at the same apparent size three of six would have at 1240 px);
-`-3` from the 860 run (the answer grid is 630 px wide there, so the crop holds
-the badges, the chips and the trace); the poster from the 980 run (nav 180 px +
-page 800 px, so an 800 px crop is the whole page with nothing cut).
+`-3` and `-4` from the 868 run (the answer card is exactly 640 px wide at a
+868 px viewport — `card = W − 228` — so the crop holds the whole card, badges
+and magnifier column included, with nothing clipped left or right); the poster
+from the 980 run (nav 180 px + page 800 px, so an 800 px crop is the whole page
+with nothing cut).
 
 Crop offsets in CSS px (device px are twice these, at `DPR=2`): `-1` (0, 44,
-640 × 400) · `-2` (18, 100) · `-3` (200, 675) · `-4` (18, 100). Every edge is
+640 × 400) · `-2` (18, 100) · `-3` (204, 197) · `-4` (204, 183). Every edge is
 placed on a real boundary — `-1` starts at the Data Studio bar and ends in the
-white below the green *View* band; `-3` starts on an answer-row boundary and
-ends on a trace-span boundary. Converted with `sips` (crop → resample to
-1600 × 1000 → progressive JPEG q86) on a Mac without ffmpeg; 203–240 KB each,
+white below the green *View* band; `-3` starts on the answer card's top border
+and ends in its bottom padding, below the *Publish as certified view* button;
+`-4` starts on the question bubble's bottom edge and ends on the row boundary
+under *Aldwych Chemicals*. Converted with `sips` (crop → resample to
+1600 × 1000 → progressive JPEG q86) on a Mac without ffmpeg; 203–255 KB each,
 inside the 300 KB ceiling. **`sips` gotcha, again:** `--cropOffset 0 0` means
 *centred*, so a crop anchored at the left edge needs a non-zero Y with X = 0.
+
+**Why `-3` has no Trace panel and `-4` has no question bubble.** Both were
+tried and both fail the no-half-cut-text rule at 640 × 400. With the role chip
+at the top of `-3`, the trace's *Row policy applied* / *Column masking applied*
+spans sit 509 CSS px below it — 109 px past the frame. And the card is only
+640 px wide at a viewport ≤ 868 px, where the supplier names wrap to two and
+three lines; from the question bubble's top edge (the only clean boundary above
+the card) a 400 px frame ends inside *Ravenscourt Electrical*, truncating the
+name to one line. The row-limiting evidence in `-3` is the policy banner, which
+says what the masking is — and `-3` keeps the **Trace** chip itself in frame;
+the question in `-4` is carried by the answer's own head, "Total rows: 11 ·
+Displayed: 11 · as of 09:02", over the three `GOLD` views it read.
+
+**Re-cut 2026-09-17.** The first cut of `-3` and `-4` followed *tour* order, so
+the two frames landed under the wrong step copy — `-4` showed the steward's
+recomputed band under the heading "Ask in plain language". Both were re-shot
+against the copy: `-3` is now the role-guarded answer and `-4` the controller's
+answer. `-1` and `-2` already matched and were not touched.
 
 **Poster.** `assets/img/posters/cross-system-erp-qa.jpg`, 1600 × 900 (an
 800 × 450 CSS-px crop at `DPR=2`, offset (180, 86), no resample, q86, 247 KB):
