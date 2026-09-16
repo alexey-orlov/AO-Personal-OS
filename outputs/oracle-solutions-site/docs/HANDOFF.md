@@ -5,7 +5,7 @@ Written 2026-09-16 by the build session on Alex's Mac. Everything a new session 
 ## 1. State of the site
 
 - Served root: `outputs/oracle-solutions-site/site/` — static, no build step, hash-routed SPA (`index.html`, `assets/site.css`, `assets/app.js`, `assets/forms.js`, `pages/*.js`, `data/content.js`, `data/config.js`, `data/diagrams.js`, `assets/img/**`).
-- Live preview (private, owned by Alex): https://claude.ai/code/artifact/41e4f3b6-47d9-4ef2-af99-99c40c02b89b — last published as version 15 (round 4: tag families, availability badges, anonymized case studies).
+- Live preview (private, owned by Alex): https://claude.ai/code/artifact/41e4f3b6-47d9-4ef2-af99-99c40c02b89b — last published as version 16 (round 4 plus canonical technology facets, 2026-09-16).
 - Pages: Overview (home), Products (facet rail + tiles), 7 product pages (Overview · Technology · Jumpstart · Contacts · For sellers), Services (practice + contact).
 - Checker: `node tools/check-grammar.js` (run from `outputs/oracle-solutions-site/`) asserts the content contract; it must print `OK` before any publish.
 
