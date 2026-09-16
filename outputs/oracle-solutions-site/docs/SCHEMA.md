@@ -12,8 +12,8 @@ Conventions used below:
 Three rules the renderers must hold to, because the copy depends on them:
 
 1. **A number never renders without the disclaimer that sits beside it.** Where a block has `footnote`, `footnotes[]` or `disclaimers[]`, render them in the same visual block as the figures.
-2. **Absence renders as an empty instance of the same component, or as nothing at all.** A missing price renders the component with its `emptyState` line — never a sentence saying the component is missing. But where absence has no honest content of its own — a marketplace listing, a seller material, a success story — the element does not render. A section whose only content is that there is no content is never shipped. The hero demo frame is the one deliberate exception, and only because it has honest content to show while it waits: a product flagged `video: true` in `SITE_CONFIG` renders the frame before the recording exists, and the click answers with `shared.videoPending` — when the recording is coming, and the live demo in the meantime.
-3. **Facets and availability are data, not classes.** Read the chip label and tooltip from `facets` / `availability`; do not hard-code either.
+2. **Absence renders as an empty instance of the same component, or as nothing at all.** A missing price renders the component with its `emptyState` line — never a sentence saying the component is missing. But where absence has no honest content of its own — a marketplace listing, a seller material, a case study — the element does not render. A section whose only content is that there is no content is never shipped. The hero demo frame is the one deliberate exception, and only because it has honest content to show while it waits: a product flagged `video: true` in `SITE_CONFIG` renders the frame before the recording exists, and the click answers with `shared.videoPending` — when the recording is coming, and the live demo in the meantime.
+3. **Every chip, badge and status label is data, not a class.** Read the label and the tooltip from `facets`, `shared.tagFamilies` and `shared.caseStudyStatus`; do not hard-code either. The three tag families are visually distinct on purpose (`VISUAL-GRAMMAR.md` §1.2) and each names itself on hover.
 4. **Every product fills every grammar slot.** The seven product pages share one component grammar, documented in `VISUAL-GRAMMAR.md`. A product with no published number fills its metric row with *qualitative* tiles (`value: null`); it never renders a shorter page than its peers. `tools/check-grammar.js` enforces this.
 
 ---
@@ -23,7 +23,7 @@ Three rules the renderers must hold to, because the copy depends on them:
 ```
 window.SITE_CONTENT = {
   site, media, disclaimers, shared,
-  overview, productsPage, facets, availability,
+  overview, productsPage, facets,
   products[], services, forms, sellerGate
 }
 ```
@@ -65,7 +65,7 @@ Used by the figure beside the narrative in the **Architecture** block of a produ
 
 ## `disclaimers`
 
-Flat map of reusable strings: `kpiTile`, `kpiTileTargets`, `packageTable`, `lakehousePricing`, `accountInsightsEvaluation`, `publicPricingFootnote`, `modeledResults`, `ladderFallback`. Products carry their own copies inside `jumpstart.investment.footnote`, `overview.metricsNote` and `overview.successStory.story` so a renderer never has to look up which disclaimer applies — this map exists for shared surfaces (the Services ladder) and for a single point of edit. `publicPricingFootnote` and `ladderFallback` were rewritten in round 3: the packaging-internal sentences they used to hold are banned site-wide.
+Flat map of reusable strings: `kpiTile`, `kpiTileTargets`, `packageTable`, `lakehousePricing`, `accountInsightsEvaluation`, `publicPricingFootnote`, `modeledResults`, `ladderFallback`. Products carry their own copies inside `jumpstart.investment.footnote`, `overview.metricsNote` and `overview.caseStudy.story` so a renderer never has to look up which disclaimer applies — this map exists for shared surfaces (the Services ladder) and for a single point of edit. `publicPricingFootnote` and `ladderFallback` were rewritten in round 3: the packaging-internal sentences they used to hold are banned site-wide.
 
 ---
 
@@ -78,13 +78,15 @@ Flat map of reusable strings: `kpiTile`, `kpiTileTargets`, `packageTable`, `lake
 | `engageLink` | `{ label, route }` | The single link out of each Jumpstart tab, to the Services ladder. |
 | `productTabs` | `[{ id, label, locked?, legacyId? }]` | Tab bar order for every product page: `overview`, `technology`, `jumpstart`, `contacts`, `sellers`. `locked: true` draws the lock icon. The `id` is also the optional third route segment: `#/products/<slug>/<id>`. `legacyId` is a retired route segment the router must **redirect** to this tab, not render — `jumpstart` carries `legacyId: "pov"` and `contacts` carries `legacyId: "demo"`, so `#/products/<slug>/pov` lands on `…/jumpstart` and `…/demo` on `…/contacts`. Every "Request a demo" control on a product page points at the contacts tab. |
 | `contact` | `{ name, title, email, photo, blurb, bringTitle, bring[3], linkedin? }` | The one named human on the site. Rendered as a bounded contact panel in the left column of the Contacts tab, and in the same two-column component on Services. `title` is a string and may be **empty** — it is printed only where a source states it; the card then renders name + email alone. `email` is fixed to the practice mailbox `oracle@softserveinc.com`; no personal mailbox is ever printed. `photo` is `assets/img/people/<name>.jpg`, rendered as a circle; it may be empty (the card falls back to an initials avatar) but **ships filled** since 2026-09-14, when Alex confirmed the headshot (`ASSETS.md` §3). `blurb` is one line saying what to get in touch about. `bring` is exactly **three** short lines — use case · data sources · timeline — headed by `bringTitle` ("Bring to the call"); it is what turns "get in touch" into a call someone can prepare for. `linkedin` is **omitted** unless a public LinkedIn URL exists in the sources — an absent key renders no link. |
+| `tagFamilies` | `{ pattern, tech, availability }` | **Round 4, T1.** The three tag families the chip row renders, and the only place their tooltips and icon keys live. `pattern` is `{ tooltip: "Workflow pattern", icons: { <category id>: <icon key> } }` — the **outlined** chip, one entry per `facets.categories[].id`. `tech` is `{ tooltip: "Runs on", icons: { <facet id>: <icon key> } }` — the **solid navy** pill, one entry per `facets.technology[].id`. `availability` is `{ demo: { label, tooltip, icon }, marketplace: { label, tooltip, icon } }` — the two teal-tinted **badges**, driven by `SITE_CONFIG.products[slug].video` and `.marketplace` respectively, never by anything in this file. Icon keys are registry keys (none of these are in the registry yet; they are added to `ICONS` in `assets/app.js` — see `VISUAL-GRAMMAR.md` §6). |
+| `caseStudyStatus` | map | **Round 4, C1.** `measured` / `in-progress` → `{ chip, tooltip }`. The status chip on a case study reads its label here; `overview.caseStudy.status` and `overview.caseStudies[].status` carry only the bare key. |
 | `ladderColumns` | `[string]` | Column headers for the three-tier ladder on **Services**. No product page renders a ladder any more. |
 | `heroAsideTitle`, `heroAsideFootLabel` | `string` | Carried for reference; no surface renders them since the product hero became a single-column block over its background image. |
 | `videoCaption` | `string` | Caption printed on the hero video frame, and the label of the fallback "watch" button. |
 | `demoCta` | `string` | Label of the secondary hero button that opens the interactive walkthrough in a new tab, and of the same button inside the pending-video panel. Rendered only where `SITE_CONFIG.products[slug].demoUrl` is set (`CONFIG.md` §3). |
 | `videoPending` | `{ body, cta }` | The panel a demo frame opens while `SITE_CONFIG.products[slug].videoUrl` is still empty and `video` is `true`. `body` says the recording is being prepared; `cta` labels the primary button, which goes to `#/products/<slug>/demo` and closes the panel. The product name is the panel's heading and comes from the product, not from here. Never write a date into `body`: the copy has to stay true on the day it is read. |
 | `industryLabels` | map | The sixteen fixed industry keys → display label. A product's `overview.industryCases[].industry` holds a bare key; the renderer looks the label up here and the icon up as `industry-<key>`. No product may use a key absent from this map. |
-| `sectionLabels` | map | The standing headings of the visual grammar — the Overview, Technology and Jumpstart section titles that are the same on all seven products (`metrics`, `metricsPlanned`, `roi`, `scope`, `scopeIn`, `scopeOut`, `moreDetail`, `moreDetailFeatures`, `architecture`, `stack`, `capabilities`, `stateSupported`, `stateRoadmap`, `howItWorks`, `industryCases`, `caseProblem`, `caseSolution`, `outcomes`, `successStory`, `layerRequired`, `layerOptional`, `directionInbound`, `directionOutbound`, `contacts`, `jumpstartOutcomes`, `jumpstartTimeline`, `jumpstartNeeds`, `jumpstartInvestment`, `jumpstartScoped`, `jumpstartNext`). Product-specific headings stay in the product object — the Jumpstart block title is `jumpstart.title`. Keys removed with the blocks they headed: `features`, `components`, `integration`, `industries`, `notUsed` (earlier rounds), and in round 3 `flow`, `security`, `atAGlance`, `fact*`, `povLink`, `povHeading`, `povFact*`, `deliverables`, `pricing`, `terms`, `matrix`, `ladder`, `povScopeIn`, `povScopeOut`, `povRollout`, `povPhases`, `povMeasured`. |
+| `sectionLabels` | map | The standing headings of the visual grammar — the Overview, Technology and Jumpstart section titles that are the same on all seven products (`metrics`, `metricsPlanned`, `roi`, `scope`, `scopeIn`, `scopeOut`, `moreDetail`, `moreDetailFeatures`, `architecture`, `stack`, `capabilities`, `stateSupported`, `stateRoadmap`, `howItWorks`, `industryCases`, `caseProblem`, `caseSolution`, `outcomes`, `caseStudy`, `layerRequired`, `layerOptional`, `directionInbound`, `directionOutbound`, `contacts`, `jumpstartOutcomes`, `jumpstartTimeline`, `jumpstartNeeds`, `jumpstartInvestment`, `jumpstartScoped`, `jumpstartNext`). Product-specific headings stay in the product object — the Jumpstart block title is `jumpstart.title`. Keys removed with the blocks they headed: `features`, `components`, `integration`, `industries`, `notUsed` (earlier rounds), in round 3 `flow`, `security`, `atAGlance`, `fact*`, `povLink`, `povHeading`, `povFact*`, `deliverables`, `pricing`, `terms`, `matrix`, `ladder`, `povScopeIn`, `povScopeOut`, `povRollout`, `povPhases`, `povMeasured`, and in round 4 `successStory`, which became `caseStudy`. |
 | `materialStates` | map | `state` value → button label for seller materials. |
 
 ---
@@ -100,27 +102,28 @@ Flat map of reusable strings: `kpiTile`, `kpiTileTargets`, `packageTable`, `lake
 | `hero.stats` | `[{ value, label }]` | Four tiles, one number and one label each. |
 | `trustStrip` | `{ dividerLabel, logos: [{ name, file }] }` | Render the logos monochrome grey. |
 | `productsIntro` | `{ title, count, body, cta }` | `count` fills the count chip. |
-| `evidenceIntro` | `{ title, body }` | Heads band 1. |
-| `evidence` | `[EvidenceCard]` | See below. |
+| `caseStudiesIntro` | `{ title, body, cta }` | Heads the case-study screen. |
+| `caseStudies` | `[CaseStudyCard]` | **Exactly four**, one per engagement, in the order the screen lists them. See below. |
 | `servicesTeaser` | `{ title, body, platforms: [{ name, body }], secondParagraph, cta }` | |
 
-### `EvidenceCard`
+### `CaseStudyCard`
+
+Round 4, C2. The home page's case-study screen and the Services proof block render the **same four cards**, in the same compact anatomy as the full callout on the product page: industry medallion → descriptor → status chip → one metric with its eyebrow → one line → the link to the product. **No customer is named and no logo is rendered** (Alex, 2026-09-16).
 
 | Key | Type | Notes |
 |---|---|---|
-| `id` | string | Referenced by `services.proof.evidenceIds`. |
-| `band` | 1 or 2 | Band 1 = full-size proof cards **with** a metric slot. Band 2 = lighter cards **with no metric slot**; "results to follow" is not an outcome and must not sit in one. |
-| `label` | string | `PROOF OF VALUE` / `FIRST ENGAGEMENT` / `METHOD`. Deliberately not uniform — do not flatten. |
-| `customer?` | string | **Two customers are named** — `Bosch` on `workforce-proof` and `Riyadh Air` on `extraction-proof` (Alex, 2026-09-14; both are written up by name on SoftServe's own external one-pagers). Every other card carries an **anonymised descriptor**, and no third company name may be added without the same explicit clearance. |
-| `logo?` | string | `assets/img/logos/<name>.<svg\|png>` — present only on the two named cards, rendered beside the customer name as a light mark on the dark card. Absent on anonymised cards. |
-| `logoStacked?` | boolean | `true` where the mark is a **stacked lockup** (a symbol above its wordmark, e.g. Riyadh Air). Adds the `--stacked` modifier, which sizes it by roughly 2.2× the flat height: a stacked mark carries its type in a fraction of its box, so the single height rule that suits a horizontal wordmark renders its words as a smudge. |
-| `industry?` | string | |
-| `title?` | string | Present on `METHOD` cards instead of `customer`. |
-| `body` | string | |
-| `scopeLine?` | string | One extra line about how the proof was run. |
-| `metrics?` | `[{ value, label }]` | Band 1 only. On a **named** card the figures are the same two the product's `successStory` sets large — a customer who clicks through must not meet a second, different pair of headline numbers for the same engagement. One metric renders as a single column (`.proof-metrics--single`), never as a two-column grid with an empty half. |
-| `footnotes?` | `[string]` | Render all of them, in order, inside the card. Mandatory wherever `metrics` is present. |
-| `product?` | `{ slug, name }` | Renders as a link to the product page. |
+| `id` | string | Referenced by `services.proof.caseStudyIds`. |
+| `descriptor` | string | The **anonymized customer descriptor** — industry and scale only, e.g. *"A global home-appliance manufacturer"*. Must equal the matching product's `overview.caseStudy.descriptor`. |
+| `area` | string | The operational area, e.g. *"Ground-handling contract management"*. Must equal the product's `overview.caseStudy.area`. |
+| `industry` | string | One of the sixteen fixed industry keys. Drives the **medallion** icon (`industry-<key>`) that sits where a logo used to. Must equal the product's `overview.caseStudy.industry`. |
+| `status` | `"measured"` \| `"in-progress"` | Drives the status chip, whose label comes from `shared.caseStudyStatus`. Must equal the product's. |
+| `metricEyebrow` | string | `Measured` when `status` is `measured`, `Target outcomes` when it is `in-progress`. The checker asserts the pairing: a target labelled *Measured* is the one failure that would matter. |
+| `metric` | `{ value, label }` | **One** headline figure — the first of the product page's two. `value` is ≤ 18 characters and may be a short qualitative phrase (*"Hours, not weeks"*) where no figure is published. |
+| `line` | string | One sentence: what was done. |
+| `footnote` | string | **Mandatory.** The caveat that travels with the figure — rule 1. On an in-progress card it also says the figure is a target, not a result. |
+| `product` | `{ slug, name }` | Links to the product page. `name` must equal `products[slug].name`, and that product's `overview.caseStudy` must be non-null. |
+
+`customer`, `logo`, `logoStacked`, `band` and `label` are **removed**; `check-grammar.js` fails if any of them returns. The band 1 / band 2 split and the `PROOF OF VALUE` / `FIRST ENGAGEMENT` / `METHOD` labels went with them: the status chip carries that distinction now, in two states rather than three, and it is driven by data rather than by a hand-written label. The two `METHOD` cards were folded — the like-for-like measurement rule already lives in `workforce-optimization`'s `moreDetail`, and the accuracy-journey line survives as `services.proof.methodNote`, one paragraph under the four cards.
 
 ---
 
