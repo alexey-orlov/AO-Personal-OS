@@ -1817,6 +1817,8 @@ Services are untouched apart from one button.
 
 ### 18.0 Naming, and where this round departs from `HANDOFF` §6
 
+*The site name in this table was replaced on 2026-09-16 by **Oracle AI & Data Solutions** (§20).*
+
 **The naming, as shipped** (`HANDOFF` §6.1, unchanged):
 
 | Where | What ships |

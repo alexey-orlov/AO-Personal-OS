@@ -1,8 +1,8 @@
-# AI Agents on Oracle — site
+# Oracle AI & Data Solutions — site
 
 A small marketing site for SoftServe's enterprise AI agents and workflows on Oracle platforms: **packaged products**, grouped by the job they do and built on Oracle Cloud Infrastructure with NVIDIA and on Oracle Autonomous AI Lakehouse, plus the **dedicated Oracle AI & Data practice** that delivers them — and builds the one a customer's workflow needs — from a fixed-scope Jumpstart proof of value to production. It is used two ways — sent to customers as a link, and opened live by SoftServe and Oracle sellers during a call.
 
-The site is named **AI Agents on Oracle** (round 5; it was *Oracle AI Solutions* before). The name is data, not markup: `site.name`, `site.title` and `headerLockup.productName` in `data/content.js`.
+The site is named **Oracle AI & Data Solutions** (renamed by Alex on 2026-09-16; *AI Agents on Oracle* in round 5, *Oracle AI Solutions* before that). The name lives in two files, and a rename edits both: `data/content.js` (`site.name`; `site.title`, which every page title is built from; `headerLockup.productName`, which nothing renders) and `index.html`, where the lockup is static markup (its text and `aria-label`, plus `<title>`, `og:title` and `twitter:title`). The lockup's type steps in `assets/site.css` are sized to the name's length: re-measure them after a rename (`docs/PROVENANCE.md` §20).
 
 Static site. No build step, no framework, no package manager: plain HTML, CSS and vanilla JavaScript, rendered client-side by a hash router. It runs from a `file://` path, from any static host, and as a multi-file artifact. The only external resource is Google Fonts (Montserrat + Open Sans); everything else is local.
 
