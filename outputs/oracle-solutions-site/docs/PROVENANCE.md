@@ -3220,9 +3220,9 @@ What changed, all inside the same flow and information model:
   check the numbers per technician → *fix what the solver got wrong* (undo the
   Marsh End move by hand, note why, re-optimize around the fix) → accept the
   rest and export. The re-run applies the alternative the solver weighed.
-- **Figures**, computed from raw means: current 4.54 → plan v1 4.75 (+4.7%)
-  → after the manual undo +4.3% → plan v2 **+4.5%**, the cleared median;
-  capacity 65% → 68%; average wait 6.8 → 6.2 d; visits placed 1,523 → 1,586 of
+- **Figures**, computed from raw means: current 4.54 → plan v1 4.76 (+4.8%)
+  → after the manual undo +4.4% → plan v2 4.75, **+4.5%**, the cleared median;
+  capacity 65% → 68%; average wait 6.8 → 6.2 d; visits placed 1,523 → 1,587 of
   1,631 booked. Every per-zone wait and per-technician count reconciles with
   the change that produced it.
 - Frames and poster re-captured for the new dashboard (`ASSETS.md` §1); the
