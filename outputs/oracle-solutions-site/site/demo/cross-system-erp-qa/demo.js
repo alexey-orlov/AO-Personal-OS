@@ -464,7 +464,7 @@
       }).join("") + "</div>" +
       '<div class="hub-sec">Agent</div>' +
       '<div class="hub-agent"><span class="ag-ico">' + ICON.bot + "</span>" +
-      "<div><h3>Finance Q&amp;A agent</h3><p>Plain-English questions over the governed model: the agent resolves the business terms in the Master catalog, generates SQL against the certified views only, and answers with the rows, the source of every row and the SQL it ran.</p>" +
+      "<div><h3>Finance Q&amp;A agent</h3><p>Plain-English questions over the governed model: the agent matches the question's words to the catalog descriptions and column annotations on the certified views, generates SQL against those views only, and answers with the rows, the source of every row and the SQL it ran.</p>" +
       '<div class="ag-meta">NL2SQL &middot; catalog connection LAKEHOUSE_GOLD &middot; ' + D.views.length + " certified views &middot; allow-list FIN_QA_V3</div></div>" +
       '<span class="job-chip">Running</span></div></div>' +
       '<aside class="hub-side"><h3>Today</h3><div class="hub-date">October 6th, 2026</div>' +
@@ -518,10 +518,11 @@
       ? '<b>0 rows</b><span class="sep">|</span>Statement refused before execution<span class="sep">&middot;</span>' + esc(a.freshness.text)
       : "<b>Total rows: " + a.rowCount + "</b><span class=\"sep\">|</span>Displayed: " + a.displayed + '<span class="sep">&middot;</span>' + esc(a.freshness.text);
     var roleTag = S.role === "ANALYST_NA" ? '<span class="stat stat--review">Viewing as Marcus Bell &middot; Regional analyst NA</span>' : "";
-    return '<button class="conv-back" type="button" data-back="1">' + ICON.chevl + "Agent Hub</button>" +
+    return '<div class="conv-head"><button class="conv-back" type="button" data-back="1">' + ICON.chevl + "Agent Hub</button>" +
+      '<span class="conv-agent">' + ICON.bot + "Finance Q&amp;A agent</span></div>" +
       '<div class="q-bubble">' + esc(a.text) + "</div>" +
       '<div class="ans" id="ans">' +
-      '<div class="ans-meta">' + meta + (roleTag ? '<span class="sep">&middot;</span>' + roleTag : "") + '<span class="sep">&middot;</span>' + a.views.map(function (v) { return '<span class="mono">' + esc(v) + "</span>"; }).join(" ") + "</div>" +
+      '<div class="ans-meta">' + meta + (roleTag ? '<span class="sep">&middot;</span>' + roleTag : "") + '<span class="sep">&middot;</span>' + a.views.map(function (v) { return '<button class="viewchip" type="button" data-viewlin="' + esc(v) + '" title="Open the lineage of ' + esc(v) + '">' + esc(v) + "</button>"; }).join(" ") + "</div>" +
       grid +
       (a.caveat ? '<div class="ans-caveat">' + ICON.info + " " + esc(a.caveat) + "</div>" : "") +
       '<div class="ans-acts">' +
@@ -567,12 +568,12 @@
       '<div class="tr-sum"><span>Objects <b>' + a.views.map(function (v) { return v; }).join(" · ") + "</b></span><span>Lines <b>" + a.sqlLines + "</b></span></div>";
   }
   function explainHtml(a) {
-    return panelHead("Explain", "the business terms the agent resolved before it wrote any SQL") +
+    return panelHead("How the agent read the question", "terms matched to catalog descriptions and column annotations") +
       a.glossaryHits.map(function (g) {
         if (!g) return "";
-        return '<div class="gl"><b>' + esc(g.term) + '</b><div class="syn">also: ' + esc(g.synonyms.join(", ")) + '</div><div class="def">' + esc(g.definition) + '</div><div class="own">' + esc(g.owner) + " &middot; last changed " + esc(g.changed) + "</div></div>";
+        return '<div class="gl"><b>' + esc(g.term) + '</b><div class="syn">also written: ' + esc(g.synonyms.join(", ")) + '</div><div class="def">' + esc(g.definition) + '</div><div class="own">annotated by ' + esc(g.owner) + " &middot; last reviewed " + esc(g.changed) + "</div></div>";
       }).join("") +
-      '<div class="panel-note">Resolved through the Master catalog, so every role and every phrasing of the question lands on the same definition.</div>';
+      '<div class="panel-note">These are the Master-catalog descriptions and column annotations on the certified views — auto-populated by the metadata extractor, reviewed by a person, and the only semantic layer in play. There is no business glossary, ontology or synonym list behind them.</div>';
   }
   function matchFor(recIds) {
     var out = null;
@@ -1044,6 +1045,7 @@
     svg.innerHTML = (defs ? defs.outerHTML : "") + paths;
   }
   function openLineage(viewId) {
+    if (S.wbPanel !== "lineage") S.linFrom = S.wbPanel;
     S.linView = String(viewId).replace(/^GOLD\./, "");
     S.linOpen = ["out"]; S.linCol = null; S.linDetail = null; S.linTab = "details"; S.linHideUp = false;
     setApp("aidp");
@@ -1505,7 +1507,7 @@
       $("#gate-body").innerHTML = "Five systems joined into one governed model in a single run; the gain read off the model's own health band; a plain-English question answered across three ERPs with the source of every row on the row; one figure followed back to the two records behind it; a wrong match overruled by a steward, logged with a rule and re-resolved so the band, the duplicate list and the answers all moved together; and the same question re-run under a second role, limited and masked by the database itself. " +
         "<b>The demo gates mappings, never answers</b> — the human decision sits on the lakehouse mapping tables, and no answer waits for approval." +
         "<ol><li>Rebuild the cross-system model in Data Studio</li><li>Read what the model made visible, before and after</li><li>Ask across systems in the Agent Hub</li><li>Trace the answer and explore a row back to its sources</li><li>Reject a wrong match and re-run the resolution</li><li>Prove the governance for a second role and publish the answer</li></ol>" +
-        '<div class="hints"><b>Still open for you:</b> the other nine saved questions — the consolidated P&amp;L drills to the local accounts behind each figure, the duplicate pairs open both documents, and <b>question 10 is refused outright</b> for the regional analyst by SQL Firewall; Insights holds three dashboards on the same certified views; Catalog holds the business glossary and the thirteen view definitions; Sessions holds the audit log, blocked attempts included; and in Mapping review the twenty-four remaining proposals, the two account mappings and the decisions log are all live.</div>';
+        '<div class="hints"><b>Still open for you:</b> the other nine saved questions — the consolidated P&amp;L drills to the local accounts behind each figure, the duplicate pairs open both documents, and <b>question 10 is refused outright</b> for the regional analyst by SQL Firewall; Insights holds three dashboards on the same certified views; Master catalog holds the auto-populated column metadata and, from any view chip on an answer, its cross-system lineage down to the column; Auto-populate catalog holds the accept-or-reject queue the metadata came through; Sessions holds the audit log, blocked attempts included; and in Mapping review the twenty-four remaining proposals, the two account mappings and the decisions log are all live.</div>';
       $("#gate-start").textContent = "Replay the walkthrough"; $("#gate-free").textContent = "Keep exploring";
       $("#gate-start").onclick = function () { location.href = location.pathname; };
       $("#gate-free").onclick = function () { g.hidden = true; };
