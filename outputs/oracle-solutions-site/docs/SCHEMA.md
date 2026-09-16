@@ -227,7 +227,7 @@ Seven entries, in the order the Products page should list them:
 | `ndaLine` | string | The footer line. *"Customer under NDA · reference call available on request"* on a measured or modeled case; *"Customer under NDA · results follow at the end of the proof of value"* on one in preparation, because a reference call about a proof of value that has not produced results is not a thing to offer. |
 | `downloadLabel` | string | Label of the link out. **Renders only when `SITE_CONFIG.products[slug].successStoryUrl` is non-empty**; otherwise no control renders in its place. |
 
-`customer`, `logo` and `logoStacked` are **removed** and `check-grammar.js` fails if any of them returns.
+`customer`, `logo`, `logoStacked` and `image` are **removed** and `check-grammar.js` fails if any of them returns — `image` with the header band it fed.
 
 **No € figure from a customer's business case may appear here** — no contract values, headcounts, salaries or operating baselines. Ratios, durations and counts only.
 
@@ -285,7 +285,7 @@ No `notes` key. **Seller-facing commercial notes are not part of this file.** Th
 | `whatWeDo` | `{ title, lead, layering: [{ band, body }], familiesTitle, families: [string], familiesSuffix, solutionStack: { title, layers: [{ layer, providedBy }] }, whoYouWorkWith, whoDeliversIt, wrapAroundServices: { title, items: [{ title, body }] }, attachesToEvery }` |
 | `howWeEngage` | `{ title, anchor, lead, ladder: [{ tier, title, whatItIs, duration, pricing }], ladderRules: [string], ladderFootnote, howAPovRuns: { title, steps: [{ title, body }], closing } }` |
 | `whySoftServe` | `{ title, items: [{ title, body }] }` |
-| `proof` | `{ title, dividerLabel, evidenceIds: [string] }` — render the matching `overview.evidence` cards; band 1 at full size, then band 2 under the divider. |
+| `proof` | `{ title, dividerLabel, lead, stat: { value, label }, engagementsTitle, engagements: [{ descriptor, line, product: { slug, name } }], cta: { label, route }, footnote }` — **the method, not the outcomes.** `lead` is the measurement discipline at body size; `stat` is the one accuracy figure, set as a labelled stat rather than buried in a footnote; `engagements` is one line per case study, in the same order, each `descriptor` matching an `overview.caseStudies[].descriptor`; `cta` links back to the Overview case studies that carry the figures; `footnote` holds the threshold caveat alone. **No figure may appear in an `engagements[].line`** — the numbers live on the Overview cards with their caveats, and the checker fails a line that carries one. `caseStudyIds` and `methodNote` are removed: Services repeating the home page's grid verbatim gave a reader the same block twice. |
 | `contact` | `{ anchor, heading, sub }` |
 
 The `families` list is the only place the pattern taxonomy appears on the site. Do not restate it on the Products page.
