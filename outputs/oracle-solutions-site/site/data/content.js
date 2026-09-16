@@ -28,7 +28,7 @@ window.SITE_CONTENT = {
     },
     footer: {
       heading: "CONTACT US",
-      description: "Tell us which account or workflow you have in mind. One scoping conversation starts it.",
+      description: "Tell us which account or workflow you have in mind.",
       contactCta: { label: "Request a scoping call", route: "#/services#contact" },
       socialLabel: "Follow SoftServe",
       social: [
@@ -223,7 +223,7 @@ window.SITE_CONTENT = {
     hero: {
       eyebrow: "SoftServe × Oracle · Built and delivered together",
       headline: { lead: "ENTERPRISE AI AGENTS AND WORKFLOWS.", accent: "BUILT ON ORACLE." },
-      lead: "Agents that read your contracts, plan your field workforce, answer questions across your ERP and tell your sellers what a market signal means for each account. Built on Oracle’s AI platforms, run in your own tenancy, measured on your own data first.",
+      lead: "Agents that read your contracts, plan your field workforce, answer questions across your ERP and tell your sellers what a market signal means for each account. Built on Oracle’s AI platforms, run in your tenancy, measured on your data first.",
       ctas: [
         { label: "Explore the products", route: "#/#products", kind: "primary" },
         { label: "How we deliver", route: "#/#how-we-deliver", kind: "secondary" }
@@ -240,7 +240,7 @@ window.SITE_CONTENT = {
       stats: [
         { value: "1,000+", label: "experts in AI, data and R&D across SoftServe" },
         { value: "30", label: "Fortune 500 clients in the data and analytics practice" },
-        { value: "4–8 weeks", label: "to a proof of value on your own data" }
+        { value: "4–8 weeks", label: "to a fixed-price proof of value on your own data" }
       ]
     },
 
@@ -328,7 +328,7 @@ window.SITE_CONTENT = {
         metricEyebrow: "Modeled",
         metric: { value: "+4.5%", label: "median gain in jobs per technician per day, against the current plan" },
         line: "Dispatchers built the four-week field-service plan by hand, region by region; NVIDIA cuOpt on Oracle Cloud Infrastructure now builds it and a dispatcher approves it.",
-        footnote: "Modeled simulations against a historical baseline, not measured production outcomes; figures are illustrative, not contractual.",
+        footnote: "Modeled against a historical baseline, not live operations; illustrative, not contractual.",
         product: { slug: "workforce-optimization", name: "Workforce optimization" }
       },
       {
@@ -340,7 +340,7 @@ window.SITE_CONTENT = {
         metricEyebrow: "Measured",
         metric: { value: "5–15 min", label: "to extract a 60–100-page agreement end to end, down from 3–5 days" },
         line: "Contract rates were keyed into a cost-management system page by page; reviewers now validate AI-extracted rates beside the source PDF, every value cited to its page, and export.",
-        footnote: "Measured in the proof of value on the customer’s own documents; figures are illustrative, not contractual.",
+        footnote: "Measured on the customer’s own documents; illustrative, not contractual.",
         product: { slug: "large-document-extraction", name: "Large docs processing and review" }
       },
       {
@@ -351,8 +351,8 @@ window.SITE_CONTENT = {
         status: "in-preparation",
         metricEyebrow: "Target outcomes",
         metric: { value: "Hours, not quarters", label: "from a market signal to a qualified opportunity a seller can act on" },
-        line: "A first engagement is being prepared on the customer’s own account base, scoring each generated opportunity for magnitude and confidence and citing the evidence behind it.",
-        footnote: "Target outcomes the proof of value is set up to measure, not results.",
+        line: "The first engagement will run on the customer’s own account base: every opportunity scored for magnitude and confidence, with its evidence cited.",
+        footnote: "What the proof of value will measure; no results yet.",
         product: { slug: "account-insights", name: "Account insights" }
       },
       {
@@ -363,8 +363,8 @@ window.SITE_CONTENT = {
         status: "in-preparation",
         metricEyebrow: "Target outcomes",
         metric: { value: "Hours, not weeks", label: "of expert time to produce an equivalent plan-versus-actual analysis" },
-        line: "A first engagement is being prepared on one completed project sample, reconstructing the customer’s own schedule, cost and contract exports into one package-level view.",
-        footnote: "Target outcomes the proof of value is set up to measure, not results.",
+        line: "One completed project sample, with the customer’s own schedule, cost and contract exports reconstructed into a single package-level view.",
+        footnote: "What the proof of value will measure; no results yet.",
         product: { slug: "plan-vs-actual-investigation", name: "Plan vs actual investigation" }
       }
     ],
@@ -372,7 +372,7 @@ window.SITE_CONTENT = {
     about: {
       eyebrow: "About SoftServe",
       title: "A digital engineering company, at the frontier of agentic AI.",
-      body: "SoftServe is a digital engineering company: more than thirty years designing and building data, cloud and AI solutions for enterprise industries, and today operating at the frontier of industrial, physical and agentic AI. The Oracle AI & Data team draws on SoftServe’s data and analytics practice and on engineers upskilled on the Oracle AI stack.",
+      body: "SoftServe has spent more than thirty years designing and building data, cloud and AI solutions for enterprise industries, and today operates at the frontier of industrial, physical and agentic AI. Its Oracle team draws on the company’s data and analytics practice and on architects and engineers dedicated to the Oracle AI stack.",
       stats: [
         { value: "20K+", label: "customer projects" },
         { value: "10K", label: "employees" },
@@ -2851,7 +2851,7 @@ window.SITE_CONTENT = {
         value: "81%",
         label: "accuracy reached on one engagement, on a customer’s existing AI solution, after an evaluation framework and work on the data"
       },
-      engagementsTitle: "What each engagement measures",
+      engagementsTitle: "Engagement by engagement",
       engagements: [
         {
           descriptor: "A global home-appliance manufacturer",
