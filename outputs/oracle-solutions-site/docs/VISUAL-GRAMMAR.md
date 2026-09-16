@@ -76,6 +76,8 @@ Before round 4 the hero and the tiles carried a run of chips that all looked the
 | **Technology** | The existing **solid navy** pill | **Exactly one pill: the facet's short `label`** (carrying its `fullLabel` as the `title`), with the platform glyph from `shared.tagFamilies.tech.icons[product.facet]` — a cloud-and-GPU glyph for OCI + NVIDIA, a data cylinder for Oracle AI Data Platform, a layers glyph for Oracle Autonomous AI Lakehouse, an application grid for Oracle AI for Fusion Applications | `Runs on` |
 | **Availability** | Compact **teal-tinted icon pill** — a badge, not a chip | `Demo` (play icon) where `SITE_CONFIG.products[slug].video === true`; `Oracle Marketplace` (storefront icon) where `.marketplace === true`. **Maximum two, and both are optional.** | `Demo available` / `Available on Oracle Marketplace` |
 
+**One canonical technology set, named identically everywhere** (round 4, T3). The four `facets.technology[].label` strings — *OCI + NVIDIA*, *Oracle AI Data Platform*, *Oracle Autonomous AI Lakehouse*, *Oracle AI for Fusion Applications* — are the site's entire platform vocabulary, and every surface that names a platform renders one of them verbatim and alone: the Products rail, the hero technology chip, the tile image-band label, the home grid, and both platform-card lists on the home page and Services. Until round 4 a product could append its engine to the pill — the three deep-research products and the extraction pack put `AI-Q` beside `OCI + NVIDIA`, the workforce pack put `cuOpt` and `Oracle Field Service` there, the two Q&A packs put `Select AI` beside the Lakehouse. Two chips of the same family and colour with no separator read as one name, so the hero advertised *OCI + NVIDIA AI-Q*, a platform nobody ships, while the rail one click away said *OCI + NVIDIA*. **A second technology pill is now a build failure**; the engines are not lost, they are where a technical reader looks for them — the Technology tab's narrative, solution stack and integrations, each of which already named all four.
+
 **Every pill on the site belongs to one of these families, and says which on hover.** The solid navy pill means *technology*; anything else set in it dilutes that the moment a visitor leaves a product page. The Services page's application-family chips are therefore **outlined**, like the workflow-pattern family they are closest to, and carry an `Application family` tooltip.
 
 **Badges are actions, not labels.** `Demo` opens the demo frame or modal, or scrolls to it where the frame is already on the page. `Oracle Marketplace` opens `marketplaceUrl` when one is set and is inert otherwise — the badge says a listing exists, and the flag that turns it on is the same flag the facet filters on, so the two can never disagree.
@@ -378,8 +380,8 @@ to the same 24x24 stroke-only spec:
 | `pattern-data-analysis` | pattern chip, `data-analysis` | A bar chart on an axis |
 | `platform-oci-nvidia` | technology chip, `oci-nvidia` | A cloud above a pinned chip |
 | `platform-oracle-ai-data-platform` | technology chip, `oracle-ai-data-platform` | A data cylinder with a check |
-| `platform-oracle-autonomous-ai-lakehouse` | technology chip, `oracle-autonomous-ai-lakehouse` | Stacked layers |
-| `platform-other` | technology chip, `other` | A plain two-band stack |
+| `platform-oracle-ai-lakehouse` | technology chip, `oracle-ai-lakehouse` | Stacked layers |
+| `platform-oracle-ai-fusion` | technology chip, `oracle-ai-fusion` | A 2×2 grid of application tiles |
 | `storefront` | the Oracle Marketplace badge | A shop front with a scalloped awning |
 
 `play` — the Demo badge's icon — is already in the registry. Unlike the industry keys, these are written into the data **in full**: `tagFamilies.pattern.icons["deep-research"]` holds `"pattern-deep-research"`, not `"deep-research"`, because a renderer that had to know which prefix to add for which family would be inventing the key.
