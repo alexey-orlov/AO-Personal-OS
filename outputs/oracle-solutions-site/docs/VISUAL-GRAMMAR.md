@@ -459,3 +459,29 @@ The tab is **two columns of equal height on desktop**, one column on mobile with
 No stray empty panel on either side: the two columns are the whole section. The **same component** renders the Services page contact section, from the same object. One person, one address, one place to edit.
 
 **The address is the practice mailbox, never a personal one.** `oracle@softserveinc.com` is what ships; the checker bans the string `ktram@` site-wide. A personal mailbox on a public page is a scraping target and an availability risk, and the person named here is a partnerships role rather than an inbox.
+
+---
+
+## 9. The home page — seven screens
+
+This file is about the product pages; the home page differs from them **by composition, not by tokens**. One section each, content-sized (no `100vh`, no `min-height`), roughly 80–90 vh at 1440×900, with a hairline rule between consecutive screens and the shared `.home-head` (eyebrow · H2 · optional lead · optional right-aligned link) at the top of each.
+
+| # | Screen | Component, in one line |
+|---|---|---|
+| S1 | **Hero** — `overview.hero` | Full-bleed, two columns: eyebrow, H1 (white lead + a teal accent line of its own), ≤ 45-word lead and two buttons on the left; the **built-on stack visual** on the right — three peer bands (workflow patterns · SoftServe · Oracle platforms) joined by thin connector lines. The four-stat `stat-band` sits directly under it. |
+| S2 | **Two ways in** — `overview.twoWays` | An inset two-panel block sharing one hairline: each panel a bordered mark, H3, body, three ticked bullets and one down-arrow link pinned to the bottom, so the two CTAs land on one baseline. |
+| S3 | **Products** — `overview.catalog` | Full-bleed, three columns — one per workflow pattern: glyph, pattern name, definition, then the product rows (name, badges, `shortLine`, `statusNote` where there is one) in `SITE_CONFIG.productOrder`, each row linking to its page. |
+| S4 | **How we deliver** — `overview.delivery` | A 60/40 split: a horizontal three-step ladder on a hairline track at left, each step carrying one labelled fact and the block carrying the figures' footnote; three inset pillar cards at right; one CTA row (primary + quiet) under the ladder. |
+| S5 | **Case studies** — `overview.caseStudiesIntro` + `overview.caseStudies` | A sticky left rail (intro, the method reused from `services.proof`, the NDA line, one link) beside a **2×2 grid** of the four compact case cards, all four the same height. |
+| S6 | **About SoftServe** — `overview.about` | The page's one light band: copy and the external link at left; a 2×2 grid of stat tiles at right, with the partner wordmarks in a navy strip beneath them inside the same column. |
+| S7 | **Contact** — `overview.contact` | The existing `.closing` contact split — card plus form — the same component the Contacts tab and the Services page render. |
+
+The rules that carry over, unchanged:
+
+- **No photograph on the home hero.** The built-on stack visual is the page's only illustration, and the only place a photograph would otherwise have gone (§1).
+- **One accent per screen.** Teal lands once — the eyebrow, or the H1's last line, or the first ladder dot, never two of them in the same section.
+- **Equal-height peers everywhere** (rule 4): the three stack bands, the two panels, the three catalog columns, the three ladder steps, the three pillars, the four case cards, the four stat tiles. `grid-auto-rows: 1fr` or a stretched grid, never independently sized cards.
+- **Absence is an empty container, never a sentence.** The single-product catalog column carries the longest pattern definition and leaves its spare space empty.
+- **The light band is S6 and appears exactly once** — the one inversion on the page, as on every other page.
+- **Motion is three things:** the stack's connector lines draw in over ~1.2 s on load, sections reveal on scroll through the existing `.reveal` mechanism, and free-standing rows and cards lift 2 px on hover (joined panels change surface colour instead, since a lift would break the shared hairline). Everything collapses to instant under `prefers-reduced-motion`, with the drawn state as the resting state.
+- **Accessibility:** one H1, an H2 on every screen, the stack visual `role="img"` with its `aria-label` from `hero.stack.ariaLabel` and its internals `aria-hidden`, and every icon decorative.
