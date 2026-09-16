@@ -2338,6 +2338,10 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
   padding: 0;
 }
 
+/* The link out sits under the whole row, not under the first column's own
+   product link. */
+.method-panel + .panel-link { margin-top: 1.75rem; padding-top: 1.25rem; border-top: 1px solid var(--border-subtle); }
+
 .method-item { display: flex; flex-direction: column; gap: .5rem; }
 .method-descriptor { font-family: var(--font-body); font-size: var(--fs-sm); font-weight: 700; line-height: 1.35; color: var(--text); }
 .method-line { font-size: var(--fs-sm); line-height: 1.65; color: var(--text-body); }
