@@ -58,7 +58,7 @@ Script order in `index.html` matters: `data/*` → `assets/forms.js` → `pages/
 
 | Hash | Page |
 |---|---|
-| `#/` | Home — hero with the built-on stack, proof strip, two ways in, products by the job they do, how we deliver, case studies, about SoftServe, contact |
+| `#/` | Home — hero with the built-on stack, a three-figure proof strip, two ways in, the agents by what they do, how we deliver, case studies, about SoftServe, contact |
 | `#/products` | Product marketplace — facet rail (Oracle platform, what it does, availability), search, tiles |
 | `#/products/<slug>` | One product — hero plus tabs |
 | `#/products/<slug>/<tab>` | `overview` · `technology` · `jumpstart` · `contacts` · `sellers`. The retired segments `pov` → `jumpstart` and `demo` → `contacts` redirect in place, so Back still returns to where the reader came from and an old link still lands on the right tab. |
