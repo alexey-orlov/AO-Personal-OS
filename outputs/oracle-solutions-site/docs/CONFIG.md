@@ -236,13 +236,13 @@ video: true,
 
 In every case where the frame renders, the frame *is* the watch affordance, so the separate secondary "Watch the demo" button drops out of the CTA row and **"Request a demo"** stays the only primary CTA.
 
-`true` today on `workforce-optimization`, `large-document-extraction` and `account-insights` — the three that will have a recording. `false` on the other four.
+`true` today on `large-document-extraction` alone — the one product with a demo a visitor can actually open (the interactive walkthrough). `false` on the other six, `workforce-optimization` and `account-insights` included: a recording is planned for both, and the flag goes back the day the `videoUrl` lands.
 
-**Why the flag rather than the URL.** A demo frame is a promise about our own recording, and the panel behind the click keeps it honest: it says the recording is being prepared and hands over the thing that *is* available, a live demo. The flag is therefore only for a video someone is actually making — if a recording stops being planned, set `video: false` and both the frame and the Demo badge go, rather than leaving a promise on the page. Since round 4 the same flag drives the **Demo** badge in the hero chip row and on both grids, and the **Demo available** facet checkbox (`demo=1`), so the filter and the badge cannot disagree.
+**Why the flag rather than the URL.** The frame is one thing the flag turns on; since round 4 it also drives the **Demo** badge in the hero chip row and on both grids, and the **Demo available** facet checkbox (`demo=1`), so the filter and the badge cannot disagree. That is also why the rule tightened: **a badge asserts that a demo exists, so the flag is set when one does, not when one is planned.** `video: true` with an empty `videoUrl` used to put a Demo badge and a facet count on two products whose only demo was a panel saying the recording was being prepared — a prospect who filtered on *Demo available* and a seller who demoed that filter both hit a dead end, which is the false-availability failure the badges were introduced to remove. Setting the flag `false` in the meantime costs the product its hero media frame and nothing else: it renders the single-column hero four other products already render.
 
 ### `videoUrl`
 
-The demo video itself. Empty while the recording is being made; paste the link when it lands and the same frame stops opening the pending panel and starts playing the video. Nothing else needs to change — leave `video: true` where it is.
+The demo video itself. Paste the link when the recording lands, **and set `video: true` in the same edit** — the URL turns the frame on by itself, but the badge and the facet read the flag.
 
 ```js
 videoUrl: "https://www.youtube.com/watch?v=…",

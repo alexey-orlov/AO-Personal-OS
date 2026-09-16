@@ -1573,28 +1573,48 @@ read the round-4 keys. What changed, file by file:
   an action: on the product page it scrolls to the hero frame and opens it, and
   anywhere else it routes to the product page that carries the frame. The
   shared compact case-study card (`caseCard`, `caseMedallion`,
-  `caseStatusChip`, `caseStudyById`) lives here, so the home page and Services
-  render one component from one array.
+  `caseStatusChip`, `caseStudyById`) lives here, so every surface that shows a
+  case renders one component from one array. The two comments that named the
+  content owner and a decision date were removed from this file and from
+  `site.css` — shipped bundles carry no internal attribution.
 - `pages/product.js` — `heroChips()` builds the chip row from `category` and
   `facet` and skips `tags[0]` and `tags[1]`, which repeat them; the badges sit
   at the right end of the same row and `statusNote` renders under the one-liner.
   The Marketplace and success-story hero buttons are gone — the badge is the
   link to a listing, and the case study owns its one link out. `successStory()`
-  became `caseStudy()`: band, medallion, descriptor, area, status chip, two
-  figures under their eyebrow, story, three-fact scope row, NDA line, and the
-  download link only where `successStoryUrl` is set.
+  became `caseStudy()`: medallion, descriptor, area, status chip, one or two
+  figures under their eyebrow (`case-figures--single` where there is one), story,
+  three-fact scope row, NDA line, and the download link only where
+  `successStoryUrl` is set. **The header band was dropped** — it rendered the same
+  `assets/img/industries/<key>.jpg` the industry tabs render a few hundred pixels
+  higher, so the page showed one photograph twice within a viewport at two crops;
+  on the construction case it was additionally so dark it read as a strip rather
+  than an image. `caseStudy.image` is retired and the checker fails if it
+  returns. Below 768px the chip row's two wrappers dissolve so the availability
+  badge flows as the last chip rather than orphaning onto a fourth row, and the
+  case head top-aligns so a three-line descriptor keeps its icon-then-title
+  reading.
 - `pages/products.js` — the single marketplace checkbox became the Availability
-  group: two faceted checkboxes on the same two config booleans, `demo=1` and
-  `mp=1` in the query, both reset by Clear filters. A zero-count box is disabled
-  rather than a dead end, matching the radio groups. The search index reads
-  `statusNote` instead of the retired `availabilityChip`.
-- `pages/overview.js` — the proof rows became the four-card case-study grid.
-- `pages/services.js` — the brief and note cards became the same four cards,
-  resolved through `services.proof.caseStudyIds`, with `methodNote` beneath them.
+  group: faceted checkboxes on the same two config booleans, `demo=1` and `mp=1`
+  in the query, both reset by Clear filters. `liveOptions()` drops an option no
+  product carries and `readState` ignores its query param, so the group narrows
+  to one checkbox or disappears rather than offering a filter that can only
+  return nothing. A zero-count box that is live is disabled rather than a dead
+  end, matching the radio groups. The search index reads `statusNote` instead of
+  the retired `availabilityChip`.
+- `pages/overview.js` — the proof rows became the case-study grid, one card per
+  engagement that has one.
+- `pages/services.js` — the case-study grid became the method block (§17.4a):
+  lead, stat, one line per engagement, the link back and the threshold footnote.
+  Its application-family chips became outlined and carry an *Application family*
+  tooltip, so every solid navy pill on the site still means one thing.
 
 Dead CSS went with them: `.story-*`, `.proof-row/-copy/-customer/-industry/
 -scope/-metrics/-footnotes/-logo`, `.metric*`, `.brief*`, `.note-card/-grid/
--title/-body` and the three `.chip-dot--*` availability states.
+-title/-body`, the three `.chip-dot--*` availability states and, in this fix
+round, `.case-band`, `.case-band-img` and `.case-band-veil`. New: the
+`.case-status--modeled` half-filled dot, `.case-figures--single`, and the
+`.method-*` set behind the Services method block.
 
 `SITE_CONFIG.products[slug].successStoryUrl` keeps its name: it is a config key,
 not shipped copy, and renaming it would touch seven entries for no reader-facing
@@ -1602,9 +1622,13 @@ gain. It is what gates the case study's download link.
 
 `check-grammar.js` passes with **0 failures and 0 warnings** on this data; it
 asserts the new slots and cannot see the renderers, so the renderer side was
-verified in the browser instead — all 38 routes render with a clean console,
-the case study appears on exactly the four products that carry one and on no
-other, and the two unpackaged products are the only two with a status note.
+verified in the browser instead — the affected routes render with a clean
+console, the case study appears on exactly the three products that carry one and
+on no other, and the two unpackaged products are the only two with a status
+note. The checker gained the round-4 fix-round rules: the three status keys and
+their eyebrow map, `metrics` of length 1–2, the ban on `caseStudy.image`, the
+footnote/figure agreement on home cards, and the shape of `services.proof`
+including the no-figure rule on its engagement lines.
 
 ### 16.4 Red-team round — is the demo narrower than the pack? (2026-09-16)
 
