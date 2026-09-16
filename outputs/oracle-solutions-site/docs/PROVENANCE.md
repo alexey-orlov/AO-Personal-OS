@@ -1281,7 +1281,16 @@ understates a figure the sources actually publish.
   out (§4), so the descriptor does not narrow to one company on geography.
 - **Area** — *"Field-service operations across three countries"*, `RESEARCH/07`
   §7.1, candidate-external-safe tier.
-- **Status** `measured`, eyebrow **Measured**.
+- **Status `modeled`, eyebrow Modeled.** The card used to say `measured` while
+  its own story closed on *"Results are modeled simulations against a historical
+  baseline, not measured production outcomes"*, and the ROI block lower down said
+  *"KPIs measured before/after on proof-of-value data"* — three characterisations
+  of one engagement's data on one page, with the strongest label chosen first and
+  hedged afterwards. The defensible one is the story's, so a third status key was
+  added (`shared.caseStudyStatus.modeled` → *"Modeled in the proof of value"*)
+  rather than softening the caveat `RESEARCH/07` §7.3 prescribes. `metricsNote`
+  was re-pointed to match: the KPI-parity sentence stands, and it now says
+  *modeled against that baseline, not measured in production*.
 - **Metric 1** — `+4.5%` *median gain in jobs per technician per day, optimized
   against the current plan*. `RESEARCH/07` §7.1 via §15.4. The mean (6.1%) and
   the maximum (21.7%) stay out; the median leads (§4).
@@ -1306,16 +1315,29 @@ understates a figure the sources actually publish.
 - **Descriptor / area** — `RESEARCH/02` §2.4: an airline's ground-handling
   contract management. Adapted; the airline's name, its internal app name and
   the third-party SaaS product name all stay out, as in every earlier round.
-- **Status** `measured`, eyebrow **Measured**.
+- **Status** `measured`, eyebrow **Measured**. **One metric, not two** — see below.
 - **Metric 1** — `5–15 min` *to extract a 60–100-page agreement end to end, down
   from 3–5 days*. The pack's own external sales one-pager, `RESEARCH/02` §2.4,
-  unchanged from §15.4.
-- **Metric 2** — `up to −20%` *targeted reduction in manual data-entry effort*.
-  Same source. It is an explicit proof-of-value **target**, which is why the
-  story keeps the one-pager's own caveat.
-- **Story** — closes on *"Targets from the proof of value; figures are
-  illustrative, not contractual."* (`RESEARCH/02` §2.4, verbatim). Names the
-  stack (NVIDIA AI-Q, the customer's own OCI tenancy) and the citation model.
+  unchanged from §15.4. This is the figure the delivered proof of value produced.
+- **Metric 2 — `up to −20%` was removed.** It is an explicit proof-of-value
+  **target** (`oracle-packs.md` L40: *"Riyadh Air's −20% is an explicit PoC
+  target"*), and its own label said *targeted*. Carried under a **MEASURED**
+  eyebrow and captioned *"Targets from the proof of value"*, the card contradicted
+  itself three ways in one panel. Of the two consistent readings — drop the target
+  and keep the measured figure, or relabel the whole card as targets — the first
+  is the smaller change and keeps a real proof point on the page. The callout now
+  renders a single figure in a single column, which is why `metrics` allows one.
+- **Story** — closes on *"Measured in the proof of value on the customer's own
+  documents; figures are illustrative, not contractual."* — the one-pager's
+  *illustrative, not contractual* hedge kept, its *targets* framing dropped with
+  the target metric. Names the stack (NVIDIA AI-Q, the customer's own OCI
+  tenancy) and the citation model.
+- **`metricsNote` agrees with it.** The ROI block's closing line was *"The figures
+  the delivered proof of value produced are in the case study on this page"* while
+  the case study called the same numbers targets — one page disagreeing with
+  itself about whether the headline was measured or aimed at. It now reads *"The
+  figure the delivered proof of value produced is in the case study on this
+  page."*
 - **Scope row** — *60–100-page agreements* (§2.4) · *about one month* to onboard
   a new station before (§2.4, already shipping in this product's `moreDetail`) ·
   the reviewer approval gate (§2.3). No contract value, no contract duration.
