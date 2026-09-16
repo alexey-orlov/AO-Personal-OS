@@ -3644,3 +3644,298 @@ Verification: `node --check` clean; checker OK; deny-list grep empty; console cl
 Read together the headings are the page's spine — destination, method, who runs it, how you'll know, first move — and the leads under them are unchanged. One Opus copy edit followed: with *Each step earns the next.* on the screen, *step* and *next* each landed three times on S2, so `howWeEngage.steps[0].body` ends *"a costed expansion plan at the end"* instead of *"a costed plan for the next step at the end"* — the wording of `overview.delivery.why.pillars[2]`.
 
 **Verification:** checker OK; deny-list grep empty; console clean; no horizontal overflow at 320, 375, 414, 768, 1024 or 1440; every heading on one line at 1440 and two at most at 375; the repetition check clean on every screen. Page height 4.0 screens at 1440 (hero 656 px). Published as preview version 29.
+
+---
+
+## 22. The third walkthrough — Cross-system ERP Q&A, 2026-09-16
+
+_Numbered 22, not 20: the handoff was written when §19 was the last section, and
+two other sessions took §20 (the site rename) and §21 (the Services rebuild)
+while this build ran. The shared working tree makes that collision routine —
+check the numbering before appending._
+
+### 22.1 Brief, sources, machine
+
+- Alex's brief: repeat the walkthrough exercise for the Cross-system ERP Q&A
+  pack, to the standing requirements in
+  `.claude/references/interactive-demo-playbook.md` — the real product's flow,
+  screens and information model; customer-agnostic and industry-neutral on
+  synthetic data; no integrations and no real inputs; six guided steps with one
+  active control each; **value first**, with a step that pauses on the improved
+  metrics; every synthetic figure listed. The build spec is
+  `docs/HANDOFF-erp-qa-demo.md`; the decisions Alex took on it are its §0.
+- **This is the first walkthrough with no delivered product behind it.** Large
+  docs and Workforce optimization were reconstructed from recordings of real
+  engagements. Here there is no engagement, so the thing that must be
+  recognisable is the **platform**: Oracle Autonomous AI Lakehouse (Data Studio)
+  and Oracle AI Data Platform (Agent Hub). Everything on screen had to be built
+  from Oracle's own published product material.
+- **Three research briefs** (Opus, session scratchpad `.work/erp-qa/`):
+  `brief-A-pack.md` — the pack as pitched (scope, S/M/L rows, the feature
+  matrix); `brief-B-ui.md` — what the two products actually are, a UI inventory
+  and measured style tokens; `brief-C-workflows.md` — where cross-system
+  questions arise in a multi-ERP group, the seven mappings, candidate workflows.
+- **Seven official Oracle videos** (fetched with the yt-dlp standalone macOS
+  binary from its official GitHub release, no sign-in; 100 native key frames,
+  566 index frames and 31 contact sheets cut by a Swift/AVFoundation tool into
+  git-ignored `.work/erp-qa/video/`, 268 MB): *Access Data from Anywhere with
+  Oracle Autonomous AI Database Catalog: Demo* (Oracle, 2025-10-14, `XubFc-QHgsc`);
+  *Short demo Ask Oracle App powered by Select AI* (Autonomous Database PM Team,
+  2025-11-14, `p595Io2cxyw`); *Build AI Agents with Oracle AI Data Platform: Demo*
+  (Oracle, 2025-11-25, `hpjnIXpOd0E`); *How to Use Master Catalog, Workspace, and
+  Compute in Oracle AI Data Platform* (Oracle, 2026-06-17, `3f-7RdriJ3Y`);
+  *Oracle AI Data Platform: Lakehouse, Analytics, and Agentic AI Demo* (Oracle
+  Developers, 2026-07-22, `ObsHJhduwwE`); *Autonomous Database Speaks "Human"
+  using Select AI* (ADB PM Team, 2023-09-26, `htVeX8loT6c`); *Autonomous Database
+  Data Studio Demo* (Oracle, 2023-11-06, `y1khmdbmze4`). The reading of them is
+  `.work/erp-qa/ui-anatomy.md` (704 lines).
+- **A second source pass**, after Alex's "search better + find decks with
+  screens, as it is essential to follow the UI of existing products": the
+  469-page *Using Oracle AI Data Platform Workbench* guide (rev. G50054-32,
+  10 Sep 2026) as PDF, whose chapter 28 "Lineage (Preview)" has an HTML page
+  carrying 14 clean product figures; *How Auto Populate Catalog Simplifies
+  Metadata Management in AI Data Platform Workbench* (`lzxNqDYzd3o`) for the
+  auto-populated catalog metadata and its Reviewed-entities accept/reject queue;
+  *Integrate, Load and Analyze all your data with ADB Data Studio* (51 min,
+  `6fPVgyAvBqY`) for Data Insights, Data Load with the Live Feed sub-nav,
+  Connections, Data Transforms job runs and the Catalog lineage overlay; the
+  Data Analysis natural-language "Generate Query" doc figures; an APEX 24.2
+  video (`kjeQ2AC3TFo`) for real Redwood Light app chrome; and the Redwood
+  design tokens read out of Oracle's own
+  `static.oracle.com/cdn/apex/26.1.0/themes/theme_42/24.2/css/Redwood.css`,
+  cross-checked against Oracle JET (`.work/erp-qa/redwood-kit.md`, 678 lines).
+- **Method note worth keeping:** Oracle's OCI documentation sites build their
+  tables of contents in JavaScript, so link crawling misses whole chapters. The
+  lineage chapter and its figures — which a three-level crawl never found — came
+  from downloading the book PDF, grepping its text, and then fetching the HTML
+  page of the one chapter that mattered.
+- Machine: the same MacBook Air as §19 — no Homebrew, no ffmpeg, no Node on the
+  PATH; Node from `/Applications/Codex.app`, crops and JPEGs from `sips`.
+
+### 22.2 The architecture decision, and why
+
+The pack sells plain-English answers across systems. Neither Oracle product
+does that alone, so the demo shows the pair, plus one small app:
+
+- **Autonomous AI Lakehouse (Data Studio)** covers the data layer — catalogs
+  mounted over the sources, continuous feeds, certified views, Select AI, the
+  SQL Firewall — but ships no business-user Q&A surface and cannot show
+  cross-system lineage inside an answer.
+- **AI Data Platform (Agent Hub)** adds the conversational surface, the
+  text-to-SQL agent with a trace tree, the Master catalog and column-level
+  lineage.
+- **Neither has a human review queue for entity resolution.** The steward's
+  confirm/reject therefore lives in a small Redwood-styled app, "Mapping
+  review" — which is Oracle's own answer to "you need a custom UI on the
+  lakehouse" (APEX), not an invented product.
+
+Alex's call on the handoff's Q6: the three surfaces are demoed as **three
+apps**, and switching between them is part of the demo. Each keeps its own
+look; a slim neutral workspace switcher sits above them and must read as a
+launcher, never as part of any product. Oracle product names and interfaces are
+expected here (playbook rule 2 as corrected on 2026-09-16: "not no Oracle marks
+— no specific customer marks"); no Oracle logo file is used, because none is
+cleared.
+
+### 22.3 The world and the data model
+
+A fictional multi-entity group in Q3 FY2026, close in progress, "today"
+Tue 6 Oct 2026 09:40. Three operating entities on three ERPs after two
+acquisitions — Oracle Fusion Cloud ERP, JD Edwards EnterpriseOne 9.2,
+NetSuite — plus an in-house Oracle Database application for contracts and
+rebates and a non-Oracle CRM as Iceberg tables. The object names on every
+screen are each system's real ones (`AP_INVOICES_ALL`, `POZ_SUPPLIERS`,
+`GL_DAILY_RATES`; `F0411`, `F0101`, `F0911`; NetSuite `vendor`,
+`transactionLine`), and the feeds are the real mechanisms (a prebuilt Fusion
+pipeline, GoldenGate CDC, SuiteAnalytics Connect, a database link, an external
+table). Three personas: a group controller (the tour's user), a finance data
+steward who owns Mapping review, and a regional analyst whose role is the
+governance proof in step 6.
+
+The content of the model is the **seven mappings** a multi-ERP group actually
+has to reconcile (brief C): chart of accounts → group account; legal entity /
+business unit / JDE company; party identity across the three vendor masters;
+item cross-reference; currency and rates; calendar and period (JDE's fiscal
+year opens in July, so JDE period 3 is calendar September); document types and
+status codes. Thirteen `GOLD` certified views carry them, each with an owner, a
+definition line and a last-changed date.
+
+Every number on screen is computed in the page from the arrays in `data.js`
+(115 KB) — nothing is typed into the markup — and
+**`tools/erp-qa-check.js` (267 assertions) reconciles them**: the health band,
+the two queues, the answers and the consolidated P&L have to agree before and
+after the steward's fix. Deviations the data model forced, all accepted and all
+documented in the handoff §12: the freshness stamp is computed per question
+from its own sources rather than being one global time; the analyst's answer to
+question 1 is 5 rows before the fix and 4 after, because the disputed record
+sits in the analyst's own entity until it is split; the 25 pending proposals
+cover 28 records; a documented provisional threshold of 0.85 rolls a proposal
+up provisionally and flags it, which is what makes "12 rows, one flagged for
+review" true; only 12 of 67 confirmed cross-system clusters answer question 1,
+because the `HAVING` is on the quarter's invoices, not on master data; account
+decisions are logged but do not move the P&L — only the match decision
+recomputes the band.
+
+### 22.4 The three surfaces — what is a real screen and what is free design
+
+| Surface | Replicated from | Free design, in the product's idiom |
+|---|---|---|
+| **Data Studio** — continuous dark L-shell, left nav, Catalog with mounted-catalog chips, entity-type pills, Filters facets, grouped results with initials avatars and "Updated N min ago"; Data Load › **Live Feed**; **Analysis** with the natural-language "Generate Query" field | The 2026 and 2023 videos plus the Data Analysis doc figures; every nav label is Oracle's own | The **Live Feed job card** for the model rebuild. Oracle shows the two entry points to continuous ingestion but never opens the feed list itself, so the card — sources, stages, "Run now" — is ours, drawn in Data Studio's idiom |
+| **Agent Hub** — cooler dark top bar over a light nav, serif greeting, prompt box, saved-question chips, the agent card, the answer anatomy (row-count and freshness line → result grid → Explore / Explain / Code View / Trace chips → Narrate), Master catalog entity pages with per-column descriptions, **column-level Lineage** (impact analysis, `AGGREGATION / IDENTITY / TRANSFORMATION`), Auto-populate catalog with its Reviewed-entities queue, Insights, Sessions | The 2025–2026 AIDP videos and the Workbench guide; **lineage is built to the letter of chapter 28's figures** | The **per-row source badge** column on an answer, and the drill panel behind Explore. Oracle evidences the grid and the action chips, not a badge that names the system each row came from |
+| **Mapping review** — white header, light page, Redwood buttons, dense tables, the health band, the two queues and the decisions log | The Redwood tokens read out of Oracle's own APEX theme CSS and cross-checked against Oracle JET; chrome from an APEX 24.2 video | The whole app: no Oracle product ships an entity-resolution review queue. Its shape is borrowed from the one accept-or-reject pattern Oracle does ship — the Reviewed-entities queue in Auto-populate catalog |
+
+The three surfaces deliberately do not share chrome: the two products invert it
+(Data Studio is a continuous dark L with a right-aligned search; AIDP is a dark
+bar over a light nav with a centred search), and Oracle red is never used as a
+button fill. Two Oracle builds exist for most of these screens and their colour
+systems do not mix, so each screen follows one build.
+
+### 22.5 The semantic-layer honesty decision
+
+The first cut gave Agent Hub a **business glossary** panel — terms, synonyms,
+ontology — because the marketing copy for AI Data Platform describes one. The
+second source pass looked for it in the 469-page product guide and found
+**zero** occurrences of glossary, ontology, taxonomy, AI-generated synonyms or
+data products. What the product actually ships is auto-populated **catalog
+metadata**: a per-column Description a person accepts or rejects, which is what
+the text-to-SQL agent reads.
+
+So the demo dropped the glossary panel and rebuilt the mechanism as it really
+is — catalog entity pages with column descriptions, the Auto-populate catalog
+review queue that produced them, and a trace span named *"Terms resolved from
+catalog descriptions"* rather than *"Glossary terms resolved"*. The underlying
+data array kept its historical `glossary` key names (the reconciliation script
+asserts on them); every label a viewer reads says catalog description. Two
+related corrections from the same pass: Select AI Agent is PL/SQL only, with no
+designer in Database Actions, so none is shown; and the Data Analysis screen
+uses the real "Generate Query" field.
+
+### 22.6 The tour
+
+Six steps, value first, each allowing exactly one control; Skip auto-performs;
+every other click is guarded.
+
+1. **Rebuild the model** — Data Studio › Live Feed, "Run now": five stages
+   (sync sources · resolve supplier identities · map accounts to the group
+   chart · translate and reconcile ledgers · rebuild certified views and
+   refresh the SQL Firewall allow-list), then a toast that opens Mapping review.
+2. **Review the improved metrics** — a **passive step** on the health band,
+   with a Next control: what got better and why.
+3. **Ask across systems** — Agent Hub, the saved question *"Which suppliers do
+   we pay from more than one system, and what did we pay them last quarter?"*;
+   the answer renders with a source badge on every row and a freshness line.
+4. **See where each figure comes from** — open the **Trace** (parse → terms
+   resolved from catalog descriptions → SQL generated → SQL Firewall check →
+   executed, rows and ms → answer composed, with the allow-list, row-policy and
+   masking lines), then **Explore** the flagged row down to the two source
+   records behind it and the evidence the model matched them on.
+5. **Fix a mapping by hand** — Mapping review: reject the wrong match with a
+   reason, which leaves a learned rule and a decision row, then **Re-run
+   resolution**; the band, the duplicate list and the affected answers all move
+   together.
+6. **Prove the governance and hand off** — back in Agent Hub the same question
+   now returns one row fewer; **View as** the regional analyst re-runs it under
+   a row policy and column masking enforced in the database; **Publish as
+   certified view** closes it. The end card names what is still open for free
+   exploration, including the saved question that the SQL Firewall refuses
+   outright for the analyst.
+
+### 22.7 Figures — every synthetic number
+
+**No cleared outcome figure exists for this pack** (the site ships `null`
+metrics for it), so the band carries coverage and counts only: no
+time-to-answer, no saving, no price, no delivery-time claim. All of the
+following are invented and computed in the page:
+
+- 412 supplier records (188 Fusion · 131 JDE · 93 NetSuite) · 216 golden
+  parties · 61.2 % → 93.2 % → 93.7 % resolved · 212 proposals (187
+  auto-confirmed, 25 → 24 pending, covering 28 records).
+- 497 local accounts (214 · 186 · 97) → 120 group accounts · 37 → 0 unmapped
+  (35 by rule, 2 queued for review).
+- Ledgers tying to their trial balance 1/3 → 3/3 · residual before the rebuild
+  USD 1,705,680.62, 0.00 after.
+- Duplicate-payment pairs 14 → 13 · exposure USD 216,410 → 195,320.
+- Consolidated Q3 P&L: revenue 48.6 M USD (27.9 · 13.2 · 7.5), COGS 31.1 M,
+  gross margin 17.5 M, opex 11.5 M, EBITDA 6.0 M.
+- Source freshness 12 / 4 / 38 / 2 / 65 minutes · 13 certified views · 10 saved
+  questions.
+- Answer sizes: question 1 returns 12 → 11 rows for the controller and 5 → 4
+  for the analyst; its spend total USD 8.6 M → 7.9 M.
+- Other saved questions: rebate entitlement USD 13,539.92 on 5 terms; O2C open
+  value USD 588,250; paid-since USD 315,700; intercompany unmatched gap
+  USD 46,800; top-20 share 30.6 %.
+
+### 22.8 Red-team, the fix round and the copy pass
+
+The first cut was red-teamed against the pack specs, the site's own copy and
+the playbook (14 frames plus a copy scan). It **passed** on: three distinct,
+recognisable surfaces; the band and the passive metrics step; per-row source
+badges; a trace carrying the firewall and policy lines; drill-down to real
+object keys; a rejection that recomputes the band, the duplicates and the
+answer; a row-limited and masked analyst view; all seven of the site's listed
+features visible; no banned name, no currency symbol beyond a column header, no
+time-to-answer or savings claim anywhere.
+
+Fixed before capture: health-tile notes truncated mid-word; a step callout that
+covered the very tile its copy described; wide answers showing seven of
+twenty-six rows; clipped dashboard labels; plus the second-pass corrections of
+§22.5 (the real catalog entity page and lineage instead of the invented
+glossary panel, honest semantic-layer wording, real Data Load labels, a real
+Data Analysis screen, and Mapping review restyled to the measured Redwood kit).
+
+A final **copy-hygiene pass** removed every on-screen note that talked about
+evidence, sources or design provenance — where a screen came from, what Oracle
+does or does not ship, what is "our design in the product's idiom". That
+material belongs in this file, not in front of a prospect. Four notes were
+trimmed (the Live Feed job-card aside, the Explain panel's semantic-layer note,
+the catalog entity-page footnote and the Reviewed-entities note); the notes a
+viewer needs — "Demo data only", "Static in this walkthrough", "Mocked run — no
+job is submitted and nothing is written back", the pending-review caveat —
+stayed.
+
+### 22.9 What changed on the site
+
+- `site/demo/cross-system-erp-qa/` — `index.html`, `demo.css`, `demo.js`,
+  `data.js`: three `<section data-app>` panels under one switcher, the tour
+  engine and URL switches carried over from the Workforce optimization
+  walkthrough.
+- `tools/erp-qa-check.js` (the reconciliation script),
+  `tools/capture-erpqa-tour.json` (the whole tour by real clicks — the
+  regression test, `LOGS: none` is the gate) and `tools/capture-erpqa-frames.json`
+  (the four step frames and the poster).
+- `config.js`: `demoUrl` and `videoPoster` on `cross-system-erp-qa`;
+  `demoPreviewUrl` stays empty until the standalone artifact exists, and
+  `video` stays `false`. `content.js`: the four step images now point at the
+  `.jpg` captures — **the step copy is unchanged**, by Alex's decision.
+- The four `cross-system-erp-qa-*.svg` illustrations deleted; the four captures
+  and the poster added, per `ASSETS.md` §1; `manifest-edits.json` updated to
+  match.
+- Docs: `README.md` (the third walkthrough, the layout, the preview-links
+  table), `CONFIG.md` §3, `ASSETS.md` §1, this section, and the Done block of
+  `HANDOFF-erp-qa-demo.md`.
+
+### 22.10 Verification, its limits, and what stays unevidenced
+
+- `node --check` clean on `demo.js`, `data.js`, `config.js` and `content.js`;
+  `node tools/check-grammar.js` OK; `node tools/erp-qa-check.js` 267 assertions
+  passing; the tour scenario replayed at 1440 × 900 after the copy pass with
+  `LOGS: none` (no console error, no exception, and the scenario's own
+  assertions — no horizontal page scroll, six band tiles unwrapped and
+  unclipped, no callout covering the element its copy names — all held).
+- The product page was verified headlessly on `file://` at 1440 × 1000: the
+  four step images load and render on their own steps (1600 × 1000 each), the
+  poster file loads (1600 × 900), the "Try the interactive demo" button points
+  at the relative `demo/cross-system-erp-qa/index.html` and opens a new tab,
+  and the page has no horizontal overflow. Screenshot kept at
+  `.work/erpqa-qa/product-page.png`.
+- **Limits.** The captures are scripted headless Chrome at four viewports, so
+  they prove the layout at those widths and no others; the Chrome extension
+  cannot click inside an artifact's iframe, so the published artifacts are
+  verified by eye in the viewer, not by automation. `demoPreviewUrl` being
+  empty means the demo button is knowingly broken **inside the site's own
+  artifact preview** until the standalone demo is published.
+- **What stays unevidenced, and is therefore a considered reconstruction rather
+  than a replica:** the Agent Hub conversation detail (no public video opens a
+  finished conversation), generated SQL shown inside an answer, and the Live
+  Feed list itself. Each is drawn in the product's idiom and is named here so
+  nobody later mistakes it for a screenshot of a shipping screen.
