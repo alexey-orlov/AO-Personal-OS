@@ -2159,6 +2159,69 @@ missing bullet, an over-long stat value, a partner path under `logos/`, a
 `shortLine` without its period, an unknown icon, a banned word — were all caught,
 each with the message that names the fix.
 
+### 18.5 The copy/leak critic round (2026-09-16)
+
+The rebuilt home page was read twice after it shipped: once for **leaks** — a
+fact on the page that is not cleared to be there — and once for **copy**. The
+strings this round changed are the ones §18.1 and §18.3 now quote; the two
+tables below record what moved and what deliberately did not.
+
+**The leak sweep came back clean.** Over the serialized `overview` object, the
+`products[].shortLine` and `statusNote` strings the home rows render, and
+`site/index.html`: **no customer name, no logo path** (nothing under
+`assets/img/logos/`), **no € figure or any other price**, **no customer
+headcount, baseline or contract value**, **no GigaCloud, no AIDP, no internal
+marker** (no `TODO` / `TBD` / placeholder), **no personal mailbox or other
+contact address**, and **no partner-tier claim** — no *Elite*, *Premier*,
+*Platinum* or partner-of-the-year, for either partner. The four case-study
+descriptors on the page stay at industry-and-scale (*"A global home-appliance
+manufacturer"*, *"An international airline"*, *"A global logistics and
+supply-chain operator"*, *"A major construction and engineering contractor"*).
+The meta tags carry the same sentence as `site.metaDescription` and nothing
+else. **All copy on the page reads from `content.js`** — `pages/overview.js`
+holds no user-facing string of its own, so a fix lands in the data layer and
+the checker sees it.
+
+**Accepted — what changed, and why.** Every *after* here is quoted from
+`content.js` as it now stands.
+
+| Key | Before | After | Why |
+|---|---|---|---|
+| `overview.hero.lead` | *"Oracle's AI platforms, **compounded by** SoftServe's enterprise agentic-AI experience: …"* | *"Oracle's AI platforms, **with** SoftServe's enterprise agentic-AI experience **on top**: …"* | *Compounded by* reads as **made worse by** in ordinary English. *With … on top* also echoes the layering the stack visual beside it draws |
+| `overview.hero.stats[0].label` | *"products across three workflow patterns, each starting with a scoped Jumpstart on your own data"* | *"products across three workflow patterns"* | It ran to 95 characters against 39–55 for the other three tiles in the same row — about twice its peers — and the clause it lost repeats S2 |
+| `overview.hero.stats[1].label` | *"Oracle platforms the practice builds on"* | *"Oracle platforms the practice focuses on"* | *Focuses on* is the verbatim Services stat (`services.hero.stats[3]`). *Builds on* had no source, and two of the four platforms carry no product |
+| `overview.twoWays.title` | *"Products you can start now. A practice that makes them yours."* | *"Products you can start now, and a practice that makes them yours."* | Two sentences in uppercase Montserrat wrapped with an orphaned *A* and a mid-line period nobody sees at that size. One sentence |
+| `overview.twoWays.panels[0].body` | *"… deep research, **document processing**, data analysis and optimization …"* | *"… deep research, **processing pipelines**, data analysis and optimization …"* | *Document processing* was a **fourth** name for the processing-pipelines pattern; `facets.categories` has a `chip` form and a `full` form and nothing else |
+| `overview.twoWays.panels[1].bullets[0]` | *"A fixed price on the packaged scope; 30–45 days to about two months to a result"* | *"A fixed price on the packaged scope, scoped per engagement on the deep-research investigations"* | The durations now live in one place, the S4 ladder `fact`. The bullet names the **third clock** instead — *scoped per engagement on the deep-research investigations*, verbatim from `services.howWeEngage.ladder[0]` |
+| `overview.twoWays.panels[1].bullets[1]` | *"Success metrics signed before the clock starts, every KPI measured like for like"* | *"Every KPI measured like for like against your current process"* | *Signed before the clock starts* was said **three times** on the page. It now lives in the S4 step-1 body and the S5 rail (`services.proof.lead`); the bullet carries the like-for-like measurement instead |
+| `overview.catalog.lead` | *"Find the job first. Every product is a packaged instance of one workflow pattern, running in your own Oracle tenancy with a human in the decision."* | *"Each product packages one workflow pattern, runs in your own Oracle tenancy and keeps a human in the decision."* | *Find the job first* repeats S2's first bullet, and *packaged instance* is engineering jargon |
+| `overview.catalog.patterns[0].definition` | *"… assemble a **cited, scored** answer for a reviewer to decide on."* | *"… assemble a **cited** answer for a reviewer to decide on."* | *Scored* is unsupported for `case-evidence-collection` and `plan-vs-actual-investigation` — `account-insights` is the only one of the three that scores anything |
+| `overview.catalog.patterns[1].definition` | one 38-word sentence, hinged on a colon at *structured data:* | two sentences, split at *structured data.* | One 38-word sentence in a three-column row |
+| `overview.delivery.steps[0].body` | *"Prove the gains on your own data and rules, …"* | *"Prove the gains on your own data and **a limited rule set**, …"* | Restores the qualifier from `howWeEngage.ladder[0].whatItIs`, so *your own rules* does not read as **all** of them |
+| `overview.delivery.steps[2].body` | *"**Roll-out** across locations and document types … **A** managed service keeps the solution evolving."* | *"**Extend** across locations and document types … **An optional** managed service keeps it running and re-tuned."* | *Roll-out* is the Services ladder's name for the **Integration** tier, so it cannot also open step 3. And `services.whatWeDo.attachesToEvery` prices wrap-around services **on top of** the package, so the managed service is optional |
+| `overview.delivery.why.pillars[1].body` | *"**Seven application families packaged so far**, evaluation frameworks …"* | *"**A library of agentic-AI patterns**, evaluation frameworks …"* | *Seven application families* collided with *Seven products* two screens earlier |
+| `overview.delivery.why.pillars[2].body` | *"Fixed scope and signed success metrics, measured against a baseline the customer, Oracle and SoftServe sign before build starts."* | *"Fixed scope and signed success metrics, and every Jumpstart ends with an executive readout and a costed expansion plan."* | It restated the signatory list of `services.proof.lead` one screen below, and garden-pathed. It now carries the **executive readout and costed expansion plan** from `services.howWeEngage.howAPovRuns.steps[3]` |
+| `overview.caseStudiesIntro.title` | *"Measured on customer data, under NDA."* | *"Four engagements on customer data, under NDA."* | *Measured* was true of **one** of the four cards — one measured, one modeled, two in preparation |
+| `overview.about.body` | *"The Oracle AI & Data **practice** draws on SoftServe's data and analytics **practice** …"* | *"The Oracle AI & Data **team** draws on SoftServe's data and analytics **practice** …"* | *practice … practice* in eight words |
+| `overview.about.partnerLine` | *"Built with Oracle and NVIDIA"* | *"Built with"* | The two wordmarks sit beside it and print the names — and *Built with Oracle and NVIDIA* already prints in the footer **twice** (`site.footer.builtWith`, `site.footer.trademarkLine`) |
+| `overview.contact.sub` | *"Tell us the account or workflow you have in mind. One scoping conversation starts it: we come back with what a proof of value would cover, on your data."* | *"One scoping conversation starts it. We come back with what a proof of value would cover, what it would cost, and what it would measure."* | The S7 lead, the form-side sub and the footer said the same sentence **three times within one viewport**. The lead now carries the Services contact promise — **cover, cost, measure** (`services.contact.sub`) — and `pages/overview.js` passes **no form-side sub** at all (`forms.demo.secondarySub` is untouched; the product pages still render it) |
+| `site.metaDescription` | *"**Best-of-breed** enterprise AI agents and workflows on Oracle platforms: …"* (164 characters) | *"Enterprise AI agents and workflows on Oracle platforms: …"* (150) | *Best-of-breed* was the site's **only superlative**, unsupported, and pushed the description past 160 characters. The three matching tags in `site/index.html` — `description`, `og:description`, `twitter:description` — moved with it |
+
+**Rejected — findings that were raised and deliberately not acted on.**
+
+| Finding | Why it stands |
+|---|---|
+| *"plans computed against every constraint at once"* (`catalog.patterns[2].definition`) overclaims | `workforce-optimization`'s own copy says exactly that: *"against every constraint at once, in minutes rather than days"* |
+| `plan-vs-actual-investigation`'s `shortLine` — *"Every material variance, with its likely drivers and the evidence behind them."* — overclaims | It is the closing clause of that product's own `jumpstart.promise`, carried over word for word |
+| *"fixed-scope proof of value"* in the hero lead is not true of all seven | The Jumpstart's **scope** is fixed once agreed, on all seven. *Fixed-scope* is not *fixed-price*, and the page says fixed price only of the packaged scope |
+| Headlines are stored in caps in `content.js` | Every product headline is stored that way, and the CSS uppercases regardless. Changing it here alone would split the convention |
+| The footer's `CONTACT US` block repeats the home page's S7 | Site-wide chrome from an earlier round — out of scope for a home-page copy pass |
+| The two in-preparation case cards share a sentence frame, and the status word prints in both the chip and the metric eyebrow | Round-4 component and round-4 data (`shared.caseStudyStatus`, `CaseStudyCard.metricEyebrow`) — out of scope |
+| Shipped JS comments cite `VISUAL-GRAMMAR` sections in `assets/app.js` and `pages/product.js`, and the not-found copy is hard-coded there | Pre-existing, on both counts. Flagged for a later round |
+| The *Case studies* nav item can never be marked active | `setActiveNav` collapses the home path to `#/`, and the item's route is `#/#case-studies`, so the comparison never matches. Cosmetic; flagged |
+
+Design-critic findings and the layout fix pass: see 18.6.
+
 ## 19. The second walkthrough — Workforce optimization, 2026-09-16
 
 ### 19.1 Brief, machine, tooling
