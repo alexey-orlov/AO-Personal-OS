@@ -1244,6 +1244,26 @@ with the same 3px teal rule. **`null` on three** (`case-evidence-collection`,
 `cross-system-erp-qa`, `business-metrics-qa`) — down from five, because the two
 in-flight engagements now render.
 
+**Engagement → product → descriptor** (the internal column never reaches the site):
+
+| Engagement | Product | Descriptor that ships | Status |
+|---|---|---|---|
+| Bosch (cuOpt) | `workforce-optimization` | A global home-appliance manufacturer | `measured` |
+| Riyadh Air (AI-Q) | `large-document-extraction` | An international airline | `measured` |
+| DHL (AI-Q) | `account-insights` | A global logistics and supply-chain operator | `in-progress` |
+| SBG (AI-Q) | `plan-vs-actual-investigation` | A major construction and engineering contractor | `in-progress` |
+
+**A note on what this section was built from.** The `…/scratchpad/research/`
+tree is not on disk in the session that wrote round 4, so `RESEARCH/01…07` could
+not be re-read. Every figure below was taken from **this file's own recorded
+citations** (§1 L10, §4, §15.0, §15.4, §12.1) and from the wiki pages
+`context/areas/softserve/{sbg-poc,oracle-pipeline,oracle-packs}.md`, which are
+current truth for the two in-flight engagements. **No figure is new**: the two
+measured cases carry exactly the numbers §15.4 already shipped, and the two
+in-flight cases carry no number at all. If the research tree is restored, the
+worthwhile check is the two qualitative targets in (c) and (d) — that neither
+understates a figure the sources actually publish.
+
 #### a. `workforce-optimization` — *"A global home-appliance manufacturer"*
 
 - **Descriptor** — adapted from `RESEARCH/02` §1.4 / `RESEARCH/07`: a
@@ -1294,7 +1314,12 @@ in-flight engagements now render.
 
 #### c. `account-insights` — *"A global logistics and supply-chain operator"*
 
-The logistics engagement. **Status `in-progress`, eyebrow Target outcomes.**
+The **DHL** engagement (internal name). **Status `in-progress`, eyebrow Target
+outcomes.** Sources: `context/areas/softserve/oracle-packs.md` (the pack is
+derived from this engagement; *"Proof: none yet — PoC in preparation, results to
+follow"*; the signal→opportunity fan-out is the pack's stated differentiator) and
+`oracle-pipeline.md`. The round-3 evidence card's own text (`SPEC` §1.4 Card C,
+§14.5) is the source for what the engagement measures.
 
 - **Descriptor** — already the shipped anonymized descriptor on the round-3
   evidence card (§14.5); unchanged, and now the callout's title.
@@ -1330,14 +1355,7 @@ The logistics engagement. **Status `in-progress`, eyebrow Target outcomes.**
 **The construction engagement**, mapped to this product. **Status
 `in-progress`, eyebrow Target outcomes.**
 
-- **The mapping, and its source.** §12 of this file already records that the
-  de-identified historical-package PoC document is what the
-  `plan-vs-actual-investigation` stepper's five-verb "what it does" list and its
-  named technology stack (AI-Q, NIM/Nemotron, AI Vector Search, OpenSearch, AI
-  Database 26ai, Document Understanding, Object Storage, Functions/Streaming/API
-  Gateway/OKE) were built from — the same engagement, the same SOW §2.4. The
-  wiki page for it is current truth on scope and is the source for everything
-  below; `RESEARCH/04` lists it among the engagements and its NDA status.
+- **The mapping, and its source.** The engagement is **SBG** (internal name; it never reaches the site). §12.1 of this file already records the row: *"SBG historical-package PoC doc (de-identified) → the five-verb 'what it does' list behind the `plan-vs-actual-investigation` stepper, and the named technology stack (AI-Q, NIM/Nemotron, AI Vector Search, OpenSearch, AI Database 26ai, Document Understanding, Object Storage, Functions/Streaming/API Gateway/OKE, GPU compute)"*. That is the mapping: this product was packaged off that engagement, and the wiki page `context/areas/softserve/sbg-poc.md` (SOW + WBS v0.9.2, read 2026-09-10) is current truth on its scope, success criteria and state. `RESEARCH/04` lists it among the engagements with its NDA status; `RESEARCH/02` §4.2 is the pack-side write-up. Everything in this case comes from those.
 - **Descriptor** — the wiki names the customer as a construction contractor.
   *Major* is the scale; *and engineering* is the work. **The country is
   withheld** — naming it would narrow the descriptor to a very small set of
