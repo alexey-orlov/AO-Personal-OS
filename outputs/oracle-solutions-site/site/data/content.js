@@ -4,7 +4,7 @@ window.SITE_CONTENT = {
     owner: "SoftServe",
     title: "AI Agents on Oracle — SoftServe",
     tagline: "AI agents and workflows on Oracle platforms",
-    metaDescription: "AI agents that read your contracts, plan your field workforce and answer questions across your ERP. Built on Oracle by SoftServe, measured on your own data first.",
+    metaDescription: "AI agents that read your contracts, plan your field workforce and answer questions across your ERP. Built on Oracle by SoftServe, measured on your data first.",
     headerLockup: {
       wordmark: "assets/img/softserve-wordmark-white.svg",
       wordmarkAlt: "SoftServe",
