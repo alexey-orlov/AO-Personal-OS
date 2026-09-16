@@ -231,22 +231,26 @@
       '<div class="ds-list">' + list + "</div></div>";
   }
   function renderDsFeeds() {
-    var k = kpis();
+    var k = kpis(), done = !!S.state.refreshed;
     $("#ds-crumb").textContent = "Data Load";
     $("#ds-page").innerHTML =
       '<div class="ds-head"><h1>Data Load</h1><span>Feeds &middot; scheduled and on-demand loads into the lakehouse</span></div>' +
       '<div class="ds-seg">' + ["Load Data", "Feeds", "Connections"].map(function (t, i) { return '<button type="button" class="' + (i === 1 ? "is-on" : "") + '">' + esc(t) + "</button>"; }).join("") + "</div>" +
       '<section class="job" id="ds-job"><div class="job-head"><span class="job-ico">' + ICON.stack + "</span>" +
       '<div><h2>Cross-system finance model (GOLD)</h2><div class="sub">Owner Group Finance &middot; five sources into one governed model &middot; ' + D.views.length + ' certified views &middot; last run <b id="ds-lastrun">' + esc(S.lastRun) + "</b></div></div>" +
-      '<div class="job-act"><span class="job-chip" id="ds-jobchip">Scheduled hourly</span><button class="btn btn--dark" id="ds-run-now" type="button">' + ICON.play + "Run now</button></div></div>" +
+      '<div class="job-act"><span class="job-chip" id="ds-jobchip">' + (done ? "Rebuilt 09:44" : "Scheduled hourly") + '</span><button class="btn btn--dark" id="ds-run-now" type="button">' + ICON.play + "Run now</button></div></div>" +
       '<div class="job-src">' + D.sources.map(function (s) {
         return "<div><div class=\"cat\">" + esc(s.catalog) + '</div><div class="nm">' + esc(s.short) + '</div><div class="fd">' + esc(s.feedShort) + '</div><span class="fr">' + esc(s.freshLabel) + " behind</span></div>";
       }).join("") + "</div>" +
-      '<ol class="stages" id="ds-stages">' + D.refreshStages.map(function (st) { return "<li><i></i><span>" + esc(st.name) + "</span><em></em></li>"; }).join("") + "</ol>" +
-      '<div class="job-bar" id="ds-bar"><b></b></div>' +
+      '<ol class="stages" id="ds-stages">' + D.refreshStages.map(function (st) {
+        return "<li" + (done ? ' class="is-done"' : "") + "><i></i><span>" + esc(st.name) + "</span><em>" + (done ? esc(st.done) : "") + "</em></li>";
+      }).join("") + "</ol>" +
+      '<div class="job-bar" id="ds-bar"><b' + (done ? ' style="width:100%"' : "") + "></b></div>" +
       '<p class="job-note">' + (S.state.refreshed
         ? "Model rebuilt at <b>09:44</b> &middot; " + D.views.length + " certified views &middot; supplier records resolved " + k.resolved.pct.toFixed(1) + " % &middot; SQL Firewall allow-list FIN_QA_V3 refreshed."
         : "Sources are mounted and feeding; the model has not been rebuilt since <b>" + esc(S.lastRun) + "</b>. Run it to resolve identities, map accounts, reconcile the ledgers and rebuild the certified views.") + "</p></section>" +
+      '<section class="out"><div class="out-head"><b>' + D.views.length + ' certified views</b><span>schema GOLD &middot; owner Group Finance &middot; signed-off definitions the answers cite by name</span></div>' +
+      '<div class="out-grid">' + D.views.map(function (v) { return '<div><div class="vn">' + esc(v.name) + '</div><div class="vd">' + esc(v.definition) + "</div></div>"; }).join("") + "</div></section>" +
       '<p class="ds-aside">Mocked run — no job is submitted and nothing is written back to any source system.</p>';
   }
   function renderDs() {
@@ -528,7 +532,8 @@
         body += '<div class="recon">Confirmed cluster &middot; basis ' + esc(row.score >= 0.96 ? "exact tax registration number" : "name and address") + " &middot; score " + Number(row.score).toFixed(2) + ".</div>";
       }
       if (row.bySystem) {
-        body += "<h4>Q3 spend by system</h4><table class=\"dgrid\"><tbody>" + Object.keys(row.bySystem).filter(function (s) { return row.bySystem[s] > 0; }).map(function (s) {
+        var inScope = row.systems && row.systems.length ? row.systems : Object.keys(row.bySystem);
+        body += "<h4>Q3 spend by system</h4><table class=\"dgrid\"><tbody>" + Object.keys(row.bySystem).filter(function (s) { return row.bySystem[s] > 0 && inScope.indexOf(s) >= 0; }).map(function (s) {
           return "<tr><td>" + sysBadge(s) + "</td><td>" + esc(D.sourceById[s].entityName) + '</td><td class="r">USD ' + money(row.bySystem[s]) + "</td></tr>";
         }).join("") + "</tbody></table>";
       }
@@ -608,15 +613,20 @@
   /* ---- Insights: three static dashboards ---- */
   function barChart(items, unit) {
     var max = Math.max.apply(null, items.map(function (i) { return i.v; })) || 1;
-    var h = 150, w = 300, top = 8, rowH = Math.min(24, (h - top) / items.length);
+    var h = 150, w = 300, top = 8, rowH = Math.min(24, (h - top) / items.length), maxBar = 110;
     return '<svg class="chart" viewBox="0 0 ' + w + " " + h + '" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Bar chart">' +
       items.map(function (it, i) {
-        var y = top + i * rowH, bw = Math.max(2, (it.v / max) * 150);
+        var y = top + i * rowH, bw = Math.max(2, (it.v / max) * maxBar);
         return '<text class="lb" x="0" y="' + (y + 9) + '">' + esc(it.k) + "</text>" +
           '<rect x="104" y="' + y + '" width="' + bw + '" height="' + (rowH - 7) + '" rx="2" fill="' + (it.c || "#4d7a2c") + '"/>' +
           '<text class="vl" x="' + (104 + bw + 5) + '" y="' + (y + 9) + '">' + esc(it.l || (it.v + (unit || ""))) + "</text>";
       }).join("") +
       '<line class="ax" x1="103" y1="' + (top - 4) + '" x2="103" y2="' + (top + items.length * rowH - 4) + '"/></svg>';
+  }
+  function statusList(items) {
+    return '<div class="statlist">' + items.map(function (it) {
+      return '<div class="sl"><span class="k">' + esc(it.k) + '</span><span class="v v--' + esc(it.s) + '">' + esc(it.l) + "</span></div>";
+    }).join("") + "</div>";
   }
   function insightsHtml() {
     var k = kpis();
@@ -624,19 +634,20 @@
       return { k: r.supplier.slice(0, 16), v: r.spendUsd, l: "USD " + D.fmtM(r.spendUsd), c: "#4d7a2c" };
     });
     var close = [
-      { k: "Ledgers tie", v: k.ledgers.tie, l: k.ledgers.tie + " / " + k.ledgers.total, c: "#265c61" },
-      { k: "Unmapped acc.", v: Math.max(0.3, k.accounts.unmapped), l: String(k.accounts.unmapped), c: "#8a5a12" },
-      { k: "Residual USD", v: 0.3, l: money(k.ledgers.residualUsd), c: "#8a5a12" },
-      { k: "IC unmatched", v: 2, l: "2 legs", c: "#9c3327" },
-      { k: "Duplicate pairs", v: k.dupPairs.count, l: String(k.dupPairs.count), c: "#9c3327" }
+      { k: "Ledgers that tie to their trial balance", l: k.ledgers.tie + " / " + k.ledgers.total, s: "ok" },
+      { k: "Residual after mapping and translation", l: "USD " + money(k.ledgers.residualUsd), s: "ok" },
+      { k: "Local accounts still unmapped", l: String(k.accounts.unmapped), s: "ok" },
+      { k: "Account mappings waiting for a steward", l: String(k.accounts.review), s: "warn" },
+      { k: "Intercompany legs that do not agree", l: "2 unmatched · 1 timing", s: "bad" },
+      { k: "Duplicate-payment pairs to check", l: String(k.dupPairs.count), s: "bad" }
     ];
     var o2c = D.answer("q6", "CONTROLLER", decisions()).rows.map(function (r) {
-      return { k: r.account.slice(0, 16), v: r.daysLate, l: r.daysLate + " d · USD " + D.fmtM(r.valueUsd), c: "#7d4064" };
+      return { k: r.account.slice(0, 15), v: r.daysLate, l: r.daysLate + " d", c: "#7d4064" };
     });
     var cards = [
-      { d: D.dashboards[0], svg: barChart(spend), foot: "Top suppliers by Q3 group spend, translated at the Q3 average rate" },
-      { d: D.dashboards[1], svg: barChart(close), foot: "Close health after the rebuild — residual, mappings, intercompany and duplicates" },
-      { d: D.dashboards[2], svg: barChart(o2c), foot: "Late order lines on tier A accounts, by days past the promised date" }
+      { d: D.dashboards[0], svg: barChart(spend) },
+      { d: D.dashboards[1], svg: statusList(close) },
+      { d: D.dashboards[2], svg: barChart(o2c) }
     ];
     return '<div class="wb-pg"><h1>Insights</h1><div class="sub">Operational dashboards on the same certified views the answers use</div><div class="wb-rule"></div>' +
       '<div class="dash">' + cards.map(function (c) {
@@ -679,11 +690,11 @@
     var big = showAfter ? t.after : t.before;
     var small = big.length > 16;
     var d = "";
-    if (showAfter && t.dir !== "flat" && t.beforeValue !== null && t.afterValue !== null && t.afterValue !== t.beforeValue) {
+    if (showAfter && t.dir === "new") {
+      d = '<span class="dlt">new</span>';
+    } else if (showAfter && t.dir !== "flat" && t.beforeValue !== null && t.afterValue !== null && t.afterValue !== t.beforeValue) {
       var up = t.afterValue > t.beforeValue;
       d = '<span class="dlt">' + (up ? "▲" : "▼") + " " + (t.id === "resolved" ? Math.abs(t.afterValue - t.beforeValue).toFixed(1) + " pts" : Math.abs(t.afterValue - t.beforeValue)) + "</span>";
-    } else if (showAfter && t.dir === "new") {
-      d = '<span class="dlt">new</span>';
     } else if (showAfter && t.dir === "flat") {
       d = '<span class="dlt dlt--flat">unchanged</span>';
     }
@@ -693,6 +704,7 @@
       '<span class="after' + (small ? " after--sm" : "") + '">' + esc(big) + "</span>" + d + "</span>" +
       '<span class="note">' + esc(t.note) + "</span></div>";
   }
+  var DECIDED_AT = "2026-10-06 09:46";
   var movedTiles = [];
   function renderBand() {
     var k = kpis();
@@ -790,7 +802,7 @@
     }
     var rows = S.pending.map(function (d) { return { row: d.row, pending: true }; })
       .concat(S.log.map(function (d) { return { row: d, pending: false }; }))
-      .concat(D.decisions.map(function (d) { return { row: d, pending: false }; }));
+      .concat(D.decisions.slice().sort(function (a, b) { return a.at < b.at ? 1 : -1; }).map(function (d) { return { row: d, pending: false }; }));
     el.innerHTML = '<table class="rtbl"><thead><tr><th style="width:150px">When</th><th style="width:150px">Who</th><th>Decision</th><th style="width:100px">Action</th><th>Why</th><th>Rule left behind</th></tr></thead><tbody>' +
       rows.map(function (x) {
         var d = x.row;
@@ -802,7 +814,7 @@
   $("#rw-tabs").addEventListener("click", function (e) {
     var b = e.target.closest("[data-tab]");
     if (!b) return;
-    S.rwTab = b.dataset.tab; renderRwTabs(); renderRwPanel(); tour.reposition();
+    S.rwTab = b.dataset.tab; renderRwTabs(); renderRwPanel(); $("#rw-panel").scrollTop = 0; tour.reposition();
   });
   $("#rw-panel").addEventListener("click", function (e) {
     var t;
@@ -810,7 +822,7 @@
       var id = t.dataset.openprop;
       S.openProp = S.openProp === id ? null : id;
       renderRwPanel();
-      var el = $('.prop[data-prop="' + id + '"]'); if (el) el.scrollIntoView({ block: "nearest", behavior: "smooth" });
+      var el = $('.prop[data-prop="' + id + '"]'); if (el) el.scrollIntoView({ block: "start", behavior: "smooth" });
       tour.after(id === "M-ORION" ? "open-orion" : "");
       return;
     }
@@ -842,7 +854,7 @@
       action: action === "merge" ? "confirm" : action,
       reason: reason + (action === "merge" ? " Merged into " + mergeInto + "." : ""),
       rule: rule, by: D.personas[1].name,
-      at: D.world.todayLabel + " · " + D.world.nowLabel
+      at: DECIDED_AT
     };
     S.pending.push({ decision: decision, row: { at: decision.at, by: decision.by, role: "STEWARD", title: title, action: decision.action, reason: decision.reason, rule: rule } });
     S.openProp = null;
@@ -858,7 +870,7 @@
     var input = $("#areason-" + parts[0] + "-" + parts[1]);
     var chosen = pick === "alt" ? acc.alt + " " + acc.altName : acc.proposed + " " + acc.groupName;
     var row = {
-      at: D.world.todayLabel + " · " + D.world.nowLabel, by: D.personas[1].name, role: "STEWARD",
+      at: DECIDED_AT, by: D.personas[1].name, role: "STEWARD",
       title: D.sourceById[acc.sys].short + " " + acc.local + " " + acc.description + " mapped to " + chosen,
       action: "confirm", reason: (input && input.value.trim()) || acc.rule, rule: ""
     };
@@ -904,7 +916,7 @@
   /* TOUR                                                                  */
   /* ===================================================================== */
   var STEPS = [
-    { id: "runnow", major: 1, side: "bottom",
+    { id: "runnow", major: 1, side: "top",
       title: "Rebuild the model",
       body: "Five systems are mounted in the lakehouse and feeding — Fusion, JD Edwards, NetSuite, the in-house contracts schema and the CRM as an external table — but nothing has joined them yet. Click Run now to build one governed model over all five.",
       target: function () { return $("#ds-run-now"); }, auto: runRefresh },
@@ -916,7 +928,7 @@
     { id: "band", major: 2, side: "bottom", passive: true,
       title: "What the model made visible",
       body: "Read the band before touching anything. Five sources are now one model on thirteen certified views; supplier records resolved to a single golden record rise from 61.2 % to 93.2 %; the 37 local accounts nothing could place are mapped, so all three ledgers tie to their trial balance; and fourteen duplicate-payment pairs appear that no single system could see, because both legs live in different ERPs. Freshness is unchanged — it is a property of the feeds, not of the model.",
-      target: function () { return $("#band-tiles"); }, anchor: function () { return $(".tile"); },
+      target: function () { return $("#band-tiles"); }, anchor: function () { return $(".tile:last-child"); },
       auto: function () { tour.next(); } },
     { id: "to-aidp", major: 3, side: "bottom",
       title: "Ask the model a question",
@@ -926,7 +938,7 @@
     { id: "ask-q1", major: 3, side: "bottom",
       title: "Pick the cross-system question",
       body: "Ten questions are saved against this model. Ask the first one — which suppliers we pay from more than one system, and what we paid them last quarter. No single ERP can answer it.",
-      target: function () { return $('[data-ask="q1"]'); },
+      target: function () { return $('[data-ask="q1"]'); }, anchor: function () { return $("#hub-chips"); },
       auto: function () { ask("q1"); } },
     { id: "trace", major: 4, side: "top",
       title: "See how the answer was produced",
@@ -948,7 +960,7 @@
       body: "Twenty-five proposals between 0.75 and 0.89 wait for a person; everything at 0.90 and above the model confirmed on its own. Open the first one.",
       target: function () { return $('.prop[data-orion] .prop-head'); }, anchor: function () { return $(".prop[data-orion]"); },
       auto: function () { S.openProp = "M-ORION"; renderRwPanel(); tour.after("open-orion"); } },
-    { id: "reject", major: 5, side: "top",
+    { id: "reject", major: 5, side: "bottom",
       title: "Reject it, and say why",
       body: "Both records are here side by side: two different tax registration numbers, two different banks, two different countries. The reason is drafted for you — click Reject. The decision is logged under the steward's name and leaves a rule behind for the next run.",
       target: function () { return $('[data-decide="reject"][data-prop="M-ORION"]'); },
@@ -1002,7 +1014,7 @@
       $("#tour-progress").innerHTML = bars;
       $("#tour-next").hidden = !st.passive; $("#tour-skip").hidden = !!st.passive;
       this.el.hidden = false; this.el.dataset.side = st.side;
-      try { t.scrollIntoView({ block: "center", behavior: "smooth", inline: "nearest" }); } catch (e) {}
+      try { t.scrollIntoView({ block: "nearest", behavior: "smooth", inline: "nearest" }); } catch (e) {}
       this.reposition();
       setTimeout(function () { self.reposition(); }, 320);
       setTimeout(function () { self.reposition(); }, 720);
