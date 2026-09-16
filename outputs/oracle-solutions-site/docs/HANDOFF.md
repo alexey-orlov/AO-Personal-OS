@@ -6,7 +6,7 @@ Written 2026-09-16 by the build session on Alex's Mac. Everything a new session 
 
 - Served root: `outputs/oracle-solutions-site/site/` — static, no build step, hash-routed SPA (`index.html`, `assets/site.css`, `assets/app.js`, `assets/forms.js`, `pages/*.js`, `data/content.js`, `data/config.js`, `data/diagrams.js`, `assets/img/**`).
 - Live preview (private, owned by Alex): https://claude.ai/code/artifact/41e4f3b6-47d9-4ef2-af99-99c40c02b89b — last published as version 16 (round 4 plus canonical technology facets, 2026-09-16).
-- Pages: Overview (home), Products (facet rail + tiles), 7 product pages (Overview · Technology · Jumpstart · Contacts · For sellers), Services (practice + contact).
+- Pages: **Home — seven screens** (hero with the built-on stack visual + proof strip · two ways in · products by workflow pattern · how we deliver · case studies · about SoftServe · contact; rebuilt in round 5, `PROVENANCE.md` §18, `VISUAL-GRAMMAR.md` §9), Products (facet rail + tiles), 7 product pages (Overview · Technology · Jumpstart · Contacts · For sellers), Services (practice + contact).
 - Checker: `node tools/check-grammar.js` (run from `outputs/oracle-solutions-site/`) asserts the content contract; it must print `OK` before any publish.
 
 ## 2. What lives where (and what does not exist on other machines)
@@ -46,7 +46,9 @@ Publish (updates the same URL): create a wrapper copy of `site/index.html` with 
 
 Done 2026-09-16: `facets.technology` is the canonical four — `oci-nvidia` "OCI + NVIDIA", `oracle-ai-data-platform` "Oracle AI Data Platform", `oracle-ai-lakehouse` "Oracle Autonomous AI Lakehouse", `oracle-ai-fusion` "Oracle AI for Fusion Applications" (the `Other` catch-all is retired); the Products rail (All 7 · 5 · 0 · 2 · 0, zero-count options listed and disabled, `?tech=<id>` rendering `emptyState`), the hero chip, the tile image-band, the home grid and the Services platform cards all render that label verbatim, engine detail (AI-Q, cuOpt, Select AI) stays in `technology.stack`, each facet has a glyph in `shared.tagFamilies.tech.icons` under the tooltip "Runs on", and `tools/check-grammar.js` fails on any drift — contract and naming rationale in `docs/SCHEMA.md`, `docs/VISUAL-GRAMMAR.md`, `docs/CONFIG.md` and `docs/PROVENANCE.md` §17.7.
 
-## 6. Task 1 — Home page rebuild (creative decisions, made by Fable)
+## 6. Task 1 — Home page rebuild (creative decisions, made by Fable) — (DONE 2026-09-16 — see PROVENANCE §18)
+
+**The plan below is kept as written**, because it is the reasoning the build was judged against, not a to-do list. Where the build deviated from it — *ready-to-run*, the duration stat, four S2 bullets, the method line and the NDA line, the partner strip, the H1 scale, the two ladder vocabularies — `PROVENANCE.md` §18.0 records each deviation and the reason for it. The data model that shipped is in `SCHEMA.md` §`overview`; §6.4's execution split is history now.
 
 ### 6.1 Positioning and naming
 
@@ -120,3 +122,28 @@ Do, in order:
 
 Rules in §3 are non-negotiable. Commit with conventional messages and push when done (no autosync here).
 ```
+
+---
+
+## 9. Runtime note — Node is not on PATH on this Mac
+
+`node` is not installed on the PATH here, so `node tools/check-grammar.js` and
+`node --check` fail with *command not found* until you point at a bundled
+binary. Two work:
+
+- **Codex's bundled Node (v24), the simple one:**
+  `/Applications/Codex.app/Contents/Resources/cua_node/bin/node`. Symlink it
+  into a scratch `bin/` and prepend that to `PATH` for the session, and every
+  command in this file works verbatim.
+- **VS Code's Electron**, run as Node: `ELECTRON_RUN_AS_NODE=1` before the
+  Electron binary. Fine for the checker, which is plain CommonJS with no
+  dependencies.
+
+**Do not use the Claude desktop app's bundled binary for this.** It ignores
+`ELECTRON_RUN_AS_NODE` and launches a second GUI instance of the app instead of
+executing the script — a visible, confusing failure rather than an error
+message.
+
+Nothing needs to be installed: the site has no build step, and the checker has
+no dependencies. If a real Node lands on this machine later, delete this note
+rather than keeping two procedures.

@@ -150,9 +150,9 @@ svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width:
 .map-head h2 { font-size: 14px; display: flex; align-items: baseline; gap: 8px; }
 .map-head h2 span { font-weight: 400; color: var(--muted); font-size: 12.5px; }
 .map-head .map-tools { display: flex; gap: 4px; }
-.map-wrap { position: relative; height: 400px; overflow: hidden; background: var(--land); }
-.maps.is-compare .map-wrap { height: 360px; }
-.map-wrap svg.map { width: 100%; height: 100%; display: block; stroke: none; }
+.map-wrap { position: relative; height: 420px; overflow: hidden; background: var(--land); }
+.maps.is-compare .map-wrap { height: 300px; }
+.map-wrap svg.map { width: 100%; height: 100%; display: block; stroke: none; overflow: visible; }
 .map-wrap .zoom { position: absolute; left: 12px; top: 12px; display: flex; flex-direction: column; border: 1px solid var(--line-2); border-radius: 6px; overflow: hidden; background: var(--card); z-index: 3; }
 .map-wrap .zoom button { border: 0; background: transparent; width: 28px; height: 28px; cursor: pointer; font-size: 16px; line-height: 1; color: var(--text-2); }
 .map-wrap .zoom button + button { border-top: 1px solid var(--line); }
@@ -179,7 +179,7 @@ svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width:
 .map .road { fill: none; stroke: #D3D9E2; stroke-width: 4; }
 .map .road-in { fill: none; stroke: #FBFCFD; stroke-width: 1.5; }
 .map .place { font-size: 10px; fill: #8B95A5; font-family: var(--font); letter-spacing: .04em; }
-.map .zlabel { font-size: 11.5px; font-weight: 600; fill: #1F2937; font-family: var(--font); pointer-events: none; }
+.map .zlabel { font-size: 11.5px; font-weight: 600; fill: #1F2937; font-family: var(--font); pointer-events: none; paint-order: stroke; stroke: rgba(255, 255, 255, .85); stroke-width: 3px; stroke-linejoin: round; }
 .map .zpill rect { fill: #fff; stroke: #E4E8EF; stroke-width: 1; rx: 10; filter: drop-shadow(0 1px 2px rgba(15, 23, 42, .12)); }
 .map .zpill text { font-size: 10.5px; font-weight: 600; fill: #334155; font-family: var(--font); }
 .map .zpill .k { fill: var(--primary); }
@@ -252,9 +252,9 @@ svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width:
 .pager .btn { padding: 4px 10px; font-size: 15px; line-height: 1; }
 .grid { width: 100%; border-collapse: collapse; table-layout: fixed; }
 .grid th { text-align: center; padding: 10px 6px; border-bottom: 1px solid var(--line); border-right: 1px solid var(--line); font-weight: 500; font-size: 11px; color: var(--muted); letter-spacing: .06em; text-transform: uppercase; vertical-align: top; }
-.grid th b { display: block; font-size: 16px; color: var(--text); font-weight: 600; margin-top: 2px; letter-spacing: 0; }
+.grid th > b { display: block; font-size: 16px; color: var(--text); font-weight: 600; margin-top: 2px; letter-spacing: 0; }
 .grid th.first { text-align: left; width: 232px; padding: 10px 14px; }
-.grid th.first b { font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--text-2); margin: 0 0 4px; }
+.grid th.first > b { font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--text-2); margin: 0 0 4px; }
 .grid th.first .kpi-line { display: block; text-transform: none; letter-spacing: 0; font-size: 12px; color: var(--text-2); margin-top: 3px; font-weight: 500; }
 .grid th.first .kpi-line svg { width: 12px; height: 12px; vertical-align: -2px; margin-right: 3px; }
 .grid th.dec { width: 214px; text-align: left; padding-left: 14px; }

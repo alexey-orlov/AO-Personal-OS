@@ -141,8 +141,8 @@
   function pillW(s) { return Math.round(s.length * 6.3 + 22); }
   function mapSvg(card, pk) {
     var A = alloc(pk), m = D.map, fz = S.filters.zones, ft = S.filters.techs, sel = S.sel[card];
-    var s = '<svg class="map" viewBox="0 0 ' + m.w + " " + m.h + '" preserveAspectRatio="xMidYMid slice" aria-label="Schematic map of the region">';
-    s += '<rect x="-100" y="-100" width="1200" height="620" fill="#F6F7F9"/>';
+    var s = '<svg class="map" viewBox="0 0 ' + m.w + " " + m.h + '" preserveAspectRatio="xMidYMid meet" aria-label="Schematic map of the region">';
+    s += '<rect x="-400" y="-200" width="1800" height="700" fill="#F6F7F9"/>';
     s += '<polygon class="sea" points="' + m.sea.map(function (p) { return p.join(","); }).join(" ") + '"/>';
     /* zones */
     D.zones.forEach(function (z) {
@@ -154,7 +154,7 @@
     s += '<path class="river" d="' + m.river + '"/><path class="river-in" d="' + m.river + '"/>';
     m.roads.forEach(function (r) { s += '<line class="road" x1="' + r[0][0] + '" y1="' + r[0][1] + '" x2="' + r[1][0] + '" y2="' + r[1][1] + '"/><line class="road-in" x1="' + r[0][0] + '" y1="' + r[0][1] + '" x2="' + r[1][0] + '" y2="' + r[1][1] + '"/>'; });
     s += '<ellipse class="road" cx="' + m.ring.cx + '" cy="' + m.ring.cy + '" rx="' + m.ring.rx + '" ry="' + m.ring.ry + '"/><ellipse class="road-in" cx="' + m.ring.cx + '" cy="' + m.ring.cy + '" rx="' + m.ring.rx + '" ry="' + m.ring.ry + '"/>';
-    s += '<text class="place" x="655" y="345" text-anchor="middle">HARBOUR</text>';
+    s += '<text class="place" x="' + m.harbourLabel[0] + '" y="' + m.harbourLabel[1] + '" text-anchor="middle">HARBOUR</text>';
     /* routes for the selected technician */
     var selTech = sel && sel.kind === "tech" ? sel.id : null;
     var routeFor = function (tid) { var t = TI[tid]; techZones(pk, tid).forEach(function (e) { var z = ZI[e.zone]; s += '<line class="route ' + (e.kind === "default" || e.kind === "pinned" || e.kind === "backfill" || e.kind === "off" ? "" : e.kind) + '" x1="' + t.home[0] + '" y1="' + t.home[1] + '" x2="' + z.c[0] + '" y2="' + z.c[1] + '"/>'; }); };
@@ -388,6 +388,7 @@
     if (!S.pickedFile) return;
     if (!S.pickedFile.main) { toast("This walkthrough follows one prepared period — pick the Harborview file for 5 Oct."); return; }
     picker.hidden = true; setRunFile(S.pickedFile);
+    tour.after("open");
   }
   pickerList.addEventListener("click", function (e) { var li = e.target.closest("li[data-file]"); if (li) selectFile(+li.dataset.file); });
   $("#picker-cancel").addEventListener("click", function () { picker.hidden = true; });
@@ -553,8 +554,9 @@
   /* ---------------- tour ---------------- */
   var STEPS = [
     { id: "run", major: 1, side: "bottom", title: "Run the optimization", body: "The dashboard shows today's allocation from the field-service system. Click Run optimization to plan the next four weeks.", target: function () { return $("#btn-run"); }, auto: openRun },
-    { id: "file", major: 1, side: "top", title: "Attach the period's file", body: "Region and period are set. The technicians, skills, calendars, zones and booked visits come in one XLSX — click the file field and choose the prepared one. Nothing is really uploaded.", target: function () { return $("#run-file"); }, anchor: function () { return $("#run-file"); }, auto: function () { openPicker(); } },
-    { id: "pick", major: 1, side: "right", title: "Choose the Harborview file", body: "Pick the highlighted file.", target: function () { return $("#picker-list li.is-main"); }, auto: function () { selectFile(0); openFile(); } },
+    { id: "file", major: 1, side: "right", title: "Attach the period's file", body: "Region and period are set. The technicians, skills, calendars, zones and booked visits come in one XLSX — click the file field and choose the prepared one. Nothing is really uploaded.", target: function () { return $("#run-file"); }, anchor: function () { return $("#run-file"); }, auto: function () { openPicker(); } },
+    { id: "pick", major: 1, side: "right", title: "Choose the Harborview file", body: "Pick the highlighted file.", target: function () { return $("#picker-list li.is-main"); }, auto: function () { selectFile(0); } },
+    { id: "open", major: 1, side: "top", title: "Open it", body: "The file is attached to the run.", target: function () { return $("#picker-open"); }, auto: openFile },
     { id: "optimize", major: 1, side: "top", title: "Optimize", body: "The input is validated, the travel matrix and the rules are loaded, the GPU solver places every visit, and the KPIs are computed before and after — watch the stages.", target: function () { return $("#run-go"); }, auto: startProcessing },
     { id: "zone", major: 2, side: "left", title: "Read the plan on the map", body: "Every zone shows its technicians and booked visits; dashed outlines mark zones the solver changed. Click Old Harbour (HV-11) to open its details.", target: function () { return $('.mapcard[data-card="opt"] .zone[data-zone="HV-11"]'); }, auto: function () { selectZone("opt", "HV-11"); } },
     { id: "compare", major: 3, side: "bottom", title: "Compare with today's plan", body: "Details list each technician with visits and days, the non-movable appointments the solver kept, and why every change was made. Now switch to Compare.", target: function () { return $('#plan-seg [data-plan="compare"]'); }, auto: function () { setView("compare"); } },
