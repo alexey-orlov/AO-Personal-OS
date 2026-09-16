@@ -63,7 +63,7 @@ if (process.env.MODE === "frames") {
   // Clean product frames for the site's stepper (tour off): 1 upload+classify · 2 extract · 3 score/cite/validate · 4 review+export
   await click("#dropzone"); await sleep(300); await click("#picker-list li.is-main"); await sleep(200); await click("#picker-open"); await sleep(2600); await shot("frame-1");
   await sleep(4200); await click("#doc-table tr.is-new"); await sleep(500); await click('.group[data-group="cleaning"] .group-head'); await sleep(500); await shot("frame-2");
-  await click('[data-cite="cleaning:0"]'); await sleep(700); await click("#details .act-approve"); await sleep(300);
+  await click('[data-cite="msa:cleaning:0"]'); await sleep(700); await click("#details .act-approve"); await sleep(300);
   await click('.group[data-group="cleaning"] .group-head'); await sleep(200);
   await click('.group[data-group="discount"] .group-head'); await sleep(300); await click('.group[data-group="discount"] tr.has-flag'); await sleep(900); await shot("frame-3");
   await click("#details .act-fix"); await sleep(300); await click("#approve-all"); await sleep(3400); await click('.tab[data-tab="ratecard"]'); await sleep(600); await shot("frame-4");
@@ -80,7 +80,7 @@ const scenes = {
   async documents() { await sleep(4500); await shot("05-documents"); },
   async review() { await click("#doc-table tr.is-new"); await sleep(600); await shot("06-review"); },
   async expand() { await click('.group[data-group="cleaning"] .group-head'); await sleep(500); await shot("07-review-expanded"); },
-  async cite() { await click('[data-cite="cleaning:0"]'); await sleep(900); await shot("08-cite-details"); },
+  async cite() { await click('[data-cite="msa:cleaning:0"]'); await sleep(900); await shot("08-cite-details"); },
   async approve_row() { await click("#details .act-approve"); await sleep(500); await shot("09-approved-row"); },
   async flag() { await click('.group[data-group="discount"] .group-head'); await sleep(400); await click('.group[data-group="discount"] tr.has-flag'); await sleep(600); await shot("10-flag-details"); },
   async fix() { await click("#details .act-fix"); await sleep(500); await shot("11-fixed"); },

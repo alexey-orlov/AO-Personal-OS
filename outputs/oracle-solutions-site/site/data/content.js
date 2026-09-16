@@ -227,7 +227,7 @@ window.SITE_CONTENT = {
         { label: "Browse the products", route: "#/products", kind: "secondary" }
       ],
       stats: [
-        { value: "7", label: "applications on the Oracle stack — three packaged today, two sellable as a fixed-price offer, two in preparation" },
+        { value: "7", label: "packaged applications on the Oracle stack, each sold as a scoped proof of value on your own data" },
         { value: "4", label: "Oracle platforms the practice focuses on" },
         { value: "30 days–3 months", label: "from kickoff to a measured proof of value on your own data" },
         { value: "30", label: "Fortune 500 clients in SoftServe’s data and analytics practice" }
@@ -253,7 +253,7 @@ window.SITE_CONTENT = {
     caseStudiesIntro: {
       title: "CASE STUDIES",
       body: "Four engagements behind these applications. Two have been through a completed proof of value and carry measured figures; two are under way and carry the outcomes they are set up to measure. Every customer is under NDA, so each one is described by industry and scale.",
-      cta: { label: "How we measure it, and what is still in preparation", route: "#/services#proof" }
+      cta: { label: "How we measure it, and what each engagement proved", route: "#/services#proof" }
     },
 
     caseStudies: [
@@ -2075,7 +2075,7 @@ window.SITE_CONTENT = {
           { value: null, label: "Questions served without a data engineer", qualifier: "The share that stops becoming a report request", icon: "users" },
           { value: null, label: "One decision domain, end to end", qualifier: "Certified views with sensitive fields masked by role", icon: "shield" }
         ],
-        metricsNote: "No customer metrics published yet — this is a new fixed-price offer. What the readout measures, against a baseline signed before the clock starts: time-to-answer versus today, and the share of questions served without a data engineer.",
+        metricsNote: "No customer metrics published yet — this offer is new. What the readout measures, against a baseline signed before the clock starts: time-to-answer versus today, and the share of questions served without a data engineer.",
         roi: {
           icon: "roi",
           text: "The cost being removed is the report request: the analyst hours, the queue, and the decision that waited on both. One decision domain, end to end — narrow enough to finish, real enough to matter."
