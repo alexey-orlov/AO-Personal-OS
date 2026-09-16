@@ -55,7 +55,8 @@
     sliders: '<svg viewBox="0 0 24 24"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></svg>',
     expand: '<svg viewBox="0 0 24 24"><path d="M9 4H4v5M15 4h5v5M9 20H4v-5M15 20h5v-5"/></svg>',
     shrink: '<svg viewBox="0 0 24 24"><path d="M9 4v5H4M15 4v5h5M9 20v-5H4M15 20v-5h5"/></svg>',
-    funnel: '<svg viewBox="0 0 24 24"><path d="M4 5h16l-6 7v6l-4 2v-8Z"/></svg>'
+    funnel: '<svg viewBox="0 0 24 24"><path d="M4 5h16l-6 7v6l-4 2v-8Z"/></svg>',
+    anchor: '<svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="2.2"/><path d="M12 7.2V21M5 13a7 7 0 0 0 14 0M8 10H16"/></svg>'
   };
 
   var SYS_ENTITY = { "NG-EU": "FUSION", "NG-NA": "JDE", "NG-SV": "NETSUITE", GROUP: "CRM" };
@@ -510,7 +511,7 @@
       var key = rowKey(row, i), isOrion = /^Orion/i.test(row.supplier || row.goldenName || "");
       return "<tr" + (row.status === "review" ? ' class="is-review"' : "") + ' data-row="' + esc(key) + '"' + (isOrion ? ' data-orion="1"' : "") + ">" +
         (hasBadgeCol ? "" : '<td class="sysc">' + rowSystems(row, a).map(sysBadge).join("") + "</td>") +
-        a.columns.map(function (c) { return '<td class="' + (c.align === "right" ? "r " : "") + (c.kind === "badges" || c.kind === "badge" ? "sysc" : "") + '">' + cell(row, c) + "</td>"; }).join("") +
+        a.columns.map(function (c) { return '<td class="' + (c.align === "right" ? "r " : "") + (c.kind === "badges" || c.kind === "badge" ? "sysc" : c.kind === "line" || c.key === "line" || c.key === "group" ? "nw" : "") + '">' + cell(row, c) + "</td>"; }).join("") +
         '<td><button class="rowexp" type="button" data-explore="' + esc(key) + '" title="Explore this row" aria-label="Explore this row"' + (isOrion ? ' data-orion-btn="1"' : "") + ">" + ICON.search + "</button></td></tr>";
     }).join("");
     var grid = a.blocked
@@ -931,7 +932,7 @@
     return '<div class="lin-card' + (open ? " is-open" : "") + (c.anchor ? " is-anchor" : "") + '" data-lin="' + esc(c.id) + '">' +
       (stageIdx > 0 ? '<button class="lin-edge lin-edge--l" type="button" data-linside="up" aria-label="Collapse upstream">&minus;</button>' : '<button class="lin-edge lin-edge--l lin-edge--plus" type="button" data-linside="up" aria-label="Expand upstream">+</button>') +
       (lastStage ? '<button class="lin-edge lin-edge--r lin-edge--plus" type="button" data-linside="down" aria-label="Expand downstream">+</button>' : '<button class="lin-edge lin-edge--r" type="button" data-linside="down" aria-label="Collapse downstream">&minus;</button>') +
-      (c.anchor ? '<span class="lin-anchor" title="Anchor">&#9875;</span>' : "") +
+      (c.anchor ? '<span class="lin-anchor" title="Anchor">' + ICON.anchor + "</span>" : "") +
       '<button class="lin-head" type="button" data-lindet="' + esc(c.id) + '"><span class="lin-ico lin-ico--' + esc(c.tone) + '">' + (c.kind === "task" ? ICON.route : ICON.grid) + "</span>" +
       '<span class="lin-nm">' + esc(c.name) + "</span></button>" +
       '<div class="lin-meta"><span class="lin-type">' + esc(c.type) + '</span><i>|</i>' + toneChip(c) + "</div>" +
