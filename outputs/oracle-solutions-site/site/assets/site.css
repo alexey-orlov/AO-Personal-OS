@@ -2292,6 +2292,58 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 .family-row { gap: .625rem; }
 .layer-table--duo .layer-row { grid-template-columns: minmax(0, 1fr) auto; align-items: baseline; }
 
+/* ——— services: how we measure it ————————————————————— */
+
+/* The method, not the outcomes: the discipline reads at body size and the one
+   accuracy figure is a labelled stat beside it, rather than both being buried
+   in a footnote under a repeat of the home page's case-study grid. */
+.method-split {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+  gap: var(--gap);
+  align-items: start;
+  margin-top: 1.75rem;
+}
+
+.method-lead { max-width: 46rem; }
+
+.method-stat {
+  border-left: 2px solid var(--accent);
+  padding: .125rem 0 .125rem 1.25rem;
+}
+
+.method-stat-value {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: clamp(1.75rem, 3vw, 2.25rem);
+  line-height: 1;
+  letter-spacing: -.02em;
+  color: var(--accent);
+}
+
+.method-stat-label { margin-top: .5rem; font-size: var(--fs-xs); line-height: 1.55; color: var(--text-note); }
+
+.method-panel { margin-top: 2.5rem; }
+
+.method-list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--gap);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.method-item { display: flex; flex-direction: column; gap: .5rem; }
+.method-descriptor { font-family: var(--font-body); font-size: var(--fs-sm); font-weight: 700; line-height: 1.35; color: var(--text); }
+.method-line { font-size: var(--fs-sm); line-height: 1.65; color: var(--text-body); }
+.method-link { margin-top: auto; padding-top: .25rem; }
+
+@media (max-width: 900px) {
+  .method-split { grid-template-columns: 1fr; }
+  .method-list { grid-template-columns: 1fr; }
+}
+
 /* ——— services: engagement ladder ————————————————————— */
 
 .ladder-step { padding-top: 1.25rem; }
@@ -2476,11 +2528,11 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
   .form-trap { display: none !important; }
 
   .h1, .h2, .h3, .h4, .ptile-title, .tier-title, .case-descriptor, .plat-name,
-  .stat-value, .invest-value, .case-figure-value { color: #111; }
+  .stat-value, .invest-value, .case-figure-value, .method-stat-value { color: #111; }
 
   .lead, .body-text, .small, .footnote, .def-body, .tier-scope, .case-card-line,
   .plat-body, .layer-band-body, .stat-label, .case-figure-label, .case-area,
-  .ptile-desc, .case-text, .pillar-text { color: #333; }
+  .ptile-desc, .case-text, .pillar-text, .method-line, .method-stat-label { color: #333; }
 
   .accent, .eyebrow--accent, .layer-band--lead .layer-band-label { color: #0B6E63; }
 
