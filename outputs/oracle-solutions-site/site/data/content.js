@@ -2643,6 +2643,7 @@ window.SITE_CONTENT = {
         { band: "PLATFORM LAYER · AI platform products", body: "The data, database, application and infrastructure products every SoftServe app is built on." }
       ],
       familiesTitle: "APPLICATION FAMILIES WE PACKAGE",
+      familyTooltip: "Application family",
       families: [
         "Enterprise knowledge assistants",
         "Real-time human augmentation",

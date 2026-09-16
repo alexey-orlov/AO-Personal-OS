@@ -97,8 +97,19 @@
     var UI = window.UI;
     var w = content.services.whatWeDo;
 
+    /* Outlined, not the solid navy pill: the navy pill is the technology family
+       (T1, "Runs on"), and an application family is the closer relative of the
+       workflow-pattern chip. The tooltip names the family, as it does on the
+       product pages. */
+    var tip = w.familyTooltip;
     var families = '<div class="chip-row family-row">' + w.families.map(function (family) {
-      return UI.chip({ label: family });
+      return UI.chip({
+        label: family,
+        kind: "outline",
+        className: "chip--tag",
+        title: tip,
+        attrs: { "aria-label": family + " — " + tip }
+      });
     }).join("") + "</div>";
 
     var stack = '<div class="layer-table layer-table--duo">' + w.solutionStack.layers.map(function (layer) {
@@ -236,23 +247,51 @@
 
   /* ————— proof ————— */
 
-  /* The same four case-study cards the home page renders, from the same four
-     objects, with the measurement method as one paragraph beneath them. */
+  /* Services carries the method, not the outcomes: the same engagements the
+     home page tells as case studies are compressed here to one line each —
+     what is measured and against what — with the figures left on the Overview
+     cards the closing link points back to. */
   function proof(content) {
     var UI = window.UI;
     var block = content.services.proof;
-    var items = (block.caseStudyIds || []).map(UI.caseStudyById).filter(Boolean);
 
-    var body = items.length
-      ? '<div class="case-grid">' + items.map(UI.caseCard).join("") + "</div>"
-      : UI.empty(content.overview.caseStudiesIntro.body);
+    var lines = (block.engagements || []).map(function (item) {
+      return '<li class="method-item">' +
+        '<p class="method-descriptor">' + UI.esc(item.descriptor) + "</p>" +
+        '<p class="method-line">' + UI.esc(item.line) + "</p>" +
+        (item.product
+          ? '<p class="method-link">' + UI.linkArrow({
+              label: item.product.name, href: "#/products/" + item.product.slug
+            }) + "</p>"
+          : "") +
+        "</li>";
+    }).join("");
+
+    var stat = block.stat
+      ? '<div class="method-stat">' +
+          '<p class="method-stat-value nums">' + UI.esc(block.stat.value) + "</p>" +
+          '<p class="method-stat-label">' + UI.esc(block.stat.label) + "</p>" +
+        "</div>"
+      : "";
 
     return '<section class="section" id="proof"><div class="wrap">' +
       divider(block.dividerLabel, block.title) +
       '<div class="section-head services-head"><h2 class="h2">' + UI.esc(block.title) + "</h2></div>" +
-      body +
-      (block.methodNote
-        ? '<p class="footnote case-method-note">' + UI.esc(block.methodNote) + "</p>"
+      '<div class="method-split">' +
+        '<p class="body-text method-lead">' + UI.esc(block.lead) + "</p>" +
+        stat +
+      "</div>" +
+      (lines
+        ? '<section class="panel reveal method-panel">' +
+            blockHead(block.engagementsTitle) +
+            '<ul class="method-list">' + lines + "</ul>" +
+          "</section>"
+        : "") +
+      (block.cta
+        ? '<p class="panel-link">' + UI.linkArrow({ label: block.cta.label, href: block.cta.route }) + "</p>"
+        : "") +
+      (block.footnote
+        ? '<p class="footnote case-method-note">' + UI.esc(block.footnote) + "</p>"
         : "") +
       "</div></section>";
   }
