@@ -735,9 +735,10 @@
     var a = D.recordById[m.records[0]], b = D.recordById[m.records[1]];
     var open = S.openProp === m.id;
     var isOrion = m.id === "M-ORION";
+    var pend = S.pending.filter(function (x) { return x.decision.id === m.id; })[0];
     var spendA = m.spend[0] ? m.spend[0].usd : 0, spendB = m.spend[1] ? m.spend[1].usd : 0;
     var suggested = isOrion ? "Different tax ids — two companies" : "";
-    return '<div class="prop' + (open ? " is-open" : "") + '" data-prop="' + esc(m.id) + '"' + (isOrion ? ' data-orion="1"' : "") + ">" +
+    return '<div class="prop' + (open ? " is-open" : "") + (pend ? " is-decided" : "") + '" data-prop="' + esc(m.id) + '"' + (isOrion ? ' data-orion="1"' : "") + ">" +
       '<button class="prop-head" type="button" data-openprop="' + esc(m.id) + '" aria-expanded="' + open + '">' +
       '<span class="rec"><span class="nm">' + esc(a.name) + '</span><span class="meta">' + sysBadge(a.sys) + "<code>" + esc(a.sysId) + "</code> &middot; " + esc(a.city) + "</span></span>" +
       '<span class="prop-vs">vs</span>' +
@@ -745,6 +746,9 @@
       '<span class="prop-score"><b>' + m.score.toFixed(2) + "</b><span>score</span></span>" +
       '<span class="prop-spend">USD ' + money(spendA, 0) + "<br>USD " + money(spendB, 0) + "</span>" +
       '<span class="prop-chev">' + ICON.chev + "</span></button>" +
+      (pend ? '<div class="prop-dec"><span class="stat stat--' + (pend.decision.action === "reject" ? "open" : "auto") + '">' + esc(pend.decision.action === "reject" ? "rejected" : "confirmed") + "</span>" +
+        "<span>" + esc(pend.decision.by) + " &middot; &ldquo;" + esc(pend.decision.reason) + "&rdquo;</span>" +
+        '<span class="pd-wait">waiting for the next resolution run</span></div>' : "") +
       '<div class="prop-body">' +
       '<div class="side2">' + [a, b].map(function (r) {
         return '<div class="card2"><div class="hd">' + sysBadge(r.sys) + "<b>" + esc(r.name) + "</b></div>" +
@@ -760,7 +764,10 @@
         return '<span class="evc ' + (c.hit === true ? "evc--y" : c.hit === false ? "evc--n" : "evc--o") + '">' + esc(c.t) + "</span>";
       }).join("") + '<span class="evc evc--o">score ' + m.score.toFixed(2) + "</span><span class=\"evc evc--o\">" + esc(m.basis) + "</span></div>" +
       '<div class="prop-note">' + esc(m.note) + (m.score >= D.provThreshold ? " Applied provisionally at " + m.score.toFixed(2) + " (threshold " + D.provThreshold.toFixed(2) + "), so reporting is not blocked while it waits for you." : " Below the " + D.provThreshold.toFixed(2) + " threshold, so the records stay apart until you decide.") + "</div>" +
-      '<div class="prop-acts">' +
+      (pend ? '<div class="rule-line">' + ICON.check + "<span>Decision recorded under " + esc(pend.decision.by) + "." +
+        (pend.decision.rule ? " Rule kept for the next run: &ldquo;" + esc(pend.decision.rule) + "&rdquo;." : "") +
+        " Re-run the resolution to apply it to the model.</span></div>" : "") +
+      '<div class="prop-acts"' + (pend ? ' hidden' : "") + ">" +
       '<input type="text" id="reason-' + esc(m.id) + '" placeholder="Why? (kept with the decision)" value="' + esc(suggested) + '" aria-label="Reason for the decision">' +
       '<button class="btn" type="button" data-decide="confirm" data-prop="' + esc(m.id) + '">' + ICON.check + "Confirm</button>" +
       '<button class="btn" type="button" data-decide="reject" data-prop="' + esc(m.id) + '">' + ICON.x + "Reject</button>" +

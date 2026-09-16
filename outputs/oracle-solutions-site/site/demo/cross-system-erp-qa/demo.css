@@ -641,3 +641,8 @@ tr.tour-target { box-shadow: none !important; animation: none; }
 .statlist .v--ok { color: var(--wb-green); }
 .statlist .v--warn { color: #8a5a12; }
 .statlist .v--bad { color: var(--wb-red); }
+
+/* a proposal the steward has decided, waiting for the next resolution run */
+.prop.is-decided { border-color: #c9c4bb; background: #fbfaf8; }
+.prop-dec { display: flex; align-items: center; gap: 9px; flex-wrap: wrap; padding: 7px 14px; border-top: 1px solid var(--rw-line); background: #f3f1ee; font-size: 11.5px; color: var(--rw-txt-2); }
+.prop-dec .pd-wait { margin-left: auto; color: var(--rw-warn); font-weight: 600; }
