@@ -116,14 +116,16 @@ Round 4, C2. The home page's case-study screen renders **one card per engagement
 | `descriptor` | string | The **anonymized customer descriptor** — industry and scale only, e.g. *"A global home-appliance manufacturer"*. Must equal the matching product's `overview.caseStudy.descriptor`. |
 | `area` | string | The operational area, e.g. *"Ground-handling contract management"*. Must equal the product's `overview.caseStudy.area`. |
 | `industry` | string | One of the sixteen fixed industry keys. Drives the **medallion** icon (`industry-<key>`) that sits where a logo used to. Must equal the product's `overview.caseStudy.industry`. |
-| `status` | `"measured"` \| `"in-progress"` | Drives the status chip, whose label comes from `shared.caseStudyStatus`. Must equal the product's. |
-| `metricEyebrow` | string | `Measured` when `status` is `measured`, `Target outcomes` when it is `in-progress`. The checker asserts the pairing: a target labelled *Measured* is the one failure that would matter. |
-| `metric` | `{ value, label }` | **One** headline figure — the first of the product page's two. `value` is ≤ 18 characters and may be a short qualitative phrase (*"Hours, not weeks"*) where no figure is published. |
+| `status` | `"measured"` \| `"modeled"` \| `"in-preparation"` | Drives the status chip, whose label comes from `shared.caseStudyStatus`. Must equal the product's. |
+| `metricEyebrow` | string | `Measured` / `Modeled` / `Target outcomes`, one per status. The checker asserts the pairing: a target labelled *Measured*, or a simulation labelled *Measured* over a story that calls it modeled, is the one failure that would matter. |
+| `metric` | `{ value, label }` | **One** headline figure — the product page's leading one. `value` is ≤ 20 characters and may be a short qualitative **outcome statement** (*"Hours, not quarters"*) where no figure is published; never a restatement of what the product does. |
 | `line` | string | One sentence: what was done. |
-| `footnote` | string | **Mandatory.** The caveat that travels with the figure — rule 1. On an in-progress card it also says the figure is a target, not a result. |
+| `footnote` | string | **Mandatory.** The caveat that travels with the figure — rule 1. On an in-preparation card it says the figure is a target, not a result, and it **drops the "figures are illustrative" clause** where the headline value carries no number: a card must not disclaim figures it does not show. The checker fails that mismatch. |
 | `product` | `{ slug, name }` | Links to the product page. `name` must equal `products[slug].name`, and that product's `overview.caseStudy` must be non-null. |
 
-`customer`, `logo`, `logoStacked`, `band` and `label` are **removed**; `check-grammar.js` fails if any of them returns. The band 1 / band 2 split and the `PROOF OF VALUE` / `FIRST ENGAGEMENT` / `METHOD` labels went with them: the status chip carries that distinction now, in two states rather than three, and it is driven by data rather than by a hand-written label. The two `METHOD` cards were folded — the like-for-like measurement rule already lives in `workforce-optimization`'s `moreDetail`, and the accuracy-journey line survives as `services.proof.methodNote`, one paragraph under the four cards.
+`customer`, `logo`, `logoStacked`, `band` and `label` are **removed**; `check-grammar.js` fails if any of them returns. The band 1 / band 2 split and the `PROOF OF VALUE` / `FIRST ENGAGEMENT` / `METHOD` labels went with them: the status chip carries that distinction now, driven by data rather than by a hand-written label. The two `METHOD` cards were folded — the like-for-like measurement rule lives in `workforce-optimization`'s `moreDetail` and, as the lead of the Services proof block, in `services.proof.lead`.
+
+**A card renders only where the engagement it describes has actually started.** An engagement still pre-contract carries no card and no `overview.caseStudy`: the product's `statusNote` and its *What the proof of value measures* block already tell that state honestly, and a status chip is not the place to soften it.
 
 ---
 
