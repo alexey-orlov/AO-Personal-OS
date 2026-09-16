@@ -110,8 +110,8 @@ productOrder: [
 
 One list drives every surface that shows more than one product:
 
-- **the home page's Products screen (S3)** — this array orders the **rows inside each pattern column**, after the products have been split by `category`; the column a product lands in is its `category`, the position it takes inside that column is this list (round 5);
-- **the home hero's stack visual** — the product chips under each of the three pattern tiles, in the same order;
+- **the home page's Products screen (S3)** — this array orders the **rows inside each category column**, after the products have been split by `category`; the column a product lands in is its `category`, the position it takes inside that column is this list (round 5);
+- **the home hero's stack visual** — the product chips under each of the three category tiles, in the same order;
 - the Products page tiles and the facet-rail counts;
 - the "Which product?" select in both forms.
 
