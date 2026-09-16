@@ -132,7 +132,7 @@
     var el = $("#plan-state"), k = optKey();
     if (!k) { el.innerHTML = '<span class="chip chip--muted">Current allocation · from the field-service system</span><span>No optimized plan for this period yet</span>'; return; }
     var K = kpis(k), B = kpis("cur"), acc = D.zones.filter(function (z) { return S.decisions[z.id].status === "accepted"; }).length, rej = D.zones.filter(function (z) { return S.decisions[z.id].status === "rejected"; }).length;
-    el.innerHTML = '<span class="chip chip--live">Plan ' + k + (k === "v2" ? " · with feedback" : " · optimized") + '</span><span><b>' + D.zones.length + "</b> zones · <b>" + D.techs.length + "</b> technicians · <b>" + K.jobs.toLocaleString("en-US") + "</b> visits placed (" + (K.jobs - B.jobs > 0 ? "+" : "") + (K.jobs - B.jobs) + ")</span><span>" + acc + " accepted · " + rej + " rejected · " + (D.zones.length - acc - rej) + " pending</span>";
+    el.innerHTML = '<span class="chip chip--live">Plan ' + k + (k === "v2" ? " · with feedback" : " · optimized") + '</span><span><b>' + D.zones.length + "</b> zones · <b>" + D.techs.length + "</b> technicians · <b>" + K.fleet.jobs.toLocaleString("en-US") + "</b> visits placed (" + (K.fleet.jobs - B.fleet.jobs > 0 ? "+" : "") + (K.fleet.jobs - B.fleet.jobs) + ")</span><span>" + acc + " accepted · " + rej + " rejected · " + (D.zones.length - acc - rej) + " pending</span>";
     $("#version-chip").textContent = "v1.0 · plan " + k;
   }
   $("#avatar").textContent = D.user.initials; $("#avatar").title = D.user.name + " · " + D.user.role;
@@ -415,7 +415,7 @@
     runStages(D.stages, function () {
       S.busy = false; S.ran = true; S.version = "v1"; resetDecisions(); S.exported = false; S.sent = false; S.sel = { cur: null, opt: null }; S.view = "opt"; S.week = 1;
       $$("#plan-seg button").forEach(function (b) { b.classList.toggle("is-active", b.dataset.plan === "opt"); });
-      log("Plan v1 optimized: " + D.region.name + ", " + D.period.label, D.zones.length + " zones · " + D.techs.length + " technicians · " + kpis("v1").jobs.toLocaleString("en-US") + " visits placed · 2 flags", "");
+      log("Plan v1 optimized: " + D.region.name + ", " + D.period.label, D.zones.length + " zones · " + D.techs.length + " technicians · " + kpis("v1").fleet.jobs.toLocaleString("en-US") + " visits placed · 2 flags", "");
       log("Input validated: " + S.runFile.name, "7 sheets · 1 warning (home location missing for 2 technicians)", "warn");
       runModal.hidden = true; hideWarn();
       renderAll();
@@ -657,7 +657,7 @@
     S.ran = true; S.version = version; resetDecisions();
     if (version === "v2") { S.decisions["HV-09"].status = "rejected"; S.decisions["HV-09"].comment = D.suggestedComment; S.decisions["HV-09"].status = "reproposed"; S.decisions["HV-10"].status = "reproposed"; }
     if (decided) D.zones.forEach(function (z) { if (!zoneFlag(version, z.id)) S.decisions[z.id].status = "accepted"; });
-    log("Plan v1 optimized: " + D.region.name + ", " + D.period.label, D.zones.length + " zones · " + D.techs.length + " technicians · " + kpis("v1").jobs.toLocaleString("en-US") + " visits placed · 2 flags", "");
+    log("Plan v1 optimized: " + D.region.name + ", " + D.period.label, D.zones.length + " zones · " + D.techs.length + " technicians · " + kpis("v1").fleet.jobs.toLocaleString("en-US") + " visits placed · 2 flags", "");
     if (version === "v2") log("Plan v2 re-optimized with feedback", "HV-09 Marsh End keeps its Wednesday coverage · 2 zones re-proposed · " + USER, "ok");
   }
   if (params.get("ui") === "clean") { $("#tour-toggle").hidden = true; } /* screenshot mode: product UI only */

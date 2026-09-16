@@ -200,7 +200,7 @@ marketplaceUrl: "https://cloudmarketplace.oracle.com/marketplace/en_US/listing/0
 Set `marketplace: true` and three things appear together, on the next reload:
 
 - the **Oracle Marketplace** badge (storefront icon) at the right end of the product hero's chip row,
-- the same badge top-right of that product's image band in the Products grid and the home grid,
+- the same badge top-right of that product's image band in the Products grid, and **inline beside the product name, scaled down, in the home page's catalog rows** (round 5 — those rows carry no image band),
 - the count beside the **On Oracle Marketplace** checkbox in the Products facet rail, which filters on this same boolean (`mp=1`). **Both availability checkboxes always render**, with their faceted counts, whatever the flags say: the rail's shape does not move under the reader between visits, and `demo=1` / `mp=1` are always honored. A box whose count is zero renders disabled rather than absent, the same way a zero-count radio option does.
 
 With `marketplaceUrl` set, the badge opens the listing in a new tab; without one it renders inert — the flag says the listing exists, and a link to nowhere would be worse than no link. There is **no separate hero button**: a second control pointing at the same URL as the badge is one control too many.
