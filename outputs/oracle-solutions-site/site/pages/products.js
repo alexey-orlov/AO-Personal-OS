@@ -103,7 +103,10 @@
      clears the group carries none. */
   function railOption(options) {
     var UI = window.UI;
-    var counted = typeof options.count === "number";
+    /* A count says what a click would return. Zero says what is not here, so
+       it renders no number — the one option that can reach zero is the active
+       one a saved link selected, and the grid's empty state speaks for it. */
+    var counted = typeof options.count === "number" && options.count > 0;
     var empty = options.count === 0 && !options.on;
     return '<button class="rail-option' + (empty ? " is-empty" : "") +
       '" type="button" role="radio" tabindex="' + (options.on ? "0" : "-1") + '"' +
