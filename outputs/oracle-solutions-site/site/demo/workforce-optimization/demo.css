@@ -224,8 +224,8 @@ svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width:
 .d-item.is-temp { border-style: dashed; border-color: var(--line-2); }
 .d-item-head { display: flex; align-items: center; gap: 8px; padding: 8px 10px; cursor: pointer; font-size: 12.5px; }
 .d-item-head:hover { background: #FAFBFD; }
-.d-item-head b { font-weight: 600; flex: 1; display: flex; align-items: center; gap: 6px; }
-.d-item-head .meta { color: var(--muted); font-size: 11.5px; white-space: nowrap; }
+.d-item-head b { font-weight: 600; flex: none; display: flex; align-items: center; gap: 6px; white-space: nowrap; }
+.d-item-head .meta { color: var(--muted); font-size: 11.5px; flex: 1; text-align: right; line-height: 1.3; }
 .d-item-head .chev { width: 14px; height: 14px; color: var(--muted); transition: transform .2s; }
 .d-item.is-open .d-item-head .chev { transform: rotate(90deg); }
 .d-item-body { display: none; border-top: 1px solid var(--line); padding: 6px 10px 8px; background: #FBFCFD; }
