@@ -47,7 +47,7 @@ window.SITE_CONTENT = {
 
 | Key | Type | Notes |
 |---|---|---|
-| `heading`, `description` | string | |
+| `heading`, `description` | string | `description` is **one sentence** — *"Tell us which account or workflow you have in mind."* It used to close with *"One scoping conversation starts it."*, which is the opening sentence of `overview.contact.sub` directly above it on the home page; the footer gave it up so the promise is made once, by S7 (§18.8 f). The footer is site-wide chrome: check what sits above it before lengthening this. |
 | `contactCta` | `{ label, route }` | A bordered button, **not** a mailto. No email address is printed on any page. |
 | `social` | `[{ label, url }]` | Four external links. |
 | `legalLinks` | `[{ label, url }]` | |
@@ -119,7 +119,7 @@ The home page. **Seven screens, one object each** — `VISUAL-GRAMMAR.md` §9 ow
 
 Round 4, C2. The home page's case-study screen renders **one card per engagement that has a case study** — four today — in the same compact anatomy as the full callout on the product page: industry medallion → descriptor → status chip → one metric with its eyebrow → one line → the link to the product. Services no longer repeats this grid; it carries the measurement method instead (`services.proof`). **No customer is named and no logo is rendered.**
 
-Since round 5 the four cards sit in a **2×2 grid beside the method rail** rather than in a full-width three-up row — two columns from 720 px, one below it, `grid-auto-rows: 1fr` so no card is shorter than its neighbour.
+Since round 5 the four cards sit in a **2×2 grid beside the intro rail** rather than in a full-width three-up row — two columns from 720 px, one below it, `grid-auto-rows: 1fr` so no card is shorter than its neighbour. (The rail carried the measurement method until §18.8; it is now head, NDA line and one link.)
 
 | Key | Type | Notes |
 |---|---|---|
@@ -299,7 +299,7 @@ No `notes` key. **Seller-facing commercial notes are not part of this file.** Th
 | `whatWeDo` | `{ title, lead, layering: [{ band, body }], familiesTitle, families: [string], familiesSuffix, solutionStack: { title, layers: [{ layer, providedBy }] }, whoYouWorkWith, whoDeliversIt, wrapAroundServices: { title, items: [{ title, body }] }, attachesToEvery }` |
 | `howWeEngage` | `{ title, anchor, lead, ladder: [{ tier, title, whatItIs, duration, pricing }], ladderRules: [string], ladderFootnote, howAPovRuns: { title, steps: [{ title, body }], closing } }` |
 | `whySoftServe` | `{ title, items: [{ title, body }] }` |
-| `proof` | `{ title, dividerLabel, lead, stat: { value, label }, engagementsTitle, engagements: [{ descriptor, line, product: { slug, name } }], cta: { label, route }, footnote }` — **the method, not the outcomes.** `lead` is the measurement discipline at body size; `stat` is the one accuracy figure, set as a labelled stat rather than buried in a footnote; `engagements` is one line per case study, in the same order, each `descriptor` matching an `overview.caseStudies[].descriptor`; `cta` links back to the Overview case studies that carry the figures; `footnote` holds the threshold caveat alone. **No figure may appear in an `engagements[].line`** — the numbers live on the Overview cards with their caveats, and the checker fails a line that carries one. `caseStudyIds` and `methodNote` are removed: Services repeating the home page's grid verbatim gave a reader the same block twice. |
+| `proof` | `{ title, dividerLabel, lead, stat: { value, label }, engagementsTitle, engagements: [{ descriptor, line, product: { slug, name } }], cta: { label, route }, footnote }` — **the method, not the outcomes.** `lead` is the measurement discipline at body size; `stat` is the one accuracy figure, set as a labelled stat rather than buried in a footnote. **Since §18.8 these three keys ship here and nowhere else** — the home rail used to reuse `lead`, `stat` and `footnote`, and now links here instead, so the method is written once and read once. `engagementsTitle` heads the per-engagement panel and reads **"Engagement by engagement"**; it held *"What each engagement measures"* until the owner rejected that as a block name on the home page and the copy editor found the same string still on Services (§18.8, item 6). `engagements` is one line per case study, in the same order, each `descriptor` matching an `overview.caseStudies[].descriptor`; `cta` links back to the Overview case studies that carry the figures; `footnote` holds the threshold caveat alone. **No figure may appear in an `engagements[].line`** — the numbers live on the Overview cards with their caveats, and the checker fails a line that carries one. `caseStudyIds` and `methodNote` are removed: Services repeating the home page's grid verbatim gave a reader the same block twice. |
 | `contact` | `{ anchor, heading, sub }` |
 
 The `families` list is the only place the pattern taxonomy appears on the site. Do not restate it on the Products page.
