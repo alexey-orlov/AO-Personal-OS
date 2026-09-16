@@ -42,15 +42,9 @@ Verify before publishing: `node --check` on changed JS, `node tools/check-gramma
 
 Publish (updates the same URL): create a wrapper copy of `site/index.html` with the `<!doctype>`, `<html>`, `<head>`, `<body>` tags stripped and `<title>SoftServe Oracle AI Solutions</title>` (the Artifact tool wraps its own skeleton), then call the Artifact tool with `url: https://claude.ai/code/artifact/41e4f3b6-47d9-4ef2-af99-99c40c02b89b`, `root: outputs/oracle-solutions-site/site`, and a `files` map of every changed/added file (published path → source path). Read the artifact (`action: read`) once before the first publish from a new session, or the publish is refused. Files not passed are kept; new images must be passed explicitly.
 
-## 5. Task 0 — canonical technology facet (pending, interrupted on the Mac)
+## 5. Task 0 — canonical technology facet (DONE 2026-09-16)
 
-The technology chip on product heroes/tiles shows product-specific variants (e.g. "OCI + NVIDIA AI-Q") that differ from the facet rail. Make one canonical set, used identically everywhere:
-
-- `facets.technology` = exactly four, in this order, stable ids: `oci-nvidia` → "OCI + NVIDIA"; `oracle-ai-data-platform` → "Oracle AI Data Platform"; `oracle-ai-lakehouse` → "Oracle Autonomous AI Lakehouse"; `oracle-ai-fusion` → "Oracle AI for Fusion Applications". Remove "Other". Empty-state copy for the two facets with no product today, in the existing register.
-- Hero chip, tile image-band label, home-grid label, Services platform cards and any `tags[]` entry render the facet's canonical label only; engine details (AI-Q, cuOpt, Select AI) stay in `technology.stack`.
-- `shared.tagFamilies.tech.icons`: a glyph per id (cloud/GPU, data platform, layers, applications); tooltip "Runs on".
-- Products rail: four options with faceted counts (7 / 0 / 2 / 0); zero-count controls disabled but listed; `?tech=<id>` renders the empty state.
-- Update `tools/check-grammar.js` (facet set; product facet ∈ set; chip label = facet label) and the docs (Fusion naming rationale: Oracle's product name is "Oracle AI for Fusion Applications"; "Oracle Fusion AI" is not a product name).
+Done 2026-09-16: `facets.technology` is the canonical four — `oci-nvidia` "OCI + NVIDIA", `oracle-ai-data-platform` "Oracle AI Data Platform", `oracle-ai-lakehouse` "Oracle Autonomous AI Lakehouse", `oracle-ai-fusion` "Oracle AI for Fusion Applications" (the `Other` catch-all is retired); the Products rail (All 7 · 5 · 0 · 2 · 0, zero-count options listed and disabled, `?tech=<id>` rendering `emptyState`), the hero chip, the tile image-band, the home grid and the Services platform cards all render that label verbatim, engine detail (AI-Q, cuOpt, Select AI) stays in `technology.stack`, each facet has a glyph in `shared.tagFamilies.tech.icons` under the tooltip "Runs on", and `tools/check-grammar.js` fails on any drift — contract and naming rationale in `docs/SCHEMA.md`, `docs/VISUAL-GRAMMAR.md`, `docs/CONFIG.md` and `docs/PROVENANCE.md` §17.7.
 
 ## 6. Task 1 — Home page rebuild (creative decisions, made by Fable)
 
@@ -121,9 +115,8 @@ Demo video URLs and posters (Workforce optimization, Large Docs, Account Insight
 Read outputs/oracle-solutions-site/docs/HANDOFF.md first and follow it. You are continuing the SoftServe "AI Agents on Oracle" mini-site (static site at outputs/oracle-solutions-site/site). This machine has only the repo: no OneDrive, no old scratchpad — do not search for them; everything needed is in the repo or on the public web, as the handoff's table says.
 
 Do, in order:
-1. Task 0 (HANDOFF §5): canonical technology facet — four labels used identically on the Products rail, tiles, heroes and Services; delegate the edit to an Opus subagent, verify per §4.
-2. Task 1 (HANDOFF §6): rebuild the home page to the seven-screen structure and copy in §6.2, with the naming in §6.1 and the layout/motion rules in §6.3. You (Fable) own every creative, messaging and layout decision — verify each claim against site/data/content.js and the wiki pages named in §2, adjust wording where a fact is unsupported, and keep the structure. Delegate the tedious work to Opus subagents per §6.4 (facts fetch, content model, implementation, QA critics + fix). Do not re-derive earlier rounds; do not restyle the design system.
-3. Verify per §4 (node --check, tools/check-grammar.js OK, console clean, customer-name grep empty), then publish per §4 to the existing artifact URL and report: what changed, the copy as shipped for S1/S2/S6, and anything you decided differently from the handoff and why.
+1. Task 1 (HANDOFF §6): rebuild the home page to the seven-screen structure and copy in §6.2, with the naming in §6.1 and the layout/motion rules in §6.3. You (Fable) own every creative, messaging and layout decision — verify each claim against site/data/content.js and the wiki pages named in §2, adjust wording where a fact is unsupported, and keep the structure. Delegate the tedious work to Opus subagents per §6.4 (facts fetch, content model, implementation, QA critics + fix). Do not re-derive earlier rounds; do not restyle the design system.
+2. Verify per §4 (node --check, tools/check-grammar.js OK, console clean, customer-name grep empty), then publish per §4 to the existing artifact URL and report: what changed, the copy as shipped for S1/S2/S6, and anything you decided differently from the handoff and why.
 
 Rules in §3 are non-negotiable. Commit with conventional messages and push when done (no autosync here).
 ```
