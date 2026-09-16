@@ -413,42 +413,61 @@
       "</section>";
   }
 
-  /* No story, no block: products with `successStory: null` render nothing here.
-     The figure caveat is the last sentence of `story`; the download link
-     renders only when a URL exists. */
-  function successStory(product) {
+  /* No case, no block: `caseStudy: null` on three of the seven renders nothing
+     at all — a section whose only content is "nothing published yet" is worse
+     than its absence on a page a seller demos live. No customer is named and no
+     logo is rendered; the industry medallion sits where the mark used to. The
+     figure caveat is the last sentence of `story`, because the panel has no
+     footnote row; the download link renders only where a URL exists. */
+  function caseStudy(product) {
     var UI = window.UI;
-    var story = product.overview.successStory;
+    var item = product.overview.caseStudy;
     var conf = cfg(product.slug);
-    if (!story || !story.customer) return "";
+    if (!item) return "";
 
-    var figures = (story.metrics || []).map(function (metric) {
-      return '<div class="story-figure">' +
-        '<p class="story-figure-value nums">' + UI.esc(metric.value) + "</p>" +
-        '<p class="story-figure-label">' + UI.esc(metric.label) + "</p>" +
+    var figures = (item.metrics || []).map(function (metric) {
+      return '<div class="case-figure">' +
+        '<p class="case-figure-value nums">' + UI.esc(metric.value) + "</p>" +
+        '<p class="case-figure-label">' + UI.esc(metric.label) + "</p>" +
         "</div>";
     }).join("");
 
+    var scope = (item.scope || []).map(function (fact) {
+      return "<div><dt>" + UI.esc(fact.label) + "</dt><dd>" + UI.esc(fact.value) + "</dd></div>";
+    }).join("");
+
     return '<section class="panel panel--flat reveal">' +
-      '<div class="story-callout">' +
-        '<div class="story-head">' +
-          (story.logo
-            ? '<img class="story-logo' + (story.logoStacked ? " story-logo--stacked" : "") +
-              '" src="' + UI.esc(story.logo) + '" alt="" loading="lazy" decoding="async">'
-            : "") +
-          '<div class="story-head-copy">' +
-            '<p class="eyebrow eyebrow--accent">' + UI.esc(label("successStory")) + "</p>" +
-            '<p class="story-customer">' + UI.esc(story.customer) + "</p>" +
-          "</div>" +
-        "</div>" +
-        '<h3 class="story-headline">' + UI.esc(story.headline) + "</h3>" +
-        (figures ? '<div class="story-figures">' + figures + "</div>" : "") +
-        '<p class="story-text">' + UI.esc(story.story) + "</p>" +
-        (conf.successStoryUrl && story.downloadLabel
-          ? '<p class="story-link">' + UI.linkArrow({
-              label: story.downloadLabel, href: conf.successStoryUrl
-            }) + "</p>"
+      '<div class="case-callout">' +
+        (item.image
+          ? '<div class="case-band" aria-hidden="true">' +
+              '<img class="case-band-img" src="' + UI.esc(item.image) +
+                '" alt="" loading="lazy" decoding="async">' +
+              '<span class="case-band-veil"></span>' +
+            "</div>"
           : "") +
+        '<div class="case-body">' +
+          '<p class="eyebrow eyebrow--accent">' + UI.esc(label("caseStudy")) + "</p>" +
+          '<div class="case-head">' +
+            UI.caseMedallion(item.industry) +
+            '<div class="case-head-copy">' +
+              '<h3 class="case-descriptor">' + UI.esc(item.descriptor) + "</h3>" +
+              '<p class="case-area">' + UI.esc(item.area) + "</p>" +
+            "</div>" +
+          "</div>" +
+          UI.caseStatusChip(item.status) +
+          '<div class="case-metrics">' +
+            '<p class="eyebrow case-metrics-eyebrow">' + UI.esc(item.metricsEyebrow) + "</p>" +
+            '<div class="case-figures">' + figures + "</div>" +
+          "</div>" +
+          '<p class="case-text">' + UI.esc(item.story) + "</p>" +
+          (scope ? '<dl class="case-scope">' + scope + "</dl>" : "") +
+          '<p class="case-nda">' + UI.esc(item.ndaLine) + "</p>" +
+          (conf.successStoryUrl && item.downloadLabel
+            ? '<p class="case-link">' + UI.linkArrow({
+                label: item.downloadLabel, href: conf.successStoryUrl
+              }) + "</p>"
+            : "") +
+        "</div>" +
       "</div></section>";
   }
 
@@ -459,7 +478,7 @@
         problemSolution(o.problemSolution) +
         stepper(product) +
         industryCases(product) +
-        successStory(product) +
+        caseStudy(product) +
         moreDetail(o) +
       "</div>" +
       '<aside class="ov-rail" aria-label="' + window.UI.esc(label("outcomes")) + '">' +
