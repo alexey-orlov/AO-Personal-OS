@@ -914,7 +914,7 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
   font-weight: 600;
   line-height: 1.4;
   color: var(--text-on-light);
-  border-bottom: 1px solid rgba(7, 9, 13, .4);
+  border-bottom: 1px solid rgba(7, 9, 13, .5);
   transition: border-color .25s var(--ease);
 }
 
@@ -2053,7 +2053,7 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
   font-weight: 600;
   line-height: 1.4;
   color: var(--text);
-  border-bottom: 1px solid var(--border-subtle);
+  border-bottom: 1px solid var(--border-hairline);
   transition: color .25s var(--ease), border-color .25s var(--ease);
 }
 
