@@ -84,7 +84,7 @@ window.SITE_CONTENT = {
     lakehousePricing: "Price indicative, confirmed in scoping; Oracle partner funding programs may reduce the net cost.",
     accountInsightsEvaluation: "The engine is a non-deterministic reasoning system, so a dedicated evaluation plan (correctness and confidence calibration) is part of the work.",
     publicPricingFootnote: "Figures are illustrative and confirmed in scoping.",
-    modeledResults: "Results are modeled simulations against a historical baseline, not measured production outcomes.",
+    modeledResults: "Figures are forecast from simulations against a historical baseline, not measured in production.",
   },
 
   shared: {
@@ -165,16 +165,16 @@ window.SITE_CONTENT = {
     },
     caseStudyStatus: {
       "measured": {
-        chip: "Measured in the proof of value",
-        tooltip: "The figures were measured during a completed proof of value on the customer’s own data."
+        chip: "Proven",
+        tooltip: "Measured during a completed proof of value, on the customer’s own data."
       },
       "modeled": {
-        chip: "Modeled in the proof of value",
-        tooltip: "The figures come from simulations run on the customer’s own historical data during a completed proof of value, not from production."
+        chip: "Forecast",
+        tooltip: "Forecast from simulations run on the customer’s own historical data during a completed proof of value."
       },
       "in-preparation": {
-        chip: "Proof of value in preparation",
-        tooltip: "The engagement is being prepared; the figures are what it is set up to measure, not results."
+        chip: "Estimated",
+        tooltip: "Estimated for an engagement now being prepared, against the way the work is done today."
       }
     },
     sectionLabels: {
@@ -229,8 +229,8 @@ window.SITE_CONTENT = {
         { label: "How we deliver", route: "#/#how-we-deliver", kind: "secondary" }
       ],
       stack: {
-        ariaLabel: "How the products are built: the jobs the agents do on top, the SoftServe layer in the middle, the four Oracle platforms underneath",
-        patternsLabel: "What they do",
+        ariaLabel: "How the agents are built: the agents you can start with on top, grouped by the job they do, the SoftServe layer in the middle, the four Oracle platforms underneath",
+        patternsLabel: "Agents to start with",
         softserve: {
           label: "SoftServe",
           items: ["Agent engineering", "Evaluation & guardrails", "Pilot to production"]
@@ -252,7 +252,7 @@ window.SITE_CONTENT = {
           id: "products",
           icon: "cube",
           title: "Agents ready to run",
-          body: "Each one runs on Oracle in your own tenancy and starts with a Jumpstart on your data. Four are priced today; three are scoped per engagement.",
+          body: "Each one runs on Oracle in your own tenancy and starts with a Jumpstart on your data — at a fixed price where one is published, otherwise scoped per engagement.",
           bullets: [
             "Runs on OCI + NVIDIA or Oracle Autonomous AI Lakehouse",
             "Extractions, plans and findings are approved by a person",
@@ -264,7 +264,7 @@ window.SITE_CONTENT = {
           id: "practice",
           icon: "users",
           title: "The people who build them",
-          body: "The architects and engineers who built these agents adapt them to your systems, rules and data, and take them to production. One contract, one accountable team.",
+          body: "The architects and engineers who built these agents adapt them to your systems, rules and data — or build the one your workflow needs — and take them to production. One contract, one accountable team.",
           bullets: [
             "Delivered with Oracle’s AI & Data organization, in joint teams",
             "Measured like for like against how you work today",
@@ -325,10 +325,9 @@ window.SITE_CONTENT = {
         area: "Field-service operations across three countries",
         industry: "manufacturing",
         status: "modeled",
-        metricEyebrow: "Modeled",
         metric: { value: "+4.5%", label: "median gain in jobs per technician per day, against the current plan" },
         line: "Dispatchers built the four-week field-service plan by hand, region by region; NVIDIA cuOpt on Oracle Cloud Infrastructure now builds it and a dispatcher approves it.",
-        footnote: "Modeled against a historical baseline, not live operations; illustrative, not contractual.",
+        footnote: "Forecast from simulations on the customer’s own historical operations data, scored against the plan dispatchers build today; illustrative, not contractual.",
         product: { slug: "workforce-optimization", name: "Workforce optimization" }
       },
       {
@@ -337,10 +336,9 @@ window.SITE_CONTENT = {
         area: "Ground-handling contract management",
         industry: "travel-transport",
         status: "measured",
-        metricEyebrow: "Measured",
         metric: { value: "5–15 min", label: "to extract a 60–100-page agreement end to end, down from 3–5 days" },
         line: "Contract rates were keyed into a cost-management system page by page; reviewers now validate AI-extracted rates beside the source PDF, every value cited to its page, and export.",
-        footnote: "Measured on the customer’s own documents; illustrative, not contractual.",
+        footnote: "Measured end to end on the customer’s own agreements during the proof of value; illustrative, not contractual.",
         product: { slug: "large-document-extraction", name: "Large docs processing and review" }
       },
       {
@@ -349,10 +347,9 @@ window.SITE_CONTENT = {
         area: "Account planning across a global enterprise account base",
         industry: "logistics",
         status: "in-preparation",
-        metricEyebrow: "Target outcomes",
         metric: { value: "Hours, not quarters", label: "from a market signal to a qualified opportunity a seller can act on" },
         line: "The first engagement will run on the customer’s own account base: every opportunity scored for magnitude and confidence, with its evidence cited.",
-        footnote: "What the proof of value will measure; no results yet.",
+        footnote: "Estimated against the customer’s own account-planning cycle today, on success metrics signed before the work starts.",
         product: { slug: "account-insights", name: "Account insights" }
       },
       {
@@ -361,10 +358,9 @@ window.SITE_CONTENT = {
         area: "Plan versus actual across completed work packages",
         industry: "construction",
         status: "in-preparation",
-        metricEyebrow: "Target outcomes",
         metric: { value: "Hours, not weeks", label: "of expert time to produce an equivalent plan-versus-actual analysis" },
         line: "One completed project sample, with the customer’s own schedule, cost and contract exports reconstructed into a single package-level view.",
-        footnote: "What the proof of value will measure; no results yet.",
+        footnote: "Estimated against the expert hours the same analysis takes today, and validated by the customer’s own experts.",
         product: { slug: "plan-vs-actual-investigation", name: "Plan vs actual investigation" }
       }
     ],
@@ -396,12 +392,11 @@ window.SITE_CONTENT = {
 
   productsPage: {
     title: "PRODUCTS",
-    count: 7,
-    intro: "Every product runs in your own Oracle tenancy and starts with a Jumpstart on your data. Four are priced today; three are scoped per engagement. Filter by the Oracle platform it runs on, or search for the job you need done.",
+    intro: "Every product runs in your own Oracle tenancy and starts with a Jumpstart on your data — at a fixed price where one is published, otherwise scoped per engagement. Filter by the Oracle platform it runs on, or search for the job you need done.",
     searchPlaceholder: "Search products or workflows…",
     bottomBlock: {
-      heading: "NOT SEEING YOUR WORKFLOW?",
-      body: "These seven are the patterns packaged so far. New ones are packaged after their first live customer — tell us the workflow you need fixed and we will say whether it is close to something we already run.",
+      heading: "HAVE A WORKFLOW IN MIND?",
+      body: "Tell us the workflow you need fixed. We will say which of these agents is closest, or what it would take to build one on your data.",
       cta: { label: "Request a scoping call", route: "#/services#contact" }
     }
   },
@@ -414,31 +409,30 @@ window.SITE_CONTENT = {
         label: "OCI + NVIDIA",
         fullLabel: "Oracle Cloud Infrastructure + NVIDIA",
         description: "GPU cloud plus the NVIDIA agent, extraction and optimization engines — AI-Q, cuOpt, NeMo.",
-        emptyState: "No packaged offering on this platform yet — the practice delivers on it; see Services"
+        emptyState: "The practice delivers on this platform — see Services, or tell us the workflow you have in mind."
       },
       {
         id: "oracle-ai-data-platform",
         label: "Oracle AI Data Platform",
         fullLabel: "Oracle AI Data Platform",
         description: "Governed enterprise data for AI — structured, unstructured and real-time, multi-cloud.",
-        emptyState: "No packaged offering on this platform yet — the practice delivers on it; see Services"
+        emptyState: "The practice delivers on this platform — see Services, or tell us the workflow you have in mind."
       },
       {
         id: "oracle-ai-lakehouse",
         label: "Oracle Autonomous AI Lakehouse",
         fullLabel: "Oracle Autonomous AI Lakehouse",
         description: "The self-managing governed gold layer, with Iceberg, vector search and Select AI.",
-        emptyState: "No packaged offering on this platform yet — the practice delivers on it; see Services"
+        emptyState: "The practice delivers on this platform — see Services, or tell us the workflow you have in mind."
       },
       {
         id: "oracle-ai-fusion",
         label: "Oracle AI for Fusion Applications",
         fullLabel: "Oracle AI for Fusion Applications",
         description: "Embedded AI agents and AI Agent Studio across ERP, SCM, HCM and CX.",
-        emptyState: "No packaged offering on this platform yet — the practice delivers on it; see Services"
+        emptyState: "The practice delivers on this platform — see Services, or tell us the workflow you have in mind."
       }
     ],
-    footnote: "We also deliver on Oracle AI Data Platform and on Oracle AI for Fusion Applications. Packaged applications are published here as each one completes its first engagement.",
     categoryLabel: "What it does",
     categories: [
       { id: "deep-research", chip: "Deep research", full: "Deep research & investigation" },
@@ -614,12 +608,11 @@ window.SITE_CONTENT = {
           area: "Account planning across a global enterprise account base",
           industry: "logistics",
           status: "in-preparation",
-          metricsEyebrow: "Target outcomes",
           metrics: [
             { value: "Hours, not quarters", label: "from a market signal to a qualified opportunity a seller can act on" },
             { value: "Every account", label: "a signal affects, not only the one it names" }
           ],
-          story: "A first engagement is being prepared on the customer’s own account base — CRM and account framing, the capability catalog and public filings — with NVIDIA AI-Q on Oracle Cloud Infrastructure. It measures the accuracy and the confidence calibration of the generated opportunities against reviewer approve and reject decisions. The figures above are target outcomes the proof of value is set up to measure, not results; they are illustrative, not contractual.",
+          story: "A first engagement is being prepared on the customer’s own account base — CRM and account framing, the capability catalog and public filings — with NVIDIA AI-Q on Oracle Cloud Infrastructure. It measures the accuracy and the confidence calibration of the generated opportunities against reviewer approve and reject decisions. The figures above are estimates for that engagement, set against the customer’s account-planning cycle today; illustrative, not contractual.",
           scope: [
             { label: "Stage", value: "Proof of value in preparation" },
             { label: "Data footprint", value: "CRM, capability catalog, public filings" },
@@ -1255,11 +1248,10 @@ window.SITE_CONTENT = {
           area: "Plan versus actual across completed work packages",
           industry: "construction",
           status: "in-preparation",
-          metricsEyebrow: "Target outcomes",
           metrics: [
             { value: "Hours, not weeks", label: "of expert time to produce an equivalent plan-versus-actual analysis" }
           ],
-          story: "A first engagement is being prepared, scoped to one use case on one completed project sample — the customer’s own schedule, cost and contract exports. It will run on Oracle Cloud Infrastructure, with NVIDIA AI-Q over an evidence layer, reconstructing those records into one package-level view of plan versus actual; the figure above is a target outcome the proof of value is set up to measure, not a result, and is illustrative, not contractual.",
+          story: "A first engagement is being prepared, scoped to one use case on one completed project sample — the customer’s own schedule, cost and contract exports. It will run on Oracle Cloud Infrastructure, with NVIDIA AI-Q over an evidence layer, reconstructing those records into one package-level view of plan versus actual; the figure above is an estimate for that engagement, set against the expert hours the same analysis takes today; illustrative, not contractual.",
           scope: [
             { label: "Stage", value: "Proof of value in preparation" },
             { label: "Scope", value: "One use case, one completed project sample" },
@@ -1595,11 +1587,10 @@ window.SITE_CONTENT = {
           area: "Ground-handling contract management",
           industry: "travel-transport",
           status: "measured",
-          metricsEyebrow: "Measured",
           metrics: [
             { value: "5–15 min", label: "to extract a 60–100-page agreement end to end, down from 3–5 days" }
           ],
-          story: "Ground-handling contract rates were keyed into a cost-management system by hand — 60–100-page agreements read page by page. The extraction app runs on the customer’s own Oracle Cloud Infrastructure tenancy with NVIDIA AI-Q: reviewers validate AI-extracted rates beside the source PDF, every value cited to its page, and export in minutes. Measured in the proof of value on the customer’s own documents; figures are illustrative, not contractual.",
+          story: "Ground-handling contract rates were keyed into a cost-management system by hand — 60–100-page agreements read page by page. The extraction app runs on the customer’s own Oracle Cloud Infrastructure tenancy with NVIDIA AI-Q: reviewers validate AI-extracted rates beside the source PDF, every value cited to its page, and export in minutes. Measured end to end on the customer’s own agreements during the proof of value; figures are illustrative, not contractual.",
           scope: [
             { label: "Document footprint", value: "60–100-page agreements" },
             { label: "Onboarding a new station, before", value: "About one month" },
@@ -1930,12 +1921,11 @@ window.SITE_CONTENT = {
           area: "Field-service operations across three countries",
           industry: "manufacturing",
           status: "modeled",
-          metricsEyebrow: "Modeled",
           metrics: [
             { value: "+4.5%", label: "median gain in jobs per technician per day, optimized against the current plan" },
             { value: "~5x", label: "return within three years on the modeled rollout" }
           ],
-          story: "Dispatchers planned a residential appliance-repair field force by hand — postcode-based work zones and technician allocations, region by region. NVIDIA cuOpt on Oracle Cloud Infrastructure was run against the customer’s own historical operations data with dispatcher approval in the loop: 83% of the 12 modeled simulations came out positive, and dispatcher productivity improved 15–20% during the pilot. Results are modeled simulations against a historical baseline, not measured production outcomes.",
+          story: "Dispatchers planned a residential appliance-repair field force by hand — postcode-based work zones and technician allocations, region by region. NVIDIA cuOpt on Oracle Cloud Infrastructure was run against the customer’s own historical operations data with dispatcher approval in the loop: 83% of the 12 modeled simulations came out positive, and dispatcher productivity improved 15–20% during the pilot. Figures are forecast from those simulations against the customer’s own historical baseline; illustrative, not contractual.",
           scope: [
             { label: "Duration", value: "Three months" },
             { label: "Data footprint", value: "Historical operations data" },
