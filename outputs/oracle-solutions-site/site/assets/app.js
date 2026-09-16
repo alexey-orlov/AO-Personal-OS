@@ -449,10 +449,10 @@
   }
 
   /* ————— case studies —————
-     No customer is named and no logo is rendered (Alex, 2026-09-16): a logo is
-     the one element of a case study that cannot be anonymized, so the card is
-     built around what can — the industry. The medallion sits where the mark
-     used to, at the same optical weight. */
+     No customer is named and no logo is rendered: a logo is the one element of
+     a case study that cannot be anonymized, so the card is built around what
+     can — the industry. The medallion sits where the mark used to, at the same
+     optical weight. */
 
   function caseStatus(key) {
     var map = (C.shared && C.shared.caseStudyStatus) || {};
@@ -472,8 +472,8 @@
   }
 
   /* The compact form of the product-page callout: same anatomy, one headline
-     figure instead of two. Rendered on the home page and on Services, from the
-     same four objects, so the two surfaces cannot drift apart. */
+     figure. Rendered on the home page from the same objects the product pages
+     read, so the two surfaces cannot drift apart. */
   function caseCard(item) {
     if (!item) return "";
     return '<article class="case-card reveal">' +

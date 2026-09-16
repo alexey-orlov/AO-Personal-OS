@@ -413,12 +413,14 @@
       "</section>";
   }
 
-  /* No case, no block: `caseStudy: null` on three of the seven renders nothing
-     at all — a section whose only content is "nothing published yet" is worse
-     than its absence on a page a seller demos live. No customer is named and no
-     logo is rendered; the industry medallion sits where the mark used to. The
-     figure caveat is the last sentence of `story`, because the panel has no
-     footnote row; the download link renders only where a URL exists. */
+  /* No case, no block: `caseStudy: null` renders nothing at all — a section
+     whose only content is "nothing published yet" is worse than its absence on
+     a page a seller demos live. No customer is named and no logo is rendered;
+     the industry medallion sits where the mark used to, and the card opens on
+     it rather than on a photograph the industry tabs already show further up
+     the same page. The figure caveat is the last sentence of `story`, because
+     the panel has no footnote row; the download link renders only where a URL
+     exists. */
   function caseStudy(product) {
     var UI = window.UI;
     var item = product.overview.caseStudy;
@@ -438,13 +440,6 @@
 
     return '<section class="panel panel--flat reveal">' +
       '<div class="case-callout">' +
-        (item.image
-          ? '<div class="case-band" aria-hidden="true">' +
-              '<img class="case-band-img" src="' + UI.esc(item.image) +
-                '" alt="" loading="lazy" decoding="async">' +
-              '<span class="case-band-veil"></span>' +
-            "</div>"
-          : "") +
         '<div class="case-body">' +
           '<p class="eyebrow eyebrow--accent">' + UI.esc(label("caseStudy")) + "</p>" +
           '<div class="case-head">' +

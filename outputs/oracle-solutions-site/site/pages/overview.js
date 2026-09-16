@@ -77,7 +77,7 @@
       "</div></section>";
   }
 
-  /* Four engagements, four cards of one anatomy — two measured, two under way.
+  /* One card per engagement, one anatomy — measured, modeled, in preparation.
      The status chip carries that distinction, so no card needs a hand-written
      label, and no customer is named on either surface. */
   function caseStudies(C) {
