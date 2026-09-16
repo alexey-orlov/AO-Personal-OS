@@ -37,3 +37,27 @@ ANY existing deliverable, READ the current file from disk — never work from th
 generating script or the conversation's memory of it, and never regenerate over a
 hand-edited file (the script is stale the moment he edits; port his edits first or build
 inside the edited file's shell).
+
+## Marketing copy: persona first, scaffolding last (2026-09-16)
+
+From Alex's review of the Oracle mini-site home page: the copy "overemphasized the
+counts and the scaffolding, not the essence" and used internal vocabulary
+("workflow patterns", "packaged") as if it were customer language.
+
+- Name the readers before drafting (for the Oracle site: an Oracle rep opening the page
+  live on a call, and an enterprise buyer on Oracle), and write every headline and lead
+  from their seat: the job it does and the outcome, in their words. A count, a taxonomy
+  name or a packaging term ("seven products", "three workflow patterns", "packaged",
+  "scoped") is a headline only when the number itself is the reader's information (a
+  price split, a duration); otherwise it goes into body text or nowhere.
+- Internal vocabulary stays internal: taxonomy labels, operating-model words ("pods",
+  "packaged offering", "accelerator pack"), delivery jargon. The test for every
+  sentence: would the rep say it out loud on the call? Concrete jobs ("read your
+  contracts, plan your field workforce") beat category labels every time.
+- Before delivering, count word frequency per screen or section and across the piece:
+  no content word three times on one screen except proper nouns, one word for one
+  thing across the piece (not "products" here and "solutions" there), and no claim
+  repeated in more than two places.
+- The checks above are the Fable part; the counting, the persona read-through and the
+  before/after record can be delegated to an Opus critic, as long as the rewrite itself
+  stays with the session that owns the messaging.
