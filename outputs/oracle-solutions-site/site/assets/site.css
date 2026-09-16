@@ -425,6 +425,15 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 
 .tag-row > .chip-row { flex: 1 1 auto; }
 
+/* Narrow screens: the badge is the last chip in the run, not an orphan on a
+   line of its own. Both wrappers dissolve, so chips and badges become direct
+   children of the one wrapping flex row. */
+@media (max-width: 767px) {
+  .product-hero-chips { gap: .5rem; }
+  .product-hero-chips > .chip-row,
+  .product-hero-chips > .badge-row { display: contents; }
+}
+
 /* ——— tooltip ————————————————————————————————————————— */
 
 .tip { position: relative; cursor: help; }
@@ -759,7 +768,14 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 }
 
 .ptile-badges { position: absolute; top: .75rem; right: 1rem; max-width: calc(100% - 2rem); justify-content: flex-end; }
-.ptile-badges .badge { background: rgba(0, 0, 0, .62); backdrop-filter: blur(2px); border-color: rgba(53, 204, 186, .5); }
+/* Black scrim for legibility over photography, teal border and label so the
+   badge still reads as the same availability family it is in the hero. */
+.ptile-badges .badge {
+  background: rgba(0, 0, 0, .62);
+  backdrop-filter: blur(2px);
+  border-color: rgba(53, 204, 186, .38);
+  color: var(--accent);
+}
 .ptile-badges .badge--action:hover { background: rgba(0, 0, 0, .78); border-color: var(--accent); }
 
 .ptile-body {
@@ -864,8 +880,16 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 }
 
 .case-status-dot { width: .4375rem; height: .4375rem; border-radius: var(--r-pill); flex: none; background: var(--accent); }
-.case-status--in-progress { border-color: var(--border); background: none; color: var(--text-muted); }
-.case-status--in-progress .case-status-dot { background: transparent; box-shadow: inset 0 0 0 1px var(--accent); }
+
+/* Modeled sits between the two: a filled ground like the measured state, a
+   half-filled dot to say the figures came out of a simulation. */
+.case-status--modeled .case-status-dot {
+  background: linear-gradient(to right, var(--accent) 0 50%, transparent 50% 100%);
+  box-shadow: inset 0 0 0 1px var(--accent);
+}
+
+.case-status--in-preparation { border-color: var(--border); background: none; color: var(--text-muted); }
+.case-status--in-preparation .case-status-dot { background: transparent; box-shadow: inset 0 0 0 1px var(--accent); }
 
 .case-card-metric { display: flex; flex-direction: column; gap: .25rem; }
 .case-card-line { font-size: var(--fs-sm); line-height: 1.65; color: var(--text-body); }
@@ -1534,6 +1558,11 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
   gap: 0 2rem;
 }
 
+/* One real figure is one column: padding the row out to two would leave the
+   slot to be filled with a capability restatement. */
+.case-figures--single { grid-template-columns: minmax(0, 1fr); }
+.case-figures--single .case-figure-label { max-width: 34rem; }
+
 .case-figure { display: contents; }
 .case-figure-value { grid-row: 1; }
 .case-figure-label { grid-row: 2; }
@@ -1562,6 +1591,14 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 
 @media (max-width: 720px) {
   .case-scope { grid-template-columns: 1fr; gap: .875rem; }
+}
+
+/* A descriptor that wraps to three lines leaves a vertically centred medallion
+   floating beside line 2, so the head reverts to icon-then-title reading. */
+@media (max-width: 767px) {
+  .case-head, .case-card-head { align-items: flex-start; }
+  .case-callout .case-medallion { width: 2.5rem; height: 2.5rem; }
+  .case-callout .case-medallion .icon { width: 1.25rem; height: 1.25rem; }
 }
 
 @media (max-width: 560px) {
