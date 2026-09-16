@@ -1393,7 +1393,7 @@ window.SITE_CONTENT = {
           { value: null, label: "Business-rule validators", qualifier: "Flag what a human must look at, before anything is exported", icon: "alert" },
           { value: null, label: "Confidence and a page citation", qualifier: "On every extracted value, before anything is exported", icon: "shield" }
         ],
-        metricsNote: "The figures the delivered proof of value produced are in the Riyadh Air story on this page.",
+        metricsNote: "The figures the delivered proof of value produced are in the case study on this page.",
         roi: {
           icon: "roi",
           text: "Two effects compound. Cycle time collapses — a document that took days moves in minutes, so onboarding a new counterparty stops being a month-long project. And the error class that costs the most, a rate keyed wrong and found at invoice reconciliation, is caught at review against a cited source page instead."
@@ -1516,16 +1516,24 @@ window.SITE_CONTENT = {
           { title: "Why the error class is expensive", body: "In aviation, ground-handling contracts carry 7–12% of an airline’s direct operating cost — so a rate keyed wrong is expensive, and it surfaces late." },
           { title: "Use-case boundaries", body: "The boundary of this solution is extraction of structured data from complex documents into a validated, human-reviewed output." }
         ],
-        successStory: {
-          customer: "Riyadh Air",
-          logo: "assets/img/logos/riyadh-air.svg",
-          logoStacked: true,
-          headline: "Ground-handling agreements, from days to minutes",
+        caseStudy: {
+          descriptor: "An international airline",
+          area: "Ground-handling contract management",
+          industry: "travel-transport",
+          image: "assets/img/industries/travel-transport.jpg",
+          status: "measured",
+          metricsEyebrow: "Measured",
           metrics: [
             { value: "5–15 min", label: "to extract a 60–100-page agreement end to end, down from 3–5 days" },
             { value: "up to −20%", label: "targeted reduction in manual data-entry effort" }
           ],
-          story: "Ground-handling contract rates were keyed into a cost-management system by hand — 60–100-page agreements read page by page, 3–5 days per contract. With the extraction app on Oracle Cloud Infrastructure, reviewers now validate AI-extracted rates beside the source PDF, every value cited to its page, and export in minutes. Targets from the proof of value; figures are illustrative, not contractual.",
+          story: "Ground-handling contract rates were keyed into a cost-management system by hand — 60–100-page agreements read page by page. The extraction app runs on the customer’s own Oracle Cloud Infrastructure tenancy with NVIDIA AI-Q: reviewers validate AI-extracted rates beside the source PDF, every value cited to its page, and export in minutes. Targets from the proof of value; figures are illustrative, not contractual.",
+          scope: [
+            { label: "Document footprint", value: "60–100-page agreements" },
+            { label: "Onboarding a new station, before", value: "About one month" },
+            { label: "Human gate", value: "A reviewer approves every extracted value" }
+          ],
+          ndaLine: "Customer under NDA · reference call available on request",
           downloadLabel: "Download the case summary"
         }
       },
@@ -1844,15 +1852,24 @@ window.SITE_CONTENT = {
           { title: "Delivered after the Jumpstart", body: "Oracle Field Service integration — staff, availability and booking data in; optimized allocations (zones, visits) out; factual durations and times back. The architecture is native to Oracle Field Service; the integration itself comes after the Jumpstart, not inside it. Also after the Jumpstart: additional data sources and BI integration (up to five typical integrations — booking, inventory for parts availability, HR/WFM for people availability, demand forecasting, BI), and the re-optimization feedback loop." },
           { title: "On the roadmap, not in the pack today", body: "Distance and travel-time rules with live traffic · within-day dynamic reassignment and urgent-request handling · spare-parts and crew-based assignment · the human-feedback learning loop." }
         ],
-        successStory: {
-          customer: "Bosch",
-          logo: "assets/img/logos/bosch.png",
-          headline: "A field force planned by a solver, approved by dispatchers",
+        caseStudy: {
+          descriptor: "A global home-appliance manufacturer",
+          area: "Field-service operations across three countries",
+          industry: "manufacturing",
+          image: "assets/img/industries/manufacturing.jpg",
+          status: "measured",
+          metricsEyebrow: "Measured",
           metrics: [
             { value: "+4.5%", label: "median gain in jobs per technician per day, optimized against the current plan" },
             { value: "~5x", label: "return within three years on the modeled rollout" }
           ],
-          story: "Dispatchers planned a residential appliance-repair field force by hand — ZIP-code work zones and technician allocations, region by region. A three-month proof of value across three countries modeled around thirty real-world constraints: 83% of the simulations came out positive, and dispatcher productivity improved 15–20% during the pilot. Results are modeled simulations against a historical baseline, not measured production outcomes.",
+          story: "Dispatchers planned a residential appliance-repair field force by hand — ZIP-code work zones and technician allocations, region by region. NVIDIA cuOpt on Oracle Cloud Infrastructure was run against the customer’s own historical operations data with dispatcher approval in the loop: 83% of the simulations came out positive, and dispatcher productivity improved 15–20% during the pilot. Results are modeled simulations against a historical baseline, not measured production outcomes.",
+          scope: [
+            { label: "Duration", value: "Three months" },
+            { label: "Footprint", value: "Three countries" },
+            { label: "Constraints modeled", value: "Around thirty" }
+          ],
+          ndaLine: "Customer under NDA · reference call available on request",
           downloadLabel: "Download the case summary"
         }
       },
@@ -2752,9 +2769,10 @@ window.SITE_CONTENT = {
     },
 
     proof: {
-      title: "PROOF",
+      title: "CASE STUDIES",
       dividerLabel: "How we prove it",
-      evidenceIds: ["workforce-proof", "extraction-proof", "account-insights-first-engagement", "method-like-for-like", "method-accuracy-journey"]
+      caseStudyIds: ["workforce-proof", "extraction-proof", "account-insights-engagement", "plan-vs-actual-engagement"],
+      methodNote: "How we measure it: every KPI is computed identically for the current path and the optimized one, so the comparison holds, and the baseline and success metrics are signed before the clock starts. Accuracy is treated as a journey with a threshold — on one engagement an evaluation framework plus work on the data took a customer’s existing AI solution to 81% accuracy, and around 80% is the practical point past which reviewing the output is faster than doing the work from scratch."
     },
 
     contact: {
