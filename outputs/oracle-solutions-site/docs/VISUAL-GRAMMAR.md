@@ -534,3 +534,16 @@ The rules that carry over, unchanged:
 Below 900 px the row goes two-up with the third tile spanning both columns — a cell is a column of the band, not a tile in a grid — and single-file at 480. **A change to the strip that is not behind a `--home` selector changes the Services page too**; that strip was verified pixel-identical through §18.8 and should stay that way.
 
 **An address is a link, never a filled button.** An email address or a website URL renders as an anchor at body size with its glyph and a hairline rule under it — accent on hover and focus-visible on dark, the light band's own ink on light — and takes `padding-block` at ≤ 560 px so it clears the tap-target minimum. This is a **site-wide** rule, not a home-page one: `UI.contactCard` renders the address on all three of its surfaces (the home contact screen, the Services contact section, every product's Contacts tab), and the About band's `softserveinc.com` link follows it too. The reasoning is that a filled button is the site's one *ask* — it says *do this now* — and an address is a destination the reader may or may not want; dressing it as a primary button puts two competing asks on a screen that has exactly one (§18.8, item 1). The filled buttons on the home page stay where a reader is being asked for something: the hero's primary CTA and the contact form's submit.
+
+## 10. The Services page — three screens and contact (round 6)
+
+Services is built from the home page's components rather than its own; the reasoning is in `PROVENANCE.md` §21.
+
+| Screen | Component | Rule |
+|---|---|---|
+| S1 — what SoftServe adds on Oracle | product hero over `services.jpg` + `stat-band` | The H1 runs two lines: the teal accent (where the customer starts) on its own line above the white rest. Under the two paragraphs, the four platforms as the same "Runs on" chips a product hero carries, keyed off `facets.technology`. One filled button. Three stats in three equal columns above 900 px. |
+| S2 — how we engage, then after go-live | `home-head` + `ladder3` + footnote; a second `home-head` with a dim eyebrow + `ways` | The step names are the home page's. The two after-go-live panels are peers with no button: the contact block is the page's one ask. |
+| S3 — how we measure it | `light-band` | The page's only light band: the discipline on the left; the one figure, its caveat and the link to the case studies on the right. An internal route takes the arrow glyph, not the external one an address carries. |
+| Contact | `closing` + `contactSplit` | Unchanged. |
+
+Anchors other pages land on — `#how-we-engage` (every product's Jumpstart tab), `#proof` (the home case-studies rail), `#contact` (header button, footer, Products page) — are asserted by `tools/check-grammar.js`.

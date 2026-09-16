@@ -3559,3 +3559,58 @@ frames and poster, checked their legibility and updated the capture notes.
 **Open: Oracle trademark usage.** Oracle's *Third Party Usage Guidelines for Oracle Trademarks* (https://www.oracle.com/legal/trademarks/) ask third parties not to use Oracle marks as all or part of a company, product or service name, and to show the relationship with a descriptive tag line such as *for Oracle* (read through a search summary of that page; oracle.com refused a direct fetch on 2026-09-16). A SoftServe site whose name leads with *Oracle*, and echoes the Oracle AI & Data organization that `HANDOFF` §3 names, can read as an Oracle property, which §3's no-implied-standing rule exists to prevent; *AI Agents on Oracle* had the tag-line shape. Shipped as instructed and raised with Alex the same day, with *AI & Data Solutions for Oracle* as the guideline-shaped alternative.
 
 **Verification and publish.** `node --check` clean; `node tools/check-grammar.js` OK; the deny-list grep empty; console clean; the titles of `#/`, `#/products`, a product page, `#/services` and the not-found page carry the new name. Published as preview versions 26 (`index.html`, `data/content.js`, `assets/site.css`) and 27 (the page again, without the `<meta charset>` and `<meta name="viewport">` lines the artifact skeleton already has; `HANDOFF` §4 now strips both).
+
+## 21. Round 6 — the Services page rebuild, 2026-09-16
+
+**Brief** (Alex, 2026-09-16, in session): the Services page is poorly structured, too long, and has no narrative that holds across its screens. Rebuild it as a product marketer would — the audience and what it wants, the positioning of services as distinct from products, key messages that answer the audience's problem and differentiate, and a couple of screens — using *Oracle SoftServe EMEA Business Alignment July 2026*, *Oracle and SoftServe for Arrow* and *SoftServe AIDP Factory V2*.
+
+**Work split.** Opus read the decks — plus *OCI AI Accelerators — GTM with productized solutions and services*, found beside them and the one source that separates packaged apps from packaged services — wrote the digest, audited the page, implemented, checked and published. Fable, in one pass: audience, positioning, key messages, screen plan and copy. The digest lives in the session scratchpad, not the repo; what the page takes from it is recorded here. (A background research agent stalled twice on its summary; the main session distilled the text it had already extracted.)
+
+### 21.1 Audience, positioning, messages
+
+- **Readers, in order:** an Oracle account executive or AI & Data solution engineer opening the page live on a call (*what does SoftServe add beyond what Oracle sells, and what can I promise about the engagement?*); an enterprise buyer on Oracle — CIO, CDO, head of data & AI, or the workflow owner — who has seen a product and asks what happens, who does the work, who runs it afterwards and how they will know it worked; channel and partner managers, served by the same copy.
+- **Positioning:** products are the agents you start with; services are the team and the method that take one of them — or the one your workflow needs, and the governed data under it — from a proof on your own data to production in your Oracle tenancy, and keep it there.
+- **Messages:** (1) Oracle provides the platforms; SoftServe builds, integrates and runs what sits on top, and the team that shapes the scope runs it after go-live, in joint teams with Oracle's AI & Data organization (ARROW s.4; the retired `whatWeDo.lead`, `whoYouWorkWith`, `whySoftServe[1]`). (2) Every engagement is built to reach production, one small, measured step at a time (GTM s.9; the retired ladder). (3) After go-live the customer chooses: a managed service, or its own team trained to run it (GTM s.9, s.13; the retired `wrapAroundServices`). (4) The customer will know it worked: the baseline is signed before the clock starts and both paths are scored the same way (the retired `proof.lead`, `howAPovRuns.steps[0]`, `whySoftServe[3]`).
+
+### 21.2 The page, before and after (1440×900)
+
+| | Before | After |
+|---|---|---|
+| Blocks | 9 — hero, stat band, platform cards, what we do, wrap-around services, how we engage, why SoftServe, how we measure it, contact | 3 screens + contact — hero with stat band and platform chips · how we engage, then after go-live · how we measure it (light band) · contact |
+| Height | 7.7 screens | 3.8 screens (2.7 above the contact block) |
+| Words above contact | 1,266 | 496, labels and chips included |
+| Step names | Proof of value / Roll-out / Scaling, while the home said Jumpstart proof of value / Integration / Scale | the home's names, enforced by the checker |
+
+### 21.3 Where the new strings come from
+
+Every claim was already on the site or is public-safe in the decks; nothing needs clearance. `hero.headline` adapts ARROW s.1 (*From Oracle AI Platform To Repeatable Outcomes*); `hero.lead` adapts the retired `whatWeDo.lead` (ARROW s.4) and `overview.twoWays.panels[1].body`; `hero.secondParagraph` adapts `whoYouWorkWith`, `whySoftServe[1]` and `overview.delivery.why.pillars[0]`; `hero.stats` keep the cleared values (FACTORY s.4). `howWeEngage.steps[].title` and `.fact` are verbatim `overview.delivery.steps[]`; the bodies adapt the retired ladder's `whatItIs` and `ladderRules[1]`; `howWeEngage.footnote` adapts `ladderRules[0]` + `ladderFootnote`. `afterGoLive` adapts `wrapAroundServices` (GTM s.9, s.13). `proof.lead` adapts the retired `proof.lead`, `howAPovRuns.steps[0]` and `whySoftServe[3]`; `proof.stat` and `.cta` are verbatim, `.footnote` tightened, `proof.eyebrow` is the home link's label. New copy: `howWeEngage.title`, `afterGoLive.title`, `proof.title`. `shared.engageLink.label` drops *packages* (internal vocabulary) and takes the step names.
+
+**Opus edits to Fable's copy** — for the repetition rule (no content word three times on one screen) and by Fable's own trim order for a body over ~450 words:
+
+| Key | Fable | Shipped | Why |
+|---|---|---|---|
+| `hero.platformsTitle` | Oracle platforms we build on | Delivered on | *platforms* and *build* each 3× on screen 1 |
+| `hero.stats[1]`, `[2]` labels | active projects in that practice · Fortune 500 clients in that practice | active projects · Fortune 500 clients | *practice* 3× in the band; the first label sets the scope |
+| `afterGoLive.panels[1].bullets[0]` | OCI and NVIDIA training and certification, plus training on the solution itself | OCI and NVIDIA certification, plus training on the solution itself | *training/trained* 3× in the panel |
+| `afterGoLive.panels[0].body` | The production system under SLA, kept running and re-tuned by the people who built it. | Your agents in production, under SLA, kept running and re-tuned by the people who built them. | *system* 3× in the section; echoes the H1 |
+| `proof.lead` | … before the clock starts, with source access approved in writing. | … before the clock starts. | trim 1 (the body measured 517 words) |
+| `hero.secondParagraph` | … runs it after go-live, or trains yours to. | … runs it after go-live. | trim 2 |
+| `afterGoLive.panels[].bullets[2]` | A periodic accuracy, KPI and cost review · Knowledge transfer and runbooks | — | trim 3 |
+
+### 21.4 What left the page, and where it survives
+
+The *4 Oracle platforms* stat (a count of scaffolding; the platforms stay as chips) · the platform cards' `short`/`long` copy (engine detail lives on each product's Technology tab) · the seven application families (the Products page's patterns) · the solution stack (product pages) · the proof-of-value team roster (a scoping-call answer) · *what attaches to every engagement* (the home pillar *Agentic-AI experience*) · the Connect and Model-and-guard steps of *how a proof of value runs* (product Jumpstart tabs) · the *engagement by engagement* method lines (the home case-study footnotes) · the hero's quiet *Browse the products* button (the nav carries Products; `site.secondaryCta` retired) · **the €300–500K roll-out band** · **the Databricks and Snowflake partner lines and the AI-driven SDLC paragraph** (both now off the site; restorable).
+
+### 21.5 Code and checks
+
+`pages/services.js` is rewritten on the home components (`home-head`, `ladder3`, `ways`, `light-band`); `assets/site.css` gains the two-line H1, the platform chip row, a three-column stat band above 900 px, the after-go-live spacing and the proof band's stat and note. `tools/check-grammar.js`: `services.proof` leaves the C2 block for a round-6 block that asserts the new shape, the step names against `overview.delivery`, two after-go-live panels without CTAs, the retired keys, the routes that land on `#how-we-engage`, `#proof` and `#contact`, and no *package* in `shared.engageLink.label`. `site.dividerLabels` and `shared.ladderColumns` had no other renderer and are gone.
+
+Verification: `node --check` clean; checker OK; deny-list grep empty; console clean; no horizontal overflow at 375; the Jumpstart tab link and `#/services#how-we-engage`, `#proof` and `#contact` all land.
+
+### 21.6 Open for Alex
+
+1. The €300–500K roll-out band is off the page (HANDOFF §3's no-€ rule; the GTM deck marks it illustrative). Restorable as `howWeEngage.steps[1].fact`.
+2. The Databricks/Snowflake partner credentials and the AI-driven SDLC paragraph are off the site. Restorable as one clause each.
+3. Two product Jumpstart blocks still say *"100% of the fee credits into a roll-out signed within 90 days"* — a commercial term that names the old step; left as written.
+4. Deck proof points usable once cleared: an enterprise agentic AI platform at scale (response accuracy 42% → 91%, 3M+ users) and a GenAI knowledge graph (5–10× faster research) — FACTORY s.15, s.17.
+5. The decks disagree on durations (proof of value about two vs three months; integration 3–5 vs 6 months); the site keeps its published *30–45 days to about two months* and *3–5 months*.
