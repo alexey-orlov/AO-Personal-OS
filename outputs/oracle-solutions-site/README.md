@@ -60,7 +60,7 @@ Script order in `index.html` matters: `data/*` → `assets/forms.js` → `pages/
 | `#/services` | The Oracle dedicated practice — platforms, what we do, how we engage, why SoftServe, how we measure it, contact form |
 | anything else | A designed not-found page |
 
-An anchor can follow the route: `#/services#contact`, `#/#request-a-demo`. The router scrolls to that element with a 96 px offset. Query parameters work too — `#/products?tech=lakehouse` opens the marketplace with that facet applied, which makes filtered views shareable.
+An anchor can follow the route: `#/services#contact`, `#/#request-a-demo`. The router scrolls to that element with a 96 px offset. Query parameters work too — `#/products?tech=oracle-ai-lakehouse` opens the marketplace with that facet applied, which makes filtered views shareable.
 
 ---
 
