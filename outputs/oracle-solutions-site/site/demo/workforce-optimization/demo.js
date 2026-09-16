@@ -131,7 +131,7 @@
     var wsum = 0, dsum = 0;
     D.zones.forEach(function (z) { var w = z.wait; ch.forEach(function (c) { if (c.effects.waits && c.effects.waits[z.id]) w += c.effects.waits[z.id]; }); w = r1(w); out.zones[z.id] = { wait: w }; wsum += w * z.demand; dsum += z.demand; });
     var prods = Object.keys(out.techs).map(function (k) { return out.techs[k].prod; });
-    out.fleet = { prod: r2(sumProd / D.techs.length), cap: Math.round(sumJobs / (sumWD * D.capacityPerDay) * 100), wait: r1(wsum / dsum), jobs: sumJobs, techDays: sumWD, spread: r2(Math.max.apply(null, prods) - Math.min.apply(null, prods)) };
+    out.fleet = { prodRaw: sumProd / D.techs.length, prod: r2(sumProd / D.techs.length), cap: Math.round(sumJobs / (sumWD * D.capacityPerDay) * 100), wait: r1(wsum / dsum), jobs: sumJobs, techDays: sumWD, spread: r2(Math.max.apply(null, prods) - Math.min.apply(null, prods)) };
     kmemo[key] = out; return out;
   }
   function pct(a, b) { return Math.round((b - a) / a * 1000) / 10; }
@@ -161,7 +161,7 @@
     if (!S.ran) { el.hidden = true; return; }
     var B = kpis([]), K = kpis(S.applied), ch = changedZones(S.applied).length, fl = flagsFor(S.applied), n = S.applied.length;
     function tile(cls, label, big, sub, act) { return '<button class="kpi-tile ' + cls + '" type="button"' + (act ? ' data-kpi="' + act + '"' : "") + '><span class="kpi-label">' + label + '</span><span class="kpi-big">' + big + '</span><span class="kpi-sub">' + sub + "</span></button>"; }
-    var pp = pct(B.fleet.prod, K.fleet.prod), cp = K.fleet.cap - B.fleet.cap, wd = r1(K.fleet.wait - B.fleet.wait), jd = K.fleet.jobs - B.fleet.jobs;
+    var pp = pct(B.fleet.prodRaw, K.fleet.prodRaw), cp = K.fleet.cap - B.fleet.cap, wd = r1(K.fleet.wait - B.fleet.wait), jd = K.fleet.jobs - B.fleet.jobs;
     el.innerHTML = '<div class="kpi-band-head"><span class="eyebrow">What improved · plan ' + esc(planLabel()) + ' vs today\'s allocation</span><span class="muted">same formulas on both plans · ' + esc(D.period.short) + "</span></div><div class=\"kpi-tiles\">" +
       tile(pp > 0 ? "good" : pp < 0 ? "bad" : "", "Jobs per technician per day", signed(pp, 1, "%"), B.fleet.prod.toFixed(2) + " → <b>" + K.fleet.prod.toFixed(2) + "</b>", "tech") +
       tile(cp > 0 ? "good" : cp < 0 ? "bad" : "", "Capacity used", signed(cp, 0, " pts"), B.fleet.cap + "% → <b>" + K.fleet.cap + "%</b>", "tech") +
@@ -539,7 +539,7 @@
       log("Input validated: " + S.runFile.name, "7 sheets · 1 warning (home location missing for 2 technicians)", "warn");
       runModal.hidden = true; hideWarn();
       renderAll();
-      toast("<b>Plan v1 is ready.</b> " + signed(pct(B.fleet.prod, K.fleet.prod), 1, "%") + " jobs per technician per day · " + S.applied.length + " changes in " + changedZones(S.applied).length + " zones · " + flagsFor(S.applied).length + " flags to look at.", 5200);
+      toast("<b>Plan v1 is ready.</b> " + signed(pct(B.fleet.prodRaw, K.fleet.prodRaw), 1, "%") + " jobs per technician per day · " + S.applied.length + " changes in " + changedZones(S.applied).length + " zones · " + flagsFor(S.applied).length + " flags to look at.", 5200);
       tour.next();
     });
   }
