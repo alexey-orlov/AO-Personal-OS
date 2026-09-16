@@ -177,16 +177,19 @@ the poster file loads, the demo button points at the local demo and opens a new
 tab, no horizontal overflow, console clean. Screenshot:
 `.work/erpqa-qa/product-page.png`.
 
-**One editorial mismatch, left for Alex.** The site's step 4 is titled *"Ask in
-plain language"* and its text is about Select AI answering over the governed
-schema — but still `-4` shows Mapping review's recomputed band, because §8
-assigns the stills in tour order. Steps 1, 2 and 3 fit their frames well
-(connect → catalog with five mounted catalogs; shape one decision domain → the
-band with "5 sources · 1 model · 13 certified views"; guard it in the data layer
-→ the trace with the SQL Firewall, row-policy and masking lines). If step 4
-should match its copy, the fix is to re-cut `-4` from the Agent Hub answer (the
-poster's composition) and move the steward frame elsewhere — no re-shoot of the
-other three needed.
+**The step/still mismatch, closed 2026-09-17.** The first cut assigned the
+stills in *tour* order, so step 4 — *"Ask in plain language"* — carried Mapping
+review's recomputed band. `-3` and `-4` were re-shot against the copy at a new
+868 px viewport (the answer card is exactly 640 px wide there): `-3` is now the
+same question answered under the analyst's role — the "Viewing as Marcus Bell ·
+Regional analyst NA" chip, "Total rows: 4", four NG-NA rows and the banner
+"Rows are limited to NG-NA by the row policy; BANK_ACCOUNT redacted · TAX_ID
+partially redacted" — and `-4` is the controller's answer at `state=final`.
+`-1` and `-2` already fitted their copy and were not touched; the steward's
+recomputed band is no longer a step still — the tour still walks it. Two things
+do not fit 640 × 400 without cutting text and were dropped
+deliberately — the Trace panel in `-3` and the question bubble in `-4`;
+`docs/ASSETS.md` §1 records the measurements.
 
 **Still to do (main session only — subagents never publish and never run git).**
 
