@@ -146,14 +146,14 @@
       {
         "file": "steps/cross-system-erp-qa-3.jpg",
         "kind": "screenshot",
-        "caption": "Every answer row carries the systems it came from",
-        "alt": "An answer grid with per-row source badges above an open agent trace"
+        "caption": "The same question, answered under the asker's role",
+        "alt": "An answer grid limited to four rows for a regional analyst, with a banner naming the row policy and the masked columns"
       },
       {
         "file": "steps/cross-system-erp-qa-4.jpg",
         "kind": "screenshot",
-        "caption": "A steward overrules a match and the band recomputes",
-        "alt": "The health band recomputed, with the two changed tiles ringed"
+        "caption": "Every answer row carries the systems it came from",
+        "alt": "An answer grid with per-row source badges, above it the row count, the data freshness and the certified views it read"
       }
     ],
     "business-metrics-qa": [

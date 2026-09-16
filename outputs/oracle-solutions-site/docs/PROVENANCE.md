@@ -3910,6 +3910,25 @@ stayed.
 - The four `cross-system-erp-qa-*.svg` illustrations deleted; the four captures
   and the poster added, per `ASSETS.md` §1; `manifest-edits.json` updated to
   match.
+- **Stills `-3` and `-4` re-cut 2026-09-17** to match the step copy rather than
+  the tour order. The first cut put the steward's recomputed band under step 4,
+  *"Ask in plain language"*. `-3` is now **Guard it in the data layer**: the
+  same question answered as Marcus Bell, regional analyst NA — the "Viewing as"
+  chip, "Total rows: 4", four JDE rows in a "Q3 spend, NG-NA (USD)" column, and
+  the banner "Rows are limited to NG-NA by the row policy; BANK_ACCOUNT
+  redacted · TAX_ID partially redacted". `-4` is now **Ask in plain language**:
+  the controller's answer at `state=final` — "Total rows: 11 · Displayed: 11 ·
+  as of 09:02 (stalest: NetSuite, 38 min behind)", the three `GOLD` views, and
+  seven of the eleven rows with their Fusion / JDE / NetSuite badges. Both come
+  from a new **868 px** viewport, where the answer card is exactly 640 CSS px
+  wide, so the crop holds the whole card with nothing clipped left or right;
+  the scenario file drives `-3` with `setRole('ANALYST_NA')` instead of the
+  `decide` / `rerun` pair the old `-4` used. Two elements were tried and
+  dropped because they cannot fit 640 × 400 without cutting text — the Trace
+  panel in `-3` (its row-policy and masking spans sit 109 px past the frame)
+  and the question bubble in `-4` (the frame then ends inside *Ravenscourt
+  Electrical*); the measurements are in `ASSETS.md` §1. `-1` and `-2` were not
+  re-shot.
 - Docs: `README.md` (the third walkthrough, the layout, the preview-links
   table), `CONFIG.md` §3, `ASSETS.md` §1, this section, and the Done block of
   `HANDOFF-erp-qa-demo.md`.
