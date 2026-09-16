@@ -1257,10 +1257,16 @@ in-flight engagements now render.
 
 | Engagement | Product | Descriptor that ships | Status |
 |---|---|---|---|
-| Bosch (cuOpt) | `workforce-optimization` | A global home-appliance manufacturer | `measured` |
+| Bosch (cuOpt) | `workforce-optimization` | A global home-appliance manufacturer | `modeled` |
 | Riyadh Air (AI-Q) | `large-document-extraction` | An international airline | `measured` |
-| DHL (AI-Q) | `account-insights` | A global logistics and supply-chain operator | `in-progress` |
-| SBG (AI-Q) | `plan-vs-actual-investigation` | A major construction and engineering contractor | `in-progress` |
+| DHL (AI-Q) | `account-insights` | A global logistics and supply-chain operator | `in-preparation` |
+| SBG (AI-Q) | `plan-vs-actual-investigation` | — **no case ships**; the engagement is pre-contract (d) | — |
+
+**The status a case carries is the one its own sources support**, not the
+strongest one the brief allows. Three of the four entries above moved after the
+first build: a modeled result stopped calling itself measured, an engagement in
+preparation stopped calling itself under way, and a pre-contract engagement
+stopped rendering at all.
 
 **A note on what this section was built from.** The `…/scratchpad/research/`
 tree is not on disk in the session that wrote round 4, so `RESEARCH/01…07` could
