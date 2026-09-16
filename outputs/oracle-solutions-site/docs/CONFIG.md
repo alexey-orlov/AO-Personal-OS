@@ -26,6 +26,7 @@ window.SITE_CONFIG = {
   productOrder: ["<slug>", "<slug>", ...],
   products: {
     "<slug>": {
+      marketplace: false,
       marketplaceUrl: "",
       video: false,
       videoUrl: "",
@@ -180,22 +181,24 @@ cross-system-erp-qa
 business-metrics-qa
 ```
 
-### `marketplaceUrl`
+### `marketplace` and `marketplaceUrl`
 
-The public Oracle Cloud Marketplace listing URL, and **the only thing that puts Oracle Marketplace on a customer-facing surface.** Empty today on all seven, because no pack is listed yet.
+`marketplace` is the **boolean that puts Oracle Marketplace on a customer-facing surface**; `marketplaceUrl` only decides whether the badge is a link. Both are empty/false today on all seven, because no pack is listed yet.
 
 ```js
+marketplace: true,
 marketplaceUrl: "https://cloudmarketplace.oracle.com/marketplace/en_US/listing/000000",
 ```
 
-Paste a real listing URL and four things appear together, on the next reload:
+Set `marketplace: true` and three things appear together, on the next reload:
 
-- the **"On Oracle Marketplace"** badge on the product hero,
-- the same badge on the product's card in the Products list and on its overview tile,
-- the **"Available on Oracle Marketplace"** checkbox in the Products facet rail (the rail hides that group entirely while no product has a listing),
-- the secondary **"View on Oracle Marketplace"** button in the product hero.
+- the **Oracle Marketplace** badge (storefront icon) at the right end of the product hero's chip row,
+- the same badge top-right of that product's image band in the Products grid and the home grid,
+- the **On Oracle Marketplace** checkbox count in the Products facet rail, which filters on this same boolean (`mp=1`).
 
-There is deliberately no separate boolean. A badge claiming a listing that has no URL behind it is a claim the site cannot honour, so the URL is the single switch.
+With `marketplaceUrl` set, the badge opens the listing in a new tab; without one it renders inert — the flag says the listing exists, and a link to nowhere would be worse than no link. There is **no separate hero button**: a second control pointing at the same URL as the badge is one control too many.
+
+**Why a boolean and a URL rather than the URL alone (round 4).** The badge and the facet checkbox are two surfaces of one fact, and inferring that fact from a URL meant the filter and the badge could disagree the moment one of them was read differently. `check-grammar.js` fails a `marketplaceUrl` set while `marketplace` is `false`, so a listing cannot appear half-wired. Turning either on is a claim about a third party: confirm the listing exists first.
 
 ### `demoUrl`
 
@@ -235,7 +238,7 @@ In every case where the frame renders, the frame *is* the watch affordance, so t
 
 `true` today on `workforce-optimization`, `large-document-extraction` and `account-insights` — the three that will have a recording. `false` on the other four.
 
-**Why a boolean here when `marketplaceUrl` has none.** A badge claiming a marketplace listing that does not exist is a claim about a third party the site cannot honour, and nothing behind the click can repair it. A demo frame is a promise about our own recording, and the panel behind the click keeps it honest: it says the recording is being prepared and hands over the thing that *is* available, a live demo. The flag is therefore only for a video someone is actually making — if a recording stops being planned, set `video: false` and the frame goes, rather than leaving a promise on the page.
+**Why the flag rather than the URL.** A demo frame is a promise about our own recording, and the panel behind the click keeps it honest: it says the recording is being prepared and hands over the thing that *is* available, a live demo. The flag is therefore only for a video someone is actually making — if a recording stops being planned, set `video: false` and both the frame and the Demo badge go, rather than leaving a promise on the page. Since round 4 the same flag drives the **Demo** badge in the hero chip row and on both grids, and the **Demo available** facet checkbox (`demo=1`), so the filter and the badge cannot disagree.
 
 ### `videoUrl`
 
@@ -276,9 +279,11 @@ Empty on all seven today.
 
 ### `successStoryUrl`
 
-A hosted case summary. When non-empty, the Overview tab's success-story block and the product hero each gain an **"Open the success story"** link, which opens the file in a new tab. It is deliberately not a forced download: browsers ignore the `download` attribute on a cross-origin URL, so a button labelled "Download" would have opened a tab anyway and the label would have been a small lie.
+A hosted case summary. When non-empty, the Overview tab's **case study** gains its one link out, labelled from that case's `downloadLabel`, which opens the file in a new tab. It is deliberately not a forced download: browsers ignore the `download` attribute on a cross-origin URL, so a button labelled "Download" would have opened a tab anyway and the label would have been a small lie. There is no hero button — the case study owns the link.
 
-The success-story block itself is governed by `content.js`, not by this URL: it renders only where that product has a real story to tell (a non-empty `overview.successStory.blurb`), and is omitted entirely otherwise. A section whose only content is "no customers yet" is worse than no section on a page sellers demo live.
+The case study itself is governed by `content.js`, not by this URL: it renders only where `overview.caseStudy` is an object, and not at all where it is `null`. A section whose only content is "no customers yet" is worse than no section on a page sellers demo live.
+
+The key keeps its round-3 name although the block was renamed: it is a config key rather than shipped copy, and renaming it would touch seven entries for no reader-facing gain.
 
 Expected first for `workforce-optimization` and `large-document-extraction`. Empty on all seven today.
 
@@ -383,7 +388,7 @@ All three are named in `content.js` (`overview.steps[].image`, `overview.industr
 ## 4. Adding an eighth product
 
 1. Add the product object to `products[]` in `content.js` (see `SCHEMA.md` for every field).
-2. Add a matching `products["<new-slug>"]` block to `config.js` with all six keys (`marketplaceUrl`, `video`, `videoUrl`, `videoPoster`, `successStoryUrl`, `materials`). `video` must be a real boolean — `check-grammar.js` rejects a missing one and a quoted `"false"`, which would be truthy and turn the frame on.
+2. Add a matching `products["<new-slug>"]` block to `config.js` with all seven keys (`marketplace`, `marketplaceUrl`, `video`, `videoUrl`, `videoPoster`, `successStoryUrl`, `materials`). `video` and `marketplace` must both be real booleans — `check-grammar.js` rejects a missing one and a quoted `"false"`, which would be truthy and turn the frame or the badge on.
 3. Add the slug to `productOrder` where you want it to appear. Skipping this step is not an error — the product lands at the end of every list instead — but the position is a judgement about what a seller should meet first, so make it deliberately rather than by omission.
 4. If it lands on a technology facet that currently has no products, nothing else is needed — the facet is already declared and will stop rendering its empty state once a product carries it.
 
