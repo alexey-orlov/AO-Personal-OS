@@ -1452,35 +1452,42 @@ back as a metric value — it is a capability restatement, not an outcome (see
 ### 17.3 C2 · the home-page case-study screen
 
 `overview.evidence` → `overview.caseStudies` and `overview.evidenceIntro` →
-`overview.caseStudiesIntro`; `services.proof.evidenceIds` →
-`services.proof.caseStudyIds`.
+`overview.caseStudiesIntro`. `services.proof.evidenceIds` is gone entirely —
+see §17.4a.
 
-- **Four cards, one anatomy.** The two measured cases and the two in progress,
-  each a compact form of the product-page callout: medallion, descriptor, status
-  chip, **one** headline metric with its eyebrow, one line, the link to the
-  product. The checker asserts that each card's descriptor, area, industry and
-  status equal the product's, and that its `product.name` equals the product's
-  `name` — the round-3 rule that a reader clicking through must not meet a
-  different pair of figures, generalized to every field the two surfaces share.
+- **One card per engagement that has a case study — three today.** Each is a
+  compact form of the product-page callout: medallion, descriptor, status chip,
+  **one** headline metric with its eyebrow, one line, the link to the product.
+  The checker asserts that each card's descriptor, area, industry and status
+  equal the product's, and that its `product.name` equals the product's `name` —
+  the round-3 rule that a reader clicking through must not meet a different pair
+  of figures, generalized to every field the two surfaces share. The grid is
+  three columns on desktop, two below 1180px, one below 900px.
 - **The band 1 / band 2 split is gone**, and so are the `PROOF OF VALUE` /
   `FIRST ENGAGEMENT` / `METHOD` labels. §14 kept them deliberately non-uniform
-  because the three states were genuinely different; the status chip now carries
-  that distinction in data, in two states, and a hand-written label that says the
-  same thing is a second place to drift.
+  because the states were genuinely different; the status chip now carries that
+  distinction in data, and a hand-written label that says the same thing is a
+  second place to drift.
 - **The two METHOD cards were folded.** `method-like-for-like` said that every
   KPI is computed identically for the current and the optimized plan and that the
   baseline is signed before the clock starts — which `workforce-optimization`'s
-  `moreDetail` entry *"How the KPIs are defined"* already says in full, so
-  nothing was lost. `method-accuracy-journey` had no other home, and its
-  substance (the 81% accuracy figure, the ~80% practical threshold) survives
-  verbatim as **`services.proof.methodNote`**, one paragraph under the four
-  cards on Services. Its clearance status is unchanged — §14 still lists it as
-  needing one, and moving it did not grant it.
+  `moreDetail` entry *"How the KPIs are defined"* already says in full. It is
+  also, now, the **lead of the Services proof block** (§17.4a), where it reads at
+  body size rather than as a footnote clause. `method-accuracy-journey`'s
+  substance splits: the 81% accuracy figure is `services.proof.stat`, a labelled
+  stat, and the ~80% practical threshold is that section's footnote. Its
+  clearance status is unchanged — §10.8 still lists it as needing one, and moving
+  it did not grant it.
+- **Each card's footnote says only what the card shows.** A card whose headline
+  value is words (`Hours, not quarters`) no longer carries *"figures are
+  illustrative, not contractual"*: it disclaims figures it does not display, and
+  `check-grammar.js` now fails that mismatch.
 - `evidenceIntro` was rewritten as `caseStudiesIntro`: it used to say *"Two of
   these applications have been through a delivered proof of value"* over a
-  five-card grid of mixed kinds. It now says four engagements, two measured and
-  two under way, and that every customer is under NDA — which is the honest
-  reason the cards carry descriptors rather than names.
+  five-card grid of mixed kinds, then *"four engagements, two measured and two
+  under way"*. It now names three engagements — one measured, one modeled, one in
+  preparation — and says every customer is under NDA, which is the honest reason
+  the cards carry descriptors rather than names.
 
 ### 17.4 T2 · the Availability facet group
 
@@ -1495,11 +1502,62 @@ object: the Marketplace **badge** is the link to the listing now, so a second
 hero button on the same URL was one control too many. The listing link still
 renders only where `marketplaceUrl` is non-empty.
 
-**Both options match no product today** (no `video` flag drives a listing, and
-`marketplace` is `false` everywhere) — except `demo`, which matches the three
-products flagged `video: true`. The `marketplace` option will render a zero
-count until a listing is confirmed; that is the honest state, and it is the same
-posture `facets.technology`'s two empty facets already take (L1, L2).
+**An option renders only while a product carries its flag.** `marketplace` is
+`false` on all seven, so *On Oracle Marketplace* would render permanently at
+zero and disabled — a control advertising a capability the site does not have,
+which is a different thing from the two empty **technology** facets (L1, L2),
+where the emptiness is the message: the practice delivers on those platforms and
+the rail says so in `facets.footnote`. The row is therefore hidden, `mp=1` is
+ignored while it is, and the group renders as a single checkbox. Both options
+stay in the data and the row returns the day a listing is confirmed; if neither
+flag is set anywhere, the group does not render at all.
+
+**`demo` counts one product, not three.** `config.products[*].video` was `true`
+on `account-insights` and `workforce-optimization` with an empty `videoUrl`, so
+the badge and the facet asserted a demo whose only content was a panel saying the
+recording was being prepared — a prospect filtering on *Demo available* and a
+seller demoing that filter both landed on it. Both are now `video: false` until a
+`videoUrl` is pasted in; `large-document-extraction` keeps the flag because its
+interactive walkthrough is real. The hero video frame follows the same flag, so
+those two products render the single-column hero the four other flagless products
+already render. **Flip the flag back the day a recording lands** — that is the
+whole maintenance instruction.
+
+### 17.4a The Services proof block — the method, not a second copy of the cards
+
+Services used to render the identical case-study grid the home page renders, from
+the same ids, with the measurement paragraph as a footnote beneath it. A customer
+or seller moving Overview → Services met the same four cards twice with nothing
+new, which flattened the page and made the evidence feel padded rather than deep;
+and the strongest measurement proof on the page — an engagement taken to 81%
+accuracy — sat at 12px inside a three-line run-on sentence that also carried the
+KPI-parity and threshold arguments.
+
+`services.proof` is now `{ title, dividerLabel, lead, stat, engagementsTitle,
+engagements[], cta, footnote }`, rendering:
+
+- `lead` — the measurement discipline at body size: every KPI computed
+  identically for the current and the optimized path, baseline and success
+  metrics signed by customer, Oracle and SoftServe before the clock starts.
+  Source: the former `methodNote`, unchanged in substance; the signatory list is
+  `whySoftServe`'s *Value realization* item, already on the same page.
+- `stat` — `81%`, the accuracy one engagement reached on a customer's existing AI
+  solution after an evaluation framework and work on the data. Same source and
+  same outstanding clearance as before (§10.8); it is now a labelled stat rather
+  than a clause.
+- `engagements[]` — one line per case study, in the same order, each naming what
+  that engagement measures and against what, with a link to its product. **No
+  figure may appear in one of these lines** — a number away from its caveat is
+  rule 2, and the caveats live on the Overview cards. The checker enforces both
+  the descriptor match and the no-figure rule.
+- `cta` — back to the Overview case studies, which carry the numbers.
+- `footnote` — the threshold caveat alone: around 80% is the practical point past
+  which reviewing the output beats doing the work from scratch.
+
+The section title moved from *CASE STUDIES* to **HOW WE MEASURE IT** and the
+divider label from *How we prove it* to *Proof*, so the two surfaces no longer
+announce themselves as the same block. The home page's link to it was retitled
+to match.
 
 ### 17.5 The renderers, as they now stand
 
