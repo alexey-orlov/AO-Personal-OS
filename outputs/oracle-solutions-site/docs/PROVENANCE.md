@@ -2470,6 +2470,506 @@ About body no longer prints *founded in 1993* or *500+ data experts* (18.2's
 unaffected**: the 1993 and 500+ figures still ship, as the stat tile and the
 hero strip respectively.
 
+### 18.8 The owner's review — links, positioning, metrics and verbosity (2026-09-16)
+
+The messaging pass (§18.7) shipped and the owner read the live page again. Nine
+items came back. They are not one theme: two are interface faults (a link
+dressed as a button, a broken strip), one is a sourcing objection (the About
+block), one removes a CTA, one renames a block, and four are about **wording** —
+three of them verbosity, one of them vocabulary.
+
+**Who did what.** The main session (Fable) made every copy decision. An **Opus**
+subagent researched SoftServe's public positioning and returned the verbatim
+sentences and URLs in (d). A second **Opus** subagent implemented the layout and
+link changes in (e). A **Fable** subagent read the result as a final copy edit;
+its accepted findings were applied and one proposal was overruled — (f).
+
+**Scope.** `site/data/content.js`, `site/pages/overview.js`,
+`site/assets/app.js`, `site/assets/site.css` and two assertions in
+`tools/check-grammar.js`. No new key, no new component, no design token.
+
+#### (a) The nine items, verbatim
+
+1. > "I don't like the fact that buttons with email and website look like bold buttons - that doesn't sound like best practice?"
+
+   The contact card's email and the About band's website link are now underlined
+   anchors, not filled buttons — site-wide, on all four surfaces they render (e).
+
+2. > "for SoftServe positioning, pick something from how they frame it on their website, in other materials, since current about softserve looks like shifted / voluntary made up positioning info"
+
+   The About block was rebuilt out of three sentences softserveinc.com prints
+   about itself, and its four tiles are now the About Us page's own counters (d).
+
+3. > "'Contacts' block anywhere: 'Talk to the Oracle AI & Data team' should be rather (Talk to our team)"
+
+   `overview.contact.heading` → **"Talk to our team"**. It is the only surface
+   that carried the long form; Services and the product Contacts tab head their
+   contact sections from their own keys.
+
+4. > "The Services block on the main page should not have 'Talk to us' CTA"
+
+   `overview.delivery.ctas` went from two to one: the quiet *Talk to us* was
+   dropped, the primary *Explore the services* stands. The checker was relaxed
+   from `=== 2` to 1–2.
+
+5. > "Review layout of metrics (screen attached; broken layout) on the home page and their list"
+
+   — with the list he wanted: **1000+ AI & Data experts · 30 Fortune 500
+   customers · 4-8 weeks PoCs**. The strip is now three tiles carrying those
+   three figures, and the layout fault behind the screenshot was a cell with no
+   bottom padding (c, e).
+
+6. > "'What each engagement measures.' - not that good of a name for a block. Not really crafted by product marketer"
+
+   `overview.caseStudiesIntro.title` → **"What we've proven, and what we're
+   proving now."** The copy editor then found the same rejected name still
+   heading the Services engagements panel, and it went too (f).
+
+7. > "Case studies block on the home page is too verbose, reduce wording"
+
+   The rail lost the method paragraph, the 81% stat and its footnote (they ship
+   on Services, where the method belongs); the intro body went 38 words → 14,
+   and the NDA line, the link label, the four card footnotes and the two
+   in-preparation card lines were all cut back (b).
+
+8. > "'Find the job you need done.' - that block should speak AI and agents language"
+
+   The S3 headline became **"Agents that read, extract, plan and answer."**, the
+   lead and three `shortLine`s were re-pointed at what the agent does, and the
+   S2 panels were re-titled around agents and the people who build them.
+
+9. > "Two ways in block - is too verbose again"
+
+   Title, both panel titles, both bodies and five of the six bullets were cut.
+   The screen lost 47 words and no fact.
+
+#### (b) Before → after, every changed string
+
+*Before* is the text as §18.7 recorded it shipping; *after* is read from
+`content.js` as it now stands.
+
+**S1 · `overview.hero`**
+
+| Key | Before | After | Item |
+|---|---|---|---|
+| `lead` (last sentence only) | *"Built on Oracle's AI platforms, run in **your own** tenancy, measured on **your own** data first."* | *"Built on Oracle's AI platforms, run in your tenancy, measured on your data first."* | copy edit (f) |
+| `stats` | **four** tiles — `From 30 days` / *to a measured result on your own data* · `Fixed price` / *on the priced Jumpstarts, agreed before work starts* · `4` / *Oracle platforms the practice focuses on* · `500+` / *data experts in SoftServe's data and analytics practice* | **three** tiles — `1,000+` / *experts in AI, data and R&D across SoftServe* · `30` / *Fortune 500 clients in the data and analytics practice* · `4–8 weeks` / *to a fixed-price proof of value on your own data* | 5 |
+
+**S2 · `overview.twoWays`**
+
+| Key | Before | After | Item |
+|---|---|---|---|
+| `title` | *"The products get you started, and the team behind them takes you to production."* | *"Start with an agent, keep the team that built it."* | 9, 8 |
+| `panels[0].title` | *"Products you can start with"* | *"Agents ready to run"* | 8 |
+| `panels[0].body` | *"Each one runs on Oracle inside your own tenancy and starts with a Jumpstart: a fixed-scope pilot on your own data. Four are priced and ready to start today; three are scoped per engagement."* | *"Each one runs on Oracle in your own tenancy and starts with a Jumpstart on your data. Four are priced today; three are scoped per engagement."* | 9 |
+| `panels[0].bullets[0]` | *"Runs on OCI + NVIDIA or Oracle Autonomous AI Lakehouse"* | unchanged | — |
+| `panels[0].bullets[1]` | *"Built for review: extractions, plans and findings are approved by a person before they are used"* | *"Extractions, plans and findings are approved by a person"* | 9 |
+| `panels[0].bullets[2]` | *"Jumpstart scope, timeline and investment on every product page"* | *"Scope, timeline and price on every product page"* | 9 |
+| `panels[1].title` | *"A dedicated Oracle AI & Data practice"* | *"The people who build them"* | 8, 9 |
+| `panels[1].body` | *"The architects and engineers who built these **products** adapt them to your systems, rules and data, and take them **from pilot to** production. One contract **and** one accountable team, **from scoping through run**."* | *"The architects and engineers who built these agents adapt them to your systems, rules and data, and take them to production. One contract, one accountable team."* | 9, 8 |
+| `panels[1].bullets[0]` | *"Delivered **alongside** Oracle's AI & Data organization, in joint teams"* | *"Delivered with Oracle's AI & Data organization, in joint teams"* | 9 |
+| `panels[1].bullets[1]` | *"**Results** measured like for like against how you work today"* | *"Measured like for like against how you work today"* | 9 |
+| `panels[1].bullets[2]` | *"Configured to your rules, **your** definitions and **your** access model"* | *"Configured to your rules, definitions and access model"* | 9 |
+
+**S3 · `overview.catalog`, and the three `shortLine`s it renders**
+
+| Key | Before | After | Item |
+|---|---|---|---|
+| `title` | *"Find the job you need done."* | *"Agents that read, extract, plan and answer."* | 8 |
+| `lead` | *"Each product page has how it works, what it needs from you, and the Jumpstart scope and investment."* | *"Each agent runs in your own Oracle tenancy. Open one for how it works, what it needs from you, and the Jumpstart scope."* | 8 |
+| `patterns[1].definition` (first sentence) | *"Long documents and records **turned into** checked, structured data."* | *"Long documents and records become checked, structured data."* | 8 |
+| `products[account-insights].shortLine` | *"Market signals turned into cited, scored opportunities for every account."* | *"What a market signal means for each account, scored and sourced."* | 8 |
+| `products[case-evidence-collection].shortLine` | *"The evidence trail for a case, assembled from every system and cited."* | *"The evidence trail for a case, pulled from every system involved."* | 8 |
+| `products[large-document-extraction].shortLine` | *"Long documents turned into validated, structured data, every value cited."* | *"Long documents read, extracted and checked against your business rules."* | 8 |
+
+The three rewritten `shortLine`s still hold the round-5 rule: ≤ 12 words, ending
+in a period, never a copy of the `oneLiner`. The other four are untouched. Note
+what the first one gave up and what it bought: *scored* survives, *cited* became
+**sourced** — the same claim in a word a buyer uses — and the sentence now opens
+on the reader's question (*what a market signal means*) rather than on the
+mechanism. `large-document-extraction` traded *validated … every value cited*
+for **checked against your business rules**, which is the same guarantee named
+by what it is checked against; the citation claim is one line above it in the
+pattern definition and on the product page.
+
+**S4 · `overview.delivery`**
+
+| Key | Before | After | Item |
+|---|---|---|---|
+| `ctas` | **two** — *Explore the services* → `#/services` (`primary`), *Talk to us* → `#/services#contact` (`quiet`) | **one** — *Explore the services* → `#/services` (`primary`) | 4 |
+
+Nothing else on S4 moved: the three step bodies, all three `fact`s, the
+footnote and the three pillars are §18.7's text.
+
+**S5 · `overview.caseStudiesIntro` and the four cards**
+
+| Key | Before | After | Item |
+|---|---|---|---|
+| `title` | *"What each engagement measures."* | *"What we've proven, and what we're proving now."* | 6 |
+| `body` | *"Where a proof of value has completed, the card carries what it measured; where one is being prepared, it carries the outcomes it is set up to measure. Every customer is under NDA, so each is described by industry and scale."* (38 words) | *"Every customer is under NDA, so each engagement is described by industry and scale."* (14) | 7 |
+| `ndaLine` | *"Reference calls are available on request for the completed proofs of value."* | *"Reference calls on request."* | 7 |
+| `cta.label` | *"How we measure it, engagement by engagement"* | *"How we measure it"* | 7 |
+| `caseStudies[workforce-proof].footnote` | *"Modeled simulations against a historical baseline, not measured production outcomes; figures are illustrative, not contractual."* | *"Modeled against a historical baseline, not live operations; illustrative, not contractual."* | 7 |
+| `caseStudies[extraction-proof].footnote` | *"Measured in the proof of value on the customer's own documents; figures are illustrative, not contractual."* | *"Measured on the customer's own documents; illustrative, not contractual."* | 7 |
+| `caseStudies[account-insights-engagement].footnote` | *"Target outcomes the proof of value is set up to measure, not results."* | *"What the proof of value will measure; no results yet."* | 7 |
+| `caseStudies[plan-vs-actual-engagement].footnote` | *"Target outcomes the proof of value is set up to measure, not results."* | *"What the proof of value will measure; no results yet."* | 7 |
+| `caseStudies[account-insights-engagement].line` | *"A first engagement is being prepared on the customer's own account base, scoring each generated opportunity for magnitude and confidence and citing the evidence behind it."* | *"The first engagement will run on the customer's own account base: every opportunity scored for magnitude and confidence, with its evidence cited."* | 7 |
+| `caseStudies[plan-vs-actual-engagement].line` | *"A first engagement is being prepared on one completed project sample, reconstructing the customer's own schedule, cost and contract exports into one package-level view."* | *"One completed project sample, with the customer's own schedule, cost and contract exports reconstructed into a single package-level view."* | 7 |
+
+**The footnotes got shorter by dropping what the card already prints.** Each
+card carries a status chip and a `metricEyebrow` — *Measured* / *Modeled* /
+*Target outcomes* — so a footnote that opens by restating the status spends its
+one line on a word the reader has just read. What survives in each is the part
+the chip cannot say: **on whose documents**, **against what baseline**, or that
+**nothing has been measured yet**. The `in-preparation` pair still carries no
+*figures are illustrative* clause, because their headline values are
+qualitative — the checker fails that mismatch.
+
+**S6 · `overview.about`** — see (d).
+
+| Key | Before | After | Item |
+|---|---|---|---|
+| `title` | *"A global digital engineering company, building on Oracle and NVIDIA."* | *"A digital engineering company, at the frontier of agentic AI."* | 2 |
+| `body` | *"Headquartered in Austin, Texas, SoftServe designs and builds data, cloud and AI solutions for enterprises. The Oracle AI & Data team draws on SoftServe's data and analytics practice — 150+ active projects and 30 Fortune 500 clients — and on engineering teams upskilled on the Oracle AI stack."* | *"SoftServe has spent more than thirty years designing and building data, cloud and AI solutions for enterprise industries, and today operates at the frontier of industrial, physical and agentic AI. Its Oracle team draws on the company's data and analytics practice and on architects and engineers dedicated to the Oracle AI stack."* | 2 |
+| `stats[0]` | `1993` / *founded* | `20K+` / *customer projects* | 2 |
+| `stats[1..3]` | `10K` / *employees* · `17` / *countries* · `54` / *offices* | unchanged | — |
+
+**S7 · `overview.contact`**
+
+| Key | Before | After | Item |
+|---|---|---|---|
+| `heading` | *"Talk to the Oracle AI & Data team"* | *"Talk to our team"* | 3 |
+| `sub` | *"One scoping conversation starts it. We come back with what a proof of value would cover, what it would cost, and what it would measure."* | unchanged | — |
+
+**Site-wide**
+
+| Key | Before | After | Item |
+|---|---|---|---|
+| `site.footer.description` | *"Tell us which account or workflow you have in mind. **One scoping conversation starts it.**"* | *"Tell us which account or workflow you have in mind."* | (f) side-finding |
+| `services.proof.engagementsTitle` | *"What each engagement measures"* | *"Engagement by engagement"* | 6 + (f) |
+
+#### (c) The metrics strip — what each figure rests on
+
+The owner asked for three specific figures. Two of them are not equally
+sourced, and the difference is recorded here because the next person to edit
+this strip will not be able to tell by looking.
+
+**`1,000+` — *experts in AI, data and R&D across SoftServe*.** Newsroom-only.
+The sentence it comes from is on softserveinc.com, in the tier-1 NVIDIA release
+of **21 January 2026**, verbatim:
+
+> "SoftServe has 400+ professionals with deep expertise in the NVIDIA stack and
+> overall has more than 1,000 experts in AI/ML, robotics, digital twins, IoT,
+> data and infrastructure engineers, AR/VR, and R&D."
+
+**§18.2 rejected this exact figure**, in the bullet headed *The newsroom
+practice figures*: newsroom-only, the kind of count that drifts, and unnecessary
+because the block already carried a cleared practice figure. The owner asked for
+it, so it ships — with the reason it was rejected recorded here rather than
+silently dropped. What the round had to get right instead was the **label**.
+
+The first attempt read *"AI and data experts at SoftServe"*. The source
+sentence counts seven disciplines — AI/ML, robotics, digital twins, IoT, data
+and infrastructure engineering, AR/VR, R&D — and that label names two of them,
+so it silently converts a **1,000-strong cross-discipline count into a
+1,000-strong AI-and-data headcount**. That is a bigger claim than the source
+makes, on the one figure in the strip with the weakest footing.
+
+The shipped label is **"experts in AI, data and R&D across SoftServe"**. It is a
+fair compression for three reasons: it names **three** of the seven disciplines
+the source lists rather than two; it claims **no AI-only headcount** — the three
+nouns are joined, as they are in the source; and **"across SoftServe"** scopes
+it to the company, which is what the sentence says (*"overall"*), rather than to
+the Oracle AI & Data practice, which would be false. The strip's second tile
+carries the practice-scoped credential, so the two are not confusable.
+
+**`30` — *Fortune 500 clients in the data and analytics practice*.**
+**Not sourceable on softserveinc.com.** §18.2 checked: "Fortune 500" appears on
+the corporate site only inside a **case-study title**, never as a company
+statistic, which is why §18.2 refused it as a corporate fact. It ships here on a
+different footing — it is an **already-cleared practice credential that has been
+in `content.js` since the first round**, and it still prints on the Services page
+in `services.hero.stats[2]` (*"30 Fortune 500 clients in SoftServe's data and
+analytics practice"*) and inside `services.whySoftServe.items[0]`. The home
+tile keeps the **"in the data and analytics practice"** qualifier, which is the
+whole reason it is honest: it is the practice's credential, stated as the
+practice's, not a claim that SoftServe has 30 Fortune 500 customers.
+
+**`4–8 weeks` — *to a fixed-price proof of value on your own data*.** The seven
+Jumpstarts run on three clocks (`jumpstart.investment.duration`):
+
+| Product | Duration | Price |
+|---|---|---|
+| `cross-system-erp-qa`, `business-metrics-qa` | 30–45 days | €30–50K fixed per use case |
+| `large-document-extraction` | 2 months | €75K services · €0/mo infrastructure |
+| `workforce-optimization` | 2 months | €90K services · €4K/mo infrastructure |
+| `account-insights`, `case-evidence-collection` | `null` — set at scoping | `null` |
+| `plan-vs-actual-investigation` | 12 weeks, plus a two-week acceptance phase | Scoped per engagement |
+
+So *4–8 weeks* is the span of the **four priced** Jumpstarts (30 days ≈ 4 weeks;
+about two months ≈ 8), and it is false of the other three — twelve weeks plus
+acceptance is not eight. **The tile carries no footnote** — the strip is a
+stat band, and rule 1 means a figure that needs a caveat row cannot live there —
+so the scoping had to be inside the label. That was the Fable editor's finding,
+and its fix shipped: the label reads *to a **fixed-price** proof of value on
+your own data*. The words **fixed-price** are what scope the range to the four,
+because those four are exactly the ones with a published price. The reader who
+wants the other three finds them one screen down, in
+`twoWays.panels[0].body` (*"Four are priced today; three are scoped per
+engagement"*) and in the S4 step-1 `fact`, which still carries all three clocks.
+
+**What the strip dropped**, and where those figures still live:
+
+| Retired tile | Where it survives |
+|---|---|
+| `From 30 days` / *to a measured result on your own data* | The duration claim is now the third tile, narrowed to the priced four; `services.howWeEngage.ladder[0].duration` and `overview.delivery.steps[0].fact` carry the full statement |
+| `Fixed price` / *on the priced Jumpstarts, agreed before work starts* | Folded into the third tile's label as *fixed-price*; the commercial split is stated in full in `twoWays.panels[0].body` |
+| `4` / *Oracle platforms the practice focuses on* | **Still ships**, verbatim, as `services.hero.stats[3]` — and the four platform tiles in the hero stack visual are derived from `facets.technology`, so the count is still on the home page, drawn rather than asserted |
+| `500+` / *data experts in SoftServe's data and analytics practice* | **Still ships** as `services.hero.stats[0]` and inside `services.whySoftServe.items[0]`. It is now absent from the home page entirely — §18.7 had already taken it out of the About body |
+
+#### (d) The About block, sentence by sentence
+
+The owner's objection was that the block read as *"shifted / voluntary made up
+positioning info"*. It was not invented — §18.2 records every figure with its
+URL — but he was right about the register: the round-5 block described SoftServe
+in the site's own words. The rewrite uses **SoftServe's own**. Three public
+sentences carry it, fetched 2026-09-16:
+
+| Public sentence | Where | What it became |
+|---|---|---|
+| *"SoftServe is a digital engineering company. We design and build data, cloud, AI/ML, robotics, IoT, and XR solutions."* | homepage hero, https://www.softserveinc.com/en-us | `title`'s opening — **"A digital engineering company"** — and the body's *"designing and building data, cloud and AI solutions"*, trimmed to the three families this site is about |
+| *"We operate at the frontier of industrial, physical, and agentic AI — backed by deep R&D and business-led, technology enabled advisory to drive client outcomes."* | partners page, https://www.softserveinc.com/en-us/our-partners | `title`'s second half — **"at the frontier of agentic AI"** — and the body's *"today operates at the frontier of industrial, physical and agentic AI"*, which is the clause verbatim |
+| *"more than 30 years of experience delivering superior digital solutions at exceptional speed by top-tier engineering talent to enterprise industries, including high tech, financial services, healthcare, life sciences, retail, energy, and manufacturing."* | press boilerplate | the body's opening — *"has spent more than thirty years … for enterprise industries"*. The industry list is not reproduced: this page sells into a subset of it, and printing all seven invites the question of which one the reader is |
+
+The body's **second** sentence is unchanged in source — it is the internal half,
+from `services.hero.lead` (*"pairs the delivery depth of a 500-strong data and
+analytics practice with architects and engineers dedicated to the Oracle AI
+stack"*), now carrying **no figure at all**. §18.2's rule holds: corporate facts
+from softserveinc.com, practice credentials from the existing data layer, and
+the two halves kept apart.
+
+**The body no longer repeats its own headline.** Round 5's body opened
+*"Headquartered in Austin, Texas, SoftServe designs and builds …"* under a title
+reading *"A global digital engineering company …"*; the two said *digital
+engineering company* within one band. The HQ went with that sentence and is not
+missed — it prints in the site footer and on the locations page the block links
+to.
+
+**The four tiles are now the About Us page's own counters**, all four from
+https://www.softserveinc.com/en-us/about-us: **20K+ customer projects · 10K
+employees · 17 countries · 54 offices**. This **retires the `1993` / *founded*
+tile**, which §18.2 had flagged as the single tile with a newsroom-only source
+and named as the one to drop if anyone wanted every tile on an evergreen
+corporate page. That is now done, and the strip is internally consistent: four
+counters, one page, one fetch date. `20K+` ships as what the page calls it —
+**customer projects** — and specifically **not** as a client count, which is the
+misreading §18.2 refused.
+
+**A standing finding for whoever writes about Oracle next.** The positioning
+research confirmed §18.2's finding from the other direction, and it is worth
+stating as a rule rather than a footnote:
+
+- softserveinc.com states **no Oracle partner tier** anywhere.
+- Oracle is **absent from the homepage partner strip** and from the "Our
+  Strategic Partnerships" set (AWS, Google Cloud, Microsoft, NVIDIA, Anthropic);
+  it appears only in the A–Z partner directory.
+- SoftServe's public Oracle page (`/en-us/our-partners/oracle`) is an
+  **Oracle/NetSuite services and staff-augmentation page**, not a partnership
+  page.
+
+**Therefore no Oracle partner-standing claim may ever ship on this site** — not
+a tier, not "partner of the year", not an implied equivalence with the NVIDIA
+Elite relationship (which is public, and still does not ship either). What the
+site claims about the relationship is a **delivery** claim — *"Delivered with
+Oracle's AI & Data organization, in joint teams"* — evidenced by
+`services.whySoftServe.items[1]` and by `solutionStack`'s
+`providedBy: "Oracle + SoftServe"`. Keep it that way.
+
+#### (e) The layout and link changes
+
+Each verified against the shipped code.
+
+**An address is a link, not a call to action.** `UI.contactCard` used to render
+`person.email` through `button({ kind: "primary", icon: "mail" })` — a filled
+teal button whose label was an email address. It now renders:
+
+```
+<a class="contact-mail" href="mailto:…">✉ oracle@softserveinc.com</a>
+```
+
+— body size, weight 600, a hairline rule under it, accent on hover and
+focus-visible. Because `contactCard` is one component, this lands on **all three
+surfaces it renders**: the home page's S7 contact screen, the Services contact
+section, and every product's **Contacts** tab (`contactSplit` is called from
+`pages/overview.js`, `pages/services.js` and `pages/product.js`). The
+`.contact-mail-btn` rules and the ≤ 900 px full-width override went with the
+button; the print stylesheet gained `.contact-mail` so the address still prints
+black.
+
+**The About band's website link** is the same move in the light band's ink:
+`pages/overview.js` no longer calls `UI.button({ kind: "dark", iconAfter:
+"external" })` and emits an `<a class="band-link">` with the external glyph
+after the label, `target="_blank" rel="noopener"`. At rest its rule is
+half-strength (`rgba(7,9,13,.5)`), full weight on hover — the only move a
+near-black link has left. Both links take `padding-block` at ≤ 560 px, which is
+what carries them past the tap-target minimum.
+
+**The proof strip.** Three faults in one: the row inherited a four-column track
+count with three tiles in it, `.stat` has `padding: 1.5rem 1.5rem 0` (no bottom
+padding, because on the Services strip the band's own padding closes it), and
+the band set `padding-top` only. So the cell dividers — `.stat + .stat {
+border-left }` — stopped at the last line of the tallest label instead of
+running the cell, and the labels sat directly on the next section's hairline.
+The fix is three declarations, all scoped to the new modifiers:
+
+```
+.stat-row--home  { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.stat-row--home .stat { padding-bottom: 1.5rem; }
+.stat-band--home { padding-bottom: clamp(2.5rem, 5vw, 4rem); }
+```
+
+Cell padding is now symmetric (1.5rem top and bottom), so a divider runs the
+full height of the cell; the band closes with the same space it opens with, so
+the following hairline reads as a divider and not as an underline. Below 900 px
+the row goes two-up with the third tile spanning both columns — a cell is a
+column of the band, not a tile in a grid — and single-file at 480.
+
+**`stat-band--home` and `stat-row--home` are why the two pages can differ.**
+`pages/overview.js` emits both modifiers; `pages/services.js` emits plain
+`stat-band` / `stat-row--band services-stats`. The **Services strip was verified
+pixel-identical**: every new rule is behind a `--home` selector, and the one
+site-wide line this pass touched — the ≤ 480 px rule, which had been narrowed to
+`.stat-row:not(.stat-row--home) .stat` in round 5 — was widened back to
+`.stat-row .stat`, which is what Services already matched. The round-5
+home-specific ≤ 480 block (two-up with `nth-child` borders) was deleted with it.
+
+**The case-study rail** dropped the whole `cases-method` block: the
+`services.proof.lead` paragraph, the **81%** stat and `services.proof.footnote`.
+The rail is now **head (eyebrow · H2 · lead) → NDA line → one link**, and the
+method ships in exactly one place, the Services proof block, which the rail's
+link points at. The `.cases-method` rule and the `.cases-rail .method-stat-value`
+accent override went with it.
+
+**S4 ends on one button.** With `ctas` down to one entry the CTA row renders a
+single primary button; no renderer change was needed, and the checker's
+`=== 2` became 1–2.
+
+#### (f) The Fable copy-editor round
+
+A Fable subagent read the result once as a final copy edit. **Five proposals,
+four applied.**
+
+| # | Proposal | Outcome |
+|---|---|---|
+| 1 | Scope the `4–8 weeks` tile inside its label, since the tile can carry no footnote — add **fixed-price** | **Applied.** The label reads *to a fixed-price proof of value on your own data* (c) |
+| 2 | `overview.hero.lead` says *your* four times; two of them are *your own* | **Applied** (inferred from the diff) — *run in your tenancy, measured on your data first* |
+| 3 | The S2 practice bullets carry three words that do no work: *alongside*, *Results*, and the second and third *your* | **Applied** (inferred) — *Delivered with …*, *Measured like for like …*, *your rules, definitions and access model* |
+| 4 | The S5 link label ends in the name of the Services block it points at — *"How we measure it, engagement by engagement"* | **Applied** (inferred) — *How we measure it* |
+| 5 | Replace `twoWays.panels[0].body`'s closing *"Four are priced today; three are scoped per engagement."* with *"Fixed scope, signed success metrics, and an executive readout at the end."* | **Rejected** — see below |
+
+The editor's full list was not preserved verbatim; rows 2–4 are **(inferred)**
+from the shipped diff, matched to the edits that are copy-editor-shaped rather
+than answers to one of the nine items. Row 1 and row 5 are recorded as the
+editor stated them.
+
+**Why row 5 was rejected.** The proposal reads as a fix for the owner's
+scaffolding objection, and it is not one. Two reasons:
+
+1. **The four/three split is commercial information a buyer needs**, not
+   scaffolding. It is the one place on the site that states its commercial
+   shape, it is arithmetic over the seven `jumpstart.investment` blocks, and it
+   is the **honest guard against implying all seven are ready to buy** — the
+   same job §18.0 (a) gave it when *ready-to-run* was refused as a blanket
+   claim. Two of the seven carry `statusNote: "In preparation — scoping
+   conversations are open."`; a panel that says only *fixed scope, signed
+   metrics* and nothing about pricing readiness contradicts the product page one
+   click away.
+2. **The replacement is already on the screen twice.** *Fixed scope … signed
+   success metrics* is `delivery.steps[0].body`'s second sentence, and
+   *executive readout* is `why.pillars[2].body` verbatim — both in S4, one
+   screen down. The pass would have deleted a fact and duplicated a sentence.
+
+What the owner objected to was counts used as headlines (*Seven products, three
+workflow patterns*), not a number that tells a buyer what he can purchase today.
+
+**Two side-findings, both applied.**
+
+- **The Services page still carried the rejected block name.** The owner's item
+  6 named `overview.caseStudiesIntro.title`; `services.proof.engagementsTitle`
+  held the same string, *"What each engagement measures"*, heading the panel of
+  per-engagement method lines. It became **"Engagement by engagement"** — which
+  is also the phrase the S5 link label gave up in row 4, so the tail moved to
+  the block it was describing.
+- **The footer repeated the sentence directly above it.** On the home page
+  `site.footer.description` ended *"One scoping conversation starts it."* and
+  `overview.contact.sub` **opens** with that sentence, inside the same viewport.
+  §18.5 had already cut the same duplication once, in the other direction, by
+  rewriting `contact.sub`; the footer half survived it. The footer now reads
+  *"Tell us which account or workflow you have in mind."* and the promise is
+  made once, by S7.
+
+#### (g) What this supersedes
+
+§18.2, §18.5 and §18.7 stay as the record of their own rounds. Where they
+disagree with `content.js`, **this section is the current text**. The statements
+that are now specifically out of date:
+
+**§18.2 (the About block).**
+- *The newsroom practice figures* bullet — the rejection of *"more than 1,000
+  experts in AI/ML …"* is **overturned**: that figure is the strip's first tile.
+  The *400+ NVIDIA professionals* half of the same bullet still does not ship.
+- The `1993` / *founded* row's "ships as" column: **the tile is retired.** §18.2
+  itself named it as the tile to drop, and the paragraph ending *"that is the
+  tile to drop"* has now been acted on.
+- The HQ row's "ships as" column — the body no longer says *"headquartered in
+  Austin, Texas"*, and the self-description row's sentence has been rewritten
+  (d).
+- *"the block already carries a cleared practice figure (500+) in the body"* —
+  it does not. `500+` left the body in §18.7 and left the home page entirely in
+  this round.
+- The *Fortune 500 as a corporate fact* bullet still holds as written — but the
+  practice-level credential it points at now prints in the **hero strip**, not
+  in the About body.
+- The **source table, the 404 paths and the counter warnings are unaffected**,
+  and `20K+ customer projects` has moved from *deliberately not used* (as a
+  client count) to shipping as what the page calls it.
+
+**§18.5 (the copy/leak critic round).**
+- Its `overview.hero.stats[0]` and `stats[1]` rows describe tiles that no longer
+  exist on the home page.
+- Its `overview.caseStudiesIntro.title` row is two titles out of date.
+- Its reason for cutting *signed before the clock starts* from a bullet — *"It
+  now lives in the S4 step-1 body and the S5 rail"* — is half wrong now: the S5
+  rail no longer prints `services.proof.lead`. The S4 step-1 body still does.
+- Its `panels[1].bullets[1]` row was superseded by §18.7 and again here.
+
+**§18.7 (the messaging pass).**
+- *"The strip therefore reads **From 30 days · Fixed price · 4 Oracle platforms ·
+  500+** — clock, commercial, breadth, credential"* — **all four tiles are
+  retired.** The reasoning in its `stats[1]` and `stats[2]` rows (the commercial
+  fact second; platform breadth as what an Oracle rep sells on) is the record of
+  that decision, not the current strip.
+- The S3 `title` row — *"Find the job you need done."* was the owner's own line
+  from that pass and his own item 8 replaced it.
+- The S5 `title` row — *"What each engagement measures."* was chosen there
+  deliberately, over *"The proof so far."*, and item 6 rejected the result. The
+  reason it was chosen (two of four cards are in preparation) still binds the
+  replacement, which is why the new title names both states.
+- Its **"Not changed, on purpose"** list is now wrong on six entries:
+  `panels[1].title`, `about.title`, `about.stats`, `caseStudiesIntro.ndaLine`
+  and `cta`, and the four case-study cards all changed here. `overview.contact`
+  is half right — `sub` stands, `heading` changed.
+- Both **repetition tables** are stale: the corpus changed again. Re-count
+  against the stated definition in §18.7 if a later round wants the drift, and
+  do not compare against either table's *after* column.
+
+**§18.0 (b)** is also superseded on its conclusion: *"From 30 days"* was chosen
+as the one duration claim true of all three clocks. The strip now states
+**4–8 weeks**, which is true of the four priced Jumpstarts only, and the label's
+*fixed-price* is what carries that scoping. The reasoning in 18.0 (b) — that a
+site-wide duration promise must be true at the **top** of the range — is
+unchanged and is exactly why the narrowing word is in the label.
+
 
 ## 19. The second walkthrough — Workforce optimization, 2026-09-16
 
