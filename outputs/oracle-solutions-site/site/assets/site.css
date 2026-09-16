@@ -429,7 +429,7 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
    line of its own. Both wrappers dissolve, so chips and badges become direct
    children of the one wrapping flex row. */
 @media (max-width: 767px) {
-  .product-hero-chips { gap: .5rem; }
+  .product-hero-chips { gap: .5rem; justify-content: flex-start; }
   .product-hero-chips > .chip-row,
   .product-hero-chips > .badge-row { display: contents; }
 }
