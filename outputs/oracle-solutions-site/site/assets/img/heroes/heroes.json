@@ -4,7 +4,9 @@
     "alt": "A tall oval of light standing open in a dark wall, its reflection running out across still water",
     "focal": "50% 45%",
     "source": "SoftServe deck imagery",
-    "credit": "SoftServe"
+    "credit": "SoftServe",
+    "unreferenced": true,
+    "note": "Kept on disk. The home page renders no hero photograph."
   },
   "account-insights": {
     "file": "heroes/account-insights.jpg",

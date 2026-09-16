@@ -108,7 +108,14 @@ productOrder: [
 ],
 ```
 
-One list drives every surface that shows more than one product: the Overview page's product tiles, the Products page tiles and the facet-rail counts, and the "Which product?" select in both forms. There is no second place to edit and no way for two surfaces to disagree. (The Previous/Next pager that used to sit at the foot of a product page was removed in round 3, B — the tab bar and the Products grid are the navigation, and a pager that wrapped from the last product back to the first was inventing an order the reader had not asked for.)
+One list drives every surface that shows more than one product:
+
+- **the home page's Products screen (S3)** — this array orders the **rows inside each pattern column**, after the products have been split by `category`; the column a product lands in is its `category`, the position it takes inside that column is this list (round 5);
+- **the home hero's stack visual** — the product chips under each of the three pattern tiles, in the same order;
+- the Products page tiles and the facet-rail counts;
+- the "Which product?" select in both forms.
+
+There is no second place to edit and no way for two surfaces to disagree. (The Previous/Next pager that used to sit at the foot of a product page was removed in round 3, B — the tab bar and the Products grid are the navigation, and a pager that wrapped from the last product back to the first was inventing an order the reader had not asked for.)
 
 **It is presentation order, not a list of what exists.** The products themselves are declared in `content.js`; this array only says what sequence they are shown in. That split is what makes the three fallbacks safe:
 
@@ -327,9 +334,10 @@ Hero background images are **not** in `config.js`. They are content, so they liv
 
 | Surface | Key |
 |---|---|
-| Overview page | `overview.hero.image` |
 | Services page | `services.hero.image` |
 | Each product page | `products[].hero.image` |
+
+**The home page has no hero image.** Round 5 replaced the photograph with the built-on stack visual; `overview.hero.image` is retired and `check-grammar.js` fails if it returns. `assets/img/heroes/overview.jpg` **stays on disk, unreferenced** — the same treatment the customer logos get (`ASSETS.md` §4), because the grade it was put through is the expensive half to redo — and its `heroes.json` entry stays with it, carrying `"unreferenced": true` and a one-line note. So nine files, eight of them referenced.
 
 Each is `{ file, alt, focal }`:
 
@@ -357,7 +365,7 @@ Each entry carries five fields — `file`, `alt`, `focal`, `source` and `credit`
 
 ### The register a replacement has to hold
 
-**All nine heroes are photography from SoftServe's own decks, put through one grade** — cool slate-teal, median luminance 55–63, 1920 × 900, progressive JPEG at quality 84. That is the constraint, not a coincidence: a hero set assembled from several looks reads as whatever was to hand rather than as one system.
+**All nine hero files are photography from SoftServe's own decks, put through one grade** (eight of them referenced since round 5 — see above) — cool slate-teal, median luminance 55–63, 1920 × 900, progressive JPEG at quality 84. That is the constraint, not a coincidence: a hero set assembled from several looks reads as whatever was to hand rather than as one system.
 
 A replacement image must therefore:
 
