@@ -2864,15 +2864,20 @@ four applied.**
 | # | Proposal | Outcome |
 |---|---|---|
 | 1 | Scope the `4–8 weeks` tile inside its label, since the tile can carry no footnote — add **fixed-price** | **Applied.** The label reads *to a fixed-price proof of value on your own data* (c) |
-| 2 | `overview.hero.lead` says *your* four times; two of them are *your own* | **Applied** (inferred from the diff) — *run in your tenancy, measured on your data first* |
-| 3 | The S2 practice bullets carry three words that do no work: *alongside*, *Results*, and the second and third *your* | **Applied** (inferred) — *Delivered with …*, *Measured like for like …*, *your rules, definitions and access model* |
-| 4 | The S5 link label ends in the name of the Services block it points at — *"How we measure it, engagement by engagement"* | **Applied** (inferred) — *How we measure it* |
+| 2 | Rewrite `overview.about.body`: its opening clause repeats the H2 word for word, and *"The Oracle AI & Data team"* is the name this page gives **Oracle's** own organization one screen earlier | **Applied**, with the subject shortened to *Its Oracle team* so the sentence does not open on the company name twice — *SoftServe has spent more than thirty years … Its Oracle team draws on the company's data and analytics practice and on architects and engineers dedicated to the Oracle AI stack* |
+| 3 | Trim all four `overview.caseStudies[].footnote`s: every card already states its status in the chip **and** the eyebrow, so the footnote should carry only the caveat the chip does not | **Applied**, with two adjustments — *Modeled* and *Measured* were kept as the first word of their footnotes (§4 records the modeled-results caveat as load-bearing), and the two in-preparation cards read *What the proof of value will measure; no results yet.* rather than the editor's *Targets, not results.*, which would have been the seventh *"X, not Y"* on one screen |
+| 4 | `overview.hero.lead` lands *your own* three times on the first screen; the proof tile is where it earns emphasis | **Applied** — *run in your tenancy, measured on your data first* |
 | 5 | Replace `twoWays.panels[0].body`'s closing *"Four are priced today; three are scoped per engagement."* with *"Fixed scope, signed success metrics, and an executive readout at the end."* | **Rejected** — see below |
 
-The editor's full list was not preserved verbatim; rows 2–4 are **(inferred)**
-from the shipped diff, matched to the edits that are copy-editor-shaped rather
-than answers to one of the nine items. Row 1 and row 5 are recorded as the
-editor stated them.
+Two side-findings from the same pass were also applied: the block name the owner
+rejected still headed the Services engagements panel (`services.proof.engagementsTitle`
+→ *Engagement by engagement*), and `site.footer.description` repeated *"One scoping
+conversation starts it."* from `overview.contact.sub` directly above it, inside one
+viewport — the footer keeps only its first sentence. The editor also named the two
+in-preparation cards' `line` strings as the page's clearest AI tell: one sentence
+skeleton reused twice with a dangling participle (*"A first engagement is being
+prepared on …, scoring each …"* — the engagement is not doing the scoring). Both were
+rewritten on different structures (b).
 
 **Why row 5 was rejected.** The proposal reads as a fix for the owner's
 scaffolding objection, and it is not one. Two reasons:
