@@ -2423,19 +2423,41 @@ they are the same seven things. One word names them.
 | *"pilot"* is a weaker word than *Jumpstart* and should go | Kept, and only where the tier is **defined** — `delivery.steps[0].body` and `panels[0].body`. *Jumpstart* is a name the reader has not learned yet at first contact; the gloss is what makes the name land. It is not used as a synonym anywhere else |
 | The eyebrow *"Built and delivered together"* claims a joint go-to-market that is not evidenced | It is evidenced twice: `services.whySoftServe.items[1]` (*"We deliver alongside Oracle's AI & Data organization, in joint teams — not as a vendor bolted on afterwards"*) and `services.whatWeDo.solutionStack`, whose accelerator-pack row reads `providedBy: "Oracle + SoftServe"`. It is a delivery claim, not a partner-tier claim, and the tier ban (§18.2) is untouched |
 
-**Repetition, measured.** A word-frequency script was run over the home-page
-copy strings — the serialized `overview` object, the `shortLine` and
-`statusNote` strings the home rows render, and `site.metaDescription` — before
-and after:
+**Repetition, measured.** The pass ran a word-frequency script over the
+home-page copy it was rewriting, and reported:
 
 | Word or phrase | Before | After | Note |
 |---|---|---|---|
 | *packaged* | 10 | **0** | On the home page. The two `statusNote`s dropped *Packaged offering* as well, so it is gone from the product pages' status line too |
-| *workflow pattern(s)* | 5 | **0** | Plus the rail label and the chip tooltip, which are not home-page strings |
-| seven / three / four **as scaffolding** | 9 | **1** | The survivor is *four-week plan* in `workforce-optimization`'s `shortLine`. The four-priced / three-scoped split and *4 Oracle platforms* are kept — they are information, not scaffolding, and are not counted here |
+| *workflow pattern(s)* | 5 | **0** | Plus `facets.categoryLabel` and the chip tooltip, which are not home-page strings |
+| seven / three / four **as scaffolding** | 9 | **1** | The survivor is *four-week* in `workforce-optimization`'s `shortLine`. The four-priced / three-scoped split and *4 Oracle platforms* are information, not scaffolding, and were not counted |
 | *product* | 12 | **10** | Deliberately still there: it is the site's navigation noun (see the *solution* revert) |
 | *proof of value* | 7 | **1** | It survives where the tier is named — `delivery.steps[0].title` |
 | *scope / scoped* | 11 | **5** | |
+
+**The exact corpus that script used was not kept**, so the figures above are the
+pass's own and are not reproducible line for line. A **re-count over a stated
+corpus** — every string value in `overview` except the structural fields (`id`,
+`icon`, `anchor`, `route`, `kind`, `direction`, `url`, `slug`, `file`,
+`industry`, `status`), plus `site.metaDescription`, the seven `shortLine`s and
+the two `statusNote`s — gives:
+
+| Word or phrase | Before | After |
+|---|---|---|
+| *packaged* | 12 | **0** |
+| *workflow pattern(s)* | 6 | **0** |
+| seven / three / four | 14 | **6** |
+| *product* | 13 | **11** |
+| *proof(s) of value* | 11 | **7** |
+| *scope / scoped* | 8 | **7** |
+
+The two tables disagree because the corpora do: this one **includes the four
+`caseStudies` cards**, which the pass did not rewrite and which carry
+*proof of value* four more times in their mandatory footnotes, plus *three
+countries* and *four-week* inside descriptive copy. The direction is the same on
+every row, and the two rows that matter — *packaged* and *workflow pattern* —
+are **zero on both counts**. Re-run it against this definition, not against the
+first table, if a later round wants to check the drift.
 
 **What this supersedes.** §18.0 (a), §18.1 and §18.3 quote the round-5 strings
 and are left as the record of that round; where they disagree with `content.js`,
