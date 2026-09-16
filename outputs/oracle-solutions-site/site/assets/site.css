@@ -2254,10 +2254,25 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 /* ——— services: hero ——————————————————————————————————— */
 
 .services-hero { padding-bottom: clamp(3rem, 5vw, 5rem); }
-.services-title { max-width: 16ch; }
+/* Two lines by intent: where the customer starts (teal), then where it ends. */
+.services-title { max-width: none; }
+.services-title .accent { display: block; }
 .services-stats { width: 100%; }
-.services-lead { max-width: 52rem; margin-top: 1.25rem; }
-.services-head { margin-top: 2.5rem; }
+.services-platforms { display: flex; flex-wrap: wrap; align-items: center; gap: .625rem 1rem; }
+.services-platforms > .eyebrow { margin: 0; }
+
+/* ——— services: engagement and after go-live (round 6) ————— */
+
+/* The after-go-live choice closes the engagement screen: a second head in the
+   same section, set a screen-gap below the step track rather than in a section
+   of its own. */
+.services-after { margin-top: clamp(3.5rem, 6vw, 5rem); }
+
+/* ——— services: the proof light band (round 6) ——————————— */
+
+.proof-stat { display: flex; flex-direction: column; gap: .625rem; }
+.proof-stat-label { max-width: 32rem; font-size: var(--fs-sm); font-weight: 600; line-height: 1.45; color: var(--text-on-light); }
+.proof-note { max-width: 32rem; font-size: var(--fs-sm); font-weight: 300; line-height: 1.6; color: var(--text-on-light-soft); }
 
 /* ——— services: platform cards ————————————————————————— */
 

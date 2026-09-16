@@ -5,27 +5,35 @@
 
   function C() { return window.SITE_CONTENT; }
 
-  function divider(label, title) {
-    var same = String(label || "").trim().toLowerCase() === String(title || "").trim().toLowerCase();
-    return same ? "" : window.UI.divider(label);
-  }
-
-  function blockHead(title) {
-    return '<h2 class="h3 block-title">' + window.UI.esc(title) + "</h2>";
-  }
-
-  function dashList(items) {
+  /* The home page's section head: Services tells the same story one level
+     down, so it takes the same eyebrow, H2 and lead. A second head on the same
+     screen passes `accent: false` and keeps its eyebrow dim. */
+  function head(opts) {
     var UI = window.UI;
-    return '<ul class="dash-list">' + items.map(function (item) {
-      return "<li>" + UI.esc(item) + "</li>";
-    }).join("") + "</ul>";
+    return '<div class="home-head">' +
+      '<p class="eyebrow' + (opts.accent === false ? "" : " eyebrow--accent") + '">' + UI.esc(opts.eyebrow) + "</p>" +
+      '<h2 class="h2">' + UI.esc(opts.title) + "</h2>" +
+      (opts.lead ? '<p class="lead home-head-lead">' + UI.esc(opts.lead) + "</p>" : "") +
+      "</div>";
   }
 
-  /* ————— hero ————— */
+  /* ————— S1: what SoftServe adds on Oracle, and who does it ————— */
 
+  /* The four platforms are the technology facet itself, so they render as the
+     same "Runs on" chips a product hero carries, keyed off the canonical facet
+     ids. One button: the scoping call is the page's ask. */
   function hero(content) {
     var UI = window.UI;
     var h = content.services.hero;
+    var ids = {};
+    ((content.facets && content.facets.technology) || []).forEach(function (facet) {
+      ids[facet.label] = facet.id;
+    });
+    var chips = (h.platforms || []).map(function (platform) {
+      return ids[platform.name]
+        ? UI.tagChip("tech", ids[platform.name])
+        : UI.chip({ label: platform.name, kind: "meta", className: "chip--tag" });
+    }).join("");
 
     return '<section class="product-hero services-hero has-hero-bg">' +
       UI.heroBackdrop(h.image) +
@@ -35,13 +43,14 @@
         UI.headline(h.headline, "h1", "h1 product-title services-title") +
         '<p class="lead product-lead">' + UI.esc(h.lead) + "</p>" +
         '<p class="body-text product-subline">' + UI.esc(h.secondParagraph) + "</p>" +
+        (chips
+          ? '<div class="services-platforms">' +
+              '<p class="eyebrow">' + UI.esc(h.platformsTitle) + "</p>" +
+              '<div class="chip-row">' + chips + "</div>" +
+            "</div>"
+          : "") +
         '<div class="cta-row product-hero-cta">' +
           UI.button({ label: h.cta.label, href: h.cta.route, kind: "primary" }) +
-          UI.button({
-            label: content.site.secondaryCta.label,
-            href: content.site.secondaryCta.route,
-            kind: "quiet", iconAfter: "arrow"
-          }) +
         "</div>" +
       "</div></section>";
   }
@@ -61,238 +70,83 @@
       "</section>";
   }
 
-  /* ————— platforms ————— */
+  /* ————— S2: how an engagement runs, and who runs it after go-live ————— */
 
-  function platforms(content) {
+  /* The home page's three-step track under the same step names, full width
+     here because the reasons to pick the team are the hero's job on this page.
+     The after-go-live choice closes the same screen as two peers with no
+     button: the contact block is the page's one ask. */
+  function engage(content) {
     var UI = window.UI;
-    var h = content.services.hero;
-    var cards = h.platforms.map(function (platform) {
-      return '<article class="plat-card reveal">' +
-        '<p class="eyebrow eyebrow--accent">' + UI.esc(platform.short) + "</p>" +
-        '<h3 class="plat-name">' + UI.esc(platform.name) + "</h3>" +
-        '<p class="plat-body">' + UI.esc(platform.long) + "</p>" +
-        "</article>";
-    }).join("");
+    var block = content.services.howWeEngage;
+    var after = content.services.afterGoLive;
 
-    return '<section class="section section--tight" id="platforms"><div class="wrap">' +
-      divider(content.site.dividerLabels.builtOn, h.platformsTitle) +
-      '<h2 class="h2 plat-title">' + UI.esc(h.platformsTitle) + "</h2>" +
-      '<div class="plat-grid">' + cards + "</div>" +
-      "</div></section>";
-  }
-
-  /* ————— what we do ————— */
-
-  function layerStack(items) {
-    var UI = window.UI;
-    return '<div class="layer-stack reveal">' + items.map(function (item, index) {
-      return '<div class="layer-band' + (index === 0 ? " layer-band--lead" : "") + '">' +
-        '<p class="layer-band-label">' + UI.esc(item.band) + "</p>" +
-        '<p class="layer-band-body">' + UI.esc(item.body) + "</p>" +
+    var steps = (block.steps || []).map(function (step, index) {
+      return '<div class="ladder3-step">' +
+        '<span class="ladder3-dot" aria-hidden="true"></span>' +
+        '<span class="ladder3-index nums">' + UI.esc(String(index + 1)) + "</span>" +
+        '<h3 class="ladder3-title">' + UI.esc(step.title) + "</h3>" +
+        '<p class="ladder3-body small">' + UI.esc(step.body) + "</p>" +
+        '<div class="ladder3-fact">' +
+          '<p class="ladder3-fact-label">' + UI.esc(step.factLabel) + "</p>" +
+          '<p class="ladder3-fact-value">' + UI.esc(step.fact) + "</p>" +
+        "</div>" +
         "</div>";
-    }).join("") + "</div>";
-  }
+    }).join("");
 
-  function whatWeDo(content) {
-    var UI = window.UI;
-    var w = content.services.whatWeDo;
-
-    /* Outlined, not the solid navy pill: the navy pill is the technology family
-       (T1, "Runs on"), and an application family is the closer relative of the
-       workflow-pattern chip. The tooltip names the family, as it does on the
-       product pages. */
-    var tip = w.familyTooltip;
-    var families = '<div class="chip-row family-row">' + w.families.map(function (family) {
-      return UI.chip({
-        label: family,
-        kind: "outline",
-        className: "chip--tag",
-        title: tip,
-        attrs: { "aria-label": family + " — " + tip }
-      });
-    }).join("") + "</div>";
-
-    var stack = '<div class="layer-table layer-table--duo">' + w.solutionStack.layers.map(function (layer) {
-      return '<div class="layer-row">' +
-        '<p class="layer-name">' + UI.esc(layer.layer) + "</p>" +
-        '<p class="layer-by">' + UI.esc(layer.providedBy) + "</p>" +
+    var panels = (after.panels || []).map(function (panel) {
+      var bullets = (panel.bullets || []).map(function (line) {
+        return "<li>" + UI.icon("check") + "<span>" + UI.esc(line) + "</span></li>";
+      }).join("");
+      return '<div class="way">' +
+        '<span class="way-mark" aria-hidden="true">' + UI.icon(panel.icon) + "</span>" +
+        '<h3 class="h4 way-title">' + UI.esc(panel.title) + "</h3>" +
+        '<p class="body-text way-body">' + UI.esc(panel.body) + "</p>" +
+        '<ul class="tick-list way-list">' + bullets + "</ul>" +
         "</div>";
-    }).join("") + "</div>";
+    }).join("");
 
-    var teams = '<div class="split-two reveal">' +
-      '<div class="split-col split-col--accent">' +
-        '<p class="eyebrow eyebrow--accent">' + UI.esc(w.whoYouWorkWith.title) + "</p>" +
-        '<p class="body-text">' + UI.esc(w.whoYouWorkWith.body) + "</p>" +
+    return '<section class="section home-screen" id="' + UI.esc(block.anchor) + '"><div class="wrap">' +
+      head({ eyebrow: block.eyebrow, title: block.title, lead: block.lead }) +
+      '<div class="deliver-main reveal">' +
+        '<div class="ladder3">' + steps + "</div>" +
+        '<p class="footnote deliver-note">' + UI.esc(block.footnote) + "</p>" +
       "</div>" +
-      '<div class="split-col">' +
-        '<p class="eyebrow eyebrow--accent">' + UI.esc(w.whoDeliversIt.title) + "</p>" +
-        '<p class="body-text">' + UI.esc(w.whoDeliversIt.body) + "</p>" +
-      "</div></div>";
-
-    return '<section class="section" id="what-we-do"><div class="wrap stack-lg">' +
-      "<div>" +
-        UI.sectionHead({ title: w.title }) +
-        '<p class="lead services-lead">' + UI.esc(w.lead) + "</p>" +
+      '<div class="services-after" id="' + UI.esc(after.anchor) + '">' +
+        head({ eyebrow: after.eyebrow, title: after.title, accent: false }) +
+        '<div class="ways reveal">' + panels + "</div>" +
       "</div>" +
-      layerStack(w.layering) +
-      '<section class="panel reveal">' +
-        blockHead(w.familiesTitle) + families +
-        '<p class="footnote">' + UI.esc(w.familiesSuffix) + "</p>" +
-      "</section>" +
-      '<section class="panel reveal">' + blockHead(w.solutionStack.title) + stack + "</section>" +
-      teams +
       "</div></section>";
   }
 
-  /* ————— wrap-around services (the one light band) ————— */
+  /* ————— S3: how we measure it ————— */
 
-  function wrapAround(content) {
-    var UI = window.UI;
-    var w = content.services.whatWeDo;
-    var items = w.wrapAroundServices.items.map(function (item) {
-      return '<li class="platform-item">' +
-        '<p class="platform-name">' + UI.esc(item.title) + "</p>" +
-        '<p class="platform-body">' + UI.esc(item.body) + "</p>" +
-        "</li>";
-    }).join("");
-
-    return '<section class="section section--tight" id="wrap-around"><div class="wrap">' +
-      '<div class="light-band reveal">' +
-        '<div class="light-band-media">' +
-          '<p class="band-label">' + UI.esc(w.wrapAroundServices.title) + "</p>" +
-          '<ul class="platform-list">' + items + "</ul>" +
-        "</div>" +
-        '<div class="light-band-copy">' +
-          '<h2 class="band-title">' + UI.esc(w.attachesToEvery.title) + "</h2>" +
-          '<p class="band-body">' + UI.esc(w.attachesToEvery.body) + "</p>" +
-          UI.button({
-            label: content.services.hero.cta.label,
-            href: content.services.hero.cta.route,
-            kind: "dark", iconAfter: "arrow"
-          }) +
-        "</div>" +
-      "</div></div></section>";
-  }
-
-  /* ————— how we engage ————— */
-
-  function ladder(engage) {
-    var UI = window.UI;
-    var columns = C().shared.ladderColumns;
-    var cards = engage.ladder.map(function (tier, index) {
-      var label = columns[index] && columns[index] !== tier.title
-        ? columns[index] : "Step " + (index + 1);
-      return '<article class="tier ladder-step">' +
-        '<div class="tier-body">' +
-          '<span class="ladder-mark" aria-hidden="true"><span class="ladder-dot"></span></span>' +
-          '<p class="eyebrow' + (index === 0 ? " eyebrow--accent" : "") + '">' +
-            UI.esc(label) + "</p>" +
-          '<h3 class="tier-title">' + UI.esc(tier.title) + "</h3>" +
-          '<p class="tier-scope">' + UI.esc(tier.whatItIs) + "</p>" +
-        "</div>" +
-        '<div class="tier-foot">' +
-          '<p class="tier-label">Duration</p><p class="tier-value">' + UI.esc(tier.duration) + "</p>" +
-          '<p class="tier-label">Pricing</p><p class="tier-value">' + UI.esc(tier.pricing) + "</p>" +
-        "</div>" +
-        "</article>";
-    }).join("");
-    return '<div class="tier-grid ladder-track reveal">' + cards + "</div>";
-  }
-
-  function howWeEngage(content) {
-    var UI = window.UI;
-    var engage = content.services.howWeEngage;
-
-    var steps = '<ol class="step-list">' + engage.howAPovRuns.steps.map(function (step, index) {
-      return '<li class="step"><span class="step-index nums">' + (index + 1) + "</span>" +
-        '<div><p class="step-title">' + UI.esc(step.title) + "</p>" +
-        '<p class="step-body">' + UI.esc(step.body) + "</p></div></li>";
-    }).join("") + "</ol>";
-
-    return '<section class="section" id="' + UI.esc(engage.anchor) + '"><div class="wrap stack-lg">' +
-      "<div>" +
-        divider(content.site.dividerLabels.howWeEngage, engage.title) +
-        '<div class="section-head services-head"><h2 class="h2">' + UI.esc(engage.title) + "</h2></div>" +
-        '<p class="lead services-lead">' + UI.esc(engage.lead) + "</p>" +
-      "</div>" +
-      ladder(engage) +
-      '<div class="ladder-notes">' +
-        dashList(engage.ladderRules) +
-        '<p class="footnote">' + UI.esc(engage.ladderFootnote) + "</p>" +
-      "</div>" +
-      '<section class="panel reveal">' +
-        blockHead(engage.howAPovRuns.title) + steps +
-        '<p class="body-text panel-extra">' + UI.esc(engage.howAPovRuns.closing) + "</p>" +
-      "</section>" +
-      "</div></section>";
-  }
-
-  /* ————— why softserve ————— */
-
-  function whySoftServe(content) {
-    var UI = window.UI;
-    var why = content.services.whySoftServe;
-    var items = why.items.map(function (item) {
-      return '<article class="def reveal">' +
-        '<h3 class="def-title">' + UI.esc(item.title) + "</h3>" +
-        '<p class="def-body">' + UI.esc(item.body) + "</p>" +
-        "</article>";
-    }).join("");
-
-    return '<section class="section section--tight" id="why-softserve"><div class="wrap">' +
-      UI.sectionHead({ title: why.title }) +
-      '<div class="def-grid why-grid">' + items + "</div>" +
-      "</div></section>";
-  }
-
-  /* ————— proof ————— */
-
-  /* Services carries the method, not the outcomes: the same engagements the
-     home page tells as case studies are compressed here to one line each —
-     what is measured and against what — with the figures left on the Overview
-     cards the closing link points back to. */
+  /* The page's one light band: the discipline on the left; on the right the one
+     accuracy figure with its caveat, and the way back to the case studies that
+     carry the figures. An internal route takes the arrow, not the external
+     glyph an address carries. */
   function proof(content) {
     var UI = window.UI;
     var block = content.services.proof;
+    var linkLabel = String(block.cta.label || "").replace(/\s*→\s*$/, "");
 
-    var lines = (block.engagements || []).map(function (item) {
-      return '<li class="method-item">' +
-        '<p class="method-descriptor">' + UI.esc(item.descriptor) + "</p>" +
-        '<p class="method-line">' + UI.esc(item.line) + "</p>" +
-        (item.product
-          ? '<p class="method-link">' + UI.linkArrow({
-              label: item.product.name, href: "#/products/" + item.product.slug
-            }) + "</p>"
-          : "") +
-        "</li>";
-    }).join("");
-
-    var stat = block.stat
-      ? '<div class="method-stat">' +
-          '<p class="method-stat-value nums">' + UI.esc(block.stat.value) + "</p>" +
-          '<p class="method-stat-label">' + UI.esc(block.stat.label) + "</p>" +
-        "</div>"
-      : "";
-
-    return '<section class="section" id="proof"><div class="wrap">' +
-      divider(block.dividerLabel, block.title) +
-      '<div class="section-head services-head"><h2 class="h2">' + UI.esc(block.title) + "</h2></div>" +
-      '<div class="method-split">' +
-        '<p class="body-text method-lead">' + UI.esc(block.lead) + "</p>" +
-        stat +
+    return '<section class="section home-screen" id="' + UI.esc(block.anchor) + '"><div class="wrap">' +
+      '<div class="light-band reveal">' +
+        '<div class="light-band-media">' +
+          '<p class="band-label">' + UI.esc(block.eyebrow) + "</p>" +
+          '<h2 class="band-title">' + UI.esc(block.title) + "</h2>" +
+          '<p class="band-body">' + UI.esc(block.lead) + "</p>" +
+        "</div>" +
+        '<div class="light-band-copy">' +
+          '<div class="proof-stat">' +
+            '<p class="about-stat-value nums">' + UI.esc(block.stat.value) + "</p>" +
+            '<p class="proof-stat-label">' + UI.esc(block.stat.label) + "</p>" +
+          "</div>" +
+          '<p class="proof-note">' + UI.esc(block.footnote) + "</p>" +
+          '<a class="band-link" href="' + UI.esc(block.cta.route) + '"><span>' + UI.esc(linkLabel) + "</span>" +
+            UI.icon("arrow") + "</a>" +
+        "</div>" +
       "</div>" +
-      (lines
-        ? '<section class="panel reveal method-panel">' +
-            blockHead(block.engagementsTitle) +
-            '<ul class="method-list">' + lines + "</ul>" +
-          "</section>"
-        : "") +
-      (block.cta
-        ? '<p class="panel-link">' + UI.linkArrow({ label: block.cta.label, href: block.cta.route }) + "</p>"
-        : "") +
-      (block.footnote
-        ? '<p class="footnote case-method-note">' + UI.esc(block.footnote) + "</p>"
-        : "") +
       "</div></section>";
   }
 
@@ -328,8 +182,7 @@
 
   function services() {
     var content = C();
-    return hero(content) + statBand(content) + platforms(content) + whatWeDo(content) + wrapAround(content) +
-      howWeEngage(content) + whySoftServe(content) + proof(content) + contact(content);
+    return hero(content) + statBand(content) + engage(content) + proof(content) + contact(content);
   }
 
   services.mount = function (params, root) {
