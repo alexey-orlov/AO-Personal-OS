@@ -60,7 +60,9 @@
   /* ------------------------------------------------------------- state */
   var S = {
     app: "lakehouse",
-    dsScreen: "catalog",          /* catalog | feeds */
+    dsScreen: "catalog",          /* catalog | feeds (Live Feed) | analysis */
+    daGenerated: true,            /* Analysis: SQL is in the editor */
+    daRan: true,                  /* Analysis: Run has been pressed */
     dsCatalogs: D.sources.map(function (s) { return s.id; }),
     wbPanel: "home",              /* home | conversation | insights | catalog | sessions */
     rwTab: "matches",             /* matches | accounts | decisions */
@@ -130,9 +132,22 @@
   /* ===================================================================== */
   /* 1. DATA STUDIO                                                        */
   /* ===================================================================== */
+  /* Left nav, verbatim from ui-anatomy §1.2 (top level) and §1.11 (the real
+     Data Load child list, which is where Live Feed lives). The sub-tree is
+     drawn open, as Oracle draws it, and the nav widens while it is. */
   var DS_NAV = [
     { id: "overview", label: "Overview", icon: "home" },
-    { id: "feeds", label: "Data Load", icon: "load", chev: true },
+    { id: "dataload", label: "Data Load", icon: "load", chevd: true, kids: [
+      { id: "dlhome", label: "Home" },
+      { id: "dllocal", label: "Load Local File" },
+      { id: "dlcloud", label: "Load Cloud Store" },
+      { id: "dldb", label: "Load Database Tables" },
+      { id: "lkcloud", label: "Link Cloud Store" },
+      { id: "lkdb", label: "Link Database Tables" },
+      { id: "feeds", label: "Live Feed" },
+      { id: "dljobs", label: "Data Load Jobs" },
+      { id: "cloudloc", label: "Cloud Locations" }
+    ] },
     { id: "assist", label: "Table AI Assist", icon: "wand" },
     { id: "analysis", label: "Analysis", icon: "chart" },
     { id: "insights", label: "Insights", icon: "bulb" },
@@ -142,7 +157,12 @@
   ];
   function renderDsNav() {
     $("#ds-nav").innerHTML = DS_NAV.map(function (n) {
-      return '<button class="ds-item' + (n.id === S.dsScreen ? " is-active" : "") + '" type="button" data-ds="' + n.id + '">' + ICON[n.icon] + "<span>" + esc(n.label) + "</span>" + (n.chev ? '<span class="chev">' + ICON.chev + "</span>" : "") + "</button>";
+      var row = '<button class="ds-item' + (n.id === S.dsScreen ? " is-active" : "") + '" type="button" data-ds="' + n.id + '">' + ICON[n.icon] + "<span>" + esc(n.label) + "</span>" +
+        (n.chev ? '<span class="chev">' + ICON.chev + "</span>" : "") + (n.chevd ? '<span class="chev">' + ICON.chevd + "</span>" : "") + "</button>";
+      if (n.kids) row += n.kids.map(function (k) {
+        return '<button class="ds-item ds-item--kid' + (k.id === S.dsScreen ? " is-active" : "") + '" type="button" data-ds="' + k.id + '"><span>' + esc(k.label) + "</span></button>";
+      }).join("");
+      return row;
     }).join("") + '<div class="ds-navfoot"><button class="ds-item" type="button" data-ds="settings">' + ICON.gear + "<span>Settings</span></button>" +
       '<button class="ds-item" type="button" data-ds="collapse"><span style="opacity:.7">&laquo;</span><span>Collapse</span></button></div>';
   }
@@ -150,8 +170,8 @@
     var b = e.target.closest("[data-ds]");
     if (!b) return;
     var id = b.dataset.ds;
-    if (id === "catalog" || id === "feeds") { S.dsScreen = id; renderDs(); return; }
-    toast("This walkthrough carries two Data Studio screens: <b>Catalog</b> and <b>Data Load &rsaquo; Feeds</b>.");
+    if (id === "catalog" || id === "feeds" || id === "analysis") { S.dsScreen = id; renderDs(); return; }
+    toast("This walkthrough carries three Data Studio screens: <b>Catalog</b>, <b>Data Load &rsaquo; Live Feed</b> and <b>Analysis</b>.");
   });
 
   var OBJ_DESC = {
@@ -234,8 +254,7 @@
     var k = kpis(), done = !!S.state.refreshed;
     $("#ds-crumb").textContent = "Data Load";
     $("#ds-page").innerHTML =
-      '<div class="ds-head"><h1>Data Load</h1><span>Feeds &middot; scheduled and on-demand loads into the lakehouse</span></div>' +
-      '<div class="ds-seg">' + ["Load Data", "Feeds", "Connections"].map(function (t, i) { return '<button type="button" class="' + (i === 1 ? "is-on" : "") + '">' + esc(t) + "</button>"; }).join("") + "</div>" +
+      '<div class="ds-head"><h1>Live Feed</h1><span>Ongoing feeds of new data into the autonomous database</span></div>' +
       '<section class="job" id="ds-job"><div class="job-head"><span class="job-ico">' + ICON.stack + "</span>" +
       '<div><h2>Cross-system finance model (GOLD)</h2><div class="sub">Owner Group Finance &middot; five sources into one governed model &middot; ' + D.views.length + ' certified views &middot; last run <b id="ds-lastrun">' + esc(S.lastRun) + "</b></div></div>" +
       '<div class="job-act"><span class="job-chip" id="ds-jobchip">' + (done ? "Rebuilt 09:44" : "Scheduled hourly") + '</span><button class="btn btn--dark" id="ds-run-now" type="button">' + ICON.play + "Run now</button></div></div>" +
@@ -251,15 +270,65 @@
         : "Sources are mounted and feeding; the model has not been rebuilt since <b>" + esc(S.lastRun) + "</b>. Run it to resolve identities, map accounts, reconcile the ledgers and rebuild the certified views.") + "</p></section>" +
       '<section class="out"><div class="out-head"><b>' + D.views.length + ' certified views</b><span>schema GOLD &middot; owner Group Finance &middot; signed-off definitions the answers cite by name</span></div>' +
       '<div class="out-grid">' + D.views.map(function (v) { return '<div><div class="vn">' + esc(v.name) + '</div><div class="vd">' + esc(v.definition) + "</div></div>"; }).join("") + "</div></section>" +
-      '<p class="ds-aside">Mocked run — no job is submitted and nothing is written back to any source system.</p>';
+      '<p class="ds-aside">Mocked run — no job is submitted and nothing is written back to any source system. Oracle evidences the two entry points to continuous ingestion (the <b>FEED DATA</b> card on Data Load Home and this <b>Live Feed</b> nav item) but has never shown the feed list itself; the card above is our design in the Data Studio idiom.</p>';
+  }
+  /* ---- Analysis: the natural-language Generate Query field (§1.9).
+     Generate Query WRITES SQL INTO THE EDITOR and the user then presses Run —
+     a two-step flow, never a chatbot. Oracle's own doc calls auto-running it
+     the biggest fidelity error available on this screen. */
+  var DA_Q = D.questions.filter(function (q) { return q.id === "q7"; })[0];
+  function daRows() {
+    return D.answer("q7", "CONTROLLER", decisions()).rows.slice(0, 6);
+  }
+  function renderDsAnalysis() {
+    $("#ds-crumb").textContent = "Data Analysis";
+    var sqlLines = (S.daGenerated ? DA_Q.sql : "").split("\n");
+    var rows = daRows();
+    $("#ds-page").innerHTML =
+      '<div class="da-top"><button class="da-back" type="button">' + ICON.chevl + "</button><b>Q3_Group_Spend</b>" +
+      '<span class="da-right"><button class="da-save" type="button">' + ICON.ledger + 'Save ' + ICON.chevd + "</button><span class=\"ds-ico\">" + ICON.search + "</span></span></div>" +
+      '<div class="da-cols">' +
+      '<aside class="da-tree"><div class="da-sel">GOLD ' + ICON.chevd + '</div><div class="da-sel da-sel--2">Query ' + ICON.chevd + '<span class="da-ref">' + ICON.refresh + "</span></div>" +
+      ["SUPPLIER_360", "SUPPLIER_SPEND_Q", "PERIOD_MAP", "AP_INVOICE_X", "COA_MAP", "CONSOLIDATED_PL", "ENTITY_MAP", "DOC_MAP"].map(function (t, i) {
+        return '<div class="da-tbl' + (i < 3 ? " is-on" : "") + '">' + ICON.grid + esc(t) + "</div>";
+      }).join("") + "</aside>" +
+      '<div class="da-main"><div class="da-card"><span class="da-rep">' + ICON.ledger + 'My Report_Report-0</span>' +
+      '<span class="da-tog">Use Natural Query<i class="da-switch is-on"></i></span></div>' +
+      '<div class="da-nl"><textarea readonly aria-label="Natural language query">' + esc(DA_Q.text.replace(/\.$/, "").toLowerCase()) + "</textarea></div>" +
+      '<div class="da-acts"><button class="da-btn" type="button">Select Tables</button>' +
+      '<span class="da-right"><button class="da-btn" type="button" id="da-gen"><i class="pl pl--dark"></i>Generate Query</button>' +
+      '<button class="da-btn" type="button" id="da-run"><i class="pl pl--green"></i>Run</button></span></div>' +
+      '<div class="da-editor">' + (S.daGenerated
+        ? sqlLines.map(function (l, i) { return '<div class="ln"><i>' + (i + 1) + "</i><code>" + esc(l) + "</code></div>"; }).join("")
+        : '<div class="da-empty">The editor is empty. <b>Generate Query</b> writes SQL here from the sentence above; nothing runs until you press <b>Run</b>.</div>') + "</div>" +
+      '<div class="da-tabs"><button type="button" class="is-on">Query Result</button><button type="button">Explain Plan</button><button type="button">Autotrace</button>' +
+      '<span class="da-right"><span class="da-modes"><i class="is-on"></i><i></i><i></i><i></i></span></span></div>' +
+      '<div class="da-result">' + (S.daRan
+        ? '<table class="da-grid"><thead><tr><th>GOLDEN_NAME</th><th>SYSTEMS</th><th class="r">Q3_SPEND_USD</th><th class="r">SHARE_PCT</th></tr></thead><tbody>' +
+          rows.map(function (r) {
+            return "<tr><td>" + esc(r.supplier) + "</td><td>" + esc((r.systems || []).map(function (x) { return D.sourceById[x] ? D.sourceById[x].short : x; }).join(" · ")) + '</td><td class="r">' + money(r.spendUsd) + '</td><td class="r">' + Number(r.sharePct).toFixed(1) + "</td></tr>";
+          }).join("") + "</tbody></table>"
+        : '<div class="da-empty">No results. Press <b>Run</b> to execute the statement in the editor.</div>') + "</div></div>" +
+      '<aside class="da-facet"><div class="da-fh">&raquo; Faceted<br>Visual<i class="da-switch is-on"></i></div>' +
+      ["GOLDEN_NAME", "Q3_SPEND_USD", "SHARE_PCT"].map(function (c) {
+        return '<div class="da-fc"><b>' + ICON.chevd + esc(c) + "</b>" + '<span class="da-hist">' +
+          [17, 14, 12, 10, 9, 8, 7, 6, 5, 4, 4, 3, 3, 2, 2].map(function (h) { return '<i style="height:' + h + 'px"></i>'; }).join("") +
+          '</span><a>Show More...</a></div>';
+      }).join("") + "</aside></div>" +
+      '<div class="da-status"><span>&#8855; 0</span><span>&#9888; 0</span><span>&#9881; 0</span><i>|</i><span>' + esc(D.world.nowLabel) +
+      ':07 AM - REST call resolved successfully.</span><span class="da-right">Powered by ORDS</span></div>';
   }
   function renderDs() {
     renderDsNav();
-    if (S.dsScreen === "feeds") renderDsFeeds(); else renderDsCatalog();
+    if (S.dsScreen === "feeds") renderDsFeeds();
+    else if (S.dsScreen === "analysis") renderDsAnalysis();
+    else renderDsCatalog();
   }
   $("#ds-page").addEventListener("click", function (e) {
     var t;
     if ((t = e.target.closest("#ds-run-now"))) { runRefresh(); tour.after("runnow"); return; }
+    if ((t = e.target.closest("#da-gen"))) { S.daGenerated = true; S.daRan = false; renderDs(); toast("<span><b>Generate Query</b> wrote the statement into the editor. Nothing has run yet — inspect it, then press <b>Run</b>.</span>", 6000); return; }
+    if ((t = e.target.closest("#da-run"))) { if (!S.daGenerated) { toast("The editor is empty — press <b>Generate Query</b> first."); return; } S.daRan = true; renderDs(); return; }
     if ((t = e.target.closest("[data-drop]"))) { S.dsCatalogs = S.dsCatalogs.filter(function (x) { return x !== t.dataset.drop; }); renderDs(); return; }
     if ((t = e.target.closest("[data-cat]"))) {
       var id = t.dataset.cat, i = S.dsCatalogs.indexOf(id);
@@ -1165,7 +1234,7 @@
   if (wantQ) { S.qid = "q" + wantQ; S.wbPanel = "conversation"; }
   if (wantPanel) {
     if (["trace", "explore", "code", "explain"].indexOf(wantPanel) >= 0) { S.panel = wantPanel; if (!S.qid) { S.qid = "q1"; S.wbPanel = "conversation"; } }
-    else if (["catalog", "feeds"].indexOf(wantPanel) >= 0) S.dsScreen = wantPanel;
+    else if (["catalog", "feeds", "analysis"].indexOf(wantPanel) >= 0) S.dsScreen = wantPanel;
     else if (["home", "insights", "sessions", "conversation"].indexOf(wantPanel) >= 0) S.wbPanel = wantPanel;
     else if (["matches", "accounts", "decisions"].indexOf(wantPanel) >= 0) S.rwTab = wantPanel;
   }
