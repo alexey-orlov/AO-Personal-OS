@@ -64,7 +64,16 @@
     daGenerated: true,            /* Analysis: SQL is in the editor */
     daRan: true,                  /* Analysis: Run has been pressed */
     dsCatalogs: D.sources.map(function (s) { return s.id; }),
-    wbPanel: "home",              /* home | conversation | insights | catalog | sessions */
+    wbPanel: "home",              /* home | conversation | insights | catalog | apc | lineage | sessions */
+    mcEntity: "SUPPLIER_360",     /* Master catalog: the open entity */
+    mcMenu: false,                /* Actions menu */
+    linView: "SUPPLIER_360",      /* Lineage: the artifact the graph is for */
+    linOpen: ["out"],             /* expanded (column-level) cards */
+    linCol: null,                 /* the highlighted target column */
+    linDetail: null,              /* the artifact whose Details overlay is open */
+    linTab: "details",
+    linHideUp: false,
+    linFrom: null,
     rwTab: "matches",             /* matches | accounts | decisions */
     role: "CONTROLLER",
     qid: null,
@@ -380,12 +389,13 @@
     { id: "create", label: "Create", icon: "plus", plain: true },
     { id: "home", label: "Home", icon: "home" },
     { id: "insights", label: "Insights", icon: "chart" },
-    { id: "catalog", label: "Catalog", icon: "book" },
+    { id: "catalog", label: "Master catalog", icon: "book" },
+    { id: "apc", label: "Auto-populate catalog", icon: "wand" },
     { id: "sessions", label: "Sessions", icon: "list" }
   ];
   function renderWbNav() {
     $("#wb-nav").innerHTML = WB_NAV.map(function (n) {
-      var on = n.id === S.wbPanel || (n.id === "home" && S.wbPanel === "conversation");
+      var on = n.id === S.wbPanel || (n.id === "home" && S.wbPanel === "conversation") || (n.id === "catalog" && S.wbPanel === "lineage");
       return '<button class="wb-item' + (on ? " is-active" : "") + '" type="button" data-wb="' + n.id + '">' + ICON[n.icon] + "<span>" + (n.plain ? "Create" : esc(n.label)) + "</span></button>";
     }).join("") +
       '<div class="wb-cap">Activity</div>' +
@@ -639,7 +649,13 @@
     var page = $("#wb-page");
     if (S.wbPanel === "conversation") { page.innerHTML = '<div class="conv">' + answerHtml(ans()) + "</div>"; return; }
     if (S.wbPanel === "insights") { page.innerHTML = insightsHtml(); return; }
-    if (S.wbPanel === "catalog") { page.innerHTML = glossaryHtml(); return; }
+    if (S.wbPanel === "catalog") { page.innerHTML = mcatalogHtml(); return; }
+    if (S.wbPanel === "apc") { page.innerHTML = apcHtml(); return; }
+    if (S.wbPanel === "lineage") {
+      page.innerHTML = lineageHtml();
+      requestAnimationFrame(function () { drawLineage(); });
+      return;
+    }
     if (S.wbPanel === "sessions") { page.innerHTML = sessionsHtml(); return; }
     page.innerHTML = hubHome();
   }
@@ -661,7 +677,36 @@
       return;
     }
     if ((t = e.target.closest("[data-publish]"))) { publish(); return; }
-    if ((t = e.target.closest("[data-dash]"))) { toast("<span>Dashboard <b>" + esc(t.dataset.dash) + "</b> — static in this walkthrough; it reads the same certified views as the answers.</span>"); }
+    if ((t = e.target.closest("[data-dash]"))) { toast("<span>Dashboard <b>" + esc(t.dataset.dash) + "</b> — static in this walkthrough; it reads the same certified views as the answers.</span>"); return; }
+    /* ---- Master catalog / lineage ---- */
+    if ((t = e.target.closest("[data-viewlin]"))) { openLineage(t.dataset.viewlin); return; }
+    if ((t = e.target.closest("[data-mcent]"))) { S.mcEntity = t.dataset.mcent; S.mcMenu = false; renderWb(); return; }
+    if ((t = e.target.closest("#mc-actions"))) { S.mcMenu = !S.mcMenu; renderWb(); return; }
+    if ((t = e.target.closest("[data-mclin]"))) { S.mcMenu = false; openLineage(t.dataset.mclin); return; }
+    if ((t = e.target.closest("[data-mcdet]"))) { S.mcMenu = false; renderWb(); toast("<span><b>View Details</b> and <b>Set as Anchor</b> are the other two right-click actions on a catalog artifact; only <b>Lineage</b> opens in this walkthrough.</span>", 6000); return; }
+    if ((t = e.target.closest("[data-mcanch]"))) { S.mcMenu = false; renderWb(); toast("<span>Setting an anchor re-centres the lineage diagram on that artifact. GOLD." + esc(S.mcEntity) + " is already the anchor.</span>", 6000); return; }
+    if ((t = e.target.closest("[data-apccreate]"))) { toast("<span><b>Create Metadata Extractor</b> — read-only in this walkthrough.</span>"); return; }
+    if ((t = e.target.closest("#lin-close"))) { S.wbPanel = S.linFrom || "catalog"; S.linFrom = null; renderWb(); return; }
+    if ((t = e.target.closest("[data-linopen]"))) {
+      var oid = t.dataset.linopen, oi = S.linOpen.indexOf(oid);
+      if (oi >= 0) S.linOpen.splice(oi, 1); else S.linOpen.push(oid);
+      renderWb(); return;
+    }
+    if ((t = e.target.closest("[data-linclear]"))) { S.linCol = null; renderWb(); return; }
+    if ((t = e.target.closest("[data-lincol]"))) {
+      var parts = t.dataset.lincol.split("|");
+      if (parts[0] !== "out") { toast("Column lineage is highlighted from the target column — pick one on <b>" + esc(S.linView) + "</b>."); return; }
+      S.linCol = S.linCol === parts[1] ? null : parts[1];
+      if (S.linCol) { lineageFor(S.linView).stages[0].forEach(function (c) { if (S.linOpen.indexOf(c.id) < 0) S.linOpen.push(c.id); }); }
+      renderWb(); return;
+    }
+    if ((t = e.target.closest("[data-lindet]"))) { S.linDetail = t.dataset.lindet || null; S.linTab = "details"; renderWb(); return; }
+    if ((t = e.target.closest("[data-lintab]"))) { S.linTab = t.dataset.lintab; renderWb(); return; }
+    if ((t = e.target.closest("[data-linside]"))) {
+      if (t.dataset.linside === "up") { S.linHideUp = !S.linHideUp; renderWb(); }
+      else toast("Nothing downstream of a certified view inside this walkthrough — the answers read it live.");
+      return;
+    }
   });
   $("#wb-page").addEventListener("change", function (e) {
     if (e.target.id === "narr-tog") { S.narrate = e.target.checked; renderWb(); }
@@ -733,20 +778,343 @@
       }).join("") + "</div>" +
       '<p class="honest">Static in this walkthrough. Each dashboard reads the certified views listed under it, so a change to a definition moves the dashboard and the answers together.</p></div>';
   }
-  function glossaryHtml() {
-    return '<div class="wb-pg"><h1>Catalog</h1><div class="sub">Business terms and their synonyms, resolved before any SQL is written</div><div class="wb-rule"></div>' +
-      '<div class="wb-filter"><input type="search" placeholder="Filter terms" aria-label="Filter terms"><span class="honest" style="margin:0">' + D.glossary.length + " terms &middot; owned by Group Finance, Group Sales and Group Operations</span></div>" +
-      '<table class="wb-tbl"><thead><tr><th style="width:130px">Term</th><th style="width:210px">Also called</th><th>Definition</th><th style="width:130px">Owner</th><th style="width:100px">Changed</th></tr></thead><tbody>' +
-      D.glossary.map(function (g) {
-        return "<tr><td><b>" + esc(g.term) + "</b></td><td>" + esc(g.synonyms.join(", ")) + "</td><td>" + esc(g.definition) + "</td><td>" + esc(g.owner) + "</td><td>" + esc(g.changed) + "</td></tr>";
-      }).join("") + "</tbody></table>" +
-      '<div class="sec-head"><b>Certified views</b><span>' + D.views.length + " views on signed-off definitions &middot; owner Group Finance</span></div>" +
-      '<table class="wb-tbl"><thead><tr><th style="width:230px">View</th><th>Definition</th><th style="width:190px">Sources</th><th style="width:100px">Changed</th></tr></thead><tbody>' +
-      D.views.map(function (v) {
-        return '<tr><td><span class="mono">' + esc(v.name) + "</span></td><td>" + esc(v.definition) + "</td><td>" + v.sources.map(sysBadge).join("") + "</td><td>" + esc(v.changed) + "</td></tr>";
-      }).join("") + "</tbody></table>" +
-      '<p class="honest">Business terms, synonyms and lineage are documented for the Master catalog but Oracle has never shown them on screen; what it does ship there is an accept-or-reject queue over entities a metadata extractor proposed. This panel is our own modest rendering of the term side, in the Workbench idiom.</p></div>';
+  /* ===================================================================== */
+  /* Master catalog — the real AIDP surfaces (ui-anatomy §3.3b and §3.9).  */
+  /* Oracle ships no business glossary, ontology or synonym editor: what   */
+  /* it ships is auto-populated catalog metadata with a per-column         */
+  /* Description a person accepts or rejects, and a column-level Lineage   */
+  /* graph. Both are built here; the glossary panel that used to sit on    */
+  /* this nav item is gone.                                                */
+  /* ===================================================================== */
+  var CAT_LC = { FUSION: "fusion_erp", JDE: "jde_e1", NETSUITE: "netsuite", CRB: "crb_inhouse", CRM: "crm_iceberg" };
+  var GOLD_CAT = "lakehouse_gold";
+
+  /* per-view column metadata: name, type, the auto-populated Description
+     (blank ones render Oracle's literal "-"), and the data type */
+  var CAT_COLS = {
+    SUPPLIER_360: [
+      ["golden_id", "The stable key of the golden party this cluster resolved to.", "string"],
+      ["golden_name", "The name carried forward to the group, chosen from the longest normalised source name.", "string"],
+      ["source_system", "Which of the five mounted sources this record came from.", "string"],
+      ["source_key", "The record's own key in that system: POZ_SUPPLIERS.SEGMENT1, F0101.ABAN8 or the NetSuite entityId.", "string"],
+      ["tax_id", "Tax registration number as filed in the source system.", "string"],
+      ["bank_last4", "", "string"],
+      ["city", "City on the supplier's primary site or address-book record.", "string"],
+      ["country", "ISO country of that address.", "string"],
+      ["match_score", "Highest pair score in the cluster, 0 to 1. At 0.90 and above the model confirms on its own.", "double"],
+      ["match_reason", "Which evidence agreed: name, tax id, bank, address, contract cross-reference.", "string"],
+      ["status", "", "string"]
+    ],
+    CONSOLIDATED_PL: [
+      ["group_period", "Group accounting period the row belongs to, resolved through PERIOD_MAP.", "string"],
+      ["group_account", "Account in the 120-line group chart the local account maps to.", "string"],
+      ["account_name", "Name of that group account.", "string"],
+      ["source_system", "Source ledger the balance came from.", "string"],
+      ["local_account", "The account as it is coded in the source ledger.", "string"],
+      ["amount_local", "Period movement in the ledger's own currency.", "double"],
+      ["rate", "Q3 average rate used for translation, from GL_DAILY_RATES.", "double"],
+      ["amount_usd", "", "double"],
+      ["pl_line", "P&L line the group account rolls up to.", "string"]
+    ]
+  };
+  function catColsFor(id) {
+    if (CAT_COLS[id]) return CAT_COLS[id];
+    var a = null;
+    D.questions.forEach(function (q) { if (!a && q.views.indexOf(id) >= 0) a = q; });
+    var cols = a ? D.answer(a.id, "CONTROLLER", decisions()).columns : [];
+    return cols.map(function (c, i) {
+      return [String(c.key).replace(/([a-z])([A-Z])/g, "$1_$2").toLowerCase(),
+        i % 4 === 3 ? "" : c.label + " as the certified view publishes it.",
+        c.kind === "money" || c.kind === "score" ? "double" : c.kind === "num" ? "int" : "string"];
+    });
   }
+
+  /* ---------------- lineage graphs -------------------------------------- */
+  var SRC_OBJ = { FUSION: "POZ_SUPPLIERS", JDE: "F0101", NETSUITE: "vendor", CRB: "CRB_SUPPLIER_XREF", CRM: "CRM_ACCOUNT" };
+  var LINEAGE = {
+    SUPPLIER_360: {
+      task: "resolve_supplier_identities",
+      stages: [
+        [
+          { id: "poz", name: "POZ_SUPPLIERS", type: "TABLE", cat: "fusion_erp", tone: "bronze", cols: ["SEGMENT1", "VENDOR_NAME", "NUM_1099", "PARTY_SITE_ID"] },
+          { id: "f01", name: "F0101", type: "TABLE", cat: "jde_e1", tone: "bronze", cols: ["ABAN8", "ABALPH", "ABTAX", "ABAT1"] },
+          { id: "ven", name: "vendor", type: "TABLE", cat: "netsuite", tone: "bronze", cols: ["entityId", "companyName", "taxIdNum", "subsidiary"] },
+          { id: "xrf", name: "CRB_SUPPLIER_XREF", type: "TABLE", cat: "crb_inhouse", tone: "silver", cols: ["SUPPLIER_KEY", "SOURCE_SYSTEM", "CONTRACT_NO"] }
+        ],
+        [{ id: "tsk", name: "resolve_supplier_identities", type: "TASK", cat: "Finance_Model", tone: "task", kind: "task" }],
+        [{ id: "out", name: "SUPPLIER_360", type: "TABLE", cat: "lakehouse_gold", tone: "gold", anchor: true,
+          cols: ["golden_id", "golden_name", "source_key", "tax_id", "match_score", "match_reason"] }]
+      ],
+      edges: [["poz", "tsk"], ["f01", "tsk"], ["ven", "tsk"], ["xrf", "tsk"], ["tsk", "out"]],
+      map: {
+        golden_id: [["TRANSFORMATION", "golden_id = 'G-' || LPAD(cluster_id, 5, '0')", ["xrf.SUPPLIER_KEY"]]],
+        golden_name: [["TRANSFORMATION", "golden_name = INITCAP(longest normalised source name)", ["poz.VENDOR_NAME", "f01.ABALPH", "ven.companyName"]]],
+        source_key: [["IDENTITY", "source_key ← SEGMENT1 / ABAN8 / entityId", ["poz.SEGMENT1", "f01.ABAN8", "ven.entityId"]]],
+        tax_id: [["IDENTITY", "tax_id ← NUM_1099 / ABTAX / taxIdNum", ["poz.NUM_1099", "f01.ABTAX", "ven.taxIdNum"]]],
+        match_score: [["AGGREGATION", "match_score = MAX(pair_score) over the cluster", ["poz.VENDOR_NAME", "f01.ABALPH", "ven.companyName", "xrf.SUPPLIER_KEY"]]],
+        match_reason: [["TRANSFORMATION", "match_reason = CONCAT of the evidence that agreed", ["poz.NUM_1099", "f01.ABTAX", "ven.taxIdNum", "xrf.CONTRACT_NO"]]]
+      }
+    },
+    CONSOLIDATED_PL: {
+      task: "map_translate_and_consolidate",
+      stages: [
+        [
+          { id: "glb", name: "GL_BALANCES", type: "TABLE", cat: "fusion_erp", tone: "bronze", cols: ["CODE_COMBINATION_ID", "PERIOD_NAME", "PERIOD_NET_DR", "PERIOD_NET_CR"] },
+          { id: "f09", name: "F0911", type: "TABLE", cat: "jde_e1", tone: "bronze", cols: ["GLOBJ", "GLFY", "GLPN", "GLAA"] },
+          { id: "tln", name: "transactionLine", type: "TABLE", cat: "netsuite", tone: "bronze", cols: ["account", "postingPeriod", "amount", "subsidiary"] },
+          { id: "coa", name: "COA_MAP", type: "TABLE", cat: "lakehouse_gold", tone: "silver", cols: ["source_system", "local_account", "group_account", "rule"] },
+          { id: "per", name: "PERIOD_MAP", type: "TABLE", cat: "lakehouse_gold", tone: "silver", cols: ["source_period", "group_period"] },
+          { id: "rat", name: "GL_DAILY_RATES", type: "TABLE", cat: "fusion_erp", tone: "bronze", cols: ["FROM_CURRENCY", "TO_CURRENCY", "CONVERSION_RATE"] }
+        ],
+        [{ id: "tsk", name: "map_translate_and_consolidate", type: "TASK", cat: "Finance_Model", tone: "task", kind: "task" }],
+        [{ id: "out", name: "CONSOLIDATED_PL", type: "TABLE", cat: "lakehouse_gold", tone: "gold", anchor: true,
+          cols: ["group_period", "group_account", "local_account", "amount_local", "rate", "amount_usd"] }]
+      ],
+      edges: [["glb", "tsk"], ["f09", "tsk"], ["tln", "tsk"], ["coa", "tsk"], ["per", "tsk"], ["rat", "tsk"], ["tsk", "out"]],
+      map: {
+        group_period: [["IDENTITY", "group_period ← PERIOD_MAP.group_period", ["per.group_period"]]],
+        group_account: [["IDENTITY", "group_account ← COA_MAP.group_account", ["coa.group_account"]]],
+        local_account: [["IDENTITY", "local_account ← the account as the source ledger codes it", ["glb.CODE_COMBINATION_ID", "f09.GLOBJ", "tln.account"]]],
+        amount_local: [["AGGREGATION", "amount_local = SUM(period movement) per local account", ["glb.PERIOD_NET_DR", "glb.PERIOD_NET_CR", "f09.GLAA", "tln.amount"]]],
+        rate: [["IDENTITY", "rate ← GL_DAILY_RATES.CONVERSION_RATE (Q3 average)", ["rat.CONVERSION_RATE"]]],
+        amount_usd: [["TRANSFORMATION", "amount_usd = ROUND(amount_local * rate, 2)", ["glb.PERIOD_NET_DR", "f09.GLAA", "tln.amount", "rat.CONVERSION_RATE"]]]
+      }
+    }
+  };
+  function lineageFor(id) {
+    if (LINEAGE[id]) return LINEAGE[id];
+    var v = null; D.views.forEach(function (x) { if (x.id === id) v = x; });
+    if (!v) return null;
+    var srcs = v.sources.map(function (sy, i) {
+      return { id: "s" + i, name: SRC_OBJ[sy] || sy, type: "TABLE", cat: CAT_LC[sy] || String(sy).toLowerCase(), tone: "bronze",
+        cols: (D.sourceById[sy] ? D.sourceById[sy].objects : []).slice(0, 4) };
+    });
+    var g = {
+      task: "build_" + id.toLowerCase(),
+      stages: [srcs, [{ id: "tsk", name: "build_" + id.toLowerCase(), type: "TASK", cat: "Finance_Model", tone: "task", kind: "task" }],
+        [{ id: "out", name: id, type: "TABLE", cat: GOLD_CAT, tone: "gold", anchor: true, cols: catColsFor(id).slice(0, 6).map(function (c) { return c[0]; }) }]],
+      edges: srcs.map(function (x) { return [x.id, "tsk"]; }).concat([["tsk", "out"]]),
+      map: {}
+    };
+    LINEAGE[id] = g;
+    return g;
+  }
+  function linNode(gid) {
+    var g = lineageFor(S.linView), out = null;
+    if (!g) return null;
+    g.stages.forEach(function (st) { st.forEach(function (c) { if (c.id === gid) out = c; }); });
+    return out;
+  }
+  function toneChip(c) {
+    return '<span class="lin-cat lin-cat--' + esc(c.tone) + '">' + (c.kind === "task" ? ICON.route : ICON.stack) + esc(c.cat) + "</span>";
+  }
+  function linCardHtml(c, stageIdx, lastStage) {
+    var g = lineageFor(S.linView);
+    var open = S.linOpen.indexOf(c.id) >= 0;
+    var sel = S.linCol, hits = [];
+    if (sel && g.map[sel]) g.map[sel].forEach(function (m) { m[2].forEach(function (k) { hits.push(k); }); });
+    var chips = (c.cols || []).map(function (col) {
+      var on = c.id === "out" ? col === sel : (!sel || hits.indexOf(c.id + "." + col) >= 0);
+      return '<button class="lin-chip' + (on && sel ? " is-on" : sel ? " is-off" : "") + '" type="button" data-lincol="' + esc(c.id) + '|' + esc(col) + '">' + esc(col) + "</button>";
+    }).join("");
+    return '<div class="lin-card' + (open ? " is-open" : "") + (c.anchor ? " is-anchor" : "") + '" data-lin="' + esc(c.id) + '">' +
+      (stageIdx > 0 ? '<button class="lin-edge lin-edge--l" type="button" data-linside="up" aria-label="Collapse upstream">&minus;</button>' : '<button class="lin-edge lin-edge--l lin-edge--plus" type="button" data-linside="up" aria-label="Expand upstream">+</button>') +
+      (lastStage ? '<button class="lin-edge lin-edge--r lin-edge--plus" type="button" data-linside="down" aria-label="Expand downstream">+</button>' : '<button class="lin-edge lin-edge--r" type="button" data-linside="down" aria-label="Collapse downstream">&minus;</button>') +
+      (c.anchor ? '<span class="lin-anchor" title="Anchor">&#9875;</span>' : "") +
+      '<button class="lin-head" type="button" data-lindet="' + esc(c.id) + '"><span class="lin-ico lin-ico--' + esc(c.tone) + '">' + (c.kind === "task" ? ICON.route : ICON.grid) + "</span>" +
+      '<span class="lin-nm">' + esc(c.name) + "</span></button>" +
+      '<div class="lin-meta"><span class="lin-type">' + esc(c.type) + '</span><i>|</i>' + toneChip(c) + "</div>" +
+      (open && c.cols ? '<div class="lin-cols"><label class="lin-filter"><span class="wb-mag"></span><input type="search" placeholder="Filter" aria-label="Filter columns"></label>' +
+        chips + '<a class="lin-clear' + (sel ? "" : " is-off") + '" data-linclear="1">Clear</a></div>' : "") +
+      '<button class="lin-chev" type="button" data-linopen="' + esc(c.id) + '" aria-label="' + (open ? "Collapse" : "Expand") + ' columns">' + (open ? "⌃" : "⌄") + "</button></div>";
+  }
+  function lineageHtml() {
+    var g = lineageFor(S.linView);
+    if (!g) return "";
+    var stages = g.stages.slice();
+    if (S.linHideUp) stages = stages.slice(1);
+    var sel = S.linCol, maps = (sel && g.map[sel]) || [];
+    return '<div class="lin" id="lin">' +
+      '<div class="lin-bar"><span class="lin-title">Lineage for <span class="lin-ico lin-ico--gold sm">' + ICON.grid + "</span><b>GOLD." + esc(S.linView) + "</b></span>" +
+      '<label class="lin-find"><span class="wb-mag"></span><input type="search" placeholder="Find" aria-label="Find an artifact"></label>' +
+      '<span class="lin-icons"><i>' + ICON.gear + '</i><i class="dots">&middot;&middot;&middot;</i><i>&#10530;</i><i>&#9974;</i>' +
+      '<button class="lin-x" type="button" id="lin-close" aria-label="Close lineage">&times;</button></span></div>' +
+      '<div class="lin-filters"><button class="lin-funnel" type="button" aria-label="Hide filters">&#9660;</button>' +
+      ["All Catalogs", "All Schemas", "All Volumes", "All Workspaces"].map(function (f) { return '<span class="lin-sel">' + esc(f) + ICON.chevd + "</span>"; }).join("") +
+      '<span class="lin-sel is-dis">All Columns' + ICON.chevd + "</span><span class=\"lin-clearx\">&times;</span>" +
+      '<span class="lin-right"><span class="lin-modes"><i>&#8644;</i><i class="is-on">&#10021;</i><i>&#8646;</i></span><span class="lin-anch">&#9875;</span><span class="lin-sel">70′' + ICON.chevd + "</span></span></div>" +
+      '<div class="lin-canvas" id="lin-canvas"><svg class="lin-edges" id="lin-edges" aria-hidden="true"><defs><marker id="linarr" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 1 L7 4 L0 7 z" fill="#3f7f96"/></marker></defs></svg>' +
+      stages.map(function (st, i) {
+        return '<div class="lin-stage">' + st.map(function (c) { return linCardHtml(c, S.linHideUp ? i + 1 : i, i === stages.length - 1); }).join("") + "</div>";
+      }).join("") + "</div>" +
+      (sel ? '<div class="lin-maps"><b>Column lineage &middot; ' + esc(sel) + "</b>" + maps.map(function (m) {
+        return '<div class="lin-map"><span class="lin-kind lin-kind--' + m[0].toLowerCase() + '">' + esc(m[0]) + '</span><code>' + esc(m[1]) + "</code></div>";
+      }).join("") + (maps.length ? "" : '<div class="lin-map"><span class="lin-kind lin-kind--identity">IDENTITY</span><code>' + esc(sel) + " ← the source column of the same name</code></div>") + "</div>" : "") +
+      (S.linDetail ? linDetailHtml() : "") + "</div>";
+  }
+  function linUpDown(gid) {
+    var g = lineageFor(S.linView), up = 0, down = 0, seen = {};
+    function walk(id, dir, depth) {
+      g.edges.forEach(function (e) {
+        var nxt = dir < 0 ? (e[1] === id ? e[0] : null) : (e[0] === id ? e[1] : null);
+        if (!nxt || seen[dir + nxt]) return;
+        seen[dir + nxt] = depth;
+        if (dir < 0) up++; else down++;
+        walk(nxt, dir, depth + 1);
+      });
+    }
+    walk(gid, -1, 1); walk(gid, 1, 1);
+    return { up: up, down: down, depths: seen };
+  }
+  function linDetailHtml() {
+    var c = linNode(S.linDetail);
+    if (!c) return "";
+    var g = lineageFor(S.linView), ud = linUpDown(c.id);
+    var cols = c.id === "out" ? catColsFor(S.linView) : (c.cols || []).map(function (x) { return [x, "", "string"]; });
+    var rows = [];
+    Object.keys(ud.depths).forEach(function (k) {
+      var dir = k.charAt(0) === "-" ? "up" : "down", gid = k.replace(/^-?1/, "");
+      var n = linNode(gid); if (!n) return;
+      rows.push({ name: n.name, type: n.kind === "task" ? "Task" : "Table", dir: dir, depth: ud.depths[k] });
+    });
+    rows.sort(function (a, b) { return a.dir === b.dir ? a.depth - b.depth : (a.dir === "up" ? -1 : 1); });
+    return '<div class="lin-det" id="lin-det"><div class="lin-det-h"><span class="lin-ico lin-ico--' + esc(c.tone) + ' sm">' + (c.kind === "task" ? ICON.route : ICON.grid) + "</span>" +
+      "<b>" + esc(c.name) + '</b><span class="lin-type">' + esc(c.type) + "</span><i>|</i>" + toneChip(c) +
+      '<span class="lin-ud">&uarr; ' + ud.up + " &darr; " + ud.down + "</span>" +
+      '<span class="lin-right"><span>&#9974;</span><button class="lin-x" type="button" data-lindet="" aria-label="Close details">&times;</button></span></div>' +
+      '<div class="lin-det-tabs"><button type="button" class="' + (S.linTab === "details" ? "is-on" : "") + '" data-lintab="details">Details</button>' +
+      '<button type="button" class="' + (S.linTab === "impact" ? "is-on" : "") + '" data-lintab="impact">Impact analysis</button></div>' +
+      (S.linTab === "impact"
+        ? '<div class="lin-det-b"><p class="lin-help">Use the controls below to determine the upstream and downstream impact of the current artifact.</p>' +
+          '<div class="lin-ctrl"><label class="lin-filter"><span class="wb-mag"></span><input type="search" placeholder="Filter" aria-label="Filter artifacts"></label>' +
+          '<span class="lin-sel">All artifact types' + ICON.chevd + '</span><span class="lin-seg"><b class="is-on">Upstream</b><b>Downstream</b></span><span class="lin-exp">&#8599;</span></div>' +
+          '<div class="lin-sec">All upstream &amp; downstream lineage</div>' +
+          '<table class="wb-tbl"><thead><tr><th>Artifact name</th><th style="width:110px">Type</th><th style="width:150px">Direction</th><th style="width:80px">Depth</th></tr></thead><tbody>' +
+          rows.map(function (r) {
+            return "<tr><td>" + esc(r.name) + "</td><td>" + esc(r.type) + '</td><td><span class="lin-dir">' + (r.dir === "up" ? "&uarr; upstream" : "&darr; downstream") + "</span></td><td>" + r.depth + "</td></tr>";
+          }).join("") + "</tbody></table></div>"
+        : '<div class="lin-det-b lin-det-b--2"><div><div class="lin-lab">Description</div>' +
+          '<p class="lin-desc">' + esc(c.id === "out" ? (D.views.filter(function (v) { return v.id === S.linView; })[0] || {}).definition || "" : c.kind === "task" ? "Resolves, maps and translates the mounted sources into the certified view." : "Source object mounted from " + c.cat + ".") + "</p>" +
+          '<div class="lin-lab">Table Details</div><dl class="lin-kv">' +
+          "<dt>Last updated</dt><dd>Tue, Oct 6, 2026 at 09:44:12 EET</dd>" +
+          "<dt>Column count</dt><dd>" + cols.length + "</dd>" +
+          "<dt>Format</dt><dd>" + (c.tone === "gold" ? "Delta" : c.kind === "task" ? "Notebook job" : "Parquet") + "</dd>" +
+          "<dt>Catalog</dt><dd>" + esc(c.cat) + "</dd>" +
+          '<dt>Asset link</dt><dd><a class="lin-link">Open &#8599;</a></dd></dl></div>' +
+          '<div><div class="lin-ctrl"><label class="lin-filter"><span class="wb-mag"></span><input type="search" placeholder="Filter" aria-label="Filter columns"></label>' +
+          '<span class="lin-sel">All data types' + ICON.chevd + "</span></div>" +
+          '<table class="wb-tbl"><thead><tr><th>Column name</th><th style="width:120px">Type</th></tr></thead><tbody>' +
+          cols.map(function (x) { return "<tr><td>" + esc(x[0]) + "</td><td>" + esc(x[2] || "string") + "</td></tr>"; }).join("") +
+          "</tbody></table></div></div>") + "</div>";
+  }
+  /* steel-blue curved connectors, drawn after layout */
+  function drawLineage() {
+    var cv = $("#lin-canvas"), svg = $("#lin-edges");
+    if (!cv || !svg) return;
+    var g = lineageFor(S.linView), base = cv.getBoundingClientRect();
+    svg.setAttribute("viewBox", "0 0 " + cv.scrollWidth + " " + cv.scrollHeight);
+    svg.setAttribute("width", cv.scrollWidth); svg.setAttribute("height", cv.scrollHeight);
+    var defs = svg.querySelector("defs"), paths = "";
+    function box(id) { var el = cv.querySelector('.lin-card[data-lin="' + id + '"]'); if (!el) return null; var r = el.getBoundingClientRect(); return { x: r.left - base.left + cv.scrollLeft, y: r.top - base.top + cv.scrollTop, w: r.width, h: r.height }; }
+    function chip(id, col) {
+      var el = cv.querySelector('.lin-chip[data-lincol="' + id + "|" + col + '"]');
+      if (!el) return null; var r = el.getBoundingClientRect();
+      return { x: r.left - base.left + cv.scrollLeft, y: r.top - base.top + cv.scrollTop, w: r.width, h: r.height };
+    }
+    function curve(x1, y1, x2, y2, cls) {
+      var dx = Math.max(24, (x2 - x1) * 0.5);
+      paths += '<path class="' + cls + '" d="M' + x1 + " " + y1 + " C" + (x1 + dx) + " " + y1 + " " + (x2 - dx) + " " + y2 + " " + x2 + " " + y2 + '" marker-end="url(#linarr)"/>';
+    }
+    g.edges.forEach(function (e) {
+      var a = box(e[0]), b = box(e[1]);
+      if (!a || !b) return;
+      curve(a.x + a.w, a.y + Math.min(34, a.h / 2), b.x - 1, b.y + Math.min(34, b.h / 2), "lin-e");
+    });
+    var sel = S.linCol;
+    if (sel && g.map[sel]) {
+      var tb = box("tsk"), tgt = chip("out", sel);
+      g.map[sel].forEach(function (m) {
+        m[2].forEach(function (k) {
+          var parts = k.split("."), c = chip(parts[0], parts[1]);
+          if (c && tb) curve(c.x + c.w, c.y + c.h / 2, tb.x - 1, tb.y + Math.min(34, tb.h / 2), "lin-e lin-e--col");
+        });
+      });
+      if (tb && tgt) curve(tb.x + tb.w, tb.y + Math.min(34, tb.h / 2), tgt.x - 1, tgt.y + tgt.h / 2, "lin-e lin-e--col");
+    }
+    svg.innerHTML = (defs ? defs.outerHTML : "") + paths;
+  }
+  function openLineage(viewId) {
+    S.linView = String(viewId).replace(/^GOLD\./, "");
+    S.linOpen = ["out"]; S.linCol = null; S.linDetail = null; S.linTab = "details"; S.linHideUp = false;
+    setApp("aidp");
+    S.wbPanel = "lineage";
+    renderWb();
+  }
+
+  /* ---------------- Master catalog: the entity page ---------------------- */
+  function mcatalogHtml() {
+    var id = S.mcEntity, cols = catColsFor(id);
+    var v = D.views.filter(function (x) { return x.id === id; })[0] || D.views[0];
+    return '<div class="mc">' +
+      '<div class="mc-crumb">Master catalog <i>&rsaquo;</i> <a>' + GOLD_CAT + "</a> <i>&rsaquo;</i> <a>GOLD</a> <i>&rsaquo;</i> <a>Tables</a> <i>&rsaquo;</i> <b>" + esc(id) + "</b></div>" +
+      '<div class="mc-cols"><aside class="mc-tree"><label class="lin-filter"><span class="wb-mag"></span><input type="search" placeholder="Filter" aria-label="Filter catalogs"></label>' +
+      '<div class="mc-root">' + ICON.ledger + "Master catalog<span class=\"mc-live\">Default Master Cluster (Active)</span></div>" +
+      '<div class="mc-cat is-open">' + ICON.book + GOLD_CAT + "</div>" +
+      D.views.map(function (x) { return '<button class="mc-ent' + (x.id === id ? " is-on" : "") + '" type="button" data-mcent="' + esc(x.id) + '">' + ICON.grid + esc(x.id.toLowerCase()) + "</button>"; }).join("") +
+      D.sources.map(function (sc) { return '<div class="mc-cat">' + ICON.book + esc(CAT_LC[sc.id] || sc.id.toLowerCase()) + "</div>"; }).join("") +
+      "</aside>" +
+      '<div class="mc-main"><div class="mc-head"><span class="lin-ico lin-ico--gold sm">' + ICON.grid + "</span><h1>" + esc(id) + "</h1>" +
+      '<div class="mc-act"><button class="wb-btn" type="button" id="mc-actions">Actions ' + ICON.chevd + "</button>" +
+      (S.mcMenu ? '<div class="mc-menu"><button type="button" data-mclin="' + esc(id) + '">' + ICON.route + "Lineage</button>" +
+        '<button type="button" data-mcdet="1">' + ICON.info + "View Details</button>" +
+        '<button type="button" data-mcanch="1">' + ICON.star + "Set as Anchor</button></div>" : "") + "</div></div>" +
+      '<div class="mc-sub">Table created by Metadata Extractor</div>' +
+      '<div class="mc-tabs"><button type="button" class="is-on">Columns</button><button type="button">Details</button><button type="button">Permissions</button></div>' +
+      '<div class="mc-tools"><label class="lin-filter"><span class="wb-mag"></span><input type="search" placeholder="Filter" aria-label="Filter columns"></label><span class="mc-plus">+</span></div>' +
+      '<table class="wb-tbl mc-grid"><thead><tr><th style="width:26px"></th><th>Column name</th><th style="width:96px">Type</th><th style="width:44%">Description</th><th style="width:100px">Data type</th><th style="width:34px"></th></tr></thead><tbody>' +
+      cols.map(function (c) {
+        return '<tr><td><span class="mc-box"></span></td><td>' + esc(c[0]) + "</td><td>Column</td><td>" +
+          (c[1] ? '<span class="mc-desc">' + esc(c[1]) + "</span>" : '<span class="mc-dash">-</span>') + "</td><td>" + esc(c[2]) + '</td><td><span class="mc-dots">&middot;&middot;&middot;</span></td></tr>';
+      }).join("") + "</tbody></table>" +
+      '<p class="honest">' + esc(v.definition) + " Descriptions are written by the metadata extractor and reviewed by a person; the ones still showing <b>-</b> have not been reviewed. This column metadata is what the text-to-SQL agent reads to match a question's words to columns — Oracle ships no business glossary, ontology or synonym editor, and neither does this walkthrough.</p>" +
+      "</div></div></div>";
+  }
+  /* ---------------- Auto-populate catalog: the accept/reject queue ------- */
+  var APC_ROWS = [
+    ["poz_suppliers", "Success", "Accepted", "/fusion-erp/poz-suppliers", "fusion_erp"],
+    ["ap_invoices_all", "Success", "Accepted", "/fusion-erp/ap-invoices-all", "fusion_erp"],
+    ["gl_balances", "Success", "Accepted", "/fusion-erp/gl-balances", "fusion_erp"],
+    ["f0101", "Success", "Accepted", "/jde-e1/f0101", "jde_e1"],
+    ["f0411", "Success", "Accepted", "/jde-e1/f0411", "jde_e1"],
+    ["f0911", "Success", "Accepted", "/jde-e1/f0911", "jde_e1"],
+    ["vendor", "Success", "Accepted", "/netsuite/vendor", "netsuite"],
+    ["transaction_line", "Success", "Accepted", "/netsuite/transaction-line", "netsuite"],
+    ["crb_supplier_xref", "Success", "Accepted", "/crb-inhouse/crb-supplier-xref", "crb_inhouse"],
+    ["crm_account", "Success", "Accepted", "/crm-iceberg/crm-account", "crm_iceberg"],
+    ["crm_opportunity", "Success", "Rejected", "/crm-iceberg/crm-opportunity", "crm_iceberg"],
+    ["ns_employee", "Success", "Rejected", "/netsuite/employee", "netsuite"]
+  ];
+  function apcHtml() {
+    return '<div class="mc">' +
+      '<div class="mc-crumb"><a>Auto-populate catalog</a> <i>&rsaquo;</i> <b>Finance model extractor</b></div>' +
+      '<div class="wb-pg"><h1>Auto-populate catalog</h1><div class="sub">Create a metadata to auto populate catalog with content.</div><div class="wb-rule"></div>' +
+      '<div class="mc-tools"><label class="lin-filter"><span class="wb-mag"></span><input type="search" placeholder="Filter" aria-label="Filter extractors"></label>' +
+      '<span class="lin-sel">Catalog: All' + ICON.chevd + '</span><span class="lin-sel">Status: All' + ICON.chevd + '</span><span class="lin-sel">Entity Lifecycle: All' + ICON.chevd + "</span>" +
+      '<span class="lin-right"><button class="btn btn--dark btn--sm" type="button" data-apccreate="1">Create</button></span></div>' +
+      '<table class="wb-tbl"><thead><tr><th>Name</th><th style="width:150px">Catalog</th><th style="width:110px">Status</th><th style="width:130px">Entity Lifecycle</th><th style="width:130px">Compute</th><th style="width:200px">Start time</th><th style="width:130px">Created By</th></tr></thead><tbody>' +
+      '<tr><td>Finance model extractor</td><td>' + GOLD_CAT + '</td><td><span class="apc-ok">&#10003;</span> Succeeded</td><td>Auto</td><td>Norwell_Cluster</td><td>Tue, Oct 6, 2026 at 09:44</td><td>Priya Natarajan</td></tr>' +
+      "</tbody></table>" +
+      '<div class="mc-head mc-head--2"><span class="apc-tag">&#127991;</span><h1>Finance model extractor</h1></div><div class="mc-sub mc-sub--i">No description</div>' +
+      '<div class="mc-tabs"><button type="button">Details</button><button type="button" class="is-on">Reviewed entities</button></div>' +
+      '<p class="lin-help">The following entities have been accepted or rejected.</p>' +
+      '<div class="mc-tools"><label class="lin-filter"><span class="wb-mag"></span><input type="search" placeholder="Filter" aria-label="Filter entities"></label></div>' +
+      '<table class="wb-tbl"><thead><tr><th>Table (select to view table columns and details)</th><th style="width:120px">Status</th><th style="width:120px">Acceptance</th><th style="width:250px">Path</th><th style="width:130px">Schema</th><th style="width:34px"></th></tr></thead><tbody>' +
+      APC_ROWS.map(function (r) {
+        return '<tr><td><a class="mc-link">' + esc(r[0]) + '</a></td><td><span class="apc-ok">&#10003;</span> ' + esc(r[1]) + '</td><td><span class="stat stat--' + (r[2] === "Accepted" ? "auto" : "open") + '">' + esc(r[2]) + "</span></td><td>" + esc(r[3]) + "</td><td>" + esc(r[4]) + '</td><td><span class="mc-dots">&middot;&middot;&middot;</span></td></tr>';
+      }).join("") + "</tbody></table>" +
+      '<p class="honest">Twelve entities were proposed by the extractor and ten accepted; the two rejected ones are out of the finance model and never reach a certified view. This accept-or-reject queue is Oracle’s own shape for &ldquo;AI enriched your catalog, now a person confirms it&rdquo; — the same idiom the steward’s mapping queue borrows.</p></div></div>';
+  }
+
   function sessionsHtml() {
     var mine = S.published.map(function (p, i) {
       return { id: "P-" + i, time: "09:47", user: "Dana Whitfield", role: "CONTROLLER", text: "Published " + p, sqlHash: "—", rows: "—", status: "allowed" };
@@ -1199,7 +1567,7 @@
     if (tour.target.contains(el) || el.contains(tour.target)) return;
     e.preventDefault(); e.stopPropagation(); tour.nudge();
   }, true);
-  window.addEventListener("resize", function () { tour.reposition(); });
+  window.addEventListener("resize", function () { tour.reposition(); if (S.app === "aidp" && S.wbPanel === "lineage") drawLineage(); });
   document.addEventListener("scroll", function () { tour.reposition(); }, true);
   $("#tour-skip").addEventListener("click", function () { tour.skip(); });
   $("#tour-next").addEventListener("click", function () { tour.next(); });
@@ -1235,7 +1603,8 @@
   if (wantPanel) {
     if (["trace", "explore", "code", "explain"].indexOf(wantPanel) >= 0) { S.panel = wantPanel; if (!S.qid) { S.qid = "q1"; S.wbPanel = "conversation"; } }
     else if (["catalog", "feeds", "analysis"].indexOf(wantPanel) >= 0) S.dsScreen = wantPanel;
-    else if (["home", "insights", "sessions", "conversation"].indexOf(wantPanel) >= 0) S.wbPanel = wantPanel;
+    else if (["home", "insights", "sessions", "conversation", "apc", "lineage"].indexOf(wantPanel) >= 0) S.wbPanel = wantPanel;
+    else if (wantPanel === "mcatalog") S.wbPanel = "catalog";
     else if (["matches", "accounts", "decisions"].indexOf(wantPanel) >= 0) S.rwTab = wantPanel;
   }
 
@@ -1267,6 +1636,10 @@
     explore: function (key) { S.exploreKey = key; S.panel = "explore"; renderWb(); },
     setDsScreen: function (s) { S.dsScreen = s; renderDs(); },
     setWbPanel: function (p) { S.wbPanel = p; renderWb(); },
+    openLineage: openLineage,
+    lineageColumn: function (c) { S.linCol = c; lineageFor(S.linView).stages[0].forEach(function (x) { if (S.linOpen.indexOf(x.id) < 0) S.linOpen.push(x.id); }); renderWb(); },
+    lineageDetail: function (id, tab) { S.linDetail = id; S.linTab = tab || "details"; renderWb(); },
+    setCatalogEntity: function (id) { S.mcEntity = id; S.wbPanel = "catalog"; renderWb(); },
     setRwTab: function (t) { S.rwTab = t; renderRwTabs(); renderRwPanel(); },
     openProposal: function (id) { S.openProp = id; renderRwPanel(); },
     runRefresh: runRefresh, decide: decide, rerun: rerun,
