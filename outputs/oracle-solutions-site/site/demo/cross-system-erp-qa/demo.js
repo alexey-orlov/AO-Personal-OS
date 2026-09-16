@@ -916,10 +916,10 @@
   /* TOUR                                                                  */
   /* ===================================================================== */
   var STEPS = [
-    { id: "runnow", major: 1, side: "top",
+    { id: "runnow", major: 1, side: "bottom",
       title: "Rebuild the model",
       body: "Five systems are mounted in the lakehouse and feeding — Fusion, JD Edwards, NetSuite, the in-house contracts schema and the CRM as an external table — but nothing has joined them yet. Click Run now to build one governed model over all five.",
-      target: function () { return $("#ds-run-now"); }, auto: runRefresh },
+      target: function () { return $("#ds-run-now"); }, anchor: function () { return $("#ds-job"); }, auto: runRefresh },
     { id: "open-review", major: 1, side: "top",
       title: "Open what the run produced",
       body: "Identities resolved, accounts mapped, ledgers translated and reconciled, certified views rebuilt. The mapping tables the run filled are the steward's work queue — open them from the toast.",
