@@ -668,7 +668,7 @@
       D.views.map(function (v) {
         return '<tr><td><span class="mono">' + esc(v.name) + "</span></td><td>" + esc(v.definition) + "</td><td>" + v.sources.map(sysBadge).join("") + "</td><td>" + esc(v.changed) + "</td></tr>";
       }).join("") + "</tbody></table>" +
-      '<p class="honest">A glossary and lineage page for the Master catalog is documented for this platform but is not shown in any published Oracle screen — this panel is our own modest rendering of it, in the Workbench idiom.</p></div>';
+      '<p class="honest">Business terms, synonyms and lineage are documented for the Master catalog but Oracle has never shown them on screen; what it does ship there is an accept-or-reject queue over entities a metadata extractor proposed. This panel is our own modest rendering of the term side, in the Workbench idiom.</p></div>';
   }
   function sessionsHtml() {
     var mine = S.published.map(function (p, i) {
