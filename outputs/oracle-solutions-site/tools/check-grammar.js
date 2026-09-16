@@ -165,6 +165,28 @@ if (!arr(C.products) || C.products.length !== 7) {
     }
   });
   if (!arr(p.tags) || !p.tags.length) fail(w, "tags missing");
+  /* T3: the platform a product runs on is one of the four canonical facets, and
+     the chip that names it carries that facet's label verbatim. */
+  if (FACET_IDS.indexOf(p.facet) === -1) {
+    fail(w, 'facet "' + p.facet + '" is not one of ' + FACET_IDS.join(" / "));
+  }
+  /* The hero chip row is built from `category` and `facet` and skips tags[0]
+     and tags[1], so those two have to say what the renderer already says.
+     Anything past them renders as a second technology chip beside the platform
+     one, which is how "AI-Q" and "cuOpt" came to read as part of the platform
+     name — engine detail belongs in the Technology tab, not in the chip row. */
+  if (arr(p.tags)) {
+    if (p.tags.length !== 2) {
+      fail(w, "tags holds " + p.tags.length + " entries — exactly two: the pattern chip and the canonical platform label");
+    }
+    if (str(p.categoryChip) && p.tags[0] !== p.categoryChip) {
+      fail(w, 'tags[0] is "' + p.tags[0] + '" but the pattern chip renders "' + p.categoryChip + '"');
+    }
+    var wantFacetLabel = FACET_LABELS[p.facet];
+    if (wantFacetLabel && p.tags[1] !== wantFacetLabel) {
+      fail(w, 'tags[1] is "' + p.tags[1] + '" but the technology chip renders "' + wantFacetLabel + '"');
+    }
+  }
   if (!p.hero) fail(w, "hero missing"); else checkHeroImage(w, p.hero.image);
   if (!CFG.products[p.slug]) fail(w, "no matching SITE_CONFIG.products entry");
   else {
@@ -637,6 +659,52 @@ if (!arr(C.products) || C.products.length !== 7) {
   ["demo", "marketplace"].forEach(function (id, i) {
     if (av.options[i].id !== id) fail("facets.availability", 'options[' + i + '].id is "' + av.options[i].id + '", expected "' + id + '"');
     if (!str(av.options[i].label)) fail("facets.availability", "options[" + i + "].label missing");
+  });
+})();
+
+/* ---- T3 · the canonical technology set ---- */
+(function () {
+  var tech = (C.facets || {}).technology;
+  if (!arr(tech) || tech.length !== FACET_IDS.length) {
+    return fail("facets.technology", "must hold exactly " + FACET_IDS.length + " platforms, got " +
+      (arr(tech) ? tech.length : "none"));
+  }
+  FACET_IDS.forEach(function (id, i) {
+    var where = "facets.technology[" + i + "]";
+    if (tech[i].id !== id) fail(where, 'id is "' + tech[i].id + '", expected "' + id + '"');
+    if (tech[i].label !== FACET_LABELS[id]) {
+      fail(where, 'label is "' + tech[i].label + '", expected "' + FACET_LABELS[id] + '"');
+    }
+    /* The rail carries the one-liner, the grid carries the empty state — a
+       facet with no product today still has to say something in both places. */
+    ["fullLabel", "description", "emptyState"].forEach(function (k) {
+      if (!str(tech[i][k])) fail(where, k + " missing");
+    });
+  });
+  /* "Other" was a catch-all that named no Oracle platform and read as a gap in
+     the set. Oracle's product name is "Oracle AI for Fusion Applications". */
+  tech.forEach(function (f, i) {
+    if (/^other$/i.test(f.id) || /^other\b/i.test(f.label || "")) {
+      fail("facets.technology[" + i + "]", 'the "Other" catch-all is retired — the set is the four named Oracle platforms');
+    }
+  });
+
+  /* The two platform lists are the same four platforms under another shape, so
+     they carry the same labels in the same order — otherwise a reader meets one
+     name on the Products rail and a different one on Services. */
+  [
+    ["overview.servicesTeaser.platforms", ((C.overview || {}).servicesTeaser || {}).platforms],
+    ["services.hero.platforms", ((C.services || {}).hero || {}).platforms]
+  ].forEach(function (pair) {
+    var list = pair[1];
+    if (!arr(list) || list.length !== FACET_IDS.length) {
+      return fail(pair[0], "must hold one card per canonical platform (" + FACET_IDS.length + ")");
+    }
+    FACET_IDS.forEach(function (id, i) {
+      if (list[i].name !== FACET_LABELS[id]) {
+        fail(pair[0] + "[" + i + "]", 'name is "' + list[i].name + '", expected the canonical label "' + FACET_LABELS[id] + '"');
+      }
+    });
   });
 })();
 
