@@ -2702,7 +2702,7 @@ window.SITE_CONTENT = {
         alt: "An engineer seen from behind at a wall of code on dark monitors in a low-lit workspace",
         focal: "50% 50%"
       },
-      headline: { accent: "FROM ORACLE’S PLATFORMS", rest: "TO AGENTS IN PRODUCTION." },
+      headline: { accent: "FROM PLATFORM", rest: "TO PRODUCTION." },
       lead: "Oracle provides the platforms. SoftServe builds, integrates and runs what sits on top: the agents and workflows on this site, adapted to your systems and rules — or the one your workflow needs — and the governed data under them.",
       secondParagraph: "Architects who own the Oracle reference architecture shape the scope; engineers on the Oracle AI stack build and integrate it; the same team runs it after go-live. Joint teams with Oracle’s AI & Data organization, one contract.",
       stats: [
@@ -2723,12 +2723,12 @@ window.SITE_CONTENT = {
     howWeEngage: {
       anchor: "how-we-engage",
       eyebrow: "How we engage",
-      title: "Prove it small. Take it live. Extend it when you’re ready.",
+      title: "Each step earns the next.",
       lead: "Three steps, each as small as it honestly can be — on cost and on the calendar. You decide the next one on measured results.",
       steps: [
         {
           title: "Jumpstart proof of value",
-          body: "Measured on your own data, with nothing touching production: a separate environment and no connection to your systems. A fixed price where one is published; a costed plan for the next step at the end.",
+          body: "Measured on your own data, with nothing touching production: a separate environment and no connection to your systems. A fixed price where one is published; a costed expansion plan at the end.",
           factLabel: "Duration",
           fact: "30–45 days to about two months · scoped per engagement on the research and investigation products"
         },
@@ -2751,7 +2751,7 @@ window.SITE_CONTENT = {
     afterGoLive: {
       anchor: "after-go-live",
       eyebrow: "After go-live",
-      title: "We run it, or your team does.",
+      title: "Our team, or yours.",
       panels: [
         {
           id: "managed-service",
@@ -2779,7 +2779,7 @@ window.SITE_CONTENT = {
     proof: {
       anchor: "proof",
       eyebrow: "How we measure it",
-      title: "Signed before we start, scored like for like.",
+      title: "Signed before we start.",
       lead: "The use case, two or three success metrics and the baseline are signed by you, Oracle and SoftServe before the clock starts. Every KPI is then computed the same way for the current path and the new one, so the comparison holds.",
       stat: {
         value: "81%",
