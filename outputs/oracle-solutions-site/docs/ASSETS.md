@@ -90,9 +90,9 @@ recorded below.
 | File | Shows | Capture state |
 |---|---|---|
 | `workforce-optimization-1.jpg` | Load the period's data: the Run optimization modal — sources (manual XLSX · field-service system connected · booking, inventory, HR/WFM, forecast, BI configured), region, period, the attached file and its seven sheets | Run modal, file chosen, before Optimize |
-| `workforce-optimization-2.jpg` | Set the rules: the Optimization settings drawer — objectives and weights (productivity · waiting time · workload balance) and the hard/soft rules | Settings drawer over the optimized plan |
-| `workforce-optimization-3.jpg` | Solve the plan: the solver stages — validate the input (with its warning), travel matrix, rules, GPU solve, KPIs | Run modal mid-run |
-| `workforce-optimization-4.jpg` | Review, approve, measure: the optimized map beside the details of the zone whose wait time worsened — postcodes, avg wait before → after, the flag | Compare view, HV-09 details open |
+| `workforce-optimization-2.jpg` | Set the rules: the Optimization settings drawer — planning mode and capacity, objectives and weights (productivity 40 · waiting time 35 · workload balance 25) and the first hard rule | Settings drawer over the optimized plan |
+| `workforce-optimization-3.jpg` | Solve the plan: the solver stages — validate the input (with its warning), travel matrix, rules, GPU solve, KPIs | Run modal 2.3 s into the run |
+| `workforce-optimization-4.jpg` | Review, approve, measure: the value readout under the toolbar — the first three KPI tiles, each a big coloured delta over its before → after line (jobs per technician per day +4.8%, capacity used +3 pts, avg wait −0.6 d) | Plan v1 dashboard, KPI band, narrow viewport |
 
 **Capture.** The same tool in `MODE=script` with `tools/capture-wfo-frames.json`,
 `DPR=2`, the page opened with `?tour=off&ui=clean&state=start`
