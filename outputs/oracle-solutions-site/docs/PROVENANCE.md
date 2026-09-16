@@ -2794,7 +2794,9 @@ Each verified against the shipped code.
 teal button whose label was an email address. It now renders:
 
 ```
-<a class="contact-mail" href="mailto:…">✉ oracle@softserveinc.com</a>
+<a class="contact-mail" href="mailto:oracle@softserveinc.com">
+  [mail glyph]<span>oracle@softserveinc.com</span>
+</a>
 ```
 
 — body size, weight 600, a hairline rule under it, accent on hover and
