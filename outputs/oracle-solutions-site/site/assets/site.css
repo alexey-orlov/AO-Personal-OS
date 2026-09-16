@@ -844,8 +844,11 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 .case-descriptor { font-family: var(--font-body); font-size: 1.0625rem; font-weight: 700; line-height: 1.25; color: var(--text); text-transform: none; }
 .case-area { font-size: var(--fs-xs); line-height: 1.5; color: var(--text-dim); }
 
-/* The one element that tells a reader, at a glance, whether the figures below
-   are results or intentions. Two states, both read from the data. */
+/* The one element that tells a reader, at a glance, what the figures below are:
+   measured, modeled against a historical baseline, or the outcomes an
+   engagement in preparation is set up to measure. Three states, all read from
+   the data, and each one paired with the metric eyebrow that says the same
+   word. */
 .case-status {
   display: inline-flex;
   align-items: center;
@@ -1491,26 +1494,19 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 
 /* ——— case study: a dark callout (VISUAL-GRAMMAR §2.6) ——— */
 
-/* Surface-level dark panel with a 3px teal left rule. No customer is named and
-   no logo is rendered (Alex, 2026-09-16) — the header band is the industry
-   photograph the industry tabs already use, and the medallion sits where the
-   mark used to. The caveat that qualifies the figures is the last sentence of
-   the story, because the callout carries no footnote row of its own. */
+/* Surface-level dark panel with a 3px teal left rule, and that rule is the only
+   decoration: no customer is named, no logo is rendered, and no header
+   photograph — the industry tabs directly above already carry the industry
+   image, and repeating it read as a template filling itself in. The medallion
+   sits where the mark used to. The caveat that qualifies the figures is the
+   last sentence of the story, because the callout carries no footnote row of
+   its own. */
 .case-callout {
   border: 1px solid var(--border-subtle);
   border-left: 3px solid var(--accent);
   border-radius: 0 var(--r-lg) var(--r-lg) 0;
   background: var(--bg-raised);
   overflow: hidden;
-}
-
-.case-band { position: relative; height: clamp(6rem, 12vw, 9rem); }
-.case-band-img { width: 100%; height: 100%; object-fit: cover; }
-
-.case-band-veil {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to bottom, rgba(0, 0, 0, .35) 0, rgba(24, 24, 24, .55) 45%, var(--bg-raised) 100%);
 }
 
 .case-body {
