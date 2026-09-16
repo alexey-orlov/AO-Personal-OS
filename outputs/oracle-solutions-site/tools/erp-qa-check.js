@@ -218,6 +218,12 @@ ok("the audit log holds the blocked attempt",
 ok("the analyst's row policy is the entity filter", D.roles.ANALYST_NA.rowPolicy === "ENTITY IN ('NG-NA')");
 ok("the analyst's masked columns are BANK_ACCOUNT and TAX_ID",
   D.roles.ANALYST_NA.masked.join() === "BANK_ACCOUNT,TAX_ID");
+var a1aRec = D.answer("q1", "ANALYST_NA", S2.decisions).rows[0]._records[0];
+ok("the analyst's drill-down records are masked too",
+  /^\*\*-\*\*\*\d{4}$/.test(a1aRec.taxId) && a1aRec.bankLast4 === "\u2022\u2022\u2022\u2022",
+  a1aRec.taxId + " / " + a1aRec.bankLast4);
+ok("the controller's drill-down records are not masked",
+  /^CA/.test(D.answer("q1", "CONTROLLER", S2.decisions).rows[0]._records.filter(function (r) { return r.sys === "JDE"; })[0].taxId));
 ok("the analyst's trace shows the row policy and the masking",
   a1a2.trace.some(function (s) { return /Row policy/.test(s.n); }) && a1a2.trace.some(function (s) { return /masking/i.test(s.n); }));
 

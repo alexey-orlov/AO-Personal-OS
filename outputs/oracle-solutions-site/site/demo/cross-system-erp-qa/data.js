@@ -1100,8 +1100,10 @@ window.ERPQA_DATA = (function () {
       narrate: function (rows, R) {
         var tot = r2(sum(rows, function (r) { return r.spendUsd; })), pend = rows.filter(function (r) { return r.status === "review"; }).length;
         var scope = R.id === "CONTROLLER" ? "in more than one source system" : "in more than one source system and invoices inside NG-NA";
-        var lead = rows.length ? ", led by " + rows[0].supplier + " at USD " + fmtM(rows[0].spendUsd).replace(" M", " M") + " across " + rows[0].systems.map(function (x) { return SRC[x].short; }).join(", ") : "";
-        return cap(words(rows.length)) + " suppliers carry Q3 invoices " + scope + ", USD " + fmtM(tot)
+        var big = function (n) { return n >= 1e6 ? "USD " + fmtM(n) : fmtUsd(n); };
+        var lead = rows.length ? ", led by " + rows[0].supplier + " at " + big(rows[0].spendUsd)
+          + (rows[0].systems.length > 1 ? " across " + rows[0].systems.map(function (x) { return SRC[x].short; }).join(", ") : " in " + SRC[rows[0].systems[0]].short) : "";
+        return cap(words(rows.length)) + " suppliers carry Q3 invoices " + scope + ", " + (tot >= 1e6 ? "USD " + fmtM(tot) : fmtUsd(tot))
           + (R.id === "CONTROLLER" ? " in total" : " inside your entity scope") + lead + ". "
           + (pend ? cap(words(pend)) + " of them " + (pend === 1 ? "is a proposal" : "are proposals") + " the model applied provisionally and no steward has confirmed."
             : "Every one of them is a match a steward or an exact identifier confirmed.");
@@ -1110,13 +1112,15 @@ window.ERPQA_DATA = (function () {
       build: function (R, dec) {
         var rows = multiSystemRows(dec);
         if (R.id === "CONTROLLER") return rows;
-        return rows.filter(function (r) { return r.bySystem.JDE > 0; }).map(function (r) {
+        var out = rows.filter(function (r) { return r.bySystem.JDE > 0; }).map(function (r) {
           var c = {}; Object.keys(r).forEach(function (k) { c[k] = r[k]; });
           c.spendUsd = r.bySystem.JDE; c.systems = ["JDE"]; c.masked = true;
           c.records = r._records.filter(function (x) { return x.sys === "JDE"; }).length;
           c._records = r._records.filter(function (x) { return x.sys === "JDE"; });
           return c;
         });
+        out.sort(function (a, b) { return b.spendUsd - a.spendUsd; });
+        return out;
       },
       colLabelFor: { ANALYST_NA: { spendUsd: "Q3 spend, NG-NA (USD)", systems: "Systems in scope" } },
       policyNote: "The multi-system flag comes from SUPPLIER_360, which is master data; the amounts come from SUPPLIER_SPEND_Q, where the row policy applies.",
@@ -1448,11 +1452,28 @@ window.ERPQA_DATA = (function () {
   }
   function sqlFor(qid) { return QBY[qid].sql; }
 
+  /* Drill-down payloads carry raw source records; a role with a column policy
+     must see them masked there too, not only in the grid. */
+  function maskRecord(r, R) {
+    if (!r || !R.masked.length) return r;
+    var c = {}; Object.keys(r).forEach(function (k) { c[k] = r[k]; });
+    if (R.masked.indexOf("TAX_ID") >= 0) c.taxId = maskTaxId(r.taxId);
+    if (R.masked.indexOf("BANK_ACCOUNT") >= 0) c.bankLast4 = "••••";
+    c.masked = true; return c;
+  }
+  function maskRow(row, R) {
+    if (!R.masked.length || (!row._records && !row._record)) return row;
+    var c = {}; Object.keys(row).forEach(function (k) { c[k] = row[k]; });
+    if (row._records) c._records = row._records.map(function (r) { return maskRecord(r, R); });
+    if (row._record) c._record = maskRecord(row._record, R);
+    return c;
+  }
+
   /* ---------------------------------------------------------------- answer */
   function answer(qid, role, decisions) {
     var q = QBY[qid], R = roles[role] || roles.CONTROLLER, dec = decisionsOf(decisions);
     var blocked = !!(q.blockedFor && q.blockedFor.indexOf(R.id) >= 0);
-    var rows = blocked ? [] : q.build(R, dec);
+    var rows = blocked ? [] : q.build(R, dec).map(function (row) { return maskRow(row, R); });
     var cols = q.columns.map(function (c) {
       var lbl = q.colLabelFor && q.colLabelFor[R.id] && q.colLabelFor[R.id][c.key];
       return lbl ? { key: c.key, label: lbl, kind: c.kind, align: c.align, sub: c.sub } : c;
@@ -1461,7 +1482,7 @@ window.ERPQA_DATA = (function () {
     if (!blocked) {
       var inReview = rows.filter(function (r) { return r.status === "review"; }).length;
       if (inReview) caveats.push(inReview + (inReview === 1 ? " proposal in this set is" : " proposals in this set are") + " pending steward review.");
-      if (R.rowPolicy) caveats.push("Rows are limited to " + R.entities.join(", ") + " by the row policy, and " + R.maskedText.toLowerCase() + ".");
+      if (R.rowPolicy) caveats.push("Rows are limited to " + R.entities.join(", ") + " by the row policy; " + R.maskedText + ".");
       if (!rows.length) caveats.push("No rows inside your entity scope.");
     }
     return {
@@ -1526,6 +1547,6 @@ window.ERPQA_DATA = (function () {
     initialState: initialState, stateFor: stateFor, computeKpis: computeKpis, applyDecision: applyDecision,
     answer: answer, resolution: resolution, goldenSuppliers: goldenSuppliers, dupPairsFor: dupPairsFor,
     traceFor: traceFor, freshnessFor: freshnessFor, sqlFor: sqlFor,
-    fmtUsd: fmtUsd, fmtMoney: fmtMoney, fmtM: fmtM, maskTaxId: maskTaxId, pct1: pct1
+    fmtUsd: fmtUsd, fmtMoney: fmtMoney, fmtM: fmtM, maskTaxId: maskTaxId, maskRecord: maskRecord, pct1: pct1
   };
 })();
