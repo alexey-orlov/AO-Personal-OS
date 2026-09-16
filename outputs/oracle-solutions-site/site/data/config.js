@@ -86,7 +86,7 @@ window.SITE_CONFIG = {
       marketplace: true,
       marketplaceUrl: "",
       demoUrl: "demo/workforce-optimization/index.html",
-      demoPreviewUrl: "",
+      demoPreviewUrl: "https://claude.ai/code/artifact/343ab0d5-1d99-4038-a395-6f177c3f5e2e",
       video: true,
       videoUrl: "",
       videoPoster: "assets/img/posters/workforce-optimization.jpg",
