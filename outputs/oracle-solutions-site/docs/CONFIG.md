@@ -183,7 +183,7 @@ business-metrics-qa
 
 ### `marketplace` and `marketplaceUrl`
 
-`marketplace` is the **boolean that puts Oracle Marketplace on a customer-facing surface**; `marketplaceUrl` only decides whether the badge is a link. Both are empty/false today on all seven, because no pack is listed yet.
+`marketplace` is the **boolean that puts Oracle Marketplace on a customer-facing surface**; `marketplaceUrl` only decides whether the badge is a link. `true` today on `workforce-optimization` and `large-document-extraction`, on the owner's statement that those two are listed; `marketplaceUrl` is still empty on both, so their badges render inert until the listing URLs land.
 
 ```js
 marketplace: true,
@@ -194,7 +194,7 @@ Set `marketplace: true` and three things appear together, on the next reload:
 
 - the **Oracle Marketplace** badge (storefront icon) at the right end of the product hero's chip row,
 - the same badge top-right of that product's image band in the Products grid and the home grid,
-- the **On Oracle Marketplace** checkbox in the Products facet rail, which filters on this same boolean (`mp=1`). That checkbox is **hidden while no product carries the flag** — a control permanently at zero advertises a capability the site does not have — so setting `marketplace: true` anywhere is what brings the row back; until then the Availability group renders as the Demo checkbox alone and `mp=1` in the URL is ignored.
+- the count beside the **On Oracle Marketplace** checkbox in the Products facet rail, which filters on this same boolean (`mp=1`). **Both availability checkboxes always render**, with their faceted counts, whatever the flags say: the rail's shape does not move under the reader between visits, and `demo=1` / `mp=1` are always honored. A box whose count is zero renders disabled rather than absent, the same way a zero-count radio option does.
 
 With `marketplaceUrl` set, the badge opens the listing in a new tab; without one it renders inert — the flag says the listing exists, and a link to nowhere would be worse than no link. There is **no separate hero button**: a second control pointing at the same URL as the badge is one control too many.
 
