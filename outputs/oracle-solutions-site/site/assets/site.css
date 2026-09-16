@@ -2541,7 +2541,6 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
    argument a reader scrolls through, not a slideshow. */
 
 .home-screen { border-top: 1px solid var(--border-subtle); padding-block: clamp(3.5rem, 6vw, 5.5rem); }
-.home-screen.section--tight { padding-block: clamp(2.5rem, 4vw, 4rem); }
 
 /* One grid so the link at the right sits on the H2's own baseline: the eyebrow
    and the lead span both columns, the H2 takes the first and the link the
