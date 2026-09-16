@@ -613,3 +613,7 @@ tr.tour-target { box-shadow: none !important; animation: none; }
   .prop-head { grid-template-columns: 1fr 20px 1fr 70px 26px; }
   .prop-spend { display: none; }
 }
+
+/* run progress under the feed's stage list */
+.job-bar { height: 4px; background: #e7e5e1; border-radius: 3px; margin: 0 16px 12px; overflow: hidden; }
+.job-bar b { display: block; height: 100%; width: 0; background: var(--ds-green); transition: width .25s linear; }
