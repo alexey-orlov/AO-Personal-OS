@@ -3536,3 +3536,26 @@ Work split, as Alex asked it to be decided: Fable designed the value-first
 model, wrote the data model and the KPI/flag engine, the UI of the band and the
 change list, and the tour; an Opus subagent re-captured and converted the
 frames and poster, checked their legibility and updated the capture notes.
+
+## 20. The site name — Oracle AI & Data Solutions, 2026-09-16
+
+**Instruction** (Alex, 2026-09-16, in session): *rename site header as "Oracle AI & Data Solutions"*. The new name replaces *AI Agents on Oracle* (`HANDOFF` §6.1, §18.0) wherever the site states its name; the tagline, the H1 and every other string are unchanged.
+
+| Where | Before | After |
+|---|---|---|
+| `index.html`: lockup text and its `aria-label` | AI Agents on Oracle | Oracle AI & Data Solutions |
+| `index.html`: `<title>`, `og:title`, `twitter:title` | AI Agents on Oracle — SoftServe | Oracle AI & Data Solutions — SoftServe |
+| `content.js`: `site.name`, `headerLockup.productName` | AI Agents on Oracle | Oracle AI & Data Solutions |
+| `content.js`: `site.title`, which every page title is built from | AI Agents on Oracle — SoftServe | Oracle AI & Data Solutions — SoftServe |
+
+**The lockup is static markup.** No script renders `headerLockup`: the header text is in `index.html`, so a rename edits both files. The README had called the name data only; it now names both places.
+
+**Fit, measured in the in-app browser.** The name is 26 characters to the old 19 (239 px against 179 px at 20 px). No width overflows and the masthead stays 77 px tall, but two bands broke, and `assets/site.css` now has a step for each:
+
+- **901–1023 px**, where the desktop nav first appears: the name ended 29 px short of *Products*, closer than the nav's own 32 px gap, so it read as a nav item. `.lockup-name` is 18 px in that band: 53 px clear at 901.
+- **Phones up to 430 px**: at 15 px the name wrapped to two lines, against the one-line intent in `site.css`. The lockup now scales down in proportion there (wordmark 84 px, gap 8 px, rule 20 px, name 13 px): one line at 375, 390, 414 and 430, 26–81 px clear of the menu button.
+- **Narrower than 375 px** it wraps to *Oracle AI & Data / Solutions*, as the old name already did at 360 and 320.
+
+**Open: Oracle trademark usage.** Oracle's *Third Party Usage Guidelines for Oracle Trademarks* (https://www.oracle.com/legal/trademarks/) ask third parties not to use Oracle marks as all or part of a company, product or service name, and to show the relationship with a descriptive tag line such as *for Oracle* (read through a search summary of that page; oracle.com refused a direct fetch on 2026-09-16). A SoftServe site whose name leads with *Oracle*, and echoes the Oracle AI & Data organization that `HANDOFF` §3 names, can read as an Oracle property, which §3's no-implied-standing rule exists to prevent; *AI Agents on Oracle* had the tag-line shape. Shipped as instructed and raised with Alex the same day, with *AI & Data Solutions for Oracle* as the guideline-shaped alternative.
+
+**Verification and publish.** `node --check` clean; `node tools/check-grammar.js` OK; the deny-list grep empty; console clean; the titles of `#/`, `#/products`, a product page, `#/services` and the not-found page carry the new name. Published as preview versions 26 (`index.html`, `data/content.js`, `assets/site.css`) and 27 (the page again, without the `<meta charset>` and `<meta name="viewport">` lines the artifact skeleton already has; `HANDOFF` §4 now strips both).
