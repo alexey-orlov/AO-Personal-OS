@@ -2668,18 +2668,18 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 .bo-tile--platform .icon { color: var(--text); }
 .bo-tile--layer { background: var(--bg-inset); justify-content: center; text-align: center; font-weight: 600; }
 
-.bo-chips { display: flex; flex-wrap: wrap; gap: .25rem; }
+.bo-chips { display: flex; flex-wrap: wrap; gap: .2rem; }
 
 .bo-chip {
-  font-size: .6875rem;
-  line-height: 1.25;
-  padding: .15rem .45rem;
+  font-size: .625rem;
+  line-height: 1.2;
+  padding: .1rem .4rem;
   border: 1px solid var(--border-subtle);
   border-radius: var(--r-pill);
   color: var(--text-muted);
 }
 
-.bo-links { display: block; width: 100%; height: 1.625rem; }
+.bo-links { display: block; width: 100%; height: 1.25rem; }
 
 .bo-link {
   fill: none;
@@ -2701,6 +2701,11 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 @keyframes bo-draw { to { stroke-dashoffset: 0; } }
 @keyframes bo-in { from { opacity: 0; transform: translateY(6px); } }
 
+/* Under the left-aligned copy the stack is left-aligned too, not centred. */
+@media (max-width: 1100px) {
+  .bo { margin-inline: 0; }
+}
+
 @media (max-width: 900px) {
   .bo { max-width: 100%; }
 }
@@ -2712,6 +2717,8 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
   .bo { grid-template-rows: none; }
   .bo-tiles--3 { grid-template-columns: minmax(0, 1fr); grid-auto-rows: auto; }
   .bo-tiles--4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  /* Full-width tiles leave the outer two connectors pointing at nothing. */
+  .bo-link:nth-child(1), .bo-link:nth-child(3) { display: none; }
 }
 
 /* ——— S2: the two ways in ——— */
@@ -2769,8 +2776,27 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
    with one product keeps its spare space — the pattern is what the column
    claims, not the count. */
 
-.catalog { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--gap); align-items: stretch; }
-.catalog-col { display: flex; flex-direction: column; min-width: 0; padding-top: 1.25rem; border-top: 1px solid var(--border-hairline); }
+/* Header and rows are two shared rows rather than two stacked blocks: the
+   definitions run two, three and four lines, and without the shared track the
+   first product in each column started at a different height. */
+.catalog {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-rows: auto 1fr;
+  column-gap: var(--gap);
+  row-gap: 0;
+  align-items: stretch;
+}
+
+.catalog-col {
+  display: grid;
+  grid-row: span 2;
+  grid-template-rows: subgrid;
+  row-gap: 0;
+  min-width: 0;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--border-hairline);
+}
 
 .catalog-pattern { display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: .5rem .625rem; }
 .catalog-pattern-icon { width: 1.375rem; height: 1.375rem; flex: none; color: var(--accent); }
