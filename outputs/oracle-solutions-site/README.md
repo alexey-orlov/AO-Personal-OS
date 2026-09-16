@@ -1,6 +1,8 @@
-# Oracle AI Solutions — site
+# AI Agents on Oracle — site
 
-A small marketing site for SoftServe's Oracle-based AI solutions: seven packaged applications built on Oracle Cloud Infrastructure with NVIDIA and on Oracle Autonomous AI Lakehouse, plus the services of the Oracle dedicated practice that delivers them. It is used two ways — sent to customers as a link, and opened live by SoftServe and Oracle sellers during a call.
+A small marketing site for SoftServe's enterprise AI agents and workflows on Oracle platforms: **seven packaged products**, grouped by the workflow pattern they automate and built on Oracle Cloud Infrastructure with NVIDIA and on Oracle Autonomous AI Lakehouse, plus the **dedicated Oracle AI & Data practice** that delivers them — from a fixed-scope Jumpstart proof of value to production. It is used two ways — sent to customers as a link, and opened live by SoftServe and Oracle sellers during a call.
+
+The site is named **AI Agents on Oracle** (round 5; it was *Oracle AI Solutions* before). The name is data, not markup: `site.name`, `site.title` and `headerLockup.productName` in `data/content.js`.
 
 Static site. No build step, no framework, no package manager: plain HTML, CSS and vanilla JavaScript, rendered client-side by a hash router. It runs from a `file://` path, from any static host, and as a multi-file artifact. The only external resource is Google Fonts (Montserrat + Open Sans); everything else is local.
 
@@ -39,7 +41,7 @@ oracle-solutions-site/
     │   ├── content.js        window.SITE_CONTENT — every word on the site
     │   └── diagrams.js       window.SITE_DIAGRAMS — the per-product architecture diagrams, drawn as inline SVG
     ├── pages/
-    │   ├── overview.js       window.PAGES.overview   →  #/
+    │   ├── overview.js       window.PAGES.overview   →  #/   (the seven-screen home page)
     │   ├── products.js       window.PAGES.products   →  #/products
     │   ├── product.js        window.PAGES.product    →  #/products/<slug>[/<tab>]
     │   └── services.js       window.PAGES.services   →  #/services
@@ -53,7 +55,7 @@ Script order in `index.html` matters: `data/*` → `assets/forms.js` → `pages/
 
 | Hash | Page |
 |---|---|
-| `#/` | Overview — hero, products, case studies, services teaser, demo form |
+| `#/` | Home — hero with the built-on stack, proof strip, two ways in, products by pattern, how we deliver, case studies, about SoftServe, contact |
 | `#/products` | Product marketplace — facet rail (technology, workflow pattern, availability), search, tiles |
 | `#/products/<slug>` | One product — hero plus tabs |
 | `#/products/<slug>/<tab>` | `overview` · `technology` · `jumpstart` · `contacts` · `sellers`. The retired segments `pov` → `jumpstart` and `demo` → `contacts` redirect in place, so Back still returns to where the reader came from and an old link still lands on the right tab. |
@@ -160,8 +162,8 @@ Notes that matter in production:
 - **One accent.** Teal `#35CCBA` on near-black `#131313`, and the accent carries the first word of each headline. Nothing else competes.
 - **Filled navy pill = a fact** (category, platform, availability, marketplace). **Outlined pill = a filter you can toggle.** Never mix the two meanings.
 - **Absence renders as an empty instance of the same component** (`UI.empty(...)`), not as a sentence where the component should be.
-- **The light two-tone band is the only inversion** and appears at most once per page.
-- **All nine heroes hold one visual register** — photography drawn from SoftServe's own decks and put through a single grade: cool slate-teal, median luminance 55–63, 1920×900, progressive JPEG. A replacement image has to land in that grade and carry no rendered text, no fake UI labels and no identifiable face — a set that mixes registers reads as assembled from whatever was to hand, and a hero carrying garbled glyphs or malformed anatomy is the loudest "AI page" tell on a surface sellers demo live. The grade recipe, per-file sources and the rights caveat are in `docs/PROVENANCE.md` §11.1; the swap procedure is in `docs/CONFIG.md` §3b.
-- **Only the top block carries a background image.** Every page hero sits on its own image under a left-to-right dark gradient plus a bottom fade into `#131313`, so the headline and CTAs always sit on near-black; heroes run 60–70 vh on desktop and auto height on mobile with the image faded harder. Below the hero, no section takes a photographic background.
+- **The light two-tone band is the only inversion** and appears at most once per page. On the home page it is the **About SoftServe** block, and the two partner wordmarks sit in a navy strip inside it — the NVIDIA asset is light grey, and navy is this site's "fact" surface anyway.
+- **All nine hero files hold one visual register** (eight of them referenced — see the bullet below) — photography drawn from SoftServe's own decks and put through a single grade: cool slate-teal, median luminance 55–63, 1920×900, progressive JPEG. A replacement image has to land in that grade and carry no rendered text, no fake UI labels and no identifiable face — a set that mixes registers reads as assembled from whatever was to hand, and a hero carrying garbled glyphs or malformed anatomy is the loudest "AI page" tell on a surface sellers demo live. The grade recipe, per-file sources and the rights caveat are in `docs/PROVENANCE.md` §11.1; the swap procedure is in `docs/CONFIG.md` §3b.
+- **Only the top block carries a background image — and the home page has none at all.** Every product hero and the Services hero sits on its own image under a left-to-right dark gradient plus a bottom fade into `#131313`, so the headline and CTAs always sit on near-black; those heroes run 60–70 vh on desktop and auto height on mobile with the image faded harder. Below a hero, no section takes a photographic background. **The home hero is the exception**: it carries no photograph, and its right column holds the built-on stack visual — three peer bands (workflow patterns · SoftServe · the four Oracle platforms) joined by connector lines that draw in on load. `assets/img/heroes/overview.jpg` stays on disk, unreferenced.
 - **No customer names anywhere**, including in the data files. Evidence is anonymized by industry.
 - **Motion is subtle:** blocks fade up 14 px once on first view, interactions run at 250 ms, and everything collapses to instant under `prefers-reduced-motion`.

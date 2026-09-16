@@ -173,7 +173,7 @@
 
     return '<section class="section home-screen" id="two-ways"><div class="wrap">' +
       head({ eyebrow: block.eyebrow, title: block.title }) +
-      '<div class="ways">' + panels + "</div>" +
+      '<div class="ways reveal">' + panels + "</div>" +
       "</div></section>";
   }
 
@@ -208,7 +208,7 @@
           "</a>";
       }).join("");
 
-      return '<div class="catalog-col">' +
+      return '<div class="catalog-col reveal">' +
         '<div class="catalog-pattern">' +
           UI.icon(patternIcons[pattern.id], "catalog-pattern-icon") +
           '<h3 class="catalog-pattern-name">' + UI.esc(category.full) + "</h3>" +
@@ -271,7 +271,7 @@
 
     return '<section class="section home-screen" id="' + UI.esc(block.anchor) + '"><div class="wrap">' +
       head({ eyebrow: block.eyebrow, title: block.title }) +
-      '<div class="deliver">' +
+      '<div class="deliver reveal">' +
         '<div class="deliver-main">' +
           '<div class="ladder3">' + steps + "</div>" +
           '<p class="footnote deliver-note">' + UI.esc(block.footnote) + "</p>" +
