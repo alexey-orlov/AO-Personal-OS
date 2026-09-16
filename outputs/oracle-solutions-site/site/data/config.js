@@ -102,11 +102,11 @@ window.SITE_CONFIG = {
     "cross-system-erp-qa": {
       marketplace: false,
       marketplaceUrl: "",
-      demoUrl: "",
+      demoUrl: "demo/cross-system-erp-qa/index.html",
       demoPreviewUrl: "",
       video: false,
       videoUrl: "",
-      videoPoster: "",
+      videoPoster: "assets/img/posters/cross-system-erp-qa.jpg",
       successStoryUrl: "",
       materials: {
         "lakehouse-jumpstart-deck": "",

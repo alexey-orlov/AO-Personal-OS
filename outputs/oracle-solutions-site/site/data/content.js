@@ -2157,7 +2157,7 @@ window.SITE_CONTENT = {
             n: 1,
             title: "Connect the applications",
             text: "The pipelines that ship with the Oracle products are switched on; one or two non-Oracle sources are linked or landed alongside. Read-only access.",
-            image: "assets/img/steps/cross-system-erp-qa-1.svg",
+            image: "assets/img/steps/cross-system-erp-qa-1.jpg",
             features: [
               "Prebuilt pipelines from Oracle applications — no extract engineering",
               "One or two non-Oracle sources joined in, by link or by pipeline"
@@ -2167,7 +2167,7 @@ window.SITE_CONTENT = {
             n: 2,
             title: "Shape one decision domain",
             text: "One domain — order-to-cash exceptions, say — is modeled into certified views, on definitions the business owner signs off.",
-            image: "assets/img/steps/cross-system-erp-qa-2.svg",
+            image: "assets/img/steps/cross-system-erp-qa-2.jpg",
             features: [
               "Certified views for one decision domain, on signed-off definitions",
               "A governed foundation that persists after the proof"
@@ -2177,14 +2177,14 @@ window.SITE_CONTENT = {
             n: 3,
             title: "Guard it in the data layer",
             text: "Masking and row-level rules are applied to every query — including the ones AI writes — and every interaction is logged.",
-            image: "assets/img/steps/cross-system-erp-qa-3.svg",
+            image: "assets/img/steps/cross-system-erp-qa-3.jpg",
             features: ["Sensitive fields masked by role, enforced in the data layer"]
           },
           {
             n: 4,
             title: "Ask in plain language",
             text: "Select AI answers over the governed schema, with two to three operational dashboards over the same joined data.",
-            image: "assets/img/steps/cross-system-erp-qa-4.svg",
+            image: "assets/img/steps/cross-system-erp-qa-4.jpg",
             features: [
               "Plain-English question answering over the governed schema",
               "Two to three operational dashboards over the joined data"
