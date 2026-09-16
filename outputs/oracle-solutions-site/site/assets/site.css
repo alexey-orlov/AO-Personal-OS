@@ -2964,6 +2964,12 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
   .pillars { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
 
+/* Three across, the card is too narrow to read beside its mark — the copy
+   column falls to a third of the card. There the mark goes back on top. */
+@media (min-width: 721px) and (max-width: 1100px) {
+  .pillars .pillar { flex-direction: column; gap: .75rem; padding: clamp(1.25rem, 2vw, 1.625rem); }
+}
+
 @media (max-width: 720px) {
   .pillars { grid-template-columns: minmax(0, 1fr); }
   .ladder3 { grid-template-columns: minmax(0, 1fr); grid-template-rows: none; column-gap: 0; row-gap: 1.75rem; }
