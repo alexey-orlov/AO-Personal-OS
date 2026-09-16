@@ -145,7 +145,7 @@
     }).join("");
     if (!stats) return "";
     return '<section class="stat-band">' +
-      '<div class="wrap"><ul class="stat-row stat-row--band">' + stats + "</ul></div>" +
+      '<div class="wrap"><ul class="stat-row stat-row--band stat-row--home">' + stats + "</ul></div>" +
       "</section>";
   }
 
@@ -200,9 +200,15 @@
       var rows = products.filter(function (product) {
         return product.category === pattern.id;
       }).map(function (product) {
-        return '<a class="catalog-row" href="#/products/' + UI.esc(product.slug) + '">' +
+        /* The row is a container, not a link: the badges beside the name are
+           actions of their own, and an action cannot live inside a link. The
+           name carries the link and an overlay stretches it over the row, so
+           the whole row still answers to a click. */
+        return '<div class="catalog-row">' +
           '<span class="catalog-row-head">' +
-            '<span class="catalog-row-name">' + UI.esc(product.name) + "</span>" +
+            '<a class="catalog-row-link" href="#/products/' + UI.esc(product.slug) + '">' +
+              '<span class="catalog-row-name">' + UI.esc(product.name) + "</span>" +
+            "</a>" +
             UI.badgeRow(product.slug, "catalog-row-badges") +
           "</span>" +
           '<p class="catalog-row-line small">' + UI.esc(product.shortLine) + "</p>" +
@@ -210,7 +216,7 @@
             ? '<p class="catalog-row-note">' + UI.esc(product.statusNote) + "</p>"
             : "") +
           UI.icon("arrow", "catalog-row-arrow") +
-          "</a>";
+          "</div>";
       }).join("");
 
       return '<div class="catalog-col reveal">' +
@@ -269,8 +275,10 @@
     var pillars = ((block.why && block.why.pillars) || []).map(function (pillar) {
       return '<div class="pillar">' +
         '<span class="pillar-mark" aria-hidden="true">' + UI.icon(pillar.icon) + "</span>" +
-        '<h3 class="pillar-title">' + UI.esc(pillar.title) + "</h3>" +
-        '<p class="pillar-text">' + UI.esc(pillar.body) + "</p>" +
+        '<div class="pillar-copy">' +
+          '<h3 class="pillar-title">' + UI.esc(pillar.title) + "</h3>" +
+          '<p class="pillar-text">' + UI.esc(pillar.body) + "</p>" +
+        "</div>" +
         "</div>";
     }).join("");
 
@@ -283,7 +291,9 @@
           '<div class="cta-row deliver-cta">' + ctas + "</div>" +
         "</div>" +
         '<div class="deliver-why">' +
-          '<p class="eyebrow eyebrow--accent">' + UI.esc(block.why.title) + "</p>" +
+          /* One accent per screen: the teal on this one is the head eyebrow and
+             the first step's dot, so the column label is the dim eyebrow. */
+          '<p class="eyebrow">' + UI.esc(block.why.title) + "</p>" +
           '<div class="pillars">' + pillars + "</div>" +
         "</div>" +
       "</div>" +
