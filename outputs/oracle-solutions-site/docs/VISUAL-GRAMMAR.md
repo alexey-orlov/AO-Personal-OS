@@ -92,7 +92,7 @@ The tab is a **two-column layout on desktop**: a MAIN column at roughly two thir
 
 | Column | Order |
 |---|---|
-| **MAIN** | §2.1 Problem ↔ Solution → §2.2 How it works (the stepper) → §2.3 Industry use cases (the tabs) → §2.6 Success story → §2.7 More detail (one disclosure) |
+| **MAIN** | §2.1 Problem ↔ Solution → §2.2 How it works (the stepper) → §2.3 Industry use cases (the tabs) → §2.6 Case study → §2.7 More detail (one disclosure) |
 | **SIDE rail** | §2.4 Outcomes & ROI — and nothing else |
 
 **The rail is never taller than MAIN.** That is the constraint that decides what goes in it: a rail that out-runs its column leaves dead gutter at the foot of the page, and a pinned card that is taller than the viewport hides its own bottom for the whole scroll. Nothing else is a top-level block. The old standalone key-features checklist, in-scope/out-of-scope pair and long-form feature list are all still in the data and all render **inside** §2.7 — the compactness target is met by moving prose, never by dropping a fact.
@@ -397,7 +397,8 @@ Every product object must satisfy all of the following. `tools/check-grammar.js`
 | `overview.industriesNote` | non-empty string |
 | `overview.scope.in` / `.out` | ≥ 4 items each |
 | `overview.moreDetail` | ≥ 3 `{ title, body }` |
-| `overview.successStory` | present — `null`, or `{ customer, logo, logoStacked?, headline, metrics ×2, story, downloadLabel }` with a caveat clause inside `story`; `logoStacked` is a boolean where present |
+| `overview.caseStudy` | present — `null`, or `{ descriptor, area, industry, image, status, metricsEyebrow, metrics ×2, scope ×3, story, ndaLine, downloadLabel }` with a caveat clause inside `story`; no `customer`, no `logo`; `metricsEyebrow` agrees with `status` |
+| `products[].statusNote` | present only on `case-evidence-collection` and `plan-vs-actual-investigation`, one sentence; no product carries `availability`, `availabilityChip`, `availabilityTooltip`, or an availability string in `tags` |
 | `technology.narrative` | ≤ 3 sentences |
 | `technology.capabilities` | exactly 4 `{ stage, items }`; stages unique; ≥ 3 items each; `state`, where present, is `supported` or `roadmap` |
 | `technology.stack` | 4–5 layers, keys a subsequence of `application` → `ai-engine` → `data-platform` → `infrastructure` → `custom`; `application`, `data-platform`, `infrastructure` and `custom` all present; `summary` one sentence; `vendors` non-empty from `oracle` / `nvidia` / `softserve`; every layer ≥ 1 item and ≥ 1 with `required: true`; `direction` only on `custom`, and that layer names at least one inbound and one outbound |
