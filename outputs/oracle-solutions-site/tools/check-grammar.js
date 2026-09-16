@@ -902,8 +902,8 @@ if (!arr(C.products) || C.products.length !== 7) {
       });
     }
   }
-  if (!arr(h.stats) || h.stats.length !== 4) {
-    fail("overview.hero.stats", "must hold exactly 4 tiles — the proof strip under the hero, got " +
+  if (!arr(h.stats) || h.stats.length < 3 || h.stats.length > 4) {
+    fail("overview.hero.stats", "must hold 3 or 4 tiles — the proof strip under the hero, got " +
       (arr(h.stats) ? h.stats.length : "none"));
   } else h.stats.forEach(function (st, i) {
     var sw = "overview.hero.stats[" + i + "]";
@@ -986,8 +986,8 @@ if (!arr(C.products) || C.products.length !== 7) {
         reqStr("overview.delivery.why.pillars[" + i + "]", p, ["icon", "title", "body"]);
       });
     }
-    if (!arr(d.ctas) || d.ctas.length !== 2) {
-      fail("overview.delivery.ctas", "must hold exactly 2 — a primary and a quiet one, got " +
+    if (!arr(d.ctas) || d.ctas.length < 1 || d.ctas.length > 2) {
+      fail("overview.delivery.ctas", "must hold 1 or 2 — the screen ends on one action, got " +
         (arr(d.ctas) ? d.ctas.length : "none"));
     } else d.ctas.forEach(function (c, i) {
       reqCta("overview.delivery.ctas[" + i + "]", c);

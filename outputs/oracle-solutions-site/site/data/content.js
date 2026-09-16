@@ -238,38 +238,37 @@ window.SITE_CONTENT = {
         platformsLabel: "Oracle platforms"
       },
       stats: [
-        { value: "From 30 days", label: "to a measured result on your own data" },
-        { value: "Fixed price", label: "on the priced Jumpstarts, agreed before work starts" },
-        { value: "4", label: "Oracle platforms the practice focuses on" },
-        { value: "500+", label: "data experts in SoftServe’s data and analytics practice" }
+        { value: "1,000+", label: "AI and data experts at SoftServe" },
+        { value: "30", label: "Fortune 500 clients in the data and analytics practice" },
+        { value: "4–8 weeks", label: "to a proof of value on your own data" }
       ]
     },
 
     twoWays: {
       eyebrow: "Two ways in",
-      title: "The products get you started, and the team behind them takes you to production.",
+      title: "Start with an agent, keep the team that built it.",
       panels: [
         {
           id: "products",
           icon: "cube",
-          title: "Products you can start with",
-          body: "Each one runs on Oracle inside your own tenancy and starts with a Jumpstart: a fixed-scope pilot on your own data. Four are priced and ready to start today; three are scoped per engagement.",
+          title: "Agents ready to run",
+          body: "Each one runs on Oracle in your own tenancy and starts with a Jumpstart on your data. Four are priced today; three are scoped per engagement.",
           bullets: [
             "Runs on OCI + NVIDIA or Oracle Autonomous AI Lakehouse",
-            "Built for review: extractions, plans and findings are approved by a person before they are used",
-            "Jumpstart scope, timeline and investment on every product page"
+            "Extractions, plans and findings are approved by a person",
+            "Scope, timeline and price on every product page"
           ],
           cta: { label: "See the products", route: "#/#products", direction: "down" }
         },
         {
           id: "practice",
           icon: "users",
-          title: "A dedicated Oracle AI & Data practice",
-          body: "The architects and engineers who built these products adapt them to your systems, rules and data, and take them from pilot to production. One contract and one accountable team, from scoping through run.",
+          title: "The people who build them",
+          body: "The architects and engineers who built these agents adapt them to your systems, rules and data, and take them to production. One contract, one accountable team.",
           bullets: [
-            "Delivered alongside Oracle’s AI & Data organization, in joint teams",
-            "Results measured like for like against how you work today",
-            "Configured to your rules, your definitions and your access model"
+            "Delivered with Oracle’s AI & Data organization, in joint teams",
+            "Measured like for like against how you work today",
+            "Configured to your rules, definitions and access model"
           ],
           cta: { label: "How we deliver", route: "#/#how-we-deliver", direction: "down" }
         }
@@ -278,8 +277,8 @@ window.SITE_CONTENT = {
 
     catalog: {
       eyebrow: "Products",
-      title: "Find the job you need done.",
-      lead: "Each product page has how it works, what it needs from you, and the Jumpstart scope and investment.",
+      title: "Agents that read, extract, plan and answer.",
+      lead: "Each agent runs in your own Oracle tenancy. Open one for how it works, what it needs from you, and the Jumpstart scope.",
       patterns: [
         { id: "deep-research", definition: "Agents that read across your systems and outside sources, then bring back a cited answer for a person to act on." },
         { id: "processing-pipelines", definition: "Long documents and records turned into checked, structured data. Every value is traced to its source page and confirmed by a reviewer before it leaves." },
@@ -307,16 +306,15 @@ window.SITE_CONTENT = {
         ]
       },
       ctas: [
-        { label: "Explore the services", route: "#/services", kind: "primary" },
-        { label: "Talk to us", route: "#/services#contact", kind: "quiet" }
+        { label: "Explore the services", route: "#/services", kind: "primary" }
       ]
     },
 
     caseStudiesIntro: {
       eyebrow: "Case studies",
-      title: "What each engagement measures.",
-      body: "Where a proof of value has completed, the card carries what it measured; where one is being prepared, it carries the outcomes it is set up to measure. Every customer is under NDA, so each is described by industry and scale.",
-      ndaLine: "Reference calls are available on request for the completed proofs of value.",
+      title: "What we’ve proven, and what we’re proving now.",
+      body: "Every customer is under NDA, so each engagement is described by industry and scale.",
+      ndaLine: "Reference calls on request.",
       cta: { label: "How we measure it, engagement by engagement", route: "#/services#proof" }
     },
 
@@ -391,7 +389,7 @@ window.SITE_CONTENT = {
 
     contact: {
       anchor: "request-a-demo",
-      heading: "Talk to the Oracle AI & Data team",
+      heading: "Talk to our team",
       sub: "One scoping conversation starts it. We come back with what a proof of value would cover, what it would cost, and what it would measure."
     }
   },
