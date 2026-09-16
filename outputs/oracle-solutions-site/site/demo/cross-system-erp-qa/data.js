@@ -980,3 +980,528 @@ window.ERPQA_DATA = (function () {
   records.forEach(function (r) { bySys[r.sys]++; });
   var RESOLVED_BEFORE_PCT = pct1(RESOLVED_BEFORE, records.length);
   var localAccountTotal = localAccountCount.FUSION + localAccountCount.JDE + localAccountCount.NETSUITE;
+
+  /* ================================================================== */
+  /* THE REFRESH, THE DECISION LOG AND THE SAVED QUESTIONS              */
+  /* ================================================================== */
+  var refreshStages = [
+    { id: "sync", name: "Sync sources", done: "CDC · pipelines · links · " + sources.length + " catalogs mounted", ms: 1000 },
+    { id: "identity", name: "Resolve supplier identities", done: records.length + " records · " + matches.length + " proposals · " + (matches.length - 25) + " auto-confirmed", ms: 1100 },
+    { id: "coa", name: "Map accounts to the group chart", done: "497 local accounts to 120 group accounts · 37 newly mapped", ms: 950 },
+    { id: "ledgers", name: "Translate and reconcile ledgers", done: ledgers.length + " ledgers · Q3 average rates · residual 0.00", ms: 1050 },
+    { id: "views", name: "Rebuild certified views", done: views.length + " certified views · SQL Firewall allow-list FIN_QA_V3 refreshed", ms: 900 }
+  ];
+  var priorDecisions = [
+    { id: "D-0001", kind: "match", target: "M-2104", title: "Barnwell Coatings · two Fusion records merged", action: "confirm", reason: "Same registration and bank; one site opened its own supplier record.", by: "Priya Natarajan", role: "STEWARD", at: "2026-09-29 15:12", rule: "" },
+    { id: "D-0002", kind: "account", target: "JDE|5044", title: "JDE 5044 Pallet hire mapped to 5120 Freight out", action: "confirm", reason: "Pallet hire is a distribution cost in the group definition.", by: "Priya Natarajan", role: "STEWARD", at: "2026-10-02 11:48", rule: "" },
+    { id: "D-0003", kind: "match", target: "M-2210", title: "Thurlow Metals · Fusion and NetSuite records kept apart", action: "reject", reason: "Different owners since the 2024 sale; only the trading name is shared.", by: "Priya Natarajan", role: "STEWARD", at: "2026-10-05 09:06", rule: "Shared trading name alone never merges two parties." }
+  ];
+  var ORION_DECISION = {
+    kind: "match", id: "M-ORION", target: "M-ORION",
+    title: "Orion Fasteners Ltd · Fusion S-10422 and JDE AB 118207 kept apart",
+    action: "reject", reason: "Different tax ids — two companies.",
+    by: "Priya Natarajan", role: "STEWARD", at: "2026-10-06 09:44",
+    rule: ORION.learnedRule
+  };
+  function stateFor(name) {
+    if (name === "refreshed") return { refreshed: true, decisions: [] };
+    if (name === "fixed" || name === "final") return { refreshed: true, decisions: [ORION_DECISION] };
+    return initialState();
+  }
+  var _dseq = priorDecisions.length;
+  function applyDecision(state, decision) {
+    state = state || initialState();
+    _dseq++;
+    var row = {
+      id: "D-" + ("000" + _dseq).slice(-4), kind: decision.kind || "match",
+      target: decision.id || decision.target, title: decision.title || "",
+      action: decision.action, reason: decision.reason || "", rule: decision.rule || "",
+      by: decision.by || "Priya Natarajan", role: "STEWARD", at: decision.at || (world.todayLabel + " · " + world.nowLabel)
+    };
+    var d = { kind: row.kind, id: row.target, action: row.action, reason: row.reason, by: row.by, at: row.at, rule: row.rule };
+    var next = { refreshed: state.refreshed, decisions: state.decisions.concat([d]) };
+    var before = computeKpis(state), after = computeKpis(next);
+    var changed = { tiles: [], questions: [], learnedRule: row.rule || null };
+    after.tiles.forEach(function (t, i) { if (t.after !== before.tiles[i].after) changed.tiles.push(t.id); });
+    questions.forEach(function (q) {
+      if (!q.build) return;
+      var a = answer(q.id, "CONTROLLER", state.decisions), b = answer(q.id, "CONTROLLER", next.decisions);
+      if (a.rowCount !== b.rowCount) changed.questions.push({ id: q.id, n: q.n, before: a.rowCount, after: b.rowCount, text: q.text });
+    });
+    return { state: next, decision: row, changed: changed };
+  }
+
+  /* ------------------------------------------------------- saved questions */
+  function col(k, l, o) { o = o || {}; return { key: k, label: l, kind: o.kind || "text", align: o.align || (o.kind === "money" || o.kind === "num" || o.kind === "score" ? "right" : "left"), sub: o.sub || "" }; }
+  var IC = [
+    ["NG-EU", "NG-NA", 1284600.00, 1284600.00, "matched", "Both legs posted in period 3."],
+    ["NG-NA", "NG-EU", 486220.00, 486220.00, "matched", "Both legs posted in period 3."],
+    ["NG-EU", "NG-SV", 642180.00, 598340.00, "timing", "Invoice posted 30 Sep in NG-EU, received 2 Oct in NG-SV."],
+    ["NG-SV", "NG-EU", 214760.00, 214760.00, "matched", "Both legs posted in period 3."],
+    ["NG-NA", "NG-SV", 312470.00, 287120.00, "unmatched", "Service recharge coded to a third entity in NetSuite."],
+    ["NG-SV", "NG-NA", 96840.00, 118290.00, "unmatched", "Two credit notes not mirrored in JDE."]
+  ];
+  var O2C = [
+    ["Fenwick Industrial", "A", "NG-SV", "SO-20481", 2, "2026-09-18", 18, 184620.00, "NETSUITE"],
+    ["Aldercroft Retail Group", "A", "NG-EU", "1004872", 1, "2026-09-22", 14, 142380.00, "FUSION"],
+    ["Trenholm Utilities", "A", "NG-EU", "1004918", 3, "2026-09-25", 11, 96740.00, "FUSION"],
+    ["Barrowfield Foods", "A", "NG-SV", "SO-20536", 1, "2026-09-28", 8, 78210.00, "NETSUITE"],
+    ["Nettleton Engineering", "A", "NG-EU", "1005024", 2, "2026-09-29", 7, 54860.00, "FUSION"],
+    ["Quenby Water Services", "A", "NG-SV", "SO-20588", 4, "2026-09-30", 6, 31440.00, "NETSUITE"]
+  ];
+  var REBATE = [
+    ["Halden Tooling Group", "CRB-2104", "2.00 % of spend above the threshold", 1000000, 2.0, "NG-EU"],
+    ["Kestrel Components", "CRB-2118", "1.50 % of spend above the threshold", 750000, 1.5, "NG-EU"],
+    ["Wexford Industrial Supplies", "CRB-2137", "1.00 % of spend above the threshold", 600000, 1.0, "NG-EU"],
+    ["Marlowe Freight Services", "CRB-2166", "1.00 % of spend above the threshold", 400000, 1.0, "NG-NA"],
+    ["Calderwood Castings", "CRB-2172", "0.75 % of spend above the threshold", 350000, 0.75, "NG-EU"]
+  ];
+  var BANKCH = [
+    ["Ravenscourt Electrical", "JDE", "NG-NA", "2026-08-14", "AP clerk · JDE user MCARTER", "3360", 148220.00, 4],
+    ["Aldwych Chemicals", "FUSION", "NG-EU", "2026-07-29", "Supplier portal · self-service", "7702", 96480.00, 3],
+    ["Northline Cartage Ltd", "JDE", "NG-NA", "2026-09-02", "AP clerk · JDE user RPATEL", "5510", 42860.00, 2],
+    ["Stanhope Instrumentation", "NETSUITE", "NG-SV", "2026-08-21", "Vendor record edit · NetSuite user T.HOLT", "9930", 28140.00, 2],
+    ["Garrick Facilities LLC", "NETSUITE", "NG-SV", "2026-09-11", "Vendor record edit · NetSuite user T.HOLT", "3348", 0.00, 0]
+  ];
+
+  function multiSystemRows(dec) {
+    var gs = goldenSuppliers(dec), out = [];
+    gs.forEach(function (g) {
+      var sys = Object.keys(g.bySystem).filter(function (s) { return g.bySystem[s] > 0; });
+      if (sys.length < 2) return;
+      out.push({
+        golden: g.id, supplier: g.name, systems: sys, records: g.records.length,
+        spendUsd: r2(sum(sys, function (s) { return g.bySystem[s]; })),
+        bySystem: g.bySystem, score: g.score, status: g.status,
+        entities: sys.map(function (s) { return SRC[s].entity; }),
+        note: g.note, _records: g.records.map(byId)
+      });
+    });
+    out.sort(function (a, b) { return b.spendUsd - a.spendUsd; });
+    return out;
+  }
+
+  var questions = [
+    { id: "q1", n: 1, text: "Which suppliers do we pay from more than one system, and what did we pay them last quarter?",
+      chip: "Suppliers paid from more than one system",
+      sources: ["FUSION", "JDE", "NETSUITE"], views: ["SUPPLIER_360", "SUPPLIER_SPEND_Q", "PERIOD_MAP"],
+      terms: ["supplier", "last quarter", "group spend"], joins: 2, parse: "Aggregate over suppliers · 1 metric · 1 period filter · 1 having clause",
+      t: [210, 340, 980, 90, 640, 380],
+      narrate: "Twelve suppliers carry Q3 invoices in more than one source system, USD 8.6 M in total, led by Halden Tooling Group at USD 1.41 M across Fusion, JDE and NetSuite. One of the twelve is a proposal the model applied provisionally and a steward has not confirmed.",
+      columns: [col("supplier", "Golden supplier"), col("systems", "Systems", { kind: "badges" }), col("records", "Records", { kind: "num" }), col("spendUsd", "Q3 spend (USD)", { kind: "money" }), col("score", "Match score", { kind: "score" }), col("status", "Status", { kind: "status" })],
+      build: function (R, dec) {
+        var rows = multiSystemRows(dec);
+        if (R.id === "CONTROLLER") return rows;
+        return rows.filter(function (r) { return r.bySystem.JDE > 0; }).map(function (r) {
+          var c = {}; Object.keys(r).forEach(function (k) { c[k] = r[k]; });
+          c.spendUsd = r.bySystem.JDE; c.systems = ["JDE"]; c.masked = true;
+          c.records = r._records.filter(function (x) { return x.sys === "JDE"; }).length;
+          c._records = r._records.filter(function (x) { return x.sys === "JDE"; });
+          return c;
+        });
+      },
+      colLabelFor: { ANALYST_NA: { spendUsd: "Q3 spend, NG-NA (USD)", systems: "Systems in scope" } },
+      policyNote: "The multi-system flag comes from SUPPLIER_360, which is master data; the amounts come from SUPPLIER_SPEND_Q, where the row policy applies.",
+      sql: [
+        "SELECT s.golden_name                             AS supplier,",
+        "       LISTAGG(DISTINCT q.source_system, ' · ')",
+        "         WITHIN GROUP (ORDER BY q.source_system) AS systems,",
+        "       COUNT(DISTINCT q.source_record_id)        AS records,",
+        "       ROUND(SUM(q.spend_usd), 2)                AS q3_spend_usd,",
+        "       MIN(s.match_score)                        AS match_score,",
+        "       MIN(s.match_status)                       AS status",
+        "FROM   gold.supplier_spend_q q",
+        "JOIN   gold.supplier_360     s ON s.golden_id = q.golden_id",
+        "JOIN   gold.period_map       p ON p.period_id = q.period_id",
+        "WHERE  p.group_period = 'FY2026-Q3'",
+        "  AND  q.spend_usd > 0",
+        "GROUP  BY s.golden_id, s.golden_name",
+        "HAVING COUNT(DISTINCT q.source_system) > 1",
+        "ORDER  BY 4 DESC;"
+      ].join("\n") },
+
+    { id: "q2", n: 2, text: "Show the consolidated Q3 P&L by group account with source attribution.",
+      chip: "Consolidated Q3 P&L by group account",
+      sources: ["FUSION", "JDE", "NETSUITE"], views: ["CONSOLIDATED_PL", "COA_MAP", "PERIOD_MAP"],
+      terms: ["group account", "last quarter"], joins: 2, parse: "Pivot over group accounts · 3 source columns · 1 period filter",
+      t: [180, 300, 1120, 80, 880, 420],
+      narrate: "Group revenue for Q3 is USD 48.6 M — Fusion 27.9, JDE 13.2, NetSuite 7.5 — against COGS of 31.1 M, leaving a gross margin of 17.5 M and EBITDA of 6.0 M after 11.5 M of operating expense. Every line ties back to the three trial balances with a residual of 0.00.",
+      columns: [col("line", "P&L line"), col("group", "Group account"), col("groupName", "Account name"), col("fusion", "Fusion (USD)", { kind: "money" }), col("jde", "JDE (USD)", { kind: "money" }), col("netsuite", "NetSuite (USD)", { kind: "money" }), col("totalUsd", "Group (USD)", { kind: "money" })],
+      build: function (R) {
+        var out = [];
+        pl.forEach(function (L) {
+          if (L.kind === "subtotal") return;
+          L.accounts.forEach(function (a) {
+            var row = {
+              line: L.name, lineId: L.id, group: a.group, groupName: a.groupName,
+              fusion: a.bySource.FUSION, jde: a.bySource.JDE, netsuite: a.bySource.NETSUITE,
+              totalUsd: a.totalUsd, entity: null, _rows: a.rows
+            };
+            if (R.id === "CONTROLLER") { out.push(row); return; }
+            if (a.bySource.JDE <= 0) return;
+            out.push({ line: L.name, lineId: L.id, group: a.group, groupName: a.groupName, fusion: null, jde: a.bySource.JDE, netsuite: null, totalUsd: a.bySource.JDE, entity: "NG-NA", _rows: a.rows.filter(function (r) { return r.sys === "JDE"; }) });
+          });
+        });
+        return out;
+      },
+      sql: [
+        "SELECT m.pl_line, m.group_account, m.group_name,",
+        "       SUM(CASE WHEN c.source_system = 'FUSION'   THEN c.amount_usd END) AS fusion_usd,",
+        "       SUM(CASE WHEN c.source_system = 'JDE'      THEN c.amount_usd END) AS jde_usd,",
+        "       SUM(CASE WHEN c.source_system = 'NETSUITE' THEN c.amount_usd END) AS netsuite_usd,",
+        "       SUM(c.amount_usd)                                                AS group_usd",
+        "FROM   gold.consolidated_pl c",
+        "JOIN   gold.coa_map    m ON m.source_system = c.source_system",
+        "                        AND m.local_account = c.local_account",
+        "JOIN   gold.period_map p ON p.period_id     = c.period_id",
+        "WHERE  p.group_period = 'FY2026-Q3'",
+        "GROUP  BY m.pl_line_order, m.pl_line, m.group_account, m.group_name",
+        "ORDER  BY m.pl_line_order, m.group_account;"
+      ].join("\n") },
+
+    { id: "q3", n: 3, text: "Which local accounts are still unmapped, and what did the model propose?",
+      chip: "Local accounts the model had to propose",
+      sources: ["FUSION", "JDE", "NETSUITE"], views: ["COA_MAP"],
+      terms: ["group account"], joins: 0, parse: "Filter over the mapping table · 2 statuses · 1 period filter",
+      t: [160, 240, 760, 70, 620, 320],
+      narrate: "Thirty-seven local accounts had no group account before the run; thirty-five were mapped by rule and two are provisional and waiting for a steward. Nothing was dropped: every one of them is now inside the consolidated P&L.",
+      columns: [col("sys", "System", { kind: "badge" }), col("local", "Local account"), col("description", "Local name"), col("proposed", "Group account"), col("groupName", "Group name"), col("amountUsd", "Q3 (USD)", { kind: "money" }), col("score", "Score", { kind: "score" }), col("status", "Status", { kind: "status" })],
+      build: function (R) {
+        return accounts.filter(function (a) { return R.entities.indexOf(a.entity) >= 0; })
+          .sort(function (a, b) { return (a.status === b.status ? 0 : a.status === "review" ? -1 : 1) || (a.sys < b.sys ? -1 : 1); });
+      },
+      sql: [
+        "SELECT m.source_system, m.local_account, m.local_name,",
+        "       m.group_account, m.group_name, m.amount_usd,",
+        "       m.map_score, m.map_status, m.map_rule",
+        "FROM   gold.coa_map m",
+        "WHERE  m.effective_period = 'FY2026-Q3'",
+        "  AND  m.map_status IN ('proposed', 'review')",
+        "ORDER  BY CASE m.map_status WHEN 'review' THEN 0 ELSE 1 END,",
+        "          m.source_system, m.local_account;"
+      ].join("\n") },
+
+    { id: "q4", n: 4, text: "Same invoice number and amount paid in two systems this quarter.",
+      chip: "Same invoice paid in two systems",
+      sources: ["FUSION", "JDE", "NETSUITE"], views: ["DUP_INVOICE_PAIRS", "SUPPLIER_360", "PERIOD_MAP"],
+      terms: ["duplicate payment", "supplier", "last quarter"], joins: 2, parse: "Filter over candidate pairs · 1 period filter · ordered by value",
+      t: [170, 280, 840, 80, 520, 340],
+      narrate: "Fourteen candidate pairs sit across two systems in Q3, USD 216,410 in total, every one of them on a supplier the model resolved to a single golden record. They are candidates, not confirmed duplicates: one pair depends on a supplier match a steward has not confirmed.",
+      columns: [col("goldenName", "Golden supplier"), col("invoiceNorm", "Invoice (normalised)"), col("amountUsd", "Amount (USD)", { kind: "money" }), col("aRef", "First document"), col("bRef", "Second document"), col("status", "Status", { kind: "status" })],
+      policyNote: "The row policy admits a pair when either leg is inside your entity scope — a duplicate is only reviewable with both legs in view.",
+      build: function (R, dec) {
+        return dupPairsFor(dec).filter(function (p) {
+          return R.id === "CONTROLLER" || R.entities.indexOf(p.a.entity) >= 0 || R.entities.indexOf(p.b.entity) >= 0;
+        }).map(function (p) {
+          return {
+            id: p.id, goldenName: p.goldenName, invoiceNorm: p.invoiceNorm, amountUsd: p.amountUsd,
+            aRef: SRC[p.a.sys].short + " " + p.a.doc + " · " + p.a.date, bRef: SRC[p.b.sys].short + " " + p.b.doc + " · " + p.b.date,
+            status: p.status, entity: p.a.entity, _pair: p
+          };
+        });
+      },
+      sql: [
+        "SELECT d.golden_name, d.invoice_norm, d.amount_usd,",
+        "       d.system_a, d.doc_a, d.doc_date_a,",
+        "       d.system_b, d.doc_b, d.doc_date_b, d.pair_status",
+        "FROM   gold.dup_invoice_pairs d",
+        "JOIN   gold.supplier_360 s ON s.golden_id = d.golden_id",
+        "JOIN   gold.period_map   p ON p.period_id = d.period_id",
+        "WHERE  p.group_period = 'FY2026-Q3'",
+        "ORDER  BY d.amount_usd DESC;"
+      ].join("\n") },
+
+    { id: "q5", n: 5, text: "Intercompany balances that do not match at quarter end.",
+      chip: "Intercompany balances that do not agree",
+      sources: ["FUSION", "JDE", "NETSUITE"], views: ["IC_MATCHES", "ENTITY_MAP", "PERIOD_MAP"],
+      terms: ["intercompany", "last quarter"], joins: 2, parse: "Matrix over entity pairs · 1 gap metric · 1 period filter",
+      t: [190, 320, 1040, 90, 610, 360],
+      narrate: "Four of the six intercompany legs agree after translation; one is a timing difference of USD 43,840 on an invoice posted on 30 September and received on 2 October, and two are genuinely unmatched for USD 46,800 together. Elimination should not run until the two unmatched legs are cleared.",
+      columns: [col("entity", "Entity"), col("counterparty", "Counterparty"), col("ourUsd", "Our balance (USD)", { kind: "money" }), col("theirUsd", "Their balance (USD)", { kind: "money" }), col("gapUsd", "Gap (USD)", { kind: "money" }), col("status", "Status", { kind: "status" }), col("reason", "Why")],
+      build: function (R) {
+        return IC.filter(function (r) { return R.entities.indexOf(r[0]) >= 0; }).map(function (r) {
+          return { entity: r[0], counterparty: r[1], ourUsd: r[2], theirUsd: r[3], gapUsd: r2(r[2] - r[3]), status: r[4], reason: r[5], entityRef: r[0] };
+        });
+      },
+      sql: [
+        "SELECT i.entity, i.counterparty,",
+        "       i.our_balance_usd, i.their_balance_usd,",
+        "       i.our_balance_usd - i.their_balance_usd AS gap_usd,",
+        "       i.match_status, i.reason",
+        "FROM   gold.ic_matches i",
+        "JOIN   gold.entity_map e ON e.entity_id  = i.entity",
+        "JOIN   gold.period_map p ON p.period_id  = i.period_id",
+        "WHERE  p.group_period = 'FY2026-Q3'",
+        "ORDER  BY CASE i.match_status WHEN 'unmatched' THEN 0",
+        "                              WHEN 'timing'    THEN 1 ELSE 2 END,",
+        "          ABS(i.our_balance_usd - i.their_balance_usd) DESC;"
+      ].join("\n") },
+
+    { id: "q6", n: 6, text: "Which delayed orders are hurting our best accounts?",
+      chip: "Delayed orders on tier A accounts",
+      sources: ["FUSION", "NETSUITE", "CRM"], views: ["O2C_EXCEPTIONS", "PERIOD_MAP"],
+      terms: ["delayed order", "best accounts"], joins: 3, parse: "Join to the external CRM table · 2 filters · ordered by open value",
+      t: [230, 420, 1280, 100, 1140, 460],
+      narrate: "Six order lines are past their promised date on tier A accounts, USD 588,250 of open value, the largest a services order 18 days late. The CRM feed is the stalest source in this answer, so the account tiers are as of 08:35.",
+      columns: [col("account", "Account"), col("tier", "Tier", { kind: "badge" }), col("orderRef", "Order"), col("line", "Line", { kind: "num" }), col("promised", "Promised"), col("daysLate", "Days late", { kind: "num" }), col("valueUsd", "Open value (USD)", { kind: "money" }), col("sys", "System", { kind: "badge" })],
+      build: function (R) {
+        return O2C.filter(function (r) { return R.entities.indexOf(r[2]) >= 0; }).map(function (r) {
+          return { account: r[0], tier: r[1], entity: r[2], orderRef: r[3], line: r[4], promised: r[5], daysLate: r[6], valueUsd: r[7], sys: r[8] };
+        });
+      },
+      sql: [
+        "SELECT a.account_name, a.tier, e.entity, e.order_ref, e.order_line,",
+        "       e.promised_date, e.days_late, e.open_value_usd, e.source_system",
+        "FROM   gold.o2c_exceptions e",
+        "JOIN   crm_iceberg.crm_account a ON a.account_id = e.crm_account_id",
+        "JOIN   gold.period_map         p ON p.period_id  = e.period_id",
+        "WHERE  p.group_period = 'FY2026-Q3'",
+        "  AND  a.tier = 'A'",
+        "  AND  e.exception_type = 'PAST_PROMISED_NOT_SHIPPED'",
+        "ORDER  BY e.open_value_usd DESC;"
+      ].join("\n") },
+
+    { id: "q7", n: 7, text: "Top 20 suppliers by group spend in Q3.",
+      chip: "Top 20 suppliers by group spend",
+      sources: ["FUSION", "JDE", "NETSUITE"], views: ["SUPPLIER_360", "SUPPLIER_SPEND_Q", "PERIOD_MAP"],
+      terms: ["supplier", "group spend", "last quarter"], joins: 2, parse: "Ranked aggregate · 1 metric · top 20",
+      t: [150, 260, 720, 70, 690, 310],
+      narrate: "The top twenty suppliers account for a little under a fifth of Q3 group spend, and the leader is a supplier no single system could have ranked first — its invoices sit in three of them. Spend is translated at the Q3 average rate.",
+      columns: [col("rank", "#", { kind: "num" }), col("supplier", "Golden supplier"), col("systems", "Systems", { kind: "badges" }), col("spendUsd", "Q3 spend (USD)", { kind: "money" }), col("sharePct", "Share of Q3 spend", { kind: "score" })],
+      build: function (R, dec) {
+        var gs = goldenSuppliers(dec).filter(function (g) { return g.spendUsd > 0; });
+        if (R.id !== "CONTROLLER") {
+          gs = gs.filter(function (g) { return g.bySystem.JDE > 0; }).map(function (g) {
+            var c = {}; Object.keys(g).forEach(function (k) { c[k] = g[k]; });
+            c.spendUsd = g.bySystem.JDE; c.systems = ["JDE"]; return c;
+          });
+        }
+        var total = sum(gs, function (g) { return g.spendUsd; });
+        gs.sort(function (a, b) { return b.spendUsd - a.spendUsd; });
+        return gs.slice(0, 20).map(function (g, i) {
+          return { rank: i + 1, golden: g.id, supplier: g.name, systems: g.systems, spendUsd: g.spendUsd, sharePct: Math.round(g.spendUsd / total * 1000) / 10, status: g.status, _records: g.records.map(byId) };
+        });
+      },
+      sql: [
+        "SELECT s.golden_name,",
+        "       LISTAGG(DISTINCT q.source_system, ' · ')",
+        "         WITHIN GROUP (ORDER BY q.source_system)        AS systems,",
+        "       ROUND(SUM(q.spend_usd), 2)                       AS q3_spend_usd,",
+        "       ROUND(RATIO_TO_REPORT(SUM(q.spend_usd))",
+        "               OVER () * 100, 1)                        AS share_pct",
+        "FROM   gold.supplier_spend_q q",
+        "JOIN   gold.supplier_360     s ON s.golden_id = q.golden_id",
+        "JOIN   gold.period_map       p ON p.period_id = q.period_id",
+        "WHERE  p.group_period = 'FY2026-Q3'",
+        "GROUP  BY s.golden_id, s.golden_name",
+        "ORDER  BY 3 DESC",
+        "FETCH  FIRST 20 ROWS ONLY;"
+      ].join("\n") },
+
+    { id: "q8", n: 8, text: "Rebate terms we have not claimed this quarter.",
+      chip: "Rebate terms not yet claimed",
+      sources: ["FUSION", "JDE", "NETSUITE", "CRB"], views: ["SUPPLIER_360", "SUPPLIER_SPEND_Q", "PERIOD_MAP"],
+      terms: ["rebate", "group spend", "last quarter"], joins: 4, parse: "Join to the in-house contracts schema · threshold test · 1 period filter",
+      t: [200, 380, 1180, 90, 740, 400],
+      narrate: "Five rebate terms cleared their Q3 threshold on group spend and carry no claim document, worth USD 57,414 together. Four of them only clear the threshold once spend from more than one system is added up.",
+      columns: [col("supplier", "Golden supplier"), col("contract", "Contract"), col("basis", "Basis"), col("thresholdUsd", "Threshold (USD)", { kind: "money" }), col("spendUsd", "Q3 spend (USD)", { kind: "money" }), col("entitlementUsd", "Entitlement (USD)", { kind: "money" }), col("claimed", "Claimed", { kind: "status" })],
+      build: function (R, dec) {
+        var gs = goldenSuppliers(dec), byName = {};
+        gs.forEach(function (g) { byName[g.name] = g; });
+        return REBATE.filter(function (r) { return R.entities.indexOf(r[5]) >= 0; }).map(function (r) {
+          var g = byName[r[0]], spend = g ? g.spendUsd : 0;
+          return {
+            supplier: r[0], contract: r[1], basis: r[2], thresholdUsd: r[3],
+            spendUsd: spend, entitlementUsd: r2(Math.max(0, spend - r[3]) * r[4] / 100),
+            claimed: "No", entity: r[5], systems: g ? g.systems : []
+          };
+        }).filter(function (r) { return r.spendUsd >= r.thresholdUsd; });
+      },
+      sql: [
+        "SELECT s.golden_name, t.contract_ref, t.rebate_basis, t.threshold_usd,",
+        "       ROUND(SUM(q.spend_usd), 2)                          AS q3_spend_usd,",
+        "       ROUND(GREATEST(SUM(q.spend_usd) - t.threshold_usd, 0)",
+        "               * t.rate_pct / 100, 2)                      AS entitlement_usd,",
+        "       t.claimed_flag",
+        "FROM   crb.crb_rebate_terms    t",
+        "JOIN   crb.crb_supplier_xref   x ON x.contract_ref = t.contract_ref",
+        "JOIN   gold.supplier_360       s ON s.golden_id    = x.golden_id",
+        "JOIN   gold.supplier_spend_q   q ON q.golden_id    = s.golden_id",
+        "JOIN   gold.period_map         p ON p.period_id    = q.period_id",
+        "WHERE  p.group_period = 'FY2026-Q3'",
+        "  AND  t.claimed_flag = 'N'",
+        "GROUP  BY s.golden_name, t.contract_ref, t.rebate_basis,",
+        "          t.threshold_usd, t.rate_pct, t.claimed_flag",
+        "HAVING SUM(q.spend_usd) >= t.threshold_usd",
+        "ORDER  BY 6 DESC;"
+      ].join("\n") },
+
+    { id: "q9", n: 9, text: "Suppliers whose bank account changed in the last 90 days, with payments since.",
+      chip: "Bank details changed in the last 90 days",
+      sources: ["FUSION", "JDE", "NETSUITE"], views: ["SUPPLIER_360", "AP_INVOICE_X", "PERIOD_MAP"],
+      terms: ["supplier", "paid"], joins: 2, parse: "Change history · 90-day window · payment roll-up",
+      t: [220, 360, 1320, 110, 820, 430],
+      narrate: "Five supplier bank records changed since 8 July and four of them were paid afterwards, USD 315,700 in total. The bank column is reduced to its last four digits for every role, and hidden altogether for the regional analyst.",
+      columns: [col("supplier", "Golden supplier"), col("sys", "System", { kind: "badge" }), col("changedOn", "Changed on"), col("changedBy", "Changed by"), col("bank", "Bank (last four)", { kind: "mask" }), col("paidSinceUsd", "Paid since (USD)", { kind: "money" }), col("documents", "Documents", { kind: "num" })],
+      build: function (R) {
+        return BANKCH.filter(function (r) { return R.entities.indexOf(r[2]) >= 0; }).map(function (r) {
+          return { supplier: r[0], sys: r[1], entity: r[2], changedOn: r[3], changedBy: r[4], bank: R.masked.indexOf("BANK_ACCOUNT") >= 0 ? "••••" : "•••• " + r[5], paidSinceUsd: r[6], documents: r[7] };
+        });
+      },
+      sql: [
+        "SELECT s.golden_name, s.source_system, s.bank_changed_on,",
+        "       s.bank_changed_by, s.bank_account, s.entity,",
+        "       ROUND(SUM(i.amount_usd), 2) AS paid_since_usd,",
+        "       COUNT(i.invoice_id)         AS documents",
+        "FROM   gold.supplier_360 s",
+        "LEFT   JOIN gold.ap_invoice_x i",
+        "         ON i.golden_id    = s.golden_id",
+        "        AND i.payment_date >= s.bank_changed_on",
+        "LEFT   JOIN gold.period_map p ON p.period_id = i.period_id",
+        "WHERE  s.bank_changed_on >= DATE '2026-07-08'",
+        "  AND  (p.group_period = 'FY2026-Q3' OR i.invoice_id IS NULL)",
+        "GROUP  BY s.golden_name, s.source_system, s.bank_changed_on,",
+        "          s.bank_changed_by, s.bank_account, s.entity",
+        "ORDER  BY 7 DESC NULLS LAST;"
+      ].join("\n") },
+
+    { id: "q10", n: 10, text: "Show full bank account numbers for all suppliers.",
+      chip: "Full bank account numbers",
+      sources: ["FUSION", "JDE", "NETSUITE"], views: ["SUPPLIER_360", "PERIOD_MAP"],
+      terms: ["supplier"], joins: 1, parse: "Projection over master data · 1 sensitive column requested",
+      t: [180, 300, 640, 120, 520, 280],
+      blockedFor: ["ANALYST_NA"],
+      blockReason: "Object GOLD.SUPPLIER_360 column BANK_ACCOUNT is not on allow-list FIN_QA_V3 for this database user. The statement was refused before execution and the attempt was written to the audit trail.",
+      narrate: "The database returns the last four digits only: the masking policy on BANK_ACCOUNT applies to every role, including this one. For the regional analyst the statement never runs — SQL Firewall refuses it against the allow-list and logs the attempt.",
+      narrateBlocked: "SQL Firewall refused the statement against allow-list FIN_QA_V3 before it reached the data, and the attempt is in the audit trail. Masking and row policies live in the database, so the same question is refused however it is phrased.",
+      columns: [col("supplier", "Golden supplier"), col("sys", "System", { kind: "badge" }), col("entity", "Entity"), col("bank", "Bank account", { kind: "mask" }), col("currency", "Currency"), col("taxId", "Tax id", { kind: "mask" })],
+      build: function (R, dec) {
+        var top = records.slice().sort(function (a, b) { return b.spendUsd - a.spendUsd; }).slice(0, 12);
+        return top.filter(function (r) { return R.entities.indexOf(r.entity) >= 0; }).map(function (r) {
+          return { supplier: r.name, sys: r.sys, entity: r.entity, bank: "•••• •••• " + r.bankLast4, currency: r.currency, taxId: r.taxId, _record: r };
+        });
+      },
+      sql: [
+        "SELECT s.golden_name, s.source_system, s.entity,",
+        "       s.bank_account, s.bank_currency, s.tax_id",
+        "FROM   gold.supplier_360 s",
+        "JOIN   gold.period_map   p ON p.period_id = s.last_paid_period",
+        "WHERE  p.group_period = 'FY2026-Q3'",
+        "  AND  s.bank_account IS NOT NULL",
+        "ORDER  BY s.golden_name;"
+      ].join("\n") }
+  ];
+  var QBY = {}; questions.forEach(function (q) { QBY[q.id] = q; });
+
+  /* ------------------------------------------------------------- freshness */
+  function freshnessFor(qid) {
+    var q = QBY[qid], list = q.sources.map(function (s) { return SRC[s]; });
+    var st = list.slice().sort(function (a, b) { return b.freshnessMin - a.freshnessMin; })[0];
+    return {
+      asOf: st.asOf, stalest: { id: st.id, name: st.short, min: st.freshnessMin, label: st.freshLabel },
+      perSource: list.map(function (s) { return { id: s.id, name: s.short, asOf: s.asOf, label: s.freshLabel }; }),
+      text: "as of " + st.asOf + " (stalest: " + st.short + ", " + st.freshLabel + " behind)"
+    };
+  }
+  /* ---------------------------------------------------------------- traces */
+  function traceFor(qid, role, rowCount) {
+    var q = QBY[qid], R = roles[role] || roles.CONTROLLER, t = q.t, spans = [];
+    var blocked = !!(q.blockedFor && q.blockedFor.indexOf(R.id) >= 0);
+    spans.push({ n: "Parse the question", d: q.parse, ms: t[0] });
+    spans.push({ n: "Glossary terms resolved", d: q.terms.map(function (k) { return k + " → " + (GLOSS[k] ? GLOSS[k].definition.split(".")[0] : ""); }).join(" · "), ms: t[1] });
+    spans.push({ n: "SQL generated", d: "Select AI over GOLD · " + q.views.length + " certified " + (q.views.length === 1 ? "view" : "views") + " · " + q.joins + " joins · " + q.sql.split("\n").length + " lines", ms: t[2] });
+    spans.push({ n: "SQL Firewall check", d: blocked ? "allow-list " + R.allowList + " · refused: " + q.blockReason.split(".")[0] : "allow-list " + R.allowList + " · SELECT only · " + q.views.length + " objects in scope · allowed", ms: t[3], status: blocked ? "blocked" : "allowed" });
+    if (blocked) {
+      spans.push({ n: "Audit row written", d: "GOLD.MAPPING_DECISIONS is untouched; the attempt is in the session log as blocked", ms: 120 });
+      spans.push({ n: "Refusal composed", d: "No rows returned · the question is answered for the Group Controller with the last-four column only", ms: t[5] });
+      return spans;
+    }
+    if (R.rowPolicy) spans.push({ n: "Row policy applied", d: R.rowPolicyText + (q.policyNote ? " · " + q.policyNote : ""), ms: 70 });
+    if (R.masked.length) spans.push({ n: "Column masking applied", d: R.maskedText, ms: 90 });
+    spans.push({ n: "Executed", d: (rowCount === undefined ? "?" : rowCount) + " rows · " + t[4] + " ms · " + q.sources.map(function (s) { return SRC[s].short; }).join(" + "), ms: t[4] });
+    spans.push({ n: "Answer composed", d: "grid + source badges per row + freshness line", ms: t[5] });
+    return spans;
+  }
+  function sqlFor(qid) { return QBY[qid].sql; }
+
+  /* ---------------------------------------------------------------- answer */
+  function answer(qid, role, decisions) {
+    var q = QBY[qid], R = roles[role] || roles.CONTROLLER, dec = decisionsOf(decisions);
+    var blocked = !!(q.blockedFor && q.blockedFor.indexOf(R.id) >= 0);
+    var rows = blocked ? [] : q.build(R, dec);
+    var cols = q.columns.map(function (c) {
+      var lbl = q.colLabelFor && q.colLabelFor[R.id] && q.colLabelFor[R.id][c.key];
+      return lbl ? { key: c.key, label: lbl, kind: c.kind, align: c.align, sub: c.sub } : c;
+    });
+    var caveats = [];
+    if (!blocked) {
+      var inReview = rows.filter(function (r) { return r.status === "review"; }).length;
+      if (inReview) caveats.push(inReview + (inReview === 1 ? " proposal in this set is" : " proposals in this set are") + " pending steward review.");
+      if (R.rowPolicy) caveats.push("Rows are limited to " + R.entities.join(", ") + " by the row policy, and " + R.maskedText.toLowerCase() + ".");
+      if (!rows.length) caveats.push("No rows inside your entity scope.");
+    }
+    return {
+      id: q.id, n: q.n, text: q.text, role: R.id, roleName: R.name,
+      blocked: blocked, columns: cols, rows: rows,
+      rowCount: rows.length, displayed: rows.length,
+      sql: q.sql, sqlLines: q.sql.split("\n").length,
+      narrate: blocked ? q.narrateBlocked : q.narrate,
+      trace: traceFor(qid, R.id, rows.length),
+      traceMs: traceFor(qid, R.id, rows.length).reduce(function (a, s) { return a + s.ms; }, 0),
+      freshness: freshnessFor(qid),
+      glossaryHits: q.terms.map(function (k) { return GLOSS[k]; }),
+      views: q.views.map(function (v) { return "GOLD." + v; }),
+      sources: q.sources.map(function (s) { return { id: s, name: SRC[s].short, asOf: SRC[s].asOf }; }),
+      firewall: {
+        allowList: R.allowList, status: blocked ? "blocked" : "allowed",
+        reason: blocked ? q.blockReason : "Statement matches the allow-list: SELECT only, objects in GOLD, no DDL and no DML.",
+        rowPolicy: R.rowPolicyText, masking: R.maskedText
+      },
+      caveat: caveats.join(" "),
+      publishAs: "GOLD." + (q.id === "q1" ? "SUPPLIER_MULTI_SYSTEM_Q3" : q.id.toUpperCase() + "_Q3")
+    };
+  }
+
+  /* ------------------------------------------------------------ audit log */
+  var audit = [
+    ["09:39", "Marcus Bell", "ANALYST_NA", "q10", "Show full bank account numbers for all suppliers", "f4a1c9", 0, "blocked"],
+    ["09:36", "Marcus Bell", "ANALYST_NA", "q1", "Which suppliers do we pay from more than one system", "8b2e77", 5, "allowed"],
+    ["09:31", "Dana Whitfield", "CONTROLLER", "q4", "Same invoice number and amount paid in two systems", "2c9014", 14, "allowed"],
+    ["09:28", "Dana Whitfield", "CONTROLLER", "q1", "Which suppliers do we pay from more than one system", "8b2e77", 12, "allowed"],
+    ["09:22", "Dana Whitfield", "CONTROLLER", "q2", "Consolidated Q3 P&L by group account", "5d7a31", 26, "allowed"],
+    ["09:14", "Priya Natarajan", "STEWARD", "q3", "Which local accounts are still unmapped", "a10f52", 37, "allowed"],
+    ["08:57", "Dana Whitfield", "CONTROLLER", "q5", "Intercompany balances that do not match", "77be40", 6, "allowed"],
+    ["08:41", "Marcus Bell", "ANALYST_NA", "q9", "Suppliers whose bank account changed in the last 90 days", "0e63ba", 2, "allowed"],
+    ["08:30", "Dana Whitfield", "CONTROLLER", "q7", "Top 20 suppliers by group spend in Q3", "39c805", 20, "allowed"],
+    ["08:12", "Priya Natarajan", "STEWARD", "q8", "Rebate terms we have not claimed this quarter", "b4207e", 5, "allowed"],
+    ["Yesterday 17:48", "Marcus Bell", "ANALYST_NA", "q6", "Which delayed orders are hurting our best accounts", "c81d96", 0, "allowed"],
+    ["Yesterday 16:20", "Dana Whitfield", "CONTROLLER", "q6", "Which delayed orders are hurting our best accounts", "c81d96", 6, "allowed"],
+    ["Yesterday 15:03", "Dana Whitfield", "CONTROLLER", "q2", "Consolidated Q3 P&L by group account", "5d7a31", 26, "allowed"],
+    ["Yesterday 11:37", "Marcus Bell", "ANALYST_NA", "q10", "Show full bank account numbers for all suppliers", "f4a1c9", 0, "blocked"]
+  ].map(function (a, i) {
+    return { id: "A-" + (500 + i), time: a[0], user: a[1], role: a[2], question: a[3], text: a[4], sqlHash: "sha256:" + a[5], rows: a[6], status: a[7] };
+  });
+
+  /* ------------------------------------------------------------- dashboards */
+  var dashboards = [
+    { id: "supplier-spend", name: "Supplier spend", sub: "Group spend by supplier, system and entity · Q3 FY2026", views: ["SUPPLIER_SPEND_Q", "SUPPLIER_360"] },
+    { id: "close-status", name: "Close status", sub: "Ledger residuals, unmapped accounts and intercompany gaps", views: ["GROUP_TRIAL_BALANCE", "COA_MAP", "IC_MATCHES"] },
+    { id: "o2c-exceptions", name: "O2C exceptions", sub: "Late order lines by account tier and entity", views: ["O2C_EXCEPTIONS"] }
+  ];
+
+  return {
+    world: world, personas: personas, roles: roles, sources: sources, sourceById: SRC, stalest: stalest,
+    views: views, glossary: glossary, dashboards: dashboards,
+    records: records, recordById: RBY, suppliers: suppliers, matches: matches,
+    pendingMatches: pendingMatches, orionMatch: ORION, orionGolden: ORION_GOLDEN,
+    provThreshold: PROV_THRESHOLD,
+    accounts: accounts, groupAccounts: groupAccounts, localAccountCount: localAccountCount,
+    groupAccountCount: groupAccountCount, glRows: glRows, plLines: plLines, pl: pl, plById: PLBY,
+    ledgers: ledgers, dupPairs: dupPairs, questions: questions, questionById: QBY,
+    audit: audit, refreshStages: refreshStages, decisions: priorDecisions, orionDecision: ORION_DECISION,
+    initialState: initialState, stateFor: stateFor, computeKpis: computeKpis, applyDecision: applyDecision,
+    answer: answer, resolution: resolution, goldenSuppliers: goldenSuppliers, dupPairsFor: dupPairsFor,
+    traceFor: traceFor, freshnessFor: freshnessFor, sqlFor: sqlFor,
+    fmtUsd: fmtUsd, fmtMoney: fmtMoney, fmtM: fmtM, maskTaxId: maskTaxId, pct1: pct1
+  };
+})();
