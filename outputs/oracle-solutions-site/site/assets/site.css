@@ -3025,23 +3025,17 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 
 /* ——— S5: the engagements behind the products ——— */
 
-/* The rail says what the four cards are and how the figures were arrived at;
-   the cards carry the figures. Four peers of equal height, each ending on its
-   own link out. */
+/* The rail says what the four cards are; the cards carry the figures. Four
+   peers of equal height, each ending on its own link out. */
 
 .cases { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); gap: clamp(2rem, 4vw, 4rem); align-items: start; }
 .cases-rail { position: sticky; top: calc(var(--nav-h) + 1.5rem); display: flex; flex-direction: column; gap: 1.125rem; min-width: 0; }
 /* The rail opens on the same head as the other screens; the column's own gap
-   carries the space to the method block, so the head keeps none of its own. */
+   carries the space to the lines under it, so the head keeps none of its own. */
 .cases-rail .home-head { margin-bottom: 0; }
-.cases-method { display: flex; flex-direction: column; gap: 1rem; margin-top: .375rem; padding-top: 1.25rem; border-top: 1px solid var(--border-subtle); }
 .cases-nda { color: var(--text-dim); }
 .cases-link { padding-top: .25rem; }
 .cases-grid { grid-auto-rows: 1fr; }
-
-/* One accent per screen: the teal here belongs to the four card figures, so the
-   rail's own figure is read in text colour. */
-.cases-rail .method-stat-value { color: var(--text); }
 
 /* A card is not a link, but the link inside it answers when the card is. */
 .cases-grid .case-card:hover .case-card-link .link-arrow,
@@ -3131,7 +3125,7 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 
 .stat-row--home { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 .stat-row--home .stat { padding-bottom: 1.5rem; }
-.stat-band { padding-bottom: clamp(2.5rem, 5vw, 4rem); }
+.stat-band--home { padding-bottom: clamp(2.5rem, 5vw, 4rem); }
 
 /* Two abreast while two read, and the odd figure takes the full width rather
    than half a row: a cell is a column of the band, not a tile in a grid. The

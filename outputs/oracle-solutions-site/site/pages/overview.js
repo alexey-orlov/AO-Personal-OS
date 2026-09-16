@@ -146,7 +146,7 @@
         "</li>";
     }).join("");
     if (!stats) return "";
-    return '<section class="stat-band">' +
+    return '<section class="stat-band stat-band--home">' +
       '<div class="wrap"><ul class="stat-row stat-row--band stat-row--home">' + stats + "</ul></div>" +
       "</section>";
   }
