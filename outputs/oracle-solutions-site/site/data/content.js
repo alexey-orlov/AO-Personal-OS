@@ -2757,7 +2757,7 @@ window.SITE_CONTENT = {
           id: "managed-service",
           icon: "network",
           title: "Managed service",
-          body: "The production system under SLA, kept running and re-tuned by the people who built it.",
+          body: "Your agents in production, under SLA, kept running and re-tuned by the people who built them.",
           bullets: [
             "Incident response, monitoring and health operations",
             "Rule and model re-tuning, platform and version upgrades"
