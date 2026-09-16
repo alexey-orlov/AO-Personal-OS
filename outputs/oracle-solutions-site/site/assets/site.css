@@ -2552,6 +2552,7 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 
 @media (max-width: 720px) {
   .home-head--split { flex-direction: column; align-items: flex-start; }
+  .home-head--split .home-head-copy { flex: 0 1 auto; }
   .home-head-link { padding-bottom: 0; }
 }
 

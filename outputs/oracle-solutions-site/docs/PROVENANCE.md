@@ -1804,3 +1804,342 @@ the delivered reviewer:
 `tools/capture-demo-frames.mjs` gained a data-driven `MODE=script`;
 `tools/capture-policy-scenario.json` walks the second document type through its
 validator kinds. Frames and poster re-captured.
+
+## 18. Round 5 — the home page rebuild, 2026-09-16
+
+Alex's round-5 task, specified in `HANDOFF.md` §6 and refined by the
+implementation brief the main session wrote with it. The home page was one
+scrolling brochure — hero photograph, a three-wordmark trust strip, a products
+intro, the case-study grid, a services teaser — and became **seven screens**,
+each with its own object in `content.js` (`SCHEMA.md` §`overview`) and its own
+component (`VISUAL-GRAMMAR.md` §9). The product pages, the Products page and
+Services are untouched apart from one button.
+
+### 18.0 Naming, and where this round departs from `HANDOFF` §6
+
+**The naming, as shipped** (`HANDOFF` §6.1, unchanged):
+
+| Where | What ships |
+|---|---|
+| `site.name`, `headerLockup.productName` | **AI Agents on Oracle** — the lockup reads `softserve │ AI Agents on Oracle`. Not "practice": the practice is the engine, the agents are the promise. |
+| `site.title` | **AI Agents on Oracle — SoftServe**; a product page is *"&lt;Product&gt; — AI Agents on Oracle — SoftServe"*. |
+| `site.metaDescription` | *"Best-of-breed enterprise AI agents and workflows on Oracle platforms: packaged products you can start now, and a dedicated Oracle AI & Data practice from SoftServe."* — §6.1's sentence with *ready-to-run* replaced, per (a) below. |
+| `site.nav` | **Products · Services · Case studies**, the third an anchor into this page's own S5. *Overview* is gone; the lockup is the home link. |
+| `site.navCta` | The header button, **Talk to us** → `#/services#contact`, replacing the *Request a demo* pill. `site.primaryCta` keeps that label for the product heroes and for `#/#request-a-demo`. |
+| `site.secondaryCta` | **Browse the products** → `#/products`, for the Services hero's quiet button, which used to borrow `overview.hero.ctas[1]`. |
+
+**Seven deviations from `HANDOFF` §6, each with its reason.** The brief wins
+over §6 where they disagree; these are the places they did.
+
+**(a) "Ready-to-run" is not used as a literal claim about all seven.** §6.1 puts
+it in the words-to-use list and §6.2 headlines S2 *"Products you can run now."*
+Two of the seven carry `statusNote: "Packaged offering in preparation — scoping
+conversations are open."`, so a blanket *ready-to-run* contradicts the product
+page one click away. What ships: the hero lead says **packaged** agents and
+workflows, the S2 headline says **"Products you can start now."**, and the S2
+body states the split in the customer's own terms — *"Four are priced and ready
+to start today; three are scoped per engagement."*
+
+| | Products | Evidence in `content.js` |
+|---|---|---|
+| Priced | `large-document-extraction`, `workforce-optimization`, `cross-system-erp-qa`, `business-metrics-qa` | `jumpstart.investment` — €75K services · €0/mo infrastructure over 2 months; €90K services · €4K/mo over 2 months; €30–50K fixed per use case over 30–45 days (both Lakehouse products) |
+| Scoped per engagement | `account-insights`, `case-evidence-collection`, `plan-vs-actual-investigation` | `investment.price` is `null` on the first two; `plan-vs-actual-investigation` prints *Scoped per engagement* over *12 weeks, plus a two-week acceptance phase*. The last two also carry `statusNote` |
+
+**(b) The S1 duration stat reads "From 30 days", not "30–45 days" and not
+"weeks, not quarters".** §6.2 offered both. *30–45 days* is one family's figure —
+the Lakehouse Jumpstart — and printing it as the site-wide promise overstates
+the two OCI + NVIDIA packs (about two months) and misstates
+`plan-vs-actual-investigation` (twelve weeks plus a two-week acceptance phase).
+*Weeks, not quarters* is the one phrasing that is actually false at the top of
+that range: fourteen weeks is more than a quarter. **"From 30 days"** is a floor,
+reads as a floor, and is true of all three clocks. The label carries the rest —
+*"to a measured proof of value on your own data"*.
+
+**(c) The S2 bullets were re-grounded against `content.js`.** §6.2 wrote six
+bullets from the positioning; four of them claimed something the data does not
+support, and the brief's instruction was to drop rather than replace what could
+not be verified. All four were **re-pointed at a source** instead of dropped:
+
+| §6.2 bullet | What ships | Why |
+|---|---|---|
+| *"Demo, Jumpstart scope and pricing on every product page"* | **"Jumpstart scope, timeline and investment on every product page"** | Only **three** products carry a demo frame (`video: true` on `account-insights`, `large-document-extraction`, `workforce-optimization`) and **two** print no price at all (`investment.price: null`). Every product page does carry the Jumpstart scope, a timeline and an investment card — that is the claim that holds on all seven |
+| *"Fixed scope, fixed price, weeks not quarters"* | **"A fixed price on the packaged scope; 30–45 days to about two months to a result"** | `services.howWeEngage.ladder[0].pricing` says *"A fixed price for the packaged scope; scoped per engagement on the deep-research investigations"* — the price is fixed **on the packaged scope**, not on everything; the durations are that row's own `duration` cell. Same reasoning as (b) |
+| *"Evaluation-first: results are measured before you commit"* | **"Success metrics signed before the clock starts, every KPI measured like for like"** | `services.howWeEngage.howAPovRuns.steps[0]` (*"two to three success metrics are signed … before the clock"*) and `services.proof.lead` (*"Every KPI is computed identically for the current path and the optimized one"*). "Evaluation-first" is an internal framing; the two sentences it compresses are on the site already |
+| *"Expert pods: AI engineers, data engineers, Oracle architects"* | **"One team: AI, data and OCI architects with senior AI and data engineers"** | `services.whatWeDo.whoDeliversIt`, near-verbatim. **"Pods" is internal vocabulary** — it appears nowhere on the site and describes a staffing model no customer has been sold |
+
+**(d) S5's method line is `services.proof` reused, and the NDA line is
+narrower than §6.2's.** §6.2 named `services.proof.methodNote`; that key was
+**retired in §17.4a**, which split it into `lead` + `stat` + `footnote`. The
+home rail reuses all three verbatim, so the measurement discipline is written
+once and read on two pages. §6.2's *"Reference calls available on request."* is
+narrowed to **"Reference calls are available on request for the completed proofs
+of value."**: the four cards are one `measured`, one `modeled` and **two
+`in-preparation`**, and offering a reference call on an engagement that has not
+run yet is a promise nobody can keep.
+
+**(e) The S6 partner wordmarks sit in a navy strip inside the light band.** The
+band is the page's one inversion, so a wordmark in it should be dark ink — but
+`assets/img/nvidia-wordmark.svg` is a **light-grey** asset, invisible on a light
+panel, and no dark NVIDIA wordmark is staged. The strip re-establishes a dark
+ground inside the light column for the two marks. Navy also carries the right
+meaning: on this site a solid navy surface is a **fact** (the technology pill,
+the platform tiles), and *Built with Oracle and NVIDIA* is a fact.
+
+**(f) The home H1 is set smaller than a product H1 and wraps to three lines at
+1440.** *"ENTERPRISE AI AGENTS AND WORKFLOWS. BUILT ON ORACLE."* is far longer
+than any product title, and the hero is two columns — the type has to fit
+roughly 7/12 of the wrap rather than the full width. §6.3 asked for "the
+existing display scale"; what ships is `clamp(2.25rem, 3.9vw, 3.75rem)` at
+`line-height: .95`, wrapping as *ENTERPRISE AI AGENTS / AND WORKFLOWS. / BUILT
+ON ORACLE.* — three lines by design, with the teal sentence always starting its
+own line.
+
+**(g) The two ladders still use two vocabularies, and that is pre-existing.**
+The home S4 ladder reads **Jumpstart proof of value → Integration → Scale**,
+which is the product pages' Jumpstart-tab vocabulary (`jumpstart.title`,
+`jumpstart.next[].tier`). The Services page ladder still reads **Proof of value
+→ Roll-out → Scaling** (`services.howWeEngage.ladder[].title`). The home page
+was pointed at the product vocabulary because that is where a reader arriving
+from S3 goes next. **This inconsistency was not introduced in this round** — it
+has been in the data since round 3 — and it is left for a later one to resolve
+in a single pass across both surfaces rather than half-fixed here.
+
+### 18.1 Source map — every new string in `overview.*`
+
+Labels as in §2: **verbatim** · **adapted** · **written**. "§6.2" is
+`HANDOFF.md`'s copy draft; everything else is a key in `content.js` or a wiki
+page named in `HANDOFF` §2. Nothing here introduces a fact that was not already
+on the site.
+
+**S1 · `overview.hero`**
+
+| Key | Source | Label |
+|---|---|---|
+| `eyebrow` | §6.2 | verbatim (set in sentence case) |
+| `headline.lead` / `.accent` | §6.2 | verbatim, split into the white lines and the teal one |
+| `lead` | §6.2, with *ready-to-run* → *packaged* (18.0 a) | adapted |
+| `ctas[0..1]` | §6.2 — *Explore the products* → `#/#products`, *How we deliver* → `#/#how-we-deliver` | verbatim |
+| `stack.ariaLabel` | — the figure has no source; it describes what the three bands show | **written** |
+| `stack.patternsLabel`, `stack.platformsLabel` | The two family names the site already uses: `shared.tagFamilies.pattern` tooltip *Workflow pattern*, and `facets.technologyLabel` | adapted |
+| `stack.softserve.items[3]` | §6.2 names these three exactly. Each is on the site already: *Agentic-AI patterns* ← `services.whatWeDo.families` (seven application families); *Evaluation frameworks* ← `services.whatWeDo.attachesToEvery` (*"Evaluation, observability and model routing …"*); *Packaged delivery* ← `services.howWeEngage` (one accelerator pack, three packages) | adapted |
+| `stats[0]` `7` | `products.length`; the label's *"each starting with a scoped Jumpstart on your own data"* ← `productsPage.intro` | adapted |
+| `stats[1]` `4` | `facets.technology` (the four canonical platforms, §17.7); label adapted from `services.hero.stats[3]` (*"Oracle platforms the practice focuses on"*) | adapted |
+| `stats[2]` `From 30 days` | `services.howWeEngage.ladder[0].duration` — the floor of the three clocks (18.0 b) | adapted |
+| `stats[3]` `500+` + label | `services.hero.stats[0]`, the cleared data-practice credential | **verbatim** |
+
+**S2 · `overview.twoWays`**
+
+| Key | Source | Label |
+|---|---|---|
+| `eyebrow`, `title` | §6.2, with *run now* → *start now* (18.0 a) | adapted |
+| `panels[0].title`, `.body` | §6.2 for the shape; the four-priced / three-scoped sentence from the seven `jumpstart.investment` blocks; *"in your tenancy"* ← `productsPage.intro` | adapted |
+| `panels[0].bullets[0..2]` | Bullet 1 §6.2 verbatim; bullet 2 `facets.technology` (the two platforms that actually carry products); bullet 3 re-grounded, 18.0 (c) | mixed |
+| `panels[1].title` | §6.2 | verbatim |
+| `panels[1].body` | `services.howWeEngage.lead` + `services.whatWeDo.whoYouWorkWith` — its last sentence, *"One contract and one accountable team, from scoping through run."*, is verbatim | adapted |
+| `panels[1].bullets[0..2]` | `howWeEngage.ladder[0].pricing` + `.duration`; `howWeEngage.howAPovRuns.steps[0]` + `services.proof.lead`; `whatWeDo.whoDeliversIt` — all three re-grounded, 18.0 (c) | adapted |
+| both `cta`s | §6.2 — *See the products ↓*, *How we deliver ↓*, as on-page anchors | verbatim |
+
+**S3 · `overview.catalog`**
+
+| Key | Source | Label |
+|---|---|---|
+| `eyebrow`, `title` | §6.2 | verbatim |
+| `lead` | The retired `overview.productsIntro` — *"runs in the customer's own Oracle tenancy and keeps a human in the decision"* — plus `productsPage.intro` (*"in your own tenancy"*) | adapted |
+| `patterns[].definition` ×3 | Composed from the `oneLiner` of every product in that pattern; the `processing-pipelines` definition is the long one, near-verbatim from `large-document-extraction`'s one-liner and its `overview.steps`, because that column holds one product and the definition fills the space a second row would have taken | **written** — see §18.3 |
+| `cta` | §6.2's footer link, re-pointed at the Products page | verbatim |
+| the rows | **Derived**: `UI.orderedProducts()` filtered by `category`, each rendering `name`, `shortLine`, `UI.badgeRow(slug)` and `statusNote` | — |
+
+**S4 · `overview.delivery`**
+
+| Key | Source | Label |
+|---|---|---|
+| `eyebrow`, `title`, `anchor` | §6.2; the anchor is `how-we-deliver`, linked from the hero CTA and the S2 practice panel | verbatim |
+| `steps[0]` title / body / fact | `services.howWeEngage.ladder[0].whatItIs` (near-verbatim) + `howAPovRuns.steps[0]` for the signed-metrics sentence; `fact` = that row's `duration` and `pricing` compressed | adapted |
+| `steps[1]` | `howWeEngage.ladder[1].whatItIs`; `fact` *3–5 months* verbatim from its `duration` | adapted |
+| `steps[2]` | `howWeEngage.ladder[2].whatItIs` + `whatWeDo.wrapAroundServices` (managed service); `fact` *3–12 months* verbatim | adapted |
+| `footnote` | `services.howWeEngage.ladderFootnote` | **verbatim** |
+| `why.title` | §6.2 | verbatim |
+| `why.pillars[0]` Platform depth | `facets.technology` (all four labels) + `whatWeDo.whoYouWorkWith` (*"architects who own the Oracle reference architecture and the scoping"*) | adapted |
+| `why.pillars[1]` Agentic-AI experience | `whatWeDo.families` (seven application families) + `whatWeDo.attachesToEvery` (evaluation frameworks) + the human-in-the-decision line from the retired `productsIntro` | adapted |
+| `why.pillars[2]` Packaged delivery | `howWeEngage.ladder[0].pricing` + `services.proof.lead` (the customer / Oracle / SoftServe signatories) | adapted |
+| `ctas[0..1]` | §6.2 | verbatim |
+
+**S5 · `overview.caseStudiesIntro`** — `title` and `body` carry over from round 4
+unchanged (§17.3); `eyebrow` is new chrome; `ndaLine` is §6.2's line narrowed to
+the completed proofs of value (18.0 d); `cta` carries over. The method line
+beside them is `services.proof.lead` + `.stat` + `.footnote`, **reused, not
+copied** — one string, two pages.
+
+**S6 · `overview.about`** — see §18.2.
+
+**S7 · `overview.contact`** — `anchor` unchanged (`request-a-demo`); `heading`
+*"Talk to the Oracle AI & Data team"* is §6.2 verbatim; `sub` is adapted from
+`site.footer.description` (*"Tell us which account or workflow you have in mind.
+One scoping conversation starts it."*) with what comes back added from
+`howAPovRuns`.
+
+**`products[].shortLine`** — one new string per product, each a compression of
+that product's own `oneLiner`, nothing added:
+
+| Product | `shortLine` | Compressed from |
+|---|---|---|
+| `large-document-extraction` | *Long documents turned into validated, structured data, every value cited.* | its `oneLiner` — the confidence score and the page citation reduced to *cited* |
+| `account-insights` | *Market signals turned into cited, scored opportunities for every account.* | its `oneLiner` — news / filings / market signals reduced to *market signals* |
+| `workforce-optimization` | *A region's four-week field plan, optimized in minutes and approved by dispatchers.* | its `oneLiner`; cuOpt and Oracle Field Service drop out — they are chips and Technology-tab facts |
+| `plan-vs-actual-investigation` | *Every material variance, with its likely drivers and the evidence behind them.* | its `oneLiner` |
+| `case-evidence-collection` | *The evidence trail for a case, assembled from every system and cited.* | its `oneLiner` |
+| `cross-system-erp-qa` | *Plain-language answers spanning the ERP, CRM and the systems around them.* | its `oneLiner`; the platform name drops out — the row's badge says it |
+| `business-metrics-qa` | *KPIs answered from one governed gold layer, with no data moved.* | its `oneLiner` |
+
+The rule the checker holds: ≤ 12 words, ends in a period, and **never identical
+to the `oneLiner`** — the tile and the hero keep the long form.
+
+### 18.2 The About block — public corporate facts, fetched 2026-09-16
+
+`overview.about` is the first block on this site built from **softserveinc.com
+rather than from an internal source**. Every figure in it was read off a live
+page on 2026-09-16 and recorded verbatim before it was used; nothing came from
+memory, and nothing came from a search snippet.
+
+**What the pages print, and where.** Three of the four URLs named in `HANDOFF`
+§6.2 **404** — `/en-us/about`, `/en-us/partners`, `/en-us/partners/oracle`. The
+working paths are `/en-us/about-us`, `/en-us/our-partners`,
+`/en-us/our-partners/oracle`.
+
+| Fact | As printed | Where | Fetched | Ships as |
+|---|---|---|---|---|
+| Founded **1993** | *"Founded in 1993, SoftServe's reputation is built upon three decades …"* | https://www.softserveinc.com/en-us/news/softserve-launches-new-brand-identity (dated Apr 8, 2026) | 2026-09-16 | `stats[0]` **1993 / founded**, and the body's *"founded in 1993"*. **The About Us page states no founding year** — this is the one tile with a newsroom-only source |
+| **10K** employees | *"10K / employees"* — the site says **employees**, not "associates", and carries no "+" | https://www.softserveinc.com/en-us/about-us | 2026-09-16 | `stats[1]` **10K / employees** |
+| **17** countries | *"17 / countries"* | https://www.softserveinc.com/en-us/about-us | 2026-09-16 | `stats[2]` **17 / countries** |
+| **54** offices | *"54 / offices"* | https://www.softserveinc.com/en-us/about-us | 2026-09-16 | `stats[3]` **54 / offices** |
+| HQ **Austin, Texas** | *"Austin HQ / GLOBAL HQ / 201 W 5th Street, Suite 1550, Austin, TX 78701"* — Austin carries the explicit `GLOBAL HQ` label; Lviv is labelled `Lviv HQ` inside the Ukraine country block | https://www.softserveinc.com/en-us/locations (and the site-wide footer) | 2026-09-16 | the body's *"headquartered in Austin, Texas"* |
+| Self-description | *"SoftServe is a digital engineering company. We design and build data, cloud, AI/ML, robotics, IoT, and XR solutions."* | https://www.softserveinc.com/en-us (homepage hero) | 2026-09-16 | the body's *"a digital engineering company … that designs and builds data, cloud and AI solutions for enterprises"* — the homepage sentence trimmed to the three families this site is about |
+| `link` | — | https://www.softserveinc.com/en-us/about-us | 2026-09-16 | *softserveinc.com*, the button out of the band |
+
+**The body's second half is not from the public site.** *"500+ data experts, 150+
+active projects, 30 Fortune 500 clients"* comes from `services.hero.stats`, the
+data-and-analytics practice credentials that have been in `content.js` since the
+first round. The block therefore mixes two sources by design: **corporate facts
+from softserveinc.com, practice credentials from the existing data layer.** Keep
+the halves straight when either is edited.
+
+**Two cautions from the fetch, recorded verbatim so the next round does not
+re-derive them:**
+
+> The four facts NOT on any evergreen corporate page (founding year, the
+> 1,000-experts figure, the 400+ NVIDIA figure, the Elite tier history) come
+> from dated newsroom releases, which is a weaker footing for an evergreen
+> "About SoftServe" block than the About Us counters.
+
+> The About Us counters (`10K employees`, `17 countries`, `54 offices`) differ
+> from figures circulating in search snippets (e.g. "10,000+ associates",
+> "11,000+", "12,000+", "49 offices", "60 offices", "16 countries"). Those
+> snippets are cached or from career.softserveinc.com and are **not** what the
+> current corporate site prints. Only the table above reflects the live pages.
+
+The first caution touches exactly one shipped tile — **1993**. It ships anyway,
+on the judgement that a founding year does not drift the way a headcount does:
+it is a historical fact repeated in the current press boilerplate (*"more than
+30 years of experience"*), not a counter that will quietly be restated next
+quarter. **If anyone wants every tile on an evergreen corporate page, that is
+the tile to drop**, and `overview.about.stats` accepts 1–4 entries precisely so
+a tile can be removed without breaking the grid.
+
+**What was deliberately not used:**
+
+- **A client count.** The site prints none. Its closest figure is *"20K+ /
+  customer projects"* — projects, not clients — and using that as a client count
+  would be a silent restatement.
+- **"Fortune 500" as a corporate fact.** It appears on softserveinc.com only
+  inside a case-study *title*, never as a company statistic. The practice-level
+  *"30 Fortune 500 clients in SoftServe's data and analytics practice"* that
+  does ship is the existing `content.js` credential and is labelled as the
+  practice's, not the company's.
+- **Partner tiers, on either partner.** The NVIDIA tier is on the public site
+  verbatim (*"an award-winning NVIDIA Elite Partner"*), and it still does not
+  ship: `HANDOFF` §6.2 rules out partner-tier claims, `C15` has never been
+  cleared for Oracle, and a page that claims a tier for one partner and stays
+  silent on the other invites the question. `partnerLine` is **"Built with
+  Oracle and NVIDIA"** — the same sentence the footer has carried since round 1.
+- **The newsroom practice figures** — *"more than 1,000 experts in AI/ML …"* and
+  *"400+ professionals with deep expertise in the NVIDIA stack"* (Jan 21, 2026).
+  Both are newsroom-only, both are the kind of count that drifts, and the block
+  already carries a cleared practice figure (500+) in the body.
+- **Lviv.** The locations page labels it `Lviv HQ` within the Ukraine block while
+  Austin carries `GLOBAL HQ`; the block names the global HQ only.
+
+**No Oracle partnership page is linked.** `softserveinc.com/en-us/our-partners/oracle`
+exists, but it is a **services page**, not a partnership page: H1 *"Oracle/NetSuite
+Services"*, subhead about NetSuite and Oracle staff augmentation, no partner tier
+stated, and Oracle is not among the site's "Our Strategic Partnerships" entries
+(AWS, Google Cloud, Microsoft, NVIDIA, Anthropic) — it appears only in the A–Z
+directory. Linking it from a page about Oracle AI agents would send a reader to
+a staffing offer. The block links `/en-us/about-us` instead.
+
+### 18.3 Copy written new in this round
+
+Everything here exists in `content.js` and in no source — same bar as §3: short
+declaratives, concrete nouns, and no number that is not already on the page.
+
+| Where | What was written | Built on | Risk if wrong |
+|---|---|---|---|
+| `overview.catalog.patterns[0].definition` (deep research) | *"Agents that read across many sources and systems, then assemble a cited, scored answer for a reviewer to decide on."* | The three deep-research products' `oneLiner`s — *cited* and *scored* are in all three, *for a reviewer to decide on* is `case-evidence-collection`'s | Low — it generalizes three product statements and adds no capability |
+| `overview.catalog.patterns[1].definition` (processing pipelines) | *"Every document or record goes through the same pipeline and comes out as validated, structured data: each value carries a confidence score and a citation to its source page, and a reviewer checks it before it is exported."* | `large-document-extraction`'s `oneLiner` and its `overview.steps` | Low, and deliberately the long one: this column holds one product, so the definition fills the space a second row would have taken rather than leaving filler (rule 2) |
+| `overview.catalog.patterns[2].definition` (data analysis) | *"Plain-language answers over governed data, and plans computed against every constraint at once, approved by the people who own the decision."* | The two Lakehouse `oneLiner`s (plain-language, governed) and `workforce-optimization`'s (constraints, dispatcher approval) | Low — one sentence covering two visibly different products, which is what the column has to do |
+| `products[].shortLine` ×7 | The seven rows of §18.1's last table | Each product's own `oneLiner`, compressed | Low — nothing is added; the risk is a compression that drops the qualifier that made the claim true, which is why the checker forbids the shortLine being a copy of the one-liner and the row renders the badges beside it |
+| `overview.twoWays.panels[0].body`, `.panels[1].body` | The two three-line panel statements | §6.2's shapes, re-grounded on `productsPage.intro`, the seven `jumpstart.investment` blocks, `services.howWeEngage.lead` and `whatWeDo.whoYouWorkWith` | Low — the one new *fact* is the four-priced / three-scoped split, which is arithmetic over `content.js` |
+| `overview.delivery.steps[].body` ×3 | The ladder's three two-line bodies | `services.howWeEngage.ladder[].whatItIs`, near-verbatim, with the signed-metrics sentence from `howAPovRuns.steps[0]` and the managed-service clause from `wrapAroundServices` | Low — they are the Services ladder's own sentences at a shorter length |
+| `overview.delivery.why.pillars[].body` ×3 | Platform depth · Agentic-AI experience · Packaged delivery | §6.3's three pillars, each re-pointed at a key: `facets.technology`, `whatWeDo.families` + `attachesToEvery`, `howWeEngage.ladder[0].pricing` + `services.proof.lead` | Low — no pillar claims a capability that is not already on Services |
+| `overview.about.body` | The one paragraph in the light band | Half from softserveinc.com (§18.2), half from `services.hero.stats` | **Medium — it is the only paragraph on the site quoting a public corporate page.** Re-read §18.2 before editing a figure in it; the two halves have different sources and different shelf lives |
+| `overview.contact.sub` | *"Tell us the account or workflow you have in mind. One scoping conversation starts it: we come back with what a proof of value would cover, on your data."* | `site.footer.description`, with what comes back from `howAPovRuns` | Low |
+| `overview.hero.stats[0..2].label`, `overview.about.stats[].label` | The seven stat captions (`stats[3]`'s is verbatim from `services.hero.stats[0]`) | The keys each number is counted from; the About captions are the words the About Us page itself uses (*employees*, *countries*, *offices*) | Low — but the About captions are quotations, not paraphrases: *employees*, not *associates* |
+| `overview.hero.stack.ariaLabel` | *"How the products are built: three workflow patterns and seven products on top, the SoftServe layer in the middle, the four Oracle platforms underneath"* | The figure itself — it is the accessible name of a `role="img"` whose internals are hidden | Low, and load-bearing for a screen reader: it is the **only** way the stack's content reaches assistive tech |
+
+### 18.4 What changed in the renderers and in the checker
+
+**Renderers.** `site/pages/overview.js` was rewritten end to end to the seven
+screens, keeping its existing contract — the IIFE that assigns
+`window.PAGES.overview`, the `mount` hook that calls `FORMS.mount(slot, "demo")`
+after render, and `title()` returning `site.title`. Its new CSS is **one
+appended block** at the end of `site/assets/site.css`, headed
+`/* ——— home page (round 5): seven screens ——— */`; the stack visual takes the
+`bo-` class prefix because `stack-*` already belongs to the Technology tab's
+accordion. Four small changes sit outside that page: `assets/app.js` gained
+`ICONS.arrowDown` and `ICONS.cube`, `linkArrow()` now accepts an `icon` option,
+`renderNav()` builds the header button from `site.navCta`, and the not-found
+page's button reads *Back to the home page*; `pages/services.js` reads
+`site.secondaryCta` for its hero's quiet button instead of borrowing
+`overview.hero.ctas[1]`; and `index.html` takes the new `<title>`, the new
+description in all three meta tags, and the new lockup name. **No design token,
+type scale, button, chip, badge, case card or contact split changed** — the home
+page differs from the product pages by composition, not by tokens. CSS that the
+rebuild orphaned was removed only where a grep proved it unreferenced
+(`.logo-strip`, `.logo-strip-lg`, `.tile-grid`); `.light-band`, `.stat-band` and
+`.platform-*` stay, because Services still renders all three. The implementer's
+exact file list is in the git diff for this round.
+
+**Checker.** `tools/check-grammar.js` lost two assertions and gained a block.
+The two it lost were both about shapes this round retired: the `overview` hero
+image (Services and all seven products keep theirs) and the
+`overview.servicesTeaser.platforms` half of the canonical-platform pair, which
+leaves `services.hero.platforms` as the one platform-card list whose four names
+have to be asserted — the home page's four platform tiles are derived from
+`facets.technology` itself and cannot drift from it. What it gained is a
+**"round 5 · the home page"** block asserting the whole contract in one place:
+`site.name` / `title` / `tagline` / `metaDescription`; the three nav items by
+label *and* route; `navCta`, `secondaryCta` and `primaryCta` as `{ label, route }`;
+every key of the seven screen objects, with `delivery.anchor` and
+`contact.anchor` asserted **by value** because seven product pages link to the
+second one; the five retired keys as outright failures rather than dead weight;
+`shortLine` on all seven products (≤ 12 words, ends in a period, never a copy of
+the `oneLiner`); an **icon check that reads the `ICONS` registry out of
+`site/assets/app.js`**, so a pillar or panel naming a glyph nobody drew fails the
+build; and the `HANDOFF` §6.1 word ban — *cutting-edge*, *seamless*, *unlock*,
+*empower*, *revolutionary* — over the serialized `overview` object only, because
+`sellerGate` unlocks a panel and that is the word used honestly. It prints
+**OK with zero warnings** on the shipped data, and the new rules were checked the
+other way round too: sixteen deliberate mutations of a sandbox copy of
+`content.js` — a returned `hero.image`, a drifted nav label, a renamed anchor, a
+missing bullet, an over-long stat value, a partner path under `logos/`, a
+`shortLine` without its period, an unknown icon, a banned word — were all caught,
+each with the message that names the fix.
