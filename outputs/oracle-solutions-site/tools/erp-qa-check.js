@@ -52,6 +52,9 @@ eq("records total", D.records.length, 412);
 eq("records Fusion", K1.records.bySystem.FUSION, 188);
 eq("records JDE", K1.records.bySystem.JDE, 131);
 eq("records NetSuite", K1.records.bySystem.NETSUITE, 93);
+var _ids = {}; D.records.forEach(function (r) { _ids[r.id] = (_ids[r.id] || 0) + 1; });
+ok("every record id is unique", Object.keys(_ids).length === D.records.length,
+  Object.keys(_ids).filter(function (k) { return _ids[k] > 1; }).join(","));
 eq("records sum of the three systems", K1.records.bySystem.FUSION + K1.records.bySystem.JDE + K1.records.bySystem.NETSUITE, 412);
 
 console.log("\n-- resolution (61.2 / 93.2 / 93.7) ---------------------------");
@@ -150,7 +153,7 @@ eq("P&L revenue · Fusion (USD m)", m1(L.rev.bySource.FUSION), 27.9);
 eq("P&L revenue · JDE (USD m)", m1(L.rev.bySource.JDE), 13.2);
 eq("P&L revenue · NetSuite (USD m)", m1(L.rev.bySource.NETSUITE), 7.5);
 eq("P&L revenue · the three sources sum to the line",
-  m1(L.rev.bySource.FUSION) + m1(L.rev.bySource.JDE) + m1(L.rev.bySource.NETSUITE), 48.6);
+  Math.round((m1(L.rev.bySource.FUSION) + m1(L.rev.bySource.JDE) + m1(L.rev.bySource.NETSUITE)) * 10) / 10, 48.6);
 eq("P&L COGS (USD m)", m1(L.cogs.totalUsd), 31.1);
 eq("P&L gross margin (USD m)", m1(L.gm.totalUsd), 17.5);
 eq("P&L sales and distribution (USD m)", m1(L.sd.totalUsd), 5.2);

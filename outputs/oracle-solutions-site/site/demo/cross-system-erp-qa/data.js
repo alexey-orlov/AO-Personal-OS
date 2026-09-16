@@ -206,11 +206,13 @@ window.ERPQA_DATA = (function () {
 
   var records = [], suppliers = [], matches = [];
   var _rc = { FUSION: 0, JDE: 0, NETSUITE: 0 }, _mid = 0, _usedName = {};
+  /* generated ids live in their own band so they can never collide with the
+     hand-written ones (Fusion S-1xxxx, JDE 11xxxx, NetSuite V-4xxx) */
   function nextId(sys) {
     _rc[sys]++;
-    if (sys === "FUSION") return "S-" + (10100 + _rc[sys] * 7);
-    if (sys === "JDE") return String(110000 + _rc[sys] * 53);
-    return "V-" + (4000 + _rc[sys] * 3);
+    if (sys === "FUSION") return "S-" + (20000 + _rc[sys] * 7);
+    if (sys === "JDE") return String(120000 + _rc[sys] * 7);
+    return "V-" + (5000 + _rc[sys] * 3);
   }
   function taxFor(sys, tail) {
     var t = tail || ("" + ri(1000, 9999));
@@ -476,13 +478,17 @@ window.ERPQA_DATA = (function () {
   /* the A side of the twenty-two attach proposals is an existing confirmed
      record: take one intra-system pair per proposal and give it the authored
      identity, so the queue shows a real golden supplier on the left */
+  /* the three proposals between two loose records carry their own source keys:
+     the Orion pair is the one the tour rejects, so its Fusion supplier number
+     and JDE address book number are fixed */
+  var LOOSE_IDS = { 0: ["S-10422", "118207"], 1: ["S-11384", "S-11902"], 2: ["121440", "V-4187"] };
   var intra = { FUSION: [], JDE: [], NETSUITE: [] };
   genClusters.forEach(function (g) { if (g.pattern === "FF") intra.FUSION.push(g); else if (g.pattern === "JJ") intra.JDE.push(g); else if (g.pattern === "NN") intra.NETSUITE.push(g); });
   var pendingMatches = [], looseRecords = [];
   PENDING.forEach(function (p, i) {
     var aSys = p[0], bSys = p[6], a, b, loose2 = i < 3;
     if (loose2) {
-      a = mkRecord(aSys, { name: p[1], city: p[2], taxId: p[3], bank: p[4], spendLocal: p[5] });
+      a = mkRecord(aSys, { sysId: LOOSE_IDS[i] && LOOSE_IDS[i][0], name: p[1], city: p[2], taxId: p[3], bank: p[4], spendLocal: p[5] });
       looseRecords.push(a);
     } else {
       var host = intra[aSys].shift();
@@ -493,7 +499,7 @@ window.ERPQA_DATA = (function () {
       host.city = p[2]; host.taxId = p[3];
       host.spendUsd = r2(sum(host.records, function (rid) { return byId(rid).spendUsd; }));
     }
-    b = mkRecord(bSys, { name: p[7], city: p[8], taxId: p[9], bank: p[10], spendLocal: p[11] });
+    b = mkRecord(bSys, { sysId: LOOSE_IDS[i] && LOOSE_IDS[i][1], name: p[7], city: p[8], taxId: p[9], bank: p[10], spendLocal: p[11] });
     looseRecords.push(b);
     var m = mkMatch(a, b, p[12], "name+address", "review", p[13], p[14]);
     m.pending = true; m.newRecords = loose2 ? [a.id, b.id] : [b.id];
@@ -1369,7 +1375,7 @@ window.ERPQA_DATA = (function () {
       chip: "Full bank account numbers",
       sources: ["FUSION", "JDE", "NETSUITE"], views: ["SUPPLIER_360", "PERIOD_MAP"],
       terms: ["supplier"], joins: 1, parse: "Projection over master data · 1 sensitive column requested",
-      t: [180, 300, 640, 120, 520, 280],
+      t: [260, 420, 980, 160, 620, 420],
       blockedFor: ["ANALYST_NA"],
       blockReason: "Object GOLD.SUPPLIER_360 column BANK_ACCOUNT is not on allow-list FIN_QA_V3 for this database user. The statement was refused before execution and the attempt was written to the audit trail.",
       narrate: "The database returns the last four digits only: the masking policy on BANK_ACCOUNT applies to every role, including this one. For the regional analyst the statement never runs — SQL Firewall refuses it against the allow-list and logs the attempt.",
