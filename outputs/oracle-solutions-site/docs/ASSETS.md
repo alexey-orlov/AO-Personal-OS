@@ -92,14 +92,16 @@ recorded below.
 | `workforce-optimization-1.jpg` | Load the period's data: the Run optimization modal — sources (manual XLSX · field-service system connected · booking, inventory, HR/WFM, forecast, BI configured), region, period, the attached file and its seven sheets | Run modal, file chosen, before Optimize |
 | `workforce-optimization-2.jpg` | Set the rules: the Optimization settings drawer — planning mode and capacity, objectives and weights (productivity 40 · waiting time 35 · workload balance 25) and the first hard rule | Settings drawer over the optimized plan |
 | `workforce-optimization-3.jpg` | Solve the plan: the solver stages — validate the input (with its warning), travel matrix, rules, GPU solve, KPIs | Run modal 2.3 s into the run |
-| `workforce-optimization-4.jpg` | Review, approve, measure: the value readout under the toolbar — the first three KPI tiles, each a big coloured delta over its before → after line (jobs per technician per day +4.8%, capacity used +3 pts, avg wait −0.6 d) | Plan v1 dashboard, KPI band, narrow viewport |
+| `workforce-optimization-4.jpg` | Review, approve, measure: the value readout under the toolbar — the first three KPI tiles, each a big coloured delta over its before → after line (jobs per technician per day +4.5%, capacity used +3 pts, avg wait −0.6 d) | Final plan (v2, decisions accepted), KPI band, narrow viewport |
 
 **Capture.** The same tool in `MODE=script` with `tools/capture-wfo-frames.json`,
-`DPR=2`, the page opened with `?tour=off&ui=clean&state=start`
-(`tools/capture-wfo-tour.json` drives the whole guided tour by real clicks and
-is the tour's regression test — it reports console exceptions). The one
-scenario is run at two viewports; each run takes all five shots and only the
-named ones are kept:
+`DPR=2` (`tools/capture-wfo-tour.json` drives the whole guided tour by real
+clicks and is the tour's regression test — it reports console exceptions).
+`-1`, `-2` and `-3` are taken with the page opened at `?tour=off&ui=clean&state=start`
+(the scenario runs the optimization itself); `-4` and the poster with
+`&state=final` — plan v2 with the decisions accepted, so the band reads the
+cleared +4.5% rather than plan v1's +4.8% — and only the two last shots of the
+scenario are kept from those runs. Two viewports:
 
     MODE=script STEPS=tools/capture-wfo-frames.json DPR=2 W=1600 H=1000 \
       node tools/capture-demo-frames.mjs \
@@ -107,7 +109,7 @@ named ones are kept:
     MODE=script STEPS=tools/capture-wfo-frames.json DPR=2 W=1184 H=1000 \
       node tools/capture-demo-frames.mjs "<same URL>" /tmp/wfo1184
 
-`-1`, `-2`, `-3` and the poster come from the 1600 × 1000 run; `-4` comes from
+`-1`, `-2`, `-3` and the poster come from 1600 × 1000 runs; `-4` comes from
 the 1184 × 1000 run, because three of the band's five tiles fit a 640 px crop
 only in the narrow window between 1181 px (below it the band reflows to three
 columns 349 px wide) and ~1185 px (above it five 1/5-width tiles are again too

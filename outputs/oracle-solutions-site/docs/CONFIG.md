@@ -112,7 +112,7 @@ One list drives every surface that shows more than one product:
 
 - **the home page's Products screen (S3)** — this array orders the **rows inside each category column**, after the products have been split by `category`; the column a product lands in is its `category`, the position it takes inside that column is this list (round 5);
 - **the home hero's stack visual** — the product chips under each of the three category tiles, in the same order;
-- the Products page tiles and the facet-rail counts;
+- the Products page tiles, and the faceted counts beside the rail options that have one;
 - the "Which product?" select in both forms.
 
 There is no second place to edit and no way for two surfaces to disagree. (The Previous/Next pager that used to sit at the foot of a product page was removed in round 3, B — the tab bar and the Products grid are the navigation, and a pager that wrapped from the last product back to the first was inventing an order the reader had not asked for.)
@@ -127,7 +127,9 @@ There is no second place to edit and no way for two surfaces to disagree. (The P
 
 So a partial list is legitimate: name only the two or three you care about seeing first and let the rest fall in behind them in their declared order.
 
-The array is **sort order only** — it never filters. All seven products render whatever this list says, and the Products page still reports "7 products". To take a product off the site, remove it from `content.js`, not from here.
+The array is **sort order only** — it never filters. Every product renders whatever this list says. **The Products page reports no total at all**: the results line above the grid says what a filter returned (`3 products`, no denominator) and stays empty when nothing is filtered or when a filter returns nothing, and `productsPage.count` was deleted from `content.js` in §18.9. To take a product off the site, remove it from `content.js`, not from here.
+
+**What the rail shows, and what it does not.** The platform group lists **only the platforms that at least one product matches today** — the option is an offer to filter, and an option returning nothing is a dead end on a page a seller demos live; a `0` beside an Oracle product name in front of an Oracle account executive reads as a scoreboard. With today's `productOrder` and facets that is *All · OCI + NVIDIA · Oracle Autonomous AI Lakehouse*; *Oracle AI Data Platform* and *Oracle AI for Fusion Applications* are absent until a product carries the facet, and the moment one does the option appears with its count, with no config change. **The deep link still works for all four** — `#/products?tech=oracle-ai-fusion` renders that option, selected, above its `emptyState`. The two **All** options carry no count (it would be the size of the catalog), and a count of zero renders no number. This reverses the round-4 behaviour recorded in `docs/PROVENANCE.md` §17.7; the reasoning is in §18.9.
 
 ### `sellerGate.allowedDomains`
 
@@ -201,7 +203,7 @@ Set `marketplace: true` and three things appear together, on the next reload:
 
 - the **Oracle Marketplace** badge (storefront icon) at the right end of the product hero's chip row,
 - the same badge top-right of that product's image band in the Products grid, and **inline beside the product name, scaled down, in the home page's catalog rows** (round 5 — those rows carry no image band),
-- the count beside the **On Oracle Marketplace** checkbox in the Products facet rail, which filters on this same boolean (`mp=1`). **Both availability checkboxes always render**, with their faceted counts, whatever the flags say: the rail's shape does not move under the reader between visits, and `demo=1` / `mp=1` are always honored. A box whose count is zero renders disabled rather than absent, the same way a zero-count radio option does.
+- the count beside the **On Oracle Marketplace** checkbox in the Products facet rail, which filters on this same boolean (`mp=1`). **Both availability checkboxes always render**, with their faceted counts, whatever the flags say: the rail's shape does not move under the reader between visits, and `demo=1` / `mp=1` are always honored. A box whose count is zero renders disabled rather than absent. **This is now the deliberate exception**, not the house style: since §18.9 a zero-count *platform* option is not rendered at all, because a platform nobody ships on is a gap in a vendor's product set. The two checkboxes are named capabilities — *is there a demo I can open today?* — and the group's shape is the site's answer to that question, so it stays put whatever the flags say.
 
 With `marketplaceUrl` set, the badge opens the listing in a new tab; without one it renders inert — the flag says the listing exists, and a link to nowhere would be worse than no link. There is **no separate hero button**: a second control pointing at the same URL as the badge is one control too many.
 

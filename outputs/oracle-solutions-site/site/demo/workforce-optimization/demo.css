@@ -543,5 +543,6 @@ body.tour-on .tour-locked { cursor: not-allowed; }
 .map .zpill .dbad { fill: var(--bad); }
 .map .zone.is-changed { stroke: #fff; stroke-width: 2; }
 .map .zone.is-changed { stroke-dasharray: 6 4; stroke: #6B7A90; }
+@media (max-width: 1400px) { .kpi-label { font-size: 10px; letter-spacing: .05em; } .kpi-big { font-size: 22px; } .kpi-sub { font-size: 12px; } }
 @media (max-width: 1180px) { .plan-row { grid-template-columns: 1fr; } .changes { max-height: 420px; } .kpi-tiles { grid-template-columns: repeat(3, 1fr); } }
 @media (max-width: 760px) { .kpi-tiles { grid-template-columns: repeat(2, 1fr); } }
