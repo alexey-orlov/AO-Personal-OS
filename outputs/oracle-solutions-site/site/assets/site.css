@@ -901,6 +901,27 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 .light-band .band-label { font-size: var(--fs-xs); letter-spacing: .14em; text-transform: uppercase; font-weight: 600; color: var(--text-on-light-soft); }
 .light-band .btn--dark { align-self: flex-start; }
 
+/* The same reading as an address anywhere else on the site, in the ink the
+   light panel uses: at rest the rule under it is half-strength, and it comes to
+   full weight on hover, which is the only move a near-black link has left. */
+.band-link {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  align-self: flex-start;
+  max-width: 100%;
+  font-size: var(--fs-body);
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--text-on-light);
+  border-bottom: 1px solid rgba(7, 9, 13, .4);
+  transition: border-color .25s var(--ease);
+}
+
+.band-link span { min-width: 0; overflow-wrap: anywhere; }
+.band-link .icon { width: .875rem; height: .875rem; flex: none; }
+.band-link:hover, .band-link:focus-visible { border-bottom-color: var(--text-on-light); }
+
 .platform-list { display: flex; flex-direction: column; }
 .platform-item { padding-block: .875rem; border-top: 1px solid rgba(7, 9, 13, .16); }
 .platform-item:first-child { border-top: 0; padding-top: 0; }
@@ -2480,7 +2501,6 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
   .cap-grid { grid-template-columns: minmax(0, 1fr); }
   .invest-figures { grid-template-columns: minmax(0, 1fr); grid-template-rows: none; gap: 1rem 0; }
   .invest-figure { display: block; }
-  .contact-mail-btn { width: 100%; justify-content: flex-start; padding-inline: 1rem; font-size: var(--fs-sm); }
 }
 
 /* ——— skip link ———————————————————————————————————————— */
@@ -2524,7 +2544,8 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
   .form-trap { display: none !important; }
 
   .h1, .h2, .h3, .h4, .ptile-title, .tier-title, .case-descriptor, .plat-name,
-  .stat-value, .invest-value, .case-figure-value, .method-stat-value { color: #111; }
+  .stat-value, .invest-value, .case-figure-value, .method-stat-value,
+  .contact-mail { color: #111; }
 
   .lead, .body-text, .small, .footnote, .def-body, .tier-scope, .case-card-line,
   .plat-body, .layer-band-body, .stat-label, .case-figure-label, .case-area,
@@ -3117,9 +3138,12 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
   .lockup-name { font-size: .9375rem; }
 }
 
-/* A link is a tap target on a phone: the text alone is under the mark. */
+/* A link is a tap target on a phone: the text alone is under the mark. The two
+   addresses run a line taller than a rail link, so their own padding is what
+   carries each of them past the minimum. */
 @media (max-width: 560px) {
   .link-arrow { padding-block: .625rem; }
+  .contact-mail, .band-link { padding-block: .6875rem; }
 }
 
 /* ——— motion ——— */
