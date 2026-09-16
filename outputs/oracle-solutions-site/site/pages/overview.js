@@ -133,8 +133,10 @@
   }
 
   /* The proof strip sits directly under the hero, in the band the other pages
-     use for the same job, so the four figures are the first thing under the
-     claim rather than a section of their own. */
+     use for the same job, so the figures are the first thing under the claim
+     rather than a section of their own. The row carries its own modifier: the
+     strip is read as one band of equal columns, which is a different count from
+     the strip the practice page runs. */
   function statBand(C) {
     var UI = window.UI;
     var stats = (C.overview.hero.stats || []).map(function (stat) {
@@ -302,32 +304,21 @@
 
   /* ————— S5: the engagements behind the products ————— */
 
-  /* The rail says what the four cards are and how the figures were arrived at;
-     the cards carry the figures. Measured, modeled and in preparation are three
-     states of the same card, so no engagement has to be left out to keep the
-     grid honest, and no customer is named on either side. */
+  /* The rail says what the four cards are; the cards carry the figures. How the
+     figures were arrived at is a question the reader asks after the cards, and
+     the rail's link answers it on the page that owns the method. Measured,
+     modeled and in preparation are three states of the same card, so no
+     engagement has to be left out to keep the grid honest, and no customer is
+     named on either side. */
   function caseStudies(C) {
     var UI = window.UI;
     var intro = C.overview.caseStudiesIntro;
-    var method = (C.services && C.services.proof) || {};
     var cards = (C.overview.caseStudies || []).map(UI.caseCard).join("");
-
-    var stat = method.stat
-      ? '<div class="method-stat">' +
-          '<p class="method-stat-value nums">' + UI.esc(method.stat.value) + "</p>" +
-          '<p class="method-stat-label">' + UI.esc(method.stat.label) + "</p>" +
-        "</div>"
-      : "";
 
     return '<section class="section home-screen" id="case-studies"><div class="wrap">' +
       '<div class="cases">' +
         '<div class="cases-rail">' +
           head({ eyebrow: intro.eyebrow, title: intro.title, lead: intro.body }) +
-          '<div class="cases-method">' +
-            (method.lead ? '<p class="body-text small">' + UI.esc(method.lead) + "</p>" : "") +
-            stat +
-            (method.footnote ? '<p class="footnote">' + UI.esc(method.footnote) + "</p>" : "") +
-          "</div>" +
           '<p class="small cases-nda">' + UI.esc(intro.ndaLine) + "</p>" +
           '<p class="cases-link">' + UI.linkArrow({ label: intro.cta.label, href: intro.cta.route }) + "</p>" +
         "</div>" +
