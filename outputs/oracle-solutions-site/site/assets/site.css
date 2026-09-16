@@ -835,8 +835,8 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 /* The one element that tells a reader, at a glance, what the figures below are:
    measured, modeled against a historical baseline, or the outcomes an
    engagement in preparation is set up to measure. Three states, all read from
-   the data, and each one paired with the metric eyebrow that says the same
-   word. */
+   the data, and the chip is the only place the word is set — repeating it over
+   the figure put it on the same card twice. */
 .case-status {
   display: inline-flex;
   align-items: center;
