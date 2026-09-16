@@ -517,3 +517,267 @@ window.ERPQA_DATA = (function () {
       g.evidence = [chip("tax id ✓"), chip("no candidate ≥ 0.75")];
     }
   });
+
+  /* ================================================================== */
+  /* CHART OF ACCOUNTS, LEDGERS AND THE CONSOLIDATED P&L                */
+  /* ================================================================== */
+  /* 497 local accounts (Fusion 214 · JDE 186 · NetSuite 97) roll into a group
+     chart of 120. The rows below are the Q3 movements the consolidated P&L
+     reads; a line's total, a source's column and a ledger's residual are all
+     sums over them, never typed in. Convention: amounts are absolute Q3
+     movements in the ledger's own currency, and the group account decides
+     which P&L line they land on. */
+  var localAccountCount = { FUSION: 214, JDE: 186, NETSUITE: 97 };
+  var groupAccountCount = 120;
+
+  var plLines = [
+    { id: "rev", name: "Revenue", kind: "income", order: 1 },
+    { id: "cogs", name: "Cost of goods sold", kind: "cost", order: 2 },
+    { id: "gm", name: "Gross margin", kind: "subtotal", order: 3, of: ["rev", "-cogs"] },
+    { id: "sd", name: "Sales and distribution", kind: "cost", order: 4 },
+    { id: "ga", name: "General and administrative", kind: "cost", order: 5 },
+    { id: "rd", name: "Research and development", kind: "cost", order: 6 },
+    { id: "oth", name: "Other operating expenses", kind: "cost", order: 7 },
+    { id: "opex", name: "Operating expenses", kind: "subtotal", order: 8, of: ["sd", "ga", "rd", "oth"] },
+    { id: "ebitda", name: "EBITDA", kind: "subtotal", order: 9, of: ["gm", "-opex"] }
+  ];
+  var groupAccounts = {
+    "4100": ["Product revenue", "rev"], "4110": ["Service revenue", "rev"], "4120": ["Spare parts revenue", "rev"], "4190": ["Other operating income", "rev"],
+    "5100": ["Materials", "cogs"], "5110": ["Direct labour", "cogs"], "5120": ["Freight out", "cogs"], "5130": ["Subcontracted services", "cogs"], "5140": ["Inventory adjustments", "cogs"], "5150": ["Warranty and returns", "cogs"],
+    "6100": ["Sales salaries", "sd"], "6110": ["Commissions", "sd"], "6120": ["Marketing", "sd"], "6130": ["Travel — selling", "sd"],
+    "6200": ["Administrative salaries", "ga"], "6210": ["Professional fees", "ga"], "6220": ["Insurance", "ga"], "6230": ["Facilities", "ga"], "6240": ["Bank and FX charges", "ga"],
+    "6310": ["IT services", "oth"], "6320": ["Software licences", "oth"], "6330": ["Communications", "oth"], "6340": ["Other operating expenses", "oth"],
+    "6400": ["Engineering salaries", "rd"], "6410": ["Prototype and test", "rd"], "6420": ["Design services", "rd"]
+  };
+
+  /* [system, local account, local name, group account, Q3 movement in local ccy] */
+  var GL = [
+    ["FUSION", "41010", "Product revenue — plant Ashcombe", "4100", 9214660],
+    ["FUSION", "41020", "Product revenue — plant Redmoor", "4100", 6882140],
+    ["FUSION", "41200", "Spare parts revenue", "4120", 3417920],
+    ["FUSION", "41500", "Service contracts", "4110", 2372344.36],
+    ["FUSION", "51010", "Raw materials consumed", "5100", 7116480],
+    ["FUSION", "51100", "Direct labour — production", "5110", 3842310],
+    ["FUSION", "51300", "Subcontract machining", "5130", 1994750],
+    ["FUSION", "51500", "Warranty provisions", "5150", 871373.66],
+    ["FUSION", "61000", "Sales salaries", "6100", 1428900],
+    ["FUSION", "61100", "Commissions", "6110", 486220],
+    ["FUSION", "61200", "Marketing and events", "6120", 427431.02],
+    ["FUSION", "62000", "Administrative salaries", "6200", 942180],
+    ["FUSION", "62100", "Professional fees", "6210", 361440],
+    ["FUSION", "62300", "Facilities and utilities", "6230", 351521.29],
+    ["FUSION", "64000", "Engineering salaries", "6400", 812660],
+    ["FUSION", "64100", "Prototype and test", "6410", 295087.25],
+    ["FUSION", "63100", "IT services", "6310", 164220],
+    ["FUSION", "63300", "Communications", "6330", 73488.01],
+
+    ["JDE", "4010", "Sales — distribution", "4100", 9884220],
+    ["JDE", "4020", "Sales — parts", "4120", 4127640],
+    ["JDE", "8210", "Freight recoveries", "4190", 176480],
+    ["JDE", "4050", "Service revenue", "4110", 3876731.77],
+    ["JDE", "5010", "Cost of goods sold", "5100", 7442180],
+    ["JDE", "5020", "Direct labour", "5110", 2614900],
+    ["JDE", "5095", "Inventory shrinkage — DC2", "5140", 128440],
+    ["JDE", "5096", "Rework and scrap", "5140", 94260],
+    ["JDE", "5097", "Duty and customs adjustments", "5100", 156720],
+    ["JDE", "5098", "Cycle-count adjustments", "5140", 61340],
+    ["JDE", "5040", "Freight out", "5120", 1780013.73],
+    ["JDE", "6010", "Selling salaries", "6100", 1142760],
+    ["JDE", "6075", "Trade show costs", "6120", 72180],
+    ["JDE", "6076", "Sales travel — regional", "6130", 88640],
+    ["JDE", "6077", "Customer demo units", "6120", 45920],
+    ["JDE", "6020", "Sales commissions", "6110", 718524.61],
+    ["JDE", "7010", "Administrative salaries", "6200", 884260],
+    ["JDE", "7085", "Board and governance costs", "6200", 64180],
+    ["JDE", "7086", "Insurance — fleet", "6220", 57420],
+    ["JDE", "7087", "Property taxes — DC1", "6230", 83940],
+    ["JDE", "7088", "Bank charges — CAD accounts", "6240", 29760],
+    ["JDE", "7089", "FX revaluation — AP", "6240", 41280],
+    ["JDE", "7020", "Legal and audit fees", "6210", 335154.53],
+    ["JDE", "7485", "Test rig consumables", "6410", 38620],
+    ["JDE", "7486", "Design outsourcing", "6420", 72940],
+    ["JDE", "7400", "Engineering services", "6400", 293744.17],
+    ["JDE", "7685", "Software maintenance", "6320", 46220],
+    ["JDE", "7686", "Mobile and data plans", "6330", 31480],
+    ["JDE", "7687", "Waste disposal", "6340", 22640],
+    ["JDE", "7688", "Security services", "6340", 27360],
+    ["JDE", "7689", "Training — operations", "6340", 18940],
+    ["JDE", "7690", "Subscriptions — industry data", "6340", 14720],
+    ["JDE", "7600", "IT services", "6310", 110642.73],
+
+    ["NETSUITE", "4000", "Services revenue", "4110", 4214660],
+    ["NETSUITE", "4020", "Project revenue", "4110", 2186340],
+    ["NETSUITE", "4085", "Recharges to group entities", "4190", 98420],
+    ["NETSUITE", "4040", "Parts resale", "4120", 996960],
+    ["NETSUITE", "5000", "Cost of services", "5130", 2884120],
+    ["NETSUITE", "5075", "Materials on projects", "5100", 112640],
+    ["NETSUITE", "5076", "Travel rechargeable", "5130", 64280],
+    ["NETSUITE", "5020", "Subcontractor costs", "5130", 1446790],
+    ["NETSUITE", "6075", "Partner commissions", "6110", 86240],
+    ["NETSUITE", "6076", "Digital advertising", "6120", 54120],
+    ["NETSUITE", "6077", "Client entertainment", "6130", 21460],
+    ["NETSUITE", "6000", "Sales salaries", "6100", 542470],
+    ["NETSUITE", "7000", "Admin salaries", "6200", 386240],
+    ["NETSUITE", "6185", "Office insurance", "6220", 42180],
+    ["NETSUITE", "6186", "Co-working space", "6230", 68940],
+    ["NETSUITE", "6187", "Merchant fees", "6240", 31260],
+    ["NETSUITE", "6188", "Recruitment fees", "6200", 24880],
+    ["NETSUITE", "7020", "Accounting and audit", "6210", 144040],
+    ["NETSUITE", "6485", "Lab and test accounts", "6410", 18420],
+    ["NETSUITE", "6400", "Solution development", "6400", 80230],
+    ["NETSUITE", "6155", "Software subscriptions", "6310", 28640],
+    ["NETSUITE", "6156", "Cloud hosting", "6310", 21480],
+    ["NETSUITE", "6157", "Telephony", "6330", 12360],
+    ["NETSUITE", "6158", "Courier and postage", "6340", 8940],
+    ["NETSUITE", "6159", "Sundry expenses", "6340", 6720],
+    ["NETSUITE", "6300", "IT support", "6310", 25470]
+  ];
+
+  /* the 37 local accounts the exact-match run could not place, with what the
+     model proposed. 35 carried a rule; 2 are provisional and queued. */
+  var ACC = [
+    ["JDE", "8210", "Freight recoveries", "4190", 0.71, "review", "5120", "Name matches both an income and a cost account in the group chart; the sign of the Q3 movement favours other operating income.", "Freight recoveries are netted against freight out in the NA entity, so the group account depends on a policy call."],
+    ["NETSUITE", "6155", "Software subscriptions", "6310", 0.78, "review", "6320", "Synonym match on 'software' hits two group accounts; usage history favours IT services.", "Subscriptions are a service in the group chart but a licence in the NetSuite chart."],
+    ["JDE", "5095", "Inventory shrinkage — DC2", "5140", 0.94, "auto", null, "JDE object range 5090–5099 maps to inventory adjustments.", ""],
+    ["JDE", "5096", "Rework and scrap", "5140", 0.92, "auto", null, "JDE object range 5090–5099 maps to inventory adjustments.", ""],
+    ["JDE", "5097", "Duty and customs adjustments", "5100", 0.88, "auto", null, "Landed-cost components roll into materials.", ""],
+    ["JDE", "5098", "Cycle-count adjustments", "5140", 0.95, "auto", null, "JDE object range 5090–5099 maps to inventory adjustments.", ""],
+    ["JDE", "6075", "Trade show costs", "6120", 0.93, "auto", null, "Synonym match on the group marketing definition.", ""],
+    ["JDE", "6076", "Sales travel — regional", "6130", 0.96, "auto", null, "Exact synonym on selling travel.", ""],
+    ["JDE", "6077", "Customer demo units", "6120", 0.86, "auto", null, "Parent account 6070 already maps to marketing.", ""],
+    ["JDE", "7085", "Board and governance costs", "6200", 0.89, "auto", null, "Sibling accounts 7010–7084 map to administrative salaries and fees.", ""],
+    ["JDE", "7086", "Insurance — fleet", "6220", 0.97, "auto", null, "Exact synonym on insurance.", ""],
+    ["JDE", "7087", "Property taxes — DC1", "6230", 0.91, "auto", null, "Facilities definition names property taxes.", ""],
+    ["JDE", "7088", "Bank charges — CAD accounts", "6240", 0.98, "auto", null, "Exact synonym on bank charges.", ""],
+    ["JDE", "7089", "FX revaluation — AP", "6240", 0.90, "auto", null, "Group definition puts translation differences with bank and FX charges.", ""],
+    ["JDE", "7485", "Test rig consumables", "6410", 0.92, "auto", null, "Parent account 7480 maps to prototype and test.", ""],
+    ["JDE", "7486", "Design outsourcing", "6420", 0.94, "auto", null, "Exact synonym on design services.", ""],
+    ["JDE", "7685", "Software maintenance", "6320", 0.90, "auto", null, "Maintenance on licensed software follows the licence account.", ""],
+    ["JDE", "7686", "Mobile and data plans", "6330", 0.95, "auto", null, "Exact synonym on communications.", ""],
+    ["JDE", "7687", "Waste disposal", "6340", 0.87, "auto", null, "No closer group account; falls to other operating expenses.", ""],
+    ["JDE", "7688", "Security services", "6340", 0.86, "auto", null, "No closer group account; falls to other operating expenses.", ""],
+    ["JDE", "7689", "Training — operations", "6340", 0.88, "auto", null, "No closer group account; falls to other operating expenses.", ""],
+    ["JDE", "7690", "Subscriptions — industry data", "6340", 0.85, "auto", null, "Data subscriptions are not software licences in the group definition.", ""],
+    ["NETSUITE", "4085", "Recharges to group entities", "4190", 0.91, "auto", null, "Recharges are other operating income until intercompany elimination.", ""],
+    ["NETSUITE", "5075", "Materials on projects", "5100", 0.93, "auto", null, "Exact synonym on materials.", ""],
+    ["NETSUITE", "5076", "Travel rechargeable", "5130", 0.87, "auto", null, "Rechargeable cost sits with subcontracted services in the group chart.", ""],
+    ["NETSUITE", "6075", "Partner commissions", "6110", 0.96, "auto", null, "Exact synonym on commissions.", ""],
+    ["NETSUITE", "6076", "Digital advertising", "6120", 0.95, "auto", null, "Exact synonym on marketing.", ""],
+    ["NETSUITE", "6077", "Client entertainment", "6130", 0.86, "auto", null, "Group definition puts entertainment with selling travel.", ""],
+    ["NETSUITE", "6185", "Office insurance", "6220", 0.97, "auto", null, "Exact synonym on insurance.", ""],
+    ["NETSUITE", "6186", "Co-working space", "6230", 0.90, "auto", null, "Facilities definition covers leased workspace.", ""],
+    ["NETSUITE", "6187", "Merchant fees", "6240", 0.93, "auto", null, "Card acquiring fees sit with bank charges.", ""],
+    ["NETSUITE", "6188", "Recruitment fees", "6200", 0.85, "auto", null, "Group definition keeps recruitment with administrative salaries.", ""],
+    ["NETSUITE", "6485", "Lab and test accounts", "6410", 0.89, "auto", null, "Synonym match on prototype and test.", ""],
+    ["NETSUITE", "6156", "Cloud hosting", "6310", 0.94, "auto", null, "Hosting is a service in the group definition.", ""],
+    ["NETSUITE", "6157", "Telephony", "6330", 0.96, "auto", null, "Exact synonym on communications.", ""],
+    ["NETSUITE", "6158", "Courier and postage", "6340", 0.88, "auto", null, "No closer group account; falls to other operating expenses.", ""],
+    ["NETSUITE", "6159", "Sundry expenses", "6340", 0.99, "auto", null, "Exact synonym on other operating expenses.", ""]
+  ];
+  var ACCKEY = {};
+  var accounts = ACC.map(function (a) {
+    var o = {
+      sys: a[0], local: a[1], description: a[2], proposed: a[3],
+      groupName: groupAccounts[a[3]][0], line: groupAccounts[a[3]][1],
+      score: a[4], status: a[5],
+      alt: a[6], altName: a[6] ? groupAccounts[a[6]][0] : null, altLine: a[6] ? groupAccounts[a[6]][1] : null,
+      rule: a[7], question: a[8], entity: SRC[a[0]].entity, amountLocal: 0, amountUsd: 0
+    };
+    ACCKEY[a[0] + "|" + a[1]] = o; return o;
+  });
+
+  var glRows = GL.map(function (g, i) {
+    var rate = SRC[g[0]].rate, unm = ACCKEY[g[0] + "|" + g[1]] || null;
+    var row = {
+      id: "GL-" + (100 + i), sys: g[0], entity: SRC[g[0]].entity, local: g[1], localName: g[2],
+      group: g[3], groupName: groupAccounts[g[3]][0], line: groupAccounts[g[3]][1],
+      currency: SRC[g[0]].currency, rate: rate,
+      amountLocal: r2(g[4]), amountUsd: r2(g[4] * rate),
+      wasUnmapped: !!unm, mapStatus: unm ? unm.status : "mapped",
+      srcRef: g[0] === "FUSION" ? "GL_BALANCES · GL_CODE_COMBINATIONS.SEGMENT3 = '" + g[1] + "'"
+        : g[0] === "JDE" ? "F0911 · F0901.GMOBJ = " + g[1] + " · GMMCU 00100"
+          : "transactionLine · account.acctnumber = '" + g[1] + "'"
+    };
+    if (unm) { unm.amountLocal = row.amountLocal; unm.amountUsd = row.amountUsd; unm.currency = row.currency; unm.rate = rate; }
+    return row;
+  });
+
+  /* ---------------------------------------------- the consolidated P&L */
+  var PLSYS = ["FUSION", "JDE", "NETSUITE"];
+  function buildPl() {
+    var byLine = {}, byAccount = {};
+    plLines.forEach(function (l) { byLine[l.id] = { id: l.id, name: l.name, kind: l.kind, order: l.order, bySource: { FUSION: 0, JDE: 0, NETSUITE: 0 }, totalUsd: 0, accounts: [] }; });
+    glRows.forEach(function (r) {
+      var L = byLine[r.line];
+      L.bySource[r.sys] = r2(L.bySource[r.sys] + r.amountUsd);
+      var k = r.line + "|" + r.group;
+      if (!byAccount[k]) { byAccount[k] = { line: r.line, group: r.group, groupName: r.groupName, bySource: { FUSION: 0, JDE: 0, NETSUITE: 0 }, totalUsd: 0, rows: [] }; L.accounts.push(byAccount[k]); }
+      byAccount[k].bySource[r.sys] = r2(byAccount[k].bySource[r.sys] + r.amountUsd);
+      byAccount[k].rows.push(r);
+    });
+    Object.keys(byAccount).forEach(function (k) { var a = byAccount[k]; a.totalUsd = r2(sum(PLSYS, function (s) { return a.bySource[s]; })); });
+    plLines.forEach(function (l) {
+      var L = byLine[l.id];
+      if (l.kind === "subtotal") {
+        PLSYS.forEach(function (s) { L.bySource[s] = r2(sum(l.of, function (t) { return t.charAt(0) === "-" ? -byLine[t.slice(1)].bySource[s] : byLine[t].bySource[s]; })); });
+      }
+      L.totalUsd = r2(sum(PLSYS, function (s) { return L.bySource[s]; }));
+      L.accounts.sort(function (a, b) { return a.group < b.group ? -1 : 1; });
+    });
+    return plLines.map(function (l) { return byLine[l.id]; });
+  }
+  var pl = buildPl();
+  var PLBY = {}; pl.forEach(function (l) { PLBY[l.id] = l; });
+
+  /* ------------------------------------------------- ledger reconciliation */
+  var LEDGERNAME = { FUSION: "NORWELL_EU_PRIMARY", JDE: "Company 00100 · NORWELL NA", NETSUITE: "Arden Services · subsidiary 3" };
+  var LEDGERREF = { FUSION: "GL_LEDGERS.NAME", JDE: "F0010.CCCO", NETSUITE: "subsidiary.name" };
+  var ledgers = PLSYS.map(function (s) {
+    var rows = glRows.filter(function (r) { return r.sys === s; });
+    var tbLocal = r2(sum(rows, function (r) { return r.amountLocal; }));
+    var translated = r2(sum(rows, function (r) { return r.amountUsd; }));
+    var residualBefore = r2(sum(rows.filter(function (r) { return r.wasUnmapped; }), function (r) { return r.amountUsd; }));
+    return {
+      id: s, ledger: LEDGERNAME[s], ledgerRef: LEDGERREF[s], system: SRC[s].name, systemShort: SRC[s].short,
+      entity: SRC[s].entity, entityName: SRC[s].entityName, currency: SRC[s].currency, rate: SRC[s].rate,
+      rateNote: "Q3 FY2026 average · GL_DAILY_RATES",
+      tbLocal: tbLocal, translatedUsd: translated,
+      unmappedAccounts: rows.filter(function (r) { return r.wasUnmapped; }).length,
+      mappedBeforeUsd: r2(translated - residualBefore), residualBeforeUsd: residualBefore, tiesBefore: residualBefore === 0,
+      mappedAfterUsd: translated, residualAfterUsd: 0, tiesAfter: true
+    };
+  });
+
+  /* ------------------------------------------------------- duplicate pairs */
+  var DUP = [
+    ["G-HALDEN", "Halden Tooling Group", "HT-44120", 34210.00, "FUSION", "HT-44120", "2026-08-12", "JDE", "44120", "2026-08-14", "open"],
+    ["G-BRAMLEY", "Bramley Logistics", "BL-90218", 27140.00, "FUSION", "BL-90218", "2026-07-22", "NETSUITE", "BL-90218", "2026-07-24", "open"],
+    ["G-KESTREL", "Kestrel Components", "KC-11840", 23980.00, "FUSION", "KC-11840", "2026-09-03", "JDE", "11840", "2026-09-08", "open"],
+    ["G-TAMSIN", "Tamsin Packaging", "TP-20714", 19570.00, "FUSION", "TP-20714", "2026-07-30", "NETSUITE", "TP20714", "2026-08-03", "open"],
+    ["M-ORION", "Orion Fasteners Ltd", "ORF-88214", 21090.00, "FUSION", "ORF-88214", "2026-08-19", "JDE", "88214", "2026-08-21", "review"],
+    ["G-WEXFORD", "Wexford Industrial Supplies", "WX-30288", 15810.00, "FUSION", "WX-30288", "2026-09-11", "NETSUITE", "WX30288", "2026-09-15", "open"],
+    ["G-RAVENS", "Ravenscourt Electrical", "RV-77104", 14470.00, "JDE", "77104", "2026-08-06", "NETSUITE", "RV-77104", "2026-08-10", "open"],
+    ["G-ALDWYCH", "Aldwych Chemicals", "AC-60142", 12380.00, "FUSION", "AC-60142", "2026-07-15", "NETSUITE", "AC60142", "2026-07-17", "open"],
+    ["G-MARLOWE", "Marlowe Freight Services", "MF-51208", 11240.00, "FUSION", "MF-51208", "2026-09-22", "JDE", "51208", "2026-09-24", "open"],
+    ["G-PENTLAND", "Pentland Bearings", "PB-41190", 9670.00, "FUSION", "PB-41190", "2026-08-28", "NETSUITE", "PB41190", "2026-08-31", "open"],
+    ["G-HALDEN", "Halden Tooling Group", "HT-44988", 8630.00, "FUSION", "HT-44988", "2026-09-17", "NETSUITE", "HT44988", "2026-09-21", "open"],
+    ["G-CALDER", "Calderwood Castings", "CW-22086", 7410.00, "FUSION", "CW-22086", "2026-07-09", "NETSUITE", "CW22086", "2026-07-13", "open"],
+    ["G-STANHOPE", "Stanhope Instrumentation", "SI-33140", 5970.00, "FUSION", "SI-33140", "2026-09-29", "NETSUITE", "SI33140", "2026-09-30", "open"],
+    ["G-BRAMLEY", "Bramley Logistics", "BL-90744", 4840.00, "FUSION", "BL-90744", "2026-08-04", "NETSUITE", "BL90744", "2026-08-06", "open"]
+  ];
+  function docRef(sys, doc) {
+    if (sys === "FUSION") return "AP_INVOICES_ALL.INVOICE_NUM = '" + doc + "'";
+    if (sys === "JDE") return "F0411.RPDOC = " + doc + " · RPDCT = 'PV' · RPCO = '00100'";
+    return "transaction.tranid = '" + doc + "' · type VendBill";
+  }
+  var dupPairs = DUP.map(function (d, i) {
+    var rateA = SRC[d[4]].rate, rateB = SRC[d[7]].rate;
+    var localA = r2(d[3] / rateA), localB = r2((d[3] * (1 + (i % 2 ? 0.003 : -0.002))) / rateB);
+    return {
+      id: "D-" + (300 + i), matchId: d[0], goldenName: d[1], invoiceNorm: d[2], amountUsd: d[3],
+      a: { sys: d[4], doc: d[5], date: d[6], ref: docRef(d[4], d[5]), amountLocal: localA, currency: SRC[d[4]].currency, entity: SRC[d[4]].entity },
+      b: { sys: d[7], doc: d[8], date: d[9], ref: docRef(d[7], d[8]), amountLocal: localB, currency: SRC[d[7]].currency, entity: SRC[d[7]].entity },
+      status: d[10], dependsOn: d[0] === "M-ORION" ? "M-ORION" : null,
+      note: d[0] === "M-ORION" ? "Only a pair while the two Orion records are one supplier." : ""
+    };
+  });
