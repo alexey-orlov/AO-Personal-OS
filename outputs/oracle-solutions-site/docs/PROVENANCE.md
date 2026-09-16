@@ -101,7 +101,8 @@ All seven strings: `SPEC` §0.4 — each is printed on a shipped one-pager or de
 |---|---|---|
 | `technology[0]`, `technology[2]` — labels and descriptions | `SPEC` §2.2 / `SPEC-ASSETS.facets` | verbatim |
 | `technology[1]` `Oracle AI Data Platform` description | `SPEC` §4.1 platform card ("Governed enterprise data for AI"; "structured, unstructured and real-time enterprise data — governed, AI-ready, multi-cloud") compressed to one line | **written** |
-| `technology[3]` `Other` label and description | — | **written** — the facet exists because `BRIEF` D2 requires it (L1) |
+| `technology[3]` `Oracle AI for Fusion Applications` label | Oracle's own product name, as it is written on the `SPEC` §4.1 platform card and on the Services platform list | verbatim — replaced the **written** `Other` catch-all in §17.7 |
+| `technology[3]` description | `SPEC` §4.1 platform card ("AI agents inside Fusion applications"; "Embedded AI agents and AI Agent Studio across ERP, SCM, HCM and CX") compressed to one line | **written** |
 | `emptyState` (all four) | `BRIEF` D2 | verbatim from the brief |
 | `footnote` | `SPEC` §2.2 | verbatim (**written** at source, `SPEC-ASSUM` #10) |
 | `categories` | `SPEC` §0.6 | verbatim (`C10`) |
@@ -168,7 +169,7 @@ Everything in this section exists in `content.js` and in no source. It is writte
 |---|---|---|---|
 | `products[*].pov.team` (all seven) | *"One team: AI, data and OCI architects, a product manager and a project manager, and senior AI and data engineers. The team grows with the scope."* | `SPEC` §4.2 "WHO DELIVERS IT", verbatim content, re-pointed from the Services page to each product. `BRIEF` D5 requires a `team` field per product; `SPEC` deliberately keeps the delivery-team block on Services only | Low — it is the practice's own sentence, and it claims no product-specific staffing. If the seven pages should not each carry it, delete the field and let Services keep it |
 | `facets.technology[1].description` | *"Governed enterprise data for AI — structured, unstructured and real-time, multi-cloud."* | `SPEC` §4.1's Oracle AI Data Platform card, compressed to one line | None |
-| `facets.technology[3]` (`Other`) | Label *"Other"*, full label *"Other Oracle platforms"*, description *"Everything outside the three above, including Oracle AI for Fusion Applications."* | `BRIEF` D2 requires the facet; the description names the one platform the practice actually delivers on that has no facet of its own | Low |
+| `facets.technology[3]` description | *"Embedded AI agents and AI Agent Studio across ERP, SCM, HCM and CX."* | `SPEC` §4.1's Oracle AI for Fusion Applications card, compressed to one line. The facet's **label** is no longer written: it is Oracle's product name (§17.7). The written `Other` / *"Other Oracle platforms"* / *"Everything outside the three above…"* that stood here until round 4 was a catch-all naming no Oracle platform | None |
 | `facets.noResults` | *"No product matches these filters. Clear one and try again, or tell us the workflow you need fixed."* | The Products page's own bottom-block posture | None |
 | `products[*].pov.ladder[].scope` and `includes[]` on the three per-engagement products | Roll-out and Scaling scope cells from `SPEC` §3.0.7's fallback table, verbatim; the `includes[]` bullets composed from each product's own "THEN → ROLL-OUT" line, prerequisites and phases | `SPEC` §3.0.7 requires the same three-column component on every page, scope cells filled, every price cell `Scoped per engagement` | Low — no price and no duration appears that is not already elsewhere on the same page |
 | `products[*].pov.ladder[].includes[]` on the four priced products | Composed from each product's own capability matrix rows and offer phases | `SPEC` §3.1, §3.2, §3.6, §3.7 | Low — every bullet restates a matrix row that also ships as `capabilityMatrix` |
@@ -1601,8 +1602,10 @@ read the round-4 keys. What changed, file by file:
   content owner and a decision date were removed from this file and from
   `site.css` — shipped bundles carry no internal attribution.
 - `pages/product.js` — `heroChips()` builds the chip row from `category` and
-  `facet` and skips `tags[0]` and `tags[1]`, which repeat them; the badges sit
-  at the right end of the same row and `statusNote` renders under the one-liner.
+  `facet` and skips `tags[0]` and `tags[1]`, which repeat them; since §17.7
+  there is nothing past them to render, so the row is exactly one pattern chip
+  and one platform chip. The badges sit at the right end of the same row and
+  `statusNote` renders under the one-liner.
   The Marketplace and success-story hero buttons are gone — the badge is the
   link to a listing, and the case study owns its one link out. `successStory()`
   became `caseStudy()`: medallion, descriptor, area, status chip, one or two
