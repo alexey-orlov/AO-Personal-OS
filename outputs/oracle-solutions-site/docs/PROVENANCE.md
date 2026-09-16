@@ -2145,3 +2145,209 @@ other way round too: sixteen deliberate mutations of a sandbox copy of
 missing bullet, an over-long stat value, a partner path under `logos/`, a
 `shortLine` without its period, an unknown icon, a banned word — were all caught,
 each with the message that names the fix.
+
+## 18. The second walkthrough — Workforce optimization, 2026-09-16
+
+### 18.1 Brief, machine, tooling
+
+- Alex's brief (chat, 2026-09-16, carried by `HANDOFF-workforce-demo.md`):
+  repeat the Large docs exercise for the Workforce optimization pack — an
+  interactive, guided walkthrough generalised the way the pack's own documents
+  generalise the product, linked from the product page, its captures replacing
+  the step frames and the poster — to the same standards (brand-agnostic,
+  industry-neutral, mocked inputs and outputs, a short guided flow, one
+  active control per step, the real product's flow, screens and information
+  model) and with a red-team pass against the pack specs before calling it done.
+- Built on Alex's MacBook Air: the repo, Google Chrome and the Xcode command
+  line tools, but no Homebrew, no ffmpeg and no Node on the PATH. The capture
+  tool ran on the Node bundled inside `/Applications/Codex.app` (v24). Frames
+  came from a 60-line Swift/AVFoundation command-line tool written for the
+  session (probe, a frame every 6 s at 960 px, 4 × 5 contact sheets, key
+  frames at native resolution) — kept in the session scratchpad, not in the
+  repo; the recipe is in `HANDOFF-workforce-demo.md`. Everything derived from
+  the recording lives in git-ignored `.work/wfo-video/`.
+- **Source:** `BSH PoC Application Features Overview (9 June).mp4`, shared
+  from Alex's Google Drive — 56 min, 1080p, narrated: two presenters walk a UK
+  south-west dataset and a US NY/CT dataset through the delivered application
+  (v1.0.0) and then through the "Constraints Validation" sheet of the PoC test
+  plan. Unlike the Large docs recording it has narration; it was transcribed
+  **on-device** with the macOS 26 Speech framework (`SpeechAnalyzer` +
+  `SpeechTranscriber`, en-US, 644 timestamped lines in 33 s, no key, one
+  0.5-second decode fault at 14:24 padded), so the narrative below is both
+  screen- and voice-derived. The transcript is not in the repo.
+
+### 18.2 The real product, reconstructed
+
+Dashboard ("Overview of active work zones and workers"; a backend-health chip
+and a version chip) → **Run Optimization** modal (Region · Period up to 4
+weeks · XLSX file with seven sheets — Visits, TechLocation, Skills,
+SpecialSkills, Calendars, WZ_Zip, WZ_Assignments — "Download example"; a
+mismatch between region and file errors at once; upload warnings arrive as a
+toast, e.g. technician ids in Calendars missing from TechLocation) → a run of
+several minutes → **Service Zones map** (zone polygons, "technicians · days"
+pills, technician-home markers, solid default-zone routes, dashed temporary
+routes; legend) → click a zone: Details with postcodes, technicians, visits and
+days, an expandable visit list from the uploaded file only (historical demand
+is used but never shown) → click a technician: home location, Standard /
+Expert profile, zones (dashed = temporary) → **Filters** (zone and technician
+multi-select with search) → **Optimized | Compare** (Current Allocation beside
+Optimized Allocation; the table always shows the optimized plan) → **Weekly
+Schedule**, paged by week, in **Zone View** (per zone: period, avg wait before
+→ after, postcode count; day cells with technician pills; **Accept · Reject ·
+Comment** per zone for the whole period) and **Technician View** (per
+technician: capacity and jobs/day before → after, default zones; day cells with
+zone pills; ABSENT cells); the pill legend — default zone · day off · moved to
+another zone · temporary assignment · non-working · absent — where the
+narration explains the light "day off" pill as *no visits that day, spare
+capacity*, and the arrow as *the technician leaves the default zone* →
+**Comment** modal (300 characters) → **Download**: an XLSX "Work zone
+assignment" in the field-service system's import template (Resource ID · Item
+ID · Work Zone Label · Start/End Date · Ratio · Recurrence · Recur Every ·
+Assignment Type · Mon…Sun flags · Decision · Comment). In the PoC the decisions
+were informational — "for now we stop here" — with a second solver run that
+honours accept/reject named as the next step; the export "can be uploaded to
+OFS directly".
+
+Rules, from the constraints sheet and the narration: availability (Working /
+Absent / Non-working; an absence of up to 2 days splits that day's tasks among
+neighbouring technicians as a partial temporary assignment, a longer one
+reassigns the whole zone temporarily and the usual allocation resumes after);
+capacity (`capacityinhours` per technician and date, 1 visit ≈ 1 h, at most 7
+visits a day); movable vs non-movable visits (parts allocated → the visit
+keeps technician and date); skill match; special skills (Experts only, and an
+Expert may cover a wider geography); technician home location and
+neighbouring zones (distant zones penalised, several zones on one day should
+share a border); historical demand (last year's same period backfills sparse
+dates, actual visits never overwritten); work-zone allocation (a zone is a set
+of ZIPs; one technician per zone, several zones on selected weekdays, several
+technicians per zone when demand requires). The narration's own KPI example —
+"30 days to 2.2 days" of wait time — is test-data output and was not carried.
+
+### 18.3 The generalisation
+
+The design note written before coding, kept verbatim in spirit:
+
+1. **World:** "Harborview", a fictional coastal metro drawn as inline SVG from a
+   jittered 4 × 3 grid (coast, harbour inlet, river, ring road) — twelve work
+   zones HV-01…HV-12 (Northgate, Millbrook, Hillcrest, Eastfield, Westhaven,
+   Kingsbridge, Stonebridge, Ridgeway, Marsh End, Southbank, Old Harbour,
+   Ferry Point), each 5–15 invented postcodes; eighteen technicians
+   T-1041…T-1058, ids only, two skill groups (Standard · Specialist).
+2. **Period:** Mon 5 – Fri 30 Oct 2026, four weeks, Mon–Fri, one public
+   holiday (26 Oct); roster mode.
+3. **Rules that visibly matter:** a vacation (T-1047, 12–16 Oct → whole-zone
+   cover by two neighbours), a same-day sickness (T-1055, 6 Oct → four visits
+   split to a neighbour), non-movable appointments (HV-11, 8 Oct, pinned to
+   T-1057), a max-load day (T-1048 at 8 visits on 13 Oct → two moved), a
+   specialist-only zone (HV-12; a Specialist assists on 20–21 Oct; Standard
+   technicians ineligible), an uncovered postcode (HV2 7 on 9 Oct → a
+   temporary cover), three dates allocated on last year's demand (HV-07,
+   flagged for confirmation), one spare-capacity day (T-1058, 16 Oct).
+4. **Three allocations:** the uploaded current plan, plan v1, and plan v2 after
+   dispatcher feedback — v1 moves Marsh End's technician to Southbank on
+   Wednesdays and its wait time worsens (5.1 → 6.4 d); v2 keeps him and routes
+   Southbank's overflow to a neighbour with slack (wait back to 5.0 d, fleet
+   productivity −0.02).
+5. **Every change carries a "why"** naming its rule, and the feedback re-run
+   lists the alternatives it weighed — the matrix's model-decision explanations
+   and what-if options.
+6. **Integration surfaces, not flows:** a Sources strip (manual XLSX ·
+   field-service system connected · booking, inventory, HR/WFM, forecast, BI
+   configured), a Region select with three regions (one loads), Download → the
+   import-format file plus a mocked "Send to the field-service system", and an
+   "execution data received" line in the run history.
+7. **Settings drawer, read-only:** planning mode, horizon, capacity, minimal
+   disruption, objectives with weights, nine hard/soft rules, three regions
+   with their own rule sets, six connectors.
+8. **The tour, six steps:** run the optimization → read the plan on the map →
+   compare with today's plan → check the KPIs per technician → resolve the
+   exception (reject · comment · re-optimize) → accept the rest and export.
+   Then free exploration; `?tour=off`, `?ui=clean`, `?view=tech`,
+   `?plan=compare`, `?state=start|v1|v2|final`, `?week=n`.
+9. **Deliberately absent:** any brand or customer mark ("GPU solver",
+   "field-service system"), a time-to-plan claim, any € figure, a travel KPI,
+   real geography, technician names.
+10. **Same engine as Large docs:** tour steps with target / anchor / side /
+    auto, the click guard, Skip = auto-perform, the end card, toasts for mocked
+    downloads and sends.
+
+### 18.4 KPIs and figures
+
+Computed in the page from the data by the pack's methodology (productivity =
+jobs ÷ days with at least one job per technician, fleet = simple mean; capacity
+= round(jobs ÷ (working days × 7) × 100); wait = booking → appointment in
+calendar days, fleet = demand-weighted):
+
+| | Current plan | Plan v1 | Plan v2 (final) |
+|---|---|---|---|
+| Jobs per technician per day | 4.54 | 4.77 (+5.0%) | **4.75 (+4.5%)** |
+| Capacity used | 65% | 68% | 68% |
+| Avg wait, booking → visit | 6.8 d | 6.2 d | 6.2 d |
+| Visits placed (of 1,631 booked) | 1,523 | 1,595 | 1,588 |
+| Jobs/day spread across technicians | 1.00 | 0.89 | 0.89 |
+
+Per-technician deltas run +1.1% to +8.4% with a median of +4.5%. The only
+cleared figure the walkthrough reproduces is that median (§4, §17); the
+capacity and wait-time deltas are synthetic companions chosen to be modest.
+The real recording's uplifts (40% → 73% capacity, 2.81 → 5.2 jobs/day) were not
+carried, for the reason §4 records.
+
+### 18.5 Red-team against the pack specs
+
+Checked against the sales one-pager's S/M/L rows and the accelerator-pack
+feature matrix (`context/areas/softserve/docs/2026-09-16_wfo-pack-spec-for-demo.md`)
+and the site's own copy for the product, before the frames were captured:
+
+| Spec item | In the walkthrough |
+|---|---|
+| Skill-based allocation · max load per day · planned-vacation reallocation · same-day sickness | In the flow: skill chips and the specialist zone, the over-capacity fix, the vacation cover, the sick-day split |
+| Default zones per technician · zone-level demand · neighbouring zones · cross-zone allocation | In the flow: default pills, demand per zone, every "why" line, the Wednesday move that the dispatcher rejects |
+| Forecast-based allocation · historical demand | Surface + flow: the forecast connector and the demand rule; HV-07's three backfilled dates, flagged |
+| Non-movable appointments · SLA types | In the flow: the pinned appointments (visit list shows "parts allocated"); "Priority 48 h" SLA on visits |
+| Multi-objective function · hard/soft weighting · minimal disruption | Settings drawer; the re-run's "minimal disruption" stage and its alternatives |
+| Dispatcher UI with map and table · approve / reject · explanations · feedback loop and what-if | The whole flow; "Why this allocation"; re-optimize with feedback listing the options weighed |
+| KPIs: productivity · capacity · workload balance · baseline vs optimized | Before → after on every row and in the headers; the spread line |
+| Travel reduction KPI · custom KPIs per customer | **Not shown** — no cleared travel figure; custom KPIs are a scoping item |
+| Oracle Field Service in/out · booking · inventory · HR/WFM · forecasting · BI (M row, up to five) | Surfaces: the Sources strip, the six connectors, the mocked send, the "execution data received" history line |
+| Region-specific rule sets and workflows (L row) · deployment | Surfaces: the Region select and the three regions in Settings; the "runs in the customer's own tenancy" note |
+| Distance / live-traffic rules · within-day reassignment · urgent jobs · crews · spare-parts availability | **Not shown** — roadmap (○) in the matrix; crews appear only as "crews enabled" on another region |
+
+Gaps found by the pass and closed before capture: the alternatives-considered
+list on the feedback re-run (what-if), the workload-spread KPI, the forecast
+connector named in the demand rule, the regions list. Nothing that would change
+the flow, the screens or the information model.
+
+### 18.6 What changed on the site
+
+- `site/demo/workforce-optimization/` — `index.html`, `demo.css`, `demo.js`,
+  `data.js`, on the Large docs pattern; the `?state=` switch is new.
+- `config.js`: `demoUrl`, `demoPreviewUrl` and `videoPoster` on
+  `workforce-optimization`; `content.js`: the four step images point at the
+  `.jpg` captures (copy unchanged). Frames and poster per `ASSETS.md` §1; the
+  four SVG illustrations deleted.
+- `tools/capture-demo-frames.mjs`: clicks now work on SVG elements (a
+  dispatched click where `.click()` does not exist), `W` / `H` viewport
+  overrides, two scenarios — `capture-wfo-tour.json` (the tour by real clicks,
+  the regression test) and `capture-wfo-frames.json` (frames and poster).
+- **Artifacts.** The walkthrough stands alone at
+  https://claude.ai/code/artifact/343ab0d5-1d99-4038-a395-6f177c3f5e2e; the
+  site artifact was republished with the demo folder, the frames, the poster
+  and the two data files. The staged copy of `site/index.html` is now stripped
+  of exact wrapper lines only: the previous publish had also dropped
+  `<header class="masthead">` (a prefix match on `<head`), which this publish
+  restores, and the charset / viewport metas are now stripped as the handoff
+  says.
+- Docs: `README.md` ("The interactive walkthroughs", layout, preview links),
+  `CONFIG.md` §3 (`demoUrl`, `demoPreviewUrl`, `videoPoster`), `ASSETS.md` §1,
+  `HANDOFF-workforce-demo.md` (status); the wiki folded via `context-update`.
+
+### 18.7 Still open — Alex's decisions
+
+- **Which figures the walkthrough may carry.** The +4.5% productivity headline
+  is the cleared median; the 65% → 68% capacity and 6.8 → 6.2 d wait deltas
+  are synthetic companions — say if either should go, or if the one-pager's
+  "~30 min vs ~2 days" time-to-plan claim (deliberately absent) should appear.
+- The preview URL is the `/code/artifact/<uuid>` form; the Large docs one is
+  the short `/artifact/<id>` form. Both resolve; paste the short form into
+  `demoPreviewUrl` if a shorter link is wanted.
+- The demo-video recording is still pending; the poster is a walkthrough still.

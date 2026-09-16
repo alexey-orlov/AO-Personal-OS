@@ -33,7 +33,7 @@ it reads as one.
   floor. A full application capture cannot clear it — crop to the one region the
   step is about, and keep every heading whole inside the crop.
 
-### Product frames from the interactive walkthrough (4 frames + 1 poster, 1 product)
+### Product frames from the interactive walkthroughs (8 frames + 2 posters, 2 products)
 
 All four `large-document-extraction-*.jpg` frames are captures of the site's own
 interactive walkthrough (`site/demo/large-document-extraction/`, 2026-09-15),
@@ -72,6 +72,39 @@ requires.
 
 **Re-captured 2026-09-16** after the generalisation round — two document types, schema-specific columns per group, four validator kinds (PROVENANCE §16.4) — with the same crops and the same capture states.
 
+**Workforce optimization (2026-09-16).** All four `workforce-optimization-*.jpg`
+frames and `posters/workforce-optimization.jpg` are captures of the second
+walkthrough (`site/demo/workforce-optimization/`, PROVENANCE §18), not of the
+delivered product. The walkthrough keeps the product's flow and information
+model — run optimization (region · period · XLSX) → schematic map with zone and
+technician details → current-vs-optimized compare → weekly schedule in zone and
+technician view with before/after KPIs → accept / reject / comment →
+re-optimize with feedback → export in the field-service import format — on a
+**fictional metro** ("Harborview": twelve invented districts HV-01…HV-12 with
+invented postcodes, eighteen synthetic technician ids T-1041…T-1058, no names),
+so the frames carry no customer geography, no real zone-naming convention, no
+real resource id and no figure outside the cleared band (fleet productivity
+4.54 → 4.75 jobs per technician per day, +4.5%). That closes the rejection
+recorded below.
+
+| File | Shows | Capture state |
+|---|---|---|
+| `workforce-optimization-1.jpg` | Load the period's data: the Run optimization modal — sources (manual XLSX · field-service system connected · booking, inventory, HR/WFM, forecast, BI configured), region, period, the attached file and its seven sheets | Run modal, file chosen, before Optimize |
+| `workforce-optimization-2.jpg` | Set the rules: the Optimization settings drawer — objectives and weights (productivity · waiting time · workload balance) and the hard/soft rules | Settings drawer over the optimized plan |
+| `workforce-optimization-3.jpg` | Solve the plan: the solver stages — validate the input (with its warning), travel matrix, rules, GPU solve, KPIs | Run modal mid-run |
+| `workforce-optimization-4.jpg` | Review, approve, measure: the optimized map beside the details of the zone whose wait time worsened — postcodes, avg wait before → after, the flag | Compare view, HV-09 details open |
+
+**Capture.** The same tool in `MODE=script` with `tools/capture-wfo-frames.json`,
+`DPR=2`, the page opened with `?tour=off&ui=clean&state=start`
+(`tools/capture-wfo-tour.json` drives the whole guided tour by real clicks and
+is the tour's regression test — it reports console exceptions). Crops follow
+the rule above and were converted with `sips` (crop → resample to 1600 × 1000
+→ JPEG q86) on a Mac without ffmpeg; no unsharp pass. Offsets, in CSS px at
+1600 × 1000: `-1` (480, 270, 640 × 400) · `-2` (960, 235, 640 × 400) · `-3`
+(480, 296, 640 × 400) · `-4` (940, 198, 640 × 400). The poster is the top
+1600 × 900 of the dashboard — the optimized map with every zone, details
+closed, and the first schedule rows.
+
 **Superseded.** The two earlier real-UI frames (`-2`, `-3`, crops of the
 customer-demo recording on the synthetic `SYN-GHA-RL-001` ground-handling
 contract, with the per-channel darkening curve) and the two illustrations at
@@ -92,10 +125,11 @@ product's stepper reads as one system.
   "60% → 100%", "4.2 → 7.6") six to eighteen times the median figure the product
   is cleared to claim, under a disclaimer calling the results modeled
   simulations. Blurring is not enough: the map, the ids and the figures are the
-  content. The product ships four designed illustrations instead, and will keep
-  doing so until the captures are regenerated against synthetic data — a
-  fictional metro, invented zone names, synthetic ids, and deltas inside the
-  cleared band.
+  content. The product shipped four designed illustrations instead until the
+  captures could be regenerated against synthetic data — a fictional metro,
+  invented zone names, synthetic ids, and deltas inside the cleared band.
+  **Done 2026-09-16:** the four frames are captures of the walkthrough on
+  exactly that data (block above); the illustrations are gone from disk.
 - **The Account Insights reviewer console.** Every frame of it fans real
   published news to named real companies — the account, the news source, the
   cross-account effects and the opportunity chips are all real company names,
@@ -104,12 +138,12 @@ product's stepper reads as one system.
   product UI — its 40 images are slide exports, and those carry a customer name
   in the case study.
 
-### Designed step illustrations (24 frames, 6 products)
+### Designed step illustrations (20 frames, 5 products)
 
 `account-insights-1..4`, `case-evidence-collection-1..4`,
 `plan-vs-actual-investigation-1..4`, `cross-system-erp-qa-1..4`,
-`business-metrics-qa-1..4`, `workforce-optimization-1..4`. Large docs is the
-one product whose four frames are captures (above).
+`business-metrics-qa-1..4`. Large docs and Workforce optimization are the two
+products whose frames are captures (above).
 
 Drawn, not sourced. One grammar across all of them: ground `#10161A` with a
 `#0E2D4D` radial lift, 2–3 px strokes (≈ 1.5 px on screen at the rendered size),

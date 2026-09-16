@@ -209,10 +209,11 @@ With `marketplaceUrl` set, the badge opens the listing in a new tab; without one
 
 ### `demoUrl`
 
-The interactive walkthrough — a self-contained guided demo of the product on prepared data, described in `README.md` ("The interactive walkthrough"). Set today on `large-document-extraction` only, and pointed at a folder **inside** `site/`, so it deploys with the site and the link stays relative:
+The interactive walkthrough — a self-contained guided demo of the product on prepared data, described in `README.md` ("The interactive walkthroughs"). Set today on `large-document-extraction` and `workforce-optimization`, each pointed at a folder **inside** `site/`, so it deploys with the site and the link stays relative:
 
 ```js
 demoUrl: "demo/large-document-extraction/index.html",
+demoUrl: "demo/workforce-optimization/index.html",
 ```
 
 Non-empty → two controls appear together: the secondary **"Try the interactive demo"** button in the product hero (its label is `shared.demoCta` in `content.js`), and the same button inside the panel the pending video frame opens. Both open the walkthrough in a **new tab** — it carries its own guide and locks every control but the one it points at, and a seller mid-call must keep the product page behind it. Empty → neither control exists. An absolute URL on another host renders the same button.
@@ -223,6 +224,7 @@ Only matters while the site itself is previewed as a **claude.ai artifact**. The
 
 ```js
 demoPreviewUrl: "https://claude.ai/artifact/NdxY4f1D6hxC7pjyMRs6zP",
+demoPreviewUrl: "https://claude.ai/code/artifact/343ab0d5-1d99-4038-a395-6f177c3f5e2e",
 ```
 
 On the site's real host it is ignored and the relative `demoUrl` is used, so nothing has to change at deployment. Keep it in step with `demoUrl`: republish the standalone demo artifact whenever the walkthrough changes, or the preview shows an older demo than the site ships.
@@ -278,7 +280,7 @@ There is no third step, and the product's hero image is explicitly **not** one. 
 
 So a YouTube demo needs nothing here at all, and a frame waiting for its recording (`video: true`, no URL) renders with no `<img>`: the `video-card--plate` ground, the teal play button and the caption. That is the pending state, and it is the site's own rule for a missing asset. The backdrop behind the hero is held a stop darker on this layout so the frame still reads as a card and not as a hole cut in the background.
 
-Set `videoPoster` when the auto-derived thumbnail is a bad frame, when the video is on Vimeo or Stream (no public thumbnail), when you want a designed still rather than a screenshot, or when you want a pending frame to carry a picture — a product screenshot, a step frame, a desaturated crop at another focal point. Never point it at the hero file.
+Set `videoPoster` when the auto-derived thumbnail is a bad frame, when the video is on Vimeo or Stream (no public thumbnail), when you want a designed still rather than a screenshot, or when you want a pending frame to carry a picture — a product screenshot, a step frame, a desaturated crop at another focal point. Never point it at the hero file. Set today on `large-document-extraction` and `workforce-optimization`: each carries a 1600 × 900 still of its own walkthrough (`ASSETS.md` §1), so the pending frame shows the product rather than the plate.
 
 **If the poster cannot be loaded, it is dropped rather than shown broken.** The media frame keeps its veil, teal play button and caption over the inset panel, which already reads as a deliberate frame. One case needs naming: YouTube has `maxresdefault.jpg` only for videos uploaded above 720p, and for the rest it answers `200` with a 120×90 grey stand-in instead of a `404`. The renderer therefore treats a 120-pixel-wide YouTube thumbnail as a miss, retries `hqdefault.jpg` (which exists for every real video), and drops the poster only if that fails too. Nothing about this reaches the console.
 

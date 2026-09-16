@@ -10,7 +10,7 @@ Static site. No build step, no framework, no package manager: plain HTML, CSS an
 
 ## Preview
 
-- **Private preview artifact:** https://claude.ai/artifact/98wafGUphFSyGSr6ctJiiN (the same artifact as the older link https://claude.ai/code/artifact/41e4f3b6-47d9-4ef2-af99-99c40c02b89b) — sign-in required. The Large docs walkthrough also stands alone at https://claude.ai/artifact/NdxY4f1D6hxC7pjyMRs6zP.
+- **Private preview artifact:** https://claude.ai/artifact/98wafGUphFSyGSr6ctJiiN (the same artifact as the older link https://claude.ai/code/artifact/41e4f3b6-47d9-4ef2-af99-99c40c02b89b) — sign-in required. The two walkthroughs also stand alone: Large docs at https://claude.ai/artifact/NdxY4f1D6hxC7pjyMRs6zP, Workforce optimization at https://claude.ai/code/artifact/343ab0d5-1d99-4038-a395-6f177c3f5e2e.
 - **Locally:** any static server pointed at `site/` — `python3 -m http.server 8765 --directory site`, or the `oracle-site` entry in `.claude/launch.json`. See [Run it locally](#run-it-locally).
 
 ---
@@ -27,7 +27,9 @@ oracle-solutions-site/
 │   ├── PROVENANCE.md         where each fact and number on the site came from
 │   └── asset-candidates/     images considered but not shipped
 ├── tools/
-│   └── check-grammar.js      asserts every product fills every grammar slot
+│   ├── check-grammar.js      asserts every product fills every grammar slot
+│   ├── capture-demo-frames.mjs   drives a walkthrough in headless Chrome (tour QA, step frames, poster)
+│   └── capture-*.json        the scripted scenarios the capture tool replays
 └── site/                     ← THE DEPLOYABLE ROOT. Everything below is served.
     ├── index.html            the single page: head, header, <main>, footer, script tags
     ├── assets/
@@ -46,7 +48,8 @@ oracle-solutions-site/
     │   ├── product.js        window.PAGES.product    →  #/products/<slug>[/<tab>]
     │   └── services.js       window.PAGES.services   →  #/services
     └── demo/
-        └── large-document-extraction/   the interactive walkthrough — index.html, demo.css, demo.js, data.js
+        ├── large-document-extraction/   the Large docs walkthrough — index.html, demo.css, demo.js, data.js
+        └── workforce-optimization/      the Workforce optimization walkthrough — same four files
 ```
 
 Script order in `index.html` matters: `data/*` → `assets/forms.js` → `pages/*` → `assets/app.js`, which renders on load. A new page script goes before `assets/app.js`.
@@ -100,7 +103,7 @@ Full field-by-field reference: `docs/CONFIG.md`. In short:
 | `products.<slug>.video` | `true` → the product hero carries the 16:9 demo frame. With no `videoUrl` yet, clicking it opens a short panel saying the recording is being prepared, with a button to that product's Contacts tab. `true` today on `workforce-optimization`, `large-document-extraction` and `account-insights`. |
 | `products.<slug>.videoUrl` | Non-empty → the same frame plays the video in a modal instead (YouTube, Vimeo, SharePoint and Stream URLs embed as an iframe; anything else plays natively), and turns the frame on by itself even where `video` is `false`. |
 | `products.<slug>.successStoryUrl` | Non-empty → a "Download the success story" button appears. |
-| `products.<slug>.demoUrl` | Non-empty → the secondary "Try the interactive demo" button in the product hero and the same button in the pending-video panel, both opening a new tab. Relative to `site/` so the walkthrough deploys with the site. Set today on `large-document-extraction`. |
+| `products.<slug>.demoUrl` | Non-empty → the secondary "Try the interactive demo" button in the product hero and the same button in the pending-video panel, both opening a new tab. Relative to `site/` so the walkthrough deploys with the site. Set today on `large-document-extraction` and `workforce-optimization`. |
 | `products.<slug>.demoPreviewUrl` | The walkthrough published as its own claude.ai artifact. Used instead of `demoUrl` only while the site itself runs as a claude.ai artifact, which refuses to open a supporting file as a page of its own. Ignored on the real host. |
 | `products.<slug>.materials.<key>` | Non-empty → that row in the seller panel gets a download button instead of a disabled "Link pending" control. |
 
@@ -124,14 +127,16 @@ node tools/check-grammar.js
 
 ---
 
-## The interactive walkthrough
+## The interactive walkthroughs
 
-`site/demo/large-document-extraction/` is a self-contained guided demo of the Large docs processing and review pack: plain HTML, CSS and JavaScript, no dependency beyond Google Fonts (Inter), no build step, and nothing leaves the page — the upload and the download are mocked. It mirrors the product's layout and information model — upload → documents → split-view review (source page beside the extracted rows, a citation on every value, confidence, business-rule validators) → rate-card export — on two synthetic documents of different types — a supplier agreement (rate schedule, commercial terms, insurance requirements) and an insurance policy schedule (locations, deductibles, sub-limits, endorsements, premium), each with its own schema, its own columns per group and its own validators — and walks the viewer through six steps on the agreement with anchored hints that let only the designated control through. After the last step, or on "Exit guide", the workspace is free to explore; the policy is where the other validator kinds live (a value outside its expected band, a required field not found, a cross-field check, a low-confidence value routed to review), and `?doc=pol` opens it directly.
+Two products carry a self-contained guided demo. `site/demo/large-document-extraction/` is a guided demo of the Large docs processing and review pack: plain HTML, CSS and JavaScript, no dependency beyond Google Fonts (Inter), no build step, and nothing leaves the page — the upload and the download are mocked. It mirrors the product's layout and information model — upload → documents → split-view review (source page beside the extracted rows, a citation on every value, confidence, business-rule validators) → rate-card export — on two synthetic documents of different types — a supplier agreement (rate schedule, commercial terms, insurance requirements) and an insurance policy schedule (locations, deductibles, sub-limits, endorsements, premium), each with its own schema, its own columns per group and its own validators — and walks the viewer through six steps on the agreement with anchored hints that let only the designated control through. After the last step, or on "Exit guide", the workspace is free to explore; the policy is where the other validator kinds live (a value outside its expected band, a required field not found, a cross-field check, a low-confidence value routed to review), and `?doc=pol` opens it directly.
 
 - Linked from the product hero through `products["large-document-extraction"].demoUrl` in `config.js` (`docs/CONFIG.md` §3); the button opens a new tab, and the same button sits in the pending-video panel. While the site is previewed as a claude.ai artifact the buttons go to `demoPreviewUrl` — the walkthrough published as its own artifact — because the artifact host will not open a supporting file as a page of its own.
 - Brand-agnostic by design: no SoftServe, Oracle or NVIDIA mark inside it, and no customer — it can be shown to any prospect in any industry.
 - URL switches: `?tour=off` skips the welcome card and the guide (free mode); `?ui=clean` also hides the guide toggle — the mode the step frames were captured in.
 - The four step frames on the product page and the video-frame poster are captures of it, made with `tools/capture-demo-frames.mjs` (`docs/ASSETS.md` §1).
+
+`site/demo/workforce-optimization/` is the second walkthrough, built the same way (same tour engine, same URL switches, same standards) for the Workforce optimization pack: a dispatcher runs a four-week optimization for a fictional coastal metro of twelve work zones and eighteen technicians — region and period, the period's XLSX attached through a mock picker, a validation warning, the solver stages — then reads the proposed plan on a schematic map drawn as inline SVG (no map tiles, no real geography), opens a zone's details (postcodes, technicians with visits and days, the non-movable appointments the solver kept, and a "why" line for every change), compares the current allocation with the optimized one side by side, checks capacity and jobs per day per technician in the weekly schedule, resolves the one exception the solver got wrong (a zone whose wait time worsened: reject, comment, re-optimize with the feedback), accepts the rest — never a flagged zone — and exports the plan in the field-service system's import format, with a mocked write-back. Rules that visibly matter in the data: a vacation, a same-day sickness, a max-load day, a specialist-only zone, non-movable appointments, an uncovered postcode, and three dates allocated on last year's demand. The KPIs follow the pack's methodology (productivity = jobs ÷ days with a job, capacity at 7 visits a day, wait time in calendar days) and the fleet delta is the cleared median, +4.5% jobs per technician per day. Free exploration after the six steps: filters, the Runs and Settings panels (objectives, hard/soft rules, regions, connectors), the other flagged zone. Switches: `?tour=off`, `?ui=clean`, `?view=tech`, `?plan=compare`, `?state=start|v1|v2|final`, `?week=n`. Frames and poster: `docs/ASSETS.md` §1; the round: `docs/PROVENANCE.md` §18.
 
 ---
 
