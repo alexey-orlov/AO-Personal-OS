@@ -1246,7 +1246,7 @@ The seven icon keys `tagFamilies` names are **not in the `ICONS` registry yet**
 (`VISUAL-GRAMMAR.md` §6, "Round-4 icons still to draw"); `play` is. The data
 layer moved first, as it did in round 3.
 
-### 17.2 C1 · the four case studies, figure by figure
+### 17.2 C1 · the case studies, figure by figure
 
 `overview.successStory` → `overview.caseStudy`, reshaped, on the same surface
 with the same 3px teal rule. **`null` on three** (`case-evidence-collection`,

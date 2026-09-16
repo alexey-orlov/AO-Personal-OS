@@ -53,11 +53,11 @@ Script order in `index.html` matters: `data/*` → `assets/forms.js` → `pages/
 
 | Hash | Page |
 |---|---|
-| `#/` | Overview — hero, products, customer evidence, services teaser, demo form |
-| `#/products` | Product marketplace — facet rail (technology, category, marketplace), search, tiles |
+| `#/` | Overview — hero, products, case studies, services teaser, demo form |
+| `#/products` | Product marketplace — facet rail (technology, workflow pattern, availability), search, tiles |
 | `#/products/<slug>` | One product — hero plus tabs |
 | `#/products/<slug>/<tab>` | `overview` · `technology` · `jumpstart` · `contacts` · `sellers`. The retired segments `pov` → `jumpstart` and `demo` → `contacts` redirect in place, so Back still returns to where the reader came from and an old link still lands on the right tab. |
-| `#/services` | The Oracle dedicated practice — platforms, what we do, how we engage, why SoftServe, proof, contact form |
+| `#/services` | The Oracle dedicated practice — platforms, what we do, how we engage, why SoftServe, how we measure it, contact form |
 | anything else | A designed not-found page |
 
 An anchor can follow the route: `#/services#contact`, `#/#request-a-demo`. The router scrolls to that element with a 96 px offset. Query parameters work too — `#/products?tech=lakehouse` opens the marketplace with that facet applied, which makes filtered views shareable.
