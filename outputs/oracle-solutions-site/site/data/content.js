@@ -1,15 +1,15 @@
 window.SITE_CONTENT = {
   site: {
-    name: "AI Agents on Oracle",
+    name: "Oracle AI & Data Solutions",
     owner: "SoftServe",
-    title: "AI Agents on Oracle — SoftServe",
+    title: "Oracle AI & Data Solutions — SoftServe",
     tagline: "AI agents and workflows on Oracle platforms",
     metaDescription: "AI agents that read your contracts, plan your field workforce and answer questions across your ERP. Built on Oracle by SoftServe, measured on your data first.",
     headerLockup: {
       wordmark: "assets/img/softserve-wordmark-white.svg",
       wordmarkAlt: "SoftServe",
       divider: "assets/img/header-divider-white.svg",
-      productName: "AI Agents on Oracle"
+      productName: "Oracle AI & Data Solutions"
     },
     nav: [
       { label: "Products", route: "#/products" },
