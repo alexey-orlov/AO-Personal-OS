@@ -30,6 +30,7 @@
 
   var ICONS = {
     arrow: '<path d="M5 12h14M13 6l6 6-6 6"></path>',
+    arrowDown: '<path d="M12 5v14M6 13l6 6 6-6"></path>',
     arrowUpRight: '<path d="M7 17 17 7M8 7h9v9"></path>',
     check: '<path d="m4 12 5 5L20 6"></path>',
     lock: '<rect x="4" y="10" width="16" height="11" rx="2"></rect><path d="M8 10V7a4 4 0 0 1 8 0v3"></path>',
@@ -50,6 +51,7 @@
 
     alert: '<path d="M10.3 3.9 2.7 17a2 2 0 0 0 1.7 3h15.2a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"></path><path d="M12 8.5v5M12 16.6v.4"></path>',
     spark: '<path d="M12 3.5 13.8 9l5.7 1.8-5.7 1.8L12 18.3l-1.8-5.7L4.5 10.8 10.2 9z"></path><path d="m18.6 16.4.7 2.1 2.1.7-2.1.7-.7 2.1-.7-2.1-2.1-.7 2.1-.7z"></path>',
+    cube: '<path d="m12 3 8 4.5v9L12 21l-8-4.5v-9z"></path><path d="M4 7.5l8 4.5 8-4.5M12 12v9"></path>',
     roi: '<path d="M4 18.5 9.5 13l3.5 3.2L20 8.5"></path><path d="M15.5 8.5H20v4.3"></path><path d="M3 21h18"></path>',
     clock: '<circle cx="12" cy="12" r="8.5"></circle><path d="M12 7v5.3l3.4 2"></path>',
     gauge: '<path d="M3.5 17a8.5 8.5 0 1 1 17 0"></path><path d="m12 17 4-5.5"></path><circle cx="12" cy="17" r="1"></circle>',
@@ -229,7 +231,7 @@
     var extra = opts.attrs ? Object.assign({}, opts.attrs) : {};
     extra.href = opts.href || "#/";
     extra.class = "link-arrow" + (opts.className ? " " + opts.className : "");
-    return "<a" + attrs(extra) + "><span>" + esc(label) + "</span>" + icon("arrow") + "</a>";
+    return "<a" + attrs(extra) + "><span>" + esc(label) + "</span>" + icon(opts.icon || "arrow") + "</a>";
   }
 
   function divider(label, center) {
@@ -613,8 +615,8 @@
         esc(item.label) + "</a>";
     }).join("");
     var cta = button({
-      label: C.site.primaryCta.label,
-      href: C.site.primaryCta.route,
+      label: C.site.navCta.label,
+      href: C.site.navCta.route,
       kind: "secondary",
       className: "nav-cta btn--sm"
     });
@@ -723,7 +725,7 @@
       '<h1 class="h1">NOTHING <span class="accent">HERE</span></h1>' +
       '<p class="lead">That address does not match a page on this site.</p>' +
       '<div class="cta-row">' +
-        button({ label: "Back to the overview", href: "#/", kind: "secondary" }) +
+        button({ label: "Back to the home page", href: "#/", kind: "secondary" }) +
         button({ label: "Browse the products", href: "#/products", kind: "quiet" }) +
       "</div></section>";
   }

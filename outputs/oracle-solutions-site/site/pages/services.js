@@ -38,8 +38,8 @@
         '<div class="cta-row product-hero-cta">' +
           UI.button({ label: h.cta.label, href: h.cta.route, kind: "primary" }) +
           UI.button({
-            label: content.overview.hero.ctas[1].label,
-            href: content.overview.hero.ctas[1].route,
+            label: content.site.secondaryCta.label,
+            href: content.site.secondaryCta.route,
             kind: "quiet", iconAfter: "arrow"
           }) +
         "</div>" +
