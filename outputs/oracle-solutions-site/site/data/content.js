@@ -372,7 +372,6 @@ window.SITE_CONTENT = {
       { id: "processing-pipelines", chip: "Processing pipelines", full: "Per-item processing pipelines" },
       { id: "data-analysis", chip: "Data analysis & optimization", full: "Data analysis & decision agents" }
     ],
-    availabilityLabel: "Availability",
     availability: {
       label: "Availability",
       options: [
@@ -536,7 +535,26 @@ window.SITE_CONTENT = {
           { title: "Evaluation is part of the work", body: "The engine is a non-deterministic reasoning system, so a dedicated evaluation plan — correctness and confidence calibration — is part of the work." },
           { title: "Private equity funds", body: "A market or regulatory signal turned into thesis-relevant opportunities across portfolio companies; event-driven screening of pipeline targets." }
         ],
-        successStory: null
+        caseStudy: {
+          descriptor: "A global logistics and supply-chain operator",
+          area: "Account planning across a global enterprise account base",
+          industry: "logistics",
+          image: "assets/img/industries/logistics.jpg",
+          status: "in-progress",
+          metricsEyebrow: "Target outcomes",
+          metrics: [
+            { value: "One signal", label: "fanned out to every account it affects, not only the one it names" },
+            { value: "Calibrated", label: "opportunity confidence, scored against reviewer approve and reject decisions" }
+          ],
+          story: "A first engagement is under way on the customer’s own account base — CRM and account framing, the capability catalog and public filings — with NVIDIA AI-Q on Oracle Cloud Infrastructure. It measures the accuracy and the confidence calibration of the generated opportunities against reviewer approve and reject decisions. The figures above are target outcomes the proof of value is set up to measure, not results; they are illustrative, not contractual.",
+          scope: [
+            { label: "Stage", value: "Proof of value under way" },
+            { label: "Data footprint", value: "CRM, capability catalog, public filings" },
+            { label: "Human gate", value: "A reviewer approves or rejects every item" }
+          ],
+          ndaLine: "Customer under NDA · results follow at the end of the proof of value",
+          downloadLabel: "Download the case summary"
+        }
       },
       technology: {
         narrative: "The app runs on a dedicated AI cluster in your own Oracle Cloud Infrastructure tenancy. NVIDIA AI-Q grounds every conclusion in a cited first-party or public source, and nothing reaches the CRM until a reviewer approves it.",
@@ -700,6 +718,7 @@ window.SITE_CONTENT = {
       categoryChip: "Deep research",
       facet: "oci-nvidia",
       oneLiner: "Assembles the evidence trail for a case or complaint out of every system that holds a piece of it — cited, time-stamped, and ready for an investigator to decide on.",
+      statusNote: "Packaged offering in preparation — scoping conversations are open.",
       tags: ["Deep research", "OCI + NVIDIA", "AI-Q"],
       hero: {
         image: {
@@ -852,7 +871,7 @@ window.SITE_CONTENT = {
           { title: "Employee-relations partner", body: "A grievance intake builds a chronology from tickets, mail and policy references." },
           { title: "Quality manager", body: "A customer complaint triggers a batch-record and supplier-history review with a draft root-cause report." }
         ],
-        successStory: null
+        caseStudy: null
       },
       technology: {
         narrative: "Exports from your operational systems land read-only in your own OCI tenancy. NVIDIA AI-Q reasons across them, and every statement in the assembled case is bound to the source record it came from.",
@@ -1010,6 +1029,7 @@ window.SITE_CONTENT = {
       categoryChip: "Deep research",
       facet: "oci-nvidia",
       oneLiner: "Compares plan against actual across completed projects, orders and engagements, and assembles each variance with its candidate drivers and the source evidence behind them.",
+      statusNote: "Packaged offering in preparation — scoping conversations are open.",
       tags: ["Deep research", "OCI + NVIDIA", "AI-Q"],
       hero: {
         image: {
@@ -1155,7 +1175,26 @@ window.SITE_CONTENT = {
           { title: "Delivery lead, client engagements", body: "Closed engagements swept for where effort and schedule diverged from the plan, and what the record says about why." },
           { title: "Campaign owner", body: "Completed campaigns measured against plan, with the candidate drivers assembled from the systems that hold the spend, the schedule and the outcome." }
         ],
-        successStory: null
+        caseStudy: {
+          descriptor: "A major construction and engineering contractor",
+          area: "Plan versus actual across completed work packages",
+          industry: "construction",
+          image: "assets/img/industries/construction.jpg",
+          status: "in-progress",
+          metricsEyebrow: "Target outcomes",
+          metrics: [
+            { value: "Hours, not weeks", label: "of expert time to produce an equivalent plan-versus-actual analysis" },
+            { value: "Evidence-backed", label: "every material finding tied to a source record, with a review status" }
+          ],
+          story: "A first engagement is under way on one completed project sample, on the customer’s own schedule, cost and contract exports. The records are reconstructed into one package-level view of plan versus actual on Oracle Cloud Infrastructure — NVIDIA AI-Q over an evidence layer, Oracle AI Vector Search and Oracle AI Database 26ai — and whatever cannot be resolved is reported as a coverage gap. The figures above are target outcomes the proof of value is set up to measure, not results; they are illustrative, not contractual.",
+          scope: [
+            { label: "Sample", value: "One completed project" },
+            { label: "Data footprint", value: "Schedule, cost and contract exports" },
+            { label: "Human gate", value: "Expert validation on every material finding" }
+          ],
+          ndaLine: "Customer under NDA · results follow at the end of the proof of value",
+          downloadLabel: "Download the case summary"
+        }
       },
       technology: {
         narrative: "Static exports land in zoned OCI storage with lineage preserved. A conformed model resolves records to the lowest reliable unit, plan and actual are compared with cited drivers, and anything that could not be resolved is reported as a coverage gap.",
@@ -2128,7 +2167,7 @@ window.SITE_CONTENT = {
           { title: "Procurement lead", body: "Supplier spend, purchase-order and invoice-status questions answered in plain language over ERP data joined with the systems around it; standing report requests stop." },
           { title: "Operations lead", body: "Self-serve slicing of SLA, backlog and throughput metrics without waiting on the BI queue." }
         ],
-        successStory: null
+        caseStudy: null
       },
       technology: {
         narrative: "Oracle Autonomous AI Lakehouse is the governed layer. Data from Oracle applications arrives through pipelines that ship with the products, one or two other sources are linked alongside, and Select AI answers in plain language over that model.",
@@ -2432,7 +2471,7 @@ window.SITE_CONTENT = {
           { title: "Business manager", body: "Ask revenue, churn or inventory questions in plain language; get charts back from governed data, no report request." },
           { title: "Merchandiser", body: "Sales by SKU, region and promotion compared on demand." }
         ],
-        successStory: null
+        caseStudy: null
       },
       technology: {
         narrative: "Bronze and silver stay where they are. Oracle Autonomous AI Lakehouse becomes the governed gold layer — existing catalogs mounted, other databases linked — and Select AI answers across all of them with no data movement.",
