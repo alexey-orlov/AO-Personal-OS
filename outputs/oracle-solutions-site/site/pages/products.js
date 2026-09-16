@@ -3,7 +3,9 @@
 
   window.PAGES = window.PAGES || {};
 
-  var state = { tech: "", cat: "", mp: false, q: "" };
+  var EMPTY = { tech: "", cat: "", demo: false, mp: false, q: "" };
+
+  var state = Object.assign({}, EMPTY);
 
   function readState(query) {
     var q = query || {};
@@ -12,7 +14,8 @@
     state = {
       tech: techIds.indexOf(q.tech) >= 0 ? q.tech : "",
       cat: catIds.indexOf(q.cat) >= 0 ? q.cat : "",
-      mp: q.mp === "1" && anyMarketplace(),
+      demo: q.demo === "1",
+      mp: q.mp === "1",
       q: typeof q.q === "string" ? q.q : ""
     };
   }
@@ -21,18 +24,19 @@
     var parts = [];
     if (state.tech) parts.push("tech=" + encodeURIComponent(state.tech));
     if (state.cat) parts.push("cat=" + encodeURIComponent(state.cat));
+    if (state.demo) parts.push("demo=1");
     if (state.mp) parts.push("mp=1");
     if (state.q) parts.push("q=" + encodeURIComponent(state.q));
     return "#/products" + (parts.length ? "?" + parts.join("&") : "");
   }
 
-  function isMarketplace(product) {
-    var entry = window.SITE_CONFIG.products[product.slug];
-    return !!(entry && entry.marketplaceUrl);
-  }
+  /* Both availability facets read the same config booleans the badges read, so
+     a filter and a badge can never disagree about whether the thing exists. */
+  var AVAILABILITY_FLAG = { demo: "video", marketplace: "marketplace" };
 
-  function anyMarketplace() {
-    return window.UI.orderedProducts().some(isMarketplace);
+  function hasFlag(product, option) {
+    var entry = window.SITE_CONFIG.products[product.slug] || {};
+    return entry[AVAILABILITY_FLAG[option]] === true;
   }
 
   function haystack(product) {
@@ -41,10 +45,10 @@
       product.name,
       product.oneLiner,
       product.subLine || "",
+      product.statusNote || "",
       product.categoryChip,
       UI.facetLabel(product.facet).label,
       UI.facetLabel(product.facet).fullLabel,
-      product.availabilityChip,
       product.tags.join(" "),
       product.tile.outcomes.join(" ")
     ].join(" ").toLowerCase();
@@ -53,7 +57,8 @@
   function matches(product, filters) {
     if (filters.tech && product.facet !== filters.tech) return false;
     if (filters.cat && product.category !== filters.cat) return false;
-    if (filters.mp && !isMarketplace(product)) return false;
+    if (filters.demo && !hasFlag(product, "demo")) return false;
+    if (filters.mp && !hasFlag(product, "marketplace")) return false;
     if (filters.q) {
       var needle = filters.q.trim().toLowerCase();
       if (needle && haystack(product).indexOf(needle) < 0) return false;
@@ -77,7 +82,7 @@
         return UI.productTile(product, { eager: index < 2 });
       }).join("");
     }
-    if (state.tech && !state.cat && !state.mp && !state.q) {
+    if (state.tech && !state.cat && !state.demo && !state.mp && !state.q) {
       return UI.empty(UI.facetLabel(state.tech).emptyState);
     }
     return UI.empty(C.facets.noResults);
@@ -97,6 +102,25 @@
       '<span class="rail-option-label">' + UI.esc(options.label) + "</span>" +
       '<span class="rail-option-count nums">' + UI.esc(options.count) + "</span>" +
       "</button>";
+  }
+
+  /* One checkbox per availability flag, faceted the way the radio groups are:
+     the count is what the result would be if this box alone were ticked, and a
+     box that can only ever return nothing is disabled rather than a dead end. */
+  function availabilityCheck(option) {
+    var UI = window.UI;
+    var key = option.id === "marketplace" ? "mp" : option.id;
+    var on = !!state[key];
+    var override = {};
+    override[key] = true;
+    var count = filtered(override).length;
+    var dead = count === 0 && !on;
+    return '<label class="checkline' + (dead ? " is-empty" : "") + '">' +
+      '<input type="checkbox" data-avail="' + UI.esc(key) + '"' +
+        (on ? " checked" : "") + (dead ? " disabled" : "") + ">" +
+      '<span class="rail-option-label">' + UI.esc(option.label) + "</span>" +
+      '<span class="rail-option-count nums">' + UI.esc(count) + "</span>" +
+      "</label>";
   }
 
   function railHtml() {
@@ -132,14 +156,12 @@
         '<p class="rail-label" id="facet-cat-label">' + UI.esc(C.facets.categoryLabel) + "</p>" +
         '<div class="rail-options" role="radiogroup" aria-labelledby="facet-cat-label">' + cats + "</div>" +
       "</div>" +
-      (anyMarketplace()
-        ? '<div class="rail-group">' +
-            '<label class="checkline"><input type="checkbox" id="facet-marketplace"' +
-              (state.mp ? " checked" : "") + ">" +
-              "<span>" + UI.esc(C.facets.marketplace.label) +
-              ' <span class="rail-option-count nums">' + filtered({ mp: true }).length + "</span></span></label>" +
-          "</div>"
-        : "") +
+      '<div class="rail-group">' +
+        '<p class="rail-label" id="facet-avail-label">' + UI.esc(C.facets.availability.label) + "</p>" +
+        '<div class="rail-checks" role="group" aria-labelledby="facet-avail-label">' +
+          C.facets.availability.options.map(availabilityCheck).join("") +
+        "</div>" +
+      "</div>" +
       '<div class="rail-group">' +
         '<button class="btn btn--quiet btn--sm rail-clear" type="button" id="facet-clear">' +
           UI.icon("close") + "<span>" + UI.esc(C.facets.clearLabel) + "</span></button>" +
