@@ -219,7 +219,7 @@ Crop offsets in CSS px (device px are twice these, at `DPR=2`): `-1` (0, 44,
 placed on a real boundary — `-1` starts at the Data Studio bar and ends in the
 white below the green *View* band; `-3` starts on an answer-row boundary and
 ends on a trace-span boundary. Converted with `sips` (crop → resample to
-1600 × 1000 → progressive JPEG q86) on a Mac without ffmpeg; 208–246 KB each,
+1600 × 1000 → progressive JPEG q86) on a Mac without ffmpeg; 203–240 KB each,
 inside the 300 KB ceiling. **`sips` gotcha, again:** `--cropOffset 0 0` means
 *centred*, so a crop anchored at the left edge needs a non-zero Y with X = 0.
 

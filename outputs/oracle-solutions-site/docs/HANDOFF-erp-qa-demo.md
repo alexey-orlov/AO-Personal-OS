@@ -135,10 +135,72 @@ Skip = auto-perform, as before. Hints allow only the designated control; every o
 | B. Data model and reconciliation | Opus | this file §1–4, §9 | `data.js`, `tools/erp-qa-check.js` |
 | C. Build (three surfaces, switcher, tour) | Opus | A, B, §5–7, the WfO engine | the four demo files, tour scenario, `LOGS: none` |
 | Red-team | Fable | C's screenshots, §10 | gap list |
-| D. Fixes, captures, wiring, docs | Opus | red-team list, §8 | stills, poster, `config.js`, `content.js`, README / CONFIG §3 / ASSETS §1 / PROVENANCE §20 |
+| D. Fixes, captures, wiring, docs | Opus | red-team list, §8 | stills, poster, `config.js`, `content.js`, README / CONFIG §3 / ASSETS §1 / PROVENANCE §22 (§20 and §21 were taken by two other sessions while this build ran) |
 | Publish, review, wiki fold | Fable | D | standalone artifact, site artifact, `demoPreviewUrl`, wiki |
 
-Done block: — (filled when shipped).
+## Done — built, captured, wired and documented 2026-09-16
+
+**Copy hygiene (leg D2, before capture).** Four on-screen notes that talked
+about evidence, sources or design provenance were trimmed in
+`site/demo/cross-system-erp-qa/demo.js` — the Live Feed job-card aside (kept
+"Mocked run — no job is submitted and nothing is written back to any source
+system"), the Explain panel's semantic-layer note, the catalog entity-page
+footnote and the Reviewed-entities note. Only source-code comments still
+mention what Oracle does or does not ship. The tour scenario was replayed at
+1440 × 900 afterwards: `LOGS: none`.
+
+**Files shipped.**
+
+| File | Size | What it is |
+|---|---|---|
+| `site/assets/img/steps/cross-system-erp-qa-1.jpg` | 1600 × 1000, 203 KB | Data Studio › Catalog, five mounted catalogs (`state=start`) |
+| `site/assets/img/steps/cross-system-erp-qa-2.jpg` | 1600 × 1000, 231 KB | The health band in full after the rebuild (`state=refreshed`) |
+| `site/assets/img/steps/cross-system-erp-qa-3.jpg` | 1600 × 1000, 234 KB | The Agent Hub answer with source badges, Trace open (`state=refreshed`) |
+| `site/assets/img/steps/cross-system-erp-qa-4.jpg` | 1600 × 1000, 240 KB | The band recomputed after the steward's rejection (`state=fixed`) |
+| `site/assets/img/posters/cross-system-erp-qa.jpg` | 1600 × 900, 247 KB | The Agent Hub answer at `state=final`, 11 rows, controller |
+| `tools/capture-erpqa-frames.json` | — | The frames-and-poster scenario (run at four viewports) |
+
+The four `cross-system-erp-qa-*.svg` illustrations are deleted;
+`site/assets/img/manifest-edits.json` was updated to the `.jpg` files. Capture
+recipe, crop offsets and the reason for the four viewports: `docs/ASSETS.md` §1.
+
+**Wiring.** `config.js` → `demoUrl: "demo/cross-system-erp-qa/index.html"`,
+`videoPoster: "assets/img/posters/cross-system-erp-qa.jpg"`, `demoPreviewUrl`
+left empty, `video` left `false`. `content.js` → the four step `image` fields
+point at the `.jpg` captures; **the step copy is untouched**, per §0.
+
+**QA.** `node --check` clean on `demo.js`, `data.js`, `config.js`,
+`content.js`; `node tools/check-grammar.js` OK; `node tools/erp-qa-check.js`
+267 assertions passing; the tour replay clean. The product page was verified
+headlessly on `file://` at 1440 × 1000 — all four stills render on their steps,
+the poster file loads, the demo button points at the local demo and opens a new
+tab, no horizontal overflow, console clean. Screenshot:
+`.work/erpqa-qa/product-page.png`.
+
+**One editorial mismatch, left for Alex.** The site's step 4 is titled *"Ask in
+plain language"* and its text is about Select AI answering over the governed
+schema — but still `-4` shows Mapping review's recomputed band, because §8
+assigns the stills in tour order. Steps 1, 2 and 3 fit their frames well
+(connect → catalog with five mounted catalogs; shape one decision domain → the
+band with "5 sources · 1 model · 13 certified views"; guard it in the data layer
+→ the trace with the SQL Firewall, row-policy and masking lines). If step 4
+should match its copy, the fix is to re-cut `-4` from the Agent Hub answer (the
+poster's composition) and move the steward frame elsewhere — no re-shoot of the
+other three needed.
+
+**Still to do (main session only — subagents never publish and never run git).**
+
+1. Publish the walkthrough as its **own** artifact (wrapper-free copy under
+   `.work/`, `demo.css` / `demo.js` / `data.js` as supporting files).
+2. Paste that URL into `products["cross-system-erp-qa"].demoPreviewUrl` in
+   `site/data/config.js`, and into the preview-links table in `README.md`
+   (the cell currently reads "pending").
+3. Read, then republish the **site** artifact with the new demo folder, the
+   four frames, the poster, `data/config.js`, `data/content.js`,
+   `assets/img/manifest-edits.json`, and `null` for the four removed `.svg`
+   frames. Publish the full tree if another session may have touched the
+   renderer files.
+4. Fold the round into the context wiki with `context-update`.
 
 ## 12. Build notes (running record)
 
