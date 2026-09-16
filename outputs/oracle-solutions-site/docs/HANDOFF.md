@@ -22,7 +22,7 @@ Written 2026-09-16 by the build session on Alex's Mac. Everything a new session 
 | Hero / step / industry images, logos (unreferenced), headshot | `site/assets/img/**` | yes (repo) |
 | Raw deck media (OneDrive `Projects/Oracle/…`), BSH business case PDF | Alex's Mac / SoftServe OneDrive (`ms365` MCP when authenticated) | no — only needed for NEW imagery; reuse existing assets instead |
 | Research scratchpad (`research/*.md`, `spec/*.md`) | deleted with the session scratchpad | no — do not look for it; PROVENANCE.md holds what was kept |
-| About-SoftServe corporate facts | **now in the repo:** `docs/PROVENANCE.md` §18.2 records every figure the About block uses, verbatim, with its URL and the 2026-09-16 fetch date. Re-fetch only to refresh a figure — and note that `/en-us/about`, `/en-us/partners`, `/en-us/partners/oracle` and `/en-us/partners/nvidia` all 404; the working paths are `/en-us/about-us` and `/en-us/our-partners[/oracle|/nvidia]` | yes (repo; web to refresh) |
+| About-SoftServe corporate facts | **now in the repo:** `docs/PROVENANCE.md` §18.2 records every figure the About block uses, verbatim, with its URL and the 2026-09-16 fetch date. Re-fetch only to refresh a figure — and note that `/en-us/about`, `/en-us/partners`, `/en-us/partners/oracle` and `/en-us/partners/nvidia` all 404; the working paths are `/en-us/about-us` and `/en-us/our-partners[/oracle\|/nvidia]` | yes (repo; web to refresh) |
 
 Git: git-autosync runs only on the Mac. On another machine: `git pull` first, commit with conventional messages (`feat(site): …`), `git push` when done.
 
