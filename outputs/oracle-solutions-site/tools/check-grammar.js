@@ -819,41 +819,9 @@ if (!arr(C.products) || C.products.length !== 7) {
       }
     }
   });
-  /* Services carries the method, not a second copy of these cards: one line per
-     engagement, the same engagements, no figures — those stay here. */
-  var descriptors = cards.map(function (c) { return c.descriptor; });
-  var proof = C.services && C.services.proof;
-  if (!proof) return fail("services.proof", "missing");
-  if (proof.evidenceIds !== undefined) fail("services.proof", "evidenceIds is superseded by the method treatment");
-  if (proof.caseStudyIds !== undefined) {
-    fail("services.proof", "caseStudyIds is superseded — Services no longer repeats the home page's case-study grid");
-  }
-  if (proof.methodNote !== undefined) fail("services.proof", "methodNote is superseded by lead + stat + footnote");
-  ["title", "dividerLabel", "lead", "engagementsTitle", "footnote"].forEach(function (k) {
-    if (!str(proof[k])) fail("services.proof", k + " missing");
-  });
-  if (!proof.stat || !str(proof.stat.value) || !str(proof.stat.label)) {
-    fail("services.proof", "stat needs { value, label } — the one accuracy figure, set as a stat rather than buried in a footnote");
-  }
-  if (!proof.cta || !str(proof.cta.label) || !str(proof.cta.route)) {
-    fail("services.proof", "cta needs { label, route } — the link back to the case studies that carry the figures");
-  }
-  if (!arr(proof.engagements) || proof.engagements.length !== cards.length) {
-    fail("services.proof", "engagements must hold one line per case study (" + cards.length + ")");
-  } else proof.engagements.forEach(function (e, i) {
-    var ew = "services.proof.engagements[" + i + "]";
-    if (!str(e.descriptor) || !str(e.line)) fail(ew, "needs { descriptor, line }");
-    if (str(e.descriptor) && descriptors.indexOf(e.descriptor) === -1) {
-      fail(ew, 'descriptor "' + e.descriptor + '" is not one of the case-study descriptors');
-    }
-    if (!e.product || !str(e.product.slug) || !str(e.product.name)) fail(ew, "product needs { slug, name }");
-    else if (slugs.indexOf(e.product.slug) === -1) fail(ew, 'product.slug "' + e.product.slug + '" is not one of the seven');
-    /* The figures live on the Overview cards; repeating one here would put a
-       number in front of a reader with none of its caveats. */
-    if (str(e.line) && /\d+(\.\d+)?\s?%|\+\d|~\d/.test(e.line)) {
-      fail(ew, "line carries a figure — Services states the method, the Overview cards carry the numbers");
-    }
-  });
+  /* Services no longer restates the engagements, one line each: since round 6
+     the case-study footnotes here carry each engagement's evidence, and
+     `services.proof` is checked with the rest of the Services page below. */
 })();
 
 /* ---- round 5 · the home page ----
@@ -895,12 +863,13 @@ if (!arr(C.products) || C.products.length !== 7) {
     if (got.label !== want.label) fail("site.nav[" + i + "]", 'label is "' + got.label + '", expected "' + want.label + '"');
     if (got.route !== want.route) fail("site.nav[" + i + "]", 'route is "' + got.route + '", expected "' + want.route + '"');
   });
-  /* Three CTAs, three jobs, and they are not interchangeable: `navCta` is the
-     header button, `secondaryCta` the quiet button in the Services hero, and
-     `primaryCta` the label every product hero still carries. */
-  ["navCta", "secondaryCta", "primaryCta"].forEach(function (k) {
+  /* Two CTAs, two jobs, and they are not interchangeable: `navCta` is the
+     header button, `primaryCta` the label every product hero still carries.
+     Round 6 retired `secondaryCta` with the Services hero's quiet button. */
+  ["navCta", "primaryCta"].forEach(function (k) {
     reqCta("site." + k, s[k]);
   });
+  if (s.secondaryCta !== undefined) fail("site.secondaryCta", "retired in round 6 — the Services hero carries one button");
 
   /* --- S1 · the hero --- */
   var h = o.hero || {};
