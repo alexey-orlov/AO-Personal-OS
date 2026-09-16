@@ -1823,7 +1823,7 @@ Services are untouched apart from one button.
 |---|---|
 | `site.name`, `headerLockup.productName` | **AI Agents on Oracle** — the lockup reads `softserve │ AI Agents on Oracle`. Not "practice": the practice is the engine, the agents are the promise. |
 | `site.title` | **AI Agents on Oracle — SoftServe**; a product page is *"&lt;Product&gt; — AI Agents on Oracle — SoftServe"*. |
-| `site.metaDescription` | *"Best-of-breed enterprise AI agents and workflows on Oracle platforms: packaged products you can start now, and a dedicated Oracle AI & Data practice from SoftServe."* — §6.1's sentence with *ready-to-run* replaced, per (a) below. |
+| `site.metaDescription` | *"Enterprise AI agents and workflows on Oracle platforms: packaged products you can start now, and a dedicated Oracle AI & Data practice from SoftServe."* — §6.1's sentence with *ready-to-run* replaced, per (a) below, and with its opening *Best-of-breed* dropped in the copy round (18.5). Mirrored in `index.html`'s `description`, `og:description` and `twitter:description`. |
 | `site.nav` | **Products · Services · Case studies**, the third an anchor into this page's own S5. *Overview* is gone; the lockup is the home link. |
 | `site.navCta` | The header button, **Talk to us** → `#/services#contact`, replacing the *Request a demo* pill. `site.primaryCta` keeps that label for the product heroes and for `#/#request-a-demo`. |
 | `site.secondaryCta` | **Browse the products** → `#/products`, for the Services hero's quiet button, which used to borrow `overview.hero.ctas[1]`. |
@@ -1836,9 +1836,10 @@ it in the words-to-use list and §6.2 headlines S2 *"Products you can run now."*
 Two of the seven carry `statusNote: "Packaged offering in preparation — scoping
 conversations are open."`, so a blanket *ready-to-run* contradicts the product
 page one click away. What ships: the hero lead says **packaged** agents and
-workflows, the S2 headline says **"Products you can start now."**, and the S2
-body states the split in the customer's own terms — *"Four are priced and ready
-to start today; three are scoped per engagement."*
+workflows, the S2 headline says **"Products you can start now, and a practice
+that makes them yours."** (one sentence since 18.5), and the S2 body states the
+split in the customer's own terms — *"Four are priced and ready to start today;
+three are scoped per engagement."*
 
 | | Products | Evidence in `content.js` |
 |---|---|---|
@@ -1863,8 +1864,8 @@ not be verified. All four were **re-pointed at a source** instead of dropped:
 | §6.2 bullet | What ships | Why |
 |---|---|---|
 | *"Demo, Jumpstart scope and pricing on every product page"* | **"Jumpstart scope, timeline and investment on every product page"** | Only **three** products carry a demo frame (`video: true` on `account-insights`, `large-document-extraction`, `workforce-optimization`) and **two** print no price at all (`investment.price: null`). Every product page does carry the Jumpstart scope, a timeline and an investment card — that is the claim that holds on all seven |
-| *"Fixed scope, fixed price, weeks not quarters"* | **"A fixed price on the packaged scope; 30–45 days to about two months to a result"** | `services.howWeEngage.ladder[0].pricing` says *"A fixed price for the packaged scope; scoped per engagement on the deep-research investigations"* — the price is fixed **on the packaged scope**, not on everything; the durations are that row's own `duration` cell. Same reasoning as (b) |
-| *"Evaluation-first: results are measured before you commit"* | **"Success metrics signed before the clock starts, every KPI measured like for like"** | `services.howWeEngage.howAPovRuns.steps[0]` (*"two to three success metrics are signed … before the clock"*) and `services.proof.lead` (*"Every KPI is computed identically for the current path and the optimized one"*). "Evaluation-first" is an internal framing; the two sentences it compresses are on the site already |
+| *"Fixed scope, fixed price, weeks not quarters"* | **"A fixed price on the packaged scope, scoped per engagement on the deep-research investigations"** | `services.howWeEngage.ladder[0].pricing` says *"A fixed price for the packaged scope; scoped per engagement on the deep-research investigations"* — the price is fixed **on the packaged scope**, not on everything. The bullet first carried the durations too; 18.5 cut them (they print in the S4 ladder `fact`) and put that row's third clock in their place |
+| *"Evaluation-first: results are measured before you commit"* | **"Every KPI measured like for like against your current process"** | `services.proof.lead` (*"Every KPI is computed identically for the current path and the optimized one"*). "Evaluation-first" is an internal framing; the sentence it compresses is on the site already. The bullet also opened with the signed success metrics until 18.5 — that clause is said twice elsewhere on the page (S4 step 1, the S5 rail), so it was cut here |
 | *"Expert pods: AI engineers, data engineers, Oracle architects"* | **"One team: AI, data and OCI architects with senior AI and data engineers"** | `services.whatWeDo.whoDeliversIt`, near-verbatim. **"Pods" is internal vocabulary** — it appears nowhere on the site and describes a staffing model no customer has been sold |
 
 **(d) S5's method line is `services.proof` reused, and the NDA line is
@@ -1917,7 +1918,7 @@ on the site.
 |---|---|---|
 | `eyebrow` | §6.2 | verbatim (set in sentence case) |
 | `headline.lead` / `.accent` | §6.2 | verbatim, split into the white lines and the teal one |
-| `lead` | §6.2, with *ready-to-run* → *packaged* (18.0 a) | adapted |
+| `lead` | §6.2, with *ready-to-run* → *packaged* (18.0 a) and, since 18.5, *compounded by* → *with … on top*: *"Oracle's AI platforms, with SoftServe's enterprise agentic-AI experience on top: packaged agents and workflows for the jobs enterprises repeat most, and a dedicated practice that takes them from a fixed-scope proof of value to production."* | adapted |
 | `ctas[0..1]` | §6.2 — *Explore the products* → `#/#products`, *How we deliver* → `#/#how-we-deliver` | verbatim |
 | `stack.ariaLabel` | — the figure has no source; it describes what the three bands show | **written** |
 | `stack.patternsLabel`, `stack.platformsLabel` | The two family names the site already uses: `shared.tagFamilies.pattern` tooltip *Workflow pattern*, and `facets.technologyLabel` | adapted |
