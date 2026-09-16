@@ -1468,96 +1468,88 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 
 .media-figure img { width: 100%; height: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
 
-/* ——— success story: a dark callout (VISUAL-GRAMMAR §2.6) ——— */
+/* ——— case study: a dark callout (VISUAL-GRAMMAR §2.6) ——— */
 
-/* Surface-level dark panel with a 3px teal left rule — not the white band it
-   used to be. The caveat that qualifies the figures is the last sentence of
+/* Surface-level dark panel with a 3px teal left rule. No customer is named and
+   no logo is rendered (Alex, 2026-09-16) — the header band is the industry
+   photograph the industry tabs already use, and the medallion sits where the
+   mark used to. The caveat that qualifies the figures is the last sentence of
    the story, because the callout carries no footnote row of its own. */
-.story-callout {
-  display: flex;
-  flex-direction: column;
-  gap: 1.125rem;
-  padding: clamp(1.5rem, 2.4vw, 2rem);
+.case-callout {
   border: 1px solid var(--border-subtle);
   border-left: 3px solid var(--accent);
   border-radius: 0 var(--r-lg) var(--r-lg) 0;
   background: var(--bg-raised);
+  overflow: hidden;
 }
 
-.story-head { display: flex; align-items: center; gap: 1rem; }
+.case-band { position: relative; height: clamp(6rem, 12vw, 9rem); }
+.case-band-img { width: 100%; height: 100%; object-fit: cover; }
 
-.story-logo {
-  flex: none;
-  width: auto;
-  height: 1.5rem;
-  max-width: 9rem;
-  object-fit: contain;
-  object-position: left center;
-  opacity: .92;
+.case-band-veil {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, .35) 0, rgba(24, 24, 24, .55) 45%, var(--bg-raised) 100%);
 }
 
-/* A stacked lockup — a symbol above its wordmark — carries its type in a
-   fraction of its height, so a single height rule renders the words as a
-   smudge. Sized so both marks read at the same x-height. */
-.story-logo--stacked { height: 3.125rem; max-width: 12rem; }
-
-.story-head-copy { display: flex; flex-direction: column; gap: .25rem; min-width: 0; }
-.story-customer { font-size: 1.0625rem; font-weight: 700; line-height: 1.2; color: var(--text); }
-
-.story-headline {
-  font-family: var(--font-body);
-  font-size: 1.125rem;
-  font-weight: 700;
-  line-height: 1.35;
-  color: var(--text);
-  text-transform: none;
-  max-width: 44rem;
+.case-body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.125rem;
+  padding: clamp(1.25rem, 2.2vw, 1.75rem) clamp(1.5rem, 2.4vw, 2rem) clamp(1.5rem, 2.4vw, 2rem);
 }
+
+.case-head { display: flex; align-items: center; gap: 1rem; }
+.case-callout .case-descriptor { font-size: 1.1875rem; }
+.case-callout .case-medallion { width: 3rem; height: 3rem; }
+.case-callout .case-medallion .icon { width: 1.5rem; height: 1.5rem; }
+
+.case-metrics { align-self: stretch; }
+.case-metrics-eyebrow { color: var(--text-dim); margin-bottom: .75rem; }
 
 /* Peer figures share two rows, so the captions sit on one baseline even when
    a value wraps to two lines. */
-.story-figures {
+.case-figures {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   grid-template-rows: auto auto;
   gap: 0 2rem;
-  padding-block: .25rem;
 }
 
-.story-figure { display: contents; }
-.story-figure-value { grid-row: 1; }
-.story-figure-label { grid-row: 2; }
+.case-figure { display: contents; }
+.case-figure-value { grid-row: 1; }
+.case-figure-label { grid-row: 2; }
+.case-callout .case-figure-value { font-size: clamp(1.75rem, 3.2vw, 2.5rem); line-height: 1; letter-spacing: -.02em; }
+.case-callout .case-figure-label { margin-top: .5rem; }
 
-.story-figure-value {
-  font-family: var(--font-display);
-  font-weight: 900;
-  font-size: clamp(1.75rem, 3.2vw, 2.5rem);
-  line-height: 1;
-  letter-spacing: -.02em;
-  color: var(--accent);
+.case-text { font-size: var(--fs-sm); line-height: 1.7; color: var(--text-body); max-width: 62rem; }
+
+/* Three external-safe facts, label above value — no contract value, no
+   contract duration, no headcount. */
+.case-scope {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem 1.5rem;
+  align-self: stretch;
+  margin: 0;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-subtle);
 }
 
-.story-figure-label { margin-top: .5rem; font-size: var(--fs-xs); line-height: 1.5; color: var(--text-note); }
-.story-text { font-size: var(--fs-sm); line-height: 1.7; color: var(--text-body); max-width: 62rem; }
-.story-link { margin-top: .25rem; }
+.case-scope dt { font-size: var(--fs-xs); letter-spacing: .1em; text-transform: uppercase; color: var(--text-dim); }
+.case-scope dd { margin: .3125rem 0 0; font-size: var(--fs-sm); line-height: 1.5; color: var(--text); }
 
-/* the two named customer marks, on the home-page proof rows and Services */
-.proof-logo {
-  display: block;
-  width: auto;
-  height: 1.375rem;
-  max-width: 8rem;
-  object-fit: contain;
-  object-position: left center;
-  opacity: .9;
-  margin-bottom: .25rem;
+.case-nda { font-size: var(--fs-xs); line-height: 1.5; color: var(--text-dim); }
+.case-link { margin-top: .25rem; }
+
+@media (max-width: 720px) {
+  .case-scope { grid-template-columns: 1fr; gap: .875rem; }
 }
-
-.proof-logo--stacked { height: 3rem; max-width: 11rem; }
 
 @media (max-width: 560px) {
-  .story-figures { grid-template-columns: minmax(0, 1fr); grid-template-rows: none; gap: 1rem 0; }
-  .story-figure { display: block; }
+  .case-figures { grid-template-columns: minmax(0, 1fr); grid-template-rows: none; gap: 1.25rem 0; }
+  .case-figure { display: block; }
 }
 
 .panel--tight { gap: 1rem; }
@@ -2269,41 +2261,6 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 
 .why-grid { margin-top: 2.5rem; }
 
-.brief-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--gap); margin-top: 2.5rem; }
-
-.brief {
-  display: flex;
-  flex-direction: column;
-  gap: .75rem;
-  padding: 1.75rem;
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--r-lg);
-  background: var(--bg-inset);
-}
-
-.brief-title { font-family: var(--font-display); font-weight: 900; font-size: 1.25rem; text-transform: uppercase; line-height: 1.15; color: var(--text); }
-.brief-industry { font-size: var(--fs-xs); letter-spacing: .08em; text-transform: uppercase; color: var(--text-dim); }
-.brief-body { font-size: var(--fs-sm); line-height: 1.65; color: var(--text-body); }
-
-.brief-metrics {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  grid-template-rows: auto auto;
-  gap: 0 var(--gap);
-  padding-top: 1.25rem;
-  margin-top: .25rem;
-  border-top: 1px solid var(--border-subtle);
-}
-
-.brief-metric { display: contents; }
-.brief-value { grid-row: 1; }
-.brief-label { grid-row: 2; }
-
-.brief-value { font-family: var(--font-display); font-weight: 900; font-size: 1.375rem; line-height: 1.1; color: var(--text); letter-spacing: -.01em; }
-.brief-label { margin-top: .375rem; font-size: var(--fs-xs); line-height: 1.55; color: var(--text-muted); }
-.brief-notes { display: flex; flex-direction: column; gap: .375rem; }
-.brief-link { margin-top: auto; padding-top: .75rem; }
-
 /* ——— services: contact band ——————————————————————————— */
 
 .contact-head { display: flex; flex-direction: column; gap: 1.25rem; margin-bottom: clamp(2rem, 3vw, 2.75rem); }
@@ -2311,18 +2268,12 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 
 @media (max-width: 1100px) {
   .plat-grid { grid-template-columns: 1fr; }
-  .brief-grid { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 900px) {
   .layer-band { grid-template-columns: 1fr; gap: .5rem; }
   .layer-table--duo .layer-row { grid-template-columns: 1fr; }
   .services-title { max-width: none; }
-}
-
-@media (max-width: 560px) {
-  .brief-metrics { grid-template-columns: 1fr; grid-template-rows: none; gap: 1.25rem 0; }
-  .brief-metric { display: block; }
 }
 
 /* ——— technology: architecture head + capabilities ————— */
@@ -2470,18 +2421,18 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
   .rail,
   .form-trap { display: none !important; }
 
-  .h1, .h2, .h3, .h4, .ptile-title, .tier-title, .brief-title, .note-title, .plat-name,
-  .stat-value, .metric-value, .brief-value, .invest-value, .story-figure-value { color: #111; }
+  .h1, .h2, .h3, .h4, .ptile-title, .tier-title, .case-descriptor, .plat-name,
+  .stat-value, .invest-value, .case-figure-value { color: #111; }
 
-  .lead, .body-text, .small, .footnote, .def-body, .tier-scope, .brief-body, .note-body,
-  .plat-body, .layer-band-body, .stat-label, .metric-label, .brief-label,
-  .ptile-desc, .story-text, .pillar-text { color: #333; }
+  .lead, .body-text, .small, .footnote, .def-body, .tier-scope, .case-card-line,
+  .plat-body, .layer-band-body, .stat-label, .case-figure-label, .case-area,
+  .ptile-desc, .case-text, .pillar-text { color: #333; }
 
   .accent, .eyebrow--accent, .layer-band--lead .layer-band-label { color: #0B6E63; }
 
-  .ptile, .tier, .brief, .plat-card, .panel, .split-col, .layer-band,
+  .ptile, .tier, .case-card, .plat-card, .panel, .split-col, .layer-band,
   .light-band, .light-band-media, .light-band-copy, .form-confirm,
-  .story-callout, .media-figure, .pillar, .invest-card, .next-tier,
+  .case-callout, .media-figure, .pillar, .invest-card, .next-tier,
   .ps-panel, .stat-tiles, .stat-tile, .roi-band, .cap-stage,
   .video-card, .rail-card, .step-frame, .ind-figure,
   .stack-accordion, .stack-row, .stack-body, .contact-card {
@@ -2494,6 +2445,7 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 
   .ptile-band { background: #f2f2f2 !important; }
   .chip { background: #f2f2f2 !important; color: #111 !important; border-color: #bbb !important; }
+  .badge, .case-status { background: #f2f2f2 !important; color: #0B6E63 !important; border-color: #bbb !important; }
   .section { padding-block: 1.5rem; }
   .js-reveal .reveal { opacity: 1 !important; transform: none !important; }
 
