@@ -863,7 +863,7 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 .case-status--in-preparation { border-color: var(--border); background: none; color: var(--text-muted); }
 .case-status--in-preparation .case-status-dot { background: transparent; box-shadow: inset 0 0 0 1px var(--accent); }
 
-.case-card-metric { display: flex; flex-direction: column; gap: .25rem; }
+.case-card-metric { display: flex; flex-direction: column; gap: .25rem; margin-top: .25rem; }
 .case-card-line { font-size: var(--fs-sm); line-height: 1.65; color: var(--text-body); }
 .case-card-note { color: var(--text-dim); }
 .case-card-link { margin-top: auto; padding-top: .25rem; }
@@ -1295,7 +1295,6 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 .rail-option-count { font-size: var(--fs-xs); color: var(--text-dim); flex: none; }
 .rail-option[aria-checked="true"] .rail-option-count { color: var(--accent); }
 
-.rail-note { font-size: var(--fs-xs); line-height: 1.55; color: var(--text-dim); margin-top: .5rem; }
 .rail-clear { align-self: flex-start; }
 .rail-clear .icon { width: .75rem; height: .75rem; }
 
@@ -1539,8 +1538,10 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 .case-callout .case-medallion { width: 3rem; height: 3rem; }
 .case-callout .case-medallion .icon { width: 1.5rem; height: 1.5rem; }
 
-.case-metrics { align-self: stretch; }
-.case-metrics-eyebrow { color: var(--text-dim); margin-bottom: .75rem; }
+/* The chip sits directly above the figures, so the block carries the breathing
+   room itself rather than crowding the number against the label that qualifies
+   it. */
+.case-metrics { align-self: stretch; margin-top: .75rem; }
 
 /* Peer figures share two rows, so the captions sit on one baseline even when
    a value wraps to two lines. */
@@ -2226,7 +2227,6 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
   .rail { border-bottom: 1px solid var(--border-subtle); padding-bottom: 1.75rem; margin-bottom: 2rem; }
   .rail-options { flex-direction: row; flex-wrap: wrap; }
   .rail-option { width: auto; border: 1px solid var(--border); border-radius: var(--r-pill); padding: .5rem .875rem; }
-  .rail-note { display: none; }
   .tab { padding: 1rem 1rem; }
   .material { flex-direction: column; align-items: flex-start; }
 }

@@ -140,19 +140,25 @@
     var C = window.SITE_CONTENT;
     var avail = availabilityOptions();
 
+    /* The platform list offers what a click returns, so a platform with no
+       match today is simply not in it. The one exception is the platform the
+       reader arrived on: a saved link keeps rendering its own option, selected,
+       above the result that explains it. */
     var tech = [railOption({
-      group: "tech", value: "", label: C.facets.allLabel, on: !state.tech,
-      count: filtered({ tech: "" }).length
+      group: "tech", value: "", label: C.facets.allLabel, on: !state.tech
     })].concat(C.facets.technology.map(function (facet) {
+      return { facet: facet, count: filtered({ tech: facet.id }).length };
+    }).filter(function (entry) {
+      return entry.count > 0 || state.tech === entry.facet.id;
+    }).map(function (entry) {
       return railOption({
-        group: "tech", value: facet.id, label: facet.label, title: facet.fullLabel,
-        on: state.tech === facet.id, count: filtered({ tech: facet.id }).length
+        group: "tech", value: entry.facet.id, label: entry.facet.label, title: entry.facet.fullLabel,
+        on: state.tech === entry.facet.id, count: entry.count
       });
     })).join("");
 
     var cats = [railOption({
-      group: "cat", value: "", label: C.facets.allLabel, on: !state.cat,
-      count: filtered({ cat: "" }).length
+      group: "cat", value: "", label: C.facets.allLabel, on: !state.cat
     })].concat(C.facets.categories.map(function (category) {
       return railOption({
         group: "cat", value: category.id, label: category.chip, title: category.full,
@@ -163,7 +169,6 @@
     return '<div class="rail-group">' +
         '<p class="rail-label" id="facet-tech-label">' + UI.esc(C.facets.technologyLabel) + "</p>" +
         '<div class="rail-options" role="radiogroup" aria-labelledby="facet-tech-label">' + tech + "</div>" +
-        '<p class="rail-note">' + UI.esc(C.facets.footnote) + "</p>" +
       "</div>" +
       '<div class="rail-group">' +
         '<p class="rail-label" id="facet-cat-label">' + UI.esc(C.facets.categoryLabel) + "</p>" +
@@ -181,12 +186,17 @@
       "</div>";
   }
 
+  function isFiltered() {
+    return !!(state.tech || state.cat || state.demo || state.mp || state.q.trim());
+  }
+
+  /* The line reports what a filter returned, not how big the catalog is, so
+     with nothing filtered it says nothing. The element itself stays in the
+     DOM either way: it is the live region that announces the next change. */
   function countLine() {
-    var list = filtered();
-    var total = window.UI.orderedProducts().length;
-    return list.length === total
-      ? String(total) + " products"
-      : String(list.length) + " of " + total + " products";
+    if (!isFiltered()) return "";
+    var shown = filtered().length;
+    return String(shown) + (shown === 1 ? " product" : " products");
   }
 
   function products(params) {
