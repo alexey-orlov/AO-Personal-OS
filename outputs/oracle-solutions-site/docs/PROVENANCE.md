@@ -1977,10 +1977,16 @@ string, two pages.
 **S6 · `overview.about`** — see §18.2.
 
 **S7 · `overview.contact`** — `anchor` unchanged (`request-a-demo`); `heading`
-*"Talk to the Oracle AI & Data team"* is §6.2 verbatim; `sub` is adapted from
+*"Talk to the Oracle AI & Data team"* is §6.2 verbatim. `sub` was adapted from
 `site.footer.description` (*"Tell us which account or workflow you have in mind.
 One scoping conversation starts it."*) with what comes back added from
-`howAPovRuns`.
+`howAPovRuns`; 18.5 rewrote it to **"One scoping conversation starts it. We come
+back with what a proof of value would cover, what it would cost, and what it
+would measure."** — the footer's second sentence, then `services.contact.sub`'s
+promise verbatim. The *tell us …* half was dropped because the footer says it
+inside the same viewport, and `pages/overview.js` now passes **no form-side
+`sub`** to `UI.contactSplit` — `forms.demo.secondarySub` said it a third time.
+That key is untouched: the product pages still render it (`pages/product.js`).
 
 **`products[].shortLine`** — one new string per product, each a compression of
 that product's own `oneLiner`, nothing added:
@@ -2065,8 +2071,11 @@ a tile can be removed without breaking the grid.
   verbatim (*"an award-winning NVIDIA Elite Partner"*), and it still does not
   ship: `HANDOFF` §6.2 rules out partner-tier claims, `C15` has never been
   cleared for Oracle, and a page that claims a tier for one partner and stays
-  silent on the other invites the question. `partnerLine` is **"Built with
-  Oracle and NVIDIA"** — the same sentence the footer has carried since round 1.
+  silent on the other invites the question. `partnerLine` was **"Built with
+  Oracle and NVIDIA"** — the same sentence the footer has carried since round 1 —
+  and 18.5 shortened it to **"Built with"**, because the two wordmarks beside it
+  print the names and `site.footer.builtWith` and `.trademarkLine` print the
+  whole sentence twice more. The tier claim is out either way.
 - **The newsroom practice figures** — *"more than 1,000 experts in AI/ML …"* and
   *"400+ professionals with deep expertise in the NVIDIA stack"* (Jan 21, 2026).
   Both are newsroom-only, both are the kind of count that drifts, and the block
