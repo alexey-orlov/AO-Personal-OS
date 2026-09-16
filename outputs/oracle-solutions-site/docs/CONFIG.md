@@ -194,7 +194,7 @@ Set `marketplace: true` and three things appear together, on the next reload:
 
 - the **Oracle Marketplace** badge (storefront icon) at the right end of the product hero's chip row,
 - the same badge top-right of that product's image band in the Products grid and the home grid,
-- the **On Oracle Marketplace** checkbox count in the Products facet rail, which filters on this same boolean (`mp=1`).
+- the **On Oracle Marketplace** checkbox in the Products facet rail, which filters on this same boolean (`mp=1`). That checkbox is **hidden while no product carries the flag** — a control permanently at zero advertises a capability the site does not have — so setting `marketplace: true` anywhere is what brings the row back; until then the Availability group renders as the Demo checkbox alone and `mp=1` in the URL is ignored.
 
 With `marketplaceUrl` set, the badge opens the listing in a new tab; without one it renders inert — the flag says the listing exists, and a link to nowhere would be worse than no link. There is **no separate hero button**: a second control pointing at the same URL as the badge is one control too many.
 
