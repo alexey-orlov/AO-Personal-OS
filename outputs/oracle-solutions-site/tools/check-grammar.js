@@ -115,8 +115,11 @@ function checkHeroImage(where, image) {
   }
 }
 
-/* ---- shared heroes ---- */
-checkHeroImage("overview", C.overview.hero && C.overview.hero.image);
+/* ---- shared heroes ----
+   Round 5: the home page carries no hero photograph — the built-on stack visual
+   is its only illustration — so `overview.hero.image` is retired, and the
+   home-page block below fails if it returns. Services keeps its hero image, and
+   so do all seven products. */
 checkHeroImage("services", C.services.hero && C.services.hero.image);
 
 /* ---- products ---- */
@@ -689,23 +692,24 @@ if (!arr(C.products) || C.products.length !== 7) {
     }
   });
 
-  /* The two platform lists are the same four platforms under another shape, so
-     they carry the same labels in the same order — otherwise a reader meets one
-     name on the Products rail and a different one on Services. */
-  [
-    ["overview.servicesTeaser.platforms", ((C.overview || {}).servicesTeaser || {}).platforms],
-    ["services.hero.platforms", ((C.services || {}).hero || {}).platforms]
-  ].forEach(function (pair) {
-    var list = pair[1];
+  /* The Services platform cards are the same four platforms under another
+     shape, so they carry the same labels in the same order — otherwise a reader
+     meets one name on the Products rail and a different one on Services. Round
+     5 left one such list: `overview.servicesTeaser` is retired, and the home
+     page's four platform tiles derive their labels from `facets.technology`
+     itself, so they cannot drift from it. */
+  (function () {
+    var where = "services.hero.platforms";
+    var list = ((C.services || {}).hero || {}).platforms;
     if (!arr(list) || list.length !== FACET_IDS.length) {
-      return fail(pair[0], "must hold one card per canonical platform (" + FACET_IDS.length + ")");
+      return fail(where, "must hold one card per canonical platform (" + FACET_IDS.length + ")");
     }
     FACET_IDS.forEach(function (id, i) {
       if (list[i].name !== FACET_LABELS[id]) {
-        fail(pair[0] + "[" + i + "]", 'name is "' + list[i].name + '", expected the canonical label "' + FACET_LABELS[id] + '"');
+        fail(where + "[" + i + "]", 'name is "' + list[i].name + '", expected the canonical label "' + FACET_LABELS[id] + '"');
       }
     });
-  });
+  })();
 })();
 
 /* ---- C2 · the home-page case-study cards ---- */
@@ -812,6 +816,313 @@ if (!arr(C.products) || C.products.length !== 7) {
   });
 })();
 
+/* ---- round 5 · the home page ----
+   The seven-screen home page is not a product page, so none of the grammar
+   above says anything about it. This block is its contract: one object per
+   screen, every key a screen reads asserted here, and every key the old home
+   page read failed outright. A retired key that still parses is how a dead
+   block comes back — `overview.hero.image` and `overview.servicesTeaser` both
+   had renderers a week ago. */
+(function () {
+  var s = C.site || {};
+  var o = C.overview || {};
+
+  function reqStr(where, obj, keys) {
+    keys.forEach(function (k) {
+      if (!str((obj || {})[k])) fail(where, k + " missing");
+    });
+  }
+  function reqCta(where, cta) {
+    if (!cta || !str(cta.label) || !str(cta.route)) fail(where, "needs { label, route }");
+  }
+
+  /* --- the shell: the name, the three-item bar and the three CTAs --- */
+  ["name", "title", "tagline", "metaDescription"].forEach(function (k) {
+    if (!str(s[k])) fail("site", k + " missing");
+  });
+  /* Three items and no "Overview": the logo is the home link, and the third
+     item is an anchor into this page's own case-study screen. */
+  var NAV = [
+    { label: "Products", route: "#/products" },
+    { label: "Services", route: "#/services" },
+    { label: "Case studies", route: "#/#case-studies" }
+  ];
+  if (!arr(s.nav) || s.nav.length !== NAV.length) {
+    fail("site.nav", "must hold exactly " + NAV.length + " items (Products · Services · Case studies), got " +
+      (arr(s.nav) ? s.nav.length : "none"));
+  } else NAV.forEach(function (want, i) {
+    var got = s.nav[i] || {};
+    if (got.label !== want.label) fail("site.nav[" + i + "]", 'label is "' + got.label + '", expected "' + want.label + '"');
+    if (got.route !== want.route) fail("site.nav[" + i + "]", 'route is "' + got.route + '", expected "' + want.route + '"');
+  });
+  /* Three CTAs, three jobs, and they are not interchangeable: `navCta` is the
+     header button, `secondaryCta` the quiet button in the Services hero, and
+     `primaryCta` the label every product hero still carries. */
+  ["navCta", "secondaryCta", "primaryCta"].forEach(function (k) {
+    reqCta("site." + k, s[k]);
+  });
+
+  /* --- S1 · the hero --- */
+  var h = o.hero || {};
+  if (!str(h.eyebrow)) fail("overview.hero", "eyebrow missing");
+  var hl = h.headline;
+  if (!hl || !str(hl.lead) || !str(hl.accent)) {
+    fail("overview.hero.headline", "needs { lead, accent } — the white lines, then the teal one that starts its own line");
+  } else if (hl.rest !== undefined) {
+    fail("overview.hero.headline", "carries the product-hero `rest` key — the home H1 is lead + accent");
+  }
+  if (!str(h.lead)) fail("overview.hero", "lead missing");
+  else if (words(h.lead) > 45) {
+    fail("overview.hero", "lead is " + words(h.lead) + " words (max 45 — it sits in a column beside the stack visual)");
+  }
+  if (!arr(h.ctas) || h.ctas.length !== 2) {
+    fail("overview.hero.ctas", "must hold exactly 2 buttons, got " + (arr(h.ctas) ? h.ctas.length : "none"));
+  } else h.ctas.forEach(function (c, i) {
+    ["label", "route", "kind"].forEach(function (k) {
+      if (!str((c || {})[k])) fail("overview.hero.ctas[" + i + "]", k + " missing");
+    });
+  });
+  /* The built-on stack is the only illustration on this page, so its labels are
+     copy rather than decoration. The pattern tiles and the platform tiles are
+     derived — `facets.categories` and `facets.technology`, whose four labels the
+     T3 block already owns — so only the three written strings are asserted. */
+  var stack = h.stack;
+  if (!stack) fail("overview.hero.stack", "missing — the built-on visual is this hero's only illustration");
+  else {
+    reqStr("overview.hero.stack", stack, ["ariaLabel", "patternsLabel", "platformsLabel"]);
+    var ss = stack.softserve;
+    if (!ss) fail("overview.hero.stack.softserve", "missing — the middle band of the three");
+    else {
+      if (!str(ss.label)) fail("overview.hero.stack.softserve", "label missing");
+      if (!arr(ss.items) || ss.items.length !== 3) {
+        fail("overview.hero.stack.softserve", "items must hold exactly 3 layer tiles, got " +
+          (arr(ss.items) ? ss.items.length : "none"));
+      } else ss.items.forEach(function (item, i) {
+        if (!str(item)) fail("overview.hero.stack.softserve", "items[" + i + "] is not a string");
+      });
+    }
+  }
+  if (!arr(h.stats) || h.stats.length !== 4) {
+    fail("overview.hero.stats", "must hold exactly 4 tiles — the proof strip under the hero, got " +
+      (arr(h.stats) ? h.stats.length : "none"));
+  } else h.stats.forEach(function (st, i) {
+    var sw = "overview.hero.stats[" + i + "]";
+    if (!str((st || {}).value)) fail(sw, "value missing");
+    else if (st.value.length > 20) fail(sw, 'value "' + st.value + '" is too long to set large');
+    if (!str((st || {}).label)) fail(sw, "label missing");
+  });
+
+  /* --- S2 · two ways in --- */
+  var tw = o.twoWays;
+  if (!tw) fail("overview.twoWays", "missing — S2, the two joined panels");
+  else {
+    reqStr("overview.twoWays", tw, ["eyebrow", "title"]);
+    if (!arr(tw.panels) || tw.panels.length !== 2) {
+      fail("overview.twoWays.panels", "must hold exactly 2 panels — products and practice, got " +
+        (arr(tw.panels) ? tw.panels.length : "none"));
+    } else tw.panels.forEach(function (pn, i) {
+      var pw = "overview.twoWays.panels[" + i + "]";
+      reqStr(pw, pn, ["id", "icon", "title", "body"]);
+      /* Peers: three bullets each, so the two panels are one shape and their
+         CTAs land on one baseline. */
+      if (!arr(pn.bullets) || pn.bullets.length !== 3) {
+        fail(pw, "bullets must hold exactly 3 — the two panels are peers, got " +
+          (arr(pn.bullets) ? pn.bullets.length : "none"));
+      } else pn.bullets.forEach(function (b, j) {
+        if (!str(b)) fail(pw, "bullets[" + j + "] is not a string");
+      });
+      reqCta(pw + ".cta", pn.cta);
+    });
+  }
+
+  /* --- S3 · the product catalog, three columns --- */
+  var cat = o.catalog;
+  if (!cat) fail("overview.catalog", "missing — S3, the products screen");
+  else {
+    reqStr("overview.catalog", cat, ["eyebrow", "title", "lead"]);
+    reqCta("overview.catalog.cta", cat.cta);
+    /* One column per workflow pattern, in the order the rest of the site lists
+       them. The rows inside a column are derived — the products whose
+       `category` is this pattern, in `SITE_CONFIG.productOrder` — so the data
+       carries the definition and nothing else. */
+    if (!arr(cat.patterns) || cat.patterns.length !== PATTERN_IDS.length) {
+      fail("overview.catalog.patterns", "must hold one column per workflow pattern (" + PATTERN_IDS.length + "), got " +
+        (arr(cat.patterns) ? cat.patterns.length : "none"));
+    } else PATTERN_IDS.forEach(function (id, i) {
+      var col = cat.patterns[i] || {};
+      var cw = "overview.catalog.patterns[" + i + "]";
+      if (col.id !== id) fail(cw, 'id is "' + col.id + '", expected "' + id + '" — the columns render in facets.categories order');
+      if (!str(col.definition)) fail(cw, "definition missing — the column header is the pattern name and this line");
+    });
+  }
+
+  /* --- S4 · how we deliver --- */
+  var d = o.delivery;
+  if (!d) fail("overview.delivery", "missing — S4, the ladder and the three pillars");
+  else {
+    reqStr("overview.delivery", d, ["eyebrow", "title"]);
+    if (d.anchor !== "how-we-deliver") {
+      fail("overview.delivery", 'anchor is "' + d.anchor + '", expected "how-we-deliver" — the hero CTA and the S2 practice panel both link to it');
+    }
+    if (!arr(d.steps) || d.steps.length !== 3) {
+      fail("overview.delivery.steps", "must hold exactly 3 steps — proof of value, integration, scale, got " +
+        (arr(d.steps) ? d.steps.length : "none"));
+    } else d.steps.forEach(function (st, i) {
+      reqStr("overview.delivery.steps[" + i + "]", st, ["title", "body", "factLabel", "fact"]);
+    });
+    /* Rule 1 of VISUAL-GRAMMAR: every step's `fact` carries a duration and the
+       first one carries a price, and this block has no other caveat row. */
+    if (!str(d.footnote)) {
+      fail("overview.delivery", "footnote missing — the step facts carry durations and a price, and a number never renders without its caveat in the same block");
+    }
+    var why = d.why;
+    if (!why) fail("overview.delivery.why", "missing — the three pillars beside the ladder");
+    else {
+      if (!str(why.title)) fail("overview.delivery.why", "title missing");
+      if (!arr(why.pillars) || why.pillars.length !== 3) {
+        fail("overview.delivery.why.pillars", "must hold exactly 3 pillars, got " +
+          (arr(why.pillars) ? why.pillars.length : "none"));
+      } else why.pillars.forEach(function (p, i) {
+        reqStr("overview.delivery.why.pillars[" + i + "]", p, ["icon", "title", "body"]);
+      });
+    }
+    if (!arr(d.ctas) || d.ctas.length !== 2) {
+      fail("overview.delivery.ctas", "must hold exactly 2 — a primary and a quiet one, got " +
+        (arr(d.ctas) ? d.ctas.length : "none"));
+    } else d.ctas.forEach(function (c, i) {
+      reqCta("overview.delivery.ctas[" + i + "]", c);
+    });
+  }
+
+  /* --- S5 · the case-study rail (the cards themselves are checked in C2) --- */
+  reqStr("overview.caseStudiesIntro", o.caseStudiesIntro, ["eyebrow", "title", "body", "ndaLine"]);
+  reqCta("overview.caseStudiesIntro.cta", (o.caseStudiesIntro || {}).cta);
+
+  /* --- S6 · about SoftServe, the page's one light band --- */
+  var ab = o.about;
+  if (!ab) fail("overview.about", "missing — S6, the light band");
+  else {
+    reqStr("overview.about", ab, ["eyebrow", "title", "body", "partnerLine"]);
+    /* Corporate figures only where softserveinc.com prints them — a tile with
+       no public source is left out rather than filled from memory. */
+    if (!arr(ab.stats) || ab.stats.length < 1 || ab.stats.length > 4) {
+      fail("overview.about.stats", "must hold 1–4 tiles, got " + (arr(ab.stats) ? ab.stats.length : "none"));
+    } else ab.stats.forEach(function (st, i) {
+      var aw = "overview.about.stats[" + i + "]";
+      if (!str((st || {}).value)) fail(aw, "value missing");
+      else if (st.value.length > 12) fail(aw, 'value "' + st.value + '" is too long for a tile in the 2×2 grid');
+      if (!str((st || {}).label)) fail(aw, "label missing");
+    });
+    if (!arr(ab.partners) || !ab.partners.length) {
+      fail("overview.about.partners", "needs at least one wordmark — the partner strip is what `partnerLine` labels");
+    } else ab.partners.forEach(function (pt, i) {
+      var pw = "overview.about.partners[" + i + "]";
+      if (!str((pt || {}).name)) fail(pw, "name missing — it is the image's alt text");
+      if (!str((pt || {}).file)) fail(pw, "file missing");
+      else if (pt.file.indexOf("assets/img/") !== 0) {
+        fail(pw, 'file "' + pt.file + '" must be a path under assets/img/');
+      } else if (pt.file.indexOf("logos/") !== -1) {
+        fail(pw, 'file "' + pt.file + '" is under assets/img/logos/ — those are customer marks and stay unreferenced');
+      } else {
+        checkAsset(pw, "partner wordmark", pt.file);
+      }
+      /* Both dimensions ship so the strip reserves its space and does not
+         reflow the band when the SVGs arrive. */
+      ["width", "height"].forEach(function (k) {
+        if (typeof (pt || {})[k] !== "number") fail(pw, k + " must be a number");
+      });
+    });
+    if (!ab.link || !str(ab.link.label) || !str(ab.link.url)) fail("overview.about.link", "needs { label, url }");
+    else if (ab.link.url.indexOf("https://www.softserveinc.com") !== 0) {
+      fail("overview.about.link", 'url "' + ab.link.url + '" must be on https://www.softserveinc.com — the block links to the site that prints the figures');
+    }
+  }
+
+  /* --- S7 · contact --- */
+  var ct = o.contact;
+  if (!ct) fail("overview.contact", "missing — S7, the contact split");
+  else {
+    if (ct.anchor !== "request-a-demo") {
+      fail("overview.contact", 'anchor is "' + ct.anchor + '", expected "request-a-demo" — every product page deep-links to #/#request-a-demo');
+    }
+    reqStr("overview.contact", ct, ["heading", "sub"]);
+  }
+
+  /* --- what the old home page carried, and must not carry again --- */
+  [
+    ["trustStrip", "the three-wordmark strip — the partner wordmarks sit inside the About band now"],
+    ["productsIntro", "the products intro — S3's head is overview.catalog"],
+    ["servicesTeaser", "the platform-card teaser — S4 is overview.delivery, and the four platform cards live on Services"]
+  ].forEach(function (pair) {
+    if (o[pair[0]] !== undefined) {
+      fail("overview." + pair[0], "is superseded by the round-5 home page (" + pair[1] + ") — nothing renders it");
+    }
+  });
+  [
+    ["image", "the home hero carries no photograph — the built-on stack visual is its illustration"],
+    ["subhead", "the hero's copy is headline + lead"]
+  ].forEach(function (pair) {
+    if (h[pair[0]] !== undefined) fail("overview.hero." + pair[0], "is superseded — " + pair[1]);
+  });
+
+  /* --- the catalog rows read one new string per product --- */
+  (C.products || []).forEach(function (p) {
+    var pw = "products[" + p.slug + "]";
+    if (!str(p.shortLine)) return fail(pw, "shortLine missing — the home catalog row's one line under the product name");
+    if (words(p.shortLine) > 12) {
+      fail(pw, "shortLine is " + words(p.shortLine) + ' words (max 12): "' + p.shortLine + '"');
+    }
+    if (p.shortLine.trim().slice(-1) !== ".") {
+      fail(pw, "shortLine does not end in a period — the seven rows are sentences and sit directly beneath each other");
+    }
+    if (str(p.oneLiner) && p.shortLine.trim() === p.oneLiner.trim()) {
+      fail(pw, "shortLine repeats oneLiner — the row carries the short form, the tile and the hero keep the full one");
+    }
+  });
+
+  /* --- every icon the two new screens name is in the registry --- */
+  var namedIcons = [];
+  ((tw || {}).panels || []).forEach(function (pn, i) {
+    if (str((pn || {}).icon)) namedIcons.push(["overview.twoWays.panels[" + i + "]", pn.icon]);
+  });
+  (((d || {}).why || {}).pillars || []).forEach(function (p, i) {
+    if (str((p || {}).icon)) namedIcons.push(["overview.delivery.why.pillars[" + i + "]", p.icon]);
+  });
+  var appSrc = fs.readFileSync(path.join(root, "site/assets/app.js"), "utf8");
+  var iconKeys = [];
+  var iconRe = /^\s{4}"?([A-Za-z-]+)"?:\s*'/gm;
+  var hit;
+  while ((hit = iconRe.exec(appSrc))) iconKeys.push(hit[1]);
+  /* The data layer has twice moved ahead of the icon registry (round 4's eight
+     tag glyphs, round 5's `arrowDown` and `cube`). This list is where a key
+     the renderer has not drawn yet is downgraded to a warning; it is EMPTY,
+     because both round-5 icons are in assets/app.js. Put a key here only while
+     it is genuinely in flight, and take it out in the same change that draws
+     it — a name that stays here is an unchecked icon. */
+  var PENDING_ICONS = [];
+  if (!iconKeys.length) {
+    warn("assets/app.js", "no ICONS entries matched — the registry's shape changed and this check is reading nothing");
+  } else namedIcons.forEach(function (pair) {
+    if (iconKeys.indexOf(pair[1]) !== -1) return;
+    if (PENDING_ICONS.indexOf(pair[1]) !== -1) {
+      warn(pair[0], 'icon "' + pair[1] + '" is not in the ICONS registry in site/assets/app.js yet — it lands with the round-5 renderer');
+    } else {
+      fail(pair[0], 'icon "' + pair[1] + '" is not a key of the ICONS registry in site/assets/app.js');
+    }
+  });
+
+  /* --- HANDOFF §6.1: the words this page does not use ---
+     Scoped to `overview` on purpose. "unlock" is banned in home-page marketing
+     copy and correct in `sellerGate`, which unlocks a panel; a site-wide ban
+     would fail the build on the one honest use of the word. */
+  var homeRaw = JSON.stringify(o).toLowerCase();
+  ["cutting-edge", "seamless", "unlock", "empower", "revolutionary"].forEach(function (word) {
+    if (homeRaw.indexOf(word) !== -1) {
+      fail("overview", 'carries the banned word "' + word + '" (HANDOFF §6.1) — name the specific thing instead');
+    }
+  });
+})();
+
 /* ---- banned strings, site-wide ---- */
 var raw = fs.readFileSync(path.join(root, "site/data/content.js"), "utf8");
 [
@@ -865,4 +1176,4 @@ if (failures.length) {
   failures.forEach(function (f) { console.error("  ✗ " + f); });
   process.exit(1);
 }
-console.log("check-grammar: OK — 7 products, every grammar slot filled.");
+console.log("check-grammar: OK — 7 products, every grammar slot filled, and the home page's seven screens.");
