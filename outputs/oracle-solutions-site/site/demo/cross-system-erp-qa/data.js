@@ -384,8 +384,5 @@ window.ERPQA_DATA = (function () {
   }
   pat2.forEach(function (p, i) { buildCluster(p, !!taxPick2[i], i); });
   pat3.forEach(function (p, i) { buildCluster(p, !!taxPick3[i], i); });
-  /* the hand-written tax-id clusters count towards the same 228 */
+  /* the three hand-written tax-id clusters count towards the same 228 */
   handGolden.forEach(function (g) { if (g.basis === "taxId") g.records.forEach(function (rid) { byId(rid).exactBefore = true; }); });
-  function byId(id) { return RBY[id]; }
-  var RBY = {}; records.forEach(function (r) { RBY[r.id] = r; });
-  handGolden.forEach(function (g) { if (g.basis === "taxId") g.records.forEach(function (rid) { RBY[rid].exactBefore = true; }); });
