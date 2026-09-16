@@ -243,21 +243,21 @@ Staged into `site/assets/img/`:
 Run against the built output — HTML, CSS, JS and every data file that reaches the browser. Fail the build on any match:
 
 ```
-/bosch|bsh|riyadh\s?air|\bdhl\b|\bnhs\b|\bsbg\b|binladin|belron|\bkpn\b|channel\s?4|nesma|altradoc|king\s+fahd|winp|t-shirt|\/Users\/|OneDrive|€19[02]|192[,.]?525|198\.5|\+26%|tramborg|\bktram\b|no named public production|packages compress over time|first-of-kind|\bAIDP\b|\bAIQ\b|GigaCloud/i
+/bosch|bsh|riyadh\s?air|\bdhl\b|\bnhs\b|\bsbg\b|binladin|belron|\bkpn\b|channel\s?4|nesma|altradoc|king\s+fahd|winp|t-shirt|\/Users\/|OneDrive|€19[02]|192[,.]?525|198\.5|\+26%|ktram|tramborg@|no named public production|packages compress over time|first-of-kind|\bAIDP\b|\bAIQ\b|GigaCloud/i
 ```
 
 Also fail on:
 
-- any `<!--` in the output HTML, and any `//` or `/* */` comment in `content.js` or `config.js` that mentions a source, an assumption, a TODO or a customer;
+- any `<!--` in the output HTML, and any `//` or `/* */` comment in `content.js` or `config.js` that mentions a source, an assumption, a TODO, a customer or a named individual — the round-4 pass removed the two decision-attribution comments (`assets/app.js`, `assets/site.css`) that named the content owner in shipped files;
 - any absolute filesystem path;
 - the strings `In build`, `proof of concept`, `Oracle Marketplace listing in preparation`, `(assumed)`, `TODO`, `FIXME`, `src:`;
-- any individual's name, title or mailbox.
+- any individual's **mailbox**, and any individual's name or title **other than `shared.contact`**. That one person is cleared by `SCHEMA.md` §"the only person named anywhere in `content.js`": he is already printed by name, title and contact route on SoftServe's own external one-pagers, and the site prints the practice alias rather than his personal mailbox. The deny pattern is therefore the mailbox form (`ktram`, `tramborg@`) and not the surname — a gate that fails on cleared content gets overridden blind, which is worse than no gate.
 
 **Two deliberate departures from `SPEC-PROV` §C's version of this gate**, both forced by the locked decisions:
 
 | Pattern dropped | Why |
 |---|---|
-| `@softserveinc\.com` | The practice mailbox `oracle@softserveinc.com` is both printed on the contact card and used as the form's `mailto:` destination (L9). It is a role alias, not an individual. The `tramborg` / `ktram` patterns stay — those catch an actual person's mailbox, which must never appear. `RnDrequest` is no longer in the data and the pattern could be restored, but it is left out so a future re-introduction fails the check-grammar gate rather than the ship gate. |
+| `@softserveinc\.com` | The practice mailbox `oracle@softserveinc.com` is both printed on the contact card and used as the form's `mailto:` destination (L9). It is a role alias, not an individual. The mailbox patterns `ktram` / `tramborg@` stay — those catch an actual person's mailbox, which must never appear; the bare surname was narrowed out, because the contact card ships that name by decision. `RnDrequest` is no longer in the data and the pattern could be restored, but it is left out so a future re-introduction fails the check-grammar gate rather than the ship gate. |
 | `POV Jumpstart` | `BRIEF` D5 makes it the tab label (L5). If L5 is reverted, put this pattern back. |
 | `packages compress over time` and `first-of-kind` | `BRIEF` D5 requires the spec's seller-only packaging notes (`content-spec.md:459-462`) inside the gated panel, and the first QA pass found them missing site-wide. They now live in `sellerGate.packagingNotes` and render on the four products that print a price. **This is a knowing trade-off:** the D6 gate is client-side, so both sentences are readable in `content.js` by anyone who fetches the bundle. They were judged safe to expose — neither names a customer, a person, a figure or an internal system; both are commercial caveats a seller would state aloud in the same conversation. If that judgement is reversed, delete `sellerGate.packagingNotes` and restore the pattern; nothing else depends on it. |
 
@@ -439,7 +439,16 @@ The `workforce-optimization` and `large-document-extraction` proof figures — t
 1. **Written Oracle and customer clearance** for both anonymised proof strips. The copy is correctly anonymised and correctly hedged, but anonymisation is not the clearance — the research file says so in terms: nothing from it goes on a SoftServe website, one-pager or deck until the customer and Oracle approve in writing.
 2. **Alex's explicit OK** for the `method-accuracy-journey` card (the 23%→81% accuracy story), which the research marks as needing his sign-off.
 
-Until both are in hand and recorded here with a date, the fallback is the scope-and-method framing — constraints modeled, countries, what the proof of value measured — with the ratios removed. **The fourth fix round took that fallback for the three workforce ratios (§14.1).** The rest of this gate is unchanged: the anonymised scope facts, the extraction proof strip and the `method-accuracy-journey` card all still need the clearances above.
+Until both are in hand and recorded here with a date, the fallback is the scope-and-method framing — constraints modeled, what the proof of value measured — with the ratios removed. **The fourth fix round took that fallback for the three workforce ratios (§14.1).** The rest of this gate is unchanged: the anonymised scope facts, the extraction proof figure and the accuracy-journey line all still need the clearances above.
+
+**Where each gate now stands in the shipped data — check these two before the site gets a public URL:**
+
+| Gate | Where it ships now | If withheld |
+|---|---|---|
+| Oracle + customer clearance on the two proof strips | `workforce-optimization` case study (`+4.5%`, `~5x`, and the 83%-of-12 and 15–20% figures inside `story`); `large-document-extraction` case study (`5–15 min`) | Drop the `metrics` array to the qualitative form and keep the scope row and the story's method sentences. The status chips and eyebrows do not change. |
+| Content owner's OK on the accuracy-journey figure | `services.proof.stat` — the `81%` stat beside the measurement-method lead | The stat block drops cleanly: `lead`, `engagements`, `cta` and `footnote` stand without it, and the section still says how measurement works. |
+
+Record the date and the answer here when each comes back.
 
 ---
 
