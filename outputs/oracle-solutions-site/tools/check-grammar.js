@@ -56,7 +56,17 @@ var CASE_EYEBROW = {
 };
 /* Round 4, T1: the three tag families and the two availability badges. */
 var PATTERN_IDS = ["deep-research", "processing-pipelines", "data-analysis"];
-var FACET_IDS = ["oci-nvidia", "oracle-ai-data-platform", "oracle-autonomous-ai-lakehouse", "other"];
+/* Round 4, T3: ONE canonical technology set, used identically on the rail, the
+   hero chip, the tile band and the Services platform cards. The ids and the
+   labels are paired here so a product, a glyph and a card can never drift into
+   a product-specific variant ("OCI + NVIDIA AI-Q") of a platform name. */
+var FACET_IDS = ["oci-nvidia", "oracle-ai-data-platform", "oracle-ai-lakehouse", "oracle-ai-fusion"];
+var FACET_LABELS = {
+  "oci-nvidia": "OCI + NVIDIA",
+  "oracle-ai-data-platform": "Oracle AI Data Platform",
+  "oracle-ai-lakehouse": "Oracle Autonomous AI Lakehouse",
+  "oracle-ai-fusion": "Oracle AI for Fusion Applications"
+};
 /* Round 4, T1: only these two carry the muted "in preparation" status line;
    every other product's state is told by its availability badges. */
 var UNPACKAGED = ["case-evidence-collection", "plan-vs-actual-investigation"];
