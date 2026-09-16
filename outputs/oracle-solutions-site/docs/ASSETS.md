@@ -97,13 +97,40 @@ recorded below.
 **Capture.** The same tool in `MODE=script` with `tools/capture-wfo-frames.json`,
 `DPR=2`, the page opened with `?tour=off&ui=clean&state=start`
 (`tools/capture-wfo-tour.json` drives the whole guided tour by real clicks and
-is the tour's regression test — it reports console exceptions). Crops follow
-the rule above and were converted with `sips` (crop → resample to 1600 × 1000
-→ JPEG q86) on a Mac without ffmpeg; no unsharp pass. Offsets, in CSS px at
-1600 × 1000: `-1` (480, 270, 640 × 400) · `-2` (960, 235, 640 × 400) · `-3`
-(480, 296, 640 × 400) · `-4` (940, 198, 640 × 400). The poster is the top
-1600 × 900 of the dashboard — the optimized map with every zone, details
-closed, and the first schedule rows.
+is the tour's regression test — it reports console exceptions). The one
+scenario is run at two viewports; each run takes all five shots and only the
+named ones are kept:
+
+    MODE=script STEPS=tools/capture-wfo-frames.json DPR=2 W=1600 H=1000 \
+      node tools/capture-demo-frames.mjs \
+      "file://<repo>/site/demo/workforce-optimization/index.html?tour=off&ui=clean&state=start" /tmp/wfo1600
+    MODE=script STEPS=tools/capture-wfo-frames.json DPR=2 W=1184 H=1000 \
+      node tools/capture-demo-frames.mjs "<same URL>" /tmp/wfo1184
+
+`-1`, `-2`, `-3` and the poster come from the 1600 × 1000 run; `-4` comes from
+the 1184 × 1000 run, because three of the band's five tiles fit a 640 px crop
+only in the narrow window between 1181 px (below it the band reflows to three
+columns 349 px wide) and ~1185 px (above it five 1/5-width tiles are again too
+wide). At 1184 px the three span 639 px and fill the crop edge to edge.
+
+Crops follow the rule above and were converted with `sips` (crop → resample →
+JPEG) on a Mac without ffmpeg; no unsharp pass — e.g. for `-1`
+
+    sips -c 800 1280 --cropOffset 522 960 frame-1.png --out c.png   # device px, Y then X
+    sips -z 1000 1600 c.png --out b.png
+    sips -s format jpeg -s formatOptions 86 b.png --out workforce-optimization-1.jpg
+
+Offsets in CSS px (device px are twice these, at `DPR=2`): `-1` (480, 261,
+640 × 400) · `-2` (960, 176, 640 × 400) · `-3` (480, 298, 640 × 400) · `-4`
+(87.5, 130, 640 × 400, at the 1184 px viewport). The poster is a 1600 × 900
+crop of the 1600 × 1000 dashboard taken from y = 66 rather than from the very
+top: dropping the topbar buys the whole schedule header, so the poster carries
+the KPI band, the map with every zone, the "What the solver changed" list and
+the Weekly schedule header, with no details panel and the toast hidden. It is
+JPEG q82 (q86 puts it at 314 KB, over the 300 KB ceiling); the four step
+frames are q86. **`sips` gotcha:** `--cropOffset 0 0` means *centred*, not
+top-left — any other value is an absolute top-left origin, so a true top crop
+needs a non-zero offset on one axis.
 
 **Superseded.** The two earlier real-UI frames (`-2`, `-3`, crops of the
 customer-demo recording on the synthetic `SYN-GHA-RL-001` ground-handling
