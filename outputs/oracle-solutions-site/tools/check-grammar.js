@@ -631,8 +631,8 @@ if (!arr(C.products) || C.products.length !== 7) {
   var intro = o.caseStudiesIntro;
   if (!intro || !str(intro.title) || !str(intro.body)) fail("overview.caseStudiesIntro", "needs { title, body }");
   var cards = o.caseStudies;
-  if (!arr(cards) || cards.length !== 4) {
-    return fail("overview.caseStudies", "must hold exactly 4 cards — one per engagement, matching the product pages");
+  if (!arr(cards) || cards.length !== 3) {
+    return fail("overview.caseStudies", "must hold exactly 3 cards — one per engagement that has one, matching the product pages");
   }
   var slugs = (C.products || []).map(function (p) { return p.slug; });
   cards.forEach(function (c, i) {
@@ -645,12 +645,16 @@ if (!arr(C.products) || C.products.length !== 7) {
     });
     if (CASE_STATUSES.indexOf(c.status) === -1) fail(cw, 'status "' + c.status + '" is not ' + CASE_STATUSES.join(" / "));
     if (INDUSTRIES.indexOf(c.industry) === -1) fail(cw, 'industry "' + c.industry + '" is not in the fixed set of 16');
-    var wantEyebrow = c.status === "measured" ? "Measured" : "Target outcomes";
-    if (str(c.metricEyebrow) && c.metricEyebrow !== wantEyebrow) {
+    var wantEyebrow = CASE_EYEBROW[c.status];
+    if (wantEyebrow && str(c.metricEyebrow) && c.metricEyebrow !== wantEyebrow) {
       fail(cw, 'metricEyebrow is "' + c.metricEyebrow + '", expected "' + wantEyebrow + '"');
     }
     if (!c.metric || !str(c.metric.value) || !str(c.metric.label)) fail(cw, "metric needs { value, label }");
-    else if (c.metric.value.length > 18) fail(cw, 'metric.value "' + c.metric.value + '" is too long to set large');
+    else if (c.metric.value.length > 20) fail(cw, 'metric.value "' + c.metric.value + '" is too long to set large');
+    /* A card whose headline value is words disclaims figures it never shows. */
+    if (c.metric && str(c.metric.value) && !/\d/.test(c.metric.value) && /figures are illustrative/i.test(c.footnote || "")) {
+      fail(cw, "footnote disclaims figures, but metric.value carries no number — trim the figures clause");
+    }
     if (!c.product || !str(c.product.slug) || !str(c.product.name)) fail(cw, "product needs { slug, name }");
     else {
       if (slugs.indexOf(c.product.slug) === -1) fail(cw, 'product.slug "' + c.product.slug + '" is not one of the seven');
@@ -671,14 +675,40 @@ if (!arr(C.products) || C.products.length !== 7) {
       }
     }
   });
-  /* Services renders the same four cards; its ids must resolve. */
-  var ids = cards.map(function (c) { return c.id; });
+  /* Services carries the method, not a second copy of these cards: one line per
+     engagement, the same engagements, no figures — those stay here. */
+  var descriptors = cards.map(function (c) { return c.descriptor; });
   var proof = C.services && C.services.proof;
   if (!proof) return fail("services.proof", "missing");
-  if (proof.evidenceIds !== undefined) fail("services.proof", "evidenceIds is superseded by caseStudyIds");
-  if (!arr(proof.caseStudyIds) || !proof.caseStudyIds.length) fail("services.proof", "caseStudyIds missing");
-  else proof.caseStudyIds.forEach(function (id) {
-    if (ids.indexOf(id) === -1) fail("services.proof", 'caseStudyIds names "' + id + '", which is not an overview.caseStudies id');
+  if (proof.evidenceIds !== undefined) fail("services.proof", "evidenceIds is superseded by the method treatment");
+  if (proof.caseStudyIds !== undefined) {
+    fail("services.proof", "caseStudyIds is superseded — Services no longer repeats the home page's case-study grid");
+  }
+  if (proof.methodNote !== undefined) fail("services.proof", "methodNote is superseded by lead + stat + footnote");
+  ["title", "dividerLabel", "lead", "engagementsTitle", "footnote"].forEach(function (k) {
+    if (!str(proof[k])) fail("services.proof", k + " missing");
+  });
+  if (!proof.stat || !str(proof.stat.value) || !str(proof.stat.label)) {
+    fail("services.proof", "stat needs { value, label } — the one accuracy figure, set as a stat rather than buried in a footnote");
+  }
+  if (!proof.cta || !str(proof.cta.label) || !str(proof.cta.route)) {
+    fail("services.proof", "cta needs { label, route } — the link back to the case studies that carry the figures");
+  }
+  if (!arr(proof.engagements) || proof.engagements.length !== cards.length) {
+    fail("services.proof", "engagements must hold one line per case study (" + cards.length + ")");
+  } else proof.engagements.forEach(function (e, i) {
+    var ew = "services.proof.engagements[" + i + "]";
+    if (!str(e.descriptor) || !str(e.line)) fail(ew, "needs { descriptor, line }");
+    if (str(e.descriptor) && descriptors.indexOf(e.descriptor) === -1) {
+      fail(ew, 'descriptor "' + e.descriptor + '" is not one of the case-study descriptors');
+    }
+    if (!e.product || !str(e.product.slug) || !str(e.product.name)) fail(ew, "product needs { slug, name }");
+    else if (slugs.indexOf(e.product.slug) === -1) fail(ew, 'product.slug "' + e.product.slug + '" is not one of the seven');
+    /* The figures live on the Overview cards; repeating one here would put a
+       number in front of a reader with none of its caveats. */
+    if (str(e.line) && /\d+(\.\d+)?\s?%|\+\d|~\d/.test(e.line)) {
+      fail(ew, "line carries a figure — Services states the method, the Overview cards carry the numbers");
+    }
   });
 })();
 
