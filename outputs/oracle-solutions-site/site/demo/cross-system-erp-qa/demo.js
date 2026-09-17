@@ -710,69 +710,102 @@
     if (!has) key = list[0].id;
     var e = D.evidence(key, S.role, decisions());
     var acc = e.account || {};
+    var gone = acc.status && acc.status !== "at-risk";
     var picker = '<div class="ev" style="margin:0 0 10px">' + list.slice(0, 12).map(function (a) {
       return '<button class="evc evc--o" type="button" data-ev="' + esc(a.id) + '" style="cursor:pointer' + (a.id === key ? ";background:#e4eef3;border-color:#9dc0cf;color:#1d5f73" : "") + '">' + esc(a.name) + "</button>";
     }).join("") + "</div>";
-    var cause = an.causes.filter(function (c) { return c.id === acc.causeId; })[0] || { label: "" };
     var body =
-      '<div class="recon"><b>' + esc(acc.name) + "</b> &middot; tier " + esc(acc.tier) + " &middot; " + esc(acc.lines) + " lines &middot; " +
-      esc(usdShort(acc.status === "declined" ? baseAccount(acc.id).usd : acc.usd)) + (acc.status === "declined" ? " (declined, no longer counted)" : " at risk") +
-      " &middot; penalty " + esc(usdShort(acc.status === "declined" ? baseAccount(acc.id).penaltyUsd : acc.penaltyUsd)) +
-      '<span class="mono">' + esc(cause.label) + "</span></div>" +
-      "<h4>The lines, in the systems they live in</h4>" +
-      '<table class="dgrid"><thead><tr><th>System</th><th>Object</th><th>Key</th><th>Item</th><th class="r">Qty</th><th>Promised</th><th>Predicted</th><th class="r">USD</th></tr></thead><tbody>' +
+      '<div class="recon"><b>' + esc(acc.name) + "</b> &middot; tier " + esc(acc.tier) + " &middot; " + esc(acc.owner || "") + " &middot; " +
+      esc(gone ? (acc.wasLines || acc.lines) : acc.lines) + " lines &middot; " +
+      esc(usdShort(gone ? acc.wasUsd : acc.usd)) + (gone ? " (" + esc(acc.statusLabel || "decided") + ")" : " at risk") +
+      " &middot; penalty " + esc(usdShort(gone ? acc.wasPenaltyUsd : acc.penaltyUsd)) +
+      '<span class="mono">' + esc(acc.causeLabel || "") + (acc.recommendation && acc.recommendation.text ? " &middot; " + acc.recommendation.text : "") + "</span></div>";
+    if (e.identity) {
+      body += '<div class="idline">' + ICON.shield + "<span>The AI matched this customer across " + esc((acc.systems || []).length) +
+        " systems at a score of " + esc(Number(e.identity.score).toFixed(2)) + " &middot; " + esc(e.identity.reason) +
+        ' <span class="stat stat--' + esc(String(e.identity.status || "").replace(/[^a-z]/g, "")) + '">' + esc(e.identity.status) + "</span></span></div>";
+    }
+    body += "<h4>The lines, in the systems they live in</h4>" +
+      '<table class="dgrid"><thead><tr><th>System</th><th>Key in that system</th><th>Item</th><th class="r">Qty</th><th>Promised</th><th>Predicted</th><th class="r">Late</th><th>Status</th><th class="r">USD</th></tr></thead><tbody>' +
       (e.lines || []).map(function (l) {
-        return "<tr><td>" + sysBadge(l.sys) + "</td><td><code>" + esc(l.object) + "</code></td><td><code>" + esc(l.key) + "</code></td><td><code>" + esc(l.item) + "</code></td>" +
-          '<td class="r">' + esc(l.qty) + "</td><td>" + esc(l.promised) + "</td><td>" + esc(l.predicted) + '</td><td class="r">' + money(l.usd, 0) + "</td></tr>";
-      }).join("") + "</tbody></table>";
+        return "<tr><td>" + sysBadge(l.sys) + "</td><td><code>" + esc(l.keyLabel || (l.object + " " + l.key)) + "</code></td>" +
+          "<td><code>" + esc(l.item) + '</code><span class="sub">' + esc(l.itemDescription || "") + "</span></td>" +
+          '<td class="r">' + esc(l.qty) + " " + esc(l.uom || "") + "</td><td>" + esc(l.promisedLabel || l.promised) + "</td><td>" + esc(l.predictedLabel || l.predicted) + "</td>" +
+          '<td class="r">' + esc(l.daysLate === undefined ? "—" : l.daysLate + " d") + "</td><td>" + esc(l.status) + '</td><td class="r">' + money(l.usd, 0) + "</td></tr>";
+      }).join("") + "</tbody></table>" +
+      (e.linesHidden ? '<p class="honest">' + e.linesHidden + " further line" + (e.linesHidden === 1 ? " is" : "s are") + " outside your region and never left the database. " + esc(e.policyNote || "") + "</p>" : "");
     if (e.stockElsewhere && e.stockElsewhere.length) {
       body += "<h4>The same part, on hand somewhere else</h4>" +
-        '<table class="dgrid"><thead><tr><th>System</th><th>Plant</th><th>Item</th><th class="r">On hand</th></tr></thead><tbody>' +
-        e.stockElsewhere.map(function (s) {
-          return "<tr><td>" + sysBadge(s.sys) + "</td><td><code>" + esc(s.plant) + "</code></td><td><code>" + esc(s.item) + "</code></td><td class=\"r\">" + esc(s.onHand) + "</td></tr>";
+        '<table class="dgrid"><thead><tr><th>System</th><th>Plant</th><th>Item there</th><th class="r">On hand</th><th class="r">Needed</th><th>What the AI would move</th></tr></thead><tbody>' +
+        e.stockElsewhere.map(function (x) {
+          return "<tr><td>" + sysBadge(x.sys) + "</td><td><code>" + esc(x.plant) + '</code><span class="sub">' + esc(x.plantName || "") + "</span></td>" +
+            "<td><code>" + esc(x.itemKey || x.item) + '</code><span class="sub">' + esc(x.description || x.item) + "</span></td>" +
+            '<td class="r">' + esc(x.onHand) + " " + esc(x.uom || "") + '</td><td class="r">' + esc(x.needed === undefined ? "—" : x.needed) + "</td>" +
+            "<td>" + esc(x.note || ("transfer " + (x.transferId || ""))) + "</td></tr>";
         }).join("") + "</tbody></table>" +
-        '<div class="recon">This is the cross-system part: the order is in one system, the stock is in another, and nobody looking at either one alone would see it.</div>';
+        '<div class="recon">This is the part of the finding no single system could make: the order is in one system and the stock is in another, under a different item number.</div>';
     }
     if (e.supplierDelay) {
+      var sd = e.supplierDelay;
       body += "<h4>The supplier that is late</h4><table class=\"dgrid\"><tbody>" +
-        "<tr><td>Purchase order</td><td><code>" + esc(e.supplierDelay.po) + "</code></td></tr>" +
-        "<tr><td>Supplier</td><td>" + esc(e.supplierDelay.supplier) + "</td></tr>" +
-        "<tr><td>Promised receipt</td><td>" + esc(e.supplierDelay.promised) + "</td></tr>" +
-        "<tr><td>Days late</td><td>" + esc(e.supplierDelay.daysLate) + "</td></tr></tbody></table>";
+        "<tr><td>Supplier</td><td>" + esc(sd.supplier) + "</td></tr>" +
+        "<tr><td>Purchase order</td><td>" + sysBadge(sd.sys) + " <code>" + esc(sd.keyLabel || sd.key) + "</code></td></tr>" +
+        "<tr><td>Promised receipt</td><td>" + esc(sd.promisedLabel || sd.promisedDate) + " &middot; " + esc(sd.daysLate) + " days late</td></tr>" +
+        (sd.reason ? "<tr><td>What the AI found</td><td>" + esc(sd.reason) + "</td></tr>" : "") + "</tbody></table>";
     }
     if (e.creditHold) {
+      var ch = e.creditHold;
       body += "<h4>The credit hold</h4><table class=\"dgrid\"><tbody>" +
-        "<tr><td>Placed</td><td>" + esc(e.creditHold.placed) + "</td></tr>" +
-        "<tr><td>Limit</td><td>" + esc(S.role === "ANALYST_NA" ? "masked for this role" : usdShort(e.creditHold.limitUsd)) + "</td></tr>" +
-        "<tr><td>Exposure behind it</td><td>" + esc(usdShort(e.creditHold.exposureUsd)) + "</td></tr>" +
-        "<tr><td>Owner</td><td>" + esc(e.creditHold.owner) + "</td></tr></tbody></table>";
+        "<tr><td>Where it sits</td><td>" + sysBadge(ch.sys) + " <code>" + esc(ch.object) + "</code></td></tr>" +
+        "<tr><td>Placed</td><td>" + esc(ch.placedLabel || ch.placedOn) + "</td></tr>" +
+        "<tr><td>Reason</td><td>" + esc(ch.reason) + "</td></tr>" +
+        "<tr><td>Credit limit</td><td>" + esc(S.role === "ANALYST_NA" ? "masked for this role" : (ch.creditLimitText || usdShort(ch.creditLimitUsd))) + "</td></tr>" +
+        "<tr><td>Owner</td><td>" + esc(ch.owner) + "</td></tr></tbody></table>";
     }
     if (e.transit) {
+      var tr = e.transit, ex = tr.exception || {};
       body += "<h4>Where the shipment actually is</h4><table class=\"dgrid\"><tbody>" +
-        "<tr><td>Shipment</td><td><code>" + esc(e.transit.shipment) + "</code></td></tr>" +
-        "<tr><td>Carrier</td><td>" + esc(e.transit.carrier) + "</td></tr>" +
-        "<tr><td>Last scan</td><td>" + esc(e.transit.lastScan) + "</td></tr>" +
-        "<tr><td>ETA</td><td>" + esc(e.transit.eta) + "</td></tr>" +
-        "<tr><td>Exception</td><td><code>" + esc(e.transit.exception) + "</code></td></tr></tbody></table>";
+        "<tr><td>Shipment</td><td>" + sysBadge("DLV") + " <code>" + esc(tr.shipmentId) + "</code> &middot; " + esc(tr.object || "DLV_SHIPMENTS") + "</td></tr>" +
+        "<tr><td>Carrier</td><td>" + esc(tr.carrier) + " &middot; " + esc(tr.origin) + " &rarr; " + esc(tr.destination) + "</td></tr>" +
+        "<tr><td>ETA</td><td>" + esc(tr.etaLabel || tr.eta) + " &middot; " + esc(tr.daysLate) + " days later than promised</td></tr>" +
+        (ex.code ? "<tr><td>Exception</td><td><code>" + esc(ex.code) + "</code> &middot; " + esc(ex.reason || ex.note || "") + "</td></tr>" : "") +
+        "</tbody></table>" +
+        ((tr.scans && tr.scans.length) ? '<div class="scans">' + tr.scans.slice(0, 6).map(function (sc) {
+          return '<div class="scan"><i></i><span class="t">' + esc(sc.atLabel || sc.at || "") + "</span><span>" + esc(sc.location || "") + " &middot; " + esc(sc.status || "") + "</span></div>";
+        }).join("") + "</div>" : "");
     }
     if (e.crm) {
+      var contacts = (D.crmContacts || []).filter(function (c) { return c.customerId === key; }).slice(0, 2);
       body += "<h4>Who this customer is to us</h4><table class=\"dgrid\"><tbody>" +
+        "<tr><td>CRM record</td><td>" + sysBadge("CRM") + " <code>" + esc(e.crm.object || "CRM_ACCOUNT") + " " + esc(e.crm.key || "") + "</code> &middot; " + esc(e.crm.freshness || "") + "</td></tr>" +
         "<tr><td>Tier</td><td>" + esc(e.crm.tier) + "</td></tr>" +
-        "<tr><td>Account owner</td><td>" + esc(e.crm.owner) + "</td></tr>" +
-        (e.crm.revenue ? "<tr><td>Annual revenue</td><td>" + esc(e.crm.revenue) + "</td></tr>" : "") +
-        (e.crm.contacts || []).map(function (c) {
-          return "<tr><td>" + esc(c.name || "Contact") + "</td><td><code>" + esc(c.email) + "</code>" + (c.phone ? " &middot; <code>" + esc(c.phone) + "</code>" : "") + "</td></tr>";
+        "<tr><td>Account owner</td><td>" + esc(e.crm.owner) + " &middot; " + esc(e.crm.region || "") + "</td></tr>" +
+        "<tr><td>Annual revenue</td><td>" + esc(e.crm.revenueText || usdShort(e.crm.revenue)) + "</td></tr>" +
+        "<tr><td>Credit limit</td><td>" + esc(S.role === "ANALYST_NA" ? maskv(e.crm.creditLimitText, "amount") : (e.crm.creditLimitText || "—")) + "</td></tr>" +
+        contacts.map(function (c) {
+          return "<tr><td>" + esc(c.title || "Contact") + "</td><td>" + esc(c.name) + " &middot; <code>" + esc(maskv(c.email, "email")) + "</code> &middot; <code>" + esc(maskv(c.phone, "phone")) + "</code></td></tr>";
         }).join("") + "</tbody></table>" +
-        (S.role === "ANALYST_NA" ? '<p class="honest">Contacts arrive masked for this role — the database masks them, not this page.</p>' : "");
+        (S.role === "ANALYST_NA" ? '<p class="honest">Contacts and credit limits arrive masked for this role — the database masks them before anything reaches this page.</p>' : "");
     }
     if (e.contract) {
+      var k = e.contract;
       body += "<h4>The clause the penalty was read from</h4>" +
-        '<div class="clause"><span class="cl-src">' + esc(e.contract.source || "Enterprise Contracts") + " &middot; " + esc(e.contract.id || "") + "</span>" +
-        "<p>" + (S.role === "ANALYST_NA" ? "Penalty terms are hidden for this role." : "&ldquo;" + esc(e.contract.clause) + "&rdquo;") + "</p>" +
-        '<span class="cl-calc">' + (S.role === "ANALYST_NA" ? "Exposure hidden" : "Lead time " + esc(e.contract.leadTimeDays) + " business days &middot; " + esc(e.contract.penaltyPerDay) + " % per business day, capped at " + esc(e.contract.cap) + " % &middot; exposure on these lines " + esc(usdShort(e.contract.exposedUsd))) + "</span></div>";
+        '<div class="clause"><span class="cl-src">' + esc(k.object || "OKC_K_HEADERS_ALL_B") + " &middot; " + esc(k.number || "") + " &middot; " + esc(k.clauseRef || "") + "</span>" +
+        (S.role === "ANALYST_NA" || k.masked
+          ? "<p>Penalty terms are hidden for this role.</p>"
+          : "<p>&ldquo;" + esc(k.deliveryText || "") + "&rdquo;</p><p>&ldquo;" + esc(k.penaltyText || "") + "&rdquo;</p>" +
+            (k.acceptanceText ? "<p>&ldquo;" + esc(k.acceptanceText) + "&rdquo;</p>" : "")) +
+        '<span class="cl-calc">' + (S.role === "ANALYST_NA" || k.masked
+          ? "Exposure hidden for this role"
+          : esc(k.read || ("lead time " + k.leadTimeDays + " business days")) + " &middot; exposure on these lines " + esc(k.exposedText || usdShort(k.exposedUsd))) + "</span></div>";
     }
     body = body.split('<table class="dgrid"').join('<div class="tw"><table class="dgrid"').split("</table>").join("</table></div>");
     return panelHead("Evidence", "everything behind this account, in the system it came from") + picker + body;
+  }
+  function maskv(v, kind) {
+    if (S.role !== "ANALYST_NA") return v;
+    if (D.maskText) { try { return D.maskText(v, kind); } catch (e) { /* older signature */ } }
+    return "•••••";
   }
 
   /* ---- Insights: the generated dashboard plus two standing ones --------- */
