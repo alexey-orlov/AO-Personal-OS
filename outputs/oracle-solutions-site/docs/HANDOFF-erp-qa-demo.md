@@ -357,7 +357,8 @@ at 134 px with the short pipeline names so the step-1 callout still fits under t
 exploring, one footer line, no figures, no recap. The counter reads `Step 4 of 6 · 2 of 3` and the six segments
 fill fractionally, so every click moves something.
 
-**QA.** `node --check` clean, `tools/erp-qa-check.js` 329 assertions passing, `tools/check-grammar.js` OK,
+**QA.** `node --check` clean, `tools/erp-qa-check.js` **343** assertions passing (fourteen new ones lock the
+round-3 renames), `tools/check-grammar.js` OK,
 `tools/capture-erpqa-tour.json` extended (the renamed panel, the APC list, the Hub bottom nav both ways, Code
 View, Narrate — 62 shots) and replayed at 1440 × 900, 1280 × 800 and 1024 × 768 with `LOGS: none` at all three.
 

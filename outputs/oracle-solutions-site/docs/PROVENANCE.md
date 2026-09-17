@@ -4382,7 +4382,11 @@ viewport — the cards keep whole lines, with a fade where a description runs on
 
 ### 22.25 Verification
 
-`node --check` clean on `demo.js` and `data.js`; `node tools/erp-qa-check.js` **329 assertions passing**;
+`node --check` clean on `demo.js` and `data.js`; `node tools/erp-qa-check.js` **343 assertions passing** —
+fourteen of them new this round, so a later edit cannot quietly undo the renames (Oracle's nav roster,
+`Audit logs`, Insights on the Hub's bottom nav, the plum bar, the marks, the chip row, `Succeeded` with no
+`Cancel`, the `Agent flow task` trace, the amber rule, lowercase AIDP names, the Redwood breadcrumb and
+900-weight title, no uppercase micro-labels, the fractional counter and the R9 end card);
 `node tools/check-grammar.js` OK. `tools/capture-erpqa-tour.json` was extended for the renamed panel
 (`sessions` → `audit`) and the new surfaces — the Auto-populate catalog list, the Agent Hub bottom nav in both
 directions, Code View and Narrate — and replayed at **1440 × 900, 1280 × 800 and 1024 × 768** with
