@@ -343,37 +343,62 @@ svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width:
 .wb-page { min-width: 0; overflow: auto; background: var(--wb-page); }
 
 /* Agent Hub home */
-.hub { min-height: 100%; background: var(--hub); display: grid; grid-template-columns: 1fr 330px; gap: 28px; padding: 26px 30px 24px; position: relative; overflow: hidden; }
-.hub::before { content: ""; position: absolute; right: -70px; top: -120px; width: 320px; height: 260px; border-radius: 0 0 60% 40%; background: radial-gradient(60% 70% at 30% 20%, rgba(199, 70, 52, .16), rgba(120, 130, 175, .13) 55%, rgba(210, 180, 160, 0) 78%); pointer-events: none; }
+/* the Hub is a full-bleed warm canvas with Redwood petal artwork bleeding off
+   the top-right corner and a faint dot texture bottom-left */
+.hub { min-height: 100%; background: var(--hub); display: grid; grid-template-columns: 1fr 420px; gap: 28px; padding: 26px 30px 58px; position: relative; overflow: hidden; }
+.hub::before { content: ""; position: absolute; right: -110px; top: -170px; width: 460px; height: 380px; border-radius: 0 0 58% 42%; transform: rotate(-12deg); background:
+  radial-gradient(52% 58% at 34% 26%, rgba(199, 70, 52, .22), rgba(199, 70, 52, 0) 72%),
+  radial-gradient(46% 62% at 66% 42%, rgba(120, 130, 175, .2), rgba(120, 130, 175, 0) 74%),
+  radial-gradient(60% 50% at 52% 70%, rgba(214, 160, 120, .16), rgba(214, 160, 120, 0) 76%); pointer-events: none; }
+.hub::after { content: ""; position: absolute; left: -30px; bottom: -20px; width: 260px; height: 180px; pointer-events: none; opacity: .5;
+  background-image: radial-gradient(rgba(120, 110, 96, .28) 1px, transparent 1.2px); background-size: 9px 9px;
+  -webkit-mask-image: radial-gradient(70% 70% at 20% 85%, #000, transparent 72%); mask-image: radial-gradient(70% 70% at 20% 85%, #000, transparent 72%); }
 .hub-main { min-width: 0; position: relative; z-index: 1; }
-.hub-tile { width: 46px; height: 46px; border-radius: 6px; background: var(--red); display: block; position: relative; margin-bottom: 26px; }
-.hub-tile::after { content: ""; position: absolute; inset: 13px; background: #fff; border-radius: 3px; transform: rotate(45deg); }
-.hub-greet { font-family: var(--serif); font-size: 32px; font-weight: 400; letter-spacing: -.01em; margin-bottom: 14px; color: #2a2723; }
+.hub-tile { width: 55px; height: 55px; border-radius: 8px; background: #c4422c; display: grid; place-items: center; margin-bottom: 26px; }
+.hub-tile i { width: 26px; height: 15px; border-radius: 8px; border: 2.4px solid #fff; display: block; }
+.hub-greet { font-family: var(--serif); font-size: 39px; font-weight: 400; letter-spacing: -.01em; margin-bottom: 16px; color: #2a2723; }
 .hub-ask { display: flex; align-items: center; gap: 10px; background: #fff; border: 1px solid #ddd9d3; border-radius: 8px; padding: 12px 14px; max-width: 760px; box-shadow: 0 1px 2px rgba(40, 35, 30, .05); }
-.hub-ask .hub-mk { width: 16px; height: 16px; border-radius: 4px; background: var(--red); position: relative; flex: none; }
-.hub-ask .hub-mk::after { content: ""; position: absolute; inset: 4px; background: #fff; border-radius: 1.5px; transform: rotate(45deg); }
+.hub-ask { max-width: 729px; }
+.hub-mk { width: 22px; height: 13px; border-radius: 7px; background: #c4422c; position: relative; flex: none; display: grid; place-items: center; }
+.hub-mk::after { content: ""; width: 11px; height: 6px; border-radius: 4px; border: 1.5px solid #fff; }
 .hub-ph { font-size: 14px; color: #6f6a64; flex: 1; }
 .hub-ph b { color: #2a2723; font-weight: 600; }
 .hub-ask .ic { width: 15px; height: 15px; color: #8a857e; }
 .hub-model { display: flex; align-items: center; gap: 5px; font-size: 12px; color: var(--wb-txt-2); border-left: 1px solid var(--wb-line); padding-left: 10px; }
-.hub-sec { font-size: 11px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; color: #8b857d; margin: 22px 0 9px; }
+.hub-sec { font-size: 17px; font-weight: 700; letter-spacing: normal; text-transform: none; color: #2a2723; margin: 22px 0 9px; display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+.hub-sec .hs-n { font-size: 12.5px; font-weight: 400; color: var(--wb-txt-2); }
+.hub-sec .hs-all { margin-left: auto; font-size: 12.5px; font-weight: 400; color: var(--wb-link); cursor: pointer; }
 .hub-chips { display: flex; flex-wrap: wrap; gap: 8px; max-width: 900px; }
 .hub-chip { border: 1px solid #d4d3cf; background: rgba(255, 255, 255, .72); border-radius: 4px; padding: 6px 12px; font-size: 12.5px; cursor: pointer; color: #34302b; display: inline-flex; align-items: center; gap: 7px; }
 .hub-chip:hover { background: #fff; border-color: #b6b3ae; }
-.hub-chip i { font-style: normal; font-size: 10.5px; font-weight: 700; color: #8b857d; }
+.hub-chip i { font-style: normal; display: none; }
 .hub-chip.is-blocked i { color: var(--wb-red); }
-.hub-agent { margin-top: 18px; background: #fff; border: 1px solid #ddd9d3; border-radius: 8px; padding: 14px 16px; max-width: 760px; display: grid; grid-template-columns: 38px 1fr auto; gap: 12px; align-items: start; }
-.hub-agent .ag-ico { width: 38px; height: 38px; border-radius: 7px; background: #e9ece4; color: #4d7a2c; display: grid; place-items: center; }
-.hub-agent h3 { font-size: 14px; }
-.hub-agent p { font-size: 12px; color: var(--wb-txt-2); margin-top: 3px; }
-.hub-agent .ag-meta { font-size: 11.5px; color: #8b857d; margin-top: 6px; font-family: var(--mono); }
+/* Oracle's My agents band is a row of compact white cards, each with a status
+   pill and a "Last observed" date — not one wide card with a paragraph */
+.hub-agents { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; max-width: 900px; }
+.hub-agent { background: #fff; border: 1px solid #ddd9d3; border-radius: 8px; padding: 11px 12px 10px; min-width: 0; display: flex; flex-direction: column; gap: 5px; }
+.hub-agent .ag-ico { width: 28px; height: 28px; border-radius: 6px; background: #e9ece4; color: #4d7a2c; display: grid; place-items: center; }
+.hub-agent h3 { font-size: 13px; font-weight: 600; line-height: 1.3; }
+.hub-agent p { font-size: 11.5px; color: var(--wb-txt-2); line-height: 1.35; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.hub-agent .ag-last { font-size: 11px; color: #8b857d; margin-top: auto; padding-top: 5px; }
+.ag-pill { align-self: flex-start; border-radius: 4px; padding: 1px 8px; font-size: 11px; font-weight: 600; background: #dfe9d3; color: #3f6b23; }
+.ag-pill--att { background: #eacfc7; color: #7a3226; }
+.ag-pill--warn { background: #c4ac8f; color: #43341f; }
 .hub-side { position: relative; z-index: 1; min-width: 0; }
-.hub-side h3 { font-size: 12.5px; font-weight: 700; }
+.hub-side h3 { font-size: 13px; font-weight: 700; }
 .hub-date { font-family: var(--serif); font-size: 25px; font-weight: 400; margin: 3px 0 14px; color: #2a2723; }
 .hub-side .hs { border-top: 1px solid #dcd8d2; padding: 10px 0 9px; }
 .hub-side .hs .k { font-size: 11.5px; color: #8b857d; }
 .hub-side .hs .v { font-size: 13px; color: var(--wb-link); margin: 1px 0 2px; }
 .hub-side .hs .d { font-size: 11.5px; color: var(--wb-txt-2); }
+.hub-side .hs-more { display: block; font-size: 12.5px; color: var(--wb-link); cursor: pointer; padding: 9px 0 0; border-top: 1px solid #dcd8d2; }
+/* Agent Hub's own dark bottom nav — the surface's strongest single cue */
+.hub-bot { position: absolute; left: 0; right: 0; bottom: 0; height: 34px; background: #1e1c19; display: flex; align-items: stretch; z-index: 2; }
+.hub-bot button { flex: 1; background: transparent; border: 0; color: #747270; font-size: 12px; display: flex; align-items: center; justify-content: center; gap: 7px; cursor: pointer; position: relative; }
+.hub-bot button svg { width: 15px; height: 15px; }
+.hub-bot button.is-on { color: #fff; }
+.hub-bot button.is-on::before { content: ""; position: absolute; left: 50%; top: 0; width: 34px; height: 2px; margin-left: -17px; background: #fff; border-radius: 0 0 2px 2px; }
+.hub-bot button:hover { color: #cfccc8; }
 
 /* conversation */
 .conv { max-width: 1040px; margin: 0 auto; padding: 18px 24px 26px; background: var(--hub-2); min-height: 100%; }
