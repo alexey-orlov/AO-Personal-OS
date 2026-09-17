@@ -1,0 +1,220 @@
+# Start here — Oracle AI & Data Solutions mini-site
+
+Read this page first in every new session. It holds what the site is for, the brief and the rules it is built to, how a round of work runs, and what earlier rounds learned the hard way. Detail lives in the docs mapped in §10. Keep this page current: when a requirement, rule or procedure changes, rewrite the line — never append a dated update.
+
+Current as of 2026-09-17 (after round 8 and the Internal review panel).
+
+## 1. What it is
+
+- **The site:** one small site for SoftServe's Oracle AI & Data practice, named **Oracle AI & Data Solutions**. It offers *products* (AI agents and workflows on Oracle platforms) and *services* (the practice that delivers them, from a 4–8-week proof of value to scale).
+- **How it is used:** Oracle and SoftServe sellers open it live on a call, and customers receive it as a link.
+- **People:** Alex owns the site and every decision on it. The person on the contact card is Karsten Tramborg (Alliances & Partnerships Director). The practice mailbox is oracle@softserveinc.com.
+- **Code:** a static, hash-routed SPA in `site/` with no build step and no framework.
+  - Copy: `site/data/content.js`.
+  - Switches: `site/data/config.js`.
+  - Page renderers: `site/pages/`, one per page.
+  - Shared UI and the router: `site/assets/app.js`.
+  - Forms: `site/assets/forms.js`.
+- **Preview:** the claude.ai artifact https://claude.ai/artifact/98wafGUphFSyGSr6ctJiiN (the same artifact as https://claude.ai/code/artifact/41e4f3b6-47d9-4ef2-af99-99c40c02b89b). It is **shared with anyone who has the link**, so every publish is live at once.
+- **Stage:** prototype. The *Internal* button (bottom right) lists the assumptions that still need confirmation, and it comes off before launch (§8).
+
+## 2. The brief
+
+These are Alex's working assumptions as of 2026-09-17, and **each one is still to be confirmed**. The live list, with each item's status and a note on where the site stands against it, is `site/data/review.js`, shown in the *Internal* panel. When Alex confirms or changes an item, set its status there. If the requirement itself changed, also rewrite it here.
+
+- **Audience, in priority order:**
+  1. Oracle sellers and partners.
+  2. SoftServe sellers.
+  3. End customers.
+- **Positioning:**
+  - Experts in AI and in Oracle's platforms, with a multi-year, top-class enterprise track record.
+  - Ready-made solutions, fast proofs of value and a dedicated practice.
+  - We offer products *and* services.
+- **Commitments and disclosures:**
+  - A proof of value takes **4–8 weeks**, everywhere. This still needs agreement with delivery; `tools/check-grammar.js` already fails any other duration.
+  - The proof-of-value price is the only price on the site. Every other package price goes in the sales materials.
+  - No customer names, because no customer has confirmed we may use theirs.
+  - The catalog holds both existing and planned products.
+- **Communication flow:**
+  - One mailbox, oracle@softserveinc.com, receives every request.
+  - Karsten is the contact for communications.
+  - Sales materials go only to corporate addresses at softserveinc.com or oracle.com.
+
+**Where the site does not match the brief today** (flagged in the panel and left unchanged until Alex decides):
+- Two products print an **Integration price** on their Jumpstart tab: *Large docs processing and review* and *Workforce optimization* (€300–500K services plus infrastructure).
+- **No product is marked as planned**, so all seven read as available now.
+- **Partners** are priority 1, but they cannot receive the sales kit, which goes only to @oracle.com and @softserveinc.com. The brief contradicts itself here.
+
+## 3. The site, page by page
+
+| Route | What it does | Record |
+|---|---|---|
+| `#/` Home | Seven screens: <br>• hero with the built-on stack and a three-figure strip <br>• two ways in <br>• the agents by what they do <br>• how we deliver <br>• anonymized case studies (Proven / Forecast / Estimated) <br>• About SoftServe (the page's one light band) <br>• contact | PROVENANCE §18 |
+| `#/products` | Catalog with a facet rail (platform, what it does, availability) and tiles. It never prints a total, a denominator or a zero-count platform. | §17, §18.9 |
+| `#/products/<slug>[/<tab>]` | Seven product pages. <br>• Tabs: Overview · Technology · Jumpstart · Contacts · For sellers (that product's sales-kit request). <br>• Three products have an interactive walkthrough under `site/demo/`. | §15–§19, §22, §24 |
+| `#/services` | Three screens, one message each, then contact: <br>• *Frontier AI on Oracle* (the practice) <br>• *Every step has a number* (Discovery → proof of value → Integration → Scale) <br>• *Not a project. A proof.* (4–8 weeks) | §21, §23 |
+| `#/sellers` | *Get the sales kit*, for all offers or one product (work email at softserveinc.com or oracle.com). Below it, the demo form for a seller who already has an account in mind. | §24 |
+
+- **Header:** Products · Services · For sellers, plus *Talk to us*.
+- **Footer:** *For sellers* comes first in the link row.
+
+## 4. Standing rules
+
+These hold unless Alex changes them, and `tools/check-grammar.js` enforces most of them. The full wording is in HANDOFF §3 and `.claude/references/client-documents.md`.
+
+**Content**
+- Every word lives in `content.js`, and renderers only read data. No invented facts, numbers, customers or URLs. Log every new line of copy in PROVENANCE.
+- **No customer names or logos** in anything shipped. Describe customers by industry and scale. The checker and the deny-list grep both enforce this.
+- **No Oracle partner-standing claim**: no tier, no award. What may be said is joint delivery with Oracle's AI & Data organization.
+- **Naming:**
+  - Oracle products: "Oracle Autonomous AI Lakehouse", "Oracle AI Data Platform" (never "AIDP"), "Oracle AI for Fusion Applications", "OCI".
+  - NVIDIA products: "NVIDIA", "AI-Q", "cuOpt".
+  - GigaCloud never appears.
+- **Prices:**
+  - No € figures on Services.
+  - A price never ships without its disclaimer.
+  - Beyond that, the brief in §2 applies (still to be confirmed).
+- **No totals and no gaps.** Never print the size of the catalog ("seven products"). Never name what is missing ("yet", "so far").
+- **A case study states its status once**, in one word: the chip.
+- **Truthful confirmations.** Never say "we've emailed" unless something actually sent the email. With no `formEndpoint`, a form opens the visitor's mail client, and the page says so.
+- **Nothing internal ships in site copy.** The *Internal* panel is the only exception, and it is temporary (§8).
+
+**Messaging** (from Alex's reviews)
+- **Persona first.** Every headline speaks to its reader (a rep on a live call, a buyer on Oracle) in that reader's words. Never counts, taxonomy or packaging terms ("packaged", "workflow pattern", "ready-to-run", "pods").
+- **Structure before copy.** Work out the audience, then the positioning, then three or four messages, then one screen per message, and set the length target first. A page is an argument, not an inventory.
+- **Headings are display lines**, so the argument moves into the lead:
+  - H1: two to four words, ≤ ~24 characters a line, two lines at most.
+  - H2: five words or fewer, ≤ ~30 characters.
+  - Light-band title: ≤ ~28 characters.
+  - Check where the line breaks on a phone: no lone short word on a line.
+- **Repetition:**
+  - No content word three times on one screen.
+  - One word for one thing across the whole site.
+  - No claim repeated in more than two places.
+
+**Design**
+- **Palette and type:** near-black ground with one teal accent (#35CCBA) per screen. Headlines in Montserrat 900 uppercase, body in Open Sans. 1.5 px line icons, no emoji.
+- **Layout:** at most one light band per page. Peers are equal height.
+- **Pills:** a filled navy pill is a fact; an outlined pill is a filter.
+- **Buttons and links:** an address is a link, never a filled button. A filled button is the screen's one ask.
+- **Photos:** only the top block carries a photo, and the home hero carries none.
+- **Mobile:** clean at 375, and the H1 still holds at 320.
+
+## 5. How a round runs
+
+1. **Check the state.**
+   - Run `git log` on the folder, and read every file you will edit fresh from disk.
+   - Another session publishes this same tree: Alexs-MacBook-Air, which owns the walkthroughs under `site/demo/`.
+   - git-autosync commits every ~30 s.
+2. **Brief.**
+   - Opus gathers the facts from the decks, the site and the wiki `context/areas/softserve/oracle*.md`.
+   - It labels each fact: [site] already on the site · [pub] from a deck, publishable · [clr] needs clearance.
+   - It writes a short brief to the scratchpad.
+3. **Decide.**
+   - One Fable pass, working from the brief, makes the messaging, UX and design decisions and writes the copy.
+   - Opus does the rest: research, build, checker, QA, publish, docs.
+   - The report says which steps used Fable. Token efficiency matters: one compact Fable pass, not a fan-out.
+4. **Build.**
+   - Run `node --check` on changed JS, then `node tools/check-grammar.js`, which must print OK.
+   - Turn every new owner rule into a checker assertion, so it survives the next rewrite.
+5. **Look, then publish** (§6).
+6. **Record.**
+   - Add a new PROVENANCE section: the asks, the split, the decisions, a before/after table, the checks and *Open for Alex*.
+   - Update SCHEMA, CONFIG, VISUAL-GRAMMAR and README wherever the contract moved.
+   - Rewrite this page wherever the brief, a rule or a procedure changed.
+7. **Report** to Alex: what changed, what was decided differently and why, and what is still open.
+
+## 6. Run, QA, publish (short version)
+
+Exact commands are in HANDOFF §4.
+
+- **Run.**
+  - Start the server with `preview_start {name: "oracle-site"}` (python `http.server` on 8765).
+  - Browse `http://127.0.0.1:8765`, not `localhost`.
+  - A QA subagent can kill the shared server; restart it before blaming the page.
+- **Fresh assets.** The preview caches hard. Call `fetch('<file>', {cache: 'reload'})` for every changed file, or re-point the stylesheet link with `?v=`, then navigate.
+- **Layout QA.**
+  - Check every changed screen at 1440, 1280, 1024, 768 and 375, and the H1 at 320.
+  - Hide the other `#app` sections and add `is-in` to the `.reveal` blocks, so each screenshot is taken at scroll 0 (screenshots taken after scrolling come back black).
+  - Check horizontal overflow at every width.
+  - A component moved to a new page takes its wrapper, modifier classes and breakpoints with it.
+- **Gates.** All three must pass:
+  - the checker prints OK;
+  - the console is clean on every route;
+  - `grep -ri "bosch\|riyadh\|dhl\|sbg\|logos/" site --include='*.js' --include='*.css' --include='*.html'` returns nothing. In zsh, quote the globs. If ugrep hits its complexity limit, use `/usr/bin/grep`.
+- **Publish.**
+  - Strip the nine skeleton lines from `site/index.html` into `.work/publish/index.html` (exact-line `grep -v -x -F`, HANDOFF §4).
+  - Call the Artifact tool with `file_path` = that wrapper, `root` = `site`, and a `files` map of every changed or new file.
+- **Refused publish** ("not built on the newer version") means another session published in between:
+  1. `read_file` the live copies of the files you changed.
+  2. Diff them against local; the working tree is the merge.
+  3. Run `action: read`, then publish again.
+- **Node:** `/opt/homebrew/bin/node` on this Mac (KN7X2Y65NX). On a machine without Node, see HANDOFF §9.
+
+## 7. Learnings: mistakes not to repeat
+
+- **A background agent's silence is not progress.**
+  - Have it write intermediate output early, and check that file's mtime when the stage should be done.
+  - If nothing has moved, stop the agent and take the work over. A research agent stalled for over an hour in round 6 (rule in `CLAUDE.md`).
+- **Fable's copy gets an Opus pass before it ships:**
+  - The renderer escapes HTML, so `&amp;` prints literally; write `&`.
+  - Retired vocabulary creeps back (*ready-to-run*).
+  - Leads run long. Count lines in the browser, not characters in the file.
+- **Headings over budget** drew the owner's sharpest correction ("too long of a heading", round 6). Budget before writing, and check at 375.
+- **Moving a component breaks it quietly.** Version 28 shipped the Services hero without its wrapper and with an 84 px H1 (PROVENANCE §21.7).
+- **The publish wrapper strips by exact line.**
+  - Stripping by prefix once removed the `<header>` (version 16).
+  - Keeping the meta lines once shipped them twice (version 26).
+- **Parallel sessions share PROVENANCE numbering.** Read the last heading before numbering a round; round 7 had to move from §22 to §23.
+- **Checker regexes need word boundaries.** "2 months" matched "3–12 months".
+- **A duration, a price or a promise is a commitment, not copy.**
+  - The 4–8-week sweep compressed *Plan vs actual investigation* from 12 + 2 weeks. It was flagged for delivery, not shipped as settled.
+  - The same goes for the kit's "two working days".
+- **Truthful states beat optimistic ones.** The kit form has three confirmations (mail client opened · request received · kit emailed), and only a real auto-sender may use the third.
+- **A name built on "Oracle" needs a trademark check** against Oracle's third-party guidelines before launch.
+
+## 8. The Internal review panel (temporary)
+
+- **Files:**
+  - `site/data/review.js` holds the list: groups of items, each with `id`, `text`, `status` (`open` · `confirmed` · `changed`), `site` (where the site stands) and optionally `flag` and `decision`.
+  - `site/assets/review.js` renders the button and the panel, styles included, with no other dependency.
+  - Two `<script>` tags at the end of `site/index.html` load them.
+- **Updating an item:**
+  1. Set `status`, and for a change write the `decision`.
+  2. Rewrite §2 if the requirement itself changed.
+  3. Run the checker (it validates the list) and republish.
+- **Visibility:** anyone with the preview link sees the panel. Set `enabled: false` to hide it without deleting anything.
+- **Before launch:** delete both files and both script tags. Until then the checker warns on every run.
+
+## 9. Open items
+
+- **The brief (§2):** every item stays open until Alex confirms it (`site/data/review.js`).
+- **Round 7 (PROVENANCE §23.4):**
+  - delivery sign-off on *Plan vs actual investigation* in 4–8 weeks;
+  - clearance for the stronger *Frontier AI* proof points.
+- **Round 8 (§24.4):**
+  - what sits behind `formEndpoint` for kit requests;
+  - whether the mailbox is watched, and whether two working days is the right promise;
+  - whether the kit is ready (most manifest links are still pending);
+  - whether *all offers* is one bundle;
+  - whether subdomains qualify;
+  - where partner demo requests go.
+- **Inputs Alex supplies (HANDOFF §7):** demo videos and posters, Marketplace URLs, success stories, kit links, form endpoint, hosting subdomain, customer-name approvals, image rights.
+- **At launch:**
+  - the site name checked against Oracle's trademark guidelines;
+  - the Internal panel removed;
+  - `og:url` set.
+
+## 10. Map of the docs
+
+| Doc | Read it when |
+|---|---|
+| `README.md` | You need the folder layout, the routes, the config keys at a glance, the three walkthroughs or deployment |
+| `docs/HANDOFF.md` | You need the exact run, verify and publish commands (§4), the standing rules in full (§3), the inputs list (§7) or the Node note (§9) |
+| `docs/SCHEMA.md` | You add, rename or retire a `content.js` key |
+| `docs/CONFIG.md` | You touch a switch in `config.js` |
+| `docs/VISUAL-GRAMMAR.md` | You change a component or a page composition |
+| `docs/PROVENANCE.md` | You need a fact's source or a round's decisions (§18 home, §20 name, §21 and §23 Services, §24 sales kit, §25 Internal panel). At 4,500 lines, search it; don't read it top to bottom. |
+| `docs/ASSETS.md` | You work on images, step frames or posters, and how they were made |
+| `docs/HANDOFF-workforce-demo.md`, `docs/HANDOFF-erp-qa-demo.md` | You work on a walkthrough; each is owned by its own session |
+| `.claude/references/client-documents.md` | You write marketing copy |
