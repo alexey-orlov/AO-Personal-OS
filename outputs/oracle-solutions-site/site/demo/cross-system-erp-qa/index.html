@@ -14,7 +14,7 @@
   <div class="ws-id">
     <span class="ws-cube" aria-hidden="true"></span>
     <span class="ws-name"><b>Norwell Group</b> workspace</span>
-    <span class="ws-ctx" id="ws-ctx">Q3 FY2026 close · Tue 6 Oct 2026 09:40</span>
+    <span class="ws-ctx" id="ws-ctx">Week 41 FY2026 · Tue 6 Oct 2026 09:40</span>
   </div>
   <nav class="ws-tabs" id="ws-tabs" aria-label="Applications in this workspace">
     <button class="ws-tab is-active" type="button" data-go="lakehouse" aria-current="page">
@@ -27,7 +27,7 @@
     </button>
     <button class="ws-tab" type="button" data-go="review">
       <span class="ws-glyph ws-glyph--rw" aria-hidden="true"></span>
-      <span class="ws-lab"><b>Mapping review</b><em>data steward</em></span>
+      <span class="ws-lab"><b>Decisions</b><em>review &amp; act</em></span>
     </button>
   </nav>
   <div class="ws-right">
@@ -71,19 +71,19 @@
   </section>
 
   <!-- ==================== 3. Mapping review (Redwood app) ==================== -->
-  <section class="app app--rw" data-app="review" id="app-review" aria-label="Mapping review" hidden>
+  <section class="app app--rw" data-app="review" id="app-review" aria-label="Decisions, review and act" hidden>
     <header class="rw-bar">
       <span class="rw-mark" aria-hidden="true"></span>
-      <span class="rw-app">Mapping review<em>Norwell Group · lakehouse mapping tables</em></span>
+      <span class="rw-app">Decisions<em>what the AI proposes, what people decide</em></span>
       <div class="rw-bar-right">
         <span class="rw-state" id="rw-state"></span>
-        <button class="btn btn--dark" id="rw-rerun" type="button">Re-run resolution</button>
-        <span class="rw-avatar" title="Priya Natarajan · finance data steward">PN</span>
+        <button class="btn btn--dark" id="rw-rerun" type="button">Re-analyse</button>
+        <span class="rw-avatar" title="Dana Whitfield · VP Commercial Operations">DW</span>
       </div>
     </header>
     <div class="rw-page">
-      <section class="band" id="rw-band" aria-label="Model health"></section>
-      <div class="rw-tabs" id="rw-tabs" role="tablist" aria-label="Mapping review"></div>
+      <section class="band" id="rw-band" aria-label="Per system, then across systems"></section>
+      <div class="rw-tabs" id="rw-tabs" role="tablist" aria-label="Decisions"></div>
       <div class="rw-panel" id="rw-panel"></div>
     </div>
   </section>
@@ -108,10 +108,10 @@
 <div class="modal" id="gate" hidden>
   <div class="modal-card gate" role="dialog" aria-modal="true" aria-labelledby="gate-title">
     <span class="eyebrow">Interactive walkthrough</span>
-    <h2 id="gate-title">Cross-system ERP Q&amp;A</h2>
-    <p id="gate-body">You are the group controller of a multi-entity group whose three operating companies run on three different ERPs, with an in-house contracts database and a non-Oracle CRM alongside. You will rebuild one governed model over all five, see what the model makes visible that no single system can, ask a question in plain English and follow every figure back to the row it came from, overrule a mapping the model got wrong, and prove that the answer obeys the same rules for a second role. Six steps, about three minutes. Only the highlighted control is active at each step.</p>
+    <h2 id="gate-title">What is at risk this week</h2>
+    <p id="gate-body">You are Dana Whitfield, VP Commercial Operations at a group whose three operating companies sell out of three different ERPs, with the customer contracts, a delivery-tracking application and a non-Oracle CRM alongside. It is Tuesday morning and you need to know what is going to go wrong this week. You will ask the AI, watch four agents read all five systems, see what is at risk and why every late line is late, check one finding against the rows it came from, overrule the AI on an account you have already spoken to and watch it re-value everything, then have it build the dashboard your team will work from. Six steps, about three minutes. Only the highlighted control is active at each step.</p>
     <div class="gate-actions"><button class="btn btn--dark" id="gate-start" type="button">Start the walkthrough</button><button class="btn btn--ghost" id="gate-free" type="button">Explore freely</button></div>
-    <p class="gate-note">Demo data only — a fictional group, synthetic suppliers, accounts and balances. Oracle object names are real because the use case runs on those products; nothing is uploaded and nothing leaves this page.</p>
+    <p class="gate-note">Demo data only — a fictional group with synthetic customers, orders, contracts and shipments. Oracle object names are real because the use case runs on those products; nothing is uploaded and nothing leaves this page. Figures the AI puts on revenue are its own estimate on this data.</p>
   </div>
 </div>
 
