@@ -315,3 +315,65 @@ _Alex's feedback on round 2: (1) the end card reads as a justification of the bu
 ## R11. Interface fidelity (the audit and the fix)
 
 Three read-only Opus auditors compare every Oracle surface element by element against the reference frames (`.work/erp-qa/fidelity/*-audit.md`, side-by-side sheets under `fidelity/sheets/`), classifying each difference as A (deviation with a reference → exact fix), B (invention without a reference → nearest real idiom and why), C (match). One Opus fixer applies every A item plus R9 and R10, re-runs QA at three viewports, re-cuts any still whose screen changed, and updates PROVENANCE §22 with the fidelity table. Fable reviews the sheets and the residual B list and reports them to Alex with reasons.
+
+### R11 — what was applied (round 3, Opus fixer, 2026-09-17)
+
+**A-items.** 123 of the 132 the three auditors listed are in the build: **35 of 35** on Data Studio, **64 of 66**
+on the AI Data Platform, **24 of 31** on the Ask Oracle answer anatomy / the Agent-flow Trace / the Redwood
+"Decisions" app. Every item any auditor marked "a user would notice" is applied. The nine that are not, and why,
+are in `docs/PROVENANCE.md` §22.23 — the short version: `View as chart` would misdescribe what `Create
+dashboard` does; an Insights breadcrumb would contradict the same audit's finding that Insights is an Agent Hub
+tab; the `NL2SQL|GENAI` caption, the `Switch NL2SQL Profile` control and the `☑ Database ☐ Narrate` pair are
+Select AI composer furniture and this shell's canonical frame is the Agent Hub conversation (so `Narrate` is a
+chip instead); the Narrate audio player would play nothing; a full-page `Explain` and a docked Trace panel would
+break the tour's one-control-per-step guard (the Trace's *contents* are the real trace); and the `Show Charts`
+strip would duplicate the dashboard step.
+
+**Decisions applied as given.** Oracle marks are in (the `ORACLE` wordmark as text in the Data Studio bar,
+Oracle's white outlined ellipse in the Workbench bar, the Ask box and the composer; the red diamond tiles are
+gone, no logo files). The Workbench nav carries Oracle's real sixteen-item roster in Oracle's order, `Sessions`
+became `Audit logs`, `Insights` moved to the Agent Hub's dark bottom nav (`Home · Insights · Catalog · Teams`),
+the conversation wears the plum bar, the run card kept its form but took every A-item, the Trace is the real
+`Agent flow task | Duration | Tokens` shape with the metadata pane, `Evidence` became `Explore`, `Code View`
+came back on the existing `.sqlbox`, the Redwood app lost every uppercase micro-label and gained its breadcrumb,
+its 900-weight title, its alert style and its pale status pill, and the Data Studio A-list went in whole.
+
+**B re-skins.** The Live Feed page's three inventions were re-drawn in the idioms the auditor named: the five
+source cards in the Data Load home's four-card form, the model job as the dark-teal load-job accordion, the
+certified-view grid as a Catalog entity list. The step-1 focus — five sources with their system, feed and
+freshness — survives all three.
+
+**Residual inventions (the list for Alex)** are in `docs/PROVENANCE.md` §22.23 with the idiom each is drawn in
+and why it has to be invented: the Live Feed page itself (Oracle has never published a screenshot of it), the
+multi-agent run card, the analysis card, the Explore panel, the Trace summary and firewall lines, the
+sentence-shaped span names, the glossary cards under Explain, ten saved questions instead of two, the generated
+dashboard, the View-as menu, the Decisions app's per-row Accept/Decline with a reason, the before→after band,
+the Audit logs columns, the `Tokens` column that shows seconds (verbatim from the reference), and three inert
+agent cards on the Hub. Two density deviations are stated rather than hidden: the nine-column ranked-accounts
+grid runs denser than Oracle's four-to-six-column answer grids, and at 1024 px the five source cards are capped
+at 134 px with the short pipeline names so the step-1 callout still fits under them in a 768 px viewport.
+
+**R9 / R10.** The end card is R9 verbatim — three sentences, three doors that open the place, replay and keep
+exploring, one footer line, no figures, no recap. The counter reads `Step 4 of 6 · 2 of 3` and the six segments
+fill fractionally, so every click moves something.
+
+**QA.** `node --check` clean, `tools/erp-qa-check.js` 329 assertions passing, `tools/check-grammar.js` OK,
+`tools/capture-erpqa-tour.json` extended (the renamed panel, the APC list, the Hub bottom nav both ways, Code
+View, Narrate — 62 shots) and replayed at 1440 × 900, 1280 × 800 and 1024 × 768 with `LOGS: none` at all three.
+
+## Done — round 3 applied, captured and documented 2026-09-17
+
+The interface fixes, the end card, the step counter, the five re-cut images and the docs are current on disk.
+Before/after sheets for the ten screens that changed most: `.work/erp-qa/fidelity/sheets/` (before) and
+`.work/erp-qa/fidelity/sheets-after/` (after).
+
+**For the main session:**
+
+1. **Republish the standalone walkthrough artifact in place** —
+   https://claude.ai/code/artifact/6c822cc7-1c05-4504-ad61-7b64c86e9ceb — read it first, then publish the
+   wrapper-free copy with `demo.css` / `demo.js` / `data.js` as supporting files to the **same** URL, so
+   `demoPreviewUrl`, the README preview table and `docs/CONFIG.md` §3 stay correct without an edit.
+2. **Read, then republish the site artifact** (https://claude.ai/artifact/98wafGUphFSyGSr6ctJiiN) with the
+   rebuilt demo folder, the four step frames, the poster and `assets/img/manifest-edits.json`. `config.js` and
+   `content.js` are unchanged this round — the images kept their file names.
+3. **Fold the round into the context wiki** with `context-update`.
