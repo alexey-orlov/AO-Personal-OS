@@ -237,7 +237,7 @@
     if (!b) return;
     var id = b.dataset.ds;
     if (id === "catalog" || id === "feeds" || id === "analysis") { S.dsScreen = id; renderDs(); return; }
-    toast("This walkthrough carries three Data Studio screens: <b>Catalog</b>, <b>Data Load &rsaquo; Live Feed</b> and <b>Analysis</b>.");
+    toast("This walkthrough carries three screens: <b>Catalog</b>, <b>Live Feed</b> and <b>Analysis</b>.");
   });
 
   var OBJ_DESC = {
@@ -292,7 +292,7 @@
       return '<span class="ds-cat">' + esc(s.catalog) + ' <em>' + esc(s.id === "CRM" ? "Iceberg" : "All Schemas") + '</em><button type="button" data-drop="' + s.id + '" aria-label="Remove ' + esc(s.catalog) + ' from scope">&times;</button></span>';
     }).join("");
     var list = groups.map(function (g) { return dsGroupHtml(g[0], g[1]); }).join("");
-    if (!all.length) list = '<div class="ds-empty">No catalog in scope — add one back to see its entities.</div>';
+    if (!all.length) list = '<div class="ds-empty">No catalog in scope. Add one back to see its entities.</div>';
     $("#ds-crumb").textContent = "Catalog";
     var meta = '<div class="ds-meta"><b>Showing ' + all.length + ' entities</b><span class="ds-sort">Sort By: Updated (Newest to Oldest) ' + ICON.chevd + ICON.refresh + "</span></div>";
     $("#ds-page").innerHTML =
@@ -339,7 +339,7 @@
       '<div class="ds-crumbs"><a>Data Load</a><span>&rsaquo;</span><b>Live Feed</b></div>' +
       '<div class="ds-head"><h1>Live Feed</h1><span>Ongoing feeds of new data into the autonomous database</span></div>' +
       '<section class="srcs"><div class="srcs-head"><h2>Sources feeding the lakehouse</h2>' +
-      '<span>Five systems, minutes behind, in one place — this is what lets one question cross all of them.</span></div>' +
+      '<span>Five systems, minutes behind, in one place.</span></div>' +
       '<div class="src-cards" id="src-cards">' + D.sources.map(function (s) {
         return '<div class="src" data-src="' + esc(s.id) + '">' +
           '<span class="src-ico">' + ICON[SRC_ICON[s.id] || "cloud"] + "</span>" +
@@ -360,10 +360,10 @@
       '<div class="job-btns"><span class="grow">Rebuilt 09:44 &middot; rebuilt continuously as the feeds arrive</span>' +
       '<button class="job-nb" type="button" data-jobb="Report"><span class="ok">' + ICON.check + '</span>Report</button>' +
       '<button class="job-nb" type="button" data-jobb="Reload"><span class="ok">' + ICON.play + "</span>Reload</button></div>" +
-      '<p class="job-note">Nothing here is a batch anyone waits for: JD Edwards streams through change capture, Fusion and NetSuite arrive on their own pipelines, the delivery-tracking application is a database link and the CRM is an external table. The stalest of the five is the CRM, 1 h 05 min behind — and every answer says so.</p></section>' +
+      "</section>" +
       '<section class="out"><p class="out-cap"><b>' + D.views.length + ' certified views</b> &middot; schema GOLD &middot; owner Group Commercial &middot; signed-off definitions the answers cite by name</p>' +
       '<div class="ds-list">' + dsGroupHtml("View", views) + "</div></section>" +
-      '<p class="ds-aside">Demo data only — a fictional group and synthetic orders. Nothing is written back to any source system.</p>';
+      '<p class="ds-aside">Demo data only. Nothing is written back to any source system.</p>';
   }
   var SRC_ICON = { FUSION: "cloud", JDE: "stream", NETSUITE: "cloud", DLV: "dblink", CRM: "extbl" };
   var STAGE_LABELS = [
@@ -380,11 +380,11 @@
   }
   function srcWhat(id) {
     return {
-      FUSION: "Orders, fulfilment lines and on-hand stock for Europe — and the customer contracts, where the delivery lead time and the late-penalty clause live.",
-      JDE: "The North American order book, its item cross-references, on-hand balances, purchase orders and open receivables.",
+      FUSION: "Orders, fulfilment lines and stock for Europe, plus the contracts and their penalty clauses.",
+      JDE: "The North American order book, with item cross-references, stock, purchase orders and receivables.",
       NETSUITE: "Sales orders, lines, items and inventory balances for the services company.",
-      DLV: "Where every shipment actually is: the carrier, the ETA, each scan event, and the exception codes when one goes wrong.",
-      CRM: "Who the customer is to us — tier, owner, region, annual revenue — and the people to call."
+      DLV: "Where every shipment actually is: the carrier, the ETA, the scans and the exceptions.",
+      CRM: "Who the customer is to us: tier, owner, region and who to call."
     }[id] || "";
   }
   /* ---- Analysis: the natural-language Generate Query field (§1.9).
@@ -422,7 +422,7 @@
       '<div class="da-acts da-acts--run"><button class="da-btn" type="button" id="da-run"><i class="pl pl--green"></i>Run</button></div>' +
       '<div class="da-edwrap"><div class="da-editor">' + (S.daGenerated
         ? '<div class="rule"></div>' + sqlLines.map(function (l, i) { return '<div class="ln"><i>' + (i + 1) + "</i><code>" + sqlHtml(l) + "</code></div>"; }).join("")
-        : '<div class="da-empty">The editor is empty. <b>Generate Query</b> writes SQL here from the sentence above; nothing runs until you press <b>Run</b>.</div>') + "</div>" +
+        : '<div class="da-empty">The editor is empty. <b>Generate Query</b> writes the SQL here.</div>') + "</div>" +
       '<div class="da-split">&#9662;</div></div>' +
       '<div class="da-tabs"><button type="button" class="is-on">Query Result</button><button type="button">Explain Plan</button><button type="button">Autotrace</button>' +
       '<span class="da-right">' + ICON.info + "</span></div>" +
@@ -462,8 +462,8 @@
   }
   $("#ds-page").addEventListener("click", function (e) {
     var t;
-    if ((t = e.target.closest("#da-gen"))) { S.daGenerated = true; S.daRan = false; renderDs(); toast("<span><b>Generate Query</b> wrote the statement into the editor. Nothing has run yet — inspect it, then press <b>Run</b>.</span>", 6000); return; }
-    if ((t = e.target.closest("#da-run"))) { if (!S.daGenerated) { toast("The editor is empty — press <b>Generate Query</b> first."); return; } S.daRan = true; renderDs(); return; }
+    if ((t = e.target.closest("#da-gen"))) { S.daGenerated = true; S.daRan = false; renderDs(); toast("<span><b>Generate Query</b> wrote the statement into the editor. Nothing has run yet.</span>", 6000); return; }
+    if ((t = e.target.closest("#da-run"))) { if (!S.daGenerated) { toast("The editor is empty. Press <b>Generate Query</b> first."); return; } S.daRan = true; renderDs(); return; }
     if ((t = e.target.closest("[data-drop]"))) { S.dsCatalogs = S.dsCatalogs.filter(function (x) { return x !== t.dataset.drop; }); renderDs(); return; }
     if ((t = e.target.closest("[data-cat]"))) {
       var id = t.dataset.cat, i = S.dsCatalogs.indexOf(id);
@@ -476,8 +476,8 @@
       if (s) toast("<span><b>" + esc(s.name) + "</b> &middot; " + esc(s.feed) + " &middot; " + esc(s.freshLabel) + " behind &middot; " + s.objects.length + " objects in scope: <span class=\"mono\">" + esc(s.objects.join(", ")) + "</span></span>", 9000);
       return;
     }
-    if ((t = e.target.closest("[data-jobb]"))) { toast("<span><b>" + esc(t.dataset.jobb) + "</b> — read-only in this walkthrough. The model rebuilds itself as the five feeds arrive.</span>"); return; }
-    if ((t = e.target.closest("[data-manage]"))) { toast("<span>Mounted catalogs: <b>" + D.sources.map(function (s) { return s.catalog; }).join(" &middot; ") + "</b> — read-only in this walkthrough.</span>"); }
+    if ((t = e.target.closest("[data-jobb]"))) { toast("<span><b>" + esc(t.dataset.jobb) + "</b> is read-only here. The model rebuilds as the feeds arrive.</span>"); return; }
+    if ((t = e.target.closest("[data-manage]"))) { toast("<span>Mounted catalogs: <b>" + D.sources.map(function (s) { return s.catalog; }).join(" &middot; ") + "</b>. Read-only here.</span>"); }
   });
 
   /* ===================================================================== */
@@ -533,10 +533,10 @@
     var b = e.target.closest("[data-wb]");
     if (!b) return;
     var id = b.dataset.wb;
-    if (id === "create") { toast("<span><b>Create</b> — agent flow &middot; job &middot; notebook &middot; SQL &middot; catalog &middot; schema. Read-only in this walkthrough.</span>"); return; }
+    if (id === "create") { toast("<span><b>Create</b>: agent flow &middot; job &middot; notebook &middot; SQL &middot; catalog &middot; schema. Read-only here.</span>"); return; }
     if (id === "recent") { S.wbPanel = S.state.analysed ? "analysis" : "home"; S.panel = null; renderWb(); return; }
-    if (id === "navcollapse") { toast("Collapsing the navigation is read-only in this walkthrough."); return; }
-    if (WB_INERT[id]) { toast("<span><b>" + esc(WB_INERT[id]) + "</b> is part of the Workbench but outside this walkthrough.</span>"); return; }
+    if (id === "navcollapse") { toast("Collapsing the navigation is read-only here."); return; }
+    if (WB_INERT[id]) { toast("<span><b>" + esc(WB_INERT[id]) + "</b> is part of the Workbench, outside this walkthrough.</span>"); return; }
     S.wbPanel = id; S.panel = null; renderWb();
   });
 
@@ -574,7 +574,7 @@
     var p = persona();
     renderWb();
     if (role === "ANALYST_NA") {
-      toast("<span>Now looking at it as <b>" + esc(p.name) + "</b> &middot; " + esc(p.title) + ". He sees North America only; contacts, credit limits and contract penalty terms are masked in the database before anything reaches this page.</span>", 8000);
+      toast("<span>Viewing as <b>" + esc(p.name) + "</b>. North America only, contacts and credit limits masked in the database.</span>", 8000);
     } else {
       toast("<span>Back as <b>" + esc(p.name) + "</b> &middot; " + esc(p.title) + ".</span>");
     }
@@ -638,8 +638,8 @@
           '<div class="v">' + esc(a.title) + '</div><div class="d">' + a.lines + " lines &middot; " + usdShort(a.usd) + " at risk &middot; " + esc(a.taskLabel || (a.tasks + " tasks")) + "</div></div>";
       }).join("")
       : '<div class="hs"><div class="k">Commercial operations agent</div><div class="v">Watching the order book</div>' +
-        '<div class="d">Five systems feeding; nothing assigned yet this morning. Ask it what is at risk and it will read all of them.</div></div>' +
-        '<div class="hs"><div class="k">Account owners</div><div class="v">Week 41 review at 11:00</div><div class="d">The account owners want a list they can act on, not three exports.</div></div>';
+        '<div class="d">Five systems feeding. Nothing assigned yet this morning.</div></div>' +
+        '<div class="hs"><div class="k">Account owners</div><div class="v">Week 41 review at 11:00</div><div class="d">They want a list to act on, not three exports.</div></div>';
     return '<div class="hub"><div class="hub-main">' +
       '<span class="hub-tile"><i></i></span>' +
       '<h1 class="hub-greet">Good morning, ' + esc(personaByRole("COMMERCIAL_OPS").name.split(" ")[0]) + "!</h1>" +
@@ -663,17 +663,17 @@
           '<span class="ag-last">Last observed ' + esc(a.last) + "</span></div>";
       }).join("") + "</div></div>" +
       '<aside class="hub-side"><h3>Today&rsquo;s Tasks</h3><div class="hub-date">October 6th, 2026</div>' + today +
-      '<div class="hs"><div class="k">Stalest source</div><div class="v">CRM &middot; 1 h 05 min</div><div class="d">Freshness is a property of each feed, and the answer says which source is furthest behind.</div></div>' +
+      '<div class="hs"><div class="k">Stalest source</div><div class="v">CRM &middot; 1 h 05 min</div><div class="d">Every answer names the source furthest behind.</div></div>' +
       '<span class="hs-more" data-agents="1">View all</span>' +
       "</aside></div>" + hubBottomNav("home");
   }
   /* Oracle's My agents band is a row of compact cards with a status pill and a
      "Last observed" date. Only the first one does anything here. */
   var AGENTS = [
-    { name: "Commercial operations agent", what: "Reads the whole order book across five systems, attributes every late line and prices the exposure.", pill: "ready", state: "Ready", last: "6/10/2026" },
+    { name: "Commercial operations agent", what: "Reads the order book across five systems and prices every late line.", pill: "ready", state: "Ready", last: "6/10/2026" },
     { name: "Contract terms agent", what: "Reads delivery and penalty clauses out of the customer contracts.", pill: "ready", state: "Ready", last: "5/10/2026" },
     { name: "Supplier watch agent", what: "Watches purchase-order promise dates against the lines they cover.", pill: "warn", state: "Warning", last: "3/10/2026" },
-    { name: "Carrier exception agent", what: "Picks up carrier scan exceptions and re-times the affected shipments.", pill: "att", state: "Needs Attention", last: "1/10/2026" }
+    { name: "Carrier exception agent", what: "Picks up carrier scan exceptions and re-times the shipments.", pill: "att", state: "Needs Attention", last: "1/10/2026" }
   ];
   /* Agent Hub's own dark bottom nav: Home · Insights · Catalog · Teams */
   function hubBottomNav(on) {
@@ -733,7 +733,7 @@
       renderWb(); renderRw();
       var an = analysis();
       toast('<span class="tok">' + ICON.check + "</span><span><b>" + an.headline.lines + " open lines will miss their promise</b> &middot; " +
-        usdShort(an.headline.revenueUsd) + " at risk &middot; " + an.headline.tierA.accounts + " tier-A accounts exposed &middot; every line has a cause and an owner.</span>", 9000);
+        usdShort(an.headline.revenueUsd) + " at risk &middot; " + an.headline.tierA.accounts + " tier-A accounts.</span>", 9000);
       tour.next();
     }, t + 420);
   }
@@ -754,11 +754,10 @@
         '<div class="act-h"><span class="act-id">' + esc(a.id) + '</span><b>' + esc(a.title) + "</b>" +
         '<span class="stat stat--' + (a.status === "declined" ? "open" : "pending") + '">' + esc(a.status) + "</span></div>" +
         '<div class="act-m"><span>' + esc(a.owner) + "</span><span>" + a.lines + " lines</span><span>" + (a.accounts || (a.accountIds || []).length) + " accounts</span><span class=\"v\">" + usdShort(a.usd) + "</span></div>" +
-        '<div class="act-t">' + ICON.check + "<span><b>" + esc(a.taskLabel || (a.tasks + " tasks")) + ".</b> " + esc(a.assigned || "Assigned as a task — nothing is written back to an ERP") + ".</span></div>" +
+        '<div class="act-t">' + ICON.check + "<span><b>" + esc(a.taskLabel || (a.tasks + " tasks")) + ".</b> " + esc(a.assigned || "Assigned as a task. Nothing is written back to an ERP") + "</span></div>" +
         "</div>";
     }).join("") +
-      '<p class="act-note">The AI puts ' + esc(usdShort(an.headline.revenueUsd)) +
-      " behind these four actions — its own estimate on this data, not a promise that every line lands.</p></div>";
+      '<p class="act-note">The AI\u2019s estimate on this data, not a promise every line lands.</p></div>";
   }
   function accountsTable(an) {
     var all = an.accounts.filter(function (a) { return S.role !== "ANALYST_NA" || a.entity === "NG-NA"; });
@@ -786,8 +785,8 @@
             : esc(a.recommendation ? a.recommendation.text : "—")) + "</td>" +
           '<td><button class="btn btn--xs" type="button" data-ev="' + esc(a.id) + '">Explore</button></td></tr>';
       }).join("") + "</tbody></table></div>" +
-      '<p class="an-sub">Top ' + live.length + " of " + exposed + " accounts with a line at risk" +
-      (out.length ? ", plus the " + out.length + " you decided on" : "") + " — ranked by what is at stake.</p>";
+      '<p class="an-sub">Top ' + live.length + " of " + exposed + " accounts at risk" +
+      (out.length ? ", plus the " + out.length + " you decided on" : "") + ".</p>";
   }
   function viewChips(views) {
     views = views || [];
@@ -810,7 +809,7 @@
       '<section class="band an-band" aria-label="Per system, then across systems">' + bandHtml(an, "band-tiles", S.movedBand) + "</section>" +
       (S.narrate ? '<div class="ans-narr"><span class="sp">' + ICON.speak + "</span><span>" + esc(an.narrative) + "</span></div>" : "") +
       '<div class="an-cols"><section class="an-box"><h4>' + ICON.chart + "Why the lines are late</h4>" + causesChart(an) +
-      '<p class="an-sub">Every line has exactly one cause, and the causes add back to ' + h.lines + " lines and " + esc(usdShort(h.revenueUsd)) + ".</p></section>" +
+      '<p class="an-sub">One cause per line, and they add back to the totals.</p></section>" +
       '<section class="an-box"><h4>' + ICON.bulb + "What the AI proposes</h4>" + actionsHtml(an) + "</section></div>" +
       '<section class="an-box an-box--wide"><h4>' + ICON.list + "Accounts, ranked by what is at stake</h4>" + accountsTable(an) + "</section>" +
       (an.caveat ? '<div class="ans-caveat">' + ICON.info + " " + esc(an.caveat) + "</div>" : "") +
@@ -844,9 +843,9 @@
   /* Code View: the statement the agent ran, in Oracle's dark SQL panel */
   function codeHtml(a) {
     var sql = (a && a.sql) || daAnswer().sql || "";
-    return panelHead("Code View", "the statement the agent ran against the certified views") +
+    return panelHead("Code View", "the statement the agent ran") +
       '<div class="sqlbox">' + sqlHtml(sql).replace(/\n/g, "<br>") + "</div>" +
-      '<p class="honest">Read-only against GOLD, inside the allow-list, with the row policy and the column masking applied by the database.</p>';
+      '<p class="honest">Read-only against GOLD, inside the allow-list, with row policy and masking applied.</p>';
   }
   function panelHead(title, note) {
     return '<div class="panel-head"><b>' + esc(title) + "</b>" + (note ? '<span class="panel-note">' + note + "</span>" : "") +
@@ -874,7 +873,7 @@
       });
       return out;
     }).join("");
-    return panelHead("Trace", "the four agents, what each read, and the rules that applied") +
+    return panelHead("Trace", "what each agent read, and the rules that applied") +
       '<div class="trace-2"><div>' +
       '<div class="tr h"><span class="n">Agent flow task</span><span class="du">Duration</span><span class="ms">Tokens</span></div>' + rows +
       "</div>" +
@@ -886,16 +885,16 @@
       '<div class="fwline"><span class="k">Lines read</span> ' + an.headline.lines + "</div>" +
       '<div class="fwline"><span class="k">Certified views</span> ' + an.views.length + "</div>" +
       '<div class="fwline"><span class="k">Systems</span> ' + D.sources.length + "</div>" +
-      '<div class="tr-json"><b>Input</b><br>The agents read the certified views only, and the row policy and masking are applied by the database before anything reaches this page — the same rules whoever asks.</div>' +
+      '<div class="tr-json"><b>Input</b><br>The agents read certified views only. The database applies the rules.</div>' +
       "</aside></div>";
   }
   function explainHtml(an) {
-    return panelHead("How the AI read the question", "the words it had to pin down before it could look anything up") +
+    return panelHead("How the AI read the question", "the words it had to pin down first") +
       (D.glossary || []).slice(0, 5).map(function (g) {
         if (!g) return "";
         return '<div class="gl"><b>' + esc(g.term) + '</b><div class="syn">also written: ' + esc((g.synonyms || []).join(", ")) + '</div><div class="def">' + esc(g.definition) + '</div><div class="own">annotated by ' + esc(g.owner) + " &middot; last reviewed " + esc(g.changed) + "</div></div>";
       }).join("") +
-      '<div class="panel-note">These are the catalog descriptions and column annotations on the certified views — the only place the words in your question are given a meaning.</div>';
+      '<div class="panel-note">The catalog descriptions and column annotations that give your words a meaning.</div>';
   }
   function evidenceHtml(an) {
     var list = an.accounts.filter(function (a) { return S.role !== "ANALYST_NA" || a.entity === "NG-NA"; });
@@ -931,7 +930,7 @@
           '<td class="r">' + esc(l.qty) + " " + esc(l.uom || "") + "</td><td>" + esc(l.promisedLabel || l.promised) + "</td><td>" + esc(l.predictedLabel || l.predicted) + "</td>" +
           '<td class="r">' + esc(l.daysLate === undefined ? "—" : l.daysLate + " d") + "</td><td>" + esc(l.status) + '</td><td class="r">' + money(l.usd, 0) + "</td></tr>";
       }).join("") + "</tbody></table>" +
-      (e.linesHidden ? '<p class="honest">' + e.linesHidden + " further line" + (e.linesHidden === 1 ? " is" : "s are") + " outside your region and never left the database. " + esc(e.policyNote || "") + "</p>" : "");
+      (e.linesHidden ? '<p class="honest">' + e.linesHidden + " further line" + (e.linesHidden === 1 ? " is" : "s are") + " outside your region and never left the database.</p>" : "");
     if (e.stockElsewhere && e.stockElsewhere.length) {
       body += "<h4>The same part, on hand somewhere else</h4>" +
         '<table class="dgrid"><thead><tr><th>System</th><th>Plant</th><th>Item there</th><th class="r">On hand</th><th class="r">Needed</th><th>What the AI would move</th></tr></thead><tbody>' +
@@ -941,7 +940,7 @@
             '<td class="r">' + esc(x.onHand) + " " + esc(x.uom || "") + '</td><td class="r">' + esc(x.needed === undefined ? "—" : x.needed) + "</td>" +
             "<td>" + esc(x.note || ("transfer " + (x.transferId || ""))) + "</td></tr>";
         }).join("") + "</tbody></table>" +
-        '<div class="recon">This is the part of the finding no single system could make: the order is in one system and the stock is in another, under a different item number.</div>';
+        '<div class="recon">The order is in one system and the stock in another, under a different item number.</div>';
     }
     if (e.supplierDelay) {
       var sd = e.supplierDelay;
@@ -983,7 +982,7 @@
         contacts.map(function (c) {
           return "<tr><td>" + esc(c.title || "Contact") + "</td><td>" + esc(c.name) + " &middot; <code>" + esc(maskv(c.email, "email")) + "</code> &middot; <code>" + esc(maskv(c.phone, "phone")) + "</code></td></tr>";
         }).join("") + "</tbody></table>" +
-        (S.role === "ANALYST_NA" ? '<p class="honest">Contacts and credit limits arrive masked for this role — the database masks them before anything reaches this page.</p>' : "");
+        (S.role === "ANALYST_NA" ? '<p class="honest">The database masks contacts and credit limits for this role.</p>' : "");
     }
     if (e.contract) {
       var k = e.contract;
@@ -998,7 +997,7 @@
           : esc(k.read || ("lead time " + k.leadTimeDays + " business days")) + " &middot; exposure on these lines " + esc(k.exposedText || usdShort(k.exposedUsd))) + "</span></div>";
     }
     body = body.split('<table class="dgrid"').join('<div class="tw"><table class="dgrid"').split("</table>").join("</table></div>");
-    return panelHead("Explore", "everything behind this account, in the system it came from") + picker + body;
+    return panelHead("Explore", "everything behind this account, in its own system") + picker + body;
   }
   function maskv(v, kind) {
     if (S.role !== "ANALYST_NA") return v;
@@ -1064,7 +1063,7 @@
         }).join("") + "</tr>";
       }).join("") + "</tbody></table></div>" +
       (d.caveat ? '<div class="ans-caveat">' + ICON.info + " " + esc(d.caveat) + "</div>" : "") +
-      '<p class="honest">Built from ' + esc((d.builtFrom || []).join(", ")) + ' — the same definitions the analysis used, so a change to one moves both.' +
+      '<p class="honest">Built from ' + esc((d.builtFrom || []).join(", ")) + ', the same definitions the analysis used.' +
       (S.shared ? " " + esc(d.shareNote || "Shared with the commercial team.") : "") + "</p></div>";
   }
   function an_causeId(label) {
@@ -1075,7 +1074,7 @@
   function insightsHtml() {
     var an = S.state.analysed ? analysis() : null;
     var build = S.dashBuilding
-      ? '<div class="gd gd--building"><div class="gd-head"><div><span class="gd-tag">' + ICON.bot + 'Building</span><h3>Revenue at risk across systems</h3><div class="sub">The AI is assembling a dashboard from what it just found</div></div></div>' +
+      ? '<div class="gd gd--building"><div class="gd-head"><div><span class="gd-tag">' + ICON.bot + 'Building</span><h3>Revenue at risk across systems</h3><div class="sub">Assembling a dashboard from what it just found</div></div></div>' +
         '<ol class="rc-steps rc-steps--dash">' + DASH_PLAN.map(function (x, i) {
           return '<li class="' + (i < S.dashStep ? "is-done" : i === S.dashStep ? "is-live" : "") + '"><i></i><span>' + esc(x.text) + "</span></li>";
         }).join("") + "</ol></div>"
@@ -1089,7 +1088,7 @@
         { k: "Customer matches waiting for a person", l: String((an.pending && an.pending.customers) || (D.matches || []).length), s: "warn" },
         { k: "Item cross-references waiting", l: String((an.pending && an.pending.items) || (D.itemXrefs || []).length), s: "warn" }
       ]), views: ["OPEN_ORDER_LINES_X", "PROMISE_STATUS", "LATE_CAUSES"] });
-      standing.push({ name: "Service levels by account", sub: "What each contract promises, and what it costs when we miss", svg: barChart(an.accounts.filter(function (a) { return a.status === "at-risk"; }).slice(0, 6).map(function (a) {
+      standing.push({ name: "Service levels by account", sub: "What each contract promises, and what a miss costs", svg: barChart(an.accounts.filter(function (a) { return a.status === "at-risk"; }).slice(0, 6).map(function (a) {
         return { k: a.name, v: a.penaltyUsd || 1, l: usdShort(a.penaltyUsd) };
       }), "#265c61"), views: ["SLA_EXPOSURE", "ACCOUNT_EXPOSURE"] });
     }
@@ -1099,14 +1098,14 @@
         return '<button class="dash-card" type="button" data-dash="' + esc(c.name) + '" style="text-align:left;cursor:pointer"><h3>' + esc(c.name) + '</h3><div class="sub">' + esc(c.sub) + "</div>" + c.svg +
           '<div class="vs">' + c.views.map(function (v) { return "GOLD." + v; }).join(" · ") + "</div></button>";
       }).join("") + "</div>" : "") +
-      (!build && !standing.length ? '<div class="empty">Ask the commercial operations agent what is at risk, and it will have something to put here.</div>' : "") +
-      '<p class="honest">The two standing dashboards are static in this walkthrough. The generated one is built from the analysis on screen, and it obeys whoever is looking at it.</p>' +
+      (!build && !standing.length ? '<div class="empty">Ask the agent what is at risk this week.</div>' : "") +
+      '<p class="honest">The standing dashboards are static here. The generated one obeys its reader.</p>' +
       "</div>" + hubBottomNav("insights");
   }
   var DASH_PLAN = [];
   function createDashboard() {
     if (S.busy) return;
-    if (!S.state.analysed) { toast("Ask the agent what is at risk first — there is nothing to put on a dashboard yet."); return; }
+    if (!S.state.analysed) { toast("Ask what is at risk first. There is nothing to put on a dashboard."); return; }
     DASH_PLAN = D.dashboardPlan();
     S.busy = true; S.dashBuilding = true; S.dashStep = 0; S.wbPanel = "insights"; S.panel = null;
     renderWb();
@@ -1120,7 +1119,7 @@
       S.state = { analysed: true, decisions: S.state.decisions, dashboard: true };
       renderWb();
       toast('<span class="tok">' + ICON.check + "</span><span><b>Dashboard built</b> &middot; " + esc(D.dashboard(S.role, decisions()).title) +
-        " &middot; four tiles, four charts and the actions, on the certified views the answer used.</span>", 8000);
+        " &middot; four tiles, four charts and the actions.</span>", 8000);
       tour.next();
     }, t + 320);
   }
@@ -1128,7 +1127,7 @@
     if (!S.state.dashboard) { toast("Build the dashboard first."); return; }
     S.shared = true;
     renderWb();
-    toast('<span class="tok">' + ICON.check + "</span><span><b>Shared with the commercial team</b> &middot; " + esc(ownerList(3)) + " and the rest &middot; each of them opens it under their own role, so each sees their own rows. Mocked — nothing leaves this page.</span>", 9000);
+    toast('<span class="tok">' + ICON.check + "</span><span><b>Shared with the commercial team</b> &middot; " + esc(ownerList(3)) + " and the rest &middot; each sees their own rows.</span>", 9000);
     tour.after("share");
   }
 
@@ -1210,10 +1209,10 @@
     var t;
     if ((t = e.target.closest("[data-hubnav]"))) {
       var hn = t.dataset.hubnav;
-      if (hn === "teams") { toast("<span><b>Teams</b> is the Agent Hub's fourth tab — outside this walkthrough.</span>"); return; }
+      if (hn === "teams") { toast("<span><b>Teams</b> is the Agent Hub's fourth tab, outside this walkthrough.</span>"); return; }
       S.wbPanel = hn === "catalog" ? "catalog" : hn; S.panel = null; renderWb(); return;
     }
-    if ((t = e.target.closest("[data-agents]"))) { toast("<span>Four agents are registered to this workspace; only the <b>commercial operations agent</b> runs in this walkthrough.</span>"); return; }
+    if ((t = e.target.closest("[data-agents]"))) { toast("<span>Four agents are registered here. Only the <b>commercial operations agent</b> runs.</span>"); return; }
     if ((t = e.target.closest("[data-narr]"))) { S.narrate = !S.narrate; renderWb(); return; }
     if ((t = e.target.closest("[data-ask]"))) { ask(t.dataset.ask); return; }
     if ((t = e.target.closest("[data-askback]"))) { S.wbPanel = S.state.analysed ? "analysis" : "home"; S.panel = null; renderWb(); return; }
@@ -1232,16 +1231,16 @@
       tour.after(p2 === "trace" ? "trace" : "");
       return;
     }
-    if ((t = e.target.closest("[data-dash]"))) { toast("<span>Dashboard <b>" + esc(t.dataset.dash) + "</b> — static in this walkthrough; it reads the same certified views as the answers.</span>"); return; }
+    if ((t = e.target.closest("[data-dash]"))) { toast("<span>Dashboard <b>" + esc(t.dataset.dash) + "</b> is static here. It reads the same certified views as the answers.</span>"); return; }
     /* ---- Master catalog / lineage ---- */
-    if ((t = e.target.closest("[data-morev]"))) { toast("<span>Also read: <b>" + esc(t.dataset.morev.split("|").join(" · ")) + "</b> — click any chip to open where it comes from.</span>", 9000); return; }
+    if ((t = e.target.closest("[data-morev]"))) { toast("<span>Also read: <b>" + esc(t.dataset.morev.split("|").join(" · ")) + "</b>. Click a chip to see where it comes from.</span>", 9000); return; }
     if ((t = e.target.closest("[data-viewlin]"))) { openLineage(t.dataset.viewlin); return; }
     if ((t = e.target.closest("[data-mcent]"))) { S.mcEntity = t.dataset.mcent; S.mcMenu = false; renderWb(); return; }
     if ((t = e.target.closest("#mc-actions"))) { S.mcMenu = !S.mcMenu; renderWb(); return; }
     if ((t = e.target.closest("[data-mclin]"))) { S.mcMenu = false; openLineage(t.dataset.mclin); return; }
-    if ((t = e.target.closest("[data-mcdet]"))) { S.mcMenu = false; renderWb(); toast("<span><b>View Details</b> and <b>Set as Anchor</b> are the other two right-click actions on a catalog artifact; only <b>Lineage</b> opens in this walkthrough.</span>", 6000); return; }
+    if ((t = e.target.closest("[data-mcdet]"))) { S.mcMenu = false; renderWb(); toast("<span><b>View Details</b> and <b>Set as Anchor</b> are the other right-click actions. Only <b>Lineage</b> opens here.</span>", 6000); return; }
     if ((t = e.target.closest("[data-mcanch]"))) { S.mcMenu = false; renderWb(); toast("<span>Setting an anchor re-centres the lineage diagram on that artifact. GOLD." + esc(S.mcEntity) + " is already the anchor.</span>", 6000); return; }
-    if ((t = e.target.closest("[data-apccreate]"))) { toast("<span><b>Create Metadata Extractor</b> — read-only in this walkthrough.</span>"); return; }
+    if ((t = e.target.closest("[data-apccreate]"))) { toast("<span><b>Create Metadata Extractor</b> is read-only here.</span>"); return; }
     if ((t = e.target.closest("[data-apcopen]"))) { S.apcView = "detail"; renderWb(); return; }
     if ((t = e.target.closest("[data-apclist]"))) { S.apcView = "list"; renderWb(); return; }
     if ((t = e.target.closest("#lin-close"))) { S.wbPanel = S.linFrom || "catalog"; S.linFrom = null; renderWb(); return; }
@@ -1253,7 +1252,7 @@
     if ((t = e.target.closest("[data-linclear]"))) { S.linCol = null; renderWb(); return; }
     if ((t = e.target.closest("[data-lincol]"))) {
       var parts = t.dataset.lincol.split("|");
-      if (parts[0] !== "out") { toast("Column lineage is highlighted from the target column — pick one on <b>" + esc(S.linView) + "</b>."); return; }
+      if (parts[0] !== "out") { toast("Column lineage runs from the target column. Pick one on <b>" + esc(S.linView) + "</b>."); return; }
       S.linCol = S.linCol === parts[1] ? null : parts[1];
       if (S.linCol) openContributors();
       renderWb(); return;
@@ -1262,7 +1261,7 @@
     if ((t = e.target.closest("[data-lintab]"))) { S.linTab = t.dataset.lintab; renderWb(); return; }
     if ((t = e.target.closest("[data-linside]"))) {
       if (t.dataset.linside === "up") { S.linHideUp = !S.linHideUp; renderWb(); }
-      else toast("Nothing downstream of a certified view inside this walkthrough — the answers read it live.");
+      else toast("Nothing downstream of a certified view here. The answers read it live.");
       return;
     }
   });
@@ -1604,7 +1603,7 @@
         return '<tr><td><span class="mc-box"></span></td><td>' + esc(c[0]) + "</td><td>Column</td><td>" +
           (c[1] ? '<span class="mc-desc">' + esc(c[1]) + "</span>" : '<span class="mc-dash">-</span>') + "</td><td>" + esc(c[2]) + '</td><td><span class="mc-dots">&middot;&middot;&middot;</span></td></tr>';
       }).join("") + "</tbody></table>" +
-      '<p class="honest">' + esc(v.definition) + " Descriptions are written by the metadata extractor and reviewed by a person; the ones still showing <b>-</b> have not been reviewed. This column metadata is what the text-to-SQL agent reads to match a question's words to columns.</p>" +
+      '<p class="honest">' + esc(v.definition) + " The agent reads this column metadata to match your words to columns.</p>" +
       "</div></div></div>";
   }
   /* ---------------- Auto-populate catalog: the accept/reject queue ------- */
@@ -1627,7 +1626,7 @@
       }).join("") + "</tr></thead><tbody>" +
       '<tr><td><span class="mc-box"></span></td><td><a class="mc-link" data-apcopen="1">Commercial model extractor</a></td><td>' + GOLD_CAT + '</td><td><span class="apc-dot"></span>Succeeded</td><td>Auto</td><td>Norwell_Cluster</td><td>Tue, Oct 6, 2026 at 09:44</td><td>Priya Natarajan</td></tr>' +
       "</tbody></table></div>" +
-      '<p class="honest">One extractor covers the commercial model. Open it to see which entities a person accepted or rejected.</p></div></div>';
+      '<p class="honest">Open it to see which entities a person accepted or rejected.</p></div></div>';
   }
   var APC_ROWS = [
     ["doo_fulfill_lines_all", "Success", "Accepted", "/fusion-erp/doo-fulfill-lines-all", "fusion_erp"],
@@ -1654,7 +1653,7 @@
       APC_ROWS.map(function (r) {
         return '<tr><td><a class="mc-link">' + esc(r[0]) + '</a></td><td><span class="apc-dot"></span>' + esc(r[1]) + '</td><td><span class="apc-plain">' + esc(r[2]) + "</span></td><td>" + esc(r[3]) + "</td><td>" + esc(r[4]) + '</td><td><span class="mc-dots">&middot;&middot;&middot;</span></td></tr>';
       }).join("") + "</tbody></table></div>" +
-      '<p class="honest">Twelve entities were proposed by the extractor and ten accepted; the two rejected ones are out of the commercial model and never reach a certified view. The metadata a person confirms here is what the agents read to work out which column answers which question.</p></div></div>';
+      '<p class="honest">Twelve proposed, ten accepted. The rejected two never reach a certified view.</p></div></div>';
   }
 
   function auditHtml() {
@@ -1672,7 +1671,7 @@
       mine.map(function (a) {
         return "<tr><td>" + esc(a.time) + "</td><td>" + esc(a.user) + "</td><td>" + esc(a.role) + "</td><td>" + esc(a.text) + '</td><td><span class="mono">' + esc(a.sqlHash) + '</span></td><td style="text-align:right">' + esc(a.rows) + '</td><td><span class="stat stat--' + (a.status === "blocked" ? "open" : "auto") + '">' + esc(a.status) + "</span></td></tr>";
       }).join("") + "</tbody></table></div>" +
-      '<p class="honest">A blocked row is a refusal by SQL Firewall against the allow-list, written before the statement could reach any data.</p></div></div>';
+      '<p class="honest">SQL Firewall refused the statement before it reached any data.</p></div></div>';
   }
 
   /* ===================================================================== */
@@ -1689,7 +1688,7 @@
   function renderBand() {
     if (!S.state.analysed) {
       $("#rw-band").innerHTML = '<div class="band-head"><span class="eyebrow">Per system &rarr; across systems</span></div>' +
-        '<div class="empty">Nothing to show yet — the commercial operations agent has not run this morning.</div>';
+        '<div class="empty">Nothing yet. The agent has not run this morning.</div>';
       return;
     }
     $("#rw-band").innerHTML = bandHtml(analysis(), "rw-band-tiles", S.movedBand);
@@ -1702,10 +1701,10 @@
     el.className = "rw-state"; el.innerHTML = '<span class="dot"></span>' + an.headline.lines + " lines at risk &middot; " + usdShort(an.headline.revenueUsd);
   }
   var RW_TITLES = {
-    recommendations: ["Recommendations", "What the AI proposes, and what you decide about each account."],
-    matches: ["Customer matches", "Pairs the AI could not settle on its own, waiting for the steward."],
-    xrefs: ["Item cross-references", "The same part under three different numbers, waiting for the steward."],
-    decisions: ["Decisions log", "Every decision with who made it, when, why, and the rule it left behind."]
+    recommendations: ["Recommendations", "What the AI proposes, what you decide."],
+    matches: ["Customer matches", "Pairs the AI could not settle, waiting for the steward."],
+    xrefs: ["Item cross-references", "The same part under three numbers, waiting for the steward."],
+    decisions: ["Decisions log", "Who decided, when, why, and the rule it left behind."]
   };
   function renderRwTitle() {
     var t = RW_TITLES[S.rwTab] || RW_TITLES.recommendations;
@@ -1752,14 +1751,13 @@
       '<div class="reca-b"><span class="reca-why">' + esc(acc.causeLabel || "") +
       (acc.recommendation && acc.recommendation.text ? " &middot; " + esc(acc.recommendation.text) : "") + "</span></div>" +
       '<div class="reca-ev">' + ICON.info + '<span><span class="ev-t">What the AI has to go on</span>' +
-      esc(atRiskCount(e)) + " order line" + (atRiskCount(e) === 1 ? "" : "s") + " at risk in " +
-      esc((((acc.riskSystems && acc.riskSystems.length ? acc.riskSystems : acc.systems) || []).map(function (x) { return D.sourceById[x] ? D.sourceById[x].short : x; }).join(" and ")) || "the order book") +
-      ((e.stockElsewhere && e.stockElsewhere.length) ? "; the same part on hand in " + esc(e.stockElsewhere[0].plant) + " (" + esc(e.stockElsewhere[0].onHand) + " " + esc(e.stockElsewhere[0].uom || "") + ")" : "") +
-      (e.supplierDelay ? "; purchase order " + esc(e.supplierDelay.key) + " " + esc(e.supplierDelay.daysLate) + " days late" : "") +
-      (e.creditHold ? "; held for credit since " + esc(e.creditHold.placedLabel || e.creditHold.placedOn) : "") +
-      (e.transit ? "; carrier ETA " + esc(e.transit.etaLabel || e.transit.eta) + (e.transit.exception ? " with exception " + esc(e.transit.exception.code) : "") : "") +
-      (e.contract && S.role !== "ANALYST_NA" ? "; the contract prices " + esc(usdShort(showPen)) + " of penalty on these lines" : "") +
-      '. <button class="lnk" type="button" data-evgo="' + esc(acc.id) + '">Open the full evidence</button></span></div>' +
+      esc(atRiskCount(e)) + " line" + (atRiskCount(e) === 1 ? "" : "s") + " at risk in " +
+      esc((((acc.riskSystems && acc.riskSystems.length ? acc.riskSystems : acc.systems) || []).map(function (x) { return D.sourceById[x] ? D.sourceById[x].short : x; }).join(" and ")) || "the order book") + ". " +
+      ((e.stockElsewhere && e.stockElsewhere.length) ? "The same part is on hand in " + esc(e.stockElsewhere[0].plant) + ". " : "") +
+      (e.supplierDelay ? "Purchase order " + esc(e.supplierDelay.key) + " is " + esc(e.supplierDelay.daysLate) + " days late. " : "") +
+      (e.creditHold ? "Held for credit since " + esc(e.creditHold.placedLabel || e.creditHold.placedOn) + ". " : "") +
+      (e.transit ? "Carrier ETA " + esc(e.transit.etaLabel || e.transit.eta) + ". " : "") +
+      '<button class="lnk" type="button" data-evgo="' + esc(acc.id) + '">Open the full evidence</button></span></div>' +
       (done
         ? '<div class="rule-line">' + ICON.check + "<span>" + (pend
           ? "Declined by " + esc(pend.decision.by) + " — &ldquo;" + esc(pend.decision.reason) + "&rdquo;. Re-analyse to put it into the numbers."
@@ -1784,7 +1782,7 @@
       '<span class="prop-chev">' + ICON.chev + "</span></button>" +
       '<div class="prop-body">' + (accs.length ? accs.slice(0, 6).map(function (x) { return accRowHtml(x, an); }).join("") : '<div class="empty">Nothing left under this one.</div>') +
       '<p class="honest">' + Math.min(6, accs.length) + " of the " + (a.accounts || accs.length) +
-      " accounts under this recommendation, ranked — these are the ones whose main exposure it answers.</p></div></div>";
+      " accounts under this recommendation, ranked by exposure.</p></div></div>";
   }
   function matchHtml(m) {
     var a = m.records[0], b = m.records[1], dec = S.matchLog[m.id];
@@ -1832,7 +1830,7 @@
   function renderRwPanel() {
     var el = $("#rw-panel");
     if (S.rwTab === "recommendations") {
-      if (!S.state.analysed) { el.innerHTML = '<div class="empty">The commercial operations agent has not run this morning.<br>Open <b>AI Data Platform &middot; Agent Hub</b> and ask it what is at risk this week.</div>'; return; }
+      if (!S.state.analysed) { el.innerHTML = '<div class="empty">The agent has not run this morning.<br>Open <b>Agent Hub</b> and ask what is at risk.</div>'; return; }
       var an = analysis();
       el.innerHTML = '<div class="rw-tools"><span>The AI proposes <b>' + an.actions.length + "</b> actions over " + an.headline.lines + " lines. Nothing is written to any order system — each one becomes a task for the person who owns it.</span>" +
         '<span class="grow"></span><span>' + (S.pending.length ? "Re-analyse to put " + S.pending.length + " decision" + (S.pending.length === 1 ? "" : "s") + " into the numbers" : "Nothing waiting") + "</span></div>" +
@@ -1842,13 +1840,13 @@
     if (S.rwTab === "matches") {
       el.innerHTML = '<div class="rw-tools"><span>The AI matched customers across the CRM, Fusion, JD Edwards and NetSuite. These pairs scored too low to stand on their own, so <b>' + esc(personaByRole("STEWARD").name) + "</b> decides them.</span></div>" +
         RW_FILTER + (D.matches || []).map(matchHtml).join("") +
-        '<p class="honest">A decision here changes who is one customer, so the next analysis counts their lines together — or keeps them apart.</p>';
+        '<p class="honest">A decision here decides whether two records count as one customer.</p>';
       return;
     }
     if (S.rwTab === "xrefs") {
       el.innerHTML = '<div class="rw-tools"><span>The same part is numbered differently in each system. These cross-references are the ones the AI could not settle on its own.</span></div>' +
         RW_FILTER + (D.itemXrefs || []).map(xrefHtml).join("") +
-        '<p class="honest">Until a part is one part, stock sitting in another plant does not look like stock for this order.</p>';
+        '<p class="honest">Until a part is one part, stock elsewhere is invisible to this order.</p>';
       return;
     }
     var rows = S.pending.map(function (d) { return { row: d.row, pending: true }; })
@@ -1859,7 +1857,7 @@
         var d = x.row;
         return "<tr><td>" + esc(d.at) + (x.pending ? ' <span class="stat stat--review">not in the numbers yet</span>' : "") + "</td><td>" + esc(d.by) + "<br><span style=\"color:#837d75;font-size:11px\">" + esc(d.role) + "</span></td><td>" + esc(d.title) + '</td><td><span class="stat stat--' + (d.action === "decline" || d.action === "reject" ? "open" : "auto") + '">' + esc(d.action) + "</span></td><td>" + esc(d.reason) + "</td><td>" + (d.rule ? esc(d.rule) : "—") + "</td></tr>";
       }).join("") + "</tbody></table></div>" +
-      '<p class="honest">Every decision is kept with who made it, when, and why — and any rule it leaves behind for the next run.</p>';
+      '<p class="honest">Every decision keeps who, when, why, and the rule it left behind.</p>';
   }
   function renderRw() { renderRwState(); renderRwTitle(); renderBand(); renderRwTabs(); renderRwPanel(); }
   $("#rw-tabs").addEventListener("click", function (e) {
@@ -1882,7 +1880,7 @@
     if ((t = e.target.closest("[data-mdec]"))) { decideMatchUi(t.dataset.mid, t.dataset.mdec); return; }
   });
   function decideRec(accId, action) {
-    if (pendingFor(accId)) { toast("That one is already decided — re-analyse to put it into the numbers."); return; }
+    if (pendingFor(accId)) { toast("Already decided. <b>Re-analyse</b> to put it into the numbers."); return; }
     var an = analysis(), acc = an.accounts.filter(function (x) { return x.id === accId; })[0];
     if (!acc || acc.status !== "at-risk") { toast("That account has already been decided."); return; }
     var input = $("#rreason-" + accId);
@@ -1896,14 +1894,14 @@
         title: acc.name + " · " + (acc.recommendation ? acc.recommendation.text : "action") + " accepted",
         action: "accept", reason: reason, rule: "" });
       renderRw();
-      toast("<span><b>Accepted.</b> " + esc(acc.name) + " stays on the list and the task stands with " + esc(acc.recommendation ? (an.actions.filter(function (x) { return x.id === acc.recommendation.actionId; })[0] || {}).owner || "its owner" : "its owner") + ". Accepting does not protect the revenue until the transfer actually runs, so the numbers do not move.</span>", 8000);
+      toast("<span><b>Accepted.</b> " + esc(acc.name) + " stays on the list with " + esc(acc.recommendation ? (an.actions.filter(function (x) { return x.id === acc.recommendation.actionId; })[0] || {}).owner || "its owner" : "its owner") + ". The numbers move only when it runs.</span>", 8000);
       return;
     }
     S.pending.push({ decision: d, row: { at: d.at, by: d.by, role: "COMMERCIAL_OPS",
       title: acc.name + " · " + (acc.recommendation ? acc.recommendation.text : "action") + " declined",
       action: "decline", reason: reason, rule: "" } });
     renderRwState(); renderRwTabs(); renderRwPanel();
-    toast("<span><b>Declined.</b> " + esc(acc.name) + " — &ldquo;" + esc(reason) + "&rdquo;. The AI has not changed its numbers yet: <b>Re-analyse</b> to make it count.</span>", 9000);
+    toast("<span><b>Declined.</b> " + esc(acc.name) + ", &ldquo;" + esc(reason) + "&rdquo;. <b>Re-analyse</b> to make it count.</span>", 9000);
     tour.after("decline");
   }
   function decideMatchUi(id, action) {
@@ -1925,8 +1923,8 @@
   $("#rw-rerun").addEventListener("click", function () { reanalyse(); tour.after("reanalyse"); });
   function reanalyse() {
     if (S.busy) return;
-    if (!S.state.analysed) { toast("Ask the agent what is at risk first."); return; }
-    if (!S.pending.length) { toast("Nothing waiting — accept or decline something first, then re-analyse."); return; }
+    if (!S.state.analysed) { toast("Ask what is at risk first."); return; }
+    if (!S.pending.length) { toast("Nothing waiting. Accept or decline something first, then re-analyse."); return; }
     S.busy = true;
     $("#rw-rerun").disabled = true;
     $("#rw-state").className = "rw-state is-stale";
