@@ -226,7 +226,7 @@
         var share = (i === 0 ? 0.42 : i === 1 ? 0.24 : 0.34 / Math.max(1, n - 2));
         out.push({
           kind: "Table", catalog: s.catalog, schema: s.id === "CRM" ? "ICEBERG" : s.id === "DLV" ? "DLV" : s.short.toUpperCase().replace(/[^A-Z]/g, ""), name: o,
-          owner: s.entity, desc: "The table " + o + " provides a listing of " + (OBJ_DESC[o] || "records") + " in " + s.name + " for " + s.entityName + ".",
+          owner: s.entity, desc: "The table " + o + " provides a listing of " + (OBJ_DESC[o] || "records") + " in " + s.name + " for " + entityName(s.entity) + ".",
           rows: Math.max(24, Math.round(s.rowCount * share)), fresh: s.freshnessMin + i, sortKey: 100 + i, src: s.id
         });
       });
@@ -289,7 +289,7 @@
           '<span class="fr">' + esc(s.freshLabel) + " behind</span></div>" +
           '<h3>' + esc(s.short) + "</h3>" +
           '<div class="src-sys">' + esc(s.name) + "</div>" +
-          '<div class="src-apps">' + (s.apps || []).map(function (a) { return '<span class="src-app">' + esc(a) + "</span>"; }).join("") + "</div>" +
+          '<div class="src-apps">' + srcApps(s.id).map(function (a) { return '<span class="src-app">' + esc(a) + "</span>"; }).join("") + "</div>" +
           '<div class="src-what">' + esc(srcWhat(s.id)) + "</div>" +
           '<div class="src-feed">' + ICON.refresh + esc(s.feed) + "</div>" +
           '<div class="src-objs">' + (s.objects || []).slice(0, 4).map(function (o) { return "<code>" + esc(o) + "</code>"; }).join("") +
@@ -313,6 +313,16 @@
     ["Read the lead-time and penalty clauses out of the contracts", "2 min ago"],
     ["Rebuild the certified views", "09:44"]
   ];
+  function entityName(id) {
+    var out = id;
+    (D.world.entities || []).forEach(function (e) { if (e.id === id) out = e.name; });
+    return out === id ? "Group" : out;
+  }
+  var SRC_APPS = {
+    FUSION: ["SCM and ERP", "Enterprise Contracts"], JDE: ["Sales order management"],
+    NETSUITE: ["Order to cash"], DLV: ["Shipment tracking"], CRM: ["Accounts and contacts"]
+  };
+  function srcApps(id) { return SRC_APPS[id] || []; }
   function srcWhat(id) {
     return {
       FUSION: "Orders, fulfilment lines and on-hand stock for Europe — and the customer contracts, where the delivery lead time and the late-penalty clause live.",
@@ -489,12 +499,13 @@
     return '<div class="tile ' + esc(t.dir || "up") + (moved ? " is-moved" : "") + '" data-tile="' + esc(t.id) + '" title="' + esc(t.note || "") + '">' +
       '<span class="lab">' + esc(t.label) + "</span>" +
       '<span class="val"><span class="before">' + esc(per) + '</span><span class="arw">&rarr;</span>' +
-      '<span class="after' + (small ? " after--sm" : "") + '">' + esc(across) + "</span></span>" +
+      '<span class="after' + (small ? " after--sm" : "") + '">' + esc(across) + "</span>" +
+      (t.acrossSub ? '<span class="asub">' + esc(t.acrossSub) + "</span>" : "") + "</span>" +
       '<span class="note">' + esc(t.noteShort || t.note || "") + "</span></div>";
   }
   function bandHtml(an, id, moved) {
     return '<div class="band-head"><span class="eyebrow">Per system &rarr; across systems</span>' +
-      '<span class="muted">' + esc(D.world.period.label) + " &middot; " + esc(D.world.period.range) + " &middot; every figure computed from the lines the AI read</span></div>" +
+      '<span class="muted">' + esc(D.world.week.label) + " &middot; " + esc(D.world.week.range) + " &middot; every figure computed from the lines the AI read</span></div>" +
       '<div class="band-tiles" id="' + id + '">' + an.band.map(function (t) { return bandTile(t, (moved || []).indexOf(t.id) >= 0); }).join("") + "</div>";
   }
 
@@ -504,7 +515,7 @@
     var today = done
       ? an.actions.map(function (a) {
         return '<div class="hs"><div class="k">' + esc(a.owner) + "</div>" +
-          '<div class="v">' + esc(a.title) + '</div><div class="d">' + a.lines + " lines &middot; " + usdShort(a.usd) + " at risk &middot; assigned as a task by the commercial operations agent</div></div>";
+          '<div class="v">' + esc(a.title) + '</div><div class="d">' + a.lines + " lines &middot; " + usdShort(a.usd) + " at risk &middot; " + esc(a.taskLabel || (a.tasks + " tasks")) + "</div></div>";
       }).join("")
       : '<div class="hs"><div class="k">Commercial operations agent</div><div class="v">Watching the order book</div>' +
         '<div class="d">Five systems feeding; nothing assigned yet this morning. Ask it what is at risk and it will read all of them.</div></div>' +
@@ -580,11 +591,10 @@
   }
 
   /* ---- the analysis view ------------------------------------------------ */
-  var CAUSE_SHORT = { stock: "Stock in another plant", transit: "Late in transit", supplier: "Supplier late", credit: "Credit hold" };
   function causesChart(an) {
     var max = Math.max.apply(null, an.causes.map(function (c) { return c.usd; })) || 1;
     return '<div class="causes">' + an.causes.map(function (c) {
-      return '<div class="cause" data-cause="' + esc(c.id) + '">' +
+      return '<div class="cause" data-cause="' + esc(c.id) + '" title="' + esc(c.note || "") + '">' +
         '<span class="cl">' + esc(c.label) + "</span>" +
         '<span class="cb"><i class="cb--' + esc(c.id) + '" style="width:' + Math.max(4, Math.round(c.usd / max * 100)) + '%"></i></span>' +
         '<span class="cn">' + c.lines + " lines</span><span class=\"cv\">" + usdShort(c.usd) + "</span></div>";
@@ -592,34 +602,44 @@
   }
   function actionsHtml(an) {
     return '<div class="acts">' + an.actions.map(function (a) {
-      return '<div class="act" data-act="' + esc(a.id) + '">' +
+      return '<div class="act" data-act="' + esc(a.id) + '" title="' + esc(a.why || "") + '">' +
         '<div class="act-h"><span class="act-id">' + esc(a.id) + '</span><b>' + esc(a.title) + "</b>" +
         '<span class="stat stat--' + (a.status === "declined" ? "open" : "pending") + '">' + esc(a.status) + "</span></div>" +
-        '<div class="act-m"><span>' + esc(a.owner) + "</span><span>" + a.lines + " lines</span><span>" + (a.accountIds || []).length + " accounts</span><span class=\"v\">" + usdShort(a.usd) + "</span></div>" +
-        '<div class="act-t">' + ICON.check + "<span>Assigned as a task: " + (a.tasks || 0) + " " + esc(a.taskNoun || "items") + " for " + esc(a.owner) + ". No order is changed in any system.</span></div>" +
+        '<div class="act-m"><span>' + esc(a.owner) + "</span><span>" + a.lines + " lines</span><span>" + (a.accounts || (a.accountIds || []).length) + " accounts</span><span class=\"v\">" + usdShort(a.usd) + "</span></div>" +
+        '<div class="act-t">' + ICON.check + "<span><b>" + esc(a.taskLabel || (a.tasks + " tasks")) + ".</b> " + esc(a.assigned || "Assigned as a task — nothing is written back to an ERP") + ".</span></div>" +
         "</div>";
     }).join("") +
-      '<p class="act-note">The AI estimates these four actions cover ' + esc(usdShort(an.headline.revenueUsd)) +
-      " of the revenue at risk if they are all taken — its own estimate on this data, not a promise that every line lands.</p></div>";
+      '<p class="act-note">The AI puts ' + esc(usdShort(an.headline.revenueUsd)) +
+      " behind these four actions — its own estimate on this data, not a promise that every line lands.</p></div>";
   }
   function accountsTable(an) {
-    var rows = an.accounts.filter(function (a) { return S.role !== "ANALYST_NA" || a.entity === "NG-NA"; });
+    var all = an.accounts.filter(function (a) { return S.role !== "ANALYST_NA" || a.entity === "NG-NA"; });
+    var live = all.filter(function (a) { return a.status === "at-risk"; }).slice(0, 12);
+    var out = all.filter(function (a) { return a.status !== "at-risk"; });
+    var rows = live.concat(out);
+    var exposed = all.filter(function (a) { return a.status === "at-risk"; }).length;
     return '<div class="ans-grid"><table class="agrid agrid--acct" id="acct-table"><thead><tr>' +
       "<th>Account</th><th>Tier</th><th>Systems</th><th class=\"r\">Lines</th><th class=\"r\">At risk (USD)</th><th class=\"r\">Penalty</th><th>Why the AI says it is late</th><th>What the AI proposes</th><th></th></tr></thead><tbody>" +
       rows.map(function (a) {
-        var cause = an.causes.filter(function (c) { return c.id === a.causeId; })[0] || { label: "—" };
-        var b = baseAccount(a.id);
-        return '<tr data-acct="' + esc(a.id) + '"' + (a.status === "declined" ? ' class="is-review"' : "") + ">" +
+        var gone = a.status !== "at-risk";
+        var lines = gone ? (a.wasLines || a.lines) : a.lines;
+        var usd = gone ? (a.wasUsd || a.usd) : a.usd;
+        var pen = gone ? (a.wasPenaltyUsd || a.penaltyUsd) : a.penaltyUsd;
+        return '<tr data-acct="' + esc(a.id) + '"' + (gone ? ' class="is-review"' : "") + ">" +
           "<td><b>" + esc(a.name) + '</b><span class="sub">' + esc(a.owner) + "</span></td>" +
           '<td><span class="tierb tierb--' + esc(a.tier) + '">' + esc(a.tier) + "</span></td>" +
-          '<td class="sysc">' + (a.systems || []).map(sysBadge).join("") + "</td>" +
-          '<td class="r">' + a.lines + "</td>" +
-          '<td class="r">' + (a.status === "declined" ? '<s>' + money(b.usd || 0, 0) + "</s>" : money(a.usd || b.usd || 0, 0)) + "</td>" +
-          '<td class="r">' + (a.status === "declined" ? '<s>' + money(b.penaltyUsd || 0, 0) + "</s>" : money(a.penaltyUsd || b.penaltyUsd || 0, 0)) + "</td>" +
-          '<td title="' + esc(cause.label) + '">' + esc(CAUSE_SHORT[a.causeId] || cause.label) + "</td>" +
-          "<td>" + esc(a.recommendation ? a.recommendation.text : "—") + (a.status === "declined" ? ' <span class="stat stat--open">you declined this — not counted</span>' : "") + "</td>" +
+          '<td class="sysc">' + (a.riskSystems && a.riskSystems.length ? a.riskSystems : a.systems || []).map(sysBadge).join("") + "</td>" +
+          '<td class="r">' + (gone ? "<s>" + lines + "</s>" : lines) + "</td>" +
+          '<td class="r">' + (gone ? "<s>" + money(usd, 0) + "</s>" : money(usd, 0)) + "</td>" +
+          '<td class="r">' + (gone ? "<s>" + money(pen, 0) + "</s>" : money(pen, 0)) + "</td>" +
+          "<td>" + esc(a.causeLabel || "—") + "</td>" +
+          "<td>" + (gone
+            ? '<span class="stat stat--open">' + esc(a.statusLabel || "decided") + "</span> " + esc(a.decision ? "\u201c" + a.decision.reason + "\u201d" : "you overruled this")
+            : esc(a.recommendation ? a.recommendation.text : "—")) + "</td>" +
           '<td><button class="btn btn--xs" type="button" data-ev="' + esc(a.id) + '">Evidence</button></td></tr>';
-      }).join("") + "</tbody></table></div>";
+      }).join("") + "</tbody></table></div>" +
+      '<p class="an-sub">Top ' + live.length + " of " + exposed + " accounts with a line at risk" +
+      (out.length ? ", plus the " + out.length + " you decided on" : "") + " — ranked by what is at stake.</p>";
   }
   function analysisHtml() {
     var an = analysis();
@@ -629,8 +649,9 @@
       '<span class="conv-agent">' + ICON.bot + "Commercial operations agent</span></div>" +
       '<div class="q-bubble">' + esc(D.questions[0].text) + "</div>" +
       '<div class="ans" id="ans">' +
-      '<div class="an-head"><div class="an-hl"><b>' + h.lines + " open lines</b> will miss the date you promised, worth <b>" + esc(usdShort(h.revenueUsd)) +
-      "</b>. <b>" + h.tierA.accounts + " tier-A accounts</b> carry " + esc(usdShort(h.tierA.usd)) + " of it, and the contracts price <b>" + esc(usdShort(h.penaltiesUsd)) + "</b> of late penalties if nothing changes.</div>" +
+      '<div class="an-head"><div class="an-hl"><b>' + h.lines + " open lines</b> will miss the date you promised, worth <b>" + esc(h.revenueText || usdShort(h.revenueUsd)) +
+      "</b>. <b>" + h.tierA.accounts + " tier-A accounts</b> carry " + esc(h.tierA.text ? String(h.tierA.text).split("·").pop().trim() : usdShort(h.tierA.usd)) +
+      " of it, and the contracts price <b>" + esc(h.penaltiesText || usdShort(h.penaltiesUsd)) + "</b> of late penalties if nothing changes.</div>" +
       '<div class="ans-meta">' + esc(an.freshness.text) + (roleTag ? '<span class="sep">&middot;</span>' + roleTag : "") + '<span class="sep">&middot;</span>' +
       an.views.map(function (v) { return '<button class="viewchip" type="button" data-viewlin="' + esc(v) + '" title="Where ' + esc(v) + ' comes from">' + esc(v) + "</button>"; }).join(" ") + "</div></div>" +
       '<section class="band an-band" aria-label="Per system, then across systems">' + bandHtml(an, "band-tiles", S.movedBand) + "</section>" +
@@ -1860,7 +1881,7 @@
     }
     if (name === "final") S.shared = false;
   }
-  $("#ws-ctx").textContent = D.world.period.label + " · " + D.world.todayLabel + " " + D.world.nowLabel;
+  $("#ws-ctx").textContent = D.world.week.range + " · " + D.world.todayLabel + " " + D.world.nowLabel;
 
   var wantState = params.get("state");
   var wantApp = params.get("app");
