@@ -145,6 +145,7 @@ Exact commands are in HANDOFF §4.
 - **Publish.**
   - Strip the nine skeleton lines from `site/index.html` into `.work/publish/index.html` (exact-line `grep -v -x -F`, HANDOFF §4).
   - Call the Artifact tool with `file_path` = that wrapper, `root` = `site`, and a `files` map of every changed or new file.
+  - Then run `action: list_files` to confirm that the new files are live and that nothing is published that should not be.
 - **Refused publish** ("not built on the newer version") means another session published in between:
   1. `read_file` the live copies of the files you changed.
   2. Diff them against local; the working tree is the merge.
@@ -172,6 +173,7 @@ Exact commands are in HANDOFF §4.
   - The same goes for the kit's "two working days".
 - **Truthful states beat optimistic ones.** The kit form has three confirmations (mail client opened · request received · kit emailed), and only a real auto-sender may use the third.
 - **A name built on "Oracle" needs a trademark check** against Oracle's third-party guidelines before launch.
+- **Unreferenced is not unshipped.** The customer logos had sat, unreferenced, under `site/assets/img/logos/`. Whole-tree publishes carried them onto the link-shared artifact, downloadable by path, until version 36 removed them. Anything that must never ship lives outside `site/`: the logos are now in `docs/asset-candidates/logos/`, and the checker fails if that folder reappears under `site/`.
 
 ## 8. The Internal review panel (temporary)
 

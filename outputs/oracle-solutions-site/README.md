@@ -4,6 +4,8 @@ A small marketing site for SoftServe's enterprise AI agents and workflows on Ora
 
 The site is named **Oracle AI & Data Solutions** (renamed by Alex on 2026-09-16; *AI Agents on Oracle* in round 5, *Oracle AI Solutions* before that). The name lives in two files, and a rename edits both: `data/content.js` (`site.name`; `site.title`, which every page title is built from; `headerLockup.productName`, which nothing renders) and `index.html`, where the lockup is static markup (its text and `aria-label`, plus `<title>`, `og:title` and `twitter:title`). The lockup's type steps in `assets/site.css` are sized to the name's length: re-measure them after a rename (`docs/PROVENANCE.md` §20).
 
+**New session? Start with [`docs/START-HERE.md`](docs/START-HERE.md)** — the brief, the rules, how a round runs, and what earlier rounds learned.
+
 Static site. No build step, no framework, no package manager: plain HTML, CSS and vanilla JavaScript, rendered client-side by a hash router. It runs from a `file://` path, from any static host, and as a multi-file artifact. The only external resource is Google Fonts (Montserrat + Open Sans); everything else is local.
 
 ---
@@ -29,11 +31,12 @@ Static site. No build step, no framework, no package manager: plain HTML, CSS an
 oracle-solutions-site/
 ├── README.md                 this file
 ├── docs/                     internal notes — never deployed
+│   ├── START-HERE.md         read first: the brief, the rules, the procedures, the learnings
 │   ├── CONFIG.md             every switch in data/config.js, field by field
 │   ├── SCHEMA.md             the shape of data/content.js
 │   ├── VISUAL-GRAMMAR.md     the one component grammar all seven product pages follow
 │   ├── PROVENANCE.md         where each fact and number on the site came from
-│   └── asset-candidates/     images considered but not shipped
+│   └── asset-candidates/     images considered but not shipped; logos/ holds the customer marks, kept outside site/ so nothing can ship them
 ├── tools/
 │   ├── check-grammar.js      asserts every product fills every grammar slot
 │   ├── erp-qa-check.js       reconciles the ERP Q&A walkthrough's numbers (329 assertions)
@@ -46,25 +49,28 @@ oracle-solutions-site/
     ├── assets/
     │   ├── site.css          all styling — design tokens in :root, then components
     │   ├── app.js            UI helpers (window.UI), header, footer, router, modal
-    │   ├── forms.js          the demo and contact forms (window.FORMS)
-    │   └── img/              logos and wordmarks (SVG)
+    │   ├── forms.js          the demo, contact and sales-kit forms (window.FORMS)
+    │   ├── review.js         TEMPORARY: the Internal review panel, prototype only (START-HERE §8)
+    │   └── img/              wordmarks, heroes, step frames, industries, posters, headshot
     │       └── heroes/       per-page hero background images + heroes.json
     ├── data/
     │   ├── config.js         window.SITE_CONFIG — links, gate, form destination
     │   ├── content.js        window.SITE_CONTENT — every word on the site
+    │   ├── review.js         TEMPORARY: window.SITE_REVIEW — the list the Internal panel shows
     │   └── diagrams.js       window.SITE_DIAGRAMS — the per-product architecture diagrams, drawn as inline SVG
     ├── pages/
     │   ├── overview.js       window.PAGES.overview   →  #/   (the seven-screen home page)
     │   ├── products.js       window.PAGES.products   →  #/products
     │   ├── product.js        window.PAGES.product    →  #/products/<slug>[/<tab>]
-    │   └── services.js       window.PAGES.services   →  #/services
+    │   ├── services.js       window.PAGES.services   →  #/services
+    │   └── sellers.js        window.PAGES.sellers    →  #/sellers
     └── demo/
         ├── large-document-extraction/   the Large docs walkthrough — index.html, demo.css, demo.js, data.js
         ├── workforce-optimization/      the Workforce optimization walkthrough — same four files
         └── cross-system-erp-qa/         the Cross-system ERP Q&A walkthrough — same four files, three product surfaces
 ```
 
-Script order in `index.html` matters: `data/*` → `assets/forms.js` → `pages/*` → `assets/app.js`, which renders on load. A new page script goes before `assets/app.js`.
+Script order in `index.html` matters: `data/*` → `assets/forms.js` → `pages/*` → `assets/app.js`, which renders on load. A new page script goes before `assets/app.js`. The two `review.js` tags come last and are removed together before launch.
 
 ### Routes
 
@@ -137,6 +143,22 @@ node tools/check-grammar.js
 ```
 
 `check-grammar.js` fails if a product stops filling a grammar slot, if a metric row loses its disclaimer, if an industry key is not in the fixed set, or if an internal string reaches the data layer.
+
+---
+
+## The Internal review panel (prototype only)
+
+While the site is a prototype, an **Internal** button sits at the bottom right of every page. It opens a side panel listing the working assumptions still to be confirmed: audience, positioning, commitments and disclosures, and the communication flow. Each item shows:
+
+- its status: *To confirm* · *Confirmed* · *Changed*;
+- where the site stands against it;
+- a flag where the site differs or two items conflict.
+
+Anyone with the preview link sees the panel.
+
+- **The list** is in `site/data/review.js`. Change an item's `status` there (and write `decision` for a change), run the checker, and republish.
+- **The panel** is `site/assets/review.js`, self-contained (it injects its own styles). Setting `enabled: false` in the data file hides it.
+- **Before launch**, delete both files and their two `<script>` tags. Until then, `check-grammar.js` validates the list and warns on every run.
 
 ---
 
