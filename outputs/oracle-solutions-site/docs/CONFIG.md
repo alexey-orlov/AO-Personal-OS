@@ -233,7 +233,7 @@ demoPreviewUrl: "https://claude.ai/code/artifact/6c822cc7-1c05-4504-ad61-7b64c86
 
 On the site's real host it is ignored and the relative `demoUrl` is used, so nothing has to change at deployment. Keep it in step with `demoUrl`: republish the standalone demo artifact whenever the walkthrough changes, or the preview shows an older demo than the site ships.
 
-Empty while the walkthrough exists is a **known intermediate state**, not a bug: the demo ships in `site/` and works everywhere except inside the site's own artifact preview, where the button falls back to the relative path and the host refuses it. `cross-system-erp-qa` sits there until its standalone artifact is published.
+Empty while the walkthrough exists is a **known intermediate state**, not a bug: the demo ships in `site/` and works everywhere except inside the site's own artifact preview, where the button falls back to the relative path and the host refuses it. All three walkthroughs now carry their own artifact, so no product is in that state today — but a rebuilt walkthrough needs its artifact republished at the same URL, not a new one, or the site's preview links to the old build (the ERP Q&A demo was rebuilt on 2026-09-17, `docs/PROVENANCE.md` §22.7).
 
 ### `video`
 
