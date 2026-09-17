@@ -848,15 +848,15 @@ if (!arr(C.products) || C.products.length !== 7) {
   ["name", "title", "tagline", "metaDescription"].forEach(function (k) {
     if (!str(s[k])) fail("site", k + " missing");
   });
-  /* Three items and no "Overview": the logo is the home link, and the third
-     item is an anchor into this page's own case-study screen. */
+  /* Two items and no "Overview": the logo is the home link. Case studies left
+     the header on 2026-09-17 (Alex) — the home page still carries its
+     case-study screen, and Services links to it. */
   var NAV = [
     { label: "Products", route: "#/products" },
-    { label: "Services", route: "#/services" },
-    { label: "Case studies", route: "#/#case-studies" }
+    { label: "Services", route: "#/services" }
   ];
   if (!arr(s.nav) || s.nav.length !== NAV.length) {
-    fail("site.nav", "must hold exactly " + NAV.length + " items (Products · Services · Case studies), got " +
+    fail("site.nav", "must hold exactly " + NAV.length + " items (Products · Services), got " +
       (arr(s.nav) ? s.nav.length : "none"));
   } else NAV.forEach(function (want, i) {
     var got = s.nav[i] || {};
