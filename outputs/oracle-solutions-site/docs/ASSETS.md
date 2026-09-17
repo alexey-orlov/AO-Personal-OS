@@ -232,7 +232,7 @@ chart's border, under the four tiles; `-4` starts between the greeting and the
 Ask Oracle box and ends at 621 — one pixel above the "Not started" label of the
 third agent, which is why nothing in that frame is half a line. Converted with
 `sips` (crop → resample to 1600 × 1000 → progressive JPEG q86) on a Mac without
-ffmpeg; 189–232 KB each, inside the 300 KB ceiling. **`sips` gotcha, again:**
+ffmpeg; 184–226 KB each, inside the 300 KB ceiling. **`sips` gotcha, again:**
 `--cropOffset 0 0` means *centred*, so a crop anchored at the left edge needs a
 non-zero Y with X = 0.
 
