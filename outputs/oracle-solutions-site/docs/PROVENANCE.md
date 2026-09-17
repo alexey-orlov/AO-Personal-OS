@@ -3958,3 +3958,266 @@ stayed.
   finished conversation), generated SQL shown inside an answer, and the Live
   Feed list itself. Each is drawn in the product's idiom and is named here so
   nobody later mistakes it for a screenshot of a shipping screen.
+
+---
+
+## 22 bis. Round 2 of the third walkthrough — revenue at risk across systems, 2026-09-17
+
+_Same four files, same tour engine, same three surfaces. Everything the demo is
+about changed: the domain, the AI framing, every hint, every number and all five
+images. Round 1 above is kept as the record of how the surfaces were built; this
+part records what replaced their content and why._
+
+### 22.11 Alex's feedback, and the root cause
+
+Alex watched the shipped walkthrough and named four things: the AI was felt in
+**one step only** (the question), everything around it read as ETL and admin;
+the opening should be about **the list of integrated sources**, not a job run;
+the steps were technical clicks rather than a business task; and "reconcile the
+close for an accountant" is not an AI-native job and carries no high-ROI
+promise.
+
+The root cause, stated for the next build: **the AI did its hardest work behind
+a progress bar** (a model refresh) **and showed its reasoning where the work was
+cheapest** (a question → a table). The rule that replaced it: the AI must be
+seen reasoning at every step — scanning all systems, ranking by business impact,
+attributing a cause that sits in a different system from the symptom,
+recommending actions, recomputing when a person overrules it, and leaving
+artefacts people use. The promise is an outcome (revenue protected), never hours
+saved; every hint title is a business sentence in the user's words, and no hint
+says refresh, model, mapping, view or SQL.
+
+### 22.12 The decisions taken with Alex
+
+In a decision widget, before the spec was rewritten:
+
+- **The spine is revenue at risk across systems** — the site's own
+  decision-domain example for this pack (order-to-cash exceptions), not the
+  finance close.
+- **The human override is the business user's, not the steward's.** Dana
+  declines one AI recommendation and re-analyses; the steward's identity queues
+  stay, but in free exploration.
+- **The fifth and fourth sources changed** (Alex, after the first draft: "could
+  contracts be one of the Fusion apps?"): customer contracts and service levels
+  come from **Oracle Enterprise Contracts in the same Fusion tenancy**, and the
+  in-house Oracle Database application becomes a **delivery-tracking**
+  application (shipments, carrier scans, exceptions). The non-Oracle CRM stays.
+- **The closing step is an AI-generated dashboard**, viewed under the analyst's
+  role before it is shared — so the governance proof (row policy, masking,
+  firewall) sits inside step 6 instead of owning a step of its own.
+
+### 22.13 The world, the sources and the objects
+
+Norwell Group, Tue 6 Oct 2026, 09:40, week of Mon 5 – Fri 9 Oct. **Dana
+Whitfield, VP Commercial Operations** (`COMMERCIAL_OPS`, every region,
+unmasked); **Marcus Bell, Regional operations analyst, North America**
+(`ANALYST_NA` — rows limited to `NG-NA`; CRM contact e-mail and telephone,
+credit limits and contract penalty terms masked in the database); **Priya
+Natarajan**, data steward (`STEWARD`), who owns the identity queues. SQL
+Firewall allow-list `OPS_QA_V2`.
+
+The five sources keep round 1's feeds and freshness and change their objects:
+
+| Source | System | Objects in play | Feed |
+|---|---|---|---|
+| Norwell Europe (`NG-EU`) | Oracle Fusion Cloud — SCM/ERP **and Enterprise Contracts** | `DOO_HEADERS_ALL`, `DOO_FULFILL_LINES_ALL`, `INV_ONHAND_QUANTITIES_DETAIL`, `EGP_SYSTEM_ITEMS_B`, `HZ_PARTIES`, `HZ_CUST_ACCOUNTS`, `PO_HEADERS_ALL`, `PO_LINE_LOCATIONS_ALL`, `AR_CUSTOMER_PROFILES`; `OKC_K_HEADERS_ALL_B`, `OKC_K_LINES_B`, `OKC_K_ARTICLES_B` | prebuilt Fusion pipeline, 12 min behind |
+| Norwell North America (`NG-NA`) | JD Edwards EnterpriseOne | `F4201`, `F4211`, `F41021`, `F4101`, `F4104`, `F0301`, `F0101`, `F4311`, `F03B11` | GoldenGate CDC, 4 min |
+| Arden Services (`NG-SV`) | NetSuite | `transaction` (`SalesOrd`), `transactionLine`, `item`, `customer`, `inventoryBalance` | SuiteAnalytics Connect, 38 min |
+| Delivery tracking | in-house Oracle Database 23ai, schema `DLV` | `DLV_SHIPMENTS`, `DLV_SCAN_EVENTS`, `DLV_EXCEPTIONS` | database link, 2 min |
+| CRM (non-Oracle) | Iceberg external tables | `CRM_ACCOUNT`, `CRM_CONTACT` | external table, 1 h 05 min |
+
+Fourteen `GOLD` certified views carry the model: `CUSTOMER_360`, `ITEM_XREF`,
+`OPEN_ORDER_LINES_X`, `PROMISE_STATUS`, `STOCK_POSITION`, `LATE_CAUSES`,
+`SUPPLIER_DELAYS`, `CREDIT_HOLDS`, `TRANSIT_STATUS`, `SLA_EXPOSURE`,
+`REVENUE_AT_RISK`, `ACCOUNT_EXPOSURE`, `RECOMMENDED_ACTIONS`, `DECISIONS`, each
+with an owner, a definition and an upstream list that the Lineage screen draws.
+**The penalty is not a column anywhere**: the AI reads "0.5 % of the line value
+per business day, capped at 10 %" out of the clause text in `OKC_K_ARTICLES_B`
+and applies it to the business days each line is late — which is why the
+exposure lands at USD 185,984, not a round 186 k.
+
+### 22.14 The analysis — the object the whole demo is built on
+
+One saved question — *"Which open orders are at risk this week, and which of our
+best accounts are exposed?"* — runs four agents (order, identity, cause, impact)
+over about six seconds, each with its own sub-steps and tool list, and returns
+one object: a headline (**138 open lines, USD 4.18 M, 9 tier-A accounts carrying
+USD 2.36 M, USD 186 k of contract penalties**), a six-tile band that reads *per
+system → across systems*, four causes that add back to the headline (stock
+available elsewhere 44 lines / USD 1.52 M — the cross-system finding, the
+symptom in one system and the stock in another; late in transit 45 / 1.11 M;
+supplier late 31 / 0.94 M; credit hold 18 / 0.61 M), the accounts ranked by what
+is at stake, and four recommended actions with an owner, a value and a task
+count. **Nothing is ever written to an order system**: each action becomes a
+task for the person who owns it, and the screen says so.
+
+Evidence for any account opens the lines in the systems they live in (with the
+real key in each: `F4211 · SDDOCO/SDLNID`, `DOO_FULFILL_LINES_ALL ·
+FULFILL_LINE_ID`, NetSuite `transactionLine`), the same part on hand in another
+plant under a different item number matched through `GOLD.ITEM_XREF`, the CRM
+tier and owner, the contract and the clause the penalty was read from, and
+whichever of the late purchase order, the credit hold or the carrier scans is
+the cause.
+
+### 22.15 The tour, round 2
+
+Six steps, every title a business sentence: **1** everything you run on, in one
+place (a passive stop on the five source cards in Live Feed — the tour no longer
+runs a model refresh at all; the job card stays for free exploration) → **2** ask
+the AI what is at risk this week (the saved question, the run card playing) →
+**3** read what the AI found (passive: band, causes, ranked accounts, actions) →
+**4** check one finding before you trust it (Evidence on Halden Tooling Group,
+then Trace) → **5** overrule the AI where you know better (Decline with the
+drafted reason in the Decisions app, then Re-analyse) → **6** give the team a
+dashboard, safely (Create dashboard → View as Marcus Bell → Share). The end card
+separates what the AI did from what Dana decided, and points at the free
+exploration: the steward queues, the blocked question, the lineage.
+
+### 22.16 The API contract, and the deviations from it
+
+The data layer (leg E1) implements the contract in `HANDOFF-erp-qa-demo.md` §R6
+on `window.ERPQA_DATA`; the full notes are `.work/erp-qa/round2-api-notes.md`.
+Accepted deviations: `analyse(decisions, role?)` takes an optional role that
+changes only the firewall and policy lines (its figures are always the group's);
+`fmtM` returns two decimals, because every figure in the spec carries two;
+`maskText(value, kind)`; trace rows carry `agent` and `tools[]`; action A2
+reports **6** tier-A accounts, not 9 — the ninth is Halden, whose cause is stock
+elsewhere and whose action is A1; a decided account **keeps its row** with
+`status: "accepted"` and its previous figures, and is excluded from the
+headline, the band, the causes and the actions; `orderLines[]` holds 142 rows —
+the 138 at risk plus 4 on-track lines that let an account be seen trading in two
+systems; only a decline recomputes (an accept logs the task and says the money
+does not move until the transfer runs); lineage lives in `views[].upstream`;
+roles are `COMMERCIAL_OPS` / `ANALYST_NA` / `STEWARD`; `world.week` replaces
+`world.period`.
+
+The UI leg (E2) deviated from §R4–R5 in five places, all kept: the Live Feed
+**Run now** button was dropped (a refresh is not part of this story); callouts
+that would cover what their copy names are docked with `dock: "right"`;
+a recommendation card lists the accounts whose **dominant** cause the action
+answers, not every account it touches; the **Code View** chip is gone from the
+analysis view (the SQL lives in Trace, where a business user is not sent);
+and `panel=mcatalog` is the switch for the Master catalog, because `catalog`
+was already taken by the Data Studio screen.
+
+### 22.17 Figures — every synthetic number in round 2
+
+Still **no cleared outcome figure**: every money figure is the AI's own estimate
+on invented order lines, and the screen labels it as such. No time-to-answer, no
+price, no saving, no delivery-time claim.
+
+- 138 at-risk lines (JD Edwards 61 · Fusion 49 · NetSuite 28) out of 142 open
+  lines · USD 4.18 M at risk → **3.77 M** after the override · 9 → **8** tier-A
+  accounts, USD 2.36 M → 1.95 M · penalties USD 185,984 → 154,984 · lines
+  fixable from stock elsewhere 44 → **40**.
+- Causes: stock elsewhere 44 / USD 1.52 M · late in transit 45 / 1.11 M ·
+  supplier late 31 / 0.94 M · credit hold 18 / 0.61 M.
+- Actions: A1 expedite 44 lines / USD 1.52 M / 12 → 11 internal transfers,
+  1,819 units; A2 re-promise 45 / 1.11 M / 7 owner alerts and 15 carrier
+  exceptions; A3 credit holds 18 / 0.61 M / 9 reviews; A4 suppliers 31 /
+  0.94 M / 6 escalations.
+- Halden Tooling Group: tier A, 4 JD Edwards lines, USD 412 k, penalty USD 31 k,
+  80 EA needed and 100 EA on hand in EU-2.
+- By entity: `NG-NA` USD 1.966 M (47.0 %, 61 lines) · `NG-EU` 1.454 M (34.8 %,
+  49) · `NG-SV` 0.760 M (18.2 %, 28). Marcus's dashboard: 57 lines, USD 1.55 M,
+  5 tier-A accounts, USD 0.98 M, 18 lines fixable elsewhere, penalties masked.
+- Derived in the file: 38 of 60 golden customers exposed (9 A / 16 B / 13 C) ·
+  top-12 share 73.9 %, top-20 91.9 % · average line USD 30,290 · average
+  lateness 9.2 business days · penalties 4.4 % of exposure · 109 of 138 lines
+  under a penalty clause · on-time-in-full last week NG-EU 91.4 %, NG-NA 87.4 %,
+  NG-SV 91.3 %.
+- Inventory of the world: 126 customer records, 60 CRM accounts, 98 contacts,
+  40 items, 67 stock positions, 36 contracts and 108 clauses, 45 shipments, 195
+  scans, 15 exceptions, 6 purchase orders, 9 credit holds, 25 customer matches
+  and 7 item cross-references waiting for a person, 14 certified views, 10 saved
+  questions. Freshness 12 / 4 / 38 / 2 / 65 minutes, unchanged.
+
+### 22.18 What is a real Oracle screen, and what is free design — now
+
+Unchanged from §22.4 for the chrome of both products, the Master catalog, the
+column-level Lineage, the Auto-populate catalog queue, Sessions and the Data
+Analysis "Generate Query" screen: those are replicas of published screens.
+New in round 2, and **free design in the product's idiom**, named here so nobody
+mistakes them for screenshots:
+
+- **The multi-agent run card** follows Oracle's own Agent Hub pattern — agents
+  in order, each with a status and a dotted sub-step timeline, and a Cancel —
+  but no published video opens this exact card on a finished question.
+- **The analysis card** (headline, band, causes chart, ranked accounts,
+  recommended actions, the Evidence / Explain / Trace / Create dashboard chips)
+  is ours. Oracle shows answers as grids; an analysis with attributed causes and
+  proposed actions is not a shipping screen.
+- **The evidence panel** and **the Decisions app** are ours, in the Redwood and
+  Workbench idioms respectively; no Oracle product ships a human review queue
+  over an AI's recommendations.
+- **The generated dashboard** is ours. What is real is that AI Data Platform
+  generates analyses and dashboards from a catalog connection; the tiles, the
+  four charts and the "Built by the AI" stamp are a reconstruction, and the page
+  says which certified views it was built from.
+
+### 22.19 The red-team of round 2, and the one defect it found
+
+The design session replayed 57 shots at three viewports against the round-2
+checklist. It **passed** on: the AI visibly reasoning in every step; no hint or
+label saying refresh, model, mapping, view or SQL outside Explain, Trace and
+Explain's own panels; an opening that is the five sources; six business-language
+steps; the site's seven listed features still visible and the scope-out
+respected (no ERP write, actions are tasks); figures reconciling before and
+after the override; three still-distinct surfaces.
+
+It found one defect, fixed in leg E3: after the override and the re-analysis,
+the Decisions card for the decided account read "**6** order lines at risk in
+JD Edwards" while its own header, the evidence panel, the analysis table and the
+dashboard all said **4**. Cause: the card counted lines whose live `atRisk` flag
+was true, and a decided account has none — so the count fell back to "every line
+this account has", which is six: its four JD Edwards lines plus the two on-track
+Fusion lines that exist only to prove it trades in two systems. Two fixes:
+`evidence()` now publishes `atRiskCount` (the lines the AI actually valued,
+after the role's row policy) and `wasAtRisk` on every line, and relabels **only**
+those lines "Re-promised, accepted" — the on-track lines keep reading "On track"
+in the evidence panel, which they did not before; and the card reads the
+published count with no fallback. `tools/erp-qa-check.js` grew nine assertions
+for it, including an invariant over **every** account in both states: the
+evidence's at-risk count always equals the number its row shows.
+
+Two more things were capped in the same pass: **no toast outlives six seconds**
+(the analysis toast was set to nine and was still on screen two steps later),
+and **no toast survives an application switch** — it is about the surface you are
+on. Four grep assertions in the check keep both rules and the count fix from
+regressing.
+
+### 22.20 What changed on the site, and verification
+
+- `site/demo/cross-system-erp-qa/` — all four files rewritten for the new
+  domain; three surfaces, one switcher, the same tour engine.
+  `tools/erp-qa-check.js` rewritten (**329 assertions**, green);
+  `tools/capture-erpqa-tour.json` rewritten (57 shots, every sub-step) and
+  `tools/capture-erpqa-frames.json` rewritten for the five new images.
+- The five images were re-shot at the same file names, so `config.js` and
+  `content.js` needed **no change** — the step copy is still untouched, by
+  Alex's decision in round 1. Each still is matched to its step copy: the five
+  source cards for *Connect the applications*, the six-tile band for *Shape one
+  decision domain*, the AI-built dashboard under the analyst's role for *Guard
+  it in the data layer*, and the plain-language question with the run card for
+  *Ask in plain language*. `manifest-edits.json` captions and alt text follow
+  them; `ASSETS.md` §1 carries the viewports, crops and the reason for each.
+- One CSS fix came out of the capture: under 1120 px the five source cards were
+  pinned to a height their content did not fit, so a flex child was squeezed and
+  the second line of each description was cut through its glyphs — at the 1024 px
+  QA viewport as well as in the crop. The cards are 160 px there now, their parts
+  keep their size, and the description is capped at two whole lines with a fade
+  where there is more to read.
+- Verification: `node --check` clean on `demo.js` and `data.js`;
+  `node tools/erp-qa-check.js` 329 assertions passing;
+  `node tools/check-grammar.js` OK; the tour scenario replayed at **1440 × 900,
+  1280 × 860 and 1024 × 800** with `LOGS: none` at all three (its own assertions
+  — no horizontal page scroll, six band tiles unwrapped and unclipped, no
+  callout covering the element its copy names — held at every step). The product
+  page was verified headlessly on `file://` at 1440 × 1000: the four stills
+  render on their own steps, the poster loads, the console is clean. Screenshot
+  at `.work/erpqa-qa/product-page-r2.png`.
+- **Limits, unchanged in kind.** The captures are scripted headless Chrome at
+  five viewports, so they prove the layout at those widths and no others; the
+  published artifacts are checked by eye in the viewer, not by automation. The
+  standalone demo artifact and the site artifact still hold round 1's build
+  until the main session republishes both.
