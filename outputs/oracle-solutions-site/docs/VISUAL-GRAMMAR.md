@@ -557,7 +557,7 @@ One request, two placements, one component (`FORMS.renderKit` / `mountKit`); the
 | Placement | Component | Rule |
 |---|---|---|
 | Product page, *For sellers* tab | `panel--gate panel--kit`: block title · body naming the product · the kit form | The product is fixed, so there is no select. No lock icon on the tab: nothing is locked, the kit is requested. The panel is the tab's only content. |
-| `#/sellers` (header nav + footer link row) | the same panel with an eyebrow, the title as the page's H1, and the *Kit for* select (*All offers* first) · then a `panel--cta` — *See the fit in an account?* with a text link that opens the demo modal, nothing preselected | One screen. The URL is the thing a seller pastes into a thread, which is why the all-offers kit is a page and not a modal. |
+| `#/sellers` (footer link row + each product's *Get the full kit* link; out of the header since 2026-09-17) | the same panel with an eyebrow, the title as the page's H1, and the *Kit for* select (*All offers* first) · then a `panel--cta` — *See the fit in an account?* with a text link that opens the demo modal, nothing preselected | One screen. The URL is the thing a seller pastes into a thread, which is why the all-offers kit is a page and not a modal. |
 
 **The form, in order:** *Kit for* (page only) · *Work email* · consent · **Send me the kit** — the one filled button, after consent as on every other form here — then the eligibility line (small print) and the customer/partner route (*Request a demo* on a product page, *Request a scoping call* on `#/sellers`).
 

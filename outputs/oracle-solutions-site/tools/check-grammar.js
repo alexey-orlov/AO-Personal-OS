@@ -848,17 +848,17 @@ if (!arr(C.products) || C.products.length !== 7) {
   ["name", "title", "tagline", "metaDescription"].forEach(function (k) {
     if (!str(s[k])) fail("site", k + " missing");
   });
-  /* Three items and no "Overview": the logo is the home link. Case studies left
+  /* Two items and no "Overview": the logo is the home link. Case studies left
      the header on 2026-09-17 (Alex) — the home page still carries its
-     case-study screen, and Services links to it — and For sellers took the
-     slot, as the one entry to the sales kit for all offers (round 8). */
+     case-study screen, and Services links to it. For sellers took the slot in
+     round 8 and left it the same day (Alex): #/sellers stays, reached from the
+     footer's link row and from every product's For sellers tab. */
   var NAV = [
     { label: "Products", route: "#/products" },
-    { label: "Services", route: "#/services" },
-    { label: "For sellers", route: "#/sellers" }
+    { label: "Services", route: "#/services" }
   ];
   if (!arr(s.nav) || s.nav.length !== NAV.length) {
-    fail("site.nav", "must hold exactly " + NAV.length + " items (Products · Services · For sellers), got " +
+    fail("site.nav", "must hold exactly " + NAV.length + " items (Products · Services), got " +
       (arr(s.nav) ? s.nav.length : "none"));
   } else NAV.forEach(function (want, i) {
     var got = s.nav[i] || {};

@@ -13,8 +13,7 @@ window.SITE_CONTENT = {
     },
     nav: [
       { label: "Products", route: "#/products" },
-      { label: "Services", route: "#/services" },
-      { label: "For sellers", route: "#/sellers" }
+      { label: "Services", route: "#/services" }
     ],
     navCta: { label: "Talk to us", route: "#/services#contact" },
     primaryCta: { label: "Request a demo", route: "#/#request-a-demo" },
