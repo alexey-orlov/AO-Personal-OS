@@ -3961,7 +3961,7 @@ stayed.
 
 ---
 
-## 22 bis. Round 2 of the third walkthrough — revenue at risk across systems, 2026-09-17
+## 22 · round 2 — the third walkthrough rebuilt: revenue at risk across systems, 2026-09-17
 
 _Same four files, same tour engine, same three surfaces. Everything the demo is
 about changed: the domain, the AI framing, every hint, every number and all five
@@ -4159,8 +4159,8 @@ mistakes them for screenshots:
 
 The design session replayed 57 shots at three viewports against the round-2
 checklist. It **passed** on: the AI visibly reasoning in every step; no hint or
-label saying refresh, model, mapping, view or SQL outside Explain, Trace and
-Explain's own panels; an opening that is the five sources; six business-language
+label saying refresh, model, mapping, view or SQL outside the Explain and Trace
+panels, where a reader has asked for exactly that; an opening that is the five sources; six business-language
 steps; the site's seven listed features still visible and the scope-out
 respected (no ERP write, actions are tasks); figures reconciling before and
 after the override; three still-distinct surfaces.
