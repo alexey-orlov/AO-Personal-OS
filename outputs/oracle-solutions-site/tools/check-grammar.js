@@ -1389,8 +1389,13 @@ if (/assets\/img\/logos\//.test(raw)) {
     fail("data/review.js", "window.SITE_REVIEW.groups must be a non-empty array");
     return;
   }
-  var STATUSES = ["open", "confirmed", "changed"];
-  var FLAGS = ["Site differs", "Conflict"];
+  /* Alex, 2026-09-17: "much less verbose (1-2 line items)". An item is a
+     line to tick, not an analysis: id, text, and at most a short note on
+     where the site does not match yet. The ticks themselves live in each
+     viewer's browser, not in this file. */
+  var ITEM_KEYS = ["id", "text", "note"];
+  var TEXT_MAX = 70;
+  var NOTE_MAX = 45;
   var ids = {};
   R.groups.forEach(function (group, gi) {
     var where = "review.groups[" + gi + "]";
@@ -1398,13 +1403,17 @@ if (/assets\/img\/logos\//.test(raw)) {
     if (!Array.isArray(group.items) || !group.items.length) { fail(where, "has no items"); return; }
     group.items.forEach(function (item, ii) {
       var at = where + ".items[" + ii + "]";
+      Object.keys(item || {}).forEach(function (key) {
+        if (ITEM_KEYS.indexOf(key) === -1) fail(at, 'key "' + key + '" — an item is only ' + ITEM_KEYS.join(", ") + " (1–2 lines; detail belongs in the docs)");
+      });
       if (!item.id || !/^[a-z0-9-]+$/.test(item.id)) fail(at, "id must be kebab-case");
-      else if (ids[item.id]) fail(at, 'duplicate id "' + item.id + '"');
+      else if (ids[item.id]) fail(at, 'duplicate id "' + item.id + '" — ticks are saved by id');
       else ids[item.id] = true;
       if (!item.text || !String(item.text).trim()) fail(at, "text is empty");
-      if (STATUSES.indexOf(item.status) === -1) fail(at, 'status "' + item.status + '" is not one of ' + STATUSES.join(" · "));
-      if (item.status === "changed" && !(item.decision && String(item.decision).trim())) fail(at, "a changed item says what was decided, in decision");
-      if (item.flag && FLAGS.indexOf(item.flag) === -1) fail(at, 'flag "' + item.flag + '" is not one of ' + FLAGS.join(" · "));
+      else if (item.text.length > TEXT_MAX) fail(at, "text runs " + item.text.length + " characters — keep it to " + TEXT_MAX);
+      if (item.note != null && (!String(item.note).trim() || item.note.length > NOTE_MAX)) {
+        fail(at, "note must be non-empty and " + NOTE_MAX + " characters at most");
+      }
     });
   });
   CUSTOMER_NAMES.forEach(function (name) {
