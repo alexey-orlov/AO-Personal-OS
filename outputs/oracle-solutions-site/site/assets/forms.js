@@ -40,7 +40,8 @@
     var uid = "form-" + kind + "-" + Math.random().toString(36).slice(2, 8);
     var submitLabel = opts.submitLabel ||
       (kind === "contact" ? labels.submitContact : labels.submitDemo);
-    var selectedRole = opts.role || C.forms.roles[0].value;
+    /* `role: null` leaves every option unchecked — for an entry both audiences use. */
+    var selectedRole = opts.role === null ? null : (opts.role || C.forms.roles[0].value);
 
     var roles = C.forms.roles.map(function (role) {
       return '<label class="radioline">' +
