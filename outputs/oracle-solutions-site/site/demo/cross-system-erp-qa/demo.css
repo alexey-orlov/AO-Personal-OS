@@ -20,7 +20,7 @@
   /* 1. Data Studio */
   --ds-chrome: #312d2a;
   --ds-chrome-2: #3d3733;
-  --ds-sel: #16110f;
+  --ds-sel: #080707;
   --ds-page: #eeecea;
   --ds-surface: #fefefe;
   --ds-line: #e0ded9;
@@ -29,10 +29,11 @@
   --ds-txt-2: #5a5754;
   --ds-green: #508223;
   --ds-avatar: #267349;
-  --ds-link: #00658b;
-  --ds-pill: #1a5e7e;
-  --ds-olive-bg: #e6e7cb;
-  --ds-olive: #55601a;
+  --ds-link: #00688c;
+  --ds-pill: #00688b;
+  --ds-blue: #227e9e;
+  --ds-olive-bg: #e4f5d3;
+  --ds-olive: #3c601a;
 
   /* 2. AI Data Platform */
   --wb-bar: #2a2d31;
@@ -143,30 +144,39 @@ svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width:
 .ds-bar { height: 40px; flex: none; background: var(--ds-chrome); color: #ece9e5; display: flex; align-items: center; gap: 12px; padding: 0 14px 0 12px; }
 .ds-burger { display: grid; gap: 3px; width: 16px; }
 .ds-burger i { height: 1.6px; background: #cdc7c0; border-radius: 2px; }
-.ds-mark { width: 20px; height: 20px; border-radius: 4px; background: var(--red); position: relative; flex: none; }
-.ds-mark::after { content: ""; position: absolute; inset: 5px; background: #fff; border-radius: 2px; transform: rotate(45deg); }
+.ds-mark { font-size: 15px; font-weight: 600; letter-spacing: .16em; color: #fff; line-height: 1; flex: none; padding-left: 2px; }
+.ds-mark sup { font-size: 7px; vertical-align: super; opacity: .85; letter-spacing: 0; }
 .ds-title { font-size: 13px; color: #d9d4ce; }
 .ds-title i { font-style: normal; color: #7e7770; margin: 0 5px; }
 .ds-title b { font-weight: 400; color: #fff; }
-.ds-search { margin-left: auto; width: 320px; display: flex; align-items: center; gap: 6px; border-bottom: 1px solid #6a635c; padding: 3px 4px; }
-.ds-search input { flex: 1; min-width: 0; background: transparent; border: 0; color: #e8e4df; font: inherit; font-size: 12px; font-style: italic; }
-.ds-search input::placeholder { color: #928b83; font-style: italic; }
+.ds-search { margin-left: auto; width: 300px; height: 26px; display: flex; align-items: center; gap: 6px; background: #fff; border: 1px solid rgba(22, 21, 19, .25); border-radius: 4px; padding: 0 8px 0 12px; }
+.ds-search input { flex: 1; min-width: 0; background: transparent; border: 0; color: #161513; font: inherit; font-size: 12px; font-style: italic; }
+.ds-search input::placeholder { color: #8b857d; font-style: italic; }
+.ds-search .ds-mag { order: 2; border-color: #5a5754; }
+.ds-search .ds-mag::after { background: #5a5754; }
 .ds-search input:focus { outline: none; }
 .ds-mag { width: 13px; height: 13px; border: 1.6px solid #a49d95; border-radius: 50%; position: relative; flex: none; }
 .ds-mag::after { content: ""; position: absolute; right: -4px; bottom: -3px; width: 6px; height: 1.6px; background: #a49d95; transform: rotate(45deg); }
-.ds-help { width: 18px; height: 18px; border: 1.4px solid #a49d95; border-radius: 50%; font-size: 11px; display: grid; place-items: center; color: #cdc7c0; }
+.ds-help { width: 18px; height: 18px; border: 1.4px solid #a49d95; border-radius: 50%; font-size: 11px; display: grid; place-items: center; color: #cdc7c0; box-sizing: content-box; border-left: 0; }
+.ds-bar .ds-help, .ds-bar .ds-who { position: relative; padding-left: 12px; }
+.ds-bar .ds-help::before, .ds-bar .ds-who::before { content: ""; position: absolute; left: 0; top: -11px; bottom: -11px; width: 1px; background: rgba(255, 255, 255, .14); }
 .ds-who { font-size: 11.5px; letter-spacing: .04em; display: flex; align-items: center; gap: 6px; color: #e2ded9; }
+.ds-caret { width: 0; height: 0; border-left: 4px solid transparent; border-right: 4px solid transparent; border-top: 4px solid #cdc7c0; margin-left: 2px; }
 .ds-who-i { width: 14px; height: 14px; border-radius: 50%; border: 1.5px solid #b3aca4; position: relative; }
 .ds-who-i::after { content: ""; position: absolute; left: 2.5px; bottom: 1px; width: 7px; height: 4px; border-radius: 4px 4px 0 0; background: #b3aca4; }
 
-.ds-body { flex: 1; display: grid; grid-template-columns: 196px 1fr; min-height: 0; }
+.ds-body { flex: 1; display: grid; grid-template-columns: 156px 1fr; min-height: 0; }
+.ds-body.ds-body--wide { grid-template-columns: 216px 1fr; }
 .ds-nav { background: var(--ds-chrome); color: #ccc6c0; padding: 6px 0; display: flex; flex-direction: column; overflow: hidden; }
-.ds-item { display: flex; align-items: center; gap: 10px; padding: 0 12px; height: 32px; background: transparent; border: 0; width: 100%; cursor: pointer; font-size: 12.5px; color: #ccc6c0; text-align: left; }
+.ds-item { display: flex; align-items: center; gap: 10px; padding: 0 12px; height: 42px; background: transparent; border: 0; width: 100%; cursor: pointer; font-size: 13px; color: #ccc6c0; text-align: left; }
 .ds-item:hover { background: var(--ds-chrome-2); color: #fff; }
-.ds-item.is-active { background: var(--ds-sel); color: #fff; box-shadow: inset 3px 0 0 #7c9a4e; }
-.ds-item svg { width: 15px; height: 15px; opacity: .85; }
+.ds-item.is-active { background: var(--ds-sel); color: #fff; }
+.ds-item svg { width: 18px; height: 18px; opacity: .85; }
 .ds-item .chev { margin-left: auto; width: 11px; height: 11px; opacity: .6; }
 .ds-navfoot { margin-top: auto; }
+.ds-navfoot .ds-item[data-ds="collapse"] { background: #007ea8; color: #fff; margin: 6px 10px 10px; height: 29px; width: auto; border-radius: 0; }
+.ds-navfoot .ds-item[data-ds="collapse"]:hover { background: #0a8cb8; }
+.ds-navfoot .ds-item[data-ds="collapse"] span { opacity: 1 !important; }
 
 .ds-page { min-width: 0; overflow: auto; display: flex; flex-direction: column; }
 .ds-chiprow { display: flex; align-items: center; gap: 8px; padding: 9px 20px 8px; flex-wrap: wrap; }
@@ -188,16 +198,18 @@ svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width:
 .ds-pills { display: flex; justify-content: center; gap: 8px; padding-bottom: 10px; }
 .ds-pill { border: 1px solid var(--ds-line-2); background: #fff; border-radius: 4px; padding: 4px 14px; font-size: 12.5px; cursor: pointer; }
 .ds-pill.is-on { background: var(--ds-pill); border-color: var(--ds-pill); color: #fff; font-weight: 600; }
-.ds-meta { display: flex; align-items: center; justify-content: space-between; padding: 0 20px 6px 252px; font-size: 12.5px; }
+.ds-meta { display: flex; align-items: center; justify-content: space-between; font-size: 12.5px; padding: 0 0 6px; }
 .ds-nav { overflow-y: auto; }
-.ds-item--kid { height: 27px; padding-left: 34px; font-size: 12px; color: #bab4ae; }
-.ds-item--kid.is-active { box-shadow: inset 3px 0 0 #7c9a4e; }
+.ds-item--kid { height: 34px; padding-left: 26px; font-size: 12.5px; color: #bab4ae; }
+.ds-item--kid svg { width: 14px; height: 14px; }
 .ds-meta b { font-weight: 600; }
 .ds-meta .ds-sort { color: var(--ds-txt-2); display: flex; align-items: center; gap: 12px; }
-.ds-cols { display: grid; grid-template-columns: 218px 1fr; gap: 14px; padding: 0 20px 20px; flex: 1; min-height: 0; }
+.ds-cols { display: grid; grid-template-columns: 218px 1fr; gap: 14px; padding: 0 20px 20px; flex: 1; min-height: 0; align-items: start; }
+.ds-cols > .ds-list, .ds-cols > .ds-results { min-height: 0; }
+.ds-results { display: flex; flex-direction: column; min-width: 0; min-height: 0; }
 .ds-filters { font-size: 12.5px; }
-.ds-filters h3 { font-size: 15px; font-weight: 600; margin-bottom: 10px; }
-.ds-facet { border-top: 1px solid var(--ds-line); padding: 8px 0; }
+.ds-filters h3 { font-size: 15px; font-weight: 600; margin-bottom: 10px; line-height: 1.45; }
+.ds-facet { background: #f7f7f7; border: 1px solid #e6e4e0; padding: 8px 10px; margin-bottom: 8px; }
 .ds-facet b { display: flex; align-items: center; gap: 6px; font-weight: 600; }
 .ds-facet .sub { color: var(--ds-txt-2); font-size: 11.5px; margin: 5px 0 4px; }
 .ds-facet label { display: flex; align-items: center; gap: 7px; padding: 3px 0; color: var(--ds-txt-2); cursor: default; }
@@ -205,14 +217,16 @@ svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width:
 .ds-list { background: var(--ds-surface); border: 1px solid var(--ds-line); border-radius: 3px; overflow: auto; min-height: 0; }
 .ds-group { display: flex; align-items: center; gap: 8px; background: var(--ds-green); color: #fff; padding: 4px 12px; font-size: 12.5px; font-weight: 600; position: sticky; top: 0; z-index: 1; }
 .ds-group svg { width: 14px; height: 14px; }
-.ds-row { display: grid; grid-template-columns: 34px 1fr auto; gap: 10px; padding: 9px 14px; border-bottom: 1px solid #edebe8; align-items: start; }
+.ds-group--view { background: #1f6177; }
+.ds-group--analysis { background: #535a71; }
+.ds-row { display: grid; grid-template-columns: 34px 1fr auto; gap: 10px; padding: 9px 14px; align-items: start; }
 .ds-row:hover { background: #faf9f8; }
 .ds-av { width: 26px; height: 26px; border-radius: 50%; background: var(--ds-avatar); color: #fff; font-size: 10px; font-weight: 700; display: grid; place-items: center; letter-spacing: .03em; }
 .ds-row .ds-chips { display: flex; gap: 10px; font-size: 9.5px; font-weight: 700; letter-spacing: .06em; color: var(--ds-green); text-transform: uppercase; align-items: center; }
 .ds-row .ds-chips i { font-style: normal; color: var(--ds-txt-2); font-weight: 600; }
 .ds-ent { font-size: 13px; font-weight: 600; color: var(--ds-link); letter-spacing: .02em; display: block; margin: 1px 0 1px; }
-.ds-desc { font-size: 12px; color: var(--ds-txt-2); }
-.ds-rows { display: table; margin-top: 5px; border: 1px solid #cfd2a8; background: var(--ds-olive-bg); color: var(--ds-olive); border-radius: 999px; padding: 1px 9px; font-size: 11px; font-weight: 600; }
+.ds-desc { font-size: 12px; color: var(--ds-txt-2); display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ds-rows { display: table; margin-top: 5px; border: 1px solid #b1dd88; background: var(--ds-olive-bg); color: var(--ds-olive); border-radius: 5px; padding: 1px 9px; font-size: 11px; font-weight: 600; }
 .ds-upd { font-size: 11.5px; color: var(--ds-txt-2); white-space: nowrap; display: flex; align-items: center; gap: 5px; }
 .ds-upd svg { width: 12px; height: 12px; }
 .ds-empty { padding: 26px; text-align: center; color: var(--ds-txt-2); }
