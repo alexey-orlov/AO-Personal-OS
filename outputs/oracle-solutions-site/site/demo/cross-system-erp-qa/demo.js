@@ -1970,84 +1970,84 @@
      model, a mapping, a view or SQL. */
   var STEPS = [
     { id: "sources", major: 1, side: "bottom", passive: true,
-      title: "Everything you run on, in one place",
-      body: "Three systems hold the order book — Fusion in Europe, JD Edwards in North America, NetSuite for services. What a promise is worth lives in two more: the customer contracts, and the delivery-tracking application with the carrier scans. Tiers and owners come from the CRM. All five feed one place, minutes behind.",
+      title: "Everything you run on",
+      body: "Three systems hold the order book. The contracts and the carrier scans say what a promise is worth. The CRM says which customers matter. All five feed one place.",
       target: function () { return $("#src-cards"); }, anchor: function () { return $("#src-cards .src:last-child"); },
       avoid: function () { return $("#src-cards"); },
       auto: function () { tour.next(); } },
     { id: "to-aidp", major: 1, side: "bottom",
-      title: "Take a real question to the AI",
-      body: "Tuesday morning, and your account owners want to know what is going to go wrong this week. Open the Agent Hub and ask.",
+      title: "Take the question to the AI",
+      body: "Your account owners want to know what will go wrong this week. Open the Agent Hub and ask.",
       target: function () { return $('.ws-tab[data-go="aidp"]'); },
       auto: function () { setApp("aidp"); tour.after("to-aidp"); } },
     { id: "ask-q1", major: 2, side: "bottom", waits: true,
-      title: "Ask the AI what is at risk this week",
-      body: "Ask the first saved question. Four agents go to work at once: one reads all three order books, one works out which customer and which part each line really is, one hunts for the reason every late line is late, and one puts money on it and ranks what matters. Watch them.",
+      title: "Ask what is at risk",
+      body: "Ask the first saved question. Four agents go at once. They read the three order books, resolve customers and parts, find every cause and price every line.",
       target: function () { return $('[data-ask="q1"]'); }, anchor: function () { return $("#hub-chips"); },
       avoid: function () { return $("#hub-chips"); },
       auto: function () { ask("q1"); } },
     { id: "findings", major: 3, side: "right", dock: "right", passive: true,
       title: "Read what the AI found",
-      body: "Each system knew about its own late lines — 61, 49 and 28 — and none of them could tell you they were worth USD 4.18 M, that nine of your best accounts were in there, or why any single line was late. The AI gave every line a cause: 44 can be filled from stock sitting in another plant, 45 are moving but will arrive late, 31 wait on a supplier and 18 sit behind a credit hold. Then it ranked the accounts and proposed four things to do, each already assigned to the person who owns it.",
+      body: "Each system saw its own late lines and nothing more. The AI put them on one list, gave every line a cause, ranked the accounts and proposed four actions.",
       target: function () { return $("#band-tiles"); }, anchor: function () { return $("#band-tiles"); },
       avoid: function () { return $(".an-cols"); },
       auto: function () { tour.next(); } },
     { id: "evidence", major: 4, side: "right", dock: "right", scroll: "center",
-      title: "Check one finding before you trust it",
-      body: "Halden Tooling is your biggest exposure and the AI says the parts are sitting in another plant. Open the evidence and see for yourself: their order lines with the real keys they carry in JD Edwards and Fusion, the same part on hand in plant EU-2 under a different item number, the tier and the account owner out of the CRM, and the clause in their own contract the late penalty was priced from.",
+      title: "Check one finding yourself",
+      body: "Halden Tooling is your biggest exposure, and the AI says the parts sit in another plant. Open the evidence and check it yourself.",
       target: function () { return $('[data-ev="' + keyAccountId() + '"]'); }, anchor: function () { return $('tr[data-acct="' + keyAccountId() + '"]'); },
       avoid: function () { return $('tr[data-acct="' + keyAccountId() + '"]'); },
       auto: function () { openEvidence(keyAccountId()); tour.after("evidence"); } },
     { id: "trace", major: 4, side: "right", dock: "right",
       title: "See how it got there",
-      body: "Now the other direction: which agent read what, in what order, and under which rules. The trace also shows the two things that never depend on this screen — the rows you are allowed to see and the columns your role masks, both applied in the database.",
+      body: "The other direction now. Which agent read what, in what order, and under which rules, including the rows you may see and the columns your role masks.",
       target: function () { return $('[data-panel="trace"]'); }, anchor: function () { return $(".ans-acts"); },
       avoid: function () { return $("#ans-panel") || $(".ans-acts"); },
       auto: function () { S.panel = "trace"; renderWb(); tour.after("trace"); } },
     { id: "to-decisions", major: 5, side: "bottom",
-      title: "You know something the AI does not",
-      body: "Halden called you last week and agreed to take the delivery on the 20th. Those four lines are not at risk, whatever the dates in the system say. Decisions is where what the AI proposes meets what people decide — go there.",
+      title: "You know something it does not",
+      body: "Halden called last week and agreed to take delivery on the 20th. Those four lines are not at risk, whatever the dates say. Go to Decisions.",
       target: function () { return $('.ws-tab[data-go="review"]'); },
       avoid: function () { return $(".an-cols"); },
       auto: function () { setApp("review"); tour.after("to-decisions"); } },
     { id: "open-rec", major: 5, side: "bottom",
       title: "Open the one you disagree with",
-      body: "Four proposals, each with the accounts and lines behind it and the person it was assigned to. Open the expedite — Halden Tooling is the first account under it, with a summary of what the AI is going on.",
+      body: "Four proposals, each with the accounts and lines behind it. Open the expedite. Halden Tooling is the first account under it.",
       target: function () { return $('[data-openrec="' + keyActionId() + '"]'); }, anchor: function () { return $('[data-rec-card="' + keyActionId() + '"]'); },
       auto: function () { S.openRec = keyActionId(); renderRwPanel(); tour.after("open-rec"); } },
     { id: "decline", major: 5, side: "bottom", scroll: "center",
       title: "Overrule it, and say why",
-      body: "The reason is drafted for you. Decline the expedite: the AI keeps your reason, and it keeps the rule underneath it — a date the customer has accepted is not a date at risk.",
+      body: "The reason is drafted for you. Decline the expedite. The AI keeps your reason and the rule underneath it: a date the customer accepted is not a date at risk.",
       target: function () { return $('[data-rec="decline"][data-acct="' + keyAccountId() + '"]'); }, anchor: function () { return $('.reca[data-acct="' + keyAccountId() + '"] .prop-acts'); },
       avoid: function () { return $('.reca[data-acct="' + keyAccountId() + '"]'); },
       auto: function () { decideRec(keyAccountId(), "decline"); } },
     { id: "reanalyse", major: 5, side: "left", waits: true,
-      title: "Make the AI do the sums again",
-      body: "Your decision does not quietly disappear into a log. Re-analyse, and the AI re-values everything with Halden out: the revenue at risk, the tier-A exposure, the penalties, the lines it thought it could fill from stock, and the size of the expedite it assigned to supply planning.",
+      title: "Make it do the sums again",
+      body: "Your decision does not vanish into a log. Re-analyse, and the AI re-values everything with Halden out.",
       target: function () { return $("#rw-rerun"); }, avoid: function () { return $("#rw-band"); },
       auto: reanalyse },
     { id: "to-aidp-2", major: 6, side: "bottom",
       title: "Back to the finding",
-      body: "Revenue at risk is down to USD 3.77 M and one of the nine tier-A accounts has dropped off. Your account owners still need something they can open on Thursday — go back to the Agent Hub.",
+      body: "Your account owners still need something they can open on Thursday. Go back to the Agent Hub.",
       target: function () { return $('.ws-tab[data-go="aidp"]'); },
       avoid: function () { return $("#rw-band"); },
       auto: function () { setApp("aidp"); tour.after("to-aidp-2"); } },
     { id: "create-dash", major: 6, side: "right", dock: "right", waits: true,
       title: "Give the team a dashboard",
-      body: "Rather than export a spreadsheet, have the AI build the dashboard out of what it just found — the same numbers, the same definitions, so nobody has a private copy that drifts.",
+      body: "Rather than export a spreadsheet, have the AI build the dashboard from what it just found. Same numbers, same definitions, no private copy that drifts.",
       target: function () { return $("#create-dash"); }, anchor: function () { return $(".ans-acts"); },
       avoid: function () { return $(".an-cols"); },
       auto: function () { createDashboard(); } },
     { id: "viewas", major: 6, side: "left",
-      title: "See it as your regional analyst sees it",
-      body: "Before you send it anywhere, look at it as Marcus Bell does. Pick him: the dashboard rebuilds for North America only, his contacts and credit limits come back masked and the penalty terms are not there at all — decided in the database, not on this page.",
+      title: "See it as your analyst does",
+      body: "Before you send it, look at it as Marcus Bell does. Pick him. The dashboard rebuilds for North America only, and the masking is decided in the database.",
       target: function () { return $('#wb-menu [data-role="ANALYST_NA"]'); }, anchor: function () { return $("#wb-menu"); },
       avoid: function () { return $(".gd-tiles"); },
       before: function () { if (S.wbPanel !== "insights") { S.wbPanel = "insights"; renderWb(); } openMenu(true); },
       auto: function () { openMenu(false); setRole("ANALYST_NA"); } },
     { id: "share", major: 6, side: "bottom",
       title: "Hand it to the commercial team",
-      body: "Share it. Everyone opens the same dashboard and each of them sees their own rows — the work is handed on without a spreadsheet leaving the building.",
+      body: "Share it. Everyone opens the same dashboard and each sees their own rows.",
       target: function () { return $("#share-dash"); }, anchor: function () { return $("#share-dash"); },
       avoid: function () { return $(".gd-head"); },
       auto: share }
@@ -2123,12 +2123,12 @@
       $("#tour-step").textContent = "Step " + MAJORS + " of " + MAJORS + " · done";
       $("#gate-title").textContent = "What you can act on now";
       $("#gate-body").textContent =
-        "Five systems answered one question: which orders are at risk this week, and which accounts they put at stake. " +
-        "Every figure came with its cause and its source rows, you overruled the one thing the AI could not know, and your team has a dashboard that respects who is looking. " +
-        "Nothing was written to any system: the AI proposes, people decide.";
+        "Five systems answered one question. Every figure carried its cause and its rows, you overruled the AI once, and your team has a dashboard. " +
+        "Nothing was written to any system.";
+      if ($("#gate-steps")) $("#gate-steps").hidden = true;
       var doors = [
-        ["ask", "Ask another question", "the saved questions on the Agent Hub home"],
-        ["decisions", "Open the Decisions queue", "the customer matches waiting for a person"],
+        ["ask", "Ask another question", "the saved questions"],
+        ["decisions", "Open the Decisions queue", "customer matches waiting for a person"],
         ["dash", "See the dashboard", "Insights, on the Agent Hub"]
       ];
       $("#gate-try").innerHTML = doors.map(function (d) {
@@ -2136,7 +2136,7 @@
       }).join("");
       $("#gate-try").hidden = false;
       $("#gate-start").textContent = "Replay the walkthrough"; $("#gate-free").textContent = "Keep exploring";
-      $(".gate-note").textContent = "Demo data only: a fictional group with synthetic orders, contracts and shipments; nothing leaves this page.";
+      $(".gate-note").textContent = "Demo data only. Nothing leaves this page.";
       $("#gate-start").onclick = function () { location.href = location.pathname; };
       $("#gate-free").onclick = function () { g.hidden = true; };
       $("#gate-try").onclick = function (e) {
