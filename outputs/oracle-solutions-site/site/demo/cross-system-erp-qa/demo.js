@@ -1,13 +1,19 @@
 /* Cross-system ERP Q&A — interactive walkthrough.
    Three product surfaces (Autonomous AI Lakehouse · Data Studio, AI Data
-   Platform · Agent Hub, and a Redwood "Mapping review" app) under one neutral
+   Platform · Agent Hub, and a Redwood "Decisions" app) under one neutral
    workspace switcher, plus the six-step guided tour.
 
-   Every number on screen comes from window.ERPQA_DATA: computeKpis(state) for
-   the health band, answer(qid, role, decisions) for each answer, and
-   applyDecision(state, decision) for the steward's fix — so rejecting the
-   Orion match recomputes the band, the duplicate list and the affected
-   answers in one pass, exactly as tools/erp-qa-check.js asserts. */
+   The spine is a business decision, not an administration task: Dana asks what
+   is at risk this week, four agents read five systems and come back with the
+   money, the cause of every late line and four things to do; she checks one
+   finding against its source rows, overrules the AI on an account she has
+   spoken to, and the whole analysis is re-valued.
+
+   Every number on screen comes from window.ERPQA_DATA: analyse(decisions) for
+   the headline, the band, the causes, the accounts and the actions;
+   evidence(account, role, decisions) for the drill-down; decide(state, d) for
+   the override; dashboard(role, decisions) for the generated dashboard — so a
+   decision moves all of them in one pass, as tools/erp-qa-check.js asserts. */
 (function () {
   "use strict";
   var D = window.ERPQA_DATA;
@@ -189,25 +195,28 @@
   });
 
   var OBJ_DESC = {
-    AP_INVOICES_ALL: "payables invoice headers", AP_INVOICE_LINES_ALL: "payables invoice distribution lines",
-    POZ_SUPPLIERS: "the supplier master", POZ_SUPPLIER_SITES_ALL_M: "supplier sites and pay-to addresses",
-    HZ_PARTIES: "the trading-community party behind each supplier", GL_BALANCES: "general-ledger period balances",
-    GL_CODE_COMBINATIONS: "account code combinations", GL_LEDGERS: "ledgers and their currencies",
-    GL_PERIODS: "accounting-calendar periods", GL_DAILY_RATES: "daily and period-average exchange rates",
-    F0411: "the accounts-payable ledger", F0101: "the address-book master", F0911: "account-ledger transactions",
-    F0901: "the account master", F0006: "the business-unit master", F0010: "company constants", F0008: "date fiscal patterns",
-    vendor: "vendor records", transaction: "transaction headers", transactionLine: "transaction lines",
-    account: "the chart of accounts", subsidiary: "subsidiaries", customer: "customer records",
-    CRB_CONTRACTS: "supplier contracts", CRB_REBATE_TERMS: "rebate thresholds and rates",
-    CRB_SUPPLIER_XREF: "the contract to golden-supplier cross-reference",
-    CRM_ACCOUNT: "accounts and their tier", CRM_OPPORTUNITY: "open opportunities"
+    DOO_HEADERS_ALL: "sales-order headers", DOO_FULFILL_LINES_ALL: "order fulfilment lines and their promised dates",
+    INV_ONHAND_QUANTITIES_DETAIL: "on-hand quantities by item and plant", EGP_SYSTEM_ITEMS_B: "the item master",
+    HZ_PARTIES: "the trading-community party behind each customer", HZ_CUST_ACCOUNTS: "customer accounts",
+    PO_HEADERS_ALL: "purchase-order headers", PO_LINE_LOCATIONS_ALL: "purchase-order schedules and promised receipts",
+    AR_CUSTOMER_PROFILES: "credit profiles and holds",
+    OKC_K_HEADERS_ALL_B: "customer contract headers", OKC_K_LINES_B: "the products and services a contract covers",
+    OKC_K_ARTICLES_B: "contract clauses, including delivery lead time and the late-penalty terms",
+    F4201: "sales-order headers", F4211: "sales-order detail lines", F41021: "item location and on-hand balances",
+    F4101: "the item master", F4104: "item cross-references", F0301: "the customer master", F0101: "the address-book master",
+    F4311: "purchase-order detail lines", F03B11: "open accounts-receivable items",
+    transaction: "transaction headers, sales orders included", transactionLine: "transaction lines",
+    item: "the item record", customer: "customer records", inventoryBalance: "inventory balances by location",
+    DLV_SHIPMENTS: "shipments with their carrier and ETA", DLV_SCAN_EVENTS: "carrier scan events with time, location and status",
+    DLV_EXCEPTIONS: "delivery exceptions with their code and reason",
+    CRM_ACCOUNT: "accounts with their tier, owner, region and annual revenue", CRM_CONTACT: "contacts at those accounts"
   };
   function entities() {
     var out = [];
     D.views.forEach(function (v, i) {
       out.push({
-        kind: "View", catalog: "LAKEHOUSE", schema: "GOLD", name: v.id, owner: "GROUP_FINANCE",
-        desc: v.definition, rows: 0, fresh: S.refreshedNow ? 0 : 60, sortKey: i
+        kind: "View", catalog: "LAKEHOUSE", schema: "GOLD", name: v.id, owner: "GROUP_COMMERCIAL",
+        desc: v.definition, rows: 0, fresh: 6, sortKey: i
       });
     });
     D.sources.forEach(function (s) {
@@ -215,7 +224,7 @@
       s.objects.forEach(function (o, i) {
         var share = (i === 0 ? 0.42 : i === 1 ? 0.24 : 0.34 / Math.max(1, n - 2));
         out.push({
-          kind: "Table", catalog: s.catalog, schema: s.id === "CRM" ? "ICEBERG" : s.short.toUpperCase().replace(/[^A-Z]/g, ""), name: o,
+          kind: "Table", catalog: s.catalog, schema: s.id === "CRM" ? "ICEBERG" : s.id === "DLV" ? "DLV" : s.short.toUpperCase().replace(/[^A-Z]/g, ""), name: o,
           owner: s.entity, desc: "The table " + o + " provides a listing of " + (OBJ_DESC[o] || "records") + " in " + s.name + " for " + s.entityName + ".",
           rows: Math.max(24, Math.round(s.rowCount * share)), fresh: s.freshnessMin + i, sortKey: 100 + i, src: s.id
         });
@@ -243,7 +252,7 @@
           '<div><div class="ds-chips">' + ICON.stack + esc(e.catalog) + " <i>&middot; " + esc(e.schema) + "</i></div>" +
           '<span class="ds-ent">' + esc(e.name) + "</span>" +
           '<span class="ds-desc">' + esc(e.desc) + "</span>" +
-          (e.rows ? '<span class="ds-rows">' + e.rows.toLocaleString("en-US") + " rows</span>" : '<span class="ds-rows">certified &middot; Group Finance</span>') + "</div>" +
+          (e.rows ? '<span class="ds-rows">' + e.rows.toLocaleString("en-US") + " rows</span>" : '<span class="ds-rows">certified &middot; Group Commercial</span>') + "</div>" +
           '<span class="ds-upd">' + ICON.clock + esc(freshLabel(e.fresh)) + "</span></div>";
       }).join("");
     }).join("");
@@ -264,47 +273,71 @@
       "</div></aside>" +
       '<div class="ds-list">' + list + "</div></div>";
   }
+  /* Live Feed — the opening screen. The five sources are the subject here:
+     what the company runs on, what each one brings, and how far behind it is.
+     The feed job below them is already built and is never run by the tour. */
   function renderDsFeeds() {
-    var k = kpis(), done = !!S.state.refreshed;
     $("#ds-crumb").textContent = "Data Load";
     $("#ds-page").innerHTML =
       '<div class="ds-head"><h1>Live Feed</h1><span>Ongoing feeds of new data into the autonomous database</span></div>' +
+      '<section class="srcs"><div class="srcs-head"><h2>Sources feeding the lakehouse</h2>' +
+      '<span>Five systems, minutes behind, in one place — this is what lets one question cross all of them.</span></div>' +
+      '<div class="src-cards" id="src-cards">' + D.sources.map(function (s) {
+        return '<div class="src" data-src="' + esc(s.id) + '">' +
+          '<div class="src-top"><span class="src-dot src-dot--' + esc(s.id) + '"></span><span class="src-kind">' + esc(s.kind) + "</span>" +
+          '<span class="fr">' + esc(s.freshLabel) + " behind</span></div>" +
+          '<h3>' + esc(s.short) + "</h3>" +
+          '<div class="src-sys">' + esc(s.name) + "</div>" +
+          '<div class="src-apps">' + (s.apps || []).map(function (a) { return '<span class="src-app">' + esc(a) + "</span>"; }).join("") + "</div>" +
+          '<div class="src-what">' + esc(srcWhat(s.id)) + "</div>" +
+          '<div class="src-feed">' + ICON.refresh + esc(s.feed) + "</div>" +
+          '<div class="src-objs">' + (s.objects || []).slice(0, 4).map(function (o) { return "<code>" + esc(o) + "</code>"; }).join("") +
+          (s.objects.length > 4 ? '<span class="more">+' + (s.objects.length - 4) + " more</span>" : "") + "</div></div>";
+      }).join("") + "</div></section>" +
       '<section class="job" id="ds-job"><div class="job-head"><span class="job-ico">' + ICON.stack + "</span>" +
-      '<div><h2>Cross-system finance model (GOLD)</h2><div class="sub">Owner Group Finance &middot; five sources into one governed model &middot; ' + D.views.length + ' certified views &middot; last run <b id="ds-lastrun">' + esc(S.lastRun) + "</b></div></div>" +
-      '<div class="job-act"><span class="job-chip" id="ds-jobchip">' + (done ? "Rebuilt 09:44" : "Scheduled hourly") + '</span><button class="btn btn--dark" id="ds-run-now" type="button">' + ICON.play + "Run now</button></div></div>" +
-      '<div class="job-src">' + D.sources.map(function (s) {
-        return "<div><div class=\"cat\">" + esc(s.catalog) + '</div><div class="nm">' + esc(s.short) + '</div><div class="fd">' + esc(s.feedShort) + '</div><span class="fr">' + esc(s.freshLabel) + " behind</span></div>";
-      }).join("") + "</div>" +
-      '<ol class="stages" id="ds-stages">' + D.refreshStages.map(function (st) {
-        return "<li" + (done ? ' class="is-done"' : "") + "><i></i><span>" + esc(st.name) + "</span><em>" + (done ? esc(st.done) : "") + "</em></li>";
+      '<div><h2>Cross-system commercial model (GOLD)</h2><div class="sub">Owner Group Commercial &middot; five sources into one governed model &middot; ' + D.views.length + " certified views &middot; rebuilt continuously as the feeds arrive</div></div>" +
+      '<div class="job-act"><span class="job-chip" id="ds-jobchip">Rebuilt 09:44</span></div></div>' +
+      '<ol class="stages" id="ds-stages">' + STAGE_LABELS.map(function (st) {
+        return '<li class="is-done"><i></i><span>' + esc(st[0]) + "</span><em>" + esc(st[1]) + "</em></li>";
       }).join("") + "</ol>" +
-      '<div class="job-bar" id="ds-bar"><b' + (done ? ' style="width:100%"' : "") + "></b></div>" +
-      '<p class="job-note">' + (S.state.refreshed
-        ? "Model rebuilt at <b>09:44</b> &middot; " + D.views.length + " certified views &middot; supplier records resolved " + k.resolved.pct.toFixed(1) + " % &middot; SQL Firewall allow-list FIN_QA_V3 refreshed."
-        : "Sources are mounted and feeding; the model has not been rebuilt since <b>" + esc(S.lastRun) + "</b>. Run it to resolve identities, map accounts, reconcile the ledgers and rebuild the certified views.") + "</p></section>" +
-      '<section class="out"><div class="out-head"><b>' + D.views.length + ' certified views</b><span>schema GOLD &middot; owner Group Finance &middot; signed-off definitions the answers cite by name</span></div>' +
+      '<p class="job-note">Nothing here is a batch anyone waits for: JD Edwards streams through change capture, Fusion and NetSuite arrive on their own pipelines, the delivery-tracking application is a database link and the CRM is an external table. The stalest of the five is the CRM, 1 h 05 min behind — and every answer says so.</p></section>' +
+      '<section class="out"><div class="out-head"><b>' + D.views.length + ' certified views</b><span>schema GOLD &middot; owner Group Commercial &middot; signed-off definitions the answers cite by name</span></div>' +
       '<div class="out-grid">' + D.views.map(function (v) { return '<div><div class="vn">' + esc(v.name) + '</div><div class="vd">' + esc(v.definition) + "</div></div>"; }).join("") + "</div></section>" +
-      '<p class="ds-aside">Mocked run — no job is submitted and nothing is written back to any source system.</p>';
+      '<p class="ds-aside">Demo data only — a fictional group and synthetic orders. Nothing is written back to any source system.</p>';
+  }
+  var STAGE_LABELS = [
+    ["Bring in the three order books", "1 min ago"],
+    ["Resolve customers and items across systems", "1 min ago"],
+    ["Join the stock, the purchase orders, the credit holds and the carrier scans", "1 min ago"],
+    ["Read the lead-time and penalty clauses out of the contracts", "2 min ago"],
+    ["Rebuild the certified views", "09:44"]
+  ];
+  function srcWhat(id) {
+    return {
+      FUSION: "Orders, fulfilment lines and on-hand stock for Europe — and the customer contracts, where the delivery lead time and the late-penalty clause live.",
+      JDE: "The North American order book, its item cross-references, on-hand balances, purchase orders and open receivables.",
+      NETSUITE: "Sales orders, lines, items and inventory balances for the services company.",
+      DLV: "Where every shipment actually is: the carrier, the ETA, each scan event, and the exception codes when one goes wrong.",
+      CRM: "Who the customer is to us — tier, owner, region, annual revenue — and the people to call."
+    }[id] || "";
   }
   /* ---- Analysis: the natural-language Generate Query field (§1.9).
      Generate Query WRITES SQL INTO THE EDITOR and the user then presses Run —
-     a two-step flow, never a chatbot. Oracle's own doc calls auto-running it
-     the biggest fidelity error available on this screen. */
-  var DA_Q = D.questions.filter(function (q) { return q.id === "q7"; })[0];
-  function daRows() {
-    return D.answer("q7", "CONTROLLER", decisions()).rows.slice(0, 6);
-  }
+     a two-step flow, never a chatbot. */
+  function daQuestion() { return D.questions.filter(function (q) { return q.id === "q7"; })[0] || D.questions[0]; }
+  function daAnswer() { return D.answer(daQuestion().id, "COMMERCIAL_OPS", decisions()); }
   function renderDsAnalysis() {
     $("#ds-crumb").textContent = "Data Analysis";
-    var sqlLines = (S.daGenerated ? DA_Q.sql : "").split("\n");
-    var rows = daRows();
+    var DA_Q = daQuestion(), a = daAnswer();
+    var sqlLines = (S.daGenerated ? a.sql : "").split("\n");
+    var rows = a.rows.slice(0, 6), cols = a.columns.slice(0, 4);
     $("#ds-page").innerHTML =
-      '<div class="da-top"><button class="da-back" type="button">' + ICON.chevl + "</button><b>Q3_Group_Spend</b>" +
+      '<div class="da-top"><button class="da-back" type="button">' + ICON.chevl + "</button><b>OTIF_by_entity</b>" +
       '<span class="da-right"><button class="da-save" type="button">' + ICON.ledger + 'Save ' + ICON.chevd + "</button><span class=\"ds-ico\">" + ICON.search + "</span></span></div>" +
       '<div class="da-cols">' +
       '<aside class="da-tree"><div class="da-sel">GOLD ' + ICON.chevd + '</div><div class="da-sel da-sel--2">Query ' + ICON.chevd + '<span class="da-ref">' + ICON.refresh + "</span></div>" +
-      ["SUPPLIER_360", "SUPPLIER_SPEND_Q", "PERIOD_MAP", "AP_INVOICE_X", "COA_MAP", "CONSOLIDATED_PL", "ENTITY_MAP", "DOC_MAP"].map(function (t, i) {
-        return '<div class="da-tbl' + (i < 3 ? " is-on" : "") + '">' + ICON.grid + esc(t) + "</div>";
+      D.views.slice(0, 8).map(function (v, i) {
+        return '<div class="da-tbl' + (i < 3 ? " is-on" : "") + '">' + ICON.grid + esc(v.id) + "</div>";
       }).join("") + "</aside>" +
       '<div class="da-main"><div class="da-card"><span class="da-rep">' + ICON.ledger + 'My Report_Report-0</span>' +
       '<span class="da-tog">Use Natural Query<i class="da-switch is-on"></i></span></div>' +
@@ -318,14 +351,19 @@
       '<div class="da-tabs"><button type="button" class="is-on">Query Result</button><button type="button">Explain Plan</button><button type="button">Autotrace</button>' +
       '<span class="da-right"><span class="da-modes"><i class="is-on"></i><i></i><i></i><i></i></span></span></div>' +
       '<div class="da-result">' + (S.daRan
-        ? '<table class="da-grid"><thead><tr><th>GOLDEN_NAME</th><th>SYSTEMS</th><th class="r">Q3_SPEND_USD</th><th class="r">SHARE_PCT</th></tr></thead><tbody>' +
+        ? '<table class="da-grid"><thead><tr>' + cols.map(function (c) { return '<th class="' + (c.align === "right" ? "r" : "") + '">' + esc(String(c.label).toUpperCase().replace(/ /g, "_")) + "</th>"; }).join("") + "</tr></thead><tbody>" +
           rows.map(function (r) {
-            return "<tr><td>" + esc(r.supplier) + "</td><td>" + esc((r.systems || []).map(function (x) { return D.sourceById[x] ? D.sourceById[x].short : x; }).join(" · ")) + '</td><td class="r">' + money(r.spendUsd) + '</td><td class="r">' + Number(r.sharePct).toFixed(1) + "</td></tr>";
+            return "<tr>" + cols.map(function (c) {
+              var v = r[c.key];
+              if (c.kind === "badges") v = (v || []).map(function (x) { return D.sourceById[x] ? D.sourceById[x].short : x; }).join(" · ");
+              if (c.kind === "money") v = money(v, 0);
+              return '<td class="' + (c.align === "right" ? "r" : "") + '">' + esc(v === undefined || v === null ? "—" : v) + "</td>";
+            }).join("") + "</tr>";
           }).join("") + "</tbody></table>"
         : '<div class="da-empty">No results. Press <b>Run</b> to execute the statement in the editor.</div>') + "</div></div>" +
       '<aside class="da-facet"><div class="da-fh">&raquo; Faceted<br>Visual<i class="da-switch is-on"></i></div>' +
-      ["GOLDEN_NAME", "Q3_SPEND_USD", "SHARE_PCT"].map(function (c) {
-        return '<div class="da-fc"><b>' + ICON.chevd + esc(c) + "</b>" + '<span class="da-hist">' +
+      cols.slice(0, 3).map(function (c) {
+        return '<div class="da-fc"><b>' + ICON.chevd + esc(String(c.label).toUpperCase().replace(/ /g, "_")) + "</b>" + '<span class="da-hist">' +
           [17, 14, 12, 10, 9, 8, 7, 6, 5, 4, 4, 3, 3, 2, 2].map(function (h) { return '<i style="height:' + h + 'px"></i>'; }).join("") +
           '</span><a>Show More...</a></div>';
       }).join("") + "</aside></div>" +
@@ -340,7 +378,6 @@
   }
   $("#ds-page").addEventListener("click", function (e) {
     var t;
-    if ((t = e.target.closest("#ds-run-now"))) { runRefresh(); tour.after("runnow"); return; }
     if ((t = e.target.closest("#da-gen"))) { S.daGenerated = true; S.daRan = false; renderDs(); toast("<span><b>Generate Query</b> wrote the statement into the editor. Nothing has run yet — inspect it, then press <b>Run</b>.</span>", 6000); return; }
     if ((t = e.target.closest("#da-run"))) { if (!S.daGenerated) { toast("The editor is empty — press <b>Generate Query</b> first."); return; } S.daRan = true; renderDs(); return; }
     if ((t = e.target.closest("[data-drop]"))) { S.dsCatalogs = S.dsCatalogs.filter(function (x) { return x !== t.dataset.drop; }); renderDs(); return; }
@@ -349,43 +386,14 @@
       if (i >= 0) S.dsCatalogs.splice(i, 1); else S.dsCatalogs.push(id);
       renderDs(); return;
     }
-    if ((t = e.target.closest("[data-all]"))) { S.dsCatalogs = D.sources.map(function (s) { return s.id; }); renderDs(); toast("All five catalogs are back in scope."); return; }
+    if ((t = e.target.closest("[data-all]"))) { S.dsCatalogs = D.sources.map(function (s) { return s.id; }); renderDs(); toast("All five sources are back in scope."); return; }
+    if ((t = e.target.closest("[data-src]"))) {
+      var s = D.sourceById[t.dataset.src];
+      if (s) toast("<span><b>" + esc(s.name) + "</b> &middot; " + esc(s.feed) + " &middot; " + esc(s.freshLabel) + " behind &middot; " + s.objects.length + " objects in scope: <span class=\"mono\">" + esc(s.objects.join(", ")) + "</span></span>", 9000);
+      return;
+    }
     if ((t = e.target.closest("[data-manage]"))) { toast("<span>Mounted catalogs: <b>" + D.sources.map(function (s) { return s.catalog; }).join(" &middot; ") + "</b> — read-only in this walkthrough.</span>"); }
   });
-
-  /* the refresh: five stages, then the completion toast */
-  function runRefresh() {
-    if (S.busy || S.state.refreshed) { if (S.state.refreshed) toast("The model is already rebuilt — open <b>Mapping review</b> to see what it changed."); return; }
-    S.busy = true;
-    if (S.dsScreen !== "feeds") { S.dsScreen = "feeds"; renderDs(); }
-    var ol = $("#ds-stages"), lis = $$("li", ol), bar = $("#ds-bar b");
-    $("#ds-jobchip").textContent = "Running"; $("#ds-jobchip").className = "job-chip job-chip--live";
-    $("#ds-run-now").disabled = true;
-    var t = 0, total = D.refreshStages.reduce(function (a, s) { return a + s.ms; }, 0), acc = 0;
-    D.refreshStages.forEach(function (st, i) {
-      setTimeout(function () { if (lis[i]) lis[i].classList.add("is-running"); }, t);
-      acc += st.ms; t += st.ms;
-      (function (i, pc, st) {
-        setTimeout(function () {
-          if (!lis[i]) return;
-          lis[i].classList.remove("is-running"); lis[i].classList.add("is-done");
-          $("em", lis[i]).textContent = st.done;
-          if (bar) bar.style.width = pc + "%";
-        }, t);
-      })(i, Math.round(acc / total * 100), st);
-    });
-    setTimeout(function () {
-      S.busy = false;
-      S.state = { refreshed: true, decisions: S.state.decisions };
-      S.refreshedNow = true; S.lastRun = "09:44";
-      var k = kpis();
-      renderDs(); renderRw();
-      toast('<span class="tok">' + ICON.check + "</span><span><b>Model rebuilt</b> &middot; " + D.views.length + " certified views &middot; " +
-        k.records.total + " supplier records resolved to " + k.resolved.pct.toFixed(1) + " % &middot; " + k.accounts.unmappedBefore + " unmapped accounts cleared &middot; " +
-        k.dupPairs.count + " duplicate-payment pairs surfaced</span><button class=\"tbtn\" type=\"button\" data-toast-go=\"review\">Open Mapping review</button>", 20000);
-      tour.next();
-    }, t + 500);
-  }
 
   /* ===================================================================== */
   /* 2. AI DATA PLATFORM — Agent Hub                                       */
@@ -400,11 +408,13 @@
   ];
   function renderWbNav() {
     $("#wb-nav").innerHTML = WB_NAV.map(function (n) {
-      var on = n.id === S.wbPanel || (n.id === "home" && S.wbPanel === "conversation") || (n.id === "catalog" && S.wbPanel === "lineage");
+      var on = n.id === S.wbPanel ||
+        (n.id === "home" && (S.wbPanel === "analysis" || S.wbPanel === "run" || S.wbPanel === "conversation")) ||
+        (n.id === "catalog" && S.wbPanel === "lineage");
       return '<button class="wb-item' + (on ? " is-active" : "") + '" type="button" data-wb="' + n.id + '">' + ICON[n.icon] + "<span>" + (n.plain ? "Create" : esc(n.label)) + "</span></button>";
     }).join("") +
       '<div class="wb-cap">Activity</div>' +
-      '<div class="wb-recent">Finance Q&amp;A agent<br>GOLD certified views<br>Q3 close workspace</div>';
+      '<div class="wb-recent">Commercial operations agent<br>Revenue at risk &middot; week 41<br>GOLD certified views</div>';
   }
   $("#wb-nav").addEventListener("click", function (e) {
     var b = e.target.closest("[data-wb]");
@@ -418,13 +428,13 @@
     var cur = persona();
     $("#wb-user").textContent = cur.initials;
     $("#wb-menu").innerHTML = '<div class="mh">Signed in</div>' +
-      '<div class="me is-on"><span class="ini">DW</span><span><b>Dana Whitfield</b><span>Group Controller &middot; all entities, unmasked</span></span></div><hr>' +
+      '<div class="me is-on"><span class="ini">DW</span><span><b>Dana Whitfield</b><span>VP Commercial Operations &middot; all regions, unmasked</span></span></div><hr>' +
       '<div class="mh">View as</div>' +
       D.personas.filter(function (p) { return p.role !== "STEWARD"; }).map(function (p) {
         return '<button class="me' + (p.role === S.role ? " is-on" : "") + '" type="button" role="menuitem" data-role="' + p.role + '"><span class="ini' + (p.role === "ANALYST_NA" ? " ini--a" : "") + '">' + esc(p.initials) + "</span>" +
           "<span><b>" + esc(p.name) + "</b><span>" + esc(p.title) + " &middot; " + esc(p.scope) + "</span></span></button>";
       }).join("") +
-      '<hr><div class="mh" style="text-transform:none;letter-spacing:0;font-weight:400;color:#8b857d">Row policies and column masking live in the database, so the view changes for every question at once.</div>';
+      '<div class="mnote">Viewing as someone else re-runs everything under their rules — the rows they may see and the columns their role masks, enforced in the database, not on this screen.</div>';
   }
   function openMenu(open) {
     $("#wb-menu").hidden = !open;
@@ -438,227 +448,415 @@
     setRole(b.dataset.role);
   });
   document.addEventListener("click", function (e) {
-    if (!$("#wb-menu").hidden && !e.target.closest("#wb-menu, #wb-user")) openMenu(false);
+    if ($("#wb-menu").hidden) return;
+    if (e.target.closest("#wb-menu, #wb-user")) return;
+    openMenu(false);
   });
   function setRole(role) {
     S.role = role;
     var p = persona();
     renderWb();
     if (role === "ANALYST_NA") {
-      var a = ans();
-      toast("<span>Now answering as <b>" + esc(p.name) + "</b> &middot; " + esc(p.title) + ". The same question returns <b>" + a.rowCount + " rows</b> — the row policy limits them to NG-NA and the bank and tax columns are masked in the database.</span>", 7000);
+      toast("<span>Now looking at it as <b>" + esc(p.name) + "</b> &middot; " + esc(p.title) + ". He sees North America only; contacts, credit limits and contract penalty terms are masked in the database before anything reaches this page.</span>", 8000);
     } else {
       toast("<span>Back as <b>" + esc(p.name) + "</b> &middot; " + esc(p.title) + ".</span>");
     }
     tour.after("viewas");
   }
 
-  /* ---- Agent Hub home ---- */
+  /* ---- shared: system badges, money, the six-tile band ------------------ */
+  function sysBadge(id) { return '<span class="sysb sysb--' + esc(id) + '">' + esc(D.sourceById[id] ? D.sourceById[id].short : id) + "</span>"; }
+  function usdShort(n) {
+    if (n === null || n === undefined) return "—";
+    if (n >= 1e6) return "USD " + D.fmtM(n);
+    if (n >= 1000) return "USD " + Math.round(n / 1000) + " k";
+    return "USD " + Math.round(n);
+  }
+  function bandTile(t, moved) {
+    var across = String(t.across === null || t.across === undefined ? "—" : t.across);
+    var per = t.perSystem === null || t.perSystem === undefined ? "—" : String(t.perSystem);
+    var small = across.length > 15;
+    return '<div class="tile ' + esc(t.dir || "up") + (moved ? " is-moved" : "") + '" data-tile="' + esc(t.id) + '" title="' + esc(t.note || "") + '">' +
+      '<span class="lab">' + esc(t.label) + "</span>" +
+      '<span class="val"><span class="before">' + esc(per) + '</span><span class="arw">&rarr;</span>' +
+      '<span class="after' + (small ? " after--sm" : "") + '">' + esc(across) + "</span></span>" +
+      '<span class="note">' + esc(t.noteShort || t.note || "") + "</span></div>";
+  }
+  function bandHtml(an, id, moved) {
+    return '<div class="band-head"><span class="eyebrow">Per system &rarr; across systems</span>' +
+      '<span class="muted">' + esc(D.world.period.label) + " &middot; " + esc(D.world.period.range) + " &middot; every figure computed from the lines the AI read</span></div>" +
+      '<div class="band-tiles" id="' + id + '">' + an.band.map(function (t) { return bandTile(t, (moved || []).indexOf(t.id) >= 0); }).join("") + "</div>";
+  }
+
+  /* ---- Agent Hub home -------------------------------------------------- */
   function hubHome() {
-    var k = kpis();
+    var done = !!S.state.analysed, an = done ? analysis() : null;
+    var today = done
+      ? an.actions.map(function (a) {
+        return '<div class="hs"><div class="k">' + esc(a.owner) + "</div>" +
+          '<div class="v">' + esc(a.title) + '</div><div class="d">' + a.lines + " lines &middot; " + usdShort(a.usd) + " at risk &middot; assigned as a task by the commercial operations agent</div></div>";
+      }).join("")
+      : '<div class="hs"><div class="k">Commercial operations agent</div><div class="v">Watching the order book</div>' +
+        '<div class="d">Five systems feeding; nothing assigned yet this morning. Ask it what is at risk and it will read all of them.</div></div>' +
+        '<div class="hs"><div class="k">Account owners</div><div class="v">Week 41 review at 11:00</div><div class="d">Ruth Calloway, Tom Ferris and Ivo Lang want a list they can act on.</div></div>';
     return '<div class="hub"><div class="hub-main">' +
       '<span class="hub-tile"></span>' +
       '<h1 class="hub-greet">Good morning, Dana</h1>' +
       '<div class="hub-ask"><span class="hub-mk"></span><span class="hub-ph"><b>Ask</b> Oracle</span>' +
       '<span class="ic">' + ICON.mic + '</span><span class="ic">' + ICON.clip + '</span>' +
-      '<span class="hub-model">Finance Q&amp;A agent ' + ICON.chevd + "</span></div>" +
+      '<span class="hub-model">Commercial operations agent ' + ICON.chevd + "</span></div>" +
+      (S.wbPanel === "run" ? runCardHtml() : "") +
       '<div class="hub-sec">Saved questions</div><div class="hub-chips" id="hub-chips">' +
       D.questions.map(function (q) {
         var blocked = q.blockedFor && q.blockedFor.indexOf(S.role) >= 0;
         return '<button class="hub-chip' + (blocked ? " is-blocked" : "") + '" type="button" data-ask="' + q.id + '"><i>' + q.n + "</i>" + esc(q.chip) + (blocked ? " " + ICON.lock : "") + "</button>";
       }).join("") + "</div>" +
-      '<div class="hub-sec">Agent</div>' +
+      '<div class="hub-sec">My agents</div>' +
       '<div class="hub-agent"><span class="ag-ico">' + ICON.bot + "</span>" +
-      "<div><h3>Finance Q&amp;A agent</h3><p>Plain-English questions over the governed model: the agent matches the question's words to the catalog descriptions and column annotations on the certified views, generates SQL against those views only, and answers with the rows, the source of every row and the SQL it ran.</p>" +
-      '<div class="ag-meta">NL2SQL &middot; catalog connection LAKEHOUSE_GOLD &middot; ' + D.views.length + " certified views &middot; allow-list FIN_QA_V3</div></div>" +
-      '<span class="job-chip">Running</span></div></div>' +
-      '<aside class="hub-side"><h3>Today</h3><div class="hub-date">October 6th, 2026</div>' +
-      '<div class="hs"><div class="k">Cross-system finance model</div><div class="v">' + (S.state.refreshed ? "Rebuilt at 09:44" : "Last run at " + esc(S.lastRun)) + '</div><div class="d">' +
-      (S.state.refreshed ? D.views.length + " certified views over five sources &middot; " + k.resolved.pct.toFixed(1) + " % of supplier records resolved" : "Five sources mounted, not yet joined into one model") + "</div></div>" +
-      '<div class="hs"><div class="k">Q3 close</div><div class="v">' + esc(D.world.closeState) + '</div><div class="d">' +
-      (S.state.refreshed ? k.ledgers.tie + " of " + k.ledgers.total + " ledgers tie &middot; " + k.accounts.unmapped + " unmapped accounts" : k.ledgers.tieBefore + " of " + k.ledgers.total + " ledgers tie &middot; " + k.accounts.unmappedBefore + " unmapped accounts") + "</div></div>" +
-      '<div class="hs"><div class="k">Stalest source</div><div class="v">' + esc(k.freshness.source) + " &middot; " + esc(k.freshness.stalestLabel) + '</div><div class="d">Freshness is a platform fact — CDC, pipelines and links, not a claim.</div></div>' +
+      "<div><h3>Commercial operations agent</h3><p>Reads the whole order book across Fusion, JD Edwards and NetSuite, works out who the customer is and which part it is, finds why each line will be late — stock in another plant, a late supplier, a credit hold, a carrier scan — prices the exposure from the contract, and proposes what to do about it.</p>" +
+      '<div class="ag-meta">4 agents &middot; catalog connection LAKEHOUSE_GOLD &middot; ' + D.views.length + " certified views &middot; allow-list OPS_QA_V2</div></div>" +
+      '<span class="job-chip">' + (done ? "Ran at 09:41" : "Ready") + "</span></div></div>" +
+      '<aside class="hub-side"><h3>Today</h3><div class="hub-date">October 6th, 2026</div>' + today +
+      '<div class="hs"><div class="k">Stalest source</div><div class="v">CRM &middot; 1 h 05 min</div><div class="d">Freshness is a property of each feed, and the answer says which source is furthest behind.</div></div>' +
       "</aside></div>";
   }
 
-  /* ---- answer rendering ---- */
-  function sysBadge(id) { return '<span class="sysb sysb--' + esc(id) + '">' + esc(D.sourceById[id] ? D.sourceById[id].short : id) + "</span>"; }
-  function rowSystems(row, a) {
-    if (row.systems && row.systems.length) return row.systems;
-    if (row.sys) return [row.sys];
-    if (row._pair) return [row._pair.a.sys, row._pair.b.sys];
-    if (row._record) return [row._record.sys];
-    if (row._rows && row._rows.length) { var o = []; row._rows.forEach(function (r) { if (o.indexOf(r.sys) < 0) o.push(r.sys); }); return o; }
-    if (row.entity && SYS_ENTITY[row.entity]) return [SYS_ENTITY[row.entity]];
-    return a.sources.map(function (s) { return s.id; });
+  /* ---- the multi-agent run card (Agent Hub's own pattern) --------------- */
+  /* Agents run in order; each shows "Not started" → "In progress" with its
+     sub-steps on a dotted timeline → done. Cancel is present, as Oracle's is. */
+  function runCardHtml() {
+    var plan = RUN_PLAN;
+    return '<div class="runcard" id="runcard">' +
+      '<div class="rc-q">' + esc(D.questions[0].text) + "</div>" +
+      plan.map(function (a, i) {
+        var st = i < S.run.ai ? "done" : i === S.run.ai ? "live" : "wait";
+        var label = st === "done" ? "Done" : st === "live" ? "In progress" : "Not started";
+        return '<div class="rc-agent is-' + st + '" data-rc="' + esc(a.id) + '">' +
+          '<span class="rc-ico">' + (st === "done" ? ICON.check : st === "live" ? ICON.refresh : ICON.chev) + "</span>" +
+          '<div class="rc-body"><span class="rc-st">' + label + '</span><b>' + esc(a.agent) + "</b>" +
+          (st === "wait" ? "" : '<ol class="rc-steps">' + a.steps.map(function (s, j) {
+            var sd = st === "done" || j < S.run.si ? " is-done" : (st === "live" && j === S.run.si ? " is-live" : "");
+            return "<li class=\"" + sd.trim() + '"><i></i><span>' + esc(s.text) + "</span></li>";
+          }).join("") + "</ol>") +
+          "</div></div>";
+      }).join("") +
+      '<div class="rc-foot"><button class="btn btn--sm" type="button" id="rc-cancel">Cancel</button>' +
+      '<span class="rc-note">' + esc(RUN_PLAN.length) + " agents working on one question &middot; reading five systems</span></div></div>";
   }
-  function cell(row, c) {
-    var v = row[c.key];
-    if (c.kind === "badges") return (v || []).map(sysBadge).join("");
-    if (c.kind === "badge") return D.sourceById[v] ? sysBadge(v) : '<span class="stat stat--auto">' + esc(v) + "</span>";
-    if (c.kind === "money") return v === null || v === undefined ? "—" : money(v);
-    if (c.kind === "num") return v === null || v === undefined ? "—" : esc(String(v));
-    if (c.kind === "score") return v === null || v === undefined ? "—" : Number(v).toFixed(2);
-    if (c.kind === "status") return '<span class="stat stat--' + esc(String(v).toLowerCase().replace(/[^a-z]/g, "")) + '">' + esc(v) + "</span>";
-    if (c.kind === "mask") return '<span class="mono">' + esc(v) + "</span>";
-    return esc(v);
+  var RUN_PLAN = [];
+  function runAnalysis() {
+    if (S.busy) return;
+    if (S.state.analysed && S.wbPanel === "analysis") { toast("The analysis is already on screen."); return; }
+    RUN_PLAN = D.runPlan();
+    S.busy = true; S.run = { ai: 0, si: 0 }; S.wbPanel = "run"; S.panel = null;
+    renderWb();
+    var t = 0;
+    RUN_PLAN.forEach(function (a, i) {
+      a.steps.forEach(function (s, j) {
+        setTimeout(function () { S.run = { ai: i, si: j }; if (S.wbPanel === "run") renderWb(); }, t);
+        t += s.ms || 500;
+      });
+    });
+    setTimeout(function () {
+      S.run = { ai: RUN_PLAN.length, si: 0 };
+      S.state = { analysed: true, decisions: S.state.decisions, dashboard: S.state.dashboard };
+      S.wbPanel = "analysis"; S.busy = false;
+      renderWb(); renderRw();
+      var an = analysis();
+      toast('<span class="tok">' + ICON.check + "</span><span><b>" + an.headline.lines + " open lines will miss their promise</b> &middot; " +
+        usdShort(an.headline.revenueUsd) + " at risk &middot; " + an.headline.tierA.accounts + " tier-A accounts exposed &middot; every line has a cause and an owner.</span>", 9000);
+      tour.next();
+    }, t + 420);
   }
-  function rowKey(row, i) { return row.golden || row.id || row.local || (row.group ? row.group + "-" + i : "r" + i); }
-  function answerHtml(a) {
-    var hasBadgeCol = a.columns.some(function (c) { return c.kind === "badges" || (c.kind === "badge" && ["sys", "systems"].indexOf(c.key) >= 0); });
-    var head = (hasBadgeCol ? "" : '<th>Source</th>') + a.columns.map(function (c) { return '<th class="' + (c.align === "right" ? "r" : "") + '">' + esc(c.label) + "</th>"; }).join("") + "<th></th>";
-    var body = a.rows.map(function (row, i) {
-      var key = rowKey(row, i), isOrion = /^Orion/i.test(row.supplier || row.goldenName || "");
-      return "<tr" + (row.status === "review" ? ' class="is-review"' : "") + ' data-row="' + esc(key) + '"' + (isOrion ? ' data-orion="1"' : "") + ">" +
-        (hasBadgeCol ? "" : '<td class="sysc">' + rowSystems(row, a).map(sysBadge).join("") + "</td>") +
-        a.columns.map(function (c) { return '<td class="' + (c.align === "right" ? "r " : "") + (c.kind === "badges" || c.kind === "badge" ? "sysc" : "") + '">' + cell(row, c) + "</td>"; }).join("") +
-        '<td><button class="rowexp" type="button" data-explore="' + esc(key) + '" title="Explore this row" aria-label="Explore this row"' + (isOrion ? ' data-orion-btn="1"' : "") + ">" + ICON.search + "</button></td></tr>";
-    }).join("");
-    var grid = a.blocked
-      ? '<div class="blocked"><span class="bi">' + ICON.lock + "</span><div><b>Refused by SQL Firewall</b>" +
-        "<p>" + esc(a.firewall.reason) + "</p>" +
-        '<span class="mono">allow-list ' + esc(a.firewall.allowList) + " &middot; status blocked &middot; audit row written</span></div></div>"
-      : '<div class="ans-grid"><table class="agrid"><thead><tr>' + head + "</tr></thead><tbody>" + body + "</tbody></table></div>";
-    var meta = a.blocked
-      ? '<b>0 rows</b><span class="sep">|</span>Statement refused before execution<span class="sep">&middot;</span>' + esc(a.freshness.text)
-      : "<b>Total rows: " + a.rowCount + "</b><span class=\"sep\">|</span>Displayed: " + a.displayed + '<span class="sep">&middot;</span>' + esc(a.freshness.text);
-    var roleTag = S.role === "ANALYST_NA" ? '<span class="stat stat--review">Viewing as Marcus Bell &middot; Regional analyst NA</span>' : "";
+
+  /* ---- the analysis view ------------------------------------------------ */
+  function causesChart(an) {
+    var max = Math.max.apply(null, an.causes.map(function (c) { return c.usd; })) || 1;
+    return '<div class="causes">' + an.causes.map(function (c) {
+      return '<div class="cause" data-cause="' + esc(c.id) + '">' +
+        '<span class="cl">' + esc(c.label) + "</span>" +
+        '<span class="cb"><i class="cb--' + esc(c.id) + '" style="width:' + Math.max(4, Math.round(c.usd / max * 100)) + '%"></i></span>' +
+        '<span class="cn">' + c.lines + " lines</span><span class=\"cv\">" + usdShort(c.usd) + "</span></div>";
+    }).join("") + "</div>";
+  }
+  function actionsHtml(an) {
+    return '<div class="acts">' + an.actions.map(function (a) {
+      return '<div class="act" data-act="' + esc(a.id) + '">' +
+        '<div class="act-h"><span class="act-id">' + esc(a.id) + '</span><b>' + esc(a.title) + "</b>" +
+        '<span class="stat stat--' + (a.status === "declined" ? "open" : "pending") + '">' + esc(a.status) + "</span></div>" +
+        '<div class="act-m"><span>' + esc(a.owner) + "</span><span>" + a.lines + " lines</span><span>" + (a.accountIds || []).length + " accounts</span><span class=\"v\">" + usdShort(a.usd) + "</span></div>" +
+        '<div class="act-t">' + ICON.check + "<span>Assigned as a task: " + (a.tasks || 0) + " " + esc(a.taskNoun || "items") + " for " + esc(a.owner) + ". No order is changed in any system.</span></div>" +
+        "</div>";
+    }).join("") +
+      '<p class="act-note">The AI estimates these four actions cover ' + esc(usdShort(an.headline.revenueUsd)) +
+      " of the revenue at risk if they are all taken — its own estimate on this data, not a promise that every line lands.</p></div>";
+  }
+  function accountsTable(an) {
+    var rows = an.accounts.filter(function (a) { return S.role !== "ANALYST_NA" || a.entity === "NG-NA"; });
+    return '<div class="ans-grid"><table class="agrid" id="acct-table"><thead><tr>' +
+      "<th>Account</th><th>Tier</th><th>Owner</th><th>Systems</th><th class=\"r\">Lines</th><th class=\"r\">At risk (USD)</th><th class=\"r\">Penalty</th><th>Why it is late</th><th>What the AI proposes</th><th></th></tr></thead><tbody>" +
+      rows.map(function (a) {
+        var cause = an.causes.filter(function (c) { return c.id === a.causeId; })[0] || { label: "—" };
+        return '<tr data-acct="' + esc(a.id) + '"' + (a.status === "declined" ? ' class="is-review"' : "") + ">" +
+          "<td><b>" + esc(a.name) + "</b></td>" +
+          '<td><span class="tierb tierb--' + esc(a.tier) + '">' + esc(a.tier) + "</span></td>" +
+          "<td>" + esc(a.owner) + "</td>" +
+          '<td class="sysc">' + (a.systems || []).map(sysBadge).join("") + "</td>" +
+          '<td class="r">' + a.lines + "</td>" +
+          '<td class="r">' + (a.usd ? money(a.usd, 0) : "—") + "</td>" +
+          '<td class="r">' + (a.penaltyUsd ? money(a.penaltyUsd, 0) : "—") + "</td>" +
+          "<td>" + esc(cause.label) + "</td>" +
+          "<td>" + esc(a.recommendation ? a.recommendation.text : "—") + (a.status === "declined" ? ' <span class="stat stat--open">you declined this</span>' : "") + "</td>" +
+          '<td><button class="btn btn--xs" type="button" data-ev="' + esc(a.id) + '">Evidence</button></td></tr>';
+      }).join("") + "</tbody></table></div>";
+  }
+  function analysisHtml() {
+    var an = analysis();
+    var h = an.headline;
+    var roleTag = S.role === "ANALYST_NA" ? '<span class="stat stat--review">Viewing as Marcus Bell &middot; North America</span>' : "";
     return '<div class="conv-head"><button class="conv-back" type="button" data-back="1">' + ICON.chevl + "Agent Hub</button>" +
-      '<span class="conv-agent">' + ICON.bot + "Finance Q&amp;A agent</span></div>" +
-      '<div class="q-bubble">' + esc(a.text) + "</div>" +
+      '<span class="conv-agent">' + ICON.bot + "Commercial operations agent</span></div>" +
+      '<div class="q-bubble">' + esc(D.questions[0].text) + "</div>" +
       '<div class="ans" id="ans">' +
-      '<div class="ans-meta">' + meta + (roleTag ? '<span class="sep">&middot;</span>' + roleTag : "") + '<span class="sep">&middot;</span>' + a.views.map(function (v) { return '<button class="viewchip" type="button" data-viewlin="' + esc(v) + '" title="Open the lineage of ' + esc(v) + '">' + esc(v) + "</button>"; }).join(" ") + "</div>" +
-      grid +
-      (a.caveat ? '<div class="ans-caveat">' + ICON.info + " " + esc(a.caveat) + "</div>" : "") +
+      '<div class="an-head"><div class="an-hl"><b>' + h.lines + " open lines</b> will miss the date you promised, worth <b>" + esc(usdShort(h.revenueUsd)) +
+      "</b>. <b>" + h.tierA.accounts + " tier-A accounts</b> carry " + esc(usdShort(h.tierA.usd)) + " of it, and the contracts price <b>" + esc(usdShort(h.penaltiesUsd)) + "</b> of late penalties if nothing changes.</div>" +
+      '<div class="ans-meta">' + esc(an.freshness.text) + (roleTag ? '<span class="sep">&middot;</span>' + roleTag : "") + '<span class="sep">&middot;</span>' +
+      an.views.map(function (v) { return '<button class="viewchip" type="button" data-viewlin="' + esc(v) + '" title="Where ' + esc(v) + ' comes from">' + esc(v) + "</button>"; }).join(" ") + "</div></div>" +
+      '<section class="band an-band" aria-label="Per system, then across systems">' + bandHtml(an, "band-tiles", S.movedBand) + "</section>" +
+      (S.narrate ? '<div class="ans-narr"><span class="sp">' + ICON.speak + "</span><span>" + esc(an.narrative) + "</span></div>" : "") +
+      '<div class="an-cols"><section class="an-box"><h4>' + ICON.chart + "Why the lines are late</h4>" + causesChart(an) +
+      '<p class="an-sub">Every line has exactly one cause, and the causes add back to ' + h.lines + " lines and " + esc(usdShort(h.revenueUsd)) + ".</p></section>" +
+      '<section class="an-box"><h4>' + ICON.bulb + "What the AI proposes</h4>" + actionsHtml(an) + "</section></div>" +
+      '<section class="an-box an-box--wide"><h4>' + ICON.list + "Accounts, ranked by what is at stake</h4>" + accountsTable(an) + "</section>" +
+      (an.caveat ? '<div class="ans-caveat">' + ICON.info + " " + esc(an.caveat) + "</div>" : "") +
       '<div class="ans-acts">' +
-      '<button class="achip' + (S.panel === "explore" ? " is-on" : "") + '" type="button" data-panel="explore">' + ICON.search + "Explore</button>" +
+      '<button class="achip' + (S.panel === "evidence" ? " is-on" : "") + '" type="button" data-panel="evidence">' + ICON.search + "Evidence</button>" +
       '<button class="achip' + (S.panel === "explain" ? " is-on" : "") + '" type="button" data-panel="explain">' + ICON.bulb + "Explain</button>" +
-      '<button class="achip' + (S.panel === "code" ? " is-on" : "") + '" type="button" data-panel="code">' + ICON.code + "Code View</button>" +
       '<button class="achip' + (S.panel === "trace" ? " is-on" : "") + '" type="button" data-panel="trace">' + ICON.route + "Trace</button>" +
       '<label class="narr"><input type="checkbox" id="narr-tog"' + (S.narrate ? " checked" : "") + ">Narrate</label>" +
-      '<span class="right"><button class="achip" type="button" data-publish="1">' + ICON.shield + "Publish as certified view</button></span></div>" +
-      (S.narrate ? '<div class="ans-narr"><span class="sp">' + ICON.speak + "</span><span>" + esc(a.narrate) + "</span></div>" : "") +
-      (S.panel ? '<div class="ans-panel" id="ans-panel">' + panelHtml(a) + "</div>" : "") +
+      '<span class="right"><button class="achip achip--go" type="button" id="create-dash">' + ICON.chart + "Create dashboard</button></span></div>" +
+      (S.panel ? '<div class="ans-panel" id="ans-panel">' + anPanelHtml(an) + "</div>" : "") +
       "</div>" +
       '<div class="conv-comp"><span class="hub-mk"></span><span>Ask a Question...</span><span class="dis">AI models can make mistakes. Verify responses.</span></div>';
   }
-  function panelHtml(a) {
-    if (S.panel === "trace") return traceHtml(a);
-    if (S.panel === "code") return codeHtml(a);
-    if (S.panel === "explain") return explainHtml(a);
-    return exploreHtml(a);
+  function anPanelHtml(an) {
+    if (S.panel === "trace") return traceHtml(an);
+    if (S.panel === "explain") return explainHtml(an);
+    return evidenceHtml(an);
   }
   function panelHead(title, note) {
     return '<div class="panel-head"><b>' + esc(title) + "</b>" + (note ? '<span class="panel-note">' + note + "</span>" : "") +
       '<button class="btn btn--ghost btn--xs x" type="button" data-panel="">' + ICON.x + "Close</button></div>";
   }
-  /* Display labels for the trace spans. The data keeps its original keys (the
-     reconciliation script asserts the span order by them); what a viewer reads
-     has to be honest about the mechanism — the agent matches the question's
-     words to catalog descriptions and column annotations, because Oracle ships
-     no business glossary. */
-  var SPAN_LABEL = { "Glossary terms resolved": "Terms resolved from catalog descriptions" };
-  function traceHtml(a) {
-    var max = Math.max.apply(null, a.trace.map(function (s) { return s.ms; }));
-    var rows = a.trace.map(function (s) {
-      return '<div class="tr' + (s.status === "blocked" ? " is-blocked" : "") + '"><span class="n"><b>' + esc(SPAN_LABEL[s.n] || s.n) + "</b><span>" + esc(s.d) + '</span></span><span class="bar"><i style="width:' + Math.max(3, Math.round(s.ms / max * 100)) + '%"></i></span><span class="ms">' + (s.ms / 1000).toFixed(2) + "s</span></div>";
+  function traceHtml(an) {
+    var max = Math.max.apply(null, an.trace.map(function (s) { return s.ms; })) || 1;
+    var total = an.trace.reduce(function (t, s) { return t + s.ms; }, 0);
+    var rows = an.trace.map(function (s) {
+      return '<div class="tr"><span class="n"><b>' + esc(s.span) + "</b><span>" + esc(s.detail) + '</span></span><span class="bar"><i style="width:' + Math.max(3, Math.round(s.ms / max * 100)) + '%"></i></span><span class="ms">' + (s.ms / 1000).toFixed(2) + "s</span></div>";
     }).join("");
-    return panelHead("Trace", "every span the agent ran, in order") +
-      '<div class="tr h"><span class="n">Agent task</span><span>Duration</span><span class="ms">Time</span></div>' + rows +
-      '<div class="tr-sum"><span>Total <b>' + (a.traceMs / 1000).toFixed(2) + 's</b></span><span>Rows <b>' + a.rowCount + "</b></span><span>SQL <b>" + a.sqlLines + " lines</b></span><span>Views <b>" + a.views.length + "</b></span></div>" +
+    return panelHead("Trace", "the four agents, what each read, and the rules that applied") +
+      '<div class="tr h"><span class="n">Agent</span><span>Duration</span><span class="ms">Time</span></div>' + rows +
+      '<div class="tr-sum"><span>Total <b>' + (total / 1000).toFixed(2) + "s</b></span><span>Lines read <b>" + an.headline.lines + "</b></span><span>Certified views <b>" + an.views.length + "</b></span><span>Systems <b>" + D.sources.length + "</b></span></div>" +
       '<div style="margin-top:10px">' +
-      '<div class="fwline"><span class="k">SQL Firewall</span><span><span class="' + (a.firewall.status === "blocked" ? "fw-no" : "fw-ok") + '">' + esc(a.firewall.status) + "</span> &middot; allow-list <span class=\"mono\">" + esc(a.firewall.allowList) + "</span> &middot; " + esc(a.firewall.reason) + "</span></div>" +
-      '<div class="fwline"><span class="k">Row policy</span><span>' + esc(a.firewall.rowPolicy) + "</span></div>" +
-      '<div class="fwline"><span class="k">Column masking</span><span>' + esc(a.firewall.masking) + "</span></div></div>";
+      '<div class="fwline"><span class="k">SQL Firewall</span><span><span class="' + (an.firewall.status === "blocked" ? "fw-no" : "fw-ok") + '">' + esc(an.firewall.status) + "</span> &middot; allow-list <span class=\"mono\">" + esc(an.firewall.allowList) + "</span></span></div>" +
+      '<div class="fwline"><span class="k">Rows you may see</span><span>' + esc(an.firewall.rowPolicy) + "</span></div>" +
+      '<div class="fwline"><span class="k">Columns masked</span><span>' + esc(an.firewall.masking) + "</span></div></div>" +
+      '<p class="honest">The agents read the certified views only, and the row policy and masking are applied by the database before anything reaches this page — the same rules whoever asks.</p>';
   }
-  function codeHtml(a) {
-    var sql = esc(a.sql).replace(/\b(SELECT|FROM|JOIN|LEFT|WHERE|AND|OR|GROUP|BY|ORDER|HAVING|ON|AS|CASE|WHEN|THEN|ELSE|END|SUM|COUNT|ROUND|MIN|MAX|DISTINCT|WITHIN|OVER|FETCH|FIRST|ROWS|ONLY|IN|IS|NOT|NULL|NULLS|LAST|GREATEST|DATE|LISTAGG|RATIO_TO_REPORT)\b/g, '<span class="kw">$1</span>')
-      .replace(/('[^']*')/g, '<span class="st">$1</span>');
-    return panelHead("Code View", "generated against the certified views only — SELECT, no DDL and no DML") +
-      '<div class="sqlbox">' + sql + "</div>" +
-      '<div class="tr-sum"><span>Objects <b>' + a.views.map(function (v) { return v; }).join(" · ") + "</b></span><span>Lines <b>" + a.sqlLines + "</b></span></div>";
-  }
-  function explainHtml(a) {
-    return panelHead("How the agent read the question", "terms matched to catalog descriptions and column annotations") +
-      a.glossaryHits.map(function (g) {
+  function explainHtml(an) {
+    return panelHead("How the AI read the question", "the words it had to pin down before it could look anything up") +
+      (D.glossary || []).slice(0, 5).map(function (g) {
         if (!g) return "";
-        return '<div class="gl"><b>' + esc(g.term) + '</b><div class="syn">also written: ' + esc(g.synonyms.join(", ")) + '</div><div class="def">' + esc(g.definition) + '</div><div class="own">annotated by ' + esc(g.owner) + " &middot; last reviewed " + esc(g.changed) + "</div></div>";
+        return '<div class="gl"><b>' + esc(g.term) + '</b><div class="syn">also written: ' + esc((g.synonyms || []).join(", ")) + '</div><div class="def">' + esc(g.definition) + '</div><div class="own">annotated by ' + esc(g.owner) + " &middot; last reviewed " + esc(g.changed) + "</div></div>";
       }).join("") +
-      '<div class="panel-note">These are the Master-catalog descriptions and column annotations on the certified views — auto-populated by the metadata extractor, reviewed by a person, and the only semantic layer in play.</div>';
+      '<div class="panel-note">These are the catalog descriptions and column annotations on the certified views — the only place the words in your question are given a meaning.</div>';
   }
-  function matchFor(recIds) {
-    var out = null;
-    D.pendingMatches.forEach(function (m) {
-      if (out) return;
-      if (m.records.some(function (id) { return recIds.indexOf(id) >= 0; })) out = m;
-    });
+  function evidenceHtml(an) {
+    var list = an.accounts.filter(function (a) { return S.role !== "ANALYST_NA" || a.entity === "NG-NA"; });
+    if (!list.length) return panelHead("Evidence") + '<div class="panel-note">No accounts inside your region.</div>';
+    var key = S.evAccount, has = list.some(function (a) { return a.id === key; });
+    if (!has) key = list[0].id;
+    var e = D.evidence(key, S.role, decisions());
+    var acc = e.account || {};
+    var picker = '<div class="ev" style="margin:0 0 10px">' + list.slice(0, 12).map(function (a) {
+      return '<button class="evc evc--o" type="button" data-ev="' + esc(a.id) + '" style="cursor:pointer' + (a.id === key ? ";background:#e4eef3;border-color:#9dc0cf;color:#1d5f73" : "") + '">' + esc(a.name) + "</button>";
+    }).join("") + "</div>";
+    var cause = an.causes.filter(function (c) { return c.id === acc.causeId; })[0] || { label: "" };
+    var body =
+      '<div class="recon"><b>' + esc(acc.name) + "</b> &middot; tier " + esc(acc.tier) + " &middot; " + esc(acc.lines) + " lines &middot; " + esc(usdShort(acc.usd)) + " at risk &middot; penalty " + esc(usdShort(acc.penaltyUsd)) +
+      '<span class="mono">' + esc(cause.label) + "</span></div>" +
+      "<h4>The lines, in the systems they live in</h4>" +
+      '<table class="dgrid"><thead><tr><th>System</th><th>Object</th><th>Key</th><th>Item</th><th class="r">Qty</th><th>Promised</th><th>Predicted</th><th class="r">USD</th></tr></thead><tbody>' +
+      (e.lines || []).map(function (l) {
+        return "<tr><td>" + sysBadge(l.sys) + "</td><td><code>" + esc(l.object) + "</code></td><td><code>" + esc(l.key) + "</code></td><td><code>" + esc(l.item) + "</code></td>" +
+          '<td class="r">' + esc(l.qty) + "</td><td>" + esc(l.promised) + "</td><td>" + esc(l.predicted) + '</td><td class="r">' + money(l.usd, 0) + "</td></tr>";
+      }).join("") + "</tbody></table>";
+    if (e.stockElsewhere && e.stockElsewhere.length) {
+      body += "<h4>The same part, on hand somewhere else</h4>" +
+        '<table class="dgrid"><thead><tr><th>System</th><th>Plant</th><th>Item</th><th class="r">On hand</th></tr></thead><tbody>' +
+        e.stockElsewhere.map(function (s) {
+          return "<tr><td>" + sysBadge(s.sys) + "</td><td><code>" + esc(s.plant) + "</code></td><td><code>" + esc(s.item) + "</code></td><td class=\"r\">" + esc(s.onHand) + "</td></tr>";
+        }).join("") + "</tbody></table>" +
+        '<div class="recon">This is the cross-system part: the order is in one system, the stock is in another, and nobody looking at either one alone would see it.</div>';
+    }
+    if (e.supplierDelay) {
+      body += "<h4>The supplier that is late</h4><table class=\"dgrid\"><tbody>" +
+        "<tr><td>Purchase order</td><td><code>" + esc(e.supplierDelay.po) + "</code></td></tr>" +
+        "<tr><td>Supplier</td><td>" + esc(e.supplierDelay.supplier) + "</td></tr>" +
+        "<tr><td>Promised receipt</td><td>" + esc(e.supplierDelay.promised) + "</td></tr>" +
+        "<tr><td>Days late</td><td>" + esc(e.supplierDelay.daysLate) + "</td></tr></tbody></table>";
+    }
+    if (e.creditHold) {
+      body += "<h4>The credit hold</h4><table class=\"dgrid\"><tbody>" +
+        "<tr><td>Placed</td><td>" + esc(e.creditHold.placed) + "</td></tr>" +
+        "<tr><td>Limit</td><td>" + esc(S.role === "ANALYST_NA" ? "masked for this role" : usdShort(e.creditHold.limitUsd)) + "</td></tr>" +
+        "<tr><td>Exposure behind it</td><td>" + esc(usdShort(e.creditHold.exposureUsd)) + "</td></tr>" +
+        "<tr><td>Owner</td><td>" + esc(e.creditHold.owner) + "</td></tr></tbody></table>";
+    }
+    if (e.transit) {
+      body += "<h4>Where the shipment actually is</h4><table class=\"dgrid\"><tbody>" +
+        "<tr><td>Shipment</td><td><code>" + esc(e.transit.shipment) + "</code></td></tr>" +
+        "<tr><td>Carrier</td><td>" + esc(e.transit.carrier) + "</td></tr>" +
+        "<tr><td>Last scan</td><td>" + esc(e.transit.lastScan) + "</td></tr>" +
+        "<tr><td>ETA</td><td>" + esc(e.transit.eta) + "</td></tr>" +
+        "<tr><td>Exception</td><td><code>" + esc(e.transit.exception) + "</code></td></tr></tbody></table>";
+    }
+    if (e.crm) {
+      body += "<h4>Who this customer is to us</h4><table class=\"dgrid\"><tbody>" +
+        "<tr><td>Tier</td><td>" + esc(e.crm.tier) + "</td></tr>" +
+        "<tr><td>Account owner</td><td>" + esc(e.crm.owner) + "</td></tr>" +
+        (e.crm.revenue ? "<tr><td>Annual revenue</td><td>" + esc(e.crm.revenue) + "</td></tr>" : "") +
+        (e.crm.contacts || []).map(function (c) {
+          return "<tr><td>" + esc(c.name || "Contact") + "</td><td><code>" + esc(c.email) + "</code>" + (c.phone ? " &middot; <code>" + esc(c.phone) + "</code>" : "") + "</td></tr>";
+        }).join("") + "</tbody></table>" +
+        (S.role === "ANALYST_NA" ? '<p class="honest">Contacts arrive masked for this role — the database masks them, not this page.</p>' : "");
+    }
+    if (e.contract) {
+      body += "<h4>The clause the penalty was read from</h4>" +
+        '<div class="clause"><span class="cl-src">' + esc(e.contract.source || "Enterprise Contracts") + " &middot; " + esc(e.contract.id || "") + "</span>" +
+        "<p>" + (S.role === "ANALYST_NA" ? "Penalty terms are hidden for this role." : "&ldquo;" + esc(e.contract.clause) + "&rdquo;") + "</p>" +
+        '<span class="cl-calc">' + (S.role === "ANALYST_NA" ? "Exposure hidden" : "Lead time " + esc(e.contract.leadTimeDays) + " business days &middot; " + esc(e.contract.penaltyPerDay) + " % per business day, capped at " + esc(e.contract.cap) + " % &middot; exposure on these lines " + esc(usdShort(e.contract.exposedUsd))) + "</span></div>";
+    }
+    return panelHead("Evidence", "everything behind this account, in the system it came from") + picker + body;
+  }
+
+  /* ---- Insights: the generated dashboard plus two standing ones --------- */
+  function truncWord(str, n) {
+    str = String(str);
+    if (str.length <= n) return str;
+    var cut = str.slice(0, n), sp = cut.lastIndexOf(" ");
+    return (sp > n * 0.5 ? cut.slice(0, sp) : cut).replace(/[\s,·]+$/, "") + "…";
+  }
+  var CAUSE_COLOUR = { stock: "#4d7a2c", transit: "#1d5f73", supplier: "#8a4a12", credit: "#7d4064" };
+  function barChart(items, colour) {
+    var max = Math.max.apply(null, items.map(function (i) { return i.v; })) || 1;
+    var h = 148, w = 360, lab = 148, top = 8, rowH = Math.min(24, (h - top) / Math.max(1, items.length)), maxBar = 136;
+    return '<svg class="chart" viewBox="0 0 ' + w + " " + h + '" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Bar chart">' +
+      items.map(function (it, i) {
+        var y = top + i * rowH, bw = Math.max(2, (it.v / max) * maxBar), lbl = truncWord(it.k, 26);
+        return '<text class="lb" x="0" y="' + (y + 9) + '">' + esc(lbl) + (lbl === it.k ? "" : "<title>" + esc(it.k) + "</title>") + "</text>" +
+          '<rect x="' + (lab + 2) + '" y="' + y + '" width="' + bw + '" height="' + (rowH - 7) + '" rx="2" fill="' + (it.c || colour || "#4d7a2c") + '"><title>' + esc(it.k) + " · " + esc(it.l || it.v) + "</title></rect>" +
+          '<text class="vl" x="' + (lab + bw + 7) + '" y="' + (y + 9) + '">' + esc(it.l || it.v) + "</text>";
+      }).join("") +
+      '<line class="ax" x1="' + (lab + 1) + '" y1="' + (top - 4) + '" x2="' + (lab + 1) + '" y2="' + (top + items.length * rowH - 4) + '"/></svg>';
+  }
+  function statusList(items) {
+    return '<div class="statlist">' + items.map(function (it) {
+      return '<div class="sl"><span class="k">' + esc(it.k) + '</span><span class="v v--' + esc(it.s) + '">' + esc(it.l) + "</span></div>";
+    }).join("") + "</div>";
+  }
+  function genDashHtml() {
+    var d = D.dashboard(S.role, decisions());
+    var charts = (d.charts || []).map(function (c) {
+      return '<div class="gd-chart"><h4>' + esc(c.title) + "</h4>" + barChart((c.series || []).map(function (s) {
+        return { k: s.k, v: s.v, l: s.l, c: CAUSE_COLOUR[c.id === "cause" ? (an_causeId(s.k)) : ""] };
+      }), c.id === "tier" ? "#7d4064" : c.id === "entity" ? "#1d5f73" : "#4d7a2c") + "</div>";
+    }).join("");
+    var t = d.table || { columns: [], rows: [] };
+    return '<div class="gd" id="gen-dash">' +
+      '<div class="gd-head"><div><span class="gd-tag">' + ICON.bot + "Built by the AI &middot; 09:47</span><h3>" + esc(d.title) + "</h3>" +
+      '<div class="sub">' + esc(d.scope || "") + "</div></div>" +
+      '<div class="gd-act"><button class="btn btn--dark" type="button" id="share-dash">' + ICON.share + "Share with the commercial team</button></div></div>" +
+      '<div class="gd-tiles">' + (d.tiles || []).map(function (x) {
+        return '<div class="gd-tile"><span class="l">' + esc(x.label) + '</span><span class="v">' + esc(x.value) + '</span><span class="n">' + esc(x.note || "") + "</span></div>";
+      }).join("") + "</div>" +
+      '<div class="gd-charts">' + charts + "</div>" +
+      '<table class="wb-tbl"><thead><tr>' + (t.columns || []).map(function (c, i) { return '<th' + (i >= 2 && i <= 3 ? ' class="r"' : "") + ">" + esc(c) + "</th>"; }).join("") + "</tr></thead><tbody>" +
+      (t.rows || []).map(function (r) {
+        return "<tr>" + r.map(function (c, i) { return '<td' + (i >= 2 && i <= 3 ? ' class="r"' : "") + ">" + esc(c) + "</td>"; }).join("") + "</tr>";
+      }).join("") + "</tbody></table>" +
+      '<p class="honest">Built from ' + esc((d.builtFrom || []).join(", ")) + ' — the same definitions the answer used, so a change to one moves both.' +
+      (S.shared ? " Shared with the commercial team at 09:49 (mocked — nothing leaves this page)." : "") + "</p></div>";
+  }
+  function an_causeId(label) {
+    var an = analysis(), out = "";
+    an.causes.forEach(function (c) { if (c.label === label) out = c.id; });
     return out;
   }
-  function recTable(recs) {
-    return '<table class="dgrid"><thead><tr><th>Source</th><th>Object</th><th>Key</th><th>Name</th><th>City</th><th>Tax id</th><th>Bank</th><th class="r">Q3 (local)</th><th class="r">Q3 (USD)</th></tr></thead><tbody>' +
-      recs.map(function (r) {
-        return "<tr><td>" + sysBadge(r.sys) + "</td><td><code>" + esc(r.table) + "</code></td><td><code>" + esc(r.srcRef) + "</code></td><td>" + esc(r.name) + "</td><td>" + esc(r.city) + " &middot; " + esc(r.country) + "</td><td><code>" + esc(r.taxId || "—") + '</code></td><td><code>&bull;&bull;&bull;&bull; ' + esc(r.bankLast4) + '</code></td><td class="r">' + esc(r.currency) + " " + money(r.spendLocal) + '</td><td class="r">' + money(r.spendUsd) + "</td></tr>";
-      }).join("") + "</tbody></table>";
-  }
-  function exploreHtml(a) {
-    if (a.blocked) return panelHead("Explore", "nothing to drill into — the statement never ran") + '<div class="panel-note">SQL Firewall refused the statement before execution, so there are no rows and no source records to open.</div>';
-    if (!a.rows.length) return panelHead("Explore") + '<div class="panel-note">No rows inside your entity scope.</div>';
-    var idx = 0;
-    a.rows.forEach(function (r, i) { if (rowKey(r, i) === S.exploreKey) idx = i; });
-    var row = a.rows[idx], key = rowKey(row, idx);
-    var picker = '<div class="ev" style="margin:0 0 10px">' + a.rows.slice(0, 14).map(function (r, i) {
-      var k = rowKey(r, i), lab = r.supplier || r.goldenName || r.account || r.groupName || r.entity || r.local || ("row " + (i + 1));
-      return '<button class="evc ' + (k === key ? "evc--o" : "evc--o") + '" type="button" data-explore="' + esc(k) + '" style="cursor:pointer' + (k === key ? ";background:#e4eef3;border-color:#9dc0cf;color:#1d5f73" : "") + '">' + esc(lab) + "</button>";
-    }).join("") + "</div>";
-    var body = "";
-    if (row._records && row._records.length) {
-      var m = matchFor(row._records.map(function (r) { return r.id; }));
-      body += "<h4>Source records behind this golden supplier</h4>" + recTable(row._records);
-      if (m) {
-        body += "<h4>Match evidence &middot; proposal " + esc(m.id) + "</h4><div class=\"ev\">" + m.evidence.map(function (c) {
-          return '<span class="evc ' + (c.hit === true ? "evc--y" : c.hit === false ? "evc--n" : "evc--o") + '">' + esc(c.t) + "</span>";
-        }).join("") + '<span class="evc evc--o">score ' + m.score.toFixed(2) + "</span></div>" +
-          '<div class="recon">' + esc(m.note) + (row.status === "review" ? " <b>Applied provisionally — no steward has confirmed it.</b>" : "") + "</div>";
-      } else {
-        body += '<div class="recon">Confirmed cluster &middot; basis ' + esc(row.score >= 0.96 ? "exact tax registration number" : "name and address") + " &middot; score " + Number(row.score).toFixed(2) + ".</div>";
-      }
-      if (row.bySystem) {
-        var inScope = row.systems && row.systems.length ? row.systems : Object.keys(row.bySystem);
-        body += "<h4>Q3 spend by system</h4><table class=\"dgrid\"><tbody>" + Object.keys(row.bySystem).filter(function (s) { return row.bySystem[s] > 0 && inScope.indexOf(s) >= 0; }).map(function (s) {
-          return "<tr><td>" + sysBadge(s) + "</td><td>" + esc(D.sourceById[s].entityName) + '</td><td class="r">USD ' + money(row.bySystem[s]) + "</td></tr>";
-        }).join("") + "</tbody></table>";
-      }
-    } else if (row._rows && row._rows.length) {
-      var tot = row._rows.reduce(function (t, r) { return t + r.amountUsd; }, 0);
-      body += '<div class="recon">' + esc(row.line) + " &middot; group account " + esc(row.group) + " " + esc(row.groupName) + " = USD " + money(Math.round(tot * 100) / 100) +
-        "<span class=\"mono\">sum of " + row._rows.length + " local account" + (row._rows.length === 1 ? "" : "s") + ", each translated at its ledger's Q3 average rate</span></div>" +
-        "<h4>Local accounts behind this figure</h4>" +
-        '<table class="dgrid"><thead><tr><th>Source</th><th>Local account</th><th>Local name</th><th class="r">Local amount</th><th class="r">Rate</th><th class="r">USD</th><th>Source row</th></tr></thead><tbody>' +
-        row._rows.map(function (r) {
-          return "<tr><td>" + sysBadge(r.sys) + "</td><td><code>" + esc(r.local) + "</code></td><td>" + esc(r.localName) + (r.wasUnmapped ? ' <span class="stat stat--review">was unmapped</span>' : "") + '</td><td class="r">' + esc(r.currency) + " " + money(r.amountLocal) + '</td><td class="r">' + r.rate.toFixed(4) + '</td><td class="r">' + money(r.amountUsd) + "</td><td><code>" + esc(r.srcRef) + "</code></td></tr>";
-        }).join("") + "</tbody></table>";
-    } else if (row._pair) {
-      var p = row._pair;
-      body += '<div class="recon">' + esc(p.goldenName) + " &middot; normalised invoice <b>" + esc(p.invoiceNorm) + "</b> &middot; USD " + money(p.amountUsd) +
-        '<span class="mono">' + (p.note || "same golden supplier, same normalised number, amount within 0.5 % after translation, two different systems") + "</span></div>" +
-        '<table class="dgrid"><thead><tr><th>Source</th><th>Entity</th><th>Document</th><th>Date</th><th class="r">Local amount</th><th>Source row</th></tr></thead><tbody>' +
-        [p.a, p.b].map(function (d) {
-          return "<tr><td>" + sysBadge(d.sys) + "</td><td>" + esc(d.entity) + "</td><td><b>" + esc(d.doc) + "</b></td><td>" + esc(d.date) + '</td><td class="r">' + esc(d.currency) + " " + money(d.amountLocal) + "</td><td><code>" + esc(d.ref) + "</code></td></tr>";
-        }).join("") + "</tbody></table>";
-    } else if (row._record) {
-      body += "<h4>Source record</h4>" + recTable([row._record]);
-    } else {
-      body += '<div class="recon">This row comes straight from ' + a.views.map(function (v) { return "<b>" + esc(v) + "</b>"; }).join(" and ") + "; every column below is a column of that view." +
-        '<span class="mono">' + rowSystems(row, a).map(function (s) { return D.sourceById[s] ? D.sourceById[s].name : s; }).join(" · ") + "</span></div>" +
-        '<table class="dgrid"><tbody>' + a.columns.map(function (c) {
-          return "<tr><td style=\"width:190px;color:#5d5a55\">" + esc(c.label) + "</td><td>" + cell(row, c) + "</td></tr>";
-        }).join("") + "</tbody></table>";
+  function insightsHtml() {
+    var an = S.state.analysed ? analysis() : null;
+    var build = S.dashBuilding
+      ? '<div class="gd gd--building"><div class="gd-head"><div><span class="gd-tag">' + ICON.bot + 'Building</span><h3>Revenue at risk across systems</h3><div class="sub">The AI is assembling a dashboard from what it just found</div></div></div>' +
+        '<ol class="rc-steps rc-steps--dash">' + DASH_PLAN.map(function (s, i) {
+          return '<li class="' + (i < S.dashStep ? "is-done" : i === S.dashStep ? "is-live" : "") + '"><i></i><span>' + esc(s.text) + "</span></li>";
+        }).join("") + "</ol></div>"
+      : (S.state.dashboard ? genDashHtml() : "");
+    var standing = [];
+    if (an) {
+      standing.push({ name: "Order book health", sub: "Open lines, promises and what is slipping", svg: statusList([
+        { k: "Open lines this week", l: "3,412", s: "ok" },
+        { k: "Lines that will miss the promise", l: String(an.headline.lines), s: "bad" },
+        { k: "Lines with a cause attributed", l: String(an.headline.lines), s: "ok" },
+        { k: "Customer matches waiting for a person", l: String((D.matches || []).length), s: "warn" },
+        { k: "Item cross-references waiting", l: String((D.itemXrefs || []).length), s: "warn" }
+      ]), views: ["OPEN_ORDER_LINES_X", "PROMISE_STATUS", "LATE_CAUSES"] });
+      standing.push({ name: "Service levels by account", sub: "What each contract promises, and what we are doing", svg: barChart(an.accounts.slice(0, 6).map(function (a) {
+        return { k: a.name, v: a.penaltyUsd || 1, l: usdShort(a.penaltyUsd) };
+      }), "#8a4a12"), views: ["SLA_EXPOSURE", "ACCOUNT_EXPOSURE"] });
     }
-    return panelHead("Explore", "where the figures on this row come from") + picker + body;
+    return '<div class="wb-pg"><h1>Insights</h1><div class="sub">Dashboards on the same certified views the answers read</div><div class="wb-rule"></div>' +
+      build +
+      (standing.length ? '<div class="hub-sec" style="margin-top:' + (build ? "22px" : "0") + '">Standing dashboards</div><div class="dash">' + standing.map(function (c) {
+        return '<button class="dash-card" type="button" data-dash="' + esc(c.name) + '" style="text-align:left;cursor:pointer"><h3>' + esc(c.name) + '</h3><div class="sub">' + esc(c.sub) + "</div>" + c.svg +
+          '<div class="vs">' + c.views.map(function (v) { return "GOLD." + v; }).join(" · ") + "</div></button>";
+      }).join("") + "</div>" : "") +
+      (!build && !standing.length ? '<div class="empty">Ask the commercial operations agent what is at risk, and it will have something to put here.</div>' : "") +
+      '<p class="honest">The two standing dashboards are static in this walkthrough. The generated one is built from the analysis on screen, and it obeys whoever is looking at it.</p></div>';
   }
+  var DASH_PLAN = [];
+  function createDashboard() {
+    if (S.busy) return;
+    if (!S.state.analysed) { toast("Ask the agent what is at risk first — there is nothing to put on a dashboard yet."); return; }
+    DASH_PLAN = D.dashboardPlan();
+    S.busy = true; S.dashBuilding = true; S.dashStep = 0; S.wbPanel = "insights"; S.panel = null;
+    renderWb();
+    var t = 0;
+    DASH_PLAN.forEach(function (s, i) {
+      setTimeout(function () { S.dashStep = i; if (S.wbPanel === "insights") renderWb(); }, t);
+      t += s.ms || 500;
+    });
+    setTimeout(function () {
+      S.dashBuilding = false; S.busy = false;
+      S.state = { analysed: true, decisions: S.state.decisions, dashboard: true };
+      renderWb();
+      toast('<span class="tok">' + ICON.check + "</span><span><b>Dashboard built</b> &middot; " + esc(D.dashboard(S.role, decisions()).title) +
+        " &middot; four tiles, four charts and the actions, on the certified views the answer used.</span>", 8000);
+      tour.next();
+    }, t + 320);
+  }
+  function share() {
+    if (!S.state.dashboard) { toast("Build the dashboard first."); return; }
+    S.shared = true;
+    renderWb();
+    toast('<span class="tok">' + ICON.check + "</span><span><b>Shared with the commercial team</b> &middot; Ruth Calloway, Tom Ferris and Ivo Lang &middot; each of them opens it under their own role, so each sees their own rows. Mocked — nothing leaves this page.</span>", 9000);
+    tour.after("share");
+  }
+
+  /* ---- render + events -------------------------------------------------- */
   function renderWb() {
     renderWbNav(); renderWbMenu();
     var page = $("#wb-page");
+    if (S.wbPanel === "analysis") { page.innerHTML = '<div class="conv conv--an">' + analysisHtml() + "</div>"; return; }
     if (S.wbPanel === "conversation") { page.innerHTML = '<div class="conv">' + answerHtml(ans()) + "</div>"; return; }
     if (S.wbPanel === "insights") { page.innerHTML = insightsHtml(); return; }
     if (S.wbPanel === "catalog") { page.innerHTML = mcatalogHtml(); return; }
@@ -671,15 +869,66 @@
     if (S.wbPanel === "sessions") { page.innerHTML = sessionsHtml(); return; }
     page.innerHTML = hubHome();
   }
+
+  /* ---- the saved questions other than 1: the round-1 answer surface ----- */
+  function cell(row, c) {
+    var v = row[c.key];
+    if (c.kind === "badges") return (v || []).map(sysBadge).join("");
+    if (c.kind === "badge") return D.sourceById[v] ? sysBadge(v) : '<span class="stat stat--auto">' + esc(v) + "</span>";
+    if (c.kind === "money") return v === null || v === undefined ? "—" : money(v, 0);
+    if (c.kind === "num") return v === null || v === undefined ? "—" : esc(String(v));
+    if (c.kind === "score") return v === null || v === undefined ? "—" : Number(v).toFixed(2);
+    if (c.kind === "status") return '<span class="stat stat--' + esc(String(v).toLowerCase().replace(/[^a-z]/g, "")) + '">' + esc(v) + "</span>";
+    if (c.kind === "mask") return '<span class="mono">' + esc(v) + "</span>";
+    return esc(v);
+  }
+  function answerHtml(a) {
+    var head = a.columns.map(function (c) { return '<th class="' + (c.align === "right" ? "r" : "") + '">' + esc(c.label) + "</th>"; }).join("");
+    var body = a.rows.map(function (row, i) {
+      return "<tr>" + a.columns.map(function (c) {
+        return '<td class="' + (c.align === "right" ? "r " : "") + (c.kind === "badges" || c.kind === "badge" ? "sysc" : "") + '">' + cell(row, c) + "</td>";
+      }).join("") + "</tr>";
+    }).join("");
+    var grid = a.blocked
+      ? '<div class="blocked"><span class="bi">' + ICON.lock + "</span><div><b>Refused by SQL Firewall</b>" +
+        "<p>" + esc(a.firewall.reason) + "</p>" +
+        '<span class="mono">allow-list ' + esc(a.firewall.allowList) + " &middot; status blocked &middot; audit row written</span></div></div>"
+      : '<div class="ans-grid"><table class="agrid"><thead><tr>' + head + "</tr></thead><tbody>" + body + "</tbody></table></div>";
+    var meta = a.blocked
+      ? '<b>0 rows</b><span class="sep">|</span>Refused before it ran<span class="sep">&middot;</span>' + esc(a.freshness.text)
+      : "<b>Total rows: " + a.rowCount + "</b><span class=\"sep\">|</span>Displayed: " + a.displayed + '<span class="sep">&middot;</span>' + esc(a.freshness.text);
+    var roleTag = S.role === "ANALYST_NA" ? '<span class="stat stat--review">Viewing as Marcus Bell &middot; North America</span>' : "";
+    return '<div class="conv-head"><button class="conv-back" type="button" data-back="1">' + ICON.chevl + "Agent Hub</button>" +
+      '<span class="conv-agent">' + ICON.bot + "Commercial operations agent</span></div>" +
+      '<div class="q-bubble">' + esc(a.text) + "</div>" +
+      '<div class="ans" id="ans">' +
+      '<div class="ans-meta">' + meta + (roleTag ? '<span class="sep">&middot;</span>' + roleTag : "") + '<span class="sep">&middot;</span>' +
+      a.views.map(function (v) { return '<button class="viewchip" type="button" data-viewlin="' + esc(v) + '" title="Where ' + esc(v) + ' comes from">' + esc(v) + "</button>"; }).join(" ") + "</div>" +
+      grid +
+      (a.caveat ? '<div class="ans-caveat">' + ICON.info + " " + esc(a.caveat) + "</div>" : "") +
+      '<div class="ans-acts">' +
+      '<button class="achip' + (S.panel === "explain" ? " is-on" : "") + '" type="button" data-panel="explain">' + ICON.bulb + "Explain</button>" +
+      '<button class="achip' + (S.panel === "trace" ? " is-on" : "") + '" type="button" data-panel="trace">' + ICON.route + "Trace</button>" +
+      '<label class="narr"><input type="checkbox" id="narr-tog"' + (S.narrate ? " checked" : "") + ">Narrate</label>" +
+      '<span class="right"><button class="achip" type="button" data-askback="1">' + ICON.chevl + "Back to what is at risk</button></span></div>" +
+      (S.narrate ? '<div class="ans-narr"><span class="sp">' + ICON.speak + "</span><span>" + esc(a.narrate) + "</span></div>" : "") +
+      (S.panel ? '<div class="ans-panel" id="ans-panel">' + (S.panel === "explain" ? explainHtml(analysis()) : traceHtml(analysis())) + "</div>" : "") +
+      "</div>" +
+      '<div class="conv-comp"><span class="hub-mk"></span><span>Ask a Question...</span><span class="dis">AI models can make mistakes. Verify responses.</span></div>';
+  }
+
   $("#wb-page").addEventListener("click", function (e) {
     var t;
+    if ((t = e.target.closest("#rc-cancel"))) { toast("The run is nearly done — let it finish."); return; }
     if ((t = e.target.closest("[data-ask]"))) { ask(t.dataset.ask); return; }
+    if ((t = e.target.closest("[data-askback]"))) { S.wbPanel = S.state.analysed ? "analysis" : "home"; S.panel = null; renderWb(); return; }
     if ((t = e.target.closest("[data-back]"))) { S.wbPanel = "home"; S.panel = null; renderWb(); return; }
-    if ((t = e.target.closest("[data-explore]"))) {
-      S.exploreKey = t.dataset.explore; S.panel = "explore"; renderWb();
-      var p = $("#ans-panel"); if (p) p.scrollIntoView({ block: "nearest", behavior: "smooth" });
-      tour.after("explore"); return;
+    if ((t = e.target.closest("[data-ev]"))) {
+      openEvidence(t.dataset.ev);
+      tour.after("evidence"); return;
     }
+    if ((t = e.target.closest("#create-dash"))) { createDashboard(); tour.after("create-dash"); return; }
+    if ((t = e.target.closest("#share-dash"))) { share(); return; }
     if ((t = e.target.closest("[data-panel]"))) {
       var p2 = t.dataset.panel;
       S.panel = (p2 && S.panel === p2) ? null : (p2 || null);
@@ -688,7 +937,6 @@
       tour.after(p2 === "trace" ? "trace" : "");
       return;
     }
-    if ((t = e.target.closest("[data-publish]"))) { publish(); return; }
     if ((t = e.target.closest("[data-dash]"))) { toast("<span>Dashboard <b>" + esc(t.dataset.dash) + "</b> — static in this walkthrough; it reads the same certified views as the answers.</span>"); return; }
     /* ---- Master catalog / lineage ---- */
     if ((t = e.target.closest("[data-viewlin]"))) { openLineage(t.dataset.viewlin); return; }
@@ -723,73 +971,23 @@
   $("#wb-page").addEventListener("change", function (e) {
     if (e.target.id === "narr-tog") { S.narrate = e.target.checked; renderWb(); }
   });
-  function ask(qid) {
-    S.qid = qid; S.wbPanel = "conversation"; S.panel = null; S.exploreKey = null; S.narrate = false;
+  function openEvidence(id) {
+    S.evAccount = id; S.panel = "evidence";
+    if (S.wbPanel !== "analysis") S.wbPanel = "analysis";
     renderWb();
-    tour.after(qid === "q1" ? "ask-q1" : "");
+    var p = $("#ans-panel"); if (p) p.scrollIntoView({ block: "nearest", behavior: "smooth" });
   }
-  function publish() {
-    var a = ans();
-    if (a.blocked) { toast("Nothing to publish — the statement was refused before it ran."); return; }
-    if (S.published.indexOf(a.publishAs) < 0) S.published.push(a.publishAs);
-    toast('<span class="tok">' + ICON.check + "</span><span><b>" + esc(a.publishAs) + "</b> added to the certified set &middot; " + a.rowCount + " rows &middot; owner Group Finance &middot; the definition, not the export, is what the next person reuses.</span>", 7000);
-    tour.after("publish");
+  function ask(qid) {
+    if (qid === "q1") {
+      if (S.state.analysed) { S.wbPanel = "analysis"; S.panel = null; renderWb(); tour.after("ask-q1"); return; }
+      runAnalysis();
+      tour.after("ask-q1");
+      return;
+    }
+    S.qid = qid; S.wbPanel = "conversation"; S.panel = null; S.narrate = false;
+    renderWb();
   }
 
-  /* ---- Insights: three static dashboards ---- */
-  /* truncate at a word boundary — never mid-word — and keep the full string
-     in a <title> so the whole name is one hover away */
-  function truncWord(str, n) {
-    str = String(str);
-    if (str.length <= n) return str;
-    var cut = str.slice(0, n), sp = cut.lastIndexOf(" ");
-    return (sp > n * 0.5 ? cut.slice(0, sp) : cut).replace(/[\s,·]+$/, "") + "\u2026";
-  }
-  function barChart(items, unit) {
-    var max = Math.max.apply(null, items.map(function (i) { return i.v; })) || 1;
-    var h = 156, w = 360, lab = 152, top = 8, rowH = Math.min(24, (h - top) / items.length), maxBar = 140;
-    return '<svg class="chart" viewBox="0 0 ' + w + " " + h + '" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Bar chart">' +
-      items.map(function (it, i) {
-        var y = top + i * rowH, bw = Math.max(2, (it.v / max) * maxBar), lbl = truncWord(it.k, 27);
-        return '<text class="lb" x="0" y="' + (y + 9) + '">' + esc(lbl) + (lbl === it.k ? "" : "<title>" + esc(it.k) + "</title>") + "</text>" +
-          '<rect x="' + (lab + 2) + '" y="' + y + '" width="' + bw + '" height="' + (rowH - 7) + '" rx="2" fill="' + (it.c || "#4d7a2c") + '"><title>' + esc(it.k) + " · " + esc(it.l || (it.v + (unit || ""))) + "</title></rect>" +
-          '<text class="vl" x="' + (lab + bw + 7) + '" y="' + (y + 9) + '">' + esc(it.l || (it.v + (unit || ""))) + "</text>";
-      }).join("") +
-      '<line class="ax" x1="' + (lab + 1) + '" y1="' + (top - 4) + '" x2="' + (lab + 1) + '" y2="' + (top + items.length * rowH - 4) + '"/></svg>';
-  }
-  function statusList(items) {
-    return '<div class="statlist">' + items.map(function (it) {
-      return '<div class="sl"><span class="k">' + esc(it.k) + '</span><span class="v v--' + esc(it.s) + '">' + esc(it.l) + "</span></div>";
-    }).join("") + "</div>";
-  }
-  function insightsHtml() {
-    var k = kpis();
-    var spend = D.answer("q7", "CONTROLLER", decisions()).rows.slice(0, 6).map(function (r) {
-      return { k: r.supplier, v: r.spendUsd, l: "USD " + D.fmtM(r.spendUsd), c: "#4d7a2c" };
-    });
-    var close = [
-      { k: "Ledgers that tie to their trial balance", l: k.ledgers.tie + " / " + k.ledgers.total, s: "ok" },
-      { k: "Residual after mapping and translation", l: "USD " + money(k.ledgers.residualUsd), s: "ok" },
-      { k: "Local accounts still unmapped", l: String(k.accounts.unmapped), s: "ok" },
-      { k: "Account mappings waiting for a steward", l: String(k.accounts.review), s: "warn" },
-      { k: "Intercompany legs that do not agree", l: "2 unmatched · 1 timing", s: "bad" },
-      { k: "Duplicate-payment pairs to check", l: String(k.dupPairs.count), s: "bad" }
-    ];
-    var o2c = D.answer("q6", "CONTROLLER", decisions()).rows.map(function (r) {
-      return { k: r.account, v: r.daysLate, l: r.daysLate + " d", c: "#7d4064" };
-    });
-    var cards = [
-      { d: D.dashboards[0], svg: barChart(spend) },
-      { d: D.dashboards[1], svg: statusList(close) },
-      { d: D.dashboards[2], svg: barChart(o2c) }
-    ];
-    return '<div class="wb-pg"><h1>Insights</h1><div class="sub">Operational dashboards on the same certified views the answers use</div><div class="wb-rule"></div>' +
-      '<div class="dash">' + cards.map(function (c) {
-        return '<button class="dash-card" type="button" data-dash="' + esc(c.d.name) + '" style="text-align:left;cursor:pointer"><h3>' + esc(c.d.name) + '</h3><div class="sub">' + esc(c.d.sub) + "</div>" + c.svg +
-          '<div class="vs">' + c.d.views.map(function (v) { return "GOLD." + v; }).join(" · ") + "</div></button>";
-      }).join("") + "</div>" +
-      '<p class="honest">Static in this walkthrough. Each dashboard reads the certified views listed under it, so a change to a definition moves the dashboard and the answers together.</p></div>';
-  }
   /* ===================================================================== */
   /* Master catalog — the real AIDP surfaces (ui-anatomy §3.3b and §3.9).  */
   /* Oracle ships no business glossary, ontology or synonym editor: what   */
@@ -1156,139 +1354,146 @@
   }
 
   /* ===================================================================== */
-  /* 3. MAPPING REVIEW                                                     */
+  /* 3. DECISIONS — review & act (Redwood app)                             */
   /* ===================================================================== */
-  function tileHtml(t, moved) {
-    var showAfter = t.after !== null && t.after !== undefined;
-    var big = showAfter ? t.after : t.before;
-    var small = big.length > 16;
-    var d = "";
-    if (showAfter && t.dir === "new") {
-      d = '<span class="dlt">new</span>';
-    } else if (showAfter && t.dir !== "flat" && t.beforeValue !== null && t.afterValue !== null && t.afterValue !== t.beforeValue) {
-      var up = t.afterValue > t.beforeValue;
-      d = '<span class="dlt">' + (up ? "▲" : "▼") + " " + (t.id === "resolved" ? Math.abs(t.afterValue - t.beforeValue).toFixed(1) + " pts" : Math.abs(t.afterValue - t.beforeValue)) + "</span>";
-    } else if (showAfter && t.dir === "flat") {
-      d = '<span class="dlt dlt--flat">unchanged</span>';
-    }
-    return '<div class="tile ' + esc(t.dir) + (moved ? " is-moved" : "") + '" data-tile="' + esc(t.id) + '" title="' + esc(t.note) + '">' +
-      '<span class="lab">' + esc(t.label) + "</span>" +
-      '<span class="val">' + (showAfter ? '<span class="before">' + esc(t.before) + '</span><span class="arw">→</span>' : "") +
-      '<span class="after' + (small ? " after--sm" : "") + '">' + esc(big) + "</span>" + d + "</span>" +
-      '<span class="note">' + esc(t.noteShort || t.note) + "</span></div>";
-  }
-  var DECIDED_AT = "2026-10-06 09:46";
-  var movedTiles = [];
+  var DECIDED_AT = "2026-10-06 09:52";
   function renderBand() {
-    var k = kpis();
-    $("#rw-band").innerHTML = '<div class="band-head"><span class="eyebrow">Model health · ' +
-      (S.state.refreshed ? "before the rebuild → now" : "exact match, system by system") + '</span>' +
-      '<span class="muted">' + esc(D.world.period.label) + " &middot; " + esc(D.world.period.range) + " &middot; every figure computed from the mapping tables</span></div>" +
-      '<div class="band-tiles" id="band-tiles">' + k.tiles.map(function (t) { return tileHtml(t, movedTiles.indexOf(t.id) >= 0); }).join("") + "</div>";
+    if (!S.state.analysed) {
+      $("#rw-band").innerHTML = '<div class="band-head"><span class="eyebrow">Per system &rarr; across systems</span></div>' +
+        '<div class="empty">Nothing to show yet — the commercial operations agent has not run this morning.</div>';
+      return;
+    }
+    $("#rw-band").innerHTML = bandHtml(analysis(), "rw-band-tiles", S.movedBand);
   }
   function renderRwState() {
     var el = $("#rw-state");
-    if (!S.state.refreshed) { el.className = "rw-state is-stale"; el.innerHTML = '<span class="dot"></span>Model not rebuilt yet — run the feed in Data Studio'; return; }
-    if (S.pending.length) { el.className = "rw-state is-stale"; el.innerHTML = '<span class="dot"></span>' + S.pending.length + " decision" + (S.pending.length === 1 ? "" : "s") + " waiting for the next resolution run"; return; }
-    var r = D.resolution(decisions());
-    el.className = "rw-state"; el.innerHTML = '<span class="dot"></span>Resolved ' + r.resolvedPct.toFixed(1) + " % &middot; " + r.pendingProposals + " proposals open";
+    if (!S.state.analysed) { el.className = "rw-state is-stale"; el.innerHTML = '<span class="dot"></span>Waiting on the agent'; return; }
+    if (S.pending.length) { el.className = "rw-state is-stale"; el.innerHTML = '<span class="dot"></span>' + S.pending.length + " decision" + (S.pending.length === 1 ? "" : "s") + " not yet in the numbers"; return; }
+    var an = analysis();
+    el.className = "rw-state"; el.innerHTML = '<span class="dot"></span>' + an.headline.lines + " lines at risk &middot; " + usdShort(an.headline.revenueUsd);
   }
   function renderRwTabs() {
-    var r = D.resolution(decisions());
+    var an = S.state.analysed ? analysis() : null;
     var tabs = [
-      ["matches", "Supplier matches", r.openProposals.length + " to review"],
-      ["accounts", "Account mappings", D.accounts.filter(function (a) { return a.status === "review"; }).length + " to review"],
-      ["decisions", "Decisions log", (D.decisions.length + S.log.length + S.pending.length) + " decisions"]
+      ["recommendations", "Recommendations", an ? an.actions.length + " proposed" : "none yet"],
+      ["matches", "Customer matches", (D.matches || []).length + " to review"],
+      ["xrefs", "Item cross-references", (D.itemXrefs || []).length + " to review"],
+      ["decisions", "Decisions log", ((D.decisions || []).length + S.log.length + S.pending.length) + " decisions"]
     ];
     $("#rw-tabs").innerHTML = tabs.map(function (t) {
       return '<button class="rw-tab' + (S.rwTab === t[0] ? " is-on" : "") + '" type="button" role="tab" aria-selected="' + (S.rwTab === t[0]) + '" data-tab="' + t[0] + '">' + esc(t[1]) + "<i>" + esc(t[2]) + "</i></button>";
     }).join("");
   }
-  function propHtml(m) {
-    var a = D.recordById[m.records[0]], b = D.recordById[m.records[1]];
-    var open = S.openProp === m.id;
-    var isOrion = m.id === "M-ORION";
-    var pend = S.pending.filter(function (x) { return x.decision.id === m.id; })[0];
-    var spendA = m.spend[0] ? m.spend[0].usd : 0, spendB = m.spend[1] ? m.spend[1].usd : 0;
-    var suggested = isOrion ? "Different tax ids — two companies" : "";
-    return '<div class="prop' + (open ? " is-open" : "") + (pend ? " is-decided" : "") + '" data-prop="' + esc(m.id) + '"' + (isOrion ? ' data-orion="1"' : "") + ">" +
-      '<button class="prop-head" type="button" data-openprop="' + esc(m.id) + '" aria-expanded="' + open + '">' +
-      '<span class="rec"><span class="nm">' + esc(a.name) + '</span><span class="meta">' + sysBadge(a.sys) + "<code>" + esc(a.sysId) + "</code> &middot; " + esc(a.city) + "</span></span>" +
-      '<span class="prop-vs">vs</span>' +
-      '<span class="rec"><span class="nm">' + esc(b.name) + '</span><span class="meta">' + sysBadge(b.sys) + "<code>" + esc(b.sysId) + "</code> &middot; " + esc(b.city) + "</span></span>" +
-      '<span class="prop-score"><b>' + m.score.toFixed(2) + "</b><span>score</span></span>" +
-      '<span class="prop-spend">USD ' + money(spendA, 0) + "<br>USD " + money(spendB, 0) + "</span>" +
+  function pendingFor(accId) { return S.pending.filter(function (p) { return p.decision.accountId === accId; })[0]; }
+  function accRowHtml(acc, an) {
+    var pend = pendingFor(acc.id);
+    var done = acc.status === "declined" || !!pend;
+    var e = D.evidence(acc.id, S.role, decisions());
+    var cause = an.causes.filter(function (c) { return c.id === acc.causeId; })[0] || { label: "" };
+    var suggested = acc.id === (D.haldenDecision ? D.haldenDecision.accountId : "halden") ? (D.haldenDecision ? D.haldenDecision.reason : "") : "";
+    return '<div class="reca' + (done ? " is-decided" : "") + '" data-acct="' + esc(acc.id) + '">' +
+      '<div class="reca-h"><b>' + esc(acc.name) + '</b><span class="tierb tierb--' + esc(acc.tier) + '">tier ' + esc(acc.tier) + "</span>" +
+      '<span class="reca-sys">' + (acc.systems || []).map(sysBadge).join("") + "</span>" +
+      '<span class="reca-n">' + acc.lines + " lines</span><span class=\"reca-v\">" + esc(usdShort(acc.usd)) + "</span>" +
+      '<span class="reca-p">penalty ' + esc(usdShort(acc.penaltyUsd)) + "</span></div>" +
+      '<div class="reca-b"><span class="reca-why">' + esc(cause.label) + " &middot; " + esc(acc.recommendation ? acc.recommendation.text : "") + "</span></div>" +
+      '<div class="reca-ev"><b>What the AI is going on:</b> ' +
+      esc((e.lines || []).length) + " order lines in " + esc(((acc.systems) || []).map(function (s) { return D.sourceById[s] ? D.sourceById[s].short : s; }).join(" and ")) +
+      ((e.stockElsewhere && e.stockElsewhere.length) ? "; the same parts on hand in plant " + esc(e.stockElsewhere[0].plant) : "") +
+      (e.supplierDelay ? "; purchase order " + esc(e.supplierDelay.po) + " " + esc(e.supplierDelay.daysLate) + " days late" : "") +
+      (e.creditHold ? "; held for credit since " + esc(e.creditHold.placed) : "") +
+      (e.transit ? "; last carrier scan " + esc(e.transit.lastScan) : "") +
+      (e.contract && S.role !== "ANALYST_NA" ? "; the contract prices " + esc(usdShort(e.contract.exposedUsd)) + " of penalty on these lines" : "") +
+      '. <button class="lnk" type="button" data-evgo="' + esc(acc.id) + '">Open the full evidence</button></div>' +
+      (done
+        ? '<div class="rule-line">' + ICON.check + "<span>" + (pend
+          ? "Declined by " + esc(pend.decision.by) + " — &ldquo;" + esc(pend.decision.reason) + "&rdquo;. Re-analyse to put it into the numbers."
+          : "Declined and already in the numbers.") + "</span></div>"
+        : '<div class="prop-acts"><input type="text" id="rreason-' + esc(acc.id) + '" placeholder="Why? (kept with the decision)" value="' + esc(suggested) + '" aria-label="Reason for the decision">' +
+          '<button class="btn" type="button" data-rec="accept" data-acct="' + esc(acc.id) + '">' + ICON.check + "Accept</button>" +
+          '<button class="btn" type="button" data-rec="decline" data-acct="' + esc(acc.id) + '">' + ICON.x + "Decline</button></div>") +
+      "</div>";
+  }
+  function recHtml(a, an) {
+    var open = S.openRec === a.id;
+    var accs = an.accounts.filter(function (x) { return (a.accountIds || []).indexOf(x.id) >= 0 || (x.recommendation && x.recommendation.actionId === a.id); });
+    return '<div class="prop' + (open ? " is-open" : "") + '" data-rec-card="' + esc(a.id) + '">' +
+      '<button class="rec-head" type="button" data-openrec="' + esc(a.id) + '" aria-expanded="' + open + '">' +
+      '<span class="act-id">' + esc(a.id) + "</span>" +
+      '<span class="rec-t"><span class="nm">' + esc(a.title) + '</span><span class="meta">' + esc(a.owner) + " &middot; " + accs.length + " accounts &middot; " + a.lines + " lines &middot; " + (a.tasks || 0) + " " + esc(a.taskNoun || "tasks") + " assigned</span></span>" +
+      '<span class="rec-v">' + esc(usdShort(a.usd)) + '<span>at risk</span></span>' +
+      '<span class="stat stat--pending">' + esc(a.status) + "</span>" +
       '<span class="prop-chev">' + ICON.chev + "</span></button>" +
-      (pend ? '<div class="prop-dec"><span class="stat stat--' + (pend.decision.action === "reject" ? "open" : "auto") + '">' + esc(pend.decision.action === "reject" ? "rejected" : "confirmed") + "</span>" +
-        "<span>" + esc(pend.decision.by) + " &middot; &ldquo;" + esc(pend.decision.reason) + "&rdquo;</span>" +
-        '<span class="pd-wait">waiting for the next resolution run</span></div>' : "") +
-      '<div class="prop-body">' +
-      '<div class="side2">' + [a, b].map(function (r) {
-        return '<div class="card2"><div class="hd">' + sysBadge(r.sys) + "<b>" + esc(r.name) + "</b></div>" +
-          '<dl class="kv"><dt>Object</dt><dd><code>' + esc(r.table) + "</code></dd>" +
-          "<dt>Key</dt><dd><code>" + esc(r.srcRef) + "</code></dd>" +
-          "<dt>Entity</dt><dd>" + esc(r.entity) + " &middot; " + esc(D.sourceById[r.sys].entityName) + "</dd>" +
-          "<dt>Address</dt><dd>" + esc(r.city) + ", " + esc(r.country) + "</dd>" +
-          "<dt>Tax id</dt><dd><code>" + esc(r.taxId || "not on file") + "</code></dd>" +
-          "<dt>Bank</dt><dd><code>&bull;&bull;&bull;&bull; " + esc(r.bankLast4) + "</code></dd>" +
-          "<dt>Q3 spend</dt><dd>" + esc(r.currency) + " " + money(r.spendLocal) + " &middot; USD " + money(r.spendUsd) + "</dd></dl></div>";
-      }).join("") + "</div>" +
-      '<div class="ev" style="margin-top:10px">' + m.evidence.map(function (c) {
-        return '<span class="evc ' + (c.hit === true ? "evc--y" : c.hit === false ? "evc--n" : "evc--o") + '">' + esc(c.t) + "</span>";
-      }).join("") + '<span class="evc evc--o">score ' + m.score.toFixed(2) + "</span><span class=\"evc evc--o\">" + esc(m.basis) + "</span></div>" +
-      '<div class="prop-note">' + esc(m.note) + (m.score >= D.provThreshold ? " Applied provisionally at " + m.score.toFixed(2) + " (threshold " + D.provThreshold.toFixed(2) + "), so reporting is not blocked while it waits for you." : " Below the " + D.provThreshold.toFixed(2) + " threshold, so the records stay apart until you decide.") + "</div>" +
-      (pend ? '<div class="rule-line">' + ICON.check + "<span>Decision recorded under " + esc(pend.decision.by) + "." +
-        (pend.decision.rule ? " Rule kept for the next run: &ldquo;" + esc(pend.decision.rule) + "&rdquo;." : "") +
-        " Re-run the resolution to apply it to the model.</span></div>" : "") +
-      '<div class="prop-acts"' + (pend ? ' hidden' : "") + ">" +
-      '<input type="text" id="reason-' + esc(m.id) + '" placeholder="Why? (kept with the decision)" value="' + esc(suggested) + '" aria-label="Reason for the decision">' +
-      '<button class="btn" type="button" data-decide="confirm" data-prop="' + esc(m.id) + '">' + ICON.check + "Confirm</button>" +
-      '<button class="btn" type="button" data-decide="reject" data-prop="' + esc(m.id) + '">' + ICON.x + "Reject</button>" +
-      '<select data-merge="' + esc(m.id) + '" aria-label="Merge into another golden supplier"><option value="">Merge into…</option>' +
-      D.suppliers.filter(function (g) { return g.multi && g.status === "confirmed"; }).slice(0, 10).map(function (g) { return '<option value="' + esc(g.id) + '">' + esc(g.name) + "</option>"; }).join("") +
-      "</select></div></div></div>";
+      '<div class="prop-body">' + accs.map(function (x) { return accRowHtml(x, an); }).join("") + "</div></div>";
+  }
+  function matchHtml(m) {
+    var a = m.records[0], b = m.records[1], dec = S.matchLog[m.id];
+    return '<div class="prop' + (dec ? " is-decided" : "") + '" data-prop="' + esc(m.id) + '">' +
+      '<div class="prop-head" style="cursor:default">' +
+      '<span class="rec"><span class="nm">' + esc(a.name) + '</span><span class="meta">' + sysBadge(a.sys) + "<code>" + esc(a.key) + "</code>" + (a.city ? " &middot; " + esc(a.city) : "") + "</span></span>" +
+      '<span class="prop-vs">vs</span>' +
+      '<span class="rec"><span class="nm">' + esc(b.name) + '</span><span class="meta">' + sysBadge(b.sys) + "<code>" + esc(b.key) + "</code>" + (b.city ? " &middot; " + esc(b.city) : "") + "</span></span>" +
+      '<span class="prop-score"><b>' + Number(m.score).toFixed(2) + "</b><span>score</span></span>" +
+      '<span class="prop-spend">' + esc(m.note || "") + "</span><span></span></div>" +
+      '<div class="prop-body" style="display:block;border-top:1px solid var(--rw-line)">' +
+      '<div class="ev">' + (m.evidence || []).map(function (c) {
+        return '<span class="evc ' + (c.hit === true ? "evc--y" : c.hit === false ? "evc--n" : "evc--o") + '">' + esc(c.value || c.t || c.kind) + "</span>";
+      }).join("") + '<span class="evc evc--o">score ' + Number(m.score).toFixed(2) + "</span></div>" +
+      (dec
+        ? '<div class="rule-line">' + ICON.check + "<span>" + esc(dec.action === "reject" ? "Kept apart" : "Confirmed as one customer") + " by " + esc(dec.by) + " — &ldquo;" + esc(dec.reason) + "&rdquo;." + (dec.rule ? " Rule kept: &ldquo;" + esc(dec.rule) + "&rdquo;." : "") + "</span></div>"
+        : '<div class="prop-acts"><input type="text" id="mreason-' + esc(m.id) + '" placeholder="Why? (kept with the decision)" aria-label="Reason for the decision">' +
+          '<button class="btn" type="button" data-mdec="confirm" data-mid="' + esc(m.id) + '">' + ICON.check + "Same customer</button>" +
+          '<button class="btn" type="button" data-mdec="reject" data-mid="' + esc(m.id) + '">' + ICON.x + "Not the same</button></div>") +
+      "</div></div>";
+  }
+  function xrefHtml(x) {
+    var dec = S.matchLog[x.id];
+    return '<div class="prop' + (dec ? " is-decided" : "") + '" data-prop="' + esc(x.id) + '">' +
+      '<div class="prop-head" style="cursor:default;grid-template-columns:1fr 26px 1fr 84px 128px 26px">' +
+      '<span class="rec"><span class="nm">' + esc(x.item) + '</span><span class="meta">' + (x.records[0] ? sysBadge(x.records[0].sys) + "<code>" + esc(x.records[0].key) + "</code>" : "") + "</span></span>" +
+      '<span class="prop-vs">=</span>' +
+      '<span class="rec"><span class="nm">' + esc(x.records[1] ? x.records[1].key : "") + '</span><span class="meta">' + (x.records[1] ? sysBadge(x.records[1].sys) : "") + "</span></span>" +
+      '<span class="prop-score"><b>' + Number(x.score).toFixed(2) + "</b><span>score</span></span>" +
+      '<span class="prop-spend">' + esc(x.note || "") + "</span><span></span></div>" +
+      '<div class="prop-body" style="display:block;border-top:1px solid var(--rw-line)">' +
+      (dec
+        ? '<div class="rule-line">' + ICON.check + "<span>" + esc(dec.action === "reject" ? "Kept apart" : "Confirmed as one part") + " by " + esc(dec.by) + ".</span></div>"
+        : '<div class="prop-acts"><input type="text" id="mreason-' + esc(x.id) + '" placeholder="Why? (kept with the decision)" aria-label="Reason for the decision">' +
+          '<button class="btn" type="button" data-mdec="confirm" data-mid="' + esc(x.id) + '">' + ICON.check + "Same part</button>" +
+          '<button class="btn" type="button" data-mdec="reject" data-mid="' + esc(x.id) + '">' + ICON.x + "Not the same</button></div>") +
+      "</div></div>";
   }
   function renderRwPanel() {
-    var el = $("#rw-panel"), r = D.resolution(decisions());
-    if (!S.state.refreshed) {
-      el.innerHTML = '<div class="empty">The mapping tables are empty until the model is rebuilt.<br>Open <b>Autonomous AI Lakehouse &middot; Data Studio</b>, go to Data Load &rsaquo; Feeds and run the cross-system finance model.</div>';
+    var el = $("#rw-panel");
+    if (S.rwTab === "recommendations") {
+      if (!S.state.analysed) { el.innerHTML = '<div class="empty">The commercial operations agent has not run this morning.<br>Open <b>AI Data Platform &middot; Agent Hub</b> and ask it what is at risk this week.</div>'; return; }
+      var an = analysis();
+      el.innerHTML = '<div class="rw-tools"><span>The AI proposes <b>' + an.actions.length + "</b> actions over " + an.headline.lines + " lines. Nothing is written to any order system — each one becomes a task for the person who owns it.</span>" +
+        '<span class="grow"></span><span>' + (S.pending.length ? "Re-analyse to put " + S.pending.length + " decision" + (S.pending.length === 1 ? "" : "s") + " into the numbers" : "Nothing waiting") + "</span></div>" +
+        an.actions.map(function (a) { return recHtml(a, an); }).join("");
       return;
     }
     if (S.rwTab === "matches") {
-      el.innerHTML = '<div class="rw-tools"><span><b>' + r.openProposals.length + "</b> proposals between 0.75 and 0.89 wait for a person; <b>" + r.confirmedProposals + "</b> at 0.90 and above were confirmed by the model.</span>" +
-        '<span class="grow"></span><span>' + (S.pending.length ? "Re-run resolution to apply " + S.pending.length + " decision" + (S.pending.length === 1 ? "" : "s") : "Nothing waiting to be applied") + "</span></div>" +
-        (r.openProposals.length ? r.openProposals.map(propHtml).join("") : '<div class="empty">Every proposal has been decided.</div>');
+      el.innerHTML = '<div class="rw-tools"><span>The AI matched customers across the CRM, Fusion, JD Edwards and NetSuite. These pairs scored too low to stand on their own, so <b>' + esc(D.personas[1].name) + "</b> decides them.</span></div>" +
+        (D.matches || []).map(matchHtml).join("") +
+        '<p class="honest">A decision here changes who is one customer, so the next analysis counts their lines together — or keeps them apart.</p>';
       return;
     }
-    if (S.rwTab === "accounts") {
-      var rev = D.accounts.filter(function (a) { return a.status === "review"; });
-      var auto = D.accounts.filter(function (a) { return a.status === "auto"; });
-      el.innerHTML = '<div class="rw-tools"><span><b>' + rev.length + "</b> local accounts carry two plausible group accounts; <b>" + auto.length + "</b> were mapped by rule and need no decision.</span></div>" +
-        rev.map(function (a) {
-          return '<div class="acc-card"><div class="acc-head">' + sysBadge(a.sys) + "<b>" + esc(a.local) + " &middot; " + esc(a.description) + '</b><span class="r">Q3 ' + esc(a.currency || D.sourceById[a.sys].currency) + " " + money(a.amountLocal) + " &middot; USD " + money(a.amountUsd) + " &middot; score " + a.score.toFixed(2) + "</span></div>" +
-            '<div class="acc-opts"><div class="acc-opt is-prop"><div class="t">Model proposes</div><div class="a">' + esc(a.proposed) + " " + esc(a.groupName) + '</div><div class="w">' + esc(a.rule) + "</div></div>" +
-            '<div class="acc-opt"><div class="t">Alternative</div><div class="a">' + esc(a.alt) + " " + esc(a.altName) + '</div><div class="w">' + esc(a.question) + "</div></div></div>" +
-            '<div class="prop-acts"><input type="text" id="areason-' + esc(a.sys) + "-" + esc(a.local) + '" placeholder="Why? (kept with the decision)" aria-label="Reason for the decision">' +
-            '<button class="btn" type="button" data-acc="' + esc(a.sys) + "|" + esc(a.local) + '" data-accpick="proposed">' + ICON.check + "Use " + esc(a.proposed) + "</button>" +
-            '<button class="btn" type="button" data-acc="' + esc(a.sys) + "|" + esc(a.local) + '" data-accpick="alt">Use ' + esc(a.alt) + "</button></div></div>";
-        }).join("") +
-        '<div class="sec-head"><b>Mapped by rule</b><span>' + auto.length + " local accounts the model placed on its own — shown for audit, no decision needed</span></div>" +
-        '<table class="rtbl"><thead><tr><th style="width:90px">System</th><th style="width:90px">Local</th><th>Local name</th><th style="width:210px">Group account</th><th class="r" style="width:80px">Score</th><th>Rule</th></tr></thead><tbody>' +
-        auto.map(function (a) {
-          return "<tr><td>" + sysBadge(a.sys) + "</td><td><code>" + esc(a.local) + "</code></td><td>" + esc(a.description) + "</td><td>" + esc(a.proposed) + " " + esc(a.groupName) + '</td><td class="r">' + a.score.toFixed(2) + "</td><td>" + esc(a.rule) + "</td></tr>";
-        }).join("") + "</tbody></table>" +
-        '<p class="honest">Account decisions are written to GOLD.MAPPING_DECISIONS and picked up by the next model rebuild; the consolidated P&amp;L in this walkthrough is built on the mapping as it stands now.</p>';
+    if (S.rwTab === "xrefs") {
+      el.innerHTML = '<div class="rw-tools"><span>The same part is numbered differently in each system. These cross-references are the ones the AI could not settle on its own.</span></div>' +
+        (D.itemXrefs || []).map(xrefHtml).join("") +
+        '<p class="honest">Until a part is one part, stock sitting in another plant does not look like stock for this order.</p>';
       return;
     }
     var rows = S.pending.map(function (d) { return { row: d.row, pending: true }; })
       .concat(S.log.map(function (d) { return { row: d, pending: false }; }))
-      .concat(D.decisions.slice().sort(function (a, b) { return a.at < b.at ? 1 : -1; }).map(function (d) { return { row: d, pending: false }; }));
-    el.innerHTML = '<table class="rtbl"><thead><tr><th style="width:150px">When</th><th style="width:150px">Who</th><th>Decision</th><th style="width:100px">Action</th><th>Why</th><th>Rule left behind</th></tr></thead><tbody>' +
+      .concat((D.decisions || []).slice().sort(function (a, b) { return a.at < b.at ? 1 : -1; }).map(function (d) { return { row: d, pending: false }; }));
+    el.innerHTML = '<table class="rtbl"><thead><tr><th style="width:150px">When</th><th style="width:160px">Who</th><th>Decision</th><th style="width:100px">Action</th><th>Why</th><th>Rule left behind</th></tr></thead><tbody>' +
       rows.map(function (x) {
         var d = x.row;
-        return "<tr><td>" + esc(d.at) + (x.pending ? ' <span class="stat stat--review">not applied</span>' : "") + "</td><td>" + esc(d.by) + "<br><span style=\"color:#837d75;font-size:11px\">" + esc(d.role) + "</span></td><td>" + esc(d.title) + '</td><td><span class="stat stat--' + (d.action === "reject" ? "open" : "auto") + '">' + esc(d.action) + "</span></td><td>" + esc(d.reason) + "</td><td>" + (d.rule ? esc(d.rule) : "—") + "</td></tr>";
+        return "<tr><td>" + esc(d.at) + (x.pending ? ' <span class="stat stat--review">not in the numbers yet</span>' : "") + "</td><td>" + esc(d.by) + "<br><span style=\"color:#837d75;font-size:11px\">" + esc(d.role) + "</span></td><td>" + esc(d.title) + '</td><td><span class="stat stat--' + (d.action === "decline" || d.action === "reject" ? "open" : "auto") + '">' + esc(d.action) + "</span></td><td>" + esc(d.reason) + "</td><td>" + (d.rule ? esc(d.rule) : "—") + "</td></tr>";
       }).join("") + "</tbody></table>" +
-      '<p class="honest">The log is a certified view of its own (GOLD.MAPPING_DECISIONS), so a decision and the rule it leaves behind are as auditable as the figures they move.</p>';
+      '<p class="honest">Every decision is kept with who made it, when, and why — and any rule it leaves behind for the next run.</p>';
   }
   function renderRw() { renderRwState(); renderBand(); renderRwTabs(); renderRwPanel(); }
   $("#rw-tabs").addEventListener("click", function (e) {
@@ -1298,96 +1503,81 @@
   });
   $("#rw-panel").addEventListener("click", function (e) {
     var t;
-    if ((t = e.target.closest("[data-openprop]"))) {
-      var id = t.dataset.openprop;
-      S.openProp = S.openProp === id ? null : id;
+    if ((t = e.target.closest("[data-openrec]"))) {
+      var id = t.dataset.openrec;
+      S.openRec = S.openRec === id ? null : id;
       renderRwPanel();
-      var el = $('.prop[data-prop="' + id + '"]'); if (el) el.scrollIntoView({ block: "start", behavior: "smooth" });
-      tour.after(id === "M-ORION" ? "open-orion" : "");
+      var el = $('[data-rec-card="' + id + '"]'); if (el) el.scrollIntoView({ block: "start", behavior: "smooth" });
+      tour.after("open-rec");
       return;
     }
-    if ((t = e.target.closest("[data-decide]"))) { decide(t.dataset.prop, t.dataset.decide); return; }
-    if ((t = e.target.closest("[data-acc]"))) { decideAccount(t.dataset.acc, t.dataset.accpick); return; }
+    if ((t = e.target.closest("[data-evgo]"))) { setApp("aidp"); openEvidence(t.dataset.evgo); return; }
+    if ((t = e.target.closest("[data-rec]"))) { decideRec(t.dataset.acct, t.dataset.rec); return; }
+    if ((t = e.target.closest("[data-mdec]"))) { decideMatchUi(t.dataset.mid, t.dataset.mdec); return; }
   });
-  $("#rw-panel").addEventListener("change", function (e) {
-    var s = e.target.closest("[data-merge]");
-    if (!s || !s.value) return;
-    decide(s.dataset.merge, "merge", s.options[s.selectedIndex].text);
-  });
-  function decide(mid, action, mergeInto) {
-    var m = null;
-    D.pendingMatches.forEach(function (x) { if (x.id === mid) m = x; });
-    if (!m) return;
-    if (S.pending.some(function (p) { return p.decision.id === mid; })) { toast("That proposal is already decided — re-run the resolution to apply it."); return; }
-    var input = $("#reason-" + mid);
-    var reason = (input && input.value.trim()) || (action === "reject" ? "Not the same party." : "Confirmed by the steward.");
-    var a = D.recordById[m.records[0]], b = D.recordById[m.records[1]];
-    var taxMiss = m.evidence.some(function (c) { return c.kind === "tax" && c.hit === false; });
-    var rule = action === "reject" ? (m.learnedRule || (taxMiss ? "Different tax registration numbers never match, whatever the name score." : "")) : "";
-    var title = action === "reject"
-      ? a.name + " · " + D.sourceById[a.sys].short + " " + a.sysId + " and " + D.sourceById[b.sys].short + " " + b.sysId + " kept apart"
-      : action === "merge"
-        ? b.name + " · merged into " + mergeInto
-        : a.name + " · " + D.sourceById[b.sys].short + " " + b.sysId + " confirmed onto the same party";
-    var decision = {
-      kind: "match", id: mid, target: mid, title: title,
-      action: action === "merge" ? "confirm" : action,
-      reason: reason + (action === "merge" ? " Merged into " + mergeInto + "." : ""),
-      rule: rule, by: D.personas[1].name,
-      at: DECIDED_AT
-    };
-    S.pending.push({ decision: decision, row: { at: decision.at, by: decision.by, role: "STEWARD", title: title, action: decision.action, reason: decision.reason, rule: rule } });
-    S.openProp = null;
-    renderRw();
-    toast("<span><b>" + (action === "reject" ? "Rejected" : "Confirmed") + ".</b> " + esc(title) + ". " +
-      (rule ? "Learned rule: &ldquo;" + esc(rule) + "&rdquo;. " : "") + "Re-run the resolution to apply it to the model.</span>", 8000);
-    tour.after(mid === "M-ORION" && action === "reject" ? "reject" : "");
-  }
-  function decideAccount(key, pick) {
-    var parts = key.split("|"), acc = null;
-    D.accounts.forEach(function (a) { if (a.sys === parts[0] && a.local === parts[1]) acc = a; });
+  function decideRec(accId, action) {
+    if (pendingFor(accId)) { toast("That one is already decided — re-analyse to put it into the numbers."); return; }
+    var an = analysis(), acc = an.accounts.filter(function (x) { return x.id === accId; })[0];
     if (!acc) return;
-    var input = $("#areason-" + parts[0] + "-" + parts[1]);
-    var chosen = pick === "alt" ? acc.alt + " " + acc.altName : acc.proposed + " " + acc.groupName;
-    var row = {
-      at: DECIDED_AT, by: D.personas[1].name, role: "STEWARD",
-      title: D.sourceById[acc.sys].short + " " + acc.local + " " + acc.description + " mapped to " + chosen,
-      action: "confirm", reason: (input && input.value.trim()) || acc.rule, rule: ""
-    };
-    S.log.unshift(row);
-    renderRwTabs(); renderRwPanel();
-    toast("<span><b>Mapping recorded.</b> " + esc(row.title) + " — written to GOLD.MAPPING_DECISIONS for the next rebuild.</span>", 6000);
+    var input = $("#rreason-" + accId);
+    var reason = (input && input.value.trim()) || (action === "decline" ? "Not at risk — handled with the customer." : "Agreed, go ahead.");
+    var d = { kind: "recommendation", accountId: accId, action: action, reason: reason, by: D.personas[0].name, at: DECIDED_AT };
+    if (action === "accept") {
+      S.log.unshift({ at: DECIDED_AT, by: d.by, role: "COMMERCIAL_OPS", title: acc.name + " · " + (acc.recommendation ? acc.recommendation.text : "action") + " accepted", action: "accept", reason: reason, rule: "" });
+      renderRwTabs(); renderRwPanel();
+      toast("<span><b>Accepted.</b> " + esc(acc.name) + " stays on the list and the task stands with " + esc(an.actions.filter(function (a) { return a.id === (acc.recommendation || {}).actionId; })[0] ? an.actions.filter(function (a) { return a.id === (acc.recommendation || {}).actionId; })[0].owner : "its owner") + ".</span>", 6000);
+      return;
+    }
+    S.pending.push({ decision: d, row: { at: d.at, by: d.by, role: "COMMERCIAL_OPS", title: acc.name + " · " + (acc.recommendation ? acc.recommendation.text : "action") + " declined", action: "decline", reason: reason, rule: "" } });
+    renderRwState(); renderRwTabs(); renderRwPanel();
+    toast("<span><b>Declined.</b> " + esc(acc.name) + " — &ldquo;" + esc(reason) + "&rdquo;. The AI has not changed its numbers yet: <b>Re-analyse</b> to make it count.</span>", 9000);
+    tour.after("decline");
   }
-  $("#rw-rerun").addEventListener("click", function () { rerun(); tour.after("rerun"); });
-  function rerun() {
+  function decideMatchUi(id, action) {
+    var m = (D.matches || []).concat(D.itemXrefs || []).filter(function (x) { return x.id === id; })[0];
+    if (!m) return;
+    var input = $("#mreason-" + id);
+    var reason = (input && input.value.trim()) || (action === "reject" ? "Not the same — the identifiers disagree." : "Same party, confirmed.");
+    var d = { kind: m.item ? "itemXref" : "customerMatch", id: id, action: action, reason: reason, by: D.personas[1].name, at: "2026-10-06 09:55", title: (m.item || (m.records[0] || {}).name || id) + (action === "reject" ? " · kept apart" : " · confirmed as one") };
+    var res = D.decideMatch(S.state, d);
+    S.state = res.state;
+    S.matchLog[id] = { action: action, by: d.by, reason: reason, rule: res.learned || "" };
+    S.log.unshift({ at: d.at, by: d.by, role: "STEWARD", title: d.title, action: action, reason: reason, rule: res.learned || "" });
+    renderRw();
+    toast("<span><b>" + (action === "reject" ? "Kept apart." : "Confirmed.") + "</b> " + esc(d.title) + ". " + (res.learned ? "Rule kept: &ldquo;" + esc(res.learned) + "&rdquo;." : "") + "</span>", 8000);
+  }
+  $("#rw-rerun").addEventListener("click", function () { reanalyse(); tour.after("reanalyse"); });
+  function reanalyse() {
     if (S.busy) return;
-    if (!S.state.refreshed) { toast("Rebuild the model in Data Studio first."); return; }
-    if (!S.pending.length) { toast("Nothing waiting — decide a proposal first, then re-run the resolution."); return; }
+    if (!S.state.analysed) { toast("Ask the agent what is at risk first."); return; }
+    if (!S.pending.length) { toast("Nothing waiting — accept or decline something first, then re-analyse."); return; }
     S.busy = true;
     $("#rw-rerun").disabled = true;
     $("#rw-state").className = "rw-state is-stale";
-    $("#rw-state").innerHTML = '<span class="dot"></span>Re-resolving identities…';
+    $("#rw-state").innerHTML = '<span class="dot"></span>Re-analysing with your decision…';
+    var before = analysis();
     setTimeout(function () {
-      var changed = { tiles: [], questions: [], rules: [] };
+      var moved = { band: [], actions: [], accounts: [] }, learned = "";
       S.pending.forEach(function (p) {
-        var res = D.applyDecision(S.state, p.decision);
+        var res = D.decide(S.state, p.decision);
         S.state = res.state;
-        S.log.unshift(res.decision);
-        res.changed.tiles.forEach(function (t) { if (changed.tiles.indexOf(t) < 0) changed.tiles.push(t); });
-        res.changed.questions.forEach(function (q) { changed.questions.push(q); });
-        if (res.changed.learnedRule) changed.rules.push(res.changed.learnedRule);
+        S.log.unshift(res.decision.title ? { at: res.decision.at, by: res.decision.by, role: res.decision.role || "COMMERCIAL_OPS", title: res.decision.title, action: res.decision.action, reason: res.decision.reason, rule: res.learned || "" } : p.row);
+        (res.changed.band || []).forEach(function (x) { if (moved.band.indexOf(x) < 0) moved.band.push(x); });
+        (res.changed.actions || []).forEach(function (x) { if (moved.actions.indexOf(x) < 0) moved.actions.push(x); });
+        (res.changed.accounts || []).forEach(function (x) { if (moved.accounts.indexOf(x) < 0) moved.accounts.push(x); });
+        if (res.learned) learned = res.learned;
       });
       S.pending = [];
       S.busy = false;
-      movedTiles = changed.tiles;
+      S.movedBand = moved.band;
       $("#rw-rerun").disabled = false;
-      renderRw();
-      setTimeout(function () { movedTiles = []; renderBand(); }, 6000);
-      var qs = changed.questions.map(function (q) { return "question " + q.n + " " + q.before + " &rarr; " + q.after + " rows"; }).join(", ");
-      toast('<span class="tok">' + ICON.check + "</span><span><b>Resolution re-run.</b> " +
-        (changed.tiles.length ? changed.tiles.length + " health tile" + (changed.tiles.length === 1 ? "" : "s") + " moved" : "The health band did not move") +
-        (qs ? " &middot; answers that changed: " + qs : "") +
-        (changed.rules.length ? " &middot; rule kept: &ldquo;" + esc(changed.rules[0]) + "&rdquo;" : "") + "</span>", 12000);
+      renderRw(); renderWb();
+      setTimeout(function () { S.movedBand = []; renderBand(); if (S.app === "aidp" && S.wbPanel === "analysis") renderWb(); }, 7000);
+      var after = analysis();
+      toast('<span class="tok">' + ICON.check + "</span><span><b>Re-analysed.</b> Revenue at risk " + esc(usdShort(before.headline.revenueUsd)) + " &rarr; <b>" + esc(usdShort(after.headline.revenueUsd)) + "</b> &middot; tier-A accounts " +
+        before.headline.tierA.accounts + " &rarr; " + after.headline.tierA.accounts + " &middot; penalties " + esc(usdShort(before.headline.penaltiesUsd)) + " &rarr; " + esc(usdShort(after.headline.penaltiesUsd)) +
+        (moved.actions.length ? " &middot; " + moved.actions.length + " action" + (moved.actions.length === 1 ? "" : "s") + " resized" : "") +
+        (learned ? " &middot; rule kept: &ldquo;" + esc(learned) + "&rdquo;" : "") + "</span>", 14000);
       tour.next();
     }, 1500);
   }
@@ -1395,81 +1585,89 @@
   /* ===================================================================== */
   /* TOUR                                                                  */
   /* ===================================================================== */
+  /* Six business steps in Dana's words. Every hint says why she is clicking
+     and what the AI is doing at that moment; none of them names a refresh, a
+     model, a mapping, a view or SQL. */
   var STEPS = [
-    { id: "runnow", major: 1, side: "bottom",
-      title: "Rebuild the model",
-      body: "Five systems are mounted in the lakehouse and feeding — Fusion, JD Edwards, NetSuite, the in-house contracts schema and the CRM as an external table — but nothing has joined them yet. Click Run now to build one governed model over all five.",
-      target: function () { return $("#ds-run-now"); }, anchor: function () { return $("#ds-job"); }, auto: runRefresh },
-    { id: "open-review", major: 1, side: "top",
-      title: "Open what the run produced",
-      body: "Identities resolved, accounts mapped, ledgers translated and reconciled, certified views rebuilt. The mapping tables the run filled are the steward's work queue — open them from the toast.",
-      target: function () { return $("#toast .tbtn"); }, anchor: function () { return $("#toast"); },
-      auto: function () { $("#toast").hidden = true; setApp("review"); tour.after("open-review"); } },
-    { id: "band", major: 2, side: "bottom", passive: true,
-      title: "What the model made visible",
-      body: "Read the band before touching anything. Five sources are now one model on thirteen certified views; supplier records resolved to a single golden record rise from 61.2 % to 93.2 %; the 37 local accounts nothing could place are mapped, so all three ledgers tie to their trial balance; and fourteen duplicate-payment pairs appear that no single system could see, because both legs live in different ERPs. Freshness is unchanged — it is a property of the feeds, not of the model.",
-      target: function () { return $("#band-tiles"); }, anchor: function () { return $(".tile:last-child"); },
+    { id: "sources", major: 1, side: "bottom", passive: true,
+      title: "Everything you run on, in one place",
+      body: "Your order book lives in three systems — Fusion in Europe, JD Edwards in North America, NetSuite for the services company — and what a promise is worth lives in two more: the customer contracts, and the delivery-tracking application with the carrier scans. Your accounts and their tiers come from the CRM. All five feed one place, minutes behind. That is the only reason an AI can answer a question that crosses them.",
+      target: function () { return $("#src-cards"); }, anchor: function () { return $("#src-cards .src:last-child"); },
+      avoid: function () { return $("#src-cards"); },
       auto: function () { tour.next(); } },
-    { id: "to-aidp", major: 3, side: "bottom",
-      title: "Ask the model a question",
-      body: "The same governed model answers plain-English questions in the AI Data Platform's Agent Hub. Switch to it.",
+    { id: "to-aidp", major: 1, side: "bottom",
+      title: "Take a real question to the AI",
+      body: "Tuesday morning, and your account owners want to know what is going to go wrong this week. Open the Agent Hub and ask.",
       target: function () { return $('.ws-tab[data-go="aidp"]'); },
       auto: function () { setApp("aidp"); tour.after("to-aidp"); } },
-    { id: "ask-q1", major: 3, side: "bottom",
-      title: "Pick the cross-system question",
-      body: "Ten questions are saved against this model. Ask the first one — which suppliers we pay from more than one system, and what we paid them last quarter. No single ERP can answer it.",
+    { id: "ask-q1", major: 2, side: "bottom", waits: true,
+      title: "Ask the AI what is at risk this week",
+      body: "Ask the first saved question. Four agents go to work at once: one reads all three order books, one works out which customer and which part each line really is, one hunts for the reason every late line is late, and one puts money on it and ranks what matters. Watch them.",
       target: function () { return $('[data-ask="q1"]'); }, anchor: function () { return $("#hub-chips"); },
       avoid: function () { return $("#hub-chips"); },
       auto: function () { ask("q1"); } },
-    { id: "trace", major: 4, side: "bottom",
-      title: "See how the answer was produced",
-      body: "Twelve suppliers, each with the systems it was paid from, its records, its Q3 spend in group currency and the score that resolved it. Open Trace: the terms the agent looked up, the SQL it generated against the certified views, the SQL Firewall check, and the rows it read.",
+    { id: "findings", major: 3, side: "right", dock: "right", passive: true,
+      title: "Read what the AI found",
+      body: "Each system knew about its own late lines — 61, 49 and 28 — and none of them could tell you they were worth USD 4.18 M, that nine of your best accounts were in there, or why any single line was late. The AI gave every line a cause: 44 can be filled from stock sitting in another plant, 45 are moving but will arrive late, 31 wait on a supplier and 18 sit behind a credit hold. Then it ranked the accounts and proposed four things to do, each already assigned to the person who owns it.",
+      target: function () { return $("#band-tiles"); }, anchor: function () { return $("#band-tiles"); },
+      avoid: function () { return $(".an-cols"); },
+      auto: function () { tour.next(); } },
+    { id: "evidence", major: 4, side: "right", dock: "right",
+      title: "Check one finding before you trust it",
+      body: "Halden Tooling is your biggest exposure and the AI says the parts are sitting in another plant. Open the evidence and see for yourself: the four order lines with their real keys in JD Edwards and Fusion, the same parts on hand in plant EU-2, the tier and the account owner out of the CRM, and the clause in their contract the late penalty was priced from.",
+      target: function () { return $('[data-ev="halden"]'); }, anchor: function () { return $('tr[data-acct="halden"]'); },
+      avoid: function () { return $('tr[data-acct="halden"]'); },
+      auto: function () { openEvidence("halden"); tour.after("evidence"); } },
+    { id: "trace", major: 4, side: "right", dock: "right",
+      title: "See how it got there",
+      body: "Now the other direction: which agent read what, in what order, and under which rules. The trace also shows the two things that never depend on this screen — the rows you are allowed to see and the columns your role masks, both applied in the database.",
       target: function () { return $('[data-panel="trace"]'); }, anchor: function () { return $(".ans-acts"); },
-      avoid: function () { return $("tr[data-orion]") || $(".ans-grid"); },
+      avoid: function () { return $("#ans-panel") || $(".ans-acts"); },
       auto: function () { S.panel = "trace"; renderWb(); tour.after("trace"); } },
-    { id: "explore", major: 4, side: "left",
-      title: "Follow one figure back to its rows",
-      body: "The trace ends in the rows; now go the other way. One row is flagged for review — open it and you get the two source records behind it, one in Fusion and one in JD Edwards, the evidence the model matched them on, and why it will not stand on its own.",
-      target: function () { return $("[data-orion-btn]"); }, anchor: function () { return $("tr[data-orion] td:last-child"); },
-      avoid: function () { return $("tr[data-orion]"); },
-      auto: function () { var b = $("[data-orion-btn]"); if (b) b.click(); } },
-    { id: "to-review", major: 5, side: "bottom",
-      title: "Overrule the model",
-      body: "The match is wrong: the names agree and nothing else does. A steward decides it, and a steward's queue is the Mapping review app — switch to it.",
+    { id: "to-decisions", major: 5, side: "bottom",
+      title: "You know something the AI does not",
+      body: "Halden called you last week and agreed to take the delivery on the 20th. Those four lines are not at risk, whatever the dates in the system say. Decisions is where what the AI proposes meets what people decide — go there.",
       target: function () { return $('.ws-tab[data-go="review"]'); },
-      avoid: function () { return $("tr[data-orion]") || $(".ans-grid"); },
-      auto: function () { setApp("review"); tour.after("to-review"); } },
-    { id: "open-orion", major: 5, side: "bottom",
-      title: "Open the proposal",
-      body: "Twenty-five proposals between 0.75 and 0.89 wait for a person; everything at 0.90 and above the model confirmed on its own. Open the first one.",
-      target: function () { return $('.prop[data-orion] .prop-head'); }, anchor: function () { return $(".prop[data-orion]"); },
-      auto: function () { S.openProp = "M-ORION"; renderRwPanel(); tour.after("open-orion"); } },
-    { id: "reject", major: 5, side: "bottom",
-      title: "Reject it, and say why",
-      body: "Both records are here side by side: two different tax registration numbers, two different banks, two different countries. The reason is drafted for you — click Reject. The decision is logged under the steward's name and leaves a rule behind for the next run.",
-      target: function () { return $('[data-decide="reject"][data-prop="M-ORION"]'); },
-      auto: function () { decide("M-ORION", "reject"); } },
-    { id: "rerun", major: 5, side: "left",
-      title: "Re-run the resolution",
-      body: "Your decision does not quietly change the numbers — it re-resolves the model. Click Re-run resolution and watch the band and the answers follow.",
-      target: function () { return $("#rw-rerun"); }, auto: rerun },
+      avoid: function () { return $(".an-cols"); },
+      auto: function () { setApp("review"); tour.after("to-decisions"); } },
+    { id: "open-rec", major: 5, side: "bottom",
+      title: "Open the one you disagree with",
+      body: "Four proposals, each with the accounts and lines behind it and the person it was assigned to. Open the expedite — Halden Tooling is the first account under it, with a summary of what the AI is going on.",
+      target: function () { return $('[data-openrec="A1"]'); }, anchor: function () { return $('[data-rec-card="A1"]'); },
+      auto: function () { S.openRec = "A1"; renderRwPanel(); tour.after("open-rec"); } },
+    { id: "decline", major: 5, side: "top",
+      title: "Overrule it, and say why",
+      body: "The reason is drafted for you. Decline the expedite: the AI keeps your reason, and it keeps the rule underneath it — a date the customer has accepted is not a date at risk.",
+      target: function () { return $('[data-rec="decline"][data-acct="halden"]'); }, anchor: function () { return $('.reca[data-acct="halden"] .prop-acts'); },
+      auto: function () { decideRec("halden", "decline"); } },
+    { id: "reanalyse", major: 5, side: "left", waits: true,
+      title: "Make the AI do the sums again",
+      body: "Your decision does not quietly disappear into a log. Re-analyse, and the AI re-values everything with Halden out: the revenue at risk, the tier-A exposure, the penalties, the lines it thought it could fill from stock, and the size of the expedite it assigned to supply planning.",
+      target: function () { return $("#rw-rerun"); }, avoid: function () { return $("#rw-band"); },
+      auto: reanalyse },
     { id: "to-aidp-2", major: 6, side: "bottom",
-      title: "Back to the answer",
-      body: "The band moved: resolved 93.2 % to 93.7 %, and one duplicate pair disappeared with the match it depended on. The answer moved with it — go back to the Agent Hub.",
+      title: "Back to the finding",
+      body: "Revenue at risk is down to USD 3.77 M and one of the nine tier-A accounts has dropped off. Your account owners still need something they can open on Thursday — go back to the Agent Hub.",
       target: function () { return $('.ws-tab[data-go="aidp"]'); },
       avoid: function () { return $("#rw-band"); },
       auto: function () { setApp("aidp"); tour.after("to-aidp-2"); } },
+    { id: "create-dash", major: 6, side: "right", dock: "right", waits: true,
+      title: "Give the team a dashboard",
+      body: "Rather than export the table, have the AI build the dashboard out of what it just found — the same numbers, the same definitions, so nobody has a private copy that drifts.",
+      target: function () { return $("#create-dash"); }, anchor: function () { return $(".ans-acts"); },
+      avoid: function () { return $(".an-cols"); },
+      auto: function () { createDashboard(); } },
     { id: "viewas", major: 6, side: "left",
-      title: "Now ask it as someone else",
-      body: "Eleven rows now — the two Orion records stand apart. Governance is not a property of this screen: pick Marcus Bell, a regional analyst, and the same question re-runs under his row policy and column masking, enforced in the database.",
+      title: "See it as your regional analyst sees it",
+      body: "Before you send it anywhere, look at it as Marcus Bell does. Pick him: the dashboard rebuilds for North America only, his contacts and credit limits come back masked and the penalty terms are not there at all — decided in the database, not on this page.",
       target: function () { return $('#wb-menu [data-role="ANALYST_NA"]'); }, anchor: function () { return $("#wb-menu"); },
-      before: function () { if (S.wbPanel !== "conversation") { S.qid = "q1"; S.wbPanel = "conversation"; S.panel = null; renderWb(); } openMenu(true); },
+      before: function () { if (S.wbPanel !== "insights") { S.wbPanel = "insights"; renderWb(); } openMenu(true); },
       auto: function () { openMenu(false); setRole("ANALYST_NA"); } },
-    { id: "publish", major: 6, side: "top",
-      title: "Hand the answer on",
-      body: "Four rows, limited to North America, with the bank and tax columns masked — the trace shows the row policy and the masking that produced them. Publish the question as a certified view so the next person reuses the definition, not a spreadsheet.",
-      target: function () { return $("[data-publish]"); },
-      auto: publish }
+    { id: "share", major: 6, side: "top",
+      title: "Hand it to the commercial team",
+      body: "Share it. Everyone opens the same dashboard and each of them sees their own rows — the work is handed on without a spreadsheet leaving the building.",
+      target: function () { return $("#share-dash"); }, anchor: function () { return $(".gd-head"); },
+      auto: share }
   ];
   var MAJORS = 6;
 
@@ -1499,6 +1697,7 @@
       $("#tour-progress").innerHTML = bars;
       $("#tour-next").hidden = !st.passive; $("#tour-skip").hidden = !!st.passive;
       this.el.hidden = false; this.el.dataset.side = st.side;
+      document.body.classList.toggle("tour-gutter", !!st.dock);
       try { t.scrollIntoView({ block: "nearest", behavior: "smooth", inline: "nearest" }); } catch (e) {}
       this.reposition();
       setTimeout(function () { self.reposition(); }, 320);
@@ -1507,8 +1706,7 @@
     after: function (id) { if (!this.active || !id) return; if (STEPS[this.i] && STEPS[this.i].id === id) this.next(); },
     next: function () {
       if (!this.active) return;
-      var cur = STEPS[this.i] && STEPS[this.i].id;
-      if ((cur === "runnow" || cur === "rerun") && S.busy) {
+      if (STEPS[this.i] && STEPS[this.i].waits && S.busy) {
         this.el.hidden = true;
         if (this.target) { this.target.classList.remove("tour-target"); this.target = null; }
         return;
@@ -1524,16 +1722,20 @@
       if (this.target) this.target.classList.remove("tour-target");
       this.target = null;
       document.body.classList.remove("tour-on");
+      document.body.classList.remove("tour-gutter");
       $("#tour-pill").hidden = true; $("#tour-toggle").textContent = "Restart walkthrough";
     },
     finish: function () {
       this.exit();
-      var g = $("#gate"), a = ans();
-      $("#gate-title").textContent = "That is the whole loop";
-      $("#gate-body").innerHTML = "Five systems joined into one governed model in a single run; the gain read off the model's own health band; a plain-English question answered across three ERPs with the source of every row on the row; one figure followed back to the two records behind it; a wrong match overruled by a steward, logged with a rule and re-resolved so the band, the duplicate list and the answers all moved together; and the same question re-run under a second role, limited and masked by the database itself. " +
-        "<b>The demo gates mappings, never answers</b> — the human decision sits on the lakehouse mapping tables, and no answer waits for approval." +
-        "<ol><li>Rebuild the cross-system model in Data Studio</li><li>Read what the model made visible, before and after</li><li>Ask across systems in the Agent Hub</li><li>Trace the answer and explore a row back to its sources</li><li>Reject a wrong match and re-run the resolution</li><li>Prove the governance for a second role and publish the answer</li></ol>" +
-        '<div class="hints"><b>Still open for you:</b> the other nine saved questions — the consolidated P&amp;L drills to the local accounts behind each figure, the duplicate pairs open both documents, and <b>question 10 is refused outright</b> for the regional analyst by SQL Firewall; Insights holds three dashboards on the same certified views; Master catalog holds the auto-populated column metadata and, from any view chip on an answer, its cross-system lineage down to the column; Auto-populate catalog holds the accept-or-reject queue the metadata came through; Sessions holds the audit log, blocked attempts included; and in Mapping review the twenty-four remaining proposals, the two account mappings and the decisions log are all live.</div>';
+      var g = $("#gate"), an = analysis();
+      $("#gate-title").textContent = "That is the loop";
+      $("#gate-body").innerHTML =
+        "<b>What the AI did:</b> read every open order line in three order books and put them on one list; worked out which customer and which part each line was, across five systems; gave all " + an.headline.lines +
+        " lines a cause, including the 40 whose parts were sitting in a plant nobody was looking at; priced the exposure out of the customers' own contract clauses; ranked your accounts by what was at stake; proposed four actions and assigned each one as a task; re-valued everything the moment you overruled it; and built the dashboard." +
+        "<b> What you decided:</b> that Halden Tooling was not at risk, because you had spoken to them — and that is the one thing no system knew. " +
+        "Nothing was written back to any order system: the AI proposes and it recommends, people decide and people act." +
+        "<ol><li>See the five systems that feed one place</li><li>Ask what is at risk this week</li><li>Read what the AI found, and why</li><li>Check one finding against the source rows</li><li>Overrule it and watch the numbers move</li><li>Hand the team a dashboard that obeys who is looking</li></ol>" +
+        '<div class="hints"><b>Still open for you:</b> the other nine saved questions — and <b>question 10 is refused outright</b> for the regional analyst, allow-list and all; in <b>Decisions</b>, the customer matches and item cross-references the AI could not settle are waiting for Priya, and the decisions log keeps every one with its reason; in the <b>Agent Hub</b>, Insights holds the generated dashboard next to the two standing ones, Master catalog holds the column metadata, and any view chip on the analysis opens where that number comes from, down to the column; and in <b>Data Studio</b> the catalog lists all ' + D.views.length + " certified views the answers read.</div>";
       $("#gate-start").textContent = "Replay the walkthrough"; $("#gate-free").textContent = "Keep exploring";
       $("#gate-start").onclick = function () { location.href = location.pathname; };
       $("#gate-free").onclick = function () { g.hidden = true; };
@@ -1548,6 +1750,16 @@
       }
       var anchor = (st.anchor && st.anchor()) || this.target;
       var r = anchor.getBoundingClientRect(), w = 306, h = this.el.offsetHeight || 160, gap = 14, s = st.side, top, left;
+
+      /* docked steps live in the gutter the page reserves while the tour runs,
+         so the card never lands on the analysis it is describing */
+      if (st.dock === "right") {
+        left = innerWidth - w - 12;
+        top = Math.max(8, Math.min(innerHeight - h - 8, r.top - 8));
+        this.el.style.top = top + "px"; this.el.style.left = left + "px"; this.el.dataset.side = "left";
+        return;
+      }
+
       var fits = { right: r.right + gap + w < innerWidth, left: r.left - gap - w > 0, bottom: r.bottom + gap + h < innerHeight, top: r.top - gap - h > 0 };
       if (!fits[s]) s = ["bottom", "top", "right", "left"].filter(function (k) { return fits[k]; })[0] || "bottom";
       if (s === "right") { left = r.right + gap; top = r.top - 8; }
@@ -1557,10 +1769,7 @@
       top = Math.max(8, Math.min(innerHeight - h - 8, top));
       left = Math.max(8, Math.min(innerWidth - w - 8, left));
 
-      /* Never cover the element the step's copy is talking about. Each step may
-         name an `avoid` element (the health band, the answer grid, the chips
-         row); if the card would land on top of it, move the card to the first
-         side of that element where the whole card still fits on screen. */
+      /* Never cover the element the step's copy is talking about. */
       var keep = st.avoid && st.avoid();
       if (keep && document.body.contains(keep)) {
         var kr = keep.getBoundingClientRect();
@@ -1599,7 +1808,7 @@
   document.addEventListener("click", function (e) {
     if (!tour.active || !tour.target) return;
     if (e.target.closest("#tour, #tour-toggle, #gate")) return;
-    var el = e.target.closest("button, a, input, select, textarea, label, [role=menuitem], .prop-head, .hub-chip, .ds-row, .tile");
+    var el = e.target.closest("button, a, input, select, textarea, label, [role=menuitem], .prop-head, .rec-head, .hub-chip, .ds-row, .tile, .src");
     if (STEPS[tour.i] && STEPS[tour.i].passive) { e.preventDefault(); e.stopPropagation(); if (el) tour.nudge(); return; }
     if (!el) return;
     if (tour.target.contains(el) || el.contains(tour.target)) return;
@@ -1620,35 +1829,27 @@
   /* boot                                                                  */
   /* ===================================================================== */
   function prime(name) {
-    if (!name || name === "start") { S.state = D.initialState(); return; }
+    if (!name || name === "start") { S.state = D.initialState(); S.log = []; S.pending = []; return; }
     S.state = D.stateFor(name);
-    S.refreshedNow = true; S.lastRun = "09:44";
-    if (name === "fixed" || name === "final") {
-      var d = D.orionDecision;
-      S.log.unshift({ id: "D-0004", at: d.at, by: d.by, role: "STEWARD", title: d.title, action: d.action, reason: d.reason, rule: d.rule });
+    if (name === "decided" || name === "final") {
+      var d = D.haldenDecision;
+      S.log = [{ at: d.at, by: d.by, role: "COMMERCIAL_OPS", title: "Halden Tooling Group · expedite declined", action: "decline", reason: d.reason, rule: "Accepted re-promise dates are not at risk" }];
     }
+    if (name === "final") S.shared = false;
   }
-  $("#ws-ctx").textContent = D.world.period.label + " close · " + D.world.todayLabel + " " + D.world.nowLabel;
+  $("#ws-ctx").textContent = D.world.period.label + " · " + D.world.todayLabel + " " + D.world.nowLabel;
 
   var wantState = params.get("state");
   var wantApp = params.get("app");
   var wantPanel = params.get("panel");
   var wantQ = params.get("q");
 
-  if (params.get("ui") === "clean") { $("#tour-toggle").hidden = true; $("#tour-pill").hidden = true; }
+  if (params.get("ui") === "clean") { $("#tour-toggle").hidden = true; $("#tour-pill").hidden = true; document.body.classList.add("ui-clean"); }
   if (params.get("role") === "analyst") S.role = "ANALYST_NA";
-  if (wantQ) { S.qid = "q" + wantQ; S.wbPanel = "conversation"; }
-  if (wantPanel) {
-    if (["trace", "explore", "code", "explain"].indexOf(wantPanel) >= 0) { S.panel = wantPanel; if (!S.qid) { S.qid = "q1"; S.wbPanel = "conversation"; } }
-    else if (["catalog", "feeds", "analysis"].indexOf(wantPanel) >= 0) S.dsScreen = wantPanel;
-    else if (["home", "insights", "sessions", "conversation", "apc", "lineage"].indexOf(wantPanel) >= 0) S.wbPanel = wantPanel;
-    else if (wantPanel === "mcatalog") S.wbPanel = "catalog";
-    else if (["matches", "accounts", "decisions"].indexOf(wantPanel) >= 0) S.rwTab = wantPanel;
-  }
 
   if (params.get("tour") === "off") {
     $("#gate").hidden = true;
-    prime(wantState || "refreshed");
+    prime(wantState || "analysed");
     tour.exit();
     $("#tour-toggle").textContent = "Restart walkthrough";
   } else {
@@ -1657,31 +1858,56 @@
     $("#gate-start").addEventListener("click", function () { $("#gate").hidden = true; tour.start(); });
     $("#gate-free").addEventListener("click", function () {
       $("#gate").hidden = true; tour.exit();
-      if (!S.state.refreshed) { prime("refreshed"); }
+      if (!S.state.analysed) prime("analysed");
       renderDs(); renderWb(); renderRw();
     });
   }
+
+  if (wantQ) {
+    S.qid = "q" + wantQ;
+    S.app = "aidp";
+    if (wantQ === "1") { if (!S.state.analysed) prime("analysed"); S.wbPanel = "analysis"; }
+    else S.wbPanel = "conversation";
+  }
+  if (wantPanel) {
+    if (["evidence", "trace", "explain"].indexOf(wantPanel) >= 0) {
+      S.panel = wantPanel;
+      if (S.wbPanel !== "conversation") { if (!S.state.analysed) prime("analysed"); S.wbPanel = "analysis"; }
+      S.app = wantApp || "aidp";
+    } else if (wantPanel === "analysis") { if (!S.state.analysed) prime("analysed"); S.wbPanel = "analysis"; S.app = wantApp || "aidp"; }
+    else if (wantPanel === "dashboard") {
+      if (!S.state.analysed) prime("analysed");
+      S.state = { analysed: true, decisions: S.state.decisions, dashboard: true };
+      S.wbPanel = "insights"; S.app = wantApp || "aidp";
+    } else if (["catalog", "feeds"].indexOf(wantPanel) >= 0) { S.dsScreen = wantPanel; S.app = wantApp || "lakehouse"; }
+    else if (wantPanel === "analysis-ds") { S.dsScreen = "analysis"; S.app = wantApp || "lakehouse"; }
+    else if (["home", "insights", "sessions", "apc", "lineage"].indexOf(wantPanel) >= 0) { S.wbPanel = wantPanel; S.app = wantApp || "aidp"; }
+    else if (wantPanel === "mcatalog") { S.wbPanel = "catalog"; S.app = wantApp || "aidp"; }
+    else if (["recommendations", "matches", "xrefs", "decisions"].indexOf(wantPanel) >= 0) { S.rwTab = wantPanel; S.app = wantApp || "review"; }
+  }
   if (wantApp) S.app = wantApp;
-  else if (tour.active === false && params.get("tour") === "off") S.app = S.wbPanel === "conversation" ? "aidp" : "lakehouse";
 
   renderDs(); renderWb(); renderRw();
   setApp(S.app);
 
   window.DEMO = {
     state: S, data: D, tour: tour,
-    setApp: setApp, setRole: setRole, ask: ask, publish: publish,
-    openPanel: function (p) { S.panel = p; renderWb(); },
-    explore: function (key) { S.exploreKey = key; S.panel = "explore"; renderWb(); },
+    setApp: setApp, setRole: setRole, ask: ask, share: share,
+    runAnalysis: runAnalysis, createDashboard: createDashboard,
+    openEvidence: function (id) { setApp("aidp"); openEvidence(id); },
+    openPanel: function (p) { S.panel = p || null; if (S.wbPanel !== "conversation") S.wbPanel = "analysis"; renderWb(); },
     setDsScreen: function (s) { S.dsScreen = s; renderDs(); },
-    setWbPanel: function (p) { S.wbPanel = p; renderWb(); },
+    setWbPanel: function (p) { S.wbPanel = p; S.panel = null; renderWb(); },
+    setRwTab: function (t) { S.rwTab = t; renderRwTabs(); renderRwPanel(); },
+    openRec: function (id) { S.openRec = id; renderRwPanel(); },
+    decide: decideRec, reanalyse: reanalyse, decideMatch: decideMatchUi,
     openLineage: openLineage,
     lineageColumn: function (c) { S.linCol = c; openContributors(); renderWb(); },
     lineageDetail: function (id, tab) { S.linDetail = id; S.linTab = tab || "details"; renderWb(); },
     setCatalogEntity: function (id) { S.mcEntity = id; S.wbPanel = "catalog"; renderWb(); },
-    setRwTab: function (t) { S.rwTab = t; renderRwTabs(); renderRwPanel(); },
-    openProposal: function (id) { S.openProp = id; renderRwPanel(); },
-    runRefresh: runRefresh, decide: decide, rerun: rerun,
-    prime: function (n) { prime(n); renderDs(); renderWb(); renderRw(); },
-    kpis: kpis, answer: ans, toast: toast
+    prime: function (n) { prime(n); S.movedBand = []; renderDs(); renderWb(); renderRw(); },
+    analysis: analysis, evidence: function (id) { return D.evidence(id, S.role, decisions()); },
+    dashboard: function () { return D.dashboard(S.role, decisions()); },
+    answer: ans, toast: toast
   };
 })();
