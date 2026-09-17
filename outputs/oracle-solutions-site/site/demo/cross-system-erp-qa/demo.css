@@ -665,15 +665,10 @@ tr.tour-target { box-shadow: none !important; animation: none; }
 .ws-tabs .ws-tab.tour-target { box-shadow: inset 0 0 0 2px var(--red) !important; border-radius: 0; animation: none; }
 
 /* model output summary under the feed card */
-.out { margin: 0 20px 18px; background: var(--ds-surface); border: 1px solid var(--ds-line); border-radius: 4px; }
-.out-head { display: flex; align-items: center; gap: 10px; padding: 11px 16px; border-bottom: 1px solid var(--ds-line); font-size: 13px; }
-.out-head b { font-weight: 600; }
-.out-head span { color: var(--ds-txt-2); font-size: 12px; }
-.out-grid { display: grid; grid-template-columns: repeat(3, 1fr); }
-.out-grid > div { padding: 8px 16px; border-right: 1px solid var(--ds-line); border-bottom: 1px solid #f1efec; min-width: 0; height: 66px; overflow: hidden; }
-.out-grid > div:nth-child(3n) { border-right: 0; }
-.out-grid .vn { font-size: 12px; font-weight: 600; color: var(--ds-link); font-family: var(--mono); }
-.out-grid .vd { font-size: 11.5px; color: var(--ds-txt-2); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.out { margin: 0 20px 18px; }
+.out .ds-list { max-height: 268px; }
+.out-cap { font-size: 12.5px; color: var(--ds-txt-2); padding: 0 0 6px; }
+.out-cap b { color: var(--ds-txt); font-weight: 600; }
 
 /* Insights: a status list where bars would compare unlike units */
 .statlist { display: grid; gap: 7px; margin-top: 4px; }
@@ -1015,33 +1010,17 @@ body.ui-clean .lin { inset: 44px 0 0 0; }
 
 /* ---------- Data Studio · Live Feed: the five integrated sources -------- */
 .srcs { margin: 0 20px 18px; }
-.srcs-head { display: flex; align-items: baseline; gap: 12px; margin-bottom: 10px; flex-wrap: wrap; }
-.srcs-head h2 { font-size: 15px; font-weight: 600; }
-.srcs-head span { font-size: 12px; color: var(--ds-txt-2); }
+.srcs-head { margin-bottom: 10px; }
+.srcs-head h2 { font-size: 20px; font-weight: 400; }
+.srcs-head span { display: block; font-size: 12.5px; color: var(--ds-txt-2); margin-top: 2px; }
 .src-cards { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; }
-.src { background: var(--ds-surface); border: 1px solid var(--ds-line); border-radius: 5px; padding: 11px 12px 12px; min-width: 0; display: flex; flex-direction: column; gap: 5px; text-align: left; }
-.src-top { display: flex; align-items: center; gap: 7px; }
-.src-dot { width: 9px; height: 9px; border-radius: 2px; flex: none; }
-.src-dot--FUSION { background: #c98a3c; }
-.src-dot--JDE { background: #2d7f9b; }
-.src-dot--NETSUITE { background: #6a9330; }
-.src-dot--DLV { background: #7a67ab; }
-.src-dot--CRM { background: #a8578a; }
-.src-kind { font-size: 9.5px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--ds-txt-2); }
-.src .fr { margin-left: auto; font-size: 10.5px; color: var(--ds-olive); background: var(--ds-olive-bg); border-radius: 999px; padding: 1px 8px; white-space: nowrap; }
-.src h3 { font-size: 14px; font-weight: 700; }
-.src-sys { font-size: 11px; color: var(--ds-txt-2); }
-.src-apps { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 1px; }
-.src-app { font-size: 10px; font-weight: 600; color: var(--ds-pill); background: #e6eff4; border: 1px solid #c3dae4; border-radius: 3px; padding: 1px 6px; }
-.src-what { font-size: 11.5px; color: var(--ds-txt); line-height: 1.4; }
-.src-feed { display: flex; align-items: flex-start; gap: 6px; font-size: 11px; color: var(--ds-txt-2); margin-top: auto; padding-top: 4px; }
-.src-feed svg { width: 12px; height: 12px; margin-top: 1px; }
-.src-objs { display: flex; flex-wrap: wrap; gap: 3px; border-top: 1px solid #f0eeea; padding-top: 6px; }
-.src-objs code { font-family: var(--mono); font-size: 9.5px; color: #55504a; background: #f3f1ee; border-radius: 2px; padding: 1px 4px; }
-.src-objs .more { font-size: 9.5px; color: #8b857d; padding: 1px 2px; }
-.ds-head { padding: 14px 20px 10px; }
-.ds-head h1 { font-size: 20px; display: inline; }
-.ds-head span { font-size: 12.5px; color: var(--ds-txt-2); margin-left: 10px; }
+.src { background: var(--ds-surface); border: 1px solid var(--ds-line); border-radius: 4px; padding: 14px 14px 13px; min-width: 0; display: flex; flex-direction: column; gap: 4px; text-align: left; }
+.src-ico { width: 26px; height: 26px; color: #5a5754; margin-bottom: 4px; }
+.src-ico svg { width: 26px; height: 26px; stroke-width: 1.2; }
+.src h3 { font-size: 17px; font-weight: 400; line-height: 1.25; }
+.src-sys { font-size: 12px; color: var(--ds-txt-2); }
+.src-what { font-size: 12px; color: var(--ds-txt-2); line-height: 1.4; }
+.src-feed { font-size: 11.5px; color: #8b857d; margin-top: auto; padding-top: 8px; line-height: 1.4; }
 
 /* ---------- Agent Hub · the multi-agent run card ------------------------ */
 .runcard { background: #fff; border: 1px solid #ddd9d3; border-radius: 8px; box-shadow: var(--shadow); margin: 10px 0 4px; max-width: 640px; padding: 12px 0 0; }
@@ -1208,16 +1187,15 @@ body.tour-gutter .conv--an { padding-right: 324px; }
 
 /* the five source cards compress rather than push the step-1 hint off screen */
 @media (max-width: 1340px) {
-  .src { gap: 4px; padding: 9px 10px 10px; }
-  .src h3 { font-size: 13px; }
-  .src-what { font-size: 11px; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
-  .src-objs { max-height: 17px; overflow: hidden; }
+  .src { gap: 3px; padding: 11px 11px 11px; }
+  .src h3 { font-size: 15px; }
+  .src-ico, .src-ico svg { width: 22px; height: 22px; }
+  .src-what { font-size: 11.5px; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
   .srcs-head span { display: none; }
 }
 @media (max-width: 1120px) {
   .src-cards { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .src-what { -webkit-line-clamp: 2; }
-  .src-apps { display: none; }
   .src-sys { display: none; }
 }
 
@@ -1248,17 +1226,12 @@ body.tour-gutter .conv--an { padding-right: 324px; }
    source does is allowed to run out after two whole lines; the feed line, the
    name and the freshness pill never are. */
 @media (max-width: 1120px) {
-  .src { height: 160px; overflow: hidden; }
-  .src-feed { padding-top: 2px; flex: none; }
-  .src-objs { max-height: 15px; }
-}
-@media (max-width: 1120px) {
-  .src-objs { display: none; }
-  .src-top, .src h3 { flex: none; }
-  .src-what { flex: none; max-height: 30.8px; position: relative; }
+  .src { height: 152px; overflow: hidden; }
+  .src-ico, .src h3 { flex: none; }
+  .src-feed { padding-top: 4px; flex: none; }
+  .src-what { flex: none; max-height: 32.2px; position: relative; }
   /* two whole lines, and the second fades into the card where there is more to
      read — a fade over the card colour is invisible on a line that ends early */
-  .src-what::after { content: ""; position: absolute; right: 0; bottom: 0; width: 42px; height: 15.4px;
+  .src-what::after { content: ""; position: absolute; right: 0; bottom: 0; width: 42px; height: 16.1px;
     background: linear-gradient(90deg, rgba(255, 255, 255, 0), var(--ds-surface) 72%); }
-  .src-kind { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 }
