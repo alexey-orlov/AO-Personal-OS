@@ -66,7 +66,7 @@
   "eval": "(function(){var d=document.documentElement;if(d.scrollWidth>d.clientWidth+1)throw new Error('horizontal page scroll: '+d.scrollWidth+' > '+d.clientWidth);var bands=[].slice.call(document.querySelectorAll('.band-tiles')).filter(function(b){return b.offsetParent!==null;});bands.forEach(function(b){var t=b.querySelectorAll('.tile');if(t.length!==6)throw new Error('band has '+t.length+' tiles');if(t[0].getBoundingClientRect().height<60)throw new Error('band tile collapsed');if(d.clientWidth>=1240&&t[0].getBoundingClientRect().top<t[5].getBoundingClientRect().top-2)throw new Error('band tiles wrapped at '+d.clientWidth);for(var i=0;i<t.length;i++){var n=t[i].querySelector('.note');if(n&&n.scrollHeight>n.clientHeight+2)throw new Error('band tile note clipped: tile '+(i+1)+' '+n.scrollHeight+'>'+n.clientHeight);}});var a=document.querySelector('.ws-tab.is-active');if(!a)throw new Error('no active switcher tab');if(window.DEMO&&window.DEMO.tour&&window.DEMO.tour.avoidHit&&window.DEMO.tour.avoidHit())throw new Error('the step callout covers the element its copy names');var g=document.querySelector('.an-box--wide .ans-grid');if(g&&g.offsetParent!==null){if(g.scrollWidth>g.clientWidth+1)throw new Error('ranked accounts table scrolls sideways: '+g.scrollWidth+' > '+g.clientWidth);var gr=g.getBoundingClientRect(),th=g.querySelector('thead'),hh=th?th.getBoundingClientRect().height:0,n=0;[].forEach.call(g.querySelectorAll('tbody tr'),function(tr){var r=tr.getBoundingClientRect();if(r.bottom<=gr.bottom+0.5&&r.top>=gr.top+hh-0.5)n++;});var need=Math.min(g.querySelectorAll('tbody tr').length,d.clientHeight>=790?6:4);if(n<need)throw new Error('ranked accounts shows only '+n+' rows before it scrolls, needed '+need);}var rc=document.querySelector('#runcard');if(rc&&rc.scrollWidth>rc.clientWidth+1)throw new Error('run card scrolls sideways');var gd=document.querySelector('#gen-dash');if(gd&&gd.offsetParent!==null){var tl=gd.querySelectorAll('.gd-tile');if(tl.length!==4)throw new Error('dashboard has '+tl.length+' tiles');var ch=gd.querySelectorAll('.gd-chart');if(ch.length<4)throw new Error('dashboard has '+ch.length+' charts');}var wa=[].slice.call(document.querySelectorAll('.wb-tbl, .rtbl, .dgrid')).filter(function(x){return x.offsetParent!==null;});wa.forEach(function(x){var pr=x.parentNode;if(getComputedStyle(pr).overflowX==='auto'||getComputedStyle(pr).overflowX==='scroll')return;if(x.scrollWidth>pr.clientWidth+12)throw new Error('a table overflows its container: '+x.className);});return true;})()"
  },
  {
-  "sleep": 2400
+  "sleep": 3000
  },
  {
   "shot": "03-analysis"
@@ -87,7 +87,7 @@
   "eval": "(function(){var d=document.documentElement;if(d.scrollWidth>d.clientWidth+1)throw new Error('horizontal page scroll: '+d.scrollWidth+' > '+d.clientWidth);var bands=[].slice.call(document.querySelectorAll('.band-tiles')).filter(function(b){return b.offsetParent!==null;});bands.forEach(function(b){var t=b.querySelectorAll('.tile');if(t.length!==6)throw new Error('band has '+t.length+' tiles');if(t[0].getBoundingClientRect().height<60)throw new Error('band tile collapsed');if(d.clientWidth>=1240&&t[0].getBoundingClientRect().top<t[5].getBoundingClientRect().top-2)throw new Error('band tiles wrapped at '+d.clientWidth);for(var i=0;i<t.length;i++){var n=t[i].querySelector('.note');if(n&&n.scrollHeight>n.clientHeight+2)throw new Error('band tile note clipped: tile '+(i+1)+' '+n.scrollHeight+'>'+n.clientHeight);}});var a=document.querySelector('.ws-tab.is-active');if(!a)throw new Error('no active switcher tab');if(window.DEMO&&window.DEMO.tour&&window.DEMO.tour.avoidHit&&window.DEMO.tour.avoidHit())throw new Error('the step callout covers the element its copy names');var g=document.querySelector('.an-box--wide .ans-grid');if(g&&g.offsetParent!==null){if(g.scrollWidth>g.clientWidth+1)throw new Error('ranked accounts table scrolls sideways: '+g.scrollWidth+' > '+g.clientWidth);var gr=g.getBoundingClientRect(),th=g.querySelector('thead'),hh=th?th.getBoundingClientRect().height:0,n=0;[].forEach.call(g.querySelectorAll('tbody tr'),function(tr){var r=tr.getBoundingClientRect();if(r.bottom<=gr.bottom+0.5&&r.top>=gr.top+hh-0.5)n++;});var need=Math.min(g.querySelectorAll('tbody tr').length,d.clientHeight>=790?6:4);if(n<need)throw new Error('ranked accounts shows only '+n+' rows before it scrolls, needed '+need);}var rc=document.querySelector('#runcard');if(rc&&rc.scrollWidth>rc.clientWidth+1)throw new Error('run card scrolls sideways');var gd=document.querySelector('#gen-dash');if(gd&&gd.offsetParent!==null){var tl=gd.querySelectorAll('.gd-tile');if(tl.length!==4)throw new Error('dashboard has '+tl.length+' tiles');var ch=gd.querySelectorAll('.gd-chart');if(ch.length<4)throw new Error('dashboard has '+ch.length+' charts');}var wa=[].slice.call(document.querySelectorAll('.wb-tbl, .rtbl, .dgrid')).filter(function(x){return x.offsetParent!==null;});wa.forEach(function(x){var pr=x.parentNode;if(getComputedStyle(pr).overflowX==='auto'||getComputedStyle(pr).overflowX==='scroll')return;if(x.scrollWidth>pr.clientWidth+12)throw new Error('a table overflows its container: '+x.className);});return true;})()"
  },
  {
-  "click": "[data-ev=\"halden\"]"
+  "eval": "(function(){var s='[data-ev=\"'+window.DEMO.data.haldenDecision.accountId+'\"]';var el=document.querySelector(s);if(!el)throw new Error('no element '+s);el.click();return true;})()"
  },
  {
   "sleep": 900
@@ -99,16 +99,28 @@
   "eval": "(function(){var d=document.documentElement;if(d.scrollWidth>d.clientWidth+1)throw new Error('horizontal page scroll: '+d.scrollWidth+' > '+d.clientWidth);var bands=[].slice.call(document.querySelectorAll('.band-tiles')).filter(function(b){return b.offsetParent!==null;});bands.forEach(function(b){var t=b.querySelectorAll('.tile');if(t.length!==6)throw new Error('band has '+t.length+' tiles');if(t[0].getBoundingClientRect().height<60)throw new Error('band tile collapsed');if(d.clientWidth>=1240&&t[0].getBoundingClientRect().top<t[5].getBoundingClientRect().top-2)throw new Error('band tiles wrapped at '+d.clientWidth);for(var i=0;i<t.length;i++){var n=t[i].querySelector('.note');if(n&&n.scrollHeight>n.clientHeight+2)throw new Error('band tile note clipped: tile '+(i+1)+' '+n.scrollHeight+'>'+n.clientHeight);}});var a=document.querySelector('.ws-tab.is-active');if(!a)throw new Error('no active switcher tab');if(window.DEMO&&window.DEMO.tour&&window.DEMO.tour.avoidHit&&window.DEMO.tour.avoidHit())throw new Error('the step callout covers the element its copy names');var g=document.querySelector('.an-box--wide .ans-grid');if(g&&g.offsetParent!==null){if(g.scrollWidth>g.clientWidth+1)throw new Error('ranked accounts table scrolls sideways: '+g.scrollWidth+' > '+g.clientWidth);var gr=g.getBoundingClientRect(),th=g.querySelector('thead'),hh=th?th.getBoundingClientRect().height:0,n=0;[].forEach.call(g.querySelectorAll('tbody tr'),function(tr){var r=tr.getBoundingClientRect();if(r.bottom<=gr.bottom+0.5&&r.top>=gr.top+hh-0.5)n++;});var need=Math.min(g.querySelectorAll('tbody tr').length,d.clientHeight>=790?6:4);if(n<need)throw new Error('ranked accounts shows only '+n+' rows before it scrolls, needed '+need);}var rc=document.querySelector('#runcard');if(rc&&rc.scrollWidth>rc.clientWidth+1)throw new Error('run card scrolls sideways');var gd=document.querySelector('#gen-dash');if(gd&&gd.offsetParent!==null){var tl=gd.querySelectorAll('.gd-tile');if(tl.length!==4)throw new Error('dashboard has '+tl.length+' tiles');var ch=gd.querySelectorAll('.gd-chart');if(ch.length<4)throw new Error('dashboard has '+ch.length+' charts');}var wa=[].slice.call(document.querySelectorAll('.wb-tbl, .rtbl, .dgrid')).filter(function(x){return x.offsetParent!==null;});wa.forEach(function(x){var pr=x.parentNode;if(getComputedStyle(pr).overflowX==='auto'||getComputedStyle(pr).overflowX==='scroll')return;if(x.scrollWidth>pr.clientWidth+12)throw new Error('a table overflows its container: '+x.className);});return true;})()"
  },
  {
-  "sleep": 400
+  "sleep": 300
  },
  {
   "eval": "document.querySelector('#ans-panel').scrollIntoView({block:'start'}); true"
  },
  {
-  "sleep": 500
+  "sleep": 600
  },
  {
-  "shot": "04b2-evidence-contract"
+  "shot": "04b2-evidence-stock"
+ },
+ {
+  "eval": "(function(){var d=document.documentElement;if(d.scrollWidth>d.clientWidth+1)throw new Error('horizontal page scroll: '+d.scrollWidth+' > '+d.clientWidth);var bands=[].slice.call(document.querySelectorAll('.band-tiles')).filter(function(b){return b.offsetParent!==null;});bands.forEach(function(b){var t=b.querySelectorAll('.tile');if(t.length!==6)throw new Error('band has '+t.length+' tiles');if(t[0].getBoundingClientRect().height<60)throw new Error('band tile collapsed');if(d.clientWidth>=1240&&t[0].getBoundingClientRect().top<t[5].getBoundingClientRect().top-2)throw new Error('band tiles wrapped at '+d.clientWidth);for(var i=0;i<t.length;i++){var n=t[i].querySelector('.note');if(n&&n.scrollHeight>n.clientHeight+2)throw new Error('band tile note clipped: tile '+(i+1)+' '+n.scrollHeight+'>'+n.clientHeight);}});var a=document.querySelector('.ws-tab.is-active');if(!a)throw new Error('no active switcher tab');if(window.DEMO&&window.DEMO.tour&&window.DEMO.tour.avoidHit&&window.DEMO.tour.avoidHit())throw new Error('the step callout covers the element its copy names');var g=document.querySelector('.an-box--wide .ans-grid');if(g&&g.offsetParent!==null){if(g.scrollWidth>g.clientWidth+1)throw new Error('ranked accounts table scrolls sideways: '+g.scrollWidth+' > '+g.clientWidth);var gr=g.getBoundingClientRect(),th=g.querySelector('thead'),hh=th?th.getBoundingClientRect().height:0,n=0;[].forEach.call(g.querySelectorAll('tbody tr'),function(tr){var r=tr.getBoundingClientRect();if(r.bottom<=gr.bottom+0.5&&r.top>=gr.top+hh-0.5)n++;});var need=Math.min(g.querySelectorAll('tbody tr').length,d.clientHeight>=790?6:4);if(n<need)throw new Error('ranked accounts shows only '+n+' rows before it scrolls, needed '+need);}var rc=document.querySelector('#runcard');if(rc&&rc.scrollWidth>rc.clientWidth+1)throw new Error('run card scrolls sideways');var gd=document.querySelector('#gen-dash');if(gd&&gd.offsetParent!==null){var tl=gd.querySelectorAll('.gd-tile');if(tl.length!==4)throw new Error('dashboard has '+tl.length+' tiles');var ch=gd.querySelectorAll('.gd-chart');if(ch.length<4)throw new Error('dashboard has '+ch.length+' charts');}var wa=[].slice.call(document.querySelectorAll('.wb-tbl, .rtbl, .dgrid')).filter(function(x){return x.offsetParent!==null;});wa.forEach(function(x){var pr=x.parentNode;if(getComputedStyle(pr).overflowX==='auto'||getComputedStyle(pr).overflowX==='scroll')return;if(x.scrollWidth>pr.clientWidth+12)throw new Error('a table overflows its container: '+x.className);});return true;})()"
+ },
+ {
+  "eval": "(function(){var c=document.querySelector('#ans-panel .clause'); c.scrollIntoView({block:'center'}); return true;})()"
+ },
+ {
+  "sleep": 600
+ },
+ {
+  "shot": "04b3-evidence-contract"
  },
  {
   "eval": "(function(){var d=document.documentElement;if(d.scrollWidth>d.clientWidth+1)throw new Error('horizontal page scroll: '+d.scrollWidth+' > '+d.clientWidth);var bands=[].slice.call(document.querySelectorAll('.band-tiles')).filter(function(b){return b.offsetParent!==null;});bands.forEach(function(b){var t=b.querySelectorAll('.tile');if(t.length!==6)throw new Error('band has '+t.length+' tiles');if(t[0].getBoundingClientRect().height<60)throw new Error('band tile collapsed');if(d.clientWidth>=1240&&t[0].getBoundingClientRect().top<t[5].getBoundingClientRect().top-2)throw new Error('band tiles wrapped at '+d.clientWidth);for(var i=0;i<t.length;i++){var n=t[i].querySelector('.note');if(n&&n.scrollHeight>n.clientHeight+2)throw new Error('band tile note clipped: tile '+(i+1)+' '+n.scrollHeight+'>'+n.clientHeight);}});var a=document.querySelector('.ws-tab.is-active');if(!a)throw new Error('no active switcher tab');if(window.DEMO&&window.DEMO.tour&&window.DEMO.tour.avoidHit&&window.DEMO.tour.avoidHit())throw new Error('the step callout covers the element its copy names');var g=document.querySelector('.an-box--wide .ans-grid');if(g&&g.offsetParent!==null){if(g.scrollWidth>g.clientWidth+1)throw new Error('ranked accounts table scrolls sideways: '+g.scrollWidth+' > '+g.clientWidth);var gr=g.getBoundingClientRect(),th=g.querySelector('thead'),hh=th?th.getBoundingClientRect().height:0,n=0;[].forEach.call(g.querySelectorAll('tbody tr'),function(tr){var r=tr.getBoundingClientRect();if(r.bottom<=gr.bottom+0.5&&r.top>=gr.top+hh-0.5)n++;});var need=Math.min(g.querySelectorAll('tbody tr').length,d.clientHeight>=790?6:4);if(n<need)throw new Error('ranked accounts shows only '+n+' rows before it scrolls, needed '+need);}var rc=document.querySelector('#runcard');if(rc&&rc.scrollWidth>rc.clientWidth+1)throw new Error('run card scrolls sideways');var gd=document.querySelector('#gen-dash');if(gd&&gd.offsetParent!==null){var tl=gd.querySelectorAll('.gd-tile');if(tl.length!==4)throw new Error('dashboard has '+tl.length+' tiles');var ch=gd.querySelectorAll('.gd-chart');if(ch.length<4)throw new Error('dashboard has '+ch.length+' charts');}var wa=[].slice.call(document.querySelectorAll('.wb-tbl, .rtbl, .dgrid')).filter(function(x){return x.offsetParent!==null;});wa.forEach(function(x){var pr=x.parentNode;if(getComputedStyle(pr).overflowX==='auto'||getComputedStyle(pr).overflowX==='scroll')return;if(x.scrollWidth>pr.clientWidth+12)throw new Error('a table overflows its container: '+x.className);});return true;})()"
@@ -138,7 +150,7 @@
   "eval": "(function(){var d=document.documentElement;if(d.scrollWidth>d.clientWidth+1)throw new Error('horizontal page scroll: '+d.scrollWidth+' > '+d.clientWidth);var bands=[].slice.call(document.querySelectorAll('.band-tiles')).filter(function(b){return b.offsetParent!==null;});bands.forEach(function(b){var t=b.querySelectorAll('.tile');if(t.length!==6)throw new Error('band has '+t.length+' tiles');if(t[0].getBoundingClientRect().height<60)throw new Error('band tile collapsed');if(d.clientWidth>=1240&&t[0].getBoundingClientRect().top<t[5].getBoundingClientRect().top-2)throw new Error('band tiles wrapped at '+d.clientWidth);for(var i=0;i<t.length;i++){var n=t[i].querySelector('.note');if(n&&n.scrollHeight>n.clientHeight+2)throw new Error('band tile note clipped: tile '+(i+1)+' '+n.scrollHeight+'>'+n.clientHeight);}});var a=document.querySelector('.ws-tab.is-active');if(!a)throw new Error('no active switcher tab');if(window.DEMO&&window.DEMO.tour&&window.DEMO.tour.avoidHit&&window.DEMO.tour.avoidHit())throw new Error('the step callout covers the element its copy names');var g=document.querySelector('.an-box--wide .ans-grid');if(g&&g.offsetParent!==null){if(g.scrollWidth>g.clientWidth+1)throw new Error('ranked accounts table scrolls sideways: '+g.scrollWidth+' > '+g.clientWidth);var gr=g.getBoundingClientRect(),th=g.querySelector('thead'),hh=th?th.getBoundingClientRect().height:0,n=0;[].forEach.call(g.querySelectorAll('tbody tr'),function(tr){var r=tr.getBoundingClientRect();if(r.bottom<=gr.bottom+0.5&&r.top>=gr.top+hh-0.5)n++;});var need=Math.min(g.querySelectorAll('tbody tr').length,d.clientHeight>=790?6:4);if(n<need)throw new Error('ranked accounts shows only '+n+' rows before it scrolls, needed '+need);}var rc=document.querySelector('#runcard');if(rc&&rc.scrollWidth>rc.clientWidth+1)throw new Error('run card scrolls sideways');var gd=document.querySelector('#gen-dash');if(gd&&gd.offsetParent!==null){var tl=gd.querySelectorAll('.gd-tile');if(tl.length!==4)throw new Error('dashboard has '+tl.length+' tiles');var ch=gd.querySelectorAll('.gd-chart');if(ch.length<4)throw new Error('dashboard has '+ch.length+' charts');}var wa=[].slice.call(document.querySelectorAll('.wb-tbl, .rtbl, .dgrid')).filter(function(x){return x.offsetParent!==null;});wa.forEach(function(x){var pr=x.parentNode;if(getComputedStyle(pr).overflowX==='auto'||getComputedStyle(pr).overflowX==='scroll')return;if(x.scrollWidth>pr.clientWidth+12)throw new Error('a table overflows its container: '+x.className);});return true;})()"
  },
  {
-  "click": "[data-openrec=\"A1\"]"
+  "eval": "(function(){var s='[data-openrec=\"'+window.DEMO.data.haldenDecision.actionId+'\"]';var el=document.querySelector(s);if(!el)throw new Error('no element '+s);el.click();return true;})()"
  },
  {
   "sleep": 800
@@ -150,7 +162,7 @@
   "eval": "(function(){var d=document.documentElement;if(d.scrollWidth>d.clientWidth+1)throw new Error('horizontal page scroll: '+d.scrollWidth+' > '+d.clientWidth);var bands=[].slice.call(document.querySelectorAll('.band-tiles')).filter(function(b){return b.offsetParent!==null;});bands.forEach(function(b){var t=b.querySelectorAll('.tile');if(t.length!==6)throw new Error('band has '+t.length+' tiles');if(t[0].getBoundingClientRect().height<60)throw new Error('band tile collapsed');if(d.clientWidth>=1240&&t[0].getBoundingClientRect().top<t[5].getBoundingClientRect().top-2)throw new Error('band tiles wrapped at '+d.clientWidth);for(var i=0;i<t.length;i++){var n=t[i].querySelector('.note');if(n&&n.scrollHeight>n.clientHeight+2)throw new Error('band tile note clipped: tile '+(i+1)+' '+n.scrollHeight+'>'+n.clientHeight);}});var a=document.querySelector('.ws-tab.is-active');if(!a)throw new Error('no active switcher tab');if(window.DEMO&&window.DEMO.tour&&window.DEMO.tour.avoidHit&&window.DEMO.tour.avoidHit())throw new Error('the step callout covers the element its copy names');var g=document.querySelector('.an-box--wide .ans-grid');if(g&&g.offsetParent!==null){if(g.scrollWidth>g.clientWidth+1)throw new Error('ranked accounts table scrolls sideways: '+g.scrollWidth+' > '+g.clientWidth);var gr=g.getBoundingClientRect(),th=g.querySelector('thead'),hh=th?th.getBoundingClientRect().height:0,n=0;[].forEach.call(g.querySelectorAll('tbody tr'),function(tr){var r=tr.getBoundingClientRect();if(r.bottom<=gr.bottom+0.5&&r.top>=gr.top+hh-0.5)n++;});var need=Math.min(g.querySelectorAll('tbody tr').length,d.clientHeight>=790?6:4);if(n<need)throw new Error('ranked accounts shows only '+n+' rows before it scrolls, needed '+need);}var rc=document.querySelector('#runcard');if(rc&&rc.scrollWidth>rc.clientWidth+1)throw new Error('run card scrolls sideways');var gd=document.querySelector('#gen-dash');if(gd&&gd.offsetParent!==null){var tl=gd.querySelectorAll('.gd-tile');if(tl.length!==4)throw new Error('dashboard has '+tl.length+' tiles');var ch=gd.querySelectorAll('.gd-chart');if(ch.length<4)throw new Error('dashboard has '+ch.length+' charts');}var wa=[].slice.call(document.querySelectorAll('.wb-tbl, .rtbl, .dgrid')).filter(function(x){return x.offsetParent!==null;});wa.forEach(function(x){var pr=x.parentNode;if(getComputedStyle(pr).overflowX==='auto'||getComputedStyle(pr).overflowX==='scroll')return;if(x.scrollWidth>pr.clientWidth+12)throw new Error('a table overflows its container: '+x.className);});return true;})()"
  },
  {
-  "click": "[data-rec=\"decline\"][data-acct=\"halden\"]"
+  "eval": "(function(){var s='[data-rec=\\'decline\\'][data-acct=\"'+window.DEMO.data.haldenDecision.accountId+'\"]';var el=document.querySelector(s);if(!el)throw new Error('no element '+s);el.click();return true;})()"
  },
  {
   "sleep": 900
@@ -189,7 +201,7 @@
   "click": "#create-dash"
  },
  {
-  "sleep": 1100
+  "sleep": 1200
  },
  {
   "shot": "06b-dashboard-building"
@@ -198,7 +210,7 @@
   "eval": "(function(){var d=document.documentElement;if(d.scrollWidth>d.clientWidth+1)throw new Error('horizontal page scroll: '+d.scrollWidth+' > '+d.clientWidth);var bands=[].slice.call(document.querySelectorAll('.band-tiles')).filter(function(b){return b.offsetParent!==null;});bands.forEach(function(b){var t=b.querySelectorAll('.tile');if(t.length!==6)throw new Error('band has '+t.length+' tiles');if(t[0].getBoundingClientRect().height<60)throw new Error('band tile collapsed');if(d.clientWidth>=1240&&t[0].getBoundingClientRect().top<t[5].getBoundingClientRect().top-2)throw new Error('band tiles wrapped at '+d.clientWidth);for(var i=0;i<t.length;i++){var n=t[i].querySelector('.note');if(n&&n.scrollHeight>n.clientHeight+2)throw new Error('band tile note clipped: tile '+(i+1)+' '+n.scrollHeight+'>'+n.clientHeight);}});var a=document.querySelector('.ws-tab.is-active');if(!a)throw new Error('no active switcher tab');if(window.DEMO&&window.DEMO.tour&&window.DEMO.tour.avoidHit&&window.DEMO.tour.avoidHit())throw new Error('the step callout covers the element its copy names');var g=document.querySelector('.an-box--wide .ans-grid');if(g&&g.offsetParent!==null){if(g.scrollWidth>g.clientWidth+1)throw new Error('ranked accounts table scrolls sideways: '+g.scrollWidth+' > '+g.clientWidth);var gr=g.getBoundingClientRect(),th=g.querySelector('thead'),hh=th?th.getBoundingClientRect().height:0,n=0;[].forEach.call(g.querySelectorAll('tbody tr'),function(tr){var r=tr.getBoundingClientRect();if(r.bottom<=gr.bottom+0.5&&r.top>=gr.top+hh-0.5)n++;});var need=Math.min(g.querySelectorAll('tbody tr').length,d.clientHeight>=790?6:4);if(n<need)throw new Error('ranked accounts shows only '+n+' rows before it scrolls, needed '+need);}var rc=document.querySelector('#runcard');if(rc&&rc.scrollWidth>rc.clientWidth+1)throw new Error('run card scrolls sideways');var gd=document.querySelector('#gen-dash');if(gd&&gd.offsetParent!==null){var tl=gd.querySelectorAll('.gd-tile');if(tl.length!==4)throw new Error('dashboard has '+tl.length+' tiles');var ch=gd.querySelectorAll('.gd-chart');if(ch.length<4)throw new Error('dashboard has '+ch.length+' charts');}var wa=[].slice.call(document.querySelectorAll('.wb-tbl, .rtbl, .dgrid')).filter(function(x){return x.offsetParent!==null;});wa.forEach(function(x){var pr=x.parentNode;if(getComputedStyle(pr).overflowX==='auto'||getComputedStyle(pr).overflowX==='scroll')return;if(x.scrollWidth>pr.clientWidth+12)throw new Error('a table overflows its container: '+x.className);});return true;})()"
  },
  {
-  "sleep": 1600
+  "sleep": 1800
  },
  {
   "shot": "06c-dashboard"
@@ -246,7 +258,7 @@
   "eval": "document.querySelector('#gate').hidden=true; window.DEMO.tour.exit(); window.DEMO.setRole('COMMERCIAL_OPS'); true"
  },
  {
-  "sleep": 400
+  "sleep": 500
  },
  {
   "shot": "08a-free-analysis"
@@ -258,7 +270,7 @@
   "eval": "window.DEMO.setRole('ANALYST_NA'); window.DEMO.ask('q10'); true"
  },
  {
-  "sleep": 800
+  "sleep": 900
  },
  {
   "shot": "08b-q10-blocked-analyst"
@@ -270,7 +282,7 @@
   "eval": "window.DEMO.openPanel('trace'); true"
  },
  {
-  "sleep": 700
+  "sleep": 800
  },
  {
   "shot": "08c-q10-blocked-trace"
@@ -279,16 +291,22 @@
   "eval": "(function(){var d=document.documentElement;if(d.scrollWidth>d.clientWidth+1)throw new Error('horizontal page scroll: '+d.scrollWidth+' > '+d.clientWidth);var bands=[].slice.call(document.querySelectorAll('.band-tiles')).filter(function(b){return b.offsetParent!==null;});bands.forEach(function(b){var t=b.querySelectorAll('.tile');if(t.length!==6)throw new Error('band has '+t.length+' tiles');if(t[0].getBoundingClientRect().height<60)throw new Error('band tile collapsed');if(d.clientWidth>=1240&&t[0].getBoundingClientRect().top<t[5].getBoundingClientRect().top-2)throw new Error('band tiles wrapped at '+d.clientWidth);for(var i=0;i<t.length;i++){var n=t[i].querySelector('.note');if(n&&n.scrollHeight>n.clientHeight+2)throw new Error('band tile note clipped: tile '+(i+1)+' '+n.scrollHeight+'>'+n.clientHeight);}});var a=document.querySelector('.ws-tab.is-active');if(!a)throw new Error('no active switcher tab');if(window.DEMO&&window.DEMO.tour&&window.DEMO.tour.avoidHit&&window.DEMO.tour.avoidHit())throw new Error('the step callout covers the element its copy names');var g=document.querySelector('.an-box--wide .ans-grid');if(g&&g.offsetParent!==null){if(g.scrollWidth>g.clientWidth+1)throw new Error('ranked accounts table scrolls sideways: '+g.scrollWidth+' > '+g.clientWidth);var gr=g.getBoundingClientRect(),th=g.querySelector('thead'),hh=th?th.getBoundingClientRect().height:0,n=0;[].forEach.call(g.querySelectorAll('tbody tr'),function(tr){var r=tr.getBoundingClientRect();if(r.bottom<=gr.bottom+0.5&&r.top>=gr.top+hh-0.5)n++;});var need=Math.min(g.querySelectorAll('tbody tr').length,d.clientHeight>=790?6:4);if(n<need)throw new Error('ranked accounts shows only '+n+' rows before it scrolls, needed '+need);}var rc=document.querySelector('#runcard');if(rc&&rc.scrollWidth>rc.clientWidth+1)throw new Error('run card scrolls sideways');var gd=document.querySelector('#gen-dash');if(gd&&gd.offsetParent!==null){var tl=gd.querySelectorAll('.gd-tile');if(tl.length!==4)throw new Error('dashboard has '+tl.length+' tiles');var ch=gd.querySelectorAll('.gd-chart');if(ch.length<4)throw new Error('dashboard has '+ch.length+' charts');}var wa=[].slice.call(document.querySelectorAll('.wb-tbl, .rtbl, .dgrid')).filter(function(x){return x.offsetParent!==null;});wa.forEach(function(x){var pr=x.parentNode;if(getComputedStyle(pr).overflowX==='auto'||getComputedStyle(pr).overflowX==='scroll')return;if(x.scrollWidth>pr.clientWidth+12)throw new Error('a table overflows its container: '+x.className);});return true;})()"
  },
  {
-  "eval": "window.DEMO.openPanel(null); window.DEMO.setRole('COMMERCIAL_OPS'); true"
+  "eval": "window.DEMO.openPanel(null); window.DEMO.setRole('COMMERCIAL_OPS'); window.DEMO.ask('q10'); true"
  },
  {
-  "sleep": 600
+  "sleep": 800
+ },
+ {
+  "shot": "08d-q10-allowed-for-dana"
+ },
+ {
+  "eval": "(function(){var d=document.documentElement;if(d.scrollWidth>d.clientWidth+1)throw new Error('horizontal page scroll: '+d.scrollWidth+' > '+d.clientWidth);var bands=[].slice.call(document.querySelectorAll('.band-tiles')).filter(function(b){return b.offsetParent!==null;});bands.forEach(function(b){var t=b.querySelectorAll('.tile');if(t.length!==6)throw new Error('band has '+t.length+' tiles');if(t[0].getBoundingClientRect().height<60)throw new Error('band tile collapsed');if(d.clientWidth>=1240&&t[0].getBoundingClientRect().top<t[5].getBoundingClientRect().top-2)throw new Error('band tiles wrapped at '+d.clientWidth);for(var i=0;i<t.length;i++){var n=t[i].querySelector('.note');if(n&&n.scrollHeight>n.clientHeight+2)throw new Error('band tile note clipped: tile '+(i+1)+' '+n.scrollHeight+'>'+n.clientHeight);}});var a=document.querySelector('.ws-tab.is-active');if(!a)throw new Error('no active switcher tab');if(window.DEMO&&window.DEMO.tour&&window.DEMO.tour.avoidHit&&window.DEMO.tour.avoidHit())throw new Error('the step callout covers the element its copy names');var g=document.querySelector('.an-box--wide .ans-grid');if(g&&g.offsetParent!==null){if(g.scrollWidth>g.clientWidth+1)throw new Error('ranked accounts table scrolls sideways: '+g.scrollWidth+' > '+g.clientWidth);var gr=g.getBoundingClientRect(),th=g.querySelector('thead'),hh=th?th.getBoundingClientRect().height:0,n=0;[].forEach.call(g.querySelectorAll('tbody tr'),function(tr){var r=tr.getBoundingClientRect();if(r.bottom<=gr.bottom+0.5&&r.top>=gr.top+hh-0.5)n++;});var need=Math.min(g.querySelectorAll('tbody tr').length,d.clientHeight>=790?6:4);if(n<need)throw new Error('ranked accounts shows only '+n+' rows before it scrolls, needed '+need);}var rc=document.querySelector('#runcard');if(rc&&rc.scrollWidth>rc.clientWidth+1)throw new Error('run card scrolls sideways');var gd=document.querySelector('#gen-dash');if(gd&&gd.offsetParent!==null){var tl=gd.querySelectorAll('.gd-tile');if(tl.length!==4)throw new Error('dashboard has '+tl.length+' tiles');var ch=gd.querySelectorAll('.gd-chart');if(ch.length<4)throw new Error('dashboard has '+ch.length+' charts');}var wa=[].slice.call(document.querySelectorAll('.wb-tbl, .rtbl, .dgrid')).filter(function(x){return x.offsetParent!==null;});wa.forEach(function(x){var pr=x.parentNode;if(getComputedStyle(pr).overflowX==='auto'||getComputedStyle(pr).overflowX==='scroll')return;if(x.scrollWidth>pr.clientWidth+12)throw new Error('a table overflows its container: '+x.className);});return true;})()"
  },
  {
   "eval": "window.DEMO.ask('q2'); true"
  },
  {
-  "sleep": 700
+  "sleep": 800
  },
  {
   "shot": "09a-q2-stock-elsewhere"
@@ -300,7 +318,7 @@
   "eval": "window.DEMO.ask('q5'); true"
  },
  {
-  "sleep": 700
+  "sleep": 800
  },
  {
   "shot": "09b-q5-credit-hold"
@@ -312,7 +330,7 @@
   "eval": "window.DEMO.ask('q8'); true"
  },
  {
-  "sleep": 700
+  "sleep": 800
  },
  {
   "shot": "09c-q8-same-customer"
@@ -321,10 +339,10 @@
   "eval": "(function(){var d=document.documentElement;if(d.scrollWidth>d.clientWidth+1)throw new Error('horizontal page scroll: '+d.scrollWidth+' > '+d.clientWidth);var bands=[].slice.call(document.querySelectorAll('.band-tiles')).filter(function(b){return b.offsetParent!==null;});bands.forEach(function(b){var t=b.querySelectorAll('.tile');if(t.length!==6)throw new Error('band has '+t.length+' tiles');if(t[0].getBoundingClientRect().height<60)throw new Error('band tile collapsed');if(d.clientWidth>=1240&&t[0].getBoundingClientRect().top<t[5].getBoundingClientRect().top-2)throw new Error('band tiles wrapped at '+d.clientWidth);for(var i=0;i<t.length;i++){var n=t[i].querySelector('.note');if(n&&n.scrollHeight>n.clientHeight+2)throw new Error('band tile note clipped: tile '+(i+1)+' '+n.scrollHeight+'>'+n.clientHeight);}});var a=document.querySelector('.ws-tab.is-active');if(!a)throw new Error('no active switcher tab');if(window.DEMO&&window.DEMO.tour&&window.DEMO.tour.avoidHit&&window.DEMO.tour.avoidHit())throw new Error('the step callout covers the element its copy names');var g=document.querySelector('.an-box--wide .ans-grid');if(g&&g.offsetParent!==null){if(g.scrollWidth>g.clientWidth+1)throw new Error('ranked accounts table scrolls sideways: '+g.scrollWidth+' > '+g.clientWidth);var gr=g.getBoundingClientRect(),th=g.querySelector('thead'),hh=th?th.getBoundingClientRect().height:0,n=0;[].forEach.call(g.querySelectorAll('tbody tr'),function(tr){var r=tr.getBoundingClientRect();if(r.bottom<=gr.bottom+0.5&&r.top>=gr.top+hh-0.5)n++;});var need=Math.min(g.querySelectorAll('tbody tr').length,d.clientHeight>=790?6:4);if(n<need)throw new Error('ranked accounts shows only '+n+' rows before it scrolls, needed '+need);}var rc=document.querySelector('#runcard');if(rc&&rc.scrollWidth>rc.clientWidth+1)throw new Error('run card scrolls sideways');var gd=document.querySelector('#gen-dash');if(gd&&gd.offsetParent!==null){var tl=gd.querySelectorAll('.gd-tile');if(tl.length!==4)throw new Error('dashboard has '+tl.length+' tiles');var ch=gd.querySelectorAll('.gd-chart');if(ch.length<4)throw new Error('dashboard has '+ch.length+' charts');}var wa=[].slice.call(document.querySelectorAll('.wb-tbl, .rtbl, .dgrid')).filter(function(x){return x.offsetParent!==null;});wa.forEach(function(x){var pr=x.parentNode;if(getComputedStyle(pr).overflowX==='auto'||getComputedStyle(pr).overflowX==='scroll')return;if(x.scrollWidth>pr.clientWidth+12)throw new Error('a table overflows its container: '+x.className);});return true;})()"
  },
  {
-  "eval": "window.DEMO.ask('q9'); window.DEMO.setRole('ANALYST_NA'); true"
+  "eval": "window.DEMO.setRole('ANALYST_NA'); window.DEMO.ask('q9'); true"
  },
  {
-  "sleep": 700
+  "sleep": 800
  },
  {
   "shot": "09d-q9-contacts-masked"
@@ -336,13 +354,13 @@
   "eval": "window.DEMO.setRole('COMMERCIAL_OPS'); window.DEMO.ask('q1'); true"
  },
  {
-  "sleep": 700
- },
- {
-  "eval": "window.DEMO.openEvidence('kestrel'); true"
- },
- {
   "sleep": 800
+ },
+ {
+  "eval": "window.DEMO.openEvidence(window.DEMO.analysis().accounts.filter(function(a){return a.causeId==='transit'&&a.status==='at-risk';})[0].id); true"
+ },
+ {
+  "sleep": 900
  },
  {
   "shot": "10a-evidence-in-transit"
@@ -351,10 +369,10 @@
   "eval": "(function(){var d=document.documentElement;if(d.scrollWidth>d.clientWidth+1)throw new Error('horizontal page scroll: '+d.scrollWidth+' > '+d.clientWidth);var bands=[].slice.call(document.querySelectorAll('.band-tiles')).filter(function(b){return b.offsetParent!==null;});bands.forEach(function(b){var t=b.querySelectorAll('.tile');if(t.length!==6)throw new Error('band has '+t.length+' tiles');if(t[0].getBoundingClientRect().height<60)throw new Error('band tile collapsed');if(d.clientWidth>=1240&&t[0].getBoundingClientRect().top<t[5].getBoundingClientRect().top-2)throw new Error('band tiles wrapped at '+d.clientWidth);for(var i=0;i<t.length;i++){var n=t[i].querySelector('.note');if(n&&n.scrollHeight>n.clientHeight+2)throw new Error('band tile note clipped: tile '+(i+1)+' '+n.scrollHeight+'>'+n.clientHeight);}});var a=document.querySelector('.ws-tab.is-active');if(!a)throw new Error('no active switcher tab');if(window.DEMO&&window.DEMO.tour&&window.DEMO.tour.avoidHit&&window.DEMO.tour.avoidHit())throw new Error('the step callout covers the element its copy names');var g=document.querySelector('.an-box--wide .ans-grid');if(g&&g.offsetParent!==null){if(g.scrollWidth>g.clientWidth+1)throw new Error('ranked accounts table scrolls sideways: '+g.scrollWidth+' > '+g.clientWidth);var gr=g.getBoundingClientRect(),th=g.querySelector('thead'),hh=th?th.getBoundingClientRect().height:0,n=0;[].forEach.call(g.querySelectorAll('tbody tr'),function(tr){var r=tr.getBoundingClientRect();if(r.bottom<=gr.bottom+0.5&&r.top>=gr.top+hh-0.5)n++;});var need=Math.min(g.querySelectorAll('tbody tr').length,d.clientHeight>=790?6:4);if(n<need)throw new Error('ranked accounts shows only '+n+' rows before it scrolls, needed '+need);}var rc=document.querySelector('#runcard');if(rc&&rc.scrollWidth>rc.clientWidth+1)throw new Error('run card scrolls sideways');var gd=document.querySelector('#gen-dash');if(gd&&gd.offsetParent!==null){var tl=gd.querySelectorAll('.gd-tile');if(tl.length!==4)throw new Error('dashboard has '+tl.length+' tiles');var ch=gd.querySelectorAll('.gd-chart');if(ch.length<4)throw new Error('dashboard has '+ch.length+' charts');}var wa=[].slice.call(document.querySelectorAll('.wb-tbl, .rtbl, .dgrid')).filter(function(x){return x.offsetParent!==null;});wa.forEach(function(x){var pr=x.parentNode;if(getComputedStyle(pr).overflowX==='auto'||getComputedStyle(pr).overflowX==='scroll')return;if(x.scrollWidth>pr.clientWidth+12)throw new Error('a table overflows its container: '+x.className);});return true;})()"
  },
  {
-  "eval": "window.DEMO.openEvidence('wexford'); true"
+  "eval": "window.DEMO.openEvidence(window.DEMO.analysis().accounts.filter(function(a){return a.causeId==='credit'&&a.status==='at-risk';})[0].id); true"
  },
  {
-  "sleep": 800
+  "sleep": 900
  },
  {
   "shot": "10b-evidence-credit-hold"
@@ -363,10 +381,10 @@
   "eval": "(function(){var d=document.documentElement;if(d.scrollWidth>d.clientWidth+1)throw new Error('horizontal page scroll: '+d.scrollWidth+' > '+d.clientWidth);var bands=[].slice.call(document.querySelectorAll('.band-tiles')).filter(function(b){return b.offsetParent!==null;});bands.forEach(function(b){var t=b.querySelectorAll('.tile');if(t.length!==6)throw new Error('band has '+t.length+' tiles');if(t[0].getBoundingClientRect().height<60)throw new Error('band tile collapsed');if(d.clientWidth>=1240&&t[0].getBoundingClientRect().top<t[5].getBoundingClientRect().top-2)throw new Error('band tiles wrapped at '+d.clientWidth);for(var i=0;i<t.length;i++){var n=t[i].querySelector('.note');if(n&&n.scrollHeight>n.clientHeight+2)throw new Error('band tile note clipped: tile '+(i+1)+' '+n.scrollHeight+'>'+n.clientHeight);}});var a=document.querySelector('.ws-tab.is-active');if(!a)throw new Error('no active switcher tab');if(window.DEMO&&window.DEMO.tour&&window.DEMO.tour.avoidHit&&window.DEMO.tour.avoidHit())throw new Error('the step callout covers the element its copy names');var g=document.querySelector('.an-box--wide .ans-grid');if(g&&g.offsetParent!==null){if(g.scrollWidth>g.clientWidth+1)throw new Error('ranked accounts table scrolls sideways: '+g.scrollWidth+' > '+g.clientWidth);var gr=g.getBoundingClientRect(),th=g.querySelector('thead'),hh=th?th.getBoundingClientRect().height:0,n=0;[].forEach.call(g.querySelectorAll('tbody tr'),function(tr){var r=tr.getBoundingClientRect();if(r.bottom<=gr.bottom+0.5&&r.top>=gr.top+hh-0.5)n++;});var need=Math.min(g.querySelectorAll('tbody tr').length,d.clientHeight>=790?6:4);if(n<need)throw new Error('ranked accounts shows only '+n+' rows before it scrolls, needed '+need);}var rc=document.querySelector('#runcard');if(rc&&rc.scrollWidth>rc.clientWidth+1)throw new Error('run card scrolls sideways');var gd=document.querySelector('#gen-dash');if(gd&&gd.offsetParent!==null){var tl=gd.querySelectorAll('.gd-tile');if(tl.length!==4)throw new Error('dashboard has '+tl.length+' tiles');var ch=gd.querySelectorAll('.gd-chart');if(ch.length<4)throw new Error('dashboard has '+ch.length+' charts');}var wa=[].slice.call(document.querySelectorAll('.wb-tbl, .rtbl, .dgrid')).filter(function(x){return x.offsetParent!==null;});wa.forEach(function(x){var pr=x.parentNode;if(getComputedStyle(pr).overflowX==='auto'||getComputedStyle(pr).overflowX==='scroll')return;if(x.scrollWidth>pr.clientWidth+12)throw new Error('a table overflows its container: '+x.className);});return true;})()"
  },
  {
-  "eval": "window.DEMO.openEvidence('bramley'); true"
+  "eval": "window.DEMO.openEvidence(window.DEMO.analysis().accounts.filter(function(a){return a.causeId==='supplier'&&a.status==='at-risk';})[0].id); true"
  },
  {
-  "sleep": 800
+  "sleep": 900
  },
  {
   "shot": "10c-evidence-supplier-late"
@@ -378,7 +396,7 @@
   "eval": "window.DEMO.openPanel('explain'); true"
  },
  {
-  "sleep": 700
+  "sleep": 800
  },
  {
   "shot": "10d-explain"
@@ -396,7 +414,7 @@
   "eval": "window.DEMO.setRole('ANALYST_NA'); true"
  },
  {
-  "sleep": 700
+  "sleep": 800
  },
  {
   "shot": "11a-analysis-as-analyst"
@@ -408,7 +426,7 @@
   "eval": "window.DEMO.createDashboard(); true"
  },
  {
-  "sleep": 2600
+  "sleep": 2800
  },
  {
   "shot": "11b-dashboard-as-analyst"
@@ -420,7 +438,7 @@
   "eval": "window.DEMO.setRole('COMMERCIAL_OPS'); true"
  },
  {
-  "sleep": 800
+  "sleep": 900
  },
  {
   "shot": "11c-dashboard-as-dana"
@@ -432,7 +450,7 @@
   "eval": "window.DEMO.setWbPanel('insights'); true"
  },
  {
-  "sleep": 600
+  "sleep": 700
  },
  {
   "shot": "11d-insights-page"
@@ -444,7 +462,7 @@
   "eval": "window.DEMO.setApp('review'); window.DEMO.setRwTab('matches'); true"
  },
  {
-  "sleep": 700
+  "sleep": 800
  },
  {
   "shot": "12a-customer-matches"
@@ -453,10 +471,10 @@
   "eval": "(function(){var d=document.documentElement;if(d.scrollWidth>d.clientWidth+1)throw new Error('horizontal page scroll: '+d.scrollWidth+' > '+d.clientWidth);var bands=[].slice.call(document.querySelectorAll('.band-tiles')).filter(function(b){return b.offsetParent!==null;});bands.forEach(function(b){var t=b.querySelectorAll('.tile');if(t.length!==6)throw new Error('band has '+t.length+' tiles');if(t[0].getBoundingClientRect().height<60)throw new Error('band tile collapsed');if(d.clientWidth>=1240&&t[0].getBoundingClientRect().top<t[5].getBoundingClientRect().top-2)throw new Error('band tiles wrapped at '+d.clientWidth);for(var i=0;i<t.length;i++){var n=t[i].querySelector('.note');if(n&&n.scrollHeight>n.clientHeight+2)throw new Error('band tile note clipped: tile '+(i+1)+' '+n.scrollHeight+'>'+n.clientHeight);}});var a=document.querySelector('.ws-tab.is-active');if(!a)throw new Error('no active switcher tab');if(window.DEMO&&window.DEMO.tour&&window.DEMO.tour.avoidHit&&window.DEMO.tour.avoidHit())throw new Error('the step callout covers the element its copy names');var g=document.querySelector('.an-box--wide .ans-grid');if(g&&g.offsetParent!==null){if(g.scrollWidth>g.clientWidth+1)throw new Error('ranked accounts table scrolls sideways: '+g.scrollWidth+' > '+g.clientWidth);var gr=g.getBoundingClientRect(),th=g.querySelector('thead'),hh=th?th.getBoundingClientRect().height:0,n=0;[].forEach.call(g.querySelectorAll('tbody tr'),function(tr){var r=tr.getBoundingClientRect();if(r.bottom<=gr.bottom+0.5&&r.top>=gr.top+hh-0.5)n++;});var need=Math.min(g.querySelectorAll('tbody tr').length,d.clientHeight>=790?6:4);if(n<need)throw new Error('ranked accounts shows only '+n+' rows before it scrolls, needed '+need);}var rc=document.querySelector('#runcard');if(rc&&rc.scrollWidth>rc.clientWidth+1)throw new Error('run card scrolls sideways');var gd=document.querySelector('#gen-dash');if(gd&&gd.offsetParent!==null){var tl=gd.querySelectorAll('.gd-tile');if(tl.length!==4)throw new Error('dashboard has '+tl.length+' tiles');var ch=gd.querySelectorAll('.gd-chart');if(ch.length<4)throw new Error('dashboard has '+ch.length+' charts');}var wa=[].slice.call(document.querySelectorAll('.wb-tbl, .rtbl, .dgrid')).filter(function(x){return x.offsetParent!==null;});wa.forEach(function(x){var pr=x.parentNode;if(getComputedStyle(pr).overflowX==='auto'||getComputedStyle(pr).overflowX==='scroll')return;if(x.scrollWidth>pr.clientWidth+12)throw new Error('a table overflows its container: '+x.className);});return true;})()"
  },
  {
-  "eval": "var m=document.querySelector('[data-mdec=\\\"reject\\\"]'); m.click(); true"
+  "eval": "var m=document.querySelectorAll('[data-mdec=\\\"reject\\\"]')[2]; m.click(); true"
  },
  {
-  "sleep": 900
+  "sleep": 1000
  },
  {
   "shot": "12b-match-rejected"
@@ -468,7 +486,7 @@
   "eval": "window.DEMO.setRwTab('xrefs'); true"
  },
  {
-  "sleep": 700
+  "sleep": 800
  },
  {
   "shot": "12c-item-xrefs"
@@ -480,7 +498,7 @@
   "eval": "window.DEMO.setRwTab('decisions'); true"
  },
  {
-  "sleep": 700
+  "sleep": 800
  },
  {
   "shot": "12d-decisions-log"
@@ -492,7 +510,7 @@
   "eval": "window.DEMO.setRwTab('recommendations'); window.DEMO.openRec('A2'); true"
  },
  {
-  "sleep": 700
+  "sleep": 800
  },
  {
   "shot": "12e-recommendation-a2"
@@ -504,7 +522,7 @@
   "eval": "var b=document.querySelector('[data-rec=\\\"accept\\\"]'); b.click(); true"
  },
  {
-  "sleep": 900
+  "sleep": 1000
  },
  {
   "shot": "12f-recommendation-accepted"
@@ -516,7 +534,7 @@
   "eval": "window.DEMO.setApp('lakehouse'); window.DEMO.setDsScreen('feeds'); true"
  },
  {
-  "sleep": 700
+  "sleep": 800
  },
  {
   "shot": "13a-live-feed"
@@ -528,7 +546,7 @@
   "eval": "window.DEMO.setDsScreen('catalog'); true"
  },
  {
-  "sleep": 700
+  "sleep": 800
  },
  {
   "shot": "13b-catalog"
@@ -540,7 +558,7 @@
   "eval": "window.DEMO.setDsScreen('analysis'); true"
  },
  {
-  "sleep": 700
+  "sleep": 800
  },
  {
   "shot": "13c-data-analysis"
@@ -576,7 +594,7 @@
   "eval": "window.DEMO.setApp('aidp'); window.DEMO.setCatalogEntity('REVENUE_AT_RISK'); true"
  },
  {
-  "sleep": 800
+  "sleep": 900
  },
  {
   "shot": "14a-master-catalog"
@@ -588,7 +606,7 @@
   "eval": "window.DEMO.openLineage('REVENUE_AT_RISK'); true"
  },
  {
-  "sleep": 1000
+  "sleep": 1100
  },
  {
   "shot": "14b-lineage-revenue-at-risk"
@@ -600,7 +618,7 @@
   "eval": "window.DEMO.lineageColumn('penalty_usd'); true"
  },
  {
-  "sleep": 800
+  "sleep": 900
  },
  {
   "shot": "14c-lineage-column"
@@ -612,7 +630,7 @@
   "eval": "window.DEMO.lineageDetail('out','impact'); true"
  },
  {
-  "sleep": 700
+  "sleep": 800
  },
  {
   "shot": "14d-lineage-impact"
@@ -624,7 +642,7 @@
   "eval": "window.DEMO.lineageDetail(null); window.DEMO.openLineage('STOCK_POSITION'); true"
  },
  {
-  "sleep": 1000
+  "sleep": 1100
  },
  {
   "shot": "14e-lineage-stock-position"
@@ -636,7 +654,7 @@
   "eval": "window.DEMO.setWbPanel('apc'); true"
  },
  {
-  "sleep": 700
+  "sleep": 800
  },
  {
   "shot": "14f-auto-populate-catalog"
@@ -648,7 +666,7 @@
   "eval": "window.DEMO.setWbPanel('sessions'); true"
  },
  {
-  "sleep": 700
+  "sleep": 800
  },
  {
   "shot": "14g-sessions"
@@ -660,7 +678,7 @@
   "eval": "window.DEMO.setWbPanel('home'); true"
  },
  {
-  "sleep": 700
+  "sleep": 800
  },
  {
   "shot": "14h-hub-home-after"
