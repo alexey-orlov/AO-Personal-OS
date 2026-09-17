@@ -283,7 +283,7 @@ window.SITE_CONTENT = {
       title: "Prove it on your data first, then take it to production.",
       anchor: "how-we-deliver",
       steps: [
-        { title: "Jumpstart proof of value", body: "A fixed-scope pilot on your own data and a limited rule set, in a separate environment, with zero integration. Success metrics are signed before the clock starts.", factLabel: "Duration", fact: "30–45 days to about two months · scoped per engagement on the research and investigation products" },
+        { title: "Jumpstart proof of value", body: "A fixed-scope pilot on your own data and a limited rule set, in a separate environment, with zero integration. Success metrics are signed before the clock starts.", factLabel: "Duration", fact: "4–8 weeks" },
         { title: "Integration", body: "We connect it to your systems, embed it in the workflow and take it live at one location or for one document type, with no manual work left in the loop.", factLabel: "Duration", fact: "3–5 months" },
         { title: "Scale", body: "Extend across locations and document types, with per-region rules and data workflows. An optional managed service keeps it running and re-tuned.", factLabel: "Duration", fact: "3–12 months" }
       ],
@@ -717,9 +717,10 @@ window.SITE_CONTENT = {
       },
       jumpstart: {
         title: "Jumpstart Proof-of-Value",
-        promise: "Pilot account insights on your own account list and signal sources, at a scope agreed before the clock starts, and measure how many of the generated opportunities a reviewer actually accepts.",
+        promise: "Pilot account insights on your own account list and signal sources in 4–8 weeks, at a scope agreed before the clock starts, and measure how many of the generated opportunities a reviewer actually accepts.",
+        durationShort: "4–8 weeks",
         pillars: [
-          { key: "fast", title: "Fast", text: "One signal set, one account list. The proof is deliberately as small as it can honestly be, and the duration is set at scoping." },
+          { key: "fast", title: "Fast", text: "One signal set, one account list, 4–8 weeks: the proof is deliberately as small as it can honestly be." },
           { key: "low-risk", title: "Low-risk", text: "Fixed scope, signed before the clock starts. It runs in your own Oracle tenancy, and nothing is written back to your CRM." },
           { key: "tangible", title: "Tangible", text: "A measured accuracy readout: the share of generated opportunities a reviewer accepts, and how well the confidence scores track those decisions." }
         ],
@@ -1029,9 +1030,10 @@ window.SITE_CONTENT = {
       },
       jumpstart: {
         title: "Jumpstart Proof-of-Value",
-        promise: "Pilot case evidence collection on historical cases your own experts have already adjudicated, at a scope agreed before the clock starts, and see how the assembled evidence file compares with the answer they reached.",
+        promise: "Pilot case evidence collection in 4–8 weeks, on historical cases your own experts have already adjudicated and at a scope agreed before the clock starts, and see how the assembled evidence file compares with the answer they reached.",
+        durationShort: "4–8 weeks",
         pillars: [
-          { key: "fast", title: "Fast", text: "One case category, one historical sample. The duration is set at scoping, against the sample you pick." },
+          { key: "fast", title: "Fast", text: "One case category, one historical sample, 4–8 weeks: the sample you pick sets where in that range it lands." },
           { key: "low-risk", title: "Low-risk", text: "Historical, non-production records only, in your own Oracle tenancy, with read-only source access. The system assembles and drafts; a person decides the outcome." },
           { key: "tangible", title: "Tangible", text: "Elapsed time and person-hours for an equivalent case file, measured before and after — on cases whose answer is already known." }
         ],
@@ -1356,7 +1358,7 @@ window.SITE_CONTENT = {
       },
       jumpstart: {
         title: "Jumpstart Proof-of-Value",
-        promise: "Pilot plan vs actual investigation on one anchor portfolio in 12 weeks, plus a two-week acceptance phase, and get every material variance back with its likely drivers and the evidence behind them.",
+        promise: "Pilot plan vs actual investigation on one anchor portfolio in 4–8 weeks, and get every material variance back with its likely drivers and the evidence behind them.",
         durationShort: "12 weeks plus a two-week acceptance phase",
         pillars: [
           { key: "fast", title: "Fast", text: "Twelve weeks from kickoff to an expert-validated readout, plus a two-week acceptance phase. Discovery is compressed into the first two weeks and ends at a gate." },
@@ -2336,7 +2338,7 @@ window.SITE_CONTENT = {
       },
       jumpstart: {
         title: "Jumpstart Proof-of-Value",
-        promise: "Pilot cross-system ERP Q&A on your own data in 30–45 days, at a fixed price, and let your own analysts put questions that span the systems to the test.",
+        promise: "Pilot cross-system ERP Q&A on your own data in 4–8 weeks, at a fixed price, and let your own analysts put questions that span the systems to the test.",
         durationShort: "4–8 weeks",
         pillars: [
           { key: "fast", title: "Fast", text: "Four weeks for one clean source system; up to eight for three sources or a stricter security setup." },
@@ -2639,7 +2641,7 @@ window.SITE_CONTENT = {
       },
       jumpstart: {
         title: "Jumpstart Proof-of-Value",
-        promise: "Pilot business metrics Q&A on your own data in 30–45 days, at a fixed price, and see your KPIs answered from one set of certified definitions.",
+        promise: "Pilot business metrics Q&A on your own data in 4–8 weeks, at a fixed price, and see your KPIs answered from one set of certified definitions.",
         durationShort: "4–8 weeks",
         pillars: [
           { key: "fast", title: "Fast", text: "Four weeks for one clean source system; up to eight for three sources or a stricter security setup." },
@@ -2730,7 +2732,7 @@ window.SITE_CONTENT = {
           title: "Jumpstart proof of value",
           body: "Measured on your own data, with nothing touching production: a separate environment and no connection to your systems. A fixed price where one is published; a costed expansion plan at the end.",
           factLabel: "Duration",
-          fact: "30–45 days to about two months · scoped per engagement on the research and investigation products"
+          fact: "4–8 weeks"
         },
         {
           title: "Integration",
