@@ -321,6 +321,35 @@ ok("the delivery-tracking rows come from the DLV schema",
   D.scanEvents.every(function (s) { return s.object === "DLV_SCAN_EVENTS"; }) &&
   D.deliveryExceptions.every(function (s) { return s.object === "DLV_EXCEPTIONS"; }));
 
+console.log("\n-- a decided account keeps its own lines ---------------------");
+/* Regression, 2026-09-17: after the decline and the re-analysis the Decisions
+   card read "6 order lines at risk" for an account whose every other surface
+   said four. The account's on-track lines — the ones that only prove it lives
+   in two order books — were being counted once the live at-risk flag went
+   false on all of them. `atRiskCount` and `wasAtRisk` are what the pages read. */
+var evAfter = D.evidence(A.accounts[0].id, "COMMERCIAL_OPS", S2.decisions);
+eq("before the decision the evidence counts four at-risk lines", ev.atRiskCount, 4);
+eq("after it, it still counts four", evAfter.atRiskCount, 4);
+eq("six lines are returned either way", evAfter.lines.length, 6);
+eq("two of them were never at risk", evAfter.lines.filter(function (l) { return !l.wasAtRisk; }).length, 2);
+ok("the four the AI valued read re-promised, accepted",
+  evAfter.lines.filter(function (l) { return l.wasAtRisk; }).every(function (l) { return l.status === "Re-promised, accepted"; }),
+  evAfter.lines.map(function (l) { return l.status; }).join(" | "));
+ok("the two on-track lines still read on track",
+  evAfter.lines.filter(function (l) { return !l.wasAtRisk; }).every(function (l) { return l.status === "On track"; }));
+ok("no line is live at risk once the account is decided",
+  evAfter.lines.every(function (l) { return l.atRisk === false; }));
+eq("the analyst counts the same four under the row policy",
+  D.evidence(A.accounts[0].id, "ANALYST_NA", S2.decisions).atRiskCount, 4);
+ok("every account's evidence counts exactly the lines its row shows, before and after",
+  [[A, S1.decisions], [B, S2.decisions]].every(function (pair) {
+    return pair[0].accounts.concat(pair[0].decided || []).every(function (a) {
+      var e = D.evidence(a.id, "COMMERCIAL_OPS", pair[1]);
+      var shown = a.status === "at-risk" ? a.lines : (a.wasLines || a.lines);
+      return e.atRiskCount === shown;
+    });
+  }));
+
 console.log("\n-- the ten saved questions -----------------------------------");
 eq("ten saved questions", D.questions.length, 10);
 eq("question 1 is the tour's ask", D.questions[0].text,
