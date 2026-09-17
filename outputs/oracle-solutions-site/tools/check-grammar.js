@@ -1357,6 +1357,61 @@ if (/assets\/img\/logos\//.test(raw)) {
   fail("content.js", "references assets/img/logos/ — customer marks stay on disk, unreferenced, pending customer approval");
 }
 
+/* The Internal review panel (2026-09-17, docs/START-HERE.md §8) is temporary,
+   for the prototype only. While index.html loads it, the list must be well
+   formed and name no customer, and every run warns, so it cannot reach a
+   launch unnoticed. */
+(function () {
+  var html = fs.readFileSync(path.join(root, "site/index.html"), "utf8");
+  var loadsData = html.indexOf('<script src="data/review.js"></script>') !== -1;
+  var loadsPanel = html.indexOf('<script src="assets/review.js"></script>') !== -1;
+  if (!loadsData && !loadsPanel) return;
+  if (loadsData !== loadsPanel) {
+    fail("index.html", "loads only one of data/review.js and assets/review.js — the Internal panel is added and removed as a pair");
+    return;
+  }
+  var reviewRaw = fs.readFileSync(path.join(root, "site/data/review.js"), "utf8");
+  var box = { window: {} };
+  vm.createContext(box);
+  try {
+    vm.runInContext(reviewRaw, box, { filename: "site/data/review.js" });
+  } catch (e) {
+    fail("data/review.js", "does not load: " + e.message);
+    return;
+  }
+  var R = box.window.SITE_REVIEW;
+  if (!R || !Array.isArray(R.groups) || !R.groups.length) {
+    fail("data/review.js", "window.SITE_REVIEW.groups must be a non-empty array");
+    return;
+  }
+  var STATUSES = ["open", "confirmed", "changed"];
+  var FLAGS = ["Site differs", "Conflict"];
+  var ids = {};
+  R.groups.forEach(function (group, gi) {
+    var where = "review.groups[" + gi + "]";
+    if (!group.title || !String(group.title).trim()) fail(where, "title is empty");
+    if (!Array.isArray(group.items) || !group.items.length) { fail(where, "has no items"); return; }
+    group.items.forEach(function (item, ii) {
+      var at = where + ".items[" + ii + "]";
+      if (!item.id || !/^[a-z0-9-]+$/.test(item.id)) fail(at, "id must be kebab-case");
+      else if (ids[item.id]) fail(at, 'duplicate id "' + item.id + '"');
+      else ids[item.id] = true;
+      if (!item.text || !String(item.text).trim()) fail(at, "text is empty");
+      if (STATUSES.indexOf(item.status) === -1) fail(at, 'status "' + item.status + '" is not one of ' + STATUSES.join(" · "));
+      if (item.status === "changed" && !(item.decision && String(item.decision).trim())) fail(at, "a changed item says what was decided, in decision");
+      if (item.flag && FLAGS.indexOf(item.flag) === -1) fail(at, 'flag "' + item.flag + '" is not one of ' + FLAGS.join(" · "));
+    });
+  });
+  CUSTOMER_NAMES.forEach(function (name) {
+    if (new RegExp("\\b" + name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + "\\b").test(reviewRaw)) {
+      fail("data/review.js", 'names the customer "' + name + '" — the panel is visible to anyone with the preview link');
+    }
+  });
+  if (R.enabled !== false) {
+    warn("Internal review panel", "on, " + Object.keys(ids).length + " items — delete data/review.js, assets/review.js and their script tags before launch");
+  }
+})();
+
 if (warnings.length) {
   console.warn("check-grammar: " + warnings.length + " warning(s)");
   warnings.forEach(function (x) { console.warn("  ! " + x); });
