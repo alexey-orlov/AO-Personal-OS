@@ -757,7 +757,7 @@
         '<div class="act-t">' + ICON.check + "<span><b>" + esc(a.taskLabel || (a.tasks + " tasks")) + ".</b> " + esc(a.assigned || "Assigned as a task. Nothing is written back to an ERP") + "</span></div>" +
         "</div>";
     }).join("") +
-      '<p class="act-note">The AI\u2019s estimate on this data, not a promise every line lands.</p></div>";
+      '<p class="act-note">The AI\u2019s estimate on this data, not a promise every line lands.</p></div>';
   }
   function accountsTable(an) {
     var all = an.accounts.filter(function (a) { return S.role !== "ANALYST_NA" || a.entity === "NG-NA"; });
@@ -809,7 +809,7 @@
       '<section class="band an-band" aria-label="Per system, then across systems">' + bandHtml(an, "band-tiles", S.movedBand) + "</section>" +
       (S.narrate ? '<div class="ans-narr"><span class="sp">' + ICON.speak + "</span><span>" + esc(an.narrative) + "</span></div>" : "") +
       '<div class="an-cols"><section class="an-box"><h4>' + ICON.chart + "Why the lines are late</h4>" + causesChart(an) +
-      '<p class="an-sub">One cause per line, and they add back to the totals.</p></section>" +
+      '<p class="an-sub">One cause per line, and they add back to the totals.</p></section>' +
       '<section class="an-box"><h4>' + ICON.bulb + "What the AI proposes</h4>" + actionsHtml(an) + "</section></div>" +
       '<section class="an-box an-box--wide"><h4>' + ICON.list + "Accounts, ranked by what is at stake</h4>" + accountsTable(an) + "</section>" +
       (an.caveat ? '<div class="ans-caveat">' + ICON.info + " " + esc(an.caveat) + "</div>" : "") +
