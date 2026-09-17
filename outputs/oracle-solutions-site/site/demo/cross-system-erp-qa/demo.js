@@ -835,27 +835,39 @@
   }
   function genDashHtml() {
     var d = D.dashboard(S.role, decisions());
+    var CAUSE_C = { "Stock elsewhere": "#4d7a2c", "Late in transit": "#1d5f73", "Supplier late": "#8a4a12", "Credit hold": "#7d4064" };
     var charts = (d.charts || []).map(function (c) {
-      return '<div class="gd-chart"><h4>' + esc(c.title) + "</h4>" + barChart((c.series || []).map(function (s) {
-        var cid = c.id === "cause" ? an_causeId(s.k) : "";
-        return { k: (cid && CAUSE_SHORT[cid]) || s.k, v: s.v, l: s.l, c: CAUSE_COLOUR[cid] };
-      }), c.id === "tier" ? "#7d4064" : c.id === "entity" ? "#1d5f73" : "#4d7a2c") + "</div>";
+      var items = (c.series || []).map(function (x) {
+        return { k: x.label, v: x.value, l: (c.unit === "USD" ? "USD " + D.fmtM(x.value) : String(x.value)), c: CAUSE_C[x.label] };
+      });
+      return '<div class="gd-chart"><h4>' + esc(c.title) + "</h4>" +
+        barChart(items, c.id === "by-tier" ? "#7d4064" : c.id === "by-entity" ? "#1d5f73" : "#4d7a2c") + "</div>";
     }).join("");
     var t = d.table || { columns: [], rows: [] };
     return '<div class="gd" id="gen-dash">' +
-      '<div class="gd-head"><div><span class="gd-tag">' + ICON.bot + "Built by the AI &middot; 09:47</span><h3>" + esc(d.title) + "</h3>" +
-      '<div class="sub">' + esc(d.scope || "") + "</div></div>" +
+      '<div class="gd-head"><div><span class="gd-tag">' + ICON.bot + "Built by the AI &middot; " + esc(d.generatedAt || "") + "</span><h3>" + esc(d.title) + "</h3>" +
+      '<div class="sub">' + esc(d.subtitle || "") + "</div>" +
+      '<div class="sub">' + esc(d.scope || "") + " &middot; " + esc(d.roleName || "") + " &middot; " + esc(d.rowCount) + " lines</div></div>" +
       '<div class="gd-act"><button class="btn btn--dark" type="button" id="share-dash">' + ICON.share + "Share with the commercial team</button></div></div>" +
       '<div class="gd-tiles">' + (d.tiles || []).map(function (x) {
-        return '<div class="gd-tile"><span class="l">' + esc(x.label) + '</span><span class="v">' + esc(x.value) + '</span><span class="n">' + esc(x.note || "") + "</span></div>";
+        return '<div class="gd-tile' + (x.masked ? " is-masked" : "") + '"><span class="l">' + esc(x.label) + '</span><span class="v">' + esc(x.value) + '</span><span class="n">' + esc(x.sub || "") + "</span></div>";
       }).join("") + "</div>" +
       '<div class="gd-charts">' + charts + "</div>" +
-      '<div class="tw"><table class="wb-tbl"><thead><tr>' + (t.columns || []).map(function (c, i) { return '<th' + (i >= 2 && i <= 3 ? ' class="r"' : "") + ">" + esc(c) + "</th>"; }).join("") + "</tr></thead><tbody>" +
+      (t.title ? '<div class="gd-tbl-h"><b>' + esc(t.title) + "</b><span>" + esc(t.note || "") + "</span></div>" : "") +
+      '<div class="tw"><table class="wb-tbl"><thead><tr>' + (t.columns || []).map(function (c) {
+        return '<th' + (c.align === "right" ? ' class="r"' : "") + ">" + esc(c.label) + "</th>";
+      }).join("") + "</tr></thead><tbody>" +
       (t.rows || []).map(function (r) {
-        return "<tr>" + r.map(function (c, i) { return '<td' + (i >= 2 && i <= 3 ? ' class="r"' : "") + ">" + esc(c) + "</td>"; }).join("") + "</tr>";
+        return "<tr>" + (t.columns || []).map(function (c) {
+          var v = r[c.key];
+          if (c.kind === "money") v = money(v, 0);
+          if (c.kind === "badge") return '<td><span class="stat stat--' + esc(String(v).replace(/[^a-z]/g, "")) + '">' + esc(v) + "</span></td>";
+          return '<td' + (c.align === "right" ? ' class="r"' : "") + ">" + esc(v === undefined || v === null ? "—" : v) + "</td>";
+        }).join("") + "</tr>";
       }).join("") + "</tbody></table></div>" +
-      '<p class="honest">Built from ' + esc((d.builtFrom || []).join(", ")) + ' — the same definitions the answer used, so a change to one moves both.' +
-      (S.shared ? " Shared with the commercial team at 09:49 (mocked — nothing leaves this page)." : "") + "</p></div>";
+      (d.caveat ? '<div class="ans-caveat">' + ICON.info + " " + esc(d.caveat) + "</div>" : "") +
+      '<p class="honest">Built from ' + esc((d.builtFrom || []).join(", ")) + ' — the same definitions the analysis used, so a change to one moves both.' +
+      (S.shared ? " " + esc(d.shareNote || "Shared with the commercial team.") : "") + "</p></div>";
   }
   function an_causeId(label) {
     var an = analysis(), out = "";
@@ -866,20 +878,20 @@
     var an = S.state.analysed ? analysis() : null;
     var build = S.dashBuilding
       ? '<div class="gd gd--building"><div class="gd-head"><div><span class="gd-tag">' + ICON.bot + 'Building</span><h3>Revenue at risk across systems</h3><div class="sub">The AI is assembling a dashboard from what it just found</div></div></div>' +
-        '<ol class="rc-steps rc-steps--dash">' + DASH_PLAN.map(function (s, i) {
-          return '<li class="' + (i < S.dashStep ? "is-done" : i === S.dashStep ? "is-live" : "") + '"><i></i><span>' + esc(s.text) + "</span></li>";
+        '<ol class="rc-steps rc-steps--dash">' + DASH_PLAN.map(function (x, i) {
+          return '<li class="' + (i < S.dashStep ? "is-done" : i === S.dashStep ? "is-live" : "") + '"><i></i><span>' + esc(x.text) + "</span></li>";
         }).join("") + "</ol></div>"
       : (S.state.dashboard ? genDashHtml() : "");
     var standing = [];
     if (an) {
       standing.push({ name: "Order book health", sub: "Open lines, promises and what is slipping", svg: statusList([
-        { k: "Open lines this week", l: "3,412", s: "ok" },
+        { k: "Open lines this week", l: String((D.orderLines || []).length), s: "ok" },
         { k: "Lines that will miss the promise", l: String(an.headline.lines), s: "bad" },
         { k: "Lines with a cause attributed", l: String(an.headline.lines), s: "ok" },
-        { k: "Customer matches waiting for a person", l: String((D.matches || []).length), s: "warn" },
-        { k: "Item cross-references waiting", l: String((D.itemXrefs || []).length), s: "warn" }
+        { k: "Customer matches waiting for a person", l: String((an.pending && an.pending.customers) || (D.matches || []).length), s: "warn" },
+        { k: "Item cross-references waiting", l: String((an.pending && an.pending.items) || (D.itemXrefs || []).length), s: "warn" }
       ]), views: ["OPEN_ORDER_LINES_X", "PROMISE_STATUS", "LATE_CAUSES"] });
-      standing.push({ name: "Service levels by account", sub: "What each contract promises, and what we are doing", svg: barChart(an.accounts.slice(0, 6).map(function (a) {
+      standing.push({ name: "Service levels by account", sub: "What each contract promises, and what it costs when we miss", svg: barChart(an.accounts.filter(function (a) { return a.status === "at-risk"; }).slice(0, 6).map(function (a) {
         return { k: a.name, v: a.penaltyUsd || 1, l: usdShort(a.penaltyUsd) };
       }), "#8a4a12"), views: ["SLA_EXPOSURE", "ACCOUNT_EXPOSURE"] });
     }
