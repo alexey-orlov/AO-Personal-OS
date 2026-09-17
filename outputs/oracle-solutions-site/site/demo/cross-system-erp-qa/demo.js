@@ -1530,7 +1530,7 @@
       '<span class="reca-p">penalty ' + esc(usdShort(showPen)) + "</span></div>" +
       '<div class="reca-b"><span class="reca-why">' + esc(acc.causeLabel || "") +
       (acc.recommendation && acc.recommendation.text ? " &middot; " + esc(acc.recommendation.text) : "") + "</span></div>" +
-      '<div class="reca-ev"><b>What the AI is going on:</b> ' +
+      '<div class="reca-ev"><b>What the AI has to go on:</b> ' +
       esc(atRiskCount(e)) + " order line" + (atRiskCount(e) === 1 ? "" : "s") + " at risk in " +
       esc((((acc.riskSystems && acc.riskSystems.length ? acc.riskSystems : acc.systems) || []).map(function (x) { return D.sourceById[x] ? D.sourceById[x].short : x; }).join(" and ")) || "the order book") +
       ((e.stockElsewhere && e.stockElsewhere.length) ? "; the same part on hand in " + esc(e.stockElsewhere[0].plant) + " (" + esc(e.stockElsewhere[0].onHand) + " " + esc(e.stockElsewhere[0].uom || "") + ")" : "") +
