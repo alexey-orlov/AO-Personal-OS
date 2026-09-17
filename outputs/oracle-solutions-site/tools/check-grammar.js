@@ -1291,7 +1291,7 @@ var raw = fs.readFileSync(path.join(root, "site/data/content.js"), "utf8");
 /* ---- round 8 · the sales kit (Alex, 2026-09-17) ----
    The For sellers tab and the #/sellers page request the kit by work email;
    eligibility is the domain, not a declared role. Only the auto-send
-   confirmation may say the kit was emailed (PROVENANCE §23). */
+   confirmation may say the kit was emailed (PROVENANCE §24). */
 (function () {
   if (C.sellerGate !== undefined) fail("sellerGate", "retired in round 8 — the kit request copy lives in salesKit");
   var kit = C.salesKit || {};
