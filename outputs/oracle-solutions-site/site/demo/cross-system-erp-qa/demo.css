@@ -1078,7 +1078,7 @@ body.tour-gutter .conv--an { padding-right: 324px; }
 .tierb--A { background: #f6e7d8; color: #8a4a12; }
 .tierb--B { background: #ecebe8; color: #5d5a55; }
 .tierb--C { background: #ecebe8; color: #8b857d; }
-.an-box--wide .ans-grid { max-height: min(430px, calc(100vh - 300px)); border: 1px solid var(--wb-line); border-radius: 5px; }
+.an-box--wide .ans-grid { max-height: none; border: 1px solid var(--wb-line); border-radius: 5px; }
 .achip--go { border-color: var(--wb-txt) !important; background: var(--wb-txt) !important; color: #fff !important; }
 .achip--go svg { color: #fff; }
 .wb-menu .mnote { font-size: 11px; color: var(--wb-txt-2); border-top: 1px solid var(--wb-line); margin-top: 6px; padding: 7px 9px 3px; line-height: 1.4; }
@@ -1147,7 +1147,7 @@ body.tour-gutter .conv--an { padding-right: 324px; }
   .gd-charts { grid-template-columns: 1fr; }
   .rec-head { grid-template-columns: 34px 1fr 100px 26px; }
   .rec-head .stat { display: none; }
-  .an-box--wide .ans-grid { max-height: min(360px, calc(100vh - 280px)); }
+  .an-box--wide .ans-grid { max-height: none; }
 }
 
 /* notes under a band tile must never be cut — the QA guard asserts it */
