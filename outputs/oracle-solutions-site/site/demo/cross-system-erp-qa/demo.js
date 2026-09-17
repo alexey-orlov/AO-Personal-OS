@@ -1426,7 +1426,7 @@
       (lastStage ? '<button class="lin-edge lin-edge--r lin-edge--plus" type="button" data-linside="down" aria-label="Expand downstream">+</button>' : '<button class="lin-edge lin-edge--r" type="button" data-linside="down" aria-label="Collapse downstream">&minus;</button>') +
       (c.anchor ? '<span class="lin-anchor" title="Anchor">' + ICON.anchor + "</span>" : "") +
       '<button class="lin-head" type="button" data-lindet="' + esc(c.id) + '"><span class="lin-ico lin-ico--' + esc(c.tone) + '">' + (c.kind === "task" ? ICON.route : ICON.grid) + "</span>" +
-      '<span class="lin-nm">' + esc(c.name) + "</span></button>" +
+      '<span class="lin-nm">' + esc(lc(c.name)) + "</span></button>" +
       '<div class="lin-meta"><span class="lin-type">' + esc(c.type) + '</span><i>|</i>' + toneChip(c) + "</div>" +
       (open && c.cols ? '<div class="lin-cols"><label class="lin-filter"><span class="wb-mag"></span><input type="search" placeholder="Filter" aria-label="Filter columns"></label>' +
         chips + '<a class="lin-clear' + (sel ? "" : " is-off") + '" data-linclear="1">Clear</a></div>' : "") +
@@ -1439,7 +1439,7 @@
     if (S.linHideUp) stages = stages.slice(1);
     var sel = S.linCol, maps = (sel && g.map[sel]) || [];
     return '<div class="lin" id="lin">' +
-      '<div class="lin-bar"><span class="lin-title">Lineage for <span class="lin-ico lin-ico--gold sm">' + ICON.grid + "</span><b>GOLD." + esc(S.linView) + "</b></span>" +
+      '<div class="lin-bar"><span class="lin-title">Lineage for <span class="lin-ico lin-ico--gold sm">' + ICON.grid + "</span><b>" + esc(GOLD_CAT + "." + lc(S.linView)) + "</b></span>" +
       '<label class="lin-find"><span class="wb-mag"></span><input type="search" placeholder="Find" aria-label="Find an artifact"></label>' +
       '<span class="lin-icons"><i>' + ICON.sliders + '</i><i class="dots">&middot;&middot;&middot;</i><i>' + ICON.shrink + "</i><i>" + ICON.expand + "</i>" +
       '<button class="lin-x" type="button" id="lin-close" aria-label="Close lineage">&times;</button></span></div>' +
@@ -1483,7 +1483,7 @@
     });
     rows.sort(function (a, b) { return a.dir === b.dir ? a.depth - b.depth : (a.dir === "up" ? -1 : 1); });
     return '<div class="lin-det" id="lin-det"><div class="lin-det-h"><span class="lin-ico lin-ico--' + esc(c.tone) + ' sm">' + (c.kind === "task" ? ICON.route : ICON.grid) + "</span>" +
-      "<b>" + esc(c.name) + '</b><span class="lin-type">' + esc(c.type) + "</span><i>|</i>" + toneChip(c) +
+      "<b>" + esc(lc(c.name)) + '</b><span class="lin-type">' + esc(c.type) + "</span><i>|</i>" + toneChip(c) +
       '<span class="lin-ud">&uarr; ' + ud.up + " &darr; " + ud.down + "</span>" +
       '<span class="lin-right"><span>' + ICON.expand + '</span><button class="lin-x" type="button" data-lindet="" aria-label="Close details">&times;</button></span></div>' +
       '<div class="lin-det-tabs"><button type="button" class="' + (S.linTab === "details" ? "is-on" : "") + '" data-lintab="details">Details</button>' +
@@ -1491,11 +1491,11 @@
       (S.linTab === "impact"
         ? '<div class="lin-det-b"><p class="lin-help">Use the controls below to determine the upstream and downstream impact of the current artifact.</p>' +
           '<div class="lin-ctrl"><label class="lin-filter"><span class="wb-mag"></span><input type="search" placeholder="Filter" aria-label="Filter artifacts"></label>' +
-          '<span class="lin-sel">All artifact types' + ICON.chevd + '</span><span class="lin-seg"><b class="is-on">Upstream</b><b>Downstream</b></span><span class="lin-exp">&#8599;</span></div>' +
+          '<span class="lin-sel">All artifact types<i class="tri"></i></span><span class="lin-seg"><b>Upstream</b><b>Downstream</b></span><span class="lin-exp">&#8599;</span></div>' +
           '<div class="lin-sec">All upstream &amp; downstream lineage</div>' +
-          '<table class="wb-tbl"><thead><tr><th>Artifact name</th><th style="width:110px">Type</th><th style="width:150px">Direction</th><th style="width:80px">Depth</th></tr></thead><tbody>' +
+          '<table class="wb-tbl lin-imp"><thead><tr><th>Artifact name' + SORTC + "</th><th>Type" + SORTC + "</th><th>Direction" + SORTC + "</th><th>Depth" + SORTC + "</th></tr></thead><tbody>" +
           rows.map(function (r) {
-            return "<tr><td>" + esc(r.name) + "</td><td>" + esc(r.type) + '</td><td><span class="lin-dir">' + (r.dir === "up" ? "&uarr; upstream" : "&darr; downstream") + "</span></td><td>" + r.depth + "</td></tr>";
+            return "<tr><td>" + esc(lc(r.name)) + "</td><td>" + esc(r.type) + '</td><td><span class="lin-dir">' + (r.dir === "up" ? "&uarr; upstream" : "&darr; downstream") + "</span></td><td>" + r.depth + "</td></tr>";
           }).join("") + "</tbody></table></div>"
         : '<div class="lin-det-b lin-det-b--2"><div><div class="lin-lab">Description</div>' +
           '<p class="lin-desc">' + esc(c.id === "out" ? (D.views.filter(function (v) { return v.id === S.linView; })[0] || {}).definition || "" : c.kind === "task" ? "Resolves, maps and translates the mounted sources into the certified view." : "Source object mounted from " + c.cat + ".") + "</p>" +
@@ -1507,7 +1507,7 @@
           '<dt>Asset link</dt><dd><a class="lin-link">Open &#8599;</a></dd></dl></div>' +
           '<div><div class="lin-ctrl"><label class="lin-filter"><span class="wb-mag"></span><input type="search" placeholder="Filter" aria-label="Filter columns"></label>' +
           '<span class="lin-sel">All data types' + ICON.chevd + "</span></div>" +
-          '<table class="wb-tbl"><thead><tr><th>Column name</th><th style="width:120px">Type</th></tr></thead><tbody>' +
+          '<table class="wb-tbl"><thead><tr><th>Column name' + SORTC + '</th><th style="width:120px">Type' + SORTC + "</th></tr></thead><tbody>" +
           cols.map(function (x) { return "<tr><td>" + esc(x[0]) + "</td><td>" + esc(x[2] || "string") + "</td></tr>"; }).join("") +
           "</tbody></table></div></div>") + "</div>";
   }
