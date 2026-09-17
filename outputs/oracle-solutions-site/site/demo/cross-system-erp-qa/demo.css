@@ -1040,7 +1040,7 @@ body.ui-clean .lin { inset: 44px 0 0 0; }
 
 /* ---------- Agent Hub · the analysis ------------------------------------ */
 .conv--an { max-width: 1180px; }
-body.tour-gutter .conv--an { padding-right: 336px; }
+body.tour-gutter .conv--an { padding-right: 324px; }
 .an-head { padding: 14px 16px 0; }
 .an-hl { font-size: 15px; line-height: 1.5; color: var(--wb-txt); }
 .an-hl b { font-weight: 700; }
@@ -1160,12 +1160,13 @@ body.tour-gutter .conv--an { padding-right: 336px; }
 
 /* the ranked-accounts table is built to fit 1440 without a sideways scroll */
 .agrid--acct { table-layout: fixed; }
-.agrid--acct th:nth-child(1), .agrid--acct td:nth-child(1) { width: 206px; }
-.agrid--acct th:nth-child(2), .agrid--acct td:nth-child(2) { width: 48px; }
-.agrid--acct th:nth-child(3), .agrid--acct td:nth-child(3) { width: 128px; }
-.agrid--acct th:nth-child(4), .agrid--acct td:nth-child(4) { width: 54px; }
-.agrid--acct th:nth-child(5), .agrid--acct td:nth-child(5) { width: 100px; }
-.agrid--acct th:nth-child(6), .agrid--acct td:nth-child(6) { width: 78px; }
-.agrid--acct th:nth-child(7), .agrid--acct td:nth-child(7) { width: 146px; }
-.agrid--acct th:nth-child(9), .agrid--acct td:nth-child(9) { width: 92px; }
+.agrid--acct th:nth-child(1), .agrid--acct td:nth-child(1) { width: 19%; }
+.agrid--acct th:nth-child(2), .agrid--acct td:nth-child(2) { width: 5%; }
+.agrid--acct th:nth-child(3), .agrid--acct td:nth-child(3) { width: 12%; }
+.agrid--acct th:nth-child(4), .agrid--acct td:nth-child(4) { width: 5.5%; }
+.agrid--acct th:nth-child(5), .agrid--acct td:nth-child(5) { width: 9.5%; }
+.agrid--acct th:nth-child(6), .agrid--acct td:nth-child(6) { width: 7.5%; }
+.agrid--acct th:nth-child(7), .agrid--acct td:nth-child(7) { width: 14%; }
+.agrid--acct th:nth-child(9), .agrid--acct td:nth-child(9) { width: 9%; }
+.agrid--acct td:nth-child(9) .btn { padding: 4px 7px; }
 .agrid--acct td:nth-child(1) b { display: block; }
