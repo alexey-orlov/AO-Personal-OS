@@ -232,20 +232,36 @@ svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width:
 .ds-empty { padding: 26px; text-align: center; color: var(--ds-txt-2); }
 
 /* Data Load › Feeds */
-.ds-head { padding: 14px 20px 8px; display: flex; align-items: baseline; gap: 10px; }
-.ds-head h1 { font-size: 20px; font-weight: 600; }
-.ds-head span { font-size: 12.5px; color: var(--ds-txt-2); }
+.ds-crumbs { padding: 10px 20px 0; font-size: 12.5px; display: flex; align-items: center; gap: 7px; }
+.ds-crumbs a { color: var(--ds-link); cursor: pointer; }
+.ds-crumbs span { color: #8b857d; }
+.ds-crumbs b { font-weight: 400; color: var(--ds-txt); }
+.ds-head { padding: 8px 20px 10px; }
+.ds-head h1 { font-size: 24px; font-weight: 400; }
+.ds-head span { display: block; font-size: 12.5px; color: var(--ds-txt-2); margin-top: 2px; }
 .ds-seg { display: flex; gap: 0; margin: 0 20px 14px; border-bottom: 1px solid var(--ds-line-2); }
 .ds-seg button { background: transparent; border: 0; border-bottom: 2px solid transparent; padding: 6px 14px; font-size: 12.5px; color: var(--ds-txt-2); cursor: pointer; }
 .ds-seg button.is-on { color: var(--ds-txt); font-weight: 600; border-bottom-color: var(--ds-chrome); }
-.job { margin: 0 20px 18px; background: var(--ds-surface); border: 1px solid var(--ds-line); border-radius: 4px; }
-.job-head { display: flex; align-items: flex-start; gap: 12px; padding: 14px 16px; border-bottom: 1px solid var(--ds-line); }
-.job-ico { width: 32px; height: 32px; border-radius: 5px; background: #e8ecdf; color: var(--ds-green); display: grid; place-items: center; }
-.job-head h2 { font-size: 15px; }
-.job-head .sub { font-size: 12px; color: var(--ds-txt-2); margin-top: 2px; }
-.job-head .job-act { margin-left: auto; display: flex; align-items: center; gap: 10px; }
+.job { margin: 0 20px 18px; background: var(--ds-surface); border: 1px solid var(--ds-line); border-radius: 4px; overflow: hidden; }
+.job-head { display: flex; align-items: center; gap: 10px; padding: 0 12px; height: 38px; background: #245d63; color: #fff; }
+.job-head .job-cv { color: #cfe0e2; display: inline-flex; }
+.job-head .job-cv svg { width: 13px; height: 13px; }
+.job-ico { width: 18px; height: 18px; border-radius: 0; background: transparent; color: #cfe0e2; display: grid; place-items: center; }
+.job-ico svg { width: 16px; height: 16px; }
+.job-head h2 { font-size: 12.5px; font-weight: 600; color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.job-head .job-act { margin-left: auto; display: flex; align-items: center; gap: 7px; }
+.job-tbtn { border: 1px solid rgba(255, 255, 255, .28); background: rgba(0, 0, 0, .22); color: #fff; border-radius: 3px; padding: 2px 10px; font-size: 11.5px; cursor: pointer; }
+.job-tbtn:hover { background: rgba(0, 0, 0, .34); }
+.job-dots { color: #cfe0e2; letter-spacing: 1px; padding: 0 2px; }
+.job-sub { font-size: 12.5px; color: var(--ds-txt-2); padding: 11px 16px 0; }
+.job-sub b { color: var(--ds-txt); font-weight: 600; }
+.job-btns { display: flex; align-items: center; gap: 8px; padding: 8px 16px 14px; }
+.job-btns .grow { margin-left: auto; font-size: 11.5px; color: var(--ds-txt-2); }
+.job-nb { display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--ds-line-2); background: #fff; border-radius: 3px; padding: 4px 11px; font-size: 12px; cursor: pointer; }
+.job-nb:hover { background: #f4f2ef; }
+.job-nb svg { width: 13px; height: 13px; }
+.job-nb .ok { color: #3f8a34; }
 .job-chip { border: 1px solid #b9d0a5; background: #eaf2e2; color: #3f6b23; border-radius: 999px; padding: 2px 10px; font-size: 11.5px; font-weight: 600; }
-.job-chip--live { border-color: #cbb896; background: #f7efdd; color: #7a5a17; }
 .job-src { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0; border-bottom: 1px solid var(--ds-line); }
 .job-src > div { padding: 10px 14px; border-right: 1px solid var(--ds-line); min-width: 0; }
 .job-src > div:last-child { border-right: 0; }
@@ -253,10 +269,10 @@ svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width:
 .job-src .nm { font-size: 12.5px; font-weight: 600; margin: 2px 0; }
 .job-src .fd { font-size: 11px; color: var(--ds-txt-2); }
 .job-src .fr { font-size: 11px; color: var(--ds-olive); background: var(--ds-olive-bg); border-radius: 999px; padding: 1px 7px; display: inline-block; margin-top: 5px; font-weight: 600; }
-.stages { list-style: none; margin: 0; padding: 10px 16px 14px; display: grid; gap: 8px; }
+.stages { list-style: none; margin: 0; padding: 8px 16px 4px; display: grid; gap: 8px; }
 .stages li { display: grid; grid-template-columns: 18px 1fr auto; gap: 10px; align-items: center; font-size: 12.5px; color: var(--ds-txt-2); }
 .stages li i { width: 14px; height: 14px; border-radius: 50%; border: 1.6px solid var(--ds-line-2); position: relative; }
-.stages li.is-running i { border-color: var(--ds-green); border-top-color: transparent; animation: spin .7s linear infinite; }
+.stages li.is-running i { border-color: var(--ds-green); background: #cfe3bb; }
 .stages li.is-done i { border-color: var(--ds-green); background: var(--ds-green); }
 .stages li.is-done i::after { content: ""; position: absolute; left: 3px; top: 1.5px; width: 4px; height: 7px; border: 2px solid #fff; border-top: 0; border-left: 0; transform: rotate(40deg); }
 .stages li.is-done span, .stages li.is-running span { color: var(--ds-txt); font-weight: 600; }
