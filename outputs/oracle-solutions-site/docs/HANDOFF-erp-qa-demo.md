@@ -292,3 +292,26 @@ page verified headlessly (`.work/erpqa-qa/product-page-r2.png`).
    `assets/img/manifest-edits.json`. `config.js` and `content.js` are unchanged
    this round — the images kept their file names.
 3. **Fold the round into the context wiki** with `context-update`.
+
+---
+
+# Round 3 (2026-09-17) — end card, step counter, interface fidelity
+
+_Alex's feedback on round 2: (1) the end card reads as a justification of the build session, not what a user needs to see; (2) the counter says "Step n of 6" while many clicks happen inside one step, so several clicks pass with no visible progress; (3) the Oracle interfaces must match the real products exactly — "if something is still made up (sections, titles, layouts, etc.) tell me and explain why; I expect a full match"._
+
+## R9. End card (replace the whole card)
+
+- **Eyebrow:** Interactive walkthrough. **Title:** What you can act on now.
+- **Body (three sentences, nothing else):** Five systems answered one question: which orders are at risk this week, and which accounts they put at stake. Every figure came with its cause and its source rows, you overruled the one thing the AI could not know, and your team has a dashboard that respects who is looking. Nothing was written to any system: the AI proposes, people decide.
+- **Try next (three buttons, each opens the place):** Ask another question (Agent Hub home, the saved questions) · Open the Decisions queue (the customer matches waiting for a person) · See the dashboard (Insights). Then **Replay the walkthrough** (dark) and **Keep exploring** (ghost).
+- **Footer (one line):** Demo data only: a fictional group with synthetic orders, contracts and shipments; nothing leaves this page.
+- Delete the "What the AI did / What you decided" recap, the six-step list and the "Still open for you" paragraph. No figures on the card.
+
+## R10. Step counter
+
+- The card shows the major step and the position inside it: **"Step 4 of 6 · 2 of 3"** (majors keep the six business titles; the second number counts every sub-step of the major, passive ones included). The six progress segments fill fractionally as sub-steps complete, so every click moves something. The end card counts as complete.
+- Same engine change offered for the Workforce optimization and Large docs walkthroughs (same pattern) — not applied unless Alex asks.
+
+## R11. Interface fidelity (the audit and the fix)
+
+Three read-only Opus auditors compare every Oracle surface element by element against the reference frames (`.work/erp-qa/fidelity/*-audit.md`, side-by-side sheets under `fidelity/sheets/`), classifying each difference as A (deviation with a reference → exact fix), B (invention without a reference → nearest real idiom and why), C (match). One Opus fixer applies every A item plus R9 and R10, re-runs QA at three viewports, re-cuts any still whose screen changed, and updates PROVENANCE §22 with the fidelity table. Fable reviews the sheets and the residual B list and reports them to Alex with reasons.
