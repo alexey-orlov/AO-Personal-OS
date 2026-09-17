@@ -278,7 +278,7 @@ current on disk. `node tools/erp-qa-check.js` 329 assertions passing,
 `node tools/check-grammar.js` OK, the tour clean at three viewports, the product
 page verified headlessly (`.work/erpqa-qa/product-page-r2.png`).
 
-**Left for the main session** (subagents never publish and never run git):
+**Done by the main session, 2026-09-17, round 2:** the standalone artifact (https://claude.ai/code/artifact/6c822cc7-1c05-4504-ad61-7b64c86e9ceb) and the site artifact (https://claude.ai/code/artifact/41e4f3b6-47d9-4ef2-af99-99c40c02b89b) were republished in place with the round-2 demo, the five re-cut images and the manifest, the demo was checked in the viewer, the "What the AI has to go on" copy nit was applied, and the wiki was folded. The list below was the plan:
 
 1. **Republish the standalone walkthrough artifact in place** —
    https://claude.ai/code/artifact/6c822cc7-1c05-4504-ad61-7b64c86e9ceb still
