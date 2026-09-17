@@ -368,7 +368,7 @@ The interface fixes, the end card, the step counter, the five re-cut images and 
 Before/after sheets for the ten screens that changed most: `.work/erp-qa/fidelity/sheets/` (before) and
 `.work/erp-qa/fidelity/sheets-after/` (after).
 
-**For the main session:**
+**Done by the main session, 2026-09-17, round 3:** the standalone artifact (https://claude.ai/code/artifact/6c822cc7-1c05-4504-ad61-7b64c86e9ceb) and the site artifact (https://claude.ai/code/artifact/41e4f3b6-47d9-4ef2-af99-99c40c02b89b, merged on top of another session's newer version that had added `pages/sellers.js`) were republished with the round-3 demo and the five re-cut images, the demo was checked in the viewer, and the wiki was folded. The list below was the plan:
 
 1. **Republish the standalone walkthrough artifact in place** —
    https://claude.ai/code/artifact/6c822cc7-1c05-4504-ad61-7b64c86e9ceb — read it first, then publish the
