@@ -1609,7 +1609,7 @@
   var STEPS = [
     { id: "sources", major: 1, side: "bottom", passive: true,
       title: "Everything you run on, in one place",
-      body: "Your order book lives in three systems — Fusion in Europe, JD Edwards in North America, NetSuite for the services company — and what a promise is worth lives in two more: the customer contracts, and the delivery-tracking application with the carrier scans. Your accounts and their tiers come from the CRM. All five feed one place, minutes behind. That is the only reason an AI can answer a question that crosses them.",
+      body: "Three systems hold the order book — Fusion in Europe, JD Edwards in North America, NetSuite for services. What a promise is worth lives in two more: the customer contracts, and the delivery-tracking application with the carrier scans. Tiers and owners come from the CRM. All five feed one place, minutes behind.",
       target: function () { return $("#src-cards"); }, anchor: function () { return $("#src-cards .src:last-child"); },
       avoid: function () { return $("#src-cards"); },
       auto: function () { tour.next(); } },

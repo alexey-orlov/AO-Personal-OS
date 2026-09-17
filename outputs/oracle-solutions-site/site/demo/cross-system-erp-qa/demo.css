@@ -1175,3 +1175,18 @@ body.tour-gutter .conv--an { padding-right: 324px; }
 .agrid--acct td { overflow: hidden; }
 .agrid--acct td.sysc .sysb { margin: 0 3px 2px 0; }
 .agrid--acct td.sysc .sysb + .sysb { margin-left: 0; }
+
+/* the five source cards compress rather than push the step-1 hint off screen */
+@media (max-width: 1340px) {
+  .src { gap: 4px; padding: 9px 10px 10px; }
+  .src h3 { font-size: 13px; }
+  .src-what { font-size: 11px; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+  .src-objs { max-height: 17px; overflow: hidden; }
+  .srcs-head span { display: none; }
+}
+@media (max-width: 1120px) {
+  .src-cards { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .src-what { -webkit-line-clamp: 2; }
+  .src-apps { display: none; }
+  .src-sys { display: none; }
+}
