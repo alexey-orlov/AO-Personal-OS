@@ -1217,3 +1217,8 @@ body.tour-gutter .conv--an { padding-right: 324px; }
   .src-feed { padding-top: 2px; }
   .src-objs { max-height: 15px; }
 }
+@media (max-width: 1120px) {
+  .src-objs { display: none; }
+  .src { height: 128px; }
+  .src-kind { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+}
