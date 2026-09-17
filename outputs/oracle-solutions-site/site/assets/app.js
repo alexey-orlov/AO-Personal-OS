@@ -652,7 +652,9 @@
             "</div>" +
           "</div>" +
         "</div>" +
-        '<div class="footer-legal">' + legal +
+        '<div class="footer-legal">' +
+          (f.sellersLink ? '<a href="' + esc(f.sellersLink.route) + '">' + esc(f.sellersLink.label) + "</a>" : "") +
+          legal +
           '<p class="legal-line">' + esc(f.legalLine) + "</p>" +
         "</div>" +
         '<p class="trademark">' + esc(f.trademarkLine) + "</p>" +
@@ -666,7 +668,8 @@
     { pattern: /^\/products$/, page: "products", params: function () { return {}; } },
     { pattern: /^\/products\/([^/]+)$/, page: "product", params: function (m) { return { slug: m[1] }; } },
     { pattern: /^\/products\/([^/]+)\/([^/]+)$/, page: "product", params: function (m) { return { slug: m[1], tab: m[2] }; } },
-    { pattern: /^\/services$/, page: "services", params: function () { return {}; } }
+    { pattern: /^\/services$/, page: "services", params: function () { return {}; } },
+    { pattern: /^\/sellers$/, page: "sellers", params: function () { return {}; } }
   ];
 
   function decodePart(value) {
