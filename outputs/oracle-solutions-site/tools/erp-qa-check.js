@@ -470,6 +470,37 @@ ok("and none of them follows you into the next application",
   /if \(S\.app !== app\) hideToast\(\);/.test(page));
 ok("one global only", /window\.ERPQA_DATA = \(function \(\) \{/.test(src));
 
+/* round 3 — the interface-fidelity renames, so a later edit cannot quietly undo them */
+var css = fs.readFileSync(path.join(root, "site/demo/cross-system-erp-qa/demo.css"), "utf8");
+var html = fs.readFileSync(path.join(root, "site/demo/cross-system-erp-qa/index.html"), "utf8");
+ok("the Workbench nav carries Oracle's real roster, not an invented one",
+  /"Master catalog"/.test(page) && /"Workspaces"/.test(page) && /"Credential store"/.test(page) &&
+  /"Data sharing"/.test(page) && /"Notifications"/.test(page) && /"Roles"/.test(page) && /"Audit logs"/.test(page));
+ok("Sessions is gone — the page is Oracle's Audit logs", !/wbPanel === "sessions"/.test(page) && /function auditHtml/.test(page));
+ok("Insights left the Workbench nav for the Agent Hub's bottom nav",
+  !/label: "Insights", icon: "chart"/.test(page) && /data-hubnav/.test(page) && /hub-bot/.test(css));
+ok("the conversation wears Agent Hub's plum bar", /#614d70/.test(css) && /wb-plum/.test(html));
+ok("Oracle's marks are text and an outlined ellipse, never a red diamond tile",
+  />ORACLE<sup>/.test(html) && !/\.ds-mark::after/.test(css) && !/\.wb-mark::after/.test(css));
+ok("the answer's chip row is Explore / Explain / Code View / Trace / Narrate",
+  /"Explore"\)/.test(page) && /"Explain"\)/.test(page) && /"Code View"\)/.test(page) && /sqlbox/.test(page));
+ok("the run card says Succeeded and has no Cancel",
+  /"Succeeded"/.test(page) && !/rc-cancel/.test(page));
+ok("the trace is Oracle's Agent flow task table",
+  /Agent flow task/.test(page) && /Tokens/.test(page) && /tr-meta/.test(css));
+ok("the amber rule fires nowhere but Workbench Home", /\.wb-rule \{ display: none/.test(css));
+ok("AIDP object names are lowercase_snake_case", /function lc\(id\)/.test(page) && /esc\(lc\(c\.name\)\)/.test(page));
+ok("the Redwood app has a breadcrumb and a 900-weight page title",
+  /rw-crumb/.test(html) && /font-weight: 900/.test(css));
+ok("no uppercase micro-labels are left in the Redwood app",
+  !/\.tile \.lab \{[^}]*text-transform: uppercase/.test(css) &&
+  !/\.band-head \.eyebrow \{[^}]*text-transform: uppercase/.test(css) &&
+  !/\.hub-sec \{[^}]*text-transform: uppercase/.test(css));
+ok("the step counter names the sub-step and the segments fill fractionally",
+  /" of " \+ MAJORS \+ " \\u00b7 " \+ sub/.test(page) && /bars \+= '<i><b style="width:'/.test(page));
+ok("the end card is the three-sentence one, with three doors and no recap",
+  /What you can act on now/.test(page) && /data-door/.test(page) && !/What the AI did:/.test(page));
+
 console.log("\n==============================================================");
 console.log((fail ? "FAILED" : "OK") + " — " + pass + " passed, " + fail + " failed");
 process.exit(fail ? 1 : 0);

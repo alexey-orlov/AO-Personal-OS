@@ -738,6 +738,12 @@
   "eval": "window.DEMO.openPanel('code'); true"
  },
  {
+  "sleep": 500
+ },
+ {
+  "eval": "document.querySelector('#ans-panel').scrollIntoView({block:'start'}); true"
+ },
+ {
   "sleep": 700
  },
  {
@@ -756,6 +762,12 @@
   "eval": "document.querySelector('[data-narr]').click(); true"
  },
  {
+  "sleep": 400
+ },
+ {
+  "eval": "var n=document.querySelector('.ans-narr'); if(n) n.scrollIntoView({block:'center'}); true"
+ },
+ {
   "sleep": 600
  },
  {
@@ -766,6 +778,12 @@
  },
  {
   "eval": "document.querySelector('[data-narr]').click(); true"
+ },
+ {
+  "sleep": 400
+ },
+ {
+  "eval": "var n=document.querySelector('.ans-narr'); if(n) n.scrollIntoView({block:'center'}); true"
  },
  {
   "sleep": 400
