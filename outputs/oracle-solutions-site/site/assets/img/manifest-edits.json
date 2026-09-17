@@ -134,26 +134,26 @@
       {
         "file": "steps/cross-system-erp-qa-1.jpg",
         "kind": "screenshot",
-        "caption": "Five source catalogs mounted in one data catalog",
-        "alt": "A data catalog with five mounted source catalogs and its certified views"
+        "caption": "Five systems feeding one model, minutes behind",
+        "alt": "Five source cards — Fusion, JD Edwards, NetSuite, an in-house delivery-tracking database and a CRM — each with the feed that carries it and how far behind it is"
       },
       {
         "file": "steps/cross-system-erp-qa-2.jpg",
         "kind": "screenshot",
-        "caption": "The model health band after the rebuild",
-        "alt": "Six health tiles reading before and after the model rebuild"
+        "caption": "What each system knew, and what the join makes of it",
+        "alt": "Six tiles reading per system, then across systems: late lines known, lines with an account tier, lines with a cause attributed, lines fixable from stock elsewhere, revenue at risk valued and tier-A exposure"
       },
       {
         "file": "steps/cross-system-erp-qa-3.jpg",
         "kind": "screenshot",
-        "caption": "The same question, answered under the asker's role",
-        "alt": "An answer grid limited to four rows for a regional analyst, with a banner naming the row policy and the masked columns"
+        "caption": "The same dashboard, row-limited and masked by role",
+        "alt": "A dashboard built by the AI, seen by a regional analyst: North America rows only, and the contract-penalty tile masked with a note that the terms are hidden for this role"
       },
       {
         "file": "steps/cross-system-erp-qa-4.jpg",
         "kind": "screenshot",
-        "caption": "Every answer row carries the systems it came from",
-        "alt": "An answer grid with per-row source badges, above it the row count, the data freshness and the certified views it read"
+        "caption": "One question in plain English, four agents on it",
+        "alt": "An agent hub answering a typed question about orders at risk: the order agent finished with the three order books it read, the identity agent still matching customers and items"
       }
     ],
     "business-metrics-qa": [
