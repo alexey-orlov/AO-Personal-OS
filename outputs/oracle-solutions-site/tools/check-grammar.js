@@ -848,15 +848,17 @@ if (!arr(C.products) || C.products.length !== 7) {
   ["name", "title", "tagline", "metaDescription"].forEach(function (k) {
     if (!str(s[k])) fail("site", k + " missing");
   });
-  /* Two items and no "Overview": the logo is the home link. Case studies left
+  /* Three items and no "Overview": the logo is the home link. Case studies left
      the header on 2026-09-17 (Alex) — the home page still carries its
-     case-study screen, and Services links to it. */
+     case-study screen, and Services links to it — and For sellers took the
+     slot, as the one entry to the sales kit for all offers (round 8). */
   var NAV = [
     { label: "Products", route: "#/products" },
-    { label: "Services", route: "#/services" }
+    { label: "Services", route: "#/services" },
+    { label: "For sellers", route: "#/sellers" }
   ];
   if (!arr(s.nav) || s.nav.length !== NAV.length) {
-    fail("site.nav", "must hold exactly " + NAV.length + " items (Products · Services), got " +
+    fail("site.nav", "must hold exactly " + NAV.length + " items (Products · Services · For sellers), got " +
       (arr(s.nav) ? s.nav.length : "none"));
   } else NAV.forEach(function (want, i) {
     var got = s.nav[i] || {};
@@ -1121,9 +1123,9 @@ if (!arr(C.products) || C.products.length !== 7) {
   });
 
   /* --- HANDOFF §6.1: the words this page does not use ---
-     Scoped to `overview` on purpose. "unlock" is banned in home-page marketing
-     copy and correct in `sellerGate`, which unlocks a panel; a site-wide ban
-     would fail the build on the one honest use of the word. */
+     Scoped to `overview` on purpose: the ban is for home-page marketing copy.
+     (The seller gate that honestly "unlocked" a panel was retired in round 8 for
+     the sales-kit request.) */
   var homeRaw = JSON.stringify(o).toLowerCase();
   ["cutting-edge", "seamless", "unlock", "empower", "revolutionary"].forEach(function (word) {
     if (homeRaw.indexOf(word) !== -1) {

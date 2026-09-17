@@ -2169,6 +2169,24 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 
 .panel--cta { border: 1px solid var(--border); border-radius: var(--r-lg); padding: clamp(1.75rem, 3vw, 2.5rem); align-items: flex-start; background: var(--bg-raised); }
 
+/* ——— sales kit (round 8) ————————————————————————————— */
+
+/* The kit request takes the gate's place: the same bordered panel, a short form
+   inside it, and a confirmation that replaces the form. */
+.panel--kit .kit-form { display: flex; flex-direction: column; gap: 1rem; width: 100%; max-width: 36rem; margin-top: .25rem; }
+.kit-field { display: flex; flex-direction: column; gap: .5rem; }
+.kit-route { color: var(--text-muted); }
+.kit-next { color: var(--text-body); }
+.kit-confirm { max-width: none; width: 100%; }
+.panel--kit .form-status:empty { display: none; }
+.field-error .inline-link { color: inherit; border-bottom-color: currentColor; }
+
+/* #/sellers — one screen: the kit panel, then the demo route. */
+.sellers-page { padding-block: clamp(3rem, 6vw, 5rem); }
+.sellers-wrap { display: flex; flex-direction: column; gap: 1.5rem; max-width: 46rem; margin-inline: auto; }
+.sellers-wrap .panel--gate { max-width: none; margin-inline: 0; }
+.link-button { background: none; border-top: 0; border-inline: 0; padding: 0; font-family: inherit; cursor: pointer; }
+
 /* ——— video modal —————————————————————————————————————— */
 
 .modal-title { margin-bottom: 1.25rem; padding-right: 2.5rem; }
