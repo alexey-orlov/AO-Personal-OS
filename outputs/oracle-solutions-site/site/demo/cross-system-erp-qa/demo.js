@@ -188,38 +188,43 @@
   /* 1. DATA STUDIO                                                        */
   /* ===================================================================== */
   /* Left nav, verbatim from ui-anatomy §1.2 (top level) and §1.11 (the real
-     Data Load child list, which is where Live Feed lives). The sub-tree is
-     drawn open, as Oracle draws it, and the nav widens while it is. */
+     Data Load child list, which is where Live Feed lives). Oracle draws the
+     sub-tree COLLAPSED everywhere except inside Data Load, and the nav widens
+     only while it is open. */
   var DS_NAV = [
     { id: "overview", label: "Overview", icon: "home" },
-    { id: "dataload", label: "Data Load", icon: "load", chevd: true, kids: [
-      { id: "dlhome", label: "Home" },
-      { id: "dllocal", label: "Load Local File" },
-      { id: "dlcloud", label: "Load Cloud Store" },
-      { id: "dldb", label: "Load Database Tables" },
-      { id: "lkcloud", label: "Link Cloud Store" },
-      { id: "lkdb", label: "Link Database Tables" },
-      { id: "feeds", label: "Live Feed" },
-      { id: "dljobs", label: "Data Load Jobs" },
-      { id: "cloudloc", label: "Cloud Locations" }
+    { id: "dataload", label: "Data Load", icon: "load", kids: [
+      { id: "dlhome", label: "Home", icon: "home" },
+      { id: "dllocal", label: "Load Local File", icon: "load" },
+      { id: "dlcloud", label: "Load Cloud Store", icon: "cloud" },
+      { id: "dldb", label: "Load Database Tables", icon: "extbl" },
+      { id: "lkcloud", label: "Link Cloud Store", icon: "dblink" },
+      { id: "lkdb", label: "Link Database Tables", icon: "dblink" },
+      { id: "feeds", label: "Live Feed", icon: "stream" },
+      { id: "dljobs", label: "Data Load Jobs", icon: "list" },
+      { id: "cloudloc", label: "Cloud Locations", icon: "cloud" }
     ] },
-    { id: "assist", label: "Table AI Assist", icon: "wand" },
-    { id: "analysis", label: "Analysis", icon: "chart" },
-    { id: "insights", label: "Insights", icon: "bulb" },
-    { id: "catalog", label: "Catalog", icon: "book" },
+    { id: "assist", label: "Table AI Assist", icon: "dsAssist" },
+    { id: "analysis", label: "Analysis", icon: "dsAnalysis" },
+    { id: "insights", label: "Insights", icon: "dsInsights" },
+    { id: "catalog", label: "Catalog", icon: "dsCatalog" },
     { id: "market", label: "Marketplace", icon: "store" },
     { id: "dshare", label: "Data Share", icon: "share", chev: true }
   ];
   function renderDsNav() {
     $("#ds-nav").innerHTML = DS_NAV.map(function (n) {
+      var open = !!(n.kids && n.kids.some(function (k) { return k.id === S.dsScreen; }));
       var row = '<button class="ds-item' + (n.id === S.dsScreen ? " is-active" : "") + '" type="button" data-ds="' + n.id + '">' + ICON[n.icon] + "<span>" + esc(n.label) + "</span>" +
-        (n.chev ? '<span class="chev">' + ICON.chev + "</span>" : "") + (n.chevd ? '<span class="chev">' + ICON.chevd + "</span>" : "") + "</button>";
-      if (n.kids) row += n.kids.map(function (k) {
-        return '<button class="ds-item ds-item--kid' + (k.id === S.dsScreen ? " is-active" : "") + '" type="button" data-ds="' + k.id + '"><span>' + esc(k.label) + "</span></button>";
+        (n.chev ? '<span class="chev">' + ICON.chev + "</span>" : "") +
+        (n.kids ? '<span class="chev">' + (open ? ICON.chevd : ICON.chev) + "</span>" : "") + "</button>";
+      if (n.kids && open) row += n.kids.map(function (k) {
+        return '<button class="ds-item ds-item--kid' + (k.id === S.dsScreen ? " is-active" : "") + '" type="button" data-ds="' + k.id + '">' + ICON[k.icon] + "<span>" + esc(k.label) + "</span></button>";
       }).join("");
       return row;
     }).join("") + '<div class="ds-navfoot"><button class="ds-item" type="button" data-ds="settings">' + ICON.gear + "<span>Settings</span></button>" +
-      '<button class="ds-item" type="button" data-ds="collapse"><span style="opacity:.7">&laquo;</span><span>Collapse</span></button></div>';
+      '<button class="ds-item" type="button" data-ds="collapse"><span>&laquo;</span><span>Collapse</span></button></div>';
+    var open = DS_NAV.some(function (n) { return n.kids && n.kids.some(function (k) { return k.id === S.dsScreen; }); });
+    $(".ds-body").classList.toggle("ds-body--wide", open);
   }
   $("#ds-nav").addEventListener("click", function (e) {
     var b = e.target.closest("[data-ds]");
