@@ -1481,6 +1481,10 @@
     }).join("");
   }
   function pendingFor(accId) { return S.pending.filter(function (p) { return p.decision.accountId === accId; })[0]; }
+  function atRiskCount(e) {
+    var n = (e.lines || []).filter(function (l) { return l.atRisk !== false; }).length;
+    return n || (e.lines || []).length;
+  }
   function accRowHtml(acc, an) {
     var pend = pendingFor(acc.id);
     var gone = acc.status && acc.status !== "at-risk";
@@ -1498,7 +1502,7 @@
       '<div class="reca-b"><span class="reca-why">' + esc(acc.causeLabel || "") +
       (acc.recommendation && acc.recommendation.text ? " &middot; " + esc(acc.recommendation.text) : "") + "</span></div>" +
       '<div class="reca-ev"><b>What the AI is going on:</b> ' +
-      esc((e.lines || []).length) + " order line" + ((e.lines || []).length === 1 ? "" : "s") + " in " +
+      esc(atRiskCount(e)) + " order line" + (atRiskCount(e) === 1 ? "" : "s") + " at risk in " +
       esc((((acc.riskSystems && acc.riskSystems.length ? acc.riskSystems : acc.systems) || []).map(function (x) { return D.sourceById[x] ? D.sourceById[x].short : x; }).join(" and ")) || "the order book") +
       ((e.stockElsewhere && e.stockElsewhere.length) ? "; the same part on hand in " + esc(e.stockElsewhere[0].plant) + " (" + esc(e.stockElsewhere[0].onHand) + " " + esc(e.stockElsewhere[0].uom || "") + ")" : "") +
       (e.supplierDelay ? "; purchase order " + esc(e.supplierDelay.key) + " " + esc(e.supplierDelay.daysLate) + " days late" : "") +
@@ -1517,7 +1521,7 @@
   }
   function recHtml(a, an) {
     var open = S.openRec === a.id;
-    var mine = an.accounts.filter(function (x) { return (a.accountIds || []).indexOf(x.id) >= 0; });
+    var mine = an.accounts.filter(function (x) { return (a.accountIds || []).indexOf(x.id) >= 0 && x.causeId === a.causeId; });
     var decided = (an.decided || []).filter(function (x) { return x.recommendation && x.recommendation.actionId === a.id; })
       .concat((an.decided || []).filter(function (x) { return x.causeId === a.causeId && (!x.recommendation || !x.recommendation.actionId); }));
     var seen = {}, accs = mine.concat(decided).filter(function (x) { if (seen[x.id]) return false; seen[x.id] = 1; return true; });
@@ -1528,8 +1532,9 @@
       '<span class="rec-v">' + esc(usdShort(a.usd)) + '<span>at risk</span></span>' +
       '<span class="stat stat--pending">' + esc(a.status) + "</span>" +
       '<span class="prop-chev">' + ICON.chev + "</span></button>" +
-      '<div class="prop-body">' + (accs.length ? accs.slice(0, 8).map(function (x) { return accRowHtml(x, an); }).join("") : '<div class="empty">Nothing left under this one.</div>') +
-      (accs.length > 8 ? '<p class="honest">Showing 8 of ' + accs.length + " accounts under this recommendation.</p>" : "") + "</div></div>";
+      '<div class="prop-body">' + (accs.length ? accs.slice(0, 6).map(function (x) { return accRowHtml(x, an); }).join("") : '<div class="empty">Nothing left under this one.</div>') +
+      '<p class="honest">' + Math.min(6, accs.length) + " of the " + (a.accounts || accs.length) +
+      " accounts under this recommendation, ranked — these are the ones whose main exposure it answers.</p></div></div>";
   }
   function matchHtml(m) {
     var a = m.records[0], b = m.records[1], dec = S.matchLog[m.id];
