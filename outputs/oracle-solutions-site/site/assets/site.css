@@ -2270,33 +2270,25 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 .services-platforms { display: flex; flex-wrap: wrap; align-items: center; gap: .625rem 1rem; margin-top: .25rem; }
 .services-platforms > .eyebrow { margin: 0; }
 
-/* ——— services: engagement and after go-live (round 6) ————— */
-
-/* The after-go-live choice closes the engagement screen: a second head in the
-   same section, set a screen-gap below the step track rather than in a section
-   of its own. */
-.services-after { margin-top: clamp(3.5rem, 6vw, 5rem); }
+/* ——— services: the measured method (round 7) ——————————— */
 
 /* The step track runs full width here rather than in the home page's 60/40
-   split, so it reads at body size instead of small print. */
+   split, so it reads at body size instead of small print — and it carries four
+   steps, Discovery ahead of the home page's three. */
+.services-engage .ladder3--four { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 .services-engage .ladder3-title { font-size: 1.25rem; }
 .services-engage .ladder3-body { font-size: var(--fs-body); }
 .services-engage .ladder3-fact-value { font-size: 1rem; }
 
-/* One accent per screen: the eyebrow and the first step's dot carry the teal,
-   so the after-go-live marks stay neutral. */
-.services-after .way-mark { color: var(--text-muted); }
-
 /* No one-word last lines in the page's running text. */
 .services-hero .product-lead, .services-hero .product-subline, .services-engage .home-head-lead,
-.services-engage .ladder3-body, .services-after .way-body, .services-page-proof .band-body,
+.services-engage .ladder3-body, .services-pov-panels .way-body, .services-page-proof .band-body,
 .proof-stat-label, .proof-note { text-wrap: pretty; }
 
-/* Below 900 px the page is one column — nav, panels and light band already are —
-   so the full-width track turns vertical here rather than at the home page's 720,
-   before body-size steps are squeezed into three narrow columns. */
-@media (max-width: 900px) {
-  .services-engage .ladder3 { grid-template-columns: minmax(0, 1fr); grid-template-rows: none; column-gap: 0; row-gap: 1.75rem; }
+/* Four body-size steps need about 290 px each, so the track turns vertical below
+   1100 px — before the columns get narrower than a readable line. */
+@media (max-width: 1100px) {
+  .services-engage .ladder3, .services-engage .ladder3--four { grid-template-columns: minmax(0, 1fr); grid-template-rows: none; column-gap: 0; row-gap: 1.75rem; }
   .services-engage .ladder3-step { display: flex; flex-direction: column; grid-row: auto; padding-top: 0; padding-left: 1.25rem; }
   .services-engage .ladder3-step::before { top: 0; bottom: -1.75rem; left: 0; right: auto; width: 1px; height: auto; }
   .services-engage .ladder3-step:last-child::before { bottom: 0; right: auto; }
@@ -2304,7 +2296,11 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
   .services-engage .ladder3-body { max-width: 44rem; }
 }
 
-/* ——— services: the proof light band (round 6) ——————————— */
+/* ——— services: the proof of value — light band and panels (round 7) ——— */
+
+/* The two panels answer "what does it cost me" in kind, not in money, directly
+   under the band that states the duration. */
+.services-pov-panels { margin-top: clamp(1rem, 2vw, 1.5rem); }
 
 .proof-stat { display: flex; flex-direction: column; gap: .625rem; }
 /* One figure, so it is set as the band's anchor rather than a tile in a grid. */

@@ -306,7 +306,7 @@ window.SITE_CONTENT = {
       title: "What we’ve proven, and what we’re proving now.",
       body: "Every customer is under NDA, so each engagement is described by industry and scale.",
       ndaLine: "Reference calls on request.",
-      cta: { label: "How we measure it", route: "#/services#proof" }
+      cta: { label: "How we measure it", route: "#/services#how-we-engage" }
     },
 
     caseStudies: [
