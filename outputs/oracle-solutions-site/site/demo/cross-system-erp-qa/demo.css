@@ -459,22 +459,35 @@ svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width:
 .panel-head .x { margin-left: auto; }
 .panel-note { font-size: 11.5px; color: var(--wb-txt-2); }
 
-/* trace */
-.tr { display: grid; grid-template-columns: 1fr 190px 62px; gap: 8px; align-items: center; font-size: 12px; padding: 5px 0; border-bottom: 1px solid #edebe7; }
-.tr.h { font-weight: 600; color: var(--wb-txt-2); font-size: 11px; letter-spacing: .04em; text-transform: uppercase; border-bottom: 1px solid var(--wb-line-2); }
-.tr .n { display: flex; align-items: baseline; gap: 8px; min-width: 0; }
-.tr .n b { font-weight: 600; white-space: nowrap; }
-.tr .n span { color: var(--wb-txt-2); font-size: 11.5px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.tr .bar { height: 9px; background: #e6e3de; border-radius: 2px; overflow: hidden; }
-.tr .bar i { display: block; height: 100%; background: var(--wb-trace); }
+/* trace — Oracle's Agent flow task trace: a tree of spans, a trackless
+   dark-teal duration bar, and a metadata pane of key/value lines beside it */
+.trace-2 { display: grid; grid-template-columns: minmax(0, 1fr) 286px; gap: 18px; align-items: start; }
+.tr { display: grid; grid-template-columns: 1fr 200px 64px; gap: 10px; align-items: center; font-size: 13px; min-height: 30px; padding: 3px 6px; border-bottom: 0; border-radius: 3px; }
+.tr.h { font-weight: 700; color: #161513; font-size: 13px; letter-spacing: normal; text-transform: none; border-bottom: 1px solid var(--wb-line); padding-bottom: 6px; margin-bottom: 2px; }
+.tr.h .du { text-decoration: underline; text-underline-offset: 3px; }
+.tr .n { display: flex; align-items: center; gap: 7px; min-width: 0; }
+.tr .n .di { width: 11px; color: var(--wb-txt-2); font-size: 9px; flex: none; text-align: center; }
+.tr .n svg { width: 14px; height: 14px; color: var(--wb-txt-2); flex: none; }
+.tr .n b { font-weight: 400; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.tr .n span { color: var(--wb-txt-2); font-size: 12px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.tr--kid { font-size: 12.5px; }
+.tr--kid .n { padding-left: 16px; }
+.tr .bar { height: 10px; }
+.tr .bar i { display: block; height: 100%; background: var(--wb-trace); border-radius: 2px; }
 .tr .ms { text-align: right; font-variant-numeric: tabular-nums; color: var(--wb-txt-2); }
+.tr.is-sel { background: #eaf0f6; box-shadow: inset 0 0 0 1px #9dc0cf; }
+.tr.is-live { background: #ececea; }
 .tr.is-blocked .bar i { background: var(--wb-red); }
-.tr-sum { display: flex; gap: 14px; flex-wrap: wrap; font-size: 11.5px; color: var(--wb-txt-2); margin-top: 9px; }
-.tr-sum span b { color: var(--wb-txt); }
-.fwline { display: grid; grid-template-columns: 132px 1fr; gap: 10px; font-size: 12px; padding: 4px 0; border-top: 1px solid #edebe7; }
-.fwline .k { color: var(--wb-txt-2); }
+.tr .spin { width: 12px; height: 12px; border: 1.6px solid #b5b0a9; border-top-color: transparent; border-radius: 50%; display: block; animation: spin .9s linear infinite; }
+.tr-meta { border-left: 1px solid var(--wb-line); padding-left: 16px; }
+.tr-meta .mt { font-size: 12.5px; font-weight: 700; padding-bottom: 6px; }
+.fwline { display: block; font-size: 12.5px; padding: 4px 0; border-top: 0; line-height: 1.45; }
+.fwline .k { color: #161513; font-weight: 700; }
+.fwline .k::after { content: ":"; }
 .fw-ok { color: var(--wb-green); font-weight: 600; }
 .fw-no { color: var(--wb-red); font-weight: 600; }
+.tr-json { margin-top: 10px; border-top: 1px solid var(--wb-line); padding-top: 8px; font-size: 12.5px; color: var(--wb-txt-2); }
+.tr-json b { color: #161513; }
 
 /* explore drill */
 .drill h4 { font-size: 12.5px; margin: 10px 0 5px; font-weight: 600; }
@@ -507,11 +520,13 @@ svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width:
 .blocked p { font-size: 12.5px; color: var(--wb-txt-2); margin-top: 4px; }
 .blocked .mono { display: block; margin-top: 7px; }
 
-/* composer */
-.conv-comp { display: flex; align-items: center; gap: 10px; background: #fff; border: 1px solid #ddd9d3; border-radius: 8px; padding: 11px 14px; margin-top: 14px; color: #8a857e; font-size: 13px; }
-.conv-comp .hub-mk { width: 16px; height: 16px; border-radius: 4px; background: var(--red); position: relative; flex: none; }
-.conv-comp .hub-mk::after { content: ""; position: absolute; inset: 4px; background: #fff; border-radius: 1.5px; transform: rotate(45deg); }
-.conv-comp .dis { margin-left: auto; font-size: 11px; }
+/* composer — Agent Hub's: a white bar pinned to the bottom of the surface with
+   the Oracle mark, the placeholder and a mic, and nothing else on the line */
+.conv-comp { display: flex; align-items: center; gap: 12px; background: #fff; border: 1px solid #ddd9d3; border-radius: 8px; padding: 0 16px; height: 58px; margin: 18px 0 0; color: #6f6a64; font-size: 15px; position: sticky; bottom: 10px; box-shadow: 0 1px 2px rgba(40, 35, 30, .06), 0 10px 24px -20px rgba(40, 35, 30, .5); }
+.conv-comp .mic { margin-left: auto; width: 17px; height: 17px; color: #8a857e; }
+/* the disclaimer is its own centred line under the composer, with a filled ! */
+.conv-dis { display: flex; align-items: center; justify-content: center; gap: 7px; font-size: 12px; color: #6f6a64; padding: 9px 0 4px; }
+.conv-dis i { width: 14px; height: 14px; border-radius: 50%; background: #8a857e; color: #fff; font-style: normal; font-size: 10px; font-weight: 700; display: grid; place-items: center; line-height: 1; }
 
 /* insights / catalog / sessions pages */
 .wb-pg { padding: 18px 24px 26px; }
