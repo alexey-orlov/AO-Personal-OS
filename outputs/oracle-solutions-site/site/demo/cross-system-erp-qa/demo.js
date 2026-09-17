@@ -580,6 +580,7 @@
   }
 
   /* ---- the analysis view ------------------------------------------------ */
+  var CAUSE_SHORT = { stock: "Stock in another plant", transit: "Late in transit", supplier: "Supplier late", credit: "Credit hold" };
   function causesChart(an) {
     var max = Math.max.apply(null, an.causes.map(function (c) { return c.usd; })) || 1;
     return '<div class="causes">' + an.causes.map(function (c) {
@@ -603,20 +604,19 @@
   }
   function accountsTable(an) {
     var rows = an.accounts.filter(function (a) { return S.role !== "ANALYST_NA" || a.entity === "NG-NA"; });
-    return '<div class="ans-grid"><table class="agrid" id="acct-table"><thead><tr>' +
-      "<th>Account</th><th>Tier</th><th>Owner</th><th>Systems</th><th class=\"r\">Lines</th><th class=\"r\">At risk (USD)</th><th class=\"r\">Penalty</th><th>Why it is late</th><th>What the AI proposes</th><th></th></tr></thead><tbody>" +
+    return '<div class="ans-grid"><table class="agrid agrid--acct" id="acct-table"><thead><tr>' +
+      "<th>Account</th><th>Tier</th><th>Systems</th><th class=\"r\">Lines</th><th class=\"r\">At risk (USD)</th><th class=\"r\">Penalty</th><th>Why the AI says it is late</th><th>What the AI proposes</th><th></th></tr></thead><tbody>" +
       rows.map(function (a) {
         var cause = an.causes.filter(function (c) { return c.id === a.causeId; })[0] || { label: "—" };
         var b = baseAccount(a.id);
         return '<tr data-acct="' + esc(a.id) + '"' + (a.status === "declined" ? ' class="is-review"' : "") + ">" +
-          "<td><b>" + esc(a.name) + "</b></td>" +
+          "<td><b>" + esc(a.name) + '</b><span class="sub">' + esc(a.owner) + "</span></td>" +
           '<td><span class="tierb tierb--' + esc(a.tier) + '">' + esc(a.tier) + "</span></td>" +
-          "<td>" + esc(a.owner) + "</td>" +
           '<td class="sysc">' + (a.systems || []).map(sysBadge).join("") + "</td>" +
           '<td class="r">' + a.lines + "</td>" +
           '<td class="r">' + (a.status === "declined" ? '<s>' + money(b.usd || 0, 0) + "</s>" : money(a.usd || b.usd || 0, 0)) + "</td>" +
           '<td class="r">' + (a.status === "declined" ? '<s>' + money(b.penaltyUsd || 0, 0) + "</s>" : money(a.penaltyUsd || b.penaltyUsd || 0, 0)) + "</td>" +
-          "<td>" + esc(cause.label) + "</td>" +
+          '<td title="' + esc(cause.label) + '">' + esc(CAUSE_SHORT[a.causeId] || cause.label) + "</td>" +
           "<td>" + esc(a.recommendation ? a.recommendation.text : "—") + (a.status === "declined" ? ' <span class="stat stat--open">you declined this — not counted</span>' : "") + "</td>" +
           '<td><button class="btn btn--xs" type="button" data-ev="' + esc(a.id) + '">Evidence</button></td></tr>';
       }).join("") + "</tbody></table></div>";
@@ -761,7 +761,6 @@
     return (sp > n * 0.5 ? cut.slice(0, sp) : cut).replace(/[\s,·]+$/, "") + "…";
   }
   var CAUSE_COLOUR = { stock: "#4d7a2c", transit: "#1d5f73", supplier: "#8a4a12", credit: "#7d4064" };
-  var CAUSE_SHORT = { stock: "Stock in another plant", transit: "Late in transit", supplier: "Supplier late", credit: "Credit hold" };
   function barChart(items, colour) {
     var max = Math.max.apply(null, items.map(function (i) { return i.v; })) || 1;
     var h = 148, w = 360, lab = 148, top = 8, rowH = Math.min(24, (h - top) / Math.max(1, items.length)), maxBar = 136;

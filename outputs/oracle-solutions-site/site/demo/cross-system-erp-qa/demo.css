@@ -1157,3 +1157,15 @@ body.tour-gutter .conv--an { padding-right: 336px; }
 .an-band .tile .lab { min-height: 34px; }
 .an-cols { align-items: start; }
 .agrid s, .reca-v s { color: var(--rw-muted); text-decoration-thickness: 1px; }
+
+/* the ranked-accounts table is built to fit 1440 without a sideways scroll */
+.agrid--acct { table-layout: fixed; }
+.agrid--acct th:nth-child(1), .agrid--acct td:nth-child(1) { width: 206px; }
+.agrid--acct th:nth-child(2), .agrid--acct td:nth-child(2) { width: 48px; }
+.agrid--acct th:nth-child(3), .agrid--acct td:nth-child(3) { width: 128px; }
+.agrid--acct th:nth-child(4), .agrid--acct td:nth-child(4) { width: 54px; }
+.agrid--acct th:nth-child(5), .agrid--acct td:nth-child(5) { width: 100px; }
+.agrid--acct th:nth-child(6), .agrid--acct td:nth-child(6) { width: 78px; }
+.agrid--acct th:nth-child(7), .agrid--acct td:nth-child(7) { width: 146px; }
+.agrid--acct th:nth-child(9), .agrid--acct td:nth-child(9) { width: 92px; }
+.agrid--acct td:nth-child(1) b { display: block; }
