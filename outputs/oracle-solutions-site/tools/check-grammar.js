@@ -1288,6 +1288,62 @@ var raw = fs.readFileSync(path.join(root, "site/data/content.js"), "utf8");
   if (other) fail("content.js", 'carries another proof-of-value duration ("' + other[0] + '") — it is "' + POV + '" across the site');
 })();
 
+/* ---- round 8 · the sales kit (Alex, 2026-09-17) ----
+   The For sellers tab and the #/sellers page request the kit by work email;
+   eligibility is the domain, not a declared role. Only the auto-send
+   confirmation may say the kit was emailed (PROVENANCE §23). */
+(function () {
+  if (C.sellerGate !== undefined) fail("sellerGate", "retired in round 8 — the kit request copy lives in salesKit");
+  var kit = C.salesKit || {};
+  var page = kit.page || {};
+  var tab = kit.tab || {};
+  var form = kit.form || {};
+  function need(where, obj, keys) {
+    keys.forEach(function (k) { if (!str(obj[k])) fail(where, k + " missing"); });
+  }
+  function token(where, value, name) {
+    if (str(value) && value.indexOf("{" + name + "}") === -1) fail(where, "must carry {" + name + "}");
+  }
+  need("salesKit.page", page, ["eyebrow", "title", "body", "again", "povTitle", "povBody", "povLink"]);
+  if (!page.routeLink || !str(page.routeLink.label) || !str(page.routeLink.route)) fail("salesKit.page.routeLink", "needs { label, route }");
+  need("salesKit.tab", tab, ["title", "body", "routeLabel", "nextDemo", "nextDemoLink", "nextAll", "nextAllLink"]);
+  token("salesKit.tab.body", tab.body, "product");
+  token("salesKit.tab.nextDemo", tab.nextDemo, "link");
+  token("salesKit.tab.nextAll", tab.nextAll, "link");
+  need("salesKit.form", form, ["emailLabel", "emailPlaceholder", "productLabel", "productAll", "submit", "submitting",
+    "eligibility", "otherRoute", "kitName", "kitNameAll", "mailSubject", "mailSubjectAll", "mailBody"]);
+  token("salesKit.form.otherRoute", form.otherRoute, "routeLink");
+  token("salesKit.form.kitName", form.kitName, "product");
+  token("salesKit.form.mailSubject", form.mailSubject, "product");
+  need("salesKit.form.errors", form.errors || {}, ["email", "domain", "send"]);
+  token("salesKit.form.errors.domain", (form.errors || {}).domain, "routeLink");
+  var conf = form.confirmations || {};
+  ["sent", "queued", "mailto"].forEach(function (k) {
+    var c = conf[k] || {};
+    if (!str(c.title) || !str(c.body)) return fail("salesKit.form.confirmations." + k, "needs { title, body }");
+    token("salesKit.form.confirmations." + k, c.body, "kitName");
+    if (k !== "sent" && /we[’']ve emailed|we have emailed|has been (sent|emailed)/i.test(c.body)) {
+      fail("salesKit.form.confirmations." + k, "claims the kit was emailed — only `sent` may, and only when an auto-sender is configured");
+    }
+  });
+
+  /* Sellers and partners are different readers: the kit goes to seller domains only. */
+  var roles = (C.forms || {}).roles || [];
+  ["oracle-seller", "oracle-partner"].forEach(function (value) {
+    if (!roles.some(function (r) { return r.value === value; })) fail("forms.roles", 'missing "' + value + '"');
+  });
+  roles.forEach(function (r) {
+    if (/or partner/i.test(r.label || "")) fail("forms.roles", '"' + r.label + '" lumps sellers and partners together');
+  });
+
+  var footerLink = (((C.site || {}).footer) || {}).sellersLink;
+  if (!footerLink || footerLink.route !== "#/sellers" || !str(footerLink.label)) {
+    fail("site.footer.sellersLink", 'needs { label, route: "#/sellers" }');
+  }
+  var sellersTab = (((C.shared || {}).productTabs) || []).filter(function (t) { return t.id === "sellers"; })[0];
+  if (sellersTab && sellersTab.locked) fail("shared.productTabs[sellers]", "locked retired in round 8 — the tab is a request form, nothing is locked");
+})();
+
 /* Round 4 (Alex, 2026-09-16): NO customer may be named anywhere in the shipped
    data — not in copy, not in alt text, not in a caption — and no customer logo
    may be referenced. The files under assets/img/logos/ stay on disk,
