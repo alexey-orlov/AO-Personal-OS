@@ -4504,47 +4504,58 @@ START-HERE is the page a session reads first: what the site is and who it serves
 
 ### 25.2 The checklist, in English
 
-Alex's list, grouped as he wrote it, as `site/data/review.js`, with every item `open`:
+Alex's list, grouped as he wrote it, is in `site/data/review.js`. Each item is one line to tick:
 
-| Group | Items |
+| Group | Items (optional note) |
 |---|---|
-| Target audience | Priority 1: Oracle sellers and partners · Priority 2: SoftServe sellers · Priority 3: end customers |
-| Positioning | Experts in AI and in Oracle platforms, with a multi-year, top-class enterprise track record · Ready-made solutions, fast proofs of value and a dedicated practice · Products and services |
-| Commitments and disclosures | A proof of value takes 4–8 weeks, to be agreed with delivery · Only the proof-of-value price on the site; every other package price in the sales materials · No customer names, as no customer has confirmed use · The catalog includes existing and planned products |
-| Communication flow | One shared mailbox, oracle@softserveinc.com · Karsten is the contact for communications · All requests land in the shared mailbox · Sales materials go only to corporate addresses at softserveinc.com or oracle.com |
-| Also open from earlier rounds | The name *Oracle AI & Data Solutions* can be used (Oracle trademark guidelines) · *Frontier AI* is a claim the practice can stand behind (§23.4) |
+| Target audience | Priority 1: Oracle sellers and partners (*Partners can't get the sales kit today*) · Priority 2: SoftServe sellers · Priority 3: end customers |
+| Positioning | Experts in AI and Oracle platforms, top-class enterprise record · Ready-made solutions + fast PoVs + a dedicated practice · We offer both products and services |
+| Commitments and disclosures | A PoV takes 4–8 weeks (to agree with delivery) · Only the PoV price on site; others in materials (*2 products still show Integration prices*) · No customer names (no confirmation of use yet) · Catalog includes existing and planned products (*Nothing marks a product as planned*) |
+| Communication flow | One shared mailbox: oracle@softserveinc.com · Karsten is the contact for communications · All requests land in the shared mailbox (*Forms open the visitor's mail app for now*) · Materials only to softserveinc.com, oracle.com (*Nothing sends the kit automatically yet*) |
+| Before launch | The name Oracle AI & Data Solutions clears Oracle's trademark rules · Frontier AI is a claim we can back up |
 
 **Editorial choices:**
 - *We don't print package prices, but we do in the materials* and *we print only the proof-of-value price* are one rule seen from two sides, so they became one item.
-- The last bullet, on materials, joined the communication flow.
-- The earlier-rounds group was added from §20 and §23.4 so that launch blockers stay on the same list.
+- The bullet on materials joined the communication flow.
+- *Before launch* carries two launch blockers from §20 and §23.4.
 
-**Each item carries a note on where the site stands.** Three findings are flagged, and none was changed; each waits for Alex:
-- **Site differs:** *Large docs processing and review* and *Workforce optimization* print an Integration price (€300–500K services plus infrastructure) next to their proof-of-value price.
-- **Site differs:** nothing marks a product as planned, so all seven read as available.
-- **Conflict:** partners are priority 1, yet the kit goes only to @oracle.com and @softserveinc.com, so partners are turned away.
+**The notes flag three places where the site does not match the brief yet.** None was changed; each waits for Alex:
+- two products print an Integration price (€300–500K services plus infrastructure);
+- no product is marked as planned;
+- partners (priority 1) are turned away by the kit form's domain rule.
 
-**Deliberately left out of the notes:** figures not cleared for the site. The panel is visible to anyone with the link, so the *Frontier AI* note says the stronger proof points are uncleared without quoting them, and the Plan vs actual note says only that it was originally scoped longer.
+**Deliberately left out:** figures not cleared for the site, because the panel is visible to anyone with the link.
 
 ### 25.3 The panel
 
-- **Placement:** an *Internal · 16 to confirm* pill fixed at the bottom right, dashed amber (amber marks everything internal; teal stays the site's). It opens a right-hand drawer (448 px at 1440, full width at 375) with an eyebrow, the title, the counts, the groups and a footer.
-- **Items:** each shows a status chip (*To confirm* · *Confirmed* · *Changed*), an optional flag chip (*Site differs* · *Conflict*), the statement, *Decided:* when changed, and *On the site:*.
-- **Statuses come from the data file, not from the viewer.** A tick saved in one browser would be invisible to everyone else on a link-shared page. Confirming an item is an edit and a republish, and the artifact's own comment threads carry the discussion.
-- **Behaviour:** non-modal, so the page stays readable beside the list. The close button and Escape both close it and return focus to the pill; while a site modal is open, Escape belongs to the modal (a capture-phase listener that yields). Open or closed survives a reload in the same tab through `sessionStorage`, because a republish reloads open previews.
+**Behaviour:**
+- **Placement:** an *Internal · N to confirm* pill fixed at the bottom right, dashed amber (amber marks everything internal; teal stays the site's). It opens a right-hand drawer (416 px at 1440, full width at 375) with an eyebrow, the title, an *n of 16 confirmed* line, the groups, and a footer: *Ticks are saved in this browser only.*
+- **Items:** each is a native checkbox inside its label, so the whole row is the target. A ticked row dims and strikes through, and the counts update at once.
+- **Storage:** ticks save to `localStorage` (`oracle-ai-solutions:review-ticks`, keyed by item id). If storage throws, the list still works for the visit and the footer says the ticks will not be kept.
+- **Closing:** the drawer is non-modal. The close button and Escape both close it and return focus to the pill; while a site modal is open, Escape belongs to the modal (a capture-phase listener that yields). Open or closed survives a reload in the same tab (`sessionStorage`), because a republish reloads open previews.
 - **Robustness:** styles are injected from `assets/review.js`, so removing the panel means deleting two files and two script tags. Reduced motion drops the slide, and print hides the panel.
-- **Checker:** fails if index.html loads only one of the two files, or if the list is malformed (kebab-case unique ids, text, status set, flag set, *changed* needs a decision) or names a customer. It warns on every run while the panel is on.
 
-**Checks:**
-- checker OK, with the new warning;
-- failure cases verified on a copy (a bad status, a missing script tag);
+**Checker:**
+- It fails if index.html loads only one of the two files.
+- It fails if an item has any key but `id`, `text` and `note`, a non-kebab or duplicate id, `text` over 70 characters (47 beside a note), or `note` over 45.
+- It fails if the list names a customer.
+- It warns on every run while the panel is on.
+
+**First cut and owner feedback.**
+- **Version 35** gave every item a status chip (*To confirm* · *Confirmed* · *Changed*), a flag chip (*Site differs* · *Conflict*) and an *On the site:* paragraph, with statuses set in the data file.
+- **Alex:** "the internal checklist page should be much less verbose (1–2 line items) + each item to have checkbox I can tick and it will be saved."
+- **The storage question:** declaring the `db` capability would have saved ticks for every viewer and let a session read them back. It would also have made the artifact organization-internal, ending the public link.
+- **Alex settled it:** "it could be browser only, no need for database".
+- **Version 37** is the rebuild: one line per item, at most a 45-character note, the checkbox, `localStorage`.
+- **The consequence:** ticks never reach the repo, so START-HERE §2 remains the record, and a session updates it when Alex reports a confirmation.
+
+**Checks on version 37:**
+- checker OK;
 - console clean;
-- at 1440, 16 items render, focus moves to the title, Escape and close work, the modal takes Escape first, and a reload keeps the panel open;
-- at 375, full width, the close button inside the viewport, no horizontal overflow.
+- at 1440, all 16 rows are one or two lines (41–62 px), three ticks save and survive a reload, the counts read *3 of 16 confirmed* and *13 to confirm*;
+- at 375, full width, the close button in view, no horizontal overflow; the two items with a note run to three lines at that width.
 
-**Published** as **version 35**:
-- The first attempt was refused: the ERP Q&A session had published version 34 at 12:52.
-- The live `index.html` differed from the local wrapper only by the two new script tags, and nothing else was passed, so the local wrapper was published on top.
+The first attempt at version 35 was refused against version 34 (the ERP Q&A session, 12:52). The live `index.html` differed from the local wrapper only by the two new script tags, so the wrapper was published on top.
 
 ### 25.4 The customer logos, off the artifact and out of `site/`
 
@@ -4559,5 +4570,5 @@ Alex's list, grouped as he wrote it, as `site/data/review.js`, with every item `
 
 ### 25.5 Open for Alex
 
-1. Every item in the panel, especially the three flagged ones: remove or keep the two Integration prices, mark the planned products (and which they are), and decide whether partners get the kit.
-2. The panel is visible to anyone with the preview link, including the lines on planned products and unconfirmed customers. If the link goes beyond the core team, set `enabled: false`.
+1. Every checklist item, especially the three with notes: remove or keep the two Integration prices, mark the planned products (and say which they are), and decide whether partners get the kit. Tell a session what is confirmed; the ticks stay in your browser.
+2. The panel is visible to anyone with the preview link, including the lines on planned products and unconfirmed customer names. If the link goes beyond the core team, set `enabled: false`.
