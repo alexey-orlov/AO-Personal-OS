@@ -20,8 +20,9 @@ window.SITE_CONFIG = {
   formEndpoint: "",
   sellerGate: {
     allowedDomains: ["softserveinc.com", "oracle.com"],
-    storageKey: "oracle-ai-solutions:seller-unlocked",
-    notesUrl: ""
+    kitAutoSend: false,
+    kitEmailKey: "oracle-ai-solutions:kit-email",
+    legacyStorageKey: "oracle-ai-solutions:seller-unlocked"
   },
   productOrder: ["<slug>", "<slug>", ...],
   products: {
@@ -131,48 +132,33 @@ The array is **sort order only** — it never filters. Every product renders wha
 
 **What the rail shows, and what it does not.** The platform group lists **only the platforms that at least one product matches today** — the option is an offer to filter, and an option returning nothing is a dead end on a page a seller demos live; a `0` beside an Oracle product name in front of an Oracle account executive reads as a scoreboard. With today's `productOrder` and facets that is *All · OCI + NVIDIA · Oracle Autonomous AI Lakehouse*; *Oracle AI Data Platform* and *Oracle AI for Fusion Applications* are absent until a product carries the facet, and the moment one does the option appears with its count, with no config change. **The deep link still works for all four** — `#/products?tech=oracle-ai-fusion` renders that option, selected, above its `emptyState`. The two **All** options carry no count (it would be the size of the catalog), and a count of zero renders no number. This reverses the round-4 behaviour recorded in `docs/PROVENANCE.md` §17.7; the reasoning is in §18.9.
 
-### `sellerGate.allowedDomains`
+### `sellerGate` — the sales-kit request (round 8)
 
-The email domains that unlock the "For sellers" tab. A visitor types a work email; if the part after the `@` matches one of these (case-insensitively, subdomains included), the panel opens and stays open on that browser for the session.
+The block keeps its old name; since round 8 it configures the **sales-kit request** on each product's *For sellers* tab and on `#/sellers` (`SCHEMA.md` §`salesKit`, `PROVENANCE.md` §24). The gate that unlocked a materials list, its seller-notes fetch (`notesUrl`) and its unlock flag are retired.
+
+#### `allowedDomains`
+
+The email domains that may **receive** the kit. A visitor types a work email; if the part after the `@` matches one of these (case-insensitively, subdomains included — `uk.oracle.com` passes), the request goes ahead; anything else gets the domain error, which routes customers and partners to the demo or scoping form.
 
 ```js
 allowedDomains: ["softserveinc.com", "oracle.com"],
 ```
 
-- **Add a domain:** add a quoted string to the array, comma-separated.
-- **Remove one:** delete its entry.
-- **Open the panel to everyone:** not supported by design — use an empty array only if you also intend the panel to be unreachable.
+**This is routing, not access control.** The check runs in the browser and is bypassable, so whatever sits behind `formEndpoint` must check the domain again and send only to the address that was typed. Nothing whose exposure matters goes in either data file: a determined reader can open `content.js` in view-source.
 
-**This is not access control.** It is a speed bump so a seller can open the panel mid-demo without a password. Anything whose exposure actually matters must not be in the bundle at all: a determined reader can open `content.js` in a browser's view-source regardless of which tab renders it. No individual's name, title or mailbox goes in either data file.
+#### `kitAutoSend`
 
-### `sellerGate.storageKey`
+`false` until something behind `formEndpoint` actually emails the kit. It decides which confirmation a successful POST shows: `true` → *Check your inbox* ("We've emailed the … sales kit to …"); `false` → *Your request is in* (the kit will reach the address within two working days). With `formEndpoint` empty neither applies: the visitor's mail client opens a request to `contactEmail` and the page says *One step left*. **Never set it to `true` for a human-read mailbox** — the page would claim an email went out.
 
-The `localStorage` key the unlock state is remembered under. Change it to force every seller to unlock again (for example after changing the allowed domains).
+The endpoint receives `{ form: "kit", email, product: "all" | <slug>, consent, page }`.
 
-### `sellerGate.notesUrl`
+#### `kitEmailKey`
 
-Where the seller-only **Seller notes** block gets its text. Empty today, so no seller notes ship at all.
+The `localStorage` key the last successful kit email is remembered under, to prefill the form on the next visit. Nothing else is stored.
 
-```js
-notesUrl: "/private/seller-notes.json",
-```
+#### `legacyStorageKey`
 
-This exists because of the sentence two headings up: the gate is a speed bump, not access control, so **commercial notes must not live in `content.js`**. Notes of the kind this block is for — how packages are expected to compress over time, what a first-of-kind engagement does to pricing, which piece of collateral still carries an old product name — tell a buyer things a seller would not say in the room. Shipped in the bundle they are one view-source away from the customer being quoted.
-
-So they live behind whatever authentication the deployment actually has. Point `notesUrl` at a path your server only serves to an authenticated reader; the seller panel fetches it (`same-origin` credentials) after the gate passes and renders what comes back. A fetch that fails, 404s or returns nothing renders nothing — no error, no empty heading.
-
-Expected shape:
-
-```json
-{
-  "packagingNotes": ["…applies to every product that prints a price…"],
-  "products": {
-    "workforce-optimization": ["…note for this product only…"]
-  }
-}
-```
-
-`packagingNotes` are appended only on products whose `jumpstart.investment.price` or `jumpstart.next[].price` actually prints a currency figure; per-product notes always render. Leave `notesUrl` empty on any deployment that cannot authenticate the request — an unauthenticated JSON file at a guessable path is the same leak with an extra step.
+The retired gate's "unlocked" flag. The kit form removes it on load; delete this key once no browser can still hold the old flag.
 
 ---
 
@@ -305,9 +291,9 @@ The key keeps its round-3 name although the block was renamed: it is a config ke
 
 Expected first for `workforce-optimization` and `large-document-extraction`. Empty on all seven today.
 
-### `materials` — the "For sellers" download links
+### `materials` — the sales-kit manifest links
 
-A map of **material key → URL**. The key must match a `key` in that product's `sellers.materials` array in `content.js`; the title, description and state come from there, and only the URL comes from here.
+A map of **material key → URL**. The key must match a `key` in that product's `sellers.materials` array in `content.js`; the title, description and state come from there, and only the URL comes from here. **Not rendered since round 8**: together with `sellers.materials` it is the manifest whoever sends the kit works from — keep the links current here so they have one home.
 
 ```js
 materials: {
