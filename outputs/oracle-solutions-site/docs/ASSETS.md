@@ -218,7 +218,8 @@ source cards are 640 px wide and reflow to 3 + 2 there); `-2` from the 676 run
 it reflows to 3 × 2 — all six tiles at the size three of six would have at
 1240 px); `-3` and `-4` from the 868 and 1212 runs (an Agent Hub card is
 `W − 228` and the run card is capped at 640, so at 1212 the Ask Oracle box —
-`max-width: 760px` — is 640 too and fits beside it); the poster from the 1440
+`max-width: 760px` — is 640 too and sits above the card at the same width); the
+poster from the 1440
 run, where `.an-cols` is two columns and the causes chart sits beside the four
 actions.
 
