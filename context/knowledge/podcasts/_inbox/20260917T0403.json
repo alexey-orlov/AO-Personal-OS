@@ -1,0 +1,108 @@
+{
+  "schema": 1,
+  "generatedAt": "2026-09-17T04:03:54.805Z",
+  "runStamp": "20260917T0403",
+  "episodes": [
+    {
+      "videoId": "2UwemqPkJSQ",
+      "videoTitle": "Muse gets AI agent UX right",
+      "videoUrl": "https://www.youtube.com/watch?v=2UwemqPkJSQ",
+      "channelName": "How I AI",
+      "publishedDate": "2026-09-16",
+      "guests": [],
+      "summary": "The host walks through Muse, Meta's consumer-facing personal agent, arguing that its UX and product primitives make it the most approachable personal agent yet. The central claim is that Muse prioritizes trust, delightful design, and consumer mental models (apps, goals, library) over raw technical showmanship, which makes it more useful for everyday personal tasks like family agendas, goals, and local errands.",
+      "insights": [
+        {
+          "headline": "Muse prioritizes consumer-friendly UX over technical jargon",
+          "detail": "Muse deliberately uses language and flows that ordinary users understand—calling integrations “apps” not “plugins or connectors,” offering one-click Facebook sign-in, and exposing only a browser view of its Secure VM. The presenter contrasts this with developer-focused agents and says these choices reduce friction and anxiety for mainstream users, making Muse feel approachable for family and personal tasks rather than a work-focused tool. That consumer-first framing is why the host repeatedly calls the product \"delightful\" and plans to use it for day-to-day family workflows.",
+          "anchorQuote": "everything on this landing page for Muse is very consumerfriendly",
+          "tSeconds": 157,
+          "link": "https://www.youtube.com/watch?v=2UwemqPkJSQ&t=157"
+        },
+        {
+          "headline": "Editable identity, soul, and memory give users meaningful control",
+          "detail": "Muse exposes primitives for the agent’s identity—an editable identity, a \"soul\" (persona) and memory—so users can name, style, and tweak how the agent behaves. The reviewer demonstrated renaming and re-avatar-ing her agent (Polly → Slime) and notes the UI makes manual edits straightforward; that personalization matters because it shapes tone and trust, and because small persona changes change whether users accept agent suggestions. This design choice treats the agent as a malleable personal product rather than a black-box assistant.",
+          "anchorQuote": "the first thing is it lets you pick an identity",
+          "tSeconds": 323,
+          "link": "https://www.youtube.com/watch?v=2UwemqPkJSQ&t=323"
+        },
+        {
+          "headline": "Activity feed gives transparent lineage of agent actions",
+          "detail": "Muse provides an activity feed that traces every tool call, script, approval and action the agent has taken, so users (and developers) can see the step-by-step lineage of work. The host highlights this as both a consumer trust feature—showing approvals and what the agent did—and a developer-friendly affordance for debugging and understanding behavior. That combination of traceability plus a tidy UI is positioned as a rare best-practice in agent design.",
+          "anchorQuote": "First is this activity feed. So, it will actually trace",
+          "tSeconds": 441,
+          "link": "https://www.youtube.com/watch?v=2UwemqPkJSQ&t=441"
+        },
+        {
+          "headline": "Goals are a first-class primitive with reminders and gentle tone",
+          "detail": "Muse treats personal goals (health, sleep training, shopping on sale) as distinct objects it can track and nudge, not just ephemeral chat tasks. The host walked through setting a gentle sleep-training goal for an 8.5-month-old and praised Muse’s empathetic tone, automatic reminders, and step suggestions—features that made the goal feel actionable and human-centered. This suggests goals+reminders paired with a consumer-friendly voice is a strong unlock for everyday adoption.",
+          "anchorQuote": "The other primitive that I love is goals.",
+          "tSeconds": 1028,
+          "link": "https://www.youtube.com/watch?v=2UwemqPkJSQ&t=1028"
+        },
+        {
+          "headline": "Library artifacts: multi‑modal outputs including PDFs and podcasts",
+          "detail": "Muse can generate and store artifacts—well-designed printable PDFs (a family morning brief), images, videos, and even short podcasts that can be published to Spotify/Apple. The reviewer contrasts Muse’s attractive one-shot PDF agenda with prior agents’ bland outputs and was surprised that Muse produced a six-minute weekend AI-news podcast automatically. These capabilities make Muse useful not only for chat-based tasks but for creating shareable, offline artifacts for family and daily life.",
+          "anchorQuote": "library are all the things that Muse has made for you",
+          "tSeconds": 1303,
+          "link": "https://www.youtube.com/watch?v=2UwemqPkJSQ&t=1303"
+        },
+        {
+          "headline": "Progressive permission prompts build trust without annoying users",
+          "detail": "Muse asks for access at the right moment and then confirms how it used that data, rather than unilaterally reading everything or demanding constant approvals. The host recounts connecting email: Muse asked to fetch information, then showed what it found and asked permission to use it—an approach that felt neither invasive nor intrusive. That measured progressive disclosure is presented as a practical way to balance functionality with consumer comfort and trust.",
+          "anchorQuote": "it's very good at asking for permission",
+          "tSeconds": 206,
+          "link": "https://www.youtube.com/watch?v=2UwemqPkJSQ&t=206"
+        }
+      ]
+    },
+    {
+      "videoId": "K5yGLO8c6T0",
+      "videoTitle": "Why the Next Generation of Enterprise Software Looks Nothing Like Salesforce",
+      "videoUrl": "https://www.youtube.com/watch?v=K5yGLO8c6T0",
+      "channelName": "a16z",
+      "publishedDate": "2026-09-16",
+      "guests": [
+        "Keith (Lightfield)"
+      ],
+      "summary": "The guest describes pivoting from an AI presentation product to building Lightfield, a reimagined CRM that treats a company's relationship timeline as the core data primitive and layers intelligence on top. The throughline is that modern enterprise software succeeds not by reusing rigid schemas and seat-based pricing, but by assembling semistructured context from many sources, making that context queryable, and charging for the distinct kinds of value AI delivers.",
+      "insights": [
+        {
+          "headline": "They pivoted because AI presentations lacked human-audience context",
+          "detail": "The team stopped chasing an AI presentation product after concluding it could never become indispensable for discerning professionals — the models lacked enough context about presenter, audience, and relationship to produce reliably high-quality, repeatable work. With ~25M users to inspect, they ran 12 B2B pilots with sales teams and discovered the harder, more valuable problem was reorganizing disparate company data so machines (and humans) could reason about relationships.",
+          "anchorQuote": "we just couldn't for the life of us make good presentations",
+          "tSeconds": 174,
+          "link": "https://www.youtube.com/watch?v=K5yGLO8c6T0&t=174"
+        },
+        {
+          "headline": "Make the activity log the canonical primitive, not isolated fields",
+          "detail": "Lightfield was built around a chronological activity log that records every touchpoint (emails, calls, documents, product usage) as the canonical view of a relationship; CRM fields and stages get inferred and updated from that log. This design lets the product traverse a customer's entire history to answer open questions (e.g., is an account ready for expansion) and compare accounts by diving into the log rather than hunting for the right column.",
+          "anchorQuote": "we actually built out the activity log first",
+          "tSeconds": 730,
+          "link": "https://www.youtube.com/watch?v=K5yGLO8c6T0&t=730"
+        },
+        {
+          "headline": "Design schemaless systems: 'intelligence > schema' for onboarding",
+          "detail": "Rather than forcing customers to model rigid stages and fields up front, they made Lightfield effectively schemaless: connect email, call recorders, and warehouses and let intelligence assemble relationships and infer fields. The result is a consumer-like setup (press sync, wait minutes) and the ability to recompute fields later from the activity log, avoiding the classic one-shot data-model mistake that kills CRM adoption.",
+          "anchorQuote": "Intelligence is greater than than schema",
+          "tSeconds": 1026,
+          "link": "https://www.youtube.com/watch?v=K5yGLO8c6T0&t=1026"
+        },
+        {
+          "headline": "Mixed pricing: fixed platform fee + seats for core, consumption for alpha",
+          "detail": "They experimented with seat-only pricing (which produced heavy head-tail usage) and pure consumption (which caused signups that didn't engage), then segmented Lightfield's value into buckets: core CRM capture (platform/seat), pipeline generation (consumption), workflow automations (paid), and high-value intelligence/forecasting (paid). This hybrid aligned incentives so routine CRM work is predictable while truly value-creating, consumption-heavy features are billed by usage.",
+          "anchorQuote": "We started with pure seat pricing",
+          "tSeconds": 1954,
+          "link": "https://www.youtube.com/watch?v=K5yGLO8c6T0&t=1954"
+        },
+        {
+          "headline": "Culture: remove rigid swim lanes so the company can iterate at speed",
+          "detail": "They abolished strict functional silos—'everyone owns product and everyone owns customer success'—running a single daily standup, stack-ranking problems, and allowing anyone free to pick the highest-priority task. Combined with LLM-augmented ramping and low barriers to start but high bar to ship, this generalist, continuously-planned approach is how a ~40-person team sustains rapid pivots and shipping velocity.",
+          "anchorQuote": "everyone owns product and everyone owns customer success",
+          "tSeconds": 2270,
+          "link": "https://www.youtube.com/watch?v=K5yGLO8c6T0&t=2270"
+        }
+      ]
+    }
+  ]
+}
