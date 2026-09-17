@@ -1033,15 +1033,15 @@ window.ERPQA_DATA = (function () {
   function recommendationFor(cust, cause, lines) {
     if (cause === "stock") {
       var t = TRF[lines[0].transferId];
-      return { actionId: "A1", text: "Expedite from " + t.from + " — " + fmtQty(sum(lines, function (l) { return l.qty; })) + " " + ITEM[t.itemId].uom + " of " + t.itemId + " on hand there", detail: t.id };
+      return { actionId: "A1", text: "Expedite from " + t.from + ", " + fmtQty(sum(lines, function (l) { return l.qty; })) + " " + ITEM[t.itemId].uom + " of " + t.itemId + " on hand there", detail: t.id };
     }
     if (cause === "supplier") {
       var s = SUP[lines[0].supplierId];
-      return { actionId: "A4", text: "Escalate " + s.name + " — " + s.poKey + " is " + s.daysLate + " business days past promise", detail: s.id };
+      return { actionId: "A4", text: "Escalate " + s.name + ", " + s.poKey + " is " + s.daysLate + " business days past promise", detail: s.id };
     }
     if (cause === "credit") {
       var h = HOLD_BY_CUST[cust.id];
-      return { actionId: "A3", text: "Review the credit hold placed on " + dLabel(h.placedOn) + " — " + fmtUsd(h.pastDueUsd) + " past terms", detail: h.id };
+      return { actionId: "A3", text: "Review the credit hold placed on " + dLabel(h.placedOn) + ", " + fmtUsd(h.pastDueUsd) + " past terms", detail: h.id };
     }
     var worst = lines.slice().sort(function (a, b) { return b.daysLate - a.daysLate; })[0];
     return { actionId: "A2", text: "Re-promise to " + dLabel(worst.predicted) + " and alert " + cust.owner, detail: worst.shipmentId };
@@ -1450,7 +1450,7 @@ window.ERPQA_DATA = (function () {
   var HALDEN = CUST_BY_NAME["Halden Tooling Group"];
   var haldenDecision = {
     kind: "recommendation", accountId: HALDEN.id, account: HALDEN.name, actionId: "A1",
-    action: "decline", reason: "Customer accepted delivery on 20 Oct — no expedite",
+    action: "decline", reason: "Customer accepted delivery on 20 Oct, no expedite",
     by: "Dana Whitfield", role: "COMMERCIAL_OPS", at: "Tue 6 Oct 2026 · 09:52"
   };
   var LEARNED_RULE = {

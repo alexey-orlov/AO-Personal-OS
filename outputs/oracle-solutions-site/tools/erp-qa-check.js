@@ -62,7 +62,7 @@ eq("stateFor('analysed') has no decision", S1.decisions.length, 0);
 eq("stateFor('decided') carries one decision", S2.decisions.length, 1);
 ok("stateFor('final') has the dashboard built", S3.dashboard === true && S3.decisions.length === 1);
 eq("the ready-made decision is Halden's", S2.decisions[0].account, "Halden Tooling Group");
-eq("its reason is the drafted one", S2.decisions[0].reason, "Customer accepted delivery on 20 Oct — no expedite");
+eq("its reason is the drafted one", S2.decisions[0].reason, "Customer accepted delivery on 20 Oct, no expedite");
 eq("its action is a decline", S2.decisions[0].action, "decline");
 
 console.log("\n-- 138 open lines = 61 + 49 + 28 -----------------------------");
