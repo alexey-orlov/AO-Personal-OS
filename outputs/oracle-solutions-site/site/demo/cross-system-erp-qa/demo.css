@@ -1210,15 +1210,21 @@ body.tour-gutter .conv--an { padding-right: 324px; }
 .scan .t { font-variant-numeric: tabular-nums; }
 .tile .asub { font-size: 11px; color: var(--rw-txt-2); width: 100%; }
 
-/* at the smallest size the five cards keep a fixed height so the step-1 hint
-   always has room underneath them */
+/* At the smallest size the five cards keep one even height, so the step-1 hint
+   always has room underneath them. The height has to be one the content really
+   fits in and every child has to keep its own size: a card shorter than its
+   text squeezes the flex children instead, and then a line is cut through the
+   middle of its glyphs rather than between two lines (2026-09-17). What the
+   source does is allowed to run out after two whole lines; the feed line, the
+   name and the freshness pill never are. */
 @media (max-width: 1120px) {
-  .src { height: 148px; overflow: hidden; }
-  .src-feed { padding-top: 2px; }
+  .src { height: 160px; overflow: hidden; }
+  .src-feed { padding-top: 2px; flex: none; }
   .src-objs { max-height: 15px; }
 }
 @media (max-width: 1120px) {
   .src-objs { display: none; }
-  .src { height: 128px; }
+  .src-top, .src h3 { flex: none; }
+  .src-what { flex: none; max-height: 30.8px; }
   .src-kind { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 }
