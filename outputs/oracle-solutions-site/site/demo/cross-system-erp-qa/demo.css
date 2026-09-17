@@ -1160,13 +1160,18 @@ body.tour-gutter .conv--an { padding-right: 324px; }
 
 /* the ranked-accounts table is built to fit 1440 without a sideways scroll */
 .agrid--acct { table-layout: fixed; }
-.agrid--acct th:nth-child(1), .agrid--acct td:nth-child(1) { width: 19%; }
+.agrid--acct th:nth-child(1), .agrid--acct td:nth-child(1) { width: 18%; }
 .agrid--acct th:nth-child(2), .agrid--acct td:nth-child(2) { width: 5%; }
-.agrid--acct th:nth-child(3), .agrid--acct td:nth-child(3) { width: 12%; }
+.agrid--acct th:nth-child(3), .agrid--acct td:nth-child(3) { width: 14%; white-space: normal; }
 .agrid--acct th:nth-child(4), .agrid--acct td:nth-child(4) { width: 5.5%; }
 .agrid--acct th:nth-child(5), .agrid--acct td:nth-child(5) { width: 9.5%; }
 .agrid--acct th:nth-child(6), .agrid--acct td:nth-child(6) { width: 7.5%; }
-.agrid--acct th:nth-child(7), .agrid--acct td:nth-child(7) { width: 14%; }
+.agrid--acct th:nth-child(7), .agrid--acct td:nth-child(7) { width: 12.5%; }
 .agrid--acct th:nth-child(9), .agrid--acct td:nth-child(9) { width: 9%; }
 .agrid--acct td:nth-child(9) .btn { padding: 4px 7px; }
 .agrid--acct td:nth-child(1) b { display: block; }
+
+.agrid--acct th { white-space: normal; line-height: 1.25; }
+.agrid--acct td { overflow: hidden; }
+.agrid--acct td.sysc .sysb { margin: 0 3px 2px 0; }
+.agrid--acct td.sysc .sysb + .sysb { margin-left: 0; }
