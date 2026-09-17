@@ -1346,8 +1346,13 @@ var raw = fs.readFileSync(path.join(root, "site/data/content.js"), "utf8");
 
 /* Round 4 (Alex, 2026-09-16): NO customer may be named anywhere in the shipped
    data — not in copy, not in alt text, not in a caption — and no customer logo
-   may be referenced. The files under assets/img/logos/ stay on disk,
-   unreferenced, pending customer approval. */
+   may be referenced. The logo files stay in the repo, unreferenced, pending
+   customer approval — since 2026-09-17 in docs/asset-candidates/logos/, outside
+   the deployable root, because whole-tree publishes had carried them onto the
+   link-shared preview (PROVENANCE §25). */
+if (fs.existsSync(path.join(root, "site/assets/img/logos"))) {
+  fail("site/assets/img/logos/", "exists again — customer marks live in docs/asset-candidates/logos/, outside site/, so no publish or deploy can carry them");
+}
 CUSTOMER_NAMES.forEach(function (name) {
   if (new RegExp("\\b" + name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + "\\b").test(raw)) {
     fail("content.js", 'names the customer "' + name + '" — the site describes every customer by industry and scale only');

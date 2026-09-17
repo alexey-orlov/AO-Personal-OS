@@ -396,8 +396,16 @@ instructed. The one-pagers print his personal address; it must not ship.
 
 ---
 
-## 4. Customer logos — `assets/img/logos/`
+## 4. Customer logos — `docs/asset-candidates/logos/`
 
+> ⛔ **2026-09-17: the folder moved out of the deployable root.** Until then it sat
+> at `site/assets/img/logos/`. Nothing referenced it, but whole-tree publishes had
+> carried the three files onto the link-shared preview artifact, where anyone could
+> download them by path. Version 36 removed them from the artifact (`PROVENANCE.md`
+> §25). Outside `site/`, neither a publish nor a deploy can carry them. They stay
+> in the repo for the reasons below. `check-grammar.js` fails if
+> `site/assets/img/logos/` exists again.
+>
 > ⛔ **Round 4, 2026-09-16 — nothing in this folder is referenced any more, and
 > no customer is named anywhere on the site.** Alex withdrew the 2026-09-14
 > clearance that named two customers: there are now no customer names, no logos,

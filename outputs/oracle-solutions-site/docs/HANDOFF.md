@@ -19,7 +19,8 @@ Written 2026-09-16 by the build session on Alex's Mac. Everything a new session 
 | Practice facts (external-safe) | `site/data/content.js` → `services.*`, `shared.*`; wiki pages `context/areas/softserve/oracle.md`, `oracle-ai-offerings.md`, `oracle-packs.md`, `oracle-team.md` | yes (repo) |
 | Case-study figures and their sources | `docs/PROVENANCE.md` (§4, §17) | yes (repo) |
 | Brand tokens | `site/assets/site.css` `:root`; `.claude/references/softserve-deck-kit.md` | yes (repo) |
-| Hero / step / industry images, logos (unreferenced), headshot | `site/assets/img/**` | yes (repo) |
+| Hero / step / industry images, headshot | `site/assets/img/**` | yes (repo) |
+| Customer logos (never shipped; moved out of `site/` on 2026-09-17) | `docs/asset-candidates/logos/` | yes (repo) |
 | Raw deck media (OneDrive `Projects/Oracle/…`), BSH business case PDF | Alex's Mac / SoftServe OneDrive (`ms365` MCP when authenticated) | no — only needed for NEW imagery; reuse existing assets instead |
 | Research scratchpad (`research/*.md`, `spec/*.md`) | deleted with the session scratchpad | no — do not look for it; PROVENANCE.md holds what was kept |
 | About-SoftServe corporate facts | **now in the repo:** `docs/PROVENANCE.md` §18.2 records every figure the About block uses, verbatim, with its URL and the 2026-09-16 fetch date. Re-fetch only to refresh a figure — and note that `/en-us/about`, `/en-us/partners`, `/en-us/partners/oracle` and `/en-us/partners/nvidia` all 404; the working paths are `/en-us/about-us` and `/en-us/our-partners[/oracle\|/nvidia]` | yes (repo; web to refresh) |
