@@ -1256,6 +1256,34 @@ var raw = fs.readFileSync(path.join(root, "site/data/content.js"), "utf8");
   }
 })();
 
+/* ---- round 7 · one proof-of-value duration (Alex, 2026-09-17) ----
+   "Make sure that we always mention 4–8 weeks PoV, consistently across the
+   site": every Jumpstart states it in its promise, its short form (which the
+   seller CTA interpolates) and its investment figure; the home hero tile, the
+   home step track and the Services page carry it; and no other proof-of-value
+   duration survives anywhere in the data (PROVENANCE §22). */
+(function () {
+  var POV = "4–8 weeks";
+  (C.products || []).forEach(function (p) {
+    var j = p.jumpstart || {};
+    var where = "products[" + p.slug + "].jumpstart";
+    if (j.durationShort !== POV) fail(where + ".durationShort", '"' + j.durationShort + '" — the proof of value is "' + POV + '" everywhere');
+    if (!j.investment || j.investment.duration !== POV) fail(where + ".investment.duration", 'must be "' + POV + '"');
+    if (!str(j.promise) || j.promise.indexOf(POV) === -1) fail(where + ".promise", 'must state "' + POV + '"');
+    var fast = (j.pillars || []).filter(function (x) { return x.key === "fast"; })[0];
+    if (fast && !/4–8 weeks|Four weeks/.test(fast.text || "")) fail(where + ".pillars[fast]", "must state the " + POV + " duration");
+  });
+  var o = C.overview || {};
+  var step = ((o.delivery || {}).steps || [])[0];
+  if (!step || step.fact !== POV) fail("overview.delivery.steps[0].fact", 'must be "' + POV + '"');
+  if (!((o.hero || {}).stats || []).some(function (s) { return s.value === POV; })) {
+    fail("overview.hero.stats", 'lost the "' + POV + '" tile');
+  }
+  if (JSON.stringify(C.services || {}).indexOf(POV) === -1) fail("services", 'never states the "' + POV + '" proof of value');
+  var other = raw.match(/30[–-]45 days|about two months|in 2 months|Two months from kickoff|\b12 weeks\b|two-week acceptance|duration is set at scoping/);
+  if (other) fail("content.js", 'carries another proof-of-value duration ("' + other[0] + '") — it is "' + POV + '" across the site');
+})();
+
 /* Round 4 (Alex, 2026-09-16): NO customer may be named anywhere in the shipped
    data — not in copy, not in alt text, not in a caption — and no customer logo
    may be referenced. The files under assets/img/logos/ stay on disk,
