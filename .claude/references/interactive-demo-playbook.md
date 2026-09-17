@@ -12,6 +12,7 @@ _Distilled 2026-09-16 from the two builds (Large docs processing and review, 202
 6. **A dedicated tour step pauses on the improved metrics** even when no action is taken there (passive step with a Next control), then a step that opens where the gain comes from.
 7. **Figures**: reproduce the cleared figure (the +4.5% median on WfO); companions synthetic and modest; the shipped stills show the state that carries the cleared figure; every synthetic figure is listed for Alex in the report.
 8. **Model routing**: Opus by default — research, builds from a spec, QA loops, captures, conversions, doc mechanics. Fable only for the design decisions, the data model where numbers must reconcile, the red-team pass and the final review; say which. On the third demo: Fable under ~7% of its limit, 10% hard cap.
+9. **The AI must be seen reasoning at every step, on an AI-native business task with an outcome promise** (pushback on the first Cross-system ERP Q&A cut, 2026-09-17): a question turning into a table is table stakes, and heavy AI work behind a progress bar reads as ETL. The viewer must watch the AI scan every system, rank by business impact, attribute a cause that sits in a different system from the symptom, recommend actions, recompute after a person overrules it, and leave artefacts people use (tasks, a generated dashboard). Hint titles are business sentences in the persona's words; no hint says refresh, model, mapping, view or SQL outside the Explain / Trace panels. The opening focuses the viewer on the list of integrated sources. A hygiene task ("reconcile the close for an accountant") is not a candidate: pick a decision with money on it (revenue at risk, cash found), and let the promise be an outcome, never hours saved.
 
 ## The procedure that worked
 
@@ -37,6 +38,7 @@ _Distilled 2026-09-16 from the two builds (Large docs processing and review, 202
 - **Shared working tree and artifact**: another session may be editing the same repo and publishing the same artifact at the same time — check `git log` on renderer files, expect PROVENANCE section numbers to collide (renumber), expect publish refusals (re-read, merge, republish).
 - **Verification limits**: the Chrome extension cannot click inside an artifact's iframe; verify the product page headlessly on `file://` and the demo artifact in the viewer (it shows a grey skeleton for ~10 s before rendering).
 - **The review lens**: a screen tour is not a demo; the viewer must see what got better, drill into why, and be able to overrule it.
+- **The AI lens**: a faithful platform tour with one visible AI step reads as ETL plus admin, however real the platform screens are — see requirement 9; write the six hint titles as business sentences before building, and check that each step shows the AI doing something a person could not do across systems.
 
 ## Reusable parts
 
