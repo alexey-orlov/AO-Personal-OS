@@ -344,17 +344,19 @@
         select +
         '<div class="field kit-field">' +
           '<label class="field-label" for="' + uid + '-email">' + UI.esc(copy.emailLabel) + "</label>" +
-          '<div class="gate-row">' +
-            '<input class="input" type="email" id="' + uid + '-email" name="email" autocomplete="email" placeholder="' +
-              UI.esc(copy.emailPlaceholder) + '" value="' + UI.esc(storedKitEmail()) + '" required>' +
-            UI.button({ label: copy.submit, kind: "primary", attrs: { type: "submit" } }) +
-          "</div>" +
+          '<input class="input" type="email" id="' + uid + '-email" name="email" autocomplete="email" placeholder="' +
+            UI.esc(copy.emailPlaceholder) + '" value="' + UI.esc(storedKitEmail()) + '" required>' +
           '<p class="field-error" data-error-for="' + uid + '-email" role="alert" hidden></p>' +
         "</div>" +
+        /* Consent before the button, as on every other form here: the button is
+           the last thing a reader meets, so it is never pressed too early. */
         '<div class="field kit-field">' +
           '<label class="checkline"><input type="checkbox" name="consent" required>' +
             "<span>" + consentLabel() + "</span></label>" +
           '<p class="field-error" data-error-for="consent" hidden></p>' +
+        "</div>" +
+        '<div class="form-foot kit-foot">' +
+          UI.button({ label: copy.submit, kind: "primary", attrs: { type: "submit" } }) +
         "</div>" +
         '<div class="form-trap" aria-hidden="true">' +
           '<label for="' + uid + "-" + HONEYPOT + '">Leave this field empty</label>' +
