@@ -479,29 +479,61 @@
   /* ===================================================================== */
   /* 2. AI DATA PLATFORM — Agent Hub                                       */
   /* ===================================================================== */
+  /* Oracle's Jun-2026 roster, in Oracle's order. Items the walkthrough has no
+     content for are present and inert — Oracle's own frames never open most of
+     them either. `Insights` is NOT here: it is a tab on the Agent Hub's dark
+     bottom nav, which is where this build puts it. */
   var WB_NAV = [
-    { id: "create", label: "Create", icon: "plus", plain: true },
+    { id: "create", label: "Create", icon: "plus" },
     { id: "home", label: "Home", icon: "home" },
-    { id: "insights", label: "Insights", icon: "chart" },
-    { id: "catalog", label: "Master catalog", icon: "book" },
-    { id: "apc", label: "Auto-populate catalog", icon: "wand" },
-    { id: "sessions", label: "Sessions", icon: "list" }
+    { id: "catalog", label: "Master catalog", icon: "ledger" },
+    { id: "wspaces", label: "Workspaces", icon: "wspace", inert: true },
+    { id: "default", label: "default", icon: "folder", chevd: true, inert: true },
+    { id: "workflow", label: "Workflow", icon: "flow", inert: true, kid: true },
+    { id: "compute", label: "Compute", icon: "compute", inert: true, kid: true },
+    { id: "experiments", label: "Experiments", icon: "flask", inert: true, kid: true },
+    { gap: true },
+    { id: "creds", label: "Credential store", icon: "keylock", inert: true },
+    { id: "sharing", label: "Data sharing", icon: "dshare", inert: true },
+    { id: "apc", label: "Auto-populate catalog", icon: "tag" },
+    { id: "notifications", label: "Notifications", icon: "bellnav", inert: true, count: 4 },
+    { id: "roles", label: "Roles", icon: "people", inert: true },
+    { id: "audit", label: "Audit logs", icon: "auditlog" },
+    { id: "settings", label: "Settings", icon: "gear", inert: true }
+  ];
+  /* the three most recent things this account touched, as rows with icons */
+  var WB_RECENT = [
+    { icon: "bot", label: "Commercial operations agent" },
+    { icon: "chart", label: "Revenue at risk · week 41" },
+    { icon: "grid", label: "lakehouse_gold.revenue_at_risk" }
   ];
   function renderWbNav() {
     $("#wb-nav").innerHTML = WB_NAV.map(function (n) {
+      if (n.gap) return '<div class="wb-gap"></div>';
       var on = n.id === S.wbPanel ||
-        (n.id === "home" && (S.wbPanel === "analysis" || S.wbPanel === "run" || S.wbPanel === "conversation")) ||
+        (n.id === "home" && (S.wbPanel === "analysis" || S.wbPanel === "run" || S.wbPanel === "conversation" || S.wbPanel === "insights")) ||
         (n.id === "catalog" && S.wbPanel === "lineage");
-      return '<button class="wb-item' + (on ? " is-active" : "") + '" type="button" data-wb="' + n.id + '">' + ICON[n.icon] + "<span>" + (n.plain ? "Create" : esc(n.label)) + "</span></button>";
+      return '<button class="wb-item' + (on ? " is-active" : "") + (n.kid ? " wb-item--kid" : "") + '" type="button" data-wb="' + n.id + '">' + ICON[n.icon] + "<span>" + esc(n.label) + "</span>" +
+        (n.count ? '<span class="cnt">' + n.count + "</span>" : "") +
+        (n.chevd ? '<span class="chev">' + ICON.chevd + "</span>" : "") + "</button>";
     }).join("") +
-      '<div class="wb-cap">Activity</div>' +
-      '<div class="wb-recent">Commercial operations agent<br>Revenue at risk &middot; week 41<br>GOLD certified views</div>';
+      '<div class="wb-cap">Activity' + ICON.chevd + "</div>" +
+      WB_RECENT.map(function (r, i) {
+        return '<button class="wb-item' + (i === 0 && S.wbPanel === "analysis" ? " is-active" : "") + '" type="button" data-wb="recent">' + ICON[r.icon] + "<span>" + esc(r.label) + "</span></button>";
+      }).join("") +
+      '<button class="wb-collapse" type="button" data-wb="navcollapse">' + ICON.navcol + "<span>Collapse</span></button>";
   }
+  var WB_INERT = {};
+  WB_NAV.forEach(function (n) { if (n.inert) WB_INERT[n.id] = n.label; });
   $("#wb-nav").addEventListener("click", function (e) {
     var b = e.target.closest("[data-wb]");
     if (!b) return;
-    if (b.dataset.wb === "create") { toast("<span><b>Create</b> — agent flow &middot; job &middot; notebook &middot; SQL &middot; catalog &middot; schema. Read-only in this walkthrough.</span>"); return; }
-    S.wbPanel = b.dataset.wb; S.panel = null; renderWb();
+    var id = b.dataset.wb;
+    if (id === "create") { toast("<span><b>Create</b> — agent flow &middot; job &middot; notebook &middot; SQL &middot; catalog &middot; schema. Read-only in this walkthrough.</span>"); return; }
+    if (id === "recent") { S.wbPanel = S.state.analysed ? "analysis" : "home"; S.panel = null; renderWb(); return; }
+    if (id === "navcollapse") { toast("Collapsing the navigation is read-only in this walkthrough."); return; }
+    if (WB_INERT[id]) { toast("<span><b>" + esc(WB_INERT[id]) + "</b> is part of the Workbench but outside this walkthrough.</span>"); return; }
+    S.wbPanel = id; S.panel = null; renderWb();
   });
 
   /* ---- user menu (View as) ---- */
