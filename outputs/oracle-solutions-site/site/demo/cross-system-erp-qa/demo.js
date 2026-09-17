@@ -1569,18 +1569,22 @@
   }
 
   /* ---------------- Master catalog: the entity page ---------------------- */
+  /* Oracle names every catalog object in lowercase_snake_case */
+  function lc(id) { return String(id).toLowerCase(); }
   function mcatalogHtml() {
     var id = S.mcEntity, cols = catColsFor(id);
     var v = D.views.filter(function (x) { return x.id === id; })[0] || D.views[0];
+    var heads = [["", 26], ["Column name", 0, 1], ["Type", 96, 1], ["Description", "44%", 1], ["Data type", 100], ["", 34]];
     return '<div class="mc">' +
-      '<div class="mc-crumb">Master catalog <i>&rsaquo;</i> <a>' + GOLD_CAT + "</a> <i>&rsaquo;</i> <a>GOLD</a> <i>&rsaquo;</i> <a>Tables</a> <i>&rsaquo;</i> <b>" + esc(id) + "</b></div>" +
-      '<div class="mc-cols"><aside class="mc-tree"><label class="lin-filter"><span class="wb-mag"></span><input type="search" placeholder="Filter" aria-label="Filter catalogs"></label>' +
-      '<div class="mc-root">' + ICON.ledger + "Master catalog<span class=\"mc-live\">Default Master Cluster (Active)</span></div>" +
-      '<div class="mc-cat is-open">' + ICON.book + GOLD_CAT + "</div>" +
-      D.views.map(function (x) { return '<button class="mc-ent' + (x.id === id ? " is-on" : "") + '" type="button" data-mcent="' + esc(x.id) + '">' + ICON.grid + esc(x.id.toLowerCase()) + "</button>"; }).join("") +
-      D.sources.map(function (sc) { return '<div class="mc-cat">' + ICON.book + esc(CAT_LC[sc.id] || sc.id.toLowerCase()) + "</div>"; }).join("") +
+      '<div class="mc-crumb"><a>Master catalog</a> <i>&rsaquo;</i> <a>' + GOLD_CAT + "</a> <i>&rsaquo;</i> <a>GOLD</a> <i>&rsaquo;</i> <a>Tables</a> <i>&rsaquo;</i> <b>" + esc(lc(id)) + "</b></div>" +
+      '<div class="mc-cols"><aside class="mc-tree"><div class="mc-treetop"><label class="lin-filter"><span class="wb-mag"></span><input type="search" placeholder="Filter" aria-label="Filter catalogs"></label>' +
+      '<span class="mc-rf">' + ICON.refresh + "</span></div>" +
+      '<div class="mc-root">' + ICON.ledger + 'Master catalog<span class="mc-live">Default Cluster (Active)</span></div>' +
+      '<div class="mc-cat is-open"><span class="mc-tri">&#9662;</span>' + ICON.book + GOLD_CAT + "</div>" +
+      D.views.map(function (x) { return '<button class="mc-ent' + (x.id === id ? " is-on" : "") + '" type="button" data-mcent="' + esc(x.id) + '">' + ICON.grid + esc(lc(x.id)) + "</button>"; }).join("") +
+      D.sources.map(function (sc) { return '<div class="mc-cat"><span class="mc-tri">&#9656;</span>' + ICON.book + esc(CAT_LC[sc.id] || lc(sc.id)) + "</div>"; }).join("") +
       "</aside>" +
-      '<div class="mc-main"><div class="mc-head"><span class="lin-ico lin-ico--gold sm">' + ICON.grid + "</span><h1>" + esc(id) + "</h1>" +
+      '<div class="mc-main"><div class="mc-head"><span class="lin-ico lin-ico--gold sm">' + ICON.grid + "</span><h1>" + esc(lc(id)) + "</h1>" +
       '<div class="mc-act"><button class="wb-btn" type="button" id="mc-actions">Actions ' + ICON.chevd + "</button>" +
       (S.mcMenu ? '<div class="mc-menu"><button type="button" data-mclin="' + esc(id) + '">' + ICON.route + "Lineage</button>" +
         '<button type="button" data-mcdet="1">' + ICON.info + "View Details</button>" +
@@ -1588,7 +1592,10 @@
       '<div class="mc-sub">Table created by Metadata Extractor</div>' +
       '<div class="mc-tabs"><button type="button" class="is-on">Columns</button><button type="button">Details</button><button type="button">Permissions</button></div>' +
       '<div class="mc-tools"><label class="lin-filter"><span class="wb-mag"></span><input type="search" placeholder="Filter" aria-label="Filter columns"></label><span class="mc-plus">+</span></div>' +
-      '<table class="wb-tbl mc-grid"><thead><tr><th style="width:26px"></th><th>Column name</th><th style="width:96px">Type</th><th style="width:44%">Description</th><th style="width:100px">Data type</th><th style="width:34px"></th></tr></thead><tbody>' +
+      '<table class="wb-tbl mc-grid"><thead><tr>' + heads.map(function (h) {
+        return '<th' + (h[1] ? ' style="width:' + (typeof h[1] === "number" ? h[1] + "px" : h[1]) + '"' : "") + ">" +
+          (h[0] ? esc(h[0]) + (h[2] ? SORTC : "") : '<span class="mc-box"></span>') + "</th>";
+      }).join("") + "</tr></thead><tbody>" +
       cols.map(function (c) {
         return '<tr><td><span class="mc-box"></span></td><td>' + esc(c[0]) + "</td><td>Column</td><td>" +
           (c[1] ? '<span class="mc-desc">' + esc(c[1]) + "</span>" : '<span class="mc-dash">-</span>') + "</td><td>" + esc(c[2]) + '</td><td><span class="mc-dots">&middot;&middot;&middot;</span></td></tr>';
