@@ -42,11 +42,11 @@
   <section class="app app--ds" data-app="lakehouse" id="app-lakehouse" aria-label="Autonomous AI Lakehouse, Data Studio">
     <header class="ds-bar">
       <span class="ds-burger" aria-hidden="true"><i></i><i></i><i></i></span>
-      <span class="ds-mark" aria-hidden="true"></span>
+      <span class="ds-mark">ORACLE<sup>&reg;</sup></span>
       <span class="ds-title">Database Actions <i>|</i> <b id="ds-crumb">Catalog</b></span>
       <label class="ds-search"><input type="search" placeholder="Search Database (Ctrl+K)" aria-label="Search database"><span class="ds-mag" aria-hidden="true"></span></label>
       <span class="ds-help" aria-hidden="true">?</span>
-      <span class="ds-who"><span class="ds-who-i" aria-hidden="true"></span>DWHITFIELD</span>
+      <span class="ds-who"><span class="ds-who-i" aria-hidden="true"></span>DWHITFIELD<i class="ds-caret" aria-hidden="true"></i></span>
     </header>
     <div class="ds-body">
       <nav class="ds-nav" id="ds-nav" aria-label="Data Studio"></nav>
@@ -56,13 +56,19 @@
 
   <!-- ==================== 2. AI Data Platform (Agent Hub) ==================== -->
   <section class="app app--wb" data-app="aidp" id="app-aidp" aria-label="Oracle AI Data Platform, Agent Hub" hidden>
-    <header class="wb-bar">
+    <header class="wb-bar" id="wb-bar">
       <span class="wb-mark" aria-hidden="true"></span>
-      <span class="wb-title">AI Data Platform Workbench</span>
+      <span class="wb-title">AI Data Platform Workbench- norwell</span>
       <label class="wb-search"><span class="wb-mag" aria-hidden="true"></span><input type="search" placeholder="Search" aria-label="Search the workbench"></label>
-      <span class="wb-help" aria-hidden="true">?</span>
+      <span class="wb-bell" aria-hidden="true"><i></i><b>0</b></span>
       <button class="wb-avatar" id="wb-user" type="button" aria-haspopup="menu" aria-expanded="false">DW</button>
       <div class="wb-menu" id="wb-menu" role="menu" aria-label="Account" hidden></div>
+    </header>
+    <!-- the conversation surface replaces the Workbench bar with Agent Hub's plum one -->
+    <header class="wb-plum" id="wb-plum" hidden>
+      <button class="plum-back" id="plum-back" type="button" aria-label="Back to the Agent Hub">&larr;</button>
+      <span class="plum-ag" id="plum-agent"></span>
+      <span class="plum-right" id="plum-right"></span>
     </header>
     <div class="wb-body">
       <nav class="wb-nav" id="wb-nav" aria-label="Workbench"></nav>
