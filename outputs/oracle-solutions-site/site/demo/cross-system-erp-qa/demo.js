@@ -1524,7 +1524,7 @@
     var mine = an.accounts.filter(function (x) { return (a.accountIds || []).indexOf(x.id) >= 0 && x.causeId === a.causeId; });
     var decided = (an.decided || []).filter(function (x) { return x.recommendation && x.recommendation.actionId === a.id; })
       .concat((an.decided || []).filter(function (x) { return x.causeId === a.causeId && (!x.recommendation || !x.recommendation.actionId); }));
-    var seen = {}, accs = mine.concat(decided).filter(function (x) { if (seen[x.id]) return false; seen[x.id] = 1; return true; });
+    var seen = {}, accs = decided.concat(mine).filter(function (x) { if (seen[x.id]) return false; seen[x.id] = 1; return true; });
     return '<div class="prop' + (open ? " is-open" : "") + '" data-rec-card="' + esc(a.id) + '">' +
       '<button class="rec-head" type="button" data-openrec="' + esc(a.id) + '" aria-expanded="' + open + '">' +
       '<span class="act-id">' + esc(a.id) + "</span>" +
