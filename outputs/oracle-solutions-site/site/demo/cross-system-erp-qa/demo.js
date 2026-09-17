@@ -485,7 +485,7 @@
   function bandTile(t, moved) {
     var across = String(t.across === null || t.across === undefined ? "—" : t.across);
     var per = t.perSystem === null || t.perSystem === undefined ? "—" : String(t.perSystem);
-    var small = across.length > 15;
+    var small = across.length > 12;
     return '<div class="tile ' + esc(t.dir || "up") + (moved ? " is-moved" : "") + '" data-tile="' + esc(t.id) + '" title="' + esc(t.note || "") + '">' +
       '<span class="lab">' + esc(t.label) + "</span>" +
       '<span class="val"><span class="before">' + esc(per) + '</span><span class="arw">&rarr;</span>' +
