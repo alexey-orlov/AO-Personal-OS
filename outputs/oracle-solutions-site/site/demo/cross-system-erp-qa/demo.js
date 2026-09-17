@@ -861,7 +861,7 @@
     var total = an.trace.reduce(function (t, s) { return t + s.ms; }, 0);
     function row(sp, kid, glyph, sel) {
       return '<div class="tr' + (kid ? " tr--kid" : "") + (sel ? " is-sel" : "") + (sp.status === "blocked" ? " is-blocked" : "") + '">' +
-        '<span class="n"><span class="di">' + (kid ? "" : "&#9662;") + "</span>" + ICON[glyph] +
+        '<span class="n"><span class="di' + (kid ? "" : " open") + '"></span>' + ICON[glyph] +
         "<b>" + esc(sp.span) + "</b>" + (sp.detail ? "<span>" + esc(sp.detail) + "</span>" : "") + "</span>" +
         '<span class="bar"><i style="width:' + Math.max(3, Math.round(sp.ms / max * 100)) + '%"></i></span>' +
         '<span class="ms">' + (sp.ms / 1000).toFixed(2) + "s</span></div>";
@@ -1584,9 +1584,9 @@
       '<div class="mc-cols"><aside class="mc-tree"><div class="mc-treetop"><label class="lin-filter"><span class="wb-mag"></span><input type="search" placeholder="Filter" aria-label="Filter catalogs"></label>' +
       '<span class="mc-rf">' + ICON.refresh + "</span></div>" +
       '<div class="mc-root">' + ICON.ledger + 'Master catalog<span class="mc-live">Default Cluster (Active)</span></div>' +
-      '<div class="mc-cat is-open"><span class="mc-tri">&#9662;</span>' + ICON.book + GOLD_CAT + "</div>" +
+      '<div class="mc-cat is-open"><span class="mc-tri mc-tri--open"></span>' + ICON.book + GOLD_CAT + "</div>" +
       D.views.map(function (x) { return '<button class="mc-ent' + (x.id === id ? " is-on" : "") + '" type="button" data-mcent="' + esc(x.id) + '">' + ICON.grid + esc(lc(x.id)) + "</button>"; }).join("") +
-      D.sources.map(function (sc) { return '<div class="mc-cat"><span class="mc-tri">&#9656;</span>' + ICON.book + esc(CAT_LC[sc.id] || lc(sc.id)) + "</div>"; }).join("") +
+      D.sources.map(function (sc) { return '<div class="mc-cat"><span class="mc-tri"></span>' + ICON.book + esc(CAT_LC[sc.id] || lc(sc.id)) + "</div>"; }).join("") +
       "</aside>" +
       '<div class="mc-main"><div class="mc-head"><span class="lin-ico lin-ico--gold sm">' + ICON.grid + "</span><h1>" + esc(lc(id)) + "</h1>" +
       '<div class="mc-act"><button class="wb-btn" type="button" id="mc-actions">Actions ' + ICON.chevd + "</button>" +

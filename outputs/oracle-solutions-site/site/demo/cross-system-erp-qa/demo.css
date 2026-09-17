@@ -477,7 +477,8 @@ svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width:
 .tr.h { font-weight: 700; color: #161513; font-size: 13px; letter-spacing: normal; text-transform: none; border-bottom: 1px solid var(--wb-line); padding-bottom: 6px; margin-bottom: 2px; }
 .tr.h .du { text-decoration: underline; text-underline-offset: 3px; }
 .tr .n { display: flex; align-items: center; gap: 7px; min-width: 0; }
-.tr .n .di { width: 12px; color: #5a5754; font-size: 12px; line-height: 1; flex: none; text-align: center; }
+.tr .n .di { width: 12px; flex: none; display: inline-flex; justify-content: center; }
+.tr .n .di.open::before { content: ""; width: 0; height: 0; border-left: 4px solid transparent; border-right: 4px solid transparent; border-top: 5px solid #5a5754; }
 .tr .n svg { width: 14px; height: 14px; color: var(--wb-txt-2); flex: none; }
 .tr .n b { font-weight: 400; white-space: nowrap; flex: none; }
 .tr .n span { color: var(--wb-txt-2); font-size: 12px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex: 1 1 auto; min-width: 0; }
@@ -898,7 +899,9 @@ tr.tour-target { box-shadow: none !important; animation: none; }
 .mc-cat svg { width: 13px; height: 13px; }
 .mc-cat.is-open { color: var(--wb-txt); font-weight: 600; }
 .mc-ent { display: flex; align-items: center; gap: 7px; font-size: 12.5px; color: var(--wb-txt-2); padding: 4px 0 4px 30px; background: transparent; border: 0; width: 100%; text-align: left; cursor: pointer; }
-.mc-tri { color: #5a5754; font-size: 11px; line-height: 1; width: 10px; flex: none; }
+.mc-tri { width: 10px; flex: none; display: inline-flex; justify-content: center; }
+.mc-tri::before { content: ""; width: 0; height: 0; border-top: 4px solid transparent; border-bottom: 4px solid transparent; border-left: 5px solid #5a5754; }
+.mc-tri--open::before { border-left: 4px solid transparent; border-right: 4px solid transparent; border-top: 5px solid #5a5754; border-bottom: 0; }
 .mc-treetop { display: flex; align-items: center; gap: 7px; margin-bottom: 8px; }
 .mc-treetop .lin-filter { flex: 1; }
 .mc-rf { width: 24px; height: 24px; border: 1px solid var(--wb-line-2); border-radius: 50%; background: #fff; display: grid; place-items: center; color: var(--wb-txt-2); flex: none; }
