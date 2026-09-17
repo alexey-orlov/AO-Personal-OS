@@ -17,7 +17,25 @@
       "</div>";
   }
 
-  /* ————— S1: what SoftServe adds on Oracle, and who does it ————— */
+  /* The ticked two-panel block the home page opens with, without CTAs: the
+     contact block is the page's one ask. */
+  function panels(items, className) {
+    var UI = window.UI;
+    var html = (items || []).map(function (panel) {
+      var bullets = (panel.bullets || []).map(function (line) {
+        return "<li>" + UI.icon("check") + "<span>" + UI.esc(line) + "</span></li>";
+      }).join("");
+      return '<div class="way">' +
+        '<span class="way-mark" aria-hidden="true">' + UI.icon(panel.icon) + "</span>" +
+        '<h3 class="h4 way-title">' + UI.esc(panel.title) + "</h3>" +
+        '<p class="body-text way-body">' + UI.esc(panel.body) + "</p>" +
+        '<ul class="tick-list way-list">' + bullets + "</ul>" +
+        "</div>";
+    }).join("");
+    return html ? '<div class="ways reveal' + (className ? " " + className : "") + '">' + html + "</div>" : "";
+  }
+
+  /* ————— S1: AI depth with Oracle expertise — the practice ————— */
 
   /* The four platforms are the technology facet itself, so they render as the
      same "Runs on" chips a product hero carries, keyed off the canonical facet
@@ -74,18 +92,17 @@
       "</section>";
   }
 
-  /* ————— S2: how an engagement runs, and who runs it after go-live ————— */
+  /* ————— S2: it's all about ROI — every step ends in a number ————— */
 
-  /* The home page's three-step track under the same step names, full width
-     here because the reasons to pick the team are the hero's job on this page.
-     The after-go-live choice closes the same screen as two peers with no
-     button: the contact block is the page's one ask. */
+  /* The home page's step track under the same step names, with Discovery ahead
+     of them. Each step's labelled fact is what it ends with — the measured
+     artefact — so the track reads as a sequence of results, not of durations. */
   function engage(content) {
     var UI = window.UI;
     var block = content.services.howWeEngage;
-    var after = content.services.afterGoLive;
+    var list = block.steps || [];
 
-    var steps = (block.steps || []).map(function (step, index) {
+    var steps = list.map(function (step, index) {
       return '<div class="ladder3-step">' +
         '<span class="ladder3-dot" aria-hidden="true"></span>' +
         '<span class="ladder3-index nums">' + UI.esc(String(index + 1)) + "</span>" +
@@ -98,40 +115,24 @@
         "</div>";
     }).join("");
 
-    var panels = (after.panels || []).map(function (panel) {
-      var bullets = (panel.bullets || []).map(function (line) {
-        return "<li>" + UI.icon("check") + "<span>" + UI.esc(line) + "</span></li>";
-      }).join("");
-      return '<div class="way">' +
-        '<span class="way-mark" aria-hidden="true">' + UI.icon(panel.icon) + "</span>" +
-        '<h3 class="h4 way-title">' + UI.esc(panel.title) + "</h3>" +
-        '<p class="body-text way-body">' + UI.esc(panel.body) + "</p>" +
-        '<ul class="tick-list way-list">' + bullets + "</ul>" +
-        "</div>";
-    }).join("");
-
     return '<section class="section home-screen services-engage" id="' + UI.esc(block.anchor) + '"><div class="wrap">' +
       head({ eyebrow: block.eyebrow, title: block.title, lead: block.lead }) +
       '<div class="deliver-main reveal">' +
-        '<div class="ladder3">' + steps + "</div>" +
+        '<div class="ladder3' + (list.length === 4 ? " ladder3--four" : "") + '">' + steps + "</div>" +
         '<p class="footnote deliver-note">' + UI.esc(block.footnote) + "</p>" +
-      "</div>" +
-      '<div class="services-after" id="' + UI.esc(after.anchor) + '">' +
-        head({ eyebrow: after.eyebrow, title: after.title, accent: false }) +
-        '<div class="ways reveal">' + panels + "</div>" +
       "</div>" +
       "</div></section>";
   }
 
-  /* ————— S3: how we measure it ————— */
+  /* ————— S3: a fast proof of value, no hassle ————— */
 
-  /* The page's one light band: the discipline on the left; on the right the one
-     accuracy figure with its caveat, and the way back to the case studies that
-     carry the figures. An internal route takes the arrow, not the external
-     glyph an address carries. */
-  function proof(content) {
+  /* The page's one light band states the promise and the duration; the two
+     panels under it say what it asks of the customer and what it leaves them
+     with. An internal route takes the arrow, not the external glyph an address
+     carries. */
+  function proofOfValue(content) {
     var UI = window.UI;
-    var block = content.services.proof;
+    var block = content.services.proofOfValue;
     var linkLabel = String(block.cta.label || "").replace(/\s*→\s*$/, "");
 
     return '<section class="section home-screen services-page-proof" id="' + UI.esc(block.anchor) + '"><div class="wrap">' +
@@ -153,6 +154,7 @@
             UI.icon("arrow") + "</a></p>" +
         "</div>" +
       "</div>" +
+      panels(block.panels, "services-pov-panels") +
       "</div></section>";
   }
 
@@ -189,7 +191,7 @@
 
   function services() {
     var content = C();
-    return hero(content) + statBand(content) + engage(content) + proof(content) + contact(content);
+    return hero(content) + statBand(content) + engage(content) + proofOfValue(content) + contact(content);
   }
 
   services.mount = function (params, root) {
