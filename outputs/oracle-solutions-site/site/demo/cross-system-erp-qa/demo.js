@@ -330,33 +330,38 @@
      The feed job below them is already built and is never run by the tour. */
   function renderDsFeeds() {
     $("#ds-crumb").textContent = "Data Load";
+    var views = entities().filter(function (e) { return e.kind === "View"; });
     $("#ds-page").innerHTML =
+      '<div class="ds-crumbs"><a>Data Load</a><span>&rsaquo;</span><b>Live Feed</b></div>' +
       '<div class="ds-head"><h1>Live Feed</h1><span>Ongoing feeds of new data into the autonomous database</span></div>' +
       '<section class="srcs"><div class="srcs-head"><h2>Sources feeding the lakehouse</h2>' +
       '<span>Five systems, minutes behind, in one place — this is what lets one question cross all of them.</span></div>' +
       '<div class="src-cards" id="src-cards">' + D.sources.map(function (s) {
         return '<div class="src" data-src="' + esc(s.id) + '">' +
-          '<div class="src-top"><span class="src-dot src-dot--' + esc(s.id) + '"></span><span class="src-kind">' + esc(String(s.kind).split("·")[0].trim()) + "</span>" +
-          '<span class="fr">' + esc(s.freshLabel) + " behind</span></div>" +
+          '<span class="src-ico">' + ICON[SRC_ICON[s.id] || "cloud"] + "</span>" +
           '<h3>' + esc(s.short) + "</h3>" +
           '<div class="src-sys">' + esc(s.name) + "</div>" +
-          '<div class="src-apps">' + srcApps(s.id).map(function (a) { return '<span class="src-app">' + esc(a) + "</span>"; }).join("") + "</div>" +
           '<div class="src-what">' + esc(srcWhat(s.id)) + "</div>" +
-          '<div class="src-feed">' + ICON.refresh + esc(s.feed) + "</div>" +
-          '<div class="src-objs">' + (s.objects || []).slice(0, 4).map(function (o) { return "<code>" + esc(o) + "</code>"; }).join("") +
-          (s.objects.length > 4 ? '<span class="more">+' + (s.objects.length - 4) + " more</span>" : "") + "</div></div>";
+          '<div class="src-feed">' + esc(s.feed) + " &middot; " + esc(s.freshLabel) + " behind &middot; " +
+          s.objects.length + " objects</div></div>";
       }).join("") + "</div></section>" +
-      '<section class="job" id="ds-job"><div class="job-head"><span class="job-ico">' + ICON.stack + "</span>" +
-      '<div><h2>Cross-system commercial model (GOLD)</h2><div class="sub">Owner Group Commercial &middot; five sources into one governed model &middot; ' + D.views.length + " certified views &middot; rebuilt continuously as the feeds arrive</div></div>" +
-      '<div class="job-act"><span class="job-chip" id="ds-jobchip">Rebuilt 09:44</span></div></div>' +
+      '<section class="job" id="ds-job"><div class="job-head"><span class="job-cv">' + ICON.chevd + '</span><span class="job-ico">' + ICON.grid + "</span>" +
+      '<h2>GOLD.CROSS_SYSTEM_COMMERCIAL_MODEL &bull; ' + D.views.length + " views &bull; " + D.sources.length + " sources</h2>" +
+      '<span class="job-act"><button class="job-tbtn" type="button" data-jobb="Query">Query</button>' +
+      '<button class="job-tbtn" type="button" data-jobb="Jobs">Jobs</button><span class="job-dots">&middot;&middot;&middot;</span></span></div>' +
+      '<p class="job-sub">Create Model &bull; <b>five mounted sources</b> &bull; ' + D.views.length + " views rebuilt &bull; owner Group Commercial</p>" +
       '<ol class="stages" id="ds-stages">' + STAGE_LABELS.map(function (st) {
         return '<li class="is-done"><i></i><span>' + esc(st[0]) + "</span><em>" + esc(st[1]) + "</em></li>";
       }).join("") + "</ol>" +
+      '<div class="job-btns"><span class="grow">Rebuilt 09:44 &middot; rebuilt continuously as the feeds arrive</span>' +
+      '<button class="job-nb" type="button" data-jobb="Report"><span class="ok">' + ICON.check + '</span>Report</button>' +
+      '<button class="job-nb" type="button" data-jobb="Reload"><span class="ok">' + ICON.play + "</span>Reload</button></div>" +
       '<p class="job-note">Nothing here is a batch anyone waits for: JD Edwards streams through change capture, Fusion and NetSuite arrive on their own pipelines, the delivery-tracking application is a database link and the CRM is an external table. The stalest of the five is the CRM, 1 h 05 min behind — and every answer says so.</p></section>' +
-      '<section class="out"><div class="out-head"><b>' + D.views.length + ' certified views</b><span>schema GOLD &middot; owner Group Commercial &middot; signed-off definitions the answers cite by name</span></div>' +
-      '<div class="out-grid">' + D.views.map(function (v) { return '<div><div class="vn">' + esc(v.name) + '</div><div class="vd">' + esc(v.definition) + "</div></div>"; }).join("") + "</div></section>" +
+      '<section class="out"><p class="out-cap"><b>' + D.views.length + ' certified views</b> &middot; schema GOLD &middot; owner Group Commercial &middot; signed-off definitions the answers cite by name</p>' +
+      '<div class="ds-list">' + dsGroupHtml("View", views) + "</div></section>" +
       '<p class="ds-aside">Demo data only — a fictional group and synthetic orders. Nothing is written back to any source system.</p>';
   }
+  var SRC_ICON = { FUSION: "cloud", JDE: "stream", NETSUITE: "cloud", DLV: "dblink", CRM: "extbl" };
   var STAGE_LABELS = [
     ["Bring in the three order books", "1 min ago"],
     ["Resolve customers and items across systems", "1 min ago"],
@@ -369,11 +374,6 @@
     (D.world.entities || []).forEach(function (e) { if (e.id === id) out = e.name; });
     return out === id ? "Group" : out;
   }
-  var SRC_APPS = {
-    FUSION: ["SCM and ERP", "Enterprise Contracts"], JDE: ["Sales order management"],
-    NETSUITE: ["Order to cash"], DLV: ["Shipment tracking"], CRM: ["Accounts and contacts"]
-  };
-  function srcApps(id) { return SRC_APPS[id] || []; }
   function srcWhat(id) {
     return {
       FUSION: "Orders, fulfilment lines and on-hand stock for Europe — and the customer contracts, where the delivery lead time and the late-penalty clause live.",
@@ -454,6 +454,7 @@
       if (s) toast("<span><b>" + esc(s.name) + "</b> &middot; " + esc(s.feed) + " &middot; " + esc(s.freshLabel) + " behind &middot; " + s.objects.length + " objects in scope: <span class=\"mono\">" + esc(s.objects.join(", ")) + "</span></span>", 9000);
       return;
     }
+    if ((t = e.target.closest("[data-jobb]"))) { toast("<span><b>" + esc(t.dataset.jobb) + "</b> — read-only in this walkthrough. The model rebuilds itself as the five feeds arrive.</span>"); return; }
     if ((t = e.target.closest("[data-manage]"))) { toast("<span>Mounted catalogs: <b>" + D.sources.map(function (s) { return s.catalog; }).join(" &middot; ") + "</b> — read-only in this walkthrough.</span>"); }
   });
 
