@@ -36,9 +36,9 @@
   --ds-olive: #3c601a;
 
   /* 2. AI Data Platform */
-  --wb-bar: #2a2d31;
-  --wb-nav: #f3f3f1;
-  --wb-sel: #d8d6d4;
+  --wb-bar: #26262c;
+  --wb-nav: #f4f2f0;
+  --wb-sel: #c2c0be;
   --wb-page: #fdfdfc;
   --wb-line: #e2e0dc;
   --wb-line-2: #c8c5bf;
@@ -287,37 +287,59 @@ svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width:
 /* 2. AI Data Platform — dark bar over a light nav                          */
 /* ======================================================================== */
 .app--wb { background: var(--wb-page); color: var(--wb-txt); }
-.wb-bar { height: 34px; flex: none; background: var(--wb-bar); color: #e6e4e0; display: flex; align-items: center; gap: 10px; padding: 0 12px; position: relative; }
-.wb-mark { width: 18px; height: 18px; border-radius: 4px; background: var(--red); position: relative; flex: none; }
-.wb-mark::after { content: ""; position: absolute; inset: 4.5px; background: #fff; border-radius: 2px; transform: rotate(45deg); }
-.wb-title { font-size: 12.5px; font-weight: 500; }
-.wb-search { position: absolute; left: 50%; transform: translateX(-50%); width: 360px; display: flex; align-items: center; gap: 7px; background: #3a3d42; border: 1px solid #4a4d52; border-radius: 4px; padding: 3px 10px; }
+.wb-bar { height: 40px; flex: none; background: var(--wb-bar); color: #e6e4e0; display: flex; align-items: center; gap: 10px; padding: 0 12px; position: relative; }
+/* Oracle's identity element on this bar is a white outlined ellipse, never red */
+.wb-mark { width: 23px; height: 13px; border-radius: 7px; background: transparent; border: 2px solid #fff; flex: none; }
+.wb-title { font-size: 13px; font-weight: 400; }
+.wb-search { position: absolute; left: 57.1%; transform: translateX(-50%); width: 600px; max-width: 42vw; display: flex; align-items: center; gap: 7px; background: transparent; border: 1px solid #6f6d71; border-radius: 6px; padding: 4px 10px; }
 .wb-search input { flex: 1; min-width: 0; border: 0; background: transparent; color: #e6e4e0; font: inherit; font-size: 12px; }
 .wb-search input:focus { outline: none; }
 .wb-search input::placeholder { color: #95918b; }
 .wb-mag { width: 12px; height: 12px; border: 1.5px solid #9a968f; border-radius: 50%; position: relative; flex: none; }
 .wb-mag::after { content: ""; position: absolute; right: -4px; bottom: -3px; width: 5px; height: 1.5px; background: #9a968f; transform: rotate(45deg); }
-.wb-help { margin-left: auto; width: 17px; height: 17px; border: 1.3px solid #9a968f; border-radius: 50%; font-size: 10.5px; display: grid; place-items: center; color: #c9c5bf; }
-.wb-avatar { width: 22px; height: 22px; border-radius: 50%; border: 0; background: #6f5f73; color: #fff; font-size: 9.5px; font-weight: 700; cursor: pointer; display: grid; place-items: center; }
-.wb-menu { position: absolute; right: 8px; top: 36px; width: 292px; background: #fff; border: 1px solid var(--wb-line); border-radius: 6px; box-shadow: var(--shadow-lg); z-index: 40; padding: 8px; color: var(--wb-txt); }
-.wb-menu .mh { font-size: 10.5px; letter-spacing: .07em; text-transform: uppercase; color: var(--wb-txt-2); padding: 4px 8px 6px; font-weight: 700; }
+/* the Jun-2026 bar carries a ringing bell with a grey count badge, not a "?" */
+.wb-bell { margin-left: auto; display: inline-flex; align-items: center; gap: 5px; color: #c9c5bf; }
+.wb-bell i { width: 13px; height: 14px; border: 1.4px solid #c9c5bf; border-radius: 6px 6px 2px 2px; border-bottom-width: 0; position: relative; display: block; }
+.wb-bell i::after { content: ""; position: absolute; left: -3px; right: -3px; bottom: -2px; height: 1.4px; background: #c9c5bf; border-radius: 1px; }
+.wb-bell i::before { content: ""; position: absolute; left: 50%; bottom: -5px; width: 4px; height: 3px; margin-left: -2px; border-radius: 0 0 3px 3px; background: #c9c5bf; }
+.wb-bell b { min-width: 15px; height: 15px; border-radius: 50%; background: #55545a; color: #e6e4e0; font-size: 9.5px; font-weight: 600; display: grid; place-items: center; padding: 0 3px; }
+.wb-avatar { width: 28px; height: 28px; border-radius: 6px; border: 0; background: #6f5f73; color: #fff; font-size: 11px; font-weight: 600; cursor: pointer; display: grid; place-items: center; position: relative; }
+.wb-avatar::after { content: ""; position: absolute; right: -2px; bottom: -2px; width: 8px; height: 8px; border-radius: 50%; background: #4190ac; border: 1.5px solid var(--wb-bar); }
+.wb-menu { position: absolute; right: 8px; top: 42px; width: 292px; background: #fff; border: 1px solid var(--wb-line); border-radius: 6px; box-shadow: var(--shadow-lg); z-index: 40; padding: 8px; color: var(--wb-txt); }
+.wb-menu .mh { font-size: 12.5px; color: var(--wb-txt-2); padding: 4px 8px 6px; font-weight: 600; }
 .wb-menu .me { display: flex; gap: 9px; align-items: flex-start; width: 100%; text-align: left; background: transparent; border: 0; border-radius: 5px; padding: 7px 8px; cursor: pointer; }
 .wb-menu .me:hover { background: #f4f2ef; }
 .wb-menu .me.is-on { background: #eef2f5; }
 .wb-menu .me b { font-size: 12.5px; display: block; }
 .wb-menu .me span { font-size: 11.5px; color: var(--wb-txt-2); display: block; }
-.wb-menu .me .ini { width: 24px; height: 24px; border-radius: 50%; background: #6f5f73; color: #fff; font-size: 9.5px; font-weight: 700; display: grid; place-items: center; flex: none; }
+.wb-menu .me .ini { width: 26px; height: 26px; border-radius: 6px; background: #6f5f73; color: #fff; font-size: 9.5px; font-weight: 700; display: grid; place-items: center; flex: none; }
 .wb-menu .me .ini--a { background: #45657a; }
 .wb-menu hr { border: 0; border-top: 1px solid var(--wb-line); margin: 6px 4px; }
 
-.wb-body { flex: 1; display: grid; grid-template-columns: 204px 1fr; min-height: 0; }
-.wb-nav { background: var(--wb-nav); border-right: 1px solid var(--wb-line); padding: 8px 0; overflow: auto; }
-.wb-item { display: flex; align-items: center; gap: 9px; width: 100%; height: 26px; padding: 0 12px; background: transparent; border: 0; font-size: 12.5px; color: var(--wb-txt); cursor: pointer; text-align: left; }
-.wb-item:hover { background: #e9e7e4; }
-.wb-item.is-active { background: var(--wb-sel); font-weight: 600; }
-.wb-item svg { width: 14px; height: 14px; color: var(--wb-txt-2); }
-.wb-cap { font-size: 10.5px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: #8b877f; padding: 12px 12px 4px; }
-.wb-recent { font-size: 11.5px; color: var(--wb-txt-2); padding: 2px 12px 2px 33px; line-height: 1.7; }
+/* Agent Hub's conversation surface has its own bar — three bar colours across
+   one product is what Oracle ships, so they are deliberately not unified */
+.wb-plum { height: 30px; flex: none; background: #614d70; color: #fff; display: flex; align-items: center; gap: 10px; padding: 0 10px; }
+.plum-back { border: 0; background: transparent; color: #fff; font-size: 15px; line-height: 1; cursor: pointer; padding: 0 3px; }
+.plum-ag { display: flex; align-items: center; gap: 7px; font-size: 12.5px; color: #fff; }
+.plum-ag svg { width: 14px; height: 14px; }
+.plum-right { margin-left: auto; display: flex; align-items: center; gap: 12px; color: #e4dcea; font-size: 12px; }
+.plum-right svg { width: 14px; height: 14px; }
+.plum-right i { font-style: normal; display: inline-flex; align-items: center; gap: 3px; }
+.plum-av { width: 20px; height: 20px; border-radius: 5px; background: #8d76a0; color: #fff; font-size: 9px; font-weight: 600; display: grid; place-items: center; }
+.wb-body { flex: 1; display: grid; grid-template-columns: 205px 1fr; min-height: 0; }
+.wb-nav { background: var(--wb-nav); border-right: 1px solid var(--wb-line); padding: 8px 0 0; overflow: auto; display: flex; flex-direction: column; }
+.wb-item { display: flex; align-items: center; gap: 9px; width: calc(100% - 20px); height: 30px; margin: 0 10px; padding: 0 9px; background: transparent; border: 0; border-radius: 6px; font-size: 13px; color: var(--wb-txt); cursor: pointer; text-align: left; }
+.wb-item:hover { background: rgba(22, 21, 19, .06); }
+.wb-item.is-active { background: var(--wb-sel); font-weight: 400; }
+.wb-item svg { width: 17px; height: 17px; color: var(--wb-txt-2); }
+.wb-item .cnt { margin-left: auto; min-width: 17px; height: 17px; border-radius: 50%; background: #d9d6d2; color: #4d4a45; font-size: 10px; font-weight: 600; display: grid; place-items: center; }
+.wb-item span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.wb-gap { height: 10px; }
+.wb-cap { display: flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 700; color: var(--wb-txt); padding: 14px 19px 4px; }
+.wb-cap svg { width: 13px; height: 13px; color: var(--wb-txt-2); }
+.wb-collapse { margin: auto 10px 8px; display: flex; align-items: center; gap: 8px; width: calc(100% - 20px); height: 30px; padding: 0 9px; background: transparent; border: 0; border-radius: 6px; font-size: 12.5px; color: var(--wb-txt-2); cursor: pointer; }
+.wb-collapse:hover { background: rgba(22, 21, 19, .06); }
+.wb-collapse svg { width: 15px; height: 15px; }
 .wb-page { min-width: 0; overflow: auto; background: var(--wb-page); }
 
 /* Agent Hub home */
