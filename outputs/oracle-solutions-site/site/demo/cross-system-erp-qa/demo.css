@@ -1194,3 +1194,18 @@ body.tour-gutter .conv--an { padding-right: 324px; }
 /* any table wider than its column scrolls inside its own box — never the page */
 .tw { overflow-x: auto; max-width: 100%; }
 .tw > table { min-width: 100%; }
+
+/* a second line inside a drill-down cell */
+.dgrid .sub { display: block; font-size: 10.5px; color: var(--wb-txt-2); margin-top: 1px; }
+.viewchip--more { color: var(--wb-txt-2); }
+.gd-tile.is-masked .v { color: var(--wb-txt-2); letter-spacing: .12em; }
+.gd-tbl-h { display: flex; align-items: baseline; gap: 10px; margin: 2px 0 7px; }
+.gd-tbl-h b { font-size: 13px; }
+.gd-tbl-h span { font-size: 11.5px; color: var(--wb-txt-2); }
+.idline { display: flex; align-items: flex-start; gap: 8px; font-size: 12px; color: var(--wb-txt); background: #f3f7f4; border: 1px solid #cfe0d2; border-radius: 4px; padding: 7px 10px; margin: 8px 0; }
+.idline svg { width: 14px; height: 14px; color: var(--wb-green); flex: none; margin-top: 1px; }
+.scans { display: grid; gap: 5px; margin: 8px 0 2px; padding-left: 5px; border-left: 1.5px dotted #c9c4bc; }
+.scan { display: grid; grid-template-columns: 10px 128px 1fr; gap: 9px; align-items: center; font-size: 11.5px; color: var(--wb-txt-2); }
+.scan i { width: 6px; height: 6px; border-radius: 50%; background: var(--wb-trace); margin-left: -8px; }
+.scan .t { font-variant-numeric: tabular-nums; }
+.tile .asub { font-size: 11px; color: var(--rw-txt-2); width: 100%; }

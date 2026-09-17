@@ -641,6 +641,12 @@
       '<p class="an-sub">Top ' + live.length + " of " + exposed + " accounts with a line at risk" +
       (out.length ? ", plus the " + out.length + " you decided on" : "") + " — ranked by what is at stake.</p>";
   }
+  function viewChips(views) {
+    views = views || [];
+    var head = views.slice(0, 5), rest = views.slice(5);
+    return head.map(function (v) { return '<button class="viewchip" type="button" data-viewlin="' + esc(v) + '" title="Where ' + esc(v) + ' comes from">' + esc(v) + "</button>"; }).join(" ") +
+      (rest.length ? ' <button class="viewchip viewchip--more" type="button" data-morev="' + esc(rest.join("|")) + '">+' + rest.length + " more</button>" : "");
+  }
   function analysisHtml() {
     var an = analysis();
     var h = an.headline;
@@ -653,7 +659,7 @@
       "</b>. <b>" + h.tierA.accounts + " tier-A accounts</b> carry " + esc(h.tierA.text ? String(h.tierA.text).split("·").pop().trim() : usdShort(h.tierA.usd)) +
       " of it, and the contracts price <b>" + esc(h.penaltiesText || usdShort(h.penaltiesUsd)) + "</b> of late penalties if nothing changes.</div>" +
       '<div class="ans-meta">' + esc(an.freshness.text) + (roleTag ? '<span class="sep">&middot;</span>' + roleTag : "") + '<span class="sep">&middot;</span>' +
-      an.views.map(function (v) { return '<button class="viewchip" type="button" data-viewlin="' + esc(v) + '" title="Where ' + esc(v) + ' comes from">' + esc(v) + "</button>"; }).join(" ") + "</div></div>" +
+      viewChips(an.views) + "</div></div>" +
       '<section class="band an-band" aria-label="Per system, then across systems">' + bandHtml(an, "band-tiles", S.movedBand) + "</section>" +
       (S.narrate ? '<div class="ans-narr"><span class="sp">' + ICON.speak + "</span><span>" + esc(an.narrative) + "</span></div>" : "") +
       '<div class="an-cols"><section class="an-box"><h4>' + ICON.chart + "Why the lines are late</h4>" + causesChart(an) +
@@ -984,7 +990,7 @@
       '<div class="q-bubble">' + esc(a.text) + "</div>" +
       '<div class="ans" id="ans">' +
       '<div class="ans-meta">' + meta + (roleTag ? '<span class="sep">&middot;</span>' + roleTag : "") + '<span class="sep">&middot;</span>' +
-      a.views.map(function (v) { return '<button class="viewchip" type="button" data-viewlin="' + esc(v) + '" title="Where ' + esc(v) + ' comes from">' + esc(v) + "</button>"; }).join(" ") + "</div>" +
+      viewChips(a.views) + "</div>" +
       grid +
       (a.caveat ? '<div class="ans-caveat">' + ICON.info + " " + esc(a.caveat) + "</div>" : "") +
       '<div class="ans-acts">' +
@@ -1020,6 +1026,7 @@
     }
     if ((t = e.target.closest("[data-dash]"))) { toast("<span>Dashboard <b>" + esc(t.dataset.dash) + "</b> — static in this walkthrough; it reads the same certified views as the answers.</span>"); return; }
     /* ---- Master catalog / lineage ---- */
+    if ((t = e.target.closest("[data-morev]"))) { toast("<span>Also read: <b>" + esc(t.dataset.morev.split("|").join(" · ")) + "</b> — click any chip to open where it comes from.</span>", 9000); return; }
     if ((t = e.target.closest("[data-viewlin]"))) { openLineage(t.dataset.viewlin); return; }
     if ((t = e.target.closest("[data-mcent]"))) { S.mcEntity = t.dataset.mcent; S.mcMenu = false; renderWb(); return; }
     if ((t = e.target.closest("#mc-actions"))) { S.mcMenu = !S.mcMenu; renderWb(); return; }
@@ -1876,7 +1883,7 @@
          so the card never lands on the analysis it is describing */
       if (st.dock === "right") {
         left = innerWidth - w - 12;
-        top = Math.max(8, Math.min(innerHeight - h - 8, r.top - 8));
+        top = Math.max(56, Math.min(innerHeight - h - 8, r.top - 8));
         this.el.style.top = top + "px"; this.el.style.left = left + "px"; this.el.dataset.side = "left";
         return;
       }
