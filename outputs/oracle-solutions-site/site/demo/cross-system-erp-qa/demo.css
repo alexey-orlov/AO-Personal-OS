@@ -1225,6 +1225,10 @@ body.tour-gutter .conv--an { padding-right: 324px; }
 @media (max-width: 1120px) {
   .src-objs { display: none; }
   .src-top, .src h3 { flex: none; }
-  .src-what { flex: none; max-height: 30.8px; }
+  .src-what { flex: none; max-height: 30.8px; position: relative; }
+  /* two whole lines, and the second fades into the card where there is more to
+     read — a fade over the card colour is invisible on a line that ends early */
+  .src-what::after { content: ""; position: absolute; right: 0; bottom: 0; width: 42px; height: 15.4px;
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0), var(--ds-surface) 72%); }
   .src-kind { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 }
