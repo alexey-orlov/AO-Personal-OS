@@ -687,22 +687,29 @@
      sub-steps on a dotted timeline → done. Cancel is present, as Oracle's is. */
   function runCardHtml() {
     var plan = RUN_PLAN;
+    var max = 0;
+    plan.forEach(function (a) { var t = 0; a.steps.forEach(function (x) { t += x.ms || 500; }); a.total = t; if (t > max) max = t; });
     return '<div class="runcard" id="runcard">' +
       '<div class="rc-q">' + esc(D.questions[0].text) + "</div>" +
       plan.map(function (a, i) {
         var st = i < S.run.ai ? "done" : i === S.run.ai ? "live" : "wait";
-        var label = st === "done" ? "Done" : st === "live" ? "In progress" : "Not started";
+        /* Oracle's completed word in this product is "Succeeded"; a step that
+           has not run carries no label at all */
+        var label = st === "done" ? "Succeeded" : st === "live" ? "In progress" : "";
         return '<div class="rc-agent is-' + st + '" data-rc="' + esc(a.id) + '">' +
           '<span class="rc-ico">' + (st === "done" ? ICON.check : st === "live" ? ICON.refresh : ICON.chev) + "</span>" +
-          '<div class="rc-body"><span class="rc-st">' + label + '</span><b>' + esc(a.agent) + "</b>" +
+          '<div class="rc-body">' + (label ? '<span class="rc-st">' + label + "</span>" : "") + "<b>" + esc(a.agent) + "</b>" +
           (st === "wait" ? "" : '<ol class="rc-steps">' + a.steps.map(function (s, j) {
             var sd = st === "done" || j < S.run.si ? " is-done" : (st === "live" && j === S.run.si ? " is-live" : "");
             return "<li class=\"" + sd.trim() + '"><i></i><span>' + esc(s.text) + "</span></li>";
           }).join("") + "</ol>") +
-          "</div></div>";
+          "</div>" +
+          '<div class="rc-dur">' + (st === "done"
+            ? '<span class="bar"><i style="width:' + Math.max(6, Math.round(a.total / max * 100)) + '%"></i></span><span class="ms">' + (a.total / 1000).toFixed(2) + "s</span>"
+            : st === "live" ? '<span class="tr"><span class="spin"></span></span>' : "") + "</div>" +
+          "</div>";
       }).join("") +
-      '<div class="rc-foot"><button class="btn btn--sm" type="button" id="rc-cancel">Cancel</button>' +
-      '<span class="rc-note">' + esc(RUN_PLAN.length) + " agents working on one question &middot; reading five systems</span></div></div>";
+      '<div class="rc-foot"><span class="rc-note">' + esc(RUN_PLAN.length) + " agents working on one question &middot; reading five systems</span></div></div>";
   }
   var RUN_PLAN = [];
   function runAnalysis() {
@@ -1084,8 +1091,22 @@
   }
 
   /* ---- render + events -------------------------------------------------- */
+  /* A conversation is not a Workbench page: Oracle swaps the charcoal bar for a
+     plum one carrying the agent's name and its own control set. Three bar
+     colours across one product is what Oracle ships — don't unify them. */
+  var CONV_PANELS = { analysis: 1, conversation: 1, run: 1 };
+  function renderPlum() {
+    var on = !!CONV_PANELS[S.wbPanel];
+    $("#wb-bar").hidden = on;
+    $("#wb-plum").hidden = !on;
+    if (!on) return;
+    $("#plum-agent").innerHTML = ICON.bot + "Commercial operations agent";
+    $("#plum-right").innerHTML = ICON.undo + ICON.redo + ICON.trash +
+      "<i>" + ICON.ledger + ICON.chevd + "</i>" + ICON.bookmark +
+      '<span class="plum-av">' + esc(persona().initials) + "</span>";
+  }
   function renderWb() {
-    renderWbNav(); renderWbMenu();
+    renderWbNav(); renderWbMenu(); renderPlum();
     var page = $("#wb-page");
     if (S.wbPanel === "analysis") { page.innerHTML = '<div class="conv conv--an">' + analysisHtml() + "</div>"; return; }
     if (S.wbPanel === "conversation") { page.innerHTML = '<div class="conv">' + answerHtml(ans()) + "</div>"; return; }
@@ -1150,7 +1171,12 @@
 
   $("#wb-page").addEventListener("click", function (e) {
     var t;
-    if ((t = e.target.closest("#rc-cancel"))) { toast("The run is nearly done — let it finish."); return; }
+    if ((t = e.target.closest("[data-hubnav]"))) {
+      var hn = t.dataset.hubnav;
+      if (hn === "teams") { toast("<span><b>Teams</b> is the Agent Hub's fourth tab — outside this walkthrough.</span>"); return; }
+      S.wbPanel = hn === "catalog" ? "catalog" : hn; S.panel = null; renderWb(); return;
+    }
+    if ((t = e.target.closest("[data-agents]"))) { toast("<span>Four agents are registered to this workspace; only the <b>commercial operations agent</b> runs in this walkthrough.</span>"); return; }
     if ((t = e.target.closest("[data-ask]"))) { ask(t.dataset.ask); return; }
     if ((t = e.target.closest("[data-askback]"))) { S.wbPanel = S.state.analysed ? "analysis" : "home"; S.panel = null; renderWb(); return; }
     if ((t = e.target.closest("[data-back]"))) { S.wbPanel = "home"; S.panel = null; renderWb(); return; }
