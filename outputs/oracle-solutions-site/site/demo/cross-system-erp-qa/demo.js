@@ -1798,7 +1798,7 @@
       auto: function () { setApp("aidp"); tour.after("to-aidp-2"); } },
     { id: "create-dash", major: 6, side: "right", dock: "right", waits: true,
       title: "Give the team a dashboard",
-      body: "Rather than export the table, have the AI build the dashboard out of what it just found — the same numbers, the same definitions, so nobody has a private copy that drifts.",
+      body: "Rather than export a spreadsheet, have the AI build the dashboard out of what it just found — the same numbers, the same definitions, so nobody has a private copy that drifts.",
       target: function () { return $("#create-dash"); }, anchor: function () { return $(".ans-acts"); },
       avoid: function () { return $(".an-cols"); },
       auto: function () { createDashboard(); } },
