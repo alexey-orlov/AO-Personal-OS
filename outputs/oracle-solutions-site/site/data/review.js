@@ -6,8 +6,9 @@
    tags (docs/START-HERE.md §8).
 
    Keep it short (Alex, 2026-09-17: "1-2 line items"): an item is `id`,
-   `text` (70 characters at most) and an optional `note` (45 at most) naming
-   where the site does not match yet. tools/check-grammar.js enforces both. */
+   `text` (70 characters at most; 47 when the item has a note, so text and
+   note take two lines) and an optional `note` (45 at most) naming where the
+   site does not match yet. tools/check-grammar.js enforces both. */
 window.SITE_REVIEW = {
   enabled: true,
   eyebrow: "Internal · prototype only",
@@ -34,7 +35,7 @@ window.SITE_REVIEW = {
       title: "Commitments and disclosures",
       items: [
         { id: "pov-duration", text: "A PoV takes 4–8 weeks (to agree with delivery)" },
-        { id: "prices", text: "Only the PoV price on the site; package prices in materials", note: "2 products still show Integration prices" },
+        { id: "prices", text: "Only the PoV price on site; others in materials", note: "2 products still show Integration prices" },
         { id: "customer-names", text: "No customer names (no confirmation of use yet)" },
         { id: "planned-products", text: "Catalog includes existing and planned products", note: "Nothing marks a product as planned" }
       ]
@@ -45,7 +46,7 @@ window.SITE_REVIEW = {
         { id: "mailbox", text: "One shared mailbox: oracle@softserveinc.com" },
         { id: "contact-karsten", text: "Karsten is the contact for communications" },
         { id: "requests", text: "All requests land in the shared mailbox", note: "Forms open the visitor's mail app for now" },
-        { id: "materials", text: "Materials go only to @softserveinc.com and @oracle.com", note: "Nothing sends the kit automatically yet" }
+        { id: "materials", text: "Materials only to softserveinc.com, oracle.com", note: "Nothing sends the kit automatically yet" }
       ]
     },
     {

@@ -1395,6 +1395,7 @@ if (/assets\/img\/logos\//.test(raw)) {
      viewer's browser, not in this file. */
   var ITEM_KEYS = ["id", "text", "note"];
   var TEXT_MAX = 70;
+  var TEXT_WITH_NOTE_MAX = 47;
   var NOTE_MAX = 45;
   var ids = {};
   R.groups.forEach(function (group, gi) {
@@ -1410,7 +1411,9 @@ if (/assets\/img\/logos\//.test(raw)) {
       else if (ids[item.id]) fail(at, 'duplicate id "' + item.id + '" — ticks are saved by id');
       else ids[item.id] = true;
       if (!item.text || !String(item.text).trim()) fail(at, "text is empty");
-      else if (item.text.length > TEXT_MAX) fail(at, "text runs " + item.text.length + " characters — keep it to " + TEXT_MAX);
+      else if (item.text.length > (item.note ? TEXT_WITH_NOTE_MAX : TEXT_MAX)) {
+        fail(at, "text runs " + item.text.length + " characters — keep it to " + (item.note ? TEXT_WITH_NOTE_MAX + " beside a note (one line at the panel's width)" : TEXT_MAX));
+      }
       if (item.note != null && (!String(item.note).trim() || item.note.length > NOTE_MAX)) {
         fail(at, "note must be non-empty and " + NOTE_MAX + " characters at most");
       }
