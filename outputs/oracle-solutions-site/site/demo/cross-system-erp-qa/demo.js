@@ -78,7 +78,7 @@
     dsCatalogs: D.sources.map(function (s) { return s.id; }),
     wbPanel: "home",              /* home | run | analysis | conversation | insights | catalog | apc | lineage | sessions */
     run: { ai: 0, si: 0 },        /* the multi-agent run card's position */
-    evAccount: "halden",          /* the account the evidence panel is open on */
+    evAccount: null,              /* the account the evidence panel is open on */
     dashBuilding: false, dashStep: 0, shared: false,
     mcEntity: "REVENUE_AT_RISK",  /* Master catalog: the open entity */
     mcMenu: false,                /* Actions menu */
@@ -1731,7 +1731,7 @@
       auto: function () { tour.next(); } },
     { id: "evidence", major: 4, side: "right", dock: "right", scroll: "center",
       title: "Check one finding before you trust it",
-      body: "Halden Tooling is your biggest exposure and the AI says the parts are sitting in another plant. Open the evidence and see for yourself: the four order lines with their real keys in JD Edwards and Fusion, the same parts on hand in plant EU-2, the tier and the account owner out of the CRM, and the clause in their contract the late penalty was priced from.",
+      body: "Halden Tooling is your biggest exposure and the AI says the parts are sitting in another plant. Open the evidence and see for yourself: their order lines with the real keys they carry in JD Edwards and Fusion, the same part on hand in plant EU-2 under a different item number, the tier and the account owner out of the CRM, and the clause in their own contract the late penalty was priced from.",
       target: function () { return $('[data-ev="' + keyAccountId() + '"]'); }, anchor: function () { return $('tr[data-acct="' + keyAccountId() + '"]'); },
       avoid: function () { return $('tr[data-acct="' + keyAccountId() + '"]'); },
       auto: function () { openEvidence(keyAccountId()); tour.after("evidence"); } },
@@ -1954,7 +1954,10 @@
     S.state = D.stateFor(name);
     if (name === "decided" || name === "final") {
       var d = D.haldenDecision;
-      S.log = [{ at: d.at, by: d.by, role: "COMMERCIAL_OPS", title: "Halden Tooling Group · expedite declined", action: "decline", reason: d.reason, rule: "Accepted re-promise dates are not at risk" }];
+      S.log = [{ at: d.at, by: d.by, role: "COMMERCIAL_OPS",
+        title: (d.account || "Halden Tooling Group") + " · recommendation " + (d.actionId || "") + " declined",
+        action: "decline", reason: d.reason,
+        rule: (D.learnedRule && D.learnedRule.rule) || "Accepted re-promise dates are not at risk" }];
     }
     if (name === "final") S.shared = false;
   }
