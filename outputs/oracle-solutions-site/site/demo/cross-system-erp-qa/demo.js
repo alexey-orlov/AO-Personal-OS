@@ -286,7 +286,7 @@
       '<span>Five systems, minutes behind, in one place — this is what lets one question cross all of them.</span></div>' +
       '<div class="src-cards" id="src-cards">' + D.sources.map(function (s) {
         return '<div class="src" data-src="' + esc(s.id) + '">' +
-          '<div class="src-top"><span class="src-dot src-dot--' + esc(s.id) + '"></span><span class="src-kind">' + esc(s.kind) + "</span>" +
+          '<div class="src-top"><span class="src-dot src-dot--' + esc(s.id) + '"></span><span class="src-kind">' + esc(String(s.kind).split("·")[0].trim()) + "</span>" +
           '<span class="fr">' + esc(s.freshLabel) + " behind</span></div>" +
           '<h3>' + esc(s.short) + "</h3>" +
           '<div class="src-sys">' + esc(s.name) + "</div>" +
