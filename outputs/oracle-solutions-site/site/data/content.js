@@ -2704,13 +2704,13 @@ window.SITE_CONTENT = {
         alt: "An engineer seen from behind at a wall of code on dark monitors in a low-lit workspace",
         focal: "50% 50%"
       },
-      headline: { accent: "FROM PLATFORM", rest: "TO PRODUCTION." },
-      lead: "Oracle provides the platforms. SoftServe builds, integrates and runs what sits on top: the agents and workflows on this site, adapted to your systems and rules — or the one your workflow needs — and the governed data under them.",
-      secondParagraph: "Architects who own the Oracle reference architecture shape the scope; engineers on the Oracle AI stack build and integrate it; the same team runs it after go-live. Joint teams with Oracle’s AI & Data organization, one contract.",
+      headline: { accent: "FRONTIER AI", rest: "ON ORACLE." },
+      lead: "SoftServe’s research and engineering bench works at the frontier of what agents can do. A dedicated Oracle practice brings that bench to your Oracle estate: architects who own the reference architecture shape the scope, engineers trained on the platforms below build and integrate it, and a product team turns what repeats into the agents on this site. What one delivery teaches goes into the next.",
+      secondParagraph: "One entry point for every Oracle engagement. Joint teams with Oracle’s AI & Data organization, one contract.",
       stats: [
-        { value: "500+", label: "data experts in SoftServe’s data and analytics practice" },
-        { value: "150+", label: "active projects" },
-        { value: "30", label: "Fortune 500 clients" }
+        { value: "1993", label: "founded · 10,000 people in 17 countries today" },
+        { value: "1,000+", label: "experts in AI, data and R&D" },
+        { value: "30", label: "Fortune 500 clients in data and analytics" }
       ],
       platformsTitle: "Delivered on",
       platforms: [
@@ -2725,70 +2725,70 @@ window.SITE_CONTENT = {
     howWeEngage: {
       anchor: "how-we-engage",
       eyebrow: "How we engage",
-      title: "Each step earns the next.",
-      lead: "Three steps, each as small as it honestly can be — on cost and on the calendar. You decide the next one on measured results.",
+      title: "Every step has a number.",
+      lead: "Measuring what an innovation changes is the discipline behind everything we do. Two or three success metrics and today’s baseline are signed by you, Oracle and SoftServe before the clock starts; each step is judged against them, and you decide the next one on the measured result. On one engagement that discipline took a customer’s existing AI solution to 81% accuracy — past the point where checking the output beats doing the job by hand.",
       steps: [
         {
+          title: "Discovery",
+          body: "Short and time-boxed: which workflow carries the value, whether its data is ready, and what a result would be worth to you.",
+          factLabel: "Ends with",
+          fact: "A value hypothesis and the workflow to prove first"
+        },
+        {
           title: "Jumpstart proof of value",
-          body: "Measured on your own data, with nothing touching production: a separate environment and no connection to your systems. A fixed price where one is published; a costed expansion plan at the end.",
-          factLabel: "Duration",
-          fact: "4–8 weeks"
+          body: "4–8 weeks on your own data in a separate environment, nothing touching production. Each number is computed the same way for the current path and the new one, so the comparison holds.",
+          factLabel: "Ends with",
+          fact: "An executive readout against the signed baseline, and a costed expansion plan"
         },
         {
           title: "Integration",
-          body: "Go-live at one location or for one document type, with no manual work left in the loop: connected to your systems over the APIs you already have — never a new screen inside an Oracle application.",
-          factLabel: "Duration",
-          fact: "3–5 months"
+          body: "Live at one location or for one document type in 3–5 months, with no manual work left in the loop — built to reach the return the proof predicted.",
+          factLabel: "Ends with",
+          fact: "Your metrics reported live, with observability in place"
         },
         {
           title: "Scale",
-          body: "Every location and document type, with the rules and data workflows that differ by region.",
-          factLabel: "Duration",
-          fact: "3–12 months"
+          body: "All locations and document types over 3–12 months. Then a managed service with periodic accuracy and cost reviews — or your own team, trained and certified.",
+          factLabel: "Ends with",
+          fact: "The same readout, organization-wide"
         }
       ],
-      footnote: "Both ends are optional: a customer who is already convinced can start at integration, and a process that is the same everywhere may never need to scale. Figures are illustrative and confirmed in scoping."
+      footnote: "Both ends are optional: if you are already convinced, start at integration, and a process that is identical everywhere may never need to scale. Durations are illustrative and confirmed in scoping."
     },
 
-    afterGoLive: {
-      anchor: "after-go-live",
-      eyebrow: "After go-live",
-      title: "Our team, or yours.",
+    proofOfValue: {
+      anchor: "proof-of-value",
+      eyebrow: "Proof of value",
+      title: "Not a project. A proof.",
+      lead: "Every product on this site runs the same way: a signed gate, a separate environment, nothing touching production. The gate is what keeps the price fixed and the calendar short.",
+      stat: { value: "4–8 weeks", label: "to a measured result in your own tenancy" },
+      footnote: "A fixed price where one is published; otherwise agreed in the scoping call.",
+      cta: { label: "The case studies, with the figures →", route: "#/#case-studies" },
       panels: [
         {
-          id: "managed-service",
-          icon: "network",
-          title: "Managed service",
-          body: "Your agents in production, under SLA, kept running and re-tuned by the people who built them.",
+          id: "you-bring",
+          icon: "users",
+          title: "You bring",
+          body: "Nothing to build or install on your side.",
           bullets: [
-            "Incident response, monitoring and health operations",
-            "Rule and model re-tuning, platform and version upgrades"
+            "A sponsor",
+            "Two or three success metrics, and today’s baseline",
+            "Read-only access to the data",
+            "The people who will judge the output"
           ]
         },
         {
-          id: "your-own-team",
-          icon: "users",
-          title: "Your own team",
-          body: "Your people, trained and equipped to maintain and extend what we delivered.",
+          id: "you-leave-with",
+          icon: "check",
+          title: "You leave with",
+          body: "What a steering committee needs to fund integration.",
           bullets: [
-            "OCI and NVIDIA certification, plus training on the solution itself",
-            "An AI operating model with governance, intake and prioritization"
+            "A working agent on your data",
+            "A measured readout against the signed baseline",
+            "A costed plan for the next step"
           ]
         }
       ]
-    },
-
-    proof: {
-      anchor: "proof",
-      eyebrow: "How we measure it",
-      title: "Signed before we start.",
-      lead: "The use case, two or three success metrics and the baseline are signed by you, Oracle and SoftServe before the clock starts. Every KPI is then computed the same way for the current path and the new one, so the comparison holds.",
-      stat: {
-        value: "81%",
-        label: "accuracy reached on one engagement, on a customer’s existing AI solution, after an evaluation framework and work on the data"
-      },
-      footnote: "Accuracy is a journey with a threshold: around 80% is the point past which reviewing the output is faster than doing the work from scratch.",
-      cta: { label: "The case studies, with the figures →", route: "#/#case-studies" }
     },
 
     contact: {
