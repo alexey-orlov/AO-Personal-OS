@@ -4572,3 +4572,28 @@ The first attempt at version 35 was refused against version 34 (the ERP Q&A sess
 
 1. Every checklist item, especially the three with notes: remove or keep the two Integration prices, mark the planned products (and say which they are), and decide whether partners get the kit. Tell a session what is confirmed; the ticks stay in your browser.
 2. The panel is visible to anyone with the preview link, including the lines on planned products and unconfirmed customer names. If the link goes beyond the core team, set `enabled: false`.
+
+## 26. *For sellers* out of the header, 2026-09-17
+
+**Ask** (Alex, in session): *"Remove 'for sellers' block from header line."*
+
+**What changed:**
+- `site.nav` is **Products · Services** again, plus the *Talk to us* button. The desktop bar and the mobile menu both render from it.
+- The `#/sellers` page itself is unchanged.
+- It is now reached two ways:
+  - from *For sellers*, first in the footer's link row, on every page;
+  - from *Get the full kit*, in the confirmation after a product kit request.
+- Each product's *For sellers* tab is unchanged.
+
+**Checker and docs:** `tools/check-grammar.js` expects the two-item nav. Updated to match: README (routes), START-HERE §3, HANDOFF §1, VISUAL-GRAMMAR §11. `SCHEMA.md` already described a two-item nav.
+
+**Checks:**
+- checker OK;
+- console clean;
+- the header at 1440, 1024 and 375 (the mobile menu: Products, Services, Talk to us), with no horizontal overflow;
+- `#/sellers` renders, and the footer link is present.
+
+Published as **version 38**, `data/content.js` only. Git showed no other change to that file since it last shipped.
+
+**Open for Alex:** the footer is now the only permanent entry to the all-offers kit. If sellers should find it without scrolling, the home page or the Products page could carry a quiet link.
+
