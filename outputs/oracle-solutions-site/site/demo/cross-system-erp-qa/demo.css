@@ -400,25 +400,34 @@ svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width:
 .hub-bot button.is-on::before { content: ""; position: absolute; left: 50%; top: 0; width: 34px; height: 2px; margin-left: -17px; background: #fff; border-radius: 0 0 2px 2px; }
 .hub-bot button:hover { color: #cfccc8; }
 
-/* conversation */
-.conv { max-width: 1040px; margin: 0 auto; padding: 18px 24px 26px; background: var(--hub-2); min-height: 100%; }
+/* conversation — the same warm canvas as the Hub, petals bleeding in from both
+   margins, and the answer card carrying a soft shadow rather than a border */
+.conv-wrap { position: relative; min-height: 100%; background: var(--hub); overflow: hidden; }
+.conv-wrap::before, .conv-wrap::after { content: ""; position: absolute; top: -130px; width: 330px; height: 320px; pointer-events: none; border-radius: 0 0 58% 42%; }
+.conv-wrap::before { left: -140px; transform: rotate(16deg); background: radial-gradient(52% 58% at 60% 30%, rgba(120, 130, 175, .17), rgba(120, 130, 175, 0) 74%), radial-gradient(56% 52% at 40% 62%, rgba(214, 160, 120, .14), rgba(214, 160, 120, 0) 76%); }
+.conv-wrap::after { right: -150px; transform: rotate(-14deg); background: radial-gradient(52% 58% at 34% 26%, rgba(199, 70, 52, .16), rgba(199, 70, 52, 0) 72%), radial-gradient(48% 60% at 66% 46%, rgba(120, 130, 175, .15), rgba(120, 130, 175, 0) 74%); }
+.conv { max-width: 1040px; margin: 0 auto; padding: 18px 24px 26px; min-height: 100%; position: relative; z-index: 1; }
 .conv-back { display: inline-flex; align-items: center; gap: 6px; background: transparent; border: 0; color: var(--wb-link); font-size: 12.5px; cursor: pointer; padding: 2px 0 10px; }
-.q-bubble { margin-left: auto; max-width: 70%; background: #e6e3ee; border-radius: 10px 10px 2px 10px; padding: 9px 14px; font-size: 13.5px; width: fit-content; }
-.ans { background: #fff; border: 1px solid #e2ded8; border-radius: 8px; margin-top: 14px; overflow: hidden; }
-.ans-meta { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; padding: 10px 14px; font-size: 11.5px; color: var(--wb-txt-2); border-bottom: 1px solid var(--wb-line); background: #fbfaf9; }
+.q-bubble { margin-left: auto; max-width: 70%; background: #e8e5f2; border-radius: 12px; padding: 13px 19px; font-size: 16px; width: fit-content; }
+.ans { background: #fff; border: 0; border-radius: 8px; margin-top: 14px; overflow: hidden; box-shadow: 0 1px 2px rgba(40, 35, 30, .07), 0 10px 26px -18px rgba(40, 35, 30, .45); }
+.ans-meta { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; padding: 11px 14px 0; font-size: 11.5px; color: var(--wb-txt-2); background: transparent; }
 .ans-meta b { color: var(--wb-txt); font-weight: 600; }
 .ans-meta .sep { color: #b8b3ac; }
-.ans-grid { overflow: auto; max-height: min(604px, calc(100vh - 230px)); min-height: 120px; }
-.agrid { width: 100%; border-collapse: collapse; font-size: 12.5px; }
-.agrid th { position: sticky; top: 0; background: #f4f2ef; text-align: left; font-weight: 600; font-size: 11.5px; color: var(--wb-txt-2); padding: 6px 9px; border-bottom: 1px solid var(--wb-line-2); white-space: nowrap; z-index: 1; }
-.agrid td { padding: 5px 9px; line-height: 1.3; border-bottom: 1px solid #efedea; vertical-align: top; }
+/* Oracle's rows line is a bare caption on the ground above the grid */
+.ans-rows { font-size: 12.5px; color: var(--wb-txt-2); padding: 7px 14px 6px; font-weight: 400; }
+.ans-grid { overflow: auto; max-height: min(604px, calc(100vh - 230px)); min-height: 120px; margin: 0 14px 12px; border: 1px solid var(--wb-line); border-radius: 8px; }
+.agrid { width: 100%; border-collapse: collapse; font-size: 14px; }
+.agrid th { position: sticky; top: 0; background: linear-gradient(90deg, #454de6 0%, #0f86bf 100%); text-align: left; font-weight: 700; font-size: 14px; color: #fff; padding: 11px 10px; border-bottom: 0; white-space: nowrap; z-index: 1; }
+.agrid td { padding: 11px 10px; min-height: 44px; line-height: 1.35; border-bottom: 1px solid #e6e3de; border-right: 1px solid #efedea; vertical-align: top; }
+.agrid td:last-child, .agrid th:last-child { border-right: 0; }
+.agrid tr:last-child td { border-bottom: 0; }
 .agrid td.sysc { white-space: nowrap; }
 .agrid td.nw { white-space: nowrap; }
 .agrid tr:hover td { background: #fbfaf8; }
 .agrid td.r, .agrid th.r { text-align: right; font-variant-numeric: tabular-nums; }
 .agrid tr.is-review td { background: #fdf7e8; }
 .agrid tr.is-review:hover td { background: #fbf2dc; }
-.agrid .sub { display: block; font-size: 11px; color: var(--wb-txt-2); }
+.agrid .sub { display: block; font-size: 12px; color: var(--wb-txt-2); }
 .sysb { display: inline-flex; align-items: center; gap: 4px; border-radius: 3px; padding: 1px 6px; font-size: 10px; font-weight: 700; letter-spacing: .04em; border: 1px solid; white-space: nowrap; }
 .sysb + .sysb { margin-left: 3px; }
 .sysb--FUSION { color: #8a4a12; background: #fbf0e2; border-color: #e6cfae; }
@@ -433,14 +442,14 @@ svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width:
 .rowexp { border: 1px solid var(--wb-line-2); background: #fff; border-radius: 3px; width: 24px; height: 21px; display: grid; place-items: center; cursor: pointer; color: var(--wb-txt-2); }
 .rowexp:hover { background: #f0eeea; color: var(--wb-txt); }
 .rowexp svg { width: 12px; height: 12px; }
-.ans-caveat { font-size: 11.5px; color: #8a5a12; background: #fdf7e8; border-top: 1px solid #f0e2c4; padding: 7px 14px; }
-.ans-acts { display: flex; align-items: center; gap: 7px; flex-wrap: wrap; padding: 10px 14px; border-top: 1px solid var(--wb-line); }
-.achip { display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--wb-line-2); background: #fff; border-radius: 4px; padding: 5px 11px; font-size: 12px; font-weight: 600; cursor: pointer; }
+.ans-caveat { font-size: 12px; color: #8a5a12; background: #fdf7e8; border-top: 1px solid #f0e2c4; padding: 8px 14px; }
+.ans-acts { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; padding: 10px 14px 12px; border-top: 1px solid var(--wb-line); }
+/* the Ask Oracle chip: outlined white, radius 4, 15px label, 40px tall; the
+   active one is a 2px blue outline on white, never a filled dark pill */
+.achip { display: inline-flex; align-items: center; gap: 7px; border: 1px solid var(--wb-line-2); background: #fff; border-radius: 4px; padding: 8px 14px; font-size: 15px; font-weight: 400; cursor: pointer; line-height: 1.2; }
 .achip:hover { background: #f4f2ef; }
-.achip.is-on { background: var(--wb-under); border-color: var(--wb-under); color: #fff; }
-.achip svg { width: 13px; height: 13px; }
-.narr { display: inline-flex; align-items: center; gap: 7px; font-size: 12px; color: var(--wb-txt-2); margin-left: 4px; cursor: pointer; }
-.narr input { accent-color: var(--wb-under); }
+.achip.is-on { background: #fff; border: 2px solid #227e9e; padding: 7px 13px; color: #161513; font-weight: 600; }
+.achip svg { width: 16px; height: 16px; }
 .ans-acts .right { margin-left: auto; display: flex; gap: 7px; }
 .ans-narr { font-size: 12.5px; color: var(--wb-txt); background: #f5f7f4; border-top: 1px solid var(--wb-line); padding: 10px 14px; display: flex; gap: 9px; }
 .ans-narr .sp { width: 16px; height: 16px; color: var(--wb-green); flex: none; margin-top: 1px; }
