@@ -12,8 +12,11 @@
  * tiles, the twelve internal transfers that become eleven, the steward queues,
  * the fourteen certified views, the ten saved questions, the block on question
  * ten for the analyst, the dashboard row-limited and masked for the analyst,
- * and the evidence behind Halden Tooling Group. It also greps the file for
- * names and symbols that must never appear.
+ * and the evidence behind Halden Tooling Group — including that a decided
+ * account keeps its own four lines and never picks up the on-track ones. It
+ * also greps data.js for names and symbols that must never appear, and demo.js
+ * for the two rules that defect turned into: the card reads the count out of
+ * the data, and no toast outlives six seconds or crosses an application.
  *
  *   /Applications/Codex.app/Contents/Resources/cua_node/bin/node tools/erp-qa-check.js
  *
@@ -455,6 +458,16 @@ ok("about 40 items, every one with a cross-reference in three systems",
   D.items.length >= 38 && D.items.every(function (i) { return i.refs.length === 3; }), D.items.length);
 ok("data.js is at most 200 KB", src.length <= 200 * 1024, (src.length / 1024).toFixed(1) + " KB");
 ok("no ES modules and no fetch", !/\bimport\s|\bexport\s|fetch\s*\(/.test(src));
+
+console.log("\n-- what the page does with it --------------------------------");
+var page = fs.readFileSync(path.join(root, "site/demo/cross-system-erp-qa/demo.js"), "utf8");
+ok("the Decisions card reads the account's own at-risk count from the data",
+  /typeof e\.atRiskCount === "number"/.test(page));
+ok("and never falls back to counting every line the account has",
+  !/return n \|\| \(e\.lines \|\| \[\]\)\.length/.test(page));
+ok("no toast outlives six seconds", /TOAST_MAX = 6000/.test(page) && /Math\.min\(ms \|\| 4200, TOAST_MAX\)/.test(page));
+ok("and none of them follows you into the next application",
+  /if \(S\.app !== app\) hideToast\(\);/.test(page));
 ok("one global only", /window\.ERPQA_DATA = \(function \(\) \{/.test(src));
 
 console.log("\n==============================================================");
