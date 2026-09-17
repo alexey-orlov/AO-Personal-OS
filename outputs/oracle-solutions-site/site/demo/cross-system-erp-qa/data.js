@@ -56,6 +56,8 @@ window.ERPQA_DATA = (function () {
   /* One masker for every policy-masked column, so the same value is masked the
      same way in a grid, in a drill-down and in a dashboard tile. */
   function maskText(v, kind) {
+    if (kind === "terms") return "••••• hidden by policy";
+    if (kind === "hidden") return "•••••";
     if (v === null || v === undefined || v === "") return "—";
     if (kind === "email") { var p = String(v).split("@"); return p[0].charAt(0) + "••••@" + (p[1] || ""); }
     if (kind === "phone") return String(v).replace(/\d(?=[\s\S]*\d\d)/g, "•");
@@ -654,7 +656,8 @@ window.ERPQA_DATA = (function () {
     var h = {
       id: "CH-" + (6100 + i), customerId: c.id, customer: nm, sys: sysOfHold,
       object: sysOfHold === "FUSION" ? "AR_CUSTOMER_PROFILES" : (sysOfHold === "JDE" ? "F03B11" : "customer"),
-      column: sysOfHold === "FUSION" ? "CREDIT_HOLD = 'Y'" : (sysOfHold === "JDE" ? "open items past terms" : "creditholdoverride = 'ON'"),
+      column: sysOfHold === "FUSION" ? "AR_CUSTOMER_PROFILES.CREDIT_HOLD = 'Y'"
+        : (sysOfHold === "JDE" ? "F03B11 open items past terms by more than 30 days" : "customer.creditholdoverride = 'ON'"),
       key: rec ? rec.key : "", creditLimitUsd: c.creditLimitUsd,
       openBalanceUsd: Math.round(c.creditLimitUsd * (1.05 + (i % 5) * 0.07) / 100) * 100,
       pastDueUsd: Math.round(c.creditLimitUsd * (0.12 + (i % 4) * 0.05) / 100) * 100,
@@ -1574,7 +1577,7 @@ window.ERPQA_DATA = (function () {
       return { id: a.id, title: a.title, owner: a.owner, lines: ls.length,
         usd: sum(ls, function (l) { return l.usd; }), accounts: uniq(ls.map(function (l) { return l.customerId; })).length,
         penaltyUsd: hideTerms ? null : sum(ls, function (l) { return l.penaltyUsd; }),
-        penaltyText: hideTerms ? maskText(null, "terms") : fmtUsd(sum(ls, function (l) { return l.penaltyUsd; })),
+        penaltyText: hideTerms ? maskText(null, "hidden") : fmtUsd(sum(ls, function (l) { return l.penaltyUsd; })),
         tasks: a.tasks, taskLabel: a.taskLabel, status: a.status };
     }).filter(function (a) { return a.lines > 0; });
     var TIERS = ["A", "B", "C"];
@@ -1594,7 +1597,7 @@ window.ERPQA_DATA = (function () {
         { id: "stock", label: "Lines fixable from stock elsewhere", value: "" + (stockC ? stockC.lines : 0),
           raw: stockC ? stockC.lines : 0, masked: false,
           sub: stockC ? fmtMusd(stockC.usd) + " · on hand in another plant" : "none in scope" },
-        { id: "penalties", label: "SLA penalties exposed", value: hideTerms ? maskText(null, "terms") : "USD " + fmtK(penalties),
+        { id: "penalties", label: "SLA penalties exposed", value: hideTerms ? maskText(null, "hidden") : "USD " + fmtK(penalties),
           raw: hideTerms ? null : penalties, masked: hideTerms,
           sub: hideTerms ? "Contract penalty terms are hidden for this role" : "read from the customer contract clauses" }
       ],
@@ -1655,7 +1658,7 @@ window.ERPQA_DATA = (function () {
     out.sort(function (a, b) { return b.usd - a.usd || (a.account < b.account ? -1 : 1); });
     return out;
   }
-  function pen(R, v) { return R.masked.indexOf("PENALTY_TERMS") >= 0 ? maskText(null, "terms") : fmtUsd(v); }
+  function pen(R, v) { return R.masked.indexOf("PENALTY_TERMS") >= 0 ? maskText(null, "hidden") : fmtUsd(v); }
 
   var questions = [
     { id: "q1", n: 1, text: "Which open orders are at risk this week, and which of our best accounts are exposed?",
@@ -1979,7 +1982,8 @@ window.ERPQA_DATA = (function () {
         "       MAX(c.match_reason) AS match_reason,",
         "       MAX(c.match_status) AS status",
         "FROM   gold.customer_360 c",
-        "WHERE  c.source_system <> 'CRM'",
+        "WHERE  c.as_of_date     = DATE '2026-10-06'",
+        "  AND  c.source_system <> 'CRM'",
         "GROUP  BY c.golden_id, c.golden_name",
         "HAVING COUNT(DISTINCT c.source_system) > 1",
         "ORDER  BY 4 DESC;"].join("\n") },
