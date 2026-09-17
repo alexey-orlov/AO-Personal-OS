@@ -2862,31 +2862,50 @@ window.SITE_CONTENT = {
     }
   },
 
-  sellerGate: {
-    heading: "FOR SELLERS",
-    lockedBody: "Sales deck, one-pager, feature list and demo assets for Oracle and SoftServe account teams.",
-    accessNote: "Access is limited to SoftServe and Oracle teams.",
-    emailLabel: "Work email",
-    emailPlaceholder: "you@softserveinc.com",
-    unlockLabel: "Unlock",
-    lockLabel: "Lock again",
-    rejected: "That domain is not on the list. Use a SoftServe or Oracle work address.",
-    linkPendingLabel: "Link pending",
-    downloadLabel: "Open",
-    unlockedIntro: "Materials for Oracle and SoftServe account teams.",
-    notesHeading: "Seller notes",
-    stateLegend: {
-      "link-pending": "Link pending — the document exists, the share link does not yet",
-      "coming-soon": "Coming soon — not written yet",
-      "superseded": "Superseded — do not distribute",
-      "planned": "Planned — scoped, not started"
+  salesKit: {
+    page: {
+      eyebrow: "For sellers",
+      title: "Get the sales kit",
+      body: "Enter your SoftServe or Oracle work email and we’ll email you the sales kit — what an account team needs to position SoftServe’s AI agents on Oracle and open the first customer conversation. Ask for the whole portfolio or a single product.",
+      again: "Request another kit",
+      routeLink: { label: "Request a scoping call", route: "#/services#contact" },
+      povTitle: "See the fit in an account?",
+      povBody: "Let’s discuss a Proof of Value on the customer’s own data — 4–8 weeks, ending in measurable KPIs.",
+      povLink: "Request a demo"
     },
-    cta: {
-      heading: "SEE THE FIT IN ONE OF YOUR ACCOUNTS?",
-      body: "Let’s discuss a Proof of Value on the customer’s own data — {duration}, ending in measurable KPIs.",
-      bodyFallback: "Let’s discuss a Proof of Value on the customer’s own data: a fixed-scope engagement with signed success metrics.",
-      contactLabel: "SoftServe Oracle practice — alliances and partnerships",
-      action: "Request a demo"
+    tab: {
+      title: "Get the sales kit",
+      body: "Enter your SoftServe or Oracle work email and we’ll email you the {product} sales kit — what an account team needs to position it and open the first customer conversation.",
+      routeLabel: "Request a demo",
+      nextDemo: "Have an account in mind? {link} — a Proof of Value on the customer’s own data runs 4–8 weeks and ends in measurable KPIs.",
+      nextDemoLink: "Request a demo",
+      nextAll: "Selling the whole portfolio? {link}",
+      nextAllLink: "Get the full kit"
+    },
+    form: {
+      emailLabel: "Work email",
+      emailPlaceholder: "you@oracle.com",
+      productLabel: "Kit for",
+      productAll: "All offers",
+      submit: "Send me the kit",
+      submitting: "Sending…",
+      eligibility: "For @softserveinc.com and @oracle.com addresses only.",
+      otherRoute: "Customer or partner? {routeLink}, or ask your SoftServe or Oracle point of contact.",
+      kitName: "{product} sales kit",
+      kitNameAll: "full sales kit",
+      errors: {
+        email: "Enter your work email.",
+        domain: "The kit only goes to @softserveinc.com and @oracle.com addresses. Customer or partner? {routeLink} instead.",
+        send: "That didn’t send. Try again, or write to {mailbox}."
+      },
+      confirmations: {
+        sent: { title: "Check your inbox", body: "We’ve emailed the {kitName} to {email}. Not there in a few minutes? Check spam, or write to {mailbox}." },
+        queued: { title: "Your request is in", body: "The {kitName} will reach {email} within two working days. Nothing by then? Write to {mailbox}." },
+        mailto: { title: "One step left", body: "Your mail client opened a request to {mailbox} — send it as is and the Oracle practice will email you the {kitName} within two working days. Nothing opened? Write to {mailbox} with “{subject}” as the subject." }
+      },
+      mailSubject: "Sales kit request — {product}",
+      mailSubjectAll: "Sales kit request — all offers",
+      mailBody: "Hi,\n\nPlease send me the {kitName}.\n\nWork email: {email}\nRequested from: {page}"
     }
   }
 };

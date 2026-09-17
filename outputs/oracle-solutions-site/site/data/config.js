@@ -3,8 +3,9 @@ window.SITE_CONFIG = {
   formEndpoint: "",
   sellerGate: {
     allowedDomains: ["softserveinc.com", "oracle.com"],
-    storageKey: "oracle-ai-solutions:seller-unlocked",
-    notesUrl: ""
+    kitAutoSend: false,
+    kitEmailKey: "oracle-ai-solutions:kit-email",
+    legacyStorageKey: "oracle-ai-solutions:seller-unlocked"
   },
   productOrder: [
     "large-document-extraction",
