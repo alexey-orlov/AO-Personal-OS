@@ -4434,3 +4434,46 @@ Checker OK; deny-list grep empty; console clean; the repetition check clean on e
 1. **Plan vs actual investigation:** the 4–8-week rule compresses a 12-week build and a two-week acceptance phase — confirm with the delivery team, or restore from the table above.
 2. **Frontier AI** is the hero's claim. It rests on the frontier line, the 1,000+ AI, data and R&D experts and the measurement discipline; the stronger proof points stay [clr] — the enterprise agentic AI platform at scale (42% → 91% accuracy, 3M+ users) and the GenAI knowledge graph (5–10× faster research), FACTORY s.15, s.17.
 3. Two of the three band figures (1,000+, 30 Fortune 500) repeat the home hero's, within the two-places rule.
+
+## 24. Round 8 — housekeeping: the header, and the sales-kit request, 2026-09-17
+
+**Asks** (Alex, in session): take *Case studies* out of the header; make each product's sellers area generic — a SoftServe or Oracle email gets the sales kit, customers and partners are pointed to a request or their point of contact — and after an accepted email show a confirmation that the kit was emailed, not a materials list; and add the same kind of request for the sales materials, for all offers or one product, placed so it does not overcomplicate, overlap the existing requests or break sellers' mental models — the UX to be decided by Fable.
+
+**Split.** Opus: the inventory of every request entry point and the brief, the nav change, the build, the tests, the publish and the docs. Fable, one pass: the UX decision and all copy. (Numbering note: the Cross-system ERP Q&A session took §22 on the same day, so the round-7 Services section was renumbered §23.)
+
+### 24.1 The decision (Fable)
+
+- **The kit is its own short form** — work email · *Kit for* · consent — not a variant of the demo/contact form: eligibility is the email's domain, so a role field would only invite a wrong answer, and every extra field costs a seller on a live call.
+- **Per product**, the *For sellers* tab becomes the kit panel with the product fixed. **For all offers**, `#/sellers`: one screen with a URL a seller can paste into a thread (a modal has none), and no second filled button on the Products page, which already carries the customer scoping call.
+- **Header** Products · Services · For sellers + *Talk to us*; **footer** *For sellers* in the link row. Home, Products and Services unchanged: the demo and scoping forms stay the route for buyers, and for sellers who already have an account in mind.
+- **Roles** split: *An Oracle seller* / *An Oracle partner* (was *An Oracle seller or partner*).
+- **Truthful modes**: with no endpoint the visitor's mail client carries the request (*One step left*); with an endpoint, *Your request is in* — and *Check your inbox — we've emailed the kit* only when `kitAutoSend` is true.
+
+### 24.2 What changed
+
+| Where | Before | After |
+|---|---|---|
+| `site.nav` | Products · Services · Case studies | Products · Services · For sellers |
+| `site.footer` | CONTACT US block; legal links | + `sellersLink`, first in the link row |
+| `shared.productTabs[sellers]` | `locked: true` (lock icon) | not locked |
+| *For sellers* tab | email gate → *Unlock* → materials list with states and legend, a seller-notes fetch, *See the fit…* with a demo modal, *Lock again* | *Get the sales kit* panel → kit form → a confirmation closing on *Request a demo* and *Get the full kit* |
+| `#/sellers` (new) | — | the kit panel with *Kit for* (*All offers* first), then *See the fit in an account?* opening the demo modal with nothing preselected |
+| content `sellerGate` | gate copy, legend, notes heading, CTA | retired → `salesKit` { page, tab, form } |
+| `forms.roles` | An Oracle seller or partner | An Oracle seller · An Oracle partner |
+| config `sellerGate` | `allowedDomains`, `storageKey`, `notesUrl` | `allowedDomains`, `kitAutoSend: false`, `kitEmailKey`, `legacyStorageKey` |
+| `sellers.materials`, `config.products[].materials` | rendered as the list | kept, not rendered — the kit manifest |
+
+**Opus changes to Fable's plan:** *within one working day* → *within two working days*, the promise every other form here already makes, until the practice confirms a faster one; no eyebrow on the product tab, whose label already says *For sellers* directly above the panel; the submit button moved below consent (the first build set it inline beside the email, so a seller could press it before consenting); the practice address enters the copy as `{mailbox}` from `contactEmail`, rendered as a link, rather than being written into the strings.
+
+### 24.3 Checks and publish
+
+`tools/check-grammar.js` round 8 asserts the `salesKit` keys and their placeholders, fails `queued` or `mailto` copy that says the kit was emailed, a role label that lumps sellers and partners, a missing footer link, a locked sellers tab and a returning `sellerGate`; the nav check expects Products · Services · For sellers. In the browser, on `#/sellers` and on a product tab: empty submit, wrong domain (the route link inside the error), a subdomain accepted, the POST payload, *queued*, *sent*, the send error, the mail-client fallback, *Request another kit* with the email kept, the prefill on return, the legacy unlock flag cleared, the demo modal with the split roles and nothing preselected; no horizontal overflow at 1440 or 375; console clean. Published as **version 33**.
+
+### 24.4 Open for Alex
+
+1. What sits behind `formEndpoint` for `form: "kit"` — an auto-sender (an n8n flow composing the email from the manifest, say) or a person reading oracle@softserveinc.com? It decides `kitAutoSend` and who keeps the manifest current.
+2. Is oracle@softserveinc.com watched for kit requests, and is two working days the right promise?
+3. Is the kit shippable today? Most manifest links are still pending, and the confirmation promises a kit.
+4. Is *all offers* one portfolio bundle, or the seven kits together?
+5. Domains: `softserveinc.com` and `oracle.com` with subdomains (today's behaviour), or exact only?
+6. The seller/partner split — do partner demo requests go to the same practice mailbox?
