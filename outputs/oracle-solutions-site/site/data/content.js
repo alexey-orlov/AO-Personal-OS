@@ -13,7 +13,8 @@ window.SITE_CONTENT = {
     },
     nav: [
       { label: "Products", route: "#/products" },
-      { label: "Services", route: "#/services" }
+      { label: "Services", route: "#/services" },
+      { label: "For sellers", route: "#/sellers" }
     ],
     navCta: { label: "Talk to us", route: "#/services#contact" },
     primaryCta: { label: "Request a demo", route: "#/#request-a-demo" },
@@ -21,6 +22,7 @@ window.SITE_CONTENT = {
       heading: "CONTACT US",
       description: "Tell us which account or workflow you have in mind.",
       contactCta: { label: "Request a scoping call", route: "#/services#contact" },
+      sellersLink: { label: "For sellers", route: "#/sellers" },
       socialLabel: "Follow SoftServe",
       social: [
         { label: "SoftServe", url: "https://www.softserveinc.com/en-us" },
@@ -89,7 +91,7 @@ window.SITE_CONTENT = {
       { id: "technology", label: "Technology" },
       { id: "jumpstart", label: "Jumpstart", legacyId: "pov" },
       { id: "contacts", label: "Contacts", legacyId: "demo" },
-      { id: "sellers", label: "For sellers", locked: true }
+      { id: "sellers", label: "For sellers" }
     ],
     contact: {
       name: "Karsten Tramborg",
@@ -2800,7 +2802,8 @@ window.SITE_CONTENT = {
   forms: {
     roles: [
       { value: "customer", label: "An Oracle customer" },
-      { value: "oracle-seller", label: "An Oracle seller or partner" },
+      { value: "oracle-seller", label: "An Oracle seller" },
+      { value: "oracle-partner", label: "An Oracle partner" },
       { value: "softserve", label: "SoftServe" },
       { value: "other", label: "Other" }
     ],
