@@ -80,14 +80,18 @@
   <section class="app app--rw" data-app="review" id="app-review" aria-label="Decisions, review and act" hidden>
     <header class="rw-bar">
       <span class="rw-mark" aria-hidden="true"></span>
-      <span class="rw-app">Decisions<em>what the AI proposes, what people decide</em></span>
+      <span class="rw-app">Decisions</span>
       <div class="rw-bar-right">
         <span class="rw-state" id="rw-state"></span>
-        <button class="btn btn--dark" id="rw-rerun" type="button">Re-analyse</button>
         <span class="rw-avatar" title="Dana Whitfield · VP Commercial Operations">DW</span>
       </div>
     </header>
     <div class="rw-page">
+      <nav class="rw-crumb" aria-label="Breadcrumb"><a>Decisions</a> <i>&rsaquo;</i> <b id="rw-crumb-leaf">Recommendations</b></nav>
+      <div class="rw-title">
+        <div><h2 id="rw-h2">Recommendations</h2><p class="rw-sub" id="rw-sub">What the AI proposes, what people decide.</p></div>
+        <button class="btn btn--dark" id="rw-rerun" type="button">Re-analyse</button>
+      </div>
       <section class="band" id="rw-band" aria-label="Per system, then across systems"></section>
       <div class="rw-tabs" id="rw-tabs" role="tablist" aria-label="Decisions"></div>
       <div class="rw-panel" id="rw-panel"></div>
@@ -99,7 +103,7 @@
 <!-- tour callout -->
 <div class="tour" id="tour" hidden>
   <div class="tour-card" role="dialog" aria-label="Walkthrough step">
-    <div class="tour-top"><span class="tour-step" id="tour-step">Step 1 of 6</span><button class="tour-close" id="tour-skip" type="button" aria-label="Skip this step">Skip</button></div>
+    <div class="tour-top"><span class="tour-step" id="tour-step">Step 1 of 6 &middot; 1 of 1</span><button class="tour-close" id="tour-skip" type="button" aria-label="Skip this step">Skip</button></div>
     <strong id="tour-title"></strong>
     <p id="tour-body"></p>
     <div class="tour-progress" id="tour-progress" aria-hidden="true"></div>
@@ -116,6 +120,7 @@
     <span class="eyebrow">Interactive walkthrough</span>
     <h2 id="gate-title">What is at risk this week</h2>
     <p id="gate-body">You are Dana Whitfield, VP Commercial Operations at a group whose three operating companies sell out of three different ERPs, with the customer contracts, a delivery-tracking application and a non-Oracle CRM alongside. It is Tuesday morning and you need to know what is going to go wrong this week. You will ask the AI, watch four agents read all five systems, see what is at risk and why every late line is late, check one finding against the rows it came from, overrule the AI on an account you have already spoken to and watch it re-value everything, then have it build the dashboard your team will work from. Six steps, about three minutes. Only the highlighted control is active at each step.</p>
+    <div class="gate-try" id="gate-try" hidden></div>
     <div class="gate-actions"><button class="btn btn--dark" id="gate-start" type="button">Start the walkthrough</button><button class="btn btn--ghost" id="gate-free" type="button">Explore freely</button></div>
     <p class="gate-note">Demo data only — a fictional group with synthetic customers, orders, contracts and shipments. Oracle object names are real because the use case runs on those products; nothing is uploaded and nothing leaves this page. Figures the AI puts on revenue are its own estimate on this data.</p>
   </div>
