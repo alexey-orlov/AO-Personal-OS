@@ -242,7 +242,7 @@ eq("rejecting one leaves 24", dm.changed.pending.customers.to, 24);
 eq("confirming an item leaves 6",
   D.decideMatch(D.stateFor("start"), { kind: "item", id: D.itemXrefs[0].id, action: "confirm" }).changed.pending.items.to, 6);
 eq("the caveat says what is still provisional", A.caveat,
-  "25 customer matches and 7 item cross-references are still waiting for a person; lines behind them are included provisionally.");
+  "25 customer matches and 7 item cross-references still wait for a person. Their lines count provisionally.");
 
 console.log("\n-- sources, views and the run card ---------------------------");
 eq("five sources", D.sources.length, 5);

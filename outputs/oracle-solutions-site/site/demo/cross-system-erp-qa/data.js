@@ -1238,12 +1238,11 @@ window.ERPQA_DATA = (function () {
     var stockC = causes.filter(function (c) { return c.id === "stock"; })[0];
     var trace = analysisTrace(dec, R);
     causes.forEach(function (c) { c.share = pct1(c.usd, usd); c.lineShare = pct1(c.lines, live.length); });
-    var s1 = big(usd) + " of open orders is at risk this week across " + live.length + " lines in three systems, and "
-      + words(tierAacc.length) + " tier-A accounts carry " + big(tierAusd) + " of it.";
+    var s1 = big(usd) + " is at risk this week, and " + words(tierAacc.length)
+      + " tier-A accounts carry " + big(tierAusd) + ".";
     var s2 = stockC
-      ? "Stock already on hand in another plant covers " + stockC.lines + " of those lines, worth "
-        + big(stockC.usd) + " — the largest single move open to you today."
-      : "Every remaining line sits with a supplier, credit control or a carrier; none of them can be covered from stock already on hand.";
+      ? "Stock in another plant covers " + stockC.lines + " of those lines, worth " + big(stockC.usd) + "."
+      : "Every remaining line sits with a supplier, credit control or a carrier.";
     return {
       asOf: world.todayLabel + " · " + world.nowLabel, today: TODAY, week: world.week,
       role: R.id, roleName: R.name,
