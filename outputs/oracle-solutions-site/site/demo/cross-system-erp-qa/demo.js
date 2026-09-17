@@ -147,7 +147,7 @@
     var b = e.target.closest("[data-go]");
     if (!b) return;
     setApp(b.dataset.go);
-    tour.after(b.dataset.go === "aidp" ? (tour.stepId() === "to-aidp-2" ? "to-aidp-2" : "to-aidp") : b.dataset.go === "review" ? "to-review" : "");
+    tour.after(b.dataset.go === "aidp" ? (tour.stepId() === "to-aidp-2" ? "to-aidp-2" : "to-aidp") : b.dataset.go === "review" ? "to-decisions" : "");
   });
 
   /* ===================================================================== */
