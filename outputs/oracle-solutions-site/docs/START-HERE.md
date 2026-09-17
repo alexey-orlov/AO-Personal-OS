@@ -16,11 +16,11 @@ Current as of 2026-09-17 (after round 8 and the Internal review panel).
   - Shared UI and the router: `site/assets/app.js`.
   - Forms: `site/assets/forms.js`.
 - **Preview:** the claude.ai artifact https://claude.ai/artifact/98wafGUphFSyGSr6ctJiiN (the same artifact as https://claude.ai/code/artifact/41e4f3b6-47d9-4ef2-af99-99c40c02b89b). It is **shared with anyone who has the link**, so every publish is live at once.
-- **Stage:** prototype. The *Internal* button (bottom right) lists the assumptions that still need confirmation, and it comes off before launch (§8).
+- **Stage:** prototype. The *Internal* button (bottom right) opens a checklist of the assumptions still to be confirmed, and it comes off before launch (§8).
 
 ## 2. The brief
 
-These are Alex's working assumptions as of 2026-09-17, and **each one is still to be confirmed**. The live list, with each item's status and a note on where the site stands against it, is `site/data/review.js`, shown in the *Internal* panel. When Alex confirms or changes an item, set its status there. If the requirement itself changed, also rewrite it here.
+These are Alex's working assumptions as of 2026-09-17, and **each one is still to be confirmed**. The *Internal* panel shows them as a checklist (`site/data/review.js`). Alex's ticks are saved only in his own browser and never reach the repo, so a confirmation counts when Alex tells a session. That session then rewrites the line here and removes or rewords the item in `review.js`.
 
 - **Audience, in priority order:**
   1. Oracle sellers and partners.
@@ -173,24 +173,29 @@ Exact commands are in HANDOFF §4.
   - The same goes for the kit's "two working days".
 - **Truthful states beat optimistic ones.** The kit form has three confirmations (mail client opened · request received · kit emailed), and only a real auto-sender may use the third.
 - **A name built on "Oracle" needs a trademark check** against Oracle's third-party guidelines before launch.
+- **A checklist is for ticking, not reading.** The first Internal panel gave every item a status chip, a flag and an "On the site" paragraph; Alex: "much less verbose (1–2 line items)". One line to tick; the analysis goes in the docs and the report.
+- **Use the lightest storage that does the job.** "Saved" meant saved in Alex's browser, not a database. Check what a capability costs before reaching for it: `db` would have made the artifact organization-internal.
 - **Unreferenced is not unshipped.** The customer logos had sat, unreferenced, under `site/assets/img/logos/`. Whole-tree publishes carried them onto the link-shared artifact, downloadable by path, until version 36 removed them. Anything that must never ship lives outside `site/`: the logos are now in `docs/asset-candidates/logos/`, and the checker fails if that folder reappears under `site/`.
 
 ## 8. The Internal review panel (temporary)
 
+- **What it is:** an *Internal · N to confirm* pill at the bottom right of every page. It opens a checklist drawer with one line per assumption, grouped as in §2, and each item has a checkbox.
+- **Where ticks are saved:** in the viewer's browser only (`localStorage` key `oracle-ai-solutions:review-ticks`), by item id. Alex chose this over a shared database: declaring the artifact `db` capability would make the artifact organization-internal and break the public preview link. Ticks never reach the repo; §2 is the record.
 - **Files:**
-  - `site/data/review.js` holds the list: groups of items, each with `id`, `text`, `status` (`open` · `confirmed` · `changed`), `site` (where the site stands) and optionally `flag` and `decision`.
-  - `site/assets/review.js` renders the button and the panel, styles included, with no other dependency.
+  - `site/data/review.js` holds the list: groups of items, each with `id`, `text` and an optional `note`, where the note names what the site does not match yet.
+  - `site/assets/review.js` renders the button and the drawer, styles included, with no other dependency.
   - Two `<script>` tags at the end of `site/index.html` load them.
-- **Updating an item:**
-  1. Set `status`, and for a change write the `decision`.
-  2. Rewrite §2 if the requirement itself changed.
-  3. Run the checker (it validates the list) and republish.
+- **Keep it short** (Alex: "1–2 line items"): `text` ≤ 70 characters, ≤ 47 when there is a note, `note` ≤ 45. No other keys: detail belongs in the docs. The checker enforces all of this.
+- **Changing the list:**
+  - Never rename an item's id; the ticks are keyed by it.
+  - Remove an item once §2 records its outcome.
+  - Run the checker and republish.
 - **Visibility:** anyone with the preview link sees the panel. Set `enabled: false` to hide it without deleting anything.
 - **Before launch:** delete both files and both script tags. Until then the checker warns on every run.
 
 ## 9. Open items
 
-- **The brief (§2):** every item stays open until Alex confirms it (`site/data/review.js`).
+- **The brief (§2):** every item stays open until Alex confirms it in a session. The panel ticks are only his own progress marks.
 - **Round 7 (PROVENANCE §23.4):**
   - delivery sign-off on *Plan vs actual investigation* in 4–8 weeks;
   - clearance for the stronger *Frontier AI* proof points.
@@ -216,7 +221,7 @@ Exact commands are in HANDOFF §4.
 | `docs/SCHEMA.md` | You add, rename or retire a `content.js` key |
 | `docs/CONFIG.md` | You touch a switch in `config.js` |
 | `docs/VISUAL-GRAMMAR.md` | You change a component or a page composition |
-| `docs/PROVENANCE.md` | You need a fact's source or a round's decisions (§18 home, §20 name, §21 and §23 Services, §24 sales kit, §25 Internal panel). At 4,500 lines, search it; don't read it top to bottom. |
+| `docs/PROVENANCE.md` | You need a fact's source or a round's decisions (§18 home, §20 name, §21 and §23 Services, §24 sales kit, §25 START-HERE, Internal panel and logos). At 4,500 lines, search it; don't read it top to bottom. |
 | `docs/ASSETS.md` | You work on images, step frames or posters, and how they were made |
 | `docs/HANDOFF-workforce-demo.md`, `docs/HANDOFF-erp-qa-demo.md` | You work on a walkthrough; each is owned by its own session |
 | `.claude/references/client-documents.md` | You write marketing copy |

@@ -50,7 +50,7 @@ oracle-solutions-site/
     │   ├── site.css          all styling — design tokens in :root, then components
     │   ├── app.js            UI helpers (window.UI), header, footer, router, modal
     │   ├── forms.js          the demo, contact and sales-kit forms (window.FORMS)
-    │   ├── review.js         TEMPORARY: the Internal review panel, prototype only (START-HERE §8)
+    │   ├── review.js         TEMPORARY: the Internal checklist panel, prototype only (START-HERE §8)
     │   └── img/              wordmarks, heroes, step frames, industries, posters, headshot
     │       └── heroes/       per-page hero background images + heroes.json
     ├── data/
@@ -148,17 +148,11 @@ node tools/check-grammar.js
 
 ## The Internal review panel (prototype only)
 
-While the site is a prototype, an **Internal** button sits at the bottom right of every page. It opens a side panel listing the working assumptions still to be confirmed: audience, positioning, commitments and disclosures, and the communication flow. Each item shows:
+While the site is a prototype, an **Internal · N to confirm** button sits at the bottom right of every page. It opens a checklist of the working assumptions still to be confirmed (audience, positioning, commitments and disclosures, communication flow), one line per item, each with a checkbox. **Ticks are saved in the viewer's browser only** (`localStorage`), so they never reach the repo or other viewers: `docs/START-HERE.md` §2 is the record of what Alex has confirmed. Anyone with the preview link sees the panel.
 
-- its status: *To confirm* · *Confirmed* · *Changed*;
-- where the site stands against it;
-- a flag where the site differs or two items conflict.
-
-Anyone with the preview link sees the panel.
-
-- **The list** is in `site/data/review.js`. Change an item's `status` there (and write `decision` for a change), run the checker, and republish.
+- **The list** is in `site/data/review.js`: `id`, `text` (≤ 70 characters, ≤ 47 beside a note) and an optional `note` (≤ 45) naming what the site does not match yet. Never rename an id, because the ticks are keyed by it.
 - **The panel** is `site/assets/review.js`, self-contained (it injects its own styles). Setting `enabled: false` in the data file hides it.
-- **Before launch**, delete both files and their two `<script>` tags. Until then, `check-grammar.js` validates the list and warns on every run.
+- **Before launch**, delete both files and their two `<script>` tags. Until then, `check-grammar.js` validates the list and its lengths, and warns on every run.
 
 ---
 
