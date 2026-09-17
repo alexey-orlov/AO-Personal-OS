@@ -108,6 +108,7 @@
   function decisions() { return S.state.decisions; }
   function ans(qid) { return D.answer(qid || S.qid || "q1", S.role, decisions()); }
   function persona() { return D.personas.filter(function (p) { return p.role === S.role; })[0]; }
+  function personaByRole(r) { return D.personas.filter(function (p) { return p.role === r; })[0] || D.personas[0]; }
 
   /* ===================================================================== */
   /* toast                                                                 */
@@ -1563,7 +1564,7 @@
       '<div class="ev">' + (m.evidence || []).map(function (c) {
         return '<span class="evc ' + (c.ok === true ? "evc--y" : c.ok === false ? "evc--n" : "evc--o") + '">' + esc(c.k) + " " + esc(c.v) + "</span>";
       }).join("") + '<span class="evc evc--o">score ' + Number(m.score).toFixed(2) + "</span></div>" +
-      '<div class="prop-note">' + esc(m.proposal || "") + (m.note ? " " + esc(m.note) : "") + "</div>" +
+      '<div class="prop-note"><b>' + esc(m.proposal || "") + ".</b>" + (m.note ? " " + esc(m.note) : "") + "</div>" +
       (dec
         ? '<div class="rule-line">' + ICON.check + "<span>" + esc(dec.action === "reject" ? "Kept apart" : "Confirmed as one customer") + " by " + esc(dec.by) + " — &ldquo;" + esc(dec.reason) + "&rdquo;." + (dec.rule ? " Rule kept: &ldquo;" + esc(dec.rule) + "&rdquo;." : "") + "</span></div>"
         : '<div class="prop-acts"><input type="text" id="mreason-' + esc(m.id) + '" placeholder="Why? (kept with the decision)" aria-label="Reason for the decision">' +
@@ -1603,7 +1604,7 @@
       return;
     }
     if (S.rwTab === "matches") {
-      el.innerHTML = '<div class="rw-tools"><span>The AI matched customers across the CRM, Fusion, JD Edwards and NetSuite. These pairs scored too low to stand on their own, so <b>' + esc(D.personas[1].name) + "</b> decides them.</span></div>" +
+      el.innerHTML = '<div class="rw-tools"><span>The AI matched customers across the CRM, Fusion, JD Edwards and NetSuite. These pairs scored too low to stand on their own, so <b>' + esc(personaByRole("STEWARD").name) + "</b> decides them.</span></div>" +
         (D.matches || []).map(matchHtml).join("") +
         '<p class="honest">A decision here changes who is one customer, so the next analysis counts their lines together — or keeps them apart.</p>';
       return;
@@ -1651,7 +1652,7 @@
     var input = $("#rreason-" + accId);
     var reason = (input && input.value.trim()) || (action === "decline" ? "Not at risk — handled with the customer." : "Agreed, go ahead.");
     var d = { kind: "recommendation", accountId: accId, actionId: acc.recommendation ? acc.recommendation.actionId : null,
-      action: action, reason: reason, by: D.personas[0].name, at: DECIDED_AT };
+      action: action, reason: reason, by: personaByRole("COMMERCIAL_OPS").name, at: DECIDED_AT };
     if (action === "accept") {
       var res = D.decide(S.state, d);
       S.state = res.state;
@@ -1675,7 +1676,7 @@
     var input = $("#mreason-" + id);
     var reason = (input && input.value.trim()) || (action === "reject" ? "Not the same — the identifiers disagree." : "Same party, confirmed.");
     var d = { kind: m.kind || (m.itemId ? "item" : "customer"), id: id, target: id, action: action, reason: reason,
-      by: D.personas[2] ? D.personas[2].name : "Priya Natarajan", at: "Tue 6 Oct 2026 · 09:55" };
+      by: personaByRole("STEWARD").name, at: "Tue 6 Oct 2026 · 09:55" };
     var res = D.decideMatch(S.state, d);
     S.state = res.state;
     var rule = (res.learned && res.learned.rule) || res.decision.rule || "";
