@@ -1438,7 +1438,14 @@
   /* ===================================================================== */
   /* 3. DECISIONS — review & act (Redwood app)                             */
   /* ===================================================================== */
-  var DECIDED_AT = "2026-10-06 09:52";
+  var DECIDED_AT = (D.haldenDecision && D.haldenDecision.at) || "Tue 6 Oct 2026 · 09:52";
+  function keyAccountId() { return (D.haldenDecision && D.haldenDecision.accountId) || (analysis().accounts[0] || {}).id; }
+  function keyActionId() {
+    var id = keyAccountId(), out = "A1";
+    analysis().accounts.forEach(function (a) { if (a.id === id && a.recommendation && a.recommendation.actionId) out = a.recommendation.actionId; });
+    if (D.haldenDecision && D.haldenDecision.actionId) out = D.haldenDecision.actionId;
+    return out;
+  }
   function renderBand() {
     if (!S.state.analysed) {
       $("#rw-band").innerHTML = '<div class="band-head"><span class="eyebrow">Per system &rarr; across systems</span></div>' +
@@ -1469,31 +1476,33 @@
   function pendingFor(accId) { return S.pending.filter(function (p) { return p.decision.accountId === accId; })[0]; }
   function accRowHtml(acc, an) {
     var pend = pendingFor(acc.id);
-    var done = acc.status === "declined" || !!pend;
-    var b = baseAccount(acc.id);
-    var showUsd = acc.status === "declined" ? b.usd : acc.usd;
-    var showPen = acc.status === "declined" ? b.penaltyUsd : acc.penaltyUsd;
+    var gone = acc.status && acc.status !== "at-risk";
+    var done = gone || !!pend;
     var e = D.evidence(acc.id, S.role, decisions());
-    var cause = an.causes.filter(function (c) { return c.id === acc.causeId; })[0] || { label: "" };
-    var suggested = acc.id === (D.haldenDecision ? D.haldenDecision.accountId : "halden") ? (D.haldenDecision ? D.haldenDecision.reason : "") : "";
+    var showLines = gone ? (acc.wasLines || acc.lines) : acc.lines;
+    var showUsd = gone ? (acc.wasUsd || acc.usd) : acc.usd;
+    var showPen = gone ? (acc.wasPenaltyUsd || acc.penaltyUsd) : acc.penaltyUsd;
+    var suggested = acc.id === keyAccountId() ? ((D.haldenDecision && D.haldenDecision.reason) || "") : "";
     return '<div class="reca' + (done ? " is-decided" : "") + '" data-acct="' + esc(acc.id) + '">' +
       '<div class="reca-h"><b>' + esc(acc.name) + '</b><span class="tierb tierb--' + esc(acc.tier) + '">tier ' + esc(acc.tier) + "</span>" +
-      '<span class="reca-sys">' + (acc.systems || []).map(sysBadge).join("") + "</span>" +
-      '<span class="reca-n">' + acc.lines + " lines</span><span class=\"reca-v\">" + (acc.status === "declined" ? "<s>" + esc(usdShort(showUsd)) + "</s>" : esc(usdShort(showUsd))) + "</span>" +
+      '<span class="reca-sys">' + ((acc.riskSystems && acc.riskSystems.length ? acc.riskSystems : acc.systems) || []).map(sysBadge).join("") + "</span>" +
+      '<span class="reca-n">' + showLines + " lines</span><span class=\"reca-v\">" + (gone ? "<s>" + esc(usdShort(showUsd)) + "</s>" : esc(usdShort(showUsd))) + "</span>" +
       '<span class="reca-p">penalty ' + esc(usdShort(showPen)) + "</span></div>" +
-      '<div class="reca-b"><span class="reca-why">' + esc(cause.label) + " &middot; " + esc(acc.recommendation ? acc.recommendation.text : "") + "</span></div>" +
+      '<div class="reca-b"><span class="reca-why">' + esc(acc.causeLabel || "") +
+      (acc.recommendation && acc.recommendation.text ? " &middot; " + esc(acc.recommendation.text) : "") + "</span></div>" +
       '<div class="reca-ev"><b>What the AI is going on:</b> ' +
-      esc((e.lines || []).length) + " order lines in " + esc(((acc.systems) || []).map(function (s) { return D.sourceById[s] ? D.sourceById[s].short : s; }).join(" and ")) +
-      ((e.stockElsewhere && e.stockElsewhere.length) ? "; the same parts on hand in plant " + esc(e.stockElsewhere[0].plant) : "") +
-      (e.supplierDelay ? "; purchase order " + esc(e.supplierDelay.po) + " " + esc(e.supplierDelay.daysLate) + " days late" : "") +
-      (e.creditHold ? "; held for credit since " + esc(e.creditHold.placed) : "") +
-      (e.transit ? "; last carrier scan " + esc(e.transit.lastScan) : "") +
+      esc((e.lines || []).length) + " order line" + ((e.lines || []).length === 1 ? "" : "s") + " in " +
+      esc((((acc.riskSystems && acc.riskSystems.length ? acc.riskSystems : acc.systems) || []).map(function (x) { return D.sourceById[x] ? D.sourceById[x].short : x; }).join(" and ")) || "the order book") +
+      ((e.stockElsewhere && e.stockElsewhere.length) ? "; the same part on hand in " + esc(e.stockElsewhere[0].plant) + " (" + esc(e.stockElsewhere[0].onHand) + " " + esc(e.stockElsewhere[0].uom || "") + ")" : "") +
+      (e.supplierDelay ? "; purchase order " + esc(e.supplierDelay.key) + " " + esc(e.supplierDelay.daysLate) + " days late" : "") +
+      (e.creditHold ? "; held for credit since " + esc(e.creditHold.placedLabel || e.creditHold.placedOn) : "") +
+      (e.transit ? "; carrier ETA " + esc(e.transit.etaLabel || e.transit.eta) + (e.transit.exception ? " with exception " + esc(e.transit.exception.code) : "") : "") +
       (e.contract && S.role !== "ANALYST_NA" ? "; the contract prices " + esc(usdShort(showPen)) + " of penalty on these lines" : "") +
       '. <button class="lnk" type="button" data-evgo="' + esc(acc.id) + '">Open the full evidence</button></div>' +
       (done
         ? '<div class="rule-line">' + ICON.check + "<span>" + (pend
           ? "Declined by " + esc(pend.decision.by) + " — &ldquo;" + esc(pend.decision.reason) + "&rdquo;. Re-analyse to put it into the numbers."
-          : "Declined and out of the numbers — the AI has already re-valued everything without it.") + "</span></div>"
+          : esc(acc.statusLabel || "Decided") + " — " + (acc.decision ? "&ldquo;" + esc(acc.decision.reason) + "&rdquo;, " : "") + "already out of the numbers.") + "</span></div>"
         : '<div class="prop-acts"><input type="text" id="rreason-' + esc(acc.id) + '" placeholder="Why? (kept with the decision)" value="' + esc(suggested) + '" aria-label="Reason for the decision">' +
           '<button class="btn" type="button" data-rec="accept" data-acct="' + esc(acc.id) + '">' + ICON.check + "Accept</button>" +
           '<button class="btn" type="button" data-rec="decline" data-acct="' + esc(acc.id) + '">' + ICON.x + "Decline</button></div>") +
@@ -1501,29 +1510,34 @@
   }
   function recHtml(a, an) {
     var open = S.openRec === a.id;
-    var accs = an.accounts.filter(function (x) { return (a.accountIds || []).indexOf(x.id) >= 0 || (x.recommendation && x.recommendation.actionId === a.id); });
+    var mine = an.accounts.filter(function (x) { return (a.accountIds || []).indexOf(x.id) >= 0; });
+    var decided = (an.decided || []).filter(function (x) { return x.recommendation && x.recommendation.actionId === a.id; })
+      .concat((an.decided || []).filter(function (x) { return x.causeId === a.causeId && (!x.recommendation || !x.recommendation.actionId); }));
+    var seen = {}, accs = mine.concat(decided).filter(function (x) { if (seen[x.id]) return false; seen[x.id] = 1; return true; });
     return '<div class="prop' + (open ? " is-open" : "") + '" data-rec-card="' + esc(a.id) + '">' +
       '<button class="rec-head" type="button" data-openrec="' + esc(a.id) + '" aria-expanded="' + open + '">' +
       '<span class="act-id">' + esc(a.id) + "</span>" +
-      '<span class="rec-t"><span class="nm">' + esc(a.title) + '</span><span class="meta">' + esc(a.owner) + " &middot; " + accs.length + " accounts &middot; " + a.lines + " lines &middot; " + (a.tasks || 0) + " " + esc(a.taskNoun || "tasks") + " assigned</span></span>" +
+      '<span class="rec-t"><span class="nm">' + esc(a.title) + '</span><span class="meta">' + esc(a.owner) + " &middot; " + (a.accounts || accs.length) + " accounts &middot; " + a.lines + " lines &middot; " + esc(a.taskLabel || (a.tasks + " tasks")) + "</span></span>" +
       '<span class="rec-v">' + esc(usdShort(a.usd)) + '<span>at risk</span></span>' +
       '<span class="stat stat--pending">' + esc(a.status) + "</span>" +
       '<span class="prop-chev">' + ICON.chev + "</span></button>" +
-      '<div class="prop-body">' + accs.map(function (x) { return accRowHtml(x, an); }).join("") + "</div></div>";
+      '<div class="prop-body">' + (accs.length ? accs.slice(0, 8).map(function (x) { return accRowHtml(x, an); }).join("") : '<div class="empty">Nothing left under this one.</div>') +
+      (accs.length > 8 ? '<p class="honest">Showing 8 of ' + accs.length + " accounts under this recommendation.</p>" : "") + "</div></div>";
   }
   function matchHtml(m) {
     var a = m.records[0], b = m.records[1], dec = S.matchLog[m.id];
     return '<div class="prop' + (dec ? " is-decided" : "") + '" data-prop="' + esc(m.id) + '">' +
       '<div class="prop-head" style="cursor:default">' +
-      '<span class="rec"><span class="nm">' + esc(a.name) + '</span><span class="meta">' + sysBadge(a.sys) + "<code>" + esc(a.key) + "</code>" + (a.city ? " &middot; " + esc(a.city) : "") + "</span></span>" +
+      '<span class="rec"><span class="nm">' + esc(a.name) + '</span><span class="meta">' + sysBadge(a.sys) + "<code>" + esc(a.object) + " " + esc(a.key) + "</code>" + (a.city ? " &middot; " + esc(a.city) : "") + "</span></span>" +
       '<span class="prop-vs">vs</span>' +
-      '<span class="rec"><span class="nm">' + esc(b.name) + '</span><span class="meta">' + sysBadge(b.sys) + "<code>" + esc(b.key) + "</code>" + (b.city ? " &middot; " + esc(b.city) : "") + "</span></span>" +
+      '<span class="rec"><span class="nm">' + esc(b.name) + '</span><span class="meta">' + sysBadge(b.sys) + "<code>" + esc(b.object) + " " + esc(b.key) + "</code>" + (b.city ? " &middot; " + esc(b.city) : "") + "</span></span>" +
       '<span class="prop-score"><b>' + Number(m.score).toFixed(2) + "</b><span>score</span></span>" +
-      '<span class="prop-spend">' + esc(m.note || "") + "</span><span></span></div>" +
+      '<span class="prop-spend">' + esc(m.basis || "") + "</span><span></span></div>" +
       '<div class="prop-body" style="display:block;border-top:1px solid var(--rw-line)">' +
       '<div class="ev">' + (m.evidence || []).map(function (c) {
-        return '<span class="evc ' + (c.hit === true ? "evc--y" : c.hit === false ? "evc--n" : "evc--o") + '">' + esc(c.value || c.t || c.kind) + "</span>";
+        return '<span class="evc ' + (c.ok === true ? "evc--y" : c.ok === false ? "evc--n" : "evc--o") + '">' + esc(c.k) + " " + esc(c.v) + "</span>";
       }).join("") + '<span class="evc evc--o">score ' + Number(m.score).toFixed(2) + "</span></div>" +
+      '<div class="prop-note">' + esc(m.proposal || "") + (m.note ? " " + esc(m.note) : "") + "</div>" +
       (dec
         ? '<div class="rule-line">' + ICON.check + "<span>" + esc(dec.action === "reject" ? "Kept apart" : "Confirmed as one customer") + " by " + esc(dec.by) + " — &ldquo;" + esc(dec.reason) + "&rdquo;." + (dec.rule ? " Rule kept: &ldquo;" + esc(dec.rule) + "&rdquo;." : "") + "</span></div>"
         : '<div class="prop-acts"><input type="text" id="mreason-' + esc(m.id) + '" placeholder="Why? (kept with the decision)" aria-label="Reason for the decision">' +
@@ -1532,15 +1546,19 @@
       "</div></div>";
   }
   function xrefHtml(x) {
-    var dec = S.matchLog[x.id];
+    var dec = S.matchLog[x.id], c = x.candidate || {}, g = x.against || {};
     return '<div class="prop' + (dec ? " is-decided" : "") + '" data-prop="' + esc(x.id) + '">' +
-      '<div class="prop-head" style="cursor:default;grid-template-columns:1fr 26px 1fr 84px 128px 26px">' +
-      '<span class="rec"><span class="nm">' + esc(x.item) + '</span><span class="meta">' + (x.records[0] ? sysBadge(x.records[0].sys) + "<code>" + esc(x.records[0].key) + "</code>" : "") + "</span></span>" +
-      '<span class="prop-vs">=</span>' +
-      '<span class="rec"><span class="nm">' + esc(x.records[1] ? x.records[1].key : "") + '</span><span class="meta">' + (x.records[1] ? sysBadge(x.records[1].sys) : "") + "</span></span>" +
+      '<div class="prop-head" style="cursor:default">' +
+      '<span class="rec"><span class="nm">' + esc(c.key || "") + '</span><span class="meta">' + sysBadge(c.sys) + "<code>" + esc(c.object || "") + "</code> &middot; " + esc(c.uom || "") + "</span></span>" +
+      '<span class="prop-vs">=?</span>' +
+      '<span class="rec"><span class="nm">' + esc(g.key || "") + '</span><span class="meta">' + sysBadge(g.sys) + "<code>" + esc(g.object || "") + "</code> &middot; " + esc(g.uom || "") + "</span></span>" +
       '<span class="prop-score"><b>' + Number(x.score).toFixed(2) + "</b><span>score</span></span>" +
-      '<span class="prop-spend">' + esc(x.note || "") + "</span><span></span></div>" +
+      '<span class="prop-spend">' + esc(x.itemId || "") + "<br>" + esc(x.description || "") + "</span><span></span></div>" +
       '<div class="prop-body" style="display:block;border-top:1px solid var(--rw-line)">' +
+      '<div class="ev">' + (x.evidence || []).map(function (c2) {
+        return '<span class="evc ' + (c2.ok === true ? "evc--y" : c2.ok === false ? "evc--n" : "evc--o") + '">' + esc(c2.k) + " " + esc(c2.v) + "</span>";
+      }).join("") + "</div>" +
+      '<div class="prop-note">' + esc(x.note || "") + "</div>" +
       (dec
         ? '<div class="rule-line">' + ICON.check + "<span>" + esc(dec.action === "reject" ? "Kept apart" : "Confirmed as one part") + " by " + esc(dec.by) + ".</span></div>"
         : '<div class="prop-acts"><input type="text" id="mreason-' + esc(x.id) + '" placeholder="Why? (kept with the decision)" aria-label="Reason for the decision">' +
