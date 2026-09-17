@@ -388,30 +388,41 @@
      a two-step flow, never a chatbot. */
   function daQuestion() { return D.questions.filter(function (q) { return q.id === "q7"; })[0] || D.questions[0]; }
   function daAnswer() { return D.answer(daQuestion().id, "COMMERCIAL_OPS", decisions()); }
+  /* ORDS colours the generated statement: keywords blue-violet bold, quoted
+     identifiers and literals red-orange, everything else near-black. */
+  var SQL_KW = /\b(SELECT|FROM|WHERE|AND|OR|NOT|IN|IS|NULL|GROUP|ORDER|BY|AS|ON|JOIN|LEFT|RIGHT|INNER|OUTER|CASE|WHEN|THEN|ELSE|END|DATE|ROUND|SUM|COUNT|AVG|MIN|MAX|TRUNC|COALESCE|NVL|DESC|ASC|HAVING|WITH|UNION|ALL|DISTINCT|OVER|PARTITION|FETCH|FIRST|ROWS|ONLY|BETWEEN|LIKE|EXISTS|CAST|TO_CHAR|TO_DATE)\b/g;
+  function sqlHtml(line) {
+    var out = "", i = 0, re = /'[^']*'|"[^"]*"/g, m;
+    function kw(t) { return esc(t).replace(SQL_KW, function (w) { return '<span class="kw">' + w + "</span>"; }); }
+    while ((m = re.exec(line))) { out += kw(line.slice(i, m.index)) + '<span class="st">' + esc(m[0]) + "</span>"; i = m.index + m[0].length; }
+    return out + kw(line.slice(i));
+  }
   function renderDsAnalysis() {
-    $("#ds-crumb").textContent = "Data Analysis";
+    $("#ds-crumb").textContent = "Analysis";
     var DA_Q = daQuestion(), a = daAnswer();
     var sqlLines = (S.daGenerated ? a.sql : "").split("\n");
     var rows = a.rows.slice(0, 6), cols = a.columns.slice(0, 4);
     $("#ds-page").innerHTML =
-      '<div class="da-top"><button class="da-back" type="button">' + ICON.chevl + "</button><b>OTIF_by_entity</b>" +
-      '<span class="da-right"><button class="da-save" type="button">' + ICON.ledger + 'Save ' + ICON.chevd + "</button><span class=\"ds-ico\">" + ICON.search + "</span></span></div>" +
+      '<div class="da-top"><button class="da-back" type="button">&larr;</button><b>OTIF_by_entity</b>' +
+      '<span class="da-right"><button class="da-save" type="button">' + ICON.ledger + 'Save ' + ICON.chevd + '</button><span class="da-find">' + ICON.search + "</span></span></div>" +
       '<div class="da-cols">' +
       '<aside class="da-tree"><div class="da-sel">GOLD ' + ICON.chevd + '</div><div class="da-sel da-sel--2">Query ' + ICON.chevd + '<span class="da-ref">' + ICON.refresh + "</span></div>" +
-      D.views.slice(0, 8).map(function (v, i) {
-        return '<div class="da-tbl' + (i < 3 ? " is-on" : "") + '">' + ICON.grid + esc(v.id) + "</div>";
-      }).join("") + "</aside>" +
+      D.views.slice(0, 8).map(function (v) {
+        return '<div class="da-tbl">' + ICON.grid + esc(v.id) + "</div>";
+      }).join("") + '<span class="da-grab">&#8826;</span></aside>' +
       '<div class="da-main"><div class="da-card"><span class="da-rep">' + ICON.ledger + 'My Report_Report-0</span>' +
-      '<span class="da-tog">Use Natural Query<i class="da-switch is-on"></i></span></div>' +
-      '<div class="da-nl"><textarea readonly aria-label="Natural language query">' + esc(DA_Q.text.replace(/\.$/, "").toLowerCase()) + "</textarea></div>" +
+      '<span class="da-tog">Use Natural Query<i class="da-switch is-on"></i><span class="da-ex">&#10530;</span><span class="da-kebab">&#8942;</span></span></div>' +
+      '<div class="da-nl"><textarea readonly aria-label="Natural language query">' + esc(DA_Q.text.replace(/\.$/, "").toLowerCase()) + '</textarea><span class="da-step">&#9650;<br>&#9660;</span></div>' +
       '<div class="da-acts"><button class="da-btn" type="button">Select Tables</button>' +
-      '<span class="da-right"><button class="da-btn" type="button" id="da-gen"><i class="pl pl--dark"></i>Generate Query</button>' +
-      '<button class="da-btn" type="button" id="da-run"><i class="pl pl--green"></i>Run</button></span></div>' +
-      '<div class="da-editor">' + (S.daGenerated
-        ? sqlLines.map(function (l, i) { return '<div class="ln"><i>' + (i + 1) + "</i><code>" + esc(l) + "</code></div>"; }).join("")
+      '<button class="da-btn" type="button" id="da-gen"><i class="pl pl--dark"></i>Generate Query</button></div>' +
+      '<div class="da-acts da-acts--run"><button class="da-btn" type="button" id="da-run"><i class="pl pl--green"></i>Run</button></div>' +
+      '<div class="da-edwrap"><div class="da-editor">' + (S.daGenerated
+        ? '<div class="rule"></div>' + sqlLines.map(function (l, i) { return '<div class="ln"><i>' + (i + 1) + "</i><code>" + sqlHtml(l) + "</code></div>"; }).join("")
         : '<div class="da-empty">The editor is empty. <b>Generate Query</b> writes SQL here from the sentence above; nothing runs until you press <b>Run</b>.</div>') + "</div>" +
+      '<div class="da-split">&#9662;</div></div>' +
       '<div class="da-tabs"><button type="button" class="is-on">Query Result</button><button type="button">Explain Plan</button><button type="button">Autotrace</button>' +
-      '<span class="da-right"><span class="da-modes"><i class="is-on"></i><i></i><i></i><i></i></span></span></div>' +
+      '<span class="da-right">' + ICON.info + "</span></div>" +
+      '<div class="da-moderow"><span class="da-modes"><i class="is-on"></i><i></i><i></i><i></i></span></div>' +
       '<div class="da-result">' + (S.daRan
         ? '<table class="da-grid"><thead><tr>' + cols.map(function (c) { return '<th class="' + (c.align === "right" ? "r" : "") + '">' + esc(String(c.label).toUpperCase().replace(/ /g, "_")) + "</th>"; }).join("") + "</tr></thead><tbody>" +
           rows.map(function (r) {
@@ -422,16 +433,23 @@
               return '<td class="' + (c.align === "right" ? "r" : "") + '">' + esc(v === undefined || v === null ? "—" : v) + "</td>";
             }).join("") + "</tr>";
           }).join("") + "</tbody></table>"
-        : '<div class="da-empty">No results. Press <b>Run</b> to execute the statement in the editor.</div>') + "</div></div>" +
-      '<aside class="da-facet"><div class="da-fh">&raquo; Faceted<br>Visual<i class="da-switch is-on"></i></div>' +
-      cols.slice(0, 3).map(function (c) {
-        return '<div class="da-fc"><b>' + ICON.chevd + esc(String(c.label).toUpperCase().replace(/ /g, "_")) + "</b>" + '<span class="da-hist">' +
-          [17, 14, 12, 10, 9, 8, 7, 6, 5, 4, 4, 3, 3, 2, 2].map(function (h) { return '<i style="height:' + h + 'px"></i>'; }).join("") +
+        : '<div class="da-empty">No data to display. Press <b>Run</b> to execute the statement in the editor.</div>') + "</div></div>" +
+      '<aside class="da-facet"><div class="da-fh"><span class="rr">&raquo;</span><span>Faceted</span><i class="da-switch is-on"></i><span>Visual</span></div>' +
+      cols.slice(0, 3).map(function (c, ci) {
+        return '<div class="da-fc"><b><i class="tri"></i>' + esc(String(c.label).toUpperCase().replace(/ /g, "_")) + "</b>" + '<span class="da-hist">' +
+          HIST[ci % HIST.length].map(function (h) { return '<i style="height:' + h + 'px"></i>'; }).join("") +
           '</span><a>Show More...</a></div>';
       }).join("") + "</aside></div>" +
-      '<div class="da-status"><span>&#8855; 0</span><span>&#9888; 0</span><span>&#9881; 0</span><i>|</i><span>' + esc(D.world.nowLabel) +
-      ':07 AM - REST call resolved successfully.</span><span class="da-right">Powered by ORDS</span></div>';
+      '<div class="da-status"><span>&#8855; 0</span><span>&#9888; 0</span><span>&#9881; 0</span><i>|</i><span class="lk">' + esc(D.world.nowLabel) +
+      ':07 AM - REST call resolved successfully.</span><span class="da-right">' + ICON.stack + '<span class="lk">Powered by ORDS</span></span></div>';
   }
+  /* 24 packed bars, not a monotonic staircase — Oracle's facet histograms are
+     read off the data, so they are uneven */
+  var HIST = [
+    [41, 33, 45, 28, 37, 22, 30, 19, 26, 34, 17, 23, 15, 21, 12, 18, 25, 11, 14, 9, 16, 8, 10, 6],
+    [28, 45, 19, 36, 24, 41, 15, 31, 22, 12, 27, 18, 33, 10, 21, 14, 25, 9, 17, 11, 20, 7, 13, 8],
+    [45, 21, 38, 14, 29, 35, 11, 26, 18, 40, 9, 23, 16, 31, 12, 20, 8, 27, 13, 10, 19, 15, 7, 11]
+  ];
   function renderDs() {
     renderDsNav();
     if (S.dsScreen === "feeds") renderDsFeeds();
