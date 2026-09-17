@@ -287,7 +287,7 @@ Renders the **Jumpstart** tab (`#/products/<slug>/jumpstart`; `…/pov` redirect
 |---|---|---|
 | `title` | string | Always `Jumpstart Proof-of-Value` — the block title, not the tab label. |
 | `promise` | string | One line: pilot *this product* on your own data, in *this* duration, at *this* price, and take away *this* result. Only a duration or price the research supports; otherwise the sentence says the scope is agreed at scoping rather than inventing one. The product noun is **lowercase** mid-sentence — a capitalised name there reads as an unresolved merge field — and **the closing clause is written per product**: seven lines ending on the same six words is the template tell a seller sees the moment they flip between two tabs in a live demo. |
-| `durationShort?` | string | **`4–8 weeks` on every product since round 7** — Alex's rule that the proof of value is stated as 4–8 weeks, consistently, across the site (`PROVENANCE.md` §22); the same figure is the `investment.duration` and appears in the `promise`, and `tools/check-grammar.js` fails any other duration anywhere in the data. Interpolated into `sellerGate.cta.body` at `{duration}`; never rendered on its own. `sellerGate.cta.bodyFallback` stays for a product added without it. |
+| `durationShort?` | string | **`4–8 weeks` on every product since round 7** — Alex's rule that the proof of value is stated as 4–8 weeks, consistently, across the site (`PROVENANCE.md` §23); the same figure is the `investment.duration` and appears in the `promise`, and `tools/check-grammar.js` fails any other duration anywhere in the data. Interpolated into `sellerGate.cta.body` at `{duration}`; never rendered on its own. `sellerGate.cta.bodyFallback` stays for a product added without it. |
 | `pillars` | `[{ key, title, text }]` | **Exactly three, in this order:** `fast` (kickoff to result), `low-risk` (fixed scope and price, your tenancy, no production change — only the claims the research supports for that product), `tangible` (the headline outcome). Equal cards in one row, each with an icon. |
 | `outcomes` | `[string]` | 3–4 **customer outcomes**, not deliverables: "An optimized four-week plan for one region, measured against your current plan", not "a plan document". Heads the left column, under `sectionLabels.jumpstartOutcomes`. |
 | `timeline` | `[{ label, text }]` | 3–4 nodes, week-by-week, under `sectionLabels.jumpstartTimeline`. Node 1 is the pre-flight gate wherever the product has one. |
@@ -312,7 +312,7 @@ No `notes` key. **Seller-facing commercial notes are not part of this file.** Th
 
 ## `services`
 
-**Round 7 (2026-09-17) — three screens and the contact block, one message each** (`PROVENANCE.md` §22): AI depth with Oracle expertise — the practice (hero + stat band) · it's all about ROI — every step ends in a number (`#how-we-engage`) · a fast proof of value, no hassle (`#proof-of-value`, the page's one light band + two panels) · contact (`#contact`).
+**Round 7 (2026-09-17) — three screens and the contact block, one message each** (`PROVENANCE.md` §23): AI depth with Oracle expertise — the practice (hero + stat band) · it's all about ROI — every step ends in a number (`#how-we-engage`) · a fast proof of value, no hassle (`#proof-of-value`, the page's one light band + two panels) · contact (`#contact`).
 
 | Key | Type |
 |---|---|

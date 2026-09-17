@@ -4392,13 +4392,13 @@ All five images were re-cut because every screen they show changed; the product 
 (`.work/erpqa-qa/product-page-r3.png`). **Limits:** the same as before — scripted headless Chrome at fixed
 viewports proves those widths and no others, and the published artifacts are checked by eye in the viewer.
 
-## 22. Round 7 — the Services page in three messages, and one proof-of-value duration, 2026-09-17
+## 23. Round 7 — the Services page in three messages, and one proof-of-value duration, 2026-09-17
 
 **Brief** (Alex, in session): three messages, three screens — (1) we combine deep AI research and experience with Oracle expertise, elaborated with the dedicated practice's structure or numbers; (2) it's all about ROI — measuring outcomes is in our DNA — elaborated as a method from discovery to proof of value, integration and scaling, built around measured impact; (3) a fast proof of value, no hassle — the method, on real data. Plus: *"Make sure that we always mention 4-8 weeks PoV (consistently across the site)"*, and rethink the main screen around the messages.
 
 **Split.** Opus: the state check (a second session had published versions 30–31 with the Cross-system ERP Q&A walkthrough), a fact pack per message with publishability labels, the site-wide duration sweep and its checker rule, the build, the layout QA at 1440/1280/1024/768/375, the merge and the publish. Fable, in one pass from the fact pack: the spine, the screen plan and the copy — the first screen carries message 1.
 
-### 22.1 The page
+### 23.1 The page
 
 | Screen | Heading | What carries the message | Sources |
 |---|---|---|---|
@@ -4412,7 +4412,7 @@ New copy: the three headings; *"Measuring what an innovation changes is the disc
 
 **Cut:** *FROM PLATFORM / TO PRODUCTION.* and its lead; the 500+ data experts and 150+ projects tiles; the after-go-live panels (their substance is in the Scale step); the 81% band figure (now in the S2 footnote); the `#proof` anchor — the home case-studies rail's *How we measure it* now lands on `#how-we-engage`, where the measurement argument opens.
 
-### 22.2 One proof-of-value duration: 4–8 weeks
+### 23.2 One proof-of-value duration: 4–8 weeks
 
 | Where | Before | After |
 |---|---|---|
@@ -4425,11 +4425,11 @@ New copy: the three headings; *"Measuring what an innovation changes is the disc
 
 `tools/check-grammar.js`, round 7: every product's `durationShort`, `investment.duration` and `promise` state 4–8 weeks and its fast pillar the duration; the home step and the home hero tile carry it; the Services page states it and its band figure is it; and *30–45 days*, *about two months*, *in 2 months*, *12 weeks*, *two-week acceptance* or *set at scoping* anywhere in `content.js` fails the build — verified against a copy with one old duration planted.
 
-### 22.3 Checks and publish
+### 23.3 Checks and publish
 
 Checker OK; deny-list grep empty; console clean; the repetition check clean on every screen (the one *value* ×3 on S2 counts the step name *Jumpstart proof of value*); headings within budget — the H1 two lines from 320 to 1440, the H2s one line at 1440 and two at 375, *4–8 weeks* one line at 375; four equal steps at 1440 (330 px) and 1280 (290 px), vertical at 1024 and below; no horizontal overflow at any width; `#how-we-engage`, `#proof-of-value` and `#contact` land at the 96 px offset; the product Jumpstart tabs show the new duration and no old one. The page is 3.9 screens at 1440. The first publish was refused against versions 30–31 from the ERP Q&A session; the live `content.js` and `site.css` differed from the local files only by this round's edits and the live `config.js` matched, so the local tree was published on top as **version 32**. The preview is shared with anyone who has the link.
 
-### 22.4 Open for Alex
+### 23.4 Open for Alex
 
 1. **Plan vs actual investigation:** the 4–8-week rule compresses a 12-week build and a two-week acceptance phase — confirm with the delivery team, or restore from the table above.
 2. **Frontier AI** is the hero's claim. It rests on the frontier line, the 1,000+ AI, data and R&D experts and the measurement discipline; the stronger proof points stay [clr] — the enterprise agentic AI platform at scale (42% → 91% accuracy, 3M+ users) and the GenAI knowledge graph (5–10× faster research), FACTORY s.15, s.17.

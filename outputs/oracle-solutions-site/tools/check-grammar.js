@@ -1170,7 +1170,7 @@ var raw = fs.readFileSync(path.join(root, "site/data/content.js"), "utf8");
    no hassle (the light band and two panels). The steps the page shares with
    the home track carry the home page's names, Discovery may lead them, and the
    anchors other pages link to are asserted against the routes that point at
-   them (PROVENANCE §21, §22). */
+   them (PROVENANCE §21, §23). */
 (function () {
   var s = C.services || {};
   var site = C.site || {};
@@ -1180,7 +1180,7 @@ var raw = fs.readFileSync(path.join(root, "site/data/content.js"), "utf8");
     if (s[k] !== undefined) fail("services." + k, "retired in round 6 — its substance moved into the hero or left the page (PROVENANCE §21)");
   });
   ["afterGoLive", "proof"].forEach(function (k) {
-    if (s[k] !== undefined) fail("services." + k, "retired in round 7 — after go-live folds into the Scale step, the measurement into the step track, the proof into proofOfValue (PROVENANCE §22)");
+    if (s[k] !== undefined) fail("services." + k, "retired in round 7 — after go-live folds into the Scale step, the measurement into the step track, the proof into proofOfValue (PROVENANCE §23)");
   });
   if (site.dividerLabels !== undefined) fail("site.dividerLabels", "retired in round 6 — nothing renders the rule–label–rule divider");
   if (shared.ladderColumns !== undefined) fail("shared.ladderColumns", "retired in round 6 — Services renders the home step track, not a ladder table");
@@ -1263,7 +1263,7 @@ var raw = fs.readFileSync(path.join(root, "site/data/content.js"), "utf8");
    site": every Jumpstart states it in its promise, its short form (which the
    seller CTA interpolates) and its investment figure; the home hero tile, the
    home step track and the Services page carry it; and no other proof-of-value
-   duration survives anywhere in the data (PROVENANCE §22). */
+   duration survives anywhere in the data (PROVENANCE §23). */
 (function () {
   var POV = "4–8 weeks";
   (C.products || []).forEach(function (p) {

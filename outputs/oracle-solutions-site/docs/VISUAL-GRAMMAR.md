@@ -537,7 +537,7 @@ Below 900 px the row goes two-up with the third tile spanning both columns — a
 
 ## 10. The Services page — three screens and contact (rounds 6–7)
 
-Services is built from the home page's components rather than its own; the reasoning is in `PROVENANCE.md` §21–22. Since round 7 each screen carries one message.
+Services is built from the home page's components rather than its own; the reasoning is in `PROVENANCE.md` §21 and §23. Since round 7 each screen carries one message.
 
 | Screen | Component | Rule |
 |---|---|---|
