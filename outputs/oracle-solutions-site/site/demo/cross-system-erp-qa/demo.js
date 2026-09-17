@@ -665,7 +665,7 @@
       '<aside class="hub-side"><h3>Today&rsquo;s Tasks</h3><div class="hub-date">October 6th, 2026</div>' + today +
       '<div class="hs"><div class="k">Stalest source</div><div class="v">CRM &middot; 1 h 05 min</div><div class="d">Freshness is a property of each feed, and the answer says which source is furthest behind.</div></div>' +
       '<span class="hs-more" data-agents="1">View all</span>' +
-      "</aside>" + hubBottomNav("home") + "</div>";
+      "</aside></div>" + hubBottomNav("home");
   }
   /* Oracle's My agents band is a row of compact cards with a status pill and a
      "Last observed" date. Only the first one does anything here. */
@@ -1101,7 +1101,7 @@
       }).join("") + "</div>" : "") +
       (!build && !standing.length ? '<div class="empty">Ask the commercial operations agent what is at risk, and it will have something to put here.</div>' : "") +
       '<p class="honest">The two standing dashboards are static in this walkthrough. The generated one is built from the analysis on screen, and it obeys whoever is looking at it.</p>' +
-      hubBottomNav("insights") + "</div>";
+      "</div>" + hubBottomNav("insights");
   }
   var DASH_PLAN = [];
   function createDashboard() {
@@ -1150,6 +1150,7 @@
   function renderWb() {
     renderWbNav(); renderWbMenu(); renderPlum();
     var page = $("#wb-page");
+    page.classList.toggle("is-hub", S.wbPanel === "home" || S.wbPanel === "run" || S.wbPanel === "insights");
     if (S.wbPanel === "analysis") { page.innerHTML = '<div class="conv-wrap"><div class="conv conv--an">' + analysisHtml() + "</div></div>"; return; }
     if (S.wbPanel === "conversation") { page.innerHTML = '<div class="conv-wrap"><div class="conv">' + answerHtml(ans()) + "</div></div>"; return; }
     if (S.wbPanel === "insights") { page.innerHTML = insightsHtml(); return; }
@@ -1577,7 +1578,7 @@
   function mcatalogHtml() {
     var id = S.mcEntity, cols = catColsFor(id);
     var v = D.views.filter(function (x) { return x.id === id; })[0] || D.views[0];
-    var heads = [["", 26], ["Column name", 0, 1], ["Type", 96, 1], ["Description", "44%", 1], ["Data type", 100], ["", 34]];
+    var heads = [["", 26, 0, 1], ["Column name", 0, 1], ["Type", 96, 1], ["Description", "44%", 1], ["Data type", 100], ["", 34]];
     return '<div class="mc">' +
       '<div class="mc-crumb"><a>Master catalog</a> <i>&rsaquo;</i> <a>' + GOLD_CAT + "</a> <i>&rsaquo;</i> <a>GOLD</a> <i>&rsaquo;</i> <a>Tables</a> <i>&rsaquo;</i> <b>" + esc(lc(id)) + "</b></div>" +
       '<div class="mc-cols"><aside class="mc-tree"><div class="mc-treetop"><label class="lin-filter"><span class="wb-mag"></span><input type="search" placeholder="Filter" aria-label="Filter catalogs"></label>' +
@@ -1597,7 +1598,7 @@
       '<div class="mc-tools"><label class="lin-filter"><span class="wb-mag"></span><input type="search" placeholder="Filter" aria-label="Filter columns"></label><span class="mc-plus">+</span></div>' +
       '<table class="wb-tbl mc-grid"><thead><tr>' + heads.map(function (h) {
         return '<th' + (h[1] ? ' style="width:' + (typeof h[1] === "number" ? h[1] + "px" : h[1]) + '"' : "") + ">" +
-          (h[0] ? esc(h[0]) + (h[2] ? SORTC : "") : '<span class="mc-box"></span>') + "</th>";
+          (h[0] ? esc(h[0]) + (h[2] ? SORTC : "") : (h[3] ? '<span class="mc-box"></span>' : "")) + "</th>";
       }).join("") + "</tr></thead><tbody>" +
       cols.map(function (c) {
         return '<tr><td><span class="mc-box"></span></td><td>' + esc(c[0]) + "</td><td>Column</td><td>" +

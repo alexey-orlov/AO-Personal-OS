@@ -354,7 +354,8 @@ svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width:
 /* Agent Hub home */
 /* the Hub is a full-bleed warm canvas with Redwood petal artwork bleeding off
    the top-right corner and a faint dot texture bottom-left */
-.hub { min-height: 100%; background: var(--hub); display: grid; grid-template-columns: 1fr 420px; gap: 28px; padding: 26px 30px 58px; position: relative; overflow: hidden; }
+.wb-page.is-hub { background: var(--hub); }
+.hub { min-height: calc(100% - 34px); background: var(--hub); display: grid; grid-template-columns: 1fr 420px; gap: 28px; padding: 26px 30px 26px; position: relative; overflow: hidden; }
 .hub::before { content: ""; position: absolute; right: -110px; top: -170px; width: 460px; height: 380px; border-radius: 0 0 58% 42%; transform: rotate(-12deg); background:
   radial-gradient(52% 58% at 34% 26%, rgba(199, 70, 52, .22), rgba(199, 70, 52, 0) 72%),
   radial-gradient(46% 62% at 66% 42%, rgba(120, 130, 175, .2), rgba(120, 130, 175, 0) 74%),
@@ -402,7 +403,7 @@ svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width:
 .hub-side .hs .d { font-size: 11.5px; color: var(--wb-txt-2); }
 .hub-side .hs-more { display: block; font-size: 12.5px; color: var(--wb-link); cursor: pointer; padding: 9px 0 0; border-top: 1px solid #dcd8d2; }
 /* Agent Hub's own dark bottom nav — the surface's strongest single cue */
-.hub-bot { position: absolute; left: 0; right: 0; bottom: 0; height: 34px; background: #1e1c19; display: flex; align-items: stretch; z-index: 2; }
+.hub-bot { position: sticky; bottom: 0; height: 34px; background: #1e1c19; display: flex; align-items: stretch; z-index: 3; }
 .hub-bot button { flex: 1; background: transparent; border: 0; color: #747270; font-size: 12px; display: flex; align-items: center; justify-content: center; gap: 7px; cursor: pointer; position: relative; }
 .hub-bot button svg { width: 15px; height: 15px; }
 .hub-bot button.is-on { color: #fff; }
@@ -437,13 +438,14 @@ svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width:
 .agrid tr.is-review td { background: #fdf7e8; }
 .agrid tr.is-review:hover td { background: #fbf2dc; }
 .agrid .sub { display: block; font-size: 12px; color: var(--wb-txt-2); }
-.sysb { display: inline-flex; align-items: center; gap: 4px; border-radius: 3px; padding: 1px 6px; font-size: 10px; font-weight: 700; letter-spacing: .04em; border: 1px solid; white-space: nowrap; }
+/* the same shape as the lineage card's catalog chip: tinted fill, no border */
+.sysb { display: inline-flex; align-items: center; gap: 4px; border-radius: 3px; padding: 1px 6px; font-size: 10.5px; font-weight: 600; letter-spacing: normal; border: 0; white-space: nowrap; }
 .sysb + .sysb { margin-left: 3px; }
-.sysb--FUSION { color: #8a4a12; background: #fbf0e2; border-color: #e6cfae; }
-.sysb--JDE { color: #1d5f73; background: #e4f0f4; border-color: #b6d5de; }
-.sysb--NETSUITE { color: #4d6b1f; background: #edf2e0; border-color: #ccd9ab; }
-.sysb--CRB { color: #5b4a86; background: #eeebf7; border-color: #cbc3e4; }
-.sysb--CRM { color: #7d4064; background: #f8eaf2; border-color: #e2c1d5; }
+.sysb--FUSION { color: #6d5a1f; background: #efe8d8; }
+.sysb--JDE { color: #48606e; background: #e4e8ec; }
+.sysb--NETSUITE { color: #4a6b32; background: #e3ebdc; }
+.sysb--CRB { color: #5a4a6e; background: #eeeaf3; }
+.sysb--CRM { color: #6b4458; background: #f2e9ee; }
 .stat { display: inline-block; border-radius: 3px; padding: 1px 7px; font-size: 10.5px; font-weight: 700; letter-spacing: .03em; }
 .stat--confirmed, .stat--matched, .stat--auto { background: var(--wb-green-bg); color: var(--wb-green); }
 .stat--review, .stat--timing, .stat--pending { background: #fbeed5; color: #8a5a12; }
@@ -475,10 +477,10 @@ svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width:
 .tr.h { font-weight: 700; color: #161513; font-size: 13px; letter-spacing: normal; text-transform: none; border-bottom: 1px solid var(--wb-line); padding-bottom: 6px; margin-bottom: 2px; }
 .tr.h .du { text-decoration: underline; text-underline-offset: 3px; }
 .tr .n { display: flex; align-items: center; gap: 7px; min-width: 0; }
-.tr .n .di { width: 11px; color: var(--wb-txt-2); font-size: 9px; flex: none; text-align: center; }
+.tr .n .di { width: 12px; color: #5a5754; font-size: 12px; line-height: 1; flex: none; text-align: center; }
 .tr .n svg { width: 14px; height: 14px; color: var(--wb-txt-2); flex: none; }
-.tr .n b { font-weight: 400; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.tr .n span { color: var(--wb-txt-2); font-size: 12px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.tr .n b { font-weight: 400; white-space: nowrap; flex: none; }
+.tr .n span { color: var(--wb-txt-2); font-size: 12px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex: 1 1 auto; min-width: 0; }
 .tr--kid { font-size: 12.5px; }
 .tr--kid .n { padding-left: 16px; }
 .tr .bar { height: 10px; }
@@ -545,7 +547,7 @@ svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width:
 /* the amber rule lives only on Workbench Home; every other page goes without */
 .wb-rule { display: none; }
 /* Insights is an Agent Hub tab, so it wears the Hub's warm ground and bottom nav */
-.wb-pg--hub { background: var(--hub); min-height: 100%; position: relative; padding-bottom: 58px; }
+.wb-pg--hub { background: var(--hub); min-height: calc(100% - 34px); position: relative; padding-bottom: 26px; }
 .dash { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; position: relative; z-index: 1; }
 .dash-card { display: block; background: #fff; border: 1px solid var(--wb-line); border-radius: 6px; padding: 13px 14px 12px; min-width: 0; }
 .dash-card h3 { font-size: 13.5px; }
@@ -896,7 +898,7 @@ tr.tour-target { box-shadow: none !important; animation: none; }
 .mc-cat svg { width: 13px; height: 13px; }
 .mc-cat.is-open { color: var(--wb-txt); font-weight: 600; }
 .mc-ent { display: flex; align-items: center; gap: 7px; font-size: 12.5px; color: var(--wb-txt-2); padding: 4px 0 4px 30px; background: transparent; border: 0; width: 100%; text-align: left; cursor: pointer; }
-.mc-tri { color: #8b857d; font-size: 9px; width: 9px; flex: none; }
+.mc-tri { color: #5a5754; font-size: 11px; line-height: 1; width: 10px; flex: none; }
 .mc-treetop { display: flex; align-items: center; gap: 7px; margin-bottom: 8px; }
 .mc-treetop .lin-filter { flex: 1; }
 .mc-rf { width: 24px; height: 24px; border: 1px solid var(--wb-line-2); border-radius: 50%; background: #fff; display: grid; place-items: center; color: var(--wb-txt-2); flex: none; }
@@ -1183,7 +1185,7 @@ body.ui-clean .lin { inset: 44px 0 0 0; }
 /* ======================================================================== */
 
 /* the fifth source is the in-house delivery-tracking application */
-.sysb--DLV { color: #5b4a86; background: #eeebf7; border-color: #cbc3e4; }
+.sysb--DLV { color: #5a4a6e; background: #eeeaf3; }
 
 /* ---------- Data Studio · Live Feed: the five integrated sources -------- */
 .srcs { margin: 0 20px 18px; }
