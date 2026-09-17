@@ -62,7 +62,6 @@ window.ERPQA_DATA = (function () {
     if (kind === "email") { var p = String(v).split("@"); return p[0].charAt(0) + "••••@" + (p[1] || ""); }
     if (kind === "phone") return String(v).replace(/\d(?=[\s\S]*\d\d)/g, "•");
     if (kind === "amount") return "USD •••,•" + ("00" + Math.round(Number(v))).slice(-2);
-    if (kind === "terms") return "••••• hidden by policy";
     return "•••••";
   }
   /* one seeded generator for the whole file, so every run of the page and of
