@@ -1700,6 +1700,18 @@
     var an = analysis();
     el.className = "rw-state"; el.innerHTML = '<span class="dot"></span>' + an.headline.lines + " lines at risk &middot; " + usdShort(an.headline.revenueUsd);
   }
+  var RW_TITLES = {
+    recommendations: ["Recommendations", "What the AI proposes, and what you decide about each account."],
+    matches: ["Customer matches", "Pairs the AI could not settle on its own, waiting for the steward."],
+    xrefs: ["Item cross-references", "The same part under three different numbers, waiting for the steward."],
+    decisions: ["Decisions log", "Every decision with who made it, when, why, and the rule it left behind."]
+  };
+  function renderRwTitle() {
+    var t = RW_TITLES[S.rwTab] || RW_TITLES.recommendations;
+    $("#rw-crumb-leaf").textContent = t[0];
+    $("#rw-h2").textContent = t[0];
+    $("#rw-sub").textContent = t[1];
+  }
   function renderRwTabs() {
     var an = S.state.analysed ? analysis() : null;
     var tabs = [
@@ -1738,7 +1750,7 @@
       '<span class="reca-p">penalty ' + esc(usdShort(showPen)) + "</span></div>" +
       '<div class="reca-b"><span class="reca-why">' + esc(acc.causeLabel || "") +
       (acc.recommendation && acc.recommendation.text ? " &middot; " + esc(acc.recommendation.text) : "") + "</span></div>" +
-      '<div class="reca-ev"><b>What the AI has to go on:</b> ' +
+      '<div class="reca-ev">' + ICON.info + '<span><span class="ev-t">What the AI has to go on</span>' +
       esc(atRiskCount(e)) + " order line" + (atRiskCount(e) === 1 ? "" : "s") + " at risk in " +
       esc((((acc.riskSystems && acc.riskSystems.length ? acc.riskSystems : acc.systems) || []).map(function (x) { return D.sourceById[x] ? D.sourceById[x].short : x; }).join(" and ")) || "the order book") +
       ((e.stockElsewhere && e.stockElsewhere.length) ? "; the same part on hand in " + esc(e.stockElsewhere[0].plant) + " (" + esc(e.stockElsewhere[0].onHand) + " " + esc(e.stockElsewhere[0].uom || "") + ")" : "") +
@@ -1746,7 +1758,7 @@
       (e.creditHold ? "; held for credit since " + esc(e.creditHold.placedLabel || e.creditHold.placedOn) : "") +
       (e.transit ? "; carrier ETA " + esc(e.transit.etaLabel || e.transit.eta) + (e.transit.exception ? " with exception " + esc(e.transit.exception.code) : "") : "") +
       (e.contract && S.role !== "ANALYST_NA" ? "; the contract prices " + esc(usdShort(showPen)) + " of penalty on these lines" : "") +
-      '. <button class="lnk" type="button" data-evgo="' + esc(acc.id) + '">Open the full evidence</button></div>' +
+      '. <button class="lnk" type="button" data-evgo="' + esc(acc.id) + '">Open the full evidence</button></span></div>' +
       (done
         ? '<div class="rule-line">' + ICON.check + "<span>" + (pend
           ? "Declined by " + esc(pend.decision.by) + " — &ldquo;" + esc(pend.decision.reason) + "&rdquo;. Re-analyse to put it into the numbers."
@@ -1815,6 +1827,7 @@
           '<button class="btn" type="button" data-mdec="reject" data-mid="' + esc(x.id) + '">' + ICON.x + "Not the same</button></div>") +
       "</div></div>";
   }
+  var RW_FILTER = '<label class="rw-filter"><span class="wb-mag"></span><input type="text" placeholder="Filter" aria-label="Filter this list"></label>';
   function renderRwPanel() {
     var el = $("#rw-panel");
     if (S.rwTab === "recommendations") {
@@ -1822,36 +1835,36 @@
       var an = analysis();
       el.innerHTML = '<div class="rw-tools"><span>The AI proposes <b>' + an.actions.length + "</b> actions over " + an.headline.lines + " lines. Nothing is written to any order system — each one becomes a task for the person who owns it.</span>" +
         '<span class="grow"></span><span>' + (S.pending.length ? "Re-analyse to put " + S.pending.length + " decision" + (S.pending.length === 1 ? "" : "s") + " into the numbers" : "Nothing waiting") + "</span></div>" +
-        an.actions.map(function (a) { return recHtml(a, an); }).join("");
+        RW_FILTER + an.actions.map(function (a) { return recHtml(a, an); }).join("");
       return;
     }
     if (S.rwTab === "matches") {
       el.innerHTML = '<div class="rw-tools"><span>The AI matched customers across the CRM, Fusion, JD Edwards and NetSuite. These pairs scored too low to stand on their own, so <b>' + esc(personaByRole("STEWARD").name) + "</b> decides them.</span></div>" +
-        (D.matches || []).map(matchHtml).join("") +
+        RW_FILTER + (D.matches || []).map(matchHtml).join("") +
         '<p class="honest">A decision here changes who is one customer, so the next analysis counts their lines together — or keeps them apart.</p>';
       return;
     }
     if (S.rwTab === "xrefs") {
       el.innerHTML = '<div class="rw-tools"><span>The same part is numbered differently in each system. These cross-references are the ones the AI could not settle on its own.</span></div>' +
-        (D.itemXrefs || []).map(xrefHtml).join("") +
+        RW_FILTER + (D.itemXrefs || []).map(xrefHtml).join("") +
         '<p class="honest">Until a part is one part, stock sitting in another plant does not look like stock for this order.</p>';
       return;
     }
     var rows = S.pending.map(function (d) { return { row: d.row, pending: true }; })
       .concat(S.log.map(function (d) { return { row: d, pending: false }; }))
       .concat((D.decisions || []).slice().sort(function (a, b) { return a.at < b.at ? 1 : -1; }).map(function (d) { return { row: d, pending: false }; }));
-    el.innerHTML = '<div class="tw"><table class="rtbl"><thead><tr><th style="width:150px">When</th><th style="width:160px">Who</th><th>Decision</th><th style="width:100px">Action</th><th>Why</th><th>Rule left behind</th></tr></thead><tbody>' +
+    el.innerHTML = RW_FILTER + '<div class="tw"><table class="rtbl"><thead><tr><th style="width:150px">When</th><th style="width:160px">Who</th><th>Decision</th><th style="width:100px">Action</th><th>Why</th><th>Rule left behind</th></tr></thead><tbody>' +
       rows.map(function (x) {
         var d = x.row;
         return "<tr><td>" + esc(d.at) + (x.pending ? ' <span class="stat stat--review">not in the numbers yet</span>' : "") + "</td><td>" + esc(d.by) + "<br><span style=\"color:#837d75;font-size:11px\">" + esc(d.role) + "</span></td><td>" + esc(d.title) + '</td><td><span class="stat stat--' + (d.action === "decline" || d.action === "reject" ? "open" : "auto") + '">' + esc(d.action) + "</span></td><td>" + esc(d.reason) + "</td><td>" + (d.rule ? esc(d.rule) : "—") + "</td></tr>";
       }).join("") + "</tbody></table></div>" +
       '<p class="honest">Every decision is kept with who made it, when, and why — and any rule it leaves behind for the next run.</p>';
   }
-  function renderRw() { renderRwState(); renderBand(); renderRwTabs(); renderRwPanel(); }
+  function renderRw() { renderRwState(); renderRwTitle(); renderBand(); renderRwTabs(); renderRwPanel(); }
   $("#rw-tabs").addEventListener("click", function (e) {
     var b = e.target.closest("[data-tab]");
     if (!b) return;
-    S.rwTab = b.dataset.tab; renderRwTabs(); renderRwPanel(); $("#rw-panel").scrollTop = 0; tour.reposition();
+    S.rwTab = b.dataset.tab; renderRwTitle(); renderRwTabs(); renderRwPanel(); $("#rw-panel").scrollTop = 0; tour.reposition();
   });
   $("#rw-panel").addEventListener("click", function (e) {
     var t;
@@ -2273,7 +2286,7 @@
     setDsScreen: function (s) { S.dsScreen = s; renderDs(); },
     setApcView: function (v) { S.apcView = v; renderWb(); },
     setWbPanel: function (p) { S.wbPanel = p; S.panel = null; renderWb(); },
-    setRwTab: function (t) { S.rwTab = t; renderRwTabs(); renderRwPanel(); },
+    setRwTab: function (t) { S.rwTab = t; renderRwTitle(); renderRwTabs(); renderRwPanel(); },
     openRec: function (id) { S.openRec = id; renderRwPanel(); },
     decide: decideRec, reanalyse: reanalyse, decideMatch: decideMatchUi,
     openLineage: openLineage,
