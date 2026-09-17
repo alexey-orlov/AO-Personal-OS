@@ -1209,3 +1209,11 @@ body.tour-gutter .conv--an { padding-right: 324px; }
 .scan i { width: 6px; height: 6px; border-radius: 50%; background: var(--wb-trace); margin-left: -8px; }
 .scan .t { font-variant-numeric: tabular-nums; }
 .tile .asub { font-size: 11px; color: var(--rw-txt-2); width: 100%; }
+
+/* at the smallest size the five cards keep a fixed height so the step-1 hint
+   always has room underneath them */
+@media (max-width: 1120px) {
+  .src { height: 148px; overflow: hidden; }
+  .src-feed { padding-top: 2px; }
+  .src-objs { max-height: 15px; }
+}
