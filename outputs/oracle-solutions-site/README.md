@@ -73,7 +73,8 @@ Script order in `index.html` matters: `data/*` → `assets/forms.js` → `pages/
 | `#/` | Home — hero with the built-on stack, a three-figure proof strip, two ways in, the agents by what they do, how we deliver, case studies, about SoftServe, contact |
 | `#/products` | Product marketplace — facet rail (Oracle platform, what it does, availability), search, tiles. The rail lists **only options a click returns**: a platform with no products is not shown, the *All* options carry no count, and the results line reports what a filter returned with no denominator — nothing at all when nothing is filtered. `?tech=<id>` still resolves for every platform, rendering that facet's `emptyState` (`docs/PROVENANCE.md` §18.9) |
 | `#/products/<slug>` | One product — hero plus tabs |
-| `#/products/<slug>/<tab>` | `overview` · `technology` · `jumpstart` · `contacts` · `sellers`. The retired segments `pov` → `jumpstart` and `demo` → `contacts` redirect in place, so Back still returns to where the reader came from and an old link still lands on the right tab. |
+| `#/products/<slug>/<tab>` | `overview` · `technology` · `jumpstart` · `contacts` · `sellers`. The retired segments `pov` → `jumpstart` and `demo` → `contacts` redirect in place, so Back still returns to where the reader came from and an old link still lands on the right tab. Since round 8 `sellers` is that product's **sales-kit request** (work email → the kit), not a gated materials list. |
+| `#/sellers` | **For sellers** (round 8, `docs/PROVENANCE.md` §24): the sales-kit request for all offers or one product — a SoftServe or Oracle work email gets the kit; customers and partners are routed to the scoping call — plus *See the fit in an account?*, which opens the demo form. In the header nav and the footer's link row. |
 | `#/services` | Services, in three screens and the contact block, one message each (round 7, `docs/PROVENANCE.md` §23): AI depth with Oracle expertise — hero on the practice, stat band, platform chips · it's all about ROI (`#how-we-engage`: Discovery → Jumpstart proof of value → Integration → Scale, each ending in a measured result) · a fast proof of value, no hassle (`#proof-of-value`: the light band with **4–8 weeks**, then what you bring and what you leave with) · contact form (`#contact`) |
 | anything else | A designed not-found page |
 
@@ -108,9 +109,9 @@ Full field-by-field reference: `docs/CONFIG.md`. In short:
 |---|---|
 | `contactEmail` | Mailbox the forms fall back to when no endpoint is set. Never printed on a page. |
 | `formEndpoint` | Empty → forms compose a `mailto:`. A URL → forms `POST` JSON to it and show the confirmation only on a 2xx response. |
-| `sellerGate.allowedDomains` | Email domains that unlock the "For sellers" tab. Today: `softserveinc.com`, `oracle.com`. |
-| `sellerGate.storageKey` | `localStorage` key holding the unlock. Change it to invalidate every existing unlock. |
-| `sellerGate.notesUrl` | Where the seller-notes block fetches its text after the gate passes. Empty → no seller notes ship. Point it only at a path the deployment actually authenticates. |
+| `sellerGate.allowedDomains` | Email domains that may receive the sales kit (subdomains included). Today: `softserveinc.com`, `oracle.com`. Routing, not access control — the endpoint must check again. |
+| `sellerGate.kitAutoSend` | `false` until something behind `formEndpoint` emails the kit; only `true` lets the page say *"We've emailed the kit"*. With no endpoint the visitor's mail client carries the request. |
+| `sellerGate.kitEmailKey` / `legacyStorageKey` | `localStorage` keys: the last kit email (prefill), and the retired gate's unlock flag (removed on load). |
 | `products.<slug>.marketplaceUrl` | The single Marketplace switch. Non-empty → the "On Oracle Marketplace" badge, the "Available on Oracle Marketplace" facet and the "View on Oracle Marketplace" hero button all appear together. Empty → none of them exist. |
 | `products.<slug>.video` | `true` → the product hero carries the 16:9 demo frame. With no `videoUrl` yet, clicking it opens a short panel saying the recording is being prepared, with a button to that product's Contacts tab. `true` today on `workforce-optimization`, `large-document-extraction` and `account-insights`. |
 | `products.<slug>.videoUrl` | Non-empty → the same frame plays the video in a modal instead (YouTube, Vimeo, SharePoint and Stream URLs embed as an iframe; anything else plays natively), and turns the frame on by itself even where `video` is `false`. |

@@ -549,3 +549,16 @@ Services is built from the home page's components rather than its own; the reaso
 **Heading budgets** (measured, uppercase display type): H1 ≤ ~24 characters a line, two lines; H2 ≤ ~30 characters and five words, one line at 1440 and two at most on a phone; the light-band title ≤ ~28 characters. The sentence goes in the lead. Running text on the page takes `text-wrap: pretty`, so no paragraph ends on one word.
 
 Anchors other pages land on — `#how-we-engage` (every product's Jumpstart tab, and the home case-studies rail's *How we measure it*) and `#contact` (header button, footer, Products page) — plus the page's own `#proof-of-value` are asserted by `tools/check-grammar.js`.
+
+## 11. For sellers — the sales-kit request (round 8)
+
+One request, two placements, one component (`FORMS.renderKit` / `mountKit`); the reasoning is in `PROVENANCE.md` §24.
+
+| Placement | Component | Rule |
+|---|---|---|
+| Product page, *For sellers* tab | `panel--gate panel--kit`: block title · body naming the product · the kit form | The product is fixed, so there is no select. No lock icon on the tab: nothing is locked, the kit is requested. The panel is the tab's only content. |
+| `#/sellers` (header nav + footer link row) | the same panel with an eyebrow, the title as the page's H1, and the *Kit for* select (*All offers* first) · then a `panel--cta` — *See the fit in an account?* with a text link that opens the demo modal, nothing preselected | One screen. The URL is the thing a seller pastes into a thread, which is why the all-offers kit is a page and not a modal. |
+
+**The form, in order:** *Kit for* (page only) · *Work email* · consent · **Send me the kit** — the one filled button, after consent as on every other form here — then the eligibility line (small print) and the customer/partner route (*Request a demo* on a product page, *Request a scoping call* on `#/sellers`).
+
+**States.** A wrong domain keeps the form and puts the route link inside the error. A confirmation replaces the form inside the same panel — `form-confirm` with its check mark, a title, a body in which the practice address is a link — and closes on the next step: on a product page *Request a demo* and *Get the full kit*; on `#/sellers` a quiet *Request another kit* that brings the form back with the email kept. Which confirmation shows depends on what actually happened (`SCHEMA.md` §`salesKit`): the page only says the kit was emailed when an auto-sender is configured.
