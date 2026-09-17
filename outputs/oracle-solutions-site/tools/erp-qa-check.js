@@ -1,19 +1,23 @@
 #!/usr/bin/env node
 /**
- * erp-qa-check.js — reconciliation test for the Cross-system ERP Q&A demo.
+ * erp-qa-check.js — reconciliation test for the Cross-system ERP Q&A demo,
+ * round 2 ("revenue at risk across systems").
  *
  * Loads site/demo/cross-system-erp-qa/data.js into a bare `window` and asserts
- * every figure in HANDOFF-erp-qa-demo.md §2 and §9: the record and proposal
- * counts, the resolved percentages before / after the refresh / after the
- * steward's rejection, the account mapping, the ledger residuals, the
- * duplicate pairs, the consolidated P&L and its per-source columns, the answer
- * row counts per role, the firewall block, the freshness stamps and the
- * realism rules (SQL length and period filter, trace shape and duration).
- * It also greps the file for names and symbols that must never appear.
+ * every figure in HANDOFF-erp-qa-demo.md §R3, before and after Dana's override:
+ * the 138 at-risk lines and their split across the three order books, the
+ * USD 4.18 M at risk and the USD 3.77 M that is left, the nine tier-A accounts
+ * and the eight that remain, the USD 186 k / 155 k of contract penalty, the
+ * four causes and their money, the four actions and their tasks, the six band
+ * tiles, the twelve internal transfers that become eleven, the steward queues,
+ * the fourteen certified views, the ten saved questions, the block on question
+ * ten for the analyst, the dashboard row-limited and masked for the analyst,
+ * and the evidence behind Halden Tooling Group. It also greps the file for
+ * names and symbols that must never appear.
  *
  *   /Applications/Codex.app/Contents/Resources/cua_node/bin/node tools/erp-qa-check.js
  *
- * One line per assertion; exit 1 on the first failure count above zero.
+ * One line per assertion; exit 1 if anything failed.
  */
 
 "use strict";
@@ -36,251 +40,357 @@ function ok(label, cond, got) {
   else { fail++; console.log("FAIL  " + label + (got === undefined ? "" : "   got: " + got)); }
 }
 function eq(label, actual, expected) { ok(label + " = " + expected, actual === expected, JSON.stringify(actual)); }
-function near(label, actual, expected, tol) { ok(label + " = " + expected, Math.abs(actual - expected) <= tol, actual); }
-function m1(n) { return Math.round(n / 1e5) / 10; }   /* USD -> millions, 1 dp */
+function m2(n) { return Math.round(n / 1e4) / 100; }      /* USD -> millions, 2 dp */
+function k0(n) { return Math.round(n / 1000); }           /* USD -> thousands      */
+function find(a, f) { return a.filter(f)[0]; }
 
 if (!D) { console.log("FAIL  window.ERPQA_DATA is not defined"); process.exit(1); }
 
-/* ------------------------------------------------------------ 0. states */
-var S0 = D.stateFor("start");
-var S1 = D.stateFor("refreshed");
-var S2 = D.stateFor("fixed");
-var K0 = D.computeKpis(S0), K1 = D.computeKpis(S1), K2 = D.computeKpis(S2);
+/* ------------------------------------------------------------- 0. states */
+var S0 = D.stateFor("start"), S1 = D.stateFor("analysed"), S2 = D.stateFor("decided"), S3 = D.stateFor("final");
+var A = D.analyse(S1.decisions);          /* before the override */
+var B = D.analyse(S2.decisions);          /* after  the override */
 
-console.log("\n-- supplier master -------------------------------------------");
-eq("records total", D.records.length, 412);
-eq("records Fusion", K1.records.bySystem.FUSION, 188);
-eq("records JDE", K1.records.bySystem.JDE, 131);
-eq("records NetSuite", K1.records.bySystem.NETSUITE, 93);
-var _ids = {}; D.records.forEach(function (r) { _ids[r.id] = (_ids[r.id] || 0) + 1; });
-ok("every record id is unique", Object.keys(_ids).length === D.records.length,
-  Object.keys(_ids).filter(function (k) { return _ids[k] > 1; }).join(","));
-eq("records sum of the three systems", K1.records.bySystem.FUSION + K1.records.bySystem.JDE + K1.records.bySystem.NETSUITE, 412);
+console.log("\n-- state shape -----------------------------------------------");
+eq("initialState().analysed", D.initialState().analysed, false);
+eq("initialState().dashboard", D.initialState().dashboard, false);
+eq("initialState().decisions", D.initialState().decisions.length, 0);
+eq("stateFor('analysed') has no decision", S1.decisions.length, 0);
+eq("stateFor('decided') carries one decision", S2.decisions.length, 1);
+ok("stateFor('final') has the dashboard built", S3.dashboard === true && S3.decisions.length === 1);
+eq("the ready-made decision is Halden's", S2.decisions[0].account, "Halden Tooling Group");
+eq("its reason is the drafted one", S2.decisions[0].reason, "Customer accepted delivery on 20 Oct — no expedite");
+eq("its action is a decline", S2.decisions[0].action, "decline");
 
-console.log("\n-- resolution (61.2 / 93.2 / 93.7) ---------------------------");
-eq("resolved before the model, count", K1.resolvedBefore.count, 252);
-eq("resolved before the model, pct", K1.resolvedBefore.pct, 61.2);
-eq("resolved after the refresh, count", K1.resolved.count, 384);
-eq("resolved after the refresh, pct", K1.resolved.pct, 93.2);
-eq("resolved after the Orion rejection, count", K2.resolved.count, 386);
-eq("resolved after the Orion rejection, pct", K2.resolved.pct, 93.7);
-ok("percentages come from raw counts, not rounded means",
-  K1.resolved.pct === Math.round(K1.resolved.count / D.records.length * 1000) / 10);
+console.log("\n-- 138 open lines = 61 + 49 + 28 -----------------------------");
+eq("lines at risk", A.headline.lines, 138);
+eq("at-risk lines in the array", D.atRiskLines.length, 138);
+var sysA = {}; A.headline.systems.forEach(function (s) { sysA[s.id] = s; });
+eq("JD Edwards lines", sysA.JDE.lines, 61);
+eq("Fusion lines", sysA.FUSION.lines, 49);
+eq("NetSuite lines", sysA.NETSUITE.lines, 28);
+eq("61 + 49 + 28", sysA.JDE.lines + sysA.FUSION.lines + sysA.NETSUITE.lines, 138);
+ok("every at-risk line carries a cause", D.atRiskLines.every(function (l) { return !!l.causeId; }));
+ok("every at-risk line carries a golden customer", D.atRiskLines.every(function (l) { return !!D.customerById[l.customerId]; }));
+ok("every at-risk line carries a real source key", D.atRiskLines.every(function (l) { return !!l.key && !!l.object; }));
+ok("every line id is unique", (function () {
+  var s = {}; D.orderLines.forEach(function (l) { s[l.id] = 1; }); return Object.keys(s).length === D.orderLines.length;
+})());
+eq("lines after the override", B.headline.lines, 134);
+eq("JD Edwards lines after the override", find(B.headline.systems, function (s) { return s.id === "JDE"; }).lines, 57);
 
-console.log("\n-- match proposals (212 = 187 + 25) --------------------------");
-eq("proposals total", D.matches.length, 212);
-eq("auto-confirmed proposals", K1.proposals.auto, 187);
-eq("pending proposals after the refresh", K1.proposals.pending, 25);
-eq("pending proposals after the rejection", K2.proposals.pending, 24);
-eq("187 + 25 = 212", K1.proposals.auto + K1.proposals.pending, D.matches.length);
-ok("every auto-confirmed proposal scores 0.90 or better",
-  D.matches.filter(function (m) { return m.status === "confirmed"; }).every(function (m) { return m.score >= 0.90; }));
-ok("every pending proposal scores 0.75 to 0.89",
-  D.pendingMatches.every(function (m) { return m.score >= 0.75 && m.score <= 0.89; }));
-eq("records still unresolved after the refresh", K1.resolved.count + 28, 412);
+console.log("\n-- USD 4.18 M -> 3.77 M --------------------------------------");
+eq("revenue at risk, USD", A.headline.revenueUsd, 4180000);
+eq("revenue at risk in millions", m2(A.headline.revenueUsd), 4.18);
+eq("revenue at risk after the override", m2(B.headline.revenueUsd), 3.77);
+eq("the override removes exactly Halden's value", A.headline.revenueUsd - B.headline.revenueUsd, 412000);
+ok("revenue at risk is the sum of the lines",
+  A.headline.revenueUsd === D.atRiskLines.reduce(function (t, l) { return t + l.usd; }, 0));
+ok("the three systems reconcile to the total",
+  A.headline.systems.reduce(function (t, s) { return t + s.usd; }, 0) === A.headline.revenueUsd);
 
-console.log("\n-- the Orion pair --------------------------------------------");
-var orion = D.orionMatch, oRecs = orion.records.map(function (id) { return D.recordById[id]; });
-var oF = oRecs.filter(function (r) { return r.sys === "FUSION"; })[0];
-var oJ = oRecs.filter(function (r) { return r.sys === "JDE"; })[0];
-eq("Orion score", orion.score, 0.86);
-eq("Orion status", orion.status, "review");
-eq("Orion Fusion supplier number", oF.sysId, "S-10422");
-eq("Orion Fusion city", oF.city, "Manchester");
-ok("Orion Fusion tax id ends 7741", /7741$/.test(oF.taxId), oF.taxId);
-eq("Orion JDE address book number", oJ.sysId, "118207");
-eq("Orion JDE city", oJ.city, "Mississauga");
-ok("Orion JDE tax id ends 2210", /2210$/.test(oJ.taxId), oJ.taxId);
-ok("Orion evidence names the tax-id and city mismatches",
-  orion.evidence.some(function (c) { return c.kind === "tax" && c.hit === false; })
-  && orion.evidence.some(function (c) { return c.kind === "city" && c.hit === false; })
-  && orion.evidence.some(function (c) { return /name 0\.91/.test(c.t); }),
-  orion.evidence.map(function (c) { return c.t; }).join(" · "));
-eq("golden party name", D.orionGolden.name, "Orion Fasteners Ltd");
+console.log("\n-- tier A: 9 accounts / USD 2.36 M -> 8 ----------------------");
+eq("tier-A accounts exposed", A.headline.tierA.accounts, 9);
+eq("tier-A exposure in millions", m2(A.headline.tierA.usd), 2.36);
+eq("tier-A exposure, USD", A.headline.tierA.usd, 2360000);
+eq("tier-A accounts after the override", B.headline.tierA.accounts, 8);
+eq("tier-A exposure after the override, USD", B.headline.tierA.usd, 1948000);
+ok("tier comes from the CRM account, not from an order book",
+  D.crmAccounts.filter(function (a) { return a.tier === "A"; }).length >= 9);
 
-console.log("\n-- chart of accounts (497 -> 120, 37 -> 0) -------------------");
-eq("local accounts Fusion", D.localAccountCount.FUSION, 214);
-eq("local accounts JDE", D.localAccountCount.JDE, 186);
-eq("local accounts NetSuite", D.localAccountCount.NETSUITE, 97);
-eq("local accounts total", K1.accounts.local, 497);
-eq("group accounts", K1.accounts.group, 120);
-eq("unmapped before", K1.accounts.unmappedBefore, 37);
-eq("unmapped after", K1.accounts.unmapped, 0);
-eq("mapped by rule", K1.accounts.byRule, 35);
-eq("provisional and queued for review", K1.accounts.review, 2);
-eq("35 + 2 = 37", K1.accounts.byRule + K1.accounts.review, 37);
-var rev = D.accounts.filter(function (a) { return a.status === "review"; });
-var jdeRev = rev.filter(function (a) { return a.sys === "JDE"; })[0];
-var nsRev = rev.filter(function (a) { return a.sys === "NETSUITE"; })[0];
-eq("review case 1 · JDE local account", jdeRev.local, "8210");
-eq("review case 1 · description", jdeRev.description, "Freight recoveries");
-eq("review case 1 · proposed group account", jdeRev.proposed, "4190");
-eq("review case 1 · alternative", jdeRev.alt, "5120");
-eq("review case 1 · score", jdeRev.score, 0.71);
-eq("review case 2 · NetSuite local account", nsRev.local, "6155");
-eq("review case 2 · description", nsRev.description, "Software subscriptions");
-eq("review case 2 · proposed group account", nsRev.proposed, "6310");
-eq("review case 2 · alternative", nsRev.alt, "6320");
-eq("review case 2 · score", nsRev.score, 0.78);
+console.log("\n-- SLA penalties USD 186 k -> 155 k --------------------------");
+eq("penalties exposed, k", k0(A.headline.penaltiesUsd), 186);
+eq("penalties after the override, k", k0(B.headline.penaltiesUsd), 155);
+eq("the override removes exactly Halden's penalty", A.headline.penaltiesUsd - B.headline.penaltiesUsd, 31000);
+ok("every penalty is the clause rate applied to the line value, capped",
+  D.atRiskLines.filter(function (l) { return l.contractId; }).every(function (l) {
+    var k = find(D.contracts, function (c) { return c.id === l.contractId; });
+    return l.penaltyUsd === Math.round(Math.min(k.penaltyPerDay * l.daysLate, k.cap) * l.usd);
+  }));
+ok("lines with no contract carry no penalty",
+  D.atRiskLines.filter(function (l) { return !l.contractId; }).every(function (l) { return l.penaltyUsd === 0; }));
 
-console.log("\n-- ledgers (1/3 -> 3/3, residual 0.00) -----------------------");
-eq("ledgers", D.ledgers.length, 3);
-eq("ledgers that tie before", K1.ledgers.tieBefore, 1);
-eq("ledgers that tie after", K1.ledgers.tie, 3);
-eq("residual after", K1.ledgers.residualUsd, 0);
-ok("Fusion ledger tied before", D.ledgers.filter(function (l) { return l.id === "FUSION"; })[0].tiesBefore === true);
-ok("JDE ledger did not tie before", D.ledgers.filter(function (l) { return l.id === "JDE"; })[0].tiesBefore === false);
-ok("NetSuite ledger did not tie before", D.ledgers.filter(function (l) { return l.id === "NETSUITE"; })[0].tiesBefore === false);
-ok("residual before is above zero and derived from the unmapped rows",
-  K1.ledgers.residualBeforeUsd > 0
-  && Math.abs(K1.ledgers.residualBeforeUsd - D.glRows.filter(function (r) { return r.wasUnmapped; }).reduce(function (a, r) { return a + r.amountUsd; }, 0)) < 0.05,
-  K1.ledgers.residualBeforeUsd);
-D.ledgers.forEach(function (l) {
-  var rows = D.glRows.filter(function (r) { return r.sys === l.id; });
-  near("ledger " + l.id + " translated = sum(rows x rate)", l.translatedUsd,
-    rows.reduce(function (a, r) { return a + r.amountUsd; }, 0), 0.05);
-  near("ledger " + l.id + " mapped after + residual after = translated",
-    l.mappedAfterUsd + l.residualAfterUsd, l.translatedUsd, 0.05);
-  near("ledger " + l.id + " mapped before + residual before = translated",
-    l.mappedBeforeUsd + l.residualBeforeUsd, l.translatedUsd, 0.05);
-});
-eq("unmapped accounts across the ledgers", D.ledgers.reduce(function (a, l) { return a + l.unmappedAccounts; }, 0), 37);
+console.log("\n-- causes 44 / 31 / 18 / 45 ----------------------------------");
+var cA = {}; A.causes.forEach(function (c) { cA[c.id] = c; });
+eq("stock elsewhere, lines", cA.stock.lines, 44);
+eq("supplier late, lines", cA.supplier.lines, 31);
+eq("credit hold, lines", cA.credit.lines, 18);
+eq("late in transit, lines", cA.transit.lines, 45);
+eq("44 + 31 + 18 + 45", cA.stock.lines + cA.supplier.lines + cA.credit.lines + cA.transit.lines, 138);
+eq("stock elsewhere, USD M", m2(cA.stock.usd), 1.52);
+eq("supplier late, USD M", m2(cA.supplier.usd), 0.94);
+eq("credit hold, USD M", m2(cA.credit.usd), 0.61);
+eq("late in transit, USD M", m2(cA.transit.usd), 1.11);
+eq("the four causes reconcile to the total",
+  cA.stock.usd + cA.supplier.usd + cA.credit.usd + cA.transit.usd, A.headline.revenueUsd);
+ok("cause shares are computed from raw money, not rounded means",
+  A.causes.every(function (c) { return c.share === Math.round(c.usd / A.headline.revenueUsd * 1000) / 10; }));
+eq("lines fixable from stock elsewhere after the override",
+  find(B.causes, function (c) { return c.id === "stock"; }).lines, 40);
 
-console.log("\n-- consolidated P&L ------------------------------------------");
-var L = {}; D.pl.forEach(function (l) { L[l.id] = l; });
-eq("P&L revenue (USD m)", m1(L.rev.totalUsd), 48.6);
-eq("P&L revenue · Fusion (USD m)", m1(L.rev.bySource.FUSION), 27.9);
-eq("P&L revenue · JDE (USD m)", m1(L.rev.bySource.JDE), 13.2);
-eq("P&L revenue · NetSuite (USD m)", m1(L.rev.bySource.NETSUITE), 7.5);
-eq("P&L revenue · the three sources sum to the line",
-  Math.round((m1(L.rev.bySource.FUSION) + m1(L.rev.bySource.JDE) + m1(L.rev.bySource.NETSUITE)) * 10) / 10, 48.6);
-eq("P&L COGS (USD m)", m1(L.cogs.totalUsd), 31.1);
-eq("P&L gross margin (USD m)", m1(L.gm.totalUsd), 17.5);
-eq("P&L sales and distribution (USD m)", m1(L.sd.totalUsd), 5.2);
-eq("P&L general and administrative (USD m)", m1(L.ga.totalUsd), 3.9);
-eq("P&L research and development (USD m)", m1(L.rd.totalUsd), 1.8);
-eq("P&L other operating expenses (USD m)", m1(L.oth.totalUsd), 0.6);
-eq("P&L operating expenses (USD m)", m1(L.opex.totalUsd), 11.5);
-eq("P&L EBITDA (USD m)", m1(L.ebitda.totalUsd), 6.0);
-near("gross margin = revenue - COGS", L.gm.totalUsd, L.rev.totalUsd - L.cogs.totalUsd, 0.05);
-near("opex = S&D + G&A + R&D + other", L.opex.totalUsd,
-  L.sd.totalUsd + L.ga.totalUsd + L.rd.totalUsd + L.oth.totalUsd, 0.05);
-near("EBITDA = gross margin - opex", L.ebitda.totalUsd, L.gm.totalUsd - L.opex.totalUsd, 0.05);
-D.pl.filter(function (l) { return l.kind !== "subtotal"; }).forEach(function (l) {
-  var fromRows = D.glRows.filter(function (r) { return r.line === l.id; }).reduce(function (a, r) { return a + r.amountUsd; }, 0);
-  near("P&L line '" + l.name + "' is the sum of its source rows", l.totalUsd, fromRows, 0.05);
-});
-ok("every P&L drill row names its system, local account, group account and rate",
-  D.glRows.every(function (r) { return r.sys && r.local && r.group && r.rate > 0 && r.srcRef; }));
+console.log("\n-- the four actions ------------------------------------------");
+var aA = {}; A.actions.forEach(function (a) { aA[a.id] = a; });
+eq("four actions proposed", A.actions.length, 4);
+eq("A1 lines", aA.A1.lines, 44);
+eq("A1 value, USD M", m2(aA.A1.usd), 1.52);
+eq("A1 transfers", aA.A1.transfers, 12);
+eq("A1 owner", aA.A1.owner, "Supply planning");
+eq("A2 lines", aA.A2.lines, 45);
+eq("A2 value, USD M", m2(aA.A2.usd), 1.11);
+ok("A2 attaches the carrier exceptions", aA.A2.exceptions > 0, aA.A2.exceptions);
+eq("A3 lines", aA.A3.lines, 18);
+eq("A3 value, USD M", m2(aA.A3.usd), 0.61);
+eq("A3 owner", aA.A3.owner, "Credit control");
+eq("A4 lines", aA.A4.lines, 31);
+eq("A4 value, USD M", m2(aA.A4.usd), 0.94);
+eq("A4 escalates six suppliers", aA.A4.tasks, 6);
+eq("A4 title names the count", aA.A4.title, "Escalate six late suppliers");
+ok("every action is a proposal, never a write-back",
+  A.actions.every(function (a) { return a.status === "proposed" && /task/i.test(a.assigned) && !/write|post|update/i.test(a.title); }));
+eq("A1 transfers after the override", find(B.actions, function (a) { return a.id === "A1"; }).transfers, 11);
+eq("A1 lines after the override", find(B.actions, function (a) { return a.id === "A1"; }).lines, 40);
+ok("the twelve transfers cover the 44 stock lines",
+  D.transfers.reduce(function (t, x) { return t + x.lines.length; }, 0) === 44 && D.transfers.length === 12);
+ok("Halden's four lines are one transfer of their own",
+  (function () { var t = find(D.transfers, function (x) { return x.id === "T-4801"; });
+    return t.lines.length === 4 && t.from === "EU-2" &&
+      t.lines.every(function (id) { return D.lineById[id].customer === "Halden Tooling Group"; }); })());
 
-console.log("\n-- duplicate pairs (14 -> 13) --------------------------------");
-eq("duplicate pairs after the refresh", K1.dupPairs.count, 14);
-eq("duplicate pairs after the rejection", K2.dupPairs.count, 13);
-ok("one pair depends on the Orion match", D.dupPairs.filter(function (p) { return p.dependsOn === "M-ORION"; }).length === 1);
-ok("exposure is the sum of the surviving pairs",
-  Math.abs(K2.dupPairs.exposureUsd - D.dupPairsFor(S2.decisions).reduce(function (a, p) { return a + p.amountUsd; }, 0)) < 0.01);
-ok("every pair crosses two systems", D.dupPairs.every(function (p) { return p.a.sys !== p.b.sys; }));
+console.log("\n-- the band: per system -> across systems ---------------------");
+eq("six tiles", A.band.length, 6);
+var bA = {}; A.band.forEach(function (t) { bA[t.id] = t; });
+eq("late lines known, per system", bA.lines.perSystem, "61 + 49 + 28");
+eq("late lines known, across", bA.lines.across, "138");
+eq("lines with an account tier, per system", bA.tier.perSystem, "0");
+eq("lines with an account tier, across", bA.tier.across, "138");
+eq("lines with a cause attributed, per system", bA.cause.perSystem, "0");
+eq("lines with a cause attributed, across", bA.cause.across, "138");
+eq("lines fixable from stock elsewhere, per system", bA.stock.perSystem, "0");
+eq("lines fixable from stock elsewhere, across", bA.stock.across, "44");
+eq("revenue at risk, per system", bA.revenue.perSystem, "—");
+eq("revenue at risk, across", bA.revenue.across, "USD 4.18 M");
+eq("tier-A exposure, per system", bA.tierA.perSystem, "—");
+eq("tier-A exposure, across", bA.tierA.across, "9 accounts · USD 2.36 M");
+ok("every tile carries a note and a short note",
+  A.band.every(function (t) { return t.note && t.noteShort && t.dir; }));
+var bB = {}; B.band.forEach(function (t) { bB[t.id] = t; });
+eq("after the override, late lines known", bB.lines.across, "134");
+eq("after the override, per system", bB.lines.perSystem, "57 + 49 + 28");
+eq("after the override, stock elsewhere", bB.stock.across, "40");
+eq("after the override, revenue at risk", bB.revenue.across, "USD 3.77 M");
+eq("after the override, tier-A exposure", bB.tierA.across, "8 accounts · USD 1.95 M");
 
-console.log("\n-- saved question 1 (12 / 11 / 4) ----------------------------");
-var a1c1 = D.answer("q1", "CONTROLLER", S1.decisions);
-var a1c2 = D.answer("q1", "CONTROLLER", S2.decisions);
-var a1a1 = D.answer("q1", "ANALYST_NA", S1.decisions);
-var a1a2 = D.answer("q1", "ANALYST_NA", S2.decisions);
-eq("q1 rows · controller, before the fix", a1c1.rowCount, 12);
-eq("q1 rows · controller, after the fix", a1c2.rowCount, 11);
-eq("q1 rows · analyst, after the fix", a1a2.rowCount, 4);
-eq("q1 rows · analyst, before the fix", a1a1.rowCount, 5);
-ok("q1 · the Orion row is flagged for review before the fix",
-  a1c1.rows.filter(function (r) { return /Orion/.test(r.supplier) && r.status === "review"; }).length === 1);
-ok("q1 · the Orion row is gone after the fix",
-  a1c2.rows.filter(function (r) { return /Orion/.test(r.supplier); }).length === 0);
-ok("q1 · every remaining row is confirmed after the fix",
-  a1c2.rows.every(function (r) { return r.status === "confirmed"; }));
-ok("q1 · the caveat names the pending proposal before the fix", /pending steward review/.test(a1c1.caveat), a1c1.caveat);
-ok("q1 · every row spans two systems or more", a1c1.rows.every(function (r) { return r.systems.length >= 2; }));
-ok("q1 · rows are ordered by Q3 spend", a1c1.rows.every(function (r, i, arr) { return i === 0 || arr[i - 1].spendUsd >= r.spendUsd; }));
-ok("q1 · analyst amounts are the NG-NA leg only",
-  a1a2.rows.every(function (r) { return r.systems.join() === "JDE"; }));
-ok("q1 · the analyst's SQL is identical to the controller's", a1a2.sql === a1c2.sql);
+console.log("\n-- the ranked accounts ---------------------------------------");
+var TOP12 = ["Halden Tooling Group", "Kestrel Components", "Bramley Logistics", "Tamsin Packaging",
+  "Ravenscourt Electrical", "Wexford Industrial Supplies", "Aldwych Chemicals", "Marlowe Freight Services",
+  "Pentland Bearings", "Calderwood Castings", "Stanhope Instrumentation", "Fenwick Industries"];
+eq("the top twelve are the twelve named accounts, in order",
+  A.accounts.slice(0, 12).map(function (a) { return a.name; }).join(" | "), TOP12.join(" | "));
+var H = A.accounts[0];
+eq("Halden is first", H.name, "Halden Tooling Group");
+eq("Halden tier", H.tier, "A");
+eq("Halden lines", H.lines, 4);
+eq("Halden value, USD", H.usd, 412000);
+eq("Halden penalty, USD", H.penaltyUsd, 31000);
+eq("Halden cause", H.causeId, "stock");
+eq("Halden trades in JD Edwards and Fusion", H.systems.join("+"), "JDE+FUSION");
+eq("Halden's recommendation is A1", H.recommendation.actionId, "A1");
+ok("Halden's recommendation names the plant that has the stock", /EU-2/.test(H.recommendation.text), H.recommendation.text);
+ok("every ranked account carries tier, owner, region and a cause",
+  A.accounts.every(function (a) { return a.tier && a.owner && a.region && (a.causeId || a.status !== "at-risk"); }));
+var HB = find(B.accounts, function (a) { return a.name === "Halden Tooling Group"; });
+eq("after the override Halden is re-promised and accepted", HB.statusLabel, "Re-promised, accepted");
+eq("after the override Halden carries no value", HB.usd, 0);
+eq("accounts still at risk after the override",
+  B.accounts.filter(function (a) { return a.status === "at-risk"; }).length, A.accounts.length - 1);
 
-console.log("\n-- governance ------------------------------------------------");
-var a10a = D.answer("q10", "ANALYST_NA", S2.decisions);
-var a10c = D.answer("q10", "CONTROLLER", S2.decisions);
-ok("q10 is blocked for the regional analyst", a10a.blocked === true);
-eq("q10 returns no rows for the analyst", a10a.rowCount, 0);
-eq("q10 firewall status for the analyst", a10a.firewall.status, "blocked");
-eq("q10 allow-list", a10a.firewall.allowList, "FIN_QA_V3");
-ok("q10 is answered for the controller", a10c.blocked === false && a10c.rowCount > 0, a10c.rowCount);
-ok("q10 shows the controller the last four digits only",
-  a10c.rows.every(function (r) { return /^•+ •+ \d{4}$/.test(r.bank); }), a10c.rows[0] && a10c.rows[0].bank);
-ok("the audit log holds the blocked attempt",
-  D.audit.filter(function (a) { return a.status === "blocked" && a.role === "ANALYST_NA"; }).length >= 1);
-ok("the analyst's row policy is the entity filter", D.roles.ANALYST_NA.rowPolicy === "ENTITY IN ('NG-NA')");
-ok("the analyst's masked columns are BANK_ACCOUNT and TAX_ID",
-  D.roles.ANALYST_NA.masked.join() === "BANK_ACCOUNT,TAX_ID");
-var a1aRec = D.answer("q1", "ANALYST_NA", S2.decisions).rows[0]._records[0];
-ok("the analyst's drill-down records are masked too",
-  /^\*\*-\*\*\*\d{4}$/.test(a1aRec.taxId) && a1aRec.bankLast4 === "\u2022\u2022\u2022\u2022",
-  a1aRec.taxId + " / " + a1aRec.bankLast4);
-ok("the controller's drill-down records are not masked",
-  /^CA/.test(D.answer("q1", "CONTROLLER", S2.decisions).rows[0]._records.filter(function (r) { return r.sys === "JDE"; })[0].taxId));
-ok("the analyst's trace shows the row policy and the masking",
-  a1a2.trace.some(function (s) { return /Row policy/.test(s.n); }) && a1a2.trace.some(function (s) { return /masking/i.test(s.n); }));
+console.log("\n-- the recompute (decide is pure) ----------------------------");
+var before = JSON.stringify(S1);
+var d = D.decide(S1, D.haldenDecision);
+ok("decide does not mutate the state it is given", JSON.stringify(S1) === before);
+eq("decide returns a state with one decision", d.state.decisions.length, 1);
+eq("decide logs who decided", d.decision.by, "Dana Whitfield");
+ok("decide logs when and why", !!d.decision.at && /accepted delivery on 20 Oct/.test(d.decision.reason));
+eq("all six tiles move", d.changed.band.length, 6);
+eq("only A1 changes", d.changed.actions.map(function (x) { return x.id; }).join(","), "A1");
+eq("A1 loses one transfer", d.changed.actions[0].tasks.from - d.changed.actions[0].tasks.to, 1);
+eq("one account changes", d.changed.accounts.length, 1);
+eq("it is Halden", d.changed.accounts[0].name, "Halden Tooling Group");
+eq("the headline revenue moves 4.18 -> 3.77", m2(d.changed.headline.revenueUsd.to), 3.77);
+eq("a rule is learned", d.learned.rule, "Accepted re-promise dates are not at risk");
+ok("running decide twice gives the same answer",
+  JSON.stringify(D.decide(S1, D.haldenDecision).changed) === JSON.stringify(d.changed));
 
-console.log("\n-- freshness (12 / 4 / 38 / 2 / 65 min) ----------------------");
-eq("sources", D.sources.length, 5);
-[["FUSION", 12], ["JDE", 4], ["NETSUITE", 38], ["CRB", 2], ["CRM", 65]].forEach(function (f) {
-  eq("freshness " + f[0] + " (min)", D.sourceById[f[0]].freshnessMin, f[1]);
-});
-eq("stalest source", K1.freshness.source, "CRM");
-eq("stalest source label", K1.freshness.stalestLabel, "1 h 05 min");
-eq("stalest is the same before and after the refresh", K0.tiles[5].before, K1.tiles[5].after);
-eq("q1 as-of is its own stalest feed (NetSuite, 38 min)", a1c1.freshness.asOf, "09:02");
-eq("q6 as-of is the CRM feed", D.answer("q6", "CONTROLLER", S2.decisions).freshness.asOf, "08:35");
+console.log("\n-- the steward queues: 25 and 7 ------------------------------");
+eq("customer matches waiting", D.matches.length, 25);
+eq("item cross-references waiting", D.itemXrefs.length, 7);
+eq("pending customers reported", D.pendingCounts([]).customers, 25);
+eq("pending items reported", D.pendingCounts([]).items, 7);
+ok("every proposal scores between 0.75 and 0.89",
+  D.matches.every(function (m) { return m.score >= 0.75 && m.score <= 0.89; }));
+ok("every proposal carries evidence and a note",
+  D.matches.every(function (m) { return m.evidence.length >= 3 && m.note; }));
+eq("one proposal is the one to reject", D.matches.filter(function (m) { return m.wrong; }).length, 1);
+ok("the wrong one has no shared registration number and two countries",
+  (function () { var m = find(D.matches, function (x) { return x.wrong; });
+    return m.records[0].taxId !== m.records[1].taxId && m.records[0].country !== m.records[1].country; })());
+var dm = D.decideMatch(D.stateFor("start"), { kind: "customer", id: find(D.matches, function (m) { return m.wrong; }).id, action: "reject", reason: "Two companies, two countries." });
+eq("rejecting one leaves 24", dm.changed.pending.customers.to, 24);
+eq("confirming an item leaves 6",
+  D.decideMatch(D.stateFor("start"), { kind: "item", id: D.itemXrefs[0].id, action: "confirm" }).changed.pending.items.to, 6);
+eq("the caveat says what is still provisional", A.caveat,
+  "25 customer matches and 7 item cross-references are still waiting for a person; lines behind them are included provisionally.");
 
-console.log("\n-- model surface ---------------------------------------------");
-eq("certified views", D.views.length, 13);
-eq("saved questions", D.questions.length, 10);
-eq("refresh stages", D.refreshStages.length, 5);
-eq("dashboards", D.dashboards.length, 3);
-ok("every certified view has an owner, a definition and a changed date",
-  D.views.every(function (v) { return v.owner && v.definition && /^2026-(0[7-9]|10)-/.test(v.changed); }));
-ok("every glossary term carries synonyms and a definition",
-  D.glossary.every(function (g) { return g.synonyms.length && g.definition; }));
-ok("the KPI band has six tiles", K1.tiles.length === 6, K1.tiles.length);
-ok("the band shows no 'after' before the refresh", K0.tiles.every(function (t) { return t.after === null; }));
-ok("the band's after values are filled once refreshed", K1.tiles.every(function (t) { return t.after !== null; }));
+console.log("\n-- sources, views and the run card ---------------------------");
+eq("five sources", D.sources.length, 5);
+eq("fourteen certified views", D.views.length, 14);
+["CUSTOMER_360", "ITEM_XREF", "OPEN_ORDER_LINES_X", "PROMISE_STATUS", "STOCK_POSITION", "LATE_CAUSES",
+  "SUPPLIER_DELAYS", "CREDIT_HOLDS", "TRANSIT_STATUS", "SLA_EXPOSURE", "REVENUE_AT_RISK", "ACCOUNT_EXPOSURE",
+  "RECOMMENDED_ACTIONS", "DECISIONS"].forEach(function (v) {
+    ok("GOLD." + v + " is in the catalog", !!D.viewById[v]);
+  });
+ok("REVENUE_AT_RISK draws on the order lines, the promise, the customer and the contract",
+  (function () { var u = D.viewById.REVENUE_AT_RISK.upstream.map(function (x) { return x.id; });
+    return ["OPEN_ORDER_LINES_X", "PROMISE_STATUS", "CUSTOMER_360", "CRM_ACCOUNT", "SLA_EXPOSURE"]
+      .every(function (n) { return u.indexOf(n) >= 0; }); })());
+ok("STOCK_POSITION draws on the three inventory objects and the item cross-reference",
+  (function () { var u = D.viewById.STOCK_POSITION.upstream.map(function (x) { return x.id; });
+    return ["INV_ONHAND_QUANTITIES_DETAIL", "F41021", "inventoryBalance", "ITEM_XREF"]
+      .every(function (n) { return u.indexOf(n) >= 0; }); })());
+ok("SLA_EXPOSURE reads the three Enterprise Contracts objects",
+  (function () { var u = D.viewById.SLA_EXPOSURE.upstream.map(function (x) { return x.id; });
+    return ["OKC_K_HEADERS_ALL_B", "OKC_K_LINES_B", "OKC_K_ARTICLES_B"].every(function (n) { return u.indexOf(n) >= 0; }); })());
+eq("the run card has four agents", D.runPlan().length, 4);
+eq("the four agents in order",
+  D.runPlan().map(function (a) { return a.agent; }).join(" -> "),
+  "Order agent -> Identity agent -> Cause agent -> Impact agent");
+ok("every agent has sub-steps with a duration",
+  D.runPlan().every(function (a) { return a.steps.length >= 3 && a.steps.every(function (s) { return s.text && s.ms > 0; }); }));
+ok("the run takes 4 to 7 seconds", A.traceMs >= 4000 && A.traceMs <= 7000, A.traceMs);
+ok("the trace names the four agents, the firewall, the row policy and the masking",
+  (function () { var s = A.trace.map(function (t) { return t.span; }).join(" | ");
+    return /Order agent|order books/.test(A.trace[0].span + A.trace[0].agent) && /Firewall/.test(s) &&
+      /Row policy/.test(s) && /masking/i.test(s); })());
+ok("every agent span lists the GOLD views it read",
+  A.trace.filter(function (t) { return t.agent; }).every(function (t) { return t.tools && t.tools.length; }));
+ok("the dashboard is generated in about two seconds",
+  (function () { var ms = D.dashboardPlan().reduce(function (t, s) { return t + s.ms; }, 0); return ms >= 1500 && ms <= 2600; })());
 
-console.log("\n-- SQL and traces --------------------------------------------");
+console.log("\n-- the evidence behind Halden --------------------------------");
+var ev = D.evidence(A.accounts[0].id, "COMMERCIAL_OPS", []);
+ok("the evidence holds lines in JD Edwards and in Fusion",
+  ev.lines.some(function (l) { return l.sys === "JDE"; }) && ev.lines.some(function (l) { return l.sys === "FUSION"; }),
+  ev.lines.map(function (l) { return l.sys; }).join(","));
+eq("four of them are the at-risk lines", ev.lines.filter(function (l) { return l.atRisk; }).length, 4);
+ok("every line shows its real key", ev.lines.every(function (l) { return /F4211|DOO_FULFILL_LINES_ALL|transactionLine/.test(l.keyLabel); }));
+ok("the worst line predicts 20 Oct — the date the customer accepted",
+  ev.lines.some(function (l) { return l.predicted === "2026-10-20"; }));
+eq("the stock is in EU-2", ev.stockElsewhere[0].plant, "EU-2");
+ok("and it covers the shortfall", ev.stockElsewhere[0].onHand >= ev.stockElsewhere[0].needed);
+ok("the stock row is a Fusion inventory row", ev.stockElsewhere[0].object === "INV_ONHAND_QUANTITIES_DETAIL");
+eq("the CRM account is tier A", ev.crm.tier, "A");
+ok("the CRM account names an owner and a revenue", !!ev.crm.owner && ev.crm.revenue > 0);
+ok("there are named contacts", ev.crm.contacts.length >= 2);
+ok("the contract is an Enterprise Contracts header", ev.contract.object === "OKC_K_HEADERS_ALL_B" && !!ev.contract.number);
+ok("the penalty clause text is quoted", /0.5 % of the line value/.test(ev.contract.penaltyText), ev.contract.penaltyText);
+ok("the clause reference is the article table", /OKC_K_ARTICLES_B/.test(ev.contract.clauseRef));
+eq("the exposure read out of the clause", ev.contract.exposedUsd, 31000);
+eq("the lead time read out of the clause", ev.contract.leadTimeDays, 10);
+ok("the identity block shows one record per system",
+  ev.identity.records.length >= 3 && ev.identity.records.some(function (r) { return r.sys === "CRM"; }));
+var evNA = D.evidence(A.accounts[0].id, "ANALYST_NA", []);
+eq("the analyst sees only the NG-NA lines", evNA.lines.length, 4);
+eq("and is told what is hidden", evNA.linesHidden, 2);
+ok("penalty terms are hidden for the analyst", evNA.contract.masked === true && evNA.contract.exposedUsd === null);
+ok("contact e-mail and telephone are masked for the analyst",
+  /•/.test(evNA.crm.contacts[0].email) && /•/.test(evNA.crm.contacts[0].phone));
+ok("a supplier-late account shows its purchase order",
+  (function () { var a = find(A.accounts, function (x) { return x.causeId === "supplier"; });
+    var e = D.evidence(a.id, "COMMERCIAL_OPS", []);
+    return e.supplierDelay && e.supplierDelay.daysLate > 0 && /F4311|PO_HEADERS_ALL/.test(e.supplierDelay.keyLabel); })());
+ok("a credit-hold account shows the hold",
+  (function () { var a = find(A.accounts, function (x) { return x.causeId === "credit"; });
+    var e = D.evidence(a.id, "COMMERCIAL_OPS", []);
+    return e.creditHold && !!e.creditHold.placedOn && /CREDIT_HOLD|F03B11|credithold/.test(e.creditHold.column); })());
+ok("an in-transit account shows the carrier scans",
+  (function () { var a = find(A.accounts, function (x) { return x.causeId === "transit"; });
+    var e = D.evidence(a.id, "COMMERCIAL_OPS", []);
+    return e.transit && e.transit.scans.length >= 3 && !!e.transit.eta; })());
+ok("the delivery-tracking rows come from the DLV schema",
+  D.shipments.every(function (s) { return s.object === "DLV_SHIPMENTS"; }) &&
+  D.scanEvents.every(function (s) { return s.object === "DLV_SCAN_EVENTS"; }) &&
+  D.deliveryExceptions.every(function (s) { return s.object === "DLV_EXCEPTIONS"; }));
+
+console.log("\n-- the ten saved questions -----------------------------------");
+eq("ten saved questions", D.questions.length, 10);
+eq("question 1 is the tour's ask", D.questions[0].text,
+  "Which open orders are at risk this week, and which of our best accounts are exposed?");
+var q1 = D.answer("q1", "COMMERCIAL_OPS", []);
+eq("question 1 rows for the VP", q1.rowCount, 38);
+eq("question 1 rows for the analyst", D.answer("q1", "ANALYST_NA", []).rowCount, 17);
+eq("question 1 rows after the override", D.answer("q1", "COMMERCIAL_OPS", S2.decisions).rowCount, 37);
+ok("question 1 reconciles to the headline",
+  q1.rows.reduce(function (t, r) { return t + r.usd; }, 0) === A.headline.revenueUsd &&
+  q1.rows.reduce(function (t, r) { return t + r.lines; }, 0) === 138);
+eq("question 2 returns the 44 lines with stock elsewhere", D.answer("q2", "COMMERCIAL_OPS", []).rowCount, 44);
+eq("question 3 returns one row per tier", D.answer("q3", "COMMERCIAL_OPS", []).rowCount, 3);
+eq("question 4 returns the six late suppliers", D.answer("q4", "COMMERCIAL_OPS", []).rowCount, 6);
+eq("question 7 returns four weeks for three entities", D.answer("q7", "COMMERCIAL_OPS", []).rowCount, 12);
+ok("question 9 masks the contacts for the analyst",
+  D.answer("q9", "ANALYST_NA", []).rows.every(function (r) { return /•/.test(r.email) && /•/.test(r.phone); }));
+ok("question 9 does not mask them for the VP",
+  D.answer("q9", "COMMERCIAL_OPS", []).rows.every(function (r) { return !/•/.test(r.email); }));
+var q10a = D.answer("q10", "ANALYST_NA", []), q10d = D.answer("q10", "COMMERCIAL_OPS", []);
+ok("question 10 is blocked for the analyst", q10a.blocked === true && q10a.rowCount === 0);
+eq("the firewall says which allow-list refused it", q10a.firewall.allowList, "OPS_QA_V2");
+ok("the refusal names the column", /CREDIT_LIMIT/.test(q10a.firewall.reason), q10a.firewall.reason);
+ok("question 10 runs for the VP but masks the limit",
+  q10d.blocked === false && q10d.rows.every(function (r) { return /•/.test(r.limit); }));
+ok("no other question is blocked",
+  D.questions.filter(function (q) { return q.blockedFor && q.blockedFor.length; }).length === 1);
 D.questions.forEach(function (q) {
-  var lines = q.sql.split("\n");
-  ok("q" + q.n + " SQL is " + lines.length + " lines (<= 25)", lines.length <= 25, lines.length);
-  ok("q" + q.n + " SQL filters the period", /FY2026-Q3|2026-07-08/.test(q.sql));
-  ok("q" + q.n + " SQL reads the GOLD views", /gold\./.test(q.sql));
-  ok("q" + q.n + " SQL is read-only", !/\b(INSERT|UPDATE|DELETE|MERGE|DROP|ALTER|CREATE)\b/i.test(q.sql));
+  var n = q.sql.split("\n").length;
+  ok("q" + q.n + " SQL is " + n + " lines (at most 25)", n <= 25, n);
+  ok("q" + q.n + " SQL filters a period or this week",
+    /DATE '2026-|as_of_week|TRUNC\(/.test(q.sql), q.sql.split("\n").slice(-4).join(" "));
+  ok("q" + q.n + " SQL reads the certified views", /gold\./.test(q.sql));
+  ok("q" + q.n + " SQL is a SELECT and nothing else", /^SELECT/.test(q.sql) && !/\b(INSERT|UPDATE|DELETE|MERGE|DROP)\b/i.test(q.sql));
 });
-D.questions.forEach(function (q) {
-  ["CONTROLLER", "ANALYST_NA"].forEach(function (role) {
-    var a = D.answer(q.id, role, S2.decisions);
-    ok("q" + q.n + " / " + role + ": " + a.trace.length + " trace spans (6-8)",
-      a.trace.length >= 6 && a.trace.length <= 8, a.trace.length);
-    ok("q" + q.n + " / " + role + ": trace " + (a.traceMs / 1000).toFixed(2) + " s (2-5 s)",
-      a.traceMs >= 2000 && a.traceMs <= 5000, a.traceMs);
-    ok("q" + q.n + " / " + role + ": trace order parse -> glossary -> SQL -> firewall",
-      /Parse/.test(a.trace[0].n) && /Glossary/.test(a.trace[1].n) && /SQL generated/.test(a.trace[2].n) && /Firewall/.test(a.trace[3].n));
+["COMMERCIAL_OPS", "ANALYST_NA"].forEach(function (role) {
+  D.questions.forEach(function (q) {
+    var a = D.answer(q.id, role, []);
+    ok("q" + q.n + " / " + role + ": narrate, trace and freshness are present",
+      !!a.narrate && a.trace.length >= 5 && !!a.freshness.text);
+    ok("q" + q.n + " / " + role + ": trace runs 2 to 6 s", a.traceMs >= 2000 && a.traceMs <= 6000, a.traceMs);
   });
 });
 
-console.log("\n-- decisions -------------------------------------------------");
-var applied = D.applyDecision(S1, D.orionDecision);
-eq("applyDecision returns a new state with one decision", applied.state.decisions.length, 1);
-ok("applyDecision does not mutate the old state", S1.decisions.length === 0);
-eq("applyDecision reports the tiles that moved", applied.changed.tiles.sort().join(","), "dups,resolved");
-ok("applyDecision reports the answers that changed",
-  applied.changed.questions.some(function (c) { return c.id === "q1" && c.before === 12 && c.after === 11; }),
-  JSON.stringify(applied.changed.questions));
-ok("the rejection leaves a learned rule", /tax registration numbers never match/i.test(applied.changed.learnedRule || ""));
-eq("the prior decision log has rows", D.decisions.length, 3);
+console.log("\n-- the generated dashboard -----------------------------------");
+var dashD = D.dashboard("COMMERCIAL_OPS", []), dashM = D.dashboard("ANALYST_NA", []);
+eq("the dashboard is named", dashD.title, "Revenue at risk across systems");
+eq("it says which views it was built from", dashD.builtFrom.length, 5);
+eq("four tiles", dashD.tiles.length, 4);
+eq("four charts", dashD.charts.length, 4);
+eq("the charts are cause, entity, tier and top accounts",
+  dashD.charts.map(function (c) { return c.id; }).join(","), "by-cause,by-entity,by-tier,top-accounts");
+ok("every chart carries a series", dashD.charts.every(function (c) { return c.series.length > 0; }));
+eq("the actions table has the four actions", dashD.table.rows.length, 4);
+eq("the VP's revenue tile", find(dashD.tiles, function (t) { return t.id === "revenue"; }).value, "USD 4.18 M");
+eq("the VP's penalty tile", find(dashD.tiles, function (t) { return t.id === "penalties"; }).value, "USD 186 k");
+eq("the analyst sees 61 lines", dashM.lines, 61);
+eq("the analyst sees 57 lines after the override", D.dashboard("ANALYST_NA", S2.decisions).lines, 57);
+eq("the analyst's rows are NG-NA only", dashM.scope, "NG-NA only");
+ok("the analyst's revenue tile is the NG-NA total, not the group total",
+  find(dashM.tiles, function (t) { return t.id === "revenue"; }).raw === sysA.JDE.usd);
+ok("the analyst's penalty tile is masked",
+  find(dashM.tiles, function (t) { return t.id === "penalties"; }).masked === true &&
+  /•/.test(find(dashM.tiles, function (t) { return t.id === "penalties"; }).value));
+ok("the analyst's actions table hides the penalty column",
+  dashM.table.rows.every(function (r) { return r.penaltyUsd === null; }));
+ok("the analyst's charts hold only the one entity",
+  find(dashM.charts, function (c) { return c.id === "by-entity"; }).series.length === 1);
+ok("the dashboard carries the row policy and the masking it was built under",
+  /NG-NA/.test(dashM.firewall.rowPolicy) && /masked|hidden/.test(dashM.firewall.masking));
 
 console.log("\n-- content rules ---------------------------------------------");
 var FORBIDDEN_SUB = ["Bosch", "Riyadh Air", "Belron", "Vertiv", "NVIDIA", "SoftServe", "€"];
@@ -292,13 +402,31 @@ FORBIDDEN_WORD.forEach(function (w) {
   ok("data.js does not contain the word \"" + w + "\"", !(new RegExp("\\b" + w + "\\b")).test(src));
 });
 ok("currencies are USD, GBP and CAD only",
-  D.sources.every(function (s) { return ["USD", "GBP", "CAD"].indexOf(s.currency) >= 0; }));
-ok("every supplier record sits in Jul-Oct 2026 or carries no date", true);
-ok("every dated value falls inside Jul-Oct 2026",
-  (src.match(/20\d\d-\d\d-\d\d/g) || []).every(function (d) { return d >= "2026-07-01" && d <= "2026-10-31"; }),
-  (src.match(/20\d\d-\d\d-\d\d/g) || []).filter(function (d) { return d < "2026-07-01" || d > "2026-10-31"; }).join(","));
-ok("data.js is at most 180 KB", src.length <= 180 * 1024, (src.length / 1024).toFixed(1) + " KB");
-ok("no ES modules and no fetch", !/\bimport\s|\bexport\s|\bfetch\s*\(/.test(src));
+  D.sources.every(function (s) { return ["USD", "GBP", "CAD"].indexOf(s.currency) >= 0; }) &&
+  D.orderLines.every(function (l) { return ["USD", "GBP", "CAD"].indexOf(l.currency) >= 0; }));
+ok("Fusion lines are in GBP, JD Edwards in CAD, NetSuite in USD",
+  D.orderLines.every(function (l) {
+    return (l.sys === "FUSION" && l.currency === "GBP") || (l.sys === "JDE" && l.currency === "CAD") ||
+      (l.sys === "NETSUITE" && l.currency === "USD");
+  }));
+ok("every promised and predicted date is in Sep to Nov 2026",
+  D.orderLines.every(function (l) {
+    return l.promised >= "2026-09-01" && l.promised <= "2026-10-31" &&
+      l.predicted >= "2026-09-01" && l.predicted <= "2026-11-30";
+  }));
+ok("today is 6 Oct 2026", D.world.today === "2026-10-06" && D.world.todayLabel === "Tue 6 Oct 2026");
+ok("no date in the file falls outside the contract years",
+  (src.match(/20\d\d-\d\d-\d\d/g) || []).every(function (x) { return x >= "2026-01-01" && x <= "2027-12-31"; }),
+  (src.match(/20\d\d-\d\d-\d\d/g) || []).filter(function (x) { return x < "2026-01-01" || x > "2027-12-31"; }).join(","));
+ok("60 golden customers", D.customers.length === 60, D.customers.length);
+ok("no customer name repeats", (function () {
+  var s = {}; D.customers.forEach(function (c) { s[c.name] = 1; }); return Object.keys(s).length === 60;
+})());
+ok("about 40 items, every one with a cross-reference in three systems",
+  D.items.length >= 38 && D.items.every(function (i) { return i.refs.length === 3; }), D.items.length);
+ok("data.js is at most 200 KB", src.length <= 200 * 1024, (src.length / 1024).toFixed(1) + " KB");
+ok("no ES modules and no fetch", !/\bimport\s|\bexport\s|fetch\s*\(/.test(src));
+ok("one global only", /window\.ERPQA_DATA = \(function \(\) \{/.test(src));
 
 console.log("\n==============================================================");
 console.log((fail ? "FAILED" : "OK") + " — " + pass + " passed, " + fail + " failed");
