@@ -67,42 +67,44 @@
 
   var SYS_ENTITY = { "NG-EU": "FUSION", "NG-NA": "JDE", "NG-SV": "NETSUITE", GROUP: "CRM" };
   var CAT_OF = {}; D.sources.forEach(function (s) { CAT_OF[s.id] = s.catalog; });
+  var FIRST_VIEW = (D.views[0] || { id: "REVENUE_AT_RISK" }).id;
 
   /* ------------------------------------------------------------- state */
   var S = {
     app: "lakehouse",
-    dsScreen: "catalog",          /* catalog | feeds (Live Feed) | analysis */
+    dsScreen: "feeds",            /* feeds (Live Feed) | catalog | analysis */
     daGenerated: true,            /* Analysis: SQL is in the editor */
     daRan: true,                  /* Analysis: Run has been pressed */
     dsCatalogs: D.sources.map(function (s) { return s.id; }),
-    wbPanel: "home",              /* home | conversation | insights | catalog | apc | lineage | sessions */
-    mcEntity: "SUPPLIER_360",     /* Master catalog: the open entity */
+    wbPanel: "home",              /* home | run | analysis | conversation | insights | catalog | apc | lineage | sessions */
+    run: { ai: 0, si: 0 },        /* the multi-agent run card's position */
+    evAccount: "halden",          /* the account the evidence panel is open on */
+    dashBuilding: false, dashStep: 0, shared: false,
+    mcEntity: "REVENUE_AT_RISK",  /* Master catalog: the open entity */
     mcMenu: false,                /* Actions menu */
-    linView: "SUPPLIER_360",      /* Lineage: the artifact the graph is for */
+    linView: "REVENUE_AT_RISK",   /* Lineage: the artifact the graph is for */
     linOpen: ["out"],             /* expanded (column-level) cards */
     linCol: null,                 /* the highlighted target column */
     linDetail: null,              /* the artifact whose Details overlay is open */
     linTab: "details",
     linHideUp: false,
     linFrom: null,
-    rwTab: "matches",             /* matches | accounts | decisions */
-    role: "CONTROLLER",
+    rwTab: "recommendations",     /* recommendations | matches | xrefs | decisions */
+    openRec: null,                /* the recommendation card that is open */
+    role: "COMMERCIAL_OPS",
     qid: null,
-    panel: null,                  /* trace | explore | explain | code */
-    exploreKey: null,
+    panel: null,                  /* evidence | explain | trace */
     narrate: false,
     state: D.initialState(),
-    pending: [],                  /* steward decisions taken but not yet re-resolved */
+    pending: [],                  /* decisions taken but not yet re-analysed */
     log: [],                      /* applied decision rows, newest first */
-    openProp: null,
-    lastRun: "08:40",
-    refreshedNow: false,
-    busy: false,
-    published: []
+    matchLog: {},                 /* steward decisions on the identity queues */
+    movedBand: [],                /* tiles that moved on the last re-analysis */
+    busy: false
   };
 
   function money(n, dp) { if (n === null || n === undefined) return "—"; return Number(n).toLocaleString("en-US", { minimumFractionDigits: dp === undefined ? 2 : dp, maximumFractionDigits: dp === undefined ? 2 : dp }); }
-  function kpis() { return D.computeKpis(S.state); }
+  function analysis() { return D.analyse(decisions()); }
   function decisions() { return S.state.decisions; }
   function ans(qid) { return D.answer(qid || S.qid || "q1", S.role, decisions()); }
   function persona() { return D.personas.filter(function (p) { return p.role === S.role; })[0]; }
@@ -123,7 +125,6 @@
     if (!b) return;
     $("#toast").hidden = true;
     setApp(b.dataset.toastGo);
-    tour.after("open-review");
   });
 
   /* ===================================================================== */
