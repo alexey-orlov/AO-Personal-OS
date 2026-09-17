@@ -380,10 +380,10 @@
   }
   function srcWhat(id) {
     return {
-      FUSION: "Orders, fulfilment lines and stock for Europe, plus the contracts and their penalty clauses.",
-      JDE: "The North American order book, with item cross-references, stock, purchase orders and receivables.",
+      FUSION: "Europe's orders, stock and the contracts with the penalty clauses.",
+      JDE: "The North American order book, its stock and item cross-references.",
       NETSUITE: "Sales orders, lines, items and inventory balances for the services company.",
-      DLV: "Where every shipment actually is: the carrier, the ETA, the scans and the exceptions.",
+      DLV: "Where every shipment is: carrier, ETA, scans and exceptions.",
       CRM: "Who the customer is to us: tier, owner, region and who to call."
     }[id] || "";
   }
