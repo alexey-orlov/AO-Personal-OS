@@ -997,42 +997,40 @@
   /* graph. Both are built here; the glossary panel that used to sit on    */
   /* this nav item is gone.                                                */
   /* ===================================================================== */
-  var CAT_LC = { FUSION: "fusion_erp", JDE: "jde_e1", NETSUITE: "netsuite", CRB: "crb_inhouse", CRM: "crm_iceberg" };
+  var CAT_LC = { FUSION: "fusion_erp", JDE: "jde_e1", NETSUITE: "netsuite", DLV: "dlv_inhouse", CRM: "crm_iceberg" };
   var GOLD_CAT = "lakehouse_gold";
 
   /* per-view column metadata: name, type, the auto-populated Description
      (blank ones render Oracle's literal "-"), and the data type */
   var CAT_COLS = {
-    SUPPLIER_360: [
-      ["golden_id", "The stable key of the golden party this cluster resolved to.", "string"],
-      ["golden_name", "The name carried forward to the group, chosen from the longest normalised source name.", "string"],
-      ["source_system", "Which of the five mounted sources this record came from.", "string"],
-      ["source_key", "The record's own key in that system: POZ_SUPPLIERS.SEGMENT1, F0101.ABAN8 or the NetSuite entityId.", "string"],
-      ["tax_id", "Tax registration number as filed in the source system.", "string"],
-      ["bank_last4", "", "string"],
-      ["city", "City on the supplier's primary site or address-book record.", "string"],
-      ["country", "ISO country of that address.", "string"],
-      ["match_score", "Highest pair score in the cluster, 0 to 1. At 0.90 and above the model confirms on its own.", "double"],
-      ["match_reason", "Which evidence agreed: name, tax id, bank, address, contract cross-reference.", "string"],
-      ["status", "", "string"]
+    REVENUE_AT_RISK: [
+      ["line_id", "The stable key of one open order line, whichever system it came from.", "string"],
+      ["source_system", "Which of the five mounted sources the line came from.", "string"],
+      ["source_key", "The line's own key in that system: F4211.DOCO/LNID, DOO_FULFILL_LINES_ALL.FULFILL_LINE_ID or the NetSuite transactionLine id.", "string"],
+      ["account_id", "The customer this line belongs to, resolved across systems by CUSTOMER_360.", "string"],
+      ["item_id", "The part, resolved across the three item masters by ITEM_XREF.", "string"],
+      ["promised_date", "The date the customer was promised, as it stands in the order.", "date"],
+      ["predicted_date", "When the line is now expected to ship, from PROMISE_STATUS.", "date"],
+      ["line_value_usd", "", "double"],
+      ["penalty_usd", "Late penalty for this line, priced from the clause in the customer's contract.", "double"],
+      ["cause", "Why the line is late: stock elsewhere, supplier late, credit hold or late in transit.", "string"],
+      ["risk_week", "", "string"]
     ],
-    CONSOLIDATED_PL: [
-      ["group_period", "Group accounting period the row belongs to, resolved through PERIOD_MAP.", "string"],
-      ["group_account", "Account in the 120-line group chart the local account maps to.", "string"],
-      ["account_name", "Name of that group account.", "string"],
-      ["source_system", "Source ledger the balance came from.", "string"],
-      ["local_account", "The account as it is coded in the source ledger.", "string"],
-      ["amount_local", "Period movement in the ledger's own currency.", "double"],
-      ["rate", "Q3 average rate used for translation, from GL_DAILY_RATES.", "double"],
-      ["amount_usd", "", "double"],
-      ["pl_line", "P&L line the group account rolls up to.", "string"]
+    STOCK_POSITION: [
+      ["item_id", "The part, on the cross-referenced identifier rather than any one system's number.", "string"],
+      ["source_system", "The system the balance was read from.", "string"],
+      ["plant", "Plant or location holding the stock.", "string"],
+      ["on_hand_qty", "Quantity on hand at that plant, net of what is already allocated.", "double"],
+      ["allocated_qty", "", "double"],
+      ["as_of", "Time the balance was last refreshed from its source.", "timestamp"]
     ]
   };
   function catColsFor(id) {
     if (CAT_COLS[id]) return CAT_COLS[id];
-    var a = null;
-    D.questions.forEach(function (q) { if (!a && q.views.indexOf(id) >= 0) a = q; });
-    var cols = a ? D.answer(a.id, "CONTROLLER", decisions()).columns : [];
+    var v = null; D.views.forEach(function (x) { if (x.id === id) v = x; });
+    var cols = [];
+    try { cols = D.answer("q1", "COMMERCIAL_OPS", decisions()).columns || []; } catch (e) { cols = []; }
+    if (!cols.length) return [["id", (v ? v.definition : ""), "string"]];
     return cols.map(function (c, i) {
       return [String(c.key).replace(/([a-z])([A-Z])/g, "$1_$2").toLowerCase(),
         i % 4 === 3 ? "" : c.label + " as the certified view publishes it.",
@@ -1041,54 +1039,52 @@
   }
 
   /* ---------------- lineage graphs -------------------------------------- */
-  var SRC_OBJ = { FUSION: "POZ_SUPPLIERS", JDE: "F0101", NETSUITE: "vendor", CRB: "CRB_SUPPLIER_XREF", CRM: "CRM_ACCOUNT" };
+  var SRC_OBJ = { FUSION: "DOO_FULFILL_LINES_ALL", JDE: "F4211", NETSUITE: "transactionLine", DLV: "DLV_SCAN_EVENTS", CRM: "CRM_ACCOUNT" };
   var LINEAGE = {
-    SUPPLIER_360: {
-      task: "resolve_supplier_identities",
+    REVENUE_AT_RISK: {
+      task: "value_and_attribute_open_lines",
       stages: [
         [
-          { id: "poz", name: "POZ_SUPPLIERS", type: "TABLE", cat: "fusion_erp", tone: "bronze", cols: ["SEGMENT1", "VENDOR_NAME", "NUM_1099", "PARTY_SITE_ID"] },
-          { id: "f01", name: "F0101", type: "TABLE", cat: "jde_e1", tone: "bronze", cols: ["ABAN8", "ABALPH", "ABTAX", "ABAT1"] },
-          { id: "ven", name: "vendor", type: "TABLE", cat: "netsuite", tone: "bronze", cols: ["entityId", "companyName", "taxIdNum", "subsidiary"] },
-          { id: "xrf", name: "CRB_SUPPLIER_XREF", type: "TABLE", cat: "crb_inhouse", tone: "silver", cols: ["SUPPLIER_KEY", "SOURCE_SYSTEM", "CONTRACT_NO"] }
+          { id: "ool", name: "OPEN_ORDER_LINES_X", type: "TABLE", cat: "lakehouse_gold", tone: "silver", cols: ["line_id", "source_system", "source_key", "account_id", "item_id", "qty"] },
+          { id: "prm", name: "PROMISE_STATUS", type: "TABLE", cat: "lakehouse_gold", tone: "silver", cols: ["line_id", "promised_date", "predicted_date", "days_late"] },
+          { id: "c36", name: "CUSTOMER_360", type: "TABLE", cat: "lakehouse_gold", tone: "silver", cols: ["account_id", "account_name", "match_score", "match_reason"] },
+          { id: "crm", name: "CRM_ACCOUNT", type: "TABLE", cat: "crm_iceberg", tone: "bronze", cols: ["account_id", "tier", "owner", "region"] },
+          { id: "sla", name: "SLA_EXPOSURE", type: "TABLE", cat: "lakehouse_gold", tone: "silver", cols: ["contract_id", "account_id", "lead_time_days", "penalty_pct_per_day", "cap_pct"] }
         ],
-        [{ id: "tsk", name: "resolve_supplier_identities", type: "TASK", cat: "Finance_Model", tone: "task", kind: "task" }],
-        [{ id: "out", name: "SUPPLIER_360", type: "TABLE", cat: "lakehouse_gold", tone: "gold", anchor: true,
-          cols: ["golden_id", "golden_name", "source_key", "tax_id", "match_score", "match_reason"] }]
+        [{ id: "tsk", name: "value_and_attribute_open_lines", type: "TASK", cat: "Commercial_Model", tone: "task", kind: "task" }],
+        [{ id: "out", name: "REVENUE_AT_RISK", type: "TABLE", cat: "lakehouse_gold", tone: "gold", anchor: true,
+          cols: ["line_id", "source_key", "account_id", "predicted_date", "line_value_usd", "penalty_usd", "cause"] }]
       ],
-      edges: [["poz", "tsk"], ["f01", "tsk"], ["ven", "tsk"], ["xrf", "tsk"], ["tsk", "out"]],
+      edges: [["ool", "tsk"], ["prm", "tsk"], ["c36", "tsk"], ["crm", "tsk"], ["sla", "tsk"], ["tsk", "out"]],
       map: {
-        golden_id: [["TRANSFORMATION", "golden_id = 'G-' || LPAD(cluster_id, 5, '0')", ["xrf.SUPPLIER_KEY"]]],
-        golden_name: [["TRANSFORMATION", "golden_name = INITCAP(longest normalised source name)", ["poz.VENDOR_NAME", "f01.ABALPH", "ven.companyName"]]],
-        source_key: [["IDENTITY", "source_key ← SEGMENT1 / ABAN8 / entityId", ["poz.SEGMENT1", "f01.ABAN8", "ven.entityId"]]],
-        tax_id: [["IDENTITY", "tax_id ← NUM_1099 / ABTAX / taxIdNum", ["poz.NUM_1099", "f01.ABTAX", "ven.taxIdNum"]]],
-        match_score: [["AGGREGATION", "match_score = MAX(pair_score) over the cluster", ["poz.VENDOR_NAME", "f01.ABALPH", "ven.companyName", "xrf.SUPPLIER_KEY"]]],
-        match_reason: [["TRANSFORMATION", "match_reason = CONCAT of the evidence that agreed", ["poz.NUM_1099", "f01.ABTAX", "ven.taxIdNum", "xrf.CONTRACT_NO"]]]
+        line_id: [["IDENTITY", "line_id ← OPEN_ORDER_LINES_X.line_id", ["ool.line_id"]]],
+        source_key: [["IDENTITY", "source_key ← F4211.DOCO/LNID, DOO_FULFILL_LINES_ALL.FULFILL_LINE_ID or transactionLine id", ["ool.source_key", "ool.source_system"]]],
+        account_id: [["IDENTITY", "account_id ← CUSTOMER_360.account_id", ["c36.account_id", "crm.account_id"]]],
+        predicted_date: [["IDENTITY", "predicted_date ← PROMISE_STATUS.predicted_date", ["prm.predicted_date", "prm.promised_date"]]],
+        line_value_usd: [["TRANSFORMATION", "line_value_usd = qty * unit_price, translated to USD", ["ool.qty"]]],
+        penalty_usd: [["TRANSFORMATION", "penalty_usd = LEAST(line_value_usd * penalty_pct_per_day * days_late, line_value_usd * cap_pct)", ["sla.penalty_pct_per_day", "sla.cap_pct", "prm.days_late"]]],
+        cause: [["TRANSFORMATION", "cause = the first of stock elsewhere, supplier late, credit hold, late in transit that holds", ["prm.days_late", "ool.item_id"]]]
       }
     },
-    CONSOLIDATED_PL: {
-      task: "map_translate_and_consolidate",
+    STOCK_POSITION: {
+      task: "consolidate_on_hand_across_systems",
       stages: [
         [
-          { id: "glb", name: "GL_BALANCES", type: "TABLE", cat: "fusion_erp", tone: "bronze", cols: ["CODE_COMBINATION_ID", "PERIOD_NAME", "PERIOD_NET_DR", "PERIOD_NET_CR"] },
-          { id: "f09", name: "F0911", type: "TABLE", cat: "jde_e1", tone: "bronze", cols: ["GLOBJ", "GLFY", "GLPN", "GLAA"] },
-          { id: "tln", name: "transactionLine", type: "TABLE", cat: "netsuite", tone: "bronze", cols: ["account", "postingPeriod", "amount", "subsidiary"] },
-          { id: "coa", name: "COA_MAP", type: "TABLE", cat: "lakehouse_gold", tone: "silver", cols: ["source_system", "local_account", "group_account", "rule"] },
-          { id: "per", name: "PERIOD_MAP", type: "TABLE", cat: "lakehouse_gold", tone: "silver", cols: ["source_period", "group_period"] },
-          { id: "rat", name: "GL_DAILY_RATES", type: "TABLE", cat: "fusion_erp", tone: "bronze", cols: ["FROM_CURRENCY", "TO_CURRENCY", "CONVERSION_RATE"] }
+          { id: "inv", name: "INV_ONHAND_QUANTITIES_DETAIL", type: "TABLE", cat: "fusion_erp", tone: "bronze", cols: ["INVENTORY_ITEM_ID", "ORGANIZATION_ID", "PRIMARY_TRANSACTION_QUANTITY"] },
+          { id: "f41", name: "F41021", type: "TABLE", cat: "jde_e1", tone: "bronze", cols: ["LIITM", "LIMCU", "LIPQOH"] },
+          { id: "nsb", name: "inventoryBalance", type: "TABLE", cat: "netsuite", tone: "bronze", cols: ["item", "location", "quantityOnHand"] },
+          { id: "xrf", name: "ITEM_XREF", type: "TABLE", cat: "lakehouse_gold", tone: "silver", cols: ["item_id", "source_system", "source_item", "score"] }
         ],
-        [{ id: "tsk", name: "map_translate_and_consolidate", type: "TASK", cat: "Finance_Model", tone: "task", kind: "task" }],
-        [{ id: "out", name: "CONSOLIDATED_PL", type: "TABLE", cat: "lakehouse_gold", tone: "gold", anchor: true,
-          cols: ["group_period", "group_account", "local_account", "amount_local", "rate", "amount_usd"] }]
+        [{ id: "tsk", name: "consolidate_on_hand_across_systems", type: "TASK", cat: "Commercial_Model", tone: "task", kind: "task" }],
+        [{ id: "out", name: "STOCK_POSITION", type: "TABLE", cat: "lakehouse_gold", tone: "gold", anchor: true,
+          cols: ["item_id", "source_system", "plant", "on_hand_qty", "allocated_qty", "as_of"] }]
       ],
-      edges: [["glb", "tsk"], ["f09", "tsk"], ["tln", "tsk"], ["coa", "tsk"], ["per", "tsk"], ["rat", "tsk"], ["tsk", "out"]],
+      edges: [["inv", "tsk"], ["f41", "tsk"], ["nsb", "tsk"], ["xrf", "tsk"], ["tsk", "out"]],
       map: {
-        group_period: [["IDENTITY", "group_period ← PERIOD_MAP.group_period", ["per.group_period"]]],
-        group_account: [["IDENTITY", "group_account ← COA_MAP.group_account", ["coa.group_account"]]],
-        local_account: [["IDENTITY", "local_account ← the account as the source ledger codes it", ["glb.CODE_COMBINATION_ID", "f09.GLOBJ", "tln.account"]]],
-        amount_local: [["AGGREGATION", "amount_local = SUM(period movement) per local account", ["glb.PERIOD_NET_DR", "glb.PERIOD_NET_CR", "f09.GLAA", "tln.amount"]]],
-        rate: [["IDENTITY", "rate ← GL_DAILY_RATES.CONVERSION_RATE (Q3 average)", ["rat.CONVERSION_RATE"]]],
-        amount_usd: [["TRANSFORMATION", "amount_usd = ROUND(amount_local * rate, 2)", ["glb.PERIOD_NET_DR", "f09.GLAA", "tln.amount", "rat.CONVERSION_RATE"]]]
+        item_id: [["IDENTITY", "item_id ← ITEM_XREF.item_id, so the same part is one part", ["xrf.item_id", "xrf.source_item"]]],
+        plant: [["IDENTITY", "plant ← ORGANIZATION_ID / LIMCU / location", ["inv.ORGANIZATION_ID", "f41.LIMCU", "nsb.location"]]],
+        on_hand_qty: [["AGGREGATION", "on_hand_qty = SUM(quantity on hand) per item and plant", ["inv.PRIMARY_TRANSACTION_QUANTITY", "f41.LIPQOH", "nsb.quantityOnHand"]]],
+        source_system: [["IDENTITY", "source_system ← the catalog the balance was read from", ["xrf.source_system"]]]
       }
     }
   };
@@ -1096,13 +1092,16 @@
     if (LINEAGE[id]) return LINEAGE[id];
     var v = null; D.views.forEach(function (x) { if (x.id === id) v = x; });
     if (!v) return null;
-    var srcs = v.sources.map(function (sy, i) {
-      return { id: "s" + i, name: SRC_OBJ[sy] || sy, type: "TABLE", cat: CAT_LC[sy] || String(sy).toLowerCase(), tone: "bronze",
-        cols: (D.sourceById[sy] ? D.sourceById[sy].objects : []).slice(0, 4) };
+    var srcs = (v.sources || []).map(function (sy, i) {
+      var isSys = !!D.sourceById[sy];
+      return { id: "s" + i, name: isSys ? (SRC_OBJ[sy] || sy) : sy, type: "TABLE",
+        cat: isSys ? (CAT_LC[sy] || String(sy).toLowerCase()) : GOLD_CAT, tone: isSys ? "bronze" : "silver",
+        cols: (isSys && D.sourceById[sy] ? D.sourceById[sy].objects : []).slice(0, 4) };
     });
+    if (!srcs.length) srcs = [{ id: "s0", name: "GOLD", type: "TABLE", cat: GOLD_CAT, tone: "silver", cols: [] }];
     var g = {
       task: "build_" + id.toLowerCase(),
-      stages: [srcs, [{ id: "tsk", name: "build_" + id.toLowerCase(), type: "TASK", cat: "Finance_Model", tone: "task", kind: "task" }],
+      stages: [srcs, [{ id: "tsk", name: "build_" + id.toLowerCase(), type: "TASK", cat: "Commercial_Model", tone: "task", kind: "task" }],
         [{ id: "out", name: id, type: "TABLE", cat: GOLD_CAT, tone: "gold", anchor: true, cols: catColsFor(id).slice(0, 6).map(function (c) { return c[0]; }) }]],
       edges: srcs.map(function (x) { return [x.id, "tsk"]; }).concat([["tsk", "out"]]),
       map: {}
