@@ -473,6 +473,15 @@
     if (n >= 1000) return "USD " + Math.round(n / 1000) + " k";
     return "USD " + Math.round(n);
   }
+  /* the analysis with no decisions applied — what the AI found before anyone
+     overruled it, so a declined row can still show what it was worth */
+  var BASE_AN = null;
+  function baseAnalysis() { if (!BASE_AN) BASE_AN = D.analyse([]); return BASE_AN; }
+  function baseAccount(id) {
+    var out = null;
+    baseAnalysis().accounts.forEach(function (a) { if (a.id === id) out = a; });
+    return out || {};
+  }
   function bandTile(t, moved) {
     var across = String(t.across === null || t.across === undefined ? "—" : t.across);
     var per = t.perSystem === null || t.perSystem === undefined ? "—" : String(t.perSystem);
@@ -598,16 +607,17 @@
       "<th>Account</th><th>Tier</th><th>Owner</th><th>Systems</th><th class=\"r\">Lines</th><th class=\"r\">At risk (USD)</th><th class=\"r\">Penalty</th><th>Why it is late</th><th>What the AI proposes</th><th></th></tr></thead><tbody>" +
       rows.map(function (a) {
         var cause = an.causes.filter(function (c) { return c.id === a.causeId; })[0] || { label: "—" };
+        var b = baseAccount(a.id);
         return '<tr data-acct="' + esc(a.id) + '"' + (a.status === "declined" ? ' class="is-review"' : "") + ">" +
           "<td><b>" + esc(a.name) + "</b></td>" +
           '<td><span class="tierb tierb--' + esc(a.tier) + '">' + esc(a.tier) + "</span></td>" +
           "<td>" + esc(a.owner) + "</td>" +
           '<td class="sysc">' + (a.systems || []).map(sysBadge).join("") + "</td>" +
           '<td class="r">' + a.lines + "</td>" +
-          '<td class="r">' + (a.usd ? money(a.usd, 0) : "—") + "</td>" +
-          '<td class="r">' + (a.penaltyUsd ? money(a.penaltyUsd, 0) : "—") + "</td>" +
+          '<td class="r">' + (a.status === "declined" ? '<s>' + money(b.usd || 0, 0) + "</s>" : money(a.usd || b.usd || 0, 0)) + "</td>" +
+          '<td class="r">' + (a.status === "declined" ? '<s>' + money(b.penaltyUsd || 0, 0) + "</s>" : money(a.penaltyUsd || b.penaltyUsd || 0, 0)) + "</td>" +
           "<td>" + esc(cause.label) + "</td>" +
-          "<td>" + esc(a.recommendation ? a.recommendation.text : "—") + (a.status === "declined" ? ' <span class="stat stat--open">you declined this</span>' : "") + "</td>" +
+          "<td>" + esc(a.recommendation ? a.recommendation.text : "—") + (a.status === "declined" ? ' <span class="stat stat--open">you declined this — not counted</span>' : "") + "</td>" +
           '<td><button class="btn btn--xs" type="button" data-ev="' + esc(a.id) + '">Evidence</button></td></tr>';
       }).join("") + "</tbody></table></div>";
   }
@@ -684,7 +694,9 @@
     }).join("") + "</div>";
     var cause = an.causes.filter(function (c) { return c.id === acc.causeId; })[0] || { label: "" };
     var body =
-      '<div class="recon"><b>' + esc(acc.name) + "</b> &middot; tier " + esc(acc.tier) + " &middot; " + esc(acc.lines) + " lines &middot; " + esc(usdShort(acc.usd)) + " at risk &middot; penalty " + esc(usdShort(acc.penaltyUsd)) +
+      '<div class="recon"><b>' + esc(acc.name) + "</b> &middot; tier " + esc(acc.tier) + " &middot; " + esc(acc.lines) + " lines &middot; " +
+      esc(usdShort(acc.status === "declined" ? baseAccount(acc.id).usd : acc.usd)) + (acc.status === "declined" ? " (declined, no longer counted)" : " at risk") +
+      " &middot; penalty " + esc(usdShort(acc.status === "declined" ? baseAccount(acc.id).penaltyUsd : acc.penaltyUsd)) +
       '<span class="mono">' + esc(cause.label) + "</span></div>" +
       "<h4>The lines, in the systems they live in</h4>" +
       '<table class="dgrid"><thead><tr><th>System</th><th>Object</th><th>Key</th><th>Item</th><th class="r">Qty</th><th>Promised</th><th>Predicted</th><th class="r">USD</th></tr></thead><tbody>' +
@@ -749,6 +761,7 @@
     return (sp > n * 0.5 ? cut.slice(0, sp) : cut).replace(/[\s,·]+$/, "") + "…";
   }
   var CAUSE_COLOUR = { stock: "#4d7a2c", transit: "#1d5f73", supplier: "#8a4a12", credit: "#7d4064" };
+  var CAUSE_SHORT = { stock: "Stock in another plant", transit: "Late in transit", supplier: "Supplier late", credit: "Credit hold" };
   function barChart(items, colour) {
     var max = Math.max.apply(null, items.map(function (i) { return i.v; })) || 1;
     var h = 148, w = 360, lab = 148, top = 8, rowH = Math.min(24, (h - top) / Math.max(1, items.length)), maxBar = 136;
@@ -770,7 +783,8 @@
     var d = D.dashboard(S.role, decisions());
     var charts = (d.charts || []).map(function (c) {
       return '<div class="gd-chart"><h4>' + esc(c.title) + "</h4>" + barChart((c.series || []).map(function (s) {
-        return { k: s.k, v: s.v, l: s.l, c: CAUSE_COLOUR[c.id === "cause" ? (an_causeId(s.k)) : ""] };
+        var cid = c.id === "cause" ? an_causeId(s.k) : "";
+        return { k: (cid && CAUSE_SHORT[cid]) || s.k, v: s.v, l: s.l, c: CAUSE_COLOUR[cid] };
       }), c.id === "tier" ? "#7d4064" : c.id === "entity" ? "#1d5f73" : "#4d7a2c") + "</div>";
     }).join("");
     var t = d.table || { columns: [], rows: [] };
@@ -1390,14 +1404,17 @@
   function accRowHtml(acc, an) {
     var pend = pendingFor(acc.id);
     var done = acc.status === "declined" || !!pend;
+    var b = baseAccount(acc.id);
+    var showUsd = acc.status === "declined" ? b.usd : acc.usd;
+    var showPen = acc.status === "declined" ? b.penaltyUsd : acc.penaltyUsd;
     var e = D.evidence(acc.id, S.role, decisions());
     var cause = an.causes.filter(function (c) { return c.id === acc.causeId; })[0] || { label: "" };
     var suggested = acc.id === (D.haldenDecision ? D.haldenDecision.accountId : "halden") ? (D.haldenDecision ? D.haldenDecision.reason : "") : "";
     return '<div class="reca' + (done ? " is-decided" : "") + '" data-acct="' + esc(acc.id) + '">' +
       '<div class="reca-h"><b>' + esc(acc.name) + '</b><span class="tierb tierb--' + esc(acc.tier) + '">tier ' + esc(acc.tier) + "</span>" +
       '<span class="reca-sys">' + (acc.systems || []).map(sysBadge).join("") + "</span>" +
-      '<span class="reca-n">' + acc.lines + " lines</span><span class=\"reca-v\">" + esc(usdShort(acc.usd)) + "</span>" +
-      '<span class="reca-p">penalty ' + esc(usdShort(acc.penaltyUsd)) + "</span></div>" +
+      '<span class="reca-n">' + acc.lines + " lines</span><span class=\"reca-v\">" + (acc.status === "declined" ? "<s>" + esc(usdShort(showUsd)) + "</s>" : esc(usdShort(showUsd))) + "</span>" +
+      '<span class="reca-p">penalty ' + esc(usdShort(showPen)) + "</span></div>" +
       '<div class="reca-b"><span class="reca-why">' + esc(cause.label) + " &middot; " + esc(acc.recommendation ? acc.recommendation.text : "") + "</span></div>" +
       '<div class="reca-ev"><b>What the AI is going on:</b> ' +
       esc((e.lines || []).length) + " order lines in " + esc(((acc.systems) || []).map(function (s) { return D.sourceById[s] ? D.sourceById[s].short : s; }).join(" and ")) +
@@ -1405,12 +1422,12 @@
       (e.supplierDelay ? "; purchase order " + esc(e.supplierDelay.po) + " " + esc(e.supplierDelay.daysLate) + " days late" : "") +
       (e.creditHold ? "; held for credit since " + esc(e.creditHold.placed) : "") +
       (e.transit ? "; last carrier scan " + esc(e.transit.lastScan) : "") +
-      (e.contract && S.role !== "ANALYST_NA" ? "; the contract prices " + esc(usdShort(e.contract.exposedUsd)) + " of penalty on these lines" : "") +
+      (e.contract && S.role !== "ANALYST_NA" ? "; the contract prices " + esc(usdShort(showPen)) + " of penalty on these lines" : "") +
       '. <button class="lnk" type="button" data-evgo="' + esc(acc.id) + '">Open the full evidence</button></div>' +
       (done
         ? '<div class="rule-line">' + ICON.check + "<span>" + (pend
           ? "Declined by " + esc(pend.decision.by) + " — &ldquo;" + esc(pend.decision.reason) + "&rdquo;. Re-analyse to put it into the numbers."
-          : "Declined and already in the numbers.") + "</span></div>"
+          : "Declined and out of the numbers — the AI has already re-valued everything without it.") + "</span></div>"
         : '<div class="prop-acts"><input type="text" id="rreason-' + esc(acc.id) + '" placeholder="Why? (kept with the decision)" value="' + esc(suggested) + '" aria-label="Reason for the decision">' +
           '<button class="btn" type="button" data-rec="accept" data-acct="' + esc(acc.id) + '">' + ICON.check + "Accept</button>" +
           '<button class="btn" type="button" data-rec="decline" data-acct="' + esc(acc.id) + '">' + ICON.x + "Decline</button></div>") +
@@ -1614,7 +1631,7 @@
       target: function () { return $("#band-tiles"); }, anchor: function () { return $("#band-tiles"); },
       avoid: function () { return $(".an-cols"); },
       auto: function () { tour.next(); } },
-    { id: "evidence", major: 4, side: "right", dock: "right",
+    { id: "evidence", major: 4, side: "right", dock: "right", scroll: "center",
       title: "Check one finding before you trust it",
       body: "Halden Tooling is your biggest exposure and the AI says the parts are sitting in another plant. Open the evidence and see for yourself: the four order lines with their real keys in JD Edwards and Fusion, the same parts on hand in plant EU-2, the tier and the account owner out of the CRM, and the clause in their contract the late penalty was priced from.",
       target: function () { return $('[data-ev="halden"]'); }, anchor: function () { return $('tr[data-acct="halden"]'); },
@@ -1637,10 +1654,11 @@
       body: "Four proposals, each with the accounts and lines behind it and the person it was assigned to. Open the expedite — Halden Tooling is the first account under it, with a summary of what the AI is going on.",
       target: function () { return $('[data-openrec="A1"]'); }, anchor: function () { return $('[data-rec-card="A1"]'); },
       auto: function () { S.openRec = "A1"; renderRwPanel(); tour.after("open-rec"); } },
-    { id: "decline", major: 5, side: "top",
+    { id: "decline", major: 5, side: "bottom", scroll: "center",
       title: "Overrule it, and say why",
       body: "The reason is drafted for you. Decline the expedite: the AI keeps your reason, and it keeps the rule underneath it — a date the customer has accepted is not a date at risk.",
       target: function () { return $('[data-rec="decline"][data-acct="halden"]'); }, anchor: function () { return $('.reca[data-acct="halden"] .prop-acts'); },
+      avoid: function () { return $('.reca[data-acct="halden"]'); },
       auto: function () { decideRec("halden", "decline"); } },
     { id: "reanalyse", major: 5, side: "left", waits: true,
       title: "Make the AI do the sums again",
@@ -1663,12 +1681,14 @@
       title: "See it as your regional analyst sees it",
       body: "Before you send it anywhere, look at it as Marcus Bell does. Pick him: the dashboard rebuilds for North America only, his contacts and credit limits come back masked and the penalty terms are not there at all — decided in the database, not on this page.",
       target: function () { return $('#wb-menu [data-role="ANALYST_NA"]'); }, anchor: function () { return $("#wb-menu"); },
+      avoid: function () { return $(".gd-tiles"); },
       before: function () { if (S.wbPanel !== "insights") { S.wbPanel = "insights"; renderWb(); } openMenu(true); },
       auto: function () { openMenu(false); setRole("ANALYST_NA"); } },
-    { id: "share", major: 6, side: "top",
+    { id: "share", major: 6, side: "bottom",
       title: "Hand it to the commercial team",
       body: "Share it. Everyone opens the same dashboard and each of them sees their own rows — the work is handed on without a spreadsheet leaving the building.",
-      target: function () { return $("#share-dash"); }, anchor: function () { return $(".gd-head"); },
+      target: function () { return $("#share-dash"); }, anchor: function () { return $("#share-dash"); },
+      avoid: function () { return $(".gd-head"); },
       auto: share }
   ];
   var MAJORS = 6;
@@ -1700,7 +1720,7 @@
       $("#tour-next").hidden = !st.passive; $("#tour-skip").hidden = !!st.passive;
       this.el.hidden = false; this.el.dataset.side = st.side;
       document.body.classList.toggle("tour-gutter", !!st.dock);
-      try { t.scrollIntoView({ block: "nearest", behavior: "smooth", inline: "nearest" }); } catch (e) {}
+      try { t.scrollIntoView({ block: st.scroll || "nearest", behavior: "smooth", inline: "nearest" }); } catch (e) {}
       this.reposition();
       setTimeout(function () { self.reposition(); }, 320);
       setTimeout(function () { self.reposition(); }, 720);
@@ -1729,11 +1749,12 @@
     },
     finish: function () {
       this.exit();
-      var g = $("#gate"), an = analysis();
+      var g = $("#gate"), an = analysis(), base = baseAnalysis();
       $("#gate-title").textContent = "That is the loop";
       $("#gate-body").innerHTML =
-        "<b>What the AI did:</b> read every open order line in three order books and put them on one list; worked out which customer and which part each line was, across five systems; gave all " + an.headline.lines +
-        " lines a cause, including the 40 whose parts were sitting in a plant nobody was looking at; priced the exposure out of the customers' own contract clauses; ranked your accounts by what was at stake; proposed four actions and assigned each one as a task; re-valued everything the moment you overruled it; and built the dashboard." +
+        "<b>What the AI did:</b> read every open order line in three order books and put them on one list; worked out which customer and which part each line was, across five systems; gave all " + base.headline.lines +
+        " of them a cause, including the " + esc(base.band[3].across) + " whose parts were sitting in a plant nobody was looking at; priced the exposure out of the customers' own contract clauses; ranked your accounts by what was at stake; proposed four actions and assigned each one as a task; re-valued everything the moment you overruled it (" +
+        esc(usdShort(base.headline.revenueUsd)) + " &rarr; " + esc(usdShort(an.headline.revenueUsd)) + ", " + base.headline.tierA.accounts + " tier-A accounts &rarr; " + an.headline.tierA.accounts + "); and built the dashboard." +
         "<b> What you decided:</b> that Halden Tooling was not at risk, because you had spoken to them — and that is the one thing no system knew. " +
         "Nothing was written back to any order system: the AI proposes and it recommends, people decide and people act." +
         "<ol><li>See the five systems that feed one place</li><li>Ask what is at risk this week</li><li>Read what the AI found, and why</li><li>Check one finding against the source rows</li><li>Overrule it and watch the numbers move</li><li>Hand the team a dashboard that obeys who is looking</li></ol>" +

@@ -1149,3 +1149,11 @@ body.tour-gutter .conv--an { padding-right: 336px; }
   .rec-head .stat { display: none; }
   .an-box--wide .ans-grid { max-height: min(360px, calc(100vh - 280px)); }
 }
+
+/* notes under a band tile must never be cut — the QA guard asserts it */
+.band-tiles .tile .note { -webkit-line-clamp: unset; display: block; overflow: visible; min-height: 24px; }
+.an-band .tile .after { font-size: 15.5px; }
+.an-band .tile .after--sm { font-size: 12.5px; }
+.an-band .tile .lab { min-height: 34px; }
+.an-cols { align-items: start; }
+.agrid s, .reca-v s { color: var(--rw-muted); text-decoration-thickness: 1px; }
