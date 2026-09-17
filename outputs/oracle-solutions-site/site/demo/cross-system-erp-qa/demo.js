@@ -798,15 +798,14 @@
     var an = analysis();
     var h = an.headline;
     var roleTag = S.role === "ANALYST_NA" ? '<span class="stat stat--review">Viewing as Marcus Bell &middot; North America</span>' : "";
-    return '<div class="conv-head"><button class="conv-back" type="button" data-back="1">' + ICON.chevl + "Agent Hub</button>" +
-      '<span class="conv-agent">' + ICON.bot + "Commercial operations agent</span></div>" +
-      '<div class="q-bubble">' + esc(D.questions[0].text) + "</div>" +
+    return '<div class="q-bubble">' + esc(D.questions[0].text) + "</div>" +
       '<div class="ans" id="ans">' +
       '<div class="an-head"><div class="an-hl"><b>' + h.lines + " open lines</b> will miss the date you promised, worth <b>" + esc(h.revenueText || usdShort(h.revenueUsd)) +
       "</b>. <b>" + h.tierA.accounts + " tier-A accounts</b> carry " + esc(h.tierA.text ? String(h.tierA.text).split("·").pop().trim() : usdShort(h.tierA.usd)) +
       " of it, and the contracts price <b>" + esc(h.penaltiesText || usdShort(h.penaltiesUsd)) + "</b> of late penalties if nothing changes.</div>" +
       '<div class="ans-meta">' + esc(an.freshness.text) + (roleTag ? '<span class="sep">&middot;</span>' + roleTag : "") + '<span class="sep">&middot;</span>' +
-      viewChips(an.views) + "</div></div>" +
+      viewChips(an.views) + "</div>" +
+      '<div class="ans-rows">Total Rows: ' + an.accounts.length + " | Displayed: " + an.accounts.length + "</div></div>" +
       '<section class="band an-band" aria-label="Per system, then across systems">' + bandHtml(an, "band-tiles", S.movedBand) + "</section>" +
       (S.narrate ? '<div class="ans-narr"><span class="sp">' + ICON.speak + "</span><span>" + esc(an.narrative) + "</span></div>" : "") +
       '<div class="an-cols"><section class="an-box"><h4>' + ICON.chart + "Why the lines are late</h4>" + causesChart(an) +
@@ -814,20 +813,39 @@
       '<section class="an-box"><h4>' + ICON.bulb + "What the AI proposes</h4>" + actionsHtml(an) + "</section></div>" +
       '<section class="an-box an-box--wide"><h4>' + ICON.list + "Accounts, ranked by what is at stake</h4>" + accountsTable(an) + "</section>" +
       (an.caveat ? '<div class="ans-caveat">' + ICON.info + " " + esc(an.caveat) + "</div>" : "") +
-      '<div class="ans-acts">' +
-      '<button class="achip' + (S.panel === "evidence" ? " is-on" : "") + '" type="button" data-panel="evidence">' + ICON.search + "Evidence</button>" +
-      '<button class="achip' + (S.panel === "explain" ? " is-on" : "") + '" type="button" data-panel="explain">' + ICON.bulb + "Explain</button>" +
-      '<button class="achip' + (S.panel === "trace" ? " is-on" : "") + '" type="button" data-panel="trace">' + ICON.route + "Trace</button>" +
-      '<label class="narr"><input type="checkbox" id="narr-tog"' + (S.narrate ? " checked" : "") + ">Narrate</label>" +
-      '<span class="right"><button class="achip achip--go" type="button" id="create-dash">' + ICON.chart + "Create dashboard</button></span></div>" +
+      '<div class="ans-acts">' + chipRow(true) + "</div>" +
       (S.panel ? '<div class="ans-panel" id="ans-panel">' + anPanelHtml(an) + "</div>" : "") +
-      "</div>" +
-      '<div class="conv-comp"><span class="hub-mk"></span><span>Ask a Question...</span><span class="dis">AI models can make mistakes. Verify responses.</span></div>';
+      "</div>" + composerHtml();
+  }
+  /* Ask Oracle's own chip row — Explore and Explain are Oracle's pair, Code
+     View is Oracle's SQL panel; Trace, Narrate and Create dashboard are ours. */
+  function chipRow(withDash) {
+    function chip(id, icon, label) {
+      return '<button class="achip' + (S.panel === id ? " is-on" : "") + '" type="button" data-panel="' + id + '">' + icon + label + "</button>";
+    }
+    return chip("evidence", ICON.search, "Explore") + chip("explain", ICON.bulb, "Explain") +
+      chip("code", ICON.code, "Code View") + chip("trace", ICON.route, "Trace") +
+      '<button class="achip' + (S.narrate ? " is-on" : "") + '" type="button" data-narr="1">' + ICON.speak + "Narrate</button>" +
+      (withDash
+        ? '<span class="right"><button class="achip achip--go" type="button" id="create-dash">' + ICON.chart + "Create dashboard</button></span>"
+        : '<span class="right"><button class="achip" type="button" data-askback="1">' + ICON.chevl + "Back to what is at risk</button></span>");
+  }
+  function composerHtml() {
+    return '<div class="conv-comp"><span class="hub-mk"></span><span>Ask a Question...</span><span class="mic">' + ICON.mic + "</span></div>" +
+      '<p class="conv-dis"><i>!</i>AI models can make mistakes. Verify responses.</p>';
   }
   function anPanelHtml(an) {
     if (S.panel === "trace") return traceHtml(an);
     if (S.panel === "explain") return explainHtml(an);
+    if (S.panel === "code") return codeHtml(ans("q1"));
     return evidenceHtml(an);
+  }
+  /* Code View: the statement the agent ran, in Oracle's dark SQL panel */
+  function codeHtml(a) {
+    var sql = (a && a.sql) || daAnswer().sql || "";
+    return panelHead("Code View", "the statement the agent ran against the certified views") +
+      '<div class="sqlbox">' + sqlHtml(sql).replace(/\n/g, "<br>") + "</div>" +
+      '<p class="honest">Read-only against GOLD, inside the allow-list, with the row policy and the column masking applied by the database.</p>';
   }
   function panelHead(title, note) {
     return '<div class="panel-head"><b>' + esc(title) + "</b>" + (note ? '<span class="panel-note">' + note + "</span>" : "") +
@@ -1147,26 +1165,20 @@
         '<span class="mono">allow-list ' + esc(a.firewall.allowList) + " &middot; status blocked &middot; audit row written</span></div></div>"
       : '<div class="ans-grid"><table class="agrid"><thead><tr>' + head + "</tr></thead><tbody>" + body + "</tbody></table></div>";
     var meta = a.blocked
-      ? '<b>0 rows</b><span class="sep">|</span>Refused before it ran<span class="sep">&middot;</span>' + esc(a.freshness.text)
-      : "<b>Total rows: " + a.rowCount + "</b><span class=\"sep\">|</span>Displayed: " + a.displayed + '<span class="sep">&middot;</span>' + esc(a.freshness.text);
+      ? "Total Rows: 0 | Refused before it ran"
+      : "Total Rows: " + a.rowCount + " | Displayed: " + a.displayed;
     var roleTag = S.role === "ANALYST_NA" ? '<span class="stat stat--review">Viewing as Marcus Bell &middot; North America</span>' : "";
-    return '<div class="conv-head"><button class="conv-back" type="button" data-back="1">' + ICON.chevl + "Agent Hub</button>" +
-      '<span class="conv-agent">' + ICON.bot + "Commercial operations agent</span></div>" +
-      '<div class="q-bubble">' + esc(a.text) + "</div>" +
+    return '<div class="q-bubble">' + esc(a.text) + "</div>" +
       '<div class="ans" id="ans">' +
-      '<div class="ans-meta">' + meta + (roleTag ? '<span class="sep">&middot;</span>' + roleTag : "") + '<span class="sep">&middot;</span>' +
+      '<div class="ans-meta">' + esc(a.freshness.text) + (roleTag ? '<span class="sep">&middot;</span>' + roleTag : "") + '<span class="sep">&middot;</span>' +
       viewChips(a.views) + "</div>" +
+      '<div class="ans-rows">' + meta + "</div>" +
       grid +
       (a.caveat ? '<div class="ans-caveat">' + ICON.info + " " + esc(a.caveat) + "</div>" : "") +
-      '<div class="ans-acts">' +
-      '<button class="achip' + (S.panel === "explain" ? " is-on" : "") + '" type="button" data-panel="explain">' + ICON.bulb + "Explain</button>" +
-      '<button class="achip' + (S.panel === "trace" ? " is-on" : "") + '" type="button" data-panel="trace">' + ICON.route + "Trace</button>" +
-      '<label class="narr"><input type="checkbox" id="narr-tog"' + (S.narrate ? " checked" : "") + ">Narrate</label>" +
-      '<span class="right"><button class="achip" type="button" data-askback="1">' + ICON.chevl + "Back to what is at risk</button></span></div>" +
+      '<div class="ans-acts">' + chipRow(false) + "</div>" +
       (S.narrate ? '<div class="ans-narr"><span class="sp">' + ICON.speak + "</span><span>" + esc(a.narrate) + "</span></div>" : "") +
-      (S.panel ? '<div class="ans-panel" id="ans-panel">' + (S.panel === "explain" ? explainHtml(analysis()) : traceHtml(analysis())) + "</div>" : "") +
-      "</div>" +
-      '<div class="conv-comp"><span class="hub-mk"></span><span>Ask a Question...</span><span class="dis">AI models can make mistakes. Verify responses.</span></div>';
+      (S.panel ? '<div class="ans-panel" id="ans-panel">' + (S.panel === "explain" ? explainHtml(analysis()) : S.panel === "code" ? codeHtml(a) : traceHtml(analysis())) + "</div>" : "") +
+      "</div>" + composerHtml();
   }
 
   $("#wb-page").addEventListener("click", function (e) {
