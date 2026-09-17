@@ -1355,8 +1355,12 @@ body.tour-gutter .conv--an { padding-right: 324px; }
 .an-cols { align-items: start; }
 .agrid s, .reca-v s { color: var(--rw-muted); text-decoration-thickness: 1px; }
 
-/* the ranked-accounts table is built to fit 1440 without a sideways scroll */
+/* the ranked-accounts table is built to fit 1440 without a sideways scroll.
+   Nine columns wrap, so its rows run denser than the light Ask Oracle build's
+   42-48 px — Oracle's own answer grids carry four to six columns. */
 .agrid--acct { table-layout: fixed; }
+.agrid--acct td { padding: 9px 9px; font-size: 13px; }
+.agrid--acct th { padding: 9px 9px; font-size: 13px; }
 .agrid--acct th:nth-child(1), .agrid--acct td:nth-child(1) { width: 18%; }
 .agrid--acct th:nth-child(2), .agrid--acct td:nth-child(2) { width: 5%; }
 .agrid--acct th:nth-child(3), .agrid--acct td:nth-child(3) { width: 14%; white-space: normal; }
