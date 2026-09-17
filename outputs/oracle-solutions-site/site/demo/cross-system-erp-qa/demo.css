@@ -1190,3 +1190,7 @@ body.tour-gutter .conv--an { padding-right: 324px; }
   .src-apps { display: none; }
   .src-sys { display: none; }
 }
+
+/* any table wider than its column scrolls inside its own box — never the page */
+.tw { overflow-x: auto; max-width: 100%; }
+.tw > table { min-width: 100%; }

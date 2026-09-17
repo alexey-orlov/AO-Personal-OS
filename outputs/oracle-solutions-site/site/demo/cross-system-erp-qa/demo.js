@@ -750,6 +750,7 @@
         "<p>" + (S.role === "ANALYST_NA" ? "Penalty terms are hidden for this role." : "&ldquo;" + esc(e.contract.clause) + "&rdquo;") + "</p>" +
         '<span class="cl-calc">' + (S.role === "ANALYST_NA" ? "Exposure hidden" : "Lead time " + esc(e.contract.leadTimeDays) + " business days &middot; " + esc(e.contract.penaltyPerDay) + " % per business day, capped at " + esc(e.contract.cap) + " % &middot; exposure on these lines " + esc(usdShort(e.contract.exposedUsd))) + "</span></div>";
     }
+    body = body.split('<table class="dgrid"').join('<div class="tw"><table class="dgrid"').split("</table>").join("</table></div>");
     return panelHead("Evidence", "everything behind this account, in the system it came from") + picker + body;
   }
 
@@ -795,10 +796,10 @@
         return '<div class="gd-tile"><span class="l">' + esc(x.label) + '</span><span class="v">' + esc(x.value) + '</span><span class="n">' + esc(x.note || "") + "</span></div>";
       }).join("") + "</div>" +
       '<div class="gd-charts">' + charts + "</div>" +
-      '<table class="wb-tbl"><thead><tr>' + (t.columns || []).map(function (c, i) { return '<th' + (i >= 2 && i <= 3 ? ' class="r"' : "") + ">" + esc(c) + "</th>"; }).join("") + "</tr></thead><tbody>" +
+      '<div class="tw"><table class="wb-tbl"><thead><tr>' + (t.columns || []).map(function (c, i) { return '<th' + (i >= 2 && i <= 3 ? ' class="r"' : "") + ">" + esc(c) + "</th>"; }).join("") + "</tr></thead><tbody>" +
       (t.rows || []).map(function (r) {
         return "<tr>" + r.map(function (c, i) { return '<td' + (i >= 2 && i <= 3 ? ' class="r"' : "") + ">" + esc(c) + "</td>"; }).join("") + "</tr>";
-      }).join("") + "</tbody></table>" +
+      }).join("") + "</tbody></table></div>" +
       '<p class="honest">Built from ' + esc((d.builtFrom || []).join(", ")) + ' — the same definitions the answer used, so a change to one moves both.' +
       (S.shared ? " Shared with the commercial team at 09:49 (mocked — nothing leaves this page)." : "") + "</p></div>";
   }
@@ -1361,10 +1362,10 @@
         rows: a.rows === undefined || a.rows === null ? "—" : a.rows, status: a.status || "allowed" };
     });
     return '<div class="wb-pg"><h1>Sessions</h1><div class="sub">Every question anyone asked, and what the database did with it</div><div class="wb-rule"></div>' +
-      '<table class="wb-tbl"><thead><tr><th style="width:110px">Time</th><th style="width:140px">User</th><th style="width:120px">Role</th><th>Question</th><th style="width:150px">Statement</th><th style="width:70px" class="r">Rows</th><th style="width:90px">Result</th></tr></thead><tbody>' +
+      '<div class="tw"><table class="wb-tbl"><thead><tr><th style="width:110px">Time</th><th style="width:140px">User</th><th style="width:120px">Role</th><th>Question</th><th style="width:150px">Statement</th><th style="width:70px" class="r">Rows</th><th style="width:90px">Result</th></tr></thead><tbody>' +
       mine.map(function (a) {
         return "<tr><td>" + esc(a.time) + "</td><td>" + esc(a.user) + "</td><td>" + esc(a.role) + "</td><td>" + esc(a.text) + '</td><td><span class="mono">' + esc(a.sqlHash) + '</span></td><td style="text-align:right">' + esc(a.rows) + '</td><td><span class="stat stat--' + (a.status === "blocked" ? "open" : "auto") + '">' + esc(a.status) + "</span></td></tr>";
-      }).join("") + "</tbody></table>" +
+      }).join("") + "</tbody></table></div>" +
       '<p class="honest">A blocked row is a refusal by SQL Firewall against the allow-list, written before the statement could reach any data.</p></div>';
   }
 
@@ -1506,11 +1507,11 @@
     var rows = S.pending.map(function (d) { return { row: d.row, pending: true }; })
       .concat(S.log.map(function (d) { return { row: d, pending: false }; }))
       .concat((D.decisions || []).slice().sort(function (a, b) { return a.at < b.at ? 1 : -1; }).map(function (d) { return { row: d, pending: false }; }));
-    el.innerHTML = '<table class="rtbl"><thead><tr><th style="width:150px">When</th><th style="width:160px">Who</th><th>Decision</th><th style="width:100px">Action</th><th>Why</th><th>Rule left behind</th></tr></thead><tbody>' +
+    el.innerHTML = '<div class="tw"><table class="rtbl"><thead><tr><th style="width:150px">When</th><th style="width:160px">Who</th><th>Decision</th><th style="width:100px">Action</th><th>Why</th><th>Rule left behind</th></tr></thead><tbody>' +
       rows.map(function (x) {
         var d = x.row;
         return "<tr><td>" + esc(d.at) + (x.pending ? ' <span class="stat stat--review">not in the numbers yet</span>' : "") + "</td><td>" + esc(d.by) + "<br><span style=\"color:#837d75;font-size:11px\">" + esc(d.role) + "</span></td><td>" + esc(d.title) + '</td><td><span class="stat stat--' + (d.action === "decline" || d.action === "reject" ? "open" : "auto") + '">' + esc(d.action) + "</span></td><td>" + esc(d.reason) + "</td><td>" + (d.rule ? esc(d.rule) : "—") + "</td></tr>";
-      }).join("") + "</tbody></table>" +
+      }).join("") + "</tbody></table></div>" +
       '<p class="honest">Every decision is kept with who made it, when, and why — and any rule it leaves behind for the next run.</p>';
   }
   function renderRw() { renderRwState(); renderBand(); renderRwTabs(); renderRwPanel(); }
