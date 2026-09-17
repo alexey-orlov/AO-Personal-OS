@@ -1359,9 +1359,9 @@ window.SITE_CONTENT = {
       jumpstart: {
         title: "Jumpstart Proof-of-Value",
         promise: "Pilot plan vs actual investigation on one anchor portfolio in 4–8 weeks, and get every material variance back with its likely drivers and the evidence behind them.",
-        durationShort: "12 weeks plus a two-week acceptance phase",
+        durationShort: "4–8 weeks",
         pillars: [
-          { key: "fast", title: "Fast", text: "Twelve weeks from kickoff to an expert-validated readout, plus a two-week acceptance phase. Discovery is compressed into the first two weeks and ends at a gate." },
+          { key: "fast", title: "Fast", text: "4–8 weeks from kickoff to an expert-validated readout. Discovery is compressed into the first week and ends at a gate." },
           { key: "low-risk", title: "Low-risk", text: "Approved static exports in your own Oracle tenancy, with stage gates at framework readiness, analytical review and evidence output." },
           { key: "tangible", title: "Tangible", text: "A unit-level plan-versus-actual view over your own sample, with every material finding tied to the record it came from." }
         ],
@@ -1372,10 +1372,10 @@ window.SITE_CONTENT = {
           "A measured readout on operational efficiency, output validation rate and evidence coverage."
         ],
         timeline: [
-          { label: "Weeks 1–2 · Discovery", text: "Sample, sources and success thresholds agreed. The phase ends at a gate before the build starts." },
-          { label: "Weeks 3–4 · Framework", text: "Exports landed in zoned storage with lineage; the conformed model and the mapping layer built against your unit identifier." },
-          { label: "Weeks 5–10 · Analysis", text: "Plan against actual at unit level, then the evidence-backed output: variances, patterns and candidate drivers with their citations." },
-          { label: "Weeks 11–12 · Validate", text: "Validation with your experts, demo and roadmap. Acceptance runs in weeks 13–14, after the twelve-week build." }
+          { label: "Week 1 · Discovery", text: "Sample, sources and success thresholds agreed. The phase ends at a gate before the build starts." },
+          { label: "Weeks 2–3 · Framework", text: "Exports landed in zoned storage with lineage; the conformed model and the mapping layer built against your unit identifier." },
+          { label: "Weeks 3–6 · Analysis", text: "Plan against actual at unit level, then the evidence-backed output: variances, patterns and candidate drivers with their citations." },
+          { label: "Weeks 6–8 · Validate", text: "Validation with your experts, the demo, the roadmap and acceptance." }
         ],
         needs: [
           "An agreed portfolio or project sample, with historical periodic records per unit",
@@ -1384,7 +1384,7 @@ window.SITE_CONTENT = {
         ],
         investment: {
           price: "Scoped per engagement",
-          duration: "12 weeks, plus a two-week acceptance phase",
+          duration: "4–8 weeks",
           includes: [
             "One anchor portfolio or project, one agreed sample",
             "Ingestion with lineage, the conformed model and the mapping layer",
@@ -1696,10 +1696,10 @@ window.SITE_CONTENT = {
       },
       jumpstart: {
         title: "Jumpstart Proof-of-Value",
-        promise: "Pilot large-document processing and review on your own contracts in 2 months, at a fixed price, and see extraction accuracy and effort saved measured against the baseline you signed.",
+        promise: "Pilot large-document processing and review on your own contracts in 4–8 weeks, at a fixed price, and see extraction accuracy and effort saved measured against the baseline you signed.",
         durationShort: "4–8 weeks",
         pillars: [
-          { key: "fast", title: "Fast", text: "Two months from kickoff to a measured accuracy and effort readout on your own contracts." },
+          { key: "fast", title: "Fast", text: "4–8 weeks from kickoff to a measured accuracy and effort readout on your own contracts." },
           { key: "low-risk", title: "Low-risk", text: "Fixed scope at a fixed price: manual upload, one document type, the core field schema. It runs sandboxed in your own Oracle tenancy, and nothing is written into your cost or ERP system." },
           { key: "tangible", title: "Tangible", text: "A 60–100-page contract extracted end to end in minutes, every value cited to its page and validated by your own reviewer before export." }
         ],
@@ -2035,10 +2035,10 @@ window.SITE_CONTENT = {
       },
       jumpstart: {
         title: "Jumpstart Proof-of-Value",
-        promise: "Pilot workforce optimization on your own historical data in 2 months, at a fixed price, and take away a before/after KPI readout your dispatchers have signed off.",
+        promise: "Pilot workforce optimization on your own historical data in 4–8 weeks, at a fixed price, and take away a before/after KPI readout your dispatchers have signed off.",
         durationShort: "4–8 weeks",
         pillars: [
-          { key: "fast", title: "Fast", text: "Two months from kickoff to a before/after KPI readout on a real region of your own." },
+          { key: "fast", title: "Fast", text: "4–8 weeks from kickoff to a before/after KPI readout on a real region of your own." },
           { key: "low-risk", title: "Low-risk", text: "Fixed scope at a fixed price: manual data import, the recurring constraints, a sandboxed environment on your own tenancy. A dispatcher approves every plan before anything reaches the field." },
           { key: "tangible", title: "Tangible", text: "An optimized four-week plan for one region, measured against your current plan on identical KPI definitions." }
         ],
