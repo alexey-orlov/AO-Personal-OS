@@ -115,6 +115,7 @@
     dashBuilding: false, dashStep: 0, shared: false,
     mcEntity: "REVENUE_AT_RISK",  /* Master catalog: the open entity */
     mcMenu: false,                /* Actions menu */
+    apcView: "detail",            /* Auto-populate catalog: list | detail */
     linView: "REVENUE_AT_RISK",   /* Lineage: the artifact the graph is for */
     linOpen: ["out"],             /* expanded (column-level) cards */
     linCol: null,                 /* the highlighted target column */
@@ -1240,6 +1241,8 @@
     if ((t = e.target.closest("[data-mcdet]"))) { S.mcMenu = false; renderWb(); toast("<span><b>View Details</b> and <b>Set as Anchor</b> are the other two right-click actions on a catalog artifact; only <b>Lineage</b> opens in this walkthrough.</span>", 6000); return; }
     if ((t = e.target.closest("[data-mcanch]"))) { S.mcMenu = false; renderWb(); toast("<span>Setting an anchor re-centres the lineage diagram on that artifact. GOLD." + esc(S.mcEntity) + " is already the anchor.</span>", 6000); return; }
     if ((t = e.target.closest("[data-apccreate]"))) { toast("<span><b>Create Metadata Extractor</b> — read-only in this walkthrough.</span>"); return; }
+    if ((t = e.target.closest("[data-apcopen]"))) { S.apcView = "detail"; renderWb(); return; }
+    if ((t = e.target.closest("[data-apclist]"))) { S.apcView = "list"; renderWb(); return; }
     if ((t = e.target.closest("#lin-close"))) { S.wbPanel = S.linFrom || "catalog"; S.linFrom = null; renderWb(); return; }
     if ((t = e.target.closest("[data-linopen]"))) {
       var oid = t.dataset.linopen, oi = S.linOpen.indexOf(oid);
@@ -1604,6 +1607,27 @@
       "</div></div></div>";
   }
   /* ---------------- Auto-populate catalog: the accept/reject queue ------- */
+  /* Oracle ships the extractor LIST and the extractor PAGE as two destinations.
+     The breadcrumb's first crumb goes back to the list; the name opens the page. */
+  function apcHtml() {
+    return S.apcView === "list" ? apcListHtml() : apcDetailHtml();
+  }
+  function apcListHtml() {
+    var heads = ["Name", "Catalog", "Status", "Entity Lifecycle", "Compute", "Start time", "Created By"];
+    var w = [0, 150, 110, 130, 130, 200, 130];
+    return '<div class="mc"><div class="mc-crumb"><b>Auto-populate catalog</b></div>' +
+      '<div class="wb-pg"><h1>' + ICON.tag + 'Auto-populate catalog</h1><div class="sub">Create a metadata to auto populate catalog with content.</div>' +
+      '<div class="mc-tools"><label class="lin-filter"><span class="wb-mag"></span><input type="search" placeholder="Filter" aria-label="Filter extractors"></label>' +
+      '<span class="mc-plus">+</span><span class="mc-trash">' + ICON.trash + "</span>" +
+      '<span class="lin-sel">Catalog: All' + ICON.chevd + '</span><span class="lin-sel">Status: All' + ICON.chevd + '</span><span class="lin-sel">Entity Lifecycle: All' + ICON.chevd + "</span>" +
+      '<span class="lin-right"><button class="btn btn--dark btn--sm" type="button" data-apccreate="1">Create</button></span></div>' +
+      '<div class="tw"><table class="wb-tbl"><thead><tr><th style="width:26px"><span class="mc-box"></span></th>' + heads.map(function (h, i) {
+        return '<th' + (w[i] ? ' style="width:' + w[i] + 'px"' : "") + ">" + h + (i < 6 ? SORTC : "") + "</th>";
+      }).join("") + "</tr></thead><tbody>" +
+      '<tr><td><span class="mc-box"></span></td><td><a class="mc-link" data-apcopen="1">Commercial model extractor</a></td><td>' + GOLD_CAT + '</td><td><span class="apc-dot"></span>Succeeded</td><td>Auto</td><td>Norwell_Cluster</td><td>Tue, Oct 6, 2026 at 09:44</td><td>Priya Natarajan</td></tr>' +
+      "</tbody></table></div>" +
+      '<p class="honest">One extractor covers the commercial model. Open it to see which entities a person accepted or rejected.</p></div></div>';
+  }
   var APC_ROWS = [
     ["doo_fulfill_lines_all", "Success", "Accepted", "/fusion-erp/doo-fulfill-lines-all", "fusion_erp"],
     ["inv_onhand_quantities_detail", "Success", "Accepted", "/fusion-erp/inv-onhand-quantities-detail", "fusion_erp"],
@@ -1618,24 +1642,17 @@
     ["crm_lead", "Success", "Rejected", "/crm-iceberg/crm-lead", "crm_iceberg"],
     ["ns_employee", "Success", "Rejected", "/netsuite/employee", "netsuite"]
   ];
-  function apcHtml() {
+  function apcDetailHtml() {
     return '<div class="mc">' +
-      '<div class="mc-crumb"><a>Auto-populate catalog</a> <i>&rsaquo;</i> <b>Commercial model extractor</b></div>' +
-      '<div class="wb-pg"><h1>Auto-populate catalog</h1><div class="sub">Create a metadata to auto populate catalog with content.</div><div class="wb-rule"></div>' +
-      '<div class="mc-tools"><label class="lin-filter"><span class="wb-mag"></span><input type="search" placeholder="Filter" aria-label="Filter extractors"></label>' +
-      '<span class="lin-sel">Catalog: All' + ICON.chevd + '</span><span class="lin-sel">Status: All' + ICON.chevd + '</span><span class="lin-sel">Entity Lifecycle: All' + ICON.chevd + "</span>" +
-      '<span class="lin-right"><button class="btn btn--dark btn--sm" type="button" data-apccreate="1">Create</button></span></div>' +
-      '<table class="wb-tbl"><thead><tr><th>Name</th><th style="width:150px">Catalog</th><th style="width:110px">Status</th><th style="width:130px">Entity Lifecycle</th><th style="width:130px">Compute</th><th style="width:200px">Start time</th><th style="width:130px">Created By</th></tr></thead><tbody>' +
-      '<tr><td>Commercial model extractor</td><td>' + GOLD_CAT + '</td><td><span class="apc-ok">&#10003;</span> Succeeded</td><td>Auto</td><td>Norwell_Cluster</td><td>Tue, Oct 6, 2026 at 09:44</td><td>Priya Natarajan</td></tr>' +
-      "</tbody></table>" +
-      '<div class="mc-head mc-head--2"><span class="apc-tag">&#127991;</span><h1>Commercial model extractor</h1></div><div class="mc-sub mc-sub--i">No description</div>' +
+      '<div class="mc-crumb"><a data-apclist="1">Auto-populate catalog</a> <i>&rsaquo;</i> <b>Commercial model extractor</b></div>' +
+      '<div class="wb-pg"><div class="mc-head"><span class="apc-tag">' + ICON.tag + '</span><h1>Commercial model extractor</h1></div><div class="mc-sub mc-sub--i">No description</div>' +
       '<div class="mc-tabs"><button type="button">Details</button><button type="button" class="is-on">Reviewed entities</button></div>' +
-      '<p class="lin-help">The following entities have been accepted or rejected.</p>' +
-      '<div class="mc-tools"><label class="lin-filter"><span class="wb-mag"></span><input type="search" placeholder="Filter" aria-label="Filter entities"></label></div>' +
-      '<table class="wb-tbl"><thead><tr><th>Table (select to view table columns and details)</th><th style="width:120px">Status</th><th style="width:120px">Acceptance</th><th style="width:250px">Path</th><th style="width:130px">Schema</th><th style="width:34px"></th></tr></thead><tbody>' +
+      '<div class="mc-tools mc-tools--wide"><label class="lin-filter"><span class="wb-mag"></span><input type="search" placeholder="Filter" aria-label="Filter entities"></label></div>' +
+      '<p class="lin-help lin-help--dark">The following entities have been accepted or rejected.</p>' +
+      '<div class="tw"><table class="wb-tbl"><thead><tr><th>Table (select to view table columns and details)</th><th style="width:120px">Status</th><th style="width:120px">Acceptance</th><th style="width:250px">Path</th><th style="width:130px">Schema</th><th style="width:34px"></th></tr></thead><tbody>' +
       APC_ROWS.map(function (r) {
-        return '<tr><td><a class="mc-link">' + esc(r[0]) + '</a></td><td><span class="apc-ok">&#10003;</span> ' + esc(r[1]) + '</td><td><span class="stat stat--' + (r[2] === "Accepted" ? "auto" : "open") + '">' + esc(r[2]) + "</span></td><td>" + esc(r[3]) + "</td><td>" + esc(r[4]) + '</td><td><span class="mc-dots">&middot;&middot;&middot;</span></td></tr>';
-      }).join("") + "</tbody></table>" +
+        return '<tr><td><a class="mc-link">' + esc(r[0]) + '</a></td><td><span class="apc-dot"></span>' + esc(r[1]) + '</td><td><span class="apc-plain">' + esc(r[2]) + "</span></td><td>" + esc(r[3]) + "</td><td>" + esc(r[4]) + '</td><td><span class="mc-dots">&middot;&middot;&middot;</span></td></tr>';
+      }).join("") + "</tbody></table></div>" +
       '<p class="honest">Twelve entities were proposed by the extractor and ten accepted; the two rejected ones are out of the commercial model and never reach a certified view. The metadata a person confirms here is what the agents read to work out which column answers which question.</p></div></div>';
   }
 
@@ -2254,6 +2271,7 @@
     openEvidence: function (id) { setApp("aidp"); openEvidence(id); },
     openPanel: function (p) { S.panel = p || null; if (S.wbPanel !== "conversation") S.wbPanel = "analysis"; renderWb(); },
     setDsScreen: function (s) { S.dsScreen = s; renderDs(); },
+    setApcView: function (v) { S.apcView = v; renderWb(); },
     setWbPanel: function (p) { S.wbPanel = p; S.panel = null; renderWb(); },
     setRwTab: function (t) { S.rwTab = t; renderRwTabs(); renderRwPanel(); },
     openRec: function (id) { S.openRec = id; renderRwPanel(); },
