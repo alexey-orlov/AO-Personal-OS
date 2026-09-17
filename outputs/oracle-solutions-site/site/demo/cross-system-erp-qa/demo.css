@@ -1203,6 +1203,7 @@ body.ui-clean .lin { inset: 44px 0 0 0; }
 .src-sys { font-size: 12px; color: var(--ds-txt-2); }
 .src-what { font-size: 12px; color: var(--ds-txt-2); line-height: 1.4; }
 .src-feed { font-size: 11.5px; color: #8b857d; margin-top: auto; padding-top: 8px; line-height: 1.4; }
+.src-feed .f-short { display: none; }
 
 /* ---------- Agent Hub · the multi-agent run card ------------------------ */
 .runcard { background: #fff; border: 1px solid #ddd9d3; border-radius: 8px; box-shadow: var(--shadow); margin: 10px 0 4px; max-width: 640px; padding: 12px 0 0; }
@@ -1417,8 +1418,16 @@ body.tour-gutter .conv--an { padding-right: 324px; }
    middle of its glyphs rather than between two lines (2026-09-17). What the
    source does is allowed to run out after two whole lines; the feed line, the
    name and the freshness pill never are. */
+/* At 1024 the five cards fall to two rows, and the step-1 callout has to fit
+   under them inside a 768 px viewport: the page subtitle goes, the feed line
+   uses the short form of each pipeline's name, and the cards keep one even
+   height that their content really fits. */
 @media (max-width: 1120px) {
-  .src { height: 152px; overflow: hidden; }
+  .ds-head span { display: none; }
+  .src-feed .f-long { display: none; }
+  .src-feed .f-short { display: inline; }
+  .src { height: 134px; padding: 10px 11px; overflow: hidden; }
+  .src-ico { margin-bottom: 0; }
   .src-ico, .src h3 { flex: none; }
   .src-feed { padding-top: 4px; flex: none; }
   .src-what { flex: none; max-height: 32.2px; position: relative; }

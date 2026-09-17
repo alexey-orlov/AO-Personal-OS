@@ -346,8 +346,8 @@
           '<h3>' + esc(s.short) + "</h3>" +
           '<div class="src-sys">' + esc(s.name) + "</div>" +
           '<div class="src-what">' + esc(srcWhat(s.id)) + "</div>" +
-          '<div class="src-feed">' + esc(s.feed) + " &middot; " + esc(s.freshLabel) + " behind &middot; " +
-          s.objects.length + " objects</div></div>";
+          '<div class="src-feed"><span class="f-long">' + esc(s.feed) + '</span><span class="f-short">' + esc(s.feedShort || s.feed) + "</span> &middot; " +
+          esc(s.freshLabel) + " behind &middot; " + s.objects.length + " objects</div></div>";
       }).join("") + "</div></section>" +
       '<section class="job" id="ds-job"><div class="job-head"><span class="job-cv">' + ICON.chevd + '</span><span class="job-ico">' + ICON.grid + "</span>" +
       '<h2>GOLD.CROSS_SYSTEM_COMMERCIAL_MODEL &bull; ' + D.views.length + " views &bull; " + D.sources.length + " sources</h2>" +
