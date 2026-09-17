@@ -1305,7 +1305,14 @@ window.ERPQA_DATA = (function () {
     ];
   }
 
-  /* ---- evidence behind one account ------------------------------------- */
+  /* ---- evidence behind one account -------------------------------------
+     An account's line list is everything it has open, at risk or not: the
+     on-track lines are what let a customer be seen in two order books at once.
+     Two fields survive a decision so that a decided account keeps its own
+     figures rather than borrowing the on-track ones — `wasAtRisk` on each line
+     (what the AI actually valued) and `atRiskCount` on the object (how many,
+     after the role's row policy). `atRisk` is the live flag and goes false for
+     every line once the account is re-promised and accepted. */
   function maskedContacts(cid, R) {
     return (CONTACTS_BY_CUST[cid] || []).map(function (c) {
       var em = R.masked.indexOf("CONTACT_EMAIL") >= 0, ph = R.masked.indexOf("CONTACT_PHONE") >= 0;
@@ -1333,8 +1340,8 @@ window.ERPQA_DATA = (function () {
         item: l.item, itemKey: l.itemKey, itemKeyCol: l.itemKeyCol, itemDescription: l.itemDescription,
         qty: l.qty, uom: l.uom, promised: l.promised, promisedLabel: dLabel(l.promised),
         predicted: l.predicted, predictedLabel: dLabel(l.predicted), daysLate: l.daysLate,
-        status: res ? "Re-promised, accepted" : l.status, sourceStatus: l.sourceStatus, statusCol: l.statusCol,
-        dateCols: l.dateCols, customerKey: l.customerKey, atRisk: l.atRisk && !res,
+        status: res && l.atRisk ? "Re-promised, accepted" : l.status, sourceStatus: l.sourceStatus, statusCol: l.statusCol,
+        dateCols: l.dateCols, customerKey: l.customerKey, atRisk: l.atRisk && !res, wasAtRisk: !!l.atRisk,
         usd: l.usd, currency: l.currency, amountLocal: l.amountLocal, unitPriceLocal: l.unitPriceLocal,
         causeId: l.causeId, cause: l.causeId ? CAUSE[l.causeId].short : "On track",
         penaltyUsd: R.masked.indexOf("PENALTY_TERMS") >= 0 ? null : l.penaltyUsd
@@ -1403,7 +1410,7 @@ window.ERPQA_DATA = (function () {
       account: account || { id: cid, name: c.name, tier: c.tier, owner: c.owner, region: c.region,
         entity: c.entity, systems: c.systems, lines: 0, usd: 0, penaltyUsd: 0, status: "at-risk", statusLabel: "At risk" },
       decided: res ? res.decision : null,
-      lines: lines, linesHidden: hidden,
+      lines: lines, linesHidden: hidden, atRiskCount: atRisk.length,
       policyNote: hidden ? hidden + " line" + (hidden === 1 ? "" : "s") + " outside " + R.entities.join(", ") + " are not returned to this role." : "",
       stockElsewhere: stockElsewhere,
       crm: {
