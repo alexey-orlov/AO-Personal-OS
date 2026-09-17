@@ -2726,7 +2726,7 @@ window.SITE_CONTENT = {
       anchor: "how-we-engage",
       eyebrow: "How we engage",
       title: "Every step has a number.",
-      lead: "Measuring what an innovation changes is the discipline behind everything we do. Two or three success metrics and today’s baseline are signed by you, Oracle and SoftServe before the clock starts; each step is judged against them, and you decide the next one on the measured result. On one engagement that discipline took a customer’s existing AI solution to 81% accuracy — past the point where checking the output beats doing the job by hand.",
+      lead: "Measuring what an innovation changes is the discipline behind everything we do. Two or three success metrics and today’s baseline are signed by you, Oracle and SoftServe before the clock starts; each step is judged against them, and you decide the next one on the measured result.",
       steps: [
         {
           title: "Discovery",
@@ -2753,7 +2753,7 @@ window.SITE_CONTENT = {
           fact: "The same readout, organization-wide"
         }
       ],
-      footnote: "Both ends are optional: if you are already convinced, start at integration, and a process that is identical everywhere may never need to scale. Durations are illustrative and confirmed in scoping."
+      footnote: "On one engagement that discipline took a customer’s existing AI solution to 81% accuracy — past the point where checking the output beats doing the job by hand. Both ends are optional: if you are already convinced, start at integration, and a process that is identical everywhere may never need to scale. Durations are illustrative and confirmed in scoping."
     },
 
     proofOfValue: {
