@@ -167,95 +167,102 @@ product's stepper reads as one system.
   product UI — its 40 images are slide exports, and those carry a customer name
   in the case study.
 
-**Cross-system ERP Q&A (2026-09-16).** All four `cross-system-erp-qa-*.jpg`
-frames and `posters/cross-system-erp-qa.jpg` are captures of the third
-walkthrough (`site/demo/cross-system-erp-qa/`, PROVENANCE §22). There is no
-delivered product behind this pack, so the "real product" the frames have to be
-faithful to is the **platform** — Oracle Autonomous AI Lakehouse (Data Studio)
-and Oracle AI Data Platform (Agent Hub), replicated from Oracle's own product
-videos and doc figures, plus a small Redwood steward app. The world is
-synthetic throughout: a fictional multi-entity group, invented supplier names
-(Kestrel Components, Orion Fasteners, Halden Tooling …), invented ids on each
-system's real key shapes (Fusion `S-10422`, JDE `AB 118207`, NetSuite `V-4187`),
-invented balances, and a coverage band that carries **no** time-to-answer, cost,
-saving or delivery-time figure — the pack has no cleared outcome number, and the
-band shows counts and coverage only. No customer mark, no Oracle logo file, no
-currency symbol beyond the USD column header.
+**Cross-system ERP Q&A (2026-09-16, re-shot 2026-09-17).** All four
+`cross-system-erp-qa-*.jpg` frames and `posters/cross-system-erp-qa.jpg` are
+captures of the third walkthrough (`site/demo/cross-system-erp-qa/`,
+PROVENANCE §22). There is no delivered product behind this pack, so the "real
+product" the frames have to be faithful to is the **platform** — Oracle
+Autonomous AI Lakehouse (Data Studio) and Oracle AI Data Platform (Agent Hub),
+replicated from Oracle's own product videos and doc figures, plus a small
+Redwood app for the decisions. The world is synthetic throughout: a fictional
+multi-entity group, invented customer names (Halden Tooling Group, Kestrel
+Components, Bramley Logistics …), invented ids on each system's real key shapes
+(JDE `F4211 · SDDOCO 6421007`, Fusion `DOO_FULFILL_LINES_ALL · FULFILL_LINE_ID
+300000048210650`, NetSuite `transactionLine`), invented values, and a band that
+carries **no** time-to-answer, cost, saving or delivery-time figure — the pack
+has no cleared outcome number, and every money figure on screen is the AI's own
+estimate on invented order lines, labelled as such. No customer mark, no Oracle
+logo file, no currency symbol beyond the USD prefix the product itself prints.
+
+The five images were re-shot on 2026-09-17 for round 2 — the walkthrough's
+domain changed from a finance close to revenue at risk across systems — and
+each one is matched to its **step copy**, not to the tour order:
 
 | File | Shows | Capture state |
 |---|---|---|
-| `cross-system-erp-qa-1.jpg` | Connect the applications: Data Studio › Catalog with the five mounted source catalogs (`FUSION_ERP` · `JDE_E1` · `NETSUITE` · `CRB_INHOUSE` · `CRM_ICEBERG`), the entity-type pills and "Showing 41 entities" | `state=start`, Catalog, 640 px viewport |
-| `cross-system-erp-qa-2.jpg` | Shape one decision domain: the Mapping review health band in full — six tiles, before → after the rebuild (5 sources · 1 model · 13 certified views; 61.2 % → 93.2 % resolved; 37 → 0 unmapped accounts; ledgers 1/3 → 3/3; 14 duplicate pairs; stalest source unchanged) | `state=refreshed`, Mapping review, 676 px viewport |
-| `cross-system-erp-qa-3.jpg` | Guard it in the data layer: the **same question, answered under a role** — the "Viewing as Marcus Bell · Regional analyst NA" chip, "Total rows: 4", four JDE rows in a "Q3 spend, NG-NA (USD)" column, and the policy banner "Rows are limited to NG-NA by the row policy; BANK_ACCOUNT redacted · TAX_ID partially redacted" over the action chips | `state=final`, `role=analyst`, `q=1`, Agent Hub, 868 px viewport |
-| `cross-system-erp-qa-4.jpg` | Ask in plain language: the Agent Hub answer to question 1 as the controller — "Total rows: 11 · Displayed: 11 · as of 09:02 (stalest: NetSuite, 38 min behind)" over the three `GOLD` views it read, and seven of the eleven rows carrying their Fusion / JDE / NetSuite badges | `state=final`, `q=1`, Agent Hub, 868 px viewport |
+| `cross-system-erp-qa-1.jpg` | Connect the applications: Data Studio › Data Load › Live Feed, "Sources feeding the lakehouse" — all five source cards (Fusion, JD Edwards, NetSuite, the in-house delivery-tracking database, the CRM), each with what it holds, the feed that carries it and how far behind it is | `state=analysed`, Live Feed, 852 px viewport |
+| `cross-system-erp-qa-2.jpg` | Shape one decision domain: the six-tile band "per system → across systems" — late lines known 61 + 49 + 28 → 138, lines with an account tier 0 → 138, lines with a cause attributed 0 → 138, lines fixable from stock elsewhere 0 → 44, revenue at risk — → USD 4.18 M, tier-A exposure — → 9 accounts · USD 2.36 M — under the Decisions header and its "138 lines at risk · USD 4.18 M" state line | `state=analysed`, Decisions, 676 px viewport |
+| `cross-system-erp-qa-3.jpg` | Guard it in the data layer: the **dashboard the AI generated**, seen by the regional analyst — "Built by the AI · Tue 6 Oct 2026 · 09:58", "NG-NA only · Regional operations analyst NA · 57 lines", and the SLA-penalties tile masked to dots with "Contract penalty terms are hidden for this role" | `state=final`, `role=analyst`, `panel=dashboard`, Agent Hub › Insights, 868 px viewport |
+| `cross-system-erp-qa-4.jpg` | Ask in plain language: the Agent Hub with the Ask Oracle box, the typed question "Which open orders are at risk this week, and which of our best accounts are exposed?" and the run card mid-run — the order agent done with the three order books it opened, the identity agent in progress on `GOLD.CUSTOMER_360` | `state=start`, 1.3 s into the run, Agent Hub, 1212 px viewport |
 
 **Capture.** `tools/capture-demo-frames.mjs` in `MODE=script` with
 `tools/capture-erpqa-frames.json`, `DPR=2`, the page opened at
 `?tour=off&ui=clean&state=start`
 (`tools/capture-erpqa-tour.json` drives the whole guided tour by real clicks and
-is the tour's regression test — `LOGS: none` is the gate). The scenario itself
-walks every state through `window.DEMO` — `prime('start'|'refreshed'|'final')`,
-`setApp`, `ask`, and `setRole('ANALYST_NA')` for `-3` — so one scenario file
-produces all five shots and each **viewport** run keeps only the shot it was
-sized for:
+is the tour's regression test — `LOGS: none` is the gate). The scenario walks
+every state through `window.DEMO` — `prime('analysed'|'final'|'start')`,
+`setApp`, `setDsScreen`, `setRwTab`, `setWbPanel`, `setRole`, `ask` — and ends
+by clicking the saved question so the run card is caught live, so one scenario
+file produces all five shots and each **viewport** run keeps only the shot it
+was sized for:
 
-    MODE=script STEPS=tools/capture-erpqa-frames.json DPR=2 W=640 H=900 \
+    MODE=script STEPS=tools/capture-erpqa-frames.json DPR=2 W=852 H=900 \
       node tools/capture-demo-frames.mjs \
-      "file://<repo>/site/demo/cross-system-erp-qa/index.html?tour=off&ui=clean&state=start" /tmp/erp640
-    # …the same command with W=676 H=900, W=868 H=1000 and W=980 H=1100
+      "file://<repo>/site/demo/cross-system-erp-qa/index.html?tour=off&ui=clean&state=start" /tmp/erp852
+    # …the same command with W=676 H=900, W=868 H=1000, W=1212 H=1000 and W=1440 H=1100
 
-Four viewports, because each surface fits a 640 CSS-px crop at a different
-width: `-1` from the 640 run (the left nav takes 172 px, so the five
-mounted-catalog chips only wrap inside the remaining 468 px — and therefore
-inside the crop — at a viewport that narrow; the price is that the entity-type
-pill row, which is centred and does not wrap, runs past the page and its last
-pill sits on the crop's right edge);
-`-2` from the 676 run (the health band reflows to 3 × 2 tiles under
-1120 px and is exactly 640 px wide at a 676 px viewport, so all six tiles land
-inside the crop at the same apparent size three of six would have at 1240 px);
-`-3` and `-4` from the 868 run (the answer card is exactly 640 px wide at a
-868 px viewport — `card = W − 228` — so the crop holds the whole card, badges
-and magnifier column included, with nothing clipped left or right); the poster
-from the 980 run (nav 180 px + page 800 px, so an 800 px crop is the whole page
-with nothing cut).
+Five viewports, because each surface is exactly 640 CSS px wide at a different
+one: `-1` from the 852 run (the Data Studio page is `W − 212`, so the five
+source cards are 640 px wide and reflow to 3 + 2 there); `-2` from the 676 run
+(the Decisions app has no left nav, so its band is `W − 36`, and under 1120 px
+it reflows to 3 × 2 — all six tiles at the size three of six would have at
+1240 px); `-3` and `-4` from the 868 and 1212 runs (an Agent Hub card is
+`W − 228` and the run card is capped at 640, so at 1212 the Ask Oracle box —
+`max-width: 760px` — is 640 too and fits beside it); the poster from the 1440
+run, where `.an-cols` is two columns and the causes chart sits beside the four
+actions.
 
-Crop offsets in CSS px (device px are twice these, at `DPR=2`): `-1` (0, 44,
-640 × 400) · `-2` (18, 100) · `-3` (204, 197) · `-4` (204, 183). Every edge is
-placed on a real boundary — `-1` starts at the Data Studio bar and ends in the
-white below the green *View* band; `-3` starts on the answer card's top border
-and ends in its bottom padding, below the *Publish as certified view* button;
-`-4` starts on the question bubble's bottom edge and ends on the row boundary
-under *Aldwych Chemicals*. Converted with `sips` (crop → resample to
-1600 × 1000 → progressive JPEG q86) on a Mac without ffmpeg; 203–255 KB each,
-inside the 300 KB ceiling. **`sips` gotcha, again:** `--cropOffset 0 0` means
-*centred*, so a crop anchored at the left edge needs a non-zero Y with X = 0.
+Crop offsets in CSS px (device px are twice these, at `DPR=2`): `-1` (192, 130,
+640 × 400) · `-2` (18, 52) · `-3` (204, 126) · `-4` (234, 221). Every edge is
+placed on a real boundary — `-1` starts in the white under the *Live Feed*
+page title and ends 13 px into the model job card, below the five cards; `-2`
+starts inside the Decisions header bar and ends on the band's bottom edge;
+`-3` starts on the Insights title's bottom edge and ends 3 px into the first
+chart's border, under the four tiles; `-4` starts between the greeting and the
+Ask Oracle box and ends at 621 — one pixel above the "Not started" label of the
+third agent, which is why nothing in that frame is half a line. Converted with
+`sips` (crop → resample to 1600 × 1000 → progressive JPEG q86) on a Mac without
+ffmpeg; 189–232 KB each, inside the 300 KB ceiling. **`sips` gotcha, again:**
+`--cropOffset 0 0` means *centred*, so a crop anchored at the left edge needs a
+non-zero Y with X = 0.
 
-**Why `-3` has no Trace panel and `-4` has no question bubble.** Both were
-tried and both fail the no-half-cut-text rule at 640 × 400. With the role chip
-at the top of `-3`, the trace's *Row policy applied* / *Column masking applied*
-spans sit 509 CSS px below it — 109 px past the frame. And the card is only
-640 px wide at a viewport ≤ 868 px, where the supplier names wrap to two and
-three lines; from the question bubble's top edge (the only clean boundary above
-the card) a 400 px frame ends inside *Ravenscourt Electrical*, truncating the
-name to one line. The row-limiting evidence in `-3` is the policy banner, which
-says what the masking is — and `-3` keeps the **Trace** chip itself in frame;
-the question in `-4` is carried by the answer's own head, "Total rows: 11 ·
-Displayed: 11 · as of 09:02", over the three `GOLD` views it read.
+**Why the five source cards needed a CSS fix first.** Under 1120 px the cards
+were pinned to a fixed 128 px height so the step-1 hint always had room under
+them, but the content does not fit that height: the flex children were squeezed
+and the second line of each card's description was cut *through* its glyphs —
+visible at the 1024 px QA viewport too, not only in the crop. The height is now
+160 px, the card's own parts keep their size (`flex: none`) and the description
+is capped at two whole lines with a fade into the card colour where there is
+more to read. Nothing is sliced at any viewport; the fade is invisible on a line
+that ends early (2026-09-17, leg E3).
 
-**Re-cut 2026-09-17.** The first cut of `-3` and `-4` followed *tour* order, so
-the two frames landed under the wrong step copy — `-4` showed the steward's
-recomputed band under the heading "Ask in plain language". Both were re-shot
-against the copy: `-3` is now the role-guarded answer and `-4` the controller's
-answer. `-1` and `-2` already matched and were not touched.
+**Poster.** `assets/img/posters/cross-system-erp-qa.jpg`, 1600 × 900: a
+1132 × 637 CSS-px crop at `DPR=2` (offset (257, 345), resampled from 2264 × 1274,
+q86, 255 KB) of the analysis view at `state=final` in Dana's own role — the six
+tiles after her override (134 lines, USD 3.77 M, eight tier-A accounts), the
+"Why the lines are late" chart with its four causes, and the four recommended
+actions with their owners, values and the line that says each one is a task and
+nothing is written back to an ERP. The window is chosen so both boxes of
+`.an-cols` are whole: it starts on the band's tiles and ends four pixels under
+the actions box. It is wired as `videoPoster` but **nothing renders it yet**:
+the product has `video: false`, so the hero has no media frame (`docs/CONFIG.md`
+§3). It is captured now so that turning the frame on later is a one-word change.
 
-**Poster.** `assets/img/posters/cross-system-erp-qa.jpg`, 1600 × 900 (an
-800 × 450 CSS-px crop at `DPR=2`, offset (180, 86), no resample, q86, 247 KB):
-the Agent Hub answer at `state=final` — the question in plain English, the
-"Total rows: 11 · as of 09:02 (stalest: NetSuite, 38 min behind)" line with the
-three `GOLD` views it read, and eight of the eleven rows with their source
-badges. It is wired as `videoPoster` but **nothing renders it yet**: the product
-has `video: false`, so the hero has no media frame (`docs/CONFIG.md` §3). It is
-captured now so that turning the frame on later is a one-word change.
+**Superseded.** Round 1's four frames — the Data Studio catalog with five
+mounted catalogs, the Mapping review health band, and the same answer under two
+roles — and its 800 × 450 poster are gone from disk; the round-2 captures
+replace all five at the same file names, so `content.js` and `config.js` needed
+no change.
 
 ### Designed step illustrations (16 frames, 4 products)
 
