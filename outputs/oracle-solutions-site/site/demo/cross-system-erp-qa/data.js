@@ -144,7 +144,7 @@ window.ERPQA_DATA = (function () {
     { id: "FUSION", name: "Norwell Europe · Oracle Fusion Cloud", short: "Fusion", entity: "NG-EU",
       kind: "Oracle applications · SCM, ERP and Enterprise Contracts", catalog: "FUSION_SCM", currency: "GBP", rate: 1.2740,
       objects: ["DOO_HEADERS_ALL", "DOO_FULFILL_LINES_ALL", "INV_ONHAND_QUANTITIES_DETAIL", "EGP_SYSTEM_ITEMS_B", "HZ_PARTIES", "HZ_CUST_ACCOUNTS", "AR_CUSTOMER_PROFILES", "PO_HEADERS_ALL", "PO_LINE_LOCATIONS_ALL", "OKC_K_HEADERS_ALL_B", "OKC_K_LINES_B", "OKC_K_ARTICLES_B"],
-      rowCount: 5184300, feed: "Prebuilt Fusion pipeline · BICC extracts to OCI Object Storage, hourly", feedShort: "Fusion pipeline · hourly", freshnessMin: 12 },
+      rowCount: 5184300, feed: "Prebuilt Fusion pipeline · BICC extracts, hourly", feedShort: "Fusion pipeline · hourly", freshnessMin: 12 },
     { id: "JDE", name: "Norwell North America · JD Edwards EnterpriseOne", short: "JD Edwards", entity: "NG-NA",
       kind: "Oracle application", catalog: "JDE_E1", currency: "CAD", rate: 0.7315,
       objects: ["F4201", "F4211", "F41021", "F4101", "F4104", "F0301", "F0101", "F4311", "F03B11"],
@@ -173,46 +173,46 @@ window.ERPQA_DATA = (function () {
      is the lineage graph the catalog draws — views and real source objects. */
   function up(kind, id, sys) { return { kind: kind, id: id, sys: sys || null }; }
   var views = [
-    ["CUSTOMER_360", "One row per golden customer with every source record, MATCH_SCORE and MATCH_REASON. CRM_ACCOUNT is the commercial master; HZ_PARTIES with HZ_CUST_ACCOUNTS, F0301 and NetSuite customer are the transactional records.", "2026-10-02",
+    ["CUSTOMER_360", "One row per golden customer, with MATCH_SCORE and MATCH_REASON over CRM_ACCOUNT, HZ_PARTIES, F0301 and NetSuite customer.", "2026-10-02",
       ["CRM", "FUSION", "JDE", "NETSUITE"],
       [up("object", "CRM_ACCOUNT", "CRM"), up("object", "HZ_PARTIES", "FUSION"), up("object", "HZ_CUST_ACCOUNTS", "FUSION"), up("object", "F0301", "JDE"), up("object", "customer", "NETSUITE")]],
-    ["ITEM_XREF", "Item identity across systems with the unit of measure normalised: EGP_SYSTEM_ITEMS_B, the JDE short item number in F4101 with its cross-references in F4104, and the NetSuite item record.", "2026-09-29",
+    ["ITEM_XREF", "Item identity across EGP_SYSTEM_ITEMS_B, F4101 with F4104, and the NetSuite item, unit of measure normalised.", "2026-09-29",
       ["FUSION", "JDE", "NETSUITE"],
       [up("object", "EGP_SYSTEM_ITEMS_B", "FUSION"), up("object", "F4101", "JDE"), up("object", "F4104", "JDE"), up("object", "item", "NETSUITE")]],
-    ["OPEN_ORDER_LINES_X", "Three order books on one grain: F4211 lines, DOO_FULFILL_LINES_ALL and NetSuite transactionLine, with document types and lifecycle statuses harmonised through DOC_MAP.", "2026-10-05",
+    ["OPEN_ORDER_LINES_X", "Three order books on one grain: F4211, DOO_FULFILL_LINES_ALL and transactionLine, statuses harmonised through DOC_MAP.", "2026-10-05",
       ["FUSION", "JDE", "NETSUITE"],
       [up("object", "F4211", "JDE"), up("object", "F4201", "JDE"), up("object", "DOO_FULFILL_LINES_ALL", "FUSION"), up("object", "DOO_HEADERS_ALL", "FUSION"), up("object", "transactionLine", "NETSUITE"), up("object", "transaction", "NETSUITE"), up("view", "CUSTOMER_360"), up("view", "ITEM_XREF")]],
-    ["PROMISE_STATUS", "Promised delivery date against the predicted ship date for every open line, with the business days between them. Promise dates come from F4211.SDPDDJ, DOO_FULFILL_LINES_ALL.SCHEDULE_SHIP_DATE and transactionLine.expectedshipdate.", "2026-10-06",
+    ["PROMISE_STATUS", "Promised date against predicted ship date per open line, from F4211.SDPDDJ, SCHEDULE_SHIP_DATE and expectedshipdate.", "2026-10-06",
       ["FUSION", "JDE", "NETSUITE", "DLV"],
       [up("view", "OPEN_ORDER_LINES_X"), up("view", "TRANSIT_STATUS")]],
-    ["STOCK_POSITION", "On hand by item and plant across all three systems, one row per item × plant, quantities converted to the group unit of measure.", "2026-10-06",
+    ["STOCK_POSITION", "On hand by item and plant across all three systems, converted to the group unit of measure.", "2026-10-06",
       ["FUSION", "JDE", "NETSUITE"],
       [up("object", "INV_ONHAND_QUANTITIES_DETAIL", "FUSION"), up("object", "F41021", "JDE"), up("object", "inventoryBalance", "NETSUITE"), up("view", "ITEM_XREF")]],
-    ["LATE_CAUSES", "One attributed cause per late line: stock available elsewhere, supplier late, credit hold, or late in transit. The rule that fired and the evidence key are kept on the row.", "2026-10-06",
+    ["LATE_CAUSES", "One cause per late line: stock elsewhere, supplier late, credit hold or late in transit, with its evidence key.", "2026-10-06",
       ["FUSION", "JDE", "NETSUITE", "DLV"],
       [up("view", "PROMISE_STATUS"), up("view", "STOCK_POSITION"), up("view", "SUPPLIER_DELAYS"), up("view", "CREDIT_HOLDS"), up("view", "TRANSIT_STATUS")]],
-    ["SUPPLIER_DELAYS", "Purchase orders past their promised date that cover an open sales line: PO_HEADERS_ALL with PO_LINE_LOCATIONS_ALL.PROMISED_DATE, and JDE purchase detail F4311.", "2026-10-06",
+    ["SUPPLIER_DELAYS", "Purchase orders past their promised date covering an open sales line: PO_LINE_LOCATIONS_ALL.PROMISED_DATE and F4311.", "2026-10-06",
       ["FUSION", "JDE"],
       [up("object", "PO_HEADERS_ALL", "FUSION"), up("object", "PO_LINE_LOCATIONS_ALL", "FUSION"), up("object", "F4311", "JDE")]],
-    ["CREDIT_HOLDS", "Customers on credit hold with the limit, the open balance and the date the hold was placed: AR_CUSTOMER_PROFILES.CREDIT_HOLD and JDE open receivables in F03B11.", "2026-10-06",
+    ["CREDIT_HOLDS", "Customers on credit hold with limit, open balance and hold date: AR_CUSTOMER_PROFILES.CREDIT_HOLD and F03B11.", "2026-10-06",
       ["FUSION", "JDE", "NETSUITE"],
       [up("object", "AR_CUSTOMER_PROFILES", "FUSION"), up("object", "F03B11", "JDE"), up("view", "CUSTOMER_360")]],
-    ["TRANSIT_STATUS", "Shipments from the delivery-tracking application joined to the order lines they carry: the carrier, the last scan, the exception code and the current ETA.", "2026-10-06",
+    ["TRANSIT_STATUS", "Shipments joined to the lines they carry: carrier, last scan, exception code and current ETA.", "2026-10-06",
       ["DLV", "FUSION", "JDE", "NETSUITE"],
       [up("object", "DLV_SHIPMENTS", "DLV"), up("object", "DLV_SCAN_EVENTS", "DLV"), up("object", "DLV_EXCEPTIONS", "DLV"), up("view", "OPEN_ORDER_LINES_X")]],
-    ["SLA_EXPOSURE", "Contracted delivery lead time and late-penalty exposure per line, read from the Enterprise Contracts clause text: OKC_K_HEADERS_ALL_B, OKC_K_LINES_B and the clause bodies in OKC_K_ARTICLES_B.", "2026-10-03",
+    ["SLA_EXPOSURE", "Lead time and late-penalty exposure per line, read from the OKC_K_ARTICLES_B clause bodies.", "2026-10-03",
       ["FUSION"],
       [up("object", "OKC_K_HEADERS_ALL_B", "FUSION"), up("object", "OKC_K_LINES_B", "FUSION"), up("object", "OKC_K_ARTICLES_B", "FUSION"), up("view", "CUSTOMER_360")]],
-    ["REVENUE_AT_RISK", "Open order line value at risk in USD, one row per line, with the account, its tier, the attributed cause and the penalty exposure.", "2026-10-06",
+    ["REVENUE_AT_RISK", "Line value at risk in USD, one row per line, with the account, its tier, the cause and the penalty.", "2026-10-06",
       ["FUSION", "JDE", "NETSUITE", "CRM", "DLV"],
       [up("view", "OPEN_ORDER_LINES_X"), up("view", "PROMISE_STATUS"), up("view", "CUSTOMER_360"), up("object", "CRM_ACCOUNT", "CRM"), up("view", "SLA_EXPOSURE"), up("view", "LATE_CAUSES")]],
-    ["ACCOUNT_EXPOSURE", "Revenue at risk rolled up to the golden customer, with tier, owner, region, the systems the account trades in and its penalty exposure.", "2026-10-06",
+    ["ACCOUNT_EXPOSURE", "Revenue at risk rolled up to the golden customer, with tier, owner, region, systems and penalty.", "2026-10-06",
       ["FUSION", "JDE", "NETSUITE", "CRM"],
       [up("view", "REVENUE_AT_RISK"), up("object", "CRM_ACCOUNT", "CRM")]],
-    ["RECOMMENDED_ACTIONS", "The actions the commercial operations agent proposes, with the lines and accounts behind each one, the owner and the task it raises. Recommendations only — nothing here writes to an ERP.", "2026-10-06",
+    ["RECOMMENDED_ACTIONS", "What the agent proposes, with the lines, accounts, owner and task behind each one. Nothing here writes to an ERP.", "2026-10-06",
       ["FUSION", "JDE", "NETSUITE", "DLV"],
       [up("view", "REVENUE_AT_RISK"), up("view", "LATE_CAUSES"), up("view", "STOCK_POSITION"), up("view", "ACCOUNT_EXPOSURE")]],
-    ["DECISIONS", "Every decision a person takes on a recommendation or an identity match: who, when, why, and the rule it left behind.", "2026-10-06",
+    ["DECISIONS", "Every decision a person takes on a recommendation or a match: who, when, why, and the rule.", "2026-10-06",
       ["FUSION", "JDE", "NETSUITE"],
       [up("view", "RECOMMENDED_ACTIONS"), up("view", "CUSTOMER_360"), up("view", "ITEM_XREF")]]
   ].map(function (v) {
@@ -1009,8 +1009,8 @@ window.ERPQA_DATA = (function () {
   }
   function caveatFor(dec) {
     var p = pendingCounts(dec);
-    if (!p.customers && !p.items) return "Every customer match and item cross-reference in this answer has been confirmed by a person.";
-    return p.customers + " customer matches and " + p.items + " item cross-references are still waiting for a person; lines behind them are included provisionally.";
+    if (!p.customers && !p.items) return "Every customer match and item cross-reference here has been confirmed by a person.";
+    return p.customers + " customer matches and " + p.items + " item cross-references still wait for a person. Their lines count provisionally.";
   }
 
   function byCause(lines) {
@@ -1093,16 +1093,16 @@ window.ERPQA_DATA = (function () {
   var ACTION_DEFS = [
     { id: "A1", causeId: "stock", owner: "Supply planning", taskNoun: "internal transfer",
       title: function (n) { return "Expedite from the plant that has stock"; },
-      why: "The item is on hand in another plant or system; the transfer is faster than waiting for supply." },
+      why: "The item is on hand in another plant. A transfer beats waiting for supply." },
     { id: "A2", causeId: "transit", owner: "Account owners", taskNoun: "owner alert",
       title: function () { return "Re-promise the lines late in transit and alert the account owners"; },
-      why: "These have shipped. The carrier scans put arrival after the promise, so the customer should hear it from us first." },
+      why: "These have shipped. The carrier scans put arrival after the promise." },
     { id: "A3", causeId: "credit", owner: "Credit control", taskNoun: "hold review",
       title: function () { return "Review and release credit holds"; },
-      why: "Supply is ready; the block is commercial, and a release ships the line the same day." },
+      why: "Supply is ready. The block is commercial, and a release ships the same day." },
     { id: "A4", causeId: "supplier", owner: "Procurement", taskNoun: "supplier escalation",
       title: function (n) { return "Escalate " + words(n) + " late suppliers"; },
-      why: "One purchase order behind each group of lines is past its promised date with no receipt." }
+      why: "One purchase order behind each group of lines is past its date." }
   ];
   function actionRows(dec) {
     var live = liveLines(dec);
@@ -1136,7 +1136,7 @@ window.ERPQA_DATA = (function () {
         accountIds: accountIds, accounts: accountIds.length, tierAAccounts: tierA.length,
         penaltyUsd: sum(ls, function (l) { return l.penaltyUsd; }),
         status: "proposed", tasks: tasks, taskLabel: taskLabel,
-        assigned: "Assigned as a task — nothing is written back to an ERP"
+        assigned: "Assigned as a task. Nothing is written back to an ERP."
       };
       Object.keys(extra).forEach(function (k) { row[k] = extra[k]; });
       return row;
@@ -1605,7 +1605,7 @@ window.ERPQA_DATA = (function () {
           sub: stockC ? fmtMusd(stockC.usd) + " · on hand in another plant" : "none in scope" },
         { id: "penalties", label: "SLA penalties exposed", value: hideTerms ? maskText(null, "hidden") : "USD " + fmtK(penalties),
           raw: hideTerms ? null : penalties, masked: hideTerms,
-          sub: hideTerms ? "Contract penalty terms are hidden for this role" : "read from the customer contract clauses" }
+          sub: hideTerms ? "Penalty terms hidden for this role" : "read from the contract clauses" }
       ],
       charts: [
         { id: "by-cause", type: "bar", title: "Revenue at risk by cause", unit: "USD",
@@ -1638,7 +1638,7 @@ window.ERPQA_DATA = (function () {
       caveat: caveatFor(dec),
       firewall: { allowList: R.allowList, status: "allowed", rowPolicy: R.rowPolicyText, masking: R.maskedText },
       freshness: freshnessFor(),
-      shareNote: "Shared with the commercial team · " + (R.rowPolicy ? "each viewer sees their own rows; the policy is in the database, not in the dashboard" : "every viewer sees the rows their own policy allows")
+      shareNote: "Shared with the commercial team. Each viewer sees their own rows."
     };
   }
 
@@ -2097,8 +2097,8 @@ window.ERPQA_DATA = (function () {
     if (!blocked) {
       var p = pendingCounts(dec);
       if (q.id === "q1" || q.id === "q8") caveats.push(caveatFor(dec));
-      else if (p.customers) caveats.push(p.customers + " customer matches are still waiting for a person; lines behind them are included provisionally.");
-      if (R.rowPolicy) caveats.push("Rows are limited to " + R.entities.join(", ") + " by the row policy; " + R.maskedText + ".");
+      else if (p.customers) caveats.push(p.customers + " customer matches still wait for a person. Their lines count provisionally.");
+      if (R.rowPolicy) caveats.push("Rows are limited to " + R.entities.join(", ") + " by the row policy. " + R.maskedText + ".");
       if (!rows.length) caveats.push("No rows inside your scope.");
     }
     var trace = traceFor(qid, R.id, rows.length);
