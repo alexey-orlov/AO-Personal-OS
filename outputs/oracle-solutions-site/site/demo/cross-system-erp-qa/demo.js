@@ -544,7 +544,7 @@
     var cur = persona();
     $("#wb-user").textContent = cur.initials;
     $("#wb-menu").innerHTML = '<div class="mh">Signed in</div>' +
-      '<div class="me is-on"><span class="ini">DW</span><span><b>Dana Whitfield</b><span>VP Commercial Operations &middot; all regions, unmasked</span></span></div><hr>' +
+      '<div class="me is-on"><span class="ini">DW</span><span><b>' + esc(personaByRole("COMMERCIAL_OPS").name) + "</b><span>" + esc(personaByRole("COMMERCIAL_OPS").title) + " &middot; " + esc(personaByRole("COMMERCIAL_OPS").scope) + "</span></span></div><hr>" +
       '<div class="mh">View as</div>' +
       D.personas.filter(function (p) { return p.role !== "STEWARD"; }).map(function (p) {
         return '<button class="me' + (p.role === S.role ? " is-on" : "") + '" type="button" role="menuitem" data-role="' + p.role + '"><span class="ini' + (p.role === "ANALYST_NA" ? " ini--a" : "") + '">' + esc(p.initials) + "</span>" +
@@ -640,25 +640,46 @@
         '<div class="d">Five systems feeding; nothing assigned yet this morning. Ask it what is at risk and it will read all of them.</div></div>' +
         '<div class="hs"><div class="k">Account owners</div><div class="v">Week 41 review at 11:00</div><div class="d">The account owners want a list they can act on, not three exports.</div></div>';
     return '<div class="hub"><div class="hub-main">' +
-      '<span class="hub-tile"></span>' +
-      '<h1 class="hub-greet">Good morning, Dana</h1>' +
+      '<span class="hub-tile"><i></i></span>' +
+      '<h1 class="hub-greet">Good morning, ' + esc(personaByRole("COMMERCIAL_OPS").name.split(" ")[0]) + "!</h1>" +
       '<div class="hub-ask"><span class="hub-mk"></span><span class="hub-ph"><b>Ask</b> Oracle</span>' +
       '<span class="ic">' + ICON.mic + '</span><span class="ic">' + ICON.clip + '</span>' +
       '<span class="hub-model">Commercial operations agent ' + ICON.chevd + "</span></div>" +
       (S.wbPanel === "run" ? runCardHtml() : "") +
-      '<div class="hub-sec">Saved questions</div><div class="hub-chips" id="hub-chips">' +
+      '<div class="hub-chips" id="hub-chips">' +
       D.questions.map(function (q) {
         var blocked = q.blockedFor && q.blockedFor.indexOf(S.role) >= 0;
-        return '<button class="hub-chip' + (blocked ? " is-blocked" : "") + '" type="button" data-ask="' + q.id + '"><i>' + q.n + "</i>" + esc(q.chip) + (blocked ? " " + ICON.lock : "") + "</button>";
+        return '<button class="hub-chip' + (blocked ? " is-blocked" : "") + '" type="button" data-ask="' + q.id + '">' + esc(q.chip) + (blocked ? " " + ICON.lock : "") + "</button>";
       }).join("") + "</div>" +
-      '<div class="hub-sec">My agents</div>' +
-      '<div class="hub-agent"><span class="ag-ico">' + ICON.bot + "</span>" +
-      "<div><h3>Commercial operations agent</h3><p>Reads the whole order book across Fusion, JD Edwards and NetSuite, works out who the customer is and which part it is, finds why each line will be late — stock in another plant, a late supplier, a credit hold, a carrier scan — prices the exposure from the contract, and proposes what to do about it.</p>" +
-      '<div class="ag-meta">4 agents &middot; catalog connection LAKEHOUSE_GOLD &middot; ' + D.views.length + " certified views &middot; allow-list OPS_QA_V2</div></div>" +
-      '<span class="job-chip">' + (done ? "Ran at 09:41" : "Ready") + "</span></div></div>" +
-      '<aside class="hub-side"><h3>Today</h3><div class="hub-date">October 6th, 2026</div>' + today +
+      '<div class="hub-sec">My agents<span class="hs-n">' + AGENTS.length + " agents working &middot; " + AGENTS.filter(function (a) { return a.pill !== "ready"; }).length +
+      ' agents need attention</span><span class="hs-all" data-agents="1">View All</span></div>' +
+      '<div class="hub-agents">' + AGENTS.map(function (a, i) {
+        var live = i === 0;
+        return '<div class="hub-agent"' + (live ? ' id="hub-agent-1"' : "") + '><span class="ag-ico">' + ICON.bot + "</span>" +
+          "<h3>" + esc(a.name) + "</h3><p>" + esc(a.what) + "</p>" +
+          '<span class="ag-pill' + (a.pill === "att" ? " ag-pill--att" : a.pill === "warn" ? " ag-pill--warn" : "") + '">' +
+          esc(live ? (done ? "Ran at 09:41" : "Ready") : a.state) + "</span>" +
+          '<span class="ag-last">Last observed ' + esc(a.last) + "</span></div>";
+      }).join("") + "</div></div>" +
+      '<aside class="hub-side"><h3>Today&rsquo;s Tasks</h3><div class="hub-date">October 6th, 2026</div>' + today +
       '<div class="hs"><div class="k">Stalest source</div><div class="v">CRM &middot; 1 h 05 min</div><div class="d">Freshness is a property of each feed, and the answer says which source is furthest behind.</div></div>' +
-      "</aside></div>";
+      '<span class="hs-more" data-agents="1">View all</span>' +
+      "</aside>" + hubBottomNav("home") + "</div>";
+  }
+  /* Oracle's My agents band is a row of compact cards with a status pill and a
+     "Last observed" date. Only the first one does anything here. */
+  var AGENTS = [
+    { name: "Commercial operations agent", what: "Reads the whole order book across five systems, attributes every late line and prices the exposure.", pill: "ready", state: "Ready", last: "6/10/2026" },
+    { name: "Contract terms agent", what: "Reads delivery and penalty clauses out of the customer contracts.", pill: "ready", state: "Ready", last: "5/10/2026" },
+    { name: "Supplier watch agent", what: "Watches purchase-order promise dates against the lines they cover.", pill: "warn", state: "Warning", last: "3/10/2026" },
+    { name: "Carrier exception agent", what: "Picks up carrier scan exceptions and re-times the affected shipments.", pill: "att", state: "Needs Attention", last: "1/10/2026" }
+  ];
+  /* Agent Hub's own dark bottom nav: Home · Insights · Catalog · Teams */
+  function hubBottomNav(on) {
+    var items = [["home", "Home", "home"], ["insights", "Insights", "board"], ["catalog", "Catalog", "grid"], ["teams", "Teams", "people"]];
+    return '<nav class="hub-bot" aria-label="Agent Hub">' + items.map(function (it) {
+      return '<button class="' + (it[0] === on ? "is-on" : "") + '" type="button" data-hubnav="' + it[0] + '">' + ICON[it[2]] + esc(it[1]) + "</button>";
+    }).join("") + "</nav>";
   }
 
   /* ---- the multi-agent run card (Agent Hub's own pattern) --------------- */
