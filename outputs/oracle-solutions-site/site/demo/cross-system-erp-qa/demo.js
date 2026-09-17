@@ -510,6 +510,20 @@
   }
 
   /* ---- Agent Hub home -------------------------------------------------- */
+  /* the people the work is handed to, taken from the accounts themselves */
+  function topOwners(n) {
+    var seen = {}, out = [];
+    (S.state.analysed ? analysis().accounts : []).forEach(function (a) {
+      if (!a.owner || seen[a.owner]) return; seen[a.owner] = 1; out.push(a.owner);
+    });
+    return out.slice(0, n || 3);
+  }
+  function ownerList(n) {
+    var o = topOwners(n);
+    if (!o.length) return "your account owners";
+    if (o.length === 1) return o[0];
+    return o.slice(0, -1).join(", ") + " and " + o[o.length - 1];
+  }
   function hubHome() {
     var done = !!S.state.analysed, an = done ? analysis() : null;
     var today = done
@@ -519,7 +533,7 @@
       }).join("")
       : '<div class="hs"><div class="k">Commercial operations agent</div><div class="v">Watching the order book</div>' +
         '<div class="d">Five systems feeding; nothing assigned yet this morning. Ask it what is at risk and it will read all of them.</div></div>' +
-        '<div class="hs"><div class="k">Account owners</div><div class="v">Week 41 review at 11:00</div><div class="d">Ruth Calloway, Tom Ferris and Ivo Lang want a list they can act on.</div></div>';
+        '<div class="hs"><div class="k">Account owners</div><div class="v">Week 41 review at 11:00</div><div class="d">The account owners want a list they can act on, not three exports.</div></div>';
     return '<div class="hub"><div class="hub-main">' +
       '<span class="hub-tile"></span>' +
       '<h1 class="hub-greet">Good morning, Dana</h1>' +
@@ -935,7 +949,7 @@
     if (!S.state.dashboard) { toast("Build the dashboard first."); return; }
     S.shared = true;
     renderWb();
-    toast('<span class="tok">' + ICON.check + "</span><span><b>Shared with the commercial team</b> &middot; Ruth Calloway, Tom Ferris and Ivo Lang &middot; each of them opens it under their own role, so each sees their own rows. Mocked — nothing leaves this page.</span>", 9000);
+    toast('<span class="tok">' + ICON.check + "</span><span><b>Shared with the commercial team</b> &middot; " + esc(ownerList(3)) + " and the rest &middot; each of them opens it under their own role, so each sees their own rows. Mocked — nothing leaves this page.</span>", 9000);
     tour.after("share");
   }
 
