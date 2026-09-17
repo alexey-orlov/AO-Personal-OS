@@ -4222,6 +4222,176 @@ regressing.
   standalone demo artifact and the site artifact still hold round 1's build
   until the main session republishes both.
 
+## 22 · round 3 — interface fidelity: the audit, the fixes, the residual inventions, 2026-09-17
+
+_Alex, on round 2: **"the Oracle interfaces must match the real products exactly — if something is still made
+up (sections, titles, layouts, etc.) tell me and explain why; I expect a full match."** Plus two scenario
+notes: the end card read as a report on the build session rather than as something a user could act on, and the
+step counter stood still through several clicks of the same major step._
+
+### 22.21 The audit method
+
+Three read-only Opus auditors went screen by screen through the walkthrough against the reference corpus in
+`.work/erp-qa/` — twelve Oracle videos (≈100 extracted key frames), 97 lossless doc figures, the 469-page
+July-2026 AI Data Platform Workbench guide and the measured Redwood kit — and classified **every element** of
+every surface as **A** (a deviation with a reference behind it → the exact CSS/DOM fix), **B** (an invention
+with no reference → the nearest real Oracle idiom, and whether an Oracle screen could replace it) or **C** (a
+match). Demo values were read with `getComputedStyle` / `getBoundingClientRect` in headless Chrome, not
+eyeballed; Oracle values are pixel probes or edges counted on a named file, normalised to 1440 CSS px using the
+app window as the landmark. The three reports are `.work/erp-qa/fidelity/{datastudio,aidp,askoracle-redwood}-audit.md`
+with side-by-side sheets under `fidelity/sheets/`; the after-state sheets for the ten screens that changed most
+are in `fidelity/sheets-after/`.
+
+**Counts, before → after.**
+
+| Surface | A before | A applied | A left | B before | C before |
+|---|---|---|---|---|---|
+| Autonomous AI Lakehouse · Data Studio (top bar, nav, Catalog, Live Feed, Analysis) | 35 | **35** | 0 | 6 | 36 |
+| AI Data Platform (Workbench bar and nav, Agent Hub, run card, conversation, Master catalog, Auto-populate catalog, Lineage, Audit logs, Insights, user menu, dashboard) | 66 | **64** | 2 | 13 | 57 |
+| Ask Oracle answer anatomy · Agent-flow Trace · Redwood "Decisions" | 31 | **24** | 7 | 14 | 27 |
+| **Total** | **132** | **123** | **9** | **33** | **120** |
+
+The nine A-items not applied are listed in §22.23, each with its reason. Everything else in the three
+reports — including all twelve items the Data Studio auditor called "a Data Studio user would notice" and all
+of the AIDP auditor's "an AIDP user would notice immediately" list — is in the build.
+
+### 22.22 What changed, by surface
+
+- **Brand marks (decision taken with Alex).** Oracle marks are allowed inside the demo; only customer marks are
+  banned. So the Data Studio bar now carries the **white `ORACLE` wordmark as text** (600/15 px, `.16em`
+  tracking, 7 px superscript ®) where a red diamond tile used to sit, and the Workbench bar, the Ask box and
+  the composer carry **Oracle's white outlined ellipse**. The red diamond tiles are gone from all three. No
+  logo image files were added.
+- **Data Studio.** Top bar: white filled search box with the magnifier inside, hairline segment dividers, a
+  user chevron. Nav: **42 px item pitch** (was 32), the green accent bar deleted (Oracle uses none — the
+  newest doc figure shows amber, the Oct-2025 video and the lossless figure show nothing), `« Collapse` as a
+  **solid blue `#007EA8` button**, and the Data Load sub-tree **collapsed except inside Data Load**, with the
+  nav at 156 px / 216 px to match. Catalog: **type-coded group headers** (`Table` green, `View` teal
+  `#1F6177`), an **owner chip** in place of `· schema`, no row dividers, one-line descriptions, `Showing N
+  entities` on the `Filters` baseline, facet cards on `#F7F7F7` with per-catalog counts, and the row pill as a
+  5 px rounded rectangle on `#E4F5D3`. Analysis: **`Run` on its own line with a blue border**, **syntax-coloured
+  SQL** with blue line numbers and the 80-column rule, a **solid blue `Save`**, the view-mode icons segmented on
+  their own row, the result tabs with a 3 px blue underline, the faceted rail rebuilt (45 px histograms, 24
+  uneven bars, filled triangles, centred grey `Show More...`), and the ORDS status bar with blue underlined
+  links. Tokens retuned to the measured Redwood ramp (`#00688B`, `#00688C`, `#227E9E`, `#E4F5D3`, `#080707`).
+- **AI Data Platform.** The Workbench bar is 40 px on `#26262C` with a 600 px search at 57.1 % of the width, a
+  **ringing bell with a grey count badge** instead of `?`, and a **rounded-square avatar with a presence dot**.
+  The left nav carries **Oracle's real sixteen-item roster in Oracle's order** — `Create · Home · Master
+  catalog · Workspaces · default ⌄ · Workflow · Compute · Experiments · [gap] · Credential store · Data
+  sharing · Auto-populate catalog · Notifications ④ · Roles · Audit logs · Settings` — with an **inset rounded
+  pill** for the active item, `Activity ⌄` in sentence case over clickable truncated rows, and a collapse
+  button bottom-left. Items the walkthrough has no content for are present and inert, which is what Oracle's
+  own frames show. `Sessions` became **`Audit logs`** (a real nav item; same content, in Oracle's slot after
+  `Roles`), and `Insights` left the Workbench nav for the **Agent Hub's dark bottom nav**
+  (`Home · Insights · Catalog · Teams`, `#1E1C19`, 34 px), which the Hub now has. The Hub itself got its warm
+  `#EFEEEA` canvas, the Redwood petal artwork bleeding off the top-right, the dot texture bottom-left, a 39 px
+  serif greeting with its exclamation mark, a 55 px red tile with the white ellipse, `Today's Tasks` with its
+  `View all`, and Oracle's **`My agents` band — a row of four compact cards with status pills and a
+  `Last observed` date** instead of one wide card with a paragraph. The conversation view gained the **plum
+  `#614D70` bar** with the back chevron, the agent name and the real `undo / redo / delete / save ▾ / bookmark
+  / avatar` cluster — three bar colours across one product, which is what Oracle ships. Master catalog:
+  **lowercase_snake_case object names everywhere on AIDP surfaces** (Data Studio keeps Oracle's uppercase DB
+  names), no monospace in Oracle chrome, **sort chevrons on every grid**, white grid headers, a 298 px tree
+  with disclosure triangles and a refresh button, a 51 px breadcrumb whose first crumb is a link, 26 px page
+  titles, and the saturated `Default Cluster (Active)` pill. Auto-populate catalog: the **list and the
+  extractor page are two destinations** now, `Accepted` / `Rejected` are **plain text**, the helper line sits
+  below a full-width Filter in plain dark, and the status glyph is a filled green circle. Lineage: card tiles
+  are **coded by artifact type** (every TABLE green, TASK rose) instead of by medallion layer, the impact grid
+  is even quarters with chevrons and a white header, `↑ upstream` is dark, and the transformation type is a
+  CAPS grey caption rather than an amber pill. The amber rule is gone from every page.
+- **The answer.** The rows line is Oracle's bare caption (`Total Rows: N | Displayed: N`) above the grid rather
+  than a 71 px bordered strip; the grid header is the light Ask Oracle build's **`#454DE6 → #0F86BF` gradient
+  with white bold type**, rows are 42–48 px with rules on both axes and an outer 8 px border; the chip row is
+  **`Explore · Explain · Code View · Trace · Narrate`** with `Create dashboard` at the right, all outlined
+  white at 15 px with a 2 px blue outline on the active one. `Evidence` was renamed **`Explore`** (Oracle's
+  half of the `Explore` / `Explain` pair; the panel content is unchanged, its heading is now plain words) and
+  **Code View is back**, rendering the statement in the `.sqlbox` panel that had been written and never used.
+  The composer is the Agent Hub's: 58 px, pinned to the foot of the surface, ellipse mark, `Ask a Question...`,
+  a mic — and the disclaimer moved out of it onto **its own centred line below with a filled `!`**, which is
+  where the Ask Oracle build puts it.
+- **The Trace** is now the real Agent-flow task trace: the `Agent flow task | Duration | Tokens` header in
+  sentence case with `Duration` underlined, an indented tree with a disclosure triangle and a per-node glyph on
+  every span and its tools as children, **trackless `#265C61` bars**, no row rules, a selected row in pale
+  blue, and a **right-hand metadata pane** carrying the SQL Firewall / row-policy / masking lines and the
+  summary as bold-key value lines — the shape of the real `Test details` pane.
+- **Redwood "Decisions".** No `text-transform` anywhere (Redwood declares none), one chip language for systems
+  and tiers (r 12, 12 px/400, near-black on a ramp-40 tint, no border), the evidence block as a **proper alert**
+  (`#F6FAFC`, inset ring, `#00688C` icon and title) instead of the badge tint it was using while the correct
+  style sat unused one class away, a **breadcrumb and a 28 px/900 page title** with a muted subtitle, the state
+  line as a **pale status pill**, `Re-analyse` moved out of the 56 px header bar (Redwood header buttons are
+  transparent) into the page-title row, a full-width 46 px `Filter` above every list, 40 px single-line table
+  rows, 16 px form fields, `--ut-shadow-sm` on cards and 600-weight on every tab.
+
+### 22.23 Residual inventions, and the A-items not applied — the list for Alex
+
+**A-items not applied (9), with the reason.**
+
+| # | Item | Why not |
+|---|---|---|
+| 1 | Rename `Create dashboard` to Oracle's `View as chart` | It builds a four-tile, four-chart dashboard on a separate page; `View as chart` charts the current answer in place. The name would misdescribe the action. |
+| 2 | A breadcrumb strip on Insights | Insights is an **Agent Hub** tab, and the Hub has no breadcrumbs anywhere. Adding one would contradict the same audit's finding that Insights belongs to the Hub, not the Workbench. |
+| 3 | The italic `NL2SQL\|GENAI` provenance caption | It is a Select AI (Ask Oracle) artefact. This conversation is an Agent Hub conversation with an agent, not a Select AI profile, and the data layer has no NL2SQL profile to name. |
+| 4 | `Switch NL2SQL Profile [GENAI ▾]` in the composer | Same reason as 3, and the canonical frame for this shell (the Agent Hub conversation) has no such control. |
+| 5 | The `☑ Database ⓘ ☐ Narrate ⓘ` checkbox pair under the composer | Per the decision taken with Alex, those apply only where the canonical frame shows a composer of that kind. The Agent Hub composer is a mark, a placeholder and a mic. `Narrate` therefore lives in the chip row, in the same chip language as the rest. |
+| 6 | The Narrate audio player (`▶ ⏪ ⏩ 🔊` + progress) and the `NARRATE \| <PROFILE>` watermark | There is no audio in the walkthrough. A transport control that plays nothing would be a larger invention than the prose block it replaces. |
+| 7 | `Explain` as a full-page view | Every panel in this walkthrough opens inline under the answer, and the tour's click guard allows exactly one control per step; a full-page take-over would break both. |
+| 8 | The Trace as a **docked bottom panel** under a flow canvas | Same reason as 7 — there is no flow canvas in this walkthrough. Its *contents* are now the real trace, which is the part a viewer reads. |
+| 9 | The `Show Charts` inline chart strip (`Chart Type / X Axis / Y Axis`) | It would duplicate the `Create dashboard` step the tour is built around, on the same answer. |
+
+**Residual inventions (B), what each sits inside, and why it stays.** Nothing below is a screenshot of an
+Oracle product; each is free design drawn in the nearest real Oracle idiom, because Oracle ships no screen for
+what the demo has to show.
+
+| Invention | Idiom it is drawn in | Why it has to be invented |
+|---|---|---|
+| The **Live Feed page** — five source cards, the model job, the certified-view list | Re-skinned this round: the cards are the Data Load home's **four-card idiom** (outline icon, 17 px regular title, grey description, a muted line for the feed and the freshness); the job is the **load-job accordion** (dark-teal `#245D63` header over a white body with neutral buttons and coloured glyphs); the view list is the **Catalog entity list** | Oracle has never published a screenshot of the Live Feed surface — not in twelve videos, not in 97 doc figures |
+| The **multi-agent run card** | Oracle's Agent Hub run-card pattern, now carrying the trace's own cues: `Succeeded` (Oracle's word), no label at all for a step that has not run, a `#265C61` duration bar with its `x.xxs`, a grey wash on the live agent, and no `Cancel` (no AIDP running-job surface offers one) | No Oracle footage opens a run card on a finished question |
+| The **analysis card** — headline, six-tile band, causes chart, ranked accounts, four proposed actions | Agent Hub's white answer card and grouped-header table; the band and the two-column chart/proposal layout are ours | Oracle shows answers as grids; an analysis with attributed causes and proposed actions is not a shipping screen |
+| The **Explore panel** — source rows per account, stock elsewhere, the contract clause, the CRM block | Redwood-styled free design; the nearest thing across the whole corpus is Ask Oracle's RAG `Show chunk details`, in a different product | Nothing in AIDP attributes an answer row to a source system |
+| The **Trace summary and the three SQL-Firewall lines** | The real `Test details` metadata pane's bold-key/value shape, which is where they now render | No Oracle trace carries a summary or a security section |
+| The **span names as sentences** (`Read the three order books`) | — | Oracle's spans are object identifiers (`insurance_qn_a_agent.workflow`). The sentences are the single clearest tell that this is not a real span table; they are kept because the walkthrough's job is to be read by a business audience |
+| The **glossary cards under `Explain`** | The Master-catalog column-description field, which the panel note names | A business glossary is confirmed **absent** from the product (zero hits in the 469-page guide) |
+| **Ten saved questions** on the Hub home | Oracle's suggestion pill (border `#D4D3CF`, radius 4) — the caps label and the numbering are gone this round | Oracle shows two bare pills; ten is the demo's question set |
+| The **generated dashboard** | Redwood card chrome; the `Built by the AI` stamp uses Oracle's measured `#89C155` / `#497821` cluster pill | No AIDP dashboard builder appears in any frame or in the guide |
+| The **View-as menu** | — | Oracle's avatar menu is never opened on camera anywhere in the corpus; the row-level-security story needs it |
+| The **Decisions app** — per-row `Accept` / `Decline` and a free-text `Why?` | Redwood's `Reviewed entities` review queue: breadcrumb → 900-weight title → text tabs → filter → plain table | Oracle hides row actions behind a `···` overflow and has no per-row note field; the walkthrough's whole point is a person deciding in two clicks and the reason being kept with the decision |
+| The **before → after band** (six tiles) | — | A demo-narrative device; nothing in Redwood or either product has a counterpart |
+| The **`Audit logs` content** — statement hashes, allowed/blocked | The nav item and the page are Oracle's; only the columns are ours | The demo's governance story |
+| The **`Tokens` column showing seconds** | Verbatim from the Nov-2025 agent-flow trace, which labels that lane `Tokens` and renders the seconds in it | Reproducing the reference, oddity included |
+| Four **agent cards** on the Hub, three of them inert | Oracle's `My agents` band, which shows four | Only the commercial operations agent runs; the other three are named after work the data actually contains |
+
+**Two density deviations, stated rather than hidden.** (1) The ranked-accounts grid carries **nine** columns
+where Oracle's answer grids carry four to six, so its cells run at 13 px and its rows wrap past the light
+build's 42–48 px. (2) At 1024 px the five source cards fall to two rows and are capped at 134 px with the feed
+line switching to each pipeline's short name, so the step-1 callout still fits under them inside a 768 px
+viewport — the cards keep whole lines, with a fade where a description runs on.
+
+### 22.24 The end card and the step counter
+
+- **End card (R9), replaced whole.** Eyebrow *Interactive walkthrough*, title **What you can act on now**, three
+  sentences, then **three doors that each open the place** — *Ask another question* (the Agent Hub home),
+  *Open the Decisions queue* (the customer matches waiting for a person), *See the dashboard* (Insights) —
+  then *Replay the walkthrough* and *Keep exploring*, and a one-line footer. The round-2 recap ("What the AI
+  did / What you decided"), the six-step list and the "Still open for you" paragraph are gone, and **no figure
+  appears on the card**.
+- **Step counter (R10).** The card reads **`Step 4 of 6 · 2 of 3`** — the six majors keep their business
+  titles, the second number counts every sub-step of the major including the passive ones — and the six
+  progress segments **fill fractionally** (`sub / subN` of the current major), so every click moves something.
+  The same engine change is available to the Workforce optimization and Large docs walkthroughs; it has not
+  been applied to them.
+
+### 22.25 Verification
+
+`node --check` clean on `demo.js` and `data.js`; `node tools/erp-qa-check.js` **329 assertions passing**;
+`node tools/check-grammar.js` OK. `tools/capture-erpqa-tour.json` was extended for the renamed panel
+(`sessions` → `audit`) and the new surfaces — the Auto-populate catalog list, the Agent Hub bottom nav in both
+directions, Code View and Narrate — and replayed at **1440 × 900, 1280 × 800 and 1024 × 768** with
+`LOGS: none` at all three, its own assertions holding at every step (no horizontal page scroll, six band tiles
+unwrapped and unclipped, no callout covering the element its copy names, no table overflowing its container).
+All five images were re-cut because every screen they show changed; the product page was verified headlessly
+(`.work/erpqa-qa/product-page-r3.png`). **Limits:** the same as before — scripted headless Chrome at fixed
+viewports proves those widths and no others, and the published artifacts are checked by eye in the viewer.
+
 ## 22. Round 7 — the Services page in three messages, and one proof-of-value duration, 2026-09-17
 
 **Brief** (Alex, in session): three messages, three screens — (1) we combine deep AI research and experience with Oracle expertise, elaborated with the dedicated practice's structure or numbers; (2) it's all about ROI — measuring outcomes is in our DNA — elaborated as a method from discovery to proof of value, integration and scaling, built around measured impact; (3) a fast proof of value, no hassle — the method, on real data. Plus: *"Make sure that we always mention 4-8 weeks PoV (consistently across the site)"*, and rethink the main screen around the messages.
