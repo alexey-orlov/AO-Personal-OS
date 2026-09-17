@@ -210,50 +210,67 @@ by clicking the saved question so the run card is caught live, so one scenario
 file produces all five shots and each **viewport** run keeps only the shot it
 was sized for:
 
-    MODE=script STEPS=tools/capture-erpqa-frames.json DPR=2 W=852 H=900 \
+    MODE=script STEPS=tools/capture-erpqa-frames.json DPR=2 W=896 H=1000 \
       node tools/capture-demo-frames.mjs \
-      "file://<repo>/site/demo/cross-system-erp-qa/index.html?tour=off&ui=clean&state=start" /tmp/erp852
-    # …the same command with W=676 H=900, W=868 H=1000, W=1212 H=1000 and W=1440 H=1100
+      "file://<repo>/site/demo/cross-system-erp-qa/index.html?tour=off&ui=clean&state=start" /tmp/erp896
+    # …the same command with W=676 H=1000, W=868 H=1000, W=880 H=1000 and W=1440 H=1100
 
 Five viewports, because each surface is exactly 640 CSS px wide at a different
-one: `-1` from the 852 run (the Data Studio page is `W − 212`, so the five
-source cards are 640 px wide and reflow to 3 + 2 there); `-2` from the 676 run
-(the Decisions app has no left nav, so its band is `W − 36`, and under 1120 px
-it reflows to 3 × 2 — all six tiles at the size three of six would have at
-1240 px); `-3` and `-4` from the 868 and 1212 runs (an Agent Hub card is
-`W − 228` and the run card is capped at 640, so at 1212 the Ask Oracle box —
-`max-width: 760px` — is 640 too and sits above the card at the same width); the
-poster from the 1440
-run, where `.an-cols` is two columns and the causes chart sits beside the four
-actions.
+one, and **round 3 moved three of them** (the Data Studio nav is 216 px while
+the Data Load sub-tree is open, the Workbench nav is 180 px under 1120, and the
+Ask Oracle box is capped at Oracle's measured 729 px rather than 760):
+`-1` from the **896** run (the Data Studio page is `W − 216` and the cards sit
+inside a 20 px gutter, so `.src-cards` is `W − 256` = 640 and reflows to 3 + 2
+under 1120 px); `-2` from the 676 run (the Decisions app has no left nav, so
+its band is `W − 36`, and under 1120 px it reflows to 3 × 2 — all six tiles at
+the size three of six would have at 1240 px); `-3` from the 868 run (the
+generated-dashboard card is `W − 228` = 640); `-4` from the **880** run
+(the Hub's main column is `W − 240`, so the Ask Oracle box and the run card —
+capped at 640 — are both exactly 640 and sit one above the other); the poster
+from the 1440 run at **H = 1100**, where `.an-cols` is two columns, the causes
+chart sits beside the four actions, and the taller viewport leaves the 664 px
+window room inside the shot.
 
-Crop offsets in CSS px (device px are twice these, at `DPR=2`): `-1` (192, 130,
-640 × 400) · `-2` (18, 52) · `-3` (204, 126) · `-4` (234, 221). Every edge is
-placed on a real boundary — `-1` starts in the white under the *Live Feed*
-page title and ends 13 px into the model job card, below the five cards; `-2`
-starts inside the Decisions header bar and ends on the band's bottom edge;
-`-3` starts on the Insights title's bottom edge and ends 3 px into the first
-chart's border, under the four tiles; `-4` starts between the greeting and the
-Ask Oracle box and ends at 621 — one pixel above the "Not started" label of the
-third agent, which is why nothing in that frame is half a line. Converted with
-`sips` (crop → resample to 1600 × 1000 → progressive JPEG q86) on a Mac without
-ffmpeg; 184–226 KB each, inside the 300 KB ceiling. **`sips` gotcha, again:**
-`--cropOffset 0 0` means *centred*, so a crop anchored at the left edge needs a
-non-zero Y with X = 0.
+Crop offsets in CSS px (device px are twice these, at `DPR=2`): `-1`
+(236, 150, 640 × 400) · `-2` (18, 177) · `-3` (204, 139) · `-4` (210, 260) ·
+poster (233, 341, 1180 × 664). Every edge is placed on a real boundary —
+`-1` starts in the white under the *Live Feed* page title and ends in the white
+padding under the job accordion's dark-teal header; `-2` starts on the
+*Recommendations* title's bottom edge and ends exactly on the tab strip's top;
+`-3` starts 3 px under the *Insights* subtitle and ends inside the first chart
+card's top padding, under the four tiles; `-4` starts in the white between the
+greeting and the Ask Oracle box and ends exactly on the boundary below the
+fourth agent's row, so nothing in that frame is half a line; the poster starts
+in the gap between the band head and the tiles and ends 4 px under the actions
+box. Converted with `sips` (crop → resample → progressive JPEG q86) on a Mac
+without ffmpeg; 157–244 KB each, inside the 300 KB ceiling. **`sips` gotcha,
+corrected 2026-09-17:** `--cropOffset` takes **Y then X** and is the crop's
+**top-left origin**, not an offset from a centred crop — the round-2 note that
+`0 0` means *centred* is wrong and cost a wasted pass. Verified empirically:
+`sips -c 800 1280 --cropOffset 300 472 frame-1.png` yields exactly the window
+whose top-left is (472, 300).
 
 **Why the five source cards needed a CSS fix first.** Under 1120 px the cards
 were pinned to a fixed 128 px height so the step-1 hint always had room under
 them, but the content does not fit that height: the flex children were squeezed
 and the second line of each card's description was cut *through* its glyphs —
-visible at the 1024 px QA viewport too, not only in the crop. The height is now
-160 px, the card's own parts keep their size (`flex: none`) and the description
+visible at the 1024 px QA viewport too, not only in the crop. **Round 3 re-cut
+the same trade-off**, because the cards were re-skinned into Oracle's Data Load
+four-card idiom and the QA viewport dropped to 1024 × **768**: the page subtitle
+is hidden under 1120 px, the feed line switches to each pipeline's short name
+(`GoldenGate CDC`, `SuiteAnalytics Connect · 30 min`) so the freshness and the
+object count still fit on two lines, and the cards are **134 px** — measured, not
+guessed: `#src-cards` then ends at y 482 and the step-1 callout (252 px tall)
+sits at 496–748 inside a 768 px viewport, which is what the tour's own
+"no callout covers the element its copy names" assertion checks. The card's own
+parts keep their size (`flex: none`) and the description
 is capped at two whole lines with a fade into the card colour where there is
 more to read. Nothing is sliced at any viewport; the fade is invisible on a line
 that ends early (2026-09-17, leg E3).
 
 **Poster.** `assets/img/posters/cross-system-erp-qa.jpg`, 1600 × 900: a
-1132 × 637 CSS-px crop at `DPR=2` (offset (257, 345), resampled from 2264 × 1274,
-q86, 255 KB) of the analysis view at `state=final` in Dana's own role — the six
+1180 × 664 CSS-px crop at `DPR=2` (offset (233, 341), resampled from 2360 × 1328,
+q86, 244 KB) of the analysis view at `state=final` in Dana's own role — the six
 tiles after her override (134 lines, USD 3.77 M, eight tier-A accounts), the
 "Why the lines are late" chart with its four causes, and the four recommended
 actions with their owners, values and the line that says each one is a task and
@@ -265,9 +282,10 @@ the product has `video: false`, so the hero has no media frame (`docs/CONFIG.md`
 
 **Superseded.** Round 1's four frames — the Data Studio catalog with five
 mounted catalogs, the Mapping review health band, and the same answer under two
-roles — and its 800 × 450 poster are gone from disk; the round-2 captures
-replace all five at the same file names, so `content.js` and `config.js` needed
-no change.
+roles — and its 800 × 450 poster are gone from disk; so are round 2's. The
+**round-3** captures replace all five at the same file names, so `content.js`
+and `config.js` needed no change in either round. Working shots:
+`.work/erpqa-qa/r4-f{896,676,868,880,1440}/`.
 
 ### Designed step illustrations (16 frames, 4 products)
 
