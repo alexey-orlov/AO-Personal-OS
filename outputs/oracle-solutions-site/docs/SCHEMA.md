@@ -288,7 +288,7 @@ Renders the **Jumpstart** tab (`#/products/<slug>/jumpstart`; `…/pov` redirect
 |---|---|---|
 | `title` | string | Always `Jumpstart Proof-of-Value` — the block title, not the tab label. |
 | `promise` | string | One line: pilot *this product* on your own data, in *this* duration, at *this* price, and take away *this* result. Only a duration or price the research supports; otherwise the sentence says the scope is agreed at scoping rather than inventing one. The product noun is **lowercase** mid-sentence — a capitalised name there reads as an unresolved merge field — and **the closing clause is written per product**: seven lines ending on the same six words is the template tell a seller sees the moment they flip between two tabs in a live demo. |
-| `durationShort?` | string | **`4–8 weeks` on every product since round 7** — Alex's rule that the proof of value is stated as 4–8 weeks, consistently, across the site (`PROVENANCE.md` §23); the same figure is the `investment.duration` and appears in the `promise`, and `tools/check-grammar.js` fails any other duration anywhere in the data. Interpolated into `sellerGate.cta.body` at `{duration}`; never rendered on its own. `sellerGate.cta.bodyFallback` stays for a product added without it. |
+| `durationShort?` | string | **`4–8 weeks` on every product since round 7** — Alex's rule that the proof of value is stated as 4–8 weeks, consistently, across the site (`PROVENANCE.md` §23); the same figure is the `investment.duration` and appears in the `promise`, and `tools/check-grammar.js` fails any other duration anywhere in the data. Not rendered on its own; the seller CTA that interpolated it retired with the gate in round 8. |
 | `pillars` | `[{ key, title, text }]` | **Exactly three, in this order:** `fast` (kickoff to result), `low-risk` (fixed scope and price, your tenancy, no production change — only the claims the research supports for that product), `tangible` (the headline outcome). Equal cards in one row, each with an icon. |
 | `outcomes` | `[string]` | 3–4 **customer outcomes**, not deliverables: "An optimized four-week plan for one region, measured against your current plan", not "a plan document". Heads the left column, under `sectionLabels.jumpstartOutcomes`. |
 | `timeline` | `[{ label, text }]` | 3–4 nodes, week-by-week, under `sectionLabels.jumpstartTimeline`. Node 1 is the pre-flight gate wherever the product has one. |
@@ -305,9 +305,13 @@ After the Jumpstart block, the tab still renders `shared.credibilityBlock` and `
 
 | Key | Type | Notes |
 |---|---|---|
-| `materials` | `[{ key, title, description, state }]` | `key` is the lookup into `SITE_CONFIG.products[slug].materials`. A non-empty URL there renders an enabled Download; an empty one renders a disabled control labelled from `shared.materialStates[state]`. A row with `state: "superseded"` stays disabled regardless of URL. |
-| `emptyPanelCopy?` | string | Shown above the list where every row is unavailable. |
-No `notes` key. **Seller-facing commercial notes are not part of this file.** They are fetched after the gate passes from `SITE_CONFIG.sellerGate.notesUrl` — see `CONFIG.md` §2 — because the gate is a localStorage flag and anything in `content.js` is one view-source away from the customer being quoted. The panel renders a **Seller notes** block (heading from `sellerGate.notesHeading`) only when that fetch returns lines for the product.
+**Not rendered since round 8.** The *For sellers* tab is the product's sales-kit request (`salesKit`, below); this block is the **kit manifest** — what whoever sends the kit puts in it.
+
+| Key | Type | Notes |
+|---|---|---|
+| `materials` | `[{ key, title, description, state }]` | One row per asset. `key` is the lookup into `SITE_CONFIG.products[slug].materials` (the link); `state` (from `shared.materialStates`) says whether the asset exists yet. |
+| `emptyPanelCopy?` | string | Carried from the retired panel; not rendered. |
+No `notes` key, and no seller notes anywhere in the site: the notes fetch (`sellerGate.notesUrl`) retired with the gate. Anything in `content.js` is one view-source away from a customer.
 
 ---
 
@@ -332,7 +336,7 @@ One field set serves both forms. Fields, in order: **full name · work email · 
 
 | Key | Type | Notes |
 |---|---|---|
-| `roles` | `[{ value, label }]` | Four options; render as radios. `value` is what goes in the payload. |
+| `roles` | `[{ value, label }]` | Five options, as radios: An Oracle customer · An Oracle seller (`oracle-seller`) · An Oracle partner (`oracle-partner`) · SoftServe · Other. `value` is what goes in the payload. Round 8 split the seller from the partner — only seller domains get the sales kit, and the two get different follow-up; the checker fails a label that lumps them. A render with `role: null` checks none (the demo modal on `#/sellers`). |
 | `roleLabel` | string | |
 | `consent` | `{ label, linkLabel, linkUrl }` | Required checkbox. Render `linkLabel` inside `label` as a link to `linkUrl`. |
 | `productPlaceholder` | string | The extra option in the product select, alongside the seven product names. On a product page the select is pre-filled with that product and stays editable. |
@@ -344,17 +348,17 @@ One field set serves both forms. Fields, in order: **full name · work email · 
 
 ---
 
-## `sellerGate`
+## `salesKit`
+
+**Round 8 (2026-09-17)** — the sales-kit request that replaced the seller gate (`PROVENANCE.md` §24). A form of its own (`FORMS.renderKit` / `mountKit`): *Kit for* (on `#/sellers` only) · work email · consent · honeypot. Eligibility is the email's domain (`SITE_CONFIG.sellerGate.allowedDomains`), checked on the page to route the reader — and to be checked again by whatever sits behind the endpoint, since a client check is bypassable. Placeholders in braces are filled at render time.
 
 | Key | Type | Notes |
 |---|---|---|
-| `heading`, `lockedBody`, `accessNote` | string | `accessNote` is the one-line note under the input. |
-| `emailLabel`, `emailPlaceholder`, `unlockLabel`, `lockLabel`, `rejected` | string | |
-| `linkPendingLabel`, `downloadLabel`, `unlockedIntro` | string | |
-| `notesHeading` | string | Heading of the seller-notes block. The notes themselves are **not in this file** — they are fetched from `SITE_CONFIG.sellerGate.notesUrl` after the gate passes. |
-| `cta` | `{ heading, body, bodyFallback, contactLabel, action }` | `body` carries the `{duration}` placeholder, filled from that product's `jumpstart.durationShort`; `bodyFallback` is used when a product has none. `contactLabel` is a **role alias**, not a person and not an address. `action` opens the demo form with the product pre-selected and `I am a…` pre-set to `oracle-seller`. |
+| `page` | `{ eyebrow, title, body, again, routeLink: { label, route }, povTitle, povBody, povLink }` | `#/sellers`: the kit panel (H1 = `title`), *Request another kit* after a confirmation, the customer/partner route (*Request a scoping call*), and the *See the fit in an account?* panel whose link opens the demo modal with nothing preselected. |
+| `tab` | `{ title, body, routeLabel, nextDemo, nextDemoLink, nextAll, nextAllLink }` | The product's *For sellers* tab. `body` names the product through `{product}`. `routeLabel` is the customer/partner route, to that product's Contacts tab. `nextDemo` / `nextAll` carry `{link}` and close every confirmation: *Request a demo* (Contacts tab) and *Get the full kit* (`#/sellers`). |
+| `form` | `{ emailLabel, emailPlaceholder, productLabel, productAll, submit, submitting, eligibility, otherRoute, kitName, kitNameAll, errors: { email, domain, send }, confirmations: { sent, queued, mailto }, mailSubject, mailSubjectAll, mailBody }` | `otherRoute` and `errors.domain` carry `{routeLink}`; `errors.send` and the confirmations carry `{mailbox}` (the practice address, rendered as a link); confirmations carry `{kitName}` and `{email}`, and `mailto` also `{subject}`. **Pick the confirmation by what happened:** `sent` only after a successful POST with `SITE_CONFIG.sellerGate.kitAutoSend` true; `queued` after a successful POST otherwise; `mailto` when `formEndpoint` is empty and the visitor's mail client carries the request. The checker fails `queued` or `mailto` copy that says the kit was emailed. |
 
-The gate checks the domain of the entered email against `SITE_CONFIG.sellerGate.allowedDomains` and stores the unlock under `SITE_CONFIG.sellerGate.storageKey`. It is a convenience, not access control: nothing in either data file is secret, and nothing secret may be added to them.
+The endpoint payload is `{ form: "kit", email, product: "all" | <slug>, consent, page }`. On success the email is remembered under `SITE_CONFIG.sellerGate.kitEmailKey` and prefilled next time; the retired gate's unlock flag (`legacyStorageKey`) is removed on load. Nothing in either data file is secret, and nothing secret may be added to them.
 
 ---
 
