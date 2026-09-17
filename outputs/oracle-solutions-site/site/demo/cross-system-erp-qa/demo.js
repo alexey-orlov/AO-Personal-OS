@@ -783,7 +783,7 @@
           "<td>" + (gone
             ? '<span class="stat stat--open">' + esc(a.statusLabel || "decided") + "</span> " + esc(a.decision ? "\u201c" + a.decision.reason + "\u201d" : "you overruled this")
             : esc(a.recommendation ? a.recommendation.text : "—")) + "</td>" +
-          '<td><button class="btn btn--xs" type="button" data-ev="' + esc(a.id) + '">Evidence</button></td></tr>';
+          '<td><button class="btn btn--xs" type="button" data-ev="' + esc(a.id) + '">Explore</button></td></tr>';
       }).join("") + "</tbody></table></div>" +
       '<p class="an-sub">Top ' + live.length + " of " + exposed + " accounts with a line at risk" +
       (out.length ? ", plus the " + out.length + " you decided on" : "") + " — ranked by what is at stake.</p>";
@@ -851,20 +851,42 @@
     return '<div class="panel-head"><b>' + esc(title) + "</b>" + (note ? '<span class="panel-note">' + note + "</span>" : "") +
       '<button class="btn btn--ghost btn--xs x" type="button" data-panel="">' + ICON.x + "Close</button></div>";
   }
+  /* Oracle's trace is a TREE of spans with per-node glyphs, a trackless
+     dark-teal duration bar, and a metadata pane of key/value lines beside it.
+     The seconds sit under `Tokens`, as the Nov-2025 frame renders them. */
+  var TRACE_GLYPH = { "SQL Firewall check": "shield", "Row policy applied": "lock", "Column masking applied": "lock", "Answer composed": "msg" };
   function traceHtml(an) {
     var max = Math.max.apply(null, an.trace.map(function (s) { return s.ms; })) || 1;
     var total = an.trace.reduce(function (t, s) { return t + s.ms; }, 0);
-    var rows = an.trace.map(function (s) {
-      return '<div class="tr"><span class="n"><b>' + esc(s.span) + "</b><span>" + esc(s.detail) + '</span></span><span class="bar"><i style="width:' + Math.max(3, Math.round(s.ms / max * 100)) + '%"></i></span><span class="ms">' + (s.ms / 1000).toFixed(2) + "s</span></div>";
+    function row(sp, kid, glyph, sel) {
+      return '<div class="tr' + (kid ? " tr--kid" : "") + (sel ? " is-sel" : "") + (sp.status === "blocked" ? " is-blocked" : "") + '">' +
+        '<span class="n"><span class="di">' + (kid ? "" : "&#9662;") + "</span>" + ICON[glyph] +
+        "<b>" + esc(sp.span) + "</b>" + (sp.detail ? "<span>" + esc(sp.detail) + "</span>" : "") + "</span>" +
+        '<span class="bar"><i style="width:' + Math.max(3, Math.round(sp.ms / max * 100)) + '%"></i></span>' +
+        '<span class="ms">' + (sp.ms / 1000).toFixed(2) + "s</span></div>";
+    }
+    var rows = an.trace.map(function (sp, i) {
+      var out = row(sp, false, sp.agent ? "bot" : (TRACE_GLYPH[sp.span] || "sched"), i === 0);
+      (sp.tools || []).forEach(function (tool) {
+        out += '<div class="tr tr--kid"><span class="n"><span class="di"></span>' + ICON.grid + "<b>" + esc(tool) + "</b></span>" +
+          '<span class="bar"></span><span class="ms"></span></div>';
+      });
+      return out;
     }).join("");
     return panelHead("Trace", "the four agents, what each read, and the rules that applied") +
-      '<div class="tr h"><span class="n">Agent</span><span>Duration</span><span class="ms">Time</span></div>' + rows +
-      '<div class="tr-sum"><span>Total <b>' + (total / 1000).toFixed(2) + "s</b></span><span>Lines read <b>" + an.headline.lines + "</b></span><span>Certified views <b>" + an.views.length + "</b></span><span>Systems <b>" + D.sources.length + "</b></span></div>" +
-      '<div style="margin-top:10px">' +
-      '<div class="fwline"><span class="k">SQL Firewall</span><span><span class="' + (an.firewall.status === "blocked" ? "fw-no" : "fw-ok") + '">' + esc(an.firewall.status) + "</span> &middot; allow-list <span class=\"mono\">" + esc(an.firewall.allowList) + "</span></span></div>" +
-      '<div class="fwline"><span class="k">Rows you may see</span><span>' + esc(an.firewall.rowPolicy) + "</span></div>" +
-      '<div class="fwline"><span class="k">Columns masked</span><span>' + esc(an.firewall.masking) + "</span></div></div>" +
-      '<p class="honest">The agents read the certified views only, and the row policy and masking are applied by the database before anything reaches this page — the same rules whoever asks.</p>';
+      '<div class="trace-2"><div>' +
+      '<div class="tr h"><span class="n">Agent flow task</span><span class="du">Duration</span><span class="ms">Tokens</span></div>' + rows +
+      "</div>" +
+      '<aside class="tr-meta"><div class="mt">' + esc(an.trace[0] ? an.trace[0].span : "") + "</div>" +
+      '<div class="fwline"><span class="k">SQL Firewall</span> <span class="' + (an.firewall.status === "blocked" ? "fw-no" : "fw-ok") + '">' + esc(an.firewall.status) + "</span> &middot; allow-list " + esc(an.firewall.allowList) + "</div>" +
+      '<div class="fwline"><span class="k">Rows you may see</span> ' + esc(an.firewall.rowPolicy) + "</div>" +
+      '<div class="fwline"><span class="k">Columns masked</span> ' + esc(an.firewall.masking) + "</div>" +
+      '<div class="fwline"><span class="k">Duration</span> ' + (total / 1000).toFixed(2) + "s</div>" +
+      '<div class="fwline"><span class="k">Lines read</span> ' + an.headline.lines + "</div>" +
+      '<div class="fwline"><span class="k">Certified views</span> ' + an.views.length + "</div>" +
+      '<div class="fwline"><span class="k">Systems</span> ' + D.sources.length + "</div>" +
+      '<div class="tr-json"><b>Input</b><br>The agents read the certified views only, and the row policy and masking are applied by the database before anything reaches this page — the same rules whoever asks.</div>' +
+      "</aside></div>";
   }
   function explainHtml(an) {
     return panelHead("How the AI read the question", "the words it had to pin down before it could look anything up") +
@@ -876,7 +898,7 @@
   }
   function evidenceHtml(an) {
     var list = an.accounts.filter(function (a) { return S.role !== "ANALYST_NA" || a.entity === "NG-NA"; });
-    if (!list.length) return panelHead("Evidence") + '<div class="panel-note">No accounts inside your region.</div>';
+    if (!list.length) return panelHead("Explore") + '<div class="panel-note">No accounts inside your region.</div>';
     var key = S.evAccount, has = list.some(function (a) { return a.id === key; });
     if (!has) key = list[0].id;
     var e = D.evidence(key, S.role, decisions());
@@ -975,7 +997,7 @@
           : esc(k.read || ("lead time " + k.leadTimeDays + " business days")) + " &middot; exposure on these lines " + esc(k.exposedText || usdShort(k.exposedUsd))) + "</span></div>";
     }
     body = body.split('<table class="dgrid"').join('<div class="tw"><table class="dgrid"').split("</table>").join("</table></div>");
-    return panelHead("Evidence", "everything behind this account, in the system it came from") + picker + body;
+    return panelHead("Explore", "everything behind this account, in the system it came from") + picker + body;
   }
   function maskv(v, kind) {
     if (S.role !== "ANALYST_NA") return v;
@@ -1016,7 +1038,7 @@
         return { k: x.label, v: x.value, l: (c.unit === "USD" ? "USD " + D.fmtM(x.value) : String(x.value)), c: CAUSE_C[x.label] };
       });
       return '<div class="gd-chart"><h4>' + esc(c.title) + "</h4>" +
-        barChart(items, c.id === "by-tier" ? "#7d4064" : c.id === "by-entity" ? "#1d5f73" : "#4d7a2c") + "</div>";
+        barChart(items, c.id === "by-tier" || c.id === "by-entity" ? "#265c61" : "#4d7a2c") + "</div>";
     }).join("");
     var t = d.table || { columns: [], rows: [] };
     return '<div class="gd" id="gen-dash">' +
@@ -1068,16 +1090,17 @@
       ]), views: ["OPEN_ORDER_LINES_X", "PROMISE_STATUS", "LATE_CAUSES"] });
       standing.push({ name: "Service levels by account", sub: "What each contract promises, and what it costs when we miss", svg: barChart(an.accounts.filter(function (a) { return a.status === "at-risk"; }).slice(0, 6).map(function (a) {
         return { k: a.name, v: a.penaltyUsd || 1, l: usdShort(a.penaltyUsd) };
-      }), "#8a4a12"), views: ["SLA_EXPOSURE", "ACCOUNT_EXPOSURE"] });
+      }), "#265c61"), views: ["SLA_EXPOSURE", "ACCOUNT_EXPOSURE"] });
     }
-    return '<div class="wb-pg"><h1>Insights</h1><div class="sub">Dashboards on the same certified views the answers read</div><div class="wb-rule"></div>' +
+    return '<div class="wb-pg wb-pg--hub"><h1>' + ICON.board + 'Insights</h1><div class="sub">Dashboards on the same certified views the answers read</div>' +
       build +
       (standing.length ? '<div class="hub-sec" style="margin-top:' + (build ? "22px" : "0") + '">Standing dashboards</div><div class="dash">' + standing.map(function (c) {
         return '<button class="dash-card" type="button" data-dash="' + esc(c.name) + '" style="text-align:left;cursor:pointer"><h3>' + esc(c.name) + '</h3><div class="sub">' + esc(c.sub) + "</div>" + c.svg +
           '<div class="vs">' + c.views.map(function (v) { return "GOLD." + v; }).join(" · ") + "</div></button>";
       }).join("") + "</div>" : "") +
       (!build && !standing.length ? '<div class="empty">Ask the commercial operations agent what is at risk, and it will have something to put here.</div>' : "") +
-      '<p class="honest">The two standing dashboards are static in this walkthrough. The generated one is built from the analysis on screen, and it obeys whoever is looking at it.</p></div>';
+      '<p class="honest">The two standing dashboards are static in this walkthrough. The generated one is built from the analysis on screen, and it obeys whoever is looking at it.</p>' +
+      hubBottomNav("insights") + "</div>";
   }
   var DASH_PLAN = [];
   function createDashboard() {
@@ -1126,8 +1149,8 @@
   function renderWb() {
     renderWbNav(); renderWbMenu(); renderPlum();
     var page = $("#wb-page");
-    if (S.wbPanel === "analysis") { page.innerHTML = '<div class="conv conv--an">' + analysisHtml() + "</div>"; return; }
-    if (S.wbPanel === "conversation") { page.innerHTML = '<div class="conv">' + answerHtml(ans()) + "</div>"; return; }
+    if (S.wbPanel === "analysis") { page.innerHTML = '<div class="conv-wrap"><div class="conv conv--an">' + analysisHtml() + "</div></div>"; return; }
+    if (S.wbPanel === "conversation") { page.innerHTML = '<div class="conv-wrap"><div class="conv">' + answerHtml(ans()) + "</div></div>"; return; }
     if (S.wbPanel === "insights") { page.innerHTML = insightsHtml(); return; }
     if (S.wbPanel === "catalog") { page.innerHTML = mcatalogHtml(); return; }
     if (S.wbPanel === "apc") { page.innerHTML = apcHtml(); return; }
@@ -1189,6 +1212,7 @@
       S.wbPanel = hn === "catalog" ? "catalog" : hn; S.panel = null; renderWb(); return;
     }
     if ((t = e.target.closest("[data-agents]"))) { toast("<span>Four agents are registered to this workspace; only the <b>commercial operations agent</b> runs in this walkthrough.</span>"); return; }
+    if ((t = e.target.closest("[data-narr]"))) { S.narrate = !S.narrate; renderWb(); return; }
     if ((t = e.target.closest("[data-ask]"))) { ask(t.dataset.ask); return; }
     if ((t = e.target.closest("[data-askback]"))) { S.wbPanel = S.state.analysed ? "analysis" : "home"; S.panel = null; renderWb(); return; }
     if ((t = e.target.closest("[data-back]"))) { S.wbPanel = "home"; S.panel = null; renderWb(); return; }
@@ -1238,9 +1262,7 @@
       return;
     }
   });
-  $("#wb-page").addEventListener("change", function (e) {
-    if (e.target.id === "narr-tog") { S.narrate = e.target.checked; renderWb(); }
-  });
+  $("#plum-back").addEventListener("click", function () { S.wbPanel = "home"; S.panel = null; renderWb(); });
   function openEvidence(id) {
     S.evAccount = id; S.panel = "evidence";
     if (S.wbPanel !== "analysis") S.wbPanel = "analysis";
@@ -2197,7 +2219,7 @@
     else S.wbPanel = "conversation";
   }
   if (wantPanel) {
-    if (["evidence", "trace", "explain"].indexOf(wantPanel) >= 0) {
+    if (["evidence", "trace", "explain", "code"].indexOf(wantPanel) >= 0) {
       S.panel = wantPanel;
       if (S.wbPanel !== "conversation") { if (!S.state.analysed) prime("analysed"); S.wbPanel = "analysis"; }
       S.app = wantApp || "aidp";
