@@ -56,6 +56,12 @@ pi-2Ap1dnv-GXA-03
 pi-2Ap1dnv-GXA-04
 pi-2Ap1dnv-GXA-05
 pi-2Ap1dnv-GXA-06
+pi-2UwemqPkJSQ-01
+pi-2UwemqPkJSQ-02
+pi-2UwemqPkJSQ-03
+pi-2UwemqPkJSQ-04
+pi-2UwemqPkJSQ-05
+pi-2UwemqPkJSQ-06
 pi-2uiIEdmL040-01
 pi-2uiIEdmL040-02
 pi-2uiIEdmL040-03
@@ -358,6 +364,11 @@ pi-Ju8LVdvuxGM-01
 pi-Ju8LVdvuxGM-02
 pi-Ju8LVdvuxGM-03
 pi-Ju8LVdvuxGM-04
+pi-K5yGLO8c6T0-01
+pi-K5yGLO8c6T0-02
+pi-K5yGLO8c6T0-03
+pi-K5yGLO8c6T0-04
+pi-K5yGLO8c6T0-05
 pi-KCGKb3huDsY-01
 pi-KCGKb3huDsY-02
 pi-KCGKb3huDsY-03
