@@ -742,8 +742,12 @@
       " &middot; penalty " + esc(usdShort(gone ? acc.wasPenaltyUsd : acc.penaltyUsd)) +
       '<span class="mono">' + esc(acc.causeLabel || "") + (acc.recommendation && acc.recommendation.text ? " &middot; " + acc.recommendation.text : "") + "</span></div>";
     if (e.identity) {
-      body += '<div class="idline">' + ICON.shield + "<span>The AI matched this customer across " + esc((acc.systems || []).length) +
-        " systems at a score of " + esc(Number(e.identity.score).toFixed(2)) + " &middot; " + esc(e.identity.reason) +
+      var nsys = (acc.systems || []).length;
+      body += '<div class="idline">' + ICON.shield + "<span>" +
+        (nsys > 1
+          ? "The AI matched this customer across " + nsys + " systems at a score of " + esc(Number(e.identity.score).toFixed(2))
+          : "The AI found this customer in one system only") +
+        " &middot; " + esc(e.identity.reason) +
         ' <span class="stat stat--' + esc(String(e.identity.status || "").replace(/[^a-z]/g, "")) + '">' + esc(e.identity.status) + "</span></span></div>";
     }
     body += "<h4>The lines, in the systems they live in</h4>" +
