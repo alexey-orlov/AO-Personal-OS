@@ -4221,3 +4221,46 @@ regressing.
   published artifacts are checked by eye in the viewer, not by automation. The
   standalone demo artifact and the site artifact still hold round 1's build
   until the main session republishes both.
+
+## 22. Round 7 — the Services page in three messages, and one proof-of-value duration, 2026-09-17
+
+**Brief** (Alex, in session): three messages, three screens — (1) we combine deep AI research and experience with Oracle expertise, elaborated with the dedicated practice's structure or numbers; (2) it's all about ROI — measuring outcomes is in our DNA — elaborated as a method from discovery to proof of value, integration and scaling, built around measured impact; (3) a fast proof of value, no hassle — the method, on real data. Plus: *"Make sure that we always mention 4-8 weeks PoV (consistently across the site)"*, and rethink the main screen around the messages.
+
+**Split.** Opus: the state check (a second session had published versions 30–31 with the Cross-system ERP Q&A walkthrough), a fact pack per message with publishability labels, the site-wide duration sweep and its checker rule, the build, the layout QA at 1440/1280/1024/768/375, the merge and the publish. Fable, in one pass from the fact pack: the spine, the screen plan and the copy — the first screen carries message 1.
+
+### 22.1 The page
+
+| Screen | Heading | What carries the message | Sources |
+|---|---|---|---|
+| S1 | FRONTIER AI / ON ORACLE. | The practice's structure — architects shape the scope, engineers trained on the platforms build and integrate, a product team turns what repeats into the agents on the site, each delivery feeds the next; one entry point; joint teams with Oracle's AI & Data organization, one contract. Band: **1993** founded · 10,000 people in 17 countries; **1,000+** experts in AI, data and R&D; **30** Fortune 500 clients in data and analytics | the three capabilities and operating model (EMEA s.14, ARROW s.3) [pub]; the frontier line, 1,000+, 30 Fortune 500 [site]; 1993 / 10K / 17 (§18.2) [site] |
+| S2 | Every step has a number. | Discovery → Jumpstart proof of value (4–8 weeks) → Integration (3–5 months) → Scale (3–12 months), each ending with a measured result; metrics and baseline signed by the customer, Oracle and SoftServe before the clock; the 81% engagement and the ~80% threshold open the footnote; managed service or the customer's own team folded into Scale | discovery (FACTORY s.9, EMEA s.15) [pub]; gate, readout, costed plan, 81% [site]; integration to the predicted return with KPI reporting and observability, org-wide roll-up (GTM s.9, s.13) [pub] |
+| S3 | Not a project. A proof. | **4–8 weeks** to a measured result in your own tenancy; one gate, a separate environment, nothing touching production, a fixed price where one is published; *You bring* — a sponsor, two or three metrics and today's baseline, read-only access, the people who judge the output — and *You leave with* — a working agent on your data, a measured readout against the signed baseline, a costed plan | owner (4–8 weeks); the product `needs` and Jumpstart lists [site] |
+
+New copy: the three headings; *"Measuring what an innovation changes is the discipline behind everything we do"* (from Alex's "in our DNA"); *"The gate is what keeps the price fixed and the calendar short."*
+
+**Opus edits to Fable's copy:** `&amp;` → `&` in *AI & Data* and *R&D* (the renderer escapes, so the entity would have printed); *ready-to-run* dropped from the hero lead (retired vocabulary, §18.7); the 81% sentence moved from the S2 lead to the head of its footnote — Fable's own fallback, taken because the lead ran five lines at 1440 (three now).
+
+**Cut:** *FROM PLATFORM / TO PRODUCTION.* and its lead; the 500+ data experts and 150+ projects tiles; the after-go-live panels (their substance is in the Scale step); the 81% band figure (now in the S2 footnote); the `#proof` anchor — the home case-studies rail's *How we measure it* now lands on `#how-we-engage`, where the measurement argument opens.
+
+### 22.2 One proof-of-value duration: 4–8 weeks
+
+| Where | Before | After |
+|---|---|---|
+| `overview.delivery.steps[0].fact` | 30–45 days to about two months · scoped per engagement on the research and investigation products | 4–8 weeks |
+| `overview.hero.stats[2]` | 4–8 weeks | unchanged |
+| large-document-extraction, workforce-optimization — `promise`, `durationShort`, `pillars[fast]`, `investment.duration` | 2 months | 4–8 weeks (their timelines already end at week 8) |
+| cross-system-erp-qa, business-metrics-qa — the same four keys and `overview.metrics[0].value` | 30–45 days; *"30 days for one clean source system; 45 for up to three sources or a stricter security setup"* | 4–8 weeks; *"Four weeks for one clean source system; up to eight for three sources or a stricter security setup"* |
+| account-insights, case-evidence-collection | no duration — *"the duration is set at scoping"*, `investment.duration: null`, no `durationShort` | 4–8 weeks in the promise, the fast pillar, `durationShort` and `investment.duration` |
+| plan-vs-actual-investigation | 12 weeks plus a two-week acceptance phase; timeline Weeks 1–2 Discovery · 3–4 Framework · 5–10 Analysis · 11–12 Validate, acceptance in weeks 13–14 | 4–8 weeks; Week 1 Discovery · Weeks 2–3 Framework · 3–6 Analysis · 6–8 Validate, acceptance included — **a scope change, not only a wording change** |
+
+`tools/check-grammar.js`, round 7: every product's `durationShort`, `investment.duration` and `promise` state 4–8 weeks and its fast pillar the duration; the home step and the home hero tile carry it; the Services page states it and its band figure is it; and *30–45 days*, *about two months*, *in 2 months*, *12 weeks*, *two-week acceptance* or *set at scoping* anywhere in `content.js` fails the build — verified against a copy with one old duration planted.
+
+### 22.3 Checks and publish
+
+Checker OK; deny-list grep empty; console clean; the repetition check clean on every screen (the one *value* ×3 on S2 counts the step name *Jumpstart proof of value*); headings within budget — the H1 two lines from 320 to 1440, the H2s one line at 1440 and two at 375, *4–8 weeks* one line at 375; four equal steps at 1440 (330 px) and 1280 (290 px), vertical at 1024 and below; no horizontal overflow at any width; `#how-we-engage`, `#proof-of-value` and `#contact` land at the 96 px offset; the product Jumpstart tabs show the new duration and no old one. The page is 3.9 screens at 1440. The first publish was refused against versions 30–31 from the ERP Q&A session; the live `content.js` and `site.css` differed from the local files only by this round's edits and the live `config.js` matched, so the local tree was published on top as **version 32**. The preview is shared with anyone who has the link.
+
+### 22.4 Open for Alex
+
+1. **Plan vs actual investigation:** the 4–8-week rule compresses a 12-week build and a two-week acceptance phase — confirm with the delivery team, or restore from the table above.
+2. **Frontier AI** is the hero's claim. It rests on the frontier line, the 1,000+ AI, data and R&D experts and the measurement discipline; the stronger proof points stay [clr] — the enterprise agentic AI platform at scale (42% → 91% accuracy, 3M+ users) and the GenAI knowledge graph (5–10× faster research), FACTORY s.15, s.17.
+3. Two of the three band figures (1,000+, 30 Fortune 500) repeat the home hero's, within the two-places rule.
