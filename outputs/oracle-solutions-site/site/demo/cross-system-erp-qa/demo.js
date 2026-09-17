@@ -1202,7 +1202,7 @@
       (a.caveat ? '<div class="ans-caveat">' + ICON.info + " " + esc(a.caveat) + "</div>" : "") +
       '<div class="ans-acts">' + chipRow(false) + "</div>" +
       (S.narrate ? '<div class="ans-narr"><span class="sp">' + ICON.speak + "</span><span>" + esc(a.narrate) + "</span></div>" : "") +
-      (S.panel ? '<div class="ans-panel" id="ans-panel">' + (S.panel === "explain" ? explainHtml(analysis()) : S.panel === "code" ? codeHtml(a) : traceHtml(analysis())) + "</div>" : "") +
+      (S.panel ? '<div class="ans-panel" id="ans-panel">' + (S.panel === "explain" ? explainHtml(analysis()) : S.panel === "code" ? codeHtml(a) : S.panel === "evidence" ? evidenceHtml(analysis()) : traceHtml(analysis())) + "</div>" : "") +
       "</div>" + composerHtml();
   }
 
