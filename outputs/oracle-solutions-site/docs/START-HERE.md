@@ -56,7 +56,7 @@ These are Alex's working assumptions as of 2026-09-17, and **each one is still t
 | `#/sellers` | *Get the sales kit*, for all offers or one product (work email at softserveinc.com or oracle.com). Below it, the demo form for a seller who already has an account in mind. | §24 |
 
 - **Header:** Products · Services, plus *Talk to us*. *For sellers* is not in the header (Alex, 2026-09-17).
-- **Footer:** *For sellers* comes first in the link row. It and each product's *For sellers* tab are the ways to reach `#/sellers`.
+- **Footer:** *For sellers* comes first in the link row. It is the only permanent way to `#/sellers`; the other is *Get the full kit* in the confirmation after a product kit request.
 
 ## 4. Standing rules
 

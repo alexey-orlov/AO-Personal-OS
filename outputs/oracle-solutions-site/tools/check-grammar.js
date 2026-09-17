@@ -852,7 +852,8 @@ if (!arr(C.products) || C.products.length !== 7) {
      the header on 2026-09-17 (Alex) — the home page still carries its
      case-study screen, and Services links to it. For sellers took the slot in
      round 8 and left it the same day (Alex): #/sellers stays, reached from the
-     footer's link row and from every product's For sellers tab. */
+     footer's link row and from the Get the full kit link in a product kit
+     confirmation. */
   var NAV = [
     { label: "Products", route: "#/products" },
     { label: "Services", route: "#/services" }
