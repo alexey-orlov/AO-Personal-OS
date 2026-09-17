@@ -742,7 +742,7 @@ window.SITE_CONTENT = {
         ],
         investment: {
           price: null,
-          duration: null,
+          duration: "4–8 weeks",
           includes: [
             "Signal ingestion and grounding, the relevance filter and account fan-out",
             "Opportunity and risk reasoning, cross-account ripples, scoring and citations",
@@ -1054,7 +1054,7 @@ window.SITE_CONTENT = {
         ],
         investment: {
           price: null,
-          duration: null,
+          duration: "4–8 weeks",
           includes: [
             "One case category, assembled and cited across the agreed sample",
             "Case summary, chronological timeline and draft response sections per case",
@@ -1695,7 +1695,7 @@ window.SITE_CONTENT = {
       jumpstart: {
         title: "Jumpstart Proof-of-Value",
         promise: "Pilot large-document processing and review on your own contracts in 2 months, at a fixed price, and see extraction accuracy and effort saved measured against the baseline you signed.",
-        durationShort: "2 months",
+        durationShort: "4–8 weeks",
         pillars: [
           { key: "fast", title: "Fast", text: "Two months from kickoff to a measured accuracy and effort readout on your own contracts." },
           { key: "low-risk", title: "Low-risk", text: "Fixed scope at a fixed price: manual upload, one document type, the core field schema. It runs sandboxed in your own Oracle tenancy, and nothing is written into your cost or ERP system." },
@@ -1720,7 +1720,7 @@ window.SITE_CONTENT = {
         ],
         investment: {
           price: "€75K services · €0/mo infrastructure",
-          duration: "2 months",
+          duration: "4–8 weeks",
           includes: [
             "Classification and page-level routing",
             "Extraction rules and the core field schema",
@@ -2034,7 +2034,7 @@ window.SITE_CONTENT = {
       jumpstart: {
         title: "Jumpstart Proof-of-Value",
         promise: "Pilot workforce optimization on your own historical data in 2 months, at a fixed price, and take away a before/after KPI readout your dispatchers have signed off.",
-        durationShort: "2 months",
+        durationShort: "4–8 weeks",
         pillars: [
           { key: "fast", title: "Fast", text: "Two months from kickoff to a before/after KPI readout on a real region of your own." },
           { key: "low-risk", title: "Low-risk", text: "Fixed scope at a fixed price: manual data import, the recurring constraints, a sandboxed environment on your own tenancy. A dispatcher approves every plan before anything reaches the field." },
@@ -2059,7 +2059,7 @@ window.SITE_CONTENT = {
         ],
         investment: {
           price: "€90K services · €4K/mo infrastructure",
-          duration: "2 months",
+          duration: "4–8 weeks",
           includes: [
             "Foundational allocation with the recurring, most-typical constraints — zones, skills, planned absences",
             "Core KPIs predicted at scheduling and measured against the signed benchmark",
@@ -2124,7 +2124,7 @@ window.SITE_CONTENT = {
           }
         },
         metrics: [
-          { value: "30–45 days", label: "To a governed answer layer live on your data", qualifier: "One use case, up to three data sources", icon: "calendar" },
+          { value: "4–8 weeks", label: "To a governed answer layer live on your data", qualifier: "One use case, up to three data sources", icon: "calendar" },
           { value: null, label: "Time to answer", qualifier: "Versus today, against a baseline signed before the clock starts", icon: "clock" },
           { value: null, label: "Questions served without a data engineer", qualifier: "The share that stops becoming a report request", icon: "users" },
           { value: null, label: "One decision domain, end to end", qualifier: "Certified views with sensitive fields masked by role", icon: "shield" }
@@ -2337,9 +2337,9 @@ window.SITE_CONTENT = {
       jumpstart: {
         title: "Jumpstart Proof-of-Value",
         promise: "Pilot cross-system ERP Q&A on your own data in 30–45 days, at a fixed price, and let your own analysts put questions that span the systems to the test.",
-        durationShort: "30–45 days",
+        durationShort: "4–8 weeks",
         pillars: [
-          { key: "fast", title: "Fast", text: "30 days for one clean source system; 45 for up to three sources or a stricter security setup." },
+          { key: "fast", title: "Fast", text: "Four weeks for one clean source system; up to eight for three sources or a stricter security setup." },
           { key: "low-risk", title: "Low-risk", text: "A fixed price per use case, in your own tenancy — OCI, or Autonomous inside AWS, Azure or Google Cloud regions. Source access is read-only, and every feature used is generally available." },
           { key: "tangible", title: "Tangible", text: "One decision domain answered end to end in plain language, measured against a baseline signed before the clock starts." }
         ],
@@ -2362,7 +2362,7 @@ window.SITE_CONTENT = {
         ],
         investment: {
           price: "€30–50K fixed per use case",
-          duration: "30–45 days",
+          duration: "4–8 weeks",
           includes: [
             "One use case, up to three data sources",
             "Prebuilt Oracle application pipelines switched on",
@@ -2429,7 +2429,7 @@ window.SITE_CONTENT = {
           }
         },
         metrics: [
-          { value: "30–45 days", label: "To a governed gold layer live on your data", qualifier: "Up to three sources, zero data movement", icon: "calendar" },
+          { value: "4–8 weeks", label: "To a governed gold layer live on your data", qualifier: "Up to three sources, zero data movement", icon: "calendar" },
           { value: null, label: "Time to answer", qualifier: "Versus three extracts and a week, against a signed baseline", icon: "clock" },
           { value: null, label: "Questions served without a data engineer", qualifier: "The share that stops being an engineering project", icon: "users" },
           { value: null, label: "Role-scoped answers, fully audited", qualifier: "Enforced in the data layer, not in the prompt", icon: "shield" }
@@ -2640,9 +2640,9 @@ window.SITE_CONTENT = {
       jumpstart: {
         title: "Jumpstart Proof-of-Value",
         promise: "Pilot business metrics Q&A on your own data in 30–45 days, at a fixed price, and see your KPIs answered from one set of certified definitions.",
-        durationShort: "30–45 days",
+        durationShort: "4–8 weeks",
         pillars: [
-          { key: "fast", title: "Fast", text: "30 days for one clean source system; 45 for up to three sources or a stricter security setup." },
+          { key: "fast", title: "Fast", text: "Four weeks for one clean source system; up to eight for three sources or a stricter security setup." },
           { key: "low-risk", title: "Low-risk", text: "A fixed price per use case, in whichever cloud you prefer. Nothing is migrated or copied: queries run where the data lives, under read-only access. Every feature used is generally available." },
           { key: "tangible", title: "Tangible", text: "An assistant answering an agreed 30-question set across every connected source, measured against a baseline signed before the clock starts." }
         ],
@@ -2665,7 +2665,7 @@ window.SITE_CONTENT = {
         ],
         investment: {
           price: "€30–50K fixed per use case",
-          duration: "30–45 days",
+          duration: "4–8 weeks",
           includes: [
             "One use case, up to three data sources",
             "Two to three existing catalogs mounted, one on-prem database linked",
