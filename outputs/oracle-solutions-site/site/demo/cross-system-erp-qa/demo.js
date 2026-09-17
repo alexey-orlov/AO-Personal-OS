@@ -1621,17 +1621,24 @@
   function decideRec(accId, action) {
     if (pendingFor(accId)) { toast("That one is already decided — re-analyse to put it into the numbers."); return; }
     var an = analysis(), acc = an.accounts.filter(function (x) { return x.id === accId; })[0];
-    if (!acc) return;
+    if (!acc || acc.status !== "at-risk") { toast("That account has already been decided."); return; }
     var input = $("#rreason-" + accId);
     var reason = (input && input.value.trim()) || (action === "decline" ? "Not at risk — handled with the customer." : "Agreed, go ahead.");
-    var d = { kind: "recommendation", accountId: accId, action: action, reason: reason, by: D.personas[0].name, at: DECIDED_AT };
+    var d = { kind: "recommendation", accountId: accId, actionId: acc.recommendation ? acc.recommendation.actionId : null,
+      action: action, reason: reason, by: D.personas[0].name, at: DECIDED_AT };
     if (action === "accept") {
-      S.log.unshift({ at: DECIDED_AT, by: d.by, role: "COMMERCIAL_OPS", title: acc.name + " · " + (acc.recommendation ? acc.recommendation.text : "action") + " accepted", action: "accept", reason: reason, rule: "" });
-      renderRwTabs(); renderRwPanel();
-      toast("<span><b>Accepted.</b> " + esc(acc.name) + " stays on the list and the task stands with " + esc(an.actions.filter(function (a) { return a.id === (acc.recommendation || {}).actionId; })[0] ? an.actions.filter(function (a) { return a.id === (acc.recommendation || {}).actionId; })[0].owner : "its owner") + ".</span>", 6000);
+      var res = D.decide(S.state, d);
+      S.state = res.state;
+      S.log.unshift({ at: res.decision.at, by: res.decision.by, role: res.decision.role || "COMMERCIAL_OPS",
+        title: acc.name + " · " + (acc.recommendation ? acc.recommendation.text : "action") + " accepted",
+        action: "accept", reason: reason, rule: "" });
+      renderRw();
+      toast("<span><b>Accepted.</b> " + esc(acc.name) + " stays on the list and the task stands with " + esc(acc.recommendation ? (an.actions.filter(function (x) { return x.id === acc.recommendation.actionId; })[0] || {}).owner || "its owner" : "its owner") + ". Accepting does not protect the revenue until the transfer actually runs, so the numbers do not move.</span>", 8000);
       return;
     }
-    S.pending.push({ decision: d, row: { at: d.at, by: d.by, role: "COMMERCIAL_OPS", title: acc.name + " · " + (acc.recommendation ? acc.recommendation.text : "action") + " declined", action: "decline", reason: reason, rule: "" } });
+    S.pending.push({ decision: d, row: { at: d.at, by: d.by, role: "COMMERCIAL_OPS",
+      title: acc.name + " · " + (acc.recommendation ? acc.recommendation.text : "action") + " declined",
+      action: "decline", reason: reason, rule: "" } });
     renderRwState(); renderRwTabs(); renderRwPanel();
     toast("<span><b>Declined.</b> " + esc(acc.name) + " — &ldquo;" + esc(reason) + "&rdquo;. The AI has not changed its numbers yet: <b>Re-analyse</b> to make it count.</span>", 9000);
     tour.after("decline");
@@ -1641,13 +1648,16 @@
     if (!m) return;
     var input = $("#mreason-" + id);
     var reason = (input && input.value.trim()) || (action === "reject" ? "Not the same — the identifiers disagree." : "Same party, confirmed.");
-    var d = { kind: m.item ? "itemXref" : "customerMatch", id: id, action: action, reason: reason, by: D.personas[1].name, at: "2026-10-06 09:55", title: (m.item || (m.records[0] || {}).name || id) + (action === "reject" ? " · kept apart" : " · confirmed as one") };
+    var d = { kind: m.kind || (m.itemId ? "item" : "customer"), id: id, target: id, action: action, reason: reason,
+      by: D.personas[2] ? D.personas[2].name : "Priya Natarajan", at: "Tue 6 Oct 2026 · 09:55" };
     var res = D.decideMatch(S.state, d);
     S.state = res.state;
-    S.matchLog[id] = { action: action, by: d.by, reason: reason, rule: res.learned || "" };
-    S.log.unshift({ at: d.at, by: d.by, role: "STEWARD", title: d.title, action: action, reason: reason, rule: res.learned || "" });
+    var rule = (res.learned && res.learned.rule) || res.decision.rule || "";
+    S.matchLog[id] = { action: action, by: res.decision.by, reason: reason, rule: rule };
+    S.log.unshift({ at: res.decision.at, by: res.decision.by, role: res.decision.role || "STEWARD",
+      title: res.decision.title || id, action: action, reason: reason, rule: rule });
     renderRw();
-    toast("<span><b>" + (action === "reject" ? "Kept apart." : "Confirmed.") + "</b> " + esc(d.title) + ". " + (res.learned ? "Rule kept: &ldquo;" + esc(res.learned) + "&rdquo;." : "") + "</span>", 8000);
+    toast("<span><b>" + (action === "reject" ? "Kept apart." : "Confirmed.") + "</b> " + esc(res.decision.title || id) + ". " + (rule ? "Rule kept: &ldquo;" + esc(rule) + "&rdquo;." : "") + "</span>", 8000);
   }
   $("#rw-rerun").addEventListener("click", function () { reanalyse(); tour.after("reanalyse"); });
   function reanalyse() {
@@ -1658,17 +1668,18 @@
     $("#rw-rerun").disabled = true;
     $("#rw-state").className = "rw-state is-stale";
     $("#rw-state").innerHTML = '<span class="dot"></span>Re-analysing with your decision…';
-    var before = analysis();
     setTimeout(function () {
-      var moved = { band: [], actions: [], accounts: [] }, learned = "";
-      S.pending.forEach(function (p) {
-        var res = D.decide(S.state, p.decision);
+      var moved = { band: [], actions: [] }, learned = "", head = null;
+      S.pending.forEach(function (pn) {
+        var res = D.decide(S.state, pn.decision);
         S.state = res.state;
-        S.log.unshift(res.decision.title ? { at: res.decision.at, by: res.decision.by, role: res.decision.role || "COMMERCIAL_OPS", title: res.decision.title, action: res.decision.action, reason: res.decision.reason, rule: res.learned || "" } : p.row);
-        (res.changed.band || []).forEach(function (x) { if (moved.band.indexOf(x) < 0) moved.band.push(x); });
-        (res.changed.actions || []).forEach(function (x) { if (moved.actions.indexOf(x) < 0) moved.actions.push(x); });
-        (res.changed.accounts || []).forEach(function (x) { if (moved.accounts.indexOf(x) < 0) moved.accounts.push(x); });
-        if (res.learned) learned = res.learned;
+        S.log.unshift({ at: res.decision.at, by: res.decision.by, role: res.decision.role || "COMMERCIAL_OPS",
+          title: (res.decision.account ? res.decision.account + " · " : "") + (res.decision.action === "decline" ? "recommendation " + (res.decision.actionId || "") + " declined" : "recommendation accepted"),
+          action: res.decision.action, reason: res.decision.reason, rule: (res.learned && res.learned.rule) || res.decision.rule || "" });
+        (res.changed.band || []).forEach(function (x) { if (moved.band.indexOf(x.id) < 0) moved.band.push(x.id); });
+        (res.changed.actions || []).forEach(function (x) { if (moved.actions.indexOf(x.id) < 0) moved.actions.push(x.id); });
+        if (res.changed.headline) head = res.changed.headline;
+        if (res.learned && res.learned.rule) learned = res.learned.rule;
       });
       S.pending = [];
       S.busy = false;
@@ -1676,9 +1687,12 @@
       $("#rw-rerun").disabled = false;
       renderRw(); renderWb();
       setTimeout(function () { S.movedBand = []; renderBand(); if (S.app === "aidp" && S.wbPanel === "analysis") renderWb(); }, 7000);
-      var after = analysis();
-      toast('<span class="tok">' + ICON.check + "</span><span><b>Re-analysed.</b> Revenue at risk " + esc(usdShort(before.headline.revenueUsd)) + " &rarr; <b>" + esc(usdShort(after.headline.revenueUsd)) + "</b> &middot; tier-A accounts " +
-        before.headline.tierA.accounts + " &rarr; " + after.headline.tierA.accounts + " &middot; penalties " + esc(usdShort(before.headline.penaltiesUsd)) + " &rarr; " + esc(usdShort(after.headline.penaltiesUsd)) +
+      var msg = head
+        ? "Revenue at risk " + esc(usdShort(head.revenueUsd.from)) + " &rarr; <b>" + esc(usdShort(head.revenueUsd.to)) + "</b> &middot; lines " +
+          head.lines.from + " &rarr; " + head.lines.to + " &middot; tier-A accounts " + head.tierA.from + " &rarr; " + head.tierA.to +
+          " &middot; penalties " + esc(usdShort(head.penaltiesUsd.from)) + " &rarr; " + esc(usdShort(head.penaltiesUsd.to))
+        : "The numbers did not move.";
+      toast('<span class="tok">' + ICON.check + "</span><span><b>Re-analysed.</b> " + msg +
         (moved.actions.length ? " &middot; " + moved.actions.length + " action" + (moved.actions.length === 1 ? "" : "s") + " resized" : "") +
         (learned ? " &middot; rule kept: &ldquo;" + esc(learned) + "&rdquo;" : "") + "</span>", 14000);
       tour.next();
@@ -1718,9 +1732,9 @@
     { id: "evidence", major: 4, side: "right", dock: "right", scroll: "center",
       title: "Check one finding before you trust it",
       body: "Halden Tooling is your biggest exposure and the AI says the parts are sitting in another plant. Open the evidence and see for yourself: the four order lines with their real keys in JD Edwards and Fusion, the same parts on hand in plant EU-2, the tier and the account owner out of the CRM, and the clause in their contract the late penalty was priced from.",
-      target: function () { return $('[data-ev="halden"]'); }, anchor: function () { return $('tr[data-acct="halden"]'); },
-      avoid: function () { return $('tr[data-acct="halden"]'); },
-      auto: function () { openEvidence("halden"); tour.after("evidence"); } },
+      target: function () { return $('[data-ev="' + keyAccountId() + '"]'); }, anchor: function () { return $('tr[data-acct="' + keyAccountId() + '"]'); },
+      avoid: function () { return $('tr[data-acct="' + keyAccountId() + '"]'); },
+      auto: function () { openEvidence(keyAccountId()); tour.after("evidence"); } },
     { id: "trace", major: 4, side: "right", dock: "right",
       title: "See how it got there",
       body: "Now the other direction: which agent read what, in what order, and under which rules. The trace also shows the two things that never depend on this screen — the rows you are allowed to see and the columns your role masks, both applied in the database.",
@@ -1736,14 +1750,14 @@
     { id: "open-rec", major: 5, side: "bottom",
       title: "Open the one you disagree with",
       body: "Four proposals, each with the accounts and lines behind it and the person it was assigned to. Open the expedite — Halden Tooling is the first account under it, with a summary of what the AI is going on.",
-      target: function () { return $('[data-openrec="A1"]'); }, anchor: function () { return $('[data-rec-card="A1"]'); },
-      auto: function () { S.openRec = "A1"; renderRwPanel(); tour.after("open-rec"); } },
+      target: function () { return $('[data-openrec="' + keyActionId() + '"]'); }, anchor: function () { return $('[data-rec-card="' + keyActionId() + '"]'); },
+      auto: function () { S.openRec = keyActionId(); renderRwPanel(); tour.after("open-rec"); } },
     { id: "decline", major: 5, side: "bottom", scroll: "center",
       title: "Overrule it, and say why",
       body: "The reason is drafted for you. Decline the expedite: the AI keeps your reason, and it keeps the rule underneath it — a date the customer has accepted is not a date at risk.",
-      target: function () { return $('[data-rec="decline"][data-acct="halden"]'); }, anchor: function () { return $('.reca[data-acct="halden"] .prop-acts'); },
-      avoid: function () { return $('.reca[data-acct="halden"]'); },
-      auto: function () { decideRec("halden", "decline"); } },
+      target: function () { return $('[data-rec="decline"][data-acct="' + keyAccountId() + '"]'); }, anchor: function () { return $('.reca[data-acct="' + keyAccountId() + '"] .prop-acts'); },
+      avoid: function () { return $('.reca[data-acct="' + keyAccountId() + '"]'); },
+      auto: function () { decideRec(keyAccountId(), "decline"); } },
     { id: "reanalyse", major: 5, side: "left", waits: true,
       title: "Make the AI do the sums again",
       body: "Your decision does not quietly disappear into a log. Re-analyse, and the AI re-values everything with Halden out: the revenue at risk, the tier-A exposure, the penalties, the lines it thought it could fill from stock, and the size of the expedite it assigned to supply planning.",
