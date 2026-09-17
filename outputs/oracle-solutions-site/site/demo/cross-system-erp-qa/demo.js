@@ -60,6 +60,8 @@
     bookmark: '<svg viewBox="0 0 24 24"><path d="M6.5 3.5h11v17l-5.5-3.6L6.5 20.5Z"/></svg>',
     sched: '<svg viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15" rx="2"/><path d="M3.5 9.5h17M8 3.5v3M16 3.5v3"/></svg>',
     msg: '<svg viewBox="0 0 24 24"><path d="M4 5.5h16v11H9.5L5 20v-3.5H4Z"/></svg>',
+    user: '<svg viewBox="0 0 24 24"><circle cx="12" cy="7.5" r="3.6"/><path d="M4.5 20a7.5 7.5 0 0 1 15 0"/></svg>',
+    tag: '<svg viewBox="0 0 24 24"><path d="M3.5 11V4.5H10l10 10-6.5 6.5Z"/><circle cx="7.2" cy="8.2" r="1.3"/><path d="M17 3.5v3M20.5 5H17.5"/></svg>',
     star: '<svg viewBox="0 0 24 24"><path d="m12 4 2.3 4.9 5.2.7-3.8 3.6 1 5.2-4.7-2.6-4.7 2.6 1-5.2L4.5 9.6l5.2-.7Z"/></svg>',
     chev: '<svg viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></svg>',
     chevd: '<svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg>',
@@ -285,34 +287,44 @@
       if (!on) return "";
       return '<span class="ds-cat">' + esc(s.catalog) + ' <em>' + esc(s.id === "CRM" ? "Iceberg" : "All Schemas") + '</em><button type="button" data-drop="' + s.id + '" aria-label="Remove ' + esc(s.catalog) + ' from scope">&times;</button></span>';
     }).join("");
-    var list = groups.map(function (g) {
-      if (!g[1].length) return "";
-      return '<div class="ds-group">' + (g[0] === "View" ? ICON.view : ICON.grid) + esc(g[0]) + "</div>" + g[1].map(function (e) {
-        return '<div class="ds-row"><span class="ds-av">' + esc(e.name.replace(/[^A-Za-z]/g, "").slice(0, 2).toUpperCase()) + "</span>" +
-          '<div><div class="ds-chips">' + ICON.stack + esc(e.catalog) + " <i>&middot; " + esc(e.schema) + "</i></div>" +
-          '<span class="ds-ent">' + esc(e.name) + "</span>" +
-          '<span class="ds-desc">' + esc(e.desc) + "</span>" +
-          (e.rows ? '<span class="ds-rows">' + e.rows.toLocaleString("en-US") + " rows</span>" : '<span class="ds-rows">certified &middot; Group Commercial</span>') + "</div>" +
-          '<span class="ds-upd">' + ICON.clock + esc(freshLabel(e.fresh)) + "</span></div>";
-      }).join("");
-    }).join("");
+    var list = groups.map(function (g) { return dsGroupHtml(g[0], g[1]); }).join("");
     if (!all.length) list = '<div class="ds-empty">No catalog in scope — add one back to see its entities.</div>';
     $("#ds-crumb").textContent = "Catalog";
+    var meta = '<div class="ds-meta"><b>Showing ' + all.length + ' entities</b><span class="ds-sort">Sort By: Updated (Newest to Oldest) ' + ICON.chevd + ICON.refresh + "</span></div>";
     $("#ds-page").innerHTML =
       '<div class="ds-chiprow">' + chips + '<button class="ds-btn" type="button" data-all="1">Select Catalogs ...</button>' +
       '<span class="ds-right"><button class="ds-btn" type="button" data-manage="1">Manage Catalogs</button><span class="ds-ico">' + ICON.gear + '</span><span class="ds-ico">' + ICON.star + "</span></span></div>" +
       '<div class="ds-searchrow"><div class="ds-searchbox"><input type="search" placeholder="Search ..." aria-label="Search the catalog"><span class="ds-mag"></span></div></div>' +
       '<div class="ds-pills">' + ["Tables and Views", "Data Objects", "Files", "Connections", "All"].map(function (p, i) { return '<button class="ds-pill' + (i === 0 ? " is-on" : "") + '" type="button">' + esc(p) + "</button>"; }).join("") + "</div>" +
-      '<div class="ds-meta"><b>Showing ' + all.length + ' entities</b><span class="ds-sort">Sort By: Updated (Newest to Oldest) ' + ICON.chevd + ICON.refresh + "</span></div>" +
       '<div class="ds-cols"><aside class="ds-filters"><h3>Filters</h3>' +
       '<div class="ds-facet"><b>' + ICON.chevd + "Entity type</b><div class=\"sub\">Data</div>" +
       '<label><input type="checkbox" checked>' + ICON.view + " View (" + groups[0][1].length + ")</label>" +
       '<label><input type="checkbox" checked>' + ICON.grid + " Table (" + groups[1][1].length + ")</label></div>" +
       '<div class="ds-facet"><b>' + ICON.chevd + "Catalog</b><div class=\"sub\">Mounted</div>" +
-      D.sources.map(function (s) { return '<label><input type="checkbox"' + (S.dsCatalogs.indexOf(s.id) >= 0 ? " checked" : "") + ' data-cat="' + s.id + '">' + esc(s.catalog) + "</label>"; }).join("") +
+      D.sources.map(function (s) {
+        var n = all.filter(function (e) { return e.src === s.id; }).length;
+        return '<label><input type="checkbox"' + (S.dsCatalogs.indexOf(s.id) >= 0 ? " checked" : "") + ' data-cat="' + s.id + '">' + esc(s.catalog) + " (" + n + ")</label>";
+      }).join("") +
       "</div></aside>" +
-      '<div class="ds-list">' + list + "</div></div>";
+      '<div class="ds-results">' + meta + '<div class="ds-list">' + list + "</div></div></div>";
   }
+  /* The Catalog entity list, reused by the Live Feed page for its view list.
+     Oracle type-codes the group header (Table green, Analytic View teal,
+     Analysis slate) and gives each row TWO chips — catalog and owner. */
+  var GROUP_CLASS = { Table: "", View: " ds-group--view", Analysis: " ds-group--analysis" };
+  function ownerLabel(id) { return String(id || "").replace(/_/g, " ").toLowerCase().replace(/\b\w/g, function (c) { return c.toUpperCase(); }); }
+  function dsGroupHtml(kind, rows) {
+    if (!rows.length) return "";
+    return '<div class="ds-group' + (GROUP_CLASS[kind] || "") + '">' + ICON.chevd + (kind === "View" ? ICON.view : ICON.grid) + esc(kind) + "</div>" + rows.map(function (e) {
+      return '<div class="ds-row"><span class="ds-av">' + esc(e.name.replace(/[^A-Za-z]/g, "").slice(0, 2).toUpperCase()) + "</span>" +
+        '<div><div class="ds-chips"><span>' + ICON.stack + esc(e.catalog) + '</span><span>' + ICON.user + esc(String(e.owner || "").toUpperCase()) + "</span></div>" +
+        '<span class="ds-ent">' + esc(e.name) + "</span>" +
+        '<span class="ds-desc">' + esc(e.desc) + "</span>" +
+        '<span class="ds-rows">' + (e.rows ? e.rows.toLocaleString("en-US") + " rows" : "Owner: " + esc(ownerLabel(e.owner))) + "</span></div>" +
+        '<span class="ds-upd">' + ICON.clock + esc(freshLabel(e.fresh)) + "</span></div>";
+    }).join("");
+  }
+
   /* Live Feed — the opening screen. The five sources are the subject here:
      what the company runs on, what each one brings, and how far behind it is.
      The feed job below them is already built and is never run by the tour. */
