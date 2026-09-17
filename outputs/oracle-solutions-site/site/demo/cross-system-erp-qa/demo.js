@@ -1846,7 +1846,7 @@
     if (S.rwTab === "xrefs") {
       el.innerHTML = '<div class="rw-tools"><span>The same part is numbered differently in each system. These cross-references are the ones the AI could not settle on its own.</span></div>' +
         RW_FILTER + (D.itemXrefs || []).map(xrefHtml).join("") +
-        '<p class="honest">Until a part is one part, stock elsewhere is invisible to this order.</p>';
+        '<p class="honest">Until a part is one part, stock elsewhere is invisible here.</p>';
       return;
     }
     var rows = S.pending.map(function (d) { return { row: d.row, pending: true }; })
