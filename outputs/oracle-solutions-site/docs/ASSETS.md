@@ -167,7 +167,7 @@ product's stepper reads as one system.
   product UI — its 40 images are slide exports, and those carry a customer name
   in the case study.
 
-**Cross-system ERP Q&A (2026-09-16, re-shot 2026-09-17).** All four
+**Cross-system ERP Q&A (2026-09-16, re-shot for round 2 and again for round 3, both 2026-09-17).** All four
 `cross-system-erp-qa-*.jpg` frames and `posters/cross-system-erp-qa.jpg` are
 captures of the third walkthrough (`site/demo/cross-system-erp-qa/`,
 PROVENANCE §22). There is no delivered product behind this pack, so the "real
@@ -186,14 +186,18 @@ logo file, no currency symbol beyond the USD prefix the product itself prints.
 
 The five images were re-shot on 2026-09-17 for round 2 — the walkthrough's
 domain changed from a finance close to revenue at risk across systems — and
-each one is matched to its **step copy**, not to the tour order:
+**again the same day for round 3**, because the interface-fidelity pass
+(PROVENANCE §22.21–22.23) changed every screen they show: the Data Studio nav,
+top bar and Live Feed page, the Agent Hub home and its bar, the generated
+dashboard's chrome and the Decisions app's whole page-title region. Same file
+names, same mapping to the **step copy**, not to the tour order:
 
 | File | Shows | Capture state |
 |---|---|---|
-| `cross-system-erp-qa-1.jpg` | Connect the applications: Data Studio › Data Load › Live Feed, "Sources feeding the lakehouse" — all five source cards (Fusion, JD Edwards, NetSuite, the in-house delivery-tracking database, the CRM), each with what it holds, the feed that carries it and how far behind it is | `state=analysed`, Live Feed, 852 px viewport |
-| `cross-system-erp-qa-2.jpg` | Shape one decision domain: the six-tile band "per system → across systems" — late lines known 61 + 49 + 28 → 138, lines with an account tier 0 → 138, lines with a cause attributed 0 → 138, lines fixable from stock elsewhere 0 → 44, revenue at risk — → USD 4.18 M, tier-A exposure — → 9 accounts · USD 2.36 M — under the Decisions header and its "138 lines at risk · USD 4.18 M" state line | `state=analysed`, Decisions, 676 px viewport |
+| `cross-system-erp-qa-1.jpg` | Connect the applications: Data Studio › Data Load › Live Feed, "Sources feeding the lakehouse" — all five source cards in Oracle's Data Load four-card idiom (outline icon, plain title, the system behind it, what it holds, then the feed, the freshness and the object count on one muted line), over the dark-teal header of the load job that rebuilds `GOLD.CROSS_SYSTEM_COMMERCIAL_MODEL` | `state=analysed`, Live Feed, **896 px** viewport |
+| `cross-system-erp-qa-2.jpg` | Shape one decision domain: the six-tile band "per system → across systems" — late lines known 61 + 49 + 28 → 138, lines with an account tier 0 → 138, lines with a cause attributed 0 → 138, lines fixable from stock elsewhere 0 → 44, revenue at risk — → USD 4.18 M, tier-A exposure — → 9 accounts · USD 2.36 M — under the Decisions page's own subtitle, "What the AI proposes, and what you decide about each account." | `state=analysed`, Decisions, 676 px viewport |
 | `cross-system-erp-qa-3.jpg` | Guard it in the data layer: the **dashboard the AI generated**, seen by the regional analyst — "Built by the AI · Tue 6 Oct 2026 · 09:58", "NG-NA only · Regional operations analyst NA · 57 lines", and the SLA-penalties tile masked to dots with "Contract penalty terms are hidden for this role" | `state=final`, `role=analyst`, `panel=dashboard`, Agent Hub › Insights, 868 px viewport |
-| `cross-system-erp-qa-4.jpg` | Ask in plain language: the Agent Hub with the Ask Oracle box, the typed question "Which open orders are at risk this week, and which of our best accounts are exposed?" and the run card mid-run — the order agent done with the three order books it opened, the identity agent in progress on `GOLD.CUSTOMER_360` | `state=start`, 1.3 s into the run, Agent Hub, 1212 px viewport |
+| `cross-system-erp-qa-4.jpg` | Ask in plain language: the Agent Hub with the Ask Oracle box (Oracle's white outlined ellipse, mic, paperclip, agent picker), the typed question "Which open orders are at risk this week, and which of our best accounts are exposed?" and the run card mid-run — the order agent **In progress** on a grey row wash with a spinner in the Duration lane and its four sub-steps on the dotted rail, the identity, cause and impact agents waiting below with no status label, as Oracle renders a step that has not run | `state=start`, **0.9 s** into the run, Agent Hub, **880 px** viewport |
 
 **Capture.** `tools/capture-demo-frames.mjs` in `MODE=script` with
 `tools/capture-erpqa-frames.json`, `DPR=2`, the page opened at
