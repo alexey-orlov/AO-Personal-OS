@@ -769,129 +769,30 @@
 
   /* ————— tab: for sellers ————— */
 
-  function gateUnlocked() {
-    try {
-      try { return window.localStorage.getItem(window.SITE_CONFIG.sellerGate.storageKey) === "1"; } catch (error) { return false; }
-    } catch (error) {
-      return false;
-    }
-  }
-
-  function materialRow(product, material) {
-    var UI = window.UI;
-    var gate = C().sellerGate;
-    var url = (cfg(product.slug).materials || {})[material.key] || "";
-    var usable = url && material.state !== "superseded";
-    var control = usable
-      ? UI.button({ label: gate.downloadLabel, href: url, kind: "secondary", sm: true, iconAfter: "external" })
-      : UI.button({
-          label: C().shared.materialStates[material.state] || gate.linkPendingLabel,
-          kind: "quiet", sm: true, attrs: { disabled: true, "aria-disabled": "true" }
-        });
-    return '<li class="material">' +
-      "<div>" +
-        '<p class="material-title">' + UI.esc(material.title) + "</p>" +
-        '<p class="material-desc">' + UI.esc(material.description) + "</p>" +
-      "</div>" +
-      '<div class="material-action">' + control + "</div>" +
-      "</li>";
-  }
-
-  function printsPrice(product) {
-    var js = product.jumpstart || {};
-    var priced = /[€$£]/;
-    return priced.test((js.investment && js.investment.price) || "") ||
-      (js.next || []).some(function (tier) { return priced.test(tier.price || ""); });
-  }
-
-  function loadSellerNotes(root, product) {
-    var slot = root.querySelector("#seller-notes");
-    var url = window.SITE_CONFIG.sellerGate.notesUrl;
-    if (!slot || !url || typeof window.fetch !== "function") return;
-    window.fetch(url, { credentials: "same-origin" }).then(function (response) {
-      return response.ok ? response.json() : null;
-    }).then(function (data) {
-      if (!data) return;
-      var lines = (data.products && data.products[product.slug]) || [];
-      if (printsPrice(product)) lines = lines.concat(data.packagingNotes || []);
-      if (!lines.length) return;
-      slot.innerHTML = blockHead(C().sellerGate.notesHeading) + plainList(lines);
-      slot.hidden = false;
-    }).catch(function () { /* no notes available to this reader */ });
-  }
-
-  function sellerCtaBody(product) {
-    var gate = C().sellerGate;
-    var duration = product.jumpstart && product.jumpstart.durationShort;
-    if (!duration) return gate.cta.bodyFallback || gate.cta.body;
-    return gate.cta.body.replace("{duration}", duration);
-  }
-
-  function stateLegend(product) {
-    var UI = window.UI;
-    var legend = C().sellerGate.stateLegend || {};
-    var seen = [];
-    product.sellers.materials.forEach(function (material) {
-      var url = (cfg(product.slug).materials || {})[material.key] || "";
-      var state = url && material.state !== "superseded" ? "available" : material.state;
-      if (legend[state] && seen.indexOf(legend[state]) < 0) seen.push(legend[state]);
-    });
-    return seen.length ? '<p class="footnote">' + UI.esc(seen.join(" · ")) + "</p>" : "";
+  /* The tab is this product's sales-kit request (round 8): the kit form with the
+     product fixed. The materials list it replaced stays as data in
+     `product.sellers.materials` and the config links — the manifest for whoever
+     sends the kit — and is no longer rendered. The confirmation offers the demo
+     route and the full kit. */
+  function kitOptions(product) {
+    var tab = C().salesKit.tab;
+    return {
+      product: product.slug,
+      routeLink: { label: tab.routeLabel, href: contactsRoute(product.slug) },
+      next: [
+        { text: tab.nextDemo, link: { label: tab.nextDemoLink, href: contactsRoute(product.slug) } },
+        { text: tab.nextAll, link: { label: tab.nextAllLink, href: "#/sellers" } }
+      ]
+    };
   }
 
   function sellersTab(product) {
     var UI = window.UI;
-    var gate = C().sellerGate;
-    var unlocked = gateUnlocked();
-    var allLocked = product.sellers.materials.every(function (material) {
-      return !((cfg(product.slug).materials || {})[material.key]);
-    });
-
-    if (!unlocked) {
-      return '<section class="panel panel--gate reveal" id="seller-gate">' +
-        '<span class="gate-mark">' + UI.icon("lock") + "</span>" +
-        blockHead(gate.heading) +
-        '<p class="body-text">' + UI.esc(gate.lockedBody) + "</p>" +
-        '<form class="gate-form" id="gate-form">' +
-          '<label class="field-label" for="gate-email">' + UI.esc(gate.emailLabel) + "</label>" +
-          '<div class="gate-row">' +
-            '<input class="input" type="email" id="gate-email" placeholder="' +
-              UI.esc(gate.emailPlaceholder) + '" autocomplete="email">' +
-            UI.button({ label: gate.unlockLabel, kind: "secondary", attrs: { type: "submit" } }) +
-          "</div>" +
-          '<p class="field-error" id="gate-error" role="alert" hidden></p>' +
-          '<p class="footnote">' + UI.esc(gate.accessNote) + "</p>" +
-        "</form>" +
-        "</section>";
-    }
-
-    var notes = '<section class="panel reveal" id="seller-notes" hidden></section>';
-
-    return '<section class="panel reveal" id="seller-panel">' +
-        '<div class="gate-bar">' +
-          '<p class="footnote">' + UI.esc(gate.accessNote) + "</p>" +
-          UI.button({ label: gate.lockLabel, kind: "quiet", sm: true, icon: "lock", attrs: { id: "gate-lock" } }) +
-        "</div>" +
-        blockHead(gate.heading) +
-        '<p class="body-text">' + UI.esc(gate.unlockedIntro) + "</p>" +
-        (allLocked && product.sellers.emptyPanelCopy
-          ? '<p class="body-text panel-extra">' + UI.esc(product.sellers.emptyPanelCopy) + "</p>" : "") +
-        stateLegend(product) +
-        '<ul class="material-list">' + product.sellers.materials.map(function (material) {
-          return materialRow(product, material);
-        }).join("") + "</ul>" +
-      "</section>" +
-      notes +
-      '<section class="panel panel--cta reveal">' +
-        blockHead(gate.cta.heading) +
-        '<p class="body-text">' + UI.esc(sellerCtaBody(product)) + "</p>" +
-        '<p class="footnote">' + UI.esc(gate.cta.contactLabel) + "</p>" +
-        '<div class="cta-row">' +
-          UI.button({
-            label: gate.cta.action, kind: "primary",
-            attrs: { id: "seller-contact", "data-product": product.slug }
-          }) +
-        "</div>" +
+    var tab = C().salesKit.tab;
+    return '<section class="panel panel--gate panel--kit reveal" id="seller-kit">' +
+      blockHead(tab.title) +
+      '<p class="body-text">' + UI.esc(tab.body.replace("{product}", product.name)) + "</p>" +
+      (window.FORMS && window.FORMS.renderKit ? window.FORMS.renderKit(kitOptions(product)) : "") +
       "</section>";
   }
 
@@ -923,60 +824,6 @@
         (active === "overview" ? " tab-body--compact" : "") + '" id="tab-body">' +
         body +
       "</div></section>";
-  }
-
-  function bindGate(root, item, rerender) {
-    var gate = C().sellerGate;
-    var form = root.querySelector("#gate-form");
-    if (form) {
-      form.addEventListener("submit", function (event) {
-        event.preventDefault();
-        var input = form.querySelector("#gate-email");
-        var error = form.querySelector("#gate-error");
-        var value = input.value.trim().toLowerCase();
-        var at = value.lastIndexOf("@");
-        var domain = at >= 0 ? value.slice(at + 1) : "";
-        var allowed = window.SITE_CONFIG.sellerGate.allowedDomains.some(function (item2) {
-          return domain === item2 || domain.slice(-(item2.length + 1)) === "." + item2;
-        });
-        if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(value)) {
-          error.textContent = C().forms.labels.invalidEmail;
-          error.hidden = false;
-          input.focus();
-          return;
-        }
-        if (!allowed) {
-          error.textContent = gate.rejected;
-          error.hidden = false;
-          input.focus();
-          return;
-        }
-        try { window.localStorage.setItem(window.SITE_CONFIG.sellerGate.storageKey, "1"); }
-        catch (storageError) { /* unlock stays for this view only */ }
-        rerender();
-      });
-    }
-
-    var lock = root.querySelector("#gate-lock");
-    if (lock) {
-      lock.addEventListener("click", function () {
-        try { window.localStorage.removeItem(window.SITE_CONFIG.sellerGate.storageKey); }
-        catch (storageError) { /* nothing stored */ }
-        rerender();
-      });
-    }
-
-    var contact = root.querySelector("#seller-contact");
-    if (contact) {
-      contact.addEventListener("click", function () {
-        window.UI.modal.open(
-          window.FORMS.render("demo", { product: item.slug, role: "oracle-seller" }),
-          { label: C().forms.demo.heading }
-        );
-        var panel = document.querySelector(".modal-panel");
-        if (panel) window.FORMS.mount(panel, "demo");
-      });
-    }
   }
 
   function embedUrl(url) {
@@ -1148,18 +995,15 @@
       catch (error) { /* the tab is already rendered; the address bar lags */ }
     }
 
-    function rerender() {
-      window.ROUTER.render();
-    }
-
-    bindGate(root, item, rerender);
     bindVideo(root, item);
     bindPendingVideo(root, item);
     bindStepper(root);
     bindIndustryTabs(root);
     bindStack(root);
 
-    if (active === "sellers" && gateUnlocked()) loadSellerNotes(root, item);
+    if (active === "sellers" && window.FORMS && window.FORMS.mountKit) {
+      window.FORMS.mountKit(root.querySelector("#seller-kit"), kitOptions(item));
+    }
 
     if (active === "contacts" && window.FORMS) {
       var slot = root.querySelector("#product-demo-form");
