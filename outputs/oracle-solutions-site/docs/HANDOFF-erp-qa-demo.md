@@ -378,3 +378,85 @@ Before/after sheets for the ten screens that changed most: `.work/erp-qa/fidelit
    rebuilt demo folder, the four step frames, the poster and `assets/img/manifest-edits.json`. `config.js` and
    `content.js` are unchanged this round — the images kept their file names.
 3. **Fold the round into the context wiki** with `context-update`.
+
+---
+
+# Round 4 (2026-09-17) — copy
+
+_Alex's feedback on round 3: "the first screen + everything should not be so verbose." Every piece of
+on-screen prose was counted against the playbook's rule 11 and cut to its budget, with no figure, object
+name, Oracle label or disclaimer lost._
+
+## R12. Word budgets, applied everywhere
+
+**About 145 user-visible strings**, rewritten across `index.html`, `demo.js` and `data.js`.
+
+| Where | Budget | Before → after |
+|---|---|---|
+| Gate body | ≤ 40 words | **123 → 39** ("You are Dana Whitfield, VP Commercial Operations. Three companies sell out of three ERPs, and it is Tuesday morning. Ask the AI what will go wrong this week, check one finding, overrule one, and hand your team a dashboard.") plus a separate line, "Six steps · about three minutes · only the highlighted control is active" (11) |
+| Gate footer | ≤ 12 | **48 → 7** ("Demo data only. Nothing leaves this page.") |
+| Hint titles | ≤ 6 | seven were over (max 9); all fourteen are now 4–6 |
+| Hint bodies | ≤ 35, aim 25 | longest **99 → 30**; the fourteen average **47 → 24** (652 → 330 words in total) |
+| End card body | ≤ 30 | **61 → 30**; the three doors ≤ 4 words each; footer **16 → 7** |
+| Toasts | ≤ 15 | 24 rewritten; the longest (View as) **35 → 15** |
+| Analysis narrative | 2 × ≤ 18 | **27 + 25 → 16 + 13** |
+| Caveat | ≤ 16 | **19 → 16** |
+| Action-card text | ≤ 12 + figures | the note **24 → 12**; "Assigned as a task. Nothing is written back to an ERP." (11) |
+| "What the AI has to go on" | ≤ 20 | **28 → 17** |
+| Source-card descriptions | ≤ 14 | 23 / 15 / 11 / 20 / 17 → **8 / 7 / 7 / 9 / 13**; the Fusion feed line 10 → **7** |
+| Live Feed job paragraph | deleted | the five-stage list above it already says it |
+| Catalog view descriptions | ≤ 16 | all fourteen rewritten, now 13–16 words each |
+| Dashboard subtitle | ≤ 12 | 9 → **8** |
+| Agent blurbs · Today's Tasks · helper, footer and empty-state lines | ≤ 12 · ≤ 10 · ≤ 12 | about forty lines cut, none now over its budget |
+
+**Style.** Plain business sentences in Dana's words, one idea per sentence; no em-dashes, semicolons or
+parentheses left in our own prose (Oracle's own product text, the real object names, the contract clause
+bodies and the figures are untouched). Everything the screen already states was cut from the copy beside
+it: the findings hint no longer recites the band's numbers, the evidence hint no longer lists the panel's
+sections, and the "this is what lets one question cross all of them" style of explanation is gone
+throughout. The AI framing now lives only in the verbs — read, resolved, attributed, proposes, re-values,
+built.
+
+**Layout.** `index.html` gained one element, `<p class="gate-steps" id="gate-steps">`, so the step-and-time
+line reads apart from the body; `demo.css` gained the one rule that styles it; `tour.finish()` hides it on
+the end card. `.job-note`'s CSS rule is now unused and harmless.
+
+**One pinned string moved.** `tools/erp-qa-check.js` asserted the old caveat and the old drafted decline
+reason verbatim; both assertions now pin the new strings. 343 assertions, all passing.
+
+**Images.** `-1`, `-2`, `-3` and the poster were re-cut — `-4` shows only the Ask Oracle box and the run
+card, whose copy did not change, so it is untouched. Same file names, same viewports and same offsets as
+`docs/ASSETS.md` §1, with one boundary that moved: the poster's actions note is a line shorter, so the
+1180 × 664 window at (233, 341) now ends just under the whole *Accounts, ranked by what is at stake*
+heading instead of 4 px under the actions box — nothing is half a line either way. The five source cards
+now fit their two-line clamp **with no fade at any viewport**, including the 896 px frame and the 1024 px
+QA viewport; that is why three of the five descriptions were cut to ≤ 60 characters rather than only to
+their 14-word budget.
+
+**Deliberately left long.** The Explain panel's ten glossary definitions, the Enterprise Contracts clause
+bodies and the Narrate lines of saved questions 2–10 keep their length: they are reference and product
+text behind a deliberate click, off the tour path, and precision matters more there than brevity. The band
+tiles' long `note` strings are `title` tooltips, never rendered on screen — the tiles show `noteShort`.
+
+**QA.** `node --check` clean on `demo.js` and `data.js`; `node tools/erp-qa-check.js` **343 assertions
+passing**; `node tools/check-grammar.js` OK (its one standing warning is the internal review panel, not this
+demo). `tools/capture-erpqa-tour.json` replayed at **1440 × 900, 1280 × 800 and 1024 × 768** — 62 shots each,
+`LOGS: none` at all three, including the "no callout covers the element its copy names" guard, which matters
+this round because shorter cards move the callout geometry. Every step of the six was looked at by eye at
+more than one viewport, the source cards and the poster crop measured rather than eyeballed. The product page was
+verified headlessly on `file://` at 1440 × 1000: no horizontal overflow, the five assets load at
+1600 × 1000 / 1600 × 900, the re-cut step-1 frame renders on *Connect the applications*, console clean
+(`.work/`-free; the shots are in the session scratchpad). `site/assets/img/manifest-edits.json` was left as
+it is — the four captions and alt texts describe the same screens and the same elements, which did not
+change.
+
+## Done — round 4 applied, captured and documented 2026-09-17
+
+The copy, the four re-cut images and this note are current on disk. Still to do by the main session:
+
+1. **Republish the standalone walkthrough artifact in place** —
+   https://claude.ai/code/artifact/6c822cc7-1c05-4504-ad61-7b64c86e9ceb — read it first, then publish the
+   wrapper-free copy with `demo.css` / `demo.js` / `data.js` as supporting files to the **same** URL.
+2. **Read, then republish the site artifact** with the rebuilt demo folder, the three re-cut step frames and
+   the poster. `config.js` and `content.js` are unchanged — the images kept their file names.
+3. **Fold the round into the context wiki** with `context-update`.
