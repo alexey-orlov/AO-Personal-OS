@@ -114,13 +114,17 @@
   /* toast                                                                 */
   /* ===================================================================== */
   var toastT;
+  /* Nothing stays on screen longer than six seconds, and nothing follows you
+     from one application to the next: a toast is about the surface you are on. */
+  var TOAST_MAX = 6000;
   function toast(html, ms) {
     var t = $("#toast");
     t.innerHTML = html;
     t.hidden = false;
     clearTimeout(toastT);
-    toastT = setTimeout(function () { t.hidden = true; }, ms || 4200);
+    toastT = setTimeout(function () { t.hidden = true; }, Math.min(ms || 4200, TOAST_MAX));
   }
+  function hideToast() { clearTimeout(toastT); var t = $("#toast"); if (t) t.hidden = true; }
   $("#toast").addEventListener("click", function (e) {
     var b = e.target.closest("[data-toast-go]");
     if (!b) return;
@@ -132,6 +136,7 @@
   /* app switcher                                                          */
   /* ===================================================================== */
   function setApp(app) {
+    if (S.app !== app) hideToast();
     S.app = app;
     $$(".app").forEach(function (s) { s.hidden = s.dataset.app !== app; });
     $$(".ws-tab").forEach(function (b) {
@@ -1500,9 +1505,14 @@
     }).join("");
   }
   function pendingFor(accId) { return S.pending.filter(function (p) { return p.decision.accountId === accId; })[0]; }
+  /* How many of this account's lines the AI valued — not how many lines it has.
+     After a decline and a re-analysis every line's live `atRisk` is false, so
+     count `wasAtRisk` instead; the account keeps its own four lines rather than
+     picking up the on-track ones that only prove it lives in two systems. */
   function atRiskCount(e) {
-    var n = (e.lines || []).filter(function (l) { return l.atRisk !== false; }).length;
-    return n || (e.lines || []).length;
+    if (!e) return 0;
+    if (typeof e.atRiskCount === "number") return e.atRiskCount;
+    return (e.lines || []).filter(function (l) { return l.wasAtRisk === undefined ? l.atRisk !== false : !!l.wasAtRisk; }).length;
   }
   function accRowHtml(acc, an) {
     var pend = pendingFor(acc.id);
