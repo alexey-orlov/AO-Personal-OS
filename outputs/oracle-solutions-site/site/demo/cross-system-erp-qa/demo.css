@@ -333,6 +333,9 @@ svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width:
 .wb-item:hover { background: rgba(22, 21, 19, .06); }
 .wb-item.is-active { background: var(--wb-sel); font-weight: 400; }
 .wb-item svg { width: 17px; height: 17px; color: var(--wb-txt-2); }
+.wb-item--kid { width: calc(100% - 32px); margin-left: 22px; }
+.wb-item .chev { margin-left: auto; width: 12px; height: 12px; color: var(--wb-txt-2); display: inline-flex; }
+.wb-item .chev svg { width: 12px; height: 12px; }
 .wb-item .cnt { margin-left: auto; min-width: 17px; height: 17px; border-radius: 50%; background: #d9d6d2; color: #4d4a45; font-size: 10px; font-weight: 600; display: grid; place-items: center; }
 .wb-item span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .wb-gap { height: 10px; }
@@ -549,7 +552,7 @@ svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width:
 .chart .vl { font-size: 9px; fill: #3d3934; stroke: none; font-weight: 600; }
 .wb-tbl { width: 100%; border-collapse: collapse; font-size: 12px; background: #fff; border: 1px solid var(--wb-line); }
 .wb-tbl th { background: #fff; text-align: left; font-weight: 600; padding: 9px 10px; border-top: 1px solid var(--wb-line); border-bottom: 1px solid var(--wb-line-2); font-size: 12.5px; color: var(--wb-txt); }
-.wb-tbl th .srt { display: inline-block; width: 9px; margin-left: 5px; color: #a8a29a; font-size: 9px; line-height: 1; vertical-align: 1px; }
+.wb-tbl th .srt { display: inline-grid; margin-left: 5px; color: #a8a29a; font-size: 6px; line-height: .9; vertical-align: 1px; }
 .wb-tbl td { padding: 6px 10px; border-bottom: 1px solid #f0eeeb; vertical-align: top; }
 .wb-tbl tr:hover td { background: #fbfaf8; }
 .wb-filter { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }

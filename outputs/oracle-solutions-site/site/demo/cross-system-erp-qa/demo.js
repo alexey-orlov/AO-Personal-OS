@@ -95,6 +95,9 @@
     anchor: '<svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="2.2"/><path d="M12 7.2V21M5 13a7 7 0 0 0 14 0M8 10H16"/></svg>'
   };
 
+  /* every Workbench grid header carries Oracle's sort chevrons */
+  var SORTC = '<span class="srt">&#9650;&#9660;</span>';
+
   var SYS_ENTITY = { "NG-EU": "FUSION", "NG-NA": "JDE", "NG-SV": "NETSUITE", GROUP: "CRM" };
   var CAT_OF = {}; D.sources.forEach(function (s) { CAT_OF[s.id] = s.catalog; });
   var FIRST_VIEW = (D.views[0] || { id: "REVENUE_AT_RISK" }).id;
@@ -1073,7 +1076,7 @@
       requestAnimationFrame(function () { drawLineage(); });
       return;
     }
-    if (S.wbPanel === "sessions") { page.innerHTML = sessionsHtml(); return; }
+    if (S.wbPanel === "audit") { page.innerHTML = auditHtml(); return; }
     page.innerHTML = hubHome();
   }
 
@@ -1548,18 +1551,22 @@
       '<p class="honest">Twelve entities were proposed by the extractor and ten accepted; the two rejected ones are out of the commercial model and never reach a certified view. The metadata a person confirms here is what the agents read to work out which column answers which question.</p></div></div>';
   }
 
-  function sessionsHtml() {
+  function auditHtml() {
     var mine = (D.audit || []).map(function (a) {
       return { time: a.time || a.at || "—", user: a.user || "—", role: a.role || "—",
         text: a.text || a.what || a.question || "—", sqlHash: a.sqlHash || "—",
         rows: a.rows === undefined || a.rows === null ? "—" : a.rows, status: a.status || "allowed" };
     });
-    return '<div class="wb-pg"><h1>Sessions</h1><div class="sub">Every question anyone asked, and what the database did with it</div><div class="wb-rule"></div>' +
-      '<div class="tw"><table class="wb-tbl"><thead><tr><th style="width:110px">Time</th><th style="width:140px">User</th><th style="width:120px">Role</th><th>Question</th><th style="width:150px">Statement</th><th style="width:70px" class="r">Rows</th><th style="width:90px">Result</th></tr></thead><tbody>' +
+    var h = [["Time", 110], ["User", 140], ["Role", 120], ["Question", 0], ["Statement", 150], ["Rows", 70], ["Result", 90]];
+    return '<div class="mc"><div class="mc-crumb"><b>Audit logs</b></div>' +
+      '<div class="wb-pg"><h1>' + ICON.auditlog + 'Audit logs</h1><div class="sub">Every question anyone asked, and what the database did with it</div>' +
+      '<div class="tw"><table class="wb-tbl"><thead><tr>' + h.map(function (c) {
+        return '<th' + (c[1] ? ' style="width:' + c[1] + 'px"' : "") + (c[0] === "Rows" ? ' class="r"' : "") + ">" + c[0] + SORTC + "</th>";
+      }).join("") + "</tr></thead><tbody>" +
       mine.map(function (a) {
         return "<tr><td>" + esc(a.time) + "</td><td>" + esc(a.user) + "</td><td>" + esc(a.role) + "</td><td>" + esc(a.text) + '</td><td><span class="mono">' + esc(a.sqlHash) + '</span></td><td style="text-align:right">' + esc(a.rows) + '</td><td><span class="stat stat--' + (a.status === "blocked" ? "open" : "auto") + '">' + esc(a.status) + "</span></td></tr>";
       }).join("") + "</tbody></table></div>" +
-      '<p class="honest">A blocked row is a refusal by SQL Firewall against the allow-list, written before the statement could reach any data.</p></div>';
+      '<p class="honest">A blocked row is a refusal by SQL Firewall against the allow-list, written before the statement could reach any data.</p></div></div>';
   }
 
   /* ===================================================================== */
@@ -2142,7 +2149,8 @@
       S.wbPanel = "insights"; S.app = wantApp || "aidp";
     } else if (["catalog", "feeds"].indexOf(wantPanel) >= 0) { S.dsScreen = wantPanel; S.app = wantApp || "lakehouse"; }
     else if (wantPanel === "analysis-ds") { S.dsScreen = "analysis"; S.app = wantApp || "lakehouse"; }
-    else if (["home", "insights", "sessions", "apc", "lineage"].indexOf(wantPanel) >= 0) { S.wbPanel = wantPanel; S.app = wantApp || "aidp"; }
+    else if (["home", "insights", "audit", "apc", "lineage"].indexOf(wantPanel) >= 0) { S.wbPanel = wantPanel; S.app = wantApp || "aidp"; }
+    else if (wantPanel === "sessions") { S.wbPanel = "audit"; S.app = wantApp || "aidp"; }
     else if (wantPanel === "mcatalog") { S.wbPanel = "catalog"; S.app = wantApp || "aidp"; }
     else if (["recommendations", "matches", "xrefs", "decisions"].indexOf(wantPanel) >= 0) { S.rwTab = wantPanel; S.app = wantApp || "review"; }
   }
