@@ -551,7 +551,7 @@
         return '<button class="me' + (p.role === S.role ? " is-on" : "") + '" type="button" role="menuitem" data-role="' + p.role + '"><span class="ini' + (p.role === "ANALYST_NA" ? " ini--a" : "") + '">' + esc(p.initials) + "</span>" +
           "<span><b>" + esc(p.name) + "</b><span>" + esc(p.title) + " &middot; " + esc(p.scope) + "</span></span></button>";
       }).join("") +
-      '<div class="mnote">Viewing as someone else re-runs everything under their rules — the rows they may see and the columns their role masks, enforced in the database, not on this screen.</div>';
+      '<div class="mnote">Viewing as someone else re-runs everything under their rules, in the database.</div>';
   }
   function openMenu(open) {
     $("#wb-menu").hidden = !open;
@@ -1760,8 +1760,8 @@
       '<button class="lnk" type="button" data-evgo="' + esc(acc.id) + '">Open the full evidence</button></span></div>' +
       (done
         ? '<div class="rule-line">' + ICON.check + "<span>" + (pend
-          ? "Declined by " + esc(pend.decision.by) + " — &ldquo;" + esc(pend.decision.reason) + "&rdquo;. Re-analyse to put it into the numbers."
-          : esc(acc.statusLabel || "Decided") + " — " + (acc.decision ? "&ldquo;" + esc(acc.decision.reason) + "&rdquo;, " : "") + "already out of the numbers.") + "</span></div>"
+          ? "Declined by " + esc(pend.decision.by) + ", &ldquo;" + esc(pend.decision.reason) + "&rdquo;. Re-analyse to put it into the numbers."
+          : esc(acc.statusLabel || "Decided") + ", " + (acc.decision ? "&ldquo;" + esc(acc.decision.reason) + "&rdquo;, " : "") + "already out of the numbers.") + "</span></div>"
         : '<div class="prop-acts"><input type="text" id="rreason-' + esc(acc.id) + '" placeholder="Why? (kept with the decision)" value="' + esc(suggested) + '" aria-label="Reason for the decision">' +
           '<button class="btn" type="button" data-rec="accept" data-acct="' + esc(acc.id) + '">' + ICON.check + "Accept</button>" +
           '<button class="btn" type="button" data-rec="decline" data-acct="' + esc(acc.id) + '">' + ICON.x + "Decline</button></div>") +
@@ -1799,7 +1799,7 @@
       }).join("") + '<span class="evc evc--o">score ' + Number(m.score).toFixed(2) + "</span></div>" +
       '<div class="prop-note"><b>' + esc(m.proposal || "") + ".</b>" + (m.note ? " " + esc(m.note) : "") + "</div>" +
       (dec
-        ? '<div class="rule-line">' + ICON.check + "<span>" + esc(dec.action === "reject" ? "Kept apart" : "Confirmed as one customer") + " by " + esc(dec.by) + " — &ldquo;" + esc(dec.reason) + "&rdquo;." + (dec.rule ? " Rule kept: &ldquo;" + esc(dec.rule) + "&rdquo;." : "") + "</span></div>"
+        ? '<div class="rule-line">' + ICON.check + "<span>" + esc(dec.action === "reject" ? "Kept apart" : "Confirmed as one customer") + " by " + esc(dec.by) + ", &ldquo;" + esc(dec.reason) + "&rdquo;." + (dec.rule ? " Rule kept: &ldquo;" + esc(dec.rule) + "&rdquo;." : "") + "</span></div>"
         : '<div class="prop-acts"><input type="text" id="mreason-' + esc(m.id) + '" placeholder="Why? (kept with the decision)" aria-label="Reason for the decision">' +
           '<button class="btn" type="button" data-mdec="confirm" data-mid="' + esc(m.id) + '">' + ICON.check + "Same customer</button>" +
           '<button class="btn" type="button" data-mdec="reject" data-mid="' + esc(m.id) + '">' + ICON.x + "Not the same</button></div>") +
@@ -1832,7 +1832,7 @@
     if (S.rwTab === "recommendations") {
       if (!S.state.analysed) { el.innerHTML = '<div class="empty">The agent has not run this morning.<br>Open <b>Agent Hub</b> and ask what is at risk.</div>'; return; }
       var an = analysis();
-      el.innerHTML = '<div class="rw-tools"><span>The AI proposes <b>' + an.actions.length + "</b> actions over " + an.headline.lines + " lines. Nothing is written to any order system — each one becomes a task for the person who owns it.</span>" +
+      el.innerHTML = '<div class="rw-tools"><span>The AI proposes <b>' + an.actions.length + "</b> actions over " + an.headline.lines + " lines. Each one becomes a task.</span>" +
         '<span class="grow"></span><span>' + (S.pending.length ? "Re-analyse to put " + S.pending.length + " decision" + (S.pending.length === 1 ? "" : "s") + " into the numbers" : "Nothing waiting") + "</span></div>" +
         RW_FILTER + an.actions.map(function (a) { return recHtml(a, an); }).join("");
       return;
@@ -1884,7 +1884,7 @@
     var an = analysis(), acc = an.accounts.filter(function (x) { return x.id === accId; })[0];
     if (!acc || acc.status !== "at-risk") { toast("That account has already been decided."); return; }
     var input = $("#rreason-" + accId);
-    var reason = (input && input.value.trim()) || (action === "decline" ? "Not at risk — handled with the customer." : "Agreed, go ahead.");
+    var reason = (input && input.value.trim()) || (action === "decline" ? "Not at risk, handled with the customer." : "Agreed, go ahead.");
     var d = { kind: "recommendation", accountId: accId, actionId: acc.recommendation ? acc.recommendation.actionId : null,
       action: action, reason: reason, by: personaByRole("COMMERCIAL_OPS").name, at: DECIDED_AT };
     if (action === "accept") {
@@ -1908,7 +1908,7 @@
     var m = (D.matches || []).concat(D.itemXrefs || []).filter(function (x) { return x.id === id; })[0];
     if (!m) return;
     var input = $("#mreason-" + id);
-    var reason = (input && input.value.trim()) || (action === "reject" ? "Not the same — the identifiers disagree." : "Same party, confirmed.");
+    var reason = (input && input.value.trim()) || (action === "reject" ? "Not the same, the identifiers disagree." : "Same party, confirmed.");
     var d = { kind: m.kind || (m.itemId ? "item" : "customer"), id: id, target: id, action: action, reason: reason,
       by: personaByRole("STEWARD").name, at: "Tue 6 Oct 2026 · 09:55" };
     var res = D.decideMatch(S.state, d);
