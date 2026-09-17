@@ -546,7 +546,7 @@ svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width:
 .wb-pg h1 svg { width: 22px; height: 22px; color: var(--wb-txt-2); }
 .wb-pg h1 + .sub { font-size: 12.5px; color: var(--wb-txt-2); margin: 3px 0 16px; }
 /* the amber rule lives only on Workbench Home; every other page goes without */
-.wb-rule { display: none; }
+.wb-rule { display: none; }  /* retained so an older capture URL cannot break */
 /* Insights is an Agent Hub tab, so it wears the Hub's warm ground and bottom nav */
 .wb-pg--hub { background: var(--hub); min-height: calc(100% - 34px); position: relative; padding-bottom: 26px; }
 .dash { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; position: relative; z-index: 1; }
@@ -1277,8 +1277,6 @@ body.tour-gutter .conv--an { padding-right: 324px; }
 .tierb--B { background: #ecebe8; color: #5d5a55; }
 .tierb--C { background: #ecebe8; color: #8b857d; }
 .an-box--wide .ans-grid { max-height: none; border: 1px solid var(--wb-line); border-radius: 5px; }
-.achip--go { border-color: var(--wb-txt) !important; background: var(--wb-txt) !important; color: #fff !important; }
-.achip--go svg { color: #fff; }
 .wb-menu .mnote { font-size: 11px; color: var(--wb-txt-2); border-top: 1px solid var(--wb-line); margin-top: 6px; padding: 7px 9px 3px; line-height: 1.4; }
 
 /* the contract clause the penalty was read from */

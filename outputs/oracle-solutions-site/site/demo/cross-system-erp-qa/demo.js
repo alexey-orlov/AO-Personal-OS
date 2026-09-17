@@ -828,7 +828,7 @@
       chip("code", ICON.code, "Code View") + chip("trace", ICON.route, "Trace") +
       '<button class="achip' + (S.narrate ? " is-on" : "") + '" type="button" data-narr="1">' + ICON.speak + "Narrate</button>" +
       (withDash
-        ? '<span class="right"><button class="achip achip--go" type="button" id="create-dash">' + ICON.chart + "Create dashboard</button></span>"
+        ? '<span class="right"><button class="achip" type="button" id="create-dash">' + ICON.chart + "Create dashboard</button></span>"
         : '<span class="right"><button class="achip" type="button" data-askback="1">' + ICON.chevl + "Back to what is at risk</button></span>");
   }
   function composerHtml() {
@@ -1136,7 +1136,7 @@
   /* A conversation is not a Workbench page: Oracle swaps the charcoal bar for a
      plum one carrying the agent's name and its own control set. Three bar
      colours across one product is what Oracle ships — don't unify them. */
-  var CONV_PANELS = { analysis: 1, conversation: 1, run: 1 };
+  var CONV_PANELS = { analysis: 1, conversation: 1 };
   function renderPlum() {
     var on = !!CONV_PANELS[S.wbPanel];
     $("#wb-bar").hidden = on;
