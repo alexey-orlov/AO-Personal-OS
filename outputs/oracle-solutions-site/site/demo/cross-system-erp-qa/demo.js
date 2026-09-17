@@ -1307,30 +1307,30 @@
   }
   /* ---------------- Auto-populate catalog: the accept/reject queue ------- */
   var APC_ROWS = [
-    ["poz_suppliers", "Success", "Accepted", "/fusion-erp/poz-suppliers", "fusion_erp"],
-    ["ap_invoices_all", "Success", "Accepted", "/fusion-erp/ap-invoices-all", "fusion_erp"],
-    ["gl_balances", "Success", "Accepted", "/fusion-erp/gl-balances", "fusion_erp"],
-    ["f0101", "Success", "Accepted", "/jde-e1/f0101", "jde_e1"],
-    ["f0411", "Success", "Accepted", "/jde-e1/f0411", "jde_e1"],
-    ["f0911", "Success", "Accepted", "/jde-e1/f0911", "jde_e1"],
-    ["vendor", "Success", "Accepted", "/netsuite/vendor", "netsuite"],
+    ["doo_fulfill_lines_all", "Success", "Accepted", "/fusion-erp/doo-fulfill-lines-all", "fusion_erp"],
+    ["inv_onhand_quantities_detail", "Success", "Accepted", "/fusion-erp/inv-onhand-quantities-detail", "fusion_erp"],
+    ["okc_k_articles_b", "Success", "Accepted", "/fusion-erp/okc-k-articles-b", "fusion_erp"],
+    ["f4211", "Success", "Accepted", "/jde-e1/f4211", "jde_e1"],
+    ["f41021", "Success", "Accepted", "/jde-e1/f41021", "jde_e1"],
+    ["f4104", "Success", "Accepted", "/jde-e1/f4104", "jde_e1"],
     ["transaction_line", "Success", "Accepted", "/netsuite/transaction-line", "netsuite"],
-    ["crb_supplier_xref", "Success", "Accepted", "/crb-inhouse/crb-supplier-xref", "crb_inhouse"],
+    ["inventory_balance", "Success", "Accepted", "/netsuite/inventory-balance", "netsuite"],
+    ["dlv_scan_events", "Success", "Accepted", "/dlv-inhouse/dlv-scan-events", "dlv_inhouse"],
     ["crm_account", "Success", "Accepted", "/crm-iceberg/crm-account", "crm_iceberg"],
-    ["crm_opportunity", "Success", "Rejected", "/crm-iceberg/crm-opportunity", "crm_iceberg"],
+    ["crm_lead", "Success", "Rejected", "/crm-iceberg/crm-lead", "crm_iceberg"],
     ["ns_employee", "Success", "Rejected", "/netsuite/employee", "netsuite"]
   ];
   function apcHtml() {
     return '<div class="mc">' +
-      '<div class="mc-crumb"><a>Auto-populate catalog</a> <i>&rsaquo;</i> <b>Finance model extractor</b></div>' +
+      '<div class="mc-crumb"><a>Auto-populate catalog</a> <i>&rsaquo;</i> <b>Commercial model extractor</b></div>' +
       '<div class="wb-pg"><h1>Auto-populate catalog</h1><div class="sub">Create a metadata to auto populate catalog with content.</div><div class="wb-rule"></div>' +
       '<div class="mc-tools"><label class="lin-filter"><span class="wb-mag"></span><input type="search" placeholder="Filter" aria-label="Filter extractors"></label>' +
       '<span class="lin-sel">Catalog: All' + ICON.chevd + '</span><span class="lin-sel">Status: All' + ICON.chevd + '</span><span class="lin-sel">Entity Lifecycle: All' + ICON.chevd + "</span>" +
       '<span class="lin-right"><button class="btn btn--dark btn--sm" type="button" data-apccreate="1">Create</button></span></div>' +
       '<table class="wb-tbl"><thead><tr><th>Name</th><th style="width:150px">Catalog</th><th style="width:110px">Status</th><th style="width:130px">Entity Lifecycle</th><th style="width:130px">Compute</th><th style="width:200px">Start time</th><th style="width:130px">Created By</th></tr></thead><tbody>' +
-      '<tr><td>Finance model extractor</td><td>' + GOLD_CAT + '</td><td><span class="apc-ok">&#10003;</span> Succeeded</td><td>Auto</td><td>Norwell_Cluster</td><td>Tue, Oct 6, 2026 at 09:44</td><td>Priya Natarajan</td></tr>' +
+      '<tr><td>Commercial model extractor</td><td>' + GOLD_CAT + '</td><td><span class="apc-ok">&#10003;</span> Succeeded</td><td>Auto</td><td>Norwell_Cluster</td><td>Tue, Oct 6, 2026 at 09:44</td><td>Priya Natarajan</td></tr>' +
       "</tbody></table>" +
-      '<div class="mc-head mc-head--2"><span class="apc-tag">&#127991;</span><h1>Finance model extractor</h1></div><div class="mc-sub mc-sub--i">No description</div>' +
+      '<div class="mc-head mc-head--2"><span class="apc-tag">&#127991;</span><h1>Commercial model extractor</h1></div><div class="mc-sub mc-sub--i">No description</div>' +
       '<div class="mc-tabs"><button type="button">Details</button><button type="button" class="is-on">Reviewed entities</button></div>' +
       '<p class="lin-help">The following entities have been accepted or rejected.</p>' +
       '<div class="mc-tools"><label class="lin-filter"><span class="wb-mag"></span><input type="search" placeholder="Filter" aria-label="Filter entities"></label></div>' +
@@ -1338,16 +1338,18 @@
       APC_ROWS.map(function (r) {
         return '<tr><td><a class="mc-link">' + esc(r[0]) + '</a></td><td><span class="apc-ok">&#10003;</span> ' + esc(r[1]) + '</td><td><span class="stat stat--' + (r[2] === "Accepted" ? "auto" : "open") + '">' + esc(r[2]) + "</span></td><td>" + esc(r[3]) + "</td><td>" + esc(r[4]) + '</td><td><span class="mc-dots">&middot;&middot;&middot;</span></td></tr>';
       }).join("") + "</tbody></table>" +
-      '<p class="honest">Twelve entities were proposed by the extractor and ten accepted; the two rejected ones are out of the finance model and never reach a certified view. The metadata a person confirms here is what the text-to-SQL agent reads.</p></div></div>';
+      '<p class="honest">Twelve entities were proposed by the extractor and ten accepted; the two rejected ones are out of the commercial model and never reach a certified view. The metadata a person confirms here is what the agents read to work out which column answers which question.</p></div></div>';
   }
 
   function sessionsHtml() {
-    var mine = S.published.map(function (p, i) {
-      return { id: "P-" + i, time: "09:47", user: "Dana Whitfield", role: "CONTROLLER", text: "Published " + p, sqlHash: "—", rows: "—", status: "allowed" };
+    var mine = (D.audit || []).map(function (a) {
+      return { time: a.time || a.at || "—", user: a.user || "—", role: a.role || "—",
+        text: a.text || a.what || a.question || "—", sqlHash: a.sqlHash || "—",
+        rows: a.rows === undefined || a.rows === null ? "—" : a.rows, status: a.status || "allowed" };
     });
-    return '<div class="wb-pg"><h1>Sessions</h1><div class="sub">Every question asked of the model, the statement it produced and what the database did with it</div><div class="wb-rule"></div>' +
+    return '<div class="wb-pg"><h1>Sessions</h1><div class="sub">Every question anyone asked, and what the database did with it</div><div class="wb-rule"></div>' +
       '<table class="wb-tbl"><thead><tr><th style="width:110px">Time</th><th style="width:140px">User</th><th style="width:120px">Role</th><th>Question</th><th style="width:150px">Statement</th><th style="width:70px" class="r">Rows</th><th style="width:90px">Result</th></tr></thead><tbody>' +
-      mine.concat(D.audit).map(function (a) {
+      mine.map(function (a) {
         return "<tr><td>" + esc(a.time) + "</td><td>" + esc(a.user) + "</td><td>" + esc(a.role) + "</td><td>" + esc(a.text) + '</td><td><span class="mono">' + esc(a.sqlHash) + '</span></td><td style="text-align:right">' + esc(a.rows) + '</td><td><span class="stat stat--' + (a.status === "blocked" ? "open" : "auto") + '">' + esc(a.status) + "</span></td></tr>";
       }).join("") + "</tbody></table>" +
       '<p class="honest">A blocked row is a refusal by SQL Firewall against the allow-list, written before the statement could reach any data.</p></div>';
