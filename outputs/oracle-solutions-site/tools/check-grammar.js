@@ -1161,12 +1161,14 @@ var raw = fs.readFileSync(path.join(root, "site/data/content.js"), "utf8");
   if (raw.indexOf(pair[0]) !== -1) fail("content.js", 'contains banned string "' + pair[0] + '" (' + pair[1] + ")");
 });
 
-/* ---- round 6 · the Services page (2026-09-16) ----
-   Three screens and the contact block: what SoftServe adds on Oracle (hero),
-   how an engagement runs and who runs it after go-live, and how we measure it.
-   The steps carry the home page's names, so a reader meets one ladder under one
-   set of names, and the anchors other pages link to are asserted against the
-   routes that point at them (PROVENANCE §21). */
+/* ---- rounds 6–7 · the Services page (2026-09-16, 2026-09-17) ----
+   Three screens and the contact block, one message each (round 7, Alex): AI
+   depth with Oracle expertise — the practice (hero and band); it's all about
+   ROI — every step ends in a number (the step track); a fast proof of value,
+   no hassle (the light band and two panels). The steps the page shares with
+   the home track carry the home page's names, Discovery may lead them, and the
+   anchors other pages link to are asserted against the routes that point at
+   them (PROVENANCE §21, §22). */
 (function () {
   var s = C.services || {};
   var site = C.site || {};
@@ -1174,6 +1176,9 @@ var raw = fs.readFileSync(path.join(root, "site/data/content.js"), "utf8");
 
   ["whatWeDo", "whySoftServe"].forEach(function (k) {
     if (s[k] !== undefined) fail("services." + k, "retired in round 6 — its substance moved into the hero or left the page (PROVENANCE §21)");
+  });
+  ["afterGoLive", "proof"].forEach(function (k) {
+    if (s[k] !== undefined) fail("services." + k, "retired in round 7 — after go-live folds into the Scale step, the measurement into the step track, the proof into proofOfValue (PROVENANCE §22)");
   });
   if (site.dividerLabels !== undefined) fail("site.dividerLabels", "retired in round 6 — nothing renders the rule–label–rule divider");
   if (shared.ladderColumns !== undefined) fail("shared.ladderColumns", "retired in round 6 — Services renders the home step track, not a ladder table");
@@ -1199,27 +1204,36 @@ var raw = fs.readFileSync(path.join(root, "site/data/content.js"), "utf8");
     if (e[k] !== undefined) fail("services.howWeEngage." + k, "retired in round 6 — the step track replaces the ladder");
   });
   var homeSteps = ((C.overview || {}).delivery || {}).steps || [];
-  if (!arr(e.steps) || e.steps.length !== homeSteps.length) {
-    fail("services.howWeEngage.steps", "must hold one step per home delivery step (" + homeSteps.length + ")");
-  } else e.steps.forEach(function (step, i) {
+  var steps = arr(e.steps) ? e.steps : [];
+  var offset = steps.length - homeSteps.length;
+  if (offset < 0 || offset > 1 || (offset === 1 && (steps[0] || {}).title !== "Discovery")) {
+    fail("services.howWeEngage.steps", "must be the home delivery steps (" + homeSteps.length + "), optionally led by Discovery");
+  } else steps.forEach(function (step, i) {
     var where = "services.howWeEngage.steps[" + i + "]";
     ["title", "body", "factLabel", "fact"].forEach(function (k) {
       if (!str(step[k])) fail(where, k + " missing");
     });
-    /* One word for one thing: the same three steps carry the same names on both pages. */
-    if (homeSteps[i] && step.title !== homeSteps[i].title) {
-      fail(where, 'title is "' + step.title + '", but the home step is "' + homeSteps[i].title + '"');
+    /* One word for one thing: the steps both pages show carry the same names. */
+    var home = homeSteps[i - offset];
+    if (home && step.title !== home.title) {
+      fail(where, 'title is "' + step.title + '", but the home step is "' + home.title + '"');
     }
   });
 
-  var after = s.afterGoLive || {};
-  ["anchor", "eyebrow", "title"].forEach(function (k) {
-    if (!str(after[k])) fail("services.afterGoLive", k + " missing");
+  var pov = s.proofOfValue || {};
+  ["anchor", "eyebrow", "title", "lead", "footnote"].forEach(function (k) {
+    if (!str(pov[k])) fail("services.proofOfValue", k + " missing");
   });
-  if (!arr(after.panels) || after.panels.length !== 2) {
-    fail("services.afterGoLive.panels", "must hold two panels — the managed service and the customer's own team");
-  } else after.panels.forEach(function (panel, i) {
-    var where = "services.afterGoLive.panels[" + i + "]";
+  if (!pov.stat || !str(pov.stat.value) || !str(pov.stat.label)) {
+    fail("services.proofOfValue", "stat needs { value, label } — the duration, set as the band's figure");
+  }
+  if (!pov.cta || !str(pov.cta.label) || !str(pov.cta.route)) {
+    fail("services.proofOfValue", "cta needs { label, route } — the link to the case studies that carry the figures");
+  }
+  if (!arr(pov.panels) || pov.panels.length !== 2) {
+    fail("services.proofOfValue.panels", "must hold two panels — what the customer brings, and what they leave with");
+  } else pov.panels.forEach(function (panel, i) {
+    var where = "services.proofOfValue.panels[" + i + "]";
     ["id", "icon", "title", "body"].forEach(function (k) {
       if (!str(panel[k])) fail(where, k + " missing");
     });
@@ -1227,22 +1241,8 @@ var raw = fs.readFileSync(path.join(root, "site/data/content.js"), "utf8");
     if (panel.cta !== undefined) fail(where, "carries a cta — the contact block is the page's one ask");
   });
 
-  var proof = s.proof || {};
-  ["anchor", "eyebrow", "title", "lead", "footnote"].forEach(function (k) {
-    if (!str(proof[k])) fail("services.proof", k + " missing");
-  });
-  ["evidenceIds", "caseStudyIds", "methodNote", "dividerLabel", "engagementsTitle", "engagements"].forEach(function (k) {
-    if (proof[k] !== undefined) fail("services.proof." + k, "retired — the home case-study cards carry each engagement's evidence line");
-  });
-  if (!proof.stat || !str(proof.stat.value) || !str(proof.stat.label)) {
-    fail("services.proof", "stat needs { value, label } — the one accuracy figure, set as a stat rather than buried in a footnote");
-  }
-  if (!proof.cta || !str(proof.cta.label) || !str(proof.cta.route)) {
-    fail("services.proof", "cta needs { label, route } — the link back to the case studies that carry the figures");
-  }
-
   /* The routes other pages use to land here must keep resolving. */
-  var anchors = [e.anchor, after.anchor, proof.anchor, ((C.forms || {}).contact || {}).anchor];
+  var anchors = [e.anchor, pov.anchor, ((C.forms || {}).contact || {}).anchor];
   [
     ["shared.engageLink.route", (shared.engageLink || {}).route],
     ["overview.caseStudiesIntro.cta.route", (((C.overview || {}).caseStudiesIntro || {}).cta || {}).route],
@@ -1280,6 +1280,8 @@ var raw = fs.readFileSync(path.join(root, "site/data/content.js"), "utf8");
     fail("overview.hero.stats", 'lost the "' + POV + '" tile');
   }
   if (JSON.stringify(C.services || {}).indexOf(POV) === -1) fail("services", 'never states the "' + POV + '" proof of value');
+  var povStat = ((C.services || {}).proofOfValue || {}).stat;
+  if (povStat && povStat.value !== POV) fail("services.proofOfValue.stat.value", 'must be "' + POV + '"');
   var other = raw.match(/30[–-]45 days|about two months|in 2 months|Two months from kickoff|\b12 weeks\b|two-week acceptance|duration is set at scoping/);
   if (other) fail("content.js", 'carries another proof-of-value duration ("' + other[0] + '") — it is "' + POV + '" across the site');
 })();
