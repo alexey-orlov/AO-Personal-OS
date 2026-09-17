@@ -4481,3 +4481,83 @@ Checker OK; deny-list grep empty; console clean; the repetition check clean on e
 4. Is *all offers* one portfolio bundle, or the seven kits together?
 5. Domains: `softserveinc.com` and `oracle.com` with subdomains (today's behaviour), or exact only?
 6. The seller/partner split — do partner demo requests go to the same practice mailbox?
+
+## 25. The handover page, the Internal review panel, and the customer logos off the artifact, 2026-09-17
+
+**Asks** (Alex, in session, in Russian; the list below is the English rendering):
+1. Before going further, write one overview file that keeps the requirements, the approaches and the learnings across sessions.
+2. While the site is a prototype, add a temporary *internal* button that shows the checklist of what still needs confirming or approval, and that can be closed and opened again.
+
+**Split.** Opus alone, with no Fable pass. The panel is an internal utility with no reader-facing messaging, and the checklist text is Alex's own list in translation.
+
+### 25.1 `docs/START-HERE.md`
+
+The existing docs did not add up to a starting point:
+- README is technical.
+- HANDOFF had grown into a procedures log, and its paste-ready prompt still set round 5's home-page rebuild as the task.
+- PROVENANCE is a 4,500-line record.
+
+START-HERE is the page a session reads first: what the site is and who it serves, the brief (§2 below), the site page by page, the standing rules (content, messaging, design), how a round runs, the short run/QA/publish procedure, the learnings, the Internal panel, the open items and a map of the docs. The pointers:
+- HANDOFF's opening line and its §8 prompt;
+- README (above the fold, and in the folder tree);
+- the repo's `CLAUDE.md`, under outputs.
+
+### 25.2 The checklist, in English
+
+Alex's list, grouped as he wrote it, as `site/data/review.js`, with every item `open`:
+
+| Group | Items |
+|---|---|
+| Target audience | Priority 1: Oracle sellers and partners · Priority 2: SoftServe sellers · Priority 3: end customers |
+| Positioning | Experts in AI and in Oracle platforms, with a multi-year, top-class enterprise track record · Ready-made solutions, fast proofs of value and a dedicated practice · Products and services |
+| Commitments and disclosures | A proof of value takes 4–8 weeks, to be agreed with delivery · Only the proof-of-value price on the site; every other package price in the sales materials · No customer names, as no customer has confirmed use · The catalog includes existing and planned products |
+| Communication flow | One shared mailbox, oracle@softserveinc.com · Karsten is the contact for communications · All requests land in the shared mailbox · Sales materials go only to corporate addresses at softserveinc.com or oracle.com |
+| Also open from earlier rounds | The name *Oracle AI & Data Solutions* can be used (Oracle trademark guidelines) · *Frontier AI* is a claim the practice can stand behind (§23.4) |
+
+**Editorial choices:**
+- *We don't print package prices, but we do in the materials* and *we print only the proof-of-value price* are one rule seen from two sides, so they became one item.
+- The last bullet, on materials, joined the communication flow.
+- The earlier-rounds group was added from §20 and §23.4 so that launch blockers stay on the same list.
+
+**Each item carries a note on where the site stands.** Three findings are flagged, and none was changed; each waits for Alex:
+- **Site differs:** *Large docs processing and review* and *Workforce optimization* print an Integration price (€300–500K services plus infrastructure) next to their proof-of-value price.
+- **Site differs:** nothing marks a product as planned, so all seven read as available.
+- **Conflict:** partners are priority 1, yet the kit goes only to @oracle.com and @softserveinc.com, so partners are turned away.
+
+**Deliberately left out of the notes:** figures not cleared for the site. The panel is visible to anyone with the link, so the *Frontier AI* note says the stronger proof points are uncleared without quoting them, and the Plan vs actual note says only that it was originally scoped longer.
+
+### 25.3 The panel
+
+- **Placement:** an *Internal · 16 to confirm* pill fixed at the bottom right, dashed amber (amber marks everything internal; teal stays the site's). It opens a right-hand drawer (448 px at 1440, full width at 375) with an eyebrow, the title, the counts, the groups and a footer.
+- **Items:** each shows a status chip (*To confirm* · *Confirmed* · *Changed*), an optional flag chip (*Site differs* · *Conflict*), the statement, *Decided:* when changed, and *On the site:*.
+- **Statuses come from the data file, not from the viewer.** A tick saved in one browser would be invisible to everyone else on a link-shared page. Confirming an item is an edit and a republish, and the artifact's own comment threads carry the discussion.
+- **Behaviour:** non-modal, so the page stays readable beside the list. The close button and Escape both close it and return focus to the pill; while a site modal is open, Escape belongs to the modal (a capture-phase listener that yields). Open or closed survives a reload in the same tab through `sessionStorage`, because a republish reloads open previews.
+- **Robustness:** styles are injected from `assets/review.js`, so removing the panel means deleting two files and two script tags. Reduced motion drops the slide, and print hides the panel.
+- **Checker:** fails if index.html loads only one of the two files, or if the list is malformed (kebab-case unique ids, text, status set, flag set, *changed* needs a decision) or names a customer. It warns on every run while the panel is on.
+
+**Checks:**
+- checker OK, with the new warning;
+- failure cases verified on a copy (a bad status, a missing script tag);
+- console clean;
+- at 1440, 16 items render, focus moves to the title, Escape and close work, the modal takes Escape first, and a reload keeps the panel open;
+- at 375, full width, the close button inside the viewport, no horizontal overflow.
+
+**Published** as **version 35**:
+- The first attempt was refused: the ERP Q&A session had published version 34 at 12:52.
+- The live `index.html` differed from the local wrapper only by the two new script tags, and nothing else was passed, so the local wrapper was published on top.
+
+### 25.4 The customer logos, off the artifact and out of `site/`
+
+**The finding.** The post-publish `list_files` showed `assets/img/logos/bosch.png`, `riyadh-air.png` and `riyadh-air.svg` among the artifact's 99 published files. None was referenced since round 4, but on a link-shared artifact each could be downloaded by path. That breaks the standing rule of no customer names or logos in shipped files.
+
+**Version 36** removed the three paths from the artifact; no page changed. In the repo, the folder moved to `docs/asset-candidates/logos/`, outside the deployable root, so no whole-tree publish or real deploy can carry it again. Updated with the move:
+- `ASSETS.md` §4 (new path and reason);
+- HANDOFF's §2 table;
+- the README tree.
+
+`check-grammar.js` now fails if `site/assets/img/logos/` exists. HANDOFF §4 and START-HERE §6 add `list_files` after every publish.
+
+### 25.5 Open for Alex
+
+1. Every item in the panel, especially the three flagged ones: remove or keep the two Integration prices, mark the planned products (and which they are), and decide whether partners get the kit.
+2. The panel is visible to anyone with the preview link, including the lines on planned products and unconfirmed customers. If the link goes beyond the core team, set `enabled: false`.
