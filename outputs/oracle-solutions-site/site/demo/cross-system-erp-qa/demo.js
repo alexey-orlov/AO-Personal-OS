@@ -2052,6 +2052,10 @@
       auto: share }
   ];
   var MAJORS = 6;
+  /* R10 — the card shows the major step and the position inside it, and the six
+     segments fill fractionally, so every click moves something. */
+  var MAJOR_N = {}, MAJOR_I = [];
+  STEPS.forEach(function (st) { MAJOR_N[st.major] = (MAJOR_N[st.major] || 0) + 1; MAJOR_I.push(MAJOR_N[st.major]); });
 
   var tour = {
     active: false, i: 0, el: $("#tour"), target: null, tries: 0,
@@ -2072,10 +2076,14 @@
       this.tries = 0;
       if (this.target) this.target.classList.remove("tour-target");
       this.target = t; t.classList.add("tour-target");
-      $("#tour-step").textContent = "Step " + st.major + " of " + MAJORS;
+      var sub = MAJOR_I[this.i], subN = MAJOR_N[st.major];
+      $("#tour-step").textContent = "Step " + st.major + " of " + MAJORS + " \u00b7 " + sub + " of " + subN;
       $("#tour-title").textContent = st.title; $("#tour-body").textContent = st.body;
       var bars = "";
-      for (var k = 1; k <= MAJORS; k++) bars += '<i class="' + (k <= st.major ? "is-done" : "") + '"></i>';
+      for (var k = 1; k <= MAJORS; k++) {
+        var pct = k < st.major ? 100 : k > st.major ? 0 : Math.round(sub / subN * 100);
+        bars += '<i><b style="width:' + pct + '%"></b></i>';
+      }
       $("#tour-progress").innerHTML = bars;
       $("#tour-next").hidden = !st.passive; $("#tour-skip").hidden = !!st.passive;
       this.el.hidden = false; this.el.dataset.side = st.side;
@@ -2109,19 +2117,35 @@
     },
     finish: function () {
       this.exit();
-      var g = $("#gate"), an = analysis(), base = baseAnalysis();
-      $("#gate-title").textContent = "That is the loop";
-      $("#gate-body").innerHTML =
-        "<b>What the AI did:</b> read every open order line in three order books and put them on one list; worked out which customer and which part each line was, across five systems; gave all " + base.headline.lines +
-        " of them a cause, including the " + esc(base.band[3].across) + " whose parts were sitting in a plant nobody was looking at; priced the exposure out of the customers' own contract clauses; ranked your accounts by what was at stake; proposed four actions and assigned each one as a task; re-valued everything the moment you overruled it (" +
-        esc(usdShort(base.headline.revenueUsd)) + " &rarr; " + esc(usdShort(an.headline.revenueUsd)) + ", " + base.headline.tierA.accounts + " tier-A accounts &rarr; " + an.headline.tierA.accounts + "); and built the dashboard." +
-        "<b> What you decided:</b> that Halden Tooling was not at risk, because you had spoken to them — and that is the one thing no system knew. " +
-        "Nothing was written back to any order system: the AI proposes and it recommends, people decide and people act." +
-        "<ol><li>See the five systems that feed one place</li><li>Ask what is at risk this week</li><li>Read what the AI found, and why</li><li>Check one finding against the source rows</li><li>Overrule it and watch the numbers move</li><li>Hand the team a dashboard that obeys who is looking</li></ol>" +
-        '<div class="hints"><b>Still open for you:</b> the other nine saved questions — and <b>question 10 is refused outright</b> for the regional analyst, allow-list and all; in <b>Decisions</b>, the customer matches and item cross-references the AI could not settle are waiting for Priya, and the decisions log keeps every one with its reason; in the <b>Agent Hub</b>, Insights holds the generated dashboard next to the two standing ones, Master catalog holds the column metadata, and any view chip on the analysis opens where that number comes from, down to the column; and in <b>Data Studio</b> the catalog lists all ' + D.views.length + " certified views the answers read.</div>";
+      /* R9 — what a user needs next, not a report on the build session. */
+      var g = $("#gate");
+      $("#tour-step").textContent = "Step " + MAJORS + " of " + MAJORS + " · done";
+      $("#gate-title").textContent = "What you can act on now";
+      $("#gate-body").textContent =
+        "Five systems answered one question: which orders are at risk this week, and which accounts they put at stake. " +
+        "Every figure came with its cause and its source rows, you overruled the one thing the AI could not know, and your team has a dashboard that respects who is looking. " +
+        "Nothing was written to any system: the AI proposes, people decide.";
+      var doors = [
+        ["ask", "Ask another question", "the saved questions on the Agent Hub home"],
+        ["decisions", "Open the Decisions queue", "the customer matches waiting for a person"],
+        ["dash", "See the dashboard", "Insights, on the Agent Hub"]
+      ];
+      $("#gate-try").innerHTML = doors.map(function (d) {
+        return '<button type="button" data-door="' + d[0] + '"><b>' + d[1] + "</b><span>" + d[2] + "</span></button>";
+      }).join("");
+      $("#gate-try").hidden = false;
       $("#gate-start").textContent = "Replay the walkthrough"; $("#gate-free").textContent = "Keep exploring";
+      $(".gate-note").textContent = "Demo data only: a fictional group with synthetic orders, contracts and shipments; nothing leaves this page.";
       $("#gate-start").onclick = function () { location.href = location.pathname; };
       $("#gate-free").onclick = function () { g.hidden = true; };
+      $("#gate-try").onclick = function (e) {
+        var b = e.target.closest("[data-door]");
+        if (!b) return;
+        g.hidden = true;
+        if (b.dataset.door === "ask") { setApp("aidp"); S.wbPanel = "home"; S.panel = null; renderWb(); }
+        else if (b.dataset.door === "decisions") { setApp("review"); S.rwTab = "matches"; renderRw(); }
+        else { setApp("aidp"); S.wbPanel = "insights"; S.panel = null; renderWb(); }
+      };
       g.hidden = false;
     },
     reposition: function () {
