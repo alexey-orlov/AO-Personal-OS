@@ -48,7 +48,7 @@ window.SITE_REVIEW = {
           id: "positioning-experts",
           text: "We are experts in AI and in Oracle platforms, with a multi-year, top-class enterprise track record.",
           status: "open",
-          site: "Services opens on Frontier AI on Oracle, backed by founded in 1993, 1,000+ experts in AI, data and R&D, and 30 Fortune 500 clients in data and analytics."
+          site: "Services opens on Frontier AI on Oracle, with three figures: founded in 1993, 1,000+ experts in AI, data and R&D, and 30 Fortune 500 clients in data and analytics."
         },
         {
           id: "positioning-offer",
