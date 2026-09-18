@@ -227,7 +227,9 @@ body {
   font-family: var(--font-body);
   font-weight: 300;
   font-size: var(--fs-body);
-  line-height: 1.6;
+  line-height: 1.2;
+  letter-spacing: .5px;
+  font-synthesis: none;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
 }
@@ -240,16 +242,18 @@ button, input, select, textarea { font: inherit; color: inherit; }
 a { color: inherit; text-decoration: none; }
 ul, ol { margin: 0; padding: 0; list-style: none; }
 p { margin: 0; }
-h1, h2, h3, h4 { margin: 0; font-family: var(--font-display); text-wrap: balance; }
+h1, h2, h3, h4 { margin: 0; font-family: var(--font-sans); text-wrap: balance; }
 hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 
 :focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 3px;
-  border-radius: 2px;
+  outline: 2px solid var(--action);
+  outline-offset: 2px;
+  border-radius: 0;
 }
 
-::selection { background: var(--accent); color: var(--text-on-light); }
+:is(.light-band, .site-footer) :focus-visible { outline-color: #ffffff; }
+
+::selection { background: var(--surface-select); color: var(--text); }
 
 /* ——— layout ————————————————————————————————————————— */
 
@@ -259,11 +263,9 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
   padding-inline: var(--gutter);
 }
 
-@media (min-width: 1600px) {
-  .wrap { max-width: var(--container-max); }
-}
+.wrap { max-width: calc(var(--container-max) + var(--gutter) * 2); }
 
-.section { padding-block: var(--sec-pad); }
+.section { padding-block: var(--sec-pad) calc(var(--sec-pad) * 1.333); }
 .section--tight { padding-block: clamp(2.5rem, 4vw, 4rem); }
 .section--tabs { padding-block: clamp(1.75rem, 2.6vw, 2.25rem) clamp(2.5rem, 4vw, 4rem); }
 .section--flush-top { padding-top: 0; }
@@ -275,52 +277,59 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 /* ——— type ——————————————————————————————————————————— */
 
 .eyebrow {
-  font-family: var(--font-body);
-  font-weight: 600;
+  font-family: var(--font-sans);
+  font-weight: 400;
   font-size: var(--fs-xs);
-  letter-spacing: .14em;
+  line-height: 1.2;
+  letter-spacing: .06em;
   text-transform: uppercase;
   color: var(--text-dim);
 }
 
-.eyebrow--accent { color: var(--accent); }
+/* Never a hue at 12px: orange is 3.0:1 on white and illegal below 24px. */
+.eyebrow--accent { color: var(--surface-dark-raised); }
 
 .h1 {
-  font-weight: 900;
+  font-family: var(--font-display);
+  font-weight: 400;
   overflow-wrap: normal;
   word-break: keep-all;
   hyphens: none;
   font-size: var(--fs-hero);
-  line-height: .95;
-  letter-spacing: -.015em;
-  text-transform: uppercase;
+  line-height: 1.1;
+  letter-spacing: 0;
+  text-transform: none;
   color: var(--text);
 }
 
+/* The one place orange is allowed: the accent line of a hero H1, at display
+   size, once per page. A product name gets none (see .product-title). */
 .h1 .accent, .h2 .accent { color: var(--accent); }
 
 .h2 {
-  font-weight: 700;
+  font-weight: 400;
   font-size: var(--fs-h2);
-  line-height: 1.05;
-  letter-spacing: -.01em;
-  text-transform: uppercase;
+  line-height: 1.2;
+  letter-spacing: 0;
+  text-transform: none;
   color: var(--text);
 }
 
 .h3 {
-  font-weight: 900;
+  font-weight: 400;
   font-size: var(--fs-h3);
-  line-height: 1.05;
-  text-transform: uppercase;
+  line-height: 1.2;
+  letter-spacing: 0;
+  text-transform: none;
   color: var(--text);
 }
 
 .h4 {
-  font-family: var(--font-body);
+  font-family: var(--font-sans);
   font-weight: 700;
   font-size: var(--fs-h4);
-  line-height: 1.3;
+  line-height: 1.2;
+  letter-spacing: 0;
   color: var(--text);
   text-transform: none;
 }
@@ -328,16 +337,20 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 .lead {
   font-weight: 300;
   font-size: var(--fs-lead);
-  line-height: 1.7;
-  color: var(--text-body);
-  max-width: 60rem;
+  line-height: 1.2;
+  letter-spacing: .5px;
+  color: var(--text-muted);
+  max-width: 52rem;
 }
 
-.body-text { font-weight: 300; line-height: 1.65; color: var(--text-body); max-width: 44rem; }
+/* The brand measures 20/24 body on two- and three-line strings. This site
+   carries 5-8 line paragraphs, so running prose holds a shorter measure at
+   the brand's leading rather than loosening it (SS26-THEME risk 6). */
+.body-text { font-weight: 300; line-height: 1.25; color: var(--text-body); max-width: 40rem; }
 .muted { color: var(--text-muted); }
 .dim { color: var(--text-dim); }
-.small { font-size: var(--fs-sm); line-height: 1.6; }
-.footnote { font-size: var(--fs-xs); line-height: 1.65; color: var(--text-note); max-width: 46rem; }
+.small { font-size: var(--fs-sm); line-height: 1.2; font-weight: 400; }
+.footnote { font-size: var(--fs-xs); line-height: 1.5; color: var(--text-note); max-width: 46rem; }
 .nums { font-variant-numeric: tabular-nums; }
 .clamp-2 { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; line-clamp: 2; overflow: hidden; }
 .clamp-3 { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; line-clamp: 3; overflow: hidden; }
@@ -351,11 +364,11 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 }
 
 .section-count {
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 1.125rem;
-  color: var(--accent);
-  font-variant-numeric: tabular-nums;
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: var(--fs-sm);
+  color: var(--text-dim);
+  font-variant-numeric: lining-nums tabular-nums;
 }
 
 .section-head .section-link { margin-left: auto; }
@@ -366,11 +379,12 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
   display: flex;
   align-items: center;
   gap: 2.5rem;
-  color: var(--text);
+  color: var(--text-dim);
+  font-family: var(--font-sans);
   font-size: var(--fs-sm);
+  font-weight: 400;
   letter-spacing: .06em;
   text-transform: uppercase;
-  opacity: .75;
 }
 
 .divider::before, .divider::after {
