@@ -44,12 +44,12 @@ Alex's own procedure, reconstructed as a numbered sequence from the [07-24 sync]
 
 ## People
 
-- **Vladyslav Butenko** — the BA/PdM Alex coaches on pack productization; the 07-24 sync is the only verbatim record of that coaching → [people page](../../people/vladyslav-butenko.md).
+- **Vladyslav Butenko** — the BA/PdM Alex coaches on pack productization; the [07-24 sync](calls/oracle/2026-07-24_133119_one-on-one_vlad-productization-sync.md) is the only verbatim record of that coaching, now complete end to end → [people page](../../people/vladyslav-butenko.md).
 - **Gero Gunkel** (Oracle CTO) — co-designed the S/M/L model the skills must emit → [oracle-team.md](oracle-team.md).
 
 ## Decisions
 
-- 2026-07-24 — **Every engagement should end in self-acceleration skills**, named post-factum from the steps the analytical work actually consisted of, written as you go. Alex set this for Vlad; it is also the mandate for this subproject, and Vlad demonstrably acted on it — his 2026-09-10 Account Insights one-pager adds a fourth matrix column, *"artifact to accelerate the development"*, naming ten reusable assets. ([transcript](docs/2026-09-17_packaging-skills-prep/vlad-2026-07-24-transcript-partial.md) · [C R7](docs/2026-09-17_packaging-skills-prep/C-vlad-feedback.md))
+- 2026-07-24 — **Every engagement should end in self-acceleration skills**, named post-factum from the steps the analytical work actually consisted of, written as you go. Alex set this for Vlad; it is also the mandate for this subproject, and Vlad demonstrably acted on it — his 2026-09-10 Account Insights one-pager adds a fourth matrix column, *"artifact to accelerate the development"*, naming ten reusable assets. ([sync](calls/oracle/2026-07-24_133119_one-on-one_vlad-productization-sync.md) · [C R7](docs/2026-09-17_packaging-skills-prep/C-vlad-feedback.md))
 - 2026-09-17 — **Model routing for this work class, in Alex's words:** "all smart, creative, important decisions, tailored messaging, layout to be developed by Fable, tedious part to Opus" — so a generated-artifact skill must express routing as roles (cheapest model for mechanical work, strongest for design and red-team calls), not as model names, or it ships Alex's subscription shape. ([A2 §2.7](docs/2026-09-17_packaging-skills-prep/A2-sessions-minisite-demos.md))
 
 ## Open loops
@@ -68,3 +68,4 @@ Alex's own procedure, reconstructed as a numbered sequence from the [07-24 sync]
 ## Activity
 
 - 2026-09-17 — **Four research passes + a recovery handoff committed as the prep corpus**: [A1](docs/2026-09-17_packaging-skills-prep/A1-sessions-decks-onepagers.md) (seven deck/one-pager sessions, Alex's decision-widget answers verbatim, a consolidated rulebook) · [A2](docs/2026-09-17_packaging-skills-prep/A2-sessions-minisite-demos.md) (five mini-site/demo sessions, the 23 listing rules + 16 demo rules, the `products[]` and demo data shapes) · [B](docs/2026-09-17_packaging-skills-prep/B-artifact-component-map.md) (artifact↔component map read off the files, canonical wording, 12 ambiguities) · [C](docs/2026-09-17_packaging-skills-prep/C-vlad-feedback.md) (29 feedback rules, the 12-step method, the S/M/L model's origin and the six-column working version) · [D](docs/2026-09-17_packaging-skills-prep/D-context-inventory.md) (the ~450 KB shippable bundle, delivery options, 14 portability risks) · plus the [partial 07-24 transcript](docs/2026-09-17_packaging-skills-prep/vlad-2026-07-24-transcript-partial.md) and the [July WfO recovery handoff](docs/2026-09-17_packaging-skills-prep/HANDOFF-july-wfo-sessions.md).
+- 2026-07-24 — [the full Vlad productization sync](calls/oracle/2026-07-24_133119_one-on-one_vlad-productization-sync.md) (folded 2026-09-18) — the whole 31 minutes, superseding the partial transcript and closing the biggest gap in the coaching corpus: the 0:35–27:02 row-by-row walk of the capability table is where most of the feature-list skill's rules actually come from.
