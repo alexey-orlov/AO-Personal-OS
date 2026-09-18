@@ -9,7 +9,7 @@ template. Read WITH `.claude/references/slide-design.md` (always) and
 ## Fast path: the stripped base
 
 `.claude/references/softserve-deck-base.pptx` — 41 KB single-slide shell derived from the
-full template: real master + theme + logo, ONE layout (the white content layout,
+full template: real master + theme + the spark monogram (`ppt/media/image1.svg`, `viewBox 0 0 50 57`; no wordmark is embedded), ONE layout (the white content layout,
 `slideLayout20`), one placeholder table slide, zero media bloat. All content is
 placeholder ("Label" / "Value" / "Slide title"); the third row + footnote keep the
 orange-asterisk idiom as a copy-ready exemplar.
@@ -43,7 +43,12 @@ folder are content decks, not templates.
 
 - Colors: accent orange `F36949` · label grey `808080` · hairline rules `DCDCDC` ·
   footnote text `595959` · body black `000000`.
-- Fonts: titles `+mj-lt` (= Azurio; keep the theme reference, don't hardcode) · body
+- Fonts: titles `+mj-lt` (= Azurio; keep the theme reference, don't hardcode) — **but the
+  layout default fights you**: `slideLayout20`'s title placeholder is `cap="all"` with
+  `+mn-lt`, so a title added the normal way comes out UPPERCASE in Replica, which is the
+  *pre-rebrand* display convention. The base's own slide overrides it (`cap="none"`,
+  `+mj-lt`) and that override is the only thing making it sentence-case Azurio — carry it
+  explicitly on every title run you add. · body
   `ReplicaLLTT-Regular` (panose `020B0504010101010104`, pitchFamily 34, charset 77) ·
   table labels / small keys `Roboto Mono` (pitchFamily 49, cs `Calibri`).
 - Sizes that worked: title 2800 · table values 1600 · table labels 1150 · footnote 1000.
@@ -81,8 +86,10 @@ partnership section (slides 30–34):
   4165890 × 1295400 box (two lines max). Duplicate slide 6 with `add_slide.py` and swap the
   three `<a:t>` runs.
 - **Content slides** = layout `Title-1Column` (slideLayout17): placeholders `body idx=34`
-  (top-right running label), `sldNum idx=4`, `title` — title run is `Replica LL TT` bold
-  sz 4800 `26292B`, UPPERCASE, at (538101, 1622980); keep it to ONE line (≤ ~40 chars at
+  (top-right running label), `sldNum idx=4`, `title` — the template's own title run is
+  `Replica LL TT` bold sz 4800 `26292B`, UPPERCASE (a **legacy setting**: since the 2026
+  rebrand display type is sentence-case Azurio at weight 400, so new slides set
+  `cap="none"` + `+mj-lt`), at (538101, 1622980); keep it to ONE line (≤ ~40 chars at
   16.4M width) or it eats the intro line. Content area y 3.45M → 9.5M, x 538101 → 17772000.
 - **Palette in use:** blue accent `459FDD` (labels, stat numbers) / `1485C3` (diagram
   fills), ink `26292B`, body `262626`, muted `4C5156`, panel `F7F9FA`, hairline `E1E7EB`,

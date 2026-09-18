@@ -27,7 +27,7 @@ deck or one-pager work.
    promote them to boxes; conversely questions/prompts = outlined containers (frame, no
    fill) while answers/assets = filled containers, and peer answers share ONE color.
 8. **Avoid heavy black/ink fills for small badges (numbers) and CTA banners** — outlined
-   badges with ink numerals, brand-accent (orange) CTA; reserve a dark fill for at most
+   badges with ink numerals, brand-action (blue `1485C3`) CTA — since the 2026 rebrand blue is the action colour and orange is accent-only; reserve a dark fill for at most
    one anchor node per diagram.
 9. **Compositional variety** (2026-07-20, one-pagers): don't render every section as
    another full-width row of same-shaped cards — content at different abstraction layers
