@@ -41,11 +41,20 @@ sips -c 600 2700 --cropOffset 1800 950 page_r.jpg --out zoom.jpg
 sips -z 840 3780 zoom.jpg
 ```
 
+**Off the Mac** (cloud session, Linux container): there is no `sips`, and
+ImageMagick usually isn't installed either — `pip install Pillow` and crop with
+`Image.crop`/`resize(..., Image.LANCZOS)`. A phone photo pasted into a cloud
+session arrives already upright, so skip the rotation step and check first.
+For a stubborn digit, grayscale + `ImageOps.autocontrast` + 5–9× zoom is what
+finally makes overwritten ink readable.
+
 ### 2. Date
 
 `mdls -name kMDItemContentCreationDate <photo>` gives the shoot time — Alex
 photographs the page right after the morning workout, so it pins the training
-date. Cross-check against the handwritten header (DD.MM.YYг). On conflict the
+date. (Mac only, and only for a file he dropped: an image **uploaded into a
+session** reaches disk EXIF-stripped — no `DateTimeOriginal` — so the
+handwritten header plus today's date are all you get. Say which you used.) Cross-check against the handwritten header (DD.MM.YYг). On conflict the
 EXIF date wins (pen slips happen — 2026-07-22 was handwritten "28.07.26"),
 but say so in the report. Sheet date format is **M/D/YYYY without leading
 zeros** ("7/22/2026") — block lookup is an exact string match.
@@ -63,7 +72,13 @@ lines have per-set weights in kg, warm-up/crossfit lines have times (40",
 Line rules:
 - **Crossed-out exercise = planned but not done — never log it.** A struck
   name with sets/weights still written next to it is still skipped.
-- Sets notation `3x10` = 3 sets × 10 reps.
+- Sets notation `3x10` = 3 sets × 10 reps. A per-set rep series —
+  `3×(8-8-6)` — is `sets: 3, reps: "8-8-6"`; pass it raw, `log` keeps it
+  literal (Sheets' USER_ENTERED parser would otherwise store `8-8-6` as the
+  date 8-8-2006 — silently, and `dump` shows it).
+- **Dumbbells: log the weight PER DUMBBELL, as written.** `15кг [×2 р.]` is
+  15, not 30 — the bracket says two hands, not a total. Say "kg ×2" in the
+  report and the digest so the number is never read as a barbell load.
 - Weights: one number → start = end = it; `A→B` / `A-B` → start A, end B;
   a series `A/B/C/D` or `A-B-C` → start = first, end = last.
 - A small number-series squeezed above/below a line belongs to the adjacent

@@ -429,6 +429,18 @@ def _to_num(s):
         return None
 
 
+def _as_text(v):
+    """Keep a value literal in a USER_ENTERED write.
+
+    Sheets parses what you type: a per-set rep series like "8-8-6" comes back
+    as the date 8-8-2006. A leading apostrophe forces text (and is not part of
+    the stored value). Numbers and already-quoted strings pass through.
+    """
+    if not isinstance(v, str) or not v or v.startswith("'"):
+        return v
+    return v if _to_num(v) is not None else "'" + v
+
+
 def _delta(today, then):
     if today is None or then is None or then == 0:
         return None
@@ -524,7 +536,8 @@ def cmd_log():
     rows = {}
     for e in entries:
         r = m.ensure_exercise(e["category"], e["exercise"])
-        m._write(r, col, [e["sets"], e["reps"], e["w_start"], e["w_end"]])
+        m._write(r, col, [e["sets"], _as_text(e["reps"]),
+                          e["w_start"], e["w_end"]])
         rows[e["exercise"]] = r + 1
     m.flush()
     print(json.dumps({"ok": True, "date": date, "rows": rows,
