@@ -351,7 +351,7 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 .dim { color: var(--text-dim); }
 .small { font-size: var(--fs-sm); line-height: 1.2; font-weight: 400; }
 .footnote { font-size: var(--fs-xs); line-height: 1.5; color: var(--text-note); max-width: 46rem; }
-.nums { font-variant-numeric: tabular-nums; }
+.nums { font-variant-numeric: lining-nums; }
 .clamp-2 { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; line-clamp: 2; overflow: hidden; }
 .clamp-3 { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; line-clamp: 3; overflow: hidden; }
 
@@ -368,7 +368,7 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
   font-weight: 400;
   font-size: var(--fs-sm);
   color: var(--text-dim);
-  font-variant-numeric: lining-nums tabular-nums;
+  font-variant-numeric: lining-nums;
 }
 
 .section-head .section-link { margin-left: auto; }
@@ -827,7 +827,7 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
   font-size: clamp(1.75rem, 2.6vw, 2.75rem);
   line-height: 1;
   color: var(--text);
-  font-variant-numeric: lining-nums tabular-nums;
+  font-variant-numeric: lining-nums;
   letter-spacing: 0;
 }
 
@@ -1326,7 +1326,6 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
   content: "";
   display: block;
   height: 9.5rem;
-  margin-inline: calc(var(--gutter) * -1);
   background: var(--bg-raised);
 }
 
@@ -3374,7 +3373,7 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
   font-size: clamp(1.75rem, 2.4vw, 2.5rem);
   line-height: 1;
   letter-spacing: 0;
-  font-variant-numeric: lining-nums tabular-nums;
+  font-variant-numeric: lining-nums;
   color: var(--text-on-dark);
 }
 
