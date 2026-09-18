@@ -1432,14 +1432,14 @@ if (/assets\/img\/logos\//.test(raw)) {
   }
 })();
 
-/* ——— the SS26 theme (site-v2.css + index-v2.html + content-v2.js) ————————
-   The brand rules the re-skin was built to, asserted so a later rewrite
-   cannot quietly undo them. The default theme is unaffected by all of this.
-   Full record: docs/SS26-THEME.md. */
+/* ——— the live theme (site.css + index.html + content-case.js) ——————————
+   The current-SoftServe-brand rules, asserted so a later rewrite cannot
+   quietly undo them. index-legacy.html + site-legacy.css are the archived
+   pre-2026 theme and are deliberately exempt. Record: docs/SS26-THEME.md. */
 (function () {
-  var V2_CSS = "site/assets/site-v2.css";
-  var V2_HTML = "site/index-v2.html";
-  var V2_DATA = "site/data/content-v2.js";
+  var V2_CSS = "site/assets/site.css";
+  var V2_HTML = "site/index.html";
+  var V2_DATA = "site/data/content-case.js";
   if (!fs.existsSync(path.join(root, V2_CSS))) return;   /* theme not present */
 
   var css = fs.readFileSync(path.join(root, V2_CSS), "utf8");
@@ -1474,14 +1474,30 @@ if (/assets\/img\/logos\//.test(raw)) {
   /* Sentence case is a data change, carried by the overlay. Without the tag
      the page shows the stored capitals in a serif. */
   if (html.indexOf('src="data/content.js"') === -1) fail(V2_HTML, "does not load data/content.js");
-  if (html.indexOf('src="data/content-v2.js"') === -1) {
-    fail(V2_HTML, "does not load data/content-v2.js — the uppercase strings would ship as capitals");
-  } else if (html.indexOf('src="data/content.js"') > html.indexOf('src="data/content-v2.js"')) {
-    fail(V2_HTML, "loads content-v2.js before content.js — the overrides would be overwritten");
+  if (html.indexOf('src="data/content-case.js"') === -1) {
+    fail(V2_HTML, "does not load data/content-case.js — the uppercase strings would ship as capitals");
+  } else if (html.indexOf('src="data/content.js"') > html.indexOf('src="data/content-case.js"')) {
+    fail(V2_HTML, "loads content-case.js before content.js — the overrides would be overwritten");
   }
   if (html.indexOf("fonts.googleapis.com") > -1) fail(V2_HTML, "still requests a webfont service — the theme self-hosts and falls back to system faces");
   if (html.indexOf('data-theme="light"') === -1) fail(V2_HTML, 'must carry data-theme="light"');
   if (html.indexOf('content="#ffffff"') === -1) fail(V2_HTML, "theme-color must be #ffffff on a white ground");
+
+  /* The archive stays runnable: its own stylesheet, and no drift onto the
+     live one. */
+  var LEGACY_HTML = "site/index-legacy.html";
+  if (fs.existsSync(path.join(root, LEGACY_HTML))) {
+    var legacy = fs.readFileSync(path.join(root, LEGACY_HTML), "utf8");
+    if (legacy.indexOf('href="assets/site-legacy.css"') === -1) {
+      fail(LEGACY_HTML, "does not load assets/site-legacy.css — the archive would render on the live theme");
+    }
+    if (legacy.indexOf('src="data/content-case.js"') > -1) {
+      fail(LEGACY_HTML, "loads the sentence-case overlay — the archive is the uppercase theme");
+    }
+    if (!fs.existsSync(path.join(root, "site/assets/site-legacy.css"))) {
+      fail("site/assets", "site-legacy.css is missing — index-legacy.html has no stylesheet");
+    }
+  }
 
   /* Every override must still match the string it was written against. */
   if (fs.existsSync(path.join(root, V2_DATA))) {
