@@ -14,9 +14,13 @@
 # setup_group.sh hasn't run), sends fall back to the DM chat and TG_TOPIC
 # is ignored — so callers can always set TG_TOPIC unconditionally.
 
-export TELEGRAM_BOT_TOKEN="$(security find-generic-password -a "$USER" -s TELEGRAM_BOT_TOKEN -w 2>/dev/null || echo "${TELEGRAM_BOT_TOKEN:-}")"
-export TELEGRAM_CHAT_ID="$(security find-generic-password -a "$USER" -s TELEGRAM_CHAT_ID -w 2>/dev/null || echo "${TELEGRAM_CHAT_ID:-}")"
-export TELEGRAM_GROUP_CHAT_ID="$(security find-generic-password -a "$USER" -s TELEGRAM_GROUP_CHAT_ID -w 2>/dev/null || echo "${TELEGRAM_GROUP_CHAT_ID:-}")"
+# $USER is unset in cloud sandboxes / CI; under `set -u` that would abort the
+# whole substitution and silently discard a caller-supplied env override.
+_tg_user="${USER:-$(id -un 2>/dev/null || echo unknown)}"
+
+export TELEGRAM_BOT_TOKEN="$(security find-generic-password -a "$_tg_user" -s TELEGRAM_BOT_TOKEN -w 2>/dev/null || echo "${TELEGRAM_BOT_TOKEN:-}")"
+export TELEGRAM_CHAT_ID="$(security find-generic-password -a "$_tg_user" -s TELEGRAM_CHAT_ID -w 2>/dev/null || echo "${TELEGRAM_CHAT_ID:-}")"
+export TELEGRAM_GROUP_CHAT_ID="$(security find-generic-password -a "$_tg_user" -s TELEGRAM_GROUP_CHAT_ID -w 2>/dev/null || echo "${TELEGRAM_GROUP_CHAT_ID:-}")"
 
 # Topic map (TG_TOPIC_<NAME>=<message_thread_id>), written by setup_group.sh.
 # Thread ids are not secrets — the file is committed so every machine shares
