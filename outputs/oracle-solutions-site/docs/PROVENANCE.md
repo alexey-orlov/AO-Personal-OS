@@ -4778,3 +4778,90 @@ Both entries were re-verified after the rename: `index.html` white ground,
 Azurio, sentence case, brand marks, 45 overrides applied; `index-legacy.html`
 near-black, Montserrat 900 uppercase, Open Sans, white marks, no overlay. No 4xx
 on either, no overflow on any of the eight routes at 1440.
+
+### 27.9 Brand-impact audit, and the teal that was still shipping, 2026-09-18
+
+> "Make sure that packaging skills are updated if that has any effect on them."
+
+An Opus pass audited `Oracle-Packaging-Skills`, `.claude/references/` and the
+rest of AO-Personal-OS against the measured rebrand and the rename
+(`scratchpad/packaging-skills-impact.md`).
+
+**The headline was good news:** the packaging kit is *already* on the 2026 brand.
+`softserve-deck-base.pptx`'s theme declares `Azurio` + `Replica LL TT` with the
+Lviv-blue/Austin-orange palette. No teal, no Montserrat, no Open Sans in that
+repo — except one orphaned file.
+
+**The bad news was in this repo.** The **16 step-frame SVGs** were still drawn
+teal `#35CCBA` on near-black `#10161A`, and they are referenced live from
+`content.js`, so they were rendering as teal-on-dark artwork inside white-ground
+product pages. Round 27's QA had checked text contrast, overflow, fonts and
+broken images — but never the *content* of an `<img>`. Fixed by a role-preserving
+recolour of all 16:
+
+| Was | Role | Now |
+|---|---|---|
+| `#10161A` | figure ground | `#FFFFFF` |
+| `#0E2D4D` | the radial lift | `#C1DFF4` |
+| `#496683` | structure strokes | `#BDCBD7` |
+| `#9FB3C6` | labels | `#4C5156` |
+| `#35CCBA` | the active path and the eyebrow | `#1485C4` |
+
+515 colour references across 16 files, plus the one eyebrow tracked at `.1em`
+brought to `.06em`. The checker now walks `site/assets/img/**` and fails any SVG
+carrying the retired teal or the old near-black palette — the gate that would
+have caught this. `docs/ASSETS.md`'s drawing grammar was rewritten so the next
+set is not drawn teal again.
+
+**Also corrected here:** five stale "current truth" statements that still
+described the old brand as the standing rule — `README.md` (Google Fonts as the
+one external resource, the deploy note about unblocking it, "One accent. Teal
+`#35CCBA` on near-black", the navy strip, the `#131313` fade, 14px reveals),
+`HANDOFF.md:38` (the design-system line), `SCHEMA.md:108` (a copy rule whose
+stated reason was "uppercase Montserrat"). And the internal comments in
+`brand.js`, `site.css` and `content-case.js` that still named the pre-rename
+files.
+
+**In Oracle-Packaging-Skills** (three breaks, all fixed):
+
+1. `listing/references/preview-and-publish.md:122` stripped
+   `-e '<html lang="en" data-theme="dark">'`; the live page opens
+   `data-theme="light" data-brand="ss26"`, so the exact-line strip would have
+   left the `<html>` tag inside the published body.
+2. The listing skill knew nothing about sentence case. `SKILL.md` and
+   `listing-schema.md` now say it plainly: **write every string in sentence
+   case, and never add rows to `content-case.js`** — that overlay is a one-time
+   migration for pre-rebrand strings. Verified that this is safe for both
+   themes: the four affected slots (`.product-title` via `.h1`, `.eyebrow`,
+   `.hero-badges li`) are uppercased in CSS by the archived theme, so
+   sentence-case data renders correctly in each.
+3. `listing/assets/README.md` pointed at the skill's own stale fork of
+   `check-grammar.js`, which has no brand assertions at all and would pass a
+   listing the site's gate rejects. It now points at the site's copy, with the
+   reason.
+
+**Deliberately not "corrected":** every SoftServe hex in the packaging kit is one
+channel step from the web token set (`1485C3`/`1485C4`, `F36949`/`F46A4A`,
+`26282B`/`26292B`). Those values were measured out of SoftServe's *own EMEA
+template*, so overwriting them with website values would make decks diverge from
+SoftServe's master. `.claude/references/softserve-deck-kit.md` now records both
+sets and says which to use where; the true-grey vs blue-tinted-ramp question is
+flagged there as unresolved.
+
+**Open, and bigger than a patch** — each needs an answer or a day, not an edit:
+
+- `Oracle-Packaging-Skills/docs/packaging-approach.html` is the complete retired
+  brand (Montserrat 900 uppercase, Open Sans, teal, `#0B0F14` ground). It is
+  orphaned — referenced by no doc. Re-theme or delete: Alex's call.
+- The one-pager template: uppercase section headings at `.14em`/`.20em`, a
+  bold-sans H1 where the brand display face is a serif at 400, ~12 `border-radius`
+  rules where the brand cuts corners, and the spark monogram in the CTA block.
+  Not changed blind — it is a client deliverable and needs a render check.
+- `softserve-deck-base.pptx`'s only layout forces `cap="all"` on the title. The
+  web system is sentence case throughout, but the PowerPoint template may
+  legitimately differ; needs the current template to confirm.
+- Whether the spark/comet monogram is retired for print (spec confidence: MED).
+- Whether the Lineto/Azurio licence permits embedding in a distributed PDF, now
+  that the files are in the repo.
+- Re-porting the skill's `check-grammar.js` from the site's current copy — a
+  merge, not a copy, and worth a drift check in `sync-shared.sh`.
