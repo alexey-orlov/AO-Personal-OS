@@ -6,9 +6,9 @@ window.SITE_CONTENT = {
     tagline: "AI agents and workflows on Oracle platforms",
     metaDescription: "AI agents that read your contracts, plan your field workforce and answer questions across your ERP. Built on Oracle by SoftServe, measured on your data first.",
     headerLockup: {
-      wordmark: "assets/img/softserve-wordmark-white.svg",
+      wordmark: brandAsset("ssMark", "assets/img/softserve-wordmark-white.svg"),
       wordmarkAlt: "SoftServe",
-      divider: "assets/img/header-divider-white.svg",
+      divider: brandAsset("headerDivider", "assets/img/header-divider-white.svg"),
       productName: "Oracle AI & Data Solutions"
     },
     nav: [
@@ -368,8 +368,8 @@ window.SITE_CONTENT = {
       ],
       partnerLine: "Built with",
       partners: [
-        { name: "Oracle", file: "assets/img/oracle-wordmark-white.svg", width: 139, height: 18 },
-        { name: "NVIDIA", file: "assets/img/nvidia-wordmark.svg", width: 92, height: 18 }
+        { name: "Oracle", file: brandAsset("oracleMark", "assets/img/oracle-wordmark-white.svg"), width: 139, height: 18 },
+        { name: "NVIDIA", file: brandAsset("nvidiaMark", "assets/img/nvidia-wordmark.svg"), width: 92, height: 18 }
       ],
       link: { label: "softserveinc.com", url: "https://www.softserveinc.com/en-us/about-us" }
     },

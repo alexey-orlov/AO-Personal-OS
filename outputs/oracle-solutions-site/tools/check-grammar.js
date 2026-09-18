@@ -18,7 +18,9 @@ var vm = require("vm");
 var root = path.resolve(__dirname, "..");
 var sandbox = { window: {} };
 vm.createContext(sandbox);
-["site/data/content.js", "site/data/config.js"].forEach(function (rel) {
+/* brand.js first: it defines brandAsset(), which content.js calls to resolve
+   every logo path through the active theme (site/assets/brand.js). */
+["site/assets/brand.js", "site/data/content.js", "site/data/config.js"].forEach(function (rel) {
   vm.runInContext(fs.readFileSync(path.join(root, rel), "utf8"), sandbox, { filename: rel });
 });
 

@@ -89,7 +89,7 @@
       "</div>" +
       stackLinks("upper") +
       '<div class="bo-band bo-band--softserve" aria-hidden="true">' +
-        '<p class="bo-owner"><img class="bo-owner-mark" src="assets/img/softserve-wordmark-white.svg" ' +
+        '<p class="bo-owner"><img class="bo-owner-mark" src="' + brandAsset("ssMark", "assets/img/softserve-wordmark-white.svg") + '" ' +
           'alt="" width="80" height="14" decoding="async"></p>' +
         '<ul class="bo-tiles bo-tiles--3">' + layerTiles + "</ul>" +
       "</div>" +
@@ -97,7 +97,7 @@
       '<div class="bo-band bo-band--oracle" aria-hidden="true">' +
         '<p class="bo-owner">' +
           '<span class="bo-owner-label">' + UI.esc(stack.platformsLabel) + "</span>" +
-          '<img class="bo-owner-mark" src="assets/img/oracle-wordmark-white.svg" ' +
+          '<img class="bo-owner-mark" src="' + brandAsset("oracleMark", "assets/img/oracle-wordmark-white.svg") + '" ' +
             'alt="" width="77" height="10" decoding="async">' +
         "</p>" +
         '<ul class="bo-tiles bo-tiles--4">' + platformTiles + "</ul>" +

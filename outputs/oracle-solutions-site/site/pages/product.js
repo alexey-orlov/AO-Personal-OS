@@ -3,10 +3,12 @@
 
   window.PAGES = window.PAGES || {};
 
+  /* The three stack vendors, resolved through brandAsset so a theme with a
+     light ground can swap in ink-on-white marks (assets/brand.js). */
   var VENDOR_MARK = {
-    oracle: { src: "assets/img/oracle-wordmark-white.svg", alt: "Oracle" },
-    nvidia: { src: "assets/img/nvidia-wordmark.svg", alt: "NVIDIA" },
-    softserve: { src: "assets/img/softserve-wordmark-white.svg", alt: "SoftServe" }
+    oracle: { src: brandAsset("oracleMark", "assets/img/oracle-wordmark-white.svg"), alt: "Oracle" },
+    nvidia: { src: brandAsset("nvidiaMark", "assets/img/nvidia-wordmark.svg"), alt: "NVIDIA" },
+    softserve: { src: brandAsset("ssMark", "assets/img/softserve-wordmark-white.svg"), alt: "SoftServe" }
   };
 
   var lastView = { slug: null, tab: null };
