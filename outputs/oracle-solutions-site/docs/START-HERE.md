@@ -2,7 +2,7 @@
 
 Read this page first in every new session. It holds what the site is for, the brief and the rules it is built to, how a round of work runs, and what earlier rounds learned the hard way. Detail lives in the docs mapped in §10. Keep this page current: when a requirement, rule or procedure changes, rewrite the line — never append a dated update.
 
-Current as of 2026-09-17 (after round 8 and the Internal review panel).
+Current as of 2026-09-18 (after the current-SoftServe-brand theme).
 
 ## 1. What it is
 
@@ -10,12 +10,22 @@ Current as of 2026-09-17 (after round 8 and the Internal review panel).
 - **How it is used:** Oracle and SoftServe sellers open it live on a call, and customers receive it as a link.
 - **People:** Alex owns the site and every decision on it. The person on the contact card is Karsten Tramborg (Alliances & Partnerships Director). The practice mailbox is oracle@softserveinc.com.
 - **Code:** a static, hash-routed SPA in `site/` with no build step and no framework.
+  - **Two themes share one tree.** `site/index.html` + `assets/site.css` is the original
+    near-black theme; `site/index-v2.html` + `assets/site-v2.css` is the **SS26 theme**,
+    re-skinned to the brand softserveinc.com runs today (white ground, Azurio serif over
+    Replica LL, Lviv blue with Austin orange, octagonal corner cuts). Read
+    `docs/SS26-THEME.md` before touching either. Images, renderers and copy are shared:
+    logo paths go through `assets/brand.js`, and the SS26 theme re-cases the
+    stored-capitals strings through `data/content-v2.js` rather than editing `content.js`.
   - Copy: `site/data/content.js`.
   - Switches: `site/data/config.js`.
   - Page renderers: `site/pages/`, one per page.
   - Shared UI and the router: `site/assets/app.js`.
   - Forms: `site/assets/forms.js`.
-- **Preview:** the claude.ai artifact https://claude.ai/artifact/98wafGUphFSyGSr6ctJiiN (the same artifact as https://claude.ai/code/artifact/41e4f3b6-47d9-4ef2-af99-99c40c02b89b). It is **shared with anyone who has the link**, so every publish is live at once.
+- **Preview:** two artifacts, one per theme, both **shared with anyone who has the link**, so every publish is live at once.
+  - Original theme: https://claude.ai/artifact/98wafGUphFSyGSr6ctJiiN (the same artifact as https://claude.ai/code/artifact/41e4f3b6-47d9-4ef2-af99-99c40c02b89b).
+  - SS26 theme: https://claude.ai/artifact/HTEJADBQF3ZevFPuSoTHri.
+  - Which of the two becomes the site is Alex's call and is still open.
 - **Stage:** prototype. The *Internal* button (bottom right) opens a checklist of the assumptions still to be confirmed, and it comes off before launch (§8).
 
 ## 2. The brief
@@ -92,13 +102,22 @@ These hold unless Alex changes them, and `tools/check-grammar.js` enforces most 
   - One word for one thing across the whole site.
   - No claim repeated in more than two places.
 
-**Design**
-- **Palette and type:** near-black ground with one teal accent (#35CCBA) per screen. Headlines in Montserrat 900 uppercase, body in Open Sans. 1.5 px line icons, no emoji.
-- **Layout:** at most one light band per page. Peers are equal height.
-- **Pills:** a filled navy pill is a fact; an outlined pill is a filter.
-- **Buttons and links:** an address is a link, never a filled button. A filled button is the screen's one ask.
-- **Photos:** only the top block carries a photo, and the home hero carries none.
-- **Mobile:** clean at 375, and the H1 still holds at 320.
+**Design** — the rules below hold for BOTH themes except where the SS26 column differs.
+
+| Rule | Original theme | SS26 theme (`docs/SS26-THEME.md`) |
+|---|---|---|
+| Ground | near-black, at most **one light band** per page | white, at most **one dark band** per page (`#about`, `.services-page-proof`); `#edf0f2` for cards |
+| Accent | one teal `#35CCBA` per screen | **two roles**: `#1485c4` = act on / selected, `#f46a4a` = one hero accent line per page. Facts are neutral |
+| Display type | Montserrat 900 **uppercase** | **Azurio serif, 400, sentence case**; H2-H4 in Replica 400; uppercase only as 12-16 px micro-type at +.06em |
+| Shape | radii, `9999px` pills | **octagonal `clip-path` cuts** 4/8/12 px; `border-radius: 0` but inputs (2 px) and dots |
+| Elevation | glows | **surface steps**; no shadow, no lift, no press-scale |
+| Fact vs filter pill | filled navy is a fact, outlined is a filter | filled grey is a fact, outlined is a filter, blue tint is **selected** |
+| Heading budget | H1 2-4 words, ≤ ~24 chars a line | H1 ≤ 15 chars a line × 2; product name ≤ 22 × 2; H2 ≤ 30 |
+
+Holding for both: 1.5 px line icons and no emoji · peers are equal height · an address is
+a link, never a filled button, and a filled button is the screen's one ask · only the top
+block carries a photo, and the home hero carries none · clean at 375, and the H1 still
+holds at 320.
 
 ## 5. How a round runs
 
@@ -142,8 +161,9 @@ Exact commands are in HANDOFF §4.
   - the checker prints OK;
   - the console is clean on every route;
   - `grep -ri "bosch\|riyadh\|dhl\|sbg\|logos/" site --include='*.js' --include='*.css' --include='*.html'` returns nothing. In zsh, quote the globs. If ugrep hits its complexity limit, use `/usr/bin/grep`.
-- **Publish.**
-  - Strip the nine skeleton lines from `site/index.html` into `.work/publish/index.html` (exact-line `grep -v -x -F`, HANDOFF §4).
+- **Publish** — each theme to its own artifact (§1); never cross them.
+  - Strip the nine skeleton lines from `site/index.html` (or `site/index-v2.html`) into `.work/publish/` (exact-line `grep -v -x -F`, HANDOFF §4). The two entries differ in their `<html>` line, so strip against the file you are publishing.
+  - The SS26 publish must carry `assets/fonts/*` with an explicit `contentType`, and only what its page references — nine legacy files and `assets/site.css` are deliberately absent from it.
   - Call the Artifact tool with `file_path` = that wrapper, `root` = `site`, and a `files` map of every changed or new file.
   - Then run `action: list_files` to confirm that the new files are live and that nothing is published that should not be.
 - **Refused publish** ("not built on the newer version") means another session published in between:
@@ -222,6 +242,7 @@ Exact commands are in HANDOFF §4.
 | `docs/CONFIG.md` | You touch a switch in `config.js` |
 | `docs/VISUAL-GRAMMAR.md` | You change a component or a page composition |
 | `docs/PROVENANCE.md` | You need a fact's source or a round's decisions (§18 home, §20 name, §21 and §23 Services, §24 sales kit, §25 START-HERE, Internal panel and logos). At 4,500 lines, search it; don't read it top to bottom. |
+| `docs/SS26-THEME.md` | You touch either theme: what the current SoftServe brand is, the token map, the shape and colour rules, the fonts, and what is open |
 | `docs/ASSETS.md` | You work on images, step frames or posters, and how they were made |
 | `docs/HANDOFF-workforce-demo.md`, `docs/HANDOFF-erp-qa-demo.md` | You work on a walkthrough; each is owned by its own session |
 | `.claude/references/client-documents.md` | You write marketing copy |
