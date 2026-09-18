@@ -310,85 +310,127 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 
 /* ——— buttons ———————————————————————————————————————— */
 
+/* The brand's button: uppercase Replica at +.06em, a 4px corner cut on every
+   corner, no radius and no shadow, label and icon pushed apart. Three fills:
+   blue is the action, light grey is the secondary, transparent is the quiet
+   one. The icon nudges 2px on hover. */
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: .625rem;
-  border: 1px solid transparent;
-  border-radius: var(--r-pill);
-  font-family: var(--font-body);
-  font-weight: 600;
+  gap: .5rem;
+  border: 0;
+  border-radius: 0;
+  --clip-size: var(--clip-4);
+  clip-path: polygon(
+    var(--clip-size) 0, calc(100% - var(--clip-size)) 0,
+    100% var(--clip-size), 100% calc(100% - var(--clip-size)),
+    calc(100% - var(--clip-size)) 100%, var(--clip-size) 100%,
+    0 calc(100% - var(--clip-size)), 0 var(--clip-size));
+  font-family: var(--font-sans);
+  font-weight: 400;
   font-size: 1rem;
-  line-height: 1;
-  padding: .875rem 1.75rem;
+  line-height: 1.2;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  padding: .875rem 1rem;
+  min-height: 3rem;
   cursor: pointer;
   background: none;
-  transition: background-color .25s var(--ease), color .25s var(--ease),
-              border-color .25s var(--ease), transform .25s var(--ease), box-shadow .25s var(--ease);
+  color: var(--text);
+  transition: background-color var(--dur-3) var(--ease), color var(--dur-3) var(--ease),
+              border-color var(--dur-3) var(--ease);
 }
 
-.btn:active { transform: scale(.97); }
-.btn .icon { width: 1rem; height: 1rem; flex: none; }
+.btn .icon { width: 1.25rem; height: 1.25rem; flex: none; transition: transform var(--dur-3) var(--ease); }
+.btn:hover .icon { transform: translateX(2px); }
 
 .btn--primary {
-  background: var(--panel-lightest);
-  color: var(--text-on-light);
-  font-size: 1.125rem;
-  padding: .8125rem 2.75rem;
+  background: var(--action);
+  color: #FFFFFF;
+  font-size: 1rem;
+  padding: .875rem 1.5rem;
 }
 
-.btn--primary:hover { box-shadow: 0 6px 26px rgba(241, 240, 253, .22); }
+.btn--primary:hover { background: var(--action-hover); }
+.btn--primary:active, .btn--primary:focus-visible { background: var(--action-pressed); }
 
 .btn--secondary {
-  border-color: #FFFFFF;
-  color: var(--text);
+  background: var(--secondary);
+  color: var(--text-on-light);
 }
 
-.btn--secondary:hover { background: #FFFFFF; color: var(--text-on-light); }
+.btn--secondary:hover { background: var(--secondary-hover); }
+.btn--secondary:active, .btn--secondary:focus-visible { background: var(--secondary-pressed); }
 
+/* The quiet one: no fill at rest, the secondary's grey on hover. */
 .btn--quiet {
-  border-color: var(--border);
-  color: var(--text);
-  font-weight: 400;
+  background: none;
+  color: var(--text-on-light);
+  box-shadow: inset 0 0 0 1px var(--border);
 }
 
-.btn--quiet:hover { border-color: var(--text); background: rgba(255, 255, 255, .05); }
+.btn--quiet:hover { background: var(--secondary-hover); }
+.btn--quiet:active { background: var(--secondary-pressed); }
 
+/* Was the near-black button for the one light band. With the ground inverted
+   there is one action colour, so this is the primary under another name. */
 .btn--dark {
-  background: #101418;
-  color: var(--panel-lightest);
-  padding: .8125rem 2rem;
+  background: var(--action);
+  color: #FFFFFF;
+  padding: .875rem 1.5rem;
 }
 
-.btn--dark:hover { background: #000000; }
+.btn--dark:hover { background: var(--action-hover); }
+.btn--dark:active { background: var(--action-pressed); }
 
 .btn--mail {
-  border-radius: var(--r-md);
-  border-color: var(--border-subtle);
-  color: var(--text);
-  padding: .75rem 1.25rem;
-  font-size: 1rem;
+  background: var(--secondary);
+  color: var(--text-on-light);
+  padding: .875rem 1.25rem;
 }
 
-.btn--mail:hover { border-color: var(--text); }
+.btn--mail:hover { background: var(--secondary-hover); }
 
-.btn--sm { font-size: var(--fs-sm); padding: .625rem 1.25rem; }
+/* On the one dark band, the grey secondary would sink into the ground. */
+.on-dark .btn--secondary, .on-dark .btn--mail {
+  background: rgba(255, 255, 255, .14);
+  color: var(--text-on-dark);
+}
 
+.on-dark .btn--secondary:hover, .on-dark .btn--mail:hover { background: rgba(255, 255, 255, .24); }
+.on-dark .btn--quiet { color: var(--text-on-dark); box-shadow: inset 0 0 0 1px var(--border-on-dark); }
+.on-dark .btn--quiet:hover { background: rgba(255, 255, 255, .12); }
+
+.btn--sm {
+  font-size: var(--fs-xs);
+  letter-spacing: .06em;
+  padding: .625rem .75rem;
+  min-height: 2.25rem;
+}
+
+.btn--sm .icon { width: .6875rem; height: .6875rem; }
+
+/* The arrow link: sentence case, the action blue, an 8px slide on hover. */
 .link-arrow {
   display: inline-flex;
   align-items: center;
   gap: .5rem;
-  font-size: var(--fs-sm);
-  font-weight: 600;
-  color: var(--text);
-  border-bottom: 1px solid transparent;
-  transition: color .25s var(--ease), border-color .25s var(--ease), gap .25s var(--ease);
+  font-family: var(--font-sans);
+  font-size: 1.125rem;
+  line-height: 1.2;
+  font-weight: 400;
+  letter-spacing: 0;
+  color: var(--action);
+  border-bottom: 0;
+  transition: color var(--dur-2) var(--ease);
 }
 
-.link-arrow .icon { width: .875rem; height: .875rem; }
-.link-arrow:hover { color: var(--accent); border-bottom-color: var(--accent); gap: .75rem; }
-.link-arrow:active { transform: scale(.97); }
+.link-arrow .icon { width: 1rem; height: 1rem; transition: transform var(--dur-2) var(--ease); }
+.link-arrow:hover { color: var(--action-hover); }
+.link-arrow:hover .icon { transform: translateX(8px); }
+.on-dark .link-arrow { color: #7FC4EA; }
+.on-dark .link-arrow:hover { color: #C1DFF4; }
 
 .cta-row {
   display: flex;
@@ -406,22 +448,34 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
   border: 0;
   cursor: pointer;
   padding: 0;
-  transition: opacity .25s var(--ease);
+  transition: color var(--dur-2) var(--ease);
 }
 
-.icon-btn:hover { opacity: .8; }
-.icon-btn:active { transform: scale(.97); }
+.icon-btn:hover { color: var(--action); }
 
+/* A circle is not in this system: the icon frame is a square with a 4px cut. */
 .icon-btn .icon-circle {
-  width: 3.5rem;
-  height: 3.5rem;
-  border: 1px solid var(--panel-lightest);
-  border-radius: var(--r-pill);
+  width: 3rem;
+  height: 3rem;
+  border: 0;
+  background: var(--secondary);
+  border-radius: 0;
+  --clip-size: var(--clip-4);
+  clip-path: polygon(
+    var(--clip-size) 0, calc(100% - var(--clip-size)) 0,
+    100% var(--clip-size), 100% calc(100% - var(--clip-size)),
+    calc(100% - var(--clip-size)) 100%, var(--clip-size) 100%,
+    0 calc(100% - var(--clip-size)), 0 var(--clip-size));
   display: inline-flex;
   align-items: center;
   justify-content: center;
   flex: none;
+  transition: background-color var(--dur-2) var(--ease);
 }
+
+.icon-btn:hover .icon-circle { background: var(--secondary-hover); }
+.on-dark .icon-btn { color: var(--text-on-dark); }
+.on-dark .icon-btn .icon-circle { background: rgba(255, 255, 255, .14); }
 
 .icon { width: 1.125rem; height: 1.125rem; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
 .icon--solid { fill: currentColor; stroke: none; }
