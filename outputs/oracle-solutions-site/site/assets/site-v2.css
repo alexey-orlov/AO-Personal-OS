@@ -2506,27 +2506,40 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
   .services-engage .ladder3-body { max-width: 44rem; }
 }
 
-/* ——— services: the proof of value — light band and panels (round 7) ——— */
+/* ——— services: the proof of value — the page's one dark band ——— */
 
 /* The two panels answer "what does it cost me" in kind, not in money, directly
-   under the band that states the duration. */
+   under the band that states the duration. This screen is the Services page's
+   one inversion, as #about is the home page's. */
+.services-page-proof {
+  background: var(--surface-dark);
+  color: var(--text-on-dark);
+  border-top: 0;
+}
+
+.services-page-proof .eyebrow { color: rgba(232, 232, 232, .72); }
 .services-pov-panels { margin-top: clamp(1rem, 2vw, 1.5rem); }
+.services-pov-panels .way { background: var(--surface-dark-raised); }
+.services-pov-panels .way:hover, .services-pov-panels .way:focus-within { background: var(--surface-dark-hover); }
+.services-pov-panels .way-title, .services-pov-panels .way-body { color: var(--text-on-dark); }
+.services-pov-panels .way-body { color: var(--text-on-dark-soft); }
+.services-pov-panels.ways { background: var(--border-on-dark); }
 
 .proof-stat { display: flex; flex-direction: column; gap: .625rem; }
 /* One figure, so it is set as the band's anchor rather than a tile in a grid. */
 .proof-stat .about-stat-value { font-size: clamp(2.75rem, 4.4vw, 4rem); }
-.proof-stat-label { max-width: 32rem; font-size: 1rem; font-weight: 400; line-height: 1.5; color: var(--text-on-light); }
+.proof-stat-label { max-width: 32rem; font-size: var(--fs-sm); font-weight: 400; line-height: 1.35; color: var(--text-on-dark); }
 .proof-link { line-height: 1.6; }
 .proof-link .band-link {
   display: inline;
   border-bottom: 0;
-  text-decoration: underline 1px rgba(7, 9, 13, .5);
+  text-decoration: underline 1px rgba(255, 255, 255, .45);
   text-underline-offset: .3em;
   transition: text-decoration-color var(--t-base) var(--ease);
 }
-.proof-link .band-link:hover, .proof-link .band-link:focus-visible { text-decoration-color: var(--text-on-light); }
+.proof-link .band-link:hover, .proof-link .band-link:focus-visible { text-decoration-color: var(--text-on-dark); }
 .proof-link .band-link .icon { display: inline-block; margin-left: .5rem; vertical-align: -.0625rem; }
-.proof-note { max-width: 32rem; font-size: var(--fs-sm); font-weight: 300; line-height: 1.6; color: var(--text-on-light-soft); }
+.proof-note { max-width: 32rem; font-size: var(--fs-xs); font-weight: 300; line-height: 1.5; color: rgba(232, 232, 232, .72); }
 
 /* ——— services: platform cards ————————————————————————— */
 
