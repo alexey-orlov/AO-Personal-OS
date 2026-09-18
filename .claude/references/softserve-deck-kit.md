@@ -30,6 +30,17 @@ folder are content decks, not templates.
 
 ## Brand tokens
 
+> **Deck values vs web values (2026-09-18).** The hexes below were measured out of
+> SoftServe's own EMEA template, and softserveinc.com's live token set is **one channel
+> step away** on three of them: action blue `1485C3` here vs `1485C4` on the web, accent
+> orange `F36949` vs `F46A4A`, ink `26282B` vs `26292B`. Keep the template's values for
+> deck work — fidelity to SoftServe's own master beats fidelity to the website — and use
+> the web set for anything rendered in a browser. The full measured web token set is in
+> `outputs/oracle-solutions-site/docs/SS26-THEME.md` §3. The template's neutral greys
+> (`808080`, `DCDCDC`, `595959`) are true greys, while the web ramp is blue-tinted
+> (`f7f9fa → edf0f2 → e1e7eb → d1dae2 → bdcbd7 → 97a2ac → 717a81 → 4c5156 → 26292b`) —
+> **unresolved**, and worth one look at the current template before the next deck.
+
 - Colors: accent orange `F36949` · label grey `808080` · hairline rules `DCDCDC` ·
   footnote text `595959` · body black `000000`.
 - Fonts: titles `+mj-lt` (= Azurio; keep the theme reference, don't hardcode) · body
