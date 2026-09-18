@@ -156,6 +156,7 @@ context/areas/softserve/docs/2026-09-17_packaging-skills-prep/B-artifact-compone
 context/areas/softserve/docs/2026-09-17_packaging-skills-prep/C-vlad-feedback.md
 context/areas/softserve/docs/2026-09-17_packaging-skills-prep/D-context-inventory.md
 context/areas/softserve/docs/2026-09-17_packaging-skills-prep/HANDOFF-july-wfo-sessions.md
+context/areas/softserve/docs/2026-09-17_packaging-skills-prep/decisions-2026-09-18.md
 context/areas/softserve/docs/2026-09-17_packaging-skills-prep/vlad-2026-07-24-transcript-partial.md
 context/areas/softserve/docs/conga-ai-pm-bootcamp-transcript.md
 context/areas/softserve/docs/oracle-packages-tshirt-sizing.md
