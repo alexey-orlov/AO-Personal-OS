@@ -2968,7 +2968,7 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
   color: var(--text-dim);
 }
 
-.bo-owner-mark { height: .75rem; width: auto; opacity: .9; }
+.bo-owner-mark { height: .75rem; width: auto; opacity: 1; }
 
 .bo-tiles { display: grid; gap: .4rem; grid-auto-rows: 1fr; flex: 1; }
 .bo-tiles--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
@@ -3337,45 +3337,49 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 
 /* ——— S6: who builds it ——— */
 
-/* The page's one inversion. The partner wordmarks are white, so they sit on a
-   navy strip inside the light panel rather than on the panel itself — and navy
-   is the surface a stated fact carries everywhere else on the site. */
+/* The page's one inversion, now the other way round: this screen is the one
+   full-bleed black band, so the partner wordmarks sit on the band itself and
+   need no strip of their own. */
 
 /* A screen of the seven, not a sub-block of one: its title is read at the same
    size as every other screen's H2. */
-#about .band-title { font-size: clamp(1.75rem, 2.6vw, 2.25rem); }
+#about { background: var(--surface-dark); color: var(--text-on-dark); border-top: 0; }
+#about .band-title { font-size: var(--fs-h3); }
+#about .eyebrow { color: rgba(232, 232, 232, .72); }
+#about .body-text, #about .lead { color: var(--text-on-dark-soft); }
 
 .about-stats { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
 .about-stat { padding: 1.125rem 1.25rem; min-width: 0; }
 .about-stat:nth-child(-n + 2) { padding-top: 0; }
 .about-stat:nth-child(odd) { padding-left: 0; }
-.about-stat:nth-child(even) { border-left: 1px solid rgba(7, 9, 13, .16); }
-.about-stat:nth-child(n + 3) { border-top: 1px solid rgba(7, 9, 13, .16); }
+.about-stat:nth-child(even) { border-left: 1px solid var(--border-on-dark); }
+.about-stat:nth-child(n + 3) { border-top: 1px solid var(--border-on-dark); }
 
 .about-stat-value {
   font-family: var(--font-display);
   font-weight: 400;
   font-size: clamp(1.75rem, 2.4vw, 2.5rem);
   line-height: 1;
-  letter-spacing: -.02em;
-  color: var(--text-on-light);
+  letter-spacing: 0;
+  font-variant-numeric: lining-nums tabular-nums;
+  color: var(--text-on-dark);
 }
 
 .about-stat-label {
   margin-top: .5rem;
   font-size: var(--fs-xs);
-  font-weight: 500;
+  font-weight: 400;
   letter-spacing: .06em;
   text-transform: uppercase;
   line-height: 1.4;
-  color: #4E6076;
+  color: rgba(232, 232, 232, .72);
 }
 
 .about-partners {
   margin-top: .5rem;
-  background: var(--surface-fact);
-  border-radius: 0;
-  padding: .875rem 1.125rem;
+  background: none;
+  border-top: 1px solid var(--border-on-dark);
+  padding: 1rem 0 0;
   display: flex;
   align-items: center;
   gap: 1.25rem;
@@ -3384,14 +3388,16 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 
 .about-partners-label {
   font-size: var(--fs-xs);
-  font-weight: 500;
+  font-weight: 400;
   letter-spacing: .06em;
   text-transform: uppercase;
-  color: var(--text-muted);
+  color: rgba(232, 232, 232, .72);
 }
 
 .about-partner-marks { display: flex; align-items: center; flex-wrap: wrap; gap: 1.5rem; margin-left: auto; }
-.about-partner-mark { height: 1.125rem; width: auto; }
+/* The theme serves ink wordmarks for the white page; on this black band they
+   invert back to white rather than carrying a second file. */
+.about-partner-mark { height: 1.125rem; width: auto; filter: invert(1); }
 
 @media (max-width: 560px) {
   .about-partner-marks { margin-left: 0; }
