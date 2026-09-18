@@ -2,7 +2,7 @@
 
 _status: live theme — founder playbooks for building in atoms rather than bits: hard-tech durability, deep-tech operating cadence, industrial-scale/regulatory transformation_
 _slug: deep-tech-and-industrial-founders_
-_updated: 2026-08-25 · 10 insights from 7 episodes_
+_updated: 2026-09-18 · 12 insights from 8 episodes_
 
 ## The throughline
 Deep-tech and industrial founders face a different operating physics than software founders: durability requires a genuinely hard core — regulatory licenses, hardware physics, brutal B2B sales (Hodak) — that pure software can't fake, and that hard core demands its own operating cadence: fast iteration loops (Hodak's weekly-learning-rate rule) paired with purpose-built purchasing and budgeting infrastructure, because deep-tech teams buy thousands of physical things and naive expense controls either waste time or quietly blow through runway. Kalanick's arc across CloudKitchens/Adams shows the playbook this cadence enables: build in stealth to preserve internal focus while iterating on hard problems, pick an industry beachhead and dominate it before expanding horizontally and vertically, then expect and out-execute the social and political resistance — the 'final boss' — that industrial-scale transformation always provokes. Huang's Nvidia story and Boom's near-death persistence add the founder-character layer underneath all of this: technological leadership can be learned fast from fundamentals rather than credentialed in advance, and vertical integration (Boom's Superpower turbine spin-out, StarCloud's earliest-launch forcing function) can fund or de-risk the multi-year R&D runway hard tech requires — provided the mission is worth outlasting the worst days for.
@@ -57,6 +57,15 @@ Kalanick warns that the biggest barrier to industrial transformation is social a
 — a16z · 2026-08-14 · guest: Travis Kalanick · [▶ 14:54](https://www.youtube.com/watch?v=r8qKNFeBPXE&t=894) · `pi-r8qKNFeBPXE-05`
 related: [Stealth preserves internal focus and prevents external distraction](#stealth-preserves-internal-focus-and-prevents-external-distraction) (same Kalanick playbook, opposite tactic — staying invisible during buildup vs. this insight's rule for confronting resistance once you're visible)
 
+### AGI is accelerating deep‑tech startups and changing economics
+Powerful generative models and code‑generation are lowering the software labor barrier for hardware startups, so projects that once needed hundreds of elite engineers can be built with small, highly technical teams. Evidence: the batch now includes many more PhD founders (about one in six), and categories like silicon photonics, custom processors, and space hardware have grown several‑fold in share. The net effect is faster research cycles, earlier breakthroughs, and a reallocation of VC capital back into hard tech.
+— Y Combinator · 2026-09-17 · guest: — · [▶ 3:13](https://www.youtube.com/watch?v=yslXlV2BP_Y&t=193) · `pi-yslXlV2BP_Y-01`
+related: [Compute, power, and metal are now major startup opportunities](#compute-power-and-metal-are-now-major-startup-opportunities) (same panel, the concrete category-level evidence behind this PhD-founder/hard-tech-share claim)
+
+### Compute, power, and metal are now major startup opportunities
+Rising AI demand has made physical infrastructure — data centers, power solutions, metal manufacturing — a fast‑growing startup category because legacy suppliers can't scale to new speed/volume needs. Concrete indicators: GPUs (A100/H100) are appreciating rather than depreciating due to demand; startups like Dipole Labs (optical switches), Lamb Labs and Bot (new processors/architectures), Exosat (sovereign satellite networks), and Nox Metals (reshoring metal manufacturing) are examples filling bottlenecks. These are capital‑intensive, high‑growth opportunities that span construction, power/battery systems, interconnect, and core silicon.
+— Y Combinator · 2026-09-17 · guest: — · [▶ 2:56](https://www.youtube.com/watch?v=yslXlV2BP_Y&t=176) · `pi-yslXlV2BP_Y-03`
+
 ## Related themes
 - [Founders & fundraising](founders-and-fundraising.md) — parent theme; split off 2026-08-25. General founding, YC-style playbooks, and capital-raising threads stay there; this page holds only the hard-tech/industrial-transformation founder playbook.
 
@@ -68,3 +77,4 @@ related: [Stealth preserves internal focus and prevents external distraction](#s
 - [Y Combinator — Building the First Data Centers in Space (2026-08-05)](../episodes/2026/2026-08-05--yc--building-the-first-data-centers-in-space.md)
 - [Y Combinator — Max Hodak: What Really Kills Deep Tech Startups? (2026-08-07)](../episodes/2026/2026-08-07--yc--max-hodak-what-really-kills-deep-tech-startups.md)
 - [a16z — Travis Kalanick on Building Atoms After Uber (2026-08-14)](../episodes/2026/2026-08-14--a16z--travis-kalanick-building-atoms-after-uber.md)
+- [Y Combinator — The State of Startups in 2026 (2026-09-17)](../episodes/2026/2026-09-17--yc--state-of-startups-in-2026.md)
