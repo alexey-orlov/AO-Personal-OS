@@ -4597,3 +4597,143 @@ Published as **version 38**, `data/content.js` only. Git showed no other change 
 
 **Open for Alex:** the footer is now the only permanent entry to the all-offers kit. If sellers should find it without scrolling, the home page or the Products page could carry a quiet link.
 
+
+## 27. The current-SoftServe-brand theme, shipped beside the old one, 2026-09-18
+
+**The ask** (Alex): migrate the site's styles to SoftServe's current styles,
+using softserveinc.com and its pages as the reference, thoroughly; replace the
+logo and the fonts; QA the updated layout; decide where Fable helps and use it;
+**keep the current version working and create the new styles as a new version**.
+
+Mid-task he lifted one constraint: "licensing issue is off, I'm SoftServe
+employee and building for SoftServe, so we can use those fonts."
+
+### 27.1 The finding that set the scope
+
+SoftServe has been redesigned, and every premise the old theme rests on is gone:
+the display face is now a **serif** (Azurio, weight 400, sentence case) over a
+grotesque (Replica LL), the teal `#35CCBA` has been replaced by a two-role pair
+(`#1485c4` action, `#f46a4a` accent), the ground is white with pure black as a
+band, and corners are **octagonal `clip-path` cuts**, not radii. `35ccba` does
+not occur in 200 KB of their CSS or in any of their 96 `:root` tokens.
+
+This was measured, not inferred: an Opus research pass read their stylesheets and
+`@font-face` rules, dumped the token set, and recorded computed styles at 1440
+and 375 (`scratchpad/softserve-brand-spec.md`, 1,274 lines). The display face is
+the finding most easily missed — `--font-display` lists *sans* fallbacks, but
+`document.fonts.check` returns true for Azurio and it renders with bracketed
+serifs and marked stroke contrast.
+
+### 27.2 The split of work
+
+| Step | Model | What |
+|---|---|---|
+| Brand measurement | Opus | softserveinc.com's tokens, type scale, components, layout, motion, the wordmark SVG |
+| Type specimen | Opus | downloaded the five licensed faces, rendered them against Newsreader / Source Serif 4 / Literata / Spectral / Instrument Serif and Archivo / Inter / Chivo / Space Grotesk at matched sizes |
+| **Design translation** | **Fable** | one pass: the token map, the ground plan, the blue/orange rule, the shape policy, the case and heading budget, the header and footer calls, the risk list (`scratchpad/ss26-design-decisions.md`, 540 lines) |
+| Copy re-casing | Opus | `data/content-v2.js` — 45 stored-capitals strings to sentence case, as an overlay, leaving `content.js` byte-identical |
+| Build, QA, publish, docs | Opus | the stylesheet, the entry, the marks, the checker block, the sweep, this record |
+
+Fable made the decisions and nothing else, per the model-routing rule. Its §1
+was revised in flight when the licensing constraint lifted: the free faces it
+had picked on canvas metrics (Literata at 778 px against Azurio's 784 px;
+Archivo at 765 px against Replica's 750 px) were demoted to a recorded
+second choice, the real faces became primary, and its planned per-family metric
+corrections were dropped so the brand's measured numbers apply literally.
+
+### 27.3 How two versions coexist
+
+One tree, two entries. Nothing was duplicated: 8 MB of images, five page
+renderers and 190 KB of copy are shared.
+
+- `site/index-v2.html` + `site/assets/site-v2.css` are the new version;
+  `site/index.html` + `site/assets/site.css` are unchanged.
+- `site/assets/brand.js` is a new eight-line indirection. `brandAsset(key,
+  fallback)` returns the active theme's mark when the theme declares one and the
+  original otherwise; `index-v2.html` sets `window.BRAND` before the data and
+  page scripts load, and `index.html` sets nothing, so every fallback wins and
+  the old version does not move. Five logo paths in `content.js`, `app.js`,
+  `product.js` and `overview.js` now go through it. `tools/check-grammar.js`
+  loads `brand.js` into its sandbox first for the same reason.
+- `site/data/content-v2.js` re-cases 45 strings at load time, carrying each
+  expected old value so a later edit to `content.js` surfaces as a warning
+  instead of a silent stale patch. `content.js` itself is untouched — verified at
+  commit level, not just in the working tree.
+- The old version's uppercase strings still render as capitals there, because
+  its CSS uppercases them; the overlay only changes what the new version reads.
+
+### 27.4 What was built
+
+Detail in `docs/SS26-THEME.md`. In brief: a new `:root` on the brand's measured
+tokens; the whole heading ladder to sentence case at weight 400 with the serif on
+H1 only; one grouped `clip-path` rule with `--cut` per component and the shape on
+`::before` for everything pressable; the button system rebuilt (blue primary,
+grey secondary, white inverse on the dark band, no outline variant, because the
+brand has none); chips, badges, tabs, segments and rail options on the blue tint
+for "selected"; the 50 px solid-white header; the black footer under a `#edf0f2`
+spacer band with an Azurio 32 px column heading; `#about` and
+`.services-page-proof` inverted to the one black band per page; both photo hero
+veils flipped to white; every glow, shadow and press-scale deleted.
+
+The 2026 wordmark was rebuilt from the SVG served on softserveinc.com (viewBox
+`0 0 1010 173`, nine glyph paths, no fills) in ink and white, plus ink versions
+of the Oracle and NVIDIA marks for the white page — the footer inverts them back
+with `filter: invert(1)` rather than carrying a second file. The favicon is the
+wordmark's S, white in a Lviv-blue octagon; the old teal spark is retired with
+the teal.
+
+**Nine new checker assertions** in `tools/check-grammar.js` keep the theme from
+being quietly undone: no teal, no heading weight the brand lacks, no retired
+radius token, orange spent at most three times, the five fonts present and
+declared, the overlay loaded in the right order, `data-theme="light"`, a white
+`theme-color`, no webfont service, and every re-casing still matching.
+
+### 27.5 QA
+
+The Browser pane stopped displaying partway through, so layout QA moved to a JS
+probe run over nine routes at six widths: horizontal overflow, the effective
+contrast of every text leaf against its real background, resolved font families,
+H1 line counts and broken images. Two probe generations were needed — the first
+read every clipped button as white-on-white, because the fill sits on `::before`.
+
+Result: **no overflow and no contrast failure at 1440, 1280, 1024, 768, 375 or
+320**, console clean on every route in a fresh tab, checker OK, deny-list grep
+clean. Three real defects were found and fixed along the way:
+
+1. `font-variant-numeric: tabular-nums` gave Azurio's comma a full digit advance,
+   printing "1 , 000+". Display figures now take `lining-nums` only.
+2. The Services proof panels put `#26292b` body text on the `#1a1a1a` panel —
+   near-black on near-black. Everything inside that band now inverts.
+3. `#717a81` fails AA at 12 px on white (4.37) and on `#e1e7eb` (3.50). Every
+   label step moved to neutral-700 `#4c5156`.
+
+The previous version was re-checked after the shared-file edits: dark ground,
+Montserrat 900 uppercase, Open Sans body, white marks resolving, `window.BRAND`
+empty, no overlay. Unchanged.
+
+### 27.6 Published
+
+New artifact, **https://claude.ai/artifact/HTEJADBQF3ZevFPuSoTHri** — 101 files,
+8.3 MB. The existing artifact (98wafGUphFSyGSr6ctJiiN) was not touched.
+
+`action: list_files` confirms no customer logo ever reached it, and the five
+fonts are live with the right media types. Verified in a signed-in browser that
+Azurio renders from the artifact's own origin — single-storey `g`, open hook
+descender, fine serifs — so the artifact CSP serves same-origin fonts and the
+Georgia fallback is not in play.
+
+Nine legacy files and `assets/site.css` are deliberately **not** published on
+this artifact: it publishes only what the SS26 page references, which is the
+version-36 lesson (§25) applied up front rather than after the fact.
+
+### 27.7 Open for Alex
+
+- **The home H1** is eight words and needs a 2–4-word re-cut to take the brand's
+  96 px step; until then it is held at 64 px and runs three lines. Four home H2s
+  were already over the owner's word count before this pass; the change of face
+  makes them read calmer, not shorter.
+- **The primary button's label is 4.05:1** — SoftServe's own pairing of white on
+  `#1485c4` at 16 px. Kept for fidelity. `--action: #0e5e8b` is the one-line fix
+  if AA matters more than the exact brand blue.
+- **The three walkthroughs are still dark** and open from a white page.
+- Whether the new version replaces the old one, or both stay live.
