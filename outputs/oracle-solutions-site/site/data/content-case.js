@@ -1,5 +1,5 @@
 /**
- * content-v2.js — sentence-case overlay for the SS26 theme.
+ * content-case.js — sentence-case overlay for the live theme.
  *
  * data/content.js is shared by both themes and must keep rendering the old
  * theme exactly as it does today, so a handful of strings stay stored in
@@ -8,7 +8,7 @@
  * and CSS cannot get there on its own — text-transform: lowercase would
  * wreck AI, ERP, Q&A, OCI — so this file patches those strings at load time.
  *
- * Loaded by index-v2.html directly AFTER data/content.js and BEFORE the page
+ * Loaded by index.html directly AFTER data/content.js and BEFORE the page
  * renderers, which only ever read window.SITE_CONTENT. The default theme
  * (index.html) does not load it, so nothing there moves.
  *
@@ -121,7 +121,7 @@
 
   function warn(message, path) {
     if (window.console && window.console.warn) {
-      window.console.warn("content-v2: " + message + ": " + path);
+      window.console.warn("content-case: " + message + ": " + path);
     }
   }
 
