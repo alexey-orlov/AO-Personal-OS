@@ -4737,3 +4737,44 @@ version-36 lesson (§25) applied up front rather than after the fact.
   if AA matters more than the exact brand blue.
 - **The three walkthroughs are still dark** and open from a white page.
 - Whether the new version replaces the old one, or both stay live.
+
+### 27.8 Made the default, 2026-09-18 (Alex)
+
+> "ok; we keep than this new version as default, previous remains as archived old one."
+
+The names now say which is which. `git mv` throughout, so history follows:
+
+| Was | Is |
+|---|---|
+| `site/index-v2.html` | `site/index.html` |
+| `site/index.html` (dark) | `site/index-legacy.html` |
+| `site/assets/site-v2.css` | `site/assets/site.css` |
+| `site/assets/site.css` (dark) | `site/assets/site-legacy.css` |
+| `site/data/content-v2.js` | `site/data/content-case.js` |
+| `site/assets/img/v2/` | `site/assets/img/brand/` |
+
+`index-legacy.html` carries a comment at the top saying what it is. Its
+`document.title` still reads without an "archived" suffix because the router
+sets the title per route from `content.js`; the source comment is the marker.
+
+The checker's brand block now asserts against the live names, and gained three
+assertions that keep the archive runnable: it must load `site-legacy.css`, must
+**not** load the sentence-case overlay (it is the uppercase theme), and its
+stylesheet must exist.
+
+**Artifacts.** The site's artifact (HTEJADBQF3ZevFPuSoTHri) was republished from
+the renamed files, with the six `assets/img/v2/*` paths, `assets/site-v2.css` and
+`data/content-v2.js` mapped to `null` so the old paths do not linger —
+`list_files` shows 101 entries and no `v2` anywhere. The old artifact
+(98wafGUphFSyGSr6ctJiiN) is **left frozen** as the archive: it was published
+before this pass, so its copy of the shared renderers predates `brand.js` and is
+internally consistent. Re-publishing it would only introduce drift.
+
+**Open:** 98waf is the URL that has been in circulation, and it now shows the
+archive. If the circulating link should show the current site, the two artifacts
+have to be swapped. Alex's call; flagged, not done.
+
+Both entries were re-verified after the rename: `index.html` white ground,
+Azurio, sentence case, brand marks, 45 overrides applied; `index-legacy.html`
+near-black, Montserrat 900 uppercase, Open Sans, white marks, no overlay. No 4xx
+on either, no overflow on any of the eight routes at 1440.
