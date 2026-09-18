@@ -1677,7 +1677,7 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
   font-size: clamp(1.25rem, 2.2vw, 1.75rem);
   line-height: 1.35;
   color: var(--text);
-  border-left: 2px solid var(--accent);
+  border-left: 2px solid var(--border);
   padding-left: clamp(1.25rem, 2.5vw, 2rem);
   max-width: 54rem;
 }
@@ -2263,7 +2263,7 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
   align-self: flex-start;
   margin-top: .375rem;
   font-size: var(--fs-sm);
-  color: var(--accent);
+  color: var(--action);
   border-bottom: 1px solid transparent;
 }
 
@@ -2592,7 +2592,7 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 .method-lead { max-width: 46rem; }
 
 .method-stat {
-  border-left: 2px solid var(--accent);
+  border-left: 2px solid var(--action);
   padding: .125rem 0 .125rem 1.25rem;
 }
 
@@ -2601,8 +2601,8 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
   font-weight: 400;
   font-size: clamp(1.75rem, 3vw, 2.25rem);
   line-height: 1;
-  letter-spacing: -.02em;
-  color: var(--accent);
+  letter-spacing: 0;
+  color: var(--text);
 }
 
 .method-stat-label { margin-top: .5rem; font-size: var(--fs-xs); line-height: 1.55; color: var(--text-note); }
@@ -2714,7 +2714,7 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 .tl-node::before { content: ""; position: absolute; left: .3125rem; top: .875rem; bottom: 0; width: 1px; background: var(--decor-dim); }
 .tl-node:last-child::before { display: none; }
 .tl-mark { position: absolute; left: 0; top: .3125rem; width: .6875rem; height: .6875rem; border-radius: 50%; background: var(--action); }
-.tl-label { font-size: var(--fs-xs); letter-spacing: .06em; text-transform: uppercase; font-weight: 500; color: var(--accent); }
+.tl-label { font-size: var(--fs-xs); letter-spacing: .06em; text-transform: uppercase; font-weight: 400; color: var(--text-dim); }
 .tl-text { margin-top: .375rem; font-size: var(--fs-sm); line-height: 1.6; color: var(--text-body); }
 
 /* the investment card — the figures and their one footnote, in one block */
@@ -3079,9 +3079,9 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
   width: 2.5rem;
   height: 2.5rem;
   flex: none;
-  border-radius: 0;
-  border: 1px solid var(--border);
-  color: var(--accent);
+  --cut: var(--cut-4);
+  background: var(--surface-select);
+  color: var(--action-pressed);
 }
 
 .way-mark .icon { width: 1.25rem; height: 1.25rem; }
