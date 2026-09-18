@@ -6,9 +6,9 @@
   /* The three stack vendors, resolved through brandAsset so a theme with a
      light ground can swap in ink-on-white marks (assets/brand.js). */
   var VENDOR_MARK = {
-    oracle: { src: brandAsset("oracleMark", "assets/img/oracle-wordmark-white.svg"), alt: "Oracle" },
-    nvidia: { src: brandAsset("nvidiaMark", "assets/img/nvidia-wordmark.svg"), alt: "NVIDIA" },
-    softserve: { src: brandAsset("ssMark", "assets/img/softserve-wordmark-white.svg"), alt: "SoftServe" }
+    oracle: { src: window.brandAsset("oracleMark", "assets/img/oracle-wordmark-white.svg"), alt: "Oracle" },
+    nvidia: { src: window.brandAsset("nvidiaMark", "assets/img/nvidia-wordmark.svg"), alt: "NVIDIA" },
+    softserve: { src: window.brandAsset("ssMark", "assets/img/softserve-wordmark-white.svg"), alt: "SoftServe" }
   };
 
   var lastView = { slug: null, tab: null };
