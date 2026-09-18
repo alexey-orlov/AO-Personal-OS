@@ -1,7 +1,7 @@
 /**
  * brand.js — one indirection for the brand marks, so a theme can swap them.
  *
- * Loaded FIRST, before data/ and pages/. A theme entry (index-v2.html) sets
+ * Loaded FIRST, before data/ and pages/. A theme entry (index.html) sets
  * window.BRAND before this file runs; every logo path in the tree goes through
  * brandAsset(key, fallback), which returns the theme's file when the theme
  * declares one and the original dark-theme file otherwise. The default theme

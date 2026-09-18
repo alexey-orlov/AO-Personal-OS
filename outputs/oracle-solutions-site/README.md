@@ -6,7 +6,7 @@ The site is named **Oracle AI & Data Solutions** (renamed by Alex on 2026-09-16;
 
 **New session? Start with [`docs/START-HERE.md`](docs/START-HERE.md)** — the brief, the rules, how a round runs, and what earlier rounds learned.
 
-Static site. No build step, no framework, no package manager: plain HTML, CSS and vanilla JavaScript, rendered client-side by a hash router. It runs from a `file://` path, from any static host, and as a multi-file artifact. The only external resource is Google Fonts (Montserrat + Open Sans); everything else is local.
+Static site. No build step, no framework, no package manager: plain HTML, CSS and vanilla JavaScript, rendered client-side by a hash router. It runs from a `file://` path, from any static host, and as a multi-file artifact. **There are no external resources at all**: the brand faces are self-hosted in `assets/fonts/`, and everything else is local.
 
 ---
 
@@ -208,7 +208,7 @@ Notes that matter in production:
 
 - **Serve over HTTPS.** The forms post from the browser; mixed content will be blocked.
 - **Do not deploy `docs/`.** It is internal.
-- **Google Fonts must be reachable.** If the target network blocks it, self-host the two families into `assets/` and change the `<link>` in `index.html`; the CSS already falls back to system faces.
+- **Nothing to unblock.** No webfont service is contacted: `assets/fonts/` holds the five licensed faces, and the CSS falls back to metric-matched system faces if one fails to load.
 - **Caching:** `index.html` should be served with a short cache lifetime, `assets/` and `data/` can be cached longer — but remember that `config.js` and `content.js` are how the site is edited, so do not put them behind a year-long cache.
 - **Add `<meta property="og:url" content="…">`** to `index.html` once the final address is known; the other OpenGraph and Twitter tags are already there (title, description, site name, type — no image).
 
@@ -216,12 +216,12 @@ Notes that matter in production:
 
 ## Conventions worth keeping
 
-- **One accent.** Teal `#35CCBA` on near-black `#131313`, and the accent carries the first word of each headline. Nothing else competes.
-- **Filled navy pill = a fact** (category, platform, availability, marketplace). **Outlined pill = a filter you can toggle.** Never mix the two meanings.
+- **Two colour roles, not one.** `#1485c4` is what you act on or what is selected; `#f46a4a` is the accent line of a hero H1, once per page, and never on a control. Facts are neutral. (Until 2026-09-18 this was one teal `#35CCBA` on near-black; `docs/SS26-THEME.md` has the change.)
+- **Filled grey pill = a fact** (category, platform, availability, marketplace). **Outlined pill = a filter you can toggle.** Never mix the two meanings.
 - **An address is a link, never a filled button.** An email address or a website URL renders as an underlined anchor at body size with its glyph — in the contact card on all three pages that show it, and in the About band. A filled button is the screen's one ask; an address is a destination.
 - **Absence renders as an empty instance of the same component** (`UI.empty(...)`), not as a sentence where the component should be.
-- **The light two-tone band is the only inversion** and appears at most once per page. On the home page it is the **About SoftServe** block, and the two partner wordmarks sit in a navy strip inside it — the NVIDIA asset is light grey, and navy is this site's "fact" surface anyway.
+- **One dark band is the only inversion** and appears at most once per page. On the home page it is the **About SoftServe** block, on Services the proof-of-value screen; the partner wordmarks sit on the band itself and invert to white there.
 - **All nine hero files hold one visual register** (eight of them referenced — see the bullet below) — photography drawn from SoftServe's own decks and put through a single grade: cool slate-teal, median luminance 55–63, 1920×900, progressive JPEG. A replacement image has to land in that grade and carry no rendered text, no fake UI labels and no identifiable face — a set that mixes registers reads as assembled from whatever was to hand, and a hero carrying garbled glyphs or malformed anatomy is the loudest "AI page" tell on a surface sellers demo live. The grade recipe, per-file sources and the rights caveat are in `docs/PROVENANCE.md` §11.1; the swap procedure is in `docs/CONFIG.md` §3b.
-- **Only the top block carries a background image — and the home page has none at all.** Every product hero and the Services hero sits on its own image under a left-to-right dark gradient plus a bottom fade into `#131313`, so the headline and CTAs always sit on near-black; those heroes run 60–70 vh on desktop and auto height on mobile with the image faded harder. Below a hero, no section takes a photographic background. **The home hero is the exception**: it carries no photograph, and its right column holds the built-on stack visual — three peer bands (what the products do · SoftServe · the four Oracle platforms) joined by connector lines that draw in on load. `assets/img/heroes/overview.jpg` stays on disk, unreferenced.
+- **Only the top block carries a background image — and the home page has none at all.** Every product hero and the Services hero sits on its own image under a left-to-right dark gradient plus a bottom fade into white, so the headline and CTAs always sit on a near-white ground; those heroes run 60–70 vh on desktop and auto height on mobile with the image faded harder. Below a hero, no section takes a photographic background. **The home hero is the exception**: it carries no photograph, and its right column holds the built-on stack visual — three peer bands (what the products do · SoftServe · the four Oracle platforms) joined by connector lines that draw in on load. `assets/img/heroes/overview.jpg` stays on disk, unreferenced.
 - **No customer names anywhere**, including in the data files. Evidence is anonymized by industry.
-- **Motion is subtle:** blocks fade up 14 px once on first view, interactions run at 250 ms, and everything collapses to instant under `prefers-reduced-motion`.
+- **Motion is subtle:** blocks fade up 8 px once on first view, interactions run at 150–300 ms, hover is a 2 px nudge or a surface step rather than a lift, and everything collapses to instant under `prefers-reduced-motion`.

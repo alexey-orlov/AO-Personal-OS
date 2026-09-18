@@ -295,11 +295,14 @@ Workforce optimization and Cross-system ERP Q&A are the three products whose
 frames are captures (above); the four `cross-system-erp-qa-*.svg` illustrations
 were deleted from disk on 2026-09-16 when the captures replaced them.
 
-Drawn, not sourced. One grammar across all of them: ground `#10161A` with a
-`#0E2D4D` radial lift, 2–3 px strokes (≈ 1.5 px on screen at the rendered size),
-teal `#35CCBA` for the active path and slate `#496683` for structure, one
-teal eyebrow of **at most three words** per frame and short uppercase labels
-underneath. No emoji, no filled icons, no sentences inside the artwork — the step
+Drawn, not sourced. One grammar across all of them: a white ground with a
+`#C1DFF4` radial lift, 2–3 px strokes (≈ 1.5 px on screen at the rendered size),
+**`#1485C4` for the active path** and `#BDCBD7` for structure, labels in
+`#4C5156`, one blue eyebrow of **at most three words** per frame and short
+uppercase labels underneath at `.06em`. (The sixteen SVG frames were drawn for
+the near-black theme and recoloured into this grammar on 2026-09-18; the
+checker now fails any SVG under `site/assets/img/` that carries the retired
+teal or the old near-black palette.) No emoji, no filled icons, no sentences inside the artwork — the step
 title and caption live in the page, not in the picture.
 
 Scene vocabulary, so the same step reads the same way on every product:

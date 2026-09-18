@@ -1,12 +1,12 @@
 /* ——————————————————————————————————————————————————————————————————————
-   site-v2.css — the SoftServe 2026 brand theme.
+   site.css — the SoftServe 2026 brand theme.
 
    A re-skin of site.css onto the brand system measured on softserveinc.com:
    white ground, Azurio (serif) display over Replica LL, sentence case,
    Lviv blue for action and Austin orange as the one accent, octagonal corner
    cuts instead of radii, and surface steps instead of shadows. The decisions
-   are recorded in docs/SS26-THEME.md; site.css is the previous theme and is
-   left untouched, so both versions keep running.
+   are recorded in docs/SS26-THEME.md; site-legacy.css is the previous theme,
+   kept runnable as an archive.
    —————————————————————————————————————————————————————————————————————— */
 
 /* ——— brand faces, self-hosted (site/assets/fonts/) ————————————————————
