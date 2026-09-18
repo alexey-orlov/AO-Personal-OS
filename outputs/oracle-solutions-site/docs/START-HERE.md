@@ -10,22 +10,23 @@ Current as of 2026-09-18 (after the current-SoftServe-brand theme).
 - **How it is used:** Oracle and SoftServe sellers open it live on a call, and customers receive it as a link.
 - **People:** Alex owns the site and every decision on it. The person on the contact card is Karsten Tramborg (Alliances & Partnerships Director). The practice mailbox is oracle@softserveinc.com.
 - **Code:** a static, hash-routed SPA in `site/` with no build step and no framework.
-  - **Two themes share one tree.** `site/index.html` + `assets/site.css` is the original
-    near-black theme; `site/index-v2.html` + `assets/site-v2.css` is the **SS26 theme**,
-    re-skinned to the brand softserveinc.com runs today (white ground, Azurio serif over
-    Replica LL, Lviv blue with Austin orange, octagonal corner cuts). Read
-    `docs/SS26-THEME.md` before touching either. Images, renderers and copy are shared:
-    logo paths go through `assets/brand.js`, and the SS26 theme re-cases the
-    stored-capitals strings through `data/content-v2.js` rather than editing `content.js`.
+  - **The site is on SoftServe's current brand** (`site/index.html` + `assets/site.css`):
+    white ground, Azurio serif over Replica LL, Lviv blue with Austin orange, octagonal
+    corner cuts. Read `docs/SS26-THEME.md` before touching it. The previous near-black
+    theme is kept, runnable, as `site/index-legacy.html` + `assets/site-legacy.css` —
+    an archive, not a second version to maintain. Images, renderers and copy are shared:
+    logo paths go through `assets/brand.js`, and the live theme re-cases the
+    stored-capitals strings through `data/content-case.js` rather than editing
+    `content.js`.
   - Copy: `site/data/content.js`.
   - Switches: `site/data/config.js`.
   - Page renderers: `site/pages/`, one per page.
   - Shared UI and the router: `site/assets/app.js`.
   - Forms: `site/assets/forms.js`.
 - **Preview:** two artifacts, one per theme, both **shared with anyone who has the link**, so every publish is live at once.
-  - Original theme: https://claude.ai/artifact/98wafGUphFSyGSr6ctJiiN (the same artifact as https://claude.ai/code/artifact/41e4f3b6-47d9-4ef2-af99-99c40c02b89b).
-  - SS26 theme: https://claude.ai/artifact/HTEJADBQF3ZevFPuSoTHri.
-  - Which of the two becomes the site is Alex's call and is still open.
+  - **The site:** https://claude.ai/artifact/HTEJADBQF3ZevFPuSoTHri. This is the one to publish to.
+  - **The archive** (previous near-black theme, frozen): https://claude.ai/artifact/98wafGUphFSyGSr6ctJiiN (the same artifact as https://claude.ai/code/artifact/41e4f3b6-47d9-4ef2-af99-99c40c02b89b). Do not republish it.
+  - **Open:** the archive's URL is the one that has been in circulation. If it needs to show the current site, the two have to be swapped — Alex's call.
 - **Stage:** prototype. The *Internal* button (bottom right) opens a checklist of the assumptions still to be confirmed, and it comes off before launch (§8).
 
 ## 2. The brief
@@ -104,7 +105,7 @@ These hold unless Alex changes them, and `tools/check-grammar.js` enforces most 
 
 **Design** — the rules below hold for BOTH themes except where the SS26 column differs.
 
-| Rule | Original theme | SS26 theme (`docs/SS26-THEME.md`) |
+| Rule | The archive (`index-legacy.html`) | **The site** (`docs/SS26-THEME.md`) |
 |---|---|---|
 | Ground | near-black, at most **one light band** per page | white, at most **one dark band** per page (`#about`, `.services-page-proof`); `#edf0f2` for cards |
 | Accent | one teal `#35CCBA` per screen | **two roles**: `#1485c4` = act on / selected, `#f46a4a` = one hero accent line per page. Facts are neutral |
@@ -162,8 +163,8 @@ Exact commands are in HANDOFF §4.
   - the console is clean on every route;
   - `grep -ri "bosch\|riyadh\|dhl\|sbg\|logos/" site --include='*.js' --include='*.css' --include='*.html'` returns nothing. In zsh, quote the globs. If ugrep hits its complexity limit, use `/usr/bin/grep`.
 - **Publish** — each theme to its own artifact (§1); never cross them.
-  - Strip the nine skeleton lines from `site/index.html` (or `site/index-v2.html`) into `.work/publish/` (exact-line `grep -v -x -F`, HANDOFF §4). The two entries differ in their `<html>` line, so strip against the file you are publishing.
-  - The SS26 publish must carry `assets/fonts/*` with an explicit `contentType`, and only what its page references — nine legacy files and `assets/site.css` are deliberately absent from it.
+  - Strip the nine skeleton lines from `site/index.html` into `.work/publish/index.html` (exact-line `grep -v -x -F`, HANDOFF §4).
+  - The publish must carry `assets/fonts/*` with an explicit `contentType`, and only what the page references — nine legacy files and `assets/site-legacy.css` are deliberately absent from the artifact.
   - Call the Artifact tool with `file_path` = that wrapper, `root` = `site`, and a `files` map of every changed or new file.
   - Then run `action: list_files` to confirm that the new files are live and that nothing is published that should not be.
 - **Refused publish** ("not built on the newer version") means another session published in between:

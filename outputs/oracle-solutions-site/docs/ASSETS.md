@@ -500,7 +500,7 @@ here, with a date.
 
 ## The SS26 brand marks and fonts (2026-09-18)
 
-`site/assets/img/v2/` holds the marks for the current-SoftServe-brand theme. All
+`site/assets/img/brand/` holds the marks for the current SoftServe brand. All
 were derived, not drawn.
 
 | File | How it was made |
@@ -509,7 +509,7 @@ were derived, not drawn.
 | `oracle-wordmark-ink.svg` | `assets/img/oracle-wordmark-white.svg` with its single `#FFFFFF` fill (in the file's own `<style>` block) recoloured to `#1A1A1A` |
 | `nvidia-wordmark-ink.svg` | `assets/img/nvidia-wordmark.svg` with the `#D9D9D9` masked rect recoloured to `#1A1A1A`; the mark is a masked raster pattern, so only that one fill exists to change |
 | `header-divider-ink.svg` | the white divider's path with the stroke set to the brand separator `#BDCBD7` |
-| `favicon.svg` | the wordmark's first glyph (the S, path index 0) in white, centred on a Lviv-blue `#1485C4` octagon with 26-unit corner cuts. Inlined as a data URI in `index-v2.html`. The old teal spark is retired with the teal |
+| `favicon.svg` | the wordmark's first glyph (the S, path index 0) in white, centred on a Lviv-blue `#1485C4` octagon with 26-unit corner cuts. Inlined as a data URI in `index.html`. The old teal spark is retired with the teal |
 
 On the one black ground in this theme — the footer and the `#about` band — the ink
 marks invert back with `filter: invert(1)` rather than carrying a second file

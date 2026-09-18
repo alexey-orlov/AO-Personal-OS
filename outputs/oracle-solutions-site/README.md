@@ -10,18 +10,21 @@ Static site. No build step, no framework, no package manager: plain HTML, CSS an
 
 ---
 
-## Two themes
+## The brand, and the archive
 
-One tree, two entries. `site/index.html` + `assets/site.css` is the original near-black
-theme; `site/index-v2.html` + `assets/site-v2.css` is the **SS26 theme**, re-skinned to
-the brand softserveinc.com runs today: white ground, Azurio (serif) over Replica LL,
-Lviv blue `#1485c4` for action with Austin orange `#f46a4a` as the accent, octagonal
-corner cuts instead of radii, and a pure-black footer. Images, page renderers and copy
-are shared — logo paths resolve through `assets/brand.js`, and the SS26 theme re-cases
-the stored-capitals strings through `data/content-v2.js` instead of editing `content.js`.
+`site/index.html` + `assets/site.css` is **the site**, on the brand softserveinc.com
+runs today: white ground, Azurio (serif) over Replica LL, Lviv blue `#1485c4` for
+action with Austin orange `#f46a4a` as the accent, octagonal corner cuts instead of
+radii, and a pure-black footer. The previous near-black theme (Montserrat, Open Sans,
+teal `#35CCBA`) is kept runnable as `site/index-legacy.html` + `assets/site-legacy.css`
+— an archive, not a second version to maintain.
 
-Read `docs/SS26-THEME.md` before changing either. Run both from the same server:
-`http://127.0.0.1:8765/index.html` and `/index-v2.html`.
+Images, page renderers and copy are shared: logo paths resolve through
+`assets/brand.js`, and the live theme re-cases the stored-capitals strings through
+`data/content-case.js` instead of editing `content.js`.
+
+Read `docs/SS26-THEME.md` before changing either. Both run from the same server:
+`http://127.0.0.1:8765/` and `/index-legacy.html`.
 
 ## Preview
 

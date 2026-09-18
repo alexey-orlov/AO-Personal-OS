@@ -1,16 +1,20 @@
-# SS26-THEME.md — the current-SoftServe-brand theme
+# SS26-THEME.md — the site's brand
 
-A second theme for this site, built 2026-09-18, that re-skins it onto the brand
-system **softserveinc.com runs today**. The previous dark theme is untouched and
-still shipping; the two coexist in one tree.
+Built 2026-09-18: the site re-skinned onto the brand system **softserveinc.com
+runs today**. Since 2026-09-18 this is **the site**; the previous near-black
+theme is kept, runnable, as an archive. Both live in one tree.
 
-| | Previous theme | **SS26 theme** |
+| | **The site** | The archive |
 |---|---|---|
-| Entry | `site/index.html` | `site/index-v2.html` |
-| Stylesheet | `site/assets/site.css` | `site/assets/site-v2.css` |
-| Copy | `site/data/content.js` | the same, plus `site/data/content-v2.js` (re-casing overlay) |
-| Brand marks | `site/assets/img/*.svg` (white) | `site/assets/img/v2/*.svg` (ink), resolved by `assets/brand.js` |
-| Artifact | https://claude.ai/artifact/98wafGUphFSyGSr6ctJiiN | https://claude.ai/artifact/HTEJADBQF3ZevFPuSoTHri |
+| Entry | `site/index.html` | `site/index-legacy.html` |
+| Stylesheet | `site/assets/site.css` | `site/assets/site-legacy.css` |
+| Copy | `site/data/content.js` + `site/data/content-case.js` (re-casing overlay) | `site/data/content.js` alone |
+| Brand marks | `site/assets/img/brand/*.svg` (ink), resolved by `assets/brand.js` | `site/assets/img/*.svg` (white) |
+| Artifact | https://claude.ai/artifact/HTEJADBQF3ZevFPuSoTHri | https://claude.ai/artifact/98wafGUphFSyGSr6ctJiiN (frozen) |
+
+The archive is a frozen snapshot: it is published from before this pass, so its
+copy of the shared renderers predates `brand.js`. Leave it that way — it is
+internally consistent and re-publishing it would only add drift.
 
 Sources: a forensic measurement of softserveinc.com (200 KB of its CSS, its 96
 `:root` tokens, its `--typo-*` scale, computed styles at 1440 and 375) and a
@@ -129,7 +133,7 @@ footer ink    #e8e8e8 · footer footnote #97a2ac
 3. **Facts are neutral.** Figures, status chips, fact chips, rules and dots are
    black and the cool greys.
 
-`var(--accent)` appears in exactly **two** rules in `site-v2.css`; the checker
+`var(--accent)` appears in exactly **two** rules in `site.css`; the checker
 fails if it spreads past three.
 
 `--text-dim` is `#4c5156` (neutral-700), not the brand's neutral-600 `#717a81`:
@@ -213,20 +217,21 @@ image scales to 1.071 inside `@media (hover: hover)`. Every
 ## 8. Working on it
 
 - **Run:** `preview_start {name: "oracle-site"}`, then
-  `http://127.0.0.1:8765/index-v2.html`. The previous theme is `/index.html` on
-  the same server.
+  `http://127.0.0.1:8765/`. The archive is `/index-legacy.html` on the same
+  server.
 - **Check:** `node tools/check-grammar.js`. Its SS26 block asserts the rules
   above — no teal, no weight 600/800/900, no `--r-pill`/`--r-lg`/`--r-md`, orange
   spent at most three times, the five font files present and declared, the
   overlay loaded after `content.js`, `data-theme="light"`, a white `theme-color`,
   no webfont service, and every re-casing still matching `content.js`.
 - **Copy:** `content.js` is shared and must not change. Strings stored in
-  capitals are re-cased by `data/content-v2.js`, which patches 45 paths and warns
+  capitals are re-cased by `data/content-case.js`, which patches 45 paths and warns
   (rather than silently overwriting) if a value has moved. The problem/solution
   titles land in `.eyebrow`, which uppercases them by design — their stored
   values are sentence case and that is correct.
-- **Publish:** strip the nine skeleton lines from `index-v2.html` into
-  `.work/publish/index-v2.html`, then the Artifact tool with
+- **Publish:** strip the nine skeleton lines from `index.html` into
+  `.work/publish/index.html` (its `<html>` line is
+  `<html lang="en" data-theme="light" data-brand="ss26">`), then the Artifact tool with
   `url: https://claude.ai/artifact/HTEJADBQF3ZevFPuSoTHri`, `root: site`, and a
   `files` map. The fonts need an explicit `contentType` (`font/woff`,
   `font/woff2`, `font/ttf`). Publish only what the SS26 page references — nine
