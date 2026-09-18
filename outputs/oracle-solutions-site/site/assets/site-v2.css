@@ -482,30 +482,43 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 
 /* ——— chips ——————————————————————————————————————————— */
 
+/* The brand's tag: 12px uppercase Replica at +.06em, a 4px corner cut, no
+   radius. A filled grey chip is a fact; an outlined one is a filter. */
 .chip {
   display: inline-flex;
   align-items: center;
   gap: .4375rem;
-  border-radius: var(--r-pill);
+  border-radius: 0;
+  --clip-size: var(--clip-4);
+  clip-path: polygon(
+    var(--clip-size) 0, calc(100% - var(--clip-size)) 0,
+    100% var(--clip-size), 100% calc(100% - var(--clip-size)),
+    calc(100% - var(--clip-size)) 100%, var(--clip-size) 100%,
+    0 calc(100% - var(--clip-size)), 0 var(--clip-size));
+  font-family: var(--font-sans);
   font-size: var(--fs-xs);
   font-weight: 400;
-  line-height: 1;
-  padding: .4375rem .75rem;
+  line-height: 1.2;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  padding: .4375rem .625rem;
   white-space: nowrap;
-  border: 1px solid transparent;
+  border: 0;
+  box-shadow: inset 0 0 0 1px transparent;
 }
 
-.chip--meta { background: var(--surface-navy); color: var(--text); }
-.chip--filter { border-color: var(--border); color: var(--text); cursor: pointer; background: none; transition: background-color .25s var(--ease), border-color .25s var(--ease), color .25s var(--ease); padding: .5rem 1rem; }
+.chip--meta { background: var(--surface-navy); color: var(--text-on-light); }
+.chip--filter { box-shadow: inset 0 0 0 1px var(--border); color: var(--text-on-light); cursor: pointer; background: none; transition: background-color var(--dur-2) var(--ease), box-shadow var(--dur-2) var(--ease), color var(--dur-2) var(--ease); padding: .5rem .875rem; }
 .chip--filter:hover { background: var(--surface-navy-hi); }
-.chip--filter[aria-pressed="true"] { background: #FFFFFF; border-color: #FFFFFF; color: var(--text-on-light); }
-.chip--filter:active { transform: scale(.97); }
-.chip--accent { background: var(--accent-dim); color: var(--accent); }
+.chip--filter[aria-pressed="true"] { background: var(--action); box-shadow: inset 0 0 0 1px var(--action); color: #FFFFFF; }
+.chip--accent { background: var(--accent-dim); color: var(--text-on-light); }
+.on-dark .chip--meta { background: rgba(255, 255, 255, .14); color: var(--text-on-dark); }
+.on-dark .chip--outline { box-shadow: inset 0 0 0 1px var(--border-on-dark); color: var(--text-on-dark); }
 
 /* Round 4, T1: the workflow-pattern family is the outlined chip — transparent
    ground, one hairline — so a reader tells it from the solid technology pill
    without knowing the taxonomy. */
-.chip--outline { background: none; border-color: var(--border); color: var(--text); }
+.chip--outline { background: none; box-shadow: inset 0 0 0 1px var(--border); color: var(--text-on-light); }
 
 .chip--tag { cursor: help; }
 .chip-icon { width: .875rem; height: .875rem; flex: none; opacity: .85; }
@@ -513,7 +526,7 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 
 .chip-row { display: flex; flex-wrap: wrap; gap: .5rem; }
 
-.chip-dot { width: .4375rem; height: .4375rem; border-radius: var(--r-pill); flex: none; background: var(--decor-dim); }
+.chip-dot { width: .4375rem; height: .4375rem; border-radius: 50%; flex: none; background: var(--decor-dim); }
 
 /* ——— availability badges ————————————————————————————— */
 
@@ -521,26 +534,37 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
    whether the demo and the listing exist at all (VISUAL-GRAMMAR §1.2). */
 .badge-row { display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; }
 
+/* A badge is an action, so it carries the action colour: the blue tint, not
+   the orange accent, which is reserved for emphasis. */
 .badge {
   display: inline-flex;
   align-items: center;
   gap: .375rem;
-  border-radius: var(--r-pill);
-  border: 1px solid rgba(53, 204, 186, .38);
-  background: var(--accent-dim);
-  color: var(--accent);
+  border-radius: 0;
+  --clip-size: var(--clip-4);
+  clip-path: polygon(
+    var(--clip-size) 0, calc(100% - var(--clip-size)) 0,
+    100% var(--clip-size), 100% calc(100% - var(--clip-size)),
+    calc(100% - var(--clip-size)) 100%, var(--clip-size) 100%,
+    0 calc(100% - var(--clip-size)), 0 var(--clip-size));
+  border: 0;
+  background: var(--action-surface);
+  color: var(--action-pressed);
+  font-family: var(--font-sans);
   font-size: var(--fs-xs);
-  font-weight: 600;
-  line-height: 1;
-  letter-spacing: .02em;
-  padding: .375rem .625rem;
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  padding: .4375rem .625rem;
   white-space: nowrap;
 }
 
 .badge-icon { width: .875rem; height: .875rem; flex: none; }
-.badge--action { cursor: pointer; transition: background-color .25s var(--ease), border-color .25s var(--ease); }
-.badge--action:hover { background: rgba(53, 204, 186, .26); border-color: var(--accent); }
-.badge--action:active { transform: scale(.97); }
+.badge--action { cursor: pointer; transition: background-color var(--dur-2) var(--ease), color var(--dur-2) var(--ease); }
+.badge--action:hover { background: var(--action); color: #FFFFFF; }
+.on-dark .badge { background: rgba(193, 223, 244, .22); color: #C1DFF4; }
+.on-dark .badge--action:hover { background: var(--action); color: #FFFFFF; }
 
 /* The tag row: chips left, badges at the right end; they wrap underneath on a
    narrow screen rather than squeezing the chips. */
@@ -576,12 +600,12 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
   width: max-content;
   max-width: 20rem;
   white-space: normal;
-  background: var(--bg-inset);
-  border: 1px solid var(--border);
-  border-radius: var(--r-md);
-  color: var(--text-body);
+  background: var(--surface-dark-soft);
+  border: 0;
+  border-radius: 0;
+  color: var(--text-on-dark);
   font-size: var(--fs-xs);
-  line-height: 1.5;
+  line-height: 1.4;
   font-weight: 300;
   padding: .625rem .75rem;
   opacity: 0;
