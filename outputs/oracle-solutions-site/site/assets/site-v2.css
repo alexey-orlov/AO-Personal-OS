@@ -393,14 +393,14 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 .btn--mail:hover { background: var(--secondary-hover); }
 
 /* On the one dark band, the grey secondary would sink into the ground. */
-.on-dark .btn--secondary, .on-dark .btn--mail {
+:is(.on-dark, .site-footer, .light-band) .btn--secondary, :is(.on-dark, .site-footer, .light-band) .btn--mail {
   background: rgba(255, 255, 255, .14);
   color: var(--text-on-dark);
 }
 
-.on-dark .btn--secondary:hover, .on-dark .btn--mail:hover { background: rgba(255, 255, 255, .24); }
-.on-dark .btn--quiet { color: var(--text-on-dark); box-shadow: inset 0 0 0 1px var(--border-on-dark); }
-.on-dark .btn--quiet:hover { background: rgba(255, 255, 255, .12); }
+:is(.on-dark, .site-footer, .light-band) .btn--secondary:hover, :is(.on-dark, .site-footer, .light-band) .btn--mail:hover { background: rgba(255, 255, 255, .24); }
+:is(.on-dark, .site-footer, .light-band) .btn--quiet { color: var(--text-on-dark); box-shadow: inset 0 0 0 1px var(--border-on-dark); }
+:is(.on-dark, .site-footer, .light-band) .btn--quiet:hover { background: rgba(255, 255, 255, .12); }
 
 .btn--sm {
   font-size: var(--fs-xs);
@@ -429,8 +429,8 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 .link-arrow .icon { width: 1rem; height: 1rem; transition: transform var(--dur-2) var(--ease); }
 .link-arrow:hover { color: var(--action-hover); }
 .link-arrow:hover .icon { transform: translateX(8px); }
-.on-dark .link-arrow { color: #7FC4EA; }
-.on-dark .link-arrow:hover { color: #C1DFF4; }
+:is(.on-dark, .site-footer, .light-band) .link-arrow { color: #7FC4EA; }
+:is(.on-dark, .site-footer, .light-band) .link-arrow:hover { color: #C1DFF4; }
 
 .cta-row {
   display: flex;
@@ -474,8 +474,8 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 }
 
 .icon-btn:hover .icon-circle { background: var(--secondary-hover); }
-.on-dark .icon-btn { color: var(--text-on-dark); }
-.on-dark .icon-btn .icon-circle { background: rgba(255, 255, 255, .14); }
+:is(.on-dark, .site-footer, .light-band) .icon-btn { color: var(--text-on-dark); }
+:is(.on-dark, .site-footer, .light-band) .icon-btn .icon-circle { background: rgba(255, 255, 255, .14); }
 
 .icon { width: 1.125rem; height: 1.125rem; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
 .icon--solid { fill: currentColor; stroke: none; }
@@ -512,8 +512,8 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 .chip--filter:hover { background: var(--surface-navy-hi); }
 .chip--filter[aria-pressed="true"] { background: var(--action); box-shadow: inset 0 0 0 1px var(--action); color: #FFFFFF; }
 .chip--accent { background: var(--accent-dim); color: var(--text-on-light); }
-.on-dark .chip--meta { background: rgba(255, 255, 255, .14); color: var(--text-on-dark); }
-.on-dark .chip--outline { box-shadow: inset 0 0 0 1px var(--border-on-dark); color: var(--text-on-dark); }
+:is(.on-dark, .site-footer, .light-band) .chip--meta { background: rgba(255, 255, 255, .14); color: var(--text-on-dark); }
+:is(.on-dark, .site-footer, .light-band) .chip--outline { box-shadow: inset 0 0 0 1px var(--border-on-dark); color: var(--text-on-dark); }
 
 /* Round 4, T1: the workflow-pattern family is the outlined chip — transparent
    ground, one hairline — so a reader tells it from the solid technology pill
@@ -563,8 +563,8 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 .badge-icon { width: .875rem; height: .875rem; flex: none; }
 .badge--action { cursor: pointer; transition: background-color var(--dur-2) var(--ease), color var(--dur-2) var(--ease); }
 .badge--action:hover { background: var(--action); color: #FFFFFF; }
-.on-dark .badge { background: rgba(193, 223, 244, .22); color: #C1DFF4; }
-.on-dark .badge--action:hover { background: var(--action); color: #FFFFFF; }
+:is(.on-dark, .site-footer, .light-band) .badge { background: rgba(193, 223, 244, .22); color: #C1DFF4; }
+:is(.on-dark, .site-footer, .light-band) .badge--action:hover { background: var(--action); color: #FFFFFF; }
 
 /* The tag row: chips left, badges at the right end; they wrap underneath on a
    narrow screen rather than squeezing the chips. */
@@ -619,20 +619,26 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 
 /* ——— header ————————————————————————————————————————— */
 
-.topbar { height: .625rem; background: var(--accent); }
+/* softserveinc.com runs a 50px bar that is solid white from y=0, with no
+   horizontal nav at any width: every link lives in a hamburger mega-menu.
+   This site keeps its two links visible — it is opened live on sales calls,
+   where hiding Products and Services behind a menu costs a click in front of
+   a customer, and two items do not need a mega-menu. Everything else is the
+   brand's: the height, the solid white ground, no blur, no shadow, ink type.
+   The teal accent strip above the bar is retired with the teal. */
+
+.topbar { display: none; }
 
 .masthead {
   position: sticky;
   top: 0;
   z-index: 60;
-  background: rgba(19, 19, 19, .82);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
+  background: var(--bg);
   border-bottom: 1px solid transparent;
-  transition: border-color .25s var(--ease), background-color .25s var(--ease);
+  transition: border-color var(--dur-2) var(--ease);
 }
 
-.masthead.is-scrolled { border-bottom-color: rgba(255, 255, 255, .12); background: rgba(19, 19, 19, .94); }
+.masthead.is-scrolled { border-bottom-color: var(--border-subtle); }
 
 .masthead-inner {
   display: flex;
@@ -641,20 +647,23 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
   height: var(--nav-h);
 }
 
-.lockup { display: flex; align-items: center; gap: .625rem; color: var(--text); }
-.lockup-mark { width: 8rem; height: auto; }
-.lockup-rule { height: 1.75rem; width: 1px; background: var(--border-hairline); }
-.lockup-name { font-size: 1.25rem; font-weight: 400; line-height: 1.2; letter-spacing: -.01em; color: var(--text); }
+.lockup { display: flex; align-items: center; gap: .75rem; color: var(--text); }
+.lockup-mark { width: 6rem; height: auto; }
+.lockup-rule { height: 1.5rem; width: 1px; background: var(--border); }
+.lockup-name { font-family: var(--font-sans); font-size: 1rem; font-weight: 400; line-height: 1.2; letter-spacing: 0; color: var(--text); }
 
 .nav { margin-left: auto; display: flex; align-items: center; gap: 2rem; }
 
 .nav-link {
   position: relative;
+  font-family: var(--font-sans);
   font-size: 1rem;
+  line-height: 1.2;
   font-weight: 400;
-  color: var(--text-body);
+  letter-spacing: 0;
+  color: var(--text);
   padding-block: .25rem;
-  transition: color .25s var(--ease);
+  transition: color var(--dur-2) var(--ease);
 }
 
 .nav-link::after {
@@ -664,40 +673,44 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
   right: 0;
   bottom: -.375rem;
   height: 2px;
-  background: var(--accent);
+  background: var(--action);
   transform: scaleX(0);
   transform-origin: left;
-  transition: transform .25s var(--ease);
+  transition: transform var(--dur-2) var(--ease);
 }
 
-.nav-link:hover { color: var(--text); }
+.nav-link:hover { color: var(--action); }
 .nav-link.is-active { color: var(--text); }
 .nav-link.is-active::after { transform: scaleX(1); }
 
 .nav-cta { margin-left: .75rem; }
 
+/* A 50x50 ghost icon button, as in the brand's header grid. */
 .menu-toggle {
   display: none;
   margin-left: auto;
-  width: 2.75rem;
-  height: 2.75rem;
+  width: 3.125rem;
+  height: 3.125rem;
   align-items: center;
   justify-content: center;
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--r-pill);
+  border: 0;
+  border-radius: 0;
   background: none;
   cursor: pointer;
   color: var(--text);
+  transition: background-color var(--dur-2) var(--ease);
 }
+
+.menu-toggle:hover { background: var(--secondary-hover); }
 
 .mobile-menu { display: none; }
 
 @media (max-width: 900px) {
   .nav { display: none; }
-  .menu-toggle { display: inline-flex; }
+  .menu-toggle { display: inline-flex; margin-right: calc(var(--gutter) * -0.5); }
   .mobile-menu {
     display: block;
-    border-top: 1px solid rgba(255, 255, 255, .12);
+    border-top: 1px solid var(--border-subtle);
     background: var(--bg);
     padding: 1.25rem var(--gutter) 1.75rem;
   }
@@ -707,13 +720,10 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 }
 
 @media (max-width: 560px) {
-  .lockup-mark { width: 6.25rem; }
-  .lockup-name { font-size: 1rem; line-height: 1.15; }
-  .lockup-rule { height: 1.5rem; }
-}
-
-@media (min-width: 1024px) {
-  .topbar { height: var(--topbar-h); }
+  .lockup { gap: .5rem; }
+  .lockup-mark { width: 5rem; }
+  .lockup-name { font-size: .875rem; line-height: 1.15; }
+  .lockup-rule { height: 1.25rem; }
 }
 
 /* ——— hero ———————————————————————————————————————————— */
@@ -1299,52 +1309,84 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 
 /* ——— footer ——————————————————————————————————————————— */
 
-.site-footer { position: relative; padding-top: 7rem; overflow: hidden; }
+/* The brand's footer: a light grey spacer band announcing a pure-black block.
+   The band is the black block's own top border, so no markup changes. Column
+   headings are the display serif at 32px over a hairline; links are 14px in
+   the footer grey. */
+.site-footer {
+  position: relative;
+  background: var(--surface-dark);
+  color: var(--text-on-dark-soft);
+  border-top: 9.5rem solid var(--bg-raised);
+  padding-top: 4rem;
+  overflow: hidden;
+}
 
 .footer-grid {
   display: grid;
   grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
   gap: 2.5rem clamp(2rem, 4vw, 4rem);
-  padding-top: 2.75rem;
-  border-top: 1px solid var(--border-hairline);
+  padding-top: 0;
+  border-top: 0;
 }
 
-.footer-heading { font-family: var(--font-display); font-weight: 900; font-size: 1.75rem; text-transform: uppercase; line-height: 1.1; color: var(--text); }
-.footer-desc { font-size: var(--fs-sm); color: var(--text); opacity: .75; max-width: 35rem; margin-top: 1rem; font-weight: 300; }
+.footer-heading {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 2rem;
+  line-height: 1.2;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--text-on-dark-soft);
+  padding-bottom: .75rem;
+  border-bottom: 2px solid rgba(232, 232, 232, .28);
+}
+
+.footer-desc { font-size: var(--fs-sm); color: var(--text-on-dark-soft); max-width: 35rem; margin-top: 1.25rem; font-weight: 300; line-height: 1.4; }
 .footer-actions { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 1.75rem; align-items: center; }
 
-.social-row { display: flex; gap: 1rem; }
+.social-row { display: flex; gap: .5rem; }
+
+/* A square with a 4px cut, not a circle: the brand has no pill. */
 .social-link {
-  width: 2.5rem;
-  height: 2.5rem;
+  width: 2.75rem;
+  height: 2.75rem;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--r-pill);
-  color: var(--text);
-  transition: border-color .25s var(--ease), background-color .25s var(--ease);
+  border: 0;
+  border-radius: 0;
+  --clip-size: var(--clip-4);
+  clip-path: polygon(
+    var(--clip-size) 0, calc(100% - var(--clip-size)) 0,
+    100% var(--clip-size), 100% calc(100% - var(--clip-size)),
+    calc(100% - var(--clip-size)) 100%, var(--clip-size) 100%,
+    0 calc(100% - var(--clip-size)), 0 var(--clip-size));
+  background: rgba(255, 255, 255, .1);
+  color: var(--text-on-dark);
+  transition: background-color var(--dur-2) var(--ease);
 }
 
-.social-link:hover { border-color: var(--text); background: rgba(255, 255, 255, .06); }
-.social-link:active { transform: scale(.97); }
+.social-link:hover { background: rgba(255, 255, 255, .2); }
 
 .footer-right { display: flex; flex-direction: column; gap: 1.5rem; align-items: flex-start; }
 
+/* The vendor wordmarks ship as ink-on-white for the page body; the footer is
+   the one black ground, so they invert there rather than carry a second file. */
 .built-with { display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; }
-.built-with img { height: 1.125rem; width: auto; opacity: .68; filter: grayscale(1) brightness(1.6); }
-.built-with .built-label { font-size: var(--fs-sm); color: var(--text); opacity: .75; }
+.built-with img { height: 1.125rem; width: auto; filter: invert(1); opacity: .85; }
+.built-with .built-label { font-size: var(--fs-sm); color: var(--text-on-dark-soft); }
 
 .footer-legal { display: flex; flex-wrap: wrap; gap: .5rem 1.5rem; align-items: center; padding-block: 2.25rem; }
-.footer-legal a, .footer-legal p { font-size: var(--fs-sm); color: var(--text); opacity: .75; line-height: 1.75; }
-.footer-legal a:hover { opacity: 1; color: var(--accent); }
+.footer-legal a, .footer-legal p { font-size: var(--fs-sm); color: var(--text-on-dark-soft); line-height: 1.4; }
+.footer-legal a:hover { text-decoration: underline; }
 .footer-legal .legal-line { margin-left: auto; }
-.trademark { font-size: var(--fs-xs); color: var(--text-note); line-height: 1.6; max-width: 62rem; padding-bottom: 3rem; }
+.trademark { font-size: var(--fs-xs); color: rgba(232, 232, 232, .7); line-height: 1.5; max-width: 62rem; padding-bottom: 3rem; }
 
 @media (max-width: 900px) {
   .footer-grid { grid-template-columns: 1fr; }
   .footer-legal .legal-line { margin-left: 0; }
-  .site-footer { padding-top: 4.5rem; }
+  .site-footer { border-top-width: 4.5rem; padding-top: 3rem; }
 }
 
 /* ——— scroll reveal ————————————————————————————————————— */
