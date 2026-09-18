@@ -1445,8 +1445,23 @@ if (/assets\/img\/logos\//.test(raw)) {
   var css = fs.readFileSync(path.join(root, V2_CSS), "utf8");
   var html = fs.readFileSync(path.join(root, V2_HTML), "utf8");
 
-  /* The retired teal must never come back in either theme. */
+  /* The retired teal must never come back — not in the stylesheet, and not in
+     the artwork either. Round 27 shipped a white-ground site whose 16 step
+     frames were still drawn teal-on-near-black, because the check only ever
+     looked at the CSS. */
   if (/35CCBA/i.test(css)) fail(V2_CSS, "carries the retired teal #35CCBA");
+  (function walk(dir) {
+    fs.readdirSync(path.join(root, dir), { withFileTypes: true }).forEach(function (e) {
+      var rel = dir + "/" + e.name;
+      if (e.isDirectory()) return walk(rel);
+      if (!/\.svg$/i.test(e.name)) return;
+      var art = fs.readFileSync(path.join(root, rel), "utf8");
+      if (/35CCBA/i.test(art)) fail(rel, "artwork still draws the retired teal #35CCBA");
+      if (/#(10161A|0E2D4D|496683|9FB3C6)\b/i.test(art)) {
+        fail(rel, "artwork still uses the previous theme's near-black palette");
+      }
+    });
+  }("site/assets/img"));
 
   /* Display type is weight 400, H4-class titles 700. Nothing heavier exists
      in the brand, and with only 300/400/700 declared a stray 600 or 800
