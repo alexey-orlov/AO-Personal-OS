@@ -747,16 +747,15 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
   object-fit: cover;
   object-position: 50% 50%;
   opacity: 1;
-  filter: brightness(1.05) contrast(1.02) saturate(1.05);
+  filter: brightness(1.02) contrast(1.02) saturate(1.02);
 }
 
 .hero-bg-veil {
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(to right, var(--bg) 0%, rgba(19, 19, 19, .94) 18%, rgba(19, 19, 19, .76) 38%, rgba(19, 19, 19, .46) 55%, rgba(19, 19, 19, .18) 70%, rgba(19, 19, 19, 0) 84%),
-    linear-gradient(to bottom, rgba(19, 19, 19, .24) 0%, rgba(19, 19, 19, 0) 42%, rgba(19, 19, 19, .30) 75%, var(--bg) 100%),
-    radial-gradient(100% 78% at 70% 32%, rgba(53, 204, 186, .09), rgba(53, 204, 186, 0) 62%);
+    linear-gradient(to right, var(--bg) 0%, rgba(255, 255, 255, .97) 20%, rgba(255, 255, 255, .88) 40%, rgba(255, 255, 255, .58) 58%, rgba(255, 255, 255, .22) 74%, rgba(255, 255, 255, 0) 88%),
+    linear-gradient(to bottom, rgba(255, 255, 255, .30) 0%, rgba(255, 255, 255, 0) 42%, rgba(255, 255, 255, .36) 74%, var(--bg) 100%);
 }
 
 /* The media frame usually falls back to the product's own hero image, so the
@@ -765,21 +764,13 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
    as a cut-out of the background rather than a thing you can press. */
 .product-hero--media .hero-bg-veil {
   background:
-    linear-gradient(to right, var(--bg) 0%, rgba(19, 19, 19, .95) 20%, rgba(19, 19, 19, .86) 42%, rgba(19, 19, 19, .76) 62%, rgba(19, 19, 19, .70) 82%, rgba(19, 19, 19, .68) 100%),
-    linear-gradient(to bottom, rgba(19, 19, 19, .24) 0%, rgba(19, 19, 19, 0) 42%, rgba(19, 19, 19, .30) 75%, var(--bg) 100%),
-    radial-gradient(100% 78% at 70% 32%, rgba(53, 204, 186, .07), rgba(53, 204, 186, 0) 62%);
+    linear-gradient(to right, var(--bg) 0%, rgba(255, 255, 255, .97) 22%, rgba(255, 255, 255, .92) 44%, rgba(255, 255, 255, .86) 64%, rgba(255, 255, 255, .82) 84%, rgba(255, 255, 255, .80) 100%),
+    linear-gradient(to bottom, rgba(255, 255, 255, .30) 0%, rgba(255, 255, 255, 0) 42%, rgba(255, 255, 255, .36) 74%, var(--bg) 100%);
 }
 
-.hero-glow {
-  position: absolute;
-  top: -18rem;
-  left: -12rem;
-  width: 58rem;
-  height: 58rem;
-  border-radius: 50%;
-  background: radial-gradient(closest-side, rgba(53, 204, 186, .13), rgba(53, 204, 186, 0));
-  pointer-events: none;
-}
+/* Retired: elevation and emphasis are surface steps in this system, never a
+   glow. The element still renders, so it is emptied rather than removed. */
+.hero-glow { display: none; }
 
 .hero-cta { margin-top: clamp(2rem, 3vw, 2.75rem); }
 
@@ -797,7 +788,7 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
   position: absolute;
   inset: -3rem -2rem -1rem;
   z-index: -1;
-  background: linear-gradient(to bottom, rgba(19, 19, 19, 0) 0, var(--bg) 3rem, var(--bg) 100%);
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0, var(--bg) 3rem, var(--bg) 100%);
   pointer-events: none;
 }
 
@@ -814,12 +805,12 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
   align-items: flex-end;
   min-height: 2em;
   font-family: var(--font-display);
-  font-weight: 900;
+  font-weight: 400;
   font-size: clamp(1.75rem, 2.6vw, 2.75rem);
   line-height: 1;
   color: var(--text);
-  font-variant-numeric: tabular-nums;
-  letter-spacing: -.02em;
+  font-variant-numeric: lining-nums tabular-nums;
+  letter-spacing: -.01em;
 }
 
 .stat-label { margin-top: .75rem; font-size: var(--fs-sm); line-height: 1.5; color: var(--text-muted); font-weight: 300; }
@@ -1052,16 +1043,22 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 .light-band {
   display: grid;
   grid-template-columns: 3fr 2fr;
-  border-radius: var(--r-lg);
+  border-radius: 0;
+  --clip-size: var(--clip-12);
+  clip-path: polygon(
+    var(--clip-size) 0, calc(100% - var(--clip-size)) 0,
+    100% var(--clip-size), 100% calc(100% - var(--clip-size)),
+    calc(100% - var(--clip-size)) 100%, var(--clip-size) 100%,
+    0 calc(100% - var(--clip-size)), 0 var(--clip-size));
   overflow: hidden;
-  color: var(--text-on-light);
+  color: var(--text-on-dark);
 }
 
-.light-band-media { background: var(--panel-blue-grey); padding: clamp(2rem, 3.5vw, 3rem); display: flex; flex-direction: column; justify-content: center; gap: 1.25rem; }
-.light-band-copy { background: var(--panel-neutral); padding: clamp(2rem, 3.5vw, 3rem); display: flex; flex-direction: column; justify-content: center; gap: 1.25rem; }
-.light-band .band-title { font-family: var(--font-display); font-weight: 900; font-size: var(--fs-h3); text-transform: uppercase; line-height: 1.05; color: var(--text-on-light); }
-.light-band .band-body { font-weight: 300; font-size: 1rem; line-height: 1.65; color: var(--text-on-light-soft); }
-.light-band .band-label { font-size: var(--fs-xs); letter-spacing: .14em; text-transform: uppercase; font-weight: 600; color: var(--text-on-light-soft); }
+.light-band-media { background: var(--surface-dark); padding: clamp(2rem, 3.5vw, 3rem); display: flex; flex-direction: column; justify-content: center; gap: 1.25rem; }
+.light-band-copy { background: var(--surface-dark-soft); padding: clamp(2rem, 3.5vw, 3rem); display: flex; flex-direction: column; justify-content: center; gap: 1.25rem; }
+.light-band .band-title { font-family: var(--font-display); font-weight: 400; font-size: var(--fs-h3); text-transform: none; line-height: 1.2; color: var(--text-on-dark); }
+.light-band .band-body { font-weight: 300; font-size: var(--fs-sm); line-height: 1.45; color: var(--text-on-dark-soft); }
+.light-band .band-label { font-family: var(--font-sans); font-size: var(--fs-xs); letter-spacing: .06em; text-transform: uppercase; font-weight: 400; color: rgba(232, 232, 232, .72); }
 .light-band .btn--dark { align-self: flex-start; }
 
 /* The same reading as an address anywhere else on the site, in the ink the
@@ -1073,23 +1070,23 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
   gap: .5rem;
   align-self: flex-start;
   max-width: 100%;
-  font-size: var(--fs-body);
-  font-weight: 600;
+  font-size: var(--fs-sm);
+  font-weight: 400;
   line-height: 1.4;
-  color: var(--text-on-light);
-  border-bottom: 1px solid rgba(7, 9, 13, .5);
-  transition: border-color .25s var(--ease);
+  color: var(--text-on-dark);
+  border-bottom: 1px solid rgba(255, 255, 255, .45);
+  transition: border-color var(--dur-2) var(--ease);
 }
 
 .band-link span { min-width: 0; overflow-wrap: anywhere; }
 .band-link .icon { width: .875rem; height: .875rem; flex: none; }
-.band-link:hover, .band-link:focus-visible { border-bottom-color: var(--text-on-light); }
+.band-link:hover, .band-link:focus-visible { border-bottom-color: var(--text-on-dark); }
 
 .platform-list { display: flex; flex-direction: column; }
-.platform-item { padding-block: .875rem; border-top: 1px solid rgba(7, 9, 13, .16); }
+.platform-item { padding-block: .875rem; border-top: 1px solid rgba(255, 255, 255, .18); }
 .platform-item:first-child { border-top: 0; padding-top: 0; }
-.platform-name { font-weight: 600; font-size: 1rem; line-height: 1.35; color: var(--text-on-light); }
-.platform-body { font-size: var(--fs-sm); color: var(--text-on-light-soft); font-weight: 300; }
+.platform-name { font-weight: 400; font-size: var(--fs-sm); line-height: 1.35; color: var(--text-on-dark); }
+.platform-body { font-size: var(--fs-xs); color: var(--text-on-dark-soft); font-weight: 300; line-height: 1.45; }
 
 @media (max-width: 900px) {
   .light-band { grid-template-columns: 1fr; }
