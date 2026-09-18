@@ -1432,6 +1432,71 @@ if (/assets\/img\/logos\//.test(raw)) {
   }
 })();
 
+/* ——— the SS26 theme (site-v2.css + index-v2.html + content-v2.js) ————————
+   The brand rules the re-skin was built to, asserted so a later rewrite
+   cannot quietly undo them. The default theme is unaffected by all of this.
+   Full record: docs/SS26-THEME.md. */
+(function () {
+  var V2_CSS = "site/assets/site-v2.css";
+  var V2_HTML = "site/index-v2.html";
+  var V2_DATA = "site/data/content-v2.js";
+  if (!fs.existsSync(path.join(root, V2_CSS))) return;   /* theme not present */
+
+  var css = fs.readFileSync(path.join(root, V2_CSS), "utf8");
+  var html = fs.readFileSync(path.join(root, V2_HTML), "utf8");
+
+  /* The retired teal must never come back in either theme. */
+  if (/35CCBA/i.test(css)) fail(V2_CSS, "carries the retired teal #35CCBA");
+
+  /* Display type is weight 400, H4-class titles 700. Nothing heavier exists
+     in the brand, and with only 300/400/700 declared a stray 600 or 800
+     silently renders the Bold cut. */
+  var heavy = css.match(/font-weight: ?(600|800|900)\b/g);
+  if (heavy) fail(V2_CSS, "uses " + heavy.length + " heading weight(s) the brand does not have (" + heavy.join(", ") + ")");
+
+  /* Shape is the corner cut; the pill and the old radii are retired. */
+  ["--r-pill", "--r-lg", "--r-md"].forEach(function (t) {
+    if (css.indexOf("var(" + t + ")") > -1) fail(V2_CSS, "still reads " + t + " — the shape is a clip-path cut, not a radius");
+  });
+
+  /* Austin orange is the accent line of a hero H1 and one chip fill. It is
+     never on a control, and never text below 24px. */
+  var orange = (css.match(/var\(--accent(-dim)?\)/g) || []).length;
+  if (orange > 3) fail(V2_CSS, "spends the orange accent " + orange + " times — it belongs on the hero H1's accent line and .chip--accent only");
+
+  /* The five licensed faces ship with the theme. */
+  ["Azurio-Regular.woff", "Azurio-Semibold.woff", "ReplicaLLWeb-Light.woff2",
+   "ReplicaLL-Regular.ttf", "ReplicaLL-Bold.ttf"].forEach(function (f) {
+    if (!fs.existsSync(path.join(root, "site/assets/fonts", f))) fail("site/assets/fonts", "missing " + f + " — the theme falls back to Georgia/Arial without it");
+    if (css.indexOf("fonts/" + f) === -1) fail(V2_CSS, "declares no @font-face for " + f);
+  });
+
+  /* Sentence case is a data change, carried by the overlay. Without the tag
+     the page shows the stored capitals in a serif. */
+  if (html.indexOf('src="data/content.js"') === -1) fail(V2_HTML, "does not load data/content.js");
+  if (html.indexOf('src="data/content-v2.js"') === -1) {
+    fail(V2_HTML, "does not load data/content-v2.js — the uppercase strings would ship as capitals");
+  } else if (html.indexOf('src="data/content.js"') > html.indexOf('src="data/content-v2.js"')) {
+    fail(V2_HTML, "loads content-v2.js before content.js — the overrides would be overwritten");
+  }
+  if (html.indexOf("fonts.googleapis.com") > -1) fail(V2_HTML, "still requests a webfont service — the theme self-hosts and falls back to system faces");
+  if (html.indexOf('data-theme="light"') === -1) fail(V2_HTML, 'must carry data-theme="light"');
+  if (html.indexOf('content="#ffffff"') === -1) fail(V2_HTML, "theme-color must be #ffffff on a white ground");
+
+  /* Every override must still match the string it was written against. */
+  if (fs.existsSync(path.join(root, V2_DATA))) {
+    var box = { window: { SITE_CONTENT: JSON.parse(JSON.stringify(C)) }, console: { warn: function () {} } };
+    vm.createContext(box);
+    vm.runInContext(fs.readFileSync(path.join(root, "site/assets/brand.js"), "utf8"), box);
+    vm.runInContext(fs.readFileSync(path.join(root, V2_DATA), "utf8"), box, { filename: V2_DATA });
+    var meta = box.window.SITE_CONTENT_V2;
+    if (!meta) fail(V2_DATA, "did not report what it applied (window.SITE_CONTENT_V2)");
+    else if (meta.applied !== meta.total) {
+      fail(V2_DATA, meta.applied + " of " + meta.total + " re-casings applied — a string it patches has changed in content.js");
+    }
+  }
+}());
+
 if (warnings.length) {
   console.warn("check-grammar: " + warnings.length + " warning(s)");
   warnings.forEach(function (x) { console.warn("  ! " + x); });
