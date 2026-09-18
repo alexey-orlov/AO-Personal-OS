@@ -53,8 +53,11 @@
   --text: #000000;
   --text-body: #26292b;
   --text-muted: #4c5156;
-  --text-dim: #717a81;           /* 4.5:1 on white — the floor for any text */
-  --text-note: #717a81;
+  --text-dim: #4c5156;           /* neutral-700. Measured: neutral-600 #717a81 is
+                                    4.37:1 on white and 3.50:1 on #e1e7eb, so it
+                                    fails AA at the 12px label sizes this theme
+                                    uses it for. */
+  --text-note: #4c5156;
   --decor-dim: #bdcbd7;          /* non-text decoration only */
   --text-on-light: #000000;      /* ink on a light ground, which is now the page */
   --text-on-light-soft: #4c5156;
@@ -1431,8 +1434,8 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
   border: 0;
 }
 
-.inline-link { color: var(--action); border-bottom: 1px solid rgba(20, 133, 196, .45); }
-.inline-link:hover { color: var(--action-hover); border-bottom-color: var(--action-hover); }
+.inline-link { color: var(--action-pressed); border-bottom: 1px solid rgba(14, 94, 139, .45); }
+.inline-link:hover { color: var(--action); border-bottom-color: var(--action); }
 
 .link-quiet {
   font-size: var(--fs-sm);
@@ -2047,7 +2050,7 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
   transition: border-color var(--t-base) var(--ease), background-color var(--t-base) var(--ease), color var(--t-base) var(--ease);
 }
 
-.stepper-step.is-active .stepper-num { box-shadow: inset 0 0 0 1px var(--action); background: var(--action); color: #ffffff; }
+.stepper-step.is-active .stepper-num { box-shadow: inset 0 0 0 1px var(--action-pressed); background: var(--action-pressed); color: #ffffff; }
 .stepper-title { font-size: 1rem; font-weight: 700; line-height: 1.3; }
 .stepper-body { display: flex; flex-direction: column; gap: .75rem; padding: 0 .25rem 1.125rem 2.625rem; }
 .stepper-text { font-size: var(--fs-sm); line-height: 1.6; color: var(--text-muted); }
@@ -2520,8 +2523,11 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 .services-pov-panels { margin-top: clamp(1rem, 2vw, 1.5rem); }
 .services-pov-panels .way { background: var(--surface-dark-raised); }
 .services-pov-panels .way:hover, .services-pov-panels .way:focus-within { background: var(--surface-dark-hover); }
-.services-pov-panels .way-title, .services-pov-panels .way-body { color: var(--text-on-dark); }
+.services-pov-panels .way-title { color: var(--text-on-dark); }
 .services-pov-panels .way-body { color: var(--text-on-dark-soft); }
+.services-pov-panels .tick-list li,
+.services-pov-panels .tick-list .icon { color: var(--text-on-dark-soft); }
+.services-pov-panels .way-mark { background: rgba(193, 223, 244, .22); color: var(--surface-select); }
 .services-pov-panels.ways { background: var(--border-on-dark); }
 
 .proof-stat { display: flex; flex-direction: column; gap: .625rem; }
@@ -2793,7 +2799,7 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
   z-index: 60;
   padding: .75rem 1.25rem;
   border-radius: 0;
-  background: var(--action);
+  background: var(--action-pressed);
   color: #ffffff;
   font-family: var(--font-sans);
   font-size: var(--fs-sm);
