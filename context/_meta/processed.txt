@@ -149,5 +149,12 @@ context/areas/softserve/docs/2026-09-03_nato-pattern-map.csv
 context/areas/softserve/docs/2026-09-06_nato-ai-use-case-map-exec.md
 context/areas/softserve/docs/2026-09-11_nato-map-pipeline-cases-handoff.md
 context/areas/softserve/docs/2026-09-16_wfo-pack-spec-for-demo.md
+context/areas/softserve/docs/2026-09-17_packaging-skills-prep/A1-sessions-decks-onepagers.md
+context/areas/softserve/docs/2026-09-17_packaging-skills-prep/A2-sessions-minisite-demos.md
+context/areas/softserve/docs/2026-09-17_packaging-skills-prep/B-artifact-component-map.md
+context/areas/softserve/docs/2026-09-17_packaging-skills-prep/C-vlad-feedback.md
+context/areas/softserve/docs/2026-09-17_packaging-skills-prep/D-context-inventory.md
+context/areas/softserve/docs/2026-09-17_packaging-skills-prep/HANDOFF-july-wfo-sessions.md
+context/areas/softserve/docs/2026-09-17_packaging-skills-prep/vlad-2026-07-24-transcript-partial.md
 context/areas/softserve/docs/conga-ai-pm-bootcamp-transcript.md
 context/areas/softserve/docs/oracle-packages-tshirt-sizing.md
