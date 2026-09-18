@@ -113,7 +113,11 @@
 
   --fs-hero: clamp(3rem, 1.5rem + 4.7vw, 6rem);      /* 48 -> 96 */
   --fs-hero-sm: var(--fs-hero);
-  --fs-title: clamp(2rem, 1rem + 3.4vw, 4rem);       /* 32 -> 64, product names */
+  /* 32 -> 64 for product names. The slope is fitted to the hero's copy
+     column, not the viewport: at 1024 that column is 435px, where the
+     longest name ('Large docs processing and review') needs 43px to break
+     in two lines rather than three. */
+  --fs-title: clamp(2rem, -0.55rem + 5.05vw, 4rem);
   --fs-h2: clamp(2rem, 1.25rem + 2.2vw, 3rem);       /* 32 -> 48 */
   --fs-h3: clamp(1.75rem, 1.2rem + 1.7vw, 2.5rem);   /* 28 -> 40 */
   --fs-h4: 1.25rem;                                  /* 20; 24 from 768 */
