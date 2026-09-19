@@ -2,7 +2,7 @@
 
 _status: live theme — the discipline of wrapping an AI agent in enforced structure: human-only zones, PR gates, precise workflows, adapters, and local-first context_
 _slug: agent-harness-engineering_
-_updated: 2026-09-09 · 34 insights from 22 episodes · (split from agent-engineering-patterns, 2026-07-11)_
+_updated: 2026-09-19 · 35 insights from 23 episodes · (split from agent-engineering-patterns, 2026-07-11) — ⚠ newly over budget at 35/30, no clean seam found yet_
 
 ## The throughline
 A harness is code wrapped around an agent to make it behave consistently for a specific use case — and every practitioner in this cluster converges on the same core moves. Reserve architecture and UX decisions for humans (Conductor's "slot-free zones," "do not touch if you are an AI" markers — corroborated independently by Tony Fadell on the hardware-product side); force agent output through a review chokepoint before it lands (Conductor's strict PR-first workflow; the Sentry bug-triage harness's investigate-only vs. edit-enabled modes); and be extremely specific — write down the exact workflow, data sources, and allowed tools rather than reaching for a general-purpose assistant. Concrete adapters (Sentry, Linear, GitHub, Vercel) plus a persistent artifact store make investigations reproducible, though this is a choice, not a prerequisite — Gusto's much lighter "memory is just a DB column" stack proves harnesses can be minimal too. Codex-as-local-project-environment extends the same instinct beyond bespoke harnesses: a general-purpose local workspace (files on your machine, computer-use access to real tools) that lets an agent work with richer context, reinforced by a local-first/Obsidian-style memory discipline for privacy and accuracy.
@@ -175,6 +175,11 @@ Because agents can automate and parallelize many actions, they tend to 'hammer' 
 — How I AI · 2026-09-07 · guest: — · [▶ 19:24](https://www.youtube.com/watch?v=AbZODZ_4VaM&t=1164) · `pi-AbZODZ_4VaM-05`
 related: [Maintaining a popular open-source agent is much harder than building the prototype](#maintaining-a-popular-open-source-agent-is-much-harder-than-building-the-prototype) (Steinberger's sandboxing/allow-list hardening is the same agents-can-go-rogue-at-scale lesson from a viral open-source agent instead of an enterprise platform)
 
+### Mixing models and smart routing controls runaway AI costs
+Databricks CEO Ali Ghodsi describes how, to manage exploding token usage, the company built Uni Gateway, budget guards, smart routers and a multiplexing harness (Omnient) that route requests to cheaper models or different harnesses depending on task and budget. He notes harness choice alone can produce nearly 2x cost differences on the same model, and that by combining routing, cheaper open-source models for simple tasks, and frontier models for hard tasks, organizations held token costs steady even as usage rose. The practical result: thoughtful orchestration—rather than always calling the biggest newest model—delivers scalable, cost-effective AI.
+— a16z · 2026-09-18 · guest: Ali Ghodsi (Databricks) · [▶ 55:02](https://www.youtube.com/watch?v=GzEtpAKYRvE&t=3302) · `pi-GzEtpAKYRvE-05`
+related: [Projects become governance layers controlling models, tools, and permissions](#projects-become-governance-layers-controlling-models-tools-and-permissions) (same bundled-governance-over-model-choice instinct, here a multiplexing router optimizing for cost rather than Stripe's per-team project config)
+
 ### Harnesses can be learned and evolved — meta‑harnesses produce better agents over time
 Teams described systems that do CRUD on system prompts and even modify harness code: DSPY uses search/merge/genetic programming to optimize prompts, Darwin machines mutate harnesses in an archive and evaluate fitness, and meta‑harnesses can produce new harnesses. That means the harness is no longer static config but an evolvable object: you can hill‑climb harness behavior, run Dagger‑style online updates, and eventually bootstrap stronger agent families without manual redesign.
 — Y Combinator · 2026-09-07 · guest: Seth (Prime Agent / Prime Intellect), John Sadvalone (Open Jarvis / Stanford), Josh (YC, QM), Rean (YC, QM) · [▶ 14:14](https://www.youtube.com/watch?v=n9xKblqyQ28&t=854) · `pi-n9xKblqyQ28-02`
@@ -185,6 +190,7 @@ related: theme → [Agents can autonomously improve themselves via closed-loop p
 - [Agent delegation, loops & software factories](agent-delegation-and-loops.md) — the sustained-execution patterns that run inside these harnesses
 
 ## Source episodes
+- [a16z — Databricks CEO: Stop Scaring People About AI (2026-09-18)](../episodes/2026/2026-09-18--a16z--databricks-ceo-stop-scaring-people-about-ai.md)
 - [Lenny's Podcast — How we built Grok Bot in a month | Roman Ugarte (SpaceXAI) (2026-09-08)](../episodes/2026/2026-09-08--lenny--how-we-built-grok-bot-in-a-month.md)
 - [How I AI — Stripe built a company brain: Meet Kai (2026-09-07)](../episodes/2026/2026-09-07--howiai--stripe-built-a-company-brain-meet-kai.md)
 - [Y Combinator — Self-Improving Harnesses, Local Personal AI And YC's Agent For Work | YC Paper Club (2026-09-07)](../episodes/2026/2026-09-07--yc--self-improving-harnesses-local-ai-agent-for-work.md)
