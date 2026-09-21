@@ -2,7 +2,7 @@
 
 _status: live theme — sourcing, screening, deciding, and closing talent in the AI era_
 _slug: hiring-and-recruiting-craft_
-_updated: 2026-08-28 · 15 insights from 10 episodes_
+_updated: 2026-09-21 · 16 insights from 11 episodes_
 
 ## The throughline
 Across five founders/talent leaders, the craft of hiring splits into distinct, addressable stages: sourcing (Snowflake/Lemkin promote existing internal 'tool nerds' into new roles rather than posting externally; Ward scopes a targeted top-1% list and relentlessly courts it rather than trusting a passive funnel), screening (Hodak distributes top-of-funnel judgment across 7-8 employee voters and uses AI-resistant homework scored on objective metrics; Ward leans on long work-sample trials as the strongest predictor of on-the-job success), deciding (Datadog's Pomel and Encord both argue for hiring and firing fast — act on early signal rather than rationalizing sunk cost), and closing (Ward treats closing as a continuous, team-orchestrated process — daily standups, personalized rituals — not a single offer-stage sales pitch). Two structural claims cut across all of this: recruiting itself deserves strategic, well-compensated ownership rather than being treated as scheduling overhead (Ward), and simple cultural filters — like PhotoRoom's English-fluency requirement — can proxy for harder-to-screen traits like global ambition. Hodak's continuous peer-weighted review (IGEN) extends the same distribute-and-quantify-judgment logic from hiring into ongoing performance management.
@@ -82,11 +82,17 @@ Cursor used targeted acquisitions primarily as a talent strategy—buying teams 
 — a16z · 2026-08-27 · guest: — · [▶ 35:39](https://www.youtube.com/watch?v=GHrnbvkVPZA&t=2139) · `pi-GHrnbvkVPZA-04`
 related: [Treat every hire like an executive search for the top 1%](#treat-every-hire-like-an-executive-search-for-the-top-1) (same company, Ward's own execution of the acquisition-sourced talent Cursor recruits around) · theme → [Founders & fundraising](founders-and-fundraising.md) (same episode's competitive-resilience insight, `pi-GHrnbvkVPZA-03`)
 
+### The median product manager is often net negative
+Because product management is a selected, power-law profession, the best PMs leave to become founders or executives and the remaining pool skews below average; this makes the middle-of-the-road PM often harmful to company outcomes. Sellis traces this to compensation and career incentives from the 'Zer' era: the role became lucrative and sticky for many who shouldn't be there, while top talent self-selects out. The implication: companies must evaluate PM impact contextually (person + place), not assume every PM is value-add.
+— Lenny's Podcast · 2026-09-20 · guest: Peter Sellis (former Head of Product, Snap and Discord) · [▶ 15:34](https://www.youtube.com/watch?v=97LRJUUPy_w&t=934) · `pi-97LRJUUPy_w-02`
+related: theme → [Leadership, careers & teams](leadership-careers-and-teams.md) (Verrilli's "product management as a specialist role often harms judgment" is the org-design mirror of this hiring-quality critique)
+
 ## Related themes
 - [Leadership, careers & teams](leadership-careers-and-teams.md) — parent theme; split off 2026-08-11. Org design, role-fluidity, and manager-effectiveness threads stay there.
 - [Founders & fundraising](founders-and-fundraising.md) — ambition/culture threads that intersect with hiring filters (PhotoRoom)
 
 ## Source episodes
+- [Lenny's Podcast — 90 minutes of unfiltered product advice from Snap and Discord's product chief | Peter Sellis (2026-09-20)](../episodes/2026/2026-09-20--lenny--90-minutes-unfiltered-product-advice-snap-discord.md)
 - [a16z — Inside Cursor: The Anatomy of a Generational Startup (2026-08-27)](../episodes/2026/2026-08-27--a16z--inside-cursor-anatomy-of-a-generational-startup.md)
 - [Y Combinator — Max Junestrand: You Need The Willingness To Learn Faster Than Anyone Else (2026-08-25)](../episodes/2026/2026-08-25--yc--max-junestrand-willingness-to-learn-faster.md)
 - [How I AI — How I manage 15 AI agents 24/7 as a solo founder | Ryan Carson (2026-08-24)](../episodes/2026/2026-08-24--howiai--how-i-manage-15-ai-agents-247-solo-founder.md)
