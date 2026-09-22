@@ -585,7 +585,7 @@ packages:                                  # component 12
     - id: integration
       name: Integration
       size_tag: M
-      scope_line: "Wire it into the account team's working day: the client's own licensed feeds in, the client's system of record out."
+      scope_line: "Wire it into the team's working day: their own licensed feeds in, their system of record out."
       duration_weeks: { status: tbd }
       services_price: { status: tbd }
       scope_in:

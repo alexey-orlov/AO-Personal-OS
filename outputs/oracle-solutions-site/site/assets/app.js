@@ -216,6 +216,21 @@
     return typeof conf.demoUrl === "string" && conf.demoUrl.trim().length > 0;
   }
 
+  /* Where the walkthrough opens. `demoUrl` is the canonical relative path — the
+     walkthrough ships inside site/ — but while the site is previewed as a
+     claude.ai artifact a relative link opens a supporting file as a top-level
+     page, which the host refuses; there the standalone demo artifact in
+     `demoPreviewUrl` is used instead. The product page's button and the demo
+     badge both read this, so the two can never open different things. */
+  function demoHref(conf) {
+    var entry = conf || {};
+    if (!entry.demoUrl) return "";
+    var onArtifactHost = /(^|\.)claude\.ai$/i.test(window.location.hostname) ||
+      /\/code\/frame\/|\/_f\//.test(window.location.pathname);
+    if (onArtifactHost && entry.demoPreviewUrl) return entry.demoPreviewUrl;
+    return entry.demoUrl;
+  }
+
   function availabilityBadges(slug) {
     var conf = (CFG.products && CFG.products[slug]) || {};
     var defs = tagFamilies().availability || {};
@@ -605,6 +620,8 @@
     chip: chip,
     tagChip: tagChip,
     availabilityBadges: availabilityBadges,
+    demoHref: demoHref,
+    hasDemo: hasDemo,
     badgeRow: badgeRow,
     caseStatusChip: caseStatusChip,
     caseMedallion: caseMedallion,
@@ -947,20 +964,28 @@
 
   /* The Demo badge is an action (VISUAL-GRAMMAR §1.2). On the product page the
      hero frame is already there, so the badge scrolls to it and opens it; on a
-     tile it goes to the page that carries the frame. */
+     product page with no frame — round 9: a product can carry a walkthrough and
+     no video, which is how Cross-system ERP Q&A came to have a demo and no way
+     in from the badge — it opens the walkthrough itself; on a tile it goes to
+     the page that carries both. */
   function initDemoBadges() {
     document.addEventListener("click", function (event) {
       var badge = event.target.closest ? event.target.closest("[data-demo-badge]") : null;
       if (!badge) return;
       event.preventDefault();
       var slug = badge.getAttribute("data-demo-badge");
+      var onProductPage = parseHash().path === "/products/" + slug;
       var frame = document.querySelector(".product-hero .video-card");
-      if (frame && parseHash().path === "/products/" + slug) {
+      if (frame && onProductPage) {
         var top = frame.getBoundingClientRect().top + window.pageYOffset - 120;
         var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
         window.scrollTo({ top: Math.max(top, 0), behavior: reduce ? "instant" : "smooth" });
         frame.click();
         return;
+      }
+      if (onProductPage) {
+        var href = demoHref((CFG.products && CFG.products[slug]) || {});
+        if (href) { window.open(href, "_blank", "noopener"); return; }
       }
       window.ROUTER.go("#/products/" + slug);
     });
