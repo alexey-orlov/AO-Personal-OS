@@ -1,6 +1,6 @@
 # P1 — Domain Workflow: Account Intelligence & Signal-to-Action
 
-**Research status:** IN PROGRESS (skeleton created 2026-09-22)
+**Research status:** COMPLETE — 2026-09-22. 45 sources (15 T1 / 14 T2 / 16 T3), 14 items explicitly unverified.
 
 **The job, in a buyer's words:** "Keep up with what is happening at the companies we sell to or depend on, work out what each development means for us, and turn it into something an account team can act on before the next conversation."
 
@@ -15,7 +15,10 @@
 1. **Both trigger patterns are real and named in the market.** The account-triggered pattern is the older, dominant one in B2B sales and is called **account planning / account research / pre-call (pre-meeting) prep**. The signal-triggered pattern is younger, has exploded since ~2023, and is called **signal-based selling** (sales side) or **early warning systems / event-driven monitoring** (financial services side). Neither is a niche.
 2. **They are not competing designs — they are two halves of one loop.** Signal-triggered systems produce the raw "this happened + which of your accounts it touches"; account-triggered systems consume it at plan or meeting time. Most mature deployments run both; the difference is which end holds the clock.
 3. **The industry-standard term for the "so what" step is not one term.** Sales uses *trigger event*, *buying signal*, *intent*, *propensity*, *whitespace*. Intelligence/CI tradecraft uses *implications*, *analytic judgment*, *assessment*, *So What?*. Banking uses *early warning indicator (EWI)*, *alert*, *action plan*, *watchlist*.
-4. The canonical workflow below is 10 steps. Steps 1–4 are largely universal; steps 5–7 (the reasoning and routing) are where the industry-specific logic lives; steps 8–10 (artifact, consumption, feedback) vary by whether the org is account-triggered or signal-triggered.
+4. The canonical workflow below is 10 steps. Steps 1–4 are largely universal; step 5 (the "so what") is the only genuinely industry-specific one and is where the human decision sits; steps 8–10 (artifact, consumption, feedback) vary by whether the org is account-triggered or signal-triggered.
+5. **The size of the job, from a primary source:** Salesforce's State of Sales (6th ed.) measures **9% of a seller's week on "Researching prospects" and another 9% on "Preparation and planning"** — 18% of the week, more than they spend meeting customers in person (12%) [T1]. That is the addressable block, and it is measured, not estimated.
+6. **The artifact differs by trigger, and this is a design constraint, not a preference.** Account-triggered produces *prose read once before a meeting*. Signal-triggered produces *a record with a lifecycle* — event, affected entity, severity, owner, recommended action, disposition. Building one and calling it the other is the most likely packaging error.
+7. **Quality practice is split and one half is missing.** The commercial market calibrates the *detection* step (Bombora's 0–100 surge score, ≥60 = spiking) and has nothing for the *implication* step, substituting auditability (citations) for accuracy. The mature specification for the implication step exists — ICD 203 — and nobody in this market has imported it.
 
 ---
 
@@ -303,7 +306,7 @@ Steps 1, 3, 4, 6, 7, 9, 10 are structurally identical across every industry exam
 
 ### T1 — primary vendor documentation, filings, standards
 
-1. **Intelligence Community Directive 203, "Analytic Standards"** — Office of the Director of National Intelligence. https://www.intelligence.gov/assets/documents/intelligence-community-directives/ICD_203.pdf (mirror: https://irp.fas.org/dni/icd/icd-203.pdf) — the likelihood-vs-confidence separation, the high/moderate/low confidence scale, the prohibition on mixing the two in one sentence.
+1. **Intelligence Community Directive 203, "Analytic Standards"** — Office of the Director of National Intelligence. *Read verbatim.* https://www.intelligence.gov/assets/documents/intelligence-community-directives/ICD_203.pdf (mirror: https://irp.fas.org/dni/icd/icd-203.pdf) — Analytic Standard 2 (uncertainty), the two mandated likelihood-term rows with 01–05% … 95–99% probability bands, the no-mixing-rows rule, the ban on combining a confidence level and a likelihood term in one sentence, the requirement to name causes of uncertainty, and the requirement to identify indicators that would alter the judgment. Also Standard 3 (separating information from assumptions/judgments) and the reference to ICD 206 source summary statements.
 2. **Microsoft Learn — "Overview of Sales agent in Microsoft 365 Copilot"** (ms.date 2026-08-06). https://learn.microsoft.com/en-us/microsoft-sales-copilot/sales-chat-overview — the three documented scenarios and the full sample-prompt library; the account-name-parameterised prompt pattern.
 3. **Microsoft Learn — "Start your day with a Copilot for Sales meeting summary"** (2025 Wave 1 release plan). https://learn.microsoft.com/en-us/copilot/release-plan/2025wave1/copilot-sales/start-day-copilot-sales-meeting-summary — the daily consolidated meeting-prep notification.
 4. **Microsoft Adoption — Copilot Scenario Library: "Accelerate customer research and sales preparation"** and **"Improve customer meetings"**. https://adoption.microsoft.com/en-us/scenario-library/sales/accelerate-customer-research-and-sales-preparation/

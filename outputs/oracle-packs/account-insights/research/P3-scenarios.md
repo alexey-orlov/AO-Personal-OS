@@ -114,11 +114,128 @@ Coverage check: all six `(b)` values are represented; all four `(c)` values are 
 
 ### 2.1 Step × Scenario grid (holds / differs / absent)
 
-_pending_
+`holds` = the step does the same work on the same kind of data with the same failure mode. `differs` = the step must do something different, needs different data, or fails differently. `absent` = the step does not occur.
+
+| # | Step | S1 | S2 | S3a | S3b | S4 | S5 | S6 | S7 |
+|---|---|---|---|---|---|---|---|---|---|
+| 1 | Define entity universe | holds | differs | holds | differs | differs | differs | differs | differs |
+| 2 | Ingest signals + first-party | holds | differs | differs | holds | differs | differs | differs | differs |
+| 3 | Filter + de-duplicate | holds | differs | differs | holds | differs | differs | differs | holds |
+| 4 | Resolve affected entities | holds | differs | holds | differs | differs | differs | differs | differs |
+| 5 | Retrieve + rank evidence | holds | differs | differs | differs | differs | differs | differs | differs |
+| 6 | Reason the "so what" | holds | differs | differs | differs | differs | differs | differs | differs |
+| 7 | Map to a service line | holds | differs | **absent** | **absent** | differs | differs | differs | differs |
+| 8 | Trace ripples | holds | differs | differs | differs | differs | differs | differs | differs |
+| 9 | Score magnitude + confidence | holds | differs | differs | holds | differs | differs | differs | differs |
+| 10 | Assemble the artifact | holds | differs | differs | differs | differs | differs | differs | differs |
+| 11 | Human review | holds | differs | differs | holds | differs | differs | differs | differs |
+| 12 | Deliver downstream | holds | differs | differs | holds | differs | differs | differs | differs |
+
+**Headline reading (reasoning).** 20 of 96 cells hold, and 12 of those 20 are S1 itself. **The 12 steps are the shape of S1 and only S1.** Every other scenario bends at least seven of them, and the two buy-side scenarios lose one outright. That is not a criticism of the decomposition — it is the definition of the product problem: the steps are the right skeleton, and almost all of the engineering is in the per-step configuration.
+
+The two `absent` cells fall in the same row. **Step 7 presupposes the organization has something to sell.** S3a maps implications to an internal value-creation lever; S3b maps them to nothing, because fund-mandate fit was already applied at step 1. A build that treats "map to offering" as mandatory will emit a null-shaped field in both — worse, it will hallucinate a catalog entry to fill it.
 
 ### 2.2 Notes for every non-"holds" cell
 
-_pending_
+**Step 1 — Define entity universe**
+- S2 `differs` — universe must be the regulatory obligor / connected-client group, built from accounting-consolidation logic, which does not match the sales hierarchy [T1 LEI ROC].
+- S3b `differs` — universe is an *output*. Scope is a thesis-shaped screen, not a list; the step produces candidates rather than bounding them.
+- S4 `differs` — scope is spend × criticality × obligation reach and extends into sub-tiers with no contract; the in-scope set is partly unnamable.
+- S5 `differs` — scope is future procurement events filtered by vehicle eligibility, NAICS and set-aside status, not by customer.
+- S6 `differs` — appetite rules replace the list: the entity set arrives as inbound submissions, and one account contributes units to many accumulation zones.
+- S7 `differs` — two universes must be defined: the prospect set and the adverse-party/former-client set that can veto it.
+
+**Step 2 — Ingest signals + first-party context**
+- S2 `differs` — exposure, limit and rating data sit behind information barriers; some first-party context cannot legally be blended into the same reasoning context [T2 Proskauer].
+- S3a `differs` — the richest first-party source is board-level management reporting, which is MNPI; ingesting it creates a wall-crossing record [T2 Sidley].
+- S4 `differs` — first-party context is contracts and clauses (audit rights, flow-downs, notice obligations) plus an obligation register; external feeds include sanctions, entity and customs lists.
+- S5 `differs` — the primary feed is a structured public docket with object *state transitions* (forecast → sources-sought → draft RFP), not documents to be read.
+- S6 `differs` — ingest includes geospatial hazard data and catastrophe-model output, a data type with no analogue in the other seven.
+- S7 `differs` — first-party context is the matter and time-entry ledger, whose access is itself restricted by ethical walls inside the firm.
+
+**Step 3 — Filter + de-duplicate**
+- S2 `differs` — de-dup must not collapse an official disclosure and a rumour into one signal; provenance class governs what may lawfully be acted on.
+- S3a `differs` — relevance is thesis-relevance. A market-moving story that touches no underwritten assumption is noise, however large.
+- S4 `differs` — relevance is obligation-triggered: a minor story matching a listed entity outranks a major story that matches nothing.
+- S5 `differs` — de-dup runs across *lifecycle stages of one object* (the same procurement as forecast, sources-sought and draft RFP), not across outlets.
+- S6 `differs` — de-dup is across event footprints (one catastrophe, many bulletins) and must preserve the footprint geometry, not just the narrative.
+
+**Step 4 — Resolve affected entities**
+- S2 `differs` — must resolve to the obligor group and ultimate parent, not the traded name; commercial string matching produces the wrong risk grouping.
+- S3b `differs` — resolution is inverted: signal → candidate entities that exist in no list. This is discovery, not matching.
+- S4 `differs` — must traverse the ownership graph with fractional aggregation (OFAC's 50% test aggregates stakes held by several blocked persons) and follow n-tier supply paths to entities with no record [T3 relay of OFAC guidance].
+- S5 `differs` — resolves to a program/opportunity keyed on agency + NAICS + vehicle + incumbent, not to a company record.
+- S6 `differs` — resolution is geospatial: which insured locations fall inside an event footprint polygon.
+- S7 `differs` — dual resolution. Every signal is resolved against the prospect universe *and* the conflict universe; a hit in the second vetoes the first firmwide [T1 ABA Rule 1.10].
+
+**Step 5 — Retrieve + rank evidence**
+- S2 `differs` — evidence must stay separable by wall side; public-side and private-side material cannot be merged into one ranked set.
+- S3a `differs` — evidence is ranked against named thesis assumptions, so relevance is defined by the underwriting model, not by recency or magnitude.
+- S3b `differs` — evidence is sparse and largely inferential; ranking must reward corroboration across independent proxies over recency.
+- S4 `differs` — evidence is retained as a dated due-diligence record; the obligation is to show what was known and when, not only what is true now.
+- S5 `differs` — evidence includes award history, past performance and protest record, ranked by effect on win probability rather than on relevance.
+- S6 `differs` — much of the evidence is model output (hazard scores, modelled PML) and must be ranked and labelled as model-derived, not observed.
+- S7 `differs` — evidence about a prospect may be confidential from another matter and must be *excluded* from ranking even though the firm holds it.
+
+**Step 6 — Reason the "so what"**
+- S2 `differs` — two-sided: one signal must yield a commercial implication and a credit/limit implication, with different owners and different clocks.
+- S3a `differs` — the output is thesis confirmation or disconfirmation plus a value-creation-plan change, not an opportunity.
+- S3b `differs` — the output is *ownability and approach timing* ("is this now buyable, and by us"), not what to sell.
+- S4 `differs` — the output is exposure, substitutability and obligation consequence; "opportunity" has no meaning on this side.
+- S5 `differs` — the output is a bid/no-bid stance and a shaping action, positioned against a procurement calendar rather than a relationship.
+- S6 `differs` — the output is an appetite, pricing or aggregate-limit action; per-entity implications can each be immaterial while jointly binding.
+- S7 `differs` — the output set includes "do not pursue" as a mandatory verdict; a genuine opportunity can produce a negative result.
+
+**Step 7 — Map to a service line**
+- S2 `differs` — maps into two catalogs at once: product holdings to sell, and credit actions (limit, covenant, collateral, hedge) to take.
+- S3a `absent` — no sellable catalog exists. Replaced by mapping to a value-creation lever or governance action inside a company you own.
+- S3b `absent` — nothing to map to. Fund-mandate fit was the step-1 screen; re-applying it here is redundant and invites a fabricated catalog entry.
+- S4 `differs` — maps to a mitigation playbook (dual-source, audit, corrective-action plan, exit), not to an offering.
+- S5 `differs` — maps to three things simultaneously: a solution, an eligible contract vehicle, and a teaming shape. Two of the three are eligibility, not fit.
+- S6 `differs` — maps to appetite class, product form and authority level; the "offering" is a permission to write, not a thing to pitch.
+- S7 `differs` — the mapping target includes a **person**: the practice group plus the named partner who holds the relationship.
+
+**Step 8 — Trace ripples**
+- S2 `differs` — the ripple is contagion through correlated exposures and sector concentration; it must be *aggregated*, not narrated.
+- S3a `differs` — the ripple is comparable-company read-across to other holdings and into the fund's reported mark.
+- S3b `differs` — the ripple is competitive: does the same signal reach rival bidders and move the price against us?
+- S4 `differs` — the ripple is sub-tier dependency and single-point-of-failure discovery, usually through entities never contracted with.
+- S5 `differs` — the ripple runs along the teaming graph; a signal about a partner can flip them to a competitor, or create an organizational conflict of interest, on a different bid.
+- S6 `differs` — the ripple is accumulation: many independent entities correlated by one peril, plus reinsurance and retrocession dependency behind them.
+- S7 `differs` — the ripple is conflict propagation: accepting matter A forecloses pursuit B across the whole firm, permanently.
+
+**Step 9 — Score magnitude + confidence**
+- S2 `differs` — the score must be reproducible and defensible to an auditor or regulator, with a recorded basis and version; directional confidence is not sufficient [T2 relay of FCA 2026 CDD review].
+- S3a `differs` — magnitude is expressed in value terms (EBITDA, multiple, valuation impact) and can move a reported mark.
+- S4 `differs` — thresholds are asymmetric: a low-confidence item that later proves true is a compliance failure, so the cost of a false negative is not symmetric with a false positive.
+- S5 `differs` — magnitude is contract value × probability of win, and confidence must feed a bid/no-bid gate that has its own cost of pursuit.
+- S6 `differs` — magnitude is expected loss or PML, computed rather than judged; a narrative confidence label is unusable downstream.
+- S7 `differs` — conflict findings are binary and are not scored at all. Scoring applies only to the residue that clears the veto.
+
+**Step 10 — Assemble the artifact**
+- S2 `differs` — must split into a relationship briefing and a risk/compliance record, with different audiences, retention periods and disclosure exposure.
+- S3a `differs` — the artifact is a monitoring pack and board input on a fixed reporting cadence, not an ad-hoc briefing.
+- S3b `differs` — the artifact is a target profile and approach memo about a company with which there is no relationship to brief on.
+- S4 `differs` — the artifact is a supplier risk record plus an escalation, and it is itself a retained compliance document.
+- S5 `differs` — the artifact is a capture plan / bid-no-bid pack anchored to the procurement calendar, not to a meeting.
+- S6 `differs` — two artifacts, not one: a per-risk underwriting note and a portfolio accumulation view that has no per-risk form.
+- S7 `differs` — the artifact cannot circulate until it carries a clearance status; the status is part of the document, not metadata about it.
+
+**Step 11 — Human review**
+- S2 `differs` — review is a named control with accountable first- and second-line roles, and must be evidenced, not merely performed.
+- S3a `differs` — the reviewer is a deal partner or board member who may be wall-crossed; the act of review itself creates an MNPI record.
+- S4 `differs` — rejecting a flagged item is a recorded risk acceptance with a named owner and an expiry, not a dismissal.
+- S5 `differs` — review is a formal gate (a bid/no-bid board) producing a decision record; it is not approve/reject on content quality.
+- S6 `differs` — review follows a referral and authority hierarchy; above a threshold it must escalate to a senior underwriter, and below one it may be absent entirely.
+- S7 `differs` — an ethics/conflicts clearance by a separate function sits alongside the commercial review, and the commercial reviewer cannot override it.
+
+**Step 12 — Deliver downstream**
+- S2 `differs` — delivery targets both CRM and the risk/KYC case system, and an event-driven review may have to be *opened as a case*, not merely noted [T3 KYC360].
+- S3a `differs` — delivery is into the portfolio monitoring pack, the board file and the valuation file, on the quarter's clock.
+- S4 `differs` — delivery must trigger contractual machinery (notice, audit right, corrective-action plan), not just inform someone.
+- S5 `differs` — delivery is into the capture/pipeline system and gate calendar, and must respect procurement communication blackout rules.
+- S6 `differs` — delivery lands in the policy-admin or binding-authority system where it changes what may be written, not what someone knows.
+- S7 `differs` — delivery is gated by clearance; an uncleared item must not reach the pursuit team at all, which means suppression has to be a delivery outcome.
 
 ### 2.3 Steps that are MISSING from the 12 (scenario-specific)
 
