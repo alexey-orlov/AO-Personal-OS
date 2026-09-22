@@ -276,3 +276,277 @@ capabilities:                              # component 6 — Area > Category > F
           - { name: Live write-back with idempotency and dedupe-on-write, status: roadmap, oracle_pack: none, tier_first_available: integration, source: research-brief-2026-09-22 }
           - { name: Outcome capture — pursued · won · lost · false positive — fed back to scoring, status: roadmap, oracle_pack: none, tier_first_available: scaling, source: research-brief-2026-09-22 }
           - { name: Acting on opportunities — auto-outreach, task creation, workflow automation, status: roadmap, oracle_pack: none, source: one-pager-2026-09-10 }
+
+workflow:                                  # component 7 — PROPOSED
+  inputs:
+    - system: The client's CRM
+      data: "in-scope account list, account framing and relationship notes, owner per account"
+      tier: "PoV Jumpstart: an agreed extract. Integration: API."
+    - system: External signal sources
+      data: "news, regulatory filings, disclosures, commercial data feeds"
+      tier: "PoV Jumpstart: a bounded, licence-cleared source set. Integration: the client's own licensed feeds."
+    - system: The client's service catalog
+      data: "service lines and offerings, captured from the client's own material"
+      tier: "PoV Jumpstart: captured once. Integration: maintained against a versioned catalog."
+  steps:
+    - n: 1
+      name: Define the account universe
+      actor: human
+      human_in_the_loop: true
+      description: "The client names the accounts in scope, their tiering and the owner of each."
+      failure_path: "An account with no CRM framing is admitted and flagged as thinly grounded, never silently dropped; records against it carry the reduced-grounding flag."
+    - n: 2
+      name: Ingest signals and first-party context
+      actor: system
+      description: "Signals arrive on a schedule or by manual submit; CRM extract and the service catalog are loaded and indexed alongside."
+      failure_path: >-
+        A paywalled or unreachable source is recorded as unreachable for that run — never as
+        'nothing found'. A feed that is stale or down is reported as coverage lost, not as a
+        quiet period. Declaring this honestly is a named market gap.
+    - n: 3
+      name: Normalize the signal
+      actor: system
+      description: "One step: is this a genuine signal, is it the same story already seen, and which in-scope accounts does it actually concern."
+      failure_path: >-
+        A name matching two accounts or none is escalated to human triage rather than guessed;
+        an unresolvable entity is held, not discarded, and counts against coverage.
+    - n: 4
+      name: Assemble and rank the evidence
+      actor: system
+      description: "Retrieve and rank what supports a specific claim about a specific account, across first-party and public sources."
+      failure_path: "Where the evidence does not clear the threshold the record is emitted as insufficiently evidenced rather than reasoned anyway."
+    - n: 5
+      name: Reason the implication
+      actor: system
+      description: "Derive candidate opportunities and flag material risks for that account, grounded in the assembled evidence."
+      failure_path: >-
+        NOT COVERED — by this pack or by any product in this market. Citation verification proves
+        the quote is real; nothing proves the business conclusion follows from it. The reviewer is
+        the only check, which is why the reviewer step is not optional.
+    - n: 6
+      name: Map to a service line
+      actor: system
+      description: "Each implication is mapped to a named service line the client actually sells."
+      failure_path: >-
+        An implication that maps to nothing is emitted as mapped-to-nothing, never forced onto the
+        nearest catalog entry. In verticals with no catalog the step is switched off rather than
+        faked.
+    - n: 7
+      name: Trace cross-account ripples
+      actor: system
+      description: "Follow the effect to the account's suppliers, customers and competitors that are themselves in scope, descriptively, up to two levels."
+      failure_path: "Beyond two levels, or where no relationship data exists, the ripple is not asserted; absence of an edge is not evidence of no effect and is stated as unknown."
+    - n: 8
+      name: Score and cite
+      actor: system
+      description: "Each item is scored for magnitude and confidence and carries its source evidence."
+      failure_path: >-
+        A cited source that does not support the claim is the failure this step cannot yet catch
+        on its own; contradiction between reliable sources is currently resolved by rank order
+        rather than surfaced. Both are roadmap.
+    - n: 9
+      name: Assemble the record
+      actor: system
+      description: "One structured record per affected account — account, trigger, summary, impact reasoning, scored opportunities with service-line mapping and cross-account effects."
+      failure_path: "Below the confidence threshold the item is filtered rather than delivered; the filtered count is reported so silence is legible."
+    - n: 10
+      name: Route to the owner
+      actor: system
+      description: "The record reaches the person who owns that account, in the system they work in."
+      failure_path: "ROADMAP — routing is not in the PoV. Misrouting is the most common way a correct implication produces no action."
+    - n: 11
+      name: Human review
+      actor: human
+      human_in_the_loop: true
+      description: "The reviewer reads the opportunities and their evidence and approves, rejects, or comments on why an item is or is not pursuable."
+      failure_path: "A rejection is retained with its reason, never deleted. Analysing rejection patterns against the rule that produced them is roadmap."
+    - n: 12
+      name: Deliver downstream
+      actor: system
+      description: "Approved records flow to the client's sales system."
+      failure_path: >-
+        In the PoV nothing is written back — reviewer decisions are captured, not persisted to
+        CRM. Outcome capture, which is what would let the confidence score ever be calibrated,
+        is a Scaling-tier capability.
+
+architecture:                              # component 8 — PROPOSED
+  inputs:
+    - system: Signal feeds
+      data: "news, filings, disclosures, commercial data feeds"
+    - system: Client context
+      data: "CRM account records and framing, service-line catalog"
+  outputs:
+    - system: Sales systems
+      data: "structured per-account records"
+  stack:
+    - layer: Custom configuration
+      vendor: SoftServe
+      items: ["In-scope account list and tiering", "Reasoning and ripple rules per domain", "Service catalog capture and mapping logic", "Scoring rubric and thresholds"]
+    - layer: Accelerator business app
+      vendor: Oracle + SoftServe
+      summary: "normalize · fan out · reason · map · score · reviewer UI"
+      items: ["Signal normalization and account resolution", "Catalog mapping and ripple reasoning", "Magnitude and confidence scoring", "Reviewer UI and evaluation harness"]
+    - layer: Agentic engine
+      vendor: NVIDIA
+      catalog_id: nvidia-aiq
+      items: ["Agentic orchestration and deep research", "Retrieval, reranking and citation verification"]
+      note: >-
+        AI-Q requires the RAG Blueprint deployed first. NVIDIA's AI-Q-on-OCI Terraform and Helm
+        samples are published as community examples and are explicitly NOT covered by NVIDIA
+        Enterprise Support — material to any architecture claim made to an Oracle audience.
+    - layer: Cloud infrastructure and GPUs
+      vendor: Oracle
+      items: ["OCI dedicated AI cluster", "Vector store and object storage", "Kubernetes runtime and API exposure"]
+
+oracle_products:                           # components 9 and 10 — catalog ids only
+  - { id: nvidia-aiq, role: required, why: "Agentic orchestration, deep research, retrieval and deterministic citation verification" }
+  - { id: oracle-ai-vector-search, role: required, why: "Semantic and hybrid retrieval over first-party and public evidence" }
+  - { id: oracle-ai-database, role: required, why: "Primary store for content and embeddings" }
+  - { id: oci-object-storage, role: required, why: "Source documents and processed artifacts" }
+  - { id: oci-kubernetes-engine, role: required, why: "Runtime for ingestion, orchestration and AI services" }
+  - { id: oci-generative-ai, role: required, why: "Reasoning and generation" }
+  - { id: nvidia-nim, role: required, why: "Inference services on OCI GPU infrastructure" }
+  - { id: oci-search-opensearch, role: optional, why: "Lexical search and filtering alongside vector retrieval" }
+  - { id: oci-document-understanding, role: optional, why: "Extraction from filings and reports where sources arrive as documents" }
+  - { id: oci-api-gateway, role: optional, why: "Exposure of the pack's APIs" }
+  - { id: oci-functions, role: optional, why: "Asynchronous processing" }
+  - { id: oci-streaming, role: optional, why: "Event-driven signal intake at volume" }
+  - { id: nvidia-nemotron, role: optional, why: "Reasoning models where deployed through NIM" }
+  - { id: oracle-cx, role: optional, why: "Account system of record at the ingress end and delivery target at the egress end — the pack supplies the external-signal half Oracle's own account intelligence deliberately does not" }
+  - { id: oracle-ai-agent-studio, role: optional, why: "The approved pattern for a partner-developed agent to sit alongside Fusion — external agents are otherwise contractually barred" }
+
+kpis:                                      # component 11 — ONE metric set
+  # From the section deck's own statement of what the engagement measures: "Focus: accuracy +
+  # confidence — what the PoC measures, against reviewer approve / reject". No figure is cleared;
+  # the engagement had not started. Every figure prints "results to follow".
+  - name: Reviewer agreement rate
+    formula: "Approved opportunities ÷ opportunities presented for review, per period"
+    baseline: "Established during the proof of value; no industry baseline exists — no vendor in this market publishes an accuracy figure for the implication step"
+    figure: "results to follow"
+    figure_status: to_follow
+    caveat: "Measures plausibility at review time, not correctness after the fact. Stated as reviewer agreement, never as accuracy."
+    source: section-deck-2026-09-11
+  - name: Confidence calibration
+    formula: "Reviewer agreement rate within each confidence band, compared against the band's stated confidence"
+    baseline: "None. Nothing in this market, and nothing in the Oracle or NVIDIA baseline, emits a calibrated confidence number."
+    figure: "results to follow"
+    figure_status: to_follow
+    caveat: "A true calibration claim needs realized-outcome capture, which is Scaling-tier. At PoV this measures band-to-reviewer consistency only."
+    source: section-deck-2026-09-11
+  - name: Account coverage
+    formula: "In-scope accounts with at least one reviewed record in the period ÷ total in-scope accounts"
+    baseline: "The client's current manual research coverage, established during the proof of value"
+    figure: "results to follow"
+    figure_status: to_follow
+    caveat: "Coverage is the pack's own first-order claim — the manual process trades depth against breadth and this removes the trade."
+    source: research-brief-2026-09-22
+  context_anchor:
+    statement: "Sellers spend 9% of the week researching prospects and 9% on preparation and planning — 18%, more than they spend meeting customers in person."
+    attribution: "Salesforce State of Sales, 6th edition (n=4,050)"
+    use: >-
+      Context for the size of the job, never presented as a result of this pack. Every
+      time-saved figure found in this market is vendor-sourced with no stated method; none may
+      be reused.
+
+packages:                                  # component 12
+  tier_vocabulary_note: "PoV Jumpstart / Integration / Scaling per decisions-2026-09-18. S/M/L survive only as internal size tags."
+  tiers:
+    - id: pov
+      name: PoV Jumpstart
+      size_tag: S
+      scope_line: "One signal set, one account segment, file-based in and out: prove the reviewer agrees."
+      duration_weeks: { target: 8, min: 6, max: 8, hard_cap: 10 }
+      duration_note: >-
+        Signed off at 6-8 weeks (user:2026-09-22), deliberately narrower than the source
+        engagement's contracted 12 weeks, which exceeds the 10-week cap. The 12-week engagement
+        is the full-scope shape and sits a tier above.
+      services_price: { status: tbd, footnote: "No price set. The source engagement's contract value is an internal-only fact and is not a published tier price." }
+      infra_price_monthly: { status: tbd, footnote: "Depends on signal volume, account count and source licensing." }
+      what_you_get:
+        - "Reviewed opportunity records across one real account segment, on the client's own accounts and catalog"
+        - "A reviewer agreement and confidence-calibration readout from the client's own reviewers"
+        - "The reviewer UI running in a sandboxed environment on the client's own tenancy"
+        - "A costed plan for the next step: integration scope, source licensing, routing"
+      entry_gate:
+        - "A named in-scope account segment with CRM framing that can be extracted"
+        - "The client's own service-line catalog, or the material it can be captured from"
+        - "A licence-cleared signal source set — rights to put the source into a model and redistribute the output"
+        - "Reviewers who will actually review, and whose approve / reject is the acceptance measure"
+      scope_in:
+        - "Signal ingestion and grounding against the client's own CRM extract and catalog"
+        - "Signal normalization — relevance, de-duplication and account resolution"
+        - "Opportunity and risk reasoning mapped to a named service line"
+        - "Descriptive cross-account ripple, up to two levels"
+        - "Magnitude and confidence scoring with citations"
+        - "Reviewer UI and the evaluation harness"
+      scope_out:
+        - "Acting on opportunities — auto-outreach, task creation, workflow automation"
+        - "Validating candidates against the client's existing pipeline"
+        - "Monetary sizing and interactive question-and-answer over the output"
+        - "Live CRM write-back and a persistent historical signal store"
+        - "Deep financial or quantitative modeling"
+        - "Native multilingual processing"
+        - "Routing to the account owner, and outcome capture — Integration and Scaling tiers"
+    - id: integration
+      name: Integration
+      size_tag: M
+      scope_line: "Wire it into the account team's working day: the client's own licensed feeds in, the client's sales system out."
+      duration_weeks: { status: tbd }
+      services_price: { status: tbd }
+      scope_in:
+        - "The client's own licensed commercial feeds, replacing the PoV's bounded source set"
+        - "Export to the client's sales system"
+        - "Routing to the named owner of each account"
+        - "Recurrence as a standing subscription per account, with delta reasoning and a nothing-material state"
+        - "Dual implication — one signal producing an opportunity and a risk to different owners"
+    - id: scaling
+      name: Scaling
+      size_tag: L
+      scope_line: "Make it improve: live write-back, outcome capture, and confidence that has been tested against what actually happened."
+      duration_weeks: { status: tbd }
+      services_price: { status: tbd }
+      scope_in:
+        - "Live write-back with idempotency and dedupe-on-write"
+        - "Outcome capture feeding realized results back into scoring"
+        - "Graph-backed ripple over a licensed relationship graph"
+        - "Feedback-driven tuning as a persisted learning loop"
+
+contacts:
+  partner_print: { name: Karsten Tramborg, title: Alliances & Partnerships Director, email: ktram@softserveinc.com }
+  site: { mailbox: oracle@softserveinc.com, named: Karsten Tramborg }
+  internal: { status: unconfirmed, note: "The section deck prints Bohdan Khomych / RnDrequest@softserveinc.com. That address appears in no source file and the address on record is bkhomy@. See open_questions." }
+  source: decisions-2026-09-18
+
+provenance:
+  inputs:
+    - { id: sow-uc6, path: "<practice-drive>/Projects/Oracle/Customers/DHL/UC #6 DHL Client Compass - #2.docx", kind: sow, read: 2026-09-22 }
+    - { id: one-pager-2026-09-10, path: "<practice-drive>/Projects/Oracle/Packs/Account Insights/AI Signal-Impact Engine - Accelerator One-pager.pdf", kind: one-pager, read: 2026-09-22 }
+    - { id: section-deck-2026-09-11, path: "<practice-drive>/Monthly AI products overviews/AI Solutions review - Sep/Oracle AI Packages - section slides.pptx (slides 9-10)", kind: deck, read: 2026-09-22 }
+    - { id: reviewer-ui-2026-09-11, path: "the reviewer-UI screenshot embedded in slide 10 of the section deck", kind: screenshot, read: 2026-09-22 }
+    - { id: research-brief-2026-09-22, path: "research-brief.md, synthesized from research/P1-P4", kind: research, read: 2026-09-22 }
+
+open_questions:
+  - id: verticals
+    question: "Keep private equity funds as the fourth vertical, or replace it with professional & business services?"
+    why: "A fund screening deal targets has no service catalog to map an implication onto — step 6 is absent there, which contradicts the pack's own differentiator. The delivered one-pager and the section deck both carry PE."
+    blocks: [verticals, capabilities.catalog_mapping, one_pager, deck, listing]
+  - id: internal_contact
+    question: "Who is the internal contact, and at which address?"
+    why: "The section deck prints RnDrequest@softserveinc.com, which appears in no source file; the address on record for Bohdan Khomych is bkhomy@."
+    blocks: [deck, exec_summary, one_pager]
+  - id: aiq_version
+    question: "Which AI-Q version does the delivery pin?"
+    why: "Research passes disagree on whether a research-plan approval step exists; 2.1.0 documents a Clarifier agent, the develop changelog removes it. The pack's reviewer UI is unaffected either way, but no artifact should print an AI-Q capability without this."
+    blocks: [feature_list.oracle_pack_column, architecture]
+  - id: oracle_anchor
+    question: "Is Oracle Sales Command Center the distribution rail for this pack, and does the partner carve-out in AI Agent Studio cover it?"
+    why: "Sales Command Center is first-party-only by design, which makes the external-signal half white space rather than a race. Confirming it turns a standing open loop into the pack's Oracle story."
+    blocks: [architecture, oracle_products, deck]
+  - id: pov_price
+    question: "What is the PoV Jumpstart price?"
+    why: "Left tbd deliberately — the source engagement's contract value is internal-only and is not a published tier price. Every artifact prints a footnote instead of a number until this is set."
+    blocks: [packages, one_pager, deck, listing]
+  - id: source_licensing
+    question: "What is the standing answer on source licensing rights?"
+    why: "Absent from the whole pipeline and a procurement blocker for enterprise buyers. The source engagement capped third-party data at three sources and a small budget, which is a PoV constraint, not a product answer."
+    blocks: [capabilities.sources, packages.entry_gate]
