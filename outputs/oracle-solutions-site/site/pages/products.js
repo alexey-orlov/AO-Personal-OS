@@ -169,12 +169,20 @@
       });
     })).join("");
 
+    /* The group list follows the platform list's rule (§18.9): it offers what a
+       click returns, so a group whose products are all still engagements is not
+       in it — except when the reader arrived on it from a home tile, where its
+       own option renders selected above the group's empty state. */
     var cats = [railOption({
       group: "cat", value: "", label: C.facets.allLabel, on: !state.cat
     })].concat(C.facets.categories.map(function (category) {
+      return { category: category, count: filtered({ cat: category.id }).length };
+    }).filter(function (entry) {
+      return entry.count > 0 || state.cat === entry.category.id;
+    }).map(function (entry) {
       return railOption({
-        group: "cat", value: category.id, label: category.chip, title: category.full,
-        on: state.cat === category.id, count: filtered({ cat: category.id }).length
+        group: "cat", value: entry.category.id, label: entry.category.chip, title: entry.category.full,
+        on: state.cat === entry.category.id, count: entry.count
       });
     })).join("");
 
