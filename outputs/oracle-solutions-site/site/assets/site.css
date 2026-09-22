@@ -2949,8 +2949,8 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
   margin-block: 1.25rem 1.5rem;
 }
 
-/* The accent sentence always opens its own line, at every width. */
-.home-title-accent { display: block; }
+/* Each of the three sentences opens its own line, at every width. */
+.home-title-accent, .home-title-proof { display: block; }
 .home-lead { max-width: 38rem; }
 
 /* The hero breaks where the rest of the page breaks. Held to 1024 the stack's
@@ -2961,12 +2961,13 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 
 /* ——— the "built on" stack ——— */
 
-/* Three bands of identical height: the workflow patterns and the products that
-   instance them, the SoftServe layer that packages them, the Oracle platforms
-   underneath. The connectors draw in from the bottom up, which is the one thing
-   a static diagram cannot say — that the foundation comes first. */
+/* Three bands of identical height, read from the bottom up: the Oracle
+   platforms, the SoftServe product groups built on them, the SoftServe services
+   that prove, integrate and scale them. The connectors draw in from the bottom
+   up, which is the one thing a static diagram cannot say — that the foundation
+   comes first. */
 
-.bo { display: grid; grid-template-rows: 1fr auto 1fr auto 1fr; width: 100%; max-width: 40rem; margin-inline: auto; }
+.bo { display: grid; grid-template-rows: 1fr auto 1fr auto 1fr; width: 100%; max-width: 42rem; margin-inline: auto; }
 
 .bo-band {
   position: relative;
@@ -2989,8 +2990,8 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 .js-reveal .bo.reveal { transform: none; }
 .js-reveal .bo.reveal .bo-band { opacity: 0; transform: translateY(6px); transition: opacity .45s var(--ease), transform .45s var(--ease); }
 .js-reveal .bo.reveal.is-in .bo-band { opacity: 1; transform: none; }
-.js-reveal .bo.reveal .bo-band--softserve { transition-delay: .35s; }
-.js-reveal .bo.reveal .bo-band--patterns { transition-delay: .7s; }
+.js-reveal .bo.reveal .bo-band--products { transition-delay: .35s; }
+.js-reveal .bo.reveal .bo-band--services { transition-delay: .7s; }
 
 .bo-owner { display: flex; align-items: center; justify-content: space-between; gap: .75rem; min-height: 1rem; }
 
@@ -3005,45 +3006,42 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 
 .bo-owner-mark { height: .75rem; width: auto; opacity: 1; }
 
-.bo-tiles { display: grid; gap: .4rem; grid-auto-rows: 1fr; flex: 1; }
-.bo-tiles--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+/* The tiles fill their band: equal rows, stretched, so the three bands read as
+   one solid block rather than three rows of cards with air under them. */
+.bo-tiles { display: grid; gap: .4rem; grid-auto-rows: 1fr; align-content: stretch; flex: 1; }
 .bo-tiles--4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.bo-tiles--5 { grid-template-columns: repeat(5, minmax(0, 1fr)); }
 
+/* One anatomy in all three bands, because the three layers are peers: a white
+   tile, its glyph in a blue-tint well, and the name at the tile's foot. */
 .bo-tile {
   min-width: 0;
   display: flex;
   flex-direction: column;
-  gap: .35rem;
-  padding: .5rem .55rem .6rem;
+  gap: .4rem;
+  padding: .75rem .625rem;
   border-radius: 0;
   border: 1px solid var(--border-panel);
-  font-size: .75rem;
+  background: var(--bg);
+  font-size: .8125rem;
   line-height: 1.25;
   color: var(--text);
 }
 
-/* Glyph and name on one row: the stack is a diagram beside the headline, and
-   three bands of stacked glyphs pushed the hero past a screenful. */
-.bo-tile-head { display: flex; align-items: center; gap: .4rem; min-width: 0; }
-.bo-tile .icon { width: 1rem; height: 1rem; flex: none; color: var(--text-body); }
-.bo-tile-name { font-weight: 500; overflow-wrap: anywhere; hyphens: auto; }
-
-/* Navy is the surface this system reserves for a stated fact, and a platform
-   the product runs on is one — the same ground the technology pill carries. */
-.bo-tile--platform { background: var(--surface-fact); border-color: transparent; }
-.bo-tile--platform .icon { color: var(--text); }
-.bo-tile--layer { background: var(--bg-inset); justify-content: center; text-align: center; font-weight: 500; }
-
-.bo-chips { display: flex; flex-wrap: wrap; gap: .2rem; }
-
-.bo-chip {
-  font-size: .625rem;
-  line-height: 1.2;
-  padding: .1rem .4rem;
-  border: 1px solid var(--border-subtle);
-  border-radius: 0;
-  color: var(--text-muted);
+/* The one decorative tint this theme allows (SS26-THEME §3). */
+.bo-tile-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  flex: none;
+  background: var(--surface-select);
+  color: var(--text-body);
 }
+
+.bo-tile .icon { width: 1.125rem; height: 1.125rem; flex: none; }
+.bo-tile-name { margin-top: auto; font-weight: 500; overflow-wrap: anywhere; hyphens: auto; }
 
 .bo-links { display: block; width: 100%; height: 1.25rem; }
 
