@@ -69,9 +69,20 @@
     audit: '<rect x="5" y="3" width="14" height="18" rx="2"></rect><path d="M9 8h6M9 12h6M9 16h3"></path>',
     storefront: '<path d="M4.5 10.5V20a1 1 0 0 0 1 1h13a1 1 0 0 0 1-1v-9.5"></path><path d="M3 10.2 4.8 4.4a1 1 0 0 1 1-.7h12.4a1 1 0 0 1 1 .7L21 10.2a2.5 2.5 0 0 1-4.5 1.9 2.5 2.5 0 0 1-4.5 0 2.5 2.5 0 0 1-4.5 0A2.5 2.5 0 0 1 3 10.2Z"></path><path d="M9.5 21v-5.4h5V21"></path>',
 
+    /* Round 9 · the two service glyphs the stack's top band needed and the
+       registry did not have. Scaling is the same instance repeated wider;
+       a managed service is the loop that keeps re-checking it. */
+    scale: '<path d="M3.5 20.5h17"></path><path d="M5 17.5V14M5 17.5h3.5"></path><rect x="4.5" y="13.5" width="4.5" height="4"></rect><rect x="10" y="9.5" width="4.5" height="8"></rect><rect x="15.5" y="5" width="4.5" height="12.5"></rect>',
+    managed: '<path d="M20.5 12a8.5 8.5 0 1 1-2.6-6.1"></path><path d="M21 3.8v4.3h-4.3"></path><path d="m8.4 12.2 2.6 2.6 4.6-5.2"></path>',
+
+    /* Round 9 · one glyph per product group (facets.categories). The retired
+       `pattern-processing-pipelines` and `pattern-data-analysis` went with the
+       three-category model — a registry key nothing names is an unchecked icon. */
+    "pattern-video-image": '<rect x="2.5" y="4.5" width="19" height="15"></rect><path d="M2.5 8.5h19"></path><path d="m10.2 11 4.8 2.7-4.8 2.7z"></path>',
     "pattern-deep-research": '<circle cx="10.5" cy="10.5" r="7"></circle><path d="m20.5 20.5-5-5"></path><circle cx="8.2" cy="12.4" r="1.3"></circle><circle cx="12.9" cy="12.4" r="1.3"></circle><circle cx="10.6" cy="8.1" r="1.3"></circle><path d="M9.5 11.3 10.1 9.4M11.6 11.3 11.1 9.4M9.5 12.4h2.1"></path>',
-    "pattern-processing-pipelines": '<rect x="2.5" y="8.5" width="6" height="7" rx="1.5"></rect><rect x="15.5" y="8.5" width="6" height="7" rx="1.5"></rect><path d="M8.5 12h7M13.5 10.1 15.5 12l-2 1.9"></path>',
-    "pattern-data-analysis": '<path d="M3.5 20.5h17"></path><rect x="5.5" y="12" width="3.4" height="8" rx="1"></rect><rect x="10.3" y="8.5" width="3.4" height="11.5" rx="1"></rect><rect x="15.1" y="5" width="3.4" height="15" rx="1"></rect>',
+    "pattern-documents": '<path d="M6 3.5h7.5l4.5 4.5v12H6z"></path><path d="M13.5 3.5V8H18"></path><path d="M9 12h6M9 15.5h4"></path>',
+    "pattern-optimization": '<circle cx="5" cy="6" r="2.2"></circle><circle cx="19" cy="18" r="2.2"></circle><path d="M7.2 6h6.3a4 4 0 0 1 0 8h-3a4 4 0 0 0 0 8h6.3"></path>',
+    "pattern-knowledge-assistants": '<path d="M21 14.3a2.5 2.5 0 0 1-2.5 2.5H10l-4.5 3.4v-3.4H5a2.5 2.5 0 0 1-2.5-2.5V6.5A2.5 2.5 0 0 1 5 4h13.5A2.5 2.5 0 0 1 21 6.5z"></path><path d="M7.5 8.5h8.5M7.5 12h5.5"></path>',
     "platform-oci-nvidia": '<path d="M7.6 12.2a3.4 3.4 0 0 1 .5-6.7 4.7 4.7 0 0 1 8.8.9 3.2 3.2 0 0 1 .5 5.8"></path><rect x="8.5" y="13.2" width="7" height="7" rx="1.5"></rect><path d="M10.8 20.2v1.3M13.2 20.2v1.3M8.5 15.5H7.2M8.5 17.9H7.2M16.8 15.5h-1.3M16.8 17.9h-1.3"></path>',
     "platform-oracle-ai-data-platform": '<ellipse cx="12" cy="6" rx="7.5" ry="3"></ellipse><path d="M4.5 6v12c0 1.7 3.4 3 7.5 3s7.5-1.3 7.5-3V6"></path><path d="m8.5 13 2.6 2.6 5-5"></path>',
     "platform-oracle-ai-lakehouse": '<path d="m12 3 8.5 4.2L12 11.4 3.5 7.2z"></path><path d="m3.5 12 8.5 4.2 8.5-4.2"></path><path d="m3.5 16.8 8.5 4.2 8.5-4.2"></path>',
