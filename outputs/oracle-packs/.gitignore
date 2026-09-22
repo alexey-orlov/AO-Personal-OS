@@ -1,0 +1,3 @@
+# Raw extracted source material (signed SoWs, client docs) stays local by design —
+# same rule as pipeline transcripts. Only the analysis outputs are committed.
+*/sources/
