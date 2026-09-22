@@ -135,11 +135,12 @@ window.SITE_CONTENT = {
       pattern: {
         tooltip: "What it does",
         icons: {
-          "video-image": "pattern-video-image",
+          "knowledge-analytics": "pattern-knowledge-analytics",
           "deep-research": "pattern-deep-research",
           "documents": "pattern-documents",
-          "optimization": "pattern-optimization",
-          "knowledge-assistants": "pattern-knowledge-assistants"
+          "transactions": "pattern-transactions",
+          "forecasting-optimization": "pattern-forecasting-optimization",
+          "video-image": "pattern-video-image"
         }
       },
       tech: {
@@ -152,7 +153,7 @@ window.SITE_CONTENT = {
         }
       },
       availability: {
-        demo: { label: "Demo", tooltip: "Demo available", icon: "play" },
+        demo: { label: "Interactive demo", tooltip: "Interactive demo — a guided walkthrough you can click through", icon: "cursor-click" },
         marketplace: { label: "Oracle Marketplace", tooltip: "Available on Oracle Marketplace", icon: "storefront" }
       }
     },
@@ -439,18 +440,21 @@ window.SITE_CONTENT = {
       }
     ],
     categoryLabel: "What it does",
+    /* Round 9 (Alex): six groups, one per kind of job, in this order on the
+       hero stack, the home tiles and the rail. `chip` equals `full` — the tag
+       on a product page is the group's exact name, not a short form of it. */
     categories: [
       {
-        id: "video-image",
-        chip: "Video & image",
-        full: "Video & image intelligence",
-        line: "Cameras, footage and photos read by AI: defects spotted, scenes found, events flagged, for a person to confirm.",
-        image: "assets/img/groups/video-image.svg",
-        emptyState: "Video and image work is delivered as an engagement today, on OCI + NVIDIA. Tell us the footage or the inspection you have in mind."
+        id: "knowledge-analytics",
+        chip: "Enterprise knowledge & analytics",
+        full: "Enterprise knowledge & analytics",
+        line: "Plain-language answers and analysis over your governed data, from the ERP to the systems around it, with the source behind every answer.",
+        image: "assets/img/groups/knowledge-analytics.jpg",
+        emptyState: "Knowledge and analytics assistants are scoped per engagement. Tell us the questions your teams ask, and which systems hold the answers."
       },
       {
         id: "deep-research",
-        chip: "Deep research",
+        chip: "Deep research & investigation",
         full: "Deep research & investigation",
         line: "Agents that read across your systems and outside sources and bring back a cited answer: an account brief, a case file, a variance explained.",
         image: "assets/img/groups/deep-research.svg",
@@ -465,27 +469,35 @@ window.SITE_CONTENT = {
         emptyState: "Document processing is scoped per engagement. Tell us the document type and the system it feeds."
       },
       {
-        id: "optimization",
-        chip: "Optimization",
-        full: "Optimization",
-        line: "Plans and schedules computed against every constraint at once — routes, shifts, allocations — for the people who own them to approve.",
-        image: "assets/img/groups/optimization.jpg",
-        emptyState: "Optimization is scoped per engagement. Tell us the plan your dispatchers or planners build by hand today."
+        id: "transactions",
+        chip: "Transaction & process execution",
+        full: "Transaction & process execution",
+        line: "Agents that carry a process step through to completion — an order, a claim, a ticket, a posting — inside your systems, with a person approving what moves.",
+        image: "assets/img/groups/transactions.svg",
+        emptyState: "Transaction and process agents are scoped per engagement. Tell us the process step your people complete by hand today."
       },
       {
-        id: "knowledge-assistants",
-        chip: "Knowledge assistants",
-        full: "Enterprise knowledge assistants",
-        line: "Plain-language answers over your governed data, from the ERP to the systems around it, with the source behind every answer.",
-        image: "assets/img/groups/knowledge-assistants.jpg",
-        emptyState: "Knowledge assistants are scoped per engagement. Tell us the questions your teams ask, and which systems hold the answers."
+        id: "forecasting-optimization",
+        chip: "Forecasting & optimization",
+        full: "Forecasting & optimization",
+        line: "Forecasts and plans computed against every constraint at once — demand, routes, shifts, allocations — for the people who own them to approve.",
+        image: "assets/img/groups/forecasting-optimization.jpg",
+        emptyState: "Forecasting and optimization is scoped per engagement. Tell us the plan your planners or dispatchers build by hand today."
+      },
+      {
+        id: "video-image",
+        chip: "Video & image intelligence",
+        full: "Video & image intelligence",
+        line: "Cameras, footage and photos read by AI: defects spotted, scenes found, events flagged, for a person to confirm.",
+        image: "assets/img/groups/video-image.svg",
+        emptyState: "Video and image work is delivered as an engagement today, on OCI + NVIDIA NeMo. Tell us the footage or the inspection you have in mind."
       }
     ],
     availability: {
-      label: "Availability",
+      label: "Artifacts",
       options: [
-        { id: "demo", label: "Demo available" },
-        { id: "marketplace", label: "On Oracle Marketplace" }
+        { id: "demo", label: "Interactive demo" },
+        { id: "marketplace", label: "Oracle Marketplace" }
       ]
     },
     allLabel: "All",
