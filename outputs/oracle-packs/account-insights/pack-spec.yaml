@@ -435,15 +435,15 @@ architecture:                              # component 8 — PROPOSED
   inputs:
     - system: Signal feeds
       data: "news, filings, disclosures, commercial data feeds"
-    - system: Client context
-      data: "CRM account records and framing, service-line catalog"
+    - system: Organization context
+      data: "records and framing from the system of record, the catalog of moves"
   outputs:
-    - system: Sales systems
+    - system: Systems of record — CRM, deal pipeline or portfolio tracker
       data: "structured per-account records"
   stack:
     - layer: Custom configuration
       vendor: SoftServe
-      items: ["In-scope account list and tiering", "Reasoning and ripple rules per domain", "Service catalog capture and mapping logic", "Scoring rubric and thresholds"]
+      items: ["In-scope account list and tiering", "Reasoning and ripple rules per domain", "Catalog-of-moves capture and mapping logic", "Scoring rubric and thresholds"]
     - layer: Accelerator business app
       vendor: Oracle + SoftServe
       summary: "normalize · fan out · reason · map · score · reviewer UI"
@@ -547,19 +547,19 @@ packages:                                  # component 12
       services_price: { status: tbd, footnote: "No price set. The source engagement's contract value is an internal-only fact and is not a published tier price." }
       infra_price_monthly: { status: tbd, footnote: "Depends on signal volume, account count and source licensing." }
       what_you_get:
-        - "Reviewed opportunity records across one real account segment, on the client's own accounts and catalog"
+        - "Reviewed opportunity records across one real account segment, on the organization's own companies and catalog of moves"
         - "A reviewer agreement and confidence-calibration readout from the client's own reviewers"
         - "The reviewer UI running in a sandboxed environment on the client's own tenancy"
         - "A costed plan for the next step: integration scope, source licensing, routing"
       entry_gate:
-        - "A named in-scope account segment with CRM framing that can be extracted"
-        - "The client's own service-line catalog, or the material it can be captured from"
+        - "A named in-scope set of companies with framing in the system of record that can be extracted"
+        - "The organization's own catalog of moves — service lines, partnership offers or value levers — or the material it can be captured from"
         - "A licence-cleared signal source set — rights to put the source into a model and redistribute the output"
         - "Reviewers who will actually review, and whose approve / reject is the acceptance measure"
       scope_in:
-        - "Signal ingestion and grounding against the client's own CRM extract and catalog"
+        - "Signal ingestion and grounding against the organization's own system-of-record extract and catalog of moves"
         - "Signal normalization — relevance, de-duplication and account resolution"
-        - "Opportunity and risk reasoning mapped to a named service line"
+        - "Opportunity and risk reasoning mapped to a named next move"
         - "Descriptive cross-account ripple, up to two levels"
         - "Magnitude and confidence scoring with citations"
         - "Reviewer UI and the evaluation harness"
@@ -574,7 +574,7 @@ packages:                                  # component 12
     - id: integration
       name: Integration
       size_tag: M
-      scope_line: "Wire it into the account team's working day: the client's own licensed feeds in, the client's sales system out."
+      scope_line: "Wire it into the account team's working day: the client's own licensed feeds in, the client's system of record out."
       duration_weeks: { status: tbd }
       services_price: { status: tbd }
       scope_in:
