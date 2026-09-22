@@ -23,27 +23,33 @@
       "</div>";
   }
 
-  function categoryEntry(C, id) {
-    var found = (C.facets.categories || []).filter(function (item) { return item.id === id; })[0];
-    return found || { id: id, chip: id, full: id };
-  }
-
   /* ————— S1: the offer, and what it is built on ————— */
 
-  /* Three bands, drawn as peers of identical height: the workflow patterns and
-     the products that instance them, the SoftServe layer that packages them,
-     and the Oracle platforms underneath. The connectors draw in on load, which
-     is the one thing a static diagram cannot say — that the stack is read from
-     the bottom up. Everything inside is hidden from assistive technology; the
-     frame carries one label that says the same thing in a sentence. */
+  /* Three bands, drawn as peers of identical height and read from the bottom
+     up: Oracle's platforms, the SoftServe product groups built on them, the
+     SoftServe services that prove, integrate and scale them. The connectors
+     draw in on load, which is the one thing a static diagram cannot say — that
+     the foundation comes first. Everything inside is hidden from assistive
+     technology; the frame carries one label that says the same in a sentence. */
 
   function stackLinks(position) {
     return '<svg class="bo-links bo-links--' + position + '" viewBox="0 0 100 16" ' +
       'preserveAspectRatio="none" aria-hidden="true">' +
-      '<path class="bo-link" d="M16.67 0V16"></path>' +
+      '<path class="bo-link" d="M20 0V16"></path>' +
       '<path class="bo-link" d="M50 0V16"></path>' +
-      '<path class="bo-link" d="M83.33 0V16"></path>' +
+      '<path class="bo-link" d="M80 0V16"></path>' +
       "</svg>";
+  }
+
+  /* One tile anatomy for all three bands: a glyph in its well, the name under
+     it. The name sits at the foot of the tile so the rows align across a band
+     however long a name wraps, and the three bands read as one solid block. */
+  function stackTile(icon, name, modifier) {
+    var UI = window.UI;
+    return '<li class="bo-tile' + (modifier ? " bo-tile--" + modifier : "") + '">' +
+      '<span class="bo-tile-mark">' + UI.icon(icon) + "</span>" +
+      '<span class="bo-tile-name">' + UI.esc(name) + "</span>" +
+      "</li>";
   }
 
   function stackVisual(C) {
@@ -52,46 +58,44 @@
     var families = (C.shared && C.shared.tagFamilies) || {};
     var patternIcons = (families.pattern && families.pattern.icons) || {};
     var techIcons = (families.tech && families.tech.icons) || {};
-    var products = UI.orderedProducts();
+    var ssMark = '<img class="bo-owner-mark" src="' +
+      window.brandAsset("ssMark", "assets/img/softserve-wordmark-white.svg") +
+      '" alt="" width="80" height="14" decoding="async">';
 
-    var patternTiles = (C.facets.categories || []).map(function (category) {
-      var chips = products.filter(function (product) {
-        return product.category === category.id;
-      }).map(function (product) {
-        return '<li class="bo-chip">' + UI.esc(product.name) + "</li>";
-      }).join("");
-      return '<li class="bo-tile bo-tile--pattern">' +
-        '<span class="bo-tile-head">' +
-          UI.icon(patternIcons[category.id]) +
-          '<span class="bo-tile-name">' + UI.esc(category.chip) + "</span>" +
-        "</span>" +
-        '<ul class="bo-chips">' + chips + "</ul>" +
-        "</li>";
+    var serviceTiles = (((stack.services || {}).items) || []).map(function (item) {
+      return stackTile(item.icon, item.name, "service");
     }).join("");
 
-    var layerTiles = ((stack.softserve && stack.softserve.items) || []).map(function (item) {
-      return '<li class="bo-tile bo-tile--layer">' + UI.esc(item) + "</li>";
+    /* Derived, so the middle band can never name a group the catalog does not
+       have: one tile per facets.categories entry, in the site's own order. */
+    var groupTiles = (C.facets.categories || []).map(function (category) {
+      return stackTile(patternIcons[category.id], category.full, "group");
     }).join("");
 
-    var platformTiles = (C.facets.technology || []).map(function (facet) {
-      return '<li class="bo-tile bo-tile--platform">' +
-        '<span class="bo-tile-head">' +
-          UI.icon(techIcons[facet.id]) +
-          '<span class="bo-tile-name">' + UI.esc(facet.label) + "</span>" +
-        "</span>" +
-        "</li>";
+    /* Bottom-up reading order is the platforms' own: the stack orders them
+       Lakehouse first, where the Products rail and Services lead with OCI +
+       NVIDIA. `stackLabel` is the one place a platform may name its engine. */
+    var byId = {};
+    (C.facets.technology || []).forEach(function (facet) { byId[facet.id] = facet; });
+    var platformTiles = (stack.platformOrder || []).map(function (id) {
+      var facet = byId[id];
+      if (!facet) return "";
+      return stackTile(techIcons[id], facet.stackLabel || facet.label, "platform");
     }).join("");
 
     return '<div class="bo reveal" role="img" aria-label="' + UI.esc(stack.ariaLabel) + '">' +
-      '<div class="bo-band bo-band--patterns" aria-hidden="true">' +
-        '<p class="bo-owner"><span class="bo-owner-label">' + UI.esc(stack.patternsLabel) + "</span></p>" +
-        '<ul class="bo-tiles bo-tiles--3">' + patternTiles + "</ul>" +
+      '<div class="bo-band bo-band--services" aria-hidden="true">' +
+        '<p class="bo-owner">' +
+          '<span class="bo-owner-label">' + UI.esc(stack.services.label) + "</span>" + ssMark +
+        "</p>" +
+        '<ul class="bo-tiles bo-tiles--4">' + serviceTiles + "</ul>" +
       "</div>" +
       stackLinks("upper") +
-      '<div class="bo-band bo-band--softserve" aria-hidden="true">' +
-        '<p class="bo-owner"><img class="bo-owner-mark" src="' + window.brandAsset("ssMark", "assets/img/softserve-wordmark-white.svg") + '" ' +
-          'alt="" width="80" height="14" decoding="async"></p>' +
-        '<ul class="bo-tiles bo-tiles--3">' + layerTiles + "</ul>" +
+      '<div class="bo-band bo-band--products" aria-hidden="true">' +
+        '<p class="bo-owner">' +
+          '<span class="bo-owner-label">' + UI.esc(stack.productsLabel) + "</span>" + ssMark +
+        "</p>" +
+        '<ul class="bo-tiles bo-tiles--5">' + groupTiles + "</ul>" +
       "</div>" +
       stackLinks("lower") +
       '<div class="bo-band bo-band--oracle" aria-hidden="true">' +
@@ -120,9 +124,12 @@
       '<div class="wrap home-hero-inner">' +
         '<div class="home-hero-copy">' +
           '<p class="eyebrow">' + UI.esc(block.eyebrow) + "</p>" +
+          /* Three sentences, three lines: what we build, what it is built on,
+             what it is worth. Only the middle one is the page's accent. */
           '<h1 class="h1 home-title">' +
             '<span class="home-title-lead">' + UI.esc(block.headline.lead) + "</span> " +
-            '<span class="accent home-title-accent">' + UI.esc(block.headline.accent) + "</span>" +
+            '<span class="accent home-title-accent">' + UI.esc(block.headline.accent) + "</span> " +
+            '<span class="home-title-proof">' + UI.esc(block.headline.proof) + "</span>" +
           "</h1>" +
           '<p class="lead home-lead">' + UI.esc(block.lead) + "</p>" +
           '<div class="cta-row hero-cta">' + ctas + "</div>" +
@@ -140,8 +147,13 @@
   function statBand(C) {
     var UI = window.UI;
     var stats = (C.overview.hero.stats || []).map(function (stat) {
+      /* The optional prefix is set small beside the figure — "from 30 days" is
+         one fact, so it is one line, not a figure with a caption above it. */
+      var prefix = stat.prefix
+        ? '<span class="stat-prefix">' + UI.esc(stat.prefix) + "</span>"
+        : "";
       return '<li class="stat">' +
-        '<p class="stat-value nums">' + UI.esc(stat.value) + "</p>" +
+        '<p class="stat-value nums">' + prefix + "<span>" + UI.esc(stat.value) + "</span></p>" +
         '<p class="stat-label">' + UI.esc(stat.label) + "</p>" +
         "</li>";
     }).join("");
