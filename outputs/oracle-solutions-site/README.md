@@ -68,7 +68,8 @@ oracle-solutions-site/
     │   ├── forms.js          the demo, contact and sales-kit forms (window.FORMS)
     │   ├── review.js         TEMPORARY: the Internal checklist panel, prototype only (START-HERE §8)
     │   └── img/              wordmarks, heroes, step frames, industries, posters, headshot
-    │       └── heroes/       per-page hero background images + heroes.json
+    │       ├── heroes/       per-page hero background images + heroes.json
+    │       └── groups/       the six product-group tile images for the home page (docs/ASSETS.md §2b)
     ├── data/
     │   ├── config.js         window.SITE_CONFIG — links, gate, form destination
     │   ├── content.js        window.SITE_CONTENT — every word on the site
@@ -92,15 +93,26 @@ Script order in `index.html` matters: `data/*` → `assets/forms.js` → `pages/
 
 | Hash | Page |
 |---|---|
-| `#/` | Home — hero with the built-on stack, a three-figure proof strip, two ways in, the agents by what they do, how we deliver, case studies, about SoftServe, contact |
-| `#/products` | Product marketplace — facet rail (Oracle platform, what it does, availability), search, tiles. The rail lists **only options a click returns**: a platform with no products is not shown, the *All* options carry no count, and the results line reports what a filter returned with no denominator — nothing at all when nothing is filtered. `?tech=<id>` still resolves for every platform, rendering that facet's `emptyState` (`docs/PROVENANCE.md` §18.9) |
+| `#/` | Home — hero with the three-layer stack (Oracle platforms → SoftServe product groups → SoftServe services), a three-figure proof strip led by **from 30 days**, two ways in, **six product-group tiles**, how we deliver, case studies, about SoftServe, contact |
+| `#/products` | Product marketplace — facet rail (Oracle platform · what it does · Artifacts), search, tiles. **Both radio rails are fixed lists** in canonical order: every platform a product can run on and all six groups, always, with a zero-count option disabled and printing no number. *Oracle AI for Fusion Applications* carries `catalog: false` and is not offered — no product runs on it. The *All* options carry no count, and the results line reports what a filter returned with no denominator — nothing at all when nothing is filtered. `?tech=<id>` and `?cat=<id>` both resolve for every id, rendering that facet's or that group's `emptyState` (`docs/PROVENANCE.md` §18.9, §28) |
 | `#/products/<slug>` | One product — hero plus tabs |
 | `#/products/<slug>/<tab>` | `overview` · `technology` · `jumpstart` · `contacts` · `sellers`. The retired segments `pov` → `jumpstart` and `demo` → `contacts` redirect in place, so Back still returns to where the reader came from and an old link still lands on the right tab. Since round 8 `sellers` is that product's **sales-kit request** (work email → the kit), not a gated materials list. |
 | `#/sellers` | **For sellers** (round 8, `docs/PROVENANCE.md` §24): the sales-kit request for all offers or one product — a SoftServe or Oracle work email gets the kit; customers and partners are routed to the scoping call — plus *See the fit in an account?*, which opens the demo form. Reached from the footer's link row, and from *Get the full kit* in the confirmation after a product kit request; not in the header (removed 2026-09-17). |
 | `#/services` | Services, in three screens and the contact block, one message each (round 7, `docs/PROVENANCE.md` §23): AI depth with Oracle expertise — hero on the practice, stat band, platform chips · it's all about ROI (`#how-we-engage`: Discovery → Jumpstart proof of value → Integration → Scale, each ending in a measured result) · a fast proof of value, no hassle (`#proof-of-value`: the light band with **4–8 weeks**, then what you bring and what you leave with) · contact form (`#contact`) |
 | anything else | A designed not-found page |
 
-An anchor can follow the route: `#/services#contact`, `#/#request-a-demo`. The router scrolls to that element with a 96 px offset. Query parameters work too — `#/products?tech=oracle-ai-lakehouse` opens the marketplace with that facet applied, which makes filtered views shareable.
+An anchor can follow the route: `#/services#contact`, `#/#request-a-demo`. The router scrolls to that element with a 96 px offset. Query parameters work too, which makes a filtered view shareable — `#/products?tech=oracle-ai-lakehouse` opens the marketplace on that platform, and **`#/products?cat=<id>` opens it on one product group**, which is what each of the home page's six tiles links to:
+
+```
+#/products?cat=knowledge-analytics        Enterprise knowledge & analytics
+#/products?cat=deep-research              Deep research & investigation
+#/products?cat=documents                  Document processing
+#/products?cat=transactions               Transaction & process execution
+#/products?cat=forecasting-optimization   Forecasting & optimization
+#/products?cat=video-image                Video & image intelligence
+```
+
+Platform ids and their two names: `oracle-ai-lakehouse` *AI Lakehouse* / Oracle Autonomous AI Lakehouse · `oracle-ai-data-platform` *AI Data Platform* / Oracle AI Data Platform · `oracle-ai-fusion` *AI for Fusion Applications* / Oracle AI for Fusion Applications (not a catalog filter) · `oci-nvidia` *OCI + NVIDIA NeMo* / Oracle Cloud Infrastructure + NVIDIA NeMo. **The short label is what the rail, the chips, the tile band and the hero stack render; the full Oracle name is what the Services cards and prose carry.** A group whose filter returns nothing today (`transactions`, `video-image`) renders that group's own empty state, never a blank grid.
 
 ---
 
@@ -135,7 +147,7 @@ Full field-by-field reference: `docs/CONFIG.md`. In short:
 | `sellerGate.kitAutoSend` | `false` until something behind `formEndpoint` emails the kit; only `true` lets the page say *"We've emailed the kit"*. With no endpoint the visitor's mail client carries the request. |
 | `sellerGate.kitEmailKey` / `legacyStorageKey` | `localStorage` keys: the last kit email (prefill), and the retired gate's unlock flag (removed on load). |
 | `products.<slug>.marketplaceUrl` | The single Marketplace switch. Non-empty → the "On Oracle Marketplace" badge, the "Available on Oracle Marketplace" facet and the "View on Oracle Marketplace" hero button all appear together. Empty → none of them exist. |
-| `products.<slug>.video` | `true` → the product hero carries the 16:9 demo frame. With no `videoUrl` yet, clicking it opens a short panel saying the recording is being prepared, with a button to that product's Contacts tab. `true` today on `workforce-optimization`, `large-document-extraction` and `account-insights`. |
+| `products.<slug>.video` | `true` → the product hero carries the 16:9 demo frame, and nothing else (round 9: the demo badge and the *Interactive demo* filter read `demoUrl`). With no `videoUrl` yet, clicking the frame opens a short panel saying the recording is being prepared, with a button to that product's Contacts tab. `true` today on `workforce-optimization`, `large-document-extraction` and `account-insights`. |
 | `products.<slug>.videoUrl` | Non-empty → the same frame plays the video in a modal instead (YouTube, Vimeo, SharePoint and Stream URLs embed as an iframe; anything else plays natively), and turns the frame on by itself even where `video` is `false`. |
 | `products.<slug>.successStoryUrl` | Non-empty → a "Download the success story" button appears. |
 | `products.<slug>.demoUrl` | Non-empty → the secondary "Try the interactive demo" button in the product hero and the same button in the pending-video panel, both opening a new tab. Relative to `site/` so the walkthrough deploys with the site. Set today on `large-document-extraction`, `workforce-optimization` and `cross-system-erp-qa`. |
