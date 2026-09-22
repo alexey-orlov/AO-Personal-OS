@@ -115,6 +115,7 @@ Evidence-bound, specific, no filler or praise. Mark inferences as "(inferred)". 
 ## Adding things
 - New skill → new folder `.claude/skills/<name>/` with a `SKILL.md` that starts with the frontmatter block (`name`, `description`, `disable-model-invocation: false`, `user-invocable: true`) followed by the prompt body. Directory name MUST match the `name:` value. If it's a new call type for the call-pipeline, also add the label + definition to Axis 1 of `.claude/skills/classify/SKILL.md`. To add a new call-note context (a new area, or a sub-context under one — lands at `context/areas/<area>/calls/<sub>`), add it to Axis 2 of the same file — the pipeline creates folders on demand, so no script change is needed. A new area should also get its `context/areas/<area>/README.md` page (the `context-update` skill creates it on first fold otherwise).
 - New automation → new folder under `automations/` with its own `setup.sh`, `README.md`, and `.work/` for runtime/secret files.
+- Question widgets in any skill (`AskUserQuestion`): **one option = one choice, never a bundle.** The widget caps a question at four options, so a question with more than four choices becomes several questions in the same call (all multi-select, uniform `<Item> (<format>)` labels), never items merged into one option to fit (Alex, 2026-09-22, on the packaging intake's artifact question).
 
 ## Active automations
 
