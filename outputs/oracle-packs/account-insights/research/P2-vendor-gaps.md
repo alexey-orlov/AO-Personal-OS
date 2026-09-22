@@ -276,6 +276,24 @@ The release announcement makes **no mention of human review, approval, citations
 - **"Bundled and prioritized Slack messages per account"** is a named delivery behaviour. It is my steps 3+4+9+12 compressed into one product decision: *one message per account per period, ranked*.
 - **Claygent Builder ships prompt version control and A/B testing.** No other vendor in the set exposes *evaluation of the reasoning step* as a user-facing surface. That is a real gap in my list — see A3.
 
+#### A1.11 Feedly Market Intelligence (added mid-research — it changes two conclusions)
+
+Not on the original list, but it turned out to be the **only vendor that names deduplication**, and it has the most explicit citation contract in the set.
+
+| Surface | What Feedly says it is |
+|---|---|
+| **AI Feeds** | "Customized to your industry and needs", "**Powered by 10,000+ AI Models**" across quality sources. **AI Models** are "machine learning models that understand concepts even if specific words are not mentioned" (e.g. recognizing the automotive-industry concept without the phrase). [T1 feedly.com + T1 docs.feedly.com] |
+| **Deduplication / noise filtering** | "Feedly AI allows you to **deduplicate repetitive news** and mute irrelevant information"; models "filter noise, remove duplicates, and prioritize relevant articles based on tracked topics, companies, and trends." [T3 feedly.com/new-features — **not** restated on the current Market Intelligence page; see `## Unverified`] |
+| **Insights Cards** | "a quick 360° view of trends or companies" — real-time metrics, top stories, recent activities, related companies/technologies/use cases, trend volume. [T1] |
+| **AI Actions** | "synthesize multiple articles into actionable outputs." Named actions: **Summarization, Translation, Executive Summary, Report, Technology monitoring table, Market trends and insights, Sentiment and Brand monitoring**. Critically: "**AI Actions results always include inline citations that link to the specific source articles used to generate each part of the response**." [T1 docs.feedly.com] |
+| **Dashboards (Emerging Trends)** | "filtering through weak signals to identify patterns as they develop in real-time." [T1] |
+| **Automated Newsletters** | branded industry-trend summaries distributed to stakeholders. [T1] |
+| **Integrations & API** | "no-code integrations" to spread insights across stakeholder groups. [T1] |
+
+**What Feedly changes:**
+1. **Step 3's dedup half is shippable and shipped** — by a news-monitoring vendor, not by any sales-intelligence vendor. The gap in the A2 map is not technical; it is that the sales-side vendors do not ingest raw news in the first place, so they never face the problem.
+2. **The strongest citation contract in the set is Feedly's**, not AlphaSense's — "every part of the response" is a stronger commitment than "granular citations". Neither ships confidence, scheduling or human review [T1 docs].
+
 ### A2. Cross-vendor step map
 
 **Legend:** ● = a **separately named product surface** the buyer can point at · ◐ = shipped but folded inside another surface · ○ = not found in that vendor's current docs.
