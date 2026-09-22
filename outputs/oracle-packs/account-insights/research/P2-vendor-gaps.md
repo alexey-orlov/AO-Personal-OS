@@ -338,6 +338,18 @@ Not on the original list, but it turned out to be the **only vendor that names d
 | 11 Human review / approve | ○ | ○ | ○ | ○ | ● **Triage** (curate before publish) | ◐ (Pipeline agent has "suggestive or autonomous modes") | ○ (`/share` debug only) | ○ | ○ | ◐ (table = review surface) |
 | 12 Deliver downstream | ◐ (alerts, Notion index) | ● Workflows / Activation | ● Email Agents / orchestration | ● DSP / ABX orchestration | ● Salesforce, HubSpot, Gong, Chorus, Slack | ● **Slack, ChatGPT, mobile** | ● Outlook / Teams cards | ◐ (in-product) | ● APIs, feeds, newsletters | ● CRM sync, Slack, Sequencer, Ads |
 
+**⚠️ Corrections to the ZoomInfo column after reading its release-notes PDF (T1) rather than its marketing site.** The table above was built from marketing pages and understates ZoomInfo materially. Corrected:
+
+| Step | Marketing-page read | Release-notes read |
+|---|---|---|
+| 3 filter + dedupe | ◐ | ● — an automation that "verifies and **deduplicates**" |
+| 4 entity resolution | ◐ | ● — "improved the **entity resolution and merging** processes" |
+| 9 magnitude + confidence | ○ | ● — **Account Health returns a verdict "with a stated confidence level"** |
+| 10 assemble artifact | ◐ | ● — **Account Research's fixed five-section contract**; QBR Prep pack; renewal pack |
+| 11 human review | ○ | ◐ — "**asks for your input rather than guessing** when the conversations don't settle the question" |
+
+Assume the same understatement applies to other vendors here whose release notes were not read.
+
 **Read of the map:**
 - **Step 8 is empty across all ten vendors.** Nobody ships cross-account ripple reasoning as a surface. Held for Part C.
 - **Step 11 is nearly empty.** Only Klue (triage) and, weakly, Salesforce (suggestive vs. autonomous) and Clay (the table is the review surface) give the human a place to stand. This is the largest *shipped-product* gap, and unlike step 8 it is not hard — it is just unglamorous.
@@ -666,9 +678,9 @@ DataFox **retired** · Fusion Sales Intelligence **SKU retired** (module survive
 
 The four named in the brief, plus three more the research surfaced. Each is stated as *what is missing*, with the evidence that it is missing rather than merely un-marketed.
 
-### C1. Cross-account ripple reasoning — **nobody ships it, in any adjacent market**
+### C1. Cross-account ripple reasoning — **the edges are licensable today; nobody reasons over them**
 
-**Evidence of absence:** step 8 is the only row in the A2 map that is empty (○) for all ten vendors. No account-intelligence, ABM, sales-intelligence, CI or news-analytics vendor examined names a capability that reasons "this event at company X implies something for company Y because Y supplies / sells to / competes with X."
+**Evidence of absence:** step 8 is the only row in the A2 map that is empty (○) for all ten vendors — and it is empty for **Oracle and NVIDIA too** (B3.7: "nothing in any doc" / "intra-query only"). No account-intelligence, ABM, sales-intelligence, CI or news-analytics vendor examined names a capability that reasons "this event at company X implies something for company Y because Y supplies / sells to / competes with X." Across ten Part-A vendors, nine direct competitors, the substitute landscape, and both same-vendor stacks, **this is the only step with no implementation anywhere.**
 
 **But the graph exists — in a different industry.** Multi-tier relationship graphs are a mature, shipped product category in **supply-chain risk**:
 - **Resilinc Multi-Tier Mapping** — "builds a digital twin of the full supply network, tracing the network from raw material suppliers through to final assembly", identifies "part-to-site links across all tiers using 15+ years of validated data", detects "critical nodes and bottlenecks that standard ERP tools miss" [T3 resilinc.ai].
@@ -817,6 +829,7 @@ Given P1's finding that the "so what" is the core human decision, this is a cons
 | A-6 | ZoomInfo IR — "ZoomInfo Copilot Workspace: Complete Book of Business in One Workspace…" · https://ir.zoominfo.com/news-releases/news-release-details/zoominfo-copilot-workspace-complete-book-business-one-workspace/ | T1 |
 | A-7 | ZoomInfo IR — "ZoomInfo Data Now Integrated With Microsoft Copilot Studio…" · https://ir.zoominfo.com/news-releases/news-release-details/zoominfo-copilot-studio-and | T1 |
 | A-8 | ZoomInfo — GTM Studio certification / "What Is ZoomInfo?" · https://pipeline.zoominfo.com/sales/what-is-zoominfo | T3 |
+| A-8b | **ZoomInfo public Product Release Notes PDF** — the single most informative source in Part A. 13 Scoops signal types (Product Launches, M&A, IPOs, Layoffs, Hiring Plans, Pain Points, Partnerships, Awards…); Account Research five-section contract; **Account Health verdict "with a stated confidence level" + "asks for your input rather than guessing"**; Why Now skill ("timing thesis"); QBR Prep skill; renewal prep; entity resolution and merging improvements; "verifies and deduplicates"; `enrich_company_signals` MCP tool; MCP clients (Google Gemini, Slack, Replit, Von); Talkwalker news connector; gtm.ai skills marketplace; Solution/JTBD taxonomy · https://tech-docs-library.zoominfo.com/public-zoominfo-release-notes.pdf | T1 |
 | A-9 | 6sense — 6AI product page · https://6sense.com/6ai/ | T3 |
 | A-10 | 6sense — Predictive Analytics / Intent Data pages · https://6sense.com/platform/predictive-analytics/ | T3 |
 | A-11 | Demandbase press release — "Demandbase AI: Pipeline Engine for Modern GTM" · https://www.demandbase.com/press-release/demandbase-ai/ | T3 |
