@@ -91,7 +91,7 @@ one_liner:                                 # component 2 — signed off via tria
     outcome and is replaced.
   source: user:2026-09-22
 
-icp:                                       # component 3 — PROPOSED, not yet signed off
+icp:                                       # component 3 — signed off
   line: "Any organization selling a catalog of services into a named book of accounts it has to stay current on."
   buyer_roles: [Chief Commercial Officer, VP Sales, Head of Key Accounts, Head of Sales Operations, Head of Commercial Excellence]
   qualifying_signals:
@@ -108,7 +108,7 @@ icp:                                       # component 3 — PROPOSED, not yet s
   note: >-
     Deliberately stated as a shape, not an industry, so it holds across the verticals. The last
     qualifying signal is the differentiator restated as a qualification question.
-  source: research-brief-2026-09-22
+  source: user:2026-09-22
 
 verticals:                                 # component 5 — PROPOSED, see open_questions/verticals
   - name: Logistics & supply chain
@@ -142,20 +142,27 @@ verticals:                                 # component 5 — PROPOSED, see open_
     catalog_type: offering
     status: plausible
     source: one-pager-2026-09-10
-  - name: Professional & business services
-    site_label: Professional services
+  - name: Private equity funds
+    site_label: Private equity
     framing:
-      problem: "Client-development teams read about a client's new jurisdiction, regulation or transaction too late to be the ones who raised it."
-      solution: "Signals on the client base become named practice-area and service-line approaches, with the conflict and eligibility checks that must run first."
-      entities: "client organizations, matters, practice areas"
-    catalog_type: offering
+      problem: "A market or regulatory event moves the thesis on a portfolio company, and the fund finds out at the next board meeting."
+      solution: "Signals across the portfolio are resolved to the holdings they affect and mapped to the value-creation levers the fund actually pulls."
+      entities: "portfolio companies, investment theses, value-creation levers"
+    catalog_type: lever
     status: plausible
-    note: >-
-      Proposed as the replacement for the delivered one-pager's fourth vertical (private equity
-      funds), which fails this pack's own thesis: a fund screening deal targets has no service
-      catalog to map an implication onto — step 6 is ABSENT there, not merely different. See
-      open_questions/verticals.
-    source: research-brief-2026-09-22
+    scope_note: >-
+      SCOPED TO PORTFOLIO MONITORING ONLY (user:2026-09-22). The delivered one-pager's second PE
+      example — event-driven screening of pipeline targets — is deliberately dropped: a fund
+      screening deal targets has no catalog to map an implication onto, so step 6 is absent
+      rather than different, and that is the one step this pack is differentiated on. Screening
+      also needs an open, discovered universe, while the pack resolves signals against a roster.
+    tier_note: >-
+      Sells at Integration, not PoV. Mapping to a value-creation lever rather than an offering
+      needs the configurable catalog target, which is a roadmap row today. Until it ships, this
+      vertical is truthful only if the lever set is captured as the client's catalog — which is
+      a per-engagement configuration, not a product capability. Do not print this vertical as
+      PoV-available on any artifact.
+    source: one-pager-2026-09-10, user:2026-09-22
 
 capabilities:                              # component 6 — Area > Category > Feature
   # `oracle_pack` is the Oracle + NVIDIA AI-Q baseline's own coverage, corrected 2026-09-22
@@ -564,6 +571,14 @@ open_questions:
   - id: verticals
     question: "Keep private equity funds as the fourth vertical, or replace it with professional & business services?"
     why: "A fund screening deal targets has no service catalog to map an implication onto — step 6 is absent there, which contradicts the pack's own differentiator. The delivered one-pager and the section deck both carry PE."
+    blocks: [verticals, capabilities.catalog_mapping, one_pager, deck, listing]
+  - id: pe_catalog_target
+    question: "Does the configurable catalog target (offering · lever · mitigation · none) get pulled forward out of roadmap?"
+    why: >-
+      The private equity vertical was kept (user:2026-09-22) scoped to portfolio monitoring, which
+      maps implications to a value-creation lever rather than a service offering. That mapping is
+      only honest once the catalog target is configurable; today it is a roadmap row, so the
+      vertical is Integration-tier and must not be printed as PoV-available.
     blocks: [verticals, capabilities.catalog_mapping, one_pager, deck, listing]
   - id: internal_contact
     question: "Who is the internal contact, and at which address?"
