@@ -24,6 +24,21 @@
 
 ---
 
+## Executive answer
+
+1. **Nobody decomposes this job into steps.** Ten vendors, four different taxonomy *shapes*: content-and-agent-shaped (AlphaSense), signal-pipeline-shaped (ZoomInfo, Clay, Demandbase), job-role-shaped (Salesforce), and surface-shaped (Microsoft). A 12-step pipeline is my model, not the market's — so "which step do vendors name" is the wrong question; "which steps does anyone *sell separately*" is the right one, and the answer is: ingest, entity-resolve, deliver.
+2. **Step 8 (cross-account ripple) is empty for all ten.** Not under-marketed — absent. The graph that would support it is a mature shipped product in *supply-chain risk* (Resilinc, Interos, Everstream), always traversed in the buyer's direction, never the seller's.
+3. **Step 7 (map to the seller's own catalog) has exactly one shipped implementation** — LinkedIn Account IQ's "why your product is a good fit", driven by a free-text product blurb. Everything else is RAG over sales collateral.
+4. **Step 11 (human review) is nearly empty too**, and unlike step 8 it is not hard. Only Klue ships triage as a stage; Moody's ships an editable credit memo. This is the cheapest available differentiator.
+5. **Fourteen tasks are missing from my 12 steps.** The six that matter: cadence/recurrence as an object, delta reasoning ("what changed"), output-format-as-input, the signal-type catalog, **source licensing rights**, and human triage as distinct from machine filtering.
+6. **Five of my steps are probably over-split.** Strongest: 5+6 (retrieve/rank + reason) are one atomic agent call in every product; 3+4 (dedupe + entity-resolve) are one normalization step; step 9 mostly restates 6 and 10.
+7. **No direct competitor wins more than three of the seven sub-jobs.** The corpus belongs to AlphaSense/Factiva/Moody's (licensing, not crawling — structurally unbeatable by a build); first-party grounding belongs to Microsoft/Salesforce; nobody owns the catalog mapping or the governance.
+8. **Every vendor's claim is about time saved, none about being right.** "60 minutes to 60 seconds", "90% of research time", "~3 hours per prospect", "up to 30%". Zero published accuracy claims for the implication step, and zero calibrated confidence anywhere.
+9. **The analyst data says this is exactly where deployments will fail.** Gartner expects 95% of sellers' research workflows to begin with AI by 2027, AI agents to outnumber sellers 10:1 by 2028 — and **fewer than 40% of sellers to say agents improved productivity**, with "agent sprawl" and data foundations named as the cause [T2].
+10. **The defensible shape, if one is being packaged:** licensed/first-party grounding + a structured seller catalog + evidence-class labelling + a triage/approval stage + a "nothing happened" state. Each of those is individually unglamorous and collectively unoccupied.
+
+---
+
 ## PART A — VENDOR TAXONOMY GAP CHECK
 
 ### A0. Vendors studied and why

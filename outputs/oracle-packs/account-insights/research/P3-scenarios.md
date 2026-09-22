@@ -1,6 +1,6 @@
 # P3 — Scenario differentiation: signal→implication engines beyond logistics sales
 
-**Status:** skeleton up (in progress)
+**Status:** COMPLETE (2026-09-22)
 **Job under study:** turn external developments (news, filings, disclosures, market events) + a company's own first-party data into account-specific, actionable implications (opportunities and risks) for a commercial team.
 
 ---
@@ -504,8 +504,51 @@ Twelve. Each is stated as what it does, then why a first build will not have it.
 
 ## Sources
 
-_pending_
+**T1 — primary (regulator, statute, standards body, bar association)**
+1. European Commission — Corporate sustainability due diligence (CSDDD scope: own operations, subsidiaries, and business partners in the chain of activities). https://commission.europa.eu/topics/business-and-industry/doing-business-eu/sustainability-due-diligence-responsible-business/corporate-sustainability-due-diligence_en
+2. ABA Model Rule 1.10 — Imputation of Conflicts of Interest. https://www.americanbar.org/groups/professional_responsibility/publications/model_rules_of_professional_conduct/rule_1_10_imputation_of_conflicts_of_interest_general_rule/
+3. ABA Model Rule 1.7 — Conflict of Interest: Current Clients (comment). https://www.americanbar.org/groups/professional_responsibility/publications/model_rules_of_professional_conduct/rule_1_7_conflict_of_interest_current_clients/comment_on_rule_1_7/
+4. DHS — UFLPA Frequently Asked Questions (rebuttable presumption; Entity List). https://www.dhs.gov/uflpa-frequently-asked-questions
+5. LEI ROC — Level-2 data policy: direct and ultimate *accounting consolidating* parent; ownership is deliberately not the basis. https://www.leiroc.org/publications/gls/lou_20161003-1.pdf
+
+**T2 — analyst, reputable trade press, law-firm client alert**
+6. White & Case — "Time to get to know your supply chain: EU adopts CSDDD". https://www.whitecase.com/insight-alert/time-get-know-your-supply-chain-eu-adopts-corporate-sustainability-due-diligence
+7. Sidley Austin — Navigating Interactions Between Investment Advisers and Their Portfolio Companies (MNPI at board level; SEC OCIE deficiency findings). https://www.sidley.com/en/insights/newsupdates/2020/06/navigating-interactions-between-investment-advisers-and-their-portfolio-companies
+8. Proskauer — Information Barriers at Broker-Dealers. https://www.proskauer.com/pub/broker-dealer-concepts-information-barriers-at-broker-dealers
+9. Hinshaw & Culbertson — Identifying and Resolving Conflicts of Interest (prospective-client information can disqualify the firm). https://www.hinshawlaw.com/en/insights/lawyers-lawyer-newsletter/identifying-and-resolving-conflicts-of-interest-three-simple-rules
+10. Lexology / Kirkland-sourced alert — Use of walls and other tactics to manage MNPI risk across PE and private credit. https://www.lexology.com/library/detail.aspx?g=9441e3ae-5585-450e-a90b-e1b1999fa19a
+11. CRE Daily — CMBS maturity wall 2026 (Trepp data: ~$76.6B hard maturities; ~36% at debt yield ≤8%). https://www.credaily.com/briefs/cmbs-maturity-wall-tests-refinancing-in-2026/
+12. Insurance Journal — "Why Submission Triage Is the Hidden Bottleneck in Your Underwriting Workflow". https://www.insurancejournal.com/blogs/expert-insured/2025/08/04/833691.htm
+13. FinTech Global — Banks face rising risk as perpetual KYC becomes standard (relays FCA April 2026 CDD review findings; 2024 UK financial-crime penalties). https://fintech.global/2026/05/15/banks-face-rising-risk-as-perpetual-kyc-becomes-standard/
+
+**T3 — vendor marketing, vendor blog, relayed survey**
+14. GovDash — Capture Management for Federal Contractors (~80% of the buying decision pre-RFP; structured-capture vs cold win rates). https://www.govdash.com/blog/capture-management-federal-contracting
+15. Deltek — How GovWin IQ Beats SAM.gov (73% of tracked opportunities in forecast/pre-RFP stage). https://www.deltek.com/resources/articles/how-govwin-iq-beats-government-websites/
+16. KYC360 — What is Perpetual KYC (event-driven review; audit trail expectations). https://kyc360.com/knowledge-hub/resources/what-is-perpetual-kyc
+17. Log-hub — Most Supply Chains Still Go Dark Below Tier 1 (relays McKinsey 2025: 90% tier-1 vs 58% tier-2+). https://log-hub.com/pulse-most-supply-chains-still-go-dark-below-tier-1/
+18. Onspring — The Tier 2 and Tier 3 Blind Spot (relays 15% of CPOs with beyond-tier-1 visibility). https://onspring.com/resources/blog/tier-2-tier-3-supply-chain-risk-visibility/
+19. SymphonyAI — What is the 50 percent rule (aggregation of stakes across blocked persons). https://www.symphonyai.com/resources/blog/financial-services/what-is-50-percent-rule-faq/
+20. Descartes Visual Compliance — UFLPA compliance; indirect-supplier tracing. https://www.visualcompliance.com/blog/what-you-need-to-know-about-uflpa-compliance/
+21. Excelerant Consulting — Winning in IDN/GPO Contracting (GPO vs IDN vs provider-owned GPO dynamics). https://www.excelerantconsulting.com/blog/mxt72yjav1m2ife7gg718q8de4v2ir
+22. HIRC — Integrated Delivery Networks: Direct Contracting and Medication Management (IDN formulary and pathway control). https://www.hirc.com/IDN-rxandcontracting
+23. Grata — Private Equity Deal Sourcing (thesis-driven screening, proprietary origination). https://grata.com/resources/private-equity-deal-sourcing
+24. FounderNest — Building a High-Quality M&A Pipeline (acquisition thesis as the screen; buy-box discipline). https://www.foundernest.com/insights/the-ultimate-guide-to-building-a-high-quality-ma-pipeline
+25. hyperexponential — Submission Triage in Insurance. https://www.hyperexponential.com/blog/submission-triage-insurance
+
+**Internal corroboration (not a source, a cross-check)**
+26. `outputs/oracle-packs/account-insights/research/P1-domain-workflow.md` — independently reconstructs a 10-step canonical workflow that carries *routing/assignment* and *action capture & feedback* as their own steps. Both are missing from the 12 and appear here as M5 and M6, derived separately.
 
 ## Unverified
 
-_pending_
+Listed because a downstream reader should not treat these as settled.
+
+- **OFAC's ownership-aggregation rule was not read at Treasury.** Every statement about it here is relayed through vendor explainers (19, and a Descartes page). The threshold behaviour and the aggregation-across-blocked-persons point are consistent across relays but unverified at source.
+- **The FCA April 2026 CDD review was not read.** The findings quoted (unclear periodic/event-driven review procedures, policy non-adherence, version-control weakness) and the 2024 penalty total reach me only through trade press (13).
+- **McKinsey's 2025 supply-chain risk figures were not read at source** — relayed through a vendor blog (17).
+- **The tier-2/3 visibility statistics do not reconcile.** 6% (Achilles), 12% (EcoVadis), 15% (CPO survey via 18), 18% (QIMA), 58% (McKinsey via 17) come from five surveys with different populations and different definitions of "visibility". They are directionally unanimous and numerically unusable. I have used only the direction.
+- **CSDDD post-Omnibus scope and timing** (Feb 2026 amendment; transposition by July 2028, application from July 2029) is relayed through law-firm and vendor commentary; the amended directive text was not read.
+- **GovWin and GovDash win-rate and pre-RFP figures are vendor marketing** with a direct commercial interest in the claim. The *direction* (the decision is substantially made before the solicitation publishes) is corroborated across independent capture-management sources; the specific percentages are not independently verified.
+- **Trepp's CMBS figures reach me via CRE Daily,** not via Trepp. Used only to establish that a dated-instrument chain is the live object in CRE, not as a market forecast.
+- **No first-party data from any operating company was available for this study.** Every workflow description is reconstructed from public sources plus reasoning. In particular, the claims about PE portfolio-monitoring cadence, insurance referral thresholds, and law-firm intake practice are `(reasoning)` from structural facts, not observed practice.
+- **The MOVE 2 grid is an analytic judgment, not a measurement.** `holds`/`differs`/`absent` were assigned by applying the stated definition consistently; a practitioner in any single scenario would likely move two or three cells. The headline (20 holds, 12 of them S1) is robust to that; individual cells are not.
+- **The eight-scenario set is a cut, not a census.** Recruiting/talent coverage and regulatory-affairs monitoring both pass the entity test on dimension (a) and were excluded on job-definition grounds (§1.4), which is a judgment call another reviewer could reverse.
