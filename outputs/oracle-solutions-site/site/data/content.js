@@ -135,9 +135,11 @@ window.SITE_CONTENT = {
       pattern: {
         tooltip: "What it does",
         icons: {
+          "video-image": "pattern-video-image",
           "deep-research": "pattern-deep-research",
-          "processing-pipelines": "pattern-processing-pipelines",
-          "data-analysis": "pattern-data-analysis"
+          "documents": "pattern-documents",
+          "optimization": "pattern-optimization",
+          "knowledge-assistants": "pattern-knowledge-assistants"
         }
       },
       tech: {
@@ -213,25 +215,35 @@ window.SITE_CONTENT = {
   overview: {
     hero: {
       eyebrow: "SoftServe × Oracle · Built and delivered together",
-      headline: { lead: "ENTERPRISE AI AGENTS AND WORKFLOWS.", accent: "BUILT ON ORACLE." },
-      lead: "Agents that read your contracts, plan your field workforce, answer questions across your ERP and tell your sellers what a market signal means for each account. Built on Oracle’s AI platforms, run in your tenancy, measured on your data first.",
+      headline: {
+        lead: "Enterprise AI agents and workflows.",
+        accent: "Built on Oracle.",
+        proof: "Proven in weeks."
+      },
+      lead: "One team that knows AI and Oracle’s platforms to the same depth, so you get the full power of Oracle AI — proven on your own data in a fixed-scope Jumpstart, then taken to production in your tenancy.",
       ctas: [
         { label: "Explore the products", route: "#/#products", kind: "primary" },
         { label: "How we deliver", route: "#/#how-we-deliver", kind: "secondary" }
       ],
       stack: {
-        ariaLabel: "How they are built: the agents and workflows you can start with on top, grouped by the job they do, the SoftServe layer in the middle, the four Oracle platforms underneath",
-        patternsLabel: "Agents and workflows to start with",
-        softserve: {
-          label: "SoftServe",
-          items: ["Agentic and data engineering", "Evaluation & guardrails", "Pilot to production"]
+        ariaLabel: "How it fits together, read from the bottom up: Oracle’s four AI platforms, the SoftServe product groups built on them, and the SoftServe services that prove, integrate and scale them",
+        services: {
+          label: "SoftServe services",
+          items: [
+            { name: "Jumpstart proof of value", icon: "spark" },
+            { name: "Integration", icon: "network" },
+            { name: "Scaling", icon: "scale" },
+            { name: "Managed services", icon: "managed" }
+          ]
         },
-        platformsLabel: "Oracle platforms"
+        productsLabel: "SoftServe products",
+        platformsLabel: "Oracle platforms",
+        platformOrder: ["oracle-ai-lakehouse", "oracle-ai-data-platform", "oracle-ai-fusion", "oci-nvidia"]
       },
       stats: [
+        { prefix: "from", value: "30 days", label: "to a fixed-price proof of value on your own data" },
         { value: "1,000+", label: "experts in AI, data and R&D across SoftServe" },
-        { value: "30", label: "Fortune 500 clients in the data and analytics practice" },
-        { value: "4–8 weeks", label: "to a fixed-price proof of value on your own data" }
+        { value: "30", label: "Fortune 500 clients in the data and analytics practice" }
       ]
     },
 
