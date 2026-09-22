@@ -4927,7 +4927,7 @@ instance of the standing rule that a background agent's silence is not progress
   middle one is the page's one accent (SS26 spends orange once per page). The
   differentiator Alex asked for moved into the lead rather than the headline,
   because the H1 budget is 15 characters a line: the lead now opens on *"One team
-  that knows AI and Oracle's platforms to the same depth."* **`proof` is a new
+  that knows AI and Oracle's platforms to the same depth…"* **`proof` is a new
   headline key**, capped at three words by the checker; `rest` stays forbidden on
   the home H1.
 - **Three layers, read bottom-up, and only one of them is written.** The top band
