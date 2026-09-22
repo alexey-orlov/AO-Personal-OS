@@ -76,6 +76,15 @@ problem_solution:                          # component 1 — signed off via tria
     what each one means and what to do about it — and review that list instead of assembling it.
   outcome_chips: ["Coverage ↑", "Time to first move ↓", "Second-order opportunities surfaced"]
   reframe: "Review the opportunity, don't research it"
+  reframe_question: "What if the team reviewed the opportunities instead of researching them?"
+  today: >-
+    The account manager, partnerships lead or portfolio manager reads what they can, when they can —
+    usually the night before a meeting, usually only about the company in the headline. What it means
+    for the other companies they cover is never worked out.
+  tomorrow: >-
+    Each morning they open a short list: the changes that matter across the companies they cover, what
+    each one means, and the named next move — with the evidence beside it. They approve, reject or
+    comment, and the approved moves go to the system they already work in.
   note: >-
     Rewritten after Alex called the first version "waterish" (2026-09-22). The original named an
     abstract activity — "commercial teams work out what a development means for their accounts by
@@ -508,18 +517,24 @@ kpis:                                      # component 11 — ONE metric set
   # confidence — what the PoC measures, against reviewer approve / reject". No figure is cleared;
   # the engagement had not started. Every figure prints "results to follow".
   - name: Reviewer agreement rate
+    chip: "Reviewer agreement ↑"
+    label: "of generated moves approved by the team's own reviewers"
     formula: "Approved opportunities ÷ opportunities presented for review, per period"
     baseline: "Established during the proof of value; no industry baseline exists — no vendor in this market publishes an accuracy figure for the implication step"
     figure: "-"
     note: "Measures plausibility at review time, not correctness after the fact. Stated as reviewer agreement, never as accuracy."
     source: section-deck-2026-09-11
   - name: Confidence calibration
+    chip: "Confidence calibrated"
+    label: "reviewer agreement within each confidence band"
     formula: "Reviewer agreement rate within each confidence band, compared against the band's stated confidence"
     baseline: "None. Nothing in this market, and nothing in the Oracle or NVIDIA baseline, emits a calibrated confidence number."
     figure: "-"
     note: "A true calibration claim needs realized-outcome capture, which is Scaling-tier. At PoV this measures band-to-reviewer consistency only."
     source: section-deck-2026-09-11
   - name: Coverage of the companies in scope
+    chip: "Coverage ↑"
+    label: "of the companies in scope with a reviewed record each period"
     formula: "In-scope companies with at least one reviewed record in the period ÷ total in-scope companies"
     baseline: "The client's current manual research coverage, established during the proof of value"
     figure: "-"
@@ -532,6 +547,7 @@ kpis:                                      # component 11 — ONE metric set
   # with no stated method; none may be reused.
 
 packages:                                  # component 12
+  anchor_line: "Anchored to Oracle Cloud Infrastructure — every run is OCI GPU consumption an Oracle account exec can sell; Oracle CX is the natural system of record."
   tier_vocabulary_note: "PoV Jumpstart / Integration / Scaling per decisions-2026-09-18. S/M/L survive only as internal size tags."
   tiers:
     - id: pov
@@ -627,6 +643,15 @@ packages:                                  # component 12
     - "Repeatable across any Oracle customer that tracks a named set of companies — customer accounts in Oracle CX, partners, or portfolio holdings — and has a real catalog of moves"
   target_oci_consumption: "-"
   source: research-brief-2026-09-22, decisions-2026-09-18
+
+deck:
+  vertical_case: "Vertical case: a logistics operator's key-account team"
+  seller_lead: "What this pack does for an Oracle account team's number."
+  cta: "Ready to test the fit on one customer's account book?"
+  proof_headline: "A first engagement in delivery — results to follow"
+  layers_sub: "How the pack is layered — from the infrastructure up to the customer's own configuration."
+  architecture_sub: "Reference architecture: signals and the system of record in, reviewed moves out."
+  source: user:2026-09-22
 
 contacts:
   partner_print: { name: Karsten Tramborg, title: Alliances & Partnerships Director, email: ktram@softserveinc.com }

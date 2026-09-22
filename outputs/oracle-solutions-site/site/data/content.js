@@ -249,16 +249,16 @@ window.SITE_CONTENT = {
 
     twoWays: {
       eyebrow: "Two ways in",
-      title: "Start with a product, keep the team that built it.",
+      title: "Products, services, one team.",
       panels: [
         {
           id: "products",
           icon: "cube",
-          title: "Agents and workflows",
-          body: "Each one runs on Oracle in your own tenancy and starts with a Jumpstart on your data — at a fixed price where one is published, otherwise scoped per engagement.",
+          title: "Enterprise AI agents and workflows",
+          body: "An AI agent, or a workflow where people and agents share the work, carrying what its industry expects: the rules, the review steps, the checks. Built on Oracle’s own AI platforms, so all they can do is in the product, and started in weeks rather than from a blank page.",
           bullets: [
-            "Runs on OCI + NVIDIA or Oracle Autonomous AI Lakehouse",
-            "Extractions, plans and findings are approved by a person",
+            "Best practice built in, from engagements already delivered",
+            "Runs in your own tenancy",
             "Scope, timeline and price on every product page"
           ],
           cta: { label: "See the products", route: "#/#products", direction: "down" }
@@ -266,12 +266,12 @@ window.SITE_CONTENT = {
         {
           id: "practice",
           icon: "users",
-          title: "The people who build them",
-          body: "The architects and engineers who built them adapt them to your systems, rules and data — or build the one your workflow needs — and take them to production. One contract, one accountable team.",
+          title: "Services, from proof to scale",
+          body: "Fixed-scope services, run the same way every time: a Jumpstart proves the value on your own data in weeks, then the people who ran it integrate it into your systems and scale it across the business — architects who know Oracle’s platforms, engineers from our AI research group, and capacity that grows with the rollout.",
           bullets: [
             "Delivered with Oracle’s AI & Data organization, in joint teams",
-            "Measured like for like against how you work today",
-            "Configured to your rules, definitions and access model"
+            "Experts in both AI and Oracle’s platforms",
+            "Thirty years of enterprise integration behind every rollout"
           ],
           cta: { label: "How we deliver", route: "#/#how-we-deliver", direction: "down" }
         }
@@ -280,13 +280,8 @@ window.SITE_CONTENT = {
 
     catalog: {
       eyebrow: "Products",
-      title: "Agents that read, extract, plan and answer.",
-      lead: "Each one runs in your own Oracle tenancy. Open one for how it works, what it needs from you, and the Jumpstart scope.",
-      patterns: [
-        { id: "deep-research", definition: "Agents that read across your systems and outside sources, then bring back a cited answer for a person to act on." },
-        { id: "processing-pipelines", definition: "Long documents and records become checked, structured data. Every value is traced to its source page and confirmed by a reviewer before it leaves." },
-        { id: "data-analysis", definition: "Plain-language answers over your governed data, and plans computed against every constraint at once, approved by the people who own the decision." }
-      ],
+      title: "Start from the job to be done",
+      lead: "Every group is a family of agents and human-AI workflows for one kind of job, distilled from engagements already delivered: the rules, review steps and checks the job needs, on Oracle’s AI platforms, proven on your data in a Jumpstart. Open a group to see its products.",
       cta: { label: "See all products, with filters", route: "#/products" }
     },
 
@@ -297,7 +292,7 @@ window.SITE_CONTENT = {
       steps: [
         { title: "Jumpstart proof of value", body: "A fixed-scope pilot on your own data and a limited rule set, in a separate environment, with zero integration. Success metrics are signed before the clock starts.", factLabel: "Duration", fact: "4–8 weeks" },
         { title: "Integration", body: "We connect it to your systems, embed it in the workflow and take it live at one location or for one document type, with no manual work left in the loop.", factLabel: "Duration", fact: "3–5 months" },
-        { title: "Scale", body: "Extend across locations and document types, with per-region rules and data workflows. An optional managed service keeps it running and re-tuned.", factLabel: "Duration", fact: "3–12 months" }
+        { title: "Scaling", body: "Extend across locations and document types, with per-region rules and data workflows. An optional managed service keeps it running and re-tuned.", factLabel: "Duration", fact: "3–12 months" }
       ],
       footnote: "Figures are illustrative and confirmed in scoping.",
       why: {
@@ -315,10 +310,10 @@ window.SITE_CONTENT = {
 
     caseStudiesIntro: {
       eyebrow: "Case studies",
-      title: "What we’ve proven, and what we’re proving now.",
-      body: "Every customer is under NDA, so each engagement is described by industry and scale.",
-      ndaLine: "Reference calls on request.",
-      cta: { label: "How we measure it", route: "#/services#how-we-engage" }
+      title: "Results on customers’ own data",
+      body: "Each card is one engagement: the industry, the workflow and the number it moves, marked as proven, forecast or estimated.",
+      ndaLine: "Customers stay unnamed under NDA. Reference calls on request.",
+      cta: { label: "Ask for a reference call", route: "#/#request-a-demo" }
     },
 
     caseStudies: [
