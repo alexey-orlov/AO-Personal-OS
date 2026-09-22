@@ -191,12 +191,28 @@ Quality is judged in three distinct and largely non-overlapping ways depending o
 
 Two genuinely different traditions, and the difference is instructive.
 
-**(i) Intelligence tradecraft — ICD 203 (Intelligence Community Directive 203, "Analytic Standards")** [T1, intelligence.gov]. The governing standard for all-source analysis, and the cleanest available specification of how to express uncertainty in exactly this kind of "what happened → so what" product:
-- Analysts must **indicate and explain uncertainties associated with major judgments**.
-- **Likelihood and confidence are separate axes.** Likelihood of the event uses standardised probability language; **confidence in the judgment** is expressed as *high / moderate / low* and depends on the **quantity and quality of the underlying sources and how well the analyst understands the topic**.
-- ICD 203 **explicitly prohibits combining a confidence level and a likelihood term in the same sentence**, because it confuses the reader about which thing is uncertain.
-- Academic debate on whether the probability/confidence distinction survives contact with readers: Intelligence and National Security, Vol 39 No 4 [T2].
-- ICD 203 has documented uptake in the private sector as a tradecraft import [T3, practitioner writing].
+**(i) Intelligence tradecraft — ICD 203 (Intelligence Community Directive 203, "Analytic Standards")** [T1, read verbatim from the ODNI PDF]. The governing standard for all-source analysis, and by some distance the cleanest specification anywhere of how to express uncertainty in a "what happened → so what" product. **Analytic Standard 2, "Properly expresses and explains uncertainties associated with major analytic judgments":**
+
+> "Analytic products should indicate and explain the basis for the uncertainties associated with major analytic judgments, specifically the likelihood of occurrence of an event or development, and the analyst's confidence in the basis for this judgment. Degrees of likelihood encompass a full spectrum from remote to nearly certain. Analysts' confidence in an assessment or judgment may be based on the logic and evidentiary base that underpin it, including the quantity and quality of source material, and their understanding of the topic."
+
+Four operational rules, each directly transferable:
+
+1. **Likelihood and confidence are separate axes and must stay separate.** ICD 203(b), verbatim: products expressing confidence *"must not combine a confidence level and a degree of likelihood, which refers to an event or development, in the same sentence."*
+2. **The likelihood vocabulary is fixed and numerically banded.** An analytic product *"must use one of the following sets of terms"* — two interchangeable rows mapped to explicit probability bands:
+
+| almost no chance | very unlikely | unlikely | roughly even chance | likely | very likely | almost certain(ly) |
+|---|---|---|---|---|---|---|
+| remote | highly improbable | improbable (improbably) | roughly even odds | probable (probably) | highly probable | nearly certain |
+| **01–05%** | **05–20%** | **20–45%** | **45–55%** | **55–80%** | **80–95%** | **95–99%** |
+
+  Analysts are *"strongly encouraged not to mix terms from different rows"*; products that do must carry a disclaimer that the terms indicate the same probability.
+3. **Causes of uncertainty must be named, not gestured at.** Products *"should note causes of uncertainty (e.g., type, currency, and amount of information, knowledge gaps, and the nature of the issue) and explain how uncertainties affect analysis (e.g., to what degree and how a judgment depends on assumptions)."*
+4. **Ship the tripwires with the judgment.** *"As appropriate, products should identify indicators that would alter the levels of uncertainty for major analytic judgments."* This is the most under-copied idea in the standard: the brief tells you what would change its mind.
+
+Standard 3 is also worth noting: products must *"clearly distinguish statements that convey underlying intelligence information used in analysis from statements that convey assumptions or judgments"* — i.e. an enforced separation between the "this happened" and the "therefore" that the commercial market does not impose.
+
+- Academic challenge to whether the probability/confidence distinction survives contact with readers: *Intelligence and National Security*, Vol 39 No 4 [T2].
+- ICD 203 has documented uptake in the private sector as a deliberate tradecraft import [T3, practitioner writing].
 
 **(ii) Commercial intent scoring — a calibrated-deviation score, not a confidence statement.**
 - **Bombora Company Surge** [T1 customer docs + T3]: score **0–100** where **50 = average consumption**; **≥60 is "spiking"** — "a statistically significant increase in consumption of the given topic compared to their baseline activity". Measured as **aggregated account-level intent over a 3-week period relative to a 12-week baseline**. Inputs to the score: number of topic events, number of unique users at the business researching the topic, topic relevancy weight, and depth of content engagement. Bombora's own threshold guidance: **"setting scores at a minimum of 60"**, and a **topic threshold of at least 25% of the total topics in your report or cluster**.
@@ -279,7 +295,7 @@ Steps 1, 3, 4, 6, 7, 9, 10 are structurally identical across every industry exam
 1. **The insurance case is the clearest statement of the direction of travel anywhere in this research:** the underwriting cycle is described as changing "from a largely retrospective process into a more continuous one" [T3]. That is precisely the account-triggered → signal-triggered migration, stated as an industry trend rather than a product feature.
 2. **Banking has already built what sales is currently buying.** The Deloitte Risk Alert description — NLP over 4M+ sources across multiple jurisdictions and languages, an engine that **"assess[es] the authoritativeness of the source" to reduce false signals**, role-configured dashboards for CRO / Credit Officer / Portfolio Manager / RM / Credit Analyst, and "a single summary of all threats relating to borrowers" — is a mature signal→portfolio system. It also, notably, publishes **no quantified metrics** on effort reduction or false-positive rate.
 3. **Adoption, not capability, is the recurring failure.** Independent of industry, the account-triggered artifact fails the same way: "account planning is often the first thing account executives deprioritize when time is scarce"; "account planning efforts that live outside the CRM are doomed to low adoption"; "adoption falls when the rep has to assemble the answer manually across multiple systems" [T3]. The corresponding signal-triggered failure is alert fatigue. Any packaging of this job has to pick which of those two failure modes it is claiming to solve.
-4. **Manual effort baseline (best available, all T3, all vendor-adjacent):** 70–105 minutes per account for initial research; ~45 minutes to prepare for a single enterprise meeting at 5–10 meetings/week; ~5+ hours/week per rep on account research; one vendor-reported saving of ~6 hours/week/seller. Microsoft-adjacent write-ups put pre-call research at 45 min → under 5 min. Treat all of these as directional, not measured.
+4. **Manual effort baseline.** The defensible number is Salesforce's [T1, §1]: **18% of a seller's week** (9% researching prospects + 9% preparation and planning), rising to 26% if lead/opportunity prioritisation is counted. Vendor-blog figures — 70–105 min per account for initial research, ~45 min per enterprise meeting at 5–10 meetings/week, 5+ hrs/week, ~6 hrs/week saved, 45 min → under 5 min — are all T3 with no stated method and should be treated as directional only.
 
 ---
 
@@ -300,7 +316,7 @@ Steps 1, 3, 4, 6, 7, 9, 10 are structurally identical across every industry exam
 11. **Bombora Company Surge Analytics User Guide (PDF)**. https://customers.bombora.com/hubfs/CRC_Brand_Files%20and%20Videos/CRC_Company%20Surge/bombora-company-surge-analytics-user-guide.pdf
 12. **Gartner press release — "Gartner Sales Survey Finds 67% of B2B Buyers Prefer a Rep-Free Experience"**, 9 March 2026. https://www.gartner.com/en/newsroom/press-releases/2026-03-09-gartner-sales-survey-finds-67-percent-of-b2b-buyers-prefer-a-rep-free-experience — survey of 646 B2B buyers, Aug–Sep 2025; up from 61%; 45% used AI during a recent purchase; quote from Alyssa Cruz, Senior Principal Analyst, Gartner Sales Practice.
 13. **Gartner press release — 61% figure, 25 June 2025** (the prior-year comparator). https://www.gartner.com/en/newsroom/press-releases/2025-06-25-gartner-sales-survey-finds-61-percent-of-b2b-buyers-prefer-a-rep-free-buying-experience
-14. **Salesforce State of Sales Report, 6th edition (PDF)**. https://assets.ctfassets.net/f43wltp2j5se/2gHMpCURXzpMW7PJ3SlWZJ/3cad8d7e8496abbd3c0f99d5c7f16ef4/salesforce-state-of-sales-report-6-ed.pdf — the selling-vs-non-selling time split (the underlying primary for the widely quoted derivatives).
+14. **Salesforce State of Sales Report, 6th edition (PDF)** — *read directly, section "Productivity Lags as Nonselling Tasks Dominate Time"*. https://assets.ctfassets.net/f43wltp2j5se/2gHMpCURXzpMW7PJ3SlWZJ/3cad8d7e8496abbd3c0f99d5c7f16ef4/salesforce-state-of-sales-report-6-ed.pdf — 30% selling / 70% non-selling; the eleven-line weekly breakdown including **Researching prospects 9%** and **Preparation and planning 9%**; 2022 comparator of 28% selling. Same report: 67% of reps don't expect to meet quota this year, 84% missed it last year.
 15. **SAMA — Strategic Account Management Association**, incl. the Certified Strategic Account Manager outline (PDF). https://strategicaccounts.org/ , https://strategicaccounts.org/wp-content/uploads/2025/03/CSAM_2024_lglayout.pdf
 
 ### T2 — analyst, academic, reputable trade press
@@ -347,8 +363,8 @@ Items I could not confirm to the tier they would need, or could not confirm at a
 
 1. **Every conversion statistic in §4(i).** "37% win rate vs 19%", "5x more likely to win as first mover after a trigger", "18% reply rate / 5.2x improvement", "3x higher conversion for job-change signals". All originate from vendors selling signal platforms and are restated across T3 blogs without a traceable methodology. I found no primary study behind any of them. — **Directional only.**
 2. **Sales-intelligence market size ($2.95B 2022 → $4B 2025).** Quoted in a T3 blog with no named research firm. Could not trace to a primary market-sizing report. — **—**
-3. **The "70–72% of rep time is non-selling" figures.** The Salesforce State of Sales report is the real primary, but the specific percentages circulating (60%, 70%, 72%) differ between restatements and I did not open the PDF to fix the exact edition-and-page number. The *direction* is solid; **the exact number is not verified.**
-4. **All manual-effort time figures in §6c** (70–105 min initial account research; 45 min per enterprise meeting; 5+ hrs/week; 6 hrs/week saved; 45 min → under 5 min). Every one is from a vendor blog with no stated method. — **Directional only.**
+3. ~~The "70–72% of rep time is non-selling" figures.~~ **RESOLVED — now T1.** Read directly from the Salesforce State of Sales 6th-edition PDF: 30% selling / 70% non-selling, with the full eleven-line breakdown reproduced in §1. The circulating "72%" is a T3 corruption; **70%** is the published figure. The 9% + 9% (researching prospects + preparation and planning) split is also primary.
+4. **All other manual-effort time figures** (70–105 min initial account research; 45 min per enterprise meeting; 5+ hrs/week; 6 hrs/week saved; 45 min → under 5 min). Every one is from a vendor blog with no stated method. — **Directional only.** Use the Salesforce percentages instead wherever a number is needed.
 5. **SAMA seven-step process wording.** The seven-step framing is consistently restated across multiple independent T3 sources and is clearly real, but I could not open a SAMA primary document that states the seven steps in those words. The step names given in §2a are therefore a T3 consensus restatement, not SAMA's own wording. — **Name-level accuracy not verified.**
 6. **EY "The future of early warning systems in banking".** Appeared in search results; the URL I tried returned HTTP 404. Content not read; cited only as existing. — **—**
 7. **Whether Account IQ is auto-generated or user-triggered.** LinkedIn's help page does not state it; the section names of the generated summary are also not enumerated in the help doc (the section list in §2a comes from LinkedIn's blog + T3 restatements). — **—**
