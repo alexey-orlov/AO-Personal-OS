@@ -51,7 +51,11 @@ counts and the scaffolding, not the essence" and used internal vocabulary
   insights and updates happening in their accounts"* — never categories standing in for them
   ("a development", "second order", "the offer"). Test: could that person say the sentence
   about their own week? The solution line passes the same test from the other side — what
-  they do afterwards, not the machinery.
+  they do afterwards, not the machinery. And readable with zero context (2026-09-22, Alex on a
+  candidate table whose problem cells read *"the call turns on two millimetres nobody
+  measured"*: "hard to comprehend out of context"): a reader outside the company with no
+  briefing can restate it — name the business in the sentence, use literal words, introduce
+  everything you refer to, no cleverness or ellipsis.
 - **Structure before copy — a page is an argument, not an inventory** (2026-09-16, from
   Alex's review of the Services page: "very poorly structured, too long, no grand
   narrative"). Before choosing components, settle audience → positioning (what this page
