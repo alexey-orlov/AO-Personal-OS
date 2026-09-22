@@ -118,6 +118,7 @@ verticals:                                 # component 5 — PROPOSED, see open_
       solution: "Signals on shippers and their networks become named forwarding, warehousing and contract-logistics opportunities on the accounts that carry them."
       entities: "customer accounts, service lines, trade lanes, sites"
     catalog_type: offering
+    status: plausible
     source: one-pager-2026-09-10, sow-uc6
   - name: Financial services & banking
     site_label: Financial services
@@ -126,6 +127,7 @@ verticals:                                 # component 5 — PROPOSED, see open_
       solution: "One event is resolved across the obligor group and returns both the coverage opportunity and the exposure it puts at risk, to two different owners."
       entities: "obligor groups, exposures, product holdings"
     catalog_type: offering
+    status: plausible
     note: >-
       The one scenario where a signal must produce an opportunity AND a risk, routed separately —
       neither may suppress the other. Shipping that is a roadmap row (dual-implication routing),
@@ -138,6 +140,7 @@ verticals:                                 # component 5 — PROPOSED, see open_
       solution: "One signal fans out across the affected account base with the reallocation and supply-chain opportunities each one creates."
       entities: "accounts, production sites, trade lanes"
     catalog_type: offering
+    status: plausible
     source: one-pager-2026-09-10
   - name: Professional & business services
     site_label: Professional services
@@ -146,6 +149,7 @@ verticals:                                 # component 5 — PROPOSED, see open_
       solution: "Signals on the client base become named practice-area and service-line approaches, with the conflict and eligibility checks that must run first."
       entities: "client organizations, matters, practice areas"
     catalog_type: offering
+    status: plausible
     note: >-
       Proposed as the replacement for the delivered one-pager's fourth vertical (private equity
       funds), which fails this pack's own thesis: a fund screening deal targets has no service
@@ -288,6 +292,10 @@ workflow:                                  # component 7 — PROPOSED
     - system: The client's service catalog
       data: "service lines and offerings, captured from the client's own material"
       tier: "PoV Jumpstart: captured once. Integration: maintained against a versioned catalog."
+  outputs:
+    - system: The client's sales system
+      data: "approved per-account records — account, trigger, impact reasoning, scored opportunities with service-line mapping and cross-account effects"
+      tier: "PoV Jumpstart: file export / download. Integration: API export. Scaling: live write-back with idempotency."
   steps:
     - n: 1
       name: Define the account universe
@@ -398,20 +406,18 @@ architecture:                              # component 8 — PROPOSED
       vendor: Oracle
       items: ["OCI dedicated AI cluster", "Vector store and object storage", "Kubernetes runtime and API exposure"]
 
-oracle_products:                           # components 9 and 10 — catalog ids only
-  - { id: nvidia-aiq, role: required, why: "Agentic orchestration, deep research, retrieval and deterministic citation verification" }
+oracle_products:                           # components 9 and 10 — catalog ids only, Oracle vendor only
+  # NVIDIA AI-Q, NIM and Nemotron are the pack's engine and are carried in architecture.stack[].
   - { id: oracle-ai-vector-search, role: required, why: "Semantic and hybrid retrieval over first-party and public evidence" }
   - { id: oracle-ai-database, role: required, why: "Primary store for content and embeddings" }
   - { id: oci-object-storage, role: required, why: "Source documents and processed artifacts" }
   - { id: oci-kubernetes-engine, role: required, why: "Runtime for ingestion, orchestration and AI services" }
   - { id: oci-generative-ai, role: required, why: "Reasoning and generation" }
-  - { id: nvidia-nim, role: required, why: "Inference services on OCI GPU infrastructure" }
   - { id: oci-search-opensearch, role: optional, why: "Lexical search and filtering alongside vector retrieval" }
   - { id: oci-document-understanding, role: optional, why: "Extraction from filings and reports where sources arrive as documents" }
   - { id: oci-api-gateway, role: optional, why: "Exposure of the pack's APIs" }
   - { id: oci-functions, role: optional, why: "Asynchronous processing" }
   - { id: oci-streaming, role: optional, why: "Event-driven signal intake at volume" }
-  - { id: nvidia-nemotron, role: optional, why: "Reasoning models where deployed through NIM" }
   - { id: oracle-cx, role: optional, why: "Account system of record at the ingress end and delivery target at the egress end — the pack supplies the external-signal half Oracle's own account intelligence deliberately does not" }
   - { id: oracle-ai-agent-studio, role: optional, why: "The approved pattern for a partner-developed agent to sit alongside Fusion — external agents are otherwise contractually barred" }
 
@@ -422,23 +428,20 @@ kpis:                                      # component 11 — ONE metric set
   - name: Reviewer agreement rate
     formula: "Approved opportunities ÷ opportunities presented for review, per period"
     baseline: "Established during the proof of value; no industry baseline exists — no vendor in this market publishes an accuracy figure for the implication step"
-    figure: "results to follow"
-    figure_status: to_follow
-    caveat: "Measures plausibility at review time, not correctness after the fact. Stated as reviewer agreement, never as accuracy."
+    figure: "-"
+    note: "Measures plausibility at review time, not correctness after the fact. Stated as reviewer agreement, never as accuracy."
     source: section-deck-2026-09-11
   - name: Confidence calibration
     formula: "Reviewer agreement rate within each confidence band, compared against the band's stated confidence"
     baseline: "None. Nothing in this market, and nothing in the Oracle or NVIDIA baseline, emits a calibrated confidence number."
-    figure: "results to follow"
-    figure_status: to_follow
-    caveat: "A true calibration claim needs realized-outcome capture, which is Scaling-tier. At PoV this measures band-to-reviewer consistency only."
+    figure: "-"
+    note: "A true calibration claim needs realized-outcome capture, which is Scaling-tier. At PoV this measures band-to-reviewer consistency only."
     source: section-deck-2026-09-11
   - name: Account coverage
     formula: "In-scope accounts with at least one reviewed record in the period ÷ total in-scope accounts"
     baseline: "The client's current manual research coverage, established during the proof of value"
-    figure: "results to follow"
-    figure_status: to_follow
-    caveat: "Coverage is the pack's own first-order claim — the manual process trades depth against breadth and this removes the trade."
+    figure: "-"
+    note: "Coverage is the pack's own first-order claim — the manual process trades depth against breadth and this removes the trade."
     source: research-brief-2026-09-22
   # CONTEXT ANCHOR — not a metric of this pack, and never printed as one.
   # "Sellers spend 9% of the week researching prospects and 9% on preparation and planning —
@@ -508,6 +511,40 @@ packages:                                  # component 12
         - "Outcome capture feeding realized results back into scoring"
         - "Graph-backed ripple over a licensed relationship graph"
         - "Feedback-driven tuning as a persisted learning loop"
+
+  capability_handling_legend: "◐ partial · ● included · ●● advanced / multi-source · — not included"
+  capability_handling:
+    - area: Grounding & sources
+      maps_to_feature_areas: [Account universe & grounding]
+      pov: "◐ One account segment, an agreed CRM extract and a bounded, licence-cleared source set"
+      integration: "● The client's own licensed commercial feeds, maintained against a versioned service catalog"
+      scaling: "●● Multi-source, multi-market, with a licensed relationship graph behind the ripple reasoning"
+    - area: Signal normalization
+      maps_to_feature_areas: [Signal intake & normalization]
+      pov: "◐ Relevance, de-duplication and account resolution on the agreed segment; both trigger paths"
+      integration: "● Recurrence as a standing subscription per account, with delta reasoning and a nothing-material state"
+      scaling: "●● Deadline-bound triggers and provenance-class gating"
+    - area: Implication reasoning
+      maps_to_feature_areas: [Implication reasoning]
+      pov: "● Opportunity and risk reasoning, service-line mapping, descriptive ripple to two levels, magnitude and confidence scoring"
+      integration: "● Dual implication routed to separate owners; configurable catalog target"
+      scaling: "●● Graph-backed ripple, portfolio aggregation, cost-aware ranking"
+    - area: Review & evidence
+      maps_to_feature_areas: [Review & evidence]
+      pov: "● Reviewer UI, citations and chain of thought, evaluation harness, feedback capture"
+      integration: "● Human triage of raw inbound; negative assertion recorded as a result"
+      scaling: "●● Feedback-driven tuning as a persisted loop; point-in-time replay"
+    - area: Output & delivery
+      maps_to_feature_areas: [Output & delivery]
+      pov: "◐ Structured records exported as files; reviewer decisions captured, never written back"
+      integration: "● Export to the client's sales system and routing to the named account owner"
+      scaling: "●● Live write-back with idempotency, plus outcome capture feeding scoring"
+  why_it_sells_for_the_partner:
+    - "Net-new OCI consumption: recurring GPU and inference workloads on dedicated OCI clusters, driven by signal volume rather than seat count"
+    - "Supplies the half Oracle's own account intelligence deliberately does not — Sales Command Center is first-party-only by design, so this is complement, not overlap"
+    - "Repeatable across any Oracle CX customer carrying a named account book and a real service catalog"
+  target_oci_consumption: "-"
+  source: research-brief-2026-09-22, decisions-2026-09-18
 
 contacts:
   partner_print: { name: Karsten Tramborg, title: Alliances & Partnerships Director, email: ktram@softserveinc.com }
