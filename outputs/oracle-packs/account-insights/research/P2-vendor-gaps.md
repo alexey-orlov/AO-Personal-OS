@@ -156,7 +156,14 @@ Both ABM vendors sell **account-level propensity**, not **event-level implicatio
 | **Win-Loss Suite** | Win-Loss, Human Expert Interviews, **AI Interviewer**, Blindspots Interviews, Win & Loss Story Agent. |
 | **Itemised features** | Real-Time Alerts & Competitor Monitoring · **Intel Triage Tools** · AI-Powered Review Analysis · Browser Intel Extensions · Dual-Purpose Analytics Suite · Built-In Intel Newsletters · **Dynamic Battlecard Creation** · Win-Loss Analysis. |
 
-**Taxonomy shape:** the explicit **collect → curate → consume** triad, plus a *feedback* loop (win-loss) that none of the sales-intelligence vendors have.
+**Klue's own stage names (verified verbatim from Klue's methodology post, T3):**
+1. **Collect** — "Collect Market and Competitive Intelligence" via the Klue browser extension, Alerts **monitoring 3.5 million sources**, and email submissions.
+2. **Curate** — "Curate Insights and Competitive Strategy" via Dashboards, Competitor Profiles built from topical boards, and Sales Battlecards.
+3. **Distribute** — "Distribute & Compete with Sales Battlecards" through on-demand access, email digests, integrations, and mobile.
+
+On triage, Klue's own words are that the curator can "**kick it to the curb as not relevant**" and that "**Klue will learn and filter algorithms will improve over time**" — i.e. the human triage decision is explicitly a *training signal*, the only vendor in the set to say so. Klue does **not** document deduplication mechanics beyond relevance filtering [T3].
+
+**Taxonomy shape:** the explicit **collect → curate → distribute** triad, plus a *feedback* loop (win-loss) that none of the sales-intelligence vendors have.
 
 **Corporate note (verified, because it is easy to get wrong):** Klue has bought its way into both ends of the loop — **DoubleCheck Research** (win-loss) and **Ignition** ("an agentic AI platform built for product marketers") [T3 klue.com blog; T2 BetaKit]. Separately, **Crayon** the competitive-intelligence platform is a *different company* from **Crayon Group Holding**, the Norwegian IT advisory firm SoftwareOne completed acquiring on 2025-07-02 [T2]. Klue and Crayon (CI) remain distinct competitors; **no Klue–Crayon merger has occurred** [T2]. I did not study Crayon's own docs in depth — see `## Unverified`.
 
@@ -510,7 +517,11 @@ Only AlphaSense ships an explicit cadence object (monthly Custom Agents with dyn
 
 ### C7. Evaluation of the "so what" — one vendor, by accident
 
-Clay's **Claygent Builder** ships "version control, A/B testing, and risk-free prompt development" [T1] — the only user-facing evaluation surface for the reasoning step in the entire set, and it is framed as a prompt-engineering convenience rather than a quality system. AlphaSense's **Thesis Checker** agent [T1] is adjacent (it checks a *user's* thesis, not its own output). Nobody publishes a benchmark, a golden-set methodology, or an accuracy claim for the implication step. Given P1's finding that the "so what" is the core human decision, this is a conspicuous silence — every vendor's marketing claims are about **time saved** (Common Room "60 minutes to 60 seconds", "90% on research time"; Aomni "~3 hours per prospect"; Moody's "up to 30%") and **none** are about **being right**.
+Clay's **Claygent Builder** ships "version control, A/B testing, and risk-free prompt development" [T1] — the only user-facing evaluation surface for the reasoning step in the entire set, and it is framed as a prompt-engineering convenience rather than a quality system. AlphaSense's **Thesis Checker** agent [T1] is adjacent (it checks a *user's* thesis, not its own output). Klue's triage-as-training-signal ("Klue will learn and filter algorithms will improve over time" [T3]) is the only feedback mechanism named anywhere.
+
+Nobody publishes a benchmark, a golden-set methodology, or an accuracy claim for the implication step. Trade analysis of the category says the same thing about the *data* layer, where measurement is easier: "data accuracy in sales intelligence is hard to compare because every vendor measures it differently"; "**vendor accuracy claims are self-reported benchmarks, not independent audits**" [T3 comparison write-ups]. If that is true of a verifiable email address, it is more true of an unverifiable inference.
+
+Given P1's finding that the "so what" is the core human decision, this is a conspicuous silence — every vendor claim I found is about **time saved** (Common Room "60 minutes to 60 seconds" and "90% on research time"; Aomni "~3 hours per prospect"; Moody's "up to 30%"; Salesforce "meetings in seconds instead of hours"; LinkedIn "save time on research") and **none** are about **being right**. Meanwhile golden-dataset evaluation and hallucination benchmarking are entirely standard practice elsewhere in AI [T3]. The methods exist; this category simply does not compete on them.
 
 ---
 
