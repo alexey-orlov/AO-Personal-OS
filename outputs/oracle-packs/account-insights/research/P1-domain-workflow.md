@@ -50,19 +50,63 @@
 
 ## 2. Account-triggered vs. signal-triggered — the central axis
 
-_pending_
+**Answer: both patterns exist as named, productised market practices, and the market has separate vocabulary, separate vendors and separate buyers for each.** The two differ in what holds the clock:
+
+| | **Account-triggered** | **Signal-triggered** |
+|---|---|---|
+| Entry point | A human picks an account (or a calendar event picks it) | An external event arrives |
+| Clock | Calendar — a meeting, a QBR, a planning cycle | The event's own freshness; the "urgency clock" |
+| First question | "What is going on at this account?" | "Which of my accounts does this touch?" |
+| Direction of fan-out | one account → many sources | one event → many accounts |
+| Named practice | account planning, pre-call/pre-meeting prep, account research, coverage prep | signal-based selling, trigger-event selling, early warning systems, event-driven monitoring |
+| Failure mode | stale plans, "shelfware" account plans nobody reads | alert fatigue, noise, low-relevance routing |
+| Named products | Altify, DemandFarm, Arpedio, Prolifiq, Kapta, LinkedIn Account IQ, MS 365 Copilot Sales agent, AlphaSense Deep Research | UserGems Signal Platform, Common Room, Pocus (→ Apollo), ZoomInfo Copilot / Signals, Bombora Company Surge, bank EWS platforms, Law.com Radar |
 
 ### 2a. Account-triggered pattern — evidence
 
-_pending_
+**The methodology layer is 40 years old and still the default framing.** Miller Heiman's Large Account Management Process (LAMP) and its paper artifacts — the **Blue Sheet** (single-opportunity strategy), **Green Sheet** (single-meeting/call planning), and **Gold Sheet** (large-account management) — are the canonical instruments, and the Green Sheet is explicitly the *pre-meeting* artifact: it "helps sales professionals structure specific customer interactions, prepare relevant questions, and plan how to advance opportunities" [T3, multiple restatements]. That an entire named artifact exists for *one meeting* is the strongest evidence that pre-meeting prep is a first-class, account-triggered job — it predates any software.
+
+**The SAMA (Strategic Account Management Association) process** is the professional-body framing: customer business understanding → customer value research → account team alignment → joint objective setting → value co-creation → governance and review cadence → continuous improvement [T3 restatement of a T2 body of practice — see Unverified]. Note that every step is account-scoped; no step in the canonical account-planning methodology starts from an external event.
+
+**Productised, named, account-triggered:**
+- **LinkedIn Sales Navigator Account IQ** [T1]. Generated per-account summary of "strategic priorities, likely pain points, how the company makes money, and financials"; blends LinkedIn first-party data (executive team, headcount growth/decline, employee posts) with third-party data. LinkedIn's own framing is that it lets sellers "complete account research in an easier and faster way" and supports "account qualification, prioritization, and preparing for lead engagement". Caveat stated by LinkedIn: not available for all companies; "some sections of the insights might not be displayed".
+- **Microsoft 365 Copilot Sales agent** [T1]. The documented scenarios are explicitly account- and meeting-triggered: *Scenario 1 — "Become an expert on your accounts and opportunities"* (for users who "recently took over an account" or "want to quickly get up to speed on an account or opportunity they plan to engage with"); *Scenario 2 — "Be prepared and confident in customer meetings"*. Sample prompts are all account-name-parameterised ("Get me the account summary for `<account name>`", "What was discussed in the previous meeting with `<account name>`?"). Microsoft also ships a **daily meeting prep notification** — "a single, consolidated notification summarizing your next set of upcoming sales meetings" [T1] — i.e. a *calendar*-triggered variant, which is still account-triggered in the sense that the calendar picks the account.
+- **AlphaSense Deep Research** [T1 press release]. Runs on an explicit research request; produces "comprehensive company and industry primers", "M&A screening analyses", and briefings including "compil[ing] executive priorities and competitive movements for meeting preparation". Sources: 500M+ documents (equity research, earnings calls, expert interviews, filings, news) plus enterprise internal libraries. This is the analyst-grade version of the same account-triggered job.
+
+**Human decision location:** in the account-triggered pattern the human decision is at *step 1* (which account, why now) and *step 9* (what to do about it). The middle is delegable.
 
 ### 2b. Signal-triggered pattern — evidence
 
-_pending_
+**Sales side — "signal-based selling" is now a named category with its own vendors.**
+- **UserGems Signal Platform** [T1]. Named components: **Signals**, **Workflows**, **Writing Agent**, **Buying Groups**, **Scoring**. Named signal types include **Past Champions** (a known champion changes employer) and **New Hires & Promotions**. The documented flow is unambiguously event-first: signal detected → "Playbooks using pre-built or custom workflows, sequences, and notifications" fire in Salesforce / HubSpot / Slack / Outreach / Salesloft → AI generates personalised messaging → outreach executes. Note what the artifact is here: **not a briefing document — a workflow trigger, a notification, and a drafted message.**
+- **Common Room** [T3 comparative] — aggregates community/product signals (GitHub, Slack, Discord, social) with firmographics and "rout[es] signals to reps when a target account engages heavily".
+- **Pocus** [T3] — first- and third-party intent signals for prospecting; acquired by Apollo in March 2026 and now waitlist-only. Worth noting as a market-structure datapoint: the standalone signal-platform category is consolidating into larger GTM suites.
+- **Bombora Company Surge** [T1/T3] — the reference scoring mechanic for topic-level intent (see §4b).
+
+**Financial services side — the same pattern, older, regulated, and called something else.**
+Banking calls this **Early Warning Systems (EWS)** and it is genuinely signal-triggered by design: a catalogue of **early warning indicators (EWIs)** with thresholds is evaluated continuously; a backend engine "calculates and identifies customers meeting alarm parameters" and logs "counterparties causing alarms"; alerts carry **severity levels with associated immediate action plans**; dashboards are role-specific for **credit analysts, portfolio managers, and relationship managers** [T3 vendor/consultancy material, corroborated across Reply, Deloitte, EY, Evalueserve]. A named worked example of composite signal logic: an alert when "a corporate client's debt-to-equity ratio increases alongside negative industry news" — i.e. an internal structured metric crossed with an external unstructured event. Regulatory pressure is an explicit driver: "regulators expect banks to adopt effective early warning systems" [T3].
+
+**Professional services / legal — signal-triggered business development.**
+Law firms run litigation- and news-alert feeds and map hits to clients and practice areas; the stated strategy is to "cast a wide net — setting up alerts based on geographic regions, industries, and practice areas", then convert hits into **client alerts** (an outbound artifact) or BD outreach [T3, LexisNexis / Law.com Radar / Bloomberg Law]. Bloomberg Law's critique is a useful quality signal: client alerts fail when they summarise the development without tailoring it to the specific client's situation — i.e. the failure is *skipping step 5*.
 
 ### 2c. Which is more common, and where
 
-_pending_
+**By installed base: account-triggered is far more common.** It is the default in every B2B sales organisation that has a CRM, because it is what the CRM's object model and the sales calendar already impose. Account planning is a discipline with a professional association, a training industry and a software category; signal-based selling is a category roughly five years old.
+
+**By growth and by where new money is going: signal-triggered.** The sales-intelligence market grew from ~$2.95B (2022) to ~$4B (2025) [T3 restatement — see Unverified], and every major GTM suite has added a signals layer. The Gartner-attributed driver most cited is that buyers complete the majority of their journey before contacting a vendor (commonly quoted as 67–70% rep-free / seller-free) — which destroys the value of scheduled outreach and rewards event-timed outreach [T2-attributed via T3 restatements].
+
+**Industry split, as observed:**
+
+| Industry | Dominant pattern | Why |
+|---|---|---|
+| Enterprise B2B software / complex sales | **Account-triggered**, with a signal layer bolted on | Few, large, named accounts; long cycles; the account plan is a governance object |
+| SMB / velocity / PLG sales | **Signal-triggered** | Too many accounts to plan; the signal *is* the prioritisation |
+| Commercial & corporate banking, credit | **Signal-triggered** (EWS) for risk; **account-triggered** for coverage/RM prep | Risk side is continuous and regulated; the coverage side is meeting-driven |
+| Asset & investment management | **Signal-triggered** (portfolio monitoring) | The portfolio is fixed; the news is what changes |
+| Legal / professional services | **Signal-triggered** for BD; account-triggered for client team planning | Matters originate from events (litigation, regulation, transactions) |
+| Insurance / reinsurance | — | Not researched; see Unverified |
+
+**The structurally important finding for packaging:** the two patterns are *not* substitutes — they resolve to the same steps 4–8, executed in a different order with a different fan-out direction. Account-triggered fans one account out across many sources. Signal-triggered fans one event out across many accounts. A system that can do the second can always do the first; the reverse is not true, because account-triggered systems typically have no persistent event stream and no event→portfolio mapping index.
 
 ---
 
