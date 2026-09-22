@@ -27,7 +27,7 @@
 ## Executive answer
 
 1. **Nobody decomposes this job into steps.** Ten vendors, four different taxonomy *shapes*: content-and-agent-shaped (AlphaSense), signal-pipeline-shaped (ZoomInfo, Clay, Demandbase), job-role-shaped (Salesforce), and surface-shaped (Microsoft). A 12-step pipeline is my model, not the market's — so "which step do vendors name" is the wrong question; "which steps does anyone *sell separately*" is the right one, and the answer is: ingest, entity-resolve, deliver.
-2. **Step 8 (cross-account ripple) is empty for all ten.** Not under-marketed — absent. The graph that would support it is a mature shipped product in *supply-chain risk* (Resilinc, Interos, Everstream), always traversed in the buyer's direction, never the seller's.
+2. **Step 8 (cross-account ripple) is empty for all ten.** Not under-marketed — absent. And yet the graph exists and is *quantified*: Bloomberg's **SPLC** covers 900k supplier–customer relationships, 200k with revenue exposure attached, built on the ASC 275 >10%-of-revenue disclosure rule — sold to **investors**. Supply-chain risk vendors (Resilinc, Interos, Everstream) traverse the same edges **inbound** for procurement. Nobody traverses them **outbound for a seller**.
 3. **Step 7 (map to the seller's own catalog) has exactly one shipped implementation** — LinkedIn Account IQ's "why your product is a good fit", driven by a free-text product blurb. Everything else is RAG over sales collateral.
 4. **Step 11 (human review) is nearly empty too**, and unlike step 8 it is not hard. Only Klue ships triage as a stage; Moody's ships an editable credit memo. This is the cheapest available differentiator.
 5. **Fourteen tasks are missing from my 12 steps.** The six that matter: cadence/recurrence as an object, delta reasoning ("what changed"), output-format-as-input, the signal-type catalog, **source licensing rights**, and human triage as distinct from machine filtering.
@@ -449,9 +449,30 @@ The four named in the brief, plus three more the research surfaced. Each is stat
 - **Interos** — n-tier mapping, "uncovers Nth-party risk", identifies "high-risk tier 2 and tier 3 companies and understand how they connect to you" [T3 interos.ai].
 - **Everstream Discover** — "reviews multiple supplier tiers to identify risks from sourcing through receiving", using "digital twins… of its supplier network" [T3].
 
-**So the honest gap is not "can the graph be built".** It is that **the graph is built for the buyer's own inbound risk, never for the seller's outbound opportunity.** Resilinc/Interos answer "which of *my* suppliers is exposed". Nobody answers "which of *my accounts* is exposed because *their* supplier/customer had an event". Those are the same edges traversed in the opposite direction, and no product in either category does the traversal.
+**And a quantified, bi-directional version already exists — in a capital-markets terminal.** Bloomberg's **SPLC** function:
+- covers "**900,000 identified global supply chain relationships**"; load an equity and "all the company's suppliers **and customers** will display" [T3 university library guides, which document terminal functions accurately];
+- lets you "analyse **revenue exposure** for the central company, its suppliers, and its customers", plus geographic, commodity, sustainability and risk exposures [T3];
+- is explicitly built on the disclosure rule: "**since companies are required to disclose customers representing over 10% of their revenue**", Bloomberg uses "bi-directional data — along with a team of industry analysts who utilize a proprietary algorithm to create estimates — to quantify companies' supply chain exposures on both the demand and production sides", yielding "**200,000 quantified supplier-customer relationships**" [T3];
+- ships **SPLC GeoRiskFactors** measuring "supply chain exposure to specific countries by analyzing **point-in-time** supplier and customer relationships" [T3].
 
-**Why it stays unsolved (honest read, not vendor bashing):** the ripple claim is the one claim in an account brief that is *hardest to source*. "Acme had a bad quarter" is citable to a filing. "Therefore Beta, who sells 30% of its volume to Acme, is at risk" requires a customer-concentration disclosure that exists for public issuers and essentially never for private ones. The gap is a **data-availability gap masquerading as a reasoning gap** — which is exactly why it is worth naming: the subset where it *is* sourceable (10-K customer-concentration disclosures, named-customer risk factors, public tender/contract awards) is small, tractable, and completely unserved.
+The underlying disclosure regime is real and citable: **ASC 275-10-50-16 through -20** requires entities deriving **>10% of total revenues from a major customer** to disclose the concentration, with "information adequate to inform users of the general nature of the risk"; ASC 280 governs the segment-reporting frame [T1 SEC EDGAR filings and SEC comment-letter correspondence].
+
+**So the honest gap is precisely locatable, and it is not "can the graph be built":**
+
+| Who has the graph | Direction they traverse it | Who it is sold to |
+|---|---|---|
+| Resilinc / Interos / Everstream | inbound — *my* suppliers' risk | procurement, supply-chain risk |
+| Bloomberg SPLC | both, quantified by revenue exposure | **investors**, in a terminal |
+| Every vendor in Part A | **none** | sales / coverage teams |
+
+Nobody traverses it **outbound for a seller**: "company X had an event; which of *my accounts* is exposed to X as a supplier, customer or competitor, and what does that mean for them — and therefore for me." Those are the same edges Bloomberg already quantifies, read from the other end, for a different buyer.
+
+**Why it stays unsolved (honest read, not vendor bashing):** three reasons, in order of weight.
+1. **Buyer mismatch.** The graph is priced and packaged for investors and procurement. Neither AlphaSense-class research vendors nor ABM vendors have any reason to license a supply-chain relationship dataset for a sales seat.
+2. **Coverage cliff.** The 10%-disclosure regime covers public issuers. For a private mid-market account, the customer-concentration edge essentially does not exist — and Bloomberg's own answer to that is *analyst estimates*, which is expensive and doesn't scale to a long-tail book.
+3. **Citation difficulty.** "Acme had a bad quarter" is citable to a filing. "Therefore Beta is at risk" is an inference over an edge that may itself be an estimate — the exact claim type that needs the evidence-class labelling of C3, which nobody ships.
+
+That makes this a **data-availability and packaging gap wearing the costume of a reasoning gap**. Worth naming precisely because the tractable subset — public accounts, disclosed >10% relationships, named-customer risk factors, public contract and tender awards — is small, sourceable, and completely unserved on the sell side.
 
 ### C2. Mapping to the seller's OWN service catalog — **one weak implementation, market-wide**
 
@@ -591,6 +612,8 @@ Given P1's finding that the "so what" is the core human decision, this is a cons
 | C-1 | Resilinc — Multi-Tier & Agentic Supply Chain Mapping · https://resilinc.ai/products/multi-tier-mapping/ | T3 |
 | C-2 | Interos — Supply Chain Mapping & Visibility · https://www.interos.ai/solutions/supply-chain-mapping | T3 |
 | C-3 | Z2Data — Top 7 Supply Chain Risk Management Software Tools for 2026 (Everstream Discover, digital twins) · https://www.z2data.com/insights/top-7-supply-chain-risk-management-software-tools-for-2026/ | T3 |
+| C-3b | Bloomberg SPLC function — 900k relationships, 200k quantified, revenue exposure, GeoRiskFactors. Documented via university terminal guides (Copenhagen Business School, Cranfield, NYPL, Brooklyn College, US Dept of Commerce library) and Bloomberg Professional insights · https://libguides.cbs.dk/c.php?g=663644&p=4693363 · https://www.bloomberg.com/professional/insights/trading/researching-supply-chain-exposures-how-to-analyse-coronavirus-related-risks/ | T3 |
+| C-3c | ASC 275-10-50-16 through -20 (major-customer concentration disclosure, >10% of revenue) and ASC 280 segment reporting — as applied in 10-K filings and SEC comment-letter correspondence on EDGAR · https://www.sec.gov/Archives/edgar/data/1131554/000113155414000005/filename1.htm | T1 |
 | C-4 | arXiv 2609.10996 — *Rethinking Verbalized Confidence for LLM-as-a-Judge: A Compatibility Shift on Post-2025 Proprietary Models* · https://arxiv.org/abs/2609.10996 | T2 |
 | C-5 | arXiv 2601.07264 — *The Confidence Dichotomy: Analyzing and Mitigating Miscalibration in Tool-Use Agents* · https://arxiv.org/pdf/2601.07264 | T2 |
 | C-6 | arXiv 2604.05952 — Yuan, Wang & Lei, *Towards Trustworthy Report Generation: A Deep Research Agent with Progressive Confidence Estimation and Calibration* · https://arxiv.org/pdf/2604.05952 | T2 |
