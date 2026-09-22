@@ -235,7 +235,7 @@ capabilities:                              # component 6 — Area > Category > F
       - name: Catalog mapping
         note: "The pack's primary differentiator. No strong implementation exists in the market."
         features:
-          - { name: Opportunity mapped to a named service line the client actually sells, status: partial, tier_first_available: pov, source: one-pager-2026-09-10, reviewer-ui-2026-09-11 }
+          - { name: Opportunity mapped to a named service line the client actually sells, status: partial, tier_first_available: pov, source: "one-pager-2026-09-10, reviewer-ui-2026-09-11" }
           - { name: Catalog target configurable — offering · lever · mitigation · none, status: roadmap, source: research-brief-2026-09-22 }
           - { name: "Demand-gap stream — implications that mapped to nothing, emitted as a product-gap feed", status: roadmap, source: research-brief-2026-09-22 }
       - name: Ripple
@@ -246,7 +246,7 @@ capabilities:                              # component 6 — Area > Category > F
           - { name: Portfolio aggregation — correlated groups evaluated as the unit, status: roadmap, source: research-brief-2026-09-22 }
       - name: Scoring
         features:
-          - { name: Magnitude and confidence scored 0-10 per item, status: partial, tier_first_available: pov, source: one-pager-2026-09-10, reviewer-ui-2026-09-11 }
+          - { name: Magnitude and confidence scored 0-10 per item, status: partial, tier_first_available: pov, source: "one-pager-2026-09-10, reviewer-ui-2026-09-11" }
           - { name: Calibrated confidence tested against realized outcomes, status: roadmap, source: research-brief-2026-09-22 }
           - { name: Cost-aware ranking under a capacity constraint, status: roadmap, source: research-brief-2026-09-22 }
 
