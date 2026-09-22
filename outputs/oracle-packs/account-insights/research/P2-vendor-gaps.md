@@ -508,8 +508,97 @@ Clay's **Claygent Builder** ships "version control, A/B testing, and risk-free p
 
 ## Sources
 
-_pending_
+**Tier key:** T1 = primary vendor product documentation / filings / developer docs · T2 = analyst firm, reputable trade press, peer-reviewed or arXiv · T3 = vendor marketing pages, press releases, blogs, review aggregators.
+
+### Part A — vendor taxonomies
+
+| # | Source | Tier |
+|---|---|---|
+| A-1 | AlphaSense Help Center — Product Updates April 2026 · https://help.alpha-sense.com/hc/en-us/articles/51403579155731-AlphaSense-Product-Updates-April-2026 | T1 |
+| A-2 | AlphaSense Help Center — Product Updates January / May 2026 (Generative Search 'Auto' mode; 13 new Workflow Agents) | T1 |
+| A-3 | AlphaSense Help Center — Accessing Generative Search; Smart Summaries · https://help.alpha-sense.com/hc/en-us/articles/41669307479443-Get-Instant-Insights-and-Save-Time-with-Smart-Summaries | T1 |
+| A-4 | AlphaSense press — "AlphaSense launches Deep Research…" · https://www.alpha-sense.com/press/alphasense-launches-deep-research-automating-in-depth-analysis-with-agentic-ai-on-high-value-content | T3 |
+| A-5 | AlphaSense developer docs — Enterprise Intelligence · https://developer.alpha-sense.com/enterprise | T1 |
+| A-6 | ZoomInfo IR — "ZoomInfo Copilot Workspace: Complete Book of Business in One Workspace…" · https://ir.zoominfo.com/news-releases/news-release-details/zoominfo-copilot-workspace-complete-book-business-one-workspace/ | T1 |
+| A-7 | ZoomInfo IR — "ZoomInfo Data Now Integrated With Microsoft Copilot Studio…" · https://ir.zoominfo.com/news-releases/news-release-details/zoominfo-copilot-studio-and | T1 |
+| A-8 | ZoomInfo — GTM Studio certification / "What Is ZoomInfo?" · https://pipeline.zoominfo.com/sales/what-is-zoominfo | T3 |
+| A-9 | 6sense — 6AI product page · https://6sense.com/6ai/ | T3 |
+| A-10 | 6sense — Predictive Analytics / Intent Data pages · https://6sense.com/platform/predictive-analytics/ | T3 |
+| A-11 | Demandbase press release — "Demandbase AI: Pipeline Engine for Modern GTM" · https://www.demandbase.com/press-release/demandbase-ai/ | T3 |
+| A-12 | Demandbase Help Center — April 2026 Product Update · https://support.demandbase.com/hc/en-us/articles/48876024044699-April-2026-Product-Update (403 on fetch — content taken from search snippet) | T1 (unfetched) |
+| A-13 | Klue — Competitive Intelligence Platform · https://klue.com/competitive-intelligence-platform | T3 |
+| A-14 | Klue blog — DoubleCheck Research acquisition · https://klue.com/blog/klue-acquisition-doublecheck-research ; Ignition acquisition · https://klue.com/blog/klue-acquires-ignition | T3 |
+| A-15 | BetaKit — "Klue doubles down on AI with Ignition acquisition" · https://betakit.com/klue-doubles-down-on-ai-with-ignition-acquisition/ | T2 |
+| A-16 | Switzerland Global Enterprise — SoftwareOne to acquire Crayon Group (closed 2025-07-02) · https://www.s-ge.com/invest/en/articles/news/softwareone-acquire-crayon-group | T2 |
+| A-17 | Salesforce Help — AI Sales Agents · https://help.salesforce.com/s/articleView?language=en_US&id=sales.sales_cloud_agents.htm&type=5 (JS-rendered; not fetchable) | T1 (unfetched) |
+| A-18 | Salesforce Help — Agentforce Account Management Overview · https://help.salesforce.com/s/articleView?language=en_US&id=sales.account_mgmt_overview.htm&type=5 (JS-rendered; content from search snippet) | T1 (unfetched) |
+| A-19 | Salesforce Trailhead — Discover Agentforce Sales Agents · https://trailhead.salesforce.com/content/learn/modules/agentforce-sales-agents-quick-look/discover-agentforce-sales-agents | T1 |
+| A-20 | Salesforce — AI Sales Agent product page (Prospecting / Engagement / Pipeline Management / Account Management / Sales Coaching / Quoting / Partner Success agents) · https://www.salesforce.com/sales/ai-sales-agent/ | T3 |
+| A-21 | Microsoft Learn — Use Sales agent in Microsoft 365 Copilot (updated 2026-08-06) · https://learn.microsoft.com/en-us/microsoft-sales-copilot/use-sales-chat | T1 |
+| A-22 | Microsoft Learn — Prepare for your Sales meetings in Microsoft 365 Copilot (preview) · https://learn.microsoft.com/en-us/microsoft-sales-copilot/meeting-prep-sales-chat | T1 |
+| A-23 | Microsoft Learn — View a meeting preparation card · https://learn.microsoft.com/en-us/microsoft-sales-copilot/meeting-prep | T1 |
+| A-24 | Microsoft Learn — Copilot for Sales 2026 release wave 1 (301-redirects to aka.ms; NOT fetched) · https://learn.microsoft.com/en-us/copilot/release-plan/2026wave1/copilot-sales/ | T1 (unfetched) |
+| A-25 | LinkedIn Sales Navigator Help — Account IQ · https://www.linkedin.com/help/sales-navigator/answer/a1655021 | T1 |
+| A-26 | LinkedIn Sales Navigator Help — Account Pages · https://www.linkedin.com/help/sales-navigator/answer/a106045 | T1 |
+| A-27 | LinkedIn business blog — Introducing the new Lead IQ & Enhanced Account IQ · https://www.linkedin.com/business/sales/blog/product-updates/introducing-the-new-lead-iq-and-enhanced-account-iq-features-for-sales-navigator | T3 |
+| A-28 | Dow Jones Developer Platform — Factiva DJID Taxonomy API · https://dowjones.developerprogram.org/site/docs/factiva_apis/factiva_djid_taxonomy_api/index.gsp (TLS cert expired at fetch time; content via APIs.io/Postman mirrors) | T1 (unfetched) |
+| A-29 | APIs.io — Factiva DJID Taxonomy API / Factiva Code API OpenAPI listings · https://apis.io/apis/factiva/factiva-djid-taxonomy-api/ | T1 |
+| A-30 | PRNewswire — "Dow Jones Launches Factiva Smart Summary" · https://www.prnewswire.com/news-releases/dow-jones-launches-factiva-smart-summary-302304385.html | T3 |
+| A-31 | Clay — CRM Enrichment use case · https://www.clay.com/use-cases/crm-enrichment | T1 |
+| A-32 | Clay — Custom Signals · https://www.clay.com/signals | T1 |
+| A-33 | Clay — Claygent · https://www.clay.com/claygent ; Clay Docs — Claygent Builder · https://university.clay.com/docs/claygent-builder | T1 |
+
+### Part B — competitors
+
+| # | Source | Tier |
+|---|---|---|
+| B-1 | Zoom newsroom — "Zoom to Acquire Common Room, Bringing Buyer Intelligence to its AI Revenue Platform" (2026-07-02) · https://news.zoom.com/zoom-to-acquire-common-room-bringing-buyer-intelligence-to-its-ai-revenue-platform/ ; GlobeNewswire mirror | T1 |
+| B-2 | Common Room — product/AI page (Person360™, RoomieAI™, Enrichment, Prospector, AI Scoring, Buying Committee) · https://www.commonroom.io/product/ai/ | T1 |
+| B-3 | Common Room Docs — RoomieAI Spark (Spark alerts + daily Spark Brief) · https://www.commonroom.io/docs/using-common-room/roomie-ai/roomie-ai-spark-alerts/ | T1 |
+| B-4 | Common Room blog — "Introducing RoomieAI™ Capture: Cut account prioritization and personalization from 60 minutes to 60 seconds" · https://www.commonroom.io/blog/ai-research-account-prioritization-and-personalization/ | T3 |
+| B-5 | Aomni — aomni.com (HTTP 503 at fetch time; all Aomni claims are from secondary directories) · https://www.aomni.com/ | T3 |
+| B-6 | Rox — rox.com homepage (Outbound Agent; autopilot disclaimer) · https://rox.com/ | T1 |
+| B-7 | GZ Consulting / Kavout / aiagentsdirectory — Rox "System of Context", $1.2B valuation Mar 2026, agent swarm descriptions | T2/T3 |
+| B-8 | Introhive — Relationship Intelligence · https://www.introhive.com/relationship-intelligence/ | T3 |
+| B-9 | Introhive — Professional Services Business Development; Managing Client Relationships · https://www.introhive.com/solutions/business-development/ | T3 |
+| B-10 | Moody's — AI and GenAI Risk Solutions (Research Assistant, Early Warning System, Loan Monitoring, Automated Credit Memo, QUIQspread, Automated Covenants) · https://www.moodys.com/web/en/us/capabilities/gen-ai.html | T1 |
+| B-11 | Moody's — Banking Solutions & Risk Management · https://www.moodys.com/web/en/us/who-we-serve/banking.html | T1 |
+| B-12 | FactSet IR — AI financial crime risk management tools integrated into Workstation for corporate banks (Mar 2026) · https://investor.factset.com/news-releases/news-release-details/factset-integrates-advanced-ai-financial-crime-risk-management | T1 |
+
+### Part C — the gaps
+
+| # | Source | Tier |
+|---|---|---|
+| C-1 | Resilinc — Multi-Tier & Agentic Supply Chain Mapping · https://resilinc.ai/products/multi-tier-mapping/ | T3 |
+| C-2 | Interos — Supply Chain Mapping & Visibility · https://www.interos.ai/solutions/supply-chain-mapping | T3 |
+| C-3 | Z2Data — Top 7 Supply Chain Risk Management Software Tools for 2026 (Everstream Discover, digital twins) · https://www.z2data.com/insights/top-7-supply-chain-risk-management-software-tools-for-2026/ | T3 |
+| C-4 | arXiv 2609.10996 — *Rethinking Verbalized Confidence for LLM-as-a-Judge: A Compatibility Shift on Post-2025 Proprietary Models* · https://arxiv.org/abs/2609.10996 | T2 |
+| C-5 | arXiv 2601.07264 — *The Confidence Dichotomy: Analyzing and Mitigating Miscalibration in Tool-Use Agents* · https://arxiv.org/pdf/2601.07264 | T2 |
+| C-6 | arXiv 2604.05952 — Yuan, Wang & Lei, *Towards Trustworthy Report Generation: A Deep Research Agent with Progressive Confidence Estimation and Calibration* · https://arxiv.org/pdf/2604.05952 | T2 |
+| C-7 | arXiv 2603.25052 — *Closing the Confidence-Faithfulness Gap in Large Language Models* · https://arxiv.org/pdf/2603.25052 | T2 |
+| C-8 | Gartner press release (2026-07-28) — "AI Agents Will Outnumber Sellers 10 to 1 by 2028, Yet Fewer Than 40% of Sellers Will Say Agents Improved Productivity"; survey of 210 CSOs/senior sales execs, Jan–Feb 2026; Dan Gottlieb "agent sprawl" quote · https://www.gartner.com/en/newsroom/press-releases/2026-07-28-gartner-predicts-ai-agents-will-outnumber-sellers-10-to-1-by-2028-yet-fewer-than-40-percent-of-sellers-will-say-agents-improved-productivity (gartner.com returns 403 to fetch; content via search index + trade-press restatements) | T2 |
+| C-9 | Gartner press release (2026-05-20) — AI-enabled next best actions 2.6x; "95% of sellers' research workflows will begin with AI by 2027, up from <20% in 2024"; survey of 227 CSOs, Aug–Sep 2025 · businesswire/Morningstar mirrors | T2 |
+| C-10 | Gartner — "AI for Sellers: Building Trust With Proprietary Data" (trust drops 60% when sellers doubt data accuracy) · https://www.gartner.com/en/articles/ai-for-sellers (403; via search index) | T2 |
+| C-11 | Gartner press release (2025-06-25) — Over 40% of agentic AI projects will be canceled by end of 2027 · https://www.gartner.com/en/newsroom/press-releases/2025-06-25-gartner-predicts-over-40-percent-of-agentic-ai-projects-will-be-canceled-by-end-of-2027 | T2 |
+| C-12 | Demand Gen Report — "Gartner: AI Is Reshaping B2B Buying, but Human Sellers Still Close the Confidence Gap" · https://www.demandgenreport.com/industry-news/news-brief/gartner-ai-is-reshaping-b2b-buying-but-human-sellers-still-close-the-confidence-gap/53046/ (403 on fetch) | T2 (unfetched) |
+| C-13 | B2B data-decay benchmarks (22.5%/yr aggregate; 25–30% contacts; 65.8% title/function change in 12 months; 76% say <half of CRM data accurate; Gartner $12.9–15M/yr cost) — aggregated from ZoomInfo, Cognism, RecordContext, Derrick compilations | T3 (vendor-sourced; treat with caution) |
 
 ## Unverified
 
-_pending_
+Items I could **not** confirm from a primary source. None of these are asserted as fact above.
+
+1. **Salesforce Agentforce Account Management — exact topics and actions.** `help.salesforce.com` is a JS-rendered SPA that returns a CSS-error shell to WebFetch. Everything I have about the Account Management subagent ("perform deep research", "summarize recent interactions", "recommend next steps") comes from a **search-index snippet of the Salesforce Help page** plus the salesforce.com product page. The action list, whether external web data is truly in scope, and whether there is an approval step are all **unverified**. Needs a browser-based read or a Salesforce release-notes PDF.
+2. **Whether Salesforce grounds the Account Management agent in a structured product catalog.** "Enablement materials", "product FAQ, case studies, and sales plays" are documented as RAG sources [T3]. Whether any Salesforce agent consumes CPQ/Product2 catalog objects to recommend a specific offering is **unverified**.
+3. **Microsoft Copilot for Sales — external news/market-signal ingestion.** The Learn pages I read document only CRM + Microsoft Graph. The 2026 wave-1 release plan mentions "additional data sources" but the URL 301-redirects to `aka.ms` and was not followed. Whether Copilot for Sales now reads external news about an account is **unverified** — do not assert either way.
+4. **AlphaSense — CRM as a connector.** Enterprise Intelligence documents "a library of out-of-the-box data connectors", "20+ everyday work systems", SCIM, entitlements — but the developer overview page does **not** name Salesforce or any CRM. Marketing pages mention "integrates with enterprise tools like Salesforce and Slack" [T3]. Whether CRM *records* (as opposed to files) can ground an AlphaSense answer is **unverified**.
+5. **Dow Jones Factiva — deduplication of the same story across sources.** Not found as a named capability in anything I could reach. `dowjones.com` is blocked to this fetcher and the developer portal's TLS certificate has expired. Factiva's dedup behaviour is **unverified**.
+6. **Demandbase April 2026 product update** — the Help Center article returned HTTP 403. Everything attributed to it is from the search index.
+7. **Aomni** — aomni.com returned HTTP 503. All Aomni capability claims, the "1,000+ data points / 20+ sources" figure, the "~3 hours saved per prospect" and "up to 40% close-rate" claims, and the **Oracle and NVIDIA customer references** are **T3 secondary only** and should be re-verified before being repeated anywhere client-facing.
+8. **Rox** — the marketing narrative ("System of Context", agent swarms for monitoring/prospecting/enrichment) is entirely T2/T3. rox.com itself documents only an Outbound Agent. Treat Rox's coverage of this job as **claimed, not verified**.
+9. **6sense** — dedup methodology, confidence calibration, per-claim citations and any narrative account brief. The public pages do not describe them. Absence from marketing is *not* proof of absence from the product; this needs a demo or customer documentation.
+10. **Common Room** — company-level (as opposed to person-level) entity resolution, and whether Capture results are stored as structured fields. Person360 is documented at person level only.
+11. **Crayon (the CI platform)** — not studied from its own docs at all. Klue was chosen as the CI representative. Crayon's current capability surface is **unknown** here.
+12. **Gartner figures (C-8, C-9, C-10, C-12)** — gartner.com, businesswire and demandgenreport all returned 403 to this fetcher. The statistics, survey sizes and the Gottlieb quote come from the search index and trade-press restatements. They are consistent across multiple independent restatements, but **no Gartner page was read directly**. Do not put these in a client deliverable without opening the source.
+13. **B2B data-decay statistics (C-13)** — every figure traces back to data-vendor marketing (ZoomInfo, Cognism and downstream compilations). Self-interested sources for a claim that sells data refresh. Directionally useful, numerically unreliable.
+14. **LinkedIn Account IQ output section names** — LinkedIn's help page and blog describe capabilities but publish **no canonical list of section headings**. The section names circulating (company overview, financial highlights, strategic priorities, business challenges, talking points) are **not verified** from LinkedIn's own documentation.
+15. **ZoomInfo's 15+ signal types** — the count is stated in ZoomInfo's IR release; the *enumerated list* was not found on a fetchable page (the GTM Studio certification page returned 403). Only five types are confirmed by name (buying intent, job changes, funding, hiring activity, competitive research).
