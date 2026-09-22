@@ -82,17 +82,19 @@ problem_solution:                          # component 1 — signed off via tria
     could an account manager say this sentence about their own week?
   source: user:2026-09-22
 
-one_liner:                                 # component 2 — signed off via triad A
+one_liner:                                 # component 2 — re-proposed 2026-09-22 under the three-question rule (plugin 0.1.9); shown to the owner, not objected to; flagged on the artifact review
   full: >-
-    Turns market events into named opportunities on the accounts you already cover — each mapped
-    to a service you sell, scored and cited for review.
-  short: "Market events, turned into named opportunities on the accounts you cover."
+    More opportunities from the accounts you already cover: the news, filings and updates landing
+    on them are turned into named services to offer — scored, cited and reviewed before anything
+    reaches the CRM.
+  short: "More opportunities from the accounts you already cover — found in the news, filings and updates on them."
   banned_words_checked: true
   note: >-
-    States the job and the outcome in the buyer's words. Carries no count, no tier vocabulary and
-    no packaging language (anti-pattern A1). The delivered one-pager's opening ("turns a real-world
-    signal into structured, machine-readable JSON") leads with the output format rather than the
-    outcome and is replaced.
+    Of what — the news, filings and updates on the accounts you cover. So what for the business —
+    more opportunities from accounts you already have. How, in one clause — turned into named
+    services to offer, scored, cited and reviewed. No qualifier from the source engagement. The
+    signed-off first version ("Turns market events into named opportunities…, scored and cited for
+    review") answered of-what and how but stated no business outcome.
   source: user:2026-09-22
 
 icp:                                       # component 3 — signed off
