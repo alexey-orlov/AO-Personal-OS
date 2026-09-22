@@ -265,7 +265,163 @@ Six. Four appear only in some scenarios; two are universal and are therefore the
 
 ### 3.1 The grid
 
-_pending_
+One table per step. `—` means **no real difference here** — the step does what the generic version does. 16 of 96 cells are dashes; that is the honest count, and the dashes cluster exactly where you would expect (S1 is the baseline, S3b is the thinnest-context scenario, S7 concentrates all its divergence in resolution and delivery).
+
+**Step 1 — Define the entity universe**
+
+| | What matters here | Gap |
+|---|---|---|
+| S1 | Lanes and sites are entities in scope, not account attributes | |
+| S2 | Use the regulatory obligor group; the sales hierarchy is the wrong grouping | NI-1 |
+| S3a | — | |
+| S3b | The universe is an output; define a thesis screen, not a list | NI-10 |
+| S4 | Scope reaches suppliers you cannot name; closure by criticality, not contract | NI-2 |
+| S5 | Scope is future events, gated by vehicle eligibility and set-aside status | NI-4 |
+| S6 | Appetite replaces the list; entities arrive inbound, spanning many accumulation zones | NI-12 |
+| S7 | Two universes: prospects, plus an adverse-party set that vetoes them | NI-5 |
+
+**Step 2 — Ingest signals + first-party context**
+
+| | What matters here | Gap |
+|---|---|---|
+| S1 | — | |
+| S2 | First-party exposure data is wall-restricted; ingestion must respect barrier sides | NI-11 |
+| S3a | Board-level management accounts are MNPI; ingesting them creates a wall-crossing record | NI-11 |
+| S3b | — | |
+| S4 | Ingest contract clauses and obligation registers, not only news and filings | NI-2 |
+| S5 | Ingest object state transitions from a public docket, not documents | NI-7 |
+| S6 | Geospatial hazard and catastrophe-model output are a first-class input type | NI-8 |
+| S7 | Matter-ledger access is itself walled inside the firm | NI-11 |
+
+**Step 3 — Filter and de-duplicate**
+
+| | What matters here | Gap |
+|---|---|---|
+| S1 | — | |
+| S2 | Keep provenance class; never merge a rumour with an official disclosure | NI-6 |
+| S3a | Relevance means thesis-relevance; a huge off-thesis story is noise | NI-9 |
+| S3b | — | |
+| S4 | A tiny story matching a listed entity outranks a large unmatched one | NI-2 |
+| S5 | De-duplicate across lifecycle stages of one procurement, not across outlets | NI-7 |
+| S6 | De-duplicate event bulletins while preserving footprint geometry, not just narrative | NI-8 |
+| S7 | — | |
+
+**Step 4 — Resolve which entities a signal affects**
+
+| | What matters here | Gap |
+|---|---|---|
+| S1 | Two hops: signal hits a lane or site, accounts derive from it | NI-8 |
+| S2 | Resolve to ultimate parent and obligor group, not the traded name | NI-1 |
+| S3a | — | |
+| S3b | Inverted: signal to candidates that exist in no list yet | NI-10 |
+| S4 | Traverse ownership with fractional aggregation, and n-tier paths to unrecorded entities | NI-3 |
+| S5 | Key on agency, NAICS, vehicle and incumbent, not a company | NI-7 |
+| S6 | Geospatial: which insured locations sit inside the event footprint polygon | NI-8 |
+| S7 | Resolve twice; a conflict hit vetoes the commercial hit firmwide | NI-5 |
+
+**Step 5 — Retrieve and rank evidence**
+
+| | What matters here | Gap |
+|---|---|---|
+| S1 | — | |
+| S2 | Public-side and private-side evidence must stay in separate ranked sets | NI-11 |
+| S3a | Rank against named thesis assumptions, not against recency or magnitude | NI-9 |
+| S3b | Sparse and inferential; reward corroboration across independent proxies over recency | NI-9 |
+| S4 | Retain with retrieval date; the record is what you knew when | NI-13 |
+| S5 | Award, past-performance and protest history, ranked by effect on Pwin | NI-16 |
+| S6 | Label model output as model-derived; never rank it beside observed fact | NI-6 |
+| S7 | Exclude evidence the firm holds but may not use here | NI-11 |
+
+**Step 6 — Reason the "so what"**
+
+| | What matters here | Gap |
+|---|---|---|
+| S1 | — | |
+| S2 | Produce both: commercial opportunity and credit action, with different owners | NI-14 |
+| S3a | Output is thesis confirmed or broken, plus a value-creation-plan change | NI-9 |
+| S3b | Output is ownability and approach timing, not what to sell | NI-9 |
+| S4 | Output is exposure, substitutability and obligation consequence; "opportunity" is meaningless | NI-14 |
+| S5 | Output is a bid/no-bid stance and a shaping move, calendar-anchored | NI-17 |
+| S6 | The output may exist only at the aggregate; per-risk reasoning misses it | NI-12 |
+| S7 | "Do not pursue" is a valid and mandatory output | NI-4 |
+
+**Step 7 — Map to a concrete service line / offering**
+
+| | What matters here | Gap |
+|---|---|---|
+| S1 | — | |
+| S2 | Two catalogs at once: products to sell, credit actions to take | NI-14 |
+| S3a | No catalog. Map to a value-creation lever inside a company you own | NI-15 |
+| S3b | Nothing to map to; forcing this field invents a catalog entry | NI-15 |
+| S4 | Map to a mitigation playbook: dual-source, audit, corrective action, exit | NI-15 |
+| S5 | Solution plus eligible vehicle plus teaming shape; two of three are eligibility | NI-4 |
+| S6 | The "offering" is a permission to write, bounded by authority level | NI-15 |
+| S7 | The mapping target includes a person: the partner holding the relationship | NI-5 |
+
+**Step 8 — Trace second-order and cross-entity ripples**
+
+| | What matters here | Gap |
+|---|---|---|
+| S1 | Ripples run along lanes and sites that several accounts share | NI-8 |
+| S2 | Contagion through correlated exposures; must be aggregated, not narrated | NI-12 |
+| S3a | Comparable-company read-across to other holdings, and into the reported mark | NI-12 |
+| S3b | Does the same signal reach rival bidders and move the price? | |
+| S4 | Sub-tier dependency and single points of failure, via entities never contracted with | NI-2 |
+| S5 | Teaming graph: a partner signal can create an organizational conflict elsewhere | NI-5 |
+| S6 | Accumulation across unrelated entities, plus reinsurance dependency behind them | NI-12 |
+| S7 | Accepting matter A forecloses pursuit B firmwide, permanently | NI-5 |
+
+**Step 9 — Score by magnitude and confidence**
+
+| | What matters here | Gap |
+|---|---|---|
+| S1 | — | |
+| S2 | Reproducible, versioned, auditor-defensible basis; directional confidence is not enough | NI-13 |
+| S3a | Magnitude in value terms; the score can move a reported mark | NI-16 |
+| S3b | — | |
+| S4 | Asymmetric thresholds: a missed true positive is a compliance failure | NI-13 |
+| S5 | Contract value times Pwin, netted against a real cost of pursuit | NI-16 |
+| S6 | Expected loss or PML, computed; a narrative confidence label is unusable | NI-16 |
+| S7 | Conflict findings are binary and unscored; score only what clears | NI-4 |
+
+**Step 10 — Assemble the output artifact**
+
+| | What matters here | Gap |
+|---|---|---|
+| S1 | — | |
+| S2 | Two artifacts: relationship briefing and risk record, different retention and readers | NI-14 |
+| S3a | A monitoring pack on the reporting calendar, not an ad-hoc brief | NI-17 |
+| S3b | A target profile; there is no relationship to brief anyone on | |
+| S4 | The artifact is itself a retained compliance record, not a note | NI-13 |
+| S5 | A capture plan anchored to the procurement calendar, not to a meeting | NI-17 |
+| S6 | Per-risk note and portfolio view are separate artifacts with separate readers | NI-12 |
+| S7 | Clearance status is part of the document, not metadata about it | NI-20 |
+
+**Step 11 — Human review**
+
+| | What matters here | Gap |
+|---|---|---|
+| S1 | — | |
+| S2 | An evidenced control with named first- and second-line accountable roles | NI-18 |
+| S3a | The reviewer may be wall-crossed; reviewing itself creates an MNPI record | NI-11 |
+| S3b | — | |
+| S4 | Rejection is a recorded risk acceptance with an owner and an expiry | NI-18 |
+| S5 | A formal bid/no-bid gate producing a decision record, not content approval | NI-18 |
+| S6 | Authority hierarchy: escalate above a threshold, skip review below one | NI-18 |
+| S7 | A separate ethics clearance that the commercial reviewer cannot override | NI-4 |
+
+**Step 12 — Deliver downstream**
+
+| | What matters here | Gap |
+|---|---|---|
+| S1 | — | |
+| S2 | May have to open a case, not merely notify a banker | NI-19 |
+| S3a | Lands in the board pack and valuation file, on the quarter's clock | NI-17 |
+| S3b | — | |
+| S4 | Must fire contractual machinery: notice, audit right, corrective-action plan | NI-19 |
+| S5 | Respect procurement communication blackouts; delivery timing can disqualify you | NI-17 |
+| S6 | Delivery changes what may be written, not what someone knows | NI-19 |
+| S7 | Suppression is a delivery outcome; uncleared items must not arrive | NI-20 |
 
 ### 3.2 Not-implemented feature rows / configuration settings implied by the grid
 
