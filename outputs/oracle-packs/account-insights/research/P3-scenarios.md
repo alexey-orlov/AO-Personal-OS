@@ -7,7 +7,27 @@
 
 ## 0. How to read this document
 
-_pending_
+Three moves in order: validate the scenario set (MOVE 1), test the 12 steps against it (MOVE 2), then find the real per-step differences (MOVE 3). A closing sweep names what a complete product has and a first build will not.
+
+**Conventions**
+- `(reasoning)` — structured reasoning, deliberately uncited. Empirical claims carry a source and a tier.
+- `[T1]` primary (regulator, standards body, statute, bar association) · `[T2]` analyst / reputable trade press / law-firm client alert · `[T3]` vendor marketing, vendor blog, relayed survey.
+- `—` in the MOVE 3 grid means **no real difference at this cell**. It is a finding, not a blank.
+- `NI-n` marks a proposed feature row or configuration setting that is **not implemented** in a first build.
+- **Relay** in a citation means I read the claim through a secondary source, not at the primary. All relays are also listed under `## Unverified`.
+
+**Scenario codes used throughout**
+
+| Code | Scenario | Primary entity | My relation to it |
+|---|---|---|---|
+| S1 | Logistics & industrial enterprise sales | Customer account (+ trade lane, site) | sell-to |
+| S2 | Financial services coverage / relationship banking | Counterparty / obligor group (+ exposure) | sell-to **and** exposed-to |
+| S3a | PE portfolio monitoring | Portfolio company (+ thesis) | own |
+| S3b | Deal origination (PE pipeline + corp dev) | Candidate target | compete-for, not yet known |
+| S4 | Supplier & third-party risk | Supplier (+ obligation, contract clause) | depend-on, accountable-for |
+| S5 | Public sector & defense capture | Procurement opportunity / program | compete-for a future event |
+| S6 | Insurance underwriting & broking | Geolocated risk unit (+ accumulation zone) | exposed-to, shared with market |
+| S7 | Professional services client development | Matter (+ adverse party) | sell-to, with veto |
 
 ---
 
