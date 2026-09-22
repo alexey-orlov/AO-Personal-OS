@@ -183,12 +183,12 @@ capabilities:                              # component 6 — Area > Category > F
       - name: The account universe
         features:
           - { name: In-scope account list and tiering, status: partial, oracle_pack: none, tier_first_available: pov, source: one-pager-2026-09-10 }
-          - { name: Account framing from CRM (the relationship in the client's own words), status: partial, oracle_pack: none, tier_first_available: pov, source: reviewer-ui-2026-09-11 }
+          - { name: Account framing from CRM (the relationship in the client's own words), status: partial, oracle_pack: none, tier_first_available: pov, source: reviewer-ui-2026-09-11, note: "An agreed CRM extract at PoV Jumpstart; API at Integration" }
           - { name: Entity grouping by legal hierarchy rather than name match, status: roadmap, oracle_pack: none, specificity: [use_case], source: research-brief-2026-09-22 }
       - name: Sources
         features:
           - { name: "Signal ingestion — news, filings, disclosures", status: partial, oracle_pack: partial, tier_first_available: pov, source: one-pager-2026-09-10 }
-          - { name: Commercial data feeds, status: partial, oracle_pack: partial, tier_first_available: pov, source: one-pager-2026-09-10 }
+          - { name: Commercial data feeds, status: partial, oracle_pack: partial, tier_first_available: pov, source: one-pager-2026-09-10, note: "A bounded, licence-cleared source set at PoV Jumpstart; the client's own licensed feeds at Integration" }
           - { name: Public filings via EDGAR and IR pages, status: partial, oracle_pack: partial, tier_first_available: pov, source: one-pager-2026-09-10 }
           - { name: Service-line capability catalog from the client's own material, status: partial, oracle_pack: none, tier_first_available: pov, source: one-pager-2026-09-10 }
           - { name: Source-licensing and redistribution-rights gate, status: roadmap, oracle_pack: none, source: research-brief-2026-09-22 }
@@ -286,9 +286,9 @@ capabilities:                              # component 6 — Area > Category > F
           - { name: Confidence threshold filtering low-confidence items, status: partial, oracle_pack: none, tier_first_available: pov, source: one-pager-2026-09-10 }
       - name: Delivery
         features:
-          - { name: Export to the client's sales system, status: partial, oracle_pack: partial, tier_first_available: integration, source: one-pager-2026-09-10 }
-          - { name: Routing to the named owner of that account, status: roadmap, oracle_pack: none, tier_first_available: integration, source: research-brief-2026-09-22 }
-          - { name: Live write-back with idempotency and dedupe-on-write, status: roadmap, oracle_pack: none, tier_first_available: integration, source: research-brief-2026-09-22 }
+          - { name: Export to the client's sales system, status: partial, oracle_pack: partial, tier_first_available: integration, source: one-pager-2026-09-10, note: "File export at PoV Jumpstart; API export is Integration-tier scope" }
+          - { name: Routing to the named owner of that account, status: roadmap, oracle_pack: none, tier_first_available: integration, source: research-brief-2026-09-22, note: "Integration-tier scope; not in the proof of value" }
+          - { name: Live write-back with idempotency and dedupe-on-write, status: roadmap, oracle_pack: none, tier_first_available: scaling, source: research-brief-2026-09-22, note: "Scaling-tier scope; nothing is written back in the proof of value — reviewer decisions are captured, not persisted" }
           - { name: Outcome capture — pursued · won · lost · false positive — fed back to scoring, status: roadmap, oracle_pack: none, tier_first_available: scaling, source: research-brief-2026-09-22 }
           - { name: "Acting on opportunities — auto-outreach, task creation, workflow automation", status: roadmap, oracle_pack: none, source: one-pager-2026-09-10 }
 
