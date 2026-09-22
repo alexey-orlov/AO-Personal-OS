@@ -11,7 +11,7 @@ _Synthesized 2026-09-22 from four Opus research passes (`research/P1`–`P4`), t
 3. **The Oracle-pack column is wrong.** The matrix credits the Oracle + NVIDIA baseline with one capability (vector search + reranking). AI-Q's deep research agent already ships planner → concurrent researchers → writer producing a **citation-backed report**, with **deterministic citation verification** against actually-retrieved sources. Tally across the 12 steps: **full 3 · partial 5 · none 4.** Claiming ~23 of 25 capabilities as ours will not survive a technical review by anyone who has read the AI-Q README. **[F, P4]**
 4. **The real product is precisely the four steps the baseline does not cover:** define and maintain the **entity universe** (1), **entity resolution** (4), **mapping to the seller's own service catalog** (7), **cross-account ripple** (8) — plus the hard halves of two partials: **calibrated confidence + business magnitude** (9) and **CRM-schema structured write-back** (12). **[F, P4]**
 5. **The room is occupied, and the incumbent is free.** Salesforce's Account Research & Meeting Prep went GA 2026-03-16; Clay's Account Research Agents ship structured auditable fields where each field carries the agent's reasoning, with human-approved write-back; Anthropic's Salesforce integration ships approval-gated account research. Below all of them sits Google Alerts + a shared doc. The pricing floor is "beat free plus twenty minutes of a rep's attention". **[F, P2]**
-6. **So the differentiation is not "AI researches accounts".** It is the **join**: an external event × *your* account book × *your* own catalog of what you can sell — and the governance around it. Step 7 has **exactly one shipped implementation market-wide** (LinkedIn Account IQ, driven by a free-text product blurb). Step 8 has **zero**, in any market. Step 11 is nearly empty among the products a coverage team would actually buy. **[F, P2]**
+6. **So the differentiation is not "AI researches accounts".** It is the **join**: an external event × *your* account book × *your* own catalog of what you can sell — and the governance around it. Step 7 has **no strong implementation anywhere** — four weak ones (LinkedIn Account IQ's free-text blurb, Oracle's "product relevancy" + battlecards, Salesforce sales plays, Introhive's relationship graph); sales-enablement tools recommend *content* by deal stage, and Revenue Cloud reaches the real catalog only in the quoting path. Step 8 has **zero implementation anywhere, including Oracle and NVIDIA**. Step 11 is nearly empty among the products a coverage team would actually buy. **[F, P2]**
 
 ## The five narrowings
 
@@ -38,7 +38,7 @@ Six failure modes have **no standard handling anywhere** — not in the baseline
 2. **The honest empty state.** No product will say "nothing material happened here this month, and here is what we checked." Commercial incentives run the other way.
 3. **Retraction re-checking.** The standard exists (**IPTC `pubStatus`**); nothing in this market re-validates a cited source before reusing it.
 4. **Conflict as a finding.** Contradiction between reliable sources is silently resolved by rank order.
-5. **Calibrated confidence.** Market scores are ranking scores. Nothing emits a number meaning "80% of claims at this confidence are correct" — **and neither does the baseline**.
+5. **Calibrated confidence.** Market scores are ranking scores. Nothing emits a number meaning "80% of claims at this confidence are correct" — and neither does the baseline. *One partial exception, found in release notes rather than marketing:* **ZoomInfo Account Health states a confidence level and "asks for your input rather than guessing"** — the only vendor found doing either.
 6. **The correction feedback loop.** A human correction is treated as an edit to one document, not as labelled data.
 
 Two more are **mature in an adjacent market and absent here**: n-tier ripple reasoning (Interos, Everstream, D&B in supply-chain risk) and service-catalog mapping, which has no standard term at all — itself a signal it is not productized. **[F, P2+P4]**
@@ -63,8 +63,8 @@ Caution on the reviewer signal: approve/reject measures **plausibility at review
 
 ## Contested between research passes — not resolved here
 
-**Does human-in-the-loop ship with AI-Q?** P4 reports a **Clarifier agent** doing "HITL plan generation and approval before deep research" from the 2.1.0 docs. A separate pass reading the **develop** branch reports the v2.2.0 changelog saying, verbatim, *"…with bounded source-tool batching and **no research-plan approval step**"*, with zero README hits for approve/confidence/entity-resolution/CRM. **[G]**
-Both may be true of different versions. Either way the distinction that matters for us is untouched: AI-Q's HITL, where present, is **approve-the-plan**, never **approve-the-finding**. The reviewer UI is ours. Verify against the pinned version before any artifact prints an AI-Q capability.
+**Does human-in-the-loop ship with AI-Q? — resolved against the pack's favour, twice over.** P4 reported a **Clarifier agent** doing "HITL plan generation and approval before deep research" from the 2.1.0 docs. Two later passes reading the **develop** branch both report the v2.2.0 changelog removing it, verbatim: *"…with bounded source-tool batching and **no research-plan approval step**."* **[F]**
+Stronger still: **AI-Q's state model has no account entity, no score and no confidence field at all.** That settles steps 4, 9 and 11 as genuinely ours, and it settles them on primary evidence rather than assertion. Whatever HITL exists in a pinned version is **approve-the-plan**, never **approve-the-finding**.
 
 **Also flagged:** NVIDIA's AI-Q-on-OCI deployment samples are **community examples, explicitly "not covered by NVIDIA Enterprise Support"**, and **AI-Q requires the RAG Blueprint deployed first**. Both are material to an architecture slide. **[F]**
 
@@ -93,7 +93,19 @@ Both may be true of different versions. Either way the distinction that matters 
 
 **T3 is the binding constraint and it shapes the options:** the name "Account Insights" is settled (2026-09-11) and carries the mini-site, the tracker and the section deck — but it does not survive the supply-side and underwriting scenarios. Widening the *engine* past sell-side is free; widening the *name* is not.
 
-## An open question the research raises and cannot answer
+## The Oracle anchor — open since 2026-07-24, now answerable
 
-**Where is the Oracle anchor?** The same question is open on the document pack and unanswered since 2026-07-24. Here the research supplies a candidate and a threat in one: **Oracle Sales Command Center** (Fusion Agentic Applications for CX, announced 2026-04-09) already does signal-led account monitoring with external enrichment and next-best-action. If the customer owns Fusion CX, steps 1/2/6/10/11/12 have a native Oracle answer. **[F, P4]**
-That is either the integration story that makes this pack Oracle-anchored — or the reason Oracle does not need it. It should be put to the Oracle side, not decided here.
+**Oracle draws the line itself, and it draws it in our favour.** Sales Command Center "works out of the box on standard Oracle CX Sales data, **with no custom integrations or external data lake required**" — first-party only, **by design**. The external-signal half is not a gap Oracle is racing to close; it is a boundary Oracle has stated. **[F, P2]**
+
+So the anchor is: **Sales Command Center's Pre-Meeting Briefs and AI Outcome Store are the distribution rail to plug into, not to rebuild.** The pack supplies what Oracle deliberately does not — external signal, entity resolution against the customer's book, catalog mapping, ripple — and delivers into Oracle's own surface. This is the first concrete answer to the anchor question, which has been open on this stream since 2026-07-24 and is still open on the document pack.
+
+**The near-competitor to know about:** Fusion Sales **26B "Agent-Powered Account Intelligence"** does produce a brief from "web sources and external channels" with "cited sources and dates" — but it ships as a **five-step DIY recipe requiring the customer's own Tavily key and a hand-built Visual Builder extension**. That is a demo, not a product, and the gap between them is the pack.
+
+## Packaging constraints from Oracle's own contracts **[F, P2]**
+
+Three of these bind the architecture and one binds the output shape:
+
+- **External agents and MCP are contractually barred from Fusion except via approved patterns — with a partner-developed carve-out.** A pack that expects to sit next to Fusion must live inside **AI Agent Studio**. This is an architecture constraint, not a preference.
+- **Oracle contractually assigns human oversight to the customer** — which makes the reviewer step *blessed* white space rather than merely unoccupied. The strongest possible position for shipping step 11.
+- **Document Generation is metered at 10× / 20× / 10× AI Units against 0× / 5× / 3× for general reasoning.** A per-account *document*, generated at scale, is exactly where the meter bites — a real commercial argument for the structured-record output over the narrative briefing, independent of the product argument.
+- Fusion Agentic Applications is separately metered; **DataFox is conclusively retired** (7 SKUs in Oracle's Retired Services doc). Oracle **Unity is not** retired — Maxymiser was.
