@@ -148,7 +148,7 @@ verticals:                                 # component 5 — PROPOSED, see open_
     site_label: Manufacturing
     framing:
       problem: "A supplier or OEM customer event reshapes demand across several accounts at once, and it is worked out one account at a time or not at all."
-      solution: "One signal fans out across the affected account base with the reallocation and supply-chain opportunities each one creates."
+      solution: "One signal fans out across the affected companies with the supply, reallocation or partnership opportunities each one creates."
       entities: "accounts, production sites, trade lanes"
     catalog_type: offering
     status: plausible
@@ -520,8 +520,8 @@ kpis:                                      # component 11 — ONE metric set
     figure: "-"
     note: "A true calibration claim needs realized-outcome capture, which is Scaling-tier. At PoV this measures band-to-reviewer consistency only."
     source: section-deck-2026-09-11
-  - name: Account coverage
-    formula: "In-scope accounts with at least one reviewed record in the period ÷ total in-scope accounts"
+  - name: Coverage of the companies in scope
+    formula: "In-scope companies with at least one reviewed record in the period ÷ total in-scope companies"
     baseline: "The client's current manual research coverage, established during the proof of value"
     figure: "-"
     note: "Coverage is the pack's own first-order claim — the manual process trades depth against breadth and this removes the trade."
@@ -579,7 +579,7 @@ packages:                                  # component 12
       services_price: { status: tbd }
       scope_in:
         - "The client's own licensed commercial feeds, replacing the PoV's bounded source set"
-        - "Export to the client's sales system"
+        - "Export to the team's system of record"
         - "Routing to the named owner of each account"
         - "Recurrence as a standing subscription per account, with delta reasoning and a nothing-material state"
         - "Dual implication — one signal producing an opportunity and a risk to different owners"
@@ -620,12 +620,12 @@ packages:                                  # component 12
     - area: Output & delivery
       maps_to_feature_areas: [Output & delivery]
       pov: "◐ Structured records exported as files; reviewer decisions captured, never written back"
-      integration: "● Export to the client's sales system and routing to the named account owner"
+      integration: "● Export to the client's system of record and routing to the named account owner"
       scaling: "●● Live write-back with idempotency, plus outcome capture feeding scoring"
   why_it_sells_for_the_partner:
     - "Net-new OCI consumption: recurring GPU and inference workloads on dedicated OCI clusters, driven by signal volume rather than seat count"
     - "Supplies the half Oracle's own account intelligence deliberately does not — Sales Command Center is first-party-only by design, so this is complement, not overlap"
-    - "Repeatable across any Oracle CX customer carrying a named account book and a real service catalog"
+    - "Repeatable across any Oracle customer that tracks a named set of companies — customer accounts in Oracle CX, partners, or portfolio holdings — and has a real catalog of moves"
   target_oci_consumption: "-"
   source: research-brief-2026-09-22, decisions-2026-09-18
 
