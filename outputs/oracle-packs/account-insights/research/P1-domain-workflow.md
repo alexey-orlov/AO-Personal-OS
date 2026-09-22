@@ -237,14 +237,108 @@ The signal / trigger / intent three-way split is the most precise piece of vocab
 
 ## 6. Industry variation
 
-_pending_
+### 6a. What is genuinely universal
+
+Steps 1, 3, 4, 6, 7, 9, 10 are structurally identical across every industry examined. The artefacts differ, the sources differ, the severity language differs — the shape does not. Specifically universal:
+- An entity-resolution problem that nobody names and everybody pays for (step 4).
+- A routing problem where the bottleneck is "who owns this account today" (step 7).
+- A feedback step that is skipped almost everywhere (step 10), which is why indicator catalogues go stale.
+
+### 6b. What is genuinely industry-specific
+
+**Only step 5 and the source set.** The implication rulebook is the domain:
+
+| Industry | The implication rule looks like | The named source set |
+|---|---|---|
+| Enterprise B2B software | "New CTO + posted platform-engineering roles + competitor's contract renewal window → displacement window open" | Filings, job postings, LinkedIn exec changes, funding, tech-stack detection, earnings-call language |
+| Commercial / corporate banking | "Debt-to-equity rising + adverse sector news → downgrade watchlist, RM outreach, covenant review" [T3, Reply] | Internal financials, behavioral/transaction data, macro data, 4M+ news sources with source-authoritativeness weighting [T2/T3, Deloitte Risk Alert] |
+| Asset / investment management | "Broker research flags a thematic risk → which holdings carry that exposure" [T3, AlphaSense] | Equity research, earnings calls, expert interviews, filings, news — 500M+ documents [T1] |
+| Insurance underwriting / broking | "Loss signals, plaintiff tactics and jurisdictional trends move into underwriting **ahead of renewal**" — an explicitly stated shift from a retrospective to a continuous cycle [T3] | Broker submissions, loss runs, engineering reports, financial filings, news, IoT/satellite telemetry, cyber threat intel, supply-chain data |
+| Legal / professional services | "New litigation or regulation in a client's jurisdiction/practice area → client alert or BD approach" | Docket/litigation feeds, regulatory publications, regional/industry news |
+
+### 6c. Cross-industry observations worth carrying forward
+
+1. **The insurance case is the clearest statement of the direction of travel anywhere in this research:** the underwriting cycle is described as changing "from a largely retrospective process into a more continuous one" [T3]. That is precisely the account-triggered → signal-triggered migration, stated as an industry trend rather than a product feature.
+2. **Banking has already built what sales is currently buying.** The Deloitte Risk Alert description — NLP over 4M+ sources across multiple jurisdictions and languages, an engine that **"assess[es] the authoritativeness of the source" to reduce false signals**, role-configured dashboards for CRO / Credit Officer / Portfolio Manager / RM / Credit Analyst, and "a single summary of all threats relating to borrowers" — is a mature signal→portfolio system. It also, notably, publishes **no quantified metrics** on effort reduction or false-positive rate.
+3. **Adoption, not capability, is the recurring failure.** Independent of industry, the account-triggered artifact fails the same way: "account planning is often the first thing account executives deprioritize when time is scarce"; "account planning efforts that live outside the CRM are doomed to low adoption"; "adoption falls when the rep has to assemble the answer manually across multiple systems" [T3]. The corresponding signal-triggered failure is alert fatigue. Any packaging of this job has to pick which of those two failure modes it is claiming to solve.
+4. **Manual effort baseline (best available, all T3, all vendor-adjacent):** 70–105 minutes per account for initial research; ~45 minutes to prepare for a single enterprise meeting at 5–10 meetings/week; ~5+ hours/week per rep on account research; one vendor-reported saving of ~6 hours/week/seller. Microsoft-adjacent write-ups put pre-call research at 45 min → under 5 min. Treat all of these as directional, not measured.
 
 ---
 
 ## Sources
 
-_pending_
+### T1 — primary vendor documentation, filings, standards
+
+1. **Intelligence Community Directive 203, "Analytic Standards"** — Office of the Director of National Intelligence. https://www.intelligence.gov/assets/documents/intelligence-community-directives/ICD_203.pdf (mirror: https://irp.fas.org/dni/icd/icd-203.pdf) — the likelihood-vs-confidence separation, the high/moderate/low confidence scale, the prohibition on mixing the two in one sentence.
+2. **Microsoft Learn — "Overview of Sales agent in Microsoft 365 Copilot"** (ms.date 2026-08-06). https://learn.microsoft.com/en-us/microsoft-sales-copilot/sales-chat-overview — the three documented scenarios and the full sample-prompt library; the account-name-parameterised prompt pattern.
+3. **Microsoft Learn — "Start your day with a Copilot for Sales meeting summary"** (2025 Wave 1 release plan). https://learn.microsoft.com/en-us/copilot/release-plan/2025wave1/copilot-sales/start-day-copilot-sales-meeting-summary — the daily consolidated meeting-prep notification.
+4. **Microsoft Adoption — Copilot Scenario Library: "Accelerate customer research and sales preparation"** and **"Improve customer meetings"**. https://adoption.microsoft.com/en-us/scenario-library/sales/accelerate-customer-research-and-sales-preparation/
+5. **LinkedIn Sales Navigator Help — "Account IQ in Sales Navigator"**. https://www.linkedin.com/help/sales-navigator/answer/a1655021 — data sources, caveats ("isn't currently available for all companies", "some sections… might not be displayed").
+6. **LinkedIn Business blog — "Meet Account IQ"** and **"Introducing the new Lead IQ & Enhanced Account IQ"**. https://www.linkedin.com/business/sales/blog/product-updates/introducing-account-iq-what-it-is-and-how-to-best-use-it — the generated sections (strategic priorities, likely pain points, how the company makes money, financials).
+7. **UserGems — "Introducing UserGems Signal Platform"**. https://www.usergems.com/news/usergems-signal-platform — named components (Signals, Workflows, Writing Agent, Buying Groups, Scoring); Past Champions and New Hires & Promotions signal types; the detect → playbook → message → execute flow.
+8. **AlphaSense press release — "AlphaSense Launches Deep Research…"** (PR Newswire). https://www.prnewswire.com/news-releases/alphasense-launches-deep-research-automating-in-depth-analysis-with-agentic-ai-on-high-value-content-302476710.html — 500M+ documents; primers, M&A screens, meeting-prep briefings; "granular citations", "fully auditable".
+9. **AlphaSense platform / technology pages**. https://www.alpha-sense.com/platform/ , https://www.alpha-sense.com/technology — "trained to think like an analyst"; multi-agent reasoning across qualitative, structured-financial and internal knowledge.
+10. **Bombora customer docs — "Score & Topic Thresholding"**. https://customers.bombora.com/crc-brand/thresholding — "scores of 60 or more… are considered spiking"; "setting scores at a minimum of 60"; topic threshold ≥25% of topics in the report/cluster.
+11. **Bombora Company Surge Analytics User Guide (PDF)**. https://customers.bombora.com/hubfs/CRC_Brand_Files%20and%20Videos/CRC_Company%20Surge/bombora-company-surge-analytics-user-guide.pdf
+12. **Gartner press release — "Gartner Sales Survey Finds 67% of B2B Buyers Prefer a Rep-Free Experience"**, 9 March 2026. https://www.gartner.com/en/newsroom/press-releases/2026-03-09-gartner-sales-survey-finds-67-percent-of-b2b-buyers-prefer-a-rep-free-experience — survey of 646 B2B buyers, Aug–Sep 2025; up from 61%; 45% used AI during a recent purchase; quote from Alyssa Cruz, Senior Principal Analyst, Gartner Sales Practice.
+13. **Gartner press release — 61% figure, 25 June 2025** (the prior-year comparator). https://www.gartner.com/en/newsroom/press-releases/2025-06-25-gartner-sales-survey-finds-61-percent-of-b2b-buyers-prefer-a-rep-free-buying-experience
+14. **Salesforce State of Sales Report, 6th edition (PDF)**. https://assets.ctfassets.net/f43wltp2j5se/2gHMpCURXzpMW7PJ3SlWZJ/3cad8d7e8496abbd3c0f99d5c7f16ef4/salesforce-state-of-sales-report-6-ed.pdf — the selling-vs-non-selling time split (the underlying primary for the widely quoted derivatives).
+15. **SAMA — Strategic Account Management Association**, incl. the Certified Strategic Account Manager outline (PDF). https://strategicaccounts.org/ , https://strategicaccounts.org/wp-content/uploads/2025/03/CSAM_2024_lglayout.pdf
+
+### T2 — analyst, academic, reputable trade press
+
+16. **DeepResearch Bench II: Diagnosing Deep Research Agents via Rubrics from Expert Reports**, arXiv 2601.08536. https://arxiv.org/html/2601.08536 — 132 tasks / 22 domains from expert-written investigative reports; 4-stage rubric pipeline with a 90% self-evaluation gate and 400+ hours of expert review; Information Recall / Analysis / Presentation axes; "even the strongest agents fail to pass more than 50% of the rubrics".
+17. **DeepResearch Bench: A Comprehensive Benchmark for Deep Research Agents**, arXiv 2506.11763. https://arxiv.org/abs/2506.11763 — 100 PhD-level tasks, 22 fields; reference-based adaptive criteria; separate effective-citation-count and citation-accuracy framework. Repo: https://github.com/Ayanami0730/deep_research_bench
+18. **DEER: A Benchmark for Evaluating Deep Research Agents on Expert Report Generation**, arXiv 2512.17776. https://arxiv.org/pdf/2512.17776
+19. **Dr. Bench: A Multidimensional Evaluation for Deep Research Agents, from Answers to Reports**, arXiv 2510.02190. https://arxiv.org/html/2510.02190
+20. **MMDeepResearch-Bench**, arXiv 2601.12346. https://arxiv.org/html/2601.12346v1 — 140 expert-crafted tasks, 21 domains, citation-grounded report generation.
+21. **DR³-Eval: Towards Realistic and Reproducible Deep Research Evaluation**, arXiv 2604.14683. https://arxiv.org/pdf/2604.14683
+22. **"From Craft to Constitution: A Governance-First Paradigm for Principled Agent Engineering"**, arXiv 2510.13857. https://arxiv.org/pdf/2510.13857 — the "Golden Rubric" construct for Synthesizer Agents and its example criteria ("cites three sources", "tone is neutral", "avoids speculation").
+23. **"Probability or confidence, a distinction without a difference?"**, *Intelligence and National Security* Vol 39 No 4. https://www.tandfonline.com/doi/abs/10.1080/02684527.2023.2276582 — the academic challenge to the ICD 203 likelihood/confidence split.
+24. **Deloitte UK — "Risk Alert: The Early Warning system of the future"**. https://www.deloitte.com/uk/en/services/consulting-risk/services/risk-alert-the-early-warning-system-of-the-future.html — NLP over 4M+ sources, multi-jurisdiction/multi-language, source-authoritativeness assessment, role-configured dashboards (CRO / Credit Officer / Portfolio Manager / RM / Credit Analyst), "a single summary of all threats relating to borrowers".
+25. **EY — "The future of early warning systems in banking"**. https://www.ey.com/en_us/insights/banking-capital-markets/the-future-of-early-warning-systems (listed in search results; the specific URL tried returned 404 — see Unverified).
+26. **Bloomberg Law — "INSIGHT: Why Your Client Alerts Fail; Three Ways to Fix Them"**. https://news.bloomberglaw.com/us-law-week/insight-why-your-client-alerts-fail-three-ways-to-fix-them
+27. **LexisNexis — "Elevate Your Law Firm's Business Development with News Monitoring"**. https://www.lexisnexis.com/community/insights/legal/b/thought-leadership/posts/elevate-your-law-firm-s-business-development-with-news-monitoring
+28. **Demand Gen Report — "LinkedIn Introduces Sales Navigator AI-Assisted Search & Account IQ"**. https://www.demandgenreport.com/solution-spotlight/linkedin-introduces-sales-navigator-ai-assisted-search-account-iq/8075/
+29. **Wikipedia — Competitive intelligence** (for the SCIP definition wording) and **Intelligence analysis** (for tradecraft). https://en.wikipedia.org/wiki/Competitive_intelligence
+
+### T3 — marketing pages, vendor blogs, secondary restatements
+
+30. Altify / Upland — **"What Is Whitespace Analysis?"** and the Account Planning glossary. https://uplandsoftware.com/altify/resources/blog/whitespace-the-missing-sales-metric/ , https://altify.com/glossary/what-is-whitespace-analysis/ , https://altify.com/glossary/account-planning/
+31. DemandFarm — **White Space Analysis of Key Accounts**, **Strategic Account Planning**, **Strategic Account Management Guide** (SAMA seven-step restatement). https://www.demandfarm.com/blog/white-space-analysis/ , https://www.demandfarm.com/strategic-account-management/
+32. Miller Heiman Blue/Green/Gold Sheet restatements — Arist, Salesmotion, Sybill (LAMP). https://arist.com/resources/blogs/miller-heiman-blue-sheet-guide , https://salesmotion.io/blog/miller-heiman-blue-sheet , https://www.sybill.ai/blogs/miller-heiman-lamp
+33. Salesmotion — signal-tracking platform comparison, buying-triggers guides, sales-rep research-time posts. https://salesmotion.io/blog/best-signal-tracking-platforms , https://salesmotion.io/blog/buying-triggers , https://salesmotion.io/blog/sales-team-manual-account-research-time , https://salesmotion.io/blog/sales-rep-time-selling
+34. UserGems blog — **"Best AI sales signal tools in 2026"**. https://www.usergems.com/blog/best-ai-sales-signal-tools-in-2026 ; **"The 23 Most Important Sales Trigger Events for B2B Sales"**. https://www.usergems.com/blog/sales-trigger-events
+35. Boomerang — **"Buying Signals vs Buying Triggers vs Buying Intent"** (the three-way vocabulary split, incl. "urgency clock" and "recency decay"). https://www.getboomerang.ai/glossaries/buying-signals-triggers-intent-2026
+36. ZoomInfo — **"Signal-Based Selling: A Complete How-To Guide"**; Signal Score restatements. https://pipeline.zoominfo.com/sales/top-sales-teams-buying-signals , https://www.smarte.pro/blog/zoominfo-intent-data-review
+37. Autobound, Unify, Fullcast, Tapistro — signal-based-selling guides (category framing + the circulated conversion statistics). https://www.autobound.ai/blog/signal-based-selling-complete-guide , https://www.unifygtm.com/explore/signal-based-selling
+38. Technology Reply — **Credit Risk Monitoring / Early Warning**. https://www.reply.com/technology-reply/en/early-warning ; Evalueserve — **Early Warning Systems**. https://www.evalueserve.com/blog/early-warning-systems/ ; Credit Benchmark — credit-risk-monitoring knowledge base. https://www.creditbenchmark.com/knowledge-base/credit-risk-monitoring-tools/
+39. Law.com Radar — **"Using Litigation Alerts to Support Business Development"**. https://www.exploreradar.law.com/blog/using-litigation-alerts-to-support-business-development-a-strategic-guide-for-law-firms
+40. Eval-tooling vendors on golden datasets — Langfuse, Arize, Confident AI, Innodata, FutureAGI. https://langfuse.com/resources/engineering/golden-dataset-evaluation , https://arize.com/resource/golden-dataset/ , https://www.confident-ai.com/docs/llm-evaluation/core-concepts/test-cases-goldens-datasets
+41. Sybill — **"AI Pre-Meeting Briefs for Sales Calls"** (the 45-min → 5-min claim, and the "account brief before QBR slides" framing). https://www.sybill.ai/blogs/ai-pre-meeting-brief-sales-call-prospect-research
+42. Warmly / Prolifiq / Salesmotion — UserGems, Common Room, Pocus and Altify/Revegy competitive write-ups (source for Pocus→Apollo acquisition, March 2026, and Revegy discontinuation, March 2026). https://www.warmly.ai/p/blog/usergems-alternatives , https://www.prolifiq.com/post/altify-alternatives , https://salesmotion.io/common-room-alternatives
+43. Eric Ford (LinkedIn) — **"The Value of ICD 203 Analytical Tradecraft Standards in the Private Sector"**. https://www.linkedin.com/pulse/value-icd-203-analytical-tradecraft-standards-private-eric-ford
+44. Kapta / Sybill / PartnerStandard — QBR vs EBR cadence and ownership. https://kapta.com/resources/key-account-management-blog/your-first-100-days-as-an-account-management-leader-part-4-establishing-a-qbr-cadence , https://pro.partnerstandard.com/glossary/quarterly-business-review-qbr
+45. OIP Insurtech / Veridion / World Finance Informs — insurance renewal and underwriting-signal material. https://www.oipinsurtech.com/seven-mistakes-insurance-brokers-make-with-renewals/ , https://veridion.com/insights/articles/insurance-underwriting-tool-types
+
+---
 
 ## Unverified
 
-_pending_
+Items I could not confirm to the tier they would need, or could not confirm at all. **None of these should be used as fact.**
+
+1. **Every conversion statistic in §4(i).** "37% win rate vs 19%", "5x more likely to win as first mover after a trigger", "18% reply rate / 5.2x improvement", "3x higher conversion for job-change signals". All originate from vendors selling signal platforms and are restated across T3 blogs without a traceable methodology. I found no primary study behind any of them. — **Directional only.**
+2. **Sales-intelligence market size ($2.95B 2022 → $4B 2025).** Quoted in a T3 blog with no named research firm. Could not trace to a primary market-sizing report. — **—**
+3. **The "70–72% of rep time is non-selling" figures.** The Salesforce State of Sales report is the real primary, but the specific percentages circulating (60%, 70%, 72%) differ between restatements and I did not open the PDF to fix the exact edition-and-page number. The *direction* is solid; **the exact number is not verified.**
+4. **All manual-effort time figures in §6c** (70–105 min initial account research; 45 min per enterprise meeting; 5+ hrs/week; 6 hrs/week saved; 45 min → under 5 min). Every one is from a vendor blog with no stated method. — **Directional only.**
+5. **SAMA seven-step process wording.** The seven-step framing is consistently restated across multiple independent T3 sources and is clearly real, but I could not open a SAMA primary document that states the seven steps in those words. The step names given in §2a are therefore a T3 consensus restatement, not SAMA's own wording. — **Name-level accuracy not verified.**
+6. **EY "The future of early warning systems in banking".** Appeared in search results; the URL I tried returned HTTP 404. Content not read; cited only as existing. — **—**
+7. **Whether Account IQ is auto-generated or user-triggered.** LinkedIn's help page does not state it; the section names of the generated summary are also not enumerated in the help doc (the section list in §2a comes from LinkedIn's blog + T3 restatements). — **—**
+8. **Salesforce Agentforce's specific account-brief / pre-call-research feature set.** Searches returned Microsoft material and a general Salesforce financial-services "Client Meeting Preparation" use-case page; I did not confirm a named Agentforce account-briefing capability from Salesforce primary docs. — **—**
+9. **Insurance/reinsurance trigger pattern.** The "retrospective → continuous" quote is from a single T3 trade source. I did not find a named signal-triggered product in insurance comparable to UserGems or a bank EWS. The row in §2c is marked "—" deliberately.
+10. **"So What?" as a formally standardised briefing-template section heading.** Widely used informally; I found no standard (ICD, SCIP or otherwise) that mandates it as a named section. — **—**
+11. **Any golden-report / human-analyst-benchmark practice specific to account briefing or sales intelligence.** Searched directly; found none. The benchmark practice documented in §4a is from the AI research-agent literature and would be an *import* into this domain, not existing practice in it. — **Confirmed absent, not merely unverified.**
+12. **Revegy discontinuation (March 2026) and Pocus acquisition by Apollo (March 2026).** Both stated in T3 competitive-comparison blogs published by competitors. Not confirmed against a press release or filing. — **Treat as likely but unconfirmed.**
+13. **ZoomInfo Signal Score range (60–100).** From a T3 review, not from ZoomInfo's own documentation. The Bombora equivalent **is** T1-confirmed; the ZoomInfo one is not.
+14. **Bombora's 3-week / 12-week window.** Stated in T3 restatements; Bombora's own thresholding page confirms the ≥60 threshold and the baseline concept but **does not state the time windows**. — **Windows unverified.**
+

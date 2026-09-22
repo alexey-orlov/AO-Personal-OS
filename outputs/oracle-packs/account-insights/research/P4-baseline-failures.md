@@ -107,23 +107,40 @@ So the *retrieval* half of the baseline is itself richer than "vector search + r
 
 ### A5. Verdict table — 12 workflow steps vs. the Oracle+NVIDIA baseline
 
-| # | Workflow step | Baseline coverage | Named component(s) | Source | Tier |
+Baseline defined as: **NVIDIA AI-Q Blueprint 2.x (with NeMo Agent Toolkit, NeMo Retriever, NeMo Guardrails, NeMo Evaluator) deployed on OCI** — a combination NVIDIA itself documents ("Deploy a Production-Ready NVIDIA AI-Q Blueprint on Oracle Cloud Infrastructure", AI-Q 2.0, Terraform + Helm on **OKE**, with VCN, Flexible Load Balancer, **OCI Vault**, Block Volume/CSI for PostgreSQL) [T1/T3: developer.nvidia.com blog]. Oracle SaaS (Fusion Cloud CX) is marked separately where it applies.
+
+Legend: **full** = works out of the box for a generic case · **partial** = a shipped primitive exists but the domain logic/config is yours · **none** = nothing in the baseline addresses it.
+
+| # | Workflow step | Coverage | Named component(s) | Source | Tier |
 |---|---|---|---|---|---|
-| 1 | Define entity universe | _pending_ | | | |
-| 2 | Ingest signals + first-party context | _pending_ | | | |
-| 3 | Filter & de-duplicate signals | _pending_ | | | |
-| 4 | Resolve affected entities | _pending_ | | | |
-| 5 | Retrieve & rank evidence | _pending_ | | | |
-| 6 | Reason implications / opportunities / risks | _pending_ | | | |
-| 7 | Map to seller's own service catalog | _pending_ | | | |
-| 8 | Second-order ripple reasoning | _pending_ | | | |
-| 9 | Score magnitude + confidence, cite | _pending_ | | | |
-| 10 | Assemble output artifact | _pending_ | | | |
-| 11 | Human review UI | _pending_ | | | |
-| 12 | Downstream delivery to CRM | _pending_ | | | |
+| 1 | Define entity universe | **none** (infra) / **partial** (Fusion) | Nothing in AI-Q or OCI defines an account universe. The nearest is **Oracle Fusion Cloud Sales** as the account system of record, and **Sales Command Center**'s Account Workspace which "prioritizes strategic accounts showing renewal, expansion, or risk signals" — but that is a separate SaaS licence, not the AI-Q/OCI baseline. | oracle.com/news/…fusion-agentic-applications-for-cx-2026-04-09 | T1 |
+| 2 | Ingest signals + first-party context | **partial→full** | AI-Q **pluggable data sources / data source registry**: web search, paper search, **MCP tools**, collaboration services, LlamaIndex, **NVIDIA RAG Blueprint**, **Azure AI Search**, **OpenSearch**. Document-side: **NeMo Retriever extraction** (Page Elements v3, Table Structure v1, Graphic Elements v1, **NeMo Retriever OCR**) and **OCI Document Understanding** (classification, "Key-Value Extraction powered by Large Multimodal Models"). Streaming: **Streaming with Apache Kafka**. First-party CRM context has no connector — that is yours. | docs.nvidia.com/aiq-blueprint/2.1.0/ ; docs.oracle.com …/document-understanding/using/home.htm ; …/Content/kafka/overview.htm | T1 |
+| 3 | Filter & de-duplicate signals | **partial** | AI-Q ships **data-source filtering** ("Tools are filtered per request based on `data_sources`") and the intent classifier's shallow/deep routing — both are *relevance* gating, not *near-duplicate clustering*. No shipped story-clustering / near-dup detector anywhere in the stack. Reranking (**Llama 3.2 NV RerankQA 1B v2**) suppresses redundancy incidentally, not by design. | docs.nvidia.com/aiq-blueprint/2.1.0/architecture/overview.html | T1 |
+| 4 | Resolve affected entities | **none** | No entity resolution / named-entity-linking service in AI-Q, NeMo, or OCI AI services. Oracle has master-data tooling in the Fusion/EBS world but nothing wired into this stack. This is a genuine build. | (absence verified across docs.nvidia.com/aiq-blueprint, docs.nvidia.com/nemo, docs.oracle.com AI services) | T1 (absence) |
+| 5 | Retrieve & rank evidence | **full** | **Oracle AI Vector Search** in **Oracle AI Database 26ai** (incl. **hybrid search**), **OCI Search with OpenSearch** (keyword + vector + hybrid), **NeMo Retriever Embedding NIM** (**Llama 3.2 NV EmbedQA 1B v2**), **NeMo Retriever Text Reranking NIM** (**Llama 3.2 NV RerankQA 1B v2**), plus AI-Q's own concurrent researcher workers and optional **source router**. | docs.oracle.com/…/26/vecse/ ; docs.nvidia.com/nemo/retriever/ ; build.nvidia.com/nvidia/aiq | T1 |
+| 6 | Reason implications / opportunities / risks | **partial→full (generic)** | AI-Q's **deep research agent** already does structured planning → concurrent researcher sub-agents → **writer** synthesis, on **nemotron-3-ultra-550b-a55b**; LangChain Deep Agents 0.6.5+ on NeMo Agent Toolkit 1.8.0. Generic "so what" reasoning is shipped. *Account-specific* implication taxonomy (opportunity vs. risk vs. timing) is prompt/config work on top — not absent, but not free. | github.com/NVIDIA-AI-Blueprints/aiq ; build.nvidia.com/nvidia/aiq | T1 |
+| 7 | Map to seller's own service catalog | **none** | Nothing in the baseline knows a seller's offer catalog. AI-Q can retrieve a catalog if you index it (step 5), but the mapping logic, the taxonomy and the eligibility rules are entirely yours. | (absence verified) | T1 (absence) |
+| 8 | Second-order ripple reasoning | **none** | No component models cascading/n-th-order effects across an account graph or supply chain. AI-Q's planner will follow a research chain if instructed, but there is no shipped ripple/propagation model, and no account or supply-chain graph to propagate over. | (absence verified) | T1 (absence) |
+| 9 | Score magnitude + confidence, cite | **partial** — **citation: full; confidence: none** | **Citations are shipped and verified**: "Every research response passes through a deterministic post-processing pipeline that verifies citations against actually-retrieved sources", removing unverifiable/unsafe URLs. **Grounding checks are shipped**: NeMo Guardrails **Self-Check Fact-checking** (against `$relevant_chunks`), **Hallucination Detection** (SelfCheckGPT-style NLI consistency), **AlignScore**, Patronus Lynx, Got It AI TruthChecker. **What is NOT shipped**: a per-claim calibrated confidence number, or any notion of business *magnitude*. Guardrails returns binary grounded/not; NeMo Evaluator scores datasets offline, not claims at runtime. | docs.nvidia.com/aiq-blueprint/2.1.0/architecture/overview.html ; docs.nvidia.com/nemo/guardrails/…/fact-checking ; …/guardrail-catalog | T1 |
+| 10 | Assemble output artifact | **full (briefing) / none (structured record)** | The deep path's native output **is** a long-form, citation-backed **report**, plus **durable generated files** (charts, CSVs, notebooks) and **report follow-up** (Q&A and cosmetic rewrites over a finished report). A *structured record* conforming to a CRM object schema is not an AI-Q output type. | build.nvidia.com/nvidia/aiq ; github.com/NVIDIA-AI-Blueprints/aiq | T1 |
+| 11 | Human review UI | **partial→full** | AI-Q ships a **Clarifier agent** doing "HITL plan generation and approval before deep research", a **Next.js web UI** frontend, and CLI/Jupyter/async-API frontends. **OCI Generative AI Agents** separately lists "Human-in-the-loop — optional real-time monitoring and human intervention". What is missing is *review-and-edit-the-finding* (approve/reject/correct a claim before it ships), as opposed to *approve-the-plan*. | docs.nvidia.com/aiq-blueprint/2.1.0/architecture/overview.html ; docs.oracle.com …/generative-ai-agents/overview.htm | T1 |
+| 12 | Downstream delivery to CRM | **none (integration primitives only)** | No CRM writer. The baseline gives you plumbing: AI-Q's **MCP server** (`submit_query`, `poll_query`, `get_final_report`) and **REST API**; OCI's **API Gateway**, **OCI Functions**, **Streaming with Apache Kafka**; OCI Generative AI Agents' **Custom Function Calling Tool** and **Custom API Endpoint Calling Tool**. The Fusion Cloud Sales object mapping, idempotency and dedupe-on-write are yours. | github.com/NVIDIA-AI-Blueprints/aiq ; docs.oracle.com …/generative-ai-agents/overview.htm ; …/APIGateway/Concepts/apigatewayoverview.htm | T1 |
+
+**Tally:** full **3** (5, 6-generic, 10-briefing) · partial **5** (2, 3, 9, 11, 12-primitives) · none **4** (1-infra, 4, 7, 8).
 
 ### A6. Is the "only vector search + reranking" claim accurate, understated, or overstated?
-_pending_ — verdict + three strongest pieces of evidence.
+
+> **Verdict: the claim badly UNDERSTATES the baseline. It is wrong, and wrong in the expensive direction** — it would have the integrator budget to build things NVIDIA already ships and defends with benchmarks.
+
+"Vector search + reranking" describes **step 5 only**. The evidence puts at least six more steps partly or wholly inside the baseline. The three strongest pieces of evidence:
+
+1. **AI-Q's deep research agent already produces the artifact.** Planner + concurrent researcher sub-agents + writer synthesis producing a "long-form, citation-backed report", with **report follow-up** on the finished report — that is steps 6 and 10, shipped. [T1: github.com/NVIDIA-AI-Blueprints/aiq; build.nvidia.com/nvidia/aiq]
+2. **Citation integrity is shipped as deterministic code, not left to the model.** "Every research response passes through a deterministic post-processing pipeline that verifies citations against actually-retrieved sources" and removes unverifiable URLs — that is the hardest half of step 9, and the matrix claims the baseline gives none of it. [T1: docs.nvidia.com/aiq-blueprint/2.1.0/architecture/overview.html]
+3. **Human-in-the-loop and evaluation are shipped nodes, not roadmap.** A **Clarifier agent** for "HITL plan generation and approval before deep research" (step 11), and built-in **FreshQA / Deep Research Bench / DeepSearchQA** harnesses with "escalation thresholds and research loop counts…tuned through benchmarks". OCI Generative AI Agents independently lists human-in-the-loop, guardrails and tool orchestration. [T1: docs.nvidia.com/aiq-blueprint/2.1.0/; docs.oracle.com …/generative-ai-agents/overview.htm]
+
+Supporting: NVIDIA itself publishes an **AI-Q 2.0 on OCI** reference deployment (Terraform + Helm on **OKE**), so "Oracle + NVIDIA baseline" is not a hypothetical assembly — it is a documented joint artifact.
+
+**Where the matrix is right, and where the real product is.** Four steps are genuinely uncovered and they are the ones that matter commercially: **(4) entity resolution**, **(7) mapping to the seller's own service catalog**, **(8) second-order ripple reasoning**, **(1) defining and maintaining the entity universe** — plus the two hard halves of partials: **per-claim calibrated confidence and business magnitude** (step 9) and **CRM-schema structured output with idempotent write-back** (steps 10 and 12). That is the defensible "ours". Claiming 23 of 25 capabilities as proprietary will not survive a technical review by anyone who has read the AI-Q README.
 
 ---
 
