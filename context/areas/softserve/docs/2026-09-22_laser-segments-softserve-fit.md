@@ -71,3 +71,32 @@ _Sources: the deck's segment table · mini-site `site/data/content.js` as of rou
 - **Five segments are estate plays, not use cases** (L2 migration · L4 data movement · L5 ExaCC · O2 sovereign · O3 inference cost). The roadmap is use-case-shaped by construction, so they will never get a roadmap item; they need **Quick Start-style service offers**, not packs.
 - **The largest segment (A5, 238)** has our strongest product on the platform this view excludes; an AIDP-native variant of Large docs is the natural port.
 - The two roadmap items marked **Available** that are absent here — Workforce optimization and Account insights — are absent for different reasons: WfO would need a Fusion/AIDP framing to reach A3; Account insights has no segment on any platform.
+
+## The minimum list of apps that covers the 13 segments (proposal, 2026-09-22)
+
+_Rule applied: add an app only where no existing product can carry the segment with a one-clause change; estate plays get a doorway on an existing product, not a product. Names follow the site's own conventions (noun-led, the "… Q&A" family, ≤ 22 characters a line). Platform tags are the site's four._
+
+**Four new apps**
+
+| Category (of 6) | Name | Platform tag | One-liner | Covers |
+|---|---|---|---|---|
+| Transaction & process execution | **EBS agents** | AI Data Platform | Brings AI to an E-Business Suite estate without a Fusion migration: Oracle's prebuilt EBS agents run on AI Data Platform beside EBS, handling finance and transaction tasks with a person approving each action. | A1 (123). *Provisional until Gero's agent list lands — if the agents are mostly Q&A, the category moves to Enterprise knowledge & analytics.* |
+| Enterprise knowledge & analytics | **Fusion insight agent** | AI Data Platform | Answers a business user's questions on the Fusion data FDI already lands — across ERP, SCM and HCM — and runs follow-up agents past the prebuilt dashboards, joined with non-Fusion sources on AI Data Platform. | A2 (144) · A3 from the LOB side (215) · A4 where Oracle Analytics sits on Fusion data. *Already a named Quick Start use case, not a new idea.* |
+| Enterprise knowledge & analytics | **Document Q&A** | AI Data Platform | Answers questions from the contracts, reports and scans piling up in OCI Object Storage — indexed on AI Data Platform, every answer cited to its page — and hands the fields worth keeping to Large docs processing for extraction. | A5 (238), the search half; with Large docs, the whole segment. Also the product home for the 11 Roadmap "knowledge assistant" items (policy Q&A, onboarding, engineering archive search…). |
+| Enterprise knowledge & analytics | **Customer self-service agent** | OCI + NVIDIA NeMo | Upgrades an existing Oracle Digital Assistant from scripted intents to a generative agent that answers from your policy and product documents and the customer's own records, and hands off with the context when it can't. | O1 (70). Answers-only by design; transactions are the next tier. |
+
+**Edits to existing products, no new app**
+
+| Segment | Change |
+|---|---|
+| L2 on-prem DW (150) · L4 GoldenGate/ODI (222) · L5 ExaCC (137) | Three doorways on the Jumpstart tab of **Business metrics Q&A** and **Cross-system ERP Q&A**: *start from an on-premises warehouse (migrate once)* · *from your GoldenGate or ODI pipelines (federate, retire the copies)* · *on Exadata Cloud@Customer (in place)*. The app is the same; the entry differs. |
+| A4 OAC over non-Fusion data (123) | **Business metrics Q&A** one-liner gains one clause: "…or the semantic model your Oracle Analytics already holds". |
+| O2 Sovereign AI (197) | A *sovereign region / Cloud@Customer* deployment line on Services and in every product's infrastructure layer. The defence case menu stays off-site by design; **Case evidence collection** already carries the public-sector and health stories. |
+
+**The one segment the six groups cannot hold**
+
+| Segment | What it needs |
+|---|---|
+| O3 Optimise Your AI Inferencing costs (189+) | Not a product in the site's sense — no group is "platform & cost". A **Services offer**: *AI inference cost review* — an assessment, inference moved onto OCI dedicated AI clusters, a routing layer that sends each request to the smallest model that answers it, and a cost report per use case. |
+
+**After these changes:** every segment but O3 has a product a rep can open; O3 has a service. The AI Data Platform facet goes from **0 products to 3** (EBS agents · Fusion insight agent · Document Q&A) — the facet a rep in the $1M+ motion filters on first.
