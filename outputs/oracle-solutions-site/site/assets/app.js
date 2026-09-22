@@ -75,14 +75,20 @@
     scale: '<path d="M3.5 20.5h17"></path><rect x="5" y="13.5" width="3.6" height="7"></rect><rect x="10.2" y="9.5" width="3.6" height="11"></rect><rect x="15.4" y="5.5" width="3.6" height="15"></rect>',
     managed: '<path d="M20.5 12a8.5 8.5 0 1 1-2.6-6.1"></path><path d="M21 3.8v4.3h-4.3"></path><path d="m8.4 12.2 2.6 2.6 4.6-5.2"></path>',
 
+    /* Round 9 · the Demo badge names the interactive walkthrough, not a video:
+       a pointer with its click strokes, where `play` stays for a recording. */
+    "cursor-click": '<path d="M7 4.2 17.4 11l-4.3 1.2 2.4 5.3-2.3 1-2.3-5.3L7 16.2z"></path><path d="M4.6 4.9 2.7 3M9.5 2.7 10.1 1"></path>',
+
     /* Round 9 · one glyph per product group (facets.categories). The retired
-       `pattern-processing-pipelines` and `pattern-data-analysis` went with the
-       three-category model — a registry key nothing names is an unchecked icon. */
-    "pattern-video-image": '<rect x="2.5" y="4.5" width="19" height="15"></rect><path d="M2.5 8.5h19"></path><path d="m10.2 11 4.8 2.7-4.8 2.7z"></path>',
+       ids leave the registry with their categories — a key nothing names is an
+       unchecked icon: `pattern-processing-pipelines`, `pattern-data-analysis`,
+       `pattern-optimization`, `pattern-knowledge-assistants`. */
+    "pattern-knowledge-analytics": '<path d="M21 14.3a2.5 2.5 0 0 1-2.5 2.5H10l-4.5 3.4v-3.4H5a2.5 2.5 0 0 1-2.5-2.5V6.5A2.5 2.5 0 0 1 5 4h13.5A2.5 2.5 0 0 1 21 6.5z"></path><path d="M8 13V9.5M11.7 13V7.5M15.4 13v-2"></path>',
     "pattern-deep-research": '<circle cx="10.5" cy="10.5" r="7"></circle><path d="m20.5 20.5-5-5"></path><circle cx="8.2" cy="12.4" r="1.3"></circle><circle cx="12.9" cy="12.4" r="1.3"></circle><circle cx="10.6" cy="8.1" r="1.3"></circle><path d="M9.5 11.3 10.1 9.4M11.6 11.3 11.1 9.4M9.5 12.4h2.1"></path>',
     "pattern-documents": '<path d="M6 3.5h7.5l4.5 4.5v12H6z"></path><path d="M13.5 3.5V8H18"></path><path d="M9 12h6M9 15.5h4"></path>',
-    "pattern-optimization": '<circle cx="5" cy="18.5" r="2"></circle><circle cx="19" cy="5.5" r="2"></circle><path d="M5 16.5v-4a3 3 0 0 1 3-3h4.5a3 3 0 0 0 3-3V5.5H17"></path>',
-    "pattern-knowledge-assistants": '<path d="M21 14.3a2.5 2.5 0 0 1-2.5 2.5H10l-4.5 3.4v-3.4H5a2.5 2.5 0 0 1-2.5-2.5V6.5A2.5 2.5 0 0 1 5 4h13.5A2.5 2.5 0 0 1 21 6.5z"></path><path d="M7.5 8.5h8.5M7.5 12h5.5"></path>',
+    "pattern-transactions": '<rect x="2.5" y="9" width="5" height="6"></rect><rect x="9.5" y="9" width="5" height="6"></rect><rect x="16.5" y="9" width="5" height="6"></rect><path d="M7.5 12h2M14.5 12h2"></path><path d="m17.8 12.1 1.2 1.2 2-2.4"></path>',
+    "pattern-forecasting-optimization": '<path d="M3 17.5 8.5 12l3.5 3.2 8-8.2"></path><path d="M15.5 7h4.5v4.5"></path><circle cx="8.5" cy="12" r="1.6"></circle><path d="M3 21h18"></path>',
+    "pattern-video-image": '<rect x="2.5" y="4.5" width="19" height="15"></rect><path d="M2.5 8.5h19"></path><path d="m10.2 11 4.8 2.7-4.8 2.7z"></path>',
     "platform-oci-nvidia": '<path d="M7.6 12.2a3.4 3.4 0 0 1 .5-6.7 4.7 4.7 0 0 1 8.8.9 3.2 3.2 0 0 1 .5 5.8"></path><rect x="8.5" y="13.2" width="7" height="7" rx="1.5"></rect><path d="M10.8 20.2v1.3M13.2 20.2v1.3M8.5 15.5H7.2M8.5 17.9H7.2M16.8 15.5h-1.3M16.8 17.9h-1.3"></path>',
     "platform-oracle-ai-data-platform": '<ellipse cx="12" cy="6" rx="7.5" ry="3"></ellipse><path d="M4.5 6v12c0 1.7 3.4 3 7.5 3s7.5-1.3 7.5-3V6"></path><path d="m8.5 13 2.6 2.6 5-5"></path>',
     "platform-oracle-ai-lakehouse": '<path d="m12 3 8.5 4.2L12 11.4 3.5 7.2z"></path><path d="m3.5 12 8.5 4.2 8.5-4.2"></path><path d="m3.5 16.8 8.5 4.2 8.5-4.2"></path>',
@@ -196,15 +202,25 @@
     return "<span" + common + ">" + inner + "</span>";
   }
 
-  /* Maximum two, both optional: Demo where the product carries a frame, and
-     Oracle Marketplace where a listing exists. A listing with no URL still
-     renders the badge — the flag says the listing is there — but it is inert
-     rather than a link to nowhere. */
+  /* Maximum two, both optional: the interactive demo where a walkthrough
+     exists, and Oracle Marketplace where a listing does. A listing with no URL
+     still renders the badge — the flag says the listing is there — but it is
+     inert rather than a link to nowhere.
+
+     Round 9 (Alex): the demo badge reads `demoUrl`, the walkthrough it opens,
+     not the `video` flag, which only decides whether the product page carries a
+     video frame. Cross-system ERP Q&A has a walkthrough and no video, and was
+     the product missing its badge. */
+  function hasDemo(slug) {
+    var conf = (CFG.products && CFG.products[slug]) || {};
+    return typeof conf.demoUrl === "string" && conf.demoUrl.trim().length > 0;
+  }
+
   function availabilityBadges(slug) {
     var conf = (CFG.products && CFG.products[slug]) || {};
     var defs = tagFamilies().availability || {};
     var out = [];
-    if (conf.video === true && defs.demo) {
+    if (hasDemo(slug) && defs.demo) {
       out.push(badgeHtml(defs.demo, { action: true, attrs: { "data-demo-badge": slug } }));
     }
     if (conf.marketplace === true && defs.marketplace) {

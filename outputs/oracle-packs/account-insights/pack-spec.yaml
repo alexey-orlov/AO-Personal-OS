@@ -24,10 +24,10 @@ meta:
   source_engagement:
     customer: "<the delivery customer — a global logistics and supply-chain operator>"
     delivered: >-
-      A 12-week contracted proof of concept on NVIDIA AI-Q over OCI, turning external signals and
-      first-party account context into per-account opportunity and risk records with citations,
-      scored for magnitude and confidence, reviewed in a purpose-built reviewer UI. Seven external
-      data sources. Not started at the time of packaging; no results exist.
+      A global logistics and supply-chain operator: a contracted proof of concept on NVIDIA AI-Q over
+      OCI, turning external signals and first-party account context into per-account opportunity and
+      risk records — scored, cited and reviewed in a purpose-built reviewer UI, across seven external
+      data sources. Contracted; results follow the proof of value.
     divergence_line: >-
       The pack generalizes what one engagement configured: the signal sources, the account
       universe and the service catalog are per-client configuration, and the catalog mapping and
@@ -620,7 +620,7 @@ packages:                                  # component 12
       scaling: "●● Deadline-bound triggers and provenance-class gating"
     - area: Implication reasoning
       maps_to_feature_areas: [Implication reasoning]
-      pov: "● Opportunity and risk reasoning, service-line mapping, descriptive ripple to two levels, magnitude and confidence scoring"
+      pov: "● Opportunity and risk reasoning, next-move mapping, descriptive ripple to two levels, magnitude and confidence scoring"
       integration: "● Dual implication routed to separate owners; configurable catalog target"
       scaling: "●● Graph-backed ripple, portfolio aggregation, cost-aware ranking"
     - area: Review & evidence
@@ -635,7 +635,7 @@ packages:                                  # component 12
       scaling: "●● Live write-back with idempotency, plus outcome capture feeding scoring"
   why_it_sells_for_the_partner:
     - "Net-new OCI consumption: recurring GPU and inference workloads on dedicated OCI clusters, driven by signal volume rather than seat count"
-    - "Supplies the half Oracle's own account intelligence deliberately does not — Sales Command Center is first-party-only by design, so this is complement, not overlap"
+    - "Complements Oracle's own account intelligence — Sales Command Center works on first-party CX data; this pack brings the external signal and the next move"
     - "Repeatable across any Oracle customer that tracks a named set of companies — customer accounts in Oracle CX, partners, or portfolio holdings — and has a real catalog of moves"
   target_oci_consumption: "-"
   source: research-brief-2026-09-22, decisions-2026-09-18
@@ -643,7 +643,7 @@ packages:                                  # component 12
 deck:
   vertical_case: "Vertical case: a logistics operator's key-account team"
   seller_lead: "What this pack does for an Oracle account team's number."
-  cta: "Ready to test the fit on one customer's account book?"
+  cta: "Ready to test the fit on one customer's accounts?"
   proof_headline: "A first engagement in delivery — results to follow"
   layers_sub: "How the pack is layered — from the infrastructure up to the customer's own configuration."
   architecture_sub: "Reference architecture: signals and the system of record in, reviewed moves out."
