@@ -402,35 +402,39 @@ window.SITE_CONTENT = {
   facets: {
     technologyLabel: "Oracle platform",
     technology: [
-      {
-        id: "oci-nvidia",
-        label: "OCI + NVIDIA",
-        /* The hero stack names the engine layer this platform carries; every
-           other surface renders the canonical `label` alone (round 9, Alex). */
-        stackLabel: "OCI + NVIDIA NeMo",
-        fullLabel: "Oracle Cloud Infrastructure + NVIDIA",
-        description: "GPU cloud plus the NVIDIA agent, extraction and optimization engines — AI-Q, cuOpt, NeMo.",
-        emptyState: "The practice delivers on this platform — see Services, or tell us the workflow you have in mind."
-      },
-      {
-        id: "oracle-ai-data-platform",
-        label: "Oracle AI Data Platform",
-        fullLabel: "Oracle AI Data Platform",
-        description: "Governed enterprise data for AI — structured, unstructured and real-time, multi-cloud.",
-        emptyState: "The practice delivers on this platform — see Services, or tell us the workflow you have in mind."
-      },
+      /* Round 9 (Alex): the short label is what the rail, the chips, the tile
+         band and the hero stack render; the full Oracle product name is what
+         the Services cards and prose carry. The order below is canonical on
+         every surface. `catalog: false` keeps a platform out of the rail — no
+         product runs "on Fusion", and a filter that returns nothing is not a
+         filter — without taking it out of the stack or the Services cards. */
       {
         id: "oracle-ai-lakehouse",
-        label: "Oracle Autonomous AI Lakehouse",
+        label: "AI Lakehouse",
         fullLabel: "Oracle Autonomous AI Lakehouse",
         description: "The self-managing governed gold layer, with Iceberg, vector search and Select AI.",
         emptyState: "The practice delivers on this platform — see Services, or tell us the workflow you have in mind."
       },
       {
+        id: "oracle-ai-data-platform",
+        label: "AI Data Platform",
+        fullLabel: "Oracle AI Data Platform",
+        description: "Governed enterprise data for AI — structured, unstructured and real-time, multi-cloud.",
+        emptyState: "The practice delivers on this platform — see Services, or tell us the workflow you have in mind."
+      },
+      {
         id: "oracle-ai-fusion",
-        label: "Oracle AI for Fusion Applications",
+        label: "AI for Fusion Applications",
         fullLabel: "Oracle AI for Fusion Applications",
         description: "Embedded AI agents and AI Agent Studio across ERP, SCM, HCM and CX.",
+        emptyState: "The practice delivers on this platform — see Services, or tell us the workflow you have in mind.",
+        catalog: false
+      },
+      {
+        id: "oci-nvidia",
+        label: "OCI + NVIDIA NeMo",
+        fullLabel: "Oracle Cloud Infrastructure + NVIDIA NeMo",
+        description: "GPU cloud plus the NVIDIA agent, extraction and optimization engines — AI-Q, cuOpt, NeMo.",
         emptyState: "The practice delivers on this platform — see Services, or tell us the workflow you have in mind."
       }
     ],
