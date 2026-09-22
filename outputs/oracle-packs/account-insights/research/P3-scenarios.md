@@ -265,7 +265,7 @@ Six. Four appear only in some scenarios; two are universal and are therefore the
 
 ### 3.1 The grid
 
-One table per step. `—` means **no real difference here** — the step does what the generic version does. 16 of 96 cells are dashes; that is the honest count, and the dashes cluster exactly where you would expect (S1 is the baseline, S3b is the thinnest-context scenario, S7 concentrates all its divergence in resolution and delivery).
+One table per step. `—` means **no real difference here** — the step does what the generic version does. 17 of 96 cells are dashes; that is the honest count, and they cluster exactly where you would expect (S1 is the baseline; S3b has the thinnest first-party context so several steps degrade to the generic case; S7 concentrates all its divergence in resolution, mapping and delivery).
 
 **Step 1 — Define the entity universe**
 
