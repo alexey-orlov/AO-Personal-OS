@@ -238,8 +238,7 @@ window.SITE_CONTENT = {
           ]
         },
         productsLabel: "SoftServe products",
-        platformsLabel: "Oracle platforms",
-        platformOrder: ["oracle-ai-lakehouse", "oracle-ai-data-platform", "oracle-ai-fusion", "oci-nvidia"]
+        platformsLabel: "Oracle platforms"
       },
       stats: [
         { prefix: "from", value: "30 days", label: "to a fixed-price proof of value on your own data" },
@@ -299,7 +298,7 @@ window.SITE_CONTENT = {
       why: {
         title: "Why SoftServe on Oracle",
         pillars: [
-          { icon: "network", title: "Platform depth", body: "Architects who own the Oracle reference architecture across OCI + NVIDIA, Oracle AI Data Platform, Oracle Autonomous AI Lakehouse and Oracle AI for Fusion Applications." },
+          { icon: "network", title: "Platform depth", body: "Architects who own the Oracle reference architecture across Oracle Autonomous AI Lakehouse, Oracle AI Data Platform, Oracle AI for Fusion Applications and OCI + NVIDIA NeMo." },
           { icon: "spark", title: "Agentic-AI experience", body: "Agents and workflows built and tested on real enterprise data, with evaluation, guardrails and governance hardening available on every engagement." },
           { icon: "audit", title: "Fixed-scope delivery", body: "Signed success metrics up front, and every Jumpstart ends with an executive readout and a costed expansion plan." }
         ]
@@ -511,10 +510,10 @@ window.SITE_CONTENT = {
       name: "Account insights",
       headline: { accent: "ACCOUNT", rest: "INSIGHTS" },
       category: "deep-research",
-      categoryChip: "Deep research",
+      categoryChip: "Deep research & investigation",
       facet: "oci-nvidia",
       oneLiner: "Turns news, filings and market signals into cited, per-account opportunities and risks that sales and account teams can act on.",
-      tags: ["Deep research", "OCI + NVIDIA"],
+      tags: ["Deep research & investigation", "OCI + NVIDIA NeMo"],
       hero: {
         image: {
           file: "assets/img/heroes/account-insights.jpg",
@@ -835,11 +834,11 @@ window.SITE_CONTENT = {
       name: "Case evidence collection",
       headline: { accent: "CASE", rest: "EVIDENCE COLLECTION" },
       category: "deep-research",
-      categoryChip: "Deep research",
+      categoryChip: "Deep research & investigation",
       facet: "oci-nvidia",
       oneLiner: "Assembles the evidence trail for a case or complaint out of every system that holds a piece of it — cited, time-stamped, and ready for an investigator to decide on.",
       statusNote: "In preparation — scoping conversations are open.",
-      tags: ["Deep research", "OCI + NVIDIA"],
+      tags: ["Deep research & investigation", "OCI + NVIDIA NeMo"],
       hero: {
         image: {
           file: "assets/img/heroes/case-evidence-collection.jpg",
@@ -1147,11 +1146,11 @@ window.SITE_CONTENT = {
       name: "Plan vs actual investigation",
       headline: { accent: "PLAN", rest: "VS ACTUAL INVESTIGATION" },
       category: "deep-research",
-      categoryChip: "Deep research",
+      categoryChip: "Deep research & investigation",
       facet: "oci-nvidia",
       oneLiner: "Compares plan against actual across completed projects, orders and engagements, and assembles each variance with its candidate drivers and the source evidence behind them.",
       statusNote: "In preparation — scoping conversations are open.",
-      tags: ["Deep research", "OCI + NVIDIA"],
+      tags: ["Deep research & investigation", "OCI + NVIDIA NeMo"],
       hero: {
         image: {
           file: "assets/img/heroes/plan-vs-actual-investigation.jpg",
@@ -1479,7 +1478,7 @@ window.SITE_CONTENT = {
       facet: "oci-nvidia",
       oneLiner: "Turns long, complex documents into validated, structured data — every extracted value carries a confidence score and a citation to its source page.",
       heroCaption: "100-page contract in minutes.",
-      tags: ["Document processing", "OCI + NVIDIA"],
+      tags: ["Document processing", "OCI + NVIDIA NeMo"],
       hero: {
         image: {
           file: "assets/img/heroes/large-document-extraction.jpg",
@@ -1811,12 +1810,12 @@ window.SITE_CONTENT = {
       slug: "workforce-optimization",
       name: "Workforce optimization",
       headline: { accent: "WORKFORCE", rest: "OPTIMIZATION" },
-      category: "optimization",
-      categoryChip: "Optimization",
+      category: "forecasting-optimization",
+      categoryChip: "Forecasting & optimization",
       facet: "oci-nvidia",
       oneLiner: "Optimizes field-service work zones and schedules with NVIDIA cuOpt — a region’s four-week plan built in minutes, approved by dispatchers, exported to Oracle Field Service.",
       heroCaption: "What if dispatchers reviewed the plan, not built it?",
-      tags: ["Optimization", "OCI + NVIDIA"],
+      tags: ["Forecasting & optimization", "OCI + NVIDIA NeMo"],
       hero: {
         image: {
           file: "assets/img/heroes/workforce-optimization.jpg",
@@ -2148,13 +2147,13 @@ window.SITE_CONTENT = {
       slug: "cross-system-erp-qa",
       name: "Cross-system ERP Q&A",
       headline: { accent: "CROSS-SYSTEM", rest: "ERP Q&A" },
-      category: "knowledge-assistants",
-      categoryChip: "Knowledge assistants",
+      category: "knowledge-analytics",
+      categoryChip: "Enterprise knowledge & analytics",
       facet: "oracle-ai-lakehouse",
       oneLiner: "Answers plain-language questions that span the ERP, the CRM and the systems around them, from one governed layer on Oracle Autonomous AI Lakehouse.",
       heroLine: "Your ERP + everything around it.",
       badges: ["ERP + CRM + THE SYSTEMS AROUND THEM", "PREBUILT PIPELINES", "ANSWERS IN MINUTES"],
-      tags: ["Knowledge assistants", "Oracle Autonomous AI Lakehouse"],
+      tags: ["Enterprise knowledge & analytics", "AI Lakehouse"],
       hero: {
         image: {
           file: "assets/img/heroes/cross-system-erp-qa.jpg",
@@ -2452,13 +2451,13 @@ window.SITE_CONTENT = {
       slug: "business-metrics-qa",
       name: "Business metrics Q&A",
       headline: { accent: "BUSINESS", rest: "METRICS Q&A" },
-      category: "knowledge-assistants",
-      categoryChip: "Knowledge assistants",
+      category: "knowledge-analytics",
+      categoryChip: "Enterprise knowledge & analytics",
       facet: "oracle-ai-lakehouse",
       oneLiner: "Answers plain-language questions about business metrics from one governed gold layer over the catalogs and databases you already run — consistent definitions, no data moved.",
       heroLine: "Ask once, every cloud answers.",
       badges: ["MULTI-CLOUD", "ON-PREM TOO", "NO MIGRATION"],
-      tags: ["Knowledge assistants", "Oracle Autonomous AI Lakehouse"],
+      tags: ["Enterprise knowledge & analytics", "AI Lakehouse"],
       hero: {
         image: {
           file: "assets/img/heroes/business-metrics-qa.jpg",
@@ -2769,11 +2768,13 @@ window.SITE_CONTENT = {
         { value: "30", label: "Fortune 500 clients in data and analytics" }
       ],
       platformsTitle: "Delivered on",
+      /* The full Oracle product names, in the canonical order — the short
+         labels are for the rail, the chips and the hero stack (round 9). */
       platforms: [
-        { name: "OCI + NVIDIA" },
-        { name: "Oracle AI Data Platform" },
         { name: "Oracle Autonomous AI Lakehouse" },
-        { name: "Oracle AI for Fusion Applications" }
+        { name: "Oracle AI Data Platform" },
+        { name: "Oracle AI for Fusion Applications" },
+        { name: "Oracle Cloud Infrastructure + NVIDIA NeMo" }
       ],
       cta: { label: "Request a scoping call", route: "#/services#contact" }
     },
