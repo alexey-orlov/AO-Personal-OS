@@ -1,11 +1,23 @@
 # Oracle engagements — pipeline status
 
 _Source: Miro board **"INT Oracle Program"**, **June** view (marked **Confidential**). Screenshot shared by Alex 2026-07-13; this is the program manager's live pipeline tracker. Sibling boards exist on the same Miro (tabs: Henkel Program, REWE Stakeholders, RX PoC, Oracle AIDP, Schwarz Program, Montblanc) — not captured here._
-_updated: 2026-09-11_
+_updated: 2026-09-22_
 
 The single structured source of truth for **who is in the Oracle/NVIDIA accelerator-pack pipeline, at what commercial stage, and worth how much**. Complements the narrative in [oracle.md](oracle.md) (strategy/decisions/people) and the org map in [oracle-team.md](oracle-team.md). Twelve opportunities across four status bands.
 
 > **Priority signal (2026-07-22 Neil+Gero session):** of the NVIDIA-funded pipeline, Oracle flags **NHS, Belron, and KPN** as the **most-certain upcoming opportunities** — all three currently sit in the **"Next"** band below (NHS & KPN = AIQ, €198.5k / 15 wks each, Gero owns; Belron = VSS, €171k / 12 wks, Milo Honegger owns). Oracle also offered to **add SoftServe to its pipeline-review calls** so SoftServe can see / scope / engage directly (Oracle to follow up). Separately, Oracle projects **~1,000 AI-Lakehouse + 100s AIDP qualified leads** from its Sept events at **15–20% → PoC** — a forward lead-gen funnel that will feed this pipeline. (chat, 2026-07-23)
+
+## Oracle's own read on the portfolio — 2026-09-16 (Neil + Gero sync)
+
+_From the [sync notes](docs/2026-09-16_oracle-neil-gero-partnership-sync.md). **Where this disagrees with the 2026-08-18 SteerCo below, this is the Oracle-side view, not necessarily SoftServe's delivery truth** — the two are answering different questions (what is sellable vs what is delivering)._
+
+- **Bosch (cuOpt workforce optimisation) — first stage complete, packaged and generalised for redeployment.** The **only outstanding step is publishing to the Oracle Marketplace** (**Alex + AJ**; per AJ valuable primarily for internal Oracle promotion — not critical path, cheap to close). Oracle wants Bosch to **lead the global campaigns**: no EV-regulation hook, ties to base Fusion functionality, "the most German company you can think of", strong numbers. ⚠️ Note the tension with the SteerCo's **"Bosch parked"** — parked on its *customer-side business case*, while Oracle treats the *asset* as the most globally repeatable thing we have.
+- **Sky (EVOS / cuOpt routing) — development only just kicking off; ~a month to a packaged asset.** Slowed by handover while **Deepak and Sunny** are on holiday. **Kevin Kimber already likes the cuOpt work** via NVIDIA's **Anthony Hills**. Sky is **speaking at AI World and likely GTC**, so it can be referenced publicly, and would present at the **Milton Keynes event**. **⚠️ Risk flagged by Bohdan: Sky is being used heavily as the public reference while delivery has barely started.** Sky remains the better **UK-specific** story (EV lease regulation is a UK phenomenon; household brand).
+- **Riyadh Air — the strongest account.** **Rihan confirmed to speak 15–20 min** at the **Frankfurt aviation event**, with SoftServe co-telling the story and **named as delivery partner of choice**. New thread: **Rihan asked whether Oracle would be open to Riyadh Air reselling the solution to other airlines** — Neil gave no answer and was surprised, but his position is that **if it runs on Oracle and is implemented by SoftServe he has no objection**; working hypothesis is that **PIF portfolio companies are under acute pressure to generate revenue now**. Plan: peel Rihan and his boss off at Frankfurt for an exploratory three-way conversation; **preliminary calculations exist and are not to be shared before then**.
+- **SBG — the innovation owner has been found**, is asking for more SoftServe and more use cases, and an **AI discovery workshop has been proposed** → [sbg-poc](sbg-poc.md).
+- **DHL** — named only as a target for extending the discovery/ideation workshop pattern; no delivery update.
+- **Cross-cutting pattern Oracle now treats as standard:** every POC generates *"can you also do this?"* (seen at Riyadh Air, Bosch, Sky and now SBG) → **run a parallel Oracle + SoftServe AI discovery/ideation workshop alongside each POC**.
+- **New named campaign the pipeline should feed from: 174 FSM customers across EMEA**, starting ~20 UK accounts → Germany (~20 est.) → Middle East; Neil to pull the real counts → [oracle-events-gtm](oracle-events-gtm.md).
 
 ## Delivery status — 2026-08-18 (Oracle AI Tech SteerCo)
 
