@@ -451,8 +451,8 @@ architecture:                              # component 8 — PROPOSED
     - layer: Custom configuration
       vendor: SoftServe
       items: ["In-scope account list and tiering", "Reasoning and ripple rules per domain", "Catalog-of-moves capture and mapping logic", "Scoring rubric and thresholds"]
-    - layer: Account insights app by SoftServe
-      name: Account insights app by SoftServe
+    - layer: Account insights by SoftServe (application)
+      name: Account insights by SoftServe (application)
       vendor: Oracle + SoftServe
       summary: "normalize · fan out · reason · map · score · reviewer UI"
       items: ["Signal normalization and account resolution", "Catalog mapping and ripple reasoning", "Magnitude and confidence scoring", "Reviewer UI and evaluation harness"]
