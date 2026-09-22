@@ -337,33 +337,33 @@ capabilities:                              # component 6 — Area > Category > F
 
 workflow:                                  # component 7 — PROPOSED
   inputs:
-    - system: The client's CRM
-      data: "in-scope account list, account framing and relationship notes, owner per account"
+    - system: The team's system of record — CRM, deal pipeline or portfolio tracker
+      data: "the in-scope companies, their framing and relationship notes, the owner of each"
       tier: "PoV Jumpstart: an agreed extract. Integration: API."
     - system: External signal sources
       data: "news, regulatory filings, disclosures, commercial data feeds"
       tier: "PoV Jumpstart: a bounded, licence-cleared source set. Integration: the client's own licensed feeds."
-    - system: The client's service catalog
-      data: "service lines and offerings, captured from the client's own material"
+    - system: The organization's catalog of moves
+      data: "service lines, partnership offers or value-creation levers, captured from the organization's own material"
       tier: "PoV Jumpstart: captured once. Integration: maintained against a versioned catalog."
   outputs:
-    - system: The client's sales system
-      data: "approved per-account records — account, trigger, impact reasoning, scored opportunities with service-line mapping and cross-account effects"
+    - system: The team's system of record
+      data: "approved per-account records — account, trigger, impact reasoning, scored opportunities with next-move mapping and cross-account effects"
       tier: "PoV Jumpstart: file export / download. Integration: API export. Scaling: live write-back with idempotency."
   steps:
     - n: 1
       name: Set the scope
       actor: human
       human_in_the_loop: true
-      covers: "the in-scope account list and its owners, the signal sources, and the client's own service catalog"
+      covers: "the in-scope companies and their owners, the signal sources, and the organization's own catalog of moves — services, partnership offers, value levers"
       description: >-
         The client names the accounts that are in scope and who owns each, agrees the signal
-        sources and their licensing, and hands over the service catalog an implication can be
+        sources and their licensing, and hands over the catalog of moves an implication can be
         mapped onto.
       failure_path: >-
-        An account with no CRM framing is admitted and flagged as thinly grounded, never silently
-        dropped. A source that cannot be licensed for model use and redistribution is excluded at
-        this step rather than discovered at procurement.
+        A company with no framing in the system of record is admitted and flagged as thinly
+        grounded, never silently dropped. A source that cannot be licensed for model use and
+        redistribution is excluded at this step rather than discovered at procurement.
     - n: 2
       name: Pick up the signal
       actor: system
@@ -390,16 +390,17 @@ workflow:                                  # component 7 — PROPOSED
         step 5 is the only check, which is why that step is not optional. Beyond two levels, or
         with no relationship data, a ripple is stated as unknown rather than asserted.
     - n: 4
-      name: Map it to what you sell
+      name: Map it to your next move
       actor: system
-      covers: "service-line mapping, and the demand gap when nothing fits"
+      covers: "mapping to a service line, a partnership offer or a value lever — and the demand gap when nothing fits"
       description: >-
-        Each implication is mapped to a named service line the client actually sells, so the
-        output is something to go and do rather than something to read.
+        Each implication is mapped to a named move the organization can actually make — a service
+        to offer, a partnership to propose, a lever to pull — so the output is something to go and
+        do rather than something to read.
       failure_path: >-
         An implication that maps to nothing is emitted as mapped-to-nothing — never forced onto
-        the nearest catalog entry. Where a vertical has no catalog the step is switched off rather
-        than faked.
+        the nearest catalog entry. Where a seat or vertical has no catalog the step is switched off
+        rather than faked.
     - n: 5
       name: Score it, evidence it, review it
       actor: human
@@ -416,7 +417,7 @@ workflow:                                  # component 7 — PROPOSED
     - n: 6
       name: Deliver it and learn from it
       actor: system
-      covers: "routing to the account owner, export to the sales system, outcome capture"
+      covers: "routing to the owner, export to the system of record, outcome capture"
       description: >-
         Approved records reach the person who owns that account, in the system they work in, and
         what became of each one feeds back into scoring.
