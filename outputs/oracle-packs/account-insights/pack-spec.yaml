@@ -451,12 +451,12 @@ architecture:                              # component 8 — PROPOSED
     - layer: Custom configuration
       vendor: SoftServe
       items: ["In-scope account list and tiering", "Reasoning and ripple rules per domain", "Catalog-of-moves capture and mapping logic", "Scoring rubric and thresholds"]
-    - layer: Account Insights by SoftServe
-      name: Account Insights by SoftServe
+    - layer: Accelerator business app
+      name: Account insights by SoftServe
       vendor: Oracle + SoftServe
       summary: "normalize · fan out · reason · map · score · reviewer UI"
       items: ["Signal normalization and account resolution", "Catalog mapping and ripple reasoning", "Magnitude and confidence scoring", "Reviewer UI and evaluation harness"]
-    - layer: NVIDIA AI-Q on NeMo Agent Toolkit
+    - layer: Agentic engine
       name: NVIDIA AI-Q on NeMo Agent Toolkit
       vendor: NVIDIA
       catalog_id: nvidia-aiq
