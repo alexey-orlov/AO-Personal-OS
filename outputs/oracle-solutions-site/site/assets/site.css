@@ -3074,11 +3074,15 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 /* Stacked, the three bands are no longer peers side by side, so holding them
    to one height only pads the shortest one out with empty tiles: below this
    width each band and each pattern tile takes the height of its own content. */
+/* Stacked, the three bands are no longer peers side by side, so each band takes
+   the height of its own content — but the tiles inside one band stay equal. The
+   product band goes 2 + 2 + 1, the fifth tile spanning rather than leaving a
+   half-row of nothing. */
 @media (max-width: 560px) {
   .bo { grid-template-rows: none; }
-  .bo-tiles--3 { grid-template-columns: minmax(0, 1fr); grid-auto-rows: auto; }
-  .bo-tiles--4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  /* Full-width tiles leave the outer two connectors pointing at nothing. */
+  .bo-tiles--4, .bo-tiles--5 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .bo-tiles--5 > :nth-child(5) { grid-column: 1 / -1; }
+  /* Two-column tiles leave the outer two connectors pointing at nothing. */
   .bo-link:nth-child(1), .bo-link:nth-child(3) { display: none; }
 }
 
@@ -3130,103 +3134,7 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
   .ways { grid-template-columns: minmax(0, 1fr); }
 }
 
-/* ——— S3: the catalogue, by workflow pattern ——— */
-
-/* The pattern is the column and the product is the row: a reader looking for a
-   job to fix reads three definitions and then seven one-line answers. A column
-   with one product keeps its spare space — the pattern is what the column
-   claims, not the count. */
-
-/* Header and rows are two shared rows rather than two stacked blocks: the
-   definitions run two, three and four lines, and without the shared track the
-   first product in each column started at a different height. */
-.catalog {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  grid-template-rows: auto 1fr;
-  column-gap: var(--gap);
-  row-gap: 0;
-  align-items: stretch;
-}
-
-.catalog-col {
-  display: grid;
-  grid-row: span 2;
-  grid-template-rows: subgrid;
-  row-gap: 0;
-  min-width: 0;
-  padding-top: 1.25rem;
-  border-top: 1px solid var(--border-hairline);
-}
-
-.catalog-pattern { display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: .5rem .625rem; }
-.catalog-pattern-icon { width: 1.375rem; height: 1.375rem; flex: none; color: var(--text-body); }
-
-.catalog-pattern-name {
-  font-family: var(--font-body);
-  font-weight: 700;
-  font-size: 1.0625rem;
-  line-height: 1.3;
-  text-transform: none;
-  color: var(--text);
-}
-
-.catalog-pattern-def { grid-column: 1 / -1; }
-.catalog-rows { margin-top: 1rem; display: flex; flex-direction: column; }
-
-/* The row is a container, not a link — the Demo badge beside the name is an
-   action, and an action cannot sit inside a link. The name carries the link and
-   its overlay covers the row, so the whole row still answers to a click while
-   the badge, lifted above the overlay, keeps its own. */
-.catalog-row {
-  position: relative;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  gap: .25rem 1rem;
-  align-items: start;
-  padding: .9rem .5rem .9rem 0;
-  border-top: 1px solid var(--border-subtle);
-  transition: transform var(--t-base) var(--ease), color var(--t-base) var(--ease);
-}
-
-.catalog-row-head { grid-column: 1; display: flex; flex-wrap: wrap; align-items: center; gap: .5rem; min-width: 0; }
-.catalog-row-link { min-width: 0; }
-.catalog-row-link::after { content: ""; position: absolute; inset: 0; }
-.catalog-row-name { font-size: 1rem; font-weight: 500; line-height: 1.35; color: var(--text); transition: color var(--t-base) var(--ease); }
-.catalog-row-line { grid-column: 1; color: var(--text-muted); }
-.catalog-row-note { grid-column: 1; font-size: var(--fs-xs); line-height: 1.55; color: var(--text-dim); }
-
-/* Pinned to the name's line, so it stays level with the name when the badges
-   wrap the head onto a second row. */
-.catalog-row-arrow {
-  grid-column: 2;
-  grid-row: 1;
-  align-self: start;
-  margin-top: .175rem;
-  width: 1rem;
-  height: 1rem;
-  flex: none;
-  color: var(--text-dim);
-  transition: color var(--t-base) var(--ease);
-}
-
-.catalog-row:hover, .catalog-row:focus-within { transform: translateY(-2px); }
-.catalog-row:hover .catalog-row-name, .catalog-row:focus-within .catalog-row-name { color: var(--action); }
-.catalog-row:hover .catalog-row-arrow, .catalog-row:focus-within .catalog-row-arrow { color: var(--action); }
-
-.catalog-row-badges { gap: .375rem; }
-.catalog-row .badge { position: relative; z-index: 1; font-size: .6875rem; padding: .125rem .5rem; }
-.catalog-row .badge-icon { width: .75rem; height: .75rem; }
-
-@media (max-width: 900px) {
-  .catalog { grid-template-columns: minmax(0, 1fr); grid-template-rows: none; row-gap: var(--gap); }
-  .catalog-col { display: flex; flex-direction: column; grid-row: auto; }
-}
-
-/* A badge is a tap target before it is a label. */
-@media (max-width: 560px) {
-  .catalog-row .badge { min-height: 24px; }
-}
+@@GTILES@@
 
 /* ——— S4: how we deliver ——— */
 
