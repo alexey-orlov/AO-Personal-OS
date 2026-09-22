@@ -1077,13 +1077,10 @@ if (!arr(C.products) || C.products.length !== 7) {
         if (!str((item || {}).icon)) fail("overview.hero.stack.services", "items[" + i + "].icon missing");
       });
     }
-    /* The bottom band reads the canonical facets in its own order, so the list
-       has to be a permutation of them — no platform added, none dropped. */
-    var order = stack.platformOrder;
-    if (!arr(order) || order.length !== FACET_IDS.length ||
-        FACET_IDS.some(function (id) { return order.indexOf(id) === -1; })) {
-      fail("overview.hero.stack.platformOrder", "must be a permutation of the four canonical facet ids (" +
-        FACET_IDS.join(", ") + ")");
+    /* The bottom band renders `facets.technology` in ITS order, so the stack
+       cannot hold an order of its own: one canonical sequence, everywhere. */
+    if (stack.platformOrder !== undefined) {
+      fail("overview.hero.stack.platformOrder", "retired — the stack derives the platforms from facets.technology in the canonical order, so there is no second ordering to keep in sync");
     }
   }
   if (!arr(h.stats) || h.stats.length < 3 || h.stats.length > 4) {
@@ -1287,9 +1284,15 @@ if (!arr(C.products) || C.products.length !== 7) {
     if (str((item || {}).icon)) namedIcons.push(["overview.hero.stack.services.items[" + i + "]", item.icon]);
   });
   (function () {
-    var icons = (((C.shared || {}).tagFamilies || {}).pattern || {}).icons || {};
+    var fams = ((C.shared || {}).tagFamilies) || {};
+    var icons = (fams.pattern || {}).icons || {};
     PATTERN_IDS.forEach(function (id) {
       if (str(icons[id])) namedIcons.push(["shared.tagFamilies.pattern.icons." + id, icons[id]]);
+    });
+    /* The two badge glyphs, `cursor-click` among them (round 9). */
+    ["demo", "marketplace"].forEach(function (k) {
+      var badge = (fams.availability || {})[k] || {};
+      if (str(badge.icon)) namedIcons.push(["shared.tagFamilies.availability." + k, badge.icon]);
     });
   })();
   var appSrc = fs.readFileSync(path.join(root, "site/assets/app.js"), "utf8");
@@ -1304,9 +1307,10 @@ if (!arr(C.products) || C.products.length !== 7) {
      it is genuinely in flight, and take it out in the same change that draws
      it — a name that stays here is an unchecked icon. */
   var PENDING_ICONS = [];
-  /* Round 9: the two glyphs of the retired three-category model leave the
-     registry with their ids — an icon nothing can name is never checked. */
-  ["pattern-processing-pipelines", "pattern-data-analysis"].forEach(function (key) {
+  /* Round 9: the glyphs of every retired category leave the registry with their
+     ids — an icon nothing can name is never checked. */
+  ["pattern-processing-pipelines", "pattern-data-analysis",
+   "pattern-optimization", "pattern-knowledge-assistants"].forEach(function (key) {
     if (iconKeys.indexOf(key) !== -1) {
       fail("assets/app.js", 'ICONS still carries "' + key + '" — that category is retired, and an icon no data can name is unchecked');
     }
