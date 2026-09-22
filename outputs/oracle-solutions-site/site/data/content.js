@@ -498,7 +498,6 @@ window.SITE_CONTENT = {
       categoryChip: "Deep research",
       facet: "oci-nvidia",
       oneLiner: "Turns news, filings and market signals into cited, per-account opportunities and risks that sales and account teams can act on.",
-      shortLine: "What a market signal means for each account, scored and sourced.",
       tags: ["Deep research", "OCI + NVIDIA"],
       hero: {
         image: {
@@ -823,7 +822,6 @@ window.SITE_CONTENT = {
       categoryChip: "Deep research",
       facet: "oci-nvidia",
       oneLiner: "Assembles the evidence trail for a case or complaint out of every system that holds a piece of it — cited, time-stamped, and ready for an investigator to decide on.",
-      shortLine: "The evidence trail for a case, pulled from every system involved.",
       statusNote: "In preparation — scoping conversations are open.",
       tags: ["Deep research", "OCI + NVIDIA"],
       hero: {
@@ -1136,7 +1134,6 @@ window.SITE_CONTENT = {
       categoryChip: "Deep research",
       facet: "oci-nvidia",
       oneLiner: "Compares plan against actual across completed projects, orders and engagements, and assembles each variance with its candidate drivers and the source evidence behind them.",
-      shortLine: "Every material variance, with its likely drivers and the evidence behind them.",
       statusNote: "In preparation — scoping conversations are open.",
       tags: ["Deep research", "OCI + NVIDIA"],
       hero: {
@@ -1461,11 +1458,10 @@ window.SITE_CONTENT = {
       slug: "large-document-extraction",
       name: "Large docs processing and review",
       headline: { accent: "LARGE", rest: "DOCS PROCESSING AND REVIEW" },
-      category: "processing-pipelines",
+      category: "documents",
       categoryChip: "Document processing",
       facet: "oci-nvidia",
       oneLiner: "Turns long, complex documents into validated, structured data — every extracted value carries a confidence score and a citation to its source page.",
-      shortLine: "Long documents read, extracted and checked against your business rules.",
       heroCaption: "100-page contract in minutes.",
       tags: ["Document processing", "OCI + NVIDIA"],
       hero: {
@@ -1799,13 +1795,12 @@ window.SITE_CONTENT = {
       slug: "workforce-optimization",
       name: "Workforce optimization",
       headline: { accent: "WORKFORCE", rest: "OPTIMIZATION" },
-      category: "data-analysis",
-      categoryChip: "Data analysis & optimization",
+      category: "optimization",
+      categoryChip: "Optimization",
       facet: "oci-nvidia",
       oneLiner: "Optimizes field-service work zones and schedules with NVIDIA cuOpt — a region’s four-week plan built in minutes, approved by dispatchers, exported to Oracle Field Service.",
-      shortLine: "A region’s four-week field plan, optimized in minutes and approved by dispatchers.",
       heroCaption: "What if dispatchers reviewed the plan, not built it?",
-      tags: ["Data analysis & optimization", "OCI + NVIDIA"],
+      tags: ["Optimization", "OCI + NVIDIA"],
       hero: {
         image: {
           file: "assets/img/heroes/workforce-optimization.jpg",
@@ -2137,14 +2132,13 @@ window.SITE_CONTENT = {
       slug: "cross-system-erp-qa",
       name: "Cross-system ERP Q&A",
       headline: { accent: "CROSS-SYSTEM", rest: "ERP Q&A" },
-      category: "data-analysis",
-      categoryChip: "Data analysis & optimization",
+      category: "knowledge-assistants",
+      categoryChip: "Knowledge assistants",
       facet: "oracle-ai-lakehouse",
       oneLiner: "Answers plain-language questions that span the ERP, the CRM and the systems around them, from one governed layer on Oracle Autonomous AI Lakehouse.",
-      shortLine: "Plain-language answers spanning the ERP, CRM and the systems around them.",
       heroLine: "Your ERP + everything around it.",
       badges: ["ERP + CRM + THE SYSTEMS AROUND THEM", "PREBUILT PIPELINES", "ANSWERS IN MINUTES"],
-      tags: ["Data analysis & optimization", "Oracle Autonomous AI Lakehouse"],
+      tags: ["Knowledge assistants", "Oracle Autonomous AI Lakehouse"],
       hero: {
         image: {
           file: "assets/img/heroes/cross-system-erp-qa.jpg",
@@ -2442,14 +2436,13 @@ window.SITE_CONTENT = {
       slug: "business-metrics-qa",
       name: "Business metrics Q&A",
       headline: { accent: "BUSINESS", rest: "METRICS Q&A" },
-      category: "data-analysis",
-      categoryChip: "Data analysis & optimization",
+      category: "knowledge-assistants",
+      categoryChip: "Knowledge assistants",
       facet: "oracle-ai-lakehouse",
       oneLiner: "Answers plain-language questions about business metrics from one governed gold layer over the catalogs and databases you already run — consistent definitions, no data moved.",
-      shortLine: "Business KPIs answered from one governed layer, with no data moved.",
       heroLine: "Ask once, every cloud answers.",
       badges: ["MULTI-CLOUD", "ON-PREM TOO", "NO MIGRATION"],
-      tags: ["Data analysis & optimization", "Oracle Autonomous AI Lakehouse"],
+      tags: ["Knowledge assistants", "Oracle Autonomous AI Lakehouse"],
       hero: {
         image: {
           file: "assets/img/heroes/business-metrics-qa.jpg",

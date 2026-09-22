@@ -1,12 +1,16 @@
 /**
  * content-case.js — sentence-case overlay for the live theme.
  *
- * data/content.js is shared by both themes and must keep rendering the old
- * theme exactly as it does today, so a handful of strings stay stored in
- * capitals there: the old CSS re-uppercased them anyway (Montserrat 900,
- * text-transform: uppercase). SoftServe's current brand is sentence case,
+ * A handful of strings are still stored in capitals in data/content.js,
+ * from when that file was shared with the near-black theme (whose CSS
+ * re-uppercased them anyway). SoftServe's current brand is sentence case,
  * and CSS cannot get there on its own — text-transform: lowercase would
  * wreck AI, ERP, Q&A, OCI — so this file patches those strings at load time.
+ *
+ * Since round 9 the archive is frozen and content.js is the live site's own
+ * copy: NEW copy is stored in sentence case directly, and a row is deleted
+ * here whenever its string is rewritten in content.js. This overlay shrinks
+ * with every round; it is not where new strings go.
  *
  * Loaded by index.html directly AFTER data/content.js and BEFORE the page
  * renderers, which only ever read window.SITE_CONTENT. The default theme
@@ -30,10 +34,6 @@
   var RECASE = [
     /* Footer */
     ["site.footer.heading", "CONTACT US", "Contact us"],
-
-    /* Home hero */
-    ["overview.hero.headline.lead", "ENTERPRISE AI AGENTS AND WORKFLOWS.", "Enterprise AI agents and workflows."],
-    ["overview.hero.headline.accent", "BUILT ON ORACLE.", "Built on Oracle."],
 
     /* Products index */
     ["productsPage.title", "PRODUCTS", "Products"],
