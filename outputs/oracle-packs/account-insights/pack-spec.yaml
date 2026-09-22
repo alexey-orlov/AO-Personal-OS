@@ -60,60 +60,63 @@ clearance:
 
 problem_solution:                          # component 1 — signed off via triad A, rewritten 2026-09-22
   problem: >-
-    An account manager covers dozens of accounts and cannot keep up with the market signals,
-    internal updates and filings landing on all of them.
+    An account manager, a partnerships lead or a portfolio manager each covers dozens of companies
+    and cannot keep up with the news, filings and updates landing on all of them.
   problem_points:
     - label: Too much to keep up with
-      text: dozens of accounts, hundreds of sources, one account manager
+      text: dozens of companies, hundreds of sources, one person
     - label: Found out too late
-      text: the update surfaces after the customer has already decided
-    - label: Only the account in the headline
-      text: what it means for that account's supplier, customer or competitor is never worked out
+      text: the update surfaces after the company has already decided
+    - label: Only the company in the headline
+      text: what it means for its suppliers, customers, competitors or sister holdings is never worked out
   solution: >-
-    Each morning the account manager sees the handful of changes that matter across their accounts
-    — what each one means and which service to offer — and reviews that list instead of
-    assembling it.
-  outcome_chips: ["Account coverage ↑", "Time to first contact ↓", "Second-order opportunities surfaced"]
+    Each morning they see the handful of changes that matter across the companies they cover —
+    what each one means and what to do about it — and review that list instead of assembling it.
+  outcome_chips: ["Coverage ↑", "Time to first move ↓", "Second-order opportunities surfaced"]
   reframe: "Review the opportunity, don't research it"
   note: >-
     Rewritten after Alex called the first version "waterish" (2026-09-22). The original named an
     abstract activity — "commercial teams work out what a development means for their accounts by
     hand" — instead of the role and the concrete things piling up on that person. Test to apply:
-    could an account manager say this sentence about their own week?
+    could an account manager say this sentence about their own week? Widened 2026-09-22 from the
+    account-manager seat alone to the three seats the same job has.
   source: user:2026-09-22
 
 one_liner:                                 # component 2 — re-proposed 2026-09-22 under the three-question rule (plugin 0.1.9); shown to the owner, not objected to; flagged on the artifact review
   full: >-
-    More opportunities from the accounts you already cover: the news, filings and updates landing
-    on them are turned into named services to offer — scored, cited and reviewed before anything
-    reaches the CRM.
-  short: "More opportunities from the accounts you already cover — found in the news, filings and updates on them."
+    More opportunities from the companies you already track: the news, filings and updates on them
+    become a named next move for each — scored, cited and reviewed before anything reaches your
+    systems.
+  short: "More opportunities from the companies you already track — found in the news, filings and updates on them."
   banned_words_checked: true
   note: >-
     Of what — the news, filings and updates on the accounts you cover. So what for the business —
     more opportunities from accounts you already have. How, in one clause — turned into named
     services to offer, scored, cited and reviewed. No qualifier from the source engagement. The
     signed-off first version ("Turns market events into named opportunities…, scored and cited for
-    review") answered of-what and how but stated no business outcome.
+    review") answered of-what and how but stated no business outcome. Widened 2026-09-22 from "the
+    accounts you already cover … named services to offer" to the three seats — sales, partnerships,
+    portfolio — on the owner's correction.
   source: user:2026-09-22
 
 icp:                                       # component 3 — signed off
-  line: "Any organization selling a catalog of services into a named book of accounts it has to stay current on."
-  buyer_roles: [Chief Commercial Officer, VP Sales, Head of Key Accounts, Head of Sales Operations, Head of Commercial Excellence]
+  line: "Any team responsible for a named set of companies it has to stay current on — the accounts it sells to, the partners it develops, or the companies in its portfolio."
+  buyer_roles: [Chief Commercial Officer, VP Sales, Head of Key Accounts, Head of Partnerships, Head of Business Development, Portfolio Operations Lead, Head of Sales Operations]
   qualifying_signals:
-    - "A named, finite account book — accounts are owned by people, not a total addressable market"
-    - "A real service or product catalog that a signal could be mapped onto"
-    - "Account research is currently done by the account team itself, not by a central research function"
-    - "A CRM that holds first-party account framing worth grounding against"
-    - "Accounts whose own suppliers, customers and competitors are also in the book — this is what makes ripple reasoning pay"
+    - "A named, finite set of companies the team is responsible for — accounts, partner prospects or holdings — owned by people, not a total addressable market"
+    - "A real catalog of moves the team can make in response — services to sell, partnership offers to propose, value-creation levers to pull"
+    - "Research on those companies is done today by the people who own the relationship, not by a central research function"
+    - "A system of record holding first-party context worth grounding against — a CRM, a deal pipeline, a portfolio tracker"
+    - "Companies whose own suppliers, customers, competitors or sister holdings are also in the set — this is what makes ripple reasoning pay"
   disqualifiers:
-    - "No catalog to map to — a fund screening deal targets has nothing at step 6 (see verticals)"
-    - "Open, undiscovered universes: the pack resolves signals against a roster, it does not go and find new names"
-    - "Buyers wanting an action taken automatically — the pack informs decisions, it does not act on them"
-    - "Buyers already standardized on a first-party-only account intelligence tool with no appetite for external signal"
+    - "No catalog of moves to map to — a fund screening deal targets has nothing to map an implication onto"
+    - "Open, undiscovered universes: the pack resolves signals against a roster it is given; it does not go and find new names"
+    - "Teams wanting an action taken automatically — the pack informs decisions, it does not act on them"
+    - "Teams already standardized on a first-party-only intelligence tool with no appetite for external signal"
   note: >-
-    Deliberately stated as a shape, not an industry, so it holds across the verticals. The last
-    qualifying signal is the differentiator restated as a qualification question.
+    Stated as a shape across three seats — sales, partnerships, portfolio — so it holds across the
+    industries. The last qualifying signal is the differentiator restated as a qualification
+    question.
   source: user:2026-09-22
 
 verticals:                                 # component 5 — PROPOSED, see open_questions/verticals
