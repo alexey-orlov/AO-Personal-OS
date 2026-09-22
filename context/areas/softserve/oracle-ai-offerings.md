@@ -1,7 +1,7 @@
 # Oracle AI — offering topology (reference)
 
 _status: reference doc — Oracle's AI product catalog, the layer SoftServe's verticalized accelerator packs build on_
-_updated: 2026-09-11_
+_updated: 2026-09-22_
 _source: oracle.com product pages, fetched 2026-06-18; structure list provided by Alex; the Motion-B data layer added 2026-07-23 and the **Autonomous AI Lakehouse product detail decoded at Oracle's 2026-08-05 enablement session** ([note](calls/oracle/2026-08-05_125052_default_20260805113131F0734A55.md)). Companion to [oracle.md](oracle.md) (partnership) and [oracle-team.md](oracle-team.md) (who we deal with). **Oracle's own EMEA enablement lab catalogue, the AIDP-off-the-lab-agenda move, and the accelerator→dedicated-AI-cluster monetisation link** added 2026-09-03 from the [Hammad events-GTM call](calls/oracle/2026-08-18_sales-call_hammad-events-gtm.md)._
 
 ## Why this is here
@@ -126,6 +126,30 @@ _From Oracle's AI Lakehouse enablement session #1 for SoftServe (Javier, Oracle 
 - **Relationship (AIDP ↔ AI Lakehouse) — partly answered 2026-08-05, still genuinely open at Oracle.** Public sources are fuzzy (at AI World 2025 Oracle "finalized not one but two lakehouses," and AIDP itself embeds a lakehouse architecture), and **Oracle presents them as two distinct GTM motions** (separate product teams, event tracks, lead funnels) — so treat them as two engagement surfaces. The concrete boundary as of 2026-08-05: **ADP works with Delta only; Autonomous works with Iceberg only** — but treat this as the enablement-session read, not a public claim: **Oracle's public AIDP materials state both Delta AND Iceberg** (likely shipped-vs-roadmap nuance) — **never state "AIDP is Delta-only" externally** (web check, 2026-08-21). Today's options are (a) **recommended** — move/copy data to the gold layer via **Spark JDBC** into Autonomous, or (b) a PM workaround using **Uniform metadata + manual catalog integration**. **Native catalog integration is expected once ADP supports Iceberg ("soon", no date).** **Gero stated plainly that nobody at Oracle has a clean answer yet on how AIDP and AI Lakehouse will be *fully* integrated long-term** — so this is an Oracle-internal open question, not a SoftServe knowledge gap.
 
 _Sources: [Pythian — AIDP overview](https://www.pythian.com/blog/oracle-ai-data-platform-aidp-no-nonsense-platform-overview), [Vigilant — AIDP market fit](https://vigilant-inc.com/oracle-ai-data-platform-what-it-is-and-where-it-fits-in-the-market/), [LeMagIT — Oracle's two lakehouses](https://www.lemagit.fr/actualites/366632762/AI-World-Oracle-finalise-non-pas-un-mais-deux-lakehouse) (web, 2026-07-23); the AI-Lakehouse-as-distinct-GTM-motion + 8 accelerators + AIDP-Innovation managed service from the 2026-07-22 session (chat, 2026-07-23)._
+
+### AIDP's two live pushes, and Oracle's own advice on them (2026-09-16, Neil + Gero)
+
+_From the [Neil + Gero partnership sync](docs/2026-09-16_oracle-neil-gero-partnership-sync.md). Oracle's guidance to SoftServe was explicitly **adopt, don't build** — the opposite of the Oracle AI packs approach._
+
+- **The ~34 EBS agents — the strongest AIDP use case.** Oracle has just released **~34 agents for E-Business Suite**. The logic Neil gave: the **EBS install base is large and cannot move to AI without migrating to Fusion or another SaaS product**, so **"deploy AIDP plus these 34 agents" is a contained, sellable accelerator**. Gero: **traction is in EBS agents**, he owes SoftServe **the list of agents becoming available, covering finance and transaction use cases**. This is also a named laser segment — **"Extend Your EBS Investment with AI", 123 EBS-with-OCI customers** ([deck](docs/2026-09-17_oracle-laser-campaigns-deck.md)).
+- **Semantic engines — the other major AIDP push.** Gero named it as the second push; **step zero is onboarding SoftServe onto it**, with **Helen** the right person (he has already asked her to do the same for his own team). Note the through-line: the **semantic layer** was Oracle's confidential differentiator in the Lighthouse / "Oracle Industry Intelligence Platform" play (2026-07-28), the ask Oracle made of SoftServe at the Jul-22 session, and the thing tuned in week 3 of Oracle's own Qatar Airways fast track. Contact offered 2026-09-17: **Pelin (AIDP team)**, via Gero.
+- **Roughly half a dozen AIDP use cases exist in total** (Neil). **Do not combine bare-metal GPU / NVIDIA cases with AIDP — too early** (Gero), and **do not create customer packages for AIDP yet**. **Do not drop AI Lakehouse and Life Hub** — smaller deals but higher volume and a genuine factory motion.
+- **Product-management access:** **Helen (London)** and **Oscar (Madrid)** are the local AIDP PMs, both to be introduced. **The real dependency is the AIDP product team in North America (Santhosh)** — Neil was candid that **even he and Gero struggle with that team**, which tends to act independently without communicating. Play: **start local, work the NA introduction jointly.**
+
+### Deal economics per motion (2026-09-16, Neil)
+
+| Play | Oracle deal size | Cycle | Motion |
+|---|---|---|---|
+| **AI Lakehouse / AI Hub** | **~$65K–$200K** | Short | High volume, "genuine factory approach" |
+| **AIDP** | **$1M+** | Longer | Consultative: solution design, architecture, pilots |
+
+Oracle will **lean in with its own experts on SoftServe's first AI Lakehouse delivery** to de-risk it; subsequent engagements should need far less support. ⚠️ **Naming caution:** the sync's "**AI Hub**" / "**AI Life Hub**" is most likely the **Live AI Hub** pattern above (Autonomous as a connectivity hub via database links), not a separate SKU — **confirm before using it in partner-facing material** (see § Naming).
+
+### GPU sales rules — clarified (2026-09-16, Neil)
+
+- **No one in Oracle can sell raw GPUs.** A **central global team** handles it and it **effectively requires Larry Ellison's personal sign-off**, because supply is scarce — **the first shipment of 125,000 NVIDIA GPUs was fully allocated before delivery**.
+- **The field CAN sell dedicated AI clusters** — public cloud, **4 / 6 / 8 / 12 nodes**, typically **older GPUs**. **That is exactly what Sky runs on.**
+- **Position accordingly: never propose raw GPU procurement, always dedicated AI clusters.** This sharpens the [monetisation link Hammad gave](#how-oracle-takes-this-catalog-to-market-2026-08-18-hammad) — accelerator projects land as dedicated AI clusters — into a hard rule for every architecture slide and BoM (relevant to the [SBG PoC BoM](sbg-poc.md), which is ~98% GPU).
 
 ## How Oracle takes this catalog to market (2026-08-18, Hammad)
 

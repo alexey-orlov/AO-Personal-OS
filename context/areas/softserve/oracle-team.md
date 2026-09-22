@@ -87,6 +87,27 @@ Two more orgs SoftServe doesn't yet work with directly: an **Accounts** org (acc
 
 **How to work him:** he **thinks in packages, not capabilities** — every capability description got reframed as _"what do I hand a client at the end of a session."_ Deliverables to him should be **one-page, priced-shaped, named, with a routing contact**. He also **reads SoftServe's material unprompted** (he opened the Oracle–SoftServe Business Alignment deck mid-call, including the practice-setup and investments section) — **assume anything sent to him gets read and quoted back**.
 
+### Names surfaced at the 2026-09-16 Neil + Gero sync
+
+_From the [sync notes](docs/2026-09-16_oracle-neil-gero-partnership-sync.md) (shared by Bohdan 09-17) and [Gero's laser-campaign deck](docs/2026-09-17_oracle-laser-campaigns-deck.md). Context: Oracle is running **redundancies with more expected** — every team has lost people and is absorbing extra workload, so **expect slower responses from every name on this page** and design plays that need minimal Oracle effort._
+
+| Person | Role | What to do with them |
+|---|---|---|
+| **Jörg Jung ("JJ")** | **New SVP Oracle Central (Germany, Austria, Switzerland)**; ex **chief of staff to the SAP board**, previously ran **Infor** internationally | **Rebuilding the region, needs partners, will engage hard.** Email intro from Neil sent immediately; offered coffee with Gero and/or Milo. The most senior net-new Oracle relationship opened this quarter |
+| **Helen** (London) | **AIDP product manager, local** | The onboarding route onto the **EBS agents + semantic engines**; Gero has already asked her to do this for his own team. Intro owed by Neil |
+| **Oscar** (Madrid) | **AIDP product manager, local** | Intro owed by Neil |
+| **Santhosh** (North America) | **The AIDP product team NA** — the real dependency | Neil was candid that **even he and Gero struggle with this team**; they act independently without communicating. **Start local (Helen/Oscar), then work the NA intro jointly** |
+| **Pelin** | **AIDP team** — Gero's named contact for EBS-agent + semantic-engine detail | Offered 2026-09-17 with the laser deck. Take it up |
+| **Ege** | **Point person on the joint pipeline call** (Hamad owns) | Also the person who pushed the Milton Keynes event to January against NVIDIA's wish to accelerate — Neil is reversing that. **Hemant** is the other name Neil was to speak to about accelerating |
+| **Jacob West · Chris Whitey** | **Oracle Public Sector** | Second meeting done; offered to bring SoftServe to the **Government of Norway** and the **City of Birmingham**. Neil + Gero: **proceed directly, do not wait for Oracle** |
+| **Kevin Kimber** | **New UK&I lead** (the UK SVP & GM below) | **Deliberately not a general introduction** — go to him **early October with a finished UK campaign plan** (venue agreed, 20 named clients, reps already reaching out). Already likes the cuOpt work via NVIDIA's **Anthony Hills** |
+| **Jan** | Host of the **Frankfurt aviation event** | Neil confirms slot + format with him and Rihan; will name SoftServe delivery partner of choice |
+| **AJ** (Adrian James) | see the enablement-org table | His read on the **Oracle Marketplace** listing: valuable **primarily for internal Oracle promotion** — not critical path. Co-owner with Alex of publishing the Bosch cuOpt package |
+| **Paolo** (NVIDIA) | **New NVIDIA EMEA lead**, successor to **Jaap Rudefelt** | Proposed meeting: Neil + **Cormac** + Paolo + Olia; **Therese** (NVIDIA) already reached out and wants Cormac included |
+| **Deepak + Sunny** | On the **Sky (EVOS / cuOpt routing)** handover | Both on holiday as of 2026-09-16 — the reason Sky is ~a month from a packaged asset |
+
+**The AI Platform Team – EMEA** is the body that authored the laser-campaign launch deck (September 2026) — the demand-side counterpart to the segment/Goldmines machine Hammad owns below.
+
 ### Public & Defense (NATO) channel — surfaced 2026-08-28
 
 _From Karsten's email "AW: Nemotron @Oracle Public&Defense EMEA" (2026-08-28, to Robert Friedrich + Bohdan + Alex) and the [NCIA→OCI press release](oracle-defense.md#ncia-press-release) (Oracle UK, 2025-09-11, read 2026-09-06). Stream page: [oracle-defense.md](oracle-defense.md)._
