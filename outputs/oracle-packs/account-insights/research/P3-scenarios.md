@@ -462,7 +462,43 @@ Every row below is the answer to "at this step, this scenario could not be trust
 
 ## The empty-circle sweep — capabilities a complete product has that a first build will not
 
-_pending_
+Twelve. Each is stated as what it does, then why a first build will not have it. These are roadmap rows, not aspirations. (reasoning, except where cited)
+
+**1. Point-in-time replay.** Re-run any past output using only the evidence that existed on that date, and diff it against what actually shipped.
+*Why a first build lacks it:* the corpus is indexed at current state and is mutable — articles get edited, filings get amended, entity records get corrected. "What did we know on 12 June" is not a slow query in a first build; it is an unanswerable one. Required in S2, S3a, S4 and S6 for audit defence, and required in all eight to evaluate the engine against its own history.
+
+**2. An authorization layer that is not a relevance filter.** Restricted lists, conflict imputation with screening-wall exceptions, vehicle and set-aside eligibility, sanctions blocks — able to withhold a correct, high-confidence item and record a reason code.
+*Why a first build lacks it:* first builds have thresholds, and a threshold cannot express "relevant, true, and forbidden". The tell is that "not shown" and "not found" are the same state in the data model. In S7 this layer *is* the product — under Rule 1.10 one lawyer's conflict is imputed firmwide [T1 ABA] — and in S2/S3a it is what keeps MNPI from crossing a wall inside the reasoning context [T2 Proskauer].
+
+**3. A correlation and accumulation engine.** Group entities by shared peril zone, obligor group, sector, or sub-tier chokepoint and evaluate the *group* as the subject of a claim.
+*Why a first build lacks it:* the architecture is an entity loop — for each account, produce a briefing. That shape literally cannot express a finding whose subject is a set. In S6 the only material output is often an aggregate; in S2 concentration is the finding; in S4 the chokepoint is the finding. Everything else is a well-formatted miss.
+
+**4. Ownership and dependency graph traversal with aggregation arithmetic.** Walk to ultimate parent, sum fractional stakes held by several listed parties against a threshold, follow n-tier supply paths, and carry inferred-but-unconfirmed nodes with an explicit existence confidence.
+*Why a first build lacks it:* it does string matching against a customer table. Two documented consequences: OFAC's ownership test aggregates stakes across multiple blocked persons, so no single 50% holder is needed for an entity to be blocked [T3 relay of OFAC guidance]; and the entities that carry the risk are mostly ones you cannot name — ~90% of organizations see tier 1, ~58% see tier 2 and below [T3 relay of McKinsey 2025].
+
+**5. Negative assertion and coverage telemetry.** Record "screened, nothing found, on date X, against sources Y". Separately report what share of the entity universe was actually monitored, which feeds were stale or down, and which entities have never once been covered.
+*Why a first build lacks it:* it only writes rows when it finds something, so an ingestion outage and a quiet week produce identical output. Silence reads as safety. This is the failure mode that turns a monitoring product into a liability, and it is the one customers discover last.
+
+**6. Outcome labelling and calibration.** Capture what became of each implication — pursued, won, lost, risk materialized, false positive — and publish a calibration curve per scenario and per signal type.
+*Why a first build lacks it:* the only feedback it collects is step 11's approve/reject, which measures plausibility at review time, not correctness afterwards. So the confidence number at step 9 has never been tested against a single outcome. In S2 and S4 that number is precisely what an examiner asks for evidence about; the FCA's 2026 CDD review is reported to have found unclear review procedures, policy non-adherence and version-control weakness — all failures of record, not of judgment [T2 relay].
+
+**7. Deadline binding and decay.** Bind entities to dated instruments — renewal, maturity, solicitation, option-year exercise, KYC review due date — emit ahead of the date with no new signal, and suppress or downgrade the item once the date passes.
+*Why a first build lacks it:* it is event-driven end to end, so its single most valuable output — the thing due next Tuesday — never fires. In S5 the commercially useful window is reported to close before the solicitation is even published [T3 GovDash]; in S6 an implication delivered after the renewal binds is worth exactly nothing.
+
+**8. Dual-implication routing with non-suppression.** One signal produces an opportunity *and* a risk, with different owners, systems and SLAs, and neither may cancel the other.
+*Why a first build lacks it:* it picks one framing per signal, usually the commercial one, because the prompt asks for "the implication". In S2, S4 and S6 that silently drops half the value and all of the liability — and the dropped half is the one with a regulator attached.
+
+**9. Provenance-class gating.** Carry *how* a fact is known — official disclosure, regulated filing, reported, rumour, model output — and let downstream actions be permitted or forbidden by class.
+*Why a first build lacks it:* it flattens everything to source URL plus snippet, which makes a rumour and a filing indistinguishable to the reasoning step. Two scenarios break on this: acting on an unverified rumour in S2 is a market-abuse exposure, and in S6 catastrophe-model output ranked beside observed loss data produces false precision that survives all the way into a pricing decision.
+
+**10. Catalog binding with a demand-gap feed.** Map implications to a versioned catalog (offering, lever, mitigation, permission), allow the mapping to be switched off entirely, and emit implications that mapped to *nothing* as a product-gap stream.
+*Why a first build lacks it:* the catalog is hard-coded into a prompt, so it cannot say "nothing here fits" — it fits something anyway. Two of the eight scenarios have no catalog at all (§2.1), and the "mapped to nothing" stream is arguably the most valuable output in the whole system, because it is the demand the organization cannot currently serve.
+
+**11. Cost-aware ranking.** Attach a cost of pursuit or cost of investigation to each item so the output is a ranked *allocation* under a capacity constraint, not a ranked list.
+*Why a first build lacks it:* it ranks by score and hands someone forty items for a week with room for six. In S5 the cost of pursuit is the central variable in a bid/no-bid decision; in S4 the cost of investigating a low-confidence sub-tier flag routinely exceeds the exposure it protects.
+
+**12. Reviewer disagreement as a first-class signal.** Store rejections with structured reasons, detect reviewers who systematically reject one rule or one signal type, and route that pattern back to the rule.
+*Why a first build lacks it:* rejection is a delete. So the system's most informative data — an expert telling it, repeatedly, that a specific inference is wrong — is discarded at the moment it is generated. Every scenario needs this; the regulated ones also need the rejection itself retained as a record (NI-18).
 
 ---
 
