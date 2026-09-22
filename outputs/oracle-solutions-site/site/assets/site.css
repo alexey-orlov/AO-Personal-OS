@@ -838,6 +838,17 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
   letter-spacing: 0;
 }
 
+/* Round 9: an optional small word before the figure, on the figure's own
+   baseline — "from 30 days" is one fact, read in one line. */
+.stat-prefix {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: .45em;
+  line-height: 1;
+  color: var(--text-muted);
+  margin-right: .35em;
+}
+
 .stat-label { margin-top: .75rem; font-size: var(--fs-sm); line-height: 1.25; color: var(--text-muted); font-weight: 400; }
 
 @media (max-width: 900px) {
