@@ -907,24 +907,42 @@ if (!arr(C.products) || C.products.length !== 7) {
       if (!str((c || {})[k])) fail("overview.hero.ctas[" + i + "]", k + " missing");
     });
   });
-  /* The built-on stack is the only illustration on this page, so its labels are
-     copy rather than decoration. The pattern tiles and the platform tiles are
-     derived — `facets.categories` and `facets.technology`, whose four labels the
-     T3 block already owns — so only the three written strings are asserted. */
+  /* Round 9: the stack is three layers read from the bottom up — Oracle's
+     platforms, the SoftServe product groups built on them, the SoftServe
+     services that prove, integrate and scale them. Only the services band is
+     written here; the middle band derives from `facets.categories` and the
+     bottom one from `facets.technology`, so the visual cannot name a group or a
+     platform in words the rest of the site does not use. */
   var stack = h.stack;
   if (!stack) fail("overview.hero.stack", "missing — the built-on visual is this hero's only illustration");
   else {
-    reqStr("overview.hero.stack", stack, ["ariaLabel", "patternsLabel", "platformsLabel"]);
-    var ss = stack.softserve;
-    if (!ss) fail("overview.hero.stack.softserve", "missing — the middle band of the three");
+    reqStr("overview.hero.stack", stack, ["ariaLabel", "productsLabel", "platformsLabel"]);
+    /* The three-band model of round 5 (patterns on top, a written SoftServe
+       layer in the middle) is retired: nothing renders either key. */
+    ["patternsLabel", "softserve"].forEach(function (k) {
+      if (stack[k] !== undefined) {
+        fail("overview.hero.stack." + k, "is superseded by the round-9 three-layer stack (services · products · platforms) — nothing renders it");
+      }
+    });
+    var sv = stack.services;
+    if (!sv) fail("overview.hero.stack.services", "missing — the top band of the three");
     else {
-      if (!str(ss.label)) fail("overview.hero.stack.softserve", "label missing");
-      if (!arr(ss.items) || ss.items.length !== 3) {
-        fail("overview.hero.stack.softserve", "items must hold exactly 3 layer tiles, got " +
-          (arr(ss.items) ? ss.items.length : "none"));
-      } else ss.items.forEach(function (item, i) {
-        if (!str(item)) fail("overview.hero.stack.softserve", "items[" + i + "] is not a string");
+      if (!str(sv.label)) fail("overview.hero.stack.services", "label missing");
+      if (!arr(sv.items) || sv.items.length !== 4) {
+        fail("overview.hero.stack.services", "items must hold exactly 4 service tiles, got " +
+          (arr(sv.items) ? sv.items.length : "none"));
+      } else sv.items.forEach(function (item, i) {
+        if (!str((item || {}).name)) fail("overview.hero.stack.services", "items[" + i + "].name missing");
+        if (!str((item || {}).icon)) fail("overview.hero.stack.services", "items[" + i + "].icon missing");
       });
+    }
+    /* The bottom band reads the canonical facets in its own order, so the list
+       has to be a permutation of them — no platform added, none dropped. */
+    var order = stack.platformOrder;
+    if (!arr(order) || order.length !== FACET_IDS.length ||
+        FACET_IDS.some(function (id) { return order.indexOf(id) === -1; })) {
+      fail("overview.hero.stack.platformOrder", "must be a permutation of the four canonical facet ids (" +
+        FACET_IDS.join(", ") + ")");
     }
   }
   if (!arr(h.stats) || h.stats.length < 3 || h.stats.length > 4) {
@@ -935,6 +953,12 @@ if (!arr(C.products) || C.products.length !== 7) {
     if (!str((st || {}).value)) fail(sw, "value missing");
     else if (st.value.length > 20) fail(sw, 'value "' + st.value + '" is too long to set large');
     if (!str((st || {}).label)) fail(sw, "label missing");
+    /* Round 9: an optional small word set before the figure on its own
+       baseline ("from 30 days"). It is a qualifier, not a caption. */
+    if ((st || {}).prefix !== undefined) {
+      if (!str(st.prefix)) fail(sw, "prefix must be a non-empty string where present");
+      else if (st.prefix.length > 6) fail(sw, 'prefix "' + st.prefix + '" is too long — it sets at .45em beside the figure (max 6 characters)');
+    }
   });
 
   /* --- S2 · two ways in --- */
@@ -960,25 +984,19 @@ if (!arr(C.products) || C.products.length !== 7) {
     });
   }
 
-  /* --- S3 · the product catalog, three columns --- */
+  /* --- S3 · the products, one tile per group --- */
   var cat = o.catalog;
   if (!cat) fail("overview.catalog", "missing — S3, the products screen");
   else {
     reqStr("overview.catalog", cat, ["eyebrow", "title", "lead"]);
     reqCta("overview.catalog.cta", cat.cta);
-    /* One column per workflow pattern, in the order the rest of the site lists
-       them. The rows inside a column are derived — the products whose
-       `category` is this pattern, in `SITE_CONFIG.productOrder` — so the data
-       carries the definition and nothing else. */
-    if (!arr(cat.patterns) || cat.patterns.length !== PATTERN_IDS.length) {
-      fail("overview.catalog.patterns", "must hold one column per workflow pattern (" + PATTERN_IDS.length + "), got " +
-        (arr(cat.patterns) ? cat.patterns.length : "none"));
-    } else PATTERN_IDS.forEach(function (id, i) {
-      var col = cat.patterns[i] || {};
-      var cw = "overview.catalog.patterns[" + i + "]";
-      if (col.id !== id) fail(cw, 'id is "' + col.id + '", expected "' + id + '" — the columns render in facets.categories order');
-      if (!str(col.definition)) fail(cw, "definition missing — the column header is the pattern name and this line");
-    });
+    /* Round 9: the screen is one tile per product group, and every tile is
+       derived from `facets.categories` — name, line and image all live there.
+       The second list this key used to hold is retired: two lists of the same
+       groups is how the home page and the rail drifted apart before. */
+    if (cat.patterns !== undefined) {
+      fail("overview.catalog.patterns", "retired in round 9 — the group tiles derive from facets.categories, so the data carries no second list");
+    }
   }
 
   /* --- S4 · how we deliver --- */
@@ -1090,19 +1108,27 @@ if (!arr(C.products) || C.products.length !== 7) {
     if (h[pair[0]] !== undefined) fail("overview.hero." + pair[0], "is superseded — " + pair[1]);
   });
 
-  /* --- the catalog rows read one new string per product --- */
+  /* --- round 9: the product rows the home page used to carry are gone --- */
   (C.products || []).forEach(function (p) {
-    var pw = "products[" + p.slug + "]";
-    if (!str(p.shortLine)) return fail(pw, "shortLine missing — the home catalog row's one line under the product name");
-    if (words(p.shortLine) > 12) {
-      fail(pw, "shortLine is " + words(p.shortLine) + ' words (max 12): "' + p.shortLine + '"');
+    if (p.shortLine !== undefined) {
+      fail("products[" + p.slug + "]", "shortLine is retired in round 9 — the home screen shows one tile per group, not a row per product, and no renderer reads it");
     }
-    if (p.shortLine.trim().slice(-1) !== ".") {
-      fail(pw, "shortLine does not end in a period — the seven rows are sentences and sit directly beneath each other");
-    }
-    if (str(p.oneLiner) && p.shortLine.trim() === p.oneLiner.trim()) {
-      fail(pw, "shortLine repeats oneLiner — the row carries the short form, the tile and the hero keep the full one");
-    }
+  });
+
+  /* --- H2 budget (START-HERE §4: five words or fewer, ≤ ~30 characters) ---
+     The three screens round 9 rewrote are held to it; the two it did not touch
+     warn, so the debt is visible without failing a build over old copy. */
+  [
+    ["overview.twoWays.title", (o.twoWays || {}).title, true],
+    ["overview.catalog.title", (o.catalog || {}).title, true],
+    ["overview.caseStudiesIntro.title", (o.caseStudiesIntro || {}).title, true],
+    ["overview.delivery.title", (o.delivery || {}).title, false],
+    ["overview.about.title", (o.about || {}).title, false],
+    ["overview.contact.heading", (o.contact || {}).heading, false]
+  ].forEach(function (row) {
+    if (!str(row[1]) || row[1].length <= 30) return;
+    var message = "is " + row[1].length + " characters — an H2 is a display line (max 30); the argument goes in the lead";
+    if (row[2]) fail(row[0], message); else warn(row[0], message);
   });
 
   /* --- every icon the two new screens name is in the registry --- */
