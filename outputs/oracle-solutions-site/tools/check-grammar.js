@@ -740,24 +740,45 @@ if (!arr(C.products) || C.products.length !== 7) {
     var where = "facets.technology[" + i + "]";
     if (tech[i].id !== id) fail(where, 'id is "' + tech[i].id + '", expected "' + id + '"');
     if (tech[i].label !== FACET_LABELS[id]) {
-      fail(where, 'label is "' + tech[i].label + '", expected "' + FACET_LABELS[id] + '"');
+      fail(where, 'label is "' + tech[i].label + '", expected the short label "' + FACET_LABELS[id] + '"');
+    }
+    if (tech[i].fullLabel !== FACET_FULL[id]) {
+      fail(where, 'fullLabel is "' + tech[i].fullLabel + '", expected "' + FACET_FULL[id] + '"');
+    }
+    /* Round 9: the short label may drop the "Oracle" prefix on a chip, but the
+       full form is the Oracle product name and opens on it. */
+    if (str(tech[i].fullLabel) && tech[i].fullLabel.indexOf("Oracle") !== 0) {
+      fail(where, 'fullLabel "' + tech[i].fullLabel + '" does not open on "Oracle" — the long form is the Oracle product name');
     }
     /* The rail carries the one-liner, the grid carries the empty state — a
        facet with no product today still has to say something in both places. */
     ["fullLabel", "description", "emptyState"].forEach(function (k) {
       if (!str(tech[i][k])) fail(where, k + " missing");
     });
+    /* `catalog: false` takes a platform out of the rail. Only the one platform
+       no product runs on may carry it, and no product may name that platform. */
+    if (tech[i].catalog !== undefined) {
+      if (tech[i].catalog !== false) fail(where, "catalog may only be set to false (it takes the platform out of the rail)");
+      else if (NON_CATALOG_FACETS.indexOf(id) === -1) {
+        fail(where, 'catalog: false is allowed only on ' + NON_CATALOG_FACETS.join(", ") + " — every other platform is a filter a click returns");
+      }
+    }
   });
-  /* Round 9: a facet may carry ONE alternative label, `stackLabel`, and only
-     the hero stack renders it. It has to open on the canonical label, or the
-     stack and the rail would name the same platform two different things. */
+  NON_CATALOG_FACETS.forEach(function (id) {
+    var facet = tech.filter(function (f) { return f.id === id; })[0];
+    if (facet && facet.catalog !== false) {
+      fail("facets.technology[" + id + "]", "must carry catalog: false — no product runs on it, and a filter that can never return anything is not a filter");
+    }
+    (C.products || []).forEach(function (p) {
+      if (p.facet === id) fail("products[" + p.slug + "]", 'facet "' + id + '" is not a catalog platform — a product cannot run on a platform the rail does not offer');
+    });
+  });
+  /* Round 9: two forms of a name is the most a platform gets. A third
+     (`stackLabel`, tried mid-round) put a different name on the stack from the
+     rail, which is the drift this block exists to prevent. */
   tech.forEach(function (f, i) {
-    if (f.stackLabel === undefined) return;
-    if (!str(f.stackLabel)) {
-      fail("facets.technology[" + i + "]", "stackLabel must be a non-empty string where present");
-    } else if (f.stackLabel.indexOf(f.label) !== 0) {
-      fail("facets.technology[" + i + "]", 'stackLabel "' + f.stackLabel + '" does not start with the canonical label "' +
-        f.label + '" — the stack may extend a platform name, never rename it');
+    if (f.stackLabel !== undefined) {
+      fail("facets.technology[" + i + "]", "stackLabel is retired — a platform has two forms, `label` (rail, chips, band, stack) and `fullLabel` (Services cards, prose)");
     }
   });
 
@@ -770,11 +791,11 @@ if (!arr(C.products) || C.products.length !== 7) {
   });
 
   /* The Services platform cards are the same four platforms under another
-     shape, so they carry the same labels in the same order — otherwise a reader
-     meets one name on the Products rail and a different one on Services. Round
-     5 left one such list: `overview.servicesTeaser` is retired, and the home
-     page's four platform tiles derive their labels from `facets.technology`
-     itself, so they cannot drift from it. */
+     shape, in the same order — otherwise a reader meets one name on the
+     Products rail and a different one on Services. Round 9: a card has the room
+     for the full Oracle product name, so that is what it carries, while the
+     rail, the chips and the hero stack take the short label. The home page's
+     four platform tiles derive from `facets.technology` itself. */
   (function () {
     var where = "services.hero.platforms";
     var list = ((C.services || {}).hero || {}).platforms;
@@ -782,8 +803,8 @@ if (!arr(C.products) || C.products.length !== 7) {
       return fail(where, "must hold one card per canonical platform (" + FACET_IDS.length + ")");
     }
     FACET_IDS.forEach(function (id, i) {
-      if (list[i].name !== FACET_LABELS[id]) {
-        fail(where + "[" + i + "]", 'name is "' + list[i].name + '", expected the canonical label "' + FACET_LABELS[id] + '"');
+      if (list[i].name !== FACET_FULL[id]) {
+        fail(where + "[" + i + "]", 'name is "' + list[i].name + '", expected the full Oracle name "' + FACET_FULL[id] + '"');
       }
     });
   })();
