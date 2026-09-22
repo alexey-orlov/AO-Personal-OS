@@ -887,10 +887,14 @@ if (!arr(C.products) || C.products.length !== 7) {
   var h = o.hero || {};
   if (!str(h.eyebrow)) fail("overview.hero", "eyebrow missing");
   var hl = h.headline;
-  if (!hl || !str(hl.lead) || !str(hl.accent)) {
-    fail("overview.hero.headline", "needs { lead, accent } — the white lines, then the teal one that starts its own line");
+  /* Round 9: three sentences on three lines — what we build, what it is built
+     on, what it is worth. The middle one is the page's one accent line. */
+  if (!hl || !str(hl.lead) || !str(hl.accent) || !str(hl.proof)) {
+    fail("overview.hero.headline", "needs { lead, accent, proof } — the black lead, the orange accent line, then the proof line");
   } else if (hl.rest !== undefined) {
-    fail("overview.hero.headline", "carries the product-hero `rest` key — the home H1 is lead + accent");
+    fail("overview.hero.headline", "carries the product-hero `rest` key — the home H1 is lead + accent + proof");
+  } else if (words(hl.proof) > 3) {
+    fail("overview.hero.headline", "proof is " + words(hl.proof) + " words (max 3 — it is the H1's third display line)");
   }
   if (!str(h.lead)) fail("overview.hero", "lead missing");
   else if (words(h.lead) > 45) {
