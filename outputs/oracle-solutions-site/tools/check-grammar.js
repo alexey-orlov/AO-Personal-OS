@@ -734,6 +734,19 @@ if (!arr(C.products) || C.products.length !== 7) {
       if (!str(tech[i][k])) fail(where, k + " missing");
     });
   });
+  /* Round 9: a facet may carry ONE alternative label, `stackLabel`, and only
+     the hero stack renders it. It has to open on the canonical label, or the
+     stack and the rail would name the same platform two different things. */
+  tech.forEach(function (f, i) {
+    if (f.stackLabel === undefined) return;
+    if (!str(f.stackLabel)) {
+      fail("facets.technology[" + i + "]", "stackLabel must be a non-empty string where present");
+    } else if (f.stackLabel.indexOf(f.label) !== 0) {
+      fail("facets.technology[" + i + "]", 'stackLabel "' + f.stackLabel + '" does not start with the canonical label "' +
+        f.label + '" — the stack may extend a platform name, never rename it');
+    }
+  });
+
   /* "Other" was a catch-all that named no Oracle platform and read as a gap in
      the set. Oracle's product name is "Oracle AI for Fusion Applications". */
   tech.forEach(function (f, i) {
@@ -760,6 +773,49 @@ if (!arr(C.products) || C.products.length !== 7) {
       }
     });
   })();
+})();
+
+/* ---- round 9 · the five product groups ----
+   The catalog is grouped by the job to be done, and this row is the only place
+   a group is written: the home tiles, the rail filter, the hero stack's middle
+   band and every product chip all read it. So each group carries what all four
+   surfaces need — the short chip, the full name, one line a reader with no
+   context understands, the tile image, and the answer the catalog gives when a
+   filter on it returns nothing. */
+(function () {
+  var cats = (C.facets || {}).categories;
+  if (!arr(cats) || cats.length !== PATTERN_IDS.length) {
+    return fail("facets.categories", "must hold exactly " + PATTERN_IDS.length + " product groups, got " +
+      (arr(cats) ? cats.length : "none"));
+  }
+  PATTERN_IDS.forEach(function (id, i) {
+    var c = cats[i] || {};
+    var where = "facets.categories[" + i + "]";
+    if (c.id !== id) fail(where, 'id is "' + c.id + '", expected "' + id + '" — the groups render in this order everywhere');
+    ["chip", "full", "line", "image", "emptyState"].forEach(function (k) {
+      if (!str(c[k])) fail(where, k + " missing");
+    });
+    /* The tile's one line is read at 240px wide beside four others. */
+    if (str(c.line)) {
+      if (words(c.line) > 24) fail(where, "line is " + words(c.line) + " words (max 24 — it sits under a tile image)");
+      if (c.line.trim().slice(-1) !== ".") fail(where, "line does not end in a period — the five tiles are sentences and sit side by side");
+    }
+    /* One folder, so the tile art cannot be confused with a hero or a step
+       frame, and a missing file is a warning: art ships on its own track. */
+    if (str(c.image)) {
+      if (!/^assets\/img\/groups\/[a-z0-9-]+\.(jpg|jpeg|png|webp|svg)$/.test(c.image)) {
+        fail(where, 'image "' + c.image + '" must be assets/img/groups/<name>.<jpg|png|webp|svg>');
+      } else {
+        checkAsset(where, "group tile image", c.image);
+      }
+    }
+    /* The empty state is a capability, never a gap: the no-"yet" rule of §18.9
+       applies to it more than to any other string, because it is the one a
+       reader meets where a product does not exist. */
+    if (str(c.emptyState) && /\byet\b|\bso far\b|\bcoming\b|\bnot seeing\b/i.test(c.emptyState)) {
+      fail(where, "emptyState names the gap — say what the practice does deliver and what to tell us");
+    }
+  });
 })();
 
 /* ---- C2 · the home-page case-study cards ---- */
@@ -1337,8 +1393,17 @@ var raw = fs.readFileSync(path.join(root, "site/data/content.js"), "utf8");
   var o = C.overview || {};
   var step = ((o.delivery || {}).steps || [])[0];
   if (!step || step.fact !== POV) fail("overview.delivery.steps[0].fact", 'must be "' + POV + '"');
-  if (!((o.hero || {}).stats || []).some(function (s) { return s.value === POV; })) {
-    fail("overview.hero.stats", 'lost the "' + POV + '" tile');
+  /* Round 9 (Alex): the hero figure is the shortest honest clock — "from 30
+     days", the qualifier set small. Scope copy keeps 4–8 weeks everywhere else,
+     which is what the rest of this block asserts; the two are not alternatives,
+     they are a headline and a scope, and the tile leads the strip. */
+  var povStatTile = ((o.hero || {}).stats || [])[0] || {};
+  if (povStatTile.prefix !== "from" || povStatTile.value !== "30 days") {
+    fail("overview.hero.stats[0]", 'must be the proof-of-value tile { prefix: "from", value: "30 days" } — got { prefix: "' +
+      povStatTile.prefix + '", value: "' + povStatTile.value + '" }');
+  }
+  if (((o.hero || {}).stats || []).some(function (s) { return s.value === POV; })) {
+    fail("overview.hero.stats", 'states "' + POV + '" as a figure — the hero tile is "from 30 days"; 4–8 weeks is scope copy');
   }
   if (JSON.stringify(C.services || {}).indexOf(POV) === -1) fail("services", 'never states the "' + POV + '" proof of value');
   var povStat = ((C.services || {}).proofOfValue || {}).stat;
