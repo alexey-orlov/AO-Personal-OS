@@ -65,18 +65,32 @@ var CASE_STATUS_CHIPS = ["Proven", "Forecast", "Estimated"];
    in the order the home page's tiles and the rail list them. The two retired
    ids (processing-pipelines, data-analysis) may not return, here or in the icon
    registry, and the home tiles derive from this set rather than a second list. */
-var PATTERN_IDS = ["video-image", "deep-research", "documents", "optimization", "knowledge-assistants"];
-/* Round 4, T3: ONE canonical technology set, used identically on the rail, the
-   hero chip, the tile band and the Services platform cards. The ids and the
-   labels are paired here so a product, a glyph and a card can never drift into
-   a product-specific variant ("OCI + NVIDIA AI-Q") of a platform name. */
-var FACET_IDS = ["oci-nvidia", "oracle-ai-data-platform", "oracle-ai-lakehouse", "oracle-ai-fusion"];
+var PATTERN_IDS = ["knowledge-analytics", "deep-research", "documents", "transactions", "forecasting-optimization", "video-image"];
+/* Round 4, T3, rewritten in round 9 (Alex): ONE canonical technology set, in
+   ONE order, with TWO forms of each name. The SHORT `label` is what the rail,
+   the product chips, the tile band, `tags[1]` and the hero stack render; the
+   FULL Oracle product name is `fullLabel`, which the Services cards and the
+   page's prose carry. Pairing both here is what stops a product, a glyph or a
+   card drifting into a variant of a platform name. */
+var FACET_IDS = ["oracle-ai-lakehouse", "oracle-ai-data-platform", "oracle-ai-fusion", "oci-nvidia"];
 var FACET_LABELS = {
-  "oci-nvidia": "OCI + NVIDIA",
-  "oracle-ai-data-platform": "Oracle AI Data Platform",
-  "oracle-ai-lakehouse": "Oracle Autonomous AI Lakehouse",
-  "oracle-ai-fusion": "Oracle AI for Fusion Applications"
+  "oracle-ai-lakehouse": "AI Lakehouse",
+  "oracle-ai-data-platform": "AI Data Platform",
+  "oracle-ai-fusion": "AI for Fusion Applications",
+  "oci-nvidia": "OCI + NVIDIA NeMo"
 };
+var FACET_FULL = {
+  "oracle-ai-lakehouse": "Oracle Autonomous AI Lakehouse",
+  "oracle-ai-data-platform": "Oracle AI Data Platform",
+  "oracle-ai-fusion": "Oracle AI for Fusion Applications",
+  "oci-nvidia": "Oracle Cloud Infrastructure + NVIDIA NeMo"
+};
+/* The one platform no product runs on: it stays in the set for the hero stack
+   and the Services cards, and is not offered as a catalog filter. */
+var NON_CATALOG_FACETS = ["oracle-ai-fusion"];
+/* The three products with an interactive walkthrough under site/demo/. The
+   Demo badge and the Artifacts filter read `demoUrl`, not the video flag. */
+var DEMO_SLUGS = ["large-document-extraction", "workforce-optimization", "cross-system-erp-qa"];
 /* Round 4, T1: only these two carry the muted "in preparation" status line;
    every other product's state is told by its availability badges. */
 var UNPACKAGED = ["case-evidence-collection", "plan-vs-actual-investigation"];

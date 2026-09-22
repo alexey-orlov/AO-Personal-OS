@@ -3080,14 +3080,10 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 /* Stacked, the three bands are no longer peers side by side, so holding them
    to one height only pads the shortest one out with empty tiles: below this
    width each band and each pattern tile takes the height of its own content. */
-/* Stacked, the three bands are no longer peers side by side, so each band takes
-   the height of its own content — but the tiles inside one band stay equal. The
-   product band goes 2 + 2 + 1, the fifth tile spanning rather than leaving a
-   half-row of nothing. */
+/* On a phone every band goes two across — the product band then reads 2 × 3. */
 @media (max-width: 560px) {
   .bo { grid-template-rows: none; }
-  .bo-tiles--4, .bo-tiles--5 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .bo-tiles--5 > :nth-child(5) { grid-column: 1 / -1; }
+  .bo-tiles--4, .bo-tiles--6 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   /* Two-column tiles leave the outer two connectors pointing at nothing. */
   .bo-link:nth-child(1), .bo-link:nth-child(3) { display: none; }
 }
@@ -3142,14 +3138,14 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 
 /* ——— S3: the products, one tile per group ——— */
 
-/* Five peers in one row: a picture of the software, the group's name, one line
-   that says what it does to someone with no context, and an arrow. The tile is
-   the link — no second control inside it — and text never sits on the image
-   (VISUAL-GRAMMAR §1.1). Hover is a surface step and an image scale, never a
-   lift and never a shadow (SS26-THEME §6). */
+/* Six peers in two rows of three: a picture of the software, the group's name,
+   one line that says what it does to someone with no context, and an arrow. The
+   tile is the link — no second control inside it — and text never sits on the
+   image (VISUAL-GRAMMAR §1.1). Hover is a surface step and an image scale,
+   never a lift and never a shadow (SS26-THEME §6). */
 .gtiles {
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   grid-auto-rows: 1fr;
   gap: var(--gap);
   align-items: stretch;
@@ -3226,11 +3222,9 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 
 /* Three across, then two, left-aligned: the row wraps rather than stretching
    two tiles to the width of three. */
-@media (max-width: 1100px) {
-  .gtiles { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-}
-
-@media (max-width: 720px) {
+/* Three across down to 900, then two, then one: six tiles stay a rectangle at
+   every width — 3 × 2, 2 × 3, then a single column on a phone. */
+@media (max-width: 900px) {
   .gtiles { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .gtile-name { font-size: 1.125rem; }
 }
