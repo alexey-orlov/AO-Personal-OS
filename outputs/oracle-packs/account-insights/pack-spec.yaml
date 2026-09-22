@@ -1,0 +1,111 @@
+# Account Insights — accelerator pack specification
+# Produced by /oracle-packs:spec on 2026-09-22. Components carrying `user:2026-09-22`
+# are signed off; the rest are proposals awaiting sign-off.
+
+meta:
+  slug: account-insights
+  name: Account Insights
+  name_source: user:2026-09-22            # settled 2026-09-11; re-confirmed with triad A
+  name_variants:
+    site: Account Insights
+    internal_slide: Account Insights App
+    external: Account insights
+    external_subheading: Accelerator App by SoftServe
+    note: >-
+      The name is settled and load-bearing: it carries the mini-site tile, the tracker row and
+      slides 9-10 of the September section deck. The delivered one-pager PDF still reads
+      "AI Signal-Impact Engine" and is retitled at its next rebuild. The name does NOT survive
+      the supply-side and underwriting scenarios ("account" is the wrong noun there) — this is
+      the binding constraint on how far the pack may widen under this name.
+    source: user:2026-09-22
+  roadmap_item_id: account-insights
+  roadmap_block: Deep research & investigation
+  source_engagement:
+    customer: "<the delivery customer — a global logistics and supply-chain operator>"
+    delivered: >-
+      A 12-week contracted proof of concept on NVIDIA AI-Q over OCI, turning external signals and
+      first-party account context into per-account opportunity and risk records with citations,
+      scored for magnitude and confidence, reviewed in a purpose-built reviewer UI. Seven external
+      data sources. Not started at the time of packaging; no results exist.
+    divergence_line: >-
+      The pack generalizes what one engagement configured: the signal sources, the account
+      universe and the service catalog are per-client configuration, and the catalog mapping and
+      cross-account ripple reasoning are the reusable core.
+    divergence_from_pack: >-
+      The engagement's signed statement of work describes an older shape — per-account executive
+      briefings and discussion guides benchmarked against manually written "golden" reports. The
+      delivery moved to signal-triggered per-account opportunity records, which is what the pack
+      packages; the SoW document is stale rather than divergent (user:2026-09-22). The pack widens
+      past the engagement in three ways the engagement did not need: an account-triggered entry
+      point alongside the signal-triggered one, recurrence with delta reasoning, and the service-
+      catalog mapping as a first-class configurable target.
+    source: user:2026-09-22, sow-uc6, section-deck-2026-09-11
+  status: draft
+  spec_version: 1
+  generated_with: { roadmap_version: 2026-09-18, catalog_version: 2026-09-18 }
+
+clearance:
+  customer_name_allowed:
+    internal: true
+    partner_print: false
+    customer_site: false
+    demo: false
+  anonymized_descriptor: a global logistics and supply-chain operator
+  internal_only_facts:
+    - the customer name outside internal channels
+    - the contract value of the proof of concept
+    - the named accounts appearing in the reviewer UI screenshot
+    - the seven named external data sources of the delivered configuration
+  approvals: []
+  source: user:2026-09-22
+
+problem_solution:                          # component 1 — signed off via triad A
+  problem: >-
+    Commercial teams work out what a market development means for their accounts by hand — slowly,
+    inconsistently, and only ever for the account the news is about.
+  problem_points:
+    - label: Late and partial
+      text: research happens before a meeting, not when the event breaks
+    - label: Blind to second order
+      text: the effect on that account's supplier, customer or competitor is never worked out
+    - label: Not tied to the offer
+      text: a signal becomes a paragraph, not a named service someone can go and sell
+  solution: >-
+    Every signal is resolved against your own account universe, reasoned into opportunities and
+    risks, mapped to a service line you actually sell, scored for magnitude and confidence and
+    cited to its source — then put in front of a reviewer before anything reaches the CRM.
+  outcome_chips: ["Account coverage ↑", "Time to first contact ↓", "Second-order opportunities surfaced"]
+  reframe: "Review the opportunity, don't research it"
+  source: user:2026-09-22
+
+one_liner:                                 # component 2 — signed off via triad A
+  full: >-
+    Turns market events into named opportunities on the accounts you already cover — each mapped
+    to a service you sell, scored and cited for review.
+  short: "Market events, turned into named opportunities on the accounts you cover."
+  banned_words_checked: true
+  note: >-
+    States the job and the outcome in the buyer's words. Carries no count, no tier vocabulary and
+    no packaging language (anti-pattern A1). The delivered one-pager's opening ("turns a real-world
+    signal into structured, machine-readable JSON") leads with the output format rather than the
+    outcome and is replaced.
+  source: user:2026-09-22
+
+icp:                                       # component 3 — PROPOSED, not yet signed off
+  line: "Any organization selling a catalog of services into a named book of accounts it has to stay current on."
+  buyer_roles: [Chief Commercial Officer, VP Sales, Head of Key Accounts, Head of Sales Operations, Head of Commercial Excellence]
+  qualifying_signals:
+    - "A named, finite account book — accounts are owned by people, not a total addressable market"
+    - "A real service or product catalog that a signal could be mapped onto"
+    - "Account research is currently done by the account team itself, not by a central research function"
+    - "A CRM that holds first-party account framing worth grounding against"
+    - "Accounts whose own suppliers, customers and competitors are also in the book — this is what makes ripple reasoning pay"
+  disqualifiers:
+    - "No catalog to map to — a fund screening deal targets has nothing at step 6 (see verticals)"
+    - "Open, undiscovered universes: the pack resolves signals against a roster, it does not go and find new names"
+    - "Buyers wanting an action taken automatically — the pack informs decisions, it does not act on them"
+    - "Buyers already standardized on a first-party-only account intelligence tool with no appetite for external signal"
+  note: >-
+    Deliberately stated as a shape, not an industry, so it holds across the verticals. The last
+    qualifying signal is the differentiator restated as a qualification question.
+  source: research-brief-2026-09-22
