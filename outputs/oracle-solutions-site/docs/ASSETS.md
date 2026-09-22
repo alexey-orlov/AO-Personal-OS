@@ -1,8 +1,8 @@
-# ASSETS.md — step frames, industry images, headshot, customer logos
+# ASSETS.md — step frames, industry images, group tiles, headshot, customer logos
 
-What the E2 stepper, the E2 industry tabs, the E5 contact card and the named
-success stories render, where each file came from, what was done to it, and what
-the licensing position is.
+What the E2 stepper, the E2 industry tabs, the home page's product-group tiles,
+the E5 contact card and the named success stories render, where each file came
+from, what was done to it, and what the licensing position is.
 
 This file is **not served** — the site root is `site/`. It is the operator record
 that `site/assets/img/manifest-edits.json` deliberately does not carry, under the
@@ -358,6 +358,65 @@ from the same decks, graded identically, so the strip reads as one system.
 **People.** No face is identifiable in any shipped industry image: every person
 is a silhouette, seen from behind, blurred, or cropped below the head. No logo,
 no shopfront name and no legible screen text survives in any crop.
+
+---
+
+## 2b. Product-group tiles — `assets/img/groups/` (round 9, 2026-09-22)
+
+One image per product group, for the six tiles on the home page's S3
+(`facets.categories[].image`; `VISUAL-GRAMMAR.md` §9). All six are **960 × 600
+(16:10)**; the JPGs are quality 80 (`sips -s formatOptions 80`), the SVGs are
+hand-written and self-contained. **The legibility rule of §1 applies here too, at a
+harder size:** a group tile renders about 240 CSS px wide in the 3 × 2 grid, so the
+frame has to read as *a piece of software* at that width — a clear split view or a
+map beats a dialog, and a single-pane screen of running text reads as nothing at
+all.
+
+| File | Source | Crop from the source (x, y, w × h) | Bytes |
+|---|---|---|---|
+| `knowledge-analytics.jpg` | `steps/cross-system-erp-qa-1.jpg` (1600 × 1000) | none — already 16:10; resampled to 960 | 98,594 |
+| `deep-research.svg` | drawn | — | 2,707 |
+| `documents.jpg` | `posters/large-document-extraction.jpg` (1600 × 900) | 470, 275, 1000 × 625 → 960 | 114,514 |
+| `transactions.svg` | drawn | — | 3,077 |
+| `forecasting-optimization.jpg` | `posters/workforce-optimization.jpg` (1600 × 900) | 0, 140, 1120 × 700 → 960 | 111,267 |
+| `video-image.svg` | drawn | — | 2,122 |
+
+Rows are in `facets.categories` order. Every JPG is ≤ 160 KB and every SVG ≤ 12 KB.
+
+**Why these three frames.** `documents.jpg` is the only true split view in the set —
+the contract page with its rate table and one amber-flagged row beside the review
+panel with its dark table header and confidence bars — and both panes survive the
+reduction. `forecasting-optimization.jpg` is a map, which beats everything else at
+tile size, cropped from x = 0 so the dark app rail is in and the right-hand changes
+rail is out (an earlier variant clipped it and left an orphaned "10" in the
+corner). `knowledge-analytics.jpg` is the "sources feeding the lakehouse" screen: a
+3 + 2 card grid over a dark teal object bar, the crispest structure in the ERP set
+at 240 px, carrying no figures at all.
+
+**Both crops are also clearance decisions.** The document crop starts at y = 275
+because at y = 250 the metadata row still showed the walkthrough's synthetic
+counterparty name. Rejected outright: modal dialogs over a blurred map, a frame
+carrying the Oracle mark, and two frames whose USD figures sat exactly where the eye
+lands. No customer name, no real geography and no uncleared figure is in any
+shipped file — the two JPGs that do show numbers show demo data already published
+on their product pages, illegible at tile size.
+
+**The three placeholders are one design**, so a group with no walkthrough does not
+advertise its absence: an app-window wireframe in theme colours (`#edf0f2` ground,
+a white window with 4 px corner cuts and a 1.5 px `#bdcbd7` chrome, one `#c1dff4`
+block for "selected" per SS26 §3, content blocks in `#e1e7eb` / `#d1dae2`), no text
+and no logo, with the group's own line icon drawn large at 25 % group opacity in
+`#4c5156` right of centre. Only the content area differs — a media block with a
+scrubber and thumbnails (video), a query field over result rows (research), a
+record card over a three-step flow with a check on the last (transactions) — which
+is enough that three adjacent tiles do not read as duplicates.
+
+**Tool note — `sips --cropOffset`.** On this Mac (sips-316) `sips -c <h> <w>
+--cropOffset <y> <x>` takes the crop's **top-left origin in pixels from the image's
+top-left**, not a shift from the centre — except that exactly `0 0` is read as
+"unset" and falls back to a centred crop (proven by hash), and negative offsets
+render black. So use an origin with at least one non-zero component, then
+`sips --resampleWidth 960 -s format jpeg -s formatOptions 80`.
 
 ---
 
