@@ -736,6 +736,26 @@ Given P1's finding that the "so what" is the core human decision, this is a cons
 | B-10 | Moody's — AI and GenAI Risk Solutions (Research Assistant, Early Warning System, Loan Monitoring, Automated Credit Memo, QUIQspread, Automated Covenants) · https://www.moodys.com/web/en/us/capabilities/gen-ai.html | T1 |
 | B-11 | Moody's — Banking Solutions & Risk Management · https://www.moodys.com/web/en/us/who-we-serve/banking.html | T1 |
 | B-12 | FactSet IR — AI financial crime risk management tools integrated into Workstation for corporate banks (Mar 2026) · https://investor.factset.com/news-releases/news-release-details/factset-integrates-advanced-ai-financial-crime-risk-management | T1 |
+| B-13 | HubSpot developer blog — ChatGPT deep research connector for HubSpot (read access only; paid plan; web only) · https://developers.hubspot.com/blog/hubspot-deepresearch-connector | T1 |
+| B-14 | OpenAI — Deep research API guide ("the API doesn't offer formal structured output modes"); models `o3-deep-research`, `o4-mini-deep-research` · https://developers.openai.com/api/docs/guides/deep-research | T1 |
+| B-15 | OpenAI — ChatGPT automations/tasks docs · https://learn.chatgpt.com/docs/automations | T1 |
+| B-16 | Google Cloud — Gemini Deep Research Agent card (async `background: True`, `service_tier: deferred`, structured output "Not supported", Preview) | T1 |
+| B-17 | Anthropic — "Salesforce in Claude" (beta 2026-09-15; 37 skills incl. account research; write-back after seller approval; permissions-governed) · https://www.claude.com/blog | T1 |
+| B-18 | Anthropic — "Agents for financial services" (10 templates incl. **Meeting preparer**, **Market researcher**; connector list) · https://www.anthropic.com/news/finance-agents | T1 |
+| B-19 | Anthropic — Claude Cowork scheduled tasks (hourly/daily/weekly/weekdays/manual; run remotely) · https://support.claude.com/13854387 | T1 |
+| B-20 | Salesforce — *State of Sales*, 7th edition (n=4,050 sales professionals, 22 countries, Aug–Sep 2025; 16% of time on preparation and planning; 40/60 selling vs non-selling; 91% say AI benefits sales planning; top deployed agent use cases) — primary PDF read | T1 |
+| B-21 | Evalueserve — account intelligence / sales intelligence service pages (four-step process; Company/Sector/Peer Intelligence) | T3 |
+| B-22 | Acuity Knowledge Partners — 6,000+ analysts, 500+ financial institutions, dedicated sector coverage teams (site 403s; snippet-only) | T3 |
+| B-23 | Clay — Account Research Agents docs (open beta; agent-managed fields; "Each field also carries the agent's reasoning"; human-approved CRM sync; ~15-min auto-enrichment; credit + 1 action per record) · https://university.clay.com | T1 |
+| B-24 | Salesforce newsroom (2026-03-16) — Agentforce Engagement / Pipeline Management / **Account Research & Meeting Prep** / Quoting / Partner Success "Generally available now" | T1 |
+| B-25 | Gong — AI Briefer help doc ("structured summaries that unify data from conversations, emails, web information, and your CRM"; custom brief types) · https://help.gong.io | T1 |
+| B-26 | GitHub — `langchain-ai/company-researcher` (user-supplied JSON schema; reflection loop; confidence-level schema variant). **Archived 2026-03-11** | T1 |
+| B-27 | CrewAI official templates — Lead Scoring and Strategy Crew; Prospect Analysis Crew; `flows/lead-score-flow` (human review of top 3) | T1 |
+| B-28 | n8n template library — #12710 "Enrich B2B leads for Attio CRM with Apollo, LinkedIn, news and GPT-4o" (Tavily news + LLM Critic agent verifying claims + Attio write-back); also #6093, #11928, #6776, #13457 | T1 (community-authored) |
+| B-29 | Zapier — "Account Research" automation template category (38 templates); "Create concise account brief inside target account record" (six sections; overwrites previous summary each run; no external feed) · https://zapier.com/automations/sales/sales-intelligence/account-research | T1 |
+| B-30 | Microsoft Learn — Copilot Studio Agent Library; Know My Customer; **Personal News Digest** template (doc updated 2026-09-18) · https://learn.microsoft.com/en-us/microsoft-365/copilot/extensibility/agent-template-personal-news-digest · https://learn.microsoft.com/en-us/microsoft-copilot-studio/guidance/kit-agent-library | T1 |
+| B-31 | Salesforce — Revenue Cloud / Agentforce Revenue Management (product catalog in chat; AI suggestions from purchase history) · https://www.salesforce.com/sales/revenue-lifecycle-management/revenue-cloud/ | T3 |
+| B-32 | Sales-enablement comparison write-ups on Highspot / Seismic / Showpad AI content recommendation (deal stage + buyer profile; PitchAI); Seismic–Highspot merger intent, Feb 2026 | T3 |
 
 ### Part C — the gaps
 
