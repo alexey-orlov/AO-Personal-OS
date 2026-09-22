@@ -880,9 +880,11 @@ if (!arr(C.products) || C.products.length !== 7) {
     if (str(c.chip) && c.chip !== c.full) {
       fail(where, 'chip "' + c.chip + '" differs from full "' + c.full + '" — a group has one name, on the tile, the rail and the product chip');
     }
-    /* The tile's one line is read at 240px wide beside four others. */
+    /* The tile's one line is read in a third of the row, under the image. The
+       budget counts words, not the em dashes a parenthetical rides on. */
     if (str(c.line)) {
-      if (words(c.line) > 24) fail(where, "line is " + words(c.line) + " words (max 24 — it sits under a tile image)");
+      var lineWords = words(c.line.replace(/\s[—–-]\s/g, " "));
+      if (lineWords > 26) fail(where, "line is " + lineWords + " words (max 26 — it sits under a tile image)");
       if (c.line.trim().slice(-1) !== ".") fail(where, "line does not end in a period — the five tiles are sentences and sit side by side");
     }
     /* One folder, so the tile art cannot be confused with a hero or a step
