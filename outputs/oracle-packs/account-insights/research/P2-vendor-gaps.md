@@ -176,6 +176,14 @@ Both ABM vendors sell **account-level propensity**, not **event-level implicatio
 | **Agentforce Account Management** | A "specialized **subagent**" of the Sales Management agent for account managers — lets sellers ask the agent to "perform **deep research**, summarize recent interactions, and **recommend next steps** instead of manually digging through multiple systems." | CRM + multiple systems [T1 Help, retrieved via search snippet — full page is JS-rendered, see `## Unverified`] |
 | **Meeting and account briefs** | Delivered "in **Slack, ChatGPT, and mobile** — all packed with company summaries, recent conversations, **web updates**, and service history." | [T2/T3 Salesforce newsroom] |
 
+**Spring '26 release (launching 2026-02-23) — the strongest Salesforce statement on this exact job** [T3 salesforce.com newsroom, verbatim]:
+> "Agentforce now **removes the heavy lift of account research**, giving sellers an instant, always-complete view of every customer." … "It continuously pulls together insights from **Salesforce, third-party data, conversations, and more** so your account intelligence is always fresh, aligned, and actionable." … "With automated research, synthesized summaries, and clear next steps, sellers can **prep for meetings in seconds instead of hours**."
+
+Also new: **Sales Workspace** — "brings together agents, analytics, and predictive insights in a new, intelligent hub for every rep"; a lens onto "how Agentforce has been helping them across meetings, Opportunities, Leads, **Account Research**, and more." [T3]
+The release announcement makes **no mention of human review, approval, citations, or confidence** and does not state GA status per feature. [T3]
+
+**Financial-services branch, for contrast** [T3 salesforce.com FS use-case page]: the named meeting-prep artifacts are **Wealth Client Interaction Summary** (GA Oct 2024) and **Business Relationship Plan Interaction Summary** ("coming soon"). They consolidate **only internal CRM data** — "emails, call notes, and past conversations with clients" — over Accounts, Cases, Financial Plans, Financial Goals and Interaction Summaries. **No external news or market events, no compliance/approval workflow documented**, and a forward-looking-statements disclaimer. That is a notable contrast with Moody's, whose FS answer *starts* from headlines.
+
 **Taxonomy shape:** *job role → agent → topics/actions.* Salesforce does not decompose the job into steps at all; it decomposes it into **who the agent stands in for**.
 
 **Notable for the gap check:**
