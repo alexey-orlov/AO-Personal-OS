@@ -440,13 +440,11 @@ kpis:                                      # component 11 — ONE metric set
     figure_status: to_follow
     caveat: "Coverage is the pack's own first-order claim — the manual process trades depth against breadth and this removes the trade."
     source: research-brief-2026-09-22
-  context_anchor:
-    statement: "Sellers spend 9% of the week researching prospects and 9% on preparation and planning — 18%, more than they spend meeting customers in person."
-    attribution: "Salesforce State of Sales, 6th edition (n=4,050)"
-    use: >-
-      Context for the size of the job, never presented as a result of this pack. Every
-      time-saved figure found in this market is vendor-sourced with no stated method; none may
-      be reused.
+  # CONTEXT ANCHOR — not a metric of this pack, and never printed as one.
+  # "Sellers spend 9% of the week researching prospects and 9% on preparation and planning —
+  # 18%, more than they spend meeting customers in person." Salesforce State of Sales, 6th ed.
+  # (n=4,050). Usable to size the job. Every time-saved figure in this market is vendor-sourced
+  # with no stated method; none may be reused.
 
 packages:                                  # component 12
   tier_vocabulary_note: "PoV Jumpstart / Integration / Scaling per decisions-2026-09-18. S/M/L survive only as internal size tags."
