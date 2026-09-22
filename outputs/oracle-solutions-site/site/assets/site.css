@@ -148,7 +148,7 @@
 .cut,
 .ptile, .case-card, .ways, .way-mark, .pillar, .contact-card, .contact-photo,
 .panel--gate, .panel--kit, .panel--cta, .stat-tile, .stat-tile-mark,
-.bo-band, .bo-tile, .bo-chip, .modal-panel, .empty, .segmented, .fact-row,
+.bo-band, .bo-tile, .bo-tile-mark, .gtile, .modal-panel, .empty, .segmented, .fact-row,
 .step-frame, .video-card, .stack-tag, .cap-tag, .case-medallion, .step-index,
 .stepper-num, .gate-mark, .form-confirm-mark, .media-figure, .case-callout,
 .light-band-media, .modal-panel--media, .tip::after {
@@ -162,12 +162,12 @@
 
 /* Cards and panels take the 8px cut; the big plates take 12px. */
 .ptile, .case-card, .ways, .pillar, .contact-card, .contact-photo,
-.panel--gate, .panel--kit, .panel--cta, .stat-tile, .bo-band, .modal-panel,
+.panel--gate, .panel--kit, .panel--cta, .stat-tile, .bo-tile, .gtile, .modal-panel,
 .empty, .segmented, .fact-row, .step-frame, .video-card {
   --cut: var(--cut-8);
 }
 
-.media-figure, .case-callout, .light-band-media, .modal-panel--media {
+.media-figure, .case-callout, .light-band-media, .modal-panel--media, .bo-band {
   --cut: var(--cut-12);
 }
 
@@ -2926,9 +2926,11 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
     linear-gradient(180deg, #f5f7f9 0%, #ffffff 100%);
 }
 
+/* Even columns since round 9: the stack carries three bands of four, five and
+   four tiles, and at 7/5 the five-tile band could not hold a group name. */
 .home-hero-inner {
   display: grid;
-  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  grid-template-columns: minmax(0, 6fr) minmax(0, 6fr);
   gap: clamp(2.5rem, 5vw, 5rem);
   align-items: center;
   padding-block: clamp(3rem, 6vw, 5rem) clamp(2.5rem, 4vw, 3.5rem);
