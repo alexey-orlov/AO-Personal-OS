@@ -405,6 +405,9 @@ window.SITE_CONTENT = {
       {
         id: "oci-nvidia",
         label: "OCI + NVIDIA",
+        /* The hero stack names the engine layer this platform carries; every
+           other surface renders the canonical `label` alone (round 9, Alex). */
+        stackLabel: "OCI + NVIDIA NeMo",
         fullLabel: "Oracle Cloud Infrastructure + NVIDIA",
         description: "GPU cloud plus the NVIDIA agent, extraction and optimization engines — AI-Q, cuOpt, NeMo.",
         emptyState: "The practice delivers on this platform — see Services, or tell us the workflow you have in mind."
@@ -433,9 +436,46 @@ window.SITE_CONTENT = {
     ],
     categoryLabel: "What it does",
     categories: [
-      { id: "deep-research", chip: "Deep research", full: "Deep research & investigation" },
-      { id: "processing-pipelines", chip: "Document processing", full: "Document processing & review" },
-      { id: "data-analysis", chip: "Data analysis & optimization", full: "Data analysis, answers & optimization" }
+      {
+        id: "video-image",
+        chip: "Video & image",
+        full: "Video & image intelligence",
+        line: "Cameras, footage and photos read by AI: defects spotted, scenes found, events flagged, for a person to confirm.",
+        image: "assets/img/groups/video-image.svg",
+        emptyState: "Video and image work is delivered as an engagement today, on OCI + NVIDIA. Tell us the footage or the inspection you have in mind."
+      },
+      {
+        id: "deep-research",
+        chip: "Deep research",
+        full: "Deep research & investigation",
+        line: "Agents that read across your systems and outside sources and bring back a cited answer: an account brief, a case file, a variance explained.",
+        image: "assets/img/groups/deep-research.svg",
+        emptyState: "Deep research agents are scoped per engagement. Tell us the question your people spend days answering."
+      },
+      {
+        id: "documents",
+        chip: "Document processing",
+        full: "Document processing",
+        line: "Long contracts and records turned into checked, structured data, every value traced to its page and approved by a reviewer.",
+        image: "assets/img/groups/documents.jpg",
+        emptyState: "Document processing is scoped per engagement. Tell us the document type and the system it feeds."
+      },
+      {
+        id: "optimization",
+        chip: "Optimization",
+        full: "Optimization",
+        line: "Plans and schedules computed against every constraint at once — routes, shifts, allocations — for the people who own them to approve.",
+        image: "assets/img/groups/optimization.jpg",
+        emptyState: "Optimization is scoped per engagement. Tell us the plan your dispatchers or planners build by hand today."
+      },
+      {
+        id: "knowledge-assistants",
+        chip: "Knowledge assistants",
+        full: "Enterprise knowledge assistants",
+        line: "Plain-language answers over your governed data, from the ERP to the systems around it, with the source behind every answer.",
+        image: "assets/img/groups/knowledge-assistants.jpg",
+        emptyState: "Knowledge assistants are scoped per engagement. Tell us the questions your teams ask, and which systems hold the answers."
+      }
     ],
     availability: {
       label: "Availability",
