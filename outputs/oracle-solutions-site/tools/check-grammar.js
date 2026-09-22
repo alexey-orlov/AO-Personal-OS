@@ -1139,6 +1139,18 @@ if (!arr(C.products) || C.products.length !== 7) {
   (((d || {}).why || {}).pillars || []).forEach(function (p, i) {
     if (str((p || {}).icon)) namedIcons.push(["overview.delivery.why.pillars[" + i + "]", p.icon]);
   });
+  /* Round 9: the stack's top band names its own glyphs, and the middle band
+     takes the group glyphs — both are drawn in assets/app.js, so both are
+     checked here. A group glyph that is missing leaves an empty tile. */
+  ((((h || {}).stack || {}).services || {}).items || []).forEach(function (item, i) {
+    if (str((item || {}).icon)) namedIcons.push(["overview.hero.stack.services.items[" + i + "]", item.icon]);
+  });
+  (function () {
+    var icons = (((C.shared || {}).tagFamilies || {}).pattern || {}).icons || {};
+    PATTERN_IDS.forEach(function (id) {
+      if (str(icons[id])) namedIcons.push(["shared.tagFamilies.pattern.icons." + id, icons[id]]);
+    });
+  })();
   var appSrc = fs.readFileSync(path.join(root, "site/assets/app.js"), "utf8");
   var iconKeys = [];
   var iconRe = /^\s{4}"?([A-Za-z-]+)"?:\s*'/gm;
@@ -1151,6 +1163,13 @@ if (!arr(C.products) || C.products.length !== 7) {
      it is genuinely in flight, and take it out in the same change that draws
      it — a name that stays here is an unchecked icon. */
   var PENDING_ICONS = [];
+  /* Round 9: the two glyphs of the retired three-category model leave the
+     registry with their ids — an icon nothing can name is never checked. */
+  ["pattern-processing-pipelines", "pattern-data-analysis"].forEach(function (key) {
+    if (iconKeys.indexOf(key) !== -1) {
+      fail("assets/app.js", 'ICONS still carries "' + key + '" — that category is retired, and an icon no data can name is unchecked');
+    }
+  });
   if (!iconKeys.length) {
     warn("assets/app.js", "no ICONS entries matched — the registry's shape changed and this check is reading nothing");
   } else namedIcons.forEach(function (pair) {
