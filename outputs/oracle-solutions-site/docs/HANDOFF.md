@@ -62,7 +62,7 @@ Done 2026-09-16 and re-cut in round 9: `facets.technology` is the canonical four
 
 **The plan below is kept as written**, because it is the reasoning the build was judged against, not a to-do list. Where the build deviated from it — *ready-to-run*, the duration stat, four S2 bullets, the method line and the NDA line, the partner strip, the H1 scale, the two ladder vocabularies — `PROVENANCE.md` §18.0 records each deviation and the reason for it. The data model that shipped is in `SCHEMA.md` §`overview`; §6.4's execution split is history now.
 
-**None of the copy below is live any more.** The §18.7 messaging pass rewrote the home page against an Oracle rep and an enterprise buyer, and retired this brief's *best-of-breed*, *ready-to-run*, *packaged*, *workflow pattern* and its counted headlines (*Seven products, three workflow patterns.*). Read §6 for the reasoning; read `content.js` and `PROVENANCE.md` §18.7 for the words.
+**None of the copy below is live any more,** and neither are two of its layouts. The §18.7 messaging pass rewrote the home page against an Oracle rep and an enterprise buyer, and retired this brief's *best-of-breed*, *ready-to-run*, *packaged*, *workflow pattern* and its counted headlines (*Seven products, three workflow patterns.*). **Round 9 then replaced the hero stack and the whole of S3** — three layers read bottom-up, and six group tiles instead of three product-row columns (`PROVENANCE.md` §28, `VISUAL-GRAMMAR.md` §9). Read §6 for the reasoning; read `content.js` and the two PROVENANCE sections for what is on the page.
 
 ### 6.1 Positioning and naming
 

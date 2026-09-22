@@ -428,7 +428,7 @@ spec (1.5 px, no fill):
 | `pattern-documents` | group chip, `documents` | A page with a folded corner and two text lines |
 | `pattern-transactions` | group chip, `transactions` | Three linked steps, a check on the last |
 | `pattern-forecasting-optimization` | group chip, `forecasting-optimization` | A rising line through a node, on an axis |
-| `pattern-video-image` | group chip, `video-image` | A frame with a play mark |
+| `pattern-video-image` | group chip, `video-image` | A frame with a title bar and a play mark |
 | `platform-oci-nvidia` | technology chip, `oci-nvidia` | A cloud above a pinned chip |
 | `platform-oracle-ai-data-platform` | technology chip, `oracle-ai-data-platform` | A data cylinder with a check |
 | `platform-oracle-ai-lakehouse` | technology chip, `oracle-ai-lakehouse` | Stacked layers |
