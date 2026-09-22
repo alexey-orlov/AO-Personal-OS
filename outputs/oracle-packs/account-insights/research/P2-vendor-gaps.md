@@ -446,7 +446,99 @@ Competitors are judged per sub-job, not per category label. Seven sub-jobs, deri
 
 ### B2. Indirect substitutes — solves the pain another way
 
-_pending_
+**Headline:** the substitutes are stronger than the direct competitors on several sub-jobs, and two of them have effectively become direct. **But every substitute either grounds in first-party data *or* reads the external world well — never both at analyst quality — and none emits an implication mapped to what the seller sells.**
+
+#### B2.1 General-purpose LLM deep research
+
+| | Recurrence | First-party CRM | Structured per-account record | Citations / confidence | Write-back |
+|---|---|---|---|---|---|
+| **OpenAI ChatGPT deep research** | Tasks are schedulable; **deep research is not named as a supported scheduled capability**, and tasks "don't keep a local folder or worktree available between runs" — no persistent state [T1 learn.chatgpt.com/docs/automations] | **HubSpot: yes, read-only** — "deals, companies, contacts, tickets, and their associations (**read access only**)", paid plan, **web only** [T1 developers.hubspot.com]. **No Salesforce first-party doc found** | **No** — "the API doesn't offer formal structured output modes" [T1 developers.openai.com] | Inline citations with URL+title, "clearly visible and clickable". **No confidence scoring** [T1] | **No** — HubSpot's own page tells users to return to HubSpot to act |
+| **Google Gemini Deep Research Agent** (Gemini Enterprise, ex-Agentspace) | **The best recurrence primitive of the four** — a real async API (`interactions.create`; "You must run… asynchronously by setting `background` to `True`"; `service_tier: deferred` = off-peak at 50% discount) [T1 agent card] | Grounding = Google Search, **remote MCP (preview)**, Enterprise Web Search, Agent Search, file uploads. **No named CRM connector** [T1] | **Explicitly listed under "Not supported"** [T1] | Yes, cited reports with inline charts [T1] | Not documented. **Status: Preview** |
+| **Anthropic Claude** | **Claude Cowork scheduled tasks**: "hourly, daily, weekly, on weekdays, or manually"; "run remotely, so they run on their cadence even when your computer is asleep" [T1 support.claude.com]. Salesforce briefs "can be scheduled to run in the background" [T1] | **Salesforce in Claude** (beta, 2026-09-15): "brings a seller's accounts, opportunities, and pipeline into Claude"; **37 skills "including account research, call prep, pipeline review, and CRM updates"**; "all governed by existing user permissions in Salesforce" [T1 claude.com] | Skills-shaped, not a schema | — | **Yes, approval-gated:** "Claude can update opportunities, log calls, create follow-up tasks, and modify stages or close dates **after seller approval**" [T1] |
+| **Perplexity** | — | — | — | — | — |
+
+**Perplexity is entirely unverified.** perplexity.ai/enterprise, /help-center and /hub all return 403 to automated fetch. Every Perplexity claim in circulation (400+ connectors incl. Salesforce/HubSpot, Deep Research over internal knowledge, structured outputs, scheduling, write-back) is **T2/T3 only**. Do not use.
+
+**Anthropic is arguably no longer an indirect substitute.** Two of the ten **Claude for Financial Services agent templates** are this job in an FSI skin [T1 anthropic.com/news/finance-agents]:
+- **Meeting preparer** — "assembles client and counterparty briefs ahead of calls"
+- **Market researcher** — "tracks sector and issuer developments, **synthesizes news, filings, and broker research**, and flags items for credit and risk review"
+
+with connectors to D&B, Moody's MCP, FactSet, S&P Capital IQ, MSCI, PitchBook, Morningstar, LSEG, Guidepoint, Third Bridge, IBISWorld, Verisk and others, plus write-back to Excel/PowerPoint/Word. That is SJ-1 + SJ-3 + SJ-4 + SJ-6 + part of SJ-7 in one shipped product.
+
+**Which sub-job each wins, and the dimension:**
+- **SJ-4 ("so what") on cost** — all four. Marginal cost per account approaches zero; no direct competitor can match it.
+- **SJ-3 (first party) on permission fidelity** — Anthropic's Salesforce integration, because it inherits Salesforce user permissions and gates writes behind approval.
+- **Recurring coverage at scale on latency/economics** — Gemini's deferred async API.
+- **Where they all fail:** no seller-catalog mapping (SJ-5); no structured per-account record with materiality and confidence (SJ-7); no event taxonomy tuned to what a *seller* cares about; and — for OpenAI and Google — nothing lands back in the workflow.
+
+#### B2.2 Doing it manually with humans
+
+**The size of the prize, from the only T1 seller-side number that exists** — Salesforce *State of Sales*, 7th edition (**n = 4,050 sales professionals, 22 countries, surveyed Aug–Sep 2025, third-party panel**):
+
+| Activity | Share of an average workweek |
+|---|---|
+| Meeting with customers | 22% |
+| Prospecting | 18% |
+| Creating quotes | 17% |
+| **Planning** | **16%** |
+| Manually entering data | 13% |
+| Training | 11% |
+| Other | 3% |
+| **Selling / not selling** | **40% / 60%** |
+
+"On average, sales professionals spend **16% of their time on preparation and planning**" — ≈**6.4 hours per rep per week**. **91% of sales pros say AI benefits sales planning**, ranking sales planning **#2** in perceived AI benefit.
+
+**The counter-signal, from the same report and worth more than the headline:** the **top three actually-deployed AI agent use cases in sales** are **1) fulfilling orders, 2) tracking product usage, 3) creating quotes**. Research and prep is **not** in the deployed top three despite ranking #2 in perceived benefit. That is stated demand that has not converted to budget — simultaneously the opening and the risk.
+
+**Research-as-a-service (the offshore substitute).** **Evalueserve** publishes a four-step process that *is* this job, verbatim: "**Define priority accounts → Gather data using advanced keyword search, AI/ML engines, and APIs → Analyze using AI/ML tools → Distribute insights via CRM and intelligence platforms**", across Company / Sector / Peer Intelligence. **Acuity Knowledge Partners**: "over **6,000 analysts**… supports more than **500 financial institutions**", with "dedicated sector coverage teams" [T2/T3 snippets — acuity's own page 403s].
+- **Wins SJ-5 and SJ-7 outright.** A named analyst who knows your catalog and can be challenged beats every tool on "what does this mean *for us*", and is accountable in a way no product is.
+- **Loses on economics and latency:** cost scales linearly with account count (exactly wrong for long-tail coverage), days of latency so no pre-meeting brief, tail uncovered, output is a document not a record, no self-serve refresh.
+- **No KPO publishes a rate card.** Evalueserve's "up to 60% cost reduction" is its own marketing. Per-account/per-brief pricing is unavailable anywhere.
+
+**Build it in-house.** Wins on data control and exact catalog mapping. Loses on the parts nobody's templates solve — entity resolution, dedup and change detection across runs, feed precision, and an eval loop that stops a confidently-wrong implication — plus a maintenance tax the ecosystem makes visible: **LangChain's own `company-researcher` was archived 2026-03-11**. **No credible T1/T2 case study of an enterprise building this in-house was found**; everything returned was T3 content marketing with unattributed figures.
+
+#### B2.3 Adjacent workflow substitutes
+
+**Clay Account Research Agents (open beta) is the benchmark, and it is a better product than most of the direct competitors** [T1 university.clay.com]:
+> "**always-on agents that run across every account in an Audience segment, synthesizing CRM data, call transcripts, and signals into agent-managed fields**"
+
+- Reads Salesforce, HubSpot, Snowflake/BigQuery/Databricks, **Gong transcripts**, plus Clay's enrichment and signals layer.
+- "re-runs on a set schedule or whenever you run it manually"; auto-enrichment "within about **15 minutes**" of a record joining.
+- Output is "**structured, auditable fields**" with persistent per-account memory — and critically: "**Each field also carries the agent's reasoning, so you can see what it read and why it updated a value.**"
+- Write-back to CRM/warehouse, **human-approved**.
+- Pricing: "variable credits (same pricing model as Claygent) plus **1 action per record processed**".
+
+That single quoted sentence is the **only shipped implementation of per-claim provenance-plus-rationale** found anywhere in this research — see how it changes C3 and C5 below. Where it still fails: it produces **fields, not implications**; no catalog mapping; and its external half is Clay's signal marketplace (funding, headcount, tech stack, job posts), **not filings read as an analyst would**.
+
+**The rest, with the one dimension each wins:**
+
+| Substitute | Wins | Fails |
+|---|---|---|
+| **Salesforce Agentforce Account Research & Meeting Prep** — "**Generally available now**" as of 2026-03-16; "automates research and generates briefs, turning you into an instant expert on every account"; agents "powered by your enterprise and Customer 360 data across Service, Marketing, Commerce" [T1 newsroom] | **Distribution.** Inside the CRM, GA, no new vendor. The default-by-inertia substitute for any Salesforce shop. | The newsroom page documents **no external web/news/filings source** — everything named is Customer 360 / Data 360 / Slack. Meeting-triggered, not coverage. No structured implications record, no catalog mapping. |
+| **Gong AI Briefer** — "an AI agent that generates **structured summaries** that unify data from **conversations, emails, web information, and your CRM**"; briefs for accounts/deals/calls/contacts; "**Admins can create custom brief types**" [T1 help.gong.io] | **The richest first-party evidence anywhere** — what the customer actually said. | "web information" scope undocumented; **the doc does not address scheduling, automation, or Slack/CRM delivery**; needs prior conversations, so useless for accounts you have never spoken to — exactly where news-driven implications matter most. |
+| **Feedly Market Intelligence** (also A1.11) | Best-documented **monitoring** layer, with a topic model built for these event types and inline citations per response part. | Zero first-party grounding; docs do not document scheduled AI Actions, CRM integration, or account-level output; it makes a **market** report, not a per-account implication. |
+| **AlphaSense** | Source authority — filings, transcripts, broker research, expert calls. No general LLM tool has licensed access to this corpus. | **No alerts/monitoring API, watchlist API, or CRM integration verifiable from AlphaSense's own docs.** Output is documents-and-answers; priced per research seat, not per account. |
+| **Microsoft Agent Library** — **Know My Customer** ("surface key customer insights, history, and relationship context from **your organization's data**") and **Personal News Digest** ("**organizational** news briefings from Outlook, Teams, and SharePoint") [T1 Microsoft Learn, doc updated 2026-09-18] | Zero-effort deployment inside M365. | Both are scoped to first-party data. The "news" template is *internal company* news. Neither touches the external world. |
+| **Meeting-prep assistants** (Avoma, Momentum, Attention, Clari Copilot) | Zero-friction insertion at the calendar event. | T2/T3 only; **none documented as reading external news or filings**. |
+| **Google Alerts / RSS + a shared doc** — **the real incumbent** | Free, instant, no procurement, no data-governance review. | Noisy, no dedup, no structure, no coverage guarantee — and the expensive part, the synthesis, is untouched. |
+
+**The pricing floor this sets:** a paid product must beat "**free + 20 minutes of a rep's attention**", not merely beat Clay. That is the honest benchmark and it is rarely stated.
+
+#### B2.4 Build-your-own on an agent framework
+
+Shipped, named templates exist at nearly every vendor — but **each stops at one of two places: it researches the external half with no CRM, or it summarizes the CRM half with no external feed. No vendor-shipped template does both and emits account-specific implications.** The two closest ship from **Zapier** and from a **community n8n author**, not from a model vendor.
+
+| Vendor | Shipped artifact | Status |
+|---|---|---|
+| **LangChain** | `langchain-ai/company-researcher` — "returns it in a **structured format defined by user-supplied JSON schema**"; Tavily search; a **reflection loop** that "evaluates the quality of extracted information… generates targeted follow-up search queries"; **a schema variant with confidence levels**; 216★ | **ARCHIVED 2026-03-11, read-only** |
+| **CrewAI** | *Lead Scoring and Strategy Crew* (research + score + "talking points and engagement ideas"); *Prospect Analysis Crew*; `flows/lead-score-flow` (CSV → score → **human review of top 3** → emails) | Official templates |
+| **n8n** | **#12710 "Enrich B2B leads for Attio CRM with Apollo, LinkedIn, news and GPT-4o"** — Apollo + LinkedIn + **news via Tavily** + an **LLM Critic agent verifying claims**, output "a structured lead dossier", "**updates Attio company and people records**". Also #6093, #11928, #6776, #13457 | Community-authored, n8n-hosted |
+| **Zapier** | A whole **"Account Research" template category — 38 templates**: "Automatically gather and enrich account research across your target accounts, buying committees, and sales systems." Apps named include ChatGPT, Claude, HubSpot, Salesforce, **Clay**, **Feedly** | Shipped |
+| **Microsoft Copilot Studio** | Agent Library, 10 templates incl. Know My Customer, Personal News Digest, Executive Briefing | Shipped |
+| **Google ADK** | `google/adk-samples`: academic-research, customer-service, marketing-agency. **No official account/company-research sample found** | — |
+| **AWS** | `sample-deep-research-bedrock-agentcore` (topic-shaped: web, Wikipedia, ArXiv, financial data); `sample-bedrock-agentcore-vespa-ai-sales-assistant` (**product discovery, not account research**); managed runtime + persistent memory | Official samples, none account-shaped |
+
+**One Zapier template read end to end, because its failure mode is the instructive one** — *"Create concise account brief inside target account record"*: trigger = a button on a Zapier Tables account record; ChatGPT produces six sections (Company Overview, Strategic Initiatives, Technology Stack, Hiring Trends, Sales Intelligence Summary, Sources Cited); step 3 writes the brief back to the record, "**overwriting the previous summary on each run**." **No news feed or external CRM data is ingested — it reads only fields already stored in the table record.** And overwriting each run means **no change detection and no history**, which is fatal for a job whose entire point is *what changed since last time* (see A3-G2).
 
 ### B3. Same-vendor overlap — Oracle and NVIDIA products that already ship part of it
 
@@ -521,7 +613,14 @@ That makes this a **data-availability and packaging gap wearing the costume of a
 - "calibration in autonomous **agents** remains notably sparse" — i.e. the tool-use/agentic setting is worse-studied than single-turn QA [T2 arXiv 2601.07264, *The Confidence Dichotomy: Analyzing and Mitigating Miscalibration in Tool-Use Agents*].
 - Purpose-built work on exactly this artifact exists and is very recent: Yuan, Wang & Lei, *Towards Trustworthy Report Generation: A Deep Research Agent with Progressive Confidence Estimation and Calibration* [T2 arXiv 2604.05952], whose stated problem is that deep-research agents "generate claims without appropriate confidence indicators" and that "their internal confidence assessments often don't align with actual accuracy", producing reports that "appear authoritative but may contain unsupported or inaccurate information."
 
-**The honest version of this gap:** a calibrated per-claim probability is a research problem. But **a calibrated *evidence-class* label is not** — "disclosed in a filing" vs. "reported by one trade outlet" vs. "inferred by the model from two weak signals" is a deterministic property of the retrieval path, is auditable, and is what a coverage banker or a partner actually needs before repeating a claim to a client. Nobody ships even that. The gap is real; the *tractable* version of it is much closer than the literature suggests.
+**The honest version of this gap:** a calibrated per-claim probability is a research problem. But **a calibrated *evidence-class* label is not** — "disclosed in a filing" vs. "reported by one trade outlet" vs. "inferred by the model from two weak signals" is a deterministic property of the retrieval path, is auditable, and is what a coverage banker or a partner actually needs before repeating a claim to a client.
+
+**Correction, from the substitutes research:** "nobody ships even that" is too strong. Two shipped things come close and should be credited:
+- **Clay Account Research Agents** — "**Each field also carries the agent's reasoning, so you can see what it read and why it updated a value**" [T1 university.clay.com]. This is per-claim provenance *plus rationale*, attached to a structured field, in a shipped (open-beta) product. It is not a confidence score, but it is the auditability half — and it is more than any Part A vendor ships.
+- **LangChain's archived `company-researcher`** shipped **a schema variant with explicit confidence levels** [T1 GitHub, archived 2026-03-11]. The idea has been implemented and then abandoned, which is its own signal about demand.
+- **n8n community template #12710** runs an **"LLM Critic agent verifying claims"** before writing the dossier to Attio [T1 n8n template library] — a shipped verification pass, authored by a community member rather than a vendor.
+
+So the accurate statement is: **evidence-class labelling and per-claim rationale are shipped at the DIY/prosumer end of the market and absent from every enterprise product studied.** The gap is a packaging gap, not an invention gap — which makes it more attractive, not less.
 
 ### C4. First-party CRM grounding — **solved by the CRM vendors, absent from the research vendors, and undermined by the data itself**
 
@@ -544,7 +643,14 @@ That makes this a **data-availability and packaging gap wearing the costume of a
 
 ### C5. Human review as a stage — **almost universally missing, and it is the cheap one**
 
-Step 11 is nearly empty in the A2 map. Only **Klue** ships a named review stage (**Intel Triage Tools**, plus curation before newsletter/battlecard publish) [T3]; **Moody's Automated Credit Memo** produces a "fully written and **editable** narrative" [T1]; **Salesforce Pipeline Management Agent** has "suggestive or autonomous modes" [T3]; Clay's table is a de facto review surface.
+Step 11 is nearly empty in the A2 map. Only **Klue** ships a named review stage (**Intel Triage Tools**, plus curation before newsletter/battlecard publish) [T3]; **Moody's Automated Credit Memo** produces a "fully written and **editable** narrative" [T1]; **Salesforce Pipeline Management Agent** has "suggestive or autonomous modes" [T3].
+
+**Correction, again from the substitutes research** — approval gating *is* shipped, but only by the AI-platform and DIY layer, never by the account-intelligence vendors:
+- **Anthropic's Salesforce integration**: "Claude can update opportunities, log calls, create follow-up tasks, and modify stages or close dates **after seller approval**", with everything "governed by existing user permissions in Salesforce" [T1 claude.com].
+- **Clay Account Research Agents**: sync to CRM/warehouse is **human-approved** [T1].
+- **CrewAI `lead-score-flow`**: an explicit **human review of the top 3** before emails go out [T1 official template].
+
+The pattern is consistent and worth stating plainly: **the closer a product sits to the model, the more seriously it takes approval; the closer it sits to the sales-intelligence market, the less.** Approval is treated as an AI-safety feature, not as a sales-workflow feature — which is why it is missing from exactly the products a coverage team would buy.
 
 This matters because it is the named failure mode in the analyst data:
 - Gartner: **"by 2027, 40% of enterprises will demote or decommission autonomous AI agents due to governance gaps identified only after production incidents"** [T2 restatement].
