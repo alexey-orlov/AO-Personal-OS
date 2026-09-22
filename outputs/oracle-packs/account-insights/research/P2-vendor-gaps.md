@@ -1,6 +1,6 @@
 # P2 — Vendor Taxonomy Gap Check & Competitor Classes
 
-**Research status:** IN PROGRESS (skeleton created 2026-09-22 17:39)
+**Research status:** COMPLETE (2026-09-22). Parts A, B1–B3 and C all filled; `## Sources` and `## Unverified` closed out.
 
 **The job under study:** turning external developments (news, filings, disclosures, market events) plus a company's own first-party account data into account-specific implications — opportunities and risks — that a sales or coverage team can act on. Output = narrative account briefing or a structured per-account record.
 
@@ -35,9 +35,12 @@
 7. **No direct competitor wins more than three of the seven sub-jobs.** The corpus belongs to AlphaSense/Factiva/Moody's (licensing, not crawling — structurally unbeatable by a build); first-party grounding belongs to Microsoft/Salesforce; nobody owns the catalog mapping or the governance.
 7b. **The substitutes are, on several sub-jobs, better than the direct competitors.** **Clay Account Research Agents** (open beta) is the single best implementation found anywhere — always-on agents over an account segment, CRM + Gong + signals, **structured auditable fields where "each field carries the agent's reasoning"**, human-approved write-back. **Anthropic's Salesforce integration** ships 37 skills incl. account research with approval-gated write-back and inherited permissions. **Salesforce's own Account Research & Meeting Prep went GA 2026-03-16.** Anyone packaging this is entering an occupied room.
 7c. **And the real incumbent is still free.** Google Alerts + RSS + a shared doc. The pricing floor is "beat free plus twenty minutes of a rep's attention", not "beat Clay". Salesforce's own data says reps spend **16% of the week on preparation and planning** (n=4,050, Aug–Sep 2025) — but that research/prep is **not** among the top three *actually deployed* AI agent use cases in sales, which are order fulfilment, product-usage tracking and quote creation. Stated demand has not converted to budget.
-8. **Every vendor's claim is about time saved, none about being right.** "60 minutes to 60 seconds", "90% of research time", "~3 hours per prospect", "up to 30%". Zero published accuracy claims for the implication step, and zero calibrated confidence anywhere.
-9. **The analyst data says this is exactly where deployments will fail.** Gartner expects 95% of sellers' research workflows to begin with AI by 2027, AI agents to outnumber sellers 10:1 by 2028 — and **fewer than 40% of sellers to say agents improved productivity**, with "agent sprawl" and data foundations named as the cause [T2].
-10. **The defensible shape, if one is being packaged:** licensed/first-party grounding + a structured seller catalog + evidence-class labelling + a triage/approval stage + a "nothing happened" state. Each of those is individually unglamorous and collectively unoccupied.
+8. **⚠️ Oracle already ships this job, by name, twice.** **Fusion Sales 26B "Agent-Powered Account Intelligence"** produces "an AI-generated intelligence brief… from **web sources and external channels**… company overview, recent developments, strategic priorities, **potential risks, and product relevancy — all with cited sources and dates**." And **Oracle Financial Services' corporate-banking agents** (Apr 2026) are the exact pipeline shape, review step included. **But 26B is a five-step DIY recipe needing the customer's own Tavily API key and a hand-built VB extension** — on-demand, one account at a time, no dedupe, no scoring, no approval gate, no write-back. Meanwhile **Sales Command Center draws Oracle's own line**: "works out of the box on standard Oracle CX Sales data, **with no custom integrations or external data lake required**."
+9. **NVIDIA ships nothing that does this job.** The AI-Q blueprint's own state model has **no account entity, no score, no confidence field**, and its v2.2.0 changelog says the **research-plan approval step was removed**. There is **no SEC-filing or financial-report blueprint** — `industries/` holds asset lifecycle, energy and healthcare only. And the **NeMo Retriever Library is explicitly not supported under NVAIE**.
+10. **Every vendor's claim is about time saved, none about being right.** "60 minutes to 60 seconds", "90% of research time", "~3 hours per prospect", "up to 30%", "meetings in seconds instead of hours". Zero published accuracy claims for the implication step. The one genuine exception found: **ZoomInfo's Account Health skill returns a verdict "with a stated confidence level" and "asks for your input rather than guessing when the conversations don't settle the question"** [T1 release notes] — with no published calibration methodology.
+11. **The analyst data says this is exactly where deployments will fail.** Gartner expects 95% of sellers' research workflows to begin with AI by 2027, AI agents to outnumber sellers 10:1 by 2028 — and **fewer than 40% of sellers to say agents improved productivity**, with "agent sprawl" and data foundations named as the cause [T2].
+12. **Constraints that bound any Oracle-side packaging:** Fusion Agentic Applications is a **separately metered SKU**; **Document Generation costs 10×/20×/10× AI Units versus 0×/5×/3× for general reasoning** — a per-account document at scale is precisely where the meter bites; AI Units burn in dev and test too; Oracle **contractually bars external agents/MCP from reaching Fusion** except through approved patterns, with a **partner-developed carve-out** — so a pack must live inside AI Agent Studio; and Oracle **contractually assigns human oversight and approval to the customer**, which makes step 11 blessed white space.
+13. **Method note that changes how to read the rest of this file:** the two strongest findings above were **invisible on marketing sites** and surfaced only in a release-notes PDF and a readiness doc. Treat every "vendor X doesn't do Y" that rests on a marketing page as provisional.
 
 ---
 
@@ -976,3 +979,25 @@ Items I could **not** confirm from a primary source. None of these are asserted 
     - Per-account or per-brief pricing for any KPO — none published anywhere.
     - Google ADK "AI Sales Intelligence Agent Team" — community index only, **not** in `google/adk-samples`.
 28. **Seismic–Highspot merger** — announced *intent* to merge, February 2026 [T3]. Completion status unverified.
+
+### Additional unverified items from the Part B3 Oracle/NVIDIA research
+
+**Oracle**
+29. **DataFox EOL FAQ (Doc 2972969.1)** — login-gated. The **retirement itself is verified** from Oracle's own contract documents; only the exact date and migration guidance are unread. The widely-cited **31-Aug-2023 sunset date comes only from competitors SalesIntel and HG Insights** [T3] — do not repeat it as Oracle's date.
+30. **Oracle Digital Sales Rooms / Deal Rooms — current status UNCLEAR.** Absent from the current `oracle.com/cx/sales`; possibly absorbed into Sales Orchestration "Content Bundles". **Not asserted either way.**
+31. **Oracle AI Agent Marketplace contents.** Oracle publishes no agent list, so it is **not possible to confirm whether a partner already ships an account-briefing agent** (IBM's three announced agents do not). This is the single most important open competitive question for a partner pack.
+32. **"Classic Sales and Service Experience" EOL (26D → 27A)** — search-level evidence only.
+33. **AI Agent Studio's published template catalog** — the "**Organization Research Agent Team**" template is confirmed only by its mention in the 26B enablement steps, not by a catalog listing.
+34. **"Oracle Revenue Intelligence" is NOT a current named product** — marketing prose only. Do not cite it as a product.
+35. **OCI GenAI Agents region availability list** — unverified.
+
+**NVIDIA**
+36. **Oracle's GTC-2026 blog posts return HTTP 403 to every method tried.** Search snippets attribute to them an Oracle demo integrating **Open Agent Specification + NeMo Agent Toolkit with Oracle AI Database**. **Not asserted** — and worth chasing, since it would be the strongest joint-stack precedent.
+37. **`build.nvidia.com/blueprints` carries no status labels at all** — every NVIDIA GA/preview/deprecated status in B3.6 is **inferred from repo state or README notices**, not read off a status field.
+38. **nv-ingest → NeMo Retriever Library lineage** — the blueprint *rename* IS verified; the library naming history is not.
+39. **"Nemotron 3.5 Lightning / 3 Ultra" as AI-Q's default models** — the `develop` README names different models. Unverified.
+40. **NGC catalog collections** are not enumerable unauthenticated; **NVAIE coverage for AI-Q and the RAG Blueprint is unestablished.**
+
+### A methodological note worth carrying forward
+
+Two of this report's strongest findings — ZoomInfo's shipped confidence level and Oracle's 26B account-intelligence brief — were **invisible on the vendors' marketing sites and only appeared in a release-notes PDF and a readiness document**. Every "vendor X does not ship Y" claim in Parts A and C that rests on marketing pages alone should be treated as **provisional**. The reliable method is: release notes, readiness documents, service descriptions, developer docs and repo state — in that order — and marketing pages last.
