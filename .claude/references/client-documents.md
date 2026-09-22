@@ -54,8 +54,11 @@ counts and the scaffolding, not the essence" and used internal vocabulary
   they do afterwards, not the machinery. And readable with zero context (2026-09-22, Alex on a
   candidate table whose problem cells read *"the call turns on two millimetres nobody
   measured"*: "hard to comprehend out of context"): a reader outside the company with no
-  briefing can restate it — name the business in the sentence, use literal words, introduce
-  everything you refer to, no cleverness or ellipsis.
+  briefing — for a pack, the Oracle or SoftServe seller who will pitch it and has never worked in
+  the industry — can restate it: name the business in the sentence, use literal words, introduce
+  everything you refer to, no cleverness or ellipsis; if the pain is obvious only to insiders, one
+  clause first says it exists and why it hurts (Alex, 2026-09-22: "the Oracle rep should know the
+  issue first — many won't have that in their mental model").
 - **Structure before copy — a page is an argument, not an inventory** (2026-09-16, from
   Alex's review of the Services page: "very poorly structured, too long, no grand
   narrative"). Before choosing components, settle audience → positioning (what this page
