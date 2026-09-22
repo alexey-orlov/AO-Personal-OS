@@ -881,6 +881,35 @@ Given P1's finding that the "so what" is the core human decision, this is a cons
 | B-31 | Salesforce — Revenue Cloud / Agentforce Revenue Management (product catalog in chat; AI suggestions from purchase history) · https://www.salesforce.com/sales/revenue-lifecycle-management/revenue-cloud/ | T3 |
 | B-32 | Sales-enablement comparison write-ups on Highspot / Seismic / Showpad AI content recommendation (deal stage + buyer profile; PitchAI); Seismic–Highspot merger intent, Feb 2026 | T3 |
 
+### Part B3 — Oracle & NVIDIA same-vendor overlap
+
+| # | Source | Tier |
+|---|---|---|
+| O-1 | Oracle Fusion Sales 26B readiness — **"Agent-Powered Account Intelligence: Get insights on customer priorities and recent changes"** (verbatim brief description; Tavily MCP + VB extension enablement steps) · https://docs.oracle.com/en/cloud/saas/readiness/sales/26b/sfau-26b/26B-sf-automation-wn-f43252.htm | T1 |
+| O-2 | Oracle Fusion Sales 26C readiness — **Sales Command Center** ("no custom integrations or external data lake required") · https://docs.oracle.com/en/cloud/saas/readiness/sales/26c/sfau-26c/26C-sf-automation-wn-f49350.htm | T1 |
+| O-3 | Oracle 26C readiness — **Pre-Meeting Briefs** (Meeting Preparation Assistant Agent + Scheduler Agent; AI Outcome Store) | T1 |
+| O-4 | Oracle news (2026-04-14) — **"Oracle Financial Services extends agentic AI platform to corporate banking"** (Documents Data Extraction Agent; Narrative Generation Agent) · https://www.oracle.com/news/announcement/oracle-financial-services-extends-agentic-ai-platform-to-corporate-banking-2026-04-14/ | T1 |
+| O-5 | Oracle — **Fusion Service Descriptions: Retired Services** (eff. 16-Jul-2026): DataFox SKUs B91215, B91227, B91217, B91218, B91216, B93450, B93451; Fusion Sales Intelligence B95944 | T1 |
+| O-6 | Oracle — **Fusion Service Descriptions** (eff. 10-Sep-2026): zero "DataFox" occurrences; Fusion Agentic Applications B112535, AI Agents B112537/8, AI Units B112536; AI-Unit multipliers (Document Generation 10×/20×/10× vs General reasoning 0×/5×/3×); dev/test consumption; external-agent/MCP restriction with partner-developed carve-out; customer responsibility for "human oversight, approval controls, and safeguards" | T1 |
+| O-7 | Oracle — CX AI capability table (Account Advisor, My Territory Agent, Account Engagement Guide, Sales Intelligence & Account/Product Advisor Agents, Account Plan Summarization Agent, Renewal Agent, Contact Insights, program workspaces, Deal Advisor, Narrative Insights) · https://www.oracle.com/cx/ai/ | T1 |
+| O-8 | Oracle 25D readiness — **Account Advisor** scope ("documents attached to the account") | T1 |
+| O-9 | Oracle — **Content Intelligence** (26B, AI Agent Studio): third-party = SharePoint/Slack/Jira/Confluence/Drive/Box; knowledge graphs + sales battlecards | T1 |
+| O-10 | Oracle — **AI Agent Studio** tool types (Business Object, Connector, Document/RAG, Email, Deep Link, External REST, MCP) | T1 |
+| O-11 | Oracle — **OCI Generative AI Agents** docs (SQL / RAG / Agent-as-tool / Function / API tools; no native web search) | T1 |
+| O-12 | Oracle — **Oracle Digital Assistant** Fusion SaaS skills discontinued 21-Nov-2026; migrate to AI Agent Studio | T1 |
+| O-13 | Oracle — Unity CDP active; **Maxymiser** discontinued 31-May-2024 | T1 |
+| N-1 | GitHub — **`NVIDIA-AI-Blueprints/aiq`** (renamed from `aiq-research-assistant`), v2.2.1 (2026-08-22), branch `develop`, Apache-2.0 "as is"; `ChatResearcherState` has no account/score/confidence field; v2.2.0 changelog "no research-plan approval step" | T1 |
+| N-2 | NVIDIA — Blueprints catalog (32 enumerated); **Build an Enterprise RAG Pipeline** v2.6.2 (2026-08-20, renamed from multimodal PDF extraction); Streaming Data to RAG; Vulnerability Analysis; PDF to Podcast · https://build.nvidia.com/blueprints | T1 |
+| N-3 | GitHub — `NVIDIA/GenerativeAIExamples` `industries/` (asset lifecycle, energy, healthcare only — **no finance**); `RAG/notebooks/langchain/Chat_with_nvidia_financial_reports.ipynb` | T1 |
+| N-4 | GitHub — `NVIDIA-AI-Blueprints/ai-model-distillation-for-financial-data` README (financial-news classification, 13 event categories; builds on the deprecated data-flywheel blueprint) | T1 |
+| N-5 | NVIDIA developer blog (2024-06-28) — "Transforming Financial Analysis with NVIDIA NIM" (earnings-call structured extraction; ~84% F1 Llama 3 70B / Mixtral 8x22B) · https://developer.nvidia.com/blog/transforming-financial-analysis-with-nvidia-nim/ | T3 |
+| N-6 | build.nvidia.com — **Structured Report Generation Blueprint by LangChain** (partner, not NVIDIA-authored); cookbook `langchain-ai/langchain-nvidia/cookbook/structured_report_generation.ipynb` (plan → research → write → validate section → validate final; Tavily) · https://build.nvidia.com/langchain/structured-report-generation | T1 |
+| N-7 | NVIDIA docs — **"The NeMo Retriever Library is not supported under NVIDIA AI Enterprise (NVAIE)"** | T1 |
+| N-8 | GitHub — **NeMo Agent Toolkit** v1.9.0 (2026-09-10); `prompt_user_input` human-in-the-loop primitive | T1 |
+| N-9 | GitHub — **`NVIDIA/nvidia-oci-samples`** (pushed 2026-09-15): Terraform + NGC-Helm to deploy AI-Q on OKE; "community examples… not covered by NVIDIA Enterprise Support" | T1 |
+| N-10 | NVIDIA + Oracle GTC announcement, 2025-03-18 (160+ AI tools, 100+ NIMs in OCI Console, cuVS in Database 23ai) | T1 |
+| N-11 | NVIDIA — "NVIDIA and Partners Launch Agentic AI Blueprints", 2025-01-06 (names no financial/SEC blueprint) | T1 |
+
 ### Part C — the gaps
 
 | # | Source | Tier |
