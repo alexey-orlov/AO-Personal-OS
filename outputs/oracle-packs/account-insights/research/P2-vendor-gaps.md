@@ -244,17 +244,101 @@ Both ABM vendors sell **account-level propensity**, not **event-level implicatio
 - **"Bundled and prioritized Slack messages per account"** is a named delivery behaviour. It is my steps 3+4+9+12 compressed into one product decision: *one message per account per period, ranked*.
 - **Claygent Builder ships prompt version control and A/B testing.** No other vendor in the set exposes *evaluation of the reasoning step* as a user-facing surface. That is a real gap in my list — see A3.
 
-### A2. Cross-vendor step map (which vendor names which step a separate surface)
+### A2. Cross-vendor step map
 
-_pending_
+**Legend:** ● = a **separately named product surface** the buyer can point at · ◐ = shipped but folded inside another surface · ○ = not found in that vendor's current docs.
 
-### A3. GAPS — steps/tasks I am missing
+| My step | AlphaSense | ZoomInfo | 6sense | Demandbase | Klue | Salesforce | MS Copilot | LinkedIn SN | Factiva | Clay |
+|---|---|---|---|---|---|---|---|---|---|---|
+| 1 Account universe | ◐ (watchlist) | ● Audiences | ◐ ICP/segments | ● Audiences | ● Rivals | ◐ (CRM list views) | ○ | ◐ (saved lists) | ◐ (watchlist) | ● Audiences |
+| 2 Ingest signals + first-party | ● Workspaces (5k docs) / Enterprise Intelligence | ● Signals (15+ types) | ● Signalverse | ● data graph + MCP | ● Compete Agent (collect) | ◐ Data Cloud / RAG | ● CRM + Graph connectors | ◐ 1st-party LinkedIn + public | ● Feeds / APIs | ● Data Marketplace + Waterfall |
+| 3 Filter + **dedupe** | ○ | ◐ (Pulse ranking) | ○ | ○ | ● **Intel Triage Tools** | ○ | ○ | ○ | ◐ (taxonomy filters) | ◐ ("identify duplicates", CRM) |
+| 4 Entity resolution | ◐ ("@" company picker) | ◐ ("grouped by account") | ● **Company Graph** | ● data graph | ◐ (competitor mapping) | ◐ | ◐ (auto-link meeting→CRM record) | ◐ | ● **DJID / ~350k codes** | ● "sync back to the right account" |
+| 5 Retrieve + rank evidence | ● Generative Search (Auto mode) | ● Pulse Feed | ◐ | ◐ | ◐ | ◐ | ◐ | ◐ | ● Search | ● Claygent |
+| 6 Reason the "so what" | ● **Deep Research / Workflow Agents** | ◐ | ◐ (stage prediction) | **deliberately outsourced via MCP** | ● Auto Insights | ● **Account Management agent ("perform deep research")** | ◐ ("3 high-value AI highlights") | ● **Account IQ** | ● Smart Summary | ● Claygent |
+| 7 Map to **seller's own catalog** | ○ | ◐ (sales plays in workflows) | ○ | ◐ ("against pipeline goals") | ● **Battlecards** (vs competitor, not to catalog) | ◐ ("grounded in… product data"; Engagement Agent uses "product FAQ, case studies, and **sales plays**") | ○ | ● **"why your product is a good fit"** (free-text product description) | ○ | ◐ (prompt-level) |
+| 8 **Second-order / cross-account ripple** | ○ | ○ | ○ | ○ | ○ | ○ | ○ | ○ | ○ | ○ |
+| 9 Magnitude + confidence + citations | ◐ **citations only, no confidence** | ○ | ◐ fit/intent/stage score (propensity, not per-item confidence) | ◐ Pipeline Predictive Score | ○ | ○ | ○ | ○ | ◐ "transparent and traceable" | ○ |
+| 10 Assemble artifact | ● Report / Grid / **Slides** | ◐ | ○ | ○ | ● Battlecards / Newsletters | ● Account brief | ● **Meeting prep card** | ● Account IQ panel | ● Smart Summary / newsletters | ◐ (table columns) |
+| 11 Human review / approve | ○ | ○ | ○ | ○ | ● **Triage** (curate before publish) | ◐ (Pipeline agent has "suggestive or autonomous modes") | ○ (`/share` debug only) | ○ | ○ | ◐ (table = review surface) |
+| 12 Deliver downstream | ◐ (alerts, Notion index) | ● Workflows / Activation | ● Email Agents / orchestration | ● DSP / ABX orchestration | ● Salesforce, HubSpot, Gong, Chorus, Slack | ● **Slack, ChatGPT, mobile** | ● Outlook / Teams cards | ◐ (in-product) | ● APIs, feeds, newsletters | ● CRM sync, Slack, Sequencer, Ads |
 
-_pending_
+**Read of the map:**
+- **Step 8 is empty across all ten vendors.** Nobody ships cross-account ripple reasoning as a surface. Held for Part C.
+- **Step 11 is nearly empty.** Only Klue (triage) and, weakly, Salesforce (suggestive vs. autonomous) and Clay (the table is the review surface) give the human a place to stand. This is the largest *shipped-product* gap, and unlike step 8 it is not hard — it is just unglamorous.
+- **Step 9 splits into two different things** that vendors conflate: *account-level propensity* (6sense, Demandbase — shipped, mature) and *per-claim confidence on an individual implication* (nobody). My step 9 currently means the second; the market word "score" means the first. Naming collision to be careful about.
+- **Steps 2 and 12 are where everyone competes** and where nothing is differentiated.
+
+---
+
+### A3. GAPS — steps and tasks I am missing
+
+Fourteen. Over-returned as instructed; the first six are the ones I would actually act on.
+
+**G1 — Recurrence / cadence is a first-class object, not a run.**
+AlphaSense ships **Custom Agents with a monthly scheduling cadence and dynamic variables via an "@" placeholder**; Deep Research "can be scheduled"; Document Search Alerts are daily/weekly [T1]. Clay's Signals are standing monitors, not runs. My 12 steps describe **one pass**. The real product is a **standing subscription per account** with a cadence, a diff against last run, and a "nothing material this period" state. *Missing task: schedule / cadence configuration, and suppression of unchanged output.*
+
+**G2 — "What changed since last time" (delta reasoning).**
+Implied by every alerting product but named by none; strongly implied by ZoomInfo's Pulse Feed being *daily* and by Klue's newsletters. A briefing that re-states last month's facts is worthless. *Missing task: state carry-over and change detection against the previously delivered brief.*
+
+**G3 — Output format is chosen before the run, not after.**
+AlphaSense makes the user pick **Report vs. Grid vs. Slides** as a tile before generation, and filters differ by output type [T1]. My step 10 treats the artifact as a rendering afterthought. It is actually an *input* that changes retrieval depth and structure. *Missing task: output-contract selection.*
+
+**G4 — Signal taxonomy as a configurable, named asset.**
+ZoomInfo: "**15+ signal types**" [T1 IR]. Clay names six and lets you define more. Factiva has ~350k classification codes [T1]. My step 2 says "ingest signals" with no typology. The typology is what makes filtering, routing and scoring possible at all. *Missing task: define and maintain the signal/event-type catalog.*
+
+**G5 — Source licensing and rights.**
+Factiva's differentiator is literally "licensed for **specific GenAI uses**" [T2/T3]; it ships separate "Feed for GenAI" products. AlphaSense's moat is a licensed "premium content universe of 500M+ documents" including broker research [T3]. My 12 steps contain no step where you establish *whether you are allowed to put this source into a model and redistribute the output*. For an enterprise buyer this is a procurement blocker, not a footnote. *Missing task: source-rights / licensing gate.*
+
+**G6 — Triage as a human workbench, distinct from machine filtering.**
+Klue ships "**Intel Triage Tools**" as a named feature [T3]. My step 3 (machine filter+dedupe) and step 11 (review the finished artifact) leave out the middle: a human sweeping the raw inbound and marking keep/kill/merge *before* anything is written. This is also the cheapest place to collect training signal.
+
+**G7 — Volume budgeting / per-rep quota.**
+ZoomInfo advertises "**up to 1,000 daily signals**" [T1 IR]; Clay ships "**bundled and prioritized Slack messages per account**" [T1]; Microsoft caps the meeting list at 5 and CRM results at **30 records per response** [T1]. Every mature product enforces a ceiling. My step 9 ranks but never truncates. *Missing task: decide how many items a human gets, per account, per period.*
+
+**G8 — Permission-trimming and data-access scoping.**
+Microsoft documents it explicitly: "Sales agent **only surfaces information you have permission to access**" [T1]. In a real CRM, the brief must not leak another team's opportunity. My step 2 says "ingest first-party context" with no access-control notion. *Missing task: per-viewer entitlement filtering.*
+
+**G9 — Coverage/availability honesty (the "no data on this account" state).**
+LinkedIn documents that "Account IQ **isn't currently available for all companies**" and "some sections of the insights might not be displayed" [T1]. Long-tail and private accounts are the majority of most books. My list implicitly assumes every account yields a brief. *Missing task: declare and display coverage gaps rather than hallucinating into them.*
+
+**G10 — Evaluation of the reasoning step itself.**
+Clay ships **Claygent Builder** with "version control, A/B testing, and risk-free prompt development" [T1]. AlphaSense ships a **"Thesis Checker"** agent [T1]. My list has no step where the quality of step 6 is measured or regression-tested. *Missing task: prompt/agent versioning and eval.*
+
+**G11 — Outcome feedback loop (did it help?).**
+Klue is the only vendor with a structural answer: the **Win-Loss Suite**, including an **AI Interviewer** and "Blindspots Interviews" [T3]. My step 11 is *approve/reject the artifact*; nothing closes the loop from *deal outcome* back to *signal quality*. (This matches P1's step 10 finding that the loop is "chronically skipped".)
+
+**G12 — Consumption surface as a design variable.**
+Salesforce ships briefs "in **Slack, ChatGPT, and mobile**" [T2/T3]; Microsoft's whole taxonomy is surface-shaped; Demandbase and Clay both ship **MCP** so the brief is consumed inside someone else's assistant. My step 12 says "deliver downstream" as if it were a webhook. Where it is read changes what it must contain.
+
+**G13 — Enrichment waterfall / source fallback.**
+Clay's core primitive: run providers in sequence, "only charges a credit if a provider finds a result" [T1/T2]. My step 2 assumes sources are a set. In practice they are an *ordered* set with cost and hit-rate per tier.
+
+**G14 — The corpus as a governed object other systems read.**
+Klue: "**the trusted source for your internal LLM**" [T3]. Demandbase/Clay MCP servers. The output of this job is increasingly *not* a document for a human but a retrieval corpus for other agents. My step 10 assumes a human reader.
+
+---
 
 ### A4. OVER-SPLITS — steps I carry that no vendor treats as separate
 
-_pending_
+Five candidates, ranked by how confident I am that the split is wrong.
+
+**O1 — Steps 5 and 6 (retrieve/rank evidence · reason the "so what") are one step in every product.** Strong.
+AlphaSense's **Deep Research** and **Workflow Agents**, Salesforce's *"perform deep research"* action, LinkedIn's **Account IQ**, Factiva's **Smart Summary**, Clay's **Claygent** — every one of them is a single invocation whose internals are retrieval+reasoning. No vendor exposes "ranked evidence" as an artifact the user sees before the reasoning. *The market treats agentic retrieval and synthesis as one atomic unit.* Keeping them apart is only justified if the product deliberately shows the evidence set for review — which would be a differentiator, not a default.
+
+**O2 — Steps 3 and 4 (filter/dedupe · entity resolution) are one step.** Strong.
+ZoomInfo ships one thing: a Pulse Feed "**grouped by account**". 6sense's Company Graph "resolves raw signals into cited intelligence" — resolution and relevance in one motion. You cannot judge whether a story is relevant *until* you know which entity it is about, and dedup is largely a by-product of having resolved entities. In practice this is a single **signal-normalization** step.
+
+**O3 — Steps 1 and 2's first half (define universe · ingest first-party context) collapse.** Medium.
+ZoomInfo, Demandbase and Clay all call this one thing — **Audiences** — built *from* the CRM. The account universe is not defined independently and then joined to CRM; it *is* a query over CRM plus enrichment. Splitting them implies a manual scoping step that only the largest enterprises actually perform separately.
+
+**O4 — Step 9 (score magnitude + confidence + attach citations) bundles three unrelated things, and two of them are not separate steps.** Medium.
+Citations are a *property of generation* (AlphaSense's "granular citations", Factiva's "transparent and traceable") — emitted inline, not attached afterward. Magnitude is part of reasoning (step 6). Only **confidence** is arguably its own act, and no vendor ships it (see Part C). So step 9 as written is mostly a restatement of steps 6 and 10.
+
+**O5 — Step 11 (human review) as a pipeline stage vs. a property of the surface.** Weak — I think my split is right and the vendors are wrong.
+No vendor except Klue makes review a stage; Salesforce's version is a mode toggle ("suggestive or autonomous"), Clay's is "the table exists". But the absence here looks like a genuine market gap (see Part C), not evidence of over-splitting. Keep the step; note that shipping it will be read as unusual.
+
+**Not over-split, defended:** step 7 (map to the seller's own catalog) and step 8 (ripple). Only LinkedIn ships anything resembling step 7, and nobody ships step 8 — which is a reason to keep them named, not to fold them away.
 
 ---
 

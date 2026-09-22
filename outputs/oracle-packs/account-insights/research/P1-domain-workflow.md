@@ -38,9 +38,27 @@
 
 ### Step-by-step detail
 
-**Step 3 — how long the manual version takes.** Two independent anchors:
-- Microsoft's own adoption material and third-party write-ups put pre-call research at roughly **45 minutes for a standard account review** before AI assistance [T3]. LinkedIn positions Account IQ as letting sellers "complete account research in an easier and faster way", i.e. it is explicitly a research-compression product [T1].
-- Salesforce's State of Sales data is the standard citation for the macro number: sellers spend the clear majority of their week on non-selling work, of which research is one named component [T1/T2 — see Sources]. The commonly circulated derivative figures (70–72% non-selling) are secondary restatements and are marked accordingly.
+**Step 3 — how long the manual version takes.** The best number available is primary and precise.
+
+**Salesforce, State of Sales, 6th edition [T1, read from the report PDF]:** *"Reps only spend 30% of their time selling during an average week — a figure that is virtually unchanged from the 2022 State of Sales report, when reps spent 28% of their time selling."* and *"Reps spend 70% of their time on nonselling tasks."* The published breakdown of the week:
+
+| Activity | Share of week |
+|---|---|
+| Meeting in-person with customers | 12% |
+| Generating quotes / proposals and gaining approvals | 10% |
+| **Researching prospects** | **9%** |
+| **Preparation and planning** | **9%** |
+| Connecting virtually with customers | 9% |
+| Administrative tasks | 9% |
+| Manually entering customer and sales information | 9% |
+| Internal meetings and trainings | 9% |
+| Prospecting | 8% |
+| Prioritizing leads / opportunities | 8% |
+| Downtime | 8% |
+
+**This is the single most load-bearing number in the whole research.** "Researching prospects" (9%) + "Preparation and planning" (9%) = **18% of a seller's working week is exactly the job described in the brief** — bigger than any other non-customer-facing block, and bigger than in-person customer meetings (12%). Add "Prioritizing leads / opportunities" (8%), which is step 6, and the addressable block is **26%**.
+
+Secondary anchors, all directional: Microsoft-adjacent write-ups put pre-call research at ~45 minutes for a standard account review, compressed to under 5 minutes with AI [T3]; vendor blogs cite 70–105 min per account for initial research and 5+ hrs/week per rep [T3]. LinkedIn positions Account IQ explicitly as letting sellers "complete account research in an easier and faster way" — i.e. it is sold as a research-compression product [T1].
 
 **Step 5 is the step that is actually hard.** Every vendor in both camps automates steps 3, 4, 6, 7 and 8 with high confidence and hedges on step 5. AlphaSense's positioning — "trained to think like an analyst", agents that "reason across qualitative insights, structured financial data, and your own internal knowledge" — is a claim about step 5, and it is the claim they wrap in citations and auditability rather than accuracy scores [T1/T3].
 
