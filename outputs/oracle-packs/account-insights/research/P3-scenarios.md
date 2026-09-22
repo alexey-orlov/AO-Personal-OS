@@ -237,9 +237,27 @@ The two `absent` cells fall in the same row. **Step 7 presupposes the organizati
 - S6 `differs` — delivery lands in the policy-admin or binding-authority system where it changes what may be written, not what someone knows.
 - S7 `differs` — delivery is gated by clearance; an uncleared item must not reach the pursuit team at all, which means suppression has to be a delivery outcome.
 
-### 2.3 Steps that are MISSING from the 12 (scenario-specific)
+### 2.3 Steps that are MISSING from the 12
 
-_pending_
+Six. Four appear only in some scenarios; two are universal and are therefore the more serious omissions.
+
+**A. Scenario-specific missing steps**
+
+| ID | Missing step | Where it sits | Scenarios that need it | Why the 12 do not cover it |
+|---|---|---|---|---|
+| **M1** | **Eligibility / permission-to-act gate** — a binary authorization test run *before* reasoning: restricted list, information barrier, conflict imputation, contract-vehicle eligibility, sanctions block. | between 4 and 5 | S2, S3a, S3b, S4, S5, S7 | Step 3 is a *relevance* filter and step 9 is a *confidence* score. Neither can express "this is relevant, high-confidence, and we are forbidden to act on it." In S7 the gate is the output. |
+| **M2** | **Scheduled / deadline trigger** — emit ahead of a dated instrument even with no new signal, and suppress after the date passes. | before 1, as a second entry point | S2 (review due dates), S5 (solicitation and option-year dates), S6 (renewal dates), S3a (quarter end) | The 12 steps are event-driven end to end. Four scenarios are *date*-driven: the most valuable output is produced because a clock ran out, not because something happened. |
+| **M3** | **Portfolio aggregation** — roll per-entity implications into a correlated group (peril zone, sector, obligor group, sub-tier chokepoint) and evaluate the group. | after 8 | S6 (mandatory), S2, S4, S3a | Step 8 traces ripples *outward from one entity*. Aggregation runs *inward across many*. In S6 the only material output can be an aggregate; an entity-by-entity pipeline never produces it. |
+| **M4** | **As-of freeze + negative assertion** — record the evidence state at a point in time, and record "screened, nothing found, on date X, against sources Y". | after 9 | S2, S3a, S4, S6 | The 12 steps emit only when something is found, and index only the latest state. Where the output is auditable or feeds a valuation, silence must be a record, and "what did we know on 12 June" must be answerable. |
+
+**B. Universal missing steps — present in every scenario, absent from the 12**
+
+| ID | Missing step | Why it matters |
+|---|---|---|
+| **M5** | **Routing / ownership assignment** — decide which named human owns this item, in which system, with what SLA. | Step 12 says "deliver downstream" and silently assumes the owner is known. It is not: in S1 territory rules decide it, in S2 the commercial and risk owners differ for the same signal, in S7 the relationship is held by an individual partner. Misrouting is the most common way a correct implication produces no action. The sibling P1 workflow reconstruction also carries this as its own step, from a completely different evidence base. |
+| **M6** | **Outcome capture and calibration** — label what happened to each item (pursued / won / lost / risk materialized / false positive) and feed it back into scoring. | Nothing in the 12 steps learns. Step 11's approve/reject is the only feedback and it measures *plausibility at review time*, not *correctness after the fact*. Without M6 the confidence score at step 9 can never be calibrated, only asserted — and in S2/S4 an uncalibrated confidence score is the exact artifact a regulator will ask about. |
+
+**One step that deserves a challenge in the other direction.** Steps 3 and 5 overlap. Step 3 filters for relevance; step 5 ranks evidence by relevance. In six of eight scenarios these are the same judgment applied twice with different names, and a build will end up with two relevance models that disagree. The defensible split is: **step 3 decides whether a signal enters the system at all (a corpus decision); step 5 decides what supports a specific claim about a specific entity (a claim decision).** If the build does not draw the line that way, merge them. (reasoning)
 
 ---
 
