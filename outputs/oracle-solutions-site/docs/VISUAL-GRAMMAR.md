@@ -61,12 +61,12 @@ Round 3, D: text never sits on the photograph. Every tile is **an image band ove
 
 | Part | Content |
 |---|---|
-| **Image band** (~16:7, top) | That product's own `hero.image`, same file and `focal`, with a dark gradient at its lower edge. Overlaid: the **facet label** top-left (e.g. "OCI + NVIDIA") and the **availability chip** top-right. Nothing else. |
+| **Image band** (~16:7, top) | That product's own `hero.image`, same file and `focal`, with a dark gradient at its lower edge. Overlaid: the **facet short label** top-left (e.g. "OCI + NVIDIA NeMo") and the **Artifacts badges** top-right. Nothing else. |
 | **Body** (solid dark surface) | The **category chip**, the product **name** as an H3, the `oneLiner`, the three `tile.outcomes` as check-icon bullets, and **one** CTA — `Learn more →`. |
 
 The second "Request a demo" CTA is gone from the tile: a tile with two actions makes the reader choose before they know what the product is, and the product page's hero carries the demo ask anyway. Hover lifts the tile slightly and scales the image 1.05, which `prefers-reduced-motion` disables. An odd count ends with the last tile alone in the left column.
 
-A product with no hero file on disk renders the same tile with the band on the flat ground, because the image guard drops an `<img>` that will not load. **The home page's product grid uses the same anatomy** at its compact size, so a reader meets one tile shape on both pages.
+A product with no hero file on disk renders the same tile with the band on the flat ground, because the image guard drops an `<img>` that will not load. **The home page carries no product tiles since round 9** — its S3 is six group tiles (§9), which share this tile's grammar (an image band over a solid body, text never on the image, one action) at a different scale and with a group's name and line instead of a product's.
 
 ### 1.2 The chip row — three tag families, visibly different (round 4, T1)
 
@@ -523,15 +523,44 @@ This file is about the product pages; the home page differs from them **by compo
 
 The rules that carry over, unchanged:
 
-- **No photograph on the home hero.** The built-on stack visual is the page's only illustration, and the only place a photograph would otherwise have gone (§1).
-- **One accent per screen.** Teal lands once — the eyebrow, or the H1's last line, or the first ladder dot, never two of them in the same section.
-- **Equal-height peers everywhere** (rule 4): the three stack bands, the two panels, the three catalog columns, the three ladder steps, the three pillars, the four case cards, the three stat tiles. `grid-auto-rows: 1fr` or a stretched grid, never independently sized cards.
-- **Absence is an empty container, never a sentence.** The single-product catalog column carries the longest pattern definition and leaves its spare space empty.
-- **The light band is S6 and appears exactly once** — the one inversion on the page, as on every other page.
-- **Motion is three things:** the stack's connector lines draw in over ~1.2 s on load, sections reveal on scroll through the existing `.reveal` mechanism, and free-standing rows and cards lift 2 px on hover (joined panels change surface colour instead, since a lift would break the shared hairline). Everything collapses to instant under `prefers-reduced-motion`, with the drawn state as the resting state.
-- **Accessibility:** one H1, an H2 on every screen, the stack visual `role="img"` with its `aria-label` from `hero.stack.ariaLabel` and its internals `aria-hidden`, and every icon decorative.
+- **No photograph on the home hero.** The three-layer stack is the page's only illustration, and the only place a photograph would otherwise have gone (§1).
+- **One accent per screen.** The orange `#f46a4a` lands once — the H1's middle line is the page's one accent line; the eyebrow and the first ladder dot take the blue `#1485c4`, which means *act on this* or *selected*.
+- **Equal-height peers everywhere** (rule 4): the tiles inside a stack band, the two panels, the six group tiles, the three ladder steps, the three pillars, the four case cards, the three stat tiles. `grid-auto-rows: 1fr` or a stretched grid, never independently sized cards. **The three stack bands are the exception since round 9** — their heights are `auto`, because the middle band carries six tiles in two rows and forcing `1fr` on all three would pad the outer two with air.
+- **Absence is an empty container, never a sentence.** A group with no product today still gets its tile, and the tile lands on that group's own `emptyState` in the catalog.
+- **The dark band is S6 and appears exactly once** — the one inversion on the page, as on every other page.
+- **Motion is three things:** the stack's connector lines draw in over ~1.2 s on load, sections reveal on scroll through the existing `.reveal` mechanism, and free-standing cards answer hover with a surface step and a 1.071 image scale (joined panels change surface colour instead, since a lift would break the shared hairline). No lift and no shadow anywhere — SS26 (`docs/SS26-THEME.md` §6). Everything collapses to instant under `prefers-reduced-motion`, with the drawn state as the resting state.
+- **Accessibility:** one H1, an H2 on every screen, the stack visual `role="img"` with its `aria-label` from `hero.stack.ariaLabel` and its internals `aria-hidden`, every icon decorative, and each group tile one link whose accessible name is the group name and its line.
 
-**The proof strip is three tiles.** It renders as the shared `stat-band`, with two home-only modifiers — `stat-band--home` on the section and `stat-row--home` on the row — so the home strip and the Services strip can differ without either touching the other. Three rules carry the difference, and they are the geometry the strip depends on:
+**S1's H1 is four lines, one of them accented.** `headline.lead` · `headline.accent`
+· `headline.proof`, each `display: block`, all three at the same size, with only the
+accent line coloured; at 1440 the lead wraps to two lines at the 64 px step, so the
+block reads as four. At 375 it sets 32 px over four lines and at 320 over five —
+each sentence still breaking on its own, no orphaned word.
+
+**S1's stack — the anatomy** (`.bo`, max-width 42 rem, `grid-template-rows: auto`
+throughout):
+
+| Part | What it is |
+|---|---|
+| Bands | `.bo-band`, a 12 px cut and a 1 px `--border-subtle` hairline. The two SoftServe bands sit on `--bg-raised` (`#edf0f2`), the Oracle band on `--bg-inset` (`#e1e7eb`) — `.bo-band--oracle`. Top to bottom: `--services` (4 tiles), `--products` (6), `--oracle` (4). |
+| Owner row | `.bo-owner`: a 12 px uppercase label at `.06em` on the left and the mark on the right — the SoftServe wordmark through `brandAsset("ssMark")` on the two upper bands, the Oracle wordmark on the bottom one. |
+| Tiles | `.bo-tile`, one anatomy in all three bands because the layers are peers: white ground, an 8 px cut, a 1 px `--border-panel` border, `.75rem / .625rem` padding, a flex column. `.bo-tiles` is `grid-auto-rows: 1fr; align-content: stretch`, so a band's tiles fill it with no dead space. |
+| Icon well | `.bo-tile-mark`, 1.75 rem square on `--surface-select` with the theme's default 4 px cut — **the one decorative tint SS26 allows** — carrying a 1.125 rem glyph in `--text-body`. |
+| Name | `.bo-tile-name`, 13 px / 500 / 1.25, `margin-top: auto` so every name sits at its tile's foot and the rows align across a band however long a name wraps. `overflow-wrap: anywhere` and **no `hyphens: auto`** — automatic hyphenation cut *image* to *im-age* at this size (round 9 QA). |
+| Connectors | `.bo-links`, two 1.25 rem SVG strips between the bands, three lines each at 20 / 50 / 80 % — evenly spaced, deliberately **not** mapped per tile, since the bands hold 4, 6 and 4. They draw in on reveal, bottom-up (platforms, then products, then services), which is the one thing a static diagram cannot say: the foundation comes first. |
+| Breakpoints | `.bo-tiles--4` is four across and `--6` is three across (6 = 3 × 2). At ≤ 560 px both go two across, so the middle band reads 2 × 3, and the outer two connector lines are hidden because they would point at nothing. |
+
+**S3's group tiles — the anatomy** (`.gtiles` / `.gtile`):
+
+| Part | What it is |
+|---|---|
+| Grid | `.gtiles`: `repeat(3, minmax(0, 1fr))` with `grid-auto-rows: 1fr` and `gap: var(--gap)` — 3 × 2 above 900 px, two across from 560 to 900, one column below. |
+| The tile | `.gtile` is itself the link (`<a href="#/products?cat=<id>">`) — one action per tile, and the tile *is* the action, so nothing else inside it may be clickable. Flex column on `--bg-raised`, an 8 px cut, `overflow: hidden`. |
+| Image band | `.gtile-band`, `aspect-ratio: 16 / 10` over `--bg-inset`, holding `.gtile-img` (`object-fit: cover`, lazy, from `facets.categories[].image`). **Text never sits on the image** (§1.1). A file that fails to load is dropped by the shared image guard, which now also watches `.gtile-img`. |
+| Body | `.gtile-body`: the group's `full` name as an H4-class line (Replica 700, 20 px desktop / 18 from 900 px down), its `line` in `small` / `--text-muted`, and `.gtile-foot` pinned with `margin-top: auto` carrying the arrow alone — no label, because the tile is the ask. |
+| Hover / focus | Inside `@media (hover: hover)` the image scales 1.071; the body steps `--bg-raised` → `--bg-inset`, the name turns `--action` and the arrow nudges 2 px and turns `--action`. No lift, no shadow. `:focus-visible` draws the 2 px action outline, and `prefers-reduced-motion` drops every transform. |
+
+**The proof strip is three tiles**, led since round 9 by the proof-of-value tile — *from* **30 days** — so the two "30"s in the row are not adjacent. **The optional `prefix`** renders as `.stat-prefix` inside `.stat-value`, before the figure: Replica 400 at `.45em` of the figure, `line-height: 1`, `--text-muted`, `.35em` to its right, so it sits on the figure's own baseline and the tile reads as one fact on one line rather than a figure with a caption over it. It renders as the shared `stat-band`, with two home-only modifiers — `stat-band--home` on the section and `stat-row--home` on the row — so the home strip and the Services strip can differ without either touching the other. Three rules carry the difference, and they are the geometry the strip depends on:
 
 - **Three equal columns**, `repeat(3, minmax(0, 1fr))`, rather than the base row's four-column track: three tiles in a four-column row leave a column standing empty and the band ends where nothing is.
 - **Symmetric cell padding** — the base `.stat` has `padding: 1.5rem 1.5rem 0`, and the home cell adds the matching bottom. The dividers between tiles are `border-left` on the cell, so with no bottom padding they stop under the last line of the tallest label instead of running the cell.
