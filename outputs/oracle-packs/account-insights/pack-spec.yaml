@@ -567,7 +567,7 @@ packages:                                  # component 12
         - "Acting on opportunities — auto-outreach, task creation, workflow automation"
         - "Validating candidates against the client's existing pipeline"
         - "Monetary sizing and interactive question-and-answer over the output"
-        - "Live CRM write-back and a persistent historical signal store"
+        - "Live write-back to the system of record and a persistent historical signal store"
         - "Deep financial or quantitative modeling"
         - "Native multilingual processing"
         - "Routing to the account owner, and outcome capture — Integration and Scaling tiers"
@@ -599,8 +599,8 @@ packages:                                  # component 12
   capability_handling:
     - area: Grounding & sources
       maps_to_feature_areas: [Account universe & grounding]
-      pov: "◐ One account segment, an agreed CRM extract and a bounded, licence-cleared source set"
-      integration: "● The client's own licensed commercial feeds, maintained against a versioned service catalog"
+      pov: "◐ One set of companies, an agreed extract from the system of record and a bounded, licence-cleared source set"
+      integration: "● The client's own licensed commercial feeds, maintained against a versioned catalog of moves"
       scaling: "●● Multi-source, multi-market, with a licensed relationship graph behind the ripple reasoning"
     - area: Signal normalization
       maps_to_feature_areas: [Signal intake & normalization]
