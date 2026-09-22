@@ -605,6 +605,10 @@ Given P1's finding that the "so what" is the core human decision, this is a cons
 | A-31 | Clay — CRM Enrichment use case · https://www.clay.com/use-cases/crm-enrichment | T1 |
 | A-32 | Clay — Custom Signals · https://www.clay.com/signals | T1 |
 | A-33 | Clay — Claygent · https://www.clay.com/claygent ; Clay Docs — Claygent Builder · https://university.clay.com/docs/claygent-builder | T1 |
+| A-34 | Feedly Documentation — Guide to AI Actions for Feedly Market Intelligence (named actions; "results always include inline citations") · https://docs.feedly.com/article/741-guide-to-ai-actions-for-feedly-market-intelligence | T1 |
+| A-35 | Feedly Documentation — How to create highly relevant AI Feeds for market intelligence · https://docs.feedly.com/article/699-guide-to-ai-feeds-market-intel | T1 |
+| A-36 | Feedly — Market Intelligence product page (AI Feeds, 10,000+ AI Models, Dashboards, Insights Cards, AI Actions, Automated Newsletters, Integrations & API) · https://feedly.com/market-intelligence | T1 |
+| A-37 | Feedly — "Meet Feedly AI for Market Intelligence" (deduplicate repetitive news) · https://feedly.com/new-features/posts/meet-feedly-ai-for-market-intelligence | T3 |
 
 ### Part B — competitors
 
@@ -663,4 +667,5 @@ Items I could **not** confirm from a primary source. None of these are asserted 
 14. **LinkedIn Account IQ output section names** — LinkedIn's help page and blog describe capabilities but publish **no canonical list of section headings**. The section names circulating (company overview, financial highlights, strategic priorities, business challenges, talking points) are **not verified** from LinkedIn's own documentation.
 15. **Bloomberg SPLC figures (900k relationships, 200k quantified).** Sourced from university library terminal guides and a Bloomberg Professional insights post, not from a Bloomberg product datasheet. Library guides are generally reliable on terminal functions but the counts may be dated. **Current SPLC coverage numbers are unverified**; the existence and shape of the function are well-corroborated across five independent guides.
 16. **Whether any sell-side product licenses SPLC-class relationship data.** I found none, but "I found none" is weaker than "none exists" — this deserves one targeted check (Bloomberg Data License / Enterprise Access Point customers) before being stated as fact in a deliverable.
-17. **ZoomInfo's 15+ signal types** — the count is stated in ZoomInfo's IR release; the *enumerated list* was not found on a fetchable page (the GTM Studio certification page returned 403). Only five types are confirmed by name (buying intent, job changes, funding, hiring activity, competitive research).
+17. **Feedly's deduplication.** The claim "deduplicate repetitive news… remove duplicates" comes from a Feedly *new-features* post [T3], not from the current Market Intelligence product page or the docs pages I read — those do not restate it. It is plausibly a live feature under a different name (noise filtering / prioritization), but **the mechanism and its current name are unverified**. This matters, because dedup being shipped by exactly one vendor is load-bearing for A3-G6 and the A2 map.
+18. **ZoomInfo's 15+ signal types** — the count is stated in ZoomInfo's IR release; the *enumerated list* was not found on a fetchable page (the GTM Studio certification page returned 403). Only five types are confirmed by name (buying intent, job changes, funding, hiring activity, competitive research).
