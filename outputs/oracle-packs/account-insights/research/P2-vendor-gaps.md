@@ -564,7 +564,98 @@ Shipped, named templates exist at nearly every vendor — but **each stops at on
 
 ### B3. Same-vendor overlap — Oracle and NVIDIA products that already ship part of it
 
-_pending_
+> **Read this section before positioning anything.** Oracle already ships this job under its own name, in two places, with primary documentation. Any claim that Oracle does not address it is falsifiable by an Oracle SE holding a readiness document.
+
+#### B3.1 ⚠️ Oracle Fusion Sales 26B — "Agent-Powered Account Intelligence"
+
+**T1, verbatim from Oracle's own 26B readiness doc:**
+> "When viewing any account record, you can now request an **AI-generated intelligence brief** that automatically gathers and synthesizes information from **web sources and external channels**. The brief provides a comprehensive snapshot including **company overview, recent developments, strategic priorities, potential risks, and product relevancy** — **all with cited sources and dates**."
+
+That is the job: external signals → per-account implications (priorities + risks) → cited narrative brief, with "product relevancy" gesturing at even step 7.
+
+**But it is a five-step DIY recipe, not a product.** Oracle's own enablement steps: create an **MCP tool for Tavily** and add your API key · duplicate the **Organization Research Agent Team** template · add the Tavily tool and publish · **"Build a VB extension"** · enable the "Account Company Profile" and "Account News" smart actions, which are **off by default**. Oracle states plainly: *"A **Tavily API key is required** for this feature to operate."*
+
+**What it does not do:** no account universe, no scheduling (on-demand, one account at a time), no dedupe, no magnitude or confidence scoring, no review/approve gate, no CRM write-back.
+
+#### B3.2 ⚠️ Oracle Financial Services, corporate banking (announced 2026-04-14) — the exact pipeline shape
+
+Two agents that together are this job, in a credit skin [T1 oracle.com/news]:
+- **Documents Data Extraction Agent** — *"continuously monitors **external financial news sources** related to the borrower, industry, and macro environment; **extracts and summarizes actionable signals**; and produces **structured risk and sentiment insights to be combined with validated internal data**."* → steps 2, 3, 4, and part of 9.
+- **Narrative Generation Agent** — *"ingests validated and enriched loan, financial, and **external risk insights**; automatically drafts the credit memo narrative; and produces a **banker-ready first draft designed for faster review, editing, and final approval**."* → steps 10 and 11.
+
+**Implication for positioning:** a *sales-coverage* framing survives this. A *banking relationship-manager* framing does not — Oracle owns it, with the human-review step included. Caveat: Oracle describes these as "a sampling of the hundreds of agents Oracle plans to make available within the next 12 months", so per-agent GA is unclear.
+
+#### B3.3 Oracle Sales Command Center (26C) — and the self-imposed limit that creates the opening
+
+Four panels; *"each panel leads with a **written summary in business language, not raw fields**"*; drill-down gives *"an orchestrated narrative summary, account or opportunity insights… talking points, objection handling, intended outcomes"*. It owns steps 1, 6, 10 and 12, and it is the rep's **default landing page** [T1 26C readiness doc].
+
+**The wedge, verbatim:** *"works out of the box on standard Oracle CX Sales data, **with no custom integrations or external data lake required**."* **First-party only, by design.** Oracle has drawn the line itself.
+
+Also shipped: **26C Pre-Meeting Briefs** (Meeting Preparation Assistant Agent + Scheduler Agent) — **scheduled and proactive**, stored in the **AI Outcome Store**, surfaced in SCC / mobile / web, and explicitly *"gathers the **CRM context**"* — again first-party. **This is the distribution rail to plug into, not something to rebuild.**
+
+#### B3.4 DataFox — RETIRED, conclusively
+
+All **seven** DataFox SKUs (B91215, B91227, B91217, B91218, B91216, B93450, B93451) appear in Oracle's *"Fusion Service Descriptions: **Retired Services**"* effective 16-Jul-2026; the **current** Fusion Service Descriptions (effective **10-Sep-2026**) contain **zero** occurrences of "DataFox"; `docs.oracle.com/en/cloud/saas/datafox/` now redirects to the generic help-centre home. **No first-party successor.**
+
+Also: **Oracle Fusion Sales Intelligence Cloud Service (B95944) is retired as a standalone SKU** but survives as a module inside Fusion Sales Enterprise (B95942).
+
+**Correcting a premise in the brief:** **Oracle Unity CDP is ACTIVE, not retired.** It was **Maxymiser** that was discontinued (31-May-2024) [T1].
+
+#### B3.5 Full Oracle inventory (verified from Oracle's own pages)
+
+From Oracle's capability table at `oracle.com/cx/ai` — legend: `*` GenAI · `**` AI Agent · `***` Fusion Agentic Application:
+
+| Product | What it verifiably does | Step read |
+|---|---|---|
+| **Account Advisor**\*\* | Works over *"any account research report or financial disclosure documents **attached to the account**"* — resolved via the 25D doc as **human-attached documents only, NOT autonomous news gathering** | 5, 6 — not 2 |
+| **My Territory Agent** | *"summarizes **what changed since the last time a seller checked in**"* — but *internal* change, not external events. The only delta-reasoning surface in either vendor (cf. gap G2) | 1, part of G2 |
+| **Account Engagement Guide**\*\* · **Sales Intelligence and Account/Product Advisor Agents**\*\* (RAG + SWOT) · **Account Plan Summarization Agent**\*\* · **Renewal Agent** (*"develops renewal briefs"*) · **Contact Insights / Contact Intelligence** · **Deal Advisor Workflow Agent** (26C) · **Narrative Insights Agent** (26A, dashboard narration only) | first-party synthesis | 5, 6, 10 |
+| **Cross-Sell Program Workspace**\*\*\* · **Renewal and Retention Program Workspace**\*\*\* · **Marketing Command Center**\*\*\* · **Contract Compliance Workspace**\*\*\* | Fusion Agentic Applications | 1, 12 |
+| **Fusion CX Analytics** | Prebuilt pipelines to Oracle CX only; Data Augmentation admits **structured** third-party data, **not news** | — |
+| **OCI Generative AI Agents** | GA. Tools: SQL, RAG, Agent-as-tool, Function, API. **No native web-search tool.** | 5 |
+| **Content Intelligence** (26B, inside AI Agent Studio) | "third-party" here means **SharePoint/Slack/Jira/Confluence/Drive/Box — not news**. Its knowledge graphs + **sales battlecards** are Oracle's best step-7 mechanism | 7 (partial) |
+| **Oracle Intelligent Advisor** | Rules and interviews. Covers none of the 12 steps | — |
+| **Oracle Digital Assistant — Fusion SaaS skills** | **DISCONTINUED 21-Nov-2026.** *"Customers must develop migration plans to AI Agent Studio."* | — |
+
+**AI Agent Studio tool types** (the build surface): Business Object, Connector, Document/RAG, Email, Deep Link, External REST, **MCP**. **No native web-search tool** — external news must come from a customer-supplied MCP server, which is exactly why 26B needs your own Tavily key.
+
+#### B3.6 NVIDIA — nothing does this job
+
+- **AI-Q / Enterprise Research Agent.** Repo **renamed** `aiq-research-assistant` → `NVIDIA-AI-Blueprints/aiq`; **v2.2.1 (2026-08-22)**; default branch `develop`; Apache-2.0, *"provided 'as is'"* — a **blueprint, not a supported GA product**. Strong on steps 5/6/10 (planner → concurrent researchers → writer → citation-backed Markdown). **Hard negatives from its own state model** (`ChatResearcherState`): **no account entity, no score, no confidence field**; zero grep hits for "confidence" or "crm". And v2.2.0's changelog says verbatim *"**no research-plan approval step**"* — the human gate was **explicitly removed**.
+- **Blueprint catalog: 32 enumerated.** Relevant ones — Build an Enterprise RAG Pipeline (v2.6.2, 2026-08-20; this is the **renamed** multimodal-PDF-extraction blueprint), Streaming Data to RAG, Vulnerability Analysis, PDF to Podcast. **No blueprint holds an account universe, resolves a signal to an account, maps to a seller's catalog, or writes to a CRM.**
+- **No SEC-filing or financial-report-analysis blueprint exists.** `GenerativeAIExamples/industries/` has exactly three directories — asset lifecycle, energy, healthcare; **no finance**. NVIDIA's finance industry page names only AI Trading Factories and Transaction Foundation Models; all financial blueprints are quant/fraud on **numeric** data. The closest artifacts are a financial-news **classification** distillation demo (13 event categories), a Mixtral-era *"Chat with NVIDIA Financial Reports"* notebook, a 2024 earnings-call extraction blog (~84% F1 for Llama 3 70B / Mixtral 8x22B — NVIDIA's own numbers showing accuracy is the hard part), and a **LangChain partner** "Structured Report Generation" blueprint (topic + outline → sectioned report via Tavily, with per-section and final **LLM self-validation** steps).
+- **NeMo Retriever — critical procurement fact, verbatim:** *"**The NeMo Retriever Library is not supported under NVIDIA AI Enterprise (NVAIE).**"* Only the embedding/reranking NIMs are supportable.
+- **NeMo Agent Toolkit** (ex-AgentIQ), v1.9.0 (2026-09-10) — best-in-class eval, profiling and observability, and it *does* ship a human-in-the-loop primitive (`prompt_user_input` pauses a workflow). But it is an unopinionated library hook, and **NVIDIA's own flagship blueprint does not use it for approval.**
+- **Oracle + NVIDIA joint** — beyond the GTC 2025-03-18 announcement (160+ AI tools, 100+ NIMs in the OCI Console, joint no-code blueprint deployment, cuVS in Database 23ai), there is a real code-level artifact: `github.com/NVIDIA/nvidia-oci-samples` (NVIDIA-owned, pushed 2026-09-15), shipping Terraform + NGC-Helm to deploy **AI-Q on OKE** — *"community examples… **not covered by NVIDIA Enterprise Support**."*
+
+#### B3.7 Combined Oracle + NVIDIA step coverage
+
+| Step | Oracle | NVIDIA | Residual white space |
+|---|---|---|---|
+| 1 account universe | ✔ SCC territory, installed base | ✗ no account entity | — |
+| 2 ingest external + first-party | ◐ 26B via **customer's** Tavily; FS banking agent | ◐ AI-Q web sources; NeMo Retriever docs; **no CRM connector** | **joining both in one pipeline** |
+| 3 filter / dedupe | ◐ thin | ◐ bounded batching; news-classifier demo | **cross-run dedupe — neither has it** |
+| 4 entity resolution | ✗ implicit only | ✗ zero evidence | **⚠️ OPEN** |
+| 5 retrieve + rank | ✔ | ✔ strongest in either stack | — |
+| 6 reason "so what" | ✔ | ◐ not implication-typed | typed opportunity / risk |
+| 7 map to own catalog | ◐ Sales Plays/Motions, Content Intelligence battlecards | ✗ no catalog object | explicit implication → offer |
+| 8 ripple / second-order | ✗ nothing in any doc | ✗ intra-query only | **⚠️ CLEANEST WHITE SPACE** |
+| 9 magnitude + confidence | ◐ citations only (26B) | ◐ citations only | **magnitude + confidence unowned** |
+| 10 assemble artifact | ✔ best coverage anywhere | ◐ Markdown prose | structured *record* vs prose |
+| 11 review / approve / reject | ◐ **banking yes, CX no** | ✗ explicitly removed | **⚠️ OPEN** |
+| 12 deliver downstream | ✔ AI Outcome Store, write-back | ◐ pull-only | — |
+
+#### B3.8 Commercial and contractual facts that shape any packaging (T1, Fusion Service Descriptions 10-Sep-2026)
+
+- **Fusion Agentic Applications is a separately metered SKU** (B112535); AI Agents B112537/8; AI Units B112536. Free tier: 20,000 AI Units per production environment per month.
+- **Document Generation is the costliest action class: 10× Basic / 20× Premium / 10× BYO**, against **0× / 5× / 3× for General reasoning**. **A per-account *document* at scale is exactly where Oracle's meter bites** — a material design constraint on anything that emits a brief per account per week.
+- **AI Units are consumed in dev and test too**, not only production.
+- **Oracle contractually bars external AI agents and MCP implementations** from reaching Fusion *"except through Authorized APIs, approved integration patterns"* — with an explicit carve-out for *"Oracle-provided, customer-developed, or **partner-developed** AI agents"* using those patterns. **A pack must live inside AI Agent Studio.**
+- **Oracle assigns step 11 to the customer**, verbatim: *"**You are responsible for implementing appropriate human oversight, approval controls, and safeguards** for any material business decisions."* — which makes step 11 genuine, **contractually-blessed** white space.
+
+#### B3.9 Deprecation and rename flags — do not state anything stale
+
+DataFox **retired** · Fusion Sales Intelligence **SKU retired** (module survives) · ODA Fusion SaaS skills **discontinued 21-Nov-2026** · AI Configurator **superseded by Agent Studio** · CX prompt-based GenAI → workflow agents, *"No Longer Optional From: Update 26D"* · **Oracle Unity NOT retired** · NVIDIA `aiq-research-assistant` **renamed** → `aiq` · multimodal-PDF-extraction blueprint **renamed/folded** into Enterprise RAG Pipeline · NVIDIA **data-flywheel repo DEPRECATED** (Apr 2026) while its marketing page stays live · **PDF to Podcast de-listed** from the catalog index (page and repo still live) · LangChain `open_deep_research` **ARCHIVED** 2026-08-10.
 
 ---
 
