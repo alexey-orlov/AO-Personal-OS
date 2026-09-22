@@ -146,51 +146,196 @@ Supporting: NVIDIA itself publishes an **AI-Q 2.0 on OCI** reference deployment 
 
 ## Job B — Failure paths for the 12 steps
 
-Format per step: **what breaks** · **what a good system does** · **industry-standard term (if one exists)** · **typically covered / typically NOT covered by products in this space**.
+Format per step: **what breaks** · **what a good system does** · **standard market term** (or "no standard term") · **coverage**: typically covered / partially covered / **typically NOT covered by anyone**.
 
-### B1. Define entity universe
-_pending_
-
-### B2. Ingest signals + first-party context
-_pending_
-
-### B3. Filter & de-duplicate
-_pending_
-
-### B4. Resolve affected entities
-_pending_
-
-### B5. Retrieve & rank evidence
-_pending_
-
-### B6. Reason the "so what"
-_pending_
-
-### B7. Map to service catalog
-_pending_
-
-### B8. Ripple reasoning
-_pending_
-
-### B9. Score + cite
-_pending_
-
-### B10. Assemble output
-_pending_
-
-### B11. Human review
-_pending_
-
-### B12. Downstream delivery
-_pending_
-
-### B13. Cross-cutting failure modes (the named list)
-_pending_ — no signal in period · rumour/retraction · ambiguous or unmatched entity name · paywalled source · missing/stale CRM record · fabricated implication · citation that does not support the claim · opportunity already in pipeline · contradictory sources · non-English source · materially stale signal.
-
-### B14. What nobody covers
-_pending_ — explicit list of failure modes with no standard market handling.
+Coverage judged against the visible market for account intelligence and signal-based selling: **ZoomInfo Copilot**, **6sense**, **Demandbase**, **Clay**, **Common Room**, **AlphaSense**, **Salesforce Agentforce**, **Oracle Sales Command Center**, and the adjacent risk-intelligence market (**Interos**, **Everstream Analytics**, **Dun & Bradstreet**). [T2/T3 for the market read; T1 where a vendor page or standard is cited.]
 
 ---
+
+### B1. Define entity universe
+
+**What breaks.** The universe is a stale list. Accounts that merged, were acquired, rebranded, or went private stay in; new subsidiaries and newly-qualifying accounts never enter. Subsidiaries are treated as independent companies, so the same parent's news fires three times — or a signal about the parent never reaches the rep who owns the subsidiary.
+
+**What a good system does.** Maintains the universe as a *derived* set from firmographic criteria plus a corporate hierarchy, refreshed on a cadence, with explicit add/remove events that are auditable. Resolves parent↔subsidiary so a signal can be routed up or down the tree deliberately.
+
+**Standard terms.** **Corporate family tree / corporate linkage** (D&B's term, keyed on **DUNS Number**); **account hierarchy** (CRM term); **ICP definition** and **named account list** (GTM terms); **TAM/SAM** for the sizing view. Stable external identifiers exist: **DUNS**, **LEI**, **LSEG PermID**.
+
+**Coverage.** **Typically covered** for the flat list (every ABM platform sells a target-account list) but **typically NOT covered for hierarchy-aware routing**. Vendors sell the hierarchy *data*; almost nobody ships the logic that decides whether a parent-company signal is material to a subsidiary account you sell into. This is a real gap and a defensible build.
+
+---
+
+### B2. Ingest signals + first-party context
+
+**What breaks.** (a) **No signal in the period** — the account is quiet and the system has nothing to say. (b) **Paywalled or inaccessible source** — the headline is visible, the substance is not; or `robots.txt` / a bot wall blocks the crawl. (c) **CRM record missing or stale** — the first-party half of the context is empty or wrong.
+
+**What a good system does.**
+- *No signal*: says so, explicitly, as a **first-class empty state** — "no material change in the last 30 days" — and never fills the gap with filler. Distinguishes **no signal** from **not checked** from **source unreachable**.
+- *Paywalled*: routes to a licensed feed where one exists, records `access: denied` as provenance rather than silently using the headline, and never treats an unread article as read. Licensed-content routes are the market's answer: **LSEG**, **Dow Jones Factiva**, **AlphaSense** (which licenses broker research and expert-call transcripts precisely because they are paywalled).
+- *Stale CRM*: timestamps every first-party field and shows the age next to the claim; enriches against a provider rather than trusting the record.
+
+**Standard terms.** **Coverage gap** / **empty state** for (a) — no widely-used term of art, which is itself telling. For (b): **licensed content** / **entitlements**; no market term for "paywall-aware degradation". For (c): **data decay** — a benchmarked concept: B2B contact records decay roughly **20–30% per year** (MarketingSherpa's 2.1%/month ≈ 22.5%/yr is HubSpot's benchmark; ZoomInfo puts it at 25–30%/yr), with a **90-day refresh cadence** cited as the minimum hygiene baseline. [T2/T3: pipeline.zoominfo.com/marketing/b2b-data-decay; thisandthat.chat CRM data-decay statistics 2026]
+
+**Coverage.** Data decay is **well covered** (it is the entire enrichment industry's pitch). **Paywall-aware degradation is typically NOT covered** — most tools either have the licence or silently skip. **The honest empty state is typically NOT covered by anyone**: signal platforms are optimised to always surface *something*, because an empty dashboard looks like a broken product. A system that says "nothing happened at this account this month, and here is what we checked" is genuinely differentiated — and is the single cheapest trust-builder in the whole workflow.
+
+---
+
+### B3. Filter & de-duplicate
+
+**What breaks.** One press release is picked up by forty outlets and becomes forty "signals". A syndicated wire story, the company's own blog, and three aggregator rewrites all describe one event. Volume masquerades as significance.
+
+**What a good system does.** Clusters at the **event** level, not the document level: one canonical event with N supporting documents, where N is evidence of *pickup*, not of *N events*. Keeps the earliest and the most authoritative source, not the most recent scrape.
+
+**Standard terms.** **Near-duplicate detection** (MinHash / SimHash / shingling); **story clustering** or **event clustering** in news tech; **canonicalization**. In the news-standards world, **IPTC** provides item identity and revision semantics so a rewrite can be recognised as the same item.
+
+**Coverage.** **Typically covered at the document level** (dedupe by URL/hash) and **typically NOT covered at the event level**. The common failure in shipped account-intelligence products is exactly this: the same funding round shown three times with three headlines. Event-level clustering plus a **pickup count** as a magnitude input is a build — and doubles as evidence for step 9.
+
+---
+
+### B4. Resolve affected entities
+
+**What breaks.** (a) A name matches **two** accounts ("Apex Systems" the staffing firm vs. "Apex Systems" the distributor). (b) A name matches **none** — the signal names a brand, a former name, a ticker, or a local-language spelling that is not in the CRM. (c) A name matches the **wrong** account with high confidence, which is worse than no match because nothing flags it.
+
+**What a good system does.** Treats matching as probabilistic, not boolean: returns candidates with scores, **abstains below a threshold** and routes to review rather than guessing, and blocks/canopies on strong keys (domain, ticker, DUNS, LEI, registry ID) before falling back on fuzzy name similarity. Keeps an **alias table** (former names, brands, local-language forms, common misspellings) that grows from every human correction.
+
+**Standard terms.** **Entity resolution** (also **record linkage**, **identity resolution**, **deduplication** — related but distinct: record linkage joins across systems, deduplication works within one, identity resolution tracks one entity across touchpoints); **named entity linking / entity disambiguation** in NLP; **blocking** and **canopy clustering** for candidate generation; **lead-to-account matching (L2A)** is the market's name for the sales-specific case, and matching accuracy is a benchmarked RevOps metric. [T2: nc-squared.com L2A guide; openprisetech.com; pipeline.zoominfo.com lead-matching tools]
+
+**Coverage.** **Covered for the CRM-internal case** — L2A matching is a mature product category (LeanData, Openprise, LeadAngel, ZoomInfo). **Typically NOT covered for the external-signal case**: linking an arbitrary news mention to *your* account object, with abstention and a review path. Vendors match a lead form to an account; matching a Reuters sentence to an account is a different and harder problem, and it is where most account-intelligence demos quietly cheat by pre-linking the data.
+
+---
+
+### B5. Retrieve & rank evidence
+
+**What breaks.** (a) The retriever returns plausible but off-target passages and the ranker confidently orders noise. (b) **A non-English source** is the primary or only evidence and is silently dropped — a German regulatory filing, a Japanese earnings call, a Ukrainian procurement notice. (c) Retrieval succeeds but returns nothing *material*, and the system proceeds anyway.
+
+**What a good system does.** Hybrid keyword+vector retrieval so exact tokens (product names, policy IDs, ticker symbols) are not lost to embedding drift; query translation and cross-lingual embeddings for (b), with the original-language quote preserved next to the translation; and an explicit **no-relevant-evidence** outcome that stops the pipeline rather than handing an empty context to a generator.
+
+**Standard terms.** **Hybrid search**; **reranking**; **cross-lingual information retrieval (CLIR)** and **multilingual retrieval**; **recall@k**, **context precision** (NeMo Evaluator's RAG flow uses exactly these names). Demandbase advertises intent processing "in 133 languages", so multilingual coverage is a stated market feature. [T1 for the metric names; T3 for the Demandbase figure]
+
+**Coverage.** **Well covered.** This is the one step where both the baseline and the market are strong. Non-English handling is **partially covered** — big vendors claim language coverage, but *showing the reader the original-language quote alongside the translation* is rare, and it is what makes a non-English citation auditable rather than a leap of faith.
+
+---
+
+### B6. Reason the "so what"
+
+**What breaks.** The **hallucinated implication**. The facts are real and correctly cited; the inference is invented. "They opened a Warsaw office" → "therefore they are migrating their data platform" — nothing in the source says that. This is the most dangerous failure in the whole workflow because every surface check passes: the citation is real, the quote is accurate, the claim is fluent. It fails only on the logical step, which nothing in the stack inspects.
+
+**What a good system does.** Separates **observation** (what the source says) from **inference** (what we conclude) as distinct, differently-labelled fields, so a reader can audit the leap. Constrains inference to a closed **implication taxonomy** rather than free-form speculation. Requires every inference to name the observation it rests on. Applies groundedness checks to the observation layer and *a different check* — an explicit inference-quality judgement — to the inference layer.
+
+**Standard terms.** **Groundedness** / **faithfulness** (RAGAS and NeMo Evaluator both use "faithfulness"); **hallucination detection**; **attribution**, formalised as **AIS — "Attributable to Identified Sources"**, with **AutoAIS** as its NLI-based automation. Note the limitation precisely: **AIS measures whether a statement is supported by a source, not whether an inference from a supported statement is sound.** [T1: arxiv 2112.12870 / aclanthology.org/2023.cl-4.2 / github.com/google-research-datasets/AIS; T1: arxiv 2402.15089 AttributionBench on AutoAIS error rates]
+
+**Coverage.** **Groundedness is covered** (NeMo Guardrails, RAGAS, Patronus Lynx, AlignScore all ship it). **Inference validity is typically NOT covered by anyone.** No product in the account-intelligence market, and no component in the Oracle+NVIDIA baseline, evaluates whether the *business conclusion* legitimately follows from the cited fact. Every vendor checks "is this quote real"; nobody checks "does this quote support this conclusion". **This is the sharpest whitespace in the entire 12 steps** and the observation/inference split is the cheapest credible answer to it.
+
+---
+
+### B7. Map to service catalog
+
+**What breaks.** Every signal maps to the seller's biggest, vaguest offer, because that offer's description matches everything. Or the mapping is right in theory and wrong in practice: the recommended service is not sold in that geography, not available at that customer's tier, or already delivered to that account last quarter.
+
+**What a good system does.** Treats the catalog as structured data with eligibility constraints (geography, segment, prerequisite, delivery capacity, already-delivered history), not as a bag of marketing text to embed. Requires the mapping to state *why* — which attribute of the signal triggers which attribute of the offer. Returns "no good fit" as a legitimate answer. Reports a mapping distribution so a flat-lining recommender (everything → one offer) is visible on day one.
+
+**Standard terms.** **No standard market term.** The nearest adjacent names: **product/solution taxonomy mapping**, **next-best-action** (CRM), **offer eligibility** (telco/retail), **extreme multi-label classification** (the ML shape of it). The absence of an agreed term is a fair signal that the problem is not productised.
+
+**Coverage.** **Typically NOT covered by anyone.** Market tools recommend *actions* ("send this email", "add to this sequence") and *contacts*, not *the seller's own service line*, because a seller's catalog is idiosyncratic and vendors do not want to own it. Oracle's Sales Command Center gets closest with "next-best-action execution", but that is CRM-native next action, not mapping an external event to a professional-services offer. For a systems integrator this is the highest-value proprietary asset in the product — it is where the domain knowledge actually lives.
+
+---
+
+### B8. Ripple reasoning
+
+**What breaks.** Only the first-order effect is reported. "Customer X's supplier had a fire" is noted; "therefore X's Q3 shipments are at risk, therefore X's channel partners will re-plan, therefore X reopens a logistics-visibility project" is not. Or the opposite failure: unbounded speculation, a four-hop chain where hop three is invention and hop four is fantasy, and the chain is presented with the same confidence as hop one.
+
+**What a good system does.** Requires a **traversable relationship graph** (supplier, customer, partner, competitor, subsidiary, regulator), so a ripple is a *path through recorded relationships* rather than a language-model guess. Bounds depth explicitly (typically 2). **Decays confidence with each hop** and shows the decay. Declares the relationship evidence for every hop.
+
+**Standard terms.** In supply chain, the terms are real and established: **n-tier / multi-tier visibility**, **sub-tier visibility**, **Tier-N risk**, **cascading effects**, **disruption propagation**, **second-order effects**. Interos operates "a knowledge graph of 250 million plus companies and 11 billion supplier relationships"; Everstream sells "sub-tier visibility to uncover hidden sub-tier relationships". [T3 vendor pages; T2 D&B "Tier N Threats"; T1 academic: tandfonline.com/doi/full/10.1080/00207543.2025.2470348 on disruption propagation]
+
+**Coverage.** **Covered in supply-chain risk intelligence, and essentially absent from sales/account intelligence.** The vocabulary and the graph both exist — in the wrong market. No account-intelligence platform reasons about second-order commercial consequences for the seller. Two honest constraints to state up front: without a relationship graph, ripple reasoning is LLM speculation wearing a diagram; and ripple claims are the ones most likely to be wrong, so hop-decayed confidence is not optional.
+
+---
+
+### B9. Score + cite
+
+**What breaks.** (a) A **cited source that does not support the claim** — the URL resolves, the publication is real, the sentence is not in it, or is in it but means something else. (b) **Contradictory sources** — one says the deal closed, another says it collapsed; the system picks one, usually the one that ranked highest, and never tells the reader there was a conflict. (c) A **rumour, or a later-retracted story**, treated as fact. (d) A confidence number that is decoration — a number with no relationship to actual accuracy.
+
+**What a good system does.**
+- *(a)* Verifies citations **deterministically against what was actually retrieved**, not by asking a model whether it cited correctly. Stores the exact supporting span, not just the URL. This is the AI-Q pattern and it is the right one.
+- *(b)* Surfaces the conflict as a **finding**, with both sources and their dates, rather than silently resolving it; weights by source reliability and recency, and drops confidence when sources disagree. Conflict between two reliable sources is itself a valuable signal about an account.
+- *(c)* Carries **claim status** as data: `reported / confirmed / official / retracted`, with single-source claims flagged as unconfirmed. Re-checks cited sources for retraction before a briefing ships. The news industry has the standard: **IPTC NewsML-G2 `pubStatus`** with **`stat:canceled`** ("the content of the newsItem must not be used, ever") and **`stat:withheld`** ("must not be used until further notice"); NewsCodes usage is mandatory in the standard. Provenance standards exist adjacently: **C2PA / Content Credentials**, **NewsGuard** reliability ratings, **The Trust Project** indicators.
+- *(d)* Reports **calibrated** confidence — confidence tracks observed accuracy — and **abstains** below threshold instead of shipping a low-confidence finding with a small number next to it.
+
+**Standard terms.** **Citation verification** / **attribution** (**AIS / AutoAIS**); **truth discovery** (also **data fusion**; **knowledge fusion** when it feeds a knowledge base) is the established academic term for resolving conflicting values by jointly estimating source reliability and value correctness; **confidence calibration**; **selective prediction** / **classification with a reject option** / **abstention** (Chow's reject option; El-Yaniv & Wiener's risk–coverage trade-off); **uncertainty quantification**. [T1: iptc.org NewsML-G2 2.3x specification; T1: arxiv 2112.12870; T1: dl.acm.org/doi/10.14778/2168651.2168656 Bayesian truth discovery; T1: aclanthology.org/2021.acl-long.84 selective prediction]
+
+**Coverage.**
+- Citation verification: **covered** — AI-Q ships it deterministically, and RAG eval tooling is mature.
+- Retraction handling: **typically NOT covered by anyone.** The IPTC standard exists and is honoured by newsrooms; **no account-intelligence product re-checks previously-cited sources for cancellation before reusing them**, and a briefing archive is a permanent record of whatever was true at scrape time. This is a genuinely unserved failure mode.
+- Contradictory sources: **typically NOT covered.** Truth discovery is 15 years old in academia and effectively absent from GTM products, which show the top-ranked result and move on.
+- Rumour vs. confirmed: **partially covered** — AlphaSense and financial-intelligence tools distinguish source types; general GTM signal tools do not carry claim status as a field.
+- Calibrated confidence: **typically NOT covered by anyone.** Scores in this market (6sense's readiness/intent scores, Demandbase's account scores) are **ranking scores, not calibrated probabilities** — useful for sorting, not interpretable as "this is 80% likely to be true". Nothing in the Oracle+NVIDIA baseline emits one either.
+
+---
+
+### B10. Assemble output
+
+**What breaks.** The briefing is long, uniform and unreadable — every account gets the same six sections whether or not there is anything to put in them, so empty sections get padded. Or the artifact is prose only, so nothing downstream can consume it. Or it silently drops a finding that did not fit the template.
+
+**What a good system does.** Ships **two coupled representations**: a human briefing and a **structured record** against a declared schema, generated from the same underlying findings so they cannot disagree. Renders empty sections as explicitly empty. Makes length proportional to material change — a quiet account gets three lines, not three pages. Keeps every finding addressable by ID so review (step 11) and delivery (step 12) can act on individual findings.
+
+**Standard terms.** **Structured output** / **constrained decoding** / **schema-guided generation**; **JSON Schema** as the contract; **provenance** / **lineage** for the finding→evidence link.
+
+**Coverage.** **Partially covered.** Structured generation is a solved engineering problem and AI-Q emits durable files (charts, CSVs, notebooks). What is **typically NOT covered** is the coupling discipline — one findings model rendering to both a document and a CRM-shaped record — and **proportionality**: no product in this market is willing to produce a three-line briefing, because volume reads as value in a demo.
+
+---
+
+### B11. Human review
+
+**What breaks.** Review is theatre: the reviewer sees a finished briefing and an Approve button, with no way to reject one claim, correct an entity match, or mark an inference wrong. Or review is a bottleneck: everything queues, nothing ships. Or corrections evaporate — the reviewer fixes the same wrong entity match every week because nothing learns.
+
+**What a good system does.** Reviews at **finding granularity**, not document granularity: accept / reject / edit a single claim, with the evidence beside it. Routes by risk — high-confidence, low-stakes findings auto-ship; low-confidence or high-stakes ones queue. Captures every correction as **labelled training data** (the alias table in B4, the reliability weights in B9, the mapping rules in B7 all improve from it) and closes that loop visibly. Records who approved what, when.
+
+**Standard terms.** **Human-in-the-loop (HITL)**; **human-on-the-loop** for the monitoring variant; **review queue** / **approval workflow**; **confidence-based routing** / **triage**; **active learning** for the correction→improvement loop; **audit trail** for the record.
+
+**Coverage.** **Partially covered, and consistently at the wrong granularity.** AI-Q's Clarifier is HITL on the *plan*, before research runs; OCI Generative AI Agents offers "optional real-time monitoring and human intervention" on a *conversation*. Neither is review-and-correct-the-finding. **The correction feedback loop is typically NOT covered by anyone** in this market — corrections are treated as edits to one output, not as signal that improves the next run. That loop is what turns a demo into an asset that gets better, and it is cheap to build relative to its perceived value.
+
+---
+
+### B12. Downstream delivery
+
+**What breaks.** (a) **The opportunity is already in the pipeline** — the system creates a duplicate, or worse, alerts a rep to something they have been working for six weeks, which destroys trust in one message. (b) Delivery is not idempotent: a retry after a timeout writes the record twice. (c) The target CRM record has changed since the run and the write clobbers a human's edit. (d) The write fails silently and the briefing never arrives, while the pipeline logs success.
+
+**What a good system does.** Checks existing CRM state **before** writing — open opportunities, recent activity, existing tasks on the same account — and either suppresses, or reframes the finding as an *update to the existing opportunity*. Writes **idempotently** with a stable external key (**upsert** on `external_id`) so retries are safe. Uses optimistic concurrency so a stale write fails loudly rather than overwriting. Treats a failed delivery as a **failure**, never a silent success, and surfaces it where a human looks.
+
+**Standard terms.** **CRM write-back**; **reverse ETL** / **operational analytics** / **activation** for the general pattern; **upsert** and **external ID** for the idempotency mechanism; **idempotency key**; **duplicate management** (Salesforce's own term) and **suppression** for (a); **optimistic concurrency / ETag** for (c); **dead-letter queue** for (d).
+
+**Coverage.** **Idempotent write-back is well covered** — reverse-ETL is a mature category and CRM duplicate management is native. **Suppression against in-flight pipeline is only partially covered** and is the one that actually burns adoption: platforms dedupe *records*, few of them ask "is a human already on this?" before alerting. Alert fatigue from re-surfacing known work is the most common reason signal products get switched off, and it is a cheap, unglamorous fix.
+
+---
+
+### B13. Cross-cutting: the named failure modes, mapped
+
+| Failure mode | Step | Standard term | Covered by the market? |
+|---|---|---|---|
+| No signal in the period | 2 | *no standard term* (empty state / coverage gap) | **NO — nobody does the honest null** |
+| Rumour, or a later-retracted story | 9 | claim status; **IPTC `pubStatus` `stat:canceled` / `stat:withheld`** | **NO for retraction re-checking**; partial for rumour |
+| Name matches two accounts, or none | 4 | **entity resolution / named entity linking**; **L2A matching**; abstention | Covered CRM-internally; **NO for external signal → account** |
+| Paywalled / inaccessible source | 2 | licensed content, entitlements | Partial (licensing); **NO for graceful degradation + provenance** |
+| CRM record missing or stale | 2 | **data decay** (20–30%/yr; 90-day refresh baseline) | **Yes — the enrichment industry's core pitch** |
+| Fabricated "so what" (hallucinated implication) | 6 | **groundedness / faithfulness**; **AIS / AutoAIS** | Covered for *facts*; **NO for inference validity** |
+| Cited source does not support the claim | 9 | **citation verification**, **attribution (AIS)** | **Yes** — AI-Q verifies deterministically |
+| Opportunity already in the pipeline | 12 | suppression, **duplicate management** | Partial; **NO for "a human is already on this"** |
+| Contradictory sources | 9 | **truth discovery / data fusion / knowledge fusion** | **NO in GTM products** (mature in academia) |
+| Non-English source | 5 | **cross-lingual information retrieval (CLIR)** | Partial; **NO for original-language quote beside translation** |
+| Materially stale signal | 2, 9 | recency decay, freshness, temporal validity | Partial (timestamps); **NO for materiality-aware staleness** |
+
+### B14. What nobody covers — say this out loud
+
+Six failure modes have **no standard handling anywhere in this market**, in the Oracle+NVIDIA baseline, or in the named competitors. Stating them plainly is more credible than a matrix of green ticks, and each is a concrete build:
+
+1. **Inference validity.** Everyone verifies that a quote is real. Nobody verifies that the business conclusion follows from it. (Step 6 — the biggest gap, and the one that produces the most embarrassing output.)
+2. **The honest empty state.** No product is willing to say "nothing material happened at this account this month, here is what we checked." Commercial incentives run the other way. (Step 2.)
+3. **Retraction re-checking.** The standard exists (**IPTC `pubStatus`**); nothing in GTM re-validates a cited source before reusing it, so a briefing archive preserves retracted claims indefinitely. (Step 9.)
+4. **Conflict as a finding.** Truth discovery is a 15-year-old research field with essentially zero GTM productisation. Contradiction between reliable sources is surfaced nowhere — it is silently resolved by rank order. (Step 9.)
+5. **Calibrated confidence.** Market scores are ranking scores. Nothing emits a number that means "80% of claims at this confidence are correct", and nothing in the baseline emits one either. (Step 9.)
+6. **The correction feedback loop.** Human corrections are treated as edits to one document, not as labelled data that improves entity matching, source reliability and catalog mapping on the next run. (Step 11.)
+
+Two more are **covered in an adjacent market but absent here**: **ripple / n-tier reasoning** (mature in supply-chain risk — Interos, Everstream, D&B — absent in account intelligence, step 8) and **service-catalog mapping** (no standard term at all, step 7).
 
 ## Sources
 _pending_
