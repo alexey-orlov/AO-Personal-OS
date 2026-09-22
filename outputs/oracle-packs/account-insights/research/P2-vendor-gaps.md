@@ -29,7 +29,7 @@
 1. **Nobody decomposes this job into steps.** Ten vendors, four different taxonomy *shapes*: content-and-agent-shaped (AlphaSense), signal-pipeline-shaped (ZoomInfo, Clay, Demandbase), job-role-shaped (Salesforce), and surface-shaped (Microsoft). A 12-step pipeline is my model, not the market's — so "which step do vendors name" is the wrong question; "which steps does anyone *sell separately*" is the right one, and the answer is: ingest, entity-resolve, deliver.
 2. **Step 8 (cross-account ripple) is empty for all ten.** Not under-marketed — absent. And yet the graph exists and is *quantified*: Bloomberg's **SPLC** covers 900k supplier–customer relationships, 200k with revenue exposure attached, built on the ASC 275 >10%-of-revenue disclosure rule — sold to **investors**. Supply-chain risk vendors (Resilinc, Interos, Everstream) traverse the same edges **inbound** for procurement. Nobody traverses them **outbound for a seller**.
 3. **Step 7 (map to the seller's own catalog) has exactly one shipped implementation** — LinkedIn Account IQ's "why your product is a good fit", driven by a free-text product blurb. Everything else is RAG over sales collateral.
-4. **Step 11 (human review) is nearly empty too**, and unlike step 8 it is not hard. Only Klue ships triage as a stage; Moody's ships an editable credit memo. This is the cheapest available differentiator.
+4. **Step 11 (human review) is nearly empty across the ten**, and unlike step 8 it is not hard. Only Klue ships triage as a stage; Moody's ships an editable credit memo. It *is* shipped — by Anthropic (approval-gated CRM writes), Clay (human-approved sync) and CrewAI (review the top 3) — i.e. by the AI platforms, never by the products a coverage team would actually buy. Cheapest available differentiator.
 5. **Fourteen tasks are missing from my 12 steps.** The six that matter: cadence/recurrence as an object, delta reasoning ("what changed"), output-format-as-input, the signal-type catalog, **source licensing rights**, and human triage as distinct from machine filtering.
 6. **Five of my steps are probably over-split.** Strongest: 5+6 (retrieve/rank + reason) are one atomic agent call in every product; 3+4 (dedupe + entity-resolve) are one normalization step; step 9 mostly restates 6 and 10.
 7. **No direct competitor wins more than three of the seven sub-jobs.** The corpus belongs to AlphaSense/Factiva/Moody's (licensing, not crawling — structurally unbeatable by a build); first-party grounding belongs to Microsoft/Salesforce; nobody owns the catalog mapping or the governance.
@@ -602,7 +602,7 @@ That makes this a **data-availability and packaging gap wearing the costume of a
 
 **Why this is the most commercially interesting gap.** Every vendor in Part A is a horizontal tool sold to thousands of sellers, so the catalog is necessarily the customer's problem. An accelerator pack built for one seller (or one seller archetype — a systems integrator, a professional-services firm, a bank's coverage team) can treat the catalog as *a first-class input*, which no horizontal product can. This is the sub-job (SJ-5) with no strong winner in B1.
 
-### C3. Confidence calibration — **not shipped by anyone, and academically known to be hard**
+### C3. Confidence calibration — **absent from every enterprise product; partially shipped only at the DIY end**
 
 **Vendor evidence (absence):**
 - AlphaSense's entire trust story is **citation granularity**, not calibration — "deep-linked citations… the original source document and exact snippet" [T1]. Its Deep Research launch mentions **no** confidence metric, verification workflow, or required human review [T3].
@@ -643,7 +643,7 @@ So the accurate statement is: **evidence-class labelling and per-claim rationale
 
 **So the honest gap is not "connect to the CRM".** It is that **no product treats first-party data as untrustworthy and shows its work.** Nobody says "I asserted this from a CRM field last touched 14 months ago." Microsoft's permission-trimming is the only first-party *governance* feature documented anywhere in the set, and it is about access, not freshness.
 
-### C5. Human review as a stage — **almost universally missing, and it is the cheap one**
+### C5. Human review as a stage — **shipped by the AI platforms, missing from the account-intelligence vendors**
 
 Step 11 is nearly empty in the A2 map. Only **Klue** ships a named review stage (**Intel Triage Tools**, plus curation before newsletter/battlecard publish) [T3]; **Moody's Automated Credit Memo** produces a "fully written and **editable** narrative" [T1]; **Salesforce Pipeline Management Agent** has "suggestive or autonomous modes" [T3].
 
