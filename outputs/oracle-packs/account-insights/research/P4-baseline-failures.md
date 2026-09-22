@@ -1,6 +1,6 @@
 # P4 — Baseline capability audit (Oracle + NVIDIA) & failure paths
 
-Status: IN PROGRESS (skeleton written 2026-09-22; sections fill progressively)
+Status: COMPLETE (2026-09-22)
 Research question A: is the claim "the Oracle+NVIDIA baseline provides only vector search + reranking" true?
 Research question B: for each of the 12 workflow steps, what is the failure path and its industry-standard handling?
 
@@ -11,7 +11,8 @@ Source tiers: **T1** = primary vendor docs / GitHub / filings · **T2** = analys
 ## Job A — What the Oracle + NVIDIA baseline actually provides
 
 ### A0. Verdict (one paragraph)
-_pending_
+
+**The "only vector search + reranking" claim is wrong, and wrong in the direction that costs money.** The Oracle + NVIDIA baseline — AI-Q Blueprint 2.x on OCI, a combination NVIDIA itself publishes a reference deployment for — already ships planning, multi-source research with concurrent sub-agents, long-form **citation-backed report generation**, a **deterministic citation-verification pipeline**, **human-in-the-loop plan approval**, **evaluation harnesses** tuned on public benchmarks, and **NeMo Guardrails** groundedness and hallucination rails. On the Oracle side, **OCI Generative AI Agents** independently ships RAG with knowledge bases, tool and agent orchestration, guardrails and human-in-the-loop, and **Oracle Fusion Cloud CX**'s new **Sales Command Center** does signal-led account monitoring with external enrichment. Of the 12 workflow steps, **3 are fully covered, 5 partially, and 4 not at all**. The four genuine gaps — **entity resolution (4), service-catalog mapping (7), ripple reasoning (8), maintaining the entity universe (1)** — plus the hard halves of two partials — **calibrated per-claim confidence and business magnitude (9)** and **structured CRM-schema output with idempotent write-back (10/12)** — are the real product. That is a smaller but far more defensible claim than 23 of 25.
 
 ### A1. NVIDIA AI-Q — what it is today
 
@@ -90,7 +91,7 @@ So the *retrieval* half of the baseline is itself richer than "vector search + r
 | # | Exact Oracle product name | What it provides (verified) | Source | Tier |
 |---|---|---|---|---|
 | 1 | **Oracle AI Vector Search**, a feature of **Oracle AI Database 26ai** | VECTOR datatype, vector indexes, similarity + **hybrid search** (keyword + vector) inside the converged DB; included at no extra charge | docs.oracle.com/en/database/oracle/oracle-database/26/vecse/ ; …/26/vecse/understand-hybrid-search.html | T1 |
-| 2 | **OCI Generative AI** | Managed LLM inference/fine-tuning endpoints (incl. Cohere models) | oracle.com/artificial-intelligence/generative-ai/ (page blocks automated fetch; corroborated by T1 docs below) | T3/T1 |
+| 2 | **OCI Generative AI** | Verbatim: "a fully managed Oracle Cloud Infrastructure service for building, deploying, and operating generative AI applications at enterprise scale." Pretrained hosted models + custom models on **dedicated AI clusters**; model types **Chat / Embeddings / Rerank**; **OpenAI-compatible APIs**; "production-grade agents with tools, memory, retrieval, and orchestration"; **SQL Search (NL2SQL)**; governance (IAM policies, private endpoints, Zero Trust Packet Routing, **Guardrails**) | docs.oracle.com/en-us/iaas/Content/generative-ai/overview.htm | T1 |
 | 3 | **OCI Generative AI Agents** | "Fully managed service…to create intelligent virtual agents." Ships: **RAG Tool**, **SQL Tool**, **Agent Tool** ("orchestrates networks of specialized agents"), **Custom Function Calling Tool**, **Custom API Endpoint Calling Tool**; plus **tools orchestration**, **multi-turn chat**, **context retention**, **custom instructions**, **Guardrails** (content moderation, prompt-injection, PII), **Human-in-the-loop** ("optional real-time monitoring and human intervention"). Knowledge bases back onto **OCI Object Storage** (service-managed vector store), **Oracle Database 23ai/26ai** vector search, and BYO **OCI Search with OpenSearch**. | docs.oracle.com/en-us/iaas/Content/generative-ai-agents/overview.htm ; …/create-knowledge-base.htm | T1 |
 | 4 | **Oracle Cloud Infrastructure Document Understanding** | "extract text, tables, and other key data from document files through APIs and CLI tools"; document classification; **Key-Value Extraction powered by Large Multimodal Models (LMMs)**; custom generative + custom classic models | docs.oracle.com/en-us/iaas/Content/document-understanding/using/home.htm | T1 |
 | 5 | **OCI Search with OpenSearch** | Managed OpenSearch: keyword, **vector**, and **hybrid search**; RAG pipelines and conversational search from v2.11; integrates with OCI Generative AI and OCI Generative AI Agents | oracle.com/cloud/search/ ; blogs.oracle.com/cloud-infrastructure/post/oci-search-with-opensearch-211-ai-innovations | T3/T1 |
@@ -338,7 +339,80 @@ Six failure modes have **no standard handling anywhere in this market**, in the 
 Two more are **covered in an adjacent market but absent here**: **ripple / n-tier reasoning** (mature in supply-chain risk — Interos, Everstream, D&B — absent in account intelligence, step 8) and **service-catalog mapping** (no standard term at all, step 7).
 
 ## Sources
-_pending_
+
+### T1 — primary vendor documentation, GitHub, standards bodies, peer-reviewed
+**NVIDIA**
+- https://docs.nvidia.com/aiq-blueprint/2.1.0/architecture/overview.html — AI-Q architecture: agents/nodes, citation-verification pipeline, HITL clarifier, data-source filtering, evaluation-driven defaults
+- https://docs.nvidia.com/aiq-blueprint/latest/index.html — AI-Q Blueprint docs root
+- https://github.com/NVIDIA-AI-Blueprints/aiq — README: NeMo Agent Toolkit 1.8.0, LangChain Deep Agents 0.6.5+, NIM model list, MCP server ops, NeMo Guardrails middleware, benchmarks
+- https://github.com/NVIDIA-AI-Blueprints/aiq-research-assistant — AI-Q Research Assistant blueprint
+- https://github.com/NVIDIA/NeMo-Agent-Toolkit — the underlying toolkit
+- https://build.nvidia.com/nvidia/aiq — blueprint card: capability bullets, NIM/NeMo Retriever component list
+- https://catalog.ngc.nvidia.com/orgs/nvidia/teams/blueprint/collections/ai-research-assistant-blueprint — NGC collection
+- https://docs.nvidia.com/enterprise-reference-architectures/ai-q-research-agent-blueprint/latest/index.html — Enterprise Reference Architecture
+- https://docs.nvidia.com/nemo/retriever/index.html and https://github.com/NVIDIA/NeMo-Retriever — extraction / embedding / reranking / OCR microservices
+- https://docs.nvidia.com/nim/nemo-retriever/text-embedding/latest/overview.html — Embedding NIM
+- https://docs.nvidia.com/nemo/microservices/latest/evaluate/flows/rag.html and …/about/core-concepts/evaluation.html — NeMo Evaluator: RAG metrics (faithfulness, answer relevancy, context precision, recall@k)
+- https://docs.nvidia.com/nemo/microservices/26.3.1/evaluator/tutorials/run-llm-judge-evaluation.html — LLM-as-a-Judge flow
+- https://docs.nvidia.com/nemo/guardrails/configure-guardrails/guardrail-catalog — full rail catalog
+- https://docs.nvidia.com/nemo/guardrails/latest/configure-rails/guardrail-catalog/fact-checking.html — self-check fact-checking, hallucination detection (SelfCheckGPT variant), AlignScore
+
+**Oracle**
+- https://docs.oracle.com/en/database/oracle/oracle-database/26/vecse/ — Oracle AI Vector Search User's Guide, 26ai
+- https://docs.oracle.com/en/database/oracle/oracle-database/26/vecse/understand-hybrid-search.html — hybrid search
+- https://docs.oracle.com/en-us/iaas/Content/generative-ai/overview.htm — OCI Generative AI (exact name + capabilities)
+- https://docs.oracle.com/en-us/iaas/Content/generative-ai-agents/overview.htm — OCI Generative AI Agents: tools, guardrails, HITL
+- https://docs.oracle.com/en-us/iaas/Content/generative-ai-agents/create-knowledge-base.htm — knowledge-base backends (Object Storage, 23ai, BYO OpenSearch)
+- https://docs.oracle.com/en-us/iaas/Content/document-understanding/using/home.htm — OCI Document Understanding
+- https://docs.oracle.com/en-us/iaas/Content/ContEng/Concepts/contengoverview.htm — Kubernetes Engine (OKE) exact naming
+- https://docs.oracle.com/en-us/iaas/Content/Functions/Concepts/functionsoverview.htm — OCI Functions exact naming + former name
+- https://docs.oracle.com/en-us/iaas/Content/APIGateway/Concepts/apigatewayoverview.htm — API Gateway
+- https://docs.oracle.com/en-us/iaas/Content/kafka/overview.htm — Streaming with Apache Kafka
+- https://docs.oracle.com/en-us/iaas/data-science/using/ai-quick-actions.htm and …/ai-quick-actions-model-deploy.htm — OCI Data Science AI Quick Actions, Model Deployment
+- https://docs.oracle.com/en/cloud/saas/sales/fasig/index.html — Sales Intelligence, under Oracle Fusion Cloud Sales Automation
+- https://www.oracle.com/news/announcement/oracle-introduces-fusion-agentic-applications-for-cx-2026-04-09/ — Fusion Agentic Applications for CX (Sales Command Center et al.)
+- https://docs.oracle.com/en/solutions/genai-vector-opensearch/plan-your-deployment1.html — Generative AI Agents + AI Vector Search + OCI OpenSearch solution
+
+**Standards & research**
+- https://iptc.org/std/NewsML-G2/2.34/specification/NewsML-G2-2.34-specification.html — `pubStatus`, `stat:canceled`, `stat:withheld`
+- https://arxiv.org/abs/2112.12870 · https://aclanthology.org/2023.cl-4.2/ · https://github.com/google-research-datasets/AIS — AIS "Attributable to Identified Sources" + AutoAIS
+- https://arxiv.org/html/2402.15089v1 — AttributionBench: limits of automatic attribution evaluation
+- https://dl.acm.org/doi/abs/10.14778/2168651.2168656 — Bayesian truth discovery from conflicting sources
+- https://arxiv.org/pdf/1503.00302 — From Data Fusion to Knowledge Fusion
+- https://aclanthology.org/2021.acl-long.84.pdf — selective prediction / reject option
+- https://arxiv.org/pdf/2404.10960 — uncertainty-based abstention reduces hallucinations
+- https://www.tandfonline.com/doi/full/10.1080/00207543.2025.2470348 — disruption propagation across supply-chain tiers
+
+### T2 — analyst / trade press
+- https://www.infoworld.com/article/3847900/oracle-nvidia-partner-to-add-ai-software-into-oci-services.html — NVIDIA AI Enterprise native in OCI Console
+- https://pipeline.zoominfo.com/marketing/b2b-data-decay — B2B data decay rates
+- https://pipeline.zoominfo.com/operations/top-lead-matching-routing-tools — L2A matching tool landscape
+- https://nc-squared.com/blog/article/what-is-lead-to-account-matching-and-routing-how-to-build-an-abm-ready-salesforce-instance — L2A as a RevOps workflow
+- https://www.dnb.com/en-us/blog/supplier-risk/tier-n-threats-hidden-supply-chain-risk.html — Tier-N risk
+- https://www.gartner.com/reviews/market/revops-data-automation-solutions — RevOps data automation category
+
+### T3 — vendor marketing / blogs
+- https://developer.nvidia.com/blog/deploy-a-production-ready-nvidia-ai-q-blueprint-on-oracle-cloud-infrastructure — AI-Q 2.0 on OCI: Terraform + Helm on OKE, VCN, Flexible LB, OCI Vault, Block Volume/CSI, FastAPI backend + Next.js frontend + PostgreSQL
+- https://developer.nvidia.com/blog/how-to-build-deep-agents-for-enterprise-search-with-nvidia-ai-q-and-langchain/
+- https://nvidianews.nvidia.com/news/oracle-and-nvidia-collaborate-to-help-enterprises-accelerate-agentic-ai-inference
+- https://blogs.oracle.com/database/oracle-announces-oracle-ai-database-26ai — 26ai replaces 23ai
+- https://blogs.oracle.com/cloud-infrastructure/post/oci-search-with-opensearch-211-ai-innovations — RAG pipelines, vector DB, conversational search
+- https://blogs.oracle.com/cx/oracle-fusion-cloud-cx-26c-innovation-customer-signals-connect-to-enterprise-execution — Account Workspace, external data source enrichment
+- https://www.oracle.com/cx/sales/ — Oracle Fusion Cloud Sales
+- https://www.interos.ai/ and https://www.everstream.ai/ — n-tier / sub-tier visibility claims
+- https://www.commonroom.io/resources/signal-based-selling/ — signal-based selling framing
+- 6sense / Demandbase / ZoomInfo Copilot comparison pages (improvado.io, salesmotion.io, amplemarket.com) — capability + limitation claims
 
 ## Unverified
-_pending_
+
+Stated plainly rather than papered over:
+
+1. **AI-Q version currency.** Docs read at **2.1.0**; the OCI deployment blog describes **AI-Q 2.0**; `build.nvidia.com` lists an older retrieval model set (Llama 3.3 Nemotron Super 49B v1.5, Llama 3.2 NV EmbedQA/RerankQA 1B v2) than the repo README (nemotron-3 family). The two NVIDIA surfaces disagree on default models. **Not resolved** — check the release notes for the exact version you will deploy before quoting a model list.
+2. **`oracle.com` marketing pages block automated fetch (HTTP 403).** Product claims for **OCI Generative AI**, **OCI Search with OpenSearch**, **Oracle Fusion Cloud Sales** and the Fusion Agentic Applications press release were verified through `docs.oracle.com`, `blogs.oracle.com`, PR Newswire mirrors and search snippets rather than the `oracle.com` page itself. Names are T1-confirmed via docs; the *feature bullets* on those marketing pages are second-hand.
+3. **"AI-Q Research Assistant" vs "AI-Q Blueprint".** Treated here as one lineage with two packagings. Whether NVIDIA still maintains the `aiq-research-assistant` repo separately, or has folded it into `aiq`, was **not confirmed**.
+4. **Per-claim confidence in NeMo.** I found no shipped calibrated per-claim confidence in NeMo Evaluator or NeMo Guardrails on the pages read. I cannot prove a 2026 release did not add one — this is an absence-of-evidence finding, flagged as such in §A3 and row 9.
+5. **Sales Command Center availability.** Announced 2026-04-09 and described in the 26C CX release blog. **GA status, licensing and which regions/pods have it were not verified** — if the competitive-overlap argument matters commercially, confirm availability before relying on it.
+6. **Legacy OCI Streaming deprecation.** Both "OCI Streaming" and "Streaming with Apache Kafka" appear in current Oracle docs. Whether the legacy service is formally deprecated was **not confirmed**.
+7. **Oracle Fusion Cloud Sales vs Oracle Fusion Cloud Sales Automation.** `oracle.com/cx/sales/` uses the former; the docs library uses the latter. Both are current Oracle strings; which is the canonical marketing name in 2026 was **not resolved**. Neither is "Oracle Fusion Sales".
+8. **Market coverage claims in Job B** are T2/T3 — synthesised from vendor comparison pages and product marketing, not from hands-on testing or a signed feature matrix. The "nobody covers this" calls in §B14 are strongly supported by the absence of the capability in any vendor's own description, but absence from marketing is weaker evidence than a tested negative.
+9. **Interos / Everstream figures** (250M+ companies, 11B supplier relationships; "sub-tier visibility") are vendor self-reported (T3), not independently verified.

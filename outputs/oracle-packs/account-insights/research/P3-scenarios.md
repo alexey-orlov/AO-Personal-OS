@@ -425,7 +425,38 @@ One table per step. `—` means **no real difference here** — the step does wh
 
 ### 3.2 Not-implemented feature rows / configuration settings implied by the grid
 
-_pending_
+Every row below is the answer to "at this step, this scenario could not be trusted the way S1 can". All are **not implemented**. `F` = feature row (new capability to build). `C` = configuration setting (a switch on an existing capability). Ordered by how many scenarios they unblock.
+
+| ID | Kind | What it is | Closes step(s) | Scenarios | Status |
+|---|---|---|---|---|---|
+| **NI-4** | F | **Eligibility gate** as a first-class stage between resolution and reasoning, with pluggable rule packs (restricted list, conflict imputation, vehicle/set-aside, sanctions block). Can suppress a correct, high-confidence item and log why. | new (M1), 6, 7, 9, 11 | S2, S3a, S3b, S4, S5, S7 | not implemented |
+| **NI-12** | F | **Portfolio aggregation layer**: correlation groups (peril zone, obligor group, sector, sub-tier chokepoint) evaluated as the unit, surfacing items individually immaterial and jointly binding. | new (M3), 1, 6, 8, 10 | S6, S2, S4, S3a | not implemented |
+| **NI-13** | F | **As-of freeze + negative assertion**: immutable evidence snapshot per output, plus "screened, clear, on date X, against sources Y" as a recorded result. | new (M4), 5, 9, 10 | S2, S3a, S4, S6 | not implemented |
+| **NI-11** | F | **Information-barrier-aware context assembly**: evidence tagged by wall side; the reasoning context refuses to blend sides; every crossing is logged. | 2, 5, 11 | S2, S3a, S7 | not implemented |
+| **NI-17** | F | **Deadline trigger**: bind entities to dated instruments, emit ahead of the date with no new signal, suppress or downgrade after it passes. | new (M2), 6, 10, 12 | S5, S6, S2, S3a | not implemented |
+| **NI-15** | C | **Catalog abstraction** — `catalog_type = offering \| lever \| mitigation \| permission \| none`, with a null-safe mode so step 7 can be switched off rather than fabricating a mapping. | 7 | S3a, S3b, S4, S6 | not implemented |
+| **NI-16** | F | **Computed-magnitude adapters**: plug an external calculator (PML, expected loss, Pwin × value, EBITDA impact) in place of a judged score. | 5, 9 | S6, S5, S2, S3a | not implemented |
+| **NI-8** | F | **Geospatial resolution**: polygon ↔ location matching, footprint-preserving de-duplication, and lane/port geography as a resolution hop. | 2, 3, 4, 8 | S6, S1 | not implemented |
+| **NI-9** | F | **Thesis object**: named falsifiable assumptions with an evidence-for/against ledger; relevance and scoring computed against assumptions. | 3, 5, 6, 9 | S3a, S3b | not implemented |
+| **NI-2** | F | **Unnamable-universe scoping**: n-tier expansion producing inferred entities flagged `discovered_not_contracted`, each with a confidence-of-existence. | 1, 2, 3, 8 | S4 | not implemented |
+| **NI-5** | F | **Conflict-imputation graph**: firmwide adverse-party graph across open and closed matters, with imputation and screening-wall exceptions. | 1, 4, 7, 8 | S7 | not implemented |
+| **NI-14** | F | **Dual-implication generation**: one signal yields an opportunity and a risk, routed to different owners with different SLAs; neither may suppress the other. | 6, 7, 10, 12 | S2, S4, S6 | not implemented |
+| **NI-18** | F | **Evidenced review control**: reviewer identity, role, rationale; rejection recorded as risk acceptance with an owner and an expiry, never a delete. | 11 | S2, S4, S5, S6 | not implemented |
+| **NI-19** | F | **Write-path delivery connectors**: open a case, fire a contractual notice, change a binding authority — as distinct from read-path notification. | 12 | S2, S4, S6 | not implemented |
+| **NI-6** | C | **Provenance class** as a first-class field (`official_disclosure \| regulated_filing \| reported \| rumour \| model_output`) with action gating by class. | 3, 5, 9 | S2, S6 | not implemented |
+| **NI-1** | C | **Entity grouping mode** — `sales_hierarchy \| obligor_group \| legal_entity` — resolving via accounting-consolidation hierarchy rather than name match. | 1, 4 | S2 | not implemented |
+| **NI-3** | F | **Ownership-graph traversal with fractional aggregation**: sum stakes held by several listed parties to a threshold, emit a blocked verdict. | 4 | S4, S2 | not implemented |
+| **NI-7** | F | **Docket state machine**: model a procurement as an object with lifecycle states; de-duplicate across states; emit on transitions. | 2, 3, 4 | S5 | not implemented |
+| **NI-10** | F | **Reverse resolution / discovery mode**: signal → candidate entities in no existing list, bounded by a screen rather than a roster. | 1, 4 | S3b | not implemented |
+| **NI-20** | C | **Suppression as a delivery outcome**: an item can be correct and still must not be delivered; suppression is logged and reviewable. | 10, 12 | S7, S2 | not implemented |
+
+**Three configuration settings carried over from the demoted candidates in §1.4** — they are real requirements even though their industries did not earn a column:
+
+| ID | Kind | What it is | Step(s) | From |
+|---|---|---|---|---|
+| **NI-21** | C | `buyer_contract_payer_are_distinct` + a **code-level routing intermediary**: resolve a policy signal onto billing/product codes first, then onto entities that use them. | 4, 7 | Healthcare payer–provider |
+| **NI-22** | C | `counterparty_is_bilateral`: the same counterparty is buy-side and sell-side on different objects; implications must be netted before action. | 6 | Telco wholesale (also energy trading, contract manufacturing) |
+| **NI-23** | C | `entity_has_fixed_location` + `signal_source_may_be_out_of_universe`: propagate from a non-counterparty (a tenant) through a physical asset to a dated instrument. | 4, 8 | Commercial real estate |
 
 ---
 

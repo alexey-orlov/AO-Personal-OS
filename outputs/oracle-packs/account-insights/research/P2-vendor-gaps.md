@@ -406,7 +406,86 @@ _pending_
 
 ## PART C — THE HONEST GAPS
 
-_pending_
+The four named in the brief, plus three more the research surfaced. Each is stated as *what is missing*, with the evidence that it is missing rather than merely un-marketed.
+
+### C1. Cross-account ripple reasoning — **nobody ships it, in any adjacent market**
+
+**Evidence of absence:** step 8 is the only row in the A2 map that is empty (○) for all ten vendors. No account-intelligence, ABM, sales-intelligence, CI or news-analytics vendor examined names a capability that reasons "this event at company X implies something for company Y because Y supplies / sells to / competes with X."
+
+**But the graph exists — in a different industry.** Multi-tier relationship graphs are a mature, shipped product category in **supply-chain risk**:
+- **Resilinc Multi-Tier Mapping** — "builds a digital twin of the full supply network, tracing the network from raw material suppliers through to final assembly", identifies "part-to-site links across all tiers using 15+ years of validated data", detects "critical nodes and bottlenecks that standard ERP tools miss" [T3 resilinc.ai].
+- **Interos** — n-tier mapping, "uncovers Nth-party risk", identifies "high-risk tier 2 and tier 3 companies and understand how they connect to you" [T3 interos.ai].
+- **Everstream Discover** — "reviews multiple supplier tiers to identify risks from sourcing through receiving", using "digital twins… of its supplier network" [T3].
+
+**So the honest gap is not "can the graph be built".** It is that **the graph is built for the buyer's own inbound risk, never for the seller's outbound opportunity.** Resilinc/Interos answer "which of *my* suppliers is exposed". Nobody answers "which of *my accounts* is exposed because *their* supplier/customer had an event". Those are the same edges traversed in the opposite direction, and no product in either category does the traversal.
+
+**Why it stays unsolved (honest read, not vendor bashing):** the ripple claim is the one claim in an account brief that is *hardest to source*. "Acme had a bad quarter" is citable to a filing. "Therefore Beta, who sells 30% of its volume to Acme, is at risk" requires a customer-concentration disclosure that exists for public issuers and essentially never for private ones. The gap is a **data-availability gap masquerading as a reasoning gap** — which is exactly why it is worth naming: the subset where it *is* sourceable (10-K customer-concentration disclosures, named-customer risk factors, public tender/contract awards) is small, tractable, and completely unserved.
+
+### C2. Mapping to the seller's OWN service catalog — **one weak implementation, market-wide**
+
+**What exists:**
+- **LinkedIn Sales Navigator Account IQ** — the only shipped surface that says "why *your* product is a good fit" and coaches on "how to best map your solution to their business needs" [T1 LinkedIn help]. But it is driven by a **free-text product description** the admin types, not a structured catalog, and LinkedIn documents **no citations and no confidence** for it, plus honest coverage caveats [T1].
+- **Salesforce Engagement Agent** — grounded in "product FAQ, case studies, and **sales plays**"; **Account Management Agent** pulls from "**enablement materials**" [T3]. This is RAG over collateral, not a mapping from implication → offering.
+- **Introhive** — infers cross-service opportunity from the **relationship graph** ("who already knows a prospect or client"), whitespace and "Lonely Client Analysis" [T3]. It answers *who can sell* far better than *what to sell*.
+- **Demandbase Context Intelligence** — analyzes signals "against pipeline goals" [T3]. Goals, not catalog.
+
+**What does not exist anywhere in the ten vendors + nine direct competitors studied:** a surface where the seller **loads a structured catalog** (service lines, SKUs, delivery capabilities, qualifications, reference cases, price bands) and the system returns, per implication, **which specific offering it buys and why** — with the offering cited as precisely as the news is.
+
+**Why this is the most commercially interesting gap.** Every vendor in Part A is a horizontal tool sold to thousands of sellers, so the catalog is necessarily the customer's problem. An accelerator pack built for one seller (or one seller archetype — a systems integrator, a professional-services firm, a bank's coverage team) can treat the catalog as *a first-class input*, which no horizontal product can. This is the sub-job (SJ-5) with no strong winner in B1.
+
+### C3. Confidence calibration — **not shipped by anyone, and academically known to be hard**
+
+**Vendor evidence (absence):**
+- AlphaSense's entire trust story is **citation granularity**, not calibration — "deep-linked citations… the original source document and exact snippet" [T1]. Its Deep Research launch mentions **no** confidence metric, verification workflow, or required human review [T3].
+- Factiva Smart Summary: "fully transparent and **traceable**" [T2/T3] — again provenance, not probability.
+- 6sense and Demandbase ship **propensity** scores (fit/intent/stage; Pipeline Predictive Score) — a score *about the account*, not a confidence *about the claim*. Conflating these is the single most common category error in this market.
+- Microsoft, Salesforce, LinkedIn, Common Room, Clay, Klue: **no confidence mechanism documented at all.**
+
+**Academic evidence that it is genuinely unsolved, not merely unshipped:**
+- Benchmarks report LLMs are "systematically overconfident when verbalizing", with verbal scores "cluster[ing] on a handful of round-number values, collapsing their discriminative power" [T2 arXiv 2609.10996].
+- "calibration in autonomous **agents** remains notably sparse" — i.e. the tool-use/agentic setting is worse-studied than single-turn QA [T2 arXiv 2601.07264, *The Confidence Dichotomy: Analyzing and Mitigating Miscalibration in Tool-Use Agents*].
+- Purpose-built work on exactly this artifact exists and is very recent: Yuan, Wang & Lei, *Towards Trustworthy Report Generation: A Deep Research Agent with Progressive Confidence Estimation and Calibration* [T2 arXiv 2604.05952], whose stated problem is that deep-research agents "generate claims without appropriate confidence indicators" and that "their internal confidence assessments often don't align with actual accuracy", producing reports that "appear authoritative but may contain unsupported or inaccurate information."
+
+**The honest version of this gap:** a calibrated per-claim probability is a research problem. But **a calibrated *evidence-class* label is not** — "disclosed in a filing" vs. "reported by one trade outlet" vs. "inferred by the model from two weak signals" is a deterministic property of the retrieval path, is auditable, and is what a coverage banker or a partner actually needs before repeating a claim to a client. Nobody ships even that. The gap is real; the *tractable* version of it is much closer than the literature suggests.
+
+### C4. First-party CRM grounding — **solved by the CRM vendors, absent from the research vendors, and undermined by the data itself**
+
+**The split is clean and it is structural:**
+
+| | Deep external corpus | Deep first-party grounding |
+|---|---|---|
+| AlphaSense, Factiva, Moody's | ✅ (licensed, 500M+ docs / ~350k codes / ratings) | ❌ — AlphaSense's Enterprise Intelligence indexes *internal document libraries* and "20+ everyday work systems", but **CRM is not a documented connector** [T1 developer.alpha-sense.com; see `## Unverified`] |
+| Microsoft, Salesforce | ❌ (thin/undocumented external news) | ✅ — CRM + Graph + conversations, **permission-trimmed** [T1 Microsoft Learn] |
+| Common Room, Rox, Clay | partial | partial |
+
+**Common Room and Rox are the two making the explicit bet on closing it** — Common Room's Capture searches "earnings calls, 10-Ks, news articles, podcasts" *and* "Gong recordings, CRM records, product usage data" in one pass [T3]; Rox sells a "**System of Context** — a unified data fabric that blends your private CRM data with public intelligence" [T2/T3]. Neither documents entity resolution, dedup, confidence, citations or review [T1 Common Room docs; T1 rox.com].
+
+**And then the data undercuts everyone.** Grounding in first-party data is only as good as the CRM:
+- B2B contact data decays ≈**22.5% per year** at aggregate level, 25–30% for contacts, 70%+ for some field types; **65.8% of contacts change job title or function within any 12-month window** [T2/T3 aggregated vendor benchmarks — all downstream of ZoomInfo/Cognism data, treat with caution].
+- **76% of CRM users say less than half their organization's CRM data is accurate and complete** [T3].
+- Gartner: **trust in AI tools drops by 60% when sellers doubt data accuracy** [T2 restatement of Gartner; the Gartner page itself is paywalled — see `## Unverified`].
+
+**So the honest gap is not "connect to the CRM".** It is that **no product treats first-party data as untrustworthy and shows its work.** Nobody says "I asserted this from a CRM field last touched 14 months ago." Microsoft's permission-trimming is the only first-party *governance* feature documented anywhere in the set, and it is about access, not freshness.
+
+### C5. Human review as a stage — **almost universally missing, and it is the cheap one**
+
+Step 11 is nearly empty in the A2 map. Only **Klue** ships a named review stage (**Intel Triage Tools**, plus curation before newsletter/battlecard publish) [T3]; **Moody's Automated Credit Memo** produces a "fully written and **editable** narrative" [T1]; **Salesforce Pipeline Management Agent** has "suggestive or autonomous modes" [T3]; Clay's table is a de facto review surface.
+
+This matters because it is the named failure mode in the analyst data:
+- Gartner: **"by 2027, 40% of enterprises will demote or decommission autonomous AI agents due to governance gaps identified only after production incidents"** [T2 restatement].
+- Gartner (Dan Gottlieb, VP Analyst): *"more agents will not automatically mean more productivity… Without the right data foundation, workflow integration and seller experience, CSOs risk creating **agent sprawl**, with more digital activity, but little improvement in seller impact."* [T2 press release restatement, 2026-07-28]
+- Gartner predicts **AI agents will outnumber sellers 10:1 by 2028, yet fewer than 40% of sellers will say agents improved productivity**; survey of **210 CSOs and senior sales executives, Jan–Feb 2026** [T2].
+- Gartner also predicts **95% of sellers' research workflows will begin with AI by 2027, up from <20% in 2024** (survey of **227 CSOs, Aug–Sep 2025**, presented May 2026) [T2].
+
+Read together: research-by-AI is about to become universal, and roughly six in ten sellers are expected to say it did not help. The differentiator will not be the research; it will be whether a human can stand behind the output. Almost nobody is building for that.
+
+### C6. Recurrence and "nothing happened" — unserved
+
+Only AlphaSense ships an explicit cadence object (monthly Custom Agents with dynamic variables; daily/weekly Doc Search Alerts) [T1]; Common Room ships a daily Spark Brief [T1]. **Nobody ships a documented "no material change this period" state.** Every product is optimized to produce output. An account-coverage product that runs weekly across 200 accounts must be optimized to *withhold* output — and that is the property that decides whether reps keep reading it in month three. Not a hard problem; simply not anyone's problem today.
+
+### C7. Evaluation of the "so what" — one vendor, by accident
+
+Clay's **Claygent Builder** ships "version control, A/B testing, and risk-free prompt development" [T1] — the only user-facing evaluation surface for the reasoning step in the entire set, and it is framed as a prompt-engineering convenience rather than a quality system. AlphaSense's **Thesis Checker** agent [T1] is adjacent (it checks a *user's* thesis, not its own output). Nobody publishes a benchmark, a golden-set methodology, or an accuracy claim for the implication step. Given P1's finding that the "so what" is the core human decision, this is a conspicuous silence — every vendor's marketing claims are about **time saved** (Common Room "60 minutes to 60 seconds", "90% on research time"; Aomni "~3 hours per prospect"; Moody's "up to 30%") and **none** are about **being right**.
 
 ---
 
