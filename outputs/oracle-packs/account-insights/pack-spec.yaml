@@ -59,23 +59,28 @@ clearance:
   approvals: []
   source: user:2026-09-22
 
-problem_solution:                          # component 1 — signed off via triad A
+problem_solution:                          # component 1 — signed off via triad A, rewritten 2026-09-22
   problem: >-
-    Commercial teams work out what a market development means for their accounts by hand — slowly,
-    inconsistently, and only ever for the account the news is about.
+    An account manager covers dozens of accounts and cannot keep up with the market signals,
+    internal updates and filings landing on all of them.
   problem_points:
-    - label: Late and partial
-      text: research happens before a meeting, not when the event breaks
-    - label: Blind to second order
-      text: the effect on that account's supplier, customer or competitor is never worked out
-    - label: Not tied to the offer
-      text: a signal becomes a paragraph, not a named service someone can go and sell
+    - label: Too much to keep up with
+      text: dozens of accounts, hundreds of sources, one account manager
+    - label: Found out too late
+      text: the update surfaces after the customer has already decided
+    - label: Only the account in the headline
+      text: what it means for that account's supplier, customer or competitor is never worked out
   solution: >-
-    Every signal is resolved against your own account universe, reasoned into opportunities and
-    risks, mapped to a service line you actually sell, scored for magnitude and confidence and
-    cited to its source — then put in front of a reviewer before anything reaches the CRM.
+    Everything landing on your accounts is read for you and turned into what it means for that
+    account — matched to a service you actually sell, scored, and cited back to its source. The
+    account manager reviews a short list instead of doing the reading.
   outcome_chips: ["Account coverage ↑", "Time to first contact ↓", "Second-order opportunities surfaced"]
   reframe: "Review the opportunity, don't research it"
+  note: >-
+    Rewritten after Alex called the first version "waterish" (2026-09-22). The original named an
+    abstract activity — "commercial teams work out what a development means for their accounts by
+    hand" — instead of the role and the concrete things piling up on that person. Test to apply:
+    could an account manager say this sentence about their own week?
   source: user:2026-09-22
 
 one_liner:                                 # component 2 — signed off via triad A
@@ -305,84 +310,83 @@ workflow:                                  # component 7 — PROPOSED
       tier: "PoV Jumpstart: file export / download. Integration: API export. Scaling: live write-back with idempotency."
   steps:
     - n: 1
-      name: Define the account universe
+      name: Set the scope
       actor: human
       human_in_the_loop: true
-      description: "The client names the accounts in scope, their tiering and the owner of each."
-      failure_path: "An account with no CRM framing is admitted and flagged as thinly grounded, never silently dropped; records against it carry the reduced-grounding flag."
+      covers: "the in-scope account list and its owners, the signal sources, and the client's own service catalog"
+      description: >-
+        The client names the accounts that are in scope and who owns each, agrees the signal
+        sources and their licensing, and hands over the service catalog an implication can be
+        mapped onto.
+      failure_path: >-
+        An account with no CRM framing is admitted and flagged as thinly grounded, never silently
+        dropped. A source that cannot be licensed for model use and redistribution is excluded at
+        this step rather than discovered at procurement.
     - n: 2
-      name: Ingest signals and first-party context
+      name: Pick up the signal
       actor: system
-      description: "Signals arrive on a schedule or by manual submit; CRM extract and the service catalog are loaded and indexed alongside."
+      covers: "ingestion, relevance filtering, de-duplication, account resolution, fan-out"
+      description: >-
+        Signals arrive on a schedule, on demand for one account, or by manual submit. Each is
+        judged genuine, de-duplicated across sources into one signal, and resolved to the in-scope
+        accounts it actually concerns — one record per affected account.
       failure_path: >-
-        A paywalled or unreachable source is recorded as unreachable for that run — never as
-        'nothing found'. A feed that is stale or down is reported as coverage lost, not as a
-        quiet period. Declaring this honestly is a named market gap.
+        A name matching two accounts or none goes to human triage, never a guess. An unreachable
+        or paywalled source is recorded as unreachable, never as "nothing found" — a feed that is
+        down must not read as a quiet week.
     - n: 3
-      name: Normalize the signal
+      name: Work out what it means
       actor: system
-      description: "One step: is this a genuine signal, is it the same story already seen, and which in-scope accounts does it actually concern."
+      covers: "evidence assembly and ranking, the \"so what\" per account, second-order ripples"
+      description: >-
+        Evidence is assembled and ranked from first-party and public sources, the implication is
+        reasoned for that account as opportunities and risks, and the effect is followed to the
+        account's suppliers, customers and competitors that are themselves in the book.
       failure_path: >-
-        A name matching two accounts or none is escalated to human triage rather than guessed;
-        an unresolvable entity is held, not discarded, and counts against coverage.
+        NOT COVERED, by this pack or by any product in this market — citation verification proves
+        the quote is real, nothing proves the business conclusion follows from it. The reviewer at
+        step 5 is the only check, which is why that step is not optional. Beyond two levels, or
+        with no relationship data, a ripple is stated as unknown rather than asserted.
     - n: 4
-      name: Assemble and rank the evidence
+      name: Map it to what you sell
       actor: system
-      description: "Retrieve and rank what supports a specific claim about a specific account, across first-party and public sources."
-      failure_path: "Where the evidence does not clear the threshold the record is emitted as insufficiently evidenced rather than reasoned anyway."
+      covers: "service-line mapping, and the demand gap when nothing fits"
+      description: >-
+        Each implication is mapped to a named service line the client actually sells, so the
+        output is something to go and do rather than something to read.
+      failure_path: >-
+        An implication that maps to nothing is emitted as mapped-to-nothing — never forced onto
+        the nearest catalog entry. Where a vertical has no catalog the step is switched off rather
+        than faked.
     - n: 5
-      name: Reason the implication
-      actor: system
-      description: "Derive candidate opportunities and flag material risks for that account, grounded in the assembled evidence."
-      failure_path: >-
-        NOT COVERED — by this pack or by any product in this market. Citation verification proves
-        the quote is real; nothing proves the business conclusion follows from it. The reviewer is
-        the only check, which is why the reviewer step is not optional.
-    - n: 6
-      name: Map to a service line
-      actor: system
-      description: "Each implication is mapped to a named service line the client actually sells."
-      failure_path: >-
-        An implication that maps to nothing is emitted as mapped-to-nothing, never forced onto the
-        nearest catalog entry. In verticals with no catalog the step is switched off rather than
-        faked.
-    - n: 7
-      name: Trace cross-account ripples
-      actor: system
-      description: "Follow the effect to the account's suppliers, customers and competitors that are themselves in scope, descriptively, up to two levels."
-      failure_path: "Beyond two levels, or where no relationship data exists, the ripple is not asserted; absence of an edge is not evidence of no effect and is stated as unknown."
-    - n: 8
-      name: Score and cite
-      actor: system
-      description: "Each item is scored for magnitude and confidence and carries its source evidence."
-      failure_path: >-
-        A cited source that does not support the claim is the failure this step cannot yet catch
-        on its own; contradiction between reliable sources is currently resolved by rank order
-        rather than surfaced. Both are roadmap.
-    - n: 9
-      name: Assemble the record
-      actor: system
-      description: "One structured record per affected account — account, trigger, summary, impact reasoning, scored opportunities with service-line mapping and cross-account effects."
-      failure_path: "Below the confidence threshold the item is filtered rather than delivered; the filtered count is reported so silence is legible."
-    - n: 10
-      name: Route to the owner
-      actor: system
-      description: "The record reaches the person who owns that account, in the system they work in."
-      failure_path: "ROADMAP — routing is not in the PoV. Misrouting is the most common way a correct implication produces no action."
-    - n: 11
-      name: Human review
+      name: Score it, evidence it, review it
       actor: human
       human_in_the_loop: true
-      description: "The reviewer reads the opportunities and their evidence and approves, rejects, or comments on why an item is or is not pursuable."
-      failure_path: "A rejection is retained with its reason, never deleted. Analysing rejection patterns against the rule that produced them is roadmap."
-    - n: 12
-      name: Deliver downstream
-      actor: system
-      description: "Approved records flow to the client's sales system."
+      covers: "magnitude and confidence, citations, the reviewer's approve / reject with a reason"
+      description: >-
+        Each item carries a magnitude, a confidence and its source evidence; the reviewer reads the
+        short list and approves, rejects or comments on why something is or is not pursuable.
       failure_path: >-
-        In the PoV nothing is written back — reviewer decisions are captured, not persisted to
-        CRM. Outcome capture, which is what would let the confidence score ever be calibrated,
-        is a Scaling-tier capability.
+        Below the confidence threshold an item is filtered rather than delivered, and the filtered
+        count is reported so silence stays legible. A rejection is retained with its reason, never
+        deleted. Contradiction between reliable sources is currently resolved by rank order rather
+        than surfaced as a finding — roadmap.
+    - n: 6
+      name: Deliver it and learn from it
+      actor: system
+      covers: "routing to the account owner, export to the sales system, outcome capture"
+      description: >-
+        Approved records reach the person who owns that account, in the system they work in, and
+        what became of each one feeds back into scoring.
+      failure_path: >-
+        In the proof of value nothing is written back — reviewer decisions are captured, not
+        persisted. Routing is Integration tier; misrouting is the most common way a correct
+        implication produces no action. Outcome capture is Scaling tier, and without it the
+        confidence score can only ever be asserted, never calibrated.
+  grouping_note: >-
+    Six steps, not twelve (Alex, 2026-09-22: a workflow is grouped to 5-7). Each step names what
+    it covers so the finer operations stay visible without becoming the spine. The feature-level
+    view lives in `capabilities`, whose five areas are the same process cut one level down.
 
 architecture:                              # component 8 — PROPOSED
   inputs:
