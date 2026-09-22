@@ -180,7 +180,8 @@ capabilities:                              # component 6 — Area > Category > F
   # "always think about generalizing and grouping to meet this requirement"). Peers of the same
   # status inside a category were merged and the merged tasks are named inside the row; the
   # 52-row tree survives in git history and, feature by feature, in oracle-baseline-lens.md.
-  # Glyphs per decisions-2026-09-18: ● available · ◐ partial · ○ roadmap.
+  # Footnotes (`note`) only where an integration claim states its tier, one clause each (Alex,
+  # 2026-09-22). Glyphs per decisions-2026-09-18: ● available · ◐ partial · ○ roadmap.
 - area: Account universe & grounding
   stage: Ground it
   customization_scope_area: In-scope account list definition · System-of-record field mapping and account-framing
@@ -192,14 +193,13 @@ capabilities:                              # component 6 — Area > Category > F
         record
       status: partial
       tier_first_available: pov
-      note: An agreed extract from the system of record at PoV Jumpstart; API at Integration
+      note: Extract at PoV Jumpstart; API at Integration
       source: one-pager-2026-09-10, reviewer-ui-2026-09-11
   - name: Sources
     features:
     - name: Signal sources — news, filings, disclosures, commercial feeds, EDGAR and IR pages
       status: partial
       tier_first_available: pov
-      note: A bounded, licence-cleared source set at PoV Jumpstart; the client's own licensed feeds at Integration
       source: one-pager-2026-09-10
     - name: Catalog of moves captured from the organization's own material — service lines, partnership offers,
         value levers
@@ -326,13 +326,12 @@ capabilities:                              # component 6 — Area > Category > F
     - name: Export to the team's system of record — CRM, deal pipeline or portfolio tracker
       status: partial
       tier_first_available: integration
-      note: File export at PoV Jumpstart; API export is Integration-tier scope
+      note: File at PoV Jumpstart; API at Integration
       source: one-pager-2026-09-10
     - name: Downstream maturity — routing to the account owner, live write-back, outcome capture, and eventually
         acting on opportunities
       status: roadmap
       tier_first_available: integration
-      note: Integration and Scaling tiers; nothing is written back in the proof of value
       source: research-brief-2026-09-22, one-pager-2026-09-10
 
 workflow:                                  # component 7 — PROPOSED
