@@ -1,6 +1,5 @@
 # Account Insights — accelerator pack specification
-# Produced by /oracle-packs:spec on 2026-09-22. Components carrying `user:2026-09-22`
-# are signed off; the rest are proposals awaiting sign-off.
+# Produced by /oracle-packs:spec on 2026-09-22 and confirmed the same day (plugin 0.1.7).
 
 meta:
   slug: account-insights
@@ -40,7 +39,7 @@ meta:
       point alongside the signal-triggered one, recurrence with delta reasoning, and the service-
       catalog mapping as a first-class configurable target.
     source: user:2026-09-22, sow-uc6, section-deck-2026-09-11
-  status: draft
+  status: confirmed
   spec_version: 1
   generated_with: { roadmap_version: 2026-09-18, catalog_version: 2026-09-18 }
 
@@ -71,9 +70,9 @@ problem_solution:                          # component 1 — signed off via tria
     - label: Only the account in the headline
       text: what it means for that account's supplier, customer or competitor is never worked out
   solution: >-
-    Everything landing on your accounts is read for you and turned into what it means for that
-    account — matched to a service you actually sell, scored, and cited back to its source. The
-    account manager reviews a short list instead of doing the reading.
+    Each morning the account manager sees the handful of changes that matter across their accounts
+    — what each one means and which service to offer — and reviews that list instead of
+    assembling it.
   outcome_chips: ["Account coverage ↑", "Time to first contact ↓", "Second-order opportunities surfaced"]
   reframe: "Review the opportunity, don't research it"
   note: >-
@@ -415,13 +414,13 @@ architecture:                              # component 8 — PROPOSED
         Enterprise Support — material to any architecture claim made to an Oracle audience.
     - layer: Cloud infrastructure and GPUs
       vendor: Oracle
-      catalog_id: oci-dedicated-ai-cluster
-      items: ["OCI dedicated AI cluster — reserved GPU capacity for the engine", "Storage, runtime and API exposure as the OCI landing zone provides them"]
+      catalog_id: [oci-dedicated-ai-cluster, oci-kubernetes-engine, oci-object-storage, oracle-ai-database, oci-api-gateway]
+      items: ["OCI dedicated AI cluster — reserved GPU capacity for the engine", "OCI Kubernetes Engine for the pack's services", "Object Storage for sources and artifacts, Oracle AI Database for the retrieval index", "API Gateway for exposure"]
 
 oracle_products:                           # components 9 and 10 — catalog ids only, Oracle vendor only
-  # Applied item by item against the schema's own definitions (decisions-2026-09-18):
-  #   required = the pack is BUILT ON IT or FULLY RELIES ON IT
-  #   optional = a PLAUSIBLE ADDITIONAL SOURCE OR DESTINATION
+  # Applied item by item against the schema's definitions (0.1.7): required = only what the pack
+  # cannot run without — the platform as one entry plus what the core executes on; optional = only
+  # what a buyer would plausibly connect as a source or destination.
   # Read each entry back as a sentence before keeping it. The first draft of this list carried
   # 5 required and 7 optional, filled from the source engagement's technology stack rather than
   # against these definitions — "the pack is built on OCI API Gateway" is not a true sentence
@@ -429,6 +428,11 @@ oracle_products:                           # components 9 and 10 — catalog ids
   # plumbing any OCI deployment implies, not products the pack is built on; OCI Generative AI is
   # an alternative inference path, not a source or destination. All are out.
   # NVIDIA AI-Q, NIM and Nemotron are the pack's engine and are carried in architecture.stack[].
+
+  - id: oci
+    role: required
+    why: "The tenancy the pack runs in — OCI Kubernetes Engine for the services, Object Storage for sources and artifacts, Oracle AI Database for the index, API Gateway for exposure; each is a row on the architecture's infrastructure layer, the platform is this one entry"
+    integration: "Every tier."
 
   - id: oci-dedicated-ai-cluster
     role: required
@@ -446,11 +450,10 @@ oracle_products:                           # components 9 and 10 — catalog ids
     integration: "PoV Jumpstart: an agreed extract in, file out. Integration: API both ways."
     note: >-
       The single most commercially relevant entry on this list, and the one that carries the
-      anchor story. Kept `optional` because it is honestly optional: the customer's CRM may be
-      Salesforce or anything else, and nothing in the pack is bound to Oracle's. See
-      open_questions/oracle_anchor — if Alex wants rule 17 applied here the way it was applied to
-      Oracle Fusion Field Service on the workforce pack (name the partner's product concretely
-      even when nothing is hard-wired to it), this becomes `required` and the ICP line names it.
+      anchor story. `optional` by precedent: the owner moved Oracle Fusion Field Service to
+      optional on the workforce pack the same day (plugin 0.1.5) — a system the pack reads from or
+      writes to is optional even when it is the go-to-market anchor. The customer's CRM may be
+      Salesforce or anything else, and nothing in the pack is bound to Oracle's.
 
   - id: oracle-ai-agent-studio
     role: optional
