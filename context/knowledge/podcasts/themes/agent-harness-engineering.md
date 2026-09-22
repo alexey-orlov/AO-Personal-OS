@@ -2,7 +2,7 @@
 
 _status: live theme — the discipline of wrapping an AI agent in enforced structure: human-only zones, PR gates, precise workflows, adapters, and local-first context_
 _slug: agent-harness-engineering_
-_updated: 2026-09-19 · 35 insights from 23 episodes · (split from agent-engineering-patterns, 2026-07-11) — ⚠ newly over budget at 35/30, no clean seam found yet_
+_updated: 2026-09-22 · 36 insights from 24 episodes · (split from agent-engineering-patterns, 2026-07-11) — ⚠ over budget at 36/30, no clean seam found yet_
 
 ## The throughline
 A harness is code wrapped around an agent to make it behave consistently for a specific use case — and every practitioner in this cluster converges on the same core moves. Reserve architecture and UX decisions for humans (Conductor's "slot-free zones," "do not touch if you are an AI" markers — corroborated independently by Tony Fadell on the hardware-product side); force agent output through a review chokepoint before it lands (Conductor's strict PR-first workflow; the Sentry bug-triage harness's investigate-only vs. edit-enabled modes); and be extremely specific — write down the exact workflow, data sources, and allowed tools rather than reaching for a general-purpose assistant. Concrete adapters (Sentry, Linear, GitHub, Vercel) plus a persistent artifact store make investigations reproducible, though this is a choice, not a prerequisite — Gusto's much lighter "memory is just a DB column" stack proves harnesses can be minimal too. Codex-as-local-project-environment extends the same instinct beyond bespoke harnesses: a general-purpose local workspace (files on your machine, computer-use access to real tools) that lets an agent work with richer context, reinforced by a local-first/Obsidian-style memory discipline for privacy and accuracy.
@@ -185,11 +185,17 @@ Teams described systems that do CRUD on system prompts and even modify harness c
 — Y Combinator · 2026-09-07 · guest: Seth (Prime Agent / Prime Intellect), John Sadvalone (Open Jarvis / Stanford), Josh (YC, QM), Rean (YC, QM) · [▶ 14:14](https://www.youtube.com/watch?v=n9xKblqyQ28&t=854) · `pi-n9xKblqyQ28-02`
 related: theme → [Agents can autonomously improve themselves via closed-loop prompt engineering](agent-delegation-and-loops.md#agents-can-autonomously-improve-themselves-via-closed-loop-prompt-engineering) (Replit's nightly prompt-A/B-test loop is the same self-improving-harness principle at a single-product scale, here generalized into a meta-harness class)
 
+### Model choice (not tools alone) is the largest cost lever
+Adoption often raises per-PR cost initially, but Warp found model selection is the main lever to reduce spend; context management is secondary. They recommend replaying past tasks under different model/configurations to measure quality vs cost tradeoffs and route workloads to the best model for that task mix, rather than assuming one model fits all.
+— How I AI · 2026-09-21 · guest: Zack Lloyd (Warp) · [▶ 18:11](https://www.youtube.com/watch?v=4_SHhSMHzNo&t=1091) · `pi-4_SHhSMHzNo-04`
+related: [Mixing models and smart routing controls runaway AI costs](#mixing-models-and-smart-routing-controls-runaway-ai-costs) (Databricks' Uni Gateway/Omnient router is the platform-scale version of the same model-choice-as-primary-cost-lever finding, here from a single factory's replay-and-compare practice)
+
 ## Related themes
 - [Agent engineering & production infra](agent-engineering-patterns.md) — parent theme; the broader verification/governance/cost discipline this harness-building cluster sits alongside
 - [Agent delegation, loops & software factories](agent-delegation-and-loops.md) — the sustained-execution patterns that run inside these harnesses
 
 ## Source episodes
+- [How I AI — The AI factory playbook for engineering teams (2026-09-21)](../episodes/2026/2026-09-21--howiai--the-ai-factory-playbook-for-engineering-teams.md)
 - [a16z — Databricks CEO: Stop Scaring People About AI (2026-09-18)](../episodes/2026/2026-09-18--a16z--databricks-ceo-stop-scaring-people-about-ai.md)
 - [Lenny's Podcast — How we built Grok Bot in a month | Roman Ugarte (SpaceXAI) (2026-09-08)](../episodes/2026/2026-09-08--lenny--how-we-built-grok-bot-in-a-month.md)
 - [How I AI — Stripe built a company brain: Meet Kai (2026-09-07)](../episodes/2026/2026-09-07--howiai--stripe-built-a-company-brain-meet-kai.md)

@@ -2,7 +2,7 @@
 
 _status: live theme — the concrete craft of building, scoring, and maintaining eval suites for agentic AI: dataset/prompt-set design, automated scoring, benchmark gaming, judge-rubric calibration, "evals as the new PRD"_
 _slug: eval-design-and-practice_
-_updated: 2026-09-15 · 21 insights (23 attributions — two insights double-cited) from 14 episodes_
+_updated: 2026-09-22 · 22 insights (24 attributions — two insights double-cited) from 15 episodes_
 
 ## The throughline
 
@@ -115,10 +115,16 @@ Companies face a complex, fast‑changing model landscape and often cannot inter
 — a16z · 2026-09-09 · guest: — · [▶ 23:19](https://www.youtube.com/watch?v=WO9c9qxDxzU&t=1399) · `pi-WO9c9qxDxzU-05`
 related: [Firms need external evals to prove ROI for multi‑billion dollar model bets](#firms-need-external-evals-to-prove-roi-for-multibillion-dollar-model-bets) (same episode) · [Evals are the 'brakes' — invest as much in them as in agents.](#evals-are-the-brakes--invest-as-much-in-them-as-in-agents) (Kavak's roughly-equal internal eval/agent budget vs. this insight's $1.5M/month token-spend data point — convergent evidence that eval spend tracks agent spend)
 
+### Closed-loop scoring lets agents detect failures and self-improve factories
+Every agent run in the factory is recorded and can be scored across dimensions using LLMs as judges (or humans/algorithms). By aggregating failed runs (e.g., redundant tests across many PRs), an observer agent can suggest specific changes to the factory code/configuration, and because the factory is defined in code, those updates can be tested and rolled out automatically — turning failure analysis into actionable factory improvements.
+— How I AI · 2026-09-21 · guest: Zack Lloyd (Warp) · [▶ 19:31](https://www.youtube.com/watch?v=4_SHhSMHzNo&t=1171) · `pi-4_SHhSMHzNo-03`
+related: theme → [Agent delegation, loops & software factories](agent-delegation-and-loops.md#agents-can-autonomously-improve-themselves-via-closed-loop-prompt-engineering) (Replit's nightly A/B-test loop is the same closed-loop-self-improvement principle; here scored via LLM judges across dimensions rather than sentiment/deploy-rate metrics)
+
 ## Related themes
 - [Agent engineering & production infra](agent-engineering-patterns.md) — parent theme; split off 2026-08-25. Production infra, guardrail/governance patterns, and the still-unresolved headless/infra/stair-step, multimodel-orchestration, and agentic-web-protocols clusters stay there.
 
 ## Source episodes
+- [How I AI — The AI factory playbook for engineering teams (2026-09-21)](../episodes/2026/2026-09-21--howiai--the-ai-factory-playbook-for-engineering-teams.md)
 - [a16z — Inside the Race to Measure Frontier Intelligence (2026-09-09)](../episodes/2026/2026-09-09--a16z--inside-the-race-to-measure-frontier-intelligence.md)
 - [Aakash Gupta — How to Build Effective Product Loops in Claude Code | Tyler Folkman | Chief AI Officer, JobNimbus (2026-09-04)](../episodes/2026/2026-09-04--aakash--how-to-build-effective-product-loops-in-claude-code.md)
 - [Every — $4M in 4 Weeks: How This AI Alien Companion App Took Off (Best of the Pod) (2026-08-19)](../episodes/2026/2026-08-19--every--4m-in-4-weeks-ai-alien-companion-app-tolen.md)
