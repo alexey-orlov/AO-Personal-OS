@@ -3134,7 +3134,104 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
   .ways { grid-template-columns: minmax(0, 1fr); }
 }
 
-@@GTILES@@
+/* ——— S3: the products, one tile per group ——— */
+
+/* Five peers in one row: a picture of the software, the group's name, one line
+   that says what it does to someone with no context, and an arrow. The tile is
+   the link — no second control inside it — and text never sits on the image
+   (VISUAL-GRAMMAR §1.1). Hover is a surface step and an image scale, never a
+   lift and never a shadow (SS26-THEME §6). */
+.gtiles {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-auto-rows: 1fr;
+  gap: var(--gap);
+  align-items: stretch;
+}
+
+.gtile {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  overflow: hidden;
+  background: var(--bg-raised);
+  color: inherit;
+  transition: background-color var(--t-slow) var(--ease);
+}
+
+.gtile:hover, .gtile:focus-visible { background: var(--bg-inset); }
+
+.gtile-band {
+  display: block;
+  position: relative;
+  aspect-ratio: 16 / 10;
+  max-width: 100%;
+  overflow: hidden;
+  background: var(--bg-inset);
+  flex: none;
+}
+
+.gtile-img { width: 100%; height: 100%; object-fit: cover; transition: transform .4s var(--ease); }
+
+@media (hover: hover) {
+  .gtile:hover .gtile-img, .gtile:focus-visible .gtile-img { transform: scale(1.071); }
+}
+
+.gtile-body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: .5rem;
+  padding: 1.125rem 1.125rem 1.25rem;
+}
+
+/* The H4-class title: Replica 700, 20px, 18 on a phone. */
+.gtile-name {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 1.25rem;
+  line-height: 1.3;
+  color: var(--text);
+  transition: color var(--t-base) var(--ease);
+}
+
+.gtile-line { color: var(--text-muted); }
+
+/* Pinned to the foot, so five tiles of different line counts still end level. */
+.gtile-foot { margin-top: auto; padding-top: .75rem; }
+
+.gtile-arrow {
+  width: 1.125rem;
+  height: 1.125rem;
+  color: var(--text-dim);
+  transition: transform var(--t-slow) var(--ease), color var(--t-base) var(--ease);
+}
+
+.gtile:hover .gtile-name, .gtile:focus-visible .gtile-name { color: var(--action); }
+.gtile:hover .gtile-arrow, .gtile:focus-visible .gtile-arrow { color: var(--action); transform: translateX(2px); }
+
+.gtile:focus-visible { outline: 2px solid var(--action); outline-offset: 2px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .gtile, .gtile-img, .gtile-arrow { transition: none; }
+  .gtile:hover .gtile-img, .gtile:focus-visible .gtile-img { transform: none; }
+  .gtile:hover .gtile-arrow, .gtile:focus-visible .gtile-arrow { transform: none; }
+}
+
+/* Three across, then two, left-aligned: the row wraps rather than stretching
+   two tiles to the width of three. */
+@media (max-width: 1100px) {
+  .gtiles { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+@media (max-width: 720px) {
+  .gtiles { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .gtile-name { font-size: 1.125rem; }
+}
+
+@media (max-width: 560px) {
+  .gtiles { grid-template-columns: minmax(0, 1fr); }
+}
 
 /* ——— S4: how we deliver ——— */
 
@@ -3408,5 +3505,4 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 @media (prefers-reduced-motion: reduce) {
   .js-reveal .bo.reveal .bo-band { opacity: 1; transform: none; transition-delay: 0s; }
   .js-reveal .bo.reveal .bo-link { stroke-dashoffset: 0; transition-delay: 0s; }
-  .catalog-row:hover, .catalog-row:focus-within { transform: none; }
 }
