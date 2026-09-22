@@ -90,40 +90,46 @@ Before round 4 the hero and the tiles carried a run of chips that all looked the
 
 **The three-state availability chip is gone** — *Available now*, *Fixed-price offer* and *In preparation*, their data map, the per-product denormalised copies and the availability strings at the end of each `tags` array. What a customer can act on is whether a demo exists and whether a listing exists, and both are config flags. The one thing the badges cannot say is that no package exists yet, and that survives as a **muted status line** under the hero one-liner on the two unpackaged products only (`products[].statusNote`): *"In preparation — scoping conversations are open."* No chip, no badge, no legend.
 
-### 1.3 The Products facet rail — only what a click returns
+### 1.3 The Products facet rail — a fixed shape, and a count that is never a score
 
-**An option is an offer to filter, so the rail lists only options that return
-something** (§18.9). Three rules follow from that, and they are what the rail
-looks like today:
+**Both radio groups are fixed lists** (round 9, Alex: the catalog's *What it does*
+must match the six groups in that exact order). The rail has one shape whatever the
+catalog holds today, and the rules are the same for both groups:
 
-- **A platform with no products is not rendered.** The four `facets.technology`
-  entries are still the canonical set and the rail still reads them in order —
-  it simply skips the ones whose faceted count is zero. Today that is *Oracle AI
-  Data Platform* and *Oracle AI for Fusion Applications*, so the group offers
-  **All · OCI + NVIDIA · Oracle Autonomous AI Lakehouse**. This **reverses round
-  4's decision** (`PROVENANCE.md` §17.7) that a zero-count facet stays listed and
-  disabled for the sake of a rail whose shape does not move between visits: an
-  option reading `0` beside an Oracle product name, on a page an Oracle account
-  executive opens live on a call, is a scoreboard of what has not been built on
-  his platform, and that costs more than the stability bought.
-- **The one exception is the facet the reader arrived on.** `#/products?tech=<id>`
-  is honored for all four ids: the active option renders even at zero, selected,
-  above that facet's `emptyState` in the normal grid container. A saved or pasted
-  link never dead-ends.
-- **A count says what a click would return, so zero prints no number and the
-  All option prints none at all.** The count beside an option is its faceted
-  result; the option that clears the group would return the whole catalog, which
-  is the one number the page does not state (§18.9). The results line above the
-  grid follows the same rule: **nothing when nothing is filtered, nothing when a
-  filter returns zero, and a bare `N products` with no denominator otherwise** —
-  never `5 of 7`. The element stays in the DOM either way, because it is the
-  `aria-live` region that announces the next change.
+- **Every option renders, always, in canonical order.** The platform group reads
+  `facets.technology` and the group rail reads `facets.categories`, so the rail can
+  never list a platform or a group in words, or an order, the rest of the site does
+  not use. Today: **All · AI Lakehouse · AI Data Platform · OCI + NVIDIA NeMo** and
+  **All ·** the six groups.
+- **The one platform not offered is the one no product can run on.** *Oracle AI for
+  Fusion Applications* carries `catalog: false` and is left out of the rail
+  entirely — a filter that can never return anything is not a filter — while
+  staying on the hero stack and the Services cards, where it is a platform the
+  practice delivers on. The checker allows that flag on that id alone.
+- **A zero-count option is disabled and prints no number.** That is what answers
+  §18.9's objection to a `0` beside an Oracle product name on a page an account
+  executive opens live: the option keeps the rail's shape, and the score is simply
+  not printed. Today the disabled options are *AI Data Platform*, *Transaction &
+  process execution* and *Video & image intelligence*.
+- **The exception is the option a deep link arrived on.** `#/products?tech=<id>`
+  and `#/products?cat=<id>` are honored for every id: the active option renders
+  even at zero, selected and clickable, above that facet's or that group's own
+  `emptyState` inside the normal grid container. A saved or pasted link never
+  dead-ends — which matters more since the home page's six group tiles link
+  straight into `?cat=`.
+- **A count says what a click would return, and the All option prints none.** The
+  option that clears a group would return the whole catalog, which is the one
+  number the page does not state (§18.9). The results line above the grid follows
+  the same rule: **nothing when nothing is filtered, nothing when a filter returns
+  zero, and a bare `N products` with no denominator otherwise** — never `5 of 7`.
+  The element stays in the DOM either way, because it is the `aria-live` region
+  that announces the next change. **Neither rail ever prints a total.**
 
-The availability checkboxes keep their round-4 behaviour and are the deliberate
-exception: **both always render, with their faceted counts, and a zero-count box
-renders disabled rather than absent.** They are two named capabilities, not a
-list of platforms — the group's shape is the site's answer to *"can I see a demo
-today?"*, and hiding the question is not the same as answering it.
+The third group, **Artifacts** (*Interactive demo* · *Oracle Marketplace*), keeps
+its round-4 behaviour and is unchanged by this: both checkboxes always render with
+their faceted counts, and a zero-count box renders disabled rather than absent.
+They are two named capabilities — the group's shape is the site's answer to *"can I
+see a demo today?"*, and hiding the question is not the same as answering it.
 
 **The `.rail-note` line under the platform group is gone**, with the
 `facets.footnote` string it printed: it existed to explain the platforms the
@@ -507,9 +513,9 @@ This file is about the product pages; the home page differs from them **by compo
 
 | # | Screen | Component, in one line |
 |---|---|---|
-| S1 | **Hero** — `overview.hero` | Full-bleed, two columns: eyebrow, H1 (white lead + a teal accent line of its own), ≤ 45-word lead and two buttons on the left; the **built-on stack visual** on the right — three peer bands joined by thin connector lines: **what you can start with** on top, labelled *"Agents and workflows to start with"* (an invitation, and both halves of the positioning — §18.9), with a tile per category and the product names as chips; **SoftServe** in the middle (*Agentic and data engineering · Evaluation & guardrails · Pilot to production*); the **Oracle platforms** underneath, the four tiles read straight off `facets.technology`. The **three-tile** `stat-band` sits directly under it (see *The proof strip* below). |
-| S2 | **Two ways in** — `overview.twoWays` | An inset two-panel block sharing one hairline: each panel a bordered mark, H3, body, three ticked bullets and one down-arrow link pinned to the bottom, so the two CTAs land on one baseline. |
-| S3 | **Products** — `overview.catalog` | Full-bleed, three columns — one per category, grouped by the job they do (*Deep research & investigation* · *Document processing & review* · *Data analysis, answers & optimization*): glyph, category name, definition, then the product rows (name, badges, `shortLine`, `statusNote` where there is one) in `SITE_CONFIG.productOrder`, each row linking to its page. |
+| S1 | **Hero** — `overview.hero` | Full-bleed, two even columns (`minmax(0, 6fr)` twice since round 9, so the stack gets ~580 px at 1440): eyebrow, the **four-line H1**, a ≤ 45-word lead and two buttons on the left; the **three-layer stack** on the right (anatomy below). Single column below 1100 px, the stack under the copy and left-aligned. The **three-tile** `stat-band` sits directly under it (see *The proof strip* below). |
+| S2 | **Two ways in** — `overview.twoWays` | An inset two-panel block sharing one hairline: each panel a bordered mark, H3, body, three ticked bullets and one down-arrow link pinned to the bottom, so the two CTAs land on one baseline. Unchanged in round 9 except its copy — the left panel repeats the H1's *Enterprise AI agents and workflows*, the right one is about the services, not the people who build them. |
+| S3 | **Products** — `overview.catalog` + `facets.categories` | The `home-head` (eyebrow · H2 · lead · the right-aligned *See all products, with filters*), then **six group tiles** in a 3 × 2 grid — `.gtiles` / `.gtile`, anatomy below. No product names on this screen at all (Alex, round 9). |
 | S4 | **How we deliver** — `overview.delivery` | A 60/40 split: a horizontal three-step ladder on a hairline track at left, each step carrying one labelled fact and the block carrying the figures' footnote; three inset pillar cards at right; **one button** under the ladder (the row takes 1–2 CTAs; the quiet second one was removed in §18.8). |
 | S5 | **Case studies** — `overview.caseStudiesIntro` + `overview.caseStudies` | A sticky left rail — **head (eyebrow · H2 · one-sentence lead) → NDA line → one link out**, and nothing else — beside a **2×2 grid** of the four compact case cards, all four the same height. The measurement method is **not** in the rail: it lives on the Services page (`services.proof`), which the rail's link opens. |
 | S6 | **About SoftServe** — `overview.about` | The page's one light band: copy and the external link at left; a 2×2 grid of stat tiles at right, with the partner wordmarks in a navy strip beneath them inside the same column. |
