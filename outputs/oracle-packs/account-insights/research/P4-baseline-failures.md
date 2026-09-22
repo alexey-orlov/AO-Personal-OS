@@ -65,7 +65,20 @@ NeMo Retriever is "a collection of microservices for building and scaling multim
 So the *retrieval* half of the baseline is itself richer than "vector search + reranking": it includes **multimodal document ingestion/extraction (PDF tables, charts, OCR)**, which is step 2 of the workflow, not step 5.
 
 ### A3. NVIDIA NeMo Evaluator, NeMo Guardrails, and confidence/calibration tooling
-_pending_
+
+**NeMo Evaluator** — a shipped, cloud-native microservice, part of the NeMo microservices platform (docs versioned through 26.3.1) [T1: docs.nvidia.com/nemo/microservices/…/evaluate/]. What it provides:
+- 100+ academic benchmarks, custom metrics, and **LLM-as-a-Judge** scoring (its own documented tutorial: "Evaluate Response Quality with LLM-as-a-Judge") [T1].
+- A dedicated **RAG evaluation flow** with **faithfulness, answer relevancy, context precision, recall@k** [T1: `evaluate/flows/rag.html`].
+- API-driven, automatable in CI for regression testing [T1].
+
+**NeMo Guardrails** — a shipped guardrail catalog, not a toolkit you have to write from scratch [T1: docs.nvidia.com/nemo/guardrails/]. Directly relevant rails:
+- **Self-Check Fact-checking** output rail — "ensure that the answer to a RAG query is grounded in the provided evidence extracted from the knowledge base", checked against the `$relevant_chunks` context variable [T1].
+- **Hallucination Detection** rail — a SelfCheckGPT variant: sample extra responses, then NLI-style consistency check of the original against them [T1].
+- **AlignScore-based Fact-checking**; third-party grounding rails (**Patronus Lynx**, **Got It AI TruthChecker**) [T1 catalog].
+- Plus jailbreak detection, input/output moderation, **Presidio**-based PII detection, LlamaGuard, ActiveFence, AutoAlign [T1].
+- AI-Q wires these in as "opt-in policy controls through NeMo Guardrails middleware" [T1 AI-Q README].
+
+**Calibration gap (important and honest).** What is *not* in evidence on any NVIDIA page I read: a shipped **numeric confidence score with calibration** (e.g. a calibrated probability attached to each generated claim, or magnitude scoring of a business implication). NeMo Guardrails gives **binary grounded/not-grounded verdicts**; NeMo Evaluator gives **offline aggregate scores over a dataset**. Neither is a **per-claim, runtime, calibrated confidence number**. That distinction matters for workflow step 9 and is the single most defensible "we build this" line in the matrix. [Unverified: whether a 2026 NeMo release added per-claim confidence — not found on the pages checked.]
 
 ### A4. Oracle components — exact current product names and what each provides
 _pending_
