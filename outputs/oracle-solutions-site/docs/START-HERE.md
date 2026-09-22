@@ -2,11 +2,11 @@
 
 Read this page first in every new session. It holds what the site is for, the brief and the rules it is built to, how a round of work runs, and what earlier rounds learned the hard way. Detail lives in the docs mapped in §10. Keep this page current: when a requirement, rule or procedure changes, rewrite the line — never append a dated update.
 
-Current as of 2026-09-18 (after the current-SoftServe-brand theme).
+Current as of 2026-09-22 (after round 9 — the home page re-argued).
 
 ## 1. What it is
 
-- **The site:** one small site for SoftServe's Oracle AI & Data practice, named **Oracle AI & Data Solutions**. It offers *products* (AI agents and workflows on Oracle platforms) and *services* (the practice that delivers them, from a 4–8-week proof of value to scale).
+- **The site:** one small site for SoftServe's Oracle AI & Data practice, named **Oracle AI & Data Solutions**. It offers *products* — AI agents and human-AI workflows on Oracle platforms, grouped into **six product groups**, one per kind of job (§4) — and *services* (the practice that delivers them, from a proof of value **from 30 days** through integration to scaling).
 - **How it is used:** Oracle and SoftServe sellers open it live on a call, and customers receive it as a link.
 - **People:** Alex owns the site and every decision on it. The person on the contact card is Karsten Tramborg (Alliances & Partnerships Director). The practice mailbox is oracle@softserveinc.com.
 - **Code:** a static, hash-routed SPA in `site/` with no build step and no framework.
@@ -42,7 +42,7 @@ These are Alex's working assumptions as of 2026-09-17, and **each one is still t
   - Ready-made solutions, fast proofs of value and a dedicated practice.
   - We offer products *and* services.
 - **Commitments and disclosures:**
-  - A proof of value takes **4–8 weeks**, everywhere. This still needs agreement with delivery; `tools/check-grammar.js` already fails any other duration.
+  - A proof of value is stated **two ways, on purpose** (round 9): **4–8 weeks** in every piece of scope copy — the delivery ladder, the seven product Jumpstart tabs, Services — and **"from 30 days"** as the hero's one figure, the *from* set small beside it. Both are still to be agreed with delivery. `tools/check-grammar.js` fails any other duration in scope copy, and fails the hero tile if it is anything but `{ prefix: "from", value: "30 days" }`.
   - The proof-of-value price is the only price on the site. Every other package price goes in the sales materials.
   - No customer names, because no customer has confirmed we may use theirs.
   - The catalog holds both existing and planned products.

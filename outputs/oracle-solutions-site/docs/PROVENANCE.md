@@ -4865,3 +4865,456 @@ flagged there as unresolved.
   that the files are in the repo.
 - Re-porting the skill's `check-grammar.js` from the site's current copy — a
   merge, not a copy, and worth a drift check in `sync-shared.sh`.
+
+## 28. Round 9 — the home page re-argued: three layers, six groups, proof in weeks, 2026-09-22
+
+**The asks** (Alex, in session; written up as `scratchpad/round9-brief.md`):
+
+1. **The hero headline.** Sentence one says what we do, sentence two ties it to
+   Oracle, and one or two words carry the differentiator the Oracle team values —
+   one team expert in *both* AI and Oracle's platforms, so the customer gets the
+   full power of Oracle AI, with a proof fast. The business wants proven ROI and
+   fast proofs, but "ROI" is spam vocabulary: say the proof another way.
+2. **The stack shows three real layers**, read bottom-up: Oracle platforms →
+   SoftServe product groups → SoftServe service packs. And the cards must look
+   solid — *"today there is a lot of empty space and it looks too technical for a
+   front page."*
+3. **"4–8 weeks" becomes "from 30 days"** in the stat strip, the *from* set small
+   and the figure large.
+4. **Two ways in.** The left title repeats the H1's *Enterprise AI agents and
+   workflows* and its body speaks to what the products are worth; *"The people who
+   build them"* is the wrong subheading — the right-hand panel is about the
+   services.
+5. **The products screen is one tile per group**: a hover effect, a relevant image
+   (a software layout from a walkthrough where one exists, a placeholder where
+   not), a one-liner a reader with zero context understands, and a click that
+   opens the catalog filtered to that group. No product names on it.
+6. **The case-studies rail** — *"What we've proven, and what we're proving now."*
+   reads as a justification addressed to the site's owner. Rewrite it as a product
+   marketer would.
+
+**Mid-round corrections** (Alex, after both agents had launched; they supersede the
+brief where the two differ, and the build followed the corrections):
+
+- **Short platform labels.** The rail, the product chips, the tile band and the
+  stack carry *AI Lakehouse · AI Data Platform · AI for Fusion Applications · OCI
+  + NVIDIA NeMo*; the full Oracle product names stay on the Services cards and in
+  prose. One canonical order on every surface, and *"tags on product pages exactly
+  match these names."* Fusion stays in the set for the stack and the Services
+  cards but is **not** offered as a catalog filter — no product runs on it.
+- **Six groups, not five**, in a fixed order, and `chip` equals `full`: the tag on
+  a product page is the group's exact name, not a short form of it.
+- **The rail's *Availability* group becomes *Artifacts***, and the demo badge keys
+  off the interactive walkthrough rather than the video flag — *"ERP Q&A has an
+  interactive demo but no Demo tag."*
+- **Both rails are fixed lists.** The catalog's *What it does* must list the six
+  groups in that exact order, a zero-count option disabled and without a number.
+
+**Split.** Fable: the survey of the built screens, the structure, the messaging and
+every line of copy, then the final review before publish. Opus: agent A (the six
+tile images), agent B (data, renderers, CSS, checker, QA) and these docs. **Agent B
+stalled at the API level** — a stream watchdog, ten minutes with no progress —
+after the build, the checker and the screenshot pass, with the docs not started.
+The main session re-ran the three gates, did the 375/320 overflow probe, reviewed
+the screens, published, and handed the docs to a fresh Opus agent. The round's own
+instance of the standing rule that a background agent's silence is not progress
+(START-HERE §7).
+
+### 28.1 The decisions, and why
+
+- **The H1 gets a third line.** *Enterprise AI agents and workflows. · Built on
+  Oracle. · Proven in weeks.* Three sentences, three display lines, and only the
+  middle one is the page's one accent (SS26 spends orange once per page). The
+  differentiator Alex asked for moved into the lead rather than the headline,
+  because the H1 budget is 15 characters a line: the lead now opens on *"One team
+  that knows AI and Oracle's platforms to the same depth."* **`proof` is a new
+  headline key**, capped at three words by the checker; `rest` stays forbidden on
+  the home H1.
+- **Three layers, read bottom-up, and only one of them is written.** The top band
+  is the four service packs (the one band whose names live in `content.js`); the
+  middle band derives from `facets.categories` and the bottom from
+  `facets.technology`, so the illustration can never name a group or a platform in
+  words the rest of the site does not use. `stack.platformOrder` and the
+  `stackLabel` idea from the first brief were both dropped in the addendum: the
+  platforms render in the canonical facet order, and a platform has two forms of
+  its name, not three.
+- **The tiles were made solid.** One anatomy in all three bands — a white tile, an
+  1.75 rem blue-tint icon well (the one decorative tint SS26 allows), the name
+  pinned to the tile's foot at 13 px — with `grid-auto-rows: 1fr` and stretched
+  content so the bands read as one block instead of three rows of cards with air
+  under them. The product chips that used to hang inside the old top band are gone.
+  Band heights became `auto` when the middle band went to six tiles in two rows:
+  forcing `1fr` on all three would have padded the outer bands out again, which is
+  the complaint this rebuild answers.
+- **"from 30 days" is a headline, not a new commitment.** The stat tile leads the
+  strip (so the two "30"s are not adjacent) and renders the qualifier at .45 em of
+  the figure on its baseline. Every other surface keeps **4–8 weeks** — the ladder
+  step, the seven product Jumpstart tabs, Services — and the checker still fails
+  any other duration there. The two are a headline and a scope, not alternatives;
+  the Internal panel's `pov-duration` item now says both.
+- **The two ways in were re-pointed at value.** The left panel takes the H1's own
+  words and says what a product *is* (an agent, or a workflow people and agents
+  share, carrying the rules, review steps and checks its industry expects, on
+  Oracle's own platforms); the right panel says what the services *are* (fixed
+  scope, the same shape every time, the people who ran the Jumpstart carrying it
+  into production). The H2 above them came down from 49 characters to 29.
+- **Six groups, one per kind of job.** *Enterprise knowledge & analytics · Deep
+  research & investigation · Document processing · Transaction & process execution
+  · Forecasting & optimization · Video & image intelligence.* Each carries one
+  sentence written for a reader with no context, its tile image, and the answer
+  the catalog gives when a filter on it returns nothing. Two groups have no product
+  today (transactions, video & image); their tiles land on that group's own empty
+  state, which says what the practice delivers and what to tell us — never *yet*,
+  *so far* or *coming*.
+- **The case rail is reader copy now.** *Results on customers' own data* (30
+  characters), a body that says what a card is — the industry, the workflow and the
+  number it moves, marked proven, forecast or estimated — an NDA line that states
+  the constraint and the offer in one, and a CTA that asks for something a reader
+  wants (*Ask for a reference call*) rather than sending them to the method.
+- **Tier vocabulary: *Scaling*.** The stack's top band says *Scaling*, so one page
+  may not also say *Scale*. Nine tier **titles** were renamed —
+  `overview.delivery.steps[2]`, `services.howWeEngage.steps[3]` and the seven
+  `jumpstart.next[1].tier` — and no prose verb was touched (*scale it*, *may never
+  need to scale* still read as written). The checker's `NEXT_TIERS` is now
+  `["Integration", "Scaling"]`.
+- **Short platform labels, full Oracle names where there is room.** `label` is what
+  the rail, the chips, the tile band, `tags[1]` and the stack render; `fullLabel`
+  is what the Services cards and the home page's *Platform depth* pillar carry, and
+  the checker asserts that every `fullLabel` opens on "Oracle".
+- **Fusion is in the set, not in the rail.** `catalog: false` keeps *Oracle AI for
+  Fusion Applications* out of the filter group — a filter that can never return
+  anything is not a filter — while leaving it on the stack and the Services cards,
+  where it is a platform the practice delivers on. The checker allows that flag on
+  that id alone, and fails a product that names a non-catalog platform.
+- **Artifacts, and the demo badge fixed at its source.** The group is what ships
+  *with* a product, so it is named for the things themselves: *Interactive demo* ·
+  *Oracle Marketplace*. The badge and the filter now both read `demoUrl` — the
+  walkthrough they open — where they used to read `video`, which only decides
+  whether the product page carries a video frame. The two had drifted in both
+  directions: *Account insights* carried a badge with no walkthrough, *Cross-system
+  ERP Q&A* had a walkthrough and no badge. The full label shipped (nothing broke at
+  375), on a new `cursor-click` glyph; `play` stays the glyph for a recording. The
+  badge's click keeps working for all three demo products — on a product page with
+  no video frame it opens the walkthrough itself, and `pages/product.js` now
+  delegates to the same `UI.demoHref`, so the hero button and the badge cannot open
+  different things.
+- **Both rails are fixed lists.** Every platform a product can run on, every group,
+  always in canonical order: the rail has one shape whatever the catalog holds
+  today. A zero-count option renders disabled and prints no number, unless it is
+  the one a deep link arrived on, which renders selected above its own empty state.
+  This retires the hide-when-zero behaviour §18.9 introduced for the platform rail
+  — the reason it existed (a `0` beside an Oracle product name reads as a
+  scoreboard) is answered instead by printing no number at all. Neither rail ever
+  prints a total.
+
+### 28.2 Before and after — every string this round changed
+
+Labels: **[site]** carried, re-cased or re-ordered, not rewritten · **[new]** copy
+written this round (Fable) · **[alex]** Alex's own wording or instruction.
+
+**S1 — hero** (`overview.hero`)
+
+| Key | Before | After | |
+|---|---|---|---|
+| `headline.lead` | `ENTERPRISE AI AGENTS AND WORKFLOWS.` (re-cased by `content-case.js`) | `Enterprise AI agents and workflows.` — stored in sentence case | [site] |
+| `headline.accent` | `BUILT ON ORACLE.` (re-cased by the overlay) | `Built on Oracle.` — stored in sentence case | [site] |
+| `headline.proof` | — | `Proven in weeks.` | [new] |
+| `lead` | *"Agents that read your contracts, plan your field workforce, answer questions across your ERP and tell your sellers what a market signal means for each account. Built on Oracle's AI platforms, run in your tenancy, measured on your data first."* | *"One team that knows AI and Oracle's platforms to the same depth, so you get the full power of Oracle AI — proven on your own data in a fixed-scope Jumpstart, then taken to production in your tenancy."* | [new] |
+| `ctas` | *Explore the products* · *How we deliver* | unchanged | [site] |
+| `stack.ariaLabel` | *"How they are built: the agents and workflows you can start with on top, grouped by the job they do, the SoftServe layer in the middle, the four Oracle platforms underneath"* | *"How it fits together, read from the bottom up: Oracle's four AI platforms, the SoftServe product groups built on them, and the SoftServe services that prove, integrate and scale them"* | [new] |
+| `stack.patternsLabel` | *"Agents and workflows to start with"* | **deleted** (the top band is services now) | [alex] |
+| `stack.softserve` | `{ label: "SoftServe", items: ["Agentic and data engineering", "Evaluation & guardrails", "Pilot to production"] }` | **deleted** | [alex] |
+| `stack.services` | — | `{ label: "SoftServe services", items: [Jumpstart proof of value ·`spark`, Integration ·`network`, Scaling ·`scale`, Managed services ·`managed`] }` | [alex] |
+| `stack.productsLabel` | — | `SoftServe products` | [new] |
+| `stack.platformsLabel` | `Oracle platforms` | unchanged | [site] |
+
+**The stat strip** (`overview.hero.stats`) — reordered, and one figure replaced
+
+| # | Before | After | |
+|---|---|---|---|
+| 0 | `1,000+` · *experts in AI, data and R&D across SoftServe* | `from` `30 days` · *to a fixed-price proof of value on your own data* | [alex] |
+| 1 | `30` · *Fortune 500 clients in the data and analytics practice* | `1,000+` · *experts in AI, data and R&D across SoftServe* | [site] |
+| 2 | `4–8 weeks` · *to a fixed-price proof of value on your own data* | `30` · *Fortune 500 clients in the data and analytics practice* | [site] |
+
+**S2 — two ways in** (`overview.twoWays`)
+
+| Key | Before | After | |
+|---|---|---|---|
+| `title` | *"Start with a product, keep the team that built it."* (49 ch) | *"Products, services, one team."* (29 ch) | [new] |
+| `panels[0].title` | *"Agents and workflows"* | *"Enterprise AI agents and workflows"* | [alex] |
+| `panels[0].body` | *"Each one runs on Oracle in your own tenancy and starts with a Jumpstart on your data — at a fixed price where one is published, otherwise scoped per engagement."* | *"An AI agent, or a workflow where people and agents share the work, carrying what its industry expects: the rules, the review steps, the checks. Built on Oracle's own AI platforms, so all they can do is in the product, and started in weeks rather than from a blank page."* | [new] |
+| `panels[0].bullets[0]` | *"Runs on OCI + NVIDIA or Oracle Autonomous AI Lakehouse"* | *"Best practice built in, from engagements already delivered"* | [new] |
+| `panels[0].bullets[1]` | *"Extractions, plans and findings are approved by a person"* | *"Runs in your own tenancy"* | [new] |
+| `panels[0].bullets[2]` | *"Scope, timeline and price on every product page"* | unchanged | [site] |
+| `panels[1].title` | *"The people who build them"* | *"Services, from proof to scale"* | [alex] |
+| `panels[1].body` | *"The architects and engineers who built them adapt them to your systems, rules and data — or build the one your workflow needs — and take them to production. One contract, one accountable team."* | *"Fixed-scope services, run the same way every time: a Jumpstart proves the value on your own data in weeks, then the people who ran it integrate it into your systems and scale it across the business — architects who know Oracle's platforms, engineers from our AI research group, and capacity that grows with the rollout."* | [new] |
+| `panels[1].bullets[0]` | *"Delivered with Oracle's AI & Data organization, in joint teams"* | unchanged | [site] |
+| `panels[1].bullets[1]` | *"Measured like for like against how you work today"* | *"Experts in both AI and Oracle's platforms"* | [new] |
+| `panels[1].bullets[2]` | *"Configured to your rules, definitions and access model"* | *"Thirty years of enterprise integration behind every rollout"* | [new] |
+
+The panels' `id`, `icon` and `cta` are untouched, and the layout is the same two
+joined panels. **`panels[1].body` no longer carries the positive breadth clause**
+*"or build the one your workflow needs"*, which HANDOFF §3 and §18.9 name as the
+site's one cleared statement of breadth; `productsPage.bottomBlock.body` still
+carries the same idea (*"…or what it would take to build one on your data"*), so
+the rule holds, but the home page no longer states it. Flagged, not corrected.
+
+**S3 — the products screen** (`overview.catalog`)
+
+| Key | Before | After | |
+|---|---|---|---|
+| `eyebrow` | `Products` | unchanged | [site] |
+| `title` | *"Agents that read, extract, plan and answer."* | *"Start from the job to be done"* (29 ch) | [new] |
+| `lead` | *"Each one runs in your own Oracle tenancy. Open one for how it works, what it needs from you, and the Jumpstart scope."* | *"Every group is a family of agents and human-AI workflows for one kind of job, distilled from engagements already delivered: the rules, review steps and checks the job needs, on Oracle's AI platforms, proven on your data in a Jumpstart. Open a group to see its products."* | [new] |
+| `patterns[3]` | three `{ id, definition }` columns | **retired** — the tiles derive from `facets.categories`, so the data carries no second list | [new] |
+| `cta` | *See all products, with filters* → `#/products` | unchanged | [site] |
+
+**The six groups** (`facets.categories`) — three entries became six; every `line`
+and `emptyState` is [new], the names and the order are [alex]
+
+| id | Before | After |
+|---|---|---|
+| `knowledge-analytics` | — | chip = full *Enterprise knowledge & analytics* · *"Plain-language answers and analysis over your governed data, from the ERP to the systems around it, with the source behind every answer."* · `groups/knowledge-analytics.jpg` |
+| `deep-research` | chip *Deep research* / full *Deep research & investigation* | chip = full *Deep research & investigation* · *"Agents that read across your systems and outside sources and bring back a cited answer: an account brief, a case file, a variance explained."* · `groups/deep-research.svg` |
+| `documents` | `processing-pipelines` — chip *Document processing* / full *Document processing & review* | id `documents`, chip = full *Document processing* · *"Long contracts and records turned into checked, structured data, every value traced to its page and approved by a reviewer."* · `groups/documents.jpg` |
+| `transactions` | — | chip = full *Transaction & process execution* · *"Agents that carry a process step through to completion — an order, a claim, a ticket, a posting — inside your systems, with a person approving what moves."* · `groups/transactions.svg` |
+| `forecasting-optimization` | `data-analysis` — chip *Data analysis & optimization* / full *Data analysis, answers & optimization* | id `forecasting-optimization`, chip = full *Forecasting & optimization* · *"Forecasts and plans computed against every constraint at once — demand, routes, shifts, allocations — for the people who own them to approve."* · `groups/forecasting-optimization.jpg` |
+| `video-image` | — | chip = full *Video & image intelligence* · *"Cameras, footage and photos read by AI: defects spotted, scenes found, events flagged, for a person to confirm."* · `groups/video-image.svg` |
+
+Each group's `emptyState` [new], rendered on `#/products?cat=<id>` when the filter
+returns nothing and no other filter is on:
+
+| id | `emptyState` |
+|---|---|
+| `knowledge-analytics` | *"Knowledge and analytics assistants are scoped per engagement. Tell us the questions your teams ask, and which systems hold the answers."* |
+| `deep-research` | *"Deep research agents are scoped per engagement. Tell us the question your people spend days answering."* |
+| `documents` | *"Document processing is scoped per engagement. Tell us the document type and the system it feeds."* |
+| `transactions` | *"Transaction and process agents are scoped per engagement. Tell us the process step your people complete by hand today."* |
+| `forecasting-optimization` | *"Forecasting and optimization is scoped per engagement. Tell us the plan your planners or dispatchers build by hand today."* |
+| `video-image` | *"Video and image work is delivered as an engagement today, on OCI + NVIDIA NeMo. Tell us the footage or the inspection you have in mind."* |
+
+**The platforms** (`facets.technology`) — one canonical order, two forms of each name
+
+| Position | Before | After | |
+|---|---|---|---|
+| 1 | `oci-nvidia` *OCI + NVIDIA* | `oracle-ai-lakehouse` — label *AI Lakehouse*, fullLabel *Oracle Autonomous AI Lakehouse* | [alex] |
+| 2 | `oracle-ai-data-platform` *Oracle AI Data Platform* | `oracle-ai-data-platform` — label *AI Data Platform*, fullLabel *Oracle AI Data Platform* | [alex] |
+| 3 | `oracle-ai-lakehouse` *Oracle Autonomous AI Lakehouse* | `oracle-ai-fusion` — label *AI for Fusion Applications*, fullLabel *Oracle AI for Fusion Applications*, **`catalog: false`** | [alex] |
+| 4 | `oracle-ai-fusion` *Oracle AI for Fusion Applications* | `oci-nvidia` — label *OCI + NVIDIA NeMo*, fullLabel *Oracle Cloud Infrastructure + NVIDIA NeMo* | [alex] |
+
+Each facet's `description` and `emptyState` are unchanged [site]. The *OCI +
+NVIDIA* → *OCI + NVIDIA NeMo* rename and the *Oracle Cloud Infrastructure +
+NVIDIA* → *… + NVIDIA NeMo* full form are Alex's; casing stays **NVIDIA**.
+
+**Artifacts** (`facets.availability`, `shared.tagFamilies.availability`)
+
+| Key | Before | After | |
+|---|---|---|---|
+| `facets.availability.label` | `Availability` | `Artifacts` | [alex] |
+| `options[0].label` | `Demo available` | `Interactive demo` | [alex] |
+| `options[1].label` | `On Oracle Marketplace` | `Oracle Marketplace` | [alex] |
+| `tagFamilies.availability.demo` | `{ label: "Demo", tooltip: "Demo available", icon: "play" }` | `{ label: "Interactive demo", tooltip: "Interactive demo — a guided walkthrough you can click through", icon: "cursor-click" }` | [alex] |
+| `tagFamilies.availability.marketplace` | *Oracle Marketplace* / storefront | unchanged | [site] |
+| `tagFamilies.pattern.icons` | 3 keys — `pattern-deep-research`, `pattern-processing-pipelines`, `pattern-data-analysis` | 6 keys — `pattern-knowledge-analytics`, `pattern-deep-research`, `pattern-documents`, `pattern-transactions`, `pattern-forecasting-optimization`, `pattern-video-image` | [new] |
+
+**S4 — how we deliver** (`overview.delivery`)
+
+| Key | Before | After | |
+|---|---|---|---|
+| `steps[2].title` | `Scale` | `Scaling` | [alex] |
+| `why.pillars[0].body` (*Platform depth*) | *"…across OCI + NVIDIA, Oracle AI Data Platform, Oracle Autonomous AI Lakehouse and Oracle AI for Fusion Applications."* | *"…across Oracle Autonomous AI Lakehouse, Oracle AI Data Platform, Oracle AI for Fusion Applications and OCI + NVIDIA NeMo."* | [alex] |
+
+`steps[0].fact` stays **4–8 weeks**, with the rest of the delivery copy untouched.
+
+**S5 — case studies** (`overview.caseStudiesIntro`)
+
+| Key | Before | After | |
+|---|---|---|---|
+| `title` | *"What we've proven, and what we're proving now."* | *"Results on customers' own data"* (30 ch) | [new] |
+| `body` | *"Every customer is under NDA, so each engagement is described by industry and scale."* | *"Each card is one engagement: the industry, the workflow and the number it moves, marked as proven, forecast or estimated."* | [new] |
+| `ndaLine` | *"Reference calls on request."* | *"Customers stay unnamed under NDA. Reference calls on request."* | [new] |
+| `cta` | *How we measure it* → `#/services#how-we-engage` | *Ask for a reference call* → `#/#request-a-demo` | [new] |
+
+The four cards are unchanged. **The rail's link out of the page is gone**: since
+§18.8 the measurement method ships only on Services and this rail was the way to
+it. The Services page is still reached from the hero's second CTA and from S4.
+
+**The seven products** (`products[]`)
+
+| Key | Before | After | |
+|---|---|---|---|
+| `shortLine` × 7 | one ≤ 12-word line per product, for the old catalog rows | **deleted** — no renderer reads it after this round | [new] |
+| `category` | `processing-pipelines` → `documents` (large-document-extraction); `data-analysis` → `forecasting-optimization` (workforce-optimization); `data-analysis` → `knowledge-analytics` (cross-system-erp-qa, business-metrics-qa); `deep-research` unchanged on the other three | | [alex] |
+| `categoryChip`, `tags[0]` | *Deep research* · *Document processing* · *Data analysis & optimization* | the group's full name: *Deep research & investigation* · *Document processing* · *Forecasting & optimization* · *Enterprise knowledge & analytics* | [alex] |
+| `tags[1]` | *OCI + NVIDIA* (5 products) · *Oracle Autonomous AI Lakehouse* (2) | *OCI + NVIDIA NeMo* (5) · *AI Lakehouse* (2) | [alex] |
+| `jumpstart.next[1].tier` × 7 | `Scale` | `Scaling` | [alex] |
+
+**Services** (`services`)
+
+| Key | Before | After | |
+|---|---|---|---|
+| `hero.platforms` | *OCI + NVIDIA* · *Oracle AI Data Platform* · *Oracle Autonomous AI Lakehouse* · *Oracle AI for Fusion Applications* | *Oracle Autonomous AI Lakehouse* · *Oracle AI Data Platform* · *Oracle AI for Fusion Applications* · *Oracle Cloud Infrastructure + NVIDIA NeMo* — the full names, canonical order | [alex] |
+| `howWeEngage.steps[3].title` | `Scale` | `Scaling` | [alex] |
+
+**The other two data files**
+
+| File | Before | After | |
+|---|---|---|---|
+| `data/review.js` — item `pov-duration` | *"A PoV takes 4–8 weeks (to agree with delivery)"* | *"A PoV runs from 30 days (4–8 weeks, to agree with delivery)"* (59 ch, id unchanged) | [alex] |
+| `data/content-case.js` | 45 RECASE rows, including `overview.hero.headline.lead` and `.accent` | 43 rows — the two hero rows deleted with the strings they patched; the header comment rewritten to say the overlay only shrinks from here, and that new copy is stored in sentence case in `content.js` | [new] |
+
+### 28.3 The checker
+
+New and rewritten assertions in `tools/check-grammar.js`, each commented with the
+round that owns it:
+
+- `PATTERN_IDS` → the six group ids, in site order; `facets.categories` must hold
+  exactly those six in that order, each with `chip`, `full`, `line`, `image`,
+  `emptyState`; `chip` must equal `full`; `line` must end in a period and run to
+  **26 words or fewer** (em-dash parentheticals excluded from the count); `image`
+  must match `assets/img/groups/<name>.<jpg|jpeg|png|webp|svg>` and warns, like any
+  other asset, when the file is not on disk; `emptyState` fails on *yet*, *so far*,
+  *coming*, *not seeing*.
+- `FACET_IDS` → the canonical order Lakehouse → AI Data Platform → Fusion → OCI +
+  NVIDIA NeMo; `FACET_LABELS` → the short labels; a new `FACET_FULL` → the full
+  Oracle names, asserted on each facet's `fullLabel` and on
+  `services.hero.platforms[].name`; a `fullLabel` that does not open on "Oracle"
+  fails; `catalog` may only be `false` and only on `oracle-ai-fusion`; no product
+  may carry a `facet` whose platform has `catalog: false`; `stackLabel` is retired
+  and fails if it returns.
+- `overview.hero.headline` needs `{ lead, accent, proof }`, `proof` ≤ 3 words,
+  `rest` still a failure.
+- `overview.hero.stack` needs `{ ariaLabel, productsLabel, platformsLabel }` plus
+  `services` with exactly four `{ name, icon }` items; `patternsLabel`, `softserve`
+  and `platformOrder` all fail if present.
+- `stats[].prefix` is optional, must be a non-empty string ≤ 6 characters, and
+  `stats[0]` must be exactly `{ prefix: "from", value: "30 days" }`; the round-7
+  rule is inverted for this one tile — a hero stat stating *4–8 weeks* now fails,
+  while every other surface must still state it.
+- `overview.catalog.patterns` and `products[].shortLine` are retired and fail if
+  they return.
+- `facets.availability.label` must be *Artifacts*, its two options exactly
+  `demo`/*Interactive demo* and `marketplace`/*Oracle Marketplace*, and the two
+  badge definitions must carry those labels with the `cursor-click` and
+  `storefront` glyphs.
+- `config.products[<slug>].demoUrl` must be set for exactly the three products
+  whose walkthrough ships under `site/demo/` (`DEMO_SLUGS`), and warns if the path
+  is not on disk.
+- Icon coverage extended: the stack's four service glyphs, the six `pattern-*`
+  glyphs and the two badge glyphs must all be in the `ICONS` registry, and the four
+  retired keys (`pattern-processing-pipelines`, `pattern-data-analysis`,
+  `pattern-optimization`, `pattern-knowledge-assistants`) must be **out** of it — an
+  icon no data can name is an unchecked icon.
+- `NEXT_TIERS` → `["Integration", "Scaling"]`.
+- **An H2 budget, enforced for the first time:** the three headings this round
+  rewrote (`overview.twoWays.title`, `overview.catalog.title`,
+  `overview.caseStudiesIntro.title`) fail over 30 characters; `overview.delivery.title`,
+  `overview.about.title` and `overview.contact.heading` only warn, so old copy is
+  visible as debt without failing the build.
+
+`node --check` passes on all eight changed JS files. `node tools/check-grammar.js`
+prints **OK** with three warnings, all expected: the two home H2s this round did
+not touch (delivery 56 characters, about 61) and the Internal panel, which warns on
+every run by design.
+
+**One piece of housekeeping was left undone:** the addendum took the groups from
+five to six, but four code comments still say *five* — the `PATTERN_IDS` and
+`facets.categories` blocks in `tools/check-grammar.js`, `groupTiles()` in
+`site/pages/overview.js`, and two rules in `site/assets/site.css` (`.home-hero-inner`,
+`.gtile-foot`). The data, the assertions and the layout are all six; only the prose
+around them is stale.
+
+### 28.4 QA and publish
+
+Agent B's pass: screenshots of S1, the stat band, S2, S3 and S5 at 1440, 1280,
+1024, 768 and 375, plus the H1 at 320, all taken at scroll 0 with the other
+sections hidden and `is-in` forced on the reveals (`.work/qa/round9/`). One defect
+found and fixed there: `hyphens: auto` on the stack tile name broke *image* to
+*im-age* at 13 px, so the tile name now takes `overflow-wrap: anywhere` alone.
+
+The main session's review, after agent B stalled:
+
+- All three gates re-run — `node --check` on the eight changed files, the checker
+  (OK, the three expected warnings), and the deny-list grep over `site/*.js`,
+  `*.css`, `*.html`, which returned nothing.
+- **The rail at 1440:** *Oracle platform* — All · AI Lakehouse 2 · AI Data Platform
+  (disabled, no number) · OCI + NVIDIA NeMo 5. *What it does* — All · Enterprise
+  knowledge & analytics 2 · Deep research & investigation 3 · Document processing 1
+  · Transaction & process execution (disabled) · Forecasting & optimization 1 ·
+  Video & image intelligence (disabled). *Artifacts* — Interactive demo 3 · Oracle
+  Marketplace 2.
+- **The badge derivation:** Large docs and Workforce optimization carry both
+  badges, Cross-system ERP Q&A carries *Interactive demo*, and the other four carry
+  none — the drift in both directions is closed. `#/products/cross-system-erp-qa`
+  shows the chip row *Enterprise knowledge & analytics · AI Lakehouse · Interactive
+  demo* with the `cursor-click` glyph and both hero buttons;
+  `#/products/account-insights` shows no badge and one button.
+- **The deep links:** `#/products?cat=video-image` renders zero tiles, that group's
+  own empty state, the group selected in the rail and no count line;
+  `#/products?cat=knowledge-analytics` renders *2 products*.
+- `#/services` step titles read Discovery · Jumpstart proof of value · Integration ·
+  **Scaling**. Console clean on every route visited.
+- **The 375/320 probe:** at 375, `scrollWidth` equals `innerWidth` (375), the widest
+  element is the masthead, the H1 sets 32 px over four lines, and the stat strip and
+  the group tiles are both single-column. At 320, `scrollWidth` is 320 and the H1
+  runs five lines — *Enterprise / AI agents / and workflows. / Built on Oracle. /
+  Proven in weeks.* `#/products` is 320 wide too. The earlier `hero-375.png` that
+  looked wider than its viewport was a capture artifact, not overflow.
+
+Published from the main session to
+**https://claude.ai/artifact/HTEJADBQF3ZevFPuSoTHri** — the wrapper built with
+exactly the nine skeleton lines stripped, and a `files` map of 14 entries: the
+eight changed files plus the six new images under `assets/img/groups/`.
+
+### 28.5 The six tile images (agent A)
+
+960 × 600 (16:10) in `site/assets/img/groups/`; the full record, with the rejected
+candidates and the clearance check, is in `docs/ASSETS.md`.
+
+| File | Source | Crop | Bytes |
+|---|---|---|---|
+| `knowledge-analytics.jpg` | `steps/cross-system-erp-qa-1.jpg` (1600 × 1000) | none — already 16:10, resampled to 960 | 98,594 |
+| `documents.jpg` | `posters/large-document-extraction.jpg` (1600 × 900) | 470, 275, 1000 × 625 | 114,514 |
+| `forecasting-optimization.jpg` | `posters/workforce-optimization.jpg` (1600 × 900) | 0, 140, 1120 × 700 | 111,267 |
+| `deep-research.svg` · `transactions.svg` · `video-image.svg` | drawn | — | 2,707 · 3,077 · 2,122 |
+
+Both JPG crops are deliberate: the document crop starts at y = 275 because at
+y = 250 the metadata row still exposed the walkthrough's synthetic counterparty
+name, and the workforce crop starts at x = 0 to keep the app rail and exclude a
+changes rail that would have left an orphaned figure in the corner. Frames
+carrying the Oracle mark, a USD figure at the focal point or a modal dialog were
+rejected; the brief's own first picks for two of the three lost to the posters.
+
+The three placeholders are one design — an app-window wireframe in theme colours
+with the group's line icon drawn large at 25 % opacity — differing only in the
+content area, so three adjacent tiles do not read as duplicates.
+
+**A tool note worth keeping:** `sips --cropOffset <y> <x>` on this Mac (sips-316)
+is the crop's top-left origin in pixels from the image's top-left, *not* a shift
+from the centre — except that exactly `0 0` is read as "unset" and falls back to a
+centred crop, and negative offsets render black.
+
+### 28.6 Open for Alex
+
+1. **The H1's third line** ships as *"Proven in weeks."* (three words). Two-word
+   alternatives, if the line should be shorter: *"Proven fast."* / *"Proof first."*
+2. **"Document processing"** stays singular on the site, against Alex's
+   *"Documents processing"*.
+3. **The clock is stated two ways on purpose:** the hero tile says *from 30 days*,
+   while the ladder step, the seven product Jumpstart tabs and Services all keep
+   *4–8 weeks*. Both are still pending delivery's agreement (START-HERE §2).
+4. **Platform short labels drop the "Oracle" prefix** on the rail, the chips, the
+   tile band and the stack (*AI Lakehouse*, *AI Data Platform*, *OCI + NVIDIA
+   NeMo*); the full product names stay on the Services cards and in prose. Oracle's
+   own naming would want the prefix everywhere.
+5. **Oracle AI for Fusion Applications is on the stack and the Services cards but
+   is not a catalog filter** — a platform no product runs on.
+6. **The Services platform cards are re-ordered** to the same canonical order the
+   rail and the stack use (Lakehouse first; OCI + NVIDIA NeMo last).
+7. **Two groups have no product today** — *Transaction & process execution* and
+   *Video & image intelligence*. Their tiles land on the catalog's empty state for
+   that group.
+8. **Two other home H2s are over the 30-character budget** — delivery (56) and
+   about (61). Untouched this round; the checker warns on both.
+9. **"Oracle Marketplace" still renders for the two products flagged
+   `marketplace: true`** while no listing URL exists (unchanged since round 4).
