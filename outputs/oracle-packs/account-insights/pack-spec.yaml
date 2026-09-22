@@ -169,10 +169,9 @@ verticals:                                 # component 5 — PROPOSED, see open_
     source: one-pager-2026-09-10, user:2026-09-22
 
 capabilities:                              # component 6 — Area > Category > Feature
-  # `oracle_pack` is the Oracle + NVIDIA AI-Q baseline's own coverage, corrected 2026-09-22
-  # against NVIDIA and Oracle primary documentation. The delivered one-pager marked exactly one
-  # feature as provided by the baseline; the evidence puts the tally at full 3 / partial 5 /
-  # none 4 across the workflow. Glyphs per decisions-2026-09-18: ● available · ◐ partial · ○ roadmap.
+  # Glyphs per decisions-2026-09-18: ● available · ◐ partial · ○ roadmap. What the Oracle + NVIDIA
+  # baseline provides per feature is a research lens, kept beside the brief in
+  # oracle-baseline-lens.md — the schema's feature entries carry only what the artifacts print.
 
   - area: Account universe & grounding
     stage: Ground it
@@ -182,17 +181,17 @@ capabilities:                              # component 6 — Area > Category > F
     categories:
       - name: The account universe
         features:
-          - { name: In-scope account list and tiering, status: partial, oracle_pack: none, tier_first_available: pov, source: one-pager-2026-09-10 }
-          - { name: Account framing from CRM (the relationship in the client's own words), status: partial, oracle_pack: none, tier_first_available: pov, source: reviewer-ui-2026-09-11, note: "An agreed CRM extract at PoV Jumpstart; API at Integration" }
-          - { name: Entity grouping by legal hierarchy rather than name match, status: roadmap, oracle_pack: none, specificity: [use_case], source: research-brief-2026-09-22 }
+          - { name: In-scope account list and tiering, status: partial, tier_first_available: pov, source: one-pager-2026-09-10 }
+          - { name: Account framing from CRM (the relationship in the client's own words), status: partial, tier_first_available: pov, source: reviewer-ui-2026-09-11, note: "An agreed CRM extract at PoV Jumpstart; API at Integration" }
+          - { name: Entity grouping by legal hierarchy rather than name match, status: roadmap, specificity: [use_case], source: research-brief-2026-09-22 }
       - name: Sources
         features:
-          - { name: "Signal ingestion — news, filings, disclosures", status: partial, oracle_pack: partial, tier_first_available: pov, source: one-pager-2026-09-10 }
-          - { name: Commercial data feeds, status: partial, oracle_pack: partial, tier_first_available: pov, source: one-pager-2026-09-10, note: "A bounded, licence-cleared source set at PoV Jumpstart; the client's own licensed feeds at Integration" }
-          - { name: Public filings via EDGAR and IR pages, status: partial, oracle_pack: partial, tier_first_available: pov, source: one-pager-2026-09-10 }
-          - { name: Service-line capability catalog from the client's own material, status: partial, oracle_pack: none, tier_first_available: pov, source: one-pager-2026-09-10 }
-          - { name: Source-licensing and redistribution-rights gate, status: roadmap, oracle_pack: none, source: research-brief-2026-09-22 }
-          - { name: Native multilingual processing, status: roadmap, oracle_pack: partial, source: one-pager-2026-09-10 }
+          - { name: "Signal ingestion — news, filings, disclosures", status: partial, tier_first_available: pov, source: one-pager-2026-09-10 }
+          - { name: Commercial data feeds, status: partial, tier_first_available: pov, source: one-pager-2026-09-10, note: "A bounded, licence-cleared source set at PoV Jumpstart; the client's own licensed feeds at Integration" }
+          - { name: Public filings via EDGAR and IR pages, status: partial, tier_first_available: pov, source: one-pager-2026-09-10 }
+          - { name: Service-line capability catalog from the client's own material, status: partial, tier_first_available: pov, source: one-pager-2026-09-10 }
+          - { name: Source-licensing and redistribution-rights gate, status: roadmap, source: research-brief-2026-09-22 }
+          - { name: Native multilingual processing, status: roadmap, source: one-pager-2026-09-10 }
 
   - area: Signal intake & normalization
     stage: Normalize it
@@ -203,19 +202,19 @@ capabilities:                              # component 6 — Area > Category > F
       - name: Trigger
         note: "Both entry points. The account-triggered path is the widening the pack adds over the delivered engagement."
         features:
-          - { name: Signal-triggered — scheduled scan and manual submit, status: partial, oracle_pack: none, tier_first_available: pov, source: one-pager-2026-09-10 }
-          - { name: Account-triggered — research one account on demand or before a meeting, status: partial, oracle_pack: available, tier_first_available: pov, source: research-brief-2026-09-22 }
-          - { name: Recurrence as a standing subscription per account, status: roadmap, oracle_pack: none, tier_first_available: integration, source: research-brief-2026-09-22 }
-          - { name: Deadline-bound trigger — emit ahead of a dated instrument with no new signal, status: roadmap, oracle_pack: none, source: research-brief-2026-09-22 }
+          - { name: Signal-triggered — scheduled scan and manual submit, status: partial, tier_first_available: pov, source: one-pager-2026-09-10 }
+          - { name: Account-triggered — research one account on demand or before a meeting, status: partial, tier_first_available: pov, source: research-brief-2026-09-22 }
+          - { name: Recurrence as a standing subscription per account, status: roadmap, tier_first_available: integration, source: research-brief-2026-09-22 }
+          - { name: Deadline-bound trigger — emit ahead of a dated instrument with no new signal, status: roadmap, source: research-brief-2026-09-22 }
       - name: Normalization
         note: "Relevance filtering, de-duplication and entity resolution merged into one step — you cannot judge relevance before you know which entity the story is about."
         features:
-          - { name: Relevance filter — is this a genuine signal, status: partial, oracle_pack: partial, tier_first_available: pov, source: one-pager-2026-09-10 }
-          - { name: De-duplication — one story across many sources becomes one signal, status: partial, oracle_pack: partial, tier_first_available: pov, source: one-pager-2026-09-10 }
-          - { name: Account resolution — which in-scope accounts a signal affects, status: partial, oracle_pack: none, tier_first_available: pov, source: one-pager-2026-09-10 }
-          - { name: "Fan-out — one signal, one record per affected account", status: partial, oracle_pack: none, tier_first_available: pov, source: one-pager-2026-09-10 }
-          - { name: Delta reasoning — what changed since the last delivered record, status: roadmap, oracle_pack: none, source: research-brief-2026-09-22 }
-          - { name: Provenance class — filing · disclosure · reported · rumour · model output, status: roadmap, oracle_pack: none, source: research-brief-2026-09-22 }
+          - { name: Relevance filter — is this a genuine signal, status: partial, tier_first_available: pov, source: one-pager-2026-09-10 }
+          - { name: De-duplication — one story across many sources becomes one signal, status: partial, tier_first_available: pov, source: one-pager-2026-09-10 }
+          - { name: Account resolution — which in-scope accounts a signal affects, status: partial, tier_first_available: pov, source: one-pager-2026-09-10 }
+          - { name: "Fan-out — one signal, one record per affected account", status: partial, tier_first_available: pov, source: one-pager-2026-09-10 }
+          - { name: Delta reasoning — what changed since the last delivered record, status: roadmap, source: research-brief-2026-09-22 }
+          - { name: Provenance class — filing · disclosure · reported · rumour · model output, status: roadmap, source: research-brief-2026-09-22 }
 
   - area: Implication reasoning
     stage: Reason it
@@ -225,31 +224,31 @@ capabilities:                              # component 6 — Area > Category > F
     categories:
       - name: Evidence
         features:
-          - { name: Evidence assembly and ranking across first-party and public sources, status: available, oracle_pack: available, tier_first_available: pov, source: one-pager-2026-09-10 }
-          - { name: Evidence set shown for review before the reasoning, status: roadmap, oracle_pack: none, source: research-brief-2026-09-22 }
-          - { name: Contradiction between reliable sources surfaced as a finding, status: roadmap, oracle_pack: none, source: research-brief-2026-09-22 }
+          - { name: Evidence assembly and ranking across first-party and public sources, status: available, tier_first_available: pov, source: one-pager-2026-09-10 }
+          - { name: Evidence set shown for review before the reasoning, status: roadmap, source: research-brief-2026-09-22 }
+          - { name: Contradiction between reliable sources surfaced as a finding, status: roadmap, source: research-brief-2026-09-22 }
       - name: The implication
         features:
-          - { name: Opportunity and risk reasoning — the "so what" per account, status: partial, oracle_pack: partial, tier_first_available: pov, source: one-pager-2026-09-10 }
-          - { name: "Dual implication — one signal yields an opportunity and a risk, routed separately", status: roadmap, oracle_pack: none, tier_first_available: integration, source: research-brief-2026-09-22 }
-          - { name: Inference validity — does the conclusion follow from the cited evidence, status: roadmap, oracle_pack: none, source: research-brief-2026-09-22 }
+          - { name: Opportunity and risk reasoning — the "so what" per account, status: partial, tier_first_available: pov, source: one-pager-2026-09-10 }
+          - { name: "Dual implication — one signal yields an opportunity and a risk, routed separately", status: roadmap, tier_first_available: integration, source: research-brief-2026-09-22 }
+          - { name: Inference validity — does the conclusion follow from the cited evidence, status: roadmap, source: research-brief-2026-09-22 }
       - name: Catalog mapping
         note: "The pack's primary differentiator. No strong implementation exists in the market."
         features:
-          - { name: Opportunity mapped to a named service line the client actually sells, status: partial, oracle_pack: none, tier_first_available: pov, source: one-pager-2026-09-10, reviewer-ui-2026-09-11 }
-          - { name: Catalog target configurable — offering · lever · mitigation · none, status: roadmap, oracle_pack: none, source: research-brief-2026-09-22 }
-          - { name: "Demand-gap stream — implications that mapped to nothing, emitted as a product-gap feed", status: roadmap, oracle_pack: none, source: research-brief-2026-09-22 }
+          - { name: Opportunity mapped to a named service line the client actually sells, status: partial, tier_first_available: pov, source: one-pager-2026-09-10, reviewer-ui-2026-09-11 }
+          - { name: Catalog target configurable — offering · lever · mitigation · none, status: roadmap, source: research-brief-2026-09-22 }
+          - { name: "Demand-gap stream — implications that mapped to nothing, emitted as a product-gap feed", status: roadmap, source: research-brief-2026-09-22 }
       - name: Ripple
         note: "Zero implementation anywhere in the market, including Oracle and NVIDIA. The relationship edges are licensable today."
         features:
-          - { name: "Cross-account ripple, descriptive, up to two levels", status: partial, oracle_pack: none, tier_first_available: pov, source: one-pager-2026-09-10 }
-          - { name: Graph-backed ripple over a licensed relationship graph, status: roadmap, oracle_pack: none, tier_first_available: scaling, source: research-brief-2026-09-22 }
-          - { name: Portfolio aggregation — correlated groups evaluated as the unit, status: roadmap, oracle_pack: none, source: research-brief-2026-09-22 }
+          - { name: "Cross-account ripple, descriptive, up to two levels", status: partial, tier_first_available: pov, source: one-pager-2026-09-10 }
+          - { name: Graph-backed ripple over a licensed relationship graph, status: roadmap, tier_first_available: scaling, source: research-brief-2026-09-22 }
+          - { name: Portfolio aggregation — correlated groups evaluated as the unit, status: roadmap, source: research-brief-2026-09-22 }
       - name: Scoring
         features:
-          - { name: Magnitude and confidence scored 0-10 per item, status: partial, oracle_pack: none, tier_first_available: pov, source: one-pager-2026-09-10, reviewer-ui-2026-09-11 }
-          - { name: Calibrated confidence tested against realized outcomes, status: roadmap, oracle_pack: none, source: research-brief-2026-09-22 }
-          - { name: Cost-aware ranking under a capacity constraint, status: roadmap, oracle_pack: none, source: research-brief-2026-09-22 }
+          - { name: Magnitude and confidence scored 0-10 per item, status: partial, tier_first_available: pov, source: one-pager-2026-09-10, reviewer-ui-2026-09-11 }
+          - { name: Calibrated confidence tested against realized outcomes, status: roadmap, source: research-brief-2026-09-22 }
+          - { name: Cost-aware ranking under a capacity constraint, status: roadmap, source: research-brief-2026-09-22 }
 
   - area: Review & evidence
     stage: Review it
@@ -260,18 +259,18 @@ capabilities:                              # component 6 — Area > Category > F
       - name: The reviewer
         note: "Oracle contractually assigns human oversight to the customer, which makes this blessed white space rather than merely unoccupied."
         features:
-          - { name: "Reviewer UI — opportunities, sources, confidence, approve / reject with comment", status: available, oracle_pack: partial, tier_first_available: pov, source: reviewer-ui-2026-09-11 }
-          - { name: Citations and evidence traceability with visible chain of thought, status: available, oracle_pack: available, tier_first_available: pov, source: one-pager-2026-09-10 }
-          - { name: Human triage of raw inbound before anything is written, status: roadmap, oracle_pack: none, source: research-brief-2026-09-22 }
-          - { name: Reviewer disagreement analysed as a signal against the rule, status: roadmap, oracle_pack: none, source: research-brief-2026-09-22 }
+          - { name: "Reviewer UI — opportunities, sources, confidence, approve / reject with comment", status: available, tier_first_available: pov, source: reviewer-ui-2026-09-11 }
+          - { name: Citations and evidence traceability with visible chain of thought, status: available, tier_first_available: pov, source: one-pager-2026-09-10 }
+          - { name: Human triage of raw inbound before anything is written, status: roadmap, source: research-brief-2026-09-22 }
+          - { name: Reviewer disagreement analysed as a signal against the rule, status: roadmap, source: research-brief-2026-09-22 }
       - name: Evaluation
         features:
-          - { name: Evaluation harness — correctness and confidence calibration, status: partial, oracle_pack: partial, tier_first_available: pov, source: one-pager-2026-09-10 }
-          - { name: Human-feedback capture as an input, status: partial, oracle_pack: none, tier_first_available: pov, source: one-pager-2026-09-10 }
-          - { name: Feedback-driven tuning — a persisted learning loop, status: roadmap, oracle_pack: none, tier_first_available: scaling, source: one-pager-2026-09-10 }
-          - { name: 'Negative assertion — "screened, nothing found, on date X, against sources Y"', status: roadmap, oracle_pack: none, source: research-brief-2026-09-22 }
-          - { name: Point-in-time replay of a past record on the evidence that existed then, status: roadmap, oracle_pack: none, source: research-brief-2026-09-22 }
-          - { name: Retraction re-checking against source publication status, status: roadmap, oracle_pack: none, source: research-brief-2026-09-22 }
+          - { name: Evaluation harness — correctness and confidence calibration, status: partial, tier_first_available: pov, source: one-pager-2026-09-10 }
+          - { name: Human-feedback capture as an input, status: partial, tier_first_available: pov, source: one-pager-2026-09-10 }
+          - { name: Feedback-driven tuning — a persisted learning loop, status: roadmap, tier_first_available: scaling, source: one-pager-2026-09-10 }
+          - { name: 'Negative assertion — "screened, nothing found, on date X, against sources Y"', status: roadmap, source: research-brief-2026-09-22 }
+          - { name: Point-in-time replay of a past record on the evidence that existed then, status: roadmap, source: research-brief-2026-09-22 }
+          - { name: Retraction re-checking against source publication status, status: roadmap, source: research-brief-2026-09-22 }
 
   - area: Output & delivery
     stage: Deliver it
@@ -281,16 +280,16 @@ capabilities:                              # component 6 — Area > Category > F
     categories:
       - name: The record
         features:
-          - { name: "Structured per-account record — account, trigger, summary, reasoning, scored opportunities", status: partial, oracle_pack: none, tier_first_available: pov, source: one-pager-2026-09-10 }
-          - { name: Narrative briefing and discussion guide as an alternative output contract, status: partial, oracle_pack: available, tier_first_available: pov, source: sow-uc6 }
-          - { name: Confidence threshold filtering low-confidence items, status: partial, oracle_pack: none, tier_first_available: pov, source: one-pager-2026-09-10 }
+          - { name: "Structured per-account record — account, trigger, summary, reasoning, scored opportunities", status: partial, tier_first_available: pov, source: one-pager-2026-09-10 }
+          - { name: Narrative briefing and discussion guide as an alternative output contract, status: partial, tier_first_available: pov, source: sow-uc6 }
+          - { name: Confidence threshold filtering low-confidence items, status: partial, tier_first_available: pov, source: one-pager-2026-09-10 }
       - name: Delivery
         features:
-          - { name: Export to the client's sales system, status: partial, oracle_pack: partial, tier_first_available: integration, source: one-pager-2026-09-10, note: "File export at PoV Jumpstart; API export is Integration-tier scope" }
-          - { name: Routing to the named owner of that account, status: roadmap, oracle_pack: none, tier_first_available: integration, source: research-brief-2026-09-22, note: "Integration-tier scope; not in the proof of value" }
-          - { name: Live write-back with idempotency and dedupe-on-write, status: roadmap, oracle_pack: none, tier_first_available: scaling, source: research-brief-2026-09-22, note: "Scaling-tier scope; nothing is written back in the proof of value — reviewer decisions are captured, not persisted" }
-          - { name: Outcome capture — pursued · won · lost · false positive — fed back to scoring, status: roadmap, oracle_pack: none, tier_first_available: scaling, source: research-brief-2026-09-22 }
-          - { name: "Acting on opportunities — auto-outreach, task creation, workflow automation", status: roadmap, oracle_pack: none, source: one-pager-2026-09-10 }
+          - { name: Export to the client's sales system, status: partial, tier_first_available: integration, source: one-pager-2026-09-10, note: "File export at PoV Jumpstart; API export is Integration-tier scope" }
+          - { name: Routing to the named owner of that account, status: roadmap, tier_first_available: integration, source: research-brief-2026-09-22, note: "Integration-tier scope; not in the proof of value" }
+          - { name: Live write-back with idempotency and dedupe-on-write, status: roadmap, tier_first_available: scaling, source: research-brief-2026-09-22, note: "Scaling-tier scope; nothing is written back in the proof of value — reviewer decisions are captured, not persisted" }
+          - { name: Outcome capture — pursued · won · lost · false positive — fed back to scoring, status: roadmap, tier_first_available: scaling, source: research-brief-2026-09-22 }
+          - { name: "Acting on opportunities — auto-outreach, task creation, workflow automation", status: roadmap, source: one-pager-2026-09-10 }
 
 workflow:                                  # component 7 — PROPOSED
   inputs:
