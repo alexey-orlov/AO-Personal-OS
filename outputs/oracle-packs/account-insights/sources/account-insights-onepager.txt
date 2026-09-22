@@ -1,0 +1,198 @@
+SOFTSERVE × ORACLE · OCI AI ACCELERATORS · NVIDIA AI-Q
+
+
+
+AI Signal-Impact Engine
+- Accelerator Pack
+Scope. The AI Signal-Impact Engine turns a real-world signal (a news article, filing or disclosure) into structured, machine-
+readable JSON that identifies the concrete business opportunities and risks the signal creates for the client - per affected
+account, not a narrative summary. For each in-scope account it reasons "so what" for that account's business, derives
+candidate opportunities and flags material risks (each mapped to a specific client service line where relevant), foresees
+descriptive second-order and cross-account ripples (suppliers, customers, competitors; up to two levels), scores each item by
+magnitude and confidence, and cites the source evidence. The reasoning is grounded in the client's own data (CRM and
+account framing, capability catalog, public filings), with a human review step. Output is one JSON per affected account that
+flows into downstream sales systems; the engine informs decisions, it does not act on them. It detects both the opportunities
+a signal creates and the risks it poses, so account teams can pursue upside and get ahead of downside.
+
+Where it applies. Any business that needs to turn market and customer developments into pursuable opportunities across its
+account base, quickly. Across industries, for example:
+
+ 1. Logistics & supply chain. For example:
+        A signal about a shipper (plant expansion, new-market entry) turned into a concrete logistics opportunity
+        (warehousing, forwarding).
+        A disruption (strike, port closure, supplier fire) turned into an inbound / mitigation opportunity across affected accounts.
+
+ 2. Financial services & banking. For example:
+        A signal about a counterparty or portfolio company turned into a relationship / coverage opportunity for the account team.
+        Cross-holding ripples: how one issuer's event opens opportunities with related names.
+ 3. Industrial & manufacturing. For example:
+        A signal at a supplier or OEM customer turned into supply-chain and reallocation opportunities across the account base.
+        Second-order effects on production sites and trade lanes, each tied to an opportunity.
+ 4. Private equity funds. For example:
+        A market or regulatory signal turned into thesis-relevant opportunities across portfolio companies.
+        Event-driven screening of pipeline targets.
+
+About this matrix. Three lenses per capability: what the Oracle / NVIDIA AI-Q pack provided, what SoftServe can field today
+(reused assets plus DHL PoC commitments), and the custom work still needed. Use it to see what is product versus custom
+per engagement.
+
+
+   LEGEND · ORACLE PACK                                               LEGEND · SOFTSERVE STATUS
+
+   ● provided by the Oracle + NVIDIA AI-Q RAG accelerator baseline    ● available now as a reusable SoftServe asset ◐
+    ◐  partial / scaffolding only ○ not provided                      planned/committed in the DHL PoC, or only partially available ○
+                                                                      not implemented / out of current scope
+
+
+
+    CAPABILITY MATRIX
+ AREA                  FEATURE                            ORACLE   SOFTSERVE CUSTOM WORK (PER             ARTIFACT TO ACCELERATE
+                                                           PACK     STATUS   ENGAGEMENT)                  THE DEVELOPMENT
+
+ INPUTS &              Signal ingestion (news, filings,     ○         ◐       Signal-source selection     Feed connector templates
+ GROUNDING             disclosures) as the trigger                            per client
+
+ INPUTS &              Commercial data feeds (e.g.          ○         ◐       Connect additional data     Commercial data-source
+ GROUNDING             Coresignal, NewsAPI.ai)                                sources                     evaluator
+AREA               FEATURE                            ORACLE   SOFTSERVE CUSTOM WORK (PER             ARTIFACT TO ACCELERATE
+                                                       PACK     STATUS   ENGAGEMENT)                  THE DEVELOPMENT
+
+INPUTS &           First-party context (CRM             ○         ◐      Client field mapping         Internal system extract
+GROUNDING          records + account framing)                                                         validator + Grounding profiler
+
+INPUTS &           Capability / service-line            ○         ◐      Per-client catalog &         Capability scraper
+GROUNDING          catalog (from the client's site)                      scraper
+
+INPUTS &           Public filings (10-K / 10-Q via      ○         ◐      Per-account filing sources   Feed connector templates
+GROUNDING          EDGAR; IR pages)
+
+INPUTS &           Account universe (accounts in        ○         ◐      Define in-scope account      N/A
+GROUNDING          scope)                                                list
+
+INPUTS &           Multi-language support               ○         ○      Add more languages           N/A
+GROUNDING
+
+TRIGGER &          Scheduled scan (default) +           ○         ◐      Cadence & sources per        N/A
+FILTERING          manual submit                                         client
+
+TRIGGER &          Relevance filter + de-               ○         ◐      Relevance rules per client   Relevance & de-dup skill
+FILTERING          duplication (genuine signal?                                                       (new)
+                   which accounts? one story =
+                   one signal)
+
+TRIGGER &          Fan-out - one JSON per               ○         ◐      N/A                          N/A
+FILTERING          affected account
+
+RETRIEVAL &        Vector search + reranking            ●         ●      Index & weight tuning        N/A
+GROUNDING          (ground reasoning in first-
+                   party + public sources)
+
+OPPORTUNITY &      Account resolution (which in-        ○         ◐      Account-matching rules       N/A
+RISK REASONING     scope accounts the signal                             per client
+                   affects)
+
+OPPORTUNITY &      Opportunity & risk reasoning         ○         ◐      Reasoning prompts per        Opportunity-reasoning
+RISK REASONING     ("so what" → candidate                                domain                       prompt library (new)
+                   opportunities and risks per
+                   account)
+
+OPPORTUNITY &      Second-order / cross-account         ○         ◐      Ripple rules per domain      Opportunity-reasoning
+RISK REASONING     ripple reasoning (descriptive,                                                     prompt library (new)
+                   ≤2 levels)
+
+OPPORTUNITY &      Opportunity → concrete               ○         ◐      Client catalog & mapping     Capability-mapping subagent
+RISK REASONING     service-line mapping (name a                          logic                        + service-catalog schema +
+                   real service line)                                                                 Opportunity drafter
+
+OPPORTUNITY &      Opportunity / risk scoring           ○         ◐      Scoring rubric &             N/A
+RISK REASONING     (magnitude + confidence 0-                            thresholds per client
+                   10)
+
+OUTPUT (SIGNAL →   Per-account JSON (account +          ○         ◐      Output schema per client     Signal → Opportunity JSON
+OPPORTUNITY        trigger + article summary +                                                        schema (new)
+JSON)
+                   impact reasoning +
+                   opportunities[], each item
+                   flagged as an opportunity or a
+                   risk)
+
+OUTPUT (SIGNAL →   Cross-account effects                ○         ◐      Ripple rules per client      N/A
+OPPORTUNITY        (descriptive, ≤2 levels)
+JSON)
+
+OUTPUT (SIGNAL →   Confidence threshold /               ○         ◐      Threshold per client         N/A
+OPPORTUNITY        filtering of low-confidence
+JSON)
+                   opportunities
+
+OUTPUT (SIGNAL →   Citations / evidence                 ○         ●      Citation formatting          N/A
+OPPORTUNITY        traceability + visible chain of
+JSON)
+                   thought
+ AREA                  FEATURE                          ORACLE    SOFTSERVE CUSTOM WORK (PER               ARTIFACT TO ACCELERATE
+                                                         PACK      STATUS   ENGAGEMENT)                    THE DEVELOPMENT
+
+ REVIEW &              Reviewer UI (read                  ○           ●        Layout & workflow config    N/A
+ EVALUATION            opportunities, source links,
+                       confidence, approve / reject +
+                       comment)
+
+ REVIEW &              Evaluation harness                 ○           ◐        Eval set & rubric per       Opportunity evaluation
+ EVALUATION            (correctness, confidence                                client                      harness (new)
+                       calibration)
+
+ REVIEW &              Human-feedback capture             ○           ◐        Feedback fields per         N/A
+ EVALUATION            (approve / reject + comment                             workflow
+                       as input)
+
+ REVIEW &              Human-feedback-driven              ○           ○        Create human-AI             N/A
+ EVALUATION            tuning (persisted learning                              feedback loop
+                       loop)
+
+ OUTPUT &              Downstream delivery (push          ○           ◐        Integration config; per     CRM export connector
+ DELIVERY              JSON to CRM / sales system,                             system
+                       e.g. Salesforce)
+
+ OUTPUT &              Decisioning / automated            ○           ○        Not built in PoC; out of    N/A
+ DELIVERY              action on opportunities                                 current scope
+
+
+
+    USE-CASE BOUNDARIES
+The boundary of this solution is signal-to-opportunity reasoning delivered as structured, human-reviewed JSON - one
+per affected account.
+
+
+   IN SCOPE
+
+    1. Ingesting a signal plus first-party context (CRM / account framing), the service catalog and the in-scope account list
+    2. Filtering for genuine signals and identifying which in-scope accounts are affected (de-duplicating one story across sources into
+       one signal)
+    3. Reasoning "so what" per account, deriving candidate opportunities and flagging material risks, each mapped to a concrete
+       service line where relevant
+    4. Foreseeing descriptive second-order / cross-account ripples (≤2 levels); an affected in-scope account gets its own JSON
+    5. Scoring each opportunity (magnitude + confidence) and citing evidence; emitting one JSON per affected account
+
+
+
+
+   The system produces scored, cited reasoning - both opportunities and risks - for a human to review; it informs decisions
+   and downstream systems, it does not act on them.
+
+
+
+   OUT OF SCOPE
+
+    1. Acting on the opportunities - auto-outreach, CRM task creation or workflow automation; decisioning is a downstream step.
+    2. Validating against the client's existing pipeline - checking candidates against known/existing opportunities to avoid
+       suggesting deals already in flight; a post-PoC step.
+    3. Monetary sizing & interactive Q&A - putting a currency value on an opportunity, or conversational follow-up over the output.
+    4. Live integration & persistence - live CRM / sales-system write-back, and a persistent historical signal store + feedback loop.
+    5. Deep financial / quantitative modeling - valuation, credit scoring or forecasting engines; the engine reasons over disclosures,
+       it does not compute them.
+    6. Native multilingual processing - single-language primary; more languages are a future extension.
+
+
+The engine is a non-deterministic reasoning system, so a dedicated evaluation plan (correctness and confidence calibration) is part of
+the work.
+

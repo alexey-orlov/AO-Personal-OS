@@ -1,0 +1,346 @@
+﻿Contents:
+		TOC \o "1-3" \z \u \hAI-Powered Customer Intelligence for Enterprise Sales	PAGEREF _Toc1298002021 \h1
+	Use Case Description	PAGEREF _Toc635405426 \h1
+	Proposed Solution & Scope	PAGEREF _Toc1852686548 \h1
+		High-Level Solution Description	PAGEREF _Toc1431194562 \h1
+		Scope Of Work	PAGEREF _Toc836733259 \h2
+		Technical Solution Overview	PAGEREF _Toc52660422 \h4
+	Team	PAGEREF _Toc1203447350 \h7
+	Timeline	PAGEREF _Toc1703411377 \h8
+	Cost	PAGEREF _Toc1203362033 \h11
+		PoC Delivery Cost	PAGEREF _Toc1344282748 \h11
+		Production Cost Projection (OCI ARR)	PAGEREF _Toc990728289 \h12
+	PoC Prerequisites	PAGEREF _Toc1573608309 \h12
+	Assumptions & Limitations	PAGEREF _Toc550001158 \h13
+	Deliverables	PAGEREF _Toc965667301 \h14
+
+AI-Powered Customer Intelligence for Enterprise Sales 
+Use Case Description
+DHL, a leading logistics company, aims to improve the effectiveness and scalability of enterprise customer engagement by automating the research and preparation of account-specific insights used by sales and customer teams. Today, creating tailored customer briefings requires significant manual effort, including reviewing company filings, corporate communications, media coverage, industry reports, and regulatory or sustainability disclosures to understand each customer's strategy, priorities, and potential logistics needs.
+While these briefings are valuable for structured conversations with senior stakeholders, the manual process limits coverage and slows outreach cycles. Sales teams often face a trade-off between producing a small number of high-quality briefings or covering a larger set of accounts with less detailed insights.
+An automated research and insight generation approach can streamline this process by discovering relevant public information, structuring it into a coherent account context, and synthesizing key themes. This allows teams to spend less time collecting information and more time interpreting insights and preparing meaningful customer engagements.
+Such capability can enable broader account coverage, more consistent meeting preparation, and better alignment between customer needs and DHL’s service offerings.
+Proposed Solution & Scope
+High-Level Solution Description
+SoftServe proposes to develop a Proof of Concept (PoC) for AI-powered research and briefing generation system, intended to support the discovery, analysis, and synthesis of selected publicly available and internal information relevant to DHL’s enterprise customers.
+The PoC is expected to include components for information ingestion, extraction of relevant content, and generation of draft customer briefings and discussion guides. It is planned to leverage NVIDIA’s AI-Q agentic framework to orchestrate selected research and generation tasks, supported by document processing pipelines capable of handling agreed document formats (e.g., PDFs, reports, web pages, presentations), which are subject for validation during the PoC.
+The system will be designed to collect and analyze information from agreed data sources (including internal account data, external public sources, and limited commercial data feeds), extracting key developments such as strategic initiatives, operational priorities, and market signals.
+Based on these inputs, the system will generate the following structured deliverables per account:
+A draft customer briefing summarizing available company context and selected signals (e.g., strategic, operational, or market-related), based on the ingested data sources.
+A discussion guide including tailored talking points, suggested questions, and recommended next steps to support customer engagement.
+A structured list of sources and references, where available, to support traceability of generated outputs and facilitate validation of underlying information.
+Scope Of Work
+The scope of work is organized into four phases, aligned with the project timeline. The following activities are within scope of the PoC.
+Phase 1 — Project Initiation and Solution Design
+Discovery & SME Workshops
+Define the target customer segment and a representative set of accounts to be included in the PoC, ensuring alignment on:
+selection criteria for accounts (e.g., industry, size, strategic relevance)
+number of accounts to be processed within the PoC scope
+availability of customer briefing and discussion guides as “golden” reports for benchmarking
+availability of required data sources for selected accounts
+Conduct working sessions with DHL sales SMEs to deeply understand the current manual briefing process, including:
+how sales teams currently research accounts and prepare for customer meetings
+what information sources they rely on, in what order, and why
+what a high-quality briefing looks like from their perspective and how they use it in practice
+what parts of the process are most time-consuming, inconsistent, or error-prone
+Align with DHL stakeholders on data scope and quality parameters required for the PoC, including:
+availability, quantity, and relevance of external and internal data sources
+definition and scope of DHL logistics capabilities and service propositions to be used for mapping
+Define the detailed structure and format of each generated deliverable based on SME input, including:
+exact sections, expected length, and tone of the executive customer briefing, covering level of formality, professional narrative style, use of DHL-specific terminology, and general communication style.
+format and depth of the discussion guide and talking points
+citation style and reference format for the sources list
+Conduct a pipeline planning workshop to align on the end-to-end technical approach, covering data ingestion, processing, retrieval, insight extraction, and output generation
+Identify and document edge cases, account types, and scenarios that require special handling in the pipeline
+Define the demonstration scenario and success walkthrough for the final PoC demo
+Data Onboarding & Architecture Design
+Onboard and validate all agreed data inputs: benchmark reports, internal account data, customer public sources, and commercial data sources (where applicable)
+Confirm document formats and data volume for each source
+Define data ingestion boundaries, citation requirements, and lineage rules
+Design the high-level pipeline architecture, including ingestion, parsing, retrieval, and generation layers
+Align on NVIDIA AI-Q orchestration framework usage and OCI deployment approach
+Define logging, monitoring, and traceability mechanisms
+Integrate with agreed commercial data services via API (e.g., Dow Jones Factiva API or equivalent), where access is provided, and AI and GRC compliance policy and AI license for commercial use are acceptable. Integration with internal systems (including CRM) beyond the agreed data extracts is out of scope unless explicitly agreed.
+Design data ingestion mechanism in batch or semi-batch mode. Support for real-time processing is not part of PoC scope.
+Environment Preparation
+Define the target PoC architecture and deployment approach on OCI based on the quantity and quality of the data selected for PoC.
+Analyze the pre-built OCI components (i.e., Accelerator Packs) and define additional architecture components required.
+Phase 2 — AI Pipeline Implementation
+Information Ingestion & Document Processing
+Prepare batch of semi-batch data processing pipelines.
+Configure ingestion workflows to process the confirmed data sources, including benchmark reports, customer external sources, internal account data, and commercial data feeds where applicable
+Store and normalize retrieved documents for downstream analysis
+Apply document parsing techniques to extract structured content, including:
+text sections
+tables
+headings and contextual metadata
+Convert parsed content into structured information units that can be indexed and referenced during retrieval and analysis
+Retrieval, Ranking & Evidence Selection
+Configure retrieval mechanisms to identify information fragments relevant to each account across all confirmed data sources
+Apply ranking and filtering approaches to prioritize information from reliable and authoritative sources
+Implement deduplication and noise reduction mechanisms
+Link generated insights to traceable source evidence
+Insight Extraction & Customer Context Modeling
+Analyze collected information to identify signals related to each target account, including:
+strategic initiatives
+operational developments
+sustainability goals
+regulatory pressures
+industry trends
+Organize extracted signals into a structured representation of the customer's context, enriched by internal account data and CRM inputs provided
+Map extracted signals to the DHL logistics capabilities and service offerings agreed in Phase 1
+Briefing & Discussion Guide Generation
+Generate draft deliverables per target account:
+an executive customer briefing containing company context, strategic signals, key operational and market developments sourced from agreed data sources, including commercial feeds where available, and mapped to DHL logistics capabilities
+a discussion guide with account-specific talking points, suggested questions, and next steps
+a structured list of sources and references supporting all outputs
+Apply standardized templates for consistent structure and tone across all accounts
+Implement citation enforcement so all generated content is traceable to source evidence
+Phase 3 and Phase 4 — Testing, Refinement, and Demonstration
+Conduct iterative testing and refinement of the system outputs
+Compare AI-generated briefings against benchmark research reports agreed prior to project start
+Prepare and deliver a final demonstration of the PoC capabilities
+Provide recommendations for scaling the solution across additional markets and accounts
+Technical Solution Overview
+The solution is designed as an end-to-end pipeline for customer research and briefing generation using retrieval-augmented generation.
+Data Storage & Ingestion: Materials are stored in OCI Object Storage and processed via ingestion pipelines, including OCR and text extraction (e.g., OCI Document Understanding).
+Processing & Retrieval: Documents are classified, segmented, and enriched with metadata (e.g., company, source, date). Content is embedded and indexed in Oracle AI Vector Search for semantic and hybrid retrieval. Selected signals may be structured into a customer context.
+Orchestration & AI: NVIDIA AI-Q orchestrates retrieval, ranking, and generation workflows. LLM inference may use OCI Generative AI or NVIDIA NIM on OCI infrastructure.
+Output Generation: The solution generates draft briefings and discussion guides with references to source materials. Traceability is supported via available metadata.
+Technology Stack: NVIDIA AI-Q is used for orchestration with supporting NVIDIA components where applicable. OCI services provide the cloud foundation for storage, processing, and deployment.
+Document Preprocessing
+OCI Document Understanding for OCR, text, and table extraction from supported document formats
+OCI Object Storage for storage of source documents and processed artifacts, with versioning enabled
+Supporting parsing services for HTML and other complex formats, where required
+LLM / Reasoning and Generation
+NVIDIA AI-Q for orchestration of retrieval, reasoning, and content generation workflows using models such as NVIDIA Nemotron 3 Super
+OCI Generative AI (e.g., Cohere Command A) for content generation
+NVIDIA NIM on OCI GPU infrastructure (e.g., OKE) as an alternative inference option
+Retrieval
+Embedding models (e.g., Cohere Embed or equivalent) for vector representation of content
+Reranking models (e.g., Cohere Rerank or equivalent) for prioritization of retrieved content
+Hybrid retrieval combining:
+• Oracle AI Vector Search for semantic and hybrid retrieval
+• OCI Search (OpenSearch) for lexical search and filtering, where required
+OCI services enable combined semantic and keyword-based retrieval capabilities.
+Index / Storage
+Oracle Database 26AI with AI Vector Search as the primary store for content and embeddings
+Hybrid retrieval combining keyword-based and vector search
+APIs / Deployment
+
+Oracle Kubernetes Engine (OKE) as the primary runtime for ingestion, orchestration, and AI services
+OCI Functions and optionally OCI Streaming for asynchronous processing
+OCI API Gateway for exposure of PoC APIs and service endpoints
+OCI services support deployment, asynchronous execution, and API exposure within the PoC architecture
+NVIDIA / GPU Components
+NeMo Retriever Microservices for advanced retrieval and document processing, where required
+NVIDIA NIM for inference services deployed on OCI GPU infrastructure, where applicable. OCI GPU Compute / OKE GPU node pools, for example, 2× A100 GPUs for PoC-scale deployment, subject to regional availability and tenancy limits. 
+
+Fig. 1. Business Architecture (hosted on OCI)
+Team
+To ensure the successful execution of this PoC, the following team members will be engaged.
+Table I. Roles and responsibilities
+Role
+ | Key responsibilities
+ | 
+Project Manager
+ | Overall project coordination, schedule and scope management, stakeholder communication, delivery governance, and risk management throughout the engagement
+ | 
+Business Analyst
+ | Requirements elicitation, clarification of business objectives, identification of target user personas, coordination of feedback from DHL subject matter experts, and support in documentation of results and findings
+ | 
+R&D Lead
+ | Technical ownership of the solution design and architecture, evaluation and selection of models and frameworks, definition of the information processing pipeline, alignment of the system architecture with project goals, and oversight of technical quality and decision-making
+ | 
+R&D Engineers
+ | Hands-on implementation of the PoC pipeline, including information ingestion, document parsing, retrieval and ranking configuration, insight extraction workflows, and generation of briefing materials. The team will also conduct experimentation, tuning, and iterative refinement activities and support preparation of the final demonstration
+ | 
+OCI DevOps Architect
+ | Alignment of OCI architecture with OCI team at Oracle during project initiation and ensure OCI setup is implemented in accordance with cloud quality standards and IT best practices weighted with the proof of concept solution approach.
+ | 
+
+Timeline
+Based on the identified scope and team composition, the project duration is expected to be 12 weeks, covering the following phases and activities:
+Phase
+ | Duration
+ | Activities
+ | 
+Project Initiation
+ | 2 weeks
+ | This phase focuses on deep diving into DHL's current process, defining the exact output format with SMEs, designing the pipeline architecture, onboarding agreed data inputs, and preparing the technical environment. All agreed data inputs — benchmark reports, internal account data, external sources, and commercial data access — are available at the start of this phase.
+ | 
+1.1. Discovery & Solution Design
+ | 1 week
+ | Define the target customer segment and a representative set of accounts to be included in the AI pipeline processing
+Conduct working sessions with DHL sales SMEs to understand the current manual briefing process end-to-end
+Align with DHL stakeholders on data scope and quality parameters, including external and internal data sources, DHL logistics capabilities, and service propositions
+Document how sales teams research accounts today: sources used, time spent, quality gaps, and pain points
+Define the detailed format, sections, length and tone of the executive customer briefing, covering level of formality, professional narrative style, use of DHL-specific terminology, and general communication style
+Conduct a pipeline planning workshop to align on the technical approach across ingestion, retrieval, generation, and output formatting
+Identify edge cases, account types, and scenarios that require special handling in the pipeline
+Define the final demo scenario and walkthrough flow
+ | 
+1.2 Data Onboarding & Architecture Design 
+ | 1 week (parallel)
+ | Onboard and validate all agreed data inputs: benchmark reports, internal account data, customer external public sources, and commercial data sources (where applicable)
+Confirm document formats, language distribution, and data volume for each source
+Define data ingestion boundaries, citation requirements, and lineage rules
+Design the high-level pipeline architecture, including ingestion, parsing, retrieval, and generation layers
+Align on NVIDIA AI-Q orchestration framework usage and OCI deployment approach
+Define logging, monitoring, and traceability mechanisms
+ | 
+1.3. Environment Preparation & Evaluation Setup
+ | 1 week (parallel)
+
+ | Define the target PoC architecture and deployment approach on OCI based on the quantity and quality of the data selected for PoC.
+Analyze the pre-built OCI components (i.e., Accelerator Packs) and define additional architecture components required.
+ | 
+AI Pipeline Implementation
+ | 5 weeks
+ | This phase focuses on building the core research and analysis pipeline.
+ | 
+2.1 Information Ingestion & Document Processing
+ | 1.5 weeks
+ | Align and configure the PoC infrastructure components in the agreed OCI environment. Configure ingestion workflows for collecting and processing information from confirmed data sources
+Configure document parsing and content extraction pipelines for agreed document formats, including commonly used formats such as PDF, web pages (HTML), Microsoft Office documents (.docx, .pptx), and text-based formats (.txt, Markdown)
+Extract text sections, tables, and contextual metadata
+Normalize collected content into structured information units for analysis
+ | 
+2.2 Retrieval, Ranking & Evidence Selection
+ | 1 week
+
+ | Implement retrieval mechanisms for identifying relevant information fragments across all confirmed sources
+Configure ranking logic to prioritize information from reliable and authoritative sources, using approaches such as score-based ranking or top N result selection
+Implement deduplication and noise reduction mechanisms
+Add traceability between generated insights and original sources
+ | 
+2.3 Insight Extraction & Context Structuring
+ | 1 week
+
+ | Implement automated identification of key signals, including strategic initiatives, operational developments, sustainability goals, market and regulatory developments
+Organize extracted information into structured customer context representations enriched by internal account data
+Map extracted signals to the DHL logistics capabilities and service offerings agreed in Phase 1
+ | 
+2.4 Briefing Generation & Output Formatting
+ | 1.5 weeks
+ | Implement generation workflows for: executive customer briefing, meeting discussion guide, including a structured list of sources and references supporting all outputs
+Develop a lightweight demonstration user interface (UI) to visualize generated customer briefings, discussion guides, and supporting references.
+Develop templates for consistent output structure
+Implement citation enforcement and evidence traceability mechanisms
+Conduct internal validation and testing of system outputs
+ | 
+Testing and Refinement
+ | 3 weeks
+ | The system is tested on the agreed set of selected accounts and refined through iterative feedback cycles with DHL stakeholders.
+ | 
+3.1 Initial System Evaluation
+ | 0.5 weeks
+ | Run the pipeline across the selected account dataset
+Generate initial customer briefings and discussion guides
+Identify initial improvement areas
+ | 
+3.2 Iterative Refinement Cycles
+ | 2 weeks
+ | Collect feedback from DHL sales, marketing, and customer teams
+Refine retrieval strategies and ranking logic
+Improve signal extraction and mapping to DHL propositions
+Adjust prompt configurations and generation templates
+Improve clarity, depth, and structure of generated outputs
+ | 
+3.3 System Stabilization & Output Calibration
+ | 0.5 weeks
+ | Calibrate the balance between briefing depth and conciseness
+Improve citation quality and evidence traceability
+Validate consistency of outputs across multiple accounts
+Prepare the system for final evaluation
+ | 
+Final Validation and Demonstration
+ | 1 week
+ | The final phase focuses on validating the PoC results and preparing the final demonstration and recommendations.
+ | 
+4.1 Final Evaluation
+ | 0.5 weeks
+ | Evaluate system outputs against benchmarking “golden” reports for selected accounts. 
+Document observations and system limitations
+ | 
+4.2 Final Demonstration & Recommendations
+ | 0.5 weeks
+ | Prepare and deliver final PoC demonstration materials
+Deliver end-to-end walkthrough of the system workflow
+Present architecture overview and implemented components
+Provide recommendations for scaling the solution to additional markets and accounts
+Deliver final documentation and architectural overview of the implemented solution
+ | 
+Cost
+PoC Delivery Cost
+According to the estimated effort required to execute the defined scope, and excluding any costs related to infrastructure consumption or ongoing operational usage, the delivery cost for the core PoC activities — covering requirements discovery, data source validation, AI-powered research pipeline design, configuration of information ingestion and retrieval components, insight extraction and generation workflows, experimentation and tuning and preparation of final documentation — is EUR 192,525.00. 
+This cost includes all professional services required to design, build, validate, and demonstrate the AI-powered customer research and briefing generation PoC within the agreed scope and timeline.
+The cost of the package does not include OCI infrastructure setup as part of the engagement that could be requested separately. OCI Infrastructure setup includes activities such as OCI infrastructure configuration and setup, creation of OCI deployment pipelines, adopting OCI towards scaling requirements and OCI infrastructure support and troubleshooting that shall be executed by Oracle OCI team.
+For details on expected production-level cost projections in the event of a full-scale deployment, please refer to the corresponding chapter.
+Production Cost Projection (OCI ARR)
+The production scenario calculation is based on assumptions, as at this stage, additional information will be required to narrow further sizing, throughput, and availability requirements. The information in this chapter should be considered indicative and non-binding.
+
+Based on initial planning estimates, the total expected OCI annual cost for a production-grade document understanding and reasoning environment is approximately EUR 2,100,000 per year, including GPU compute for inference, object storage for document repositories, vector indexing, API exposure, orchestration services, and monitoring and observability tools.
+
+The NVIDIA GPU portion of this cost is estimated at approximately EUR 1,860,000 per year, reflecting the GPU capacity required for sustained document ingestion, embedding generation, semantic search, and reasoning workloads.
+Estimated Annual Cost Summary:
+OCI services (total): ~EUR 2,100,000
+NVIDIA GPU-based compute (included within OCI total): ~EUR 1,860,000 per year, assuming 2xBM.GPU.A100 Oracle compute shapes
+Total estimated annual cost: ~EUR 2,100,000
+These values are indicative and will be refined during detailed architecture and sizing activities.
+PoC Prerequisites
+The AI-assisted research workflow operates on the following data inputs, which must be agreed and available prior to project start:
+Benchmark research reports: high-quality, manually prepared customer briefings serving as the reference standard for the PoC per every account.
+Internal account data: relevant customer account context from agreed CRM or internal account management systems (e.g., Salesforce or equivalent), approved for use in this engagement
+Testing and training data: a curated set of documents representing the expected input materials for the PoC accounts
+Customer external public sources: confirmed list of approved external sources per account
+Oracle Cloud account, valid OCI tenancy setup and access provisioning including all required system access (e.g., VPN, OCI accounts, repositories, issue tracking tools) 
+Assumptions & Limitations
+Upon mutual agreement by Parties, the following data requirements should be aligned by the end of the 2nd week since project start: number of accounts, internal data sources, external data sources, DHL logistics capabilities and service propositions.
+Oracle shall provide all PoC prerequisites defined above at least 10 business days prior to project start. SoftServe will review readiness and data completeness within 5 business days and notify Oracle of any gaps. If prerequisites are not provided on time or identified gaps are not resolved, the project start date will be postponed accordingly.
+Delays in the provision of required inputs, system access, or stakeholder responses that impact project timelines or delivery milestones will be assessed and may result in adjustments to the project timeline, subject to mutual agreement.
+Any changes to the agreed scope, data sources, or number of accounts will be subject to mutual agreement between the parties and may impact timelines and cost.
+Communication channels and designated project representatives will be agreed by the parties at least three (3) days prior to project start.
+Oracle shall ensure the availability of relevant business and technical stakeholders throughout the project, including participation in workshops and validation sessions.
+Stakeholders’ responses and required inputs are expected to be provided within one (1) business day to avoid impact on the delivery timeline.
+Upon mutual agreement of parties, SoftServe may provision temporary access within project terms to 3rd party data sources under commercial license use for the PoC project needs, but limited to 5,000 EUR of occurred expenses and up to three (3) 3rd party data sources. SoftServe shall be using data sources complied with AI and GRC compliance policy at SoftServe and AI license of use at 3rd party data source provider. SoftServe is not deemed responsible for evaluating the use of selected 3rd party data sources for the production grade solution.
+It is expected that no additional third-party licenses will be required for the execution of the PoC. In case any additional tools or third-party licenses are identified as necessary, this will be discussed and mutually agreed between the parties, including any associated costs.
+Oracle understands and accepts that the PoC may utilize open-source models, libraries, and software components distributed under Apache 2.0, MIT, BSD, or other licenses agreed in written manner between both parties during first 2 weeks since project starts.
+SoftServe shall not be responsible for defects, limitations, or vulnerabilities in third-party or open-source software components used as part of the PoC. Resolution of such issues, including fixes, patches, or upgrades, is outside the scope of this SOW unless otherwise agreed by the parties in writing.
+The PoC will be delivered fully remotely; no on-site activities or business travel are included.
+The PoC will process English-language sources. To demonstrate the system's potential for multilingual use cases, a couple of non-English source documents will be manually translated into English and included in the pipeline for selected accounts. These translated documents will be treated as standard inputs and processed identically to other sources. The multilingual processing is out of scope for the PoC project.
+The user interface is intended solely for demonstration purposes and does not include production-grade features such as authentication, role-based access control, audit logging, or persistent user/session management.
+The materials generated are intended to support internal preparation for customer meetings and must be reviewed by DHL before any external use. AI-generated outputs do not constitute expert judgement, professional advice, or validated customer intelligence. The completeness, accuracy, and usefulness of generated insights depend on the availability, quality, and structure of the provided input data.
+Costs associated with OCI infrastructure are not included in this PoC estimation and will be covered by Oracle separately.
+SoftServe shall not be held liable for any limitations, deficiencies, or performance issues related to Oracle Cloud Infrastructure (OCI).
+The PoC is intended to demonstrate technical feasibility and does not represent a production-grade system in terms of performance, scalability, or accuracy.
+OCI infrastructure setup, configuration and deployment activities including OCI infrastructure support & issue troubleshooting shall be carried out by Oracle OCI team correspondingly to execution plan and dependencies prepared during project initiation.
+Deliverables
+Upon completion of the PoC, SoftServe will provide the following deliverables:
+AI-Powered Customer Research Prototype
+A working Proof of Concept demonstrating automated research and briefing generation capabilities for the agreed customer segment. For each selected account, the prototype will generate:
+an executive customer briefing containing company context, key strategic signals, operational developments, and sustainability priorities sourced from agreed data inputs and mapped to DHL logistics capabilities
+a discussion guide with account-specific talking points and suggested next steps
+a structured list of sources and references supporting all generated outputs
+a lightweight user interface (UI) for demonstration purposes, enabling users to review generated briefings and supporting sources.
+Briefing Generation Templates
+Standardized templates used for generating customer briefings and discussion guides
+Documentation describing the structure and sections of generated materials
+Feedback Analysis & Refinement Summary
+Summary of PoC results based on outputs generated for the selected accounts
+Observations on retrieval coverage, output structure, and insight relevance across tested accounts
+Recommendations for model improvements and scaling
+Technical Architecture Overview
+Documentation describing the architecture used for the PoC, including:
+information ingestion and data source integration
+document parsing
+retrieval and ranking mechanisms
+generation workflows and citation enforcement
+Final Demonstration & Recommendations
+Final demonstration of the system's end-to-end workflow
+Summary of key findings and observed limitations
+Recommendations regarding potential next steps, which may include:
+expansion to additional data sources or commercial feeds
+expansion to additional markets or customer segments
+further automation of customer intelligence workflows
+
