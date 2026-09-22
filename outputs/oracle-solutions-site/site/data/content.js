@@ -800,7 +800,7 @@ window.SITE_CONTENT = {
         },
         next: [
           { tier: "Integration", text: "CRM export, validation against the deals already in flight, and a persistent signal store — live for one account book.", duration: "3–5 months", price: "Scoped per engagement" },
-          { tier: "Scale", text: "More account books and service lines, more signal sources, and regional rule sets.", duration: "3–12 months", price: "Scoped per engagement" }
+          { tier: "Scaling", text: "More account books and service lines, more signal sources, and regional rule sets.", duration: "3–12 months", price: "Scoped per engagement" }
         ],
         cta: { label: "Start a Jumpstart conversation", route: "#/products/account-insights/contacts" }
       },
@@ -1112,7 +1112,7 @@ window.SITE_CONTENT = {
         },
         next: [
           { tier: "Integration", text: "Live source integration, the production approval workflow and its audit trail, live for one case category.", duration: "3–5 months", price: "Scoped per engagement" },
-          { tier: "Scale", text: "More case categories and source systems, with regional rule and retention sets.", duration: "3–12 months", price: "Scoped per engagement" }
+          { tier: "Scaling", text: "More case categories and source systems, with regional rule and retention sets.", duration: "3–12 months", price: "Scoped per engagement" }
         ],
         cta: { label: "Start a Jumpstart conversation", route: "#/products/case-evidence-collection/contacts" }
       },
@@ -1440,7 +1440,7 @@ window.SITE_CONTENT = {
         },
         next: [
           { tier: "Integration", text: "Live source feeds in place of static exports, extension beyond the anchor sample, production hardening.", duration: "3–5 months", price: "Scoped per engagement" },
-          { tier: "Scale", text: "More portfolios and unit types, regional variance rules, multi-entity evidence retention.", duration: "3–12 months", price: "Scoped per engagement" }
+          { tier: "Scaling", text: "More portfolios and unit types, regional variance rules, multi-entity evidence retention.", duration: "3–12 months", price: "Scoped per engagement" }
         ],
         cta: { label: "Start a Jumpstart conversation", route: "#/products/plan-vs-actual-investigation/contacts" }
       },
@@ -1777,7 +1777,7 @@ window.SITE_CONTENT = {
         },
         next: [
           { tier: "Integration", text: "Full setup and integration, live for one document type: source and target systems connected, the full field schema, production deployment.", duration: "3–5 months", price: "€300–500K services · ~€10K/mo infrastructure, depending on document volume, page counts and pipeline complexity" },
-          { tier: "Scale", text: "Across document types, volume and business units, with type-specific schemas and validation.", duration: "3–12 months", price: "Scoped per engagement" }
+          { tier: "Scaling", text: "Across document types, volume and business units, with type-specific schemas and validation.", duration: "3–12 months", price: "Scoped per engagement" }
         ],
         cta: { label: "Start a Jumpstart conversation", route: "#/products/large-document-extraction/contacts" }
       },
@@ -2114,7 +2114,7 @@ window.SITE_CONTENT = {
         },
         next: [
           { tier: "Integration", text: "Full setup and integration, live at one location: Oracle Field Service integration, additional data sources and BI, the re-optimization feedback loop, on a dedicated landing zone with IAM and observability.", duration: "3–5 months", price: "€300–500K services · ~€25K/mo infrastructure, depending on usage and rule complexity" },
-          { tier: "Scale", text: "Across locations, with per-region rule sets and data workflows, deployed multi-zone.", duration: "3–12 months", price: "Scoped per engagement" }
+          { tier: "Scaling", text: "Across locations, with per-region rule sets and data workflows, deployed multi-zone.", duration: "3–12 months", price: "Scoped per engagement" }
         ],
         cta: { label: "Start a Jumpstart conversation", route: "#/products/workforce-optimization/contacts" }
       },
@@ -2418,7 +2418,7 @@ window.SITE_CONTENT = {
         },
         next: [
           { tier: "Integration", text: "Live integration, more sources and decision domains, production SLAs.", duration: "3–5 months", price: "Scoped against the integration depth" },
-          { tier: "Scale", text: "Multi-entity rollout, with per-region governance and definitions.", duration: "3–12 months", price: "Scoped per engagement" }
+          { tier: "Scaling", text: "Multi-entity rollout, with per-region governance and definitions.", duration: "3–12 months", price: "Scoped per engagement" }
         ],
         cta: { label: "Start a Jumpstart conversation", route: "#/products/cross-system-erp-qa/contacts" }
       },
@@ -2720,7 +2720,7 @@ window.SITE_CONTENT = {
         },
         next: [
           { tier: "Integration", text: "Live integration, more catalogs, databases and decision domains, production SLAs.", duration: "3–5 months", price: "Scoped against the integration depth" },
-          { tier: "Scale", text: "Multi-entity rollout, with per-region governance and definitions.", duration: "3–12 months", price: "Scoped per engagement" }
+          { tier: "Scaling", text: "Multi-entity rollout, with per-region governance and definitions.", duration: "3–12 months", price: "Scoped per engagement" }
         ],
         cta: { label: "Start a Jumpstart conversation", route: "#/products/business-metrics-qa/contacts" }
       },
@@ -2787,7 +2787,7 @@ window.SITE_CONTENT = {
           fact: "Your metrics reported live, with observability in place"
         },
         {
-          title: "Scale",
+          title: "Scaling",
           body: "All locations and document types over 3–12 months. Then a managed service with periodic accuracy and cost reviews — or your own team, trained and certified.",
           factLabel: "Ends with",
           fact: "The same readout, organization-wide"
