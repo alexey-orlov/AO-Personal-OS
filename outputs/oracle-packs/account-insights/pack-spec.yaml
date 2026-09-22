@@ -15,7 +15,9 @@ meta:
       slides 9-10 of the September section deck. The delivered one-pager PDF still reads
       "AI Signal-Impact Engine" and is retitled at its next rebuild. The name does NOT survive
       the supply-side and underwriting scenarios ("account" is the wrong noun there) — this is
-      the binding constraint on how far the pack may widen under this name.
+      the binding constraint on how far the pack may widen under this name. "Account" is the
+      pack's word for any company the team tracks — a customer account, a partner prospect or a
+      portfolio holding; the who-it's-for line says so wherever the name appears.
     source: user:2026-09-22
   roadmap_item_id: account-insights
   roadmap_block: Deep research & investigation
@@ -181,15 +183,16 @@ capabilities:                              # component 6 — Area > Category > F
   # Glyphs per decisions-2026-09-18: ● available · ◐ partial · ○ roadmap.
 - area: Account universe & grounding
   stage: Ground it
-  customization_scope_area: In-scope account list definition · CRM field mapping and account-framing extraction
-    · Per-client service-catalog capture · Signal-source selection and licensing review
+  customization_scope_area: In-scope account list definition · System-of-record field mapping and account-framing
+    extraction · Per-client catalog-of-moves capture · Signal-source selection and licensing review
   categories:
   - name: The account universe
     features:
-    - name: Account universe — in-scope list, tiering, relationship framing from CRM
+    - name: Account universe — the in-scope companies, their tiering, the relationship framing from the system of
+        record
       status: partial
       tier_first_available: pov
-      note: An agreed CRM extract at PoV Jumpstart; API at Integration
+      note: An agreed extract from the system of record at PoV Jumpstart; API at Integration
       source: one-pager-2026-09-10, reviewer-ui-2026-09-11
   - name: Sources
     features:
@@ -198,7 +201,8 @@ capabilities:                              # component 6 — Area > Category > F
       tier_first_available: pov
       note: A bounded, licence-cleared source set at PoV Jumpstart; the client's own licensed feeds at Integration
       source: one-pager-2026-09-10
-    - name: Service-line catalog captured from the client's own material
+    - name: Catalog of moves captured from the organization's own material — service lines, partnership offers,
+        value levers
       status: partial
       tier_first_available: pov
       source: one-pager-2026-09-10
@@ -231,8 +235,8 @@ capabilities:                              # component 6 — Area > Category > F
       source: research-brief-2026-09-22
 - area: Implication reasoning
   stage: Reason it
-  customization_scope_area: Reasoning prompts per domain · Ripple rules per domain · Client catalog and mapping
-    logic · Scoring rubric and thresholds per client
+  customization_scope_area: Reasoning prompts per domain · Ripple rules per domain · Client catalog of moves and
+    mapping logic · Scoring rubric and thresholds per client
   categories:
   - name: Evidence
     features:
@@ -253,7 +257,8 @@ capabilities:                              # component 6 — Area > Category > F
       source: one-pager-2026-09-10
   - name: Catalog mapping
     features:
-    - name: Opportunity mapped to a named service line the client actually sells
+    - name: Opportunity mapped to a named move the organization can actually make — a service line, a partnership
+        offer, a value lever
       status: partial
       tier_first_available: pov
       source: one-pager-2026-09-10, reviewer-ui-2026-09-11
@@ -318,7 +323,7 @@ capabilities:                              # component 6 — Area > Category > F
       source: one-pager-2026-09-10, sow-uc6
   - name: Delivery
     features:
-    - name: Export to the client's sales system
+    - name: Export to the team's system of record — CRM, deal pipeline or portfolio tracker
       status: partial
       tier_first_available: integration
       note: File export at PoV Jumpstart; API export is Integration-tier scope
