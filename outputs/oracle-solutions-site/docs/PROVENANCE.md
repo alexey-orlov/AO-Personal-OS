@@ -5217,13 +5217,13 @@ prints **OK** with three warnings, all expected: the two home H2s this round did
 not touch (delivery 56 characters, about 61) and the Internal panel, which warns on
 every run by design.
 
-**One piece of housekeeping was left undone:** the addendum took the groups from
-five to six, but four code comments still say *five* — the `PATTERN_IDS` and
+**Housekeeping closed the same session:** the addendum took the groups from five to
+six, and four code comments still said *five* — the `PATTERN_IDS` and
 `facets.categories` blocks in `tools/check-grammar.js`, `groupTiles()` in
 `site/pages/overview.js`, and two rules in `site/assets/site.css` (`.home-hero-inner`,
-`.gtile-foot`). The data, the assertions and the layout are all six; only the prose
-around them is stale.
-
+`.gtile-foot`). The main session reworded all of them after the docs pass (comments only;
+the checker still prints OK) and republished `site.css` and `overview.js` so the artifact
+matches the tree.
 ### 28.4 QA and publish
 
 Agent B's pass: screenshots of S1, the stat band, S2, S3 and S5 at 1440, 1280,
