@@ -2967,7 +2967,10 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
    up, which is the one thing a static diagram cannot say — that the foundation
    comes first. */
 
-.bo { display: grid; grid-template-rows: 1fr auto 1fr auto 1fr; width: 100%; max-width: 42rem; margin-inline: auto; }
+/* Band heights are their own: the middle band carries six tiles in two rows and
+   the other two carry four in one, so a forced 1fr each would pad the outer
+   bands with air. The tiles inside one band stay equal. */
+.bo { display: grid; grid-template-rows: auto auto auto auto auto; width: 100%; max-width: 42rem; margin-inline: auto; }
 
 .bo-band {
   position: relative;
@@ -3010,7 +3013,8 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
    one solid block rather than three rows of cards with air under them. */
 .bo-tiles { display: grid; gap: .4rem; grid-auto-rows: 1fr; align-content: stretch; flex: 1; }
 .bo-tiles--4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-.bo-tiles--5 { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+/* Six groups read as two rows of three, not a six-across strip no name fits. */
+.bo-tiles--6 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 
 /* One anatomy in all three bands, because the three layers are peers: a white
    tile, its glyph in a blue-tint well, and the name at the tile's foot. */

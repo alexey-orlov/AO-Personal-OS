@@ -164,7 +164,7 @@
     var tech = [railOption({
       group: "tech", value: "", label: C.facets.allLabel, on: !state.tech
     })].concat(C.facets.technology.filter(function (facet) {
-      return facet.catalog !== false;
+      return facet.catalog !== false || state.tech === facet.id;
     }).map(function (facet) {
       return railOption({
         group: "tech", value: facet.id, label: facet.label, title: facet.fullLabel,

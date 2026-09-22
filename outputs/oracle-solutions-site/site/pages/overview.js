@@ -72,15 +72,12 @@
       return stackTile(patternIcons[category.id], category.full, "group");
     }).join("");
 
-    /* Bottom-up reading order is the platforms' own: the stack orders them
-       Lakehouse first, where the Products rail and Services lead with OCI +
-       NVIDIA. `stackLabel` is the one place a platform may name its engine. */
-    var byId = {};
-    (C.facets.technology || []).forEach(function (facet) { byId[facet.id] = facet; });
-    var platformTiles = (stack.platformOrder || []).map(function (id) {
-      var facet = byId[id];
-      if (!facet) return "";
-      return stackTile(techIcons[id], facet.stackLabel || facet.label, "platform");
+    /* The bottom band is every canonical platform in canonical order — the one
+       "Oracle AI for Fusion Applications" the catalog does not filter on
+       included: the stack says what the practice builds on, not what a filter
+       would return. Tile names are the short labels. */
+    var platformTiles = (C.facets.technology || []).map(function (facet) {
+      return stackTile(techIcons[facet.id], facet.label, "platform");
     }).join("");
 
     return '<div class="bo reveal" role="img" aria-label="' + UI.esc(stack.ariaLabel) + '">' +
@@ -95,7 +92,7 @@
         '<p class="bo-owner">' +
           '<span class="bo-owner-label">' + UI.esc(stack.productsLabel) + "</span>" + ssMark +
         "</p>" +
-        '<ul class="bo-tiles bo-tiles--5">' + groupTiles + "</ul>" +
+        '<ul class="bo-tiles bo-tiles--6">' + groupTiles + "</ul>" +
       "</div>" +
       stackLinks("lower") +
       '<div class="bo-band bo-band--oracle" aria-hidden="true">' +
