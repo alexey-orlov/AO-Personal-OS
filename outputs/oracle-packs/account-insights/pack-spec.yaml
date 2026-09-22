@@ -110,7 +110,7 @@ one_liner:                                 # component 2 — re-proposed 2026-09
   source: user:2026-09-22
 
 icp:                                       # component 3 — signed off
-  line: "Any team responsible for a named set of companies it has to stay current on — the accounts it sells to, the partners it develops, or the companies in its portfolio."
+  line: "Any team responsible for a named set of companies — the accounts it sells to, the partners it develops, the holdings in its portfolio."
   buyer_roles: [Chief Commercial Officer, VP Sales, Head of Key Accounts, Head of Partnerships, Head of Business Development, Portfolio Operations Lead, Head of Sales Operations]
   qualifying_signals:
     - "A named, finite set of companies the team is responsible for — accounts, partner prospects or holdings — owned by people, not a total addressable market"
@@ -457,8 +457,8 @@ architecture:                              # component 8 — PROPOSED
     - layer: Custom configuration
       vendor: SoftServe
       items: ["In-scope account list and tiering", "Reasoning and ripple rules per domain", "Catalog-of-moves capture and mapping logic", "Scoring rubric and thresholds"]
-    - layer: Account insights by SoftServe (application)
-      name: Account insights by SoftServe (application)
+    - layer: Account insights by SoftServe
+      name: Account insights by SoftServe
       vendor: Oracle + SoftServe
       summary: "normalize · fan out · reason · map · score · reviewer UI"
       items: ["Signal normalization and account resolution", "Catalog mapping and ripple reasoning", "Magnitude and confidence scoring", "Reviewer UI and evaluation harness"]
@@ -556,7 +556,7 @@ packages:                                  # component 12
     - id: pov
       name: PoV Jumpstart
       size_tag: S
-      scope_line: "One signal set, one account segment, file-based in and out: prove the reviewer agrees."
+      scope_line: "One signal set, one segment, files in and out: prove the reviewer agrees."
       duration_weeks: { target: 8, min: 6, max: 8, hard_cap: 10 }
       duration_note: >-
         Signed off at 6-8 weeks (user:2026-09-22), deliberately narrower than the source
@@ -592,7 +592,7 @@ packages:                                  # component 12
     - id: integration
       name: Integration
       size_tag: M
-      scope_line: "Wire it into the team's working day: their own licensed feeds in, their system of record out."
+      scope_line: "Wired into the team's day: licensed feeds in, system of record out."
       duration_weeks: { status: tbd }
       services_price: { status: tbd }
       scope_in:
@@ -604,7 +604,7 @@ packages:                                  # component 12
     - id: scaling
       name: Scaling
       size_tag: L
-      scope_line: "Make it improve: live write-back, outcome capture, and confidence that has been tested against what actually happened."
+      scope_line: "Make it improve: live write-back, outcome capture, confidence tested against real outcomes."
       duration_weeks: { status: tbd }
       services_price: { status: tbd }
       scope_in:
