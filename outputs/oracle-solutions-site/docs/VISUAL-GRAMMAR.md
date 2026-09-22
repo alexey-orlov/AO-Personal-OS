@@ -415,23 +415,42 @@ audit: '<rect x="5" y="3" width="14" height="18" rx="2"></rect><path d="M9 8h6M9
 
 Industry keys in `content.js` are bare (`"manufacturing"`); the renderer prefixes `industry-` when it calls `UI.icon()`. That keeps the data readable and the registry namespaced.
 
-### The round-4 icons
+### The tag-family and stack icons
 
-`shared.tagFamilies` names eight registry keys. All eight are in `ICONS`, drawn
-to the same 24x24 stroke-only spec:
+`shared.tagFamilies` names twelve registry keys, and the hero stack's top band
+names four more. All of them are in `ICONS`, drawn to the same 24×24 stroke-only
+spec (1.5 px, no fill):
 
 | Key | Used by | What it reads as |
 |---|---|---|
-| `pattern-deep-research` | pattern chip, `deep-research` | A magnifier over a small node graph |
-| `pattern-processing-pipelines` | pattern chip, `processing-pipelines` | Two stages with an arrow between them |
-| `pattern-data-analysis` | pattern chip, `data-analysis` | A bar chart on an axis |
+| `pattern-knowledge-analytics` | group chip, `knowledge-analytics` | A speech bubble with a small bar chart inside |
+| `pattern-deep-research` | group chip, `deep-research` | A magnifier over a small node graph |
+| `pattern-documents` | group chip, `documents` | A page with a folded corner and two text lines |
+| `pattern-transactions` | group chip, `transactions` | Three linked steps, a check on the last |
+| `pattern-forecasting-optimization` | group chip, `forecasting-optimization` | A rising line through a node, on an axis |
+| `pattern-video-image` | group chip, `video-image` | A frame with a play mark |
 | `platform-oci-nvidia` | technology chip, `oci-nvidia` | A cloud above a pinned chip |
 | `platform-oracle-ai-data-platform` | technology chip, `oracle-ai-data-platform` | A data cylinder with a check |
 | `platform-oracle-ai-lakehouse` | technology chip, `oracle-ai-lakehouse` | Stacked layers |
 | `platform-oracle-ai-fusion` | technology chip, `oracle-ai-fusion` | A 2×2 grid of application tiles |
+| `cursor-click` | the Interactive demo badge | A pointer with two short click strokes at its tip |
 | `storefront` | the Oracle Marketplace badge | A shop front with a scalloped awning |
+| `spark` · `network` | the stack's *Jumpstart proof of value* and *Integration* tiles | already in the registry |
+| `scale` | the stack's *Scaling* tile | Three bars of rising height on a baseline — the same instance, repeated |
+| `managed` | the stack's *Managed services* tile | A refresh loop closing on a check |
 
-`play` — the Demo badge's icon — is already in the registry. Unlike the industry keys, these are written into the data **in full**: `tagFamilies.pattern.icons["deep-research"]` holds `"pattern-deep-research"`, not `"deep-research"`, because a renderer that had to know which prefix to add for which family would be inventing the key.
+**Round 9 retired four `pattern-*` keys with the categories that named them** —
+`pattern-processing-pipelines`, `pattern-data-analysis`, and the
+`pattern-optimization` / `pattern-knowledge-assistants` pair drawn for the
+five-group cut that the six-group correction superseded. The checker fails if any
+of the four is still in `ICONS`: **an icon no data can name is an unchecked icon**,
+and it will drift out of the theme unnoticed. `play` stays in the registry, now for
+video surfaces only.
+
+Unlike the industry keys, these are written into the data **in full**:
+`tagFamilies.pattern.icons["deep-research"]` holds `"pattern-deep-research"`, not
+`"deep-research"`, because a renderer that had to know which prefix to add for
+which family would be inventing the key.
 
 ---
 
