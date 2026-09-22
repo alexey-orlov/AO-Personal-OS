@@ -195,7 +195,7 @@
 
   /* ————— S3: the products, one tile per group ————— */
 
-  /* A reader looking for a job to fix meets five groups, not a list of product
+  /* A reader looking for a job to fix meets six groups, not a list of product
      names: the picture says what the software looks like, the line says what
      the group does to someone with no context, and the whole tile is the link
      into the catalog filtered to that group. Text never sits on the image

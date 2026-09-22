@@ -61,7 +61,7 @@ var CASE_STATUSES = ["measured", "modeled", "in-preparation"];
    retired and the checker fails them if they come back. */
 var CASE_STATUS_CHIPS = ["Proven", "Forecast", "Estimated"];
 /* Round 4, T1: the three tag families and the two availability badges.
-   Round 9: the catalog is grouped by the job to be done — five product groups,
+   Round 9: the catalog is grouped by the job to be done — six product groups,
    in the order the home page's tiles and the rail list them. The two retired
    ids (processing-pipelines, data-analysis) may not return, here or in the icon
    registry, and the home tiles derive from this set rather than a second list. */
@@ -855,7 +855,7 @@ if (!arr(C.products) || C.products.length !== 7) {
   })();
 })();
 
-/* ---- round 9 · the five product groups ----
+/* ---- round 9 · the six product groups ----
    The catalog is grouped by the job to be done, and this row is the only place
    a group is written: the home tiles, the rail filter, the hero stack's middle
    band and every product chip all read it. So each group carries what all four
@@ -885,7 +885,7 @@ if (!arr(C.products) || C.products.length !== 7) {
     if (str(c.line)) {
       var lineWords = words(c.line.replace(/\s[—–-]\s/g, " "));
       if (lineWords > 26) fail(where, "line is " + lineWords + " words (max 26 — it sits under a tile image)");
-      if (c.line.trim().slice(-1) !== ".") fail(where, "line does not end in a period — the five tiles are sentences and sit side by side");
+      if (c.line.trim().slice(-1) !== ".") fail(where, "line does not end in a period — the six tiles are sentences and sit side by side");
     }
     /* One folder, so the tile art cannot be confused with a hero or a step
        frame, and a missing file is a warning: art ships on its own track. */

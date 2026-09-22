@@ -2926,8 +2926,8 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
     linear-gradient(180deg, #f5f7f9 0%, #ffffff 100%);
 }
 
-/* Even columns since round 9: the stack carries three bands of four, five and
-   four tiles, and at 7/5 the five-tile band could not hold a group name. */
+/* Even columns since round 9: the stack carries three bands of four, six and
+   four tiles, and at 7/5 the six-tile band could not hold a group name. */
 .home-hero-inner {
   display: grid;
   grid-template-columns: minmax(0, 6fr) minmax(0, 6fr);
@@ -3199,7 +3199,7 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 
 .gtile-line { color: var(--text-muted); }
 
-/* Pinned to the foot, so five tiles of different line counts still end level. */
+/* Pinned to the foot, so six tiles of different line counts still end level. */
 .gtile-foot { margin-top: auto; padding-top: .75rem; }
 
 .gtile-arrow {
