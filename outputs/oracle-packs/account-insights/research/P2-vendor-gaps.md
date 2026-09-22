@@ -100,10 +100,30 @@ Six primary (deep), four secondary (confirmatory). The six primaries were chosen
 
 **Taxonomy shape:** *data → signal → audience → workflow → activation*, with a single **book-of-business workspace** as the consumption surface.
 
-**Notable for the gap check:**
-- **"Grouped by account"** is called out as a feature of the Pulse Feed. This is exactly my step 4 (entity resolution) — but ZoomInfo sells it as an *output property of the feed*, not as a step.
-- **Signal typology (15+ named types) is itself a product surface.** My step 2 says "ingest signals" with no taxonomy. ZoomInfo's position is that *the named list of signal types is the product*.
-- **Volume control is the real problem they market against**: "up to 1,000 daily signals" is framed as a benefit but implies the customer's actual pain is triage. My step 3 covers filter+dedupe, but not *ranking within the day's feed* or *per-rep quota*.
+**⚠️ The marketing pages badly understate what ZoomInfo ships. Reading the actual public release-notes PDF (T1, `tech-docs-library.zoominfo.com`) changes several conclusions in this report.** Verbatim findings:
+
+| Shipped capability (T1 release notes) | ZoomInfo's own words |
+|---|---|
+| **Scoops signal taxonomy — 13 named types** | "Agent Teams can now trigger automatically on **13 Scoops signal types** — including **Product Launches, M&A events, IPOs, Layoffs, Hiring Plans, Pain Points, Partnerships, Awards**, and more. Each trigger type fires when ZoomInfo detects a matching scoop for an account in your workflow, with **filtering on company attributes (industry, revenue, employee count) and the scoop description itself**. **Enrichment pulls a Company Brief automatically so agents have context on the account when the play starts.**" |
+| **Account Research skill — a fixed output contract** | "Account Research now returns **a consistent set of five sections on every company you look up: buying committee, important contacts, recent conversations, summary of engagements, and pain points and use cases.** It also surfaces **buying-committee changes, hiring activity, recent projects, and website visitor activity**, so a briefing shows not just who's involved with an account but **what's shifting there right now**." |
+| **Account Health skill — ⚠️ ships a confidence level AND an ask-don't-guess behaviour** | "Account Health returns a clear verdict (**healthy, watch, or at-risk**) **with a stated confidence level**, backed by **sentiment trajectory, evidence-based risk signals, and one to three recommended actions, and it asks for your input rather than guessing when the conversations don't settle the question.** Available now through the **ZoomInfo MCP skills library in Claude, ChatGPT, and other connected AI tools.**" |
+| **"Why Now" skill** | "Build a '**why now**' case for reaching out to a company, **pairing a timing thesis with the specific hooks that make the moment relevant**, whether that's a signal, a piece of news, or a shift in intent." |
+| **QBR Prep skill** | "pulls **specific value moments straight from the account's conversation history**, like a feature the customer explicitly credited with saving time, alongside adoption themes, risk signals, and renewal readiness, so the narrative is built from **what customers actually said** rather than a generic quarterly template with blanks to fill in." |
+| **Renewal prep** | "a single view of value delivered, risk signals such as a champion [departure]… and expansion". |
+| **Entity resolution** | "ZoomInfo has **improved the entity resolution and merging processes** that caused some contact records to [merge incorrectly]." |
+| **Dedup** | an automation pattern that "**verifies and deduplicates**" before enriching. |
+| **MCP tooling** | "The new **`enrich_company_signals` MCP tool** returns **intent, news, and scoop data for a company in one** [call]." MCP client integrations named: **Google Gemini, Slack, Replit, Von**; API clients: Orum, Tray.ai, Integrate.com, Zapier. |
+| **Output philosophy, stated** | "it hands back **a finished output, like a call recap, a renewal prep pack, or a coaching read, instead of raw data for you to piece together yourself.**" |
+| **Third-party news** | a **Talkwalker connector** pulls news sources "and use that as a timing signal before you reach out." |
+
+ZoomInfo also structures its release notes by **"Solution"** and **"JTBD"** — e.g. *Solution: Account Research & Prioritization* · *JTBDs: Research an account before outreach, Map the buying committee, **Monitor account news and triggers***; *Solution: Account Health Assessment* · *JTBD: Monitor customer health signals (usage, sentiment, support, exec changes)*. **That is a job-decomposition taxonomy published by a vendor, and it is the closest thing in this research to a competitor's own version of my 12 steps.**
+
+**Notable for the gap check (revised):**
+- **"Grouped by account"** is an output property of the Pulse Feed, not a named step — but the release notes confirm entity resolution and dedup are real engineering surfaces, just not sold as features.
+- **The signal typology is real and enumerable: 13 named Scoops types**, each usable as an automation trigger with attribute *and* free-text filtering. This is the concrete version of gap G4.
+- **Volume control is the pain they market against**: "up to 1,000 daily signals" is framed as benefit, implies triage is the real problem.
+- **ZoomInfo ships a stated confidence level and an explicit "ask rather than guess" behaviour** — which contradicts the market-wide claim in C3. Corrected there.
+- **Delivery is now MCP-first into Claude/ChatGPT/Gemini/Slack**, sold through a `gtm.ai` **marketplace of skills**. The artifact is no longer a screen in ZoomInfo; it is a tool call inside someone else's assistant. Strongest evidence for gap G12 and G14.
 
 #### A1.3 6sense
 
@@ -611,7 +631,11 @@ Worth naming precisely because the tractable subset is small, sourceable and com
 
 ### C3. Confidence calibration — **absent from every enterprise product; partially shipped only at the DIY end**
 
-**Vendor evidence (absence):**
+**⚠️ CORRECTION — one enterprise vendor does ship a confidence level, and it was invisible from the marketing site.** ZoomInfo's **Account Health** skill "returns a clear verdict (healthy, watch, or at-risk) **with a stated confidence level**, backed by sentiment trajectory, **evidence-based risk signals**, and one to three recommended actions, **and it asks for your input rather than guessing when the conversations don't settle the question**" [T1 ZoomInfo public release notes PDF]. Two things are shipped there that nothing else in this research has: (a) a confidence value attached to a *verdict about an account*, and (b) an **explicit abstain-and-ask behaviour when the evidence is insufficient** — arguably more useful than a number, and the single most sophisticated uncertainty handling found in any product studied.
+
+Caveats that keep this a gap rather than a solved problem: the verdict is about **account health from conversations**, not about an arbitrary externally-sourced implication; ZoomInfo publishes **no calibration methodology, no accuracy claim, and no definition of the confidence scale**; and it is one skill, not a platform property. But "nobody ships confidence" was wrong, and the method for finding that out is worth noting — **it was only visible in the release-notes PDF, never on a product page.** Assume the same is true of other vendors here whose release notes I did not read.
+
+**Vendor evidence (absence, elsewhere):**
 - AlphaSense's entire trust story is **citation granularity**, not calibration — "deep-linked citations… the original source document and exact snippet" [T1]. Its Deep Research launch mentions **no** confidence metric, verification workflow, or required human review [T3].
 - Factiva Smart Summary: "fully transparent and **traceable**" [T2/T3] — again provenance, not probability.
 - 6sense and Demandbase ship **propensity** scores (fit/intent/stage; Pipeline Predictive Score) — a score *about the account*, not a confidence *about the claim*. Conflating these is the single most common category error in this market.
