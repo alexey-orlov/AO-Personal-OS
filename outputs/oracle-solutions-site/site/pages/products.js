@@ -94,6 +94,15 @@
     if (state.tech && !state.cat && !state.demo && !state.mp && !state.q) {
       return UI.empty(UI.facetLabel(state.tech).emptyState);
     }
+    /* Round 9: a group tile on the home page links straight here, so a group
+       whose products are all still engagements has to answer for itself —
+       the same branch the platform facets take, in the group's own words. */
+    if (state.cat && !state.tech && !state.demo && !state.mp && !state.q) {
+      var category = C.facets.categories.filter(function (item) {
+        return item.id === state.cat;
+      })[0];
+      if (category && category.emptyState) return UI.empty(category.emptyState);
+    }
     return UI.empty(C.facets.noResults);
   }
 

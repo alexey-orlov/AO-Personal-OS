@@ -196,51 +196,30 @@
       "</div></section>";
   }
 
-  /* ————— S3: the catalogue, by workflow pattern ————— */
+  /* ————— S3: the products, one tile per group ————— */
 
-  /* The pattern is the column, the product is the row: a reader looking for a
-     job to fix reads three definitions and then seven one-line answers, rather
-     than seven tiles that all look alike. A column with one product keeps its
-     spare space — the pattern is what the column claims, not the count. */
-  function catalog(C) {
+  /* A reader looking for a job to fix meets five groups, not a list of product
+     names: the picture says what the software looks like, the line says what
+     the group does to someone with no context, and the whole tile is the link
+     into the catalog filtered to that group. Text never sits on the image
+     (VISUAL-GRAMMAR §1.1), and the tile carries one action, which is itself. */
+  function groupTiles(C) {
     var UI = window.UI;
     var block = C.overview.catalog;
-    var families = (C.shared && C.shared.tagFamilies) || {};
-    var patternIcons = (families.pattern && families.pattern.icons) || {};
-    var products = UI.orderedProducts();
 
-    var columns = (block.patterns || []).map(function (pattern) {
-      var category = categoryEntry(C, pattern.id);
-      var rows = products.filter(function (product) {
-        return product.category === pattern.id;
-      }).map(function (product) {
-        /* The row is a container, not a link: the badges beside the name are
-           actions of their own, and an action cannot live inside a link. The
-           name carries the link and an overlay stretches it over the row, so
-           the whole row still answers to a click. */
-        return '<div class="catalog-row">' +
-          '<span class="catalog-row-head">' +
-            '<a class="catalog-row-link" href="#/products/' + UI.esc(product.slug) + '">' +
-              '<span class="catalog-row-name">' + UI.esc(product.name) + "</span>" +
-            "</a>" +
-            UI.badgeRow(product.slug, "catalog-row-badges") +
-          "</span>" +
-          '<p class="catalog-row-line small">' + UI.esc(product.shortLine) + "</p>" +
-          (product.statusNote
-            ? '<p class="catalog-row-note">' + UI.esc(product.statusNote) + "</p>"
+    var tiles = (C.facets.categories || []).map(function (category) {
+      return '<a class="gtile reveal" href="#/products?cat=' + UI.esc(category.id) + '">' +
+        '<span class="gtile-band">' +
+          (category.image
+            ? '<img class="gtile-img" src="' + UI.esc(category.image) + '" alt="" loading="lazy" decoding="async">'
             : "") +
-          UI.icon("arrow", "catalog-row-arrow") +
-          "</div>";
-      }).join("");
-
-      return '<div class="catalog-col reveal">' +
-        '<div class="catalog-pattern">' +
-          UI.icon(patternIcons[pattern.id], "catalog-pattern-icon") +
-          '<h3 class="catalog-pattern-name">' + UI.esc(category.full) + "</h3>" +
-          '<p class="catalog-pattern-def small muted">' + UI.esc(pattern.definition) + "</p>" +
-        "</div>" +
-        '<div class="catalog-rows">' + rows + "</div>" +
-        "</div>";
+        "</span>" +
+        '<span class="gtile-body">' +
+          '<span class="gtile-name">' + UI.esc(category.full) + "</span>" +
+          '<span class="gtile-line small">' + UI.esc(category.line) + "</span>" +
+          '<span class="gtile-foot">' + UI.icon("arrow", "gtile-arrow") + "</span>" +
+        "</span>" +
+        "</a>";
     }).join("");
 
     return '<section class="section home-screen" id="products"><div class="wrap">' +
@@ -250,7 +229,7 @@
         lead: block.lead,
         link: { label: block.cta.label, href: block.cta.route }
       }) +
-      '<div class="catalog">' + columns + "</div>" +
+      '<div class="gtiles">' + tiles + "</div>" +
       "</div></section>";
   }
 
@@ -415,7 +394,7 @@
 
   function overview() {
     var C = window.SITE_CONTENT;
-    return hero(C) + statBand(C) + twoWays(C) + catalog(C) + delivery(C) +
+    return hero(C) + statBand(C) + twoWays(C) + groupTiles(C) + delivery(C) +
       caseStudies(C) + about(C) + closing(C);
   }
 
