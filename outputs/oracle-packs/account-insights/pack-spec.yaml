@@ -182,6 +182,12 @@ verticals:                                 # component 5 — PROPOSED, see open_
       a per-engagement configuration, not a product capability. Do not print this vertical as
       PoV-available on any artifact.
     source: one-pager-2026-09-10, user:2026-09-22
+    icon:
+      file: visuals/vertical-3-chart-line-ink.png
+      name: chart-line
+      source: Tabler Icons
+      licence: MIT
+      file_white: visuals/vertical-3-chart-line-white.png
 
 capabilities:                              # component 6 — Area > Category > Feature
   # Grouped 2026-09-22 from 52 features to 24 rows so the feature list fits one A4 page (Alex:
@@ -650,6 +656,19 @@ deck:
   layers_sub: "How the pack is layered — from the infrastructure up to the customer's own configuration."
   architecture_sub: "Reference architecture: signals and the system of record in, reviewed moves out."
   source: user:2026-09-22
+  images:
+    today:
+      file: visuals/today-A-filefolders-business.jpg
+      source: Openverse / stocksnap
+      creator: Michal Kulesza
+      licence: CC0 1.0
+      source_url: "https://stocksnap.io/photo/filefolders-business-6RHKEELJ8F"
+    tomorrow:
+      file: visuals/tomorrow-C-analytics-charts.jpg
+      source: Openverse / stocksnap
+      creator: Negative Space
+      licence: CC0 1.0
+      source_url: "https://stocksnap.io/photo/analytics-charts-JVSII4KCCK"
 
 contacts:
   partner_print: { name: Karsten Tramborg, title: Alliances & Partnerships Director, email: ktram@softserveinc.com }
