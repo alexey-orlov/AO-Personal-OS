@@ -1,7 +1,7 @@
 # Oracle events & demand-gen GTM (Hammad Hussain)
 
-_status: active — three tracks agreed 2026-08-18 (Participation · Content · Implementation). Lakehouse Summit is the high-leverage venue and Hammad offered stage time; AI Experience (16 cities) is panel-only. **Blocked on Hammad's nomination of the 4–5 AIDP demand areas** — our whole content track hangs off it. Follow-up call slipped from w/c Aug 24 to **2026-09-03**._
-_updated: 2026-09-03_
+_status: active, and **the thread widened on 2026-09-16 from "events" to Oracle's whole demand machine** — 13 laser campaigns live, ~1,000 CRM-loaded Gold Mine accounts with every rep measured on pitching them, and a **joint pipeline call from w/c 2026-09-22** (Hamad owns, Ege point person; first sessions build the UK campaign, not review pipe). Near-term concrete plays: the **174-customer FSM accelerator campaign** starting with ~20 UK accounts, **Milton Keynes / Red Bull Racing pulled from January to November**, the **Frankfurt aviation event** with Riyadh Air on stage and SoftServe named delivery partner, and **GITEX in December**. **Kevin Kimber is gated on a finished UK campaign plan for early October** (venue, 20 named clients, reps already reaching out). Lakehouse Summit remains the high-leverage venue with stage time offered; **Hammad's 4–5 AIDP demand areas are still un-nominated**, but the laser segment table now supplies much of what that question was for._
+_updated: 2026-09-22_
 
 The **demand-side** counterpart to [oracle.md](oracle.md) (partnership state) and the Ismail collaboration/supply track. Oracle's AI org splits demand ↔ supply; **Hammad Hussain owns demand generation** and is therefore the door to Oracle's event channel — see [oracle-team.md](oracle-team.md#demand-generation-hammad-hussain-surfaced-2026-08-18).
 
@@ -112,6 +112,8 @@ A named, priced-shaped package placed in front of the client at the event, with 
 
 ## Activity
 
+- 2026-09-22 — **[Gero's laser-campaign deck folded](docs/2026-09-17_oracle-laser-campaigns-deck.md)** (sent 2026-09-17) — 13 installed-base segments with customer counts, five shipped campaign assets, a five-step "show don't tell" sales flow ending in Oracle's own LIFT/CSS, and the Qatar Airways 4-week AIDP fast track as the proof point. Bohdan's "where can we be plugged in" answered in a [fit analysis](docs/2026-09-22_laser-segments-softserve-fit.md), pending Alex's review.
+- 2026-09-17 — **[Neil + Gero sync](docs/2026-09-16_oracle-neil-gero-partnership-sync.md)** (meeting 09-16) — the demand thread widens past events: laser campaigns + Gold Mines + a joint pipeline call, the FSM campaign, Milton Keynes pulled to November, Frankfurt confirmed with Riyadh Air speaking, GITEX, and the JJ / Kevin Kimber / NVIDIA-EMEA introductions.
 - 2026-09-03 — follow-up call with Hammad (rebooked from w/c Aug 24) — agenda: content + implementation
 - 2026-08-31 — [Hammad's message + AI Experience city table](calls/oracle/2026-08-18_sales-call_hammad-events-gtm.md#addendum-2026-08-31-the-ai-experience-city-table) — 16 cities / 3,150 customer goal, only London confirmed; **Lakehouse Summit moved to "the day after AI World" (~29 Oct)**
 - 2026-08-18 — [Hammad events-GTM call](calls/oracle/2026-08-18_sales-call_hammad-events-gtm.md) — three tracks agreed; event landscape corrected (16 AI Experience + 2 Lakehouse Summits, not 30 labs); stage time offered; AIDP pulled off the lab agenda; 30-vs-60-day anchor surfaced
