@@ -5024,7 +5024,7 @@ written this round (Fable) · **[alex]** Alex's own wording or instruction.
 | `stack.ariaLabel` | *"How they are built: the agents and workflows you can start with on top, grouped by the job they do, the SoftServe layer in the middle, the four Oracle platforms underneath"* | *"How it fits together, read from the bottom up: Oracle's four AI platforms, the SoftServe product groups built on them, and the SoftServe services that prove, integrate and scale them"* | [new] |
 | `stack.patternsLabel` | *"Agents and workflows to start with"* | **deleted** (the top band is services now) | [alex] |
 | `stack.softserve` | `{ label: "SoftServe", items: ["Agentic and data engineering", "Evaluation & guardrails", "Pilot to production"] }` | **deleted** | [alex] |
-| `stack.services` | — | `{ label: "SoftServe services", items: [Jumpstart proof of value ·`spark`, Integration ·`network`, Scaling ·`scale`, Managed services ·`managed`] }` | [alex] |
+| `stack.services` | — | label *SoftServe services*, four `{ name, icon }` tiles: *Jumpstart proof of value* (`spark`) · *Integration* (`network`) · *Scaling* (`scale`) · *Managed services* (`managed`) — the last two glyphs drawn this round | [alex] |
 | `stack.productsLabel` | — | `SoftServe products` | [new] |
 | `stack.platformsLabel` | `Oracle platforms` | unchanged | [site] |
 

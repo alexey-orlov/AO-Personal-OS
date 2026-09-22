@@ -169,7 +169,7 @@ Exact commands are in HANDOFF §4.
 - **Publish** — each theme to its own artifact (§1); never cross them.
   - Strip the nine skeleton lines from `site/index.html` into `.work/publish/index.html` (exact-line `grep -v -x -F`, HANDOFF §4).
   - The publish must carry `assets/fonts/*` with an explicit `contentType`, and only what the page references — nine legacy files and `assets/site-legacy.css` are deliberately absent from the artifact.
-  - Call the Artifact tool with `file_path` = that wrapper, `root` = `site`, and a `files` map of every changed or new file.
+  - Call the Artifact tool with `file_path` = that wrapper, `root` = `site`, and a `files` map of every changed or new file — **images included**: `assets/img/groups/*` since round 9. Files left out of the map are kept, so a new image folder that is not in it never reaches the artifact.
   - Then run `action: list_files` to confirm that the new files are live and that nothing is published that should not be.
 - **Refused publish** ("not built on the newer version") means another session published in between:
   1. `read_file` the live copies of the files you changed.
