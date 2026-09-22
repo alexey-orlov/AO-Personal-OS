@@ -112,25 +112,126 @@ Law firms run litigation- and news-alert feeds and map hits to clients and pract
 
 ## 3. Standard output artifacts
 
-_pending_
+The artifact differs systematically by trigger pattern. This is the second-most-useful finding after §2.
+
+### 3a. Account-triggered → a narrative document, read once, before a meeting
+
+| Artifact | Industry-standard name | Who consumes it | How | Cadence |
+|---|---|---|---|---|
+| Single-meeting prep sheet | **Green Sheet** (Miller Heiman); **pre-meeting brief**; **call plan** | The rep / RM attending the call | Read 10–30 min before the call; sometimes reviewed in an internal pre-meeting | Per meeting |
+| Per-account research summary | **account brief**, **account summary**, **Account IQ** | The rep, plus anyone newly assigned to the account | Read on account pages in the CRM/sales tool; increasingly consumed as chat answers rather than a document [T1, MS Sales agent] | On demand / on assignment |
+| Full account strategy | **strategic account plan**; **Gold Sheet**; LAMP plan | Account team + sales leadership | Reviewed in an account review; used as the meeting agenda | Quarterly to annual |
+| Customer-facing review | **QBR** (quarterly business review) / **EBR** (executive business review) | Customer stakeholders + vendor account team | A deck, presented. QBR = operational, run by AM/CSM with day-to-day contacts; EBR = strategic, annual/semi-annual, C-suite both sides [T3] | Quarterly / annual |
+| Institutional-grade research | **primer**, **briefing**, **diligence-ready company profile** [T1 AlphaSense] | Analysts, PMs, deal teams, boards | Read as a document with citations; "fully auditable" is the stated quality property | On demand |
+
+A sharp practitioner observation worth carrying into packaging: *"A plan reviewed once a year is a document; a plan reviewed monthly is a habit"*, and the **commitment list** — not the plan — is what opens the next review [T3]. The durable artifact is the list of open commitments, not the narrative.
+
+### 3b. Signal-triggered → not a document. A routed object with a state.
+
+In the signal-triggered pattern the output is deliberately *not* a briefing. Evidence:
+- **UserGems** [T1]: outputs are workflow triggers in Salesforce / HubSpot / Slack / Outreach / Salesloft, sequence notifications, and AI-generated personalised messaging. There is no "briefing document" in the product's own description of its outputs.
+- **Common Room** [T3]: "rout[es] signals to reps when a target account engages heavily" — a routed notification.
+- **Banking EWS** [T3]: the object is an **alert** against a named counterparty, carrying a **severity level** with an **associated immediate action plan**; it is logged in a database, surfaced on role-specific dashboards (credit analyst / portfolio manager / RM), and *has a disposition* — it must be closed.
+- **Legal BD** [T3]: the hit becomes either a **client alert** (an outbound publication) or a BD task.
+
+So: **account-triggered produces prose; signal-triggered produces a record with a lifecycle** (open → triaged → assigned → actioned → closed). The record usually carries: the event, the affected entity, a severity or score, an owner, a recommended action, and a due date.
+
+### 3c. The convergent middle
+
+Both patterns now converge on a third artifact type: **the chat answer**. Microsoft's Sales agent documentation contains no document deliverable at all — it is entirely a prompt library ("Get me the account summary for `<account name>`") [T1]. This matters: for the account-triggered job, the market is actively moving the artifact from *document* to *answer-on-demand*, while for the signal-triggered job it is moving from *notification* to *drafted action*.
 
 ---
 
 ## 4. How quality is judged
 
+Quality is judged in three distinct and largely non-overlapping ways depending on who is paying.
+
+**(i) Commercially, by downstream conversion.** The sales-side literature judges account/signal intelligence almost entirely by revenue proxies — response rate, meeting rate, win rate, time-to-first-touch. Circulated figures (all T3, all vendor-sourced, treat as directional only): trigger-acted accounts at 37% win rate vs. 19% for cold outreach; first-mover-after-trigger 5x more likely to win; signal-specific personalisation at 18% reply rate vs. a 5.2x-lower generic baseline. **None of these are independently verified and all come from vendors selling the capability.** See Unverified.
+
+**(ii) Operationally, by alert economics.** In banking EWS and in any routed-alert system, the judged quantities are false-positive rate, alert volume per analyst, and time from signal to intervention ("automation… reduces the time between signal detection and intervention" [T3]). This is the only place in this research where a *cost of a wrong answer* is explicitly modelled — because a missed early warning is a credit loss and a false one burns an RM relationship.
+
+**(iii) Analytically, by comparison to an expert-written reference.** This is where the "golden report" practice actually lives.
+
 ### 4a. Golden report / benchmark-against-human-analyst practice
 
-_pending_
+**The practice exists and is well-specified — but in the AI-evaluation literature, not in the sales/CI literature.**
+
+- **Generic ML practice — "golden dataset".** A reviewed, versioned set of representative inputs with trusted expected outputs, labels, rubrics or reference context, hand-labelled by humans with domain expertise, used for regression evals and production-trace checks. Explicitly an evaluation asset, not training data [T3, multiple eval-tooling vendors: Langfuse, Arize, Confident AI, Innodata].
+- **The rubric variant, which is the right one for this job.** For "Synthesizer Agents" with a moderate cost of failure, evaluation targets a **"Golden Rubric"** — datasets of inputs plus checklists of qualitative criteria such as *"cites three sources"*, *"tone is neutral"*, *"avoids speculation"* [T2, arXiv 2510.13857]. This is directly transferable: an account brief is a synthesizer output.
+- **The state-of-the-art benchmark-against-human-analyst design: DeepResearch Bench II** [T2, arXiv 2601.08536]. Method, in its own terms:
+  - Reference reports are **"high-quality, expert-written investigative reports from reputable open-access venues"** — 132 tasks across 22 domains.
+  - Rubrics are built by a four-stage pipeline: LLM extraction from the source article → **self-evaluation iteration** (rubrics that score below 90% accuracy against their own source article are regenerated, to mitigate hallucination) → manual revision by annotators → **expert review, 400+ hours**.
+  - Three evaluation dimensions: **Information Recall** (did it find the relevant information), **Analysis** (did it "synthesize the retrieved information and derive higher-level insights"), **Presentation** (clear, user-accessible, verifiable).
+  - Headline finding: **"Even the strongest agents fail to pass more than 50% of the rubrics"**, with the largest deficits in Information Recall and Analysis.
+  - The paper's stated motivation is a direct critique of the naive approach: prior benchmarks let LLMs define the criteria, which "can introduce systematic misalignment with human expert judgments", and their rubrics were "overly coarse and weakly interpretable".
+- **Predecessor: DeepResearch Bench** [T2, arXiv 2506.11763] — 100 PhD-level tasks across 22 fields, with a reference-based adaptive-criteria method for report quality plus a separate framework scoring **effective citation count and citation accuracy**. Citation accuracy as a *separate, mechanically checkable* axis is the most directly reusable idea for this job.
+- **Related benchmarks worth knowing:** DEER (expert report generation, arXiv 2512.17776), Dr. Bench (arXiv 2510.02190), MMDeepResearch-Bench (140 expert-crafted multimodal tasks, arXiv 2601.12346), DR³-Eval (arXiv 2604.14683), ResearchRubrics (five axes: human-written rubrics / expert-curated tasks / open-ended tasks / non-technical domains included / LLM-as-judge used).
+
+**The gap:** I found **no** evidence of a published golden-report or human-analyst-benchmark practice specific to *account briefs* or *sales intelligence*. Vendors in that segment publish conversion metrics, not accuracy metrics. AlphaSense — the closest to an analyst-grade product — substitutes **auditability** for accuracy: "granular citations", "deep-dive access to underlying content", "fully auditable" [T1]. That is a *verifiability* claim, not a *correctness* claim, and it is the standard move in this market.
 
 ### 4b. Confidence scoring & calibration
 
-_pending_
+Two genuinely different traditions, and the difference is instructive.
+
+**(i) Intelligence tradecraft — ICD 203 (Intelligence Community Directive 203, "Analytic Standards")** [T1, intelligence.gov]. The governing standard for all-source analysis, and the cleanest available specification of how to express uncertainty in exactly this kind of "what happened → so what" product:
+- Analysts must **indicate and explain uncertainties associated with major judgments**.
+- **Likelihood and confidence are separate axes.** Likelihood of the event uses standardised probability language; **confidence in the judgment** is expressed as *high / moderate / low* and depends on the **quantity and quality of the underlying sources and how well the analyst understands the topic**.
+- ICD 203 **explicitly prohibits combining a confidence level and a likelihood term in the same sentence**, because it confuses the reader about which thing is uncertain.
+- Academic debate on whether the probability/confidence distinction survives contact with readers: Intelligence and National Security, Vol 39 No 4 [T2].
+- ICD 203 has documented uptake in the private sector as a tradecraft import [T3, practitioner writing].
+
+**(ii) Commercial intent scoring — a calibrated-deviation score, not a confidence statement.**
+- **Bombora Company Surge** [T1 customer docs + T3]: score **0–100** where **50 = average consumption**; **≥60 is "spiking"** — "a statistically significant increase in consumption of the given topic compared to their baseline activity". Measured as **aggregated account-level intent over a 3-week period relative to a 12-week baseline**. Inputs to the score: number of topic events, number of unique users at the business researching the topic, topic relevancy weight, and depth of content engagement. Bombora's own threshold guidance: **"setting scores at a minimum of 60"**, and a **topic threshold of at least 25% of the total topics in your report or cluster**.
+- **ZoomInfo Signal Score** [T3]: 60–100, same shape — "how far recent content consumption sits above that company's historical baseline".
+- Practitioner guidance: audit match-rate accuracy quarterly; filter signals below confidence thresholds so reps don't chase unreliable leads; layer a broad-reach provider with a high-confidence source plus first-party data [T3].
+
+**The synthesis that matters:** the commercial world has calibration for the *detection* step (is this signal real?) and nothing for the *implication* step (is this conclusion right?). ICD 203 has a mature, mandated vocabulary for exactly the implication step. Nobody in the commercial account-intelligence market appears to have imported it.
 
 ---
 
 ## 5. Vocabulary of the "so what" step
 
-_pending_
+The move from "this happened" to "therefore we should" has **no single industry-standard term**. It has four vocabularies, and which one a buyer uses tells you which world they come from.
+
+**(a) Sales / GTM vocabulary — event-centric, about timing.**
+
+| Term | Precise meaning as used | Note |
+|---|---|---|
+| **Trigger event** | An observable change at a target account (funding, hiring, exec change, tech change) indicating increased likelihood to buy | The oldest term; "trigger-event selling" is the named practice |
+| **Buying trigger** | A discrete, **dated** event with an **urgency clock** — funding, exec change, M&A. Moves a buyer from passive to active | Distinguished from "signal" by having a date and a clock [T3] |
+| **Buying signal** | An observable **behavior** — site visits, hiring posts, tech-stack changes | Continuous, not dated |
+| **Buying intent** | The **probability score** you get when you weight signals and triggers by ICP fit and **recency decay** | The scored synthesis of the two above |
+| **Signal-based selling** | The methodology: "every outreach decision is driven by real-time buying signals rather than static lists" | The 2023– category name |
+| **Propensity** | Modelled likelihood to buy / to churn / to expand | Statistical framing, usually from a model not an event |
+| **Next best action** | The recommended action output | Borrowed from banking/CRM |
+
+The signal / trigger / intent three-way split is the most precise piece of vocabulary in the sales world and is worth adopting verbatim: *signals are behaviors, triggers are dated events with a clock, intent is the weighted score* [T3].
+
+**(b) Account-planning vocabulary — account-centric, about opportunity shape.**
+
+- **Whitespace / white space analysis** — mapping the customer's business units and needs against the full product portfolio, flagging where they own nothing or only part of a solution, and ranking those gaps by revenue potential and fit [T3, Altify/Upland — the originators of the term in this sense].
+- **Relationship map / stakeholder map** — the political structure and influence web inside the account; "connects whitespace opportunities directly to key stakeholders and influencers".
+- **Buying influence** — Miller Heiman's term for a role in the decision (Economic / User / Technical Buyer, Coach).
+- **Red flags** — Miller Heiman's term for what is unknown or adverse in the deal; the Blue Sheet's explicit "what could kill this" field.
+- **Account health**, **growth potential** — Gold Sheet vocabulary.
+
+**(c) Intelligence / CI tradecraft vocabulary — judgment-centric, about the reasoning itself.**
+
+- **Implications** — the operative word in SCIP's own definition of CI: intelligence "regarding the **implications** of business environment, competitors, and the organization itself" [T3 quoting SCIP]. This is the closest thing to a formal name for the "so what" step.
+- **Actionable intelligence** — "data organized and interpreted to reveal underlying patterns, trends, and interrelationships", as distinct from raw information.
+- **Analytic judgment / assessment** — the ICD 203 term for the conclusion itself.
+- **Tradecraft** — the named discipline of doing step 5 well; defined as ensuring "dedication to objectivity, and delivery of products to the right people in time to be useful in their decision-making".
+- **"So What?"** survives as an informal but widely used section heading in briefing templates [T3 — commonly asserted, not formally standardised; see Unverified].
+
+**(d) Financial-services vocabulary — exposure-centric, about consequence.**
+
+- **Early warning indicator (EWI)** — the watchable metric or event.
+- **Alert** with a **severity level** and an **associated immediate action plan**.
+- **Watchlist** — the state an account moves to.
+- **Affected exposures / counterparty impact** — the fan-out from event to portfolio.
+- **Risk driver** — the specific cause surfaced on the analyst's dashboard.
+
+**The packaging-relevant conclusion:** if the target buyer is a sales org, the "so what" step must be called *trigger / signal / intent*. If it is a bank or an asset manager, it must be called *early warning indicator / alert / affected exposure*. If it is a research or strategy function, it must be called *implications / assessment*. Using the wrong vocabulary reads as off-domain immediately — and there is no neutral term that works in all three.
 
 ---
 
