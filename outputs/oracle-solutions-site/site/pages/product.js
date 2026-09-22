@@ -110,19 +110,13 @@
       "</button></div>";
   }
 
-  /* Where the walkthrough button goes. `demoUrl` is the canonical, relative
-     path — the walkthrough ships inside site/ and deploys with it. But while the
-     site itself is previewed as a claude.ai artifact, a relative link opens the
-     artifact's supporting file as a top-level page, which the artifact host
-     refuses (ERR_BLOCKED_BY_RESPONSE); there the button goes to the standalone
-     demo artifact in `demoPreviewUrl` instead. On any other host the relative
-     path is used and `demoPreviewUrl` is ignored. */
+  /* Where the walkthrough button goes — the same resolution the demo badge
+     uses, so the two controls cannot open different things (round 9). It lives
+     in assets/app.js with the badge; the fallback keeps this page working if
+     it is ever rendered without the shared layer. */
   function demoHref(conf) {
-    if (!conf.demoUrl) return "";
-    var onArtifactHost = /(^|\.)claude\.ai$/i.test(window.location.hostname) ||
-      /\/code\/frame\/|\/_f\//.test(window.location.pathname);
-    if (onArtifactHost && conf.demoPreviewUrl) return conf.demoPreviewUrl;
-    return conf.demoUrl;
+    if (window.UI && typeof window.UI.demoHref === "function") return window.UI.demoHref(conf);
+    return conf.demoUrl || "";
   }
 
   function heroCtas(product, hasMedia) {

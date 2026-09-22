@@ -24,8 +24,7 @@ meta:
   source_engagement:
     customer: "<the delivery customer — a global logistics and supply-chain operator>"
     delivered: >-
-      A global logistics and supply-chain operator: a contracted proof of concept on NVIDIA AI-Q over
-      OCI, turning external signals and first-party account context into per-account opportunity and
+      A contracted proof of concept on NVIDIA AI-Q over OCI, turning external signals and first-party account context into per-account opportunity and
       risk records — scored, cited and reviewed in a purpose-built reviewer UI, across seven external
       data sources. Contracted; results follow the proof of value.
     divergence_line: >-

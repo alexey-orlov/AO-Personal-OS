@@ -30,13 +30,14 @@
     return "#/products" + (parts.length ? "?" + parts.join("&") : "");
   }
 
-  /* Both availability facets read the same config booleans the badges read, so
-     a filter and a badge can never disagree about whether the thing exists. */
-  var AVAILABILITY_FLAG = { demo: "video", marketplace: "marketplace" };
-
+  /* Both artifact facets read exactly what the badges read, so a filter and a
+     badge can never disagree about whether the thing exists. Round 9: the
+     interactive demo is a walkthrough at `demoUrl`, not the `video` flag — that
+     one only decides whether the product page carries a video frame. */
   function hasFlag(product, option) {
+    if (option === "demo") return window.UI.hasDemo(product.slug);
     var entry = window.SITE_CONFIG.products[product.slug] || {};
-    return entry[AVAILABILITY_FLAG[option]] === true;
+    return entry.marketplace === true;
   }
 
   /* Both availability checkboxes always render, with the faceted count beside
@@ -152,37 +153,31 @@
     var C = window.SITE_CONTENT;
     var avail = availabilityOptions();
 
-    /* The platform list offers what a click returns, so a platform with no
-       match today is simply not in it. The one exception is the platform the
-       reader arrived on: a saved link keeps rendering its own option, selected,
-       above the result that explains it. */
+    /* Round 9 (Alex): both radio groups are FIXED lists — every platform a
+       product can run on, every group, always in canonical order, so the rail
+       has one shape whatever the catalog holds today. A count is what a click
+       returns; zero prints no number and its option is unclickable, unless it is
+       the one a deep link arrived on, which renders selected above its own empty
+       state. "Oracle AI for Fusion Applications" carries `catalog: false` and is
+       not offered at all: no product runs on it, and it is on the page as a
+       platform the practice delivers on, not as a filter. */
     var tech = [railOption({
       group: "tech", value: "", label: C.facets.allLabel, on: !state.tech
-    })].concat(C.facets.technology.map(function (facet) {
-      return { facet: facet, count: filtered({ tech: facet.id }).length };
-    }).filter(function (entry) {
-      return entry.count > 0 || state.tech === entry.facet.id;
-    }).map(function (entry) {
+    })].concat(C.facets.technology.filter(function (facet) {
+      return facet.catalog !== false;
+    }).map(function (facet) {
       return railOption({
-        group: "tech", value: entry.facet.id, label: entry.facet.label, title: entry.facet.fullLabel,
-        on: state.tech === entry.facet.id, count: entry.count
+        group: "tech", value: facet.id, label: facet.label, title: facet.fullLabel,
+        on: state.tech === facet.id, count: filtered({ tech: facet.id }).length
       });
     })).join("");
 
-    /* The group list follows the platform list's rule (§18.9): it offers what a
-       click returns, so a group whose products are all still engagements is not
-       in it — except when the reader arrived on it from a home tile, where its
-       own option renders selected above the group's empty state. */
     var cats = [railOption({
       group: "cat", value: "", label: C.facets.allLabel, on: !state.cat
     })].concat(C.facets.categories.map(function (category) {
-      return { category: category, count: filtered({ cat: category.id }).length };
-    }).filter(function (entry) {
-      return entry.count > 0 || state.cat === entry.category.id;
-    }).map(function (entry) {
       return railOption({
-        group: "cat", value: entry.category.id, label: entry.category.chip, title: entry.category.full,
-        on: state.cat === entry.category.id, count: entry.count
+        group: "cat", value: category.id, label: category.chip, title: category.full,
+        on: state.cat === category.id, count: filtered({ cat: category.id }).length
       });
     })).join("");
 
