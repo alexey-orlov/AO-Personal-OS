@@ -346,11 +346,53 @@ No vendor except Klue makes review a stage; Salesforce's version is a mode toggl
 
 ### B0. Sub-job decomposition used for judging
 
-_pending_
+Competitors are judged per sub-job, not per category label. Seven sub-jobs, derived from the A2 map by collapsing the over-splits found in A4:
+
+| # | Sub-job | Plain-English test |
+|---|---|---|
+| **SJ-1** | **Own the corpus** | Do you have the sources, licensed, at coverage? |
+| **SJ-2** | **Normalize the signal** (entity-resolve + dedupe + relevance) | Can you say "this story, once, is about *our* Acme Inc."? |
+| **SJ-3** | **Ground in first party** | Can you see our CRM, our conversations, our service history — with permissions honoured? |
+| **SJ-4** | **Reason the "so what"** | Can you get from event → implication for this account? |
+| **SJ-5** | **Map to our own offerings** | Can you say which of *our* service lines this implication buys? |
+| **SJ-6** | **Package + deliver where work happens** | Does it land in the meeting, the CRM, the Slack channel, the assistant? |
+| **SJ-7** | **Govern it** (triage, review, confidence, audit, feedback) | Can a human stand behind it in front of a client? |
 
 ### B1. Direct competitors — sells this job
 
-_pending_
+**Who wins each sub-job:**
+
+| Sub-job | Winner | On what dimension | Runner-up |
+|---|---|---|---|
+| SJ-1 corpus | **AlphaSense** (500M+ licensed docs incl. broker research, expert calls) / **Factiva** (licensed for named GenAI uses, ~350k taxonomy codes) | *Licensing*, not crawling. Structurally unbeatable by a build. | Moody's (ratings + Orbis) for credit |
+| SJ-2 normalize | **Factiva** (DJID codes ↔ ticker/CUSIP/DUNS/ISIN) | Identifier cross-walk, i.e. it survives contact with a messy CRM | 6sense Company Graph; Common Room Person360 (person-level) |
+| SJ-3 first party | **Microsoft Copilot for Sales** | Depth + documented **permission-trimming**; CRM + Outlook + Teams natively | Salesforce Agentforce (Data Cloud); Common Room (CRM+product+Gong) |
+| SJ-4 "so what" | **AlphaSense Deep Research / Workflow Agents** | Analyst-grade output with granular citations; schedulable | Common Room RoomieAI Capture; Salesforce Account Management agent |
+| SJ-5 map to own offerings | **LinkedIn Sales Navigator Account IQ** — *and it is weak* | Only shipped "why your product is a good fit" surface. Free-text product description, not a catalog. | Introhive (service-line whitespace, professional services); Salesforce Engagement Agent (sales plays) |
+| SJ-6 package + deliver | **Salesforce Agentforce** (Slack + ChatGPT + mobile) / **Common Room** (Slack + daily email) | Distribution into the incumbent workflow | Microsoft (Outlook/Teams cards); Clay (CRM, Slack, ads, sequencer) |
+| SJ-7 govern | **Klue** (Intel Triage + win-loss feedback) | The only shipped human-in-the-loop *stage* | Moody's Automated Credit Memo ("fully written and **editable** narrative") |
+
+**The nine direct competitors, with what they actually sell:**
+
+1. **AlphaSense** — sells SJ-1 + SJ-4. Deep Research + Workflow Agents + Enterprise Intelligence (internal document libraries alongside the licensed corpus, "20+ everyday work systems" via Connectors, SCIM user management, entitlements). **Does not sell SJ-5**, and CRM is not a documented connector [T1 developer docs — see `## Unverified`]. Wins on evidence quality and citation granularity; loses on CRM grounding and on catalog mapping.
+
+2. **Common Room (now Zoom-owned)** [T2 acquisition] — the **closest single product to the whole job**. `Person360™` (identity unification across CRM, product, marketing, engagement) + `RoomieAI™ Capture` (account research over "earnings calls, 10-Ks, news articles, podcasts" *and* "Gong recordings, CRM records, product usage data", against **user-chosen research topics**, results surfaced in the account profile and filterable into workflows) + `RoomieAI™ Spark` / **Spark Brief** (a **daily morning email** summarizing "the most interesting buyer activity across your book of business" — web-visit spikes, job changes, company news — plus contacts, "who to engage, why they matter, and what to do next"). Claims "60 minutes to 60 seconds" and "90% on research time" [T3 blog]. **Docs make no mention of dedup, entity resolution at company level, confidence, citations, or human review** [T1 docs]. Wins SJ-3+SJ-4+SJ-6 combined; loses SJ-5 and SJ-7 entirely.
+
+3. **Microsoft 365 Copilot for Sales** — wins SJ-3 outright. Meeting-prep card, account/opportunity summary, admin-configurable summary fields, permission-trimmed answers. **No documented external news ingestion** on the current Learn pages. Loses SJ-1 and SJ-5.
+
+4. **Salesforce Agentforce** — the **Account Management Agent** is the single closest named product to the brief: "embedded account research with company overviews, key performance indicators, competitive insights, and industry trends", "always-up-to-date account intelligence pulling from **Salesforce, web, third-party sources, conversations, and enablement materials**", delivered as "account briefs and meeting preparation in Slack/ChatGPT/mobile" [T3 salesforce.com]. Note "**enablement materials**" — that is the nearest thing to SJ-5 shipped by a CRM vendor, but it is retrieval over collateral, not a mapping to a structured service catalog. Wins SJ-6; strong on SJ-3; weak on SJ-1.
+
+5. **Aomni** — sells exactly this job to sellers: research → strategy → engagement, "1,000+ data points per account from 20+ sources", structured account strategy with per-stakeholder messaging; claims ~3 hours saved per prospect [T3 only — aomni.com returned 503, all claims are secondary; see `## Unverified`]. **Notable: Oracle and NVIDIA are cited as customers** [T3] — relevant to Part B3 framing.
+
+6. **Rox** — "a single **System of Context** — a unified data fabric that blends your private CRM data with public intelligence", with per-account agent swarms (account monitoring, prospecting, CRM enrichment); $1.2B valuation Mar 2026 [T2/T3]. Its own homepage documents only an **Outbound Agent** and carries a disclaimer that autopilot features "operate within user-defined parameters and require initial configuration and ongoing oversight" [T1]. The *positioning* is a direct hit on this job; the *documented* surface is much narrower. See `## Unverified`.
+
+7. **Introhive** — the professional-services-firm answer, and **the only vendor whose value proposition is explicitly service-line cross-sell**. Ships `Signals` ("proactively surface critical signs of risk or opportunity"), `AI account summaries`, `Pathways` (2nd/3rd-degree relationships), `Champion Tracking`, `Alumni Tracking`, `Lonely Client Analysis`, `Succession Planning`, and **"pre-meeting and on-demand email digests packed with rich insights into critical events like leadership changes or industry news to help identify opportunities to offer new services"** [T3 introhive.com]. Named verticals: legal, accounting, consulting, built environment. This is the nearest competitor to a *seller-catalog-aware* briefing, and it is aimed at exactly the buyer a professional-services accelerator pack would target.
+
+8. **Moody's** — the financial-services direct competitor, and the most *complete* one on governance. `Research Assistant` ("generates bespoke company or sector research for **client meeting preparation** in business development", claims up to 30% research time saved), `Early Warning System` ("monitors headlines and alerts clients to breaking news that may impact **their portfolios**" — signal → portfolio mapping, i.e. SJ-2 at book level), `Loan Monitoring` ("risk prioritization by identifying trends and patterns across your portfolio"), `Automated Credit Memo` ("fully written and **editable** narrative" — an explicit human-edit step) [T1 moodys.com]. Also `QUIQspread`, `Automated Covenants`.
+
+9. **ZoomInfo GTM Workspace + Klue** (a pair, not one product) — ZoomInfo wins the signal feed (15+ types, 1,000/day, grouped by account); Klue wins triage and the curated artifact. Neither alone does the job; together they approximate it. That they are *not* one product is itself a market observation.
+
+**What the B1 table says in one line:** no single direct competitor wins more than three of the seven sub-jobs, and **SJ-5 (map to the seller's own offerings) has no strong winner at all** — LinkedIn's version is a free-text blurb and Introhive's is a relationship-graph inference, not a catalog mapping.
 
 ### B2. Indirect substitutes — solves the pain another way
 
