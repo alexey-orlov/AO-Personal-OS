@@ -484,22 +484,19 @@ oracle_products:                           # components 9 and 10 — catalog ids
   - id: oci
     role: required
     why: "The tenancy the pack runs in — OCI Kubernetes Engine for the services, Object Storage for sources and artifacts, Oracle AI Database for the index, API Gateway for exposure; each is a row on the architecture's infrastructure layer, the platform is this one entry"
-    integration: "Every tier."
 
   - id: oci-dedicated-ai-cluster
     role: required
     why: "The pack's engine runs on reserved GPU capacity here — this is the Oracle dependency, and the commercial hook: the engagement lands as client-committed cluster capacity"
-    integration: "PoV Jumpstart and every tier above. There is no version of this pack that does not run on it."
 
   - id: oracle-ai-vector-search
     role: optional
     why: "The natural Oracle home for the pack's retrieval index. Optional, not required — NVIDIA's own AI-Q-on-OCI reference deployment ships Milvus, so the Oracle store is a deliberate substitution and a real upsell, never an assumption"
-    integration: "Integration tier, where the index moves off the reference stack onto the customer's own Oracle estate."
 
   - id: oracle-cx
     role: optional
     why: "The account system of record at the ingress end and the delivery target at the egress end — the pack supplies the external-signal half that Oracle's own account intelligence is first-party-only by design"
-    integration: "PoV Jumpstart: an agreed extract in, file out. Integration: API both ways."
+    integration: { pov: "an agreed extract in, file export out", integration: "API both ways", scaling: "live write-back with idempotency and dedupe-on-write" }
     note: >-
       The single most commercially relevant entry on this list, and the one that carries the
       anchor story. `optional` by precedent: the owner moved Oracle Fusion Field Service to
@@ -510,7 +507,6 @@ oracle_products:                           # components 9 and 10 — catalog ids
   - id: oracle-ai-agent-studio
     role: optional
     why: "The approved pattern for a partner-developed agent to sit alongside Fusion — external agents and MCP are otherwise contractually barred from Fusion"
-    integration: "Integration tier, and only for customers running Fusion. Not a dependency of the pack itself."
 
 kpis:                                      # component 11 — ONE metric set
   # From the section deck's own statement of what the engagement measures: "Focus: accuracy +
@@ -547,7 +543,7 @@ kpis:                                      # component 11 — ONE metric set
   # with no stated method; none may be reused.
 
 packages:                                  # component 12
-  anchor_line: "Anchored to Oracle Cloud Infrastructure — every run is OCI GPU consumption an Oracle account exec can sell; Oracle CX is the natural system of record."
+  anchor_line: "Runs on OCI — every run is GPU consumption an Oracle account exec can sell; Oracle CX is the natural system of record."
   tier_vocabulary_note: "PoV Jumpstart / Integration / Scaling per decisions-2026-09-18. S/M/L survive only as internal size tags."
   tiers:
     - id: pov
