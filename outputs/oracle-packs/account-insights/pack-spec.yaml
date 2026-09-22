@@ -445,17 +445,19 @@ architecture:                              # component 8 — PROPOSED
     - system: Organization context
       data: "records and framing from the system of record, the catalog of moves"
   outputs:
-    - system: Systems of record — CRM, deal pipeline or portfolio tracker
-      data: "structured per-account records"
+    - system: "Any CRM or CX platform — Oracle Customer Experience (CX) included"
+      data: "structured per-account records, routed to the owner"
   stack:
     - layer: Custom configuration
       vendor: SoftServe
       items: ["In-scope account list and tiering", "Reasoning and ripple rules per domain", "Catalog-of-moves capture and mapping logic", "Scoring rubric and thresholds"]
-    - layer: Accelerator business app
+    - layer: Account Insights by SoftServe
+      name: Account Insights by SoftServe
       vendor: Oracle + SoftServe
       summary: "normalize · fan out · reason · map · score · reviewer UI"
       items: ["Signal normalization and account resolution", "Catalog mapping and ripple reasoning", "Magnitude and confidence scoring", "Reviewer UI and evaluation harness"]
-    - layer: Agentic engine
+    - layer: NVIDIA AI-Q on NeMo Agent Toolkit
+      name: NVIDIA AI-Q on NeMo Agent Toolkit
       vendor: NVIDIA
       catalog_id: nvidia-aiq
       items: ["Agentic orchestration and deep research", "Retrieval, reranking and citation verification"]
@@ -609,29 +611,29 @@ packages:                                  # component 12
   capability_handling:
     - area: Grounding & sources
       maps_to_feature_areas: [Account universe & grounding]
-      pov: "◐ One set of companies, an agreed extract from the system of record and a bounded, licence-cleared source set"
-      integration: "● The client's own licensed commercial feeds, maintained against a versioned catalog of moves"
-      scaling: "●● Multi-source, multi-market, with a licensed relationship graph behind the ripple reasoning"
+      pov: "◐ One set of companies; an agreed extract; a bounded, licensed source set"
+      integration: "● Their own licensed feeds; a versioned catalog of moves"
+      scaling: "●● Multi-source, multi-market; a licensed relationship graph"
     - area: Signal normalization
       maps_to_feature_areas: [Signal intake & normalization]
-      pov: "◐ Relevance, de-duplication and account resolution on the agreed segment; both trigger paths"
-      integration: "● Recurrence as a standing subscription per account, with delta reasoning and a nothing-material state"
+      pov: "◐ Relevance, de-duplication, account resolution; both trigger paths"
+      integration: "● Standing subscription per account; what changed; nothing-material state"
       scaling: "●● Deadline-bound triggers and provenance-class gating"
     - area: Implication reasoning
       maps_to_feature_areas: [Implication reasoning]
-      pov: "● Opportunity and risk reasoning, next-move mapping, descriptive ripple to two levels, magnitude and confidence scoring"
+      pov: "● Opportunity and risk reasoning; next-move mapping; ripple to two levels; scoring"
       integration: "● Dual implication routed to separate owners; configurable catalog target"
       scaling: "●● Graph-backed ripple, portfolio aggregation, cost-aware ranking"
     - area: Review & evidence
       maps_to_feature_areas: [Review & evidence]
-      pov: "● Reviewer UI, citations and chain of thought, evaluation harness, feedback capture"
+      pov: "● Reviewer UI; citations; evaluation harness; feedback capture"
       integration: "● Human triage of raw inbound; negative assertion recorded as a result"
       scaling: "●● Feedback-driven tuning as a persisted loop; point-in-time replay"
     - area: Output & delivery
       maps_to_feature_areas: [Output & delivery]
-      pov: "◐ Structured records exported as files; reviewer decisions captured, never written back"
-      integration: "● Export to the client's system of record and routing to the named account owner"
-      scaling: "●● Live write-back with idempotency, plus outcome capture feeding scoring"
+      pov: "◐ Records exported as files; reviewer decisions captured, not written back"
+      integration: "● Export to the system of record; routing to the owner"
+      scaling: "●● Live write-back; outcome capture feeding scoring"
   why_it_sells_for_the_partner:
     - "Net-new OCI consumption: recurring GPU and inference workloads on dedicated OCI clusters, driven by signal volume rather than seat count"
     - "Complements Oracle's own account intelligence — Sales Command Center works on first-party CX data; this pack brings the external signal and the next move"
@@ -640,6 +642,7 @@ packages:                                  # component 12
   source: research-brief-2026-09-22, decisions-2026-09-18
 
 deck:
+  running_header: "Oracle AI & Data Solutions"
   vertical_case: "Vertical case: a logistics operator's key-account team"
   seller_lead: "What this pack does for an Oracle account team's number."
   cta: "Ready to test the fit on one customer's accounts?"
