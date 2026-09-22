@@ -532,7 +532,7 @@ This file is about the product pages; the home page differs from them **by compo
 
 | # | Screen | Component, in one line |
 |---|---|---|
-| S1 | **Hero** — `overview.hero` | Full-bleed, two **even** columns (`minmax(0, 6fr)` twice since round 9, up from 7/5, because at 5 columns' width the stack's tiles could not hold a group name): eyebrow, the **four-line H1**, a ≤ 45-word lead and two buttons on the left; the **three-layer stack** on the right (anatomy below). Single column below 1100 px, the stack under the copy and left-aligned. The **three-tile** `stat-band` sits directly under it (see *The proof strip* below). |
+| S1 | **Hero** — `overview.hero` | Full-bleed, two **even** columns (`minmax(0, 6fr)` twice since round 9, up from 7/5, because at 5 columns' width the stack's tiles could not hold a group name): eyebrow, the **three-sentence H1**, a ≤ 45-word lead and two buttons on the left; the **three-layer stack** on the right (anatomy below). Single column below 1100 px, the stack under the copy and left-aligned. The **three-tile** `stat-band` sits directly under it (see *The proof strip* below). |
 | S2 | **Two ways in** — `overview.twoWays` | An inset two-panel block sharing one hairline: each panel a bordered mark, H3, body, three ticked bullets and one down-arrow link pinned to the bottom, so the two CTAs land on one baseline. Unchanged in round 9 except its copy — the left panel repeats the H1's *Enterprise AI agents and workflows*, the right one is about the services, not the people who build them. |
 | S3 | **Products** — `overview.catalog` + `facets.categories` | The `home-head` (eyebrow · H2 · lead · the right-aligned *See all products, with filters*), then **six group tiles** in a 3 × 2 grid — `.gtiles` / `.gtile`, anatomy below. No product names on this screen at all (Alex, round 9). |
 | S4 | **How we deliver** — `overview.delivery` | A 60/40 split: a horizontal three-step ladder on a hairline track at left, each step carrying one labelled fact and the block carrying the figures' footnote; three inset pillar cards at right; **one button** under the ladder (the row takes 1–2 CTAs; the quiet second one was removed in §18.8). |
@@ -550,11 +550,13 @@ The rules that carry over, unchanged:
 - **Motion is three things:** the stack's connector lines draw in over ~1.2 s on load, sections reveal on scroll through the existing `.reveal` mechanism, and free-standing cards answer hover with a surface step and a 1.071 image scale (joined panels change surface colour instead, since a lift would break the shared hairline). No lift and no shadow anywhere — SS26 (`docs/SS26-THEME.md` §6). Everything collapses to instant under `prefers-reduced-motion`, with the drawn state as the resting state.
 - **Accessibility:** one H1, an H2 on every screen, the stack visual `role="img"` with its `aria-label` from `hero.stack.ariaLabel` and its internals `aria-hidden`, every icon decorative, and each group tile one link whose accessible name is the group name and its line.
 
-**S1's H1 is four lines, one of them accented.** `headline.lead` · `headline.accent`
-· `headline.proof`, each `display: block`, all three at the same size, with only the
-accent line coloured; at 1440 the lead wraps to two lines at the 64 px step, so the
-block reads as four. At 375 it sets 32 px over four lines and at 320 over five —
-each sentence still breaking on its own, no orphaned word.
+**S1's H1 is three sentences, each opening its own line, and one of them accented.**
+`headline.lead` · `headline.accent` · `headline.proof`, each `display: block`, all
+three at the same size, with only the accent line coloured. The first sentence
+wraps, so the block reads as more lines than sentences: **measured at 375 it sets
+32 px over four lines, and at 320 over five** (*Enterprise / AI agents / and
+workflows. / Built on Oracle. / Proven in weeks.*) — every sentence still starting
+its own line, and no orphaned word on any of them.
 
 **S1's stack — the anatomy** (`.bo`, max-width 42 rem, `grid-template-rows: auto`
 throughout):
