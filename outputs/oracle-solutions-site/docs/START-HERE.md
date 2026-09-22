@@ -60,10 +60,10 @@ These are Alex's working assumptions as of 2026-09-17, and **each one is still t
 
 | Route | What it does | Record |
 |---|---|---|
-| `#/` Home | Seven screens: <br>• hero with the built-on stack and a three-figure strip <br>• two ways in <br>• the agents by what they do <br>• how we deliver <br>• anonymized case studies (Proven / Forecast / Estimated) <br>• About SoftServe (the page's one light band) <br>• contact | PROVENANCE §18 |
-| `#/products` | Catalog with a facet rail (platform, what it does, availability) and tiles. It never prints a total, a denominator or a zero-count platform. | §17, §18.9 |
+| `#/` Home | Seven screens: <br>• hero — a three-line H1, the **three-layer stack** (Oracle platforms → SoftServe product groups → SoftServe services, read bottom-up) <br>• the three-figure proof strip, led by **from 30 days** <br>• two ways in (products · services) <br>• **six group tiles**, each an image, a one-liner and a link into the filtered catalog <br>• how we deliver <br>• anonymized case studies (Proven / Forecast / Estimated) <br>• About SoftServe (the page's one dark band) <br>• contact | PROVENANCE §18, §28 |
+| `#/products` | Catalog with a facet rail (Oracle platform · what it does · Artifacts) and tiles. **Both radio rails are fixed lists** in canonical order — three platforms and all six groups, always — with a zero-count option disabled and printing no number; the one a deep link arrived on renders selected above its own empty state. *Oracle AI for Fusion Applications* is not offered (`catalog: false`): no product runs on it. No total, no denominator. `?cat=<id>` and `?tech=<id>` are both honored. | §17, §18.9, §28 |
 | `#/products/<slug>[/<tab>]` | Seven product pages. <br>• Tabs: Overview · Technology · Jumpstart · Contacts · For sellers (that product's sales-kit request). <br>• Three products have an interactive walkthrough under `site/demo/`. | §15–§19, §22, §24 |
-| `#/services` | Three screens, one message each, then contact: <br>• *Frontier AI on Oracle* (the practice) <br>• *Every step has a number* (Discovery → proof of value → Integration → Scale) <br>• *Not a project. A proof.* (4–8 weeks) | §21, §23 |
+| `#/services` | Three screens, one message each, then contact: <br>• *Frontier AI on Oracle* (the practice, with the four platform cards under their full Oracle names) <br>• *Every step has a number* (Discovery → Jumpstart proof of value → Integration → **Scaling**) <br>• *Not a project. A proof.* (4–8 weeks) | §21, §23, §28 |
 | `#/sellers` | *Get the sales kit*, for all offers or one product (work email at softserveinc.com or oracle.com). Below it, the demo form for a seller who already has an account in mind. | §24 |
 
 - **Header:** Products · Services, plus *Talk to us*. *For sellers* is not in the header (Alex, 2026-09-17).
@@ -78,8 +78,11 @@ These hold unless Alex changes them, and `tools/check-grammar.js` enforces most 
 - **No customer names or logos** in anything shipped. Describe customers by industry and scale. The checker and the deny-list grep both enforce this.
 - **No Oracle partner-standing claim**: no tier, no award. What may be said is joint delivery with Oracle's AI & Data organization.
 - **Naming:**
-  - Oracle products: "Oracle Autonomous AI Lakehouse", "Oracle AI Data Platform" (never "AIDP"), "Oracle AI for Fusion Applications", "OCI".
-  - NVIDIA products: "NVIDIA", "AI-Q", "cuOpt".
+  - **The six product groups**, in this order and these exact words, on the hero stack, the home tiles, the rail and every product chip (`chip` equals `full`, so a group has one name): **Enterprise knowledge & analytics · Deep research & investigation · Document processing · Transaction & process execution · Forecasting & optimization · Video & image intelligence.**
+  - **Oracle platforms, two forms of each name** (round 9): the **short label** on the rail, the product chips, the tile image band, `tags[1]` and the hero stack — *AI Lakehouse · AI Data Platform · AI for Fusion Applications · OCI + NVIDIA NeMo* — and the **full Oracle product name** on the Services platform cards and in prose: *Oracle Autonomous AI Lakehouse · Oracle AI Data Platform* (never "AIDP") *· Oracle AI for Fusion Applications · Oracle Cloud Infrastructure + NVIDIA NeMo*. One canonical order, that one, everywhere. "OCI" alone is still fine in running text.
+  - **The delivery tiers are Jumpstart proof of value · Integration · Scaling** — never "Scale" as a tier title (the hero stack says *Scaling*, and one page may not carry both words for one thing). "Scale" as a verb in prose is untouched.
+  - **The walkthrough is an "Interactive demo"** — the badge, the rail checkbox and the tooltip all say it, under the *Artifacts* group. "Demo" alone is retired as a label.
+  - NVIDIA products: "NVIDIA" (never "Nvidia"), "AI-Q", "cuOpt", "NeMo".
   - GigaCloud never appears.
 - **Prices:**
   - No € figures on Services.
