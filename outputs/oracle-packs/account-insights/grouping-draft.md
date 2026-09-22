@@ -1,4 +1,4 @@
-# Feature list — one-page grouping draft (2026-09-22, awaiting the skill's grouping rule)
+# Feature list — one-page grouping (2026-09-22) — APPLIED to the brief at 24 rows (the fold path below); kept for the record
 
 _Alex: "Feature list should fit into 1 page, that's requirement. Always think about generalizing and grouping." 52 features → 25 rows by merging peers of the same status inside a category. One status per row (a row never mixes available and roadmap). Roadmap detail survives in the row's own wording. To be re-cut to the rule the skills session writes._
 

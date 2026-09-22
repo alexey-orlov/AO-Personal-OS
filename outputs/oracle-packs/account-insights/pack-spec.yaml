@@ -171,127 +171,161 @@ verticals:                                 # component 5 — PROPOSED, see open_
     source: one-pager-2026-09-10, user:2026-09-22
 
 capabilities:                              # component 6 — Area > Category > Feature
-  # Glyphs per decisions-2026-09-18: ● available · ◐ partial · ○ roadmap. What the Oracle + NVIDIA
-  # baseline provides per feature is a research lens, kept beside the brief in
-  # oracle-baseline-lens.md — the schema's feature entries carry only what the artifacts print.
-
-  - area: Account universe & grounding
-    stage: Ground it
-    customization_scope_area: >-
-      In-scope account list definition · CRM field mapping and account-framing extraction ·
-      Per-client service-catalog capture · Signal-source selection and licensing review
-    categories:
-      - name: The account universe
-        features:
-          - { name: In-scope account list and tiering, status: partial, tier_first_available: pov, source: one-pager-2026-09-10 }
-          - { name: Account framing from CRM (the relationship in the client's own words), status: partial, tier_first_available: pov, source: reviewer-ui-2026-09-11, note: "An agreed CRM extract at PoV Jumpstart; API at Integration" }
-          - { name: Entity grouping by legal hierarchy rather than name match, status: roadmap, specificity: [use_case], source: research-brief-2026-09-22 }
-      - name: Sources
-        features:
-          - { name: "Signal ingestion — news, filings, disclosures", status: partial, tier_first_available: pov, source: one-pager-2026-09-10 }
-          - { name: Commercial data feeds, status: partial, tier_first_available: pov, source: one-pager-2026-09-10, note: "A bounded, licence-cleared source set at PoV Jumpstart; the client's own licensed feeds at Integration" }
-          - { name: Public filings via EDGAR and IR pages, status: partial, tier_first_available: pov, source: one-pager-2026-09-10 }
-          - { name: Service-line capability catalog from the client's own material, status: partial, tier_first_available: pov, source: one-pager-2026-09-10 }
-          - { name: Source-licensing and redistribution-rights gate, status: roadmap, source: research-brief-2026-09-22 }
-          - { name: Native multilingual processing, status: roadmap, source: one-pager-2026-09-10 }
-
-  - area: Signal intake & normalization
-    stage: Normalize it
-    customization_scope_area: >-
-      Relevance rules and thresholds per client · Account-matching rules · Cadence and
-      source configuration · Signal-type catalog definition
-    categories:
-      - name: Trigger
-        note: "Both entry points. The account-triggered path is the widening the pack adds over the delivered engagement."
-        features:
-          - { name: Signal-triggered — scheduled scan and manual submit, status: partial, tier_first_available: pov, source: one-pager-2026-09-10 }
-          - { name: Account-triggered — research one account on demand or before a meeting, status: partial, tier_first_available: pov, source: research-brief-2026-09-22 }
-          - { name: Recurrence as a standing subscription per account, status: roadmap, tier_first_available: integration, source: research-brief-2026-09-22 }
-          - { name: Deadline-bound trigger — emit ahead of a dated instrument with no new signal, status: roadmap, source: research-brief-2026-09-22 }
-      - name: Normalization
-        note: "Relevance filtering, de-duplication and entity resolution merged into one step — you cannot judge relevance before you know which entity the story is about."
-        features:
-          - { name: Relevance filter — is this a genuine signal, status: partial, tier_first_available: pov, source: one-pager-2026-09-10 }
-          - { name: De-duplication — one story across many sources becomes one signal, status: partial, tier_first_available: pov, source: one-pager-2026-09-10 }
-          - { name: Account resolution — which in-scope accounts a signal affects, status: partial, tier_first_available: pov, source: one-pager-2026-09-10 }
-          - { name: "Fan-out — one signal, one record per affected account", status: partial, tier_first_available: pov, source: one-pager-2026-09-10 }
-          - { name: Delta reasoning — what changed since the last delivered record, status: roadmap, source: research-brief-2026-09-22 }
-          - { name: Provenance class — filing · disclosure · reported · rumour · model output, status: roadmap, source: research-brief-2026-09-22 }
-
-  - area: Implication reasoning
-    stage: Reason it
-    customization_scope_area: >-
-      Reasoning prompts per domain · Ripple rules per domain · Client catalog and mapping
-      logic · Scoring rubric and thresholds per client
-    categories:
-      - name: Evidence
-        features:
-          - { name: Evidence assembly and ranking across first-party and public sources, status: available, tier_first_available: pov, source: one-pager-2026-09-10 }
-          - { name: Evidence set shown for review before the reasoning, status: roadmap, source: research-brief-2026-09-22 }
-          - { name: Contradiction between reliable sources surfaced as a finding, status: roadmap, source: research-brief-2026-09-22 }
-      - name: The implication
-        features:
-          - { name: Opportunity and risk reasoning — the "so what" per account, status: partial, tier_first_available: pov, source: one-pager-2026-09-10 }
-          - { name: "Dual implication — one signal yields an opportunity and a risk, routed separately", status: roadmap, tier_first_available: integration, source: research-brief-2026-09-22 }
-          - { name: Inference validity — does the conclusion follow from the cited evidence, status: roadmap, source: research-brief-2026-09-22 }
-      - name: Catalog mapping
-        note: "The pack's primary differentiator. No strong implementation exists in the market."
-        features:
-          - { name: Opportunity mapped to a named service line the client actually sells, status: partial, tier_first_available: pov, source: "one-pager-2026-09-10, reviewer-ui-2026-09-11" }
-          - { name: Catalog target configurable — offering · lever · mitigation · none, status: roadmap, source: research-brief-2026-09-22 }
-          - { name: "Demand-gap stream — implications that mapped to nothing, emitted as a product-gap feed", status: roadmap, source: research-brief-2026-09-22 }
-      - name: Ripple
-        note: "Zero implementation anywhere in the market, including Oracle and NVIDIA. The relationship edges are licensable today."
-        features:
-          - { name: "Cross-account ripple, descriptive, up to two levels", status: partial, tier_first_available: pov, source: one-pager-2026-09-10 }
-          - { name: Graph-backed ripple over a licensed relationship graph, status: roadmap, tier_first_available: scaling, source: research-brief-2026-09-22 }
-          - { name: Portfolio aggregation — correlated groups evaluated as the unit, status: roadmap, source: research-brief-2026-09-22 }
-      - name: Scoring
-        features:
-          - { name: Magnitude and confidence scored 0-10 per item, status: partial, tier_first_available: pov, source: "one-pager-2026-09-10, reviewer-ui-2026-09-11" }
-          - { name: Calibrated confidence tested against realized outcomes, status: roadmap, source: research-brief-2026-09-22 }
-          - { name: Cost-aware ranking under a capacity constraint, status: roadmap, source: research-brief-2026-09-22 }
-
-  - area: Review & evidence
-    stage: Review it
-    customization_scope_area: >-
-      Reviewer layout and workflow configuration · Evaluation set and rubric per client ·
-      Feedback fields per workflow
-    categories:
-      - name: The reviewer
-        note: "Oracle contractually assigns human oversight to the customer, which makes this blessed white space rather than merely unoccupied."
-        features:
-          - { name: "Reviewer UI — opportunities, sources, confidence, approve / reject with comment", status: available, tier_first_available: pov, source: reviewer-ui-2026-09-11 }
-          - { name: Citations and evidence traceability with visible chain of thought, status: available, tier_first_available: pov, source: one-pager-2026-09-10 }
-          - { name: Human triage of raw inbound before anything is written, status: roadmap, source: research-brief-2026-09-22 }
-          - { name: Reviewer disagreement analysed as a signal against the rule, status: roadmap, source: research-brief-2026-09-22 }
-      - name: Evaluation
-        features:
-          - { name: Evaluation harness — correctness and confidence calibration, status: partial, tier_first_available: pov, source: one-pager-2026-09-10 }
-          - { name: Human-feedback capture as an input, status: partial, tier_first_available: pov, source: one-pager-2026-09-10 }
-          - { name: Feedback-driven tuning — a persisted learning loop, status: roadmap, tier_first_available: scaling, source: one-pager-2026-09-10 }
-          - { name: 'Negative assertion — "screened, nothing found, on date X, against sources Y"', status: roadmap, source: research-brief-2026-09-22 }
-          - { name: Point-in-time replay of a past record on the evidence that existed then, status: roadmap, source: research-brief-2026-09-22 }
-          - { name: Retraction re-checking against source publication status, status: roadmap, source: research-brief-2026-09-22 }
-
-  - area: Output & delivery
-    stage: Deliver it
-    customization_scope_area: >-
-      Output schema per client · Integration configuration per target system ·
-      Routing and ownership rules
-    categories:
-      - name: The record
-        features:
-          - { name: "Structured per-account record — account, trigger, summary, reasoning, scored opportunities", status: partial, tier_first_available: pov, source: one-pager-2026-09-10 }
-          - { name: Narrative briefing and discussion guide as an alternative output contract, status: partial, tier_first_available: pov, source: sow-uc6 }
-          - { name: Confidence threshold filtering low-confidence items, status: partial, tier_first_available: pov, source: one-pager-2026-09-10 }
-      - name: Delivery
-        features:
-          - { name: Export to the client's sales system, status: partial, tier_first_available: integration, source: one-pager-2026-09-10, note: "File export at PoV Jumpstart; API export is Integration-tier scope" }
-          - { name: Routing to the named owner of that account, status: roadmap, tier_first_available: integration, source: research-brief-2026-09-22, note: "Integration-tier scope; not in the proof of value" }
-          - { name: Live write-back with idempotency and dedupe-on-write, status: roadmap, tier_first_available: scaling, source: research-brief-2026-09-22, note: "Scaling-tier scope; nothing is written back in the proof of value — reviewer decisions are captured, not persisted" }
-          - { name: Outcome capture — pursued · won · lost · false positive — fed back to scoring, status: roadmap, tier_first_available: scaling, source: research-brief-2026-09-22 }
-          - { name: "Acting on opportunities — auto-outreach, task creation, workflow automation", status: roadmap, source: one-pager-2026-09-10 }
+  # Grouped 2026-09-22 from 52 features to 24 rows so the feature list fits one A4 page (Alex:
+  # "always think about generalizing and grouping to meet this requirement"). Peers of the same
+  # status inside a category were merged and the merged tasks are named inside the row; the
+  # 52-row tree survives in git history and, feature by feature, in oracle-baseline-lens.md.
+  # Glyphs per decisions-2026-09-18: ● available · ◐ partial · ○ roadmap.
+- area: Account universe & grounding
+  stage: Ground it
+  customization_scope_area: In-scope account list definition · CRM field mapping and account-framing extraction
+    · Per-client service-catalog capture · Signal-source selection and licensing review
+  categories:
+  - name: The account universe
+    features:
+    - name: Account universe — in-scope list, tiering, relationship framing from CRM
+      status: partial
+      tier_first_available: pov
+      note: An agreed CRM extract at PoV Jumpstart; API at Integration
+      source: one-pager-2026-09-10, reviewer-ui-2026-09-11
+  - name: Sources
+    features:
+    - name: Signal sources — news, filings, disclosures, commercial feeds, EDGAR and IR pages
+      status: partial
+      tier_first_available: pov
+      note: A bounded, licence-cleared source set at PoV Jumpstart; the client's own licensed feeds at Integration
+      source: one-pager-2026-09-10
+    - name: Service-line catalog captured from the client's own material
+      status: partial
+      tier_first_available: pov
+      source: one-pager-2026-09-10
+    - name: Grounding roadmap — legal-entity grouping, source-licensing gate, native multilingual
+      status: roadmap
+      source: one-pager-2026-09-10, research-brief-2026-09-22
+- area: Signal intake & normalization
+  stage: Normalize it
+  customization_scope_area: Relevance rules and thresholds per client · Account-matching rules · Cadence and source
+    configuration · Signal-type catalog definition
+  categories:
+  - name: Trigger
+    features:
+    - name: Trigger — scheduled scan, manual submit, on demand for one account
+      status: partial
+      tier_first_available: pov
+      source: one-pager-2026-09-10, research-brief-2026-09-22
+    - name: Standing subscription — recurrence, deadline-bound triggers, what changed since last time
+      status: roadmap
+      tier_first_available: integration
+      source: research-brief-2026-09-22
+  - name: Normalization
+    features:
+    - name: Normalization — genuine, de-duplicated, resolved to the accounts affected, one record each
+      status: partial
+      tier_first_available: pov
+      source: one-pager-2026-09-10
+    - name: Provenance class — filing · disclosure · reported · rumour · model output
+      status: roadmap
+      source: research-brief-2026-09-22
+- area: Implication reasoning
+  stage: Reason it
+  customization_scope_area: Reasoning prompts per domain · Ripple rules per domain · Client catalog and mapping
+    logic · Scoring rubric and thresholds per client
+  categories:
+  - name: Evidence
+    features:
+    - name: Evidence assembly and ranking across first-party and public sources
+      status: available
+      tier_first_available: pov
+      source: one-pager-2026-09-10
+    - name: Evidence and reasoning safeguards — the evidence set shown, contradictions surfaced, conclusions checked,
+        opportunity and risk routed separately
+      status: roadmap
+      source: research-brief-2026-09-22
+      tier_first_available: integration
+  - name: The implication
+    features:
+    - name: Opportunity and risk reasoning — the "so what" per account
+      status: partial
+      tier_first_available: pov
+      source: one-pager-2026-09-10
+  - name: Catalog mapping
+    features:
+    - name: Opportunity mapped to a named service line the client actually sells
+      status: partial
+      tier_first_available: pov
+      source: one-pager-2026-09-10, reviewer-ui-2026-09-11
+    - name: Catalog flexibility — a configurable mapping target, and "mapped to nothing" emitted as a demand-gap
+        stream
+      status: roadmap
+      source: research-brief-2026-09-22
+  - name: Ripple
+    features:
+    - name: Cross-account ripple, descriptive, up to two levels
+      status: partial
+      tier_first_available: pov
+      source: one-pager-2026-09-10
+    - name: Ripple at scale — a licensed relationship graph, portfolio-level aggregation
+      status: roadmap
+      tier_first_available: scaling
+      source: research-brief-2026-09-22
+  - name: Scoring
+    features:
+    - name: Magnitude and confidence scored 0–10 per item
+      status: partial
+      tier_first_available: pov
+      source: one-pager-2026-09-10, reviewer-ui-2026-09-11
+    - name: Scoring maturity — confidence calibrated on realized outcomes, cost-aware ranking
+      status: roadmap
+      source: research-brief-2026-09-22
+- area: Review & evidence
+  stage: Review it
+  customization_scope_area: Reviewer layout and workflow configuration · Evaluation set and rubric per client ·
+    Feedback fields per workflow
+  categories:
+  - name: The reviewer
+    features:
+    - name: Reviewer UI with cited evidence and visible reasoning — approve / reject with a comment
+      status: available
+      tier_first_available: pov
+      source: reviewer-ui-2026-09-11, one-pager-2026-09-10
+    - name: Reviewer workbench — triage before anything is written; disagreement analysed as a signal
+      status: roadmap
+      source: research-brief-2026-09-22
+  - name: Evaluation
+    features:
+    - name: Evaluation — correctness and calibration harness, reviewer feedback captured as input
+      status: partial
+      tier_first_available: pov
+      source: one-pager-2026-09-10
+    - name: Evidence integrity — point-in-time replay, negative assertion, retraction re-check, feedback-driven
+        tuning
+      status: roadmap
+      tier_first_available: scaling
+      source: one-pager-2026-09-10, research-brief-2026-09-22
+- area: Output & delivery
+  stage: Deliver it
+  customization_scope_area: Output schema per client · Integration configuration per target system · Routing and
+    ownership rules
+  categories:
+  - name: The record
+    features:
+    - name: Output — a structured per-account record or a narrative briefing, filtered by confidence
+      status: partial
+      tier_first_available: pov
+      source: one-pager-2026-09-10, sow-uc6
+  - name: Delivery
+    features:
+    - name: Export to the client's sales system
+      status: partial
+      tier_first_available: integration
+      note: File export at PoV Jumpstart; API export is Integration-tier scope
+      source: one-pager-2026-09-10
+    - name: Downstream maturity — routing to the account owner, live write-back, outcome capture, and eventually
+        acting on opportunities
+      status: roadmap
+      tier_first_available: integration
+      note: Integration and Scaling tiers; nothing is written back in the proof of value
+      source: research-brief-2026-09-22, one-pager-2026-09-10
 
 workflow:                                  # component 7 — PROPOSED
   inputs:
