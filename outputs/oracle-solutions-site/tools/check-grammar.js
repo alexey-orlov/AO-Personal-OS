@@ -715,17 +715,62 @@ if (!arr(C.products) || C.products.length !== 7) {
   }
 })();
 
-/* ---- T2 · the Availability facet group ---- */
+/* ---- T2 · the Artifacts facet group (round 9: was "Availability") ----
+   Two checkboxes for the two things a product can come with, named as the
+   reader would name them: an interactive demo and an Oracle Marketplace
+   listing. The group's own key stays `availability` — renaming it would touch
+   every surface — but nothing prints that word any more. */
 (function () {
   var f = C.facets || {};
   if (f.marketplace !== undefined) fail("facets.marketplace", "superseded by facets.availability — the single checkbox became a two-option group");
   var av = f.availability;
-  if (!av) return fail("facets.availability", "missing — the rail's Availability group");
-  if (!str(av.label)) fail("facets.availability", "label missing");
+  if (!av) return fail("facets.availability", "missing — the rail's Artifacts group");
+  if (av.label !== "Artifacts") {
+    fail("facets.availability", 'label is "' + av.label + '", expected "Artifacts" — the group lists what ships with a product, not whether it is available');
+  }
   if (!arr(av.options) || av.options.length !== 2) return fail("facets.availability", "options must hold exactly 2 checkboxes");
-  ["demo", "marketplace"].forEach(function (id, i) {
-    if (av.options[i].id !== id) fail("facets.availability", 'options[' + i + '].id is "' + av.options[i].id + '", expected "' + id + '"');
-    if (!str(av.options[i].label)) fail("facets.availability", "options[" + i + "].label missing");
+  [["demo", "Interactive demo"], ["marketplace", "Oracle Marketplace"]].forEach(function (want, i) {
+    if (av.options[i].id !== want[0]) fail("facets.availability", 'options[' + i + '].id is "' + av.options[i].id + '", expected "' + want[0] + '"');
+    if (av.options[i].label !== want[1]) {
+      fail("facets.availability", 'options[' + i + '].label is "' + av.options[i].label + '", expected "' + want[1] + '"');
+    }
+  });
+})();
+
+/* ---- round 9 · the interactive demo is a walkthrough, not a video ----
+   Alex: "ERP Q&A has an interactive demo but no Demo tag". The badge and the
+   Artifacts filter both read `demoUrl` — the walkthrough they open — where they
+   used to read the `video` flag, which only decides whether the product page
+   carries a video frame. The two had drifted in both directions: one product
+   with a frame and no walkthrough carried the badge, one with a walkthrough and
+   no frame did not. */
+(function () {
+  var badges = (((C.shared || {}).tagFamilies || {}).availability) || {};
+  var demo = badges.demo || {};
+  if (demo.label !== "Interactive demo") {
+    fail("shared.tagFamilies.availability.demo", 'label is "' + demo.label + '", expected "Interactive demo" — one label site-wide');
+  }
+  if (demo.icon !== "cursor-click") {
+    fail("shared.tagFamilies.availability.demo", 'icon is "' + demo.icon + '", expected "cursor-click" — `play` is the video glyph');
+  }
+  if (!str(demo.tooltip)) fail("shared.tagFamilies.availability.demo", "tooltip missing");
+  var mp = badges.marketplace || {};
+  if (mp.label !== "Oracle Marketplace") {
+    fail("shared.tagFamilies.availability.marketplace", 'label is "' + mp.label + '", expected "Oracle Marketplace"');
+  }
+  if (mp.icon !== "storefront") fail("shared.tagFamilies.availability.marketplace", 'icon is "' + mp.icon + '", expected "storefront"');
+
+  /* The badge claims a walkthrough exists, so the config has to hold one for
+     exactly the products whose walkthrough ships under site/demo/. */
+  (C.products || []).forEach(function (p) {
+    var conf = (CFG.products || {})[p.slug] || {};
+    var has = typeof conf.demoUrl === "string" && conf.demoUrl.trim().length > 0;
+    var should = DEMO_SLUGS.indexOf(p.slug) !== -1;
+    if (has && !should) fail("config.products[" + p.slug + "]", "demoUrl is set but no walkthrough ships for this product");
+    if (!has && should) fail("config.products[" + p.slug + "]", "demoUrl is empty, so the interactive demo badge and filter would both miss a walkthrough that exists");
+    if (has && !fs.existsSync(path.join(root, "site", conf.demoUrl.replace(/\/index\.html$/, "")))) {
+      warn("config.products[" + p.slug + "]", "demoUrl points at site/" + conf.demoUrl + ", which is not on disk");
+    }
   });
 })();
 
@@ -830,6 +875,11 @@ if (!arr(C.products) || C.products.length !== 7) {
     ["chip", "full", "line", "image", "emptyState"].forEach(function (k) {
       if (!str(c[k])) fail(where, k + " missing");
     });
+    /* Round 9 (Alex): the tag on a product page is the group's exact name, so
+       the short form and the long form are the same string. */
+    if (str(c.chip) && c.chip !== c.full) {
+      fail(where, 'chip "' + c.chip + '" differs from full "' + c.full + '" — a group has one name, on the tile, the rail and the product chip');
+    }
     /* The tile's one line is read at 240px wide beside four others. */
     if (str(c.line)) {
       if (words(c.line) > 24) fail(where, "line is " + words(c.line) + " words (max 24 — it sits under a tile image)");
