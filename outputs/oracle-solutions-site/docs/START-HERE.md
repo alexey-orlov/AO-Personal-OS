@@ -15,9 +15,10 @@ Current as of 2026-09-22 (after round 9 — the home page re-argued).
     corner cuts. Read `docs/SS26-THEME.md` before touching it. The previous near-black
     theme is kept, runnable, as `site/index-legacy.html` + `assets/site-legacy.css` —
     an archive, not a second version to maintain. Images, renderers and copy are shared:
-    logo paths go through `assets/brand.js`, and the live theme re-cases the
-    stored-capitals strings through `data/content-case.js` rather than editing
-    `content.js`.
+    logo paths go through `assets/brand.js`. **`content.js` is the live site's own
+    copy** — new strings are stored in sentence case directly, and
+    `data/content-case.js` only re-cases what is left from before the rebrand
+    (43 rows, shrinking every round; never add one).
   - Copy: `site/data/content.js`.
   - Switches: `site/data/config.js`.
   - Page renderers: `site/pages/`, one per page.
@@ -116,7 +117,7 @@ These hold unless Alex changes them, and `tools/check-grammar.js` enforces most 
 | Shape | radii, `9999px` pills | **octagonal `clip-path` cuts** 4/8/12 px; `border-radius: 0` but inputs (2 px) and dots |
 | Elevation | glows | **surface steps**; no shadow, no lift, no press-scale |
 | Fact vs filter pill | filled navy is a fact, outlined is a filter | filled grey is a fact, outlined is a filter, blue tint is **selected** |
-| Heading budget | H1 2-4 words, ≤ ~24 chars a line | H1 ≤ 15 chars a line × 2; product name ≤ 22 × 2; H2 ≤ 30 |
+| Heading budget | H1 2-4 words, ≤ ~24 chars a line | H1 ≤ 15 chars a line × 2 (the home H1 is the exception: three short sentences, each on its own line — four lines at 375, five at 320); product name ≤ 22 × 2; **H2 ≤ 30, now enforced** — the three home H2s round 9 rewrote fail over it, the rest warn |
 
 Holding for both: 1.5 px line icons and no emoji · peers are equal height · an address is
 a link, never a filled button, and a filled button is the screen's one ask · only the top
@@ -230,6 +231,15 @@ Exact commands are in HANDOFF §4.
   - whether *all offers* is one bundle;
   - whether subdomains qualify;
   - where partner demo requests go.
+- **Round 9 (§28.6):**
+  - the H1's third line — *"Proven in weeks."*, against the two-word *"Proven fast."* / *"Proof first."*;
+  - *"Document processing"* singular, against Alex's *"Documents processing"*;
+  - the clock said two ways — *from 30 days* in the hero, *4–8 weeks* in every scope surface;
+  - the platform short labels dropping the "Oracle" prefix on the rail, the chips and the stack;
+  - *Oracle AI for Fusion Applications* on the stack and Services but not as a catalog filter;
+  - the Services platform cards re-ordered to the canonical order;
+  - two groups with no product today (Transaction & process execution · Video & image intelligence), whose tiles land on the catalog's empty state;
+  - two home H2s still over the 30-character budget (delivery, about) — warned, not failed.
 - **Inputs Alex supplies (HANDOFF §7):** demo videos and posters, Marketplace URLs, success stories, kit links, form endpoint, hosting subdomain, customer-name approvals, image rights.
 - **At launch:**
   - the site name checked against Oracle's trademark guidelines;
@@ -245,7 +255,7 @@ Exact commands are in HANDOFF §4.
 | `docs/SCHEMA.md` | You add, rename or retire a `content.js` key |
 | `docs/CONFIG.md` | You touch a switch in `config.js` |
 | `docs/VISUAL-GRAMMAR.md` | You change a component or a page composition |
-| `docs/PROVENANCE.md` | You need a fact's source or a round's decisions (§18 home, §20 name, §21 and §23 Services, §24 sales kit, §25 START-HERE, Internal panel and logos). At 4,500 lines, search it; don't read it top to bottom. |
+| `docs/PROVENANCE.md` | You need a fact's source or a round's decisions (§18 home, §20 name, §21 and §23 Services, §24 sales kit, §25 START-HERE, Internal panel and logos, §27 the SS26 theme, §28 the home page re-argued — three layers, six groups, Artifacts). At 5,300 lines, search it; don't read it top to bottom. |
 | `docs/SS26-THEME.md` | You touch either theme: what the current SoftServe brand is, the token map, the shape and colour rules, the fonts, and what is open |
 | `docs/ASSETS.md` | You work on images, step frames or posters, and how they were made |
 | `docs/HANDOFF-workforce-demo.md`, `docs/HANDOFF-erp-qa-demo.md` | You work on a walkthrough; each is owned by its own session |
