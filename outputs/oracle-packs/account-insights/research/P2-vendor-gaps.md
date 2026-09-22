@@ -111,7 +111,23 @@ Six primary (deep), four secondary (confirmatory). The six primaries were chosen
 
 #### A1.4 Demandbase
 
-_pending_
+| Surface | What Demandbase says it is |
+|---|---|
+| **Context Intelligence** | "a proprietary layer applying **company-specific GTM context** to analyze account signals and patterns **against pipeline goals**." [T3 press release] |
+| **Demandbase MCP** | "a secure, intelligent gateway that enables natural language access to **both first-party Demandbase tenant data and third-party B2B intelligence**, allowing AI agents like Claude, ChatGPT, and other agents to retrieve insights on companies, people, engagement, intent, and more." Exposes "deep company, contact, technographic, and intent data" to ChatGPT, Claude, Copilot, Gemini. [T3] |
+| **Demandbase AI Chat** | Prompt-based insights for Pipeline Influence measurement and GTM performance analysis. [T3] |
+| **Site Customization Agent** | Conversational refinement of campaign-matched landing pages. [T3] |
+| **Pipeline Predictive Score** | "Account-specific… shows which accounts are displaying patterns of buying behavior." [T2 review aggregators] |
+| **Data graph** | "native B2B data graph (firmographics, contact data, technographics, and **owned intent signals**)" + B2B DSP + sales intelligence + ABX orchestration. [T2] |
+
+**Notable for the gap check:**
+- **Demandbase is the one vendor that has conceded the reasoning layer to general-purpose LLMs.** Its MCP is explicitly a *gateway* that lets Claude/ChatGPT/Gemini do the "so what". That is a strategic statement: the defensible asset is the data + entity graph, not the analysis. Directly relevant to Part B2.
+- "**against pipeline goals**" is the only place any vendor ties the implication back to *the seller's own commercial targets* — a weak cousin of my step 7.
+- The AI release contains **no** account-research/briefing agent, and **no** mention of grounding, citations, or human review. [T3]
+
+#### A1.4b Where Demandbase and 6sense actually differ from the rest
+
+Both ABM vendors sell **account-level propensity**, not **event-level implication**. They answer "which accounts are in market" — a *ranking* problem. They do not answer "this specific filing means this specific thing for this specific account" — a *reasoning* problem. That distinction is the single most useful thing Part A produced, and it survives into Part B.
 
 #### A1.5 Klue
 
@@ -196,11 +212,37 @@ _pending_
 
 #### A1.9 Dow Jones Factiva
 
-_pending_
+| Surface | What Dow Jones says it is |
+|---|---|
+| **Dow Jones Intelligent Identifiers (DJID) / Factiva Taxonomy** | ~**350,000 taxonomy codes** covering industries, regions, news subjects, companies and organizations, used to classify Factiva content. Each item has a **unique Factiva Code**, with lookup by **Dow Jones Ticker, CUSIP, DUNS and ISIN**. The **DJID Taxonomy API** lets you "look for exact codes from a search string, such as searching for a company name to retrieve its corresponding code" (`GET /factiva-companies/search`). [T1 developer docs via API registries] |
+| **Factiva Smart Summary** | Launched Nov 2024. Summaries "fully transparent and traceable," drawing on "thousands of trusted news sources that Dow Jones has **licensed for specific GenAI uses**." Built on Google Gemini on Google Cloud. [T2/T3] |
+| **Alerts / curated newsletters** | "customized alerts to support decision-making in areas like competitive intelligence and reputational risk management"; track "market trends, executive movements, mergers and acquisitions, and industry developments through **APIs, feeds, and curated newsletters**." [T3] |
+| **Factiva Feed for GenAI · Dow Jones Newswires GenAI Feed** | Content feeds explicitly licensed for GenAI consumption. [T3] |
+| **Dow Jones Integrity Check · RiskCenter Advanced Screening and Monitoring** | Risk/compliance screening and monitoring. [T3] |
+
+**Notable for the gap check:**
+- Factiva is the only vendor here where **entity resolution is a licensed, versioned, API-addressable asset with an identifier system** (DJID, ~350k codes, cross-walked to ticker/CUSIP/DUNS/ISIN). My step 4 treats entity resolution as a processing step. Factiva treats it as **a data product with a schema**.
+- **Content licensing is a first-class capability.** "Licensed for specific GenAI uses" is not a feature, it is a legal precondition — and it is the one thing an in-house build genuinely cannot reproduce. My 12 steps have no notion of *source rights*.
+- I could **not** verify Dow Jones documenting **deduplication of the same story across sources** as a named capability — see `## Unverified`.
 
 #### A1.10 Clay
 
-_pending_
+| Surface | What Clay says it is |
+|---|---|
+| **Audiences** | "Centralize your **first and third party data sources** in Clay." [T1 clay.com] |
+| **Data Marketplace / Waterfall** | "Buy data from 200+ providers in one place"; "Combine multiple data providers for the best coverage" — providers run in sequence, credit charged only on a hit. [T1/T2] |
+| **Claygent** | "Research target companies and people with AI" — a web research agent that browses any URL and answers custom research questions. **Claygent Builder** adds "version control, A/B testing, and risk-free prompt development." [T1 clay.com + Clay docs] |
+| **Account Agents** | AI-powered research at the account level. [T1] |
+| **Custom Signals** | "Turn **any of Clay's 200+ enrichments or an AI agent query** into a signal." Named types: **web intent, product usage, tech stack, social listening, funding news, career movement**. [T1 clay.com/signals] |
+| **Signal actions** | Book meetings, turn visitors into pipeline, **"sending bundled and prioritized Slack messages per account"**, alert reps, run ads, **update CRM lead scoring**, queue AI emails, auto-generate prospects. [T1] |
+| **Workflows / Functions / AI Formatting** | Orchestration, custom logic, data standardization. [T1] |
+| **CRM sync** | "automatically sync back to the **right account** in your CRM"; "identify duplicates" in bulk CRM enrichment; "automated **ICP scoring** before syncing to Salesforce." [T1] |
+| **MCP for Reps · Agent Plugin CLI/API** | Expose Clay data to the rep's AI tools; build Clay tables via a coding agent. [T1] |
+
+**Notable for the gap check:**
+- Clay is the only vendor that makes **"an AI agent query IS a signal"** an explicit primitive. That collapses my steps 2, 3 and 6 into one composable unit — the most interesting architectural idea in the whole vendor set.
+- **"Bundled and prioritized Slack messages per account"** is a named delivery behaviour. It is my steps 3+4+9+12 compressed into one product decision: *one message per account per period, ranked*.
+- **Claygent Builder ships prompt version control and A/B testing.** No other vendor in the set exposes *evaluation of the reasoning step* as a user-facing surface. That is a real gap in my list — see A3.
 
 ### A2. Cross-vendor step map (which vendor names which step a separate surface)
 
