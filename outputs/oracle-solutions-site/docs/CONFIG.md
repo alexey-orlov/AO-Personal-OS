@@ -205,7 +205,15 @@ demoUrl: "demo/workforce-optimization/index.html",
 demoUrl: "demo/cross-system-erp-qa/index.html",
 ```
 
-Non-empty → two controls appear together: the secondary **"Try the interactive demo"** button in the product hero (its label is `shared.demoCta` in `content.js`), and the same button inside the panel the pending video frame opens. Both open the walkthrough in a **new tab** — it carries its own guide and locks every control but the one it points at, and a seller mid-call must keep the product page behind it. Empty → neither control exists. An absolute URL on another host renders the same button.
+**Round 9: `demoUrl` is the single source for everything that claims an interactive demo exists.** Non-empty → four things appear together:
+
+- the secondary **"Try the interactive demo"** button in the product hero (its label is `shared.demoCta` in `content.js`), and the same button inside the panel the pending video frame opens;
+- the **Interactive demo** badge (`cursor-click` glyph) in that product's hero chip row and on its Products-page tile;
+- the count beside the **Interactive demo** checkbox in the rail's *Artifacts* group (`demo=1`), which filters on the same field.
+
+Both buttons open the walkthrough in a **new tab** — it carries its own guide and locks every control but the one it points at, and a seller mid-call must keep the product page behind it. Empty → none of the four exists. An absolute URL on another host works the same way.
+
+Until round 9 the badge and the filter read `video` instead, which is why *Account insights* carried a badge with no walkthrough behind it while *Cross-system ERP Q&A* had a walkthrough and no badge (Alex: *"ERP Q&A has an interactive demo but no Demo tag"*). The resolution of where the badge and the hero button point now lives once, in `UI.demoHref` (`assets/app.js`), and `pages/product.js` delegates to it, so the two controls cannot open different things. On a product page with a video frame the badge scrolls to the frame and opens it; on one without, it opens the walkthrough itself; from a tile it goes to the product page. `tools/check-grammar.js` asserts that `demoUrl` is set for exactly the three products whose walkthrough ships under `site/demo/`, and warns if the path is not on disk.
 
 ### `demoPreviewUrl`
 
@@ -223,7 +231,7 @@ Empty while the walkthrough exists is a **known intermediate state**, not a bug:
 
 ### `video`
 
-A boolean — the only non-URL field in a product block. **It decides whether the hero carries a demo frame at all**, which is also the switch between the hero's two layouts.
+A boolean — the only non-URL field in a product block. **It decides whether the hero carries a demo frame at all, and nothing else** (round 9), which is also the switch between the hero's two layouts. It no longer drives the demo badge or the *Interactive demo* filter: those read `demoUrl`, the walkthrough they open.
 
 ```js
 video: true,
@@ -239,7 +247,7 @@ In every case where the frame renders, the frame *is* the watch affordance, so t
 
 `true` today on `large-document-extraction`, `workforce-optimization` and `account-insights` — the interactive walkthrough on the first, and demo recordings in preparation for the other two. `false` on the other four.
 
-**Why the flag rather than the URL.** The frame is one thing the flag turns on; since round 4 it also drives the **Demo** badge in the hero chip row and on both grids, and the **Demo available** facet checkbox (`demo=1`), so the filter and the badge cannot disagree. The flag is **the owner's statement that a demo exists or is coming**, and the URL is the wiring that arrives after it — which is why `video: true` with an empty `videoUrl` is a supported state, not a half-finished one: the hero frame renders its *recording in preparation* panel, which is the site's own designed answer for an asset that has not landed. Set the flag when the owner says the demo is real; paste the URL when the file exists.
+**Why the flag rather than the URL.** The flag is **the owner's statement that a recording exists or is coming**, and the URL is the wiring that arrives after it — which is why `video: true` with an empty `videoUrl` is a supported state, not a half-finished one: the hero frame renders its *recording in preparation* panel, which is the site's own designed answer for an asset that has not landed. Set the flag when the owner says the recording is real; paste the URL when the file exists. **What the flag may not do is speak for a demo it is not** — round 4 had it driving the badge and the facet as well, and by round 9 the two had drifted apart in both directions. A claim now reads the thing it claims: the badge and the filter read `demoUrl`, the frame reads `video`.
 
 ### `videoUrl`
 
