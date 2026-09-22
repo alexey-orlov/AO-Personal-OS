@@ -42,7 +42,10 @@ var STACK_VENDORS = ["oracle", "nvidia", "softserve"];
 var DIRECTIONS = ["inbound", "outbound", "both"];
 /* G: the Jumpstart block is the same three pillars on all seven, in this order. */
 var PILLARS = ["fast", "low-risk", "tangible"];
-var NEXT_TIERS = ["Integration", "Scale"];
+/* Round 9: the tiers are PoV Jumpstart / Integration / Scaling everywhere (the
+   2026-09-18 decision), because the hero stack's top band says "Scaling" and one
+   page may not carry both words for one thing. */
+var NEXT_TIERS = ["Integration", "Scaling"];
 /* A matrix row carrying a restrictive asterisk is PARTIAL: an unqualified
    SUPPORTED tag on it would overstate the source. */
 var CAP_STATES = ["supported", "partial", "roadmap"];
@@ -57,8 +60,12 @@ var CASE_STATUSES = ["measured", "modeled", "in-preparation"];
    forecast read as a disclaimer rather than a result. Both eyebrow keys are
    retired and the checker fails them if they come back. */
 var CASE_STATUS_CHIPS = ["Proven", "Forecast", "Estimated"];
-/* Round 4, T1: the three tag families and the two availability badges. */
-var PATTERN_IDS = ["deep-research", "processing-pipelines", "data-analysis"];
+/* Round 4, T1: the three tag families and the two availability badges.
+   Round 9: the catalog is grouped by the job to be done — five product groups,
+   in the order the home page's tiles and the rail list them. The two retired
+   ids (processing-pipelines, data-analysis) may not return, here or in the icon
+   registry, and the home tiles derive from this set rather than a second list. */
+var PATTERN_IDS = ["video-image", "deep-research", "documents", "optimization", "knowledge-assistants"];
 /* Round 4, T3: ONE canonical technology set, used identically on the rail, the
    hero chip, the tile band and the Services platform cards. The ids and the
    labels are paired here so a product, a glyph and a card can never drift into

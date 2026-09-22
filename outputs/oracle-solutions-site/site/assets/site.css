@@ -2845,7 +2845,7 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
   .rail,
   .form-trap { display: none !important; }
 
-  .h1, .h2, .h3, .h4, .ptile-title, .tier-title, .case-descriptor, .plat-name,
+  .h1, .h2, .h3, .h4, .ptile-title, .gtile-name, .tier-title, .case-descriptor, .plat-name,
   .stat-value, .invest-value, .case-figure-value, .method-stat-value,
   .contact-mail { color: #111; }
 
@@ -2855,7 +2855,7 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 
   .accent, .eyebrow--accent, .layer-band--lead .layer-band-label { color: #111; }
 
-  .ptile, .tier, .case-card, .plat-card, .panel, .split-col, .layer-band,
+  .ptile, .gtile, .tier, .case-card, .plat-card, .panel, .split-col, .layer-band,
   .light-band, .light-band-media, .light-band-copy, .form-confirm,
   .case-callout, .media-figure, .pillar, .invest-card, .next-tier,
   .ps-panel, .stat-tiles, .stat-tile, .roi-band, .cap-stage,
@@ -2868,7 +2868,7 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
     page-break-inside: avoid;
   }
 
-  .ptile-band { background: #f2f2f2 !important; }
+  .ptile-band, .gtile-band { background: #f2f2f2 !important; }
   .chip { background: #f2f2f2 !important; color: #111 !important; border-color: #bbb !important; }
   .badge, .case-status { background: #f2f2f2 !important; color: #111 !important; border-color: #bbb !important; }
   .badge::before, .chip::before, .case-status::before, .btn::before { background: #f2f2f2 !important; }
