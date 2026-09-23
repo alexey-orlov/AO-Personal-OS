@@ -587,10 +587,13 @@ Site-level, asserted once rather than per product:
 
 | Slot | Requirement |
 |---|---|
-| `shared.contact` | `{ name, title, email, photo, blurb, bringTitle, bring ×3 }`; `title` is a string and **may be empty**; `email` is exactly `oracle@softserveinc.com`; `blurb` is one sentence; `photo` is `assets/img/people/<name>.<ext>`, may be empty (initials fallback) and **ships filled**; `bring` is exactly three lines; `linkedin`, if present, is a public `linkedin.com` URL |
-| `shared.productTabs` | carries `jumpstart` (with `legacyId: "pov"`) and `contacts` (with `legacyId: "demo"`), and neither a `pov` nor a `demo` tab id |
+| `shared.contact` | `{ name, title, email, photo, blurb }`; `title` is a string and **may be empty**; `email` is exactly `oracle@softserveinc.com`; `blurb` is one sentence; `photo` is `assets/img/people/<name>.<ext>`, may be empty (initials fallback) and **ships filled**; `linkedin`, if present, is a public `linkedin.com` URL. **`bring` and `bringTitle` are absent** — the *Bring to the call* list was retired in round 10 and either key fails the build |
+| `shared.productTabs` | ids exactly `overview`, `use-cases`, `technology`, `jumpstart`, `contacts`, **in that order**, each with a `label`; `jumpstart.legacyIds` includes `pov` and `contacts.legacyIds` includes `demo` and `sellers`; no tab carries the singular `legacyId`, `locked`, or the retired `sellers` / `demo` / `pov` id |
 | `products[].oneLiner` | carries no packaging phrase — "packaged from proof of value", "from proof of value to enterprise scale", "fixed price", "quick start" all fail the build |
-| `forms.demo.secondaryHeading` | non-empty — the heading the form takes under the contact card |
+| `site.primaryCta.label` | equals `site.navCta.label` — one contact ask site-wide; `forms.demo.submitLabel`, `salesKit.tab.nextDemoLink` and `salesKit.page.povLink` all equal it too, and the raw text of `content.js` matches no `/request a demo/i` |
+| `shared.demoCta` | equals `shared.tagFamilies.availability.demo.label` — the walkthrough button names what the badge names |
+| `forms.demo` | `secondaryHeading` non-empty (the heading Home S7 and Services give the form under the contact card); `sub` names both *workshop* and *proof of value*; **`secondarySub` absent** — retired in round 10, the Contacts tab reads `sub` |
+| `shared.sectionLabels.industryCases` | contains no *use case* — the Use cases tab already says it |
 
 A slot that cannot be filled with a fact is filled with a **qualitative** instance — a `null`-valued metric tile, a `cross-industry` chip, a `Scoped per engagement` price. It is never left out, and it never renders an apology.
 
@@ -602,16 +605,22 @@ A **missing image file is a warning, not a failure.** Copy and imagery ship on s
 
 `shared.contact` → `{ name, title, email, photo, blurb, linkedin? }`.
 
-The tab formerly labelled **Request a demo** is now **Contacts**, at `#/products/<slug>/contacts`. `#/products/<slug>/demo` redirects to it (`legacyId: "demo"` on the tab), and every "Request a demo" control on a product page points at the contacts tab rather than at a form anchor. The header pill and the home-page CTAs are unchanged: they still open the standalone request form at `#/#request-a-demo`.
+The tab formerly labelled **Request a demo** is now **Contacts**, at `#/products/<slug>/contacts`, and it is the **last** tab. Three retired segments redirect to it in place — `…/demo`, and since round 10 `…/sellers` (`legacyIds: ["demo", "sellers"]`) — and every contact control on a product page points at this tab rather than at a form anchor. The header button and the home-page CTAs are unchanged: they still open the standalone request form at `#/#request-a-demo`.
 
-The tab is **two columns of equal height on desktop**, one column on mobile with the card first:
+**Since round 10 the tab is two rows on one grid**, both collapsing to a single column below 1100 px (card, form, kit copy, kit form):
 
-1. **LEFT — the contact panel**, a bounded surface (not a bare row of text): circular `photo` at the top, then `name`, `title`, the `email` as a **mailto link** — an underlined anchor at body size with the mail glyph, never a filled button (§9, the address rule) — the one-line `blurb`, and the three-line **Bring to the call** list from `bringTitle` + `bring[]`. `title` renders only when non-empty; an empty one leaves name + email, never a placeholder. `linkedin` renders only when the key exists.
-2. **RIGHT — the request form**, headed `forms.demo.secondaryHeading` ("Or send a request") with `forms.demo.secondarySub` beneath it, and `labels.submitRequest` on the button. On Services the same slot takes `forms.contact.sub` and `labels.submitContact`, under the page's own `services.contact` heading.
+**Row 1 — the main ask** (`UI.contactSplit`), two columns that **start level and each end where its own content ends**:
 
-`forms.engagementSteps` — the three-step "what happens next" block — renders **under the contact panel, in the left column**, outside the panel's border. It used to fill a copy column that no longer exists; it is what keeps the left column level with the form on the right, and it answers the question the panel raises ("what happens if I write?"). The two columns are `align-items: stretch`, so they are the same height on desktop and stack card-first below 900 px.
+1. **LEFT — the contact panel**, a bounded surface (not a bare row of text): circular `photo` at the top, then `name`, `title`, the `email` as a **mailto link** — an underlined anchor at body size with the mail glyph, never a filled button (§9, the address rule) — and the one-line `blurb`. `title` renders only when non-empty; an empty one leaves name + email, never a placeholder. `linkedin` renders only when the key exists. **The card is not stretched to the form's height** (`align-items: start` on `.contact-split`, `flex: 0 0 auto` on `.contact-card--panel`): stretching left a person's name floating above a field of empty inset, and a card is not a container to fill. Measured at 1440: **390 px beside a 697 px form**.
+2. **RIGHT — the request form**, headed `site.primaryCta.label` (*Talk to us*) with `forms.demo.sub` beneath it and **the same key on the submit button**, so the hero, the header and this form are one ask (§1). The column carries `id="talk"` and a `scroll-margin-top` of `--nav-h + 5rem`, because the kit below links at the form itself rather than at the route. On Home S7 and on Services the same slot still takes `forms.demo.secondaryHeading` / `forms.contact.sub` and `labels.submitRequest` / `labels.submitContact` — those two surfaces are out of round 10's scope.
 
-No stray empty panel on either side: the two columns are the whole section. The **same component** renders the Services page contact section, from the same object. One person, one address, one place to edit.
+**Row 2 — the sales kit, for sellers** (§11): a full-width inset panel, `panel--kit panel--kit-wide` with `id="seller-kit"`, holding a two-column `.kit-split` — eyebrow *For sellers* · H3 `salesKit.tab.title` · the body naming the product on the left, the kit form on the right. **It carries row 1's column ratio and gap** (`.85fr / 1.15fr`), so the tab reads as one grid rather than two panels that happen to sit above each other; the inset's own padding shifts the boundary by about 7 px, which is the price of the inset and is accepted.
+
+**The *Bring to the call* list is retired** (round 10) from the data, the renderer and the CSS, on all three surfaces that render the card. It said the same thing three times over — the form's own message placeholder and the Jumpstart tab's *What we need from you* already ask for the workflow, the systems and the timeline. The card is a person, an address and one line, and `blurb` carries the ask.
+
+`forms.engagementSteps` — the three-step "what happens next" block — renders **under the contact panel, in the left column**, outside the panel's border, and answers the question the panel raises ("what happens if I write?").
+
+No stray empty panel anywhere: the two rows are the whole section. The **same card and split component** render the Services page contact section and Home S7, from the same object. One person, one address, one place to edit.
 
 **The address is the practice mailbox, never a personal one.** `oracle@softserveinc.com` is what ships; the checker bans the string `ktram@` site-wide. A personal mailbox on a public page is a scraping target and an availability risk, and the person named here is a partnerships role rather than an inbox.
 
