@@ -1812,6 +1812,50 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
   .case-figure { display: block; }
 }
 
+/* ——— the wide case study (round 10) ———————————————————
+   On the Use cases tab the callout sits in the full 1,248px column instead of
+   the Overview's 803px main, so it splits in two: the narrative on the left,
+   the evidence on the right behind a hairline — chip, then the figures it
+   qualifies, then the scope facts. Below 901px the two stack, main then side,
+   and the rule becomes a top rule. */
+.case-main, .case-side {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.125rem;
+  min-width: 0;
+}
+
+@media (min-width: 901px) {
+  .case-callout--wide .case-body {
+    display: grid;
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+    column-gap: clamp(1.5rem, 2.4vw, 2rem);
+    align-items: start;
+  }
+
+  .case-callout--wide .case-side {
+    align-self: start;
+    border-left: 1px solid var(--border-subtle);
+    padding-left: clamp(1.5rem, 2.4vw, 2rem);
+  }
+
+  /* One evidence column, so a 40px figure is never squeezed into half a rail
+     and a long scope label never sets in a 140px cell. */
+  .case-callout--wide .case-figures { grid-template-columns: minmax(0, 1fr); grid-template-rows: none; gap: 1.25rem 0; }
+  .case-callout--wide .case-figure { display: block; }
+  .case-callout--wide .case-scope { grid-template-columns: minmax(0, 1fr); gap: .875rem; }
+}
+
+@media (max-width: 900px) {
+  .case-callout--wide .case-side {
+    margin-top: .375rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--border-subtle);
+    align-self: stretch;
+  }
+}
+
 .panel--tight { gap: 1rem; }
 .panel--flat { gap: 0; }
 
@@ -2825,18 +2869,41 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 .next-tier-facts dt { font-size: var(--fs-xs); letter-spacing: .06em; text-transform: uppercase; color: var(--text-dim); }
 .next-tier-facts dd { margin: 0; font-size: var(--fs-sm); line-height: 1.5; color: var(--text); }
 
-/* ——— contacts: one component, two columns of equal height ——— */
+/* ——— contacts: one component, two columns ——————————————— */
 
-.contact-split { display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); gap: clamp(2rem, 3.5vw, 3.5rem); align-items: stretch; }
+/* Round 10: the columns start level and each ends where its own content ends.
+   Stretching the card to the form's height left a person's name floating above
+   a field of empty inset — a card is not a container to fill. */
+.contact-split { display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); gap: clamp(2rem, 3.5vw, 3.5rem); align-items: start; }
 .contact-split-card { display: flex; flex-direction: column; gap: 1.5rem; min-width: 0; }
-.contact-split-form { display: flex; flex-direction: column; gap: 1rem; min-width: 0; }
+.contact-split-form { display: flex; flex-direction: column; gap: 1rem; min-width: 0; scroll-margin-top: calc(var(--nav-h) + 5rem); }
 .contact-split-form .site-form { max-width: none; }
 .contact-split-sub { max-width: 40rem; margin-bottom: .5rem; }
 
-.contact-card--panel { flex-direction: column; align-items: stretch; gap: 1.25rem; flex: 1 1 auto; }
+.contact-card--panel { flex-direction: column; align-items: stretch; gap: 1.25rem; flex: 0 0 auto; }
 .contact-card--panel .contact-photo { width: 5rem; height: 5rem; }
-.contact-bring { margin-top: auto; padding-top: 1.25rem; border-top: 1px solid var(--border-subtle); display: flex; flex-direction: column; gap: .75rem; }
-.contact-bring-list li { color: var(--text-muted); }
+
+/* ——— contacts row 2: the sales kit, for sellers ————————— */
+
+/* The same two-column ratio and gap as row 1, so the two rows read as one grid
+   rather than two panels that happen to sit above each other. */
+.panel--kit-wide {
+  width: 100%;
+  padding: clamp(1.75rem, 3vw, 2.75rem);
+  border: 1px solid var(--border);
+  border-radius: 0;
+  background: var(--bg-inset);
+}
+
+.kit-split {
+  display: grid;
+  grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr);
+  gap: clamp(2rem, 3.5vw, 3.5rem);
+  align-items: start;
+}
+
+.kit-copy { display: flex; flex-direction: column; gap: .75rem; min-width: 0; }
+.panel--kit-wide .kit-form { max-width: none; margin-top: 0; }
 
 @media (max-width: 1100px) {
   .cap-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -2846,8 +2913,7 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
   .pillar-row { grid-template-columns: minmax(0, 1fr); }
   .js-split, .js-split--invest { grid-template-columns: minmax(0, 1fr); }
   .next-grid { grid-template-columns: minmax(0, 1fr); }
-  .contact-split { grid-template-columns: minmax(0, 1fr); }
-  .contact-bring { margin-top: 0; }
+  .contact-split, .kit-split { grid-template-columns: minmax(0, 1fr); }
 }
 
 @media (max-width: 640px) {
