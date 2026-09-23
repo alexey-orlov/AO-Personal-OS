@@ -134,7 +134,7 @@ The array is **sort order only** — it never filters. Every product renders wha
 
 ### `sellerGate` — the sales-kit request (round 8)
 
-The block keeps its old name; since round 8 it configures the **sales-kit request** — on the second row of each product's **Contacts** tab since round 10, and on `#/sellers` (`SCHEMA.md` §`salesKit`, `PROVENANCE.md` §24). The gate that unlocked a materials list, its seller-notes fetch (`notesUrl`) and its unlock flag are retired.
+The block keeps its old name; since round 8 it configures the **sales-kit request** — on the second tab of the switch in each product's **Contacts** tab since round 10b, and on `#/sellers` (`SCHEMA.md` §`salesKit`, `PROVENANCE.md` §24). The gate that unlocked a materials list, its seller-notes fetch (`notesUrl`) and its unlock flag are retired.
 
 #### `allowedDomains`
 

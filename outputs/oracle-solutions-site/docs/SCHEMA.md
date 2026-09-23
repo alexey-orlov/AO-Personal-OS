@@ -38,7 +38,7 @@ window.SITE_CONTENT = {
 | `headerLockup` | `{ wordmark, wordmarkAlt, divider, productName }` | Image paths are relative to `site/`. The lockup is wordmark · hairline · plain-text product name. Nothing renders this block: the live lockup is static markup in `index.html`, so a rename edits both (README, *The site is named*). |
 | `nav` | `[{ label, route }]` | **Exactly three, in this order: Products (`#/products`) · Services (`#/services`) · For sellers (`#/sellers`).** *Case studies* left the header on 2026-09-17 (Alex) — the home page keeps its case-study screen, and Services links to it — and *For sellers* took the slot as the one entry to the sales kit for all offers (round 8, `PROVENANCE.md` §24). There is no *Overview* item — the lockup is the home link (round 5). `check-grammar.js` asserts all three labels and routes. |
 | `navCta` | `{ label, route }` | **Round 5 — the header button**, rendered separately at the right of the bar: *Talk to us* → `#/services#contact`. It replaced the *Request a demo* pill, so the one button in the bar opens a conversation with the practice rather than a product-specific form. |
-| `primaryCta` | `{ label, route }` | *Talk to us* → `#/#request-a-demo`. **Round 10 made this the site's one contact ask**: the `label` is read by the product hero's primary button, by the Contacts tab's form heading **and** by its submit button, and the checker asserts it equals `navCta.label`, so the header, the hero and the form cannot drift into three different asks. `forms.demo.submitLabel`, `salesKit.tab.nextDemoLink` and `salesKit.page.povLink` are all asserted equal to it as well, and the raw text of `content.js` may not match `/request a demo/i` — the retired label. The **`route` is unchanged**: `#/#request-a-demo` is still `overview.contact.anchor`, so renaming the anchor still breaks seven pages at once. Not rendered in the header. |
+| `primaryCta` | `{ label, route }` | *Talk to us* → `#/#request-a-demo`. **Round 10 made this the site's one contact ask**: the `label` is read by the product hero's primary button, by the first segment of the Contacts tab's switch (which is that column's heading, round 10b) **and** by the form's submit button under it, and the checker asserts it equals `navCta.label`, so the header, the hero and the form cannot drift into three different asks. `forms.demo.submitLabel`, `salesKit.tab.nextDemoLink` and `salesKit.page.povLink` are all asserted equal to it as well, and the raw text of `content.js` may not match `/request a demo/i` — the retired label. The **`route` is unchanged**: `#/#request-a-demo` is still `overview.contact.anchor`, so renaming the anchor still breaks seven pages at once. Not rendered in the header. |
 | `site.footer` | object | See below. |
 
 ### `site.footer`
@@ -305,7 +305,7 @@ After the Jumpstart block, the tab still renders `shared.credibilityBlock` and `
 
 | Key | Type | Notes |
 |---|---|---|
-**Not rendered since round 8.** The product's sales-kit request (`salesKit`, below) is what replaced it — on its own *For sellers* tab in rounds 8–9, and since round 10 as the second row of the Contacts tab. This block is the **kit manifest** — what whoever sends the kit puts in it.
+**Not rendered since round 8.** The product's sales-kit request (`salesKit`, below) is what replaced it — on its own *For sellers* tab in rounds 8–9, and since round 10 on the Contacts tab, where round 10b made it the second tab of a switch. This block is the **kit manifest** — what whoever sends the kit puts in it.
 
 | Key | Type | Notes |
 |---|---|---|
