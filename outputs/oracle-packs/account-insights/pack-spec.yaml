@@ -461,8 +461,8 @@ architecture:                              # component 8 — PROPOSED
     - layer: NVIDIA AI-Q agentic engine
       name: NVIDIA AI-Q agentic engine
       vendor: NVIDIA
-      catalog_id: nvidia-aiq
-      items: ["Agentic orchestration, retrieval, citation checks"]
+      catalog_id: [nvidia-aiq, nvidia-nemo-agent-toolkit]
+      summary: "Agentic orchestration, retrieval, citation checks"
       note: >-
         AI-Q requires the RAG Blueprint deployed first. NVIDIA's AI-Q-on-OCI Terraform and Helm
         samples are published as community examples and are explicitly NOT covered by NVIDIA
@@ -498,7 +498,7 @@ oracle_products:                           # components 9 and 10 — catalog ids
 
   - id: oracle-cx
     role: optional
-    why: "System of record in; reviewed next moves out"
+    why: "Receives the reviewed records"
     integration: { pov: "an agreed extract in, file export out", integration: "API both ways", scaling: "live write-back with idempotency and dedupe-on-write" }
     note: >-
       The single most commercially relevant entry on this list, and the one that carries the
