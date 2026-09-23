@@ -1,6 +1,6 @@
 # Interactive demo playbook — the mini-site walkthroughs
 
-_Distilled 2026-09-16 from the two builds (Large docs processing and review, 2026-09-15/16; Workforce optimization, 2026-09-16, three rounds) — Alex's standing requirements, the procedure that worked, the mistakes paid for. Read before building or changing any walkthrough under `outputs/oracle-solutions-site/site/demo/`. The per-build records are `outputs/oracle-solutions-site/docs/PROVENANCE.md` §16 and §19; the handoff pattern is `docs/HANDOFF-workforce-demo.md`._
+_Distilled 2026-09-16 from the two builds (Large docs processing and review, 2026-09-15/16; Workforce optimization, 2026-09-16, three rounds) — Alex's standing requirements, the procedure that worked, the mistakes paid for. Read before building or changing any walkthrough under `~/Documents/GitHub/Oracle-Solutions-Site/site/demo/`. The per-build records are `~/Documents/GitHub/Oracle-Solutions-Site/docs/PROVENANCE.md` §16 and §19; the handoff pattern is `docs/HANDOFF-workforce-demo.md`._
 
 ## Alex's standing requirements (as given, across rounds)
 

@@ -89,7 +89,7 @@ counts and the scaffolding, not the essence" and used internal vocabulary
   multiplier is gone but the budget is not: measured on the mini-site's own hero, an H1
   holds ~15 characters a line at 96px in a 700px column, a product name ~22 at 64px and an
   H2 ~30. Re-measure against the rendered size rather than reusing the uppercase numbers.
-  Record: `outputs/oracle-solutions-site/docs/SS26-THEME.md` §6. Check the phone break too: no line
+  Record: `~/Documents/GitHub/Oracle-Solutions-Site/docs/SS26-THEME.md` §6. Check the phone break too: no line
   left holding a lone short word.
 - Name the readers before drafting (for the Oracle site: an Oracle rep opening the page
   live on a call, and an enterprise buyer on Oracle), and write every headline and lead
