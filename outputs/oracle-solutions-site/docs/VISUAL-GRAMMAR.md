@@ -218,18 +218,11 @@ H2  How it works
 Step 1 is selected on load on both layouts, the other steps collapse to number and
 title, and the frame's image `alt` is the step title.
 
-### 2.3 Industry use cases — the tab component (MAIN)
+### 2.3 Industry use cases — **moved to the Use cases tab** (round 10)
 
-`overview.industryCases[]` — **3–6 cases**, `{ industry, label, image, problem, solution }`. Heading from `sectionLabels.industryCases`.
-
-A row of tabs, each an industry icon (§5) plus its label. The selected tab shows: a treated industry photograph (`assets/img/industries/<key>.jpg`), the industry name, then **The problem** and **The solution** — 2–3 sentences each, headed from `sectionLabels.caseProblem` / `caseSolution`.
-
-- The images are keyed by **industry, not product**, so one file serves every product that uses that tab.
-- First tab open by default. Tabs are a proper `role="tablist"` with roving `tabindex`: ←/→, Home and End move and select, Enter/Space activate, and each panel is `aria-labelledby` its tab and hidden with the `hidden` attribute.
-- The two Lakehouse products lead with the `cross-industry` tab, because "the same two pains in every industry, regardless of stack" is their honest answer; the vertical tabs beside it are illustrations of it, not a claim of vertical focus.
-- The failure mode to watch: a `problem`/`solution` pair that would read identically under any other tab. If it would, it is not an industry case.
-
-This block **is** the Overview's industry telling. The old `overview.industries[]` chip row is gone from the data: every key it held was already a tab here, so the disclosure was saying the same verticals a second time. `industriesNote` survives and renders as the footnote line closing this block — one telling per vertical, per product. A `moreDetail` entry that repeats a vertical already covered by a tab is the same defect and is removed on sight.
+The block is unchanged; only its home is. Its anatomy, its data contract and its
+rules are **§2a.1**. Nothing on the Overview renders `overview.industryCases[]` any
+more.
 
 ### 2.4 Outcomes & ROI (SIDE rail)
 
