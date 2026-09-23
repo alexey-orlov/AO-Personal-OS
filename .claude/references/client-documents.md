@@ -59,6 +59,19 @@ counts and the scaffolding, not the essence" and used internal vocabulary
   everything you refer to, no cleverness or ellipsis; if the pain is obvious only to insiders, one
   clause first says it exists and why it hurts (Alex, 2026-09-22: "the Oracle rep should know the
   issue first — many won't have that in their mental model").
+- **Metrics are business metrics, never proof criteria** (2026-09-23, Alex on a sales one-pager
+  whose tiles read *"Reviewer agreement ↑ · Confidence calibrated · Coverage ↑"*): a metric on a
+  sales artifact is something the buyer's business already tracks or would put in a quarterly
+  review, in money, time, volume, risk or quality terms, moved directly by using the solution —
+  "time from damage report to booked job", "cost per claim", "planning cycle time". Technical
+  acceptance criteria (agreement, precision, coverage, latency), vanity counts (signals processed,
+  users onboarded) and vague gains ("better decisions", "visibility") never stand as the metric;
+  when the engagement only defined technical criteria, derive the business metrics they serve,
+  mark them as modelled or "results to follow", and put them to Alex as a proposal. Each metric is
+  specific yet clear to a reader outside the industry, with the industry term in brackets if needed,
+  and has a buyer-side owner who would sign off on it. A delivered-case block speaks about the
+  customer's problem and what changed for them, never the engagement's mechanics (weeks, phases,
+  source counts, contract status).
 - **Structure before copy — a page is an argument, not an inventory** (2026-09-16, from
   Alex's review of the Services page: "very poorly structured, too long, no grand
   narrative"). Before choosing components, settle audience → positioning (what this page
