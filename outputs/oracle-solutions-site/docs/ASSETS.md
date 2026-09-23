@@ -477,7 +477,7 @@ instructed. The one-pagers print his personal address; it must not ship.
 > no names in alt text, captions, data files or shipped docs. Every case study
 > identifies its customer by an **anonymized descriptor** (industry and scale)
 > and an **industry medallion** — a circle carrying the industry line icon —
-> where the logo used to sit (`VISUAL-GRAMMAR.md` §2.6).
+> where the logo used to sit (`VISUAL-GRAMMAR.md` §2a.2).
 >
 > **The files stay on disk, unreferenced, pending customer approval.** They are
 > not deleted, because the approval that would bring them back is a conversation
