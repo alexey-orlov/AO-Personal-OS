@@ -5634,8 +5634,9 @@ gates without a permission prompt for each file.
    scoping call*, and the footer and delivery screen *Request a scoping call*.
    Recommend unifying on *Talk to us* next round; this round's rule only binds the
    header, the product hero and the Contacts tab.
-2. **The product *For sellers* tab is gone** — its kit is Contacts row 2 and the old
-   route redirects in place. Reversible: the tab is data.
+2. **The product *For sellers* tab is gone** — its kit is on the Contacts tab (row 2
+   as this round shipped it, the second tab of a switch after Alex's review, §29.7)
+   and the old route redirects in place. Reversible: the tab is data.
 3. **The Overview rail is unchanged**, and its MAIN column is now Problem → Solution
    · How it works · More detail.
 4. **The mailto subject for a product request now reads `Talk to us — <product>`**
