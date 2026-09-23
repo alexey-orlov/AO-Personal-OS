@@ -16,7 +16,7 @@ window.SITE_CONTENT = {
       { label: "Services", route: "#/services" }
     ],
     navCta: { label: "Talk to us", route: "#/services#contact" },
-    primaryCta: { label: "Request a demo", route: "#/#request-a-demo" },
+    primaryCta: { label: "Talk to us", route: "#/#request-a-demo" },
     footer: {
       heading: "CONTACT US",
       description: "Tell us which account or workflow you have in mind.",
@@ -87,28 +87,22 @@ window.SITE_CONTENT = {
     engageLink: { label: "How we engage, from proof of value to scale →", route: "#/services#how-we-engage" },
     productTabs: [
       { id: "overview", label: "Overview" },
+      { id: "use-cases", label: "Use cases" },
       { id: "technology", label: "Technology" },
-      { id: "jumpstart", label: "Jumpstart", legacyId: "pov" },
-      { id: "contacts", label: "Contacts", legacyId: "demo" },
-      { id: "sellers", label: "For sellers" }
+      { id: "jumpstart", label: "Jumpstart", legacyIds: ["pov"] },
+      { id: "contacts", label: "Contacts", legacyIds: ["demo", "sellers"] }
     ],
     contact: {
       name: "Karsten Tramborg",
-      title: "Alliances & Partnerships Director, SoftServe",
+      title: "Oracle Partnership Director, SoftServe",
       email: "oracle@softserveinc.com",
       photo: "assets/img/people/karsten-tramborg.jpg",
-      blurb: "Bring the account and the workflow: a fit check, a live walkthrough, or the scope of a proof of value on your own data.",
-      bringTitle: "Bring to the call",
-      bring: [
-        "The workflow you want fixed, and roughly how much of it runs in a month",
-        "Which systems hold the data, and who can approve read-only access",
-        "The timeline you are working to, and what a good result would look like"
-      ]
+      blurb: "Your first call for a fit check, a workshop with your team or the scope of a proof of value."
     },
     heroAsideTitle: "What you get",
     heroAsideFootLabel: "Proof of value",
     videoCaption: "Watch the demo",
-    demoCta: "Try the interactive demo",
+    demoCta: "Interactive demo",
     videoPending: {
       body: "The demo recording is being prepared.",
       cta: "Request a live demo"
@@ -187,7 +181,7 @@ window.SITE_CONTENT = {
       statePartial: "Partial",
       stateRoadmap: "Roadmap",
       howItWorks: "How it works",
-      industryCases: "Industry use cases",
+      industryCases: "By industry",
       caseProblem: "The problem",
       caseSolution: "The solution",
       outcomes: "Outcomes & ROI",
@@ -2878,7 +2872,7 @@ window.SITE_CONTENT = {
       product: "Product of interest",
       message: "What are you trying to fix?",
       messagePlaceholder: "The workflow, the volume, and what \"good\" would look like.",
-      submitDemo: "Request a demo",
+      submitDemo: "Talk to us",
       submitRequest: "Send the request",
       submitContact: "Request a scoping call",
       required: "Required",
