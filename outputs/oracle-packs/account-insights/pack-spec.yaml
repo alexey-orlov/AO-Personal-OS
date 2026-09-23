@@ -566,7 +566,7 @@ packages:                                  # component 12
         Signed off at 6-8 weeks (user:2026-09-22), deliberately narrower than the source
         engagement's contracted 12 weeks, which exceeds the 10-week cap. The 12-week engagement
         is the full-scope shape and sits a tier above.
-      services_price: { status: tbd, footnote: "No price set. The source engagement's contract value is an internal-only fact and is not a published tier price." }
+      services_price: { status: tbd, footnote: "Services price to be defined; set per engagement." }   # the reason it is unset is internal (open question: pricing) and never printed
       infra_price_monthly: { status: tbd, footnote: "Depends on signal volume, account count and source licensing." }
       what_you_get:
         - "Reviewed opportunity records across one real account segment, on the organization's own companies and catalog of moves"
@@ -686,6 +686,13 @@ deck:
       creator: Negative Space
       licence: CC0 1.0
       source_url: "https://stocksnap.io/photo/analytics-charts-JVSII4KCCK"
+
+one_pager:                                # overrides for the A4 page only (the deck keeps its own lines)
+  reframe: "Review, don't research"       # the solution heading; the long form would orphan a word at the page's letter-spacing
+  cta:
+    question: "Ready to test the fit on one customer's accounts?"
+    answer: "A six-to-eight-week proof of value on the companies your customer already tracks."
+  source: user:2026-09-23
 
 contacts:
   partner_print: { name: Karsten Tramborg, title: Alliances & Partnerships Director, email: ktram@softserveinc.com }
