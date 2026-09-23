@@ -1036,8 +1036,9 @@
     var resolved = resolveTab(params);
     var active = resolved.id;
 
-    /* The retired /demo segment is rewritten in place rather than pushed, so
-       Back returns to wherever the reader came from, not to the redirect. */
+    /* A retired segment — /demo, /pov, and since round 10 /sellers — is
+       rewritten in place rather than pushed, so Back returns to wherever the
+       reader came from, not to the redirect. */
     if (resolved.legacy && window.history && window.history.replaceState) {
       try { window.history.replaceState(null, "", tabRoute(params.slug, active)); }
       catch (error) { /* the tab is already rendered; the address bar lags */ }
@@ -1049,13 +1050,14 @@
     bindIndustryTabs(root);
     bindStack(root);
 
-    if (active === "sellers" && window.FORMS && window.FORMS.mountKit) {
-      window.FORMS.mountKit(root.querySelector("#seller-kit"), kitOptions(item));
-    }
-
+    /* The Contacts tab carries both forms now: the ask in row 1, the sales kit
+       in row 2. Each has its own mount. */
     if (active === "contacts" && window.FORMS) {
       var slot = root.querySelector("#product-demo-form");
       if (slot) window.FORMS.mount(slot, "demo", { product: item.slug });
+      if (window.FORMS.mountKit) {
+        window.FORMS.mountKit(root.querySelector("#seller-kit"), kitOptions(item));
+      }
     }
 
     centerActiveTab(root);
