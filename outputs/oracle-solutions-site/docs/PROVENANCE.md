@@ -5618,8 +5618,10 @@ stepper close-up at 1440, and the Home S7 and Services contact splits at 1440 �
 found the one copy defect the move created (§29.2, item 5).
 
 Published from the main session to
-**https://claude.ai/artifact/HTEJADBQF3ZevFPuSoTHri** (artifact version: TBD —
-filled by the main session), with a `files` map of the five changed site files.
+**https://claude.ai/artifact/HTEJADBQF3ZevFPuSoTHri** as **version 6**, with a
+`files` map of the five changed site files; `list_files` afterwards showed the same
+107 entries as before the round, every changed file at its new local byte size, and
+nothing published that should not be.
 
 **Repo housekeeping, same session:** `node --check` and `node tools/check-grammar.js`
 were added as prefix rules to `.claude/settings.json`, so a subagent can run the two
