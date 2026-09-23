@@ -2880,11 +2880,10 @@ window.SITE_CONTENT = {
     },
     demo: {
       anchor: "request-a-demo",
-      heading: "REQUEST A DEMO",
-      sub: "Tell us the account or workflow you have in mind. One scoping conversation starts it — we come back with what a proof of value would cover, on your data.",
-      submitLabel: "Request a demo",
-      secondaryHeading: "SEND A REQUEST",
-      secondarySub: "Tell us the account or workflow you have in mind. We come back with what a proof of value would cover, on your data."
+      heading: "Talk to us",
+      sub: "Tell us the account or workflow you have in mind. We start with a workshop with your team, then scope a Jumpstart proof of value on your own data.",
+      submitLabel: "Talk to us",
+      secondaryHeading: "SEND A REQUEST"
     },
     contact: {
       anchor: "contact",
@@ -2921,14 +2920,14 @@ window.SITE_CONTENT = {
       routeLink: { label: "Request a scoping call", route: "#/services#contact" },
       povTitle: "See the fit in an account?",
       povBody: "Let’s discuss a Proof of Value on the customer’s own data — 4–8 weeks, ending in measurable KPIs.",
-      povLink: "Request a demo"
+      povLink: "Talk to us"
     },
     tab: {
       title: "Get the sales kit",
       body: "Enter your SoftServe or Oracle work email and we’ll email you the {product} sales kit — what an account team needs to position it and open the first customer conversation.",
-      routeLabel: "Request a demo",
-      nextDemo: "Have an account in mind? {link} — a Proof of Value on the customer’s own data runs 4–8 weeks and ends in measurable KPIs.",
-      nextDemoLink: "Request a demo",
+      routeLabel: "Use the form above",
+      nextDemo: "Have an account in mind? {link} — after a workshop, a Jumpstart proof of value on the customer’s own data runs 4–8 weeks and ends in measurable KPIs.",
+      nextDemoLink: "Talk to us",
       nextAll: "Selling the whole portfolio? {link}",
       nextAllLink: "Get the full kit"
     },

@@ -94,7 +94,6 @@
     ["services.hero.headline.rest", "ON ORACLE.", "on Oracle."],
 
     /* Form headings */
-    ["forms.demo.heading", "REQUEST A DEMO", "Request a demo"],
     ["forms.demo.secondaryHeading", "SEND A REQUEST", "Send a request"],
     ["forms.contact.heading", "LET’S TALK", "Let’s talk"]
   ];
