@@ -125,6 +125,18 @@ a link, never a filled button, and a filled button is the screen's one ask · on
 block carries a photo, and the home hero carries none · clean at 375, and the H1 still
 holds at 320.
 
+Two more, from Alex's review of round 10 (2026-09-23), and they hold everywhere:
+
+- **One form on a screen.** A second ask is a **switch** — two tabs of one segmented
+  control, one pane open — never a second live input form, and never a block a reader
+  has to scroll to find. Two open forms make the reader choose between two asks before
+  reading either. The selected segment is then the column's heading, so no pane repeats
+  it (`VISUAL-GRAMMAR.md` §8).
+- **A description sits between the control that selects it and the thing it explains**,
+  at body weight. Under the picture it is too far from its own heading for a reader to
+  connect the two, and at footnote size it reads as a caption of the image rather than
+  as the step's description (`VISUAL-GRAMMAR.md` §2.2).
+
 ## 5. How a round runs
 
 1. **Check the state.**
@@ -247,11 +259,15 @@ Exact commands are in HANDOFF §4.
     S7 *Send a request* / *Send the request*, Services *Let's talk* / *Request a
     scoping call*, the footer and delivery screen *Request a scoping call*.
     Recommended: unify on *Talk to us* next round;
-  - the product *For sellers* tab is gone, its kit now Contacts row 2, and
-    `…/sellers` redirects — reversible, since the tab is data;
+  - the product *For sellers* tab is gone, its kit now the second tab of the Contacts
+    switch, and `…/sellers` redirects — reversible, since the tab is data;
   - the mailto subject for a product request now reads `Talk to us — <product>`;
   - `large-document-extraction`'s `metricsNote` now points across tabs, to the case
-    study on Use cases — the first cross-tab pointer on a product page.
+    study on Use cases — the first cross-tab pointer on a product page;
+  - **from Alex's same-day review (§29.7):** the stepper's frame is pinned by keeping
+    the closed step bodies' cell, which costs up to ~64 px of air under a short
+    description; a later round could close it by levelling the descriptions instead.
+    768 and 320 were not looked at on that pass.
 - **Inputs Alex supplies (HANDOFF §7):** demo videos and posters, Marketplace URLs, success stories, kit links, form endpoint, hosting subdomain, customer-name approvals, image rights.
 - **At launch:**
   - the site name checked against Oracle's trademark guidelines;
