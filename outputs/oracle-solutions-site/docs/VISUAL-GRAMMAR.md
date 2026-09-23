@@ -605,7 +605,7 @@ A **missing image file is a warning, not a failure.** Copy and imagery ship on s
 
 `shared.contact` → `{ name, title, email, photo, blurb, linkedin? }`.
 
-The tab formerly labelled **Request a demo** is now **Contacts**, at `#/products/<slug>/contacts`, and it is the **last** tab. Three retired segments redirect to it in place — `…/demo`, and since round 10 `…/sellers` (`legacyIds: ["demo", "sellers"]`) — and every contact control on a product page points at this tab rather than at a form anchor. The header button and the home-page CTAs are unchanged: they still open the standalone request form at `#/#request-a-demo`.
+The tab formerly labelled **Request a demo** is now **Contacts**, at `#/products/<slug>/contacts`, and it is the **last** tab. Two retired segments redirect to it in place — `…/demo`, and since round 10 `…/sellers` (`legacyIds: ["demo", "sellers"]`) — and every contact control on a product page points at this tab rather than at a form anchor. The header button and the home-page CTAs are unchanged: they still open the standalone request form at `#/#request-a-demo`.
 
 **Since round 10 the tab is two rows on one grid**, both collapsing to a single column below 1100 px (card, form, kit copy, kit form):
 
