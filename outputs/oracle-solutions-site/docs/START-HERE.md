@@ -63,7 +63,7 @@ These are Alex's working assumptions as of 2026-09-17, and **each one is still t
 |---|---|---|
 | `#/` Home | Seven screens: <br>• hero — a three-line H1, the **three-layer stack** (Oracle platforms → SoftServe product groups → SoftServe services, read bottom-up) <br>• the three-figure proof strip, led by **from 30 days** <br>• two ways in (products · services) <br>• **six group tiles**, each an image, a one-liner and a link into the filtered catalog <br>• how we deliver <br>• anonymized case studies (Proven / Forecast / Estimated) <br>• About SoftServe (the page's one dark band) <br>• contact | PROVENANCE §18, §28 |
 | `#/products` | Catalog with a facet rail (Oracle platform · what it does · Artifacts) and tiles. **Both radio rails are fixed lists** in canonical order — three platforms and all six groups, always — with a zero-count option disabled and printing no number; the one a deep link arrived on renders selected above its own empty state. *Oracle AI for Fusion Applications* is not offered (`catalog: false`): no product runs on it. No total, no denominator. `?cat=<id>` and `?tech=<id>` are both honored. | §17, §18.9, §28 |
-| `#/products/<slug>[/<tab>]` | Seven product pages. <br>• Tabs: Overview · Technology · Jumpstart · Contacts · For sellers (that product's sales-kit request). <br>• Three products have an interactive walkthrough under `site/demo/`. | §15–§19, §22, §24 |
+| `#/products/<slug>[/<tab>]` | Seven product pages. <br>• Tabs: **Overview · Use cases · Technology · Jumpstart · Contacts** (round 10). Overview is Problem → Solution · How it works · More detail, with Outcomes & ROI in the rail; **Use cases** holds the industry tabs and the case study; **Contacts** is two rows — the contact card beside the *Talk to us* form, then that product's sales-kit request for sellers. <br>• Retired segments redirect in place: `pov` → Jumpstart, `demo` and `sellers` → Contacts. <br>• Three products have an interactive walkthrough under `site/demo/`. | §15–§19, §22, §24, §29 |
 | `#/services` | Three screens, one message each, then contact: <br>• *Frontier AI on Oracle* (the practice, with the four platform cards under their full Oracle names) <br>• *Every step has a number* (Discovery → Jumpstart proof of value → Integration → **Scaling**) <br>• *Not a project. A proof.* (4–8 weeks) | §21, §23, §28 |
 | `#/sellers` | *Get the sales kit*, for all offers or one product (work email at softserveinc.com or oracle.com). Below it, the demo form for a seller who already has an account in mind. | §24 |
 
@@ -82,7 +82,8 @@ These hold unless Alex changes them, and `tools/check-grammar.js` enforces most 
   - **The six product groups**, in this order and these exact words, on the hero stack, the home tiles, the rail and every product chip (`chip` equals `full`, so a group has one name): **Enterprise knowledge & analytics · Deep research & investigation · Document processing · Transaction & process execution · Forecasting & optimization · Video & image intelligence.**
   - **Oracle platforms, two forms of each name** (round 9): the **short label** on the rail, the product chips, the tile image band, `tags[1]` and the hero stack — *AI Lakehouse · AI Data Platform · AI for Fusion Applications · OCI + NVIDIA NeMo* — and the **full Oracle product name** on the Services platform cards and in prose: *Oracle Autonomous AI Lakehouse · Oracle AI Data Platform* (never "AIDP") *· Oracle AI for Fusion Applications · Oracle Cloud Infrastructure + NVIDIA NeMo*. One canonical order, that one, everywhere. "OCI" alone is still fine in running text.
   - **The delivery tiers are Jumpstart proof of value · Integration · Scaling** — never "Scale" as a tier title (the hero stack says *Scaling*, and one page may not carry both words for one thing). "Scale" as a verb in prose is untouched.
-  - **The walkthrough is an "Interactive demo"** — the badge, the rail checkbox and the tooltip all say it, under the *Artifacts* group. "Demo" alone is retired as a label.
+  - **The walkthrough is an "Interactive demo"** — the badge, the rail checkbox, the tooltip and, since round 10, **the button in the product hero and in the pending-video panel** all say it, under the *Artifacts* group; the checker asserts the button's label equals the badge's. "Demo" alone is retired as a label, and *"Try the interactive demo"* went with it. The button carries the badge's own `cursor-click` glyph **leading** the label and no trailing `external` glyph — one icon per button.
+  - **One contact ask, and it is *Talk to us*** (round 10). The header button, the product hero's primary button, the Contacts form's heading and its submit all read `site.primaryCta.label`, and the checker asserts the four. *Request a demo* is retired as a label — the raw text of `content.js` fails on it — while the `request-a-demo` **anchor id** stays, because seven pages deep-link to it. The exception is `shared.videoPending.cta`, *Request a live demo*, which is the right ask while a recording does not exist. Outside the product pages three other phrasings survive and are still open (§9).
   - NVIDIA products: "NVIDIA" (never "Nvidia"), "AI-Q", "cuOpt", "NeMo".
   - GigaCloud never appears.
 - **Prices:**
@@ -182,6 +183,7 @@ Exact commands are in HANDOFF §4.
 - **A background agent's silence is not progress.**
   - Have it write intermediate output early, and check that file's mtime when the stage should be done.
   - If nothing has moved, stop the agent and take the work over. A research agent stalled for over an hour in round 6 (rule in `CLAUDE.md`).
+  - **The progress file has to log at the granularity the watcher checks.** Round 10's build agent logged one line per stage, and its QA stage — every changed screen at five widths — went two hours without a line while its transcript kept growing, so a long QA and a hang looked identical from outside. **A QA stage logs per screen**, and any stage that can run longer than ~15 minutes logs per item inside it.
 - **Fable's copy gets an Opus pass before it ships:**
   - The renderer escapes HTML, so `&amp;` prints literally; write `&`.
   - Retired vocabulary creeps back (*ready-to-run*).
@@ -240,6 +242,16 @@ Exact commands are in HANDOFF §4.
   - the Services platform cards re-ordered to the canonical order;
   - two groups with no product today (Transaction & process execution · Video & image intelligence), whose tiles land on the catalog's empty state;
   - two home H2s still over the 30-character budget (delivery, about) — warned, not failed.
+- **Round 10 (§29.6):**
+  - the same ask still has three other phrasings **outside the product pages** — Home
+    S7 *Send a request* / *Send the request*, Services *Let's talk* / *Request a
+    scoping call*, the footer and delivery screen *Request a scoping call*.
+    Recommended: unify on *Talk to us* next round;
+  - the product *For sellers* tab is gone, its kit now Contacts row 2, and
+    `…/sellers` redirects — reversible, since the tab is data;
+  - the mailto subject for a product request now reads `Talk to us — <product>`;
+  - `large-document-extraction`'s `metricsNote` now points across tabs, to the case
+    study on Use cases — the first cross-tab pointer on a product page.
 - **Inputs Alex supplies (HANDOFF §7):** demo videos and posters, Marketplace URLs, success stories, kit links, form endpoint, hosting subdomain, customer-name approvals, image rights.
 - **At launch:**
   - the site name checked against Oracle's trademark guidelines;
