@@ -518,34 +518,37 @@ oracle_products:                           # components 9 and 10 — catalog ids
     role: optional
     why: "The approved pattern for a partner-developed agent to sit alongside Fusion — external agents and MCP are otherwise contractually barred from Fusion"
 
-kpis:                                      # component 11 — ONE metric set
-  # From the section deck's own statement of what the engagement measures: "Focus: accuracy +
-  # confidence — what the PoC measures, against reviewer approve / reject". No figure is cleared;
-  # the engagement had not started. Every figure prints "results to follow".
-  - name: Reviewer agreement rate
-    chip: "Reviewer agreement ↑"
-    label: "of generated moves approved by the team's own reviewers"
-    formula: "Approved opportunities ÷ opportunities presented for review, per period"
-    baseline: "Established during the proof of value; no industry baseline exists — no vendor in this market publishes an accuracy figure for the implication step"
+kpis:                                      # component 11 — ONE metric set: the business outcomes the pack moves
+  # Re-proposed 2026-09-23 on the one-pager review (Alex: "metrics should be real business metrics
+  # they're impacting, not technical criteria of the PoV; if not articulated, they should be").
+  # The PoV's own acceptance measures — reviewer agreement on generated moves, confidence
+  # calibration per band — stay the proof's technical criteria (packages PoV scope: "prove the
+  # reviewer agrees") and are not printed as the pack's metrics. No figure is cleared; the
+  # engagement had not started. Every figure prints "results to follow".
+  - name: Research time per account
+    chip: "Research time ↓"
+    label: "hours an account manager spends preparing a customer conversation"
+    formula: "Hours from the first source to a reviewed briefing per account — the manual benchmark against the pack"
+    baseline: "The manually prepared briefing per account, the reference standard the proof of value is measured against"
     figure: "-"
-    note: "Measures plausibility at review time, not correctness after the fact. Stated as reviewer agreement, never as accuracy."
-    source: section-deck-2026-09-11
-  - name: Confidence calibration
-    chip: "Confidence calibrated"
-    label: "reviewer agreement within each confidence band"
-    formula: "Reviewer agreement rate within each confidence band, compared against the band's stated confidence"
-    baseline: "None. Nothing in this market, and nothing in the Oracle or NVIDIA baseline, emits a calibrated confidence number."
+    note: "Answers the first problem point (too much to keep up with). The manual briefing is the SoW's benchmark, so the baseline is measured in the same engagement."
+    source: proposed-2026-09-23 (user asked for business metrics), sow-uc6
+  - name: Time from signal to next move
+    chip: "Time to act ↓"
+    label: "from a filing or news item to a reviewed next move in front of the account team"
+    formula: "Elapsed time from a signal's publication to its reviewed record, median per period"
+    baseline: "Today the update surfaces when the team next researches the account, often after the company has decided"
     figure: "-"
-    note: "A true calibration claim needs realized-outcome capture, which is Scaling-tier. At PoV this measures band-to-reviewer consistency only."
-    source: section-deck-2026-09-11
-  - name: Coverage of the companies in scope
-    chip: "Coverage ↑"
-    label: "of the companies in scope with a reviewed record each period"
-    formula: "In-scope companies with at least one reviewed record in the period ÷ total in-scope companies"
-    baseline: "The client's current manual research coverage, established during the proof of value"
+    note: "Answers the second problem point (found out too late)."
+    source: proposed-2026-09-23 (user asked for business metrics), research-brief-2026-09-22
+  - name: Opportunities surfaced per account
+    chip: "Opportunities ↑"
+    label: "approved next moves per account per period, against what the team found by hand"
+    formula: "Reviewed and approved next moves per in-scope account per period, against the manual count"
+    baseline: "The opportunities the team's own research surfaced in the same period, from the CRM"
     figure: "-"
-    note: "Coverage is the pack's own first-order claim — the manual process trades depth against breadth and this removes the trade."
-    source: research-brief-2026-09-22
+    note: "Answers the third problem point (only the company in the headline): the ripple across companies is what lifts it. Counts approved moves only."
+    source: proposed-2026-09-23 (user asked for business metrics), research-brief-2026-09-22
   # CONTEXT ANCHOR — not a metric of this pack, and never printed as one.
   # "Sellers spend 9% of the week researching prospects and 9% on preparation and planning —
   # 18%, more than they spend meeting customers in person." Salesforce State of Sales, 6th ed.
@@ -689,11 +692,13 @@ deck:
       source_url: "https://stocksnap.io/photo/analytics-charts-JVSII4KCCK"
 
 one_pager:                                # overrides for the A4 page only (the deck keeps its own lines)
+  eyebrow: "Oracle AI & Data Solutions"   # the family name as on the website and the deck's running header (user:2026-09-23)
   reframe: "Review, don't research"       # the solution heading; the long form would orphan a word at the page's letter-spacing
-  proof_story: >-                          # the page's short form of the delivered line (the deck prints the full one)
-    In delivery with {customer}: Client Compass, a 12-week proof of value on NVIDIA AI-Q over OCI —
-    CRM account data, approved public sources and commercial feeds read per account; the signals
-    mapped to {customer}'s logistics services, scored, cited and reviewed by the account team.
+  proof_story: >-                          # the case block, at the reference's altitude: their problem, the solution for them
+    {Customer}'s account teams prepare their customer briefings by hand and see only the company
+    in the headline. Client Compass reads the news, filings and {customer}'s own account records for
+    every account in scope, and gives each account manager a reviewed list: what changed, what it
+    means for {customer}'s logistics services, and the next move.
   sub: short                              # the hero carries the short one-liner, as the deck cover does (the full one costs a row)
   data_flow_notes: false                  # the two platform boxes carry their names only; the deck's architecture slide carries what they do
   tier_scope:
