@@ -5738,7 +5738,7 @@ the kit domain error and the kit confirmation both landing on the Talk tab,
 an svg one, plus 1280. **768 and 320 were not looked at this pass.**
 
 Published from the main session to the same artifact
-(artifact version: TBD — filled by the main session).
+as version 7.
 
 **Still open from this pass:** the pinned row buys a frame that never moves at the
 price of **up to ~64 px of air** between a short description and the picture, on the
