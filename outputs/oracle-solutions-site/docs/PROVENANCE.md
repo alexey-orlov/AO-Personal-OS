@@ -5646,3 +5646,103 @@ gates without a permission prompt for each file.
    the reader from the Overview rail to the Use cases tab for the figure. It is the
    honest fix after the move, but it is the first cross-tab reference on a product
    page.
+
+### 29.7 Alex's review the same day — the Contacts switch and the stepper's description (round 10b)
+
+Alex reviewed version 6 within the hour. **Two corrections, in his words:**
+
+1. *"Get the sales kit block should be visible without scroll down + having two
+   active input forms on one screen is a bad practice. Maybe user can switch between
+   talk to us and Get the sales kit (for sellers)."*
+2. *"In How it works block, the description text is below the image and too far from
+   heading, so context is lost; also that description doesn't look like description,
+   more like a footnote."*
+
+**Split.** Fable made both decisions and wrote `scratchpad/round10b-brief.md`; an
+Opus agent built them. **The first build agent hung for twenty minutes on a
+permission prompt** — a `cd … && grep …` shell call — and was stopped having changed
+nothing; the relaunch was told to read with Read and Grep and to edit with Edit only,
+and finished in 21 minutes. The main session wrote that lesson into the repo's
+`CLAUDE.md` and allow-listed `grep` in `.claude/settings.json`.
+
+#### The Contacts tab: one row, one form on the screen
+
+- **Row 2 is deleted**, with `.panel--kit-wide`, `.kit-split` and `.kit-copy`. Two
+  live input forms on one screen make the reader choose between two asks before
+  reading either, and the second one was below the fold — the two halves of Alex's
+  first correction, which one change answers.
+- **The right column is a two-tab switch** on the theme's own segmented control
+  (`.segmented` / `.segment`, capped at `max-width: 30rem` so two uppercase labels
+  stay a switch rather than a band across the column): **Talk to us** (default,
+  reading `site.primaryCta.label`) · **Get the sales kit** (reading
+  `salesKit.tab.title`). `role="tablist"` on the control, `role="tab"` with
+  `aria-selected` and `aria-controls` on each segment, `role="tabpanel"` on each pane
+  with the inactive one carrying the `hidden` attribute, and ←/→ · Home · End through
+  the existing `roving(…, "horizontal")`. **`.segment[aria-selected="true"]` now
+  paints exactly like `[aria-pressed="true"]`**: the control is a toggle in one place
+  and a tablist in another, and the two states are one appearance.
+- **The Talk pane** carries `forms.demo.sub` and the demo form (submit
+  `site.primaryCta.label`). **The kit pane**, `id="kit"`, carries the *For sellers*
+  eyebrow, `salesKit.tab.body` with the product name, and the kit form.
+- **Neither pane repeats a heading, and the card lost its *Contacts* H3.** The
+  selected segment is the column's heading, and the tab is already called Contacts.
+  That is also what levels the row: **card top and switch top both at 818.2 px at
+  1440**. `contactSplit` keeps `cardHeading` optional, so Home S7 and Services are
+  untouched.
+- **Both forms are mounted at render**, open or hidden, and the switch is bound after
+  them, so a switch never lands on an unbound field.
+- **The anchor picks the tab**, in `mount`, before the router scrolls: `#kit` opens
+  the kit pane, and everything else — `#talk` included — the ask. So
+  **`salesKit.tab.routeLabel` became *Talk to us***, where round 10 had made it *Use
+  the form above*: the kit's customer/partner line and its confirmation link both
+  point at `…/contacts#talk`, which is now the other tab of the same switch, not a
+  form one row up. The checker asserts `routeLabel === site.primaryCta.label`, which
+  replaces round 10's weaker "non-empty" rule.
+- Below 1100 px the row collapses as before: the card, then the switch and its open
+  pane.
+
+#### How it works: heads → description → picture
+
+- **The rows were re-ordered** to heads (row 1) → the open body (row 2) → the frame
+  (row 3). The description now sits directly under the step head it belongs to, and
+  the picture closes the block. It had been under the picture, which is the distance
+  Alex's second correction names.
+- **The body is one column at body weight, not a footnote**: `.stepper-text` at
+  `var(--fs-body)` — 20 px, `--text`, 27 px leading, `max-width: 44rem` — with the
+  features list at `var(--fs-sm)` in `--text-body` and 1 rem glyphs; `gap: .75rem`,
+  `padding: .25rem 0 0`. The 3fr/2fr split and the `:only-child` rule are gone. The
+  frame takes `margin-top: .25rem` on top of the grid's 1 rem row gap, so there is
+  1.25 rem between a description and the picture it describes. Measured at 1440: the
+  body starts **16 px** under the heads row.
+- **Decided differently from the brief: the frame is pinned by keeping the closed
+  bodies' cell.** The brief's `min-height: 5.5rem` alone did not hold it — the three
+  bodies run 94, 126 and 158 px, and the frame moved **64 px** between steps 1 and 3.
+  At ≥ 901 px a closed body therefore keeps its grid cell —
+  `.stepper-body[hidden] { display: flex !important; visibility: hidden; }` — so the
+  row is as tall as the tallest step; `visibility: hidden` keeps those bodies out of
+  the tab order and the accessibility tree, which the `hidden` attribute did before,
+  and the `!important` is there to beat the global `[hidden] { display: none
+  !important }`, scoped to one component at one breakpoint. **The frame top is now
+  1538.8 px on every step.** The floor of `5.5rem` stays, for the product whose steps
+  are all short.
+- **Below 901 px nothing changed**: the accordion keeps its own order and sizes, and
+  the archive theme never sees any of these rules.
+
+#### Gates and publish
+
+`node --check` on the three changed JS files; the checker prints **OK** with the same
+three known warnings; the console is clean on every route; the deny-list grep returns
+nothing. Looked at: both Contacts tabs at 1440, 1024 and 375 (switching, the keyboard,
+the kit domain error and the kit confirmation both landing on the Talk tab,
+`…/contacts#kit` opening on the kit tab) and the stepper at 1440 on a jpg product and
+an svg one, plus 1280. **768 and 320 were not looked at this pass.**
+
+Published from the main session to the same artifact
+(artifact version: TBD — filled by the main session).
+
+**Still open from this pass:** the pinned row buys a frame that never moves at the
+price of **up to ~64 px of air** between a short description and the picture, on the
+steps that are shorter than the tallest one. It is the trade Alex's correction
+implies — the description reads as a description and the picture holds still — but it
+is the one thing a later round could improve, by equalising the step descriptions
+rather than the cells.
