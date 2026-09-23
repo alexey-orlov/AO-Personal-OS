@@ -249,24 +249,34 @@ window.SITE_CONTENT = {
           id: "products",
           icon: "cube",
           title: "Enterprise AI agents and workflows",
-          body: "An AI agent, or a workflow where people and agents share the work, carrying what its industry expects: the rules, the review steps, the checks. Built on Oracle’s own AI platforms, so all they can do is in the product, and started in weeks rather than from a blank page.",
+          body: "Ready-made AI agents and human-AI workflows that carry the best practice and expertise of their industry, so adoption starts from a working product, not a blank page. Each one is built to draw on the full power of Oracle’s AI platforms.",
           bullets: [
-            "Best practice built in, from engagements already delivered",
-            "Runs in your own tenancy",
-            "Scope, timeline and price on every product page"
+            "Best-practice workflows and AI pipelines",
+            "Accelerators that shorten time to value",
+            "The best of Oracle’s AI platforms, built in"
           ],
+          image: {
+            file: "assets/img/heroes/overview.jpg",
+            alt: "A tall oval of light standing open in a dark wall, its reflection running out across still water",
+            focal: "100% 45%"
+          },
           cta: { label: "See the products", route: "#/#products", direction: "down" }
         },
         {
           id: "practice",
           icon: "users",
-          title: "Services, from proof to scale",
-          body: "Fixed-scope services, run the same way every time: a Jumpstart proves the value on your own data in weeks, then the people who ran it integrate it into your systems and scale it across the business — architects who know Oracle’s platforms, engineers from our AI research group, and capacity that grows with the rollout.",
+          title: "Expert services, from proof to scale",
+          body: "A large, dedicated practice of experts in both AI and Oracle’s platforms, and a delivery method proven with Fortune 500 customers over decades: that is what shortens your time to value with AI.",
           bullets: [
-            "Delivered with Oracle’s AI & Data organization, in joint teams",
-            "Experts in both AI and Oracle’s platforms",
-            "Thirty years of enterprise integration behind every rollout"
+            "A proof of value from 30 days, on your own data",
+            "Measurable ROI in focus from day one",
+            "Decades of enterprise adoption of AI and advanced technology"
           ],
+          image: {
+            file: "assets/img/heroes/services.jpg",
+            alt: "An engineer seen from behind at a wall of code on dark monitors in a low-lit workspace",
+            focal: "50% 50%"
+          },
           cta: { label: "How we deliver", route: "#/#how-we-deliver", direction: "down" }
         }
       ]
@@ -339,7 +349,7 @@ window.SITE_CONTENT = {
         area: "Account planning across a global enterprise account base",
         industry: "logistics",
         status: "in-preparation",
-        metric: { value: "Hours, not quarters", label: "from a market signal to a qualified opportunity a seller can act on" },
+        metric: { value: "Same day", label: "from a market signal to a qualified opportunity a seller can act on" },
         line: "The first engagement will run on the customer’s own account base: every opportunity scored for magnitude and confidence, with its evidence cited.",
         footnote: "The comparison is the customer’s own account-planning cycle today, on success metrics signed before the work starts.",
         product: { slug: "account-insights", name: "Account insights" }
