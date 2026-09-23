@@ -10,7 +10,7 @@ The Oracle AI & Data Solutions mini-site (`~/Documents/GitHub/Oracle-Solutions-S
 | Workflow | **Oracle site forms (cloud)**, id `co9bpWm6xVIPMfcB`: 26 steps, triggers *Form POST* (webhook) and *Every 6 hours* (self-check) |
 | Backstop | **Oracle site forms — error alerts**, id `ih0qkEs5xOgpH2Kd`, set as the workflow's Error Workflow |
 | Reads | `alexey-orlov/Oracle-Solutions-Site`, branch `main`, through the credential **GitHub read (Oracle-Solutions-Site)** (`TQydtFbGBrgfZg4W`): a fine-grained token with read-only Contents on that repo only, expiring 2027-09-23 |
-| Sends | through **SMTP (alexorlov.co)** (`aysudzVRCnW5L1wc`): Zoho EU, `smtppro.zoho.eu:465`, user alex@alexorlov.co, with a Zoho app password named "n8n Oracle site" |
+| Sends | through **SMTP (alexorlov.co)** (`aysudzVRCnW5L1wc`): Zoho EU, `smtp.zoho.eu:465` with SSL, user alex@alexorlov.co, with a Zoho app password. On Zoho's free plan the host is `smtp.zoho.eu`, not `smtppro`, which answers `554 5.7.8 Access Restricted` (first test, 2026-09-23) |
 | From | Alex Orlov <alex@alexorlov.co> |
 | Test inbox | olekorlov@softserveinc.com: every practice notice and every kit reply while the repo's `mail/settings.json` says `"mode": "test"` |
 | Alerts | Telegram, the AO Personal OS group, General topic, through **Telegram bot (AO)** (`FnBXEhAZd1GlsgSP`) |
