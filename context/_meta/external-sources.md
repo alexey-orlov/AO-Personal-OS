@@ -18,7 +18,7 @@ When Alex says *"files for area X live at \<path or URL\>"*:
 Keep entries at **root + a contents gloss** — map top folders to wiki subprojects where useful; do **not** enumerate every file (that rots). 
 
 **Schema fields** — `Type` · `Location` · `Machine scope` · `Backed up` · `Contents` · `Added`:
-- **Type:** `local` | `gdrive` | `onedrive` (extensible — add a backend when first needed).
+- **Type:** `local` | `gdrive` | `onedrive` | `git` (a separate repository: a local checkout plus its remote) (extensible — add a backend when first needed).
 - **Location:** absolute path for `local` (use the `~`-relative form as canonical so it survives a username change); share URL for cloud, with the drive/item id when a tool will resolve it.
 - **Machine scope:** `local` only — the ComputerName(s) where the path resolves (the id git-autosync commits as). `-` for cloud.
 - **Backed up:** cloud-sync status / durability of the root.
@@ -33,6 +33,7 @@ Cloud `Location` examples for when they arrive — gdrive: `https://drive.google
 |---|---|---|---|---|
 | [softserve](../areas/softserve/README.md) | local + onedrive | `~/Library/CloudStorage/OneDrive-SoftServe,Inc` | this Mac (`KN7X2Y65NX`); OneDrive-synced, also via `ms365` MCP | 2026-06-16 (moved to OneDrive 2026-07-21) |
 | [civitta](../areas/civitta/README.md) (+ the Laba/PrivatBank course decks) | gdrive | Teaching-materials folder `1N6zCtx5VWja5vtT89seShWrOcsi1azK-`; GBSW 2026 folder `18Hx32ZlQpab6UGwpbr1WjBStkKbNclMa` | - (Google Drive MCP) | 2026-09-07 |
+| [softserve](../areas/softserve/README.md) → [oracle-packs](../areas/softserve/oracle-packs.md) (the mini-site) | git | `~/Documents/GitHub/Oracle-Solutions-Site` · private GitHub `alexey-orlov/Oracle-Solutions-Site` | checkout on this Mac (`KN7X2Y65NX`); GitHub from any machine with Alex's credentials | 2026-09-23 |
 
 ## Entries
 
@@ -69,3 +70,11 @@ Cloud `Location` examples for when they arrive — gdrive: `https://drive.google
   - `Laba - Контент - Product management/` (`18kszvy1yCrpTT-qz71nhp7TUqekTWq-_`) → [laba](../areas/laba/README.md) — Laba PM course: `Презентації - Product management/` (`Заняття 1..17` Google Slides 2024 + 2023 `.pptx`), homework and practice folders, content plan xlsx.
   - `Lections structure/`, `Samples/`, `New requests/`, `AOrlov - Product management - Програма курсу` (sheet) — course design working files.
 - **Added:** 2026-09-07 (discovered while assembling the GBSW pack; confirm with Alex if a different root is canonical).
+
+### softserve / oracle-packs: `~/Documents/GitHub/Oracle-Solutions-Site` (the mini-site's own repository)
+- **Type:** `git`, a private GitHub repository with a local checkout. It holds the Oracle AI & Data Solutions mini-site since 2026-09-23, when the site moved out of this repo; `outputs/oracle-solutions-site/` here now holds only a `MOVED.md`.
+- **Location:** `~/Documents/GitHub/Oracle-Solutions-Site`; remote `https://github.com/alexey-orlov/Oracle-Solutions-Site` (private).
+- **Machine scope:** the checkout resolves on this Mac (`KN7X2Y65NX`). Other devices clone it; the MacBook Air, which owns the walkthroughs, still needs to. Cloud routines have no access unless given a GitHub token.
+- **Backed up:** GitHub. On this Mac, git-autosync commits and pushes it through its own agent, `com.user.gitautosync.Oracle-Solutions-Site`.
+- **Contents:** `site/` (the published site) · `tools/check-grammar.js` (the site's checker and gate) · `docs/`, the site's own records, starting at `docs/START-HERE.md` · `site.manifest.json`, the site's description of itself, read by the `oracle-packs-web` plugin → [oracle-packs](../areas/softserve/oracle-packs.md), section "The customer-facing mini-site".
+- **Added:** 2026-09-23.
