@@ -609,15 +609,79 @@ if (!arr(C.products) || C.products.length !== 7) {
   if (k.linkedin !== undefined && !/^https:\/\/([a-z]{2,3}\.)?linkedin\.com\//.test(k.linkedin)) {
     fail("shared.contact", "linkedin, when present, must be a public linkedin.com URL — omit the key otherwise");
   }
-  var tabs = (C.shared.productTabs || []).map(function (x) { return x.id; });
-  if (tabs.indexOf("contacts") === -1) fail("shared.productTabs", 'no "contacts" tab — the demo tab was renamed in E5');
-  if (tabs.indexOf("demo") !== -1) fail("shared.productTabs", 'the "demo" tab id is retired; /demo redirects to /contacts');
-  if (tabs.indexOf("jumpstart") === -1) fail("shared.productTabs", 'no "jumpstart" tab — the POV tab was renamed in round 3');
-  if (tabs.indexOf("pov") !== -1) fail("shared.productTabs", 'the "pov" tab id is retired; /pov redirects to /jumpstart');
-  var jump = (C.shared.productTabs || []).filter(function (x) { return x.id === "jumpstart"; })[0];
-  if (jump && jump.legacyId !== "pov") fail("shared.productTabs", 'the jumpstart tab must carry legacyId "pov" so the old route still lands');
-  if (!str(C.forms.demo && C.forms.demo.secondaryHeading)) {
-    fail("forms.demo", "secondaryHeading missing — the form under the contact card is headed separately");
+  /* Round 10: five tabs, in this order. Use cases took the industry block and
+     the case study off the Overview; For sellers went the other way — its kit
+     request is the Contacts tab's second row, because a page that repeats one
+     form under two names is a structure bug. Every retired segment redirects,
+     so `legacyIds` is a list, not a single key. */
+  var TAB_IDS = ["overview", "use-cases", "technology", "jumpstart", "contacts"];
+  var tabList = C.shared.productTabs || [];
+  var tabs = tabList.map(function (x) { return x.id; });
+  if (tabs.join(",") !== TAB_IDS.join(",")) {
+    fail("shared.productTabs", "ids are " + (tabs.join(", ") || "none") + " — expected " + TAB_IDS.join(", ") + ", in that order");
+  }
+  tabList.forEach(function (tab) {
+    if (!str(tab.label)) fail("shared.productTabs[" + tab.id + "]", "label missing");
+    if (tab.legacyId !== undefined) {
+      fail("shared.productTabs[" + tab.id + "]", "carries the singular legacyId — retired segments are a `legacyIds` array since round 10");
+    }
+    if (tab.locked !== undefined) {
+      fail("shared.productTabs[" + tab.id + "]", "carries `locked` — retired in round 8; nothing on a product page is locked");
+    }
+  });
+  function legacyIds(id) {
+    var found = tabList.filter(function (x) { return x.id === id; })[0];
+    return (found && found.legacyIds) || [];
+  }
+  if (legacyIds("jumpstart").indexOf("pov") === -1) {
+    fail("shared.productTabs[jumpstart]", 'legacyIds must include "pov" so the old route still lands');
+  }
+  ["demo", "sellers"].forEach(function (seg) {
+    if (legacyIds("contacts").indexOf(seg) === -1) {
+      fail("shared.productTabs[contacts]", 'legacyIds must include "' + seg + '" — /' + seg + ' redirects to the Contacts tab');
+    }
+  });
+
+  /* Round 10: one contact ask site-wide. The header button, the product hero's
+     button, the Contacts form's heading and its submit all read the same key,
+     so the three surfaces cannot drift into three different asks. */
+  var site = C.site || {};
+  if ((site.primaryCta || {}).label !== (site.navCta || {}).label) {
+    fail("site.primaryCta.label", 'is "' + (site.primaryCta || {}).label + '" but site.navCta.label is "' +
+      (site.navCta || {}).label + '" — one contact ask site-wide');
+  }
+
+  var forms = C.forms || {};
+  var demoForm = forms.demo || {};
+  if (!str(demoForm.secondaryHeading)) {
+    fail("forms.demo", "secondaryHeading missing — Home S7 and Services head the form under the contact card separately");
+  }
+  if (demoForm.secondarySub !== undefined) {
+    fail("forms.demo", "secondarySub retired in round 10 — the Contacts tab reads `sub`, and two subs for one form drift");
+  }
+  /* The sales flow, stated once and in order: a workshop with the team, then a
+     Jumpstart proof of value on their own data (Alex, 2026-09-23). */
+  ["workshop", "proof of value"].forEach(function (phrase) {
+    if (!str(demoForm.sub) || demoForm.sub.toLowerCase().indexOf(phrase) === -1) {
+      fail("forms.demo.sub", 'must name the "' + phrase + '" step — the flow is workshop → Jumpstart proof of value');
+    }
+  });
+  if ((demoForm.submitLabel || "") !== (site.primaryCta || {}).label) {
+    fail("forms.demo.submitLabel", "must read site.primaryCta.label — the hero button and the form's submit are one ask");
+  }
+
+  /* The walkthrough button names exactly what its badge names (standing rule:
+     the walkthrough is an "Interactive demo" everywhere). */
+  var demoBadge = (((C.shared || {}).tagFamilies || {}).availability || {}).demo || {};
+  if ((C.shared || {}).demoCta !== demoBadge.label) {
+    fail("shared.demoCta", 'is "' + (C.shared || {}).demoCta + '" but the availability badge says "' +
+      demoBadge.label + '" — the button names what the badge names');
+  }
+
+  /* The tab is called Use cases, so the block inside it says how they are cut. */
+  var industryLabel = (((C.shared || {}).sectionLabels) || {}).industryCases;
+  if (str(industryLabel) && /use case/i.test(industryLabel)) {
+    fail("shared.sectionLabels.industryCases", 'says "' + industryLabel + '" — the tab already says Use cases; the block names the cut');
   }
 })();
 
@@ -1371,6 +1435,13 @@ var raw = fs.readFileSync(path.join(root, "site/data/content.js"), "utf8");
   if (raw.indexOf(pair[0]) !== -1) fail("content.js", 'contains banned string "' + pair[0] + '" (' + pair[1] + ")");
 });
 
+/* Round 10: "Request a demo" is retired as a label — the site has one contact
+   ask, and it is site.primaryCta.label. The `request-a-demo` anchor id keeps its
+   hyphens and is deliberately not matched here; keep it that way. */
+if (/request a demo/i.test(raw)) {
+  fail("content.js", 'still says "request a demo" — the one contact ask is site.primaryCta.label (round 10)');
+}
+
 /* ---- rounds 6–7 · the Services page (2026-09-16, 2026-09-17) ----
    Three screens and the contact block, one message each (round 7, Alex): AI
    depth with Oracle expertise — the practice (hero and band); it's all about
@@ -1557,8 +1628,18 @@ var raw = fs.readFileSync(path.join(root, "site/data/content.js"), "utf8");
   if (!footerLink || footerLink.route !== "#/sellers" || !str(footerLink.label)) {
     fail("site.footer.sellersLink", 'needs { label, route: "#/sellers" }');
   }
-  var sellersTab = (((C.shared || {}).productTabs) || []).filter(function (t) { return t.id === "sellers"; })[0];
-  if (sellersTab && sellersTab.locked) fail("shared.productTabs[sellers]", "locked retired in round 8 — the tab is a request form, nothing is locked");
+  /* Round 10: the kit lives on the Contacts tab's second row, so its "customer
+     or partner?" route is the form directly above it, and its confirmation
+     offers that same one ask by its one name. */
+  if (!str(tab.routeLabel)) {
+    fail("salesKit.tab.routeLabel", "missing — it names the route out for a customer or partner, which is now the form above");
+  }
+  if (tab.nextDemoLink !== ((C.site || {}).primaryCta || {}).label) {
+    fail("salesKit.tab.nextDemoLink", 'is "' + tab.nextDemoLink + '" — it must read site.primaryCta.label, the one contact ask');
+  }
+  if (((C.salesKit || {}).page || {}).povLink !== ((C.site || {}).primaryCta || {}).label) {
+    fail("salesKit.page.povLink", 'is "' + ((C.salesKit || {}).page || {}).povLink + '" — it must read site.primaryCta.label, the one contact ask');
+  }
 })();
 
 /* Round 4 (Alex, 2026-09-16): NO customer may be named anywhere in the shipped
