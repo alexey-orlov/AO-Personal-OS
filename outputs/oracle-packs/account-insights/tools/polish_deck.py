@@ -28,4 +28,21 @@ for sl in prs.slides:
                                                   f"First engagement: {desc}, contracted; results follow the proof of value. ", t))
             hits += fix_para(p, lambda t: t.replace("— oracle-cx —", f"— {cx} —"))
             hits += fix_para(p, lambda t: re.sub(r"^(◐|●●|●|—)\s+\1\s", r"\1  ", t))
-prs.save(path); print(f"polish_deck: {hits} paragraphs patched")
+# v2 exemplar builder (0.1.14+): the "what it does not claim" block repeats the figures caveat on a slide
+# with no figures, and the detailed packages table gives the prose the glyph prototype's orange.
+from pptx.dml.color import RGBColor
+from pptx.util import Pt as _Pt
+for sl in prs.slides:
+    for sh in sl.shapes:
+        for p in walk(sh):
+            hits += fix_para(p, lambda t: t.replace(" Figures are illustrative and subject to confirmation.", "").replace("Figures are illustrative and subject to confirmation.", "").strip())
+sl10 = list(prs.slides)[9]
+for sh in sl10.shapes:
+    if sh.has_table:
+        for row in list(sh.table.rows)[1:]:
+            for c in list(row.cells)[1:]:
+                for p in c.text_frame.paragraphs:
+                    for r in p.runs:
+                        if r.text.strip() and r.text.strip() not in ("◐", "●", "●●", "—"):
+                            r.font.color.rgb = RGBColor(0x26, 0x28, 0x2B); r.font.size = _Pt(9); r.font.bold = False; hits += 1
+prs.save(path); print(f"polish v2: caveat stripped where figure-less, slide-10 prose set to ink 9pt — total {hits}")
