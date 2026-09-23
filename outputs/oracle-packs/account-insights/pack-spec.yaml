@@ -453,7 +453,8 @@ architecture:                              # component 8 — PROPOSED
     - system: Organization context
       data: "records and framing from the system of record, the catalog of moves"
   outputs:
-    - system: "Oracle Customer Experience (CX) — or any CRM the team already works in"
+    - system: "Oracle Customer Experience (CX)"
+      detail: "or any CRM the team already works in"   # the box carries the name; the qualifier is the mini-site's level
       data: "structured per-account records, routed to the owner"
   stack:
     - layer: Custom configuration
