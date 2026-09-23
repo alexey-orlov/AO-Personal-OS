@@ -656,10 +656,9 @@ packages:                                  # component 12
     account, driven by signal volume rather than seats; the reviewed records land in Oracle CX as the
     system of record, net-new on top of the SaaS seat.
   value_for_client: >-
-    Account managers move from researching their accounts to reviewing a scored, cited list of
-    opportunities and risks per account; coverage of the account book, reviewer agreement and
-    confidence calibration are measured in the proof of value against the team's own approve /
-    reject decisions.
+    Account managers move from researching their accounts to reviewing a scored, cited list of opportunities and
+    risks per account; the hours they spend preparing, how fast they act on a change and the pipeline they add are
+    measured in the proof of value, and the reviewers' own approve / reject decisions are its acceptance test.
   why_it_sells_for_the_partner:
     - "Net-new OCI consumption: recurring GPU and inference workloads on dedicated OCI clusters, driven by signal volume rather than seat count"
     - "Complements Oracle's own account intelligence: Sales Command Center works on first-party CX data; Account insights brings the external signal and the next move"

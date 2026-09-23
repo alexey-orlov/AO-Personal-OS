@@ -2188,8 +2188,11 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
   .step-frame { width: 100%; }
 
   /* One column, at body weight — the description of the step, not a caption of
-     the picture. `min-height` holds the row at its tallest, so the frame stays
-     put when the reader switches steps. */
+     the picture. Every body is placed in the same cell, so the row is as tall
+     as the tallest step and the picture under it never moves when the reader
+     switches steps; the closed ones keep their space but go invisible, which
+     also takes them out of the tab order and the accessibility tree. A floor of
+     5.5rem holds the row where every step is short. */
   .stepper-body {
     grid-row: 2;
     grid-column: 1 / -1;
@@ -2197,6 +2200,8 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
     padding: .25rem 0 0;
     min-height: 5.5rem;
   }
+
+  .stepper-body[hidden] { display: flex; visibility: hidden; }
 
   .stepper-text { font-size: var(--fs-body); line-height: 1.35; color: var(--text); max-width: 44rem; }
   .stepper-features li { font-size: var(--fs-sm); line-height: 1.5; color: var(--text-body); }
