@@ -694,9 +694,9 @@ one_pager:                                # overrides for the A4 page only (the 
     In delivery with {customer}: Client Compass, a 12-week proof of value on NVIDIA AI-Q over OCI —
     CRM account data, approved public sources and commercial feeds read per account; the signals
     mapped to {customer}'s logistics services, scored, cited and reviewed by the account team.
+  sub: short                              # the hero carries the short one-liner, as the deck cover does (the full one costs a row)
   cta:
     question: "Ready to test the fit on one customer's accounts?"
-    answer: "A six-to-eight-week proof of value on the companies your customer already tracks."
   source: user:2026-09-23
 
 contacts:
