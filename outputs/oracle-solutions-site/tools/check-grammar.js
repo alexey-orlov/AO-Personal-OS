@@ -1006,11 +1006,15 @@ if (!arr(C.products) || C.products.length !== 7) {
     ["id", "descriptor", "area", "industry", "status", "line", "footnote"].forEach(function (k) {
       if (!str(c[k])) fail(cw, k + " missing");
     });
-    ["customer", "logo", "logoStacked", "band", "label"].forEach(function (k) {
-      if (c[k] !== undefined) fail(cw, k + " is superseded — the card is an anonymized medallion card with no logo and no band");
+    /* Round 11: the card opens on a photograph again, but it is the industry's
+       own picture, derived from `industry` by the renderer — so no image or
+       band key comes back into the data, and no logo ever does. */
+    ["customer", "logo", "logoStacked", "band", "label", "image"].forEach(function (k) {
+      if (c[k] !== undefined) fail(cw, k + " is superseded — the card is anonymized: no logo, and its photograph is derived from `industry`, not stored");
     });
     if (CASE_STATUSES.indexOf(c.status) === -1) fail(cw, 'status "' + c.status + '" is not ' + CASE_STATUSES.join(" / "));
     if (INDUSTRIES.indexOf(c.industry) === -1) fail(cw, 'industry "' + c.industry + '" is not in the fixed set of 16');
+    else checkAsset(cw, "industry photograph", "assets/img/industries/" + c.industry + ".jpg");
     if (!c.metric || !str(c.metric.value) || !str(c.metric.label)) fail(cw, "metric needs { value, label }");
     else if (c.metric.value.length > 20) fail(cw, 'metric.value "' + c.metric.value + '" is too long to set large');
     /* A card whose headline value is words disclaims figures it never shows. */
@@ -1034,6 +1038,15 @@ if (!arr(C.products) || C.products.length !== 7) {
         ["descriptor", "area", "industry", "status"].forEach(function (k) {
           if (full[k] !== c[k]) fail(cw, k + ' disagrees with products[' + c.product.slug + '].overview.caseStudy.' + k);
         });
+        /* Round 11: the card's figure is the callout's headline figure. The two
+           qualitative ones ("Same day", "Every variance") were rewritten on both
+           surfaces at once; this keeps every card's value in step with its
+           product page, so neither can be re-worded alone. */
+        var headline = (arr(full.metrics) && full.metrics[0]) || {};
+        if (c.metric && str(c.metric.value) && headline.value !== c.metric.value) {
+          fail(cw, 'metric.value "' + c.metric.value + '" disagrees with products[' + c.product.slug +
+            '].overview.caseStudy.metrics[0].value "' + headline.value + '" — the card and the product page state one figure');
+        }
       }
     }
   });
@@ -1169,7 +1182,7 @@ if (!arr(C.products) || C.products.length !== 7) {
 
   /* --- S2 · two ways in --- */
   var tw = o.twoWays;
-  if (!tw) fail("overview.twoWays", "missing — S2, the two joined panels");
+  if (!tw) fail("overview.twoWays", "missing — S2, the two photographic panels");
   else {
     reqStr("overview.twoWays", tw, ["eyebrow", "title"]);
     if (!arr(tw.panels) || tw.panels.length !== 2) {
@@ -1187,6 +1200,28 @@ if (!arr(C.products) || C.products.length !== 7) {
         if (!str(b)) fail(pw, "bullets[" + j + "] is not a string");
       });
       reqCta(pw + ".cta", pn.cta);
+      /* Round 11 (Alex): each panel is a photograph with its copy on it, so each
+         carries the hero-image shape — the file, the alt that describes it for
+         the docs (the renderer sets alt="" because the copy carries the panel),
+         and the focal point the crop holds. */
+      var im = pn.image;
+      if (!im || typeof im !== "object") {
+        fail(pw, "image missing — { file, alt, focal }, the photograph the panel's copy sits on");
+      } else {
+        ["file", "alt", "focal"].forEach(function (k) {
+          if (!str(im[k])) fail(pw, "image." + k + " missing or empty");
+        });
+        if (str(im.file)) {
+          if (!/^assets\/img\/[a-z0-9-]+\/[a-z0-9-]+\.(jpg|jpeg|png|webp)$/.test(im.file) || im.file.indexOf("/logos/") !== -1) {
+            fail(pw, 'image.file "' + im.file + '" must be a photograph under assets/img/<folder>/ (never logos/)');
+          } else {
+            checkAsset(pw, "panel photograph", im.file);
+          }
+        }
+        if (str(im.focal) && !/^\d{1,3}% \d{1,3}%$/.test(im.focal)) {
+          fail(pw, 'image.focal "' + im.focal + '" must be an object-position of two percentages, e.g. "50% 45%"');
+        }
+      }
     });
   }
 
