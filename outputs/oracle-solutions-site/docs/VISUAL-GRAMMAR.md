@@ -194,7 +194,29 @@ This block **replaces the flat key-features checklist**. The same bullets are st
 
 **The coverage invariant.** Across a product's steps, the union of `features` must equal `overview.features` exactly — every bullet in one step, no bullet in two. That is what makes it safe for the stepper to be the only surface those bullets have. `tools/check-grammar.js` asserts it in both directions.
 
-**Interaction.** Desktop: the step list sits left inside the MAIN column, the selected step's frame large on the right. Clicking a step highlights it, opens its `text` + `features`, and swaps the frame; the other steps collapse to number + title, which is what keeps the block to one screen. Mobile: one column, the list first and the frame under it — the same selection, never four open steps. Step 1 is selected on load. The list is a keyboard-navigable set of buttons (↑/↓, Home, End move and select; Enter/Space activate), each carrying `aria-expanded` over its own body, and the frame's image `alt` is the step title.
+**The anatomy, since round 10: the frame is the block.** The screenshots are the best
+thing on the page (Alex), and the old two-column layout gave them the narrower half
+of an already narrow column — **404 × 253 at 1440, shorter than the 380 px step list
+beside them**. On a desktop (≥ 901 px) the block now reads top to bottom:
+
+```
+H2  How it works
+[1 Upload and classify][2 Extract against the rules][3 Score, cite, validate][4 Review and export]   ← one cell per step
+[ frame 16:10, the full width of MAIN ]
+[ active step: text (3fr) | features (2fr) ]
+```
+
+| Part | Rule |
+|---|---|
+| The grid | `.stepper` is `grid-template-columns: repeat(var(--steps), minmax(0, 1fr))`, `column-gap: 0`, `row-gap: 1rem`; the renderer emits `style="--steps: N"` (3–5). `.stepper-list` and `.stepper-step` are `display: contents`, so the heads, the open body and `.step-frames` are all children of that one grid. Explicit rows: heads in row 1, the frame at `grid-column: 1 / -1` in row 2, the body at `1 / -1` in row 3. A closed body carries the `hidden` attribute and takes no cell. |
+| Head cell | The number chip and the title, `align-items: flex-start`, `align-self: stretch` so every cell is as tall as the strip's tallest, and a **continuous 2 px rail** under the row (`box-shadow: inset 0 -2px 0 var(--border-subtle)`, `var(--action)` under the active one) — the site's own tab language. The title may wrap to two lines: dim at rest, `--text` active, `--action` on hover. |
+| Frame | `.step-frame` keeps its 16:10, its thin border and its `contain`-for-SVG / `cover`-for-JPG rule, now at `width: 100%` of the row with `align-self: start`. **Measured on the large-document-extraction Overview: 803 × 503 at 1440, 700 × 438 at 1280, 832 × 521 at 1024** — the rail collapses at ≤ 1100 px, so MAIN becomes the whole column and the frame is wider there than at 1280. |
+| Body | `minmax(0, 3fr) minmax(0, 2fr)`, `gap: 1rem 2rem`, no padding: the step `text` left, its feature tick-list right. A step with **no** features renders **no `<ul>` at all** and `.stepper-text:only-child` spans both columns — an empty list element left a 2fr column of air. |
+| Keyboard | The strip is horizontal on a desktop and a vertical accordion below 901 px, and one component may not answer to different keys at two widths, so the stepper's roving `tabindex` takes **both axes**: ←/→ **and** ↑/↓, plus Home and End. Enter/Space activate; each head carries `aria-expanded` over its own body. `roving()` takes an `axis` of `"horizontal"` / `"vertical"` / `"both"` — the industry tabs stay horizontal. |
+| ≤ 900 px | **Today's accordion, unchanged**: `.stepper` a single-column flex, `.stepper-list` a vertical hairline-ruled list, each body under its own head, the frame after the list, and no box-shadow rail. |
+
+Step 1 is selected on load on both layouts, the other steps collapse to number and
+title, and the frame's image `alt` is the step title.
 
 ### 2.3 Industry use cases — the tab component (MAIN)
 
