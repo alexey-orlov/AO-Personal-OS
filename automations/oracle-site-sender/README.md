@@ -14,7 +14,7 @@ The Oracle AI & Data Solutions mini-site (`~/Documents/GitHub/Oracle-Solutions-S
 | From | Alex Orlov <alex@alexorlov.co> |
 | Test inbox | olekorlov@softserveinc.com: every practice notice and every kit reply while the repo's `mail/settings.json` says `"mode": "test"` |
 | Alerts | Telegram, the AO Personal OS group, General topic, through **Telegram bot (AO)** (`FnBXEhAZd1GlsgSP`) |
-| Allowed origins | `http://127.0.0.1:8765`, `http://localhost:8765` (the local preview) |
+| Allowed origins | `http://127.0.0.1:8765`, `http://localhost:8765` (the local preview), `http://127.0.0.1:8767`, `http://localhost:8767` (the second preview, `oracle-site-alt`) |
 
 These values live in the workflow's **Deployment settings** step and in `Oracle-Solutions-Site/.work/n8n/deployment.local.json` on this Mac (git-ignored), from which `node tools/n8n-workflow.js` builds the full workflow. The webhook path is a live trigger URL: it lives only in `.work/n8n/webhook-path.txt` on this Mac and in n8n itself (read it back through the n8n connector). It never goes in git, here or there.
 
@@ -26,7 +26,7 @@ These values live in the workflow's **Deployment settings** step and in `Oracle-
 
 ## Operating it
 
-- **To test locally:** start the site preview. In its browser console, set `localStorage["oracle-ai-solutions:form-endpoint"]` to the n8n webhook URL (instance URL + `/webhook/` + the path).
+- **To test locally:** start the site preview (`preview_start {name: "oracle-site"}`, or `python3 tools/serve.py` in the site repo) and open http://127.0.0.1:8765 in any browser on this Mac. The forms read the endpoint from the site repo's `site/data/endpoint.local.json`, which is git-ignored and never published. It holds `{ "formEndpoint": "<instance URL>/webhook/<the path>" }` and was written on 2026-09-24 from `.work/n8n/webhook-path.txt`. Every test send is real: in test mode the practice copy, and any kit to an allowed address, arrive in the test inbox.
 - **To go live:** the repo's `mail/settings.json` `mode`, and a public host whose origin is added to the workflow's allowed origins.
 - **After a change to a Code step** in the site repo's `mail/n8n/`: run `node tools/n8n-workflow.js`, then push `.work/n8n/workflow.live.json` (full) or `.work/n8n/code-nodes.json` (code only) to the workflow through the n8n connector.
 - **Executions** keep the requests' data for as long as the n8n plan retains it.
