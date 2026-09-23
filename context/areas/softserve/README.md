@@ -52,7 +52,7 @@ _source files: SoftServe OneDrive `~/Library/CloudStorage/OneDrive-SoftServe,Inc
 - Max — Life Sciences cluster lead; over-allocated (~3 projects), the bottleneck for asset/IP work despite having a PM available. [asset-investment 1:1](calls/oracle/2026-06-25_124657_one-on-one_202606251220277BB56A15.md)
 - Daria — product; paired with Leonid to package cluster work into reusable assets (inferred).
 - Arkadiusz — co-holder of Jumpstart exec ownership.
-- Dmytro, Olya (new, ex-Semenov slot), Leonid, **Vladyslav Butenko** (joined Jul 2026; the BA/PdM on Oracle pack productization and the Payworks Work-OS report → [people page](../../people/vladyslav-butenko.md)) — R&D PdM team.
+- **Dmytro Dudchenko** (SBG PoC scope and SoW; the mini-site's lead for Plan vs actual → [people page](../../people/dmytro-dudchenko.md)), Olya (new, ex-Semenov slot), Leonid, **Vladyslav Butenko** (joined Jul 2026; the BA/PdM on Oracle pack productization and the Payworks Work-OS report, and the mini-site's lead for the three tracked packs → [people page](../../people/vladyslav-butenko.md)) — R&D PdM team.
 - Enok — engineering-heavy, ex-Engineering Director of an acquired company · William — agentic, observability/security angle (intros pending).
 - Ramya — Conga contact (microsite routing, hackathon registrations).
 - Subproject-specific people (Krasimira, Bogdan, Nadia Zerchak, Jorge Rojas, Inok, Greg) live on their subproject pages.
