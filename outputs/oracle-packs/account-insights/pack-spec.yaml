@@ -689,6 +689,10 @@ deck:
 
 one_pager:                                # overrides for the A4 page only (the deck keeps its own lines)
   reframe: "Review, don't research"       # the solution heading; the long form would orphan a word at the page's letter-spacing
+  proof_story: >-                          # the page's short form of the delivered line (the deck prints the full one)
+    In delivery with {customer}: Client Compass, a 12-week proof of value on NVIDIA AI-Q over OCI —
+    CRM account data, approved public sources and commercial feeds read per account; the signals
+    mapped to {customer}'s logistics services, scored, cited and reviewed by the account team.
   cta:
     question: "Ready to test the fit on one customer's accounts?"
     answer: "A six-to-eight-week proof of value on the companies your customer already tracks."
