@@ -3364,7 +3364,7 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 /* The reference's 28px heading at weight 400 — a heading on a photograph, not
    an H4-class card title. */
 .way--photo .way-title { font-weight: 400; font-size: 1.75rem; line-height: 1.2; color: #ffffff; }
-.way--photo .way-body { font-size: var(--fs-body); line-height: 1.25; max-width: 28rem; color: rgba(255, 255, 255, .82); }
+.way--photo .way-body { font-size: var(--fs-body); line-height: 1.25; max-width: 28rem; color: rgba(255, 255, 255, .82); text-wrap: pretty; }
 .way--photo .tick-list li { color: rgba(255, 255, 255, .9); }
 .way--photo .tick-list .icon { color: #ffffff; }
 .way--photo .link-arrow { color: #ffffff; }
