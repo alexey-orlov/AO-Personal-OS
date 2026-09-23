@@ -618,7 +618,7 @@ The tab formerly labelled **Request a demo** is now **Contacts**, at `#/products
 
 **The *Bring to the call* list is retired** (round 10) from the data, the renderer and the CSS, on all three surfaces that render the card. It said the same thing three times over — the form's own message placeholder and the Jumpstart tab's *What we need from you* already ask for the workflow, the systems and the timeline. The card is a person, an address and one line, and `blurb` carries the ask.
 
-`forms.engagementSteps` — the three-step "what happens next" block — renders **under the contact panel, in the left column**, outside the panel's border, and answers the question the panel raises ("what happens if I write?").
+**The left column is the heading and the card, and nothing else.** `forms.engagementSteps` — the three-step "what happens next" block this file used to place under the panel — is **gone from `content.js` and read by no renderer**; the copy that answered *"what happens if I write?"* now lives in `forms.demo.sub` beside the form.
 
 No stray empty panel anywhere: the two rows are the whole section. The **same card and split component** render the Services page contact section and Home S7, from the same object. One person, one address, one place to edit.
 
