@@ -2201,7 +2201,16 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
     min-height: 5.5rem;
   }
 
-  .stepper-body[hidden] { display: flex; visibility: hidden; }
+  /* The one place where a closed panel keeps its cell. Every body is placed in
+     the same grid cell, so the row is as tall as the tallest step and the
+     picture under it never moves when the reader switches; `visibility` keeps
+     the closed ones out of the tab order and the accessibility tree, which the
+     `hidden` attribute did before. It has to out-shout the global
+     `[hidden] { display: none !important }` above, and it is scoped tightly
+     enough — one component, one breakpoint — to be worth it. The accordion
+     below 901px is untouched, and so is the archive theme, which never sees
+     this rule and still hides the panel outright. */
+  .stepper-body[hidden] { display: flex !important; visibility: hidden; }
 
   .stepper-text { font-size: var(--fs-body); line-height: 1.35; color: var(--text); max-width: 44rem; }
   .stepper-features li { font-size: var(--fs-sm); line-height: 1.5; color: var(--text-body); }
