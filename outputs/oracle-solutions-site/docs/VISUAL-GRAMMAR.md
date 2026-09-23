@@ -202,18 +202,25 @@ beside them**. On a desktop (≥ 901 px) the block now reads top to bottom:
 ```
 H2  How it works
 [1 Upload and classify][2 Extract against the rules][3 Score, cite, validate][4 Review and export]   ← one cell per step
+[ active step: description at body size, then its features ]
 [ frame 16:10, the full width of MAIN ]
-[ active step: text (3fr) | features (2fr) ]
 ```
+
+**The order is head → description → picture** (round 10b, Alex: *"the description text
+is below the image and too far from heading, so context is lost; also that description
+doesn't look like description, more like a footnote."*). A description belongs between
+the control that selects it and the picture it explains, and it is set at body weight
+because it is the step's description, not a caption of the image.
 
 | Part | Rule |
 |---|---|
-| The grid | `.stepper` is `grid-template-columns: repeat(var(--steps), minmax(0, 1fr))`, `column-gap: 0`, `row-gap: 1rem`; the renderer emits `style="--steps: N"` (3–5). `.stepper-list` and `.stepper-step` are `display: contents`, so the heads, the open body and `.step-frames` are all children of that one grid. Explicit rows: heads in row 1, the frame at `grid-column: 1 / -1` in row 2, the body at `1 / -1` in row 3. A closed body carries the `hidden` attribute and takes no cell. |
+| The grid | `.stepper` is `grid-template-columns: repeat(var(--steps), minmax(0, 1fr))`, `column-gap: 0`, `row-gap: 1rem`; the renderer emits `style="--steps: N"` (3–5). `.stepper-list` and `.stepper-step` are `display: contents`, so the heads, the body and `.step-frames` are all children of that one grid. Explicit rows: heads in row 1, the body at `grid-column: 1 / -1` in row 2, the frame at `1 / -1` in row 3. |
 | Head cell | The number chip and the title, `align-items: flex-start`, `align-self: stretch` so every cell is as tall as the strip's tallest, and a **continuous 2 px rail** under the row (`box-shadow: inset 0 -2px 0 var(--border-subtle)`, `var(--action)` under the active one) — the site's own tab language. The title may wrap to two lines: dim at rest, `--text` active, `--action` on hover. |
-| Frame | `.step-frame` keeps its 16:10, its thin border and its `contain`-for-SVG / `cover`-for-JPG rule, now at `width: 100%` of the row with `align-self: start`. **Measured on the large-document-extraction Overview: 803 × 503 at 1440, 700 × 438 at 1280, 832 × 521 at 1024** — the rail collapses at ≤ 1100 px, so MAIN becomes the whole column and the frame is wider there than at 1280. |
-| Body | `minmax(0, 3fr) minmax(0, 2fr)`, `gap: 1rem 2rem`, no padding: the step `text` left, its feature tick-list right. A step with **no** features renders **no `<ul>` at all** and `.stepper-text:only-child` spans both columns — an empty list element left a 2fr column of air. |
+| Body | **One column at body weight**, a flex column with `gap: .75rem` and `padding: .25rem 0 0`: `.stepper-text` at `var(--fs-body)` in `--text`, 1.35 leading, `max-width: 44rem`, then the feature tick-list at `var(--fs-sm)` in `--text-body` with 1 rem glyphs. A step with **no** features renders **no `<ul>` at all**. It starts 16 px under the heads row at 1440. |
+| **The row is pinned** | Every body is placed in the **same** grid cell and a closed one keeps it — `.stepper-body[hidden] { display: flex !important; visibility: hidden; }` — so the row is as tall as the tallest step and **the picture never moves when the reader switches steps** (frame top 1538.8 px on every step at 1440). `min-height: 5.5rem` is the floor for a product whose steps are all short. `visibility: hidden` is what keeps the closed bodies out of the tab order and the accessibility tree, the job the `hidden` attribute did before; the `!important` beats the global `[hidden] { display: none !important }` and is scoped to this one component at this one breakpoint. **The cost is up to ~64 px of air** under a short description (the bodies run 94, 126 and 158 px on the four-step product), which is the price of a picture that holds still. |
+| Frame | `.step-frame` keeps its 16:10, its thin border and its `contain`-for-SVG / `cover`-for-JPG rule, now at `width: 100%` of the row with `align-self: start`, and `margin-top: .25rem` on top of the row gap — 1.25 rem between a description and the picture it describes. **Measured on the large-document-extraction Overview: 803 × 503 at 1440, 700 × 438 at 1280, 832 × 521 at 1024** — the rail collapses at ≤ 1100 px, so MAIN becomes the whole column and the frame is wider there than at 1280. |
 | Keyboard | The strip is horizontal on a desktop and a vertical accordion below 901 px, and one component may not answer to different keys at two widths, so the stepper's roving `tabindex` takes **both axes**: ←/→ **and** ↑/↓, plus Home and End. Enter/Space activate; each head carries `aria-expanded` over its own body. `roving()` takes an `axis` of `"horizontal"` / `"vertical"` / `"both"` — the industry tabs stay horizontal. |
-| ≤ 900 px | **Today's accordion, unchanged**: `.stepper` a single-column flex, `.stepper-list` a vertical hairline-ruled list, each body under its own head, the frame after the list, and no box-shadow rail. |
+| ≤ 900 px | **Today's accordion, unchanged**, including its own type sizes: `.stepper` a single-column flex, `.stepper-list` a vertical hairline-ruled list, each body under its own head, the frame after the list, and no box-shadow rail. The archive theme never sees the desktop rules at all. |
 
 Step 1 is selected on load on both layouts, the other steps collapse to number and
 title, and the frame's image `alt` is the step title.
