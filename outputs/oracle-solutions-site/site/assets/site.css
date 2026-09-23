@@ -1208,7 +1208,9 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 
 .segment + .segment { box-shadow: inset 1px 0 0 0 var(--border); }
 .segment:hover { --fill: var(--surface-hover); }
-.segment[aria-pressed="true"] { --fill: var(--surface-select); color: var(--text); }
+/* A segmented control is a toggle in one place (aria-pressed) and a tablist in
+   another — the Contacts switch, round 10b — and both paint the same. */
+.segment[aria-pressed="true"], .segment[aria-selected="true"] { --fill: var(--surface-select); color: var(--text); }
 
 .search-field { position: relative; }
 .search-field .icon { position: absolute; left: .875rem; top: 50%; transform: translateY(-50%); color: var(--decor-dim); }
@@ -2883,27 +2885,21 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 .contact-card--panel { flex-direction: column; align-items: stretch; gap: 1.25rem; flex: 0 0 auto; }
 .contact-card--panel .contact-photo { width: 5rem; height: 5rem; }
 
-/* ——— contacts row 2: the sales kit, for sellers ————————— */
+/* ——— contacts: the switch, one form on the screen ——————— */
 
-/* The same two-column ratio and gap as row 1, so the two rows read as one grid
-   rather than two panels that happen to sit above each other. */
-.panel--kit-wide {
-  width: 100%;
-  padding: clamp(1.75rem, 3vw, 2.75rem);
-  border: 1px solid var(--border);
-  border-radius: 0;
-  background: var(--bg-inset);
-}
+/* Round 10b: the kit moved from a second row into the second tab of a switch,
+   so it is reachable without scrolling and only one form is ever open. The
+   selected segment is the column's heading, which is why neither panel repeats
+   it. The control is capped so two uppercase labels do not stretch across the
+   whole column and stop reading as a switch. */
+.contact-tabs { display: flex; flex-direction: column; min-width: 0; }
+.contact-segmented { max-width: 30rem; }
+.contact-pane { display: flex; flex-direction: column; gap: 1rem; min-width: 0; margin-top: 1.25rem; }
 
-.kit-split {
-  display: grid;
-  grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr);
-  gap: clamp(2rem, 3.5vw, 3.5rem);
-  align-items: start;
-}
-
-.kit-copy { display: flex; flex-direction: column; gap: .75rem; min-width: 0; }
-.panel--kit-wide .kit-form { max-width: none; margin-top: 0; }
+/* The kit form fills its panel here, like the ask form in the other tab: two
+   tabs of one switch may not print two form widths. */
+.contact-pane .kit-form { display: flex; flex-direction: column; gap: 1rem; width: 100%; margin-top: 0; }
+.contact-pane .form-status:empty { display: none; }
 
 @media (max-width: 1100px) {
   .cap-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -2913,7 +2909,7 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
   .pillar-row { grid-template-columns: minmax(0, 1fr); }
   .js-split, .js-split--invest { grid-template-columns: minmax(0, 1fr); }
   .next-grid { grid-template-columns: minmax(0, 1fr); }
-  .contact-split, .kit-split { grid-template-columns: minmax(0, 1fr); }
+  .contact-split { grid-template-columns: minmax(0, 1fr); }
 }
 
 @media (max-width: 640px) {
