@@ -695,6 +695,9 @@ one_pager:                                # overrides for the A4 page only (the 
     CRM account data, approved public sources and commercial feeds read per account; the signals
     mapped to {customer}'s logistics services, scored, cited and reviewed by the account team.
   sub: short                              # the hero carries the short one-liner, as the deck cover does (the full one costs a row)
+  data_flow_notes: false                  # the two platform boxes carry their names only; the deck's architecture slide carries what they do
+  tier_scope:
+    scaling: "Live write-back, outcome capture, tested on real outcomes."   # the deck's line runs to three rows in the page's header cell
   cta:
     question: "Ready to test the fit on one customer's accounts?"
   source: user:2026-09-23
