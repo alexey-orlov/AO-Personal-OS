@@ -46,3 +46,11 @@ for sh in sl10.shapes:
                         if r.text.strip() and r.text.strip() not in ("◐", "●", "●●", "—"):
                             r.font.color.rgb = RGBColor(0x26, 0x28, 0x2B); r.font.size = _Pt(9); r.font.bold = False; hits += 1
 prs.save(path); print(f"polish v2: caveat stripped where figure-less, slide-10 prose set to ink 9pt — total {hits}")
+# v2: the exemplar's slide 8 carries two vertical app<->engine connectors with no label — decoration under the diagram rules.
+sl8 = list(prs.slides)[7]; dropped = 0
+boxes = [sh for sh in sl8.shapes if sh.has_text_frame and sh.text_frame.text.strip()]
+for sh in list(sl8.shapes):
+    is_conn = sh.shape_type is None or "Connector" in type(sh).__name__ or (sh.shape_type == 9)
+    if is_conn and not sh.has_text_frame and sh.height > sh.width * 2:
+        sh._element.getparent().remove(sh._element); dropped += 1
+prs.save(path); print(f"polish v2: dropped {dropped} unlabelled vertical connector(s) on slide 8")

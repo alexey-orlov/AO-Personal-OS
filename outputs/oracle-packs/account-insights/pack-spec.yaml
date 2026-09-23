@@ -498,7 +498,7 @@ oracle_products:                           # components 9 and 10 — catalog ids
 
   - id: oracle-cx
     role: optional
-    why: "The account system of record at the ingress end and the delivery target at the egress end — the pack supplies the external-signal half that Oracle's own account intelligence is first-party-only by design"
+    why: "System of record in; reviewed next moves out"
     integration: { pov: "an agreed extract in, file export out", integration: "API both ways", scaling: "live write-back with idempotency and dedupe-on-write" }
     note: >-
       The single most commercially relevant entry on this list, and the one that carries the
