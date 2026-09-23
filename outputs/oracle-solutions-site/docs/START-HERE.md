@@ -271,6 +271,16 @@ Exact commands are in HANDOFF §4.
     the closed step bodies' cell, which costs up to ~64 px of air under a short
     description; a later round could close it by levelling the descriptions instead.
     768 and 320 were not looked at on that pass.
+- **Round 11 (§30.6):**
+  - Account insights says one thing two ways: its Overview rail tile still reads
+    *"Hours, rather than the next quarterly review"* while its case study now says
+    *Same day*;
+  - the Plan vs actual story still calls *Every variance* "the figure above";
+  - the S5 card treatment was not measured against softserveinc.com's resource cards
+    (the research did not reach them); it follows the Solutions cards and Alex's words;
+  - 320 px, reduced motion, print and non-Chromium browsers were not looked at;
+  - joint delivery with Oracle's AI & Data organization and *"Scope, timeline and
+    price on every product page"* left the home page with S2's old bullets.
 - **Inputs Alex supplies (HANDOFF §7):** demo videos and posters, Marketplace URLs, success stories, kit links, form endpoint, hosting subdomain, customer-name approvals, image rights.
 - **At launch:**
   - the site name checked against Oracle's trademark guidelines;
@@ -286,7 +296,7 @@ Exact commands are in HANDOFF §4.
 | `docs/SCHEMA.md` | You add, rename or retire a `content.js` key |
 | `docs/CONFIG.md` | You touch a switch in `config.js` |
 | `docs/VISUAL-GRAMMAR.md` | You change a component or a page composition |
-| `docs/PROVENANCE.md` | You need a fact's source or a round's decisions (§18 home, §20 name, §21 and §23 Services, §24 sales kit, §25 START-HERE, Internal panel and logos, §27 the SS26 theme, §28 the home page re-argued — three layers, six groups, Artifacts — §29 the product pages — one contact ask, the Use cases tab, the stepper). At 5,600 lines, search it; don't read it top to bottom. |
+| `docs/PROVENANCE.md` | You need a fact's source or a round's decisions (§18 home, §20 name, §21 and §23 Services, §24 sales kit, §25 START-HERE, Internal panel and logos, §27 the SS26 theme, §28 the home page re-argued — three layers, six groups, Artifacts — §29 the product pages — one contact ask, the Use cases tab, the stepper — §30 the home page's photographs and the two "Hours" figures). At 6,000 lines, search it; don't read it top to bottom. |
 | `docs/SS26-THEME.md` | You touch either theme: what the current SoftServe brand is, the token map, the shape and colour rules, the fonts, and what is open |
 | `docs/ASSETS.md` | You work on images, step frames or posters, and how they were made |
 | `docs/HANDOFF-workforce-demo.md`, `docs/HANDOFF-erp-qa-demo.md` | You work on a walkthrough; each is owned by its own session |
