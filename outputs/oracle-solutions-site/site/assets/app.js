@@ -325,15 +325,13 @@
      section, on a product's Contacts tab and on Services. The monogram is the
      avatar's own background and the photograph sits on top of it, so a missing
      file leaves initials rather than a broken frame: the image guard drops the
-     <img>. The "Bring to the call" list is what turns "get in touch" into a
-     call someone can prepare for, so it is part of the panel, not a footnote. */
+     <img>. Round 10 retired the "Bring to the call" list: it repeated the form's
+     own placeholder and the Jumpstart tab's "What we need from you", and the
+     card is now a person, not a briefing. */
   function contactCard(options) {
     var opts = options || {};
     var person = (C.shared && C.shared.contact) || null;
     if (!person || !person.name) return "";
-    var bring = (person.bring || []).map(function (line) {
-      return "<li>" + icon("check") + "<span>" + esc(line) + "</span></li>";
-    }).join("");
 
     return '<div class="contact-card' + (opts.className ? " " + esc(opts.className) : "") + '">' +
       '<span class="contact-photo" aria-hidden="true">' +
@@ -355,24 +353,21 @@
           ? '<a class="contact-social" href="' + esc(person.linkedin) +
             '" target="_blank" rel="noopener">' + icon("linkedin") + "<span>LinkedIn</span></a>"
           : "") +
-        (bring
-          ? '<div class="contact-bring">' +
-              '<p class="eyebrow eyebrow--accent">' + esc(person.bringTitle || "") + "</p>" +
-              '<ul class="tick-list contact-bring-list">' + bring + "</ul>" +
-            "</div>"
-          : "") +
       "</div></div>";
   }
 
-  /* Two columns of equal height: the named human on the left, the form on the
-     right. One component, rendered from one object, on both surfaces — so a
-     reader who has met Karsten on a product page meets the same panel on
-     Services. Both columns open with a heading on the same baseline, so the
-     card and the form start level. */
+  /* Two columns, the named human on the left, the form on the right. One
+     component, rendered from one object, on both surfaces — so a reader who has
+     met Karsten on a product page meets the same panel on Services. Both columns
+     open with a heading on the same baseline, so the card and the form start
+     level; neither is stretched to the other's height (round 10). `formId` names
+     the right column, so a link elsewhere on the page can land on the form
+     itself rather than re-entering the route and wiping what was typed. */
   function contactSplit(options) {
     var opts = options || {};
     var card = contactCard({ className: "contact-card--panel" });
-    var right = '<div class="contact-split-form">' +
+    var right = '<div class="contact-split-form"' +
+      (opts.formId ? ' id="' + esc(opts.formId) + '"' : "") + ">" +
       (opts.heading ? '<h3 class="h3 block-title">' + esc(opts.heading) + "</h3>" : "") +
       (opts.sub ? '<p class="body-text contact-split-sub">' + esc(opts.sub) + "</p>" : "") +
       (opts.form || "") +

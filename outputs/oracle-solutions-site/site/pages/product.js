@@ -36,7 +36,7 @@
       if (tabs[i].id === wanted) return { id: wanted, legacy: false };
     }
     for (i = 0; i < tabs.length; i += 1) {
-      if (tabs[i].legacyId && tabs[i].legacyId === wanted) return { id: tabs[i].id, legacy: true };
+      if ((tabs[i].legacyIds || []).indexOf(wanted) !== -1) return { id: tabs[i].id, legacy: true };
     }
     return { id: "overview", legacy: wanted !== "overview" };
   }
@@ -129,11 +129,14 @@
     })];
     /* The interactive walkthrough opens in its own tab: it is a self-contained
        page with its own guide, and a seller mid-call must not lose the product
-       page behind it. Rendered only when a demoUrl is configured. */
+       page behind it. Rendered only when a demoUrl is configured. One icon, the
+       badge's own pointer, leading the label — the pointer is what says
+       "walkthrough you click", so a trailing external glyph would only dilute it
+       (round 10). */
     if (conf.demoUrl) {
       out.push(UI.button({
         label: C().shared.demoCta, href: demoHref(conf),
-        kind: "secondary", iconAfter: "external",
+        kind: "secondary", icon: "cursor-click",
         attrs: { target: "_blank", rel: "noopener" }
       }));
     }
