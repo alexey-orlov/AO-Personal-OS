@@ -128,6 +128,17 @@ counts and the scaffolding, not the essence" and used internal vocabulary
   render it, and read From, Subject, preview line and body top to bottom. Hand that rendering,
   not the copy fields, to a fresh-context reviewer. Copy written field by field against a
   schema passes every field check and still fails this read.
+- **A form does its job or says it can't; it never hands the visitor a mechanism**
+  (2026-09-24, Alex on the mini-site's fallback that opened his mail app: "WTF is client? it
+  just had to send message in the background, and communicate it as 10000 websites do").
+  A form on anything we ship posts in the background and confirms the outcome in the words
+  sites use (*Thanks, your request is in*, *Check your inbox*). It never opens a mail app or
+  asks the visitor to finish the job by hand, never shows a success mark for something that
+  did not happen, and never promises a result (*we'll email you*) on a copy that cannot deliver
+  it. Where a copy cannot send (a preview host that blocks requests), it says so under the form
+  before anyone types, and names the address to write to. Make it work where the user will
+  try it: their own browser, the link they were given. A setup that works only in the agent's
+  own tab is not working, whatever caveat came with it. Enforce it in the build's checker.
 - The checks above are the Fable part; the counting, the persona read-through and the
   before/after record can be delegated to an Opus critic, as long as the rewrite itself
   stays with the session that owns the messaging.
