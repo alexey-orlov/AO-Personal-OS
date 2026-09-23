@@ -72,3 +72,11 @@ deck or one-pager work.
     unmarked state reads as neutral context on its own. Peer geometry (rule 2) still wins over
     "half-empty" (rule 1) when a row-mate forces the height and no re-deal of the rows fits
     the width — say so in the notes rather than shrinking the box.
+15. **A SoftServe-template cover carries a hero photograph; an ink-only cover is an unfinished
+    state, never a deliverable** (2026-09-23, Alex on the Account Insights sales deck: "why is the
+    title slide not like in the WfO package — with image, SoftServe style template — but just a
+    black background?"). The reference deck's own hero is pack-specific and never inherited by
+    another pack, so every pack chooses its own cover photograph in the pictures step (the industry
+    at work, wide, no text, no faces implying endorsement) before the deck is built; a build that
+    removes the hero for want of a chosen photo reports the empty cover as an open item, and the
+    deck does not go to review with it.
