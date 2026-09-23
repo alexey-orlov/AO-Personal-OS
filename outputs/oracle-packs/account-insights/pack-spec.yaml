@@ -24,13 +24,14 @@ meta:
   source_engagement:
     customer: "<the delivery customer — a global logistics and supply-chain operator>"
     delivered: >-
-      A contracted proof of concept on NVIDIA AI-Q over OCI, turning external signals and first-party account context into per-account opportunity and
-      risk records — scored, cited and reviewed in a purpose-built reviewer UI, across seven external
-      data sources. Contracted; results follow the proof of value.
+      A contracted proof of value on NVIDIA AI-Q over OCI: news and filings from seven external sources,
+      read together with the client's own account records, become one scored, source-cited
+      opportunity-and-risk record per account, which the team approves or rejects in a reviewer screen
+      built for the purpose.
     divergence_line: >-
-      The pack generalizes what one engagement configured: the signal sources, the account
-      universe and the service catalog are per-client configuration, and the catalog mapping and
-      cross-account ripple reasoning are the reusable core.
+      Not the first client's results or set-up: their sources, their list of companies and their own
+      catalog of moves are configured for each client; what every client gets is the reasoning that
+      finds which companies a piece of news touches and the move it opens for each.
     divergence_from_pack: >-
       The engagement's signed scope describes an older shape — per-account briefings benchmarked
       against hand-written reports; the delivery moved to signal-triggered per-account records,
@@ -130,7 +131,7 @@ verticals:                                 # component 5 — PROPOSED, see open_
     site_label: Logistics
     framing:
       problem: "Account teams learn about a customer's plant expansion, market entry or disruption after the logistics decision is already made."
-      solution: "Signals on shippers and their networks become named forwarding, warehousing and contract-logistics opportunities on the accounts that carry them."
+      solution: "A shipper's news — a new plant, a new market, a supplier strike — becomes a forwarding, warehousing or contract-logistics opportunity for the team that serves it."
       entities: "customer accounts, service lines, trade lanes, sites"
     catalog_type: offering
     status: plausible
@@ -139,7 +140,7 @@ verticals:                                 # component 5 — PROPOSED, see open_
     site_label: Financial services
     framing:
       problem: "A relationship manager finds out about a counterparty event from the client, not from the bank."
-      solution: "One event is resolved across the obligor group and returns both the coverage opportunity and the exposure it puts at risk, to two different owners."
+      solution: "News about a borrower is traced across its group and returns two answers: the deal it opens for the relationship team, and the exposure it puts at risk for credit."
       entities: "obligor groups, exposures, product holdings"
     catalog_type: offering
     status: plausible
@@ -152,7 +153,7 @@ verticals:                                 # component 5 — PROPOSED, see open_
     site_label: Manufacturing
     framing:
       problem: "A supplier or OEM customer event reshapes demand across several accounts at once, and it is worked out one account at a time or not at all."
-      solution: "One signal fans out across the affected companies with the supply, reallocation or partnership opportunities each one creates."
+      solution: "An event at a supplier or an OEM customer is traced to every affected company on the list, with the supply, reallocation or partnership move it opens for each."
       entities: "accounts, production sites, trade lanes"
     catalog_type: offering
     status: plausible
@@ -161,7 +162,7 @@ verticals:                                 # component 5 — PROPOSED, see open_
     site_label: Private equity
     framing:
       problem: "A market or regulatory event moves the thesis on a portfolio company, and the fund finds out at the next board meeting."
-      solution: "Signals across the portfolio are resolved to the holdings they affect and mapped to the value-creation levers the fund actually pulls."
+      solution: "News about a market, a regulator or a competitor is matched to the portfolio companies it touches and to the levers the fund actually pulls to grow them."
       entities: "portfolio companies, investment theses, value-creation levers"
     catalog_type: lever
     status: plausible
@@ -447,7 +448,7 @@ architecture:                              # component 8 — PROPOSED
     - system: Organization context
       data: "records and framing from the system of record, the catalog of moves"
   outputs:
-    - system: "Any CRM or CX platform — Oracle Customer Experience (CX) included"
+    - system: "Oracle Customer Experience (CX) — or any CRM the team already works in"
       data: "structured per-account records, routed to the owner"
   stack:
     - layer: Custom configuration
@@ -619,19 +620,19 @@ packages:                                  # component 12
       scaling: "●● Multi-source, multi-market; a licensed relationship graph"
     - area: Signal normalization
       maps_to_feature_areas: [Signal intake & normalization]
-      pov: "◐ Relevance, de-duplication, account resolution; both trigger paths"
-      integration: "● Standing subscription per account; what changed; nothing-material state"
-      scaling: "●● Deadline-bound triggers and provenance-class gating"
+      pov: "◐ Relevance, de-duplication, account resolution; scheduled and on-demand runs"
+      integration: "● A standing watch per account, reporting what changed since last time — or that nothing did"
+      scaling: "●● Deadline-driven triggers; sources gated by reliability class"
     - area: Implication reasoning
       maps_to_feature_areas: [Implication reasoning]
       pov: "● Opportunity and risk reasoning; next-move mapping; ripple to two levels; scoring"
-      integration: "● Dual implication routed to separate owners; configurable catalog target"
+      integration: "● Opportunity and risk routed to separate owners; map to offerings, levers or mitigations"
       scaling: "●● Graph-backed ripple, portfolio aggregation, cost-aware ranking"
     - area: Review & evidence
       maps_to_feature_areas: [Review & evidence]
       pov: "● Reviewer UI; citations; evaluation harness; feedback capture"
-      integration: "● Human triage of raw inbound; negative assertion recorded as a result"
-      scaling: "●● Feedback-driven tuning as a persisted loop; point-in-time replay"
+      integration: "● Human triage of raw inbound; a 'nothing found' verdict recorded like any other"
+      scaling: "●● Tuning from reviewer feedback, kept as a learning loop; replay of any past day"
     - area: Output & delivery
       maps_to_feature_areas: [Output & delivery]
       pov: "◐ Records exported as files; reviewer decisions captured, not written back"
