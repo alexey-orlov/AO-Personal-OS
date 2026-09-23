@@ -5318,3 +5318,328 @@ centred crop, and negative offsets render black.
    about (61). Untouched this round; the checker warns on both.
 9. **"Oracle Marketplace" still renders for the two products flagged
    `marketplace: true`** while no listing URL exists (unchanged since round 4).
+
+## 29. Round 10 — the product pages: one contact ask, a Use cases tab, and the frame as the block, 2026-09-23
+
+**The asks** (Alex, in session; written up as `scratchpad/round10-brief.md`):
+
+1. **The walkthrough button** takes the pointer glyph the *Interactive demo* badge
+   already uses, and a shorter label that still says "interactive walkthrough, not a
+   product, not a video".
+2. **"Request a demo" is an open ask** — a call, a contact. Give it whatever CTA
+   best practice says for an enterprise product sold by enterprise sales executives.
+3. **Contacts.** Karsten's title becomes *Oracle Partnership Director, SoftServe*
+   everywhere; the *Bring to the call* block comes off; the form's submit is the
+   same CTA as the hero, because the flow is streamlined; the form's sub says that
+   flow — a workshop first, then the scope of the proof of value; and the tab has
+   two blocks: Karsten plus the request form as the main one, the sales kit for
+   sellers as the secondary one.
+4. **Overview.** The industry use cases and the case study move to a new **Use
+   cases** tab. The How-it-works block is too small and its screenshot is shorter
+   than the step list — *"the screenshots are the best thing on the page; make them
+   look right."*
+
+**Split.** Fable: the survey of the built screens, every decision below, every line
+of copy, the code review of the shipped diff, the final visual review and the
+publish. Opus: the build, the checker and the browser QA (agent 1), and these docs
+(agent 2). **Agent 1's progress file went quiet for two hours during the QA stage**
+while its transcript kept growing: it logged one line per stage rather than one per
+screen, so the stall watch could not tell a long QA from a hang. The rule that came
+out of it is in START-HERE §7 — a QA stage logs per screen.
+
+### 29.1 The decisions, and why
+
+- **One contact ask site-wide: *Talk to us*.** The header button already said it
+  (`site.navCta`), so the product hero's primary button now reads the same words,
+  and the Contacts tab's form heading and its submit button read the **same key**
+  (`site.primaryCta.label`) rather than copies of it — three surfaces that cannot
+  drift into three different asks. *Request a demo* is retired from `content.js`
+  entirely and the checker fails the raw file on the string. The **route is
+  unchanged**: the hero button still lands on that product's Contacts tab, and
+  `overview.contact.anchor` is still `request-a-demo`, so no deep link moved.
+- **The walkthrough button says *Interactive demo*** — the badge's exact words,
+  under the standing rule that the walkthrough is an *Interactive demo* everywhere
+  — with the `cursor-click` glyph **leading** the label and **no trailing
+  `external` glyph**. One icon per button: the pointer is what says "a walkthrough
+  you click", and a second glyph beside it only dilutes that. It still opens in a
+  new tab, and the same button renders inside the pending-video modal.
+  `shared.videoPending.cta` stays *Request a live demo* — a live demo is the right
+  ask while the recording does not exist.
+- **Contacts is two rows on one grid.** Row 1 is the main ask: the contact card
+  left, and right the *Talk to us* heading, the new `forms.demo.sub` and the demo
+  form. Row 2 is the secondary one: the product's sales kit, for a seller rather
+  than a customer, in a full-width inset panel (`panel--kit-wide`, background
+  `--bg-inset`) whose two columns carry **row 1's ratio and gap** (`.85fr /
+  1.15fr`), so the tab reads as one grid instead of two panels that happen to sit
+  above each other. Below 1100 px both rows stack — card, form, kit copy, kit form.
+- **The *For sellers* tab is retired.** Its only content was the kit request, and a
+  page that repeats one form under two names is a structure bug. `#/products/<slug>/sellers`
+  now **redirects in place** to `…/contacts`, joining `/demo` and `/pov`. The
+  `#/sellers` page, the footer link and *Get the full kit* are untouched. The tab
+  was data, so the decision is reversible.
+- **The kit's links point at the form, not at the route.** A same-route `ROUTER.go`
+  re-renders the page and wipes whatever the reader has typed, so `routeLink` and
+  `nextDemo` both carry `#/products/<slug>/contacts#talk`; the right column takes
+  `id="talk"` and a `scroll-margin-top` of `--nav-h + 5rem` so the anchor lands
+  clear of the masthead. `nextAll` still goes to `#/sellers`.
+- **The card is no longer stretched to the form's height** (`align-items: start` on
+  `.contact-split`, `flex: 0 0 auto` on `.contact-card--panel`). Stretching left a
+  person's name floating above a field of empty inset — a card is not a container
+  to fill. At 1440 the card now measures **390 px beside a 697 px form**.
+- **The *Bring to the call* list is retired** from the data, the renderer and the
+  CSS, on all three surfaces that render the card (the Contacts tab, Home S7,
+  Services). It said the same thing three times over: the form's own message
+  placeholder and the Jumpstart tab's *What we need from you* already ask for the
+  workflow, the systems and the timeline. The card is a person, an address and one
+  line; `blurb` was rewritten to carry the ask instead.
+- **The Use cases tab** is the industry tabs block — its title now
+  `sectionLabels.industryCases` = *By industry*, since the tab already says *Use
+  cases* — then the case study, in a single column at the full content width with
+  no rail. Four products carry `caseStudy: null` and render the industries block
+  alone: **no empty state**, as everywhere else on the site. The two blocks moved
+  because they answer a different question from the Overview's ("where does this
+  apply, and has it worked?") and were pushing How it works out of the first screen.
+- **The case-study callout got a wide variant.** In a 1,248 px column the round-4
+  single-column anatomy fell apart, so the renderer now wraps its children in two
+  containers — `.case-main` (eyebrow · medallion, descriptor and area · story · NDA
+  line · link) and `.case-side` (status chip · figures · scope facts) — and
+  `.case-callout--wide` makes `.case-body` a `minmax(0, 1.4fr) minmax(0, 1fr)` grid
+  at ≥ 901 px, the evidence column top-aligned behind a 1 px `--border-subtle` left
+  rule. Narrative left, evidence right, and the chip stays directly above the
+  figures it qualifies. Below 901 px the two stack, main then side, and the rule
+  becomes a top rule.
+- **How it works — the frame becomes the block.** On a desktop the step heads are
+  now a strip across the top, one grid cell each; the frame spans the whole row
+  beneath them at the MAIN column's full width; and the open step's body sits under
+  the frame, text at 3fr beside its feature list at 2fr. One markup, two layouts:
+  `.stepper-list` and `.stepper-step` are `display: contents` at ≥ 901 px, which
+  promotes the heads, the open body and `.step-frames` to children of the one grid,
+  and the renderer emits `style="--steps: N"` to cut it into a column per step. A
+  hidden body carries the `hidden` attribute and takes no cell. The head cells share
+  a **continuous 2 px rail** (`box-shadow: inset 0 -2px 0`), `--action` under the
+  active one — the site's own tab language — and every cell stretches to the
+  tallest, so a two-line title does not drop its rule below its neighbours'.
+  **Measured `.step-frame` on the large-document-extraction Overview: 803 × 503 at
+  1440, 700 × 438 at 1280, 832 × 521 at 1024** (the rail collapses at ≤ 1100 px, so
+  MAIN is the full column and the frame is *wider* at 1024 than at 1280). Before
+  the round it was **404 × 253 at 1440 — shorter than the 380 px step list beside
+  it**, which is the defect Alex named.
+- **A step with no features renders no list.** The renderer emits no `<ul>` at all,
+  and `.stepper-text:only-child` then spans both body columns — an empty list
+  element left a 2fr column of air beside the text.
+- **The stepper's keyboard handling takes both axes.** `roving()` grew from a
+  boolean to an `axis` of `"horizontal"` / `"vertical"` / `"both"`, and the stepper
+  passes `"both"`: its heads are a horizontal strip on a desktop and a vertical
+  accordion below 901 px, and one component may not answer to different keys at two
+  widths. Home and End are unchanged; the industry tabs stay horizontal.
+- **Below 901 px nothing changed.** The same markup falls back to the accordion it
+  has always been — a hairline-ruled list, each body under its own head, the frame
+  after the list, no box-shadow rail.
+- **The tab bar lost its lock branch.** `tab.locked` had been dead since round 8;
+  the renderer's `lock` icon branch is gone and the checker now fails any tab
+  carrying the key, so it cannot come back as data nobody renders.
+
+### 29.2 Decided differently from the brief
+
+The build agent's four departures, and one fix the main session made after the
+build. The brief's decisions were otherwise built as written.
+
+1. **`.case-callout--wide` got a `column-gap` and a single-column evidence
+   column.** The brief specified only the two-column body. Inside the 480 px
+   evidence column, two 40 px figures side by side — or the three-up scope grid —
+   was unreadable, so `.case-figures` and `.case-scope` are each one column there,
+   with the figures keeping their own row rhythm.
+2. **The kit row's columns match row 1's ratio, not its pixels.** The inset panel's
+   padding shifts the column boundary by about 7 px against the section above it.
+   Removing the padding would align them exactly and lose the inset, which is what
+   makes row 2 read as the secondary block.
+3. **The dead `tab.locked` branch was removed** from `tabbar`, and `locked` is
+   banned in data. The brief asked only for the old `sellersTab.locked` assertion
+   to be replaced.
+4. **The brief mis-named one QA product.** It called `business-metrics-qa` "no
+   video, demo"; that product has neither. The video-less product with a
+   walkthrough is `cross-system-erp-qa`, and that is the one QA covered in its
+   place.
+5. **`metricsNote` on `large-document-extraction`** said the figure was *"in the
+   case study on this page"* — true until the case study left the Overview. It now
+   reads *"…in the case study, on the Use cases tab."* A pointer across tabs is the
+   cost of the split, and this was the only copy defect the move created; the main
+   session found it in the final review and fixed it after the build.
+
+### 29.3 Before and after, surface by surface
+
+Labels: **[site]** carried unchanged · **[new]** copy written this round (Fable) ·
+**[alex]** Alex's own wording or instruction.
+
+**The hero CTA row** (`heroCtas`, and the same pair in the pending-video modal)
+
+| Part | Before | After | |
+|---|---|---|---|
+| Primary button | `Request a demo` → that product's Contacts tab | `Talk to us`, same route | [alex] |
+| Walkthrough button | `Try the interactive demo`, `iconAfter: "external"` | `Interactive demo`, leading `cursor-click`, no trailing glyph | [alex] |
+| Pending-video modal | `Request a live demo` + the walkthrough button | `Request a live demo` unchanged, beside the new walkthrough button | [site] |
+
+**The Overview tab**
+
+| Column | Before | After |
+|---|---|---|
+| MAIN | Problem → Solution · How it works · Industry use cases · Case study · More detail | Problem → Solution · **How it works** · More detail |
+| SIDE rail | Outcomes & ROI | unchanged |
+
+And inside How it works:
+
+| Part | Before | After |
+|---|---|---|
+| Layout | two columns — the step list at `1fr`, the frame at `1.1fr` beside it | one grid: heads in row 1, the frame across row 2, the open body across row 3 |
+| Frame at 1440 / 1280 / 1024 | 404 × 253 / — / — | **803 × 503 · 700 × 438 · 832 × 521** |
+| Active step's body | under its own head, in the left column | under the frame, text 3fr beside features 2fr; a text-only body spans both |
+| Step head | a list row with a hairline | a strip cell with the number chip, `align-self: stretch`, on a continuous 2 px rail |
+| Keyboard | ↑/↓ only | ←/→ **and** ↑/↓, Home, End |
+| ≤ 900 px | the accordion | the accordion, unchanged |
+
+**Use cases — the new tab** (`#/products/<slug>/use-cases`)
+
+| Part | Before | After |
+|---|---|---|
+| Where it lived | both blocks in the Overview's MAIN column (803 px) | its own tab, single column at the full content width (1,248 px at 1440) |
+| Block title | *Industry use cases* | *By industry* — the tab says *Use cases* |
+| Case callout | one column, chip between the head and the figures | `.case-main` left · `.case-side` right behind a hairline, at `1.4fr / 1fr`; stacked below 901 px |
+| Four products with `caseStudy: null` | the industries block alone in the Overview | the industries block alone on the tab — no empty state |
+
+**The Contacts tab**
+
+| Part | Before | After |
+|---|---|---|
+| Row 1 left | the card, stretched to the form's height, ending in the three-line *Bring to the call* list | the card at its own height — photo · name · title · mailto · blurb. **390 px at 1440** |
+| Row 1 right | heading `forms.demo.secondaryHeading` (*SEND A REQUEST*), sub `forms.demo.secondarySub`, submit `labels.submitRequest` | heading and submit both `site.primaryCta.label` (*Talk to us*), sub the new `forms.demo.sub`, the column carrying `id="talk"`. **697 px at 1440** |
+| Row 2 | — (the kit lived on the *For sellers* tab) | a full-width inset panel: eyebrow *For sellers* · H3 *Get the sales kit* · the body naming the product · the kit form, on row 1's ratio |
+| Kit links out | *Request a demo* → the same route (a re-render that wiped the form) | *Use the form above* / *Talk to us* → `…/contacts#talk` |
+
+**The tab bar**
+
+| Before | After |
+|---|---|
+| Overview · Technology · Jumpstart · Contacts · For sellers | Overview · **Use cases** · Technology · Jumpstart · Contacts |
+| `legacyId: "pov"` on jumpstart, `legacyId: "demo"` on contacts | `legacyIds: ["pov"]` and `legacyIds: ["demo", "sellers"]` — the singular key fails the build |
+| a `lock` icon branch in the renderer for `tab.locked` | no branch, and `locked` in data fails the build |
+
+**The contact card on Home S7 and on Services** — the same component, so both moved
+with it: the *Bring to the call* list is gone, the card is no longer stretched, and
+the title is the new one. Measured at 1440 on both: **card 390 px beside a 598 px
+form**. Their form headings and subs are out of scope this round and unchanged —
+Home S7 and Services still render `forms.demo.secondaryHeading` and
+`labels.submitRequest` / `labels.submitContact`.
+
+**The strings** (`site/data/content.js`, and one deletion in `content-case.js`)
+
+| Key | Before | After | |
+|---|---|---|---|
+| `site.primaryCta.label` | *Request a demo* | *Talk to us* (route unchanged) | [alex] |
+| `shared.productTabs` | five tabs ending in `sellers`, `legacyId` singular | five tabs with `use-cases` second and no `sellers`; `legacyIds` arrays | [alex] |
+| `shared.contact.title` | *Alliances & Partnerships Director, SoftServe* | *Oracle Partnership Director, SoftServe* | [alex] |
+| `shared.contact.blurb` | *"Bring the account and the workflow: a fit check, a live walkthrough, or the scope of a proof of value on your own data."* | *"Your first call for a fit check, a workshop with your team or the scope of a proof of value."* | [new] |
+| `shared.contact.bringTitle`, `.bring[3]` | *Bring to the call* + three lines | **deleted** | [alex] |
+| `shared.demoCta` | *Try the interactive demo* | *Interactive demo* | [alex] |
+| `shared.sectionLabels.industryCases` | *Industry use cases* | *By industry* | [new] |
+| `large-document-extraction` `overview.metricsNote` | *"…is in the case study on this page."* | *"…is in the case study, on the Use cases tab."* | [new] |
+| `forms.demo.heading` | `REQUEST A DEMO` (re-cased by the overlay) | *Talk to us*, stored in sentence case | [alex] |
+| `forms.demo.sub` | *"…One scoping conversation starts it — we come back with what a proof of value would cover, on your data."* | *"Tell us the account or workflow you have in mind. We start with a workshop with your team, then scope a Jumpstart proof of value on your own data."* | [new] |
+| `forms.demo.submitLabel` | *Request a demo* | *Talk to us* | [alex] |
+| `forms.demo.secondarySub` | the same sentence again, for the Contacts tab | **deleted** — the tab reads `sub` | [new] |
+| `forms.demo.secondaryHeading` | `SEND A REQUEST` | unchanged — Home S7 and Services still render it | [site] |
+| `forms.labels.submitDemo` | *Request a demo* | *Talk to us* (the `#/sellers` modal's submit) | [alex] |
+| `forms.labels.submitRequest` | *Send the request* | unchanged (Home S7) | [site] |
+| `salesKit.page.povLink` | *Request a demo* | *Talk to us* | [alex] |
+| `salesKit.tab.routeLabel` | *Request a demo* | *Use the form above* | [new] |
+| `salesKit.tab.nextDemo` | *"…a Proof of Value on the customer's own data runs 4–8 weeks and ends in measurable KPIs."* | *"…after a workshop, a Jumpstart proof of value on the customer's own data runs 4–8 weeks and ends in measurable KPIs."* | [new] |
+| `salesKit.tab.nextDemoLink` | *Request a demo* | *Talk to us* | [alex] |
+| `content-case.js` | 43 RECASE rows, including `["forms.demo.heading", "REQUEST A DEMO", …]` | **42 rows** — that one deleted with the string it patched | [new] |
+
+No new duration reached the data: *4–8 weeks* is still the only one in scope copy,
+and *from 30 days* still the hero's one figure.
+
+### 29.4 The checker
+
+Every rule above is an assertion in `tools/check-grammar.js`, each commented with
+the round that owns it:
+
+- `shared.contact.bring` and `.bringTitle` **fail if present**, naming why they were
+  retired. This replaces the round-3 assertions that required exactly three lines.
+- `shared.productTabs` ids must be exactly `overview, use-cases, technology,
+  jumpstart, contacts` **in that order**; every tab needs a `label`; a tab carrying
+  the singular `legacyId` fails, and so does one carrying `locked`;
+  `jumpstart.legacyIds` must include `pov`, and `contacts.legacyIds` both `demo` and
+  `sellers`. That replaced the old per-id presence checks and the
+  `sellersTab.locked` rule.
+- `site.primaryCta.label === site.navCta.label` — one contact ask site-wide.
+- `forms.demo.submitLabel === site.primaryCta.label`; `forms.demo.secondarySub`
+  fails if present; `forms.demo.secondaryHeading` must still be non-empty.
+- `forms.demo.sub` must name both **workshop** and **proof of value** — the flow,
+  stated once and in order (Alex, 2026-09-23).
+- `shared.demoCta === shared.tagFamilies.availability.demo.label` — the button names
+  what the badge names.
+- `shared.sectionLabels.industryCases` fails on *use case* — the tab already says it.
+- `salesKit.tab.routeLabel` must be non-empty, and `salesKit.tab.nextDemoLink` and
+  `salesKit.page.povLink` must both equal `site.primaryCta.label`.
+- The **raw text** of `content.js` fails on `/request a demo/i`. The
+  `request-a-demo` anchor id keeps its hyphens and is deliberately not matched —
+  keep it that way, because seven pages deep-link to it.
+
+`node --check` passes on the five changed JS files. `node tools/check-grammar.js`
+prints **OK** with three warnings, all pre-existing: the two home H2s over the
+30-character budget (delivery, about) and the Internal panel, which warns on every
+run by design.
+
+### 29.5 QA and publish
+
+**Agent 1's pass**, at 1440, 1280, 1024, 768 and 375, with the 1440 screenshots of
+Overview, Use cases and Contacts saved to the scratchpad:
+
+- the frame measurements in §29.1; the accordion verified at 768 and 375 (body under
+  head, no rail, frame last); the tab bar scrolls at 375 (606 px of tabs in a 375 px
+  viewport);
+- the Use cases tab at the full content width, the wide callout splitting 672 / 480
+  with its side rule;
+- Contacts rows 1 and 2, the card at 390 px against a 697 px form with no stretch,
+  and the kit's wrong-domain error routing through *Use the form above* to `#talk`
+  at y = 96;
+- routes: `…/sellers`, `…/demo`, `…/pov` and a nonsense segment all redirect in
+  place; `#/sellers` opens the form modal headed *Talk to us*; the pending-video
+  modal shows the walkthrough button only where `demoUrl` is set;
+- console clean on `#/`, `#/products`, `#/services` and every product tab; the
+  deny-list grep over `site/*.js`, `*.css`, `*.html` returns nothing;
+- Home S7 and Services unregressed — card 390 px beside a 598 px form on both, no
+  bring list, the new title.
+
+**Its browser pane went hidden mid-run**, so its QA of Use cases and Contacts below
+1440, and of the three other Overviews, was DOM geometry rather than pixels. The
+main session then looked at Overview, Use cases and Contacts at 1440 and 375, the
+stepper close-up at 1440, and the Home S7 and Services contact splits at 1440 — and
+found the one copy defect the move created (§29.2, item 5).
+
+Published from the main session to
+**https://claude.ai/artifact/HTEJADBQF3ZevFPuSoTHri** (artifact version: TBD —
+filled by the main session), with a `files` map of the five changed site files.
+
+**Repo housekeeping, same session:** `node --check` and `node tools/check-grammar.js`
+were added as prefix rules to `.claude/settings.json`, so a subagent can run the two
+gates without a permission prompt for each file.
+
+### 29.6 Open for Alex
+
+1. **Outside the product pages the same ask still has three other phrasings** —
+   Home S7 *Send a request* / *Send the request*, Services *Let's talk* / *Request a
+   scoping call*, and the footer and delivery screen *Request a scoping call*.
+   Recommend unifying on *Talk to us* next round; this round's rule only binds the
+   header, the product hero and the Contacts tab.
+2. **The product *For sellers* tab is gone** — its kit is Contacts row 2 and the old
+   route redirects in place. Reversible: the tab is data.
+3. **The Overview rail is unchanged**, and its MAIN column is now Problem → Solution
+   · How it works · More detail.
+4. **The mailto subject for a product request now reads `Talk to us — <product>`**
+   (no `formEndpoint` is configured, so a request still opens the visitor's mail
+   client).
+5. **A pointer now crosses tabs:** `large-document-extraction`'s `metricsNote` sends
+   the reader from the Overview rail to the Use cases tab for the figure. It is the
+   honest fix after the move, but it is the first cross-tab reference on a product
+   page.
