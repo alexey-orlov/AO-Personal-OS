@@ -447,11 +447,14 @@ read as a portrait, not as part of the hero system.
 > Karsten Tramborg · Alliances & Partnerships Director, SoftServe
 
 in both the Workforce Optimization sales one-pager and the Intelligent Document
-Extraction sales one-pager. Use **Alliances & Partnerships Director**. The AIDP
-Factory deck labels the same person "NVIDIA Partner Director" — the one-pagers
-are the pack's own contact block and the later source, so they win; the site must
-not print both. Neither one-pager contains a picture element, so the headshot had
-to come from the team slide.
+Extraction sales one-pager, and the AIDP Factory deck labels the same person
+"NVIDIA Partner Director". **The site prints neither: since 2026-09-23 it prints
+"Oracle Partnership Director, SoftServe"** (Alex, round 10), which is the title
+`shared.contact.title` carries. The one-pagers keep *Alliances & Partnerships
+Director* — they are the pack's own contact block and are not reissued for this —
+so the two surfaces differ on purpose; the site still must not print two titles for
+one person. Neither one-pager contains a picture element, so the headshot had to
+come from the team slide.
 
 The email on the site is the shared alias `oracle@softserveinc.com` as
 instructed. The one-pagers print his personal address; it must not ship.
