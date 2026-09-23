@@ -241,8 +241,15 @@
   }
 
   /* How it works: the workflow, not a list of nouns. Each feature bullet sits
-     under the step it belongs to, and the frame beside the list is the same
-     16:10 whether it holds a product screenshot or a designed illustration. */
+     under the step it belongs to, and the frame is the same 16:10 whether it
+     holds a product screenshot or a designed illustration.
+     Round 10 — the frame becomes the block. On a desktop the steps are a strip
+     of heads across the top (one grid cell each), the frame spans the whole row
+     under them at the MAIN column's full width, and the active step's body sits
+     under the frame. `.stepper-list` and `.stepper-step` are `display: contents`
+     there, so the heads, the frames and the open body are all children of the
+     one grid; `--steps` tells that grid how many columns to cut. Below 901px the
+     same markup falls back to the accordion, body under head. */
   function stepper(product) {
     var UI = window.UI;
     var steps = product.overview.steps;
@@ -251,6 +258,9 @@
 
     var list = steps.map(function (step, index) {
       var on = index === 0;
+      var features = (step.features || []).length
+        ? bulletList(step.features, "stepper-features")
+        : "";
       return '<li class="stepper-step' + (on ? " is-active" : "") + '">' +
         '<button class="stepper-head" type="button" data-step="' + index + '"' +
           ' id="' + base + "-head-" + index + '"' +
@@ -261,7 +271,7 @@
         "</button>" +
         '<div class="stepper-body" id="' + base + "-body-" + index + '"' + (on ? "" : " hidden") + ">" +
           '<p class="stepper-text">' + UI.esc(step.text) + "</p>" +
-          bulletList(step.features || [], "stepper-features") +
+          features +
         "</div>" +
         "</li>";
     }).join("");
@@ -276,7 +286,7 @@
 
     return '<section class="panel reveal" data-stepper="' + UI.esc(product.slug) + '">' +
       blockHead(label("howItWorks")) +
-      '<div class="stepper">' +
+      '<div class="stepper" style="--steps: ' + steps.length + '">' +
         '<ol class="stepper-list">' + list + "</ol>" +
         '<div class="step-frames">' + frames + "</div>" +
       "</div></section>";
@@ -868,7 +878,7 @@
         var demo = conf.demoUrl
           ? UI.button({
               label: C().shared.demoCta, href: demoHref(conf),
-              kind: "secondary", iconAfter: "external",
+              kind: "secondary", icon: "cursor-click",
               attrs: { target: "_blank", rel: "noopener" }
             })
           : "";
