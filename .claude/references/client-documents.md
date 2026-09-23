@@ -109,6 +109,17 @@ counts and the scaffolding, not the essence" and used internal vocabulary
   not quarters"* beside *"Hours, not weeks"* reads as a template even though no word
   appears three times (Alex, 2026-09-23). Give each peer its own claim shape — a
   turnaround, a coverage, a number — and, where a site has a checker, assert it there.
+- **A message read outside the product stands alone** (2026-09-23, Alex on the sales-kit
+  email's opener *"Thanks for requesting it."*: "make sure that email text reads well
+  outside this session and website context"). An email, a notification or a forwarded link
+  is read cold, in an inbox, possibly days later, by someone who may not remember the form
+  or never saw the site. Its first sentence says who is writing and what the message is.
+  Nothing points back at context the reader must supply ("it", "your request", "the site",
+  "the team") before the text has named it in full. An internal notice explains the form and
+  the site to a colleague who has never opened either. Review a message the way it arrives:
+  render it, and read From, Subject, preview line and body top to bottom. Hand that rendering,
+  not the copy fields, to a fresh-context reviewer. Copy written field by field against a
+  schema passes every field check and still fails this read.
 - The checks above are the Fable part; the counting, the persona read-through and the
   before/after record can be delegated to an Opus critic, as long as the rewrite itself
   stays with the session that owns the messaging.
