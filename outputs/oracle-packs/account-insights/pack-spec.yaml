@@ -712,7 +712,7 @@ exec_summary:                             # the one internal slide (solutions-re
   running_header: "Oracle AI & Data Solutions"   # the family name, as on the site (user:2026-09-23)
   next_steps:
     - "Confirm the three business metrics and the tier prices, both open in the brief."
-    - "Run the DHL proof of value, 12 weeks, contracted; its results fill the proof block."
+    - "Run the contracted DHL proof of value; its results fill the proof block."
     - "Publish the pack on the Oracle AI & Data Solutions site (listing and interactive demo) and brief the Oracle alliance team."
   source: proposed-2026-09-23
 
