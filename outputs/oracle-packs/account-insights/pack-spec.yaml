@@ -75,8 +75,7 @@ problem_solution:                          # component 1 — signed off via tria
     - label: Only the company in the headline
       text: what it means for its suppliers, customers, competitors or sister holdings is never worked out
   solution: >-
-    Each morning they see the handful of changes that matter across the companies they cover —
-    what each one means and what to do about it — and review that list instead of assembling it.
+    Each morning they see the handful of changes that matter across the companies they cover, what each one means and what to do about it, and review that list instead of assembling it.
   outcome_chips: ["Coverage ↑", "Time to first move ↓", "Second-order opportunities surfaced"]
   reframe: "Review the opportunity, don't research it"
   reframe_question: "What if the team reviewed the list, not built it?"
@@ -98,7 +97,7 @@ problem_solution:                          # component 1 — signed off via tria
 one_liner:                                 # component 2 — re-proposed 2026-09-22 under the three-question rule (plugin 0.1.9); shown to the owner, not objected to; flagged on the artifact review
   full: >-
     More opportunities from the companies you already track: the news, filings and updates on them
-    become a named next move for each — scored, cited and reviewed before anything reaches your
+    become a named next move for each, scored, cited and reviewed before anything reaches your
     systems.
   short: "More opportunities from the companies you already track — found in the news, filings and updates on them."
   banned_words_checked: true
@@ -599,6 +598,7 @@ packages:                                  # component 12
       scope_line: "Wired into the team's day: licensed feeds in, system of record out."
       duration_weeks: { status: tbd }
       services_price: { status: tbd }
+      infra_price_monthly: { status: tbd }   # the row prints for every tier, as its PoV peer does
       scope_in:
         - "The client's own licensed commercial feeds, replacing the PoV's bounded source set"
         - "Export to the team's system of record"
@@ -611,6 +611,7 @@ packages:                                  # component 12
       scope_line: "Make it improve: live write-back, outcome capture, confidence tested against real outcomes."
       duration_weeks: { status: tbd }
       services_price: { status: tbd }
+      infra_price_monthly: { status: tbd }   # the row prints for every tier, as its PoV peer does
       scope_in:
         - "Live write-back with idempotency and dedupe-on-write"
         - "Outcome capture feeding realized results back into scoring"
@@ -655,8 +656,8 @@ packages:                                  # component 12
     reject decisions.
   why_it_sells_for_the_partner:
     - "Net-new OCI consumption: recurring GPU and inference workloads on dedicated OCI clusters, driven by signal volume rather than seat count"
-    - "Complements Oracle's own account intelligence — Sales Command Center works on first-party CX data; this pack brings the external signal and the next move"
-    - "Repeatable across Oracle customers with named accounts — customer accounts in Oracle CX, partners or portfolio holdings, with a real catalog of moves"
+    - "Complements Oracle's own account intelligence: Sales Command Center works on first-party CX data; Account insights brings the external signal and the next move"
+    - "Repeatable across Oracle customers with named accounts: customer accounts in Oracle CX, partners or portfolio holdings, with a real catalog of moves"
   target_oci_consumption: "-"
   source: research-brief-2026-09-22, decisions-2026-09-18
 
