@@ -97,7 +97,7 @@ problem_solution:                          # component 1 — signed off via tria
 one_liner:                                 # component 2 — re-proposed 2026-09-22 under the three-question rule (plugin 0.1.9); shown to the owner, not objected to; flagged on the artifact review
   full: >-
     More opportunities from the companies you already track: the news, filings and updates on them
-    become a named next move for each, scored, cited and reviewed before anything reaches your
+    become a named next move for each — scored, cited and reviewed before anything reaches your
     systems.
   short: "More opportunities from the companies you already track — found in the news, filings and updates on them."
   banned_words_checked: true
@@ -526,6 +526,7 @@ kpis:                                      # component 11 — ONE metric set: th
   # reviewer agrees") and are not printed as the pack's metrics. No figure is cleared; the
   # engagement had not started. Every figure prints "results to follow".
   - name: Research time per account
+    one_pager_label: "hours spent preparing a customer conversation"
     chip: "Research time ↓"
     label: "hours an account manager spends preparing a customer conversation"
     formula: "Hours from the first source to a reviewed briefing per account — the manual benchmark against the pack"
@@ -534,6 +535,7 @@ kpis:                                      # component 11 — ONE metric set: th
     note: "Answers the first problem point (too much to keep up with). The manual briefing is the SoW's benchmark, so the baseline is measured in the same engagement."
     source: proposed-2026-09-23 (user asked for business metrics), sow-uc6
   - name: Time from signal to next move
+    one_pager_label: "from a filing or news item to a reviewed next move"
     chip: "Time to act ↓"
     label: "from a filing or news item to a reviewed next move in front of the account team"
     formula: "Elapsed time from a signal's publication to its reviewed record, median per period"
@@ -542,6 +544,7 @@ kpis:                                      # component 11 — ONE metric set: th
     note: "Answers the second problem point (found out too late)."
     source: proposed-2026-09-23 (user asked for business metrics), research-brief-2026-09-22
   - name: Opportunities surfaced per account
+    one_pager_label: "approved next moves per account, against the manual count"
     chip: "Opportunities ↑"
     label: "approved next moves per account per period, against what the team found by hand"
     formula: "Reviewed and approved next moves per in-scope account per period, against the manual count"
@@ -695,10 +698,9 @@ one_pager:                                # overrides for the A4 page only (the 
   eyebrow: "Oracle AI & Data Solutions"   # the family name as on the website and the deck's running header (user:2026-09-23)
   reframe: "Review, don't research"       # the solution heading; the long form would orphan a word at the page's letter-spacing
   proof_story: >-                          # the case block, at the reference's altitude: their problem, the solution for them
-    {Customer}'s account teams prepare their customer briefings by hand and see only the company
-    in the headline. Client Compass reads the news, filings and {customer}'s own account records for
-    every account in scope, and gives each account manager a reviewed list: what changed, what it
-    means for {customer}'s logistics services, and the next move.
+    {Customer}'s account teams brief themselves by hand and see only the company in the headline.
+    Client Compass reads the news, filings and {customer}'s own records for every account and hands
+    each manager a reviewed list: what changed, what it means for {customer}, and the next move.
   sub: short                              # the hero carries the short one-liner, as the deck cover does (the full one costs a row)
   data_flow_notes: false                  # the two platform boxes carry their names only; the deck's architecture slide carries what they do
   tier_scope:
