@@ -104,7 +104,11 @@ counts and the scaffolding, not the essence" and used internal vocabulary
 - Before delivering, count word frequency per screen or section and across the piece:
   no content word three times on one screen except proper nouns, one word for one
   thing across the piece (not "products" here and "solutions" there), and no claim
-  repeated in more than two places.
+  repeated in more than two places. Peers set side by side (cards, tiles, figures in
+  one grid) also never open on the same words or share a sentence pattern: *"Hours,
+  not quarters"* beside *"Hours, not weeks"* reads as a template even though no word
+  appears three times (Alex, 2026-09-23). Give each peer its own claim shape — a
+  turnaround, a coverage, a number — and, where a site has a checker, assert it there.
 - The checks above are the Fable part; the counting, the persona read-through and the
   before/after record can be delegated to an Opus critic, as long as the rewrite itself
   stays with the session that owns the messaging.
