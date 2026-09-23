@@ -486,20 +486,32 @@
       "</div></section>";
   }
 
+  /* Round 10 — the Overview argues the product: the problem it solves, how it
+     works, and the detail behind that, with the outcomes in the rail. The
+     industry cases and the case study moved to their own tab, because they
+     answer a different question ("where does this apply, and has it worked?")
+     and were pushing How it works out of the first screen. */
   function overviewTab(product) {
     var o = product.overview;
     return '<div class="ov-layout">' +
       '<div class="ov-main">' +
         problemSolution(o.problemSolution) +
         stepper(product) +
-        industryCases(product) +
-        caseStudy(product) +
         moreDetail(o) +
       "</div>" +
       '<aside class="ov-rail" aria-label="' + window.UI.esc(label("outcomes")) + '">' +
         outcomesBlock(o) +
       "</aside>" +
       "</div>";
+  }
+
+  /* ————— tab: use cases ————— */
+
+  /* One column at the full content width, no rail: the industry tabs, then the
+     case study where one ships. Four products carry `caseStudy: null` and the
+     tab is the industries block alone — no empty state (VISUAL-GRAMMAR). */
+  function useCasesTab(product) {
+    return industryCases(product) + caseStudy(product);
   }
 
   /* ————— tab: technology ————— */
@@ -760,57 +772,67 @@
 
   /* ————— tab: contacts ————— */
 
-  /* Two columns of equal height, each opening with its own heading on the same
-     baseline: the contact card on the left, the form on the right. Same
-     component on Services. */
+  /* The tab's own anchor: every kit link points at the form itself rather than
+     at this route, because a same-route ROUTER.go re-renders the page and wipes
+     whatever the reader has typed. */
+  var TALK_ANCHOR = "talk";
+  function talkHref(slug) { return contactsRoute(slug) + "#" + TALK_ANCHOR; }
+
+  /* The product's sales-kit request (round 8), which round 10 moved off its own
+     tab and onto the Contacts tab's second row: a page that repeats one form
+     under two names is a structure bug. The materials list it replaced stays as
+     data in `product.sellers.materials` and the config links — the manifest for
+     whoever sends the kit — and is no longer rendered. The confirmation offers
+     the form above and the full kit. */
+  function kitOptions(product) {
+    var tab = C().salesKit.tab;
+    return {
+      product: product.slug,
+      routeLink: { label: tab.routeLabel, href: talkHref(product.slug) },
+      next: [
+        { text: tab.nextDemo, link: { label: tab.nextDemoLink, href: talkHref(product.slug) } },
+        { text: tab.nextAll, link: { label: tab.nextAllLink, href: "#/sellers" } }
+      ]
+    };
+  }
+
+  /* Two rows on one grid (round 10). Row 1, the main ask: the contact card on
+     the left, and on the right the same words the header and the hero carry —
+     one contact ask site-wide, so the three can never drift. Row 2, the
+     secondary one: the sales kit, for a seller rather than a customer, in an
+     inset panel whose two columns share row 1's ratio so the page reads as one
+     grid. */
   function contactsTab(product) {
     var UI = window.UI;
     var demo = C().forms.demo;
+    var ask = C().site.primaryCta.label;
+    var kit = C().salesKit;
     var form = window.FORMS
       ? '<div id="product-demo-form">' + window.FORMS.render("demo", {
-          product: product.slug, heading: false,
-          submitLabel: C().forms.labels.submitRequest
+          product: product.slug, heading: false, submitLabel: ask
         }) + "</div>"
       : "";
 
     if (!form && !UI.contactCard()) return UI.empty(demo.sub);
 
     return '<section class="panel reveal">' +
-      UI.contactSplit({
-        cardHeading: label("contacts"),
-        heading: demo.secondaryHeading,
-        sub: demo.secondarySub || demo.sub,
-        form: form
-      }) +
-      "</section>";
-  }
-
-  /* ————— tab: for sellers ————— */
-
-  /* The tab is this product's sales-kit request (round 8): the kit form with the
-     product fixed. The materials list it replaced stays as data in
-     `product.sellers.materials` and the config links — the manifest for whoever
-     sends the kit — and is no longer rendered. The confirmation offers the demo
-     route and the full kit. */
-  function kitOptions(product) {
-    var tab = C().salesKit.tab;
-    return {
-      product: product.slug,
-      routeLink: { label: tab.routeLabel, href: contactsRoute(product.slug) },
-      next: [
-        { text: tab.nextDemo, link: { label: tab.nextDemoLink, href: contactsRoute(product.slug) } },
-        { text: tab.nextAll, link: { label: tab.nextAllLink, href: "#/sellers" } }
-      ]
-    };
-  }
-
-  function sellersTab(product) {
-    var UI = window.UI;
-    var tab = C().salesKit.tab;
-    return '<section class="panel panel--gate panel--kit reveal" id="seller-kit">' +
-      blockHead(tab.title) +
-      '<p class="body-text">' + UI.esc(tab.body.replace("{product}", product.name)) + "</p>" +
-      (window.FORMS && window.FORMS.renderKit ? window.FORMS.renderKit(kitOptions(product)) : "") +
+        UI.contactSplit({
+          cardHeading: label("contacts"),
+          heading: ask,
+          sub: demo.sub,
+          formId: TALK_ANCHOR,
+          form: form
+        }) +
+      "</section>" +
+      '<section class="panel panel--kit panel--kit-wide reveal" id="seller-kit">' +
+        '<div class="kit-split">' +
+          '<div class="kit-copy">' +
+            '<p class="eyebrow eyebrow--accent">' + UI.esc(kit.page.eyebrow) + "</p>" +
+            blockHead(kit.tab.title) +
+            '<p class="body-text">' + UI.esc(kit.tab.body.replace("{product}", product.name)) + "</p>" +
+          "</div>" +
+          (window.FORMS && window.FORMS.renderKit ? window.FORMS.renderKit(kitOptions(product)) : "") +
+        "</div>" +
       "</section>";
   }
 
