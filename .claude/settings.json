@@ -66,6 +66,8 @@
       "Bash(identify *)",
       "Bash(unzip *)",
       "Bash(zip *)",
+      "Bash(grep *)",
+      "Bash(/usr/bin/grep *)",
       "Bash(node --check *)",
       "Bash(/opt/homebrew/bin/node --check *)",
       "Bash(node tools/check-grammar.js)",
