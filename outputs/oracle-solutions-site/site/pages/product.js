@@ -215,7 +215,7 @@
       return '<a class="tab' + (tab.id === active ? " is-active" : "") +
         '" href="' + UI.esc(tabRoute(product.slug, tab.id)) + '"' +
         (tab.id === active ? ' aria-current="page"' : "") + ">" +
-        (tab.locked ? UI.icon("lock") : "") + "<span>" + UI.esc(tab.label) + "</span></a>";
+        "<span>" + UI.esc(tab.label) + "</span></a>";
     }).join("");
     return '<nav class="tabbar" id="product-tabs" aria-label="' + UI.esc(product.name) +
       ' sections"><div class="wrap tabbar-inner">' + tabs + "</div></nav>";
