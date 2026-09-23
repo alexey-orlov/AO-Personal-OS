@@ -1504,7 +1504,7 @@ window.SITE_CONTENT = {
           { value: null, label: "Business-rule validators", qualifier: "Flag what a human must look at, before anything is exported", icon: "alert" },
           { value: null, label: "Confidence and a page citation", qualifier: "On every extracted value, before anything is exported", icon: "shield" }
         ],
-        metricsNote: "The figure the delivered proof of value produced is in the case study on this page.",
+        metricsNote: "The figure the delivered proof of value produced is in the case study, on the Use cases tab.",
         roi: {
           icon: "roi",
           text: "Two effects compound. Cycle time collapses — a document that took days moves in minutes, so onboarding a new counterparty stops being a month-long project. And the error class that costs the most, a rate keyed wrong and found at invoice reconciliation, is caught at review against a cited source page instead."
