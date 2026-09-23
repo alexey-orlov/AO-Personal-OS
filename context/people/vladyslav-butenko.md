@@ -1,7 +1,7 @@
 # Vladyslav Butenko ("Vlad")
 
-_Business analyst / product manager, SoftServe R&D — Oracle pack productization + the Payworks Jumpstart_
-_updated: 2026-09-18_
+_Business analyst / product manager, SoftServe R&D — Oracle pack productization, the mini-site's lead for three products, and the Payworks Jumpstart_
+_updated: 2026-09-24_
 
 The "Vlad" of the Oracle packaging thread: the person Alex coaches on turning delivered engagements into packaged offers, and the author of two of the three pack one-pagers. Named in full in the 2026-07-24 sync, which is what resolves the wiki's earlier "Vlad Selyotkin or Vladyslav Butenko, not disambiguated" ambiguity for the packaging work — **Vlad Selyotkin is a different person**, a SoftServe architect who attended the June Oracle packaging meetings with Olya Hanushchak ([oracle.md](../areas/softserve/oracle.md)).
 
@@ -10,6 +10,7 @@ The "Vlad" of the Oracle packaging thread: the person Alex coaches on turning de
 - Joined SoftServe's R&D product team in July 2026 (onboarding meeting 2026-07-06); listed on the [SoftServe](../areas/softserve/README.md) PdM roster as "Vladyslav (joining)".
 - Runs on a recurring Teams series with Alex, **"Oracle Productization & BA JumpStart Sync"** — the coaching channel for pack productization. Exactly one instance is captured in this repo, now **in full**: the [2026-07-24 sync](../areas/softserve/calls/oracle/2026-07-24_133119_one-on-one_vlad-productization-sync.md) (31 min, RU; the [partial transcript](../areas/softserve/docs/2026-09-17_packaging-skills-prep/vlad-2026-07-24-transcript-partial.md) it supersedes held only 0:03–0:35 and 27:02–30:52). No later occurrence exists anywhere in the repo.
 - Also on the client-facing Jumpstart side: as of 2026-07-24 he was running **weekly Monday workshops** with the Payworks client, with the work itself planned to start in the second half of August — Alex deliberately deferred the substance to the next sync and asked only whether Vlad was building skills off his own discovery in parallel.
+- **The mini-site's named lead for three products** (Alex, chat 2026-09-23): **Account insights, Large docs processing and review, and Workforce optimization**. He is printed on each one's Contacts card as *Vlad Butenko, AI Product Manager, SoftServe*, after Karsten Tramborg and over the shared `oracle@softserveinc.com` (site round 13 → [oracle-packs](../areas/softserve/oracle-packs.md)). The company directory lists him as *Vladyslav Butenko*.
 - Present at the 2026-08-27 internal Work OS demo; Alex opened an internal-adoption session with **Leonid Pavlovskyi + Vladyslav** for the week of 2026-08-31 → [jumpstart-pm](../areas/softserve/jumpstart-pm.md).
 
 ## What he has produced
