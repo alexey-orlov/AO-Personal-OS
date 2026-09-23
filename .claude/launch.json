@@ -21,6 +21,16 @@
       "port": 8765
     },
     {
+      "name": "oracle-site-alt",
+      "runtimeExecutable": "bash",
+      "runtimeArgs": [
+        "-lc",
+        "exec python3 -m http.server \"${PORT:-8767}\" --bind 127.0.0.1 --directory \"$HOME/Documents/GitHub/Oracle-Solutions-Site/site\""
+      ],
+      "port": 8767,
+      "autoPort": true
+    },
+    {
       "name": "oracle-mail-preview",
       "runtimeExecutable": "bash",
       "runtimeArgs": [
