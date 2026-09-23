@@ -2,7 +2,7 @@
 
 Read this page first in every new session. It holds what the site is for, the brief and the rules it is built to, how a round of work runs, and what earlier rounds learned the hard way. Detail lives in the docs mapped in §10. Keep this page current: when a requirement, rule or procedure changes, rewrite the line — never append a dated update.
 
-Current as of 2026-09-23 (after round 10 — the product pages: one contact ask, a Use cases tab, and the frame as the block — and Alex's same-day review of it: the Contacts switch and the stepper's description, PROVENANCE §29.7).
+Current as of 2026-09-23 (after round 11 — the home page: two ways in on photographs, case cards with a photo band, and the two "Hours" figures replaced, PROVENANCE §30; round 10 and its same-day review are §29).
 
 ## 1. What it is
 
@@ -61,7 +61,7 @@ These are Alex's working assumptions as of 2026-09-17, and **each one is still t
 
 | Route | What it does | Record |
 |---|---|---|
-| `#/` Home | Seven screens: <br>• hero — a three-line H1, the **three-layer stack** (Oracle platforms → SoftServe product groups → SoftServe services, read bottom-up) <br>• the three-figure proof strip, led by **from 30 days** <br>• two ways in (products · services) <br>• **six group tiles**, each an image, a one-liner and a link into the filtered catalog <br>• how we deliver <br>• anonymized case studies (Proven / Forecast / Estimated) <br>• About SoftServe (the page's one dark band) <br>• contact | PROVENANCE §18, §28 |
+| `#/` Home | Seven screens: <br>• hero — a three-line H1, the **three-layer stack** (Oracle platforms → SoftServe product groups → SoftServe services, read bottom-up) <br>• the three-figure proof strip, led by **from 30 days** <br>• two ways in (products · services) — **two photographic panels**, the copy in white on each photograph under a scrim <br>• **six group tiles**, each an image, a one-liner and a link into the filtered catalog <br>• how we deliver <br>• anonymized case studies (Proven / Forecast / Estimated) — each card **a photo band** (the industry's picture, carrying the descriptor and area) **over a white body** <br>• About SoftServe (the page's one dark band) <br>• contact | PROVENANCE §18, §28, §30 |
 | `#/products` | Catalog with a facet rail (Oracle platform · what it does · Artifacts) and tiles. **Both radio rails are fixed lists** in canonical order — three platforms and all six groups, always — with a zero-count option disabled and printing no number; the one a deep link arrived on renders selected above its own empty state. *Oracle AI for Fusion Applications* is not offered (`catalog: false`): no product runs on it. No total, no denominator. `?cat=<id>` and `?tech=<id>` are both honored. | §17, §18.9, §28 |
 | `#/products/<slug>[/<tab>]` | Seven product pages. <br>• Tabs: **Overview · Use cases · Technology · Jumpstart · Contacts** (round 10). Overview is Problem → Solution · How it works · More detail, with Outcomes & ROI in the rail; **Use cases** holds the industry tabs and the case study; **Contacts** is one row — the contact card beside a two-tab switch, *Talk to us* (open by default) and *Get the sales kit* (for sellers), so only one form is ever open and neither is below the fold; `…/contacts#kit` opens on the kit tab. <br>• Retired segments redirect in place: `pov` → Jumpstart, `demo` and `sellers` → Contacts. <br>• Three products have an interactive walkthrough under `site/demo/`. | §15–§19, §22, §24, §29 |
 | `#/services` | Three screens, one message each, then contact: <br>• *Frontier AI on Oracle* (the practice, with the four platform cards under their full Oracle names) <br>• *Every step has a number* (Discovery → Jumpstart proof of value → Integration → **Scaling**) <br>• *Not a project. A proof.* (4–8 weeks) | §21, §23, §28 |
@@ -107,6 +107,7 @@ These hold unless Alex changes them, and `tools/check-grammar.js` enforces most 
   - No content word three times on one screen.
   - One word for one thing across the whole site.
   - No claim repeated in more than two places.
+  - Peers side by side never open on the same words; the checker asserts it for the case cards.
 
 **Design** — the rules below hold for BOTH themes except where the SS26 column differs.
 
@@ -121,9 +122,11 @@ These hold unless Alex changes them, and `tools/check-grammar.js` enforces most 
 | Heading budget | H1 2-4 words, ≤ ~24 chars a line | H1 ≤ 15 chars a line × 2 (the home H1 is the exception: three short sentences, each on its own line — four lines at 375, five at 320); product name ≤ 22 × 2; **H2 ≤ 30, now enforced** — the three home H2s round 9 rewrote fail over it, the rest warn |
 
 Holding for both: 1.5 px line icons and no emoji · peers are equal height · an address is
-a link, never a filled button, and a filled button is the screen's one ask · only the top
-block carries a photo, and the home hero carries none · clean at 375, and the H1 still
-holds at 320.
+a link, never a filled button, and a filled button is the screen's one ask · copy sits on
+a photograph only where the component is a photograph by design — a product or Services
+hero, the home page's two ways in, the home case card's band (descriptor and area only) —
+and always under a veil or scrim; a tile keeps its copy off its image, and the home hero
+carries no photograph · clean at 375, and the H1 still holds at 320.
 
 Two more, from Alex's review of round 10 (2026-09-23), and they hold everywhere:
 
