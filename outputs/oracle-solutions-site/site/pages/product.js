@@ -430,6 +430,11 @@
      the same page. The figure caveat is the last sentence of `story`, because
      the panel has no footnote row; the download link renders only where a URL
      exists. */
+  /* Round 10 — the callout now sits in the full content column of the Use cases
+     tab rather than in the narrow Overview main, so it is built as two
+     containers: the narrative on the left, the evidence on the right behind a
+     hairline. `.case-callout--wide` is what turns that into two columns at
+     ≥ 901px; below it the same two containers stack, main then side. */
   function caseStudy(product) {
     var UI = window.UI;
     var item = product.overview.caseStudy;
@@ -448,31 +453,35 @@
     }).join("");
 
     return '<section class="panel panel--flat reveal">' +
-      '<div class="case-callout">' +
+      '<div class="case-callout case-callout--wide">' +
         '<div class="case-body">' +
-          '<p class="eyebrow eyebrow--accent">' + UI.esc(label("caseStudy")) + "</p>" +
-          '<div class="case-head">' +
-            UI.caseMedallion(item.industry) +
-            '<div class="case-head-copy">' +
-              '<h3 class="case-descriptor">' + UI.esc(item.descriptor) + "</h3>" +
-              '<p class="case-area">' + UI.esc(item.area) + "</p>" +
+          '<div class="case-main">' +
+            '<p class="eyebrow eyebrow--accent">' + UI.esc(label("caseStudy")) + "</p>" +
+            '<div class="case-head">' +
+              UI.caseMedallion(item.industry) +
+              '<div class="case-head-copy">' +
+                '<h3 class="case-descriptor">' + UI.esc(item.descriptor) + "</h3>" +
+                '<p class="case-area">' + UI.esc(item.area) + "</p>" +
+              "</div>" +
             "</div>" +
+            '<p class="case-text">' + UI.esc(item.story) + "</p>" +
+            '<p class="case-nda">' + UI.esc(item.ndaLine) + "</p>" +
+            (conf.successStoryUrl && item.downloadLabel
+              ? '<p class="case-link">' + UI.linkArrow({
+                  label: item.downloadLabel, href: conf.successStoryUrl
+                }) + "</p>"
+              : "") +
           "</div>" +
-          UI.caseStatusChip(item.status) +
-          '<div class="case-metrics">' +
-            '<div class="case-figures' +
-              ((item.metrics || []).length < 2 ? " case-figures--single" : "") + '">' +
-              figures +
+          '<div class="case-side">' +
+            UI.caseStatusChip(item.status) +
+            '<div class="case-metrics">' +
+              '<div class="case-figures' +
+                ((item.metrics || []).length < 2 ? " case-figures--single" : "") + '">' +
+                figures +
+              "</div>" +
             "</div>" +
+            (scope ? '<dl class="case-scope">' + scope + "</dl>" : "") +
           "</div>" +
-          '<p class="case-text">' + UI.esc(item.story) + "</p>" +
-          (scope ? '<dl class="case-scope">' + scope + "</dl>" : "") +
-          '<p class="case-nda">' + UI.esc(item.ndaLine) + "</p>" +
-          (conf.successStoryUrl && item.downloadLabel
-            ? '<p class="case-link">' + UI.linkArrow({
-                label: item.downloadLabel, href: conf.successStoryUrl
-              }) + "</p>"
-            : "") +
         "</div>" +
       "</div></section>";
   }
