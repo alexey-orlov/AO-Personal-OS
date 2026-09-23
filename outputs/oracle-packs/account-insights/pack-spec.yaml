@@ -24,16 +24,9 @@ meta:
   source_engagement:
     customer: DHL                          # printed where clearance.customer_name_allowed is true (user:2026-09-23)
     context: >-
-      {Customer}'s account teams prepare the briefings on their enterprise customers by hand — company
-      context, strategic and operational signals, and what each one means for {customer}'s logistics
-      services — and a manually written briefing per account is the benchmark the proof of value is
-      measured against.
+      {Customer}'s account teams prepare the briefings on their enterprise customers by hand — company context, strategic and operational signals, and what each one means for {customer}'s logistics services — and see only the company in the headline.
     delivered: >-
-      Client Compass — a 12-week proof of value on NVIDIA AI-Q over OCI. Account data from the CRM,
-      approved public sources and commercial feeds such as Dow Jones Factiva are read per account;
-      the signals in them are extracted, mapped to {customer}'s logistics capabilities and service
-      offerings, scored and cited to source, and every record is reviewed by the account team in a
-      reviewer screen before it goes anywhere.
+      Client Compass reads the news, filings and {customer}'s own account records for every account in scope and hands each account manager a reviewed list: what changed, what it means for {customer}'s logistics services, and the next move — scored and cited to source, approved or rejected in a reviewer screen before it goes anywhere.
     divergence_line: >-
       Not the first client's results or set-up: their sources, their list of companies and their own
       catalog of moves are configured for each client; what every client gets is the reasoning that
@@ -544,14 +537,14 @@ kpis:                                      # component 11 — ONE metric set: th
     figure: "-"
     note: "Answers the second problem point (found out too late)."
     source: proposed-2026-09-23 (user asked for business metrics), research-brief-2026-09-22
-  - name: Opportunities surfaced per account
-    one_pager_label: "approved next moves per account, against the manual count"
-    chip: "Opportunities ↑"
-    label: "approved next moves per account per period, against what the team found by hand"
-    formula: "Reviewed and approved next moves per in-scope account per period, against the manual count"
-    baseline: "The opportunities the team's own research surfaced in the same period, from the CRM"
+  - name: Qualified pipeline from signals
+    one_pager_label: "qualified opportunities added to the pipeline from reviewed signals"
+    chip: "Pipeline ↑"
+    label: "qualified opportunities added to the pipeline from reviewed signals, per account per quarter"
+    formula: "Opportunities qualified in the CRM whose source is a reviewed signal, per in-scope account per quarter, against the team's own research"
+    baseline: "The pipeline the team adds from its own research in the same period, from the CRM"
     figure: "-"
-    note: "Answers the third problem point (only the company in the headline): the ripple across companies is what lifts it. Counts approved moves only."
+    note: "Answers the third problem point (only the company in the headline): the ripple across companies is what lifts it. Its leading indicator, approved next moves surfaced per account, is measured in the proof of value but is not a tile — tiles carry business outcomes only (owner's rule, 2026-09-23)."
     source: proposed-2026-09-23 (user asked for business metrics), research-brief-2026-09-22
   # CONTEXT ANCHOR — not a metric of this pack, and never printed as one.
   # "Sellers spend 9% of the week researching prospects and 9% on preparation and planning —
