@@ -2023,11 +2023,18 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 
 /* ——— how it works: the workflow stepper ———————————————— */
 
+/* Two layouts, one markup (round 10). Up to 900px it is the accordion it has
+   always been: a hairline-ruled list, each body under its own head, the frame
+   after the list. From 901px the frame becomes the block — a strip of step
+   heads across the top, the frame spanning the whole row beneath them at the
+   MAIN column's full width, and the open step's body under that. The switch is
+   `display: contents` on the list and the steps, which promotes the heads, the
+   open body and `.step-frames` to children of the one grid; `--steps` (set by
+   the renderer) cuts it into one column per step. */
 .stepper {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+  display: flex;
+  flex-direction: column;
   gap: clamp(1.25rem, 2.4vw, 2rem);
-  align-items: stretch;
 }
 
 .stepper-list { display: flex; flex-direction: column; }
@@ -2096,6 +2103,51 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
   pointer-events: none;
   box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .07);
   border-radius: inherit;
+}
+
+/* The desktop stepper: heads in row 1, the frame in row 2 across every column,
+   the open body in row 3. A hidden body carries the `hidden` attribute, so it
+   takes no cell at all. */
+@media (min-width: 901px) {
+  .stepper {
+    display: grid;
+    grid-template-columns: repeat(var(--steps, 4), minmax(0, 1fr));
+    column-gap: 0;
+    row-gap: 1rem;
+    align-items: start;
+  }
+
+  .stepper-list, .stepper-step { display: contents; }
+
+  /* One continuous 2px rail under the strip, in the site's tab language: the
+     active head owns its segment of it. Every cell stretches to the tallest, so
+     a two-line title does not drop its rule below its neighbours'. */
+  .stepper-head {
+    grid-row: 1;
+    align-items: flex-start;
+    align-self: stretch;
+    width: auto;
+    padding: .75rem 1rem .875rem 0;
+    box-shadow: inset 0 -2px 0 var(--border-subtle);
+  }
+
+  .stepper-step.is-active .stepper-head { box-shadow: inset 0 -2px 0 var(--action); }
+
+  .step-frames { grid-row: 2; grid-column: 1 / -1; align-self: start; }
+  .step-frame { width: 100%; }
+
+  .stepper-body {
+    grid-row: 3;
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+    align-items: start;
+    gap: 1rem 2rem;
+    padding: 0;
+  }
+
+  /* A step with no feature bullets renders no list, so its text takes the row. */
+  .stepper-text:only-child { grid-column: 1 / -1; }
 }
 
 /* ——— industry use cases: the tab component ————————————— */
@@ -2430,7 +2482,6 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
   }
   .ps-strip { grid-template-columns: minmax(0, 1fr); }
   .ps-arrow { transform: rotate(90deg); justify-self: center; }
-  .stepper { grid-template-columns: minmax(0, 1fr); }
   .ind-panel { grid-template-columns: minmax(0, 1fr); }
   .ind-figure img { height: auto; min-height: 0; aspect-ratio: 16 / 10; }
   .stack-row { grid-template-columns: auto minmax(0, 1fr) auto; min-height: 4.5rem; }
