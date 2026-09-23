@@ -13,13 +13,10 @@
     },
     {
       "name": "oracle-site",
-      "runtimeExecutable": "python3",
+      "runtimeExecutable": "bash",
       "runtimeArgs": [
-        "-m",
-        "http.server",
-        "8765",
-        "--directory",
-        "outputs/oracle-solutions-site/site"
+        "-lc",
+        "exec python3 -m http.server 8765 --directory \"$HOME/Documents/GitHub/Oracle-Solutions-Site/site\""
       ],
       "port": 8765
     }
