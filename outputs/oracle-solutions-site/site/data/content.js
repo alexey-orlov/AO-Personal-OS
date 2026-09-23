@@ -360,7 +360,7 @@ window.SITE_CONTENT = {
         area: "Plan versus actual across completed work packages",
         industry: "construction",
         status: "in-preparation",
-        metric: { value: "Hours, not weeks", label: "of expert time to produce an equivalent plan-versus-actual analysis" },
+        metric: { value: "Every variance", label: "traced to its schedule, cost or contract source, in hours of expert time rather than weeks" },
         line: "One completed project sample, with the customer’s own schedule, cost and contract exports reconstructed into a single package-level view.",
         footnote: "Against the expert hours the same analysis takes today, on a sample the customer’s own experts validate.",
         product: { slug: "plan-vs-actual-investigation", name: "Plan vs actual investigation" }
@@ -665,7 +665,7 @@ window.SITE_CONTENT = {
           industry: "logistics",
           status: "in-preparation",
           metrics: [
-            { value: "Hours, not quarters", label: "from a market signal to a qualified opportunity a seller can act on" },
+            { value: "Same day", label: "from a market signal to a qualified opportunity a seller can act on" },
             { value: "Every account", label: "a signal affects, not only the one it names" }
           ],
           story: "A first engagement is being prepared on the customer’s own account base — CRM and account framing, the capability catalog and public filings — with NVIDIA AI-Q on Oracle Cloud Infrastructure. It measures the accuracy and the confidence calibration of the generated opportunities against reviewer approve and reject decisions. The figures above are estimates for that engagement, set against the customer’s account-planning cycle today; illustrative, not contractual.",
@@ -1305,7 +1305,7 @@ window.SITE_CONTENT = {
           industry: "construction",
           status: "in-preparation",
           metrics: [
-            { value: "Hours, not weeks", label: "of expert time to produce an equivalent plan-versus-actual analysis" }
+            { value: "Every variance", label: "traced to its schedule, cost or contract source, in hours of expert time rather than weeks" }
           ],
           story: "A first engagement is being prepared, scoped to one use case on one completed project sample — the customer’s own schedule, cost and contract exports. It will run on Oracle Cloud Infrastructure, with NVIDIA AI-Q over an evidence layer, reconstructing those records into one package-level view of plan versus actual; the figure above is an estimate for that engagement, set against the expert hours the same analysis takes today; illustrative, not contractual.",
           scope: [

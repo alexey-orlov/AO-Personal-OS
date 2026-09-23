@@ -162,10 +162,16 @@
 
   /* ————— S2: the two ways in ————— */
 
-  /* Two joined panels rather than two free-standing cards: the products and
-     the practice are one offer read two ways, and a reader has to be able to
-     take either without feeling they have chosen against the other. Both CTAs
-     land on the same baseline because both are equally available. */
+  /* Two peer panels: the products and the practice are one offer read two
+     ways, and a reader has to be able to take either without feeling they have
+     chosen against the other. Both CTAs land on the same baseline because both
+     are equally available. Round 11 (Alex): each panel is a photograph with its
+     copy on it — the half-width form of softserveinc.com's photo bands — so the
+     image and its focal point come from the panel's data, the scrim sits over
+     the image, and the copy sits over both. The image is decorative (alt=""):
+     the copy says what the panel offers; `image.alt` describes the picture for
+     the docs. The shared `.way` classes stay as the Services page renders them;
+     `--photo` is what turns them into photographs here. */
   function twoWays(C) {
     var UI = window.UI;
     var block = C.overview.twoWays;
@@ -174,7 +180,14 @@
       var bullets = (panel.bullets || []).map(function (line) {
         return "<li>" + UI.icon("check") + "<span>" + UI.esc(line) + "</span></li>";
       }).join("");
-      return '<div class="way">' +
+      var image = panel.image && panel.image.file
+        ? '<img class="way-img" src="' + UI.esc(panel.image.file) + '" alt=""' +
+            (panel.image.focal ? ' style="object-position:' + UI.esc(panel.image.focal) + '"' : "") +
+            ' loading="lazy" decoding="async">' +
+          '<span class="way-scrim" aria-hidden="true"></span>'
+        : "";
+      return '<div class="way way--photo">' +
+        image +
         '<span class="way-mark" aria-hidden="true">' + UI.icon(panel.icon) + "</span>" +
         '<h3 class="h4 way-title">' + UI.esc(panel.title) + "</h3>" +
         '<p class="body-text way-body">' + UI.esc(panel.body) + "</p>" +
@@ -189,7 +202,7 @@
 
     return '<section class="section home-screen" id="two-ways"><div class="wrap">' +
       head({ eyebrow: block.eyebrow, title: block.title }) +
-      '<div class="ways reveal">' + panels + "</div>" +
+      '<div class="ways ways--photo reveal">' + panels + "</div>" +
       "</div></section>";
   }
 

@@ -508,31 +508,39 @@
       '<span class="case-status-dot" aria-hidden="true"></span>' + esc(status.chip) + "</span>";
   }
 
-  /* The compact form of the product-page callout: same anatomy, one headline
-     figure. Rendered on the home page from the same objects the product pages
-     read, so the two surfaces cannot drift apart. */
+  /* The home-page card (round 11): the industry photograph across the top with
+     the customer's descriptor and area set on it in white, then a white body —
+     the status chip, one headline figure, the line, the footnote and the link.
+     The photograph names the industry, so the medallion stays on the product
+     page's callout only. The file is derived from `industry` — the same
+     assets/img/industries/<industry>.jpg the Use cases tab shows — so the card
+     carries no image key of its own. Rendered from the same objects the product
+     pages read, so the two surfaces cannot drift apart. */
   function caseCard(item) {
     if (!item) return "";
     return '<article class="case-card reveal">' +
-      '<div class="case-card-head">' +
-        caseMedallion(item.industry) +
-        '<div class="case-head-copy">' +
+      '<div class="case-card-band">' +
+        '<img class="case-card-img" src="assets/img/industries/' + esc(item.industry) + '.jpg" alt="" loading="lazy" decoding="async">' +
+        '<span class="case-card-veil" aria-hidden="true"></span>' +
+        '<div class="case-card-title">' +
           '<h3 class="case-descriptor">' + esc(item.descriptor) + "</h3>" +
           '<p class="case-area">' + esc(item.area) + "</p>" +
         "</div>" +
       "</div>" +
-      caseStatusChip(item.status) +
-      '<div class="case-card-metric">' +
-        '<p class="case-figure-value nums">' + esc(item.metric.value) + "</p>" +
-        '<p class="case-figure-label">' + esc(item.metric.label) + "</p>" +
+      '<div class="case-card-body">' +
+        caseStatusChip(item.status) +
+        '<div class="case-card-metric">' +
+          '<p class="case-figure-value nums">' + esc(item.metric.value) + "</p>" +
+          '<p class="case-figure-label">' + esc(item.metric.label) + "</p>" +
+        "</div>" +
+        '<p class="case-card-line">' + esc(item.line) + "</p>" +
+        '<p class="footnote case-card-note">' + esc(item.footnote) + "</p>" +
+        (item.product
+          ? '<p class="case-card-link">' + linkArrow({
+              label: item.product.name, href: "#/products/" + item.product.slug
+            }) + "</p>"
+          : "") +
       "</div>" +
-      '<p class="case-card-line">' + esc(item.line) + "</p>" +
-      '<p class="footnote case-card-note">' + esc(item.footnote) + "</p>" +
-      (item.product
-        ? '<p class="case-card-link">' + linkArrow({
-            label: item.product.name, href: "#/products/" + item.product.slug
-          }) + "</p>"
-        : "") +
       "</article>";
   }
 
@@ -788,7 +796,7 @@
   var YT_PLACEHOLDER_W = 120;
 
   function guardHeroImages(root) {
-    Array.prototype.forEach.call(root.querySelectorAll(".hero-bg-img, .video-card-poster, .contact-photo-img, .ptile-img, .gtile-img"), function (img) {
+    Array.prototype.forEach.call(root.querySelectorAll(".hero-bg-img, .video-card-poster, .contact-photo-img, .ptile-img, .gtile-img, .way-img, .case-card-img"), function (img) {
       var retried = false;
 
       function isYouTube() { return (img.getAttribute("src") || "").indexOf("img.youtube.com/") >= 0; }
