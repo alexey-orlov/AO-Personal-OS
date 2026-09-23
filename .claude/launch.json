@@ -16,7 +16,7 @@
       "runtimeExecutable": "bash",
       "runtimeArgs": [
         "-lc",
-        "exec python3 -m http.server 8765 --directory \"$HOME/Documents/GitHub/Oracle-Solutions-Site/site\""
+        "exec python3 \"$HOME/Documents/GitHub/Oracle-Solutions-Site/tools/serve.py\" 8765 \"$HOME/Documents/GitHub/Oracle-Solutions-Site/site\""
       ],
       "port": 8765
     },
@@ -25,7 +25,7 @@
       "runtimeExecutable": "bash",
       "runtimeArgs": [
         "-lc",
-        "exec python3 -m http.server \"${PORT:-8767}\" --bind 127.0.0.1 --directory \"$HOME/Documents/GitHub/Oracle-Solutions-Site/site\""
+        "exec python3 \"$HOME/Documents/GitHub/Oracle-Solutions-Site/tools/serve.py\" \"${PORT:-8767}\" \"$HOME/Documents/GitHub/Oracle-Solutions-Site/site\""
       ],
       "port": 8767,
       "autoPort": true
