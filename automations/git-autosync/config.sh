@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 # config.sh — git-autosync settings. Sourced by autosync.sh and setup.sh.
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-REPO_ROOT="$(cd "$HERE/../.." && pwd)"
+# The repo to watch: this one, unless AUTOSYNC_REPO_ROOT names another checkout
+# (set by the agent that `setup.sh <repo-path>` installs for that checkout).
+REPO_ROOT="${AUTOSYNC_REPO_ROOT:-$(cd "$HERE/../.." && pwd)}"
 
 BRANCH="main"           # only autosync on this branch; anything else is deliberate work
 POLL_SECONDS=20         # how often to check the tree for changes
@@ -10,5 +12,5 @@ MAX_QUIET_WAIT=60       # stop debouncing after this many seconds and commit any
 PULL_EVERY_TICKS=15     # every N polls (~5 min), also pull when clean so this machine RECEIVES remote changes
 
 WORK="$HERE/.work"      # git-ignored runtime dir
-LOG="$WORK/autosync.log"
+LOG="$WORK/autosync${AUTOSYNC_REPO_ROOT:+-$(basename "$AUTOSYNC_REPO_ROOT")}.log"   # autosync.log for this repo
 LOG_MAX_BYTES=1000000

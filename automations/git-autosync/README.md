@@ -24,6 +24,14 @@ Guards: only acts on `main`; skips while a rebase/merge is in progress;
 ```
 Copies `com.user.gitautosync.plist` to `~/Library/LaunchAgents/` and loads it.
 
+**Another repo.** `./setup.sh <repo-path>` installs a second agent,
+`com.user.gitautosync.<repo-name>`, that runs the same `autosync.sh` against that
+checkout (via `AUTOSYNC_REPO_ROOT`), logs to `.work/autosync-<repo-name>.log` and
+`/tmp/com.user.gitautosync.<repo-name>.{out,err}.log`, and leaves this repo's agent
+running untouched. Today: `~/Documents/GitHub/Oracle-Solutions-Site` (the Oracle
+mini-site, since 2026-09-23). Never re-run the no-argument form to add a repo: it
+unloads and reloads this repo's agent.
+
 New-machine gotcha (same as call-pipeline): the launchd job runs as `/bin/bash`
 and needs its own **Full Disk Access** grant to read `~/Documents` — Terminal's
 grant does not transfer. Push auth uses the macOS keychain credential helper
