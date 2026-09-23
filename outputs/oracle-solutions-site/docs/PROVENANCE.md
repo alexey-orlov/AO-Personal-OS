@@ -5969,3 +5969,8 @@ shows 107 files, each at its local byte size.
    *"Scope, timeline and price on every product page"* (the commercial shape is still
    in the Products page intro, which the checker asserts). *Runs in your own tenancy*
    survives in the hero lead.
+6. **The archive theme was not updated, and will render these two screens unstyled
+   when run locally** (inferred, not looked at): the renderers are shared, and
+   `site-legacy.css` has no rules for `.way-img`, `.case-card-band` or
+   `.case-card-img`. The published archive artifact is frozen and not republished, so
+   its link is unaffected.
