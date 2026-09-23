@@ -245,7 +245,7 @@ In the rail the tiles **stack vertically** rather than sitting in a row — up t
 
 **The heading follows the data.** When at least one tile carries a `value`, the block is headed `sectionLabels.metrics` ("Metrics improved"). When every tile is qualitative it is headed `sectionLabels.metricsPlanned` ("What the proof of value measures") instead — a heading asserting improvement over four tiles with no number, closed by a footnote saying no metrics are published, contradicts itself two lines later.
 
-**A rail tile never repeats a case-study figure.** The case study owns the two numbers it sets large; the rail holds outcomes and ROI. Where a product's proof produced figures that the story already carries, the rail keeps the qualitative tiles and `metricsNote` points at the story — the reader meets each number once, and the two named products are built the same way.
+**A rail tile never repeats a case-study figure.** The case study owns the two numbers it sets large; the rail holds outcomes and ROI. Where a product's proof produced figures that the story already carries, the rail keeps the qualitative tiles and `metricsNote` points at the story — **which since round 10 means pointing at the Use cases tab**, by name (*"…in the case study, on the Use cases tab."*), because a note saying "on this page" stopped being true when the callout moved. The reader still meets each number once, and the two named products are built the same way.
 
 ### 2.5 At a glance — **removed** (round 3, H)
 
@@ -273,6 +273,72 @@ Collapsed by default, one control at the end of the MAIN column. Inside, in orde
 4. `overview.featuresNote?` — the asterisked caveat, where the product carries one. Only `workforce-optimization` does.
 
 Nothing that reads as a wall of text sits above the fold. Equally, **nothing is dropped**: every one of those five is a shipped fact that used to have a top-level block, and the disclosure is where it went.
+
+---
+
+## 2a. Use cases tab — where it applies, and whether it has worked (round 10)
+
+`#/products/<slug>/use-cases`, the **second** tab, between Overview and Technology.
+Two blocks, in this order and nothing else:
+
+| Order | Component | Source |
+|---|---|---|
+| 1 | **The industry tabs** (§2a.1) | `overview.industryCases[]` + `overview.industriesNote` |
+| 2 | **The case study**, in its wide variant (§2a.2) | `overview.caseStudy` — `null` on four of the seven |
+
+- **One column at the full content width, and no rail** (`tab-body`, not
+  `tab-body--compact`): 1,248 px at 1440 against the Overview MAIN column's 803 px.
+  That extra width is what the wide case callout is for.
+- **Where `caseStudy` is `null` the tab is the industries block alone** — no empty
+  state, no placeholder, no line saying a case study is coming. The same rule as
+  everywhere else on the site (rule 1, and `SCHEMA.md` rule 2).
+- **The block title inside is `sectionLabels.industryCases` = *By industry***, not
+  *Industry use cases*: the tab already says *Use cases*, and the block names the cut.
+  The checker fails that label if it contains *use case*.
+- Both blocks moved off the Overview because they answer a different question from it
+  and were pushing How it works out of the first screen (§2).
+
+### 2a.1 The industry tabs
+
+`overview.industryCases[]` — **3–6 cases**, `{ industry, label, image, problem, solution }`. Heading from `sectionLabels.industryCases`.
+
+A row of tabs, each an industry icon (§5) plus its label. The selected tab shows: a treated industry photograph (`assets/img/industries/<key>.jpg`), the industry name, then **The problem** and **The solution** — 2–3 sentences each, headed from `sectionLabels.caseProblem` / `caseSolution`.
+
+- The images are keyed by **industry, not product**, so one file serves every product that uses that tab.
+- First tab open by default. Tabs are a proper `role="tablist"` with roving `tabindex`: ←/→, Home and End move and select, Enter/Space activate, and each panel is `aria-labelledby` its tab and hidden with the `hidden` attribute.
+- The two Lakehouse products lead with the `cross-industry` tab, because "the same two pains in every industry, regardless of stack" is their honest answer; the vertical tabs beside it are illustrations of it, not a claim of vertical focus.
+- The failure mode to watch: a `problem`/`solution` pair that would read identically under any other tab. If it would, it is not an industry case.
+
+This block **is** the product page's industry telling. The old `overview.industries[]` chip row is gone from the data: every key it held was already a tab here, so the disclosure was saying the same verticals a second time. `industriesNote` survives and renders as the footnote line closing this block — one telling per vertical, per product. A `moreDetail` entry that repeats a vertical already covered by a tab is the same defect and is removed on sight.
+
+### 2a.2 The case study — a dark callout, wide
+
+`overview.caseStudy`, under the industry tabs, keeping the **3px teal left rule** the success-story block had. **`null` on four of the seven products, and then nothing renders** — there is no empty state. A case renders only where the engagement has actually started: an engagement still pre-contract gets no card, because the softest true reading of a status chip is still a claim a customer's own account team can contradict in the room.
+
+**No customer is named and no logo is rendered.** A logo is the one element of a case study that cannot be anonymized, so the round-4 callout is built around what can: the industry.
+
+The block is a **surface-level dark panel with a 3px teal left rule, and that rule is its only decoration**. Since round 10 its children sit in **two containers** — `.case-main`, the narrative, and `.case-side`, the evidence — and `.case-callout--wide` splits them:
+
+| Width | Layout |
+|---|---|
+| ≥ 901 px | `.case-body` is `minmax(0, 1.4fr) minmax(0, 1fr)` with a `clamp(1.5rem, 2.4vw, 2rem)` column gap; `.case-side` is top-aligned behind a 1 px `--border-subtle` **left rule** with the same clamp as its padding. Inside that ~480 px column `.case-figures` and `.case-scope` are each **one column**: two 40 px figures side by side, or a three-up scope grid, are unreadable there. |
+| ≤ 900 px | One column — main, then side — and the rule becomes a **top rule**. On a phone the story is therefore read before the figures. |
+
+**Narrative left, evidence right**, and the chip stays **directly above the figures it qualifies** — that pairing is why the chip moved into the side column rather than staying above the whole body.
+
+`.case-main`, in order:
+
+1. **The `Case study` eyebrow**, then the **industry medallion** — a circle carrying the `industry-<key>` line icon, sitting where the logo used to, at the same optical weight. There is **no header photograph**: the industry tabs directly above render the same `assets/img/industries/<key>.jpg`, so a band here showed the same picture twice within one viewport at two crops and read as a template filling itself in. Beside the medallion, the `descriptor` as the title (*"A global home-appliance manufacturer"*) and the `area` on a second line (*"Field-service operations across three countries"*). Below 768px the medallion top-aligns, so a descriptor that wraps to three lines keeps the icon-then-title reading.
+2. **The story** — two to three sentences: what was done, on what data, with which stack. The last sentence carries the caveat that qualifies the figures; the panel has no footnote row, so that is how rule 2 of this file is satisfied here. **The caveat is written in the chip's plain words** — *measured*, *forecast from simulations against the customer's own historical baseline*, *an estimate set against <what it is compared with>* — and never as a negation (*not results*, *no results yet*): the chip has said it, positively, in the column beside it (§18.9). The modeled case is the one where the wording is constrained rather than free: `PROVENANCE.md` §4 makes the simulations-and-historical-baseline pair load-bearing.
+3. **The NDA line** — *"Customer under NDA · reference call available on request"* on a measured or modeled case; on one in preparation it says results follow at the end of the proof of value instead, because offering a reference call about an engagement with no results yet is a promise nobody can keep.
+4. **`downloadLabel`** as the one link out, rendered **only** when `SITE_CONFIG.products[slug].successStoryUrl` is non-empty. No URL, no control.
+
+`.case-side`, in order:
+
+5. **Status chip** — **`Proven`**, **`Forecast`** or **`Estimated`**, one plain word, read from `shared.caseStudyStatus` by the `status` key (its tooltip carries the long form). It is the element that tells a reader, at a glance, what the numbers below are, and **it is the only place on the card the status word appears** (§18.9). It used to read *"Measured in the proof of value"* / *"Modeled in the proof of value"* / *"Proof of value in preparation"*, with the same word repeated in an eyebrow over the figure — the status said twice, in a sentence about the sales stage, which made a result read as a disclaimer. **The chip and the caveat sentence in the story must still agree** — a card that says *Proven* at the top and *forecast from simulations* four lines down retracts its own headline, and it is the first thing a sceptical customer pulls on.
+6. **One or two big metrics, with no eyebrow over them** — the chip above has already said what they are, and the `.case-metrics` block carries the breathing room the eyebrow used to (`margin-top: .75rem`; on the home card, `.case-card-metric { margin-top: .25rem }`). Two is the default, and a third would make the panel a metric row in its own right, competing with the Overview rail's tiles (§2.4); **one** is correct where only one real outcome exists, and the row then renders as a single column. A case with no published figure sets a **qualitative outcome statement** of the *"Hours, not quarters"* shape — a turnaround or a coverage claim — never an invented number, and never a restatement of the mechanic: *"One signal"* and *"Evidence-backed"* were the product's own description set at 40px in a numbers slot, which is what a slot filled because it was there looks like.
+7. **The scope row** — exactly three compact facts (`scope[]`), label above value: duration, data footprint, constraint count, the human gate. Each must be a fact the rest of the card does not already carry — a slot spent restating the `area` line is a slot wasted. External-safe only: no contract value, no contract duration, no headcount, no € figure.
+
 ## 3. Technology tab — exactly two blocks
 
 **Architecture** (§3.1 narrative + §3.3 the layer stack) and **Capabilities** (§3.2). Nothing else. The How-it-runs flow diagram and the Security-and-deployment list were both removed in round 3: the stack read top to bottom *is* the flow, drawn once and with the components attached, and the security lines were four restatements of facts the layer summaries, the scope lists and the Jumpstart `low-risk` pillar already carry.
@@ -369,7 +435,7 @@ Sixteen keys. **No product may invent a seventeenth.** A new industry is added h
 
 ### Who uses what today
 
-`overview.industryCases[]` drives the industry tab component in the MAIN column (§2.3) and is the only industry surface on a product page; the old `overview.industries[]` chip row is deleted. The first column below is kept only to show that the two lists agreed when the chips were removed.
+`overview.industryCases[]` drives the industry tab component on the **Use cases** tab (§2a.1) and is the only industry surface on a product page; the old `overview.industries[]` chip row is deleted. The first column below is kept only to show that the two lists agreed when the chips were removed.
 
 | Product | former `industries[]` (chips, deleted) | `industryCases[]` (tabs) |
 |---|---|---|
