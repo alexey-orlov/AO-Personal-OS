@@ -27,10 +27,22 @@ The hero is the only block on a page that carries a background image — and the
 | Height | — | 60–70vh maximum on desktop. **Not** full-screen. Auto height on mobile, with the image faded harder. |
 | Content | `headline`, `heroLine?`, `badges?`, the chip row (§1.2), `oneLiner`, `statusNote?`, `subLine?`, CTAs | The chip row replaced the flat chip list in round 4. CTAs are the primary **Talk to us** — `site.primaryCta.label`, routed to that product's Contacts tab — and, when `demoUrl` is set, a secondary **Interactive demo** that opens the walkthrough in a new tab (CONFIG §3). |
 
+**The CTA row is one ask, and one glyph per button** (round 10). The primary button
+reads `site.primaryCta.label`, the **same key the header button reads** — one
+contact ask site-wide, so the hero, the header and the Contacts form cannot drift
+into three different asks. It ships as *Talk to us*; *Request a demo* is retired as
+a label and `check-grammar.js` fails the raw text of `content.js` on the string
+(the `request-a-demo` anchor id is deliberately not matched — seven pages deep-link
+to it). The walkthrough button carries **the badge's own words** (`shared.demoCta`,
+asserted equal to the *Interactive demo* badge's label) and **the badge's own
+`cursor-click` glyph, leading the label, with no trailing `external` glyph**: the
+pointer is what says "a walkthrough you click", and a second glyph beside it only
+dilutes it.
+
 **Two hero layouts, chosen by data — nothing else changes.**
 
 - **Single column** (default) — text over the background image. Used when `SITE_CONFIG.products[slug].video` is `false` and `videoUrl` is empty.
-- **Two column** — text left, a 16:9 media frame right, when `video` is `true` **or** `videoUrl` is non-empty. The frame has a thin border and a slight lift, shows a poster image with a teal circular play button overlay and the caption **"Watch the demo"**. With a URL it opens the video modal; without one it opens the pending panel — product name, `shared.videoPending.body`, and a primary button to that product's Request-a-demo tab, plus a secondary "Try the interactive demo" button when `SITE_CONFIG.products[slug].demoUrl` is set. Same frame either way, so a product does not change layout the day its recording lands.
+- **Two column** — text left, a 16:9 media frame right, when `video` is `true` **or** `videoUrl` is non-empty. The frame has a thin border and a slight lift, shows a poster image with a teal circular play button overlay and the caption **"Watch the demo"**. With a URL it opens the video modal; without one it opens the pending panel — product name, `shared.videoPending.body`, and a primary button reading `shared.videoPending.cta` (*Request a live demo*, the right ask while the recording does not exist) to that product's **Contacts** tab, plus the same secondary **Interactive demo** button when `SITE_CONFIG.products[slug].demoUrl` is set. Same frame either way, so a product does not change layout the day its recording lands.
 
 Poster resolution order, first non-empty wins:
 
@@ -64,7 +76,7 @@ Round 3, D: text never sits on the photograph. Every tile is **an image band ove
 | **Image band** (~16:7, top) | That product's own `hero.image`, same file and `focal`, with a dark gradient at its lower edge. Overlaid: the **facet short label** top-left (e.g. "OCI + NVIDIA NeMo") and the **Artifacts badges** top-right. Nothing else. |
 | **Body** (solid dark surface) | The **category chip**, the product **name** as an H3, the `oneLiner`, the three `tile.outcomes` as check-icon bullets, and **one** CTA — `Learn more →`. |
 
-The second "Request a demo" CTA is gone from the tile: a tile with two actions makes the reader choose before they know what the product is, and the product page's hero carries the demo ask anyway. Hover lifts the tile slightly and scales the image 1.05, which `prefers-reduced-motion` disables. An odd count ends with the last tile alone in the left column.
+The second CTA — the contact ask — is gone from the tile: a tile with two actions makes the reader choose before they know what the product is, and the product page's hero carries that ask anyway. Hover lifts the tile slightly and scales the image 1.05, which `prefers-reduced-motion` disables. An odd count ends with the last tile alone in the left column.
 
 A product with no hero file on disk renders the same tile with the band on the flat ground, because the image guard drops an `<img>` that will not load. **The home page carries no product tiles since round 9** — its S3 is six group tiles (§9), which share this tile's grammar (an image band over a solid body, text never on the image, one action) at a different scale and with a group's name and line instead of a product's.
 
@@ -145,8 +157,16 @@ The tab is a **two-column layout on desktop**: a MAIN column at roughly two thir
 
 | Column | Order |
 |---|---|
-| **MAIN** | §2.1 Problem ↔ Solution → §2.2 How it works (the stepper) → §2.3 Industry use cases (the tabs) → §2.6 Case study → §2.7 More detail (one disclosure) |
+| **MAIN** | §2.1 Problem ↔ Solution → §2.2 How it works (the stepper) → §2.7 More detail (one disclosure) |
 | **SIDE rail** | §2.4 Outcomes & ROI — and nothing else |
+
+**Round 10 moved two blocks off this tab.** The industry tabs and the case study are
+now the **Use cases** tab (§2a): they answer a different question from the Overview's
+— *where does this apply, and has it worked?* — and in the MAIN column they were
+pushing How it works, the tab's own argument, out of the first screen. The rail is
+unchanged. The one cost is a pointer across tabs:
+`large-document-extraction`'s `metricsNote` sends the reader to the Use cases tab for
+the figure the rail does not repeat (§2.4, last rule).
 
 **The rail is never taller than MAIN.** That is the constraint that decides what goes in it: a rail that out-runs its column leaves dead gutter at the foot of the page, and a pinned card that is taller than the viewport hides its own bottom for the whole scroll. Nothing else is a top-level block. The old standalone key-features checklist, in-scope/out-of-scope pair and long-form feature list are all still in the data and all render **inside** §2.7 — the compactness target is met by moving prose, never by dropping a fact.
 
