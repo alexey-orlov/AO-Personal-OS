@@ -453,6 +453,7 @@ architecture:                              # component 8 — PROPOSED
     - layer: Custom configuration
       vendor: SoftServe
       items: ["In-scope account list and tiering", "Reasoning and ripple rules per domain", "Catalog-of-moves capture and mapping logic", "Scoring rubric and thresholds"]
+      summary: "Account list and tiers, reasoning and ripple rules, the catalog of moves, scoring thresholds"
     - layer: Account insights by SoftServe
       name: Account insights by SoftServe
       vendor: Oracle + SoftServe
