@@ -25,7 +25,7 @@ The hero is the only block on a page that carries a background image — and the
 | Background image | `products[].hero.image` · `services.hero.image` — `{ file, alt, focal }`; **no home-page entry since round 5** | `file` is a path relative to `site/index.html`. `focal` is a CSS `object-position` value. `alt` is the accessible description; because the image is decorative background, carry it as the container's `aria-label` only if no other label exists, otherwise `aria-hidden`. The authority on `alt` and `focal` is `site/assets/img/heroes/heroes.json`; `content.js` carries a copy so nothing has to fetch JSON at runtime — **keep them in sync**. |
 | Treatment | — | Image right/top, dark gradient left-to-right plus a bottom fade into the page ground `#131313`, so headline and CTAs sit on near-black. A subtle teal tint over the image is allowed. |
 | Height | — | 60–70vh maximum on desktop. **Not** full-screen. Auto height on mobile, with the image faded harder. |
-| Content | `headline`, `heroLine?`, `badges?`, the chip row (§1.2), `oneLiner`, `statusNote?`, `subLine?`, CTAs | The chip row replaced the flat chip list in round 4. CTAs are the primary "Request a demo" and, when `demoUrl` is set, a secondary "Try the interactive demo" that opens in a new tab (CONFIG §3). |
+| Content | `headline`, `heroLine?`, `badges?`, the chip row (§1.2), `oneLiner`, `statusNote?`, `subLine?`, CTAs | The chip row replaced the flat chip list in round 4. CTAs are the primary **Talk to us** — `site.primaryCta.label`, routed to that product's Contacts tab — and, when `demoUrl` is set, a secondary **Interactive demo** that opens the walkthrough in a new tab (CONFIG §3). |
 
 **Two hero layouts, chosen by data — nothing else changes.**
 
