@@ -151,7 +151,7 @@
 .bo-band, .bo-tile, .bo-tile-mark, .gtile, .modal-panel, .empty, .segmented, .fact-row,
 .step-frame, .video-card, .stack-tag, .cap-tag, .case-medallion, .step-index,
 .stepper-num, .gate-mark, .form-confirm-mark, .media-figure, .case-callout,
-.light-band-media, .modal-panel--media, .tip::after {
+.light-band-media, .modal-panel--media, .way--photo, .tip::after {
   border-radius: 0;
   clip-path: polygon(
     var(--cut) 0, calc(100% - var(--cut)) 0,
@@ -167,7 +167,7 @@
   --cut: var(--cut-8);
 }
 
-.media-figure, .case-callout, .light-band-media, .modal-panel--media, .bo-band {
+.media-figure, .case-callout, .light-band-media, .modal-panel--media, .bo-band, .way--photo {
   --cut: var(--cut-12);
 }
 

@@ -787,9 +787,11 @@
     });
   }
 
-  /* A hero background or video poster that cannot be fetched falls back to the
-     gradient or the inset panel alone, never to a broken-image glyph or a grey
-     placeholder. YouTube has maxresdefault.jpg only for videos uploaded above
+  /* A hero background, video poster, tile image or panel photograph that cannot
+     be fetched falls back to the gradient or the ground behind it alone, never
+     to a broken-image glyph or a grey placeholder. The two home-page photograph
+     grounds (the two ways in, the case-card bands) are dark, so their white
+     copy still reads without the picture. YouTube has maxresdefault.jpg only for videos uploaded above
      720p; for the rest it answers 200 with a 120x90 grey stand-in rather than a
      404, so size is the only honest test. A poster retries hqdefault.jpg, which
      always exists for a real video, before it goes. */
