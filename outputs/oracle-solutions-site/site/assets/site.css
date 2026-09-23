@@ -3268,9 +3268,10 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 
 /* ——— S2: the two ways in ——— */
 
-/* Two joined panels rather than two free-standing cards: the products and the
-   practice are one offer read two ways. Joined peers change surface on hover
-   instead of lifting, and both CTAs land on the same baseline. */
+/* The base is two joined panels, and it is what the Services page's two
+   proof-of-value panels still render: joined peers change surface on hover
+   instead of lifting, and both CTAs land on the same baseline. The home page
+   adds `--photo` (below). */
 
 .ways {
   display: grid;
@@ -3312,6 +3313,88 @@ hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 0; }
 
 @media (max-width: 900px) {
   .ways { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* Round 11 (Alex): on the home page the two ways in are two photographs — the
+   half-width form of softserveinc.com's Agents4Everything band: the picture
+   across the whole panel, the copy on it in white at the top left, the CTA
+   pinned to the foot. The reference sets its copy on a flat dark field and
+   needs no scrim; these two photographs are not dark all the way under the
+   copy, so a scrim, heaviest on the copy side, carries the legibility. The
+   panels are free-standing peers with a gap, no longer joined by a hairline.
+   Each is a static container, so it carries its 12px cut directly
+   (SS26-THEME §4), and `isolation` keeps the z-index:-1 photograph and scrim
+   above the panel's own black ground, which is what remains if the image
+   guard drops a photograph. Photographs, not a dark band: the page's one dark
+   band is still #about. */
+.ways--photo { gap: var(--gap); background: none; border: 0; overflow: visible; clip-path: none; }
+
+.way--photo {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  min-height: 28rem;
+  padding: clamp(2.5rem, 4.4vw, 4rem) clamp(1.75rem, 2.8vw, 2.5rem) clamp(1.75rem, 2.8vw, 2.5rem);
+  background: #000000;
+  color: #ffffff;
+}
+
+.way--photo:hover, .way--photo:focus-within { background: #000000; }
+
+.way-img {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+  transition: transform .4s var(--ease);
+}
+
+.way-scrim {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(100deg, rgba(0, 0, 0, .66) 0%, rgba(0, 0, 0, .46) 52%, rgba(0, 0, 0, .22) 100%);
+  pointer-events: none;
+}
+
+.way--photo .way-mark { background: rgba(255, 255, 255, .14); color: #ffffff; }
+/* The reference's 28px heading at weight 400 — a heading on a photograph, not
+   an H4-class card title. */
+.way--photo .way-title { font-weight: 400; font-size: 1.75rem; line-height: 1.2; color: #ffffff; }
+.way--photo .way-body { font-size: var(--fs-body); line-height: 1.25; max-width: 28rem; color: rgba(255, 255, 255, .82); }
+.way--photo .tick-list li { color: rgba(255, 255, 255, .9); }
+.way--photo .tick-list .icon { color: #ffffff; }
+.way--photo .link-arrow { color: #ffffff; }
+.way--photo .link-arrow:hover,
+.way--photo:hover .way-cta .link-arrow,
+.way--photo:focus-within .way-cta .link-arrow { color: var(--surface-select); }
+.way--photo :focus-visible { outline-color: #ffffff; }
+
+@media (hover: hover) {
+  .way--photo:hover .way-img, .way--photo:focus-within .way-img { transform: scale(1.071); }
+  .way--photo:hover .way-cta .icon, .way--photo:focus-within .way-cta .icon { transform: translateX(2px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .way-img, .way--photo .way-cta .icon { transition: none; }
+  .way--photo:hover .way-img, .way--photo:focus-within .way-img,
+  .way--photo:hover .way-cta .icon, .way--photo:focus-within .way-cta .icon { transform: none; }
+}
+
+@media (max-width: 900px) {
+  .way--photo { min-height: 22rem; padding: 1.75rem; }
+  .way-scrim { background: rgba(0, 0, 0, .56); }
+}
+
+/* Paper carries neither the photograph nor the scrim, so the copy turns ink. */
+@media print {
+  .way-img, .way-scrim { display: none !important; }
+  .way--photo { background: #ffffff !important; min-height: 0; border: 1px solid #bbbbbb; }
+  .way--photo .way-title, .way--photo .link-arrow { color: #111111 !important; }
+  .way--photo .way-body, .way--photo .tick-list li, .way--photo .tick-list .icon { color: #333333 !important; }
 }
 
 /* ——— S3: the products, one tile per group ——— */
