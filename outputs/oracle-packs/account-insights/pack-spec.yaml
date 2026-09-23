@@ -106,7 +106,7 @@ one_liner:                                 # component 2 — re-proposed 2026-09
   source: user:2026-09-22
 
 icp:                                       # component 3 — signed off
-  line: "Any team that must stay current on the companies it covers — customers, partners, holdings."
+  line: "Teams keeping up with the companies they cover — customers, partners, holdings."
   buyer_roles: [Chief Commercial Officer, VP Sales, Head of Key Accounts, Head of Partnerships, Head of Business Development, Portfolio Operations Lead, Head of Sales Operations]
   qualifying_signals:
     - "A named, finite set of companies the team is responsible for — accounts, partner prospects or holdings — owned by people, not a total addressable market"
@@ -639,7 +639,7 @@ packages:                                  # component 12
   why_it_sells_for_the_partner:
     - "Net-new OCI consumption: recurring GPU and inference workloads on dedicated OCI clusters, driven by signal volume rather than seat count"
     - "Complements Oracle's own account intelligence — Sales Command Center works on first-party CX data; this pack brings the external signal and the next move"
-    - "Repeatable across Oracle customers that track named companies — customer accounts in Oracle CX, partners or portfolio holdings, with a real catalog of moves"
+    - "Repeatable across Oracle customers with named accounts — customer accounts in Oracle CX, partners or portfolio holdings, with a real catalog of moves"
   target_oci_consumption: "-"
   source: research-brief-2026-09-22, decisions-2026-09-18
 

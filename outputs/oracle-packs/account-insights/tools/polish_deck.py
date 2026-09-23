@@ -24,6 +24,8 @@ for sl in prs.slides:
             hits += fix_para(p, lambda t: t.replace("HOW THE PLAN GETS MADE", "HOW IT WORKS"))
             hits += fix_para(p, lambda t: re.sub(r"^Source: proof of value at [^.]+\. Figures are illustrative and subject to confirmation\. ",
                                                   f"First engagement: {desc}, contracted; results follow the proof of value. ", t))
+            hits += fix_para(p, lambda t: re.sub(r"^Figures from proof of value at [^.]+\. Figures are illustrative and subject to confirmation\. ",
+                                                  f"First engagement: {desc}, contracted; results follow the proof of value. ", t))
             hits += fix_para(p, lambda t: t.replace("— oracle-cx —", f"— {cx} —"))
             hits += fix_para(p, lambda t: re.sub(r"^(◐|●●|●|—)\s+\1\s", r"\1  ", t))
 prs.save(path); print(f"polish_deck: {hits} paragraphs patched")
