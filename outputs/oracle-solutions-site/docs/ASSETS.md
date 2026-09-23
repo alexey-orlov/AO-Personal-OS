@@ -1,8 +1,9 @@
 # ASSETS.md — step frames, industry images, group tiles, headshot, customer logos
 
-What the E2 stepper, the E2 industry tabs, the home page's product-group tiles,
-the E5 contact card and the named success stories render, where each file came
-from, what was done to it, and what the licensing position is.
+What the E2 stepper, the E2 industry tabs and the home page's case cards, the home
+page's product-group tiles and its two photographic panels, the E5 contact card and
+the named success stories render, where each file came from, what was done to it, and
+what the licensing position is.
 
 This file is **not served** — the site root is `site/`. It is the operator record
 that `site/assets/img/manifest-edits.json` deliberately does not carry, under the
@@ -321,7 +322,11 @@ the account-map frame — it sits on a soft `#10161A` plate rather than shrinkin
 ## 2. Industry images — `assets/img/industries/`
 
 One file per key in the fixed set of sixteen (VISUAL-GRAMMAR §5), 1200 × 750
-JPEG, q86, ≤ 180 KB.
+JPEG, q86, ≤ 180 KB. Each renders on the product pages' Use cases tab and, since
+round 11, as the 16:9 photo band of the home page's case cards: the card derives the
+file from its `industry` — `manufacturing`, `travel-transport`, `logistics` and
+`construction` today — under a bottom-up veil that carries the descriptor and area in
+white, and the checker checks each of those four files on disk.
 
 | Key | Source | Register |
 |---|---|---|
