@@ -258,7 +258,7 @@ window.SITE_CONTENT = {
           image: {
             file: "assets/img/heroes/overview.jpg",
             alt: "A tall oval of light standing open in a dark wall, its reflection running out across still water",
-            focal: "100% 45%"
+            focal: "50% 45%"
           },
           cta: { label: "See the products", route: "#/#products", direction: "down" }
         },
