@@ -592,12 +592,14 @@ if (!arr(C.products) || C.products.length !== 7) {
     fail("shared.contact", 'email must be the practice mailbox "oracle@softserveinc.com", got "' + k.email + '"');
   }
   if (str(k.blurb) && sentences(k.blurb) > 1) fail("shared.contact", "blurb is more than one line");
-  /* E5 / round-3 C: the card is a bounded panel beside the form, and the list
-     is what turns "get in touch" into a call someone can prepare for. */
-  if (!str(k.bringTitle)) fail("shared.contact", "bringTitle missing — the heading of the Bring-to-the-call list");
-  if (!arr(k.bring) || k.bring.length !== 3) fail("shared.contact", "bring must hold exactly 3 items");
-  else k.bring.forEach(function (item, i) {
-    if (!str(item)) fail("shared.contact", "bring[" + i + "] is not a string");
+  /* Round 10: the "Bring to the call" list is retired. It said the same thing
+     three times over — the form's own placeholder, and the Jumpstart tab's
+     "What we need from you" — and it stretched a person's card into a briefing
+     document. The card is a person, an address and one line. */
+  ["bring", "bringTitle"].forEach(function (key) {
+    if (k[key] !== undefined) {
+      fail("shared.contact", key + " retired 2026-09-23 — the list duplicated the form placeholder and the Jumpstart \"What we need from you\"");
+    }
   });
   if (str(k.photo)) {
     if (!/^assets\/img\/people\/[a-z0-9-]+\.(jpg|jpeg|png|webp)$/.test(k.photo)) {
