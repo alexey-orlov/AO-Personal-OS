@@ -1100,14 +1100,18 @@
     bindIndustryTabs(root);
     bindStack(root);
 
-    /* The Contacts tab carries both forms now: the ask in row 1, the sales kit
-       in row 2. Each has its own mount. */
-    if (active === "contacts" && window.FORMS) {
-      var slot = root.querySelector("#product-demo-form");
-      if (slot) window.FORMS.mount(slot, "demo", { product: item.slug });
-      if (window.FORMS.mountKit) {
-        window.FORMS.mountKit(root.querySelector("#seller-kit"), kitOptions(item));
+    /* The Contacts tab carries both forms, one per tab of the switch. Both are
+       mounted at render, open or hidden, and the switch is bound after them so
+       the tab it opens is already live. */
+    if (active === "contacts") {
+      if (window.FORMS) {
+        var slot = root.querySelector("#product-demo-form");
+        if (slot) window.FORMS.mount(slot, "demo", { product: item.slug });
+        if (window.FORMS.mountKit) {
+          window.FORMS.mountKit(root.querySelector("#" + KIT_ANCHOR), kitOptions(item));
+        }
       }
+      bindContactTabs(root, params && params.anchor);
     }
 
     centerActiveTab(root);
