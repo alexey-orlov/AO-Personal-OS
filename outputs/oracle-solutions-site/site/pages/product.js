@@ -776,14 +776,17 @@
      at this route, because a same-route ROUTER.go re-renders the page and wipes
      whatever the reader has typed. */
   var TALK_ANCHOR = "talk";
+  var KIT_ANCHOR = "kit";
   function talkHref(slug) { return contactsRoute(slug) + "#" + TALK_ANCHOR; }
 
   /* The product's sales-kit request (round 8), which round 10 moved off its own
-     tab and onto the Contacts tab's second row: a page that repeats one form
-     under two names is a structure bug. The materials list it replaced stays as
-     data in `product.sellers.materials` and the config links — the manifest for
-     whoever sends the kit — and is no longer rendered. The confirmation offers
-     the form above and the full kit. */
+     tab and onto the Contacts tab, and round 10b made the second tab of the
+     switch: a page that repeats one form under two names is a structure bug,
+     and two open forms on one screen are a second one. The materials list it
+     replaced stays as data in `product.sellers.materials` and the config links
+     — the manifest for whoever sends the kit — and is no longer rendered. A
+     customer or partner who lands in the kit is routed back to the ask beside
+     it, which is also what the confirmation offers. */
   function kitOptions(product) {
     var tab = C().salesKit.tab;
     return {
