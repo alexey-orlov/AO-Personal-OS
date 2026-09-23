@@ -2,13 +2,13 @@
 
 Read this page first in every new session. It holds what the site is for, the brief and the rules it is built to, how a round of work runs, and what earlier rounds learned the hard way. Detail lives in the docs mapped in §10. Keep this page current: when a requirement, rule or procedure changes, rewrite the line — never append a dated update.
 
-Current as of 2026-09-22 (after round 9 — the home page re-argued).
+Current as of 2026-09-23 (after round 10 — the product pages: one contact ask, a Use cases tab, and the frame as the block).
 
 ## 1. What it is
 
 - **The site:** one small site for SoftServe's Oracle AI & Data practice, named **Oracle AI & Data Solutions**. It offers *products* — AI agents and human-AI workflows on Oracle platforms, grouped into **six product groups**, one per kind of job (§4) — and *services* (the practice that delivers them, from a proof of value **from 30 days** through integration to scaling).
 - **How it is used:** Oracle and SoftServe sellers open it live on a call, and customers receive it as a link.
-- **People:** Alex owns the site and every decision on it. The person on the contact card is Karsten Tramborg (Alliances & Partnerships Director). The practice mailbox is oracle@softserveinc.com.
+- **People:** Alex owns the site and every decision on it. The person on the contact card is Karsten Tramborg, **Oracle Partnership Director, SoftServe** (Alex, 2026-09-23; the pack one-pagers print *Alliances & Partnerships Director* and are unchanged — `ASSETS.md` §3). The practice mailbox is oracle@softserveinc.com.
 - **Code:** a static, hash-routed SPA in `site/` with no build step and no framework.
   - **The site is on SoftServe's current brand** (`site/index.html` + `assets/site.css`):
     white ground, Azurio serif over Replica LL, Lviv blue with Austin orange, octagonal

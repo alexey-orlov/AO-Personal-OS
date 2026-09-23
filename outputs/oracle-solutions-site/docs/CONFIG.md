@@ -134,7 +134,7 @@ The array is **sort order only** — it never filters. Every product renders wha
 
 ### `sellerGate` — the sales-kit request (round 8)
 
-The block keeps its old name; since round 8 it configures the **sales-kit request** on each product's *For sellers* tab and on `#/sellers` (`SCHEMA.md` §`salesKit`, `PROVENANCE.md` §24). The gate that unlocked a materials list, its seller-notes fetch (`notesUrl`) and its unlock flag are retired.
+The block keeps its old name; since round 8 it configures the **sales-kit request** — on the second row of each product's **Contacts** tab since round 10, and on `#/sellers` (`SCHEMA.md` §`salesKit`, `PROVENANCE.md` §24). The gate that unlocked a materials list, its seller-notes fetch (`notesUrl`) and its unlock flag are retired.
 
 #### `allowedDomains`
 
@@ -207,7 +207,7 @@ demoUrl: "demo/cross-system-erp-qa/index.html",
 
 **Round 9: `demoUrl` is the single source for everything that claims an interactive demo exists.** Non-empty → four things appear together:
 
-- the secondary **"Try the interactive demo"** button in the product hero (its label is `shared.demoCta` in `content.js`), and the same button inside the panel the pending video frame opens;
+- the secondary **Interactive demo** button in the product hero (its label is `shared.demoCta` in `content.js`, which round 10 set to the badge's own words and glyph), and the same button inside the panel the pending video frame opens;
 - the **Interactive demo** badge (`cursor-click` glyph) in that product's hero chip row and on its Products-page tile;
 - the count beside the **Interactive demo** checkbox in the rail's *Artifacts* group (`demo=1`), which filters on the same field.
 
