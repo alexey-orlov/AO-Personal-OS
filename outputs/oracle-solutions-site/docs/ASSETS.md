@@ -364,6 +364,21 @@ from the same decks, graded identically, so the strip reads as one system.
 is a silhouette, seen from behind, blurred, or cropped below the head. No logo,
 no shopfront name and no legible screen text survives in any crop.
 
+### Two hero photographs behind the home page's two ways in (round 11)
+
+No new file: S2's two panels reuse two graded hero photographs from
+`assets/img/heroes/` (SoftServe deck imagery; grade and sources in PROVENANCE §11.1),
+each under its own focal point in `overview.twoWays.panels[].image` — the hero entry
+in `heroes.json` keeps its own.
+
+| Panel | File | Focal on the panel | Focal in `heroes.json` |
+|---|---|---|---|
+| Products | `heroes/overview.jpg` — the home hero's photograph until round 5, unreferenced from then until this round | **`35% 45%`** — keeps the bright oval at the panel's right edge, out from under the body copy at every two-column width (lowest body contrast 4.88:1) | `50% 45%` |
+| Practice | `heroes/services.jpg` — the Services hero, still in use there | `50% 50%` | `50% 50%` |
+
+Both render decoratively (`alt=""`); `image.alt` carries the `heroes.json` wording
+for the record.
+
 ---
 
 ## 2b. Product-group tiles — `assets/img/groups/` (round 9, 2026-09-22)
