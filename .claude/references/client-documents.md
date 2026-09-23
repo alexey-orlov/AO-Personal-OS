@@ -91,6 +91,14 @@ counts and the scaffolding, not the essence" and used internal vocabulary
   H2 ~30. Re-measure against the rendered size rather than reusing the uppercase numbers.
   Record: `~/Documents/GitHub/Oracle-Solutions-Site/docs/SS26-THEME.md` §6. Check the phone break too: no line
   left holding a lone short word.
+- **A label earns its words** (2026-09-23, Alex on the Oracle mini-site: cut the *By industry*
+  heading from the Use cases tab, and *"with filters"* from *See all products, with
+  filters*). A heading over controls that already name what they hold is a third label for
+  one thing: a tab bar saying *Use cases* over a row of industry tabs needs nothing between
+  them. A link names where it goes, never the mechanics of the page it opens (*with
+  filters*, *searchable*, *interactive*). Before shipping a heading or a link, ask what the
+  reader learns from it that the elements around it don't already say. If nothing, cut it,
+  and where a site has a checker, assert it there.
 - Name the readers before drafting (for the Oracle site: an Oracle rep opening the page
   live on a call, and an enterprise buyer on Oracle), and write every headline and lead
   from their seat: the job it does and the outcome, in their words. A count, a taxonomy
