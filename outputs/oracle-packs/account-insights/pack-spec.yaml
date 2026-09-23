@@ -520,6 +520,8 @@ kpis:                                      # component 11 — ONE metric set: th
   # reviewer agrees") and are not printed as the pack's metrics. No figure is cleared; the
   # engagement had not started. Every figure prints "results to follow".
   - name: Research time per account
+    kind: business
+    owner_role: Head of key-account management
     one_pager_label: "hours spent preparing a customer conversation"
     chip: "Research time ↓"
     label: "hours an account manager spends preparing a customer conversation"
@@ -528,20 +530,24 @@ kpis:                                      # component 11 — ONE metric set: th
     figure: "-"
     note: "Answers the first problem point (too much to keep up with). The manual briefing is the SoW's benchmark, so the baseline is measured in the same engagement."
     source: proposed-2026-09-23 (user asked for business metrics), sow-uc6
-  - name: Time from signal to next move
+  - name: Time to act on a change
+    kind: business
+    owner_role: Head of sales
     one_pager_label: "from a filing or news item to a reviewed next move"
     chip: "Time to act ↓"
-    label: "from a filing or news item to a reviewed next move in front of the account team"
-    formula: "Elapsed time from a signal's publication to its reviewed record, median per period"
+    label: "from a change at a company — a filing, a news item — to a reviewed next move in front of the account team"
+    formula: "Elapsed time from the change becoming public to its reviewed next move, median per period"
     baseline: "Today the update surfaces when the team next researches the account, often after the company has decided"
     figure: "-"
     note: "Answers the second problem point (found out too late)."
     source: proposed-2026-09-23 (user asked for business metrics), research-brief-2026-09-22
-  - name: Qualified pipeline from signals
-    one_pager_label: "qualified opportunities added to the pipeline from reviewed signals"
+  - name: Qualified pipeline added
+    kind: business
+    owner_role: Chief commercial officer
+    one_pager_label: "qualified opportunities added to the pipeline from the changes it surfaces"
     chip: "Pipeline ↑"
-    label: "qualified opportunities added to the pipeline from reviewed signals, per account per quarter"
-    formula: "Opportunities qualified in the CRM whose source is a reviewed signal, per in-scope account per quarter, against the team's own research"
+    label: "qualified opportunities added to the pipeline from the changes it surfaces, per account per quarter"
+    formula: "Opportunities qualified in the CRM whose source is a reviewed next move, per in-scope account per quarter, against the team's own research"
     baseline: "The pipeline the team adds from its own research in the same period, from the CRM"
     figure: "-"
     note: "Answers the third problem point (only the company in the headline): the ripple across companies is what lifts it. Its leading indicator, approved next moves surfaced per account, is measured in the proof of value but is not a tile — tiles carry business outcomes only (owner's rule, 2026-09-23)."

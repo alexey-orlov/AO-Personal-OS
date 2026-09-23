@@ -1628,11 +1628,12 @@ if (/request a demo/i.test(raw)) {
   if (!footerLink || footerLink.route !== "#/sellers" || !str(footerLink.label)) {
     fail("site.footer.sellersLink", 'needs { label, route: "#/sellers" }');
   }
-  /* Round 10: the kit lives on the Contacts tab's second row, so its "customer
-     or partner?" route is the form directly above it, and its confirmation
-     offers that same one ask by its one name. */
-  if (!str(tab.routeLabel)) {
-    fail("salesKit.tab.routeLabel", "missing — it names the route out for a customer or partner, which is now the form above");
+  /* Round 10b: the kit is the second tab of the Contacts switch, so a customer
+     or partner is routed out of it by the site's one contact ask — the other
+     tab of the same switch — and its confirmation offers that same ask by that
+     same name. Two forms never sit open on one screen. */
+  if (tab.routeLabel !== ((C.site || {}).primaryCta || {}).label) {
+    fail("salesKit.tab.routeLabel", 'is "' + tab.routeLabel + '" — it must read site.primaryCta.label, the one contact ask');
   }
   if (tab.nextDemoLink !== ((C.site || {}).primaryCta || {}).label) {
     fail("salesKit.tab.nextDemoLink", 'is "' + tab.nextDemoLink + '" — it must read site.primaryCta.label, the one contact ask');

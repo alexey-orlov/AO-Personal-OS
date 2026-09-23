@@ -2925,7 +2925,7 @@ window.SITE_CONTENT = {
     tab: {
       title: "Get the sales kit",
       body: "Enter your SoftServe or Oracle work email and we’ll email you the {product} sales kit — what an account team needs to position it and open the first customer conversation.",
-      routeLabel: "Use the form above",
+      routeLabel: "Talk to us",
       nextDemo: "Have an account in mind? {link} — after a workshop, a Jumpstart proof of value on the customer’s own data runs 4–8 weeks and ends in measurable KPIs.",
       nextDemoLink: "Talk to us",
       nextAll: "Selling the whole portfolio? {link}",
