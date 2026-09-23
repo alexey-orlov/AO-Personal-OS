@@ -23,11 +23,17 @@ meta:
   roadmap_block: Deep research & investigation
   source_engagement:
     customer: "<the delivery customer — a global logistics and supply-chain operator>"
+    context: >-
+      {Customer}'s account teams prepare the briefings on their enterprise customers by hand — company
+      context, strategic and operational signals, and what each one means for {customer}'s logistics
+      services — and a manually written briefing per account is the benchmark the proof of value is
+      measured against.
     delivered: >-
-      A contracted proof of value on NVIDIA AI-Q over OCI: news and filings from seven external sources,
-      read together with the client's own account records, become one scored, source-cited
-      opportunity-and-risk record per account, which the team approves or rejects in a reviewer screen
-      built for the purpose.
+      Client Compass — a 12-week proof of value on NVIDIA AI-Q over OCI. Account data from the CRM,
+      approved public sources and commercial feeds such as Dow Jones Factiva are read per account;
+      the signals in them are extracted, mapped to {customer}'s logistics capabilities and service
+      offerings, scored and cited to source, and every record is reviewed by the account team in a
+      reviewer screen before it goes anywhere.
     divergence_line: >-
       Not the first client's results or set-up: their sources, their list of companies and their own
       catalog of moves are configured for each client; what every client gets is the reasoning that
@@ -45,12 +51,12 @@ meta:
 clearance:
   customer_name_allowed:
     internal: true
-    partner_print: false
+    partner_print: true                   # user:2026-09-23 — the seller deck names DHL and carries its logo, as the WfO deck does
     customer_site: false
     demo: false
   anonymized_descriptor: a global logistics and supply-chain operator
   internal_only_facts:
-    - the customer name outside internal channels
+    - the customer name on the mini-site and in the demo
     - the contract value of the proof of concept
     - the named accounts appearing in the reviewer UI screenshot
     - the seven named external data sources of the delivered configuration
@@ -638,6 +644,15 @@ packages:                                  # component 12
       pov: "◐ Records exported as files; reviewer decisions captured, not written back"
       integration: "● Export to the system of record; routing to the owner"
       scaling: "●● Live write-back; outcome capture feeding scoring"
+  value_for_partner: >-
+    Attaches recurring OCI GPU consumption — a dedicated AI cluster running NVIDIA AI-Q — to the
+    account, driven by signal volume rather than seats; the reviewed records land in Oracle CX as the
+    system of record, net-new on top of the SaaS seat.
+  value_for_client: >-
+    Account managers move from researching their accounts to reviewing a scored, cited list of
+    opportunities and risks per account; coverage of the account book, reviewer agreement and
+    confidence calibration are measured in the proof of value against the team's own approve /
+    reject decisions.
   why_it_sells_for_the_partner:
     - "Net-new OCI consumption: recurring GPU and inference workloads on dedicated OCI clusters, driven by signal volume rather than seat count"
     - "Complements Oracle's own account intelligence — Sales Command Center works on first-party CX data; this pack brings the external signal and the next move"
@@ -647,14 +662,18 @@ packages:                                  # component 12
 
 deck:
   running_header: "Oracle AI & Data Solutions"
-  vertical_case: "Vertical case: a logistics operator's key-account team"
+  vertical_case: "Vertical case: {customer}'s key-account teams"
   seller_lead: "What this pack does for an Oracle account team's number."
   cta: "Ready to test the fit on one customer's accounts?"
-  proof_headline: "A first engagement in delivery — results to follow"
+  proof_headline: "A 12-week proof of value in delivery at {customer} — results to follow"
   layers_sub: "How the pack is layered — from the infrastructure up to the customer's own configuration."
   architecture_sub: "Reference architecture: signals and the system of record in, reviewed moves out."
   source: user:2026-09-22
   images:
+    customer_logo:
+      file: visuals/dhl-logo.png
+      source: "SoftServe section deck — Oracle AI Packages - section slides.pptx, slide 9"
+      note: "printed only on channels where clearance.customer_name_allowed is true"
     today:
       file: visuals/today-A-filefolders-business.jpg
       source: Openverse / stocksnap

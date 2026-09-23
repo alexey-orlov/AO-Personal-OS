@@ -828,7 +828,7 @@
         '<div class="kit-split">' +
           '<div class="kit-copy">' +
             '<p class="eyebrow eyebrow--accent">' + UI.esc(kit.page.eyebrow) + "</p>" +
-            blockHead(kit.tab.title) +
+            '<h3 class="h3 block-title">' + UI.esc(kit.tab.title) + "</h3>" +
             '<p class="body-text">' + UI.esc(kit.tab.body.replace("{product}", product.name)) + "</p>" +
           "</div>" +
           (window.FORMS && window.FORMS.renderKit ? window.FORMS.renderKit(kitOptions(product)) : "") +
@@ -853,10 +853,10 @@
 
     var active = tabId(params);
     var body;
-    if (active === "technology") body = technologyTab(item);
+    if (active === "use-cases") body = useCasesTab(item);
+    else if (active === "technology") body = technologyTab(item);
     else if (active === "jumpstart") body = jumpstartTab(item);
     else if (active === "contacts") body = contactsTab(item);
-    else if (active === "sellers") body = sellersTab(item);
     else body = overviewTab(item);
 
     return hero(item) + tabbar(item, active) +
@@ -927,14 +927,22 @@
     });
   }
 
-  function roving(buttons, onSelect, horizontal) {
+  /* `axis` is "horizontal", "vertical" or "both". The stepper takes both: its
+     heads are a horizontal strip on a desktop and a vertical accordion below
+     901px, and one component may not answer to different keys at two widths. */
+  var ROVING_KEYS = {
+    horizontal: { forward: ["ArrowRight"], back: ["ArrowLeft"] },
+    vertical: { forward: ["ArrowDown"], back: ["ArrowUp"] },
+    both: { forward: ["ArrowRight", "ArrowDown"], back: ["ArrowLeft", "ArrowUp"] }
+  };
+
+  function roving(buttons, onSelect, axis) {
+    var keys = ROVING_KEYS[axis] || ROVING_KEYS.vertical;
     buttons.forEach(function (button, index) {
       button.addEventListener("keydown", function (event) {
-        var forward = horizontal ? "ArrowRight" : "ArrowDown";
-        var back = horizontal ? "ArrowLeft" : "ArrowUp";
         var next = null;
-        if (event.key === forward) next = (index + 1) % buttons.length;
-        else if (event.key === back) next = (index - 1 + buttons.length) % buttons.length;
+        if (keys.forward.indexOf(event.key) !== -1) next = (index + 1) % buttons.length;
+        else if (keys.back.indexOf(event.key) !== -1) next = (index - 1 + buttons.length) % buttons.length;
         else if (event.key === "Home") next = 0;
         else if (event.key === "End") next = buttons.length - 1;
         if (next === null) return;
@@ -969,7 +977,7 @@
     heads.forEach(function (head, index) {
       head.addEventListener("click", function () { select(index); });
     });
-    roving(heads, select, false);
+    roving(heads, select, "both");
   }
 
   function bindIndustryTabs(root) {
@@ -992,7 +1000,7 @@
     tabs.forEach(function (tab, index) {
       tab.addEventListener("click", function () { select(index); });
     });
-    roving(tabs, select, true);
+    roving(tabs, select, "horizontal");
   }
 
   function bindStack(root) {
