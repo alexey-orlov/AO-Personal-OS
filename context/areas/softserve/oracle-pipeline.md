@@ -1,7 +1,7 @@
 # Oracle engagements — pipeline status
 
 _Source: Miro board **"INT Oracle Program"**, **June** view (marked **Confidential**). Screenshot shared by Alex 2026-07-13; this is the program manager's live pipeline tracker. Sibling boards exist on the same Miro (tabs: Henkel Program, REWE Stakeholders, RX PoC, Oracle AIDP, Schwarz Program, Montblanc) — not captured here._
-_updated: 2026-09-22_
+_updated: 2026-09-24_
 
 The single structured source of truth for **who is in the Oracle/NVIDIA accelerator-pack pipeline, at what commercial stage, and worth how much**. Complements the narrative in [oracle.md](oracle.md) (strategy/decisions/people) and the org map in [oracle-team.md](oracle-team.md). Twelve opportunities across four status bands.
 
@@ -18,6 +18,8 @@ _From the [sync notes](docs/2026-09-16_oracle-neil-gero-partnership-sync.md). **
 - **DHL** — named only as a target for extending the discovery/ideation workshop pattern; no delivery update.
 - **Cross-cutting pattern Oracle now treats as standard:** every POC generates *"can you also do this?"* (seen at Riyadh Air, Bosch, Sky and now SBG) → **run a parallel Oracle + SoftServe AI discovery/ideation workshop alongside each POC**.
 - **New named campaign the pipeline should feed from: 174 FSM customers across EMEA**, starting ~20 UK accounts → Germany (~20 est.) → Middle East; Neil to pull the real counts → [oracle-events-gtm](oracle-events-gtm.md).
+
+**Cotivity — a US presale with Oracle, not yet on any board (2026-09-18 1:1).** Vladyslav Butenko has run a presale with Oracle for about two months on a near-identical use case (to which pack, the note doesn't say). It is to be packaged as the **second reference and the first US case**. The US entry route is the **Specialized Delivery Unit**, and scaling goes only through certified delivery units. Alex is to find Cotivity's PM and talk to them and to the director of project management. Name as heard in the recording. [1:1](calls/oracle/2026-09-24_183557_one-on-one_20260918181849CD8CD9A8.md)
 
 ## Delivery status — 2026-08-18 (Oracle AI Tech SteerCo)
 
