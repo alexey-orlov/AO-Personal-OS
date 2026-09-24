@@ -99,6 +99,7 @@ The user's draft is the source of truth, not your sense of a better email.
 - If they say "fix grammar only," fix grammar and only genuinely broken wording. Do not rewrite.
 - If you change wording beyond grammar, stay extremely close to their intent.
 - Flag, don't silently fix: if their draft has a wrong name, a contradiction, a stale reference, or two competing asks, name it before/after the draft rather than quietly papering over it.
+- Across rounds, each item keeps the ask the user wrote. Your research or later findings may justify cutting an item or adding context in the notes, but they must never change what a surviving item asks: no new premises ("we plan X"), no swapped questions ("who owns it" becoming "is there a process"), no dropped halves. Before each re-output, diff every item against the user's original.
 
 ## Step 5 — Self-check before output
 
