@@ -18,8 +18,18 @@ if ! afinfo "$dst" >/dev/null 2>&1; then
   exit 1
 fi
 
-echo "[transcribe] $fname ..." >&2
-txt="$("$PYTHON_BIN" "$HERE/transcribe.py" "$dst" "$TRANSCRIPTS")"
+# Reuse the transcript an earlier attempt left behind, as long as it is newer
+# than the recording (an edited memo gets re-transcribed). Without this, a run
+# that fails after this step — e.g. the Aug–Sep 2026 Claude CLI logout — pays
+# AssemblyAI again on every retry.
+cached_txt="$TRANSCRIPTS/${fname%.*}.txt"
+if [ -s "$cached_txt" ] && [ "$cached_txt" -nt "$SRC" ]; then
+  echo "[transcribe] $fname — reusing existing transcript" >&2
+  txt="$cached_txt"
+else
+  echo "[transcribe] $fname ..." >&2
+  txt="$("$PYTHON_BIN" "$HERE/transcribe.py" "$dst" "$TRANSCRIPTS")"
+fi
 
 # Recording-start timestamp — for calendar matching. Voice Memos filenames
 # look like "20260520 175738-XXXX.m4a"; fall back to the source file's mtime.
