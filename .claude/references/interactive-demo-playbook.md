@@ -26,8 +26,8 @@ _Distilled 2026-09-16 from the two builds (Large docs processing and review, 202
 6. **QA by scripted click-through**: `tools/capture-demo-frames.mjs` in `MODE=script` with a scenario JSON; `LOGS: none` is the gate; look at the shots.
 7. **Red-team** against the S/M/L rows, the feature matrix and the site copy; close the gaps that do not change the flow.
 8. **Capture**: `DPR=2`; 640 × 400 CSS-px crops → 1600 × 1000 JPEG q86 ≤ 300 KB (`docs/ASSETS.md` §1); the final state in the stills; `sips` crop offsets are Y then X and `0 0` means centred.
-9. **Wire**: `config.js` (`demoUrl`, `demoPreviewUrl`, `videoPoster`), `content.js` step images; `node --check`; `node tools/check-grammar.js`.
-10. **Publish**: the standalone demo as its own artifact (wrapper-free copy under `.work/`, supporting files as a map) → `demoPreviewUrl`; the site artifact with `url` + `root` + a files map. Read the artifact in the session first; publish the **full tree** when another session may have changed renderer files (a partial publish once shipped a new `content.js` against an old `overview.js` and broke the home page); on a refusal, re-read and republish on top.
+9. **Wire**: the site repo's `links.json` under the product's slug (`interactiveDemo` = `demo/<slug>/index.html`, the only place a link is stored), `config.js` `videoPoster`, `content.js` step images; `node --check`; `node tools/check-grammar.js`.
+10. **Publish**: the standalone demo as its own artifact (wrapper-free copy under `.work/`, supporting files as a map) → `links.json` `interactiveDemoArtifact`; the site artifact with `url` + `root` + a files map, `data/links.js` built for it by `tools/site_links.py` (the site's `START-HERE.md` §6). Read the artifact in the session first; publish the **full tree** when another session may have changed renderer files (a partial publish once shipped a new `content.js` against an old `overview.js` and broke the home page); on a refusal, re-read and republish on top.
 11. **Docs and wiki**: README, `CONFIG.md` §3, `ASSETS.md` §1, a PROVENANCE section; fold the outcome with `context-update`; mark the handoff done.
 
 ## Pitfalls paid for
