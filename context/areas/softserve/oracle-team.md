@@ -102,11 +102,25 @@ _From the [sync notes](docs/2026-09-16_oracle-neil-gero-partnership-sync.md) (sh
 | **Jacob West · Chris Whitey** | **Oracle Public Sector** | Second meeting done; offered to bring SoftServe to the **Government of Norway** and the **City of Birmingham**. Neil + Gero: **proceed directly, do not wait for Oracle** |
 | **Kevin Kimber** | **New UK&I lead** (the UK SVP & GM below) | **Deliberately not a general introduction** — go to him **early October with a finished UK campaign plan** (venue agreed, 20 named clients, reps already reaching out). Already likes the cuOpt work via NVIDIA's **Anthony Hills** |
 | **Jan** | Host of the **Frankfurt aviation event** | Neil confirms slot + format with him and Rihan; will name SoftServe delivery partner of choice |
-| **AJ** (Adrian James) | see the enablement-org table | His read on the **Oracle Marketplace** listing: valuable **primarily for internal Oracle promotion** — not critical path. Co-owner with Alex of publishing the Bosch cuOpt package |
+| **AJ** (Adrian James) | see the enablement-org table | Co-owner with Alex of publishing the Bosch cuOpt package on **Oracle Marketplace**. On 09-16 he called a listing valuable mainly for internal Oracle promotion, not critical path. By the [2026-09-24 Marketplace call](calls/oracle/2026-09-24_182401_default_20260924173131F5EF99C7.md), which he brokered, he called it a sensible distribution point and a way in to follow-on services, and he laid out the three ways to charge. He also connected SoftServe to the Marketplace contacts → [below](#oracle-marketplace-team--surfaced-2026-09-24) |
 | **Paolo** (NVIDIA) | **New NVIDIA EMEA lead**, successor to **Jaap Rudefelt** | Proposed meeting: Neil + **Cormac** + Paolo + Olia; **Therese** (NVIDIA) already reached out and wants Cormac included |
 | **Deepak + Sunny** | On the **Sky (EVOS / cuOpt routing)** handover | Both on holiday as of 2026-09-16 — the reason Sky is ~a month from a packaged asset |
 
 **The AI Platform Team – EMEA** is the body that authored the laser-campaign launch deck (September 2026) — the demand-side counterpart to the segment/Goldmines machine Hammad owns below.
+
+### Oracle Marketplace team — surfaced 2026-09-24
+
+_From the [2026-09-24 Marketplace call](calls/oracle/2026-09-24_182401_default_20260924173131F5EF99C7.md) (Tony of TPX Impact, AJ, Federico). How the channel works → [oracle-packs](oracle-packs.md#snapshot)._
+
+**Technical/back-end support only, no GTM help.** The team is short of people, based on the US West Coast and hard to reach: Tony has waited two weeks for an answer on publishing to the US Government Cloud. **The way in is the generic Marketplace support email**, which Tony shared in the call chat and which is not in the note.
+
+| Person | Role | Notes |
+|---|---|---|
+| **Roger Donaldson** | **Director of Oracle Marketplace — the decision-maker** | Very hard to reach. Tony's tactic is a 7:30 AM PT meeting invite. He told AJ he is short of people. |
+| **Colin** | Roger's new second-in-command | Per AJ. Full name TBD |
+| **Federico Lopez** | **Oracle Marketplace, EMEA** | Reports to Angelica Martinez. Getting more responsive. Marketplace is established in North America and Montevideo but new in EMEA, and his small team relies on NA resources. Owns setting up the technical session with the Marketplace admins (early next week) |
+| **Angelica Martinez** | Federico's manager | Named by AJ |
+| **Pankaj Sharma / Sanjay** | (Pankaj: pre-sales + architecture, enablement-org table above) | AJ's route for the GPU question: repackaging from a dedicated AI cluster to on-demand GPUs for pilots |
 
 ### Public & Defense (NATO) channel — surfaced 2026-08-28
 
