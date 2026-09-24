@@ -1,9 +1,49 @@
 #!/usr/bin/env bash
 # process_one.sh <path-to-m4a> — transcribe, classify, analyse, write+sync note.
+#
+# Claude-auth contract: every FATAL claude call below runs through
+# run_claude_fatal (defined just below), which exits 75 (EX_TEMPFAIL) when the
+# failure is a Claude auth problem (automations/claude-auth) and 1 for any
+# other failure. watch.sh treats 75 as DEFERRED: the recording is retried once
+# auth works, never counted toward MAX_TRIES, never parked in failures.log.
+# Any other non-zero exit is a real failure and follows the normal
+# retry/give-up path.
 set -euo pipefail
 HERE="$(cd "$(dirname "$0")" && pwd)"
 # shellcheck source=/dev/null
 source "$HERE/config.sh"
+
+# run_claude_fatal <step> <out-file> <err-file> -- <claude args...>
+# Reads stdin (the caller pipes transcript/calendar context in), runs
+# $CLAUDE_BIN with the given args, and splits stdout/stderr into the two given
+# files — never mixed, since classify's stdout is parsed line by line and
+# claude's stderr can carry noise (e.g. a settings.local.json permission-rule
+# warning) that must never land in a note. On success: returns 0, leaves both
+# files for the caller to read (and remove). On failure: prints
+# "[<step>] claude failed (exit N):" plus both files' contents to stderr (the
+# watcher's run log, whose tail the Telegram failure alert quotes — this is
+# what names the cause), removes both files, then exits 75 or 1 per the
+# contract above.
+run_claude_fatal() {
+  local step="$1" out="$2" err="$3" rc=0
+  shift 3
+  "$CLAUDE_BIN" "$@" >"$out" 2>"$err" || rc=$?
+  if [ "$rc" -ne 0 ]; then
+    echo "[$step] claude failed (exit $rc):" >&2
+    echo "-- stdout --" >&2
+    cat "$out" >&2
+    echo "-- stderr --" >&2
+    cat "$err" >&2
+    local auth_rc=0
+    claude_auth_failed "$out" "$err" || auth_rc=$?
+    rm -f "$out" "$err"
+    if [ "$auth_rc" -eq 0 ]; then
+      exit 75
+    else
+      exit 1
+    fi
+  fi
+}
 
 SRC="${1:?usage: process_one.sh <path-to-m4a>}"
 mkdir -p "$INBOX" "$TRANSCRIPTS" "$OUT_DIR" "$STATE"
@@ -57,19 +97,22 @@ echo "[classify] ..." >&2
 # english-coaching pass is worth running). The classify skill emits three
 # lines: "type: <…>", "folder: <…>", "coaching: <yes|no>". Calendar context is
 # fed in so the classifier can read attendees/title to resolve the context.
-classify_out="$(
-  {
-    if [ -s "$cal_context" ]; then
-      printf '<<<CALENDAR_EVENT_CONTEXT>>>\n'
-      cat "$cal_context"
-      printf '<<<END_CALENDAR_EVENT_CONTEXT>>>\n\n'
-    fi
-    cat "$txt"
-  } | "$CLAUDE_BIN" -p "Classify the call transcript on input on all three axes. Follow the classify skill instructions exactly. Output only the three required lines (type: …, folder: …, coaching: …)." \
-    --append-system-prompt "$(cat "$SKILLS_DIR/classify/SKILL.md")" \
-    ${CLASSIFY_MODEL:+--model "$CLASSIFY_MODEL"} \
-    --output-format text
-)"
+classify_out_file="$STATE/classify_out.$$.txt"
+classify_err_file="$STATE/classify_err.$$.txt"
+{
+  if [ -s "$cal_context" ]; then
+    printf '<<<CALENDAR_EVENT_CONTEXT>>>\n'
+    cat "$cal_context"
+    printf '<<<END_CALENDAR_EVENT_CONTEXT>>>\n\n'
+  fi
+  cat "$txt"
+} | run_claude_fatal classify "$classify_out_file" "$classify_err_file" \
+  -p "Classify the call transcript on input on all three axes. Follow the classify skill instructions exactly. Output only the three required lines (type: …, folder: …, coaching: …)." \
+  --append-system-prompt "$(cat "$SKILLS_DIR/classify/SKILL.md")" \
+  ${CLASSIFY_MODEL:+--model "$CLASSIFY_MODEL"} \
+  --output-format text
+classify_out="$(cat "$classify_out_file")"
+rm -f "$classify_out_file" "$classify_err_file"
 type="$(printf '%s' "$classify_out" | grep -iE '^[[:space:]]*type:' | head -1 | sed -E 's/^[[:space:]]*[Tt]ype:[[:space:]]*//' | LC_ALL=C tr '[:upper:]' '[:lower:]' | LC_ALL=C tr -cd '[:alnum:]-')"
 folder="$(printf '%s' "$classify_out" | grep -iE '^[[:space:]]*folder:' | head -1 | sed -E 's/^[[:space:]]*[Ff]older:[[:space:]]*//')"
 coaching="$(printf '%s' "$classify_out" | grep -iE '^[[:space:]]*coaching:' | head -1 | sed -E 's/^[[:space:]]*[Cc]oaching:[[:space:]]*//' | LC_ALL=C tr '[:upper:]' '[:lower:]' | LC_ALL=C tr -cd 'a-z')"
@@ -105,6 +148,28 @@ if [ -e "$note" ]; then
   while [ -e "${note%.md}-${i}.md" ]; do i=$((i+1)); done
   note="${note%.md}-${i}.md"
 fi
+echo "[analyze] ..." >&2
+analyze_out_file="$STATE/analyze_out.$$.md"
+analyze_err_file="$STATE/analyze_err.$$.txt"
+# Prepend calendar context to the transcript so the analyser can use it to
+# resolve speakers, "we"-references, agenda framing, etc. The marker keeps
+# it clearly separated from the transcript body.
+{
+  if [ -s "$cal_context" ]; then
+    printf '<<<CALENDAR_EVENT_CONTEXT>>>\n'
+    cat "$cal_context"
+    printf '<<<END_CALENDAR_EVENT_CONTEXT>>>\n\n'
+  fi
+  cat "$txt"
+} | run_claude_fatal analyze "$analyze_out_file" "$analyze_err_file" \
+  -p "Analyse the call transcript provided on input, following the instructions exactly. If a CALENDAR_EVENT_CONTEXT block is present, treat it as ground-truth metadata (title, attendees, scheduled time) for the call, but do NOT echo it back verbatim — use it only to disambiguate speakers, topics, and references in the transcript. Output Markdown only." \
+  --append-system-prompt "$(cat "$SKILLS_DIR/$type/SKILL.md")" \
+  ${ANALYZE_MODEL:+--model "$ANALYZE_MODEL"} \
+  --output-format text
+
+# Assemble the note only after claude succeeds — otherwise a mid-run failure
+# used to leave a partial file in the committed context tree (git-autosync
+# pushes within ~30s) and a retry would then create a second, duplicate note.
 {
   echo "# ${type} — ${stamp}"
   echo "_source: ${fname}_"
@@ -113,21 +178,9 @@ fi
     cat "$cal_header"
     echo
   fi
-  # Prepend calendar context to the transcript so the analyser can use it to
-  # resolve speakers, "we"-references, agenda framing, etc. The marker keeps
-  # it clearly separated from the transcript body.
-  {
-    if [ -s "$cal_context" ]; then
-      printf '<<<CALENDAR_EVENT_CONTEXT>>>\n'
-      cat "$cal_context"
-      printf '<<<END_CALENDAR_EVENT_CONTEXT>>>\n\n'
-    fi
-    cat "$txt"
-  } | "$CLAUDE_BIN" -p "Analyse the call transcript provided on input, following the instructions exactly. If a CALENDAR_EVENT_CONTEXT block is present, treat it as ground-truth metadata (title, attendees, scheduled time) for the call, but do NOT echo it back verbatim — use it only to disambiguate speakers, topics, and references in the transcript. Output Markdown only." \
-    --append-system-prompt "$(cat "$SKILLS_DIR/$type/SKILL.md")" \
-    ${ANALYZE_MODEL:+--model "$ANALYZE_MODEL"} \
-    --output-format text
+  cat "$analyze_out_file"
 } > "$note"
+rm -f "$analyze_out_file" "$analyze_err_file"
 
 echo "[done] $fname -> $note  (type: $type)"
 
@@ -145,6 +198,7 @@ else
   COACH_DIR="$REPO_ROOT/outputs/english-coaching"
   mkdir -p "$COACH_DIR"
   coach_body="$STATE/coach_body.$$.md"
+  coach_err="$STATE/coach_err.$$.txt"
   (
     cd "$REPO_ROOT"
     {
@@ -154,11 +208,12 @@ else
         printf '<<<END_CALENDAR_EVENT_CONTEXT>>>\n\n'
       fi
       cat "$txt"
-    } | "$CLAUDE_BIN" -p "Analyse the call transcript on input for English-language coaching, following the english-coaching skill instructions exactly. You are being invoked headlessly from the call-pipeline — do NOT write files, output Markdown analysis only on stdout. If a CALENDAR_EVENT_CONTEXT block is present, use it for speaker disambiguation only — do not echo it back." \
+    } | run_claude_fatal english-coaching "$coach_body" "$coach_err" \
+      -p "Analyse the call transcript on input for English-language coaching, following the english-coaching skill instructions exactly. You are being invoked headlessly from the call-pipeline — do NOT write files, output Markdown analysis only on stdout. If a CALENDAR_EVENT_CONTEXT block is present, use it for speaker disambiguation only — do not echo it back." \
       --append-system-prompt "$(cat "$SKILLS_DIR/english-coaching/SKILL.md")" \
       ${ANALYZE_MODEL:+--model "$ANALYZE_MODEL"} \
       --output-format text
-  ) > "$coach_body"
+  )
   # Second gate: the skill bails out with a sentinel line when the transcript
   # is unreadable or the user's English is too sparse to coach. Discard those
   # instead of saving a junk note. ("Could not identify ... which speaker"
@@ -184,7 +239,7 @@ else
     } > "$coach_note"
     echo "[done] coaching -> $coach_note"
   fi
-  rm -f "$coach_body"
+  rm -f "$coach_body" "$coach_err"
 fi
 
 # Notes produced — drop the working audio copy so the inbox doesn't fill the disk.
@@ -212,18 +267,26 @@ fi
 if [ "${CONTEXT_UPDATE:-1}" = "1" ] && [ -f "$SKILLS_DIR/context-update/SKILL.md" ]; then
   echo "[context-update] ..." >&2
   rel_note="${note#"$REPO_ROOT"/}"
-  if (
+  cu_out="$STATE/context_update_out.$$.txt"
+  cu_rc=0
+  (
     cd "$REPO_ROOT"
     "$CLAUDE_BIN" -p "Single-artifact mode: fold the new call note at '$rel_note' into the context wiki, following the context-update skill instructions exactly. You have no Bash tool — do not attempt git; update the ledger by Read + Write of context/_meta/processed.txt." \
       --append-system-prompt "$(cat "$SKILLS_DIR/context-update/SKILL.md")" \
       ${CONTEXT_MODEL:+--model "$CONTEXT_MODEL"} \
       --allowedTools "Read,Glob,Grep,Edit,Write" \
       --max-turns 40 \
-      --output-format text >/dev/null
-  ); then
+      --output-format text
+  ) >"$cu_out" 2>&1 || cu_rc=$?
+  if [ "$cu_rc" -eq 0 ]; then
     "$HERE/git_sync.sh" "context: fold ${rel_note##*/}" "$REPO_ROOT/context" || true
     echo "[done] context wiki updated"
   else
-    echo "[context-update] failed (non-fatal)" >&2
+    echo "[context-update] failed (exit $cu_rc, non-fatal) — last 20 lines:" >&2
+    tail -n 20 "$cu_out" >&2
+    if claude_auth_failed "$cu_out"; then
+      echo "[context-update] auth failure — the next /context-update sweep will catch up." >&2
+    fi
   fi
+  rm -f "$cu_out"
 fi

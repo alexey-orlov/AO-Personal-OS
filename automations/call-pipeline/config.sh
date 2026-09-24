@@ -35,6 +35,10 @@ if [ -z "$CLAUDE_BIN" ]; then
 fi
 export CLAUDE_BIN
 
+# Unattended Claude auth (long-lived Keychain token) — automations/claude-auth/README.md.
+# shellcheck source=/dev/null
+source "$REPO_ROOT/automations/claude-auth/auth.sh"
+
 # AssemblyAI key from macOS Keychain.
 export ASSEMBLYAI_API_KEY="$(security find-generic-password -a "$USER" -s ASSEMBLYAI_API_KEY -w 2>/dev/null || echo "${ASSEMBLYAI_API_KEY:-}")"
 

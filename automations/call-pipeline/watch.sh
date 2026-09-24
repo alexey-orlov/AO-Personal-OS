@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # watch.sh — polls Voice Memos; processes each NEW .m4a once; records DONE only
 # on success (so transient failures retry). Pushes any deferred commits on start.
+# A Claude auth failure (exit 75) defers the recording instead of failing it.
 set -euo pipefail
 HERE="$(cd "$(dirname "$0")" && pwd)"
 # shellcheck source=/dev/null
@@ -18,6 +19,10 @@ MAX_TRIES="${MAX_TRIES:-3}"
 # $SYNC_CHECKS consecutive samples taken $SYNC_INTERVAL seconds apart.
 SYNC_CHECKS="${SYNC_CHECKS:-3}"
 SYNC_INTERVAL="${SYNC_INTERVAL:-5}"
+# 0 = not paused; set to a future epoch second on a Claude auth failure
+# (process_one.sh exit 75) so the loop defers processing instead of parking
+# the recording — see the rc handling in the main loop below.
+AUTH_PAUSE_UNTIL=0
 
 [ -d "$VOICE_MEMOS_DIR" ] || { echo "VOICE_MEMOS_DIR not found: '$VOICE_MEMOS_DIR'. Check config.sh." >&2; exit 1; }
 
@@ -69,6 +74,9 @@ while true; do
     key="${fname}:$s2"
     grep -qxF "$key" "$LEDGER" && continue
     [ "$(count_fails "$key")" -ge "$MAX_TRIES" ] && continue
+    # Claude auth is failing (process_one.sh last returned 75) — skip cheaply,
+    # before the stability sleeps below, until the pause deadline passes.
+    [ "$AUTH_PAUSE_UNTIL" -gt "$(date +%s)" ] && continue
     # Require the size to be stable across SYNC_CHECKS samples, SYNC_INTERVAL apart.
     stable=1
     prev="$s2"
@@ -90,9 +98,21 @@ while true; do
     # tmp-cleaner (it deletes files >3 days old while the long-lived watcher
     # holds the handle open — output then goes to an unlinkable ghost inode).
     runlog="$STATE/lastrun.$$.log"
-    if "$HERE/process_one.sh" "$path" >"$runlog" 2>&1; then
+    rc=0
+    "$HERE/process_one.sh" "$path" >"$runlog" 2>&1 || rc=$?
+    if [ "$rc" -eq 0 ]; then
       cat "$runlog"
       echo "$key" >> "$LEDGER"
+      rm -f "$runlog"
+      claude_auth_ok call-pipeline
+    elif [ "$rc" -eq 75 ]; then
+      # Claude auth failure (automations/claude-auth): DEFER, never park. This
+      # recording is retried automatically once auth works again — it is never
+      # written to failures.log and never counted toward MAX_TRIES.
+      cat "$runlog" >&2
+      echo "[watch] Claude auth failed — $fname deferred; pausing processing for 15 min" >&2
+      claude_auth_alert call-pipeline "Recording waiting: $fname. Nothing is lost — it is processed automatically once auth works."
+      AUTH_PAUSE_UNTIL=$(( $(date +%s) + 900 ))
       rm -f "$runlog"
     else
       cat "$runlog" >&2

@@ -65,6 +65,7 @@ A PID in the left column = running. Missing/`-` = not running → `launchctl loa
 | New memo never processes | recorded before agent started (seeded as seen), Mac asleep, or not synced | record after agent is up; open Voice Memos on phone to push sync; keep Mac awake |
 | `[transcribe]` then "Invalid API key" | wrong/rotated AssemblyAI key | `security add-generic-password -U -a "$USER" -s ASSEMBLYAI_API_KEY -w 'KEY'` |
 | `claude: command not found` | CLAUDE_BIN unresolved | check `echo $CLAUDE_BIN`; confirm `~/.local/bin/claude` exists |
+| Telegram alert "call-pipeline: Claude CLI cannot authenticate" | long-lived Keychain token missing/expired/revoked | In Terminal: `claude setup-token`, then `security add-generic-password -U -a "$USER" -s CLAUDE_CODE_OAUTH_TOKEN -w` — see `automations/claude-auth/README.md`. Nothing is lost: the watcher pauses ~15 min and retries the recording automatically once auth works. |
 | Note written but not on GitHub | git push failed (auth/offline) | run `git push` in the repo; re-enter token if asked |
 | Note pushed but no Telegram message | Telegram unconfigured / network / token wrong | `automations/telegram/setup.sh`; smoke-test with `echo hi \| automations/telegram/telegram_send.sh` |
 | `[skip] ... iCloud stub` | file not fully downloaded | turn off Optimize Mac Storage, or open the memo in Voice Memos |
