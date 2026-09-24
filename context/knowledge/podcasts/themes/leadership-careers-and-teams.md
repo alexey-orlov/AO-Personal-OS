@@ -343,6 +343,11 @@ Sellis argues that high-performing product teams need an ideological clarity (a 
 — Lenny's Podcast · 2026-09-20 · guest: Peter Sellis (former Head of Product, Snap and Discord) · [▶ 5:53](https://www.youtube.com/watch?v=97LRJUUPy_w&t=353) · `pi-97LRJUUPy_w-01`
 related: [Culture: remove rigid swim lanes so the company can iterate at speed](#culture-remove-rigid-swim-lanes-so-the-company-can-iterate-at-speed) (same clarity-plus-single-threaded-ownership discipline for cutting coordination costs, Lightfield's swim-lane removal vs. Sellis's mission-shortcut-plus-ownership version)
 
+### AI agents will let organizations become more autonomous and less bureaucratic
+Masad predicts that software agents can automate many bureaucratic coordination tasks so employees get genuine autonomy and companies approach a 'self‑driving' model where processes run invisibly in the background. He describes using agents at Replit and imagines them as the connective tissue inside institutions, enabling new org models (less managerial overhead, more independent, impact‑focused work). For students and future workers, this means learning to work with agents and measuring impact becomes as important as learning narrow legacy processes.
+— a16z · 2026-09-23 · guest: Amjad Masad (Replit) · [▶ video](https://www.youtube.com/watch?v=Q8yFrGwIftE) · `pi-Q8yFrGwIftE-05`
+related: [Agents will replace rowing; humans will steer strategy](#agents-will-replace-rowing-humans-will-steer-strategy) (same agents-absorb-coordination-so-humans-steer reframing of organizational roles)
+
 ## Related themes
 - [AI agents & applications](ai-agents-and-applications.md) — the gardener/FDE roles agents create
 - [AI & the PM craft](ai-and-the-pm-craft.md) — which IC roles rise as the mix shifts
@@ -350,6 +355,7 @@ related: [Culture: remove rigid swim lanes so the company can iterate at speed](
 - [Hiring & recruiting craft](hiring-and-recruiting-craft.md) — split 2026-08-11: sourcing, screening, and closing talent (voting ATS, exec-search-style recruiting, hire-fast-fire-fast, GTM-engineer sourcing)
 
 ## Source episodes
+- [a16z — Replit CEO Amjad Masad on What Young People Should Learn in the AI Era (2026-09-23)](../episodes/2026/2026-09-23--a16z--amjad-masad-on-what-young-people-should-learn.md)
 - [Lenny's Podcast — 90 minutes of unfiltered product advice from Snap and Discord's product chief | Peter Sellis (2026-09-20)](../episodes/2026/2026-09-20--lenny--90-minutes-unfiltered-product-advice-snap-discord.md)
 - [Lenny's Podcast — How we built Grok Bot in a month | Roman Ugarte (SpaceXAI) (2026-09-08)](../episodes/2026/2026-09-08--lenny--how-we-built-grok-bot-in-a-month.md)
 - [Every — How a Professional Writer Writes With AI (2026-09-02)](../episodes/2026/2026-09-02--every--how-a-professional-writer-writes-with-ai.md)
