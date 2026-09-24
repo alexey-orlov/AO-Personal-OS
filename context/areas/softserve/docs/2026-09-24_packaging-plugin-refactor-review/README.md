@@ -2,6 +2,12 @@
 
 _2026-09-24 · reviewed at `alexey-orlov/Oracle-Packaging-Skills@a3da314` (0.1.38) · read-only: nothing in the plugin or site repositories was changed · evidence in this folder: [A code](A-code.md) · [B skills, cards, references](B-instructions.md) · [C per-pack files, docs, fixtures](C-pack-files-docs.md) · [D web skills vs the mini-site](D-web-vs-site.md) · [E how Claude Code loads plugins](E-plugin-mechanics.md). Claims marked ✔ were re-run by hand after the audits; (inferred) marks inference._
 
+## Status — executed 2026-09-24, awaiting merge
+
+Phases 0–5 are done on branch `claude/oracle-packaging-refactor-07rb5o` of the plugin repo, one commit per step, the suite green after each (348 → 367 checks), released as 0.1.39 → 0.2.3. One plugin (`oracle-packs`), five skills (spec, visuals, build, listing, demo), `shared/` once; each SKILL.md names its step cards (no manifests); two shared start-up cards; each pack part's rules on its spec card; a pack in the repo is its spec and pictures; the listing and the demo read the site at run time.
+
+Not done, by judgement: the `packcheck` CLI facade (a file name does not carry its channel, so it would be an alias layer), one Spec accessor for the four builders, and allowed values declared once beyond the build settings. Waiting on the site repo: its checker's hard-coded product and demo lists, reading `denylist.txt` itself, and the tier title. The eight conflicts below are still open; conflict 3 (the buyer line) carries the recommended wording until you rule.
+
 ## The answer
 
 **Refactor: yes. High value, low-to-medium risk, about 3–4 working days (inferred).** Most facts in the plugin live in 2 to 10 places, and the copies already disagree: **11 defects** below come from a second copy drifting from the first, including €2M printing as "€2000K" on the deck. Your two hunches hold:
