@@ -5,7 +5,7 @@ _2026-09-24 · reviewed at `alexey-orlov/Oracle-Packaging-Skills@a3da314` (0.1.3
 ## The answer
 
 **Refactor: yes. High value, low-to-medium risk, about 3–4 working days (inferred).** Most facts in the plugin live in 2 to 10 places, and the copies already disagree: **11 defects** below come from a second copy drifting from the first, including €2M printing as "€2000K" on the deck. Your two hunches hold:
-- **Per-pack files:** a pack run leaves about 20 files, and 9 of them are never read after their own step.
+- **Per-pack files:** a pack run leaves 20 working files beside its artifacts and pictures, and once the spec is confirmed only 4 of them are ever read again.
 - **Over-built skills:** four of the nine skills run one skeleton and restate one review protocol across 12 cards.
 
 Four moves carry most of the gain:
@@ -52,7 +52,7 @@ Two more issues are not output bugs:
 
 ## Your hypotheses, checked
 
-**1. "Abundance in per-pack md files" — confirmed.** The Account Insights run left 11 Markdown files, 3 one-off patch scripts, 5 provenance JSON files and a stored architecture model beside its spec (C):
+**1. "Abundance in per-pack md files" — confirmed.** The Account Insights run left 20 working files beside its artifacts and pictures: the spec, 11 Markdown files, 3 one-off patch scripts, 4 provenance JSON files and a stored architecture model. Once the spec is confirmed, only 4 of them are read again: the spec, the research brief, two facts from the intake note, and the architecture model, which is a derived copy (C):
 
 | File | Read after its own step by | Verdict |
 |---|---|---|
@@ -236,7 +236,7 @@ These are mechanisms, per your skill-design rule, not more prose:
 | Instruction words | 103K, half never loaded | ~65–75K, every runtime file loaded by some step (inferred) |
 | Tool code | ~21.3K lines | ~16.5–17K (A) |
 | Files stating "PoV 4–8 weeks" | ≥ 10 | 1, plus the linter |
-| A pack in the repo | spec + model + 5 JSON + credits + pictures | spec + pictures |
+| A pack in the repo | spec + model + 4 JSON + credits + pictures | spec + pictures |
 | A pack locally | 11 `.md` + scripts + `research/` | brief + log + `artifacts/` |
 | Skill descriptions paid every turn | ~740 words | ~350 (inferred) |
 
