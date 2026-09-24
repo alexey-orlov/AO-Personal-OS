@@ -7,6 +7,12 @@
 export PATH="/opt/homebrew/bin:$HOME/.local/bin:/usr/local/bin:$PATH"
 
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
+
+# Long-lived Claude auth token for unattended runs (see automations/claude-auth/README.md) —
+# sourced once here so every loop iteration's claude process inherits it.
+# shellcheck source=/dev/null
+source "$REPO_ROOT/automations/claude-auth/auth.sh"
+
 # The GATED FORK installed from this repo's local marketplace (ao-personal-os
 # = automations/telegram-chat, plugin source = ./plugin). NOT the official
 # plugin — that one is permanently disabled in ~/.claude/settings.json.

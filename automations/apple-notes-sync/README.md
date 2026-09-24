@@ -26,13 +26,19 @@ wait if the laptop is closed — nothing is lost.
   refreshes snapshots. Note ↔ area map: `.claude/skills/apple-notes-sync/references/note-map.md`.
 - `run.sh` — launchd entrypoint: git pull → exit fast if the queue is empty and
   snapshots are fresh → otherwise run the skill headlessly (`claude -p`, Bash limited
-  to these helpers) → deliberate `notes-sync:` commit + push.
+  to these helpers) → deliberate `notes-sync:` commit + push. Sources
+  `automations/claude-auth/auth.sh` before the `claude` call, so the run authenticates
+  with the long-lived Keychain token instead of riding the interactive login's refresh
+  token.
   **Failures are alerted, not swallowed** (2026-07-25): the run is timestamped, its full
   transcript is kept at `.work/last_run.out`, and any failure — or a clean run that still
   leaves cards queued — sends Alex a Telegram message with the consecutive-failure count.
-  `Not logged in` is called out specifically with the `claude login` fix. Before this, a
-  failure only echoed "skill run failed (non-fatal)" into `.work/launchd.log` and exited 0,
-  so two days of expired CLI auth passed unnoticed and a queued card never reached Notes.
+  An auth failure is detected with the shared `claude_auth_failed` helper — it matches every
+  wording the CLI has actually printed (OAuth-session-expired, 401 invalid bearer token,
+  "Not logged in"), not just the literal "Not logged in" string the original check used —
+  and named with the `claude_auth_fix` remedy. Before the 2026-07-25 fix, a failure only
+  echoed "skill run failed (non-fatal)" into `.work/launchd.log` and exited 0, so two days of
+  expired CLI auth passed unnoticed and a queued card never reached Notes.
   **Residual gap:** if the agent never runs at all (launchd unloaded, Mac asleep for days)
   nothing can alert from here — a staleness check belongs in a cloud routine.
 - `notes_list.sh [--full]` / `notes_body.sh <name>` / `notes_set_body.sh <name> <html>` —

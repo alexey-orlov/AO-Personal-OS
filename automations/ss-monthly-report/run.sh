@@ -14,6 +14,9 @@ set -uo pipefail
 HERE="$(cd "$(dirname "$0")" && pwd)"
 # shellcheck source=config.sh
 source "$HERE/config.sh"
+# Long-lived Claude auth token for unattended runs (see automations/claude-auth/README.md).
+# shellcheck source=/dev/null
+source "$REPO_ROOT/automations/claude-auth/auth.sh"
 SKILL="$REPO_ROOT/.claude/skills/ss-monthly-report/SKILL.md"
 [ -f "$SKILL" ] || { echo "[ssr] missing skill: $SKILL" >&2; exit 1; }
 
@@ -137,13 +140,13 @@ cd "$REPO_ROOT" || { log "cannot cd to $REPO_ROOT"; exit 1; }
 rc=${PIPESTATUS[0]}
 
 # A billing automation that fails quietly is worse than one that never ran.
-if [ "$rc" -ne 0 ] || grep -qiE 'not logged in|please run /login' "$RUN_OUT" 2>/dev/null; then
+if [ "$rc" -ne 0 ] || claude_auth_failed "$RUN_OUT"; then
   reason="skill run failed (exit $rc)"
   hint=""
-  if grep -qiE 'not logged in|please run /login' "$RUN_OUT" 2>/dev/null; then
-    reason="Claude CLI is not authenticated (\"Not logged in\")"
+  if claude_auth_failed "$RUN_OUT"; then
+    reason="Claude CLI can't authenticate (login lapsed or token rejected)"
     hint="
-Fix: run  claude login  in a terminal on this Mac."
+$(claude_auth_fix)"
   fi
   log "FAILED — $reason"
   alert "⚠️ SS monthly report ($LABEL) FAILED — $reason

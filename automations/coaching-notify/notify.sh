@@ -12,6 +12,10 @@ set -euo pipefail
 HERE="$(cd "$(dirname "$0")" && pwd)"
 REPO_ROOT="$(cd "$HERE/../.." && pwd)"
 
+# Long-lived Claude auth token for unattended runs (see automations/claude-auth/README.md).
+# shellcheck source=/dev/null
+source "$REPO_ROOT/automations/claude-auth/auth.sh"
+
 report="${1:?usage: notify.sh <path-to-coaching-report.md>}"
 [ -s "$report" ] || { echo "[notify] missing or empty report: $report" >&2; exit 1; }
 

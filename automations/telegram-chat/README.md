@@ -41,6 +41,9 @@ launchd (com.user.telegram-chat, KeepAlive)
   leak, per the CLAUDE.md hard rule). Token lives in Keychain
   (`TELEGRAM_CC_BOT_TOKEN`) and in `~/.claude/channels/telegram/.env`
   (written by `setup.sh`, chmod 600, outside the repo).
+- The claude session itself authenticates via `automations/claude-auth` (`run.sh`
+  sources `auth.sh` before the launch loop), which exports a long-lived
+  `CLAUDE_CODE_OAUTH_TOKEN` from Keychain instead of riding the interactive login.
 - **/new**: not a native bot command. A CLAUDE.md rule tells Claude: when the
   Telegram user sends `/new` (or "new session"), reply first, then run
   `new_session.sh` — it respawns the tmux window, killing the current claude;

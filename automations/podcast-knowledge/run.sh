@@ -17,6 +17,9 @@ set -uo pipefail
 
 HERE="$(cd "$(dirname "$0")" && pwd)"
 REPO_ROOT="$(cd "$HERE/../.." && pwd)"
+# Long-lived Claude auth token for unattended runs (see automations/claude-auth/README.md).
+# shellcheck source=/dev/null
+source "$REPO_ROOT/automations/claude-auth/auth.sh"
 SKILL="$REPO_ROOT/.claude/skills/podcast-insights/SKILL.md"
 [ -f "$SKILL" ] || { echo "[podcast-kb] missing skill: $SKILL" >&2; exit 1; }
 

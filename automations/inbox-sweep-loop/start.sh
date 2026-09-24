@@ -23,6 +23,11 @@ set -euo pipefail
 HERE="$(cd "$(dirname "$0")" && pwd)"
 REPO_ROOT="$(cd "$HERE/../.." && pwd)"
 
+# Long-lived Claude auth token for unattended runs (see automations/claude-auth/README.md) —
+# exported here so the tmux/screen session's claude process inherits it.
+# shellcheck source=/dev/null
+source "$REPO_ROOT/automations/claude-auth/auth.sh"
+
 SESSION="inbox-sweep"
 LOOP_CMD="/loop 8h /inbox-sweep-loop"
 
