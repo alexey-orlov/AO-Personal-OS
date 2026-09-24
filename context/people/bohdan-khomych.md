@@ -1,7 +1,7 @@
 # Bohdan Khomych
 
 _Associate Director of R&D, SoftServe · bkhomy@softserveinc.com_
-_updated: 2026-08-18_
+_updated: 2026-09-24_
 
 Alex's primary counterpart and engagement lead for the SoftServe R&D advisory / product-lead role — the "Speaker A" of the recurring 1:1s and the "Bohdan" who owns POC-funding and packaging decisions.
 
@@ -17,3 +17,4 @@ Alex's primary counterpart and engagement lead for the SoftServe R&D advisory / 
 - 2026-06-09 — engagement-scope 1:1: part-time ~50–80 h/mo, product-lead + agentic-SME combo agreed. [1:1](../areas/softserve/calls/2026-06-09_183633_one-on-one_2026060917013100B193F3.md)
 - 2026-08-18 — quarterly-ish 1:1: Oracle Level 2 tier decision, Q3 + annual OKR calibration, the new Delivery Director (Dominik Kubacki, from 25 Aug), DACH keeping the NVIDIA-funded Oracle track, the Jumpstart managed-service tail, and October relocation logistics. [1:1](../areas/softserve/calls/2026-08-18_141300_one-on-one_20260818132936005C1280.md)
 - 2026-06-15 — "Oracle packages: current status kick-off" 1:1: three-package framing (AIQ / cuOpt / VSS), Karsten as single Oracle gateway, Wed update prep, Phase 1/2 timing, value-based billing. [1:1](../areas/softserve/calls/oracle/2026-06-15_200833_one-on-one_20260615190118D7E7175C.md)
+- 2026-09-18 — 1:1: defense track handed entirely to Alex (Bohdan keeps only the NVIDIA follow-up); site/sales-materials rules set — no public client names, Karsten as single contact, no prices on the site. [1:1](../areas/softserve/calls/oracle/2026-09-24_183557_one-on-one_20260918181849CD8CD9A8.md)
