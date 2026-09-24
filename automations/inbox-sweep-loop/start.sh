@@ -24,7 +24,8 @@ HERE="$(cd "$(dirname "$0")" && pwd)"
 REPO_ROOT="$(cd "$HERE/../.." && pwd)"
 
 # Long-lived Claude auth token for unattended runs (see automations/claude-auth/README.md) —
-# exported here so the tmux/screen session's claude process inherits it.
+# exported here for the screen branch (each screen session forks from this script);
+# the tmux branch loads it inside the pane instead (see the launch below).
 # shellcheck source=/dev/null
 source "$REPO_ROOT/automations/claude-auth/auth.sh"
 
@@ -100,7 +101,11 @@ if [ "$MUX" = "tmux" ]; then
   if command -v caffeinate >/dev/null 2>&1; then
     "$TMUX_BIN" send-keys -t "$SESSION" "caffeinate -i &" C-m
   fi
-  "$TMUX_BIN" send-keys -t "$SESSION" "$CLAUDE_BIN" C-m
+  # A new tmux session takes its environment from the tmux SERVER, which may
+  # predate this script (the Telegram bridge runs one), so the token exported
+  # above would not reach the pane. Load the helper inside the pane instead;
+  # only its path is typed, never the token.
+  "$TMUX_BIN" send-keys -t "$SESSION" "bash -c 'source \"$REPO_ROOT/automations/claude-auth/auth.sh\"; exec \"$CLAUDE_BIN\"'" C-m
   sleep 6
   "$TMUX_BIN" send-keys -t "$SESSION" "$LOOP_CMD" C-m
   # /loop renders an interactive prompt: "Cloud schedule" vs "This session only".
