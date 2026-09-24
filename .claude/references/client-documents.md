@@ -91,6 +91,17 @@ counts and the scaffolding, not the essence" and used internal vocabulary
   H2 ~30. Re-measure against the rendered size rather than reusing the uppercase numbers.
   Record: `~/Documents/GitHub/Oracle-Solutions-Site/docs/SS26-THEME.md` §6. Check the phone break too: no line
   left holding a lone short word.
+- **A hero's lead is the promise, not the procedure** (2026-09-24, Alex on the Oracle mini-site
+  replacing a lead that walked through *"a fixed-scope Jumpstart … taken to production in your
+  tenancy"* with *"leading enterprise AI practice, accelerated delivery methodology combined with
+  the power of Oracle data & cloud … accelerate their time-to-value with AI"*). In one sentence it
+  says what the company brings and what the reader gets. The stages, the scope and where it runs
+  belong to the section that explains them. When the owner's drafts repeat the promise in several
+  headings, say it once, big, in the hero, and give every other heading its own facet of it (on the
+  site: *A head start that scales.* · *Kick off your AI adoption.* · *The method behind the
+  speed.*). Polishing a draft keeps its meaning and the owner's key verbs; it does not keep a heading
+  that only lists what the elements under it already name. Where a site has a checker, assert the
+  promise's key phrase in the lead and forbid the procedure words there.
 - **A label earns its words** (2026-09-23, Alex on the Oracle mini-site: cut the *By industry*
   heading from the Use cases tab, and *"with filters"* from *See all products, with
   filters*). A heading over controls that already name what they hold is a third label for
