@@ -102,6 +102,16 @@ counts and the scaffolding, not the essence" and used internal vocabulary
   speed.*). Polishing a draft keeps its meaning and the owner's key verbs; it does not keep a heading
   that only lists what the elements under it already name. Where a site has a checker, assert the
   promise's key phrase in the lead and forbid the procedure words there.
+- **A picture carries its item's own idea, one picture per idea** (2026-09-25, Alex on the Oracle
+  mini-site's category tiles, which set a product screenshot as a window on a chrome photograph:
+  *"I don't like current mix of screenshots with backgrounds; purely SoftServe's abstract
+  backgrounds will lack category relevance (each of the categories should have the image
+  relevant to it)"*). At tile or card size a UI screenshot cannot be read, and a decorative
+  background says nothing about the job, so the composite is two pictures and no idea. Draw each
+  item's own job simply, as its typical flow, in the brand's own illustration language (on the
+  site: softserveinc.com's Offers-tile line, one thin line gathering into a spark), and keep the
+  set one family: one weight, one motif, one crop. Test: would a reader who covers the title name
+  the job from the picture? Where a site has a checker, hold every picture to the family's rules.
 - **A label earns its words** (2026-09-23, Alex on the Oracle mini-site: cut the *By industry*
   heading from the Use cases tab, and *"with filters"* from *See all products, with
   filters*). A heading over controls that already name what they hold is a third label for
