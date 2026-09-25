@@ -99,8 +99,11 @@ counts and the scaffolding, not the essence" and used internal vocabulary
   belong to the section that explains them. When the owner's drafts repeat the promise in several
   headings, say it once, big, in the hero, and give every other heading its own facet of it (on the
   site: *A head start that scales.* · *Kick off your AI adoption.* · *The method behind the
-  speed.*). Polishing a draft keeps its meaning and the owner's key verbs; it does not keep a heading
-  that only lists what the elements under it already name. Where a site has a checker, assert the
+  speed.*). Polishing a draft keeps its meaning, the owner's key verbs and the noun that names the
+  offer (2026-09-25: Alex restored *"…with accelerator apps"* after the polish had cut his
+  *"Applications to kick-off your AI adoption"* to *"Kick off your AI adoption."* because the eyebrow
+  said *Products*; an eyebrow is micro-type and does not carry the message). It cuts only a heading
+  that merely lists what the elements under it already name. Where a site has a checker, assert the
   promise's key phrase in the lead and forbid the procedure words there.
 - **A picture carries its item's own idea, one picture per idea** (2026-09-25, Alex on the Oracle
   mini-site's category tiles, which set a product screenshot as a window on a chrome photograph:
