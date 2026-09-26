@@ -80,3 +80,20 @@ deck or one-pager work.
     reference deck's — and every pack's deck inherits it unless that pack deliberately chooses its
     own; a build must never strip it for want of a per-pack choice. Only the customer-specific
     pictures (a logo, a product screen) are per pack.
+16. **A diagram Alex drew goes into the deck as native, editable shapes, reproduced in full**
+    (2026-09-26, GigaCloud results deck: "можеш картинку перетворити на нативну, щоб вона була
+    редагована, але повністю відтвори дерево як я його намалював"). Measure the picture (node boxes and
+    colours by segmentation, connector end points, label rows) and rebuild every node, chip, connector,
+    label and colour. Keep his drawing's language, including labels in their original language and the
+    connector style. Regularise only hand-placement noise (equal gaps, one axis). Build it once as a
+    function. Section slides reuse fragments of it at **one common scale and one column grid**, so the
+    family of dividers looks alike.
+17. **One content right edge for the whole deck, ≥ 0.5 in clear of the template's corner logomark**
+    (2026-09-26 review of the same deck: tables and callouts at 24.5 in on some slides and 22.3 in on
+    others, 0.19 in from the GO mark). Pick the edge once (GigaCloud 2× template: 21.8 in) and set every
+    table, card, callout and hairline to it.
+18. **Line-break hygiene:** a numeral never splits from its unit («1 шт.», «1 грн») and a two-word term
+    never splits («Direct COGS»). Use non-breaking spaces, except inside narrow table headers, where a
+    non-breaking space forces a mid-word break («Direct CO / GS»); use an explicit line break there.
+    Multi-step formulas go one step per line, never one operand per line. Titles on section slides
+    break by hand before the preposition («… бюджету / за типами»), never leaving an orphan word.
