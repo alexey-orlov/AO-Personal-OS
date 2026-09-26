@@ -1,12 +1,12 @@
 # Component pricing — cost → price model
 
-_status: v5 — v4 (4 challenge reviews applied) + Alex's department clarifications folded in; 2026-08-27_
-_updated: 2026-08-27_
+_status: v5 recommendation (2026-08-27) — the reasoning reference. ⚠ The framework Alex implemented (Юніт.xlsx, 2026-09) differs on the spreading base: bucket costs go to components **by Direct COGS, never by price** — current truth on [pricing-unit-economics](pricing-unit-economics.md). Floor/target governance below still applies._
+_updated: 2026-09-26_
 _source: working session (chat, 2026-08-27); inputs = catalog exports (components, products, mapping), the cost-center sheet, and the P&L + org-structure + attribution workbook_
 
 ## The idea
 
-Every component price must cover its direct cost, a share of the departments that sell and serve it, a share of general costs, and profit. Each cost is charged at the level where a real connection can be **measured** — per event (ticket, invoice line), per customer tier (account managers), per product category (sales & marketing) — never deeper. Below the measurable level it is spread evenly in proportion to price (standard practice — see Sources).
+Every component price must cover its direct cost, a share of the departments that sell and serve it, a share of general costs, and profit. Each cost is charged at the level where a real connection can be **measured** — per event (ticket, invoice line), per customer tier (account managers), per product category (sales & marketing) — never deeper. Below the measurable level it is spread evenly in proportion to price (standard practice — see Sources). **Superseded in implementation (2026-09-26):** Alex spreads below the bucket level in proportion to each component's Direct COGS instead — price is itself a function of the costs being allocated, so it cannot be the base (see [pricing-unit-economics](pricing-unit-economics.md)).
 
 Every component gets **two numbers**:
 
