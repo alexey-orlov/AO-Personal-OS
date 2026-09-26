@@ -1,90 +1,80 @@
-# Document rendering & visual QA on this Mac (`KN7X2Y65NX`)
+# Document rendering & visual QA on Alex's Macs
 
-How to render `.pptx`/`.docx` to images for visual QA or hand-off on Alex's Mac. Pointed from
-root `CLAUDE.md` — read this BEFORE rendering or QA-ing any deck/doc on this machine. Findings
-are machine-specific and dated; re-verify if OS or app versions change. Rewritten to current
-truth 2026-09-11 (it had accumulated three contradictory dated updates).
+How to render `.pptx`/`.docx` to images for visual QA on Alex's two Macs. Pointed from root
+`CLAUDE.md` — read this BEFORE rendering or QA-ing any deck/doc. Findings are machine-specific
+and dated; check which Mac you are on first (`scutil --get ComputerName`). Rewritten to current
+truth 2026-09-26 (added the MacBook Air and the PowerPoint export path).
 
-## State of the tools (verified 2026-09-11)
+## Which path to use
 
-| Tool | State | Use it? |
+| Machine | Best path | Fallback |
 |---|---|---|
-| **QuickLook** (`qlmanage`) | works, ~0.4 s/slide with the zip-level single-slide trick below | **yes — the QA path** |
-| **soffice** (LibreOffice 26.2.4.2, `/Applications/LibreOffice.app/…` and `/opt/homebrew/bin/soffice`) | installed, `--version` answers, but **`--convert-to` produces nothing** — hangs indefinitely or exits 255 with an empty outdir; verified 09-07, 09-09 and 09-11 (default profile, fresh `-env:UserInstallation` profile, after killing stale instances and moving the stale `~/Library/Application Support/LibreOffice/4/.lock`) | **no — don't spend attempts** |
-| `pdftoppm` / `pdftotext` (poppler) | fine | only if a PDF already exists (e.g. one Alex exported) |
-| PowerPoint / Keynote AppleScript export | unreliable: `-9074` write failures in July, silent no-output on 09-11 | last resort only |
+| **Alex's MacBook Air** (`Alexs-MacBook-Air.local`) | **PowerPoint → PDF → PyMuPDF** (true fonts, template backgrounds) — works since PowerPoint was activated 2026-09-26 | QuickLook (geometry only) |
+| **`KN7X2Y65NX`** | QuickLook per-slide trick (below) | PowerPoint export only if its window shows no "View Only" banner (see below) |
 
-Rules that follow:
-- If you still try soffice, run it guarded and **`ls` the outdir** — never trust rc. The `perl -e
-  'alarm N; exec @ARGV'` guard kills only the launcher script; `soffice.bin` runs on, so finish
-  with `pkill -x soffice; pkill -f soffice.bin`. A leftover instance also swallows every later
-  invocation silently (single-instance IPC), so check `pgrep -f soffice.bin` before blaming the tool.
-- No bare `sleep` loops in Bash (the tool blocks foreground sleep); wrap long calls with the perl
-  alarm or the Bash tool's own `timeout`; `timeout`/`gtimeout` are not installed.
-- Read a backgrounded run's output only after the task reports completion — an empty output file
-  read mid-run has produced bogus "rc=0" conclusions before (09-11).
+Tool inventory: MacBook Air — no soffice, no poppler (`pdftoppm`), no Homebrew, system `python3` is
+3.9 (so the pptx skill's `validate.py`, which needs ≥ 3.10, does not run; a clean PowerPoint open +
+export is the practical validation). KN7X2Y65NX — soffice installed but `--convert-to` produces
+nothing (verified 09-07/09/11: hangs or exits 255 with an empty outdir) — don't spend attempts on it.
 
-## The QA loop: QuickLook per slide (zip-level single-slide trick)
+## PowerPoint export (the accurate path)
+
+**Precondition: PowerPoint must be activated.** An unactivated install opens decks in **View Only**
+("Activate Microsoft 365 to Create and Edit" banner), and then every AppleScript save/export fails
+with **-9074** — that was the whole cause of the 2026-09-26 failures, and is the first thing to check
+wherever -9074 appears. Activation is Alex's sign-in; never type credentials — ask him.
+
+Working recipe (≈ 6–10 s for a 26-slide deck):
+1. `cp deck.pptx ~/Library/Containers/com.microsoft.Powerpoint/Data/Documents/qa/<unique>.pptx`
+   (PowerPoint is sandboxed; its own container is always readable/writable).
+2. `open -a "Microsoft PowerPoint" <that file>` — **never** AppleScript `open`: it hangs and then
+   blocks every later Apple Event until PowerPoint is restarted.
+3. Poll `osascript -e 'tell application "Microsoft PowerPoint" to get name of presentations'` until
+   the name appears.
+4. `tell application "Microsoft PowerPoint" to save presentation "<name>" in (POSIX file "<out.pdf>") as save as PDF`
+   (wrap in `with timeout of 270 seconds`; guard the call with `perl -e 'alarm N; exec @ARGV'`).
+5. `close presentation "<name>" saving no` — close by name. `repeat with p in presentations … close p`
+   fails with -2763; a variable named `out` collides with PowerPoint's dictionary (-10003).
+6. Rasterise with PyMuPDF (`pip install pymupdf` into a scratchpad venv): `page.get_pixmap(dpi=110)`
+   → 2934 × 1650 px for the 2×-scale GigaCloud template.
+A ready script: `context/areas/gigacloud/docs/margin-deck/toolchain/pp_render.sh` (PDF + per-slide
+PNGs + contact sheets).
+
+Never close a presentation you didn't open; on a cold launch PowerPoint may show its start gallery
+(dismiss with Cancel) or restore Alex's decks.
+
+## QuickLook per-slide trick (geometry-only fallback)
 
 QuickLook renders only slide 1 of a deck, so render slide *N* from a temp copy that contains only
 that slide:
 
 1. Read the source zip once. Write a new zip that keeps only the target `<p:sldId …/>` inside
-   `<p:sldIdLst>` in `ppt/presentation.xml` and copies **every other entry verbatim**
-   (`ZIP_STORED`, no re-compress, no rels bookkeeping). ~0.04 s per temp file even for a 19 MB
-   deck. (python-pptx `drop_rel` variants work too but are ~50× slower.)
-2. **Delete `docProps/thumbnail.*` from the temp zip** — otherwise QuickLook may serve Office's
-   cached cover image instead of your slide (a silent wrong-image failure). Verify once per deck
-   that slide 1 and slide N render differently.
-3. `perl -e 'alarm 60; exec @ARGV' qlmanage -t -s 1600 -o <outdir> <one-slide.pptx>` writes
-   `<outdir>/<one-slide>.pptx.png` (`-s` = long edge in px; 2600 for close reading).
-4. Delete the temp file immediately — it is full deck size (all media kept). Whole-deck runs:
-   192 slides across 10 decks in ~71 s (2026-09-11). Reusable scripts from that pass live in that
-   session's scratchpad (`oneslide.py`, `render.py`, `contact.py`); re-derive from the steps above
-   if gone.
-5. Contact sheets: PIL — downscale each render to a fixed thumb width, paste on a grid, label each
-   cell with its slide number. Keep sheets ≤ ~2400 px wide so they stay readable in the Read tool.
-6. Huge decks (hundreds of MB of embedded video): stream from the zip with a reachability walk,
-   prune each master's `sldLayoutIdLst` too (else all layouts drag their media in) and stub the
-   `.mp4` parts → 450 MB became 3–13 MB per slide (09-11).
+   `<p:sldIdLst>` in `ppt/presentation.xml` and copies every other entry verbatim (`ZIP_STORED`).
+   Use a **fresh `ZipInfo` per entry** — passing the source's `ZipInfo` to `writestr` mutates its
+   header offset and the next read fails with "Bad CRC-32".
+2. Delete `docProps/thumbnail.*` from the temp zip — otherwise QuickLook may serve Office's cached
+   cover image instead of your slide.
+3. `perl -e 'alarm 60; exec @ARGV' qlmanage -t -s 1600 -o <outdir> <one-slide.pptx>`.
+4. Delete the temp file immediately (it is full deck size).
+5. Contact sheets: PIL grid, ≤ ~2400 px wide so they stay readable in the Read tool.
 
-**What QuickLook gets wrong — verify these in PowerPoint / Google Slides, not in the PNG:**
-- Brand fonts substitute unless installed (see below). Azurio is genuinely a high-contrast serif
-  (checked against the font file) — a serif title is not by itself a substitution artefact;
-  Replica LL TT is a sans.
-- `<a:highlight>` text bands and the fill of `prstGeom round2SameRect` render as nothing.
-- **SVG images (`asvg:svgBlip`) render as empty white rectangles** — a diagram can look like it
-  lost its arrows/icons when the PPTX is fine.
-- A table stretches to fill an oversized `graphicFrame` instead of sizing to its rows — set
-  frame heights to the real content height.
-- The SoftServe logo placeholder draws as an empty square.
+**What QuickLook gets wrong — never judge text fit or looks from it:**
+- Brand fonts substitute unless installed (e-Ukraine becomes a narrow serif, so overflow is hidden;
+  e-Ukraine is much wider — ~0.009 in per pt per character in Bold).
+- On the MacBook Air it drops the template's background images entirely (no cloud).
+- `<a:highlight>` bands, `round2SameRect` fills and SVG images (`asvg:svgBlip`) render as nothing /
+  empty white rectangles; an oversized table `graphicFrame` stretches the table.
 
-## Font-accurate renders and text-fit proof
+## Fonts
 
-- Install the deck's faces into `~/Library/Fonts/` and QuickLook renders them: the SoftServe
-  brand faces are in `/Library/Fonts/Managed/` (`Azurio-Regular*.otf`, `Azurio-Semibold*.otf`,
-  `ReplicaLLTT-Regular*.ttf`, `ReplicaLLTT-Bold*.ttf`, `RobotoMono-*.ttf`); Google Fonts families
-  come as single variable TTFs from the `google/fonts` repo (e.g.
-  `https://github.com/google/fonts/raw/main/ofl/montserrat/Montserrat%5Bwght%5D.ttf`;
-  `fonts.google.com/download?family=X` returns HTML, not a zip). In QA copies only, a face name
-  the renderer does not resolve can be rewritten to the installed family (`Azurio-Regular` →
-  `Azurio`, `Roboto Mono SS` → `Roboto Mono`). Tell Alex if you leave fonts installed; removal is
-  `rm ~/Library/Fonts/<file>`. (As of 09-11 `RobotoMono-{Regular,Light,Bold}.ttf` are installed.)
-- **Prove text fit with the font file, not the eye:** PIL `ImageFont.truetype(path, pt)` (+
-  `set_variation_by_name('Bold'|'Medium')` for variable fonts), `getlength(s)/72` gives inches
-  (points == px at 72 dpi); usable width = box width − lIns − rIns. Leave ~10% slack on tight
-  text.
-
-## PowerPoint AppleScript notes (if you must)
-
-`open inPath` does not return a document reference on this version — follow with `set d to
-active presentation`; wrap the `tell` block in `with timeout of 550 seconds` (default AppleEvent
-timeout is 60 s → `-1712`); on a cold launch it may restore Alex's previously open decks (he
-normally has several open) — **never close a presentation you didn't open**. Export failed with
-`-9074` to `/private/tmp`, `~/Documents` and OneDrive alike (2026-07-23) and produced nothing at all
-on 2026-09-11. MS Word behaves the same for `.docx`.
+- e-Ukraine (GigaCloud template) is embedded in the decks as EOT with MicroType-Express compression
+  (`ppt/fonts/*.fntdata`, "LP" magic at byte 34) — not extractable without an MTX decoder; PowerPoint
+  renders it from the embedded data, which is why the PowerPoint path is the accurate one.
+- SoftServe faces live in `/Library/Fonts/Managed/` on KN7X2Y65NX; installing a face into
+  `~/Library/Fonts/` makes QuickLook render it. Tell Alex if you leave fonts installed.
+- Prove text fit with the font file where you have it: PIL `ImageFont.truetype(path, pt).getlength(s)/72`
+  = inches; leave ~10 % slack.
 
 ## Hand-off default
 
-Deliver the editable file and let Alex export the PDF himself. LibreOffice-made PDFs (when
-soffice worked, Jul–Aug 2026) carried substituted fonts; true-font PDFs come from PowerPoint.
+Deliver the editable file; Alex exports the PDF himself when he needs one.
