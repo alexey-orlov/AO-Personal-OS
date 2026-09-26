@@ -34,7 +34,7 @@ Cloud `Location` examples for when they arrive — gdrive: `https://drive.google
 | [softserve](../areas/softserve/README.md) | local + onedrive | `~/Library/CloudStorage/OneDrive-SoftServe,Inc` | this Mac (`KN7X2Y65NX`); OneDrive-synced, also via `ms365` MCP | 2026-06-16 (moved to OneDrive 2026-07-21) |
 | [civitta](../areas/civitta/README.md) (+ the Laba/PrivatBank course decks) | gdrive | Teaching-materials folder `1N6zCtx5VWja5vtT89seShWrOcsi1azK-`; GBSW 2026 folder `18Hx32ZlQpab6UGwpbr1WjBStkKbNclMa` | - (Google Drive MCP) | 2026-09-07 |
 | [softserve](../areas/softserve/README.md) → [oracle-packs](../areas/softserve/oracle-packs.md) (the mini-site) | git | `~/Documents/GitHub/Oracle-Solutions-Site` · private GitHub `alexey-orlov/Oracle-Solutions-Site` | checkout on this Mac (`KN7X2Y65NX`); GitHub from any machine with Alex's credentials | 2026-09-23 |
-| [gigacloud](../areas/gigacloud/README.md) | local | `~/Downloads` (flat files, no dedicated folder) | this Mac (`KN7X2Y65NX`) | 2026-09-26 |
+| [gigacloud](../areas/gigacloud/README.md) | local | `~/Desktop/GigaCloud/` (MacBook Air, current) · `~/Downloads` (KN7X2Y65NX, older set) | Alex's MacBook Air + `KN7X2Y65NX` | 2026-09-26 |
 
 ## Entries
 
@@ -73,12 +73,12 @@ Cloud `Location` examples for when they arrive — gdrive: `https://drive.google
   - `Lections structure/`, `Samples/`, `New requests/`, `AOrlov - Product management - Програма курсу` (sheet) — course design working files.
 - **Added:** 2026-09-07 (discovered while assembling the GBSW pack; confirm with Alex if a different root is canonical).
 
-### gigacloud — `~/Downloads` on KN7X2Y65NX (flat local files)
-- **Type:** `local` — Alex works GigaCloud files straight out of `~/Downloads`; no dedicated folder yet.
-- **Location:** `~/Downloads/GigaCloud_Product Margin Plan_27-AUG-2026.pptx` (**the live deliverable** — Alex hand-edits it; living-documents rule applies) · `~/Downloads/Margin.xlsx` (P&L + catalog source workbook) · `~/Downloads/GigaCloud_HR Committee_19-AUG-2026.pptx` (brand template).
-- **Machine scope:** this Mac (`KN7X2Y65NX`) only; Downloads does not sync anywhere.
-- **Backed up:** ⚠ no cloud sync. 2026-09-26 snapshots of all three + the recovered patch toolchain are committed to [`context/areas/gigacloud/docs/margin-deck/`](../areas/gigacloud/docs/margin-deck/HANDOFF.md) for cross-machine transfer — the repo copy is frozen; refresh it after each delivered round while machine-hopping.
-- **Contents:** the margin-deck working set → [pricing-unit-economics](../areas/gigacloud/pricing-unit-economics.md).
+### gigacloud — `~/Desktop/GigaCloud/` on Alex's MacBook Air (current) + `~/Downloads` on KN7X2Y65NX
+- **Type:** `local` — no cloud sync; Alex carries the working set between Macs by hand.
+- **Location (MacBook Air, current since 2026-09-26):** `~/Desktop/GigaCloud/` — `GigaCloud_Product Margin Plan_27-AUG-2026 (1).pptx` (the plan deck, live) · `GigaCloud_Product Margin Results_26-SEP-2026.pptx` (the results deck, **live** — Alex hand-edits it; living-documents rule) · `Юніт.xlsx` (allocation workbook: ФОТ / не-ФОТ by department and person, buckets, step-4 per-component allocation) · `toolchain/` (the results-deck generator + review reports; local only — contains employee names).
+- **Location (KN7X2Y65NX, older set):** `~/Downloads/GigaCloud_Product Margin Plan_27-AUG-2026.pptx` · `~/Downloads/Margin.xlsx` (P&L + catalog) · `~/Downloads/GigaCloud_HR Committee_19-AUG-2026.pptx` (brand template).
+- **Backed up:** ⚠ no cloud sync. Plan-deck snapshot, `Margin.xlsx`, the template and the name-free parts of both toolchains are committed to [`context/areas/gigacloud/docs/margin-deck/`](../areas/gigacloud/docs/margin-deck/HANDOFF.md). **Never commit** `Юніт.xlsx`, the results deck or its generator — they carry payroll by name and mobilisation status.
+- **Contents:** the margin working set → [pricing-unit-economics](../areas/gigacloud/pricing-unit-economics.md).
 - **Added:** 2026-09-26.
 
 ### softserve / oracle-packs: `~/Documents/GitHub/Oracle-Solutions-Site` (the mini-site's own repository)
