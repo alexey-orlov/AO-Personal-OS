@@ -2,7 +2,7 @@
 
 _status: live theme — sourcing, screening, deciding, and closing talent in the AI era_
 _slug: hiring-and-recruiting-craft_
-_updated: 2026-09-21 · 16 insights from 11 episodes_
+_updated: 2026-09-26 · 21 insights from 12 episodes_
 
 ## The throughline
 Across five founders/talent leaders, the craft of hiring splits into distinct, addressable stages: sourcing (Snowflake/Lemkin promote existing internal 'tool nerds' into new roles rather than posting externally; Ward scopes a targeted top-1% list and relentlessly courts it rather than trusting a passive funnel), screening (Hodak distributes top-of-funnel judgment across 7-8 employee voters and uses AI-resistant homework scored on objective metrics; Ward leans on long work-sample trials as the strongest predictor of on-the-job success), deciding (Datadog's Pomel and Encord both argue for hiring and firing fast — act on early signal rather than rationalizing sunk cost), and closing (Ward treats closing as a continuous, team-orchestrated process — daily standups, personalized rituals — not a single offer-stage sales pitch). Two structural claims cut across all of this: recruiting itself deserves strategic, well-compensated ownership rather than being treated as scheduling overhead (Ward), and simple cultural filters — like PhotoRoom's English-fluency requirement — can proxy for harder-to-screen traits like global ambition. Hodak's continuous peer-weighted review (IGEN) extends the same distribute-and-quantify-judgment logic from hiring into ongoing performance management.
@@ -87,11 +87,33 @@ Because product management is a selected, power-law profession, the best PMs lea
 — Lenny's Podcast · 2026-09-20 · guest: Peter Sellis (former Head of Product, Snap and Discord) · [▶ 15:34](https://www.youtube.com/watch?v=97LRJUUPy_w&t=934) · `pi-97LRJUUPy_w-02`
 related: theme → [Leadership, careers & teams](leadership-careers-and-teams.md) (Verrilli's "product management as a specialist role often harms judgment" is the org-design mirror of this hiring-quality critique)
 
+### Peer endorsements can outweigh elite credentials as a reputation signal
+The speakers claim that being followed or publicly endorsed by influential people (e.g., Patrick Collison, Elon Musk, Marc Andreessen) often impresses more than a degree from Stanford. They use the founder anecdote that David's Twitter account ended up adding more career value than his expensive university education; the implication is that visible peer approval opens doors to re-reads of your work, job offers, and investors. This matters because it reframes hiring and investing criteria toward observable social signals rather than formal credentials.
+— a16z · 2026-09-25 · guest: — · anchor: "شخص يتابعه باتريك كوليسون، وإيلون ماسك، ومارك أندريه" · [▶ video](https://www.youtube.com/watch?v=-ywZlfznTa4) · `pi--ywZlfznTa4-01`
+related: [Profiles listing mentors, collaborators, and future stars aid discovery](#profiles-listing-mentors-collaborators-and-future-stars-aid-discovery)
+
+### Profiles listing mentors, collaborators, and future stars aid discovery
+Cosign intends each profile to include at least three confirmable dimensions: who shaped your career (mentors), who you'd actually work with in hard times (true collaborators), and who you believe will become great (forward-looking endorsements). The team argues these structured signals are more informative than simple follows because they encode trust, long-term conviction, and real working relationships—useful to recruiters, founders, and investors matching people to roles or rounds. Making these elements standard accelerates matching and reduces guesswork when evaluating candidates with limited time.
+— a16z · 2026-09-25 · guest: — · anchor: "نريد أن يتضمن كل ملف تعريف على الأقل ثلاثة عناصر:" · [▶ video](https://www.youtube.com/watch?v=-ywZlfznTa4) · `pi--ywZlfznTa4-02`
+
+### Make reputations permanent by aggregating public praise and announcements
+Social praise and event-driven signals (tweets, fundraising posts, hire announcements) are plentiful but ephemeral; Cosign proposes scraping and linking these public signals to profiles so praise becomes durable. They describe pulling signals from X and other public sources—turning one-off compliments into persistent endorsements on someone's profile—so future viewers see a verified trail of support rather than a disappearing feed item. The effect: reputation becomes an asset that survives social-media decay and can be used to evaluate people or companies later.
+— a16z · 2026-09-25 · guest: — · anchor: "نعتقد أن إحدى طرق التميّز هي جعل السمعة دائمة" · [▶ video](https://www.youtube.com/watch?v=-ywZlfznTa4) · `pi--ywZlfznTa4-03`
+
+### Being the first to spot talent lets you hire or invest faster
+The hosts emphasize that early discovery confers practical advantages: if you're the first to identify someone, you can hire them or invest before competition reacts. They argue Silicon Valley rewards first discoverers because early introductions and investments compound into outsized returns—citing how connectors who find talent early often gain access to founders and deals. This makes a strong case for tools that surface nascent talent earlier, since timing can be the difference between joining a breakout company or missing it.
+— a16z · 2026-09-25 · guest: — · anchor: "إذا كنت أول من يكتشفه، كلما تمكنت من توظيفه وتمويله بشكل أسرع" · [▶ video](https://www.youtube.com/watch?v=-ywZlfznTa4) · `pi--ywZlfznTa4-04`
+
+### Make reputation markets more liquid to reduce information asymmetry
+The speakers propose turning scattered, private signals into a liquid market of reputation so under-discovered people gain visibility and opportunities. By surfacing validated endorsements and contextual metadata (who worked with whom, who vouched in what capacity), Cosign aims to correct current imbalances where only a few insiders know whom to trust. Increased liquidity means talented engineers, designers, or operators who previously lacked awareness will be easier to hire or fund, leveling access and improving matching efficiency.
+— a16z · 2026-09-25 · guest: — · anchor: "نحن نعمل على جعل سوق السمعة أكثر كفاءة، وأكثر سيولة" · [▶ video](https://www.youtube.com/watch?v=-ywZlfznTa4) · `pi--ywZlfznTa4-05`
+
 ## Related themes
 - [Leadership, careers & teams](leadership-careers-and-teams.md) — parent theme; split off 2026-08-11. Org design, role-fluidity, and manager-effectiveness threads stay there.
 - [Founders & fundraising](founders-and-fundraising.md) — ambition/culture threads that intersect with hiring filters (PhotoRoom)
 
 ## Source episodes
+- [a16z — How to Spot Exceptional Talent Before Everyone Else (2026-09-25)](../episodes/2026/2026-09-25--a16z--how-to-spot-exceptional-talent-before-everyone-else.md)
 - [Lenny's Podcast — 90 minutes of unfiltered product advice from Snap and Discord's product chief | Peter Sellis (2026-09-20)](../episodes/2026/2026-09-20--lenny--90-minutes-unfiltered-product-advice-snap-discord.md)
 - [a16z — Inside Cursor: The Anatomy of a Generational Startup (2026-08-27)](../episodes/2026/2026-08-27--a16z--inside-cursor-anatomy-of-a-generational-startup.md)
 - [Y Combinator — Max Junestrand: You Need The Willingness To Learn Faster Than Anyone Else (2026-08-25)](../episodes/2026/2026-08-25--yc--max-junestrand-willingness-to-learn-faster.md)
