@@ -2,7 +2,7 @@
 
 _status: live theme — how AI reshapes product management work, skills, workflows, and roles_
 _slug: ai-and-the-pm-craft_
-_updated: 2026-09-25 · 48 insights from 30 episodes — recluster (2026-08-25): split → vibe-coding-and-non-technical-builders (non-engineer/non-PM builders using AI as stepwise architect-engineer)_
+_updated: 2026-09-26 · 50 insights from 31 episodes — recluster (2026-08-25): split → vibe-coding-and-non-technical-builders (non-engineer/non-PM builders using AI as stepwise architect-engineer)_
 
 ## The throughline
 PMs and full-stack designers gain leverage in the coding-agent era because the gap between "knowing what to build" and "shipping it" collapses. The skill shift is from raw implementation to defining what to build, evaluating quality, and designing where humans and agents collaborate — Shipper bets PMs who "ride the models" out-ship engineers, and an OpenAI PM uses Codex to drive prototypes to 70–80% completion and replace PRDs with runnable artifacts. The same craft scales up the org chart: Customer.io's VP of Product rebuilds a third of an all-hands deck in a morning, but only by treating Claude like an eager junior — rolling context in, forcing clarifying questions, blocking premature deliverables — and the leader's residual value collapses to two choices: *which sources* (recordings, docs, metrics) and *which target form* (deck, Notion page, one-pager). The model-selection beat also sharpens: Fable's "seasoned engineer" verbosity wrecks PRDs, so pair Mythos-class models with cheaper Opus/Sonnet by task type. Ambrosino (OpenAI Codex) sharpens the picture from the supply side: when dozens of people inside a company can stand up polished prototypes from the same idea, implementation is no longer the bottleneck — *curation* is: deciding which of ~90 explorations to keep, fold together, or refine. The same abundance makes design and taste distinctly non-automatable: aesthetic judgment, novelty, and system-level UI coherence lack the grading signals needed to train models to generalize, so models copy patterns (Linear-clone proliferation) but cannot generate the novelty or cross-component semantic reasoning that defines good design. The operational kit that recurs: hyper-literal prompts, screenshots-as-examples, prototypes-not-PRDs, a beginner's mindset, and the discipline to restrain the model until the foundations are set — the non-engineer/non-PM version of this same builder pattern now lives in [Vibe Coding & Non-Technical Builders](vibe-coding-and-non-technical-builders.md).
@@ -241,6 +241,16 @@ Foster repeatedly warns that handing everything to AI yields mediocre, uninteres
 — Aakash Gupta · 2026-09-24 · guest: Wade Foster (Zapier) · [▶ video](https://www.youtube.com/watch?v=WbvJMnlB6wA) · `pi-WbvJMnlB6wA-03`
 related: [Implementation is cheap; curation and taste are the real bottlenecks](#implementation-is-cheap-curation-and-taste-are-the-real-bottlenecks) (Ambrosino's curation-is-the-bottleneck claim and Foster's AI-slop warning are the same taste-is-non-automatable rule from two different PMs)
 
+### Use a strict iterative workflow: interview → outline → draft → edit (inferred fit)
+Their 'compound/compound engineering' workflow breaks writing into discrete phases: brainstorming (they run an AI interview), planning (10% and 30% outlines), section-by-section drafting, then revision with human reviewers and specialized AI skills. The team uses reviewer-personas (Hitchcock, Sorkin, Vonnegut) and tools like Titan Draft and Kate Bench to enforce voice, tighten copy (10–15% cuts), and remove jargon. This modular pipeline prevents dumping large tasks on the model at once and surfaces structural issues early.
+— Every · 2026-09-24 · guest: — · anchor: "نبدأ بالعصف الذهني، ثم نمر بمرحلة التخطيط" · [▶ video](https://www.youtube.com/watch?v=OQgO26GvAXM) · `pi-OQgO26GvAXM-03`
+related: (inferred fit) [Treat the model as an interviewer, not the sole author](#treat-the-model-as-an-interviewer-not-the-sole-author-inferred-fit) (same episode, the companion technique)
+
+### Treat the model as an interviewer, not the sole author (inferred fit)
+Kate demonstrates prompting the model to conduct a question-by-question interview to elicit her ideas and tone, rather than asking it to invent a finished piece. That interview-first method gives outputs shaped by her thinking and makes it easier to guide the model through outline and draft stages. The approach preserves authorial control and reduces the risk that the model will overproduce generic, 'flattened' drafts.
+— Every · 2026-09-24 · guest: — · anchor: "أجري مقابلة معي، سؤالًا تلو الآخر" · [▶ video](https://www.youtube.com/watch?v=OQgO26GvAXM) · `pi-OQgO26GvAXM-04`
+related: (inferred fit) [Use LLMs as research assistants, not to write your prose (inferred fit)](#use-llms-as-research-assistants-not-to-write-your-prose-inferred-fit) (same craft-preservation instinct — interview the model, keep authorship)
+
 ## Related themes
 - [AI agents & applications](ai-agents-and-applications.md) — the surfaces PMs build in
 - [Leadership, careers & teams](leadership-careers-and-teams.md) — how the manager/IC mix is shifting alongside
@@ -248,6 +258,7 @@ related: [Implementation is cheap; curation and taste are the real bottlenecks](
 - [Vibe Coding & Non-Technical Builders](vibe-coding-and-non-technical-builders.md) — child theme; split off 2026-08-25. The non-engineer/non-PM builder pattern (hobbyists, ops/consulting staff, editorial teams, makers) moved there; PM-specific AI craft stays here.
 
 ## Source episodes
+- [Every — LIVE: How Professional Writers Write with AI | Write-along (2026-09-24)](../episodes/2026/2026-09-24--every--live-how-professional-writers-write-with-ai.md)
 - [Lenny's Podcast — Why companies are becoming a series of loops | Anish Acharya (a16z) (2026-09-06)](../episodes/2026/2026-09-06--lenny--why-companies-are-becoming-a-series-of-loops.md)
 - [How I AI — I built a Claude Cowork system that does a week of PM work in a day (2026-08-31)](../episodes/2026/2026-08-31--howiai--i-built-a-claude-cowork-system-that-does-a-week-of-pm-work-in-a-day.md)
 - [Aakash Gupta — How to build a Company Operating System with Hermes and OpenClaw (2026-08-28)](../episodes/2026/2026-08-28--aakash--how-to-build-a-company-os-hermes-openclaw.md)
