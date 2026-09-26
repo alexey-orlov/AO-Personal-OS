@@ -1,7 +1,8 @@
 # GigaCloud — CPO
 
-_status: CPO role; two workstreams in flight — catalog ↔ Billing integration requirements + component-level cost-allocation & pricing redesign (approach settled + action-plan deck built 2026-08-27)_
-_updated: 2026-08-27_
+_status: CPO role; two workstreams in flight — catalog ↔ Billing integration requirements + component-level cost-allocation & pricing redesign (approach settled + action-plan deck at v5)_
+_updated: 2026-09-26_
+_source files: `~/Downloads` on `KN7X2Y65NX` (live deck, `Margin.xlsx`, brand template) — registry entry in [_meta/external-sources.md](../../_meta/external-sources.md); transfer snapshots + deck HANDOFF in [docs/margin-deck/](docs/margin-deck/HANDOFF.md)_
 
 > ⛔ **Internal-only area.** GigaCloud is never named in any external-facing artefact — CV, LinkedIn profile or DMs, outreach, applications, interviews, bios, generated drafts. In interviews this period is referred to only as "a fractional project helping a European tech company (infrastructure provider) build an AI-enabled org"; in writing, as "fractional product leader for agentic-AI B2B startups". Rule + rationale: [job-search/positioning.md](../job-search/positioning.md).
 

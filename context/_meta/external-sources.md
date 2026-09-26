@@ -34,6 +34,7 @@ Cloud `Location` examples for when they arrive — gdrive: `https://drive.google
 | [softserve](../areas/softserve/README.md) | local + onedrive | `~/Library/CloudStorage/OneDrive-SoftServe,Inc` | this Mac (`KN7X2Y65NX`); OneDrive-synced, also via `ms365` MCP | 2026-06-16 (moved to OneDrive 2026-07-21) |
 | [civitta](../areas/civitta/README.md) (+ the Laba/PrivatBank course decks) | gdrive | Teaching-materials folder `1N6zCtx5VWja5vtT89seShWrOcsi1azK-`; GBSW 2026 folder `18Hx32ZlQpab6UGwpbr1WjBStkKbNclMa` | - (Google Drive MCP) | 2026-09-07 |
 | [softserve](../areas/softserve/README.md) → [oracle-packs](../areas/softserve/oracle-packs.md) (the mini-site) | git | `~/Documents/GitHub/Oracle-Solutions-Site` · private GitHub `alexey-orlov/Oracle-Solutions-Site` | checkout on this Mac (`KN7X2Y65NX`); GitHub from any machine with Alex's credentials | 2026-09-23 |
+| [gigacloud](../areas/gigacloud/README.md) | local | `~/Downloads` (flat files, no dedicated folder) | this Mac (`KN7X2Y65NX`) | 2026-09-26 |
 
 ## Entries
 
@@ -71,6 +72,14 @@ Cloud `Location` examples for when they arrive — gdrive: `https://drive.google
   - `Laba - Контент - Product management/` (`18kszvy1yCrpTT-qz71nhp7TUqekTWq-_`) → [laba](../areas/laba/README.md) — Laba PM course: `Презентації - Product management/` (`Заняття 1..17` Google Slides 2024 + 2023 `.pptx`), homework and practice folders, content plan xlsx.
   - `Lections structure/`, `Samples/`, `New requests/`, `AOrlov - Product management - Програма курсу` (sheet) — course design working files.
 - **Added:** 2026-09-07 (discovered while assembling the GBSW pack; confirm with Alex if a different root is canonical).
+
+### gigacloud — `~/Downloads` on KN7X2Y65NX (flat local files)
+- **Type:** `local` — Alex works GigaCloud files straight out of `~/Downloads`; no dedicated folder yet.
+- **Location:** `~/Downloads/GigaCloud_Product Margin Plan_27-AUG-2026.pptx` (**the live deliverable** — Alex hand-edits it; living-documents rule applies) · `~/Downloads/Margin.xlsx` (P&L + catalog source workbook) · `~/Downloads/GigaCloud_HR Committee_19-AUG-2026.pptx` (brand template).
+- **Machine scope:** this Mac (`KN7X2Y65NX`) only; Downloads does not sync anywhere.
+- **Backed up:** ⚠ no cloud sync. 2026-09-26 snapshots of all three + the recovered patch toolchain are committed to [`context/areas/gigacloud/docs/margin-deck/`](../areas/gigacloud/docs/margin-deck/HANDOFF.md) for cross-machine transfer — the repo copy is frozen; refresh it after each delivered round while machine-hopping.
+- **Contents:** the margin-deck working set → [pricing-unit-economics](../areas/gigacloud/pricing-unit-economics.md).
+- **Added:** 2026-09-26.
 
 ### softserve / oracle-packs: `~/Documents/GitHub/Oracle-Solutions-Site` (the mini-site's own repository)
 - **Type:** `git`, a private GitHub repository with a local checkout. It holds the Oracle AI & Data Solutions mini-site since 2026-09-23, when the site moved out of this repo; `outputs/oracle-solutions-site/` here now holds only a `MOVED.md`.
