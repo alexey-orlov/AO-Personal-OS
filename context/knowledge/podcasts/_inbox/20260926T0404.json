@@ -1,0 +1,232 @@
+{
+  "schema": 1,
+  "generatedAt": "2026-09-26T04:04:31.624Z",
+  "runStamp": "20260926T0404",
+  "episodes": [
+    {
+      "videoId": "OQgO26GvAXM",
+      "videoTitle": "LIVE: How Professional Writers Write with AI | Write-along",
+      "videoUrl": "https://www.youtube.com/watch?v=OQgO26GvAXM",
+      "channelName": "Every",
+      "publishedDate": "2026-09-24",
+      "guests": [],
+      "summary": "A live demonstration from Every's editorial team showing how they use modern LLMs (Claude/Opus 5.5, ChatGPT/Astra) to write and edit articles. The throughline: AI can accelerate writing—if you design and constrain the context, run structured interviews with the model, iterate section-by-section, and have human editors and tooling to prune and enforce quality. The session mixes a failure case (overloaded context that broke outputs) with the concrete workflow and tools they rebuilt and now use.",
+      "insights": [
+        {
+          "headline": "Saving everything to AI context breaks model behavior",
+          "detail": "Kate recounts a concrete failure: she told her model to persist every draft, note, and decision, which created internally conflicting instructions and produced flat, confused outputs. That experiment produced 91 drafts and destroyed her trust in the system until she archived everything and rebuilt from scratch. The key takeaway is that indiscriminate persistence (what she calls a 'Verschlimmbesserung') can make a helpful context unusable.",
+          "anchorQuote": "اتخذت قرارًا كارثيًا بإخبار جهازي بحفظ كل ما ينتجه",
+          "tSeconds": null,
+          "link": ""
+        },
+        {
+          "headline": "Prune context; delete is better than add",
+          "detail": "After the collapse she took a deliberate 'KonMari' approach: move old folders to an archive, recreate style.md and voice.md, and only keep targeted reference points. She frames this as active trimming—'prune your context like a bonsai'—because accumulated examples and templates had merged into an impossible-to-satisfy checklist. Practically, she now saves anchors and examples selectively rather than every experiment, which restored model usefulness.",
+          "anchorQuote": "قلّم سياقك كما تُقلم شجرة البونساي.",
+          "tSeconds": null,
+          "link": ""
+        },
+        {
+          "headline": "Use a strict iterative workflow: interview → outline → draft → edit",
+          "detail": "Their 'compound/compound engineering' workflow breaks writing into discrete phases: brainstorming (they run an AI interview), planning (10% and 30% outlines), section-by-section drafting, then revision with human reviewers and specialized AI skills. The team uses reviewer-personas (Hitchcock, Sorkin, Vonnegut) and tools like Titan Draft and Kate Bench to enforce voice, tighten copy (10–15% cuts), and remove jargon. This modular pipeline prevents dumping large tasks on the model at once and surfaces structural issues early.",
+          "anchorQuote": "نبدأ بالعصف الذهني، ثم نمر بمرحلة التخطيط",
+          "tSeconds": null,
+          "link": ""
+        },
+        {
+          "headline": "Treat the model as an interviewer, not the sole author",
+          "detail": "Kate demonstrates prompting the model to conduct a question-by-question interview to elicit her ideas and tone, rather than asking it to invent a finished piece. That interview-first method gives outputs shaped by her thinking and makes it easier to guide the model through outline and draft stages. The approach preserves authorial control and reduces the risk that the model will overproduce generic, 'flattened' drafts.",
+          "anchorQuote": "أجري مقابلة معي، سؤالًا تلو الآخر",
+          "tSeconds": null,
+          "link": ""
+        }
+      ]
+    },
+    {
+      "videoId": "-ywZlfznTa4",
+      "videoTitle": "How to Spot Exceptional Talent Before Everyone Else",
+      "videoUrl": "https://www.youtube.com/watch?v=-ywZlfznTa4",
+      "channelName": "a16z",
+      "publishedDate": "2026-09-25",
+      "guests": [],
+      "summary": "The conversation argues that professional reputation signals—who vouches for you, follows you, or praises your work—are the single most valuable asset for discovering talent early. The speakers introduce Cosign, a platform designed to capture and make those signals durable and actionable so people can be discovered, hired, or funded earlier and with less information asymmetry.",
+      "insights": [
+        {
+          "headline": "Peer endorsements can outweigh elite credentials as a reputation signal",
+          "detail": "The speakers claim that being followed or publicly endorsed by influential people (e.g., Patrick Collison, Elon Musk, Marc Andreessen) often impresses more than a degree from Stanford. They use the founder anecdote that David's Twitter account ended up adding more career value than his expensive university education; the implication is that visible peer approval opens doors to re-reads of your work, job offers, and investors. This matters because it reframes hiring and investing criteria toward observable social signals rather than formal credentials.",
+          "anchorQuote": "شخص يتابعه باتريك كوليسون، وإيلون ماسك، ومارك أندريه",
+          "tSeconds": null,
+          "link": ""
+        },
+        {
+          "headline": "Profiles listing mentors, collaborators, and future stars aid discovery",
+          "detail": "Cosign intends each profile to include at least three confirmable dimensions: who shaped your career (mentors), who you'd actually work with in hard times (true collaborators), and who you believe will become great (forward-looking endorsements). The team argues these structured signals are more informative than simple follows because they encode trust, long-term conviction, and real working relationships—useful to recruiters, founders, and investors matching people to roles or rounds. Making these elements standard accelerates matching and reduces guesswork when evaluating candidates with limited time.",
+          "anchorQuote": "نريد أن يتضمن كل ملف تعريف على الأقل ثلاثة عناصر:",
+          "tSeconds": null,
+          "link": ""
+        },
+        {
+          "headline": "Make reputations permanent by aggregating public praise and announcements",
+          "detail": "Social praise and event-driven signals (tweets, fundraising posts, hire announcements) are plentiful but ephemeral; Cosign proposes scraping and linking these public signals to profiles so praise becomes durable. They describe pulling signals from X and other public sources—turning one-off compliments into persistent endorsements on someone’s profile—so future viewers see a verified trail of support rather than a disappearing feed item. The effect: reputation becomes an asset that survives social-media decay and can be used to evaluate people or companies later.",
+          "anchorQuote": "نعتقد أن إحدى طرق التميّز هي جعل السمعة دائمة",
+          "tSeconds": null,
+          "link": ""
+        },
+        {
+          "headline": "Being the first to spot talent lets you hire or invest faster",
+          "detail": "The hosts emphasize that early discovery confers practical advantages: if you’re the first to identify someone, you can hire them or invest before competition reacts. They argue Silicon Valley rewards first discoverers because early introductions and investments compound into outsized returns—citing how connectors who find talent early often gain access to founders and deals. This makes a strong case for tools that surface nascent talent earlier, since timing can be the difference between joining a breakout company or missing it.",
+          "anchorQuote": "إذا كنت أول من يكتشفه، كلما تمكنت من توظيفه وتمويله بشكل أسرع",
+          "tSeconds": null,
+          "link": ""
+        },
+        {
+          "headline": "Make reputation markets more liquid to reduce information asymmetry",
+          "detail": "The speakers propose turning scattered, private signals into a liquid market of reputation so under-discovered people gain visibility and opportunities. By surfacing validated endorsements and contextual metadata (who worked with whom, who vouched in what capacity), Cosign aims to correct current imbalances where only a few insiders know whom to trust. Increased liquidity means talented engineers, designers, or operators who previously lacked awareness will be easier to hire or fund, leveling access and improving matching efficiency.",
+          "anchorQuote": "نحن نعمل على جعل سوق السمعة أكثر كفاءة، وأكثر سيولة",
+          "tSeconds": null,
+          "link": ""
+        }
+      ]
+    },
+    {
+      "videoId": "ZG8Mf3P9xzI",
+      "videoTitle": "The limiting factor—how to design an AI software factory for speed | Geoff Charles (Ramp CPO)",
+      "videoUrl": "https://www.youtube.com/watch?v=ZG8Mf3P9xzI",
+      "channelName": "Lenny's Podcast",
+      "publishedDate": "2026-09-25",
+      "guests": [],
+      "summary": "Geoff Charles argues that in the race to build with AI the decisive advantage is speed — but speed is a systemic property, not just faster coding. Ramp built an \"AI software factory\": a suite of specialized agents and processes that identify bottlenecks, automate loops, and shift human effort to the highest-leverage decisions, producing measurable improvements in cycle time and quality. The talk explains the pattern (find the bottleneck, redesign around it, iterate) and shows concrete tooling and metrics from Ramp.",
+      "insights": [
+        {
+          "headline": "Winning speed is a system property, not an individual skill",
+          "detail": "A driver accounts for only a fraction of race performance; the real gains come from the interaction between driver, car, and team. Geoff cites racing history (pit-stop times falling from 67s to 1.8s) and F1 practice (90% of parts change year-to-year) to show that removing process and system friction multiplies individual performance. Applied to software, the point is to find the process-level bottleneck and redesign the system around it rather than merely asking engineers to work harder.",
+          "anchorQuote": "في الواقع، لا يُمثّل السائق سوى 15%من تأثيره على السباق.",
+          "tSeconds": null,
+          "link": ""
+        },
+        {
+          "headline": "Build specialized AI agents across the product lifecycle to remove bottlenecks",
+          "detail": "Ramp implemented a chain of purpose-built agents—customer-data agent, 'Glass' for product definition, 'Inspect' for code generation, 'Review Buddy' for reviews, and 'Testo' for QA—so each stage can be automated or accelerated. The results are concrete: Inspect has about a million sessions, generates ~75% of pull requests, and produced ~1,000 PRs last month from non-engineers; Review Buddy auto-processes 93% of PRs; Testo found 425 bugs in 30 days. That pipeline both increases throughput and moves the bottleneck to the next weakest link, enabling continuous speed gains.",
+          "anchorQuote": "لقد طورنا وكيل ذكاء اصطناعي خاص بنا يُدعى \"غلاس\",",
+          "tSeconds": null,
+          "link": ""
+        },
+        {
+          "headline": "The bottleneck migrates from engineering to coordination and attention",
+          "detail": "As low-level programming gets automated, human attention and cross-team coordination become the new constraints: too many actions or too few lead to slowdown. Geoff's solution is to make every question an API the system can read—agents that understand roadmap, specs, tickets, and ownership—so the AI can answer 85% of PM questions and surface only the exceptions to humans. That shifts humans into light oversight of thousands of small loops while focusing on the few risky or ambiguous cases.",
+          "anchorQuote": "لقد انتقل عنق الزجاجة إلينا، لذا نحتاج إلى الاستثمار في منظومتنا الخاصة.",
+          "tSeconds": null,
+          "link": ""
+        },
+        {
+          "headline": "Hire and empower people who know what 'real speed' looks like",
+          "detail": "You can't measure speed purely by simple metrics, so Geoff recommends hiring leaders who understand systemic speed and giving them authority to challenge and redesign processes. He argues that those \"drivers\" will surface the right priorities and push the organization to iterate faster — a cultural and leadership lever that complements technical automation. In practice, that means placing people who value velocity into roles that can change tooling and product factory design.",
+          "anchorQuote": "وظفت سائقًا يعرف معنى السرعة الحقيقية",
+          "tSeconds": null,
+          "link": ""
+        },
+        {
+          "headline": "Constraints force strategic focus that can produce competitive advantage",
+          "detail": "Rather than treating limited resources as a handicap, constraints force teams to choose a domain where they can be world-class — Geoff uses Audi's Le Mans strategy (focus on fuel efficiency and fewer pit stops) as an example. He advises accepting limits but not tolerating weaknesses: pick the one area that can multiply your company's growth and double down. This approach turns scarcity into a differentiator and a repeatable source of wins.",
+          "anchorQuote": "تقبّل قيودك، ولكن لا تتقبّل نقاط ضعفك.",
+          "tSeconds": null,
+          "link": ""
+        }
+      ]
+    },
+    {
+      "videoId": "fF3lkTCM5-c",
+      "videoTitle": "Marty Cagan: Strong Opinions, loosely held",
+      "videoUrl": "https://www.youtube.com/watch?v=fF3lkTCM5-c",
+      "channelName": "Lenny's Podcast",
+      "publishedDate": "2026-09-25",
+      "guests": [],
+      "summary": "Marty Cagan walks through ten major regrets since publishing Inspired, arguing that product practice has under-emphasized several load-bearing issues: commercial and organizational feasibility, the balance between problem discovery and solution discovery, the corrosive effects of overconfidence embodied in roadmaps/PRDs, the need for stronger product leadership, and the imperative to think (not just follow processes). He concludes that AI increases both the urgency and the opportunity for discovery-driven product work — especially by enabling a focus on outcomes and a \"build to learn\" posture.",
+      "insights": [
+        {
+          "headline": "I under-emphasized product feasibility — it's fundamental and harder with AI",
+          "detail": "Cagan admits his first edition of Inspired largely neglected the commercial and organizational feasibility risk (legal, privacy, security, sellability, supportability). He explains that some domains (like developer tools) can mask weak business skills because technical merit can carry viability, but most products — increasingly AI products — make feasibility harder and more essential to validate up front. The practical consequence: product teams must test market/sales/operational/legal viability as an explicit risk, not assume engineering viability is sufficient.",
+          "anchorQuote": "أولها، أودّ أن أبدأ بجدوى المشروع،",
+          "tSeconds": null,
+          "link": ""
+        },
+        {
+          "headline": "Teams overfocus on proving the problem and under-invest in discovering solutions",
+          "detail": "Cagan says many product teams act as gatekeepers who obsess over validating the problem and its scope, then leave little time for the harder work of discovering and testing solutions. He argues this is backwards because true innovation often comes from iterating on solution hypotheses; sometimes a better solution reveals the problem itself wasn't the blocker. The implication is to allocate discovery time to prototype, test, and learn about solutions — not just to document problem statements.",
+          "anchorQuote": "واكتشاف الحل، أي حل تلك المشكلة",
+          "tSeconds": null,
+          "link": ""
+        },
+        {
+          "headline": "Roadmaps and PRDs can lock teams into false certainty and derail outcomes",
+          "detail": "Cagan warns that roadmaps and product requirements documents often institutionalize the illusion that teams 'know' what will work, causing wasted engineering effort and reduced learning. He distinguishes useful documentation — PRDs and roadmaps that communicate evidence-backed decisions — from arrogant uses that dictate implementation before testing. The non-obvious point: these artifacts aren't the enemy; misuse of them to assert prediction rather than to record learnings is what causes failure.",
+          "anchorQuote": "ترسيخ فكرة أننا نعرف أكثر مما نعرفه في الواقع",
+          "tSeconds": null,
+          "link": ""
+        },
+        {
+          "headline": "Humility and thinking beat processes, frameworks, and LLM shortcuts",
+          "detail": "Cagan highlights that a lack of humility — the desire to predict and appear certain — undermines innovation and product quality, and that many organizations substitute processes or large language models for actual thought. He stresses that product work requires people who acknowledge what they don't know and engage in disciplined thinking, not just execution of frameworks. Practically, leaders must cultivate intellectual humility and protect time for real problem-solving instead of process theater.",
+          "anchorQuote": "وأنا قلق من أن تُستخدم نماذج اللغة الضخمة كبديلٍ للتفكير",
+          "tSeconds": null,
+          "link": ""
+        },
+        {
+          "headline": "AI makes 'build to learn' the right default: focus on outcomes, not outputs",
+          "detail": "Cagan draws a clear distinction between building to learn (use experiments to validate outcomes) and building for profit/outputs (ship features). He argues AI both raises the stakes for outcome-focused discovery and makes it easier to run faster learning loops, so product teams should adopt 'build to learn' practices. The consequence is that success metrics and engineering allocation should prioritize validated impact over checklist feature delivery.",
+          "anchorQuote": "البناء للتعلم والبناء للربح",
+          "tSeconds": null,
+          "link": ""
+        }
+      ]
+    },
+    {
+      "videoId": "GLvFTMtw4Jk",
+      "videoTitle": "Raise the ceiling: how to scale intent, quality, and artistry with Al | Katie Dill (Stripe)",
+      "videoUrl": "https://www.youtube.com/watch?v=GLvFTMtw4Jk",
+      "channelName": "Lenny's Podcast",
+      "publishedDate": "2026-09-25",
+      "guests": [
+        "Katie Dill (Stripe)"
+      ],
+      "summary": "Katie Dill argues that generative AI makes building faster but also risks producing generic, context-less products unless teams are deliberate. She gives four practical prescriptions: hold a clear point of view, encode standards into production systems, preserve editorial quality after rapid building, and use AI to raise creative ambition. Concrete examples from Stripe (a CLI tied to their design system, a magazine cover workflow, a 56-attempt animation) show how to make AI outputs coherent and soulful rather than 'zombie' interfaces.",
+      "insights": [
+        {
+          "headline": "Large language models default to the most probable answer",
+          "detail": "LLMs tend to produce what is typical or trending rather than what is distinctive to your brand or user context, so left unchecked they generate generic, interchangeable UIs (what Dill calls \"zombie\" interfaces). She illustrates this with a polished-looking Korean BBQ site that still lacked personality and with the broader analogy to post‑WWII architecture: fast replication without intent. The practical consequence is that AI outputs need an explicit point‑of‑view to avoid flattening brand and contextual nuance.",
+          "anchorQuote": "أولاً، النماذج اللغوية الكبيرة بارعة في إعطائك الإجابة الأكثر احتمالاً",
+          "tSeconds": null,
+          "link": ""
+        },
+        {
+          "headline": "Encode your standards into production systems, not just docs",
+          "detail": "Design intent must be machine-readable and embedded in the tools people use, because many builders and agents will act without a designer in the room. Dill explains that Stripe moved from a passive design doc to a CLI tied to their design system that includes templates and workflows, so AI-generated work is more obedient and consistent. That shift converts high-level principles into executable constraints that scale coherently across distributed teams and automated agents.",
+          "anchorQuote": "إنشاء واجهة سطر أوامر (CLI) مبنية على نظام",
+          "tSeconds": null,
+          "link": ""
+        },
+        {
+          "headline": "Being 'built' is not the same as being high-quality",
+          "detail": "Because AI makes it cheap to produce many versions, the old, implicit quality filter that ran through the build process disappears—so organizations must reintroduce an active editorial role. Dill calls out the editor as essential: someone who assesses end‑to‑end cohesion, not just isolated components, and pushes work from 'built' toward true completeness. She gives a concrete example where an opening animation needed 56 iterations to reach the subtle, lived-in feel that signals care.",
+          "anchorQuote": "هنا يأتي دور المحرر، وهو دور فائق الأهمية في عصرنا الحالي",
+          "tSeconds": null,
+          "link": ""
+        },
+        {
+          "headline": "Use AI to raise creative ambition, not just speed",
+          "detail": "AI reduces cost and friction, which is an opportunity to spend those savings on audacious, distinctive work rather than only accelerating the same defaults. Dill points to examples—AI‑assisted magazine cover art, novel restaurant websites, and new interactive aesthetics—as proof that AI can unlock new forms of craft and interface. Her argument: leaders should protect experimentation and 'the weird' so AI becomes a creativity multiplier, not merely a shortcut to sameness.",
+          "anchorQuote": "أطلقوا العنان للإبداع والفن. نعم، يمكن للذكاء الاصطناعي أن يساعدنا",
+          "tSeconds": null,
+          "link": ""
+        },
+        {
+          "headline": "Practical tactics: better prompts, source materials, and adversarial critique",
+          "detail": "Dill recommends concrete practices to close AI's gaps: craft specific prompts tied to your brand, feed the model your source assets and design standards, rigorously test outputs, and use conflicting agents to critique and improve results. She warns against the 'burrito dilemma'—accepting a fast, imperfect result because it's convenient—and urges a habitual extra step of refinement so AI work meets your criteria. These tactics make AI a partner that reflects your point of view rather than imposing a generic default.",
+          "anchorQuote": "حسّن مدخلاتك. أنت تريد المزيد من التحديد",
+          "tSeconds": null,
+          "link": ""
+        }
+      ]
+    }
+  ]
+}
