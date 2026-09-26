@@ -1,69 +1,56 @@
-# Margin-deck handoff — continue the work on any machine
+# Margin decks — handoff (continue on any machine)
 
-_written 2026-09-26 by the deck-build session on Mac KN7X2Y65NX (session transcript stays on that Mac). Read this fully before touching the deck._
+_Rewritten 2026-09-26 on Alex's MacBook Air after the results deck was built. Read fully before touching either deck._
 
-⛔ GigaCloud = internal-only area. This deck is internal (fine), but nothing from it is ever quoted in external-facing artifacts.
+⛔ GigaCloud = internal-only area. Both decks are internal (fine), but nothing from them is ever quoted in external-facing artifacts.
 
-## What this is
+## The two decks
 
-The GigaCloud product-marginality action-plan deck: **`GigaCloud_Product Margin Plan_27-AUG-2026.pptx` — currently v5, 13 slides, Ukrainian**, built on the GigaCloud brand template, iterated over 3 feedback rounds with Alex (2026-08-27 → 2026-09-26).
+| Deck | State | Live copy (Alex hand-edits it — living-documents rule) | In this repo |
+|---|---|---|---|
+| **Plan** — `GigaCloud_Product Margin Plan_27-AUG-2026.pptx` (goal, 4 attribution models A1/A2/B/C/D, next steps) | v5, 13 slides, UA — also the **slide template** for later decks | MacBook Air: `~/Desktop/GigaCloud/GigaCloud_Product Margin Plan_27-AUG-2026 (1).pptx` (newest); KN7X2Y65NX: `~/Downloads/…` | snapshot in this folder (refreshed 2026-09-26 from the Desktop copy) |
+| **Results** — `GigaCloud_Product Margin Results_26-SEP-2026.pptx` (allocation results: steps 1–4, 5 buckets, 5 methods, per-component allocation) | v5, 26 slides, UA, delivered 2026-09-26 | MacBook Air: `~/Desktop/GigaCloud/` | **not committed** — it shows employee names and mobilisation status (Alex's Q&A decision: names + roles, no ФОТ sums) |
 
-## Files in this folder
+Source workbook for the results deck: `~/Desktop/GigaCloud/Юніт.xlsx` (payroll by name — never commit). Brief: Google Doc «Результаты аллокации затрат и расчета маржинальности — бриф» (id `1ZHZtbE8M3LEhxXguR45BkCJrAXCrudftevvT8RdX_-I`; snapshot `~/Desktop/GigaCloud/toolchain/brief_2026-09-26.txt`).
 
-| File | What it is |
-|---|---|
-| `GigaCloud_Product Margin Plan_27-AUG-2026.pptx` | **Transfer snapshot of v5**, copied 2026-09-26 from `~/Downloads` on KN7X2Y65NX — includes Alex's own manual cosmetic edits (he hand-edits the delivered file) |
-| `Margin.xlsx` | Source workbook (sheets: Finance P&L, Продукти, Models) — basis for every example table and for verifying any grouping claim against the P&L |
-| `GigaCloud_HR Committee_19-AUG-2026.pptx` | The brand template the deck was built from. Only needed for a full rebuild or `validate.py --original`; patch rounds don't need it |
-| `toolchain/build.py` | Full deck generator (v1–v2 state, 11 slides). Superseded by the patches as a generator, but it is the reference for the shared helper library and the slide-5/6 geometry |
-| `toolchain/patch.py` | Round 2a: A → A1/A2 split on the models slide + the new A2 (Cubbit) example slide |
-| `toolchain/patch2.py` | Round 2b: the product→component **bridge note** rolled out to the models slide + B/C/D example slides — holds the exact `NOTE_LEAD`/`NOTE_BODY` strings |
-| `toolchain/patch3.py` | Round 3 (latest): the output-table slide (now slide 3) + step 10 on «Наступні кроки» |
+Before any edit: re-read the live file, never regenerate over Alex's manual edits (`.claude/references/client-documents.md`). A rebuild with `build_deck.py` overwrites everything — use it only for a fresh version, then port his edits or patch the live file instead.
 
-The toolchain scripts were recovered from the session transcript after the scratchpad was wiped by tmp-cleanup; all four replayed cleanly and compile. They reference scratchpad paths that no longer exist — treat them as **reference code** (helpers, geometry, exact strings), not as runnable-as-is.
+## Results deck — how it is built
 
-## Single source of truth (living-documents rule)
+- **Generator:** `~/Desktop/GigaCloud/toolchain/build_deck.py` (local only — contains names). It reads every number from `Юніт.xlsx` and asserts the key facts (Inbound CAC split = «ФОТ» r107; step-4 ratios/formulas incl. year-end = F × (1 + приріст) × (1 − churn); worked examples multiply out; General pool = method 5; 82 products; whole-department lists = «Allocation methods»). Run: `python build_deck.py <plan-deck.pptx as base> Юніт.xlsx out.pptx` in a venv with `python-pptx openpyxl pillow`.
+- **Shared parts (committed):** `toolchain/results-deck/` — `lib.py` (helpers, brand constants, `nb()` non-breaking-space rules, one content right edge `SAFE_R = 21.8″` clear of the GO logomark), `tree.py` (the **native, editable reproduction of Alex's Miro allocation tree**, regularised: equal gaps, one axis, bucket pitch 249 px; connectors keep his drawn style — fan apex below the parent, small gap above the child), `pp_render.sh` (true-font PowerPoint render), `dump_deck.py` (text dump for reviewers).
+- **Layouts:** content slides `cloud 001 logomark`; step dividers `cloud 003 logomark` (lightest cloud) with tree fragments at one scale (0.0118 in/px) and one column grid.
+- **Colour code:** tree palette = level (yellow expense types, orange buckets, green products, lime components); red = allocation stage / result; greys = structure.
+- **QA loop:** `pp_render.sh deck.pptx outdir` (needs activated PowerPoint — see `.claude/references/document-rendering.md`) → contact sheets → fresh-eyes reviewers. Two Opus reviewers ran on this deck (brief/data fidelity + visual); their reports are in `~/Desktop/GigaCloud/toolchain/review_*.md`.
 
-Alex hand-edits the delivered file directly. The live copy is `~/Downloads/GigaCloud_Product Margin Plan_27-AUG-2026.pptx` **on whichever machine he last worked on**. The snapshot here is frozen at 2026-09-26.
+## Results deck — decisions Alex made (2026-09-26, do not re-litigate)
 
-To resume on a new machine: copy the snapshot to `~/Downloads`, work there, and before **any** patch re-read the current file from Downloads — never regenerate over his edits (`.claude/references/client-documents.md`). If machine-hopping continues, refresh this snapshot after each delivered round.
+- Method 1 example = Market UA promo channels; methods 2–5 = СТП payroll by line (L1/L2/TL), СТП non-payroll, Inbound (Таблиця сейлів → CAC Inbound Team), «Продукти для General». Old 7 groups map to the 5 buckets per the «1-2. Allocation-ФОТ» formulas (Openstack Public → low, VMware Public → high, all Private → Private Infra, Resell → Licenses).
+- Personal data: names, teams, roles and the 100 % General column for the mobilised — **no ФОТ sums**.
+- Step-3 product counts follow the tree picture (3 / 7 / **11** / **54** / 7), not the tab (13 / 52).
+- Tree: rebuilt natively (editable), "fully as drawn", English labels kept.
+- Slide 8 «весь відділ в один тип» follows the **«Allocation methods»** tab (Preselling ЮА + Sales UA → CAC; non-payroll + Security → General; Billing skipped — the tab marks two types).
+- Glossary: **82** products (brief said 89).
 
-## Iteration workflow (established over rounds 1–3, keep it)
+## Open data items (for Alex, not blocking the deck)
 
-1. `cp ~/Downloads/<deck>.pptx scratchpad/currentN.pptx`
-2. Write `patchN.py` with python-pptx, reusing the helper block from `toolchain/patch3.py` (`E()`, `R()`, `P()`, `make_p()`, `set_paras()`, `add_box`, `add_card`, `add_rect`, `add_table`, `cell_set`, `cell_borders`) → `patchedN.pptx`
-3. Validate with the pptx skill's `validate.py patchedN.pptx --original <template>` (if the skill is available)
-4. Visual QA: `soffice --headless --convert-to pdf` + `pdftoppm -jpeg -r 110 [-f N -l N]` — worked in all rounds of these sessions; if broken on the target machine, see `.claude/references/document-rendering.md` (note: that doc is written for KN7X2Y65NX)
-5. `cp patchedN.pptx ~/Downloads/<deck>.pptx` → deliver via SendUserFile
+- «Allocation methods» vs raw tabs: Preselling TAMs carry 60–70 % COGS and 4 Sales UA roles carry General in «ФОТ»; Security and Billing non-payroll are mixed in «1-2 не-ФОТ».
+- «3.Products by buckets» has 13 / 52 for Private Infra / Licenses (both Relational DB add-ons in Private Infra) vs the tree's 11 / 54.
+- Inbound 2026 deal-months for Resale (25) and Services (5) are typed in, not plan × cycle.
+- Customer lifetime Public Cloud on VMware: 44 months in the step-4 tab vs 48 in SysSettings.
+- «1-2. Allocation-ФОТ» Product-dept ФОТ sums (1,1–1,4 M) differ from the raw «ФОТ» tab (2,3 M each); the 64/20/16 non-payroll split matches the raw tab.
 
-Deps: `python-pptx` (patching), `openpyxl` (xlsx probing). No venv travelled — install fresh.
+## Plan deck (v5) — kept from the previous handoff
+
+- Files here: the v5 snapshot, `Margin.xlsx` (Finance P&L, Продукти, Models), the brand template `GigaCloud_HR Committee_19-AUG-2026.pptx`, and `toolchain/build.py` + `patch*.py` (reference code from rounds 1–3; scratchpad paths inside no longer exist).
+- Deck map: 1 титулка · 2–3 Мета і ключові результати (3 = output-table schema) · 4 складові ціни · 5 ключові підходи · 6 моделі атрибуції · 7 зміни у P&L · 8–12 приклади A1, A2, B, C, D · 13 наступні кроки.
+- Locked: deck lettering A1/A2/B/C/D is canonical with Alex; product→component bridge by the average COGS weight of the component in the average product configuration (identical note on slide 6 and B/C/D — keep verbatim); output-table example rows must stay internally consistent; мін. прибутковість = % від фактичної ціни продажу, approvers CFO + CEO + CBDO.
+- Open since 2026-09-26: an explicit «цільова прибутковість» column on slide 3 (unanswered); redoing Model C's example on COGS weights (standing offer, do not act without Alex).
 
 ## Geometry & brand constants (template is 2× scale)
 
-- `SLIDE_W = 24387175` EMU (26.67″) · `X0 = 1955800` (2.139″) · `CW = SLIDE_W − 2·X0` · `TITLE_Y = 1133475`
-- Font `sz` is hundredths of a point **at 2× scale**: `sz=1700` ≈ 8.5 pt effective on screen
-- Colors: RED `C00000` · INK `101010` · GREY `595959` · LTGREY `BFBFBF` · LINEGREY `E3E3E3` · PANEL `F4F4F4`
-- Fonts: `e-Ukraine Bold` (FB) / `e-Ukraine Light` (FL); `Calibri` for Excel-mimic tables. If e-Ukraine isn't installed on the target machine, renders substitute glyphs — trust geometry, not glyph widths (`.claude/references/document-rendering.md`)
-
-## Deck map (v5, 13 slides)
-
-1 титулка · 2 Мета і ключові результати · 3 Мета і ключові результати — **output-table schema** (11 columns, color-coded by data type, 2 example rows, legend chips, «Як читати») · 4 складові ціни («стовпчик», 2 версії) · 5 Ключові підходи (6 принципів) · 6 Моделі атрибуції витрат (3 panels: COGS A1+A2 / Збут B,C / General D + standard note bar) · 7 Зміни у структурі P&L (InfoSec 2.1.3 → split B + D) · 8 приклад A1 · 9 приклад A2 (Cubbit S3) · 10 приклад B · 11 приклад C · 12 приклад D · 13 Наступні кроки (10 кроків, 3 фази)
-
-## Locked content decisions — do NOT re-litigate
-
-- **Deck lettering is canonical in conversation with Alex** (≠ Margin.xlsx block labels, ≠ the A–G classes in `../pricing-cost-allocation-approach.md`): A1 = direct FTE (Delivery/Support → COGS) · A2 = закупівлі у постачальника (Units included × supplier unit price → COGS; Cubbit example; ⚠ CRM stores the reciprocal `0.0001` in "Supplier units included") · B = specific products (Sales/CAC, one-time → lifetime) · C = product groups (ВОК → Resell) · D = general. Grouping on slide 6: A1+A2 → COGS · B,C → витрати на збут · D → general (verified against the Margin.xlsx P&L sections).
-- **Product→component bridge — Alex's decision (supersedes the assistant's price-share recommendation):** product/group-level attribution reaches components by **середня вага COGS компонента в середній конфігурації продукту**; a separate analysis will decide whether average configurations are computed per client segment. The note is IDENTICAL on slide 6 and the B/C/D example slides — keep it verbatim on every edit:
-  - lead: `До рівня компонента: `
-  - body: `атрибуцію рівня продукту чи групи розкладаємо на компоненти за середньою вагою COGS компонента в середній конфігурації продукту. Окремо проаналізуємо, чи рахувати середні конфігурації за сегментами клієнтів окремо (Enterprise vs менший клієнт).`
-- **Output table (slide 3):** 11 columns — Компонент / COGS, грн / CAC, грн / Загальні, грн / Поточна ціна, грн / Прибуток зараз, грн / Прибуток зараз, % / Мін. прибутковість, % / Нова ціна, грн / Зміна ціни, % / Мін. ціна продажу, грн. Header colors = data types: RED «обчислюємо за моделями A1–D» · GREY «COGS вже пораховано — перевіримо повторно» · LTGREY «поточна ціна фіксована на час проєкту» · INK «мін. прибутковість — політичне рішення». The two example rows must stay internally consistent: **Node** 30 000+4 000+6 000 = 40 000 → ціна 45 000 (11 %) → нова 50 000 (+11 %), floor 44 444 = 40 000÷0.9; **vCPU** 60+10+14 = 84 → ціна 180 (53 %) → нова 120 (−33 %), floor 93 ≈ 84÷0.9. Numbers are marked illustrative on the slide.
-- **Мінімальна прибутковість** = % від **фактичної ціни продажу** (not прайсової — знижки can apply); мін. ціна продажу = (COGS + CAC + загальні) ÷ (1 − мін. прибутковість). Step 10 of «Наступні кроки»: «в нуль» не продаємо; approvers **CFO + CEO + CBDO**.
-
-## Open items (as of 2026-09-26)
-
-- **Awaiting Alex's answer:** on slide 3 the «Нова ціна» examples use a target profitability that has no column of its own — offered to add an explicit «цільова прибутковість» column (a second "political decision" next to the minimum) or a note. Asked 2026-09-26, unanswered.
-- **Standing offer, do NOT act without Alex:** the Model C example table (slide 11) still shows the revenue-based group→product mile («Частка групи», «3,45 % від місячної ціни кожного продукту групи»), while the bridge note governs the product→component mile on COGS weights. Offered to redo the whole chain on COGS weights; no decision.
-- Data fixes on the bridge's critical path (187 zero-price rows, catalog↔P&L reconciliation) — tracked on the wiki page.
+`SLIDE_W = 24387175` EMU (26.67″) · left edge `XL = 2.139″` · content right edge `21.8″` (clear of the logomark at x ≥ 22.47″, y ≥ 11″) · `sz` is hundredths of a point at 2× (`sz=1700` ≈ 8.5 pt on screen) · RED `C00000` · INK `101010` · GREY `595959` · LTGREY `BFBFBF` · LINE `E3E3E3` · PANEL `F4F4F4` · fonts `e-Ukraine Bold` / `e-Ukraine Light` (embedded in the decks; e-Ukraine is wide — ~0.009 in per pt per character in Bold, so size boxes from the PowerPoint render, never from QuickLook).
 
 ## Read next
 
-`context/areas/gigacloud/README.md` → [`pricing-unit-economics.md`](../pricing-unit-economics.md) (subproject state + decisions; its "presentation layer" note explains the lettering) → [`pricing-cost-allocation-approach.md`](../pricing-cost-allocation-approach.md) (the full underlying model — the deck simplifies it deliberately). Deck-design rules: `.claude/references/slide-design.md`.
+`context/areas/gigacloud/README.md` → [`pricing-unit-economics.md`](../../pricing-unit-economics.md) → [`pricing-cost-allocation-approach.md`](../../pricing-cost-allocation-approach.md). Deck-design rules: `.claude/references/slide-design.md`. Rendering: `.claude/references/document-rendering.md`.
