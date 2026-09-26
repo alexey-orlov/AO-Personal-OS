@@ -37,8 +37,8 @@ Working recipe (≈ 6–10 s for a 26-slide deck):
    fails with -2763; a variable named `out` collides with PowerPoint's dictionary (-10003).
 6. Rasterise with PyMuPDF (`pip install pymupdf` into a scratchpad venv): `page.get_pixmap(dpi=110)`
    → 2934 × 1650 px for the 2×-scale GigaCloud template.
-A ready script: `context/areas/gigacloud/docs/margin-deck/toolchain/pp_render.sh` (PDF + per-slide
-PNGs + contact sheets).
+A ready script: `context/areas/gigacloud/docs/margin-deck/toolchain/results-deck/pp_render.sh`
+(PDF + per-slide PNGs + contact sheets; `PY=<venv python with pymupdf+pillow>`).
 
 Never close a presentation you didn't open; on a cold launch PowerPoint may show its start gallery
 (dismiss with Cancel) or restore Alex's decks.
