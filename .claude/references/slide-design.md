@@ -113,3 +113,13 @@ deck or one-pager work.
       says so in its own bold-lead line.
     - Text outside the table stays within one callout of ≤ 2 lines plus ≤ 2 short lines under the
       table. Provenance, calibration and caveats beyond that go to the speaker notes.
+20. **Editing a deck the user has hand-edited: diff the geometry, not only the text, and carry their layout
+    into every slide you replace or add** (2026-09-27, GigaCloud results deck). A text diff caught Alex's
+    wording edits but missed that he had moved the title and the whole block under the kicker down
+    0.33–0.79″ on ~20 slides and put the divider status chip next to «Крок N». The first transplant of
+    regenerated slides silently undid that on 7 slides.
+    - Before replacing slides, compare each of the user's slides with the generator's version shape by
+      shape (dx, dy, dw, dh). Re-apply the per-slide offsets to the replacements.
+    - Give new slides the offset of their neighbours.
+    - Fold systematic changes (like the chip position) into the generator.
+    - Work in the user's file (clone new slides in, keep theirs). Never regenerate the whole deck over it.

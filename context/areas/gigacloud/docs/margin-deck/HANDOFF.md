@@ -9,7 +9,7 @@ _Rewritten 2026-09-26 on Alex's MacBook Air after the results deck was built. Re
 | Deck | State | Live copy (Alex hand-edits it — living-documents rule) | In this repo |
 |---|---|---|---|
 | **Plan** — `GigaCloud_Product Margin Plan_27-AUG-2026.pptx` (goal, 4 attribution models A1/A2/B/C/D, next steps) | v5, 13 slides, UA — also the **slide template** for later decks | MacBook Air: `~/Desktop/GigaCloud/GigaCloud_Product Margin Plan_27-AUG-2026 (1).pptx` (newest); KN7X2Y65NX: `~/Downloads/…` | snapshot in this folder (refreshed 2026-09-26 from the Desktop copy) |
-| **Results** — `GigaCloud_Product Margin Results_26-SEP-2026.pptx` (allocation results: steps 1–4, 5 buckets, 5 methods, per-component allocation) | v5, 26 slides, UA, delivered 2026-09-26. On 2026-09-27 two sets went to Alex as separate files; the generator now builds all 32 slides, while the live deck keeps the old state until Alex pastes these in: (1) slide 15 (method 4) reworked — v6, Alex's table layout; (2) 6 new slides from the updated brief — the step-5 divider + margins of the step-4 examples, and the «Дані» section (red divider, budget by type, budget by bucket ×2) | MacBook Air: `~/Desktop/GigaCloud/` | **not committed** — it shows employee names and mobilisation status (Alex's Q&A decision: names + roles, no ФОТ sums) |
+| **Results** — `GigaCloud_Product Margin Results_26-SEP-2026.pptx` (allocation results: steps 1–4, 5 buckets, 5 methods, per-component allocation) | **v11, 36 slides** (2026-09-27), built inside Alex's own hand-edited copy, which he uploaded to the chat. **His file is the live version**: the Desktop copy is older, and the generator reproduces only the slides it changed (see "how it is built") | MacBook Air: `~/Desktop/GigaCloud/` | **not committed** — it shows employee names and mobilisation status (Alex's Q&A decision: names + roles, no ФОТ sums) |
 
 Source workbook for the results deck: `~/Desktop/GigaCloud/Юніт.xlsx` (payroll by name — never commit). Brief: Google Doc «Результаты аллокации затрат и расчета маржинальности — бриф» (id `1ZHZtbE8M3LEhxXguR45BkCJrAXCrudftevvT8RdX_-I`; snapshot `~/Desktop/GigaCloud/toolchain/brief_2026-09-26.txt`).
 
@@ -21,6 +21,17 @@ Before any edit: re-read the live file, never regenerate over Alex's manual edit
 - **Shared parts (committed):** `toolchain/results-deck/` — `lib.py` (helpers, brand constants, `nb()` non-breaking-space rules, one content right edge `SAFE_R = 21.8″` clear of the GO logomark), `tree.py` (the **native, editable reproduction of Alex's Miro allocation tree**, regularised: equal gaps, one axis, bucket pitch 249 px; connectors keep his drawn style — fan apex below the parent, small gap above the child), `pp_render.sh` (true-font PowerPoint render), `dump_deck.py` (text dump for reviewers).
 - **Layouts:** content slides `cloud 001 logomark`; step dividers `cloud 003 logomark` (lightest cloud) with tree fragments at one scale (0.0118 in/px) and one column grid.
 - **Colour code:** tree palette = level (yellow expense types, orange buckets, green products, lime components); red = allocation stage / result; greys = structure.
+- **Editing Alex's live deck (since v11):** never regenerate it. Work in four steps:
+  1. build the changed slides with `build_deck.py`;
+  2. clone them into his file with `~/Desktop/GigaCloud/toolchain/transplant.py` (copies each slide's shape tree and notes, replaces or inserts by position, asserts every title first);
+  3. re-apply his per-slide vertical offsets (below);
+  4. render the whole file.
+
+  The generator does not contain his other edits: slide 8 split into Спосіб 1 / Спосіб 2 with renamed headers, «задачі» instead of «завдання», and step-1 divider on one line. Its output is therefore not the live deck.
+- **Alex's layout conventions** (hand edits, 2026-09-27):
+  - The kicker stays at 1.02″. The title and everything under it sit lower, moved per slide by 0.33–0.79″; titles end up around 1.8–2.1″. Step-4 slides use about +0.55″; new slides take their neighbours' offset.
+  - The status chip on dividers sits right after «Крок N», at (4.65″, 1.41″). This one is now in the generator.
+  - «Дані» slides: title +0.40 / +0.44 / +0.69″. Step-5 table: not moved.
 - **QA loop:** `pp_render.sh deck.pptx outdir` (needs activated PowerPoint — see `.claude/references/document-rendering.md`) → contact sheets → fresh-eyes reviewers. Two Opus reviewers ran on this deck (brief/data fidelity + visual); their reports are in `~/Desktop/GigaCloud/toolchain/review_*.md`.
 
 ## Results deck — decisions Alex made (2026-09-26/27, do not re-litigate)
@@ -43,7 +54,12 @@ Before any edit: re-read the live file, never regenerate over Alex's manual edit
 - Tree: rebuilt natively (editable), "fully as drawn", English labels kept.
 - Slide 8 «весь відділ в один тип» follows the **«Allocation methods»** tab (Preselling ЮА + Sales UA → CAC; non-payroll + Security → General; Billing skipped — the tab marks two types).
 - Glossary: **82** products (brief said 89).
-- **Step 5 and the «Дані» section** (built 2026-09-27 from the brief's new bullets).
+- **Step-4 block since v11** (Alex, 2026-09-27): principles → **«Огляд варіантів розподілу»** → a pair of slides (approach + example) per variant: Indirect COGS · CAC (indirect allocation) · CAC (allocation to customer) · General.
+  - The overview is a table: price component × what is allocated × base × horizon. One merged cell says every variant ends as «коефіцієнт × Direct COGS компонента». Direct COGS is shown as not allocated.
+  - **CAC (indirect allocation)**: the pool = the tab's pool minus sales payroll. The sales payroll is SALES UA ФОТ in «ФОТ» column T, rows 4–198 (the basis of «Висновок»), plus Sales UA не-ФОТ in «Не ФОТ» column Q, ÷ 12. Public Cloud (high): 2 533 287 − 1 690 735 = 842 552, coefficient 0,12356, vCPU 9,92.
+  - **CAC (allocation to customer)**: CAC per Inbound deal (method 4) ÷ (Direct COGS of the average client × lifetime). The average client comes from E-Cloud «Середня к-ть компонентів у клієнта» (18 components), with vCPU at the step-4 tab's 80,25. Result: 14 810 ÷ (6 708 × 44) = 0,05018, vCPU 4,03.
+  - Step 5 shows CAC as two sub-columns. The allocation-to-customer column is yellow, because it uses the Inbound deal as a proxy for every sales team.
+- **Step 5 and the «Дані» section** (built 2026-09-27 from the brief's new bullets; since v11 the data cells also show % of the FY2026 budget, as Alex asked).
   - **Step-5 margins table:** the three step-4 example components with their step-4 per-unit values as they are in the tab. Prices come from «Component» column G (monthly). Min. profit = 0. Each cell shows ₴ and % of price. Header colours = the price stack of slide 2. Price-structure bars sit under the table.
   - **«Дані» divider:** the template has no dark or red layout, so it is `no cloud no logo` with a full-bleed logomark red (#DE1F35).
   - **Data slides:** annual FY2026 amounts from «ФОТ» / «Не ФОТ» (sum × shares) in тис. грн, with every total = the sum of the shown cells.

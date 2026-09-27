@@ -57,6 +57,7 @@ _updated: 2026-09-27_
   - Direct COGS is not in the budget file. The Data slides assume ФОТ = СТП's Our-services share (833 тис. ₴) and не-ФОТ = Q2 P&L direct lines × 4 (334,8 M ₴), split by MRR × (1 − direct margin). Both are yellow on the slides; replace them with the Capacity / FY2026 direct-cost budget.
   - «ФОТ» G206 = SUM(G4:G198) − 47 000 000 has no explanation. The Data slides use the full 300,5 M.
   - Exploitation's IP-address and DC-services lines sit in Indirect COGS although the rules make them Direct.
+- Mine — the CAC split exists only in the deck, not yet in the workbook's step-4 tab. Allocation to customer uses the Inbound deal as a proxy for all sales teams. It still needs per-deal CAC for Outbound / Growth / Enterprise (their intensity ratios) and one sales plan behind both CAC parts. (chat, 2026-09-27)
 - Mine — step 4 for Public Cloud (low), Private Infra, Licenses, Our services; then step 5 margins.
 - Mine — Inbound intensity ratios on slide 15 are my placeholders (15 : 8 : 3 : 15 : 5 for low / high / Private / Licenses / Our services). Set the ratios with the Inbound team lead; the level follows from the plan.
   - Plan realism: at the plan-implied effort, 2025's won deals would have filled only 53 % of the same 4 FTE, so the 2026 plan asks about 1.9× the 2025 workload.
@@ -70,6 +71,12 @@ _updated: 2026-09-27_
 
 ## Activity
 
+- 2026-09-27 — results deck v11, 36 slides, built inside Alex's hand-edited copy.
+  - Added: a step-4 overview of the variants and a CAC (allocation to customer) approach + example.
+  - The old CAC pair is renamed CAC (indirect allocation), with the pool now excluding sales payroll.
+  - Step-5 CAC is split into those two parts; data slides show % of budget.
+  - Slide 16 moved to the fully absorbed version with his wording.
+  - His per-slide layout offsets were re-applied to every replaced slide. (chat)
 - 2026-09-27 — results deck, 6 new slides from the updated brief. They cover:
   - the step-5 divider and a margins table (price, the four cost types, min. profit = 0, margin, in ₴ and % of price, plus price-structure bars);
   - a red full-bleed «Дані» section divider;
