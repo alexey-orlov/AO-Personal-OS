@@ -97,3 +97,8 @@ deck or one-pager work.
     non-breaking space forces a mid-word break («Direct CO / GS»); use an explicit line break there.
     Multi-step formulas go one step per line, never one operand per line. Titles on section slides
     break by hand before the preposition («… бюджету / за типами»), never leaving an orphan word.
+19. **A worked-example table shows only what the result is computed from, in formula order**
+    (2026-09-27, Alex on the Sales-data slide: the 2025 won-deals and 2025 deal-month rows fed a
+    different split and not the 2026 one shown). Trace the source formula backwards from the result
+    cell. Every row or column that is not on that path is cut, however "contextual" it looks, and the
+    rows that stay are ordered the way the formula reads (plan × cycle → product → share).
