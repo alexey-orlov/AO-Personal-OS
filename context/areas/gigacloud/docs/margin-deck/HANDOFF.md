@@ -9,7 +9,7 @@ _Rewritten 2026-09-26 on Alex's MacBook Air after the results deck was built. Re
 | Deck | State | Live copy (Alex hand-edits it — living-documents rule) | In this repo |
 |---|---|---|---|
 | **Plan** — `GigaCloud_Product Margin Plan_27-AUG-2026.pptx` (goal, 4 attribution models A1/A2/B/C/D, next steps) | v5, 13 slides, UA — also the **slide template** for later decks | MacBook Air: `~/Desktop/GigaCloud/GigaCloud_Product Margin Plan_27-AUG-2026 (1).pptx` (newest); KN7X2Y65NX: `~/Downloads/…` | snapshot in this folder (refreshed 2026-09-26 from the Desktop copy) |
-| **Results** — `GigaCloud_Product Margin Results_26-SEP-2026.pptx` (allocation results: steps 1–4, 5 buckets, 5 methods, per-component allocation) | v5, 26 slides, UA, delivered 2026-09-26. Slide 15 (method 4) was reworked 2026-09-27 and sent as a single slide (v5, Alex's table layout); the generator builds the new version, while the live deck keeps the old one until Alex pastes it in | MacBook Air: `~/Desktop/GigaCloud/` | **not committed** — it shows employee names and mobilisation status (Alex's Q&A decision: names + roles, no ФОТ sums) |
+| **Results** — `GigaCloud_Product Margin Results_26-SEP-2026.pptx` (allocation results: steps 1–4, 5 buckets, 5 methods, per-component allocation) | v5, 26 slides, UA, delivered 2026-09-26. On 2026-09-27 two sets went to Alex as separate files; the generator now builds all 32 slides, while the live deck keeps the old state until Alex pastes these in: (1) slide 15 (method 4) reworked — v6, Alex's table layout; (2) 6 new slides from the updated brief — the step-5 divider + margins of the step-4 examples, and the «Дані» section (red divider, budget by type, budget by bucket ×2) | MacBook Air: `~/Desktop/GigaCloud/` | **not committed** — it shows employee names and mobilisation status (Alex's Q&A decision: names + roles, no ФОТ sums) |
 
 Source workbook for the results deck: `~/Desktop/GigaCloud/Юніт.xlsx` (payroll by name — never commit). Brief: Google Doc «Результаты аллокации затрат и расчета маржинальности — бриф» (id `1ZHZtbE8M3LEhxXguR45BkCJrAXCrudftevvT8RdX_-I`; snapshot `~/Desktop/GigaCloud/toolchain/brief_2026-09-26.txt`).
 
@@ -43,8 +43,24 @@ Before any edit: re-read the live file, never regenerate over Alex's manual edit
 - Tree: rebuilt natively (editable), "fully as drawn", English labels kept.
 - Slide 8 «весь відділ в один тип» follows the **«Allocation methods»** tab (Preselling ЮА + Sales UA → CAC; non-payroll + Security → General; Billing skipped — the tab marks two types).
 - Glossary: **82** products (brief said 89).
+- **Step 5 and the «Дані» section** (built 2026-09-27 from the brief's new bullets).
+  - **Step-5 margins table:** the three step-4 example components with their step-4 per-unit values as they are in the tab. Prices come from «Component» column G (monthly). Min. profit = 0. Each cell shows ₴ and % of price. Header colours = the price stack of slide 2. Price-structure bars sit under the table.
+  - **«Дані» divider:** the template has no dark or red layout, so it is `no cloud no logo` with a full-bleed logomark red (#DE1F35).
+  - **Data slides:** annual FY2026 amounts from «ФОТ» / «Не ФОТ» (sum × shares) in тис. грн, with every total = the sum of the shown cells.
+  - **Assumed figures** (Direct COGS, and anything that depends on it) get a highlighter yellow `FFFF00` plus a legend, as the brief asks. It is deliberately not the tree's pastel yellows.
+  - **Step 2** has 2 slides: the tree with totals aligned under the bucket boxes, then the full ФОТ / не-ФОТ pivot. The brief allows the split when the tree and table do not fit together.
 
 ## Open data items (for Alex, not blocking the deck)
+
+- ⚠ **Step-4 pools are monthly.** «Висновок» = the raw «ФОТ» / «Не ФОТ» annual sums ÷ 12, verified exactly: B8 = General ФОТ ÷ 12. E-Cloud C40 / C41 / C43 feed them into «4. Allocation by components» as «FY2026» pools against the annual Direct COGS.
+  - So the per-unit Indirect COGS / CAC / General on the step-4 slides, and the step-5 margins built from them, are 12× too low. The denominators, however, cover only 3 components.
+  - The method-5 slide's «General FY2026 17 924 414» is also monthly (annual ≈ 215,1 M).
+  - Fix in the workbook, then rebuild steps 4–5.
+- **Direct COGS** is not in the budget file. The Data slides assume two things (yellow):
+  - ФОТ = СТП ЮА payroll × its Our-services share;
+  - не-ФОТ = Q2-2026 P&L direct lines × 4 («fin структура» rows 19–22, 24, 91, 93), split by bucket via MRR × (1 − direct margin) from «Продукти для General».
+- **VAT basis of «Component» prices:** E-Cloud labels them «with VAT».
+- **«ФОТ» G206** = SUM(G4:G198) − 47 000 000 has no explanation. The Data slides use the full 300,5 M.
 
 - «Allocation methods» vs raw tabs: Preselling TAMs carry 60–70 % COGS and 4 Sales UA roles carry General in «ФОТ»; Security and Billing non-payroll are mixed in «1-2 не-ФОТ».
 - «3.Products by buckets» has 13 / 52 for Private Infra / Licenses (both Relational DB add-ons in Private Infra) vs the tree's 11 / 54.
