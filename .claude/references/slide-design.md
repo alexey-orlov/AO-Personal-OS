@@ -97,8 +97,19 @@ deck or one-pager work.
     non-breaking space forces a mid-word break («Direct CO / GS»); use an explicit line break there.
     Multi-step formulas go one step per line, never one operand per line. Titles on section slides
     break by hand before the preposition («… бюджету / за типами»), never leaving an orphan word.
-19. **A worked-example table shows only what the result is computed from, in formula order**
-    (2026-09-27, Alex on the Sales-data slide: the 2025 won-deals and 2025 deal-month rows fed a
-    different split and not the 2026 one shown). Trace the source formula backwards from the result
-    cell. Every row or column that is not on that path is cut, however "contextual" it looks, and the
-    rows that stay are ordered the way the formula reads (plan × cycle → product → share).
+19. **A worked-example table shows exactly what the result is computed from, in formula order, and
+    the numbers live in the table, not in notes** (2026-09-27, Alex on the Sales-data slide).
+    - Trace the source formula backwards from the result cell. Cut every row or column that is not
+      on that path, however "contextual" it looks. First case: 2025 won-deals and 2025 deal-month rows
+      that fed a different split, not the 2026 one shown.
+    - Order the rows that stay the way the formula reads.
+    - Every input of the formula is a row, including a team-level scalar. Show a scalar such as
+      FTE-months or the team budget as one row merged across the per-bucket columns, never only as
+      prose under the table. Alex redrew a note like «вартість FTE-місяця = бюджет ÷ (4 × 12)» as two
+      such rows.
+    - The row the next step consumes is the red result row. A reconciliation after it is labelled
+      «Довідково» and styled as a normal row.
+    - When a method differs in what it passes on (a per-unit rate instead of a share), the callout
+      says so in its own bold-lead line.
+    - Text outside the table stays within one callout of ≤ 2 lines plus ≤ 2 short lines under the
+      table. Provenance, calibration and caveats beyond that go to the speaker notes.

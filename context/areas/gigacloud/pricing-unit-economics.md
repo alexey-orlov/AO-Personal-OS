@@ -27,7 +27,7 @@ _updated: 2026-09-27_
 
 ## Decisions
 
-- 2026-09-27 — Sales-data method (step 2) prices CAC per deal from the sellers' time the deal takes: cycle ÷ intensity (expert per-bucket estimate of how many such deals one rep runs in parallel) × cost of an FTE-month, i.e. time-driven ABC. The sales plan sets only each bucket's amount and the idle capacity, which stays out of prices. Replaces the plan-share split (Alex: a unit's CAC must not depend on how many units the plan expects). (chat)
+- 2026-09-27 — Sales-data method (step 2) prices CAC per deal from the sellers' time the deal takes: cycle ÷ intensity (expert per-bucket estimate of how many such deals one rep runs in parallel) × team payroll ÷ FTE-months, i.e. time-driven ABC. Unlike the other four methods, step 4 takes this CAC per deal, not the bucket's share of the team's CAC. The sales plan only shows how much of the budget is used; idle capacity stays out of prices. Replaces the plan-share split (Alex: a unit's CAC must not depend on how many units the plan expects). (chat)
 - 2026-09-26 — Results deck rulings: names, teams and roles shown, no ФОТ sums; step-3 product counts follow the tree (11 / 54) over the tab (13 / 52); «Allocation methods» is the authority for "whole department → one type"; the glossary uses 82 products (brief said 89); the tree is rebuilt as native shapes, fully as drawn. (chat)
 - 2026-09-26 — Step 4 spreads bucket costs by Direct COGS (₴ of cost per 1 ₴ of Direct COGS), never by price; CAC only over new sales × customer lifetime. (chat)
 - 2026-08-28 — Product/group → component by the component's COGS weight, not price share (Alex overruled the price-share recommendation: prices are being redesigned, COGS is price-independent). (chat)
@@ -36,14 +36,25 @@ _updated: 2026-09-27_
 ## Open loops
 
 - Mine — step 4 for Public Cloud (low), Private Infra, Licenses, Our services; then step 5 margins.
-- Mine — Inbound intensities on slide 15 are my placeholders (low 15 / high 8 / Private 3 / Licenses 15 / Our services 5): calibrate with the Inbound team lead against the 2025 fact (at these values 2025 won deals fill 46 % of 4 FTE, the 2026 plan 87 %). Still open: a win-rate term for time spent on lost deals, where idle capacity goes, and the same method for the other sales teams and the step-4 CAC slides 23–24. Slide 15 v4 went to Alex as a single slide; the live deck still has v5's. (chat, 2026-09-27)
+- Mine — Inbound intensities on slide 15 are my placeholders (low 15 / high 8 / Private 3 / Licenses 15 / Our services 5): calibrate with the Inbound team lead against the 2025 fact (at these values 2025 won deals fill 46 % of 4 FTE, the 2026 plan 87 %). Still open:
+  - a win-rate term for time spent on lost deals;
+  - where idle capacity goes;
+  - the same method for the other sales teams;
+  - step 4 (slides 23–24) taking Inbound's CAC per deal instead of a bucket pool.
+
+  Slide 15 v5 (Alex's table layout) went to him as a single slide; the live deck still has the old slide 15. (chat, 2026-09-27)
 - Mine — reconcile the workbook: «Allocation methods» vs raw «ФОТ» (Preselling TAMs carry 60–70 % COGS, 4 Sales UA roles carry General) and «1-2 не-ФОТ» (Security, Billing mixed); «3.Products by buckets» 13 / 52 vs the tree's 11 / 54 (both Relational DB add-ons); «УГОДИ» has no Services plan (slide 15 uses 23 ≈ the typed 5 deal-months in «Таблиця сейлів» ÷ cycle 0,22); customer lifetime Public Cloud on VMware 44 (step-4 tab) vs 48 months (SysSettings); Product-dept ФОТ sums in «1-2. Allocation-ФОТ» vs the raw tab. (chat, 2026-09-26)
 - Mine — plan deck: explicit «цільова прибутковість» column on the output-table slide (asked 2026-09-26, unanswered); redo the Model C example on COGS weights (standing offer). (chat, 2026-09-26)
 - Mine — the August data fixes (593 vs 463 component reconciliation, Cubbit MRR anomaly, 187 zero-price rows, "new MRR" semantics) and the 8 required inputs from the [approach doc](pricing-cost-allocation-approach.md#required-inputs-to-compute-the-rate-card) — status not re-checked since 08-27.
 
 ## Activity
 
-- 2026-09-27 — results deck slide 15 (Sales data) — single-slide v2–v4 for Alex: deal-months explained, off-path 2025 rows cut, then reworked to the intensity method after his challenge to the plan-share split; generator synced, live deck untouched. (chat)
+- 2026-09-27 — results deck slide 15 (Sales data) — single-slide v2–v5 for Alex:
+  - deal-months explained and the off-path 2025 rows cut;
+  - reworked to the intensity method after his challenge to the plan-share split;
+  - rebuilt to his table layout: team FTE-months and payroll as merged rows, CAC per deal as the result, fewer notes.
+
+  Generator synced; live deck untouched. (chat)
 - 2026-09-26 — results deck — 26-slide UA deck from Alex's brief + Юніт.xlsx: native tree, steps & status, glossary, steps 1–4 with method examples and step-4 pipelines; two independent reviewers (data fidelity, visual QA), five build iterations; true-font PowerPoint render set up on the MacBook Air. (chat)
 - 2026-09-26 — [handoff](docs/margin-deck/HANDOFF.md) — rewritten to cover both decks; plan-deck snapshot refreshed from the Desktop copy; name-free toolchain committed under `docs/margin-deck/toolchain/`. (chat)
 - 2026-08-28 — plan deck v3–v5 — A split into A1/A2 (Cubbit example), COGS-weight bridge note, output-table slide, step 10 (minimum profitability). (chat)

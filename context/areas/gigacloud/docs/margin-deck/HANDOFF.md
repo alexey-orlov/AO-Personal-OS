@@ -9,7 +9,7 @@ _Rewritten 2026-09-26 on Alex's MacBook Air after the results deck was built. Re
 | Deck | State | Live copy (Alex hand-edits it — living-documents rule) | In this repo |
 |---|---|---|---|
 | **Plan** — `GigaCloud_Product Margin Plan_27-AUG-2026.pptx` (goal, 4 attribution models A1/A2/B/C/D, next steps) | v5, 13 slides, UA — also the **slide template** for later decks | MacBook Air: `~/Desktop/GigaCloud/GigaCloud_Product Margin Plan_27-AUG-2026 (1).pptx` (newest); KN7X2Y65NX: `~/Downloads/…` | snapshot in this folder (refreshed 2026-09-26 from the Desktop copy) |
-| **Results** — `GigaCloud_Product Margin Results_26-SEP-2026.pptx` (allocation results: steps 1–4, 5 buckets, 5 methods, per-component allocation) | v5, 26 slides, UA, delivered 2026-09-26. Slide 15 (method 4) was reworked 2026-09-27 and sent as a single slide (v4); the generator builds the new version, while the live deck keeps v5's until Alex pastes it in | MacBook Air: `~/Desktop/GigaCloud/` | **not committed** — it shows employee names and mobilisation status (Alex's Q&A decision: names + roles, no ФОТ sums) |
+| **Results** — `GigaCloud_Product Margin Results_26-SEP-2026.pptx` (allocation results: steps 1–4, 5 buckets, 5 methods, per-component allocation) | v5, 26 slides, UA, delivered 2026-09-26. Slide 15 (method 4) was reworked 2026-09-27 and sent as a single slide (v5, Alex's table layout); the generator builds the new version, while the live deck keeps the old one until Alex pastes it in | MacBook Air: `~/Desktop/GigaCloud/` | **not committed** — it shows employee names and mobilisation status (Alex's Q&A decision: names + roles, no ФОТ sums) |
 
 Source workbook for the results deck: `~/Desktop/GigaCloud/Юніт.xlsx` (payroll by name — never commit). Brief: Google Doc «Результаты аллокации затрат и расчета маржинальности — бриф» (id `1ZHZtbE8M3LEhxXguR45BkCJrAXCrudftevvT8RdX_-I`; snapshot `~/Desktop/GigaCloud/toolchain/brief_2026-09-26.txt`).
 
@@ -25,15 +25,17 @@ Before any edit: re-read the live file, never regenerate over Alex's manual edit
 
 ## Results deck — decisions Alex made (2026-09-26/27, do not re-litigate)
 
-- **Method 4 (Sales data) is time-driven ABC** (2026-09-27, after Alex challenged the plan-share split: a unit's CAC must not depend on the plan). The rows, in formula order:
+- **Method 4 (Sales data) is time-driven ABC** (2026-09-27, after Alex challenged the plan-share split: a unit's CAC must not depend on the plan). The table layout is Alex's own; rows in formula order:
   - cycle (fact 2025);
   - intensity = deals one rep runs in parallel on that bucket alone (expert estimate);
   - effort = cycle ÷ intensity, in FTE-months;
-  - CAC per deal = effort × FTE-month cost (Inbound payroll budget ÷ (FTE × 12));
+  - the team's FTE-months (FY 2026) — merged across the five buckets;
+  - the team's payroll (FY 2026) — merged across the five buckets;
+  - **CAC per deal** = effort × payroll ÷ FTE-months — the red result row. Unlike the other methods, this per-deal value is what step 4 takes, not a bucket share. The callout says so in its own line;
   - plan 2026;
-  - CAC per bucket = plan × CAC per deal.
+  - «Довідково» CAC per bucket = plan × CAC per deal.
 
-  A reconciliation line then shows the used part of the budget and the idle capacity, which stays out of prices. The intensities 15 / 8 / 3 / 15 / 5 are placeholders to calibrate with the Inbound team lead; the calibration check against the 2025 fact is in the slide notes.
+  One line under the table gives the plan's total vs the payroll (the rest is idle capacity, kept out of prices), then one footnote line. The intensities 15 / 8 / 3 / 15 / 5 are placeholders to calibrate with the Inbound team lead. The 2025-fact calibration check is in the slide notes.
 - Method 1 example = Market UA promo channels; methods 2–5 = СТП payroll by line (L1/L2/TL), СТП non-payroll, Inbound (Таблиця сейлів → CAC Inbound Team), «Продукти для General». Old 7 groups map to the 5 buckets per the «1-2. Allocation-ФОТ» formulas (Openstack Public → low, VMware Public → high, all Private → Private Infra, Resell → Licenses).
 - Personal data: names, teams, roles and the 100 % General column for the mobilised — **no ФОТ sums**.
 - Step-3 product counts follow the tree picture (3 / 7 / **11** / **54** / 7), not the tab (13 / 52).
