@@ -29,7 +29,7 @@ Before any edit: re-read the live file, never regenerate over Alex's manual edit
   - cycle (fact 2025);
   - intensity = deals one rep runs in parallel on that bucket alone (expert estimate);
   - effort = cycle ÷ intensity, in FTE-months;
-  - CAC per deal = effort × FTE-month cost (Inbound budget ÷ (4 FTE × 12) = 90 211 ₴);
+  - CAC per deal = effort × FTE-month cost (Inbound payroll budget ÷ (FTE × 12));
   - plan 2026;
   - CAC per bucket = plan × CAC per deal.
 
