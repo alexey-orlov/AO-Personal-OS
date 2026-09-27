@@ -25,17 +25,18 @@ Before any edit: re-read the live file, never regenerate over Alex's manual edit
 
 ## Results deck — decisions Alex made (2026-09-26/27, do not re-litigate)
 
-- **Method 4 (Sales data) is time-driven ABC** (2026-09-27, after Alex challenged the plan-share split: a unit's CAC must not depend on the plan). The table layout is Alex's own; rows in formula order:
+- **Method 4 (Sales data): CAC per deal from the time the deal takes, fully absorbed** (2026-09-27). Alex first challenged the plan-share split, then required that the plan's total effort equal the team's full-time load, so there is no idle capacity. The table layout is Alex's own; rows in formula order:
   - cycle (fact 2025);
-  - intensity = deals one rep runs in parallel on that bucket alone (expert estimate);
+  - intensity = deals one rep runs in parallel on that bucket alone. The expert ratios are 15 : 8 : 3 : 15 : 5 (placeholders, to be set with the Inbound team lead). Their level is scaled so the plan fills the team's FTE-months;
   - effort = cycle ÷ intensity, in FTE-months;
-  - the team's FTE-months (FY 2026) — merged across the five buckets;
-  - the team's payroll (FY 2026) — merged across the five buckets;
-  - **CAC per deal** = effort × payroll ÷ FTE-months — the red result row. Unlike the other methods, this per-deal value is what step 4 takes, not a bucket share. The callout says so in its own line;
   - plan 2026;
-  - «Довідково» CAC per bucket = plan × CAC per deal.
+  - plan effort = plan × effort, summing to the FTE-months;
+  - the team's FTE-months (FY 2026), merged across the five buckets, «= Σ зусиль за планом»;
+  - the team's payroll (FY 2026), merged across the five buckets;
+  - **CAC per deal** = effort × payroll ÷ FTE-months — the red result row. Unlike the other methods, this per-deal value is what step 4 takes, not a bucket share. The callout says so in its own line;
+  - «Довідково» CAC per bucket = plan × CAC per deal. It sums to the payroll up to the rounding of CAC per deal.
 
-  One line under the table gives the plan's total vs the payroll (the rest is idle capacity, kept out of prices), then one footnote line. The intensities 15 / 8 / 3 / 15 / 5 are placeholders to calibrate with the Inbound team lead. The 2025-fact calibration check is in the slide notes.
+  Two footnote lines follow the table. The plan-realism check against the 2025 fact is in the slide notes.
 - Method 1 example = Market UA promo channels; methods 2–5 = СТП payroll by line (L1/L2/TL), СТП non-payroll, Inbound (Таблиця сейлів → CAC Inbound Team), «Продукти для General». Old 7 groups map to the 5 buckets per the «1-2. Allocation-ФОТ» formulas (Openstack Public → low, VMware Public → high, all Private → Private Infra, Resell → Licenses).
 - Personal data: names, teams, roles and the 100 % General column for the mobilised — **no ФОТ sums**.
 - Step-3 product counts follow the tree picture (3 / 7 / **11** / **54** / 7), not the tab (13 / 52).
