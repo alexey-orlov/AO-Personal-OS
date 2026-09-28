@@ -31,6 +31,15 @@
       "autoPort": true
     },
     {
+      "name": "oracle-pack-artifacts",
+      "runtimeExecutable": "bash",
+      "runtimeArgs": [
+        "-lc",
+        "exec python3 -m http.server 8792 --bind 127.0.0.1 --directory \"$HOME/oracle-packs\""
+      ],
+      "port": 8792
+    },
+    {
       "name": "oracle-mail-preview",
       "runtimeExecutable": "bash",
       "runtimeArgs": [
