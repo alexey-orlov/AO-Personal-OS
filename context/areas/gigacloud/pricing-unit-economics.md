@@ -27,17 +27,10 @@ _updated: 2026-09-28_
 
 ## Decisions
 
-- 2026-09-27 — Step 4 CAC per component has two parts, shown as one CAC line in the price (Alex's reading, confirmed): (chat)
-  - **direct** — the sales teams' payroll, priced per deal (step 2, method 4) and spread from the deal to its components by Direct COGS × average quantity per client (E-Cloud / S-Cloud «Середня к-ть компонентів у клієнта»), over the customer lifetime;
-  - **indirect** — every other CAC (marketing, presale, other departments' CAC shares, non-payroll) through the bucket pool, per 1 ₴ of Direct COGS of new sales over the lifetime, as now.
-  - Sales UA non-payroll follows the payroll («як ФОТ»), so it belongs to the direct part. The plan deals (direct part) and the component growth forecast (indirect part) must come from one sales plan.
-- 2026-09-27 — Sales-data method (step 2) prices CAC per deal from the sellers' time the deal takes, fully absorbed. Replaces the deal-months share split.
-  - Formula: effort = cycle ÷ intensity (deals one rep runs in parallel on that bucket); CAC per deal = effort × team payroll ÷ FTE-months.
-  - The expert sets only the intensity ratios between buckets. Their level is scaled so the 2026 plan's deals take exactly the team's FTE-months, so there is no idle capacity (Alex: total effort = full-time load under this year's plan). That superseded an interim version that kept idle capacity out of prices.
-  - Unlike the other four methods, step 4 takes this CAC per deal, not the bucket's share.
-  - Trade-off: CAC per deal moves with the plan's total volume, while the ratios between buckets come only from cycle and intensity.
-
-  (chat)
+- 2026-09-28 — Sales-data method (step 2) splits the sales team's CAC by effort share. Effort = deal-months 2026 (plan × cycle) ÷ expert intensity, i.e. how many such deals one rep runs in parallel. Step 4 takes this bucket share like every other method, so there is one CAC flow and no per-deal «allocation to customer». (chat)
+  - Why the plan dependence is fine (Alex): the plan enters both the step-2 share and the step-4 denominator (new sales). A small Licenses share is therefore spread over few new units, and per-unit CAC does not depend on how much of a bucket the plan expects.
+  - This holds only if step 4's new sales come from the same plan.
+  - Replaces the 09-27 per-deal / allocation-to-customer design. Lesson: before agreeing that a dependence in one step distorts unit costs, trace it to the end of the chain, where it may cancel.
 - 2026-09-26 — Results deck rulings: names, teams and roles shown, no ФОТ sums; step-3 product counts follow the tree (11 / 54) over the tab (13 / 52); «Allocation methods» is the authority for "whole department → one type"; the glossary uses 82 products (brief said 89); the tree is rebuilt as native shapes, fully as drawn. (chat)
 - 2026-09-26 — Step 4 spreads bucket costs by Direct COGS (₴ of cost per 1 ₴ of Direct COGS), never by price; CAC only over new sales × customer lifetime. (chat)
 - 2026-08-28 — Product/group → component by the component's COGS weight, not price share (Alex overruled the price-share recommendation: prices are being redesigned, COGS is price-independent). (chat)
@@ -57,26 +50,25 @@ _updated: 2026-09-28_
   - Direct COGS is not in the budget file. The Data slides assume ФОТ = СТП's Our-services share (833 тис. ₴) and не-ФОТ = Q2 P&L direct lines × 4 (334,8 M ₴), split by MRR × (1 − direct margin). Both are yellow on the slides; replace them with the Capacity / FY2026 direct-cost budget.
   - «ФОТ» G206 = SUM(G4:G198) − 47 000 000 has no explanation. The Data slides use the full 300,5 M.
   - Exploitation's IP-address and DC-services lines sit in Indirect COGS although the rules make them Direct.
-- Mine — the CAC split exists only in the deck, not yet in the workbook's step-4 tab. Allocation to customer uses the Inbound deal as a proxy for all sales teams. It still needs per-deal CAC for Outbound / Growth / Enterprise (their intensity ratios) and one sales plan behind both CAC parts. (chat, 2026-09-27)
 - Mine — step 4 for Public Cloud (low), Private Infra, Licenses, Our services; then step 5 margins.
-- Mine — Inbound intensity ratios on slide 15 are my placeholders (15 : 8 : 3 : 15 : 5 for low / high / Private / Licenses / Our services). Set the ratios with the Inbound team lead; the level follows from the plan.
-  - Plan realism: at the plan-implied effort, 2025's won deals would have filled only 53 % of the same 4 FTE, so the 2026 plan asks about 1.9× the 2025 workload.
-  - Still open: the same method for the other sales teams; step 4 (slides 23–24) taking Inbound's CAC per deal instead of a bucket pool.
-  - Slide 15 v6 went to Alex as a single slide; the live deck still has the old slide 15.
+- Mine — Inbound intensities on the Sales-data slide are placeholders (15 / 8 / 3 / 15 / 5 for low / high / Private / Licenses / Our services); the slide shows an effort share of 33 / 61 / 0 / 4 / 2 %.
+  - Set the intensities with the Inbound team lead, then do the same for the other sales teams.
+  - Carry them into «Таблиця сейлів», which still splits by deal-months without intensity (47 / 46 / 0 / 6 / 1 %).
+  - Make step 4's new sales come from the same sales plan; the tab uses 7 % growth.
 
-  (chat, 2026-09-27)
+  (chat, 2026-09-28)
 - Mine — reconcile the workbook: «Allocation methods» vs raw «ФОТ» (Preselling TAMs carry 60–70 % COGS, 4 Sales UA roles carry General) and «1-2 не-ФОТ» (Security, Billing mixed); «3.Products by buckets» 13 / 52 vs the tree's 11 / 54 (both Relational DB add-ons); «УГОДИ» has no Services plan (slide 15 uses 23 ≈ the typed 5 deal-months in «Таблиця сейлів» ÷ cycle 0,22); customer lifetime Public Cloud on VMware 44 (step-4 tab) vs 48 months (SysSettings); Product-dept ФОТ sums in «1-2. Allocation-ФОТ» vs the raw tab. (chat, 2026-09-26)
 - Mine — plan deck: explicit «цільова прибутковість» column on the output-table slide (asked 2026-09-26, unanswered); redo the Model C example on COGS weights (standing offer). (chat, 2026-09-26)
 - Mine — the August data fixes (593 vs 463 component reconciliation, Cubbit MRR anomaly, 187 zero-price rows, "new MRR" semantics) and the 8 required inputs from the [approach doc](pricing-cost-allocation-approach.md#required-inputs-to-compute-the-rate-card) — status not re-checked since 08-27.
 
 ## Activity
 
-- 2026-09-27 — results deck v11, 36 slides, built inside Alex's hand-edited copy.
-  - Added: a step-4 overview of the variants and a CAC (allocation to customer) approach + example.
-  - The old CAC pair is renamed CAC (indirect allocation), with the pool now excluding sales payroll.
-  - Step-5 CAC is split into those two parts; data slides show % of budget.
-  - Slide 16 moved to the fully absorbed version with his wording.
-  - His per-slide layout offsets were re-applied to every replaced slide. (chat)
+- 2026-09-28 — results deck v12 (34 slides), built in Alex's latest file.
+  - The Sales-data slide is back to deal-months, plus the intensity and effort rows.
+  - The allocation-to-customer pair is dropped.
+  - The CAC slides and the step-5 table are back to his own single-CAC versions.
+  - The step-4 overview is trimmed to four rows. (chat)
+- 2026-09-27 — results deck v11 (36 slides), built inside Alex's hand-edited copy: step-4 overview, a CAC split (reverted 09-28), and data slides with % of budget. His per-slide layout offsets were re-applied to every replaced slide. (chat)
 - 2026-09-27 — results deck, 6 new slides from the updated brief. They cover:
   - the step-5 divider and a margins table (price, the four cost types, min. profit = 0, margin, in ₴ and % of price, plus price-structure bars);
   - a red full-bleed «Дані» section divider;

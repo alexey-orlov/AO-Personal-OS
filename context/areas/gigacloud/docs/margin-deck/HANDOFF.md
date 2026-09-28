@@ -9,7 +9,7 @@ _Rewritten 2026-09-26 on Alex's MacBook Air after the results deck was built. Re
 | Deck | State | Live copy (Alex hand-edits it — living-documents rule) | In this repo |
 |---|---|---|---|
 | **Plan** — `GigaCloud_Product Margin Plan_27-AUG-2026.pptx` (goal, 4 attribution models A1/A2/B/C/D, next steps) | v5, 13 slides, UA — also the **slide template** for later decks | MacBook Air: `~/Desktop/GigaCloud/GigaCloud_Product Margin Plan_27-AUG-2026 (1).pptx` (newest); KN7X2Y65NX: `~/Downloads/…` | snapshot in this folder (refreshed 2026-09-26 from the Desktop copy) |
-| **Results** — `GigaCloud_Product Margin Results_26-SEP-2026.pptx` (allocation results: steps 1–4, 5 buckets, 5 methods, per-component allocation) | **v11, 36 slides** (2026-09-27), built inside Alex's own hand-edited copy, which he uploaded to the chat. **His file is the live version**: the Desktop copy is older, and the generator reproduces only the slides it changed (see "how it is built") | MacBook Air: `~/Desktop/GigaCloud/` | **not committed** — it shows employee names and mobilisation status (Alex's Q&A decision: names + roles, no ФОТ sums) |
+| **Results** — `GigaCloud_Product Margin Results_26-SEP-2026.pptx` (allocation results: steps 1–4, 5 buckets, 5 methods, per-component allocation) | **v12, 34 slides** (2026-09-28), built inside the latest hand-edited copy Alex uploaded to the chat. **His file is the live version**: the Desktop copy is older, and the generator reproduces only the slides it changed (see "how it is built") | MacBook Air: `~/Desktop/GigaCloud/` | **not committed** — it shows employee names and mobilisation status (Alex's Q&A decision: names + roles, no ФОТ sums) |
 
 Source workbook for the results deck: `~/Desktop/GigaCloud/Юніт.xlsx` (payroll by name — never commit). Brief: Google Doc «Результаты аллокации затрат и расчета маржинальности — бриф» (id `1ZHZtbE8M3LEhxXguR45BkCJrAXCrudftevvT8RdX_-I`; snapshot `~/Desktop/GigaCloud/toolchain/brief_2026-09-26.txt`).
 
@@ -23,7 +23,7 @@ Before any edit: re-read the live file, never regenerate over Alex's manual edit
 - **Colour code:** tree palette = level (yellow expense types, orange buckets, green products, lime components); red = allocation stage / result; greys = structure.
 - **Editing Alex's live deck (since v11):** never regenerate it. Work in four steps:
   1. build the changed slides with `build_deck.py`;
-  2. clone them into his file with `~/Desktop/GigaCloud/toolchain/transplant.py` (copies each slide's shape tree and notes, replaces or inserts by position, asserts every title first);
+  2. clone them into his file (`~/Desktop/GigaCloud/toolchain/transplant.py` for v11, `revert_sales.py` for v12). Each script copies the slides' shape trees and notes, replaces or inserts them by position and asserts every title first. `revert_sales.py` also restores slides from his older copy;
   3. re-apply his per-slide vertical offsets (below);
   4. render the whole file.
 
