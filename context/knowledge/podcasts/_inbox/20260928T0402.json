@@ -1,0 +1,101 @@
+{
+  "schema": 1,
+  "generatedAt": "2026-09-28T04:02:49.891Z",
+  "runStamp": "20260928T0402",
+  "episodes": [
+    {
+      "videoId": "5-96FyJFiCA",
+      "videoTitle": "The grief, loneliness, and burnout sweeping through the tech industry right now",
+      "videoUrl": "https://www.youtube.com/watch?v=5-96FyJFiCA",
+      "channelName": "Lenny's Podcast",
+      "publishedDate": "2026-09-27",
+      "guests": [
+        "Molly Graham (TED WorkLife; Glue Club)"
+      ],
+      "summary": "This is an interview with Molly Graham re-evaluating her long‑running \"give away the LEGO\" career advice in the age of AI. Graham argues the core lesson — embrace change and prioritize learning over clinging to roles — still holds, but AI complicates the tradeoffs because delegating to models doesn't remove oversight and can magnify grief, loneliness, and burnout. She urges leaders to preserve human judgment, set clear accountability for AI outputs, and treat this transition as a human problem as much as a technical one.",
+      "insights": [
+        {
+          "headline": "Delegating to AI doesn't remove oversight or mental load",
+          "detail": "Giving work to an AI is not the same as handing it to another person: you remain responsible and must supervise, correct, and own the final output. Graham emphasizes that delegating to models often increases cognitive burden because humans still review, fix, and justify AI-generated work, which contributes directly to fatigue and slower perceived progress. This explains why teams can feel more drained even as apparent 'productivity' metrics rise.",
+          "anchorQuote": "تفويض شيء ما إلى روبوت ليس هو نفسه",
+          "tSeconds": null,
+          "link": ""
+        },
+        {
+          "headline": "Grief, loneliness, and burnout are surging in tech now",
+          "detail": "Graham and Lenny cite a two‑year survey showing a sharp rise in exhaustion: 44% reported burnout in 2025 versus 55% this year — a 10 percentage‑point jump in one year. Engineers and product people report missing the hands‑on 'rowing' work (e.g., writing code) and feeling forced into new 'steering' or supervision roles, which produces sadness and isolation that leaders must acknowledge. The emotional toll is a central, measurable part of the AI transition, not just an abstract fear.",
+          "anchorQuote": "هذا العام، فقد بلغت النسبة 55%",
+          "tSeconds": null,
+          "link": ""
+        },
+        {
+          "headline": "Keep judgment‑heavy and trust relationships human, do not delegate",
+          "detail": "Not every task belongs to AI: items requiring judgment, trust, or relationship‑level accountability should remain human responsibilities. Graham gives practical examples — CEOs owning strategy instead of copy‑pasting AI plans, handling breaking news, and defining 'quality' — arguing these are the human anchors that preserve trust and clarity. The recommended mental model is a 'centaur' (human controlling the AI), not a reversal where AI controls human work.",
+          "anchorQuote": "هناك بعض الأعمال التي لا يجب إسنادها إلى جهات خارجية.",
+          "tSeconds": null,
+          "link": ""
+        },
+        {
+          "headline": "The future rewards learners more than those who only know",
+          "detail": "Graham repeats her long‑standing claim: long‑term success will go to people who can learn and re‑skill, not to those who rest on existing knowledge. In a world where roles and tooling change rapidly — she suggests roughly every six years — the ability to iterate, ask 'can AI help here?', and adopt new workflows matters more than current domain mastery. This reframes career risk from 'job loss' to 'failure to reinvent'.",
+          "anchorQuote": "سيُحدد المستقبل من يتعلمون، لا من يعرفون.",
+          "tSeconds": null,
+          "link": ""
+        },
+        {
+          "headline": "Managers' behavior is the strongest lever to increase employee well‑being",
+          "detail": "Graham points out that the most actionable thing companies can change to improve employee happiness is managerial quality: how leaders model AI use, acknowledge emotions, and set accountability. She urges leaders to talk about grief, set norms (e.g., policies about AI authorship and responsibility), and avoid simply pushing more output without human support — because managers shape whether the AI transition feels exploitative or empowering. The recommendation is to invest in leadership as the primary defense against burnout.",
+          "anchorQuote": "الشيء الوحيد الذي يمكنك تغييره لزيادة سعادة الموظفين في العمل حاليًا هو مديرهم.",
+          "tSeconds": null,
+          "link": ""
+        }
+      ]
+    },
+    {
+      "videoId": "Cbk7hdOwJj4",
+      "videoTitle": "Jensen Pushes Back on Doomers, Xi & Trump Talk AI, and “AI” Gets a Rebrand | #294 MOONSHOTS Live",
+      "videoUrl": "https://www.youtube.com/watch?v=Cbk7hdOwJj4",
+      "channelName": "Peter H. Diamandis",
+      "publishedDate": "2026-09-27",
+      "guests": [],
+      "summary": "A Moonshots Live panel debates whether AI is an existential threat, how governments are responding, and what the rapid cadence of model releases means practically. Panelists push back on doom narratives, discuss geopolitics (a Xi–Trump AI meeting and China’s stance), note a tactical rebranding to “superintelligence,” and catalogue immediate technical advances—especially general models doing robotics and AI-driven biology. The throughline: the technology is accelerating regardless of policy theatrics, so the practical questions are alignment, deployment patterns, and who builds the next infrastructure.",
+      "insights": [
+        {
+          "headline": "Industry leaders say doomsday probabilities lack scientific basis",
+          "detail": "Panelists (including Jensen’s comments cited at the event) argue that high-profile doom claims—like a cited 10% chance of societal destruction—are not grounded in empirical science but in fear-driven narratives. The group distinguishes between real risks from malicious human use and speculative existential timelines, and stresses that slowing innovation indiscriminately would be a harmful default. That framing matters because it shifts the policy focus from blanket bans toward concrete safety, alignment, and misuse-prevention measures.",
+          "anchorQuote": "لا أحد يبني أجهزة كمبيوتر اليوم أكثر من الأشخاص الذين يطلبون التمهل.",
+          "tSeconds": null,
+          "link": ""
+        },
+        {
+          "headline": "Attempts to cartelize AI development are criticized as dangerous and counterproductive",
+          "detail": "Speakers warned that efforts to create an industry-wide coordination mechanism or cartel to pause progress would be harmful, arguing competition produced OpenAI originally as a counterweight to DeepMind. They use the city-as-metaphor: you don’t stop building cities when problems arise; you build police, fire, and municipal infrastructure to scale safely. The implication is that defense, regulation, and shared safety tools are preferable to top-down development moratoria that would concentrate power and slow beneficial innovation.",
+          "anchorQuote": "محاولة لتشكيل كارتل للذكاء الاصطناعي.",
+          "tSeconds": null,
+          "link": ""
+        },
+        {
+          "headline": "A diplomatic rebrand to “superintelligence” is already being used politically",
+          "detail": "The panel notes that the US delegation began calling advanced AI ‘superintelligence’ in diplomatic contexts (e.g., Xi–Trump meetings), which functions as both a rhetorical and strategic move to shape public perception and policy. Renaming matters because it reframes debates (e.g., urgency, acceptable controls) and can be used to deflect or redirect regulatory pressures. Observers argued this shift may be tactical—aimed at minimizing panic while preserving competitive advantage versus China—so watch terminology as a policy signal.",
+          "anchorQuote": "يُشار إليه من الآن فصاعداً رسمياً باسم الذكاء الفائق",
+          "tSeconds": null,
+          "link": ""
+        },
+        {
+          "headline": "General-purpose models are beginning to replace specialized robotics models",
+          "detail": "The DriveBench demo reported GPT-6 Astra drove a Toyota Corolla through a 130-meter cone course and completed the route 100% on its second attempt, showing a general model plugged into a robot interface can perform specialized physical tasks. Panelists argue this reduces the need to train bespoke robotics models from scratch and suggests a future where a single strong foundation model + appropriate interface yields robotic competence. That flip has big implications for robotics research priorities, deployment speed, and which bottlenecks—compute, cost, or energy—will matter next.",
+          "anchorQuote": "نموذج GPT-6 Astra أكمل المسار بالكامل بنسبة 100%في محاولته الثانية.",
+          "tSeconds": 2428,
+          "link": "https://www.youtube.com/watch?v=Cbk7hdOwJj4&t=2428"
+        },
+        {
+          "headline": "AI is already accelerating biological discovery in ways labs didn't anticipate",
+          "detail": "Anthropic’s internal work is cited: thousands of Claude instances queried DNA databases and surfaced a repeated DNA pattern resembling CRISPR; they provisionally labeled it an enzyme related to reverse transcription. The panel highlights this as an example of AI discovering novel biological motifs and accelerating wet-lab hypotheses, which can massively speed progress (and risk) in biotech. The takeaway is concrete: the same labs calling for pauses are simultaneously deploying AI into wet labs, so governance must grapple with immediate dual-use realities.",
+          "anchorQuote": "لقد وجدوا نمطاً متكرراً في الحمض النووي مشابهاً جداً لنظام \"كريسبر\".",
+          "tSeconds": null,
+          "link": ""
+        }
+      ]
+    }
+  ]
+}
