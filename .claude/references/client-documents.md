@@ -27,7 +27,10 @@ living-documents rule for updating anything already delivered. Pointed from root
   industry-standard role/term names ("champions", "early adopters") over invented blends
   ("power adopters") (2026-07-14).
 - Client-facing identity (2026-07-19): "Alex Orlov" + ao@alexorlov.co in headers,
-  signatures, and footers of client documents (not "Oleksii"; no phone by default).
+  signatures, and footers of offers, proposals and other client documents (not "Oleksii";
+  no phone by default). Invoices and other billing documents are the exception: they copy
+  the identity block of Alex's previous invoice to that client, with the legal name exactly
+  as the bank account holds it and orlov.alexej@gmail.com as the email (Alex, 2026-09-28).
 
 ## Generated deliverables are living documents (2026-07-19)
 
