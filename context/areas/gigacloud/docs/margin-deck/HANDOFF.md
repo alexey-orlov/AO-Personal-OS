@@ -34,31 +34,26 @@ Before any edit: re-read the live file, never regenerate over Alex's manual edit
   - «Дані» slides: title +0.40 / +0.44 / +0.69″. Step-5 table: not moved.
 - **QA loop:** `pp_render.sh deck.pptx outdir` (needs activated PowerPoint — see `.claude/references/document-rendering.md`) → contact sheets → fresh-eyes reviewers. Two Opus reviewers ran on this deck (brief/data fidelity + visual); their reports are in `~/Desktop/GigaCloud/toolchain/review_*.md`.
 
-## Results deck — decisions Alex made (2026-09-26/27, do not re-litigate)
+## Results deck — decisions Alex made (2026-09-26/28, do not re-litigate)
 
-- **Method 4 (Sales data): CAC per deal from the time the deal takes, fully absorbed** (2026-09-27). Alex first challenged the plan-share split, then required that the plan's total effort equal the team's full-time load, so there is no idle capacity. The table layout is Alex's own; rows in formula order:
+- **Method 4 (Sales data) is an effort share** (final 2026-09-28, after a 09-27 detour through per-deal CAC and a CAC split, both dropped). Rows, in formula order:
+  - plan deals 2026;
   - cycle (fact 2025);
-  - intensity = deals one rep runs in parallel on that bucket alone. The expert ratios are 15 : 8 : 3 : 15 : 5 (placeholders, to be set with the Inbound team lead). Their level is scaled so the plan fills the team's FTE-months;
-  - effort = cycle ÷ intensity, in FTE-months;
-  - plan 2026;
-  - plan effort = plan × effort, summing to the FTE-months;
-  - the team's FTE-months (FY 2026), merged across the five buckets, «= Σ зусиль за планом»;
-  - the team's payroll (FY 2026), merged across the five buckets;
-  - **CAC per deal** = effort × payroll ÷ FTE-months — the red result row. Unlike the other methods, this per-deal value is what step 4 takes, not a bucket share. The callout says so in its own line;
-  - «Довідково» CAC per bucket = plan × CAC per deal. It sums to the payroll up to the rounding of CAC per deal.
+  - deal-months 2026 = plan × cycle*. These are «Таблиця сейлів» Q4:Q8, where Licenses 25 and Our services 5 are typed in;
+  - intensity** = deals one rep runs in parallel on that bucket alone, an expert estimate. Placeholders 15 / 8 / 3 / 15 / 5;
+  - effort = deal-months ÷ intensity;
+  - **the red result: the CAC Inbound Team split = effort share** (33 / 61 / 0 / 4 / 2 %).
 
-  Two footnote lines follow the table. The plan-realism check against the 2025 fact is in the slide notes.
+  Step 4 takes this share, like every other method. Alex's reason: the plan is in both the step-2 share and the step-4 new-sales denominator, so it cancels. No text on the slide justifies the change (Alex).
 - Method 1 example = Market UA promo channels; methods 2–5 = СТП payroll by line (L1/L2/TL), СТП non-payroll, Inbound (Таблиця сейлів → CAC Inbound Team), «Продукти для General». Old 7 groups map to the 5 buckets per the «1-2. Allocation-ФОТ» formulas (Openstack Public → low, VMware Public → high, all Private → Private Infra, Resell → Licenses).
 - Personal data: names, teams, roles and the 100 % General column for the mobilised — **no ФОТ sums**.
 - Step-3 product counts follow the tree picture (3 / 7 / **11** / **54** / 7), not the tab (13 / 52).
 - Tree: rebuilt natively (editable), "fully as drawn", English labels kept.
 - Slide 8 «весь відділ в один тип» follows the **«Allocation methods»** tab (Preselling ЮА + Sales UA → CAC; non-payroll + Security → General; Billing skipped — the tab marks two types).
 - Glossary: **82** products (brief said 89).
-- **Step-4 block since v11** (Alex, 2026-09-27): principles → **«Огляд варіантів розподілу»** → a pair of slides (approach + example) per variant: Indirect COGS · CAC (indirect allocation) · CAC (allocation to customer) · General.
-  - The overview is a table: price component × what is allocated × base × horizon. One merged cell says every variant ends as «коефіцієнт × Direct COGS компонента». Direct COGS is shown as not allocated.
-  - **CAC (indirect allocation)**: the pool = the tab's pool minus sales payroll. The sales payroll is SALES UA ФОТ in «ФОТ» column T, rows 4–198 (the basis of «Висновок»), plus Sales UA не-ФОТ in «Не ФОТ» column Q, ÷ 12. Public Cloud (high): 2 533 287 − 1 690 735 = 842 552, coefficient 0,12356, vCPU 9,92.
-  - **CAC (allocation to customer)**: CAC per Inbound deal (method 4) ÷ (Direct COGS of the average client × lifetime). The average client comes from E-Cloud «Середня к-ть компонентів у клієнта» (18 components), with vCPU at the step-4 tab's 80,25. Result: 14 810 ÷ (6 708 × 44) = 0,05018, vCPU 4,03.
-  - Step 5 shows CAC as two sub-columns. The allocation-to-customer column is yellow, because it uses the Inbound deal as a proxy for every sales team.
+- **Step-4 block** (Alex, 2026-09-27/28): principles → **«Огляд варіантів розподілу»** → a pair of slides (approach + example) for each of Indirect COGS · CAC · General.
+  - The overview is a table of the price components (Direct COGS · Indirect COGS · CAC · General) × what is allocated × base × horizon. One merged cell reads «коефіцієнт × Direct COGS компонента». Direct COGS is shown as not allocated.
+  - The CAC pair and the step-5 table use the tab's single CAC pool: vCPU 29,81 ₴, margin 24,2 %.
 - **Step 5 and the «Дані» section** (built 2026-09-27 from the brief's new bullets; since v11 the data cells also show % of the FY2026 budget, as Alex asked).
   - **Step-5 margins table:** the three step-4 example components with their step-4 per-unit values as they are in the tab. Prices come from «Component» column G (monthly). Min. profit = 0. Each cell shows ₴ and % of price. Header colours = the price stack of slide 2. Price-structure bars sit under the table.
   - **«Дані» divider:** the template has no dark or red layout, so it is `no cloud no logo` with a full-bleed logomark red (#DE1F35).
