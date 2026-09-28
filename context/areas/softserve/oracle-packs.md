@@ -83,25 +83,9 @@ _`Packs/Account Insights/AI Signal-Impact Engine - Accelerator One-pager.pdf`, 3
 _Spec in the plugin repo's `packs/fleet-route-optimization/` (uncommitted: that checkout is 2 ahead of and 32 behind origin). Working set, decisions log, fresh-context spec review and the four artifacts in `~/oracle-packs/fleet-route-optimization/`. Source: the Sky EVOS Connect set in OneDrive `Customers/Sky EV/` (SoftServe scope doc v1, Sky's KPI framework and requirements, Q&A). Alex delegated every pick ("without asking me anything", 1 hour), so none of it is his ruling yet. (chat, 2026-09-28)_
 
 - **What it is:** each van's day re-planned on GPU (NVIDIA cuOpt) around booked windows, skills, priorities and electric-van charging. It is tested first by replaying the operator's own past days from Fusion Field Service, telematics and charging exports and comparing actual, replayed and re-planned days. It is kept apart from WfO per the [2026-09-17 map decision](oracle.md): daily vehicle routing with EV charging, not zone allocation. It builds on Oracle's cuOpt–Field Service accelerator and its extended cuOpt image.
-- **Picks:**
-  - Four industries: telecom & TV home installation, utilities field service, facilities maintenance, last-mile delivery.
-  - One metric set from Sky's own KPI framework: jobs per engineer per day, missed and late appointments, charging downtime per electric van. All "results to follow".
-  - PoV Jumpstart 6–8 weeks against the engagement's 14; the cuts are unconfirmed with delivery.
-  - Services price to be defined (the scope doc's is a placeholder). Infrastructure about €3.4K a month, indicative (the PoC's OCI BoM; the A10 GPU is about 80%).
-  - Sky named on the internal cut only, "a large home-services operator" elsewhere. Karsten as Oracle Partnership Director.
-- **Built and checked:**
-  - Feature list: one A4 page, 29 features (2 ● · 22 ◐ · 5 ○).
-  - 10-slide partner deck: the today/tomorrow photo frames are empty, because there is no stock-photo key on this Mac.
-  - One-pager: one A4 page.
-  - Internal executive-summary slide.
-  - Consistency, per-channel lint, deck shape and diagram checks all clean. Not rendered in real fonts: PowerPoint was busy with Alex's open decks, so QuickLook only.
-- **Open:**
-  - PoV price and 8-week feasibility.
-  - Whether Oracle's accelerator, licensed "for PoC use", can carry the Integration tier.
-  - Clearance to name Sky, and reuse rights.
-  - The cuOpt mainline merge.
-  - A one-line WfO-vs-this positioning for sellers.
-  - Photos; listing and demo; delivery to `Oracle AI & Data Solutions/`.
+- **Picks:** four industries (telecom & TV home installation · utilities field service · facilities maintenance · last-mile delivery). One metric set from Sky's own KPI framework: jobs per engineer per day · missed and late appointments · charging downtime per electric van, all "results to follow". PoV Jumpstart 6–8 weeks against the engagement's 14, with the cuts unconfirmed with delivery. Services price to be defined (the scope doc's is a placeholder); infrastructure about €3.4K a month, indicative (the PoC's OCI BoM, about 80% of it the A10 GPU). Sky is named on the internal cut only and is "a large home-services operator" elsewhere. Karsten is printed as Oracle Partnership Director.
+- **Built and checked:** a one-page feature list (29 features: 2 ● · 22 ◐ · 5 ○), a 10-slide partner deck, a one-page one-pager and an internal executive-summary slide. The deck's today/tomorrow photo frames are empty because this Mac has no stock-photo key. Consistency, per-channel lint, deck-shape and diagram checks are all clean. Rendered with QuickLook only, not in real fonts, because PowerPoint was busy with Alex's open decks.
+- **Open:** PoV price and 8-week feasibility · whether Oracle's accelerator, licensed "for PoC use", can carry the Integration tier · clearance to name Sky, and reuse rights · the cuOpt mainline merge · a one-line WfO-vs-this positioning for sellers · photos, listing, demo and delivery to `Oracle AI & Data Solutions/`.
 
 ## People
 
@@ -156,4 +140,3 @@ _Spec in the plugin repo's `packs/fleet-route-optimization/` (uncommitted: that 
 - 2026-09-24 — [Oracle Marketplace call with Tony (TPX Impact), AJ and Federico](calls/oracle/2026-09-24_182401_default_20260924173131F5EF99C7.md) — Marketplace turns out to be a billing and procurement channel (private offers, spending cloud credits), not a lead source. Three ways to charge were laid out, plus the 25% credit cap, the US-entity and Ashburn-region requirements and the OCI-only rule. The way to charge is undecided; Federico is setting up an admin session for early next week.
 - 2026-09-24 — **Pack finals moved to OneDrive `Oracle AI & Data Solutions/`; mini-site round 15** ([PROVENANCE §35](https://github.com/alexey-orlov/Oracle-Solutions-Site/blob/main/docs/PROVENANCE.md)). The first kit links (Account insights, Workforce optimization) went into `links.json`, SoftServe-only because the tenant blocks *Anyone* links; the site no longer stores a copy of any link, and the checker enforces it; Repair-or-replace's OneDrive folder was cleaned into `~/oracle-packs/`. Not published. (chat, 2026-09-24)
 - 2026-09-24 — **Mini-site round 13: each product names its lead** ([PROVENANCE §33](https://github.com/alexey-orlov/Oracle-Solutions-Site/blob/main/docs/PROVENANCE.md)). All seven Contacts cards name Karsten, then Vlad Butenko, Dmytro Dudchenko or Alex, over one address. The headshots came from Alex's Outlook cache. *By industry* and *with filters* were cut, and the checker now holds all three changes. Not yet published. (chat, 2026-09-23)
-- 2026-09-23 — **Mini-site round 12: the forms send email** ([PROVENANCE §32](https://github.com/alexey-orlov/Oracle-Solutions-Site/blob/main/docs/PROVENANCE.md) · [deployment](../../../automations/oracle-site-sender/README.md)). The three forms mail the practice, and the kit goes to the seller, through an n8n cloud workflow that reads the repo's `mail/` files at request time. Every kit link moved to `links.json`. The repo was scrubbed of every personal value, and the checker now enforces that. Six test emails went through the real pages, and the failure path and the self-check were verified. Plugin 0.1.35 followed the new link file. (chat, 2026-09-23)
