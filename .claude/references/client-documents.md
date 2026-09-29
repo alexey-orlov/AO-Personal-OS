@@ -77,6 +77,15 @@ counts and the scaffolding, not the essence" and used internal vocabulary
   word (Proven / Forecast / Estimated) is the disclaimer; a caveat that must stay is said as a fact in
   the figure's own line (*"simulated on the customer's own history"*), and a case with no result yet
   states the customer's problem in the present tense rather than claiming a change.
+- **A metric is shown, not explained** (2026-09-29, Alex on the mini-site's Outcomes & ROI rail:
+  "too wordy, and too boring … no footnotes and explanations of how you built metrics"): each
+  metric is a visual (a scale, range bar, gauge or before → after) with a title, its owner and one
+  line, never a paragraph. It is honest through its own frame: a measured result, a "from X"
+  baseline, or a potential range, plus the one-word kind chip, never a footnote, a method note, an
+  apology or a pointer to another page. A range rests on a source you could name (the pack's own
+  figure, or a public benchmark whose page was read), recorded in the provenance, not printed. The
+  headline figure is the baseline or the range, never a bare target word (*"Hours"*, *"Minutes"*)
+  that reads as a promise, and every chart mark carries the printed label it stands for.
 - **An unnamed customer stays unidentifiable in combination, not only by name** (2026-09-29, Alex
   on the Repair-or-replace pack, whose value tile read *"about £460"*, a UK industry average,
   beside vehicle glass and "several markets", a mix that points toward the UK-based market leader):
