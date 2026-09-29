@@ -1,11 +1,21 @@
 # Oracle engagements — pipeline status
 
 _Source: Miro board **"INT Oracle Program"**, **June** view (marked **Confidential**). Screenshot shared by Alex 2026-07-13; this is the program manager's live pipeline tracker. Sibling boards exist on the same Miro (tabs: Henkel Program, REWE Stakeholders, RX PoC, Oracle AIDP, Schwarz Program, Montblanc) — not captured here._
-_updated: 2026-09-24_
+_updated: 2026-09-29_
 
 The single structured source of truth for **who is in the Oracle/NVIDIA accelerator-pack pipeline, at what commercial stage, and worth how much**. Complements the narrative in [oracle.md](oracle.md) (strategy/decisions/people) and the org map in [oracle-team.md](oracle-team.md). Twelve opportunities across four status bands.
 
-> **Priority signal (2026-07-22 Neil+Gero session):** of the NVIDIA-funded pipeline, Oracle flags **NHS, Belron, and KPN** as the **most-certain upcoming opportunities** — all three currently sit in the **"Next"** band below (NHS & KPN = AIQ, €198.5k / 15 wks each, Gero owns; Belron = VSS, €171k / 12 wks, Milo Honegger owns). Oracle also offered to **add SoftServe to its pipeline-review calls** so SoftServe can see / scope / engage directly (Oracle to follow up). Separately, Oracle projects **~1,000 AI-Lakehouse + 100s AIDP qualified leads** from its Sept events at **15–20% → PoC** — a forward lead-gen funnel that will feed this pipeline. (chat, 2026-07-23)
+> **Priority signal (2026-07-22 Neil+Gero session):** of the NVIDIA-funded pipeline, Oracle flags **NHS, Belron, and KPN** as the **most-certain upcoming opportunities** — all three currently sit in the **"Next"** band below (NHS & KPN = AIQ, €198.5k / 15 wks each, Gero owns; Belron = VSS, €171k / 12 wks, Milo Honegger owns). Oracle also offered to **add SoftServe to its pipeline-review calls** so SoftServe can see / scope / engage directly — delivered as the joint pipeline call, first held 2026-09-29 ([below](#lead-routing--the-joint-pipeline-call-first-held-2026-09-29)). Separately, Oracle projects **~1,000 AI-Lakehouse + 100s AIDP qualified leads** from its Sept events at **15–20% → PoC** — a forward lead-gen funnel that will feed this pipeline. (chat, 2026-07-23)
+
+## Lead routing — the joint pipeline call (first held 2026-09-29)
+
+_From the [2026-09-29 Oscar intro](calls/oracle/2026-09-29_192726_default_2026092916023937929FAF.md), which followed the first joint call by an hour. What that first session covered is not in the wiki._
+
+- **Every laser-campaign lead now goes to the joint Oracle–SoftServe pipeline call** to be qualified and resourced (Neil). Hammad owns the call and Ege is point person; Oscar and Helen are invited. Neil pitched it to Oscar as a buffer between him and the field, since "right now everything goes to Oscar".
+- **The funnel:** Oracle qualifies the laser leads internally with Ege and Hammad; the **top ~5 accounts per region** are then worked with SoftServe as one team (joint repos and SharePoint). For AIDP, those top ~5 qualified opportunities go to SoftServe unless another SI is incumbent (Gero, inferred from the note's Speaker F). First volume: the laser campaigns produced **49 UK opportunities in 2 weeks, about half AIDP** → [oracle-events-gtm](oracle-events-gtm.md).
+- **Earlier entry than other SIs:** they come in once a use case is defined; SoftServe comes in at the vague-interest stage (a customer who wants to "make finance faster") and already does pre-sales requirements engineering without an SOW, as in a current UK retailer discussion. Oscar, by contrast, expects the outcome defined before handover — the two need aligning (inferred).
+- **The first joint AIDP opportunity** is to be picked from those Gero is already qualifying with SoftServe, worked with Oscar's team, then taken over by SoftServe → [oracle](oracle.md#snapshot).
+- **Riyadh Air as a door-opener:** after it praised the solution SoftServe delivered with Oracle at an airline event, other airlines approach SoftServe directly; Gero wants that used to win net-new OCI business. How to follow them up is open.
 
 ## Oracle's own read on the portfolio — 2026-09-16 (Neil + Gero sync)
 
