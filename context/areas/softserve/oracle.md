@@ -199,6 +199,9 @@ Mine / SoftServe:
 - After Olya/Dmytro syncs: form own view on productization viability — universal product vs. standardized engagement SKUs (Oracle may be leaning toward shaped/templatized process: questionnaire → branching → vibe-coded UI per case).
 - After meeting the PdMs: align team ↔ S/M/L packages, sketch Roadmap v0; decide whether to introduce Olya/Leonid to package-owner conversations once cadence is established.
 
+Theirs (Oracle — from the 2026-09-29 Oscar intro, [call](calls/oracle/2026-09-29_192726_default_2026092916023937929FAF.md)):
+- **Neil / Oracle** → route every laser-campaign lead into the joint pipeline call, Oscar and Helen invited (ongoing). **Gero** → send SoftServe the top ~5 qualified AIDP opportunities per region, except where another SI is incumbent (ongoing). **Gero + Oscar** → open the AIDP tooling (the Codex plugins) and existing demo assets (no date). **Oscar** → join the pipeline calls on specific opportunities, keep SoftServe updated on releases, share the detail of each step of the motion (offered), and at the Friday session drill into building the demo.
+
 Theirs (Oracle — Ismail, from the 2026-08-18 session):
 - **Ismail → stand up the community-edition GitLab** in Oracle's OCI tenancy (~1 week) and add SoftServe people to the per-project repos. [collaboration-infra 2026-08-18](calls/oracle/2026-08-18_sales-call_ismail-collaboration-infra.md)
 - **Ismail → send Bohdan the basic questions** and push the **SharePoint + Slack** request through Oracle's approval process — whether he kicks it off this week or holds is **unconfirmed** (source transcripts disagree). [collaboration-infra 2026-08-18](calls/oracle/2026-08-18_sales-call_ismail-collaboration-infra.md)
@@ -211,9 +214,7 @@ Theirs (Neil / Oracle):
 
 Theirs (Oracle — commitments from the 2026-07-22 session, "Oracle to follow-up"):
 - **Share event details** — the 3 flagship events (**Dubai · London · Riyadh**; AI Lakehouse + AIDP + OCI AI; from September) + the **15–20 AI-experience events + live-labs sessions** SoftServe can co-participate in. (chat, 2026-07-23)
-- **Add SoftServe to Oracle's pipeline-review calls** (so SoftServe can see / scope / engage) — under consideration. (chat, 2026-07-23)
 - **Intro SoftServe to Kevin Kimber** (UK SVP & GM) to work the **~180-account OFS pipeline** with the WfO app. (chat, 2026-07-23)
-- **Connect SoftServe to the AIDP product team** (acknowledged hard to reach) **and the AI Lakehouse product team** — **AI Lakehouse leg delivered 2026-08-05** (Javier's enablement session #1, + #2 on 08-07); the **AIDP product-team intro is still outstanding — but now has a shape**: Ismail + Gero are to stand up a **monthly SoftServe ↔ AIDP / AI-Lakehouse product-team sync from September** (2026-08-18). (chat, 2026-07-23) · [collaboration-infra 2026-08-18](calls/oracle/2026-08-18_sales-call_ismail-collaboration-infra.md) · [session #1 2026-08-05](calls/oracle/2026-08-05_125052_default_20260805113131F0734A55.md)
 - **Check SoftServe access to Oracle's 8 internal AI-Lakehouse industry accelerators** (to align potential packaging). (chat, 2026-07-23)
 
 Theirs (Oracle — AI Lakehouse / Javier, from the 2026-08-05 session):
