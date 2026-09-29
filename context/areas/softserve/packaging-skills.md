@@ -1,7 +1,7 @@
 # Packaging skills — shippable skills for the Oracle pack artifacts
 
 _status: **at 0.1.35 (2026-09-23), and in real use.** A standalone private repo — `alexey-orlov/Oracle-Packaging-Skills`, local `~/Documents/GitHub/Oracle-Packaging-Skills` — that is a Claude Code plugin marketplace with two plugins and nine skills: **`oracle-packs`** (`spec` · `feature-list` · `visuals` · `deck` · `one-pager` · `exec-summary` · `build`) and **`oracle-packs-web`** (`listing` · `demo`). Every version from 0.1.1 to 0.1.35 landed on 2026-09-22/23, most of them from Alex's reviews of the first real runs: **Account Insights** went through `spec` on 2026-09-22 and then through the deck, one-pager and executive-summary builders, and each finding became a rule with a check (Decisions). Since 0.1.34 the web plugin reads the mini-site's own `site.manifest.json`, the site having moved to its own repository on 2026-09-23, and since 0.1.35 it writes a product's kit links to the site's `links.json`, the file the site's round 12 made the one home of every kit link ([oracle-packs](oracle-packs.md)). **One human check is left:** the plain-copy spike before Vlad's pilot — the marketplace install has worked on Alex's Mac since 2026-09-18, but the plain-copy path the pilot relies on has never been run._
-_updated: 2026-09-28_
+_updated: 2026-09-29_
 _source files: SoftServe OneDrive `Projects/Oracle/Packs/` (working set) · finals delivered to `Oracle AI & Data Solutions/<Pack>/` → [registry](../../_meta/external-sources.md)_
 
 ## Snapshot
@@ -59,6 +59,7 @@ The canonical home is now `shared/references/` in the repo; the derivations stay
 
 - **Vladyslav Butenko** — the BA/PdM Alex coaches on pack productization and the pilot user for the plain skills copy; the [07-24 sync](calls/oracle/2026-07-24_133119_one-on-one_vlad-productization-sync.md) is the only verbatim record of that coaching → [people page](../../people/vladyslav-butenko.md).
 - **Gero Gunkel** (Oracle CTO) — co-designed the tier model the skills emit → [oracle-team.md](oracle-team.md).
+- **Leonid** (R&D PdM; "Lyonya" in the call, inferred) — has tested the skills, per Alex in the [2026-09-29 mini-site call](calls/oracle/2026-09-29_192548_default_20260929140433E7A4538C.md); how, and on which install path, is not on record. The same call placed the skills in the rollout: Alex owns and orchestrates packaging, Vlad builds the packs, and trained people are to publish listings through the site's CI/CD once it moves to SoftServe hosting → [oracle-packs](oracle-packs.md).
 
 ## Decisions
 
