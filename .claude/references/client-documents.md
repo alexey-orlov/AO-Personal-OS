@@ -71,7 +71,12 @@ counts and the scaffolding, not the essence" and used internal vocabulary
   specific yet clear to a reader outside the industry, with the industry term in brackets if needed,
   and has a buyer-side owner who would sign off on it. A delivered-case block speaks about the
   customer's problem and what changed for them, never the engagement's mechanics (weeks, phases,
-  source counts, contract status).
+  source counts, contract status), and never a note to its reviewer (2026-09-29, Alex on the
+  mini-site's case cards: "no justifications for reviewer and unnecessary disclaimers"): no
+  measurement protocol, sign-off terms or legal hedge (*"illustrative, not contractual"*). The status
+  word (Proven / Forecast / Estimated) is the disclaimer; a caveat that must stay is said as a fact in
+  the figure's own line (*"simulated on the customer's own history"*), and a case with no result yet
+  states the customer's problem in the present tense rather than claiming a change.
 - **A one-liner sells the business value, never the implementation** (2026-09-29, Alex on the
   Oracle mini-site, whose product and category one-liners described the machinery: *"from one
   governed gold layer"*, *"with NVIDIA cuOpt"*, *"a confidence score and a citation"*: "focus not
