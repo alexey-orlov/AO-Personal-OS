@@ -127,13 +127,22 @@ counts and the scaffolding, not the essence" and used internal vocabulary
   H2 ~30. Re-measure against the rendered size rather than reusing the uppercase numbers.
   Record: `~/Documents/GitHub/Oracle-Solutions-Site/docs/SS26-THEME.md` §6. Check the phone break too: no line
   left holding a lone short word.
-- **A hero's lead is the promise, not the procedure** (2026-09-24, Alex on the Oracle mini-site
-  replacing a lead that walked through *"a fixed-scope Jumpstart … taken to production in your
-  tenancy"* with *"leading enterprise AI practice, accelerated delivery methodology combined with
-  the power of Oracle data & cloud … accelerate their time-to-value with AI"*). In one sentence it
-  says what the company brings and what the reader gets. The stages, the scope and where it runs
-  belong to the section that explains them. Where a site has a checker, assert the promise's key
-  phrase in the lead and forbid the procedure words there.
+- **Every lead is the promise, not the procedure, and no line answers a reviewer** (2026-09-24,
+  Alex on the Oracle mini-site replacing a hero lead that walked through *"a fixed-scope Jumpstart
+  … taken to production in your tenancy"* with *"leading enterprise AI practice, accelerated
+  delivery methodology combined with the power of Oracle data & cloud … accelerate their
+  time-to-value with AI"*; 2026-09-29, on the catalog page's lead *"Every product runs in your own
+  Oracle tenancy and starts with a Jumpstart on your data — at a fixed price where one is
+  published, otherwise scoped per engagement. Filter by the Oracle platform…"*: "looks like a
+  justification to reviewer, not a marketing copy"). A hero's or a page's lead says, in one or two
+  sentences, what the company brings and what the reader gets. Conditions (a price's terms, the
+  hosting, how a stage starts), the method and how to use the page belong to the section or control
+  that owns them, or nowhere. The failure mode is patching: each review note answered by swapping
+  the flagged phrase for a more defensible restatement of the same disclosure, until the lead is a
+  list of disclosures (that catalog lead went count → census → conditional in three passes). Fix a
+  flagged phrase by rewriting its sentence from the reader's seat. Where a site has a checker, assert
+  the promise (its key phrase, or a business-value noun) in each lead and forbid the procedure,
+  pricing-condition and page-mechanics words there.
 - **A section heading says what it offers and what the reader gets, in plain words** (2026-09-25,
   Alex, twice in one day, undoing a polish that had traded his literal drafts for clever facets:
   *"Kick off your AI adoption."* → *"…with accelerator apps"*, restoring the noun that names the
