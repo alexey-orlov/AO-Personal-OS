@@ -77,10 +77,16 @@ counts and the scaffolding, not the essence" and used internal vocabulary
   word (Proven / Forecast / Estimated) is the disclaimer; a caveat that must stay is said as a fact in
   the figure's own line (*"simulated on the customer's own history"*), and a case with no result yet
   states the customer's problem in the present tense rather than claiming a change.
-- **A metric is shown, not explained** (2026-09-29, Alex on the mini-site's Outcomes & ROI rail:
-  "too wordy, and too boring … no footnotes and explanations of how you built metrics"): each
-  metric is a visual (a scale, range bar, gauge or before → after) with a title, its owner and one
-  line, never a paragraph. It is honest through its own frame: a measured result, a "from X"
+- **A metric is shown, not explained, and its chart matches its number at a glance** (2026-09-29,
+  Alex on the mini-site's Outcomes & ROI rail: "too wordy, and too boring … no footnotes and
+  explanations of how you built metrics"; then on its charts: "hard to understand from graphics
+  … it should not puzzle the reader", "matching between number and the visual is absolutely
+  unclear"): each metric is a title, its owner, one line, the headline figure and the plainest
+  comparison a dashboard has: rows named Today and After, each a bar from one zero line with its
+  value printed at its end, **the value the headline names printed on its bar, in bold**. Never a
+  paragraph, and never a chart the reader must decode (a tick on a track, a floating band on an
+  unlabeled axis, dots matched to a legend by colour). A share of a whole is a meter, a count in
+  ten is ten dots, a single number with nothing to compare stays a number. It is honest through its own frame: a measured result, a "from X"
   baseline, or a potential range, plus the one-word kind chip, never a footnote, a method note, an
   apology or a pointer to another page. A range rests on a source you could name (the pack's own
   figure, or a public benchmark whose page was read), recorded in the provenance, not printed. The
