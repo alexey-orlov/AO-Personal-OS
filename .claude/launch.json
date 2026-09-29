@@ -49,6 +49,15 @@
       "port": 8792
     },
     {
+      "name": "scratch-ef5b78bf",
+      "runtimeExecutable": "bash",
+      "runtimeArgs": [
+        "-lc",
+        "exec python3 -m http.server 8795 --bind 127.0.0.1 --directory \"/private/tmp/claude-502/-Users-olekorlov-Documents-GitHub-AO-Personal-OS/ef5b78bf-7f52-4056-8a35-b8828583bf63/scratchpad\""
+      ],
+      "port": 8795
+    },
+    {
       "name": "oracle-mail-preview",
       "runtimeExecutable": "bash",
       "runtimeArgs": [
