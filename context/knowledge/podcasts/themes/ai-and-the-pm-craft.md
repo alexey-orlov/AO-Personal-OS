@@ -2,7 +2,7 @@
 
 _status: live theme — how AI reshapes product management work, skills, workflows, and roles_
 _slug: ai-and-the-pm-craft_
-_updated: 2026-09-26 · 50 insights from 31 episodes — recluster (2026-08-25): split → vibe-coding-and-non-technical-builders (non-engineer/non-PM builders using AI as stepwise architect-engineer)_
+_updated: 2026-09-29 · 56 insights from 33 episodes — recluster (2026-08-25): split → vibe-coding-and-non-technical-builders (non-engineer/non-PM builders using AI as stepwise architect-engineer)_
 
 ## The throughline
 PMs and full-stack designers gain leverage in the coding-agent era because the gap between "knowing what to build" and "shipping it" collapses. The skill shift is from raw implementation to defining what to build, evaluating quality, and designing where humans and agents collaborate — Shipper bets PMs who "ride the models" out-ship engineers, and an OpenAI PM uses Codex to drive prototypes to 70–80% completion and replace PRDs with runnable artifacts. The same craft scales up the org chart: Customer.io's VP of Product rebuilds a third of an all-hands deck in a morning, but only by treating Claude like an eager junior — rolling context in, forcing clarifying questions, blocking premature deliverables — and the leader's residual value collapses to two choices: *which sources* (recordings, docs, metrics) and *which target form* (deck, Notion page, one-pager). The model-selection beat also sharpens: Fable's "seasoned engineer" verbosity wrecks PRDs, so pair Mythos-class models with cheaper Opus/Sonnet by task type. Ambrosino (OpenAI Codex) sharpens the picture from the supply side: when dozens of people inside a company can stand up polished prototypes from the same idea, implementation is no longer the bottleneck — *curation* is: deciding which of ~90 explorations to keep, fold together, or refine. The same abundance makes design and taste distinctly non-automatable: aesthetic judgment, novelty, and system-level UI coherence lack the grading signals needed to train models to generalize, so models copy patterns (Linear-clone proliferation) but cannot generate the novelty or cross-component semantic reasoning that defines good design. The operational kit that recurs: hyper-literal prompts, screenshots-as-examples, prototypes-not-PRDs, a beginner's mindset, and the discipline to restrain the model until the foundations are set — the non-engineer/non-PM version of this same builder pattern now lives in [Vibe Coding & Non-Technical Builders](vibe-coding-and-non-technical-builders.md).
@@ -251,6 +251,30 @@ Kate demonstrates prompting the model to conduct a question-by-question intervie
 — Every · 2026-09-24 · guest: — · anchor: "أجري مقابلة معي، سؤالًا تلو الآخر" · [▶ video](https://www.youtube.com/watch?v=OQgO26GvAXM) · `pi-OQgO26GvAXM-04`
 related: (inferred fit) [Use LLMs as research assistants, not to write your prose (inferred fit)](#use-llms-as-research-assistants-not-to-write-your-prose-inferred-fit) (same craft-preservation instinct — interview the model, keep authorship)
 
+### A PM's core value today is judgment, not project management
+Stein argues that with modern tools much of coordination and execution can be automated or delegated, so the irreplaceable skill of a top PM is making high‑quality decisions — exercising taste and judgment. He stresses humility (many decisions will be wrong) but says practicing decision discipline produces the few product choices that determine success. This reframes hiring and development: evaluate a PM on decisive judgment rather than just execution ability.
+— Lenny's Podcast · 2026-09-28 · guest: — · [▶ video](https://www.youtube.com/watch?v=sTgM_sbLMNg) · `pi-sTgM_sbLMNg-01`
+
+### AI agents can scale user interviews and automated QA
+Stein argues that text interview logs and qualitative feedback can be fed to AI agents to automatically surface jobs‑to‑be‑done and frequent failure modes, and that internal agent systems can detect and even self‑repair defects. He gives concrete examples: using user feedback about backpacks (e.g., 'ask about my child's height') to prioritize fixes, and an internal system ('مضاد الجاذبية') that runs agents to evaluate product responses across scenarios — turning manual QA and small‑sample research into repeatable, large‑scale loops.
+— Lenny's Podcast · 2026-09-28 · guest: — · [▶ video](https://www.youtube.com/watch?v=sTgM_sbLMNg) · `pi-sTgM_sbLMNg-04`
+
+### AI creates a new “builder” role that expands, not replaces, jobs
+Yehoshua says the dominant narrative that roles will vanish has flipped: AI has enabled a real 'AI builder' role where individuals wear multiple hats (product, design, engineering). She points to startups that hire 'builders' and observes founders have always been multi‑hatters; at scale this trend shows up as PMs, designers, and engineers overlapping tasks rather than being eliminated. The consequence is organizations must deliberately design contribution models and training so builders accelerate work without creating chaos.
+— Lenny's Podcast · 2026-09-28 · guest: — · [▶ video](https://www.youtube.com/watch?v=BtK4kFI1LNo) · `pi-BtK4kFI1LNo-01`
+
+### The PM mission stays the same; AI and context change how it's done
+Yehoshua emphasizes that a PM's core job—finding product‑market fit, building products customers love, and creating a business—hasn't changed, but the tools and context around that job have. Better AI models plus explicit organizational context (Atlassian's 'graph of teamwork') let PMs extract insight and act faster, but they must focus on what actually helps customers rather than following every new tool. Example: Atlassian's Rovo answered a CEO's question quickly, showing leaders now have immediate access to information but still need change management to ensure adoption.
+— Lenny's Podcast · 2026-09-28 · guest: — · [▶ video](https://www.youtube.com/watch?v=BtK4kFI1LNo) · `pi-BtK4kFI1LNo-02`
+
+### PMs writing code can be the fastest path to ship earlier
+In Confluence, a PM who had never used a terminal contributed 26 PRs in one month after being given a safe, isolated repo and tooling; the team shipped Remix in 6 weeks and Confluence Slides in 8 weeks versus ~6 months previously. They combined PM coding with LLM‑assisted evals, automated design‑to‑code fixes (14 bugs fixed in an hour), and much faster test creation (half a day → 10 minutes), which materially tightened iteration loops. The lesson: temporary hands‑on work plus deliberate contribution rules can accelerate outcomes while keeping engineers focused on higher‑order tasks.
+— Lenny's Podcast · 2026-09-28 · guest: — · [▶ 7:15](https://www.youtube.com/watch?v=BtK4kFI1LNo&t=435) · `pi-BtK4kFI1LNo-03`
+
+### PMs should switch from building to directing as projects mature
+The Robo Claw example shows a PM who initially coded to prototype and understand blockers, then deliberately stopped coding to focus on direction, priorities, and removing obstacles once the team scaled. That early hands‑on work improved his ability to unblock the team, and AI agents replaced routine tasks (he stopped writing weekly updates). The non‑obvious point: hands‑on is useful early, but highest impact for a PM is stepping into coordination and strategy at the right stage.
+— Lenny's Podcast · 2026-09-28 · guest: — · [▶ video](https://www.youtube.com/watch?v=BtK4kFI1LNo) · `pi-BtK4kFI1LNo-04`
+
 ## Related themes
 - [AI agents & applications](ai-agents-and-applications.md) — the surfaces PMs build in
 - [Leadership, careers & teams](leadership-careers-and-teams.md) — how the manager/IC mix is shifting alongside
@@ -258,6 +282,8 @@ related: (inferred fit) [Use LLMs as research assistants, not to write your pros
 - [Vibe Coding & Non-Technical Builders](vibe-coding-and-non-technical-builders.md) — child theme; split off 2026-08-25. The non-engineer/non-PM builder pattern (hobbyists, ops/consulting staff, editorial teams, makers) moved there; PM-specific AI craft stays here.
 
 ## Source episodes
+- [Lenny's Podcast — What it takes to be a top PM today | Robby Stein (Google Search) (2026-09-28)](../episodes/2026/2026-09-28--lenny--what-it-takes-to-be-a-top-pm-today.md)
+- [Lenny's Podcast — Roles aren't converging—they're expanding | Tamar Yehoshua (Atlassian CPO) (2026-09-28)](../episodes/2026/2026-09-28--lenny--roles-aren-t-converging-they-re-expanding.md)
 - [Every — LIVE: How Professional Writers Write with AI | Write-along (2026-09-24)](../episodes/2026/2026-09-24--every--live-how-professional-writers-write-with-ai.md)
 - [Lenny's Podcast — Why companies are becoming a series of loops | Anish Acharya (a16z) (2026-09-06)](../episodes/2026/2026-09-06--lenny--why-companies-are-becoming-a-series-of-loops.md)
 - [How I AI — I built a Claude Cowork system that does a week of PM work in a day (2026-08-31)](../episodes/2026/2026-08-31--howiai--i-built-a-claude-cowork-system-that-does-a-week-of-pm-work-in-a-day.md)
