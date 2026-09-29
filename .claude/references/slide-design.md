@@ -71,7 +71,11 @@ deck or one-pager work.
     ("no offering yet" on ~90% of cards) — it advertises the gap (rule 11's spirit); the
     unmarked state reads as neutral context on its own. Peer geometry (rule 2) still wins over
     "half-empty" (rule 1) when a row-mate forces the height and no re-deal of the rows fits
-    the width — say so in the notes rather than shrinking the box.
+    the width, but the box may not stay half-empty either: give the sparse peer its peers'
+    anatomy — the same slots (a picture where they carry one, a list where they list, the
+    action at the foot), each holding its own content — never shrink it, never pad it with
+    air (2026-09-29, the Oracle mini-site's catalog "Looking for another solution?" tile: a
+    title and two lines stretched beside a full product tile, "looks too empty").
 15. **A SoftServe-template cover carries the family's hero photograph, shared across the packs;
     an ink-only cover is an unfinished state, never a deliverable** (2026-09-23, Alex, on the
     Account Insights sales deck: "why is the title slide not like in the WfO package — with image,
