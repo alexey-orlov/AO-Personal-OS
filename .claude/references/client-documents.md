@@ -192,6 +192,14 @@ counts and the scaffolding, not the essence" and used internal vocabulary
   render it, and read From, Subject, preview line and body top to bottom. Hand that rendering,
   not the copy fields, to a fresh-context reviewer. Copy written field by field against a
   schema passes every field check and still fails this read.
+- **On a partner-facing page, our own team is named with its owner** (2026-09-29, Alex on the
+  Oracle mini-site's form confirmation *"Someone from the Oracle practice will reply"*: name it
+  *"SoftServe's Oracle dedicated practice"* to disambiguate). Where the page, the product or the
+  reader carries a partner's brand (a site named after Oracle, an Oracle seller reading it),
+  *the Oracle practice* or *the Oracle team* reads as the partner's own people, and *the
+  practice* alone names nobody. Every line that says who acts (replies, delivers, builds) names
+  the owner first, in the owner's chosen form. Sweep the whole copy for the short forms, not
+  only the flagged line, and make the checker fail them where the build has one.
 - **A form does its job or says it can't; it never hands the visitor a mechanism**
   (2026-09-24, Alex on the mini-site's fallback that opened his mail app: "WTF is client? it
   just had to send message in the background, and communicate it as 10000 websites do").
