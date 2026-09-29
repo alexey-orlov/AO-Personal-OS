@@ -77,6 +77,15 @@ counts and the scaffolding, not the essence" and used internal vocabulary
   word (Proven / Forecast / Estimated) is the disclaimer; a caveat that must stay is said as a fact in
   the figure's own line (*"simulated on the customer's own history"*), and a case with no result yet
   states the customer's problem in the present tense rather than claiming a change.
+- **An unnamed customer stays unidentifiable in combination, not only by name** (2026-09-29, Alex
+  on the Repair-or-replace pack, whose value tile read *"about £460"*, a UK industry average,
+  beside vehicle glass and "several markets", a mix that points toward the UK-based market leader):
+  removing the name and logo is not enough when the industry, the scope and a figure together narrow
+  the field to one company. Before shipping an anonymised case, check the combination: a currency,
+  country, date or volume that matches the customer's home market, next to its industry and reach, is
+  a pointer. State per-unit values from a neutral or the audience's market (US figures for this
+  practice), never the source customer's home market, and drop rather than convert the source
+  model's own figures.
 - **A one-liner sells the business value, never the implementation** (2026-09-29, Alex on the
   Oracle mini-site, whose product and category one-liners described the machinery: *"from one
   governed gold layer"*, *"with NVIDIA cuOpt"*, *"a confidence score and a citation"*: "focus not
