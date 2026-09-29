@@ -72,6 +72,19 @@ counts and the scaffolding, not the essence" and used internal vocabulary
   and has a buyer-side owner who would sign off on it. A delivered-case block speaks about the
   customer's problem and what changed for them, never the engagement's mechanics (weeks, phases,
   source counts, contract status).
+- **A one-liner sells the business value, never the implementation** (2026-09-29, Alex on the
+  Oracle mini-site, whose product and category one-liners described the machinery: *"from one
+  governed gold layer"*, *"with NVIDIA cuOpt"*, *"a confidence score and a citation"*: "focus not
+  on the aspects of the tech implementation, but on the very specific business value"). A product's
+  or a category's one-line description, its hero eyebrow and a pack's one-liner lead with what the
+  buyer's business gets (time, money, risk or capacity, in terms its owner already tracks) for a
+  named role and object of work. The only "how" is what changes in that person's work, in plain
+  words; platform, vendor, engine, model and data-architecture names belong on the tech chips and
+  the technology section. Specific means a figure the evidence proves (a forecast is never stated as
+  fact) or a concrete before → after in the person's week, never "insights" or "visibility". The root
+  cause was the template: a spec that asks for "what it does" or "a how clause" invites the mechanism,
+  so specify "what the buyer gets", and where a site has a checker, fail the implementation vocabulary
+  there. The line also must not repeat, word for word, the bullets or eyebrow printed beside it.
 - **Structure before copy — a page is an argument, not an inventory** (2026-09-16, from
   Alex's review of the Services page: "very poorly structured, too long, no grand
   narrative"). Before choosing components, settle audience → positioning (what this page
