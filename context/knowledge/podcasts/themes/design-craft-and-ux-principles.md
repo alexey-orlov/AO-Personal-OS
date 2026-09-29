@@ -2,7 +2,7 @@
 
 _status: live theme — constraint-driven design principles for interfaces, icons, and visual communication, drawn from design-history and practitioner interviews_
 _slug: design-craft-and-ux-principles_
-_updated: 2026-09-26 · 13 insights from 3 episodes_
+_updated: 2026-09-29 · 14 insights from 4 episodes_
 
 ## The throughline
 Susan Kare's account of designing the original Macintosh's icons and system font makes a durable claim about design under constraint: severe technical limits (a 16×16 black-and-white pixel grid, a ban on repeating the Apple logo) don't just restrict output — they force the distillation that makes an interface legible and memorable. Bold geometric shapes, proportional bitmap type, and minimal-detail icons all trace back to working within a tiny budget of pixels, and the principle that survives — simplicity amplifies recognition and invites projection — outlasted the hardware that forced it. The counter-case sharpens the rule: icons tied too literally to a specific product form (a floppy disk for "Save") aged out once the underlying object disappeared, while icons built as pure metaphor endured.
@@ -76,7 +76,12 @@ related: [This is the best time in history to be a designer](#this-is-the-best-t
 Dill recommends concrete practices to close AI's gaps: craft specific prompts tied to your brand, feed the model your source assets and design standards, rigorously test outputs, and use conflicting agents to critique and improve results. She warns against the 'burrito dilemma'—accepting a fast, imperfect result because it's convenient—and urges a habitual extra step of refinement so AI work meets your criteria. These tactics make AI a partner that reflects your point of view rather than imposing a generic default.
 — Lenny's Podcast · 2026-09-25 · guest: Katie Dill (Stripe) · anchor: "حسّن مدخلاتك. أنت تريد المزيد من التحديد" · [▶ video](https://www.youtube.com/watch?v=GLvFTMtw4Jk) · `pi-GLvFTMtw4Jk-05`
 
+### Polish and delight are product signals that drive adoption
+Beyond functionality, Stein emphasizes two aspects of polish: eliminating user pain points and creating emotional delight through micro‑interactions. He points to the redesigned Google Search box — color gradients, a blinking indicator, animated focus states — as examples that communicate 'we care' and make AI-powered features feel present. Such details increase trust and engagement and are often the difference between a working product and a loved one.
+— Lenny's Podcast · 2026-09-28 · guest: — · [▶ video](https://www.youtube.com/watch?v=sTgM_sbLMNg) · `pi-sTgM_sbLMNg-05`
+
 ## Source episodes
+- [Lenny's Podcast — What it takes to be a top PM today | Robby Stein (Google Search) (2026-09-28)](../episodes/2026/2026-09-28--lenny--what-it-takes-to-be-a-top-pm-today.md)
 - [Lenny's Podcast — Raise the ceiling: how to scale intent, quality, and artistry with AI | Katie Dill (Stripe) (2026-09-25)](../episodes/2026/2026-09-25--lenny--raise-the-ceiling-katie-dill-stripe.md)
 - [Y Combinator — Susan Kare: Designing Icons & Graphics For the Original Mac (2026-08-14)](../episodes/2026/2026-08-14--yc--susan-kare-designing-icons-graphics-original-mac.md)
 - [Lenny's Podcast — OpenAI's Head of Design: This is the best time in history to be a designer | Ian Silber (2026-08-16)](../episodes/2026/2026-08-16--lenny--openai-head-of-design-ian-silber.md)

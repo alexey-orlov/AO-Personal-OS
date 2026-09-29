@@ -2,7 +2,7 @@
 
 _status: live theme — founder playbooks for building in atoms rather than bits: hard-tech durability, deep-tech operating cadence, industrial-scale/regulatory transformation_
 _slug: deep-tech-and-industrial-founders_
-_updated: 2026-09-18 · 12 insights from 8 episodes_
+_updated: 2026-09-29 · 15 insights from 9 episodes_
 
 ## The throughline
 Deep-tech and industrial founders face a different operating physics than software founders: durability requires a genuinely hard core — regulatory licenses, hardware physics, brutal B2B sales (Hodak) — that pure software can't fake, and that hard core demands its own operating cadence: fast iteration loops (Hodak's weekly-learning-rate rule) paired with purpose-built purchasing and budgeting infrastructure, because deep-tech teams buy thousands of physical things and naive expense controls either waste time or quietly blow through runway. Kalanick's arc across CloudKitchens/Adams shows the playbook this cadence enables: build in stealth to preserve internal focus while iterating on hard problems, pick an industry beachhead and dominate it before expanding horizontally and vertically, then expect and out-execute the social and political resistance — the 'final boss' — that industrial-scale transformation always provokes. Huang's Nvidia story and Boom's near-death persistence add the founder-character layer underneath all of this: technological leadership can be learned fast from fundamentals rather than credentialed in advance, and vertical integration (Boom's Superpower turbine spin-out, StarCloud's earliest-launch forcing function) can fund or de-risk the multi-year R&D runway hard tech requires — provided the mission is worth outlasting the worst days for.
@@ -66,10 +66,23 @@ related: [Compute, power, and metal are now major startup opportunities](#comput
 Rising AI demand has made physical infrastructure — data centers, power solutions, metal manufacturing — a fast‑growing startup category because legacy suppliers can't scale to new speed/volume needs. Concrete indicators: GPUs (A100/H100) are appreciating rather than depreciating due to demand; startups like Dipole Labs (optical switches), Lamb Labs and Bot (new processors/architectures), Exosat (sovereign satellite networks), and Nox Metals (reshoring metal manufacturing) are examples filling bottlenecks. These are capital‑intensive, high‑growth opportunities that span construction, power/battery systems, interconnect, and core silicon.
 — Y Combinator · 2026-09-17 · guest: — · [▶ 2:56](https://www.youtube.com/watch?v=yslXlV2BP_Y&t=176) · `pi-yslXlV2BP_Y-03`
 
+### Autonomous weapons have existed for centuries, not invented by AI
+Luckey's claim is that 'autonomy' in weapons — the ability to act without a human pulling a trigger — is historically pervasive: mines, torpedoes, automated naval defenses, and even ancient myths like golems fit the definition. He cites modern examples such as Aegis, SeaWiz and SeaRAM that can detect and engage threats automatically, arguing that current debates over 'killer robots' often ignore this lineage and therefore misframe policy and technical discussions.
+— Peter H. Diamandis · 2026-09-28 · guest: Palmer Luckey (Anduril Industries) · [▶ video](https://www.youtube.com/watch?v=wRY9XCrT0eg) · `pi-wRY9XCrT0eg-01` (inferred fit — defense-autonomy angle on the theme, no dedicated defense theme)
+
+### Decentralized local autonomy is necessary because centralized control is fragile
+Luckey explains that relying on a central compute/command node requires high-bandwidth, low-latency links to thousands of assets and creates single points of failure: jamming, intercepting, or striking the command center disables your forces. He notes domains like undersea operations where communications are impossible or emissions would be risky, so assets must make real-time decisions locally; this practical reality drives autonomy design more than philosophical fears.
+— Peter H. Diamandis · 2026-09-28 · guest: Palmer Luckey (Anduril Industries) · [▶ video](https://www.youtube.com/watch?v=wRY9XCrT0eg) · `pi-wRY9XCrT0eg-02` (inferred fit — defense-autonomy angle on the theme, no dedicated defense theme)
+
+### Defense AI needs specialized, auditable models—not generic foundation models
+Luckey argues Anduril builds domain-specific models and sensor-processing stacks (radar, sonar, raw sensor fusion) rather than repurposing large language-style foundation models, because those general models are non-deterministic and hard to audit. He says Anduril began integrating AI into systems in 2017 and believes defense requires deterministic, certifiable processing of raw signals rather than text-based inference, which impacts procurement and safety requirements.
+— Peter H. Diamandis · 2026-09-28 · guest: Palmer Luckey (Anduril Industries) · [▶ video](https://www.youtube.com/watch?v=wRY9XCrT0eg) · `pi-wRY9XCrT0eg-03` (inferred fit — defense-autonomy angle on the theme, no dedicated defense theme)
+
 ## Related themes
 - [Founders & fundraising](founders-and-fundraising.md) — parent theme; split off 2026-08-25. General founding, YC-style playbooks, and capital-raising threads stay there; this page holds only the hard-tech/industrial-transformation founder playbook.
 
 ## Source episodes
+- [Peter H. Diamandis — Palmer Luckey: Autonomous Weapons Are Ancient and Why Anduril Won't Build Humanoids | EP #295 (2026-09-28)](../episodes/2026/2026-09-28--diamandis--palmer-luckey-autonomous-weapons-are-ancient-and-w.md)
 - [a16z — Building a Company in Stealth | Travis Kalanick with a16z (2026-07-22)](../episodes/2026/2026-07-22--a16z--building-a-company-in-stealth-travis-kalanick.md)
 - [Y Combinator — What Actually Makes A Startup Durable (2026-07-25)](../episodes/2026/2026-07-25--yc--what-actually-makes-a-startup-durable.md)
 - [Y Combinator — Jensen Huang: The Mindset That Built NVIDIA (2026-07-26)](../episodes/2026/2026-07-26--yc--jensen-huang-mindset-that-built-nvidia.md)
