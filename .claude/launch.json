@@ -40,15 +40,6 @@
       "port": 8768
     },
     {
-      "name": "oracle-site-nokit",
-      "runtimeExecutable": "bash",
-      "runtimeArgs": [
-        "-lc",
-        "exec python3 \"/private/tmp/claude-502/-Users-olekorlov-Documents-GitHub-AO-Personal-OS/5472fdb4-e5de-43cd-9319-37f5b95c7ab9/scratchpad/wt-nokit/tools/serve.py\" 8769 \"/private/tmp/claude-502/-Users-olekorlov-Documents-GitHub-AO-Personal-OS/5472fdb4-e5de-43cd-9319-37f5b95c7ab9/scratchpad/wt-nokit/site\""
-      ],
-      "port": 8769
-    },
-    {
       "name": "oracle-pack-artifacts",
       "runtimeExecutable": "bash",
       "runtimeArgs": [
