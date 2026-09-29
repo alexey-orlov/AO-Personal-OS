@@ -25,10 +25,24 @@ _Distilled 2026-09-16 from the two builds (Large docs processing and review, 202
 5. **Build on the shared tour engine** (`STEPS[]` with target / anchor / side / auto / passive, the click guard, Skip = auto-perform, Next on passive steps, the end card, URL switches `?tour=off&ui=clean&state=…`).
 6. **QA by scripted click-through**: `tools/capture-demo-frames.mjs` in `MODE=script` with a scenario JSON; `LOGS: none` is the gate; look at the shots.
 7. **Red-team** against the S/M/L rows, the feature matrix and the site copy; close the gaps that do not change the flow.
-8. **Capture**: `DPR=2`; 640 × 400 CSS-px crops → 1600 × 1000 JPEG q86 ≤ 300 KB (`docs/ASSETS.md` §1); the final state in the stills; `sips` crop offsets are Y then X and `0 0` means centred.
+8. **Capture the product-page frames** by the rules in *Product-page frames* below: one whole screen per step at 1280 × 800, DPR 2, plus a zoom of the step's region; `sips` crop offsets are Y then X and `0 0` means centred.
 9. **Wire**: the site repo's `links.json` under the product's slug (`interactiveDemo` = `demo/<slug>/index.html`, the only place a link is stored), `config.js` `videoPoster`, `content.js` step images; `node --check`; `node tools/check-grammar.js`.
 10. **Publish**: the standalone demo as its own artifact (wrapper-free copy under `.work/`, supporting files as a map) → `links.json` `interactiveDemoArtifact`; the site artifact with `url` + `root` + a files map, `data/links.js` built for it by `tools/site_links.py` (the site's `START-HERE.md` §6). Read the artifact in the session first; publish the **full tree** when another session may have changed renderer files (a partial publish once shipped a new `content.js` against an old `overview.js` and broke the home page); on a refusal, re-read and republish on top.
 11. **Docs and wiki**: README, `CONFIG.md` §3, `ASSETS.md` §1, a PROVENANCE section; fold the outcome with `context-update`; mark the handoff done.
+
+## Product-page frames (the How it works screenshots)
+
+Alex, 2026-09-29, on the product pages: the step screenshots were *"too small cuts as for their current size (ideally, screenshots be fullscreen; they should not look like skeletons and should not be overloaded with details / too hard to read; play with their layouts so that they convey the message and serve the purpose, stay close to the interactive walkthrough as much as possible but also look good"*, and the whole How it works block has to fit one screen. What that means in practice:
+
+1. **A whole screen per step, never a crop.** Capture the full app screen, so the viewer sees where they are in the product. Legibility comes from a **zoom inset** of the one region the step is about, outlined in blue on the frame, never from cutting the screen down.
+2. **One region, legible at its natural size.** The region is the step's single most telling element. The inset shows it at ≥ 0.92 of its captured size, which at a 1280 capture caps it at about 436 × 296 CSS px. When the element is bigger, take its most telling part (the first two KPI tiles, the flagged row with its chip), never shrink the scale. On a phone the page shows the inset alone, so it must stand on its own.
+3. **Real, settled screens from the walkthrough itself**: tour off, `?ui=clean`, a primed `?state=`; no toast, no callout, no cursor, nothing half-loaded. The one exception is a step that *is* processing: show it mid-way, some stages ticked and one running.
+4. **Neither a skeleton nor a wall.** Synthetic content with ground-truth specifics, not grey placeholder bars; one idea per region. If a screen is too dense to read even in the inset, change the walkthrough's layout so the frame follows the demo; never doctor the capture.
+5. **Close to the walkthrough, by design.** The frames come from the live walkthrough, in the world the page's step texts describe. So build the walkthrough with its frames in mind: put a component's telling part where one inset can hold it (a list row's name, relation, decision chip and reason in its left ~430 px, not a status chip at the far right). A product without a walkthrough gets mocks in the walkthroughs' visual language, replaced by captures once its walkthrough exists.
+6. **The block fits one screen**: step list and frame within 1440 × 900, step titles on one line, two type sizes. That is the component's job, not the image's.
+7. Never an uncleared figure in a frame; the stills show the state that carries the cleared figure (requirement 7).
+
+The exact contract (frame and inset sizes, JPEG settings, the `steps[].shot` fields `full`, `zoom`, `region`, `anchor`, `alt`) lives in the site repo, set by round 20: `docs/VISUAL-GRAMMAR.md` §2.2 for the component and `docs/ASSETS.md` §1 for the capture recipe. Read those; this section is the why.
 
 ## Pitfalls paid for
 
@@ -48,3 +62,4 @@ _Distilled 2026-09-16 from the two builds (Large docs processing and review, 202
 - `site/demo/workforce-optimization/` — the KPI band, the changes list with Show / Undo / Note, additive-effect data model, passive tour steps.
 - `site/demo/large-document-extraction/` — documents list, split-view review, validator kinds, export tab.
 - `tools/capture-demo-frames.mjs` with `tools/capture-wfo-tour.json` (tour regression) and `tools/capture-wfo-frames.json` (frames + poster).
+- `site/demo/account-insights/` — a review queue for an AI that proposes: the run with a one-line-per-decision feed, a before → after band computed from the items in front of the reviewer, items grouped by their source with a fan-out rail, a brief with cited claims and the reasoning trace, approve / reject with a kept reason, a held item (a human gate), filtered items that can be admitted, and an export of approved records.
