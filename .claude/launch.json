@@ -31,6 +31,15 @@
       "autoPort": true
     },
     {
+      "name": "oracle-site-r20",
+      "runtimeExecutable": "bash",
+      "runtimeArgs": [
+        "-lc",
+        "exec python3 \"/private/tmp/claude-502/-Users-olekorlov-Documents-GitHub-AO-Personal-OS/d2bd009d-dbb9-4d46-8380-dbba38919cd3/scratchpad/wt-r20/tools/serve.py\" 8768 \"/private/tmp/claude-502/-Users-olekorlov-Documents-GitHub-AO-Personal-OS/d2bd009d-dbb9-4d46-8380-dbba38919cd3/scratchpad/wt-r20/site\""
+      ],
+      "port": 8768
+    },
+    {
       "name": "oracle-pack-artifacts",
       "runtimeExecutable": "bash",
       "runtimeArgs": [
