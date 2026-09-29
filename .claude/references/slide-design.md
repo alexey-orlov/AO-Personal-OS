@@ -10,7 +10,12 @@ deck or one-pager work.
    in big cards.
 2. **Same-level elements get identical size and geometry** — never mix wide and narrow
    cells for peers; if one cell holds several items, keep the outer cell equal and vary
-   the inside.
+   the inside. The text inside counts too: **peer titles in a row take the same number
+   of lines**, so everything under them starts level. Set the break by hand at the same
+   kind of point in each (e.g. before the final noun: *Deep research & / investigation*,
+   *Document / processing*) and size the type so each line holds; never rename to fit,
+   and never leave the count to the box width, which mixes one- and two-line titles in
+   some row at almost any width (Alex, 2026-09-29, on the mini-site's group tiles).
 3. **Show absence as an empty instance of the same container** (e.g. a "not filled in
    yet" panel next to a filled one), never as missing/shrunken structure or a bare gap.
 4. **No free-floating side text** — annotations/principles live inside a structured
