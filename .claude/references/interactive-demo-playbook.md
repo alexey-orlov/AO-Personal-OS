@@ -63,3 +63,17 @@ The exact contract (frame sizes, JPEG settings, the `steps[].shot` fields `full`
 - `site/demo/large-document-extraction/` — documents list, split-view review, validator kinds, export tab.
 - `tools/capture-demo-frames.mjs` with `tools/capture-wfo-tour.json` (tour regression) and `tools/capture-wfo-frames.json` (frames + poster).
 - `site/demo/account-insights/` — a review queue for an AI that proposes: the run with a one-line-per-decision feed, a before → after band computed from the items in front of the reviewer, items grouped by their source with a fan-out rail, a brief with cited claims and the reasoning trace, approve / reject with a kept reason, a held item (a human gate), filtered items that can be admitted, and an export of approved records.
+
+## Reference demos from others
+
+- **Oracle's AI Data Platform "Deep Insights" demo** (shown by Oscar Collino Garcia, 2026-09-29). SoftServe OneDrive `Productization - General/Demo references/2026-09-29 Oracle AIDP Deep Insights demo/` holds its screens, a 6:30 audio cut (framing, voice-over, engagement plan) and a README that time-codes every screen. It is Oracle-confidential: study it, never reuse its screens, figures, customer or branding. It does five things our walkthroughs don't yet:
+  - **A narrated mode.**
+    - A voice-over toggle and autoplay sit beside the dot navigation and keyboard hints.
+    - The narration is written for the ear: short declaratives, one idea per screen.
+    - One "Go to live demo →" button hands off from the narrated tour into the live product.
+  - **Trust shown as artifacts.** The "why the answers are right" screen names real objects as chips (tables, glossary metrics, a count of verified queries), not adjectives.
+  - **A question ladder for Q&A demos.** It runs: which? (rank) → why? (decompose) → a vague complaint in the buyer's words → a diagnosis sized in money → a conditional fix ("if price, fix the hedging policy; if volume, fix capacity planning"). Each rung raises the stakes, and it extends requirement 9.
+  - **Charts and answers that decide.** A chart's title states the finding and its subtitle sizes it. Every answer ends in a decision and its risks.
+  - **Honesty about the data, said at the close:** "the data is synthetic, the platform is real".
+
+  **Speed benchmark:** Oracle builds a customer-specific demo of this kind in 2–3 days, of which 2–3 hours are the demo itself, with Codex / Claude plugins.
