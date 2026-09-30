@@ -2,7 +2,7 @@
 
 _status: live theme — the concrete craft of building, scoring, and maintaining eval suites for agentic AI: dataset/prompt-set design, automated scoring, benchmark gaming, judge-rubric calibration, "evals as the new PRD"_
 _slug: eval-design-and-practice_
-_updated: 2026-09-25 · 23 insights (25 attributions — two insights double-cited) from 16 episodes_
+_updated: 2026-09-30 · 24 insights (25 attributions — two insights double-cited) from 17 episodes_
 
 ## The throughline
 
@@ -124,6 +124,10 @@ related: theme → [Agent delegation, loops & software factories](agent-delegati
 Operationalizing agents requires deterministic tracing, automated evaluation, and a repair loop: Foster demos using Arize to instrument an agent, generate evaluation criteria, measure failures, apply fixes, and re-run tests. In his example the agent's error on one task fell from ~12% to under 2% after adding tracing, evaluation rules, and a quick repair—an end-to-end cycle that took about 20 minutes. That shows why monitoring and measurable acceptance criteria are mandatory for reliable AI products.
 — Aakash Gupta · 2026-09-24 · guest: Wade Foster (Zapier) · [▶ video](https://www.youtube.com/watch?v=WbvJMnlB6wA) · `pi-WbvJMnlB6wA-04`
 
+### Product teams must be DM-accessible and write concrete evals for research
+Close, direct user relationships are now essential because agent failures are subtle and require detailed follow-ups; being DM‑accessible surfaces the concrete examples researchers need. The speakers emphasize that product people should bring specific use cases, session logs, and ideally authored evals so research can turn user failures into training signals. Writing evaluations and reproducing user scenarios accelerates the post‑training loop that improves model behavior. _(inferred fit)_
+— Lenny's Podcast · 2026-09-29 · guest: Tara Sesha (OpenAI), Nan Yu (OpenAI) · [▶ 18:47](https://www.youtube.com/watch?v=-ciSTkEVy30&t=1127) · `pi--ciSTkEVy30-04`
+
 ## Related themes
 - [Agent engineering & production infra](agent-engineering-patterns.md) — parent theme; split off 2026-08-25. Production infra, guardrail/governance patterns, and the still-unresolved headless/infra/stair-step, multimodel-orchestration, and agentic-web-protocols clusters stay there.
 
@@ -144,3 +148,4 @@ Operationalizing agents requires deterministic tracing, automated evaluation, an
 - [How I AI — How this startup uses AI agents to eliminate bugs and optimize infrastructure (2026-06-15)](../episodes/2026/2026-06-15--howiai--ai-agents-eliminate-bugs-optimize-infrastructure.md)
 - [Aakash Gupta — How to Build an AI-Native Product Team in 2026 | Charles Zedlewski | Product Growth (2026-09-14)](../episodes/2026/2026-09-14--aakash--how-to-build-an-ai-native-product-team-2026.md)
 - [Aakash Gupta — Zapier's CEO Will Grade Your AI PM Skills Live | Wade Foster (2026-09-24)](../episodes/2026/2026-09-24--aakash--zapiers-ceo-will-grade-your-ai-pm-skills-live.md)
+- [Lenny's Podcast — Where AI products go next: voice, agents, and self-driving software | Tara Sesha and Nan Yu (OpenAI) (2026-09-29)](../episodes/2026/2026-09-29--lenny--where-ai-products-go-next-voice-agents-and-self-dr.md)

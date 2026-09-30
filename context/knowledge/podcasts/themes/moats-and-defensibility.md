@@ -2,7 +2,7 @@
 
 _status: live theme — what stays defensible once AI makes feature-building and model access cheap_
 _slug: moats-and-defensibility_
-_updated: 2026-09-27 · 22 insights from 16 episodes_
+_updated: 2026-09-30 · 24 insights from 18 episodes_
 
 ## The throughline
 Once AI makes feature-building and raw implementation cheap (Verna: AI now writes ~80%+ of code in AI-native orgs; the YC "two levers" framing), the moat has to sit in something a model can't trivially copy — proprietary data and workflow history built up over time (Legora's matter context and firm templates), embedded compliance and money-flow (a16z's enterprise-stickiness thesis, echoed in Supabase's bet on the harder "operate layer"), or network effects and incumbent-held memory (Dust and OpenCode's model-agnostic marketplace framing; Sarah's point that stored memory and personal data lock users to incumbents). A second, sharper thread is about where verticalization beats horizontal abstraction: Evans's "chatbot isn't a product" claim, Every's build-vs-buy argument for a vendor's compiled rule-density, and a16z's warning that middleware layers rarely displace incumbents directly all push toward attacking a vertical or a functional handoff rather than the horizontal layer — while Dust and OpenCode make the countervailing bet that staying model-agnostic and horizontal is itself the moat once models converge and commoditize. Dean's "founders should target domains where general models succeed 0–1%" heuristic supplies the operational test for telling the two situations apart: try the general model first, and build the narrow, opinionated, data-backed product only where it actually fails.
@@ -114,6 +114,14 @@ Panelists contend that the biggest near‑term breakthroughs will come in how mo
 — a16z · 2026-09-26 · guest: — · [▶ video](https://www.youtube.com/watch?v=TLJNJDf2XGo) · `pi-TLJNJDf2XGo-04`
 related: [Most classic moats survive; the integration moat is the main exception](#most-classic-moats-survive-the-integration-moat-is-the-main-exception) (same app/platform-layer-is-where-value-migrates argument, here framed as where innovation itself happens rather than which moat coding agents expose) · [Models aren't commodities — domain specialization and harnesses create value](#models-arent-commodities--domain-specialization-and-harnesses-create-value)
 
+### Context should be treated as the product
+Saarinen's core claim is that product value shifts from code output to the accumulated context — customer signals, team judgment, history of decisions, and tacit taste. He argues that this context is what lets teams make better trade-offs and preserve competitive advantage even as AI speeds up execution. Treating context as the product means building systems to collect, surface, and share customer feedback and decision rationale, not only pipelines that produce features.
+— Lenny's Podcast · 2026-09-29 · guest: — · [▶ video](https://www.youtube.com/watch?v=Zn9NZ-r1-C4) · `pi-Zn9NZ-r1-C4-01`
+
+### Proactivity — agents acting without explicit prompts — is a defendable moat
+David argues the major product advantage will be an agent's ability to act proactively and invisibly (e.g., auto-check into flights, pursue refunds, file reimbursements) while maintaining user trust. Proactivity creates those ‘wow’ social moments that drive virality and utility, but it must be finely calibrated: tasks that are purely beneficial (money back, admin) can be auto-handled, while actions that materially change a user's life require permission. Thus, the firms that master safe, context-aware proactivity will differentiate from those that only respond to commands.
+— a16z · 2026-09-29 · guest: David (Assistant Bench) · [▶ 26:01](https://www.youtube.com/watch?v=3T5sij3spWw&t=1561) · `pi-3T5sij3spWw-03`
+
 ## Related themes
 - [Product discovery & strategy](product-discovery-and-strategy.md) — parent theme; split off 2026-08-25. Discovery discipline, system-design, and market-timing threads stay there.
 
@@ -134,3 +142,5 @@ related: [Most classic moats survive; the integration moat is the main exception
 - [a16z — The Economics of AI Usage and What's Next For SaaS | Benedict Evans (2026-06-11)](../episodes/2026/2026-06-11--a16z--economics-ai-usage-saas-evans.md)
 - [Y Combinator — How Legora Went From YC to $100M ARR in 18 Months (2026-06-06)](../episodes/2026/2026-06-06--yc--legora-yc-to-100m-arr-18-months.md)
 - [SaaStr AI — Feature Differentiation Is Dead. Here's What Actually Wins Now (2026-06-06)](../episodes/2026/2026-06-06--saastr--feature-differentiation-dead-lovable-elena-verna.md)
+- [Lenny's Podcast — Context is now the product: Product leadership when software can build itself | Karri Saarinen (2026-09-29)](../episodes/2026/2026-09-29--lenny--context-is-now-the-product-product-leadership-when.md)
+- [a16z — What Would Make an AI Assistant Worth Paying For? (2026-09-29)](../episodes/2026/2026-09-29--a16z--what-would-make-an-ai-assistant-worth-paying-for.md)
