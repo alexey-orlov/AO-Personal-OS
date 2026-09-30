@@ -2,7 +2,7 @@
 
 _status: live theme — how AI reshapes product management work, skills, workflows, and roles_
 _slug: ai-and-the-pm-craft_
-_updated: 2026-09-29 · 56 insights from 33 episodes — recluster (2026-08-25): split → vibe-coding-and-non-technical-builders (non-engineer/non-PM builders using AI as stepwise architect-engineer)_
+_updated: 2026-09-30 · 61 insights from 35 episodes — recluster (2026-08-25): split → vibe-coding-and-non-technical-builders (non-engineer/non-PM builders using AI as stepwise architect-engineer)_
 
 ## The throughline
 PMs and full-stack designers gain leverage in the coding-agent era because the gap between "knowing what to build" and "shipping it" collapses. The skill shift is from raw implementation to defining what to build, evaluating quality, and designing where humans and agents collaborate — Shipper bets PMs who "ride the models" out-ship engineers, and an OpenAI PM uses Codex to drive prototypes to 70–80% completion and replace PRDs with runnable artifacts. The same craft scales up the org chart: Customer.io's VP of Product rebuilds a third of an all-hands deck in a morning, but only by treating Claude like an eager junior — rolling context in, forcing clarifying questions, blocking premature deliverables — and the leader's residual value collapses to two choices: *which sources* (recordings, docs, metrics) and *which target form* (deck, Notion page, one-pager). The model-selection beat also sharpens: Fable's "seasoned engineer" verbosity wrecks PRDs, so pair Mythos-class models with cheaper Opus/Sonnet by task type. Ambrosino (OpenAI Codex) sharpens the picture from the supply side: when dozens of people inside a company can stand up polished prototypes from the same idea, implementation is no longer the bottleneck — *curation* is: deciding which of ~90 explorations to keep, fold together, or refine. The same abundance makes design and taste distinctly non-automatable: aesthetic judgment, novelty, and system-level UI coherence lack the grading signals needed to train models to generalize, so models copy patterns (Linear-clone proliferation) but cannot generate the novelty or cross-component semantic reasoning that defines good design. The operational kit that recurs: hyper-literal prompts, screenshots-as-examples, prototypes-not-PRDs, a beginner's mindset, and the discipline to restrain the model until the foundations are set — the non-engineer/non-PM version of this same builder pattern now lives in [Vibe Coding & Non-Technical Builders](vibe-coding-and-non-technical-builders.md).
@@ -275,6 +275,26 @@ In Confluence, a PM who had never used a terminal contributed 26 PRs in one mont
 The Robo Claw example shows a PM who initially coded to prototype and understand blockers, then deliberately stopped coding to focus on direction, priorities, and removing obstacles once the team scaled. That early hands‑on work improved his ability to unblock the team, and AI agents replaced routine tasks (he stopped writing weekly updates). The non‑obvious point: hands‑on is useful early, but highest impact for a PM is stepping into coordination and strategy at the right stage.
 — Lenny's Podcast · 2026-09-28 · guest: — · [▶ video](https://www.youtube.com/watch?v=BtK4kFI1LNo) · `pi-BtK4kFI1LNo-04`
 
+### Automating execution can sever the learning loop
+He warns that automating repeatable tasks with AI risks disconnecting building (execution) from the learning that informs future product decisions. As an example, Linear uses 'Linear loop' to investigate errors via DataDog and Sentry and generate fixes that engineers only verify; this saves time but reduces the hands‑on problem exploration that trains judgment. If teams stop learning from the work they do, they risk losing their domain advantage over time.
+— Lenny's Podcast · 2026-09-29 · guest: — · [▶ video](https://www.youtube.com/watch?v=Zn9NZ-r1-C4) · `pi-Zn9NZ-r1-C4-02`
+
+### Automate routine tasks; reinvest time into customer learning
+Saarinen recommends automating well‑known, low‑learning tasks and then deliberately using the freed time for customer-facing activities, exploration, and quality improvement. At Linear they centralize customer signals into a context repository, run daily AI summaries, assign agents to surface interesting items, and run rituals like 'Wednesday quality' and open 'feature reviews' so the whole team learns together. The payoff is amplified team judgment and better products, not just higher output.
+— Lenny's Podcast · 2026-09-29 · guest: — · [▶ video](https://www.youtube.com/watch?v=Zn9NZ-r1-C4) · `pi-Zn9NZ-r1-C4-03`
+
+### AI augments but does not replace the PM role
+Panelists describe a concrete case where a PM lead stepped in and fixed communications, deliverables, and cross-team coordination that Claude alone did not provide; after that the IC engineer acknowledged the PM's value. The argument is that even with agent capabilities, organizations need someone to convene stakeholders, make trade-offs, and ensure follow-through — responsibilities models don't yet handle (scheduling, organizational authority, final decisions). This matters because teams that assume models remove the need for PMs risk gaps in alignment, safety reviews, and customer enablement.
+— Lenny's Podcast · 2026-09-29 · guest: — · [▶ video](https://www.youtube.com/watch?v=sEXdyK6woKU) · `pi-sEXdyK6woKU-01`
+
+### Product work now requires continuous re-learning every few months
+Speakers emphasize that underlying models and capabilities evolve rapidly — the transcript notes that where technology used to change in 5–10 years, now it can change every two months — so product teams must repeatedly discard assumptions and re-test designs. As a result, old PM skills (e.g., agonizing over exact button placement) are less valuable than the ability to run fast experiments, tolerate uncertainty, and pivot when model behavior shifts. That changes hiring, expectations, and how teams prioritize stability versus exploration.
+— Lenny's Podcast · 2026-09-29 · guest: — · [▶ video](https://www.youtube.com/watch?v=sEXdyK6woKU) · `pi-sEXdyK6woKU-02`
+
+### Pause-and-revisit experiments: a disciplined evaluation strategy
+Anthropic describes placing projects on hold as a valid tactic when models aren’t yet capable, then rerunning the same eval harness as models improve (they cite a jump when '3.7 computer use' models arrived). This practice preserves learnings, reduces wasted engineering cycles, and surfaces when a capability has genuinely become practical rather than chasing immature behavior. The non-obvious takeaway is that stopping work temporarily can be progress — it’s an organized way to wait for model capability improvements while keeping the experiment alive.
+— Lenny's Podcast · 2026-09-29 · guest: — · [▶ video](https://www.youtube.com/watch?v=sEXdyK6woKU) · `pi-sEXdyK6woKU-04`
+
 ## Related themes
 - [AI agents & applications](ai-agents-and-applications.md) — the surfaces PMs build in
 - [Leadership, careers & teams](leadership-careers-and-teams.md) — how the manager/IC mix is shifting alongside
@@ -314,3 +334,5 @@ The Robo Claw example shows a PM who initially coded to prototype and understand
 - [Aakash Gupta — Everyone's Using Claude. This PM Tool Does More (2026-07-09)](../episodes/2026/2026-07-09--aakash--everyones-using-claude-this-pm-tool-does-more.md)
 - [Aakash Gupta — The Claude Setup That Let a PM Beat 30 Engineering Teams (2026-07-13)](../episodes/2026/2026-07-13--aakash--claude-setup-pm-beat-30-engineering-teams.md)
 - [Aakash Gupta — Zapier's CEO Will Grade Your AI PM Skills Live | Wade Foster (2026-09-24)](../episodes/2026/2026-09-24--aakash--zapiers-ceo-will-grade-your-ai-pm-skills-live.md)
+- [Lenny's Podcast — Context is now the product: Product leadership when software can build itself | Karri Saarinen (2026-09-29)](../episodes/2026/2026-09-29--lenny--context-is-now-the-product-product-leadership-when.md)
+- [Lenny's Podcast — Why Claude can’t be your PM (yet) | Anthropic CPO Panel (2026-09-29)](../episodes/2026/2026-09-29--lenny--why-claude-can-t-be-your-pm-yet-anthropic-cpo-pane.md)
