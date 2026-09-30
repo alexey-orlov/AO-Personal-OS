@@ -132,3 +132,13 @@ deck or one-pager work.
     - Give new slides the offset of their neighbours.
     - Fold systematic changes (like the chip position) into the generator.
     - Work in the user's file (clone new slides in, keep theirs). Never regenerate the whole deck over it.
+21. **A chart that must show ₴ and % for every part: a clean chart plus one legend-table, never a label list beside each
+    bar** (2026-09-30, Alex on the GigaCloud bucket-margin slide: «багато тексту біля графіка, не бест практіс»). The first
+    cut put «name · ₴ · %» next to every segment of both columns, with leader lines that crossed. Every name was repeated
+    per bar, and the thin segments pushed their labels away from their marks.
+    - The chart carries only what reads at a glance: % inside a segment where it fits, the total on the cap, the
+      category under the bar. Thin segments stay unlabelled.
+    - One table beside the chart holds every value, and each name appears once there. Its rows follow the stack (top
+      row = top segment), with subtotal rows for the whole and for the cost block. Each row carries its swatch, so the
+      table is also the legend.
+    - Columns normalised to 100 % say so in the lead; their absolute totals sit on the caps.
