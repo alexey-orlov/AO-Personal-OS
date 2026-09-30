@@ -38,13 +38,8 @@ _updated: 2026-09-30_
 
 ## Open loops
 
-- Mine — ⚠ **fix the step-4 pools before 30 Sep.** «Висновок» holds the annual budget ÷ 12, verified to the kopiyka: General ФОТ 142 271 736 ÷ 12 = 11 855 978 (B8), CAC Public VMware ФОТ = rows 4–198 ÷ 12. E-Cloud C40 / C41 / C43 take these monthly sums as the «FY2026» bucket pools, and «4. Allocation by components» divides them by the annual Direct COGS.
-  - Effect: per-unit Indirect COGS / CAC / General (vCPU 5,61 / 29,81 / 20,85 ₴) are 12× too low.
-  - A second error pulls the other way: the denominators hold only the 3 example components, not the whole bucket.
-  - The same monthly sum appears as «General FY2026 17 924 414» on the method-5 slide.
-  - The new step-5 margins (vCPU 24 %, Internet line 72 %, Veeam −0,1 %) use these values as briefed, so they overstate margins until step 4 is fixed; the generator rebuilds steps 4–5 from the workbook.
-
-  (chat, 2026-09-27)
+- Theirs (Alex) — ⚠ **CAC pool of the high bucket in Юніт_UPD.** Tab 4 T4 = «1-3.Alllocation - Total cost»!D21 ÷ lifetime (G4), while T56 = C21 undivided. As a result, CAC in the high bucket is 0,1 % of the average check (27,35 ₴ on the v13 bucket slide). One of the two formulas is wrong. (chat, 2026-09-30)
+- The monthly-pool error of 09-27 looks fixed in Юніт_UPD (inferred). Tab 4 now takes its pools from «1-3.Alllocation - Total cost», its denominators run over the whole bucket × 12 billing cycles, and vCPU Indirect COGS is 43,75 ₴, up from 5,61 ₴. The workbook's cached values reconcile: R, E and AE recompute exactly. (chat, 2026-09-30)
 - Mine — step-5 / Data open items (chat, 2026-09-27):
   - VAT basis of «Component» prices: E-Cloud labels them «with VAT».
   - Direct COGS is not in the budget file. The Data slides assume ФОТ = СТП's Our-services share (833 тис. ₴) and не-ФОТ = Q2 P&L direct lines × 4 (334,8 M ₴), split by MRR × (1 − direct margin). Both are yellow on the slides; replace them with the Capacity / FY2026 direct-cost budget.
