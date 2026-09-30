@@ -1,7 +1,7 @@
 # Pricing & unit economics — component cost allocation
 
-_status: allocation framework implemented in Юніт.xlsx — steps 1–3 done, step 4 (bucket costs → 1 unit of component) 60 % (Public Cloud (high) only), step 5 (margins) in progress (30 %); results deck v12 (34 slides) for the results presentation (plan milestone 30 Sep); ⚠ the step-4 bucket pools are monthly sums labelled FY2026 — fix before the presentation_
-_updated: 2026-09-28_
+_status: allocation framework implemented in Юніт.xlsx — steps 1–3 done, step 4 (bucket costs → 1 unit of component) computed for Public Cloud (high) and (low) in Юніт_UPD, step 5 (margins) shown for 3 components and 2 buckets; results deck v13 (35 slides, 09-30) for the results presentation; ⚠ in Юніт_UPD the high bucket's CAC pool (T4) is divided by lifetime, the low one's (T56) is not_
+_updated: 2026-09-30_
 
 ## Snapshot
 
@@ -13,7 +13,7 @@ _updated: 2026-09-28_
 - **Step 4 rule — by Direct COGS, never by price:** Indirect COGS and General per unit = bucket pool ÷ Σ(Direct COGS × units at year-end × 12) × the component's Direct COGS, with year-end units = units × (1 + growth) × (1 − churn); CAC = pool ÷ (Σ Direct COGS of new sales × 12 × lifetime / 12) — new sales only, over the customer lifetime. Worked, Public Cloud (high) vCPU 1 GHz: Direct COGS 80,25 ₴/mo → Indirect COGS 5,61 + CAC 29,81 + General 20,85 ₴/mo. This replaces the approach doc's price-proportional spread and makes concrete Alex's 08-28 COGS-weight bridge. (chat, 2026-09-26)
 - **Two decks** (UA, GigaCloud template; live files on Alex's MacBook Air in `~/Desktop/GigaCloud/`, hand-edited — living-documents rule; handoff: [docs/margin-deck/HANDOFF.md](docs/margin-deck/HANDOFF.md)):
   - **Plan deck v5** (13 slides, 08-27 → 09-26): goal, output-table schema, price stack, 6 principles, 4 attribution models **A1/A2/B/C/D** — ⚠ this lettering is canonical when Alex says «модель B/C/D» and matches neither the Margin.xlsx block labels nor the A–G classes of [pricing-cost-allocation-approach.md](pricing-cost-allocation-approach.md). (chat, 2026-08-27/-28)
-  - **Results deck v12** (34 slides, 09-28; Alex's hand-edited file is the live copy): price stack, Alex's allocation tree rebuilt natively, steps & status, glossary, steps 1–4 with worked examples from the workbook, a step-4 overview of the allocation variants, step-5 margins of the three step-4 example components, and a strongly marked «Дані» section (FY2026 budget by type and by bucket, with % of budget; assumed figures highlighted yellow). Not committed (employee names, mobilisation status). (chat, 2026-09-26/-28)
+  - **Results deck v13** (35 slides, 09-30; Alex's hand-edited file is the live copy): price stack, Alex's allocation tree rebuilt natively, steps & status, glossary, steps 1–4 with worked examples from the workbook (Public Cloud (low): HDD 200 IOPS, vRAM Linux, Additional IP — tab 4 rows 56/59/57), a step-4 overview of the allocation variants, step-5 margins of those three components (HDD's min price 1,64 ₴ is 36,9 % above its 1,20 ₴ price), step-5 bucket-level margins (Public Cloud on OpenStack: costs 69,8 % of the 3 366,71 ₴ average check; on VMware: 26,2 % of 32 664,80 ₴; tab 4 E/AE split as Σ H × column), a strongly marked «Дані» section, and the action plan (09-30 Google Doc «План»: 02.10 / 09.10 / 31.10 / 31.12). Not committed (employee names, mobilisation status). (chat, 2026-09-26/-28)
 - Reasoning reference: [pricing-cost-allocation-approach.md](pricing-cost-allocation-approach.md) (v5 recommendation, 2026-08-27) — floor = economic minimum at quote time, target price = loaded cost ÷ (1 − shares − profit %); мінімальна прибутковість = % від фактичної ціни продажу, approvers CFO + CEO + CBDO.
 
 ## Active threads
@@ -62,6 +62,7 @@ _updated: 2026-09-28_
 - Mine — the August data fixes (593 vs 463 component reconciliation, Cubbit MRR anomaly, 187 zero-price rows, "new MRR" semantics) and the 8 required inputs from the [approach doc](pricing-cost-allocation-approach.md#required-inputs-to-compute-the-rate-card) — status not re-checked since 08-27.
 
 ## Activity
+- 2026-09-30 — results deck v13 (35 slides) from Юніт_UPD: step-4/5 examples moved to Public Cloud (low), bucket-level margin slide, action plan.
 
 - 2026-09-28 — results deck v12 (34 slides), built in Alex's latest file.
   - The Sales-data slide is back to deal-months, plus the intensity and effort rows.
