@@ -2,7 +2,7 @@
 
 _status: live theme — Jev, a cheap, high-speed model that returns type-safe choices/scores/nulls instead of free text, and the tag-then-hand-off pipeline pattern_
 _slug: type-safe-decision-models_
-_updated: 2026-09-29 · 8 insights from 2 episodes
+_updated: 2026-10-01 · 14 insights from 4 episodes
 
 ## The throughline
 Two same-day episodes (a How I AI hands-on and an a16z conversation with Type Safe's Diogo) describe Jev as a different tool class from chat LLMs: it emits typed values (an option, a score, a null/Boolean probability) rather than prose, so input-token pricing dominates (~$0.04 per million input tokens as reported), and it is positioned as a reliable classifier/router feeding stronger models. Synthesis (inferred): the pitch is reliability and automatable production work rather than benchmark scores.
@@ -41,6 +41,30 @@ Instead of optimizing for human evaluation scores (the RLHF-era metric), Diogo s
 Diogo frames Jev as part of a renewed era of probabilistic programming: language reasoning tied to state machines and typed program structures that can make choices with statistical confidence. He notes his cofounder Eric's background in these ideas and predicts this approach will let AI act like a 'smart database' or stateful service rather than a pure text generator. The consequence is new guarantees and composability for building systems that must balance speed, cost, and correctness.
 — a16z · 2026-09-28 · guest: Diogo (Type Safe) · [▶ video](https://www.youtube.com/watch?v=Ut3LOjKNJaE) · `pi-Ut3LOjKNJaE-04`
 
+### Decisions API adds rapid decision-making models with vision
+The Decisions API is a low-latency, constrained-output model (positioned as a Jev-style competitor) that includes vision, enabling very fast classification/selection tasks. The presenter used it to scan ~100 video frames and pick non-awkward thumbnail frames in under ten seconds and to classify a hot dog image with instant high confidence, illustrating real-world automation wins for media pipelines and UX flows. Because it pairs speed with visual input, it can be slotted into product stacks where quick, deterministic choices matter.
+— How I AI · 2026-10-01 · guest: Kath (product lead, Sites) · [▶ 15:06](https://www.youtube.com/watch?v=pJNM1z9l5mU&t=906) · `pi-pJNM1z9l5mU-04`
+
+### Jev is extremely fast and nearly free for real-time use
+Jev's main practical advantage is latency and cost: it responds almost instantly and demo runs cost cents rather than dollars. John and Claire recount processing >20,000 records and even a ~5GB JSON job that cost only a few dozen cents, which makes exploratory, iterative workflows feasible where traditional LLM inference would be prohibitively slow or expensive. That change in economics unlocks interactive, real-time features and experimentation that were previously impractical.
+— How I AI · 2026-10-01 · guest: John Lindqvist · [▶ video](https://www.youtube.com/watch?v=dAIIaepNhQM) · `pi-dAIIaepNhQM-01`
+
+### Jev outputs structured, typed decisions instead of freeform text
+Unlike general-purpose LLMs that return unstructured text, Jev returns constrained, typed decisions and discrete outputs (choices, function calls, classifications). That makes integration with APIs and deterministic workflows much easier because the model's output can be validated, matched to functions, and used directly as program inputs without heavy postprocessing. The result is safer, more predictable automation for UIs and backend orchestration.
+— How I AI · 2026-10-01 · guest: John Lindqvist · [▶ video](https://www.youtube.com/watch?v=dAIIaepNhQM) · `pi-dAIIaepNhQM-02`
+
+### Cheap large-scale data matching and deduplication becomes practical
+John demonstrates using Jev to match and merge large datasets (tens of thousands to hundreds of thousands of records) in seconds for cents, with configurable confidence thresholds. That capability turns previously avoided tasks—like cleaning millions of JSON records or deduplicating contacts—into quick, iterative analyses you can afford to run and sample-validate with an LLM afterwards. It directly reduces engineering friction for data hygiene, PR triage, and bulk operations.
+— How I AI · 2026-10-01 · guest: John Lindqvist · [▶ 3:19](https://www.youtube.com/watch?v=dAIIaepNhQM&t=199) · `pi-dAIIaepNhQM-03`
+
+### Real-time voice-driven orchestration and presentation coaching
+Jev can process streaming, unstructured voice input and map it to structured actions in real time—examples include a live todo list that classifies utterances into add/delete/priority actions and a presentation coach that tracks covered bullet points as you speak. Because the model decides when it has 'enough' to call a function, it supports always-on, low-latency workflows (live dictation, in-conference tooling) that keep users on task. This reduces friction for natural input modalities and enables interfaces that previously required heavy UX engineering.
+— How I AI · 2026-10-01 · guest: John Lindqvist · [▶ video](https://www.youtube.com/watch?v=dAIIaepNhQM) · `pi-dAIIaepNhQM-04`
+
+### Speed yields new decision-tree workflows — 10x faster, 4x cheaper
+In game demos (chess/Tetris) Jev was reported ~10x faster per move and ~4x cheaper than a conventional LLM pipeline, showing that speed can be the difference between interactive and unusable experiences. That performance opens up multi-step decision architectures where you can quickly narrow options with Jev and call more expensive models only for refinement, enabling hybrid chains that balance cost, latency, and intelligence. Fast decision models thus change product design trade-offs around real-time interactivity.
+— How I AI · 2026-10-01 · guest: John Lindqvist · [▶ video](https://www.youtube.com/watch?v=dAIIaepNhQM) · `pi-dAIIaepNhQM-05`
+
 ## Related themes
 - [Agent engineering & production infra](agent-engineering-patterns.md) — reliability and predictable behaviour as production constraints
 - [Model reviews & benchmarks](model-reviews-and-benchmarks.md) — practitioner model comparisons (Jev is reviewed against Opus 5.5 / GPT-6)
@@ -49,3 +73,5 @@ Diogo frames Jev as part of a renewed era of probabilistic programming: language
 ## Source episodes
 - [How I AI — I’m using Jev more than Opus 5.5 or GPT-6. Here’s why. (2026-09-28)](../episodes/2026/2026-09-28--howiai--i-m-using-jev-more-than-opus-5-5-or-gpt-6-here-s-w.md)
 - [a16z — How Jev Turns AI Into Software That Gets Things Done (2026-09-28)](../episodes/2026/2026-09-28--a16z--how-jev-turns-ai-into-software-that-gets-things-do.md)
+- [How I AI — OpenAI DevDay 2026: Dots, Spaces, and ULTRAFAST (2026-10-01)](../episodes/2026/2026-10-01--howiai--openai-devday-2026-dots-spaces-and-ultrafast.md)
+- [How I AI — Jev: 8 real use cases this fast, cheap model (2026-10-01)](../episodes/2026/2026-10-01--howiai--jev-8-real-use-cases-this-fast-cheap-model.md)
