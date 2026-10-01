@@ -73,9 +73,9 @@ _sources: SOW `UC #5.1 SGB A-IQ PoC Historical Package Performance Insights.docx
 
 ## Decisions
 
-- 2026-09-10 (SOW/WBS) — **Scope basis narrowed to ONE anchor project** ("one agreed historical or sufficiently completed project sample"); multi-project expansion explicitly excluded as a fallback (R11).
-- 2026-09-10 (SOW) — **Subcontractor qualification / ranking / selection / cross-project benchmarking written out of scope**, closing option 2 without waiting on the Oracle-Procurement boundary check.
-- 2026-09-10 (SOW) — **Normalization confirmed as UC-1 deliverable 1a**, capped to the sample and designed for extension.
+- 2026-10-01 (SoW, Alex) — **one price, EUR 170,940 with the OCI setup included**; GPU **1× BM.GPU.H200**; the stack and models named; §6's explicit exclusions deleted.
+- 2026-09-29 (data assessment) — **anchor = SEVEN** (Dammam + Khobar), **ten candidate packages** proposed, Storm-water rerouting in for Dammam Infrastructure; SBG still to agree them.
+- 2026-09-10 (SOW/WBS) — **Scope basis narrowed to ONE anchor project**, multi-project expansion excluded as a fallback (R11); **normalization = deliverable 1a**, capped to the sample; subcontractor ranking/selection written out of scope (that §6 line deleted 10-01).
 - 2026-09-10 (WBS) — **Discovery compressed to 2 weeks, G1 to end of Wk2**; **management reserve removed**; **Phase 7 acceptance support brought inside the price** (25 md); OCI DevOps work carved into a separate Phase 2.1 package.
 - ~2026-08-26 (thread) — SoW scoped to UC 1 only; SoW package task split (scope statement Dmytro+Alex · WBS/tech Taras · SOW+commercial Volodymyr · OCI estimate Pawel), due Thu 2026-08-27.
 - 2026-08-24 — Completed projects out; the analysis unit is the completed **work package**. Exports = XER with full history; every retained monthly cost report. Q&S → separate session. Kickoff target 1 Sept.
@@ -84,10 +84,8 @@ _sources: SOW `UC #5.1 SGB A-IQ PoC Historical Package Performance Insights.docx
 ## Open loops
 
 **Mine**
-- **Confirm the anchor project** — is the WBS's "King Fahd Stadium reference case" the same asset the Aug-24 session ruled unreachable, or the Stadium live project? Everything downstream (completed-package count, R11's G1 exit criterion, the data checklist) hangs on it.
 - **Write provisional-sum segregation into the SOW** (V7) — still absent after the rewrite, and it is the fastest way for SBG project controls to dismiss the findings.
-- **Clean the residual Aconex language** before the SOW goes out: red §5.1 body text, the "raw Aconex exports" ingestion bullet.
-- **Fix the GPU-sizing contradiction** (3× A10.2 vs 2× BM.GPU.A100 vs the BoM's A100 v2 line) and the GBP/USD slip in §5.2 — 98% of the infra number rides on it.
+- **Before the SoW goes out:** accept the 10-01 tracked changes; fix §5.2's stale monthly lines (USD 46,900; GPU ~46,000 at ~95%); clean the Aconex-era wording (§5.1, §2.4); put deliverable 1b back; fix the new typos; say whether §6's deleted exclusions were meant.
 - **Force a recalculation of the WBS totals** (300.02/307.66 vs the sheet's 292.19/299.65) before any figure reaches the commercial track.
 - **Decide on the success criteria** — the SOW kept the original three and deferred thresholds to Discovery. If forecast stability (the client's own metric) is not going in, that should be a stated choice, not an omission.
 - Locate or reconstruct the numbered SOW review the WBS cites (findings F4, F7) — it exists outside the repo.
@@ -100,20 +98,22 @@ _sources: SOW `UC #5.1 SGB A-IQ PoC Historical Package Performance Insights.docx
 
 **Theirs**
 - **Volodymyr** — commercial sign-off + the Oracle-side paperwork chain; **Taras/delivery team** — validate the FOR REVIEW estimates and team composition; **Pawel** — reconcile the OCI consumption estimate with the BoM now in the WBS.
-- **SBG (still the critical path):** external access route (guest accounts ~2 wks vs an SBG-hosted folder) · director's cost-release sign-off · a unified package identifier per §5.3 · the ≥10+10 validation sample · named SMEs with committed review hours · first exports (XER full history + all monthly cost reports) · subcontracts/BOQ/responsibility matrices for the selected packages · completion-% answer · Q&S reps · combined zoning+building layout.
+- **SBG (still the critical path, per the 09-29 assessment):** agree SEVEN and the ten packages · actual-cost breakdowns matching budget scope for Dammam Piling, Marine works and Storm-water rerouting · validation cases, expected results and SBG reviewers (in Discovery, not blocking) · dated movement records if logistics is to be measured · per §5.3 still: a unified package identifier and named SMEs with review hours. Already received: schedules with monthly history, financial reports, dashboards, the change register.
 - **Karsten** — Oracle-side commercial paperwork; the SoftServe/Oracle/NVIDIA construct explained in writing (Islam asked).
 
 ## Risks
 
-- **Kickoff date is now unstated.** The Sep-1 target passed with no evidence in the artifacts of a signed SoW or a new date — confirm before treating the 12+2-week plan as scheduled.
-- **Access still unresolved** (high — escalate to Raja). **Cost release** blocked on director sign-off (invoke masking early). **No package code in P6** (now a §5.3 prerequisite rather than a mitigated risk — if SBG cannot supply the identifier, the PoC absorbs name-matching at scale with only 2.86 md of scheduled fallback).
-- **Insufficient completed packages in a single anchor project** (R11, High/High) — the single-project narrowing removed the fallback the two-project premise used to give. Sample-size worry from the Aug-20 1:1 stands: one project validates *mechanics*, not recommendation quality.
+- **The PoV has not started (09-29)**, and no artifact shows a signed SoW or a new kickoff date — confirm before treating the 12+2-week plan as scheduled.
+- **Data access is largely past** (exports, monthly schedules, reports and the change register arrived by 09-29). **No package code in P6** stays a §5.3 prerequisite — without it the PoC absorbs name-matching at scale with 2.86 md of fallback.
+- **Few completed packages** (R11, High/High): only 5 are complete in P6 and 3 of them are in the shortlist, so the PoV compares mostly running work to date — it validates *mechanics*, not recommendation quality (the Aug-20 worry).
 - **Two-week Discovery with zero absorption capacity** — a self-inflicted schedule risk the WBS documents but does not mitigate.
 - **Provisional-sum distortion** (med; currently undesigned). **Data access restricted to a subset of the team** (R13, Medium/High). **Scanned-PDF extraction accuracy** (med; human validation accepted by client). **Sponsor disengagement** — Raja missed the substantive Aug-24 discussion and decides access + phase 2.
 - Vocabulary traps stand: never "agent", never "single source of truth"; Mustafa's floor (not too small to capture the story) still binds.
 
 ## Activity
 
+- 2026-10-01 — Packaged (chat) — the *Plan vs actual investigation* accelerator pack built from this engagement: brief confirmed, four documents delivered, mini-site listing rewritten and approved (not published), walkthrough in build → [oracle-packs](oracle-packs.md#plan-vs-actual-investigation-aiq--sbg--built-2026-10-01).
+- 2026-10-01 — SoW update + data assessments 09-22/09-29 + use-case brief read and folded (chat) — EUR 170,940 incl. OCI setup, 1× H200, stack named, §6 exclusions deleted, tracked changes unaccepted; anchor = SEVEN (Dammam + Khobar), ten candidate packages; PoV not started.
 - 2026-09-11 — Status check (chat) — no artifact newer than the 2026-09-10 SoW + WBS v0.9.2 in `Projects/Oracle/Customers/SBG/`; whether the SoW went to Oracle, whether kickoff happened and whether data access is resolved all remain unknown, and the Sep-7 "SS: SBG review" meeting left no note ⚠. SBG UC 1 was placed on the NATO use-case map as the funded-pipeline proof on tile **4.1** (the normalisation + evidence layer; readiness forecasts stay Lakehouse-native) → [oracle-defense.md](oracle-defense.md).
 - 2026-09-10 — SOW + WBS v0.9.2 read and folded (chat) — red §2.4/§3/§5.2 rewritten, one-anchor-project narrowing, option 2 written out of scope, normalization confirmed as 1a, §5.3 prerequisites added, Discovery compressed to 2 wks, reserve removed, Phase 7 costed, BoM added; residual Aconex text, GPU-sizing contradiction, effort-total mismatch and missing provisional-sum treatment logged.
 - 2026-08-29 — [Aug-24 workshop analysis folded](docs/2026-08-24_sbg-data-scoping-workshop-analysis.md) — premise flip to completed packages, time-series confirmed, client-articulated normalization + forecast-volatility metric, access = critical path, S1–S14/V1–V14.
