@@ -59,6 +59,18 @@ counts and the scaffolding, not the essence" and used internal vocabulary
   everything you refer to, no cleverness or ellipsis; if the pain is obvious only to insiders, one
   clause first says it exists and why it hurts (Alex, 2026-09-22: "the Oracle rep should know the
   issue first — many won't have that in their mental model").
+- **A problem and its solution go one "so what" further, to the money** (2026-10-01, Alex on
+  the Plan vs actual pair, whose problem ended on "schedules, costs and contracts don't link" and
+  whose solution ended on "confirmed causes become the next bid's lessons": "it's 1 'so what'
+  away from real business value. Make sure problem makes the business problem clear, and
+  solution maps to the change in that business problem and ROI"). Ask *so what?* of the pain
+  until the answer is something the buyer's business measures (margin, revenue, cost, cash,
+  penalties, risk, capacity) and end the problem there, with the pain kept as its cause. The
+  solution then says how that same measure changes and what the business gets back for the
+  effort; a line that ends on an activity is still one *so what* short. Name the measure and its
+  direction when no figure is cleared. It holds for any problem/solution pair: a pack brief, a
+  deck, a one-pager, a listing's plates and industry cases. Homes in the work repos: the
+  packaging plugin's `story` card (check 6) and the mini-site's START-HERE §4.
 - **Metrics are business metrics, never proof criteria** (2026-09-23, Alex on a sales one-pager
   whose tiles read *"Reviewer agreement ↑ · Confidence calibrated · Coverage ↑"*): a metric on a
   sales artifact is something the buyer's business already tracks or would put in a quarterly
