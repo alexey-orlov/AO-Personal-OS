@@ -1,7 +1,7 @@
 # Pricing & unit economics — component cost allocation
 
-_status: allocation framework implemented in Юніт.xlsx — steps 1–3 done, step 4 (bucket costs → 1 unit of component) computed for Public Cloud (high) and (low) in Юніт_UPD, step 5 (margins) shown for 3 components and 2 buckets; results deck v14 (35 slides, 09-30) for the results presentation; ⚠ in Юніт_UPD the high bucket's CAC pool (T4) is divided by lifetime, the low one's (T56) is not_
-_updated: 2026-09-30_
+_status: allocation framework implemented in Юніт.xlsx — steps 1–3 done, step 4 (bucket costs → 1 unit of component) computed for Public Cloud (high) and (low) in Юніт_UPD, step 5 (margins) shown for 3 components and 2 buckets; results deck v15 (36 slides, 10-01; Alex moved the results to the front) for the results presentation; ⚠ in Юніт_UPD the high bucket's CAC pool (T4) is divided by lifetime, the low one's (T56) is not_
+_updated: 2026-10-01_
 
 ## Snapshot
 
@@ -13,7 +13,7 @@ _updated: 2026-09-30_
 - **Step 4 rule — by Direct COGS, never by price:** Indirect COGS and General per unit = bucket pool ÷ Σ(Direct COGS × units at year-end × 12) × the component's Direct COGS, with year-end units = units × (1 + growth) × (1 − churn); CAC = pool ÷ (Σ Direct COGS of new sales × 12 × lifetime / 12) — new sales only, over the customer lifetime. Worked, Public Cloud (high) vCPU 1 GHz: Direct COGS 80,25 ₴/mo → Indirect COGS 5,61 + CAC 29,81 + General 20,85 ₴/mo. This replaces the approach doc's price-proportional spread and makes concrete Alex's 08-28 COGS-weight bridge. (chat, 2026-09-26)
 - **Two decks** (UA, GigaCloud template; live files on Alex's MacBook Air in `~/Desktop/GigaCloud/`, hand-edited — living-documents rule; handoff: [docs/margin-deck/HANDOFF.md](docs/margin-deck/HANDOFF.md)):
   - **Plan deck v5** (13 slides, 08-27 → 09-26): goal, output-table schema, price stack, 6 principles, 4 attribution models **A1/A2/B/C/D** — ⚠ this lettering is canonical when Alex says «модель B/C/D» and matches neither the Margin.xlsx block labels nor the A–G classes of [pricing-cost-allocation-approach.md](pricing-cost-allocation-approach.md). (chat, 2026-08-27/-28)
-  - **Results deck v14** (35 slides, 09-30; Alex's hand-edited file is the live copy): price stack, Alex's allocation tree rebuilt natively, steps & status, glossary, steps 1–4 with worked examples from the workbook (Public Cloud (low): HDD 200 IOPS, vRAM Linux, Additional IP — tab 4 rows 56/59/57), a step-4 overview of the allocation variants, step-5 margins of those three components (HDD's min price 1,64 ₴ is 36,9 % above its 1,20 ₴ price), step-5 bucket-level margins (Public Cloud on OpenStack: costs 69,8 % of the 3 366,71 ₴ average check; on VMware: 26,2 % of 32 664,80 ₴; tab 4 E/AE split as Σ H × column; two 100 % columns + one legend-table), a strongly marked «Дані» section, and the action plan (09-30 Google Doc «План»: 02.10 / 09.10 / 31.10 / 31.12). Not committed (employee names, mobilisation status). (chat, 2026-09-26/-28)
+  - **Results deck v15** (36 slides, 10-01, re-ordered by Alex: results first, then «Методологія»; Alex's hand-edited file is the live copy): price stack, Alex's allocation tree rebuilt natively, steps & status, glossary, steps 1–4 with worked examples from the workbook (Public Cloud (low): HDD 200 IOPS, vRAM Linux, Additional IP — tab 4 rows 56/59/57), a step-4 overview of the allocation variants, step-5 margins of those three components (HDD's min price 1,64 ₴ is 36,9 % above its 1,20 ₴ price), step-5 bucket-level margins (slide 10, updated workbook of 10-01: Public Cloud on OpenStack — costs 69,9 % of the 3 369,05 ₴ average check; Public Cloud on VMware — 28,6 % of 20 498,60 ₴; Private Cloud on VMware (Private Infra's representative product, Alex) — 63,0 % of 748 721,08 ₴; tab 4 E/AE split as Σ H × column; 100 % columns + one legend-table), a strongly marked «Дані» section, and the action plan (09-30 Google Doc «План»: 02.10 / 09.10 / 31.10 / 31.12). Not committed (employee names, mobilisation status). (chat, 2026-09-26/-28)
 - Reasoning reference: [pricing-cost-allocation-approach.md](pricing-cost-allocation-approach.md) (v5 recommendation, 2026-08-27) — floor = economic minimum at quote time, target price = loaded cost ÷ (1 − shares − profit %); мінімальна прибутковість = % від фактичної ціни продажу, approvers CFO + CEO + CBDO.
 
 ## Active threads
@@ -38,6 +38,7 @@ _updated: 2026-09-30_
 
 ## Open loops
 
+- Mine/Alex — **refresh the step-4/5 example slides (30, 32, 34, 36 in v15)?** The 10-01 workbook changed the Public Cloud (low) pools. Indirect COGS went from 17,16 to 15,83 M, CAC w/o sales ФОТ from 0,40 to 1,17 M, CAC sales ФОТ from 46,0 to 30,0 K and General from 1,72 to 1,38 M, so the per-unit values on those slides are stale. HDD's min price barely moves: 1,643 → 1,644 ₴. «Our services» E135 = SUM(D,H) instead of SUMPRODUCT. (chat, 2026-10-01)
 - Theirs (Alex) — ⚠ **CAC pool of the high bucket in Юніт_UPD.** Tab 4 T4 = «1-3.Alllocation - Total cost»!D21 ÷ lifetime (G4), while T56 = C21 undivided. As a result, CAC in the high bucket is 0,1 % of the average check (27,35 ₴ on the v13 bucket slide). One of the two formulas is wrong. (chat, 2026-09-30)
 - The monthly-pool error of 09-27 looks fixed in Юніт_UPD (inferred). Tab 4 now takes its pools from «1-3.Alllocation - Total cost», its denominators run over the whole bucket × 12 billing cycles, and vCPU Indirect COGS is 43,75 ₴, up from 5,61 ₴. The workbook's cached values reconcile: R, E and AE recompute exactly. (chat, 2026-09-30)
 - Mine — step-5 / Data open items (chat, 2026-09-27):
@@ -57,6 +58,7 @@ _updated: 2026-09-30_
 - Mine — the August data fixes (593 vs 463 component reconciliation, Cubbit MRR anomaly, 187 zero-price rows, "new MRR" semantics) and the 8 required inputs from the [approach doc](pricing-cost-allocation-approach.md#required-inputs-to-compute-the-rate-card) — status not re-checked since 08-27.
 
 ## Activity
+- 2026-10-01 — v15: products slide with Private Infra added and Public Cloud refreshed from Alex's updated workbook; the step-4/5 example slides still show the 09-30 low-bucket pools.
 - 2026-09-30 — v14: bucket-margin slide redrawn as clean columns + legend-table after Alex's «too much text» note.
 - 2026-09-30 — results deck v13 (35 slides) from Юніт_UPD: step-4/5 examples moved to Public Cloud (low), bucket-level margin slide, action plan.
 
