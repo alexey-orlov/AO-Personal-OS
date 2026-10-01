@@ -35,11 +35,14 @@ usual way: [`automations/chrome-mcp/preflight.md`](../../../../automations/chrom
    automation README's "the Print PDF button opens an OS print dialog" note is about `Print`; it
    does not rule out `Export`.)
 
-5. **Poll `~/Downloads` until the file exists.** Clockify names it
-   `Clockify_Time_Report_Detailed_01_<MM>_<YYYY>-<DD>_<MM>_<YYYY>.pdf`.
+5. **Poll for the file until it exists.** Clockify names it
+   `Clockify_Time_Report_Detailed_01_<MM>_<YYYY>-<DD>_<MM>_<YYYY>.pdf`. Chrome saves it to its
+   **last-used folder**, not necessarily `~/Downloads` (2026-10-01: it landed in
+   `~/Desktop/Monthly reports/`), so poll both, and if neither has it, read `target_path` from
+   the downloads table below before calling it a failure.
    ```bash
    for i in $(seq 1 40); do
-     F=$(find ~/Downloads -maxdepth 1 -name "Clockify_Time_Report_Detailed_01_08_2026-*.pdf" | head -1)
+     F=$(find ~/Downloads ~/Desktop/"Monthly reports" -maxdepth 1 -name "Clockify_Time_Report_Detailed_01_08_2026-*.pdf" | head -1)
      [ -n "$F" ] && { echo "LANDED: $F"; break; }
      sleep 1
    done
