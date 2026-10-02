@@ -1,0 +1,53 @@
+{
+  "schema": 1,
+  "generatedAt": "2026-10-02T04:03:39.143Z",
+  "runStamp": "20261002T0403",
+  "episodes": [
+    {
+      "videoId": "lr3hNhA0IfQ",
+      "videoTitle": "AI, Infrastructure, and the Next Investment Cycle",
+      "videoUrl": "https://www.youtube.com/watch?v=lr3hNhA0IfQ",
+      "channelName": "a16z",
+      "publishedDate": "2026-09-30",
+      "guests": [],
+      "summary": "The conversation argues that AI is driving a broad, economy‑wide investment boom: hyperscalers are racing to build compute, which is cascading demand into chips, power, construction and skilled labor, and creating an industrial-style capex cycle. At the same time, falling inference costs, agentic workflows, and rapid private‑market growth are unlocking new application and consumer opportunities even though enterprise adoption and measurable impact remain early.",
+      "insights": [
+        {
+          "headline": "Hyperscalers are investing massively, compressing supply and depressing free cash flow",
+          "detail": "Alphabet, Amazon, Meta, Microsoft and Oracle are sharply accelerating capex: the group’s spend is cited at ~$780 billion in 2026 (up from $416B in 2025) with expectations above $1 trillion annually by 2027. Those platforms are reinvesting large portions of near‑term operating cash flow into chips, data centers, power and construction, which depresses free cash flow now but creates long‑lived assets and a J‑curve where consensus forecasts expect recovery and substantial growth from 2028 onward. The result is persistent supply shortages across the data‑center supply chain and attractive order books for vendors in semiconductors, power and construction.",
+          "anchorQuote": "their capex in 2026 is about $780 billion.",
+          "tSeconds": 401,
+          "link": "https://www.youtube.com/watch?v=lr3hNhA0IfQ&t=401"
+        },
+        {
+          "headline": "AI demand is a 'model buster' expanding compute needs",
+          "detail": "New usage patterns — agents, parallel and long‑running tasks, and autonomous background workflows — push compute demand far beyond earlier forecasts, prompting successive upward revisions to hyperscaler capex. Anecdotes include companies pausing paid subscriptions because capacity was saturated and spot GPU pricing that values any additional GPU brought online, indicating that demand is outstripping supply and justifying aggressive buildouts. That dynamic explains why earlier 'ceilings' on spending became near‑term realities.",
+          "anchorQuote": "demand for compute a model buster at this point",
+          "tSeconds": 534,
+          "link": "https://www.youtube.com/watch?v=lr3hNhA0IfQ&t=534"
+        },
+        {
+          "headline": "Falling inference costs make agentic workflows economical now",
+          "detail": "Engineering improvements — routing to cheaper models, caching context, and targeted fine‑tuning — are driving large per‑workload cost reductions (examples: Databricks’ router solves more problems at ~35% lower cost; fine‑tuned smaller models reported ~60% cost cuts and dramatic latency improvements; some financial workloads went ~10x cheaper). Lower costs make it practical for agents to multi‑step, check and retry, and use tools reliably, which opens many use cases that were previously prohibitively expensive and explains rapid growth in agent token usage.",
+          "anchorQuote": "agents are actually economical now for a much wider range of work.",
+          "tSeconds": 973,
+          "link": "https://www.youtube.com/watch?v=lr3hNhA0IfQ&t=973"
+        },
+        {
+          "headline": "Enterprise adoption is early; measurable impact lags deployments",
+          "detail": "While 69% of S&P 500 firms report live AI deployments, only ~30% show quantifiable impact and just ~2% track metrics over time, indicating a large gap between pilots and recurring, measured workflows. Additionally, 'power users' are pulling away: the top 1% of users spend roughly eight times more than the top 10%, with the heaviest users spending thousands per month versus median users at a few hundred. That means a minority of intensive adopters are driving most early supplier revenue and signals where monetization and product focus should be prioritized.",
+          "anchorQuote": "live deployments at S&P 500 companies, that's at 69%.",
+          "tSeconds": 1109,
+          "link": "https://www.youtube.com/watch?v=lr3hNhA0IfQ&t=1109"
+        },
+        {
+          "headline": "Public software has bifurcated; private giants stay private longer",
+          "detail": "The public software cohort has shifted toward slower growth and profitability: roughly 75% of the sampled public software companies are profitable but only ~30% are growing at 20%+; by contrast, private late‑stage firms (OpenAI, Anthropic, Databricks, Stripe, Revolut, Wayfair etc.) have amassed ~ $2.4T in combined valuations and are taking long‑duration bets. That dynamic — plus fresher private secondary markets with near‑zero discounts — helps explain why many founder‑led companies remain private to pursue bold investments with less short‑term scrutiny, while tenders are used to provide employee liquidity without forcing public exits.",
+          "anchorQuote": "Roughly 75% of the public software sample",
+          "tSeconds": 2187,
+          "link": "https://www.youtube.com/watch?v=lr3hNhA0IfQ&t=2187"
+        }
+      ]
+    }
+  ]
+}
