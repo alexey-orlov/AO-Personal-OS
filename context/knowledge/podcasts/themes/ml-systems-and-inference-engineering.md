@@ -2,7 +2,7 @@
 
 _status: live theme — the hands-on engineering layer beneath AI capability gains: decoding algorithms, GPU kernels, heterogeneous inference hardware, hardware/software co-design for speed and energy efficiency_
 _slug: ml-systems-and-inference-engineering_
-_updated: 2026-10-01 · 16 insights from 8 episodes_
+_updated: 2026-10-02 · 17 insights from 9 episodes_
 
 ## The throughline
 Two YC Paper Club sessions and a Jeff Dean interview lay out the stack from algorithm down to silicon. At the algorithm layer, speculative decoding variants (SSD) and diffusion-based planners (Diffusion MPC) trade extra compute for lower latency and fewer compounding errors, while regularizers (Sigg) and ensembling/distillation recipes buy outsized data and parameter efficiency when data or model size is constrained — the throughline being that inference speed is itself a capability, not just a cost line. At the systems layer, multi-GPU kernel design comes down to a handful of concrete trade-offs (transfer mechanism, comms/compute scheduling, buffer overhead), inference splits into heterogeneous phases (compute-bound prefill vs. bandwidth-bound decode) that want different accelerators, and whole RL simulators can be moved onto the GPU for 10–100× throughput gains. At the hardware layer, Jeff Dean's TPU history makes the underlying economics explicit: purpose-built low-precision chips beat general-purpose ones by 30–80× on energy and 20–30× on latency, and the deeper reason is that moving data costs roughly 1,000× more energy than operating on it — so most "model" problems that look intractable are actually I/O or power problems in disguise.
@@ -77,6 +77,10 @@ The speakers relay a theory that papers from other labs (one named DeepSeek) int
 OpenAI offers an 'ultra fast' mode (about 8x the speed of normal) for top-tier models like Astra; the tradeoff is much higher cost (the demo cost the presenter roughly $97 for 30 minutes). That latency/speed profile enabled demos not practical before: real-time SVG sketch collaboration and live 3D scene editing (a small multiplayer-ish game where the model renders scene changes instantly). The capability points to new UX classes — interactive, model-driven apps — but current economics and some remaining latency mean it's exciting for prototypes and premium experiences, not yet cheap mass deployment.
 — How I AI · 2026-10-01 · guest: Kath (product lead, Sites) · [▶ 17:37](https://www.youtube.com/watch?v=pJNM1z9l5mU&t=1057) · `pi-pJNM1z9l5mU-05`
 
+### Falling inference costs make agentic workflows economical now
+Engineering improvements — routing to cheaper models, caching context, and targeted fine‑tuning — are driving large per‑workload cost reductions (examples: Databricks’ router solves more problems at ~35% lower cost; fine‑tuned smaller models reported ~60% cost cuts and dramatic latency improvements; some financial workloads went ~10x cheaper). Lower costs make it practical for agents to multi‑step, check and retry, and use tools reliably, which opens many use cases that were previously prohibitively expensive and explains rapid growth in agent token usage.
+— a16z · 2026-09-30 · guest: — · [▶ 16:13](https://www.youtube.com/watch?v=lr3hNhA0IfQ&t=973) · `pi-lr3hNhA0IfQ-03`
+
 ## Related themes
 - [Tech frontier & abundance](tech-frontier-and-abundance.md) — parent theme; split off 2026-08-25. The macro capability/compute/energy narrative (labs, benchmarks, AGI timelines, grid buildout, longevity, space) stays there; this page holds the hands-on decoding-algorithm/kernel/hardware-co-design layer beneath it.
 
@@ -89,3 +93,4 @@ OpenAI offers an 'ultra fast' mode (about 8x the speed of normal) for top-tier m
 - [Y Combinator — Inference, Diffusion, World Models, and More | YC Paper Club (2026-05-29)](../episodes/2026/2026-05-29--yc--inference-diffusion-world-models-paper-club.md)
 - [Every — LIVE: OpenAI DevDay 2026 (2026-10-01)](../episodes/2026/2026-10-01--every--live-openai-devday-2026.md)
 - [How I AI — OpenAI DevDay 2026: Dots, Spaces, and ULTRAFAST (2026-10-01)](../episodes/2026/2026-10-01--howiai--openai-devday-2026-dots-spaces-and-ultrafast.md)
+- [a16z — AI, Infrastructure, and the Next Investment Cycle (2026-09-30)](../episodes/2026/2026-09-30--a16z--ai-infrastructure-and-the-next-investment-cycle.md)
