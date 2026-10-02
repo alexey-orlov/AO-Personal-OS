@@ -33,6 +33,9 @@ Working recipe (≈ 6–10 s for a 26-slide deck):
    the name appears.
 4. `tell application "Microsoft PowerPoint" to save presentation "<name>" in (POSIX file "<out.pdf>") as save as PDF`
    (wrap in `with timeout of 270 seconds`; guard the call with `perl -e 'alarm N; exec @ARGV'`).
+   Then check that the PDF exists and is non-empty before trusting the call: on KN7X2Y65NX on
+   2026-10-02 it returned without an error and wrote no file (View Only suspected, not confirmed),
+   so the deck QA fell back to QuickLook plus the builder's fit report.
 5. `close presentation "<name>" saving no` — close by name. `repeat with p in presentations … close p`
    fails with -2763; a variable named `out` collides with PowerPoint's dictionary (-10003).
 6. Rasterise with PyMuPDF (`pip install pymupdf` into a scratchpad venv): `page.get_pixmap(dpi=110)`
