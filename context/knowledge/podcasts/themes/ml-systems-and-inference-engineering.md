@@ -2,7 +2,7 @@
 
 _status: live theme — the hands-on engineering layer beneath AI capability gains: decoding algorithms, GPU kernels, heterogeneous inference hardware, hardware/software co-design for speed and energy efficiency_
 _slug: ml-systems-and-inference-engineering_
-_updated: 2026-10-02 · 17 insights from 9 episodes_
+_updated: 2026-10-03 · 22 insights from 11 episodes_
 
 ## The throughline
 Two YC Paper Club sessions and a Jeff Dean interview lay out the stack from algorithm down to silicon. At the algorithm layer, speculative decoding variants (SSD) and diffusion-based planners (Diffusion MPC) trade extra compute for lower latency and fewer compounding errors, while regularizers (Sigg) and ensembling/distillation recipes buy outsized data and parameter efficiency when data or model size is constrained — the throughline being that inference speed is itself a capability, not just a cost line. At the systems layer, multi-GPU kernel design comes down to a handful of concrete trade-offs (transfer mechanism, comms/compute scheduling, buffer overhead), inference splits into heterogeneous phases (compute-bound prefill vs. bandwidth-bound decode) that want different accelerators, and whole RL simulators can be moved onto the GPU for 10–100× throughput gains. At the hardware layer, Jeff Dean's TPU history makes the underlying economics explicit: purpose-built low-precision chips beat general-purpose ones by 30–80× on energy and 20–30× on latency, and the deeper reason is that moving data costs roughly 1,000× more energy than operating on it — so most "model" problems that look intractable are actually I/O or power problems in disguise.
@@ -81,6 +81,26 @@ OpenAI offers an 'ultra fast' mode (about 8x the speed of normal) for top-tier m
 Engineering improvements — routing to cheaper models, caching context, and targeted fine‑tuning — are driving large per‑workload cost reductions (examples: Databricks’ router solves more problems at ~35% lower cost; fine‑tuned smaller models reported ~60% cost cuts and dramatic latency improvements; some financial workloads went ~10x cheaper). Lower costs make it practical for agents to multi‑step, check and retry, and use tools reliably, which opens many use cases that were previously prohibitively expensive and explains rapid growth in agent token usage.
 — a16z · 2026-09-30 · guest: — · [▶ 16:13](https://www.youtube.com/watch?v=lr3hNhA0IfQ&t=973) · `pi-lr3hNhA0IfQ-03`
 
+### Speed and cost (UltraFast / chips) are the next hard axes to win
+Beyond model capability, Altman says the industry must invest heavily to make inference much faster and cheaper—hence OpenAI’s focus on UltraFast models and custom silicon. He frames this as a tradeoff curve: users will pay for more speed or intelligence, but the company’s mission is to continuously push value-per-dollar (like Moore’s Law) so powerful, low-latency models become broadly usable. Practically, he notes UltraFast is available now for those who pay, and OpenAI expects several orders‑of‑magnitude speed improvements (and price reductions) over time.
+— Every · 2026-09-30 · guest: Sam Altman (OpenAI) · [▶ video](https://www.youtube.com/watch?v=jZh55CQwSh8) · `pi-jZh55CQwSh8-04`
+
+### Transformer workloads shifted hardware priorities from FLOPS to memory and bandwidth
+Modern transformer models made vendors and architects prioritize large memory capacity and bandwidth over raw FLOPS/Joule because attention scales as O(n^2) and demands large activations and high throughput. The transcript traces this shift around the Ampere era: Nvidia moved from maximizing GFLOPS/Joule (useful for CNNs and crypto) to designing chips with much more SRAM/HBM capacity and wider memory pipes. That explains why GFLOPS-per-joule improvements have slowed and why future efficiency wins will come from optimizing memory/bandwidth and co‑designing model structure with the substrate.
+— Y Combinator · 2026-10-02 · guest: İlker (EPFL, photonic computing researcher), Alok (Standard VC / Stanford postdoc), Sean (Parasma) · [▶ video](https://www.youtube.com/watch?v=xc2FTBGRSJo) · `pi-xc2FTBGRSJo-01`
+
+### Optical computing makes forward passes extremely cheap but faces ADC/DAC and programmability bottlenecks
+Photonic systems can implement massive linear ops with near‑zero marginal FLOP cost (very low loss and huge bandwidth), so they promise dramatic inference energy savings if the forward computation dominates. The presenters demonstrated an optical diffusion‑model inference prototype (SLM+mirrors) that generated images (MNIST/fashion MNIST) with a measurable power advantage versus a GPU, but the prototype assumed fixed, fabricated weights; the real limits are converting digital weights to light (DAC), reading results back (ADC), implementing nonlinear activations, and reprogramming weights—these interface, storage and nonlinearity costs currently erode most of the theoretical gains.
+— Y Combinator · 2026-10-02 · guest: İlker (EPFL, photonic computing researcher), Alok (Standard VC / Stanford postdoc), Sean (Parasma) · [▶ video](https://www.youtube.com/watch?v=xc2FTBGRSJo) · `pi-xc2FTBGRSJo-02`
+
+### Zero‑order optimizers (SPSA) can train without backprop but scale only with cheap forward passes and model sharding
+SPSA / finite‑difference (zero‑order) methods perturb parameters and estimate updates from forward‑only measurements, which lets you train systems that lack backprop or differentiable storage. The speaker trained a 1B‑parameter LSTM with many non‑gradient methods and found SPSA the best among them, but noted gradient‑estimation noise grows with model size: a monolithic large model becomes impractical to train this way. Splitting the model into many small experts reduces gradient noise so training becomes feasible — however that hinges on forward passes being very cheap (optical or analog substrates) and on minimizing expensive ADC/DAC and I/O.
+— Y Combinator · 2026-10-02 · guest: İlker (EPFL, photonic computing researcher), Alok (Standard VC / Stanford postdoc), Sean (Parasma) · [▶ video](https://www.youtube.com/watch?v=xc2FTBGRSJo) · `pi-xc2FTBGRSJo-03`
+
+### The brain argues for hardware–software co‑design: memory, dynamics and inhibition matter
+Speakers emphasize that the brain's efficiency (≈20 W) comes from co‑evolved hardware and learning rules: memory is embedded in synapses, computation is event‑driven (spiking, analog dynamics), and strong local inhibition (cortical columns) enables independent, efficient learning. The practical implication is that simply porting current deep‑learning architectures to new substrates is unlikely to capture those benefits — instead we must co‑design algorithms and devices (e.g., memristors, coupled oscillators, photonics, SRAM‑compute stacks) and choose which brain mechanisms actually translate to robust, manufacturable gains.
+— Y Combinator · 2026-10-02 · guest: İlker (EPFL, photonic computing researcher), Alok (Standard VC / Stanford postdoc), Sean (Parasma) · [▶ video](https://www.youtube.com/watch?v=xc2FTBGRSJo) · `pi-xc2FTBGRSJo-04`
+
 ## Related themes
 - [Tech frontier & abundance](tech-frontier-and-abundance.md) — parent theme; split off 2026-08-25. The macro capability/compute/energy narrative (labs, benchmarks, AGI timelines, grid buildout, longevity, space) stays there; this page holds the hands-on decoding-algorithm/kernel/hardware-co-design layer beneath it.
 
@@ -94,3 +114,5 @@ Engineering improvements — routing to cheaper models, caching context, and tar
 - [Every — LIVE: OpenAI DevDay 2026 (2026-10-01)](../episodes/2026/2026-10-01--every--live-openai-devday-2026.md)
 - [How I AI — OpenAI DevDay 2026: Dots, Spaces, and ULTRAFAST (2026-10-01)](../episodes/2026/2026-10-01--howiai--openai-devday-2026-dots-spaces-and-ultrafast.md)
 - [a16z — AI, Infrastructure, and the Next Investment Cycle (2026-09-30)](../episodes/2026/2026-09-30--a16z--ai-infrastructure-and-the-next-investment-cycle.md)
+- [Every — How Sam Altman Actually Uses AI to Run OpenAI and His Life (2026-09-30)](../episodes/2026/2026-09-30--every--how-sam-altman-actually-uses-ai-to-run-openai-and.md)
+- [Y Combinator — What If We Stopped Using GPUs? | YC Paper Club (2026-10-02)](../episodes/2026/2026-10-02--yc--what-if-we-stopped-using-gpus-yc-paper-club.md)
