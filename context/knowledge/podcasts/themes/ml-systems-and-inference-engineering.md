@@ -2,7 +2,7 @@
 
 _status: live theme — the hands-on engineering layer beneath AI capability gains: decoding algorithms, GPU kernels, heterogeneous inference hardware, hardware/software co-design for speed and energy efficiency_
 _slug: ml-systems-and-inference-engineering_
-_updated: 2026-10-03 · 22 insights from 11 episodes_
+_updated: 2026-10-04 · 23 insights from 12 episodes_
 
 ## The throughline
 Two YC Paper Club sessions and a Jeff Dean interview lay out the stack from algorithm down to silicon. At the algorithm layer, speculative decoding variants (SSD) and diffusion-based planners (Diffusion MPC) trade extra compute for lower latency and fewer compounding errors, while regularizers (Sigg) and ensembling/distillation recipes buy outsized data and parameter efficiency when data or model size is constrained — the throughline being that inference speed is itself a capability, not just a cost line. At the systems layer, multi-GPU kernel design comes down to a handful of concrete trade-offs (transfer mechanism, comms/compute scheduling, buffer overhead), inference splits into heterogeneous phases (compute-bound prefill vs. bandwidth-bound decode) that want different accelerators, and whole RL simulators can be moved onto the GPU for 10–100× throughput gains. At the hardware layer, Jeff Dean's TPU history makes the underlying economics explicit: purpose-built low-precision chips beat general-purpose ones by 30–80× on energy and 20–30× on latency, and the deeper reason is that moving data costs roughly 1,000× more energy than operating on it — so most "model" problems that look intractable are actually I/O or power problems in disguise.
@@ -101,6 +101,10 @@ SPSA / finite‑difference (zero‑order) methods perturb parameters and estimat
 Speakers emphasize that the brain's efficiency (≈20 W) comes from co‑evolved hardware and learning rules: memory is embedded in synapses, computation is event‑driven (spiking, analog dynamics), and strong local inhibition (cortical columns) enables independent, efficient learning. The practical implication is that simply porting current deep‑learning architectures to new substrates is unlikely to capture those benefits — instead we must co‑design algorithms and devices (e.g., memristors, coupled oscillators, photonics, SRAM‑compute stacks) and choose which brain mechanisms actually translate to robust, manufacturable gains.
 — Y Combinator · 2026-10-02 · guest: İlker (EPFL, photonic computing researcher), Alok (Standard VC / Stanford postdoc), Sean (Parasma) · [▶ video](https://www.youtube.com/watch?v=xc2FTBGRSJo) · `pi-xc2FTBGRSJo-04`
 
+### Just‑in‑time, task‑trained small models are cheaper and safer
+They describe a JIT approach where a general model or agent recognizes a constrained use case and spawns/trains a small specialist model optimized for that task, analogous to a JIT compiler. That specialist is far cheaper to run, less capable of broad harms (e.g., command injection or unexpected behaviors), and simpler to align and maintain; Replit gives examples like training small classifiers (8B) to estimate costs or other categorical outputs. The pattern reduces "model debt" and yields models that remain useful longer for narrow business needs.
+— a16z · 2026-10-03 · guest: Amjad (Replit), Alex (OpenRouter) · [▶ video](https://www.youtube.com/watch?v=ekK8urKHPMQ) · `pi-ekK8urKHPMQ-03`
+
 ## Related themes
 - [Tech frontier & abundance](tech-frontier-and-abundance.md) — parent theme; split off 2026-08-25. The macro capability/compute/energy narrative (labs, benchmarks, AGI timelines, grid buildout, longevity, space) stays there; this page holds the hands-on decoding-algorithm/kernel/hardware-co-design layer beneath it.
 
@@ -116,3 +120,4 @@ Speakers emphasize that the brain's efficiency (≈20 W) comes from co‑evolved
 - [a16z — AI, Infrastructure, and the Next Investment Cycle (2026-09-30)](../episodes/2026/2026-09-30--a16z--ai-infrastructure-and-the-next-investment-cycle.md)
 - [Every — How Sam Altman Actually Uses AI to Run OpenAI and His Life (2026-09-30)](../episodes/2026/2026-09-30--every--how-sam-altman-actually-uses-ai-to-run-openai-and.md)
 - [Y Combinator — What If We Stopped Using GPUs? | YC Paper Club (2026-10-02)](../episodes/2026/2026-10-02--yc--what-if-we-stopped-using-gpus-yc-paper-club.md)
+- [a16z — Why Specialized AI Could Beat The God Model (2026-10-03)](../episodes/2026/2026-10-03--a16z--why-specialized-ai-could-beat-the-god-model.md)
