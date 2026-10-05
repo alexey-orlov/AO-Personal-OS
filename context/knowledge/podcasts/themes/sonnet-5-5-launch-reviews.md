@@ -2,7 +2,7 @@
 
 _status: live theme — practitioner reviews from Sonnet 5.5's 2026-09-29 launch week: effort-setting trade-offs, cost, where Opus still wins_
 _slug: sonnet-5-5-launch-reviews_
-_updated: 2026-09-30 · 5 insights from 1 episodes_
+_updated: 2026-10-05 · 6 insights from 2 episodes_
 
 ## The throughline
 Sonnet 5.5's launch-week verdict from Every's live session: the low and medium effort settings are the sweet spot — fast, cheap, and good enough for iterative design and even single-shot coding tasks once thought Opus-only — while high effort slows and turns inconsistent, and Opus still leads on long-form writing and top-quality tool calls. (synthesis)
@@ -29,8 +29,13 @@ In some tests the hosts ran single-shot benchmarks (LMG Bench) and end-to-end co
 Tests by Katie and Mike showed Opus 5.5 and other writing-focused models remain slightly smarter and better for substantive writing and complex tool-calling; Sonnet is a competent fallback when you hit quota limits. The hosts recommend using Opus or Claude/Codex for computer-heavy workflows and deep writing work, and using Sonnet when you need a cheaper, fast assistant for more routine drafting or when your primary model's usage limits are reached. So Sonnet is additive — it increases capacity rather than fully replacing higher-tier models.
 — Every · 2026-09-29 · guest: — · [▶ video](https://www.youtube.com/watch?v=n0lL9XRQi2o) · `pi-n0lL9XRQi2o-05`
 
+### Anthropic’s Sonnet 5.5 rose to 70% on command‑line tasks in one generation
+On TerminalBench 4.0 (measuring real command‑line work) Sonnet 5.5 jumped from roughly 10% to about 70%, outperforming Opus 5.5 on that metric while shipping with cyber‑safeguards and at lower cost per token. The hosts note the leap shows rapid specialization and iteration in frontier labs, but also flag a caveat: cost‑performance charts suggest Sonnet may not dominate across all cost‑vs‑capability frontiers (Opus still beats Sonnet on some cost metrics). The takeaway: model iteration is increasingly task‑specific (agents/CLI, low‑latency tools) and raw capability gains can be uneven when you account for price and deployment tradeoffs.
+— Peter H. Diamandis · 2026-10-03 · guest: Richard Socher (Recursive) · [▶ 103:49](https://www.youtube.com/watch?v=Blyb1D927pM&t=6229) · `pi-Blyb1D927pM-03`
+
 ## Related themes
 - [Opus 5.5 & GPT-6 Soul — launch-week hands-on reviews](opus-5-5-launch-reviews.md) — the model Sonnet 5.5 is benchmarked against
 
 ## Source episodes
 - [Every — LIVE: Sonnet 5.5 (2026-09-29)](../episodes/2026/2026-09-29--every--live-sonnet-5-5.md)
+- [Peter H. Diamandis — Recursive's $670M Bet on Self-Improving AI, Sonnet 5.5 Hits 70%, Elon Co-Leads Pentagon Push EP 299 (2026-10-03)](../episodes/2026/2026-10-03--diamandis--recursive-s-670m-bet-on-self-improving-ai-sonnet-5.md)
