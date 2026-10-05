@@ -63,7 +63,10 @@ lines have per-set weights in kg, warm-up/crossfit lines have times (40",
 Line rules:
 - **Crossed-out exercise = planned but not done — never log it.** A struck
   name with sets/weights still written next to it is still skipped.
-- Sets notation `3x10` = 3 sets × 10 reps.
+- Sets notation `3x10` = 3 sets × 10 reps. A range `3x8-10` → reps `8-10`
+  as written; a circled number in it is reported, not silently picked. Send
+  any non-numeric reps with a leading apostrophe (`"reps":"'8-10"`): `log`
+  writes USER_ENTERED, and the en_US sheet would read a bare `8-10` as a date.
 - Weights: one number → start = end = it; `A→B` / `A-B` → start A, end B;
   a series `A/B/C/D` or `A-B-C` → start = first, end = last.
 - A small number-series squeezed above/below a line belongs to the adjacent
@@ -110,6 +113,12 @@ echo '{"date":"7/22/2026","my_weight":73.6,"entries":[
 - One `log` call per training date; several photos/sessions → chronological
   order. Upsert semantics: re-logging a date overwrites that block, never
   duplicates.
+- **Put exercises that need a new row first in `entries`, top to bottom in
+  sheet order.** `log` plans value writes before later row inserts, so a row
+  written before an insert above it lands one row up, possibly in another
+  exercise's row (README, "Known bug"). After any run that lists
+  `created.exercises`, check in `dump` that no other row gained a cell for
+  that date.
 - `my_weight` only when Alex gave a weigh-in (kg, one decimal). Weight-only
   update (no training): `{"date":"...","my_weight":74.2,"entries":[]}`.
 - Numbers as JSON numbers (22.5, not "22,5"). Exit code 3 → token expired:
