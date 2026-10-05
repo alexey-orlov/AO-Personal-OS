@@ -103,14 +103,18 @@ the template styling propagates.
 Single-number weights in the notebook ("70кг") land as start = end = 70.
 
 ⚠️ Known bug in `log`: value writes are planned against row indices captured
-before the batch's structural inserts run, so when one call both matches an
-existing row and creates a new exercise row above it, the existing row's
-values land one row off and get overwritten (2026-08-03: the 31.07
-«Жим L 45°» entry was displaced by the «Жим в брусьях сидя» insert).
-`log` is an upsert, so re-running the same payload — now with no new rows to
-create — heals the date. Until the planner renumbers writes after inserts:
-after any run whose output lists `created.exercises`, re-run `log` with the
-same payload and re-check `dump`.
+before the batch's structural inserts run. An existing row that is written
+earlier in the same call and sits below a newly inserted row gets its values
+one row up. Directly below the insert, that is the new row, which then
+overwrites them (2026-08-03: the 31.07 «Жим L 45°» entry was lost to the
+«Жим в брусьях сидя» insert), and re-running the same payload heals the
+date. Further down, it is another exercise's row, and the stray cell stays
+there after a re-run. Until the planner renumbers writes after inserts: put
+the entries that create a row first in the payload, top to bottom in sheet
+order (then no write is planned before an insert above it; the 2026-10-05
+run did this cleanly), and after any run
+whose output lists `created.exercises`, check in `dump` that every entry
+landed and that no other row gained a cell for that date.
 
 ## Consumers
 
