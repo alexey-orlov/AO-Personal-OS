@@ -2,12 +2,16 @@
 
 _status: live theme — what stays defensible once AI makes feature-building and model access cheap_
 _slug: moats-and-defensibility_
-_updated: 2026-10-04 · 26 insights from 20 episodes_
+_updated: 2026-10-06 · 27 insights from 21 episodes_
 
 ## The throughline
 Once AI makes feature-building and raw implementation cheap (Verna: AI now writes ~80%+ of code in AI-native orgs; the YC "two levers" framing), the moat has to sit in something a model can't trivially copy — proprietary data and workflow history built up over time (Legora's matter context and firm templates), embedded compliance and money-flow (a16z's enterprise-stickiness thesis, echoed in Supabase's bet on the harder "operate layer"), or network effects and incumbent-held memory (Dust and OpenCode's model-agnostic marketplace framing; Sarah's point that stored memory and personal data lock users to incumbents). A second, sharper thread is about where verticalization beats horizontal abstraction: Evans's "chatbot isn't a product" claim, Every's build-vs-buy argument for a vendor's compiled rule-density, and a16z's warning that middleware layers rarely displace incumbents directly all push toward attacking a vertical or a functional handoff rather than the horizontal layer — while Dust and OpenCode make the countervailing bet that staying model-agnostic and horizontal is itself the moat once models converge and commoditize. Dean's "founders should target domains where general models succeed 0–1%" heuristic supplies the operational test for telling the two situations apart: try the general model first, and build the narrow, opinionated, data-backed product only where it actually fails.
 
 ## Insights
+
+### Real value will be in software layers that wrap models
+The guests repeatedly argue that models are an enabling component but not the whole product: successful startups (Town, Granola, WhisperFlow) build identity/context databases, workflows, and UI that persist with users and create lock-in. For example, Town stores a user's style and context so its outputs feel 99% aligned with the user — a differentiation models alone can't provide. That means long-term defensibility and monetization likely attach to how software assembles models, data and integrations, not to model access alone.
+— a16z · 2026-10-05 · guest: Olivia Moore (author, Top 100 consumer AI report) ; Josh Elman (a16z consumer team) · [▶ video](https://www.youtube.com/watch?v=aCvrzhwUxg0) · `pi-aCvrzhwUxg0-04`
 
 ### A bundled, multi-feature product roadmap beat single-feature specialists over time
 Legora deliberately focused on being best in three integrated areas — an assistant/agent, tabular review, and a Word add-in — rather than optimizing one point-solution. Early on a competitor focused on tabular review was doing ~50x the company's revenue, but by holding a longer horizon and bundling complementary capabilities Legora ultimately surpassed them, illustrating a strategic trade-off between short-term ARR and long-term platform defensibility.
@@ -154,3 +158,4 @@ OpenRouter and Replit argue that mixing multiple models trained differently plus
 - [a16z — What Would Make an AI Assistant Worth Paying For? (2026-09-29)](../episodes/2026/2026-09-29--a16z--what-would-make-an-ai-assistant-worth-paying-for.md)
 - [SaaStr AI — Agent Pricing is Chaos. Here's What We're Seeing From the Buyer Side | The Agents #015 (2026-10-02)](../episodes/2026/2026-10-02--saastr--agent-pricing-is-chaos-here-s-what-we-re-seeing-fr.md)
 - [a16z — Why Specialized AI Could Beat The God Model (2026-10-03)](../episodes/2026/2026-10-03--a16z--why-specialized-ai-could-beat-the-god-model.md)
+- [a16z — The Current State of Consumer AI (2026-10-05)](../episodes/2026/2026-10-05--a16z--the-current-state-of-consumer-ai.md)
