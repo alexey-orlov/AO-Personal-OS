@@ -1,7 +1,7 @@
 # Pricing & unit economics — component cost allocation
 
-_status: allocation framework implemented in Юніт.xlsx — steps 1–3 done, steps 4–5 computed for Public Cloud (low), (high) and Private Infra (Юніт 06.10: CAC and General pools now annual); results deck v16 (36 slides, 10-06) — Public Cloud on OpenStack's minimum average check is 42,9 % above the current one; ⚠ the high bucket's CAC pool (T4) is still divided by lifetime_
-_updated: 2026-10-06_
+_status: allocation framework implemented in Юніт.xlsx — steps 1–5 computed for all five buckets in tab «4. Allocation by components (k)» (Юніт 08.10); results deck v17 (40 slides, 10-08): Public Cloud on OpenStack and Licenses cost more than their current average check (+32 %, +15 %), professional services 111× the check_
+_updated: 2026-10-08_
 
 ## Snapshot
 
@@ -13,7 +13,7 @@ _updated: 2026-10-06_
 - **Step 4 rule — by Direct COGS, never by price:** Indirect COGS and General per unit = bucket pool ÷ Σ(Direct COGS × units at year-end × 12) × the component's Direct COGS, with year-end units = units × (1 + growth) × (1 − churn); CAC = pool ÷ (Σ Direct COGS of new sales × 12 × lifetime / 12) — new sales only, over the customer lifetime. Worked, Public Cloud (high) vCPU 1 GHz: Direct COGS 80,25 ₴/mo → Indirect COGS 5,61 + CAC 29,81 + General 20,85 ₴/mo. This replaces the approach doc's price-proportional spread and makes concrete Alex's 08-28 COGS-weight bridge. (chat, 2026-09-26)
 - **Two decks** (UA, GigaCloud template; live files on Alex's MacBook Air in `~/Desktop/GigaCloud/`, hand-edited — living-documents rule; handoff: [docs/margin-deck/HANDOFF.md](docs/margin-deck/HANDOFF.md)):
   - **Plan deck v5** (13 slides, 08-27 → 09-26): goal, output-table schema, price stack, 6 principles, 4 attribution models **A1/A2/B/C/D** — ⚠ this lettering is canonical when Alex says «модель B/C/D» and matches neither the Margin.xlsx block labels nor the A–G classes of [pricing-cost-allocation-approach.md](pricing-cost-allocation-approach.md). (chat, 2026-08-27/-28)
-  - **Results deck v16** (36 slides, 10-06, re-ordered by Alex: results first, then «Методологія»; Alex's hand-edited file is the live copy): price stack, Alex's allocation tree rebuilt natively, steps & status, glossary, steps 1–4 with worked examples from the workbook (Public Cloud (low): HDD 200 IOPS, vRAM Linux, Additional IP — tab 4 rows 58/61/59 in Юніт 06.10), a step-4 overview of the allocation variants, step-5 margins of those three components (Юніт 06.10: min price above the current one by 180,3 % for HDD and 24,3 % for Additional IP; vRAM Linux margin 0,7 %), step-5 bucket-level margins (slide 10: Public Cloud on OpenStack — costs 142,9 % of the 3 369,05 ₴ average check; Public Cloud on VMware — 44,6 % of 20 991,29 ₴; Private Cloud on VMware (Private Infra's representative product, Alex) — 85,3 % of 804 879,40 ₴; tab 4 E/AE split as Σ H × column; columns on one scale with a 100 % line and a red frame for costs above it, plus one legend-table), a strongly marked «Дані» section, and the action plan (09-30 Google Doc «План»: 02.10 / 09.10 / 31.10 / 31.12). Not committed (employee names, mobilisation status). (chat, 2026-09-26/-28)
+  - **Results deck v17** (40 slides, 10-08; Alex's hand-edited file is the live copy; results first, then «Методологія»): intro incl. «margin per component, not per deal» (seller hours, support incidents, partner commissions vs one component price); results — budget by type and by bucket (CAC incl. Sales ФОТ), cost per 1 UAH of Direct COGS + FTE per bucket (COGS 57,4 / CAC 59,0 FTE), product margins on three slides with key-insight panels: infrastructure (OpenStack costs 132 % of its 3 369 ₴ check, VMware 61 % of 20 991 ₴, Private Cloud on VMware 76 % of 805 127 ₴), licenses (115 % of 6 586 ₴) and professional services (costs 10,85 M ₴ = 111× the 97 808 ₴ check, CAC 194 ₴ per 1 ₴ of Direct COGS — shown on an absolute scale), action plan; methodology — steps 1–5 with worked examples from tab (k) (Public Cloud (low): HDD 200 IOPS, vRAM Linux, Additional IP — rows 58/61/59). Not committed (employee names, mobilisation status). (chat, 2026-09-26 → 10-08)
 - Reasoning reference: [pricing-cost-allocation-approach.md](pricing-cost-allocation-approach.md) (v5 recommendation, 2026-08-27) — floor = economic minimum at quote time, target price = loaded cost ÷ (1 − shares − profit %); мінімальна прибутковість = % від фактичної ціни продажу, approvers CFO + CEO + CBDO.
 
 ## Active threads
@@ -26,8 +26,8 @@ _updated: 2026-10-06_
 - CFO (unnamed) — owns the cost-center structure; approves the allocation logic and, with CEO + CBDO, the minimum profitability. (chat, 2026-08-27)
 
 ## Decisions
+- 2026-10-08 — Step 2, method 4 (Sales data) reworked: each sales team's payroll (Inbound, Outbound, Growth, Enterprise; 32,7 M) is split across buckets in proportion to deals × relative effort per deal (expert: low 1, high 2, Private 8, Licenses 1, Services 2); cloud deals from the 2026 sales plan, licenses/services deals expert-estimated. Step 4 has one CAC formula for the whole pool (CAC w/o Sales ФОТ + Sales ФОТ). (chat)
 
-- 2026-09-28 — Sales-data method (step 2) splits the sales team's CAC by effort share. Effort = deal-months 2026 (plan × cycle) ÷ expert intensity, i.e. how many such deals one rep runs in parallel. Step 4 takes this bucket share like every other method, so there is one CAC flow and no per-deal «allocation to customer». (chat)
   - Why the plan dependence is fine (Alex): the plan enters both the step-2 share and the step-4 denominator (new sales). A small Licenses share is therefore spread over few new units, and per-unit CAC does not depend on how much of a bucket the plan expects.
   - This holds only if step 4's new sales come from the same plan.
   - Replaces the 09-27 per-deal / allocation-to-customer design. Lesson: before agreeing that a dependence in one step distorts unit costs, trace it to the end of the chain, where it may cancel.
@@ -38,9 +38,9 @@ _updated: 2026-10-06_
 
 ## Open loops
 
-- Theirs (Alex) — «Our services» E133 = SUM(D,H) instead of SUMPRODUCT in Юніт 06.10; the bucket's average check is wrong until fixed (not on any slide yet). (chat, 2026-10-06)
-- Theirs (Alex) — ⚠ **CAC pool of the high bucket.** Tab 4 T4 = «1-3.Alllocation - Total cost»!D21 ÷ lifetime (G4), while the low and Private Infra pools (T58, T71) are undivided. In Юніт 06.10 CAC is therefore 0,3 % of the VMware check (59,14 ₴) against 52,5 % for OpenStack. One of the formulas is wrong. (chat, 2026-09-30 / 10-06)
-- The monthly-pool error of 09-27 is fixed in Юніт 06.10: «1-3.Alllocation - Total cost» now holds annual CAC (w/o Sales ФОТ) and General pools (×12 vs 10-01), and its «Слайд 8» table feeds the budget slide (total 931,4 M). (chat, 2026-10-06)
+- Mine/Alex — **FTE figures in the licenses/services insights vs the FTE slide.** The slide computes FTE from «1-2. Allocation-ФОТ» (type share × bucket split; SALES UA's 39 positions by the Sales ФОТ key): licenses CAC 6,0 FTE (insight: ≈5, incl. 3,2 Sales), services CAC 4,8 FTE (insight: 7,5). Alex to confirm which basis to show. (chat, 2026-10-08)
+- Theirs (Alex) — method-4 deals differ from the 2026 plan in two cells: Outbound low 12 (plan 4), Enterprise low 0 (plan 1). (chat, 2026-10-08)
+- Fixed in Юніт 08.10 tab (k): annual CAC/General pools, the high bucket's CAC pool (no longer ÷ lifetime) and the «Our services» average check (SUMPRODUCT). (chat, 2026-10-08)
 - Mine — step-5 / Data open items (chat, 2026-09-27):
   - VAT basis of «Component» prices: E-Cloud labels them «with VAT».
   - Direct COGS is not in the budget file. The Data slides assume ФОТ = СТП's Our-services share (833 тис. ₴) and не-ФОТ = Q2 P&L direct lines × 4 (334,8 M ₴), split by MRR × (1 − direct margin). Both are yellow on the slides; replace them with the Capacity / FY2026 direct-cost budget.
@@ -58,6 +58,7 @@ _updated: 2026-10-06_
 - Mine — the August data fixes (593 vs 463 component reconciliation, Cubbit MRR anomaly, 187 zero-price rows, "new MRR" semantics) and the 8 required inputs from the [approach doc](pricing-cost-allocation-approach.md#required-inputs-to-compute-the-rate-card) — status not re-checked since 08-27.
 
 ## Activity
+- 2026-10-08 — v17 (40 slides) from Юніт 08.10 tab (k): intro «per component», cost-per-1-UAH + FTE slide, licenses and services results with insights, method 4 rewritten, one CAC flow in step 4.
 - 2026-10-06 — v16 from Юніт 06.10: data slides 8–9, method 5, step-4/5 examples and the products slide refreshed; the overflow above the current price/check is now drawn on one scale.
 - 2026-10-01 — v15: products slide with Private Infra added and Public Cloud refreshed from Alex's updated workbook; the step-4/5 example slides still show the 09-30 low-bucket pools.
 - 2026-09-30 — v14: bucket-margin slide redrawn as clean columns + legend-table after Alex's «too much text» note.
