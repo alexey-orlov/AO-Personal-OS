@@ -142,3 +142,10 @@ deck or one-pager work.
       row = top segment), with subtotal rows for the whole and for the cost block. Each row carries its swatch, so the
       table is also the legend.
     - Columns normalised to 100 % say so in the lead; their absolute totals sit on the caps.
+22. **A slide built to land one claim carries that claim as its headline** (2026-10-08, Alex on the GigaCloud «per component, not per
+    deal» slide: «зроби головний акцент на тезу, має бути виділено»). The first cut kept the intro series title («Коректна алокація
+    витрат у ціну компонентів») as the headline and put the thesis in the grey lead under it, so the slide's one point read as a caption.
+    - The thesis is the title, at title size, with its key phrase in the accent colour; break it by hand into ≤ 2 lines.
+    - A series title that would otherwise sit there moves into the kicker («Загальне завдання · …»); drop the lead rather than
+      restate the thesis in it.
+    - The closing panel says what follows from the thesis («Тому …»), not the thesis again.
