@@ -149,3 +149,8 @@ deck or one-pager work.
     - A series title that would otherwise sit there moves into the kicker («Загальне завдання · …»); drop the lead rather than
       restate the thesis in it.
     - The closing panel says what follows from the thesis («Тому …»), not the thesis again.
+23. **Text that carries the slide's message is never set at caption size** (2026-10-08, Alex on the GigaCloud product-margin slides:
+    the bucket labels under the columns and the key-insight panel were too small). Category labels under a chart, an insight panel's
+    heading and its statements are read first, not looked up. At the GigaCloud 2× scale: labels ≥ 15 pt, insight statements 16 pt,
+    the panel heading 18 pt; only provenance and support lines go down to 12–13.5 pt. When a larger label runs into its neighbour,
+    break it into two lines («бакет» / name) rather than shrinking it back.
