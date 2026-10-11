@@ -156,3 +156,28 @@ deck or one-pager work.
     heading 18 pt; only provenance and support lines go down to 13.5–14 pt. When a larger label runs into its neighbour, break it into
     two lines («бакет» / name) rather than shrinking it back, and drop a column that is constant or off the message (billing cycles)
     to buy the width.
+24. **A process or explainer deck says what each step is for and what really happens, in business terms — the system's own wording is
+    input, never output** (2026-10-11, Alex on the GigaCloud publication-process deck: the step essences were "copied from the CRM card").
+    - Each step states its purpose, the real activity (who meets, who documents, who tests what) and the result as a business state, not the
+      fact that a record was logged.
+    - When a screenshot or export shows a sample of fields or conditions, present them as examples, never as the full list.
+    - A comma-run of criteria becomes a one-line generalisation plus bullets.
+    - When a system computes when a step is required (a workflow sets a flag), state the business condition its logic encodes ("when the
+      product brings a new contract or delivery process, vendor, SLA level or platform"); field names and GUIDs go to the speaker notes.
+    - Ukrainian: «evidence» is «підтвердження», not «докази».
+25. **A card that carries a slide's content uses body-size type (20 pt at the GigaCloud 2× scale) in stacked, labelled sections, with one
+    structure for every peer card** (2026-10-11, same deck: "слишком мелкий шрифт… разношерстно написаны").
+    - Put the label (bold, accent colour) above its content, not in a 17 pt label|text table that reads as a form.
+    - Every card of a type has the same sections in the same order. A hybrid step (a to-do that ends in an approval) gets its own fixed
+      section set.
+    - Answers to the same question are phrased the same way across cards (timing first, then the condition).
+26. **Screenshots on peer slides sit in one standard frame, or in 2–3 standard frames chosen by orientation, with a matte filling the gap**
+    (2026-10-11, Alex: "вписаны в один размер… с заполнением… либо же в 2-3").
+    - Pick the frame by aspect (portrait form vs landscape) and centre the picture in it; never size a frame to each picture.
+    - Frame the part the slide talks about with a native outline, not by cropping.
+27. **A process structure gets one colour per stage, used in the same position on every slide that shows it** (2026-10-11, Alex: colour
+    coding plus a unified structure and placement, so the stages, blocks and steps are remembered).
+    - The overview, the full map and every section divider share one column grid.
+    - A divider repeats the map as a "you are here" strip, with the current stage in colour and the rest grey.
+    - Step slides carry the stage colour in the kicker pill and the card.
+    - Within a stage: stage = full hue, block = medium tint, step = light tint (rule 5's tints of one hue).
