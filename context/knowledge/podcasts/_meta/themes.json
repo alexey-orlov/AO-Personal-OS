@@ -18,7 +18,7 @@
       "created": "2026-06-11",
       "aliases": [],
       "hint": "agent deployment in real products, integration into existing workflows, where value lands, context-is-moat rule",
-      "note": "split 2026-06-11 → generative-media-and-multimodal, agent-engineering-patterns, model-reviews-and-benchmarks"
+      "note": "split 2026-06-11 → generative-media-and-multimodal, agent-engineering-patterns, model-reviews-and-benchmarks; split 2026-10-11 → personal-and-consumer-ai-agents"
     },
     "ai-and-the-pm-craft": {
       "title": "AI & the PM craft",
@@ -333,6 +333,14 @@
       "created": "2026-10-03",
       "aliases": [],
       "hint": "messaging that hides server intermediaries, owning infrastructure to control trust and policy, tokenized/serverless identities, ad/telemetry tracking as the main surveillance vector, small AI-run teams operating private networks"
+    },
+    "personal-and-consumer-ai-agents": {
+      "title": "Personal & consumer AI agents",
+      "status": "active",
+      "created": "2026-10-11",
+      "aliases": [],
+      "hint": "personal and consumer agent products (Muse, Dots, Grok Bot), memory/identity/permission/voice patterns, owned personal AGI, consumer shopping and life-admin agents",
+      "note": "split from ai-agents-and-applications, 2026-10-11"
     }
   }
 }
