@@ -8,7 +8,7 @@ _Rewritten 2026-10-12 on Alex's MacBook Air after v4 was delivered (v4 = v3 rewo
 
 | Deck | State | Live copy (Alex hand-edits it — living-documents rule) | In this repo |
 |---|---|---|---|
-| **Publication process** — `GigaCloud_Product Publication Process_12-OCT-2026 (v4).pptx`: the product publication process and its automation in the CRM | v4, 56 slides, UA (2026-10-12); v1 (37 slides), v2 (42) and v3 (46) kept beside it | MacBook Air: `~/Desktop/GigaCloud/` | **not committed** (CRM screenshots, an employee name in a CRM description) |
+| **Publication process** — `GigaCloud_Product Publication Process_12-OCT-2026 (v5).pptx`: the product publication process and its automation in the CRM | v5, 59 slides (56 shown + 3 hidden), UA (2026-10-12); v5 = v4 + the hidden field-check slides, the shown slides pixel-identical to v4; v1–v4 kept beside it | MacBook Air: `~/Desktop/GigaCloud/` | **not committed** (CRM screenshots, an employee name in a CRM description) |
 
 **Deck map (v4):**
 1. Cover.
@@ -17,7 +17,7 @@ _Rewritten 2026-10-12 on Alex's MacBook Air after v4 was delivered (v4 = v3 rewo
 4. The same structure in the CRM: the product checklist screenshot with numbered outlines and a legend.
 5. Section «Кроки процесу».
 6. **Stage 1:** header; Product info ×2 (one card, two screenshots); Components info; Supplier contracts; the Operations kick-off → processes schema; Operations kick-off; Contract and Delivery process approval; Infrastructure setup project; R&D Proof of concept.
-7. **Stage 2:** header; the two-roles slide; the design and delivery product-type tables; then the approvals in Alex's order: design → delivery → Head of Product ×2 (revision approval, exceptions) → finance.
+7. **Stage 2:** header; the two-roles slide; the design and delivery product-type tables; then the approvals in Alex's order: design → delivery → Head of Product ×2 (revision approval, exceptions) → finance. **Hidden slides 22, 23, 25** follow the approvals they detail: «Що перевіряє R&D» and «Що перевіряє Vendor manager» after the design approval, «Що перевіряє Delivery» after the delivery approval.
 8. **Stage 3:** header; the team-readiness schema (publication → six streams); Send to billing ×2; Sales kick-off; Tech kick-off; Marketing brief; Contract and Delivery process confirmation; the three-competences schema; Presales, Support and Delivery competence.
 9. **«Перед першим клієнтом»** (between stages 3 and 4): header; Go-live support (To be confirmed); PoC before first customer. Its Delivery hand-off block stays dashed grey, out of scope.
 10. **Stage 4:** header; Contract process change; Delivery process change; Product change; the table of change types that need an approval.
@@ -47,6 +47,11 @@ _Rewritten 2026-10-12 on Alex's MacBook Air after v4 was delivered (v4 = v3 rewo
     The recording wordings are constants there (`REC_*`, `manual()`). The paragraph classes are `BL` (bullet), `NOTE` (grey qualifier) and `NEW` (a new logical paragraph, with space above).
   - **Other modules:** `gcicons.py` (11 vector pictograms) and `gclib.py`. Older generators are kept for reference only.
 - **Render and check:** `pp_render.sh` from `../margin-deck/toolchain/results-deck/`, then `tools/bottoms.py <pdf>`. It reads the table borders from the PowerPoint PDF and flags any card ending below 13.75″. The builder's own fit estimates run short on long cards, so trust the PDF.
+  - PowerPoint's PDF export skips hidden slides. To QA them, build with `SHOW_HIDDEN=1` (they come out visible, so the PDF has 59 pages), then rebuild without it for delivery.
+- **Field checks** (hidden slides): `FIELD_CHECKS` in `plm_data4.py` has one row per field. Each row holds the object, tab, block, field, a check per role (`rnd`, `vm`, `dlv`) and the change types that concern it (`CHANGE_ROUTES`, flags from the change-type export).
+  - The check texts are constants (`R_*`, `V_*`, `D_*`), reused from the «Хто відповідає за …» tables wherever the check is the same.
+  - On a slide, fields of one block with the same check and the same routing share a row.
+  - Alex's marked screenshots are in `toolchain/plm/img/marks/` (m13–m24): red = R&D, blue = Vendor manager, green = Delivery.
 - **Edited screenshots** are drawn in Montserrat (`~/Library/Fonts/Montserrat-var.ttf`), with sizes and weights fitted to the CRM by pixel difference:
   - revision fields: 25.6 px, weight 530;
   - checklist rows: 23.2 px, weight 500.
@@ -114,6 +119,15 @@ _Rewritten 2026-10-12 on Alex's MacBook Air after v4 was delivered (v4 = v3 rewo
     - manually: when the Business process lead judges the description changed materially.
   - Product changes go through a revision. The change-types table lists the 17 types that need an approval, with a note that the list is configurable by agreement with the approver.
   - The product-change screenshot shows «Product name changed» (Head of Product + delivery). Alex spoke of «New component added», which the export routes to delivery + design, not Head of Product.
+- **Field-level checks** (hidden slides, from Alex's marked screenshots of 2026-10-12):
+  - There is one slide per approver: R&D or Vendor manager as Responsible for design, Delivery as Responsible for delivery.
+  - Fields are grouped as Продукт (by tab and block) and Компонент (the component card's Tech details).
+  - «Що перевіряє» is a draft that carries the «Чернетка — перевірити» chip.
+  - «При змінах» comes from the change-type export. The «Approval: RnD (responsible for design)» column is read as the design role, so it covers Vendor manager too (inferred).
+  - Alex's rules:
+    - R&D checks the Delivery process only when the process has R&D steps, and then confirms it understands its role.
+    - On a component, R&D confirms the characteristics don't contradict the design (no too-small disk, no too-weak CPU).
+    - Delivery confirms the component is described correctly, exists with those properties and can be delivered.
 - **Team tables:** stages are rows (including «Перед першим клієнтом» and stage 4), teams are columns. Steps are numbered by their exact names; ★ = owns the step, ✎ = enters data or approves in the CRM. There are six slides, with Capacity manager on «Доставка» and Support + InfoSec on «Підтримка й безпека».
 - **Product type → responsible teams** (his mapping):
   - Core / Specialized infrastructure / Add-on tools: design R&D + InfoSec; delivery Support + Delivery.
