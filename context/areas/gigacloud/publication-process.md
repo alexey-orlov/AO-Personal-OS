@@ -1,6 +1,6 @@
 # Product publication process (PLM) — CRM checklist
 
-_status: the process and its CRM automation are documented in a 56-slide UA deck v4 (2026-10-12), after four rounds of Alex's dictated feedback, meant for the department heads. Next: Alex answers four small questions (Capacity manager as a delivery owner, the CRM items for two new confirming teams, L4 support / InfoSec competence, the product-change screenshot), then presents_
+_status: the process and its CRM automation are documented in a UA deck v5 (2026-10-12: 56 shown slides after four rounds of Alex’s dictated feedback, plus 3 hidden field-check slides), meant for the department heads. Next: Alex answers four small questions (Capacity manager as a delivery owner, the CRM items for two new confirming teams, L4 support / InfoSec competence, the product-change screenshot), then presents_
 _updated: 2026-10-12_
 
 ## Snapshot
@@ -50,6 +50,11 @@ _updated: 2026-10-12_
     - required when R&D is responsible for design;
     - by default it runs before the first customer; R&D can pull it before publication or declare it unnecessary.
   - **Marketing brief:** the marketing department decides.
+- **What each approver checks, field by field** (Alex's marked CRM screenshots). (chat, 2026-10-12)
+  - **R&D (design):** descriptions, FAQ and documentation don't contradict the technical design; categorization, technical details, components and their limits match the design; compatibility; the architect and the PoC decision. On the Delivery process it checks only its own steps, if there are any. On a component, the characteristics must not contradict the design.
+  - **Vendor manager (design):** subscription and billing terms, categorization, components and their ordering rules, trial and commitments match the vendor contract; we can deliver and contract under the linked processes; vendor lead times; the component's vendor and SKU.
+  - **Delivery:** we can deliver components, disks, datacenters, trial, the delivery process, times and automation as described; support lines are staffed; the infrastructure investment covers what must be built; components are described correctly and exist.
+  - At publication every approver approves all their fields. On a change, the CRM routes most change types only to Responsible for delivery, so the change list should be agreed with the approvers.
 - **Product type → responsible teams** (Alex, feedback). (chat, 2026-10-11)
 
   | Product types | Possible design owners | Possible delivery owners |
@@ -111,6 +116,7 @@ _updated: 2026-10-12_
 
 ## Activity
 
+- 2026-10-12 — [deck v5 + handoff](docs/publication-process-deck/HANDOFF.md) — v4 + 3 hidden slides with field-level checks per approver (R&D, Vendor manager, Delivery), built from Alex's 12 marked CRM screenshots; shown slides unchanged. (chat)
 - 2026-10-12 — [deck v4 + handoff](docs/publication-process-deck/HANDOFF.md) — 56 slides on Alex's fourth feedback round and two follow-ups:
   - the CRM checklist slide;
   - colour-band stage headers;

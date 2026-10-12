@@ -164,6 +164,14 @@ The process runs when a product draft changes, or when a component is added to o
 - The CRM has Delivery process confirmation items only for InfoSec and Support. The deck now names Capacity manager and Vendor manager too, and the action plan says to create their CRM items.
 - InfoSec can hold L2/L3 support but has no competence-confirmation item. The Support lines block also has L4 Support (R&D), which the competence schema leaves out.
 - Product-change screenshot: «Product name changed» instead of the spoken «New component added» (see Decisions). OK?
+- **Routing gaps** shown by the field-check slides. Each approver checks these fields at publication, but the CRM doesn't send their later changes to that approver:
+  - descriptions, categorization, min/max/step and delivery-process changes reach only Responsible for delivery;
+  - Responsible for design gets changes only for «Component added» and (R&D) «Technical details changed»;
+  - subscription period, billing frequency, trial terms and PoC status need no approval at all;
+  - compatibility, the Required flag, documentation/FAQ, the contract process, commitments and investment, and the component's vendor/SKU have no change type.
+
+  Candidates for the action-plan item «Узгодити з погоджувачами перелік типів змін».
+- Component card tabs other than Tech details (General, Pricing) are unmarked. Confirm that no approver checks them.
 - **CRM data fixes** (in the action plan):
   - empty descriptions: Supplier contract, Infrastructure setup project, Initial request to add to billing;
   - typos: «Compentency confirmation: Presales», «Disitributors»;
