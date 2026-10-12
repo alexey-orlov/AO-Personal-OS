@@ -165,6 +165,10 @@ deck or one-pager work.
     - When a system computes when a step is required (a workflow sets a flag), state the business condition its logic encodes ("when the
       product brings a new contract or delivery process, vendor, SLA level or platform"); field names and GUIDs go to the speaker notes.
     - Ukrainian: «evidence» is «підтвердження», not «докази».
+    - Every fact no source states is marked as an assumption, the "obvious" ones first: who records a step, whether the system closes it
+      by itself, who is involved. Do not derive the recorder from the owner or the mechanism from the step's kind (2026-10-12, Alex
+      corrected three such unmarked guesses: Supplier contracts closes automatically, the PM logs the infrastructure project, Finance and
+      Legal are not involved).
 25. **A card that carries a slide's content uses body-size type (20 pt at the GigaCloud 2× scale) in stacked, labelled sections, with one
     structure for every peer card, one question per field and one wording per answer** (2026-10-11 and 2026-10-12, same deck:
     "слишком мелкий шрифт… разношерстно написаны", then "давай его унифицируем").
