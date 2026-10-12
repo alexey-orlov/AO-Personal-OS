@@ -196,8 +196,12 @@ deck or one-pager work.
     - Under every screenshot: the UI path at body size, «Розділ <Section> → Сторінка <record> → <Tab>», section and tab names in the
       product's own English; one path vocabulary for the whole deck (always «Сторінка», never «картка» in one place and «сторінка» in
       another). When the path does not fit one line, break it at an arrow into two balanced lines.
-    - After a conceptual map of something the system implements, show the system's own screen of the same structure, with numbered
-      outlines and a short legend (2026-10-12, Alex: the CRM checklist right after the stage/block/step map).
+    - After a conceptual map of something the system implements, show the system's own screen of the same structure (2026-10-12,
+      Alex: the CRM checklist right after the stage/block/step map).
+    - What sits beside a screenshot is the point the screen proves for the process, in one note («the checklist is always current:
+      it updates itself from the actions people log and from status changes»), never a tour of its interface. Counters, filters,
+      columns and statuses explain themselves; numbered outlines are for the one area the slide talks about (2026-10-12, Alex:
+      "все выделения на объяснении интерфейса — не нужно").
 27. **A process structure gets one colour per stage, used in the same position on every slide that shows it** (2026-10-11, Alex: colour
     coding plus a unified structure and placement, so the stages, blocks and steps are remembered).
     - The overview, the full map and every section divider share one column grid.

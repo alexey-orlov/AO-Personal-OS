@@ -8,13 +8,13 @@ _Rewritten 2026-10-12 on Alex's MacBook Air after v4 was delivered (v4 = v3 rewo
 
 | Deck | State | Live copy (Alex hand-edits it — living-documents rule) | In this repo |
 |---|---|---|---|
-| **Publication process** — `GigaCloud_Product Publication Process_12-OCT-2026 (v5).pptx`: the product publication process and its automation in the CRM | v5, 59 slides (56 shown + 3 hidden), UA (2026-10-12); v5 = v4 + the hidden field-check slides, the shown slides pixel-identical to v4; v1–v4 kept beside it | MacBook Air: `~/Desktop/GigaCloud/` | **not committed** (CRM screenshots, an employee name in a CRM description) |
+| **Publication process** — `GigaCloud_Product Publication Process_12-OCT-2026 (v6).pptx`: the product publication process and its automation in the CRM | v6, 59 slides (56 shown + 3 hidden), UA (2026-10-12); v5 = v4 + the hidden field-check slides; v6 = v5 with slide 4's interface legend replaced by one note; v1–v5 kept beside it | MacBook Air: `~/Desktop/GigaCloud/` | **not committed** (CRM screenshots, an employee name in a CRM description) |
 
 **Deck map (v4):**
 1. Cover.
 2. Stages overview.
 3. Process map: stage → block → step.
-4. The same structure in the CRM: the product checklist screenshot with numbered outlines and a legend.
+4. The same structure in the CRM: the product checklist screenshot and one note — the checklist is always current, updated by the CRM from the actions people log and from status changes (signed supplier contracts, approved processes, billing); the CRM also decides which steps a product needs.
 5. Section «Кроки процесу».
 6. **Stage 1:** header; Product info ×2 (one card, two screenshots); Components info; Supplier contracts; the Operations kick-off → processes schema; Operations kick-off; Contract and Delivery process approval; Infrastructure setup project; R&D Proof of concept.
 7. **Stage 2:** header; the two-roles slide; the design and delivery product-type tables; then the approvals in Alex's order: design → delivery → Head of Product ×2 (revision approval, exceptions) → finance. **Hidden slides 22, 23, 25** follow the approvals they detail: «Що перевіряє R&D» and «Що перевіряє Vendor manager» after the design approval, «Що перевіряє Delivery» after the delivery approval.

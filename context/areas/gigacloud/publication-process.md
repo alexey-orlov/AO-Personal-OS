@@ -1,6 +1,6 @@
 # Product publication process (PLM) — CRM checklist
 
-_status: the process and its CRM automation are documented in a UA deck v5 (2026-10-12: 56 shown slides after four rounds of Alex’s dictated feedback, plus 3 hidden field-check slides), meant for the department heads. Next: Alex answers four small questions (Capacity manager as a delivery owner, the CRM items for two new confirming teams, L4 support / InfoSec competence, the product-change screenshot), then presents_
+_status: the process and its CRM automation are documented in a UA deck v6 (2026-10-12: 56 shown slides after four rounds of Alex’s dictated feedback, plus 3 hidden field-check slides), meant for the department heads. Next: Alex answers four small questions (Capacity manager as a delivery owner, the CRM items for two new confirming teams, L4 support / InfoSec competence, the product-change screenshot), then presents_
 _updated: 2026-10-12_
 
 ## Snapshot
@@ -109,6 +109,7 @@ _updated: 2026-10-12_
 
 ## Activity
 
+- 2026-10-12 — [deck v6](docs/publication-process-deck/HANDOFF.md) — slide 4: the CRM checklist with one note that it updates itself, no interface legend (Alex). (chat)
 - 2026-10-12 — [deck v5 + handoff](docs/publication-process-deck/HANDOFF.md) — v4 + 3 hidden slides with field-level checks per approver (R&D, Vendor manager, Delivery), built from Alex's 12 marked CRM screenshots; shown slides unchanged. (chat)
 - 2026-10-12 — [deck v4](docs/publication-process-deck/HANDOFF.md) — 56 slides: the CRM checklist slide, colour-band stage headers, «Перед першим клієнтом», stage 4 with the 17 change types that need an approval; fresh review applied. (chat)
 - 2026-10-12 — [deck v3](docs/publication-process-deck/HANDOFF.md) — 46 slides: cards headed by step + Owner, UI-path captions, roles / team-readiness / competence schemas, transposed team tables. (chat)
