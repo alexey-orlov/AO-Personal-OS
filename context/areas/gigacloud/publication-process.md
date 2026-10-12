@@ -1,6 +1,6 @@
 # Product publication process (PLM) — CRM checklist
 
-_status: the process and its CRM automation are documented in a UA deck v7 (2026-10-12: 56 shown slides after four rounds of Alex’s dictated feedback, plus 3 hidden field-check slides), meant for the department heads. Next: Alex answers four small questions (Capacity manager as a delivery owner, the CRM items for two new confirming teams, L4 support / InfoSec competence, the product-change screenshot), then presents_
+_status: the process and its CRM automation are documented in a UA deck v8 (2026-10-12: 58 shown slides after four rounds of Alex’s dictated feedback and his follow-ups, plus 3 hidden field-check slides), meant for the department heads. Next: Alex answers four small questions (Capacity manager as a delivery owner, the CRM items for two new confirming teams, L4 support / InfoSec competence, the product-change screenshot), then presents_
 _updated: 2026-10-12_
 
 ## Snapshot
@@ -11,18 +11,16 @@ _updated: 2026-10-12_
   - The Product checklist holds action items, each flagged «required before publication» or not, with Pending counters and a «Not needed» status.
   - Under Required action items → Exceptions, the Head of Product can move items marked (*) to after publication.
   - Product revisions carry the team approvals.
-- **Four stages and a block before the first customer**, from Alex's brief, his Miro and his feedback. (chat, 2026-10-11/12)
+- **Five stages**, from Alex's brief, his Miro and his feedback. (chat, 2026-10-11/12)
   1. **Виконання критеріїв публікації:**
      - Data validation;
      - Pre-publication action items, in two groups: Operations (Supplier contracts, Operations kick-off, Contract process approval, Delivery process approval) and Technology (Infrastructure setup project, R&D PoC).
   2. **Публікація:** two roles, Responsible for design and Responsible for delivery, and the approvals in Alex's order — design → delivery → Head of Product (the revision, then exceptions) → finance investment.
   3. **Готовність команд:** publication starts six streams — Billing (send to billing), Sales (sales kick-off), technical teams (tech kick-off → competence confirmation), operations teams (contract process confirmation), delivery teams (delivery process confirmation), Marketing (marketing brief).
-  - **Перед першим клієнтом** (between 3 and 4):
-    - go-live support: Presales facilitates each new product's customer go-live — the current agreement, to be confirmed;
-    - a PoC deferred at launch is done before the first delivery (+30 days to delivery times).
-
-    Its Delivery hand-off (R&D → Delivery) stays out of scope.
-  4. **Зміни протягом життя продукту:**
+  4. **Перший клієнт** (Alex named it by its event, 2026-10-12):
+     - before the first customer: go-live support, where Presales facilitates each new product's customer go-live (the current agreement, to be confirmed), and a PoC deferred at launch, done before the first delivery (+30 days to delivery times);
+     - after the first customer: the Delivery hand-off (R&D → Delivery), out of scope for now.
+  5. **Зміни протягом життя продукту:**
      - a changed contract or delivery process returns to Draft and the departments re-approve it;
      - a product change goes through a revision, and 17 of the 30 CRM change types need an approval: Responsible for delivery approves all 17, Head of Product or Responsible for design some.
 - **Operations kick-off starts both processes** (Alex, feedback). (chat, 2026-10-11)
@@ -86,6 +84,10 @@ _updated: 2026-10-12_
 
 ## Decisions
 
+- 2026-10-12 — v8 (Alex):
+  - the block between stages 3 and 4 becomes stage 4 «Перший клієнт», with «Перед» and «Після першого клієнта» sub-blocks; «Зміни» becomes stage 5;
+  - his action plan replaces the draft;
+  - an accent slide with the formula opens and closes the deck: процеси, що працюють = прозорість флоу + автоматизація + buy-in учасників.
 - 2026-10-12 — v4–v5 (all from Alex):
   - colour-band stage headers;
   - the CRM checklist after the map;
@@ -109,9 +111,8 @@ _updated: 2026-10-12_
 
 ## Activity
 
-- 2026-10-12 — [deck v7](docs/publication-process-deck/HANDOFF.md) — bold one-word lead-ins and shorter text in every scanned list (design and delivery tables, card bullets, ops-schema panels) (Alex). (chat)
-- 2026-10-12 — [deck v6](docs/publication-process-deck/HANDOFF.md) — slide 4: the CRM checklist with one note that it updates itself, no interface legend (Alex). (chat)
-- 2026-10-12 — [deck v5 + handoff](docs/publication-process-deck/HANDOFF.md) — v4 + 3 hidden slides with field-level checks per approver (R&D, Vendor manager, Delivery), built from Alex's 12 marked CRM screenshots; shown slides unchanged. (chat)
+- 2026-10-12 — [deck v8](docs/publication-process-deck/HANDOFF.md) — stage 4 «Перший клієнт» / stage 5 «Зміни»; three screenshots enlarged as focused crops; Alex's action plan; accent slide at both ends; map chips sized from widths measured in PowerPoint. (chat)
+- 2026-10-12 — [decks v5–v7](docs/publication-process-deck/HANDOFF.md) — hidden field-check slides per approver; slide 4 cut to one note; bold lead-ins in every scanned list. (chat)
 - 2026-10-12 — [deck v4](docs/publication-process-deck/HANDOFF.md) — 56 slides: the CRM checklist slide, colour-band stage headers, «Перед першим клієнтом», stage 4 with the 17 change types that need an approval; fresh review applied. (chat)
 - 2026-10-12 — [deck v3](docs/publication-process-deck/HANDOFF.md) — 46 slides: cards headed by step + Owner, UI-path captions, roles / team-readiness / competence schemas, transposed team tables. (chat)
 - 2026-10-11 — [the dictated feedback memo](calls/other/2026-10-12_130201_default_20261011192457B8796AD2.md) (processed 2026-10-12, after a Voice Memos sync restart) — the source of v2's rework.

@@ -1,6 +1,6 @@
 # Publication-process deck — handoff (continue on any machine)
 
-_Rewritten 2026-10-12 on Alex's MacBook Air after v4 was delivered (v4 = v3 reworked on Alex's dictated feedback round 4 of the same day, plus his follow-up asking for a «Перед першим клієнтом» block). Read fully before touching the deck._
+_Rewritten 2026-10-12 on Alex's MacBook Air after v8 was delivered (v4 = round-4 feedback; v5–v8 = his follow-ups the same evening). Read fully before touching the deck._
 
 ⛔ GigaCloud = internal-only area. The deck is internal; nothing from it goes into external-facing artifacts.
 
@@ -8,21 +8,23 @@ _Rewritten 2026-10-12 on Alex's MacBook Air after v4 was delivered (v4 = v3 rewo
 
 | Deck | State | Live copy (Alex hand-edits it — living-documents rule) | In this repo |
 |---|---|---|---|
-| **Publication process** — `GigaCloud_Product Publication Process_12-OCT-2026 (v7).pptx`: the product publication process and its automation in the CRM | v7, 59 slides (56 shown + 3 hidden), UA (2026-10-12); v5 = v4 + the hidden field-check slides; v6 = slide 4's interface legend replaced by one note; v7 = every scanned list given bold lead-ins and cut (design and delivery tables, card bullets, ops-schema panels); v1–v6 kept beside it | MacBook Air: `~/Desktop/GigaCloud/` | **not committed** (CRM screenshots, an employee name in a CRM description) |
+| **Publication process** — `GigaCloud_Product Publication Process_12-OCT-2026 (v8).pptx`: the product publication process and its automation in the CRM | v8, 61 slides (58 shown + 3 hidden), UA (2026-10-12). v5 added the hidden field-check slides; v6 cut slide 4 to one note; v7 gave every scanned list bold lead-ins; v8 made «Перший клієнт» stage 4 and «Зміни» stage 5, enlarged three screenshots, put in Alex's action plan and the accent slide at both ends. v1–v7 kept beside it | MacBook Air: `~/Desktop/GigaCloud/` | **not committed** (CRM screenshots, an employee name in a CRM description) |
 
-**Deck map (v4):**
+**Deck map (v8):**
 1. Cover.
-2. Stages overview.
-3. Process map: stage → block → step.
-4. The same structure in the CRM: the product checklist screenshot and one note — the checklist is always current, updated by the CRM from the actions people log and from status changes (signed supplier contracts, approved processes, billing); the CRM also decides which steps a product needs.
-5. Section «Кроки процесу».
-6. **Stage 1:** header; Product info ×2 (one card, two screenshots); Components info; Supplier contracts; the Operations kick-off → processes schema; Operations kick-off; Contract and Delivery process approval; Infrastructure setup project; R&D Proof of concept.
-7. **Stage 2:** header; the two-roles slide; the design and delivery product-type tables; then the approvals in Alex's order: design → delivery → Head of Product ×2 (revision approval, exceptions) → finance. **Hidden slides 22, 23, 25** follow the approvals they detail: «Що перевіряє R&D» and «Що перевіряє Vendor manager» after the design approval, «Що перевіряє Delivery» after the delivery approval.
-8. **Stage 3:** header; the team-readiness schema (publication → six streams); Send to billing ×2; Sales kick-off; Tech kick-off; Marketing brief; Contract and Delivery process confirmation; the three-competences schema; Presales, Support and Delivery competence.
-9. **«Перед першим клієнтом»** (between stages 3 and 4): header; Go-live support (To be confirmed); PoC before first customer. Its Delivery hand-off block stays dashed grey, out of scope.
-10. **Stage 4:** header; Contract process change; Delivery process change; Product change; the table of change types that need an approval.
-11. Section «Участь команд» and 6 team slides (rows: stages 1–3, «Перед першим клієнтом», stage 4).
-12. Section «Next steps»: the draft action plan and the out-of-scope questions.
+2. Accent slide: ⚙️ and Alex's formula «Процеси, що працюють = Прозорість флоу + Автоматизація + Buy-in учасників» (repeated as the last slide).
+3. Stages overview (five stages on one grid of equal columns).
+4. Process map: stage → block → step.
+5. The same structure in the CRM: the product checklist screenshot and one note — the checklist is always current, updated by the CRM from the actions people log and from status changes (signed supplier contracts, approved processes, billing); the CRM also decides which steps a product needs.
+6. Section «Кроки процесу».
+7. **Stage 1:** header; Product info ×2 (one card, two screenshots); Components info; Supplier contracts; the Operations kick-off → processes schema; Operations kick-off; Contract and Delivery process approval; Infrastructure setup project; R&D Proof of concept.
+8. **Stage 2:** header; the two-roles slide; the design and delivery product-type tables; then the approvals in Alex's order: design → delivery → Head of Product ×2 (revision approval, exceptions) → finance. **Hidden slides 23, 24, 26** follow the approvals they detail: «Що перевіряє R&D» and «Що перевіряє Vendor manager» after the design approval, «Що перевіряє Delivery» after the delivery approval.
+9. **Stage 3:** header; the team-readiness schema (publication → six streams); Send to billing ×2; Sales kick-off; Tech kick-off; Marketing brief; Contract and Delivery process confirmation; the three-competences schema; Presales, Support and Delivery competence.
+10. **Stage 4 «Перший клієнт»:** header with two sub-blocks — «Перед першим клієнтом» (Go-live support, To be confirmed; PoC before first customer) and «Після першого клієнта» (Delivery hand-off, dashed grey, out of scope).
+11. **Stage 5 «Зміни протягом життя продукту»:** header; Contract process change; Delivery process change; Product change; the table of change types that need an approval.
+12. Section «Участь команд» and 6 team slides (rows: stages 1–5).
+13. Section «Next steps»: Alex's action plan (four workstreams with timing, tasks and departments) and the out-of-scope questions.
+14. The accent slide again.
 
 **Sources:**
 - **Brief:** Google Doc «Процеси» (id `1DOesPriI_ehSpQk6KyMLUCphRb7PNSMDekP22GAt00I`), with the Miro schema and 9 screenshots.
@@ -47,7 +49,14 @@ _Rewritten 2026-10-12 on Alex's MacBook Air after v4 was delivered (v4 = v3 rewo
     The recording wordings are constants there (`REC_*`, `manual()`). The paragraph classes are `BL` (bullet), `NOTE` (grey qualifier) and `NEW` (a new logical paragraph, with space above).
   - **Other modules:** `gcicons.py` (11 vector pictograms) and `gclib.py`. Older generators are kept for reference only.
 - **Render and check:** `pp_render.sh` from `../margin-deck/toolchain/results-deck/`, then `tools/bottoms.py <pdf>`. It reads the table borders from the PowerPoint PDF and flags any card ending below 13.75″. The builder's own fit estimates run short on long cards, so trust the PDF.
-  - PowerPoint's PDF export skips hidden slides. To QA them, build with `SHOW_HIDDEN=1` (they come out visible, so the PDF has 59 pages), then rebuild without it for delivery.
+  - PowerPoint's PDF export skips hidden slides. To QA them, build with `SHOW_HIDDEN=1` (they come out visible, so the PDF has 61 pages), then rebuild without it for delivery (58 pages).
+- **Measured text widths:** `textw_cache.json` holds the real rendered widths of the map labels, block names, stage heads and action-plan rows. The builder's `tw()` uses it to decide one line or two; anything not in the cache falls back to the estimate + 7 %.
+  - e-Ukraine exists only embedded (compressed) in the template, so there is no font file to measure with.
+  - To refresh after renaming a step or block: `tools/measure_build.py` builds a calibration deck from a specs JSON, render it with `pp_render.sh`, then `tools/measure_read.py` reads each line's width from the PDF into the cache.
+- **Screenshot collages:** `tools/collage.py` stacks crops of one screenshot and maps the outline boxes into the collage. Slides 42, 45 and 46 use `support_competence_crop.png`, `golive_presales_crop.png` and `poc_first_customer_crop.png`:
+  - product title strip + the block the slide discusses + the flagged left-panel note;
+  - scale ~0.0082–0.0100 in/px, up from 0.0054–0.0060.
+- **Accent slide:** ⚙️ is typed as text in Apple Color Emoji (renders crisply in PowerPoint's PDF; Windows shows its own Segoe UI Emoji glyph).
 - **Field checks** (hidden slides): `FIELD_CHECKS` in `plm_data4.py` has one row per field. Each row holds the object, tab, block, field, a check per role (`rnd`, `vm`, `dlv`) and the change types that concern it (`CHANGE_ROUTES`, flags from the change-type export).
   - The check texts are constants (`R_*`, `V_*`, `D_*`), reused from the «Хто відповідає за …» tables wherever the check is the same.
   - On a slide, fields of one block with the same check and the same routing share a row.
@@ -65,10 +74,12 @@ _Rewritten 2026-10-12 on Alex's MacBook Air after v4 was delivered (v4 = v3 rewo
 
 ## Decisions Alex made (2026-10-11/12, do not re-litigate)
 
-- **Stages and timing.** «Коли відбувається» names the stage the step runs in: До публікації (stage 1), Під час публікації (stage 2), Після публікації (stage 3), Перед першим клієнтом, При змінах (stage 4).
-  - The overview and the map carry the same words.
+- **Stages and timing.** Five stages: 1 Виконання критеріїв публікації, 2 Публікація, 3 Готовність команд, 4 Перший клієнт, 5 Зміни протягом життя продукту (Alex, 2026-10-12: the block between 3 and 4 became stage 4, named by its event, with «Перед» and «Після першого клієнта» sub-blocks; «Перед першим клієнтом» did not fit the hand-off, which comes after).
+  - «Коли відбувається» names when the step runs: До публікації (stage 1), Під час публікації (2), Після публікації (3), Перед першим клієнтом (4), При змінах (5). The brackets over the maps: До / Під час / Після публікації (over stages 3–4) / При змінах.
   - The overview shows the structure only (round 4 removed its bands and footer).
-- **Header levels.** A section slide is full-bleed red. A stage header is a full-width band in the stage colour over the "you are here" strip and the stage's blocks. «Перед першим клієнтом» is teal `0F7C8A`.
+- **Header levels.** A section slide is full-bleed red. A stage header is a full-width band in the stage colour over the "you are here" strip and the stage's blocks. Stage 4 is teal `0F7C8A`, stage 5 orange.
+- **Accent slide** at the start (after the cover) and as the last slide: ⚙️ + «Процеси, що працюють = [Прозорість флоу] + [Автоматизація] + [Buy-in учасників]» on the red accent background.
+- **Action plan** = Alex's table (2026-10-12), translated to Ukrainian: Запуск автоматизації (Жовтень 2026, усі відділи), Актуалізація статусів (Жовтень 2026), Ліквідація боргів (TBD), Роадмап (Грудень 2026); departments per task as he gave them, blank where he left none. It replaced the draft plan; the CRM fixes from that draft live on in the wiki page's Active threads.
 - **Publication approvals order:** design → delivery → Head of Product → finance.
   - A two-roles slide opens stage 2.
   - The product-type tables are titled «Можливі Responsible for design / delivery», set at 20 pt, and share one footprint.
@@ -107,13 +118,13 @@ _Rewritten 2026-10-12 on Alex's MacBook Air after v4 was delivered (v4 = v3 rewo
     - delivery by the Delivery process;
     - contracting by the Contract process and its template;
     - a supplier contract.
-- **Перед першим клієнтом:**
+- **Stage 4 «Перший клієнт» — перед першим клієнтом:**
   - **Go-live support:**
     - Presales facilitates every new product's go-live; a presales engineer is assigned, with escalation to the product team otherwise;
     - this is the current agreement, marked «To be confirmed» (questions about how it works, may change);
     - per the CRM process, the condition is the same as for Operations kick-off (inferred from the metadata).
   - **PoC before first customer:** a PoC deferred at launch is done before the first delivery; the CRM warns to add 30 days to equipment delivery and setup times.
-- **Stage 4:**
+- **Stage 5 «Зміни»:**
   - Contract and Delivery process changes put the process back in Draft and the involved departments re-approve it. This happens:
     - automatically: on a change of the responsible teams, the documentation link or (contract only) the contract template, including a new template added;
     - manually: when the Business process lead judges the description changed materially.
@@ -128,7 +139,7 @@ _Rewritten 2026-10-12 on Alex's MacBook Air after v4 was delivered (v4 = v3 rewo
     - R&D checks the Delivery process only when the process has R&D steps, and then confirms it understands its role.
     - On a component, R&D confirms the characteristics don't contradict the design (no too-small disk, no too-weak CPU).
     - Delivery confirms the component is described correctly, exists with those properties and can be delivered.
-- **Team tables:** stages are rows (including «Перед першим клієнтом» and stage 4), teams are columns. Steps are numbered by their exact names; ★ = owns the step, ✎ = enters data or approves in the CRM. There are six slides, with Capacity manager on «Доставка» and Support + InfoSec on «Підтримка й безпека».
+- **Team tables:** stages 1–5 are rows, teams are columns. Steps are numbered by their exact names; ★ = owns the step, ✎ = enters data or approves in the CRM. There are six slides, with Capacity manager on «Доставка» and Support + InfoSec on «Підтримка й безпека».
 - **Product type → responsible teams** (his mapping):
   - Core / Specialized infrastructure / Add-on tools: design R&D + InfoSec; delivery Support + Delivery.
   - Managed licenses / Our services: design Product + R&D; delivery Delivery + Support + InfoSec.
@@ -137,7 +148,7 @@ _Rewritten 2026-10-12 on Alex's MacBook Air after v4 was delivered (v4 = v3 rewo
 ## Deck conventions (v4)
 
 - **Stage colours:**
-  - 1 blue `2563A8`, 2 violet `6B46A3`, 3 green `2E8540`, «Перед першим клієнтом» teal `0F7C8A`, 4 orange `C2620F`;
+  - 1 blue `2563A8`, 2 violet `6B46A3`, 3 green `2E8540`, 4 teal `0F7C8A`, 5 orange `C2620F`;
   - a block still out of scope (Delivery hand-off) is grey dashed;
   - within a stage: full hue for the stage, medium tint for a block, light tint for a step.
 
