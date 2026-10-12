@@ -1,7 +1,7 @@
 # GigaCloud — CPO
 
-_status: CPO role; three workstreams — catalog ↔ Billing integration requirements; component cost-allocation & pricing redesign (steps 1–5 computed in Юніт.xlsx, results deck v23); product publication process + its CRM checklist (deck v2, 42 slides, 2026-10-11, to be presented to department heads)_
-_updated: 2026-10-11_
+_status: CPO role; three workstreams — catalog ↔ Billing integration requirements; component cost-allocation & pricing redesign (steps 1–5 computed in Юніт.xlsx, results deck v23); product publication process + its CRM checklist (deck v3, 46 slides, 2026-10-12, to be presented to department heads)_
+_updated: 2026-10-12_
 _source files: `~/Desktop/GigaCloud/` on Alex's MacBook Air (live plan + results decks, `Юніт.xlsx`, results toolchain) · `~/Downloads` on `KN7X2Y65NX` (older set: `Margin.xlsx`, brand template) — registry entry in [_meta/external-sources.md](../../_meta/external-sources.md); transfer snapshots + HANDOFF in [docs/margin-deck/](docs/margin-deck/HANDOFF.md)_
 
 > ⛔ **Internal-only area.** GigaCloud is never named in any external-facing artefact — CV, LinkedIn profile or DMs, outreach, applications, interviews, bios, generated drafts. In interviews this period is referred to only as "a fractional project helping a European tech company (infrastructure provider) build an AI-enabled org"; in writing, as "fractional product leader for agentic-AI B2B startups". Rule + rationale: [job-search/positioning.md](../job-search/positioning.md).
@@ -18,12 +18,12 @@ _source files: `~/Desktop/GigaCloud/` on Alex's MacBook Air (live plan + results
 - **Catalog ↔ Billing integration — requirements scoping.** Working session (2026-07-21) scoped the business scenarios / edge cases for syncing catalog changes into Billing. Three layers named: (1) catalog data model, (2) an intermediate proxy model in CREASHO that reshapes catalog data into Billing format, (3) business scenarios — this call targeted layer 3. Complexity clusters around **price changes** (transactional model mismatch, GAF/government products, price-upon-request, quote-only, repricing existing customers, per-customer fixed prices). Guidance from Speaker B: don't re-invent the existing working mapping — describe already-implemented scenarios high-level, write a detailed per-scenario flow table only for price changes. → next: Alex collects/structures everything, reviews fresh, returns to Speaker B for clarifications, then takes it to Zhenya (object model + field-level mapping owner). Owner: Mine. [call](calls/other/2026-07-21_180038_default_202607171304495CACCF1A.md)
   - _possible subproject: catalog↔billing integration? — promote to its own page on the next artifact._
 - **Pricing & unit economics — component cost allocation.** Framework implemented in Юніт.xlsx: budget → expense types → 5 allocation buckets → 82 products → components; bucket costs reach each component by its Direct COGS, never by price. Steps 1–5 are computed for all five buckets; results deck v23 (43 slides, 2026-10-09) carries a Next steps block. Current state and open data items live on the subproject page. Owner: Mine. → [pricing-unit-economics](pricing-unit-economics.md)
-- **Product publication process (PLM) — CRM checklist.** The 4-stage process (publication criteria → publication → «Готовність команд» → changes during the product's life) and its CRM automation (Data validation, a 24-item checklist, Head of Product exceptions, revision approvals) are documented in a 42-slide UA deck v2 (2026-10-11, reworked on Alex's dictated feedback: colour-coded stage maps, «when required» taken from the CRM process that sets the product's «Requires …» flags) for the department heads. Next: Alex names the CRM fields behind three conditional steps and checks the flagged assumptions, then presents. Owner: Mine. → [publication-process](publication-process.md)
+- **Product publication process (PLM) — CRM checklist.** The 4-stage process (publication criteria → publication → «Готовність команд» → changes during the product's life) and its CRM automation (Data validation, a 24-item checklist, Head of Product exceptions, revision approvals) are documented in a 46-slide UA deck v3 (2026-10-12, after three rounds of Alex's dictated feedback: colour-coded stage maps, step cards headed by step + Owner with «when» and «mandatory» split, roles / team-readiness / technical-competence schemas, a stages × teams participation matrix) for the department heads. Next: Alex names the CRM fields behind two conditional steps and checks the flagged assumptions, then presents. Owner: Mine. → [publication-process](publication-process.md)
 
 ## Subprojects
 
 - [pricing-unit-economics](pricing-unit-economics.md) — component cost allocation: steps 1–5 computed, plan deck v5 + results deck v23 (2026-10-09). Reasoning reference: [pricing-cost-allocation-approach.md](pricing-cost-allocation-approach.md).
-- [publication-process](publication-process.md) — product publication process + CRM checklist: deck v2 (42 slides, 2026-10-11), to be presented to department heads.
+- [publication-process](publication-process.md) — product publication process + CRM checklist: deck v3 (46 slides, 2026-10-12), to be presented to department heads.
 
 ## People
 
@@ -50,6 +50,7 @@ _source files: `~/Desktop/GigaCloud/` on Alex's MacBook Air (live plan + results
 
 ## Activity
 
+- 2026-10-12 — [publication-process deck v3](publication-process.md) — 46 slides on Alex's third feedback round (cards, captions, three new schemas, transposed team tables). (chat)
 - 2026-10-11 — [publication-process deck v2](publication-process.md) — reworked on Alex's dictated feedback (42 slides); v1 (37 slides) the same day from his brief + Miro + the CRM checklist export; new subproject page. (chat)
 - 2026-09-26 — [results deck](pricing-unit-economics.md) — 26-slide UA deck of allocation results (steps 1–4, 5 buckets, 5 methods, per-component examples) from Alex's brief + Юніт.xlsx; handoff rewritten for both decks. (chat)
 - 2026-08-27 — [action-plan deck](pricing-unit-economics.md) — 11-slide UA deck for CFO/department alignment built from Alex's brief + Margin.xlsx (4-model taxonomy A–D, price stack, InfoSec P&L split, next steps). (chat)
