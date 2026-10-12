@@ -86,24 +86,17 @@ _updated: 2026-10-12_
 
 ## Decisions
 
-- 2026-10-12 — v4 feedback (all from Alex):
-  - Stage headers become colour-band slides.
-  - The CRM checklist follows the process map.
-  - Stage 4 gets its three change slides and the change-types table.
-  - «Перед першим клієнтом» gets go-live support (to be confirmed) and the deferred PoC.
-  - The conditional-step rules are set (Sales and Tech kick-off, Infrastructure setup, Supplier contracts auto-close).
-  - PMO = Operations.
-  - Head of Product gets two slides.
-- 2026-10-12 — v3 feedback (all from Alex):
-  - Publication approvals run design → delivery → Head of Product → finance, after a slide with the two roles.
-  - Each step card is headed by the step name and its Owner. «When» and «mandatory» are separate fields. A uniform «Як фіксується» field and a business result appear on every card.
-  - Every screenshot carries its CRM path.
-  - The team tables put stages in rows and teams in columns, with ★ for the owner and ✎ for entering data or approving in the CRM.
-- 2026-10-11 — v2 feedback (all from Alex):
-  - Contract and Delivery process approvals are hybrid cards, owned by Operations · Business process lead.
-  - Screenshots sit in two standard frames.
-  - The stages are colour-coded on one grid.
-- 2026-10-11 — The stage after publication is named «Готовність команд». The action plan is a draft for Alex to edit. (chat)
+- 2026-10-12 — v4–v5 (all from Alex):
+  - colour-band stage headers;
+  - the CRM checklist after the map;
+  - stage 4 detailed;
+  - «Перед першим клієнтом» added;
+  - the conditional-step rules set;
+  - PMO = Operations;
+  - Head of Product on two slides;
+  - hidden field-check slides per approver.
+- 2026-10-12 — v3 (Alex): approvals design → delivery → Head of Product → finance after a two-roles slide; cards headed by step + Owner with «when» and «mandatory» split, «Як фіксується» and business results; CRM paths under screenshots; team tables as stages × teams with ★/✎.
+- 2026-10-11 — v2 (Alex): hybrid process-approval cards owned by Operations · Business process lead; two standard screenshot frames; one colour per stage on one grid. The stage after publication is «Готовність команд»; the action plan is a draft for Alex.
 
 ## Open loops
 
@@ -117,19 +110,7 @@ _updated: 2026-10-12_
 ## Activity
 
 - 2026-10-12 — [deck v5 + handoff](docs/publication-process-deck/HANDOFF.md) — v4 + 3 hidden slides with field-level checks per approver (R&D, Vendor manager, Delivery), built from Alex's 12 marked CRM screenshots; shown slides unchanged. (chat)
-- 2026-10-12 — [deck v4 + handoff](docs/publication-process-deck/HANDOFF.md) — 56 slides on Alex's fourth feedback round and two follow-ups:
-  - the CRM checklist slide;
-  - colour-band stage headers;
-  - the «Перед першим клієнтом» block;
-  - stage 4 with the 17 change types that need an approval;
-  - corrected conditions and recording.
-
-  Fresh review applied. (chat)
-- 2026-10-12 — [deck v3 + handoff](docs/publication-process-deck/HANDOFF.md) — 46 slides on Alex's third feedback round:
-  - cards headed by step + Owner;
-  - UI-path captions;
-  - roles, team-readiness and competence schemas;
-  - transposed team tables. (chat)
-- 2026-10-11 — [the dictated feedback memo](calls/other/2026-10-12_130201_default_20261011192457B8796AD2.md) (processed 2026-10-12; it reached this Mac only after a Voice Memos sync restart) — the source of v2's rework; nothing new beyond what v2 applied.
-- 2026-10-11 — [deck v2 + handoff](docs/publication-process-deck/HANDOFF.md) — 42 slides, reworked on Alex's dictated feedback. (chat)
-- 2026-10-11 — [deck v1 + handoff](docs/publication-process-deck/HANDOFF.md) — 37-slide UA deck built from Alex's brief, his Miro and the CRM checklist export, fidelity-reviewed. (chat)
+- 2026-10-12 — [deck v4](docs/publication-process-deck/HANDOFF.md) — 56 slides: the CRM checklist slide, colour-band stage headers, «Перед першим клієнтом», stage 4 with the 17 change types that need an approval; fresh review applied. (chat)
+- 2026-10-12 — [deck v3](docs/publication-process-deck/HANDOFF.md) — 46 slides: cards headed by step + Owner, UI-path captions, roles / team-readiness / competence schemas, transposed team tables. (chat)
+- 2026-10-11 — [the dictated feedback memo](calls/other/2026-10-12_130201_default_20261011192457B8796AD2.md) (processed 2026-10-12, after a Voice Memos sync restart) — the source of v2's rework.
+- 2026-10-11 — [decks v1 (37 slides) and v2 (42)](docs/publication-process-deck/HANDOFF.md) — built from Alex's brief, his Miro and the CRM checklist export, then reworked on his dictated feedback. (chat)
