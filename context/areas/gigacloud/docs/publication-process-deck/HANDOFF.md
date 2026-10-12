@@ -8,7 +8,7 @@ _Rewritten 2026-10-12 on Alex's MacBook Air after v4 was delivered (v4 = v3 rewo
 
 | Deck | State | Live copy (Alex hand-edits it — living-documents rule) | In this repo |
 |---|---|---|---|
-| **Publication process** — `GigaCloud_Product Publication Process_12-OCT-2026 (v6).pptx`: the product publication process and its automation in the CRM | v6, 59 slides (56 shown + 3 hidden), UA (2026-10-12); v5 = v4 + the hidden field-check slides; v6 = v5 with slide 4's interface legend replaced by one note; v1–v5 kept beside it | MacBook Air: `~/Desktop/GigaCloud/` | **not committed** (CRM screenshots, an employee name in a CRM description) |
+| **Publication process** — `GigaCloud_Product Publication Process_12-OCT-2026 (v7).pptx`: the product publication process and its automation in the CRM | v7, 59 slides (56 shown + 3 hidden), UA (2026-10-12); v5 = v4 + the hidden field-check slides; v6 = slide 4's interface legend replaced by one note; v7 = every scanned list given bold lead-ins and cut (design and delivery tables, card bullets, ops-schema panels); v1–v6 kept beside it | MacBook Air: `~/Desktop/GigaCloud/` | **not committed** (CRM screenshots, an employee name in a CRM description) |
 
 **Deck map (v4):**
 1. Cover.

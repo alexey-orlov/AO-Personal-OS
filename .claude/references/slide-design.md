@@ -184,6 +184,10 @@ deck or one-pager work.
       in the build, so a second phrasing cannot appear.
     - Every card of a type has the same sections in the same order. A hybrid step (a to-do that ends in an approval) gets its own fixed
       section set. Two slides about the same step (two screenshots) carry the identical card.
+    - A list the reader will scan — card sections, table cells — gets a bold one- or two-word lead-in per item («**Склад** — …»,
+      the deck's own bold + dash style), and each item is cut to its essentials. Apply it to every peer list in the deck, not
+      only the one flagged (2026-10-12, Alex on the design-scope table: "очень много текста… подзаголовок в одно-два слова,
+      выделить жирным… если есть где-то такие лонгриды — то же самое").
     - Inside a field, a new logical paragraph gets visible space above it. A two-cell row is balanced: size the narrow cell so its
       answer fits on one line, or stack it as short bold lines with grey qualifiers; never one cell crammed and its neighbour loose
       (2026-10-12, Alex on the PoC card: "налеплено… не хватает пробелов-энтеров между логическими абзацами").
