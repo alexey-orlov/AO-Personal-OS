@@ -88,6 +88,7 @@ _updated: 2026-10-11_
 
 ## Activity
 
+- 2026-10-11 — [the dictated feedback memo](calls/other/2026-10-12_130201_default_20261011192457B8796AD2.md) (processed 2026-10-12; it reached this Mac only after a Voice Memos sync restart) — the source of v2's rework; nothing new beyond what v2 applied.
 - 2026-10-11 — [deck v2 + handoff](docs/publication-process-deck/HANDOFF.md) — 42 slides, reworked on Alex's dictated feedback:
   - colour-coded process maps;
   - stacked 20 pt step cards;
