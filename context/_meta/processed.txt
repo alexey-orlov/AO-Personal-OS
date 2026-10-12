@@ -158,6 +158,7 @@ context/areas/softserve/docs/2026-08-17_sbg-poc-workshop-debrief.md
 context/areas/softserve/docs/2026-08-17_sbg-workshop-transcript-1of2.md
 context/areas/softserve/docs/2026-08-17_sbg-workshop-transcript-2of2.md
 context/areas/softserve/docs/2026-08-17_sbg-workshop-transcript-full.md
+context/areas/softserve/docs/2026-08-18_softserve-goals-2026.md
 context/areas/softserve/docs/2026-08-20_sbg-poc-scope-draft-dundych.md
 context/areas/softserve/docs/2026-08-24_sbg-data-scoping-workshop-analysis.md
 context/areas/softserve/docs/2026-09-03_nato-ai-use-case-map.md

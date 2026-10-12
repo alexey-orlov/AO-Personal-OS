@@ -1,6 +1,7 @@
 # Oleksii Orlov - Goals 2026
 
-_source: "Oleksii_Goals.docx" (created by Bohdan Khomych 2026-08-06, last edited by Alex 2026-08-18), supplied by Alex in chat 2026-10-12. Text reproduced verbatim, typos included. Alex's tracked changes (all 2026-08-18) shown accepted; Word comments listed at the end with the text they are anchored to._
+_source: "Oleksii_Goals.docx" (created by Bohdan Khomych 2026-08-06, last edited by Alex 2026-08-18), supplied by Alex in chat 2026-10-12. Text reproduced verbatim, typos included. Word comments listed at the end with the text they are anchored to._
+_tracked changes: Alex's edits of 2026-08-18 are still unaccepted in the source and are shown applied here. The original text read "OKR" / "KPI" in the Q3 table's first two column headers (now "Objective" / "Key result") and "31 Aug" in Q3 OKR 1 · KPI 1 (now "Sep 30th"); the closing "Yearly OKRs + OKRs for Q4 to be refined based on:" note and its two bullets are Alex's insertion._
 _formatting: `<mark>` = yellow highlight in the source; `<span style="color:red">` = red text in the source (GitHub does not render the colour)._
 _type: source material — read-only._
 
