@@ -8,7 +8,7 @@ _Rewritten 2026-10-12 on Alex's MacBook Air after v8 was delivered (v4 = round-4
 
 | Deck | State | Live copy (Alex hand-edits it — living-documents rule) | In this repo |
 |---|---|---|---|
-| **Publication process** — `GigaCloud_Product Publication Process_12-OCT-2026 (v8).pptx`: the product publication process and its automation in the CRM | v8, 61 slides (58 shown + 3 hidden), UA (2026-10-12). v5 added the hidden field-check slides; v6 cut slide 4 to one note; v7 gave every scanned list bold lead-ins; v8 made «Перший клієнт» stage 4 and «Зміни» stage 5, enlarged three screenshots, put in Alex's action plan and the accent slide at both ends. v1–v7 kept beside it | MacBook Air: `~/Desktop/GigaCloud/` | **not committed** (CRM screenshots, an employee name in a CRM description) |
+| **Publication process** — `GigaCloud_Product Publication Process_12-OCT-2026 (v9).pptx`: the product publication process and its automation in the CRM | v8, 61 slides (58 shown + 3 hidden), UA (2026-10-12). v5 added the hidden field-check slides; v6 cut slide 4 to one note; v7 gave every scanned list bold lead-ins; v8 made «Перший клієнт» stage 4 and «Зміни» stage 5, enlarged three screenshots, put in Alex's action plan and the accent slide at both ends; v9 shows the go-live and PoC pages whole again with numbered zooms of their two hints and fills in every department in the action plan. v1–v8 kept beside it | MacBook Air: `~/Desktop/GigaCloud/` | **not committed** (CRM screenshots, an employee name in a CRM description) |
 
 **Deck map (v8):**
 1. Cover.
@@ -53,9 +53,9 @@ _Rewritten 2026-10-12 on Alex's MacBook Air after v8 was delivered (v4 = round-4
 - **Measured text widths:** `textw_cache.json` holds the real rendered widths of the map labels, block names, stage heads and action-plan rows. The builder's `tw()` uses it to decide one line or two; anything not in the cache falls back to the estimate + 7 %.
   - e-Ukraine exists only embedded (compressed) in the template, so there is no font file to measure with.
   - To refresh after renaming a step or block: `tools/measure_build.py` builds a calibration deck from a specs JSON, render it with `pp_render.sh`, then `tools/measure_read.py` reads each line's width from the PDF into the cache.
-- **Screenshot collages:** `tools/collage.py` stacks crops of one screenshot and maps the outline boxes into the collage. Slides 42, 45 and 46 use `support_competence_crop.png`, `golive_presales_crop.png` and `poc_first_customer_crop.png`:
-  - product title strip + the block the slide discusses + the flagged left-panel note;
-  - scale ~0.0082–0.0100 in/px, up from 0.0054–0.0060.
+- **Small screenshots, two remedies:**
+  - **Collage** (location doesn't matter): `tools/collage.py` stacks crops of one screenshot and maps the outline boxes into it. Slide 41 (Support competence) uses `support_competence_crop.png`: the item name + the competence fields, 0.0100 in/px, up from 0.0060.
+  - **Zooms** (location matters): a step dict's `zooms` (source crop boxes, in the order of `boxes`). The builder keeps the whole page in the standard frame and numbers the outlines on their bottom-right corners. Under the caption it places each zoom with the same number (`zoom_insets()`; zoom files `<img>_zoom<n>.png` are written at build time). Slides 44–45 (Go-live support, PoC before first customer): page 0.0054 in/px, zooms ~0.008.
 - **Accent slide:** ⚙️ is typed as text in Apple Color Emoji (renders crisply in PowerPoint's PDF; Windows shows its own Segoe UI Emoji glyph).
 - **Field checks** (hidden slides): `FIELD_CHECKS` in `plm_data4.py` has one row per field. Each row holds the object, tab, block, field, a check per role (`rnd`, `vm`, `dlv`) and the change types that concern it (`CHANGE_ROUTES`, flags from the change-type export).
   - The check texts are constants (`R_*`, `V_*`, `D_*`), reused from the «Хто відповідає за …» tables wherever the check is the same.
@@ -79,7 +79,11 @@ _Rewritten 2026-10-12 on Alex's MacBook Air after v8 was delivered (v4 = round-4
   - The overview shows the structure only (round 4 removed its bands and footer).
 - **Header levels.** A section slide is full-bleed red. A stage header is a full-width band in the stage colour over the "you are here" strip and the stage's blocks. Stage 4 is teal `0F7C8A`, stage 5 orange.
 - **Accent slide** at the start (after the cover) and as the last slide: ⚙️ + «Процеси, що працюють = [Прозорість флоу] + [Автоматизація] + [Buy-in учасників]» on the red accent background.
-- **Action plan** = Alex's table (2026-10-12), translated to Ukrainian: Запуск автоматизації (Жовтень 2026, усі відділи), Актуалізація статусів (Жовтень 2026), Ліквідація боргів (TBD), Роадмап (Грудень 2026); departments per task as he gave them, blank where he left none. It replaced the draft plan; the CRM fixes from that draft live on in the wiki page's Active threads.
+- **Action plan** = Alex's table (2026-10-12), translated to Ukrainian. Workstreams:
+  - Запуск автоматизації (Жовтень 2026) — усі відділи;
+  - Актуалізація статусів (Жовтень 2026) — departments per task: statuses of existing processes Product, Operations; kick-off records Product;
+  - Ліквідація боргів (TBD) — documenting earlier products' processes Operations, Product;
+  - Роадмап (Грудень 2026) — Product, CRM-автоматизація. It replaced the draft plan; the CRM fixes from that draft live on in the wiki page's Active threads.
 - **Publication approvals order:** design → delivery → Head of Product → finance.
   - A two-roles slide opens stage 2.
   - The product-type tables are titled «Можливі Responsible for design / delivery», set at 20 pt, and share one footprint.

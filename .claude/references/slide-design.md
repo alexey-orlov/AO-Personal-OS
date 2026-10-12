@@ -195,9 +195,15 @@ deck or one-pager work.
     and each carries a caption with its path in the product** (2026-10-11, Alex: "вписаны в один размер… с заполнением… либо же в 2-3";
     2026-10-12: "внизу, как заголовок… не мельче, чем шрифт текста в карточке").
     - Pick the frame by aspect (portrait form vs landscape) and centre the picture in it; never size a frame to each picture.
-    - Frame the part the slide talks about with a native outline. Crop when the whole screen at frame size would be unreadable:
-      keep the title strip and the part the slide is about, stack them as a collage, and outline inside it. The frame stays a
-      standard one, so the card beside it keeps its width.
+    - Frame the part the slide talks about with a native outline. When the whole screen is too small to read at frame size,
+      choose by what the slide says:
+      - **Location matters** (e.g. two hints in different panels of one page): keep the whole screen. Magnify each outlined part
+        as a numbered zoom in the free space under the frame. Put the same number on the outline's corner, clear of UI text.
+      - **Location doesn't matter** (a dialog's fields): crop to a collage of the title strip and the discussed part.
+
+      Either way the frame stays standard, so the card beside it keeps its width. A taller frame alone doesn't enlarge a landscape
+      screenshot next to a card: the width is the limit (2026-10-12, Alex on the go-live and PoC pages: the crop "теряет смысл",
+      you can't see where the second hint sits).
     - Check readability per screenshot, not by eye on the contact sheet. The screen's body text must render at ≥ ~0.13 in on the
       2× slide (≈ 9 pt as presented). A 1× capture with ~16 px text needs ≥ 0.009 in/px; a 2× capture with ~26 px text needs
       ≥ 0.005 in/px. Alex flagged everything at 0.0054–0.0060 in/px for 1×-density pages and dialogs; the focused crops reached
