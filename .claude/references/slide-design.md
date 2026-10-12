@@ -166,15 +166,29 @@ deck or one-pager work.
       product brings a new contract or delivery process, vendor, SLA level or platform"); field names and GUIDs go to the speaker notes.
     - Ukrainian: «evidence» is «підтвердження», not «докази».
 25. **A card that carries a slide's content uses body-size type (20 pt at the GigaCloud 2× scale) in stacked, labelled sections, with one
-    structure for every peer card** (2026-10-11, same deck: "слишком мелкий шрифт… разношерстно написаны").
+    structure for every peer card, one question per field and one wording per answer** (2026-10-11 and 2026-10-12, same deck:
+    "слишком мелкий шрифт… разношерстно написаны", then "давай его унифицируем").
     - Put the label (bold, accent colour) above its content, not in a 17 pt label|text table that reads as a form.
+    - The card's header names the step and its owner («Owner: Product manager»), never the card's type («ДІЯ», «ПОГОДЖЕННЯ»). Where the
+      step lives in the system is not card content: the screenshot caption carries it (rule 26), the field names go to the notes.
+    - Two questions never share a field. "When is it mandatory" is two fields: when it happens, answered from a fixed set that mirrors the
+      stage names (До / Під час / Після публікації / При змінах), and whether it is mandatory: «Завжди» with nothing appended, or the
+      condition as a structured list. A condition the system computes ends on its own grey line «Визначається автоматично».
+    - «Результат» is the business state after the step («Бриф передано відділу маркетингу»), never "the step is logged".
+    - How the step is recorded is a field of its own on every card, and each method has one wording used verbatim wherever it applies
+      (manual log with an evidence link, closed automatically by the system, an approval, a confirmation). Keep the wordings as constants
+      in the build, so a second phrasing cannot appear.
     - Every card of a type has the same sections in the same order. A hybrid step (a to-do that ends in an approval) gets its own fixed
-      section set.
-    - Answers to the same question are phrased the same way across cards (timing first, then the condition).
-26. **Screenshots on peer slides sit in one standard frame, or in 2–3 standard frames chosen by orientation, with a matte filling the gap**
-    (2026-10-11, Alex: "вписаны в один размер… с заполнением… либо же в 2-3").
+      section set. Two slides about the same step (two screenshots) carry the identical card.
+26. **Screenshots on peer slides sit in one standard frame, or in 2–3 standard frames chosen by orientation, with a matte filling the gap,
+    and each carries a caption with its path in the product** (2026-10-11, Alex: "вписаны в один размер… с заполнением… либо же в 2-3";
+    2026-10-12: "внизу, как заголовок… не мельче, чем шрифт текста в карточке").
     - Pick the frame by aspect (portrait form vs landscape) and centre the picture in it; never size a frame to each picture.
-    - Frame the part the slide talks about with a native outline, not by cropping.
+    - Frame the part the slide talks about with a native outline. Crop only when the whole screen at frame size would be unreadable
+      (a full-width page): keep the title strip and the part the slide is about, and outline inside the crop.
+    - Under every screenshot: the UI path at body size, «Розділ <Section> → Сторінка <record> → <Tab>», section and tab names in the
+      product's own English; one path vocabulary for the whole deck (always «Сторінка», never «картка» in one place and «сторінка» in
+      another). When the path does not fit one line, break it at an arrow into two balanced lines.
 27. **A process structure gets one colour per stage, used in the same position on every slide that shows it** (2026-10-11, Alex: colour
     coding plus a unified structure and placement, so the stages, blocks and steps are remembered).
     - The overview, the full map and every section divider share one column grid.
