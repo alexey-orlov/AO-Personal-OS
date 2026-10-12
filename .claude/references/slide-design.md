@@ -195,3 +195,19 @@ deck or one-pager work.
     - A divider repeats the map as a "you are here" strip, with the current stage in colour and the rest grey.
     - Step slides carry the stage colour in the kicker pill and the card.
     - Within a stage: stage = full hue, block = medium tint, step = light tint (rule 5's tints of one hue).
+28. **Where a stage splits into parallel streams or roles, a schema slide comes first and its pictograms recur on the detail slides**
+    (2026-10-12, Alex on the same deck: the roles slide, the six-branch «готовність команд» schema, the three technical competences).
+    - The schema shows the trigger, the streams and, per stream, the steps in sequence, each with a one-line purpose; a mark (*) with a
+      footnote flags the steps whose obligation is conditional.
+    - Give each stream or role a distinct pictogram, drawn as native vector shapes so it stays editable. Every detail slide of that
+      stream repeats the pictogram and the stream's name at the right end of the kicker row, so the reader knows which box of the schema
+      the slide opens.
+    - When a schema slide also needs a screenshot as evidence that the system records it, the schema takes the top two thirds and the
+      screenshot sits smaller in a bottom band with a one-line note beside it; the screenshot never competes with the schema for size.
+29. **A who-does-what matrix of teams × process puts the process stages in rows and the teams in columns, and its cells list exact step
+    names only** (2026-10-12, Alex on the team-participation slides: "этапы сверху вниз… команды — колонки", "без комментариев").
+    - Each cell is a numbered list of the steps' names exactly as the step slides title them; no scenario notes («як responsible for
+      design для Third-party…») — those live on the step slides.
+    - Mark the role, not the prose: ★ = the team owns the step, ✎ = the team enters data or approves in the system, both when both apply,
+      none when it only takes part; a legend under the table. The marks must agree with the cards (★ only where the card's Owner is that
+      team).
