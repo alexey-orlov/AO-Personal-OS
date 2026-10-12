@@ -43,6 +43,14 @@ Working recipe (≈ 6–10 s for a 26-slide deck):
 A ready script: `context/areas/gigacloud/docs/margin-deck/toolchain/results-deck/pp_render.sh`
 (PDF + per-slide PNGs + contact sheets; `PY=<venv python with pymupdf+pillow>`).
 
+**Exact text widths come from the same export.** When a layout decision depends on whether a label fits on one line (chip
+heights, table rows) and the brand font is not installed as a file (e-Ukraine is only embedded, compressed, in the GigaCloud
+template), measure instead of estimating. Build a calibration deck with one no-wrap text box per (text, font, size), export it, and
+read each line's bbox width from the PDF with PyMuPDF (`page.get_text('dict')`). Cache the widths as JSON and let the builder
+read the cache, falling back to the estimate. PowerPoint wraps about 0.05 in before the measured width reaches the box edge. The
+char-count estimate was off by −12 % to +5 % depending on the letters: Latin lowercase is narrow, Cyrillic and capitals wide.
+Tools: `context/areas/gigacloud/docs/publication-process-deck/`'s toolchain (`tools/measure_build.py`, `tools/measure_read.py`).
+
 **The PDF export leaves out hidden slides** (`<p:sld show="0">`), so the page numbers shift after each hidden slide and
 the hidden slides themselves never get checked. To QA them, build a copy with them unhidden (a build flag,
 e.g. `SHOW_HIDDEN=1`) and render that. Then build the deliverable with them hidden and confirm the page

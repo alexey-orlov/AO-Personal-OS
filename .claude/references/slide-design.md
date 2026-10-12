@@ -195,8 +195,13 @@ deck or one-pager work.
     and each carries a caption with its path in the product** (2026-10-11, Alex: "вписаны в один размер… с заполнением… либо же в 2-3";
     2026-10-12: "внизу, как заголовок… не мельче, чем шрифт текста в карточке").
     - Pick the frame by aspect (portrait form vs landscape) and centre the picture in it; never size a frame to each picture.
-    - Frame the part the slide talks about with a native outline. Crop only when the whole screen at frame size would be unreadable
-      (a full-width page): keep the title strip and the part the slide is about, and outline inside the crop.
+    - Frame the part the slide talks about with a native outline. Crop when the whole screen at frame size would be unreadable:
+      keep the title strip and the part the slide is about, stack them as a collage, and outline inside it. The frame stays a
+      standard one, so the card beside it keeps its width.
+    - Check readability per screenshot, not by eye on the contact sheet. The screen's body text must render at ≥ ~0.13 in on the
+      2× slide (≈ 9 pt as presented). A 1× capture with ~16 px text needs ≥ 0.009 in/px; a 2× capture with ~26 px text needs
+      ≥ 0.005 in/px. Alex flagged everything at 0.0054–0.0060 in/px for 1×-density pages and dialogs; the focused crops reached
+      0.0082–0.0100 (2026-10-12, Alex: "очень мелкие скриншоты… не видно выделенного текста… не в ущерб карточки").
     - Under every screenshot: the UI path at body size, «Розділ <Section> → Сторінка <record> → <Tab>», section and tab names in the
       product's own English; one path vocabulary for the whole deck (always «Сторінка», never «картка» in one place and «сторінка» in
       another). When the path does not fit one line, break it at an arrow into two balanced lines.
@@ -216,6 +221,10 @@ deck or one-pager work.
       stage title over the "you are here" strip and the stage's blocks; content slides never borrow either look (2026-10-12, Alex:
       the stage slides "выглядят как контентные", they must read as the next header level).
     - The overview carries the structure only; explanatory bands and footnotes under it belong on the detail slides (2026-10-12).
+    - A stage or block name must hold for every step in it. Name it by the event it centres on («Перший клієнт»), with before/after
+      sub-blocks, not by a preposition that excludes some of its steps: «Перед першим клієнтом» was false for the hand-off, which
+      comes after. A group that has its own steps is a numbered stage on the same equal-width grid, not a narrow in-between column
+      (2026-10-12, Alex).
 28. **Where a stage splits into parallel streams or roles, a schema slide comes first and its pictograms recur on the detail slides**
     (2026-10-12, Alex on the same deck: the roles slide, the six-branch «готовність команд» schema, the three technical competences).
     - The schema shows the trigger, the streams and, per stream, the steps in sequence, each with a one-line purpose; a mark (*) with a
