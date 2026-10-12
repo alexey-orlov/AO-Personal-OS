@@ -201,6 +201,6 @@ Full catalog + the stack picture in [oracle-ai-offerings.md](oracle-ai-offerings
 - **Wei Li** — incoming Accelerator Packs engineer (from Dennis Kennetz), under **Nathan Thomas's** org.
 - **Dennis Kennetz / Ritika Gupta** — AI Blueprints / GPU Scanner (under AI Infrastructure); **Kennetz moving to the compute org (Mahesh's) 2026-06-23**.
 - **Gero Gunkel** — leads the overall AI Accelerators engagement across both motions; AIDP strategy/sponsor on the data-platform side.
-- **Oscar Collino Garcia** — Oracle AI Data Platform product strategy, globally; treats AIDP + AI Lakehouse as one platform and pushes Deep Insights as the pattern to scale (2026-09-29).
+- **Oscar Colino Garcia** — Oracle AI Data Platform product strategy, globally; treats AIDP + AI Lakehouse as one platform and pushes Deep Insights as the pattern to scale (2026-09-29).
 - **Amit Tyagi** — Oracle AI Data Platform + Analytics Cloud + Autonomous AI Database/Lakehouse + Select AI; author of the AIDP onboarding blog series.
 - **Mirjana Rakuljić** — Select AI / OCI AI Agents over Autonomous DB (bridges A↔B).

@@ -66,7 +66,7 @@ The exact contract (frame sizes, JPEG settings, the `steps[].shot` fields `full`
 
 ## Reference demos from others
 
-- **Oracle's AI Data Platform "Deep Insights" demo** (shown by Oscar Collino Garcia, 2026-09-29). SoftServe OneDrive `Productization - General/Demo references/2026-09-29 Oracle AIDP Deep Insights demo/` holds its screens, a 6:30 audio cut (framing, voice-over, engagement plan) and a README that time-codes every screen. It is Oracle-confidential: study it, never reuse its screens, figures, customer or branding. It does five things our walkthroughs don't yet:
+- **Oracle's AI Data Platform "Deep Insights" demo** (shown by Oscar Colino Garcia, 2026-09-29). SoftServe OneDrive `Productization - General/Demo references/2026-09-29 Oracle AIDP Deep Insights demo/` holds its screens, a 6:30 audio cut (framing, voice-over, engagement plan) and a README that time-codes every screen. It is Oracle-confidential: study it, never reuse its screens, figures, customer or branding. It does five things our walkthroughs don't yet:
   - **A narrated mode.**
     - A voice-over toggle and autoplay sit beside the dot navigation and keyboard hints.
     - The narration is written for the ear: short declaratives, one idea per screen.

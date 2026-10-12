@@ -1,7 +1,7 @@
 # Oracle engagements — pipeline status
 
 _Source: Miro board **"INT Oracle Program"**, **June** view (marked **Confidential**). Screenshot shared by Alex 2026-07-13; this is the program manager's live pipeline tracker. Sibling boards exist on the same Miro (tabs: Henkel Program, REWE Stakeholders, RX PoC, Oracle AIDP, Schwarz Program, Montblanc) — not captured here._
-_updated: 2026-09-29_
+_updated: 2026-10-12_
 
 The single structured source of truth for **who is in the Oracle/NVIDIA accelerator-pack pipeline, at what commercial stage, and worth how much**. Complements the narrative in [oracle.md](oracle.md) (strategy/decisions/people) and the org map in [oracle-team.md](oracle-team.md). Twelve opportunities across four status bands.
 
@@ -16,6 +16,9 @@ _From the [2026-09-29 Oscar intro](calls/oracle/2026-09-29_192726_default_202609
 - **Earlier entry than other SIs:** they come in once a use case is defined; SoftServe comes in at the vague-interest stage (a customer who wants to "make finance faster") and already does pre-sales requirements engineering without an SOW, as in a current UK retailer discussion. Oscar, by contrast, expects the outcome defined before handover — the two need aligning (inferred).
 - **The first joint AIDP opportunity** is to be picked from those Gero is already qualifying with SoftServe, worked with Oscar's team, then taken over by SoftServe → [oracle](oracle.md#snapshot).
 - **Riyadh Air as a door-opener:** after it praised the solution SoftServe delivered with Oracle at an airline event, other airlines approach SoftServe directly; Gero wants that used to win net-new OCI business. How to follow them up is open.
+- **AIDP target segments, Oscar's ranking (2026-10-02, [call](calls/oracle/2026-10-12_125600_default_20261002161130216FBB00.md)):** EMEA **EBS** customers first — legacy E-Business Suite, no AI, need help finding it; Oracle has several in play and EBS agent templates coming to partners within ~2 weeks. **Fusion SaaS** customers already have AI, so not first. Caveat from Gero: many EBS estates are run by big Indian outsourcers behind a shared-services wall that won't admit another vendor. Concentrate on the repeatable opportunities the pipeline calls bring; the next pipeline call was due Mon/Tue 2026-10-05/06. Playbook → [oracle-aidp](oracle-aidp.md).
+- **Telenor — Oracle and SoftServe both inside, not yet joined up (2026-10-02):** Oracle works Telenor from several angles — Oscar is building a **Group Finance Deep Insights demo** with an FDE, with **revenue assurance** in parallel; SoftServe helps Telenor's decentralised AI platform initiative on its **SDLC pillar** (Bohdan) and with NVIDIA-related AI (Karsten, inferred). Gero asked whether this competes with other parts of SoftServe; Bohdan: one use case only — "let's unite efforts". Oscar's rule: customers where SoftServe already sold compute or GenAI are the right ones for outcome-based next steps. [call](calls/oracle/2026-10-12_125600_default_20261002161130216FBB00.md)
+- **The UK retailer → a Bradford trip** (Gero, 2026-10-02): likely the week after next; Helen, Harry and team to be on the email. Same account as the "current UK retailer discussion" above (inferred).
 
 ## Oracle's own read on the portfolio — 2026-09-16 (Neil + Gero sync)
 
