@@ -180,6 +180,9 @@ deck or one-pager work.
       in the build, so a second phrasing cannot appear.
     - Every card of a type has the same sections in the same order. A hybrid step (a to-do that ends in an approval) gets its own fixed
       section set. Two slides about the same step (two screenshots) carry the identical card.
+    - Inside a field, a new logical paragraph gets visible space above it. A two-cell row is balanced: size the narrow cell so its
+      answer fits on one line, or stack it as short bold lines with grey qualifiers; never one cell crammed and its neighbour loose
+      (2026-10-12, Alex on the PoC card: "налеплено… не хватает пробелов-энтеров между логическими абзацами").
 26. **Screenshots on peer slides sit in one standard frame, or in 2–3 standard frames chosen by orientation, with a matte filling the gap,
     and each carries a caption with its path in the product** (2026-10-11, Alex: "вписаны в один размер… с заполнением… либо же в 2-3";
     2026-10-12: "внизу, как заголовок… не мельче, чем шрифт текста в карточке").
@@ -189,12 +192,18 @@ deck or one-pager work.
     - Under every screenshot: the UI path at body size, «Розділ <Section> → Сторінка <record> → <Tab>», section and tab names in the
       product's own English; one path vocabulary for the whole deck (always «Сторінка», never «картка» in one place and «сторінка» in
       another). When the path does not fit one line, break it at an arrow into two balanced lines.
+    - After a conceptual map of something the system implements, show the system's own screen of the same structure, with numbered
+      outlines and a short legend (2026-10-12, Alex: the CRM checklist right after the stage/block/step map).
 27. **A process structure gets one colour per stage, used in the same position on every slide that shows it** (2026-10-11, Alex: colour
     coding plus a unified structure and placement, so the stages, blocks and steps are remembered).
     - The overview, the full map and every section divider share one column grid.
     - A divider repeats the map as a "you are here" strip, with the current stage in colour and the rest grey.
     - Step slides carry the stage colour in the kicker pill and the card.
     - Within a stage: stage = full hue, block = medium tint, step = light tint (rule 5's tints of one hue).
+    - Header levels look different: a section = full-bleed accent slide; a stage = a full-width band in the stage colour with the
+      stage title over the "you are here" strip and the stage's blocks; content slides never borrow either look (2026-10-12, Alex:
+      the stage slides "выглядят как контентные", they must read as the next header level).
+    - The overview carries the structure only; explanatory bands and footnotes under it belong on the detail slides (2026-10-12).
 28. **Where a stage splits into parallel streams or roles, a schema slide comes first and its pictograms recur on the detail slides**
     (2026-10-12, Alex on the same deck: the roles slide, the six-branch «готовність команд» schema, the three technical competences).
     - The schema shows the trigger, the streams and, per stream, the steps in sequence, each with a one-line purpose; a mark (*) with a
