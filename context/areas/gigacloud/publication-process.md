@@ -74,7 +74,7 @@ _updated: 2026-10-12_
 
 - 2026-10-12 — v3 feedback (all from Alex):
   - Publication approvals now run design → delivery → Head of Product → finance, after a slide with the two roles.
-  - Each step card is headed by the step name and its Owner. «When» and «mandatory» are separate fields, each answered from a fixed vocabulary. A uniform «Як фіксується» field and a business result appear on every card.
+  - Each step card is headed by the step name and its Owner. «When» and «mandatory» are separate fields; «when» names the stage (До / Під час / Після публікації / При змінах), so the approvals run «під час публікації». A uniform «Як фіксується» field and a business result appear on every card.
   - Every screenshot carries its CRM path.
   - Stage 3 gets a six-stream schema with pictograms; the competence block gets its own schema.
   - The team tables put stages in rows and teams in columns, with ★ for the owner and ✎ for entering data or approving in the CRM.

@@ -45,9 +45,9 @@ _Rewritten 2026-10-12 on Alex's MacBook Air after v3 was delivered (v3 = v2 rewo
 - **Publication approvals order:** design → delivery → Head of Product → finance (changed 2026-10-12 from v2's design → HoP → delivery → finance). A two-roles slide opens stage 2; the two product-type tables follow it and carry the role's pictogram.
 - **Step card:** the header is the step name + «Owner: <role>»; no «У CRM» line, no type label.
   - Sections: Суть · Результат (a business result) · [Коли відбувається | Обов’язковий крок] in one row · [Виняток] · Як фіксується · Хто залучений / Що погоджує / Що підтверджує. Hybrid process cards add «Процес» first and end on «Хто погоджує».
-  - «Коли відбувається» ∈ До / Під час / Після публікації / При змінах. «Обов’язковий крок» is «Завжди» with nothing appended, or «Якщо …» (structured) + a grey «Визначається автоматично» when the CRM sets the flag.
+  - «Коли відбувається» names the stage the step runs in: До публікації (stage 1), Під час публікації (stage 2, all four approvals), Після публікації (stage 3, Send to billing included), При змінах (stage 4). The overview and the map carry the same four words over the stages. R&D PoC is the one stage-1 step that runs after publication by default. «Обов’язковий крок» is «Завжди» with nothing appended, or «Якщо …» (structured) + a grey «Визначається автоматично» when the CRM sets the flag.
   - «Як фіксується» uses four wordings: «Вручну в CRM: <role> логує крок і додає посилання на підтвердження»; «Автоматично: CRM …»; «Погодженням у CRM: …»; «Підтвердженням у CRM: …».
-- **Screenshots:** two frames, portrait 7.4×9.0″ and landscape 11.0×7.8″ (2× scale), with a matte; a 20 pt caption under each with the UI path «Розділ <Section> → Сторінка <record> → <Tab>» in English names. The process pages and very wide screens are cropped collages so their text stays readable.
+- **Screenshots:** two frames, portrait 7.4×9.0″ and landscape 11.0×7.8″ (2× scale), with a matte; a 20 pt caption under each with the UI path «Розділ <Section> → Сторінка <record> → <Tab>» in English names, «Product catalogue» as the CRM spells it. The process pages and very wide screens are cropped collages so their text stays readable.
 - **Step facts confirmed or set by Alex:**
   - Product manager owns Data validation.
   - Infrastructure setup project: Owner Delivery, R&D involved.
@@ -55,9 +55,10 @@ _Rewritten 2026-10-12 on Alex's MacBook Air after v3 was delivered (v3 = v2 rewo
   - Finance approval is required automatically when the PM specified vendor commitments or an upfront infrastructure investment.
   - The Head of Product slide does not mention that the CRM has no item for that approval.
   - The Managed licenses / Our services design scope, the DPC and the competence texts are correct (highlights removed).
-- **Ops schema:** owners in the boxes with a user pictogram: Product manager; Business process lead; none on the publication box; «Усі залучені відділи» on the confirmations.
+- **Ops schema:** owners in the boxes with a user pictogram: Product manager; Business process lead; none on the publication box; «Усі залучені відділи» on the confirmations. That phrase is the deck's one name for the participating departments (process approvals «Хто погоджує», confirmation Owners).
 - **Team readiness schema:** publication → six streams: Billing (Send to billing), Sales (Sales kick-off*), Технічні команди (Tech kick-off* → Competence confirmation), Операційні команди (Contract process confirmation), Команди доставки (Delivery process confirmation), Marketing (Marketing brief*); * = obligation set by conditions. The stage-3 step slides repeat their stream's pictogram in the kicker row.
 - **Three technical competences:** Presales — Presales; L2 Support (consulting, standard scenarios) — Support, Delivery or InfoSec; L3 Support (deeper expertise) — Delivery or InfoSec; which department, per product, is set on the product page (Delivery tab → Support lines).
+- **"You are here" strips:** the two product-type tables and the two role approvals carry a strip of the two roles in the kicker row, the current role in colour; the three competence slides carry the three competences (Delivery lights L2 and L3). The other stage-3 slides carry their stream's pictogram.
 - **Send to billing:** two slides with the same card: the automatic CRM e-mail and the manual log (date + billing ticket number).
 - **Marketing brief screenshot** is synthesised from the Tech kick-off one (Montserrat 530, the CRM's own description text), as Alex asked.
 - **Team tables:** stages are rows, teams are columns; numbered exact step names; ★ = owns the step, ✎ = enters data or approves in the CRM; a legend.
@@ -89,7 +90,9 @@ The process runs when a product draft changes, or when a component is added to o
 - Name the fields behind Sales kickoff and Infrastructure setup project, and confirm the tech-kickoff reading. The deck shows «<умова з даних продукту — уточнити>», highlighted.
 - Confirm that Process management office = Operations (Business process lead).
 - Still highlighted: Vendor manager as Supplier contracts owner, with Legal and Finance involved; Delivery among the Delivery process approvers; go-live support belonging to first-sales support.
-- InfoSec can hold L2/L3 support, but the CRM checklist has competence confirmation only for Presales, Support and Delivery. The Support lines block also has an L4 Support (R&D) that the competence schema leaves out.
+- InfoSec can hold L2/L3 support, but the CRM checklist has competence confirmation only for Presales, Support and Delivery. The Support lines block also has an L4 Support (R&D) that the competence schema leaves out — show it or not?
+- Highlights removed on v2's slides 18 (design scope) and 19 (Head of Product timing), reading «оставляй как есть, всё корректно» as "confirmed". If he meant keep the highlight, restore it.
+- The Head of Product approval's recording is highlighted: the CRM has no item for it, so «Погодженням у CRM» is a target, not a fact.
 - **CRM data fixes:**
   - empty descriptions: Supplier contract, Infrastructure setup project, Initial request to add to billing;
   - the typo «Compentency confirmation: Presales»;
