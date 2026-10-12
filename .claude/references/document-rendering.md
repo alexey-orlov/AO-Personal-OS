@@ -43,6 +43,11 @@ Working recipe (≈ 6–10 s for a 26-slide deck):
 A ready script: `context/areas/gigacloud/docs/margin-deck/toolchain/results-deck/pp_render.sh`
 (PDF + per-slide PNGs + contact sheets; `PY=<venv python with pymupdf+pillow>`).
 
+**The PDF export leaves out hidden slides** (`<p:sld show="0">`), so the page numbers shift after each hidden slide and
+the hidden slides themselves never get checked. To QA them, build a copy with them unhidden (a build flag,
+e.g. `SHOW_HIDDEN=1`) and render that. Then build the deliverable with them hidden and confirm the page
+count drops by the number of hidden slides (2026-10-12, the GigaCloud publication deck: 59 slides, 56 PDF pages).
+
 Never close a presentation you didn't open; on a cold launch PowerPoint may show its start gallery
 (dismiss with Cancel) or restore Alex's decks.
 
