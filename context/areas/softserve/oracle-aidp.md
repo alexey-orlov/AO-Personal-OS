@@ -56,7 +56,7 @@ _From Oscar's walkthrough and Alex's screenshots of it (Apple Note "AIDP meeting
 - **Oscar Colino Garcia** (Oracle) — AIDP product strategy, global; runs the sessions and guides the first opportunity → [oracle-team](oracle-team.md#motion-b--the-data-platform-aidp--ai-lakehouse).
 - **Pelin Ozbozkurt** (Oracle, Oscar's team) — will support SoftServe; EBS-agent and semantic-engine detail. **Oscar's FDE leader** (unnamed) — owns the video plugin.
 - **Neil** (Oracle; "Neil Shulai" as transcribed 10-12) — assigns the opportunities. **Gero Gunkel** — qualifies them; owes the EBS agents document. **Helen** (London) — local AIDP PM.
-- SoftServe: **Bohdan** (sessions, the Neil relationship), **Alex** (productization; the process questions), **Paweł Domal** (manages the OCI tenancy and the partner credits, inferred), **Karsten** (Telenor / NVIDIA side).
+- SoftServe: **Bohdan** (sessions, the Neil relationship), **Alex** (productization; the process questions), **Paweł Domal** (manages the OCI tenancy and the partner credits; likely the README's Pavlo Doma, Enterprise Solution Architect, Oracle-only — inferred), **Karsten** (Telenor / NVIDIA side).
 
 ## Decisions
 
