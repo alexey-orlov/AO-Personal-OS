@@ -247,3 +247,21 @@ deck or one-pager work.
     - Mark the role, not the prose: ★ = the team owns the step, ✎ = the team enters data or approves in the system, both when both apply,
       none when it only takes part; a legend under the table. The marks must agree with the cards (★ only where the card's Owner is that
       team).
+30. **Goals, KPIs and commitments restated from a source document stay verbatim** (2026-10-13, Alex on the Q3 goals slide: "make
+    sure that the slide with Q3 goals didn't drift from original doc in any row"). The first cut paraphrased the KPIs to fit the
+    column, which dropped a clause ("…and stored in overall Jumpstart process"), swapped a term ("own channels" for "SoftServe
+    digital channels") and cut "NVIDIA-track" from an objective; each changes the commitment.
+    - Copy the source's wording into the cell; fix typos only, and list the fixes in the speaker notes.
+    - Make the column wide enough for the real text: re-balance the other columns or move commentary out, never shorten the goal.
+    - Before delivering, check every row mechanically against the source: extract the slide text from the built file, normalise
+      only the listed typo fixes, and compare the rest row by row (a difflib ratio of 1.000 on every row, or a named reason).
+31. **A planned-vs-achieved scorecard reports measures, not narration** (2026-10-13, Alex on the same slide: "free of unnecessary
+    details (dates, low-level events)… comment column… fill in ONLY when necessary"; "M / N where numbers, checked or unchecked
+    checkbox for boolean KRs").
+    - Columns: the goal (verbatim, rule 30) · **Result** as "M / N" against the goal's own number, or a ☑ / ☐ checkbox for a
+      yes/no goal · a status word · **Comment**.
+    - A comment appears only where it changes how the result reads (which item is missing, program-level vs per-pack, still in
+      delivery); it carries no dates and no event log, and an empty cell is the default. Dates, sources and event detail go to
+      the speaker notes.
+    - Draw checkboxes with Wingdings (`F0FE` checked, `F0A8` empty, `latin` + `sym` typeface Wingdings): it ships with Office on
+      Mac and Windows, while Unicode ☐/☑ depends on font fallback.
