@@ -48,8 +48,11 @@ notes, Telegram research summaries. Distilled from his Claude-Chat instructions
 - **A page for executives is read in two minutes, so structure carries the information, not
   sentences** (Alex, 2026-10-13, on a two-page decision draft that was already a table: "right
   now it's a TLDR, make it executive-friendly, while not losing the meaning"). Every cell was a
-  25-35-word sentence, and each review fix had added a qualifier. Lead with the recommendation in
-  one line and the coverage as numbers (tiles, ✓/★ marks). Table cells are phrases on a word
+  25-35-word sentence, and each review fix had added a qualifier. Lead with one line that gives the
+  frame the list answers to (for the Oracle packs: Oracle's go-to-market), not with counts. Alex
+  rejected the coverage tiles ("6 / 8 new", "4 / 4 campaigns") and a "keep 9, add 6" lead the same
+  day: "too focused on pure numbers - we don't focus on counts that much". A count is a headline only
+  when the number itself is the reader's information (the client-documents rule). Table cells are phrases on a word
   budget: a problem ≤ 14 words that names the role and ends on the cost (opening with the
   question the buyer asks also separates near-twin rows, so no routing rules are needed), a
   solution ≤ 15 ending on the measure that moves, a "built on" ≤ 8. A caveat is a marker plus one
