@@ -386,11 +386,11 @@ RUNS_STYLE = {
 }
 
 
-def table_slide(s, spec, rows, y=1660000, body=9.5, key=None, muted=()):
+def table_slide(s, spec, rows, y=1660000, body=9.5, key=None, muted=(), key_lines=1):
     """spec: list of (header, width, kind); kind in status | pack | text | runs | small. rows: tuples, one cell per column."""
     n = len(rows)
     hh = 260000
-    bottom = BOTTOM - (230000 if key else 0)
+    bottom = BOTTOM - ((90000 + 140000 * key_lines) if key else 0)
     rh = (bottom - y - hh) // n
     xs = [X0]
     for _, w_, _ in spec[:-1]:
@@ -403,7 +403,9 @@ def table_slide(s, spec, rows, y=1660000, body=9.5, key=None, muted=()):
         for (lab, w_, kind), x, cell in zip(spec, xs, r):
             if kind == "status" and cell:
                 fill, outline, col = {"NEW": (INK, None, WHITE), "HAVE": (None, GREY, GREY_D),
-                                      "EXTEND": (None, INK, INK), "SERVICE": (INK, None, WHITE)}[cell]
+                                      "EXTEND": (None, INK, INK), "SERVICE": (INK, None, WHITE),
+                                      "PURSUE": (INK, None, WHITE), "PROOF ONLY": (None, INK, INK),
+                                      "PARK": (None, GREY, GREY_D)}[cell]
                 pill(s, x + 50000, yy + 75000, cell, fill=fill, outline=outline, color=col, size=6.5, h=180000, w=w_ - 100000)
             elif kind == "pack":
                 text(s, x + 50000, yy + 55000, w_ - 100000, rh - 80000, [[(ln, {"bold": True})] for ln in cell.split("\n")],
@@ -421,7 +423,7 @@ def table_slide(s, spec, rows, y=1660000, body=9.5, key=None, muted=()):
                      color=(GREY_D if (kind == "small" or k in muted) else INK), line=0.98)
         hline(s, X0, yy + rh, W)
     if key:
-        text(s, X0, bottom + 60000, W, 200000, key, size=8, color=GREY_D)
+        text(s, X0, bottom + 60000, W, 140000 * key_lines + 60000, key, size=8, color=GREY_D, line=1.0)
     return s
 
 
@@ -497,18 +499,24 @@ def slide_option2(prs, sn):
 
 def slide_option3(prs, sn):
     s = new_slide(prs, sn, None, "Option 3",
-                  title_parts=[("Option 3: ", False), ("our expertise, beyond databases and ERP", True)],
+                  title_parts=[("Option 3: ", False), ("our expertise beyond databases and ERP", True), (", mostly on OCI", False)],
                   notes="Cases from the 'SoftServe OCI/AIDP expertise use cases' session.")
     data_file = HERE / "option3.json"
-    spec = [("Case", 2600000, "pack"), ("Problem", 3600000, "text"), ("Solution", 3540000, "text"),
-            ("Runs on", W - 2600000 - 3600000 - 3540000, "runs")]
+    spec = [("Call", 760000, "status"), ("Case", 2250000, "pack"), ("Problem", 3350000, "text"),
+            ("Solution", 3350000, "text"), ("Runs on", W - 760000 - 2250000 - 3350000 - 3350000, "runs")]
     if data_file.exists():
         data = json.loads(data_file.read_text())
-        rows = [(c["name"], c["problem"], c["solution"], {"platform": c["platform"], "note": c.get("note")})
-                for c in data["cases"]]
+        rows = [(c["call"], c["name"], [[(c["role"] + " ", {"bold": True}), (c["problem"], {})]], c["solution"],
+                 {"platform": c["platform"], "note": c.get("note")}) for c in data["cases"]]
         if data.get("notes"):
             set_notes(s, data["notes"])
-        table_slide(s, spec, rows, body=10.5)
+        key = None
+        if data.get("key"):
+            key = []
+            for line in data["key"].split("\n"):
+                head, _, rest = line.partition(":")
+                key.append([(head + ":", {"bold": True}), (rest, {})])
+        table_slide(s, spec, rows, body=10, key=key, key_lines=len(key or []))
     else:
         hh = 260000
         for (lab, w_, kind), x in zip(spec, [X0, X0 + spec[0][1], X0 + spec[0][1] + spec[1][1], X0 + spec[0][1] + spec[1][1] + spec[2][1]]):
