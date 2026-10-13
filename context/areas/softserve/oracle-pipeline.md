@@ -1,7 +1,9 @@
 # Oracle engagements — pipeline status
 
 _Source: Miro board **"INT Oracle Program"**, **June** view (marked **Confidential**). Screenshot shared by Alex 2026-07-13; this is the program manager's live pipeline tracker. Sibling boards exist on the same Miro (tabs: Henkel Program, REWE Stakeholders, RX PoC, Oracle AIDP, Schwarz Program, Montblanc) — not captured here._
-_updated: 2026-10-12_
+_updated: 2026-10-13_
+
+> **FY26 revenue, program level (Alex, chat 2026-10-07):** $0.3M recognized · $0.8M formally booked (signed and scheduled to deliver) · $1.55M in pipeline, which he first called the FY26 attributed revenue, so it likely includes the booked $0.8M (inferred). Not split by pack or by deal; the deal-level values below come from the June board and do not reconcile to these totals yet.
 
 The single structured source of truth for **who is in the Oracle/NVIDIA accelerator-pack pipeline, at what commercial stage, and worth how much**. Complements the narrative in [oracle.md](oracle.md) (strategy/decisions/people) and the org map in [oracle-team.md](oracle-team.md). Twelve opportunities across four status bands.
 
