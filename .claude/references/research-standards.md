@@ -45,6 +45,17 @@ notes, Telegram research summaries. Distilled from his Claude-Chat instructions
 - Structured output (tables, numbered lists, bold captions + tight text) is the default
   for analytical or comparative content. Prose only when structure can't carry the meaning.
 - Direct; density beats length. No hedging, no padding.
+- **A page for executives is read in two minutes, so structure carries the information, not
+  sentences** (Alex, 2026-10-13, on a two-page decision draft that was already a table: "right
+  now it's a TLDR, make it executive-friendly, while not losing the meaning"). Every cell was a
+  25-35-word sentence, and each review fix had added a qualifier. Lead with the recommendation in
+  one line and the coverage as numbers (tiles, ✓/★ marks). Table cells are phrases on a word
+  budget: a problem ≤ 14 words that names the role and ends on the cost (opening with the
+  question the buyer asks also separates near-twin rows, so no routing rules are needed), a
+  solution ≤ 15 ending on the measure that moves, a "built on" ≤ 8. A caveat is a marker plus one
+  footnote line. Detail only a specialist needs stays in the long version, never on the page.
+  Count the words per cell with a script before rendering, and make every review fix
+  word-neutral or shorter.
 - For risk/decision questions: the call first (low / medium / high, yes / no / depends),
   then reasoning, then recommended action.
 
