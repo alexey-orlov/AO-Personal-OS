@@ -260,6 +260,10 @@ deck or one-pager work.
     checkbox for boolean KRs").
     - Columns: the goal (verbatim, rule 30) · **Result** as "M / N" against the goal's own number, or a ☑ / ☐ checkbox for a
       yes/no goal · a status word · **Comment**.
+    - Status words are bold mono and colour-coded the way Alex set them in his own edit of the Q3 review (2026-10-13; values
+      sampled from his screenshot): MET green `1EA357`, PARTLY blue `1669A4`, NOT MET and ON HOLD red `D11412`. ON HOLD marks a
+      goal paused by an organisational decision rather than missed; a mixed state stacks on two lines ("PARTLY /" over "ON HOLD")
+      in the colour of its first word. The result and status are the owner's call: when Alex rescores a row, carry his values.
     - A comment appears only where it changes how the result reads (which item is missing, program-level vs per-pack, still in
       delivery); it carries no dates and no event log, and an empty cell is the default. Dates, sources and event detail go to
       the speaker notes.
