@@ -1,7 +1,7 @@
 # Oracle engagements — pipeline status
 
 _Source: Miro board **"INT Oracle Program"**, **June** view (marked **Confidential**). Screenshot shared by Alex 2026-07-13; this is the program manager's live pipeline tracker. Sibling boards exist on the same Miro (tabs: Henkel Program, REWE Stakeholders, RX PoC, Oracle AIDP, Schwarz Program, Montblanc) — not captured here._
-_updated: 2026-10-12_
+_updated: 2026-10-13_
 
 The single structured source of truth for **who is in the Oracle/NVIDIA accelerator-pack pipeline, at what commercial stage, and worth how much**. Complements the narrative in [oracle.md](oracle.md) (strategy/decisions/people) and the org map in [oracle-team.md](oracle-team.md). Twelve opportunities across four status bands.
 
@@ -124,5 +124,5 @@ _June board view — **superseded for DHL, Belron, Bosch and Sky** by the [2026-
 - **Channel 4** (VSS, media) now carries **SOW ✅ + PO ✅** — furthest-along of the "Next" band commercially despite the open NDA.
 - **DHL NDA now ✅** — closes the wiki's open question ("debating whether existing Oracle-customer status removes the NDA need").
 - **Both Active POCs delivered & in UAT** (Bosch 11.06, Riyadh Air 09.06), full mini SOW→PO stack closed on both.
-- **POC financials captured** (new): total pipeline value ≈ €1.6M across 11 costed POCs; largest = DHL €226k→192k, NHS & KPN €198.5k each; smallest = Riyadh Air €68k, Channel 4 €83k.
+- **POC financials captured** (new): total pipeline value ≈ €1.6M across 11 costed POCs; largest = DHL €226k→192k, NHS & KPN €198.5k each; smallest = Riyadh Air €68k, Channel 4 €83k. **Checked against the OneDrive SoWs on 2026-10-13:** DHL €192,525 · NHS €198,500 · SBG €170,940 match; **Belron's UC #8 SoW says €151,100** (OCI setup included) against the board's €171k, unresolved (the funded JEP v2.1 isn't in OneDrive); Bosch and Riyadh Air have no SoW there, and **Alex confirmed their €124k and €68k**. (chat, 2026-10-13)
 - **Name reconciliation:** "Riyadh Air" = the wiki's Riyad Air / "RIAD" / "Rioter"; "Work Zone Optimization" = the Bosch cuOpt workforce case; "AI-Q" = AIQ.
