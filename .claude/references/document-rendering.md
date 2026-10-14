@@ -1,9 +1,10 @@
-# Document rendering & visual QA on Alex's Macs
+# Document rendering & visual QA (Alex's Macs and cloud sessions)
 
-How to render `.pptx`/`.docx` to images for visual QA on Alex's two Macs. Pointed from root
-`CLAUDE.md` — read this BEFORE rendering or QA-ing any deck/doc. Findings are machine-specific
-and dated; check which Mac you are on first (`scutil --get ComputerName`). Rewritten to current
-truth 2026-09-26 (added the MacBook Air and the PowerPoint export path).
+How to render `.pptx`/`.docx` to images for visual QA on Alex's two Macs and in Claude Code cloud
+sessions. Pointed from root `CLAUDE.md` — read this BEFORE rendering or QA-ing any deck/doc. Findings
+are machine-specific and dated; check where you are first (`scutil --get ComputerName` on a Mac; a
+Linux container is a cloud session). Rewritten to current truth 2026-10-14 (the e-Ukraine font files
+and the cloud-session path).
 
 ## Which path to use
 
@@ -11,11 +12,15 @@ truth 2026-09-26 (added the MacBook Air and the PowerPoint export path).
 |---|---|---|
 | **Alex's MacBook Air** (`Alexs-MacBook-Air.local`) | **PowerPoint → PDF → PyMuPDF** (true fonts, template backgrounds) — works since PowerPoint was activated 2026-09-26 | QuickLook (geometry only) |
 | **`KN7X2Y65NX`** | QuickLook per-slide trick (below) | PowerPoint export only if its window shows no "View Only" banner (see below) |
+| **Claude Code cloud session** (Linux container) | **LibreOffice → PDF → `pdftoppm`**, with the e-Ukraine OTFs installed (see Fonts): true fonts and template backgrounds, ~40 s for a 61-slide deck (2026-10-14, GigaCloud publication deck) | - |
 
 Tool inventory: MacBook Air — no soffice, no poppler (`pdftoppm`), no Homebrew, system `python3` is
 3.9 (so the pptx skill's `validate.py`, which needs ≥ 3.10, does not run; a clean PowerPoint open +
 export is the practical validation). KN7X2Y65NX — soffice installed but `--convert-to` produces
 nothing (verified 09-07/09/11: hangs or exits 255 with an empty outdir) — don't spend attempts on it.
+Cloud session (2026-10-14) — soffice (use the pptx skill's `scripts/office/soffice.py` wrapper),
+`pdftoppm`, python-pptx, Pillow and gcc present, the pptx skill's `validate.py` runs; no PyMuPDF.
+LibreOffice skips hidden slides in the PDF too.
 
 ## PowerPoint export (the accurate path)
 
@@ -43,13 +48,14 @@ Working recipe (≈ 6–10 s for a 26-slide deck):
 A ready script: `context/areas/gigacloud/docs/margin-deck/toolchain/results-deck/pp_render.sh`
 (PDF + per-slide PNGs + contact sheets; `PY=<venv python with pymupdf+pillow>`).
 
-**Exact text widths come from the same export.** When a layout decision depends on whether a label fits on one line (chip
-heights, table rows) and the brand font is not installed as a file (e-Ukraine is only embedded, compressed, in the GigaCloud
-template), measure instead of estimating. Build a calibration deck with one no-wrap text box per (text, font, size), export it, and
-read each line's bbox width from the PDF with PyMuPDF (`page.get_text('dict')`). Cache the widths as JSON and let the builder
-read the cache, falling back to the estimate. PowerPoint wraps about 0.05 in before the measured width reaches the box edge. The
-char-count estimate was off by −12 % to +5 % depending on the letters: Latin lowercase is narrow, Cyrillic and capitals wide.
-Tools: `context/areas/gigacloud/docs/publication-process-deck/`'s toolchain (`tools/measure_build.py`, `tools/measure_read.py`).
+**Text widths: compute them from the font file.** When a layout decision depends on whether a label fits on one line (chip
+heights, table rows), measure with the real font: PIL `ImageFont.truetype(<otf>, 1000).getlength(s) / 1000 × pt / 72` = inches.
+These are advance widths without kerning, so they are an upper bound. PowerPoint wraps about 0.05 in before the box edge; keep
+≥ 0.2 in slack. The char-count estimate (`text_w` in the GigaCloud `lib.py`) is off by −12 % to +5 % (Latin lowercase narrow,
+Cyrillic and capitals wide), so never size from it when the font is at hand. Before 2026-10-14 the e-Ukraine files were believed
+unavailable, so the publication-deck toolchain measured widths through a PowerPoint calibration deck (one no-wrap text box per
+text, widths read from the PDF with PyMuPDF `page.get_text('dict')`, cached as JSON: `tools/measure_build.py`,
+`tools/measure_read.py`). That remains the check of PowerPoint's own line breaking.
 
 **The PDF export leaves out hidden slides** (`<p:sld show="0">`), so the page numbers shift after each hidden slide and
 the hidden slides themselves never get checked. To QA them, build a copy with them unhidden (a build flag,
@@ -76,20 +82,28 @@ that slide:
 
 **What QuickLook gets wrong — never judge text fit or looks from it:**
 - Brand fonts substitute unless installed (e-Ukraine becomes a narrow serif, so overflow is hidden;
-  e-Ukraine is much wider — ~0.009 in per pt per character in Bold).
+  e-Ukraine is much wider — ~0.009 in per pt per character in Bold). With the e-Ukraine OTFs in
+  `~/Library/Fonts/` it should render the real face (not yet verified on the Macs).
 - On the MacBook Air it drops the template's background images entirely (no cloud).
 - `<a:highlight>` bands, `round2SameRect` fills and SVG images (`asvg:svgBlip`) render as nothing /
   empty white rectangles; an oversized table `graphicFrame` stretches the table.
 
 ## Fonts
 
-- e-Ukraine (GigaCloud template) is embedded in the decks as EOT with MicroType-Express compression
-  (`ppt/fonts/*.fntdata`, "LP" magic at byte 34) — not extractable without an MTX decoder; PowerPoint
-  renders it from the embedded data, which is why the PowerPoint path is the accurate one.
+- **e-Ukraine (GigaCloud template) is a public font, and the decks embed exactly that font.** The OTFs are CC BY 4.0: official
+  page thedigital.gov.ua/fonts, git mirror `github.com/bennetfabian/e-Ukraine` (`e-Ukraine-Light.otf`, `-Bold.otf`, …).
+  The decks embed e-Ukraine Light and Bold as EOT with MicroType-Express compression (`ppt/fonts/*.fntdata`, EOT flags 0x4).
+  On 2026-10-14 both were extracted from the publication deck and matched the mirror's files in every table except `head`
+  (checksums only): same glyphs, widths and kerning, same version (69599).
+- Install: Linux `~/.fonts/` then `fc-cache -f`; macOS `~/Library/Fonts/` (tell Alex if you leave fonts installed).
+  The family names are «e-Ukraine Light» / «e-Ukraine Bold», which the decks reference. To query fontconfig, escape the
+  hyphen (`fc-match 'e\-Ukraine Light'`). Unescaped, the name parses as something else and matches Inter.
+- To pull an embedded font out of any deck: build libeot's `eot2ttf` (`github.com/umanwizard/libeot`; compile every `src/`
+  file with `gcc -std=c99 -DDECOMPRESS_ON -I inc -I src`), run it on each `.fntdata`. For a CFF font, overwrite the first four
+  bytes with `OTTO`, because libeot writes the TrueType tag `00010000` and FreeType then refuses the file.
 - SoftServe faces live in `/Library/Fonts/Managed/` on KN7X2Y65NX; installing a face into
-  `~/Library/Fonts/` makes QuickLook render it. Tell Alex if you leave fonts installed.
-- Prove text fit with the font file where you have it: PIL `ImageFont.truetype(path, pt).getlength(s)/72`
-  = inches; leave ~10 % slack.
+  `~/Library/Fonts/` makes QuickLook render it.
+- Prove text fit with the font file (see "Text widths" above); leave ~10 % slack when the renderer is not PowerPoint.
 
 ## Hand-off default
 
