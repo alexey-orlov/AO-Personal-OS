@@ -1,6 +1,6 @@
 # Publication-process deck — handoff (continue on any machine)
 
-_Rewritten 2026-10-12 on Alex's MacBook Air after v8 was delivered (v4 = round-4 feedback; v5–v8 = his follow-ups the same evening). Read fully before touching the deck._
+_Rewritten 2026-10-12 on Alex's MacBook Air after v8 was delivered (v4 = round-4 feedback; v5–v8 = his follow-ups the same evening); updated 2026-10-14 in a cloud session (the roadmap slide, the e-Ukraine font files). Read fully before touching the deck._
 
 ⛔ GigaCloud = internal-only area. The deck is internal; nothing from it goes into external-facing artifacts.
 
@@ -13,6 +13,7 @@ _Rewritten 2026-10-12 on Alex's MacBook Air after v8 was delivered (v4 = round-4
 **Deck map (v8):**
 1. Cover.
 2. Accent slide: ⚙️ and Alex's formula «Процеси, що працюють = Прозорість флоу + Автоматизація + Buy-in учасників» (repeated as the last slide).
+   - **«Роадмап» (2026-10-14, Alex inserts it himself; suggested after slide 2).** Delivered as a single-slide file on the `cloud 001 logomark` layout: kicker «Публікація продуктів», a filled red head «Презентуємо сьогодні» with four ✓ rows, a chevron, and a dashed red head «Найближчий роадмап (Q4)» with three dashed-circle rows (grey second lines for the qualifiers). Rows end on one hairline: pitch 1.35″ against 1.80″. Items 24 pt Light; the longest line is 0.4″ inside its box. Not yet reconciled with the action plan's «Роадмап · Грудень 2026» row, where only the two hand-offs match.
 3. Stages overview (five stages on one grid of equal columns).
 4. Process map: stage → block → step.
 5. The same structure in the CRM: the product checklist screenshot and one note — the checklist is always current, updated by the CRM from the actions people log and from status changes (signed supplier contracts, approved processes, billing); the CRM also decides which steps a product needs.
@@ -51,7 +52,7 @@ _Rewritten 2026-10-12 on Alex's MacBook Air after v8 was delivered (v4 = round-4
 - **Render and check:** `pp_render.sh` from `../margin-deck/toolchain/results-deck/`, then `tools/bottoms.py <pdf>`. It reads the table borders from the PowerPoint PDF and flags any card ending below 13.75″. The builder's own fit estimates run short on long cards, so trust the PDF.
   - PowerPoint's PDF export skips hidden slides. To QA them, build with `SHOW_HIDDEN=1` (they come out visible, so the PDF has 61 pages), then rebuild without it for delivery (58 pages).
 - **Measured text widths:** `textw_cache.json` holds the real rendered widths of the map labels, block names, stage heads and action-plan rows. The builder's `tw()` uses it to decide one line or two; anything not in the cache falls back to the estimate + 7 %.
-  - e-Ukraine exists only embedded (compressed) in the template, so there is no font file to measure with.
+  - The deck's embedded e-Ukraine Light and Bold are the public OTFs (CC BY 4.0; extracted and compared table by table 2026-10-14). With them installed, PIL measures widths directly, without the calibration deck. See `.claude/references/document-rendering.md` § Fonts. The cache remains the record of PowerPoint's own line breaks.
   - To refresh after renaming a step or block: `tools/measure_build.py` builds a calibration deck from a specs JSON, render it with `pp_render.sh`, then `tools/measure_read.py` reads each line's width from the PDF into the cache.
 - **Small screenshots, two remedies:**
   - **Collage** (location doesn't matter): `tools/collage.py` stacks crops of one screenshot and maps the outline boxes into it. Slide 41 (Support competence) uses `support_competence_crop.png`: the item name + the competence fields, 0.0100 in/px, up from 0.0060.

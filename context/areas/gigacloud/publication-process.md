@@ -1,7 +1,7 @@
 # Product publication process (PLM) — CRM checklist
 
-_status: the process and its CRM automation are documented in a UA deck v9 (2026-10-12: 58 shown slides after four rounds of Alex’s dictated feedback and his follow-ups, plus 3 hidden field-check slides), meant for the department heads. Next: Alex answers four small questions (Capacity manager as a delivery owner, the CRM items for two new confirming teams, L4 support / InfoSec competence, the product-change screenshot), then presents_
-_updated: 2026-10-12_
+_status: the process and its CRM automation are documented in a UA deck v9 (2026-10-12: 58 shown slides after four rounds of Alex’s dictated feedback and his follow-ups, plus 3 hidden field-check slides), meant for the department heads; a «Роадмап» opening slide (today's four topics + the Q4 roadmap) followed on 2026-10-14 as a single slide for Alex to insert. Next: Alex answers four small questions (Capacity manager as a delivery owner, the CRM items for two new confirming teams, L4 support / InfoSec competence, the product-change screenshot), aligns the roadmap slide with the action plan, then presents_
+_updated: 2026-10-14_
 
 ## Snapshot
 
@@ -19,7 +19,7 @@ _updated: 2026-10-12_
   3. **Готовність команд:** publication starts six streams — Billing (send to billing), Sales (sales kick-off), technical teams (tech kick-off → competence confirmation), operations teams (contract process confirmation), delivery teams (delivery process confirmation), Marketing (marketing brief).
   4. **Перший клієнт** (Alex named it by its event, 2026-10-12):
      - before the first customer: go-live support, where Presales facilitates each new product's customer go-live (the current agreement, to be confirmed), and a PoC deferred at launch, done before the first delivery (+30 days to delivery times);
-     - after the first customer: the Delivery hand-off (R&D → Delivery), out of scope for now.
+     - after the first customer: the Delivery hand-off (R&D → Delivery), out of the deck's scope; recording hand-offs is on the Q4 roadmap.
   5. **Зміни протягом життя продукту:**
      - a changed contract or delivery process returns to Draft and the departments re-approve it;
      - a product change goes through a revision, and 17 of the 30 CRM change types need an approval: Responsible for delivery approves all 17, Head of Product or Responsible for design some.
@@ -60,15 +60,19 @@ _updated: 2026-10-12_
   | Core and Specialized infrastructure, Add-on tools | R&D, InfoSec | Support, Delivery |
   | Managed licenses, Our services | Product, R&D | Delivery, Support, InfoSec |
   | Third-party licenses and services | Vendor manager, Partner manager | Vendor manager, Support, Partner manager |
+- **Roadmap** (Alex, the deck's opening slide). (chat, 2026-10-14)
+  - Presented now: publication checklists, sign-off of products and of their changes, the contract and delivery processes, competence levels per product.
+  - Q4: better automatic notifications of price changes (they exist, will improve); recording solution hand-offs between teams (R&D → Delivery, Vendor manager → Support); non-standard prices in quotes.
 - **Deck and toolchain:** [docs/publication-process-deck/HANDOFF.md](docs/publication-process-deck/HANDOFF.md). The live deck sits on the MacBook Air Desktop and is not committed.
 
 ## Active threads
 
-- **Presenting the process to the department heads.** Deck v4 was delivered 2026-10-12. Next, Alex:
+- **Presenting the process to the department heads.** Deck v9 was delivered 2026-10-12, the roadmap slide 2026-10-14. Next, Alex:
   - says whether Capacity manager is a possible Responsible for delivery (the License delivery process names it);
   - decides on L4 support (R&D) and an InfoSec competence item;
   - OKs the product-change screenshot («Product name changed» in place of «New component added»);
-  - edits the draft action plan, then presents.
+  - inserts the roadmap slide (suggested after the ⚙️ accent slide) and aligns its Q4 list with the action plan's «Роадмап · Грудень 2026» row: only the two hand-offs are on both; the plan also has template supplementary agreements within approved Contract processes and tracking vendor updates, the slide adds price-change notifications and non-standard prices in quotes (chat, 2026-10-14);
+  - then presents.
 
   Owner: Mine. [handoff](docs/publication-process-deck/HANDOFF.md)
 - **CRM fixes found while building the deck** (the deck's draft action plan). Owner: Mine. (chat, 2026-10-11/12)
@@ -84,33 +88,27 @@ _updated: 2026-10-12_
 
 ## Decisions
 
+- 2026-10-14 — a «Роадмап» slide opens the deck: what is presented today and the Q4 roadmap, in Alex's words. (chat, 2026-10-14)
 - 2026-10-12 — v8 (Alex):
   - the block between stages 3 and 4 becomes stage 4 «Перший клієнт», with «Перед» and «Після першого клієнта» sub-blocks; «Зміни» becomes stage 5;
   - his action plan replaces the draft;
   - an accent slide with the formula opens and closes the deck: процеси, що працюють = прозорість флоу + автоматизація + buy-in учасників.
-- 2026-10-12 — v4–v5 (all from Alex):
-  - colour-band stage headers;
-  - the CRM checklist after the map;
-  - stage 4 detailed;
-  - «Перед першим клієнтом» added;
-  - the conditional-step rules set;
-  - PMO = Operations;
-  - Head of Product on two slides;
-  - hidden field-check slides per approver.
+- 2026-10-12 — v4–v5 (all from Alex): colour-band stage headers; the CRM checklist after the map; stage 4 detailed; «Перед першим клієнтом» added; the conditional-step rules set; PMO = Operations; Head of Product on two slides; hidden field-check slides per approver.
 - 2026-10-12 — v3 (Alex): approvals design → delivery → Head of Product → finance after a two-roles slide; cards headed by step + Owner with «when» and «mandatory» split, «Як фіксується» and business results; CRM paths under screenshots; team tables as stages × teams with ★/✎.
 - 2026-10-11 — v2 (Alex): hybrid process-approval cards owned by Operations · Business process lead; two standard screenshot frames; one colour per stage on one grid. The stage after publication is «Готовність команд»; the action plan is a draft for Alex.
 
 ## Open loops
 
-- Mine: answer the deck's four open questions (see Active threads) and present to the department heads (no date).
+- Mine: answer the deck's four open questions, insert the roadmap slide and align it with the action plan (see Active threads), then present to the department heads (no date).
 - Mine: the CRM fixes listed under Active threads.
 - Open: three topics are out of scope for now:
   - monitoring vendor changes, including revising the architecture or the terms when a vendor changes;
-  - the R&D → Delivery hand-off (its CRM Handoff items are inactive);
+  - the R&D → Delivery hand-off (its CRM Handoff items are inactive; recording hand-offs is on the Q4 roadmap);
   - supporting the first sales beyond go-live support, which is itself to be confirmed.
 
 ## Activity
 
+- 2026-10-14 — [roadmap slide](docs/publication-process-deck/HANDOFF.md) — a «Роадмап» opening slide built in the deck's template from Alex's text and sent as one slide to insert; its Q4 list differs from the action plan's roadmap row. (chat)
 - 2026-10-12 — [deck v9](docs/publication-process-deck/HANDOFF.md) — go-live and PoC pages whole again with numbered zooms of their hints; departments for every action-plan task (Alex). (chat)
 - 2026-10-12 — [deck v8](docs/publication-process-deck/HANDOFF.md) — stage 4 «Перший клієнт» / stage 5 «Зміни»; Alex's action plan; accent slide at both ends; map chips sized from measured widths. (chat)
 - 2026-10-12 — [decks v5–v7](docs/publication-process-deck/HANDOFF.md) — hidden field-check slides per approver; slide 4 cut to one note; bold lead-ins in every scanned list. (chat)
