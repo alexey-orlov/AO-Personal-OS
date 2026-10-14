@@ -1,6 +1,6 @@
 # Product publication process (PLM) — CRM checklist
 
-_status: the process and its CRM automation are documented in a UA deck v9 (2026-10-12: 58 shown slides after four rounds of Alex’s dictated feedback and his follow-ups, plus 3 hidden field-check slides), meant for the department heads; a «Роадмап» opening slide (today's four topics + the Q4 roadmap) followed on 2026-10-14 as a single slide for Alex to insert. Next: Alex answers four small questions (Capacity manager as a delivery owner, the CRM items for two new confirming teams, L4 support / InfoSec competence, the product-change screenshot), aligns the roadmap slide with the action plan, then presents_
+_status: the process and its CRM automation are documented in a UA deck v9 (2026-10-12: 58 shown slides after four rounds of Alex’s dictated feedback and his follow-ups, plus 3 hidden field-check slides), meant for the department heads. Two additions followed on 2026-10-14, delivered as slides for Alex to insert: a «Роадмап» opening slide (today's four topics + the Q4 roadmap) and the stage-2 step «Approval from InfoSec team» for every IaaS product (12 replacement slides + 1 new). Next: Alex answers four small questions (Capacity manager as a delivery owner, the CRM items for two new confirming teams, L4 support / InfoSec competence, the product-change screenshot), confirms what InfoSec approves, aligns the roadmap slide with the action plan, then presents_
 _updated: 2026-10-14_
 
 ## Snapshot
@@ -15,7 +15,7 @@ _updated: 2026-10-14_
   1. **Виконання критеріїв публікації:**
      - Data validation;
      - Pre-publication action items, in two groups: Operations (Supplier contracts, Operations kick-off, Contract process approval, Delivery process approval) and Technology (Infrastructure setup project, R&D PoC).
-  2. **Публікація:** two roles, Responsible for design and Responsible for delivery, and the approvals in Alex's order — design → delivery → Head of Product (the revision, then exceptions) → finance investment.
+  2. **Публікація:** two roles, Responsible for design and Responsible for delivery, and the approvals in Alex's order — design → delivery → InfoSec (IaaS products only, added 2026-10-14; its place after delivery is an assumption) → Head of Product (the revision, then exceptions) → finance investment.
   3. **Готовність команд:** publication starts six streams — Billing (send to billing), Sales (sales kick-off), technical teams (tech kick-off → competence confirmation), operations teams (contract process confirmation), delivery teams (delivery process confirmation), Marketing (marketing brief).
   4. **Перший клієнт** (Alex named it by its event, 2026-10-12):
      - before the first customer: go-live support, where Presales facilitates each new product's customer go-live (the current agreement, to be confirmed), and a PoC deferred at launch, done before the first delivery (+30 days to delivery times);
@@ -48,6 +48,7 @@ _updated: 2026-10-14_
     - required when R&D is responsible for design;
     - by default it runs before the first customer; R&D can pull it before publication or declare it unnecessary.
   - **Marketing brief:** the marketing department decides.
+  - **InfoSec approval** (Alex, 2026-10-14): every IaaS product — Core infrastructure, Specialized infrastructure, Add-on tools. The CRM export of 09.10 has no such item; it needs a checklist item and a «Requires …» flag by product type, like Tech kick-off.
 - **What each approver checks, field by field** (Alex's marked CRM screenshots). (chat, 2026-10-12)
   - **R&D (design):** descriptions, FAQ and documentation don't contradict the technical design; categorization, technical details, components and their limits match the design; compatibility; the architect and the PoC decision. On the Delivery process it checks only its own steps, if there are any. On a component, the characteristics must not contradict the design.
   - **Vendor manager (design):** subscription and billing terms, categorization, components and their ordering rules, trial and commitments match the vendor contract; we can deliver and contract under the linked processes; vendor lead times; the component's vendor and SKU.
@@ -76,6 +77,7 @@ _updated: 2026-10-14_
 
   Owner: Mine. [handoff](docs/publication-process-deck/HANDOFF.md)
 - **CRM fixes found while building the deck** (the deck's draft action plan). Owner: Mine. (chat, 2026-10-11/12)
+  - Add the checklist item «Approval from InfoSec team» with a «Requires …» flag for the IaaS types (2026-10-14).
   - Write the empty descriptions: Supplier contract, Infrastructure setup project, Initial request to add to billing.
   - Fix the typos «Compentency confirmation: Presales» and «Disitributors», and the Delivery process page's warning that mentions contract templates.
   - Replace the test scope values in «What do I approve» with real ones.
@@ -88,6 +90,7 @@ _updated: 2026-10-14_
 
 ## Decisions
 
+- 2026-10-14 — a stage-2 step «Approval from InfoSec team», mandatory for every IaaS product (Alex). The deck places it after the delivery approval (assumption, to confirm); what InfoSec checks is a highlighted draft. (chat, 2026-10-14)
 - 2026-10-14 — a «Роадмап» slide opens the deck: what is presented today and the Q4 roadmap, in Alex's words. (chat, 2026-10-14)
 - 2026-10-12 — v8 (Alex):
   - the block between stages 3 and 4 becomes stage 4 «Перший клієнт», with «Перед» and «Після першого клієнта» sub-blocks; «Зміни» becomes stage 5;
@@ -100,6 +103,7 @@ _updated: 2026-10-14_
 ## Open loops
 
 - Mine: answer the deck's four open questions, insert the roadmap slide and align it with the action plan (see Active threads), then present to the department heads (no date).
+- Mine: insert the InfoSec slides; confirm with InfoSec what it approves (the slide's «Що погоджує» is a highlighted assumption) and whether it approves twice when it is also Responsible for design. (2026-10-14)
 - Mine: the CRM fixes listed under Active threads.
 - Open: three topics are out of scope for now:
   - monitoring vendor changes, including revising the architecture or the terms when a vendor changes;
@@ -108,11 +112,9 @@ _updated: 2026-10-14_
 
 ## Activity
 
+- 2026-10-14 — [InfoSec approval step](docs/publication-process-deck/HANDOFF.md) — 12 replacement slides (map, stage-2 header, overview text, counters n/5, team table) + a new step slide with a CRM screenshot built from the design approval. (chat)
 - 2026-10-14 — [roadmap slide](docs/publication-process-deck/HANDOFF.md) — a «Роадмап» opening slide built in the deck's template from Alex's text and sent as one slide to insert; its Q4 list differs from the action plan's roadmap row. (chat)
-- 2026-10-12 — [deck v9](docs/publication-process-deck/HANDOFF.md) — go-live and PoC pages whole again with numbered zooms of their hints; departments for every action-plan task (Alex). (chat)
-- 2026-10-12 — [deck v8](docs/publication-process-deck/HANDOFF.md) — stage 4 «Перший клієнт» / stage 5 «Зміни»; Alex's action plan; accent slide at both ends; map chips sized from measured widths. (chat)
-- 2026-10-12 — [decks v5–v7](docs/publication-process-deck/HANDOFF.md) — hidden field-check slides per approver; slide 4 cut to one note; bold lead-ins in every scanned list. (chat)
-- 2026-10-12 — [deck v4](docs/publication-process-deck/HANDOFF.md) — 56 slides: the CRM checklist slide, colour-band stage headers, «Перед першим клієнтом», stage 4 with the 17 change types that need an approval; fresh review applied. (chat)
-- 2026-10-12 — [deck v3](docs/publication-process-deck/HANDOFF.md) — 46 slides: cards headed by step + Owner, UI-path captions, roles / team-readiness / competence schemas, transposed team tables. (chat)
+- 2026-10-12 — [decks v8–v9](docs/publication-process-deck/HANDOFF.md) — stage 4 «Перший клієнт» / stage 5 «Зміни»; Alex's action plan; accent slide at both ends; go-live and PoC pages whole with numbered zooms; departments for every action-plan task (Alex). (chat)
+- 2026-10-12 — [decks v3–v7](docs/publication-process-deck/HANDOFF.md) — 46 → 56 slides: cards headed by step + Owner, UI-path captions, the CRM checklist slide, colour-band stage headers, stage 4 with the change types that need an approval, hidden field-check slides, bold lead-ins. (chat)
 - 2026-10-11 — [the dictated feedback memo](calls/other/2026-10-12_130201_default_20261011192457B8796AD2.md) (processed 2026-10-12, after a Voice Memos sync restart) — the source of v2's rework.
 - 2026-10-11 — [decks v1 (37 slides) and v2 (42)](docs/publication-process-deck/HANDOFF.md) — built from Alex's brief, his Miro and the CRM checklist export, then reworked on his dictated feedback. (chat)

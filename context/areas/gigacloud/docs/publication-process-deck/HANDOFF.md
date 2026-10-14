@@ -1,6 +1,6 @@
 # Publication-process deck — handoff (continue on any machine)
 
-_Rewritten 2026-10-12 on Alex's MacBook Air after v8 was delivered (v4 = round-4 feedback; v5–v8 = his follow-ups the same evening); updated 2026-10-14 in a cloud session (the roadmap slide, the e-Ukraine font files). Read fully before touching the deck._
+_Rewritten 2026-10-12 on Alex's MacBook Air after v8 was delivered (v4 = round-4 feedback; v5–v8 = his follow-ups the same evening); updated 2026-10-14 in a cloud session (the roadmap slide, the e-Ukraine font files, the InfoSec approval step). Read fully before touching the deck._
 
 ⛔ GigaCloud = internal-only area. The deck is internal; nothing from it goes into external-facing artifacts.
 
@@ -19,7 +19,10 @@ _Rewritten 2026-10-12 on Alex's MacBook Air after v8 was delivered (v4 = round-4
 5. The same structure in the CRM: the product checklist screenshot and one note — the checklist is always current, updated by the CRM from the actions people log and from status changes (signed supplier contracts, approved processes, billing); the CRM also decides which steps a product needs.
 6. Section «Кроки процесу».
 7. **Stage 1:** header; Product info ×2 (one card, two screenshots); Components info; Supplier contracts; the Operations kick-off → processes schema; Operations kick-off; Contract and Delivery process approval; Infrastructure setup project; R&D Proof of concept.
-8. **Stage 2:** header; the two-roles slide; the design and delivery product-type tables; then the approvals in Alex's order: design → delivery → Head of Product ×2 (revision approval, exceptions) → finance. **Hidden slides 23, 24, 26** follow the approvals they detail: «Що перевіряє R&D» and «Що перевіряє Vendor manager» after the design approval, «Що перевіряє Delivery» after the delivery approval.
+8. **Stage 2:** header; the two-roles slide; the design and delivery product-type tables; then the approvals in Alex's order: design → delivery → InfoSec → Head of Product ×2 (revision approval, exceptions) → finance, numbered «Publication approvals · n/5». **Hidden slides 23, 24, 26** follow the approvals they detail: «Що перевіряє R&D» and «Що перевіряє Vendor manager» after the design approval, «Що перевіряє Delivery» after the delivery approval.
+   - **«Approval from InfoSec team» (2026-10-14, every IaaS product):** a new step slide after slide 26, cloned from the Head of Product revision slide. Its card uses the finance card's stacked condition with the Tech kick-off's IaaS wording. «Що погоджує» (Архітектура / Доступи / Дані) and «Визначається автоматично» carry the yellow highlighter, with the legend «припущення: у CRM цього немає — перевірити» under the card. Placing it after delivery is an assumption.
+   - **The InfoSec change touched v8 slides 3, 4, 18, 22–29 (counters n/4 → n/5, hidden 23, 24, 26 included) and 56 (InfoSec column)**, sent to Alex as a 13-slide replacement file. On the stage-2 header the five chips are 3.49″ wide, set at 16 pt and broken by hand after «Approval from / of …», so every chip has two lines.
+   - **They were edited in Alex's v8 directly in a cloud session (python-pptx), not through `build_plm4.py`.** The Desktop generator and `plm_data4.py` do not contain the InfoSec step, so a regeneration would drop it. Add it there first, or keep working in Alex's file.
 9. **Stage 3:** header; the team-readiness schema (publication → six streams); Send to billing ×2; Sales kick-off; Tech kick-off; Marketing brief; Contract and Delivery process confirmation; the three-competences schema; Presales, Support and Delivery competence.
 10. **Stage 4 «Перший клієнт»:** header with two sub-blocks — «Перед першим клієнтом» (Go-live support, To be confirmed; PoC before first customer) and «Після першого клієнта» (Delivery hand-off, dashed grey, out of scope).
 11. **Stage 5 «Зміни протягом життя продукту»:** header; Contract process change; Delivery process change; Product change; the table of change types that need an approval.
@@ -66,8 +69,11 @@ _Rewritten 2026-10-12 on Alex's MacBook Air after v8 was delivered (v4 = round-4
   - revision fields: 25.6 px, weight 530;
   - checklist rows: 23.2 px, weight 500.
 
+  In a cloud session (PIL, `Montserrat[wght].ttf` from google/fonts) the revision fields fit best at 26.05 px, weight 460, rendered 4× and downsampled, with a 0.6 px blur (2026-10-14).
+
   The edited files are:
   - `revision_hop.png` and `revision_change.png` (Approval purpose, change type, description);
+  - `infosec_revision.png` (cloud session, 2026-10-14; not on the Desktop, only inside Alex's InfoSec slide): from the design approval, Product → «Public S3 Storage» (the deck's own IaaS product from the finance slide) in link blue `1D45C9`, Approval purpose → «InfoSec team: approve product revision»;
   - `product_checklist.png`: the hidden first letters of the Checklist item type column are re-rendered; the original is `product_checklist_orig.png`;
   - `marketing_brief.png` and `revision_delivery.png` (from round 3).
 - **After v4 Alex owns the file.** Never regenerate over his edits. Build only the changed slides and clone them into his file, the margin deck's transplant approach (`../margin-deck/HANDOFF.md`). Before v4, v3 on the Desktop was checked byte-identical to the build, so no edits were lost.
@@ -85,7 +91,7 @@ _Rewritten 2026-10-12 on Alex's MacBook Air after v8 was delivered (v4 = round-4
   - Актуалізація статусів (Жовтень 2026) — departments per task: statuses of existing processes Product, Operations; kick-off records Product;
   - Ліквідація боргів (TBD) — documenting earlier products' processes Operations, Product;
   - Роадмап (Грудень 2026) — Product, CRM-автоматизація. It replaced the draft plan; the CRM fixes from that draft live on in the wiki page's Active threads.
-- **Publication approvals order:** design → delivery → Head of Product → finance.
+- **Publication approvals order:** design → delivery → Head of Product → finance; since 2026-10-14 also «Approval from InfoSec team» for every IaaS product (Core infrastructure, Specialized infrastructure, Add-on tools), placed after delivery (that place is an assumption, to confirm).
   - A two-roles slide opens stage 2.
   - The product-type tables are titled «Можливі Responsible for design / delivery», set at 20 pt, and share one footprint.
 - **Head of Product:** two slides with one card. The first shows the revision with «Head of Product: approve product revision» (screenshot built from the design approval); the second shows the exceptions. «Погодженням у CRM» is confirmed, no highlight.
@@ -176,6 +182,11 @@ The process runs when a product draft changes, or when a component is added to o
 
 ## Open items for Alex
 
+- **InfoSec approval (2026-10-14):**
+  - confirm what InfoSec checks (the slide's highlighted draft) and the step's place after delivery;
+  - decide whether InfoSec approves twice when it is also the Responsible for design of an IaaS product;
+  - decide whether InfoSec also approves changes to IaaS products (stage 5 is untouched);
+  - the CRM needs the checklist item and its «Requires …» flag.
 - The License delivery process page names Capacity manager as «Responsible for product delivery», but slide 20 doesn't list Capacity manager as a possible Responsible for delivery. Add it?
 - The CRM has Delivery process confirmation items only for InfoSec and Support. The deck now names Capacity manager and Vendor manager too, and the action plan says to create their CRM items.
 - InfoSec can hold L2/L3 support but has no competence-confirmation item. The Support lines block also has L4 Support (R&D), which the competence schema leaves out.
