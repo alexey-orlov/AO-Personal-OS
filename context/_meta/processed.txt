@@ -177,5 +177,9 @@ context/areas/softserve/docs/2026-09-17_packaging-skills-prep/decisions-2026-09-
 context/areas/softserve/docs/2026-09-17_packaging-skills-prep/vlad-2026-07-24-transcript-partial.md
 context/areas/softserve/docs/2026-09-22_laser-segments-softserve-fit.md
 context/areas/softserve/docs/2026-10-12_aidp-telenor-demo-screens.md
+context/areas/softserve/docs/2026-10-12_oracle-pack-set-draft.md
+context/areas/softserve/docs/2026-10-12_oracle-pack-set-draft.pdf
+context/areas/softserve/docs/2026-10-13_oracle-pack-set-exec.pdf
+context/areas/softserve/docs/2026-10-13_oracle-packs-strategy-deck/Oracle packs - packaging strategy (preview).pdf
 context/areas/softserve/docs/conga-ai-pm-bootcamp-transcript.md
 context/areas/softserve/docs/oracle-packages-tshirt-sizing.md
