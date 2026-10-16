@@ -16,7 +16,7 @@ _source files: `~/Desktop/GigaCloud/` on Alex's MacBook Air (live plan + results
 
 ## Active threads
 
-- **Product team restructure — CPO part-time.** Plan for Q3'FY2026 and after, the three projects Alex keeps, the margin roadmap by owner and the NOW → TO BE split of the product function are in a 7-slide UA deck (2026-10-16). Next: Alex's part-time terms, Edik's offer, talks with Edik / the product team / leadership, the «Прибутковість / маржинальність / ефективність» owner, the org-structure decision, vacancies. Owner: Mine. → [product-team-structure](product-team-structure.md)
+- **Product team restructure — CPO part-time.** Plan for Q3'FY2026 and after, the three projects Alex keeps, the margin roadmap by owner and the NOW → TO BE split of the product function are in an 8-slide UA deck (2026-10-16), with Alex's CA ↔ Kyiv availability (overlap 07:00–09:00 CA = 17:00–19:00 Kyiv). Next: Alex's part-time terms, Edik's offer, talks with Edik / the product team / leadership, the «Прибутковість / маржинальність / ефективність» owner, the org-structure decision, vacancies. Owner: Mine. → [product-team-structure](product-team-structure.md)
 - **Catalog ↔ Billing integration — requirements scoping.** Working session (2026-07-21) scoped the business scenarios / edge cases for syncing catalog changes into Billing. Three layers named: (1) catalog data model, (2) an intermediate proxy model in CREASHO that reshapes catalog data into Billing format, (3) business scenarios — this call targeted layer 3. Complexity clusters around **price changes** (transactional model mismatch, GAF/government products, price-upon-request, quote-only, repricing existing customers, per-customer fixed prices). Guidance from Speaker B: don't re-invent the existing working mapping — describe already-implemented scenarios high-level, write a detailed per-scenario flow table only for price changes. → next: Alex collects/structures everything, reviews fresh, returns to Speaker B for clarifications, then takes it to Zhenya (object model + field-level mapping owner). Owner: Mine. [call](calls/other/2026-07-21_180038_default_202607171304495CACCF1A.md)
   - _possible subproject: catalog↔billing integration? — promote to its own page on the next artifact._
 - **Pricing & unit economics — component cost allocation.** Framework implemented in Юніт.xlsx: budget → expense types → 5 allocation buckets → 82 products → components; bucket costs reach each component by its Direct COGS, never by price. Steps 1–5 are computed for all five buckets; results deck v23 (43 slides, 2026-10-09) carries a Next steps block. Current state and open data items live on the subproject page. Owner: Mine. → [pricing-unit-economics](pricing-unit-economics.md)
@@ -24,7 +24,7 @@ _source files: `~/Desktop/GigaCloud/` on Alex's MacBook Air (live plan + results
 
 ## Subprojects
 
-- [product-team-structure](product-team-structure.md) — CPO part-time transition: restructure deck v1 (7 slides, 2026-10-16); next steps start with Alex's terms and Edik's offer.
+- [product-team-structure](product-team-structure.md) — CPO part-time transition: restructure deck v1 (8 slides, 2026-10-16); next steps start with Alex's terms and Edik's offer.
 - [pricing-unit-economics](pricing-unit-economics.md) — component cost allocation: steps 1–5 computed, plan deck v5 + results deck v23 (2026-10-09). Reasoning reference: [pricing-cost-allocation-approach.md](pricing-cost-allocation-approach.md).
 - [publication-process](publication-process.md) — product publication process + CRM checklist: deck v4 (56 slides, 2026-10-12), to be presented to department heads.
 
@@ -54,7 +54,7 @@ _source files: `~/Desktop/GigaCloud/` on Alex's MacBook Air (live plan + results
 
 ## Activity
 
-- 2026-10-16 — [product-team restructure deck v1](product-team-structure.md) — 7-slide UA proposal from Alex's Miro board + his next steps; the margin project as a Gantt. (chat)
+- 2026-10-16 — [product-team restructure deck v1](product-team-structure.md) — 8-slide UA proposal from Alex's Miro board + his next steps; the margin project as a Gantt. (chat)
 - 2026-10-12 — [publication-process deck v4](publication-process.md) — 56 slides on Alex's fourth feedback round (CRM checklist, stage headers, «Перед першим клієнтом», stage 4 and change types); v3 (46 slides) earlier the same day. (chat)
 - 2026-10-11 — [publication-process deck v2](publication-process.md) — reworked on Alex's dictated feedback (42 slides); v1 (37 slides) the same day from his brief + Miro + the CRM checklist export; new subproject page. (chat)
 - 2026-09-26 — [results deck](pricing-unit-economics.md) — 26-slide UA deck of allocation results (steps 1–4, 5 buckets, 5 methods, per-component examples) from Alex's brief + Юніт.xlsx; handoff rewritten for both decks. (chat)
