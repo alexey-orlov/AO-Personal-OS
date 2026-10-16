@@ -269,3 +269,14 @@ deck or one-pager work.
       the speaker notes.
     - Draw checkboxes with Wingdings (`F0FE` checked, `F0A8` empty, `latin` + `sym` typeface Wingdings): it ships with Office on
       Mac and Windows, while Unicode ☐/☑ depends on font fallback.
+32. **A lessons section states each learning, then shows its proof, one at a time, as a cumulative build** (2026-10-16, Alex
+    restructuring the Q3 review: "evidence and learnings come one by one"). The first cut showed the GTM evidence slide first and
+    all five lessons after it. The audience read a full table before knowing what it proves, then five claims with no proof beside them.
+    - Order: section divider → the lessons slide with only the first learning(s) → the slides that prove them → the same slide with
+      the next learning added → its proof → … → the full list last.
+    - Every build is a copy of the full slide with the later rows (or columns) removed. Items keep their final positions and are
+      never re-spread to fill the space, so each step only adds. A reveal is not an absence; rule 3 does not apply.
+    - When one evidence slide backs two learnings, show it twice: first only the part behind the earlier learning, then the whole
+      slide with that part in greyscale and the new part in the accent. If the new part's own colour is grey (a "not started"
+      column), it takes the accent colour, or nothing stands out.
+    - Clone the builds from the user's own slide (rule 20), so their wording carries into every step.
