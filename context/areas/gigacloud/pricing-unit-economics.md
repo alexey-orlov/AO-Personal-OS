@@ -1,7 +1,7 @@
 # Pricing & unit economics — component cost allocation
 
 _status: allocation framework implemented in Юніт.xlsx — steps 1–5 computed for all five buckets in tab «4. Allocation by components (k)» (Юніт 08.10); results deck v23 (43 slides, 10-09; Next steps block added): Public Cloud on OpenStack and Licenses cost more than their current average check (+32 %, +15 %), professional services 111× the check_
-_updated: 2026-10-08_
+_updated: 2026-10-16_
 
 ## Snapshot
 
@@ -18,7 +18,12 @@ _updated: 2026-10-08_
 
 ## Active threads
 
-- **Allocation → margins.** Step 4 is computed for Public Cloud (high) only (3 components); next the other four buckets, then step 5 (margin per component and product). Right after the project: target profitability, prices & discount policy, cost-optimization zones. Owner: Mine. (chat, 2026-09-26)
+- **Allocation → margins.** Steps 1–5 are computed for all five buckets (Юніт 08.10); the results refresh waits for Eduard's corrected workbook (open loop). Owner: Mine. (chat, 2026-10-09)
+- **Roadmap after the model, by owner (Alex's Miro, 2026-10-16).** The model and initial data are done (CPO / Product Lead); from here the CPO mostly coordinates the other C-levels' own work (COO, CFO, Country Director).
+  - One-off: input validation (Product Lead, 11'2026) and target profitability (CFO, 11'2026: investment plans, financial-risk approach, investors' return expectations, investment attractiveness) → prices & discount policy (Product Lead, 12'2026, a mechanical consequence) → sales plan & motivation (Head of Sales, 12'2026).
+  - Long-term (COO): allocation-process improvement and support; cost analysis and optimisation.
+  - Annual (COO), right after the budget process: allocation recalculated per the model (COO) + profitability targets (CFO) + catalog prices and data (Product Lead) + motivation (Head of Sales).
+  → [product-team-structure](product-team-structure.md) (chat, 2026-10-16)
 - **Results presentation.** Deck ready for the plan's «Презентація результатів» milestone (30 Sep — board decision on minimum profitability). Owner: Mine. (chat, 2026-09-26)
 
 ## People
