@@ -37,6 +37,15 @@ notes, Telegram research summaries. Distilled from his Claude-Chat instructions
   verified from inferred per cell. And interrogate the framework itself: surface real
   content that none of the supplied buckets capture, rather than cramming it in or dropping
   it silently.
+- Test every item against the stated inclusion bar by its core job, one item at a time. When
+  Alex sets a bar for a list (e.g. "only what plain ChatGPT/Claude, even with Projects, can't do
+  well"), ask whether the baseline does the job acceptably as people do it today, not whether
+  the item's tooling goes beyond the baseline. An added integration doesn't lift a baseline job
+  over the bar. If the baseline handles the core job, drop the item or narrow it to the part the
+  baseline can't do, and list what was dropped in one line so he can contest it (Alex,
+  2026-10-19, AI Jumpstart for Scientists: grant drafting, manuscript review and protocol
+  adaptation had stayed in a "beyond Projects" list because their tooling cells named
+  integrations).
 
 ## Tone & format
 
