@@ -1,9 +1,9 @@
 # default — 2026-10-19_201609
 _source: transcript file Alex supplied in chat (`~/Downloads/transcript_1910.txt`, Ukrainian; raw file not committed). Internal working session of the three people building the AI Jumpstart program for scientists, held to prepare their deck sections before this week's session._
 
-> _No calendar header: the meeting is not on Alex's Google Calendar (SoftServe meetings live on the Exchange calendar). Filed under 2026-10-19, the date Alex gave; the time in the filename is when the transcript file was saved, not when the meeting started._
+> _No calendar header: the meeting is not on Alex's Google Calendar (SoftServe meetings live on the Exchange calendar). Filed under 2026-10-19, the date Alex gave. The time in the filename is when the transcript file was saved; the meeting chat (screenshot Alex shared, 2026-10-19) has posts at 15:11 and 15:17, so the call ran around 15:00._
 
-> _Speakers are diarized only. **Speaker B = Alex** (addressed as "Олексій" twice). **Speaker C = Inna Abolikhina** (addressed as "Інна"; owns the ICP stream). **Speaker A = the program lead and self-described life-science SME**, likely Bohdan Khomych (inferred: Inna credits the three-cluster split to "Богдан", and A speaks for R&D's client base and practices). The recording starts mid-sentence, so the first of the three target verticals is cut off._
+> _Speakers are diarized only. **Speaker A = Bohdan Khomych**: in the meeting chat he posted "Daotmatics" (15:11) and the Anthropic video link (15:17), the two things Speaker A recommended and said he would drop in the chat. **Speaker B = Alex** (addressed as "Олексій" twice). **Speaker C = Inna Abolikhina** (addressed as "Інна"; owns the ICP stream). The recording starts mid-sentence, so the first of the three target verticals is cut off._
 
 ## TL;DR
 - The program targets **three verticals**: pharma and drug discovery (small and large molecules alike), chemical manufacturing (adhesives, DuPont-type manufacturers) and, cut off at the start but named by Inna's slides and Alex's recap, **energy** (inferred). The choice came from Speaker A's three presales as a life-science expert and from what partners (Microsoft Discovery, NVIDIA) and the competitor **NobleAI** pitch, not from market research.
@@ -52,20 +52,20 @@ _source: transcript file Alex supplied in chat (`~/Downloads/transcript_1910.txt
 **Risk: we look at research as laymen (Alex)**
 - Labs that "have eaten their own dog" may have only atomic, unsolved problems and want those solved, not an end-to-end agentic process.
 - A's two engagement types: at "The Nakhar Farm" (transcript spelling), research leads build things with Anthropic that work but aren't production, know what they want and want to take it to production themselves. At DuPont the counterpart was a CTO-office team, not researchers, whose job is bringing new technology and org structures to researchers; they wanted a vendor with a solved problem, and NobleAI fit perfectly. A maturity analysis, as on SDLC, tells which clients are good, bad or perfect for a Jumpstart.
-- A recommends a look at **Dotmatics**, a platform used (or about to be) on "Bicycle Farm" (transcript spelling), which he described as NobleAI and Microsoft Discovery in one.
+- A recommends a look at **Dotmatics** (posted in the meeting chat as "Daotmatics"), a platform used (or about to be) on "Bicycle Farm" (transcript spelling), which he described as NobleAI and Microsoft Discovery in one.
 
 **Next step: lighthouse clients as discovery**
 - Alex: the starting deck should be as broad as possible: a 7-week enablement plan, a process transformation, or a point problem, with enough substance to show understanding. Then, as fast as possible, a discovery motion alongside sales with the clients SoftServe knows well ("we're launching a program; tell us what hurts"), so the team has real inputs within a month.
 - A reframed the message: SoftServe has a very strong team and is looking for **its first lighthouse client, who gets the service free in exchange for a case study**; each of the three has to win one client. Alex's condition: the free engagement is not a vehicle for the 7-week program but the discovery itself, to hear what hurts from as many clients as possible.
 - What clients want from a vendor, per A: something free, and a conference or paper that shows they did something with AI and advances their careers. It goes in the pitch deck to manage expectations.
-- Can the team gain enough domain expertise for presales? A: his experience says yes; there is a learnable base, much as Inna learned to sell the SDLC Jumpstart (Inna: a year ago she didn't know what agentic engineering was). The platforms have little to watch beyond tutorials. A recommended the 11-minute Anthropic video "AI Models Can Now Run Physical Science Experiments": it covers running experiments and connecting Claude to lab hardware, a part of the value chain the program should cover. SoftServe used to slice this horizontally (AI platforms, hardware labs); the program cuts across them, so insights should be gathered from every existing research program.
+- Can the team gain enough domain expertise for presales? A: his experience says yes; there is a learnable base, much as Inna learned to sell the SDLC Jumpstart (Inna: a year ago she didn't know what agentic engineering was). The platforms have little to watch beyond tutorials. A recommended the 11-minute Anthropic video ["AI models can now help run physical science experiments"](https://www.youtube.com/watch?v=P1zBiAQU1IA), posted in the meeting chat: it covers running experiments and connecting Claude to lab hardware, a part of the value chain the program should cover. SoftServe used to slice this horizontally (AI platforms, hardware labs); the program cuts across them, so insights should be gathered from every existing research program.
 
 ## Decisions & commitments
 - **Lighthouse-first, discovery-led start** (agreed): each of the three wins one free lighthouse client for a case study; the engagement doubles as discovery. Not ready before this week's session, but Alex can raise it as an action point if he presents tomorrow (2026-10-20).
 - **Partner stance** (A's hypothesis, not contested): big lead-giving platforms only (Microsoft Discovery, Claude Science, OpenAI's workbench, NVIDIA), program positioned partner-agnostic, NobleAI treated as a competitor.
 - **Commercial stance** (A, agreed): sell transformation, offer packages, start from a NobleAI-style 5-month engagement.
 - **Inna** → pull the client list from SoftServe's CRM (try the Claude connector; if it fails, an Excel export through the UI) and run Claude over it: per company, is there an R&D unit and what does it research. Target: tomorrow or the day after. Share even an unanalyzed filtered list. Report in the chat if the connector doesn't work.
-- **Speaker A** → also try the CRM connector; research the per-vertical workflows (his deck section 2); share his deck section tomorrow.
+- **Bohdan (Speaker A)** → also try the CRM connector; research the per-vertical workflows (his deck section 2); share his deck section tomorrow.
 - **Everyone** → post their deck section in the group chat when ready.
 
 ## Open questions / follow-ups
@@ -77,7 +77,7 @@ _source: transcript file Alex supplied in chat (`~/Downloads/transcript_1910.txt
 - "Volodya", whose requirements include people profiles, is not identified in the wiki.
 
 ## Participants
-- **Speaker A** — program lead; went to three presales as a life-science expert; says he is a physicist by training but the SME; owns the deck's Workflow section. Likely Bohdan Khomych (inferred).
+- **Speaker A — Bohdan Khomych** (confirmed by the meeting chat) — program lead; went to three presales as a life-science expert; says he is a physicist by training but the SME; owns the deck's Workflow section.
 - **Speaker B — Oleksii (Alex) Orlov** — brought the open questions (verticals, focus, responsibility level).
 - **Speaker C — Inna Abolikhina** — ICP / GTM stream; CRM pull.
 - Named, not present: Taras Romezhak (R&D practice using Claude Science), Max Druchok (Life Sciences projects; likely the Life Sciences cluster lead "Max", inferred), Adel, "Volodya" (program requirements).
