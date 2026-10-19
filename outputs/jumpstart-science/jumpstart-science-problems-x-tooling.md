@@ -1,6 +1,6 @@
 # AI Jumpstart for Scientists: problems × tooling
 
-_Draft 2026-10-19, filtered the same day: 35 rows. Life sciences (LS), hardware R&D (HW), or any research team (All). One-page view: [exec summary](jumpstart-science-exec-summary.md)._
+_Draft 2026-10-19, filtered the same day; rows 36-37 added after the R&D-flow review: 37 rows. Life sciences (LS), hardware R&D (HW), or any research team (All). One-page view: [exec summary](jumpstart-science-exec-summary.md)._
 
 **Bar for a row:** plain ChatGPT or Claude, even with Projects, can't do the job, or does it poorly or slowly. The job needs at least one of these: the team's data at a scale no Project holds, live lab or engineering systems, code run on real data, a schedule or trigger, or skills shared across the team. Pillar (b) is the Knowledge layer column; pillar (c) is skills, sub-agents and pipelines; pillar (a) is section 7 plus every pipeline that posts to Messenger or Task tracker. Every building-block name means one thing and is defined once, in the glossary under the table. `/name` = a shared skill.
 
@@ -8,7 +8,7 @@ _Draft 2026-10-19, filtered the same day: 35 rows. Life sciences (LS), hardware 
 
 | # | Problem / task | For | Knowledge layer | Skills · sub-agents · compute | Pipeline: trigger → MCPs → output | Off-the-shelf now |
 |---|---|---|---|---|---|---|
-| 1 | Tracking papers, preprints, patents and abstracts eats Fridays; key work still slips | All | Context DB (active projects = relevance filter) · Literature RAG | `/lit-watch` · Literature Search Agent | Weekly → Literature MCPs, Patent MCP → ranked digest per project in Messenger; react to add to Literature RAG | — |
+| 1 | Tracking papers, preprints, patents, abstracts and rule changes eats Fridays; key work still slips | All | Context DB (active projects = relevance filter) · Literature RAG | `/lit-watch` · Literature Search Agent | Weekly → Literature MCPs, Patent MCP, Regulation feeds → ranked digest per project in Messenger; react to add to Literature RAG | — |
 | 2 | Questions across our 2,000 PDFs (which buffer? creep at 600 °C?) mean hours of skimming | All | Literature RAG (tables, figures, supplements parsed) | `/ask-literature` · Citation Checker | On demand; nightly sync from Reference manager + open-access full text via Literature MCPs | PaperQA2 (open source) |
 | 3 | Systematic or scoping review: 3,000 abstracts to screen, outcomes to extract, months of work | All | Evidence Table · Entity Registry (search synonyms) | `/review-plan` · `/screen-studies` · Literature Search Agent · Dual Extractor | Search → screen → extract, Approval gate after each stage; Literature MCPs, Reference manager; Run Log = PRISMA trail | Elicit Systematic Review, as second reviewer ¹ |
 | 4 | Numbers scattered over hundreds of papers (kinetics, properties, IC50s) needed as one dataset | All | Evidence Table → Data Catalog · Entity Registry | `/extract-dataset` (units, plot digitizing) · Dual Extractor | On demand → Literature MCPs → dataset; every value carries quote, DOI, page | — |
@@ -78,6 +78,13 @@ _Draft 2026-10-19, filtered the same day: 35 rows. Life sciences (LS), hardware 
 ² Check retractions against Crossref's Retraction Watch data, never the model's memory.
 ³ Some standards bodies forbid entering their standards into AI tools (ISA does). Clear each licence before indexing.
 
+### 8. Added after the R&D-flow review
+
+| # | Problem / task | For | Knowledge layer | Skills · sub-agents · compute | Pipeline: trigger → MCPs → output | Off-the-shelf now |
+|---|---|---|---|---|---|---|
+| 36 | Carbon footprint is calculated after the product is designed, when a change costs most | LS, chem, HW | Data Catalog (recipes, process data) · Entity Registry (materials) | `/footprint-check` · Analysis Sandbox | On demand per candidate → Life-cycle data, ELN/LIMS → footprint with hotspots → Approval gate: sustainability lead | — |
+| 37 | Inventions go unreported or are filed late; a disclosure takes days to write | All | Internal Docs RAG (past disclosures) · Data Catalog · Protocol Library | `/invention-disclosure` · Literature Search Agent · Citation Checker | Monthly sweep of new results + on demand → ELN/LIMS, Patent MCP → disclosure draft + prior-art list → Approval gate: inventor, patent attorney | — |
+
 **Dropped because plain ChatGPT, Claude or a Project handles it well enough:** collaborator and KOL scouting (deep research), power and DoE basics (code interpreter), adapting one protocol to your kit (a Project holding your equipment list and safety rules), reagent and cell-line checks (deep research), ELN notes from voice or photos (voice mode, then paste), stats review on request (upload the notebook), grant drafting (a Project with bios and past grants), manuscript review and rebuttals (upload draft and reviews), and data-deposit metadata (upload the sample sheet).
 
 ## Glossary: one name, one thing
@@ -125,6 +132,8 @@ _Draft 2026-10-19, filtered the same day: 35 rows. Life sciences (LS), hardware 
 | QMS/eDMS | CAPA, NCR, deviations, controlled documents: Veeva Vault, MasterControl, Greenlight Guru |
 | Component distributors | Octopart/Nexar, Digi-Key, Mouser, SiliconExpert |
 | Procurement | Quartzy, Coupa, SAP Ariba |
+| Regulation feeds | Federal Register, EUR-Lex, ECHA, FDA guidance updates |
+| Life-cycle data | ecoinvent database, openLCA, SimaPro |
 
 **Pipelines and governance**
 
