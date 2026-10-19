@@ -1,6 +1,6 @@
 # AI Jumpstart for Scientists: exec summary
 
-_2026-10-19, v2 after a red-team pass. Condenses the 35-row [problems × tooling map](jumpstart-science-problems-x-tooling.md) into 16 use cases in 6 buckets. Two-page HTML version (screenshots and diagrams per bucket): SoftServe OneDrive `Projects/Jumpstart/AI Jumpstart for Scientists - exec summary.html`._
+_2026-10-19, v3: red-teamed, industry relevance per bucket. Condenses the 35-row [problems × tooling map](jumpstart-science-problems-x-tooling.md) into 16 use cases in 6 buckets. Two-page HTML version (screenshots and diagrams per bucket): SoftServe OneDrive `Projects/Jumpstart/AI Jumpstart for Scientists - exec summary.html`._
 
 **Bottom line:** four AI workbenches for science are on the market. They help one scientist with literature, molecules and analysis, but none watches for new papers and patents, picks the next experiment from past runs, captures lab data, keeps engineering or regulatory records, or captures team routines. The Jumpstart builds that part, on the client's systems. Most jobs apply in every industry; the rest depend on having a lab, molecules or hardware.
 
@@ -8,33 +8,32 @@ _2026-10-19, v2 after a red-team pass. Condenses the 35-row [problems × tooling
 
 **Type:** 🔵 S Skills & sub-agents · 🟣 R RAG pipeline (document search) · 🟢 C Context store (shared memory) · 🟠 M MCP integration (system connector) · 🟡 A Automation (schedule or trigger) · ⚫ G Compute & models · 🔴 U Specialized UI
 
-**Industries:** Life sci = pharma, biotech, crop science, diagnostics, CROs. Materials = materials & process industries: chemicals, energy, semiconductors, metals, batteries, food and consumer formulation. Engineered = engineered products: devices, vehicles, electronics. AI research = research teams without a lab, SoftServe's own included. Not covered yet: energy geoscience (seismic, well data).
+**Industries** (one answer per bucket; the row text shows which part applies where only part does): Life sci = pharma, biotech, crop science, diagnostics, CROs. Materials = materials & process industries: chemicals, energy, semiconductors, metals, batteries, food and consumer formulation. Engineered = engineered products: devices, vehicles, electronics. AI research = research teams without a lab, SoftServe's own included. Not covered yet: energy geoscience (seismic, well data).
 
 | # | Problem it solves | Use case | How it works | Type | Claude Science | ChatGPT Rosalind | Microsoft Discovery | Gemini for Science | Life sci | Materials | Engineered | AI research |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| | **1 · Know the literature** | | | | | | | | | | | |
-| 1 | Answers sit in 2,000 PDFs nobody can search; finding one value takes hours | Ask the team's whole library of papers and standards | Every document is indexed; each answer quotes the passage and links the page | 🟣 | No | No | Yes | No | Yes | Yes | Yes | Yes |
-| 2 | Key new papers and patents get missed; scanning journals eats a day a week | Weekly watch of new papers and patents for each project | A weekly job searches papers and patents, skips what the team has seen, posts a digest | 🟠🟡 | No | No | No | No | Yes | Yes | Yes | Yes |
-| 3 | Pulling numbers out of hundreds of papers by hand takes weeks | Numbers from hundreds of papers in one table | Two agents extract each value separately; matches go in with a quote, mismatches go to a person | 🔵 | Yes | No | No | Yes | Yes | Yes | No | Yes |
-| 4 | Each target assessment takes weeks and can't be compared with the last | A standard dossier for each drug target | One template filled from genetics, chemistry and trial databases; every claim links to its record | 🔵🟠 | Yes | Yes | No | No | Yes | No | No | No |
-| | **2 · Decide what to test** | | | | | | | | | | | |
-| 5 | Ideas get picked on gut feel; contradicting evidence surfaces late | Hypotheses checked against papers and our own past results | Agents propose hypotheses, argue for and against them using papers and our results, then rank them | 🔵🟢 | Yes ¹ | Yes ¹ | Yes | No ¹ | Yes | Yes | Yes | Yes |
-| 6 | Too many settings to tune; changing one at a time burns months | Next experiment settings picked from all past runs | After each batch an optimizer fits all runs so far and proposes the next batch for approval | 🟢⚫ | No | No | No | No | Yes | Yes | Yes | Yes |
-| | **3 · Run and capture** | | | | | | | | | | | |
-| 7 | Result files sit on lab PCs; a bad run is noticed weeks later | Lab results captured and checked the moment they are produced | Files are filed to their sample and checked as they land; robot scripts are dry-run first | 🟠🟡 | No | No | No | No | Yes | Yes | Yes | No |
-| | **4 · Model and analyze** | | | | | | | | | | | |
-| 8 | A quick structure or docking check waits weeks for the modeling group | Molecular and materials modeling: structures, docking, design | Prediction and docking models run on GPUs; results open in a 3D viewer with confidence scores | ⚫🔴 | Yes | Yes | Yes | No ² | Yes | Yes | No | No |
-| 9 | Setting up each simulation costs the one expert days | Engineering simulation: stress, flow, circuits | Validated templates run parameter sweeps on the cluster; one report compares the designs | 🟠⚫ | No | No | Yes ³ | No | No | Yes | Yes | No |
-| 10 | Everyone analyzes the same experiment differently; results can't be reproduced | Every experiment analyzed the same way, with a record of data and code | Each analysis method is a versioned skill; every run logs its data version, code and settings | 🔵🟢 | Yes | Yes ⁴ | Yes | No | Yes | Yes | Yes | Yes |
-| | **5 · Keep traceable records** | | | | | | | | | | | |
-| 11 | Nobody knows what a part change breaks; old failures repeat | Engineering changes and failures traced through product records | Agents read product and quality records: what a change affects, whether a failure happened before | 🟣🟠 | No | No | No | No | No | Yes | Yes | No |
-| 12 | Methods get rebuilt from memory; wrong or retracted references slip in | Reports and papers written from what was actually run | Methods come from notebook and run records; every reference is checked against its source | 🔵🟢 | Yes | No | No | No | Yes | Yes | Yes | Yes |
-| 13 | Dossiers are stitched together by hand and every claim re-checked | Regulatory dossiers with every statement traced to a source | Sections drafted from internal reports and guidance, each statement linked to its source; QA signs | 🔵🟣 | No | No | No | No | Yes | Yes | Yes | No |
-| | **6 · Share across the team** | | | | | | | | | | | |
-| 14 | Past results and decisions live in people's heads and leave with them | One knowledge base the whole team and its agents share | Decisions, project pages and conventions live in one versioned store every agent reads first | 🟢 | No | No | Yes | No | Yes | Yes | Yes | Yes |
-| 15 | Meeting decisions get lost; the Friday status takes two hours | Meetings and weekly status captured automatically | Transcripts become filed decisions and tasks; the Friday status is drafted from the week's changes | 🔵🟡 | No | No | No | No | Yes | Yes | Yes | Yes |
-| 16 | Everyone prompts differently, so quality varies and good workflows don't spread | One shared skill set under admin control | Skills ship as one tested team package; restricted data is blocked | 🔵 | Yes | No | Yes | No | Yes | Yes | Yes | Yes |
-
+| | **1 · Know the literature** | | | | | | | | **Yes** | **Yes** | **Yes (library, watch)** | **Yes** |
+| 1 | Answers sit in 2,000 PDFs nobody can search; finding one value takes hours | Ask the team's whole library of papers and standards | Every document is indexed; each answer quotes the passage and links the page | 🟣 | No | No | Yes | No | | | | |
+| 2 | Key new papers and patents get missed; scanning journals eats a day a week | Weekly watch of new papers and patents for each project | A weekly job searches papers and patents, skips what the team has seen, posts a digest | 🟠🟡 | No | No | No | No | | | | |
+| 3 | Pulling numbers out of hundreds of papers by hand takes weeks | Numbers from hundreds of papers in one table | Two agents extract each value separately; matches go in with a quote, mismatches go to a person | 🔵 | Yes | No | No | Yes | | | | |
+| 4 | Each target assessment takes weeks and can't be compared with the last | A standard dossier for each drug target | One template filled from genetics, chemistry and trial databases; every claim links to its record | 🔵🟠 | Yes | Yes | No | No | | | | |
+| | **2 · Learn from our results** | | | | | | | | **Yes** | **Yes** | **Yes** | **Yes** |
+| 5 | Everyone analyzes the same experiment differently; results can't be reproduced | Every experiment analyzed the same way, with a record of data and code | Each analysis method is a versioned skill; every run logs its data version, code and settings | 🔵🟢 | Yes | Yes ⁴ | Yes | No | | | | |
+| 6 | Ideas get picked on gut feel; contradicting evidence surfaces late | Hypotheses checked against papers and our own past results | Agents propose hypotheses, argue for and against them using papers and our results, then rank them | 🔵🟢 | Yes ¹ | Yes ¹ | Yes | No ¹ | | | | |
+| 7 | Too many settings to tune; changing one at a time burns months | Next experiment settings picked from all past runs | After each batch an optimizer fits all runs so far and proposes the next batch for approval | 🟢⚫ | No | No | No | No | | | | |
+| 8 | Methods get rebuilt from memory; wrong or retracted references slip in | Reports and papers written from what was actually run | Methods come from notebook and run records; every reference is checked against its source | 🔵🟢 | Yes | No | No | No | | | | |
+| | **3 · Run and capture** | | | | | | | | **Yes** | **Yes** | **Yes** | **No** |
+| 9 | Result files sit on lab PCs; a bad run is noticed weeks later | Lab results captured and checked the moment they are produced | Files are filed to their sample and checked as they land; robot scripts are dry-run first | 🟠🟡 | No | No | No | No | | | | |
+| | **4 · Model before building** | | | | | | | | **Yes (molecules)** | **Yes** | **Yes (designs)** | **No** |
+| 10 | A quick structure or docking check waits weeks for the modeling group | Molecular and materials modeling: structures, docking, design | Prediction and docking models run on GPUs; results open in a 3D viewer with confidence scores | ⚫🔴 | Yes | Yes | Yes | No ² | | | | |
+| 11 | Setting up each simulation costs the one expert days | Engineering simulation: stress, flow, circuits | Validated templates run parameter sweeps on the cluster; one report compares the designs | 🟠⚫ | No | No | Yes ³ | No | | | | |
+| | **5 · Keep traceable records** | | | | | | | | **Yes (dossiers)** | **Yes** | **Yes** | **No** |
+| 12 | Nobody knows what a part change breaks; old failures repeat | Engineering changes and failures traced through product records | Agents read product and quality records: what a change affects, whether a failure happened before | 🟣🟠 | No | No | No | No | | | | |
+| 13 | Dossiers are stitched together by hand and every claim re-checked | Regulatory dossiers with every statement traced to a source | Sections drafted from internal reports and guidance, each statement linked to its source; QA signs | 🔵🟣 | No | No | No | No | | | | |
+| | **6 · Share across the team** | | | | | | | | **Yes** | **Yes** | **Yes** | **Yes** |
+| 14 | Past results and decisions live in people's heads and leave with them | One knowledge base the whole team and its agents share | Decisions, project pages and conventions live in one versioned store every agent reads first | 🟢 | No | No | Yes | No | | | | |
+| 15 | Meeting decisions get lost; the Friday status takes two hours | Meetings and weekly status captured automatically | Transcripts become filed decisions and tasks; the Friday status is drafted from the week's changes | 🔵🟡 | No | No | No | No | | | | |
+| 16 | Everyone prompts differently, so quality varies and good workflows don't spread | One shared skill set under admin control | Skills ship as one tested team package; restricted data is blocked | 🔵 | Yes | No | Yes | No | | | | |
 ¹ Claude Science and Rosalind do this in conversation; Microsoft Discovery runs a dedicated multi-agent loop. Google's Co-Scientist runs a dedicated debate-and-rank tournament, over the literature only.
 ² Gemini looks up AlphaFold and AlphaGenome predictions; it does not run docking or design.
 ³ Through separately licensed partner tools: PhysicsX (stress, flow, heat) and Synopsys (chips).
@@ -53,6 +52,7 @@ _2026-10-19, v2 after a red-team pass. Condenses the 35-row [problems × tooling
 - Jargon replaced with plain words (ELN, PLM/ALM/QMS, 8D, FEA/CFD, HPC, QC, omics, Bayesian optimization, provenance).
 - Buckets regrouped by solution kind: capture (event pipelines) apart from analysis (compute), analysis joined modeling.
 - The bench diagram hands over to line 10 instead of repeating analysis steps; colour dots removed from diagrams (shapes only).
+- Line 10 (analysis) and line 12 (reports and papers) moved into bucket 2, now "Learn from our results"; bucket 4 became "Model before building". Every bucket then gets one Yes/No per industry, with a one-word note where only part applies.
 - Problem column and industry relevance added. Relevance is per row, because per bucket it came out Yes almost everywhere. Four groups: the call's three targets fold into life sciences and materials & process (chemicals and energy share every flag); engineered products and AI & data research cover R&D outside them.
 
 ## Pictures in the HTML version
@@ -68,10 +68,10 @@ _2026-10-19, v2 after a red-team pass. Condenses the 35-row [problems × tooling
 
 | Line | Map rows | Line | Map rows | Line | Map rows | Line | Map rows |
 |---|---|---|---|---|---|---|---|
-| 1 | 2, 27 | 5 | 8 | 9 | 12 | 13 | 29 |
-| 2 | 1, 5 | 6 | 9 | 10 | 18–21 | 14 | 31 |
-| 3 | 3, 4 | 7 | 10, 14–17 | 11 | 13, 22–26 | 15 | 30, 32, 33 |
-| 4 | 7 | 8 | 11 | 12 | 6, 28 | 16 | 34, 35 |
+| 1 | 2, 27 | 5 | 18–21 | 9 | 10, 14–17 | 13 | 29 |
+| 2 | 1, 5 | 6 | 8 | 10 | 11 | 14 | 31 |
+| 3 | 3, 4 | 7 | 9 | 11 | 12 | 15 | 30, 32, 33 |
+| 4 | 7 | 8 | 6, 28 | 12 | 13, 22–26 | 16 | 34, 35 |
 
 ## Sources
 
