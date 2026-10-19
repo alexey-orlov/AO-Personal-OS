@@ -1,48 +1,50 @@
 # AI Jumpstart for Scientists: exec summary
 
-_2026-10-19, v5: red-teamed, industry relevance per bucket, three minor rows dropped, two added from the R&D-flow review. Condenses the 35-row [problems × tooling map](jumpstart-science-problems-x-tooling.md) into 15 use cases in 6 buckets. Two-page HTML version (screenshots and diagrams per bucket): SoftServe OneDrive `Projects/Jumpstart/AI Jumpstart for Scientists - exec summary.html`._
+_2026-10-19, v6. Condenses the 37-row [problems × tooling map](jumpstart-science-problems-x-tooling.md) into 15 use cases in 6 buckets, checked against three vendor science workbenches. Two-page HTML version (screenshots and diagrams per bucket): SoftServe OneDrive `Projects/Jumpstart/AI Jumpstart for Scientists - exec summary.html`; the buckets on Microsoft's R&D flow and across its phases sit next to it._
 
-**Bottom line:** four AI workbenches for science help one scientist with literature, molecules and analysis. None watches papers, patents and rules, picks the next experiment from past runs, captures lab data, or keeps the paper trail that changes and regulators demand; the Jumpstart builds that for the whole team. Most jobs fit every industry; the rest depend on having a lab, molecules or hardware.
+**Bottom line:** three AI workbenches for science (Claude Science, ChatGPT Rosalind, Microsoft Discovery) help one scientist with literature, molecules and analysis. None watches papers, patents and rules, picks the next experiment from past runs, captures lab data, or keeps the paper trail that changes and regulators demand; the Jumpstart builds that for the whole team. Most jobs fit every industry; the rest depend on having a lab, molecules or hardware.
 
-**How to read it:** every line is a job plain ChatGPT or Claude, even with Projects, can't do well. Vendor Yes = documented (October 2026); No = has to be built. Type = what the solution can't work without (one or two per row).
+**How to read it:** every line is a job plain ChatGPT or Claude, even with Projects, can't do well. Vendor Yes = documented (October 2026); No = has to be built. Type = what the solution can't work without (one or two per row). Typical data sources = the systems the line's agents read from or write to.
 
 **Type:** 🔵 S Skills & sub-agents · 🟣 R RAG pipeline (document search) · 🟢 C Context store (shared memory) · 🟠 M MCP integration (system connector) · 🟡 A Automation (schedule or trigger) · ⚫ G Compute & models · 🔴 U Specialized UI
 
-**Industries** (one answer per bucket; the row text shows which part applies where only part does): Life sci = pharma, biotech, crop science, diagnostics, CROs. Materials = materials & process industries: chemicals, energy, semiconductors, metals, batteries, food and consumer formulation. Engineered = engineered products: devices, vehicles, electronics. AI research = research teams without a lab, SoftServe's own included. Not covered yet: energy geoscience (seismic, well data).
+**Industries** (one answer per bucket; a note says which part applies where only part does): Life sci = pharma, biotech, crop science, diagnostics, CROs. Materials = materials & process industries: chemicals, energy, semiconductors, metals, batteries, food and consumer formulation. Engineered = engineered products: devices, vehicles, electronics. AI research = research teams without a lab, SoftServe's own included. Not covered yet: energy geoscience (seismic, well data).
 
-| # | Problem it solves | Use case | How it works | Type | Claude Science | ChatGPT Rosalind | Microsoft Discovery | Gemini for Science | Life sci | Materials | Engineered | AI research |
+| # | Use case | Problem it solves | How it works | Typical data sources | Type | Claude Science | ChatGPT Rosalind | Microsoft Discovery | Life sci | Materials | Engineered | AI research |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
 | | **1 · Know the literature** | | | | | | | | **Yes** | **Yes** | **Yes (library, watch)** | **Yes** |
-| 1 | Answers sit in 2,000 PDFs nobody can search; finding one value takes hours | Ask the team's whole library of papers and standards | Every document is indexed; each answer quotes the passage and links the page | 🟣 | No | No | Yes | No | | | | |
-| 2 | Key new papers, patents and rule changes get missed; scanning eats a day a week | Weekly watch of new papers, patents and regulations for each project | A weekly job scans papers, patents and rule changes and posts a digest of what's new | 🟠🟡 | No | No | No | No | | | | |
-| 3 | Pulling numbers out of hundreds of papers by hand takes weeks | Numbers from hundreds of papers in one table | Two agents extract each value separately; matches go in with a quote, mismatches go to a person | 🔵 | Yes | No | No | Yes | | | | |
+| 1 | Cited answers from our papers and standards | Answers sit in 2,000 PDFs nobody can search; one value takes hours | Every document is indexed; each answer quotes the passage and links the page | PDF folders on SharePoint, Zotero, purchased standards | 🟣 | No | No | Yes | | | | |
+| 2 | Weekly watch: papers, patents, rules | New papers, patents and rules slip by; scanning eats a day a week | A weekly job scans the sources and posts a digest of what's new per project | PubMed, arXiv, Google Patents, EUR-Lex, Federal Register | 🟠🟡 | No | No | No | | | | |
+| 3 | Numbers from hundreds of papers in one table | Pulling numbers out of hundreds of papers by hand takes weeks | Two agents extract each value; matches go in with a quote, mismatches to a person | Paper PDFs, publisher APIs (Elsevier, Springer) | 🔵 | Yes | No | No | | | | |
 | | **2 · Learn from our results** | | | | | | | | **Yes** | **Yes** | **Yes** | **Yes** |
-| 4 | Everyone analyzes the same experiment differently; results can't be reproduced | Every experiment analyzed the same way, with a record of data and code | Each analysis method is a versioned skill; every run logs its data version, code and settings | 🔵🟢 | Yes | Yes ⁴ | Yes | No | | | | |
-| 5 | Ideas get picked on gut feel; contradicting evidence surfaces late | Hypotheses checked against papers and our own past results | Agents propose hypotheses, argue for and against them using papers and our results, then rank them | 🔵🟢 | Yes ¹ | Yes ¹ | Yes | No ¹ | | | | |
-| 6 | Too many settings to tune; changing one at a time burns months | Next experiment settings picked from all past runs | After each batch an optimizer fits all runs so far and proposes the next batch for approval | 🟢⚫ | No | No | No | No | | | | |
+| 4 | One analysis method per assay, fully logged | Each person analyzes differently; results can't be reproduced | Each method is a versioned skill; every run logs data version, code and settings | Instrument CSVs, Excel, sequencing files, Git | 🔵🟢 | Yes | Yes ³ | Yes | | | | |
+| 5 | Hypotheses checked against papers and past runs | Ideas get picked on gut feel; contradicting evidence surfaces late | Agents propose, debate and rank hypotheses against papers and our results | ELN (Benchling, LabArchives), the library, result sheets | 🔵🟢 | Yes ¹ | Yes ¹ | Yes | | | | |
+| 6 | Next experiment picked from all past runs | Too many settings to tune; changing one at a time burns months | After each batch, an optimizer fits all past runs and proposes the next for approval | Excel run logs, LIMS, JMP or Design-Expert files | 🟢⚫ | No | No | No | | | | |
 | | **3 · Run and capture** | | | | | | | | **Yes** | **Yes** | **Yes** | **No** |
-| 7 | Result files sit on lab PCs; a bad run is noticed weeks later | Lab results captured and checked the moment they are produced | Files are filed to their sample and checked as they land; robot scripts are dry-run first | 🟠🟡 | No | No | No | No | | | | |
+| 7 | Lab results captured and checked as produced | Result files sit on lab PCs; a bad run is noticed weeks later | Each file is filed to its sample and checked on arrival; robot scripts get a dry run | Instrument PCs, LIMS (LabWare), ELN, Opentrons robots | 🟠🟡 | No | No | No | | | | |
 | | **4 · Model before building** | | | | | | | | **Yes (molecules, footprint)** | **Yes** | **Yes (designs, footprint)** | **No** |
-| 8 | A quick structure or docking check waits weeks for the modeling group | Molecular and materials modeling: structures, docking, design | Models run on GPUs; results open in a 3D viewer with confidence scores | ⚫🔴 | Yes | Yes | Yes | No ² | | | | |
-| 9 | Setting up each simulation costs the one expert days | Engineering simulation: stress, flow, circuits | Validated templates run parameter sweeps on the cluster; one report compares the designs | 🟠⚫ | No | No | Yes ³ | No | | | | |
-| 10 | Carbon footprint is calculated after design, when a change costs most | Early footprint check of each candidate: carbon, energy, water | A life-cycle model scores each candidate's recipe and process and flags hotspots | 🟠⚫ | No | No | No | No | | | | |
+| 8 | Molecular and materials modeling | A quick structure or docking check waits weeks for the modeling group | Models run on GPUs; results open in a 3D viewer with confidence scores | PDB, ChEMBL, compound registry, Materials Project | ⚫🔴 | Yes | Yes | Yes | | | | |
+| 9 | Engineering simulation: stress, flow, circuits | Setting up each simulation costs the one expert days | Validated templates sweep parameters on the cluster; one report compares designs | CAD (SolidWorks, Creo), Ansys or COMSOL models | 🟠⚫ | No | No | Yes ² | | | | |
+| 10 | Early footprint check (carbon, energy, water) | Carbon footprint is calculated after design, when a change costs most | A life-cycle model scores each candidate's recipe and process and flags hotspots | ecoinvent, openLCA or SimaPro, recipe sheets | 🟠⚫ | No | No | No | | | | |
 | | **5 · Keep the paper trail** | | | | | | | | **Yes (inventions, regulators)** | **Yes** | **Yes** | **Yes (inventions)** |
-| 11 | Inventions go unreported or are filed late; a disclosure takes days to write | Invention disclosures drafted from the lab record, with a prior-art check | Drafted from dated lab records plus a patent search; the inventor and an attorney review | 🔵🟠 | No | No | No | No | | | | |
-| 12 | A part swap quietly breaks a certified feature; old failures repeat | See what a design change affects before making it | Agents trace a change to the tests, certificates and past failures it touches | 🟣🟠 | No | No | No | No | | | | |
-| 13 | One unsupported claim in a regulator file can delay approval for months | Files for regulators where every claim points to its evidence | Drafted from lab and test records, every statement cited; a quality lead signs off | 🔵🟣 | No | No | No | No | | | | |
+| 11 | Invention disclosures from the lab record | Inventions go unreported or late; a disclosure takes days to write | Drafted from dated lab records with a patent search; inventor and attorney review | ELN, IP docketing (Anaqua), Google Patents | 🔵🟠 | No | No | No | | | | |
+| 12 | See what a design change affects | A part swap quietly breaks a certified feature; old failures repeat | Agents trace a change to the tests, certificates and past failures it touches | PLM (Teamcenter, Windchill), QMS failure reports | 🟣🟠 | No | No | No | | | | |
+| 13 | Regulator files with every claim sourced | One unsupported claim in a regulator file can delay approval for months | Drafted from lab and test records, every statement cited; a quality lead signs off | Veeva Vault or SharePoint, LIMS, FDA, EMA, ECHA guidance | 🔵🟣 | No | No | No | | | | |
 | | **6 · Share across the team** | | | | | | | | **Yes** | **Yes** | **Yes** | **Yes** |
-| 14 | Past results and decisions live in people's heads and leave with them | One knowledge base the whole team and its agents share | Decisions and conventions in one store every agent reads; meeting notes keep it current | 🟢 | No | No | Yes | No | | | | |
-| 15 | Everyone prompts differently, so quality varies and good workflows don't spread | One shared skill set under admin control | Skills ship as one tested team package; restricted data is blocked | 🔵 | Yes | No | Yes | No | | | | |
-¹ Claude Science and Rosalind do this in conversation; Microsoft Discovery runs a dedicated multi-agent loop. Google's Co-Scientist runs a dedicated debate-and-rank tournament, over the literature only.
-² Gemini looks up AlphaFold and AlphaGenome predictions; it does not run docking or design.
-³ Through separately licensed partner tools: PhysicsX (stress, flow, heat) and Synopsys (chips).
-⁴ Life-science data only; Claude Science and Microsoft Discovery also take engineering and physics data.
+| 14 | One knowledge base for the team and agents | Past results and decisions live in people's heads and leave with them | One store of decisions and conventions every agent reads; meetings keep it current | SharePoint or Confluence, Teams, meeting recordings | 🟢 | No | No | Yes | | | | |
+| 15 | One shared skill set under admin control | Everyone prompts differently; quality varies, good workflows don't spread | Skills ship as one tested team package; restricted data is blocked | Git repo (GitHub, Azure DevOps), data-classification policy | 🔵 | Yes | No | Yes | | | | |
 
-**Status, Oct 2026:** Claude Science beta, included in Claude plans (since 30 Jun) · Rosalind Workbench research preview for verified organizations (since 28 Aug) · Microsoft Discovery generally available on Azure (June) · Gemini for Science on a Labs waitlist, enterprise preview via Google Cloud (May).
+¹ Claude Science and Rosalind do this in conversation; Microsoft Discovery runs a dedicated multi-agent loop.
+² Via separately licensed partners: PhysicsX (stress, flow, heat), Synopsys (chips).
+³ Life-science data only.
+
+**Not compared:** Google's Gemini for Science, a Labs experiment for single researchers that covers one of these jobs (tables from papers).
+
+**Status, Oct 2026:** Claude Science beta, included in Claude plans (since 30 Jun) · Rosalind Workbench research preview for verified organizations (since 28 Aug) · Microsoft Discovery generally available on Azure (June).
 
 **Left out because plain chat or a Project already does it:** finding collaborators, sample-size and test-design basics, adapting one protocol, checking a reagent, notes from voice, a stats check on request, grant drafting, manuscript review, data-deposit forms. **In the full map, not shown here:** drug-target dossiers, write-ups from run records, meeting capture.
 
-## What the red-team pass changed (v1 → v2)
+## What changed along the way
 
 - Type dots cut to what each solution can't work without (1–2 per row); v1 tagged every part a solution touched (3–4 per row).
 - Claude Science on line 1 changed to No: its docs cover literature reviews from public databases and reading local folders, not a standing team library with cited answers.
@@ -56,15 +58,17 @@ _2026-10-19, v5: red-teamed, industry relevance per bucket, three minor rows dro
 - The records bucket rewritten for readers without background: "Keep the paper trail" names which records (a product's design and test records; files for regulators), what traceability means (every claim and change points to its evidence) and why it matters (a broken certification, approval delayed for months).
 - Added after checking Microsoft's sample R&D flow: invention disclosures from the lab record (covers its IP boxes) and an early footprint check (its sustainability box); the weekly watch widened to regulations (its regulatory-plan box). Market, financial, supply-chain and launch boxes stay out: product and commercial work, the PM Jumpstart's ground.
 - Problem column and industry relevance added. Relevance is per row, because per bucket it came out Yes almost everywhere. Four groups: the call's three targets fold into life sciences and materials & process (chemicals and energy share every flag); engineered products and AI & data research cover R&D outside them.
+- Use case moved to the first text column and shortened; a "Typical data sources" column added (the systems each line connects to), and the page-2 diagrams name the same systems.
+- Google's Gemini for Science dropped from the comparison: one Yes in 15 rows, a Labs experiment for single researchers, and not among the lead-giving partners named in the 2026-10-19 sync. The bucket-2 picture changed from Google's co-scientist diagram to a Microsoft Discovery screen.
 
 ## Pictures in the HTML version
 
 | Bucket | Picture | Source |
 |---|---|---|
 | 1 | Claude Science literature review (cropped) | [Anthropic](https://www.anthropic.com/news/claude-science-ai-workbench) |
-| 2 | AI co-scientist agents diagram (untouched) | [Google Research](https://research.google/blog/accelerating-scientific-breakthroughs-with-an-ai-co-scientist/) |
+| 2 | Microsoft Discovery proposing candidates from internal knowledge and literature, with sources (video thumbnail) | [Microsoft, Build announcement video](https://www.youtube.com/watch?v=UbSHV6l2h-o) |
 | 4 | Rosalind Workbench structure viewer (cropped to the window) | [OpenAI](https://developers.openai.com/blog/rosalind-workbench) |
-| 3, 5, 6 | Diagrams drawn for this summary; no vendor covers these buckets | SoftServe |
+| 3, 5, 6 | Diagrams drawn for this summary, naming the same systems as the table; no vendor covers these buckets | SoftServe |
 
 ## Which map rows each line covers
 
@@ -81,6 +85,6 @@ Not in the exec view (kept in the map): rows 6, 7, 28 (write-ups and drug-target
 
 - Claude Science: [Anthropic announcement](https://www.anthropic.com/news/claude-science-ai-workbench) · [docs overview](https://claude.com/docs/claude-science/overview) · [connectors and skills](https://claude.com/docs/claude-science/connectors-and-skills)
 - ChatGPT Rosalind Workbench: [OpenAI blog](https://developers.openai.com/blog/rosalind-workbench) · [GPT-Rosalind analysis (IntuitionLabs)](https://intuitionlabs.ai/articles/openai-gpt-rosalind-biochemical-reasoning-model)
-- Microsoft Discovery: [Learn: agent concepts](https://learn.microsoft.com/en-us/azure/microsoft-discovery/concept-discovery-agent) · [Azure blog](https://azure.microsoft.com/en-us/blog/transforming-rd-with-agentic-ai-introducing-microsoft-discovery/) · [GA at Build 2026](https://rcpmag.com/articles/2026/06/02/microsoft-discovery-reaches-ga.aspx) · [PhysicsX toolchain](https://www.physicsx.ai/newsroom/agentic-engineering-revolution-the-physicsx-platform-and-microsoft-discovery-at-the-forefront-of-ai-innovation-part-1)
-- Gemini for Science: [Google blog](https://blog.google/innovation-and-ai/technology/research/gemini-for-science-io-2026) · [ChatForest review](https://chatforest.com/reviews/google-gemini-for-science-research-ai-platform-review/)
+- Microsoft Discovery: [Learn: agent concepts](https://learn.microsoft.com/en-us/azure/microsoft-discovery/concept-discovery-agent) · [Azure blog](https://azure.microsoft.com/en-us/blog/transforming-rd-with-agentic-ai-introducing-microsoft-discovery/) · [GA at Build 2026](https://rcpmag.com/articles/2026/06/02/microsoft-discovery-reaches-ga.aspx) · [PhysicsX toolchain](https://www.physicsx.ai/newsroom/agentic-engineering-revolution-the-physicsx-platform-and-microsoft-discovery-at-the-forefront-of-ai-innovation-part-1) · [Build announcement video](https://www.youtube.com/watch?v=UbSHV6l2h-o)
+- Not compared: [Google, Gemini for Science](https://blog.google/innovation-and-ai/technology/research/gemini-for-science-io-2026) · [ChatForest review](https://chatforest.com/reviews/google-gemini-for-science-research-ai-platform-review/)
 - Industries: [2026-10-19 sync](../../context/areas/softserve/calls/jumpstart-science/2026-10-19_201609_default_pasted-science-jumpstart-sync.md) (pharma, chemical manufacturing, energy as the three targets)
