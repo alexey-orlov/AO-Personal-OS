@@ -81,7 +81,13 @@ counts and the scaffolding, not the essence" and used internal vocabulary
   when the engagement only defined technical criteria, derive the business metrics they serve,
   mark them as modelled or "results to follow", and put them to Alex as a proposal. Each metric is
   specific yet clear to a reader outside the industry, with the industry term in brackets if needed,
-  and has a buyer-side owner who would sign off on it. A delivered-case block speaks about the
+  and has a buyer-side owner who would sign off on it. "Outcome, not output" means the efficiency
+  (or, less often, quality) of the work itself at the level the function already measures: cycle
+  time, turnaround, resources per result, time to productivity ("days from a lab run to a checked
+  result", "experiments needed to reach the target"). It never means a rare or lagging downstream
+  count the client neither logs nor could attribute within the engagement ("rework forced by a
+  late find", "failures traced to an unchecked change"); one metric per unit, the one typical for
+  that function (2026-10-20, Alex red-teaming the Science Jumpstart's per-bucket metrics). A delivered-case block speaks about the
   customer's problem and what changed for them, never the engagement's mechanics (weeks, phases,
   source counts, contract status), and never a note to its reviewer (2026-09-29, Alex on the
   mini-site's case cards: "no justifications for reviewer and unnecessary disclaimers"): no
@@ -89,6 +95,12 @@ counts and the scaffolding, not the essence" and used internal vocabulary
   word (Proven / Forecast / Estimated) is the disclaimer; a caveat that must stay is said as a fact in
   the figure's own line (*"simulated on the customer's own history"*), and a case with no result yet
   states the customer's problem in the present tense rather than claiming a change.
+- **A program or offering one-pager leads with its named principles** (2026-10-20, Alex on the
+  Science Jumpstart delivery page: "highlighted boldly and named clearly … the later content should
+  speak to those principles"): open with a numbered band of the program's few principles, a bold
+  name and one line each, in place of a prose bottom line; then name the later sections and grid
+  rows after the principle they put to work, so the page reads principles first, mechanics second.
+  Adding the band must not lengthen the page: cut elsewhere and count the words.
 - **A metric is shown, not explained, and its chart matches its number at a glance** (2026-09-29,
   Alex on the mini-site's Outcomes & ROI rail: "too wordy, and too boring … no footnotes and
   explanations of how you built metrics"; then on its charts: "hard to understand from graphics
