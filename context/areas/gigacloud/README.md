@@ -54,7 +54,7 @@ _source files: `~/Desktop/GigaCloud/` on Alex's MacBook Air (live plan + results
 
 ## Activity
 
-- 2026-10-20 — [Head of Product role description](product-team-structure.md) — 4-page UA docx from Alex's sheet, with additions and flagged open questions. (chat)
+- 2026-10-20 — [Head of Product role description](product-team-structure.md) — one-page UA docx from Alex's sheet, gaps folded into its items, open questions flagged in chat. (chat)
 - 2026-10-16 — [product-team restructure deck v1](product-team-structure.md) — 8-slide UA proposal from Alex's Miro board + his next steps; the margin project as a Gantt. (chat)
 - 2026-10-12 — [publication-process deck v4](publication-process.md) — 56 slides on Alex's fourth feedback round (CRM checklist, stage headers, «Перед першим клієнтом», stage 4 and change types); v3 (46 slides) earlier the same day. (chat)
 - 2026-10-11 — [publication-process deck v2](publication-process.md) — reworked on Alex's dictated feedback (42 slides); v1 (37 slides) the same day from his brief + Miro + the CRM checklist export; new subproject page. (chat)
