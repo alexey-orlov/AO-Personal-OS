@@ -1,7 +1,7 @@
 # Product team structure — CPO part-time transition
 
-_status: proposal deck v1 built 2026-10-16 (8 slides, UA) from Alex's Miro board; next step — Alex's own part-time terms and Edik's offer_
-_updated: 2026-10-16_
+_status: proposal deck v1 built 2026-10-16 (8 slides, UA) from Alex's Miro board; Head of Product role description drafted 2026-10-20 (docx, open questions on where Product Operations sits); next step — Alex's own part-time terms and Edik's offer_
+_updated: 2026-10-20_
 
 ## Snapshot
 
@@ -19,6 +19,7 @@ _updated: 2026-10-16_
   - Product Operations 65 % — costing and prices, catalog data and its automation, contract and delivery processes, publication control, ad-hoc technical-process decisions: CPO → product team ⇒ **COO → Product Operations**.
   - Product Strategy 20 % — product strategy, coordinating technical solutions (implementation ↔ strategy ↔ deliverability and support), customer feedback: CPO ⇒ **Product Lead + CTO + Consultant?**
   - Product Marketing 15 % — interviews, market research, mystery shopping, sales enablement: Marketing Director + Product Marketing Manager, unchanged.
+- **Head of Product role description (2026-10-20):** Alex's source is the Google Sheet «Profile» (`1rLUaEjQagc3owI6Zj__oBPRLtoy7D_-Nj-eO6rmatOg`): 17 duties in three blocks, Product strategy & discovery (7), Operations (6), Process design (4). Claude's docx `GigaCloud_Head of Product_опис ролі_20-OCT-2026.docx` (4 pages, UA, delivered in chat, not committed) rewrites them and adds a mission, place in the org, decision rights, proposed metrics without targets, interfaces and a candidate profile. Added duties: roadmap and prioritization, customer feedback, prices and discount policy (per the margin roadmap), product revision approvals (per the publication process), product retirement, SLA in service design, a team-and-reporting block. 18 Word comments explain each change; the items still to decide are highlighted yellow. (chat, 2026-10-20)
 - **Deck:** `GigaCloud_Product Team Structure_16-OCT-2026.pptx` on Alex's MacBook Air (`~/Desktop/GigaCloud/`), built by `~/Desktop/GigaCloud/toolchain/team/build_team.py` (all wordings as constants; GigaCloud 2× template from `../plm/base_margin_v25.pptx`; render with the margin deck's `pp_render.sh`). Slides: cover · План дій · Едік і команда · Льоша: фокус на проєктах · Проєкт «Маржинальність» (Gantt) · Графік доступності (час CA / час Київ, the overlapping hours highlighted) · Задачі Product загалом (NOW → TO BE) · Наступні кроки. Not committed (people and terms). Living-documents rule applies once Alex edits it.
 
 ## Active threads
@@ -37,8 +38,10 @@ _updated: 2026-10-16_
 ## Open loops
 
 - Mine — the seven next steps above.
+- Mine — decide on the Head of Product role description (2026-10-20). (1) The profile keeps Operations and Process design (10 of 17 source items) with Head of Product, while the 10-16 TO BE moves Product Operations to the COO: is it a transition-period role, has the TO BE changed, or is it two profiles? (2) One title: Product Lead (deck) or Head of Product (CRM approvals). (3) Reporting line and team. (4) Margin ownership, which is next step 5. (5) The split with Product Marketing (research), Operations' Business process lead (process documentation) and the Vendor manager. (6) What «складські ціни» means. (chat, 2026-10-20)
 - Mine — questions on the deck v1 for Alex: the two near-identical «Координація команди» stickies (merged), «Product Lead + перегляд» read as a review of terms, the duplicated description of the two long-term COO projects, the Gantt's November start and April 2027 annual refresh (not on the board), what the 65 / 20 / 15 % measure, Country Director named on the projects slide but owning nothing on the Gantt. (chat, 2026-10-16)
 
 ## Activity
 
+- 2026-10-20 — Head of Product role description — the Google Sheet's 17 duties rewritten into a 4-page UA docx with additions, decision rights, metrics and interfaces, plus 18 review comments. (chat)
 - 2026-10-16 — deck v1 + availability slide (CA / Kyiv hours, weeklies and project calls in the overlap) — 8-slide UA deck from the Miro board («Frame 62») + Alex's next steps; Gantt for the margin project. (chat)
