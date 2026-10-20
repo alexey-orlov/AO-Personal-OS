@@ -11,7 +11,7 @@ _updated: 2026-10-20_
   - Alex — part-time, focused on three projects + helping Edik → later ad-hoc consults.
   - **Fork into Q4'FY2026** (Alex's Miro picture, 2026-10-20): no replacement found → Alex stays part-time CPO; Product Operations moved into Operations / a Head of Product found → Alex becomes **Advisor** (product strategy, automation architecture). Advisor is the same role as the plan's ad-hoc consults and the TO BE «Advisor?» for Product Strategy (the deck now says Advisor in all three places).
   - Edik — becomes Product Lead, with a review of his terms ("Product Lead + перегляд"; the next step is an offer).
-  - Vacancies (plan slide) — an Analyst in Operations; a Product manager, ideally moved over from Presales.
+  - Vacancies (plan slide, synced with the hiring slide 2026-10-20) — the three hiring roles below + a Product manager as a transfer, ideally from Presales. The board's earlier «Аналітик в Operations» is now just «Analyst», as on the hiring slide.
   - **Hiring, three roles** (chat, 2026-10-20): 1 Head of Product — only if we decide to hire; 2 Analyst — the company's unit-economics tasks; 3 Business analyst — automating the Product Operations backlog, CRM team.
   - C-level / org structure — think about hiring a strong COO + a new org structure that splits the product function → later consider moving Product Operations into Operations and the Product Lead into the CTO function.
 - **Availability, CA ↔ Kyiv** (chat, 2026-10-16): the overlapping hours are 07:00–09:00 CA = 17:00–19:00 Kyiv, and sometimes 23:00–24:00 CA = 09:00–10:00 Kyiv (next day); they are for the team weeklies and the ongoing project calls. The gap is 10 h, 9 h on 25.10–1.11.2026 and 14–28.03.2027 (tzdata 2026b), when the morning window lands at 16:00–18:00 Kyiv.
@@ -40,9 +40,9 @@ _updated: 2026-10-20_
 
 - Mine — the seven next steps above.
 - Mine — questions on the deck v1 for Alex: the two near-identical «Координація команди» stickies (merged), «Product Lead + перегляд» read as a review of terms, the duplicated description of the two long-term COO projects, the Gantt's November start and April 2027 annual refresh (not on the board), what the 65 / 20 / 15 % measure, Country Director named on the projects slide but owning nothing on the Gantt. (chat, 2026-10-16)
-- Mine — reconcile the plan's «Вакансії» (Analyst in Operations, Product manager from Presales) with the hiring slide (Head of Product, Analyst, Business analyst): is the Product manager a transfer rather than a hire, and do Head of Product and Business analyst belong on the plan too? (chat, 2026-10-20)
 
 ## Activity
 
+- 2026-10-20 — plan's «Вакансії» synced with «Найм: три ролі»; Product manager kept as a transfer from Presales (Alex). (chat)
 - 2026-10-20 — fork slide (Q3 part-time CPO → Q4 part-time CPO or Advisor) after the plan, hiring slide (three roles) last; «Advisor» unified on the plan and the TO BE slide — 10 slides. (chat)
 - 2026-10-16 — deck v1 + availability slide (CA / Kyiv hours, weeklies and project calls in the overlap) — 8-slide UA deck from the Miro board («Frame 62») + Alex's next steps; Gantt for the margin project. (chat)
