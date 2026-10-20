@@ -8,7 +8,7 @@ _updated: 2026-10-20_
 - **Why:** Alex's US move ([relocation](../relocation/README.md)). He goes part-time at GigaCloud in Q3'FY2026 and to ad-hoc consulting after that ("like Misha Sakun"); the proposal redistributes the product function's work around that. (chat, 2026-10-16)
 - **Q3'FY2026 = Oct–Dec 2026** (inferred: the board tags the margin project Q3'FY2026 and dates its steps 11'2026–12'2026; Alex's FY2026 actuals pass is set for April 2027).
 - **Plan, Q3'FY2026 → later** (chat, 2026-10-16):
-  - Alex — part-time, focused on three projects + helping Edik → later ad-hoc consults.
+  - Alex — part-time, focused on four projects + helping Edik → later ad-hoc consults.
   - **Fork into Q4'FY2026** (Alex's Miro picture, 2026-10-20): no replacement found → Alex stays part-time CPO; Product Operations moved into Operations / a Head of Product found → Alex becomes **Advisor** (product strategy, automation architecture). Advisor is the same role as the plan's ad-hoc consults and the TO BE «Advisor?» for Product Strategy (the deck now says Advisor in all three places).
   - Edik — becomes Product Lead, with a review of his terms ("Product Lead + перегляд"; the next step is an offer).
   - Vacancies (plan slide, synced with the hiring slide 2026-10-20) — the three hiring roles below + a Product manager as a transfer, ideally from Presales. The board's earlier «Аналітик в Operations» is now just «Analyst», as on the hiring slide.
@@ -16,7 +16,7 @@ _updated: 2026-10-20_
   - C-level / org structure — think about hiring a strong COO + a new org structure that splits the product function → later consider moving Product Operations into Operations and the Product Lead into the CTO function.
 - **Availability, CA ↔ Kyiv** (chat, 2026-10-16): the overlapping hours are 07:00–09:00 CA = 17:00–19:00 Kyiv, and sometimes 23:00–24:00 CA = 09:00–10:00 Kyiv (next day); they are for the team weeklies and the ongoing project calls. The gap is 10 h, 9 h on 25.10–1.11.2026 and 14–28.03.2027 (tzdata 2026b), when the morning window lands at 16:00–18:00 Kyiv.
 - **Edik and the team (Q3):** launches (new products / quarterly projects) + current tasks (team coordination: backlog, ad-hoc decisions). (chat, 2026-10-16)
-- **Alex's three projects (Q3'FY2026):** «Квоти і ціни 2.0» — owner COO (CRM operating model: quotas for existing and new customers, ad-hoc cases, sales convenience, historical prices); the CPO designs the pricing architecture and extra price rules and helps automate. «Оновлення PLM» — owner CPO, the product team's Q3 focus → [publication-process](publication-process.md). «Маржинальність» — owner CPO; the first part is done, from here mostly coordinating COO, CFO and Country Director → roadmap on [pricing-unit-economics](pricing-unit-economics.md). (chat, 2026-10-16)
+- **Alex's four projects (Q3'FY2026):** «Квоти і ціни 2.0» — owner COO (CRM operating model: quotas for existing and new customers, ad-hoc cases, sales convenience, historical prices); the CPO designs the pricing architecture and extra price rules and helps automate. «Оновлення PLM» — owner CPO, the product team's Q3 focus → [publication-process](publication-process.md). «Синергія з Київстар» — added by Alex 2026-10-20, name only (owner, scope and role TBD on the slide). «Маржинальність» — owner CPO; the first part is done, from here mostly coordinating COO, CFO and Country Director → roadmap on [pricing-unit-economics](pricing-unit-economics.md). (chat, 2026-10-16)
 - **Product function, NOW → TO BE** (share of Product's tasks, per the board):
   - Product Operations 65 % — costing and prices, catalog data and its automation, contract and delivery processes, publication control, ad-hoc technical-process decisions: CPO → product team ⇒ **COO → Product Operations**.
   - Product Strategy 20 % — product strategy, coordinating technical solutions (implementation ↔ strategy ↔ deliverability and support), customer feedback: CPO ⇒ **Product Lead + CTO + Advisor?** (the board says «Consultant?»)
@@ -39,10 +39,12 @@ _updated: 2026-10-20_
 ## Open loops
 
 - Mine — the seven next steps above.
+- Theirs (Alex) — owner, scope and CPO / team role for «Синергія з Київстар» (TBD on the projects slide). (chat, 2026-10-20)
 - Mine — questions on the deck v1 for Alex: the two near-identical «Координація команди» stickies (merged), «Product Lead + перегляд» read as a review of terms, the duplicated description of the two long-term COO projects, the Gantt's November start and April 2027 annual refresh (not on the board), what the 65 / 20 / 15 % measure, Country Director named on the projects slide but owning nothing on the Gantt. (chat, 2026-10-16)
 
 ## Activity
 
+- 2026-10-20 — «Синергія з Київстар» added to Alex's Q3 projects (owner / scope / role TBD); the plan now says 4 projects. (chat)
 - 2026-10-20 — plan's «Вакансії» synced with «Найм: три ролі»; Product manager kept as a transfer from Presales (Alex). (chat)
 - 2026-10-20 — fork slide (Q3 part-time CPO → Q4 part-time CPO or Advisor) after the plan, hiring slide (three roles) last; «Advisor» unified on the plan and the TO BE slide — 10 slides. (chat)
 - 2026-10-16 — deck v1 + availability slide (CA / Kyiv hours, weeklies and project calls in the overlap) — 8-slide UA deck from the Miro board («Frame 62») + Alex's next steps; Gantt for the margin project. (chat)
