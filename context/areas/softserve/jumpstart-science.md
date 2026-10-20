@@ -25,14 +25,21 @@ _updated: 2026-10-20_
   - **Why the set was redone:** Alex red-teamed the first set against his criteria: measurable; clearly moved by the program; not vanity; a direct business outcome (mostly efficiency: speed, resources, delay, experimentation velocity); clear without context; typical for the bucket.
   - **The six metrics:**
     1. Days to complete a literature or patent review (project tracker).
-    2. Experiments needed to reach the target result (ELN, LIMS).
-    3. Days from a lab run to a checked result (LIMS).
+    2. Days from a result to the decision on what to run next (ELN).
+    3. Days from a finished run to a checked result (LIMS).
     4. Days from a modeling request to its result (request log, ELN).
-    5. Days to a signed-off disclosure, change assessment or regulator section (Anaqua, PLM, Veeva Vault).
+    5. Days to draft and sign off a disclosure, change assessment or regulator-file section (Anaqua, PLM, Veeva Vault).
     6. Weeks until a new scientist runs an experiment alone (HR start date, ELN).
   - **Dropped from the first set**, as rare, lagging, rarely logged or atypical: rework from late finds, runs redone, builds per passing design, regulator questions and change-caused failures.
+  - **Bucket 2's metric was changed after Alex doubted it.** "Experiments needed to reach the target result" counted physical runs. Cheaper rounds tend to mean more runs, not fewer, so the count could rise while the work improved. The metric now times the decision step between a result and the next run instead.
 
   (chat, 2026-10-20)
+- **Value proposition and its boundary (Alex, 2026-10-20).** It aligns with a three-column slide Alex shared:
+  - **Shorter:** idea to direction, from months to days or weeks.
+  - **Wider:** lab time and budget go to the strongest candidates; the slide's example is Danaher.
+  - **Unchanged:** physical test time, certification and customer validation; the slide's example is 8 months at DuPont.
+
+  Every page and metric now claims only the work around the physical test, never the test itself. Page 1's bottom line says so. Page 3 and both standalone Microsoft-flow images drop the capture claim on customer qualification and add an "Unchanged" note. Page 4's proof step excludes physical test time. (chat, 2026-10-20)
 - **Partners:** only platforms big enough to bring leads: **Microsoft Discovery** (established partnership and a funded enterprise sales machine; Inna: the most relevant, partner-team requests already coming), **Claude Science**, **OpenAI's science workbench**, **NVIDIA** (AI-Q for research, open-source drug-discovery models). That is three closed-source and one open-source option. AWS and Google are still to research. The program is positioned as tied to no single partner, because Jumpstart demand came from clients' own stacks. **NobleAI is the competitor**: domain knowledge but weak, vibe-coded software and an aggressive forward-deployed-engineering model that leaves partners only cloud and program management. [sync](calls/jumpstart-science/2026-10-19_201609_default_pasted-science-jumpstart-sync.md) The program runs on the client's own AI stack (Claude, ChatGPT or Microsoft Discovery), and the kit ships for each (Alex). (chat, 2026-10-20)
 - **Commercial stance:** always sell transformation, offer cheaper packages; NobleAI's offer, a 5-month engagement (target set in month 1, something working by month 5), is the starting model. Alex's Payworks lesson behind it: client success came only with transformation, which SoftServe didn't deliver there. [sync](calls/jumpstart-science/2026-10-19_201609_default_pasted-science-jumpstart-sync.md) Since 2026-10-20 that means one program in two modes (Light = training, Full = transformation) with industry kits, not separate editions; discovery is sold inside the contract, and Full commits to shared targets per module without tying fees to them (Alex). A price per mode is still open. (chat, 2026-10-20)
 - **Positioning evidence:** under Alex's inclusion rule (keep only use cases plain ChatGPT or Claude, even with Projects, can't do, or does poorly or slowly), the vendor science workbenches cover one scientist's literature work, molecular modeling and analysis. None runs a literature and patent watch, picks next experiments from run history, drives lab automation, keeps PLM/ALM records, assembles regulatory dossiers or captures team routines, and only Microsoft Discovery gives a team a shared knowledge base. That uncovered ground is the track's positioning. (chat, 2026-10-19) → [exec summary](../../../outputs/jumpstart-science/jumpstart-science-exec-summary.md)
@@ -92,6 +99,7 @@ Theirs:
 
 ## Activity
 
+- 2026-10-20 — Lab-process positioning (chat, 2026-10-20) — every page now claims only the work around the physical test: page 1's bottom line, page 3 and both standalone Microsoft-flow images (no capture claim on customer qualification) and page 4's proof step; bucket 2's metric became days from a result to the decision on what to run next; the shared page is at version 7.
 - 2026-10-20 — Seven principles, new team, reworked metrics (chat, 2026-10-20) — page 4 now opens with Alex's seven program principles and his five-role SoftServe team (2.5 / 5.25 FTE); "modules" replace "picks"; page 1's outcome metrics were replaced after his red-team; the shared page is at version 6.
 - 2026-10-20 — Exec summary to 4 pages + Alex's program decisions (chat, 2026-10-20) — page 1 gained a measured outcome per bucket, page 3 puts the buckets on Microsoft's R&D flow with four industry-group cards, page 4 is the delivery one-pager (Light 1 + 6 weeks · Full 2 + 11 weeks plus advisory; gates, client hours, SoftServe FTE, eight gaps before a pilot); shared as one page and saved to OneDrive; eight program decisions settled in a Q&A, among them one program with industry kits on the client's own AI stack.
 - 2026-10-19 — [Science Jumpstart working sync](calls/jumpstart-science/2026-10-19_201609_default_pasted-science-jumpstart-sync.md) — three target verticals (pharma, chemical manufacturing, energy), a lifecycle-verticalized PM-track model, big lead-giving platforms only with NobleAI as the competitor, sell transformation in packages; start with a free lighthouse client per person run as discovery; Inna sizes the existing-client channel from the CRM. Subproject page created.
