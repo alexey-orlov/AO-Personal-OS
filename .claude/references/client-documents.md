@@ -87,7 +87,12 @@ counts and the scaffolding, not the essence" and used internal vocabulary
   result", "experiments needed to reach the target"). It never means a rare or lagging downstream
   count the client neither logs nor could attribute within the engagement ("rework forced by a
   late find", "failures traced to an unchecked change"); one metric per unit, the one typical for
-  that function (2026-10-20, Alex red-teaming the Science Jumpstart's per-bucket metrics). A delivered-case block speaks about the
+  that function (2026-10-20, Alex red-teaming the Science Jumpstart's per-bucket metrics). Time
+  only the stretch the solution changes, never a span that includes work it leaves alone (a
+  physical test, a certification wait), and say that boundary in the value proposition too; when
+  the solution makes each unit cheaper, time the decision instead of counting units, because
+  teams then run more, not fewer (2026-10-20, Alex: "accelerating the lab process, but not
+  physical test process"). A delivered-case block speaks about the
   customer's problem and what changed for them, never the engagement's mechanics (weeks, phases,
   source counts, contract status), and never a note to its reviewer (2026-09-29, Alex on the
   mini-site's case cards: "no justifications for reviewer and unnecessary disclaimers"): no
