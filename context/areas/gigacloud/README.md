@@ -1,7 +1,7 @@
 # GigaCloud — CPO
 
 _status: CPO role, going part-time in Q3'FY2026 with the US move (product-team restructure proposal, deck v1 2026-10-16); workstreams — catalog ↔ Billing integration requirements; component cost-allocation & pricing redesign (steps 1–5 computed in Юніт.xlsx, results deck v23); product publication process + its CRM checklist (deck v4, 56 slides, 2026-10-12, to be presented to department heads)_
-_updated: 2026-10-16_
+_updated: 2026-10-20_
 _source files: `~/Desktop/GigaCloud/` on Alex's MacBook Air (live plan + results decks, `Юніт.xlsx`, results toolchain) · `~/Downloads` on `KN7X2Y65NX` (older set: `Margin.xlsx`, brand template) — registry entry in [_meta/external-sources.md](../../_meta/external-sources.md); transfer snapshots + HANDOFF in [docs/margin-deck/](docs/margin-deck/HANDOFF.md)_
 
 > ⛔ **Internal-only area.** GigaCloud is never named in any external-facing artefact — CV, LinkedIn profile or DMs, outreach, applications, interviews, bios, generated drafts. In interviews this period is referred to only as "a fractional project helping a European tech company (infrastructure provider) build an AI-enabled org"; in writing, as "fractional product leader for agentic-AI B2B startups". Rule + rationale: [job-search/positioning.md](../job-search/positioning.md).
@@ -16,7 +16,7 @@ _source files: `~/Desktop/GigaCloud/` on Alex's MacBook Air (live plan + results
 
 ## Active threads
 
-- **Product team restructure — CPO part-time.** Plan for Q3'FY2026 and after, the three projects Alex keeps, the margin roadmap by owner and the NOW → TO BE split of the product function are in an 8-slide UA deck (2026-10-16), with Alex's CA ↔ Kyiv availability (overlap 07:00–09:00 CA = 17:00–19:00 Kyiv). Next: Alex's part-time terms, Edik's offer, talks with Edik / the product team / leadership, the «Прибутковість / маржинальність / ефективність» owner, the org-structure decision, vacancies. Owner: Mine. → [product-team-structure](product-team-structure.md)
+- **Product team restructure — CPO part-time.** Plan for Q3'FY2026 and after, the three projects Alex keeps, the margin roadmap by owner and the NOW → TO BE split of the product function are in a 10-slide UA deck (2026-10-16 / 10-20), with Alex's CA ↔ Kyiv availability (overlap 07:00–09:00 CA = 17:00–19:00 Kyiv). Next: Alex's part-time terms, Edik's offer, talks with Edik / the product team / leadership, the «Прибутковість / маржинальність / ефективність» owner, the org-structure decision, vacancies. Owner: Mine. → [product-team-structure](product-team-structure.md)
 - **Catalog ↔ Billing integration — requirements scoping.** Working session (2026-07-21) scoped the business scenarios / edge cases for syncing catalog changes into Billing. Three layers named: (1) catalog data model, (2) an intermediate proxy model in CREASHO that reshapes catalog data into Billing format, (3) business scenarios — this call targeted layer 3. Complexity clusters around **price changes** (transactional model mismatch, GAF/government products, price-upon-request, quote-only, repricing existing customers, per-customer fixed prices). Guidance from Speaker B: don't re-invent the existing working mapping — describe already-implemented scenarios high-level, write a detailed per-scenario flow table only for price changes. → next: Alex collects/structures everything, reviews fresh, returns to Speaker B for clarifications, then takes it to Zhenya (object model + field-level mapping owner). Owner: Mine. [call](calls/other/2026-07-21_180038_default_202607171304495CACCF1A.md)
   - _possible subproject: catalog↔billing integration? — promote to its own page on the next artifact._
 - **Pricing & unit economics — component cost allocation.** Framework implemented in Юніт.xlsx: budget → expense types → 5 allocation buckets → 82 products → components; bucket costs reach each component by its Direct COGS, never by price. Steps 1–5 are computed for all five buckets; results deck v23 (43 slides, 2026-10-09) carries a Next steps block. Current state and open data items live on the subproject page. Owner: Mine. → [pricing-unit-economics](pricing-unit-economics.md)
@@ -24,7 +24,7 @@ _source files: `~/Desktop/GigaCloud/` on Alex's MacBook Air (live plan + results
 
 ## Subprojects
 
-- [product-team-structure](product-team-structure.md) — CPO part-time transition: restructure deck v1 (8 slides, 2026-10-16); next steps start with Alex's terms and Edik's offer.
+- [product-team-structure](product-team-structure.md) — CPO part-time transition: restructure deck v1 (10 slides, 2026-10-20: Q4 fork part-time CPO ↔ Advisor, hiring of three roles); next steps start with Alex's terms and Edik's offer.
 - [pricing-unit-economics](pricing-unit-economics.md) — component cost allocation: steps 1–5 computed, plan deck v5 + results deck v23 (2026-10-09). Reasoning reference: [pricing-cost-allocation-approach.md](pricing-cost-allocation-approach.md).
 - [publication-process](publication-process.md) — product publication process + CRM checklist: deck v4 (56 slides, 2026-10-12), to be presented to department heads.
 
