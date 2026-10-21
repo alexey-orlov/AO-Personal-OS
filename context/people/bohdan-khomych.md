@@ -1,7 +1,7 @@
 # Bohdan Khomych
 
 _Associate Director of R&D, SoftServe · bkhomy@softserveinc.com_
-_updated: 2026-10-19_
+_updated: 2026-10-21_
 
 Alex's primary counterpart and engagement lead for the SoftServe R&D advisory / product-lead role — the "Speaker A" of the recurring 1:1s and the "Bohdan" who owns POC-funding and packaging decisions.
 
@@ -22,3 +22,4 @@ Alex's primary counterpart and engagement lead for the SoftServe R&D advisory / 
 - 2026-09-29 — Oscar intro (Oracle's global AIDP product-strategy lead), with Alex: SoftServe to adopt Oracle's outcome-first demo pattern on its Codex tooling and set up a shared environment; Bohdan sends the invite for the Fri 10-02 follow-up and prepares the questions. Absent from the same day's mini-site launch-plan call; Alex is to sync him on the plan and the SharePoint shift and get his sign-off on the site. [Oscar intro](../areas/softserve/calls/oracle/2026-09-29_192726_default_2026092916023937929FAF.md) · [mini-site call](../areas/softserve/calls/oracle/2026-09-29_192548_default_20260929140433E7A4538C.md)
 - 2026-09-18 — 1:1: defense track handed entirely to Alex (Bohdan keeps only the NVIDIA follow-up); site/sales-materials rules set — no public client names, Karsten as single contact, no prices on the site. [1:1](../areas/softserve/calls/oracle/2026-09-24_183557_one-on-one_20260918181849CD8CD9A8.md)
 - 2026-10-19 — scientists' Jumpstart working sync with Alex and Inna ("Speaker A" there too, confirmed by his posts in the meeting chat): three verticals, lead-giving platforms only, NobleAI as the competitor, a free lighthouse client per person run as discovery. [sync](../areas/softserve/calls/jumpstart-science/2026-10-19_201609_default_pasted-science-jumpstart-sync.md)
+- 2026-10-21 — co-authored session 2 of the scientists' offering preparation with Taras Rumezhak, "Agentic Scientific Jumpstart" (three ranked workflows for a 6-week pod); Taras presented. [session 2](../areas/softserve/calls/jumpstart-science/2026-10-21_140416_default_pasted-science-workflows-session.md)
