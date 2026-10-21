@@ -50,7 +50,9 @@ deck or one-pager work.
     exists for only some items in a peer set, drop the evidence row for every item rather
     than showing "—" / "pending" next to proven ones — a visible gap undermines the whole
     set. Rule 3's "empty instance" applies to structure (an unfilled panel), never to
-    proof. Likewise no "NEW" / status badges that single out the unproven peer.
+    proof. Likewise no "NEW" / status badges that single out the unproven peer, and no "target" or
+    "focus" highlight on a subset of peers in an overview unless the requester ranked them
+    (2026-10-22, Alex on the verticals slide: "don't highlight 2 as focus, all equal").
 12. **Partner-facing stacks: partner first, with official logos, and layers that differ
     in weight, not just hue** (2026-09-02): when the audience is the partner (Oracle
     sellers), the partner's layer leads (top) and each layer carries the official logo —
@@ -211,6 +213,9 @@ deck or one-pager work.
     - Under every screenshot: the UI path at body size, «Розділ <Section> → Сторінка <record> → <Tab>», section and tab names in the
       product's own English; one path vocabulary for the whole deck (always «Сторінка», never «картка» in one place and «сторінка» in
       another). When the path does not fit one line, break it at an arrow into two balanced lines.
+    - A product screenshot is a straight-on capture of the real UI; vendor docs and launch blogs carry them. Never use a tilted
+      or perspective marketing render. Where a category has no real screen, draw a simple native diagram in the deck's own
+      diagram language instead (2026-10-22, Alex on the buckets slide: "where we had a rotated screen, make it straight view").
     - After a conceptual map of something the system implements, show the system's own screen of the same structure (2026-10-12,
       Alex: the CRM checklist right after the stage/block/step map).
     - What sits beside a screenshot is the point the screen proves for the process, in one note («the checklist is always current:
@@ -232,6 +237,7 @@ deck or one-pager work.
       comes after. A group that has its own steps is a numbered stage on the same equal-width grid, not a narrow in-between column
       (2026-10-12, Alex).
 28. **Where a stage splits into parallel streams or roles, a schema slide comes first and its pictograms recur on the detail slides**
+    (a list of principles or pillars likewise carries one relevant pictogram per item, so it reads and sticks; 2026-10-22, Alex)
     (2026-10-12, Alex on the same deck: the roles slide, the six-branch «готовність команд» schema, the three technical competences).
     - The schema shows the trigger, the streams and, per stream, the steps in sequence, each with a one-line purpose; a mark (*) with a
       footnote flags the steps whose obligation is conditional.
@@ -247,3 +253,13 @@ deck or one-pager work.
     - Mark the role, not the prose: ★ = the team owns the step, ✎ = the team enters data or approves in the system, both when both apply,
       none when it only takes part; a legend under the table. The marks must agree with the cards (★ only where the card's Owner is that
       team).
+30. **"It gets better with each round" is drawn as the change over the rounds, not as a loop of labelled boxes** (2026-10-22, Alex on
+    the kit slide: the four-box loop "reads poorly", and a nested pyramid "breaks layout of the slide").
+    - Show the quantity that changes per iteration, one bar per round: from the kit vs built for this client, per engagement.
+    - Mark the tipping point on the bars ("default scenarios after 2 to 4") and label the two phases above them.
+    - Use no figures unless they are data; the proportions carry the idea.
+31. **A fit scale between two options is drawn as zones on one axis** (2026-10-22, Alex on Essential vs Extended: "improve the UI, it
+    is not ideal to show the scale").
+    - Zones: option A's zone, a narrow hybrid band, option B's zone.
+    - Each criterion is a row with its two end values written inside the two zones.
+    - Never draw split bars with the end values as captions underneath.
