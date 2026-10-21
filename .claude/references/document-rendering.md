@@ -3,19 +3,21 @@
 How to render `.pptx`/`.docx` to images for visual QA on Alex's two Macs. Pointed from root
 `CLAUDE.md` — read this BEFORE rendering or QA-ing any deck/doc. Findings are machine-specific
 and dated; check which Mac you are on first (`scutil --get ComputerName`). Rewritten to current
-truth 2026-09-26 (added the MacBook Air and the PowerPoint export path).
+truth 2026-10-22 (PowerPoint export now works on KN7X2Y65NX too).
 
 ## Which path to use
 
 | Machine | Best path | Fallback |
 |---|---|---|
 | **Alex's MacBook Air** (`Alexs-MacBook-Air.local`) | **PowerPoint → PDF → PyMuPDF** (true fonts, template backgrounds) — works since PowerPoint was activated 2026-09-26 | QuickLook (geometry only) |
-| **`KN7X2Y65NX`** | QuickLook per-slide trick (below) | PowerPoint export only if its window shows no "View Only" banner (see below) |
+| **`KN7X2Y65NX`** | **PowerPoint → PDF → `pdftoppm`** (true fonts) — worked for every export on 2026-10-22 (a 14-slide reference deck, three one-slide summaries, eight builds of a 13-slide deck with an embedded video), even with Alex's own decks open in PowerPoint | QuickLook per-slide trick (below), if the export writes no PDF |
 
 Tool inventory: MacBook Air — no soffice, no poppler (`pdftoppm`), no Homebrew, system `python3` is
 3.9 (so the pptx skill's `validate.py`, which needs ≥ 3.10, does not run; a clean PowerPoint open +
-export is the practical validation). KN7X2Y65NX — soffice installed but `--convert-to` produces
-nothing (verified 09-07/09/11: hangs or exits 255 with an empty outdir) — don't spend attempts on it.
+export is the practical validation). KN7X2Y65NX — Homebrew `pdftoppm` (poppler) rasterises the PDF
+(`pdftoppm -r 80 -png deck.pdf out`), and system `python3` (3.14) runs the pptx skill's `validate.py`;
+no PyMuPDF in the system Python. soffice is installed but `--convert-to` produces nothing (verified
+09-07/09/11: hangs or exits 255 with an empty outdir) — don't spend attempts on it.
 
 ## PowerPoint export (the accurate path)
 
@@ -34,8 +36,8 @@ Working recipe (≈ 6–10 s for a 26-slide deck):
 4. `tell application "Microsoft PowerPoint" to save presentation "<name>" in (POSIX file "<out.pdf>") as save as PDF`
    (wrap in `with timeout of 270 seconds`; guard the call with `perl -e 'alarm N; exec @ARGV'`).
    Then check that the PDF exists and is non-empty before trusting the call: on KN7X2Y65NX on
-   2026-10-02 it returned without an error and wrote no file (View Only suspected, not confirmed),
-   so the deck QA fell back to QuickLook plus the builder's fit report.
+   2026-10-02 it once returned without an error and wrote no file (View Only suspected, not
+   confirmed); when that happens, fall back to QuickLook plus the builder's fit report.
 5. `close presentation "<name>" saving no` — close by name. `repeat with p in presentations … close p`
    fails with -2763; a variable named `out` collides with PowerPoint's dictionary (-10003).
 6. Rasterise with PyMuPDF (`pip install pymupdf` into a scratchpad venv): `page.get_pixmap(dpi=110)`
