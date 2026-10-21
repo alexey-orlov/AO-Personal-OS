@@ -274,3 +274,9 @@ deck or one-pager work.
     - Slides a person presents carry no per-item contact cards (names, photos, addresses); the presenter is the contact, and contacts
       stay on the leave-behinds (one-pagers, decks sent to sellers, the site). Where a dropped block leaves a band, extend the
       neighbouring block to the shared edge rather than leaving a gap.
+33. **A named customer on a proof or reference panel carries its real logo, never its name typed in its place** (2026-10-22, Alex on the
+    SBG and NHS panels: "must use real logos from internet, not just put their names").
+    - Take the mark from Alex's own decks first, then from the customer's site or Wikimedia (SVG with a PNG fallback); a typed name
+      beside real logos on peer panels reads unfinished.
+    - A brand-usage caution (the NHS identity rules) is one line to Alex, not a reason to drop the logo on an internal partner deck.
+      Size the marks so peer panels look equally heavy: a tall emblem gets more height than a wide wordmark.
