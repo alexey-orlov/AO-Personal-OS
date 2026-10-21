@@ -83,6 +83,7 @@ Theirs:
 
 ## Activity
 
+- 2026-10-21 — Program design deck (chat, 2026-10-21) — 14 slides in SoftServe's BEST_TEMPLATE (cover; Context ×4: verticals, platforms, buckets, solution types; Program design ×7: principles, Essential vs Extended, cadence with demo day and award, three measures, team, kit, pre-pilot readiness with internal upskilling and SME advisors), built from the exec summary; OneDrive `Projects/Jumpstart/AI Jumpstart for Scientists - program design deck.pptx`.
 - 2026-10-21 — Design stream bridged on page 4 (chat, 2026-10-21) — Essential (six weeks) and Extended versions with fit criteria, two cadences (sequence, or Arek's parallel streams), quality and adoption per bucket beside days saved, "tailor first, then settle"; the shared page is at version 9.
 - 2026-10-21 — [Session 2: workflows and AI capabilities](calls/jumpstart-science/2026-10-21_140416_default_pasted-science-workflows-session.md) — Taras and Bohdan ranked three workflows (reproducible computation first, evidence paired, GPU allocation gated) for a 6-week pod; Max and Adel challenged the allocation loop, Arkadiusz the whole design as too complicated; the transcript lacks the decision part.
 - 2026-10-20 — [Program-design session](calls/jumpstart-science/2026-10-20_default_pasted-science-program-design.md) — Alex, Oleh and Arek compared their design slides: Arek argued for six weeks and repeatable quick wins over deep tailoring, Oleh for repeatable concepts with client-picked tools; Alex merges all three into one deck of at most 5 slides.
