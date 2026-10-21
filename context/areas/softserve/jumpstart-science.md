@@ -70,11 +70,11 @@ _updated: 2026-10-21_
 
 - Bohdan Khomych — program lead and the team's life-science SME (a physicist by training, by his own account); went to three presales as the life-science expert; owns the Workflow section. He is "Speaker A" of the 10-19 sync (confirmed by his posts in the meeting chat) → [people page](../../people/bohdan-khomych.md).
 - Inna Abolikhina — ICP / GTM section; the CRM pull → [people page](../../people/inna-abolikhina.md).
-- Taras Romezhak — R&D practice whose team uses Claude Science for its research papers.
-- Max Druchok — shared insights from his projects with Inna; likely the Life Sciences cluster lead "Max" ([README](README.md#people), inferred). With Serhiy, gives a technical presentation that Arek expects to shape weeks 2–5.
-- Adel — source of the frontier-lab research-speed insight and of the work-parallelization idea.
-- Oleh — program-design stream; living research map, session buckets, tracer tasks, asset library. Likely Oleh Marchevich, a Jumpstart exec co-holder ([README](README.md#people), inferred).
-- Arek — program-design stream; ran the SDLC Jumpstart in the field (a software engineer with two years of research); argues for six weeks and quick wins. Likely Arkadiusz, the other Jumpstart exec co-holder (inferred).
+- Taras Rumezhak — R&D practice whose team uses Claude Science for its research papers; co-authored and presented session 2 with Bohdan. The spelling is his Teams name (earlier transcripts: "Romezhak").
+- Max Druchok — shared insights from his projects with Inna; likely the Life Sciences cluster lead "Max" ([README](README.md#people), inferred). With Serhiy, gives a technical presentation that Arek expects to shape weeks 2–5. In session 2 he challenged the allocation loop's equal-compute assumption.
+- Adel Bibi — source of the frontier-lab research-speed insight and of the work-parallelization idea; in session 2 he split GPU allocation into the single-scientist and shared-cluster cases.
+- Oleh — program-design stream; living research map, session buckets, tracer tasks, asset library. Likely Oleh Marchevich, a Jumpstart exec co-holder ([README](README.md#people), inferred). Oleh Mamchych (R&D) opened session 2's Q&A; which Oleh sat in the design stream is open.
+- Arek — program-design stream; ran the SDLC Jumpstart in the field (a software engineer with two years of research); argues for six weeks and quick wins. Likely Arkadiusz Drohomirecki (full name from session 2's Teams transcript), the other Jumpstart exec co-holder (inferred); there he called the workflow design too complicated.
 - Volodymyr ("Volodya") — leads the initiative across its streams; set the program's requirements, incl. people profiles. Surname not identified in the wiki.
 
 ## Decisions
@@ -111,9 +111,8 @@ Theirs:
 
 ## Activity
 
+- 2026-10-21 — [Session 2: workflows and AI capabilities](calls/jumpstart-science/2026-10-21_140416_default_pasted-science-workflows-session.md) — Taras and Bohdan ranked three workflows (reproducible computation first, evidence paired, GPU allocation gated) for a 6-week pod; Max and Adel challenged the allocation loop, Arkadiusz the whole design as too complicated; the transcript lacks the decision part.
 - 2026-10-20 — [Program-design session](calls/jumpstart-science/2026-10-20_default_pasted-science-program-design.md) — Alex, Oleh and Arek compared their design slides: Arek argued for six weeks and repeatable quick wins over deep tailoring, Oleh for repeatable concepts with client-picked tools; Alex merges all three into one deck of at most 5 slides.
-- 2026-10-20 — Per-phase gains row (chat, 2026-10-20) — Alex's idea: page 3's Microsoft flow and the standalone flow image gained a "What gets faster" row, one "↓ days to …, through …" line per phase; the shared page is at version 8.
-- 2026-10-20 — Lab-process positioning (chat, 2026-10-20) — every page now claims only the work around the physical test: page 1's bottom line, page 3 and both standalone Microsoft-flow images (no capture claim on customer qualification) and page 4's proof step; bucket 2's metric became days from a result to the decision on what to run next; the shared page is at version 7.
 - 2026-10-20 — Seven principles, new team, reworked metrics (chat, 2026-10-20) — page 4 now opens with Alex's seven program principles and his five-role SoftServe team (2.5 / 5.25 FTE); "modules" replace "picks"; page 1's outcome metrics were replaced after his red-team; the shared page is at version 6.
 - 2026-10-20 — Exec summary to 4 pages + Alex's program decisions (chat, 2026-10-20) — page 1 gained a measured outcome per bucket, page 3 puts the buckets on Microsoft's R&D flow with four industry-group cards, page 4 is the delivery one-pager (Light 1 + 6 weeks · Full 2 + 11 weeks plus advisory; gates, client hours, SoftServe FTE, eight gaps before a pilot); shared as one page and saved to OneDrive; eight program decisions settled in a Q&A, among them one program with industry kits on the client's own AI stack.
 - 2026-10-19 — [Science Jumpstart working sync](calls/jumpstart-science/2026-10-19_201609_default_pasted-science-jumpstart-sync.md) — three target verticals (pharma, chemical manufacturing, energy), a lifecycle-verticalized PM-track model, big lead-giving platforms only with NobleAI as the competitor, sell transformation in packages; start with a free lighthouse client per person run as discovery; Inna sizes the existing-client channel from the CRM. Subproject page created.
