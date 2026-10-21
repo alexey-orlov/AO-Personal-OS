@@ -66,12 +66,15 @@ _updated: 2026-10-21_
 - Bohdan Khomych — program lead and the team's life-science SME (a physicist by training, by his own account); went to three presales as the life-science expert; owns the Workflow section. He is "Speaker A" of the 10-19 sync (confirmed by his posts in the meeting chat) → [people page](../../people/bohdan-khomych.md).
 - Inna Abolikhina — ICP / GTM section; the CRM pull → [people page](../../people/inna-abolikhina.md).
 - Taras Romezhak — R&D practice whose team uses Claude Science for its research papers.
-- Max Druchok — shared insights from his projects with Inna; likely the Life Sciences cluster lead "Max" ([README](README.md#people), inferred).
-- Adel — source of the frontier-lab research-speed insight.
-- "Volodya" — set the program's requirements, incl. people profiles; not identified in the wiki.
+- Max Druchok — shared insights from his projects with Inna; likely the Life Sciences cluster lead "Max" ([README](README.md#people), inferred). With Serhiy, gives a technical presentation that Arek expects to shape weeks 2–5.
+- Adel — source of the frontier-lab research-speed insight and of the work-parallelization idea.
+- Oleh — program-design stream; living research map, session buckets, tracer tasks, asset library. Likely Oleh Marchevich, a Jumpstart exec co-holder ([README](README.md#people), inferred).
+- Arek — program-design stream; ran the SDLC Jumpstart in the field (a software engineer with two years of research); argues for six weeks and quick wins. Likely Arkadiusz, the other Jumpstart exec co-holder (inferred).
+- Volodymyr ("Volodya") — leads the initiative across its streams; set the program's requirements, incl. people profiles. Surname not identified in the wiki.
 
 ## Decisions
 
+- 2026-10-20 — **Program-design stream:** Alex merges the three presentations into one short deck, and Oleh and Arek review it offline; the client SMEs' time is a precondition; the deck says the program adapts to each client and its kit improves with each engagement. [design session](calls/jumpstart-science/2026-10-20_default_pasted-science-program-design.md)
 - 2026-10-20 — **Alex's seven program principles** (they head page 4): admit uncertainty · two modes · extended discovery · deep tailoring · three weeks per module · home assignment, demo and AI acceleration award · advisory after. (chat, 2026-10-20)
 - 2026-10-20 — **Delivery team (Alex):** engagement lead · solution & product architect · business analyst · AI builders · SME, replacing the first draft's six roles. (chat, 2026-10-20)
 - 2026-10-20 — **Results commitment, Full mode (Alex):** shared targets, one per module, agreed in week 3 and reported; fees do not depend on hitting them. (chat, 2026-10-20)
@@ -90,17 +93,20 @@ _updated: 2026-10-21_
 ## Open loops
 
 Mine:
-- **Next iteration of the exec summary's delivery one-pager (page 4).** (chat, 2026-10-20)
+- **Merged program-design deck** (at most 5 slides) to Oleh and Arek, due 2026-10-21 midday. [design session](calls/jumpstart-science/2026-10-20_default_pasted-science-program-design.md)
+- **Next iteration of the exec summary's delivery one-pager (page 4)**; the open length and tailoring questions from the design session feed it (inferred). (chat, 2026-10-20)
 - **Settle whether the withheld client-logo variant of page 3 may go anywhere internal**; its logos are not cleared for external use (owner inferred). (chat, 2026-10-20)
-- **Raise the lighthouse-as-discovery action point** at this week's session, if presenting on 2026-10-20; post my deck section in the group chat. [sync](calls/jumpstart-science/2026-10-19_201609_default_pasted-science-jumpstart-sync.md)
+- **Raise the lighthouse-as-discovery action point** at this week's sessions; whether it came up on 2026-10-20 isn't in the wiki. Post my deck section in the group chat. [sync](calls/jumpstart-science/2026-10-19_201609_default_pasted-science-jumpstart-sync.md)
 - **Win one lighthouse client** (each of the three). [sync](calls/jumpstart-science/2026-10-19_201609_default_pasted-science-jumpstart-sync.md)
 
 Theirs:
 - **Inna** — pull SoftServe's client list from the CRM (connector, else Excel export) and run Claude over it for R&D units and what they research; target 2026-10-20/21; share even an unanalyzed list; say in the chat if the connector fails. [sync](calls/jumpstart-science/2026-10-19_201609_default_pasted-science-jumpstart-sync.md)
 - **Bohdan** — research the per-vertical workflows (section 2), share his deck section 2026-10-20, also try the CRM connector. [sync](calls/jumpstart-science/2026-10-19_201609_default_pasted-science-jumpstart-sync.md)
+- **Oleh, Arek** — offline feedback on the merged deck, 2026-10-21 evening and 2026-10-22. [design session](calls/jumpstart-science/2026-10-20_default_pasted-science-program-design.md)
 
 ## Activity
 
+- 2026-10-20 — [Program-design session](calls/jumpstart-science/2026-10-20_default_pasted-science-program-design.md) — Alex, Oleh and Arek compared their design slides: Arek argued for six weeks and repeatable quick wins over deep tailoring, Oleh for repeatable concepts with client-picked tools; Alex merges all three into one deck of at most 5 slides.
 - 2026-10-20 — Per-phase gains row (chat, 2026-10-20) — Alex's idea: page 3's Microsoft flow and the standalone flow image gained a "What gets faster" row, one "↓ days to …, through …" line per phase; the shared page is at version 8.
 - 2026-10-20 — Lab-process positioning (chat, 2026-10-20) — every page now claims only the work around the physical test: page 1's bottom line, page 3 and both standalone Microsoft-flow images (no capture claim on customer qualification) and page 4's proof step; bucket 2's metric became days from a result to the decision on what to run next; the shared page is at version 7.
 - 2026-10-20 — Seven principles, new team, reworked metrics (chat, 2026-10-20) — page 4 now opens with Alex's seven program principles and his five-role SoftServe team (2.5 / 5.25 FTE); "modules" replace "picks"; page 1's outcome metrics were replaced after his red-team; the shared page is at version 6.
