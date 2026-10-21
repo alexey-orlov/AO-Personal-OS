@@ -266,3 +266,11 @@ deck or one-pager work.
     - Zones: option A's zone, a narrow hybrid band, option B's zone.
     - Each criterion is a row with its two end values written inside the two zones.
     - Never draw split bars with the end values as captions underneath.
+32. **Slides built to slot into a host presentation open the part with the host's own section divider and carry no contacts blocks**
+    (2026-10-22, Alex on the Oracle practice-and-products slides: "remove the contacts blocks + add block title for my part (from
+    original presentation)").
+    - Find the host deck's divider for that part and carry it over verbatim (number, title, its line, its speaker note), ahead of the
+      part's first slide; build every slide on the host's own masters, so the set pastes in unchanged.
+    - Slides a person presents carry no per-item contact cards (names, photos, addresses); the presenter is the contact, and contacts
+      stay on the leave-behinds (one-pagers, decks sent to sellers, the site). Where a dropped block leaves a band, extend the
+      neighbouring block to the shared edge rather than leaving a gap.
