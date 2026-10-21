@@ -216,6 +216,9 @@ deck or one-pager work.
     - A product screenshot is a straight-on capture of the real UI; vendor docs and launch blogs carry them. Never use a tilted
       or perspective marketing render. Where a category has no real screen, draw a simple native diagram in the deck's own
       diagram language instead (2026-10-22, Alex on the buckets slide: "where we had a rotated screen, make it straight view").
+    - On an overview with one picture per item, the picture gets most of the card, and the text drops to the item's name plus
+      one line. Choose a grid that keeps the frames wide (3×2, not six narrow columns) and draw the diagrams horizontally to
+      fit them (2026-10-22, Alex: "less text, larger visuals").
     - After a conceptual map of something the system implements, show the system's own screen of the same structure (2026-10-12,
       Alex: the CRM checklist right after the stage/block/step map).
     - What sits beside a screenshot is the point the screen proves for the process, in one note («the checklist is always current:
