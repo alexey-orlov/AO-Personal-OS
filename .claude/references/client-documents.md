@@ -106,6 +106,17 @@ counts and the scaffolding, not the essence" and used internal vocabulary
   name and one line each, in place of a prose bottom line; then name the later sections and grid
   rows after the principle they put to work, so the page reads principles first, mechanics second.
   Adding the band must not lengthen the page: cut elsewhere and count the words.
+- **A program's metrics are examples until the presales workshop, and each one is either provable
+  inside the program's weeks or reported after it** (2026-10-23, Alex: "metrics are too precise …
+  add a footnote that these are examples, decided upon a presales workshop"; Arek: some cycles, like
+  a result leading to the next run decision, take longer than six weeks). Before promising an
+  outcome metric, check that enough of its cycles complete inside the engagement window; a
+  result-to-decision cycle, a sign-off chain or onboarding a new hire usually does not. What does
+  not fit is proved in the program with a tracer task (a recurring task timed at a week-1 baseline,
+  retested in the final week, with a quality check on its output) and reported after the program
+  from the client's own records (months 3 and 6). Adoption is one program-level measure (weekly
+  users), never one per use case. Label the set as examples the client agrees at the presales
+  workshop.
 - **A metric is shown, not explained, and its chart matches its number at a glance** (2026-09-29,
   Alex on the mini-site's Outcomes & ROI rail: "too wordy, and too boring … no footnotes and
   explanations of how you built metrics"; then on its charts: "hard to understand from graphics

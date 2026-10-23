@@ -280,3 +280,8 @@ deck or one-pager work.
       beside real logos on peer panels reads unfinished.
     - A brand-usage caution (the NHS identity rules) is one line to Alex, not a reason to drop the logo on an internal partner deck.
       Size the marks so peer panels look equally heavy: a tall emblem gets more height than a wide wordmark.
+34. **Every number names what it counts, and every line reads without the other slides** (2026-10-23, Alex on the principles slide:
+    "1 week in Essential" right under "Essential … in six weeks" read as the whole version lasting a week, and "after 2 to 4" made
+    sense only after the kit slide).
+    - Write the noun and the scope: "1 week of discovery in Essential", "after 2 to 4 engagements".
+    - When two lines on one slide give durations or counts of different things, name both things.
