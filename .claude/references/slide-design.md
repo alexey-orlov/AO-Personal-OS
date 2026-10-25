@@ -1,9 +1,9 @@
-# Slide-deck & one-pager design rules
+# Slide-deck, one-pager & printed-document design rules
 
-Alex's standing design rules for building or editing slide decks and one-pagers
-(2026-07-10, from his design feedback on the Oracle partnership deck; rule 9 added
-2026-07-20 from one-pager feedback). Pointed from root `CLAUDE.md` — read BEFORE any
-deck or one-pager work.
+Alex's standing design rules for building or editing slide decks, one-pagers and printed
+documents (.docx/PDF handouts and instructions) (2026-07-10, from his design feedback on the
+Oracle partnership deck; later rules dated where added). Pointed from root `CLAUDE.md` — read
+BEFORE any deck, one-pager or printed-document work.
 
 1. **Size containers to content** — a box more than ~half empty means the type is too
    small or the box too big; prefer large editorial statements over small text floating
@@ -39,7 +39,11 @@ deck or one-pager work.
    (summary stats, scope, mechanics, results, people) should read as visually different
    forms. Mix directions: pair a narrow vertical stack against a wide vertical list in a
    two-column band, keep true sequences horizontal (flows with arrows), and reserve
-   repeated same-form rows for genuinely peer content.
+   repeated same-form rows for genuinely peer content. A horizontal sequence runs in the
+   order things happen: step 1 is on the left. When two pictures show the same objects acted
+   on in opposite orders (plug in: socket, then station; unplug: station, then socket), draw
+   the second one mirrored so its first step is on the left too; never number right to left
+   (2026-10-25, Alex on the plug-to-plug cable schematics).
 10. **Structure by hierarchy, not by tinting every group** (2026-09-02, Toyota/Oracle
     practice slide): a slide where every content group sits in its own coloured panel
     (three grey cards + blue panel + orange panel + chip row + two stat bands) gives the
@@ -210,6 +214,13 @@ deck or one-pager work.
       2× slide (≈ 9 pt as presented). A 1× capture with ~16 px text needs ≥ 0.009 in/px; a 2× capture with ~26 px text needs
       ≥ 0.005 in/px. Alex flagged everything at 0.0054–0.0060 in/px for 1×-density pages and dialogs; the focused crops reached
       0.0082–0.0100 (2026-10-12, Alex: "очень мелкие скриншоты… не видно выделенного текста… не в ущерб карточки").
+    - The same check covers every picture that carries text (vendor diagrams with labels, annotated photos, schematics)
+      and printed documents. Size the picture from its smallest label: on an A4 printout that label must come out at
+      ≥ ~7 pt, i.e. ≥ ~1.7 mm cap height. Measure the label's cap height in image pixels; the printed width must be at
+      least image width ÷ cap height × 1.7 mm. When the slot can't hold that width, rearrange the page (a narrow side
+      column beside the picture, another page split); never ship the picture smaller (2026-10-25, Alex: «схемы
+      подключения… сделай крупнее, чтобы можно было нормально прочитать текст». A 1254-px Starlink diagram with
+      15-px label caps had gone in at 4.8 cm, ≈ 3 pt; at 14 cm the labels print at ≈ 7 pt).
     - Under every screenshot: the UI path at body size, «Розділ <Section> → Сторінка <record> → <Tab>», section and tab names in the
       product's own English; one path vocabulary for the whole deck (always «Сторінка», never «картка» in one place and «сторінка» in
       another). When the path does not fit one line, break it at an arrow into two balanced lines.
@@ -285,3 +296,10 @@ deck or one-pager work.
     sense only after the kit slide).
     - Write the noun and the scope: "1 week of discovery in Essential", "after 2 to 4 engagements".
     - When two lines on one slide give durations or counts of different things, name both things.
+35. **Number pages by the unit the reader holds** (2026-10-25, Alex on the family passwords-and-instructions
+    document, whose sections are printed separately: «убери нумерацию страниц и разделов… для двухстраничных
+    инструкций оставь нумерацию (1-2)»).
+    - Sections that are used on their own carry no «Раздел N из M» and no document-wide page numbers.
+    - A section longer than one page numbers its own pages («стр. 1 из 2»); a one-page section carries no number.
+    - In Word, give every section its own header and footer, empty ones included. A section that declares none
+      inherits the previous section's footer, page number and all.
