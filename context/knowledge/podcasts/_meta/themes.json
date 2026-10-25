@@ -44,7 +44,7 @@
         "b2b-saas-and-scaling"
       ],
       "hint": "growth loops, distribution, GTM motions, pricing, packaging, monetization, SaaS-agent design",
-      "note": "split 2026-08-25 → enterprise-sales-playbook"
+      "note": "split 2026-08-25 → enterprise-sales-playbook; split → agents-in-gtm-and-revenue-ops, 2026-10-25"
     },
     "founders-and-fundraising": {
       "title": "Founders & fundraising",
@@ -341,6 +341,14 @@
       "aliases": [],
       "hint": "personal and consumer agent products (Muse, Dots, Grok Bot), memory/identity/permission/voice patterns, owned personal AGI, consumer shopping and life-admin agents",
       "note": "split from ai-agents-and-applications, 2026-10-11"
+    },
+    "agents-in-gtm-and-revenue-ops": {
+      "title": "Agents in GTM & revenue operations",
+      "status": "active",
+      "created": "2026-10-25",
+      "aliases": [],
+      "hint": "AI agents doing GTM work: lead qualification, inbound chat, outbound, renewals, marketing ops, headless CRM",
+      "note": "split from growth-gtm-and-pricing, 2026-10-25"
     }
   }
 }
