@@ -156,6 +156,23 @@ _From Karsten's email "AW: Nemotron @Oracle Public&Defense EMEA" (2026-08-28, to
 
 **Selection rule from Karsten:** "the real compelling ones, with the greatest demand". **Read:** this channel is Oracle-account-led (NATO agency + national public sector), not Neil's enablement org — a different sponsor, a different delivery chain (Thales/Reply already inside), and a deployment constraint (distributed cloud) that the AI-Accelerators motion never had. [Inference]
 
+### Construction & Engineering (CE) industry team, Middle East — surfaced 2026-10-29
+
+_From the [2026-10-29 intro call](calls/oracle/2026-10-29_154052_sales-call_20261029123109A0BACBC2.md); names as shown in Alex's screenshot of the call grid. Joseph met Karsten at Oracle's aviation conference in Germany in early October and set up the call._
+
+**An industry unit, not part of the AI organisation:** "strictly focused on construction engineering", working with the rest of Oracle to get deals done. It hears a lot of AI demand from customers that is "not always very, very specific", has "some capability in the pipeline", and wants partners with reusable use cases and proof (POC status, success criteria, case studies). Some OCI regions where it runs Oracle CE products have only AMD GPUs, so NVIDIA-funded POCs don't fit there. Only half the team was on the call; the energy & water half covers utilities that use Oracle Field Service. Follow-ups run through Joseph.
+
+| Person (as on screen) | Role | Notes |
+|---|---|---|
+| **Joseph Eli Khoury** ("Joe") | Account management; hosted the call | **The coordination point** (Werner: "coordinate through Joseph"). Wants to follow SBG from requirements to outcome so the team can tell other customers what is possible |
+| **Werner** ("Werner - Oracle") | **Leads the team** | Based in Johannesburg, the rest of the team is in Dubai. Wants the energy & water team in the next update, for workforce optimization in utilities |
+| **Ahmed Yamama** ("Ahmad") | **Leads the industry specialists** | Asked for a deep dive on the SBG use case: how it works, which KPIs define success, budget/cost vs workflow (speaker inferred) |
+| **Sherief Elabd** ("Sharif") | Industry specialist, construction engineering | Raised the AMD-only OCI regions, and defined construction digital twins as design-linked and spanning 4–5+ applications; offered to orient SoftServe (speaker inferred). Vivek (SoftServe) recalls working with him on an Emirates facilities-management bid ~2 years ago |
+| **Elias Nicolas** | Account management | Asked where the POCs stand and how success is defined (speaker inferred) |
+| **Fadhel** ("Fadhel-Oracle CE") | Account management | Joined late; no attributable turns |
+| **Jose** | Energy & water team (utilities) | Not on the call; Werner wants him in future workforce-optimization talks |
+| **Colin** | Not stated | Not on the call; Werner: "maybe Colin as well". Whether he is the Marketplace team's Colin is unknown |
+
 ### Oracle's own AI-&-Data professional-services capability (under Gero) — surfaced 2026-07-22
 
 At the [2026-07-22 Neil+Gero strategic alignment session](oracle.md#snapshot), Oracle disclosed that **Gero's AI-&-Data GTM team is standing up its own delivery / PS capability** — directly shaping how SoftServe should position its practice:
