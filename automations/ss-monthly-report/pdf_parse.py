@@ -17,6 +17,11 @@ dropped or corrupted rows during the 2026-08-02 build; do not "simplify" them:
   * The start-end range shares its line with the project code ("SS   13:09 - 20:20"),
     so the range must be matched with .search(), never .match().
   * Descriptions wrap onto following lines, sometimes after the range line.
+  * Since the Oct'26 export the range prints to the MINUTE, with no leading zero
+    on the hour ("23:00 - 0:01"); earlier exports printed "13:09:05 - 20:20:41".
+    Both forms are accepted. Durations still carry seconds and stay the billed
+    figure, so on a minute-precision row end-start is only checked to within a
+    minute; the header-total gate below is unaffected.
 
 The parsed total is checked against the PDF's own "Total:" header and a mismatch
 is fatal. That gate is the only reason the two bugs above were caught -- keep it.
@@ -30,7 +35,7 @@ import sys
 from datetime import timedelta
 
 DATE_RE = re.compile(r'^(\d{2}/\d{2}/\d{4})\s+(.*?)\s+(\d{2}:\d{2}:\d{2})\s+(\S+)\s*$')
-RANGE_RE = re.compile(r'(\d{2}:\d{2}:\d{2}) - (\d{2}:\d{2}:\d{2})')
+RANGE_RE = re.compile(r'(\d{1,2}:\d{2}(?::\d{2})?) - (\d{1,2}:\d{2}(?::\d{2})?)')
 TOTAL_RE = re.compile(r'^Total:\s*(\d+:\d{2}:\d{2})', re.M)
 NOISE = ('Created with Clockify', 'Detailed report')
 
@@ -43,6 +48,11 @@ def to_td(hms):
 def fmt(td):
     s = int(td.total_seconds())
     return f'{s // 3600:02d}:{s % 3600 // 60:02d}:{s % 60:02d}'
+
+
+def clock(t):
+    """'0:01' / '23:00' / '13:09:05' -> 'HH:MM:SS' (minute-precision exports get :00)."""
+    return fmt(to_td(t if t.count(':') == 2 else t + ':00'))
 
 
 def pdf_to_text(pdf):
@@ -72,7 +82,8 @@ def parse(text):
         r = RANGE_RE.search(line)                 # .search: shares the line with the project code
         if r:
             if cur['start'] is None:
-                cur['start'], cur['end'] = r.group(1), r.group(2)
+                cur['start'], cur['end'] = clock(r.group(1)), clock(r.group(2))
+                cur['to_minute'] = r.group(1).count(':') == 1
             continue
         rest = line.strip()
         if rest and rest not in ('SS', '+1'):     # wrapped description tail
@@ -95,12 +106,14 @@ def validate(entries, stated):
         sys.exit(f'pdf_parse: {len(missing)} entr(y/ies) missing start/end, '
                  f'first: {missing[0]["date"]} {missing[0]["desc"][:60]!r}')
 
-    # Per-entry: the printed duration must equal end-start (midnight-crossing allowed).
+    # Per-entry: the printed duration must equal end-start (midnight-crossing allowed),
+    # to the second -- or to within a minute when the range was printed to the minute.
     for e in entries:
         d = to_td(e['end']) - to_td(e['start'])
         if d.total_seconds() < 0:
             d += timedelta(days=1)
-        if fmt(d) != e['dur']:
+        slack = 59 if e.pop('to_minute', False) else 0
+        if abs((d - to_td(e['dur'])).total_seconds()) > slack:
             sys.exit(f'pdf_parse: duration mismatch on {e["date"]} {e["desc"][:50]!r}: '
                      f'printed {e["dur"]}, start/end imply {fmt(d)}')
 
