@@ -60,6 +60,17 @@ prefix. When applying his rule takes judgment (which entries count as "Oracle pr
 your best reading and list every routed entry with its dollar value for him to confirm. Never
 rename a client-facing Project Name to make a prefix match: Sep'26 did, and Alex reverted it.
 
+**Alex's standing rules** (his brief of 2026-11-02, and the Oct'26 split he confirmed as built):
+- The `R&D Team: Local AI Presence` and `Presales EU-5 - Oracle DACH` rows carry over from the
+  previous month's workbook, codes included ("you have them from the last report"). Numerix
+  bills to `Presales - NA-SH-3: GI Partners` (PR-56138).
+- Oracle entries split the way the previous month's `Details` tab split them. Oct'26 put the
+  Oracle FSI team meeting, its prep and the sync about it, the Dubai Oracle event prep, the AIDP
+  meeting and Oracle Aviation projects on presale, and kept the Oracle intel-platform research
+  presentation and the Oracle minisite work on R&D, as Sep'26 kept the OCI GTM and Arrow
+  partner calls. The line it draws (inferred): an Oracle opportunity, industry team or event is
+  presale; internal work about Oracle and partner go-to-market calls are R&D.
+
 ## Procedure
 
 Run from the repo root. Scripts live in `automations/ss-monthly-report/`; use its venv
@@ -143,8 +154,10 @@ Run from the repo root. Scripts live in `automations/ss-monthly-report/`; use it
     Report `bt_details_cells_cleared` from the build output so the clearing is visible, not assumed.
 - **Project rows.** SoftServe issues the `PR-…` codes; they are **not** derivable from Clockify.
   If the target was cloned from last month, its PR codes are last month's — flag that they must
-  be confirmed. If a prefix has no matching row, `report_build.py` aborts: report the abort, do
-  not invent a row. A row Alex names is added with `--project`, never by hand-editing the template.
+  be confirmed, except on the standing rows under Grouping, which carry over on Alex's own rule:
+  say so instead of asking. If a prefix has no matching row, `report_build.py` aborts: report the
+  abort, do not invent a row. A row Alex names is added with `--project`, never by hand-editing
+  the template.
 - **Rate.** $120/h per contract. Hours are rounded to 2 dp, then multiplied. If Alex says the
   rate changed, pass `--rate`; never silently reuse a stale one.
 - **Anomalies to surface, not fix:** entries naming another group without its prefix; a
@@ -180,8 +193,8 @@ Run from the repo root. Scripts live in `automations/ss-monthly-report/`; use it
   goes through LibreOffice rather than reading openpyxl's `data_only` values (which are `None`).
 - **`timeout`/`gtimeout` are not installed on this Mac.** Guard any `soffice` call with a
   poll-loop plus `kill`, as `report_verify.py` does.
-- The Clockify project is `SS`; the split into two billing projects happens purely through
-  description prefixes, not through Clockify projects.
+- The Clockify project is `SS`; the split into billing projects happens through description
+  prefixes and explicit `"pr"` routing, never through Clockify projects.
 - **Never rebuild the timesheet by scraping the report DOM.** It looks readable and is not
   (verified 2026-09-01): the date cell renders a *relative label* (`Today`), start/end/duration
   live in `<input>` values that `innerText` returns empty, midnight crossings show only as a
