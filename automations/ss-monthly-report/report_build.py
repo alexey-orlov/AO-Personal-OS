@@ -22,6 +22,14 @@ Design rules, each of which is load-bearing:
 * Groups map to summary rows by matching the prefix against the row's Project
   Name; the un-prefixed group takes the remaining row. Nothing is keyed on a
   hard-coded PR code, because SoftServe reissues those every month.
+* An entry may carry an explicit "pr" in the entries JSON; it goes to that PR's
+  row whatever its prefix. Only the judgment step sets it, on a rule Alex gave
+  ("Numerix bills to PR-56138") -- this script never infers a route from what a
+  description is about. It replaces renaming a client-facing Project Name to make
+  a prefix match (Sep'26: "Presales EU-5 - Oracle DACH - Toyota, SBG").
+* --project PR=NAME (repeatable) declares this month's summary rows, in order,
+  replacing the template's. The template's first project row lends its style and
+  its Subcontractor ID / Name / Currency. Without it, the template's rows stand.
 * Ambiguity is fatal, never guessed. An unmapped prefix or a row-count mismatch
   aborts with the actual names printed, so a wrong project never gets billed.
 * --bt is mandatory whenever the source workbook has a Business trip row.
@@ -107,26 +115,44 @@ def find_row(ws, *labels):
 
 
 # ---------------------------------------------------------------- group mapping
+def group_key(e):
+    """'=PR-…' for an explicitly routed entry, else its [Prefix], else ''."""
+    if (e.get('pr') or '').strip():
+        return '=' + e['pr'].strip()
+    m = PREFIX_RE.match(e['desc'])
+    return m.group(1) if m else ''
+
+
 def group_entries(entries):
-    """-> ordered dict {prefix or '' : [entries]}, preserving first-seen order."""
+    """-> ordered dict {group key: [entries]}, preserving first-seen order."""
     groups = {}
     for e in entries:
-        m = PREFIX_RE.match(e['desc'])
-        groups.setdefault(m.group(1) if m else '', []).append(e)
+        groups.setdefault(group_key(e), []).append(e)
     return groups
 
 
 def map_groups_to_rows(groups, summary_rows):
-    """prefix -> summary row. Match on project name; '' takes what is left over."""
+    """group key -> summary row. '=PR-…' takes the row with that PR code, a prefix
+    matches on project name, '' takes what is left over. One group per row."""
     mapping, taken = {}, set()
-    for prefix in [p for p in groups if p]:
+    for key in [k for k in groups if k.startswith('=')]:
+        hits = [r for r in summary_rows if r['pr'] == key[1:]]
+        if len(hits) != 1:
+            die(f'{len(groups[key])} entr(y/ies) are routed to {key[1:]}, which appears '
+                f'{len(hits)} time(s) on the summary tab ({[r["pr"] for r in summary_rows]}). '
+                f'Fix the routing or the project rows, then re-run.')
+        mapping[key] = hits[0]
+        taken.add(hits[0]['row'])
+
+    for prefix in [p for p in groups if p and not p.startswith('=')]:
         hits = [r for r in summary_rows
                 if prefix.lower() in (r['name'] or '').lower() and r['row'] not in taken]
         if len(hits) != 1:
             die(f'cannot map prefix [{prefix}] to a project row -- '
-                f'{len(hits)} name match(es) among '
-                f'{[r["name"] for r in summary_rows]}. Fix the summary tab, or '
-                f'rename the Clockify prefix, then re-run.')
+                f'{len(hits)} name match(es) among unclaimed '
+                f'{[r["name"] for r in summary_rows if r["row"] not in taken]}. Fix the '
+                f'summary tab, rename the Clockify prefix, or give these entries a "pr", '
+                f'then re-run.')
         mapping[prefix] = hits[0]
         taken.add(hits[0]['row'])
 
@@ -143,6 +169,40 @@ def map_groups_to_rows(groups, summary_rows):
         die(f'summary tab has project row(s) with no matching time entries: '
             f'{[r["name"] for r in unused]}. Remove them or log time against them.')
     return mapping
+
+
+def declare_rows(summary, specs):
+    """Replace the summary tab's project rows with --project PR=NAME rows, in order.
+
+    Period and Amount gross are filled later by main(); everything else that is not
+    this month's own (style, Subcontractor ID / Name, Currency) comes from the
+    template's first project row.
+    """
+    proto = next((r for r in range(2, summary.max_row + 1)
+                  if str(summary.cell(row=r, column=4).value or '').strip()), None)
+    if proto is None:
+        die('cannot declare project rows: the template summary tab has no project row '
+            'to take the subcontractor details and style from')
+    style = snapshot(summary, proto)
+    keep = {c: summary.cell(row=proto, column=c).value for c in (2, 3, 7)}
+
+    rows = []
+    for spec in specs:
+        pr, sep, name = (s.strip() for s in spec.partition('='))
+        if not (sep and pr and name):
+            die(f'--project expects PR-CODE=Project Name, got {spec!r}')
+        rows.append((pr, name))
+    if len({pr for pr, _ in rows}) != len(rows):
+        die(f'--project lists a PR code twice: {[pr for pr, _ in rows]}')
+
+    summary.delete_rows(2, summary.max_row)
+    for r, (pr, name) in enumerate(rows, start=2):
+        for c, v in keep.items():
+            summary.cell(row=r, column=c, value=v)
+        summary.cell(row=r, column=4, value=pr)
+        summary.cell(row=r, column=5, value=name)
+        for col in style:
+            stamp(summary[f'{col}{r}'], style, col)
 
 
 # ---------------------------------------------------------------- OOXML salvage
@@ -218,7 +278,11 @@ def main():
     ap.add_argument('--bt', choices=['keep', 'drop'],
                     help='what to do with the template Business trip row (required if present)')
     ap.add_argument('--bt-group', default='',
-                    help="prefix of the group the trip belongs to ('' = un-prefixed group)")
+                    help="prefix of the group the trip belongs to ('' = un-prefixed group, "
+                         "'=PR-…' = an explicitly routed group)")
+    ap.add_argument('--project', action='append', default=[], metavar='PR=NAME',
+                    help="this month's summary rows, in order (repeatable); replaces the "
+                         "template's rows. Omit to keep them.")
     a = ap.parse_args()
 
     payload = json.load(open(a.entries))
@@ -248,6 +312,8 @@ def main():
             f"Use a Jun'26-or-later workbook as the template.")
 
     # --- summary project rows (source of truth for PR codes) --------------------
+    if a.project:
+        declare_rows(summary, a.project)
     rows = []
     for r in range(2, summary.max_row + 1):
         pr = summary.cell(row=r, column=4).value
