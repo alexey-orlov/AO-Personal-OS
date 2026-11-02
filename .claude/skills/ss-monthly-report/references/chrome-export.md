@@ -20,8 +20,10 @@ usual way: [`automations/chrome-mcp/preflight.md`](../../../../automations/chrom
    Take the month bounds from config, not from memory — the last day varies.
 
 2. **Navigate and confirm the session.** If Clockify shows a login screen, stop and ask Alex to
-   sign in; do not try to authenticate. Confirm the date-range control reads the month you want
-   (`01/08/2026 - 31/08/2026`) before trusting anything on the page.
+   sign in; do not try to authenticate. If the extension isn't connected
+   (`list_connected_browsers` returns nothing), ask Alex to open Chrome with it: the built-in
+   browser pane has no Clockify session (2026-11-02). Confirm the date-range control reads the
+   month you want (`01/08/2026 - 31/08/2026`) before trusting anything on the page.
 
 3. **Read and record the `Total:`** shown above the table (e.g. `90:54:50`). This is your
    independent cross-check on the parser later — it is the one number worth taking off the DOM.
@@ -76,6 +78,17 @@ A cancelled export reads `target_path=''`, `state=2` (cancelled), `interrupt_rea
 
 So: **never report success off the click** — poll for the file, and if it does not appear, check the
 downloads table and retry once before asking Alex to accept the save dialog.
+
+## What the export reflects
+
+- **Time zone.** The report renders in the Clockify profile's time zone, **Europe/Warsaw**
+  (Profile → Preferences, checked 2026-11-02), one hour behind the Mac's Europe/Kiev; Clockify's
+  "Timezone mismatch" notice is about this. Hours and money are unaffected, but start/end times
+  are Warsaw time and an entry just after midnight Kyiv time lands on the previous date. It is
+  Alex's account setting: report it, never click "Change to Europe/Kiev".
+- **Precision.** Since Oct'26 the PDF prints start/end to the minute; durations keep their
+  seconds. `pdf_parse.py` handles both forms. `EXPORT → Customization` is a paid feature, so the
+  seconds can't be switched back on.
 
 ## Two things not to do
 

@@ -52,6 +52,14 @@ carries no prefix, so it billed to the other project. That is the rule working a
 but always **flag entries whose text names another group while lacking its prefix**, with the
 dollar value, so Alex can decide. Do not move them yourself.
 
+**Explicit routing, on Alex's rule only.** When Alex gives a routing rule that prefixes can't
+carry (Oct'26: "Numerix bills to PR-56138", and no entry had a prefix that month), copy the parse
+to `.work/entries-<YYYY-MM>.json` (keep the parse itself as `…-clockify-raw.json`) and add
+`"pr": "PR-…"` to each entry the rule covers; the builder sends it to that row whatever its
+prefix. When applying his rule takes judgment (which entries count as "Oracle presale"), route
+your best reading and list every routed entry with its dollar value for him to confirm. Never
+rename a client-facing Project Name to make a prefix match: Sep'26 did, and Alex reverted it.
+
 ## Procedure
 
 Run from the repo root. Scripts live in `automations/ss-monthly-report/`; use its venv
@@ -103,7 +111,10 @@ Run from the repo root. Scripts live in `automations/ss-monthly-report/`; use it
    ```
    `--bt` is mandatory whenever the template carries a Business trip row. Decide it by the rule
    in "Judgment calls" below — never by guessing. `--bt-group` names the prefix that owns the
-   trip (`''` = the un-prefixed group).
+   trip (`''` = the un-prefixed group, `'=PR-…'` = an explicitly routed one).
+   When this month's projects differ from the template's (a new PR code, a project with no
+   time), declare them with `--project 'PR-…=Project Name'`, once per row in summary order;
+   the builder rewrites the summary rows. Codes and names come from Alex or the template.
 
 5. **Verify — always, before telling anyone it is done.**
    ```bash
@@ -133,7 +144,7 @@ Run from the repo root. Scripts live in `automations/ss-monthly-report/`; use it
 - **Project rows.** SoftServe issues the `PR-…` codes; they are **not** derivable from Clockify.
   If the target was cloned from last month, its PR codes are last month's — flag that they must
   be confirmed. If a prefix has no matching row, `report_build.py` aborts: report the abort, do
-  not invent a row.
+  not invent a row. A row Alex names is added with `--project`, never by hand-editing the template.
 - **Rate.** $120/h per contract. Hours are rounded to 2 dp, then multiplied. If Alex says the
   rate changed, pass `--rate`; never silently reuse a stale one.
 - **Anomalies to surface, not fix:** entries naming another group without its prefix; a

@@ -15,7 +15,9 @@ Clockify ──► entries JSON ──► report_build.py ──► <Mon>'<yy>.x
 
 `Details` gets one block per SoftServe project, ordered to match the summary tab. Entries are
 assigned by the `[Prefix]` leading their Clockify description (`[Payworks] …` → the Payworks
-project; un-prefixed → the other). Each block subtotals at the contract rate; the block that
+project; un-prefixed → the other), or by an explicit `"pr"` the judgment step writes into the
+entries JSON on Alex's rule; `--project PR=NAME` declares the month's summary rows when they
+differ from the template's. Each block subtotals at the contract rate; the block that
 owns the business trip gets a `Subtotal - hours` line, the trip line, then its combined
 `Subtotal - PR-…`. A `GRAND TOTAL` closes the sheet, and each block's amount is written into
 its `Amount gross` cell on the summary tab as a cross-sheet formula, so the tabs cannot drift.
