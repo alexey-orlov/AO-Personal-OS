@@ -115,13 +115,25 @@ def main():
     else:
         notes.append(f'hours {hms(got)} == {len(src["entries"])} source entries')
 
-    # 2. each hours subtotal is rate x hours
-    for r in hours_rows + subtotals:
+    # 2. each group's money is rate x its hours. A trip group's "Subtotal - <PR>" adds
+    #    the trip, so there its "Subtotal - hours" row is the one checked; every other
+    #    group's "Subtotal - <PR>" carries rate x hours itself. (This used to check the
+    #    hours rows only, i.e. nothing in a month without a trip -- Sep'26 went out with
+    #    =120*ROUND(E28*24,1) on its largest group, $6 under the contract rounding.)
+    plain, after_hours = [], False
+    for r in sorted(hours_rows + subtotals):
+        if r in hours_rows:
+            after_hours = True
+            continue
+        if not after_hours:
+            plain.append(r)
+        after_hours = False
+    for r in hours_rows + plain:
         amt, dur = d.cell(row=r, column=6).value, d.cell(row=r, column=5).value
         if not isinstance(amt, (int, float)) or dur is None:
             continue
         expect = a.rate * round(to_secs(dur) / 3600, 2)
-        if r in hours_rows and abs(amt - expect) > EPS:
+        if abs(amt - expect) > EPS:
             fails.append(f'row {r}: amount {amt:,.2f} != rate x hours {expect:,.2f}')
 
     # 3. GRAND TOTAL == sum of group subtotals
