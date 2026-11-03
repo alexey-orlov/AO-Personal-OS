@@ -187,3 +187,10 @@ context/areas/softserve/docs/2026-10-13_oracle-pack-set-exec.pdf
 context/areas/softserve/docs/2026-10-13_oracle-packs-strategy-deck/Oracle packs - packaging strategy (preview).pdf
 context/areas/softserve/docs/conga-ai-pm-bootcamp-transcript.md
 context/areas/softserve/docs/oracle-packages-tshirt-sizing.md
+context/areas/gigacloud/calls/other/2026-10-29_154100_default_202610121417467AB7FC95.md
+context/areas/gigacloud/calls/other/2026-10-29_154300_default_20261012193542DEBF166F.md
+context/areas/softserve/calls/2026-10-29_154400_default_2026101311353551BB60DF.md
+context/areas/softserve/calls/jumpstart-pm/2026-10-29_154700_default_2026102714492574836520.md
+context/areas/softserve/calls/jumpstart-science/2026-10-29_154200_default_20261012160252ECE9B31A.md
+context/areas/softserve/calls/oracle/2026-10-29_154500_default_2026102011030171984C75.md
+context/areas/softserve/calls/oracle/2026-10-29_154600_default_20261021143205EFE16AB6.md

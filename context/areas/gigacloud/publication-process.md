@@ -1,7 +1,7 @@
 # Product publication process (PLM) — CRM checklist
 
 _status: the process and its CRM automation are documented in a UA deck v9 (2026-10-12: 58 shown slides after four rounds of Alex’s dictated feedback and his follow-ups, plus 3 hidden field-check slides), meant for the department heads. Next: Alex answers four small questions (Capacity manager as a delivery owner, the CRM items for two new confirming teams, L4 support / InfoSec competence, the product-change screenshot), then presents_
-_updated: 2026-10-12_
+_updated: 2026-10-29_
 
 ## Snapshot
 
@@ -111,6 +111,7 @@ _updated: 2026-10-12_
 
 ## Activity
 
+- 2026-10-12 — the two dictated feedback memos behind decks v3 and v4 (processed by hand 2026-10-29): [14:17, on v2](calls/other/2026-10-29_154100_default_202610121417467AB7FC95.md) · [19:35, on v3](calls/other/2026-10-29_154300_default_20261012193542DEBF166F.md). Open from them: a real Marketing brief screenshot to replace the mock-up; the change-type list for the stage-5 table (the handoff later found «New Component Added» routes to delivery and design in the CRM export, not to Head of Product).
 - 2026-10-12 — [deck v9](docs/publication-process-deck/HANDOFF.md) — go-live and PoC pages whole again with numbered zooms of their hints; departments for every action-plan task (Alex). (chat)
 - 2026-10-12 — [deck v8](docs/publication-process-deck/HANDOFF.md) — stage 4 «Перший клієнт» / stage 5 «Зміни»; Alex's action plan; accent slide at both ends; map chips sized from measured widths. (chat)
 - 2026-10-12 — [decks v5–v7](docs/publication-process-deck/HANDOFF.md) — hidden field-check slides per approver; slide 4 cut to one note; bold lead-ins in every scanned list. (chat)
