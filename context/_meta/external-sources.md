@@ -88,7 +88,7 @@ Cloud `Location` examples for when they arrive — gdrive: `https://drive.google
 - **Location:** `https://docs.google.com/spreadsheets/d/1PH4mTSafR9xAh68KjNQogvMtVsCH_WXsMdfq04Swwvs/edit`.
 - **Machine scope:** - (cloud).
 - **Backed up:** Google Drive.
-- **Contents:** tab "WC appartment" (gid `2137535785`) → the Walnut Creek rental shortlist that the [rental map](../areas/relocation/docs/walnut-creek-map/README.md) reads live · "Cost of living", "Budget scenarios", "Finance calculator", "Travel expenses calculator" → the move budget · "Timeline", "General timeline" → move timing. ⛔ The same workbook holds the visa/NVC checklist, immunization and medication lists, employment history and family-support tabs: personal records. Read only what a task needs, and never copy their contents into the repo.
+- **Contents:** tab "WC appartment" (gid `2137535785`) → the Walnut Creek rental shortlist that the [rental map](../areas/relocation/docs/walnut-creek-map/README.md) reads live; Alex highlights visited rows yellow and planned visits blue, and ticks a "Starred" checkbox column (column C) · "Cost of living", "Budget scenarios", "Finance calculator", "Travel expenses calculator" → the move budget · "Timeline", "General timeline" → move timing. ⛔ The same workbook holds the visa/NVC checklist, immunization and medication lists, employment history and family-support tabs: personal records. Read only what a task needs, and never copy their contents into the repo.
 - **Added:** 2026-11-07.
 
 ### softserve / oracle-packs: `~/Documents/GitHub/Oracle-Solutions-Site` (the mini-site's own repository)

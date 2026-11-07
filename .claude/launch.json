@@ -56,15 +56,6 @@
         "exec python3 -m http.server 8794 --bind 127.0.0.1 --directory \"${WC_MAP_SITE:-$HOME/Documents/GitHub/AO-Personal-OS/context/areas/relocation/docs/walnut-creek-map/site}\""
       ],
       "port": 8794
-    },
-    {
-      "name": "wc-rental-map-dev",
-      "runtimeExecutable": "bash",
-      "runtimeArgs": [
-        "-lc",
-        "exec python3 -m http.server 8795 --bind 127.0.0.1 --directory \"/private/tmp/claude-501/-Users-aorlov-Documents-GitHub-AO-Personal-OS/15fba64f-4a72-4385-a012-cde35beff423/scratchpad/build/site\""
-      ],
-      "port": 8795
     }
   ]
 }
