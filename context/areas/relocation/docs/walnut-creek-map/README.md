@@ -14,6 +14,12 @@ and neighborhood zones as toggles.
   page load and the **Refresh** button both pull the current rows. Columns are found by header name
   (address, title, Type, Beds, price, Sq.ft., notes, link, When available, Status, tour), so columns can
   move; extra unnamed columns show in the card (a phone number shows as "Contact").
+- **Visit colours and stars (2026-11-07).** The page reads each row's highlight from the workbook's formatting:
+  any yellow fill = **visited** (yellow pin), any blue fill = **planned** visit (blue pin); other colours are
+  ignored. A location with both shows a half-yellow, half-blue pin. The **Starred** checkbox column puts a ★ on
+  the pin (and on clusters holding a starred listing) while starred and unstarred listings are both on screen.
+  Map options hold the filters: **Starred only** plus **All · Visited · Planned · Not yet**; they combine, and
+  the list, pins and zone cards all follow them.
 - **Pins.** The 34 addresses in the sheet on 2026-11-07 are pre-geocoded in `pipeline/geocode_cache.json`
   (OpenStreetMap building match where it agrees with the Census geocoder within 250 m, else the Census
   address-range point). A new address is placed in the page from Census TIGER/Line 2025 address ranges
@@ -43,10 +49,11 @@ and neighborhood zones as toggles.
 ## Rebuild
 
 Needs a scratch work dir `W` (raw downloads, ~120 MB; never in the repo) and a venv with
-`shapely<2.1 pyshp numpy`. Use `python -I` for every script (downloads are untrusted data).
+`shapely<2.1 pyshp numpy openpyxl`. Use `python -I` for every script (downloads are untrusted data).
 
-1. Sheet → `W/sheet/tab.csv` (gviz CSV export of gid 2137535785); `make_geocode_batch.py`, Census batch
-   geocoder (curl), `nominatim_check.py`, `check_points.py` → `W/build/geocode_cache.json`.
+1. Sheet → `W/sheet/tab.csv` (gviz CSV export of gid 2137535785) and `W/sheet/wb.xlsx` (the `export?format=xlsx`
+   workbook, for the row colours; it holds every private tab, so it stays in `W`); `make_geocode_batch.py`,
+   Census batch geocoder (curl), `nominatim_check.py`, `check_points.py` → `W/build/geocode_cache.json`.
 2. School data: `fetch_arcgis.py` on schoolsitelocator.com `ssl_IM/MapServer/585,586` (MDUSD),
    `ssl_AB/MapServer/34,35` (Acalanes), `ssl_SS/MapServer/580` (SRVUSD 2016-17); NCES
    `SABS_1516/MapServer/0` for the bbox → `W/data/ssl/`, `W/data/sabs/`.
@@ -57,7 +64,7 @@ Needs a scratch work dir `W` (raw downloads, ~120 MB; never in the repo) and a v
    `build_addr_index.py`.
 5. `build_basemap.py`, `build_schools.py`, `build_faces.py`, then `build_zones.py` with `zones_spec.json`
    (face ids are positional: re-check the grouping whenever `build_faces.py`'s split lines change), then
-   `build_page.py` → `W/build/site/`. Copy the site here and republish `site/index.html` to the URL above
+   `build_page.py W W/sheet/tab.csv <snapshot ms> W/sheet/wb.xlsx` → `W/build/site/`. Copy the site here and republish `site/index.html` to the URL above
    with `data/*.json` and `fonts/glyphs.json` as supporting files.
 
 Local preview: `.claude/launch.json` → `wc-rental-map` serves `site/`; open `/preview.html` (the full
