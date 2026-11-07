@@ -20,6 +20,7 @@
   --pin: #ffffff;
   --pin-ink: #1b201d;
   --pin-line: rgba(27, 32, 29, 0.30);
+  --pin-stem: #5f6761;
   --pin-sel: #1b201d;
   --pin-sel-ink: #ffffff;
   --pin-dim: 0.55;
@@ -49,7 +50,7 @@
     --bg: #141816; --surface: #1d2220; --surface-2: #252b28; --ink: #e8ece6; --ink-2: #c0c8c1;
     --muted: #8e978f; --line: rgba(232, 236, 230, 0.13); --accent: #5bbab3; --accent-ink: #0b1d1b;
     --accent-soft: rgba(91, 186, 179, 0.16); --pin: #252b28; --pin-ink: #e8ece6;
-    --pin-line: rgba(232, 236, 230, 0.34); --pin-sel: #e8ece6; --pin-sel-ink: #141816; --pin-dim: 0.5;
+    --pin-line: rgba(232, 236, 230, 0.34); --pin-stem: #b6bdb7; --pin-sel: #e8ece6; --pin-sel-ink: #141816; --pin-dim: 0.5;
     --cluster: #e8ece6; --cluster-ink: #141816; --mix-1: #3987e5; --mix-2: #d95926; --mix-3: #199e70;
     --mix-4: #c98500; --warn-ink: #f0b45c; --shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 8px 22px rgba(0, 0, 0, 0.45);
     --visit-soft: rgba(255, 214, 77, 0.14); --plan-soft: rgba(110, 165, 230, 0.16); --star: #f5c451;
@@ -60,7 +61,7 @@
   --bg: #141816; --surface: #1d2220; --surface-2: #252b28; --ink: #e8ece6; --ink-2: #c0c8c1;
   --muted: #8e978f; --line: rgba(232, 236, 230, 0.13); --accent: #5bbab3; --accent-ink: #0b1d1b;
   --accent-soft: rgba(91, 186, 179, 0.16); --pin: #252b28; --pin-ink: #e8ece6;
-  --pin-line: rgba(232, 236, 230, 0.34); --pin-sel: #e8ece6; --pin-sel-ink: #141816; --pin-dim: 0.5;
+  --pin-line: rgba(232, 236, 230, 0.34); --pin-stem: #b6bdb7; --pin-sel: #e8ece6; --pin-sel-ink: #141816; --pin-dim: 0.5;
   --cluster: #e8ece6; --cluster-ink: #141816; --mix-1: #3987e5; --mix-2: #d95926; --mix-3: #199e70;
   --mix-4: #c98500; --warn-ink: #f0b45c; --shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 8px 22px rgba(0, 0, 0, 0.45);
   --visit-soft: rgba(255, 214, 77, 0.14); --plan-soft: rgba(110, 165, 230, 0.16); --star: #f5c451;
@@ -236,29 +237,26 @@ a { color: var(--accent); }
 .inzone .p { font: 700 14px var(--font-display); font-variant-numeric: tabular-nums; }
 .muted { color: var(--muted); }
 
-.pin { --pin-bg: var(--pin); --pin-bd: var(--pin-line); --pin-fg: var(--pin-ink);
-  position: relative; display: inline-flex; align-items: center; gap: 4px; padding: 3px 8px; border-radius: 999px;
+/* Pin = a 0x0 marker box sitting exactly on the address point: dot centred on it, stem up, label on top. */
+.pinwrap { --pin-bg: var(--pin); --pin-bd: var(--pin-stem); --pin-fg: var(--pin-ink); width: 0; height: 0; }
+.pinwrap.mk-visited { --pin-bg: var(--visit); --pin-bd: var(--visit-line); --pin-fg: var(--sticker-ink); }
+.pinwrap.mk-planned { --pin-bg: var(--plan); --pin-bd: var(--plan-line); --pin-fg: var(--sticker-ink); }
+.pinwrap.mk-mixed { --pin-bg: var(--plan); --pin-bd: var(--plan-line); --pin-fg: var(--sticker-ink); }
+.pinwrap.is-hold { opacity: var(--pin-dim); }
+.pinwrap:hover { z-index: 4; opacity: 1; }
+.pinwrap.is-selected { z-index: 5; opacity: 1; }
+.pin { position: absolute; left: 0; bottom: 10px; transform: translateX(-50%); margin: 0;
+  display: inline-flex; align-items: center; gap: 4px; padding: 3px 8px; border-radius: 999px;
   background: var(--pin-bg); color: var(--pin-fg); border: 1px solid var(--pin-bd); box-shadow: var(--shadow);
   font: 600 13.5px/1.15 var(--font-display); font-variant-numeric: tabular-nums; cursor: pointer; white-space: nowrap; }
-.pin::after { content: ""; position: absolute; left: 50%; bottom: -5px; width: 9px; height: 9px; background: var(--pin-bg);
-  border-right: 1px solid var(--pin-bd); border-bottom: 1px solid var(--pin-bd); transform: translateX(-50%) rotate(45deg); }
-.pin--visited { --pin-bg: var(--visit); --pin-bd: var(--visit-line); --pin-fg: var(--sticker-ink); }
-.pin--planned { --pin-bg: var(--plan); --pin-bd: var(--plan-line); --pin-fg: var(--sticker-ink); }
-.pin--mixed { --pin-bg: var(--plan); --pin-bd: var(--plan-line); --pin-fg: var(--sticker-ink); background: linear-gradient(90deg, var(--visit) 50%, var(--plan) 50%); }
-.pin:hover { z-index: 2; }
-.pin.is-hold { opacity: var(--pin-dim); }
-.pin.is-selected { opacity: 1; box-shadow: 0 0 0 2.5px var(--ink), var(--shadow); }
+.pinwrap.mk-mixed .pin { background: linear-gradient(90deg, var(--visit) 50%, var(--plan) 50%); }
+.pin__stem { position: absolute; left: -1px; bottom: 3px; width: 2px; height: 8px; background: var(--pin-bd); pointer-events: none; }
+.pin__dot { position: absolute; left: -4px; top: -4px; width: 8px; height: 8px; border-radius: 50%; background: var(--pin-bg); border: 2px solid var(--pin-bd); cursor: pointer; }
+.pinwrap.is-selected .pin { box-shadow: 0 0 0 2.5px var(--ink), var(--shadow); }
+.pinwrap.is-selected .pin__dot { background: var(--ink); border-color: var(--ink); }
 .pin__star { color: var(--star); font-size: 13px; line-height: 1; }
-.pin--visited .pin__star, .pin--planned .pin__star, .pin--mixed .pin__star { color: #6e4700; }
+.pinwrap.mk-visited .pin__star, .pinwrap.mk-planned .pin__star, .pinwrap.mk-mixed .pin__star { color: #6e4700; }
 .pin__n { font-size: 11px; font-weight: 700; border-radius: 999px; padding: 0 5px; background: rgba(27, 32, 29, 0.10); color: inherit; }
-.cluster { position: relative; width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; cursor: pointer;
-  background: var(--cluster); color: var(--cluster-ink); border: 2px solid var(--surface); box-shadow: var(--shadow);
-  font: 700 14px/1 var(--font-display); }
-.cluster__marks { position: absolute; top: -5px; right: -7px; display: flex; align-items: center; gap: 1px; }
-.cluster__marks i { display: block; width: 11px; height: 11px; border-radius: 50%; border: 1.5px solid var(--surface); }
-.cluster__marks .m-visited { background: var(--visit); }
-.cluster__marks .m-planned { background: var(--plan); }
-.cluster__marks .m-star { width: auto; height: auto; border: 0; border-radius: 0; color: var(--star); font: 700 13px/1 var(--font-ui); text-shadow: 0 0 2px var(--surface), 0 0 2px var(--surface); }
 .listtoggle { display: none; }
 
 .maplibregl-ctrl-attrib { font-size: 10.5px; }
@@ -356,7 +354,7 @@ a { color: var(--accent); }
 <script src="https://cdnjs.cloudflare.com/ajax/libs/maplibre-gl/4.7.1/maplibre-gl.js"></script>
 <script type="application/json" id="snapshot">{"at":1794078050000,"rows":[["address","title","Starred","Type","Beds","price","Sq.ft.","notes","link","","When available","Status","tour ? "],["1435 Creekside Drive ","Bridge at WC","FALSE","Apt","","$2,768.00","","расположение не оч хорощее , далеко от центра . Свободна с 9 декабря или в январе","","","","done","6 nov , 10:00"],["161 N Civic Dr","Brio","FALSE","Apt","","3099","","","","","","done","6 nov , 11 30 "],["1860 Almond Ave, Walnut Creek, CA 94596","<No name, private house>","FALSE","Home","","2800","","плохое состояние экстерьера дома","https://www.zillow.com/homedetails/1860-Almond-Ave-Walnut-Creek-CA-94596/18413126_zpid/","","","on hold",""],["114 Sharene Ln, Walnut Creek, CA 94596","Oak & Iron","FALSE","Apt","2","2665","960","крашеные стены, плохой вид ","https://www.zillow.com/apartments/walnut-creek-ca/oak-and-iron/5XmyjQ/","","","tour requested","6 nov , 14 30 "],["2720 Oak Rd Apt 133, Walnut Creek, CA 94597","","FALSE","Apt","3","3100","1259","могут показать между 11 и 15 субота ","https://www.zillow.com/homedetails/2696-Jones-Rd-APT-3-Walnut-Creek-CA-94597/466298068_zpid/","","","",""],["1770 San Miguel Dr, Walnut Creek, CA 94596","Villas at San Miguel","FALSE","","2-3","","","","https://www.zillow.com/apartments/walnut-creek-ca/villas-at-san-miguel/9NTBNQ/","","","request price ",""],["137 Sierra Dr, Walnut Creek, CA 94596","Villas at Sierra","FALSE","","2-3","","","","https://www.zillow.com/apartments/walnut-creek-ca/villas-at-sierra/9NT9wf/","","","contact PTLA Real Estate Group ",""],["2310-2334 Buena Vista Ave, Walnut Creek, CA 94597","Villas at Buena Vista","FALSE","","","","","","https://www.zillow.com/b/villas-at-buena-vista-walnut-creek-ca-BG7jLB/","","","need to drive and check location ",""],["1459 Creekside Dr, Walnut Creek, CA 94596","Retreat at Walnut Creek","FALSE","Apt","2","2900","1089","","https://www.zillow.com/apartments/walnut-creek-ca/the-retreat-at-walnut-creek/5XjSsy/","","","",""],["1459 Creekside Dr, Walnut Creek, CA 94596","","FALSE","Apt","2","","","Находится возле бриджа. Неплохая планировка, судя по картинке","https://www.zillow.com/apartments/walnut-creek-ca/the-retreat-at-walnut-creek/5XjSsy/?utm_campaign=iosappmessage&utm_medium=referral&utm_source=txtshare","","","",""],["330 N Civic Dr, APT 201, Walnut Creek, CA 94596","apt 201","FALSE","","","3100","","","https://www.zillow.com/homedetails/330-N-Civic-Dr-APT-201-Walnut-Creek-CA-94596/18410018_zpid/","","","",""],["1295 Homestead Ave, Walnut Creek, CA 94598","Ygnacio village","FALSE","","","","","","https://www.zillow.com/apartments/walnut-creek-ca/ygnacio-village/5Xk4Qb/","","","",""],["103 Sierra Dr, Walnut Creek, CA 94596","","FALSE","Home","","3200","","","https://www.zillow.com/homedetails/103-Sierra-Dr-Walnut-Creek-CA-94596/18413223_zpid/","","","",""],["140 Village Ct, APT 1, Walnut Creek, CA 94596","","FALSE","Apt","2","2935","700","","https://www.zillow.com/homedetails/140-Village-Ct-APT-1-Walnut-Creek-CA-94596/466064738_zpid/","","","",""],["1192 Walker Ave, Walnut Creek, CA 94596","","FALSE","","","2800","","","https://www.zillow.com/homedetails/1192-Walker-Ave-Walnut-Creek-CA-94596/462136610_zpid/","","","",""],["1963 Trinity Ave, # 7, Walnut Creek, CA 94596","","FALSE","Home","","2950","","","https://www.zillow.com/homedetails/1963-Trinity-Ave-7-Walnut-Creek-CA-94596/465565879_zpid/","","","",""],["1160 Lincoln Ave, Walnut Creek, CA 94596","castlewood appartments","FALSE","","","3100","","перезвонить","https://castlewood.cmcrents.com/floorplans?Beds=2","","","",""],["1355 Mount Pisgah Rd, Walnut Creek, CA 94596","vista terrace","FALSE","APt","3","3400","","availible in the begining of dec , owner what 650 credit score but we can try with income ","https://www.zillow.com/apartments/walnut-creek-ca/vista-terrace/CkBhJZ/","4694278110 Diana","","",""],["1355 Mount Pisgah Rd, Walnut Creek, CA 94596","","FALSE","APt","2","2650","890","","https://www.zillow.com/homedetails/1355-Mount-Pisgah-Rd-APT-29-Walnut-Creek-CA-94596/2069191340_zpid/","","","",""],["1240 Walker Ave, APT 307, Walnut Creek, CA 94596","","FALSE","","","2650","1005","","https://www.zillow.com/homedetails/1240-Walker-Ave-APT-307-Walnut-Creek-CA-94596/18413678_zpid/","","","",""],["2425 Golden Rain Rd APT 3, Walnut Creek, CA 94596","","FALSE","","","3400","","","https://www.zillow.com/homedetails/2425-Golden-Rain-Rd-APT-3-Walnut-Creek-CA-94595/18555445_zpid/","","","",""],["1354 Mt Pisgah Rd, Walnut Creek, CA 94596","The Rose Apartments","FALSE","","","2950","","выход как в мотелях","https://www.zillow.com/homedetails/1354-Mount-Pisgah-Rd-204-Walnut-Creek-CA-94596/2056049967_zpid/","","","",""],["1555 Riviera Ave, Walnut Creek, CA 94596","15Fifty5","FALSE","","","3267","850","","https://www.apartments.com/15fifty5-walnut-creek-ca/53vtx3q/","","","",""],["1756 Carmel Dr, Walnut Creek, CA 94596","Carmel House","FALSE","","2","","800","Will have more, week 11-18","https://www.carmelhousewc.com/","","","",""],["1310 Alma Ave, Walnut Creek, CA 94596","Park Place Apartments","FALSE","","","","","","https://parkplacewalnutcreek.com/","","","",""],["530 N Civic Dr, Walnut Creek, CA 94597","Boulders ","FALSE","","","","","","https://www.zillow.com/apartments/walnut-creek-ca/the-boulders/5Xk5Js/","","","",""],["340 N Civic Dr, Walnut Creek, CA 94596","The Keys","FALSE","Sale only","","","","","https://www.condoswalnutcreek.com/keys","","","",""],["103 Sierra Dr, Walnut Creek, CA 94596","<No name home>","FALSE","Home","","3200","","","https://www.zillow.com/homedetails/103-Sierra-Dr-Walnut-Creek-CA-94596/18413223_zpid/","","","",""],["2696 Jones Rd, APT 3, Walnut Creek, CA 94597","","FALSE","Apt","3","3350","1200","","https://www.zillow.com/homedetails/2696-Jones-Rd-APT-3-Walnut-Creek-CA-94597/466298068_zpid/","","","",""],["2534 Jones Rd Unit 6, Walnut Creek, CA 94597","","FALSE","Apt","3","3100","775","","https://www.zillow.com/homedetails/2534-Jones-Rd-UNIT-6-Walnut-Creek-CA-94597/456536778_zpid/","","","",""],["1365 Mount Pisgah Rd, Walnut Creek, CA 94596","","FALSE","Apt","3","3250","1250","","https://www.zillow.com/homedetails/1365-Mount-Pisgah-Rd-E93C2ED20-Walnut-Creek-CA-94596/462746584_zpid/","","","",""],["140 Flora ave, #203, Walnut Creek, 94595","","FALSE","","","3428","","","https://www.zillow.com/homedetails/140-Flora-Ave-203-Walnut-Creek-CA-94595/466246570_zpid/","","","",""],["365 Masters Ct, APT 4, Walnut Creek, CA 94598","","FALSE","Apt","2","3250","1050","","https://www.zillow.com/homedetails/365-Masters-Ct-APT-4-Walnut-Creek-CA-94598/72553151_zpid/","","","",""],["1295 Homestead Ave, APT 37, Walnut Creek, CA 94598","","FALSE","APt","2","2735","880","","https://www.zillow.com/homedetails/1295-Homestead-Ave-APT-37-Walnut-Creek-CA-94598/2090312872_zpid/","","","",""],["2564 Walnut Blvd, Walnut Creek, CA 94596","","FALSE","APt","2","3000","944","","https://www.zillow.com/homedetails/2564-Walnut-Blvd-Walnut-Creek-CA-94596/2067046369_zpid/","","","",""],["2562 Walnut Blvd, APT 96, Walnut Creek, CA 94596","ParkOne","FALSE","APt","2","2695","900","","https://www.zillow.com/homedetails/2562-Walnut-Blvd-APT-96-Walnut-Creek-CA-94596/18414778_zpid/","","","",""],["135 Sharene Ln, APT 5, Walnut Creek, CA 94596","","FALSE","APt","2","2395","900","взод в квартиру как в мотеле . район мутный ","https://www.zillow.com/homedetails/135-Sharene-Ln-APT-5-Walnut-Creek-CA-94596/466444444_zpid/","","","",""],["1338 Homestead Ave, Walnut Creek, CA 94598","","FALSE","Home","3","3200","1340","sent request in zillow","https://www.zillow.com/homedetails/1338-Homestead-Ave-Walnut-Creek-CA-94598/18409706_zpid/?utm_campaign=iosappmessage&utm_medium=referral&utm_source=txtshare","","","",""]],"fills":{"1":"FFF2CC","2":"FFF2CC","3":"FFF2CC","4":"FFF2CC","5":"CFE2F3"}}</script>
 <script type="application/json" id="geocache">{"1435 creekside dr":[37.885511,-122.051893,"osm-building"],"161 n civic dr":[37.907879,-122.059555,"osm-building"],"1860 almond ave":[37.900529,-122.067363,"osm-building"],"114 sharene ln":[37.902868,-122.053553,"osm-building"],"1770 san miguel dr":[37.897285,-122.0543,"osm-building"],"137 sierra dr":[37.902218,-122.053641,"osm-building"],"2310-2334 buena vista ave":[37.909975,-122.070023,"osm-building"],"1459 creekside dr":[37.886206,-122.052827,"osm-building"],"330 n civic dr":[37.911925,-122.05996,"osm-building"],"1295 homestead ave":[37.908737,-122.052111,"osm-building"],"103 sierra dr":[37.903122,-122.052607,"osm-building"],"140 village ct":[37.900214,-122.056935,"census-range"],"1192 walker ave":[37.899492,-122.052662,"osm-building"],"1963 trinity ave":[37.901308,-122.068863,"osm-building"],"1160 lincoln ave":[37.900661,-122.057271,"osm-building"],"1355 mt pisgah rd":[37.899409,-122.057477,"osm-building"],"1240 walker ave":[37.900064,-122.054485,"census-range"],"2425 golden rain rd":[37.880384,-122.080022,"osm-building"],"1354 mt pisgah rd":[37.89957,-122.057283,"osm-building"],"1555 riviera ave":[37.910747,-122.066405,"osm-building"],"1756 carmel dr":[37.90198,-122.058072,"osm-building"],"1310 alma ave":[37.894579,-122.064797,"osm-building"],"530 n civic dr":[37.915872,-122.059278,"osm-building"],"340 n civic dr":[37.911943,-122.059958,"osm-building"],"2696 jones rd":[37.922638,-122.060305,"osm-building"],"2720 oak rd":[37.923101,-122.057962,"census-range"],"2534 jones rd":[37.917928,-122.062374,"census-range"],"1365 mt pisgah rd":[37.89955,-122.057491,"osm-building"],"140 flora ave":[37.892728,-122.075572,"census-range"],"365 masters ct":[37.912989,-122.048331,"osm-building"],"2564 walnut blvd":[37.906715,-122.054111,"osm-building"],"2562 walnut blvd":[37.906764,-122.054133,"osm-building"],"135 sharene ln":[37.902915,-122.054045,"census-range"],"1338 homestead ave":[37.910106,-122.052932,"osm-building"]}</script>
-<script type="application/json" id="buildinfo">{"built":"2026-11-07T19:08Z"}</script>
+<script type="application/json" id="buildinfo">{"built":"2026-11-07T19:55Z"}</script>
 <script>
 (function () {
   "use strict";
@@ -578,12 +576,13 @@ a { color: var(--accent); }
     }));
   }
   function groupListings(listings) {
-    var groups = [];
+    // One pin per exact point: only rows at the same address (same geocode) share a pin.
+    // Nearby but different addresses always keep their own pins.
+    var groups = [], byPoint = {};
     listings.forEach(function (l) {
       if (!l.pos) return;
-      var g = null;
-      for (var i = 0; i < groups.length; i++) if (metres(groups[i].pos, l.pos) < 28) { g = groups[i]; break; }
-      if (!g) { g = { key: "g" + groups.length, pos: l.pos.slice(), items: [] }; groups.push(g); }
+      var k = l.pos[0].toFixed(6) + "," + l.pos[1].toFixed(6), g = byPoint[k];
+      if (!g) { g = byPoint[k] = { key: "g" + groups.length, pos: l.pos.slice(), items: [] }; groups.push(g); }
       g.items.push(l); l.group = g;
     });
     groups.forEach(function (g) {
@@ -837,7 +836,7 @@ a { color: var(--accent); }
       var attrib = $("map").querySelector(".maplibregl-ctrl-attrib");
       if (attrib) attrib.classList.remove("maplibregl-compact-show");
     });
-    map.on("zoomend", renderMarkers);
+    map.on("zoom", updatePinLabels);
     map.on("click", onMapClick);
     map.on("mousemove", "hood-fill", function (e) {
       if (!S.showHoods || !e.features.length) return;
@@ -875,60 +874,56 @@ a { color: var(--accent); }
     S.map.fitBounds(b, { padding: narrow ? { top: 70, bottom: 90, left: 30, right: 30 } : { top: 90, bottom: 60, left: 60, right: 80 }, maxZoom: 15.2, animate: !!animate, duration: 600 });
   }
 
-  /* ---------- markers (screen-space clustering, rebuilt on zoom) ---------- */
+  /* ---------- markers: one fixed pin per address, never clustered, merged or moved ----------
+     Each marker element is a 0x0 box placed exactly on the address point. Inside it a dot is centred on that
+     point, a stem rises from the dot, and the price label sits on the stem. Zooming only swaps the label text. */
+  var LONG_LABEL_ZOOM = 14.6;
+  function pinLabel(min, prices, long) {
+    if (min == null) return "—";
+    return long ? money(min) + (prices.some(function (p) { return p !== min; }) ? "+" : "") : shortMoney(min);
+  }
   function renderMarkers() {
     var map = S.map; if (!map || !map.loaded()) { if (map) map.once("idle", renderMarkers); return; }
-    S.markers.forEach(function (m) { m.remove(); }); S.markers = [];
-    var z = map.getZoom(), radius = z >= 16 ? 0 : 46, showStar = !S.onlyStarred;
-    var pts = [];
+    S.markers.forEach(function (m) { m.remove(); }); S.markers = []; S.pinEls = {};
+    var showStar = !S.onlyStarred, long = map.getZoom() >= LONG_LABEL_ZOOM;
+    S.labelLong = long;
     S.groups.forEach(function (g) {
-      var vis = g.items.filter(isVisible);
-      if (!vis.length) return;
-      var p = map.project(g.pos); pts.push({ g: g, vis: vis, x: p.x, y: p.y });
+      var vis = g.items.filter(isVisible), n = vis.length, marks = {};
+      if (!n) return;
+      vis.forEach(function (l) { if (l.mark) marks[l.mark] = 1; });
+      var mark = marks.visited && marks.planned ? "mixed" : marks.visited ? "visited" : marks.planned ? "planned" : "";
+      var prices = vis.map(function (l) { return l.price; }).filter(function (p) { return p != null; });
+      var min = prices.length ? Math.min.apply(null, prices) : null;
+      var star = showStar && vis.some(function (l) { return l.starred; });
+      var allHold = vis.every(function (l) { return l.cat === "hold"; });
+      var wrap = document.createElement("div");
+      wrap.className = "pinwrap" + (mark ? " mk-" + mark : "") + (allHold ? " is-hold" : "") + (g.key === S.sel ? " is-selected" : "");
+      var btn = document.createElement("button"); btn.type = "button"; btn.className = "pin";
+      btn.innerHTML = (star ? '<span class="pin__star" aria-hidden="true">★</span>' : "") + '<span class="pin__label"></span>' + (n > 1 ? '<span class="pin__n">' + n + "</span>" : "");
+      var lab = btn.querySelector(".pin__label"); lab.textContent = pinLabel(min, prices, long);
+      btn.setAttribute("aria-label", vis.map(function (l) { return (l.starred ? "Starred: " : "") + headline(l) + (l.price != null ? ", " + money(l.price) : "") + (l.mark ? ", " + MARK_LABEL[l.mark] : "") + ", " + (l.status || STATUS_LABEL[l.cat]); }).join("; "));
+      btn.title = vis.map(function (l) { return (l.starred ? "★ " : "") + headline(l) + (l.price != null ? " · " + money(l.price) : "") + (l.mark ? " · " + MARK_LABEL[l.mark] : ""); }).join("\n");
+      var stem = document.createElement("span"); stem.className = "pin__stem"; stem.setAttribute("aria-hidden", "true");
+      var dot = document.createElement("span"); dot.className = "pin__dot"; dot.setAttribute("aria-hidden", "true");
+      wrap.appendChild(btn); wrap.appendChild(stem); wrap.appendChild(dot);
+      var open = function (ev) { ev.stopPropagation(); S.lastPin = Date.now(); select(g.key, "pin"); };
+      btn.addEventListener("click", open); dot.addEventListener("click", open);
+      var marker = new maplibregl.Marker({ element: wrap, anchor: "center", offset: [0, 0], subpixelPositioning: true }).setLngLat(g.pos).addTo(map);
+      ["aria-label", "role", "tabindex"].forEach(function (a) { wrap.removeAttribute(a); });
+      S.markers.push(marker);
+      S.pinEls[g.key] = { wrap: wrap, label: lab, min: min, prices: prices };
     });
-    var used = {}, clusters = [];
-    pts.forEach(function (a, i) {
-      if (used[i]) return;
-      var members = [a]; used[i] = 1;
-      if (radius && a.g.key !== S.sel) pts.forEach(function (b, j) { if (!used[j] && b.g.key !== S.sel && Math.hypot(a.x - b.x, a.y - b.y) < radius) { members.push(b); used[j] = 1; } });
-      clusters.push(members);
-    });
-    clusters.forEach(function (members) {
-      var el, lngLat, anchor = "bottom", offset = [0, -5];
-      if (members.length === 1) {
-        var g = members[0].g, vis = members[0].vis, n = vis.length, marks = {};
-        vis.forEach(function (l) { if (l.mark) marks[l.mark] = 1; });
-        var mark = marks.visited && marks.planned ? "mixed" : marks.visited ? "visited" : marks.planned ? "planned" : "";
-        var prices = vis.map(function (l) { return l.price; }).filter(function (p) { return p != null; });
-        var min = prices.length ? Math.min.apply(null, prices) : null;
-        var star = showStar && vis.some(function (l) { return l.starred; });
-        var allHold = vis.every(function (l) { return l.cat === "hold"; });
-        el = document.createElement("button"); el.type = "button";
-        el.className = "pin" + (mark ? " pin--" + mark : "") + (allHold ? " is-hold" : "") + (g.key === S.sel ? " is-selected" : "");
-        var label = min != null ? (z >= 14.6 ? money(min) + (prices.some(function (p) { return p !== min; }) ? "+" : "") : shortMoney(min)) : "—";
-        el.innerHTML = (star ? '<span class="pin__star" aria-hidden="true">★</span>' : "") + "<span>" + esc(label) + "</span>" + (n > 1 ? '<span class="pin__n">' + n + "</span>" : "");
-        el.setAttribute("aria-label", vis.map(function (l) { return (l.starred ? "Starred: " : "") + headline(l) + (l.price != null ? ", " + money(l.price) : "") + (l.mark ? ", " + MARK_LABEL[l.mark] : "") + ", " + (l.status || STATUS_LABEL[l.cat]); }).join("; "));
-        el.title = vis.map(function (l) { return (l.starred ? "★ " : "") + headline(l) + (l.price != null ? " · " + money(l.price) : "") + (l.mark ? " · " + MARK_LABEL[l.mark] : ""); }).join("\n");
-        el.addEventListener("click", function (ev) { ev.stopPropagation(); S.lastPin = Date.now(); select(g.key, true); });
-        lngLat = g.pos;
-        if (g.key === S.sel) el.style.zIndex = 5;
-      } else {
-        el = document.createElement("button"); el.type = "button"; el.className = "cluster"; anchor = "center"; offset = [0, 0];
-        var all = []; members.forEach(function (m) { all = all.concat(m.vis); });
-        var count = all.length;
-        var hasV = all.some(function (l) { return l.mark === "visited"; }), hasP = all.some(function (l) { return l.mark === "planned"; });
-        var hasS = showStar && all.some(function (l) { return l.starred; });
-        el.innerHTML = "<span>" + count + "</span>" + (hasV || hasP || hasS ? '<span class="cluster__marks" aria-hidden="true">' +
-          (hasS ? '<i class="m-star">★</i>' : "") + (hasV ? '<i class="m-visited"></i>' : "") + (hasP ? '<i class="m-planned"></i>' : "") + "</span>" : "");
-        el.setAttribute("aria-label", count + " listings here" + (hasS ? ", some starred" : "") + (hasV ? ", some visited" : "") + (hasP ? ", some planned" : "") + ". Zoom in");
-        var b = new maplibregl.LngLatBounds(members[0].g.pos, members[0].g.pos); members.forEach(function (m) { b.extend(m.g.pos); });
-        lngLat = b.getCenter();
-        el.addEventListener("click", function (ev) { ev.stopPropagation(); S.lastPin = Date.now(); map.fitBounds(b, { padding: 90, maxZoom: Math.max(map.getZoom() + 1.6, 15), duration: 500 }); });
-      }
-      var aria = el.getAttribute("aria-label");
-      S.markers.push(new maplibregl.Marker({ element: el, anchor: anchor, offset: offset }).setLngLat(lngLat).addTo(map));
-      if (aria) el.setAttribute("aria-label", aria);
-    });
+  }
+  function updatePinLabels() {
+    var map = S.map; if (!map || !S.pinEls) return;
+    var long = map.getZoom() >= LONG_LABEL_ZOOM; if (long === S.labelLong) return;
+    S.labelLong = long;
+    Object.keys(S.pinEls).forEach(function (k) { var p = S.pinEls[k]; p.label.textContent = pinLabel(p.min, p.prices, long); });
+  }
+  function markSelectedPin() {
+    if (!S.pinEls) return;
+    Object.keys(S.pinEls).forEach(function (k) { S.pinEls[k].wrap.classList.toggle("is-selected", k === S.sel); });
+  }
   }
 
   /* ---------- list ---------- */
@@ -963,7 +958,7 @@ a { color: var(--accent); }
       b.innerHTML = '<span class="item__price' + (l.price == null ? " is-none" : "") + '">' + (l.price == null ? "No price" : esc(money(l.price))) + "</span>" +
         '<span class="item__title">' + (l.starred ? '<span class="star" title="Starred">★</span> ' : "") + esc(headline(l)) + "</span>" + '<span class="item__status">' + statusChip(l) + "</span>" +
         '<span class="item__facts">' + esc(facts || streetLine(l.address)) + "</span>" + '<span class="item__where">' + esc(where) + (flag ? ' · <b class="flag">' + esc(flag) + "</b>" : "") + "</span>";
-      b.addEventListener("click", function () { if (l.group) { select(l.group.key, true, l); if (window.innerWidth <= 900) toggleList(false); } });
+      b.addEventListener("click", function () { if (l.group) { if (window.innerWidth <= 900) toggleList(false); select(l.group.key, "list"); } });
       li.appendChild(b); ul.appendChild(li);
     });
     var miss = S.listings.filter(function (l) { return !l.pos; });
@@ -1041,11 +1036,11 @@ a { color: var(--accent); }
     items.sort(function (a, b) { return (a.price == null ? Infinity : a.price) - (b.price == null ? Infinity : b.price); });
     return '<ul class="inzone">' + items.map(function (l) { return '<li><button type="button" data-g="' + l.group.key + '"><span>' + (l.starred ? '<span class="star">★</span> ' : "") + (l.mark ? '<i class="swatch sw-' + l.mark + '" style="display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:5px"></i>' : "") + esc(headline(l)) + '</span><span class="p">' + (l.price != null ? esc(money(l.price)) : "—") + "</span></button></li>"; }).join("") + "</ul>";
   }
-  function wireInZone() { $("card").querySelectorAll("[data-g]").forEach(function (b) { b.addEventListener("click", function () { select(b.getAttribute("data-g"), true); }); }); }
+  function wireInZone() { $("card").querySelectorAll("[data-g]").forEach(function (b) { b.addEventListener("click", function () { select(b.getAttribute("data-g"), "list"); }); }); }
   function showZoneCard(hoodId, midFeature) {
     var D = S.data, parts = [], title = "", kicker = "", sub = "";
     setZoneSel(hoodId, hoodId == null && midFeature ? midFeature.id : null);
-    S.sel = null; renderMarkers(); renderList();
+    S.sel = null; markSelectedPin(); renderList();
     if (hoodId != null) {
       var z = D.hoods.features[hoodId].properties;
       title = z.name; kicker = "Neighborhood zone"; sub = z.sub + (z.juris ? " · " + z.juris : "");
@@ -1098,17 +1093,24 @@ a { color: var(--accent); }
     if (h || m) { showZoneCard(h ? h.id : null, m ? S.data.mid.features[m.id] : null); return; }
     clearSelection();
   }
-  function clearSelection() { setZoneSel(null, null); S.sel = null; closeCard(); renderMarkers(); renderList(); if (S.map) S.map.easeTo({ padding: { top: 0, bottom: 0, left: 0, right: 0 }, duration: 200 }); }
-  function select(key, move, listing) {
+  function clearSelection() { setZoneSel(null, null); S.sel = null; closeCard(); markSelectedPin(); renderList(); }
+  function select(key, how) {
     var g = S.byKey[key]; if (!g) return;
     setZoneSel(null, null);
-    S.sel = key; renderMarkers(); renderList(); showGroupCard(g, true);
-    if (move && S.map) {
-      var narrow = window.innerWidth <= 900, card = $("card");
-      var pad = narrow ? { top: 40, bottom: Math.round(window.innerHeight * 0.5), left: 0, right: 0 } : { top: 0, bottom: 0, left: 0, right: (card.offsetWidth || 380) + 24 };
-      S.map.easeTo({ center: g.pos, zoom: Math.max(S.map.getZoom(), 15), padding: pad, duration: 500 });
-    }
+    S.sel = key; markSelectedPin(); renderList(); showGroupCard(g, true);
+    if (how && S.map) revealPin(g.pos, how === "list");
     var el = $("list").querySelector(".item.is-selected"); if (el && el.scrollIntoView) el.scrollIntoView({ block: "nearest" });
+  }
+  // Move the map only when the chosen pin can't be seen: never on close, and never just to re-centre.
+  function revealPin(pos, fromList) {
+    var map = S.map, c = map.getContainer(), card = $("card"), narrow = window.innerWidth <= 900;
+    var w = c.clientWidth, h = c.clientHeight;
+    var right = !narrow && !card.hidden ? card.offsetWidth + 24 : 0, bottom = narrow && !card.hidden ? card.offsetHeight : 0;
+    var p = map.project(pos), m = 40;
+    var inView = p.x > m && p.x < w - right - m && p.y > m + 30 && p.y < h - bottom - m;
+    var zoom = fromList ? Math.max(map.getZoom(), 14.6) : map.getZoom();
+    if (inView && zoom === map.getZoom()) return;
+    map.easeTo({ center: pos, zoom: zoom, offset: [-right / 2, -bottom / 2], duration: 450 });
   }
 
   /* ---------- legend ---------- */
