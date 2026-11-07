@@ -38,7 +38,7 @@ and neighborhood zones as toggles.
 - **365 Masters Ct is the only listing outside Walnut Creek SD**: Mt. Diablo USD (Bancroft Elementary,
   Foothill Middle, Northgate High). Every other listing maps to Walnut Creek Intermediate and Las Lomas High.
 - Sheet hygiene: the "2720 Oak Rd Apt 133" row links to the Zillow page of 2696 Jones Rd; 103 Sierra Dr
-  appears twice.
+  and 1459 Creekside Dr each appear twice.
 
 ## Rebuild
 
