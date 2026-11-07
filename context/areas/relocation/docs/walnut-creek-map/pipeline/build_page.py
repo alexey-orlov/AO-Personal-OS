@@ -1,6 +1,6 @@
 """Assemble the publishable page and a local preview copy.
 
-usage: build_page.py <scratch_dir> <sheet_tab.csv> <snapshot_unix_ms>
+usage: build_page.py <scratch_dir> <sheet_tab.csv> <snapshot_unix_ms> [<workbook.xlsx>]
 Writes build/site/index.html (artifact body, no doctype/head), build/site/preview.html
 (the same body in a full document, for local testing), fonts/ and data/addr.json.
 """
@@ -16,7 +16,24 @@ while rows and not any(c.strip() for c in rows[-1]):
     rows.pop()
 width = max((max((i for i, c in enumerate(r) if c.strip()), default=-1) for r in rows), default=0) + 1
 rows = [r[:width] for r in rows]
-snapshot = {"at": AT, "rows": rows}
+# Row highlight colours (visited = yellow, planned = blue in the sheet) live only in the workbook's
+# formatting, so they come from the xlsx export: {row index in `rows`: "RRGGBB"}, the solid fill
+# most of the row's first 26 cells carry. Only this tab is read; the workbook never leaves the work dir.
+fills = {}
+if len(sys.argv) > 4:
+    import openpyxl
+    from collections import Counter
+    wb = openpyxl.load_workbook(sys.argv[4], data_only=True)
+    ws = next(w for w in wb.worksheets if w.title.strip().lower() == "wc appartment")
+    for r in range(1, min(ws.max_row, len(rows)) + 1):
+        c = Counter()
+        for col in range(1, 27):
+            f = ws.cell(r, col).fill
+            if f is not None and f.fill_type == "solid" and f.fgColor is not None and f.fgColor.type == "rgb" and f.fgColor.rgb:
+                c[str(f.fgColor.rgb)[-6:]] += 1
+        if c:
+            fills[r - 1] = c.most_common(1)[0][0]
+snapshot = {"at": AT, "rows": rows, "fills": fills}
 
 geo = json.load(open(f"{S}/build/geocode_cache.json"))
 geocache = {k: [v["lat"], v["lon"], v["src"]] for k, v in geo.items()}
