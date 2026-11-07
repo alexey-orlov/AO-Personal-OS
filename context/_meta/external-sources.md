@@ -35,6 +35,7 @@ Cloud `Location` examples for when they arrive — gdrive: `https://drive.google
 | [civitta](../areas/civitta/README.md) (+ the Laba/PrivatBank course decks) | gdrive | Teaching-materials folder `1N6zCtx5VWja5vtT89seShWrOcsi1azK-`; GBSW 2026 folder `18Hx32ZlQpab6UGwpbr1WjBStkKbNclMa` | - (Google Drive MCP) | 2026-09-07 |
 | [softserve](../areas/softserve/README.md) → [oracle-packs](../areas/softserve/oracle-packs.md) (the mini-site) | git | `~/Documents/GitHub/Oracle-Solutions-Site` · private GitHub `alexey-orlov/Oracle-Solutions-Site` | checkout on this Mac (`KN7X2Y65NX`); GitHub from any machine with Alex's credentials | 2026-09-23 |
 | [gigacloud](../areas/gigacloud/README.md) | local | `~/Desktop/GigaCloud/` (MacBook Air, current) · `~/Downloads` (KN7X2Y65NX, older set) | Alex's MacBook Air + `KN7X2Y65NX` | 2026-09-26 |
+| [relocation](../areas/relocation/README.md) | gdrive | Google Sheet "Relocation planning" `1PH4mTSafR9xAh68KjNQogvMtVsCH_WXsMdfq04Swwvs` | - (Google Drive MCP; link-shared) | 2026-11-07 |
 
 ## Entries
 
@@ -81,6 +82,14 @@ Cloud `Location` examples for when they arrive — gdrive: `https://drive.google
 - **Backed up:** ⚠ no cloud sync. Plan-deck snapshot, `Margin.xlsx`, the template and the name-free parts of both toolchains are committed to [`context/areas/gigacloud/docs/margin-deck/`](../areas/gigacloud/docs/margin-deck/HANDOFF.md). **Never commit** `Юніт.xlsx`, the results deck or its generator — they carry payroll by name and mobilisation status.
 - **Contents:** the margin working set → [pricing-unit-economics](../areas/gigacloud/pricing-unit-economics.md); the publication-process working set → [publication-process](../areas/gigacloud/publication-process.md) (handoff: [`docs/publication-process-deck/`](../areas/gigacloud/docs/publication-process-deck/HANDOFF.md)).
 - **Added:** 2026-09-26 (publication-process set added 2026-10-11).
+
+### relocation: the "Relocation planning" Google Sheet (gdrive)
+- **Type:** `gdrive`, one Google Sheets workbook owned by Alex. Through the Google Drive MCP, `download_file_content` with `exportMimeType` set to the xlsx type returns every tab; `read_file_content` returns only two sample rows per tab, and a `text/csv` export only the first tab. The sheet is link-shared, so one tab also reads as CSV from `…/gviz/tq?tqx=out:csv&gid=<gid>`.
+- **Location:** `https://docs.google.com/spreadsheets/d/1PH4mTSafR9xAh68KjNQogvMtVsCH_WXsMdfq04Swwvs/edit`.
+- **Machine scope:** - (cloud).
+- **Backed up:** Google Drive.
+- **Contents:** tab "WC appartment" (gid `2137535785`) → the Walnut Creek rental shortlist that the [rental map](../areas/relocation/docs/walnut-creek-map/README.md) reads live · "Cost of living", "Budget scenarios", "Finance calculator", "Travel expenses calculator" → the move budget · "Timeline", "General timeline" → move timing. ⛔ The same workbook holds the visa/NVC checklist, immunization and medication lists, employment history and family-support tabs: personal records. Read only what a task needs, and never copy their contents into the repo.
+- **Added:** 2026-11-07.
 
 ### softserve / oracle-packs: `~/Documents/GitHub/Oracle-Solutions-Site` (the mini-site's own repository)
 - **Type:** `git`, a private GitHub repository with a local checkout. It holds the Oracle AI & Data Solutions mini-site since 2026-09-23, when the site moved out of this repo; `outputs/oracle-solutions-site/` here now holds only a `MOVED.md`.
