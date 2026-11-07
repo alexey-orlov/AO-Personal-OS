@@ -47,6 +47,15 @@
         "exec python3 -m http.server 8766 --bind 127.0.0.1 --directory \"$HOME/Documents/GitHub/Oracle-Solutions-Site\""
       ],
       "port": 8766
+    },
+    {
+      "name": "wc-rental-map",
+      "runtimeExecutable": "bash",
+      "runtimeArgs": [
+        "-lc",
+        "exec python3 -m http.server 8794 --bind 127.0.0.1 --directory \"${WC_MAP_SITE:-/private/tmp/claude-501/-Users-aorlov-Documents-GitHub-AO-Personal-OS/15fba64f-4a72-4385-a012-cde35beff423/scratchpad/build/site}\""
+      ],
+      "port": 8794
     }
   ]
 }
