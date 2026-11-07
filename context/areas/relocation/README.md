@@ -1,7 +1,8 @@
 # Relocation — moving the household to the US
 
-_status: active — Bay Area place ranking complete (220 places scored, 2026-08-09); visa timing tentatively Sep–Oct 2026; no place chosen. **October logistics now on SoftServe's agenda** — a dedicated meeting is being set to settle location, cost and the base-vs-quarterly-bonus split_
-_updated: 2026-10-16_
+_status: active — **Walnut Creek rental search under way**: 38 listings tracked in the "Relocation planning" sheet, first tours 2026-11-06, a live rental map with school and neighborhood zones built 2026-11-07. Bay Area place ranking complete (220 places, 2026-08-09); October logistics with SoftServe set for a dedicated meeting_
+_updated: 2026-11-07_
+_source files: Google Sheet "Relocation planning" (tab "WC appartment" = the rental shortlist) — registry entry in [external-sources](../../_meta/external-sources.md)_
 
 The move itself: visa timing, where the household lands, schools, and the logistics around them. Distinct from the [job search](../job-search/README.md) — that area owns roles and how Alex is positioned (including the SF-based public framing); this one owns the physical move. The two share a dependency in both directions (an offer's location can constrain the place; the visa date gates when a start date is real) but they are not the same thread.
 
@@ -9,13 +10,15 @@ The move itself: visa timing, where the household lands, schools, and the logist
 
 - **Household shape drives every decision:** one child entering TK/Kindergarten, one of middle/high-school age. School access is weighted as heavily as cost, and "can we actually get a free public seat" is treated as its own criterion rather than a footnote.
 - **Visa:** tentatively Sep–Oct 2026 (per a SoftServe 1:1). Everything downstream stays provisional until that date firms up. Green card is in final administrative processing — sensitive framing rules live in [job-search/positioning.md](../job-search/positioning.md), never restated here.
-- **Target geography:** Bay Area. A full ranking exists (below); no place has been chosen.
+- **Target geography:** Bay Area; the rental search is concentrated in **Walnut Creek** (ZIPs 94595–94598). The full Bay Area ranking is below.
 
 ## Active threads
 
+- **Walnut Creek rental search (2026-11-07).** Alex tracks rentals in the "WC appartment" tab of the *Relocation planning* sheet: 38 rows with address, type, beds, price, sq ft, notes, link, availability, status and tour; mostly 2–3 bedroom apartments at $2,395–3,428 a month. Tours on 2026-11-06: Bridge at Walnut Creek (1435 Creekside Dr, $2,768) and Brio (161 N Civic Dr, $3,099) done; Oak & Iron (114 Sharene Ln, $2,665) requested. The **[Walnut Creek rental map](docs/walnut-creek-map/README.md)** (claude.ai artifact, reads the tab live through the Google Drive connector) puts each listing on a map with its middle-school zone, elementary and high school, and one of 32 neighborhood zones described by housing mix, age and renter share. What it showed: every listing but one maps to **Walnut Creek SD → Walnut Creek Intermediate → Las Lomas High**; **365 Masters Ct** is Mt. Diablo USD (Bancroft Elementary, Foothill Middle, Northgate High); **2425 Golden Rain Rd is inside Rossmoor**, whose rules bar residents under 18, so it doesn't fit the household. Owner: Mine. (chat, 2026-11-07)
+
 - **GigaCloud role shrinks with the move (2026-10-16).** Alex goes part-time at GigaCloud in Q3'FY2026 and to ad-hoc consulting later; the restructure plan and next steps (his hours, availability and terms first) live on [gigacloud/product-team-structure](../gigacloud/product-team-structure.md). Owner: Mine. (chat, 2026-10-16)
 - **October logistics with SoftServe — a dedicated meeting, not a 1:1 topic (2026-08-18).** The move's employer-facing side came up in Alex's [SoftServe 1:1](../softserve/calls/2026-08-18_141300_one-on-one_20260818132936005C1280.md) and was deliberately split out into its own session, to be held **before Bohdan's Friday 07:30 meeting**. Four things to settle: **location · cost · expectations · impact framing**, plus the **split between base and quarterly bonus** in the post-move compensation shape. Alex sends the invite and prepares the inputs; **Bohdan prepares the internal argumentation/justification for the relocation costs** ahead of that Friday meeting. Related: US replication of SoftServe's managed-service offering is floated as possibly tied to the move ([jumpstart-pm](../softserve/jumpstart-pm.md)), and full-time SoftServe employment stays "possible after the US move" ([softserve](../softserve/README.md)). Owner: Mine (invite + inputs) / Theirs (cost case).
-- **Where to live — ranking done, decision open.** The 220-place Bay Area comparison is complete and re-runnable. Next natural step when the move firms up: re-score with Alex's own criterion weights rather than accepting the equal-weight default — the pipeline supports it. Owner: Mine.
+- **Bay Area ranking — done, re-runnable.** The 220-place comparison is complete; it can be re-scored with Alex's own criterion weights instead of the equal-weight default. The live search has since focused on Walnut Creek (thread above). Owner: Mine.
 - **Visa timing.** Waiting on the Sep–Oct 2026 window to become concrete. Owner: Theirs (processing), then Mine.
 
 ## The Bay Area ranking
@@ -52,11 +55,14 @@ Superseded, kept only as pointers: Sheets `1HiSmOvkFYEFvI31Pvsp7xWGYtrfPHiwdGqd-
 
 - **Mine** — send the calendar invite for the dedicated SoftServe relocation/logistics meeting (before Bohdan's Friday 07:30 call) and prepare the inputs: location, cost, expectations, impact framing.
 - **Theirs (Bohdan)** — prepare the argumentation/justification for the October relocation costs ahead of that meeting.
-- **Mine** — no place chosen; the ranking is decision input. Re-run the scoring with Alex's own weights when the move firms up.
+- **Mine** — on the first open of the [rental map](docs/walnut-creek-map/README.md), choose Continue on the Google Drive prompt so it reads the sheet live (chat, 2026-11-07).
+- **Mine** — drop 2425 Golden Rain Rd (Rossmoor, no residents under 18); tidy the sheet: the 2720 Oak Rd row links to 2696 Jones Rd's Zillow page, and 103 Sierra Dr and 1459 Creekside Dr appear twice (chat, 2026-11-07).
+- **Mine** — possible subproject: the Walnut Creek rental search gets its own page if it keeps generating artifacts (inferred).
 - **Mine** — visa timing tentatively Sep–Oct 2026; relocation planning stays provisional until that date is real.
 
 ## Activity
 
+- 2026-11-07 — [Walnut Creek rental map](docs/walnut-creek-map/README.md) — live map of the "WC appartment" sheet with middle-school and neighborhood zones; flagged the Rossmoor listing (no residents under 18) and the one Mt. Diablo USD listing (chat, 2026-11-07).
 - 2026-08-18 — [October logistics split into its own SoftServe meeting](../softserve/calls/2026-08-18_141300_one-on-one_20260818132936005C1280.md) — location, cost, expectations, impact framing and the base-vs-quarterly-bonus split to be settled before Bohdan's Friday 07:30 call; Alex sends the invite, Bohdan prepares the internal cost case.
 - 2026-08-12 — area created and the ranking folded in — the deliverable had been sitting in `docs/` since 2026-08-09 with no wiki entry (chat, 2026-08-12).
 - 2026-08-09 — [ranking + map complete](docs/bay-area-relocation/README.md) — built and finished in one day (6 commits): 220-place framework → one uniform table with all six criteria measured → small-place blanks filled from parent areas → map gained real boundaries, per-criterion filters, click-to-pin.
