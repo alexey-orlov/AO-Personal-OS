@@ -1,0 +1,1052 @@
+<title>Walnut Creek Rental Map</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@500;600;700&family=Public+Sans:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: one screen. A header strip, a listings rail on the left, the map filling the rest;
+   whatever is selected (a listing, a neighborhood, a school zone) opens in one docked card. */
+:root {
+  --bg: #e9ece6;
+  --surface: #ffffff;
+  --surface-2: #f3f5f1;
+  --ink: #1b201d;
+  --ink-2: #47504a;
+  --muted: #6c756e;
+  --line: rgba(27, 32, 29, 0.13);
+  --accent: #0e6763;
+  --accent-ink: #ffffff;
+  --accent-soft: rgba(14, 103, 99, 0.11);
+  --pin: #ffffff;
+  --pin-ink: #1b201d;
+  --pin-line: rgba(27, 32, 29, 0.30);
+  --pin-sel: #1b201d;
+  --pin-sel-ink: #ffffff;
+  --pin-dim: 0.55;
+  --cluster: #1b201d;
+  --cluster-ink: #ffffff;
+  --mix-1: #2a78d6;
+  --mix-2: #eb6834;
+  --mix-3: #1baf7a;
+  --mix-4: #eda100;
+  --warn-ink: #8a4b00;
+  --shadow: 0 1px 2px rgba(20, 26, 22, 0.10), 0 6px 18px rgba(20, 26, 22, 0.12);
+  --font-ui: "Public Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: "Barlow Semi Condensed", "Public Sans", system-ui, -apple-system, sans-serif;
+  --gutter-l: max(16px, env(safe-area-inset-left, 0px));
+  --gutter-r: max(16px, env(safe-area-inset-right, 0px));
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #141816; --surface: #1d2220; --surface-2: #252b28; --ink: #e8ece6; --ink-2: #c0c8c1;
+    --muted: #8e978f; --line: rgba(232, 236, 230, 0.13); --accent: #5bbab3; --accent-ink: #0b1d1b;
+    --accent-soft: rgba(91, 186, 179, 0.16); --pin: #252b28; --pin-ink: #e8ece6;
+    --pin-line: rgba(232, 236, 230, 0.34); --pin-sel: #e8ece6; --pin-sel-ink: #141816; --pin-dim: 0.5;
+    --cluster: #e8ece6; --cluster-ink: #141816; --mix-1: #3987e5; --mix-2: #d95926; --mix-3: #199e70;
+    --mix-4: #c98500; --warn-ink: #f0b45c; --shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 8px 22px rgba(0, 0, 0, 0.45);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #141816; --surface: #1d2220; --surface-2: #252b28; --ink: #e8ece6; --ink-2: #c0c8c1;
+  --muted: #8e978f; --line: rgba(232, 236, 230, 0.13); --accent: #5bbab3; --accent-ink: #0b1d1b;
+  --accent-soft: rgba(91, 186, 179, 0.16); --pin: #252b28; --pin-ink: #e8ece6;
+  --pin-line: rgba(232, 236, 230, 0.34); --pin-sel: #e8ece6; --pin-sel-ink: #141816; --pin-dim: 0.5;
+  --cluster: #e8ece6; --cluster-ink: #141816; --mix-1: #3987e5; --mix-2: #d95926; --mix-3: #199e70;
+  --mix-4: #c98500; --warn-ink: #f0b45c; --shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 8px 22px rgba(0, 0, 0, 0.45);
+  color-scheme: dark;
+}
+html { box-sizing: border-box; height: 100%; }
+*, *::before, *::after { box-sizing: inherit; }
+body { height: 100%; background: var(--bg); color: var(--ink); font: 400 14px/1.45 var(--font-ui); overflow: hidden; }
+button, select, input { font: inherit; color: inherit; }
+a { color: var(--accent); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/*@@MAPLIBRE_CSS@@*/
+
+.app { height: 100%; display: grid; grid-template-rows: auto 1fr; }
+.top {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+  padding-block: 10px; padding-left: var(--gutter-l); padding-right: var(--gutter-r);
+  background: var(--surface); border-bottom: 1px solid var(--line); position: relative; z-index: 5;
+}
+.brand { min-width: 0; display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+.brand h1 { margin: 0; font: 700 22px/1.1 var(--font-display); letter-spacing: 0.01em; text-wrap: balance; }
+.brand .meta { margin: 0; color: var(--muted); font-size: 13px; }
+.sync { display: flex; align-items: center; gap: 10px; min-width: 0; }
+.sync__status { color: var(--ink-2); font-size: 13px; min-width: 0; }
+.sync__status.is-warn { color: var(--warn-ink); }
+.btn {
+  display: inline-flex; align-items: center; gap: 6px; border-radius: 8px; padding: 7px 12px;
+  border: 1px solid var(--line); background: var(--surface); cursor: pointer; font-weight: 600; font-size: 13px;
+}
+.btn:hover { background: var(--surface-2); }
+.btn--primary { background: var(--accent); color: var(--accent-ink); border-color: transparent; }
+.btn--primary:hover { background: var(--accent); filter: brightness(1.08); }
+.btn[disabled] { opacity: 0.6; cursor: progress; }
+.btn svg { width: 15px; height: 15px; flex: none; }
+.btn.is-busy svg { animation: spin 0.9s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .btn.is-busy svg { animation: none; } }
+
+.body { display: grid; grid-template-columns: 340px 1fr; min-height: 0; }
+.rail { min-height: 0; display: flex; flex-direction: column; background: var(--surface); border-right: 1px solid var(--line); }
+.rail__head {
+  display: flex; align-items: center; justify-content: space-between; gap: 8px;
+  padding: 10px 14px 10px var(--gutter-l); border-bottom: 1px solid var(--line);
+}
+.rail__count { font-weight: 600; font-size: 13px; color: var(--ink-2); }
+.sort { display: inline-flex; align-items: center; gap: 6px; color: var(--muted); font-size: 12px; }
+.sort select { border: 1px solid var(--line); background: var(--surface); border-radius: 6px; padding: 3px 6px; font-size: 13px; color: var(--ink); }
+.list { list-style: none; margin: 0; padding: 4px 0; overflow-y: auto; flex: 1; min-height: 0; }
+.item {
+  display: grid; grid-template-columns: 68px 1fr auto; gap: 2px 10px; width: 100%; text-align: left;
+  padding: 9px 14px 9px var(--gutter-l); border: 0; background: none; cursor: pointer; border-bottom: 1px solid var(--line);
+}
+.item:hover { background: var(--surface-2); }
+.item.is-selected { background: var(--accent-soft); }
+.item__price { grid-row: span 2; font: 700 17px/1.2 var(--font-display); font-variant-numeric: tabular-nums; }
+.item__price.is-none { color: var(--muted); font-weight: 600; font-size: 14px; }
+.item__title { font-weight: 600; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.item__facts { grid-column: 2; color: var(--muted); font-size: 12.5px; min-width: 0; }
+.item__where { grid-column: 2 / span 2; color: var(--ink-2); font-size: 12.5px; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.item__status { grid-row: 1; grid-column: 3; align-self: start; }
+.item.is-dim .item__price, .item.is-dim .item__title { opacity: 0.6; }
+.item__where .flag { color: var(--warn-ink); font-weight: 600; }
+.rail__foot { padding: 10px 14px 12px var(--gutter-l); border-top: 1px solid var(--line); color: var(--muted); font-size: 12.5px; }
+.rail__foot:empty { display: none; }
+.rail__foot b { color: var(--warn-ink); font-weight: 600; }
+
+.chip { display: inline-flex; align-items: center; gap: 4px; font-size: 11.5px; font-weight: 600; color: var(--ink-2);
+  border: 1px solid var(--line); border-radius: 999px; padding: 1px 7px 1px 5px; white-space: nowrap; }
+.chip svg, .pin svg { width: 12px; height: 12px; flex: none; }
+.chip--done { color: var(--accent); border-color: color-mix(in srgb, var(--accent) 40%, transparent); }
+.chip--req { color: var(--warn-ink); border-color: color-mix(in srgb, var(--warn-ink) 40%, transparent); }
+
+.mapwrap { position: relative; min-width: 0; min-height: 0; }
+.map { position: absolute; inset: 0; background: var(--bg); }
+.loading { position: absolute; inset: 0; display: grid; place-items: center; color: var(--muted); font-weight: 600; pointer-events: none; }
+.loading[hidden] { display: none !important; }
+
+.panel { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; box-shadow: var(--shadow); }
+.layers { position: absolute; top: 12px; left: 12px; z-index: 3; padding: 8px 12px; display: grid; gap: 6px; }
+.switch { display: flex; align-items: center; gap: 9px; cursor: pointer; font-weight: 600; font-size: 13px; user-select: none; }
+.switch input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.switch__ui { width: 30px; height: 18px; border-radius: 999px; background: var(--line); position: relative; flex: none; transition: background 0.15s; }
+.switch__ui::after { content: ""; position: absolute; top: 2px; left: 2px; width: 14px; height: 14px; border-radius: 50%; background: var(--surface); box-shadow: 0 1px 2px rgba(0,0,0,.25); transition: transform 0.15s; }
+.switch input:checked + .switch__ui { background: var(--accent); }
+.switch input:checked + .switch__ui::after { transform: translateX(12px); }
+.switch input:focus-visible + .switch__ui { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.legend { position: absolute; left: 12px; bottom: 34px; z-index: 3; padding: 0; max-width: min(300px, calc(100% - 24px));
+  max-height: calc(100% - 140px); overflow-y: auto; font-size: 12.5px; }
+.legend__toggle { display: flex; align-items: center; gap: 6px; width: 100%; border: 0; background: none; cursor: pointer; padding: 8px 12px 4px;
+  font: 700 12px/1.2 var(--font-ui); letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); text-align: left; }
+.legend__toggle::after { content: ""; width: 7px; height: 7px; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor; transform: rotate(45deg); margin: -3px 0 0 auto; }
+.legend.is-collapsed .legend__toggle { padding-bottom: 8px; }
+.legend.is-collapsed .legend__toggle::after { transform: rotate(-135deg); margin-top: 3px; }
+.legend__body { padding: 4px 12px 10px; }
+.legend.is-collapsed .legend__body { display: none; }
+.legend h3 { margin: 0 0 6px; font: 700 12px/1.2 var(--font-ui); letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+.legend section + section { margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--line); }
+.legend ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; }
+.legend li { display: flex; align-items: center; gap: 8px; min-width: 0; }
+.legend .sw { width: 14px; height: 14px; border-radius: 3px; flex: none; border: 2px solid; }
+.legend .dash { width: 22px; height: 0; border-top: 2px dashed var(--ink-2); flex: none; }
+.legend .note { margin: 6px 0 0; color: var(--muted); font-size: 11.5px; line-height: 1.4; }
+.legend .row { display: flex; flex-wrap: wrap; gap: 4px 10px; }
+.legend .row span { display: inline-flex; align-items: center; gap: 4px; color: var(--ink-2); }
+.legend .row svg { width: 12px; height: 12px; }
+
+.card { position: absolute; top: 12px; right: 12px; z-index: 4; width: 380px; max-width: calc(100% - 24px);
+  max-height: calc(100% - 24px); overflow-y: auto; padding: 0; }
+.card[hidden] { display: none !important; }
+.card__head { position: sticky; top: 0; background: var(--surface); padding: 14px 44px 10px 16px; border-bottom: 1px solid var(--line); border-radius: 10px 10px 0 0; z-index: 1; }
+.card__kicker { margin: 0 0 2px; font-size: 11.5px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+.card__title { margin: 0; font: 700 21px/1.15 var(--font-display); text-wrap: balance; }
+.card__sub { margin: 3px 0 0; color: var(--ink-2); font-size: 13px; }
+.card__close { position: absolute; top: 10px; right: 10px; width: 30px; height: 30px; border-radius: 8px; border: 0; background: none; cursor: pointer; display: grid; place-items: center; color: var(--muted); }
+.card__close:hover { background: var(--surface-2); color: var(--ink); }
+.card__body { padding: 12px 16px 16px; display: grid; gap: 14px; }
+.unit { display: grid; gap: 8px; }
+.unit + .unit { padding-top: 14px; border-top: 1px solid var(--line); }
+.unit__top { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+.unit__name { font-weight: 700; font-size: 15px; min-width: 0; }
+.unit__price { font: 700 24px/1 var(--font-display); font-variant-numeric: tabular-nums; }
+.unit__price small { font: 500 13px var(--font-ui); color: var(--muted); }
+.facts { display: flex; flex-wrap: wrap; gap: 4px 14px; color: var(--ink-2); font-size: 13px; }
+.facts b { font-weight: 600; color: var(--ink); }
+.notes { margin: 0; padding: 8px 10px; background: var(--surface-2); border-radius: 8px; white-space: pre-wrap; overflow-wrap: anywhere; font-size: 13px; }
+.notes.warn { background: color-mix(in srgb, var(--warn-ink) 12%, var(--surface)); color: var(--ink); border-left: 3px solid var(--warn-ink); }
+.kv { display: grid; grid-template-columns: max-content 1fr; gap: 5px 12px; margin: 0; font-size: 13px; }
+.kv dt { color: var(--muted); }
+.kv dd { margin: 0; min-width: 0; overflow-wrap: anywhere; }
+.kv .old { color: var(--muted); font-size: 12px; }
+.links { display: flex; flex-wrap: wrap; gap: 8px; }
+.links a { display: inline-flex; align-items: center; gap: 4px; font-weight: 600; font-size: 13px; text-decoration: none; border: 1px solid var(--line); border-radius: 7px; padding: 5px 9px; color: var(--ink); }
+.links a:hover { background: var(--surface-2); }
+.section-label { margin: 0 0 6px; font-size: 11.5px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+.precision { margin: 0; color: var(--muted); font-size: 12px; }
+.mix { display: flex; height: 12px; border-radius: 4px; overflow: hidden; gap: 2px; background: var(--surface); }
+.mix span { display: block; height: 100%; }
+.mixkey { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 3px 12px; margin-top: 7px; font-size: 12.5px; color: var(--ink-2); }
+.mixkey span { display: flex; align-items: center; gap: 6px; min-width: 0; }
+.mixkey i { width: 10px; height: 10px; border-radius: 2px; flex: none; }
+.mixkey b { font-weight: 600; color: var(--ink); font-variant-numeric: tabular-nums; margin-left: auto; }
+.stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.stat { background: var(--surface-2); border-radius: 8px; padding: 7px 9px; }
+.stat b { display: block; font: 700 18px/1.1 var(--font-display); }
+.stat span { color: var(--muted); font-size: 11.5px; }
+.inzone { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; }
+.inzone button { width: 100%; display: flex; justify-content: space-between; gap: 8px; border: 0; background: none; padding: 5px 6px; border-radius: 6px; cursor: pointer; text-align: left; }
+.inzone button:hover { background: var(--surface-2); }
+.inzone .p { font: 700 14px var(--font-display); font-variant-numeric: tabular-nums; }
+.muted { color: var(--muted); }
+
+.pin { position: relative; display: inline-flex; align-items: center; gap: 4px; padding: 3px 8px 3px 6px; border-radius: 999px;
+  background: var(--pin); color: var(--pin-ink); border: 1px solid var(--pin-line); box-shadow: var(--shadow);
+  font: 600 13.5px/1.15 var(--font-display); font-variant-numeric: tabular-nums; cursor: pointer; white-space: nowrap; }
+.pin::after { content: ""; position: absolute; left: 50%; bottom: -5px; width: 9px; height: 9px; background: var(--pin);
+  border-right: 1px solid var(--pin-line); border-bottom: 1px solid var(--pin-line); transform: translateX(-50%) rotate(45deg); }
+.pin:hover { z-index: 2; }
+.pin.is-hold { opacity: var(--pin-dim); }
+.pin.is-selected { background: var(--pin-sel); color: var(--pin-sel-ink); border-color: var(--pin-sel); opacity: 1; }
+.pin.is-selected::after { background: var(--pin-sel); border-color: var(--pin-sel); }
+.pin__n { font-size: 11px; font-weight: 700; border-radius: 999px; padding: 0 5px; background: var(--accent-soft); color: var(--ink); }
+.pin.is-selected .pin__n { background: rgba(255,255,255,.2); color: inherit; }
+.cluster { width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; cursor: pointer;
+  background: var(--cluster); color: var(--cluster-ink); border: 2px solid var(--surface); box-shadow: var(--shadow);
+  font: 700 14px/1 var(--font-display); }
+.listtoggle { display: none; }
+
+.maplibregl-ctrl-attrib { font-size: 10.5px; }
+.maplibregl-ctrl-group { background: var(--surface) !important; }
+.maplibregl-ctrl-group button + button { border-top-color: var(--line) !important; }
+.maplibregl-ctrl button .maplibregl-ctrl-icon { filter: var(--ctrl-filter, none); }
+:root[data-theme="dark"] { --ctrl-filter: invert(1) hue-rotate(180deg); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --ctrl-filter: invert(1) hue-rotate(180deg); } }
+.maplibregl-ctrl-attrib.maplibregl-compact { background: var(--surface); color: var(--ink-2); }
+.maplibregl-ctrl-attrib a { color: var(--ink-2); }
+
+@media (max-width: 1100px) {
+  .body { grid-template-columns: 300px 1fr; }
+  .card { width: 360px; max-width: calc(100% - 250px); }
+}
+@media (max-width: 900px) {
+  .brand h1 { font-size: 19px; }
+  .brand .meta { display: none; }
+  .top { padding-block: 8px; }
+  .sync__status { font-size: 12px; }
+  .body { grid-template-columns: 1fr; position: relative; }
+  .rail { position: absolute; left: 0; right: 0; bottom: 0; height: 58%; z-index: 6; border-right: 0; border-top: 1px solid var(--line);
+    border-radius: 14px 14px 0 0; box-shadow: var(--shadow); transform: translateY(105%); transition: transform 0.2s ease; padding-bottom: env(safe-area-inset-bottom, 0px); }
+  .app.is-list .rail { transform: none; }
+  .rail__head { padding-right: var(--gutter-r); }
+  .item { padding-right: var(--gutter-r); }
+  .listtoggle { display: inline-flex; position: absolute; z-index: 5; bottom: calc(14px + env(safe-area-inset-bottom, 0px)); left: 50%; transform: translateX(-50%);
+    align-items: center; gap: 6px; padding: 9px 16px; border-radius: 999px; border: 0; background: var(--ink); color: var(--surface); font-weight: 700; box-shadow: var(--shadow); cursor: pointer; }
+  .layers { top: 10px; left: var(--gutter-l); padding: 7px 10px; }
+  .switch { font-size: 12.5px; }
+  .legend { left: var(--gutter-l); bottom: calc(64px + env(safe-area-inset-bottom, 0px)); max-height: 40%; }
+  .card { top: auto; left: 0; right: 0; bottom: 0; width: auto; max-width: none; max-height: 62%; border-radius: 14px 14px 0 0; padding-bottom: env(safe-area-inset-bottom, 0px); z-index: 7; }
+  .card__head { border-radius: 14px 14px 0 0; padding-left: var(--gutter-l); }
+  .card__body { padding-left: var(--gutter-l); padding-right: var(--gutter-r); }
+  .maplibregl-ctrl-bottom-right { bottom: calc(56px + env(safe-area-inset-bottom, 0px)); right: env(safe-area-inset-right, 0px); }
+}
+</style>
+
+<div class="app" id="app">
+  <header class="top">
+    <div class="brand">
+      <h1>Walnut Creek rentals</h1>
+      <p class="meta" id="meta">From the “WC appartment” tab of Relocation planning</p>
+    </div>
+    <div class="sync">
+      <span class="sync__status" id="syncStatus" role="status" aria-live="polite">Loading…</span>
+      <button class="btn btn--primary" id="refreshBtn" type="button" title="Load the latest rows from the Google Sheet">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M13.5 8a5.5 5.5 0 1 1-1.6-3.9"/><path d="M13.6 2.2v3.1h-3.1"/></svg>
+        <span>Refresh</span>
+      </button>
+    </div>
+  </header>
+  <div class="body">
+    <aside class="rail" id="rail" aria-label="Listings">
+      <div class="rail__head">
+        <span class="rail__count" id="listCount">Listings</span>
+        <label class="sort" for="sortSel"><span>Sort</span>
+          <select id="sortSel" autocomplete="off">
+            <option value="price-asc">Price, low to high</option>
+            <option value="price-desc">Price, high to low</option>
+            <option value="hood">Neighborhood</option>
+            <option value="status">Status</option>
+            <option value="sheet">Sheet order</option>
+          </select>
+        </label>
+      </div>
+      <ul class="list" id="list"></ul>
+      <div class="rail__foot" id="unplaced"></div>
+    </aside>
+    <main class="mapwrap">
+      <div id="map" class="map" role="region" aria-label="Map of listings"></div>
+      <div class="loading" id="mapLoading">Drawing the map…</div>
+      <div class="layers panel" role="group" aria-label="Map layers">
+        <label class="switch" for="tSchools"><input type="checkbox" id="tSchools" autocomplete="off"><span class="switch__ui" aria-hidden="true"></span><span>Intermediate school zones</span></label>
+        <label class="switch" for="tHoods"><input type="checkbox" id="tHoods" autocomplete="off"><span class="switch__ui" aria-hidden="true"></span><span>Neighborhood zones</span></label>
+      </div>
+      <div class="legend panel" id="legend"></div>
+      <section class="card panel" id="card" hidden aria-label="Details"></section>
+      <button class="listtoggle" id="listToggle" type="button" aria-controls="rail" aria-expanded="false">List</button>
+    </main>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/maplibre-gl/4.7.1/maplibre-gl.js"></script>
+<script type="application/json" id="snapshot">@@SNAPSHOT@@</script>
+<script type="application/json" id="geocache">@@GEOCACHE@@</script>
+<script type="application/json" id="buildinfo">@@BUILD@@</script>
+<script>
+(function () {
+  "use strict";
+  var SHEET_ID = "1PH4mTSafR9xAh68KjNQogvMtVsCH_WXsMdfq04Swwvs";
+  var SHEET_URL = "https://docs.google.com/spreadsheets/d/" + SHEET_ID + "/edit#gid=2137535785";
+  var TAB = "wc appartment";
+  var XLSX_MIME = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+  var XLSX_SRC = "https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js";
+  var DRIVE = "Google Drive";
+
+  var SNAP = JSON.parse(document.getElementById("snapshot").textContent);
+  var GEO = JSON.parse(document.getElementById("geocache").textContent);
+  var BUILD = JSON.parse(document.getElementById("buildinfo").textContent);
+  var $ = function (id) { return document.getElementById(id); };
+
+  var store = {
+    get: function (k) { try { var v = localStorage.getItem("wcmap." + k); return v == null ? null : JSON.parse(v); } catch (e) { return null; } },
+    set: function (k, v) { try { localStorage.setItem("wcmap." + k, JSON.stringify(v)); } catch (e) { /* storage unavailable */ } }
+  };
+
+  var S = { listings: [], groups: [], byKey: {}, sel: null, selZone: null, source: null, at: null,
+            showSchools: !!store.get("schools"), showHoods: !!store.get("hoods"), sort: store.get("sort") || "price-asc",
+            data: null, map: null, markers: [], hoverHood: null, busy: false, mcp: undefined };
+
+  function esc(s) { return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) { return ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]; }); }
+
+  /* ---------- icons ---------- */
+  var ICON = {
+    done: '<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.3 6.4 4.8 8.8 9.8 3.4"/></svg>',
+    req: '<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><circle cx="6" cy="6" r="4.6"/><path d="M6 3.4V6l1.8 1.2"/></svg>',
+    hold: '<svg viewBox="0 0 12 12" fill="currentColor" aria-hidden="true"><rect x="3" y="2.5" width="2.1" height="7" rx=".6"/><rect x="6.9" y="2.5" width="2.1" height="7" rx=".6"/></svg>',
+    todo: '<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M2.5 3.5h7M2.5 6h7M2.5 8.5h4"/></svg>',
+    none: ""
+  };
+  var STATUS_LABEL = { done: "Done", req: "Tour requested", hold: "On hold", todo: "To do", none: "No status" };
+
+  /* ---------- compact layer decoding (see build scripts' encode.py) ---------- */
+  var X0 = -122.2, Y0 = 37.8, Q = 1e5;
+  function decLine(a) { var out = [], x = 0, y = 0; for (var i = 0; i < a.length; i += 2) { x += a[i]; y += a[i + 1]; out.push([x / Q + X0, y / Q + Y0]); } return out; }
+  function decGeom(t, g) {
+    if (t === 1) return { type: "Point", coordinates: [g[0] / Q + X0, g[1] / Q + Y0] };
+    if (t === 2) return { type: "LineString", coordinates: decLine(g) };
+    if (t === 3) return { type: "Polygon", coordinates: g.map(decLine) };
+    if (t === 4) return { type: "MultiLineString", coordinates: g.map(decLine) };
+    return { type: "MultiPolygon", coordinates: g.map(function (p) { return p.map(decLine); }) };
+  }
+  function decodeLayer(L) {
+    return { type: "FeatureCollection", features: L.p.map(function (p, i) { return { type: "Feature", id: i, properties: p, geometry: decGeom(L.t[i], L.g[i]) }; }) };
+  }
+
+  /* ---------- geometry ---------- */
+  var KX = 111320 * Math.cos(37.9 * Math.PI / 180), KY = 110950;
+  function bbox(geom) {
+    var b = [180, 90, -180, -90];
+    var polys = geom.type === "Polygon" ? [geom.coordinates] : geom.coordinates;
+    polys.forEach(function (p) { p[0].forEach(function (c) { if (c[0] < b[0]) b[0] = c[0]; if (c[1] < b[1]) b[1] = c[1]; if (c[0] > b[2]) b[2] = c[0]; if (c[1] > b[3]) b[3] = c[1]; }); });
+    return b;
+  }
+  function inRing(pt, r) { var ins = false; for (var i = 0, j = r.length - 1; i < r.length; j = i++) { var xi = r[i][0], yi = r[i][1], xj = r[j][0], yj = r[j][1]; if (((yi > pt[1]) !== (yj > pt[1])) && (pt[0] < (xj - xi) * (pt[1] - yi) / (yj - yi) + xi)) ins = !ins; } return ins; }
+  function inPoly(pt, p) { if (!inRing(pt, p[0])) return false; for (var k = 1; k < p.length; k++) if (inRing(pt, p[k])) return false; return true; }
+  function inGeom(pt, g) { return g.type === "Polygon" ? inPoly(pt, g.coordinates) : g.coordinates.some(function (p) { return inPoly(pt, p); }); }
+  function segDist(p, a, b) {
+    var px = (p[0] - a[0]) * KX, py = (p[1] - a[1]) * KY, bx = (b[0] - a[0]) * KX, by = (b[1] - a[1]) * KY;
+    var L = bx * bx + by * by, t = L ? (px * bx + py * by) / L : 0; t = Math.max(0, Math.min(1, t));
+    return Math.hypot(px - t * bx, py - t * by);
+  }
+  function distToGeom(pt, g) {
+    var best = Infinity, polys = g.type === "Polygon" ? [g.coordinates] : g.coordinates;
+    polys.forEach(function (p) { p.forEach(function (r) { for (var i = 1; i < r.length; i++) { var d = segDist(pt, r[i - 1], r[i]); if (d < best) best = d; } }); });
+    return best;
+  }
+  function prep(fc) { fc.features.forEach(function (f) { f._bb = bbox(f.geometry); }); return fc; }
+  function findIn(fc, pt, near) {
+    for (var i = 0; i < fc.features.length; i++) {
+      var f = fc.features[i], b = f._bb;
+      if (pt[0] >= b[0] && pt[0] <= b[2] && pt[1] >= b[1] && pt[1] <= b[3] && inGeom(pt, f.geometry)) return f;
+    }
+    if (!near) return null;
+    var best = null, bd = near;
+    fc.features.forEach(function (f) { var d = distToGeom(pt, f.geometry); if (d < bd) { bd = d; best = f; } });
+    return best;
+  }
+  function metres(a, b) { return Math.hypot((a[0] - b[0]) * KX, (a[1] - b[1]) * KY); }
+
+  /* ---------- addresses (mirror of the build's addr.py) ---------- */
+  var SUFFIX = { drive: "dr", avenue: "ave", av: "ave", road: "rd", street: "st", lane: "ln", court: "ct", boulevard: "blvd", place: "pl",
+    circle: "cir", terrace: "ter", parkway: "pkwy", highway: "hwy", square: "sq", trail: "trl", loop: "loop", way: "way" };
+  var DIRS = { north: "n", south: "s", east: "e", west: "w" };
+  var UNIT_RE = /\s*(?:,\s*)?(?:apt|apartment|unit|ste|suite|bldg|#)\.?\s*#?\s*[\w-]+\s*$/i;
+  function streetLine(a) { var f = String(a).split(",")[0].trim(); f = f.replace(UNIT_RE, ""); return f.replace(/\s+/g, " ").trim(); }
+  function normWords(s) { return s.toLowerCase().replace(/\./g, "").split(" ").map(function (w) { if (w === "mount") w = "mt"; w = DIRS[w] || w; return SUFFIX[w] || w; }).join(" "); }
+  function normKey(a) { return normWords(streetLine(a)); }
+  function zipOf(a) { var m = String(a).match(/\b(9[45]\d{3})\b/); return m ? m[1] : ""; }
+
+  var ADDR = null, addrPromise = null;
+  function loadAddr() {
+    if (ADDR) return Promise.resolve(ADDR);
+    if (!addrPromise) addrPromise = fetch("data/addr.json").then(function (r) { if (!r.ok) throw new Error("addr " + r.status); return r.json(); }).then(function (j) { ADDR = j; return j; }).catch(function (e) { addrPromise = null; throw e; });
+    return addrPromise;
+  }
+  function geocodeLocal(address) {
+    return loadAddr().then(function (A) {
+      var line = streetLine(address).replace(/^(\d+)-\d+/, "$1");
+      var m = line.match(/^(\d+)\s+(.+)$/); if (!m) return null;
+      var n = +m[1], street = normWords(m[2]), zip = zipOf(address), segs = A.s[street];
+      if (!segs) return null;
+      var best = null, near = null;
+      segs.forEach(function (s) {
+        [["L", s[0], s[1], s[4]], ["R", s[2], s[3], s[5]]].forEach(function (side) {
+          var f = side[1], t = side[2]; if (f == null || t == null) return;
+          var lo = Math.min(f, t), hi = Math.max(f, t), score = zip && side[3] === zip ? 0 : 1;
+          if (n >= lo && n <= hi && (f === t || (n % 2) === (f % 2))) { if (!best || score < best.score) best = { s: s, side: side[0], f: f, t: t, score: score }; }
+          else { var d = Math.min(Math.abs(n - lo), Math.abs(n - hi)); if (d < 120 && (!near || d + score * 50 < near.d)) near = { s: s, side: side[0], f: f, t: t, d: d + score * 50, clamp: n < lo ? lo : hi }; }
+        });
+      });
+      var hit = best || near; if (!hit) return null;
+      var flat = hit.s[6], pts = [];
+      for (var i = 0; i < flat.length; i += 2) pts.push([flat[i] / Q - 122.2, flat[i + 1] / Q + 37.8]);
+      var num = best ? n : hit.clamp;
+      var frac = hit.t === hit.f ? 0.5 : (num - hit.f) / (hit.t - hit.f);
+      var segLen = [], total = 0;
+      for (var k = 1; k < pts.length; k++) { var l = metres(pts[k - 1], pts[k]); segLen.push(l); total += l; }
+      var target = Math.max(0, Math.min(1, frac)) * total, acc = 0, at = pts[0], dir = [0, 0];
+      for (k = 1; k < pts.length; k++) {
+        var L = segLen[k - 1];
+        if (acc + L >= target || k === pts.length - 1) {
+          var u = L ? (target - acc) / L : 0; u = Math.max(0, Math.min(1, u));
+          at = [pts[k - 1][0] + (pts[k][0] - pts[k - 1][0]) * u, pts[k - 1][1] + (pts[k][1] - pts[k - 1][1]) * u];
+          dir = [(pts[k][0] - pts[k - 1][0]) * KX, (pts[k][1] - pts[k - 1][1]) * KY]; break;
+        }
+        acc += L;
+      }
+      var dl = Math.hypot(dir[0], dir[1]) || 1, off = 12 * (hit.side === "L" ? 1 : -1);
+      return { lon: at[0] + (-dir[1] / dl) * off / KX, lat: at[1] + (dir[0] / dl) * off / KY, src: best ? "range" : "approx" };
+    });
+  }
+
+  /* ---------- sheet rows -> listings ---------- */
+  function num(s) { var v = parseFloat(String(s).replace(/[$,\s]/g, "")); return isFinite(v) ? v : null; }
+  function statusCat(st, tour) {
+    var t = String(st || "").toLowerCase();
+    if (!t) return tour ? "req" : "none";
+    if (/\b(done|toured|visited|seen)\b/.test(t)) return "done";
+    if (/tour/.test(t)) return "req";
+    if (/hold|reject|declin|not interested|\bno\b/.test(t)) return "hold";
+    return "todo";
+  }
+  function parseRows(rows, links) {
+    var h = -1;
+    for (var i = 0; i < Math.min(rows.length, 15); i++) { if ((rows[i] || []).some(function (c) { return String(c).trim().toLowerCase() === "address"; })) { h = i; break; } }
+    if (h < 0) throw { code: "no_header" };
+    var raw = rows[h].map(function (c) { return String(c == null ? "" : c).trim(); });
+    var hdr = raw.map(function (c) { return c.toLowerCase(); });
+    function col() { for (var a = 0; a < arguments.length; a++) { var n = arguments[a], nn = n.replace(/[^a-z]/g, ""); for (var j = 0; j < hdr.length; j++) if (hdr[j] === n || (nn && hdr[j].replace(/[^a-z]/g, "") === nn)) return j; } return -1; }
+    var C = { address: col("address"), title: col("title", "name"), type: col("type"), beds: col("beds", "bedrooms"), price: col("price", "rent"),
+      sqft: col("sq.ft.", "sqft", "sq ft", "size"), notes: col("notes", "comments"), link: col("link", "url"), avail: col("when available", "available"),
+      status: col("status"), tour: col("tour ?", "tour"), lat: col("lat", "latitude"), lng: col("lng", "lon", "longitude") };
+    var known = {}; Object.keys(C).forEach(function (k) { if (C[k] >= 0) known[C[k]] = 1; });
+    var out = [];
+    for (var r = h + 1; r < rows.length; r++) {
+      var row = rows[r] || [];
+      var get = function (i) { return i >= 0 && i < row.length ? String(row[i] == null ? "" : row[i]).trim() : ""; };
+      var address = get(C.address); if (!address) continue;
+      var extra = [];
+      row.forEach(function (v, i) { var s = String(v == null ? "" : v).trim(); if (s && !known[i]) extra.push({ label: raw[i] || "", value: s }); });
+      var title = get(C.title), titleNote = "";
+      if (/^<.*>$/.test(title)) { titleNote = title.replace(/^<|>$/g, ""); title = ""; }
+      var link = (links && links[r]) || get(C.link);
+      var type = get(C.type); if (/^apt$/i.test(type)) type = "Apt";
+      out.push({ row: r + 1, address: address, title: title, titleNote: titleNote, type: type, beds: get(C.beds),
+        priceText: get(C.price), price: num(get(C.price)), sqft: num(get(C.sqft)), notes: get(C.notes),
+        link: /^https?:\/\//i.test(link) ? link : "", avail: get(C.avail), status: get(C.status), tour: get(C.tour), extra: extra,
+        lat: num(get(C.lat)), lng: num(get(C.lng)), cat: statusCat(get(C.status), get(C.tour)), key: normKey(address) });
+    }
+    return out;
+  }
+
+  /* ---------- placing listings ---------- */
+  function placeAll(listings) {
+    var pending = [];
+    listings.forEach(function (l) {
+      if (l.lat && l.lng && Math.abs(l.lat) <= 90) { l.pos = [l.lng, l.lat]; l.src = "sheet"; return; }
+      var g = GEO[l.key];
+      if (g) { l.pos = [g[1], g[0]]; l.src = g[2]; return; }
+      var cached = (store.get("geo") || {})[l.key];
+      if (cached) { l.pos = [cached[1], cached[0]]; l.src = cached[2]; return; }
+      pending.push(l);
+    });
+    if (!pending.length) return Promise.resolve();
+    return Promise.all(pending.map(function (l) {
+      return geocodeLocal(l.address).then(function (r) {
+        if (r) { l.pos = [r.lon, r.lat]; l.src = r.src; var c = store.get("geo") || {}; c[l.key] = [r.lat, r.lon, r.src]; store.set("geo", c); }
+      }).catch(function () { l.geoErr = true; });
+    }));
+  }
+  function groupListings(listings) {
+    var groups = [];
+    listings.forEach(function (l) {
+      if (!l.pos) return;
+      var g = null;
+      for (var i = 0; i < groups.length; i++) if (metres(groups[i].pos, l.pos) < 28) { g = groups[i]; break; }
+      if (!g) { g = { key: "g" + groups.length, pos: l.pos.slice(), items: [] }; groups.push(g); }
+      g.items.push(l); l.group = g;
+    });
+    groups.forEach(function (g) {
+      var cats = g.items.map(function (l) { return l.cat; });
+      g.cat = ["done", "req", "todo", "none", "hold"].filter(function (c) { return cats.indexOf(c) >= 0; })[0];
+      g.allHold = cats.every(function (c) { return c === "hold"; });
+      var prices = g.items.map(function (l) { return l.price; }).filter(function (p) { return p != null; });
+      g.min = prices.length ? Math.min.apply(null, prices) : null;
+      describePlace(g);
+    });
+    return groups;
+  }
+  function describePlace(g) {
+    var D = S.data; if (!D) return;
+    var pt = g.pos;
+    var m = findIn(D.mid, pt, 120), a = findIn(D.assign, pt, 120), e = findIn(D.elem, pt, 120), z = findIn(D.hoods, pt, 160);
+    g.mid = m && m.properties; g.assign = a && a.properties; g.elem = e && e.properties; g.hood = z && z.properties; g.hoodId = z ? z.id : null; g.midId = m ? m.id : null;
+  }
+
+  /* ---------- formatting ---------- */
+  function money(v) { return v == null ? "" : "$" + Math.round(v).toLocaleString("en-US"); }
+  function shortMoney(v) { return v == null ? "—" : "$" + (v >= 10000 ? Math.round(v / 1000) + "k" : (v / 1000).toFixed(1) + "k"); }
+  function headline(l) { return l.title || streetLine(l.address); }
+  function fmtTime(ts) { try { return new Date(ts).toLocaleString(undefined, { month: "short", day: "numeric", hour: "numeric", minute: "2-digit" }); } catch (e) { return ""; } }
+  function bedsText(l) { if (!l.beds) return ""; return /^\d+$/.test(l.beds) ? l.beds + " bd" : l.beds + " bd"; }
+  function statusChip(l) { var c = l.cat; return '<span class="chip chip--' + c + '">' + ICON[c] + esc(l.status || STATUS_LABEL[c]) + "</span>"; }
+  var SRC_TEXT = { "osm-building": "Pin on the building outline (OpenStreetMap).", "census-range": "Pin placed along the block from Census address ranges.",
+    range: "Pin placed along the block from Census address ranges.", approx: "Approximate pin: the house number is outside the known ranges for this street.", sheet: "Pin from the sheet's coordinates." };
+
+  /* ---------- sync status ---------- */
+  function setStatus(text, warn) { var el = $("syncStatus"); el.textContent = text; el.classList.toggle("is-warn", !!warn); }
+  function sourceLine() {
+    if (S.source === "live") return "Live from the sheet · " + fmtTime(S.at);
+    if (S.source === "cache") return "Last loaded " + fmtTime(S.at);
+    return "Snapshot from " + fmtTime(S.at);
+  }
+
+  /* ---------- data load ---------- */
+  function loadData() {
+    return Promise.all(["base", "schools", "zones"].map(function (n) {
+      return fetch("data/" + n + ".json").then(function (r) { if (!r.ok) throw new Error(n + " " + r.status); return r.json(); });
+    })).then(function (res) {
+      var base = res[0], sch = res[1], zon = res[2], D = {};
+      Object.keys(base).forEach(function (k) { D[k] = decodeLayer(base[k]); });
+      D.mid = prep(decodeLayer(sch.mid)); D.elem = prep(decodeLayer(sch.elem)); D.assign = prep(decodeLayer(sch.assign));
+      D.schoolPts = decodeLayer(sch.pts); D.midLabels = decodeLayer(sch.midLabels);
+      D.hoods = prep(decodeLayer(zon.zones)); D.hoodLabels = decodeLayer(zon.labels);
+      S.data = D; return D;
+    });
+  }
+
+  function applyRows(rows, links, source, at) {
+    var listings = parseRows(rows, links);
+    S.listings = listings; S.source = source; S.at = at;
+    return placeAll(listings).then(function () {
+      var prevSel = S.sel && S.byKey[S.sel] ? S.byKey[S.sel].items[0] : null;
+      S.groups = groupListings(listings);
+      S.byKey = {}; S.groups.forEach(function (g) { S.byKey[g.key] = g; });
+      if (prevSel) { var match = S.groups.filter(function (g) { return g.items.some(function (l) { return l.key === prevSel.key; }); })[0]; S.sel = match ? match.key : null; }
+      else S.sel = null;
+      renderAll();
+      if (S.sel) showGroupCard(S.byKey[S.sel], false); else if (!S.selZone) closeCard();
+    });
+  }
+
+  function loadXLSX() {
+    if (window.XLSX) return Promise.resolve(window.XLSX);
+    return new Promise(function (resolve, reject) {
+      var s = document.createElement("script"); s.src = XLSX_SRC; s.async = true;
+      s.onload = function () { window.XLSX ? resolve(window.XLSX) : reject(new Error("xlsx")); };
+      s.onerror = function () { reject(new Error("xlsx")); };
+      document.head.appendChild(s);
+    });
+  }
+  function getMcp() {
+    if (S.mcp !== undefined) return Promise.resolve(S.mcp);
+    if (!window.claude || typeof window.claude.use !== "function") { S.mcp = null; return Promise.resolve(null); }
+    return window.claude.use("mcp").then(function (m) { S.mcp = m || null; return S.mcp; }, function () { S.mcp = null; return null; });
+  }
+
+  var ERR = {
+    server_not_connected: "Google Drive isn't connected to your Claude account. Add it in claude.ai → Settings → Connectors, then press Refresh.",
+    needs_reauth: "Google Drive needs reconnecting (claude.ai → Settings → Connectors). Then press Refresh.",
+    selection_required: "You have more than one Google Drive connector. Choose one when Claude asks, then press Refresh.",
+    not_in_manifest: "This page isn't allowed to use Google Drive yet. Press Refresh and choose Allow.",
+    approval_required: "Reading the sheet needs your approval. Press Refresh and choose Allow.",
+    consent_required: "Reading the sheet needs your approval. Press Refresh and choose Allow.",
+    blocked_by_policy: "Your organization blocks this Google Drive tool here, so the map shows the saved snapshot.",
+    not_granted: "Live refresh works when the map is open in Claude while you're signed in.",
+    capability_disabled: "Live refresh isn't available in this view of the page.",
+    capability_removed: "Live refresh isn't available in this view of the page.",
+    no_header: "Opened the sheet, but the “WC appartment” tab has no “address” column.",
+    no_tab: "Opened the sheet, but couldn't find the “WC appartment” tab.",
+    bad_payload: "Google Drive answered, but not with the spreadsheet file.",
+    xlsx: "Couldn't load the spreadsheet reader. Check the connection and press Refresh."
+  };
+
+  function loadLive(userAsked, retried) {
+    if (S.busy) return;
+    S.busy = true; var btn = $("refreshBtn"); btn.disabled = true; btn.classList.add("is-busy");
+    setStatus("Loading the sheet…");
+    var done = function () { S.busy = false; btn.disabled = false; btn.classList.remove("is-busy"); };
+    getMcp().then(function (mcp) {
+      if (!mcp) { throw { code: "not_granted" }; }
+      return Promise.all([mcp.callTool(DRIVE, "download_file_content", { fileId: SHEET_ID, exportMimeType: XLSX_MIME }, { cache: false }), loadXLSX().catch(function () { throw { code: "xlsx" }; })]);
+    }).then(function (res) {
+      var p = res[0] && res[0].payload, X = res[1];
+      if (typeof p === "string") { try { p = JSON.parse(p); } catch (e) { /* not JSON */ } }
+      var b64 = p && (p.content || p.data);
+      if (!b64 || typeof b64 !== "string") throw { code: "bad_payload" };
+      var wb = X.read(b64, { type: "base64" });
+      var name = wb.SheetNames.filter(function (n) { return n.trim().toLowerCase() === TAB; })[0];
+      if (!name) name = wb.SheetNames.filter(function (n) { var r = X.utils.sheet_to_json(wb.Sheets[n], { header: 1, raw: false, defval: "" }).slice(0, 3); return r.some(function (row) { return row.some(function (c) { return String(c).trim().toLowerCase() === "address"; }); }); })[0];
+      if (!name) throw { code: "no_tab" };
+      var ws = wb.Sheets[name];
+      var rows = X.utils.sheet_to_json(ws, { header: 1, raw: false, defval: "", blankrows: true });
+      var links = {};
+      if (ws["!ref"]) {
+        var rg = X.utils.decode_range(ws["!ref"]);
+        Object.keys(ws).forEach(function (addr) { if (addr[0] === "!") return; var c = ws[addr]; if (c && c.l && c.l.Target) { var rc = X.utils.decode_cell(addr); if (/^https?:/i.test(c.l.Target)) links[rc.r - rg.s.r] = links[rc.r - rg.s.r] || c.l.Target; } });
+      }
+      var at = Date.now();
+      store.set("rows", { at: at, rows: rows, links: links });
+      return applyRows(rows, links, "live", at);
+    }).then(function () { done(); setStatus(sourceLine()); }).catch(function (e) {
+      done();
+      var code = e && e.code ? e.code : "upstream_error";
+      if (e && e.retryable && !retried) { setTimeout(function () { loadLive(userAsked, true); }, Math.min(e.retryAfterMs || 2500 + Math.random() * 1500, 15000)); return; }
+      var msg = ERR[code] || (code === "tool_error" ? "Google Drive couldn't open the sheet" + (e.message ? ": " + String(e.message).slice(0, 160) : ".") : "Google Drive didn't answer. Press Refresh to try again.");
+      setStatus(sourceLine() + " · " + msg, true);
+      if (code === "server_not_connected" || code === "needs_reauth" || code === "selection_required") { /* data stays visible */ }
+    });
+  }
+
+  /* ---------- map ---------- */
+  var PAL = {
+    light: { land: "#edf0ea", park: "#d3e5c8", open: "#e2e9d3", wood: "#cde0c1", golf: "#d0e5c3", grass: "#dce8d2", pitch: "#cbe2bf", school: "#e9e8dc", comm: "#ebe7e0",
+      water: "#a6cbe1", waterline: "#7cb1d2", bldRes: "#dad7cf", bldApt: "#cbc6bb", bldCom: "#d6cfc5", bldOth: "#d7d4cc", bldLine: "#c4bfb5",
+      road: "#ffffff", roadCase: "#d0d3cb", art: "#ffffff", artCase: "#bfc3ba", trunk: "#f8e8ba", trunkCase: "#d8bf86", mwy: "#f3d59e", mwyCase: "#d4ad6d",
+      trail: "#9b8f77", rail: "#6d6882", label: "#2f3530", roadLabel: "#59605a", halo: "#edf0ea", waterLabel: "#3d6f92", parkLabel: "#4c6a41",
+      zoneLine: "#2f3731", zoneHi: "#0e6763", zoneLabel: "#1b201d", zoneHalo: "rgba(255,255,255,0.88)", schoolDot: "#1b201d", midOpacity: 0.16 },
+    dark: { land: "#181c1a", park: "#1f3125", open: "#1d251f", wood: "#1e2f23", golf: "#203325", grass: "#1e2921", pitch: "#213529", school: "#21251f", comm: "#23211e",
+      water: "#1c394e", waterline: "#2e5e7f", bldRes: "#2a2f2c", bldApt: "#323833", bldCom: "#36322d", bldOth: "#2d312e", bldLine: "#3b413c",
+      road: "#353b37", roadCase: "#242926", art: "#464c47", artCase: "#2a2f2c", trunk: "#4e4735", trunkCase: "#352f22", mwy: "#5d5036", mwyCase: "#3e3525",
+      trail: "#7e745f", rail: "#a39eba", label: "#d5dad4", roadLabel: "#a2a9a2", halo: "#181c1a", waterLabel: "#80b2d4", parkLabel: "#8eaf84",
+      zoneLine: "#cdd4cc", zoneHi: "#5bbab3", zoneLabel: "#eef1ec", zoneHalo: "rgba(20,24,22,0.88)", schoolDot: "#e8ece6", midOpacity: 0.22 }
+  };
+  var SERIES = { light: ["#2a78d6", "#eb6834", "#1baf7a", "#eda100", "#e87ba4", "#008300", "#6250d6", "#e34948"],
+                 dark: ["#3987e5", "#d95926", "#199e70", "#c98500", "#d55181", "#008300", "#9085e9", "#e66767"] };
+  function isDark() { var t = document.documentElement.getAttribute("data-theme"); if (t === "dark") return true; if (t === "light") return false; return !!(window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches); }
+  function slotExpr(ser) { return ["match", ["get", "c"], 0, ser[0], 1, ser[1], 2, ser[2], 3, ser[3], 4, ser[4], 5, ser[5], 6, ser[6], 7, ser[7], ser[0]]; }
+  function W(stops, add) { var e = ["interpolate", ["exponential", 1.45], ["zoom"]]; stops.forEach(function (s) { e.push(s[0], s[1] + (add ? add * (s[0] >= 16 ? 1.6 : 1) : 0)); }); return e; }
+  var WRES = [[12, 0.35], [14, 1.2], [16, 4.2], [18, 13]], WTER = [[11, 0.6], [14, 2.2], [16, 6.5], [18, 17]], WART = [[10, 0.8], [14, 3.2], [16, 8.5], [18, 21]],
+      WTRK = [[10, 1], [14, 3.8], [16, 9.5], [18, 23]], WMWY = [[9, 1], [14, 4.8], [16, 11.5], [18, 27]];
+  var VIS = function (on) { return on ? "visible" : "none"; };
+
+  function layerDefs(c, ser) {
+    var roadFilter = function (cls) { return ["in", ["get", "c"], ["literal", cls]]; };
+    return [
+      { id: "bg", type: "background", paint: { "background-color": c.land } },
+      { id: "green", type: "fill", source: "green", paint: { "fill-color": ["match", ["get", "k"], "park", c.park, "golf", c.golf, "open", c.open, "wood", c.wood, "grass", c.grass, "pitch", c.pitch, "school", c.school, "comm", c.comm, c.park] } },
+      { id: "water", type: "fill", source: "water", paint: { "fill-color": c.water } },
+      { id: "waterlines", type: "line", source: "waterlines", layout: { "line-cap": "round", "line-join": "round" },
+        paint: { "line-color": c.waterline, "line-width": ["interpolate", ["linear"], ["zoom"], 12, ["match", ["get", "w"], "river", 1.4, "canal", 1.2, 0.6], 16, ["match", ["get", "w"], "river", 4, "canal", 3, 2]] } },
+      { id: "bld", type: "fill", source: "bld", minzoom: 14, paint: { "fill-color": ["match", ["get", "k"], "res", c.bldRes, "apt", c.bldApt, "com", c.bldCom, c.bldOth], "fill-outline-color": c.bldLine, "fill-opacity": ["interpolate", ["linear"], ["zoom"], 14, 0, 14.6, 1] } },
+      { id: "mid-fill", type: "fill", source: "mid", layout: { visibility: VIS(S.showSchools) }, paint: { "fill-color": slotExpr(ser), "fill-opacity": c.midOpacity } },
+      { id: "res-case", type: "line", source: "roads", minzoom: 13, filter: roadFilter(["res", "link"]), layout: { "line-cap": "round", "line-join": "round" }, paint: { "line-color": c.roadCase, "line-width": W(WRES, 1.4) } },
+      { id: "ter-case", type: "line", source: "roads", minzoom: 11, filter: roadFilter(["ter"]), layout: { "line-cap": "round", "line-join": "round" }, paint: { "line-color": c.roadCase, "line-width": W(WTER, 1.4) } },
+      { id: "art-case", type: "line", source: "roads", filter: roadFilter(["sec", "pri"]), layout: { "line-cap": "round", "line-join": "round" }, paint: { "line-color": c.artCase, "line-width": W(WART, 1.5) } },
+      { id: "trunk-case", type: "line", source: "roads", filter: roadFilter(["trunk"]), layout: { "line-cap": "round", "line-join": "round" }, paint: { "line-color": c.trunkCase, "line-width": W(WTRK, 1.5) } },
+      { id: "mwy-case", type: "line", source: "roads", filter: roadFilter(["mwy"]), layout: { "line-cap": "round", "line-join": "round" }, paint: { "line-color": c.mwyCase, "line-width": W(WMWY, 1.6) } },
+      { id: "res", type: "line", source: "roads", minzoom: 12, filter: roadFilter(["res", "link"]), layout: { "line-cap": "round", "line-join": "round" }, paint: { "line-color": c.road, "line-width": W(WRES) } },
+      { id: "ter", type: "line", source: "roads", filter: roadFilter(["ter"]), layout: { "line-cap": "round", "line-join": "round" }, paint: { "line-color": c.road, "line-width": W(WTER) } },
+      { id: "art", type: "line", source: "roads", filter: roadFilter(["sec", "pri"]), layout: { "line-cap": "round", "line-join": "round" }, paint: { "line-color": c.art, "line-width": W(WART) } },
+      { id: "trunk", type: "line", source: "roads", filter: roadFilter(["trunk"]), layout: { "line-cap": "round", "line-join": "round" }, paint: { "line-color": c.trunk, "line-width": W(WTRK) } },
+      { id: "mwy", type: "line", source: "roads", filter: roadFilter(["mwy"]), layout: { "line-cap": "round", "line-join": "round" }, paint: { "line-color": c.mwy, "line-width": W(WMWY) } },
+      { id: "trail", type: "line", source: "roads", minzoom: 13, filter: roadFilter(["trail"]), paint: { "line-color": c.trail, "line-width": ["interpolate", ["linear"], ["zoom"], 13, 0.8, 17, 2], "line-dasharray": [2.5, 1.8] } },
+      { id: "rail", type: "line", source: "roads", filter: roadFilter(["rail"]), paint: { "line-color": c.rail, "line-width": ["interpolate", ["linear"], ["zoom"], 11, 1.1, 16, 2.6], "line-dasharray": [3, 2] } },
+      { id: "mid-line", type: "line", source: "mid", layout: { visibility: VIS(S.showSchools), "line-join": "round" }, paint: { "line-color": slotExpr(ser), "line-width": ["interpolate", ["linear"], ["zoom"], 11, 1.2, 16, 2.4], "line-opacity": 0.95 } },
+      { id: "mid-sel", type: "line", source: "mid", filter: ["==", ["id"], -1], layout: { "line-join": "round" }, paint: { "line-color": slotExpr(ser), "line-width": ["interpolate", ["linear"], ["zoom"], 11, 2.8, 16, 4.6] } },
+      { id: "hood-fill", type: "fill", source: "hoods", layout: { visibility: VIS(S.showHoods) }, paint: { "fill-color": c.zoneHi, "fill-opacity": ["case", ["boolean", ["feature-state", "sel"], false], 0.16, ["boolean", ["feature-state", "hover"], false], 0.08, 0.01] } },
+      { id: "hood-line", type: "line", source: "hoods", layout: { visibility: VIS(S.showHoods), "line-join": "round" }, paint: { "line-color": c.zoneLine, "line-width": ["interpolate", ["linear"], ["zoom"], 12, 1, 16, 1.6], "line-dasharray": [3, 2], "line-opacity": 0.85 } },
+      { id: "hood-sel", type: "line", source: "hoods", filter: ["==", ["id"], -1], layout: { "line-join": "round" }, paint: { "line-color": c.zoneHi, "line-width": ["interpolate", ["linear"], ["zoom"], 12, 2.2, 16, 3.4] } },
+      { id: "water-label", type: "symbol", source: "waterlines", minzoom: 14, filter: ["!=", ["get", "n"], ""], layout: { "symbol-placement": "line", "text-field": ["get", "n"], "text-font": ["noto-sans-italic"], "text-size": 11, "text-letter-spacing": 0.04, "symbol-spacing": 420 }, paint: { "text-color": c.waterLabel, "text-halo-color": c.halo, "text-halo-width": 1.2 } },
+      { id: "green-label", type: "symbol", source: "green", minzoom: 14.5, filter: ["all", ["!=", ["get", "n"], ""], ["in", ["get", "k"], ["literal", ["park", "golf", "open", "school"]]]], layout: { "text-field": ["get", "n"], "text-font": ["noto-sans-italic"], "text-size": 11, "text-max-width": 8 }, paint: { "text-color": c.parkLabel, "text-halo-color": c.halo, "text-halo-width": 1.2 } },
+      { id: "road-label-minor", type: "symbol", source: "roads", minzoom: 15, filter: ["all", ["!=", ["get", "n"], ""], roadFilter(["res"])], layout: { "symbol-placement": "line", "text-field": ["get", "n"], "text-font": ["noto-sans-regular"], "text-size": ["interpolate", ["linear"], ["zoom"], 15, 10, 18, 13], "symbol-spacing": 260 }, paint: { "text-color": c.roadLabel, "text-halo-color": c.halo, "text-halo-width": 1.4 } },
+      { id: "road-label-major", type: "symbol", source: "roads", minzoom: 12.5, filter: ["all", ["!=", ["get", "n"], ""], roadFilter(["ter", "sec", "pri", "trunk"])], layout: { "symbol-placement": "line", "text-field": ["get", "n"], "text-font": ["noto-sans-medium"], "text-size": ["interpolate", ["linear"], ["zoom"], 12.5, 10, 18, 14], "symbol-spacing": 320 }, paint: { "text-color": c.roadLabel, "text-halo-color": c.halo, "text-halo-width": 1.5 } },
+      { id: "mwy-label", type: "symbol", source: "roads", minzoom: 10, filter: ["all", ["!=", ["get", "n"], ""], roadFilter(["mwy"])], layout: { "symbol-placement": "line", "text-field": ["get", "n"], "text-font": ["noto-sans-medium"], "text-size": 11, "symbol-spacing": 500 }, paint: { "text-color": c.label, "text-halo-color": c.mwy, "text-halo-width": 2 } },
+      { id: "school-dot", type: "circle", source: "schoolPts", filter: ["in", ["get", "k"], ["literal", ["MS", "K8"]]], layout: { visibility: VIS(S.showSchools) }, paint: { "circle-radius": ["interpolate", ["linear"], ["zoom"], 11, 3.5, 16, 6], "circle-color": c.schoolDot, "circle-stroke-color": c.halo, "circle-stroke-width": 2 } },
+      { id: "school-name", type: "symbol", source: "schoolPts", minzoom: 13.2, filter: ["in", ["get", "k"], ["literal", ["MS", "K8"]]], layout: { visibility: VIS(S.showSchools), "text-field": ["get", "n"], "text-font": ["noto-sans-medium"], "text-size": 11, "text-offset": [0, 0.9], "text-anchor": "top", "text-max-width": 9 }, paint: { "text-color": c.label, "text-halo-color": c.halo, "text-halo-width": 1.5 } },
+      { id: "mid-label", type: "symbol", source: "midLabels", layout: { visibility: VIS(S.showSchools), "text-field": ["format", ["get", "s"], {}, "\n", {}, ["get", "d"], { "font-scale": 0.8, "text-font": ["literal", ["noto-sans-regular"]] }], "text-font": ["noto-sans-medium"], "text-size": ["interpolate", ["linear"], ["zoom"], 11, 11, 15, 14.5], "text-max-width": 11, "text-padding": 6 }, paint: { "text-color": c.zoneLabel, "text-halo-color": c.zoneHalo, "text-halo-width": 1.8 } },
+      { id: "hood-label", type: "symbol", source: "hoodLabels", minzoom: 12.4, layout: { visibility: VIS(S.showHoods), "text-field": ["step", ["zoom"], ["format", ["upcase", ["get", "name"]], {}], 14.6, ["format", ["upcase", ["get", "name"]], {}, "\n", {}, ["get", "sub"], { "font-scale": 0.82, "text-font": ["literal", ["noto-sans-regular"]] }]], "text-font": ["noto-sans-medium"], "text-size": ["interpolate", ["linear"], ["zoom"], 12.4, 9.5, 16, 12.5], "text-letter-spacing": 0.03, "text-max-width": 9, "text-padding": 4 }, paint: { "text-color": c.zoneLabel, "text-halo-color": c.zoneHalo, "text-halo-width": 1.8 } },
+      { id: "station-label", type: "symbol", source: "labels", minzoom: 12, filter: ["==", ["get", "k"], "station"], layout: { "text-field": ["get", "n"], "text-font": ["noto-sans-medium"], "text-size": 11.5, "text-offset": [0, 0.2], "text-anchor": "top" }, paint: { "text-color": c.rail, "text-halo-color": c.halo, "text-halo-width": 1.6 } },
+      { id: "town-label", type: "symbol", source: "labels", maxzoom: 13.6, filter: ["==", ["get", "k"], "town"], layout: { "text-field": ["get", "n"], "text-font": ["noto-sans-medium"], "text-size": 13, "text-letter-spacing": 0.12, "text-transform": "uppercase" }, paint: { "text-color": c.label, "text-opacity": 0.7, "text-halo-color": c.halo, "text-halo-width": 1.6 } }
+    ];
+  }
+
+  function glyphProtocol() {
+    maplibregl.addProtocol("glyphs", function (params) {
+      var m = /glyphs:\/\/([^/]+)\/(\d+-\d+)/.exec(params.url);
+      if (!m || (m[2] !== "0-255" && m[2] !== "8192-8447")) return Promise.resolve({ data: new ArrayBuffer(0) });
+      var stack = decodeURIComponent(m[1]).split(",")[0].trim();
+      return fetch("fonts/" + stack + "/" + m[2] + ".pbf").then(function (r) { if (!r.ok) throw new Error("glyphs " + r.status); return r.arrayBuffer(); }).then(function (b) { return { data: b }; });
+    });
+  }
+
+  function initMap(D) {
+    glyphProtocol();
+    var dark = isDark(), c = PAL[dark ? "dark" : "light"], ser = SERIES[dark ? "dark" : "light"];
+    var sources = {};
+    ["green", "water", "waterlines", "bld", "roads", "labels", "mid", "midLabels", "hoods", "hoodLabels", "schoolPts"].forEach(function (k) { sources[k] = { type: "geojson", data: D[k] }; });
+    var map = new maplibregl.Map({
+      container: "map", style: { version: 8, glyphs: "glyphs://{fontstack}/{range}", sources: sources, layers: layerDefs(c, ser) },
+      center: [-122.058, 37.903], zoom: 13.4, minZoom: 11.2, maxZoom: 18.5, maxBounds: [[-122.2, 37.8], [-121.92, 38.0]],
+      dragRotate: false, pitchWithRotate: false, attributionControl: false, fadeDuration: 150
+    });
+    map.touchZoomRotate.disableRotation();
+    map.on("error", function (e) { if (window.console) console.warn("map:", e && e.error ? e.error.message : e); });
+    if (/^(localhost|127\.0\.0\.1)$/.test(location.hostname)) window.__wc = { S: S, map: map, layerDefs: layerDefs, PAL: PAL, SERIES: SERIES, findIn: findIn, describePlace: describePlace, applyRows: applyRows, SNAP: SNAP };
+    map.addControl(new maplibregl.NavigationControl({ showCompass: false }), "bottom-right");
+    map.addControl(new maplibregl.AttributionControl({ compact: true, customAttribution: "© OpenStreetMap contributors · US Census Bureau · NCES · district school locators" }), "bottom-right");
+    S.map = map;
+    map.on("load", function () {
+      $("mapLoading").hidden = true;
+      setLayerVis();
+      fitToListings(false);
+      renderMarkers();
+      var attrib = $("map").querySelector(".maplibregl-ctrl-attrib");
+      if (attrib) attrib.classList.remove("maplibregl-compact-show");
+    });
+    map.on("zoomend", renderMarkers);
+    map.on("click", onMapClick);
+    map.on("mousemove", "hood-fill", function (e) {
+      if (!S.showHoods || !e.features.length) return;
+      var id = e.features[0].id;
+      if (S.hoverHood !== id) { if (S.hoverHood != null) map.setFeatureState({ source: "hoods", id: S.hoverHood }, { hover: false }); S.hoverHood = id; map.setFeatureState({ source: "hoods", id: id }, { hover: true }); }
+      map.getCanvas().style.cursor = "pointer";
+    });
+    map.on("mouseleave", "hood-fill", function () { if (S.hoverHood != null) map.setFeatureState({ source: "hoods", id: S.hoverHood }, { hover: false }); S.hoverHood = null; map.getCanvas().style.cursor = ""; });
+    map.on("mousemove", "mid-fill", function () { if (S.showSchools && !S.showHoods) map.getCanvas().style.cursor = "pointer"; });
+    map.on("mouseleave", "mid-fill", function () { if (!S.showHoods) map.getCanvas().style.cursor = ""; });
+    return map;
+  }
+
+  function applyTheme() {
+    var map = S.map; if (!map || !map.isStyleLoaded()) return;
+    var dark = isDark(), c = PAL[dark ? "dark" : "light"], ser = SERIES[dark ? "dark" : "light"];
+    layerDefs(c, ser).forEach(function (L) { Object.keys(L.paint || {}).forEach(function (k) { map.setPaintProperty(L.id, k, L.paint[k]); }); });
+    renderLegend();
+  }
+
+  function setLayerVis() {
+    var map = S.map; if (!map) return;
+    if (!map.isStyleLoaded()) { map.once("idle", setLayerVis); return; }
+    var set = function (id, on) { if (map.getLayer(id)) map.setLayoutProperty(id, "visibility", VIS(on)); };
+    ["mid-fill", "mid-line", "mid-sel", "mid-label", "school-dot", "school-name"].forEach(function (id) { set(id, S.showSchools); });
+    ["hood-fill", "hood-line", "hood-sel", "hood-label"].forEach(function (id) { set(id, S.showHoods); });
+    renderLegend();
+  }
+
+  function fitToListings(animate) {
+    var pts = S.groups.map(function (g) { return g.pos; });
+    if (!S.map || !pts.length) return;
+    var b = new maplibregl.LngLatBounds(pts[0], pts[0]); pts.forEach(function (p) { b.extend(p); });
+    var narrow = window.innerWidth <= 900;
+    S.map.fitBounds(b, { padding: narrow ? { top: 70, bottom: 90, left: 30, right: 30 } : { top: 90, bottom: 60, left: 60, right: 80 }, maxZoom: 15.2, animate: !!animate, duration: 600 });
+  }
+
+  /* ---------- markers (screen-space clustering, rebuilt on zoom) ---------- */
+  function renderMarkers() {
+    var map = S.map; if (!map || !map.loaded()) { if (map) map.once("idle", renderMarkers); return; }
+    S.markers.forEach(function (m) { m.remove(); }); S.markers = [];
+    var z = map.getZoom(), radius = z >= 16 ? 0 : 46;
+    var pts = S.groups.map(function (g) { var p = map.project(g.pos); return { g: g, x: p.x, y: p.y }; });
+    var used = {}, clusters = [];
+    pts.forEach(function (a, i) {
+      if (used[i]) return;
+      var members = [a]; used[i] = 1;
+      if (radius && a.g.key !== S.sel) pts.forEach(function (b, j) { if (!used[j] && b.g.key !== S.sel && Math.hypot(a.x - b.x, a.y - b.y) < radius) { members.push(b); used[j] = 1; } });
+      clusters.push(members);
+    });
+    clusters.forEach(function (members) {
+      var el, lngLat, anchor = "bottom", offset = [0, -5];
+      if (members.length === 1) {
+        var g = members[0].g, n = g.items.length;
+        el = document.createElement("button"); el.type = "button";
+        el.className = "pin" + (g.allHold ? " is-hold" : "") + (g.key === S.sel ? " is-selected" : "");
+        var label = g.min != null ? (z >= 14.6 ? money(g.min) + (n > 1 && g.items.some(function (l) { return l.price !== g.min; }) ? "+" : "") : shortMoney(g.min)) : "—";
+        el.innerHTML = ICON[g.cat] + "<span>" + esc(label) + "</span>" + (n > 1 ? '<span class="pin__n">' + n + "</span>" : "");
+        el.setAttribute("aria-label", g.items.map(function (l) { return headline(l) + (l.price != null ? ", " + money(l.price) : "") + ", " + (l.status || STATUS_LABEL[l.cat]); }).join("; "));
+        el.title = g.items.map(function (l) { return headline(l) + (l.price != null ? " · " + money(l.price) : ""); }).join("\n");
+        el.addEventListener("click", function (ev) { ev.stopPropagation(); S.lastPin = Date.now(); select(g.key, true); });
+        lngLat = g.pos;
+        if (g.key === S.sel) el.style.zIndex = 5;
+      } else {
+        el = document.createElement("button"); el.type = "button"; el.className = "cluster"; anchor = "center"; offset = [0, 0];
+        var count = members.reduce(function (s, m) { return s + m.g.items.length; }, 0);
+        el.textContent = count; el.setAttribute("aria-label", count + " listings here. Zoom in");
+        var b = new maplibregl.LngLatBounds(members[0].g.pos, members[0].g.pos); members.forEach(function (m) { b.extend(m.g.pos); });
+        lngLat = b.getCenter();
+        el.addEventListener("click", function (ev) { ev.stopPropagation(); S.lastPin = Date.now(); map.fitBounds(b, { padding: 90, maxZoom: Math.max(map.getZoom() + 1.6, 15), duration: 500 }); });
+      }
+      S.markers.push(new maplibregl.Marker({ element: el, anchor: anchor, offset: offset }).setLngLat(lngLat).addTo(map));
+    });
+  }
+
+  /* ---------- list ---------- */
+  var CAT_ORDER = { req: 0, todo: 1, none: 2, done: 3, hold: 4 };
+  function sortedListings() {
+    var L = S.listings.slice();
+    var price = function (l) { return l.price == null ? Infinity : l.price; };
+    if (S.sort === "price-asc") L.sort(function (a, b) { return price(a) - price(b) || a.row - b.row; });
+    else if (S.sort === "price-desc") L.sort(function (a, b) { return (b.price == null ? -1 : b.price) - (a.price == null ? -1 : a.price) || a.row - b.row; });
+    else if (S.sort === "hood") L.sort(function (a, b) { var ha = a.group && a.group.hood ? a.group.hood.name : "~", hb = b.group && b.group.hood ? b.group.hood.name : "~"; return ha.localeCompare(hb) || price(a) - price(b); });
+    else if (S.sort === "status") L.sort(function (a, b) { return CAT_ORDER[a.cat] - CAT_ORDER[b.cat] || price(a) - price(b); });
+    else L.sort(function (a, b) { return a.row - b.row; });
+    return L;
+  }
+  function renderList() {
+    var ul = $("list"); ul.innerHTML = "";
+    var L = sortedListings();
+    var placed = S.listings.filter(function (l) { return l.pos; }).length;
+    $("listCount").textContent = S.listings.length + " listings" + (placed < S.listings.length ? " · " + (S.listings.length - placed) + " not on map" : "");
+    $("meta").textContent = S.listings.length + " listings from the “WC appartment” tab of Relocation planning";
+    L.forEach(function (l) {
+      var li = document.createElement("li");
+      var b = document.createElement("button"); b.type = "button";
+      b.className = "item" + (l.cat === "hold" ? " is-dim" : "") + (l.group && l.group.key === S.sel ? " is-selected" : "");
+      var facts = [l.type, bedsText(l), l.sqft ? Math.round(l.sqft).toLocaleString("en-US") + " sq ft" : ""].filter(Boolean).join(" · ");
+      var g = l.group, where = g ? [g.hood && !g.hood.debug ? g.hood.name : "", g.mid ? g.mid.s.replace(" Intermediate", " Int.").replace(" Middle", " MS") : ""].filter(Boolean).join(" · ") : "Not on the map";
+      var flag = g && g.hood && g.hood.flag ? g.hood.flag : "";
+      b.innerHTML = '<span class="item__price' + (l.price == null ? " is-none" : "") + '">' + (l.price == null ? "No price" : esc(money(l.price))) + "</span>" +
+        '<span class="item__title">' + esc(headline(l)) + "</span>" + '<span class="item__status">' + statusChip(l) + "</span>" +
+        '<span class="item__facts">' + esc(facts || streetLine(l.address)) + "</span>" + '<span class="item__where">' + esc(where) + (flag ? ' · <b class="flag">' + esc(flag) + "</b>" : "") + "</span>";
+      b.addEventListener("click", function () { if (l.group) { select(l.group.key, true, l); if (window.innerWidth <= 900) toggleList(false); } });
+      li.appendChild(b); ul.appendChild(li);
+    });
+    var miss = S.listings.filter(function (l) { return !l.pos; });
+    $("unplaced").innerHTML = miss.length ? "<b>Not on the map:</b> " + miss.map(function (l) { return esc(l.address); }).join("; ") + ". Add a lat and lng column to the sheet to place them by hand." : "";
+  }
+
+  /* ---------- card ---------- */
+  function openCard(html, label) { var c = $("card"); c.innerHTML = html; c.hidden = false; c.setAttribute("aria-label", label || "Details"); c.scrollTop = 0; var x = c.querySelector(".card__close"); if (x) x.addEventListener("click", function () { clearSelection(); }); }
+  function closeCard() { $("card").hidden = true; }
+  var CLOSE = '<button class="card__close" type="button" aria-label="Close"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8"/></svg></button>';
+  function link(href, text) { return '<a href="' + esc(href) + '" target="_blank" rel="noopener noreferrer">' + esc(text) + " ↗</a>"; }
+  function schoolBlock(g) {
+    var rows = [];
+    if (g.mid) rows.push(["Intermediate", esc(g.mid.s) + ' <span class="muted">· ' + esc(g.mid.d) + "</span>" + (g.mid.v !== "cur" ? ' <span class="old">(' + esc(g.mid.v) + " boundary)</span>" : "")]);
+    if (g.elem) rows.push(["Elementary", esc(g.elem.e) + (g.elem.v !== "cur" ? ' <span class="old">(' + esc(g.elem.v) + " boundary map, confirm with the district)</span>" : "")]);
+    else if (g.assign && g.assign.d === "Walnut Creek SD") rows.push(["Elementary", '<span class="muted">Walnut Creek SD school, confirm with the district</span>']);
+    if (g.assign && g.assign.h) rows.push(["High", esc(g.assign.h) + (g.assign.hd ? ' <span class="muted">· ' + esc(g.assign.hd) + "</span>" : "")]);
+    if (!rows.length) return "";
+    return '<div><p class="section-label">Schools by address</p><dl class="kv">' + rows.map(function (r) { return "<dt>" + r[0] + "</dt><dd>" + r[1] + "</dd>"; }).join("") + "</dl></div>";
+  }
+  function unitHtml(l) {
+    var facts = [];
+    if (l.type) facts.push("<b>" + esc(l.type) + "</b>");
+    if (l.beds) facts.push("<b>" + esc(l.beds) + "</b> bd");
+    if (l.sqft) facts.push("<b>" + Math.round(l.sqft).toLocaleString("en-US") + "</b> sq ft");
+    if (l.sqft && l.price) facts.push("<b>$" + (l.price / l.sqft).toFixed(2) + "</b> / sq ft");
+    var kv = [];
+    kv.push(["Status", statusChip(l)]);
+    if (l.tour) kv.push(["Tour", esc(l.tour)]);
+    if (l.avail) kv.push(["Available", esc(l.avail)]);
+    l.extra.forEach(function (x) { kv.push([esc(x.label || (/\d{3}\D?\d{3}\D?\d{4}/.test(x.value) ? "Contact" : "Other")), esc(x.value)]); });
+    var name = l.title ? esc(l.title) : (l.titleNote ? esc(l.titleNote) : "");
+    return '<div class="unit">' +
+      '<div class="unit__top"><span class="unit__name">' + (name || esc(streetLine(l.address))) + "</span>" +
+      '<span class="unit__price">' + (l.price != null ? esc(money(l.price)) + " <small>/ mo</small>" : '<small>No price yet</small>') + "</span></div>" +
+      (facts.length ? '<div class="facts">' + facts.join("<span aria-hidden='true'>·</span>") + "</div>" : "") +
+      (l.notes ? '<p class="notes">' + esc(l.notes) + "</p>" : "") +
+      '<dl class="kv">' + kv.map(function (r) { return "<dt>" + r[0] + "</dt><dd>" + r[1] + "</dd>"; }).join("") + "</dl>" +
+      (l.link ? '<div class="links">' + link(l.link, /zillow/i.test(l.link) ? "Zillow listing" : /apartments\.com/i.test(l.link) ? "Apartments.com" : "Listing") + "</div>" : "") +
+      '<p class="precision"><a href="' + esc(SHEET_URL + "&range=A" + l.row) + '" target="_blank" rel="noopener noreferrer">Sheet row ' + l.row + " ↗</a></p>" +
+      "</div>";
+  }
+  function showGroupCard(g, focus) {
+    if (!g) return;
+    var first = g.items[0], addrs = [];
+    g.items.forEach(function (l) { var s = streetLine(l.address); if (addrs.indexOf(s) < 0) addrs.push(s); });
+    var title = g.items.length === 1 ? headline(first) : addrs.length === 1 ? addrs[0] : g.items.length + " listings here";
+    var sub = g.items.length === 1 ? (first.title ? first.address : first.address.replace(/^[^,]*,\s*/, "") || first.address) : addrs.join(" · ");
+    var hood = g.hood && !g.hood.debug ? '<div><p class="section-label">Neighborhood zone</p><button type="button" class="btn" data-zone="' + g.hoodId + '">' + esc(g.hood.name) + '</button><p class="precision" style="margin-top:5px">' + esc(g.hood.sub) + (g.hood.juris ? " · " + esc(g.hood.juris) : "") + "</p></div>" : "";
+    var warn = g.hood && g.hood.note ? '<p class="notes warn">' + esc(g.hood.note) + "</p>" : "";
+    var lat = g.pos[1].toFixed(6), lon = g.pos[0].toFixed(6);
+    var html = '<div class="card__head">' + CLOSE + '<p class="card__kicker">' + (g.items.length > 1 ? g.items.length + " listings" : "Listing") + "</p>" +
+      '<h2 class="card__title" tabindex="-1">' + esc(title) + "</h2>" + '<p class="card__sub">' + esc(sub) + "</p></div>" +
+      '<div class="card__body">' + warn + g.items.map(unitHtml).join("") + schoolBlock(g) + hood +
+      '<div class="links">' + link("https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=" + lat + "," + lon, "Street View") +
+      link("https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(first.address.indexOf("Walnut Creek") >= 0 ? first.address : first.address + ", Walnut Creek, CA"), "Google Maps") + "</div>" +
+      '<p class="precision">' + esc(SRC_TEXT[first.src] || "") + "</p></div>";
+    openCard(html, title);
+    var zb = $("card").querySelector("[data-zone]");
+    if (zb) zb.addEventListener("click", function () { if (!S.showHoods) { S.showHoods = true; $("tHoods").checked = true; store.set("hoods", true); setLayerVis(); } showZoneCard(+zb.getAttribute("data-zone"), null); });
+    if (focus) { var h = $("card").querySelector(".card__title"); if (h) h.focus({ preventScroll: true }); }
+  }
+  function mixBar(mix) {
+    var parts = [["Houses", mix.sfd, "var(--mix-1)"], ["Townhomes, 2–4 units", (mix.sfa || 0) + (mix.u2_4 || 0), "var(--mix-2)"], ["Apartments, 5–19", mix.u5_19, "var(--mix-3)"], ["Apartments, 20+", mix.u20p, "var(--mix-4)"]];
+    var tot = parts.reduce(function (s, p) { return s + (p[1] || 0); }, 0) || 1;
+    return '<div class="mix" role="img" aria-label="' + parts.map(function (p) { return p[0] + " " + Math.round(100 * (p[1] || 0) / tot) + "%"; }).join(", ") + '">' +
+      parts.map(function (p) { var w = 100 * (p[1] || 0) / tot; return w > 0.5 ? '<span style="width:' + w.toFixed(1) + "%;background:" + p[2] + '"></span>' : ""; }).join("") + "</div>" +
+      '<div class="mixkey">' + parts.map(function (p) { return '<span><i style="background:' + p[2] + '"></i>' + p[0] + "<b>" + Math.round(100 * (p[1] || 0) / tot) + "%</b></span>"; }).join("") + "</div>";
+  }
+  function inZoneList(test) {
+    var items = S.listings.filter(function (l) { return l.group && test(l.group); });
+    if (!items.length) return '<p class="muted" style="margin:0">No listings from the sheet here.</p>';
+    items.sort(function (a, b) { return (a.price == null ? Infinity : a.price) - (b.price == null ? Infinity : b.price); });
+    return '<ul class="inzone">' + items.map(function (l) { return '<li><button type="button" data-g="' + l.group.key + '"><span>' + esc(headline(l)) + '</span><span class="p">' + (l.price != null ? esc(money(l.price)) : "—") + "</span></button></li>"; }).join("") + "</ul>";
+  }
+  function wireInZone() { $("card").querySelectorAll("[data-g]").forEach(function (b) { b.addEventListener("click", function () { select(b.getAttribute("data-g"), true); }); }); }
+  function showZoneCard(hoodId, midFeature) {
+    var D = S.data, parts = [], title = "", kicker = "", sub = "";
+    setZoneSel(hoodId, hoodId == null && midFeature ? midFeature.id : null);
+    S.sel = null; renderMarkers(); renderList();
+    if (hoodId != null) {
+      var z = D.hoods.features[hoodId].properties;
+      title = z.name; kicker = "Neighborhood zone"; sub = z.sub + (z.juris ? " · " + z.juris : "");
+      var c = D.hoodLabels.features.filter(function (f) { return f.properties.id === z.id; })[0];
+      var ll = c ? c.geometry.coordinates : null;
+      if (z.note) parts.push('<p class="notes warn">' + esc(z.note) + "</p>");
+      if (z.openSpace) parts.push('<p class="muted" style="margin:0">Public open space with trails; no homes.</p>');
+      else {
+        parts.push('<div><p class="section-label">Homes here</p>' + (z.units >= 40 ? mixBar(z.mix) : '<p class="muted" style="margin:0">Too few homes for a housing mix.</p>') + "</div>");
+        parts.push('<div class="stats">' +
+          '<div class="stat"><b>' + (z.yr ? "~" + z.yr : "—") + "</b><span>median year built</span></div>" +
+          '<div class="stat"><b>' + (z.rent != null ? Math.round(z.rent * 100) + "%" : "—") + "</b><span>homes rented</span></div>" +
+          '<div class="stat"><b>' + (z.units ? Math.round(z.units / 10) * 10 : "—") + "</b><span>homes, approx.</span></div></div>");
+      }
+      parts.push('<div><p class="section-label">Listings in this zone</p>' + inZoneList(function (g) { return g.hoodId === hoodId; }) + "</div>");
+      if (ll) parts.push('<div class="links">' + link("https://www.google.com/maps/@" + ll[1].toFixed(5) + "," + ll[0].toFixed(5) + ",16z/data=!3m1!1e3", "Satellite view") + link("https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=" + ll[1].toFixed(6) + "," + ll[0].toFixed(6), "Street View") + "</div>");
+      parts.push('<p class="precision">Housing mix, year built and renter share: Census ACS 2020–24 block-group estimates, spread over the zone by area. Zone edges follow major roads, creeks, the canal and BART.</p>');
+      if (midFeature) parts.push(schoolZonePart(midFeature));
+    } else if (midFeature) {
+      var m = midFeature.properties;
+      title = m.s; kicker = "Intermediate school zone"; sub = m.d + (m.v !== "cur" ? " · " + m.v + " boundary" : "");
+      parts.push(schoolZonePart(midFeature, true));
+      parts.push('<div><p class="section-label">Listings in this zone</p>' + inZoneList(function (g) { return g.midId === midFeature.id; }) + "</div>");
+    }
+    openCard('<div class="card__head">' + CLOSE + '<p class="card__kicker">' + esc(kicker) + '</p><h2 class="card__title" tabindex="-1">' + esc(title) + '</h2><p class="card__sub">' + esc(sub) + '</p></div><div class="card__body">' + parts.join("") + "</div>", title);
+    wireInZone();
+  }
+  function schoolZonePart(f, full) {
+    var m = f.properties, pt = S.data.schoolPts.features.filter(function (p) { return p.properties.n.indexOf(m.s.replace(" (K-8)", "")) === 0 || m.s.indexOf(p.properties.n) === 0; })[0];
+    var rows = [["School", esc(m.s)], ["District", esc(m.d)]];
+    if (pt) { rows.push(["Address", esc(pt.properties.a)]); if (pt.properties.gr) rows.push(["Grades", esc(pt.properties.gr)]); }
+    rows.push(["Boundary", m.v === "cur" ? "District school locator (current)" : esc(m.v) + " locator copy, may have changed"]);
+    return '<div><p class="section-label">' + (full ? "Zone" : "Intermediate school zone") + '</p><dl class="kv">' + rows.map(function (r) { return "<dt>" + r[0] + "</dt><dd>" + r[1] + "</dd>"; }).join("") + "</dl>" +
+      (m.s === "Walnut Creek Intermediate" ? '<p class="precision" style="margin-top:6px">Tice Creek School (K-8, Walnut Creek SD) admits by lottery from anywhere in the district.</p>' : "") +
+      (m.d === "Mt. Diablo USD" ? '<p class="precision" style="margin-top:6px">Sequoia Middle in Pleasant Hill is open to MDUSD students district-wide.</p>' : "") + "</div>";
+  }
+  function setZoneSel(hoodId, midId) {
+    var map = S.map; if (!map || !map.getLayer("hood-sel")) return;
+    if (S.selZone && S.selZone.h != null) map.setFeatureState({ source: "hoods", id: S.selZone.h }, { sel: false });
+    S.selZone = (hoodId != null || midId != null) ? { h: hoodId, m: midId } : null;
+    if (hoodId != null) map.setFeatureState({ source: "hoods", id: hoodId }, { sel: true });
+    map.setFilter("hood-sel", ["==", ["id"], hoodId != null ? hoodId : -1]);
+    map.setFilter("mid-sel", ["==", ["id"], midId != null ? midId : -1]);
+  }
+  function onMapClick(e) {
+    if (S.lastPin && Date.now() - S.lastPin < 300) return;
+    var layers = []; if (S.showHoods) layers.push("hood-fill"); if (S.showSchools) layers.push("mid-fill");
+    var fs = layers.length ? S.map.queryRenderedFeatures(e.point, { layers: layers }) : [];
+    var h = fs.filter(function (f) { return f.layer.id === "hood-fill"; })[0], m = fs.filter(function (f) { return f.layer.id === "mid-fill"; })[0];
+    if (h || m) { showZoneCard(h ? h.id : null, m ? S.data.mid.features[m.id] : null); return; }
+    clearSelection();
+  }
+  function clearSelection() { setZoneSel(null, null); S.sel = null; closeCard(); renderMarkers(); renderList(); if (S.map) S.map.easeTo({ padding: { top: 0, bottom: 0, left: 0, right: 0 }, duration: 200 }); }
+  function select(key, move, listing) {
+    var g = S.byKey[key]; if (!g) return;
+    setZoneSel(null, null);
+    S.sel = key; renderMarkers(); renderList(); showGroupCard(g, true);
+    if (move && S.map) {
+      var narrow = window.innerWidth <= 900, card = $("card");
+      var pad = narrow ? { top: 40, bottom: Math.round(window.innerHeight * 0.5), left: 0, right: 0 } : { top: 0, bottom: 0, left: 0, right: (card.offsetWidth || 380) + 24 };
+      S.map.easeTo({ center: g.pos, zoom: Math.max(S.map.getZoom(), 15), padding: pad, duration: 500 });
+    }
+    var el = $("list").querySelector(".item.is-selected"); if (el && el.scrollIntoView) el.scrollIntoView({ block: "nearest" });
+  }
+
+  /* ---------- legend ---------- */
+  function setupLegend() {
+    var el = $("legend"), saved = store.get("keyOpen");
+    var open = saved == null ? (window.innerWidth >= 1200 && window.innerHeight >= 900) : !!saved;
+    el.innerHTML = '<button type="button" class="legend__toggle" id="keyToggle" aria-expanded="' + open + '" aria-controls="legendBody">Key</button><div class="legend__body" id="legendBody"></div>';
+    el.classList.toggle("is-collapsed", !open);
+    $("keyToggle").addEventListener("click", function () { var now = el.classList.toggle("is-collapsed"); this.setAttribute("aria-expanded", String(!now)); store.set("keyOpen", !now); });
+  }
+  function renderLegend() {
+    var el = $("legendBody"), dark = isDark(), ser = SERIES[dark ? "dark" : "light"], parts = [];
+    if (!el) return;
+    parts.push('<section><h3>Pins</h3><div class="row">' + ["done", "req", "todo", "hold"].map(function (c) { return "<span>" + ICON[c] + STATUS_LABEL[c] + "</span>"; }).join("") + "<span>— no price</span></div></section>");
+    if (S.showSchools && S.data) {
+      var view = S.map ? S.map.getBounds() : null;
+      var seen = S.data.mid.features.filter(function (f) { if (!view) return true; var b = f._bb; return !(b[2] < view.getWest() || b[0] > view.getEast() || b[3] < view.getSouth() || b[1] > view.getNorth()); });
+      seen.sort(function (a, b) { return a.properties.s === "Walnut Creek Intermediate" ? -1 : b.properties.s === "Walnut Creek Intermediate" ? 1 : a.properties.s.localeCompare(b.properties.s); });
+      parts.push("<section><h3>Intermediate school zones</h3><ul>" + seen.map(function (f) { var col = ser[f.properties.c]; return '<li><i class="sw" style="background:' + col + "33;border-color:" + col + '"></i><span>' + esc(f.properties.s) + ' <span class="muted">· ' + esc(f.properties.d) + (f.properties.v !== "cur" ? ", " + esc(f.properties.v) : "") + "</span></span></li>"; }).join("") + "</ul>" +
+        '<p class="note">Boundaries from the districts’ own school locators (MDUSD edited July 2024; San Ramon Valley from 2016-17). Confirm an address with the district before you sign.</p></section>');
+    }
+    if (S.showHoods) parts.push('<section><h3>Neighborhood zones</h3><ul><li><i class="dash"></i><span>Areas between major roads, creeks and BART</span></li></ul><p class="note">Click a zone for its housing mix, age and renter share.</p></section>');
+    el.innerHTML = parts.join("");
+  }
+
+  function renderAll() { renderList(); renderMarkers(); renderLegend(); }
+
+  function toggleList(force) {
+    var app = $("app"), on = typeof force === "boolean" ? force : !app.classList.contains("is-list");
+    app.classList.toggle("is-list", on); $("listToggle").setAttribute("aria-expanded", on ? "true" : "false"); $("listToggle").textContent = on ? "Map" : "List";
+  }
+
+  /* ---------- boot ---------- */
+  setupLegend();
+  $("tSchools").checked = S.showSchools; $("tHoods").checked = S.showHoods; $("sortSel").value = S.sort;
+  $("tSchools").addEventListener("change", function (e) { S.showSchools = e.target.checked; store.set("schools", S.showSchools); setLayerVis(); });
+  $("tHoods").addEventListener("change", function (e) { S.showHoods = e.target.checked; store.set("hoods", S.showHoods); setLayerVis(); });
+  $("sortSel").addEventListener("change", function (e) { S.sort = e.target.value; store.set("sort", S.sort); renderList(); });
+  $("refreshBtn").addEventListener("click", function () { loadLive(true); });
+  $("listToggle").addEventListener("click", function () { toggleList(); });
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape" && !$("card").hidden) clearSelection(); });
+  function syncToggles() {
+    var a = $("tSchools").checked, b = $("tHoods").checked;
+    if (a !== S.showSchools || b !== S.showHoods) { S.showSchools = a; S.showHoods = b; store.set("schools", a); store.set("hoods", b); setLayerVis(); renderLegend(); }
+  }
+  window.addEventListener("pageshow", syncToggles);
+  window.addEventListener("load", function () { setTimeout(syncToggles, 0); });
+  if (window.matchMedia) { var mq = window.matchMedia("(prefers-color-scheme: dark)"); if (mq.addEventListener) mq.addEventListener("change", applyTheme); }
+  new MutationObserver(applyTheme).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+
+  loadData().then(function (D) {
+    var cached = store.get("rows");
+    var first = cached && cached.at > SNAP.at ? applyRows(cached.rows, cached.links, "cache", cached.at) : applyRows(SNAP.rows, null, "snapshot", SNAP.at);
+    return first.then(function () {
+      setStatus(sourceLine());
+      initMap(D);
+      S.map.on("moveend", function () { if (S.showSchools) renderLegend(); });
+      loadLive(false);
+    });
+  }).catch(function (e) {
+    $("mapLoading").textContent = "The map data didn't load (" + (e && e.message ? e.message : "error") + "). Reload the page to try again.";
+    setStatus("Map data didn't load", true);
+  });
+})();
+</script>

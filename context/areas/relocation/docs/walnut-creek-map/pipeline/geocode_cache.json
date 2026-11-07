@@ -1,0 +1,172 @@
+{
+ "1435 creekside dr": {
+  "lat": 37.885511,
+  "lon": -122.051893,
+  "src": "osm-building"
+ },
+ "161 n civic dr": {
+  "lat": 37.907879,
+  "lon": -122.059555,
+  "src": "osm-building"
+ },
+ "1860 almond ave": {
+  "lat": 37.900529,
+  "lon": -122.067363,
+  "src": "osm-building"
+ },
+ "114 sharene ln": {
+  "lat": 37.902868,
+  "lon": -122.053553,
+  "src": "osm-building"
+ },
+ "1770 san miguel dr": {
+  "lat": 37.897285,
+  "lon": -122.0543,
+  "src": "osm-building"
+ },
+ "137 sierra dr": {
+  "lat": 37.902218,
+  "lon": -122.053641,
+  "src": "osm-building"
+ },
+ "2310-2334 buena vista ave": {
+  "lat": 37.909975,
+  "lon": -122.070023,
+  "src": "osm-building"
+ },
+ "1459 creekside dr": {
+  "lat": 37.886206,
+  "lon": -122.052827,
+  "src": "osm-building"
+ },
+ "330 n civic dr": {
+  "lat": 37.911925,
+  "lon": -122.05996,
+  "src": "osm-building"
+ },
+ "1295 homestead ave": {
+  "lat": 37.908737,
+  "lon": -122.052111,
+  "src": "osm-building"
+ },
+ "103 sierra dr": {
+  "lat": 37.903122,
+  "lon": -122.052607,
+  "src": "osm-building"
+ },
+ "140 village ct": {
+  "lat": 37.900214,
+  "lon": -122.056935,
+  "src": "census-range"
+ },
+ "1192 walker ave": {
+  "lat": 37.899492,
+  "lon": -122.052662,
+  "src": "osm-building"
+ },
+ "1963 trinity ave": {
+  "lat": 37.901308,
+  "lon": -122.068863,
+  "src": "osm-building"
+ },
+ "1160 lincoln ave": {
+  "lat": 37.900661,
+  "lon": -122.057271,
+  "src": "osm-building"
+ },
+ "1355 mt pisgah rd": {
+  "lat": 37.899409,
+  "lon": -122.057477,
+  "src": "osm-building"
+ },
+ "1240 walker ave": {
+  "lat": 37.900064,
+  "lon": -122.054485,
+  "src": "census-range"
+ },
+ "2425 golden rain rd": {
+  "lat": 37.880384,
+  "lon": -122.080022,
+  "src": "osm-building"
+ },
+ "1354 mt pisgah rd": {
+  "lat": 37.89957,
+  "lon": -122.057283,
+  "src": "osm-building"
+ },
+ "1555 riviera ave": {
+  "lat": 37.910747,
+  "lon": -122.066405,
+  "src": "osm-building"
+ },
+ "1756 carmel dr": {
+  "lat": 37.90198,
+  "lon": -122.058072,
+  "src": "osm-building"
+ },
+ "1310 alma ave": {
+  "lat": 37.894579,
+  "lon": -122.064797,
+  "src": "osm-building"
+ },
+ "530 n civic dr": {
+  "lat": 37.915872,
+  "lon": -122.059278,
+  "src": "osm-building"
+ },
+ "340 n civic dr": {
+  "lat": 37.911943,
+  "lon": -122.059958,
+  "src": "osm-building"
+ },
+ "2696 jones rd": {
+  "lat": 37.922638,
+  "lon": -122.060305,
+  "src": "osm-building"
+ },
+ "2720 oak rd": {
+  "lat": 37.923101,
+  "lon": -122.057962,
+  "src": "census-range"
+ },
+ "2534 jones rd": {
+  "lat": 37.917928,
+  "lon": -122.062374,
+  "src": "census-range"
+ },
+ "1365 mt pisgah rd": {
+  "lat": 37.89955,
+  "lon": -122.057491,
+  "src": "osm-building"
+ },
+ "140 flora ave": {
+  "lat": 37.892728,
+  "lon": -122.075572,
+  "src": "census-range"
+ },
+ "365 masters ct": {
+  "lat": 37.912989,
+  "lon": -122.048331,
+  "src": "osm-building"
+ },
+ "2564 walnut blvd": {
+  "lat": 37.906715,
+  "lon": -122.054111,
+  "src": "osm-building"
+ },
+ "2562 walnut blvd": {
+  "lat": 37.906764,
+  "lon": -122.054133,
+  "src": "osm-building"
+ },
+ "135 sharene ln": {
+  "lat": 37.902915,
+  "lon": -122.054045,
+  "src": "census-range"
+ },
+ "1338 homestead ave": {
+  "lat": 37.910106,
+  "lon": -122.052932,
+  "src": "osm-building"
+ }
+}
