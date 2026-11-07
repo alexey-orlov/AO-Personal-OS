@@ -20,6 +20,10 @@ and neighborhood zones as toggles.
   the pin (and on clusters holding a starred listing) while starred and unstarred listings are both on screen.
   Map options hold the filters: **Starred only** plus **All · Visited · Planned · Not yet**; they combine, and
   the list, pins and zone cards all follow them.
+- **Pin placement.** Every address has its own fixed pin: a dot centred exactly on the geocoded point, with the
+  price label on a short stem above it. Pins never cluster, merge or move; zooming only switches the label
+  between "$2.8k" and "$2,768". Rows with the same street address (several units in one building) share one
+  pin with a count. Picking a pin leaves the map still unless the pin would sit under the card.
 - **Pins.** The 34 addresses in the sheet on 2026-11-07 are pre-geocoded in `pipeline/geocode_cache.json`
   (OpenStreetMap building match where it agrees with the Census geocoder within 250 m, else the Census
   address-range point). A new address is placed in the page from Census TIGER/Line 2025 address ranges
