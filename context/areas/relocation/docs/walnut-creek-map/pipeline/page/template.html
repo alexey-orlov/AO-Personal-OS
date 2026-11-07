@@ -924,7 +924,6 @@ a { color: var(--accent); }
     if (!S.pinEls) return;
     Object.keys(S.pinEls).forEach(function (k) { S.pinEls[k].wrap.classList.toggle("is-selected", k === S.sel); });
   }
-  }
 
   /* ---------- list ---------- */
   var CAT_ORDER = { req: 0, todo: 1, none: 2, done: 3, hold: 4 };
