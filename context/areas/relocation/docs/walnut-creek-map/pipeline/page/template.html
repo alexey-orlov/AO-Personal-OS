@@ -731,7 +731,12 @@ a { color: var(--accent); }
       dragRotate: false, pitchWithRotate: false, attributionControl: false, fadeDuration: 150
     });
     map.touchZoomRotate.disableRotation();
-    map.on("error", function (e) { if (window.console) console.warn("map:", e && e.error ? e.error.message : e); });
+    map.on("error", function (e) {
+      var msg = e && e.error ? e.error.message : String(e);
+      if (window.console) console.warn("map:", msg);
+      if (!$("mapLoading").hidden) $("mapLoading").textContent = "The map couldn't draw: " + msg;
+    });
+    setTimeout(function () { if (!$("mapLoading").hidden && /^Drawing/.test($("mapLoading").textContent)) $("mapLoading").textContent = "Still drawing the map… (" + (map.isStyleLoaded() ? "style ready" : "style loading") + ", " + (typeof Worker === "function" ? "workers available" : "no workers") + ")"; }, 12000);
     if (/^(localhost|127\.0\.0\.1)$/.test(location.hostname)) window.__wc = { S: S, map: map, layerDefs: layerDefs, PAL: PAL, SERIES: SERIES, findIn: findIn, describePlace: describePlace, applyRows: applyRows, SNAP: SNAP };
     map.addControl(new maplibregl.NavigationControl({ showCompass: false }), "bottom-right");
     map.addControl(new maplibregl.AttributionControl({ compact: true, customAttribution: "© OpenStreetMap contributors · US Census Bureau · NCES · district school locators" }), "bottom-right");
