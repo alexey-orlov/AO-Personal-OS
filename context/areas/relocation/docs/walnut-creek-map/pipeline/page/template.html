@@ -704,12 +704,19 @@ a { color: var(--accent); }
     ];
   }
 
+  var glyphPack = null;
   function glyphProtocol() {
     maplibregl.addProtocol("glyphs", function (params) {
       var m = /glyphs:\/\/([^/]+)\/(\d+-\d+)/.exec(params.url);
-      if (!m || (m[2] !== "0-255" && m[2] !== "8192-8447")) return Promise.resolve({ data: new ArrayBuffer(0) });
-      var stack = decodeURIComponent(m[1]).split(",")[0].trim();
-      return fetch("fonts/" + stack + "/" + m[2] + ".pbf").then(function (r) { if (!r.ok) throw new Error("glyphs " + r.status); return r.arrayBuffer(); }).then(function (b) { return { data: b }; });
+      if (!m) return Promise.resolve({ data: new ArrayBuffer(0) });
+      var key = decodeURIComponent(m[1]).split(",")[0].trim() + "/" + m[2];
+      if (!glyphPack) glyphPack = fetch("fonts/glyphs.json").then(function (r) { if (!r.ok) throw new Error("glyphs " + r.status); return r.json(); }).catch(function (e) { glyphPack = null; throw e; });
+      return glyphPack.then(function (pack) {
+        var b64 = pack[key]; if (!b64) return { data: new ArrayBuffer(0) };
+        var bin = atob(b64), buf = new Uint8Array(bin.length);
+        for (var i = 0; i < bin.length; i++) buf[i] = bin.charCodeAt(i);
+        return { data: buf.buffer };
+      });
     });
   }
 

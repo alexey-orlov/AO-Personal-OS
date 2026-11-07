@@ -38,10 +38,16 @@ preview = ('<!doctype html><html><head><meta charset="utf-8"><meta name="viewpor
            + reset + "</head><body>" + page + "</body></html>")
 open(f"{SITE}/preview.html", "w", encoding="utf-8").write(preview)
 
+# Map label glyphs (Noto Sans, from protomaps basemaps-assets) packed as base64 JSON:
+# artifacts serve .json but not .pbf. The page's "glyphs://" protocol unpacks them.
+import base64
+shutil.rmtree(f"{SITE}/fonts", ignore_errors=True)
+os.makedirs(f"{SITE}/fonts", exist_ok=True)
+pack = {}
 for f in ("noto-sans-regular", "noto-sans-medium", "noto-sans-italic"):
-    os.makedirs(f"{SITE}/fonts/{f}", exist_ok=True)
     for rng in ("0-255", "8192-8447"):
-        shutil.copy(f"{S}/data/vendor/fonts/{f}/{rng}.pbf", f"{SITE}/fonts/{f}/{rng}.pbf")
+        pack[f"{f}/{rng}"] = base64.b64encode(open(f"{S}/data/vendor/fonts/{f}/{rng}.pbf", "rb").read()).decode()
+json.dump(pack, open(f"{SITE}/fonts/glyphs.json", "w"), separators=(",", ":"))
 shutil.copy(f"{S}/build/addr_index.json", f"{SITE}/data/addr.json")
 total = sum(os.path.getsize(os.path.join(dp, f)) for dp, _, fs in os.walk(SITE) for f in fs)
 print("index.html", os.path.getsize(f"{SITE}/index.html") // 1024, "KB; site total", total // 1024, "KB;", len(rows) - 1, "rows in snapshot")
