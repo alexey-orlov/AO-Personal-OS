@@ -1,13 +1,13 @@
-"""Write the Census batch-geocoder input from the sheet tab CSV.
+"""Write the Census batch-geocoder input from the sheet tab.
 
-usage: make_geocode_batch.py <tab.csv> <out_batch.csv> <out_keys.json>
+usage: make_geocode_batch.py <tab.json from fetch_sheet.py> <out_batch.csv> <out_keys.json>
 """
 import csv, json, re, sys, os
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from addr import street_line, norm_key, zip_of
 
 src, out_batch, out_keys = sys.argv[1:4]
-rows = list(csv.reader(open(src, encoding="utf-8")))
+rows = json.load(open(src, encoding="utf-8"))["rows"] if src.endswith(".json") else list(csv.reader(open(src, encoding="utf-8")))
 hdr = [h.strip().lower() for h in rows[0]]
 ai = hdr.index("address")
 seen = {}
