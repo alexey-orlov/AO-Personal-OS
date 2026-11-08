@@ -1,6 +1,6 @@
 # Relocation — moving the household to the US
 
-_status: active — **Walnut Creek rental search under way** ([walnut-creek-rentals](walnut-creek-rentals.md)): 44 listings in the "Relocation planning" sheet, tours since 2026-11-06, a rental map with school and neighborhood zones, 2/3-bed filters and planned-visit ticks (2026-11-08). Bay Area place ranking complete (220 places, 2026-08-09); October logistics with SoftServe set for a dedicated meeting_
+_status: active — **Walnut Creek rental search under way** ([walnut-creek-rentals](walnut-creek-rentals.md)): 44 listings in the "Relocation planning" sheet, tours since 2026-11-06, a rental map with school and neighborhood zones, 2/3-bed filters and Planned visit / Like / Dislike per listing (2026-11-08). Bay Area place ranking complete (220 places, 2026-08-09); October logistics with SoftServe set for a dedicated meeting_
 _updated: 2026-11-08_
 _source files: Google Sheet "Relocation planning" (tab "WC appartment" = the rental shortlist) — registry entry in [external-sources](../../_meta/external-sources.md)_
 
@@ -14,7 +14,7 @@ The move itself: visa timing, where the household lands, schools, and the logist
 
 ## Active threads
 
-- **Walnut Creek rental search → [walnut-creek-rentals](walnut-creek-rentals.md).** 44 listings in the "WC appartment" tab (2026-11-08), six visited, one visit planned; the [rental map](docs/walnut-creek-map/README.md) shows each with its school zones and neighborhood. All but two map to Walnut Creek SD → Walnut Creek Intermediate → Las Lomas High (365 Masters Ct and Stoneridge, 101 Hogan Ct, are Mt. Diablo USD); 2425 Golden Rain Rd is in Rossmoor, which bars residents under 18. Owner: Mine.
+- **Walnut Creek rental search → [walnut-creek-rentals](walnut-creek-rentals.md).** 44 listings in the "WC appartment" tab (2026-11-08), six visited, three visits planned on the map; the [rental map](docs/walnut-creek-map/README.md) shows each with its school zones and neighborhood. All but two map to Walnut Creek SD → Walnut Creek Intermediate → Las Lomas High (365 Masters Ct and Stoneridge, 101 Hogan Ct, are Mt. Diablo USD); 2425 Golden Rain Rd is in Rossmoor, which bars residents under 18. Owner: Mine.
 
 - **GigaCloud role shrinks with the move (2026-10-16).** Alex goes part-time at GigaCloud in Q3'FY2026 and to ad-hoc consulting later; the restructure plan and next steps (his hours, availability and terms first) live on [gigacloud/product-team-structure](../gigacloud/product-team-structure.md). Owner: Mine. (chat, 2026-10-16)
 - **October logistics with SoftServe — a dedicated meeting, not a 1:1 topic (2026-08-18).** The move's employer-facing side came up in Alex's [SoftServe 1:1](../softserve/calls/2026-08-18_141300_one-on-one_20260818132936005C1280.md) and was deliberately split out into its own session, to be held **before Bohdan's Friday 07:30 meeting**. Four things to settle: **location · cost · expectations · impact framing**, plus the **split between base and quarterly bonus** in the post-move compensation shape. Alex sends the invite and prepares the inputs; **Bohdan prepares the internal argumentation/justification for the relocation costs** ahead of that Friday meeting. Related: US replication of SoftServe's managed-service offering is floated as possibly tied to the move ([jumpstart-pm](../softserve/jumpstart-pm.md)), and full-time SoftServe employment stays "possible after the US move" ([softserve](../softserve/README.md)). Owner: Mine (invite + inputs) / Theirs (cost case).
@@ -64,7 +64,7 @@ Superseded, kept only as pointers: Sheets `1HiSmOvkFYEFvI31Pvsp7xWGYtrfPHiwdGqd-
 
 ## Activity
 
-- 2026-11-08 — [rental map update](docs/walnut-creek-map/README.md) — 2/3-bed filter and planned-visit ticks, all 44 sheet rows shown; the rental search moved to its own page, [walnut-creek-rentals](walnut-creek-rentals.md) (chat, 2026-11-08).
+- 2026-11-08 — [rental map update](docs/walnut-creek-map/README.md) — 2/3-bed filter, Planned visit / Like / Dislike per listing, all 44 sheet rows shown; the rental search moved to its own page, [walnut-creek-rentals](walnut-creek-rentals.md) (chat, 2026-11-08).
 - 2026-11-07 — [Walnut Creek rental map](docs/walnut-creek-map/README.md) — live map of the "WC appartment" sheet with middle-school and neighborhood zones; flagged the Rossmoor listing (no residents under 18) and the one Mt. Diablo USD listing (chat, 2026-11-07).
 - 2026-08-18 — [October logistics split into its own SoftServe meeting](../softserve/calls/2026-08-18_141300_one-on-one_20260818132936005C1280.md) — location, cost, expectations, impact framing and the base-vs-quarterly-bonus split to be settled before Bohdan's Friday 07:30 call; Alex sends the invite, Bohdan prepares the internal cost case.
 - 2026-08-12 — area created and the ranking folded in — the deliverable had been sitting in `docs/` since 2026-08-09 with no wiki entry (chat, 2026-08-12).
