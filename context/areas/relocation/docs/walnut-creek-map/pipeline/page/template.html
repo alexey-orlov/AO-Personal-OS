@@ -122,8 +122,13 @@ a { color: var(--accent); }
 .item__title { font-weight: 600; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .item__facts { grid-column: 2; color: var(--muted); font-size: 12.5px; min-width: 0; }
 .item__where { grid-column: 2 / span 2; color: var(--ink-2); font-size: 12.5px; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.item__status { grid-row: 1; grid-column: 3; align-self: start; }
+.item__status { grid-row: 1; grid-column: 3; align-self: start; min-width: 0; }
+.item__status .chip { max-width: 128px; } /* a long sheet status must not squeeze the title */
+.chip__t { overflow: hidden; text-overflow: ellipsis; min-width: 0; }
 .item.is-dim .item__price, .item.is-dim .item__title { opacity: 0.6; }
+.item.is-disliked .item__price, .item.is-disliked .item__title, .item.is-disliked .item__facts { opacity: 0.45; }
+.no { display: inline-flex; vertical-align: -1px; color: var(--muted); }
+.no svg { width: 13px; height: 13px; }
 .item__where .flag { color: var(--warn-ink); font-weight: 600; }
 .item.mark-visited { background: var(--visit-soft); box-shadow: inset 4px 0 0 var(--visit-line); }
 .item.mark-planned { background: var(--plan-soft); box-shadow: inset 4px 0 0 var(--plan-line); }
@@ -148,7 +153,17 @@ a { color: var(--accent); }
 .rail__foot b { color: var(--warn-ink); font-weight: 600; }
 
 /* "Planned visit" checkbox on a listing card: unticked = outline, ticked = the blue of planned pins. */
-.plan-wrap { display: grid; gap: 4px; justify-items: start; }
+.acts { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.pref { display: inline-flex; gap: 6px; }
+.pref__btn { display: inline-flex; align-items: center; gap: 6px; padding: 6px 11px 6px 9px; border-radius: 8px; border: 1px solid var(--line);
+  background: var(--surface); color: var(--ink); font-weight: 600; font-size: 13px; cursor: pointer; }
+.pref__btn:hover { background: var(--surface-2); }
+.pref__btn svg { width: 14px; height: 14px; flex: none; color: var(--muted); }
+.pref__btn .star { font-size: 14px; line-height: 1; }
+.pref__btn--like[aria-pressed="true"] { background: color-mix(in srgb, var(--star) 20%, var(--surface)); border-color: var(--star); }
+.pref__btn--dislike[aria-pressed="true"] { background: color-mix(in srgb, var(--muted) 24%, var(--surface)); border-color: var(--muted); }
+.pref__btn--dislike[aria-pressed="true"] svg { color: var(--ink); }
+.pref__btn:disabled { opacity: 0.6; cursor: not-allowed; }
 .plan { position: relative; display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px 6px 9px; border-radius: 8px;
   border: 1px solid var(--plan-line); background: var(--surface); color: var(--ink); font-weight: 600; font-size: 13px; cursor: pointer; user-select: none; }
 .plan input { position: absolute; opacity: 0; width: 1px; height: 1px; margin: 0; }
@@ -263,6 +278,8 @@ a { color: var(--accent); }
 .pinwrap.mk-planned { --pin-bg: var(--plan); --pin-bd: var(--plan-line); --pin-fg: var(--sticker-ink); }
 .pinwrap.mk-mixed { --pin-bg: var(--plan); --pin-bd: var(--plan-line); --pin-fg: var(--sticker-ink); }
 .pinwrap.is-hold { opacity: var(--pin-dim); }
+.pinwrap.is-disliked { opacity: 0.42; }
+.pin__no { display: inline-flex; color: var(--muted); }
 .pinwrap:hover { z-index: 4; opacity: 1; }
 .pinwrap.is-selected { z-index: 5; opacity: 1; }
 .pin { position: absolute; left: 0; bottom: 10px; transform: translateX(-50%); margin: 0;
@@ -355,7 +372,8 @@ a { color: var(--accent); }
         <label class="switch" for="tSchools"><input type="checkbox" id="tSchools" autocomplete="off"><span class="switch__ui" aria-hidden="true"></span><span>Intermediate school zones</span></label>
         <label class="switch" for="tHoods"><input type="checkbox" id="tHoods" autocomplete="off"><span class="switch__ui" aria-hidden="true"></span><span>Neighborhood zones</span></label>
         <hr class="layers__sep">
-        <label class="switch" for="tStarred"><input type="checkbox" id="tStarred" autocomplete="off"><span class="switch__ui" aria-hidden="true"></span><span><span class="star" aria-hidden="true">★</span> Starred only</span></label>
+        <label class="switch" for="tStarred"><input type="checkbox" id="tStarred" autocomplete="off"><span class="switch__ui" aria-hidden="true"></span><span><span class="star" aria-hidden="true">★</span> Liked only</span></label>
+        <label class="switch" for="tHideNo"><input type="checkbox" id="tHideNo" autocomplete="off"><span class="switch__ui" aria-hidden="true"></span><span>Hide disliked</span></label>
         <div class="seg" role="radiogroup" aria-label="Visit status" id="visitSeg">
           <button type="button" role="radio" data-visit="all" aria-checked="true">All</button>
           <button type="button" role="radio" data-visit="visited" aria-checked="false"><i class="sw-visited"></i>Visited</button>
@@ -403,11 +421,12 @@ a { color: var(--accent); }
   var BED_CHOICES = [2, 3];
   var S = { listings: [], groups: [], byKey: {}, sel: null, selZone: null, source: null, at: null,
             showSchools: !!store.get("schools"), showHoods: !!store.get("hoods"), sort: store.get("sort") || "price-asc",
-            onlyStarred: !!store.get("starred"), visit: store.get("visit") || "all",
+            onlyStarred: !!store.get("starred"), hideNo: !!store.get("hideNo"), visit: store.get("visit") || "all",
             beds: (store.get("beds") || []).filter(function (n) { return BED_CHOICES.indexOf(n) >= 0; }),
             data: null, map: null, markers: [], hoverHood: null, busy: false, mcp: undefined,
-            // shared state in the artifact's database: plan ticks + the latest copy of the sheet rows
-            db: null, dbState: "off", canWrite: null, plans: {}, pend: {}, planBusy: {}, planErr: {}, mirror: null, mirrorBusy: false };
+            // shared state in the artifact's database: plan ticks, likes/dislikes, the latest copy of the sheet rows
+            db: null, dbState: "off", canWrite: null, mirror: null, mirrorBusy: false,
+            ov: { plans: { docs: {}, pend: {}, busy: {}, err: {}, ready: false }, prefs: { docs: {}, pend: {}, busy: {}, err: {}, ready: false } } };
   // A listing passes when it matches every active filter: starred, visit state and beds.
   function bedsMatch(l) { return !S.beds.length || S.beds.some(function (n) { return l.bedSet[n]; }); }
   function visitMatch(l) {
@@ -416,8 +435,9 @@ a { color: var(--accent); }
     if (S.visit === "planned") return l.planned;
     return !l.visited && !l.planned;
   }
-  function isVisible(l) { return (!S.onlyStarred || l.starred) && bedsMatch(l) && visitMatch(l); }
-  function filtering() { return S.onlyStarred || S.visit !== "all" || S.beds.length > 0; }
+  function prefMatch(l) { return (!S.onlyStarred || l.starred) && (!S.hideNo || !l.disliked); }
+  function isVisible(l) { return prefMatch(l) && bedsMatch(l) && visitMatch(l); }
+  function filtering() { return S.onlyStarred || S.hideNo || S.visit !== "all" || S.beds.length > 0; }
   // "2" -> {2}; "2-3" / "2–3" / "2 to 3" -> {2,3}; "2/3" -> {2,3}; "studio" -> {0}; "" -> {} (no beds in the sheet)
   function bedSetOf(text) {
     var t = String(text || "").toLowerCase(), out = {};
@@ -440,6 +460,9 @@ a { color: var(--accent); }
   };
   var STATUS_LABEL = { done: "Done", req: "Tour requested", hold: "On hold", todo: "To do", none: "No status" };
   var MARK_LABEL = { visited: "Visited", planned: "Planned visit", mixed: "Visited, another visit planned" };
+  var THUMB_DOWN = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="1.75" y="1.75" width="3" height="7.5" rx=".6"/><path d="M4.75 2.6h6.45c.75 0 1.4.5 1.6 1.2l1.15 4.1c.3 1.05-.5 2.1-1.6 2.1H9.4l.5 2.55c.2 1.05-.6 2-1.65 2L4.75 9.1"/></svg>';
+  function noIcon(l) { return l.disliked ? '<span class="no" title="Disliked">' + THUMB_DOWN + "</span> " : ""; }
+  function starIcon(l) { return l.starred ? '<span class="star" title="Liked">★</span> ' : ""; }
   var CHECK = '<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.3 6.4 4.8 8.8 9.8 3.4"/></svg>';
 
   /* ---------- compact layer decoding (see build scripts' encode.py) ---------- */
@@ -615,24 +638,36 @@ a { color: var(--accent); }
         sqftText: get(C.sqft), sqft: num(get(C.sqft)), sqftMax: numMax(get(C.sqft)), notes: get(C.notes),
         link: link, avail: get(C.avail), status: get(C.status), tour: get(C.tour), extra: extra,
         lat: num(get(C.lat)), lng: num(get(C.lng)), cat: statusCat(get(C.status), get(C.tour)), key: address ? normKey(address) : "row:" + (r + 1),
-        starred: isTrue(get(C.starred)), visited: sheetMark === "visited", sheetPlanned: sheetMark === "planned",
+        sheetStarred: isTrue(get(C.starred)), visited: sheetMark === "visited", sheetPlanned: sheetMark === "planned",
         id: listingId(address, link, title || titleNote) });
     }
     return out;
   }
 
-  /* ---------- planned visits: the sheet's blue rows, plus ticks saved on the map ----------
-     A tick saved on the map overrides the sheet's colour for that listing until the sheet's colour itself
-     changes (then the sheet wins again), so a later edit in either place is the one that shows. */
-  function planOf(l) {
-    if (Object.prototype.hasOwnProperty.call(S.pend, l.id)) return S.pend[l.id];
-    var ov = S.plans[l.id];
-    if (ov && typeof ov.planned === "boolean" && ov.sheetBlue === l.sheetPlanned) return ov.planned;
-    return l.sheetPlanned;
+  /* ---------- choices saved on the map: planned visits, likes (★) and dislikes ----------
+     plans: the sheet's blue rows, plus "Planned visit" ticks. prefs: the sheet's Starred box (= liked), plus the
+     Like / Dislike buttons (dislike = unpreferred; the sheet has no column for it). A choice saved on the map
+     overrides the sheet for that listing until the sheet's own value changes (then the sheet wins again), so
+     a later edit in either place is the one that shows. */
+  var OVR = {
+    plans: { sheetValue: function (l) { return l.sheetPlanned; }, basis: function (l) { return l.sheetPlanned; },
+             basisOf: function (d) { return d.sheetBlue; }, read: function (d) { return typeof d.planned === "boolean" ? d.planned : undefined; },
+             body: function (v, l) { return { planned: v, sheetBlue: l.sheetPlanned }; } },
+    prefs: { sheetValue: function (l) { return l.sheetStarred ? "like" : "none"; }, basis: function (l) { return l.sheetStarred; },
+             basisOf: function (d) { return d.sheetStar; }, read: function (d) { return d.pref === "like" || d.pref === "dislike" || d.pref === "none" ? d.pref : undefined; },
+             body: function (v, l) { return { pref: v, sheetStar: l.sheetStarred }; } }
+  };
+  function valueOf(kind, l) {
+    var K = OVR[kind], o = S.ov[kind];
+    if (Object.prototype.hasOwnProperty.call(o.pend, l.id)) return o.pend[l.id];
+    var d = o.docs[l.id], v = d && K.basisOf(d) === K.basis(l) ? K.read(d) : undefined;
+    return v === undefined ? K.sheetValue(l) : v;
   }
   function applyMarks() {
     S.listings.forEach(function (l) {
-      l.planned = planOf(l);
+      var pref = valueOf("prefs", l);
+      l.starred = pref === "like"; l.disliked = pref === "dislike";
+      l.planned = valueOf("plans", l);
       l.mark = l.planned && l.visited ? "mixed" : l.planned ? "planned" : l.visited ? "visited" : null;
     });
   }
@@ -693,7 +728,7 @@ a { color: var(--accent); }
   function bedsWord(beds) { return !beds.length ? "" : beds.length > 1 ? beds.join("–") + " bd" : beds[0] + " bd"; }
   function fmtTime(ts) { try { return new Date(ts).toLocaleString(undefined, { month: "short", day: "numeric", hour: "numeric", minute: "2-digit" }); } catch (e) { return ""; } }
   function bedsText(l) { if (!l.beds) return ""; return /^\d+$/.test(l.beds) ? l.beds + " bd" : l.beds + " bd"; }
-  function statusChip(l) { var c = l.cat; return '<span class="chip chip--' + c + '">' + ICON[c] + esc(l.status || STATUS_LABEL[c]) + "</span>"; }
+  function statusChip(l) { var c = l.cat, t = esc(l.status || STATUS_LABEL[c]); return '<span class="chip chip--' + c + '" title="' + t + '">' + ICON[c] + '<span class="chip__t">' + t + "</span></span>"; }
   var SRC_TEXT = { "osm-building": "Pin on the building outline (OpenStreetMap).", "census-range": "Pin placed along the block from Census address ranges.",
     range: "Pin placed along the block from Census address ranges.", approx: "Approximate pin: the house number is outside the known ranges for this street.", sheet: "Pin from the sheet's coordinates." };
 
@@ -830,11 +865,12 @@ a { color: var(--accent); }
 
   /* ---------- shared state (artifact database) ----------
      plans/<listing id>  a "Planned visit" tick saved on the map: {planned, sheetBlue, address, title, link, row, at}
+     prefs/<listing id>  a Like (★) or Dislike saved on the map: {pref: like | dislike | none, sheetStar, address, title, link, row, at}
      sheet/latest        the newest rows the owner's view loaded live from the sheet, so a view that can't read
                          the sheet through Google Drive (connector not allowed or not connected, or a viewer
                          without access to the file) still shows every current row */
-  var PLANS = "plans", MIRROR = "sheet/latest";
-  var DB_ERR = { invalid_argument: "Only the map's owner can change plans.", quota_exceeded: "The map's storage is full.", revoked: "Saving isn't available in this view any more." };
+  var MIRROR = "sheet/latest";
+  var DB_ERR = { invalid_argument: "Only the map's owner can change this.", quota_exceeded: "The map's storage is full.", revoked: "Saving isn't available in this view any more." };
   function sigOf(rows, links, fills) { var s = JSON.stringify([rows, links, fills]); return hash32(s, 2166136261) + hash32(s, 3735928559); }
   function initShared() {
     if (!window.claude || typeof window.claude.use !== "function") return;
@@ -845,13 +881,15 @@ a { color: var(--accent); }
       S.db = db; S.dbState = "loading"; refreshCard();
       if (user && typeof user.can === "function") user.can("data.write").then(function (v) { S.canWrite = v; refreshCard(); }, function () { /* not told: let a refused write decide */ });
       var timer = setTimeout(function () { if (S.dbState === "loading") { S.dbState = "slow"; refreshCard(); } }, 10000);
-      db.collection(PLANS).onSnapshot(function (snap) {
-        var next = {};
-        snap.docs.forEach(function (d) { var v = d.data(); if (v) next[d.id] = v; });
-        S.plans = next; S.dbState = "ready";
-        if (!snap.metadata.fromCache) clearTimeout(timer);
-        applyMarks(); renderPlanChange();
-      }, function () { clearTimeout(timer); S.dbState = "error"; refreshCard(); });
+      Object.keys(OVR).forEach(function (kind) {
+        db.collection(kind).onSnapshot(function (snap) {
+          var next = {};
+          snap.docs.forEach(function (d) { var v = d.data(); if (v) next[d.id] = v; });
+          S.ov[kind].docs = next; S.ov[kind].ready = true;
+          if (S.ov.plans.ready && S.ov.prefs.ready && S.dbState !== "error") { S.dbState = "ready"; if (!snap.metadata.fromCache) clearTimeout(timer); }
+          applyMarks(); refreshMarks();
+        }, function () { clearTimeout(timer); S.dbState = "error"; applyMarks(); refreshMarks(); });
+      });
       db.doc(MIRROR).onSnapshot(function (d) {
         var v = d.exists ? d.data() : null;
         S.mirror = v;
@@ -874,41 +912,44 @@ a { color: var(--accent); }
       .then(function () { S.mirror = { at: at, sig: sig }; }, function () { /* skip */ })
       .then(function () { S.mirrorBusy = false; });
   }
-  function togglePlan(id, want) {
-    var l = S.listings.filter(function (x) { return x.id === id; })[0];
-    if (!l || !S.db || S.planBusy[id]) return;
-    S.pend[id] = want; S.planBusy[id] = true; delete S.planErr[id];
-    applyMarks(); renderPlanChange();
-    var ref = S.db.collection(PLANS).doc(id);
-    // A tick that agrees with the sheet's colour needs no override: drop it.
+  // Save one choice (kind "plans": true/false; kind "prefs": "like"/"dislike"/"none") for a listing.
+  // A choice that agrees with the sheet needs no override, so it's deleted instead of stored.
+  function saveChoice(kind, id, want) {
+    var l = S.listings.filter(function (x) { return x.id === id; })[0], K = OVR[kind], o = S.ov[kind];
+    if (!l || !S.db || o.busy[id]) return;
+    o.pend[id] = want; o.busy[id] = true; delete o.err[id];
+    applyMarks(); refreshMarks();
+    var ref = S.db.collection(kind).doc(id);
     var write = function () {
-      return want === l.sheetPlanned ? ref.delete()
-        : ref.set({ planned: want, sheetBlue: l.sheetPlanned, address: l.address, title: l.title || l.titleNote || "", link: l.link, row: l.row, at: Date.now() });
+      if (want === K.sheetValue(l)) return ref.delete();
+      var body = K.body(want, l);
+      body.address = l.address; body.title = l.title || l.titleNote || ""; body.link = l.link; body.row = l.row; body.at = Date.now();
+      return ref.set(body);
     };
     write().catch(function (e) {
       if (e && e.code === "unavailable") return new Promise(function (res) { setTimeout(res, 800 + Math.random() * 700); }).then(write);
       throw e;
-    }).then(function () { /* the plans listener now carries the tick */ }, function (e) {
+    }).then(function () { /* the collection listener now carries the choice */ }, function (e) {
       var code = e && e.code;
       if (code === "invalid_argument") S.canWrite = false;
-      S.planErr[id] = DB_ERR[code] || "Couldn't save. Check the connection and try again.";
+      o.err[id] = DB_ERR[code] || "Couldn't save. Check the connection and try again.";
     }).then(function () {
-      delete S.pend[id]; S.planBusy[id] = false;
-      applyMarks(); renderPlanChange();
+      delete o.pend[id]; o.busy[id] = false;
+      applyMarks(); refreshMarks();
     });
   }
-  function renderPlanChange() { renderList(); renderMarkers(); refreshCard(); }
-  // Re-draw the open card in place (keeps its scroll position and the focused checkbox).
+  function refreshMarks() { renderList(); renderMarkers(); refreshCard(); }
+  // Re-draw the open card in place (keeps its scroll position and the focused control).
   function refreshCard() {
     var c = $("card"); if (c.hidden) return;
-    var top = c.scrollTop, act = document.activeElement, fid = act && act.getAttribute ? act.getAttribute("data-plan") : null;
+    var top = c.scrollTop, act = document.activeElement, fk = act && act.getAttribute ? act.getAttribute("data-focus") : null;
     var loose = S.loose && S.listings.filter(function (x) { return x.id === S.loose && !x.group; })[0];
     if (S.sel && S.byKey[S.sel]) showGroupCard(S.byKey[S.sel], false);
     else if (loose) showLooseCard(loose);
     else if (S.selZone) showZoneCard(S.selZone.h, S.selZone.m != null ? S.data.mid.features[S.selZone.m] : null);
     else return;
     c.scrollTop = top;
-    if (fid) { var el = c.querySelector('input[data-plan="' + fid + '"]'); if (el) el.focus({ preventScroll: true }); }
+    if (fk) { var el = c.querySelector('[data-focus="' + fk + '"]'); if (el) el.focus({ preventScroll: true }); }
   }
 
   /* ---------- map ---------- */
@@ -1078,14 +1119,14 @@ a { color: var(--accent); }
       var prices = vis.map(function (l) { return l.price; }).filter(function (p) { return p != null; });
       var min = prices.length ? Math.min.apply(null, prices) : null;
       var star = showStar && vis.some(function (l) { return l.starred; });
-      var allHold = vis.every(function (l) { return l.cat === "hold"; });
+      var allHold = vis.every(function (l) { return l.cat === "hold"; }), allNo = vis.every(function (l) { return l.disliked; });
       var wrap = document.createElement("div");
-      wrap.className = "pinwrap" + (mark ? " mk-" + mark : "") + (allHold ? " is-hold" : "") + (g.key === S.sel ? " is-selected" : "");
+      wrap.className = "pinwrap" + (mark ? " mk-" + mark : "") + (allHold ? " is-hold" : "") + (allNo ? " is-disliked" : "") + (g.key === S.sel ? " is-selected" : "");
       var btn = document.createElement("button"); btn.type = "button"; btn.className = "pin";
-      btn.innerHTML = (star ? '<span class="pin__star" aria-hidden="true">★</span>' : "") + '<span class="pin__label"></span>' + (n > 1 ? '<span class="pin__n">' + n + "</span>" : "");
+      btn.innerHTML = (star ? '<span class="pin__star" aria-hidden="true">★</span>' : "") + (allNo ? '<span class="pin__no" aria-hidden="true">' + THUMB_DOWN + "</span>" : "") + '<span class="pin__label"></span>' + (n > 1 ? '<span class="pin__n">' + n + "</span>" : "");
       var lab = btn.querySelector(".pin__label"); lab.textContent = pinLabel(min, prices, long);
-      btn.setAttribute("aria-label", vis.map(function (l) { return (l.starred ? "Starred: " : "") + headline(l) + (l.price != null ? ", " + money(l.price) : "") + (l.mark ? ", " + MARK_LABEL[l.mark] : "") + ", " + (l.status || STATUS_LABEL[l.cat]); }).join("; "));
-      btn.title = vis.map(function (l) { return (l.starred ? "★ " : "") + headline(l) + (l.price != null ? " · " + money(l.price) : "") + (l.mark ? " · " + MARK_LABEL[l.mark] : ""); }).join("\n");
+      btn.setAttribute("aria-label", vis.map(function (l) { return (l.starred ? "Liked: " : l.disliked ? "Disliked: " : "") + headline(l) + (l.price != null ? ", " + money(l.price) : "") + (l.mark ? ", " + MARK_LABEL[l.mark] : "") + ", " + (l.status || STATUS_LABEL[l.cat]); }).join("; "));
+      btn.title = vis.map(function (l) { return (l.starred ? "★ " : l.disliked ? "Disliked · " : "") + headline(l) + (l.price != null ? " · " + money(l.price) : "") + (l.mark ? " · " + MARK_LABEL[l.mark] : ""); }).join("\n");
       var stem = document.createElement("span"); stem.className = "pin__stem"; stem.setAttribute("aria-hidden", "true");
       var dot = document.createElement("span"); dot.className = "pin__dot"; dot.setAttribute("aria-hidden", "true");
       wrap.appendChild(btn); wrap.appendChild(stem); wrap.appendChild(dot);
@@ -1128,18 +1169,18 @@ a { color: var(--accent); }
     $("meta").textContent = S.listings.length + " listings from the “WC appartment” tab of Relocation planning";
     if (!L.length && S.listings.length) {
       ul.innerHTML = '<li class="empty">No listings match these filters.<br><button type="button" class="btn" id="clearFilters">Show all listings</button></li>';
-      $("clearFilters").addEventListener("click", function () { setFilters(false, "all", []); });
+      $("clearFilters").addEventListener("click", function () { setFilters({ starred: false, hideNo: false, visit: "all", beds: [] }); });
     }
     L.forEach(function (l) {
       var li = document.createElement("li");
       var b = document.createElement("button"); b.type = "button";
-      b.className = "item" + (l.mark ? " mark-" + l.mark : "") + (l.cat === "hold" ? " is-dim" : "") + ((l.group && l.group.key === S.sel) || (!l.group && S.loose === l.id) ? " is-selected" : "");
+      b.className = "item" + (l.mark ? " mark-" + l.mark : "") + (l.cat === "hold" ? " is-dim" : "") + (l.disliked ? " is-disliked" : "") + ((l.group && l.group.key === S.sel) || (!l.group && S.loose === l.id) ? " is-selected" : "");
       var facts = [l.type, bedsText(l), l.sqft ? sqftStr(l) + " sq ft" : ""].filter(Boolean).join(" · ");
       var g = l.group, where = g ? [g.hood && !g.hood.debug ? g.hood.name : "", g.mid ? g.mid.s.replace(" Intermediate", " Int.").replace(" Middle", " MS") : ""].filter(Boolean).join(" · ") : l.address ? "Not on the map" : "No address in the sheet";
       var flag = g && g.hood && g.hood.flag ? g.hood.flag : "";
       var price = l.price == null ? (l.priceText || "No price") : money(l.price) + (l.priceMax ? "+" : "");
       b.innerHTML = '<span class="item__price' + (l.price == null ? " is-none" : "") + '">' + esc(price) + "</span>" +
-        '<span class="item__title">' + (l.starred ? '<span class="star" title="Starred">★</span> ' : "") + esc(headline(l)) + "</span>" + '<span class="item__status">' + statusChip(l) + "</span>" +
+        '<span class="item__title">' + starIcon(l) + noIcon(l) + esc(headline(l)) + "</span>" + '<span class="item__status">' + statusChip(l) + "</span>" +
         '<span class="item__facts">' + esc(facts || streetLine(l.address)) + "</span>" + '<span class="item__where">' + esc(where) + (flag ? ' · <b class="flag">' + esc(flag) + "</b>" : "") + "</span>";
       b.addEventListener("click", function () { if (window.innerWidth <= 900) toggleList(false); if (l.group) select(l.group.key, "list"); else { showLooseCard(l); renderList(); } });
       li.appendChild(b); ul.appendChild(li);
@@ -1148,7 +1189,7 @@ a { color: var(--accent); }
     if (noAddr.length) foot.push("<p><b>No address in the sheet:</b> " + noAddr.map(function (l) { return esc(headline(l) + " (row " + l.row + ")"); }).join("; ") + ". Add one to put it on the map.</p>");
     if (miss.length) foot.push("<p><b>Not on the map:</b> " + miss.map(function (l) { return esc(placeLabel(l)); }).join("; ") + ". Add lat and lng columns to the sheet to place them by hand.</p>");
     if (S.beds.length) {
-      var noBeds = S.listings.filter(function (l) { return !hasBeds(l) && (!S.onlyStarred || l.starred) && visitMatch(l); }).length;
+      var noBeds = S.listings.filter(function (l) { return !hasBeds(l) && prefMatch(l) && visitMatch(l); }).length;
       if (noBeds) foot.push("<p>" + noBeds + (noBeds === 1 ? " listing has" : " listings have") + " no beds in the sheet, so the " + esc(bedsWord(S.beds)) + " filter hides " + (noBeds === 1 ? "it" : "them") + ".</p>");
     }
     $("unplaced").innerHTML = foot.join("");
@@ -1169,22 +1210,35 @@ a { color: var(--accent); }
     return '<div><p class="section-label">Schools by address</p><dl class="kv">' + rows.map(function (r) { return "<dt>" + r[0] + "</dt><dd>" + r[1] + "</dd>"; }).join("") + "</dl></div>";
   }
   // The "Planned visit" checkbox. Without the database (page opened outside Claude) the card only reports the sheet's colour.
-  function planControl(l) {
+  // The listing's own controls: "Planned visit" checkbox, Like (★) and Dislike. Without the database (page opened
+  // outside Claude) the card only reports what the sheet says.
+  function actControls(l) {
     var swatch = function (k) { return '<i class="swatch sw-' + k + '" style="display:inline-block;width:10px;height:10px;border-radius:3px"></i>'; };
-    if (S.dbState === "off" || S.dbState === "error") return l.sheetPlanned ? '<div class="plan-wrap"><span class="chip">' + swatch("planned") + "Planned (blue row)</span></div>" : "";
-    var ready = S.dbState === "ready", busy = !!S.planBusy[l.id];
-    var disabled = !ready || S.canWrite === false || busy;
-    var note = "", warn = false;
-    if (S.planErr[l.id]) { note = S.planErr[l.id]; warn = true; }
-    else if (S.dbState === "loading") note = "Loading saved plans…";
-    else if (S.dbState === "slow") { note = "Saved plans can't be reached right now."; warn = true; }
-    else if (S.canWrite === false) note = l.planned ? "Planned. Only the map's owner can change this." : "Only the map's owner can plan visits here.";
-    else if (l.planned && !l.sheetPlanned) note = "Saved on the map; the sheet row isn't blue.";
-    else if (!l.planned && l.sheetPlanned) note = "Unticked on the map; the sheet row is still blue.";
-    else if (l.planned) note = "Blue row in the sheet.";
-    return '<div class="plan-wrap"><label class="plan' + (busy ? " is-busy" : "") + '"><input type="checkbox" data-plan="' + esc(l.id) + '"' + (l.planned ? " checked" : "") + (disabled ? " disabled" : "") + ">" +
+    if (S.dbState === "off" || S.dbState === "error") return l.sheetPlanned ? '<div class="acts"><span class="chip">' + swatch("planned") + "Planned (blue row)</span></div>" : "";
+    var P = S.ov.plans, F = S.ov.prefs, ro = S.canWrite === false, id = esc(l.id);
+    var planOff = !P.ready || ro || !!P.busy[l.id], prefOff = !F.ready || ro || !!F.busy[l.id];
+    var pref = l.starred ? "like" : l.disliked ? "dislike" : "none";
+    var notes = [], warn = false;
+    if (P.err[l.id] || F.err[l.id]) { notes.push(P.err[l.id] || F.err[l.id]); warn = true; }
+    else if (S.dbState === "loading") notes.push("Loading saved choices…");
+    else if (S.dbState === "slow") { notes.push("Saved choices can't be reached right now."); warn = true; }
+    else if (ro) notes.push("Only the map's owner can change these.");
+    else {
+      if (l.planned && !l.sheetPlanned) notes.push("Planned on the map; the sheet row isn't blue.");
+      else if (!l.planned && l.sheetPlanned) notes.push("Unplanned on the map; the sheet row is still blue.");
+      if (l.starred && !l.sheetStarred) notes.push("Liked on the map; the sheet's Starred box is unticked.");
+      else if (!l.starred && l.sheetStarred) notes.push((l.disliked ? "Disliked" : "Unliked") + " on the map; the sheet's Starred box is ticked.");
+      else if (l.disliked) notes.push("Disliked: faded on the map; “Hide disliked” in Map options hides it.");
+    }
+    return '<div class="acts">' +
+      '<label class="plan' + (P.busy[l.id] ? " is-busy" : "") + '"><input type="checkbox" data-plan="' + id + '" data-focus="plan:' + id + '"' + (l.planned ? " checked" : "") + (planOff ? " disabled" : "") + ">" +
       '<span class="plan__box" aria-hidden="true">' + CHECK + "</span><span>Planned visit</span></label>" +
-      (note ? '<p class="plan__note' + (warn ? " is-warn" : "") + '">' + esc(note) + "</p>" : "") + "</div>";
+      '<span class="pref" role="group" aria-label="Like or dislike this listing">' +
+      '<button type="button" class="pref__btn pref__btn--like" data-pref="like" data-id="' + id + '" data-focus="like:' + id + '" aria-pressed="' + (pref === "like") + '"' + (prefOff ? " disabled" : "") + ">" +
+      '<span class="star" aria-hidden="true">' + (pref === "like" ? "★" : "☆") + "</span>Like</button>" +
+      '<button type="button" class="pref__btn pref__btn--dislike" data-pref="dislike" data-id="' + id + '" data-focus="dislike:' + id + '" aria-pressed="' + (pref === "dislike") + '"' + (prefOff ? " disabled" : "") + ">" +
+      THUMB_DOWN + "Dislike</button></span></div>" +
+      notes.map(function (n) { return '<p class="plan__note' + (warn ? " is-warn" : "") + '">' + esc(n) + "</p>"; }).join("");
   }
   function unitHtml(l) {
     var facts = [];
@@ -1200,10 +1254,10 @@ a { color: var(--accent); }
     l.extra.forEach(function (x) { kv.push([esc(x.label || (/\d{3}\D?\d{3}\D?\d{4}/.test(x.value) ? "Contact" : "Other")), esc(x.value)]); });
     var name = l.title ? esc(l.title) : (l.titleNote ? esc(l.titleNote) : "");
     return '<div class="unit">' +
-      '<div class="unit__top"><span class="unit__name">' + (l.starred ? '<span class="star" title="Starred">★</span> ' : "") + (name || esc(streetLine(l.address))) + "</span>" +
+      '<div class="unit__top"><span class="unit__name">' + starIcon(l) + noIcon(l) + (name || esc(streetLine(l.address))) + "</span>" +
       '<span class="unit__price">' + (l.price != null ? esc(priceStr(l)) + " <small>/ mo</small>" : "<small>" + esc(l.priceText || "No price yet") + "</small>") + "</span></div>" +
       (facts.length ? '<div class="facts">' + facts.join("<span aria-hidden='true'>·</span>") + "</div>" : "") +
-      planControl(l) +
+      actControls(l) +
       (l.notes ? '<p class="notes">' + esc(l.notes) + "</p>" : "") +
       '<dl class="kv">' + kv.map(function (r) { return "<dt>" + r[0] + "</dt><dd>" + r[1] + "</dd>"; }).join("") + "</dl>" +
       (l.link ? '<div class="links">' + link(l.link, /zillow/i.test(l.link) ? "Zillow listing" : /apartments\.com/i.test(l.link) ? "Apartments.com" : "Listing") + "</div>" : "") +
@@ -1249,7 +1303,7 @@ a { color: var(--accent); }
     var items = S.listings.filter(function (l) { return l.group && test(l.group) && isVisible(l); });
     if (!items.length) return '<p class="muted" style="margin:0">' + (filtering() ? "No listings here match the filters." : "No listings from the sheet here.") + "</p>";
     items.sort(function (a, b) { return (a.price == null ? Infinity : a.price) - (b.price == null ? Infinity : b.price); });
-    return '<ul class="inzone">' + items.map(function (l) { return '<li><button type="button" data-g="' + l.group.key + '"><span>' + (l.starred ? '<span class="star">★</span> ' : "") + (l.mark ? '<i class="swatch sw-' + l.mark + '" style="display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:5px"></i>' : "") + esc(headline(l)) + '</span><span class="p">' + (l.price != null ? esc(money(l.price)) : "—") + "</span></button></li>"; }).join("") + "</ul>";
+    return '<ul class="inzone">' + items.map(function (l) { return '<li><button type="button" data-g="' + l.group.key + '"><span>' + starIcon(l) + noIcon(l) + (l.mark ? '<i class="swatch sw-' + l.mark + '" style="display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:5px"></i>' : "") + esc(headline(l)) + '</span><span class="p">' + (l.price != null ? esc(money(l.price)) : "—") + "</span></button></li>"; }).join("") + "</ul>";
   }
   function wireInZone() { $("card").querySelectorAll("[data-g]").forEach(function (b) { b.addEventListener("click", function () { select(b.getAttribute("data-g"), "list"); }); }); }
   function showZoneCard(hoodId, midFeature) {
@@ -1341,8 +1395,8 @@ a { color: var(--accent); }
     if (!el) return;
     parts.push('<section><h3>Pins</h3><div class="row">' +
       '<span><i class="swatch sw-visited"></i>Visited</span><span><i class="swatch sw-planned"></i>Planned</span><span><i class="swatch sw-none"></i>Not yet</span>' +
-      '<span><span class="star">★</span> Starred</span><span>Faded: on hold</span><span>— no price</span></div>' +
-      '<p class="note">Pin colors follow the row highlight in the sheet: yellow = visited, blue = planned. Tick “Planned visit” on a listing’s card to plan or unplan it here.</p></section>');
+      '<span><span class="star">★</span> Liked</span><span><span class="no">' + THUMB_DOWN + '</span> Disliked (faded)</span><span>Faded: on hold</span><span>— no price</span></div>' +
+      '<p class="note">Pin colors follow the row highlight in the sheet: yellow = visited, blue = planned. ★ = the sheet’s Starred box. On a listing’s card, “Planned visit”, Like and Dislike change these here.</p></section>');
     if (S.showSchools && S.data) {
       var view = S.map ? S.map.getBounds() : null;
       var seen = S.data.mid.features.filter(function (f) { if (!view) return true; var b = f._bb; return !(b[2] < view.getWest() || b[0] > view.getEast() || b[3] < view.getSouth() || b[1] > view.getNorth()); });
@@ -1369,7 +1423,8 @@ a { color: var(--accent); }
   var VISIT_WORD = { visited: "Visited", planned: "Planned", none: "Not yet" };
   function layersLabel() {
     var on = [];
-    if (S.onlyStarred) on.push("★ Starred");
+    if (S.onlyStarred) on.push("★ Liked");
+    if (S.hideNo) on.push("no disliked");
     if (S.visit !== "all") on.push(VISIT_WORD[S.visit]);
     if (S.beds.length) on.push(bedsWord(S.beds));
     $("layersToggle").textContent = on.length ? "Filters: " + on.join(" · ") : "Map options";
@@ -1379,44 +1434,56 @@ a { color: var(--accent); }
   // Phones and short windows start with the options folded (the button then names any active filters).
   setLayersOpen(!(layersCompact && layersCompact.matches));
   $("layersToggle").addEventListener("click", function () { setLayersOpen($("layers").classList.contains("is-collapsed")); });
-  // The three filters combine (AND): starred, visit state, beds.
-  function setFilters(onlyStarred, visit, beds) {
-    S.onlyStarred = !!onlyStarred; S.visit = visit; S.beds = beds.slice().sort();
-    store.set("starred", S.onlyStarred); store.set("visit", S.visit); store.set("beds", S.beds);
-    $("tStarred").checked = S.onlyStarred; layersLabel();
+  // The filters combine (AND): liked only, hide disliked, visit state, beds. `patch` changes only the ones it names.
+  function setFilters(patch) {
+    if ("starred" in patch) S.onlyStarred = !!patch.starred;
+    if ("hideNo" in patch) S.hideNo = !!patch.hideNo;
+    if ("visit" in patch) S.visit = patch.visit;
+    if ("beds" in patch) S.beds = patch.beds.slice().sort();
+    store.set("starred", S.onlyStarred); store.set("hideNo", S.hideNo); store.set("visit", S.visit); store.set("beds", S.beds);
+    $("tStarred").checked = S.onlyStarred; $("tHideNo").checked = S.hideNo; layersLabel();
     $("visitSeg").querySelectorAll("button").forEach(function (b) { b.setAttribute("aria-checked", String(b.getAttribute("data-visit") === S.visit)); });
     $("bedsSeg").querySelectorAll("button").forEach(function (b) { var v = b.getAttribute("data-beds"); b.setAttribute("aria-pressed", String(v === "any" ? !S.beds.length : S.beds.indexOf(+v) >= 0)); });
     if (S.sel && S.byKey[S.sel] && !S.byKey[S.sel].items.some(isVisible)) clearSelection();
     renderMarkers(); renderList();
     if (!$("card").hidden && S.selZone) { var cur = S.selZone; showZoneCard(cur.h, cur.m != null ? S.data.mid.features[cur.m] : null); }
   }
-  $("tStarred").addEventListener("change", function (e) { setFilters(e.target.checked, S.visit, S.beds); });
-  $("visitSeg").addEventListener("click", function (e) { var b = e.target.closest("button[data-visit]"); if (b) setFilters(S.onlyStarred, b.getAttribute("data-visit"), S.beds); });
+  $("tStarred").addEventListener("change", function (e) { setFilters({ starred: e.target.checked }); });
+  $("tHideNo").addEventListener("change", function (e) { setFilters({ hideNo: e.target.checked }); });
+  $("visitSeg").addEventListener("click", function (e) { var b = e.target.closest("button[data-visit]"); if (b) setFilters({ visit: b.getAttribute("data-visit") }); });
   $("visitSeg").addEventListener("keydown", function (e) {
     if (e.key !== "ArrowRight" && e.key !== "ArrowLeft") return;
     var order = ["all", "visited", "planned", "none"], i = order.indexOf(S.visit), n = order[(i + (e.key === "ArrowRight" ? 1 : 3)) % 4];
-    setFilters(S.onlyStarred, n, S.beds); var nb = $("visitSeg").querySelector('[data-visit="' + n + '"]'); if (nb) nb.focus(); e.preventDefault();
+    setFilters({ visit: n }); var nb = $("visitSeg").querySelector('[data-visit="' + n + '"]'); if (nb) nb.focus(); e.preventDefault();
   });
   // Beds: "2 bd" and "3 bd" toggle independently (both on = 2 or 3); "Any beds" clears them. "2-3" in the sheet matches either.
   $("bedsSeg").addEventListener("click", function (e) {
     var b = e.target.closest("button[data-beds]"); if (!b) return;
     var v = b.getAttribute("data-beds"), n = +v;
     var next = v === "any" ? [] : S.beds.indexOf(n) >= 0 ? S.beds.filter(function (x) { return x !== n; }) : S.beds.concat([n]);
-    setFilters(S.onlyStarred, S.visit, next);
+    setFilters({ beds: next });
   });
   $("card").addEventListener("change", function (e) {
     var t = e.target;
-    if (t && t.matches && t.matches("input[data-plan]")) togglePlan(t.getAttribute("data-plan"), t.checked);
+    if (t && t.matches && t.matches("input[data-plan]")) saveChoice("plans", t.getAttribute("data-plan"), t.checked);
   });
-  setFilters(S.onlyStarred, S.visit, S.beds);
+  // Like / Dislike: pressing the active one clears it; pressing the other switches.
+  $("card").addEventListener("click", function (e) {
+    var b = e.target && e.target.closest ? e.target.closest("button[data-pref]") : null;
+    if (!b || b.disabled) return;
+    var id = b.getAttribute("data-id"), l = S.listings.filter(function (x) { return x.id === id; })[0]; if (!l) return;
+    var cur = l.starred ? "like" : l.disliked ? "dislike" : "none", v = b.getAttribute("data-pref");
+    saveChoice("prefs", id, cur === v ? "none" : v);
+  });
+  setFilters({});
   $("sortSel").addEventListener("change", function (e) { S.sort = e.target.value; store.set("sort", S.sort); renderList(); });
   $("refreshBtn").addEventListener("click", function () { loadLive(true); });
   $("listToggle").addEventListener("click", function () { toggleList(); });
   document.addEventListener("keydown", function (e) { if (e.key === "Escape" && !$("card").hidden) clearSelection(); });
   function syncToggles() {
-    var a = $("tSchools").checked, b = $("tHoods").checked, c = $("tStarred").checked;
+    var a = $("tSchools").checked, b = $("tHoods").checked, c = $("tStarred").checked, d = $("tHideNo").checked;
     if (a !== S.showSchools || b !== S.showHoods) { S.showSchools = a; S.showHoods = b; store.set("schools", a); store.set("hoods", b); setLayerVis(); renderLegend(); }
-    if (c !== S.onlyStarred) setFilters(c, S.visit, S.beds);
+    if (c !== S.onlyStarred || d !== S.hideNo) setFilters({ starred: c, hideNo: d });
   }
   window.addEventListener("pageshow", syncToggles);
   window.addEventListener("load", function () { setTimeout(syncToggles, 0); });

@@ -24,21 +24,31 @@ and neighborhood zones as toggles.
   ("Live from the sheet", "Sheet as loaded …", "Last loaded …", "Snapshot from …") and why live failed.
 - **Visit colours.** Each row's highlight comes from the workbook's formatting: any yellow fill = **visited**
   (yellow pin), any blue fill = **planned** visit (blue pin); other colours are ignored.
-- **Planned-visit ticks (2026-11-08).** Every listing card has a **Planned visit** checkbox. Ticking it makes
-  the listing planned (blue pin, blue list row, counted by the Planned filter); unticking takes it back out,
-  including a row that is blue in the sheet. Ticks are saved in the page's database (`plans/<listing id>`:
-  planned, the sheet's colour at the time, address, title, link, row) and show on every device. They don't
-  recolour the sheet: the card says when the map and the sheet disagree, and when the sheet's colour for that
-  row later changes, the sheet wins again. A listing is identified by its street address plus listing link,
-  so re-sorting or editing other columns keeps its tick; rows with the same address and link (duplicates,
-  e.g. the two 1459 Creekside Dr rows) share one tick. A visited listing can also be planned (half yellow,
-  half blue). While the page is shared by public link only the owner can tick; other signed-in viewers see
-  the ticks read-only, and a view outside Claude shows the sheet's colours only.
-- **Filters** (Map options; they combine): **Starred only**; visit state **All · Visited · Planned · Not yet**;
-  beds **Any beds · 2 bd · 3 bd**, where 2 and 3 toggle independently (both on = 2 or 3 beds) and a sheet value
-  like "2-3" matches either. Rows with no beds in the sheet are hidden by a beds filter, and the list foot
-  says how many. The list, pins and zone cards all follow the filters; each browser remembers its own
-  filter choices. On phones the options panel starts folded and its button names the active filters.
+- **Choices made on the map (2026-11-08): Planned visit, Like, Dislike.** Every listing card has a **Planned
+  visit** checkbox and **Like** / **Dislike** buttons.
+  - *Planned visit*: ticking makes the listing planned (blue pin, blue list row, counted by the Planned
+    filter); unticking takes it back out, including a row that is blue in the sheet. A visited listing can
+    also be planned (half yellow, half blue).
+  - *Like* = ★: the same star the sheet's **Starred** box gives, on the pin, the list row and the card.
+    Unliking a row that is starred in the sheet takes its star off the map.
+  - *Dislike* = unpreferred: the pin fades and shows a thumbs-down, the list row dims, and **Hide disliked**
+    removes it. The sheet has no column for this; it lives only in the map. Like and Dislike exclude each
+    other; pressing the active one clears it.
+  - Saved in the page's database (`plans/<listing id>`: planned + the sheet's colour at the time;
+    `prefs/<listing id>`: like | dislike | none + the sheet's Starred value at the time; both also keep
+    address, title, link, row) and shown on every device. They never change the sheet: the card says when the
+    map and the sheet disagree, and when the sheet's own value for that row later changes (its colour, its
+    Starred box), the sheet wins again. A listing is identified by its street address plus listing link, so
+    re-sorting or editing other columns keeps its choices; rows with the same address and link (duplicates,
+    e.g. the two 1459 Creekside Dr rows) share them. While the page is shared by public link only the owner
+    can change them; other signed-in viewers see them read-only, and a view outside Claude shows the sheet's
+    colours and stars only.
+- **Filters** (Map options; they combine): **★ Liked only** (sheet stars plus likes); **Hide disliked**;
+  visit state **All · Visited · Planned · Not yet**; beds **Any beds · 2 bd · 3 bd**, where 2 and 3 toggle
+  independently (both on = 2 or 3 beds) and a sheet value like "2-3" matches either. Rows with no beds in the
+  sheet are hidden by a beds filter, and the list foot says how many. The list, pins and zone cards all follow
+  the filters; each browser remembers its own filter choices. On phones the options panel starts folded and
+  its button names the active filters.
 - **Prices and sizes** show as written: a range ("2800-3167") shows in full on the card and as "$2,800+" in
   the list and pin; text such as "Upon request" shows as is.
 - **Pin placement.** Every address has its own fixed pin: a dot centred exactly on the geocoded point, with the
