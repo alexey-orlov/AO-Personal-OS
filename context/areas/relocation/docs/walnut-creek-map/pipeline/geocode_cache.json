@@ -168,5 +168,30 @@
   "lat": 37.910106,
   "lon": -122.052932,
   "src": "osm-building"
+ },
+ "1305-1303 homestead ave": {
+  "lat": 37.908996,
+  "lon": -122.052446,
+  "src": "range"
+ },
+ "1001 harvey dr": {
+  "lat": 37.927702,
+  "lon": -122.054632,
+  "src": "range"
+ },
+ "101 hogan ct": {
+  "lat": 37.916078,
+  "lon": -122.049816,
+  "src": "range"
+ },
+ "538 churchill downs ct": {
+  "lat": 37.913407,
+  "lon": -122.062743,
+  "src": "range"
+ },
+ "2716 oak rd": {
+  "lat": 37.922925,
+  "lon": -122.057935,
+  "src": "range"
  }
 }
