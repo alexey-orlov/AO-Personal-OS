@@ -1,7 +1,7 @@
 # Personal OS (this repo)
 
 _status: live and under active build-out — call pipeline, git-autosync, inbox-sweep, second-brain pipeline running; build backlog tracked in Apple Notes (_ToDo). Document-rendering QA on this Mac moved to QuickLook 2026-09-11 (soffice `--convert-to` is dead)_
-_updated: 2026-09-11_
+_updated: 2026-11-09_
 
 ## Snapshot
 
@@ -28,12 +28,13 @@ _updated: 2026-09-11_
 ## Open loops
 
 - **Decide whether to blanket-allow `python3` in the repo's Claude Code permission allowlist.** 88 Bash-prefix rules were added to `.claude/settings.json` on 2026-09-11 to stop a permission-prompt storm during deck builds; `python3` was deliberately left prompting pending Alex's call, since it is the one prefix that can do anything. (chat, 2026-09-11)
-- **Calendar OAuth token expired** — notes since Jun 8 carry `invalid_grant` instead of calendar headers; re-run consent or publish the OAuth app to production (procedure in `automations/call-pipeline/CLAUDE.md`); optionally backfill Jun 8–9 headers.
+- **🔴 Save the long-lived Claude token for unattended runs** — the call pipeline's headless `claude` calls fail ("OAuth session expired and could not be refreshed") because Keychain has no `CLAUDE_CODE_OAUTH_TOKEN` item, so they fall back to the interactive CLI login, which has lapsed. Recordings have been processed by hand since ~10-05 (10-12, 10-29, 11-09), and the watcher alerts on Telegram once a day. Fix, in Terminal: `claude setup-token`, then `security add-generic-password -U -a "$USER" -s CLAUDE_CODE_OAUTH_TOKEN -w` and paste the token; the next recording proves it (`automations/claude-auth/README.md`). Also on 11-09: one recording's upload to AssemblyAI was reset five times in a row while another of the same size went through, and a re-encoded copy (`afconvert -f m4af -d aac -b 48000`) transcribed at once. (chat, 2026-11-09)
 - Duplicate notes exist from re-processing the same recordings (softserve Jun 8–9 pairs, archive-resale Emily call ×3) — decide whether to prune.
 - (Cosmetic, optional) Reload the call-pipeline launchd agent to refresh the watcher's log banner to the new `OUT_DIR`. Not required — note routing is already correct since `process_one.sh` re-sources config every run; the watcher only uses `OUT_DIR` for a startup mkdir + log line.
 
 ## Activity
 
+- 2026-11-09 — Three waiting recordings processed by hand (chat, 2026-11-09): the 11-09 Oracle Marketplace build session (the note covers the meeting only, at Alex's request), the 11-09 R&D session and the 10-29 Numerix workshop, all marked done in the watcher's ledger. The cause is the open loop above; the stale calendar-OAuth loop is gone (fixed 2026-06-11; the 11-09 lookups authenticated).
 - 2026-09-11 — `.claude/references/document-rendering.md` rewritten to current truth (chat, 2026-09-11) — it had stacked three contradictory dated updates; now one verified state table: **QuickLook (`qlmanage`) with the zip-level single-slide trick is THE deck/doc QA path** (~0.4 s/slide), **soffice `--convert-to` is dead on this Mac** (LibreOffice 26.2.4.2 answers `--version` but hangs or exits 255 with an empty outdir — verified 09-07, 09-09, 09-11 across fresh profiles), `pdftoppm` only for PDFs that already exist, PowerPoint/Keynote AppleScript export a last resort. Same day 88 Bash-prefix allow rules were added to `.claude/settings.json` to end the permission-prompt storm during deck builds.
 - 2026-06-12 — Second-brain restructure: knowledge tree v2 (goals-tasks.md, insights/, explore/ briefs, book-shortlist moved under knowledge/); Drop Zone goal/todo captures moved from this page's open loops into [goals-tasks.md](../../knowledge/goals-tasks.md) (g1–g2, t1–t5); root `inbox/` retired; per-category Telegram notifications added.
 - 2026-06-12 — Drop Zone sweep: 5 automation ideas + team-OS direction goal captured; 2 explore topics → explore queue; AI engineering eras screenshot → knowledge insights.
