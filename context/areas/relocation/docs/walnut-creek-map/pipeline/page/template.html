@@ -37,6 +37,12 @@
   --plan: #a9ccf2;
   --plan-line: #3f78b8;
   --plan-soft: rgba(84, 150, 222, 0.18);
+  --call: #f8c4dc;
+  --call-line: #c2457f;
+  --call-soft: rgba(232, 104, 162, 0.16);
+  --gone: #d4d8d4;
+  --gone-line: #8b928c;
+  --gone-soft: rgba(110, 118, 112, 0.13);
   --star: #c98a00;
   --sticker-ink: #1b201d;
   --shadow: 0 1px 2px rgba(20, 26, 22, 0.10), 0 6px 18px rgba(20, 26, 22, 0.12);
@@ -54,6 +60,7 @@
     --cluster: #e8ece6; --cluster-ink: #141816; --mix-1: #3987e5; --mix-2: #d95926; --mix-3: #199e70;
     --mix-4: #c98500; --warn-ink: #f0b45c; --shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 8px 22px rgba(0, 0, 0, 0.45);
     --visit-soft: rgba(255, 214, 77, 0.14); --plan-soft: rgba(110, 165, 230, 0.16); --star: #f5c451;
+    --call-soft: rgba(240, 128, 180, 0.14); --gone-soft: rgba(200, 206, 200, 0.08);
     color-scheme: dark;
   }
 }
@@ -65,6 +72,7 @@
   --cluster: #e8ece6; --cluster-ink: #141816; --mix-1: #3987e5; --mix-2: #d95926; --mix-3: #199e70;
   --mix-4: #c98500; --warn-ink: #f0b45c; --shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 8px 22px rgba(0, 0, 0, 0.45);
   --visit-soft: rgba(255, 214, 77, 0.14); --plan-soft: rgba(110, 165, 230, 0.16); --star: #f5c451;
+  --call-soft: rgba(240, 128, 180, 0.14); --gone-soft: rgba(200, 206, 200, 0.08);
   color-scheme: dark;
 }
 html { box-sizing: border-box; height: 100%; }
@@ -126,13 +134,15 @@ a { color: var(--accent); }
 .item__status .chip { max-width: 128px; } /* a long sheet status must not squeeze the title */
 .chip__t { overflow: hidden; text-overflow: ellipsis; min-width: 0; }
 .item.is-dim .item__price, .item.is-dim .item__title { opacity: 0.6; }
-.item.is-disliked .item__price, .item.is-disliked .item__title, .item.is-disliked .item__facts { opacity: 0.45; }
+.item.mark-gone .item__price, .item.mark-gone .item__title, .item.mark-gone .item__facts { opacity: 0.5; }
 .no { display: inline-flex; vertical-align: -1px; color: var(--muted); }
 .no svg { width: 13px; height: 13px; }
 .item__where .flag { color: var(--warn-ink); font-weight: 600; }
 .item.mark-visited { background: var(--visit-soft); box-shadow: inset 4px 0 0 var(--visit-line); }
 .item.mark-planned { background: var(--plan-soft); box-shadow: inset 4px 0 0 var(--plan-line); }
 .item.mark-mixed { background: linear-gradient(90deg, var(--visit-soft), var(--plan-soft)); box-shadow: inset 4px 0 0 var(--plan-line); }
+.item.mark-call { background: var(--call-soft); box-shadow: inset 4px 0 0 var(--call-line); }
+.item.mark-gone { background: var(--gone-soft); box-shadow: inset 4px 0 0 var(--gone-line); }
 .item.is-selected { background: var(--accent-soft); }
 .star { color: var(--star); }
 .list .empty { padding: 18px 16px; color: var(--muted); }
@@ -147,6 +157,8 @@ a { color: var(--accent); }
 .sw-planned { background: var(--plan); border: 1px solid var(--plan-line); }
 .sw-none { background: var(--pin); border: 1px solid var(--pin-line); }
 .sw-mixed { background: linear-gradient(90deg, var(--visit) 50%, var(--plan) 50%); border: 1px solid var(--plan-line); }
+.sw-call { background: var(--call); border: 1px solid var(--call-line); }
+.sw-gone { background: var(--gone); border: 1px solid var(--gone-line); }
 .rail__foot { padding: 10px 14px 12px var(--gutter-l); border-top: 1px solid var(--line); color: var(--muted); font-size: 12.5px; display: grid; gap: 6px; }
 .rail__foot:empty { display: none; }
 .rail__foot p { margin: 0; }
@@ -277,8 +289,10 @@ a { color: var(--accent); }
 .pinwrap.mk-visited { --pin-bg: var(--visit); --pin-bd: var(--visit-line); --pin-fg: var(--sticker-ink); }
 .pinwrap.mk-planned { --pin-bg: var(--plan); --pin-bd: var(--plan-line); --pin-fg: var(--sticker-ink); }
 .pinwrap.mk-mixed { --pin-bg: var(--plan); --pin-bd: var(--plan-line); --pin-fg: var(--sticker-ink); }
+.pinwrap.mk-call { --pin-bg: var(--call); --pin-bd: var(--call-line); --pin-fg: var(--sticker-ink); }
+.pinwrap.mk-gone { --pin-bg: var(--gone); --pin-bd: var(--gone-line); --pin-fg: var(--sticker-ink); }
 .pinwrap.is-hold { opacity: var(--pin-dim); }
-.pinwrap.is-disliked { opacity: 0.42; }
+.pinwrap.mk-gone { opacity: 0.6; }
 .pin__no { display: inline-flex; color: var(--muted); }
 .pinwrap:hover { z-index: 4; opacity: 1; }
 .pinwrap.is-selected { z-index: 5; opacity: 1; }
@@ -292,7 +306,7 @@ a { color: var(--accent); }
 .pinwrap.is-selected .pin { box-shadow: 0 0 0 2.5px var(--ink), var(--shadow); }
 .pinwrap.is-selected .pin__dot { background: var(--ink); border-color: var(--ink); }
 .pin__star { color: var(--star); font-size: 13px; line-height: 1; }
-.pinwrap.mk-visited .pin__star, .pinwrap.mk-planned .pin__star, .pinwrap.mk-mixed .pin__star { color: #6e4700; }
+.pinwrap.mk-visited .pin__star, .pinwrap.mk-planned .pin__star, .pinwrap.mk-mixed .pin__star, .pinwrap.mk-call .pin__star, .pinwrap.mk-gone .pin__star { color: #6e4700; }
 .pin__n { font-size: 11px; font-weight: 700; border-radius: 999px; padding: 0 5px; background: rgba(27, 32, 29, 0.10); color: inherit; }
 .listtoggle { display: none; }
 
@@ -378,6 +392,7 @@ a { color: var(--accent); }
           <button type="button" role="radio" data-visit="all" aria-checked="true">All</button>
           <button type="button" role="radio" data-visit="visited" aria-checked="false"><i class="sw-visited"></i>Visited</button>
           <button type="button" role="radio" data-visit="planned" aria-checked="false"><i class="sw-planned"></i>Planned</button>
+          <button type="button" role="radio" data-visit="call" aria-checked="false"><i class="sw-call"></i>To call</button>
           <button type="button" role="radio" data-visit="none" aria-checked="false">Not yet</button>
         </div>
         <div class="seg" role="group" aria-label="Bedrooms: pick 2, 3 or both" id="bedsSeg">
@@ -433,7 +448,8 @@ a { color: var(--accent); }
     if (S.visit === "all") return true;
     if (S.visit === "visited") return l.visited;
     if (S.visit === "planned") return l.planned;
-    return !l.visited && !l.planned;
+    if (S.visit === "call") return l.mark === "call";
+    return !l.visited && !l.planned && !l.callNeeded && !l.dismissed;
   }
   function prefMatch(l) { return (!S.onlyStarred || l.starred) && (!S.hideNo || !l.disliked); }
   function isVisible(l) { return prefMatch(l) && bedsMatch(l) && visitMatch(l); }
@@ -459,7 +475,7 @@ a { color: var(--accent); }
     none: ""
   };
   var STATUS_LABEL = { done: "Done", req: "Tour requested", hold: "On hold", todo: "To do", none: "No status" };
-  var MARK_LABEL = { visited: "Visited", planned: "Planned visit", mixed: "Visited, another visit planned" };
+  var MARK_LABEL = { visited: "Visited", planned: "Planned visit", mixed: "Visited, another visit planned", call: "To call", gone: "Dismissed" };
   var THUMB_DOWN = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="1.75" y="1.75" width="3" height="7.5" rx=".6"/><path d="M4.75 2.6h6.45c.75 0 1.4.5 1.6 1.2l1.15 4.1c.3 1.05-.5 2.1-1.6 2.1H9.4l.5 2.55c.2 1.05-.6 2-1.65 2L4.75 9.1"/></svg>';
   function noIcon(l) { return l.disliked ? '<span class="no" title="Disliked">' + THUMB_DOWN + "</span> " : ""; }
   function starIcon(l) { return l.starred ? '<span class="star" title="Liked">★</span> ' : ""; }
@@ -589,18 +605,20 @@ a { color: var(--accent); }
     if (/hold|reject|declin|not interested|\bno\b/.test(t)) return "hold";
     return "todo";
   }
-  /* Row highlight colour in the sheet -> visit mark: yellows = visited, blues = planned (any shade). */
+  /* Row highlight colour in the sheet -> mark: yellows = visited, blues = planned, pinks = to call, mid greys = dismissed.
+     White and near-white rows stay unmarked. */
   function markOf(hex) {
     var h = String(hex || "").replace(/^#/, "");
     if (h.length === 8) h = h.slice(2);
     if (!/^[0-9a-f]{6}$/i.test(h)) return null;
     var r = parseInt(h.slice(0, 2), 16) / 255, g = parseInt(h.slice(2, 4), 16) / 255, b = parseInt(h.slice(4, 6), 16) / 255;
     var max = Math.max(r, g, b), min = Math.min(r, g, b), d = max - min;
-    if (d < 0.08) return null;
+    if (d < 0.08) return max >= 0.55 && max <= 0.9 ? "gone" : null;
     var hue = max === r ? ((g - b) / d) % 6 : max === g ? (b - r) / d + 2 : (r - g) / d + 4;
     hue = (hue * 60 + 360) % 360;
     if (hue >= 40 && hue <= 70) return "visited";
     if (hue >= 180 && hue <= 260) return "planned";
+    if (hue >= 290 || hue <= 15) return "call";
     return null;
   }
   function isTrue(s) { return /^(true|yes|y|x|1|✓|✔|★|☑)$/i.test(String(s).trim()); }
@@ -638,7 +656,7 @@ a { color: var(--accent); }
         sqftText: get(C.sqft), sqft: num(get(C.sqft)), sqftMax: numMax(get(C.sqft)), notes: get(C.notes),
         link: link, avail: get(C.avail), status: get(C.status), tour: get(C.tour), extra: extra,
         lat: num(get(C.lat)), lng: num(get(C.lng)), cat: statusCat(get(C.status), get(C.tour)), key: address ? normKey(address) : "row:" + (r + 1),
-        sheetStarred: isTrue(get(C.starred)), visited: sheetMark === "visited", sheetPlanned: sheetMark === "planned",
+        sheetStarred: isTrue(get(C.starred)), visited: sheetMark === "visited", sheetPlanned: sheetMark === "planned", sheetCall: sheetMark === "call", sheetGone: sheetMark === "gone",
         id: listingId(address, link, title || titleNote) });
     }
     return out;
@@ -663,12 +681,17 @@ a { color: var(--accent); }
     var d = o.docs[l.id], v = d && K.basisOf(d) === K.basis(l) ? K.read(d) : undefined;
     return v === undefined ? K.sheetValue(l) : v;
   }
+  // A note or status saying someone has to call ("Ане нужно позвонить", "перезвонить", "call back") = pink: call to schedule.
+  var CALL_RE = /позвон|перезвон|звонить|созвон|\bcall\b|callback/i;
   function applyMarks() {
     S.listings.forEach(function (l) {
       var pref = valueOf("prefs", l);
       l.starred = pref === "like"; l.disliked = pref === "dislike";
       l.planned = valueOf("plans", l);
-      l.mark = l.planned && l.visited ? "mixed" : l.planned ? "planned" : l.visited ? "visited" : null;
+      l.callNeeded = l.sheetCall || CALL_RE.test(l.notes + "\n" + l.status);
+      l.dismissed = l.disliked || l.sheetGone;
+      // One colour per listing: grey dismissed > blue planned (half yellow if also visited) > pink to call > yellow visited.
+      l.mark = l.dismissed ? "gone" : l.planned ? (l.visited ? "mixed" : "planned") : l.callNeeded ? "call" : l.visited ? "visited" : null;
     });
   }
 
@@ -1114,14 +1137,16 @@ a { color: var(--accent); }
     S.groups.forEach(function (g) {
       var vis = g.items.filter(isVisible), n = vis.length, marks = {};
       if (!n) return;
-      vis.forEach(function (l) { if (l.visited) marks.visited = 1; if (l.planned) marks.planned = 1; });
-      var mark = marks.visited && marks.planned ? "mixed" : marks.visited ? "visited" : marks.planned ? "planned" : "";
+      // a pin shared by several rows takes the most pressing colour among those not dismissed; grey only when all are
+      var live = vis.filter(function (l) { return !l.dismissed; });
+      live.forEach(function (l) { if (l.mark) marks[l.mark] = 1; });
+      var mark = !live.length ? "gone" : marks.mixed || (marks.planned && marks.visited) ? "mixed" : marks.planned ? "planned" : marks.call ? "call" : marks.visited ? "visited" : "";
       var prices = vis.map(function (l) { return l.price; }).filter(function (p) { return p != null; });
       var min = prices.length ? Math.min.apply(null, prices) : null;
       var star = showStar && vis.some(function (l) { return l.starred; });
-      var allHold = vis.every(function (l) { return l.cat === "hold"; }), allNo = vis.every(function (l) { return l.disliked; });
+      var allHold = vis.every(function (l) { return l.cat === "hold"; }), allNo = !live.length;
       var wrap = document.createElement("div");
-      wrap.className = "pinwrap" + (mark ? " mk-" + mark : "") + (allHold ? " is-hold" : "") + (allNo ? " is-disliked" : "") + (g.key === S.sel ? " is-selected" : "");
+      wrap.className = "pinwrap" + (mark ? " mk-" + mark : "") + (allHold ? " is-hold" : "") + (g.key === S.sel ? " is-selected" : "");
       var btn = document.createElement("button"); btn.type = "button"; btn.className = "pin";
       btn.innerHTML = (star ? '<span class="pin__star" aria-hidden="true">★</span>' : "") + (allNo ? '<span class="pin__no" aria-hidden="true">' + THUMB_DOWN + "</span>" : "") + '<span class="pin__label"></span>' + (n > 1 ? '<span class="pin__n">' + n + "</span>" : "");
       var lab = btn.querySelector(".pin__label"); lab.textContent = pinLabel(min, prices, long);
@@ -1174,7 +1199,7 @@ a { color: var(--accent); }
     L.forEach(function (l) {
       var li = document.createElement("li");
       var b = document.createElement("button"); b.type = "button";
-      b.className = "item" + (l.mark ? " mark-" + l.mark : "") + (l.cat === "hold" ? " is-dim" : "") + (l.disliked ? " is-disliked" : "") + ((l.group && l.group.key === S.sel) || (!l.group && S.loose === l.id) ? " is-selected" : "");
+      b.className = "item" + (l.mark ? " mark-" + l.mark : "") + (l.cat === "hold" ? " is-dim" : "") + ((l.group && l.group.key === S.sel) || (!l.group && S.loose === l.id) ? " is-selected" : "");
       var facts = [l.type, bedsText(l), l.sqft ? sqftStr(l) + " sq ft" : ""].filter(Boolean).join(" · ");
       var g = l.group, where = g ? [g.hood && !g.hood.debug ? g.hood.name : "", g.mid ? g.mid.s.replace(" Intermediate", " Int.").replace(" Middle", " MS") : ""].filter(Boolean).join(" · ") : l.address ? "Not on the map" : "No address in the sheet";
       var flag = g && g.hood && g.hood.flag ? g.hood.flag : "";
@@ -1228,7 +1253,7 @@ a { color: var(--accent); }
       else if (!l.planned && l.sheetPlanned) notes.push("Unplanned on the map; the sheet row is still blue.");
       if (l.starred && !l.sheetStarred) notes.push("Liked on the map; the sheet's Starred box is unticked.");
       else if (!l.starred && l.sheetStarred) notes.push((l.disliked ? "Disliked" : "Unliked") + " on the map; the sheet's Starred box is ticked.");
-      else if (l.disliked) notes.push("Disliked: faded on the map; “Hide disliked” in Map options hides it.");
+      else if (l.disliked) notes.push("Disliked: grey on the map; “Hide disliked” in Map options hides it.");
     }
     return '<div class="acts">' +
       '<label class="plan' + (P.busy[l.id] ? " is-busy" : "") + '"><input type="checkbox" data-plan="' + id + '" data-focus="plan:' + id + '"' + (l.planned ? " checked" : "") + (planOff ? " disabled" : "") + ">" +
@@ -1247,7 +1272,11 @@ a { color: var(--accent); }
     if (l.sqft) facts.push("<b>" + sqftStr(l) + "</b> sq ft");
     if (l.sqft && l.price && !l.sqftMax && !l.priceMax) facts.push("<b>$" + (l.price / l.sqft).toFixed(2) + "</b> / sq ft");
     var kv = [];
-    if (l.visited) kv.push(["Visit", '<span class="chip"><i class="swatch sw-visited" style="display:inline-block;width:10px;height:10px;border-radius:3px"></i>Visited (yellow row)</span>']);
+    var chips = [], sw = function (k) { return '<i class="swatch sw-' + k + '" style="display:inline-block;width:10px;height:10px;border-radius:3px"></i>'; };
+    if (l.visited) chips.push('<span class="chip">' + sw("visited") + "Visited (yellow row)</span>");
+    if (l.mark === "call") chips.push('<span class="chip">' + sw("call") + (l.sheetCall ? "To call (pink row)" : "To call (see the note)") + "</span>");
+    if (l.dismissed) chips.push('<span class="chip">' + sw("gone") + (l.disliked ? "Dismissed (Dislike)" : "Dismissed (grey row)") + "</span>");
+    if (chips.length) kv.push(["Visit", chips.join(" ")]);
     kv.push(["Status", statusChip(l)]);
     if (l.tour) kv.push(["Tour", esc(l.tour)]);
     if (l.avail) kv.push(["Available", esc(l.avail)]);
@@ -1394,9 +1423,10 @@ a { color: var(--accent); }
     var el = $("legendBody"), dark = isDark(), ser = SERIES[dark ? "dark" : "light"], parts = [];
     if (!el) return;
     parts.push('<section><h3>Pins</h3><div class="row">' +
-      '<span><i class="swatch sw-visited"></i>Visited</span><span><i class="swatch sw-planned"></i>Planned</span><span><i class="swatch sw-none"></i>Not yet</span>' +
-      '<span><span class="star">★</span> Liked</span><span><span class="no">' + THUMB_DOWN + '</span> Disliked (faded)</span><span>Faded: on hold</span><span>— no price</span></div>' +
-      '<p class="note">Pin colors follow the row highlight in the sheet: yellow = visited, blue = planned. ★ = the sheet’s Starred box. On a listing’s card, “Planned visit”, Like and Dislike change these here.</p></section>');
+      '<span><i class="swatch sw-visited"></i>Visited</span><span><i class="swatch sw-planned"></i>Planned</span><span><i class="swatch sw-call"></i>To call</span>' +
+      '<span><i class="swatch sw-gone"></i>Dismissed</span><span><i class="swatch sw-none"></i>Not yet</span>' +
+      '<span><span class="star">★</span> Liked</span><span>Faded: on hold</span><span>— no price</span></div>' +
+      '<p class="note">Yellow = visited, blue = planned, pink = a note says to call (to schedule), grey = dismissed (Dislike). Row colours in the sheet count the same way. On a listing’s card, “Planned visit”, Like and Dislike change them here.</p></section>');
     if (S.showSchools && S.data) {
       var view = S.map ? S.map.getBounds() : null;
       var seen = S.data.mid.features.filter(function (f) { if (!view) return true; var b = f._bb; return !(b[2] < view.getWest() || b[0] > view.getEast() || b[3] < view.getSouth() || b[1] > view.getNorth()); });
@@ -1420,7 +1450,7 @@ a { color: var(--accent); }
   $("tSchools").checked = S.showSchools; $("tHoods").checked = S.showHoods; $("sortSel").value = S.sort;
   $("tSchools").addEventListener("change", function (e) { S.showSchools = e.target.checked; store.set("schools", S.showSchools); setLayerVis(); });
   $("tHoods").addEventListener("change", function (e) { S.showHoods = e.target.checked; store.set("hoods", S.showHoods); setLayerVis(); });
-  var VISIT_WORD = { visited: "Visited", planned: "Planned", none: "Not yet" };
+  var VISIT_WORD = { visited: "Visited", planned: "Planned", call: "To call", none: "Not yet" };
   function layersLabel() {
     var on = [];
     if (S.onlyStarred) on.push("★ Liked");
@@ -1453,7 +1483,7 @@ a { color: var(--accent); }
   $("visitSeg").addEventListener("click", function (e) { var b = e.target.closest("button[data-visit]"); if (b) setFilters({ visit: b.getAttribute("data-visit") }); });
   $("visitSeg").addEventListener("keydown", function (e) {
     if (e.key !== "ArrowRight" && e.key !== "ArrowLeft") return;
-    var order = ["all", "visited", "planned", "none"], i = order.indexOf(S.visit), n = order[(i + (e.key === "ArrowRight" ? 1 : 3)) % 4];
+    var order = ["all", "visited", "planned", "call", "none"], i = order.indexOf(S.visit), n = order[(i + (e.key === "ArrowRight" ? 1 : 4)) % 5];
     setFilters({ visit: n }); var nb = $("visitSeg").querySelector('[data-visit="' + n + '"]'); if (nb) nb.focus(); e.preventDefault();
   });
   // Beds: "2 bd" and "3 bd" toggle independently (both on = 2 or 3); "Any beds" clears them. "2-3" in the sheet matches either.

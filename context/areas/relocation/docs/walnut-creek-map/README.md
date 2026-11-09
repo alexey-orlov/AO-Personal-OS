@@ -22,8 +22,14 @@ and neighborhood zones as toggles.
   parsed in the page with SheetJS), on page load and on **Refresh**; the first open asks "This artifact
   uses connectors → Google Drive → Continue". The header says which copy is on screen
   ("Live from the sheet", "Sheet as loaded …", "Last loaded …", "Snapshot from …") and why live failed.
-- **Visit colours.** Each row's highlight comes from the workbook's formatting: any yellow fill = **visited**
-  (yellow pin), any blue fill = **planned** visit (blue pin); other colours are ignored.
+- **Colours (2026-11-09): one per listing, on the pin and the list row.**
+  **Yellow** = visited (a yellow row in the sheet). **Blue** = planned (a blue row, or the card's Planned visit
+  tick). **Pink** = to call, i.e. to schedule: a note or status that says someone has to call (позвонить,
+  перезвонить, созвониться, call), or a pink row. **Grey** = dismissed: Dislike on the card, or a mid-grey row.
+  White = none of these yet. When several apply, grey wins, then blue (half yellow when also visited), then
+  pink, then yellow; a pin shared by several rows takes the most pressing colour among the rows not dismissed.
+  Other fill colours, and white or near-white rows, are ignored. Row colours are read from the workbook's
+  formatting (most of the row's first 26 cells).
 - **Choices made on the map (2026-11-08): Planned visit, Like, Dislike.** Every listing card has a **Planned
   visit** checkbox and **Like** / **Dislike** buttons.
   - *Planned visit*: ticking makes the listing planned (blue pin, blue list row, counted by the Planned
@@ -31,8 +37,8 @@ and neighborhood zones as toggles.
     also be planned (half yellow, half blue).
   - *Like* = ★: the same star the sheet's **Starred** box gives, on the pin, the list row and the card.
     Unliking a row that is starred in the sheet takes its star off the map.
-  - *Dislike* = unpreferred: the pin fades and shows a thumbs-down, the list row dims, and **Hide disliked**
-    removes it. The sheet has no column for this; it lives only in the map. Like and Dislike exclude each
+  - *Dislike* = dismissed: the pin turns grey and shows a thumbs-down, the list row greys out, and **Hide
+    disliked** removes it. The sheet has no column for this; it lives only in the map. Like and Dislike exclude each
     other; pressing the active one clears it.
   - Saved in the page's database (`plans/<listing id>`: planned + the sheet's colour at the time;
     `prefs/<listing id>`: like | dislike | none + the sheet's Starred value at the time; both also keep
@@ -44,7 +50,8 @@ and neighborhood zones as toggles.
     can change them; other signed-in viewers see them read-only, and a view outside Claude shows the sheet's
     colours and stars only.
 - **Filters** (Map options; they combine): **★ Liked only** (sheet stars plus likes); **Hide disliked**;
-  visit state **All · Visited · Planned · Not yet**; beds **Any beds · 2 bd · 3 bd**, where 2 and 3 toggle
+  visit state **All · Visited · Planned · To call · Not yet** (To call = the pink ones; Not yet = none of the
+  colours); beds **Any beds · 2 bd · 3 bd**, where 2 and 3 toggle
   independently (both on = 2 or 3 beds) and a sheet value like "2-3" matches either. Rows with no beds in the
   sheet are hidden by a beds filter, and the list foot says how many. The list, pins and zone cards all follow
   the filters; each browser remembers its own filter choices. On phones the options panel starts folded and
