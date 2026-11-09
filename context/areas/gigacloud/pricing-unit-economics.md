@@ -1,7 +1,7 @@
 # Pricing & unit economics — component cost allocation
 
-_status: allocation framework implemented in Юніт.xlsx — steps 1–5 computed for all five buckets in tab «4. Allocation by components (k)» (Юніт 08.10); results deck v23 (43 slides, 10-09; Next steps block added): Public Cloud on OpenStack and Licenses cost more than their current average check (+32 %, +15 %), professional services 111× the check_
-_updated: 2026-10-16_
+_status: next-steps plan set by email (2026-11-09): six blocks with owners, tracked in Юніт 4 tab «Next steps v2»; allocation framework implemented in Юніт.xlsx — steps 1–5 computed for all five buckets in tab «4. Allocation by components (k)» (Юніт 08.10); results deck v23 (43 slides, 10-09): Public Cloud on OpenStack and Licenses cost more than their current average check (+32 %, +15 %), professional services 111× the check_
+_updated: 2026-11-09_
 
 ## Snapshot
 
@@ -19,18 +19,26 @@ _updated: 2026-10-16_
 ## Active threads
 
 - **Allocation → margins.** Steps 1–5 are computed for all five buckets (Юніт 08.10); the results refresh waits for Eduard's corrected workbook (open loop). Owner: Mine. (chat, 2026-10-09)
-- **Roadmap after the model, by owner (Alex's Miro, 2026-10-16).** The model and initial data are done (CPO / Product Lead); from here the CPO mostly coordinates the other C-levels' own work (COO, CFO, Country Director).
-  - One-off: input validation (Product Lead, 11'2026) and target profitability (CFO, 11'2026: investment plans, financial-risk approach, investors' return expectations, investment attractiveness) → prices & discount policy (Product Lead, 12'2026, a mechanical consequence) → sales plan & motivation (Head of Sales, 12'2026).
-  - Long-term (COO): allocation-process improvement and support; cost analysis and optimisation.
-  - Annual (COO), right after the budget process: allocation recalculated per the model (COO) + profitability targets (CFO) + catalog prices and data (Product Lead) + motivation (Head of Sales).
-  → [product-team-structure](product-team-structure.md) (chat, 2026-10-16)
+- **Next-steps plan, six blocks with owners (email, 2026-11-09).** Replaces the v1 «Next steps» tab and the Miro roadmap of 10-16 ([product-team-structure](product-team-structure.md)); built as tab «Next steps v2» in Юніт 4.xlsx, each block filled in the email's colour, v1 items added as sub-items with their dates.
+  1. Calculation fixes — Product Lead Eduard Kuznietsov: finance enters exact per-employee salaries instead of department averages (15.11); license-purchase Direct COGS — done; leasing-payment servicing cost into Direct COGS (31.12); a legend on how every input not computed in Excel was obtained. From v1: expert estimates (31.12), Our services Direct COGS vs the budget, license rebates in revenue (15.11).
+  2. FY2027 allocation model — Alex (CPO) + COO Lubomir Doroshenko: the target allocation method for every cost type; allocation mechanisms with each department (Jira tracking, CRM). From v1: Delivery / Support tickets tied to products, Presales / Sales tracked in CRM, Marketing campaigns tied to product groups; regrouping costs across COGS / CAC / General.
+  3. Annual profitability recalculation — COO, within the year's financial planning; each department head for their department: refresh the inputs (customers per product, sales plan, CLT, churn) and the allocation data per the FY2027 model. From v1: the annual P&L by bucket; the first pass on actuals, not the FY2026 budget (2027-04-01).
+  4. Renewal and historical prices — Alex (CPO): renewal price = costs fixed at first purchase (CAC; Direct COGS for private hardware) + dynamic General, Indirect COGS and CRC; a one-off margin decision for private-cloud customers sold before margins were calculated; the automation this needs.
+  5. Target profitability per bucket — CFO: licenses may sit lower thanks to rebate income, new directions per their investment plan, all in line with investor expectations. From v1: shareholders' return and cost-of-capital expectations (15.11); what a product must cover to count as attractive.
+  6. Efficiency from unit economics — COO, department by department: payroll, allocation, process automation, supplier terms. From v1: CAC / Indirect COGS optimisation for Public Cloud (low) and Licenses; Our services as a separate business unit.
+  - Not in the email; kept in the tab under «Поза листом» until Alex decides: discount-policy update and product repricing (31.12), the Public Cloud (low) price rise with the new version, sales plan & motivation (partner bonus rule, margin data in CRM, sales plan by margin).
+
+  (chat, 2026-11-09)
 - **Results presentation.** Deck ready for the plan's «Презентація результатів» milestone (30 Sep — board decision on minimum profitability). Owner: Mine. (chat, 2026-09-26)
 
 ## People
 
-- CFO (unnamed) — owns the cost-center structure; approves the allocation logic and, with CEO + CBDO, the minimum profitability. (chat, 2026-08-27)
+- CFO (unnamed) — owns the cost-center structure; approves the allocation logic and, with CEO + CBDO, the minimum profitability (chat, 2026-08-27). Owns target profitability per bucket (block 5) (chat, 2026-11-09).
+- Eduard Kuznietsov — Product Lead (inferred the same Edik as on [product-team-structure](product-team-structure.md)); owns the calculation fixes (block 1). (chat, 2026-11-09)
+- Lubomir Doroshenko — COO; co-owns the FY2027 allocation model with Alex, owns the annual recalculation and the efficiency block. (chat, 2026-11-09)
 
 ## Decisions
+- 2026-11-09 — Next steps set as six owned blocks (calc fixes · FY2027 allocation model · annual recalculation · renewal & historical prices · target profitability · efficiency); discount policy, repricing and sales plan & motivation are not in it. (chat)
 - 2026-10-09 — Next steps by bucket: Public Cloud (high) and Private Infra unchanged for now; Public Cloud (low) — CAC / Indirect COGS optimisation + possible price rise with the new product version; Licenses — the same + rebates; Our services — a separate business unit with dedicated staff. Discount policy not revised for now (high/Private margins only slightly above the 30 % / 20 % policy). Next allocation pass on actuals, not the FY2026 budget (April 2027, inferred year). (chat)
 - 2026-10-08 — Step 2, method 4 (Sales data) reworked: each sales team's payroll (Inbound, Outbound, Growth, Enterprise; 32,7 M) is split across buckets in proportion to deals × relative effort per deal (expert: low 1, high 2, Private 8, Licenses 1, Services 2); cloud deals from the 2026 sales plan, licenses/services deals expert-estimated. Step 4 has one CAC formula for the whole pool (CAC w/o Sales ФОТ + Sales ФОТ). (chat)
 
@@ -44,6 +52,8 @@ _updated: 2026-10-16_
 
 ## Open loops
 
+- Mine — block 2 (FY2027 allocation model, with the COO) and block 4 (renewal and historical price mechanism + its automation). (chat, 2026-11-09)
+- Mine — decide whether the v1 items left out of the email (discount policy, repricing, Public Cloud (low) price rise, sales plan & motivation) stay in the plan. (chat, 2026-11-09)
 - Mine — **Eduard's fixes are not in the 09.10 workbook** (partner payouts still split to Licenses / Our services; Our services sales = existing + new and CAC base × lifetime/12 with lifetime 1 → +10 994 %; his stated result is +764 %, my replication of the described fixes gives +873 %). Refresh the results slides (10–14, and the CAC / components examples) once his file arrives. (chat, 2026-10-09)
 - Theirs (Alex) — «0. Source data (Budget - ФОТ)» column D holds one average (1 592 022) for all 39 SALES UA positions, so the 20 positions outside the four sales teams enter CAC (w/o Sales ФОТ) at 31,8 M instead of their 28,9 M (column H); SALES UA in the model = 64,5 M vs 61,5 M by H. (chat, 2026-10-08)
 - Theirs (Alex) — method-4 deals differ from the 2026 plan in two cells: Outbound low 12 (plan 4), Enterprise low 0 (plan 1). (chat, 2026-10-08)
@@ -65,6 +75,7 @@ _updated: 2026-10-16_
 - Mine — the August data fixes (593 vs 463 component reconciliation, Cubbit MRR anomaly, 187 zero-price rows, "new MRR" semantics) and the 8 required inputs from the [approach doc](pricing-cost-allocation-approach.md#required-inputs-to-compute-the-rate-card) — status not re-checked since 08-27.
 
 ## Activity
+- 2026-11-09 — tab «Next steps v2» in Юніт 4.xlsx — the email's six blocks in its colours, v1 items folded in as sub-items with their dates, v1 items missing from the email under «Поза листом»; workbook not committed. (chat)
 - 2026-10-09 — v23 (43 slides): «Next steps» block; results refresh on hold until Eduard's corrected workbook.
 - 2026-10-08 — v22: direct margins corrected in «1-3» (low 78 %, high 63 %, Private 52 %, Licenses 13 %, Services 44 %) → General redistributed (high −17 M, Private +17 M); 8 slides refreshed.
 - 2026-10-08 — v17 (40 slides) from Юніт 08.10 tab (k): intro «per component», cost-per-1-UAH + FTE slide, licenses and services results with insights, method 4 rewritten, one CAC flow in step 4.
@@ -79,22 +90,3 @@ _updated: 2026-10-16_
   - The CAC slides and the step-5 table are back to his own single-CAC versions.
   - The step-4 overview is trimmed to four rows. (chat)
 - 2026-09-27 — results deck v11 (36 slides), built inside Alex's hand-edited copy: step-4 overview, a CAC split (reverted 09-28), and data slides with % of budget. His per-slide layout offsets were re-applied to every replaced slide. (chat)
-- 2026-09-27 — results deck, 6 new slides from the updated brief. They cover:
-  - the step-5 divider and a margins table (price, the four cost types, min. profit = 0, margin, in ₴ and % of price, plus price-structure bars);
-  - a red full-bleed «Дані» section divider;
-  - the FY2026 budget by type (tree + table);
-  - the budget by bucket, over 2 slides (tree with aligned totals + the full ФОТ / не-ФОТ pivot).
-
-  Found the step-4 monthly-pool error while building them. (chat)
-- 2026-09-27 — results deck slide 15 (Sales data) — single-slide v2–v6 for Alex:
-  - deal-months explained and the off-path 2025 rows cut;
-  - reworked to the intensity method after his challenge to the plan-share split;
-  - rebuilt to his table layout: team FTE-months and payroll as merged rows, CAC per deal as the result, fewer notes;
-  - fully absorbed at his request: the plan's effort sums to the team's 48 FTE-months.
-
-  Generator synced; live deck untouched. (chat)
-- 2026-09-26 — results deck — 26-slide UA deck from Alex's brief + Юніт.xlsx: native tree, steps & status, glossary, steps 1–4 with method examples and step-4 pipelines; two independent reviewers (data fidelity, visual QA), five build iterations; true-font PowerPoint render set up on the MacBook Air. (chat)
-- 2026-09-26 — [handoff](docs/margin-deck/HANDOFF.md) — rewritten to cover both decks; plan-deck snapshot refreshed from the Desktop copy; name-free toolchain committed under `docs/margin-deck/toolchain/`. (chat)
-- 2026-08-28 — plan deck v3–v5 — A split into A1/A2 (Cubbit example), COGS-weight bridge note, output-table slide, step 10 (minimum profitability). (chat)
-- 2026-08-27 — plan deck — 11-slide UA action-plan deck from Alex's brief + `Margin.xlsx` (4-model taxonomy, price stack, InfoSec P&L split, next steps). (chat)
-- 2026-08-27 — [approach v4–v5](pricing-cost-allocation-approach.md) — real Q2-2026 P&L, expense-line × class table, 23-item TODO; ~₴27M/q hardware cost below EBITDA → true GM ≈ 51 %, not 64 %. (chat)

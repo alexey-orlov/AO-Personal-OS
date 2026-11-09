@@ -25,11 +25,11 @@ _updated: 2026-10-20_
 
 ## Active threads
 
-- **Next steps (Alex's list, 2026-10-16, in his order):** 1 Alex's part-time hours / availability / financial terms · 2 an offer for Edik · 3 talk to Edik · 4 talk to the product team and the leadership team · 5 agree who owns the «Прибутковість / маржинальність / ефективність» direction · 6 decide the updated org structure · 7 open the vacancies. Owner: Mine. (chat, 2026-10-16)
+- **Next steps (Alex's list, 2026-10-16, in his order):** 1 Alex's part-time hours / availability / financial terms · 2 an offer for Edik · 3 talk to Edik · 4 talk to the product team and the leadership team · 5 agree who owns the «Прибутковість / маржинальність / ефективність» direction (the 2026-11-09 plan email splits it: efficiency and the annual recalculation → COO, target profitability → CFO, renewal prices and the FY2027 allocation model → Alex; whether that settles item 5 is unconfirmed) · 6 decide the updated org structure · 7 open the vacancies. Owner: Mine. (chat, 2026-10-16)
 
 ## People
 
-- Edik (Eduard, inferred the same Eduard who corrects the Юніт workbook) — product team; proposed Product Lead; owns input validation and the price update in the margin roadmap.
+- Edik (Eduard Kuznietsov, inferred) — product team; proposed Product Lead, and named Product Lead in the 2026-11-09 unit-economics plan email, where he owns the Юніт calculation fixes ([pricing-unit-economics](pricing-unit-economics.md)).
 - Misha Sakun — the precedent for ad-hoc consulting (role not on the board).
 
 ## Decisions

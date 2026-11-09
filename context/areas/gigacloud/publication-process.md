@@ -80,7 +80,7 @@ _updated: 2026-10-29_
 
 ## People
 
-- Lyubomir Doroshenko — operations department. After an Operations kick-off he has 2 weeks to make sure the processes are documented and approved (CRM checklist description). See the area [README](README.md#people).
+- Lubomir Doroshenko — COO (title per the 2026-11-09 unit-economics plan email). After an Operations kick-off he has 2 weeks to make sure the processes are documented and approved (CRM checklist description). See the area [README](README.md#people).
 
 ## Decisions
 
