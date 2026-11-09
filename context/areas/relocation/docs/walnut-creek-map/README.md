@@ -12,8 +12,8 @@ and neighborhood zones as toggles.
   (an unticked Starred box alone doesn't count). A row without an address, or one that can't be placed, is
   still in the list, opens its own card, and is named under the list ("No address in the sheet" /
   "Not on the map"). Rows at the same street address share one pin with a count; the list and the card show
-  each row. Columns are found by header name (address, title, Type, Beds, price, Sq.ft., notes, link,
-  When available, Status, tour), so columns can move; any other column (Area, a phone number) shows in the card.
+  each row. Columns are found by header name (address, title, Stage, Next step, Starred, Type, Beds, price, Sq.ft., notes,
+  link, When available, Status, tour), so columns can move; any other column (Area, a phone number) shows in the card.
 - **Where the rows come from: the newest copy wins.** (1) The snapshot built into the page (Sheets API at
   build time; the 2026-11-08 build has all 44 rows). (2) This browser's last live load. (3) The shared copy
   in the page's database (`sheet/latest`), written whenever the owner's view loads the sheet live and the
@@ -22,36 +22,37 @@ and neighborhood zones as toggles.
   parsed in the page with SheetJS), on page load and on **Refresh**; the first open asks "This artifact
   uses connectors → Google Drive → Continue". The header says which copy is on screen
   ("Live from the sheet", "Sheet as loaded …", "Last loaded …", "Snapshot from …") and why live failed.
-- **Colours (2026-11-09): one per listing, on the pin and the list row.**
-  **Yellow** = visited (a yellow row in the sheet). **Blue** = planned (a blue row, or the card's Planned visit
-  tick). **Pink** = to call, i.e. to schedule: a note or status that says someone has to call (позвонить,
-  перезвонить, созвониться, call), or a pink row. **Grey** = dismissed: Dislike on the card, or a mid-grey row.
-  White = none of these yet. When several apply, grey wins, then blue (half yellow when also visited), then
-  pink, then yellow; a pin shared by several rows takes the most pressing colour among the rows not dismissed.
-  Other fill colours, and white or near-white rows, are ignored. Row colours are read from the workbook's
-  formatting (most of the row's first 26 cells).
-- **Choices made on the map (2026-11-08): Planned visit, Like, Dislike.** Every listing card has a **Planned
-  visit** checkbox and **Like** / **Dislike** buttons.
-  - *Planned visit*: ticking makes the listing planned (blue pin, blue list row, counted by the Planned
-    filter); unticking takes it back out, including a row that is blue in the sheet. A visited listing can
-    also be planned (half yellow, half blue).
-  - *Like* = ★: the same star the sheet's **Starred** box gives, on the pin, the list row and the card.
-    Unliking a row that is starred in the sheet takes its star off the map.
-  - *Dislike* = dismissed: the pin turns grey and shows a thumbs-down, the list row greys out, and **Hide
-    disliked** removes it. The sheet has no column for this; it lives only in the map. Like and Dislike exclude each
-    other; pressing the active one clears it.
-  - Saved in the page's database (`plans/<listing id>`: planned + the sheet's colour at the time;
-    `prefs/<listing id>`: like | dislike | none + the sheet's Starred value at the time; both also keep
-    address, title, link, row) and shown on every device. They never change the sheet: the card says when the
-    map and the sheet disagree, and when the sheet's own value for that row later changes (its colour, its
-    Starred box), the sheet wins again. A listing is identified by its street address plus listing link, so
-    re-sorting or editing other columns keeps its choices; rows with the same address and link (duplicates,
-    e.g. the two 1459 Creekside Dr rows) share them. While the page is shared by public link only the owner
-    can change them; other signed-in viewers see them read-only, and a view outside Claude shows the sheet's
-    colours and stars only.
-- **Filters** (Map options; they combine): **★ Liked only** (sheet stars plus likes); **Hide disliked**;
-  visit state **All · Visited · Planned · To call · Not yet** (To call = the pink ones; Not yet = none of the
-  colours); beds **Any beds · 2 bd · 3 bd**, where 2 and 3 toggle
+- **The sheet carries each listing's stage (2026-11-09).** Two columns right after *title*:
+  - **Stage**: a dropdown with exactly four values. **To schedule** = нужно запланировать (pink), **Planned** =
+    visit booked (blue), **Visited** = смотрели (yellow), **Dismissed** = отмели (grey); empty = not looked at
+    yet (white). Conditional formatting colours the whole row from this value, so nobody paints rows by hand.
+  - **Next step**: free text, what to do and who ("Ане позвонить", "Заполнить форму с грин картой"). It shows on
+    the card (a pink block when the stage is To schedule) and under the listing in the list; it never sets a
+    colour.
+  - The map takes each listing's colour from Stage only (on the pin and the list row). Hand-painted row
+    colours are read only from a sheet without a Stage column (older copies). The *Starred* checkbox stays the
+    ★. *Status* and *notes* are untouched free text.
+- **Choices made on the map: Planned, ★ Star, Dismiss.** Every listing card has a **Planned** checkbox and
+  **★ Star** / **Dismiss** buttons, the same names as the sheet.
+  - *Planned*: ticking makes the listing blue (counted by the Planned filter); unticking takes it out,
+    including a listing whose Stage is Planned. A Visited listing can also be planned (half yellow, half blue).
+  - *★ Star*: the same star the Starred box gives; unstarring a starred row takes its star off the map.
+  - *Dismiss*: grey pin with a thumbs-down, grey list row; **Hide dismissed** removes it. Star and Dismiss
+    exclude each other; pressing the active one clears it.
+  - When several apply, grey wins, then blue, then pink, then yellow; a pin shared by several rows takes the
+    most pressing colour among the rows not dismissed.
+  - Saved in the page's database (`plans/<listing id>`: planned + whether Stage was Planned at the time;
+    `prefs/<listing id>`: like (= ★) | dislike (= Dismiss) | none + the sheet's Starred / Dismissed values at the
+    time; both also keep address, title, link, row) and shown on every device. They never change the sheet:
+    the card says when the map and the sheet disagree, and when the sheet's own value for that row changes
+    (Stage, Starred), the sheet wins again. To make them permanent, put them in the sheet (or ask Claude to);
+    the 4 Planned ticks made on 2026-11-08 were folded into Stage and removed from the map on 2026-11-09.
+    A listing is identified by its street address plus listing link, so re-sorting or editing other columns
+    keeps its choices; rows with the same address and link (duplicates, e.g. the two 1459 Creekside Dr rows)
+    share them. While the page is shared by public link only the owner can change them; other signed-in
+    viewers see them read-only, and a view outside Claude shows the sheet only.
+- **Filters** (Map options; they combine): **★ Starred only**; **Hide dismissed**; stage **All · To schedule ·
+  Planned · Visited · Not yet** (Not yet = no stage); beds **Any beds · 2 bd · 3 bd**, where 2 and 3 toggle
   independently (both on = 2 or 3 beds) and a sheet value like "2-3" matches either. Rows with no beds in the
   sheet are hidden by a beds filter, and the list foot says how many. The list, pins and zone cards all follow
   the filters; each browser remembers its own filter choices. On phones the options panel starts folded and
@@ -95,6 +96,11 @@ and neighborhood zones as toggles.
 
 Needs a scratch work dir `W` (downloads and build output; never in the repo) and, for the full rebuild, a
 venv with `shapely<2.1 pyshp numpy openpyxl`. Use `python -I` for every script (downloads are untrusted data).
+
+**Editing the sheet through the API:** the tab may have a basic filter on (2026-11-09: Beds hides "" and "2").
+Range-wide `repeatCell` and `setDataValidation` skip rows hidden by it, and colour applied to whole rows
+(selected by row number) survives `repeatCell`; use `updateCells` cell by cell, keeping each cell's other
+formatting. Leave the filter as it is: it belongs to whoever is working in the sheet.
 
 **Refresh only the listings** (new rows in the sheet; the usual case):
 1. `pipeline/fetch_sheet.py W/sheet/tab.json` (Sheets API through `automations/gsheets`; reads only this tab).
