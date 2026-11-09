@@ -12,8 +12,8 @@ and neighborhood zones as toggles.
   (an unticked Starred box alone doesn't count). A row without an address, or one that can't be placed, is
   still in the list, opens its own card, and is named under the list ("No address in the sheet" /
   "Not on the map"). Rows at the same street address share one pin with a count; the list and the card show
-  each row. Columns are found by header name (address, title, Stage, Next step, Starred, Type, Beds, price, Sq.ft., notes,
-  link, When available, Status, tour), so columns can move; any other column (Area, a phone number) shows in the card.
+  each row. Columns are found by header name (address, title, Stage, Next step, Visit, Starred, Type, Beds, price, Sq.ft.,
+  notes, link, When available, Status, tour), so columns can move; any other column (Area, a phone number) shows in the card.
 - **Where the rows come from: the newest copy wins.** (1) The snapshot built into the page (Sheets API at
   build time; the 2026-11-08 build has all 44 rows). (2) This browser's last live load. (3) The shared copy
   in the page's database (`sheet/latest`), written whenever the owner's view loads the sheet live and the
@@ -22,35 +22,43 @@ and neighborhood zones as toggles.
   parsed in the page with SheetJS), on page load and on **Refresh**; the first open asks "This artifact
   uses connectors → Google Drive → Continue". The header says which copy is on screen
   ("Live from the sheet", "Sheet as loaded …", "Last loaded …", "Snapshot from …") and why live failed.
-- **The sheet carries each listing's stage (2026-11-09).** Two columns right after *title*:
-  - **Stage**: a dropdown with exactly four values. **To schedule** = нужно запланировать (pink), **Planned** =
-    visit booked (blue), **Visited** = смотрели (yellow), **Dismissed** = отмели (grey); empty = not looked at
-    yet (white). Conditional formatting colours the whole row from this value, so nobody paints rows by hand.
+- **The sheet carries each listing's stage (2026-11-09).** Three columns right after *title*:
+  - **Stage**: a dropdown with exactly four values. **To schedule** = нужно запланировать / связаться (pink),
+    **Planned** = visit booked (blue), **Visited** = смотрели (yellow), **Dismissed** = отмели (grey); empty = not
+    looked at yet (white). Conditional formatting colours the whole row from this value, so nobody paints rows.
   - **Next step**: free text, what to do and who ("Ане позвонить", "Заполнить форму с грин картой"). It shows on
     the card (a pink block when the stage is To schedule) and under the listing in the list; it never sets a
     colour.
+  - **Visit**: the viewing's date and time as text, `YYYY-MM-DD HH:MM` (time optional; the cell warns on other
+    shapes and shows the format as a hint). First filled 2026-11-09 from what the sheet already said: the
+    *tour ?* times of Bridge at WC, Brio and Oak & Iron (6 Nov), 2720 Oak Rd's "Saturday between 11 and 15"
+    (7 Nov, no time) and 2696 Jones Rd's "Monday around 4 pm" (read as 9 Nov 16:00). The card shows it
+    ("Fri 6 Nov, 10:00"), so does the list, and the list can sort by it.
   - The map takes each listing's colour from Stage only (on the pin and the list row). Hand-painted row
     colours are read only from a sheet without a Stage column (older copies). The *Starred* checkbox stays the
-    ★. *Status* and *notes* are untouched free text.
-- **Choices made on the map: Planned, ★ Star, Dismiss.** Every listing card has a **Planned** checkbox and
-  **★ Star** / **Dismiss** buttons, the same names as the sheet.
-  - *Planned*: ticking makes the listing blue (counted by the Planned filter); unticking takes it out,
-    including a listing whose Stage is Planned. A Visited listing can also be planned (half yellow, half blue).
-  - *★ Star*: the same star the Starred box gives; unstarring a starred row takes its star off the map.
-  - *Dismiss*: grey pin with a thumbs-down, grey list row; **Hide dismissed** removes it. Star and Dismiss
-    exclude each other; pressing the active one clears it.
-  - When several apply, grey wins, then blue, then pink, then yellow; a pin shared by several rows takes the
-    most pressing colour among the rows not dismissed.
-  - Saved in the page's database (`plans/<listing id>`: planned + whether Stage was Planned at the time;
-    `prefs/<listing id>`: like (= ★) | dislike (= Dismiss) | none + the sheet's Starred / Dismissed values at the
-    time; both also keep address, title, link, row) and shown on every device. They never change the sheet:
-    the card says when the map and the sheet disagree, and when the sheet's own value for that row changes
-    (Stage, Starred), the sheet wins again. To make them permanent, put them in the sheet (or ask Claude to);
-    the 4 Planned ticks made on 2026-11-08 were folded into Stage and removed from the map on 2026-11-09.
-    A listing is identified by its street address plus listing link, so re-sorting or editing other columns
-    keeps its choices; rows with the same address and link (duplicates, e.g. the two 1459 Creekside Dr rows)
-    share them. While the page is shared by public link only the owner can change them; other signed-in
-    viewers see them read-only, and a view outside Claude shows the sheet only.
+    ★. *Status*, *tour ?* and *notes* are free text the map shows as they are.
+- **Editing on a card.** Every listing card has the four **Stage** buttons (pressing the pressed one clears it,
+  so To schedule marks and unmarks pink), **★ Star**, and **Edit visit, next step, notes**: a date and time
+  picker for Visit (with "Set Stage to Planned when a date is set", ticked for listings not yet planned,
+  visited or dismissed), and text boxes for Next step and the notes. A pin shared by several rows takes the
+  most pressing colour among the rows not dismissed (grey only when all are dismissed).
+  - Edits are saved in the page's database, `edits/<listing id>` = `{fields: {stage|star|visit|next|notes:
+    {v, basis, at}}, address, title, link, row, at}`, and show on every device at once. Each field records the
+    sheet's value it was made against (its basis) and shows only while the sheet still holds that basis; when
+    the sheet's own value changes, the sheet wins again. The card and the header say which listings have
+    edits not yet in the sheet.
+  - **Into the sheet:** the page can't write to Google Sheets (the Google Drive connector only reads files).
+    Claude copies the edits over: save the `edits` collection with ArtifactData (`list`, `out_dir`), run
+    `pipeline/sync_edits.py <dir>` (dry run) and `--apply`, then remove the reported fields from the database
+    (delete documents left empty). The script finds each listing's row(s) by the page's own listing id, writes
+    a field only while the sheet still holds its basis, and reports stale and missing ones. Connecting the
+    claude.ai **Google Sheets** connector (tools `get_values`, `update_values`, …) would let the page write
+    straight into the sheet; that isn't built yet.
+  - A listing is identified by its street address plus listing link, so re-sorting or editing other columns
+    keeps its edits; rows with the same address and link (duplicates, e.g. the two 1459 Creekside Dr rows)
+    share them and are both written. While the page is shared by public link only the owner can edit; other
+    signed-in viewers see the edits read-only, and a view outside Claude shows the sheet only. The map's
+    earlier `plans` / `prefs` choices were folded into Stage on 2026-11-09 and are no longer used.
 - **Filters** (Map options; they combine): **★ Starred only**; **Hide dismissed**; stage **All · To schedule ·
   Planned · Visited · Not yet** (Not yet = no stage); beds **Any beds · 2 bd · 3 bd**, where 2 and 3 toggle
   independently (both on = 2 or 3 beds) and a sheet value like "2-3" matches either. Rows with no beds in the
