@@ -18,6 +18,7 @@ _source files: `~/Desktop/GigaCloud/` on Alex's MacBook Air (live plan + results
 
 ## Active threads
 
+- **Half-year product results talk (15 min).** Deck «Розвиток продуктів» v1 (25 slides, UA, GigaCloud template, 2026-11-10): strategy 2026 as a nested goal table → IaaS (navigation over its three goals, a slide per done initiative, a «Що далі» roadmap per goal) → Resell + Prof Services → Business efficiency; every initiative carries a tag (Запуск продукту / Оновлення продукту / Product operations), native Tabler icons, problem → solution → value per slide. Live file on the MacBook Air Desktop (not committed); toolchain and conventions in the [handoff](docs/h1-results-deck/HANDOFF.md). Next: Alex reviews and answers the open items below. Owner: Mine. (chat, 2026-11-10)
 - **Product team restructure — CPO part-time.** Plan for Q3'FY2026 and after, the four projects Alex keeps, the margin roadmap by owner and the NOW → TO BE split of the product function are in a 10-slide UA deck (2026-10-16 / 10-20), with Alex's CA ↔ Kyiv availability (overlap 07:00–09:00 CA = 17:00–19:00 Kyiv). Next: Alex's part-time terms, Edik's offer, talks with Edik / the product team / leadership, the «Прибутковість / маржинальність / ефективність» owner, the org-structure decision, vacancies. Owner: Mine. → [product-team-structure](product-team-structure.md)
 - **Catalog ↔ Billing integration — requirements scoping.** Working session (2026-07-21) scoped the business scenarios / edge cases for syncing catalog changes into Billing. Three layers named: (1) catalog data model, (2) an intermediate proxy model in CREASHO that reshapes catalog data into Billing format, (3) business scenarios — this call targeted layer 3. Complexity clusters around **price changes** (transactional model mismatch, GAF/government products, price-upon-request, quote-only, repricing existing customers, per-customer fixed prices). Guidance from Speaker B: don't re-invent the existing working mapping — describe already-implemented scenarios high-level, write a detailed per-scenario flow table only for price changes. → next: Alex collects/structures everything, reviews fresh, returns to Speaker B for clarifications, then takes it to Zhenya (object model + field-level mapping owner). Owner: Mine. [call](calls/other/2026-07-21_180038_default_202607171304495CACCF1A.md)
   - _possible subproject: catalog↔billing integration? — promote to its own page on the next artifact._
@@ -47,6 +48,7 @@ _source files: `~/Desktop/GigaCloud/` on Alex's MacBook Air (live plan + results
 
 ## Open loops
 
+- Mine — results deck: say which VCFaaS model the slide names (weekly 28.10: v.2 through a partner from 1 Nov, no hardware lease), confirm Azure Local is back in active sale after its repackaging, check the proposed tags and the inferred one-liners (vCluster, storage performance, Private S3). [handoff](docs/h1-results-deck/HANDOFF.md) (chat, 2026-11-10)
 - Mine — collect + structure the shared requirements, review fresh, clarify with Speaker B, take to Zhenya (no firm date). [call](calls/other/2026-07-21_180038_default_202607171304495CACCF1A.md)
 - Open — GAF/government products: decide whether Billing gets a parent/child concept or treats GAF as a black box (avoid duplicating ~20 files per GAF product).
 - Open — per-customer fixed/frozen prices: decide whether Billing must know or CRM stays master (mechanism being designed with Lyubomir).
@@ -56,6 +58,7 @@ _source files: `~/Desktop/GigaCloud/` on Alex's MacBook Air (live plan + results
 
 ## Activity
 
+- 2026-11-10 — [half-year results deck v1](docs/h1-results-deck/HANDOFF.md) — 25 UA slides from Alex's brief + the GigaCloud context folder (catalog digests, sales decks, weekly status); fresh-eyes content review run. (chat)
 - 2026-10-16 — [product-team restructure deck v1](product-team-structure.md) — 8-slide UA proposal from Alex's Miro board + his next steps; the margin project as a Gantt. (chat)
 - 2026-10-12 — [publication-process deck v4](publication-process.md) — 56 slides on Alex's fourth feedback round (CRM checklist, stage headers, «Перед першим клієнтом», stage 4 and change types); v3 (46 slides) earlier the same day. (chat)
 - 2026-10-11 — [publication-process deck v2](publication-process.md) — reworked on Alex's dictated feedback (42 slides); v1 (37 slides) the same day from his brief + Miro + the CRM checklist export; new subproject page. (chat)
