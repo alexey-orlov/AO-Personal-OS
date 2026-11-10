@@ -9,7 +9,9 @@ Conference posters (NVIDIA GTC and similar) and other pieces that present a Soft
 3. **Map to the vendor's technology and current priorities.** Name the exact component and version and say what it makes possible here; credit a component to the vendor's product only where that version's documentation lists it (2026-11-09: Grounding DINO and SAM 2 were printed as "VSS 3.3 components", but only the older 2.4 container lists them). Every piece carries a "what the vendor brings" table: capability → where it helps. For NVIDIA, check its current releases and event themes before writing.
 4. **Simple sentences.** If a busy engineer has to read it twice, split it.
 5. **Concrete over generic.** Sizes, parameters, GPU shapes, counts, model sizes, from the source documents.
-6. **Combined cases stay balanced.** When one piece covers two engagements, each gets its own lane, numbers and takeaways.
+6. **Combined cases stay balanced, and the summary speaks for the whole piece.** When one piece covers two engagements, each keeps its own lane in the architecture and its share of the takeaways (3:2, never 4:1). Every summary element covers both cases: the file name, title, subtitle and results block (2026-11-10: a "Results: zone allocation" heading and a contracts-only title lead each left one case out).
+    - The results block reads as one use case. Describe each metric in shared terms (jobs per technician, time per case), never by which engagement, role or job type produced it. Sizing figures such as locations per GPU stay in the body.
+    - A case with nothing measured gets an estimate when a defensible one exists (rule 13). When the evidence contradicts every estimate, it gets none, and the shared metrics speak for the piece.
 7. **Architecture matches the sources, box by box.** Every node, arrow, model and GPU traces to a design or architecture document; a component the sources do not contain is not drawn. Check each one before delivery.
 8. **Diagrams are internally consistent.** Legend colours match what each box is; numbering reads in order; the deciding component is drawn as the decider.
 9. **No meta text on the artifact.** No disclaimers, hedges, draft lines, placeholders, "synthetic data" notes or methodological apologies. Caveats and open items go to the notes for Alex.
@@ -31,7 +33,7 @@ Conference posters (NVIDIA GTC and similar) and other pieces that present a Soft
 2. Draft the architecture from the engagement documents (architecture, scope, requirements), not from wiki summaries; draft the framing from the pack spec (rule 12) and the results from the pack's metric set and the ROI materials (rule 13).
 3. Red-team each piece with a fresh-context reviewer that holds only the piece, the sources, this rubric and the event's own guidelines and jury criteria. It scores the piece as a juror would and returns pasteable rewrites plus a node-by-node architecture check. Run one reviewer per piece in parallel, then a last compliance pass on the final version.
 4. Verify every new fact a reviewer proposes against its cited source before using it; drop unsourced ones.
-5. Render and check the fit report; deliver the editable file, previews and a notes file with the open items.
+5. Render and check the fit report. Read the file name, title, subtitle, results heading and takeaways side by side and check that each covers every case (rule 6). Deliver the editable file, previews and a notes file with the open items.
 
 ## NVIDIA GTC specifics (GTC 2027 call and guidelines page, read 2026-11-09)
 
