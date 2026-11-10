@@ -6,7 +6,7 @@ Conference posters (NVIDIA GTC and similar) and other pieces that present a Soft
 
 1. **Write like an engineer.** Plain titles and headings that name the problem and the technology. No slogans, no "not X but Y", no triads, no em dashes, no abstract nouns doing the work ("first-class", "discipline").
 2. **Novelty a specialist accepts.** A claim of "new" must survive a reviewer from the vendor; prefer a concrete design decision with its number (a memory limit, a re-solve rule, a threshold) over a label.
-3. **Map to the vendor's technology and current priorities.** Name the exact component and version and say what it makes possible here. Every piece carries a "what the vendor brings" table: capability → where it helps. For NVIDIA, check its current releases and event themes before writing.
+3. **Map to the vendor's technology and current priorities.** Name the exact component and version and say what it makes possible here; credit a component to the vendor's product only where that version's documentation lists it (2026-11-09: Grounding DINO and SAM 2 were printed as "VSS 3.3 components", but only the older 2.4 container lists them). Every piece carries a "what the vendor brings" table: capability → where it helps. For NVIDIA, check its current releases and event themes before writing.
 4. **Simple sentences.** If a busy engineer has to read it twice, split it.
 5. **Concrete over generic.** Sizes, parameters, GPU shapes, counts, model sizes, from the source documents.
 6. **Combined cases stay balanced.** When one piece covers two engagements, each gets its own lane, numbers and takeaways.
@@ -25,7 +25,7 @@ Conference posters (NVIDIA GTC and similar) and other pieces that present a Soft
 
 1. Brief = the event's call rules (exclusions, criteria, format) + the requester's ask + this rubric.
 2. Draft the architecture from the engagement documents (architecture, scope, requirements), not from wiki summaries; draft the framing from the pack spec (rule 12) and the results from the pack's metric set and the ROI materials (rule 13).
-3. Red-team each piece with a fresh-context reviewer that holds only the piece, the sources and this rubric, and returns pasteable rewrites plus a node-by-node architecture check.
+3. Red-team each piece with a fresh-context reviewer that holds only the piece, the sources, this rubric and the event's own guidelines and jury criteria. It scores the piece as a juror would and returns pasteable rewrites plus a node-by-node architecture check. Run one reviewer per piece in parallel, then a last compliance pass on the final version.
 4. Verify every new fact a reviewer proposes against its cited source before using it; drop unsourced ones.
 5. Render and check the fit report; deliver the editable file, previews and a notes file with the open items.
 
@@ -37,4 +37,9 @@ Conference posters (NVIDIA GTC and similar) and other pieces that present a Soft
 - Excluded: "promotional, business use cases, conceptual, or lack technical depth". Guideline don'ts: no promoting products or services (even your own), no marketing language, nothing not cleared for public presentation.
 - Guideline do's: real-world impact with specific metrics; novel algorithms, architectures, methods or implementations; the four sections Problem Statement / Goal, Application of NVIDIA Technology, Benchmarking Methods (dataset, hardware, tools), Results and Outcomes (graphs, charts or quantitative comparisons); acronyms explained; visuals that support claims; prior work cited.
 - The 2026 Top Poster Award example: a results subtitle under the title, numbered sections (Objective, Challenges, Solution, Key Achievements, References), short one-idea bullets, and the key result as "83% reduction (from 2 hours to 20 minutes)".
+- Jury criteria (call page): proven technical outcomes with practical impact; significant innovation or improvement enabled by accelerated computing; a clear framework (problem or goal, NVIDIA technology applied, benchmarking method, results). Number the sections in reading order under those names, and put a goal line in the problem section.
+- The submission form, 2027:
+  - **Public title:** at most 12 words and 120 characters. No company-specific terms, acronyms or products. Lead with the problem, signal why it matters now, show what is novel. Print the same title on the poster, with the vendor stack and the headline result in a subtitle line under it.
+  - **Takeaways:** 3 to 5 one-sentence takeaways, at most 260 characters each.
+  - **Tags:** primary audience plus others, one key theme, primary industry plus others, and the NVIDIA technologies from a fixed list. The 2026 drafts' filled-in form is in the drafts folder's notes file.
 - Toolchain and the 2026 drafts: SoftServe OneDrive `Projects/Nvidia posters/Orlov - GTC27 drafts/` (`toolchain/` regenerates the posters on the accepted SoftServe poster's master).
