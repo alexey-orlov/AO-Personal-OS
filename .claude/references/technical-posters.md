@@ -1,6 +1,6 @@
 # Technical posters and showcase pieces
 
-Conference posters (NVIDIA GTC and similar) and other pieces that present a SoftServe solution to engineers. Pointed from root `CLAUDE.md`; read before drafting one. Rules are Alex's, from the GTC 2027 poster round (2026-11-09), where two drafts in a row failed on the points below.
+Conference posters (NVIDIA GTC and similar) and other pieces that present a SoftServe solution to engineers. Pointed from root `CLAUDE.md`; read before drafting one. Rules are Alex's, from the GTC 2027 poster round (2026-11-09), where three drafts in a row failed on the points below.
 
 ## Alex's rubric
 
@@ -15,11 +15,13 @@ Conference posters (NVIDIA GTC and similar) and other pieces that present a Soft
 9. **No meta text on the artifact.** No disclaimers, hedges, draft lines, placeholders, "synthetic data" notes or methodological apologies. Caveats and open items go to the notes for Alex.
 10. **Reads without our context.** Acronyms spelled out once; no internal names, no "the customer" or "the pilot" without saying who or what.
 11. **Never show build status.** Nothing on the piece says or implies built, delivered, piloted, designed, planned, proposed, starting or next, in words or styling (no dashed "proposed" boxes, no "Next" headings). Describe the solution in the present tense; report results only where measured, without explaining the absence elsewhere.
+12. **Present the use case, not the engagement.** The title, challenge, takeaways and captions name the class of problem the solution serves, in the pack's own terms: visual damage assessment across asset classes, not one network's windscreens; extraction from long contracts, not an airline's ground-handling agreements; case investigation, not one hospital's complaints. The engagement's specifics appear only as benchmark data or a worked example, with no customer or internal product name, sector-only standard or geography that narrows it to one customer.
+13. **Results are the strongest sourced figures, shown as change.** Take them from the pack's agreed metric set (its spec and Alex's rulings on the wiki page) and from the partner-facing ROI materials (the Oracle sales one-pager, the post-PoC business case, the executive updates), not only from the delivery report. Lead with the time or productivity change, from X to Y or by P%, and add the volume view a buyer recognizes (a region's plan, a new site's agreements). A computed figure uses measured inputs only and says so in its label ("at the measured rate"); its arithmetic, and any conflict between sources, go in the notes.
 
 ## Procedure that worked
 
 1. Brief = the event's call rules (exclusions, criteria, format) + the requester's ask + this rubric.
-2. Draft from the engagement documents (architecture, scope, requirements), not from wiki summaries.
+2. Draft the architecture from the engagement documents (architecture, scope, requirements), not from wiki summaries; draft the framing from the pack spec (rule 12) and the results from the pack's metric set and the ROI materials (rule 13).
 3. Red-team each piece with a fresh-context reviewer that holds only the piece, the sources and this rubric, and returns pasteable rewrites plus a node-by-node architecture check.
 4. Verify every new fact a reviewer proposes against its cited source before using it; drop unsourced ones.
 5. Render and check the fit report; deliver the editable file, previews and a notes file with the open items.
