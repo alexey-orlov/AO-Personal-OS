@@ -46,10 +46,25 @@ _Written 2026-11-10 on Alex's MacBook Air, when v1 was delivered. Read fully bef
 - **Business-efficiency slides:** «Проблема» · «Зроблено» (✓) · «В роботі» (○) on the left, the diagram on the right, the value band at the bottom. The PLM slide reuses the publication deck's five stage colours.
 - Margin results are shown as the method (price stack, before / now), with no percentages, while the results wait for the corrected workbook.
 
+## Content review (v1)
+
+A fresh-eyes Opus reviewer checked v1's content against the brief and the sources (2026-11-10). Applied:
+- **VCFaaS** shows the model in force now, v.2: licences through the partner from 01.11.2026, no hardware lease, delivery and contract processes approved (weekly 28.10). The July leasing relaunch is history in the notes.
+- **Partner name:** the weekly writes «evoila / 11:11»; the brief's «Evolia» is a typo, so the deck says evoila.
+- **Margin slide:** the full-cost model counts as done (steps 1–5 computed); updating the results and entering them in the CRM is «В роботі». The bracket reads «Нова модель», not «Тепер».
+- **One name per thing:** every kicker uses the goal's full name. The renames are «Advanced Memory Tiering» (the catalog name), «Colocation» (not «Collocation») and «Готовність до міграції клієнтів з VMware» (the brief's «спроможність до можливої міграції»). The text also uses «обсяг», «реселу», «нода» and «Product Insights» throughout.
+- **Value tiles** now state business outcomes: S3 «Нова лінія виручки», gov «Новий сегмент · Вища маржа», USD «Маржа не залежить від курсу», lost deals «Перші інсайти в роботі» (the weekly's pricing, battle-card and Hyper-V insights).
+- **Tags changed:**
+  - gov versions and the Azure / AWS resell → Оновлення продукту (both existed before; Azure has sold since 2025);
+  - low-cost hardware → Product operations.
+- Also: the GigaCloud recommendation of 1:1 as a footnote on the memory-tiering table, the minimum node count only on the platform cards (64 vs 40 conflict), and «Моніторинг» instead of «Контроль» of the Azure / AWS budget.
+
 ## Open items for Alex
 
-- **VCFaaS:** the slide shows the relaunched subscription model without the leasing detail, because weekly 28.10 says VCFaaS v.2 goes through a partner from 1 November with no hardware lease. Which model should the slide name?
-- **Azure Local:** the brief lists it as done; the Jun–Aug digest put it into Draft for repackaging, and weekly 28.10 still had sales / presales training open (finish 02.11). Confirm it is back in active sale.
-- **Tags** are proposals where the brief gave none: Low-cost залізо (Оновлення продукту), Broadcom через Evolia and Міграція з VMware (Product operations), Умови продажу ліцензій (Оновлення продукту).
+- **VCFaaS v.2:** confirm the partner contract is signed and orders through evoila started on 1 November.
+- **Azure Local:** the brief lists it as done; the Jun–Aug digest put it into Draft for repackaging, and weekly 28.10 still had sales / presales training open (finish 02.11). Confirm it is back in active sale before the talk; the card says «Нова платформа».
+- **Low-cost залізо:** weekly 1.1.2 (used hardware) has been on pause since September; the slide keeps it «В роботі», as the brief does.
+- **Tags** are proposals where the brief gave none (see the review list above).
 - **Inferred one-liners** (marked in the notes): Private Kubernetes by vCluster, Продуктивність СЗД, Private S3 Storage, and the problem statements of several done slides.
+- **AI Implementation Services** (weekly 4.1 / 4.2: contract terms agreed, process being documented) is not in the brief, so the deck leaves it out; its note on the Resell + Prof Services roadmap gives a one-line answer if asked.
 - The closing slide is an addition; delete it if the talk ends on the last content slide.

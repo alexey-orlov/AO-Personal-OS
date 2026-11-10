@@ -48,7 +48,7 @@ _source files: `~/Desktop/GigaCloud/` on Alex's MacBook Air (live plan + results
 
 ## Open loops
 
-- Mine — results deck: say which VCFaaS model the slide names (weekly 28.10: v.2 through a partner from 1 Nov, no hardware lease), confirm Azure Local is back in active sale after its repackaging, check the proposed tags and the inferred one-liners (vCluster, storage performance, Private S3). [handoff](docs/h1-results-deck/HANDOFF.md) (chat, 2026-11-10)
+- Mine — results deck before the talk: confirm VCFaaS v.2 orders through the partner evoila started 1 Nov, that Azure Local is back in active sale after its repackaging, and check the proposed tags and the inferred one-liners (vCluster, storage performance, Private S3). [handoff](docs/h1-results-deck/HANDOFF.md) (chat, 2026-11-10)
 - Mine — collect + structure the shared requirements, review fresh, clarify with Speaker B, take to Zhenya (no firm date). [call](calls/other/2026-07-21_180038_default_202607171304495CACCF1A.md)
 - Open — GAF/government products: decide whether Billing gets a parent/child concept or treats GAF as a black box (avoid duplicating ~20 files per GAF product).
 - Open — per-customer fixed/frozen prices: decide whether Billing must know or CRM stays master (mechanism being designed with Lyubomir).
@@ -58,7 +58,7 @@ _source files: `~/Desktop/GigaCloud/` on Alex's MacBook Air (live plan + results
 
 ## Activity
 
-- 2026-11-10 — [half-year results deck v1](docs/h1-results-deck/HANDOFF.md) — 25 UA slides from Alex's brief + the GigaCloud context folder (catalog digests, sales decks, weekly status); fresh-eyes content review run. (chat)
+- 2026-11-10 — [half-year results deck v1](docs/h1-results-deck/HANDOFF.md) — 25 UA slides from Alex's brief + the GigaCloud context folder (catalog digests, sales decks, weekly status); a fresh-eyes content review applied (VCFaaS v.2, the partner is evoila, business-outcome value tiles). (chat)
 - 2026-10-16 — [product-team restructure deck v1](product-team-structure.md) — 8-slide UA proposal from Alex's Miro board + his next steps; the margin project as a Gantt. (chat)
 - 2026-10-12 — [publication-process deck v4](publication-process.md) — 56 slides on Alex's fourth feedback round (CRM checklist, stage headers, «Перед першим клієнтом», stage 4 and change types); v3 (46 slides) earlier the same day. (chat)
 - 2026-10-11 — [publication-process deck v2](publication-process.md) — reworked on Alex's dictated feedback (42 slides); v1 (37 slides) the same day from his brief + Miro + the CRM checklist export; new subproject page. (chat)
