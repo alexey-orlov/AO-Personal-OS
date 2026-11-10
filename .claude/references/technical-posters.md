@@ -17,6 +17,9 @@ Conference posters (NVIDIA GTC and similar) and other pieces that present a Soft
 11. **Never show build status.** Nothing on the piece says or implies built, delivered, piloted, designed, planned, proposed, starting or next, in words or styling (no dashed "proposed" boxes, no "Next" headings), and that includes data labels and headings ("proof-of-value data", "no live tests": say "historical bookings", "past days only"). Describe the solution in the present tense; report results only where measured, without explaining the absence elsewhere.
 12. **Present the use case, not the engagement.** The title, challenge, takeaways and captions name the class of problem the solution serves, in the pack's own terms: visual damage assessment across asset classes, not one network's windscreens; extraction from long contracts, not an airline's ground-handling agreements; case investigation, not one hospital's complaints. The engagement's specifics appear only as benchmark data or a worked example, with no customer or internal product name, sector-only standard or geography that narrows it to one customer.
 13. **Results are the strongest sourced figures, shown as change.** Take them from the pack's agreed metric set (its spec and Alex's rulings on the wiki page) and from the partner-facing ROI materials (the Oracle sales one-pager, the post-PoC business case, the executive updates), not only from the delivery report. Lead with the time or productivity change, from X to Y or by P%, and add the volume view a buyer recognizes (a region's plan, a new site's agreements). A computed figure uses measured inputs only and says so in its label ("at the measured rate"); its arithmetic, and any conflict between sources, go in the notes.
+14. **Every vendor feature names the business outcome it moves.** The vendor table runs feature → what it does here → business outcome, with the measured number where one exists and otherwise the measure it moves (fewer missed appointments, replacements paid only when the rule requires one). Phrase outcomes as real-world impact, never as sales copy ("no license fee" reads as promotion).
+15. **Novelty is emphasized, not buried.** A "What's new" block, visually distinct and placed right after the results, lists the design decisions that are new, each one a specialist accepts (rule 2), each ending on what it changes for the business.
+16. **Low word density.** Same messages, same clarity for a reader with no context, fewer words: no fact stated twice across blocks, the number instead of the sentence, one idea per line.
 
 ## Procedure that worked
 
@@ -26,10 +29,12 @@ Conference posters (NVIDIA GTC and similar) and other pieces that present a Soft
 4. Verify every new fact a reviewer proposes against its cited source before using it; drop unsourced ones.
 5. Render and check the fit report; deliver the editable file, previews and a notes file with the open items.
 
-## NVIDIA GTC specifics (GTC 2027 call, read 2026-11-09)
+## NVIDIA GTC specifics (GTC 2027 call and guidelines page, read 2026-11-09)
 
-- 43 × 24 in landscape, 1-inch margin, print PDF, no NVIDIA logos on the poster.
+- Submit at `register.nvidia.com/flow/nvidia/gtc27/cfsposters/form/submittername/login` (the call page's "Submit Poster"), each author from their own NVIDIA account; the guidelines sit behind the same login at `…/gtc27/cfsresources/page/posters`.
+- 43 × 24 in landscape, 1-inch white margin (design area 41 × 22 in, nothing outside it), print-ready PDF at full size, images at 300 ppi, no NVIDIA branding or logos (your own company logo is fine).
 - Title at most 15 words, public description at most 100 words, up to 2 topics.
-- Excluded: "promotional, business use cases, conceptual, or lack technical depth".
-- Scored on proven outcomes, innovation enabled by accelerated computing, and a framework of problem, NVIDIA technology, benchmarking method and results.
+- Excluded: "promotional, business use cases, conceptual, or lack technical depth". Guideline don'ts: no promoting products or services (even your own), no marketing language, nothing not cleared for public presentation.
+- Guideline do's: real-world impact with specific metrics; novel algorithms, architectures, methods or implementations; the four sections Problem Statement / Goal, Application of NVIDIA Technology, Benchmarking Methods (dataset, hardware, tools), Results and Outcomes (graphs, charts or quantitative comparisons); acronyms explained; visuals that support claims; prior work cited.
+- The 2026 Top Poster Award example: a results subtitle under the title, numbered sections (Objective, Challenges, Solution, Key Achievements, References), short one-idea bullets, and the key result as "83% reduction (from 2 hours to 20 minutes)".
 - Toolchain and the 2026 drafts: SoftServe OneDrive `Projects/Nvidia posters/Orlov - GTC27 drafts/` (`toolchain/` regenerates the posters on the accepted SoftServe poster's master).
