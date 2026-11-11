@@ -198,3 +198,4 @@ context/areas/softserve/docs/2026-10-13_oracle-pack-set-exec.pdf
 context/areas/softserve/docs/2026-10-13_oracle-packs-strategy-deck/Oracle packs - packaging strategy (preview).pdf
 context/areas/softserve/docs/conga-ai-pm-bootcamp-transcript.md
 context/areas/softserve/docs/oracle-packages-tshirt-sizing.md
+context/areas/gigacloud/docs/h1-results-deck/HANDOFF.md
