@@ -220,7 +220,9 @@ deck or one-pager work.
       one line. Choose a grid that keeps the frames wide (3×2, not six narrow columns) and draw the diagrams horizontally to
       fit them (2026-10-22, Alex: "less text, larger visuals").
     - After a conceptual map of something the system implements, show the system's own screen of the same structure (2026-10-12,
-      Alex: the CRM checklist right after the stage/block/step map).
+      Alex: the CRM checklist right after the stage/block/step map). This holds on a one-slide summary too: a results slide about
+      a process automated in a system pairs the process diagram with that system's screen (2026-11-10, Alex on the half-year
+      results deck's PLM slide).
     - What sits beside a screenshot is the point the screen proves for the process, in one note («the checklist is always current:
       it updates itself from the actions people log and from status changes»), never a tour of its interface. Counters, filters,
       columns and statuses explain themselves; numbered outlines are for the one area the slide talks about (2026-10-12, Alex:
@@ -235,6 +237,8 @@ deck or one-pager work.
       stage title over the "you are here" strip and the stage's blocks; content slides never borrow either look (2026-10-12, Alex:
       the stage slides "выглядят как контентные", they must read as the next header level).
     - The overview carries the structure only; explanatory bands and footnotes under it belong on the detail slides (2026-10-12).
+      A navigation slide that opens a section shows its boxes with a one-line purpose each, never the item lists (done, next)
+      that the following slides cover (2026-11-10, Alex: «просто три бакета з oneliner, який пояснює ціль»).
     - A stage or block name must hold for every step in it. Name it by the event it centres on («Перший клієнт»), with before/after
       sub-blocks, not by a preposition that excludes some of its steps: «Перед першим клієнтом» was false for the hand-off, which
       comes after. A group that has its own steps is a numbered stage on the same equal-width grid, not a narrow in-between column
@@ -285,3 +289,26 @@ deck or one-pager work.
     sense only after the kit slide).
     - Write the noun and the scope: "1 week of discovery in Essential", "after 2 to 4 engagements".
     - When two lines on one slide give durations or counts of different things, name both things.
+35. **Peer category labels carry equal visual weight; colour coding serves one dimension** (2026-11-10, Alex on the GigaCloud
+    half-year results deck: «Product operations білий, Запуск продукту червоний — здається, що одне зроблено, а інше ні»).
+    - Tags that sort items into categories (product launch · product update · product operations) share one chip style: the same
+      fill, outline and type. They differ only by icon and word.
+    - A filled peer next to an outlined one, a coloured one next to a white one, or a bright one next to a pale one reads as
+      done vs not done, or important vs minor.
+    - Reserve colour coding for the one dimension the audience must read at a glance (here: status).
+36. **Status and roadmap are different slide types and must look it, not only be labelled** (2026-11-10, same deck: «явне
+    відокремлення статусу і роадмапу… зараз це підписано, але візуально і структурно не зчитується»).
+    - Give each kind its own colour (done = green, next = blue) and its own structure:
+      - a done slide keeps the problem → solution → value anatomy and carries a green «Зроблено» pill;
+      - a roadmap slide opens with a full-width band in the "next" colour and lists the next items in that colour.
+    - A roadmap slide carries no recap of what is done.
+    - A slide that mixes both colours its done and next parts by the same code.
+37. **On an initiative slide, text beside a self-explanatory visual is noise** (2026-11-10, same deck: «в блоках проблема — рішення
+    можна все робити набагато коротше. Іноді частина справа self explanatory і текст лише створює шум»; «Public S3 — менше
+    деталей»).
+    - The problem is one short line (≤ ~12 words).
+    - The solution names the change in one line and leaves the mechanics to the diagram; never restate in prose what the picture
+      shows.
+    - The diagram keeps only the facts the talk needs; secondary details (incident behaviour, conditions, locations) go to the
+      speaker notes.
+38. **No closing «Дякую / Питання» slide**: Alex's decks end on their last content slide (2026-11-10).
