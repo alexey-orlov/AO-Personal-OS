@@ -1,6 +1,6 @@
 # Half-year product results deck — handoff
 
-_Rewritten 2026-11-10 on Alex's MacBook Air, when v3 was delivered (v2 = his feedback on v1; v3 = the diversification roadmap grouped by direction). Read fully before touching the deck._
+_Rewritten 2026-11-10 on Alex's MacBook Air, when v4 was delivered (v2 = his feedback on v1; v3 = the diversification roadmap grouped by direction; v4 = that second direction on slides 2 and 4 too). Read fully before touching the deck._
 
 ⛔ GigaCloud = internal-only area. The deck is internal; nothing from it goes into external-facing artifacts.
 
@@ -8,7 +8,7 @@ _Rewritten 2026-11-10 on Alex's MacBook Air, when v3 was delivered (v2 = his fee
 
 | Deck | State | Live copy (Alex hand-edits it — living-documents rule) | In this repo |
 |---|---|---|---|
-| **Розвиток продуктів** — `GigaCloud_Product Results H1_10-NOV-2026 (v3).pptx`: the product team's half-year achievements and plans, for Alex's 15-minute talk | v3, 24 slides, UA (2026-11-10); v1 and v2 kept beside it | MacBook Air: `~/Desktop/GigaCloud/` | **not committed** (internal commercial detail: vendor contract dates, margin model, a CRM screenshot) |
+| **Розвиток продуктів** — `GigaCloud_Product Results H1_10-NOV-2026 (v4).pptx`: the product team's half-year achievements and plans, for Alex's 15-minute talk | v4, 24 slides, UA (2026-11-10); v1–v3 kept beside it | MacBook Air: `~/Desktop/GigaCloud/` | **not committed** (internal commercial detail: vendor contract dates, margin model, a CRM screenshot) |
 
 **Deck map (v2)**, as the brief orders it:
 1. Cover «Розвиток продуктів · Досягнення за півріччя і плани · Листопад 2026».
@@ -31,7 +31,7 @@ No closing slide (Alex, v2).
 
 - **Toolchain (local only):** `~/Desktop/GigaCloud/toolchain/h1/`.
   - `h1_data.py` holds all copy: goals (one `name` used everywhere, hand-broken `lines` / `nav`, the nav `oneliner`), the done slides (problem / solution / value / notes), the Business-efficiency slides, the roadmaps, section subtitles. Edit text there.
-  - `build_h1.py <base.pptx> <out.pptx>` builds the deck on `../plm/base_margin_v25.pptx` (the GigaCloud 2× template; its cover is reused) with helpers from `../plm/gclib.py`. `h1_data_v1.py` / `build_h1_v1.py` and `h1_data_v2.py` / `build_h1_v2.py` reproduce v1 and v2.
+  - `build_h1.py <base.pptx> <out.pptx>` builds the deck on `../plm/base_margin_v25.pptx` (the GigaCloud 2× template; its cover is reused) with helpers from `../plm/gclib.py`. `h1_data_v<N>.py` / `build_h1_v<N>.py` reproduce v1–v3. `compare_decks.py <his.pptx> <build.pptx>` tells whether a delivered file was hand-edited (exit 0 = no content edits).
   - A roadmap in `ROADMAPS` takes either `items` or `groups` = [(group title, items)]. Groups get a blue caps header with a hairline, and the rows shrink to make room.
   - Render: `PY=python3 zsh ~/Desktop/GigaCloud/toolchain/pp_render.sh <deck> <outdir> 80` (PowerPoint → PDF → PNG + contact sheets; system python3 has PyMuPDF).
 - **Icons:** Tabler Icons 3.31.0 (MIT), outline SVGs in `h1/icons/` (downloaded from cdn.jsdelivr.net with Alex's OK, 2026-11-10). `h1/tabler.py` converts each SVG path into a native, stroke-only custom shape (arcs → Béziers), grouped per icon: recolour by line colour, resize freely. To add an icon, put `<name>.svg` from the same Tabler version into `icons/` and call `tabler.badge(...)` / `tabler.glyph(...)`.
@@ -40,7 +40,7 @@ No closing slide (Alex, v2).
   - The PLM slide's checklist is `../plm/img/product_checklist.png` (the publication deck's edited capture), cropped to its counters and first six rows. It shows at 0.0056 in/px, readable for a 2× capture.
 - **Text that wraps lives in one text box per column** (labels, paragraphs, bulleted lists as paragraphs). PowerPoint flows it, so an edited line never collides with the next block. List bullets: Wingdings ✓ (done, green) and Arial → (next, blue), both cross-platform.
 - **Line-break hygiene:** `build_h1.py` extends gclib's non-breaking rules: a number never splits from its unit (TB, GB, год, нод, %, 50 000), «№ 712», «vSphere 9», and a dash never starts a line. PowerPoint ignores U+2060 (word joiner): a numeric range like «17,5–35» still breaks after its dash. Rephrase ranges in running text («між 17,5 і 35 TB»).
-- **After delivery Alex owns the file.** Never regenerate over his edits. Check first whether the Desktop copy still matches the build. A plain `cmp` is not enough: PowerPoint re-serialises every part on save (empty runs dropped, same-format runs merged, group transforms rewritten). Compare shapes, geometry, normalised runs and notes instead; v2's 16:24 re-save had no content edits. If he has edited it, build only the changed slides and clone them into his file (the margin deck's transplant approach, `../margin-deck/HANDOFF.md`).
+- **After delivery Alex owns the file.** Never regenerate over his edits. Check first whether the Desktop copy still matches the build. A plain `cmp` is not enough: PowerPoint re-serialises every part on save (empty runs dropped, same-format runs merged, group transforms rewritten). Compare shapes, geometry, normalised runs and notes instead (`compare_decks.py`); v2's 16:24 re-save and v3 had no content edits. If he has edited it, build only the changed slides and clone them into his file (the margin deck's transplant approach, `../margin-deck/HANDOFF.md`).
 
 ## Conventions (v2)
 
@@ -61,7 +61,8 @@ The general rules are in `.claude/references/slide-design.md` (rules 35–38 com
 
 ## Decisions
 
-- **v3, Alex (2026-11-10):** the diversification roadmap splits into two named directions: away from Broadcom (items 1 and 3) and from selling VMs towards Kubernetes (item 2). Slides 2 and 4 still describe the goal as «менша залежність від VMware і Broadcom».
+- **v4, Alex (2026-11-10):** the goal «Стратегічна диверсифікація» carries both directions on slides 2 and 4 too: «Мета» = «Менша залежність від Broadcom і продажу VM», «Що робимо» = «Нові платформи, моделі ліцензій і Kubernetes».
+- **v3, Alex (2026-11-10):** the diversification roadmap splits into two named directions: away from Broadcom (items 1 and 3) and from selling VMs towards Kubernetes (item 2).
 - **v2, Alex (2026-11-10):**
   - slide 4 shows three buckets with a one-liner;
   - status and roadmap read as different slide types (colour code + structure);
