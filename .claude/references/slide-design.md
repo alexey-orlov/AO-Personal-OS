@@ -302,6 +302,9 @@ deck or one-pager work.
       - a done slide keeps the problem → solution → value anatomy and carries a green «Зроблено» pill;
       - a roadmap slide opens with a full-width band in the "next" colour and lists the next items in that colour.
     - A roadmap slide carries no recap of what is done.
+    - Items that serve different sub-directions of one goal are grouped under the named sub-direction (the "why"),
+      never left as one flat list that hides the logic (2026-11-10, Alex: «пункти 1 і 3 — диверсифікація від Broadcom,
+      пункт 2 — від продажу VM на користь K8s»).
     - A slide that mixes both colours its done and next parts by the same code.
 37. **On an initiative slide, text beside a self-explanatory visual is noise** (2026-11-10, same deck: «в блоках проблема — рішення
     можна все робити набагато коротше. Іноді частина справа self explanatory і текст лише створює шум»; «Public S3 — менше
