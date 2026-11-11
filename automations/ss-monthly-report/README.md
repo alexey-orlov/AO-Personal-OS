@@ -22,6 +22,12 @@ owns the business trip gets a `Subtotal - hours` line, the trip line, then its c
 `Subtotal - PR-…`. A `GRAND TOTAL` closes the sheet, and each block's amount is written into
 its `Amount gross` cell on the summary tab as a cross-sheet formula, so the tabs cannot drift.
 
+**Reading a month's money out of a built report** (income figures, period totals, letters): the
+summary (first) tab's USD `Amount gross` per budget code (`PR-…`) is the only source; a month's
+total is the sum of those cells, as they stand. The `Details` tab is supporting material: never
+re-derive a total from it, and never add or subtract a line found there, such as the business
+trip (Alex, 2026-11-10).
+
 ## Files
 
 | File | What it does |
