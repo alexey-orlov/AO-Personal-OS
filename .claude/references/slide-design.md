@@ -306,12 +306,24 @@ deck or one-pager work.
       never left as one flat list that hides the logic (2026-11-10, Alex: «пункти 1 і 3 — диверсифікація від Broadcom,
       пункт 2 — від продажу VM на користь K8s»).
     - A slide that mixes both colours its done and next parts by the same code.
-37. **On an initiative slide, text beside a self-explanatory visual is noise** (2026-11-10, same deck: «в блоках проблема — рішення
-    можна все робити набагато коротше. Іноді частина справа self explanatory і текст лише створює шум»; «Public S3 — менше
-    деталей»).
-    - The problem is one short line (≤ ~12 words).
-    - The solution names the change in one line and leaves the mechanics to the diagram; never restate in prose what the picture
-      shows.
-    - The diagram keeps only the facts the talk needs; secondary details (incident behaviour, conditions, locations) go to the
-      speaker notes.
+37. **An initiative slide in a time-boxed talk carries four things: problem, solution, one plain visual of the change, value**
+    (2026-11-10 and 2026-11-12, same deck: «в блоках проблема — рішення можна все робити набагато коротше… частина справа self
+    explanatory і текст лише створює шум»; then, on the next version: «перевантажені деталями (особливо в правій частині)… будь-які
+    технічні деталі, особливості, внутрянку — опускаємо. У нас 15 хвилин»).
+    - The problem is one short line (≤ ~12 words); the solution names the change in one line. Never restate in prose what the
+      picture shows.
+    - The visual shows the change itself in a few words: before → after, who it is for, how the parts connect. A table of
+      parameters is not a visual. Specs, counts, ratios, hours, tier and framework names, locations, conditions, UI paths and
+      fine-print lines go to the speaker notes, where the presenter has them for questions.
+    - Tell the problem and the solution from the customer's side: who they are, what they could not do, what they can do now.
+      The internal mechanism (a leasing scheme, a contract model, a partner) goes to the notes.
+    - Never turn a change to an existing offer into a market claim («новий сегмент», new revenue) unless a source says so. An
+      inferred novelty claim is the likeliest to be wrong (2026-11-12: the «new» government segment was an old one whose prices
+      used to be calculated case by case and often came out higher).
 38. **No closing «Дякую / Питання» slide**: Alex's decks end on their last content slide (2026-11-10).
+39. **A section with several goals gives each goal a sub-header and keeps the current goal visible in every header** (2026-11-12,
+    same deck: «слайди всіх трьох цілей ідуть підряд і складно зрозуміти, що до чого відноситься»).
+    - Before each goal's slides, repeat the section's navigation slide with that goal in full colour and outlined, and the
+      others greyed out and faint. Keep the geometry identical on every copy, so only the highlight moves.
+    - On every slide of the goal, the header carries the goals' icons as a strip, the current one in full colour, next to the
+      goal's name. A goal name in small kicker text alone is not enough.
