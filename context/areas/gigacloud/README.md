@@ -1,6 +1,6 @@
 # GigaCloud — CPO
 
-_status: CPO role, going part-time in Q3'FY2026 with the US move (product-team restructure proposal, deck v1 2026-10-16); workstreams — catalog ↔ Billing integration requirements; component cost-allocation & pricing redesign (steps 1–5 computed in Юніт.xlsx, results deck v23); product publication process + its CRM checklist (deck v4, 56 slides, 2026-10-12, to be presented to department heads); half-year product results deck v6 for Alex’s 15-minute talk (26 slides, 2026-11-12)_
+_status: CPO role, going part-time in Q3'FY2026 with the US move (product-team restructure proposal, deck v1 2026-10-16); workstreams — catalog ↔ Billing integration requirements; component cost-allocation & pricing redesign (steps 1–5 computed in Юніт.xlsx, results deck v23); product publication process + its CRM checklist (deck v4, 56 slides, 2026-10-12, to be presented to department heads); half-year product results deck v7 for Alex’s 15-minute talk (26 slides, 2026-11-12)_
 _updated: 2026-11-12_
 _source files: `~/Desktop/GigaCloud/` on Alex's MacBook Air (live plan + results decks, `Юніт.xlsx`, results toolchain) · `~/Downloads` on `KN7X2Y65NX` (older set: `Margin.xlsx`, brand template) — registry entry in [_meta/external-sources.md](../../_meta/external-sources.md); transfer snapshots + HANDOFF in [docs/margin-deck/](docs/margin-deck/HANDOFF.md)_
 
@@ -21,12 +21,12 @@ _source files: `~/Desktop/GigaCloud/` on Alex's MacBook Air (live plan + results
 
 ## Active threads
 
-- **Half-year product results talk (15 min).** Deck «Розвиток продуктів» v6 (26 slides, UA, GigaCloud template, 2026-11-12).
-  - Order: strategy 2026 as a nested goal table that builds on click → IaaS → Resell + Prof Services (VCFaaS here) → Business efficiency (PLM and margin; the lost-deals slide was dropped in v6).
+- **Half-year product results talk (15 min).** Deck «Розвиток продуктів» v7 (26 slides, UA, GigaCloud template, 2026-11-12).
+  - Order: strategy 2026 as a nested goal table that builds on click → IaaS → Resell + Prof Services (VCFaaS here) → Business efficiency (PLM and margin). The lost-deal analysis is out of the talk, its slide and its strategy-row mention alike.
   - IaaS: a navigation slide over its three goals; before each goal, a sub-header with that goal highlighted; a slide per done initiative; a «Що далі» roadmap per goal.
   - Every project slide carries problem → solution → one plain visual of the change or its proof → value. The proof numbers stay on the slide (11 S3 clients with Cubbit's logo, OpenStack ~15 % cheaper than VMware and from 3–4 nodes); the technical details sit in the speaker notes. Each initiative has a tag (Запуск продукту / Оновлення продукту / Product operations).
   - Live file on the MacBook Air Desktop (not committed); toolchain and conventions in the [handoff](docs/h1-results-deck/HANDOFF.md).
-  - Next: Alex reviews v6 and answers the open items below. Owner: Mine. (chat, 2026-11-12)
+  - Next: Alex reviews v7 and answers the open items below. Owner: Mine. (chat, 2026-11-12)
 - **Product team restructure — CPO part-time.** Plan for Q3'FY2026 and after, the four projects Alex keeps, the margin roadmap by owner and the NOW → TO BE split of the product function are in a 10-slide UA deck (2026-10-16 / 10-20), with Alex's CA ↔ Kyiv availability (overlap 07:00–09:00 CA = 17:00–19:00 Kyiv). Next: Alex's part-time terms, Edik's offer, talks with Edik / the product team / leadership, the «Прибутковість / маржинальність / ефективність» owner, the org-structure decision, vacancies. Owner: Mine. → [product-team-structure](product-team-structure.md)
 - **Catalog ↔ Billing integration — requirements scoping.** Working session (2026-07-21) scoped the business scenarios / edge cases for syncing catalog changes into Billing. Three layers named: (1) catalog data model, (2) an intermediate proxy model in CREASHO that reshapes catalog data into Billing format, (3) business scenarios — this call targeted layer 3. Complexity clusters around **price changes** (transactional model mismatch, GAF/government products, price-upon-request, quote-only, repricing existing customers, per-customer fixed prices). Guidance from Speaker B: don't re-invent the existing working mapping — describe already-implemented scenarios high-level, write a detailed per-scenario flow table only for price changes. → next: Alex collects/structures everything, reviews fresh, returns to Speaker B for clarifications, then takes it to Zhenya (object model + field-level mapping owner). Owner: Mine. [call](calls/other/2026-07-21_180038_default_202607171304495CACCF1A.md)
   - _possible subproject: catalog↔billing integration? — promote to its own page on the next artifact._
@@ -61,7 +61,7 @@ _source files: `~/Desktop/GigaCloud/` on Alex's MacBook Air (live plan + results
   - Confirm which VCFaaS scheme is current (hardware lease or not) and that the evoila partner contract is signed.
   - Confirm that Azure Local is back in active sale after its repackaging.
   - Check the proposed tags and the inferred wording: the vCluster, storage-performance and Private S3 one-liners, and four value tiles.
-  - Replace the OpenStack «~15%» estimate when the weekly's price comparison lands; decide whether «Аналіз програних угод» stays in the strategy slide's Data-driven row now that its slide is gone.
+  - Replace the OpenStack «~15%» estimate when the weekly's price comparison lands.
 - Mine — collect + structure the shared requirements, review fresh, clarify with Speaker B, take to Zhenya (no firm date). [call](calls/other/2026-07-21_180038_default_202607171304495CACCF1A.md)
 - Open — GAF/government products: decide whether Billing gets a parent/child concept or treats GAF as a black box (avoid duplicating ~20 files per GAF product).
 - Open — per-customer fixed/frozen prices: decide whether Billing must know or CRM stays master (mechanism being designed with Lyubomir).
@@ -71,7 +71,7 @@ _source files: `~/Desktop/GigaCloud/` on Alex's MacBook Air (live plan + results
 
 ## Activity
 
-- 2026-11-12 — [half-year results deck v6](docs/h1-results-deck/HANDOFF.md) — 26 slides on Alex's fourth round. OpenStack shows its price gap to VMware and its 3–4-node minimum instead of invented segment variants. Public S3 shows its 11 clients and Cubbit's real logo instead of the protection tiers. The pricing problem is in Alex's words, the USD scheme says «Ціна продажу», and the lost-deals slide is gone. (chat)
+- 2026-11-12 — [half-year results deck v6 → v7](docs/h1-results-deck/HANDOFF.md) — 26 slides on Alex's fourth round; v7 also drops the lost-deal analysis from the strategy slide. OpenStack shows its price gap to VMware and its 3–4-node minimum instead of invented segment variants. Public S3 shows its 11 clients and Cubbit's real logo instead of the protection tiers. The pricing problem is in Alex's words, the USD scheme says «Ціна продажу», and the lost-deals slide is gone. (chat)
 - 2026-11-12 — [half-year results deck v5](docs/h1-results-deck/HANDOFF.md) — 27 slides on Alex's third round. Project slides cut to problem → solution → plain visual → value, with details in the notes. Each IaaS goal got a sub-header and a goal strip in its headers. VCFaaS moved to Resell, the government and VCFaaS slides were reframed, and the strategy slide is animated. (chat)
 - 2026-11-10 — [half-year results deck v4](docs/h1-results-deck/HANDOFF.md) — diversification in two directions (from Broadcom; from selling VMs to Kubernetes) on the roadmap (v3) and on the strategy and IaaS navigation slides (v4). v2 (24 UA slides) on Alex's feedback: status and roadmap colour-coded as different slide types (done green, next blue), neutral tags, much shorter project text, the CRM checklist on the PLM slide, no closing slide; v1 (25 slides, after a fresh-eyes content review: VCFaaS v.2, the partner is evoila) earlier the same day. (chat)
 - 2026-10-16 — [product-team restructure deck v1](product-team-structure.md) — 8-slide UA proposal from Alex's Miro board + his next steps; the margin project as a Gantt. (chat)

@@ -1,6 +1,6 @@
 # Half-year product results deck — handoff
 
-_Rewritten 2026-11-12 on Alex's MacBook Air, when v6 was delivered. In v6 OpenStack shows the price gap to VMware and the smallest cluster, Public S3 shows its 11 clients and Cubbit's logo, the pricing problem is in Alex's words, the USD scheme says «Ціна продажу», and the lost-deals slide is gone. v5 had cut every project slide to problem, solution, one plain visual and value. Read fully before touching the deck._
+_Rewritten 2026-11-12 on Alex's MacBook Air, when v7 was delivered. v7 changes only the strategy slide's Data-driven row, which no longer lists the lost-deal analysis. In v6 OpenStack shows the price gap to VMware and the smallest cluster, Public S3 shows its 11 clients and Cubbit's logo, the pricing problem is in Alex's words, the USD scheme says «Ціна продажу», and the lost-deals slide is gone. v5 had cut every project slide to problem, solution, one plain visual and value. Read fully before touching the deck._
 
 ⛔ GigaCloud = internal-only area. The deck is internal; nothing from it goes into external-facing artifacts.
 
@@ -8,9 +8,9 @@ _Rewritten 2026-11-12 on Alex's MacBook Air, when v6 was delivered. In v6 OpenSt
 
 | Deck | State | Live copy (Alex hand-edits it — living-documents rule) | In this repo |
 |---|---|---|---|
-| **Розвиток продуктів** — `GigaCloud_Product Results H1_10-NOV-2026 (v6).pptx`: the product team's half-year achievements and plans, for Alex's 15-minute talk | v6, 26 slides, UA (2026-11-12); v1–v5 kept beside it | MacBook Air: `~/Desktop/GigaCloud/` | **not committed** (internal commercial detail: vendor contract dates, margin model, a CRM screenshot) |
+| **Розвиток продуктів** — `GigaCloud_Product Results H1_10-NOV-2026 (v7).pptx`: the product team's half-year achievements and plans, for Alex's 15-minute talk | v7, 26 slides, UA (2026-11-12); v1–v6 kept beside it | MacBook Air: `~/Desktop/GigaCloud/` | **not committed** (internal commercial detail: vendor contract dates, margin model, a CRM screenshot) |
 
-**Deck map (v6)**, as the brief orders it:
+**Deck map (v7)**, as the brief orders it:
 1. Cover «Розвиток продуктів · Досягнення за півріччя і плани · Листопад 2026».
 2. «Загальна стратегія 2026»: the Miro goal tree as a nested table. Pillars GTM and Business efficiency, blocks IaaS / Resell / Services, seven goals with «Мета» and «Що робимо», an icon on every pillar, block and goal. IaaS order per the brief: cost-ефективність → диверсифікація → розвиток продуктів на запит ринку і sales enablement (the last merges two Miro leaves).
    - Animated on click: first the pillars and blocks, then one goal row per click; the column headers come with the first row. Eight clicks in all.
@@ -69,7 +69,7 @@ Every slide's speaker notes carry:
 
     Edit text there. The lost-deals slide's data (`BE['lost']`) is kept but not built.
   - `build_h1.py <base.pptx> <out.pptx>` builds the deck on `../plm/base_margin_v25.pptx`, the GigaCloud 2× template whose cover it reuses. Shared helpers come from `../plm/gclib.py`.
-  - `h1_data_v<N>.py` / `build_h1_v<N>.py` reproduce v1–v5. `build_h1_v5.py` imports `h1_data_v5` itself. For v1–v4, pair the files by hand.
+  - `h1_data_v<N>.py` / `build_h1_v<N>.py` reproduce v1–v6. `build_h1_v5.py` and `build_h1_v6.py` import their own data files. For v1–v4, pair the files by hand.
   - `compare_decks.py <his.pptx> <build.pptx>` tells whether a delivered file was hand-edited (exit 0 = no content edits).
   - A roadmap in `ROADMAPS` takes either `items` or `groups` = [(group title, items)]. Each group gets a blue caps header with a hairline, and the rows shrink to make room.
   - `iaas_nav_slide(active)` draws the navigation slide. With a goal key it draws that goal's sub-header instead.
@@ -95,7 +95,7 @@ Every slide's speaker notes carry:
   PowerPoint ignores U+2060 (word joiner), so a numeric range like «17,5–35» still breaks after its dash. Rephrase ranges in running text.
 - **After delivery Alex owns the file.** Never regenerate over his edits; check first whether the Desktop copy still matches the build.
   - A plain `cmp` is not enough: PowerPoint re-serialises every part on save, dropping empty runs, merging same-format runs and rewriting group transforms.
-  - Compare shapes, geometry, normalised runs and notes instead (`compare_decks.py`). v2's re-save, v3, v4 and v5 had no content edits.
+  - Compare shapes, geometry, normalised runs and notes instead (`compare_decks.py`). v2's re-save and v3–v6 had no content edits.
   - If he has edited it, build only the changed slides and clone them into his file (the margin deck's transplant approach, `../margin-deck/HANDOFF.md`).
 
 ## Conventions
@@ -121,6 +121,7 @@ The general rules are in `.claude/references/slide-design.md`; rules 35–39 com
 
 ## Decisions
 
+- **v7, Alex (2026-11-12):** the lost-deal analysis leaves the talk entirely. The strategy slide's Data-driven row («Що робимо») now reads «Реальна маржинальність продуктів», the margin slide's own title.
 - **v6, Alex (2026-11-12):**
   - **OpenStack:** there are no Large / Middle Enterprise variants. The slide gives the smallest cluster (3–4 nodes) and the average price gap to VMware: about 15 % cheaper, Alex's estimate;
   - **Public S3:** 11 clients already use it, and Cubbit's real logo shows the technology it is built on. The protection tiers are off the slide;
@@ -151,7 +152,6 @@ The general rules are in `.claude/references/slide-design.md`; rules 35–39 com
 
 ## Open items for Alex
 
-- **Strategy slide:** the Data-driven row still lists «Аналіз програних угод» under «Що робимо», though its slide is gone. It is still part of the goal; drop it there too if the talk should not mention it.
 - **OpenStack «~15%»** is Alex's estimate. Weekly has a price comparison of VMware / Azure Local / OpenStack still in preparation; replace the figure when it lands. «3–4 ноди» is the sales deck's minimum cluster.
 - **Cubbit's wordmark** is drawn dark for the white slide. The site shows it light on dark backgrounds, with the cube in the same blue.
 - **VCFaaS:** weekly 28.10 says the v.2 model needs no lease of the customer's hardware and that licences come through evoila from 1 November. Alex's framing (12.11) has the leasing scheme under the hood. The notes follow Alex; confirm which scheme is current and that the partner contract is signed.
