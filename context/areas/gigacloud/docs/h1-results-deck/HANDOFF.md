@@ -1,6 +1,6 @@
 # Half-year product results deck — handoff
 
-_Rewritten 2026-11-12 on Alex's MacBook Air, when v5 was delivered: every project slide cut to problem, solution, one plain visual and value; the government and VCFaaS slides reframed; VCFaaS moved to Resell; a sub-header before each IaaS goal and the goal strip in every IaaS header; the strategy slide animated. Read fully before touching the deck._
+_Rewritten 2026-11-12 on Alex's MacBook Air, when v6 was delivered. In v6 OpenStack shows the price gap to VMware and the smallest cluster, Public S3 shows its 11 clients and Cubbit's logo, the pricing problem is in Alex's words, the USD scheme says «Ціна продажу», and the lost-deals slide is gone. v5 had cut every project slide to problem, solution, one plain visual and value. Read fully before touching the deck._
 
 ⛔ GigaCloud = internal-only area. The deck is internal; nothing from it goes into external-facing artifacts.
 
@@ -8,28 +8,31 @@ _Rewritten 2026-11-12 on Alex's MacBook Air, when v5 was delivered: every projec
 
 | Deck | State | Live copy (Alex hand-edits it — living-documents rule) | In this repo |
 |---|---|---|---|
-| **Розвиток продуктів** — `GigaCloud_Product Results H1_10-NOV-2026 (v5).pptx`: the product team's half-year achievements and plans, for Alex's 15-minute talk | v5, 27 slides, UA (2026-11-12); v1–v4 kept beside it | MacBook Air: `~/Desktop/GigaCloud/` | **not committed** (internal commercial detail: vendor contract dates, margin model, a CRM screenshot) |
+| **Розвиток продуктів** — `GigaCloud_Product Results H1_10-NOV-2026 (v6).pptx`: the product team's half-year achievements and plans, for Alex's 15-minute talk | v6, 26 slides, UA (2026-11-12); v1–v5 kept beside it | MacBook Air: `~/Desktop/GigaCloud/` | **not committed** (internal commercial detail: vendor contract dates, margin model, a CRM screenshot) |
 
-**Deck map (v5)**, as the brief orders it:
+**Deck map (v6)**, as the brief orders it:
 1. Cover «Розвиток продуктів · Досягнення за півріччя і плани · Листопад 2026».
 2. «Загальна стратегія 2026»: the Miro goal tree as a nested table. Pillars GTM and Business efficiency, blocks IaaS / Resell / Services, seven goals with «Мета» and «Що робимо», an icon on every pillar, block and goal. IaaS order per the brief: cost-ефективність → диверсифікація → розвиток продуктів на запит ринку і sales enablement (the last merges two Miro leaves).
    - Animated on click: first the pillars and blocks, then one goal row per click; the column headers come with the first row. Eight clicks in all.
 3. Section «IaaS» (red full-bleed, a "you are here" strip of the three sections).
 4. «Три цілі IaaS»: three buckets, each with an icon, «ЦІЛЬ N», the goal and a one-line purpose.
 5. Sub-header for goal 1 (the same slide with that goal outlined and the other two greyed out).
-   - 6–8: Гнучкі конфігурації заліза · Private Cloud on OpenStack · Advanced Memory Tiering.
+   - 6: Гнучкі конфігурації заліза.
+   - 7: Private Cloud on OpenStack: a bar of the client's price against VMware («~15% дешевше», on average) and the smallest cluster, «3–4 ноди».
+   - 8: Advanced Memory Tiering.
    - 9: «Що далі».
 10. Sub-header for goal 2.
    - 11: Private Cloud on OpenStack і Azure Local.
    - 12: «Що далі» in two groups: «Диверсифікація від Broadcom» (licences through evoila, readiness to migrate customers off VMware) and «Диверсифікація від продажу VM на користь Kubernetes» (Private Kubernetes by vCluster).
 13. Sub-header for goal 3.
-   - 14–16: Public S3 Storage · Ціни під квоту і складські ціни · Продукти для держзамовників.
+   - 14: Public S3 Storage: «11 клієнтів уже користуються» and «Побудовано на технології» with Cubbit's logo.
+   - 15–16: Ціни під квоту і складські ціни · Продукти для держзамовників.
    - 17: «Що далі».
 18. Section «Resell + Prof Services».
    - 19–22: Ресел Microsoft Azure і AWS · Модель VCFaaS · Ціни в USD для ліцензій · Security Authorization Services.
    - 23: «Що далі».
 24. Section «Business efficiency».
-   - 25–27: Аналіз причин програних угод · Оновлений PLM: публікація продуктів (with the CRM checklist screenshot) · Реальна маржинальність продуктів.
+   - 25–26: Оновлений PLM: публікація продуктів (with the CRM checklist screenshot) · Реальна маржинальність продуктів.
 
 No closing slide.
 
@@ -37,17 +40,23 @@ No closing slide.
 - The brief: Google Doc «Бріф», id `1UO0z-rR-pOgV1WqFuaQPTP1vsmGIGayI4qGGmUz27zM`, with the Miro goal tree.
 - `~/Documents/GigaCloud context/` on the MacBook Air:
   - Product Catalog Updates Feb–May and Jun–Aug 2026 (PDF emails);
-  - «Product presentation.pptx» (sales update, source of the 3D product images);
+  - «Product presentation.pptx» (sales update, source of the 3D product images and the OpenStack «Min кластер 3–4 ноди»);
   - «MNC+GOV.pptx» (Security Authorization Services, Azure / AWS resell, Advanced Compliance);
   - «Оновлення приватних хмар VMware vSAN та Azure Local.pptx»;
   - «Weekly meetings.pptx» (status to 28.10.2026);
   - the margin-results and publication-process decks.
-- Alex in chat, 2026-11-12: the government and VCFaaS framing below.
+- Alex in chat, 2026-11-12:
+  - the government and VCFaaS framing below;
+  - Public S3 has 11 clients;
+  - OpenStack is about 15 % cheaper on average. This is his estimate: no source in the materials has an exact comparison;
+  - there are no OpenStack variants for Large / Middle Enterprise;
+  - the pricing problem wording.
+- Cubbit's logo: cubbit.io (the site's own vector logo; cubbit.io/press carries news of the GigaCloud partnership).
 
 Every slide's speaker notes carry:
 - its talk track and sources;
 - what is inferred;
-- every detail the slide leaves out (specs, node counts, ratios, hours, tier names, locations, conditions), so Alex has them for questions.
+- every detail the slide leaves out (specs, ratios, hours, tier names, locations, conditions), so Alex has them for questions.
 
 ## How it is built
 
@@ -58,16 +67,17 @@ Every slide's speaker notes carry:
     - the Business-efficiency slides, the roadmaps, the section subtitles;
     - the sub-header notes (`SUB_NOTES`).
 
-    Edit text there.
+    Edit text there. The lost-deals slide's data (`BE['lost']`) is kept but not built.
   - `build_h1.py <base.pptx> <out.pptx>` builds the deck on `../plm/base_margin_v25.pptx`, the GigaCloud 2× template whose cover it reuses. Shared helpers come from `../plm/gclib.py`.
-  - `h1_data_v<N>.py` / `build_h1_v<N>.py` reproduce v1–v4.
+  - `h1_data_v<N>.py` / `build_h1_v<N>.py` reproduce v1–v5. `build_h1_v5.py` imports `h1_data_v5` itself. For v1–v4, pair the files by hand.
   - `compare_decks.py <his.pptx> <build.pptx>` tells whether a delivered file was hand-edited (exit 0 = no content edits).
   - A roadmap in `ROADMAPS` takes either `items` or `groups` = [(group title, items)]. Each group gets a blue caps header with a hairline, and the rows shrink to make room.
   - `iaas_nav_slide(active)` draws the navigation slide. With a goal key it draws that goal's sub-header instead.
   - `goal_strip()` draws the three goal icons in the kicker row of every IaaS slide, and on the blue band of the IaaS roadmaps.
   - The strategy slide's parts are grouped (`group_since`), and `add_click_fades` writes the click animation as the XML PowerPoint itself writes for a Fade entrance.
+  - `vector_logo()` draws a filled vector logo as native shapes, one per SVG path and one colour per path. Cubbit's logo comes from `img/logo_cubbit_paths.json`: its path data only, extracted from the cubbit.io footer SVG and validated. The cube is in Cubbit blue `0065FF` and the wordmark in the deck's ink.
 - **Render:** `PY=python3 zsh ~/Desktop/GigaCloud/toolchain/pp_render.sh <deck> <outdir> 80 [pages]` (PowerPoint → PDF → PNG + contact sheets; system python3 has PyMuPDF). The PDF shows every animated shape.
-- **Animation check:** `zsh ~/Desktop/GigaCloud/toolchain/anim_check.sh <deck> <slide#>` opens a copy in PowerPoint and lists the slide's main-sequence effects in order. v5's slide 2 has nine effects: blocks, goal 1, the column headers (with goal 1), then goals 2–7.
+- **Animation check:** `zsh ~/Desktop/GigaCloud/toolchain/anim_check.sh <deck> <slide#>` opens a copy in PowerPoint and lists the slide's main-sequence effects in order. Slide 2 has nine effects: blocks, goal 1, the column headers (with goal 1), then goals 2–7.
 - **Icons:** Tabler Icons 3.31.0 (MIT), outline SVGs in `h1/icons/` (downloaded from cdn.jsdelivr.net with Alex's OK, 2026-11-10).
   - `h1/tabler.py` converts each SVG path into a native, stroke-only custom shape (arcs → Béziers), grouped per icon. Recolour it by line colour; resize it freely.
   - To add an icon, put `<name>.svg` from the same Tabler version into `icons/` and call `tabler.badge(...)` / `tabler.glyph(...)`.
@@ -75,30 +85,32 @@ Every slide's speaker notes carry:
   - The 3D product renders (disk, RAM, server, cloud) and the GigaCloud logo come from «Product presentation.pptx». The builder trims their transparent margins into `h1/img/_crop/`.
   - The PLM slide's checklist is `../plm/img/product_checklist.png` (the publication deck's edited capture), cropped to its counters and first six rows.
 - **Text that wraps lives in one text box per column** (labels, paragraphs, bulleted lists as paragraphs). PowerPoint flows it, so an edited line never collides with the next block. List bullets: Wingdings ✓ (done, green) and Arial → (next, blue), both cross-platform.
-- **Line-break hygiene:** `build_h1.py` extends gclib's non-breaking rules:
+- **Line-break hygiene** (slide-design rule 18): `build_h1.py` extends gclib's non-breaking rules:
   - a number never splits from its unit (TB, GB, год, нод, %, 50 000);
   - «№ 712» and «vSphere 9» stay together;
-  - a dash never starts a line.
+  - a dash never starts a line;
+  - a one-letter word (в, у, і, з, й, а, о) binds to the next word;
+  - `widow()` keeps the last two words of every problem / solution line together. It applies only to those lines, because a binding in a narrow label forces a mid-word break.
 
   PowerPoint ignores U+2060 (word joiner), so a numeric range like «17,5–35» still breaks after its dash. Rephrase ranges in running text.
 - **After delivery Alex owns the file.** Never regenerate over his edits; check first whether the Desktop copy still matches the build.
   - A plain `cmp` is not enough: PowerPoint re-serialises every part on save, dropping empty runs, merging same-format runs and rewriting group transforms.
-  - Compare shapes, geometry, normalised runs and notes instead (`compare_decks.py`). v2's re-save, v3 and v4 had no content edits.
+  - Compare shapes, geometry, normalised runs and notes instead (`compare_decks.py`). v2's re-save, v3, v4 and v5 had no content edits.
   - If he has edited it, build only the changed slides and clone them into his file (the margin deck's transplant approach, `../margin-deck/HANDOFF.md`).
 
 ## Conventions
 
 The general rules are in `.claude/references/slide-design.md`; rules 35–39 come from this deck.
-- **A project slide carries four things** (rule 37, Alex 2026-11-12):
-  - «Проблема» and «Рішення», one short line each, told from the customer's side;
-  - one plain visual of the change: before → after, who it is for, how the parts connect, in a few words;
+- **A project slide carries four things** (rule 37):
+  - «Проблема» and «Рішення», one short line each, told from the customer's side, the problem in the words of the everyday pain;
+  - one plain visual of the change or its proof: before → after, the price gap, the clients already using it, how the parts connect;
   - the «Цінність для бізнесу» band with two tiles.
 
-  Specs, internals and fine print go to the notes.
+  Specs, internals and fine print go to the notes. The proof numbers stay on the slide: client count, price gap, smallest configuration and the partner's real logo.
 - **Colour code = status only.**
   - Done = green (`2E8540`): a «✓ Зроблено» pill on every done slide, green ✓ lists.
   - Next = blue (`1F5FA8`). Roadmap slides get a full-width blue header band, blue icon badges, blue left accent bars on the rows and a status pill (В роботі / Заплановано). Business-efficiency slides set the «В роботі» list in blue with → bullets.
-  - Red stays the brand: kickers, icons on done slides, the value band, «Стало» / «Тепер» in before → after visuals (grey = before).
+  - Red stays the brand: kickers, icons on done slides, the value band, «Стало» / «Тепер» / OpenStack in before → after visuals (grey = before or the alternative).
 - **Tags are neutral peers.** One light-grey chip style (`EFEFEF`, dark text) serves Запуск продукту (rocket), Оновлення продукту (refresh) and Product operations (gear). Each initiative has one tag: at the right end of the kicker row on done slides, at the right of each roadmap row.
 - **Where you are in IaaS** (rule 39):
   - a sub-header before each goal: the navigation slide with that goal outlined in red and the other two greyed out, in identical geometry;
@@ -109,6 +121,12 @@ The general rules are in `.claude/references/slide-design.md`; rules 35–39 com
 
 ## Decisions
 
+- **v6, Alex (2026-11-12):**
+  - **OpenStack:** there are no Large / Middle Enterprise variants. The slide gives the smallest cluster (3–4 nodes) and the average price gap to VMware: about 15 % cheaper, Alex's estimate;
+  - **Public S3:** 11 clients already use it, and Cubbit's real logo shows the technology it is built on. The protection tiers are off the slide;
+  - the pricing problem reads «Один прайс на все залізо, все інше — через листування, кожен раз індивідуально»;
+  - the USD scheme labels the sale side «Ціна продажу»;
+  - the lost-deals slide («Аналіз причин програних угод») is removed.
 - **v5, Alex (2026-11-12):**
   - a sub-header before each IaaS goal, with the current goal highlighted and the others greyed out, and the current goal referenced in every header;
   - VCFaaS moves to Resell; the strategy row «Зростання через ресел» now reads «Azure і AWS, VCFaaS, ціни в USD»;
@@ -133,6 +151,9 @@ The general rules are in `.claude/references/slide-design.md`; rules 35–39 com
 
 ## Open items for Alex
 
+- **Strategy slide:** the Data-driven row still lists «Аналіз програних угод» under «Що робимо», though its slide is gone. It is still part of the goal; drop it there too if the talk should not mention it.
+- **OpenStack «~15%»** is Alex's estimate. Weekly has a price comparison of VMware / Azure Local / OpenStack still in preparation; replace the figure when it lands. «3–4 ноди» is the sales deck's minimum cluster.
+- **Cubbit's wordmark** is drawn dark for the white slide. The site shows it light on dark backgrounds, with the cube in the same blue.
 - **VCFaaS:** weekly 28.10 says the v.2 model needs no lease of the customer's hardware and that licences come through evoila from 1 November. Alex's framing (12.11) has the leasing scheme under the hood. The notes follow Alex; confirm which scheme is current and that the partner contract is signed.
 - **Azure Local:** the brief lists it as done; the Jun–Aug digest put it into Draft for repackaging, and weekly 28.10 still had sales / presales training open (finish 02.11). Confirm it is back in active sale; the card says «Нова платформа».
 - **Low-cost залізо:** weekly 1.1.2 (used hardware) has been on pause since September; the roadmap keeps it «В роботі», as the brief does.
@@ -140,5 +161,5 @@ The general rules are in `.claude/references/slide-design.md`; rules 35–39 com
 - **Inferred wording** (marked in the notes):
   - the one-liners of Private Kubernetes by vCluster, Продуктивність СЗД and Private S3 Storage;
   - several problem statements;
-  - the value tiles «Ширший ринок» (OpenStack), «Швидша пропозиція» (government), «Додаткова виручка» and «Утримуємо клієнтів» (VCFaaS).
+  - the value tiles «Конкурентна ціна» (OpenStack), «Швидша пропозиція» (government), «Додаткова виручка» and «Утримуємо клієнтів» (VCFaaS).
 - **AI Implementation Services** (weekly 4.1 / 4.2) is not in the brief, so the deck leaves it out. Its note on the Resell + Prof Services roadmap gives a one-line answer if asked.
