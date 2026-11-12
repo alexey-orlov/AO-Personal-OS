@@ -108,6 +108,9 @@ deck or one-pager work.
     non-breaking space forces a mid-word break («Direct CO / GS»); use an explicit line break there.
     Multi-step formulas go one step per line, never one operand per line. Titles on section slides
     break by hand before the preposition («… бюджету / за типами»), never leaving an orphan word.
+    In Ukrainian body text a one-letter word (в, у, і, з, й, а, о) binds to the next word, and a sentence
+    of four words or more ends on two words, never one («прямо / в CRM.», not «прямо в / CRM.»). Keep that
+    binding out of two- and three-word labels in narrow boxes, where it forces a mid-word break («Нова модел / ь»).
 19. **A worked-example table shows exactly what the result is computed from, in formula order, and
     the numbers live in the table, not in notes** (2026-09-27, Alex on the Sales-data slide).
     - Trace the source formula backwards from the result cell. Cut every row or column that is not
@@ -306,20 +309,27 @@ deck or one-pager work.
       never left as one flat list that hides the logic (2026-11-10, Alex: «пункти 1 і 3 — диверсифікація від Broadcom,
       пункт 2 — від продажу VM на користь K8s»).
     - A slide that mixes both colours its done and next parts by the same code.
-37. **An initiative slide in a time-boxed talk carries four things: problem, solution, one plain visual of the change, value**
-    (2026-11-10 and 2026-11-12, same deck: «в блоках проблема — рішення можна все робити набагато коротше… частина справа self
-    explanatory і текст лише створює шум»; then, on the next version: «перевантажені деталями (особливо в правій частині)… будь-які
-    технічні деталі, особливості, внутрянку — опускаємо. У нас 15 хвилин»).
-    - The problem is one short line (≤ ~12 words); the solution names the change in one line. Never restate in prose what the
-      picture shows.
-    - The visual shows the change itself in a few words: before → after, who it is for, how the parts connect. A table of
-      parameters is not a visual. Specs, counts, ratios, hours, tier and framework names, locations, conditions, UI paths and
-      fine-print lines go to the speaker notes, where the presenter has them for questions.
-    - Tell the problem and the solution from the customer's side: who they are, what they could not do, what they can do now.
-      The internal mechanism (a leasing scheme, a contract model, a partner) goes to the notes.
-    - Never turn a change to an existing offer into a market claim («новий сегмент», new revenue) unless a source says so. An
-      inferred novelty claim is the likeliest to be wrong (2026-11-12: the «new» government segment was an old one whose prices
-      used to be calculated case by case and often came out higher).
+37. **An initiative slide in a time-boxed talk carries four things: problem, solution, one plain visual of the change or its
+    proof, value** (2026-11-10 and 2026-11-12, same deck: «в блоках проблема — рішення можна все робити набагато коротше… частина
+    справа self explanatory і текст лише створює шум»; on v4: «будь-які технічні деталі, особливості, внутрянку — опускаємо. У нас 15
+    хвилин»; on v5: «дай інфо про мін. кількість нод + на скільки % в середньому дешевше», «напиши, що вже є 11 клієнтів… + реальний
+    логотип вендора… Рівні захисту прибираємо»).
+    - The problem is one short line in the words of the everyday pain («все інше — через листування, кожен раз індивідуально»),
+      not one mechanism detail («ліміт знижки — через PM»). The solution names the change in one line. Never restate in prose
+      what the picture shows.
+    - The visual shows the change or its proof: before → after, the price gap, the clients already using it, how the parts
+      connect. A table of parameters or a ladder of feature tiers is not a visual.
+    - Cut what explains how it works; keep what proves it matters. Specs, ratios, hours, tier and framework names, locations,
+      conditions, UI paths and fine print go to the speaker notes. The numbers a manager asks first stay on the slide: how many
+      clients already use it, the price gap to the alternative, the smallest configuration, and the technology partner, shown
+      by its real logo (rule 33).
+    - Tell the problem and the solution from the customer's side; the internal mechanism (a leasing scheme, a contract model)
+      goes to the notes.
+    - Never invent a structure or a claim to fill a visual: product variants, tiers or segments, «новий сегмент», new revenue —
+      only when a source sells the thing as such (2026-11-12: the «new» government segment was an old one whose prices used to
+      be calculated case by case; the OpenStack «versions for Large and Middle Enterprise» do not exist, the sales deck's
+      target-client row was not a product split).
+    - A label on a scheme names the thing that carries the value shown: «Ціна продажу», not «Продаж», over a currency.
 38. **No closing «Дякую / Питання» slide**: Alex's decks end on their last content slide (2026-11-10).
 39. **A section with several goals gives each goal a sub-header and keeps the current goal visible in every header** (2026-11-12,
     same deck: «слайди всіх трьох цілей ідуть підряд і складно зрозуміти, що до чого відноситься»).
