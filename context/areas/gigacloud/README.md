@@ -48,6 +48,7 @@ _source files: `~/Desktop/GigaCloud/` on Alex's MacBook Air (live plan + results
 
 ## Decisions
 
+- 2026-11-12 — Results deck: a project slide carries only problem, solution, a plain visual and value, with technical detail in the notes; VCFaaS belongs to Resell; government customers are shown as an existing segment that now gets ready prices. [handoff](docs/h1-results-deck/HANDOFF.md)
 - 2026-10-11 — Publication-process deck: the stage after publication is named «Готовність команд»; stage 4 (changes during product life) gets only a sub-header for now; action plan drafted for Alex's edit. [publication-process](publication-process.md)
 - 2026-09-26 — Component allocation spreads bucket costs by Direct COGS, never by price; results-deck rulings (no ФОТ sums, tree counts 11/54, «Allocation methods» as authority, 82 products). [pricing-unit-economics](pricing-unit-economics.md)
 - 2026-08-27 — Cost-allocation approach: ONE method (causal-level allocation + margin-stack recovery), not two; day-0 pricing design validated with legacy kept in denominators; resell exempt from overhead/CtS loading; Billing dept = transactional → per-line COGS charge. [pricing-unit-economics](pricing-unit-economics.md)
@@ -55,7 +56,10 @@ _source files: `~/Desktop/GigaCloud/` on Alex's MacBook Air (live plan + results
 
 ## Open loops
 
-- Mine — results deck before the talk: confirm VCFaaS v.2 orders through the partner evoila started 1 Nov, that Azure Local is back in active sale after its repackaging, and check the proposed tags and the inferred one-liners (vCluster, storage performance, Private S3). [handoff](docs/h1-results-deck/HANDOFF.md) (chat, 2026-11-10)
+- Mine — results deck before the talk. [handoff](docs/h1-results-deck/HANDOFF.md) (chat, 2026-11-12)
+  - Confirm which VCFaaS scheme is current (hardware lease or not) and that the evoila partner contract is signed.
+  - Confirm that Azure Local is back in active sale after its repackaging.
+  - Check the proposed tags and the inferred wording: the vCluster, storage-performance and Private S3 one-liners, and four value tiles.
 - Mine — collect + structure the shared requirements, review fresh, clarify with Speaker B, take to Zhenya (no firm date). [call](calls/other/2026-07-21_180038_default_202607171304495CACCF1A.md)
 - Open — GAF/government products: decide whether Billing gets a parent/child concept or treats GAF as a black box (avoid duplicating ~20 files per GAF product).
 - Open — per-customer fixed/frozen prices: decide whether Billing must know or CRM stays master (mechanism being designed with Lyubomir).
@@ -65,6 +69,7 @@ _source files: `~/Desktop/GigaCloud/` on Alex's MacBook Air (live plan + results
 
 ## Activity
 
+- 2026-11-12 — [half-year results deck v5](docs/h1-results-deck/HANDOFF.md) — 27 slides on Alex's third round. Project slides cut to problem → solution → plain visual → value, with details in the notes. Each IaaS goal got a sub-header and a goal strip in its headers. VCFaaS moved to Resell, the government and VCFaaS slides were reframed, and the strategy slide is animated. (chat)
 - 2026-11-10 — [half-year results deck v4](docs/h1-results-deck/HANDOFF.md) — diversification in two directions (from Broadcom; from selling VMs to Kubernetes) on the roadmap (v3) and on the strategy and IaaS navigation slides (v4). v2 (24 UA slides) on Alex's feedback: status and roadmap colour-coded as different slide types (done green, next blue), neutral tags, much shorter project text, the CRM checklist on the PLM slide, no closing slide; v1 (25 slides, after a fresh-eyes content review: VCFaaS v.2, the partner is evoila) earlier the same day. (chat)
 - 2026-10-16 — [product-team restructure deck v1](product-team-structure.md) — 8-slide UA proposal from Alex's Miro board + his next steps; the margin project as a Gantt. (chat)
 - 2026-10-12 — [publication-process deck v4](publication-process.md) — 56 slides on Alex's fourth feedback round (CRM checklist, stage headers, «Перед першим клієнтом», stage 4 and change types); v3 (46 slides) earlier the same day. (chat)
