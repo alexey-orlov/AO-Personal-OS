@@ -74,10 +74,12 @@ notes, Telegram research summaries. Distilled from his Claude-Chat instructions
   outreach): an artifact with search, filters, sorting and per-row status kept in its database
   (one enumerated status field, a free-text next step and notes), not a spreadsheet or a Markdown
   table. Publish it early with the account rows and fill each row in as its research lands. Each
-  row stays one scannable line: single numbers (headcount, team size), the lead recommendation,
-  counts by strength, the top names; everything else (lists, sources, method math, notes) opens
-  under "Show details" as a full-width panel below the row, never crammed into narrow columns
-  (Alex, 2026-11-13).
+  row stays one scannable line of single numbers (headcount, team size) and short summaries
+  written by hand, one or two dated facts in plain words that a colleague can read off the screen
+  (Alex shares them with account execs): never a truncated first list item, a count of items or
+  internal codes like S/M/W. Everything else (lists, sources, method math, notes) opens under "Show
+  details" as a full-width panel below the row, never crammed into narrow columns (Alex,
+  2026-11-13).
 
 ## Process
 
