@@ -88,6 +88,17 @@ notes, Telegram research summaries. Distilled from his Claude-Chat instructions
   or product materials, take the buyer, champion and learner personas from their profile slides,
   with the example titles they cite, and map them onto each target's own organisation. A generic
   role list is the fallback, never the starting point.
+- **Red-team account research before delivering it** (Alex, 2026-11-12, after asking for one): grade
+  every buying signal S / M / W against a written rubric (S = recent, explicit budget, intent or acute
+  pain in the exact workflow; job postings and company news are rarely S); check that every
+  recommendation uses the source decks' exact module names and only modules the decks mark ready; list the
+  personas each account still lacks; list every search a limit or a blocked page left undone, and finish
+  it. The first pass of the CA Jumpstart table had 7 of 13 angles leading with modules still in build.
+- **Team sizing triangulates three estimates** (Alex, 2026-11-12): a Sales Navigator count × sampled
+  precision × stale-profile and coverage factors; first principles from headcount or R&D spend; public
+  disclosures. Agreement within ~1.5× → their middle; when a low LinkedIn count meets a higher
+  first-principles figure, the count is a floor (it removes false matches but misses generic titles), so
+  the conclusion is the geometric middle with the range shown. Show all three figures, never one number.
 - **Named people at target accounts: Sales Navigator, read-only** (Alex, 2026-11-12): use his
   LinkedIn Sales Navigator through Claude in Chrome, one sequential agent at a human pace, from
   search-result cards only (opening a profile notifies the person); never connect, message, save
