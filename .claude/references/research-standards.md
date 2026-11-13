@@ -70,6 +70,10 @@ notes, Telegram research summaries. Distilled from his Claude-Chat instructions
   word-neutral or shorter.
 - For risk/decision questions: the call first (low / medium / high, yes / no / depends),
   then reasoning, then recommended action.
+- **A multi-account research table is an interactive page** (Alex, 2026-11-12, CA Jumpstart
+  outreach): an artifact with search, filters, sorting and per-row status kept in its database
+  (one enumerated status field, a free-text next step and notes), not a spreadsheet or a Markdown
+  table. Publish it early with the account rows and fill each row in as its research lands.
 
 ## Process
 
@@ -80,6 +84,14 @@ notes, Telegram research summaries. Distilled from his Claude-Chat instructions
   before proceeding.
 - Treat pushback as signal: the most common cause is inference stated as fact, or
   reasoning where a search was due. Recalibrate from the failed rule, don't re-defend.
+- **Personas come from the materials first** (Alex, 2026-11-12): when the request ships offer
+  or product materials, take the buyer, champion and learner personas from their profile slides,
+  with the example titles they cite, and map them onto each target's own organisation. A generic
+  role list is the fallback, never the starting point.
+- **Named people at target accounts: Sales Navigator, read-only** (Alex, 2026-11-12): use his
+  LinkedIn Sales Navigator through Claude in Chrome, one sequential agent at a human pace, from
+  search-result cards only (opening a profile notifies the person); never connect, message, save
+  or add to a list. Web sources cross-check; a name nobody can confirm stays out.
 
 ## Language
 
