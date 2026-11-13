@@ -73,7 +73,11 @@ notes, Telegram research summaries. Distilled from his Claude-Chat instructions
 - **A multi-account research table is an interactive page** (Alex, 2026-11-12, CA Jumpstart
   outreach): an artifact with search, filters, sorting and per-row status kept in its database
   (one enumerated status field, a free-text next step and notes), not a spreadsheet or a Markdown
-  table. Publish it early with the account rows and fill each row in as its research lands.
+  table. Publish it early with the account rows and fill each row in as its research lands. Each
+  row stays one scannable line: single numbers (headcount, team size), the lead recommendation,
+  counts by strength, the top names; everything else (lists, sources, method math, notes) opens
+  under "Show details" as a full-width panel below the row, never crammed into narrow columns
+  (Alex, 2026-11-13).
 
 ## Process
 
