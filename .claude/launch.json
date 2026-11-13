@@ -56,6 +56,15 @@
         "exec python3 -m http.server 8794 --bind 127.0.0.1 --directory \"${WC_MAP_SITE:-$HOME/Documents/GitHub/AO-Personal-OS/context/areas/relocation/docs/walnut-creek-map/site}\""
       ],
       "port": 8794
+    },
+    {
+      "name": "klod-game",
+      "runtimeExecutable": "bash",
+      "runtimeArgs": [
+        "-lc",
+        "exec python3 -m http.server 8797 --bind 127.0.0.1 --directory \"/private/tmp/claude-502/-Users-olekorlov-Documents-GitHub-AO-Personal-OS/b0daf5ac-17f3-4844-af4b-ff79f863a251/scratchpad\""
+      ],
+      "port": 8797
     }
   ]
 }
