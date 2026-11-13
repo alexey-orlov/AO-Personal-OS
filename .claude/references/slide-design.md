@@ -337,3 +337,14 @@ deck or one-pager work.
       others greyed out and faint. Keep the geometry identical on every copy, so only the highlight moves.
     - On every slide of the goal, the header carries the goals' icons as a strip, the current one in full colour, next to the
       goal's name. A goal name in small kicker text alone is not enough.
+40. **A one-pager for a time-poor reader is navigated, not read: one numbered anatomy, every item in a visual form** (2026-11-12, Alex on
+    the first Jumpstart seller one-pagers, which stacked lead paragraphs, bullet lists and cards in a different form per block: "I expect
+    very structured, visual one pager, it should be really easy to navigate, very systematic").
+    - Number the sections and run them down one fixed left rail: number badge, section title, and the reader's question the section
+      answers ("Why your client cares", "Whom to call first", "What it is worth"). The rail is the table of contents.
+    - Every section has the same anatomy (rail + content area, hairline between sections); the content takes the visual form its job needs:
+      icon cards for parallel items, a step flow for a sequence, a chain for cause and effect (process → baseline → gains → ROI), logo rows
+      for proof, persona cards for people, a price ladder for the deal.
+    - One pictogram family (one stroke weight, one style) carries the items; peer titles hold one line, peer texts two at most, and a
+      paragraph longer than one line is a sign the block has not found its form yet.
+    - Rule 9's variety lives inside the sections; the section anatomy itself never varies.
