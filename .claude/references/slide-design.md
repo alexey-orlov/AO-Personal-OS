@@ -348,3 +348,18 @@ deck or one-pager work.
     - One pictogram family (one stroke weight, one style) carries the items; peer titles hold one line, peer texts two at most, and a
       paragraph longer than one line is a sign the block has not found its form yet.
     - Rule 9's variety lives inside the sections; the section anatomy itself never varies.
+41. **Every slide element carries its message in the fewest words** (2026-11-13, Alex on the Jumpstart offering decks: "they are
+    overloaded with text; deliver concisely exactly the same messages and ideas, same narrative and accents, just with less words").
+    - Draft lean from the start: a card body is one short sentence, a cost or result line is a clause, a band is one line, and a caption
+      that restates the visual above it goes.
+    - A cut keeps every claim, number and accent. It drops restatements, qualifiers and secondary examples (those move to the speaker
+      notes), never the point.
+    - When a slide feels full, cut words before shrinking type, adding a slide or widening a box.
+42. **A seller one-pager opens with who the offer is for, then the challenges that follow from it** (2026-11-13, Alex on the Jumpstart
+    seller one-pagers: the account manager may not know the account even has an R&D unit, so the page must link the company to the work).
+    - The first section starts with a who-it's-for frame: the kind of company, what its team does, and therefore what that work depends
+      on, taken from the agreed definitions (for the Jumpstarts, the bio and hardware definitions in the account-research tracker). Beside
+      it, one line of dated evidence that such companies already have the topic on their radar.
+    - Each challenge is a concrete situation a seller who has never met that unit recognises at once, in the nouns of the client's desk,
+      and it carries the same name as on the client deck.
+    - Case studies on a one-pager are framed cards beside the proof logos, not extra rows under them.
