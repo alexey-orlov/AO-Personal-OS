@@ -5,7 +5,7 @@ Personal "OS" for AI-assisted work: reusable skills, automations that run them, 
 
 ## Message-writing skill preference
 
-For any written-communication drafting, editing, reply, follow-up, or "de-AI-ify" request - across **email, LinkedIn DM, InMail, Slack, WhatsApp, or SMS** - always invoke the personal `message-writing` skill at `.claude/skills/message-writing/` (in this repo).
+For any written-communication drafting, editing, reply, follow-up, or "de-AI-ify" request - across **email, LinkedIn DM, InMail, Slack, Teams, WhatsApp, or SMS** - always invoke the personal `message-writing` skill at `.claude/skills/message-writing/` (in this repo).
 
 The personal skill is calibrated to Alex's real sent mail and LinkedIn messages: voice, banned phrases, register matrix, message playbooks, LinkedIn-specific norms, RU/UA register, standing signature block, and his actual links and about-me blurbs. The bundled Anthropic `anthropic-skills:email-writing` is generic and will produce off-voice drafts.
 

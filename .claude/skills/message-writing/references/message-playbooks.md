@@ -24,6 +24,24 @@ Frame it as two professionals who'd benefit from comparing notes. Don't sell. Do
 >
 > Worth a 20-minute call, or easier over email?
 
+## Chat first contact (Teams, Slack, WhatsApp)
+
+**Goal:** a reply and a short call from a colleague who has never met the user and doesn't know what he brings.
+
+**Structure:** chat, not email. Two messages and the attachment, sent one after another, each one or two short sentences:
+1. Hi, who I am (name and team), and why them: "I see you look after [account / area]."
+2. Who I am in a line (role) and what we do, the offer in one line with at most one short reason it fits them, and a light ask ("Would you have 15 min next week for a quick chat?").
+3. The attachment, with a one-line caption ("Here's a quick one-pager on it.").
+
+Friendly and light: first name, an exclamation on the greeting, no sign-off (the chat shows who wrote). How it works, proof, prices and cases stay in the attachment or the call, never in the messages (Alex, 2026-11-13).
+
+**Example (colleague, Teams):**
+> Hi Dana! I'm Alex from the R&D team. I see you look after Acme.
+
+> I'm a product advisor in R&D - we help clients' engineering teams adopt AI. We've just put together a program for firmware teams that could fit Acme: their firmware job ads already ask for AI coding tools. Would you have 15 min next week for a quick chat?
+
+> Here's a quick one-pager on it. [attachment]
+
 ## Reply inside an existing thread
 
 **Goal:** answer what they asked, move it forward, match their register.
