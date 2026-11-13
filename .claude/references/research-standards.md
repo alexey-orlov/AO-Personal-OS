@@ -77,7 +77,7 @@ notes, Telegram research summaries. Distilled from his Claude-Chat instructions
   row stays one scannable line of single numbers (headcount, team size) and short summaries
   written by hand, one or two dated facts in plain words that a colleague can read off the screen
   (Alex shares them with account execs): never a truncated first list item, a count of items or
-  internal codes like S/M/W. Everything else (lists, sources, method math, notes) opens under "Show
+  internal codes like S/M/W. A yes/no column shows Yes with the items or a one-line why, or just No. Everything else (lists, sources, method math, notes) opens under "Show
   details" as a full-width panel below the row, never crammed into narrow columns (Alex,
   2026-11-13).
 
@@ -100,6 +100,12 @@ notes, Telegram research summaries. Distilled from his Claude-Chat instructions
   recommendation uses the source decks' exact module names and only modules the decks mark ready; list the
   personas each account still lacks; list every search a limit or a blocked page left undone, and finish
   it. The first pass of the CA Jumpstart table had 7 of 13 angles leading with modules still in build.
+- **A fact that sets a Yes gets an independent second pass** (Alex, 2026-11-13, on the tracker's Oracle
+  column). This covers any per-account fact that sets a Yes: a vendor's product in use, an offer's fit. A fresh agent
+  sees only the claim and its cited source, searches on its own first, then tries to disprove it. It looks for five
+  things: a skill-only job-ad line, a copy it cannot trace to the company, an undated page, evidence older than 18
+  months, a newer migration. Of the first pass's 20 Oracle claims, 3 failed and 4 were narrowed. The row shows Yes with
+  the items, or No; each item's verdict and the dropped claims sit in the details.
 - **Team sizing triangulates three estimates** (Alex, 2026-11-12): a Sales Navigator count × sampled
   precision × stale-profile and coverage factors; first principles from headcount or R&D spend; public
   disclosures. Agreement within ~1.5× → their middle; when a low LinkedIn count meets a higher
