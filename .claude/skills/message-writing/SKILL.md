@@ -76,7 +76,7 @@ This is the always-on default voice. It applies unless the user's own pasted voi
 
 **Subject lines** (email only): 4-7 words, sentence case, specific to the recipient or the thread. The subject earns the open; it is not the pitch. "Intro re: [mutual name]" or "Question on [their specific thing]" beats "Exploring synergies." No emoji, no "Quick question."
 
-Length targets: cold outreach under ~120 words. Replies and follow-ups: as short as the content allows, usually 3-6 sentences. Chat channels (Slack, Teams, WhatsApp): one or two short sentences per bubble, about 60 words across a first contact's bubbles; how it works, proof, prices and cases stay in the attachment or the call. Density beats length.
+Length targets: cold outreach under ~120 words. Replies and follow-ups: as short as the content allows, usually 3-6 sentences. Chat channels (Slack, Teams, WhatsApp): short bubbles of a few sentences, about 100-120 words across a first contact's bubbles; how it works, proof, prices and cases stay in the attachment or the call. Density beats length.
 
 **Signature handling for email — depends on how the draft will be delivered.** Two paths, two rules. The caller signals which one via a `signature` parameter; if unspecified, default to `gmail-auto`.
 

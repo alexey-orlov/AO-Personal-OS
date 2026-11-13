@@ -26,21 +26,21 @@ Frame it as two professionals who'd benefit from comparing notes. Don't sell. Do
 
 ## Chat first contact (Teams, Slack, WhatsApp)
 
-**Goal:** a reply and a short call from a colleague who has never met the user and doesn't know what he brings.
+**Goal:** a colleague who owns an account (or area) and has never met the user agrees it's worth pitching his offer there. The owner decides whether the account hears a pitch, so the ask is for their judgment, not their time.
 
-**Structure:** chat, not email. Two messages and the attachment, sent one after another, each one or two short sentences:
-1. Hi, who I am (name and team), and why them: "I see you look after [account / area]."
-2. Who I am in a line (role) and what we do, the offer in one line with at most one short reason it fits them, and a light ask ("Would you have 15 min next week for a quick chat?").
-3. The attachment, with a one-line caption ("Here's a quick one-pager on it.").
+**Structure:** chat, not email. Three bubbles sent one after another, casual and specific, about 100-120 words in all (Alex's own edit, 2026-11-13):
+1. Hi, who I am (name, practice, location when it matters to their account), and how I know they own it: "Our CRM says you look after [account] :)".
+2. The offer as an established program now extended to their segment, named so they can repeat it, and why their account sits in that segment. Then, only with a real public sign that AI is already on the account's radar (its teams use or must use AI tools, or leadership is pushing AI in R&D), one line of your own research and what it signals. Close with their view: "Do you think it's worth discussing a potential pitch of this offer to [account]?"
+3. The attachment, with a caption that says what's in it.
 
-Friendly and light: first name, an exclamation on the greeting, no sign-off (the chat shows who wrote). How it works, proof, prices and cases stay in the attachment or the call, never in the messages (Alex, 2026-11-13).
+Never "we've just put together" (reads untested), and never a meeting slot as the first ask. Short and friendly isn't minimal: Alex rewrote a ~60-word version that had dropped the track record, the fit and the ask for his colleague's view. First name, an exclamation on the greeting, no sign-off; how it works, proof, prices and cases stay in the attachment or the call.
 
-**Example (colleague, Teams):**
-> Hi Dana! I'm Alex from the R&D team. I see you look after Acme.
+**Example (Alex's own, colleague on Teams; account anonymized):**
+> Hi Dana! I'm Alex from SoftServe's R&D practice, based in CA. Our CRM says you look after Acme :)
 
-> I'm a product advisor in R&D - we help clients' engineering teams adopt AI. We've just put together a program for firmware teams that could fit Acme: their firmware job ads already ask for AI coding tools. Would you have 15 min next week for a quick chat?
+> We've been doing comprehensive AI enablement programs ("Jumpstarts") for a while now for tech companies, and are currently advancing this offer to customers in hardware/firmware tech, which Acme directly falls into. I've also checked them online - looks like they already require some level of Claude / Copilot proficiency among their firmware eng teams, which is typically the sweet spot to level up. Do you think it's worth discussing a potential pitch of this offer to Acme?
 
-> Here's a quick one-pager on it. [attachment]
+> Here are 2 quick pages on the offer / how it might fit Acme / our overall R&D practice portfolio. [attachment]
 
 ## Reply inside an existing thread
 
