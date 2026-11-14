@@ -26,19 +26,19 @@ Frame it as two professionals who'd benefit from comparing notes. Don't sell. Do
 
 ## Chat first contact (Teams, Slack, WhatsApp)
 
-**Goal:** a colleague who owns an account (or area) and has never met the user agrees it's worth pitching his offer there. The owner decides whether the account hears a pitch, so the ask is for their judgment, not their time.
+**Goal:** a colleague who owns an account (or area) and has never met the user agrees it's worth pitching his offer there. The owner decides whether the account hears a pitch, so the ask leads with their judgment and then offers a chat.
 
 **Structure:** chat, not email. Three bubbles sent one after another, casual and specific, about 100-120 words in all (Alex's own edit, 2026-11-13):
 1. Hi, who I am (name, practice, location when it matters to their account), and how I know they own it: "Our CRM says you look after [account] :)".
-2. The offer as an established program now extended to their segment, named so they can repeat it, and why their account sits in that segment. Then, only with a real public sign that AI is already on the account's radar (its teams use or must use AI tools, or leadership is pushing AI in R&D), one line of your own research and what it signals. Close with their view: "Do you think it's worth discussing a potential pitch of this offer to [account]?"
+2. The offer as an established program now extended to their segment, named so they can repeat it, and why their account sits in that segment. Then, only with a real public sign that AI is already on the account's radar (its teams use or must use AI tools, or leadership is pushing AI in R&D), one line of your own research and what it signals. Close with their view, then a direct chat ask, since the view alone gets a "sure" and nothing booked: "Do you think it's worth discussing a potential pitch of this offer to [account]? Should we chat about it next week?"
 3. The attachment, with a caption that says what's in it.
 
-Never "we've just put together" (reads untested), and never a meeting slot as the first ask. Short and friendly isn't minimal: Alex rewrote a ~60-word version that had dropped the track record, the fit and the ask for his colleague's view. First name, an exclamation on the greeting, no sign-off; how it works, proof, prices and cases stay in the attachment or the call.
+Never "we've just put together" (reads untested), and never the chat ask without the question about their view. Short and friendly isn't minimal: Alex rewrote a ~60-word version that had dropped the track record, the fit and the ask for his colleague's view. First name, an exclamation on the greeting, no sign-off; how it works, proof, prices and cases stay in the attachment or the call.
 
 **Example (Alex's own, colleague on Teams; account anonymized):**
 > Hi Dana! I'm Alex from SoftServe's R&D practice, based in CA. Our CRM says you look after Acme :)
 
-> We've been doing comprehensive AI enablement programs ("Jumpstarts") for a while now for tech companies, and are currently advancing this offer to customers in hardware/firmware tech, which Acme directly falls into. I've also checked them online - looks like they already require some level of Claude / Copilot proficiency among their firmware eng teams, which is typically the sweet spot to level up. Do you think it's worth discussing a potential pitch of this offer to Acme?
+> We've been doing comprehensive AI enablement programs ("Jumpstarts") for a while now for tech companies, and are currently advancing this offer to customers in hardware/firmware tech, which Acme directly falls into. I've also checked them online - looks like they already require some level of Claude / Copilot proficiency among their firmware eng teams, which is typically the sweet spot to level up. Do you think it's worth discussing a potential pitch of this offer to Acme? Should we chat about it next week?
 
 > Here are 2 quick pages on the offer / how it might fit Acme / our overall R&D practice portfolio. [attachment]
 
