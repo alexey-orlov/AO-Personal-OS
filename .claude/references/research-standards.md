@@ -96,7 +96,7 @@ notes, Telegram research summaries. Distilled from his Claude-Chat instructions
   role list is the fallback, never the starting point.
 - **Red-team account research before delivering it** (Alex, 2026-11-12, after asking for one): grade
   every buying signal S / M / W against a written rubric (S = recent, explicit budget, intent or acute
-  pain in the exact workflow; job postings and company news are rarely S); check that every
+  pain in the exact workflow; job postings and company news are rarely S; an executive's general remark about AI, such as "like everybody else, we benefit from AI coding", is W: awareness, not intent. Alex, 2026-11-13: a Generac CEO quote graded S read to him as no trigger at all, while the same company's ad for a leader to run its software teams' AI transformation was the real one); check that every
   recommendation uses the source decks' exact module names and only modules the decks mark ready; list the
   personas each account still lacks; list every search a limit or a blocked page left undone, and finish
   it. The first pass of the CA Jumpstart table had 7 of 13 angles leading with modules still in build.
