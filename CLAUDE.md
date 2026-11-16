@@ -20,7 +20,7 @@ The personal skill is calibrated to Alex's real sent mail and LinkedIn messages:
 
 ## About me
 
-My name is Alex Orlov (Alexey Orlov, Oleksii Orlov).
+My name is Alex Orlov (Alexey Orlov, Oleksii Orlov). In family and household documents written in Russian, I am **Леша**, never «Алексей» (Alex, 2026-11-15).
 Product leader, B2B SaaS.
 Currently job-searching for product leadership roles (VP Product / CPO) at US companies.
 
@@ -112,6 +112,7 @@ The bar is the root cause: if I only patch the exact phrase Alex flagged, I'll r
 ## Conventions for generated content
 Evidence-bound, specific, no filler or praise. Mark inferences as "(inferred)". Use "-" for empty sections. When filling into an existing table/template that already has an exemplar row/cell, match that exemplar's altitude, length, and phrasing — the existing cells are the spec, not the source docs. Distill to the reference's register; don't dump every detail you found.
 
+- **Family / household instructions** (how-to sheets for relatives: Starlink, power stations, Echo Show): read `.claude/references/family-instructions.md` first. It covers the house style (the reference is «Пароли и инструкции.docx» in Alex's Google Drive), fitting the sheet on two pages, and how to treat photos of screens: always the full screen, never cropped to a detail, and with reflections removed (Alex, 2026-11-15).
 - **On maps, a marker's position is data** (Alex, 2026-11-07, on the Walnut Creek rental map's clustered pins): one marker per real point, drawn exactly there. No clustering, no merging nearby points into one marker, no spreading overlaps apart, no offsets for looks, and the map moves only when Alex moves it (or a picked item is hidden under a panel). Overlapping markers are fine: hover brings one forward, zoom separates them.
 - **One explicit source per state** (Alex, 2026-11-09, after the rental map turned listings pink from words like «позвонить» in a notes column, and «заполнить форму» then needed the same pink): a category that drives a colour, a filter or a count lives in one enumerated field (a dropdown column), never inferred from free text and never assembled from several sources (fills + keywords + map ticks). What to do next stays in a separate free-text field. When a tool already infers state from text or colours, propose the explicit field before adding one more keyword or colour.
 - **One name per thing, everywhere** (Alex, 2026-10-22, on a deck that called cadence B's units "streams" when they were the program's "modules"): a unit keeps its name across options, pages, decks and the wiki; an option is named by how the units are arranged ("modules in parallel"), never by renaming the unit. When a new term appears for an existing unit, rename it back everywhere in the same pass.
