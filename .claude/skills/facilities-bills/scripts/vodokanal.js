@@ -41,14 +41,15 @@ Object.assign(window.__ps, {
       .filter(r => !r.closest('.p-datepicker'))
       .map(r => r.innerText.replace(/\s+/g, ' ').trim());
   },
-  vDropdown(re) { return [...document.querySelectorAll('p-dropdown')].find(d => re.test(d.innerText.trim())); },
+  // Match on the label only: an open panel inside the element adds its options to innerText.
+  vDropdown(re) { return [...document.querySelectorAll('p-dropdown')].find(d => re.test((d.querySelector('.p-dropdown-label')?.innerText ?? d.innerText).trim())); },
   // A closing panel lingers in the DOM for a moment; clicking its item selects nothing. Wait for
   // old panels to go, take the item from this dropdown's own panel, and try twice.
   async vPickAccount(acct) {
-    const label = () => (this.vDropdown(/^(По всіх рахунках|\d{7})$/)?.querySelector('.p-dropdown-label')?.innerText || '').trim();
+    const dd = this.vDropdown(/^(По всіх рахунках|\d{7})$/);
+    if (!dd) return false;
+    const label = () => (dd.querySelector('.p-dropdown-label')?.innerText || '').trim();
     for (let attempt = 0; attempt < 2; attempt++) {
-      const dd = this.vDropdown(/^(По всіх рахунках|\d{7})$/) || [...document.querySelectorAll('p-dropdown')][1];
-      if (!dd) return false;
       if (label() === acct) return true;
       await this.vCloseCalendar();
       if (!dd.querySelector('.p-dropdown-panel')) {
