@@ -2,11 +2,13 @@
   "provider": "Yasno",
   "cabinet": "https://yasno.ua/my/personal-accounts",
   "drive_root": { "name": "Facilities - bills", "id": "1WjeAASAugd8qbGU55PeL18Z1zox9JjvT" },
+  "utility_folder": "Электроэнергия",
   "receipts_subfolder": "Yasno - платежі",
   "accounts": [
     {
       "folder": "Антоновича",
-      "folder_id": "14OJRAF-jlKYYtkVrwmOuRUqlt3OaM_49",
+      "address_folder_id": "14OJRAF-jlKYYtkVrwmOuRUqlt3OaM_49",
+      "folder_id": "1H_bo0we9YtuWlo-HBpjzFQ9bgyEMUHmZ",
       "receipts_folder_id": "1iRYES_Zpw7F3Zub2yQ_Z17GchIGMKjUl",
       "account_id": "326823",
       "account_number": "04003421503",
@@ -15,7 +17,8 @@
     },
     {
       "folder": "Победы",
-      "folder_id": "1u8X0lP53d65EEeouMgFGqnI5goKYQruZ",
+      "address_folder_id": "1u8X0lP53d65EEeouMgFGqnI5goKYQruZ",
+      "folder_id": "1vGxKFp9T26jqUT6be5LwWE4DC3h1CX8J",
       "receipts_folder_id": "1WjwzcoejhmNLaGWYZZOs74SFt3u0UKU1",
       "account_id": "326798",
       "account_number": "08018102505",
@@ -24,7 +27,8 @@
     },
     {
       "folder": "Смоленская",
-      "folder_id": "1Z0XqMohVYJthaM44YNzY9UgawqW7sM5-",
+      "address_folder_id": "1Z0XqMohVYJthaM44YNzY9UgawqW7sM5-",
+      "folder_id": "1gD3fTKQiGV92hCipYa20WYwnlR8387N9",
       "receipts_folder_id": "18kQg9Qc3DlshLHv7PViDNOkGADhPzKOZ",
       "account_id": "326797",
       "account_number": "08020010005",
