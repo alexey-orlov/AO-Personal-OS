@@ -32,15 +32,19 @@ def asset_path(href, assets_dir):
     return os.path.join(assets_dir, name)
 
 
-def localize_css(href, assets_dir):
+def localize_css(href, assets_dir, page_url=""):
     path = asset_path(href, assets_dir)
     if os.path.exists(path):
         return path
     try:
         css = fetch(href).decode("utf-8")
     except OSError as e:
-        raise SystemExit(f"stylesheet {href} is not in the bundle and cannot be fetched ({e}); "
-                         "run `await __ps.collectAssets()` in the page before the download")
+        same_site = urllib.parse.urlparse(href).netloc == urllib.parse.urlparse(page_url).netloc
+        if same_site:
+            raise SystemExit(f"stylesheet {href} is not in the bundle and cannot be fetched ({e}); "
+                             "run `await __ps.collectAssets()` in the page before the download")
+        print(f"warning: third-party stylesheet skipped: {href} ({e})", file=sys.stderr)
+        return None
 
     def repl(m):
         ref = m.group(2)
@@ -113,8 +117,9 @@ def main():
             if p.get("landscape"):
                 html = html.replace("size: A4;", "size: A4 landscape;", 1)
             for href in dict.fromkeys(p.get("cssHrefs", [])):
-                local = localize_css(href, assets)
-                html = html.replace(f'href="{href}"', f'href="file://{local}"')
+                local = localize_css(href, assets, p.get("url", ""))
+                if local:
+                    html = html.replace(f'href="{href}"', f'href="file://{local}"')
             n += 1
             hp = os.path.join(htmld, f"{n:03d}.html")
             with open(hp, "w", encoding="utf-8") as f:
