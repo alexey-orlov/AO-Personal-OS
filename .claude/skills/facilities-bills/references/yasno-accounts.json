@@ -1,7 +1,10 @@
 {
   "provider": "Yasno",
   "cabinet": "https://yasno.ua/my/personal-accounts",
-  "drive_root": { "name": "Facilities - bills", "id": "1WjeAASAugd8qbGU55PeL18Z1zox9JjvT" },
+  "drive_root": {
+    "name": "Facilities - bills",
+    "id": "1WjeAASAugd8qbGU55PeL18Z1zox9JjvT"
+  },
   "utility_folder": "Электроэнергия",
   "receipts_subfolder": "Yasno - платежі",
   "accounts": [
@@ -32,7 +35,7 @@
       "receipts_folder_id": "18kQg9Qc3DlshLHv7PViDNOkGADhPzKOZ",
       "account_id": "326797",
       "account_number": "08020010005",
-      "address": "вул. Сім'ї Бродських, буд. 51, к. 37",
+      "address": "вул. Сім'ї Бродських, буд. 5/1, к. 37",
       "match": "Бродськ"
     }
   ]
