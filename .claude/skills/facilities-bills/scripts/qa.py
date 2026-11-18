@@ -80,7 +80,8 @@ def check_vodokanal(f, text, problems, folder, ps, acct, all_accts):
         other = sorted({x for x in years if x != y})
         if other:
             problems.append(f"{f}: months from other years {other}")
-        if "Оплачено" not in text or not re.search(r"Борг\s+на\s+кін", text):
+        # pdftotext splits the two-line header cells; the last column's "кін" proves no clipping
+        if "Оплачено" not in text or not re.search(r"\bкін\b", text):
             problems.append(f"{f}: table columns clipped")
         print(f"  {folder} · {kind} {y}: {len(years)} rows, {len(ps)} pages")
     else:
@@ -92,9 +93,9 @@ def check_vodokanal(f, text, problems, folder, ps, acct, all_accts):
                 problems.append(f"{f}: payment dates from other years {other}")
             if len(years) < 3:  # the period field alone holds two dates
                 problems.append(f"{f}: no payment rows")
-        if "РАЗОМ" not in text:
-            problems.append(f"{f}: РАЗОМ total missing")
-        total = re.search(r"РАЗОМ:\s*([\d\s.,]+)\s*грн", text)
+        total = re.search(r"Разом:\s*([\d\s.,]+?)\s*грн", text, re.I)  # shown upper-cased by CSS only
+        if not total:
+            problems.append(f"{f}: Разом total missing")
         print(f"  {folder} · {kind} {y}: {max(len(years) - 2, 0)} payments, total {total.group(1).strip() if total else '-'}, {len(ps)} pages")
 
 
@@ -116,10 +117,12 @@ def main():
             folder = os.path.relpath(pdf, a.out).split(os.sep)[0]
             ps = page_texts(pdf)
             text = re.sub(r"[\s\u00a0\u202f]+", " ", " ".join(ps))
+            # blank = nothing but the print header line (print time + title) and the URL/page footer;
+            # a last page carrying only the site's own footer is a normal print and passes
             for i, p in enumerate(ps, 1):
-                body = [l for l in p.splitlines() if l.strip() and "://" not in l
-                        and not re.match(r"\s*" + PRINT_TIME, l)]
-                if len(body) < 2:
+                lines = [l for l in p.splitlines() if l.strip()]
+                body = [l for l in lines[1:] if "://" not in l]
+                if not body:
                     problems.append(f"{f}: page {i} is blank")
             if folder in acct and acct[folder] not in text:
                 problems.append(f"{f}: account {acct[folder]} not in text")

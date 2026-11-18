@@ -147,7 +147,11 @@ html, body { height: auto !important; min-height: 0 !important; overflow: visibl
     return JSON.stringify({ done: j.done, err: j.err, secs: Math.round((Date.now() - (j.t0 || Date.now())) / 1000),
       vis: document.visibilityState, log: j.log, queued: this.pages.length, path: location.pathname });
   },
+  // ONE download per tab: Chrome lets a tab's first download through silently and asks Alex
+  // ("download multiple files?") from the second one on. A run collects everything into one
+  // bundle in a fresh tab; a second bundle needs a new tab.
   button(file) {
+    if (this.downloads) return JSON.stringify({ error: 'this tab already downloaded a bundle: open a fresh tab for another one' });
     let b = document.getElementById('ps-dl');
     if (!b) {
       b = document.createElement('button'); b.id = 'ps-dl'; b.textContent = 'pagesnap download';
@@ -193,6 +197,8 @@ html, body { height: auto !important; min-height: 0 !important; overflow: visibl
     return Object.keys(this.assets).filter(h => this.assets[h]).length;
   },
   download(filename) {
+    if (this.downloads) return 0;
+    this.downloads = 1;
     const blob = new Blob([JSON.stringify({ v: 2, pages: this.pages, assets: this.assets || {} })], { type: 'application/json' });
     const a = document.createElement('a');
     a.href = URL.createObjectURL(blob); a.download = filename;
