@@ -6,7 +6,9 @@ usage: python3 -I manifest.py --accounts references/yasno-accounts.json OUT_DIR
 Prints one JSON row per PDF: {"title", "parent_id", "ref", "replace"}.
 - ref = the Google Drive connector's file reference, sha256:<hex>:<absolute path>. Pass it as
   create_file's base64Content: the app attaches the file itself, nothing travels through chat.
-- parent_id = the address folder, or its receipts subfolder for files under OUT/<folder>/<sub>/.
+- parent_id = the account's utility folder (folder_id, e.g. <apartment>/Электроэнергия), or its
+  receipts subfolder (receipts_folder_id) for files under OUT/<folder>/<sub>/. Never the apartment
+  folder itself (address_folder_id).
 - replace = true for the yearly pages (Абонентська книжка / Історія платежів): a file with the same
   title in that folder is trashed before the upload. Receipts are never replaced (they are skipped
   at capture time when they already exist).

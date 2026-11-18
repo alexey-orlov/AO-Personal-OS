@@ -37,7 +37,10 @@
 
 ## Folder mapping (Alex, 2026-11-18)
 
-| Drive folder | Yasno account address | Note |
+All Yasno files go into `<apartment folder>/Электроэнергия/`, never into the apartment folder
+itself.
+
+| Apartment folder | Yasno account address | Note |
 |---|---|---|
 | Антоновича | вул. Антоновича, буд. 160, к. 16 | |
 | Победы | просп. Берестейський, буд. 45, к. 25 | the avenue was formerly Перемоги |

@@ -60,11 +60,13 @@ and page n/N. When two payments share a date and an amount, the second (counted 
 `find` and `browser_batch`. Create a tab and open `https://yasno.ua/my/personal-accounts`.
 - If you land on a login page, ask Alex to log in.
 - The account list must match `yasno-accounts.json` by each account's `match` keyword.
-- If an account is new, ask Alex which Drive folder it belongs to. Create the folder and its
-  `Yasno - платежі` subfolder with `create_file` (contentMimeType
-  `application/vnd.google-apps.folder`), then add the account to the JSON.
+- If an account is new, ask Alex which apartment folder it belongs to. Inside that folder create
+  `Электроэнергия`, and inside that `Yasno - платежі`, with `create_file` (contentMimeType
+  `application/vnd.google-apps.folder`). Add the account to the JSON with `address_folder_id`,
+  `folder_id` (its Электроэнергия folder) and `receipts_folder_id`.
 
-**2. Inventory and plan.** For each account, list its folder and its receipts folder with
+**2. Inventory and plan.** For each account, list its Электроэнергия folder (`folder_id`) and its
+receipts folder (`receipts_folder_id`) with
 `search_files` (`parentId = '<id>'`, excludeContentSnippets). Results come about 5 per page: follow
 `nextPageToken` until the result is `{}`. Then write one plan per account, as JSON:
 `{historyYears, bookYears, receiptYears, have}`.
@@ -121,6 +123,11 @@ Render one page of each kind with `pdftoppm -r 50 -png` and look at it.
 
 Write `references/<provider>.md`, `references/<provider>-accounts.json` and `scripts/<provider>.js`.
 The provider script's helpers call the pagesnap core (`snap`, `go`, `start`, `button`). Keep the
-Drive layout: the same apartment folders, files named `<Provider> - <Folder> - …`, and receipts in
-`<Provider> - платежі`. Generalise `qa.py` and `manifest.py` (both read Yasno names today), then
-add the provider to this file's description.
+Drive layout:
+- Inside each apartment folder, the provider gets its own utility folder, named in Russian like
+  «Электроэнергия». Ask Alex for the name, and never put files straight into the apartment folder.
+- Files are named `<Provider> - <Folder> - …`, and receipts go in `<Provider> - платежі` inside the
+  utility folder.
+
+Generalise `qa.py` and `manifest.py` (both read Yasno names today), then add the provider to this
+file's description.

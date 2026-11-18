@@ -10,6 +10,10 @@ script. When a lesson is revised, rewrite its entry to the current truth.
   Yasno lists Антоновича 160 and Сім'ї Бродських 51 as separate accounts, and Kyiv renamed
   Смоленська to Сім'ї Бродських, so I asked, and he confirmed the renamed street.
 - Receipts cover 2025–2026, not every year back to 2021.
+- Every apartment folder holds one folder per utility, and Yasno's is «Электроэнергия». The first
+  run had put Yasno's files straight into the apartment folders, and they were moved the same day.
+  The rule is: apartment, then utility, then the provider's files, and nothing at the apartment
+  root, so that other providers' bills can share the apartment folders.
 - Year rules: reprint the current year over the old file, keep previous years, and keep at least
   one previous year. A year's file printed before that year ended is reprinted once in the next
   year, because otherwise its last payments and charges would never be on file. The agent proposed
