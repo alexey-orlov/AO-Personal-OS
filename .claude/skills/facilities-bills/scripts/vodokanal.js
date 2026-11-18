@@ -42,17 +42,31 @@ Object.assign(window.__ps, {
       .map(r => r.innerText.replace(/\s+/g, ' ').trim());
   },
   vDropdown(re) { return [...document.querySelectorAll('p-dropdown')].find(d => re.test(d.innerText.trim())); },
+  // A closing panel lingers in the DOM for a moment; clicking its item selects nothing. Wait for
+  // old panels to go, take the item from this dropdown's own panel, and try twice.
   async vPickAccount(acct) {
-    const dd = this.vDropdown(/^(По всіх рахунках|\d{7})$/);
-    if (!dd) return false;
-    if (dd.innerText.trim() === acct) return true;
-    await this.vCloseCalendar();
-    dd.querySelector('.p-dropdown').click();
-    if (!(await this.waitFor(() => document.querySelector('.p-dropdown-panel .p-dropdown-item'), 10000))) return false;
-    const li = [...document.querySelectorAll('.p-dropdown-panel .p-dropdown-item')].find(x => x.innerText.trim() === acct);
-    if (!li) return false;
-    li.click();
-    return this.waitFor(() => dd.innerText.trim() === acct, 10000);
+    const label = () => (this.vDropdown(/^(По всіх рахунках|\d{7})$/)?.querySelector('.p-dropdown-label')?.innerText || '').trim();
+    for (let attempt = 0; attempt < 2; attempt++) {
+      const dd = this.vDropdown(/^(По всіх рахунках|\d{7})$/) || [...document.querySelectorAll('p-dropdown')][1];
+      if (!dd) return false;
+      if (label() === acct) return true;
+      await this.vCloseCalendar();
+      if (!dd.querySelector('.p-dropdown-panel')) {
+        await this.waitFor(() => !document.querySelector('.p-dropdown-panel'), 3000);
+        dd.querySelector('.p-dropdown').click();
+      }
+      await this.waitFor(() => dd.querySelector('.p-dropdown-panel .p-dropdown-item') || document.querySelector('.p-dropdown-panel .p-dropdown-item'), 10000);
+      const scope = dd.querySelector('.p-dropdown-panel') || document.querySelector('.p-dropdown-panel:last-of-type') || document;
+      const li = [...scope.querySelectorAll('.p-dropdown-item')].find(x => x.innerText.trim() === acct);
+      if (li) {
+        li.click();
+        if (await this.waitFor(() => label() === acct, 5000)) {
+          await this.waitFor(() => !document.querySelector('.p-dropdown-panel'), 3000);
+          return true;
+        }
+      }
+    }
+    return false;
   },
   // The picker overlay does not close on Escape or outside clicks sent from script, and an open
   // picker eats the next click (the next trigger click closes it instead of opening it, a
