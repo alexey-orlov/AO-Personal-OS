@@ -16,6 +16,17 @@ The reference is «Пароли и инструкции.docx» in Alex's Google 
 - Alex is «Леша». Any step that needs one of his accounts begins with «Позвонить Леше», because only he
   has access to those accounts.
 
+## Pocket cards for a phone case (2026-11-18, «Интернет в роуминге», Samsung A20)
+- When the sheet has to live in a phone case, use cards of **68 × 98 mm**, eight on one A4 landscape
+  sheet (4 × 2 grid, dashed cut lines, printed at 100 %). That size fits behind a Samsung A20
+  (158.4 × 74.7 mm) below the camera and the rear fingerprint sensor, and inside a book-case flap.
+- One topic per card: navy bar, steps, then full-screen screenshots 20–25 mm wide with captions.
+  Body 9 pt Calibri; footer «Title · стр. X из 8». The first card holds the check, the map of steps
+  and the last resort (the operator's support line).
+- Word adds a cell's bottom margin on top of an exact row height (measured: +1.8 mm per row). Keep the
+  bottom cell margin at 0 and leave the gap inside the card, then measure the cut lines on a 300 dpi
+  render: rows must come out at 98.0 mm.
+
 ## Photos of screens (Alex, 2026-11-15)
 - **Show the full screen. Never crop to a detail.** The reader finds the button by its place on the
   whole screen.
