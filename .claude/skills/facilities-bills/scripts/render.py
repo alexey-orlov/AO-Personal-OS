@@ -15,11 +15,14 @@ CHROME = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
 FONT_TYPES = {".ttf": "font/ttf", ".otf": "font/otf", ".woff": "font/woff", ".woff2": "font/woff2"}
 
 
-def fetch(url, tries=4):
+FAILED = {}  # href -> error: never retried page after page (a hanging host once stalled a run for hours)
+
+
+def fetch(url, tries=3):
     req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
     for i in range(tries):
         try:
-            with urllib.request.urlopen(req, timeout=30) as r:
+            with urllib.request.urlopen(req, timeout=15) as r:
                 return r.read()
         except OSError:  # yasno.ua TLS handshakes time out now and then
             if i == tries - 1:
@@ -36,6 +39,8 @@ def localize_css(href, assets_dir, page_url=""):
     path = asset_path(href, assets_dir)
     if os.path.exists(path):
         return path
+    if href in FAILED:
+        return None
     try:
         css = fetch(href).decode("utf-8")
     except OSError as e:
@@ -43,7 +48,8 @@ def localize_css(href, assets_dir, page_url=""):
         if same_site:
             raise SystemExit(f"stylesheet {href} is not in the bundle and cannot be fetched ({e}); "
                              "run `await __ps.collectAssets()` in the page before the download")
-        print(f"warning: third-party stylesheet skipped: {href} ({e})", file=sys.stderr)
+        FAILED[href] = str(e)
+        print(f"warning: third-party stylesheet dropped: {href} ({e})", file=sys.stderr)
         return None
 
     def repl(m):
@@ -72,11 +78,17 @@ def render_one(job):
     os.makedirs(os.path.dirname(pdf_path), exist_ok=True)
     # NB: --blink-settings=scriptEnabled=false makes headless print-to-pdf silently write nothing;
     # scripts are stripped by the snapshotter and blocked by the CSP meta injected below instead.
+    # No network for the renderer: everything comes from the bundle or the local asset cache, so a
+    # slow or blocking host can never stall a print (unresolvable hosts fail at once).
     cmd = [CHROME, "--headless", "--disable-gpu", "--no-first-run", "--no-default-browser-check",
            "--no-pdf-header-footer", "--allow-file-access-from-files",
+           "--host-resolver-rules=MAP * ~NOTFOUND",
            f"--user-data-dir={profile}", "--virtual-time-budget=3000",
            f"--print-to-pdf={pdf_path}", "file://" + html_path]
-    r = subprocess.run(cmd, capture_output=True, text=True, timeout=120)
+    try:
+        r = subprocess.run(cmd, capture_output=True, text=True, timeout=90)
+    except subprocess.TimeoutExpired:
+        return {"pdf": pdf_path, "ok": False, "pages": None, "bytes": 0, "err": "headless Chrome timed out"}
     ok = os.path.exists(pdf_path) and os.path.getsize(pdf_path) > 1000
     pages = None
     if ok:
@@ -118,8 +130,11 @@ def main():
                 html = html.replace("size: A4;", "size: A4 landscape;", 1)
             for href in dict.fromkeys(p.get("cssHrefs", [])):
                 local = localize_css(href, assets, p.get("url", ""))
+                attr = f'href="{href.replace("&", "&amp;")}"'
                 if local:
-                    html = html.replace(f'href="{href.replace("&", "&amp;")}"', f'href="file://{local}"')
+                    html = html.replace(attr, f'href="file://{local}"')
+                else:  # unreachable third-party sheet (e.g. Google sign-in button): drop the link
+                    html = re.sub(r"<link[^>]*" + re.escape(attr) + r"[^>]*>", "", html)
             shipped = {}
             for bundle_ in bundles:
                 shipped.update({k: v for k, v in (bundle_.get("assets") or {}).items() if v})
