@@ -106,6 +106,22 @@ notes, Telegram research summaries. Distilled from his Claude-Chat instructions
   things: a skill-only job-ad line, a copy it cannot trace to the company, an undated page, evidence older than 18
   months, a newer migration. Of the first pass's 20 Oracle claims, 3 failed and 4 were narrowed. The row shows Yes with
   the items, or No; each item's verdict and the dropped claims sit in the details.
+- **A row added after review gets every check its reviewed peers got, before delivery** (Alex, 2026-11-18,
+  on NextEra and BlackBerry). Run them as one gate:
+  - the second pass on each Yes;
+  - every signal opened at its source: date, quote, team, and whether the ad is still open ("hiring" only if it is, else "sought");
+  - the hook and the two-pager's signals no older than 18 months and from the team the offer serves;
+  - a likely problem that ends on money;
+  - each internal claim traced to its source line and credited to whoever actually said it;
+  - each title checked between Sales Navigator and public sources, with neutral wording when they differ;
+  - each vendor attribution kept with its own date.
+
+  The two rows added a day after the review shipped with:
+  - an unchecked Oracle Yes;
+  - a Feb 2025 job ad as the hook;
+  - "hiring" for closed ads;
+  - a colleague's remark credited to the account manager;
+  - an SVP title that public sources give as VP.
 - **Team sizing triangulates three estimates** (Alex, 2026-11-12): a Sales Navigator count × sampled
   precision × stale-profile and coverage factors; first principles from headcount or R&D spend; public
   disclosures. Agreement within ~1.5× → their middle; when a low LinkedIn count meets a higher

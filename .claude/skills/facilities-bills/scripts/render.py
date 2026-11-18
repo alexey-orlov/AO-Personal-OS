@@ -119,7 +119,12 @@ def main():
             for href in dict.fromkeys(p.get("cssHrefs", [])):
                 local = localize_css(href, assets, p.get("url", ""))
                 if local:
-                    html = html.replace(f'href="{href}"', f'href="file://{local}"')
+                    html = html.replace(f'href="{href.replace("&", "&amp;")}"', f'href="file://{local}"')
+            shipped = {}
+            for bundle_ in bundles:
+                shipped.update({k: v for k, v in (bundle_.get("assets") or {}).items() if v})
+            for key, src in (p.get("imgs") or {}).items():
+                html = html.replace(f'src="{key}"', f'src="{shipped.get(src) or src.replace("&", "&amp;")}"')
             n += 1
             hp = os.path.join(htmld, f"{n:03d}.html")
             with open(hp, "w", encoding="utf-8") as f:

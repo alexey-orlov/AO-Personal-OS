@@ -70,6 +70,11 @@ Object.assign(window.__ps, {
       try { return [...s.sheet.cssRules].map(r => r.cssText).join('\n'); } catch (e) { return null; }
     });
     const liveFields = [...document.querySelectorAll('input, textarea, select')];
+    // URLs as the browser resolved them: <base href="/"> (Angular) makes attribute + location.href
+    // wrong (a stylesheet resolved under /dashboard/ came back as the app's index.html)
+    const liveLinks = [...document.querySelectorAll('link[rel="stylesheet"]')].map(l => l.href);
+    const liveAnchors = [...document.querySelectorAll('a[href]')].map(a => a.href);
+    const liveImgs = [...document.querySelectorAll('img')].map(i => i.currentSrc || i.src);
     const clone = document.documentElement.cloneNode(true);
     for (const el of marks) { el.removeAttribute('data-ps-x'); el.removeAttribute('data-ps-fixed'); el.removeAttribute('data-ps-mh'); }
     [...clone.querySelectorAll('style')].forEach((s, i) => { if (styleTexts[i] != null) s.textContent = styleTexts[i]; });
@@ -83,14 +88,29 @@ Object.assign(window.__ps, {
       else if (el.type === 'checkbox' || el.type === 'radio') c.toggleAttribute('checked', el.checked);
       else c.setAttribute('value', el.value);
     });
-    clone.querySelectorAll('#ps-dl, script, iframe, noscript, link[rel="preload"], link[rel="modulepreload"], link[rel="prefetch"], link[rel="manifest"]').forEach(e => e.remove());
+    const cssHrefs = [];
+    [...clone.querySelectorAll('link[rel="stylesheet"]')].forEach((l, i) => { l.setAttribute('href', liveLinks[i]); cssHrefs.push(liveLinks[i]); });
+    [...clone.querySelectorAll('a[href]')].forEach((a, i) => { if (liveAnchors[i]) a.setAttribute('href', liveAnchors[i]); });
+    // images: a placeholder the renderer swaps for the data: URI collectAssets fetched in the page
+    // (some servers refuse headless Chrome), or back to the plain URL
+    const imgs = {};
+    [...clone.querySelectorAll('img')].forEach((img, i) => {
+      const src = liveImgs[i];
+      img.removeAttribute('srcset');
+      if (!src || src.startsWith('data:')) return;
+      const key = 'ps-img:' + Object.keys(imgs).length;
+      imgs[key] = src; img.setAttribute('src', key);
+    });
+    // relative url() in inline <style> resolve against the page, not against the file the renderer opens
+    clone.querySelectorAll('style').forEach(s => {
+      s.textContent = s.textContent.replace(/url\(\s*(['"]?)([^'")]+)\1\s*\)/g, (all, q, u) => {
+        if (/^(data:|#|%23|[a-z]+:)/i.test(u)) return all;
+        try { return `url("${new URL(u, document.baseURI).href}")`; } catch (e) { return all; }
+      });
+    });
+    clone.querySelectorAll('#ps-dl, base, script, iframe, noscript, link[rel="preload"], link[rel="modulepreload"], link[rel="prefetch"], link[rel="manifest"]').forEach(e => e.remove());
     // provider widgets that are not part of the document (chat bubbles, toasts, open pickers)
     if (meta.remove && meta.remove.length) clone.querySelectorAll(meta.remove.join(',')).forEach(e => e.remove());
-    const cssHrefs = [];
-    clone.querySelectorAll('link[rel="stylesheet"]').forEach(l => {
-      const abs = new URL(l.getAttribute('href'), location.href).href; l.setAttribute('href', abs); cssHrefs.push(abs);
-    });
-    clone.querySelectorAll('a[href]').forEach(a => { try { a.setAttribute('href', new URL(a.getAttribute('href'), location.href).href); } catch (e) {} });
     const head = clone.querySelector('head');
     let title = head.querySelector('title');
     if (!title) { title = document.createElement('title'); head.appendChild(title); }
@@ -110,7 +130,7 @@ html, body { height: auto !important; min-height: 0 !important; overflow: visibl
 [data-ps-mh] { min-height: 0 !important; }`;
     head.appendChild(st);
     const html = '<!doctype html>\n' + clone.outerHTML;
-    this.pages.push({ ...meta, printedAt, cssHrefs, html });
+    this.pages.push({ ...meta, printedAt, cssHrefs, imgs, html });
     return { name: meta.name, kb: Math.round(html.length / 1024), queued: this.pages.length };
   },
   // Background job: long loops must not run inside one javascript_tool call.
@@ -160,6 +180,15 @@ html, body { height: auto !important; min-height: 0 !important; overflow: visibl
         } catch (e) {}
       }
       this.assets[href] = text.replace(urlRe, (all, q, u) => (map[u] ? `url("${map[u]}")` : all));
+    }
+    for (const src of new Set(this.pages.flatMap(p => Object.values(p.imgs || {})))) {
+      if (src in this.assets) continue;
+      this.assets[src] = null;
+      try {
+        const r = await fetch(src, { credentials: 'include' });
+        const b = r.ok ? await r.blob() : null;
+        if (b && b.size < 2000000) this.assets[src] = await new Promise(res => { const fr = new FileReader(); fr.onload = () => res(fr.result); fr.readAsDataURL(b); });
+      } catch (e) {}
     }
     return Object.keys(this.assets).filter(h => this.assets[h]).length;
   },
