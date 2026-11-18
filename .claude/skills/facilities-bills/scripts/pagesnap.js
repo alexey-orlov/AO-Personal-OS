@@ -138,8 +138,33 @@ html, body { height: auto !important; min-height: 0 !important; overflow: visibl
     b.dataset.file = file; b.dataset.n = '';
     return JSON.stringify({ queued: this.pages.length, file });
   },
+  // Stylesheets and the fonts/images they point to, fetched inside the logged-in page and shipped
+  // in the bundle: some cabinets answer 403 to anything that is not their own browser session.
+  // Call before button(): await __ps.collectAssets()  (defaults to every sheet the queued pages use).
+  async collectAssets(hrefs) {
+    this.assets = this.assets || {};
+    const want = [...new Set(hrefs || this.pages.flatMap(p => p.cssHrefs || []))].filter(h => !(h in this.assets));
+    const urlRe = /url\(\s*(['"]?)([^'")]+)\1\s*\)/g;
+    for (const href of want) {
+      let text = null;
+      try { const r = await fetch(href, { credentials: 'include' }); if (r.ok) text = await r.text(); } catch (e) {}
+      if (text == null) { this.assets[href] = null; continue; }  // render.py will fetch it itself
+      const map = {};
+      for (const u of new Set([...text.matchAll(urlRe)].map(m => m[2]).filter(u => !/^(data:|#|%23)/.test(u)))) {
+        const abs = new URL(u, href).href;
+        map[u] = abs;
+        try {
+          const r = await fetch(abs, { credentials: 'include' });
+          const b = r.ok ? await r.blob() : null;
+          if (b && b.size < 2000000) map[u] = await new Promise(res => { const fr = new FileReader(); fr.onload = () => res(fr.result); fr.readAsDataURL(b); });
+        } catch (e) {}
+      }
+      this.assets[href] = text.replace(urlRe, (all, q, u) => (map[u] ? `url("${map[u]}")` : all));
+    }
+    return Object.keys(this.assets).filter(h => this.assets[h]).length;
+  },
   download(filename) {
-    const blob = new Blob([JSON.stringify({ v: 1, pages: this.pages })], { type: 'application/json' });
+    const blob = new Blob([JSON.stringify({ v: 2, pages: this.pages, assets: this.assets || {} })], { type: 'application/json' });
     const a = document.createElement('a');
     a.href = URL.createObjectURL(blob); a.download = filename;
     document.body.appendChild(a); a.click(); a.remove();
