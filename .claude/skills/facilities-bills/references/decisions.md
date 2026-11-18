@@ -44,10 +44,16 @@ script. When a lesson is revised, rewrite its entry to the current truth.
    polled through `__ps.status()`.
 5. **Cold loads.** The account book shows a 404 on a cold load. The fix is to navigate inside the
    app with pushState and popstate, which also keeps the injected script alive.
-6. **Background tab.** Chrome slows a background tab's timers. Two receipts timed out at 15 s and
-   loaded fine when retried. Waits are now 30 s, with one retry inside `yRun`.
-7. **History loading.** History loads 40 payments per scroll and once stopped at 40 of 57. The
-   loader now stops on the oldest year it has loaded, and waits for 4 rounds with no change.
+6. **Background tab.** When the tab is not in front, Chrome throttles its timers, after a few
+   minutes to about one wake-up per minute. Polling waits built on `setTimeout` timed out on pages
+   that had already loaded: two receipts at 15 s, then a whole history page after 181 s. Waits now
+   react to DOM mutations, short pauses are MessageChannel turns, and `setTimeout` is only the
+   give-up backstop. A re-test took 14 s. `yRun` also retries each failed receipt once.
+   `status().vis` shows whether the tab is hidden.
+7. **History loading.** History loads 40 payments per scroll and once stopped at 40 of 57. Loading
+   on scroll needs a visible tab. The loader therefore stops as soon as the oldest loaded payment
+   predates the earliest year needed, which 40 payments (about 3 years) already cover. A deep
+   backfill needs the tab in front.
 8. **Amount parsing.** The year leaked into the amount (`2026 397.44`) until the amount was matched
    only after the date.
 9. **Headless Chrome.** `--blink-settings=scriptEnabled=false` makes `--print-to-pdf` write nothing

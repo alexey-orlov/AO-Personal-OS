@@ -73,8 +73,12 @@ and page n/N. When two payments share a date and an amount, the second (counted 
 call. End that call with
 `__ps.start(async log => { for (const [acc, plan] of JOBS) await __ps.yRun(acc, plan, log); })`,
 where `JOBS` holds the `[account entry, plan]` pairs.
-- Poll `__ps.status()` every ~10 s: a `browser_batch` of wait 10 s, then `javascript_tool`. The
-  first run (3 accounts, 37 receipts) took about 3 minutes.
+- Poll `__ps.status()` every ~10 s: a `browser_batch` of wait 10 s, then `javascript_tool`. One
+  account with 1 new receipt takes about 15 s. The first run (3 accounts, 37 receipts) took about
+  3 minutes.
+- Waits react to page changes, so a hidden tab still works. Scrolling further back than ~3 years
+  needs the tab in front, though. If `vis` is `hidden` and `loaded` stays short of the years in
+  the plan, ask Alex to bring the Chrome window with the Yasno tab to the front.
 - `yRun` already retries each failed receipt once. If `failed` is still non-empty, start one more
   job for those accounts, with `have` extended by the names already captured.
 - When the log is complete, call `__ps.button('yasno-<yyyymmdd>.json')`. `find` "pagesnap
