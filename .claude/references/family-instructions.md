@@ -27,6 +27,18 @@ The reference is «Пароли и инструкции.docx» in Alex's Google 
   bottom cell margin at 0 and leave the gap inside the card, then measure the cut lines on a 300 dpi
   render: rows must come out at 98.0 mm.
 
+## Pictograms and step schemes (2026-11-18, «В аэропорту»)
+- A sequence of places (вылет, пересадка, прилет) is a chain: one card per chain, 4–5 steps
+  «N.M **Lead.** action», a pictogram beside each step and a blue arrow down to the next. Words as
+  printed on signs are bold navy.
+- A word list is EN over RU beside the sign's pictogram, ten rows per card. Words from a board or a
+  boarding pass go under a drawn board or pass: real English, red rounded boxes on what to read, and the
+  same flight, gate and times on both pictures.
+- Pictograms are white shapes on a navy (1F3864) rounded square, the colour of the bars. No icon set is
+  installed on KN7X2Y65NX: draw them as SVG and render them with headless Chrome, using its own
+  `--user-data-dir` in the scratchpad; `--allow-file-access-from-files` lets the page load Calibri from
+  Word's `DFonts` folder.
+
 ## Photos of screens (Alex, 2026-11-15)
 - **Show the full screen. Never crop to a detail.** The reader finds the button by its place on the
   whole screen.
