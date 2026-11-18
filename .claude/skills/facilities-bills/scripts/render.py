@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Render Yasno page-snapshot bundles (from ysnap.js download()) to PDFs with headless Chrome.
+"""Render page-snapshot bundles (from pagesnap.js download()) to PDFs with headless Chrome.
 
 usage: python3 -I render.py --out OUT_DIR --work WORK_DIR BUNDLE.json [BUNDLE.json ...]
 
