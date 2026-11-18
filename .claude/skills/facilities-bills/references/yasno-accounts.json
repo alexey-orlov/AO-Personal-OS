@@ -1,0 +1,35 @@
+{
+  "provider": "Yasno",
+  "cabinet": "https://yasno.ua/my/personal-accounts",
+  "drive_root": { "name": "Facilities - bills", "id": "1WjeAASAugd8qbGU55PeL18Z1zox9JjvT" },
+  "receipts_subfolder": "Yasno - платежі",
+  "accounts": [
+    {
+      "folder": "Антоновича",
+      "folder_id": "14OJRAF-jlKYYtkVrwmOuRUqlt3OaM_49",
+      "receipts_folder_id": "1iRYES_Zpw7F3Zub2yQ_Z17GchIGMKjUl",
+      "account_id": "326823",
+      "account_number": "04003421503",
+      "address": "вул. Антоновича, буд. 160, к. 16",
+      "match": "Антонович"
+    },
+    {
+      "folder": "Победы",
+      "folder_id": "1u8X0lP53d65EEeouMgFGqnI5goKYQruZ",
+      "receipts_folder_id": "1WjwzcoejhmNLaGWYZZOs74SFt3u0UKU1",
+      "account_id": "326798",
+      "account_number": "08018102505",
+      "address": "просп. Берестейський, буд. 45, к. 25",
+      "match": "Берестейськ"
+    },
+    {
+      "folder": "Смоленская",
+      "folder_id": "1Z0XqMohVYJthaM44YNzY9UgawqW7sM5-",
+      "receipts_folder_id": "18kQg9Qc3DlshLHv7PViDNOkGADhPzKOZ",
+      "account_id": "326797",
+      "account_number": "08020010005",
+      "address": "вул. Сім'ї Бродських, буд. 51, к. 37",
+      "match": "Бродськ"
+    }
+  ]
+}
