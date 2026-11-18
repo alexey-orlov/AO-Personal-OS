@@ -1,19 +1,28 @@
 #!/usr/bin/env python3
-"""Check rendered Yasno PDFs against their file names before anything is uploaded.
+"""Check rendered statement PDFs against their file names before anything is uploaded.
 
-usage: python3 -I qa.py --accounts references/yasno-accounts.json OUT_DIR
+usage: python3 -I qa.py --accounts references/<provider>-accounts.json OUT_DIR
 
-Per PDF: no page is blank (only the print header/footer); the folder's account number is in the
-text. Receipts ("... платіж YYYY-MM-DD AMOUNT грн"): the amount and the date are in the text.
-History ("Історія платежів YYYY"): payment rows exist and all of them are from YYYY.
-Account book ("Абонентська книжка YYYY"): "YYYY рік" shown, no other year group, the right-hand
-columns (Сплачено, Баланс) present — portrait prints clip them.
+Every PDF: no page is blank (only the print header/footer); its folder's account number is in
+the text.
+Yasno
+  receipts ("... платіж YYYY-MM-DD AMOUNT грн"): the amount and the date are in the text;
+  "Історія платежів YYYY": payment rows exist and all of them are from YYYY;
+  "Абонентська книжка YYYY": "YYYY рік" shown, no other year group, Сплачено/Баланс columns present.
+Київводоканал (statements filtered by account and period)
+  no other account's number in the text;
+  "Абонентська книжка YYYY": month rows ("листопад-2026") exist and are all from YYYY,
+  Оплачено/Борг на кін. columns present;
+  "Здійснені платежі YYYY": every payment date is in YYYY (or the table says "Немає даних"),
+  the РАЗОМ total is shown.
 Exit 1 when anything fails; the run stops there.
 """
 import argparse, json, os, re, subprocess, sys
 
 MON = {"01": "січ", "02": "лют", "03": "бер", "04": "квіт", "05": "трав", "06": "черв",
        "07": "лип", "08": "серп", "09": "вер", "10": "жовт", "11": "лист", "12": "груд"}
+MONTHS_FULL = "січень|лютий|березень|квітень|травень|червень|липень|серпень|вересень|жовтень|листопад|грудень"
+PRINT_TIME = r"\d\d\.\d\d\.\d{4}, \d\d:\d\d"
 
 
 def page_texts(pdf):
@@ -23,12 +32,80 @@ def page_texts(pdf):
                            capture_output=True, text=True).stdout for i in range(1, n + 1)]
 
 
+def check_yasno(f, y_text, text, problems, folder, ps):
+    m = re.search(r"платіж (\d{4})-(\d\d)-(\d\d) (-?[\d.]+) грн", f)
+    if m:
+        y, mo, d, amt = m.groups()
+        whole, frac = amt.split(".")
+        spaced = f"{int(whole):,}".replace(",", " ") + "." + frac
+        if f"{spaced} ₴" not in text and f"{amt} ₴" not in text:
+            problems.append(f"{f}: amount {spaced} not in text")
+        if f"{int(d)} {MON[mo]} {y}" not in text:
+            problems.append(f"{f}: date {int(d)} {MON[mo]} {y} not in text")
+        return
+    m = re.search(r"(Історія платежів|Абонентська книжка) (\d{4})", f)
+    if not m:
+        return
+    kind, y = m.groups()
+    if kind == "Історія платежів":
+        years = re.findall(r"\b\d{1,2} [а-яії]+ (\d{4})\b", text)
+        if not years:
+            problems.append(f"{f}: no payment rows")
+        other = sorted({x for x in years if x != y})
+        if other:
+            problems.append(f"{f}: rows from other years {other}")
+    else:
+        if f"{y} рік" not in text:
+            problems.append(f"{f}: '{y} рік' missing")
+        if re.search(r"\b(?!%s)\d{4} рік" % y, text):
+            problems.append(f"{f}: another year's group is shown")
+        if "Баланс" not in text or "Сплачено" not in text:
+            problems.append(f"{f}: table columns clipped")
+        months = len(re.findall(r"\b(?:%s) %s\b" % ("|".join(MON.values()), y), text))
+        print(f"  {folder} · {kind} {y}: {months} month rows, {len(ps)} pages")
+
+
+def check_vodokanal(f, text, problems, folder, ps, acct, all_accts):
+    others = sorted(a for a in all_accts if a != acct and re.search(r"\b%s\b" % a, text))
+    if others:
+        problems.append(f"{f}: other accounts in the text {others}")
+    m = re.search(r"(Абонентська книжка|Здійснені платежі) (\d{4})", f)
+    if not m:
+        return
+    kind, y = m.groups()
+    if kind == "Абонентська книжка":
+        years = re.findall(r"\b(?:%s)-(\d{4})\b" % MONTHS_FULL, text, re.I)
+        if not years:
+            problems.append(f"{f}: no month rows")
+        other = sorted({x for x in years if x != y})
+        if other:
+            problems.append(f"{f}: months from other years {other}")
+        if "Оплачено" not in text or not re.search(r"Борг\s+на\s+кін", text):
+            problems.append(f"{f}: table columns clipped")
+        print(f"  {folder} · {kind} {y}: {len(years)} rows, {len(ps)} pages")
+    else:
+        body = re.sub(PRINT_TIME, " ", text)
+        years = re.findall(r"\b\d\d\.\d\d\.(\d{4})\b", body)
+        if "Немає даних" not in text:
+            other = sorted({x for x in years if x != y})
+            if other:
+                problems.append(f"{f}: payment dates from other years {other}")
+            if len(years) < 3:  # the period field alone holds two dates
+                problems.append(f"{f}: no payment rows")
+        if "РАЗОМ" not in text:
+            problems.append(f"{f}: РАЗОМ total missing")
+        total = re.search(r"РАЗОМ:\s*([\d\s.,]+)\s*грн", text)
+        print(f"  {folder} · {kind} {y}: {max(len(years) - 2, 0)} payments, total {total.group(1).strip() if total else '-'}, {len(ps)} pages")
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--accounts", required=True)
     ap.add_argument("out")
     a = ap.parse_args()
-    acct = {x["folder"]: x["account_number"] for x in json.load(open(a.accounts, encoding="utf-8"))["accounts"]}
+    cfg = json.load(open(a.accounts, encoding="utf-8"))
+    provider = cfg["provider"]
+    acct = {x["folder"]: x["account_number"] for x in cfg["accounts"]}
     problems, count = [], 0
     for dp, _, fs in os.walk(a.out):
         for f in sorted(fs):
@@ -40,42 +117,16 @@ def main():
             ps = page_texts(pdf)
             text = re.sub(r"[\s\u00a0\u202f]+", " ", " ".join(ps))
             for i, p in enumerate(ps, 1):
-                body = [l for l in p.splitlines() if l.strip() and "yasno.ua/my" not in l
-                        and not re.match(r"\s*\d\d\.\d\d\.\d{4}, \d\d:\d\d", l)]
+                body = [l for l in p.splitlines() if l.strip() and "://" not in l
+                        and not re.match(r"\s*" + PRINT_TIME, l)]
                 if len(body) < 2:
                     problems.append(f"{f}: page {i} is blank")
             if folder in acct and acct[folder] not in text:
                 problems.append(f"{f}: account {acct[folder]} not in text")
-            m = re.search(r"платіж (\d{4})-(\d\d)-(\d\d) (-?[\d.]+) грн", f)
-            if m:
-                y, mo, d, amt = m.groups()
-                whole, frac = amt.split(".")
-                spaced = f"{int(whole):,}".replace(",", " ") + "." + frac
-                if f"{spaced} ₴" not in text and f"{amt} ₴" not in text:
-                    problems.append(f"{f}: amount {spaced} not in text")
-                if f"{int(d)} {MON[mo]} {y}" not in text:
-                    problems.append(f"{f}: date {int(d)} {MON[mo]} {y} not in text")
-                continue
-            m = re.search(r"(Історія платежів|Абонентська книжка) (\d{4})", f)
-            if not m:
-                continue
-            kind, y = m.groups()
-            if kind == "Історія платежів":
-                years = re.findall(r"\b\d{1,2} [а-яії]+ (\d{4})\b", text)
-                if not years:
-                    problems.append(f"{f}: no payment rows")
-                other = sorted({x for x in years if x != y})
-                if other:
-                    problems.append(f"{f}: rows from other years {other}")
+            if provider == "Yasno":
+                check_yasno(f, None, text, problems, folder, ps)
             else:
-                if f"{y} рік" not in text:
-                    problems.append(f"{f}: '{y} рік' missing")
-                if re.search(r"\b(?!%s)\d{4} рік" % y, text):
-                    problems.append(f"{f}: another year's group is shown")
-                if "Баланс" not in text or "Сплачено" not in text:
-                    problems.append(f"{f}: table columns clipped")
-                months = len(re.findall(r"\b(?:%s) %s\b" % ("|".join(MON.values()), y), text))
-                print(f"  {folder} · {kind} {y}: {months} month rows, {len(ps)} pages")
+                check_vodokanal(f, text, problems, folder, ps, acct.get(folder), set(acct.values()))
     print(f"{count} PDFs checked, {len(problems)} problems")
     for p in problems:
         print(" -", p)
