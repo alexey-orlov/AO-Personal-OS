@@ -27,12 +27,20 @@ def fetch(url, tries=4):
             time.sleep(3 * (i + 1))
 
 
-def localize_css(href, assets_dir):
+def asset_path(href, assets_dir):
     name = hashlib.sha1(href.encode()).hexdigest()[:10] + "-" + os.path.basename(urllib.parse.urlparse(href).path)
-    path = os.path.join(assets_dir, name)
+    return os.path.join(assets_dir, name)
+
+
+def localize_css(href, assets_dir):
+    path = asset_path(href, assets_dir)
     if os.path.exists(path):
         return path
-    css = fetch(href).decode("utf-8")
+    try:
+        css = fetch(href).decode("utf-8")
+    except OSError as e:
+        raise SystemExit(f"stylesheet {href} is not in the bundle and cannot be fetched ({e}); "
+                         "run `await __ps.collectAssets()` in the page before the download")
 
     def repl(m):
         ref = m.group(2)
@@ -85,9 +93,20 @@ def main():
     assets = os.path.join(a.work, "assets"); htmld = os.path.join(a.work, "html")
     os.makedirs(assets, exist_ok=True); os.makedirs(htmld, exist_ok=True)
     jobs, n = [], 0
+    bundles = []
     for b in a.bundles:
         with open(b, encoding="utf-8") as f:
-            bundle = json.load(f)
+            bundles.append(json.load(f))
+    # stylesheets shipped by pagesnap.collectAssets (fetched inside the logged-in page): written
+    # into the asset cache first, so localize_css never has to fetch them (some sites answer 403)
+    for bundle in bundles:
+        for href, text in (bundle.get("assets") or {}).items():
+            if text:
+                path = asset_path(href, assets)
+                if not os.path.exists(path):
+                    with open(path, "w", encoding="utf-8") as f:
+                        f.write(text)
+    for bundle in bundles:
         for p in bundle["pages"]:
             html = re.sub(r"<head([^>]*)>", r'<head\1><meta http-equiv="Content-Security-Policy" content="script-src \'none\'">',
                           p["html"], count=1)
