@@ -15,21 +15,42 @@
 //   extension's click by ref. Snapshots never include that button.
 window.__ps = window.__ps || { pages: [] };
 Object.assign(window.__ps, {
+  // A hidden tab (another tab in front, window covered) gets its timers throttled to about one
+  // wake-up per minute, so nothing here polls on setTimeout: waits react to DOM mutations, pauses
+  // are MessageChannel turns (the app's React scheduler uses those too and keeps rendering), and
+  // setTimeout is only the give-up backstop. Things that need painting (requestAnimationFrame,
+  // IntersectionObserver, e.g. infinite scroll) still stall while hidden: see status().vis.
   sleep(ms) { return new Promise(r => setTimeout(r, ms)); },
-  async waitFor(pred, timeout = 30000) {
-    const t0 = Date.now();
-    while (Date.now() - t0 < timeout) { try { if (pred()) return true; } catch (e) {} await this.sleep(250); }
-    return false;
+  tick(n = 10) {
+    return new Promise(resolve => {
+      const ch = new MessageChannel();
+      let left = n;
+      ch.port1.onmessage = () => { if (--left <= 0) { ch.port1.close(); resolve(); } else ch.port2.postMessage(0); };
+      ch.port2.postMessage(0);
+    });
+  },
+  waitFor(pred, timeout = 30000) {
+    return new Promise(resolve => {
+      let done = false, obs = null, timer = null;
+      const finish = v => { if (done) return; done = true; if (obs) obs.disconnect(); clearTimeout(timer); resolve(v); };
+      const check = () => { try { if (pred()) finish(true); } catch (e) {} };
+      obs = new MutationObserver(check);
+      obs.observe(document.documentElement, { childList: true, subtree: true, characterData: true });
+      timer = setTimeout(() => { check(); finish(false); }, timeout);
+      check();
+    });
   },
   main() { return document.querySelector('main') || document.body; },
   text() { return (this.main()?.innerText || '').replace(/\s+/g, ' '); },
   norm(s) { return String(s).replace(/[\s  ]+/g, ''); },
-  async go(path, pred, settle = 800) {
+  // pred must recognise the NEW page (e.g. its pathname plus content unique to it), or it can
+  // match the page being left.
+  async go(path, pred) {
     history.pushState({}, '', path);
     dispatchEvent(new PopStateEvent('popstate', { state: {} }));
-    await this.sleep(300);
+    await this.tick(5);
     const ok = await this.waitFor(pred || (() => true));
-    await this.sleep(settle);
+    await this.tick(30);
     return ok;
   },
   cssStr(s) { return '"' + String(s).replace(/\\/g, '\\\\').replace(/"/g, '\\"').replace(/\n/g, ' ') + '"'; },
@@ -91,7 +112,7 @@ html, body { height: auto !important; min-height: 0 !important; overflow: visibl
   status() {
     const j = this.job || {};
     return JSON.stringify({ done: j.done, err: j.err, secs: Math.round((Date.now() - (j.t0 || Date.now())) / 1000),
-      log: j.log, queued: this.pages.length, path: location.pathname });
+      vis: document.visibilityState, log: j.log, queued: this.pages.length, path: location.pathname });
   },
   button(file) {
     let b = document.getElementById('ps-dl');
