@@ -1,6 +1,6 @@
 ---
 name: facilities-bills
-description: Save Alex's utility-cabinet payment records as PDFs into his Google Drive folder "Facilities - bills" (one subfolder per apartment). Provider so far is Yasno electricity, with 3 accounts. For each account it prints the Абонентська книжка (account book) and Історія платежів (payment history) pages per year, plus every payment's detail page as a receipt in a "Yasno - платежі" subfolder. Each run reprints the current year and adds new receipts. Works in Alex's logged-in Chrome session through the Claude in Chrome extension, makes true browser prints with headless Chrome, and uploads them with the Google Drive connector. Use on /facilities-bills, "update the Yasno bills", "download Yasno payment history", "save Yasno receipts to Drive", "оновити платежі Ясно", "скачай історію платежів Ясно", "роздрукуй абонентську книжку", or when another facilities cabinet (water, heating, gas) needs the same treatment.
+description: Save Alex's utility-cabinet payment records as PDFs into his Google Drive folder "Facilities - bills" (one folder per apartment, and inside it one folder per utility; everything from Yasno goes into the apartment's «Электроэнергия» folder). Provider so far is Yasno electricity, with 3 accounts. For each account it prints the Абонентська книжка (account book) and Історія платежів (payment history) pages per year, plus every payment's detail page as a receipt in a "Yasno - платежі" subfolder. Each run reprints the current year and adds new receipts. Works in Alex's logged-in Chrome session through the Claude in Chrome extension, makes true browser prints with headless Chrome, and uploads them with the Google Drive connector. Use on /facilities-bills, "update the Yasno bills", "download Yasno payment history", "save Yasno receipts to Drive", "оновити платежі Ясно", "скачай історію платежів Ясно", "роздрукуй абонентську книжку", or when another facilities cabinet (water, heating, gas) needs the same treatment.
 disable-model-invocation: false
 user-invocable: true
 ---
@@ -9,7 +9,9 @@ user-invocable: true
 
 Prints the pages of Alex's utility cabinets to PDF and files them in Google Drive
 **Facilities - bills** (`1WjeAASAugd8qbGU55PeL18Z1zox9JjvT`), which has one folder per apartment.
-The only provider so far is **Yasno**. Its page map is in `references/yasno.md`. The accounts and
+Inside each apartment folder every utility has its own folder, and nothing goes straight into the
+apartment folder (Alex, 2026-11-18). The only provider so far is **Yasno**, and its folder is
+«Электроэнергия». Its page map is in `references/yasno.md`. The accounts and
 their Drive folders are in `references/yasno-accounts.json`. The reasons behind each rule and the
 lessons from the first run are in `references/decisions.md`.
 
@@ -17,10 +19,11 @@ lessons from the first run are in `references/decisions.md`.
 
 ```
 Facilities - bills/<Folder>/                 Антоновича · Победы · Смоленская
-  Yasno - <Folder> - Абонентська книжка <YYYY>.pdf   account book, that year's tab (A4 landscape)
-  Yasno - <Folder> - Історія платежів <YYYY>.pdf     payment history, only that year's payments
-  Yasno - платежі/
-    Yasno - <Folder> - платіж <YYYY-MM-DD> <amount> грн.pdf    one payment's detail page
+  Электроэнергия/                            all of Yasno: folder_id in the accounts JSON
+    Yasno - <Folder> - Абонентська книжка <YYYY>.pdf   account book, that year's tab (A4 landscape)
+    Yasno - <Folder> - Історія платежів <YYYY>.pdf     payment history, only that year's payments
+    Yasno - платежі/                         receipts_folder_id
+      Yasno - <Folder> - платіж <YYYY-MM-DD> <amount> грн.pdf    one payment's detail page
 ```
 
 Each PDF is a real print of the page: the site's own fonts and selectable text. The header shows
