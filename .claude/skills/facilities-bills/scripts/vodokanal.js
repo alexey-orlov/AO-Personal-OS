@@ -13,17 +13,28 @@ Object.assign(window.__ps, {
   },
   // Count in-flight XHR/fetch: a search is finished only when its request is, otherwise an empty
   // or unchanged table from the previous search can be taken for the new result.
+  // The table re-renders on the response's 'load' event, before 'loadend' fires, so a DOM-driven
+  // wait never re-checks after the counter drops: idleness is awaited directly (vNetIdle).
   vHookNet() {
     if (window.__psNet) return;
-    const net = window.__psNet = { inflight: 0, done: 0 };
+    const net = window.__psNet = { inflight: 0, done: 0, waiters: [] };
+    const settle = () => {
+      net.inflight--; net.done++;
+      if (net.inflight === 0) { const w = net.waiters; net.waiters = []; w.forEach(f => f()); }
+    };
     const send = XMLHttpRequest.prototype.send;
     XMLHttpRequest.prototype.send = function (...a) {
       net.inflight++;
-      this.addEventListener('loadend', () => { net.inflight--; net.done++; });
+      this.addEventListener('loadend', settle);
       return send.apply(this, a);
     };
     const f = window.fetch;
-    window.fetch = (...a) => { net.inflight++; return f(...a).finally(() => { net.inflight--; net.done++; }); };
+    window.fetch = (...a) => { net.inflight++; return f(...a).finally(settle); };
+  },
+  vNetIdle(timeout = 30000) {
+    const net = window.__psNet;
+    if (net.inflight === 0) return Promise.resolve(true);
+    return new Promise(res => { net.waiters.push(() => res(true)); setTimeout(() => res(false), timeout); });
   },
   vRows() {
     return [...document.querySelectorAll('p-table tbody > tr, .p-datatable-tbody > tr')]
@@ -104,7 +115,10 @@ Object.assign(window.__ps, {
     const btn = this.vSearchButton();
     if (!btn) return 'no search button';
     btn.click();
-    await this.waitFor(() => window.__psNet.done > before && window.__psNet.inflight === 0, 30000);
+    await this.tick(5);
+    const net = window.__psNet;
+    if (net.inflight === 0 && net.done === before) await this.waitFor(() => net.inflight > 0 || net.done > before, 5000);
+    await this.vNetIdle(30000);
     await this.tick(30);
     const rows = this.vRows();
     if (rows.some(r => /Немає даних/.test(r))) return 'empty';
