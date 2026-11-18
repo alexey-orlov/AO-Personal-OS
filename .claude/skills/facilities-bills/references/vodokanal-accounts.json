@@ -1,0 +1,29 @@
+{
+  "provider": "Київводоканал",
+  "cabinet": "https://my.vodokanal.kiev.ua/dashboard/invoices",
+  "drive_root": { "name": "Facilities - bills", "id": "1WjeAASAugd8qbGU55PeL18Z1zox9JjvT" },
+  "utility_folder": "Водоканал",
+  "accounts": [
+    {
+      "folder": "Антоновича",
+      "address_folder_id": "14OJRAF-jlKYYtkVrwmOuRUqlt3OaM_49",
+      "folder_id": "1MGD6EBt9Mtz7rPDpmWA5mebviRtEyaq3",
+      "account_number": "1088235",
+      "address": "вул. Антоновича, буд. 160, кв. 16"
+    },
+    {
+      "folder": "Победы",
+      "address_folder_id": "1u8X0lP53d65EEeouMgFGqnI5goKYQruZ",
+      "folder_id": "1AeTSsKytKhJ843I1IbMCujN3Mauk2hu7",
+      "account_number": "0251754",
+      "address": "просп. Берестейський, буд. 45, кв. 25"
+    },
+    {
+      "folder": "Смоленская",
+      "address_folder_id": "1Z0XqMohVYJthaM44YNzY9UgawqW7sM5-",
+      "folder_id": "1cHO9UK8g8ohg7ESumWZN01qBIU8h--kq",
+      "account_number": "0251689",
+      "address": "вул. Сім'ї Бродських, буд. 5/1, кв. 37"
+    }
+  ]
+}

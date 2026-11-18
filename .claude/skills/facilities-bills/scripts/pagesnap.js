@@ -54,7 +54,7 @@ Object.assign(window.__ps, {
     return ok;
   },
   cssStr(s) { return '"' + String(s).replace(/\\/g, '\\\\').replace(/"/g, '\\"').replace(/\n/g, ' ') + '"'; },
-  // meta: {folder, sub, name, title, header, url, landscape}
+  // meta: {folder, sub, name, title, header, url, landscape, remove: [css selectors]}
   // folder/sub/name = where render.py writes the PDF: OUT/<folder>/<sub>/<name>.pdf
   snap(meta) {
     const marks = [];
@@ -69,10 +69,23 @@ Object.assign(window.__ps, {
     const styleTexts = [...document.querySelectorAll('style')].map(s => {
       try { return [...s.sheet.cssRules].map(r => r.cssText).join('\n'); } catch (e) { return null; }
     });
+    const liveFields = [...document.querySelectorAll('input, textarea, select')];
     const clone = document.documentElement.cloneNode(true);
     for (const el of marks) { el.removeAttribute('data-ps-x'); el.removeAttribute('data-ps-fixed'); el.removeAttribute('data-ps-mh'); }
     [...clone.querySelectorAll('style')].forEach((s, i) => { if (styleTexts[i] != null) s.textContent = styleTexts[i]; });
+    // cloneNode copies attributes, not what is typed or picked: a filter field (the period of a
+    // statement!) would print blank. Copy the live values in before anything is removed.
+    [...clone.querySelectorAll('input, textarea, select')].forEach((c, i) => {
+      const el = liveFields[i];
+      if (!el) return;
+      if (el.tagName === 'TEXTAREA') c.textContent = el.value;
+      else if (el.tagName === 'SELECT') [...c.options].forEach((o, j) => o.toggleAttribute('selected', !!el.options[j]?.selected));
+      else if (el.type === 'checkbox' || el.type === 'radio') c.toggleAttribute('checked', el.checked);
+      else c.setAttribute('value', el.value);
+    });
     clone.querySelectorAll('#ps-dl, script, iframe, noscript, link[rel="preload"], link[rel="modulepreload"], link[rel="prefetch"], link[rel="manifest"]').forEach(e => e.remove());
+    // provider widgets that are not part of the document (chat bubbles, toasts, open pickers)
+    if (meta.remove && meta.remove.length) clone.querySelectorAll(meta.remove.join(',')).forEach(e => e.remove());
     const cssHrefs = [];
     clone.querySelectorAll('link[rel="stylesheet"]').forEach(l => {
       const abs = new URL(l.getAttribute('href'), location.href).href; l.setAttribute('href', abs); cssHrefs.push(abs);
