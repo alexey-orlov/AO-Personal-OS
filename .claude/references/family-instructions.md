@@ -35,6 +35,13 @@ The reference is «Пароли и инструкции.docx» in Alex's Google 
   which ignores glare that adds light), and lift the text and icons from the photo inside listed boxes.
   Check the result against the photo, box by box.
 - Use only red marks: rounded boxes around what to tap, and an arrow with a dot at its start for a swipe.
+- Take every on-screen label from the photos of the relative's own phone, never from general knowledge of
+  the menus. Samsung renames items between One UI versions: on mom's phone (One UI 7) it is «Данные в
+  роуминге», not «Роуминг данных», and the network mode is «Приоритет LTE» (2026-11-18).
+- A screen Alex did not photograph is drawn in the same look: clean page, cards and switches; the status
+  bar, back arrow and navigation bar re-inked from a rebuilt photo of the same phone; the layout from
+  Samsung's own support screenshot and the labels from samsung.com/ru. The delivery note says which
+  screens are drawn.
 
 ## Checking
 Render the file through Word to PDF (see `document-rendering.md`) and look at every page, then at 200 dpi
