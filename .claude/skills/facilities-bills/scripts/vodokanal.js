@@ -35,6 +35,7 @@ Object.assign(window.__ps, {
     const dd = this.vDropdown(/^(По всіх рахунках|\d{7})$/);
     if (!dd) return false;
     if (dd.innerText.trim() === acct) return true;
+    await this.vCloseCalendar();
     dd.querySelector('.p-dropdown').click();
     if (!(await this.waitFor(() => document.querySelector('.p-dropdown-panel .p-dropdown-item'), 10000))) return false;
     const li = [...document.querySelectorAll('.p-dropdown-panel .p-dropdown-item')].find(x => x.innerText.trim() === acct);
@@ -42,18 +43,28 @@ Object.assign(window.__ps, {
     li.click();
     return this.waitFor(() => dd.innerText.trim() === acct, 10000);
   },
-  vCloseCalendar() {
-    const inp = document.querySelector('p-calendar input');
-    inp.dispatchEvent(new KeyboardEvent('keydown', { bubbles: true, key: 'Escape' }));
-    inp.blur();
-    document.body.dispatchEvent(new MouseEvent('mousedown', { bubbles: true }));
-    document.body.click();
+  // The picker overlay does not close on Escape or outside clicks sent from script, and an open
+  // picker eats the next click (the next trigger click closes it instead of opening it, a
+  // dropdown click only dismisses it). The trigger button toggles it reliably.
+  async vCloseCalendar() {
+    for (let i = 0; i < 3 && document.querySelector('.p-datepicker'); i++) {
+      document.querySelector('p-calendar button.p-datepicker-trigger').click();
+      await this.waitFor(() => !document.querySelector('.p-datepicker'), 3000);
+    }
+    document.querySelector('p-calendar input')?.blur();
+    return !document.querySelector('.p-datepicker');
+  },
+  // The search button carries .pi-search on one page and not on the other; .p-fluid-button is on both.
+  vSearchButton() {
+    return document.querySelector('button.p-fluid-button')
+      || [...document.querySelectorAll('button')].find(b => b.querySelector('.pi-search'));
   },
   // Абонентська книжка: a month-range picker. Open it, step the year, click Січ then Гру.
   async vMonthRange(y) {
     const inp = document.querySelector('p-calendar input');
     const want = `Січень ${y} - Грудень ${y}`;
     if (inp.value === want) return true;
+    await this.vCloseCalendar();
     document.querySelector('p-calendar button.p-datepicker-trigger').click();
     if (!(await this.waitFor(() => document.querySelector('.p-datepicker .p-monthpicker-month'), 10000))) return false;
     for (let i = 0; i < 30; i++) {
@@ -66,8 +77,7 @@ Object.assign(window.__ps, {
     await this.tick(10);
     document.querySelectorAll('.p-datepicker .p-monthpicker-month')[11].click();
     await this.tick(10);
-    this.vCloseCalendar();
-    await this.tick(10);
+    await this.vCloseCalendar();
     return inp.value === want;
   },
   // Здійснені платежі: a typed day range. PrimeNG ignores an input event that no keydown preceded,
@@ -82,16 +92,16 @@ Object.assign(window.__ps, {
     setter.call(inp, want);
     inp.dispatchEvent(new Event('input', { bubbles: true }));
     await this.tick(10);
-    this.vCloseCalendar();
-    await this.tick(10);
+    await this.vCloseCalendar();
     return inp.value === want;
   },
   // Click search, wait for its request to finish, then check that every row is this account's
   // and this year's (or that the table says there is no data).
   async vSearch(acct, y, kind) {
     this.vHookNet();
+    await this.vCloseCalendar();
     const before = window.__psNet.done;
-    const btn = [...document.querySelectorAll('button')].find(b => b.querySelector('.pi-search'));
+    const btn = this.vSearchButton();
     if (!btn) return 'no search button';
     btn.click();
     await this.waitFor(() => window.__psNet.done > before && window.__psNet.inflight === 0, 30000);
