@@ -25,18 +25,20 @@ Object.assign(window.__ps, {
     };
   },
   yPayments() { return [...document.querySelectorAll(this.Y_CARD)].map(a => this.yParseCard(a)); },
-  // History loads 40 payments per scroll. Stop once the oldest loaded one is older than minYear
-  // (or the count stops growing). A background tab loads slowly, hence the patient stop rule.
+  // History shows 40 payments and loads 40 more on each scroll to the bottom. Stop once the oldest
+  // loaded payment is older than minYear (the usual case: 40 payments cover ~3 years), or after two
+  // scrolls that load nothing. Loading on scroll needs a visible tab (see pagesnap's note).
   async yLoadPayments(minYear) {
-    let prev = -1, stable = 0;
-    for (let i = 0; i < 80 && stable < 4; i++) {
+    let idle = 0;
+    for (let i = 0; i < 60 && idle < 2; i++) {
       const cards = document.querySelectorAll(this.Y_CARD);
       const n = cards.length;
       const oldest = n ? this.yParseCard(cards[n - 1]).year : null;
       if (minYear && oldest && Number(oldest) < Number(minYear)) break;
-      stable = n === prev ? stable + 1 : 0; prev = n;
       window.scrollTo(0, document.body.scrollHeight);
-      await this.sleep(1500);
+      dispatchEvent(new Event('scroll'));
+      const grew = await this.waitFor(() => document.querySelectorAll(this.Y_CARD).length > n, 8000);
+      idle = grew ? 0 : idle + 1;
     }
     window.scrollTo(0, 0);
     return document.querySelectorAll(this.Y_CARD).length;
@@ -61,14 +63,15 @@ Object.assign(window.__ps, {
   dmy(iso) { const [y, m, d] = iso.split('-'); return `${d}.${m}.${y}`; },
   async yHistory(acc, years, minYear) {
     // history → history with another accountId keeps the mounted list: leave the route first
-    if (location.pathname === '/my/payments/history') await this.go('/my', () => true, 500);
+    if (location.pathname === '/my/payments/history') await this.go('/my', () => location.pathname === '/my');
     const ok = await this.go('/my/payments/history?accountId=' + acc.account_id,
-      () => this.text().includes(acc.match) && document.querySelectorAll(this.Y_CARD).length > 0);
+      () => location.pathname === '/my/payments/history' && this.text().includes(acc.match)
+        && document.querySelectorAll(this.Y_CARD).length > 0);
     if (!ok) return { error: 'history did not render' };
     const total = await this.yLoadPayments(minYear);
     for (const y of years) {
       this.yFilterYear(y);
-      await this.sleep(300);
+      await this.tick(10);
       this.snap({ folder: acc.folder, sub: '', name: `Yasno - ${acc.folder} - Історія платежів ${y}`,
         title: `Yasno — Історія платежів ${y} — ${acc.folder}`,
         header: `Yasno · Історія платежів · ${y} рік · о/р ${acc.account_number} · ${acc.address}`,
@@ -90,7 +93,7 @@ Object.assign(window.__ps, {
   },
   async yAccountBook(acc, years) {
     const ok = await this.go(`/my/account-book?accountId=${acc.account_id}&accountNumber=${acc.account_number}`,
-      () => this.text().includes('Абонентська книжка') && /\d{4} рік/.test(this.text()));
+      () => location.pathname === '/my/account-book' && this.text().includes('Абонентська книжка') && /\d{4} рік/.test(this.text()));
     if (!ok) return ['account book did not render'];
     const done = [];
     for (const y of years) {
@@ -99,7 +102,7 @@ Object.assign(window.__ps, {
       tab.click();
       const shown = await this.waitFor(() => this.text().includes(`${y} рік`)
         && !this.text().includes(`${Number(y) + 1} рік`) && !this.text().includes(`${Number(y) - 1} рік`));
-      await this.sleep(600);
+      await this.tick(20);
       // landscape: the 7-column table is clipped at portrait width
       this.snap({ folder: acc.folder, sub: '', landscape: true, name: `Yasno - ${acc.folder} - Абонентська книжка ${y}`,
         title: `Yasno — Абонентська книжка ${y} — ${acc.folder}`,
