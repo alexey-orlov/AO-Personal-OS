@@ -11,7 +11,9 @@ script. When a lesson is revised, rewrite its entry to the current truth.
   Смоленська to Сім'ї Бродських, so I asked, and he confirmed the renamed street.
 - Receipts cover 2025–2026, not every year back to 2021.
 - Year rules: reprint the current year over the old file, keep previous years, and keep at least
-  one previous year.
+  one previous year. A year's file printed before that year ended is reprinted once in the next
+  year, because otherwise its last payments and charges would never be on file. The agent proposed
+  this exception and Alex confirmed it.
 - He offered his cabinet login for the repo. It was not stored: the agent may not type passwords
   in any case, and the repo rule forbids committing secrets, because autosync pushes to GitHub.
 
@@ -23,8 +25,6 @@ script. When a lesson is revised, rewrite its entry to the current truth.
 - **History per year:** the page has no year filter, so each year's print hides the other years'
   rows. This matches the account book's year tabs and the rule that only the current year is
   reprinted.
-- **Reprinting a previous year:** a year's file printed before the year ended is reprinted once in
-  the next year. Otherwise that year's last payments and charges would never be on file.
 - **Duplicate receipt names** are numbered oldest first. A new payment then never renames an older
   file, so the check for existing files stays correct.
 
