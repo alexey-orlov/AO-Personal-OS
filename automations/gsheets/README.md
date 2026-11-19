@@ -29,7 +29,7 @@ client is stdlib `urllib` — nothing to install anywhere except for `auth`.
 - `config.sh` — exports `REPO_ROOT`, `GSHEETS_TOKEN`, `SHEETS_CREDS`,
   `PYTHON_BIN`, `GSHEETS`. Source it from any consumer's config.
 - `gsheets.py` — credential loader + stdlib REST client + CLI
-  (`auth | check | info | get | update | append | clear | batch-update`).
+  (`auth | check | info | get | update | append | clear | batch-update | create`).
   Full reference in its docstring.
 - `setup.sh` — one-time per Mac: venv for `auth`, migration of the
   pre-2026-09 per-skill files, credential check, prints the off-Mac steps.
@@ -100,6 +100,7 @@ echo '[["x"]]'        | "$PYTHON_BIN" "$GSHEETS" update <SHEET_ID> 'Sheet1!B2'
 "$PYTHON_BIN" "$GSHEETS" clear  <SHEET_ID> 'Sheet1!A2:Z'
 echo '[{"addSheet":{"properties":{"title":"New tab"}}}]' \
   | "$PYTHON_BIN" "$GSHEETS" batch-update <SHEET_ID>      # any structural edit
+"$PYTHON_BIN" "$GSHEETS" create 'New sheet' < /dev/null    # new spreadsheet in My Drive → id + url
 ```
 
 Python — a consumer with its own layout logic (what `gym_sheet.py` does):

@@ -31,6 +31,9 @@ CLI (JSON on stdout, diagnostics on stderr):
   batch-update SHEET_ID < body    raw spreadsheets.batchUpdate body (or a bare
                                   list of requests): tabs, rows, merges,
                                   formats — the escape hatch for everything else
+  create TITLE [< body]           new spreadsheet in My Drive root → id + url;
+                                  optional stdin: a spreadsheets.create body
+                                  (e.g. {"sheets": [...]}) — TITLE wins
 RANGE is A1 notation with the tab first: 'Sheet1!A1:D10', 'CRM Contacts'.
 `update` / `append` parse input like typing (USER_ENTERED: formulas, dates,
 numbers); add --raw to store strings verbatim. Rows on stdin are JSON:
@@ -239,6 +242,9 @@ class _Sheets:
     def batchUpdate(self, spreadsheetId, body):
         return _Call("POST", f"/{spreadsheetId}:batchUpdate", self.token, None, body)
 
+    def create(self, body):
+        return _Call("POST", "", self.token, None, body)
+
 
 def service():
     """The shared credential → a Sheets API handle. Raises SheetsError."""
@@ -284,6 +290,7 @@ USAGE = """usage: gsheets.py <command> [args] [--raw]
   auth | check [SHEET_ID] | info SHEET_ID | get SHEET_ID RANGE
   update SHEET_ID RANGE < rows.json | append SHEET_ID RANGE < rows.json
   clear SHEET_ID RANGE | batch-update SHEET_ID < body.json
+  create TITLE [< body.json]
 (full reference: the docstring at the top of this file)"""
 
 
@@ -377,6 +384,16 @@ def main(argv):
                 body = {"requests": body}
             resp = service().spreadsheets().batchUpdate(spreadsheetId=args[0], body=body).execute()
             out = dict(ok=True, **resp)
+        elif cmd == "create":
+            _need(args, 1, "TITLE")
+            body = {} if sys.stdin.isatty() else json.loads(sys.stdin.read() or "{}")
+            body.setdefault("properties", {})["title"] = args[0]
+            resp = service().spreadsheets().create(body=body).execute()
+            out = {"ok": True, "spreadsheetId": resp.get("spreadsheetId"),
+                   "url": resp.get("spreadsheetUrl"),
+                   "sheets": [{"title": s["properties"]["title"],
+                               "sheetId": s["properties"]["sheetId"]}
+                              for s in resp.get("sheets", [])]}
         else:
             raise SheetsError(USAGE, 2)
     except SheetsError as e:
