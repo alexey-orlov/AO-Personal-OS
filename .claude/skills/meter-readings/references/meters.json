@@ -10,8 +10,8 @@
         "meters": [
           { "serial": "220047843 А", "kind": "cold", "room": "кухня", "how_known": "prev 2.000 vs mom's 2.382 (2026-11-19); the other cold meter was at 5.000" },
           { "serial": "220047865 А", "kind": "cold", "room": "ванная", "how_known": "prev 5.000 vs mom's 5.435 (2026-11-19)" },
-          { "serial": "220055398 А", "kind": "hot", "room": null, "how_known": "both hot meters read 1.000 and their history does not tell them apart: ask Alex" },
-          { "serial": "220055399 А", "kind": "hot", "room": null, "how_known": "see 220055398 А" }
+          { "serial": "220055398 А", "kind": "hot", "room": "ванная", "how_known": "Alex checked it on 2026-11-19 (the cabinet data could not tell the two hot meters apart)" },
+          { "serial": "220055399 А", "kind": "hot", "room": "кухня", "how_known": "Alex checked it on 2026-11-19" }
         ]
       },
       {
