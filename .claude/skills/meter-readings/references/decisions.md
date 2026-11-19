@@ -21,10 +21,13 @@ Rationale only; the runtime steps are in `SKILL.md`. Rewrite an entry when it ch
 - Водоканал, Антоновича, cold: 220047843 А (кухня) 2.000 → 2.382 and 220047865 А (ванная)
   5.000 → 5.435. Sent; «Історія» shows «Споживач», 19.11.2026 06:21. The mapping is forced: the
   other way round, 2.382 would be below the previous 5.000.
-- Водоканал, Антоновича, hot: not sent. Both meters (220055398 А, 220055399 А) read 1.000. The
-  history does not tell them apart: 220055398 А was entered as 1.6 → 1.7 → 1.8 in August and
-  September and reset to 1 by an operator in October; 220055399 А was 1 throughout. Alex was asked
-  which one is the kitchen meter.
+- Водоканал, Антоновича, hot: both meters read 1.000 and the history did not tell them apart
+  (220055398 А had been entered as 1.6 → 1.8 and reset to 1 by an operator in October;
+  220055399 А was 1 throughout). Nothing was sent until Alex settled it. His first answer was
+  "398 = кухня"; he then said "wait, I'll check" and corrected it to 220055399 А = кухня,
+  220055398 А = ванная. Sent after the correction: 220055399 А 1 → 1.16 and 220055398 А
+  1 → 1.43, «Споживач», 19.11.2026 07:46. The lesson: a mapping recalled from memory can be wrong;
+  it goes into `meters.json` only once Alex confirms it, and «почекай» stops everything.
 - Yasno, Победы: 31 943 → 33427 (1 484 kWh since 25.01.2026). Saved; «Показання успішно
   збережені».
 
