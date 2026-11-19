@@ -1,0 +1,45 @@
+{
+  "_note": "Meters per apartment and provider. 'room' comes from how Alex's mother reports readings (\"Гор кухня 1.16 Ванная 1.43 / Хол кухня 2.382 Ванная 5.435\"). A meter with room null is NOT mapped yet: never submit it, ask Alex. Serials as the cabinet prints them («Держ. номер»).",
+  "vodokanal": {
+    "cabinet": "https://my.vodokanal.kiev.ua/dashboard/counters",
+    "accounts": [
+      {
+        "folder": "Антоновича",
+        "account_number": "1088235",
+        "address": "вул. Антоновича, буд. 160, кв. 16",
+        "meters": [
+          { "serial": "220047843 А", "kind": "cold", "room": "кухня", "how_known": "prev 2.000 vs mom's 2.382 (2026-11-19); the other cold meter was at 5.000" },
+          { "serial": "220047865 А", "kind": "cold", "room": "ванная", "how_known": "prev 5.000 vs mom's 5.435 (2026-11-19)" },
+          { "serial": "220055398 А", "kind": "hot", "room": null, "how_known": "both hot meters read 1.000 and their history does not tell them apart: ask Alex" },
+          { "serial": "220055399 А", "kind": "hot", "room": null, "how_known": "see 220055398 А" }
+        ]
+      },
+      {
+        "folder": "Победы",
+        "account_number": "0251754",
+        "address": "просп. Берестейський, буд. 45, кв. 25",
+        "meters": [
+          { "serial": "2310504", "kind": "cold", "room": "единственный", "how_known": "one cold meter on the account" },
+          { "serial": "4816600", "kind": "hot", "room": "единственный", "how_known": "one hot meter on the account" }
+        ]
+      },
+      {
+        "folder": "Смоленская",
+        "account_number": "0251689",
+        "address": "вул. Сім'ї Бродських, буд. 5/1, кв. 37",
+        "meters": [
+          { "serial": "250619461", "kind": "cold", "room": "единственный", "how_known": "one cold meter on the account" },
+          { "serial": "250046123", "kind": "hot", "room": "единственный", "how_known": "one hot meter on the account" }
+        ]
+      }
+    ]
+  },
+  "yasno": {
+    "cabinet": "https://yasno.ua/my/personal-accounts",
+    "accounts": [
+      { "folder": "Победы", "account_id": "326798", "account_number": "08018102505", "zones": 1, "submit": true },
+      { "folder": "Смоленская", "account_id": "326797", "account_number": "08020010005", "zones": 1, "submit": true },
+      { "folder": "Антоновича", "account_id": "326823", "account_number": "04003421503", "zones": 2, "submit": false, "why": "the distribution operator reads it remotely (Alex, 2026-11-18)" }
+    ]
+  }
+}
