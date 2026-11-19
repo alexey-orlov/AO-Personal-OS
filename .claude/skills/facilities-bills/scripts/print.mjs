@@ -49,12 +49,13 @@ await send('Page.enable', {}, sessionId);
 
 for (const j of jobs) {
   try {
-    const loaded = new Promise(res => {
-      const l = m => { if (m.method === 'Page.loadEventFired' && m.sessionId === sessionId) { listeners.delete(l); res(); } };
-      listeners.add(l);
-    });
     await send('Page.navigate', { url: 'file://' + j.html }, sessionId);
-    await Promise.race([loaded, sleep(20000)]);
+    for (let i = 0; i < 150; i++) {  // up to 15 s; local files normally load at once
+      const r = await send('Runtime.evaluate', { expression: 'document.readyState + "|" + location.href' }, sessionId);
+      const [state, href] = String(r.result?.result?.value || '').split('|');
+      if (state === 'complete' && href.endsWith(j.html.split('/').pop())) break;
+      await sleep(100);
+    }
     await send('Runtime.evaluate', { expression: 'document.fonts.ready.then(() => true)', awaitPromise: true }, sessionId);
     await sleep(200);
     const r = await send('Page.printToPDF', { preferCSSPageSize: true, printBackground: true,
