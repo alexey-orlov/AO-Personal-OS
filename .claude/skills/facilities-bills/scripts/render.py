@@ -73,30 +73,41 @@ def safe(part):
     return re.sub(r'[/\\:*?"<>|]', "-", part).strip()
 
 
-def render_one(job):
-    html_path, pdf_path, profile = job
-    os.makedirs(os.path.dirname(pdf_path), exist_ok=True)
-    # NB: --blink-settings=scriptEnabled=false makes headless print-to-pdf silently write nothing;
-    # scripts are stripped by the snapshotter and blocked by the CSP meta injected below instead.
-    # No network for the renderer: everything comes from the bundle or the local asset cache, so a
-    # slow or blocking host can never stall a print (unresolvable hosts fail at once).
-    cmd = [CHROME, "--headless", "--disable-gpu", "--no-first-run", "--no-default-browser-check",
-           "--no-pdf-header-footer", "--allow-file-access-from-files",
-           "--host-resolver-rules=MAP * ~NOTFOUND",
-           f"--user-data-dir={profile}", "--virtual-time-budget=3000",
-           f"--print-to-pdf={pdf_path}", "file://" + html_path]
+PRINT_MJS = os.path.join(os.path.dirname(os.path.abspath(__file__)), "print.mjs")
+
+
+def print_chunk(chunk, jobs_file, profile):
+    """Print a list of jobs with print.mjs (one headless Chrome, DevTools printToPDF with scale).
+    Scripts in the snapshots are stripped by pagesnap and blocked by the CSP meta added here;
+    print.mjs gives Chrome no network, so a slow or blocking host can never stall a print.
+    (`chrome --print-to-pdf` is not used: it has no scale, and --blink-settings=scriptEnabled=false
+    makes it write nothing.)"""
+    with open(jobs_file, "w", encoding="utf-8") as f:
+        json.dump(chunk, f, ensure_ascii=False)
     try:
-        r = subprocess.run(cmd, capture_output=True, text=True, timeout=90)
+        out = subprocess.run(["node", PRINT_MJS, jobs_file, profile], capture_output=True, text=True,
+                             timeout=60 + 30 * len(chunk)).stdout
     except subprocess.TimeoutExpired:
-        return {"pdf": pdf_path, "ok": False, "pages": None, "bytes": 0, "err": "headless Chrome timed out"}
-    ok = os.path.exists(pdf_path) and os.path.getsize(pdf_path) > 1000
-    pages = None
-    if ok:
-        info = subprocess.run(["pdfinfo", pdf_path], capture_output=True, text=True).stdout
-        m = re.search(r"^Pages:\s+(\d+)", info, re.M)
-        pages = int(m.group(1)) if m else None
-    return {"pdf": pdf_path, "ok": ok, "pages": pages, "bytes": os.path.getsize(pdf_path) if ok else 0,
-            "err": None if ok else r.stderr[-400:]}
+        out = ""
+    done = {}
+    for line in out.splitlines():
+        try:
+            r = json.loads(line)
+            done[r["pdf"]] = r
+        except ValueError:
+            pass
+    results = []
+    for j in chunk:
+        r = done.get(j["pdf"], {"ok": False, "err": "not printed (print.mjs timed out or crashed)"})
+        ok = r["ok"] and os.path.exists(j["pdf"]) and os.path.getsize(j["pdf"]) > 1000
+        pages = None
+        if ok:
+            info = subprocess.run(["pdfinfo", j["pdf"]], capture_output=True, text=True).stdout
+            m = re.search(r"^Pages:\s+(\d+)", info, re.M)
+            pages = int(m.group(1)) if m else None
+        results.append({"pdf": j["pdf"], "ok": ok, "pages": pages,
+                        "bytes": os.path.getsize(j["pdf"]) if ok else 0, "err": None if ok else r.get("err")})
+    return results
 
 
 def main():
@@ -146,15 +157,18 @@ def main():
                 f.write(html)
             parts = [safe(x) for x in (p["folder"], p.get("sub") or "") if x]
             pdf = os.path.join(a.out, *parts, safe(p["name"]) + ".pdf")
-            jobs.append((hp, pdf, os.path.join(a.work, f"chrome-{n % a.workers}")))
-    # one Chrome profile per worker slot: run slot-by-slot in parallel, jobs within a slot serially
-    slots = {}
-    for j in jobs:
-        slots.setdefault(j[2], []).append(j)
+            os.makedirs(os.path.dirname(pdf), exist_ok=True)
+            # scale < 1 = the print dialog's Scale: the page is laid out at width/scale, which keeps
+            # responsive cabinets in their desktop layout (set per page by the provider script)
+            jobs.append({"html": hp, "pdf": pdf, "scale": p.get("scale") or 1})
+    # a few headless Chromes in parallel, each with its own profile and its share of the pages
+    chunks = [jobs[i::a.workers] for i in range(a.workers) if jobs[i::a.workers]]
     results = []
-    with cf.ThreadPoolExecutor(max_workers=a.workers) as ex:
-        for res in ex.map(lambda js: [render_one(j) for j in js], slots.values()):
-            results.extend(res)
+    with cf.ThreadPoolExecutor(max_workers=len(chunks) or 1) as ex:
+        futs = [ex.submit(print_chunk, c, os.path.join(a.work, f"jobs-{i}.json"), os.path.join(a.work, f"chrome-{i}"))
+                for i, c in enumerate(chunks)]
+        for fu in futs:
+            results.extend(fu.result())
     bad = 0
     for r in sorted(results, key=lambda r: r["pdf"]):
         bad += 0 if r["ok"] else 1

@@ -162,7 +162,9 @@ Object.assign(window.__ps, {
           const state = await this.vSearch(acc.account_number, y, kind);
           if (state !== 'ok' && state !== 'empty') { log.push({ kind, y, acct: acc.account_number, error: state }); continue; }
           const doc = this.V_PAGES[kind].title;
-          this.snap({ folder: acc.folder, sub: '', landscape: true, remove: this.V_REMOVE,
+          // scale 0.6: at A4 width the site switches to its mobile layout and the statement table
+          // loses columns; the print dialog's 60 % keeps the desktop layout
+          this.snap({ folder: acc.folder, sub: '', landscape: true, scale: 0.6, remove: this.V_REMOVE,
             name: `Київводоканал - ${acc.folder} - ${doc} ${y}`,
             title: `Київводоканал — ${doc} ${y} — ${acc.folder}`,
             header: `Київводоканал · ${doc} · ${y} рік · о/р ${acc.account_number} · ${acc.address}`,
