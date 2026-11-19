@@ -57,6 +57,14 @@ notes, Telegram research summaries. Distilled from his Claude-Chat instructions
   is exec-length by default:** the answer in one line, then at most five short bullets (~200 words);
   the full analysis only on request, even when he asks for several angles (Alex, 2026-11-19, after a
   ~1,400-word digital-twin scope answer: "TLDR, exec summary straight to the point").
+- **Use-case catalogs: one row per problem a layperson would tell apart, in words a stranger
+  understands** (Alex, 2026-11-19, on a 42-row digital-twin table: "no very similar / duplicate
+  problems … explain to a person with no prior context and far from industry. Make it vivid").
+  Before delivering, merge rows that are the same scene in another industry (queues at an airport, a
+  till and a warehouse are one row) and name the industries in their own column. Each problem is a
+  concrete everyday scene (who, what goes wrong, what it costs); each solution says what the person
+  can now do and what changes. Translate or drop trade terms (PLC, takt, OEE, BIM, recall). The
+  tangibility rule in `client-documents.md` holds for internal tables too.
 - **A page for executives is read in two minutes, so structure carries the information, not
   sentences** (Alex, 2026-10-13, on a two-page decision draft that was already a table: "right
   now it's a TLDR, make it executive-friendly, while not losing the meaning"). Every cell was a
