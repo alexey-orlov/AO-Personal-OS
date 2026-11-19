@@ -97,7 +97,7 @@ Cloud `Location` examples for when they arrive — gdrive: `https://drive.google
 - **Location:** `https://docs.google.com/spreadsheets/d/1cXoNLMtQ6ATPKUG1HK9nKRXFCa3eUvkC9MfviQfYUO4/edit`.
 - **Machine scope:** - (cloud).
 - **Backed up:** Google Drive.
-- **Contents:** «Покупки» (one row per item; columns A–O: №, Комната, Место в комнате, Категория, Тип, Что купить, Детали, Кол-во, Приоритет, Статус, Цена за шт. $, Сумма $ (an ARRAYFORMULA in L1, never written), Где купить, Заметки, Добавлено; rows kept sorted room → category → type → priority in the order of the «Списки» lists; Статус is the one dropdown that holds an item's state) · «Сводка» (count, bought, left, unpriced, budget and spent per room and per category, with independent totals) · «Списки» (the lists behind the dropdowns; their row order is the grouping order) → [relocation](../areas/relocation/README.md).
+- **Contents:** «Покупки» (one row per item; columns A–P: №, Комната, Место в комнате, Категория, Тип, Что купить, Как называется в US-магазине (the name a US store lists it under, in English — Alex, 2026-11-19), Детали, Кол-во, Приоритет, Статус, Цена за шт. $, Сумма $ (an ARRAYFORMULA in M1, never written), Где купить, Заметки, Добавлено; rows kept sorted room → category → type → priority in the order of the «Списки» lists; Статус is the one dropdown that holds an item's state) · «Сводка» (count, bought, left, unpriced, budget and spent per room and per category, with independent totals) · «Списки» (the lists behind the dropdowns; their row order is the grouping order) → [relocation](../areas/relocation/README.md).
 - **Added:** 2026-11-19.
 
 ### softserve / oracle-packs: `~/Documents/GitHub/Oracle-Solutions-Site` (the mini-site's own repository)
