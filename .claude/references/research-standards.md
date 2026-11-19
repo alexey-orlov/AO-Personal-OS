@@ -64,7 +64,10 @@ notes, Telegram research summaries. Distilled from his Claude-Chat instructions
   till and a warehouse are one row) and name the industries in their own column. Each problem is a
   concrete everyday scene (who, what goes wrong, what it costs); each solution says what the person
   can now do and what changes. Translate or drop trade terms (PLC, takt, OEE, BIM, recall). The
-  tangibility rule in `client-documents.md` holds for internal tables too.
+  tangibility rule in `client-documents.md` holds for internal tables too. Any fit or rating column
+  is a closed vocabulary (named components in a fixed order, or ✗), never a free-form comment, and a
+  weak, hosting-only or far-fetched fit is ✗, not a hedged "Low" (Alex, same day, on the Oracle-fit
+  column).
 - **A page for executives is read in two minutes, so structure carries the information, not
   sentences** (Alex, 2026-10-13, on a two-page decision draft that was already a table: "right
   now it's a TLDR, make it executive-friendly, while not losing the meaning"). Every cell was a
