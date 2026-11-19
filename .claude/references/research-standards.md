@@ -53,7 +53,10 @@ notes, Telegram research summaries. Distilled from his Claude-Chat instructions
   no closing pleasantries.
 - Structured output (tables, numbered lists, bold captions + tight text) is the default
   for analytical or comparative content. Prose only when structure can't carry the meaning.
-- Direct; density beats length. No hedging, no padding.
+- Direct; density beats length. No hedging, no padding. **In chat, an answer to Alex's own question
+  is exec-length by default:** the answer in one line, then at most five short bullets (~200 words);
+  the full analysis only on request, even when he asks for several angles (Alex, 2026-11-19, after a
+  ~1,400-word digital-twin scope answer: "TLDR, exec summary straight to the point").
 - **A page for executives is read in two minutes, so structure carries the information, not
   sentences** (Alex, 2026-10-13, on a two-page decision draft that was already a table: "right
   now it's a TLDR, make it executive-friendly, while not losing the meaning"). Every cell was a
