@@ -36,6 +36,7 @@ Cloud `Location` examples for when they arrive — gdrive: `https://drive.google
 | [softserve](../areas/softserve/README.md) → [oracle-packs](../areas/softserve/oracle-packs.md) (the mini-site) | git | `~/Documents/GitHub/Oracle-Solutions-Site` · private GitHub `alexey-orlov/Oracle-Solutions-Site` | checkout on this Mac (`KN7X2Y65NX`); GitHub from any machine with Alex's credentials | 2026-09-23 |
 | [gigacloud](../areas/gigacloud/README.md) | local | `~/Desktop/GigaCloud/` (MacBook Air, current) · `~/Downloads` (KN7X2Y65NX, older set) | Alex's MacBook Air + `KN7X2Y65NX` | 2026-09-26 |
 | [relocation](../areas/relocation/README.md) | gdrive | Google Sheet "Relocation planning" `1PH4mTSafR9xAh68KjNQogvMtVsCH_WXsMdfq04Swwvs` | - (Google Drive MCP; link-shared) | 2026-11-07 |
+| [relocation](../areas/relocation/README.md) (the apartment shopping list) | gdrive | Google Sheet "Квартира — список покупок" `1cXoNLMtQ6ATPKUG1HK9nKRXFCa3eUvkC9MfviQfYUO4` | - (`automations/gsheets` read-write; Google Drive MCP) | 2026-11-19 |
 
 ## Entries
 
@@ -90,6 +91,14 @@ Cloud `Location` examples for when they arrive — gdrive: `https://drive.google
 - **Backed up:** Google Drive.
 - **Contents:** tab "WC appartment" (gid `2137535785`) → the Walnut Creek rental shortlist that the [rental map](../areas/relocation/docs/walnut-creek-map/README.md) reads live; Alex highlights visited rows yellow and planned visits blue, and ticks a "Starred" checkbox column (column C) · "Cost of living", "Budget scenarios", "Finance calculator", "Travel expenses calculator" → the move budget · "Timeline", "General timeline" → move timing. ⛔ The same workbook holds the visa/NVC checklist, immunization and medication lists, employment history and family-support tabs: personal records. Read only what a task needs, and never copy their contents into the repo.
 - **Added:** 2026-11-07.
+
+### relocation: the "Квартира — список покупок" Google Sheet (gdrive)
+- **Type:** `gdrive`, one Google Sheets workbook in Alex's My Drive root, created 2026-11-19 through `automations/gsheets` (`gsheets.py create`). Claude reads and writes it with the shared Sheets credential.
+- **Location:** `https://docs.google.com/spreadsheets/d/1cXoNLMtQ6ATPKUG1HK9nKRXFCa3eUvkC9MfviQfYUO4/edit`.
+- **Machine scope:** - (cloud).
+- **Backed up:** Google Drive.
+- **Contents:** «Покупки» (one row per item; columns A–O: №, Комната, Место в комнате, Категория, Тип, Что купить, Детали, Кол-во, Приоритет, Статус, Цена за шт. $, Сумма $ (an ARRAYFORMULA in L1, never written), Где купить, Заметки, Добавлено; rows kept sorted room → category → type → priority in the order of the «Списки» lists; Статус is the one dropdown that holds an item's state) · «Сводка» (count, bought, left, unpriced, budget and spent per room and per category, with independent totals) · «Списки» (the lists behind the dropdowns; their row order is the grouping order) → [relocation](../areas/relocation/README.md).
+- **Added:** 2026-11-19.
 
 ### softserve / oracle-packs: `~/Documents/GitHub/Oracle-Solutions-Site` (the mini-site's own repository)
 - **Type:** `git`, a private GitHub repository with a local checkout. It holds the Oracle AI & Data Solutions mini-site since 2026-09-23, when the site moved out of this repo; `outputs/oracle-solutions-site/` here now holds only a `MOVED.md`.
