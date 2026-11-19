@@ -56,6 +56,15 @@
         "exec python3 -m http.server 8794 --bind 127.0.0.1 --directory \"${WC_MAP_SITE:-$HOME/Documents/GitHub/AO-Personal-OS/context/areas/relocation/docs/walnut-creek-map/site}\""
       ],
       "port": 8794
+    },
+    {
+      "name": "rd-platforms-map",
+      "runtimeExecutable": "bash",
+      "runtimeArgs": [
+        "-lc",
+        "exec python3 -m http.server 8796 --bind 127.0.0.1 --directory \"$HOME/Library/CloudStorage/OneDrive-SoftServe,Inc/Projects/Jumpstart for scientists/Market research/Agentic platforms map/build\""
+      ],
+      "port": 8796
     }
   ]
 }
