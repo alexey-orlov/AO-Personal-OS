@@ -6,7 +6,12 @@ script. When a lesson is revised, rewrite its entry to the current truth.
 ## Decided by Alex
 - **Folders:** apartment, then utility, then the provider's files; nothing at the apartment root
   (2026-11-18, after the first run had put Yasno's files at the root). Yasno goes in
-  «Электроэнергия», Київводоканал in «Водоканал» (2026-11-19).
+  «Электроэнергия», Київводоканал in «Водоканал», Київтеплоенерго in «Киевтеплоэнерго»
+  (2026-11-19).
+- **Київтеплоенерго (2026-11-19):** a snapshot of the payment status of all three addresses at once,
+  filed in each address folder; and the «Звіт про оплати» for Гаряча вода, Теплова енергія,
+  Абонплата ГВ and Абонплата ТЕ under the same year rules. Accounts: 053024100160100 Антоновича,
+  434006400250100 Победы, 434048600370100 Смоленская.
 - **«Смоленская» is вул. Сім'ї Бродських, буд. 5/1.** His first note said "Smolenskaya =
   Antonovycha". Yasno lists both streets as separate accounts and Kyiv renamed Смоленська to
   Сім'ї Бродських, so I asked, and he confirmed the renamed street. Київводоканал accounts:
@@ -30,6 +35,13 @@ script. When a lesson is revised, rewrite its entry to the current truth.
   years' rows. Київводоканал's pages have real period filters, so they are used.
 - **Duplicate receipt names** are numbered oldest first, so a new payment never renames an older
   file.
+- **Київтеплоенерго snapshot:** `Київтеплоенерго - Усі адреси - Стан оплат <YYYY-MM-DD>.pdf`. «Усі
+  адреси» stands where the apartment would, because the file covers all three. It is a record of one
+  day's state, so every run adds a dated file and keeps the earlier ones; a same-day rerun replaces
+  that day's file. The date comes from the print clock, which runs on the Mac's time zone, as in
+  every print header.
+- **Київтеплоенерго prints use the screen styles**, because the site's print sheet mangles the page
+  (lesson 22).
 
 ## Lessons (each one is now built into a script)
 
@@ -94,11 +106,32 @@ script. When a lesson is revised, rewrite its entry to the current truth.
 17. `create_file` with `base64Content = "sha256:<hex>:<absolute path>"` uploads a local file without
     its contents passing through the chat. Parallel bursts get refused ("no confirmed answer …"),
     so send at most 4 at a time. After a network error, list the folder before retrying.
-18. `search_files` returns about 5 results per page, and may include trashed files unless the
-    query says `trashed = false`. Uploads are verified from the `create_file` responses. Replacing
-    a file means upload first, then trash the old one by its ID.
+18. `search_files` returns about 5 results per page unless `pageSize` is set (50 lists a utility
+    folder in one call), and may include trashed files unless the query says `trashed = false`.
+    Uploads are verified from the `create_file` responses. Replacing a file means upload first,
+    then trash the old one by its ID.
 
 ### Data
 19. **Addresses are copied, never repaired.** Yasno prints «буд. 5 1»; it was "cleaned" to «51» and
     went into the headers of 16 PDFs. Київводоканал showed «5/1», and the 16 files were reprinted
     and replaced on 2026-11-19.
+
+### Київтеплоенерго (first run 2026-11-19: 27 PDFs, about 85 s of capture)
+20. **Server-rendered pages.** Every Київтеплоенерго page is a full load, which wipes the injected
+    script and its queue. Each account's report page is therefore opened in a same-origin iframe over
+    the start page and printed from there: `snap(meta, doc)` takes the iframe's document, and
+    `waitFor` can watch it.
+21. **Drupal AJAX** binds the «Сформувати» button to mousedown. The script triggers that event with
+    the page's jQuery, then waits for the result wrapper to be replaced and `$.active` to reach 0.
+    Drupal reports an AJAX error with `alert()`, which would block the page and the extension, so the
+    frame's `alert` is replaced first.
+22. **A print sheet can mangle the page.** The site's Bootstrap 3 print sheet appended every link's
+    URL to its text, blanked the buttons and turned the red debts and green overpayments black.
+    `print.mjs` can print with the screen styles (`media: 'screen'`). At scale 0.65 the desktop grid
+    holds and a report fits one page; at 0.7 the site footer spilled onto a second page.
+23. **Chrome's Save As dialog, cause unknown.** The KTE bundle opened a Save As dialog. Chrome's "ask
+    where to save" setting was off, no policy set it, the disk had space, and the file name was new.
+    The Yasno and Водоканал bundles that day had saved silently. The extension cannot press the
+    dialog's buttons, but Chrome had already written the whole bundle to the hidden temp file
+    `~/Downloads/.com.google.Chrome.XXXXXX`. The run used that copy and left the dialog for Alex to
+    dismiss. If it happens again, look for the cause before calling the run seamless.
