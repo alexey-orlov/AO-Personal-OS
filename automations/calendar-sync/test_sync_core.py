@@ -44,6 +44,32 @@ class TestTimezone(unittest.TestCase):
         b = sc.to_kiev(sc._naive("2026-06-17T08:00:00"), None, -420, "Europe/Kyiv")
         self.assertEqual(a, b)
 
+    def test_eventkit_offset_is_an_instant_not_a_kyiv_wall_clock(self):
+        # 2026-11-18: the Mac was on CET and the reader emitted 11:30+01:00 for a 12:30 Kyiv
+        # meeting; re-reading "11:30" as Kyiv put the copy an hour early. On PST it is ten.
+        for wall in ("2026-11-20T12:30:00+02:00", "2026-11-20T11:30:00+01:00",
+                     "2026-11-20T02:30:00-08:00", "2026-11-20T10:30:00Z"):
+            k = sc._to_tz(wall, "Europe/Kyiv", 0, "Europe/Kyiv")
+            self.assertEqual(k.isoformat(), "2026-11-20T12:30:00+02:00", wall)
+
+    def test_mac_timezone_does_not_change_the_plan(self):
+        # the same meetings read on a Kyiv, CET and PST Mac -> identical keys and hashes, so a
+        # trip never rewrites the Google copies (and a recurring key keeps its Kyiv date)
+        def read(offset_h):
+            def at(h, m):
+                from datetime import datetime, timedelta, timezone
+                t = datetime(2026, 11, 20, h, m, tzinfo=timezone(timedelta(hours=2)))
+                return t.astimezone(timezone(timedelta(hours=offset_h))).isoformat()
+            return [src("INT Oracle steeco", at(12, 30), at(13, 0), owa_id="E1"),
+                    src("Daily", at(0, 30), at(0, 45), owa_id="S1", recurring=True)]
+        plans = [sc.reconcile({"now_utc": "2026-11-19T18:00:00Z", "owa_tz": "Europe/Kyiv",
+                               "source_events": read(h)}) for h in (2, 1, -8)]
+        sig = [sorted((c["source_key"], c["content_hash"], c["start_kiev"]) for c in p["creates"])
+               for p in plans]
+        self.assertEqual(sig[0], sig[1])
+        self.assertEqual(sig[0], sig[2])
+        self.assertIn(("id:S1@2026-11-20"), [k for k, _, _ in sig[2]])
+
 
 class TestReconcile(unittest.TestCase):
     def test_create_shape(self):

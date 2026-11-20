@@ -263,10 +263,25 @@ def build_payload(ev, start_kiev, end_kiev, cfg):
 # --------------------------------------------------------------------------- #
 # reconcile
 # --------------------------------------------------------------------------- #
+_OFFSET_RE = re.compile(r"(Z|[+\-]\d{2}:?\d{2})$")
+
+
+def _to_tz(dt_iso, owa_tz, offset_min, tz):
+    """One source time -> aware datetime in tz.
+
+    A string that carries its own offset is an ABSOLUTE instant (the EventKit reader emits
+    the Mac's local offset — Kyiv, CET or PST depending on where the Mac is): convert the
+    instant, never re-read its wall clock as Kyiv time. Only an offset-less wall time (the
+    legacy OWA scrape) goes through owa_tz / the calibrated offset."""
+    s = dt_iso.strip()
+    if _OFFSET_RE.search(s):
+        return _utc(s).astimezone(ZoneInfo(tz))
+    return to_kiev(_naive(s), owa_tz, offset_min, tz)
+
+
 def _convert(ev, owa_tz, offset_min, cfg):
-    start = to_kiev(_naive(ev["start_wall"]), owa_tz, offset_min, cfg["tz"])
-    end = to_kiev(_naive(ev["end_wall"]), owa_tz, offset_min, cfg["tz"])
-    return start, end
+    return (_to_tz(ev["start_wall"], owa_tz, offset_min, cfg["tz"]),
+            _to_tz(ev["end_wall"], owa_tz, offset_min, cfg["tz"]))
 
 
 def _native_duplicate(ev, start_kiev, end_kiev, natives, cfg):
