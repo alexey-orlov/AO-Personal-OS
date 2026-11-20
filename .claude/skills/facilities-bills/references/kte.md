@@ -38,7 +38,8 @@ hot-water history starts in May 2018.
   year. About 1 s per report after the first.
 - **Print with the screen styles** (`media: 'screen'`), A4 portrait, scale 0.65. The site's Bootstrap
   print sheet appends every link's URL to its text, blanks the buttons' labels and turns the red and
-  green amounts black. Below scale 0.7 the page keeps its desktop grid, and at 0.65 a 12-month report
-  fits on one page with the site footer.
+  green amounts black. At scale 1 (about 720 px wide) the site falls to its phone layout. At 0.65 it
+  is laid out about 1100 px wide, its desktop grid, and a 12-month report fits on one page with the
+  site footer; at 0.7 the footer spilled onto a second page.
 - **Assets:** the 4 stylesheets (one is 2.4 MB with its fonts), the logo and the service-centre banner
   come through `collectAssets` without trouble.

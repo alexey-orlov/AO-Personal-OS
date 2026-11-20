@@ -1,6 +1,6 @@
 ---
 name: facilities-bills
-description: Save Alex's utility-cabinet statements and payment records as PDFs into his Google Drive folder "Facilities - bills". It has one folder per apartment and, inside each, one folder per utility. Yasno (electricity → «Электроэнергия») gets the Абонентська книжка and Історія платежів pages per year plus every payment's detail page as a receipt. Київводоканал (water → «Водоканал») gets the Абонентська книжка and Здійснені платежі statements per year. Each run reprints the current year and adds what is new. Works in Alex's logged-in Chrome session through the Claude in Chrome extension, makes true browser prints with headless Chrome without any prompt for Alex, and uploads with the Google Drive connector. Use on /facilities-bills, "update the Yasno bills", "download Yasno payment history", "выгрузи историю Водоканала", "оновити платежі Ясно", "скачай абонентську книжку", or when another facilities cabinet (heating, gas) needs the same treatment. Submitting meter readings is the separate meter-readings skill.
+description: Save Alex's utility-cabinet statements and payment records as PDFs into his Google Drive folder "Facilities - bills". It has one folder per apartment and, inside each, one folder per utility. Yasno (electricity → «Электроэнергия») gets the Абонентська книжка and Історія платежів pages per year plus every payment's detail page as a receipt. Київводоканал (water → «Водоканал») gets the Абонентська книжка and Здійснені платежі statements per year. Київтеплоенерго (heating and hot water → «Киевтеплоэнерго») gets a dated snapshot of the payment status of all accounts, filed in every apartment, and the «Звіт про оплати» per service (Гаряча вода, Теплова енергія, Абонплата ГВ, Абонплата ТЕ) and year. Each run reprints the current year and adds what is new. Works in Alex's logged-in Chrome session through the Claude in Chrome extension, makes true browser prints with headless Chrome without any prompt for Alex, and uploads with the Google Drive connector. Use on /facilities-bills, "update the Yasno bills", "download Yasno payment history", "выгрузи историю Водоканала", "выгрузи оплаты Киевтеплоэнерго", "звіт про оплати КТЕ", "оновити платежі Ясно", "скачай абонентську книжку", or when another facilities cabinet (gas) needs the same treatment. Submitting meter readings is the separate meter-readings skill.
 disable-model-invocation: false
 user-invocable: true
 ---
@@ -15,6 +15,7 @@ utility, then provider files; nothing goes straight into an apartment folder.
 |---|---|---|---|---|
 | Yasno | Электроэнергия | `references/yasno.md` | `references/yasno-accounts.json` | `scripts/yasno.js` |
 | Київводоканал | Водоканал | `references/vodokanal.md` | `references/vodokanal-accounts.json` | `scripts/vodokanal.js` |
+| Київтеплоенерго | Киевтеплоэнерго | `references/kte.md` | `references/kte-accounts.json` | `scripts/kte.js` |
 
 The reasons behind each rule, and the lessons from the runs, are in `references/decisions.md`.
 
@@ -29,6 +30,10 @@ Facilities - bills/<Folder>/                 Антоновича · Побед�
   Водоканал/
     Київводоканал - <Folder> - Абонентська книжка <YYYY>.pdf   (filtered: account, Січень–Грудень)
     Київводоканал - <Folder> - Здійснені платежі <YYYY>.pdf    (filtered: account, 01.01–31.12)
+  Киевтеплоэнерго/
+    Київтеплоенерго - Усі адреси - Стан оплат <YYYY-MM-DD>.pdf   (all accounts; same file in each apartment)
+    Київтеплоенерго - <Folder> - Звіт про оплати - <service> <YYYY>.pdf
+                      (service: Гаряча вода · Теплова енергія · Абонплата ГВ · Абонплата ТЕ; Січень–Грудень)
 ```
 
 Each PDF is a real print of the page: the site's own fonts, styles and selectable text, and the
@@ -43,6 +48,9 @@ address; the footer shows the page URL and page n/N.
 - **No previous-year file:** print the previous year.
 - **Yasno receipts:** add every payment from a year with a saved history file that is not yet in
   `Yasno - платежі`. Never replace a receipt.
+- **Київтеплоенерго status snapshot:** a new dated file on every run; earlier snapshots stay. A
+  second run on the same day replaces that day's file. The date is the print clock's (the Mac's
+  time zone), the same as in the print header.
 
 ## Hard rules
 
@@ -69,19 +77,30 @@ subfolder) with `create_file` (contentMimeType `application/vnd.google-apps.fold
 account to the JSON.
 
 **2. Inventory and plan.** List each account's utility folder (`folder_id`), and for Yasno its
-`receipts_folder_id`, with `search_files` (`parentId = '<id>' and trashed = false`). Results come
-about 5 per page: follow `nextPageToken` until the result is `{}`. Then decide the years from the
-year rules and, for Yasno, the receipts already there (`have`, titles without `.pdf`).
+`receipts_folder_id`, with `search_files` (`parentId = '<id>' and trashed = false`, `pageSize: 50`,
+`excludeContentSnippets: true`). Without `pageSize` results come about 5 per page; follow
+`nextPageToken` until the result is `{}`. Then decide the years from the year rules and, for Yasno,
+the receipts already there (`have`, titles without `.pdf`).
 
 **3. Capture.** Paste `scripts/pagesnap.js` and then the provider script into one `javascript_tool`
 call, and end that call with a background job:
 - Yasno: `__ps.start(async log => { for (const [acc, plan] of JOBS) await __ps.yRun(acc, plan, log); log.push({assets: await __ps.collectAssets()}); })`
 - Київводоканал: `__ps.start(async log => { await __ps.vRun(ACCOUNTS, YEARS, log); log.push({assets: await __ps.collectAssets()}); })`
+- Київтеплоенерго, on `/my-cabinet/userhome_new`: `__ps.start(async log => { await __ps.kRun(ACCOUNTS, YEARS, log); log.push({assets: await __ps.collectAssets()}); })`
 
 Poll `__ps.status()` every ~10 s. 12 Водоканал pages take about 15 s; 16 Yasno pages for one
-account about 70 s. Read the log: every page should say `ok` or list its receipts. When done, run
+account about 70 s; 27 Київтеплоенерго pages about 55 s, plus 30 s for the assets. Read the log:
+every page should say `ok`, its rows, or its receipts. When done, run
 `__ps.button('<provider>-<yyyymmdd>.json')`, `find` "pagesnap download" and `left_click` it by
 ref. `document.getElementById('ps-dl').dataset.n` must equal the number of pages.
+
+If the bundle is not in `~/Downloads` a few seconds later, Chrome may have opened its Save As
+dialog. That happened once, on 2026-11-19; Chrome's "ask where to save" setting was off and no
+policy set it, so the cause is unknown. The extension cannot press the dialog's buttons. Chrome has
+already written the whole bundle to a hidden temp file, `~/Downloads/.com.google.Chrome.XXXXXX`, and
+listing it needs the sandbox off. Copy it into the scratchpad once its size stops changing and it
+parses with the expected number of pages, and carry on. Tell Alex the dialog is open: Cancel
+dismisses it.
 
 **4. Render and check.** The bundle lands in `~/Downloads/<name>.json`. The sandbox cannot list new
 files in Downloads, so use the exact path with `stat` and `mv`, into a new empty scratchpad folder.
@@ -90,7 +109,8 @@ python3 -I scripts/render.py --out OUT --work WORK BUNDLE.json           # one J
 python3 -I scripts/qa.py --accounts references/<provider>-accounts.json OUT   # must end "0 problems"
 ```
 The renderer prints through `scripts/print.mjs`: headless Chrome over DevTools, no network, scale
-taken per page. Look at one page of each kind with `pdftoppm -r 45 -png`.
+and media (`screen` for Київтеплоенерго) taken per page. Look at one page of each kind with
+`pdftoppm -r 45 -png`.
 
 **5. Upload.**
 `python3 -I scripts/manifest.py --accounts references/<provider>-accounts.json OUT > manifest.jsonl`.
@@ -112,5 +132,7 @@ with links to the folders.
 
 Walk the path first, then write the card. Add `references/<provider>.md`,
 `references/<provider>-accounts.json` and `scripts/<provider>.js`. The provider script uses the
-pagesnap core: `snap` with `landscape`/`scale`/`remove`, `go`, `waitFor`, `tick` and `start`.
-Ask Alex for the utility folder name. Add its document checks to `qa.py`.
+pagesnap core: `snap` with `landscape`/`scale`/`media`/`remove`, `go`, `waitFor`, `tick` and
+`start`. A server-rendered cabinet that reloads per page is driven from one tab through same-origin
+iframes, as `kte.js` does, and `snap(meta, iframeDocument)` prints them. Ask Alex for the utility
+folder name. Add its document checks to `qa.py` under the provider name in the accounts JSON.
