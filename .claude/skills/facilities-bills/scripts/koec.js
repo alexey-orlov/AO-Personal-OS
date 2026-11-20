@@ -16,10 +16,11 @@
 Object.assign(window.__ps, {
   E_ORIGIN: 'https://ok.koec.com.ua',
   // Fixed side menu and top bar print where they stand. Desktop layout from 1200 px: print media
-  // queries see 718 px ÷ scale, so 0.55 (about 1305 px). Highcharts draws fixed-size SVG at the
-  // screen's width; the extra CSS lets it shrink to the printed column.
+  // queries see 718 px ÷ scale, so 0.55 (about 1305 px). Highcharts 4.1.9 draws an SVG of the
+  // screen's pixel width, with no class and no viewBox: eViewBoxes() adds a viewBox before the
+  // snapshot and this CSS lets the chart shrink to the printed column instead of being cut off.
   E_PRINT: { landscape: false, scale: 0.55, media: 'screen', fixed: 'absolute',
-    css: 'svg.highcharts-root { width: 100% !important; height: auto !important; } .highcharts-container { width: 100% !important; height: auto !important; overflow: visible !important; }' },
+    css: '.highcharts-container > svg { width: 100% !important; height: auto !important; } .highcharts-container { width: 100% !important; height: auto !important; overflow: visible !important; }' },
   E_REMOVE: ['.gototop', '#wait-message', '.ajax-progress'],
   // the account in the top bar («№ 000400843314», with a non-breaking space after №)
   eActive() { const m = (document.querySelector('.user_abcode') || document.querySelector('#meta-nav') || document.body).textContent.match(/№\s*(\d{12})/); return m ? m[1] : null; },
@@ -37,6 +38,12 @@ Object.assign(window.__ps, {
   // Polls instead of waiting on DOM mutations: «Завантажую…» is hidden by a style change, which a
   // childList observer never sees (a 2026 wait timed out with every condition true). The tab is
   // in front during a run, so timers are not throttled.
+  eViewBoxes() {
+    for (const s of document.querySelectorAll('.highcharts-container > svg')) {
+      const w = s.getAttribute('width'), h = s.getAttribute('height');
+      if (w && h && !s.getAttribute('viewBox')) { s.setAttribute('viewBox', `0 0 ${w} ${h}`); s.setAttribute('preserveAspectRatio', 'xMinYMin meet'); }
+    }
+  },
   async eYear(y) {
     y = String(y);
     if (this.eActiveYear() !== y) {
@@ -62,6 +69,7 @@ Object.assign(window.__ps, {
       const t = this.eTable();
       const wrong = t.payments.filter(r => !r.match(/^\d+\. \d\d\.\d\d\.(\d{4})/)[1].startsWith(String(y)));
       if (wrong.length) { log.push({ y, error: 'payments from another year', wrong }); continue; }
+      this.eViewBoxes();
       this.snap({ folder: acc.folder, sub: '', ...this.E_PRINT, remove: this.E_REMOVE,
         name: `Київобленерго - ${acc.folder} - Історія платежів ${y}`,
         title: `Київобленерго — Історія платежів ${y} — ${acc.folder}`,
