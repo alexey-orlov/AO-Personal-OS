@@ -9,7 +9,8 @@ for **this week + next week**:
 
 Reads SS from the **SoftServe Exchange account in Apple Calendar (EventKit)**, reads/writes Google via the
 **Calendar API**, and writes SS placeholders back via **EventKit**. Runs **hourly, weekdays 08:00–20:00
-EET**. Sends **one** Telegram status per day. Both legs guard against feedback loops (see Reverse leg).
+on the Mac's own clock** (Kyiv, CET or PST — wherever the Mac is). Sends **one** Telegram status per day.
+Both legs guard against feedback loops (see Reverse leg).
 
 ## Architecture — pure code, no Claude session, no browser
 SoftServe is Intune/VPN-managed (no third-party API login) and the new Outlook for Mac keeps no
@@ -24,7 +25,8 @@ reverse:  Google Calendar API (all cals)  →  sync_core.reverse_reconcile  → 
 ```
 
 - **`ss_cal_read.swift`** → compiled to `.work/ss-cal-read`. Reads the SS Exchange calendar and emits
-  one JSON row per event: uid, title, start/end (local Kyiv wall time), `all_day`, `recurring`,
+  one JSON row per event: uid, title, start/end (absolute ISO instants carrying the Mac's local
+  offset), `all_day`, `recurring`,
   location, organizer (+email), **`my_status`** (the user's RSVP), online/join_url, notes, and
   `attendees[{name,email,status,is_me}]`.
 - **`ss_cal_write.swift`** → compiled to `.work/ss-cal-write`. Reverse leg: reads `create|update|delete`
@@ -40,8 +42,8 @@ reverse:  Google Calendar API (all cals)  →  sync_core.reverse_reconcile  → 
   (all Google calendars → `reverse_reconcile` → `ss-cal-write`). Skips all-day events; pulls our own
   `[[gcal-busy]]` placeholders out of the forward source. Writes `.work/state/last-read.json` for diagnostics.
 - **Host:** launchd `com.user.calendar-sync` fires `osascript → Terminal → run.sh daemon` hourly on the
-  hour, Mon–Fri 08:00–20:00. Terminal is the host because EventKit + Full-Disk need its TCC grants — a
-  plain background process is denied Calendar access.
+  hour, Mon–Fri 08:00–20:00 Mac-local time. Terminal is the host because EventKit + Full-Disk need its
+  TCC grants — a plain background process is denied Calendar access.
 
 ## Files
 | File | Role |
@@ -52,7 +54,7 @@ reverse:  Google Calendar API (all cals)  →  sync_core.reverse_reconcile  → 
 | `gcal.py` | dependency-free Google Calendar client (`auth`/`authurl`/`exchange` once, then library calls) |
 | `run.py` | orchestrator — forward pass (SS→Google) then reverse pass (Google→SS) |
 | `run.sh` | Terminal-hosted runner: `now` (force) / `daemon` (gated + 08:00 daily summary) |
-| `test_sync_core.py` | unit tests (33) |
+| `test_sync_core.py` | unit tests (35) |
 | `config.sh` | constants + Keychain creds + `LIVE` flag |
 | `setup.sh` | builds the reader + writer (swiftc) + installs the launchd agent (one-time) |
 | `.work/state/` | ledger.json, **reverse-ledger.json**, run-log.jsonl, gtoken.json, last-read.json, last-summary-date, LIVE (git-ignored) |
@@ -99,8 +101,12 @@ After the forward pass, `run.py` blocks SS time wherever Alex is busy in Google:
   a small change in `sync_core.reverse_sources`.
 
 ## Platform gotchas (hard-won — don't regress these)
-1. **EventKit times default to GMT.** The reader sets `iso.timeZone = .current` so start/end are Kyiv
-   wall time. (Verified: `T-shirt kick-off` reads 18:00 Kyiv, matching the desktop app.)
+1. **The Mac's timezone is not Kyiv's.** The reader sets `iso.timeZone = .current` (EventKit's default
+   is GMT), so each start/end carries the Mac's local offset: `+02:00` in Kyiv, `+01:00` in Poland,
+   `-08:00` in California. `sync_core._to_tz` converts that **instant** to Kyiv and never re-reads the
+   wall clock as Kyiv time. When it did (until 2026-11-19), a trip put the Mac on CET and every `SS:`
+   copy in Google landed an hour early; on PST it would have been ten. Only an offset-less wall time
+   (the legacy OWA scrape) is interpreted via `owa_tz`.
 2. **A recurring series shares ONE EventKit id across all instances.** `source_key` therefore appends
    the Kyiv date for recurring events — otherwise weekly/daily occurrences collide on one key and one
    copy goes stale. The delete pass dedupes by Google event id so old collided copies get cleaned up.
@@ -130,9 +136,11 @@ Run from a **Terminal with Full Disk Access + Calendar access**:
 3. It runs in **DRY-RUN** (plans only) until you go live: `touch .work/state/LIVE`.
 
 ## Schedule & notifications
-- Hourly, **Mon–Fri 08:00–20:00 Europe/Kyiv** (launchd `StartCalendarInterval`; `run.sh daemon`
-  re-checks the gate so a stray tick is a no-op).
-- **One** message/day to the **General** Telegram topic right after the 08:00 run:
+- Hourly, **Mon–Fri 08:00–20:00 on the Mac's local clock**. launchd's `StartCalendarInterval` fires on
+  that clock, and `run.sh daemon` re-checks the same window in the zone it reads from `/etc/localtime`,
+  so a stray tick is a no-op and the schedule follows the Mac when it changes timezone. (A gate fixed to
+  Kyiv let 3 of 13 ticks through on PST and never reached the 08:00 summary.)
+- **One** message/day to the **General** Telegram topic right after the 08:00 (local) run:
   `SoftServe calendar sync: X attempts, Y successful. A events added/modified.` — plus a
   `Google→SS busy-blocks: N added/updated` line when the reverse leg was active, and error lines if any.
   It covers every run since the previous summary (previous working day 09:00–20:00 + today 08:00).
