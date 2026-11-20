@@ -1,6 +1,6 @@
 # Job search — positioning & context
 
-_updated: 2026-08-12_
+_updated: 2026-11-19_
 
 Durable reference for Alex's current job search (product leadership roles — VP Product / CPO — at US companies). Source of truth for how to position him in outreach, applications, interview prep, and any externally-facing artefact. Pull from here; don't re-ask.
 
@@ -50,8 +50,8 @@ The artefacts a recruiter, hiring manager, or agent may need. **Open the link; n
 
 Confidential framing notes — for shaping strategy only, never to appear in a message, application, profile, or any committed artefact that could leak:
 
-- Actually located in Kyiv, Ukraine.
-- Green card in final stages of admin processing (not yet in hand). Positioned simply as work-authorized.
+- Lives in San Francisco since 2026-11-19, moved from Kyiv (chat, 2026-11-19), so the public "San Francisco, CA" line is now simply true. Ukraine and Kyiv still never appear externally.
+- Green card in final stages of admin processing, not yet in hand (as of 2026-08-12; its status since the move isn't in the wiki). Positioned simply as work-authorized.
 - Studied in Ukraine; earlier roles (Creatio, Jooble) were at internationally-known companies but mainly Ukraine-based, so **no strong warm US network**. Never emphasize or volunteer this — it's the gap the search has to work around, not a talking point.
 
 ## Story for recruiters (short version)
