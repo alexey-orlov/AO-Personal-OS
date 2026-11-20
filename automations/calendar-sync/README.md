@@ -8,9 +8,9 @@ for **this week + next week**:
   content-free **"Busy"** placeholder is written into SoftServe so colleagues can't book over it.
 
 Reads SS from the **SoftServe Exchange account in Apple Calendar (EventKit)**, reads/writes Google via the
-**Calendar API**, and writes SS placeholders back via **EventKit**. Runs **hourly, weekdays 08:00–20:00
-on the Mac's own clock** (Kyiv, CET or PST — wherever the Mac is). Sends **one** Telegram status per day.
-Both legs guard against feedback loops (see Reverse leg).
+**Calendar API**, and writes SS placeholders back via **EventKit**. Runs **every hour around the clock,
+Monday–Friday, on the Mac's own clock** — Alex is in San Francisco and works with Europe and the US at
+once. Sends **one** Telegram status per day. Both legs guard against feedback loops (see Reverse leg).
 
 ## Architecture — pure code, no Claude session, no browser
 SoftServe is Intune/VPN-managed (no third-party API login) and the new Outlook for Mac keeps no
@@ -41,9 +41,11 @@ reverse:  Google Calendar API (all cals)  →  sync_core.reverse_reconcile  → 
 - **`run.py`** — one tick = **forward pass** (EventKit read → `reconcile` → `gcal`) then **reverse pass**
   (all Google calendars → `reverse_reconcile` → `ss-cal-write`). Skips all-day events; pulls our own
   `[[gcal-busy]]` placeholders out of the forward source. Writes `.work/state/last-read.json` for diagnostics.
-- **Host:** launchd `com.user.calendar-sync` fires `osascript → Terminal → run.sh daemon` hourly on the
-  hour, Mon–Fri 08:00–20:00 Mac-local time. Terminal is the host because EventKit + Full-Disk need its
-  TCC grants — a plain background process is denied Calendar access.
+- **Host:** launchd `com.user.calendar-sync` fires `osascript → Terminal → run.sh daemon` every hour on
+  the hour, Mon–Fri Mac-local time. Terminal is the host because EventKit + Full-Disk need its TCC
+  grants — a plain background process is denied Calendar access. The inline AppleScript waits for the
+  run's shell to exit and then closes that window (the Basic profile keeps windows after exit; each run
+  used to leave one behind, 329 open by 2026-11-19).
 
 ## Files
 | File | Role |
@@ -56,7 +58,7 @@ reverse:  Google Calendar API (all cals)  →  sync_core.reverse_reconcile  → 
 | `run.sh` | Terminal-hosted runner: `now` (force) / `daemon` (gated + 08:00 daily summary) |
 | `test_sync_core.py` | unit tests (35) |
 | `config.sh` | constants + Keychain creds + `LIVE` flag |
-| `setup.sh` | builds the reader + writer (swiftc) + installs the launchd agent (one-time) |
+| `setup.sh` | builds the reader + writer (swiftc) + installs the launchd agent (one-time); `--plist-only` reinstalls just the agent (checks the AppleScript compiles and the plist lints first) |
 | `.work/state/` | ledger.json, **reverse-ledger.json**, run-log.jsonl, gtoken.json, last-read.json, last-summary-date, LIVE (git-ignored) |
 
 ## Rules it enforces
@@ -136,14 +138,16 @@ Run from a **Terminal with Full Disk Access + Calendar access**:
 3. It runs in **DRY-RUN** (plans only) until you go live: `touch .work/state/LIVE`.
 
 ## Schedule & notifications
-- Hourly, **Mon–Fri 08:00–20:00 on the Mac's local clock**. launchd's `StartCalendarInterval` fires on
-  that clock, and `run.sh daemon` re-checks the same window in the zone it reads from `/etc/localtime`,
-  so a stray tick is a no-op and the schedule follows the Mac when it changes timezone. (A gate fixed to
-  Kyiv let 3 of 13 ticks through on PST and never reached the 08:00 summary.)
+- **Every hour, around the clock, Mon–Fri on the Mac's local clock** (Alex, 2026-11-19: from SF he works
+  with Europe and the US at once, so European mornings fall in the Pacific night). launchd's
+  `StartCalendarInterval` fires on that clock, and `run.sh daemon` re-checks the weekday in the zone it
+  reads from `/etc/localtime`, so a weekend tick that launchd coalesces on wake is a no-op and the
+  schedule follows the Mac when it changes timezone. (A gate fixed to Kyiv let 3 of 13 ticks through on
+  PST and never reached the 08:00 summary.)
 - **One** message/day to the **General** Telegram topic right after the 08:00 (local) run:
   `SoftServe calendar sync: X attempts, Y successful. A events added/modified.` — plus a
   `Google→SS busy-blocks: N added/updated` line when the reverse leg was active, and error lines if any.
-  It covers every run since the previous summary (previous working day 09:00–20:00 + today 08:00).
+  It covers every run since the previous summary (on Monday, Friday 09:00 onward plus Monday's night).
 
 ## Test / verify
 ```bash
