@@ -15,6 +15,12 @@ Yasno
   Оплачено/Борг на кін. columns present;
   "Здійснені платежі YYYY": every payment date is in YYYY (or the table says "Немає даних"),
   the РАЗОМ total is shown.
+Київтеплоенерго
+  "Усі адреси - Стан оплат DATE" (the status page, one copy per apartment): every account of the
+  JSON is on it, with its Фінансовий стан column;
+  "Звіт про оплати - SERVICE YYYY": no other account's number; the service shows in the filter and
+  in the caption («Послуга: …»); the period is Січень YYYY – Грудень YYYY; month rows exist, are
+  all from YYYY and none repeats; the first and last columns (ПОЧАТОК / КІНЕЦЬ) are not clipped.
 Exit 1 when anything fails; the run stops there.
 """
 import argparse, json, os, re, subprocess, sys
@@ -99,6 +105,50 @@ def check_vodokanal(f, text, problems, folder, ps, acct, all_accts):
         print(f"  {folder} · {kind} {y}: {max(len(years) - 2, 0)} payments, total {total.group(1).strip() if total else '-'}, {len(ps)} pages")
 
 
+# file-name service → the name the report prints («Послуга: …»); kte.js K_SERVICES holds the same
+KTE_CAPTION = {"Гаряча вода": "Гаряча вода", "Теплова енергія": "Теплова енергія",
+               "Абонплата ГВ": "Плата за абонентське обслуговування ГВ",
+               "Абонплата ТЕ": "Плата за абонентське обслуговування ТЕ"}
+# a month row: month, seven amounts ("-" when empty), year; the month and the year share a cell on
+# two lines, so pdftotext puts the amounts between them
+KTE_ROW = r"(?<!\S)(1[0-2]|[1-9]) (?:(?:-?\d+\.\d\d|-) ){7}(\d{4})(?!\S)"
+
+
+def check_kte(f, text, problems, folder, ps, acct, all_accts):
+    if " - Стан оплат " in f:
+        missing = sorted(a for a in all_accts if f"Особовий рахунок: {a}" not in text)
+        if missing:
+            problems.append(f"{f}: accounts missing {missing}")
+        if "Фінансовий" not in text:
+            problems.append(f"{f}: Фінансовий стан column missing")
+        print(f"  {folder} · Стан оплат: {len(all_accts) - len(missing)} accounts, {len(ps)} pages")
+        return
+    m = re.search(r"Звіт про оплати - (.+) (\d{4})\.pdf$", f)
+    if not m:
+        problems.append(f"{f}: unexpected file name")
+        return
+    svc, y = m.groups()
+    others = sorted(a for a in all_accts if a != acct and a in text)
+    if others:
+        problems.append(f"{f}: other accounts in the text {others}")
+    cap = KTE_CAPTION.get(svc)
+    if not cap or text.count(f"Послуга: {cap}") < 2:  # the filter and the caption
+        problems.append(f"{f}: service {cap or svc!r} not in both the filter and the caption")
+    if not re.search(r"Період: з Січень %s по Грудень %s" % (y, y), text):
+        problems.append(f"{f}: period is not Січень–Грудень {y}")
+    rows = re.findall(KTE_ROW, text)
+    if not rows:
+        problems.append(f"{f}: no month rows")
+    other = sorted({yy for _, yy in rows if yy != y})
+    if other:
+        problems.append(f"{f}: months from other years {other}")
+    if len({mm for mm, _ in rows}) != len(rows):
+        problems.append(f"{f}: a month appears twice")
+    if "ПОЧАТОК" not in text or "КІНЕЦЬ" not in text:
+        problems.append(f"{f}: table columns clipped")
+    print(f"  {folder} · {svc} {y}: {len(rows)} months, {len(ps)} pages")
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--accounts", required=True)
@@ -128,8 +178,12 @@ def main():
                 problems.append(f"{f}: account {acct[folder]} not in text")
             if provider == "Yasno":
                 check_yasno(f, None, text, problems, folder, ps)
-            else:
+            elif provider == "Київводоканал":
                 check_vodokanal(f, text, problems, folder, ps, acct.get(folder), set(acct.values()))
+            elif provider == "Київтеплоенерго":
+                check_kte(f, text, problems, folder, ps, acct.get(folder), set(acct.values()))
+            else:
+                problems.append(f"{f}: qa.py has no checks for provider {provider!r}")
     print(f"{count} PDFs checked, {len(problems)} problems")
     for p in problems:
         print(" -", p)

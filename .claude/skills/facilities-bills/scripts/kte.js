@@ -27,8 +27,9 @@ Object.assign(window.__ps, {
   K_REMOVE: ['.ajax-progress'],
   // Bootstrap 3 site. Its print sheet appends every link's URL, blanks the buttons and turns the
   // red debt / green overpayment amounts black, so the page is printed with its screen styles.
-  // At A4 width (about 720 px) it falls to its phone layout; scale 0.7 keeps the desktop grid.
-  K_PRINT: { landscape: false, scale: 0.7, media: 'screen' },
+  // At A4 width (about 720 px) it falls to its phone layout; scale 0.65 keeps the desktop grid and
+  // fits a 12-month report on one page with the site footer (at 0.7 the footer spilled onto page 2).
+  K_PRINT: { landscape: false, scale: 0.65, media: 'screen' },
   kToday() {
     const d = new Date();
     return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
