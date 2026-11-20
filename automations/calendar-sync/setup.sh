@@ -45,10 +45,21 @@ APPLESCRIPT=(
   'exit repeat'
   'end try'
   'end repeat'
+  'set outcome to "window not found"'
   'try'
-  'if wid is not missing value and (count of (processes of t)) is 0 then close window id wid'
+  'if wid is not missing value then'
+  'if (count of (processes of t)) is 0 then'
+  'close window id wid'
+  'set outcome to "closed window " & wid'
+  'else'
+  'set outcome to "left window " & wid & " open: run still busy"'
+  'end if'
+  'end if'
+  'on error errMsg'
+  'set outcome to "close failed: " & errMsg'
   'end try'
   'end tell'
+  'return (do shell script "date +%FT%T") & " " & outcome'   # -> launchd.out.log
 )
 PLIST="$HOME/Library/LaunchAgents/$LABEL.plist"
 mkdir -p "$HOME/Library/LaunchAgents"
