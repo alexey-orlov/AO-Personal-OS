@@ -15,6 +15,11 @@ script. When a lesson is revised, rewrite its entry to the current truth.
 - **Київгаз (2026-11-20):** the «Рахунки та оплати» page per year under the same year rules, in a
   folder «Киевгаз» (his pick over «Газ»). He first said only Победы has gas there; the cabinet also
   holds Смоленська's account (1000604991), and he chose to collect both.
+- **Київобленерго (2026-11-20):** a fourth address, «Чубинское», account 000400843314 only (the login
+  also holds 000401027917). The «Історія платежів» page per year under the same year rules, and the
+  «Довідка про розрахунки», which he treats as this cabinet's «абонентська книжка». For the
+  довідка: use the site's own PDF if he does not have to confirm a save, else print the page.
+  No meter readings here.
 - **«Смоленская» is вул. Сім'ї Бродських, буд. 5/1.** His first note said "Smolenskaya =
   Antonovycha". Yasno lists both streets as separate accounts and Kyiv renamed Смоленська to
   Сім'ї Бродських, so I asked, and he confirmed the renamed street. Київводоканал accounts:
@@ -48,7 +53,11 @@ script. When a lesson is revised, rewrite its entry to the current truth.
   that day's file. The date comes from the print clock, which runs on the Mac's time zone, as in
   every print header.
 - **Київтеплоенерго prints use the screen styles**, because the site's print sheet mangles the page
-  (lesson 22).
+  (lesson 22). Київгаз and Київобленерго print with the screen styles too, as Alex sees them.
+- **Чубинское's electricity folder is «Электроэнергия»**, the name the other apartments' electricity
+  folders have, so one thing keeps one name.
+- **Київобленерго's довідка comes as the site's PDF:** it is fetched inside the page and travels in
+  the bundle, so no save is confirmed by anyone (lesson 28).
 
 ## Lessons (each one is now built into a script)
 
@@ -136,10 +145,10 @@ script. When a lesson is revised, rewrite its entry to the current truth.
     URL to its text, blanked the buttons and turned the red debts and green overpayments black.
     `print.mjs` can print with the screen styles (`media: 'screen'`). At scale 0.65 the desktop grid
     holds and a report fits one page; at 0.7 the site footer spilled onto a second page.
-23. **Chrome's Save As dialog, cause unknown.** From the KTE bundle on (2026-11-19) every bundle
-    opened a Save As dialog; the Yasno and Водоканал bundles earlier that day had saved silently.
-    Chrome's "ask where to save" setting is off, no policy sets it, the disk has space and the file
-    names were new. The extension cannot press the dialog's buttons, but Chrome has already written
+23. **Chrome's Save As dialog, cause unknown.** The Київтеплоенерго and Київгаз bundles
+    (2026-11-19/20) opened a Save As dialog. The Yasno, Водоканал and Київобленерго bundles saved
+    silently. Chrome's "ask where to save" setting is off, no policy sets it, the disk has space and
+    the file names were new. The extension cannot press the dialog's buttons, but Chrome has already written
     the whole bundle to the hidden temp file `~/Downloads/.com.google.Chrome.XXXXXX`. The run uses a
     copy of it; closing the tab then cancels the download, closes the dialog and deletes the temp
     file, so Alex never has to act. The dialog still flashes on his screen.
@@ -156,3 +165,19 @@ script. When a lesson is revised, rewrite its entry to the current truth.
 26. **One login, several accounts.** Київгаз shows one account at a time and switches the active one
     with a GET link. The script switches inside the frame and back to the account that was active
     when it started, so the cabinet looks unchanged afterwards.
+
+### Київобленерго (first run 2026-11-20: 2 prints and 2 site PDFs)
+27. **No frames at all.** `frame-ancestors 'none'` blocks even the site's own pages in a frame. The
+    payments page switches years with remote links that update in place (pushState), so the run
+    stays in the one page. A click sent before the first load finished was lost.
+28. **The site's own PDF without a download.** `/home/state.pdf?f[year]=Y` answers the page's own
+    `fetch` with the session cookie. `fetchFile` ships it base64 in the bundle and `render.py` writes
+    it unchanged: the site's document, with no browser download for Alex to confirm.
+29. **Non-breaking spaces.** «№ 000400843314» and the chart title «за 2025 рік» use U+00A0. A
+    plain-space match failed, and a year wait then timed out with every other condition true.
+    Compare normalized text.
+30. **Waits that miss style changes.** «Завантажую…» disappears by a style change, which a childList
+    MutationObserver never reports. In a visible tab the run polls instead.
+31. **Fixed-size charts.** Highcharts 4.1.9 draws an SVG at the screen's pixel width with no viewBox,
+    so the print cut the monthly chart off. A viewBox added before the snapshot, plus CSS to shrink it,
+    fits the chart to the printed column.
