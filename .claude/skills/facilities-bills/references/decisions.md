@@ -133,5 +133,6 @@ script. When a lesson is revised, rewrite its entry to the current truth.
     where to save" setting was off, no policy set it, the disk had space, and the file name was new.
     The Yasno and Водоканал bundles that day had saved silently. The extension cannot press the
     dialog's buttons, but Chrome had already written the whole bundle to the hidden temp file
-    `~/Downloads/.com.google.Chrome.XXXXXX`. The run used that copy and left the dialog for Alex to
-    dismiss. If it happens again, look for the cause before calling the run seamless.
+    `~/Downloads/.com.google.Chrome.XXXXXX`. The run used a copy of it. Closing the tab then
+    cancelled the download, closed the dialog and deleted the temp file, so Alex never had to act.
+    If it happens again, look for the cause.

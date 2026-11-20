@@ -99,8 +99,8 @@ dialog. That happened once, on 2026-11-19; Chrome's "ask where to save" setting 
 policy set it, so the cause is unknown. The extension cannot press the dialog's buttons. Chrome has
 already written the whole bundle to a hidden temp file, `~/Downloads/.com.google.Chrome.XXXXXX`, and
 listing it needs the sandbox off. Copy it into the scratchpad once its size stops changing and it
-parses with the expected number of pages, and carry on. Tell Alex the dialog is open: Cancel
-dismisses it.
+parses with the expected number of pages, then close the tab. Chrome then cancels that download,
+closes the dialog and deletes the temp file, so nothing is left for Alex.
 
 **4. Render and check.** The bundle lands in `~/Downloads/<name>.json`. The sandbox cannot list new
 files in Downloads, so use the exact path with `stat` and `mv`, into a new empty scratchpad folder.
