@@ -75,8 +75,9 @@ rm -f "$HERE/.work/launch-check.scpt"
   echo "  <key>Label</key><string>$LABEL</string>"
   echo '  <key>ProgramArguments</key><array>'
   echo '    <string>/usr/bin/osascript</string>'
-  for line in "${APPLESCRIPT[@]}"; do
-    printf '    <string>-e</string><string>%s</string>\n' "$line"
+  for line in "${APPLESCRIPT[@]}"; do   # XML-escape: the AppleScript concatenates with &
+    printf '    <string>-e</string><string>%s</string>\n' \
+      "$(printf '%s' "$line" | sed -e 's/&/\&amp;/g' -e 's/</\&lt;/g' -e 's/>/\&gt;/g')"
   done
   echo '  </array>'
   echo '  <key>StartCalendarInterval</key><array>'
