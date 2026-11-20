@@ -160,7 +160,8 @@ def main():
             os.makedirs(os.path.dirname(pdf), exist_ok=True)
             # scale < 1 = the print dialog's Scale: the page is laid out at width/scale, which keeps
             # responsive cabinets in their desktop layout (set per page by the provider script)
-            jobs.append({"html": hp, "pdf": pdf, "scale": p.get("scale") or 1})
+            # media "screen" = print with the screen styles (a site whose print sheet mangles the page)
+            jobs.append({"html": hp, "pdf": pdf, "scale": p.get("scale") or 1, "media": p.get("media") or ""})
     # a few headless Chromes in parallel, each with its own profile and its share of the pages
     chunks = [jobs[i::a.workers] for i in range(a.workers) if jobs[i::a.workers]]
     results = []

@@ -25,9 +25,10 @@ Object.assign(window.__ps, {
     { id: '11', caption: 'Плата за абонентське обслуговування ТЕ', file: 'Абонплата ТЕ' },
   ],
   K_REMOVE: ['.ajax-progress'],
-  // Bootstrap 3 site: at A4 width (about 720 px) it falls to its phone layout; scale 0.7 lays the
-  // page out at about 1030 px, the desktop grid
-  K_PRINT: { landscape: false, scale: 0.7 },
+  // Bootstrap 3 site. Its print sheet appends every link's URL, blanks the buttons and turns the
+  // red debt / green overpayment amounts black, so the page is printed with its screen styles.
+  // At A4 width (about 720 px) it falls to its phone layout; scale 0.7 keeps the desktop grid.
+  K_PRINT: { landscape: false, scale: 0.7, media: 'screen' },
   kToday() {
     const d = new Date();
     return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;

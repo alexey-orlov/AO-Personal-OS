@@ -1,7 +1,10 @@
 #!/usr/bin/env node
 // Print local HTML files to PDF through headless Chrome's DevTools protocol (one Chrome for all).
 // usage: node print.mjs JOBS.json PROFILE_DIR
-//   JOBS.json = [{ "html": "/abs/page.html", "pdf": "/abs/out.pdf", "scale": 0.6 }, ...]
+//   JOBS.json = [{ "html": "/abs/page.html", "pdf": "/abs/out.pdf", "scale": 0.6, "media": "screen" }, ...]
+// media "screen" prints with the site's screen styles: Київтеплоенерго's Bootstrap 3 print sheet
+// appends every link's URL to its text, blanks the buttons and turns the red debt / green
+// overpayment amounts black. Default: the site's print styles, as the browser's print dialog would.
 // Prints one JSON line per job: {"pdf", "ok", "err"}.
 //
 // Why not `chrome --print-to-pdf`: it has no scale. A print laid out at A4 width trips the mobile
@@ -56,6 +59,7 @@ for (const j of jobs) {
       if (state === 'complete' && href.endsWith(j.html.split('/').pop())) break;
       await sleep(100);
     }
+    await send('Emulation.setEmulatedMedia', { media: j.media || '' }, sessionId);
     await send('Runtime.evaluate', { expression: 'document.fonts.ready.then(() => true)', awaitPromise: true }, sessionId);
     await sleep(200);
     const r = await send('Page.printToPDF', { preferCSSPageSize: true, printBackground: true,

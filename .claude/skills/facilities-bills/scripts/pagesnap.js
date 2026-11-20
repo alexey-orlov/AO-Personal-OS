@@ -56,8 +56,9 @@ Object.assign(window.__ps, {
     return ok;
   },
   cssStr(s) { return '"' + String(s).replace(/\\/g, '\\\\').replace(/"/g, '\\"').replace(/\n/g, ' ') + '"'; },
-  // meta: {folder, sub, name, title, header, url, landscape, scale, remove: [css selectors]}
+  // meta: {folder, sub, name, title, header, url, landscape, scale, media, remove: [css selectors]}
   // folder/sub/name = where render.py writes the PDF: OUT/<folder>/<sub>/<name>.pdf
+  // scale and media ('screen' = print with the screen styles) are applied by print.mjs
   // doc: the document to snapshot. Default this page; a same-origin iframe's document works too
   // (server-rendered cabinets reload per account, which would wipe this script and its queue).
   snap(meta, doc = document) {
