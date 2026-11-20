@@ -93,7 +93,7 @@ Cloud `Location` examples for when they arrive — gdrive: `https://drive.google
 - **Added:** 2026-11-07.
 
 ### relocation: the "Квартира — список покупок" Google Sheet (gdrive)
-- **Type:** `gdrive`, one Google Sheets workbook in Alex's My Drive root, created 2026-11-19 through `automations/gsheets` (`gsheets.py create`). Claude reads and writes it with the shared Sheets credential.
+- **Type:** `gdrive`, one Google Sheets workbook in Alex's My Drive root, created 2026-11-19 through `automations/gsheets` (`gsheets.py create`). Claude files items with `automations/shopping-list/shop.py` (add / update / delete / show; usage in its README), which uses the shared Sheets credential.
 - **Location:** `https://docs.google.com/spreadsheets/d/1cXoNLMtQ6ATPKUG1HK9nKRXFCa3eUvkC9MfviQfYUO4/edit`.
 - **Machine scope:** - (cloud).
 - **Backed up:** Google Drive.
