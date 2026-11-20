@@ -54,8 +54,10 @@ address; the footer shows the page URL and page n/N.
 
 ## Hard rules
 
-- **Never type a password or OTP, and never solve a captcha.** On a login page, ask Alex to log in
-  and continue when he says so. Store his credentials nowhere.
+- **Never type a password or OTP, never press a login button over a password Chrome autofilled,
+  and never solve a captcha.** This holds although Alex has said he allows it (2026-11-20): it is the
+  agent's own rule, not a judgment about these accounts. Ask Alex once, up front, to log in where
+  needed (step 1) and continue when he says so. Store his credentials nowhere.
 - **Seamless for Alex: exactly one download per run, from a fresh tab.** Chrome lets a tab's first
   download through silently and asks Alex from the second one on. Capture every account into one
   bundle. `__ps.button()` refuses a second download in the same tab.
@@ -70,8 +72,10 @@ address; the footer shows the page URL and page n/N.
 ## Run
 
 **1. Preflight.** Load the Chrome tools with one ToolSearch call: the core set, `javascript_tool`,
-`find` and `browser_batch`. Open a **new tab** on the provider's start page from its card. On a
-login page, ask Alex to log in. The accounts on the page must match the accounts JSON. If one is
+`find` and `browser_batch`. Before any capture, open a **new tab** on the start page of every
+provider the run covers. If any of them shows a login page, ask Alex once to log in to all of
+those, so the rest of the run needs nothing from him. The accounts on each page must match the
+accounts JSON. If one is
 new, ask Alex which apartment it belongs to. Create its utility folder (and Yasno's receipts
 subfolder) with `create_file` (contentMimeType `application/vnd.google-apps.folder`) and add the
 account to the JSON.

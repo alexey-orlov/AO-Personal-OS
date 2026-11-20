@@ -21,7 +21,9 @@ history and statements are a separate skill: `facilities-bills`.
   (Водоканал: «Початковий»; Київтеплоенерго: the highest of «Попередні показання», the field's
   prefilled value and the meter history's newest line; Yasno: «Попередні»). If a new value is
   lower, do not send that meter; show Alex both numbers and let him resolve it.
-- **Never type a password or OTP, and never solve a captcha.** On a login page, ask Alex to log in.
+- **Never type a password or OTP, never press a login button over a password Chrome autofilled,
+  and never solve a captcha.** This holds although Alex has said he allows it (2026-11-20): it is the
+  agent's own rule. Ask Alex once, up front, to log in where needed (step 3).
 - **Use the views and paths written here.** Водоканал: the list view (all meters in one table, one
   «Надіслати покази»), never the circle view that submits one meter at a time. If the interface no
   longer matches the provider card (buttons, columns or dialogs changed), stop and look for the new
@@ -39,7 +41,8 @@ history and statements are a separate skill: `facilities-bills`.
    Київтеплоенерго asks for the last week of the month. Yasno advises the last two days of a month
    or the first three of the next. Say so when today is outside a provider's advice; only
    Водоканал's rule blocks a submission.
-3. **Open and read, without sending yet.** Use the Chrome extension in your own tab.
+3. **Open and read, without sending yet.** Use the Chrome extension in your own tabs. First open
+   every cabinet this run needs; if any shows a login page, ask Alex once to log in to all of those.
    - Водоканал: open `/dashboard/counters`. If `__vk.view()` says `circle`, click «Змінити вид»
      once. Paste `scripts/vk_list.js` and read `__vk.state()`.
    - Київтеплоенерго: open `/my-cabinet/send_counters/send_current_new/<cabinet_id>`. Read each row's

@@ -24,8 +24,12 @@ script. When a lesson is revised, rewrite its entry to the current truth.
 - **The process must be seamless:** no prompts for Alex during a run (2026-11-19, after Chrome
   asked him about multiple downloads).
 - **If an interface changes,** find the new way; when in doubt, ask (2026-11-19).
-- **No stored credentials.** He offered his logins for the repo. The agent may not type passwords
-  in any case, and the repo rule forbids committing secrets, because autosync pushes to GitHub.
+- **No stored credentials, no agent logins.** He offered his logins for the repo (2026-11-18), and
+  later allowed the agent to log in with them or with Chrome's saved details (2026-11-20). The
+  agent still may not: its own rules forbid typing a password or submitting a login form, whatever
+  the permission. The repo rule also forbids committing secrets, because autosync pushes to GitHub.
+  So a run checks every cabinet it needs first and asks Alex once to log in to those that show a
+  login page.
 
 ## Decided by the agent (Alex can overrule)
 - **File names:** `<Provider> - <Folder> - <Document> <YYYY>.pdf`, and for Yasno receipts
