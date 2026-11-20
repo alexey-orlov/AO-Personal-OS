@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 # config.sh — constants + secrets for calendar-sync (Apple Calendar -> Google).
-# Resolved from $HOME so it works whether sourced from bash or zsh.
+# Resolved from $HOME so it works whether sourced from bash or zsh. The host app's shell may
+# arrive without USER/HOME; the Keychain lookups below need USER.
+export USER="${USER:-$(id -un)}" HOME="${HOME:-/Users/$(id -un)}"
 export CALSYNC_REPO="${CALSYNC_REPO:-$HOME/Documents/GitHub/AO-Personal-OS}"
 export CALSYNC_HERE="$CALSYNC_REPO/automations/calendar-sync"
 export CALSYNC_STATE="$CALSYNC_HERE/.work/state"
