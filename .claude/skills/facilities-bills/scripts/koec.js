@@ -44,8 +44,9 @@ Object.assign(window.__ps, {
       if (!a) return false;
       a.click();
     }
+    // the chart title writes «за 2025 рік» with non-breaking spaces: compare normalized text
     const ready = () => this.eActiveYear() === y && !this.eBusy() && this.eTable().group === y
-      && [...document.querySelectorAll('.highcharts-title')].some(t => t.textContent.includes(`за ${y} рік`));
+      && [...document.querySelectorAll('.highcharts-title')].some(t => t.textContent.replace(/\s+/g, ' ').includes(`за ${y} рік`));
     const t0 = Date.now();
     while (!ready() && Date.now() - t0 < 20000) await this.sleep(300);
     await this.sleep(800);  // let the charts settle
