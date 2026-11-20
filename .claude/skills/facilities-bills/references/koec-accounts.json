@@ -1,0 +1,17 @@
+{
+  "provider": "Київобленерго",
+  "cabinet": "https://ok.koec.com.ua/home/payments",
+  "drive_root": { "name": "Facilities - bills", "id": "1WjeAASAugd8qbGU55PeL18Z1zox9JjvT" },
+  "utility_folder": "Электроэнергия",
+  "_note": "Cabinet of ТОВ «Київська обласна ЕК» (brand ONDO). The login also holds 000401027917, which Alex did not ask for (2026-11-20): leave it out. account_path chooses the account to work with. Address as the cabinet writes it.",
+  "accounts": [
+    {
+      "folder": "Чубинское",
+      "address_folder_id": "13iicbgJHkc2zM_8qZIqYYRhATmZWEwp3",
+      "folder_id": "1GzzyzDWEQ2KXRJGmlCf50RgZxVJDnhXi",
+      "account_number": "000400843314",
+      "account_path": "/home/accounts/145119",
+      "address": "Чубинське, вул. Садово-Дачна буд.1/_13"
+    }
+  ]
+}

@@ -25,6 +25,11 @@ Yasno
   "Рахунки та оплати YYYY": no other account's number; both year selects show YYYY (the gas bills
   and the building's ТО ВБСГ bills); bill rows exist and no month repeats; every payment date is in
   YYYY; the last bill column (До сплати) is not clipped.
+Київобленерго
+  "Історія платежів YYYY" (page print): every payment row is dated YYYY, their count equals
+  «Всього: N шт.», the chart says «Платежі за YYYY рік»;
+  "Довідка про розрахунки YYYY" (the site's own PDF): «за YYYY р.», month rows all from YYYY,
+  «Вхідне сальдо на 01.01.YYYY».
 Exit 1 when anything fails; the run stops there.
 """
 import argparse, json, os, re, subprocess, sys
@@ -185,6 +190,37 @@ def check_kyivgaz(f, text, problems, folder, ps, acct, all_accts):
     print(f"  {folder} · Рахунки та оплати {y}: {len(months)} bill months, {len(dates)} payments, {len(ps)} pages")
 
 
+def check_koec(f, text, problems, folder, ps):
+    m = re.search(r"(Історія платежів|Довідка про розрахунки) (\d{4})\.pdf$", f)
+    if not m:
+        problems.append(f"{f}: unexpected file name")
+        return
+    kind, y = m.groups()
+    if kind == "Історія платежів":
+        rows = re.findall(r"(?<!\S)\d+\. \d\d\.\d\d\.(\d{4}) \d\d\.\d\d\.\d{4} ", text)
+        other = sorted({x for x in rows if x != y})
+        if other:
+            problems.append(f"{f}: payments dated in other years {other}")
+        total = re.search(r"Всього: (\d+) шт\.", text)
+        if rows and (not total or int(total.group(1)) != len(rows)):
+            problems.append(f"{f}: {len(rows)} payment rows, «Всього» says {total.group(1) if total else '-'}")
+        if f"Платежі за {y} рік" not in text:
+            problems.append(f"{f}: chart for {y} missing")
+        print(f"  {folder} · {kind} {y}: {len(rows)} payments, {len(ps)} pages")
+    else:
+        if f"за {y} р." not in text:
+            problems.append(f"{f}: not the {y} statement")
+        months = re.findall(r"\b(?:%s) (\d{4})\b" % MONTHS_FULL.title(), text)
+        if not months:
+            problems.append(f"{f}: no month rows")
+        other = sorted({x for x in months if x != y})
+        if other:
+            problems.append(f"{f}: months from other years {other}")
+        if f"Вхідне сальдо на 01.01.{y}" not in text:
+            problems.append(f"{f}: opening balance line missing")
+        print(f"  {folder} · {kind} {y}: {len(months)} months, {len(ps)} pages")
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--accounts", required=True)
@@ -220,6 +256,8 @@ def main():
                 check_kte(f, text, problems, folder, ps, acct.get(folder), set(acct.values()))
             elif provider == "Київгаз":
                 check_kyivgaz(f, text, problems, folder, ps, acct.get(folder), set(acct.values()))
+            elif provider == "Київобленерго":
+                check_koec(f, text, problems, folder, ps)
             else:
                 problems.append(f"{f}: qa.py has no checks for provider {provider!r}")
     print(f"{count} PDFs checked, {len(problems)} problems")
