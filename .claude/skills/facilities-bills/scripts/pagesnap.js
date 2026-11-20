@@ -56,28 +56,31 @@ Object.assign(window.__ps, {
     return ok;
   },
   cssStr(s) { return '"' + String(s).replace(/\\/g, '\\\\').replace(/"/g, '\\"').replace(/\n/g, ' ') + '"'; },
-  // meta: {folder, sub, name, title, header, url, landscape, remove: [css selectors]}
+  // meta: {folder, sub, name, title, header, url, landscape, scale, remove: [css selectors]}
   // folder/sub/name = where render.py writes the PDF: OUT/<folder>/<sub>/<name>.pdf
-  snap(meta) {
+  // doc: the document to snapshot. Default this page; a same-origin iframe's document works too
+  // (server-rendered cabinets reload per account, which would wipe this script and its queue).
+  snap(meta, doc = document) {
+    const win = doc.defaultView;
     const marks = [];
-    for (const el of document.querySelectorAll('body *')) {
-      const cs = getComputedStyle(el);
+    for (const el of doc.querySelectorAll('body *')) {
+      const cs = win.getComputedStyle(el);
       if (/(auto|scroll)/.test(cs.overflowY) && el.scrollHeight > el.clientHeight + 4) { el.setAttribute('data-ps-x', ''); marks.push(el); }
       if (cs.position === 'fixed' || cs.position === 'sticky') { el.setAttribute('data-ps-fixed', ''); marks.push(el); }
       // min-height: 100vh wrappers push an empty extra page into the print
-      if (parseFloat(cs.minHeight) >= innerHeight * 0.5) { el.setAttribute('data-ps-mh', ''); marks.push(el); }
+      if (parseFloat(cs.minHeight) >= win.innerHeight * 0.5) { el.setAttribute('data-ps-mh', ''); marks.push(el); }
     }
     // CSS-in-JS rules can live only in the CSSOM (empty <style> text): serialize the sheets
-    const styleTexts = [...document.querySelectorAll('style')].map(s => {
+    const styleTexts = [...doc.querySelectorAll('style')].map(s => {
       try { return [...s.sheet.cssRules].map(r => r.cssText).join('\n'); } catch (e) { return null; }
     });
-    const liveFields = [...document.querySelectorAll('input, textarea, select')];
+    const liveFields = [...doc.querySelectorAll('input, textarea, select')];
     // URLs as the browser resolved them: <base href="/"> (Angular) makes attribute + location.href
     // wrong (a stylesheet resolved under /dashboard/ came back as the app's index.html)
-    const liveLinks = [...document.querySelectorAll('link[rel="stylesheet"]')].map(l => l.href);
-    const liveAnchors = [...document.querySelectorAll('a[href]')].map(a => a.href);
-    const liveImgs = [...document.querySelectorAll('img')].map(i => i.currentSrc || i.src);
-    const clone = document.documentElement.cloneNode(true);
+    const liveLinks = [...doc.querySelectorAll('link[rel="stylesheet"]')].map(l => l.href);
+    const liveAnchors = [...doc.querySelectorAll('a[href]')].map(a => a.href);
+    const liveImgs = [...doc.querySelectorAll('img')].map(i => i.currentSrc || i.src);
+    const clone = doc.documentElement.cloneNode(true);
     for (const el of marks) { el.removeAttribute('data-ps-x'); el.removeAttribute('data-ps-fixed'); el.removeAttribute('data-ps-mh'); }
     [...clone.querySelectorAll('style')].forEach((s, i) => { if (styleTexts[i] != null) s.textContent = styleTexts[i]; });
     // cloneNode copies attributes, not what is typed or picked: a filter field (the period of a
@@ -107,7 +110,7 @@ Object.assign(window.__ps, {
     clone.querySelectorAll('style').forEach(s => {
       s.textContent = s.textContent.replace(/url\(\s*(['"]?)([^'")]+)\1\s*\)/g, (all, q, u) => {
         if (/^(data:|#|%23|[a-z]+:)/i.test(u)) return all;
-        try { return `url("${new URL(u, document.baseURI).href}")`; } catch (e) { return all; }
+        try { return `url("${new URL(u, doc.baseURI).href}")`; } catch (e) { return all; }
       });
     });
     clone.querySelectorAll('#ps-dl, base, script, iframe, noscript, link[rel="preload"], link[rel="modulepreload"], link[rel="prefetch"], link[rel="manifest"]').forEach(e => e.remove());
@@ -115,11 +118,11 @@ Object.assign(window.__ps, {
     if (meta.remove && meta.remove.length) clone.querySelectorAll(meta.remove.join(',')).forEach(e => e.remove());
     const head = clone.querySelector('head');
     let title = head.querySelector('title');
-    if (!title) { title = document.createElement('title'); head.appendChild(title); }
+    if (!title) { title = doc.createElement('title'); head.appendChild(title); }
     title.textContent = meta.title;
     const printedAt = new Date().toLocaleString('uk-UA', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' });
     const box = 'font: 7.5pt Arial, sans-serif; color: #555;';
-    const st = document.createElement('style');
+    const st = doc.createElement('style');
     st.id = 'ps-print';
     st.textContent = `@page { size: A4${meta.landscape ? ' landscape' : ''}; margin: 14mm 10mm 13mm 10mm;
   @top-left { content: ${this.cssStr(printedAt)}; ${box} }
