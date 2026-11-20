@@ -1,6 +1,6 @@
 ---
 name: facilities-bills
-description: Save Alex's utility-cabinet statements and payment records as PDFs into his Google Drive folder "Facilities - bills". It has one folder per apartment and, inside each, one folder per utility. Yasno (electricity → «Электроэнергия») gets the Абонентська книжка and Історія платежів pages per year plus every payment's detail page as a receipt. Київводоканал (water → «Водоканал») gets the Абонентська книжка and Здійснені платежі statements per year. Київтеплоенерго (heating and hot water → «Киевтеплоэнерго») gets a dated snapshot of the payment status of all accounts, filed in every apartment, and the «Звіт про оплати» per service (Гаряча вода, Теплова енергія, Абонплата ГВ, Абонплата ТЕ) and year. Each run reprints the current year and adds what is new. Works in Alex's logged-in Chrome session through the Claude in Chrome extension, makes true browser prints with headless Chrome without any prompt for Alex, and uploads with the Google Drive connector. Use on /facilities-bills, "update the Yasno bills", "download Yasno payment history", "выгрузи историю Водоканала", "выгрузи оплаты Киевтеплоэнерго", "звіт про оплати КТЕ", "оновити платежі Ясно", "скачай абонентську книжку", or when another facilities cabinet (gas) needs the same treatment. Submitting meter readings is the separate meter-readings skill.
+description: Save Alex's utility-cabinet statements and payment records as PDFs into his Google Drive folder "Facilities - bills". It has one folder per apartment and, inside each, one folder per utility. Yasno (electricity → «Электроэнергия») gets the Абонентська книжка and Історія платежів pages per year plus every payment's detail page as a receipt. Київводоканал (water → «Водоканал») gets the Абонентська книжка and Здійснені платежі statements per year. Київтеплоенерго (heating and hot water → «Киевтеплоэнерго») gets a dated snapshot of the payment status of all accounts, filed in every apartment, and the «Звіт про оплати» per service (Гаряча вода, Теплова енергія, Абонплата ГВ, Абонплата ТЕ) and year. Київгаз (gas distribution → «Киевгаз», Победы and Смоленская) gets the «Рахунки та оплати» page per year. Each run reprints the current year and adds what is new. Works in Alex's logged-in Chrome session through the Claude in Chrome extension, makes true browser prints with headless Chrome without any prompt for Alex, and uploads with the Google Drive connector. Use on /facilities-bills, "update the Yasno bills", "download Yasno payment history", "выгрузи историю Водоканала", "выгрузи оплаты Киевтеплоэнерго", "звіт про оплати КТЕ", "оновити платежі Ясно", "скачай абонентську книжку", or when another facilities cabinet (gas) needs the same treatment. Submitting meter readings is the separate meter-readings skill.
 disable-model-invocation: false
 user-invocable: true
 ---
@@ -16,6 +16,7 @@ utility, then provider files; nothing goes straight into an apartment folder.
 | Yasno | Электроэнергия | `references/yasno.md` | `references/yasno-accounts.json` | `scripts/yasno.js` |
 | Київводоканал | Водоканал | `references/vodokanal.md` | `references/vodokanal-accounts.json` | `scripts/vodokanal.js` |
 | Київтеплоенерго | Киевтеплоэнерго | `references/kte.md` | `references/kte-accounts.json` | `scripts/kte.js` |
+| Київгаз | Киевгаз | `references/kyivgaz.md` | `references/kyivgaz-accounts.json` | `scripts/kyivgaz.js` |
 
 The reasons behind each rule, and the lessons from the runs, are in `references/decisions.md`.
 
@@ -34,6 +35,8 @@ Facilities - bills/<Folder>/                 Антоновича · Побед�
     Київтеплоенерго - Усі адреси - Стан оплат <YYYY-MM-DD>.pdf   (all accounts; same file in each apartment)
     Київтеплоенерго - <Folder> - Звіт про оплати - <service> <YYYY>.pdf
                       (service: Гаряча вода · Теплова енергія · Абонплата ГВ · Абонплата ТЕ; Січень–Грудень)
+  Киевгаз/                                   (Победы and Смоленская)
+    Київгаз - <Folder> - Рахунки та оплати <YYYY>.pdf   (bills, payments, ТО ВБСГ; one page)
 ```
 
 Each PDF is a real print of the page: the site's own fonts, styles and selectable text, and the
@@ -91,16 +94,18 @@ call, and end that call with a background job:
 - Yasno: `__ps.start(async log => { for (const [acc, plan] of JOBS) await __ps.yRun(acc, plan, log); log.push({assets: await __ps.collectAssets()}); })`
 - Київводоканал: `__ps.start(async log => { await __ps.vRun(ACCOUNTS, YEARS, log); log.push({assets: await __ps.collectAssets()}); })`
 - Київтеплоенерго, on `/my-cabinet/userhome_new`: `__ps.start(async log => { await __ps.kRun(ACCOUNTS, YEARS, log); log.push({assets: await __ps.collectAssets()}); })`
+- Київгаз, on `/accrual-and-payment`: `__ps.start(async log => { await __ps.gRun(ACCOUNTS, YEARS, log); log.push({assets: await __ps.collectAssets()}); })`
 
 Poll `__ps.status()` every ~10 s. 12 Водоканал pages take about 15 s; 16 Yasno pages for one
-account about 70 s; 27 Київтеплоенерго pages about 55 s, plus 30 s for the assets. Read the log:
+account about 70 s; 27 Київтеплоенерго pages about 55 s, plus 30 s for the assets; 4 Київгаз pages
+about 30 s. Read the log:
 every page should say `ok`, its rows, or its receipts. When done, run
 `__ps.button('<provider>-<yyyymmdd>.json')`, `find` "pagesnap download" and `left_click` it by
 ref. `document.getElementById('ps-dl').dataset.n` must equal the number of pages.
 
-If the bundle is not in `~/Downloads` a few seconds later, Chrome may have opened its Save As
-dialog. That happened once, on 2026-11-19; Chrome's "ask where to save" setting was off and no
-policy set it, so the cause is unknown. The extension cannot press the dialog's buttons. Chrome has
+If the bundle is not in `~/Downloads` a few seconds later, Chrome has opened its Save As dialog.
+Since 2026-11-19 it has done so for every bundle. Chrome's "ask where to save" setting is off and
+no policy sets it, so the cause is unknown. The extension cannot press the dialog's buttons. Chrome has
 already written the whole bundle to a hidden temp file, `~/Downloads/.com.google.Chrome.XXXXXX`, and
 listing it needs the sandbox off. Copy it into the scratchpad once its size stops changing and it
 parses with the expected number of pages, then close the tab. Chrome then cancels that download,

@@ -12,6 +12,9 @@ script. When a lesson is revised, rewrite its entry to the current truth.
   filed in each address folder; and the «Звіт про оплати» for Гаряча вода, Теплова енергія,
   Абонплата ГВ and Абонплата ТЕ under the same year rules. Accounts: 053024100160100 Антоновича,
   434006400250100 Победы, 434048600370100 Смоленская.
+- **Київгаз (2026-11-20):** the «Рахунки та оплати» page per year under the same year rules, in a
+  folder «Киевгаз» (his pick over «Газ»). He first said only Победы has gas there; the cabinet also
+  holds Смоленська's account (1000604991), and he chose to collect both.
 - **«Смоленская» is вул. Сім'ї Бродських, буд. 5/1.** His first note said "Smolenskaya =
   Antonovycha". Yasno lists both streets as separate accounts and Kyiv renamed Смоленська to
   Сім'ї Бродських, so I asked, and he confirmed the renamed street. Київводоканал accounts:
@@ -133,10 +136,23 @@ script. When a lesson is revised, rewrite its entry to the current truth.
     URL to its text, blanked the buttons and turned the red debts and green overpayments black.
     `print.mjs` can print with the screen styles (`media: 'screen'`). At scale 0.65 the desktop grid
     holds and a report fits one page; at 0.7 the site footer spilled onto a second page.
-23. **Chrome's Save As dialog, cause unknown.** The KTE bundle opened a Save As dialog. Chrome's "ask
-    where to save" setting was off, no policy set it, the disk had space, and the file name was new.
-    The Yasno and Водоканал bundles that day had saved silently. The extension cannot press the
-    dialog's buttons, but Chrome had already written the whole bundle to the hidden temp file
-    `~/Downloads/.com.google.Chrome.XXXXXX`. The run used a copy of it. Closing the tab then
-    cancelled the download, closed the dialog and deleted the temp file, so Alex never had to act.
-    If it happens again, look for the cause.
+23. **Chrome's Save As dialog, cause unknown.** From the KTE bundle on (2026-11-19) every bundle
+    opened a Save As dialog; the Yasno and Водоканал bundles earlier that day had saved silently.
+    Chrome's "ask where to save" setting is off, no policy sets it, the disk has space and the file
+    names were new. The extension cannot press the dialog's buttons, but Chrome has already written
+    the whole bundle to the hidden temp file `~/Downloads/.com.google.Chrome.XXXXXX`. The run uses a
+    copy of it; closing the tab then cancels the download, closes the dialog and deletes the temp
+    file, so Alex never has to act. The dialog still flashes on his screen.
+
+### Київгаз (first run 2026-11-20: 4 PDFs)
+24. **Print media queries see the portrait width.** Measured with a test page: headless Chrome
+    evaluates media queries against 718 px ÷ scale (A4 portrait minus margins) on a portrait *and*
+    a landscape page: about 718 px at scale 1, 1105 at 0.65, 1436 at 0.5. A landscape page only
+    widens the page box. The Київгаз cards sit side by side at ≥ 1200 px, so landscape at 0.65
+    printed them stacked over three pages; portrait at 0.55 gives one page as on screen. Pick the
+    scale from the site's breakpoint: below 718 ÷ breakpoint.
+25. **Fixed top bar and side menu.** Turning `position: fixed` into static puts them in the flow
+    above the content. `fixed: 'absolute'` leaves them where they stand on the first page.
+26. **One login, several accounts.** Київгаз shows one account at a time and switches the active one
+    with a GET link. The script switches inside the frame and back to the account that was active
+    when it started, so the cabinet looks unchanged afterwards.
