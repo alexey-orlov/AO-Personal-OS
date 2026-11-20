@@ -52,6 +52,11 @@ APPLESCRIPT=(
 )
 PLIST="$HOME/Library/LaunchAgents/$LABEL.plist"
 mkdir -p "$HOME/Library/LaunchAgents"
+# Check before replacing anything: an AppleScript that doesn't compile would fail every tick
+# with nothing but a line in launchd.err.log.
+OSA_ARGS=(); for line in "${APPLESCRIPT[@]}"; do OSA_ARGS+=(-e "$line"); done
+osacompile -o "$HERE/.work/launch-check.scpt" "${OSA_ARGS[@]}" || { echo "[setup] AppleScript does not compile — agent left unchanged"; exit 1; }
+rm -f "$HERE/.work/launch-check.scpt"
 {
   echo '<?xml version="1.0" encoding="UTF-8"?>'
   echo '<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">'
@@ -71,14 +76,17 @@ mkdir -p "$HOME/Library/LaunchAgents"
   echo "  <key>StandardOutPath</key><string>$HERE/.work/launchd.out.log</string>"
   echo "  <key>StandardErrorPath</key><string>$HERE/.work/launchd.err.log</string>"
   echo '</dict></plist>'
-} > "$PLIST"
+} > "$PLIST.new"
+plutil -lint "$PLIST.new" >/dev/null || { echo "[setup] generated plist is invalid — agent left unchanged"; rm -f "$PLIST.new"; exit 1; }
+mv "$PLIST.new" "$PLIST"
 
 launchctl bootout "gui/$(id -u)" "$PLIST" 2>/dev/null || true
 launchctl bootstrap "gui/$(id -u)" "$PLIST"
 
-cat <<EOF
+echo "[setup] installed launchd agent: $LABEL  (every hour Mon-Fri on the Mac's local clock, via Terminal)"
+[ "${1:-}" = "--plist-only" ] && exit 0
 
-[setup] installed launchd agent: $LABEL  (Mon-Fri 08:00-20:00 EET, hourly, via Terminal)
+cat <<EOF
 
 ONE-TIME GOOGLE SETUP (only you can do this — it's your account):
   1) console.cloud.google.com -> create/select a project
