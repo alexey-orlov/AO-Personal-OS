@@ -213,9 +213,18 @@ class TestSchedule(unittest.TestCase):
         self.assertTrue(s["in_window"])
         self.assertTrue(s["is_open_hour"])
 
-    def test_weekend_and_offhours(self):
+    def test_weekend_out_night_in(self):
         self.assertFalse(sc.schedule({"now_utc": "2026-06-20T09:00:00Z"})["in_window"])  # Sat
-        self.assertFalse(sc.schedule({"now_utc": "2026-06-17T20:00:00Z"})["in_window"])  # Wed 23:00 Kyiv
+        self.assertTrue(sc.schedule({"now_utc": "2026-06-17T20:00:00Z"})["in_window"])   # Wed 23:00 Kyiv
+
+    def test_gate_follows_the_zone_it_is_given(self):
+        # Fri 23:30 PST is Sat 09:30 Kyiv: in on the Mac's (PST) clock, out on Kyiv's
+        pst = {"tz": "America/Los_Angeles"}
+        self.assertTrue(sc.schedule({"now_utc": "2026-11-21T07:30:00Z", "config": pst})["in_window"])
+        self.assertFalse(sc.schedule({"now_utc": "2026-11-21T07:30:00Z"})["in_window"])
+        # Mon 00:00 PST (09:00 CET) is a weekday hour -> in; the 08:00 summary hour stays 08:00 local
+        self.assertTrue(sc.schedule({"now_utc": "2026-11-23T08:00:00Z", "config": pst})["in_window"])
+        self.assertTrue(sc.schedule({"now_utc": "2026-11-23T16:00:00Z", "config": pst})["is_open_hour"])
 
 
 class TestDailySummary(unittest.TestCase):

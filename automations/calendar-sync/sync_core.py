@@ -508,14 +508,16 @@ def reverse_reconcile(inp):
 
 
 # --------------------------------------------------------------------------- #
-# schedule gate  (hourly, Mon–Fri, 08:00–20:00 EET)
+# schedule gate  (hourly around the clock, Mon–Fri, in the zone run.sh passes = the Mac's)
+# Alex works with Europe and the US at once (moved to SF 2026-11-19), so every hour of a
+# weekday counts; the gate only turns away stray weekend ticks launchd coalesces on wake.
 # --------------------------------------------------------------------------- #
 def schedule(inp):
     cfg = dict(DEFAULT_CONFIG)
     cfg.update((inp or {}).get("config") or {})
     now = _utc(inp["now_utc"]) if inp.get("now_utc") else datetime.now(timezone.utc)
     z = now.astimezone(ZoneInfo(cfg["tz"]))
-    in_window = z.weekday() <= 4 and 8 <= z.hour <= 20
+    in_window = z.weekday() <= 4
     secs = 3600 - (z.minute * 60 + z.second)
     if secs <= 0:
         secs += 3600
