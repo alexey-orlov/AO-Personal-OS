@@ -4,6 +4,7 @@
 #   setup.sh --plist-only     reinstall the agent only (keeps the binaries and the host app)
 #   setup.sh --rebuild-host   rebuild the host app, then reinstall the agent. A rebuild changes the app's
 #                             ad-hoc signature, so macOS asks again for Calendar + Documents access.
+#   setup.sh --build-host     (re)build the host app only, agent unchanged — to test it before switching
 #   setup.sh --terminal-host  fallback: run each tick in a Terminal window that closes itself (uses
 #                             Terminal's grants; for when the host app can't get its own)
 set -euo pipefail
@@ -52,19 +53,20 @@ EOF
   rm -rf "$HOST_APP"
   mkdir -p "$(dirname "$HOST_APP")"
   osacompile -o "$HOST_APP" "$src"
-  "$pb" -c "Set :CFBundleIdentifier com.user.calendar-sync.host" "$ip"
-  for k in LSUIElement NSCalendarsFullAccessUsageDescription NSCalendarsUsageDescription; do
-    "$pb" -c "Delete :$k" "$ip" 2>/dev/null || true
+  for k in CFBundleIdentifier LSUIElement NSCalendarsFullAccessUsageDescription NSCalendarsUsageDescription; do
+    "$pb" -c "Delete :$k" "$ip" 2>/dev/null || true   # the applet template may or may not carry each key
   done
+  "$pb" -c "Add :CFBundleIdentifier string com.user.calendar-sync.host" "$ip"
   "$pb" -c "Add :LSUIElement bool true" "$ip"
   "$pb" -c "Add :NSCalendarsFullAccessUsageDescription string $why" "$ip"
   "$pb" -c "Add :NSCalendarsUsageDescription string $why" "$ip"
   codesign --force --deep --sign - "$HOST_APP"
   echo "[setup] built $HOST_APP: its first run asks for Calendar and Documents access; allow both"
 }
-if [ "$MODE" != "--terminal-host" ] && { [ "$MODE" = "--rebuild-host" ] || [ ! -d "$HOST_APP" ]; }; then
+if [ "$MODE" != "--terminal-host" ] && { [ "$MODE" = "--rebuild-host" ] || [ "$MODE" = "--build-host" ] || [ ! -d "$HOST_APP" ]; }; then
   build_host
 fi
+[ "$MODE" = "--build-host" ] && { echo "[setup] agent unchanged; test with: open -g -j -W \"$HOST_APP\""; exit 0; }
 
 # --- what each tick runs -----------------------------------------------------------------
 xml() { printf '%s' "$1" | sed -e 's/&/\&amp;/g' -e 's/</\&lt;/g' -e 's/>/\&gt;/g'; }

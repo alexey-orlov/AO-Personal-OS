@@ -25,6 +25,18 @@ if [ "$MODE" = "daemon" ]; then
   OPEN8="$(printf '%s' "$SCHED" | field is_open_hour)"
 fi
 
+# One run at a time (hourly ticks, a manual run, or two hosts during a switch must not write the
+# ledgers at once). A lock whose PID is gone is stale and taken over, so a killed run can't wedge it.
+LOCK="$CALSYNC_STATE/run.lock"
+if ! mkdir "$LOCK" 2>/dev/null; then
+  OWNER="$(cat "$LOCK/pid" 2>/dev/null || true)"
+  if [ -n "$OWNER" ] && kill -0 "$OWNER" 2>/dev/null; then
+    echo "[calendar-sync] run $OWNER still in progress — skip"; exit 0
+  fi
+  rm -rf "$LOCK"; mkdir "$LOCK" || { echo "[calendar-sync] cannot take $LOCK — skip"; exit 1; }
+fi
+echo $$ > "$LOCK/pid"; trap 'rm -rf "$LOCK"' EXIT
+
 echo "[calendar-sync] $(date '+%F %T %Z')  DRY_RUN=$CALSYNC_DRY_RUN"
 ( cd /tmp && "$PY" -I "$CALSYNC_HERE/run.py" ); RC=$?
 
