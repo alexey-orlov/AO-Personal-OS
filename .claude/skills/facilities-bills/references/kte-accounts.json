@@ -1,0 +1,32 @@
+{
+  "provider": "Київтеплоенерго",
+  "cabinet": "https://kte.kmda.gov.ua/my-cabinet/userhome_new",
+  "drive_root": { "name": "Facilities - bills", "id": "1WjeAASAugd8qbGU55PeL18Z1zox9JjvT" },
+  "utility_folder": "Киевтеплоэнерго",
+  "accounts": [
+    {
+      "folder": "Антоновича",
+      "address_folder_id": "14OJRAF-jlKYYtkVrwmOuRUqlt3OaM_49",
+      "folder_id": "17QxvsLa5F6AE8ieqgxHE7PgzQrEwIhz8",
+      "account_number": "053024100160100",
+      "cabinet_id": "834221",
+      "address": "вул. Антоновича, буд. №160, кв. 16"
+    },
+    {
+      "folder": "Победы",
+      "address_folder_id": "1u8X0lP53d65EEeouMgFGqnI5goKYQruZ",
+      "folder_id": "1suqP_35kacdqZs8-SSzENzKjGVsjXWGl",
+      "account_number": "434006400250100",
+      "cabinet_id": "199001",
+      "address": "просп. Берестейський (Перемоги), буд. №45, кв. 25"
+    },
+    {
+      "folder": "Смоленская",
+      "address_folder_id": "1Z0XqMohVYJthaM44YNzY9UgawqW7sM5-",
+      "folder_id": "1QOytuhodd39o2lqNa0VsHp9wpVcJyeTe",
+      "account_number": "434048600370100",
+      "cabinet_id": "195562",
+      "address": "вул. Бродських Сім`ї (Смоленська), буд. №5/1, кв. 37"
+    }
+  ]
+}
