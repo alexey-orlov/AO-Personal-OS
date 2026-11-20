@@ -56,9 +56,28 @@ Object.assign(window.__ps, {
     return ok;
   },
   cssStr(s) { return '"' + String(s).replace(/\\/g, '\\\\').replace(/"/g, '\\"').replace(/\n/g, ' ') + '"'; },
-  // meta: {folder, sub, name, title, header, url, landscape, scale, media, remove: [css selectors]}
+  // A same-origin iframe over this page, full size and on screen (a hidden or tiny frame lays the
+  // page out differently). Server-rendered cabinets reload on every page, which would wipe this
+  // script and its queue; inside a frame they reload and the script stays. Resolves on load.
+  async frame(path) {
+    let fr = document.getElementById('ps-frame');
+    if (!fr) {
+      fr = document.createElement('iframe');
+      fr.id = 'ps-frame';
+      fr.style.cssText = 'position:absolute;left:0;top:0;width:1280px;height:1000px;border:0;background:#fff;z-index:2147483646';
+      document.body.appendChild(fr);
+    }
+    const loaded = new Promise(res => fr.addEventListener('load', () => res(true), { once: true }));
+    fr.src = path;
+    await Promise.race([loaded, this.sleep(60000)]);
+    await this.tick(10);
+    return fr;
+  },
+  // meta: {folder, sub, name, title, header, url, landscape, scale, media, fixed, remove: [css selectors]}
   // folder/sub/name = where render.py writes the PDF: OUT/<folder>/<sub>/<name>.pdf
-  // scale and media ('screen' = print with the screen styles) are applied by print.mjs
+  // scale and media ('screen' = print with the screen styles) are applied by print.mjs.
+  // fixed: how position:fixed/sticky elements print. 'static' (default) puts them in the flow;
+  // 'absolute' leaves them where they stand on the first page (a fixed top bar and side menu).
   // doc: the document to snapshot. Default this page; a same-origin iframe's document works too
   // (server-rendered cabinets reload per account, which would wipe this script and its queue).
   snap(meta, doc = document) {
@@ -132,7 +151,7 @@ Object.assign(window.__ps, {
   @bottom-right { content: counter(page) "/" counter(pages); ${box} } }
 html, body { height: auto !important; min-height: 0 !important; overflow: visible !important; }
 [data-ps-x] { overflow: visible !important; height: auto !important; max-height: none !important; }
-[data-ps-fixed] { position: static !important; }
+[data-ps-fixed] { position: ${meta.fixed === 'absolute' ? 'absolute' : 'static'} !important; }
 [data-ps-mh] { min-height: 0 !important; }`;
     head.appendChild(st);
     const html = '<!doctype html>\n' + clone.outerHTML;

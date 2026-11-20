@@ -34,18 +34,6 @@ Object.assign(window.__ps, {
     const d = new Date();
     return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
   },
-  // Full size and on screen: a hidden or tiny frame lays the page out differently.
-  async kFrame(path) {
-    document.getElementById('ps-frame')?.remove();
-    const fr = document.createElement('iframe');
-    fr.id = 'ps-frame';
-    fr.style.cssText = 'position:absolute;left:0;top:0;width:1280px;height:1000px;border:0;background:#fff;z-index:2147483646';
-    const loaded = new Promise(res => fr.addEventListener('load', () => res(true), { once: true }));
-    fr.src = path;
-    document.body.appendChild(fr);
-    await Promise.race([loaded, this.sleep(60000)]);
-    return fr;
-  },
   kRows(d) {
     const wr = d.querySelector('#oborot-tables-wrapper');
     return wr ? [...wr.querySelectorAll('tbody tr')].map(r => r.innerText.replace(/\s+/g, ' ').trim()).filter(Boolean) : [];
@@ -110,7 +98,7 @@ Object.assign(window.__ps, {
     }
     log.push({ status: day, copies: accounts.length });
     for (const acc of accounts) {
-      const fr = await this.kFrame(this.kReportPath(acc.cabinet_id));
+      const fr = await this.frame(this.kReportPath(acc.cabinet_id));
       const d = fr.contentDocument;
       const t = d && d.body ? d.body.innerText.replace(/\s+/g, ' ') : '';
       if (!t.includes('Особовий рахунок: ' + acc.account_number)) {
