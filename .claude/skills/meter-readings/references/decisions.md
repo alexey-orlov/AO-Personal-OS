@@ -31,6 +31,19 @@ Rationale only; the runtime steps are in `SKILL.md`. Rewrite an entry when it ch
 - Yasno, Победы: 31 943 → 33427 (1 484 kWh since 25.01.2026). Saved; «Показання успішно
   збережені».
 
+### Lessons
+1. The list view starts with every row of every address ticked. Sending at once would have
+   submitted all 8 meters, 6 of them with zero consumption.
+2. Changing the account filter re-ticks every row, the unticked ones included; typed values
+   survive. The selection is therefore set last, on the unfiltered list, and `__vk.send` re-checks
+   it in the same call that presses the button.
+3. Real typing of `00005.435` works. A value typed by script without a preceding keydown is ignored
+   by PrimeNG (seen on the statement pages).
+4. «Історія» dialogs stack when one is not closed; a script then reads the first meter's history
+   for every meter. Close each dialog through its header ×.
+5. Yasno's «Зберегти» takes 3–5 s and lands on a top-up page. Clicking twice risks a duplicate
+   submission.
+
 ## 2026-11-19: Київтеплоенерго added
 
 ### Rules from Alex
@@ -58,16 +71,3 @@ Rationale only; the runtime steps are in `SKILL.md`. Rewrite an entry when it ch
    which room a meter is in. The mapping Alex confirmed for Водоканал carries over, because the
    meters are the same.
 8. The form has no per-row selection: «Передати показання» sends every row of the account.
-
-## Lessons from the first run
-1. The list view starts with every row of every address ticked. Sending at once would have
-   submitted all 8 meters, 6 of them with zero consumption.
-2. Changing the account filter re-ticks every row, the unticked ones included; typed values
-   survive. The selection is therefore set last, on the unfiltered list, and `__vk.send` re-checks
-   it in the same call that presses the button.
-3. Real typing of `00005.435` works. A value typed by script without a preceding keydown is ignored
-   by PrimeNG (seen on the statement pages).
-4. «Історія» dialogs stack when one is not closed; a script then reads the first meter's history
-   for every meter. Close each dialog through its header ×.
-5. Yasno's «Зберегти» takes 3–5 s and lands on a top-up page. Clicking twice risks a duplicate
-   submission.
