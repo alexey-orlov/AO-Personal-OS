@@ -65,6 +65,27 @@
       }
     ]
   },
+  "kyivgaz": {
+    "cabinet": "https://cabinet.kyivgaz.ua/indicator",
+    "_note": "Gas. One login holds both accounts; the cabinet shows the active one (switch with the account menu). Readings are entered as 5 digits + 2 decimals, e.g. 7075 → 07075.00. Alex asked for readings at Победы only (2026-11-20).",
+    "accounts": [
+      {
+        "folder": "Победы",
+        "account_number": "5920300061",
+        "submit": true,
+        "meters": [
+          { "serial": "00205019", "type": "ГАЛЛУС-2000 G6-4.0(x)", "kind": "gas", "room": "единственный", "how_known": "one gas meter on the account" }
+        ]
+      },
+      {
+        "folder": "Смоленская",
+        "account_number": "1000604991",
+        "submit": false,
+        "why": "Alex did not ask for it (2026-11-20); its page has no «Внести показання» button",
+        "meters": []
+      }
+    ]
+  },
   "yasno": {
     "cabinet": "https://yasno.ua/my/personal-accounts",
     "accounts": [

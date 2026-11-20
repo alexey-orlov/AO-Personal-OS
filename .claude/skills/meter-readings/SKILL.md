@@ -1,15 +1,15 @@
 ---
 name: meter-readings
-description: Submit Alex's utility meter readings in the providers' web cabinets. Three providers so far. Київводоканал (water) has hot and cold meters at Антоновича, Победы and Смоленская. Київтеплоенерго (heating of the hot water) takes the same hot-water readings at all three addresses. Yasno (electricity) is submitted only for Победы and Смоленская, because Антоновича is read remotely. The skill parses the readings as Alex or his mother sends them (e.g. "Гор кухня 1.16 Ванная 1.43 / Хол кухня 2.382 Ванная 5.435"), maps each one to its meter, checks every value against the previous reading shown on the submission page, submits through Alex's logged-in Chrome session and verifies that the provider stored the value. It never sends a value it is not sure of. Use on /meter-readings, "передай показания", "внеси показники", "подай показания счётчиков", "submit the meter readings", "показания от мамы: …", or when Alex pastes readings for water or electricity.
+description: Submit Alex's utility meter readings in the providers' web cabinets. Four providers so far. Київводоканал (water) has hot and cold meters at Антоновича, Победы and Смоленская. Київтеплоенерго (heating of the hot water) takes the same hot-water readings at all three addresses. Yasno (electricity) is submitted only for Победы and Смоленская, because Антоновича is read remotely. Київгаз (gas) is submitted for Победы. The skill parses the readings as Alex or his mother sends them (e.g. "Гор кухня 1.16 Ванная 1.43 / Хол кухня 2.382 Ванная 5.435"), maps each one to its meter, checks every value against the previous reading shown on the submission page, submits through Alex's logged-in Chrome session and verifies that the provider stored the value. It never sends a value it is not sure of. Use on /meter-readings, "передай показания", "внеси показники", "подай показания счётчиков", "submit the meter readings", "показания от мамы: …", or when Alex pastes readings for water or electricity.
 disable-model-invocation: false
 user-invocable: true
 ---
 
-# Meter readings → Водоканал, Київтеплоенерго and Yasno
+# Meter readings → Водоканал, Київтеплоенерго, Yasno and Київгаз
 
 The meters, their accounts and which room each one is in are listed in `references/meters.json`.
-Each provider's page and its quirks are in `references/vodokanal.md`, `references/kte.md` and
-`references/yasno.md`. The reasons behind the rules are in `references/decisions.md`. Payment
+Each provider's page and its quirks are in `references/vodokanal.md`, `references/kte.md`,
+`references/yasno.md` and `references/kyivgaz.md`. The reasons behind the rules are in `references/decisions.md`. Payment
 history and statements are a separate skill: `facilities-bills`.
 
 ## Hard rules (Alex, 2026-11-19)
@@ -19,8 +19,10 @@ history and statements are a separate skill: `facilities-bills`.
   whose mapping is certain. A meter whose `room` is `null` in `meters.json` is never sent: ask Alex.
 - **New must not be lower than previous.** Read the previous value on the submission page itself
   (Водоканал: «Початковий»; Київтеплоенерго: the highest of «Попередні показання», the field's
-  prefilled value and the meter history's newest line; Yasno: «Попередні»). If a new value is
-  lower, do not send that meter; show Alex both numbers and let him resolve it.
+  prefilled value and the meter history's newest line; Yasno: «Попередні»; Київгаз: «Попередні
+  показання», which can be Київгаз's own estimate, together with the last real reading in the
+  history). If a new value is lower, do not send that meter; show Alex the numbers and let him
+  resolve it.
 - **Never type a password or OTP, never press a login button over a password Chrome autofilled,
   and never solve a captcha.** This holds although Alex has said he allows it (2026-11-20): it is the
   agent's own rule. Ask Alex once, up front, to log in where needed (step 3).
@@ -35,12 +37,13 @@ history and statements are a separate skill: `facilities-bills`.
 1. **Parse.** Turn the message into one line per meter: address, provider, kind (гор/хол), room,
    value. Water values go to Водоканал in the 5+3 digit format: `1.16` → `00001.160`, `5.435` →
    `00005.435`. A hot-water value also goes to Київтеплоенерго (the same physical meter) in the 5+4
-   format: `1.16` → `00001.1600`. Map each line through `meters.json`. If anything stays unmapped,
-   ask before going on.
+   format: `1.16` → `00001.1600`. Gas goes to Київгаз as 5 + 2 digits: `7075` → `07075.00`. Map each
+   line through `meters.json`. If anything stays unmapped, ask before going on.
 2. **Check the window.** Водоканал takes no readings from the 1st to the 10th of the month.
    Київтеплоенерго asks for the last week of the month. Yasno advises the last two days of a month
-   or the first three of the next. Say so when today is outside a provider's advice; only
-   Водоканал's rule blocks a submission.
+   or the first three of the next. Київгаз asks for the 1st to the 3rd and counts a late reading in
+   the next month. Say so when today is outside a provider's advice; only Водоканал's rule blocks a
+   submission.
 3. **Open and read, without sending yet.** Use the Chrome extension in your own tabs. First open
    every cabinet this run needs; if any shows a login page, ask Alex once to log in to all of those.
    - Водоканал: open `/dashboard/counters`. If `__vk.view()` says `circle`, click «Змінити вид»
@@ -50,6 +53,8 @@ history and statements are a separate skill: `facilities-bills`.
      лічильника».
    - Yasno: open `/my/personal-accounts?accountId=<id>`, click «Передати показання» and read
      «Попередні».
+   - Київгаз: open `https://cabinet.kyivgaz.ua/indicator` and check the account in the top-left
+     corner. Read the history: the newest value and the last one whose origin is not «Розрахунок».
 4. **Validate and show the table.** Show Alex one row per meter: previous, new and consumption.
    - A new value below the previous one stops that meter: ask Alex.
    - A consumption that looks implausible (several times the usual monthly amount) also gets asked
@@ -73,6 +78,11 @@ history and statements are a separate skill: `facilities-bills`.
      3. Press «Передати показання» once. The page must say «Дякуємо за внесення показників!».
      4. Open each meter's history. The newest line must show the new value, today's date (Kyiv
         time), «Зараховано» and «ОК абонента».
+   - **Київгаз.** Click «Внести показання». In «Поточні показання», triple-click each digit box that
+     changes and type its digit. Check that the boxes read the value and that «Об'єм(різниця)» is the
+     expected difference. Then press «Внести. Показання правильні» once. A red message under the
+     field means the reading was refused: read it, close the dialog, check the history and tell
+     Alex. Accepted, the history gets a new line with today's date and «Особ. кабінет».
    - **Yasno.** Type the value into «Показання» and check that «Спожито» is the expected
      difference. Then press «Зберегти» once and wait: the button spins for a few seconds. The page
      must say «Показання успішно збережені».

@@ -71,3 +71,22 @@ Rationale only; the runtime steps are in `SKILL.md`. Rewrite an entry when it ch
    which room a meter is in. The mapping Alex confirmed for Водоканал carries over, because the
    meters are the same.
 8. The form has no per-row selection: «Передати показання» sends every row of the account.
+
+## 2026-11-20: Київгаз added
+
+### Rules from Alex
+- Gas readings for Победы; the input format is 5 digits and 2 decimals (`07075.00`).
+- His value 7075 was below the cabinet's «Попередні показання» of 7316.00. The history showed that
+  value as Київгаз's own estimate («Розрахунок», 31.10.2026), with 6854.00 on 25.01.2026 as the
+  last real reading. Shown both, he chose to send 7075 to correct the estimate.
+
+### What the run did
+- Typed 07075.00 (difference −241.00) and pressed «Внести. Показання правильні» once. Київгаз
+  refused it: «Показання не передавали більше одного місяця. Показання не прийнято! Надішліть,
+  будь-ласка, фото лічильника через розділ "Звернення"…». The history was unchanged.
+
+### Lessons
+9. A cabinet's "previous reading" can be the provider's own estimate. Show Alex both the newest
+   value and the last real reading before deciding.
+10. Київгаз refuses a reading when none came in for more than a month. Readings sent every month
+    avoid that; after a gap the route is a meter photo through «Звернення».
