@@ -10,12 +10,46 @@ LABEL="com.user.calendar-sync"
 mkdir -p "$HERE/.work/state"
 chmod +x "$HERE/run.sh" "$HERE/setup.sh" 2>/dev/null || true
 
-echo "[setup] building the EventKit reader + writer..."
-swiftc "$HERE/ss_cal_read.swift" -o "$HERE/.work/ss-cal-read"
-swiftc "$HERE/ss_cal_write.swift" -o "$HERE/.work/ss-cal-write"   # reverse leg: SS 'Busy' placeholders
+if [ "${1:-}" != "--plist-only" ]; then   # --plist-only: reinstall the schedule, keep the built binaries
+  echo "[setup] building the EventKit reader + writer..."
+  swiftc "$HERE/ss_cal_read.swift" -o "$HERE/.work/ss-cal-read"
+  swiftc "$HERE/ss_cal_write.swift" -o "$HERE/.work/ss-cal-write"   # reverse leg: SS 'Busy' placeholders
+fi
 
-# launchd plist: fire run.sh (gated) hourly on the hour, Mon-Fri 08:00-20:00 local (EET).
-# Routed via Terminal so it inherits the Calendar + Full-Disk grants.
+# launchd plist: fire run.sh (gated) every hour on the hour, Mon-Fri, on the Mac's local clock
+# (Alex works with Europe and the US at once). Routed via Terminal so it inherits the Calendar +
+# Full-Disk grants. The AppleScript waits for the run's shell to exit, then closes that window:
+# the Basic profile keeps a window after its shell exits, and each tick used to leave one behind
+# (329 open on 2026-11-19). The script is inline (-e), so osascript never reads ~/Documents.
+APPLESCRIPT=(
+  'tell application "Terminal"'
+  "set t to do script \"$HERE/run.sh daemon; exit\""
+  'set theTTY to ""'
+  'try'
+  'set theTTY to tty of t'
+  'end try'
+  'set wid to missing value'
+  'repeat with w in windows'
+  'try'
+  'if tty of tab 1 of w is theTTY then'
+  'set wid to id of w'
+  'exit repeat'
+  'end if'
+  'end try'
+  'end repeat'
+  'repeat 300 times'
+  'delay 3'
+  'try'
+  'if (count of (processes of t)) is 0 then exit repeat'
+  'on error'
+  'exit repeat'
+  'end try'
+  'end repeat'
+  'try'
+  'if wid is not missing value and (count of (processes of t)) is 0 then close window id wid'
+  'end try'
+  'end tell'
+)
 PLIST="$HOME/Library/LaunchAgents/$LABEL.plist"
 mkdir -p "$HOME/Library/LaunchAgents"
 {
@@ -24,13 +58,15 @@ mkdir -p "$HOME/Library/LaunchAgents"
   echo '<plist version="1.0"><dict>'
   echo "  <key>Label</key><string>$LABEL</string>"
   echo '  <key>ProgramArguments</key><array>'
-  echo '    <string>/usr/bin/osascript</string><string>-e</string>'
-  echo "    <string>tell application \"Terminal\" to do script \"$HERE/run.sh daemon\"</string>"
+  echo '    <string>/usr/bin/osascript</string>'
+  for line in "${APPLESCRIPT[@]}"; do
+    printf '    <string>-e</string><string>%s</string>\n' "$line"
+  done
   echo '  </array>'
   echo '  <key>StartCalendarInterval</key><array>'
-  for d in 1 2 3 4 5; do for h in 8 9 10 11 12 13 14 15 16 17 18 19 20; do
-    echo "    <dict><key>Weekday</key><integer>$d</integer><key>Hour</key><integer>$h</integer><key>Minute</key><integer>0</integer></dict>"
-  done; done
+  for d in 1 2 3 4 5; do   # no Hour key = every hour of that weekday
+    echo "    <dict><key>Weekday</key><integer>$d</integer><key>Minute</key><integer>0</integer></dict>"
+  done
   echo '  </array>'
   echo "  <key>StandardOutPath</key><string>$HERE/.work/launchd.out.log</string>"
   echo "  <key>StandardErrorPath</key><string>$HERE/.work/launchd.err.log</string>"

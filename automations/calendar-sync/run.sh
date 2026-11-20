@@ -3,7 +3,7 @@
 # Full-Disk grants the headless daemon needs). Invoked manually for testing, or
 # hourly by the launchd agent via osascript -> Terminal.
 #   run.sh now      force a run regardless of the clock (testing)
-#   run.sh daemon   gated to Mon-Fri 08:00-20:00 on the Mac's own clock; 08:00 also sends the daily summary
+#   run.sh daemon   gated to Mon-Fri (every hour) on the Mac's own clock; 08:00 also sends the daily summary
 set -uo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]:-$0}")" && pwd)"
 source "$HERE/config.sh"
@@ -13,7 +13,7 @@ field() { "$PY" -I -c "import sys,json;print(json.load(sys.stdin).get('$1'))" 2>
 
 # The gate reads the same clock launchd's StartCalendarInterval fires on (the Mac's zone),
 # so the window follows the Mac from Kyiv to CET to PST. A Kyiv-only gate let 3 of 13 ticks
-# through on PST and never reached the 08:00 summary.
+# through on PST and never reached the 08:00 summary. It only turns away weekend ticks.
 LOCAL_TZ="$(readlink /etc/localtime 2>/dev/null | sed 's#.*/zoneinfo/##')"
 [ -n "$LOCAL_TZ" ] && [ -f "/usr/share/zoneinfo/$LOCAL_TZ" ] || LOCAL_TZ="Europe/Kyiv"
 
@@ -21,7 +21,7 @@ MODE="${1:-daemon}"
 OPEN8="False"
 if [ "$MODE" = "daemon" ]; then
   SCHED="$(printf '{"config":{"tz":"%s"}}' "$LOCAL_TZ" | core schedule)"
-  [ "$(printf '%s' "$SCHED" | field in_window)" = "True" ] || { echo "[calendar-sync] outside Mon-Fri 08:00-20:00 $LOCAL_TZ — skip"; exit 0; }
+  [ "$(printf '%s' "$SCHED" | field in_window)" = "True" ] || { echo "[calendar-sync] weekend in $LOCAL_TZ — skip"; exit 0; }
   OPEN8="$(printf '%s' "$SCHED" | field is_open_hour)"
 fi
 
