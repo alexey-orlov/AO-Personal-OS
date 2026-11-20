@@ -21,7 +21,8 @@ Object.assign(window.__ps, {
   E_PRINT: { landscape: false, scale: 0.55, media: 'screen', fixed: 'absolute',
     css: 'svg.highcharts-root { width: 100% !important; height: auto !important; } .highcharts-container { width: 100% !important; height: auto !important; overflow: visible !important; }' },
   E_REMOVE: ['.gototop', '#wait-message', '.ajax-progress'],
-  eActive() { const m = (document.querySelector('#meta-nav') || document.body).innerText.match(/№ (\d{12})/); return m ? m[1] : null; },
+  // the account in the top bar («№ 000400843314», with a non-breaking space after №)
+  eActive() { const m = (document.querySelector('.user_abcode') || document.querySelector('#meta-nav') || document.body).textContent.match(/№\s*(\d{12})/); return m ? m[1] : null; },
   eBusy() { return /Завантажую/.test(document.body.innerText); },
   // the year tab that is not a link is the one shown
   eActiveYear() {
