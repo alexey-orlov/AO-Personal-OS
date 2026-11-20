@@ -21,6 +21,10 @@ Yasno
   "Звіт про оплати - SERVICE YYYY": no other account's number; the service shows in the filter and
   in the caption («Послуга: …»); the period is Січень YYYY – Грудень YYYY; month rows exist, are
   all from YYYY and none repeats; the first and last columns (ПОЧАТОК / КІНЕЦЬ) are not clipped.
+Київгаз
+  "Рахунки та оплати YYYY": no other account's number; both year selects show YYYY (the gas bills
+  and the building's ТО ВБСГ bills); bill rows exist and no month repeats; every payment date is in
+  YYYY; the last bill column (До сплати) is not clipped.
 Exit 1 when anything fails; the run stops there.
 """
 import argparse, json, os, re, subprocess, sys
@@ -149,6 +153,38 @@ def check_kte(f, text, problems, folder, ps, acct, all_accts):
     print(f"  {folder} · {svc} {y}: {len(rows)} months, {len(ps)} pages")
 
 
+# a gas bill row: month, На початок, Об'єм (3 decimals), Тариф, Нараховано, Сплачено, Пеня, До сплати
+GAS_ROW = r"\b(%s) -?\d+\.\d\d \d+\.\d{3} \d+\.\d{3} -?\d+\.\d\d -?\d+\.\d\d -?\d+\.\d\d -?\d+\.\d\d" % MONTHS_FULL.title()
+
+
+def check_kyivgaz(f, text, problems, folder, ps, acct, all_accts):
+    m = re.search(r"Рахунки та оплати (\d{4})\.pdf$", f)
+    if not m:
+        problems.append(f"{f}: unexpected file name")
+        return
+    y = m.group(1)
+    others = sorted(a for a in all_accts if a != acct and a in text)
+    if others:
+        problems.append(f"{f}: other accounts in the text {others}")
+    if f"Рахунки {y}" not in text:
+        problems.append(f"{f}: the bills' year select does not show {y}")
+    if f"будинку {y}" not in text:
+        problems.append(f"{f}: the ТО ВБСГ year select does not show {y}")
+    months = [mm for mm in re.findall(GAS_ROW, text)]
+    if not months:
+        problems.append(f"{f}: no bill rows")
+    if len(set(months)) != len(months):
+        problems.append(f"{f}: a month appears twice")
+    body = re.sub(PRINT_TIME, " ", text)
+    dates = re.findall(r"\b\d\d\.\d\d\.(\d{4})\b", body)
+    other = sorted({x for x in dates if x != y})
+    if other:
+        problems.append(f"{f}: payment dates from other years {other}")
+    if "До сплати" not in text:
+        problems.append(f"{f}: table columns clipped")
+    print(f"  {folder} · Рахунки та оплати {y}: {len(months)} bill months, {len(dates)} payments, {len(ps)} pages")
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--accounts", required=True)
@@ -182,6 +218,8 @@ def main():
                 check_vodokanal(f, text, problems, folder, ps, acct.get(folder), set(acct.values()))
             elif provider == "Київтеплоенерго":
                 check_kte(f, text, problems, folder, ps, acct.get(folder), set(acct.values()))
+            elif provider == "Київгаз":
+                check_kyivgaz(f, text, problems, folder, ps, acct.get(folder), set(acct.values()))
             else:
                 problems.append(f"{f}: qa.py has no checks for provider {provider!r}")
     print(f"{count} PDFs checked, {len(problems)} problems")

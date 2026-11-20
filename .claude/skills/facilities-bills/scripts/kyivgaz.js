@@ -15,9 +15,12 @@
 Object.assign(window.__ps, {
   G_ORIGIN: 'https://cabinet.kyivgaz.ua',
   G_PAGE: '/accrual-and-payment',
-  // The top bar and the side menu are position: fixed, so they print where they stand. The two
-  // card columns need the width: A4 landscape at 0.65 lays the page out about 1600 px wide.
-  G_PRINT: { landscape: true, scale: 0.65, fixed: 'absolute' },
+  // The top bar and the side menu are position: fixed, so they print where they stand. The cards sit
+  // side by side only at the xl breakpoint (≥ 1200 px). Media queries in print see the portrait A4
+  // width ÷ scale (718 px ÷ scale), whatever the page orientation, so the scale must stay below
+  // 0.6: at 0.55 the page is laid out about 1305 px wide and fits one A4 page. Screen styles, as
+  // the page looks in the browser.
+  G_PRINT: { landscape: false, scale: 0.55, media: 'screen', fixed: 'absolute' },
   G_REMOVE: ['.preloader', '.modal'],
   // the account in the top-left corner (a link to "/" that reads "<10 digits> <address>")
   gActive(doc) {
