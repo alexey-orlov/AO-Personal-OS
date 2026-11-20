@@ -78,6 +78,7 @@ Object.assign(window.__ps, {
   // scale and media ('screen' = print with the screen styles) are applied by print.mjs.
   // fixed: how position:fixed/sticky elements print. 'static' (default) puts them in the flow;
   // 'absolute' leaves them where they stand on the first page (a fixed top bar and side menu).
+  // css: extra print CSS for this page (e.g. letting fixed-size charts shrink to the page width).
   // doc: the document to snapshot. Default this page; a same-origin iframe's document works too
   // (server-rendered cabinets reload per account, which would wipe this script and its queue).
   snap(meta, doc = document) {
@@ -152,7 +153,8 @@ Object.assign(window.__ps, {
 html, body { height: auto !important; min-height: 0 !important; overflow: visible !important; }
 [data-ps-x] { overflow: visible !important; height: auto !important; max-height: none !important; }
 [data-ps-fixed] { position: ${meta.fixed === 'absolute' ? 'absolute' : 'static'} !important; }
-[data-ps-mh] { min-height: 0 !important; }`;
+[data-ps-mh] { min-height: 0 !important; }
+${meta.css || ''}`;
     head.appendChild(st);
     const html = '<!doctype html>\n' + clone.outerHTML;
     this.pages.push({ ...meta, printedAt, cssHrefs, imgs, html });
