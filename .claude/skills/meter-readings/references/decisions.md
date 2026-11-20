@@ -31,7 +31,35 @@ Rationale only; the runtime steps are in `SKILL.md`. Rewrite an entry when it ch
 - Yasno, Победы: 31 943 → 33427 (1 484 kWh since 25.01.2026). Saved; «Показання успішно
   збережені».
 
+## 2026-11-19: Київтеплоенерго added
+
+### Rules from Alex
+- Extend the readings to Київтеплоенерго for all three addresses; test on Антоновича's hot-water
+  meters with the values already in hand. The format is the site's own: «для лічильників гарячої
+  води: 5 символів до крапки і 4 після».
+
+### What the run did
+- Антоновича, sent 2026-11-20 03:22 Kyiv time with real typing:
+  - 220055398 (ванная): 1.42 → `00001.4300`.
+  - 220055399 (кухня): `00001.1600`. Its «Попередні показання» said 1.03, the last subscriber
+    reading. The field held 1.16 from a KTE «Контрольне знімання» dated 01.11.2026, so there was no
+    consumption since that inspection.
+
+  The page said «Дякуємо за внесення показників!». Both histories show «Зараховано», «Поточні» and
+  «ОК абонента».
+- Победы (4816600) and Смоленская (250046123) were only read, not sent: one hot meter each, the
+  same physical meters as at Водоканал.
+
 ### Lessons
+6. The «Попередні показання» column can be older than the latest accepted reading: an inspection
+   reading shows only in the prefilled field and in the history. The lower-than-previous check
+   takes the highest of the three.
+7. KTE's «Місце розташування» labels both Антоновича meters «Сан вузол», so the page cannot settle
+   which room a meter is in. The mapping Alex confirmed for Водоканал carries over, because the
+   meters are the same.
+8. The form has no per-row selection: «Передати показання» sends every row of the account.
+
+## Lessons from the first run
 1. The list view starts with every row of every address ticked. Sending at once would have
    submitted all 8 meters, 6 of them with zero consumption.
 2. Changing the account filter re-ticks every row, the unticked ones included; typed values

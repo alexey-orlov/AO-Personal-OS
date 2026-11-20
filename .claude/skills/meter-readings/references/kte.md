@@ -17,10 +17,12 @@
   - The newest line of the meter's history is the third source.
 
   On 2026-11-19 Антоновича's kitchen meter showed 1.03 in the column, but the field held 1.16 from a
-  «Контрольне знімання» of 05.11.2026. Победы and Смоленская had empty fields.
+  «Контрольне знімання» dated 01.11.2026 (entered 05.11). Победы and Смоленская had empty fields.
 - **History:** `/my-cabinet/send_counters/history_counters/<cabinet_id>/<meter_id>`. Each line holds the
-  date, «Зараховано», a code («> 50»), the reading, «Поточні», the source («ОК абонента» for the
-  subscriber, «Контрольне знімання» for a KTE inspection) and when it was created (Kyiv time).
+  date, «Зараховано», a code («> 50»), the reading, the kind («Поточні», or «Перерахунок» for a
+  recalculation), the source and when it was entered (Kyiv time). The source is «ОК абонента» for
+  the subscriber, «Контрольне знімання» for a KTE inspection or «Розрахункові» for a calculated
+  value.
 - **Submit:** one «Передати показання» button sends every row of the account; there is no per-row
   selection. Send only when every meter of the account has a new value in hand. The page then says
   «Дякуємо за внесення показників! Останнього тижня наступного місяця заходьте сюди знову!».
