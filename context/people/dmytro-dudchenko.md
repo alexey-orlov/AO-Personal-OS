@@ -1,7 +1,7 @@
 # Dmytro Dudchenko ("Dima")
 
-_R&D product manager / BA, SoftServe — the SBG PoC's scope owner, and the mini-site's lead for Plan vs actual investigation_
-_updated: 2026-09-24_
+_R&D product manager / BA, SoftServe — the SBG PoC's scope owner, the mini-site's lead for Plan vs actual investigation, and a hardware-Jumpstart account owner_
+_updated: 2026-11-19_
 
 One of the R&D PdM team (with Leonid, Olya and Vladyslav Butenko → [softserve](../areas/softserve/README.md)). The Oracle-side work he carries is the delivery and scoping of AIQ engagements, first Riyadh Air, then SBG.
 
@@ -11,6 +11,8 @@ One of the R&D PdM team (with Leonid, Olya and Vladyslav Butenko → [softserve]
 - **Owns the SBG PoC's use-case shaping and SoW draft**, and is Alex's co-owner on its scope statement → [sbg-poc](../areas/softserve/sbg-poc.md). His [2026-08-20 1:1 with Alex](../areas/softserve/calls/sbg-poc/2026-08-20_one-on-one_dmytro-sbg-poc-shaping.md) set the target end state (evidence-backed work packaging and execution-model choice, the human deciding) and the three-stage roadmap, with Alex's go/no-go gates between stages. His draft landed in the 2026-08-26 four-track SoW split.
 - **The mini-site's named lead for Plan vs actual investigation** (Alex, chat 2026-09-23): printed on that product's Contacts card as *Dmytro Dudchenko, AI Product Manager, SoftServe*, after Karsten Tramborg and over the shared `oracle@softserveinc.com` (site round 13 → [oracle-packs](../areas/softserve/oracle-packs.md)). The product is the generalized form of the SBG work (inferred: its case study is a construction contractor's plan-vs-actual across work packages).
 - Attended the 2026-08-27 internal Work OS demo, with no substantive turns captured ([note](../areas/softserve/calls/jumpstart-pm/2026-08-27_202539_default_pasted-workos-rnd-demo.md)).
+- **Hardware & Embedded Jumpstart:** the "Dmytro" who shaped it with part of the R&D team is likely him (inferred, [R&D session 2026-11-09](../areas/softserve/calls/2026-11-09_104600_default_20261109090559BD79FE45.md)); he owns the Haemonetics, Qualcomm and Cisco rows of the outreach list (2026-11-16) → [jumpstart-science](../areas/softserve/jumpstart-science.md#active-threads).
+- **BlackBerry QNX:** brought into the 2025-04 intro call with Sat Gill, QNX's Strategic Alliances Director → [blackberry](../areas/softserve/blackberry.md). (chat, 2026-11-19)
 
 ## Open / unverified
 
