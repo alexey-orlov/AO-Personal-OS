@@ -1,0 +1,23 @@
+{
+  "provider": "Київгаз",
+  "cabinet": "https://cabinet.kyivgaz.ua/accrual-and-payment",
+  "drive_root": { "name": "Facilities - bills", "id": "1WjeAASAugd8qbGU55PeL18Z1zox9JjvT" },
+  "utility_folder": "Киевгаз",
+  "_note": "One cabinet login holds both accounts; the cabinet shows one at a time (the account menu switches it). Addresses as the cabinet writes them.",
+  "accounts": [
+    {
+      "folder": "Победы",
+      "address_folder_id": "1u8X0lP53d65EEeouMgFGqnI5goKYQruZ",
+      "folder_id": "1FomElPpeTMLKlATbe7T4ti3W9mO31nkM",
+      "account_number": "5920300061",
+      "address": "Перемоги 45 кв 25"
+    },
+    {
+      "folder": "Смоленская",
+      "address_folder_id": "1Z0XqMohVYJthaM44YNzY9UgawqW7sM5-",
+      "folder_id": "1dNtvkoVc_7TWJBPkZpUsUAtXfyHkq8Jm",
+      "account_number": "1000604991",
+      "address": "Смоленська 5/1 кв 37"
+    }
+  ]
+}
