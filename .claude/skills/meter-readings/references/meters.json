@@ -34,6 +34,37 @@
       }
     ]
   },
+  "kte": {
+    "cabinet": "https://kte.kmda.gov.ua/my-cabinet/userhome_new",
+    "_note": "Київтеплоенерго bills the heating of the hot water, so its hot-water meters are the same physical meters as Водоканал's hot meters: one hot reading goes to both cabinets (5+3 digits at Водоканал, 5+4 here). Serials without Водоканал's trailing «А». KTE's own «Місце розташування» labels both Антоновича meters «Сан вузол», so the room comes from Alex, not from the page. meter_id is the cabinet's id in the history URL and in the input name counter_last_<meter_id>_1.",
+    "accounts": [
+      {
+        "folder": "Антоновича",
+        "account_number": "053024100160100",
+        "cabinet_id": "834221",
+        "meters": [
+          { "serial": "220055398", "meter_id": "1669153", "kind": "hot", "room": "ванная", "same_as": "vodokanal 220055398 А", "how_known": "Alex checked it on 2026-11-19 (KTE labels it «Сан вузол»)" },
+          { "serial": "220055399", "meter_id": "1669154", "kind": "hot", "room": "кухня", "same_as": "vodokanal 220055399 А", "how_known": "Alex checked it on 2026-11-19 (KTE labels this one «Сан вузол» too)" }
+        ]
+      },
+      {
+        "folder": "Победы",
+        "account_number": "434006400250100",
+        "cabinet_id": "199001",
+        "meters": [
+          { "serial": "4816600", "meter_id": "728022", "kind": "hot", "room": "единственный", "same_as": "vodokanal 4816600", "how_known": "one hot meter on the account (KTE: «Кухня»)" }
+        ]
+      },
+      {
+        "folder": "Смоленская",
+        "account_number": "434048600370100",
+        "cabinet_id": "195562",
+        "meters": [
+          { "serial": "250046123", "meter_id": "1884772", "kind": "hot", "room": "единственный", "same_as": "vodokanal 250046123", "how_known": "one hot meter on the account (KTE: «Сан вузол»)" }
+        ]
+      }
+    ]
+  },
   "yasno": {
     "cabinet": "https://yasno.ua/my/personal-accounts",
     "accounts": [
