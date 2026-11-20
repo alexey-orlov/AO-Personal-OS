@@ -1,6 +1,6 @@
 ---
 name: facilities-bills
-description: Save Alex's utility-cabinet statements and payment records as PDFs into his Google Drive folder "Facilities - bills". It has one folder per apartment and, inside each, one folder per utility. Yasno (electricity → «Электроэнергия») gets the Абонентська книжка and Історія платежів pages per year plus every payment's detail page as a receipt. Київводоканал (water → «Водоканал») gets the Абонентська книжка and Здійснені платежі statements per year. Київтеплоенерго (heating and hot water → «Киевтеплоэнерго») gets a dated snapshot of the payment status of all accounts, filed in every apartment, and the «Звіт про оплати» per service (Гаряча вода, Теплова енергія, Абонплата ГВ, Абонплата ТЕ) and year. Київгаз (gas distribution → «Киевгаз», Победы and Смоленская) gets the «Рахунки та оплати» page per year. Each run reprints the current year and adds what is new. Works in Alex's logged-in Chrome session through the Claude in Chrome extension, makes true browser prints with headless Chrome without any prompt for Alex, and uploads with the Google Drive connector. Use on /facilities-bills, "update the Yasno bills", "download Yasno payment history", "выгрузи историю Водоканала", "выгрузи оплаты Киевтеплоэнерго", "звіт про оплати КТЕ", "оновити платежі Ясно", "скачай абонентську книжку", or when another facilities cabinet (gas) needs the same treatment. Submitting meter readings is the separate meter-readings skill.
+description: Save Alex's utility-cabinet statements and payment records as PDFs into his Google Drive folder "Facilities - bills". It has one folder per apartment and, inside each, one folder per utility. Yasno (electricity → «Электроэнергия») gets the Абонентська книжка and Історія платежів pages per year plus every payment's detail page as a receipt. Київводоканал (water → «Водоканал») gets the Абонентська книжка and Здійснені платежі statements per year. Київтеплоенерго (heating and hot water → «Киевтеплоэнерго») gets a dated snapshot of the payment status of all accounts, filed in every apartment, and the «Звіт про оплати» per service (Гаряча вода, Теплова енергія, Абонплата ГВ, Абонплата ТЕ) and year. Київгаз (gas distribution → «Киевгаз», Победы and Смоленская) gets the «Рахунки та оплати» page per year. Київобленерго (ТОВ «Київська обласна ЕК», electricity for the Чубинское house → «Электроэнергия») gets the «Історія платежів» page per year and the site's own «Довідка про розрахунки» PDF per year. Each run reprints the current year and adds what is new. Works in Alex's logged-in Chrome session through the Claude in Chrome extension, makes true browser prints with headless Chrome without any prompt for Alex, and uploads with the Google Drive connector. Use on /facilities-bills, "update the Yasno bills", "download Yasno payment history", "выгрузи историю Водоканала", "выгрузи оплаты Киевтеплоэнерго", "звіт про оплати КТЕ", "оновити платежі Ясно", "скачай абонентську книжку", or when another facilities cabinet (gas) needs the same treatment. Submitting meter readings is the separate meter-readings skill.
 disable-model-invocation: false
 user-invocable: true
 ---
@@ -17,13 +17,14 @@ utility, then provider files; nothing goes straight into an apartment folder.
 | Київводоканал | Водоканал | `references/vodokanal.md` | `references/vodokanal-accounts.json` | `scripts/vodokanal.js` |
 | Київтеплоенерго | Киевтеплоэнерго | `references/kte.md` | `references/kte-accounts.json` | `scripts/kte.js` |
 | Київгаз | Киевгаз | `references/kyivgaz.md` | `references/kyivgaz-accounts.json` | `scripts/kyivgaz.js` |
+| Київобленерго | Электроэнергия (Чубинское) | `references/koec.md` | `references/koec-accounts.json` | `scripts/koec.js` |
 
 The reasons behind each rule, and the lessons from the runs, are in `references/decisions.md`.
 
 ## What a run leaves in Drive
 
 ```
-Facilities - bills/<Folder>/                 Антоновича · Победы · Смоленская
+Facilities - bills/<Folder>/                 Антоновича · Победы · Смоленская · Чубинское
   Электроэнергия/
     Yasno - <Folder> - Абонентська книжка <YYYY>.pdf   (A4 landscape)
     Yasno - <Folder> - Історія платежів <YYYY>.pdf     (only that year's payments)
@@ -37,6 +38,9 @@ Facilities - bills/<Folder>/                 Антоновича · Побед�
                       (service: Гаряча вода · Теплова енергія · Абонплата ГВ · Абонплата ТЕ; Січень–Грудень)
   Киевгаз/                                   (Победы and Смоленская)
     Київгаз - <Folder> - Рахунки та оплати <YYYY>.pdf   (bills, payments, ТО ВБСГ; one page)
+Facilities - bills/Чубинское/Электроэнергия/   (Київобленерго)
+    Київобленерго - Чубинское - Історія платежів <YYYY>.pdf        (page print with its charts)
+    Київобленерго - Чубинское - Довідка про розрахунки <YYYY>.pdf  (the site's own PDF)
 ```
 
 Each PDF is a real print of the page: the site's own fonts, styles and selectable text, and the
@@ -95,17 +99,20 @@ call, and end that call with a background job:
 - Київводоканал: `__ps.start(async log => { await __ps.vRun(ACCOUNTS, YEARS, log); log.push({assets: await __ps.collectAssets()}); })`
 - Київтеплоенерго, on `/my-cabinet/userhome_new`: `__ps.start(async log => { await __ps.kRun(ACCOUNTS, YEARS, log); log.push({assets: await __ps.collectAssets()}); })`
 - Київгаз, on `/accrual-and-payment`: `__ps.start(async log => { await __ps.gRun(ACCOUNTS, YEARS, log); log.push({assets: await __ps.collectAssets()}); })`
+- Київобленерго: first load `https://ok.koec.com.ua<account_path>` to choose the account, then
+  `/home/payments` in the fresh tab: `__ps.start(async log => { await __ps.eRun(ACC, YEARS, log); log.push({assets: await __ps.collectAssets()}); })`
 
 Poll `__ps.status()` every ~10 s. 12 Водоканал pages take about 15 s; 16 Yasno pages for one
 account about 70 s; 27 Київтеплоенерго pages about 55 s, plus 30 s for the assets; 4 Київгаз pages
-about 30 s. Read the log:
-every page should say `ok`, its rows, or its receipts. When done, run
-`__ps.button('<provider>-<yyyymmdd>.json')`, `find` "pagesnap download" and `left_click` it by
-ref. `document.getElementById('ps-dl').dataset.n` must equal the number of pages.
+about 30 s; Київобленерго's 2 pages and 2 PDFs about 12 s. Read the log: every page should say
+`ok`, its rows, or its receipts. When done, run `__ps.button('<provider>-<yyyymmdd>.json')`, `find`
+"pagesnap download" and `left_click` it by ref. `document.getElementById('ps-dl').dataset.n` must
+equal the number of pages plus fetched files.
 
 If the bundle is not in `~/Downloads` a few seconds later, Chrome has opened its Save As dialog.
-Since 2026-11-19 it has done so for every bundle. Chrome's "ask where to save" setting is off and
-no policy sets it, so the cause is unknown. The extension cannot press the dialog's buttons. Chrome has
+It did so for the Київтеплоенерго and Київгаз bundles (2026-11-19/20), not for the others. Chrome's
+"ask where to save" setting is off and no policy sets it, so the cause is unknown. The extension
+cannot press the dialog's buttons. Chrome has
 already written the whole bundle to a hidden temp file, `~/Downloads/.com.google.Chrome.XXXXXX`, and
 listing it needs the sandbox off. Copy it into the scratchpad once its size stops changing and it
 parses with the expected number of pages, then close the tab. Chrome then cancels that download,
@@ -142,6 +149,10 @@ with links to the folders.
 Walk the path first, then write the card. Add `references/<provider>.md`,
 `references/<provider>-accounts.json` and `scripts/<provider>.js`. The provider script uses the
 pagesnap core: `snap` with `landscape`/`scale`/`media`/`remove`, `go`, `waitFor`, `tick` and
-`start`. A server-rendered cabinet that reloads per page is driven from one tab through same-origin
-iframes, as `kte.js` does, and `snap(meta, iframeDocument)` prints them. Ask Alex for the utility
-folder name. Add its document checks to `qa.py` under the provider name in the accounts JSON.
+`start`. A server-rendered cabinet that reloads per page is driven from one tab through a
+same-origin frame (`frame()`), as `kte.js` and `kyivgaz.js` do, and `snap(meta, frameDocument)`
+prints it; a site that forbids frames needs in-page navigation instead (`koec.js`). A document the
+site serves itself (a PDF statement) is fetched in the page with `fetchFile` and shipped as is.
+Pick the print scale below 718 ÷ the site's desktop breakpoint (lesson 24). Ask Alex for the
+utility folder name. Add its document checks to `qa.py` under the provider name in the accounts
+JSON.
