@@ -13,7 +13,7 @@
 //   changes; a full reload (the navigate tool) wipes it and it must be pasted again.
 // - A download needs a real click: button() puts a button on the page; click it with the
 //   extension's click by ref. Snapshots never include that button.
-window.__ps = window.__ps || { pages: [] };
+window.__ps = window.__ps || { pages: [], files: [] };
 Object.assign(window.__ps, {
   // A hidden tab (another tab in front, window covered) gets its timers throttled to about one
   // wake-up per minute, so nothing here polls on setTimeout: waits react to DOM mutations, pauses
@@ -170,11 +170,26 @@ html, body { height: auto !important; min-height: 0 !important; overflow: visibl
   status() {
     const j = this.job || {};
     return JSON.stringify({ done: j.done, err: j.err, secs: Math.round((Date.now() - (j.t0 || Date.now())) / 1000),
-      vis: document.visibilityState, log: j.log, queued: this.pages.length, path: location.pathname });
+      vis: document.visibilityState, log: j.log, queued: this.pages.length, files: (this.files || []).length, path: location.pathname });
   },
   // ONE download per tab: Chrome lets a tab's first download through silently and asks Alex
   // ("download multiple files?") from the second one on. A run collects everything into one
   // bundle in a fresh tab; a second bundle needs a new tab.
+  // A document the site itself serves (e.g. a PDF statement), fetched inside the logged-in page and
+  // shipped in the bundle as is: no browser download, so no prompt for Alex. render.py writes it to
+  // OUT/<folder>/<sub>/<name>.pdf untouched. meta: {folder, sub, name}. Returns the byte count.
+  async fetchFile(url, meta, type = 'application/pdf') {
+    const r = await fetch(url, { credentials: 'include' });
+    const ct = r.headers.get('content-type') || '';
+    if (!r.ok || !ct.startsWith(type)) throw new Error(`${meta.name}: got ${r.status} ${ct}, expected ${type}`);
+    const blob = await r.blob();
+    const head = new Uint8Array(await blob.slice(0, 5).arrayBuffer());
+    if (type === 'application/pdf' && String.fromCharCode(...head) !== '%PDF-') throw new Error(`${meta.name}: not a PDF`);
+    const b64 = await new Promise(res => { const fr = new FileReader(); fr.onload = () => res(String(fr.result).split(',')[1]); fr.readAsDataURL(blob); });
+    this.files = this.files || [];
+    this.files.push({ ...meta, type, bytes: blob.size, b64 });
+    return blob.size;
+  },
   button(file) {
     if (this.downloads) return JSON.stringify({ error: 'this tab already downloaded a bundle: open a fresh tab for another one' });
     let b = document.getElementById('ps-dl');
@@ -185,7 +200,7 @@ html, body { height: auto !important; min-height: 0 !important; overflow: visibl
       document.body.appendChild(b);
     }
     b.dataset.file = file; b.dataset.n = '';
-    return JSON.stringify({ queued: this.pages.length, file });
+    return JSON.stringify({ queued: this.pages.length, files: (this.files || []).length, file });
   },
   // Stylesheets and the fonts/images they point to, fetched inside the logged-in page and shipped
   // in the bundle: some cabinets answer 403 to anything that is not their own browser session.
@@ -224,11 +239,11 @@ html, body { height: auto !important; min-height: 0 !important; overflow: visibl
   download(filename) {
     if (this.downloads) return 0;
     this.downloads = 1;
-    const blob = new Blob([JSON.stringify({ v: 2, pages: this.pages, assets: this.assets || {} })], { type: 'application/json' });
+    const blob = new Blob([JSON.stringify({ v: 3, pages: this.pages, files: this.files || [], assets: this.assets || {} })], { type: 'application/json' });
     const a = document.createElement('a');
     a.href = URL.createObjectURL(blob); a.download = filename;
     document.body.appendChild(a); a.click(); a.remove();
-    const n = this.pages.length; this.pages = [];
+    const n = this.pages.length + (this.files || []).length; this.pages = []; this.files = [];
     return n;
   },
 });

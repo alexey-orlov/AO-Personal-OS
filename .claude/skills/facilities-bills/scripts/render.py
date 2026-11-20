@@ -7,6 +7,7 @@ usage: python3 -I render.py --out OUT_DIR --work WORK_DIR BUNDLE.json [BUNDLE.js
   fetched from a file:// page fails CORS and falls back to Helvetica), other url()s absolutized.
 - Each page -> WORK/html/NNN.html -> OUT/<folder>/<sub>/<name>.pdf (headless Chrome, JS off,
   Chrome's own header/footer off: the snapshot's @page margin boxes carry date/title/url/page).
+- Files the site served itself (bundle "files", from pagesnap.fetchFile) are written as they came.
 - Prints one JSON line per PDF: {"pdf", "pages", "bytes"}; exits 1 if any page failed.
 """
 import argparse, base64, concurrent.futures as cf, hashlib, json, os, re, subprocess, sys, time, urllib.parse, urllib.request
@@ -170,6 +171,20 @@ def main():
                 for i, c in enumerate(chunks)]
         for fu in futs:
             results.extend(fu.result())
+    # documents the site served itself (pagesnap.fetchFile): written as they came, never re-printed
+    for bundle in bundles:
+        for f in bundle.get("files") or []:
+            parts = [safe(x) for x in (f["folder"], f.get("sub") or "") if x]
+            pdf = os.path.join(a.out, *parts, safe(f["name"]) + ".pdf")
+            os.makedirs(os.path.dirname(pdf), exist_ok=True)
+            data = base64.b64decode(f["b64"])
+            with open(pdf, "wb") as fh:
+                fh.write(data)
+            ok = data[:5] == b"%PDF-" and len(data) == f.get("bytes", len(data))
+            info = subprocess.run(["pdfinfo", pdf], capture_output=True, text=True).stdout
+            m = re.search(r"^Pages:\s+(\d+)", info, re.M)
+            results.append({"pdf": pdf, "ok": ok and bool(m), "pages": int(m.group(1)) if m else None,
+                            "bytes": len(data), "err": None if ok and m else "site file is not a readable PDF"})
     bad = 0
     for r in sorted(results, key=lambda r: r["pdf"]):
         bad += 0 if r["ok"] else 1
