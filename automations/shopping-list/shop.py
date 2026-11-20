@@ -7,6 +7,7 @@ usage: shop.py add < items.json        (list of {room, place, cat, type, item, e
        shop.py sort | show
 Every write re-reads the sheet first (hand edits survive) and re-sorts by the
 order of the lists on 'Списки' (room → category → type → priority → item).
+Columns are found by their header text, so Alex can reorder them by hand.
 """
 import datetime, json, os, sys
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -18,15 +19,41 @@ SID = os.environ.get("SHOPPING_SHEET_ID", "1cXoNLMtQ6ATPKUG1HK9nKRXFCa3eUvkC9Mfv
 svc = gsheets.service()
 V = svc.spreadsheets().values()
 
-# column letter → field
-COLS = ["id", "room", "place", "cat", "type", "item", "en", "details", "qty", "prio",
-        "status", "price", "_sum", "where", "notes", "added"]
-SUM = COLS.index("_sum")
+# header prefix → field (a header only has to START with the prefix)
+FIELDS = {"№": "id", "Комната": "room", "Место в комнате": "place", "Категория": "cat",
+          "Тип": "type", "Что купить": "item", "Как называется в US": "en", "Детали": "details",
+          "Кол-во": "qty", "Приоритет": "prio", "Статус": "status", "Цена за шт": "price",
+          "Сумма": "_sum", "Где купить": "where", "Заметки": "notes", "Добавлено": "added"}
+
+
+def letter(i):
+    s = ""
+    i += 1
+    while i:
+        i, r = divmod(i - 1, 26)
+        s = chr(65 + r) + s
+    return s
 
 
 def get(rng):
     return V.get(spreadsheetId=SID, range=rng, valueRenderOption="UNFORMATTED_VALUE",
                  dateTimeRenderOption="SERIAL_NUMBER").execute().get("values", [])
+
+
+def layout():
+    head = get("'Покупки'!1:1")[0]
+    cols = {}
+    for i, h in enumerate(head):
+        for pre, f in FIELDS.items():
+            if str(h).strip().startswith(pre):
+                cols[f] = i
+    missing = sorted(set(FIELDS.values()) - set(cols))
+    if missing:
+        raise SystemExit(f"header has no column for {missing}; header is {head}")
+    return cols, len(head)
+
+
+COLS, WIDTH = layout()
 
 
 def col(rows, i):
@@ -43,17 +70,17 @@ def lists():
 
 def read_rows():
     out = []
-    for r in get("'Покупки'!A2:P1000"):
-        r = list(r) + [""] * (16 - len(r))
-        if any(str(x).strip() for j, x in enumerate(r) if j != SUM):
-            out.append(dict(zip(COLS, r)))
+    for r in get(f"'Покупки'!A2:{letter(WIDTH - 1)}1000"):
+        r = list(r) + [""] * (WIDTH - len(r))
+        if any(str(x).strip() for j, x in enumerate(r) if j != COLS["_sum"]):
+            out.append({f: r[i] for f, i in COLS.items()})
     return out
 
 
 def extend_lists(L, rows):
     """New room / category / type values → append to 'Списки' so dropdowns know them."""
     added, data = [], []
-    for key, letter in (("room", "A"), ("cat", "C"), ("type", "E")):
+    for key, lt in (("room", "A"), ("cat", "C"), ("type", "E")):
         for r in rows:
             v = r.get(key, "")
             if v and v not in L[key]:
@@ -63,8 +90,8 @@ def extend_lists(L, rows):
                 vals = [[v, r.get("cat", "")]] if key == "type" else [[v]]
                 if key == "type":
                     L["type2cat"][v] = r.get("cat", "")
-                end = "F" if key == "type" else letter
-                data.append({"range": f"'Списки'!{letter}{row}:{end}{row}", "values": vals})
+                end = "F" if key == "type" else lt
+                data.append({"range": f"'Списки'!{lt}{row}:{end}{row}", "values": vals})
                 added.append(f"{key}: {v}")
     if data:
         V.batchUpdate(spreadsheetId=SID, body={"valueInputOption": "RAW", "data": data}).execute()
@@ -79,21 +106,27 @@ def key(L):
                       str(r["item"]).lower())
 
 
+def segments():
+    """Contiguous column spans to write — every column except the formula one."""
+    s = COLS["_sum"]
+    return [(a, b) for a, b in ((0, s), (s + 1, WIDTH)) if b > a]
+
+
 def write(rows, prev_n, L):
     rows.sort(key=key(L))
     n = len(rows)
-    left = [[r[c] if r[c] != "" else "" for c in COLS[0:SUM]] for r in rows]
-    right_raw = [[r["notes"], r["added"]] for r in rows]
-    links = [[r["where"]] for r in rows]
-    data_raw = [{"range": f"'Покупки'!A2:L{n + 1}", "values": left},
-                {"range": f"'Покупки'!O2:P{n + 1}", "values": right_raw}]
+    by_pos = {i: f for f, i in COLS.items()}
+    full = [[r.get(by_pos[i], "") if i in by_pos else "" for i in range(WIDTH)] for r in rows]
     if n:
-        V.batchUpdate(spreadsheetId=SID, body={"valueInputOption": "RAW", "data": data_raw}).execute()
+        data = [{"range": f"'Покупки'!{letter(a)}2:{letter(b - 1)}{n + 1}",
+                 "values": [row[a:b] for row in full]} for a, b in segments()]
+        V.batchUpdate(spreadsheetId=SID, body={"valueInputOption": "RAW", "data": data}).execute()
+        w = letter(COLS["where"])  # USER_ENTERED so links stay clickable
         V.batchUpdate(spreadsheetId=SID, body={"valueInputOption": "USER_ENTERED", "data": [
-            {"range": f"'Покупки'!N2:N{n + 1}", "values": links}]}).execute()
+            {"range": f"'Покупки'!{w}2:{w}{n + 1}", "values": [[r["where"]] for r in rows]}]}).execute()
     if prev_n > n:
         V.batchClear(spreadsheetId=SID, body={"ranges": [
-            f"'Покупки'!A{n + 2}:L{prev_n + 1}", f"'Покупки'!N{n + 2}:P{prev_n + 1}"]}).execute()
+            f"'Покупки'!{letter(a)}{n + 2}:{letter(b - 1)}{prev_n + 1}" for a, b in segments()]}).execute()
 
 
 def today_serial():
@@ -101,8 +134,8 @@ def today_serial():
 
 
 def norm(item, L):
-    r = {c: "" for c in COLS}
-    r.update({k: v for k, v in item.items() if k in COLS and v is not None})
+    r = {f: "" for f in FIELDS.values()}
+    r.update({k: v for k, v in item.items() if k in r and v is not None})
     if not r["cat"] and r["type"] in L["type2cat"]:
         r["cat"] = L["type2cat"][r["type"]]
     if not r["status"]:
@@ -118,8 +151,8 @@ def norm(item, L):
 
 def show(rows):
     for r in rows:
-        print(" | ".join(str(r[c]) for c in ("id", "room", "cat", "type", "item", "en", "details",
-                                              "qty", "prio", "status", "price", "where", "notes")))
+        print(" | ".join(str(r[c]) for c in ("id", "room", "prio", "place", "cat", "type", "item", "en",
+                                              "details", "qty", "status", "price", "where", "notes")))
 
 
 def main(argv):
@@ -152,7 +185,7 @@ def main(argv):
             for k, v in ch.items():
                 if k != "id":
                     hit[0][k] = v
-            norm({k: v for k, v in hit[0].items()}, L)
+            norm(dict(hit[0]), L)
         print("new list values:", extend_lists(L, rows))
     elif cmd == "delete":
         ids = set(argv[1:])
