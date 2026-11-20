@@ -21,7 +21,7 @@ code; there is no live Claude session, no Chrome MCP, no Google connector.
 forward:  Apple Calendar (EventKit read)  →  sync_core.reconcile          →  Google Calendar API
 reverse:  Google Calendar API (all cals)  →  sync_core.reverse_reconcile  →  Apple Calendar (EventKit write)
             ss_cal_read.swift / gcal.py        sync_core.py                   ss_cal_write.swift / gcal.py
-                            both passes orchestrated by run.py, hosted by launchd → Terminal → run.sh
+                 both passes orchestrated by run.py, hosted by launchd → CalendarSync.app (no window) → run.sh
 ```
 
 - **`ss_cal_read.swift`** → compiled to `.work/ss-cal-read`. Reads the SS Exchange calendar and emits
@@ -41,11 +41,15 @@ reverse:  Google Calendar API (all cals)  →  sync_core.reverse_reconcile  → 
 - **`run.py`** — one tick = **forward pass** (EventKit read → `reconcile` → `gcal`) then **reverse pass**
   (all Google calendars → `reverse_reconcile` → `ss-cal-write`). Skips all-day events; pulls our own
   `[[gcal-busy]]` placeholders out of the forward source. Writes `.work/state/last-read.json` for diagnostics.
-- **Host:** launchd `com.user.calendar-sync` fires `osascript → Terminal → run.sh daemon` every hour on
-  the hour, Mon–Fri Mac-local time. Terminal is the host because EventKit + Full-Disk need its TCC
-  grants — a plain background process is denied Calendar access. The inline AppleScript waits for the
-  run's shell to exit and then closes that window (the Basic profile keeps windows after exit; each run
-  used to leave one behind, 329 open by 2026-11-19).
+- **Host:** launchd `com.user.calendar-sync` runs `open -g -j -W ~/Applications/CalendarSync.app` every
+  hour on the hour, Mon–Fri Mac-local time. The app is a faceless AppleScript applet built by
+  `setup.sh` (`LSUIElement`: no window, no Dock icon) that runs `run.sh daemon` and holds the macOS
+  privacy grants the run needs, Calendar and the Documents folder; a plain launchd process is denied
+  both. Its output goes to `~/Library/Logs/calendar-sync/host.log` (outside `~/Documents`, so a lost
+  Documents grant still leaves a trace), and a failed run posts a macOS notification. Until 2026-11-20
+  each tick opened a Terminal window to borrow Terminal's grants; the windows popped up every hour and
+  never closed (335 open). `setup.sh --terminal-host` keeps that path as a fallback, with each window
+  closing itself.
 
 ## Files
 | File | Role |
@@ -55,10 +59,12 @@ reverse:  Google Calendar API (all cals)  →  sync_core.reverse_reconcile  → 
 | `sync_core.py` | deterministic core (`reconcile` / `extract` / `reverse-sources` / `reverse-reconcile` / `schedule` / `log-run` / `daily-summary` / `commit`) |
 | `gcal.py` | dependency-free Google Calendar client (`auth`/`authurl`/`exchange` once, then library calls) |
 | `run.py` | orchestrator — forward pass (SS→Google) then reverse pass (Google→SS) |
-| `run.sh` | Terminal-hosted runner: `now` (force) / `daemon` (gated + 08:00 daily summary) |
+| `run.sh` | runner, one run at a time (`.work/state/run.lock`, stale locks taken over): `now` (force) / `daemon` (gated + 08:00 daily summary) |
 | `test_sync_core.py` | unit tests (35) |
 | `config.sh` | constants + Keychain creds + `LIVE` flag |
-| `setup.sh` | builds the reader + writer (swiftc) + installs the launchd agent (one-time); `--plist-only` reinstalls just the agent (checks the AppleScript compiles and the plist lints first) |
+| `setup.sh` | builds the reader + writer (swiftc), builds the host app if missing, installs the launchd agent. `--plist-only` reinstalls just the agent · `--build-host` builds the app only (test before switching) · `--rebuild-host` rebuilds it and reinstalls (macOS asks for the grants again) · `--terminal-host` installs the Terminal fallback. Lints the plist before replacing anything. |
+| `~/Applications/CalendarSync.app` | the faceless host app (built by `setup.sh`, not in git); its grants live in System Settings → Privacy & Security → Calendars / Files and Folders |
+| `~/Library/Logs/calendar-sync/host.log` | every run's console output, plus a line when the host can't start `run.sh` |
 | `.work/state/` | ledger.json, **reverse-ledger.json**, run-log.jsonl, gtoken.json, last-read.json, last-summary-date, LIVE (git-ignored) |
 
 ## Rules it enforces
@@ -120,15 +126,23 @@ After the forward pass, `run.py` blocks SS time wherever Alex is busy in Google:
    the `Your response:` description line — not the attendee status.
 5. **Read "my status" via `EKParticipant.isCurrentUser`**, not an SMTP email match — Exchange attendee
    URLs are often X500/DN and miss. An empty/unknown status is treated as **no response** (never accepted).
-6. **TCC:** EventKit + Full-Disk are granted to **Terminal**, so the daemon runs via
-   launchd→osascript→Terminal. A plain background/CLI process gets `EVENTKIT_DENIED`.
+6. **TCC:** EventKit and `~/Documents` are granted to the **host app**, and `run.sh`, python and the
+   Swift tools inherit them; a plain background/CLI process gets `EVENTKIT_DENIED`. The app is ad-hoc
+   signed, so **rebuilding it drops its grants**: `setup.sh` builds it only when missing, and after
+   `--rebuild-host` macOS asks again (Calendar, Documents folder) and a run that can't get them fails
+   with `EVENTKIT_DENIED` in the daily summary or a host.log line plus a notification. The host's shell
+   gets a bare environment, so it sets PATH to Terminal's (Homebrew python3 3.14, not `/usr/bin`'s 3.9)
+   and `config.sh` defaults USER/HOME for the Keychain lookups.
+7. **AppleScript `contents of t` on a tab held in a variable returns the tab, not its text** (the
+   built-in `contents` operator dereferences the variable). Use Terminal's `history of tab 1 of w`.
+   It silently matched nothing in the 2026-11-20 window cleanup until switched.
 
 ## Setup (one-time)
-Run from a **Terminal with Full Disk Access + Calendar access**:
 1. Add the SoftServe Exchange account to **Apple Calendar** (System Settings → Internet Accounts), so SS
    events appear in EventKit.
-2. `bash automations/calendar-sync/setup.sh` — builds the reader **and writer** and installs the launchd
-   agent. It then prints the **Google OAuth** steps:
+2. `bash automations/calendar-sync/setup.sh` — builds the reader **and writer** and the host app, and
+   installs the launchd agent. The host app's first run asks for **Calendar** and **Documents folder**
+   access: allow both. It then prints the **Google OAuth** steps:
    - Enable the Calendar API; create a **Desktop-app** OAuth client; set the consent screen to **In
      production** (a "Testing" app expires the refresh token every 7 days).
    - Store the client id/secret in Keychain (`CALSYNC_GOOGLE_CLIENT_ID` / `_SECRET`).
@@ -153,14 +167,14 @@ Run from a **Terminal with Full Disk Access + Calendar access**:
 ```bash
 # unit tests (no Calendar/network needed)
 cd /tmp && python3 -I /Users/olekorlov/Documents/GitHub/AO-Personal-OS/automations/calendar-sync/test_sync_core.py
-# force one real pass (from a Terminal with the grants)
-automations/calendar-sync/run.sh now
-# trigger the installed daemon out-of-cycle
+# one real pass through the host app, no window (output in ~/Library/Logs/calendar-sync/host.log)
+open -g -j -W ~/Applications/CalendarSync.app
+# trigger the installed daemon out-of-cycle (the same path the hourly tick takes)
 launchctl kickstart -k "gui/$(id -u)/com.user.calendar-sync"
 ```
 
 ## Limits
-- Runs only while the **Mac is awake/unlocked**. The daily summary makes liveness observable.
+- Runs only while the **Mac is awake**. The daily summary makes liveness observable.
 - A Google refresh-token lapse (only if the consent screen reverts to "Testing") needs a re-`auth`;
   surfaced via the daily summary as a write error.
 
