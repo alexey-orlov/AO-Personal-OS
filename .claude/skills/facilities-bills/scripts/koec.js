@@ -34,6 +34,9 @@ Object.assign(window.__ps, {
     const rows = [...(document.querySelector('table')?.querySelectorAll('tr') || [])].map(r => r.innerText.replace(/\s+/g, ' ').trim()).filter(Boolean);
     return { group: rows.find(r => /^20\d\d$/.test(r)) || null, payments: rows.filter(r => /^\d+\. \d\d\.\d\d\.\d{4}/.test(r)), total: rows.find(r => /^Всього:/.test(r)) || null };
   },
+  // Polls instead of waiting on DOM mutations: «Завантажую…» is hidden by a style change, which a
+  // childList observer never sees (a 2026 wait timed out with every condition true). The tab is
+  // in front during a run, so timers are not throttled.
   async eYear(y) {
     y = String(y);
     if (this.eActiveYear() !== y) {
@@ -41,10 +44,12 @@ Object.assign(window.__ps, {
       if (!a) return false;
       a.click();
     }
-    const ok = await this.waitFor(() => this.eActiveYear() === y && !this.eBusy() && this.eTable().group === y
-      && [...document.querySelectorAll('.highcharts-title')].some(t => t.textContent.includes(`за ${y} рік`)), 20000);
+    const ready = () => this.eActiveYear() === y && !this.eBusy() && this.eTable().group === y
+      && [...document.querySelectorAll('.highcharts-title')].some(t => t.textContent.includes(`за ${y} рік`));
+    const t0 = Date.now();
+    while (!ready() && Date.now() - t0 < 20000) await this.sleep(300);
     await this.sleep(800);  // let the charts settle
-    return ok;
+    return ready();
   },
   async eRun(acc, years, log) {
     if (location.origin !== this.E_ORIGIN || location.pathname !== '/home/payments') { log.push({ error: `open ${this.E_ORIGIN}/home/payments first` }); return; }
