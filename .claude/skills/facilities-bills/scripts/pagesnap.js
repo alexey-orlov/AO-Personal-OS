@@ -29,13 +29,15 @@ Object.assign(window.__ps, {
       ch.port2.postMessage(0);
     });
   },
-  waitFor(pred, timeout = 30000) {
+  // root: the document element to watch (default this page; pass an iframe's to wait on its DOM).
+  // attributes: also re-check on attribute changes (style/class toggles such as a fade-in).
+  waitFor(pred, timeout = 30000, root = document.documentElement, attributes = false) {
     return new Promise(resolve => {
       let done = false, obs = null, timer = null;
       const finish = v => { if (done) return; done = true; if (obs) obs.disconnect(); clearTimeout(timer); resolve(v); };
       const check = () => { try { if (pred()) finish(true); } catch (e) {} };
       obs = new MutationObserver(check);
-      obs.observe(document.documentElement, { childList: true, subtree: true, characterData: true });
+      obs.observe(root, { childList: true, subtree: true, characterData: true, attributes });
       timer = setTimeout(() => { check(); finish(false); }, timeout);
       check();
     });
