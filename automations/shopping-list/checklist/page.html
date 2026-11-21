@@ -53,7 +53,7 @@ body::before {
 }
 header.top { padding-block: 14px 4px; display: grid; gap: 8px; }
 h1 { font-family: var(--font-display); font-weight: 600; font-size: 1.35rem; letter-spacing: -0.01em; margin: 0; text-wrap: balance; }
-.tabs { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; background: var(--strike-soft); padding: 4px; border-radius: 12px; }
+.tabs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; background: var(--strike-soft); padding: 4px; border-radius: 12px; }
 .tabs a {
   text-decoration: none; color: var(--ink); text-align: center; border-radius: 9px; padding: 8px 6px;
   font-weight: 600; font-size: 0.95rem; min-height: 40px; display: grid; place-items: center;
@@ -132,6 +132,7 @@ footer { color: var(--muted); font-size: 0.8rem; padding-top: 20px; }
     <nav class="tabs" aria-label="Магазин">
       <a href="#target" id="tab-target" data-store="target">Target<small id="tc-target"></small></a>
       <a href="#restore" id="tab-restore" data-store="restore">ReStore<small id="tc-restore"></small></a>
+      <a href="#other" id="tab-other" data-store="other">Остальное<small id="tc-other"></small></a>
     </nav>
     <p class="lead" id="lead"></p>
     <p class="sync" id="sync">Загружаю отметки…</p>
@@ -155,13 +156,16 @@ const STORES = {
     lead: "Вещи, которые не берём в IKEA. «Беру» — положили в корзину, «Не здесь» — тут не берём, «Куплено» — уже купили где угодно: строка уходит вниз." },
   restore: { name: "ReStore", items: __RESTORE__,
     lead: "Б/у и недорогая мебель, свет и декор — что поискать в ReStore. Для сравнения указана цена новой вещи в IKEA, где она есть." },
+  other: { name: "других магазинах", items: __OTHER__,
+    lead: "Всё, чего нет во вкладках Target и ReStore и что не отмечено для IKEA. Сгруппировано по тому, где искать." },
 };
 const LS_KEY = "apt-shop-marks-v2";
 let store = "target";
 let filter = "left";
 let mode = "init";        // "db" | "local"
 let readOnly = false;
-let marks = { target: {}, restore: {} };   // store -> id -> "picked" | "struck"
+const emptyMarks = () => Object.fromEntries(Object.keys(STORES).map(k => [k, {}]));
+let marks = emptyMarks();                  // store -> id -> "picked" | "struck"
 let bought = {};                           // id -> true
 let doneOpen = false;
 
@@ -180,7 +184,7 @@ function counts(st) {
 function render() {
   for (const st of Object.keys(STORES)) {
     const c = counts(st);
-    $("#tc-" + st).textContent = "осталось " + c.left + " из " + STORES[st].items.length;
+    $("#tc-" + st).textContent = c.left + " из " + STORES[st].items.length;
     $("#tab-" + st).setAttribute("aria-current", st === store ? "page" : "false");
   }
   document.title = "Покупки в " + STORES[store].name;
@@ -336,7 +340,7 @@ async function start() {
   if (!db) {
     mode = "local";
     const v = loadLocal();
-    marks = Object.assign({ target: {}, restore: {} }, v.marks || {});
+    marks = Object.assign(emptyMarks(), v.marks || {});
     bought = v.bought || {};
     setSync("Отметки сохраняются только на этом телефоне.");
     render();
@@ -350,7 +354,7 @@ async function start() {
   };
   const lost = () => { clearTimeout(timer); setSync("Связь с хранилищем потеряна — обнови страницу, когда появится сеть.", true); };
   db.collection("marks").onSnapshot(snap => {
-    const next = { target: {}, restore: {} };
+    const next = emptyMarks();
     for (const d of snap.docs) {
       const v = d.data(); const [st, rid] = d.id.split("-r");
       if (v && next[st] && (v.state === "picked" || v.state === "struck")) next[st][rid] = v.state;

@@ -6,6 +6,8 @@ usage: python3 build.py OUT.html
   order; name, US name, room, place, quantity and "для кого" come from the sheet, so a
   renamed or re-quantified row shows up correctly. Add or drop Target rows by editing
   target.json (only rows NOT ticked «Брать в IKEA» belong there).
+- «Остальное» tab: every row in neither list and not ticked for IKEA, grouped by where to
+  look (OTHER_RULES below; a row it doesn't know lands in «Разное»).
 - ReStore tab: computed by rule — furniture, lamps and ceiling lights, mirrors, wall art,
   the electric fireplace, rugs (not bath mats), the curtain rod and the step stool; each
   shows the IKEA model and price from «Где купить» as the new-price benchmark.
@@ -28,6 +30,18 @@ RESTORE_ORDER = ["Диваны и кресла", "Столы и стулья", "
 RESTORE_SKIP_ITEMS = {"Кольцевая лампа", "Лопасти для вентилятора", "Шторы", "Рулонная штора",
                       "Увеличительное зеркало", "Украшение на дверь"}
 RESTORE_DEPT_BY_ITEM = {"Стеллаж для игрушек и книжек": "Хранение"}
+
+# «Остальное»: rows in no other list (not Target, not ReStore, not ticked for IKEA),
+# grouped by where to look. Item name → (group, hint); anything new lands in «Разное».
+OTHER_ORDER = ["Растения", "Для вентиляторов", "Amazon", "IKEA", "Электроника", "Разное"]
+OTHER_RULES = {
+    "Растение": ("Растения", "Дешевле всего в Trader Joe's (pothos около $8) и Home Depot (6 in — около $10); в IKEA $13–17"),
+    "Лопасти для вентилятора": ("Для вентиляторов", "Модель — на наклейке мотора. Home Depot: комплект из 5 лопастей $13–37, под конкретную модель"),
+    "Ручки для шкафчиков": ("Amazon", "Ищи self-adhesive cabinet handles; в IKEA и Target на липучке нет"),
+    "Украшение на дверь": ("Amazon", "Ищи eagle wall decor"),
+    "Перфорированная панель": ("IKEA", "IKEA SKÅDIS. Магниты к обычной (ДВП) не липнут — нужна стальная или клипсы"),
+    "Телевизор": ("Электроника", "Чёрная пятница — 27 ноября: Target, Best Buy, Costco"),
+}
 
 
 def who(notes):
@@ -72,11 +86,20 @@ def main(out):
         tag = "под вопросом" if "под вопросом" in (r["notes"] or "").lower() else ""
         restore.append({**base(r), "dept": d, "hint": ikea_benchmark(r["where"]), "tag": tag})
     restore.sort(key=lambda o: (RESTORE_ORDER.index(o["dept"]), o["room"], o["name"]))
+    listed = {o["id"] for o in target} | {o["id"] for o in restore}
+    other = []
+    for r in rows.values():
+        if r["id"] in listed or r["ikea"] is True or r["status"] in gone:
+            continue
+        dept, hint = OTHER_RULES.get(r["item"], ("Разное", ""))
+        tag = "под вопросом" if "под вопросом" in (r["notes"] or "").lower() else ""
+        other.append({**base(r), "dept": dept, "hint": hint, "tag": tag})
+    other.sort(key=lambda o: (OTHER_ORDER.index(o["dept"]), o["room"], o["name"]))
     page = open(os.path.join(HERE, "page.html"), encoding="utf-8").read()
     dump = lambda x: json.dumps(x, ensure_ascii=False, separators=(",", ":"))  # noqa: E731
-    page = page.replace("__ITEMS__", dump(target)).replace("__RESTORE__", dump(restore))
+    page = page.replace("__ITEMS__", dump(target)).replace("__RESTORE__", dump(restore)).replace("__OTHER__", dump(other))
     open(out, "w", encoding="utf-8").write(page)
-    print(f"target {len(target)} rows, restore {len(restore)} rows → {out}")
+    print(f"target {len(target)}, restore {len(restore)}, other {len(other)} rows → {out}")
 
 
 if __name__ == "__main__":
