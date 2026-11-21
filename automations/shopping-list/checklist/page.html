@@ -1,0 +1,382 @@
+<title>Покупки в Target</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600&family=Unbounded:wght@500;600&display=swap">
+<style>
+/* Layout: one narrow column for a phone in a shopping cart; store tabs on top, sticky progress + filters, departments as sections, bought items folded at the bottom. */
+:root {
+  --bg: #f3f4f1;
+  --surface: #ffffff;
+  --ink: #1c211e;
+  --muted: #5e6862;
+  --line: #dde2dd;
+  --accent: #155e75;
+  --accent-soft: #e2eef2;
+  --pick: #1d7a46;
+  --pick-soft: #e3f3e8;
+  --strike: #8a918d;
+  --strike-soft: #eceeec;
+  --done: #6b4fa0;
+  --done-soft: #efeaf7;
+  --warn: #9a5b0b;
+  --warn-soft: #fbf0df;
+  --font-body: "Golos Text", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-display: "Unbounded", "Golos Text", "Segoe UI", Arial, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #111513; --surface: #1a201d; --ink: #e7ebe8; --muted: #9ba59f; --line: #2b332f;
+    --accent: #5cb8d1; --accent-soft: #17313a; --pick: #4fcf86; --pick-soft: #173323;
+    --strike: #7d8681; --strike-soft: #202623; --done: #b49be3; --done-soft: #29213a;
+    --warn: #e3a54f; --warn-soft: #33270f;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #111513; --surface: #1a201d; --ink: #e7ebe8; --muted: #9ba59f; --line: #2b332f;
+  --accent: #5cb8d1; --accent-soft: #17313a; --pick: #4fcf86; --pick-soft: #173323;
+  --strike: #7d8681; --strike-soft: #202623; --done: #b49be3; --done-soft: #29213a;
+  --warn: #e3a54f; --warn-soft: #33270f;
+  color-scheme: dark;
+}
+body { background: var(--bg); color: var(--ink); font-family: var(--font-body); font-size: 16px; line-height: 1.45; }
+body::before {
+  content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px);
+  z-index: 10; background: var(--bg);
+}
+.wrap {
+  max-width: 640px; margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 0 48px;
+}
+header.top { padding-block: 14px 4px; display: grid; gap: 8px; }
+h1 { font-family: var(--font-display); font-weight: 600; font-size: 1.35rem; letter-spacing: -0.01em; margin: 0; text-wrap: balance; }
+.tabs { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; background: var(--strike-soft); padding: 4px; border-radius: 12px; }
+.tabs a {
+  text-decoration: none; color: var(--ink); text-align: center; border-radius: 9px; padding: 8px 6px;
+  font-weight: 600; font-size: 0.95rem; min-height: 40px; display: grid; place-items: center;
+}
+.tabs a[aria-current="page"] { background: var(--surface); box-shadow: 0 1px 2px rgba(0,0,0,.12); }
+.tabs a small { display: block; font-weight: 400; font-size: 0.76rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+.lead { margin: 0; color: var(--muted); font-size: 0.9rem; }
+.sync { font-size: 0.8rem; color: var(--muted); margin: 0; }
+.sync.warn { color: var(--warn); }
+.toolbar {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--bg);
+  padding-block: 10px; border-bottom: 1px solid var(--line); display: grid; gap: 8px;
+}
+.bar { height: 6px; border-radius: 3px; background: var(--strike-soft); overflow: hidden; display: flex; }
+.bar span { display: block; height: 100%; }
+.bar .bd { background: var(--done); }
+.bar .bp { background: var(--pick); }
+.bar .bs { background: var(--strike); }
+.filters { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; }
+.filters button {
+  font: inherit; border-radius: 10px; padding: 6px 4px; min-height: 48px; min-width: 0;
+  border: 1px solid var(--line); background: var(--surface); color: var(--ink); cursor: pointer;
+  display: grid; justify-items: center; line-height: 1.15;
+}
+.filters button b { font-size: 1.05rem; font-weight: 600; font-variant-numeric: tabular-nums; }
+.filters button span { font-size: 0.78rem; color: var(--muted); }
+.filters button[data-f="picked"] b { color: var(--pick); }
+.filters button[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); }
+.filters button[aria-pressed="true"] b, .filters button[aria-pressed="true"] span { color: var(--bg); }
+main { display: grid; gap: 22px; padding-top: 14px; }
+section h2, details.done summary {
+  font-family: var(--font-display); font-weight: 500; font-size: 0.82rem; text-transform: uppercase;
+  letter-spacing: 0.08em; color: var(--muted); margin: 0 0 8px; display: flex; justify-content: space-between; gap: 8px;
+}
+section h2 .n, details.done summary .n { font-family: var(--font-body); letter-spacing: 0; font-variant-numeric: tabular-nums; }
+details.done { border-top: 1px dashed var(--line); padding-top: 14px; }
+details.done summary { cursor: pointer; list-style: none; padding-block: 6px; }
+details.done summary::-webkit-details-marker { display: none; }
+details.done summary .t::before { content: "▸ "; }
+details.done[open] summary .t::before { content: "▾ "; }
+ul.items { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+li.item { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 12px 12px 10px; display: grid; gap: 8px; min-width: 0; }
+li.item.picked { background: var(--pick-soft); border-color: var(--pick); }
+li.item.struck { background: var(--strike-soft); }
+li.item.struck .name, li.item.struck .en { text-decoration: line-through; color: var(--strike); }
+li.item.bought { background: var(--done-soft); border-color: transparent; padding-block: 8px; }
+li.item.bought .name { color: var(--muted); }
+.head { display: flex; gap: 10px; align-items: flex-start; justify-content: space-between; min-width: 0; }
+.title { min-width: 0; }
+.name { font-weight: 600; font-size: 1.02rem; }
+.en { font-size: 0.86rem; color: var(--accent); margin-top: 1px; overflow-wrap: anywhere; }
+.qty { flex: none; font-variant-numeric: tabular-nums; font-weight: 600; font-size: 0.95rem; background: var(--accent-soft); color: var(--accent); border-radius: 8px; padding: 2px 8px; }
+.meta { font-size: 0.84rem; color: var(--muted); display: flex; flex-wrap: wrap; gap: 4px 10px; }
+.tag { font-size: 0.75rem; font-weight: 600; color: var(--warn); background: var(--warn-soft); border-radius: 6px; padding: 1px 7px; }
+.hint { font-size: 0.86rem; color: var(--ink); margin: 0; }
+.acts { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; }
+.acts.one { grid-template-columns: 1fr; }
+.acts button {
+  font: inherit; font-weight: 600; font-size: 0.9rem; min-height: 44px; border-radius: 10px; cursor: pointer;
+  border: 1px solid var(--line); background: var(--bg); color: var(--ink); padding: 4px 2px;
+}
+.acts .b-pick[aria-pressed="true"] { background: var(--pick); border-color: var(--pick); color: var(--surface); }
+.acts .b-strike[aria-pressed="true"] { background: var(--strike); border-color: var(--strike); color: var(--surface); }
+.acts .b-done { color: var(--done); }
+.acts .b-undo { color: var(--done); background: transparent; min-height: 38px; }
+button:focus-visible, a:focus-visible, summary:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+button:disabled { opacity: .5; cursor: default; }
+.empty { color: var(--muted); font-size: 0.92rem; padding: 18px 0; margin: 0; }
+footer { color: var(--muted); font-size: 0.8rem; padding-top: 20px; }
+@media (prefers-reduced-motion: no-preference) { li.item { transition: background-color .15s ease, border-color .15s ease; } }
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <h1>Покупки для квартиры</h1>
+    <nav class="tabs" aria-label="Магазин">
+      <a href="#target" id="tab-target" data-store="target">Target<small id="tc-target"></small></a>
+      <a href="#restore" id="tab-restore" data-store="restore">ReStore<small id="tc-restore"></small></a>
+    </nav>
+    <p class="lead" id="lead"></p>
+    <p class="sync" id="sync">Загружаю отметки…</p>
+  </header>
+  <div class="toolbar">
+    <div class="bar" aria-hidden="true"><span class="bd" id="barD"></span><span class="bp" id="barP"></span><span class="bs" id="barS"></span></div>
+    <div class="filters" role="group" aria-label="Показать">
+      <button type="button" id="f-left" data-f="left" aria-pressed="true"><b>0</b><span>Осталось</span></button>
+      <button type="button" id="f-picked" data-f="picked" aria-pressed="false"><b>0</b><span>Беру</span></button>
+      <button type="button" id="f-struck" data-f="struck" aria-pressed="false"><b>0</b><span>Не здесь</span></button>
+      <button type="button" id="f-all" data-f="all" aria-pressed="false"><b>0</b><span>Все</span></button>
+    </div>
+  </div>
+  <main id="list"></main>
+  <footer>«Куплено» общее для обеих вкладок: купленная вещь уходит вниз в любом магазине. Цены — ориентиры из поиска 21 ноября 2026. № — номер строки в таблице «Квартира — список покупок».</footer>
+</div>
+
+<script>
+const STORES = {
+  target: { name: "Target", items: __ITEMS__,
+    lead: "Вещи, которые не берём в IKEA. «Беру» — положили в корзину, «Не здесь» — тут не берём, «Куплено» — уже купили где угодно: строка уходит вниз." },
+  restore: { name: "ReStore", items: __RESTORE__,
+    lead: "Б/у и недорогая мебель, свет и декор — что поискать в ReStore. Для сравнения указана цена новой вещи в IKEA, где она есть." },
+};
+const LS_KEY = "apt-shop-marks-v2";
+let store = "target";
+let filter = "left";
+let mode = "init";        // "db" | "local"
+let readOnly = false;
+let marks = { target: {}, restore: {} };   // store -> id -> "picked" | "struck"
+let bought = {};                           // id -> true
+let doneOpen = false;
+
+const NAMES = {};
+for (const s of Object.values(STORES)) for (const it of s.items) NAMES[it.id] = it.name;
+const $ = s => document.querySelector(s);
+function el(tag, cls, text) { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
+
+function stateOf(st, id) { return bought[id] ? "bought" : (marks[st][id] || "left"); }
+function counts(st) {
+  const c = { left: 0, picked: 0, struck: 0, bought: 0, all: 0 };
+  for (const it of STORES[st].items) { const s = stateOf(st, it.id); c[s]++; if (s !== "bought") c.all++; }
+  return c;
+}
+
+function render() {
+  for (const st of Object.keys(STORES)) {
+    const c = counts(st);
+    $("#tc-" + st).textContent = "осталось " + c.left + " из " + STORES[st].items.length;
+    $("#tab-" + st).setAttribute("aria-current", st === store ? "page" : "false");
+  }
+  document.title = "Покупки в " + STORES[store].name;
+  $("#lead").textContent = STORES[store].lead;
+  const c = counts(store), total = STORES[store].items.length;
+  $("#barD").style.width = (100 * c.bought / total) + "%";
+  $("#barP").style.width = (100 * c.picked / total) + "%";
+  $("#barS").style.width = (100 * c.struck / total) + "%";
+  for (const b of document.querySelectorAll(".filters button")) {
+    b.setAttribute("aria-pressed", String(b.dataset.f === filter));
+    b.querySelector("b").textContent = String(c[b.dataset.f]);
+  }
+
+  const list = $("#list");
+  list.replaceChildren();
+  const groups = new Map(), done = [];
+  for (const it of STORES[store].items) {
+    const s = stateOf(store, it.id);
+    if (s === "bought") { done.push(it); continue; }
+    if (filter !== "all" && s !== filter) continue;
+    if (!groups.has(it.dept)) groups.set(it.dept, []);
+    groups.get(it.dept).push(it);
+  }
+  if (!groups.size) {
+    const msg = { left: "Всё отмечено.", picked: "Пока ничего не взяли.", struck: "Пока ничего не вычеркнули.", all: "Всё уже куплено." }[filter];
+    list.append(el("p", "empty", msg));
+  }
+  for (const [dept, items] of groups) {
+    const sec = el("section");
+    const h = el("h2"); h.append(el("span", null, dept), el("span", "n", String(items.length)));
+    const ul = el("ul", "items");
+    for (const it of items) ul.append(card(it, false));
+    sec.append(h, ul);
+    list.append(sec);
+  }
+  if (done.length) {
+    const det = el("details", "done");
+    det.open = doneOpen;
+    det.addEventListener("toggle", () => { doneOpen = det.open; });
+    const sum = el("summary"); sum.append(el("span", "t", "Уже куплено"), el("span", "n", String(done.length)));
+    const ul = el("ul", "items");
+    for (const it of done) ul.append(card(it, true));
+    det.append(sum, ul);
+    list.append(det);
+  }
+}
+
+function card(it, isDone) {
+  const m = isDone ? "bought" : marks[store][it.id];
+  const li = el("li", "item" + (m ? " " + m : ""));
+  const head = el("div", "head");
+  const title = el("div", "title");
+  title.append(el("div", "name", it.name));
+  if (it.en && !isDone) title.append(el("div", "en", it.en));
+  head.append(title);
+  if (it.qty && !isDone) head.append(el("span", "qty", "× " + it.qty));
+  li.append(head);
+  const meta = el("div", "meta");
+  meta.append(el("span", null, it.room + (it.place && !isDone ? ", " + it.place : "")));
+  if (it.who && !isDone) meta.append(el("span", null, it.who));
+  meta.append(el("span", null, "№" + it.id));
+  if (it.tag && !isDone) meta.append(el("span", "tag", it.tag));
+  li.append(meta);
+  if (it.hint && !isDone) li.append(el("p", "hint", it.hint));
+
+  const acts = el("div", "acts" + (isDone ? " one" : ""));
+  const btn = (cls, label, pressed, fn, idp) => {
+    const b = el("button", cls, label); b.type = "button"; b.id = idp + "-" + store + "-" + it.id;
+    if (pressed != null) b.setAttribute("aria-pressed", String(pressed));
+    b.addEventListener("click", fn); if (readOnly) b.disabled = true; return b;
+  };
+  if (isDone) {
+    acts.append(btn("b-undo", "Вернуть в список", null, () => setBought(it.id, false), "undo"));
+  } else {
+    acts.append(
+      btn("b-pick", m === "picked" ? "✓ Беру" : "Беру", m === "picked", () => setMark(it.id, "picked"), "pick"),
+      btn("b-strike", m === "struck" ? "✕ Не здесь" : "Не здесь", m === "struck", () => setMark(it.id, "struck"), "strike"),
+      btn("b-done", "Куплено", null, () => setBought(it.id, true), "done"),
+    );
+  }
+  li.append(acts);
+  return li;
+}
+
+function setSync(text, warn) { const s = $("#sync"); s.textContent = text; s.classList.toggle("warn", !!warn); }
+
+/* ---------- storage ---------- */
+let db = null;
+const pending = new Map();   // "coll/doc" -> body or null (delete)
+const writing = new Set();
+
+function loadLocal() {
+  try { const v = JSON.parse(localStorage.getItem(LS_KEY) || "{}"); return v && typeof v === "object" ? v : {}; } catch (e) { return {}; }
+}
+function saveLocal() { try { localStorage.setItem(LS_KEY, JSON.stringify({ marks, bought })); } catch (e) {} }
+
+function setMark(id, state) {
+  if (readOnly) return;
+  const next = marks[store][id] === state ? null : state;
+  if (next) marks[store][id] = next; else delete marks[store][id];
+  render();
+  queue("marks", store + "-r" + id, next ? { store, state: next, item: NAMES[id] || "", at: new Date().toISOString() } : null);
+}
+function setBought(id, on) {
+  if (readOnly) return;
+  if (on) bought[id] = true; else delete bought[id];
+  render();
+  queue("bought", "r" + id, on ? { item: NAMES[id] || "", at: new Date().toISOString() } : null);
+}
+function queue(coll, docId, body) {
+  if (mode === "local") { saveLocal(); return; }
+  if (mode !== "db") return;
+  const key = coll + "/" + docId;
+  pending.set(key, body);
+  flush(key);
+}
+async function flush(key) {
+  if (writing.has(key) || !pending.has(key)) return;
+  const body = pending.get(key);
+  pending.delete(key);
+  writing.add(key);
+  const [coll, docId] = key.split("/");
+  const ref = db.collection(coll).doc(docId);
+  try {
+    if (body) await ref.set(body); else await ref.delete();
+  } catch (e) {
+    if (e && e.code === "invalid_argument") {
+      readOnly = true;
+      setSync("У тебя доступ только на просмотр: отметки не сохраняются. Попроси владельца дать доступ Editor или Contributor.", true);
+      render();
+    } else if (e && e.code === "unavailable") {
+      if (!pending.has(key)) pending.set(key, body);
+      setTimeout(() => flush(key), 800 + Math.random() * 800);
+    } else {
+      setSync("Не получилось сохранить отметку — проверь связь и нажми ещё раз.", true);
+    }
+  } finally {
+    writing.delete(key);
+    if (pending.has(key)) flush(key);
+  }
+}
+
+function overlayPending() {
+  for (const [key, body] of pending) {
+    const [coll, docId] = key.split("/");
+    if (coll === "bought") { const id = docId.slice(1); if (body) bought[id] = true; else delete bought[id]; }
+    else { const [st, rid] = docId.split("-r"); if (!marks[st]) continue; if (body) marks[st][rid] = body.state; else delete marks[st][rid]; }
+  }
+}
+
+async function start() {
+  try { db = window.claude && window.claude.use ? await window.claude.use("db") : null; } catch (e) { db = null; }
+  if (!db) {
+    mode = "local";
+    const v = loadLocal();
+    marks = Object.assign({ target: {}, restore: {} }, v.marks || {});
+    bought = v.bought || {};
+    setSync("Отметки сохраняются только на этом телефоне.");
+    render();
+    return;
+  }
+  mode = "db";
+  let ready = { marks: false, bought: false };
+  const timer = setTimeout(() => setSync("Хранилище пока не отвечает — отметки могут быть не самые свежие.", true), 10000);
+  const settled = () => {
+    if (ready.marks && ready.bought) { clearTimeout(timer); if (!readOnly) setSync("Отметки общие: видны всем, с кем поделились страницей."); }
+  };
+  const lost = () => { clearTimeout(timer); setSync("Связь с хранилищем потеряна — обнови страницу, когда появится сеть.", true); };
+  db.collection("marks").onSnapshot(snap => {
+    const next = { target: {}, restore: {} };
+    for (const d of snap.docs) {
+      const v = d.data(); const [st, rid] = d.id.split("-r");
+      if (v && next[st] && (v.state === "picked" || v.state === "struck")) next[st][rid] = v.state;
+    }
+    marks = next; overlayPending();
+    if (!snap.metadata.fromCache) { ready.marks = true; settled(); }
+    render();
+  }, lost);
+  db.collection("bought").onSnapshot(snap => {
+    const next = {};
+    for (const d of snap.docs) next[d.id.replace(/^r/, "")] = true;
+    bought = next; overlayPending();
+    if (!snap.metadata.fromCache) { ready.bought = true; settled(); }
+    render();
+  }, lost);
+}
+
+function route() {
+  const h = (location.hash || "").replace("#", "");
+  store = STORES[h] ? h : "target";
+  render();
+}
+for (const b of document.querySelectorAll(".filters button")) {
+  b.addEventListener("click", () => { filter = b.dataset.f; render(); window.scrollTo({ top: 0 }); });
+}
+window.addEventListener("hashchange", route);
+route();
+start();
+</script>
