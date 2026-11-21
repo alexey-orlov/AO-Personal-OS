@@ -23,7 +23,8 @@ V = svc.spreadsheets().values()
 FIELDS = {"№": "id", "Комната": "room", "Место в комнате": "place", "Категория": "cat",
           "Тип": "type", "Что купить": "item", "Как называется в US": "en", "Детали": "details",
           "Кол-во": "qty", "Приоритет": "prio", "Статус": "status", "Цена за шт": "price",
-          "Сумма": "_sum", "Где купить": "where", "Заметки": "notes", "Добавлено": "added"}
+          "Сумма": "_sum", "Брать в IKEA": "ikea", "Где купить": "where", "Заметки": "notes",
+          "Добавлено": "added"}
 
 
 def letter(i):
@@ -69,10 +70,18 @@ def lists():
 
 
 def read_rows():
+    """Values as numbers/booleans/dates, except cells holding a formula (e.g. a
+    HYPERLINK in «Где купить»), which come back as the formula so a rewrite keeps them."""
+    rng = f"'Покупки'!A2:{letter(WIDTH - 1)}1000"
+    vals = get(rng)
+    forms = V.get(spreadsheetId=SID, range=rng, valueRenderOption="FORMULA").execute().get("values", [])
     out = []
-    for r in get(f"'Покупки'!A2:{letter(WIDTH - 1)}1000"):
+    for k, r in enumerate(vals):
         r = list(r) + [""] * (WIDTH - len(r))
-        if any(str(x).strip() for j, x in enumerate(r) if j != COLS["_sum"]):
+        fr = (forms[k] if k < len(forms) else []) + [""] * WIDTH
+        r = [fr[j] if isinstance(fr[j], str) and fr[j].startswith("=") else x for j, x in enumerate(r)]
+        filled = any(str(x).strip() for j, x in enumerate(r) if j not in (COLS["_sum"], COLS["ikea"]))
+        if filled or r[COLS["ikea"]] is True:
             out.append({f: r[i] for f, i in COLS.items()})
     return out
 
@@ -121,9 +130,15 @@ def write(rows, prev_n, L):
         data = [{"range": f"'Покупки'!{letter(a)}2:{letter(b - 1)}{n + 1}",
                  "values": [row[a:b] for row in full]} for a, b in segments()]
         V.batchUpdate(spreadsheetId=SID, body={"valueInputOption": "RAW", "data": data}).execute()
-        w = letter(COLS["where"])  # USER_ENTERED so links stay clickable
-        V.batchUpdate(spreadsheetId=SID, body={"valueInputOption": "USER_ENTERED", "data": [
-            {"range": f"'Покупки'!{w}2:{w}{n + 1}", "values": [[r["where"]] for r in rows]}]}).execute()
+        # USER_ENTERED pass: the «Где купить» column (plain URLs become links) and any
+        # other cell holding a formula, so formulas are re-entered as formulas.
+        w = letter(COLS["where"])
+        ue = [{"range": f"'Покупки'!{w}2:{w}{n + 1}", "values": [[r["where"]] for r in rows]}]
+        for k, row in enumerate(full):
+            for j, x in enumerate(row):
+                if j not in (COLS["_sum"], COLS["where"]) and isinstance(x, str) and x.startswith("="):
+                    ue.append({"range": f"'Покупки'!{letter(j)}{k + 2}", "values": [[x]]})
+        V.batchUpdate(spreadsheetId=SID, body={"valueInputOption": "USER_ENTERED", "data": ue}).execute()
     if prev_n > n:
         V.batchClear(spreadsheetId=SID, body={"ranges": [
             f"'Покупки'!{letter(a)}{n + 2}:{letter(b - 1)}{prev_n + 1}" for a, b in segments()]}).execute()
@@ -140,6 +155,8 @@ def norm(item, L):
         r["cat"] = L["type2cat"][r["type"]]
     if not r["status"]:
         r["status"] = "Идея"
+    if r["ikea"] == "":
+        r["ikea"] = False
     for k in ("qty", "price"):
         if r[k] != "" and not isinstance(r[k], (int, float)):
             raise SystemExit(f"{k} must be a number: {r[k]!r} ({r['item']})")
