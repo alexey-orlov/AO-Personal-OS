@@ -3,7 +3,7 @@ _source: transcript Alex pasted in chat on 2026-11-22 (English, diarized; raw te
 
 > _No date in the transcript, and Alex gave none: filed under 2026-11-22, the day he shared it. Alex was not on the call (inferred: he is not among the introductions)._
 
-> _Speakers are diarized only, and two labels merge people: **Speaker D** is the delivery director in the introductions and **Jarek** from then on (Ryan answers him as "Jerak"); **Speaker F** is the Chicago IoT Solutions Architect, whose name comes out as "Oz", "Moez" and "Luis"._
+> _Speakers are diarized only, and two labels merge people: **Speaker D** is the delivery director in the introductions and **Jarek** from then on (Ryan answers him as "Jerak"); **Speaker F** is the Chicago IoT Solutions Architect, whose name comes out as "Oz", "Moez" and "Luis"; Alex heard "Moaz" and names him SoftServe's main SME on the project (chat, 2026-11-22; spelling unconfirmed). The delivery director, garbled as "Vartkundjian", is **Varty Kuyumdjian**, the DO on the outreach sheet's Generac row._
 
 ## TL;DR
 - **Kickoff of SoftServe's ecobee IoT platform project.** Dave (ecobee) walked the SoftServe and AWS team through the architecture: today ~6M thermostats talk MQTT to a GCP backend; the next-generation thermostat will connect through **Generac's Universal Device Management Platform (UDMP, on AWS)** to **ICS**, a new AWS layer his team owns (Go), which translates into ecobee's GCP services. The new thermostat comes first, then the installed fleet by firmware update, then the cameras; employee field trial ~Q4 2027, launch ~Q4 2028.
@@ -16,9 +16,9 @@ _source: transcript Alex pasted in chat on 2026-11-22 (English, diarized; raw te
 | A | **Dave** (named by Ryan, Oksana and Lisa) | ecobee | Took over people management of the ICS team from Stephen; his team owns the ICS box. Toronto. ~3 years at ecobee, ~2 weeks on this project; before it, ran a GCP backend team for smart security and 911 escalation, whose work moves to another business unit. Team: Stephen plus two full-time engineers, two more from his old team onboarding that afternoon, one intern. |
 | B | **Oksana Sharonina** (transcribed "Oksana Sharina") | SoftServe | Account manager for ecobee and Generac; has worked with Dave on earlier engagements; started the recording and ran the next steps. |
 | C | **Ryan** | AWS | Senior Solutions Architect on AWS's core account team for Generac and ecobee; works closely with Scott Feldman; spent months with the DMP team, including a Well-Architected Framework review. |
-| D | the **delivery director** (name garbled: "Vartkundjian"), then **Jarek** | SoftServe | Delivery director: Generac and ecobee both in the portfolio, works with Lisa. Jarek: Poland; leads SoftServe's AWS Cloud Center of Excellence (AWS-native infrastructure, migrations, modernization); AWS ambassador and community builder; asked the architecture questions. |
+| D | **Varty Kuyumdjian** (the delivery director), then **Jarek** | SoftServe | Delivery director: Generac and ecobee both in the portfolio, works with Lisa. Jarek: Poland; leads SoftServe's AWS Cloud Center of Excellence (AWS-native infrastructure, migrations, modernization); AWS ambassador and community builder; asked the architecture questions. |
 | E | **Lisa** ("a shorter version of my name") | SoftServe | Delivery; has supported ecobee for several years and covers several programs. |
-| F | **Moez** (spelling unconfirmed) | SoftServe | IoT Solutions Architect, embedded and edge-to-cloud integration; Chicago. |
+| F | **Moaz** (as Alex heard it; spelling unconfirmed) | SoftServe | IoT Solutions Architect, embedded and edge-to-cloud integration; Chicago. Asked about other devices, radio protocols, the offline mode and OTA. |
 | G | **Volodymyr Pavlyuk** (Vlad) | SoftServe | IoT architect, industrial IoT: data pipelines, security, high-volume transfer. |
 | H | **Alejandro** | SoftServe | Partnerships team; drives the AWS–SoftServe–Generac partnership. |
 
