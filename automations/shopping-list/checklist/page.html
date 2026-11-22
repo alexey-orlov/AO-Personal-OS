@@ -1,10 +1,10 @@
-<title>Покупки в Target</title>
+<title>Покупки для квартиры</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600&family=Unbounded:wght@500;600&display=swap">
 <style>
-/* Layout: one narrow column for a phone in a shopping cart; store tabs on top, sticky progress + filters, departments as sections, bought items folded at the bottom. */
+/* Layout: one narrow column for a phone in a shopping cart; tabs by kind of thing, a store filter, sticky progress + status filters, groups as sections, bought and not-needed items folded at the bottom. */
 :root {
   --bg: #f3f4f1;
   --surface: #ffffff;
@@ -41,31 +41,41 @@
   color-scheme: dark;
 }
 body { background: var(--bg); color: var(--ink); font-family: var(--font-body); font-size: 16px; line-height: 1.45; }
-body::before {
-  content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px);
-  z-index: 10; background: var(--bg);
-}
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
 .wrap {
   max-width: 640px; margin: 0 auto;
   padding-left: max(16px, env(safe-area-inset-left, 0px));
   padding-right: max(16px, env(safe-area-inset-right, 0px));
   padding-block: 0 48px;
 }
-header.top { padding-block: 14px 4px; display: grid; gap: 8px; }
+header.top { padding-block: 14px 4px; display: grid; grid-template-columns: minmax(0, 1fr); gap: 10px; }
+header.top > * { min-width: 0; }
 h1 { font-family: var(--font-display); font-weight: 600; font-size: 1.35rem; letter-spacing: -0.01em; margin: 0; text-wrap: balance; }
-.tabs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; background: var(--strike-soft); padding: 4px; border-radius: 12px; }
+.tabs { display: grid; grid-template-columns: repeat(var(--ntabs, 4), minmax(0, 1fr)); gap: 4px; background: var(--strike-soft); padding: 4px; border-radius: 12px; }
 .tabs a {
-  text-decoration: none; color: var(--ink); text-align: center; border-radius: 9px; padding: 8px 6px;
-  font-weight: 600; font-size: 0.95rem; min-height: 40px; display: grid; place-items: center;
+  text-decoration: none; color: var(--ink); text-align: center; border-radius: 9px; padding: 7px 4px;
+  font-weight: 600; font-size: 0.86rem; line-height: 1.2; min-height: 44px; display: grid; place-content: center; text-wrap: balance;
 }
 .tabs a[aria-current="page"] { background: var(--surface); box-shadow: 0 1px 2px rgba(0,0,0,.12); }
-.tabs a small { display: block; font-weight: 400; font-size: 0.76rem; color: var(--muted); font-variant-numeric: tabular-nums; }
-.lead { margin: 0; color: var(--muted); font-size: 0.9rem; }
+.tabs a small { display: block; font-weight: 400; font-size: 0.74rem; color: var(--muted); font-variant-numeric: tabular-nums; margin-top: 2px; }
+.row-label { font-size: 0.78rem; color: var(--muted); margin: 0 0 4px; text-transform: uppercase; letter-spacing: 0.06em; }
+.stores { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 2px; scrollbar-width: none; }
+.stores button {
+  flex: none; font: inherit; font-size: 0.86rem; border-radius: 999px; padding: 6px 12px; min-height: 36px;
+  border: 1px solid var(--line); background: var(--surface); color: var(--ink); cursor: pointer; white-space: nowrap;
+}
+.stores button[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: var(--bg); }
+.trip { display: flex; flex-wrap: wrap; gap: 6px; }
+.trip button {
+  font: inherit; font-size: 0.84rem; border-radius: 10px; padding: 6px 10px; min-height: 36px; cursor: pointer;
+  border: 1px dashed var(--line); background: transparent; color: var(--ink);
+}
+.trip button.confirm { border-style: solid; border-color: var(--warn); color: var(--warn); background: var(--warn-soft); }
 .sync { font-size: 0.8rem; color: var(--muted); margin: 0; }
 .sync.warn { color: var(--warn); }
 .toolbar {
   position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--bg);
-  padding-block: 10px; border-bottom: 1px solid var(--line); display: grid; gap: 8px;
+  padding-block: 10px; border-bottom: 1px solid var(--line); display: grid; grid-template-columns: minmax(0, 1fr); gap: 8px;
 }
 .bar { height: 6px; border-radius: 3px; background: var(--strike-soft); overflow: hidden; display: flex; }
 .bar span { display: block; height: 100%; }
@@ -84,23 +94,24 @@ h1 { font-family: var(--font-display); font-weight: 600; font-size: 1.35rem; let
 .filters button[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); }
 .filters button[aria-pressed="true"] b, .filters button[aria-pressed="true"] span { color: var(--bg); }
 main { display: grid; gap: 22px; padding-top: 14px; }
-section h2, details.done summary {
+section h2, details.fold summary {
   font-family: var(--font-display); font-weight: 500; font-size: 0.82rem; text-transform: uppercase;
   letter-spacing: 0.08em; color: var(--muted); margin: 0 0 8px; display: flex; justify-content: space-between; gap: 8px;
 }
-section h2 .n, details.done summary .n { font-family: var(--font-body); letter-spacing: 0; font-variant-numeric: tabular-nums; }
-details.done { border-top: 1px dashed var(--line); padding-top: 14px; }
-details.done summary { cursor: pointer; list-style: none; padding-block: 6px; }
-details.done summary::-webkit-details-marker { display: none; }
-details.done summary .t::before { content: "▸ "; }
-details.done[open] summary .t::before { content: "▾ "; }
+section h2 .n, details.fold summary .n { font-family: var(--font-body); letter-spacing: 0; font-variant-numeric: tabular-nums; }
+details.fold { border-top: 1px dashed var(--line); padding-top: 14px; }
+details.fold summary { cursor: pointer; list-style: none; padding-block: 6px; }
+details.fold summary::-webkit-details-marker { display: none; }
+details.fold summary .t::before { content: "▸ "; }
+details.fold[open] summary .t::before { content: "▾ "; }
 ul.items { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
 li.item { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 12px 12px 10px; display: grid; gap: 8px; min-width: 0; }
 li.item.picked { background: var(--pick-soft); border-color: var(--pick); }
 li.item.struck { background: var(--strike-soft); }
 li.item.struck .name, li.item.struck .en { text-decoration: line-through; color: var(--strike); }
-li.item.bought { background: var(--done-soft); border-color: transparent; padding-block: 8px; }
-li.item.bought .name { color: var(--muted); }
+li.item.folded { background: var(--done-soft); border-color: transparent; padding-block: 8px; }
+li.item.folded.unneeded { background: var(--strike-soft); }
+li.item.folded .name { color: var(--muted); }
 .head { display: flex; gap: 10px; align-items: flex-start; justify-content: space-between; min-width: 0; }
 .title { min-width: 0; }
 .name { font-weight: 600; font-size: 1.02rem; }
@@ -109,16 +120,20 @@ li.item.bought .name { color: var(--muted); }
 .meta { font-size: 0.84rem; color: var(--muted); display: flex; flex-wrap: wrap; gap: 4px 10px; }
 .tag { font-size: 0.75rem; font-weight: 600; color: var(--warn); background: var(--warn-soft); border-radius: 6px; padding: 1px 7px; }
 .det { font-size: 0.88rem; font-weight: 500; color: var(--ink); margin: 0; }
-.hint { font-size: 0.86rem; color: var(--muted); margin: 0; }
-.acts { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; }
+.where { display: grid; gap: 3px; margin: 0; padding: 0; list-style: none; }
+.where li { font-size: 0.85rem; color: var(--muted); min-width: 0; overflow-wrap: anywhere; }
+.where b { color: var(--ink); font-weight: 600; margin-right: 4px; }
+.where a { color: var(--accent); }
+.acts { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; }
 .acts.one { grid-template-columns: 1fr; }
 .acts button {
-  font: inherit; font-weight: 600; font-size: 0.9rem; min-height: 44px; border-radius: 10px; cursor: pointer;
+  font: inherit; font-weight: 600; font-size: 0.84rem; line-height: 1.15; min-height: 44px; border-radius: 10px; cursor: pointer;
   border: 1px solid var(--line); background: var(--bg); color: var(--ink); padding: 4px 2px;
 }
 .acts .b-pick[aria-pressed="true"] { background: var(--pick); border-color: var(--pick); color: var(--surface); }
 .acts .b-strike[aria-pressed="true"] { background: var(--strike); border-color: var(--strike); color: var(--surface); }
 .acts .b-done { color: var(--done); }
+.acts .b-skip { color: var(--muted); font-weight: 500; }
 .acts .b-undo { color: var(--done); background: transparent; min-height: 38px; }
 button:focus-visible, a:focus-visible, summary:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
 button:disabled { opacity: .5; cursor: default; }
@@ -130,12 +145,12 @@ footer { color: var(--muted); font-size: 0.8rem; padding-top: 20px; }
 <div class="wrap">
   <header class="top">
     <h1>Покупки для квартиры</h1>
-    <nav class="tabs" aria-label="Магазин">
-      <a href="#target" id="tab-target" data-store="target">Target<small id="tc-target"></small></a>
-      <a href="#restore" id="tab-restore" data-store="restore">ReStore<small id="tc-restore"></small></a>
-      <a href="#other" id="tab-other" data-store="other">Остальное<small id="tc-other"></small></a>
-    </nav>
-    <p class="lead" id="lead"></p>
+    <nav class="tabs" id="tabs" aria-label="Что покупаем"></nav>
+    <div>
+      <p class="row-label">Магазин</p>
+      <div class="stores" id="stores" role="group" aria-label="Магазин"></div>
+    </div>
+    <div class="trip" id="trip"></div>
     <p class="sync" id="sync">Загружаю отметки…</p>
   </header>
   <div class="toolbar">
@@ -148,49 +163,83 @@ footer { color: var(--muted); font-size: 0.8rem; padding-top: 20px; }
     </div>
   </div>
   <main id="list"></main>
-  <footer>«Куплено» общее для обеих вкладок: купленная вещь уходит вниз в любом магазине. Цены — ориентиры из поиска 21 ноября 2026. № — номер строки в таблице «Квартира — список покупок».</footer>
+  <footer>«Беру» — положили в корзину, «Не здесь» — в этом магазине не берём, «Куплено» — уже купили, «Не нужно» — убрать из списка. «Куплено» и «Не нужно» уходят вниз и возвращаются кнопкой «Вернуть». Цены — ориентиры из поиска 21 ноября 2026. № — номер строки в таблице «Квартира — список покупок».</footer>
 </div>
 
 <script>
-const STORES = {
-  target: { name: "Target", items: __ITEMS__,
-    lead: "Вещи, которые не берём в IKEA. «Беру» — положили в корзину, «Не здесь» — тут не берём, «Куплено» — уже купили где угодно: строка уходит вниз." },
-  restore: { name: "ReStore", items: __RESTORE__,
-    lead: "Б/у и недорогая мебель, свет и декор — что поискать в ReStore. Для сравнения указана цена новой вещи в IKEA, где она есть." },
-  other: { name: "других магазинах", items: __OTHER__,
-    lead: "Всё, чего нет во вкладках Target и ReStore и что не отмечено для IKEA. Сгруппировано по тому, где искать." },
-};
-const LS_KEY = "apt-shop-marks-v2";
-let store = "target";
-let filter = "left";
-let mode = "init";        // "db" | "local"
-let readOnly = false;
-const emptyMarks = () => Object.fromEntries(Object.keys(STORES).map(k => [k, {}]));
-let marks = emptyMarks();                  // store -> id -> "picked" | "struck"
-let bought = {};                           // id -> true
-let doneOpen = false;
+const ITEMS = __ITEMS__;
+const TABS = [
+  { key: "furniture", name: "Мебель" },
+  { key: "decor", name: "Аксессуары и декор" },
+  { key: "tech", name: "Техника" },
+  { key: "other", name: "Другое" },
+];
+const STORE_KEYS = ["IKEA", "Target", "ReStore", "Amazon"];
+const LS_KEY = "apt-shop-v3";
+const LS_PREF = "apt-shop-prefs-v1";
 
-const NAMES = {};
-for (const s of Object.values(STORES)) for (const it of s.items) NAMES[it.id] = it.name;
+let tab = "furniture", filter = "left", shop = "all";
+let mode = "init", readOnly = false;
+let trip = {};       // id -> "picked" | "struck"   (this shopping trip)
+let bought = {};     // id -> true
+let unneeded = {};   // id -> true
+const openFold = { bought: false, unneeded: false };
+
+const byId = new Map(ITEMS.map(i => [String(i.id), i]));
 const $ = s => document.querySelector(s);
 function el(tag, cls, text) { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
 
-function stateOf(st, id) { return bought[id] ? "bought" : (marks[st][id] || "left"); }
-function counts(st) {
-  const c = { left: 0, picked: 0, struck: 0, bought: 0, all: 0 };
-  for (const it of STORES[st].items) { const s = stateOf(st, it.id); c[s]++; if (s !== "bought") c.all++; }
+try { const p = JSON.parse(localStorage.getItem(LS_PREF) || "{}"); if (p.shop) shop = p.shop; } catch (e) {}
+function savePrefs() { try { localStorage.setItem(LS_PREF, JSON.stringify({ shop })); } catch (e) {} }
+
+function storeMatch(it) {
+  if (shop === "all") return true;
+  if (shop === "other") return it.stores.some(s => !STORE_KEYS.includes(s.s));
+  return it.stores.some(s => s.s === shop);
+}
+function stateOf(it) {
+  if (unneeded[it.id]) return "unneeded";
+  if (bought[it.id] || it.sb) return "bought";
+  return trip[it.id] || "left";
+}
+const visibleTabs = () => TABS.filter(t => ITEMS.some(i => i.tab === t.key));
+
+function counts(tk) {
+  const c = { left: 0, picked: 0, struck: 0, bought: 0, unneeded: 0, all: 0 };
+  for (const it of ITEMS) {
+    if (it.tab !== tk || !storeMatch(it)) continue;
+    const s = stateOf(it); c[s]++;
+    if (s !== "bought" && s !== "unneeded") c.all++;
+  }
   return c;
 }
 
 function render() {
-  for (const st of Object.keys(STORES)) {
-    const c = counts(st);
-    $("#tc-" + st).textContent = c.left + " из " + STORES[st].items.length;
-    $("#tab-" + st).setAttribute("aria-current", st === store ? "page" : "false");
+  const tabsEl = $("#tabs");
+  const vt = visibleTabs();
+  if (!vt.some(t => t.key === tab)) tab = vt[0].key;
+  tabsEl.style.setProperty("--ntabs", vt.length);
+  tabsEl.replaceChildren();
+  for (const t of vt) {
+    const c = counts(t.key);
+    const a = el("a", null, t.name);
+    a.href = "#" + t.key; a.id = "tab-" + t.key;
+    a.setAttribute("aria-current", t.key === tab ? "page" : "false");
+    a.append(el("small", null, "осталось " + c.left));
+    tabsEl.append(a);
   }
-  document.title = "Покупки в " + STORES[store].name;
-  $("#lead").textContent = STORES[store].lead;
-  const c = counts(store), total = STORES[store].items.length;
+
+  const st = $("#stores"); st.replaceChildren();
+  for (const [k, label] of [["all", "Любой"], ["IKEA", "IKEA"], ["Target", "Target"], ["ReStore", "ReStore"], ["Amazon", "Amazon"], ["other", "Другие"]]) {
+    const b = el("button", null, label); b.type = "button"; b.id = "shop-" + k;
+    b.setAttribute("aria-pressed", String(shop === k));
+    b.addEventListener("click", () => { shop = k; savePrefs(); render(); });
+    st.append(b);
+  }
+
+  renderTrip();
+
+  const c = counts(tab), total = Math.max(1, c.all + c.bought);
   $("#barD").style.width = (100 * c.bought / total) + "%";
   $("#barP").style.width = (100 * c.picked / total) + "%";
   $("#barS").style.width = (100 * c.struck / total) + "%";
@@ -199,76 +248,108 @@ function render() {
     b.querySelector("b").textContent = String(c[b.dataset.f]);
   }
 
-  const list = $("#list");
-  list.replaceChildren();
-  const groups = new Map(), done = [];
-  for (const it of STORES[store].items) {
-    const s = stateOf(store, it.id);
-    if (s === "bought") { done.push(it); continue; }
+  const list = $("#list"); list.replaceChildren();
+  const groups = new Map(), folds = { bought: [], unneeded: [] };
+  for (const it of ITEMS) {
+    if (it.tab !== tab || !storeMatch(it)) continue;
+    const s = stateOf(it);
+    if (s === "bought" || s === "unneeded") { folds[s].push(it); continue; }
     if (filter !== "all" && s !== filter) continue;
-    if (!groups.has(it.dept)) groups.set(it.dept, []);
-    groups.get(it.dept).push(it);
+    if (!groups.has(it.group)) groups.set(it.group, []);
+    groups.get(it.group).push(it);
   }
   if (!groups.size) {
-    const msg = { left: "Всё отмечено.", picked: "Пока ничего не взяли.", struck: "Пока ничего не вычеркнули.", all: "Всё уже куплено." }[filter];
-    list.append(el("p", "empty", msg));
+    const msg = { left: "Здесь всё отмечено.", picked: "Пока ничего не взяли.", struck: "Пока ничего не вычеркнули.", all: "Здесь всё уже куплено или не нужно." }[filter];
+    list.append(el("p", "empty", msg + (shop !== "all" ? " Фильтр магазина: " + $("#shop-" + shop).textContent + "." : "")));
   }
-  for (const [dept, items] of groups) {
+  for (const [g, items] of groups) {
     const sec = el("section");
-    const h = el("h2"); h.append(el("span", null, dept), el("span", "n", String(items.length)));
+    const h = el("h2"); h.append(el("span", null, g), el("span", "n", String(items.length)));
     const ul = el("ul", "items");
-    for (const it of items) ul.append(card(it, false));
-    sec.append(h, ul);
-    list.append(sec);
+    for (const it of items) ul.append(card(it, null));
+    sec.append(h, ul); list.append(sec);
   }
-  if (done.length) {
-    const det = el("details", "done");
-    det.open = doneOpen;
-    det.addEventListener("toggle", () => { doneOpen = det.open; });
-    const sum = el("summary"); sum.append(el("span", "t", "Уже куплено"), el("span", "n", String(done.length)));
+  for (const [k, title] of [["bought", "Уже куплено"], ["unneeded", "Не нужно"]]) {
+    if (!folds[k].length) continue;
+    const det = el("details", "fold"); det.open = openFold[k];
+    det.addEventListener("toggle", () => { openFold[k] = det.open; });
+    const sum = el("summary"); sum.append(el("span", "t", title), el("span", "n", String(folds[k].length)));
     const ul = el("ul", "items");
-    for (const it of done) ul.append(card(it, true));
-    det.append(sum, ul);
-    list.append(det);
+    for (const it of folds[k]) ul.append(card(it, k));
+    det.append(sum, ul); list.append(det);
   }
 }
 
-function card(it, isDone) {
-  const m = isDone ? "bought" : marks[store][it.id];
-  const li = el("li", "item" + (m ? " " + m : ""));
+function card(it, fold) {
+  const m = fold || trip[it.id];
+  const li = el("li", "item" + (fold ? " folded " + fold : (m ? " " + m : "")));
   const head = el("div", "head");
   const title = el("div", "title");
   title.append(el("div", "name", it.name));
-  if (it.en && !isDone) title.append(el("div", "en", it.en));
+  if (it.en && !fold) title.append(el("div", "en", it.en));
   head.append(title);
-  if (it.qty && !isDone) head.append(el("span", "qty", "× " + it.qty));
+  if (it.qty && !fold) head.append(el("span", "qty", "× " + it.qty));
   li.append(head);
   const meta = el("div", "meta");
-  meta.append(el("span", null, it.room + (it.place && !isDone ? ", " + it.place : "")));
-  if (it.who && !isDone) meta.append(el("span", null, it.who));
+  meta.append(el("span", null, it.room + (it.place && !fold ? ", " + it.place : "")));
+  if (it.who && !fold) meta.append(el("span", null, it.who));
   meta.append(el("span", null, "№" + it.id));
-  if (it.tag && !isDone) meta.append(el("span", "tag", it.tag));
+  if (it.tag && !fold) meta.append(el("span", "tag", it.tag));
   li.append(meta);
-  if (it.details && !isDone) li.append(el("p", "det", it.details));
-  if (it.hint && !isDone) li.append(el("p", "hint", it.hint));
-
-  const acts = el("div", "acts" + (isDone ? " one" : ""));
+  if (!fold) {
+    if (it.details) li.append(el("p", "det", it.details));
+    if (it.stores.length) {
+      const ul = el("ul", "where");
+      for (const s of it.stores) {
+        const row = el("li"); row.append(el("b", null, s.s));
+        if (s.u) { const a = el("a", null, s.t || "ссылка"); a.href = s.u; a.target = "_blank"; a.rel = "noopener"; row.append(a); }
+        else if (s.t) row.append(document.createTextNode(s.t));
+        ul.append(row);
+      }
+      li.append(ul);
+    }
+  }
+  const acts = el("div", "acts" + (fold ? " one" : ""));
   const btn = (cls, label, pressed, fn, idp) => {
-    const b = el("button", cls, label); b.type = "button"; b.id = idp + "-" + store + "-" + it.id;
+    const b = el("button", cls, label); b.type = "button"; b.id = idp + "-" + it.id;
     if (pressed != null) b.setAttribute("aria-pressed", String(pressed));
     b.addEventListener("click", fn); if (readOnly) b.disabled = true; return b;
   };
-  if (isDone) {
-    acts.append(btn("b-undo", "Вернуть в список", null, () => setBought(it.id, false), "undo"));
+  if (fold === "bought") {
+    if (it.sb && !bought[it.id]) acts.append(el("span", "meta", "Куплено по таблице"));
+    else acts.append(btn("b-undo", "Вернуть в список", null, () => setFlag("bought", it.id, false), "undo"));
+  } else if (fold === "unneeded") {
+    acts.append(btn("b-undo", "Вернуть в список", null, () => setFlag("unneeded", it.id, false), "undo"));
   } else {
     acts.append(
-      btn("b-pick", m === "picked" ? "✓ Беру" : "Беру", m === "picked", () => setMark(it.id, "picked"), "pick"),
-      btn("b-strike", m === "struck" ? "✕ Не здесь" : "Не здесь", m === "struck", () => setMark(it.id, "struck"), "strike"),
-      btn("b-done", "Куплено", null, () => setBought(it.id, true), "done"),
+      btn("b-pick", m === "picked" ? "✓ Беру" : "Беру", m === "picked", () => setTrip(it.id, "picked"), "pick"),
+      btn("b-strike", m === "struck" ? "✕ Не здесь" : "Не здесь", m === "struck", () => setTrip(it.id, "struck"), "strike"),
+      btn("b-done", "Куплено", null, () => setFlag("bought", it.id, true), "done"),
+      btn("b-skip", "Не нужно", null, () => setFlag("unneeded", it.id, true), "skip"),
     );
   }
   li.append(acts);
   return li;
+}
+
+/* ---------- trip actions: paid / next store (two taps to confirm) ---------- */
+let armed = null, armTimer = null;
+function renderTrip() {
+  const box = $("#trip"); box.replaceChildren();
+  const picked = ITEMS.filter(i => stateOf(i) === "picked").map(i => i.id);
+  const struck = ITEMS.filter(i => stateOf(i) === "struck").map(i => i.id);
+  const mk = (key, label, ids, run) => {
+    if (!ids.length) return;
+    const b = el("button", armed === key ? "confirm" : null, armed === key ? "Точно? Нажми ещё раз" : label + " (" + ids.length + ")");
+    b.type = "button"; b.id = "trip-" + key; if (readOnly) b.disabled = true;
+    b.addEventListener("click", () => {
+      if (armed !== key) { armed = key; clearTimeout(armTimer); armTimer = setTimeout(() => { armed = null; renderTrip(); }, 4000); renderTrip(); return; }
+      armed = null; clearTimeout(armTimer); run(ids);
+    });
+    box.append(b);
+  };
+  mk("paid", "Оплатили: «Беру» → «Куплено»", picked, ids => { for (const id of ids) { setFlag("bought", id, true, true); setTrip(id, null, true); } render(); });
+  mk("next", "Другой магазин: снять «Не здесь»", struck, ids => { for (const id of ids) setTrip(id, null, true); render(); });
 }
 
 function setSync(text, warn) { const s = $("#sync"); s.textContent = text; s.classList.toggle("warn", !!warn); }
@@ -278,23 +359,22 @@ let db = null;
 const pending = new Map();   // "coll/doc" -> body or null (delete)
 const writing = new Set();
 
-function loadLocal() {
-  try { const v = JSON.parse(localStorage.getItem(LS_KEY) || "{}"); return v && typeof v === "object" ? v : {}; } catch (e) { return {}; }
-}
-function saveLocal() { try { localStorage.setItem(LS_KEY, JSON.stringify({ marks, bought })); } catch (e) {} }
+function loadLocal() { try { const v = JSON.parse(localStorage.getItem(LS_KEY) || "{}"); return v && typeof v === "object" ? v : {}; } catch (e) { return {}; } }
+function saveLocal() { try { localStorage.setItem(LS_KEY, JSON.stringify({ trip, bought, unneeded })); } catch (e) {} }
 
-function setMark(id, state) {
+function setTrip(id, state, batch) {
   if (readOnly) return;
-  const next = marks[store][id] === state ? null : state;
-  if (next) marks[store][id] = next; else delete marks[store][id];
-  render();
-  queue("marks", store + "-r" + id, next ? { store, state: next, item: NAMES[id] || "", at: new Date().toISOString() } : null);
+  const next = state === null ? null : (trip[id] === state ? null : state);
+  if (next) trip[id] = next; else delete trip[id];
+  if (!batch) render();
+  queue("trip", "r" + id, next ? { state: next, item: byId.get(String(id))?.name || "", at: new Date().toISOString() } : null);
 }
-function setBought(id, on) {
+function setFlag(kind, id, on, batch) {
   if (readOnly) return;
-  if (on) bought[id] = true; else delete bought[id];
-  render();
-  queue("bought", "r" + id, on ? { item: NAMES[id] || "", at: new Date().toISOString() } : null);
+  const map = kind === "bought" ? bought : unneeded;
+  if (on) map[id] = true; else delete map[id];
+  if (!batch) render();
+  queue(kind, "r" + id, on ? { item: byId.get(String(id))?.name || "", at: new Date().toISOString() } : null);
 }
 function queue(coll, docId, body) {
   if (mode === "local") { saveLocal(); return; }
@@ -315,7 +395,7 @@ async function flush(key) {
   } catch (e) {
     if (e && e.code === "invalid_argument") {
       readOnly = true;
-      setSync("У тебя доступ только на просмотр: отметки не сохраняются. Попроси владельца дать доступ Editor или Contributor.", true);
+      setSync("У тебя доступ только на просмотр: отметки не сохраняются. Попроси владельца дать доступ Editor (или Contributor внутри организации).", true);
       render();
     } else if (e && e.code === "unavailable") {
       if (!pending.has(key)) pending.set(key, body);
@@ -328,12 +408,11 @@ async function flush(key) {
     if (pending.has(key)) flush(key);
   }
 }
-
 function overlayPending() {
   for (const [key, body] of pending) {
-    const [coll, docId] = key.split("/");
-    if (coll === "bought") { const id = docId.slice(1); if (body) bought[id] = true; else delete bought[id]; }
-    else { const [st, rid] = docId.split("-r"); if (!marks[st]) continue; if (body) marks[st][rid] = body.state; else delete marks[st][rid]; }
+    const [coll, docId] = key.split("/"); const id = docId.slice(1);
+    if (coll === "trip") { if (body) trip[id] = body.state; else delete trip[id]; }
+    else { const map = coll === "bought" ? bought : unneeded; if (body) map[id] = true; else delete map[id]; }
   }
 }
 
@@ -341,42 +420,36 @@ async function start() {
   try { db = window.claude && window.claude.use ? await window.claude.use("db") : null; } catch (e) { db = null; }
   if (!db) {
     mode = "local";
-    const v = loadLocal();
-    marks = Object.assign(emptyMarks(), v.marks || {});
-    bought = v.bought || {};
+    const v = loadLocal(); trip = v.trip || {}; bought = v.bought || {}; unneeded = v.unneeded || {};
     setSync("Отметки сохраняются только на этом телефоне.");
-    render();
-    return;
+    render(); return;
   }
   mode = "db";
-  let ready = { marks: false, bought: false };
+  const ready = { trip: false, bought: false, unneeded: false };
   const timer = setTimeout(() => setSync("Хранилище пока не отвечает — отметки могут быть не самые свежие.", true), 10000);
-  const settled = () => {
-    if (ready.marks && ready.bought) { clearTimeout(timer); if (!readOnly) setSync("Отметки общие: видны всем, с кем поделились страницей."); }
-  };
+  const settled = () => { if (ready.trip && ready.bought && ready.unneeded) { clearTimeout(timer); if (!readOnly) setSync("Отметки общие: видны всем, с кем поделились страницей."); } };
   const lost = () => { clearTimeout(timer); setSync("Связь с хранилищем потеряна — обнови страницу, когда появится сеть.", true); };
-  db.collection("marks").onSnapshot(snap => {
-    const next = emptyMarks();
-    for (const d of snap.docs) {
-      const v = d.data(); const [st, rid] = d.id.split("-r");
-      if (v && next[st] && (v.state === "picked" || v.state === "struck")) next[st][rid] = v.state;
-    }
-    marks = next; overlayPending();
-    if (!snap.metadata.fromCache) { ready.marks = true; settled(); }
-    render();
-  }, lost);
-  db.collection("bought").onSnapshot(snap => {
+  db.collection("trip").onSnapshot(snap => {
     const next = {};
-    for (const d of snap.docs) next[d.id.replace(/^r/, "")] = true;
-    bought = next; overlayPending();
-    if (!snap.metadata.fromCache) { ready.bought = true; settled(); }
+    for (const d of snap.docs) { const v = d.data(); if (v && (v.state === "picked" || v.state === "struck")) next[d.id.slice(1)] = v.state; }
+    trip = next; overlayPending();
+    if (!snap.metadata.fromCache) { ready.trip = true; settled(); }
     render();
   }, lost);
+  for (const kind of ["bought", "unneeded"]) {
+    db.collection(kind).onSnapshot(snap => {
+      const next = {}; for (const d of snap.docs) next[d.id.slice(1)] = true;
+      if (kind === "bought") bought = next; else unneeded = next;
+      overlayPending();
+      if (!snap.metadata.fromCache) { ready[kind] = true; settled(); }
+      render();
+    }, lost);
+  }
 }
 
 function route() {
   const h = (location.hash || "").replace("#", "");
-  store = STORES[h] ? h : "target";
+  if (TABS.some(t => t.key === h)) tab = h;
   render();
 }
 for (const b of document.querySelectorAll(".filters button")) {

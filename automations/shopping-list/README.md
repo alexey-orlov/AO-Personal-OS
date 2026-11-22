@@ -22,6 +22,6 @@ How it behaves:
 
 `SHOPPING_SHEET_ID` overrides the sheet id (e.g. for a test copy).
 
-## Store checklists (`checklist/`)
+## Checklist page (`checklist/`)
 
-The claude.ai page https://claude.ai/artifact/KVAmZoKZHmESb4HZvLyH1P has Target, ReStore and «Остальное» tabs (the last holds every row in no other list and not ticked for IKEA) with «Беру» / «Не здесь» / «Куплено» on every row; marks are shared through the page's db (layout: `context/_meta/external-sources.md`). The row lists are baked into the page, so after the sheet changes run `python3 automations/shopping-list/checklist/build.py OUT.html` and publish OUT.html to that URL (the marks survive a republish). `checklist/target.json` is the hand-curated Target list (row № → store department, hint, tag); the ReStore list is computed by rule in `build.py`; `checklist/page.html` is the page template.
+The claude.ai page https://claude.ai/artifact/KVAmZoKZHmESb4HZvLyH1P shows the whole list in tabs by kind of thing (Мебель · Аксессуары и декор · Техника · Другое), with a store filter and «Беру» / «Не здесь» / «Куплено» / «Не нужно» on every row; marks are shared through the page's db (layout: `context/_meta/external-sources.md`). The rows are baked into the page, so after every sheet change run `python3 automations/shopping-list/checklist/build.py OUT.html` and publish OUT.html to that URL (the marks survive a republish). `build.py` holds the tab rule, the ReStore rule and the other-store hints; `checklist/target.json` is the hand-curated Target list (row № → hint); `checklist/page.html` is the page template.
