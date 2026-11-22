@@ -27,11 +27,13 @@ The skill itself never edits the tracker, never writes to the outreach artifact 
 
 - Read the sheet with the bundled reader (openpyxl is not installed): copy the .xlsx into a new, empty scratchpad folder and run `python3 -I .claude/skills/presales-status-collector/scripts/read_xlsx.py "<copy>" "Outreach list"`.
 - Columns: `Account | Relevant service | Owner | CSL/Delivery | Status DD.MM | Status DD.MM | …`. Ignore empty trailing columns and stray headers (the 16.11 sheet has a lone `1`).
+- The reader prints a line break inside a cell as `\n`; write it as `<br>` in the table.
 - Keep the rows whose **Owner** contains `Orlov`. Match loosely: cells carry leading spaces, typos and notes.
+- Also keep **BlackBerry (QNX)**: Alex works it without an owner on the sheet and lists it under his name (Alex, 2026-11-22). Copy its cells verbatim, with his name in Owner.
 - **Last status column** = the right-most `Status DD.MM` header. **Evidence window** starts on that date.
 - **New status column** = last status date + 7 days; if that date has passed, the next Monday from today. Name it `Status DD.MM`.
 - Show Alex the accounts found in one line and carry on; stop only when no row matched.
-- An account Alex works that the sheet does not give him (an empty Owner, e.g. BlackBerry (QNX)) stays out of the file. Ask once in the interview whether to add it.
+- Any other account Alex works that the sheet does not give him stays out of the file; ask once (step 3) whether to add it.
 
 ### 2. Gather evidence per account
 
@@ -42,17 +44,14 @@ The skill itself never edits the tracker, never writes to the outreach artifact 
 - **Don't attribute ambiguous items.** A note that could belong to more than one account (the same AM on several rows, a contact who belongs to another account) stays out of every row and becomes a question.
 - Dates as `DD.MM`, in Alex's time zone (Pacific since 2026-11-19). Resolve relative dates ("Monday", "Friday") against the day the note was written, and ask when unsure.
 
-### 3. Interview Alex
+### 3. Resolve the gaps, then ask only what is left
 
-Send one chat message in the language Alex is using; don't use the question widget, the answers are open. For each account show:
-- **Confirmed**: 2–4 short facts, each with its date and source (outreach log, call note, wiki page).
-- **Draft status**: the one-line status you would write from confirmed facts alone.
+Gaps per account: the outcome of the step named in the previous status; the next step and date when none is logged; owner changes; contradictions between the tracker and the log; the ambiguous items from step 2.
 
-Then ask the gap questions as one numbered list, at most two per account, only where something is missing or unclear: the outcome of the step named in the previous status; the next step and date when none is logged; owner changes; contradictions between the tracker and the log; the ambiguous items from step 2. An account with no evidence at all gets one question: "any activity, or leave it empty?"
-
-Say that he can answer by voice, in any order, and that "nothing to add" is a valid answer. Then end the turn and wait.
-
-If he answers "nothing to add" or skips an account, use the confirmed draft as is and move on; don't ask again.
+- **Look every gap up first** (Alex, 2026-11-22): the `tracking` notes and contacts, the `accounts` record (`ss_team` holds the account team), the account's wiki home and its call notes. A gap the sources answer is no question. An account with nothing new keeps its logged state ("no reply yet") or `—`.
+- **Show the drafts** in chat as one table, account · draft status, tagged as in step 4.
+- **Ask what is left** in one `AskUserQuestion` call (Alex, 2026-11-22), never as a numbered list in chat, and only where the answer changes a cell: up to four questions, each standing alone (it names the account and quotes the logged fact), its options the plausible answers, one choice per option. Nothing about wording, nothing about accounts whose draft stands.
+- A skipped question or "nothing to add" keeps the draft; don't ask again.
 
 ### 4. Write the output
 
@@ -91,4 +90,4 @@ Alex: "Prepare my pre-sales update for Monday."
 1. The connector is not signed in, so the newest local copy of the tracker is used (dated in the reply); 7 rows owned by Alex; last column `Status 16.11` → new column `Status 23.11`, window from 16.11.
 2. One account's log entry from inside the window says the AM agreed and a client call is scheduled → draft `[C]`.
 3. Another account's log names a meeting with a person who is a different account's client partner → kept out of both rows, asked as a question.
-4. Alex replies "nothing to add" for the rest → file written with `[C]` statuses only, then his answers are folded into the wiki.
+4. The log and the wiki answer the other gaps; the two they don't go to Alex in one widget call → file written, then his answers are folded into the wiki and the tracker.

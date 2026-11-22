@@ -59,7 +59,7 @@ def main():
                 elif v is not None:
                     val = v.text
                 if val not in (None, ""):
-                    cells.append("%s=%s" % (ref, val.replace("\n", " / ")))
+                    cells.append("%s=%s" % (ref, val.replace("\n", "\\n")))
             if cells:
                 print("ROW %s: %s" % (row.get("r"), " | ".join(cells)))
 
