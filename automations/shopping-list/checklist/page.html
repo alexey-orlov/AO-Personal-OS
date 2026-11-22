@@ -108,7 +108,8 @@ li.item.bought .name { color: var(--muted); }
 .qty { flex: none; font-variant-numeric: tabular-nums; font-weight: 600; font-size: 0.95rem; background: var(--accent-soft); color: var(--accent); border-radius: 8px; padding: 2px 8px; }
 .meta { font-size: 0.84rem; color: var(--muted); display: flex; flex-wrap: wrap; gap: 4px 10px; }
 .tag { font-size: 0.75rem; font-weight: 600; color: var(--warn); background: var(--warn-soft); border-radius: 6px; padding: 1px 7px; }
-.hint { font-size: 0.86rem; color: var(--ink); margin: 0; }
+.det { font-size: 0.88rem; font-weight: 500; color: var(--ink); margin: 0; }
+.hint { font-size: 0.86rem; color: var(--muted); margin: 0; }
 .acts { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; }
 .acts.one { grid-template-columns: 1fr; }
 .acts button {
@@ -248,6 +249,7 @@ function card(it, isDone) {
   meta.append(el("span", null, "№" + it.id));
   if (it.tag && !isDone) meta.append(el("span", "tag", it.tag));
   li.append(meta);
+  if (it.details && !isDone) li.append(el("p", "det", it.details));
   if (it.hint && !isDone) li.append(el("p", "hint", it.hint));
 
   const acts = el("div", "acts" + (isDone ? " one" : ""));

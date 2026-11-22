@@ -39,6 +39,7 @@ OTHER_RULES = {
     "Лопасти для вентилятора": ("Для вентиляторов", "Модель — на наклейке мотора. Home Depot: комплект из 5 лопастей $13–37, под конкретную модель"),
     "Ручки для шкафчиков": ("Amazon", "Ищи self-adhesive cabinet handles; в IKEA и Target на липучке нет"),
     "Украшение на дверь": ("Amazon", "Ищи eagle wall decor"),
+    "Присоска": ("Amazon", "Ищи heavy duty suction cup; крепче всего держат вакуумные с рычажком (lever)"),
     "Перфорированная панель": ("IKEA", "IKEA SKÅDIS. Магниты к обычной (ДВП) не липнут — нужна стальная или клипсы"),
     "Телевизор": ("Электроника", "Чёрная пятница — 27 ноября: Target, Best Buy, Costco"),
 }
@@ -54,7 +55,7 @@ def who(notes):
 
 def base(r):
     return {"id": r["id"], "name": r["item"], "en": r["en"], "room": r["room"], "place": r["place"],
-            "qty": r["qty"] if r["qty"] != "" else None, "who": who(r["notes"])}
+            "qty": r["qty"] if r["qty"] != "" else None, "who": who(r["notes"]), "details": r["details"]}
 
 
 def ikea_benchmark(where):
