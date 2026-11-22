@@ -54,6 +54,7 @@ context/areas/gigacloud/calls/other/2026-07-21_180038_default_202607171304495CAC
 context/areas/gigacloud/calls/other/2026-10-12_130201_default_20261011192457B8796AD2.md
 context/areas/gigacloud/calls/other/2026-10-29_154100_default_202610121417467AB7FC95.md
 context/areas/gigacloud/calls/other/2026-10-29_154300_default_20261012193542DEBF166F.md
+context/areas/gigacloud/docs/h1-results-deck/HANDOFF.md
 context/areas/gigacloud/docs/margin-deck/HANDOFF.md
 context/areas/gigacloud/docs/publication-process-deck/HANDOFF.md
 context/areas/job-search/calls/vacancy-interviews/_unknown/2026-05-21_1806_interview.md
@@ -110,6 +111,7 @@ context/areas/softserve/calls/2026-08-18_141300_one-on-one_20260818132936005C128
 context/areas/softserve/calls/2026-09-24_184829_default_202609241412499B9FE527.md
 context/areas/softserve/calls/2026-10-29_154400_default_2026101311353551BB60DF.md
 context/areas/softserve/calls/2026-11-09_104600_default_20261109090559BD79FE45.md
+context/areas/softserve/calls/generac/2026-11-22_sales-call_pasted-ecobee-iot-platform-kickoff.md
 context/areas/softserve/calls/jumpstart-pm/2026-07-14_194924_sales-call_2026071417472224FB611D.md
 context/areas/softserve/calls/jumpstart-pm/2026-07-30_132405_sales-call_2026072717330524296792.md
 context/areas/softserve/calls/jumpstart-pm/2026-07-30_202249_sales-call_20260730190421E7393EB4.md
@@ -198,4 +200,3 @@ context/areas/softserve/docs/2026-10-13_oracle-pack-set-exec.pdf
 context/areas/softserve/docs/2026-10-13_oracle-packs-strategy-deck/Oracle packs - packaging strategy (preview).pdf
 context/areas/softserve/docs/conga-ai-pm-bootcamp-transcript.md
 context/areas/softserve/docs/oracle-packages-tshirt-sizing.md
-context/areas/gigacloud/docs/h1-results-deck/HANDOFF.md
