@@ -1,6 +1,6 @@
 # Generac and ecobee: the IoT platform project and the hardware Jumpstart pursuit
 
-_status: SoftServe has kicked off ecobee's IoT platform project (ICS, the AWS layer for the next-generation thermostat; a phased SoW for AWS MAP funding to approve before the end of 2026, the team from January). Alex's pursuit rides on it: the AI Jumpstart for Hardware & Embedded R&D for ecobee's firmware team, which is rewriting the thermostat firmware on Zephyr RTOS. Oksana Sharonina, the client partner, wants the offer tailored to that context before it is shown; the contact so far is ecobee's VP of firmware, with no one yet at Generac itself. Next: Alex listens to the latest project recording, talks to the SoftServe project team (Moaz, the main SME, first), drafts the tailored Jumpstart and reviews it with Oksana, ideally the week of 2026-11-23._
+_status: SoftServe has kicked off ecobee's IoT platform project (ICS, the AWS layer for the next-generation thermostat; a phased SoW for AWS MAP funding to approve before the end of 2026, the team from January). Alex's pursuit rides on it: the AI Jumpstart for Hardware & Embedded R&D for ecobee's firmware team, which is rewriting the thermostat firmware on Zephyr RTOS. Oksana Sharonina, the client partner, wants the offer tailored to that context before it is shown; the contact so far is ecobee's VP of firmware, with no one yet at Generac itself. Next: Alex listens to the latest project recording, talks to the SoftServe project team (Muaz Malas, the main SME, first), drafts the tailored Jumpstart and reviews it with Oksana, ideally the week of 2026-11-23._
 _updated: 2026-11-22_
 
 ## Snapshot
@@ -19,7 +19,7 @@ _updated: 2026-11-22_
 
 - Alex Bekh — account owner → [people page](../../people/alex-bekh.md).
 - Oksana Sharonina — account manager (client partner) for ecobee and Generac → [people page](../../people/oksana-sharonina.md).
-- SoftServe project team: **Moaz** (as Alex heard it; spelling unconfirmed) — IoT Solutions Architect in Chicago, the main SoftServe SME on the project (chat, 2026-11-22) · Varty Kuyumdjian — delivery director for Generac and ecobee · Lisa — delivery, on ecobee for several years · Jarek — leads the AWS Cloud Center of Excellence (Poland) · Volodymyr Pavlyuk — IoT architect, industrial IoT · Alejandro — partnerships (AWS–SoftServe–Generac).
+- SoftServe project team: **Muaz Malas** — Solutions Architect, Advanced Technologies (introduced on the kickoff as the IoT Solutions Architect in Chicago), the main SoftServe SME on the project (chat, 2026-11-22) · Varty Kuyumdjian — delivery director for Generac and ecobee · Lisa — delivery, on ecobee for several years · Jarek — leads the AWS Cloud Center of Excellence (Poland) · Volodymyr Pavlyuk — IoT architect, industrial IoT · Alejandro — partnerships (AWS–SoftServe–Generac).
 - ecobee: Dave — manages the ICS team (Toronto; came from the smart-security GCP backend) · Stephen / Steven — principal engineer, owns the ICS design · JL — holds the schedule and the Monday checkpoint (role not stated).
 - ecobee's VP of firmware — Alex's contact so far, but no public source names anyone with that title (web research, 2026-11-22; full notes in OneDrive `Projects/Jumpstart for scientists/Outreach/Stakeholder research/`). Candidates: Brent Laurence, VP Hardware Engineering (data-broker listings only, undated; no LinkedIn found) · Jean-Luc Dery, VP of Engineering since 2022 ([LinkedIn](https://www.linkedin.com/in/jldery/); current, but the cloud, data and app side, inferred). Possible champion: Kevin Ebert, Manager, Firmware Development ([LinkedIn](https://www.linkedin.com/in/kevinebert/); the title from data brokers, ecobee current per LinkedIn; medium confidence). Co-founder Mark Malchiondo, "VP, Software Development" on the old executive page, has retired; co-founder John Metselaar, Chief Hardware Architect, is unverified as current.
 - Generac: Matt — owns the UDMP · two-pager champions (quick research, unverified): Greg Wischstadt, SVP Engineering · Prathamesh Vadhavkar, Director of Engineering, Electrical and Controls · Nathan Jobe, Firmware Team Lead.
@@ -32,7 +32,7 @@ _updated: 2026-11-22_
 ## Open loops
 
 Mine:
-- Listen to the recording of the project's latest meeting; talk to the SoftServe project team, Moaz first. (chat, 2026-11-22)
+- Listen to the recording of the project's latest meeting; talk to the SoftServe project team, Muaz Malas first. (chat, 2026-11-22)
 - Draft the tailored AI Jumpstart for Hardware & Embedded R&D for ecobee's firmware team; review it with Oksana, ideally the week of 2026-11-23. (chat, 2026-11-22)
 - Find stakeholders at Generac itself, beyond ecobee. (chat, 2026-11-22)
 
@@ -43,8 +43,6 @@ Gaps:
 - The kickoff's date and the Monday checkpoint's outcome.
 - The VP of firmware's name: public sources name none, so ask Oksana where the title came from, or search Sales Navigator; the firmware team's location, tools and AI policy; the SoC decision and its date.
 - Whether SoftServe's embedded developers on smart security sit in the firmware org (a ready pilot team, inferred), and what stalled the earlier discussion.
-- Moaz's exact spelling.
-
 ## Activity
 
 - 2026-11-22 — [ecobee IoT platform kickoff](calls/generac/2026-11-22_sales-call_pasted-ecobee-iot-platform-kickoff.md) + Alex's meeting with Oksana (chat, 2026-11-22) — page created: the project, the firmware context, the tailor-first steer. Web research the same day named no VP of firmware; two VP candidates and a firmware manager recorded.
