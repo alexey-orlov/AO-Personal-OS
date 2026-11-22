@@ -2,6 +2,7 @@
 
 _status: SoftServe has kicked off ecobee's IoT platform project (ICS, the AWS layer for the next-generation thermostat; a phased SoW for AWS MAP funding to approve before the end of 2026, the team from January). Alex's pursuit rides on it: the AI Jumpstart for Hardware & Embedded R&D for ecobee's firmware team, which is rewriting the thermostat firmware on Zephyr RTOS. Oksana Sharonina, the client partner, wants the offer tailored to that context before it is shown; the contact so far is ecobee's VP of firmware, with no one yet at Generac itself. Next: Alex listens to the latest project recording, talks to the SoftServe project team (Muaz Malas, the main SME, first), drafts the tailored Jumpstart and reviews it with Oksana, ideally the week of 2026-11-23._
 _updated: 2026-11-22_
+_tracker: [California Jumpstart Outreach](https://claude.ai/artifact/5spjsfxGjGhj9ynmkh67qe), doc `generac`: the live status, next step, contacts and account summary · registry and sync ledger: [outreach-tracker](../../_meta/outreach-tracker.md)_
 
 ## Snapshot
 

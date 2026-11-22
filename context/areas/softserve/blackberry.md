@@ -2,6 +2,7 @@
 
 _status: a 10+-year services account on BlackBerry's Secure Communications products that keeps renewing (FY27 extensions ~$1.15M won 2026-03) but has lost every recent new bid, the latest being AtHoc's $600K follow-on and $85K POC on 2026-11-05 ("client priorities/org change"). Two expansion pursuits, neither with revenue: QNX embedded (three CRM opportunities at 1-Qualify, closes pushed to Jan–Feb 2027) and AI adoption (VP Paul O'Hagan's 2025 ask). QNX treats subcontractors as competitors (Oksana, 2026-11-22), so capacity sales stall there; the main contact, Andy Gryc, QNX's Developer Ecosystem Director (its lead of enablement and popularization), can open doors inside QNX once SoftServe has a sharp offer, and Alex's take is that an AI enablement program reads differently. Next: that offer, and the meeting with Jason Whissell (listed as VP of IT for QNX) at AWS re:Invent (proposed Tue 2026-12-01, TAO meeting space)._
 _updated: 2026-11-22_
+_tracker: [California Jumpstart Outreach](https://claude.ai/artifact/5spjsfxGjGhj9ynmkh67qe), doc `blackberry`: the live status, next step, contacts and account summary · registry and sync ledger: [outreach-tracker](../../_meta/outreach-tracker.md)_
 
 ## Snapshot
 

@@ -11,14 +11,14 @@ Each week the R&D product team updates one shared tracker, **Physical & Bio AI A
 
 Adapted from the R&D team's skill of the same name (received 2026-11-22). The team's version gathers evidence from Teams, Outlook and the calendar. **Alex's sources of truth are his outreach artifact and this repo** (Alex, 2026-11-22), so this version reads those and does not search Teams, Outlook or the calendar.
 
-The skill never edits the tracker, never writes to the outreach artifact and never sends messages. It reads, asks, and writes one Markdown file.
+The skill itself never edits the tracker, never writes to the outreach artifact and never sends messages. It reads, asks, and writes one Markdown file. Its last step folds what Alex said through `context-update`, which also updates the outreach artifact under the tracker ↔ wiki contract (`.claude/references/jumpstart-outreach-tracker.md`).
 
 ## Sources
 
 | What | Where |
 |---|---|
 | Tracker | The live file is in Bohdan Khomych's OneDrive. Reach it with the `ms365` MCP when it is signed in (`list-drives`, `search-onedrive-files`); otherwise take the newest local copy, `~/Downloads/Physical & Bio AI Accounts*.xlsx` or the CSV export in OneDrive `Projects/Jumpstart for scientists/Outreach/`. Say which copy you used and its date. |
-| Outreach log | The artifact "California Jumpstart Outreach", `https://claude.ai/artifact/5spjsfxGjGhj9ynmkh67qe`. Read its database with `ArtifactData`: collection `tracking`, one document per account slug with `status`, `notes`, `next_step`, `contacts`, `updated_at`; collection `accounts` holds the research, for background only. Statuses: not-started · reached-out (to the AM) · talking (with the AM) · yes (AM yes → presales chat) · no (AM no → reason logged) · parked. |
+| Outreach log | The artifact "California Jumpstart Outreach", `https://claude.ai/artifact/5spjsfxGjGhj9ynmkh67qe`. Read its database with `ArtifactData`: collection `tracking`, one document per account slug with `status`, `notes` (the next step), `contacts`, `account_summary` (SoftServe's own context on the account), `updated_at`; collection `accounts` holds the research, for background only. Statuses: not-started · reached-out (to the AM) · talking (with the AM) · yes (AM yes → presales chat) · no (AM no → reason logged) · parked. |
 | Repo | `context/areas/softserve/jumpstart-science.md` (its Active threads hold the outreach rows and their history), account pages such as `generac.md` and `blackberry.md`, call notes under `context/areas/softserve/calls/` dated inside the window, and `git log --since=<window start> --date=short --format='%ad %s' -- context/areas/softserve` for what was folded when. |
 
 ## Workflow
@@ -35,7 +35,7 @@ The skill never edits the tracker, never writes to the outreach artifact and nev
 
 ### 2. Gather evidence per account
 
-- **Outreach log:** match each row to its `tracking` document. The slug is the account name in lower case with hyphens; "Ride Also" is `also`, "NextEra Energy, Inc" is `nextera-energy`. An entry updated inside the window is new evidence; an older one is context the last status already holds.
+- **Outreach log:** match each row to its `tracking` document by the slug in the registry, `context/_meta/outreach-tracker.md` ("Ride Also" is `also`, "NextEra Energy, Inc" is `nextera-energy`); an account missing there is new to the outreach. An entry updated inside the window is new evidence; an older one is context the last status already holds.
 - **Repo:** search the account name, its short forms (strip region suffixes and legal forms) and the AE and DO names from the *CSL/Delivery* cell in `context/areas/softserve/`. Open the call notes and page sections that carry substance; a summary line in `index.md` is not enough.
 - **What counts:** client-facing and decision signals: meetings held or scheduled, replies, materials sent, scope or ROM changes, owner changes, cancellations, go / no-go decisions. Research, internal drafting and undated plans do not.
 - **Check the previous status.** If the last cell said "call on Friday", look for that call. If no record shows it happened, ask; never assume it did.
@@ -83,7 +83,7 @@ Send the file to Alex with `SendUserFile` and end with one line: how many accoun
 
 ### 5. Fold the new facts
 
-What Alex said in the interview is new context: after the file is delivered, fold it into the wiki with the `context-update` skill (pasted mode). Never write it into the tracker or the artifact.
+What Alex said in the interview is new context: after the file is delivered, fold it into the wiki with the `context-update` skill (pasted mode), which also pushes each account's status, next step and summary to the outreach artifact under the contract. Never write it into the team's xlsx tracker.
 
 ## Example run (condensed)
 
