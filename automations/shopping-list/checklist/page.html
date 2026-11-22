@@ -199,7 +199,7 @@ function storeMatch(it) {
 }
 function stateOf(it) {
   if (unneeded[it.id]) return "unneeded";
-  if (bought[it.id] || it.sb) return "bought";
+  if (bought[it.id]) return "bought";
   return trip[it.id] || "left";
 }
 const visibleTabs = () => TABS.filter(t => ITEMS.some(i => i.tab === t.key));
@@ -316,8 +316,7 @@ function card(it, fold) {
     b.addEventListener("click", fn); if (readOnly) b.disabled = true; return b;
   };
   if (fold === "bought") {
-    if (it.sb && !bought[it.id]) acts.append(el("span", "meta", "Куплено по таблице"));
-    else acts.append(btn("b-undo", "Вернуть в список", null, () => setFlag("bought", it.id, false), "undo"));
+    acts.append(btn("b-undo", "Вернуть в список", null, () => setFlag("bought", it.id, false), "undo"));
   } else if (fold === "unneeded") {
     acts.append(btn("b-undo", "Вернуть в список", null, () => setFlag("unneeded", it.id, false), "undo"));
   } else {

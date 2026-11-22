@@ -25,3 +25,12 @@ How it behaves:
 ## Checklist page (`checklist/`)
 
 The claude.ai page https://claude.ai/artifact/KVAmZoKZHmESb4HZvLyH1P shows the whole list in tabs by kind of thing (Мебель · Аксессуары и декор · Техника · Другое), with a store filter and «Беру» / «Не здесь» / «Куплено» / «Не нужно» on every row; marks are shared through the page's db (layout: `context/_meta/external-sources.md`). The rows are baked into the page, so after every sheet change run `python3 automations/shopping-list/checklist/build.py OUT.html` and publish OUT.html to that URL (the marks survive a republish). `build.py` holds the tab rule, the ReStore rule and the other-store hints; `checklist/target.json` is the hand-curated Target list (row № → hint); `checklist/page.html` is the page template.
+
+## Keeping the page and the sheet in sync (always — Alex, 2026-11-22)
+
+The sheet and the page must never disagree. Lasting marks («Куплено», «Не нужно») live in the page's db and mirror the sheet's «Статус» (Куплено, Отказались); trip marks («Беру», «Не здесь») stay on the page. Run this at the start of every turn that touches the shopping list, and again after any change to the sheet:
+
+1. Export the db: ArtifactData `list` with `out_dir` (one call per collection: `bought`, `unneeded`, `meta`; `query.limit` 1000) for https://claude.ai/artifact/KVAmZoKZHmESb4HZvLyH1P, into one fresh folder.
+2. `python3 automations/shopping-list/checklist/sync.py <folder>` shows the plan; add `--apply` to write the sheet. It decides each row three-way against `meta/sync` (the state both sides agreed on last time), so it knows which side changed; when both changed differently, the page wins and the run says so.
+3. Write the printed `DB_WRITES` with one ArtifactData `batch` (deletes take the `if_version` shown next to each exported file) and the printed `META` to collection `meta`, doc `sync` (pin `if_version` once it exists).
+4. If the sheet changed (here or in step 2): `python3 automations/shopping-list/checklist/build.py OUT.html` and publish OUT.html to the same URL.

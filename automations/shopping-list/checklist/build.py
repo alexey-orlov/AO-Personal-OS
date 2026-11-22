@@ -3,8 +3,9 @@
 usage: python3 build.py OUT.html
 
 Tabs by kind of thing (Alex, 2026-11-22): Мебель · Аксессуары и декор · Техника · Другое
-(«Другое» only holds what fits none of the first three). Every sheet row is on the page
-except rows the sheet marks «Отказались»; a row the sheet marks «Куплено» shows as bought.
+(«Другое» only holds what fits none of the first three). Every sheet row is on the page;
+whether it shows as bought or not needed comes only from the page's db, which sync.py keeps
+equal to the sheet's «Статус» (Куплено / Отказались) — run sync.py before building.
 
 Each card lists where to look:
 - IKEA — the «Где купить» HYPERLINK (ticked «Брать в IKEA», or an IKEA example);
@@ -73,7 +74,7 @@ def hyperlink(where):
 
 def main(out):
     L = shop.lists()
-    rows = [r for r in shop.read_rows() if r["status"] != "Отказались"]
+    rows = shop.read_rows()
     target = {c["id"]: c for c in json.load(open(os.path.join(HERE, "target.json"), encoding="utf-8"))}
     items = []
     for r in rows:
@@ -100,7 +101,7 @@ def main(out):
             "room": r["room"], "place": r["place"], "qty": r["qty"] if r["qty"] != "" else None,
             "who": who(r["notes"]), "details": r["details"],
             "tag": "под вопросом" if "под вопросом" in notes else "",
-            "stores": stores, "sb": r["status"] == "Куплено",
+            "stores": stores,
         })
     order = {k: i for i, k in enumerate(L["room"])}
     gorder = {k: i for i, k in enumerate(L["type"] + L["cat"])}
