@@ -74,7 +74,9 @@ Line rules:
   any non-numeric reps with a leading apostrophe (`"reps":"'8-10"`): `log`
   writes USER_ENTERED, and the en_US sheet would read a bare `8-10` as a date.
 - Weights: one number → start = end = it; `A→B` / `A-B` → start A, end B;
-  a series `A/B/C/D` or `A-B-C` → start = first, end = last.
+  a series `A/B/C/D` or `A-B-C` → start = first, end = last. A series
+  longer than the set count (`14/16/16/16` on 3×10) → log the sets that
+  match the count (16→16) and report the extra number (Alex, 23.11.26).
 - A small number-series squeezed above/below a line belongs to the adjacent
   exercise that has **no inline weights** — each exercise ends up with exactly
   one weight series. Match series length to set count when attributing.

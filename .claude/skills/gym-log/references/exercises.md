@@ -28,7 +28,7 @@ spellings show up in the notes. Categories are EN muscle groups.
 | Сгиб. голени | Legs | Сгибание голени | leg curl; 59/59/63 seen — stack has small steps at top; 68.5 (14.09), 66 ×3 (05.10) |
 | Жим ногами сидя | Legs | | seated leg press; 95→113 (14.08, 14.09) |
 | Разгиб. бедра в упоре | Glutes | Разгибание бедра, Разгиб. бедра | kickback; half-tiles: 22.5/27.5/29.5; 30/32/32 (05.10) |
-| Отведение на ягодицы | Glutes | | glute abduction machine (inferred from the name); 7-kg steps 86/93/100, 3×15 (05.10, first log); 89/100/107 (12.10, the 89 overwritten — unconfirmed) |
+| Отведение на ягодицы | Glutes | | glute abduction machine (inferred from the name); 7-kg steps 86/93/100, 3×15 (05.10, first log); 89/100/107 (12.10; the overwritten 89 confirmed by Alex) |
 | Жим на плечи сидя | Shoulders | Жим сидя на плечи | shoulder press machine; stack 36/41/45 |
 | Махи на плечи | Shoulders | Махи | two-arm lateral-raise machine; 32/36 (07), 39→41 (14.09, 18.09). One-arm work goes to `Махи на плечи одной рукой` |
 | Реверс | Shoulders | Реверс на заднюю Δ, Реверс. на заднюю Δ | reverse fly for the rear delts — the Сведение рук machine reversed; 59 (14.09), 70 3×8 (16.10), 70 3×10 (23.10, 30.10). Same row for «на заднюю Δ» (Alex, 23.11.26) |
