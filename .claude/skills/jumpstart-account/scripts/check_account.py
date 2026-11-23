@@ -235,7 +235,11 @@ def check_note(t):
             say("FAIL", w, f"missing {f}")
     if t.get("lang") not in ("EN", "UA"):
         say("FAIL", w, "lang must be EN or UA")
+    if t.get("author") not in (None, "agent", "alex"):
+        say("FAIL", w, "author must be 'agent' or 'alex'")
     msgs = t.get("msgs") or []
+    if t.get("author") == "alex":
+        return  # Alex's own note is stored as he sent it: no playbook checks
     if len(msgs) != 3:
         say("FAIL", w, f"{len(msgs)} messages; the note is three bubbles")
     for i, m in enumerate(msgs + (t.get("alt") or {}).get("msgs", [])):

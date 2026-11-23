@@ -18,7 +18,7 @@
 - When the fit is weak, the note says so.
 
 **Alex's own draft**
-- When Alex writes the note himself, edit it with message-writing's editing rules (minimal changes), then store his final text in `teams_note`.
+- When Alex writes the note himself, edit it with message-writing's editing rules (minimal changes), then store his final text in `teams_note` with `author: "alex"`, bubble for bubble as he sends it. The checker skips the playbook checks for it.
 
 **Sent stays sent**
 - Before changing a note, read `tracking/<slug>.status`.
