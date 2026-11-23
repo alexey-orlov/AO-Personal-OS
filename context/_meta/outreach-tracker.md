@@ -3,7 +3,7 @@
 Maps each AI Jumpstart outreach account to its tracker docs and its wiki home, and records the tracker version the wiki has folded. The contract that uses it: `.claude/references/jumpstart-outreach-tracker.md`.
 
 - **Tracker:** [California Jumpstart Outreach](https://claude.ai/artifact/5spjsfxGjGhj9ynmkh67qe), a private claude.ai artifact. Collections `accounts` (research) and `tracking` (status, next step, contacts, account summary), one doc per slug; read and written with `ArtifactData`.
-- **Last full sync:** 2026-11-22, both directions, all rows below.
+- **Last full sync:** 2026-11-23, both directions, all rows below.
 
 ## Accounts
 
@@ -20,7 +20,7 @@ In the tracker's priority order. "Folded" is the `tracking` version the wiki ref
 | brain-corp | Brain Corp | [jumpstart-science](../areas/softserve/jumpstart-science.md#active-threads) | 2 | 2026-11-22 |
 | also | ALSO (listed as Ride Also) | [jumpstart-science](../areas/softserve/jumpstart-science.md#active-threads) | 5 | 2026-11-22 |
 | maximo-robotics | Maximo Robotics | [jumpstart-science](../areas/softserve/jumpstart-science.md#active-threads) | 6 | 2026-11-22 |
-| lumentum | Lumentum | [jumpstart-science](../areas/softserve/jumpstart-science.md#active-threads) | 7 | 2026-11-22 |
+| lumentum | Lumentum | [jumpstart-science](../areas/softserve/jumpstart-science.md#active-threads) | 8 | 2026-11-23 |
 | benchling | Benchling | [jumpstart-science](../areas/softserve/jumpstart-science.md#active-threads) | 2 | 2026-11-22 |
 | genentech | Genentech | [jumpstart-science](../areas/softserve/jumpstart-science.md#active-threads) | 2 | 2026-11-22 |
 | amgen | Amgen | [jumpstart-science](../areas/softserve/jumpstart-science.md#active-threads) | 2 | 2026-11-22 |
