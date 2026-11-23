@@ -12,7 +12,7 @@ One account in, three things out:
 - a two-pager in OneDrive;
 - a Teams note to the account's owner.
 
-A new row passes every check the reviewed rows passed before Alex sees it. He asked for those checks one by one on the first fifteen accounts (Nov 2026), and he should never have to ask again.
+The row passes the same gate the reviewed rows passed before it is marked `done`. Rationale and incidents are in `decisions.md`; don't load it at runtime.
 
 ## Homes (one per thing)
 
@@ -20,14 +20,14 @@ A new row passes every check the reviewed rows passed before Alex sees it. He as
 |---|---|
 | Research: company, units, signals, people, sizes, Oracle, Edge AI, Teams note | tracker `accounts/<slug>`, https://claude.ai/artifact/5spjsfxGjGhj9ynmkh67qe (`ArtifactData`) |
 | Status, next step, contacts, account summary; the wiki side | tracker `tracking/<slug>`, per `.claude/references/jumpstart-outreach-tracker.md` |
-| What counts as bio or hardware work, the personas, where signals come from, the Oracle and Edge AI column rules | the tracker page's fold "What counts as bio or hardware…" (`Artifact` read); it wins over any summary here |
+| Bio and hardware definitions, personas, where signals come from, the Oracle and Edge AI column rules | the tracker page's fold "What counts as bio or hardware…" (`Artifact` read). It wins over any summary here. |
 | Research rules: signal rubric, second pass, sizing, Sales Navigator, the new-row gate | `.claude/references/research-standards.md` |
+| Teams note: structure, hook rule, Alex's EN and UA forms | the `message-writing` skill, playbook "Chat first contact" |
 | Two-pager build kit, its rules and sources | OneDrive `Projects/Jumpstart for scientists/Current offerings/one-pager-build/` (`README.md`, `PROVENANCE.md`) |
 | Finished two-pagers | OneDrive `Current offerings/AI Jumpstart for <offer>/Account two-pagers/` |
-| Teams note template | the `message-writing` skill, playbook "Chat first contact" |
-| Working files | the scratchpad, which macOS empties after about three days. Research worth reusing goes to `one-pager-build/research/<slug>/` |
+| Research worth reusing | `one-pager-build/research/<slug>/`, since the scratchpad is temporary |
 
-Client deal values, revenue and CRM notes never go into this repo, except as wiki history under the tracker contract.
+Client deal values, revenue and CRM notes stay out of this repo, except as wiki history under the tracker contract.
 
 ## Stages
 
@@ -37,33 +37,28 @@ Load only the card for the stage you are on:
 2. Research fan-out: `references/02-research.md`, with `briefs-common.md` and `briefs-research.md`
 3. Sales Navigator, team count and names: `references/03-sales-navigator.md`
 4. Verify, the gate: `references/04-verify.md`, with `briefs-common.md` and `briefs-verify.md`
-5. Write the tracker row: `references/05-tracker.md` (fill `templates/account-doc.json`)
-6. Two-pager content: `references/06-two-pager-content.md` (fill `templates/two-pager-account.json`), with `briefs-page2.md`
+5. Write the tracker row: `references/05-tracker.md`, filling `templates/account-doc.json` and `templates/tracking-doc.json`
+6. Two-pager content: `references/06-two-pager-content.md`, filling `templates/two-pager-account.json`, with `briefs-page2.md`
 7. Two-pager build and filing: `references/07-two-pager-build.md`
 8. Teams note: `references/08-teams-note.md`
-9. Check and report: run `scripts/check_account.py`, then `references/09-report.md`
-
-When editing this skill, keep every card at 300 words or fewer: `python3 scripts/budget.py` checks it.
+9. Check and report: `scripts/check_account.py`, then `references/09-report.md`
 
 **Re-check mode** ("re-check the new rows", "same checks for <account>"):
 1. Read the live row and the current account file.
-2. Run stage 4 on them.
+2. Run stage 4.
 3. Run stages 5 to 9 only for what changed.
 
-**Several accounts:**
-- one agent per account at each stage;
-- at most about eight web-research agents at once;
-- give Alex each account's results as they land.
+**Agents**
+- One account: one agent per research dimension.
+- Several accounts: one agent per account at each stage.
+- At most about eight web agents at once.
 
 ## Always
 
-- **Subagents:** run them on Opus. Each prompt says:
-  - read with Read or Grep, and use WebSearch and WebFetch for the web;
-  - use Bash only for single allow-listed commands, never `&&` or `;` chains;
-  - write a progress file after every unit of work;
-  - never write the tracker or the kit, which is the main session's job.
-- **Read before editing:** re-read the current tracker doc, account file or PDF before changing it. Alex and other sessions edit them; BlackBerry's account row was rewritten on 19 Nov from the account team's history.
-- **Sent notes stay sent:** never rewrite a Teams note the account has already had. Draft a follow-up instead.
-- **Sales Navigator is read-only:** search-result cards only. Never open a profile, save, connect or message.
+- **Subagents:** run them on Opus, with only Read, Grep, WebSearch and WebFetch: no Bash, so no permission prompt can hang them. Deck or PDF text an agent needs, extract it yourself into the scratchpad first. Agents never write the tracker or the kit.
+- **Read before editing:** re-read the current tracker doc, account file or PDF before changing it. Alex and other sessions edit them.
+- **Sent notes stay sent:** never rewrite a Teams note the account has already had.
+- **Sales Navigator is read-only:** search-result cards only.
 - **Facts and inferences:** every fact carries its date and link, and every inference says "(inferred)". A failed page load is "unreachable", never evidence against a claim.
 - **Web queries:** never put SoftServe's name or any internal detail in one.
+- **Editing this skill:** keep cards at 300 words or fewer (`python3 .claude/skills/jumpstart-account/scripts/budget.py`). Put rationale in `decisions.md`.
