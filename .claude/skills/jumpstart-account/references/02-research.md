@@ -1,24 +1,27 @@
 # 2 · Research fan-out
 
 **How**
-- One Opus agent per dimension, all sent in one message, using `briefs-research.md`.
+- Agents take the first five dimensions below, one each, sent in one message (`briefs-research.md`).
 - Each writes `<scratch>/<slug>/<dimension>.json` per unit of work, in the shapes of `templates/account-doc.json`.
+- You write Angle and Gaps yourself from their output.
 
 | Dimension | Fields | What good looks like |
 |---|---|---|
-| Company | `what_they_do`, `sum_what`, `hq_*`, `headcount`, `flag` | One paragraph to the essence; headcount quoted from the latest annual report. |
-| Units | `hw_units` / `bio_units` | Each R&D unit and what it builds, in concrete nouns, labelled F or I. |
-| Roles | `*_roles`, `sum_roles_*` | The page fold's personas mapped onto this company's org, each with a why. |
-| Signals | `*_signals`, `sum_signals_*` | Adoption `+` and pain `!`, dated and linked. Graded by `research-standards.md`, strongest first. |
-| Oracle | `oracle`, `oracle_short`, `oracle_use`, `sum_oracle` | Confirmed use only (the page fold's rule). Record what runs instead and what is not counted. |
+| Company, units, roles | `what_they_do`, `sum_what`, `hq_*`, `headcount`, `*_units`, `sum_units_*`, `*_roles`, `sum_roles_*` | One paragraph to the essence; headcount quoted; each unit with what it builds (F or I); the page fold's personas mapped onto this org. |
+| Signals | `*_signals`, `sum_signals_*` | Adoption `+` and pain `!`, dated and linked, graded by `research-standards.md`, strongest first. |
+| Oracle | `oracle`, `oracle_short`, `oracle_use`, `sum_oracle` | Confirmed use only (the page fold's rule), plus what runs instead and what is not counted. |
 | Edge AI | `edge_ai` | A verdict with dated evidence (shipped, planned or hiring) and the kit's layers. |
-| Size | `size_*.methods.first_principles`, `.public` | Spend or headcount × share, as low, likely and high, plus any public figure. LinkedIn comes in stage 3. |
-| Angle | `angle`, `angle_note`, `sum_angle` | The lead module by its exact deck name, a ready one where it fits, with the use case and the sponsor. |
-| Gaps | `gaps`, `sum_gaps` | Every search a limit or a blocked page left undone. Finish those before stage 4. |
+| Size | `size_*.methods.first_principles`, `.public` | Spend or headcount × share, as low, likely and high, plus any public figure. |
+| Angle (you) | `angle`, `angle_note`, `sum_angle` | The lead module by its exact name, with its use case here and the sponsor. Lead with a ready module where it fits. |
+| Gaps (you) | `gaps`, `sum_gaps` | Every search a limit or block left undone. Finish them before stage 4. |
+
+**Modules** (the tracker page's MODULES list)
+- Hardware, ready: Peripheral driver development, Legacy code modernization, Software optimization for target hardware.
+- Hardware, in build: Fault diagnosis, Bench and HIL test automation, Edge AI model adaptation.
+- Bio, from the science workflows page `Current offerings/index_v2_9179_6781.html`: Evidence → hypothesis, Hypothesis → reproducible computation; Resource allocation across pipelines is gated.
 
 **Summary fields (`sum_*`)**
-- What Alex reads off the screen to an account exec.
-- One or two dated facts in plain words.
+- One or two dated facts, in plain words Alex can read to an account exec.
 - Never a truncated list, a count or an S/M/W code.
 
 **Publish early**
