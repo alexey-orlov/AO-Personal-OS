@@ -1,6 +1,6 @@
 # Head of Product: тестовое задание, ключ оценки и разбор
 
-_Внутреннее, кандидатам не отправлять. Задание v2 от 2026-11-22 (мастер, правки только там): [Тестове завдання - Head of Product, GigaCloud](https://docs.google.com/document/d/1MwSpxP4Bdso6gFrzcugSGdetOhzdbEExxNUpLZg7m4Q/edit), Google Doc в Drive Алекса, рядом с PM-тестовым, доступ не открыт._
+_Внутреннее, кандидатам не отправлять. Задание v2 от 2026-11-22 (мастер, правки только там): [Тестове завдання - Head of Product, GigaCloud](https://docs.google.com/document/d/1MwSpxP4Bdso6gFrzcugSGdetOhzdbEExxNUpLZg7m4Q/edit), Google Doc в Drive Алекса, рядом с PM-тестовым, открыт на просмотр по ссылке, как PM-тестовое._
 
 ## Откуда задание
 
