@@ -6,8 +6,8 @@
 
 **Search**
 1. Open `https://www.linkedin.com/sales/search/people`.
-2. Current company: the company plus every LinkedIn page its staff sit under (NextEra needed three).
-3. Core count: a Boolean keyword query for the team the offer trains, plus Function = Engineering where it helps. Example: `BSP OR "board support" OR driver OR drivers OR kernel OR "functional safety"`.
+2. Current company: the company plus every LinkedIn page its staff sit under.
+3. Core count: a Boolean keyword query for the team the offer trains, plus a Function filter where it helps.
 4. Zoom on "N results" for the count.
 
 **Read the cards**
@@ -19,7 +19,7 @@
 - Sample page 1 and a middle page. Note each card's country, and count a card only when its current role is the target work.
 - Value = count × precision × 0.93 × geo.
 - Geo is the sample's weighted mean of: US 1.15, India 1.15, Europe 1.25, other countries including Canada 1.30, China 2.5.
-- Write the arithmetic as the reviewed rows do: `core: 280 x 0.72 x 0.93 x 1.256 (geo: …) = 237 | keywords …; filters … | multipliers are working assumptions`.
+- Write the arithmetic in the template's format (`size_*.methods.linkedin.arithmetic`).
 - Combine the three estimates as `research-standards.md` says.
 - No team: `applies: false`, with the LinkedIn evidence and the nearest group in the note.
 
@@ -27,6 +27,6 @@
 - Search leadership terms or a site name (`"Duane Arnold"`); check names on the web.
 - Spell names as the company's own pages do ("Jarro", not "Jarrow").
 - Where titles conflict, use neutral wording.
-- Fill every person field. Only high-confidence people go on the two-pager.
+- Fill every person field. Confidence is high when a current card or the company's own page shows the person in that role, medium when the role is inferred or the card is unclear. Only high-confidence people go on the two-pager.
 
 **Finish:** close the tab; `people_source` = `web + Sales Navigator`.
