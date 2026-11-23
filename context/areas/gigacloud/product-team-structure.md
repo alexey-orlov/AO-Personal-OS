@@ -35,6 +35,7 @@ _updated: 2026-11-22_
 
 ## Decisions
 
+- 2026-11-22 — Task 1 of the Head of Product test stays on Ukrainian customers; international GTM is checked at the meeting instead (question 5 in the [evaluation key](docs/hop-test-assignment/evaluation-key.md)). (chat, 2026-11-22)
 - 2026-11-22 — All three tasks of the Head of Product test stay written (about 6-8 h); moving the GTM task to a live case at the meeting was declined. (chat, 2026-11-22)
 - 2026-11-22 — The Head of Product test assignment has three tasks: GTM built on the PM test, the partner cyber-training resale process, and the expensive-hardware purchase process with a spreadsheet-style model. Its preamble follows the role and the JD and keeps the PM test's frame (no right answers, any format, be ready to discuss). (chat, 2026-11-22)
 
@@ -42,7 +43,6 @@ _updated: 2026-11-22_
 
 - Mine — the seven next steps above.
 - Mine — decisions on the Head of Product test assignment. [evaluation key](docs/hop-test-assignment/evaluation-key.md) (chat, 2026-11-22)
-  - EU in task 1.
   - The «кілька проєктів на місяць» scale in task 2.
   - The AI-permission and «answers used only for evaluation» lines.
   - The deadline, who sits in the meeting, and whether candidates get feedback.
