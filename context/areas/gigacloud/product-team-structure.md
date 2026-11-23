@@ -35,13 +35,13 @@ _updated: 2026-11-22_
 
 ## Decisions
 
+- 2026-11-22 — All three tasks of the Head of Product test stay written (about 6-8 h); moving the GTM task to a live case at the meeting was declined. (chat, 2026-11-22)
 - 2026-11-22 — The Head of Product test assignment has three tasks: GTM built on the PM test, the partner cyber-training resale process, and the expensive-hardware purchase process with a spreadsheet-style model. Its preamble follows the role and the JD and keeps the PM test's frame (no right answers, any format, be ready to discuss). (chat, 2026-11-22)
 
 ## Open loops
 
 - Mine — the seven next steps above.
 - Mine — decisions on the Head of Product test assignment. [evaluation key](docs/hop-test-assignment/evaluation-key.md) (chat, 2026-11-22)
-  - Task 1 in writing or as a live case at the meeting (about 4-5 h of written work instead of 6-8).
   - EU in task 1.
   - The «кілька проєктів на місяць» scale in task 2.
   - The AI-permission and «answers used only for evaluation» lines.
