@@ -1,25 +1,28 @@
 # 9 · Check and report
 
-**Run the checker**
-- Export the doc: `ArtifactData get accounts/<slug>` with an `out_dir` in the scratchpad.
-- Run:
-  `python3 .claude/skills/jumpstart-account/scripts/check_account.py --doc <out_dir>/accounts/<slug>.json --two-pager "<kit>/accounts/<slug>.json"`
-- FAIL lines block delivery: fix them, then re-run.
-- WARN lines need a decision. Fix the line, or say in the report why it stays.
+**Run the checks**
+1. `ArtifactData get accounts/<slug>` with an `out_dir`.
+2. Run:
+   `python3 .claude/skills/jumpstart-account/scripts/check_account.py --doc <out_dir>/accounts/<slug>.json --two-pager "<kit>/accounts/<slug>.json"`
+   - Add `--tracking <file>` when re-checking a sent account.
+3. FAIL blocks delivery: fix it and re-run.
+4. WARN needs a decision: fix it, or say in the report why it stays.
 
-**Deliver in stages, as each lands**
-1. The tracker row (link the artifact) and the two or three findings that matter.
+**Deliver as each part lands**
+1. The tracker row: a link, plus the two or three findings that matter.
 2. The two-pager (`SendUserFile`), with page 2 looked at.
-3. The Teams note text, ready to paste.
+3. The Teams note, ready to paste.
 
 **Final report**
-- Lead with the answer: is it a fit, for which Jumpstart, and the strongest reason why now.
-- A table, row by row, like the Horizon and Maximo reports: row · what was found or changed · now.
-- Anything narrowed or dropped by the gate, in one line each.
-- What only Alex can settle, as a short list. Example: "confirm the Unifier scope with Brian before citing it".
-- Sources: the links behind every new fact.
+- Lead with the answer: fit or not, which Jumpstart, and the strongest reason why now.
+- A row-by-row table: row, what was found or changed, and what it says now.
+- One line for each claim the gate narrowed or dropped.
+- What only Alex can settle, e.g. "confirm the Unifier scope with Brian".
+- Sources for every new fact.
 
-**Then keep the homes in sync**
-- Fold the account into the wiki through `context-update`, under the tracker contract.
-- Update the registry's Folded version.
-- Did a correction from Alex generalize? Write the rule to its home: `research-standards.md`, this skill's cards, or the message-writing playbook. Say in one line what you wrote and where.
+**Keep the homes in sync**
+- Fold the account into the wiki with `context-update`, and update the registry's Folded version.
+- When Alex corrects something that generalizes, write the rule to its home and say where in one line:
+  - `research-standards.md`;
+  - a card here;
+  - the message-writing playbook.

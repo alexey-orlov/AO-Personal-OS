@@ -1,40 +1,36 @@
-# 6 · Two-pager content (page 2, the account fit)
+# 6 · Two-pager content (page 2)
 
 **The file**
 - Fill `templates/two-pager-account.json` into OneDrive `one-pager-build/accounts/<slug>.json`.
 - If the file exists, read it first and keep Alex's edits.
-- Page 1 comes from the kit: `hw.json` or `bio.json`, never edited per account.
+- Page 1 comes from the kit's `hw.json` or `bio.json` and never changes per account.
 
-**Rows, in this order, with these labels**
-1. `Account`: "<Name> · <kind of company in a few words>, <HQ city>". Then SoftServe's relationship, only as the record proves it ("SoftServe client"). Add a pending merger or another fact a seller must know.
-2. `Est. R&D headcount`: "~N <who is counted>, of <total> staff". N is the tracker estimate, exactly. Where no team exists, "No firmware team; nearest: ~N …".
-3. `What their R&D builds` (hardware) or `What they research` (bio): concrete nouns, no marketing words.
-4. `Likely problem`: a named role, their situation, and what it costs the business, ending on money. Mark it "(inferred)".
-5. `Need signals`: the one or two strongest current signals, each dated "(Mon YYYY)". Closed ads are "sought". An executive's remark never leads. Omit the row when no S or M signal is a real hook.
+**Rows, in this order**
+1. `Account`: "<Name> · <kind of company>, <HQ city>". Add the SoftServe relationship only as the record proves it, and any merger a seller must know.
+2. `Est. R&D headcount`: "~N <who is counted>, of <total> staff". N is the tracker estimate. With no team: "No firmware team; nearest: ~N …".
+3. `What their R&D builds` (hw) or `What they research` (bio): concrete nouns.
+4. `Likely problem`: a named role, their situation, and what it costs the business, ending on money, then "(inferred)".
+5. `Need signals`: the one or two strongest current signals, each "(Mon YYYY)", with "sought" for closed ads and never an executive's remark first. Omit the row when no S or M signal is a real hook.
 
-**Other R&D solutions**
-Add a bullet only when the tracker verdict is Yes:
-- `Oracle solutions`: names only the Oracle platforms the account runs, never a use case. `url` is `https://oracle-softservedev-practice.web.app/`, `url_label` is "Oracle mini-site".
-- `Edge AI Kit`: the tracker's dated one-liner, not starting with the kit's name. `url` is the Edge AI Kit deck link copied from an existing account file, `url_label` is "Edge AI Kit deck".
-- A link prints as its caption, never as a bare URL.
+**Other R&D solutions** (only where the tracker verdict is Yes)
+- `Oracle solutions`: the Oracle platforms the account runs, never a use case. Caption "Oracle mini-site", url `https://oracle-softservedev-practice.web.app/`.
+- `Edge AI Kit`: the tracker's dated one-liner, not starting with the kit's name. Caption "Edge AI Kit deck", with the url copied from an existing account file.
+- Links print as captions, never as bare URLs.
 
 **Champions**
-- Two or three "Name, short title" entries, titles of six words or fewer.
+- Two or three "Name, short title", with titles of six words or fewer.
 - High confidence only: champions first, then buyers.
-- Keep `champions_note` as it is.
 
 **Price**
-- `deal_prices: {"Essential": "from ~$75K"}` when the team to train is about ten engineers or fewer (Horizon, Maximo).
-- Say so in the report.
+- `deal_prices` of `"from ~$75K"` for Essential when the team is about ten engineers or fewer (Horizon, Maximo).
 
 **Style**
-- Plain words a seller grasps cold; no em dashes; dates like "Mar 2026".
-- Numbers exactly as in the tracker.
-- Aim for 22 words a row, as on Genentech's page. The page-length check in stage 7 is the hard limit.
+- Plain words, no em dashes, dates like "Mar 2026", numbers exactly as in the tracker.
+- About 22 words a row, as on Genentech's page.
 
-**Pipeline, one account per agent** (`agent-briefs.md`)
-1. **Draft** from the tracker doc, matching Genentech.
-2. **Fact-check:** a fresh agent checks every number, date, name and title against the record. It web-checks each champion and drops anyone a public source contradicts.
-3. **Plain-language edit:** facts untouched.
+**Pipeline** (`briefs-page2.md`), one account per agent
+1. Draft from the tracker doc, matched to Genentech.
+2. Fact-check in a fresh agent, which also web-checks the champions.
+3. Plain-language edit.
 
-The main session reads the result last, then builds it.
+The main session reads the result last.
