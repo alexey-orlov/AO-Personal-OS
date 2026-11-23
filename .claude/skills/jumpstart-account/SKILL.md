@@ -34,14 +34,16 @@ Client deal values, revenue and CRM notes never go into this repo, except as wik
 Load only the card for the stage you are on:
 
 1. Intake: `references/01-intake.md`
-2. Research fan-out: `references/02-research.md` (agent briefs: `references/agent-briefs.md`)
+2. Research fan-out: `references/02-research.md`, with `briefs-common.md` and `briefs-research.md`
 3. Sales Navigator, team count and names: `references/03-sales-navigator.md`
-4. Verify, the gate: `references/04-verify.md`
+4. Verify, the gate: `references/04-verify.md`, with `briefs-common.md` and `briefs-verify.md`
 5. Write the tracker row: `references/05-tracker.md` (fill `templates/account-doc.json`)
-6. Two-pager content: `references/06-two-pager-content.md` (fill `templates/two-pager-account.json`)
+6. Two-pager content: `references/06-two-pager-content.md` (fill `templates/two-pager-account.json`), with `briefs-page2.md`
 7. Two-pager build and filing: `references/07-two-pager-build.md`
 8. Teams note: `references/08-teams-note.md`
 9. Check and report: run `scripts/check_account.py`, then `references/09-report.md`
+
+When editing this skill, keep every card at 300 words or fewer: `python3 scripts/budget.py` checks it.
 
 **Re-check mode** ("re-check the new rows", "same checks for <account>"):
 1. Read the live row and the current account file.
