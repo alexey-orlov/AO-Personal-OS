@@ -15,12 +15,13 @@ In the tracker's priority order. "Folded" is the `tracking` version the wiki ref
 | horizon-surgical-systems | Horizon Surgical Systems | [jumpstart-science](../areas/softserve/jumpstart-science.md#active-threads) | 8 | 2026-11-22 |
 | generac | Generac (with ecobee) | [generac](../areas/softserve/generac.md) | 8 | 2026-11-22 |
 | blackberry | BlackBerry (QNX) | [blackberry](../areas/softserve/blackberry.md) | 8 | 2026-11-22 |
-| nextera-energy | NextEra Energy | [jumpstart-science](../areas/softserve/jumpstart-science.md#active-threads) | 6 | 2026-11-22 |
+| nextera-energy | NextEra Energy | [jumpstart-science](../areas/softserve/jumpstart-science.md#active-threads) | 7 | 2026-11-23 |
 | loreal-north-america | L'Oréal North America | [jumpstart-science](../areas/softserve/jumpstart-science.md#active-threads) | 3 | 2026-11-22 |
-| brain-corp | Brain Corp | [jumpstart-science](../areas/softserve/jumpstart-science.md#active-threads) | 2 | 2026-11-22 |
 | also | ALSO (listed as Ride Also) | [jumpstart-science](../areas/softserve/jumpstart-science.md#active-threads) | 5 | 2026-11-22 |
-| maximo-robotics | Maximo Robotics | [jumpstart-science](../areas/softserve/jumpstart-science.md#active-threads) | 6 | 2026-11-22 |
+| maximo-robotics | Maximo Robotics | [jumpstart-science](../areas/softserve/jumpstart-science.md#active-threads) | 7 | 2026-11-23 |
+| aes | AES (Maximo's parent) | [jumpstart-science](../areas/softserve/jumpstart-science.md#active-threads) | 1 | 2026-11-23 |
 | lumentum | Lumentum | [jumpstart-science](../areas/softserve/jumpstart-science.md#active-threads) | 8 | 2026-11-23 |
+| brain-corp | Brain Corp | [jumpstart-science](../areas/softserve/jumpstart-science.md#active-threads) | 2 | 2026-11-22 |
 | benchling | Benchling | [jumpstart-science](../areas/softserve/jumpstart-science.md#active-threads) | 2 | 2026-11-22 |
 | genentech | Genentech | [jumpstart-science](../areas/softserve/jumpstart-science.md#active-threads) | 2 | 2026-11-22 |
 | amgen | Amgen | [jumpstart-science](../areas/softserve/jumpstart-science.md#active-threads) | 2 | 2026-11-22 |
