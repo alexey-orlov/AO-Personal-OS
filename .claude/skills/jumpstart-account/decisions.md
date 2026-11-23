@@ -41,6 +41,7 @@ Rationale lives here; the runtime cards hold only the rules. Never load this fil
 - **First runs of the new checker on the reviewed rows (Nov 22):**
   - BlackBerry's page names Jordan Edgecombe as a champion, though the tracker gives him medium confidence;
   - Generac's Edge AI evidence keeps a Jan 2021 SmartCamera item that is older than five years, although its Nov 2026 item makes the same point.
+  - Alex had both fixed the same day: Edgecombe relabelled high; the 2021 item dropped, the "on the device" detection marked inferred (the current page claims on-device processing and person detection without linking them), and a caveat cut off at "Generac proper…" completed from the row's own evidence.
 
 ## Choices
 - **Page 1 is one of two Jumpstarts only.** Alex, Nov 18: "we consider only between 2 kinds of jumpstarts".
