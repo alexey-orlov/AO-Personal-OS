@@ -12,6 +12,9 @@ The AI Jumpstart outreach accounts live in two places that must not drift apart.
 | Account summary: SoftServe's own context in one or two lines (the relationship, open work, where it stands), empty when there is none, never general company facts | `tracking/<slug>.account_summary` | same |
 | Research: company, signals, people, sizes, Oracle, Edge AI, Teams note | tracker `accounts/<slug>` | agents only |
 | Link to the wiki | `accounts/<slug>.wiki_path`, repo-relative, `#anchor` allowed | agents |
+| Logo for the weekly report: a PNG data URI, 128 px at most | `accounts/<slug>.logo` | agents, when they add an account |
+| Status log: every status or next-step change with its date (the weekly report's "a week ago") | `history/<slug>.log`, entries `{at, status, notes}` | the page, whenever it sees a change, dated by `updated_at`; agents only to backfill |
+| The week's written status (the weekly report's "What changed") | `weekly/<YYYY-MM-DD of the week-end Monday>.rows.<slug>.changed` | `presales-status-collector`: its Status column for that week, without the [C]/[P] tags or the "Next:" part |
 | History, decisions, provenance, open loops | the wiki home: `context/areas/softserve/<slug>.md` when the account has a page, else the outreach thread in `jumpstart-science.md#active-threads` | `context-update` |
 
 The wiki keeps no second status. It records dated events with provenance, such as "the AM said yes (tracker, 2026-11-18)". Every account page carries a `_tracker:` header line that names the artifact and the doc.
