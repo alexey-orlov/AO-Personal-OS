@@ -35,6 +35,7 @@ _updated: 2026-11-22_
 
 ## Decisions
 
+- 2026-11-22 — Head of Product test text: the AI-permission line removed; «answers used only for evaluation» kept; no feedback promised to candidates; the follow-up meeting is with the CPO. (chat, 2026-11-22)
 - 2026-11-22 — Task 2 of the Head of Product test keeps the scale «кілька проєктів на місяць». (chat, 2026-11-22)
 - 2026-11-22 — Task 1 of the Head of Product test stays on Ukrainian customers; international GTM is checked at the meeting instead (question 5 in the [evaluation key](docs/hop-test-assignment/evaluation-key.md)). (chat, 2026-11-22)
 - 2026-11-22 — All three tasks of the Head of Product test stay written (about 6-8 h); moving the GTM task to a live case at the meeting was declined. (chat, 2026-11-22)
@@ -44,8 +45,7 @@ _updated: 2026-11-22_
 
 - Mine — the seven next steps above.
 - Mine — decisions on the Head of Product test assignment. [evaluation key](docs/hop-test-assignment/evaluation-key.md) (chat, 2026-11-22)
-  - The AI-permission and «answers used only for evaluation» lines.
-  - The deadline, who sits in the meeting, and whether candidates get feedback.
+  - The 7-day deadline (kept as the default unless Alex changes it).
   - Giving the test only at the final stage.
 - Open — the JD gives the Head of Product product operations (pricing rules, catalog, CRM publication), while the TO BE split moves Product Operations to the COO: which holds? (inferred tension between the JD and deck v1)
 - Open — possible subproject: Head of Product hiring? Promote on the next artifact (submissions, interviews).
