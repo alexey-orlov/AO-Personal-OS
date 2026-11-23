@@ -24,7 +24,7 @@ MODULES = ["Peripheral driver development", "Legacy code modernization",
            "Evidence → hypothesis", "Resource allocation across pipelines",
            "Edge AI model adaptation"]
 ROW3 = {"hw": "What their R&D builds", "bio": "What they research"}
-MONEY = re.compile(r"\$|revenue|royalt|sales|cost|margin|price|budget|downtime|lost|fine|penalt|recall|profit|spend", re.I)
+MONEY = re.compile(r"\$|€|\b(?:revenue|royalt\w*|sales|costs?|costing|margins?|prices?|budget|downtime|lost|fines?|penalt\w*|recalls?|profits?|spend\w*)\b", re.I)
 EXEC_SRC = re.compile(r"call|remark|interview|keynote|podcast|briefing|conference|panel|speech", re.I)
 CLOSED = re.compile(r"closed|removed|no longer accepting|filled|inactive", re.I)
 PLACEHOLDER = re.compile(r"<[^<>]{2,}>")
@@ -70,6 +70,18 @@ def strings(obj, path=""):
         yield path, obj
 
 
+def underscore_keys(obj, path=""):
+    if isinstance(obj, dict):
+        for k, v in obj.items():
+            p = f"{path}.{k}" if path else k
+            if str(k).startswith("_"):
+                yield p
+            yield from underscore_keys(v, p)
+    elif isinstance(obj, list):
+        for i, v in enumerate(obj):
+            yield from underscore_keys(v, f"{path}[{i}]")
+
+
 def sides(doc):
     o = doc.get("offer")
     return ["hw", "bio"] if o == "both" else [o] if o in ("hw", "bio") else []
@@ -79,8 +91,8 @@ def check_doc(doc, today):
     for path, s in strings(doc):
         if PLACEHOLDER.search(s):
             say("FAIL", path, f"template placeholder left: {PLACEHOLDER.search(s).group(0)}")
-    if any(k.startswith("_") for k in doc):
-        say("FAIL", "doc", "template key starting with '_' left in the doc")
+    for key_path in underscore_keys(doc):
+        say("FAIL", key_path, "template key starting with '_' left in the doc")
     for f in ["account", "what_they_do", "sum_what", "hq_text", "tier", "ss_team", "angle", "sum_angle",
               "gaps", "people_source", "wiki_path", "teams_note"]:
         if not doc.get(f):
@@ -101,6 +113,8 @@ def check_doc(doc, today):
         for f in [f"{side}_units", f"{side}_roles", f"{side}_people", f"{side}_signals"]:
             if not doc.get(f):
                 say("FAIL", f, "missing or empty")
+        if not str(doc.get(f"sum_units_{side}") or ""):
+            say("FAIL", f"sum_units_{side}", "missing: the units column's one-line summary")
         for f in [f"sum_signals_{side}", f"sum_roles_{side}", f"sum_people_{side}"]:
             v = str(doc.get(f) or "")
             if not v:
@@ -111,6 +125,13 @@ def check_doc(doc, today):
         check_people(doc.get(f"{side}_people") or [], side)
         check_size(doc.get(f"size_{side}"), side)
 
+    for side in ("hw", "bio"):
+        if side not in sides(doc):
+            sz = doc.get(f"size_{side}")
+            if not (isinstance(sz, dict) and sz.get("applies") is False):
+                say("WARN", f"size_{side}", "the offer not taken keeps size_<side> {applies:false, note}, as on the reviewed rows")
+    if "second-passed" not in str(doc.get("angle_note", "")).lower():
+        say("WARN", "angle_note", "no record of the offer choice's second pass ('Offer second-passed DD Mon YYYY: …')")
     os_ = doc.get("oracle_short") or {}
     if os_.get("yes"):
         if not (doc.get("oracle_use") or {}).get("cross_checked"):
@@ -124,9 +145,19 @@ def check_doc(doc, today):
         ev = ea.get("evidence") or []
         if not ev:
             say("FAIL", "edge_ai", "Yes with no dated evidence")
+        recent = False
         for i, e in enumerate(ev):
             if not e.get("date") or not e.get("url"):
                 say("WARN", f"edge_ai.evidence[{i}]", "missing date or url")
+            d = parse_date(e.get("date"))
+            if d and months(d, TODAY[0]) > 60:
+                say("FAIL", f"edge_ai.evidence[{i}]", "older than five years: does not count")
+            if d and months(d, TODAY[0]) <= 18:
+                recent = True
+        if ev and not recent:
+            say("WARN", "edge_ai", "Yes rests only on evidence older than 18 months")
+        if not str(ea.get("caveats", "")).startswith("Second pass"):
+            say("WARN", "edge_ai.caveats", "no record of the Yes's second pass ('Second pass DD Mon YYYY: …')")
     if not any(m in str(doc.get("angle", "")) for m in MODULES):
         say("WARN", "angle", "names no module from the decks' MODULES list")
     check_note(doc.get("teams_note") or {})
@@ -135,6 +166,7 @@ def check_doc(doc, today):
 def check_signals(sig, side, today):
     rank = {"S": 0, "M": 1, "W": 2}
     prev = -1
+    warned_order = False
     for i, s in enumerate(sig):
         w = f"{side}_signals[{i}]"
         for f in ["date", "text", "strength", "strength_why", "url"]:
@@ -144,8 +176,9 @@ def check_signals(sig, side, today):
         if g not in rank:
             say("FAIL", w, f"strength '{g}' is not S, M or W")
             continue
-        if rank[g] < prev:
-            say("WARN", w, "not in strongest-first order")
+        if rank[g] < prev and not warned_order:
+            say("WARN", f"{side}_signals", f"not in strongest-first order (first at [{i}])")
+            warned_order = True
         prev = max(prev, rank[g])
         d = parse_date(s.get("date"))
         src = str(s.get("src", ""))
@@ -278,13 +311,22 @@ def check_two_pager(tp, doc):
         if ", " not in c or not NAME.match(c) or re.search(r"not checked|\(.*lead|^(VP|Head|Director|Manager|President)\b", c):
             say("WARN", f"{w}.champions", f"'{c}' is not 'Name, short title' for a named person")
     if not tp.get("champions_note"):
-        say("WARN", f"{w}.champions_note", "missing the 'quick research only' note")
+        say("FAIL", f"{w}.champions_note", "missing: the build crashes without it")
+    if doc:
+        people = {str(p.get("name", "")).split(",")[0].strip().lower(): p for s_ in ("hw", "bio") for p in (doc.get(f"{s_}_people") or [])}
+        for c in ch:
+            nm = c.split(",")[0].strip().lower()
+            p = people.get(nm) or next((v for k, v in people.items() if k and (k.startswith(nm) or nm.startswith(k))), None)
+            if not p:
+                say("WARN", f"{w}.champions", f"'{c.split(',')[0]}' is not among the tracker's people")
+            elif str(p.get("confidence", "")).lower() != "high":
+                say("WARN", f"{w}.champions", f"'{c.split(',')[0]}' has {p.get('confidence') or 'no'} confidence in the tracker; only high goes on the page")
     if doc and offer in ("hw", "bio"):
         s = doc.get(f"size_{offer}") or {}
         est = s.get("estimate")
         hc = text.get("Est. R&D headcount", "")
         if s.get("applies") is not False and isinstance(est, (int, float)):
-            if f"~{int(est):,}" not in hc:
+            if not re.search(rf"~{re.escape(f'{int(est):,}')}(?![\d,])", hc):
                 say("WARN", f"{w}.Est. R&D headcount", f"does not show the tracker's estimate ~{int(est):,}")
             if est <= 10 and not tp.get("deal_prices"):
                 say("WARN", f"{w}.deal_prices", "team of ten or fewer: set Essential 'from ~$75K'")
