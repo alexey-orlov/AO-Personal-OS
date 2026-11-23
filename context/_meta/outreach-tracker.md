@@ -23,6 +23,8 @@ In the tracker's priority order. "Folded" is the `tracking` version the wiki ref
 | lumentum | Lumentum | [jumpstart-science](../areas/softserve/jumpstart-science.md#active-threads) | 8 | 2026-11-23 |
 | hexagon-mining | Hexagon Mining | [jumpstart-science](../areas/softserve/jumpstart-science.md#active-threads) | 2 | 2026-11-23 |
 | georgia-pacific | Georgia-Pacific | [jumpstart-science](../areas/softserve/jumpstart-science.md#active-threads) | 5 | 2026-11-23 |
+| shi-teoco | SHI / TEOCO | [jumpstart-science](../areas/softserve/jumpstart-science.md#active-threads) | 1 | 2026-11-23 |
+| oncor-electric | Oncor Electric | [jumpstart-science](../areas/softserve/jumpstart-science.md#active-threads) | 1 | 2026-11-23 |
 | brain-corp | Brain Corp | [jumpstart-science](../areas/softserve/jumpstart-science.md#active-threads) | 3 | 2026-11-23 |
 | benchling | Benchling | [jumpstart-science](../areas/softserve/jumpstart-science.md#active-threads) | 3 | 2026-11-23 |
 | genentech | Genentech | [jumpstart-science](../areas/softserve/jumpstart-science.md#active-threads) | 3 | 2026-11-23 |
