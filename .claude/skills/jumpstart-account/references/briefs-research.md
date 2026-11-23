@@ -1,6 +1,6 @@
 # Agent briefs: research (stage 2)
 
-Prefix each with `briefs-common.md`. Field shapes come from `templates/account-doc.json`.
+Prefix each with `briefs-common.md`; shapes from `templates/account-doc.json`.
 
 **Company, units and roles**
 > Write `what_they_do` (one short paragraph, down to the essence), `sum_what`, `hq_text`, `hq_california` and `headcount` (from the latest annual report, with a quote).
@@ -19,12 +19,11 @@ Prefix each with `briefs-common.md`. Field shapes come from `templates/account-d
 **Edge AI**
 > Does the company build a device whose AI runs on the device, or splits with the cloud? Give dated evidence (shipped, planned or hiring) and say where the AI runs.
 > Name vendors only from the source that names them.
-> Map the kit's layers that apply, and note the caveats.
+> Map the kit's layers that apply; note caveats.
 > Kit definition: <the page fold's Edge AI Kit paragraph>.
 
 **Size: first principles and public**
 > R&D spend or headcount × the share in the target work, as low, likely and high, with the arithmetic.
 > Plus any public figure for the team, with its source.
 
-**Gaps**
-> List every search a limit or a blocked page left undone, and finish each one you can.
+Every agent also lists, in its output, each search a limit or a blocked page left undone.

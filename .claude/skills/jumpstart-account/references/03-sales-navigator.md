@@ -2,7 +2,7 @@
 
 **How to run it**
 - Yourself, in Claude in Chrome, one search at a time.
-- Read-only: search-result cards only (`research-standards.md`).
+- Read-only: cards only.
 
 **Search**
 1. Open `https://www.linkedin.com/sales/search/people`.
@@ -24,11 +24,9 @@
 - No team: `applies: false`, with the LinkedIn evidence and the nearest group in the note.
 
 **Names**
-- Search by leadership terms, or by a site or programme name (e.g. `"Duane Arnold"`), then check each name on the web.
+- Search by leadership terms or a site name (`"Duane Arnold"`), then check each name on the web.
 - Spell names as the company's own pages do ("Jarro", not "Jarrow").
-- Where titles conflict, use neutral wording ("head of Core Product Engineering").
-- Fill every person field in the template. Only high-confidence people go on the two-pager.
+- Where titles conflict, use neutral wording.
+- Fill every person field. Only high-confidence people go on the two-pager.
 
-**Finish**
-- Close the tab.
-- Set `people_source` to `web + Sales Navigator`.
+**Finish:** close the tab; `people_source` = `web + Sales Navigator`.

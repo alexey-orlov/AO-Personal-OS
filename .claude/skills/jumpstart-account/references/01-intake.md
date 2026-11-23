@@ -1,7 +1,7 @@
 # 1 · Intake
 
 **Find the account in the outreach list**
-- Source: OneDrive `Projects/Jumpstart for scientists/Outreach/Physical & Bio AI Accounts(Outreach list).csv`, or the team's newer xlsx (see `presales-status-collector`, Sources).
+- Source: OneDrive `Projects/Jumpstart for scientists/Outreach/Physical & Bio AI Accounts(Outreach list).csv`, or the team's newer xlsx.
 - Copy these verbatim: Relevant service (`list_service`), Owner and CSL/Delivery (`ss_team`, as "Name (owner) · DO Name"), and the row number (`list_row`).
 - An account Alex adds that is not on the list:
   - `list_row` is "—";
@@ -21,7 +21,6 @@
 - Decks: OneDrive `Current offerings/` and `Monthly AI products overviews/`. Search each with one python-pptx call.
 - The wiki: `context/areas/softserve/`.
 - Any account history Alex shares.
-- Record each claim with its file and slide.
 - The account team's own history beats a deck's summary: a slide had miscounted BlackBerry's opportunities.
 
 **Choose the offer**
@@ -35,6 +34,4 @@
 - Reviewed tracker rows: `generac`, `horizon-surgical-systems`.
 - Match their altitude and length.
 
-**Tell Alex in one line, then carry on**
-- slug, owner, offer, tier;
-- any rule the account breaks.
+**Tell Alex in one line, then carry on:** slug, owner, offer, tier, any rule broken.

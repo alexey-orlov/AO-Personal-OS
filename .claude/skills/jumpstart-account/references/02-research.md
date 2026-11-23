@@ -2,7 +2,7 @@
 
 **How**
 - One Opus agent per dimension, all sent in one message, using `briefs-research.md`.
-- Each writes `<scratch>/<slug>/<dimension>.json` after every unit of work, in the field shapes of `templates/account-doc.json`.
+- Each writes `<scratch>/<slug>/<dimension>.json` per unit of work, in the shapes of `templates/account-doc.json`.
 
 | Dimension | Fields | What good looks like |
 |---|---|---|
@@ -22,5 +22,4 @@
 - Never a truncated list, a count or an S/M/W code.
 
 **Publish early**
-- Once the company and the signals are in, write them with `research_status: "partial"`.
-- Alex starts working from partial rows.
+- Write the company and the signals as soon as they're in, with `research_status: "partial"`.
