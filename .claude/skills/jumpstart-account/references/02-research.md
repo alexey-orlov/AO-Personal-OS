@@ -5,15 +5,14 @@
 - Each writes `<scratch>/<slug>/<dimension>.json` per unit of work, in the shapes of `templates/account-doc.json`.
 - You write Angle and Gaps yourself from their output.
 
-| Dimension | Fields | What good looks like |
-|---|---|---|
-| Company, units, roles | `what_they_do`, `sum_what`, `hq_*`, `headcount`, `*_units`, `sum_units_*`, `*_roles`, `sum_roles_*` | One paragraph to the essence; headcount quoted; each unit with what it builds (F or I); the page fold's personas mapped onto this org. |
-| Signals | `*_signals`, `sum_signals_*` | Adoption `+` and pain `!`, dated and linked, graded by `research-standards.md`, strongest first. |
-| Oracle | `oracle`, `oracle_short`, `oracle_use`, `sum_oracle` | Confirmed use only (the page fold's rule), plus what runs instead and what is not counted. |
-| Edge AI | `edge_ai` | A verdict with dated evidence (shipped, planned or hiring) and the kit's layers. |
-| Size | `size_*.methods.first_principles`, `.public` | Spend or headcount × share, as low, likely and high, plus any public figure. |
-| Angle (you) | `angle`, `angle_note`, `sum_angle` | The lead module by its exact name, with its use case here and the sponsor. Lead with a ready module where it fits. |
-| Gaps (you) | `gaps`, `sum_gaps` | Every search a limit or block left undone. Finish them before stage 4. |
+**Dimensions** (fields): what good looks like
+- Company, units, roles (`what_they_do`, `sum_what`, `hq_*`, `headcount`, `*_units`, `sum_units_*`, `*_roles`, `sum_roles_*`): one paragraph to the essence; headcount quoted; each unit with what it builds (F or I); the page fold's personas mapped onto this org.
+- Signals (`*_signals`, `sum_signals_*`): adoption `+` and pain `!`, dated and linked, graded by `research-standards.md`, strongest first.
+- Oracle (`oracle`, `oracle_short`, `oracle_use`, `sum_oracle`): confirmed use only (the page fold's rule), plus what runs instead and what is not counted.
+- Edge AI (`edge_ai`): a verdict with dated evidence (shipped, planned or hiring) and the kit's layers.
+- Size (`size_*.methods.first_principles`, `.public`): spend or headcount × share, as low, likely and high, plus any public figure.
+- Angle, yours (`angle`, `angle_note`, `sum_angle`): the lead module by its exact name, with its use case here and the sponsor; a ready module leads where it fits.
+- Gaps, yours (`gaps`, `sum_gaps`): every search a limit or block left undone, finished before stage 4.
 
 **Modules** (the tracker page's MODULES list)
 - Hardware, ready: Peripheral driver development, Legacy code modernization, Software optimization for target hardware.
