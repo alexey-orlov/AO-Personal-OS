@@ -23,6 +23,7 @@
 - Never drop a fact the row depends on. Rebuild after each cut.
 
 **Look before filing**
+- Page 1's "Who it's for" covers this account's industry; if not, widen the shared definition (`bio.json` or `hw.json` and the tracker page's fold) and rebuild every page built from it.
 - Every row reads cold.
 - Links show as captions.
 - Champions are grey.
@@ -32,7 +33,7 @@
 - Copy the PDF to `Current offerings/AI Jumpstart for <offer>/Account two-pagers/AI Jumpstart for <offer> - Sales two-pager - internal - <Account>.pdf`.
 
 **Provenance**
-- Add a kit `PROVENANCE.md` row only for page-2 wording from outside the tracker: an account history, a call, Alex's message. See BlackBerry's row of 19 Nov.
+- Add a kit `PROVENANCE.md` row only for page-2 wording from outside the tracker: an account history, a call, Alex's message (e.g. BlackBerry's row, 19 Nov).
 
 **Several accounts**
 - Send Alex one contact sheet of every page 2, plus one or two full PDFs.
