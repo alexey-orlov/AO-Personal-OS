@@ -1,0 +1,20 @@
+{
+  "_how_to_use": "Copy to OneDrive one-pager-build/accounts/<slug>.json, fill every <…>, keep the third row's one label (builds for hw, research for bio), drop the Need signals row when no S or M signal is a real hook, drop each 'other' bullet whose tracker verdict is No, keep deal_prices only for a team of about ten or fewer, and delete every key starting with '_'. check_account.py fails on any leftover '<' or '_' key.",
+  "name": "<Account, as printed>",
+  "offer": "hw | bio",
+  "source": "California Jumpstart Outreach tracker, account '<slug>'; researched and fact-checked <YYYY-MM-DD>",
+  "rows": [
+    ["Account", "<Name> · <kind of company in a few words>, <HQ city>; <SoftServe relationship only as the record proves it>"],
+    ["Est. R&D headcount", "~<N> <who is counted>, of <total> staff"],
+    ["What their R&D builds | What they research", "<concrete nouns: products, devices, chips, modalities>"],
+    ["Likely problem", "<named role + situation + what it costs the business> (inferred)."],
+    ["Need signals", "<strongest current signal (Mon YYYY)>; <second (Mon YYYY)>."]
+  ],
+  "other": [
+    {"label": "Oracle solutions", "url": "https://oracle-softservedev-practice.web.app/", "url_label": "Oracle mini-site", "text": "<Runs Oracle <platforms>; never a use case>"},
+    {"label": "Edge AI Kit", "url": "<the Edge AI Kit deck link, copied from an existing account file>", "url_label": "Edge AI Kit deck", "text": "<dated reason, not starting with the kit's name>"}
+  ],
+  "champions": ["<Name, short title>", "<Name, short title>", "<Name, short title>"],
+  "champions_note": "Quick research only; names and titles may be wrong.",
+  "deal_prices": {"Essential": "from ~$75K"}
+}
