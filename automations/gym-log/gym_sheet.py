@@ -455,6 +455,10 @@ def cmd_progress():
             dated.append({"dt": datetime.strptime(b["date"], "%m/%d/%Y"), **b})
         except ValueError:
             continue
+    # Column order is not chronological (a backfilled date is appended at the
+    # right edge, e.g. 7/29 after 8/3), and "previous" / "baseline" below
+    # mean previous in time.
+    dated.sort(key=lambda b: b["dt"])
     cur = next((b for b in dated if b["dt"] == target), None)
     if cur is None:
         _die(f"no logged session on {sys.argv[2]}")
