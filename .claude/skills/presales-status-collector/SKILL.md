@@ -79,7 +79,7 @@ Status cell style:
 - Escape any `|` inside a cell as `\|`.
 - `—` when there is neither evidence nor input.
 
-Send the file to Alex with `SendUserFile` and end with one line: how many accounts were updated and how many came from his input.
+Send the file to Alex with `SendUserFile` only after the write or edit has returned, as a step of its own: a send batched with the edit can go out before the change lands (2026-11-22, when the NextEra update reached Alex missing). End with one line: how many accounts were updated and how many came from his input.
 
 ### 5. Fold the new facts
 
