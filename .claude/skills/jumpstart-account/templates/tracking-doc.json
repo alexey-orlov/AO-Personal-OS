@@ -1,0 +1,13 @@
+{
+  "_how_to_use": "For a new account only: ArtifactData set tracking/<slug> from this file with the '_' keys removed. Existing docs are changed with update + if_version, never set. The page saves the whole doc, so add no other field.",
+  "status": "not-started",
+  "notes": "",
+  "next_step": "",
+  "contacts": [
+    "<Teams note recipient: the main contact>",
+    "",
+    "",
+    ""
+  ],
+  "account_summary": "<SoftServe's own context in one or two lines (relationship, open work, where it stands), or ''>"
+}
