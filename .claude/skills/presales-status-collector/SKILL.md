@@ -75,6 +75,7 @@ The file goes to people who cannot open this repo or the artifact, so it stands 
 Status cell style:
 - One or two sentences, about 40 words at most: past facts first, then the next step with a date.
 - Tag each sentence or clause `[C]` or `[P]`. If Alex corrected a confirmed fact, his version wins and is tagged `[P]`.
+- A fact Alex gives during the status round (in chat or the widget) stays `[P]` on every re-run of that round, even after it has been logged in the tracker or the wiki; `[C]` needs a record from before the round.
 - Escape any `|` inside a cell as `\|`.
 - `—` when there is neither evidence nor input.
 
