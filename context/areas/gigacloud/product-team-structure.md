@@ -26,7 +26,7 @@ _updated: 2026-11-22_
 ## Active threads
 
 - **Next steps (Alex's list, 2026-10-16, in his order):** 1 Alex's part-time hours / availability / financial terms · 2 an offer for Edik · 3 talk to Edik · 4 talk to the product team and the leadership team · 5 agree who owns the «Прибутковість / маржинальність / ефективність» direction · 6 decide the updated org structure · 7 open the vacancies (Head of Product already open). Owner: Mine. (chat, 2026-10-16)
-- **Head of Product hiring — test assignment.** v2 is a UA Google Doc next to the PM test, view-by-link like it since 2026-11-22 ([Тестове завдання - Head of Product, GigaCloud](https://docs.google.com/document/d/1MwSpxP4Bdso6gFrzcugSGdetOhzdbEExxNUpLZg7m4Q/edit)). Its three tasks: GTM for a managed cloud-native service (the PM test's scenario), the process for reselling partners' cybersecurity trainings, and a standing purchase process with a spreadsheet-style model for GPU / high-end storage. Limits: 6-8 h, 3 pages per task, 7 days. Three fresh-context candidate reads put the real effort at 12-15 h on v1 and 7-8 h on v2. The evaluation key, how many of Alex's unstated expectations each read found (partner price validity: none) and the interview questions are in the [evaluation key](docs/hop-test-assignment/evaluation-key.md). Next: Alex's decisions (open loops), then the recruiter sends it. Owner: Mine. (chat, 2026-11-22)
+- **Head of Product hiring — test assignment.** v3 (current, 547 words, rewritten on the PM test's wording with headings, bullets and paragraph spacing after Alex found v2 "too wordy + AI-sounding") is a UA Google Doc next to the PM test, view-by-link like it since 2026-11-22 ([Тестове завдання - Head of Product, GigaCloud](https://docs.google.com/document/d/1MwSpxP4Bdso6gFrzcugSGdetOhzdbEExxNUpLZg7m4Q/edit)). Its three tasks: GTM for a managed cloud-native service (the PM test's scenario), the process for reselling partners' cybersecurity trainings, and a standing purchase process with a spreadsheet-style model for GPU / high-end storage. Limits: 6-8 h, 3 pages per task, 7 days. Three fresh-context candidate reads put the real effort at 12-15 h on v1 and 7-8 h on v2. The evaluation key, how many of Alex's unstated expectations each read found (partner price validity: none) and the interview questions are in the [evaluation key](docs/hop-test-assignment/evaluation-key.md). Next: Alex's decisions (open loops), then the recruiter sends it. Owner: Mine. (chat, 2026-11-22)
 
 ## People
 
@@ -54,6 +54,7 @@ _updated: 2026-11-22_
 
 ## Activity
 
+- 2026-11-22 — [Head of Product test assignment v3](docs/hop-test-assignment/evaluation-key.md) — text cut back to the PM test's wording (939 → 547 words), structured, same link. (chat)
 - 2026-11-22 — [Head of Product test assignment v2](docs/hop-test-assignment/evaluation-key.md) — UA Google Doc plus evaluation key; v1 re-cut after three fresh-context candidate reads (12-15 h → 7-8 h). (chat)
 - 2026-10-20 — «Синергія з Київстар» added to Alex's Q3 projects (owner / scope / role TBD); the plan now says 4 projects. (chat)
 - 2026-10-20 — plan's «Вакансії» synced with «Найм: три ролі»; Product manager kept as a transfer from Presales (Alex). (chat)
