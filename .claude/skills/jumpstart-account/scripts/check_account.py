@@ -30,6 +30,8 @@ CLOSED = re.compile(r"closed|removed|no longer accepting|filled|inactive", re.I)
 PLACEHOLDER = re.compile(r"<[^<>]{2,}>")
 DATE_IN_TEXT = re.compile(r"\((?:[A-Z][a-z]{2,8}\.?\s*(?:[–-]\s*[A-Z][a-z]{2,8}\.?\s*)?\d{4}|\d{4})\)")
 NAME = re.compile(r"^[A-Z][\w'’.-]+(?:\s+[A-Z][\w'’.-]+)+")
+MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+TODAY = [dt.date.today()]
 
 out = {"FAIL": [], "WARN": [], "OK": []}
 
@@ -249,6 +251,10 @@ def check_two_pager(tp, doc):
         say("WARN", f"{w}.Need signals", "no '(Mon YYYY)' date")
     if re.search(r"\bhiring\b", ns, re.I):
         say("WARN", f"{w}.Need signals", "'hiring': confirm the ad is still open, else 'sought'")
+    for mon, yr in re.findall(r"\b(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\.?\s+(\d{4})\b", ns):
+        d = dt.date(int(yr), MONTHS.index(mon) + 1, 15)
+        if months(d, TODAY[0]) > 18:
+            say("WARN", f"{w}.Need signals", f"'{mon} {yr}' is older than 18 months: context, not a hook")
     labels_other = [o.get("label") for o in tp.get("other") or []]
     for i, o in enumerate(tp.get("other") or []):
         ow = f"{w}.other[{i}]"
@@ -294,6 +300,7 @@ def main():
     ap.add_argument("--today", default=dt.date.today().isoformat())
     a = ap.parse_args()
     today = dt.date.fromisoformat(a.today)
+    TODAY[0] = today
     doc = load(a.doc)
     check_doc(doc, today)
     if a.two_pager:
