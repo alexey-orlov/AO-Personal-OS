@@ -1,7 +1,7 @@
 # Product team structure — CPO part-time transition
 
-_status: proposal deck v1 (10 slides, UA; 2026-10-16, fork and hiring slides added 2026-10-20) from Alex's Miro board; next step — Alex's own part-time terms and Edik's offer_
-_updated: 2026-10-20_
+_status: proposal deck v1 (10 slides, UA; 2026-10-16, fork and hiring slides added 2026-10-20) from Alex's Miro board; next step — Alex's own part-time terms and Edik's offer. The Head of Product vacancy is live; its test assignment v2 was drafted 2026-11-22 and awaits Alex's decisions_
+_updated: 2026-11-22_
 
 ## Snapshot
 
@@ -12,7 +12,7 @@ _updated: 2026-10-20_
   - **Fork into Q4'FY2026** (Alex's Miro picture, 2026-10-20): no replacement found → Alex stays part-time CPO; Product Operations moved into Operations / a Head of Product found → Alex becomes **Advisor** (product strategy, automation architecture). Advisor is the same role as the plan's ad-hoc consults and the TO BE «Advisor?» for Product Strategy (the deck now says Advisor in all three places).
   - Edik — becomes Product Lead, with a review of his terms ("Product Lead + перегляд"; the next step is an offer).
   - Vacancies (plan slide, synced with the hiring slide 2026-10-20) — the three hiring roles below + a Product manager as a transfer, ideally from Presales. The board's earlier «Аналітик в Operations» is now just «Analyst», as on the hiring slide.
-  - **Hiring, three roles** (chat, 2026-10-20): 1 Head of Product — only if we decide to hire; 2 Analyst — the company's unit-economics tasks; 3 Business analyst — automating the Product Operations backlog, CRM team.
+  - **Hiring, three roles** (chat, 2026-10-20): 1 Head of Product; 2 Analyst — the company's unit-economics tasks; 3 Business analyst — automating the Product Operations backlog, CRM team. **The Head of Product vacancy is live** ([JD](https://gigacloud.peopleforce.io/careers/v/245522-head-of-product), seen 2026-11-22): Kyiv, full-time, hybrid; reports to the CPO and the CEO; owns the whole product function, product operations included (pricing rules, catalog, CRM publication); opened for the team's growth and the move into European markets.
   - C-level / org structure — think about hiring a strong COO + a new org structure that splits the product function → later consider moving Product Operations into Operations and the Product Lead into the CTO function.
 - **Availability, CA ↔ Kyiv** (chat, 2026-10-16): the overlapping hours are 07:00–09:00 CA = 17:00–19:00 Kyiv, and sometimes 23:00–24:00 CA = 09:00–10:00 Kyiv (next day); they are for the team weeklies and the ongoing project calls. The gap is 10 h, 9 h on 25.10–1.11.2026 and 14–28.03.2027 (tzdata 2026b), when the morning window lands at 16:00–18:00 Kyiv.
 - **Edik and the team (Q3):** launches (new products / quarterly projects) + current tasks (team coordination: backlog, ad-hoc decisions). (chat, 2026-10-16)
@@ -25,7 +25,8 @@ _updated: 2026-10-20_
 
 ## Active threads
 
-- **Next steps (Alex's list, 2026-10-16, in his order):** 1 Alex's part-time hours / availability / financial terms · 2 an offer for Edik · 3 talk to Edik · 4 talk to the product team and the leadership team · 5 agree who owns the «Прибутковість / маржинальність / ефективність» direction · 6 decide the updated org structure · 7 open the vacancies. Owner: Mine. (chat, 2026-10-16)
+- **Next steps (Alex's list, 2026-10-16, in his order):** 1 Alex's part-time hours / availability / financial terms · 2 an offer for Edik · 3 talk to Edik · 4 talk to the product team and the leadership team · 5 agree who owns the «Прибутковість / маржинальність / ефективність» direction · 6 decide the updated org structure · 7 open the vacancies (Head of Product already open). Owner: Mine. (chat, 2026-10-16)
+- **Head of Product hiring — test assignment.** v2 is a UA Google Doc, private, next to the PM test ([Тестове завдання - Head of Product, GigaCloud](https://docs.google.com/document/d/1MwSpxP4Bdso6gFrzcugSGdetOhzdbEExxNUpLZg7m4Q/edit)). Its three tasks: GTM for a managed cloud-native service (the PM test's scenario), the process for reselling partners' cybersecurity trainings, and a standing purchase process with a spreadsheet-style model for GPU / high-end storage. Limits: 6-8 h, 3 pages per task, 7 days. Three fresh-context candidate reads put the real effort at 12-15 h on v1 and 7-8 h on v2. The evaluation key, how many of Alex's unstated expectations each read found (partner price validity: none) and the interview questions are in the [evaluation key](docs/hop-test-assignment/evaluation-key.md). Next: Alex's decisions (open loops), then the recruiter sends it. Owner: Mine. (chat, 2026-11-22)
 
 ## People
 
@@ -34,11 +35,20 @@ _updated: 2026-10-20_
 
 ## Decisions
 
-- -
+- 2026-11-22 — The Head of Product test assignment has three tasks: GTM built on the PM test, the partner cyber-training resale process, and the expensive-hardware purchase process with a spreadsheet-style model. Its preamble follows the role and the JD and keeps the PM test's frame (no right answers, any format, be ready to discuss). (chat, 2026-11-22)
 
 ## Open loops
 
 - Mine — the seven next steps above.
+- Mine — decisions on the Head of Product test assignment. [evaluation key](docs/hop-test-assignment/evaluation-key.md) (chat, 2026-11-22)
+  - Task 1 in writing or as a live case at the meeting (about 4-5 h of written work instead of 6-8).
+  - EU in task 1.
+  - The «кілька проєктів на місяць» scale in task 2.
+  - The AI-permission and «answers used only for evaluation» lines.
+  - The deadline, who sits in the meeting, and whether candidates get feedback.
+  - Giving the test only at the final stage.
+- Open — the JD gives the Head of Product product operations (pricing rules, catalog, CRM publication), while the TO BE split moves Product Operations to the COO: which holds? (inferred tension between the JD and deck v1)
+- Open — possible subproject: Head of Product hiring? Promote on the next artifact (submissions, interviews).
 - Theirs (Alex) — owner, scope and CPO / team role for «Синергія з Київстар» (TBD on the projects slide). (chat, 2026-10-20)
 - Mine — questions on the deck v1 for Alex: the two near-identical «Координація команди» stickies (merged), «Product Lead + перегляд» read as a review of terms, the duplicated description of the two long-term COO projects, the Gantt's November start and April 2027 annual refresh (not on the board), what the 65 / 20 / 15 % measure, Country Director named on the projects slide but owning nothing on the Gantt. (chat, 2026-10-16)
 
