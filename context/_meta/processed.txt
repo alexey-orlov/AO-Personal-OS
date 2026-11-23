@@ -55,6 +55,7 @@ context/areas/gigacloud/calls/other/2026-10-12_130201_default_20261011192457B879
 context/areas/gigacloud/calls/other/2026-10-29_154100_default_202610121417467AB7FC95.md
 context/areas/gigacloud/calls/other/2026-10-29_154300_default_20261012193542DEBF166F.md
 context/areas/gigacloud/docs/h1-results-deck/HANDOFF.md
+context/areas/gigacloud/docs/hop-test-assignment/evaluation-key.md
 context/areas/gigacloud/docs/margin-deck/HANDOFF.md
 context/areas/gigacloud/docs/publication-process-deck/HANDOFF.md
 context/areas/job-search/calls/vacancy-interviews/_unknown/2026-05-21_1806_interview.md

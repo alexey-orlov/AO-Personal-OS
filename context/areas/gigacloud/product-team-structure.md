@@ -54,6 +54,7 @@ _updated: 2026-11-22_
 
 ## Activity
 
+- 2026-11-22 — [Head of Product test assignment v2](docs/hop-test-assignment/evaluation-key.md) — UA Google Doc plus evaluation key; v1 re-cut after three fresh-context candidate reads (12-15 h → 7-8 h). (chat)
 - 2026-10-20 — «Синергія з Київстар» added to Alex's Q3 projects (owner / scope / role TBD); the plan now says 4 projects. (chat)
 - 2026-10-20 — plan's «Вакансії» synced with «Найм: три ролі»; Product manager kept as a transfer from Presales (Alex). (chat)
 - 2026-10-20 — fork slide (Q3 part-time CPO → Q4 part-time CPO or Advisor) after the plan, hiring slide (three roles) last; «Advisor» unified on the plan and the TO BE slide — 10 slides. (chat)
