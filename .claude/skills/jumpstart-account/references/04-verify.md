@@ -15,7 +15,7 @@ This applies the new-row gate in `research-standards.md`.
 
 **Record the results**
 - `oracle_use.cross_checked: true`, with each item's verdict in its `check`.
-- For Edge AI: start `edge_ai.caveats` with "Second pass DD Mon YYYY: <verdict>.", where the page shows it.
+- For Edge AI: start `edge_ai.caveats` with "Second pass DD Mon YYYY: <verdict>.", where the page shows it. A weak fit is No (the page fold's rule).
 - For the offer choice: one line in `angle_note`, e.g. "Offer second-passed DD Mon YYYY: bio confirmed; hardware no (devices partner-built)."
 
 **Then**

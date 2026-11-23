@@ -142,6 +142,8 @@ def check_doc(doc, today):
     if str(ea.get("verdict", "")).lower() == "yes":
         if not ea.get("one_liner"):
             say("FAIL", "edge_ai", "Yes with no one_liner")
+        if re.match(r"\s*(weak|partner|plan only|indirect)\b", str(ea.get("one_liner", "")), re.I):
+            say("FAIL", "edge_ai", "a weak fit is verdict no, evidence kept (the tracker page's Edge AI rule)")
         ev = ea.get("evidence") or []
         if not ev:
             say("FAIL", "edge_ai", "Yes with no dated evidence")
