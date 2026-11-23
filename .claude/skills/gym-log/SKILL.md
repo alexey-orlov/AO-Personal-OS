@@ -47,7 +47,10 @@ sips -z 840 3780 zoom.jpg
 photographs the page right after the morning workout, so it pins the training
 date. Cross-check against the handwritten header (DD.MM.YYг). On conflict the
 EXIF date wins (pen slips happen — 2026-07-22 was handwritten "28.07.26"),
-but say so in the report. Sheet date format is **M/D/YYYY without leading
+but say so in the report. Not for photos pasted into a chat session (its
+`images/` folder): those carry the paste time, so a whole batch shows one
+minute, and the handwritten date is the only date (23.11.26: six October
+pages all stamped 23.11). Sheet date format is **M/D/YYYY without leading
 zeros** ("7/22/2026") — block lookup is an exact string match.
 
 ### 3. Parse the page — strength section only
@@ -62,7 +65,10 @@ lines have per-set weights in kg, warm-up/crossfit lines have times (40",
 
 Line rules:
 - **Crossed-out exercise = planned but not done — never log it.** A struck
-  name with sets/weights still written next to it is still skipped.
+  name with sets/weights still written next to it is still skipped. A whole
+  section struck through with an arrow (⇒) to another page = the plan was
+  swapped: log the section the arrow points to, under this page's date
+  (30.10.26: push day crossed out, the pull day done on the facing page).
 - Sets notation `3x10` = 3 sets × 10 reps. A range `3x8-10` → reps `8-10`
   as written; a circled number in it is reported, not silently picked. Send
   any non-numeric reps with a leading apostrophe (`"reps":"'8-10"`): `log`

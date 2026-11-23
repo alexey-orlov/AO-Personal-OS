@@ -45,13 +45,15 @@ A `+` written between two strength lines marks a superset (05.10: ГАКК +
 ## Not logged — section recognition vocabulary
 
 Warm-up (section I): Dog birds, Бок. планка (с поворотом), Удержание резины /
-Удерж. резины, Ягодичный мост (на каждую ногу), Экстензия (с контролем
-осанки; sometimes 10кг), Махи блином вокруг головы (10кг). Format: `2x15`,
+Удерж. резины / Резина удержание, Ягодичный мост (на каждую ногу), Экстензия
+(с контролем осанки; сидя с гантелью; sometimes 10кг), Махи блином вокруг
+головы (10кг), Plank shoulders touch, Планка с перекрёстной сменой рук. Format: `2x15`,
 `2x40"` (seconds); a single implement weight in brackets does not make a
 line strength work.
 
 Crossfit closing (section III): Thrusters (24кг / 10кг), T2B, Sit-ups,
-Скакалка, Канат, Row (N cal), Pull-ups, Dips, JJ (jumping jacks), Lunges /
+Скакалка, Канат, Row (N cal), Pull-ups, Push-ups, Dips / Deeps, JJ (jumping
+jacks), Выпады (10кг), Lunges /
 Lunges walking (15кг), Burpees, Squats, Приседания с блином над головой,
 Box jumps, Зашагивание на тумбу (20кг), Протяжка с приседом, Hand stand
 push-ups, Wall-ball (6кг). Markers: `(x3)` rounds, `12'` time cap, finish
