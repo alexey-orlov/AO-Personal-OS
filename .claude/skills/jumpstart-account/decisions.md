@@ -35,6 +35,11 @@ Rationale lives here; the runtime cards hold only the rules. Never load this fil
   - a new tracking doc is created with `set`;
   - the outreach list's Owner column is the R&D owner;
   - the hook rule's one home is the message-writing playbook.
+- **Careers redirects (L'Oréal, Nov 22):** every careers.loreal.com job page renders the careers homepage to a fetcher, even for open ads, so the research agents first read a redirect as "closed". The verify brief now says a redirect proves nothing and dates a closure from a dated copy (an aggregator).
+- **Alex's own note (L'Oréal, Nov 22):** Alex wrote and sent the L'Oréal note himself, in four bubbles, and the checker's three-bubble rule would have forced a rewrite of a sent note. `teams_note.author: "alex"` marks his notes, stored bubble for bubble, and the checker skips the playbook checks for them. It is an explicit field rather than a phrase in `note` (CLAUDE.md: one explicit source per state).
+- **First runs of the new checker on the reviewed rows (Nov 22):**
+  - BlackBerry's page names Jordan Edgecombe as a champion, though the tracker gives him medium confidence;
+  - Generac's Edge AI evidence keeps a Jan 2021 SmartCamera item that is older than five years, although its Nov 2026 item makes the same point.
 
 ## Choices
 - **Page 1 is one of two Jumpstarts only.** Alex, Nov 18: "we consider only between 2 kinds of jumpstarts".
