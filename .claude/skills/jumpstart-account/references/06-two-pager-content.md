@@ -9,7 +9,7 @@
 2. `Est. R&D headcount`: "~N <who is counted>, of <total> staff". N is the tracker estimate. With no team: "No firmware team; nearest: ~N …".
 3. `What their R&D builds` (hw) or `What they research` (bio): concrete nouns.
 4. `Likely problem`: a named role, their situation, and what it costs the business, ending on money, then "(inferred)".
-5. `Need signals`: the one or two strongest current signals, each "(Mon YYYY)", with "sought" for closed ads and never an executive's remark first. Omit the row when no S or M signal is a real hook.
+5. `Need signals`: the one or two strongest current signals, each "(Mon YYYY)"; "sought" for closed ads; never an executive's remark first. Omit it with no S or M hook.
 
 **Other R&D solutions** (only where the tracker verdict is Yes)
 - `Oracle solutions`: the Oracle platforms the account runs, never a use case. Caption "Oracle mini-site", url `https://oracle-softservedev-practice.web.app/`.
@@ -21,7 +21,7 @@
 - High confidence only: champions first, then buyers.
 
 **Price**
-- `deal_prices` of `"from ~$75K"` for Essential when the team is about ten engineers or fewer (Horizon, Maximo).
+- Essential `"from ~$75K"` (`deal_prices`) for a team of about ten or fewer (Horizon, Maximo).
 
 **Style**
 - Plain words, no em dashes, dates like "Mar 2026", numbers exactly as in the tracker; about 22 words a row.

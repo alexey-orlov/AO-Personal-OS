@@ -8,7 +8,7 @@
 1. Open `https://www.linkedin.com/sales/search/people`.
 2. Current company: the company plus every LinkedIn page its staff sit under (NextEra needed three).
 3. Core count: a Boolean keyword query for the team the offer trains, plus Function = Engineering where it helps. Example: `BSP OR "board support" OR driver OR drivers OR kernel OR "functional safety"`.
-4. Zoom on "N results" to read the count.
+4. Zoom on "N results" for the count.
 
 **Read the cards**
 - `get_page_text` is empty on Sales Navigator, so use `javascript_tool` on each `ol li`'s innerText.
@@ -24,7 +24,7 @@
 - No team: `applies: false`, with the LinkedIn evidence and the nearest group in the note.
 
 **Names**
-- Search by leadership terms or a site name (`"Duane Arnold"`), then check each name on the web.
+- Search leadership terms or a site name (`"Duane Arnold"`); check names on the web.
 - Spell names as the company's own pages do ("Jarro", not "Jarrow").
 - Where titles conflict, use neutral wording.
 - Fill every person field. Only high-confidence people go on the two-pager.

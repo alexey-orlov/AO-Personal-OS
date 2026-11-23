@@ -11,7 +11,7 @@ This applies the new-row gate in `research-standards.md`.
 | Each signal | At the source: quote, date, open or closed, team. Regrade. A closed ad is "sought"; another function's ad stays W, with its reason. | BlackBerry's 10-K line went from S to M. NextEra's hook was a Feb 2025 ad. |
 | Fit facts | A dated source for each two-pager claim, plus a cost of delay marked inferred. | "Largest wind and solar fleet" was old boilerplate. |
 | Internal claims | Traced to file and slide, or Alex's message, and credited to the speaker. "SoftServe client" only with a team or revenue on record; never "former" on one CRM flag. | A colleague's remark had been credited to the AM. |
-| Titles | Sales Navigator against public sources; neutral wording when they differ. | Justin Moon: SVP on LinkedIn, VP in QNX's releases. |
+| Titles | Sales Navigator against public sources; neutral wording on conflict. | Justin Moon: SVP on LinkedIn, VP in releases. |
 | Better hook | A current trigger from the team the offer serves: a hire, mandate, budget or pain in the exact work. | Duane Arnold's control-room upgrade. |
 
 **Then:** apply the corrections, set `oracle_use.cross_checked: true` with each item's verdict, and list what was narrowed or dropped.

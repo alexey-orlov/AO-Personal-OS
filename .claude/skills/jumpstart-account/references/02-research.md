@@ -6,7 +6,7 @@
 
 | Dimension | Fields | What good looks like |
 |---|---|---|
-| Company | `what_they_do`, `sum_what`, `hq_*`, `headcount`, `flag` | One paragraph, down to the essence. Headcount from the latest annual report, quoted and dated. |
+| Company | `what_they_do`, `sum_what`, `hq_*`, `headcount`, `flag` | One paragraph to the essence; headcount quoted from the latest annual report. |
 | Units | `hw_units` / `bio_units` | Each R&D unit and what it builds, in concrete nouns, labelled F or I. |
 | Roles | `*_roles`, `sum_roles_*` | The page fold's personas mapped onto this company's org, each with a why. |
 | Signals | `*_signals`, `sum_signals_*` | Adoption `+` and pain `!`, dated and linked. Graded by `research-standards.md`, strongest first. |

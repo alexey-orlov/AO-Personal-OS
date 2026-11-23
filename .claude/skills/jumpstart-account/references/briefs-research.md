@@ -3,7 +3,7 @@
 Prefix each with `briefs-common.md`; shapes from `templates/account-doc.json`.
 
 **Company, units and roles**
-> Write `what_they_do` (one short paragraph, down to the essence), `sum_what`, `hq_text`, `hq_california` and `headcount` (from the latest annual report, with a quote).
+> Write `what_they_do` (one short paragraph), `sum_what`, `hq_text`, `hq_california` and `headcount` (latest annual report, quoted).
 > List every R&D unit and what it builds or researches, in concrete nouns: products, devices, chips, modalities. Label each F or I.
 > Map these personas onto the company's own org (buyer, champion, co-sponsor, gatekeeper), each with a one-line why: <the page fold's personas for the offer>.
 
@@ -24,6 +24,6 @@ Prefix each with `briefs-common.md`; shapes from `templates/account-doc.json`.
 
 **Size: first principles and public**
 > R&D spend or headcount × the share in the target work, as low, likely and high, with the arithmetic.
-> Plus any public figure for the team, with its source.
+> Plus any public team figure, sourced.
 
 Every agent also lists, in its output, each search a limit or a blocked page left undone.
