@@ -230,7 +230,7 @@
   "gaps": "<every open question and every search a limit or blocked page left undone>",
   "sum_gaps": "<one line>",
   "teams_note": {
-    "author": "agent | alex (Alex's own note, stored bubble for bubble as sent)",
+    "author": "agent | alex (Alex's own note, stored as sent; extra middle bubbles joined into msgs[1])",
     "to": "<owner>",
     "lang": "EN | UA",
     "attach": "<Account> two-pager",

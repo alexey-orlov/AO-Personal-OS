@@ -238,10 +238,10 @@ def check_note(t):
     if t.get("author") not in (None, "agent", "alex"):
         say("FAIL", w, "author must be 'agent' or 'alex'")
     msgs = t.get("msgs") or []
-    if t.get("author") == "alex":
-        return  # Alex's own note is stored as he sent it: no playbook checks
     if len(msgs) != 3:
-        say("FAIL", w, f"{len(msgs)} messages; the note is three bubbles")
+        say("FAIL", w, f"{len(msgs)} messages; the page has three slots (Hi, Pitch, 2-pager)")
+    if t.get("author") == "alex":
+        return  # Alex's own note, stored as he sent it: no playbook checks
     for i, m in enumerate(msgs + (t.get("alt") or {}).get("msgs", [])):
         if "—" in m:
             say("FAIL", f"{w}.msgs[{i}]", "em dash: use a hyphen with spaces or split the sentence")
