@@ -156,7 +156,8 @@ def sheet_payload(doc, cat):
         if it.get("kg"):
             e["w_start"] = e["w_end"] = _num(it["kg"])
         payload["entries"].append(e)
-        combo.append(f'{row(it["id"])}{f" ({_num(it["kg"])} кг)" if it.get("kg") else ""} {n}x{dose}')
+        load = f" ({_num(it['kg'])} кг)" if it.get("kg") else ""   # no nested same-quote f-strings: the Mac runs Python 3.9
+        combo.append(f'{row(it["id"])}{load} {n}x{dose}')
     if combo:
         payload["warmup"] = {"combination": " → ".join(combo)}
     cf_log = (doc.get("log") or {}).get("crossfit") or {}
