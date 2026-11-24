@@ -20,15 +20,19 @@ code; there is no live Claude session, no Chrome MCP, no Google connector.
 ```
 forward:  Apple Calendar (EventKit read)  →  sync_core.reconcile          →  Google Calendar API
 reverse:  Google Calendar API (all cals)  →  sync_core.reverse_reconcile  →  Apple Calendar (EventKit write)
+          + Apple Calendar subscriptions (GigaCloud, EventKit read)
             ss_cal_read.swift / gcal.py        sync_core.py                   ss_cal_write.swift / gcal.py
                  both passes orchestrated by run.py, hosted by launchd → CalendarSync.app (no window) → run.sh
 ```
 
-- **`ss_cal_read.swift`** → compiled to `.work/ss-cal-read`. Reads the SS Exchange calendar and emits
-  one JSON row per event: uid, title, start/end (absolute ISO instants carrying the Mac's local
-  offset), `all_day`, `recurring`,
-  location, organizer (+email), **`my_status`** (the user's RSVP), online/join_url, notes, and
-  `attendees[{name,email,status,is_me}]`.
+- **`ss_cal_read.swift`** → compiled to `.work/ss-cal-read`. Reads the SS Exchange calendar (`--exchange`)
+  or one named calendar (`--type subscribed --calendar GigaCloud --from <iso>`) and emits one JSON row
+  per event: uid, title, start/end (absolute ISO instants carrying the Mac's local offset), `all_day`,
+  `recurring`, location, organizer (+email), **`my_status`** (the user's RSVP), online/join_url, notes,
+  `attendees[{name,email,status,is_me}]`, and the event's `calendar`/`source`/`source_type`,
+  `external_id` (iCal UID), `occurrence` (original start in a series), `detached`, `availability`,
+  `status`. A filter that matches no calendar exits 5 (`NO_MATCHING_CALENDAR`): it never falls back to
+  every calendar, which EventKit does for an empty list.
 - **`ss_cal_write.swift`** → compiled to `.work/ss-cal-write`. Reverse leg: reads `create|update|delete`
   JSON commands on stdin and writes/removes `availability=.busy` "Busy" events (no attendees, a
   `[[gcal-busy:<key>]]` note) in the SS Exchange calendar; echoes each event's `calendarItemIdentifier`.
@@ -39,8 +43,11 @@ reverse:  Google Calendar API (all cals)  →  sync_core.reverse_reconcile  → 
   `calendar.events` for forward writes + `calendar.readonly` for the reverse multi-calendar read);
   `list_calendars` / list / create / update / delete, always `sendUpdates=none`.
 - **`run.py`** — one tick = **forward pass** (EventKit read → `reconcile` → `gcal`) then **reverse pass**
-  (all Google calendars → `reverse_reconcile` → `ss-cal-write`). Skips all-day events; pulls our own
-  `[[gcal-busy]]` placeholders out of the forward source. Writes `.work/state/last-read.json` for diagnostics.
+  (all Google calendars + `CALSYNC_EK_SOURCES` → `reverse_reconcile` → `ss-cal-write`). Skips all-day
+  events; pulls our own `[[gcal-busy]]` placeholders out of the forward source. Writes, for
+  diagnostics, `.work/state/last-read.json` (the SS read) and `.work/state/calendars.txt` (every Apple
+  Calendar calendar with its count of timed events in the window). Stops without writing when Apple
+  Calendar holds two Exchange calendars titled "Calendar" (gotcha 8).
 - **Host:** launchd `com.user.calendar-sync` runs `open -g -j -W ~/Applications/CalendarSync.app` every
   30 minutes (:00 and :30), Mon–Fri Mac-local time. The app is a faceless AppleScript applet built by
   `setup.sh` (`LSUIElement`: no window, no Dock icon) that runs `run.sh daemon` and holds the macOS
@@ -60,12 +67,12 @@ reverse:  Google Calendar API (all cals)  →  sync_core.reverse_reconcile  → 
 | `gcal.py` | dependency-free Google Calendar client (`auth`/`authurl`/`exchange` once, then library calls) |
 | `run.py` | orchestrator — forward pass (SS→Google) then reverse pass (Google→SS) |
 | `run.sh` | runner, one run at a time (`.work/state/run.lock`, stale locks taken over): `now` (force) / `daemon` (gated + 08:00 daily summary) |
-| `test_sync_core.py` | unit tests (39) |
-| `config.sh` | constants + Keychain creds + `LIVE` flag |
+| `test_sync_core.py` | unit tests (41) |
+| `config.sh` | constants + Keychain creds + `LIVE` flag + `CALSYNC_EK_SOURCES` (calendars read from Apple Calendar) |
 | `setup.sh` | builds the reader + writer (swiftc), builds the host app if missing, installs the launchd agent. `--plist-only` reinstalls just the agent · `--build-host` builds the app only (test before switching) · `--rebuild-host` rebuilds it and reinstalls (macOS asks for the grants again) · `--terminal-host` installs the Terminal fallback. Lints the plist before replacing anything. |
 | `~/Applications/CalendarSync.app` | the faceless host app (built by `setup.sh`, not in git); its grants live in System Settings → Privacy & Security → Calendars / Files and Folders |
 | `~/Library/Logs/calendar-sync/host.log` | every run's console output, plus a line when the host can't start `run.sh` |
-| `.work/state/` | ledger.json, **reverse-ledger.json**, run-log.jsonl, gtoken.json, last-read.json, last-summary-date, LIVE (git-ignored) |
+| `.work/state/` | ledger.json, **reverse-ledger.json**, run-log.jsonl, gtoken.json, last-read.json, calendars.txt, last-summary-date, LIVE (git-ignored) |
 
 ## Rules it enforces
 - **One-way** SS → Google. Sole attendee is **always** `orlov.alexej@gmail.com`; every write uses
