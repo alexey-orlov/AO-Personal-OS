@@ -544,16 +544,16 @@ def schedule(inp):
     now = _utc(inp["now_utc"]) if inp.get("now_utc") else datetime.now(timezone.utc)
     z = now.astimezone(ZoneInfo(cfg["tz"]))
     in_window = z.weekday() <= 4
-    secs = 3600 - (z.minute * 60 + z.second)
+    secs = 1800 - ((z.minute % 30) * 60 + z.second)    # to the next :00 / :30 tick
     if secs <= 0:
-        secs += 3600
+        secs += 1800
     return {
         "tz_now": z.isoformat(),
         "weekday": z.weekday(),
         "hour": z.hour,
         "in_window": in_window,
-        "is_open_hour": z.hour == 8 and z.weekday() <= 4,
-        "next_delay_seconds": max(60, min(3600, secs)),
+        "is_open_hour": z.hour == 8 and z.weekday() <= 4,   # 08:00 and 08:30 both; the summary goes once
+        "next_delay_seconds": max(60, min(1800, secs)),
     }
 
 

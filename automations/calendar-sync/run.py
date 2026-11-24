@@ -173,15 +173,18 @@ def forward_pass(now, source, g_min, g_max, gcal):
             applied["updates"].append({k: x[k] for k in ("source_key", "content_hash", "start_kiev", "title", "google_event_id")})
         except Exception as e:
             errors.append("fwd update '%s': %s" % (x["payload"]["summary"], e))
+    deleted = 0
     for x in plan["deletes"]:
         try:
             gcal.delete_event(x["google_event_id"])
-            applied["deletes"].append({"source_key": x["source_key"]})
+            deleted += 1
+            if x.get("reason") != "duplicate":   # a pruned duplicate leaves the kept copy's ledger entry
+                applied["deletes"].append({"source_key": x["source_key"]})
         except Exception as e:
             errors.append("fwd delete %s: %s" % (x["google_event_id"], e))
     sc.commit({"path": LEDGER, "applied": applied})
     return {"added": len(applied["creates"]), "modified": len(applied["updates"]),
-            "deleted": len(applied["deletes"])}, errors
+            "deleted": deleted}, errors
 
 
 def reverse_pass(placeholders, g_min, g_max, gcal):
@@ -208,10 +211,12 @@ def reverse_pass(placeholders, g_min, g_max, gcal):
               % (c["create"], c["update"], c["delete"], c["skip"], complete))
         return {"rev_added": 0, "rev_modified": 0, "rev_deleted": 0}, []
     by_key = {x["key"]: x for x in (plan["creates"] + plan["updates"])}
+    dup_ids = {d["ss_id"] for d in plan["deletes"] if d.get("duplicate")}
     try:
         results = ss_write(plan["creates"] + plan["updates"] + plan["deletes"])
     except Exception as e:
         return {"rev_added": 0, "rev_modified": 0, "rev_deleted": 0}, ["rev writer: %s" % e]
+    rledger.update(plan.get("relinks") or {})   # point the ledger at the placeholder SS really holds
     ra = rm = rd = 0
     errors = []
     for r in results:
@@ -223,7 +228,9 @@ def reverse_pass(placeholders, g_min, g_max, gcal):
             rledger[r["key"]] = {"ss_id": r.get("ss_id"), "hash": by_key.get(r["key"], {}).get("hash")}
             ra += (op == "create"); rm += (op == "update")
         elif op == "delete":
-            rledger.pop(r.get("key"), None); rd += 1
+            if r.get("ss_id") not in dup_ids:      # pruning a duplicate keeps the slot's entry
+                rledger.pop(r.get("key"), None)
+            rd += 1
     try:
         with open(REV_LEDGER, "w", encoding="utf-8") as f:
             json.dump(rledger, f, ensure_ascii=False, indent=2, sort_keys=True)
