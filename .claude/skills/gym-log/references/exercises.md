@@ -34,8 +34,9 @@ spellings show up in the notes. Categories are EN muscle groups.
 | Реверс | Shoulders | Реверс на заднюю Δ, Реверс. на заднюю Δ, Реверс (задняя дельта) | reverse fly for the rear delts — the Сведение рук machine reversed; 59→66 (19.08, 21.09), 59 (14.09), 61→70 (07.10), 70 3×8 (16.10), 70 3×10 (23.10, 30.10). Same row for «на заднюю Δ» (Alex, 23.11.26) |
 | Протяжка к ключицам | Shoulders | | 45 (14.09) |
 | Жим гантелями сидя на плечи | Shoulders | | dumbbells; 15 (18.09) |
-| Жим в Hammer под углом 60° | Shoulders | Hammer Front military press | Hammer machine; 40 3×8 (23.09, 02.10). The 02.10 page named it «Hammer Front military press»: matched on machine, weight, sets and its slot in the push day — not yet confirmed by Alex |
-| Махи на плечи одной рукой | Shoulders | Махи на плечи (по одной руке), Махи на плечи в тренажере одной рукой, Махи на плечи в тр. одной рукой, Махи на плечи одной р. | single-arm lateral raise on the machine, its own row; 27→34 (23.09), 34/36.5/39 (28.09), 34 ×3 (02.10, 05.10), 39 ×3 (12.10–21.10) |
+| Жим в Hammer под углом 60° | Shoulders | Hammer Front military press, Front military press | Hammer machine; 40 3×8 (23.09, 02.10), 40 3×10 (07.10). The notebook itself ties the names: the 23.09 page footnotes this line «(*) Front military press», and 07.10 logs «Front military press 40-40-40» |
+| Махи на плечи одной рукой | Shoulders | Махи на плечи (по одной руке), Махи на плечи в тренажере одной рукой, Махи на плечи в тр. одной рукой, Махи на плечи одной р. | single-arm lateral raise on the machine, its own row; 27→34 (23.09), 34 ×3 (25.09), 34/36.5/39 (28.09), 34 ×3 (02.10, 05.10, 09.10), 39 ×3 (12.10–21.10) |
+| Жим сидя на плечи в Смитт | Shoulders | Жим сидя на плечи Смитт | seated shoulder press **in the Smith machine**, not the shoulder-press machine (`Жим на плечи сидя`, whose alias «Жим сидя на плечи» comes without «Смитт»); bar weight 20→30 (25.09, first log), 30 ×3 (09.10) |
 
 Planned-but-skipped so far (crossed out, never logged): Шаги на плечи.
 
