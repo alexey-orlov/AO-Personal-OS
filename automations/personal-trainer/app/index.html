@@ -1126,7 +1126,7 @@ function exerciseCard(w, it, isCur) {
   const alt = (ex.alt_us || [])[0];
   const head = el("div", { class: "ex-head" },
     el("div", { class: "name" }, el("b", { text: ex.en_short || ex.en || it.id }), el("div", { class: "ru", text: ex.ru || "" }),
-      el("div", { class: "ex-meta" }, `${it.sets} × ${it.reps}`, it.lb?.length ? ` · ${[...new Set(it.lb)].join("–")} lb` : it.hint_lb ? ` · find the weight (usually ${it.hint_lb} lb)` : " · pick a weight", alt ? el("span", { class: "alt", text: ` · or ${alt}` }) : null)),
+      el("div", { class: "ex-meta" }, `${it.sets} × ${it.reps}${ex.per_side ? (ex.day?.includes("legs") ? " per leg" : " per arm") : ""}`, it.lb?.length ? ` · ${[...new Set(it.lb)].join("–")} lb` : it.hint_lb ? ` · find the weight (usually ${it.hint_lb} lb)` : " · pick a weight", alt ? el("span", { class: "alt", text: ` · or ${alt}` }) : null)),
     howBtn(it.id),
     w.status !== "done" ? el("button", { class: "kebab", type: "button", "aria-label": "Exercise options", on: { click: () => openSheet({ kind: "ex", id: it.id }) } }, "⋯") : null);
   if (st === "done") {
@@ -1134,10 +1134,12 @@ function exerciseCard(w, it, isCur) {
     return el("div", { class: "card ex done" }, head, el("div", { class: "row" },
       el("span", { class: "badge " + (fb?.rating || ""), text: RATINGS.find(r => r[0] === fb?.rating)?.[1] || "Done" }),
       el("span", { class: "small muted grow", text: a.length ? a.map(s => `${s.lb ?? "–"}×${s.reps}`).join(" · ") : fb?.note || "" }),
-      w.status !== "done" ? el("button", { class: "how", type: "button", on: { click: () => { delete w.feedback.items[it.id]; saveWorkout(w); render(); } } }, "Edit") : null));
+      w.status !== "done" ? el("button", { class: "how", type: "button", on: { click: () => { delete w.feedback.items[it.id]; saveWorkout(w); render(); } } }, "Edit") : null),
+      fb?.rating && NEXT_HINT[fb.rating] ? el("div", { class: "small faint", text: NEXT_HINT[fb.rating] }) : null);
   }
   const nodes = [head];
   const ov = w.plan.overrides?.[it.id]; if (ov) nodes.push(el("div", { class: "small faint", text: "↻ " + ov }));
+  if (it.replaces && !ov) nodes.push(el("div", { class: "small faint", text: `↻ stands in for ${enName(it.replaces)}: this gym doesn't have that machine` }));
   if (it.cue && (isCur || st === "todo")) nodes.push(el("div", { class: "note small" }, el("strong", { text: "Back: " }), it.cue));
   else if (ex.back_cue_ru && isCur) nodes.push(el("div", { class: "note small", text: ex.back_cue_ru }));
   if (isCur && (it.action === "calibrate" || it.action === "new" || it.action === "probe" || it.action === "from_app")) nodes.push(el("div", { class: "small faint", text: it.action === "calibrate" ? "New machine: first set is a test. If set 2 feels easy for the top reps, go one step up on set 3."
@@ -1158,7 +1160,7 @@ function exerciseCard(w, it, isCur) {
       el("button", { class: "tick", type: "button", "aria-pressed": String(s.done), "aria-label": `Set ${i + 1} done`, on: { click: () => {
         if (w.status === "planned") startSession(w);
         s.done = !s.done; saveWorkout(w);
-        if (s.done && !(i === Ls.sets.length - 1)) startRest(it.superset_next ? 0 : 90);
+        if (s.done && !(i === Ls.sets.length - 1)) startRest(it.superset_next ? 0 : (REST_SEC[ex.role] || 90));
         else stopRest();
         render(); } } }, "✓")))));
     if (Ls.sets.every(s => s.done) || Ls.sets.some(s => s.done)) nodes.push(rateBlock(w, it.id, Ls.sets.every(s => s.done)));
