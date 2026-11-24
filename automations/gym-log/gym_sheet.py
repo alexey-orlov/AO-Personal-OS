@@ -293,9 +293,20 @@ class Model:
             v = self._cell(0, c)
             if not v:
                 break
-            out.append({"date": v, "col": c})
+            out.append({"date": self._as_date(v), "col": c})
             c += BLOCK_W
         return out
+
+    @staticmethod
+    def _as_date(v):
+        """A header that lost its date format reads as the Sheets serial
+        (46349 = 11/23/2026); give it back as M/D/YYYY so lookups still match."""
+        s = str(v).strip()
+        if re.fullmatch(r"\d{5}(\.0+)?", s):
+            from datetime import date as _date, timedelta
+            d = _date(1899, 12, 30) + timedelta(days=int(float(s)))
+            return f"{d.month}/{d.day}/{d.year}"
+        return s
 
     def last_data_row(self):
         last = FIRST_DATA_ROW - 1
@@ -404,6 +415,13 @@ class Model:
                         "fields": "pixelSize"}})
         self._merge(0, 1, col, col + BLOCK_W)      # date header
         self._merge(2, 3, col, col + BLOCK_W)      # my-weight cell
+        # An explicit date format: copied from a header stored as text (11/23/2026)
+        # the new date could show as its serial (46350) and never match again.
+        self.requests.append({"repeatCell": {
+            "range": {"sheetId": self.sheet_id, "startRowIndex": 0, "endRowIndex": 1,
+                      "startColumnIndex": col, "endColumnIndex": col + BLOCK_W},
+            "cell": {"userEnteredFormat": {"numberFormat": {"type": "DATE", "pattern": "M/d/yyyy"}}},
+            "fields": "userEnteredFormat.numberFormat"}})
         self._write(0, col, date)
         self._write(1, col, SUB_HEADERS)
         self.created["blocks"].append(date)
