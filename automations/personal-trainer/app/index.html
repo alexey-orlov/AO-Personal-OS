@@ -295,7 +295,8 @@ async function boot() {
   sub("media_requests", snap => { S.requests = {}; for (const d of snap.docs) S.requests[d.id] = d.data(); });
 }
 let rq = 0;
-function scheduleRender() { if (rq) return; rq = requestAnimationFrame(() => { rq = 0; render(); }); }
+// a frame that isn't painting (a hidden pane, a thumbnail) never runs rAF: fall back to a timer so data still reaches the screen
+function scheduleRender() { if (rq) return; const run = () => { if (!rq) return; cancelAnimationFrame(rq); rq = 0; render(); }; rq = requestAnimationFrame(run); setTimeout(run, 300); }
 function restoreCurrent() {
   const id = lsGet("tn.cur");
   if (id && S.workouts[id] && S.workouts[id].status === "active") { S.cur = id; S.view = "workout"; }
@@ -1042,7 +1043,7 @@ function homeView() {
   nodes.push(el("div", { class: "card" },
     el("div", { class: "eyebrow", text: fmtDate(today) }),
     el("h1", { text: "How are you today?" }),
-    pause?.days_since != null ? el("p", { class: "muted small", text: `Last logged session: ${fmtDate(pause.last_session)} (${pause.days_since} days ago${r.stale.length ? `; plus ${r.stale.length} in this app` : ""}).` }) : null,
+    pause?.days_since != null ? el("p", { class: "muted small", text: `Last logged session: ${fmtDate(pause.last_session)} (${pause.days_since === 1 ? "1 day" : `${pause.days_since} days`} ago${r.stale.length ? `; plus ${r.stale.length} in this app` : ""}).` }) : null,
   ));
   // the engine's questions (brief.ask): the pause gets its own card below, each recently sore joint gets "fine now / still hurts"
   // (trainer.py --ok / --pain), anything else is shown as asked

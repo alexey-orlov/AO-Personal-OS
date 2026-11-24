@@ -65,6 +65,15 @@
         "exec python3 -m http.server 8796 --bind 127.0.0.1 --directory \"$HOME/Library/CloudStorage/OneDrive-SoftServe,Inc/Projects/Jumpstart for scientists/Market research/Agentic platforms map/build\""
       ],
       "port": 8796
+    },
+    {
+      "name": "trainer-app-harness",
+      "runtimeExecutable": "bash",
+      "runtimeArgs": [
+        "-lc",
+        "exec python3 -m http.server 8798 --bind 127.0.0.1 --directory \"$HOME/Documents/GitHub/AO-Personal-OS/automations/personal-trainer/app/.work/harness\""
+      ],
+      "port": 8798
     }
   ]
 }
