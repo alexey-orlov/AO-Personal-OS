@@ -1562,6 +1562,212 @@ async function uploadMedia(id, file) {
   } catch (e) { toast(e.code === "quota_exceeded" ? "Storage is full." : `Upload failed (${e.code || "error"}). Files up to 20 MB.`); }
 }
 
+/* ---------------- the "My training" sheet, written on "Save session"
+   The same payload as app_sync.py `sheet` and the same writer as gym-log's gym_sheet.py `log` (date block of 4 columns,
+   one row per exercise matched by name inside its section, new rows and blocks with the neighbours' format), sent through
+   Alex's own Google Sheets connector as ONE all-or-nothing batchUpdate, then read back cell by cell. Re-running it for
+   the same date overwrites that block's cells, so "Try again" can never double a session. */
+const GS = "Google Sheets";
+const SH = { FIRST_BLOCK_COL: 2, BLOCK_W: 4, FIRST_DATA_ROW: 3, SUB: ["Sets", "Reps per set", "Weight (start)", "Weight (end)"] };
+const SH_SUMMARY = { warmup: ["Warm-up", { combination: "Combination (warm-up)" }],
+  crossfit: ["Crossfit", { combination: "Combination (crossfit)", rounds: "Rounds", cap: "Time cap / plan", finish: "Finish time" }] };
+const shNorm = s => String(s ?? "").trim().toLowerCase().replace(/\.+$/, "").replace(/\s+/g, " ");
+const shSection = c => { const n = shNorm(c); return n === "warm-up" || n === "crossfit" ? n : "strength"; };
+const shNum = x => { const v = Number(x); return Number.isInteger(v) ? v : Math.round(v * 10) / 10; };
+function colLetter(i) { let s = ""; i += 1; while (i) { const r = (i - 1) % 26; s = String.fromCharCode(65 + r) + s; i = Math.floor((i - 1) / 26); } return s; }
+
+/** app_sync.py sheet_payload: only what was logged (done sets, ticked warm-up sets, crossfit with a time or a rating). */
+function sheetPayload(doc) {
+  const c = cat(); const idx = {}; for (const e of [...(c.strength || []), ...(c.warmup?.items || []), ...(c.crossfit?.items || [])]) idx[e.id] = e;
+  const row = i => (idx[i]?.sheet_rows || [i])[0];
+  const [y, m, d] = doc.date.slice(0, 10).split("-").map(Number);
+  const payload = { date: `${m}/${d}/${y}`, entries: [] }; const notes = [];
+  if (doc.body_weight_kg != null) payload.my_weight = shNum(doc.body_weight_kg);
+  const actual = doc.feedback?.actual || {}; const planIds = (doc.plan.strength || []).map(i => i.id);
+  for (const i of [...planIds, ...Object.keys(actual).filter(i => !planIds.includes(i))]) {
+    const a = actual[i]; if (!a || !a.kg?.length) continue;
+    const ex = idx[i] || {}; const days = ex.day || []; const mus = ex.muscles || [];
+    const category = (ex.role === "shoulder" || days.includes("any")) ? "Shoulders" : (mus.includes("glutes") && !mus.includes("quads")) ? "Glutes"
+      : ({ pull: "Back", push: "Chest", legs: "Legs" }[(days.length ? days : ["pull"])[0]] || "Back");
+    payload.entries.push({ category, exercise: row(i), sets: a.sets || a.kg.length, reps: String(a.reps), w_start: shNum(a.kg[0]), w_end: shNum(a.kg[a.kg.length - 1]) });
+    if (a.machine) notes.push(`${row(i)} done on ${a.machine}`);
+  }
+  const wu = doc.log?.warmup || {}; const combo = [];
+  for (const it of doc.plan.warmup || []) {
+    const n = wu[it.id]?.sets_done || 0; if (!n) continue;
+    const dose = it.secs ? `${it.secs}"` : String(it.reps ?? "");
+    const e = { category: "Warm-up", exercise: row(it.id), sets: n, reps: dose }; if (it.kg) e.w_start = e.w_end = shNum(it.kg);
+    payload.entries.push(e); combo.push(`${row(it.id)}${it.kg ? ` (${shNum(it.kg)} кг)` : ""} ${n}x${dose}`);
+  }
+  if (combo.length) payload.warmup = { combination: combo.join(" → ") };
+  const cl = doc.log?.crossfit || {}; const fb = doc.feedback || {}; const cf = doc.plan.crossfit || {};
+  const finish = cl.time || fb.crossfit_time;
+  if (cf.format !== "skip" && cf.items?.length && (finish || fb.crossfit_rating)) {
+    const rounds = cl.rounds_done ?? cf.rounds; const parts = [];
+    for (const it of cf.items) {
+      const dose = it.secs ? `${it.secs}"` : (it.unit === "cal" ? `${it.reps} cal` : String(it.reps || cf.scheme || ""));
+      const e = { category: "Crossfit", exercise: row(it.id), reps: dose };
+      if (cf.format === "rounds" && rounds) e.sets = rounds;
+      if (it.kg != null) e.w_start = e.w_end = shNum(it.kg);
+      payload.entries.push(e); parts.push(`${row(it.id)} ${dose}` + (it.kg != null ? ` (${shNum(it.kg)} кг)` : ""));
+    }
+    payload.crossfit = { combination: parts.join(" → "), rounds: cf.format === "rounds" ? rounds : `${rounds || 1} (${cf.scheme || ""})`,
+      cap: cf.cap_min ? `${cf.cap_min}'` : "-", finish: finish || "не записано" };
+  } else if (cf.items?.length && cf.format !== "skip") notes.push("crossfit left out: no time or rating in the app");
+  return { payload, notes };
+}
+
+/** gym_sheet.py Model: an in-memory mirror of the tab, updated as edits are planned, so later coordinates account for
+ *  rows inserted earlier; structural requests run first, the value writes last, in final coordinates. */
+class SheetModel {
+  constructor(meta, grid) { this.sheetId = meta.sheetId; this.nCols = meta.columnCount; this.merges = clone(meta.merges || []); this.colPx = meta.colPx || [];
+    this.grid = (grid || []).map(r => (r || []).slice()); this.requests = []; this.writes = []; this.created = { blocks: [], exercises: [] }; }
+  cell(r, c) { const row = this.grid[r] || []; return c < row.length ? (row[c] ?? "") : ""; }
+  blocks() { const out = []; for (let c = SH.FIRST_BLOCK_COL; ; c += SH.BLOCK_W) { const v = this.cell(0, c); if (!v) break; out.push({ date: String(v), col: c }); } return out; }
+  lastDataRow() { let last = SH.FIRST_DATA_ROW - 1; for (let r = SH.FIRST_DATA_ROW; r < this.grid.length; r++) if (this.cell(r, 1)) last = r; return last; }
+  categories() { const cats = []; const last = this.lastDataRow();
+    for (let r = SH.FIRST_DATA_ROW; r <= last; r++) { const a = this.cell(r, 0); if (a) cats.push({ name: a, start: r, end: r }); else if (cats.length) cats[cats.length - 1].end = r; } return cats; }
+  exerciseRow(name, section) { for (const c of this.categories()) { if (section != null && shSection(c.name) !== section) continue;
+    for (let r = c.start; r <= c.end; r++) if (shNorm(this.cell(r, 1)) === shNorm(name)) return r; } return null; }
+  mergeAt(r, c) { return this.merges.find(m => m.startRowIndex <= r && r < m.endRowIndex && m.startColumnIndex <= c && c < m.endColumnIndex) || null; }
+  setLocal(r, c, v) { while (this.grid.length <= r) this.grid.push([]); const row = this.grid[r]; while (row.length <= c) row.push(""); row[c] = v; }
+  insertLocalRow(r) { this.grid.splice(r, 0, []);
+    for (const m of this.merges) { if (m.startRowIndex >= r) { m.startRowIndex++; m.endRowIndex++; } else if (m.endRowIndex > r) m.endRowIndex++; }
+    for (const w of this.writes) if (w.r >= r) w.r++; }
+  write(r, c, v, kind) { const vals = Array.isArray(v) ? v : [v]; const w = { r, c, vals, kind }; this.writes.push(w);
+    vals.forEach((x, i) => this.setLocal(r, c + i, x == null ? "" : String(x))); return w; }
+  rng(r0, r1, c0, c1) { return { sheetId: this.sheetId, startRowIndex: r0, endRowIndex: r1, startColumnIndex: c0, endColumnIndex: c1 }; }
+  copyFmt(r0, r1, c0, c1, dr0, dr1, dc0, dc1) { this.requests.push({ copyPaste: { source: this.rng(r0, r1, c0, c1), destination: this.rng(dr0, dr1, dc0, dc1), pasteType: "PASTE_FORMAT", pasteOrientation: "NORMAL" } }); }
+  merge(r0, r1, c0, c1) { this.requests.push({ mergeCells: { range: this.rng(r0, r1, c0, c1), mergeType: "MERGE_ALL" } }); this.merges.push({ startRowIndex: r0, endRowIndex: r1, startColumnIndex: c0, endColumnIndex: c1 }); }
+  ensureBlock(date) {
+    const blocks = this.blocks(); const found = blocks.find(b => b.date === date); if (found) return found.col;
+    const src = blocks.length ? blocks[blocks.length - 1].col : null; const col = src != null ? src + SH.BLOCK_W : SH.FIRST_BLOCK_COL; const W = SH.BLOCK_W;
+    if (col + W > this.nCols) { this.requests.push({ appendDimension: { sheetId: this.sheetId, dimension: "COLUMNS", length: W } }); this.nCols += W; }
+    const last = this.lastDataRow();
+    if (src != null) {
+      this.copyFmt(0, 3, src, src + W, 0, 3, col, col + W);
+      if (last >= SH.FIRST_DATA_ROW) this.copyFmt(SH.FIRST_DATA_ROW, last + 1, src, src + W, SH.FIRST_DATA_ROW, last + 1, col, col + W);
+      for (let i = 0; i < W; i++) if (src + i < this.colPx.length) this.requests.push({ updateDimensionProperties: {
+        range: { sheetId: this.sheetId, dimension: "COLUMNS", startIndex: col + i, endIndex: col + i + 1 }, properties: { pixelSize: this.colPx[src + i] }, fields: "pixelSize" } });
+    }
+    this.merge(0, 1, col, col + W); this.merge(2, 3, col, col + W);
+    this.write(0, col, date, "date"); this.write(1, col, SH.SUB);
+    this.created.blocks.push(date); return col;
+  }
+  ensureExercise(category, exercise) {
+    const sec = shSection(category); const found = this.exerciseRow(exercise, sec); if (found != null) return found;
+    const cats = this.categories(); const c = cats.find(x => shNorm(x.name) === shNorm(category)); const last = this.lastDataRow(); let r;
+    if (!c) {
+      const firstOther = cats.find(x => shSection(x.name) !== "strength");
+      if (sec === "strength" && firstOther) { r = firstOther.start;
+        this.requests.push({ insertDimension: { range: { sheetId: this.sheetId, dimension: "ROWS", startIndex: r, endIndex: r + 1 }, inheritFromBefore: true } }); this.insertLocalRow(r);
+      } else { r = last + 1; if (r > SH.FIRST_DATA_ROW) this.copyFmt(r - 1, r, 0, this.nCols, r, r + 1, 0, this.nCols); }
+      this.write(r, 0, category); this.write(r, 1, exercise);
+    } else {
+      r = c.end + 1;
+      if (r <= last) { this.requests.push({ insertDimension: { range: { sheetId: this.sheetId, dimension: "ROWS", startIndex: r, endIndex: r + 1 }, inheritFromBefore: true } }); this.insertLocalRow(r); }
+      else this.copyFmt(r - 1, r, 0, this.nCols, r, r + 1, 0, this.nCols);
+      const m = this.mergeAt(c.start, 0);
+      if (m) { if (m.endRowIndex < r + 1) { this.requests.push({ unmergeCells: { range: this.rng(m.startRowIndex, m.endRowIndex, 0, 1) } }); this.merges.splice(this.merges.indexOf(m), 1); this.merge(c.start, r + 1, 0, 1); } }
+      else this.merge(c.start, r + 1, 0, 1);
+      this.write(r, 1, exercise);
+    }
+    this.created.exercises.push(exercise); return r;
+  }
+}
+/** One typed cell, as gym_sheet.py's USER_ENTERED write would type it: numbers and numeric text as numbers, the date header
+ *  as a date, a crossfit finish like 9:40 as a duration, everything else as text; an empty value clears the cell. */
+function shCell(v, kind) {
+  if (v === null || v === undefined || v === "") return {};
+  if (kind === "date") { const [m, d, y] = String(v).split("/").map(Number); return { userEnteredValue: { numberValue: (Date.UTC(y, m - 1, d) - Date.UTC(1899, 11, 30)) / 864e5 } }; }
+  if (kind === "finish") { const t = /^\s*(\d{1,3})\s*[:'′]\s*(\d{1,2})\s*("|″|'')?\s*$/.exec(String(v)); if (t) return { userEnteredValue: { numberValue: Math.round((+t[1] * 60 + +t[2]) / 86400 * 1e12) / 1e12 } }; }
+  if (typeof v === "number") return { userEnteredValue: { numberValue: v } };
+  const s = String(v).trim().replace(/^'/, "");
+  return /^-?\d+(\.\d+)?$/.test(s) ? { userEnteredValue: { numberValue: Number(s) } } : { userEnteredValue: { stringValue: s } };
+}
+/** What the cell should read back as (the sheet's formatted value). */
+function shExpect(v, kind) {
+  if (v === null || v === undefined || v === "") return "";
+  if (kind === "finish" && /^\s*\d{1,3}\s*[:'′]\s*\d{1,2}/.test(String(v))) { const t = /(\d{1,3})\s*[:'′]\s*(\d{1,2})/.exec(String(v)); return `${+t[1]}:${t[2].padStart(2, "0")}`; }
+  return String(v).trim().replace(/^'/, "");
+}
+function shSame(got, want) {
+  got = String(got ?? "").trim(); if (got === want) return true;
+  const a = Number(got.replace(",", ".")), b = Number(want); return want !== "" && isFinite(a) && isFinite(b) && Math.abs(a - b) < 0.051;
+}
+function shMeta(payload, tab) {
+  const p = payload?.content || payload || {}; const sh = (p.sheets || []).find(s => s.properties?.title === tab);
+  if (!sh) throw { code: "no_tab", message: `tab ${tab} not found` };
+  return { sheetId: sh.properties.sheetId, columnCount: sh.properties.gridProperties?.columnCount || 0, merges: sh.merges || [],
+    colPx: (sh.data?.[0]?.columnMetadata || []).map(cm => cm.pixelSize ?? 100) };
+}
+const shValues = payload => (payload?.content || payload || {}).values || [];
+
+const SHEET_COPY = {
+  needs_reauth: "Google Sheets needs reconnecting: claude.ai → Settings → Connectors, then Try again.",
+  server_not_connected: "Google Sheets isn't connected to your Claude account: add it in claude.ai → Settings → Connectors, then Try again.",
+  selection_required: "Pick which Google Sheets connection to use when claude.ai asks, then Try again.",
+  not_in_manifest: "This page isn't allowed to use Google Sheets: Try again and choose Allow.",
+  approval_required: "Writing to the sheet needs your OK: Try again and choose Allow.",
+  blocked_by_policy: "Your organization blocks Google Sheets here; the trainer logs it at the next sync.",
+  no_view: "Google Sheets can't be reached from this view (some phone apps). Open the app in claude.ai and tap Try again, or the trainer logs it at the next sync.",
+  no_sheet: "The trainer hasn't sent the sheet's address to the app yet; it logs this session at the next sync.",
+  no_tab: "The sheet's tab wasn't found; the trainer logs this session at the next sync.",
+  tool_error: "Google Sheets refused the write, so nothing changed (it is all-or-nothing). Try again; if it repeats, the trainer logs it at the next sync.",
+  unsure: "Google Sheets didn't confirm. Try again re-reads the sheet first and rewrites the same block, so the session can't double.",
+};
+/** Write a finished session to "My training". Safe to repeat: the date block is rewritten, never duplicated. */
+async function syncToSheet(w) {
+  if (S.sheetBusy?.[w.id]) return;
+  S.sheetBusy = Object.assign({}, S.sheetBusy, { [w.id]: true });
+  const set = st => { S.sheetSync = Object.assign({}, S.sheetSync, { [w.id]: st }); render(); };
+  set({ state: "busy", text: "Writing this session to My training…" });
+  const fail = (code, extra) => { S.sheetBusy[w.id] = false; set({ state: "bad", code, text: (SHEET_COPY[code] || SHEET_COPY.unsure) + (extra ? ` (${extra})` : "") }); };
+  const sheet = S.cfg.sheet || {}; const id = sheet.spreadsheet_id; const tab = sheet.tab || "Sheet1";
+  if (!id) return fail("no_sheet");
+  if (!S.mcp) return fail("no_view");
+  const call = (tool, input) => S.mcp.callTool(GS, tool, input, { cache: false });
+  try {
+    const { payload, notes } = sheetPayload(w);
+    if (!payload.entries.length && payload.my_weight == null) { S.sheetBusy[w.id] = false; return set({ state: "ok", text: "Nothing was logged, so nothing went to the sheet." }); }
+    const meta = shMeta((await call("get_spreadsheet", { spreadsheetId: id, fields: ["sheets.properties.sheetId", "sheets.properties.title", "sheets.properties.gridProperties", "sheets.merges", "sheets.data.columnMetadata.pixelSize"] })).payload, tab);
+    const grid = shValues((await call("get_values", { spreadsheetId: id, range: `'${tab}'` })).payload);
+    const M = new SheetModel(meta, grid);
+    const col = M.ensureBlock(payload.date);
+    if (payload.my_weight != null) M.write(2, col, payload.my_weight);
+    for (const e of payload.entries) M.write(M.ensureExercise(e.category, e.exercise), col, [e.sets, e.reps, e.w_start, e.w_end]);
+    for (const key of Object.keys(SH_SUMMARY)) { const [catName, fields] = SH_SUMMARY[key]; const given = payload[key] || {};
+      for (const [field, rowName] of Object.entries(fields)) { if (given[field] == null || given[field] === "") continue; M.write(M.ensureExercise(catName, rowName), col, given[field], field === "finish" ? "finish" : undefined); } }
+    const requests = [...M.requests, ...M.writes.map(x => ({ updateCells: { start: { sheetId: M.sheetId, rowIndex: x.r, columnIndex: x.c },
+      rows: [{ values: x.vals.map((v, i) => shCell(v, i === 0 ? x.kind : undefined)) }], fields: "userEnteredValue" } }))];
+    await call("update_spreadsheet", { spreadsheetId: id, requests });
+    // read the block back and compare every written cell
+    const lastRow = Math.max(...M.writes.map(x => x.r)) + 1;
+    const back = shValues((await call("get_values", { spreadsheetId: id, range: `'${tab}'!A1:${colLetter(M.nCols - 1)}${lastRow}` })).payload);
+    const bad = [];
+    for (const x of M.writes) x.vals.forEach((v, i) => { const want = shExpect(v, i === 0 ? x.kind : undefined); const got = (back[x.r] || [])[x.c + i];
+      if (!shSame(got, want)) bad.push(`${colLetter(x.c + i)}${x.r + 1}: "${got ?? ""}" instead of "${want}"`); });
+    if (bad.length) { S.sheetBusy[w.id] = false; return set({ state: "bad", code: "check", text: `Written, but ${bad.length} cell(s) read back different: ${bad.slice(0, 3).join("; ")}. Check the ${payload.date} block.` }); }
+    const n = payload.entries.filter(e => shSection(e.category) === "strength").length;
+    w.sync = Object.assign({}, w.sync, { sheet_logged_at: nowISO(), sheet_by: "app", sheet_block: payload.date, sheet_new_rows: M.created.exercises });
+    saveWorkout(w, true); S.sheetBusy[w.id] = false;
+    set({ state: "ok", text: `In My training: the ${payload.date} block, ${n} exercise${n === 1 ? "" : "s"}${payload.warmup ? ", warm-up" : ""}${payload.crossfit ? ", crossfit" : ""}${payload.my_weight != null ? ", body weight" : ""}.`
+      + (M.created.exercises.length ? ` New rows: ${M.created.exercises.join(", ")}.` : "") + (notes.length ? ` ${notes.join("; ")}.` : "") });
+  } catch (e) {
+    const code = e?.code;
+    if (["not_granted", "capability_disabled", "capability_removed"].includes(code)) return fail("no_view");
+    if (SHEET_COPY[code] && code !== "unsure") return fail(code, code === "tool_error" ? String(e.message || "").slice(0, 120) : "");
+    return fail("unsure", code || String(e?.message || e).slice(0, 80));
+  }
+}
+function sheetStatusNode(w) {
+  const st = S.sheetSync?.[w.id] || (w.sync?.sheet_logged_at ? { state: "ok", text: `In My training (${w.sync.sheet_block || "its date block"}).` } : null);
+  if (!st) return el("div", { class: "sheet-st" }, el("span", { class: "dot" }), el("div", { class: "grow" }, el("div", { class: "small", text: "Not in My training yet." }),
+    el("button", { class: "btn", type: "button", style: "margin-top:8px", on: { click: () => syncToSheet(w) } }, "Write it to the sheet")));
+  return el("div", { class: "sheet-st " + st.state }, el("span", { class: "dot" }), el("div", { style: "min-width:0;flex:1" },
+    el("div", { class: "small", text: st.text }), st.state === "bad" ? el("button", { class: "btn", type: "button", style: "margin-top:8px", on: { click: () => syncToSheet(w) } }, "Try again") : null));
+}
+
 /* ---------------- summary + history */
 function summaryView(w) {
   const fb = w.feedback || {}; const nt = w.sync?.next_time || {};
