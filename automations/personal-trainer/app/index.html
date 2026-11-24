@@ -1,0 +1,1171 @@
+<title>Trainer Notebook</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Inter:wght@400;500;600&display=swap">
+<style>
+/* Layout: one column, phone-first gym notebook. Sticky header, cards per exercise, thumb-reach actions at the bottom. */
+:root {
+  --bg: #f3f4f2; --surface: #ffffff; --sunk: #e8eae6; --line: #d5d8d2;
+  --ink: #181c1f; --ink-2: #4c5459; --ink-3: #7a8287;
+  --accent: #1f4fd1; --accent-ink: #ffffff; --accent-soft: #dfe7fb;
+  --easy: #1d7a4a; --easy-soft: #dcefe3; --hard: #a35a00; --hard-soft: #f6e6cf;
+  --pain: #b3261e; --pain-soft: #f7dcda; --skip: #6b7277;
+  --f-display: "Barlow Condensed", "Arial Narrow", "Roboto Condensed", sans-serif;
+  --f-body: "Inter", -apple-system, "Segoe UI", Roboto, sans-serif;
+  --r: 12px; --tap: 48px;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #111416; --surface: #1a1e21; --sunk: #23282c; --line: #30363a;
+  --ink: #eef0ee; --ink-2: #b4bcc0; --ink-3: #848c91;
+  --accent: #7ea2ff; --accent-ink: #0b1430; --accent-soft: #1d2a4d;
+  --easy: #5fd093; --easy-soft: #16321f; --hard: #f0ac4e; --hard-soft: #3a2a12;
+  --pain: #ff8a80; --pain-soft: #3d1a18; --skip: #9aa2a7; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #111416; --surface: #1a1e21; --sunk: #23282c; --line: #30363a;
+  --ink: #eef0ee; --ink-2: #b4bcc0; --ink-3: #848c91;
+  --accent: #7ea2ff; --accent-ink: #0b1430; --accent-soft: #1d2a4d;
+  --easy: #5fd093; --easy-soft: #16321f; --hard: #f0ac4e; --hard-soft: #3a2a12;
+  --pain: #ff8a80; --pain-soft: #3d1a18; --skip: #9aa2a7; color-scheme: dark }
+* { box-sizing: border-box }
+body { background: var(--bg); color: var(--ink); font: 15px/1.45 var(--f-body); -webkit-tap-highlight-color: transparent;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 0 120px }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg) }
+button, input, textarea, select { font: inherit; color: inherit }
+button { cursor: pointer }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px }
+.wrap { max-width: 560px; margin: 0 auto; display: flex; flex-direction: column; gap: 14px }
+header.top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--bg); border-bottom: 1px solid var(--line);
+  margin-left: calc(-1 * max(16px, env(safe-area-inset-left, 0px))); margin-right: calc(-1 * max(16px, env(safe-area-inset-right, 0px)));
+  padding: 10px max(16px, env(safe-area-inset-right, 0px)) 10px max(16px, env(safe-area-inset-left, 0px)) }
+header.top .row { max-width: 560px; margin: 0 auto; display: flex; align-items: center; gap: 10px }
+.brand { font: 700 20px/1 var(--f-display); letter-spacing: .02em; text-transform: uppercase; flex: 1; min-width: 0 }
+.brand small { display: block; font: 500 12px/1.3 var(--f-body); letter-spacing: 0; text-transform: none; color: var(--ink-3); margin-top: 2px }
+.iconbtn { min-height: 40px; padding: 0 12px; border-radius: 10px; border: 1px solid var(--line); background: var(--surface); font-weight: 600; font-size: 14px }
+h1, h2, h3 { font-family: var(--f-display); text-wrap: balance; margin: 0 }
+h1 { font-size: 30px; font-weight: 700; line-height: 1.05 }
+h2 { font-size: 22px; font-weight: 700; letter-spacing: .01em }
+.eyebrow { font: 600 12px/1 var(--f-body); letter-spacing: .08em; text-transform: uppercase; color: var(--ink-3) }
+.muted { color: var(--ink-2) } .faint { color: var(--ink-3) } .small { font-size: 13px }
+.ru { font-size: 12.5px; color: var(--ink-3); line-height: 1.3 }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 14px; display: flex; flex-direction: column; gap: 10px; min-width: 0 }
+.section-h { display: flex; align-items: baseline; gap: 10px; margin-top: 6px }
+.section-h .roman { font: 700 26px/1 var(--f-display); color: var(--accent); min-width: 26px }
+.section-h h2 { flex: 1 }
+.chips { display: flex; flex-wrap: wrap; gap: 8px }
+.chip { min-height: 42px; padding: 0 14px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); font-weight: 500; font-size: 14px; display: inline-flex; align-items: center; gap: 6px }
+.chip[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); border-color: var(--accent) }
+.chip.pain[aria-pressed="true"] { background: var(--pain); border-color: var(--pain); color: #fff }
+.seg { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; background: var(--sunk); border-radius: 12px; padding: 4px; gap: 4px }
+.seg button { min-height: 44px; border: 0; border-radius: 9px; background: transparent; font-weight: 600 }
+.seg button[aria-pressed="true"] { background: var(--surface); box-shadow: 0 1px 2px rgba(0,0,0,.12); color: var(--accent) }
+.seg button .ru { display: block; font-weight: 400 }
+.btn { min-height: var(--tap); border-radius: 12px; border: 1px solid var(--line); background: var(--surface); font-weight: 600; padding: 0 16px; display: inline-flex; align-items: center; justify-content: center; gap: 8px }
+.btn.primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent) }
+.btn.danger { color: var(--pain); border-color: var(--pain) }
+.btn.block { width: 100% }
+.btn:disabled { opacity: .5; cursor: default }
+.row { display: flex; gap: 10px; align-items: center; flex-wrap: wrap }
+.row > .grow { flex: 1; min-width: 0 }
+.note { border-radius: 10px; padding: 10px 12px; font-size: 14px; background: var(--sunk) }
+.note.warn { background: var(--hard-soft); color: var(--ink) }
+.note.stop { background: var(--pain-soft); color: var(--ink); border: 1px solid var(--pain) }
+.note.info { background: var(--accent-soft) }
+.note strong { font-weight: 600 }
+.badge { display: inline-flex; align-items: center; height: 22px; padding: 0 8px; border-radius: 6px; font: 600 12px/1 var(--f-body); letter-spacing: .02em; background: var(--sunk); color: var(--ink-2); white-space: nowrap }
+.badge.easy { background: var(--easy-soft); color: var(--easy) } .badge.ok { background: var(--accent-soft); color: var(--accent) }
+.badge.hard { background: var(--hard-soft); color: var(--hard) } .badge.fail, .badge.pain { background: var(--pain-soft); color: var(--pain) }
+.badge.skipped { color: var(--skip) }
+/* exercise cards */
+.ex { gap: 8px }
+.ex.current { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent) }
+.ex.done { background: transparent }
+.ex-head { display: flex; gap: 10px; align-items: flex-start }
+.ex-head .name { flex: 1; min-width: 0 }
+.ex-head .name b { font: 600 19px/1.15 var(--f-display); letter-spacing: .01em; display: block }
+.ex-meta { font-size: 13px; color: var(--ink-2) }
+.ex-meta .alt { color: var(--ink-3) }
+.kebab { width: 40px; height: 40px; border-radius: 10px; border: 1px solid var(--line); background: var(--surface); font-weight: 700; flex: none }
+.how { min-height: 40px; padding: 0 10px; border-radius: 10px; border: 1px solid var(--line); background: var(--surface); font-size: 13px; font-weight: 600; flex: none; display: inline-flex; align-items: center; gap: 6px }
+.how svg { width: 16px; height: 16px }
+.sets { display: grid; gap: 6px }
+.set { display: grid; grid-template-columns: 26px minmax(0,1.25fr) minmax(0,1fr) 48px; gap: 6px; align-items: center }
+.set .n { font: 600 15px/1 var(--f-display); color: var(--ink-3); text-align: center }
+.stepper { display: grid; grid-template-columns: 34px minmax(0,1fr) 34px; align-items: center; background: var(--sunk); border-radius: 10px; height: 48px }
+.stepper button { height: 48px; border: 0; background: transparent; font-size: 20px; font-weight: 600; color: var(--ink-2) }
+.stepper .v { text-align: center; font: 600 21px/1 var(--f-display); font-variant-numeric: tabular-nums; white-space: nowrap }
+.stepper .v small { display: block; font: 400 11px/1.2 var(--f-body); color: var(--ink-3); margin-top: 2px }
+.tick { width: 48px; height: 48px; border-radius: 12px; border: 2px solid var(--line); background: var(--surface); font-size: 20px; color: var(--ink-3) }
+.tick[aria-pressed="true"] { background: var(--easy); border-color: var(--easy); color: #fff }
+.set.done .stepper { background: var(--easy-soft) }
+.rate { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px }
+.rate button { min-height: 44px; border-radius: 10px; border: 1px solid var(--line); background: var(--surface); font-weight: 600; font-size: 14px }
+.rate button[data-r="easy"][aria-pressed="true"] { background: var(--easy); border-color: var(--easy); color: #fff }
+.rate button[data-r="ok"][aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--accent-ink) }
+.rate button[data-r="hard"][aria-pressed="true"] { background: var(--hard); border-color: var(--hard); color: #fff }
+.rate button[data-r="fail"][aria-pressed="true"], .rate button[data-r="pain"][aria-pressed="true"] { background: var(--pain); border-color: var(--pain); color: #fff }
+.rate button[data-r="skipped"][aria-pressed="true"] { background: var(--skip); border-color: var(--skip); color: #fff }
+.ss-link { font: 600 12px/1 var(--f-body); letter-spacing: .06em; text-transform: uppercase; color: var(--accent); padding-left: 14px }
+.wu { display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 10px; align-items: center; padding: 8px 0; border-top: 1px solid var(--line) }
+.wu:first-of-type { border-top: 0 }
+.wu b { font-weight: 600 }
+.dots { display: flex; gap: 6px }
+.dots .tick { width: 44px; height: 44px; font-size: 15px; font-weight: 600 }
+.cf-items { display: grid; gap: 6px }
+.cf-item { display: grid; grid-template-columns: 56px minmax(0,1fr) auto; gap: 10px; align-items: center; padding: 6px 0; border-top: 1px solid var(--line) }
+.cf-item:first-child { border-top: 0 }
+.cf-item .dose { font: 700 22px/1 var(--f-display); font-variant-numeric: tabular-nums; text-align: right }
+.cf-item .dose small { display: block; font: 400 11px/1.2 var(--f-body); color: var(--ink-3) }
+.clock { font: 700 46px/1 var(--f-display); font-variant-numeric: tabular-nums; text-align: center; letter-spacing: .02em }
+/* bottom bar + sheets */
+.bar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 6; background: var(--surface); border-top: 1px solid var(--line);
+  padding: 10px max(16px, env(safe-area-inset-right, 0px)) calc(10px + env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px)) }
+.bar .in { max-width: 560px; margin: 0 auto; display: flex; gap: 8px }
+.bar .in .btn { flex: 1 }
+.rest { position: fixed; left: 50%; transform: translateX(-50%); bottom: calc(84px + env(safe-area-inset-bottom, 0px)); z-index: 7; background: var(--ink); color: var(--bg); border-radius: 999px; padding: 6px 6px 6px 16px; display: flex; align-items: center; gap: 8px; box-shadow: 0 6px 20px rgba(0,0,0,.25) }
+.rest b { font: 700 22px/1 var(--f-display); font-variant-numeric: tabular-nums; min-width: 52px }
+.rest button { min-height: 36px; border-radius: 999px; border: 0; padding: 0 12px; background: var(--surface); color: var(--ink); font-weight: 600; font-size: 13px }
+.scrim { position: fixed; inset: 0; z-index: 20; background: rgba(10,12,14,.45); display: flex; align-items: flex-end; justify-content: center }
+.sheet { background: var(--bg); width: 100%; max-width: 600px; max-height: 88vh; overflow-y: auto; border-radius: 18px 18px 0 0;
+  padding: 16px max(16px, env(safe-area-inset-right, 0px)) calc(20px + env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px)); display: flex; flex-direction: column; gap: 14px }
+.sheet .grab { width: 40px; height: 4px; border-radius: 2px; background: var(--line); align-self: center }
+.list { display: flex; flex-direction: column; gap: 8px }
+.opt { text-align: left; min-height: 56px; border-radius: 12px; border: 1px solid var(--line); background: var(--surface); padding: 10px 14px; display: flex; flex-direction: column; gap: 2px }
+.opt b { font-weight: 600 }
+.media { display: grid; gap: 10px }
+.media img, .media video { width: 100%; max-width: 100%; border-radius: 10px; background: var(--sunk) }
+.linkcard { display: flex; gap: 12px; align-items: center; text-decoration: none; color: inherit; border: 1px solid var(--line); background: var(--surface); border-radius: 12px; padding: 12px 14px; min-height: 56px }
+.linkcard .ic { width: 36px; height: 36px; border-radius: 9px; display: grid; place-items: center; background: var(--accent-soft); color: var(--accent); flex: none }
+.linkcard .ic svg { width: 18px; height: 18px }
+.linkcard span { min-width: 0 }
+.tips { white-space: pre-wrap; font-size: 14.5px }
+.kv { display: grid; grid-template-columns: auto 1fr; gap: 4px 12px; font-size: 14px }
+.kv dt { color: var(--ink-3) } .kv dd { margin: 0 }
+textarea, input[type=text], input[type=number] { width: 100%; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); padding: 10px 12px; min-height: 46px }
+textarea { min-height: 80px; resize: vertical }
+.hist { display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 4px 10px; align-items: center }
+.spin { width: 18px; height: 18px; border-radius: 50%; border: 2px solid currentColor; border-right-color: transparent; animation: sp .8s linear infinite; display: inline-block }
+@keyframes sp { to { transform: rotate(360deg) } }
+@media (prefers-reduced-motion: reduce) { .spin { animation: none } }
+.empty { text-align: center; padding: 28px 12px }
+.empty h1 { margin-bottom: 8px }
+</style>
+
+<header class="top"><div class="row">
+  <div class="brand" id="brand">Trainer Notebook<small id="brandSub">Loading…</small></div>
+  <button class="iconbtn" id="histBtn" type="button">History</button>
+</div></header>
+<main class="wrap" id="app" style="padding-top:14px">
+  <div class="card empty"><h1>Trainer Notebook</h1><p class="muted">Loading your plan and log…</p></div>
+</main>
+<div id="bar"></div>
+<div id="rest"></div>
+<div id="sheet"></div>
+
+<script>
+"use strict";
+/* ================================================================ state */
+const S = {
+  db: null, sample: null, assets: null, ready: false, offline: false,
+  cfg: {}, briefs: {}, workouts: {}, media: {}, requests: {},
+  view: "home", cur: null, ck: null, building: null, buildCtl: null,
+  rest: null, cfTimer: null, sheet: null, err: null,
+};
+const KG_LB = 2.2046226218;
+const DAYS = ["legs", "push", "pull"];
+const DAY_EN = { legs: "Legs", push: "Chest", pull: "Back" };
+const ROLE_RANK = { main: 0, secondary: 1, isolation: 2, shoulder: 3 };
+const RATINGS = [["easy", "Easy"], ["ok", "OK"], ["hard", "Hard"], ["fail", "Failed reps"], ["pain", "Pain"], ["skipped", "Skipped"]];
+const PAIN_SPOTS = [
+  { key: "lower_back", joint: "lower_back", label: "Lower back" },
+  { key: "neck", joint: "neck", label: "Neck" },
+  { key: "knee_left", joint: "knee", side: "left", label: "Left knee" },
+  { key: "knee_right", joint: "knee", side: "right", label: "Right knee" },
+  { key: "shoulder", joint: "shoulder", label: "Shoulder" },
+  { key: "elbow", joint: "elbow", label: "Elbow" },
+  { key: "wrist", joint: "wrist", label: "Wrist" },
+  { key: "hip", joint: "hip", label: "Hip" },
+  { key: "other", joint: null, label: "Other" },
+];
+const JOINT_EN = { lower_back: "lower back", neck: "neck", knee: "knee", shoulder: "shoulder", elbow: "elbow", wrist: "wrist", hip: "hip", calf: "calf" };
+
+/* ================================================================ helpers */
+function el(tag, props, ...kids) {
+  const n = document.createElement(tag);
+  if (props) for (const [k, v] of Object.entries(props)) {
+    if (v == null || v === false) continue;
+    if (k === "class") n.className = v;
+    else if (k === "text") n.textContent = v;
+    else if (k === "on") for (const [ev, fn] of Object.entries(v)) n.addEventListener(ev, fn);
+    else if (k === "html") n.innerHTML = v; // only for static, page-authored SVG
+    else n.setAttribute(k, v === true ? "" : v);
+  }
+  for (const c of kids.flat(3)) if (c != null && c !== false) n.append(c.nodeType ? c : document.createTextNode(String(c)));
+  return n;
+}
+const ICON = {
+  play: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 5l12 7-12 7z" fill="currentColor"/></svg>',
+  search: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>',
+  spark: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5L18 18M18 6l-2.5 2.5M8.5 15.5L6 18"/></svg>',
+  up: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19V5M6 11l6-6 6 6"/></svg>',
+  flag: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 21V4h11l-2 4 2 4H5"/></svg>',
+};
+const icon = k => el("span", { class: "ic", html: ICON[k] });
+const lbToKg = lb => Math.round(lb / KG_LB * 10) / 10;
+const kgToLb5 = kg => 5 * Math.round(kg * KG_LB / 5);
+const nowISO = () => new Date().toISOString();
+function todayLocal() { const d = new Date(); return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`; }
+function fmtDate(iso) { if (!iso) return "—"; const d = new Date(iso.length === 10 ? iso + "T12:00:00" : iso); return d.toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric" }); }
+function daysBetween(a, b) { return Math.round((new Date(b + "T12:00:00") - new Date(a + "T12:00:00")) / 864e5); }
+function clone(x) { return x == null ? x : JSON.parse(JSON.stringify(x)); }
+function mmss(sec) { sec = Math.max(0, Math.round(sec)); return `${Math.floor(sec / 60)}:${String(sec % 60).padStart(2, "0")}`; }
+function parseMMSS(s) { const m = /^\s*(\d{1,2})[:.](\d{2})\s*$/.exec(s || ""); return m ? (+m[1]) * 60 + (+m[2]) : null; }
+function safeUrl(u) { return typeof u === "string" && /^https:\/\//i.test(u) ? u : null; }
+function lsGet(k) { try { return localStorage.getItem(k); } catch { return null; } }
+function lsSet(k, v) { try { v == null ? localStorage.removeItem(k) : localStorage.setItem(k, v); } catch {} }
+
+/* ================================================================ catalog access */
+const cat = () => S.cfg.catalog || null;
+let IDX = null;
+function idx() {
+  const c = cat(); if (!c) return null;
+  if (IDX && IDX.src === c) return IDX;
+  IDX = { src: c, s: {}, w: {}, c: {} };
+  for (const e of c.strength || []) IDX.s[e.id] = e;
+  for (const e of c.warmup?.items || []) IDX.w[e.id] = e;
+  for (const e of c.crossfit?.items || []) IDX.c[e.id] = e;
+  return IDX;
+}
+const exS = id => idx()?.s[id];
+const exW = id => idx()?.w[id];
+const exC = id => idx()?.c[id];
+function gymCfg() { const g = S.cfg.gym; return g?.gyms?.[g.current] || { units: "lb", steps_lb: {} }; }
+const isLb = () => gymCfg().units === "lb";
+function stepLb(ex) { return gymCfg().steps_lb?.[ex?.step_class || "stack"] || 10; }
+function enName(id) { const e = exS(id) || exW(id) || exC(id); return e ? (e.en_short || e.en) : id; }
+function ruName(id) { const e = exS(id) || exW(id) || exC(id); return e ? e.ru : ""; }
+
+/* ================================================================ data loading */
+async function boot() {
+  render();
+  if (!window.claude?.use) { S.offline = true; S.err = "This page needs to be opened in Claude to load your plan."; return render(); }
+  const timer = setTimeout(() => { if (!S.ready) { S.err = "Your trainer data can't be reached yet. Check the connection; the page keeps trying."; render(); } }, 10000);
+  S.db = await claude.use("db");
+  if (!S.db) { clearTimeout(timer); S.offline = true; S.err = "Sign in as the notebook's owner to see your plan and log."; return render(); }
+  claude.use("sample").then(f => { S.sample = f; render(); });
+  claude.use("assets").then(a => { S.assets = a; });
+  const seen = new Set();
+  const sub = (coll, onDocs) => S.db.collection(coll).onSnapshot(snap => {
+    onDocs(snap);
+    if (!snap.metadata.fromCache) seen.add(coll);
+    if (seen.size >= 2 && !S.ready) { S.ready = true; S.err = null; clearTimeout(timer); restoreCurrent(); }
+    scheduleRender();
+  }, e => { S.err = `Data stopped loading (${e.code}). Reopen the page.`; render(); });
+  sub("config", snap => { for (const d of snap.docs) S.cfg[d.id] = d.data(); IDX = null; });
+  sub("briefs", snap => { for (const d of snap.docs) S.briefs[d.id] = d.data(); });
+  sub("workouts", snap => { const w = {}; for (const d of snap.docs) w[d.id] = clone(d.data()); for (const id in S.workouts) if (pendingWrite.has(id)) w[id] = S.workouts[id]; S.workouts = w; });
+  sub("media", snap => { for (const d of snap.docs) S.media[d.id] = d.data(); });
+  sub("media_requests", snap => { S.requests = {}; for (const d of snap.docs) S.requests[d.id] = d.data(); });
+}
+let rq = 0;
+function scheduleRender() { if (rq) return; rq = requestAnimationFrame(() => { rq = 0; render(); }); }
+function restoreCurrent() {
+  const id = lsGet("tn.cur");
+  if (id && S.workouts[id] && S.workouts[id].status === "active") { S.cur = id; S.view = "workout"; }
+  else { const a = Object.values(S.workouts).find(w => w.status === "active"); if (a) { S.cur = a.id; S.view = "workout"; } }
+}
+
+/* writes: one at a time per doc, coalesced */
+const pendingWrite = new Map(); const writing = new Set();
+function saveWorkout(w, now) {
+  w.updated_at = nowISO();
+  S.workouts[w.id] = w;
+  pendingWrite.set(w.id, w);
+  if (now) flush(w.id); else setTimeout(() => flush(w.id), 500);
+}
+async function flush(id) {
+  if (writing.has(id) || !pendingWrite.has(id) || !S.db) return;
+  const body = clone(pendingWrite.get(id)); pendingWrite.delete(id); writing.add(id);
+  try { await S.db.doc("workouts/" + id).set(body); }
+  catch (e) { toast(e.code === "quota_exceeded" ? "Storage is full: ask Claude to clean old sessions." : `Couldn't save (${e.code}). Your entries stay on this screen; they'll save with the next change.`); pendingWrite.set(id, S.workouts[id]); }
+  finally { writing.delete(id); if (pendingWrite.has(id)) setTimeout(() => flush(id), 800); }
+}
+function toast(msg) { S.toast = msg; render(); clearTimeout(S.toastT); S.toastT = setTimeout(() => { S.toast = null; render(); }, 5000); }
+
+/* ================================================================ brief & context */
+function unsyncedDone() {
+  return Object.values(S.workouts).filter(w => w.status === "done" && !w.sync?.feedback_recorded_at && w.feedback?.done).sort((a, b) => a.date < b.date ? -1 : 1);
+}
+function rotation() {
+  const b = S.briefs.legs?.normal || S.briefs.push?.normal || S.briefs.pull?.normal;
+  const last = Object.assign({}, b?.rotation?.last_by_day || {});
+  const lastSession = b?.pause?.last_session || null;
+  const stale = unsyncedDone().filter(w => !lastSession || w.date > lastSession);
+  for (const w of stale) if (!last[w.day] || last[w.day] < w.date) last[w.day] = w.date;
+  const next = DAYS.slice().sort((a, b) => (last[a] || "0") < (last[b] || "0") ? -1 : (last[a] || "0") > (last[b] || "0") ? 1 : 0)[0];
+  return { last, next, stale };
+}
+/** Brief for a day and state, with weights moved to what was actually lifted in sessions the skill hasn't synced yet (never higher). */
+function contextFor(day, ck) {
+  const doc = S.briefs[day]; if (!doc) return null;
+  const low = ck.readiness === "low" || ck.sick;
+  const brief = clone(low && doc.low ? doc.low : doc.normal);
+  const notes = [];
+  const lastSession = brief.pause?.last_session;
+  const stale = unsyncedDone().filter(w => !lastSession || w.date > lastSession);
+  const latest = {};
+  for (const w of stale) for (const [id, a] of Object.entries(w.feedback?.actual || {})) latest[id] = { a, r: w.feedback.items?.[id]?.rating, date: w.date };
+  const adjust = it => {
+    const L = latest[it.id]; if (!L || !Array.isArray(L.a.lb) || !L.a.lb.length || !it.lb) return;
+    const ex = exS(it.id); const st = stepLb(ex);
+    if (L.r === "pain") { it.action = "swap"; it.why = `pain on ${fmtDate(L.date)} (not synced yet)`; return; }
+    const sets = it.sets || it.lb.length;
+    let lb = Array.from({ length: sets }, (_, i) => L.a.lb[Math.min(i, L.a.lb.length - 1)]);
+    if (L.r === "fail") lb = lb.map(v => Math.max(0, v - st));
+    lb = lb.map((v, i) => Math.min(v, Math.max(...it.lb)));
+    it.lb = lb; it.kg = lb.map(lbToKg); it.action = "from_app";
+    it.why = `from what you lifted ${fmtDate(L.date)}${L.r === "fail" ? ", one step back after missed reps" : ""} (not synced yet)`;
+  };
+  for (const it of brief.strength?.items || []) adjust(it);
+  for (const p of brief.strength?.pool || []) if (p.suggest) adjust(p.suggest);
+  if (Object.keys(latest).length) notes.push(`${stale.length} finished session${stale.length > 1 ? "s" : ""} not yet synced with the trainer: weights start from what you actually lifted, never higher.`);
+  const sugg = {};
+  for (const it of brief.strength?.items || []) sugg[it.id] = it;
+  for (const p of brief.strength?.pool || []) if (p.suggest && !sugg[p.id]) sugg[p.id] = p.suggest;
+  return { day, ck, brief, sugg, notes, computed_at: doc.computed_at, for_date: doc.for_date };
+}
+
+/* ================================================================ template builder (deterministic, by methodology.md) */
+function buildTemplate(ctx) {
+  const { brief, ck, day } = ctx;
+  const P = new Set(ck.pain || []);
+  const plan = { date: ck.date, day, gym: S.cfg.gym?.current, note: "", pre: { pain: [...P], readiness: ck.sick ? "low" : ck.readiness, time_min: ck.time_min || null }, warmup: [], strength: [], crossfit: {}, overrides: {}, why: [] };
+  plan.strength = buildStrength(ctx, plan);
+  plan.warmup = buildWarmup(ctx, plan);
+  plan.crossfit = buildCrossfit(ctx, plan);
+  if (brief.pause?.class === "long" || brief.pause?.days_since >= 21) plan.why.push(`${brief.pause.days_since} days since the last logged session: crossfit kept short.`);
+  if (brief.gym?.first_session_here) plan.why.push("New gym: first set on each machine is a test set.");
+  plan.why = plan.why.slice(0, 2);
+  return plan;
+}
+function toPlanItem(s) {
+  const it = { id: s.id, sets: s.sets || 3, reps: String(s.reps || "10") };
+  if (Array.isArray(s.kg) && s.kg.length) { it.kg = s.kg.slice(); it.lb = (s.lb || s.kg.map(kgToLb5)).slice(); }
+  if (s.cue) it.cue = s.cue;
+  if (s.action) it.action = s.action;
+  if (s.why) it.why = s.why;
+  return it;
+}
+function hitsPain(ex, P) { return (ex?.joints || []).some(j => P.has(j)); }
+function pickSwap(ctx, forId, P, used, reasonLabel) {
+  const ex = exS(forId); const pool = ctx.brief.strength?.pool || [];
+  const g = gymCfg(); const roleOk = r => r === ex?.role || (["isolation", "shoulder"].includes(ex?.role) && ["isolation", "shoulder"].includes(r));
+  const rank = { active: 0, rare: 1, alt: 2 };
+  const others = [...used].filter(u => u !== forId);
+  const isAlt = (a, b) => (exS(a)?.alt_ids || []).includes(b) || (exS(b)?.alt_ids || []).includes(a);
+  const twin = id => others.some(u => isAlt(id, u)); // the cable twin of something already in the plan
+  const shoulderTaken = ex?.role !== "shoulder" && others.some(u => exS(u)?.role === "shoulder");
+  const cands = pool.filter(p => p.suggest && p.status !== "retired" && !used.has(p.id) && roleOk(p.role) && !hitsPain(exS(p.id), P) && g.machines?.[p.id] !== "missing" && !(g.substitutions?.[p.id])
+      && !twin(p.id) && !(shoulderTaken && p.role === "shoulder"))
+    .sort((a, b) => (a.role === ex?.role ? 0 : 1) - (b.role === ex?.role ? 0 : 1) || (rank[a.status] ?? 3) - (rank[b.status] ?? 3) || (b.uses || 0) - (a.uses || 0));
+  return cands[0]?.suggest || null;
+}
+function buildStrength(ctx, plan) {
+  const { brief, ck } = ctx; const P = new Set(ck.pain || []);
+  const g = gymCfg(); const out = []; const used = new Set((brief.strength?.items || []).map(i => i.id));
+  for (const s of brief.strength?.items || []) {
+    let src = s; const ex = exS(s.id);
+    const sub = g.substitutions?.[s.id];
+    if (sub) { const p = (brief.strength.pool || []).find(x => x.id === sub); if (p?.suggest) { src = p.suggest; used.add(sub); plan.overrides[sub] = `${ex?.en_short || s.id}: this gym doesn't have it, ${exS(sub)?.en_short || sub} instead`; } }
+    if (hitsPain(exS(src.id), P) || src.action === "swap") {
+      const why = src.action === "swap" && !hitsPain(exS(src.id), P) ? (src.why || "pain last time") : `${[...P].filter(j => (exS(src.id)?.joints || []).includes(j)).map(j => JOINT_EN[j]).join(", ")} hurts today`;
+      const r = pickSwap(ctx, src.id, P, used);
+      if (r) { used.add(r.id); out.push(toPlanItem(r)); plan.overrides[r.id] = `instead of ${enName(src.id)}: ${why}`; }
+      else plan.why.push(`${enName(src.id)} dropped: ${why}, no safe swap.`);
+      continue;
+    }
+    out.push(toPlanItem(src));
+  }
+  const t = ck.time_min;
+  const dropLast = roles => { for (let i = out.length - 1; i > 0; i--) if (roles.includes(exS(out[i].id)?.role)) { const [x] = out.splice(i, 1); return x; } return null; };
+  if (t && t < 45) { while (out.length > 4) { const x = dropLast(["isolation", "shoulder"]) || out.pop(); plan.overrides["_time_" + x.id] = `${enName(x.id)} dropped: ${t} min`; } }
+  else if (t && t <= 60) { const x = dropLast(["isolation"]); if (x) plan.overrides["_time_" + x.id] = `${enName(x.id)} dropped: ${t} min`; }
+  markSupersets(out);
+  return out;
+}
+function markSupersets(list) {
+  list.forEach((it, k) => { delete it.superset_next; const p = exS(it.id)?.superset; if (p && list[k + 1]?.id === p && !list[k - 1]?.superset_next) it.superset_next = true; });
+}
+function rungItem(r, fam, steppedDown) {
+  if (r === "back_extension+kg") return { id: "back_extension", sets: 2, reps: 15, kg: 10 };
+  const w = exW(r); if (!w) return null;
+  const it = { id: r, sets: w.sets || 2 };
+  if (w.secs) it.secs = w.secs; else it.reps = w.reps || 15;
+  if (r === "plate_halo") it.kg = steppedDown ? 5 : 10;
+  if (r === "back_extension_seated_db") it.kg = steppedDown ? 5 : 10;
+  return it;
+}
+function buildWarmup(ctx, plan) {
+  const { brief, ck, day } = ctx; const P = new Set(ck.pain || []);
+  const fam = brief.warmup?.families || {};
+  let trio = P.has("lower_back") ? ["A", "B", "C"] : day === "legs" ? ["E", "B", "D"] : day === "push" ? ["E", "B", "F"] : ["E", "B", "A"];
+  if (P.has("neck")) trio = trio.map(f => f === "F" ? "A" : f);
+  if (P.has("shoulder") || P.has("wrist")) trio = trio.map(f => f === "A" || f === "F" ? "C" : f);
+  trio = [...new Set(trio)]; while (trio.length < 3) { const f = ["A", "B", "C", "E"].find(x => !trio.includes(x) && fam[x] && !(P.has("lower_back") && x === "E")); if (!f) break; trio.push(f); }
+  const last = (brief.warmup?.recent || []).slice(-1)[0];
+  const advance = trio.find(f => fam[f]?.hint === "may_advance");
+  const items = trio.map(F => {
+    const f = fam[F]; if (!f) return null;
+    let lvl = f.level || 1; const down = f.hint === "step_down_after_pause";
+    if (down) lvl = F === "E" ? 1 : Math.max(1, lvl - 1);
+    else if (F === advance) lvl = Math.min(f.rungs.length, lvl + 1);
+    if (P.has("lower_back") && F === "E") return null;
+    return rungItem(f.rungs[lvl - 1], F, down);
+  }).filter(Boolean);
+  if (last && !P.has("lower_back") && items.length === 3 && items.map(i => i.id).sort().join() === last.items.map(x => x.replace("+kg", "")).sort().join() && fam.C) items[2] = rungItem(fam.C.rungs[fam.C.level - 1], "C", false);
+  if (advance) plan.why.push(`Warm-up: ${enName(items.find(i => exW(i.id)?.family === advance)?.id)} moves up a step.`);
+  return ck.time_min && ck.time_min < 45 ? items.slice(0, 2) : items;
+}
+function eqState(eq) { if (!eq || eq === "none") return "have"; return gymCfg().equipment?.[eq] || "unknown"; }
+function resolveEquip(id) {
+  const c = exC(id); if (!c) return null;
+  const s = eqState(c.equipment); if (["have", "seen", "likely"].includes(s)) return id;
+  if (c.fallback && ["have", "seen", "likely"].includes(eqState(exC(c.fallback)?.equipment))) return c.fallback;
+  return s === "missing" ? null : null;
+}
+function lastLoadKg(cf, id) { for (const r of (cf.recent || []).slice().reverse()) for (const s of r.items) { const m = new RegExp("^" + id + "\\b.*\\((\\d+(?:\\.\\d+)?) кг\\)").exec(s); if (m) return +m[1]; } return null; }
+function crossLoad(c, kg) {
+  const g = gymCfg(); const lb = kg * KG_LB;
+  const near = arr => arr?.length ? arr.reduce((a, b) => Math.abs(b - lb) < Math.abs(a - lb) ? b : a) : 5 * Math.round(lb / 5);
+  if (c.equipment === "med_ball") return near(g.ball_lb);
+  if (c.equipment === "kb") return near(g.kb_lb);
+  if (c.equipment === "plate") return near(g.plate_lb);
+  return 5 * Math.round(lb / 5);
+}
+function buildCrossfit(ctx, plan) {
+  const { brief, ck, day } = ctx; const cf = brief.crossfit || {}; const P = new Set(ck.pain || []);
+  const low = ck.readiness === "low" || ck.sick; const t = ck.time_min;
+  const longPause = (brief.pause?.days_since || 0) >= 21;
+  if (ck.sick || (low && P.size)) { plan.why.push("No crossfit today: " + (ck.sick ? "you're unwell." : "tired and something hurts.")); return { format: "skip", items: [] }; }
+  let rounds = 3, cap = 10;
+  if (low || longPause || (t && t <= 45)) { rounds = 2; cap = t && t < 45 ? 6 : 8; }
+  const recent = cf.recent || []; const lastIds = (recent.slice(-1)[0]?.items || []).map(s => s.split(" ")[0]);
+  const usage = cf.usage_last10 || {}; const all = cf.all_time || {};
+  const prim = new Set(cat().day_types?.[day]?.primary_patterns || []);
+  const eligible = c => c && !["retired", "rare"].includes(c.status) && !(c.avoid_if || []).some(j => P.has(j)) && !(P.has("lower_back") && c.back === "caution") && !(longPause && !all[c.id]);
+  const order = Object.keys(idx().c);
+  const pool = [...new Set(order.map(resolveEquip).filter(Boolean))].map(exC).filter(eligible);
+  const score = c => (usage[c.id] || 0) + (lastIds.includes(c.id) ? 6 : 0);
+  const byScore = arr => arr.slice().sort((a, b) => score(a) - score(b) || order.indexOf(a.id) - order.indexOf(b.id));
+  const picked = []; let caution = 0;
+  const take = c => { if (!c) return; picked.push(c); if (c.back === "caution") caution++; };
+  const isPrim = c => (c.pattern || []).some(p => prim.has(p));
+  take(byScore(pool.filter(c => ["cardio", "plyo"].includes(c.kind) && !isPrim(c)))[0]);
+  const dayMoves = { legs: ["walking_lunges", "wall_ball", "step_ups"], push: ["push_ups", "dips"], pull: ["pull_ups"] }[day] || [];
+  const lastHard = Object.values(S.workouts).filter(w => w.status === "done").sort((a, b) => a.date < b.date ? 1 : -1)[0];
+  const skipDayMove = lastHard && Object.values(lastHard.feedback?.items || {}).some(x => x.rating === "hard") && lastHard.day === day;
+  if (!skipDayMove) take(byScore(pool.filter(c => dayMoves.includes(c.id) && !picked.includes(c)))[0]);
+  const need = (low || (t && t <= 45) || longPause) ? 3 : 4;
+  for (const c of byScore(pool.filter(c => !isPrim(c) && !["cardio"].includes(c.kind)))) {
+    if (picked.length >= need) break;
+    if (picked.includes(c) || (c.back === "caution" && caution >= 2)) continue;
+    if (picked.some(p => (p.pattern || []).some(x => (c.pattern || []).includes(x)))) continue;
+    take(c);
+  }
+  const ids = picked.map(c => c.id).sort().join();
+  if (recent.slice(-3).some(r => r.items.map(s => s.split(" ")[0]).sort().join() === ids) && picked.length > 2) {
+    const alt = byScore(pool.filter(c => !picked.includes(c) && !isPrim(c) && c.back !== "caution"))[0]; if (alt) picked[picked.length - 1] = alt;
+  }
+  const items = picked.map(c => {
+    const it = { id: c.id, reps: c.reps || 10 }; if (c.unit) it.unit = c.unit;
+    if (c.max_kg != null) { const kg = Math.min(c.max_kg, lastLoadKg(cf, c.id) ?? c.max_kg); it.kg = kg; it.lb = crossLoad(c, kg); }
+    if (low || longPause) it.reps = Math.max(5, Math.round(it.reps * 0.8));
+    return it;
+  });
+  const lastTwoRounds = recent.slice(-2).length === 2 && recent.slice(-2).every(r => String(r.rounds) === "3");
+  if (lastTwoRounds && !low && !longPause && !(t && t <= 45) && items.length >= 3) return { format: "ladder", scheme: "21-15-9", cap_min: 12, items: items.slice(0, 3).map(i => ({ ...i, reps: undefined })) };
+  return { format: "rounds", rounds, cap_min: cap, items };
+}
+
+/* ================================================================ check (JS copy of trainer.py check) */
+const NEVER_WORDS = ["становая", "deadlift", "румынск", "rdl", "good morning", "наклоны со штангой", "bent-over", "в наклоне", "kettlebell swing", "махи гир", "swing", "clean", "snatch", "взятие", "рывок", "back squat", "front squat", "со штангой на спине", "штангой на груди", "standing barbell", "жим штанги стоя", "jefferson", "landmine", "pendlay"];
+function checkPlan(plan, ctx) {
+  const errors = [], warns = []; const day = plan.day; const P = new Set(plan.pre?.pain || []); const ov = plan.overrides || {};
+  if (!DAYS.includes(day)) errors.push("Day must be legs, push or pull.");
+  const custom = (it, where) => { const nm = ((it.ru || "") + " " + (it.en || "")).toLowerCase(); if (NEVER_WORDS.some(w => nm.includes(w))) errors.push(`${where}: ${it.en || it.ru} loads the spine (never list)`); else if (!it.reason) errors.push(`${where}: ${it.id} isn't in the catalog`); else warns.push(`${where}: new exercise ${it.en || it.ru}, ${it.reason}`); };
+  const wu = plan.warmup || []; if (wu.length < 2 || wu.length > 4) errors.push(`Warm-up: ${wu.length} movements, the trainer uses 2–3`);
+  const fams = [];
+  for (const w of wu) { const b = exW(w.id); if (!b) { custom(w, "Warm-up"); continue; } fams.push(b.family); if (b.family === "E" && (w.kg || 0) > 10) errors.push("Warm-up: back extension heavier than 10 kg (never list)"); }
+  if (fams.length && !fams.some(f => "ABC".includes(f))) errors.push("Warm-up: no core stability (bird dog / plank / Pallof)");
+  if (new Set(fams).size !== fams.length) warns.push("Warm-up: two movements from one family");
+  const sl = plan.strength || []; if (sl.length < 3 || sl.length > 7) errors.push(`Strength: ${sl.length} exercises, the trainer uses 4–6`);
+  const ranks = [];
+  sl.forEach((it, k) => {
+    const ex = exS(it.id); if (!ex) { custom(it, "Strength"); return; }
+    if (!ex.day.includes(day) && !ex.day.includes("any")) (ov[it.id] ? warns : errors).push(`Strength: ${ex.en_short} isn't in the ${day} pool`);
+    if (ex.status === "retired" && !ov[it.id]) errors.push(`Strength: ${ex.en_short} was retired by the trainer`);
+    const hit = (ex.joints || []).filter(j => P.has(j)); if (hit.length && !ov[it.id]) errors.push(`Strength: ${ex.en_short} loads the ${hit.map(j => JOINT_EN[j]).join(", ")}, which hurts today`);
+    const kg = it.kg || []; const s = ctx?.sugg?.[it.id];
+    if (kg.length !== (it.sets || 3) && !(s?.action === "new" && !kg.length)) errors.push(`Strength: ${ex.en_short} has ${kg.length} weights for ${it.sets || 3} sets`);
+    ranks.push(ROLE_RANK[ex.role] ?? 2);
+    if (s?.kg?.length && kg.length) { const step = lbToKg(stepLb(ex)); const top = Math.max(...kg), ts = Math.max(...s.kg);
+      if (top > ts + 0.6 * step && !ov[it.id]) errors.push(`Strength: ${ex.en_short} ${top} kg is above the trainer's ${ts} kg`);
+      else if (top < ts - 1.6 * step && !ov[it.id]) warns.push(`Strength: ${ex.en_short} ${top} kg is well below the trainer's ${ts} kg`); }
+    const p = ex.superset; if (p) { const j = sl.findIndex(x => x.id === p); if (j >= 0 && Math.abs(j - k) !== 1) warns.push(`Strength: superset ${ex.en_short} + ${exS(p)?.en_short} split apart`); }
+  });
+  if (ranks.join() !== ranks.slice().sort((a, b) => a - b).join()) warns.push("Strength: order isn't main → isolation → shoulders");
+  const cf = plan.crossfit || {}; const ci = cf.items || [];
+  if (cf.format !== "skip" && (ci.length < 3 || ci.length > 6)) errors.push(`Crossfit: ${ci.length} movements, the trainer uses 3–6`);
+  const prim = new Set(cat()?.day_types?.[day]?.primary_patterns || []); const overlap = []; let caution = 0;
+  for (const it of ci) { const b = exC(it.id); if (!b) { custom(it, "Crossfit"); continue; }
+    if (b.status === "retired") errors.push(`Crossfit: ${b.en_short} is retired`);
+    if ((b.pattern || []).some(p => prim.has(p))) overlap.push(b.en_short);
+    if (b.back === "caution") caution++;
+    const av = (b.avoid_if || []).filter(j => P.has(j)); if (av.length) errors.push(`Crossfit: ${b.en_short}, ${av.map(j => JOINT_EN[j]).join(", ")} hurts today`);
+    if (it.kg != null && b.max_kg != null && it.kg > b.max_kg) errors.push(`Crossfit: ${b.en_short} ${it.kg} kg, ceiling ${b.max_kg} kg`); }
+  if (overlap.length >= 3) errors.push(`Crossfit: ${overlap.length} movements hit the day's muscles (${overlap.join(", ")}), max 2`);
+  if (caution > 2) errors.push(`Crossfit: ${caution} back-caution movements, max 2`);
+  if (P.has("lower_back") && caution) errors.push("Crossfit: lower back hurts, no back-caution movements");
+  const ids = ci.map(x => x.id).sort().join();
+  for (const r of (ctx?.brief?.crossfit?.recent || []).slice(-3)) if (r.items.map(s => s.split(" ")[0]).sort().join() === ids) warns.push(`Crossfit: same set as ${r.date}`);
+  if ((ctx?.brief?.pause?.days_since || 0) >= 21 && cf.format === "rounds" && (cf.rounds || 3) > 3) warns.push("Crossfit: after 3+ weeks off, at most 3 rounds");
+  return { ok: !errors.length, errors, warnings: warns };
+}
+
+/* ================================================================ Claude builder */
+function claudePrompt(ctx, draft, errors) {
+  const day = ctx.day; const c = cat();
+  const strength = (c.strength || []).filter(e => (e.day.includes(day) || e.day.includes("any")) && e.status !== "retired").map(e => ({ id: e.id, en: e.en_short, role: e.role, joints: e.joints, back: e.back, superset: e.superset, status: e.status }));
+  const brief = clone(ctx.brief); for (const it of brief.strength?.items || []) delete it.history; for (const p of brief.strength?.pool || []) if (p.suggest) delete p.suggest.history;
+  const skill = S.cfg.skill || {};
+  return [
+    "You compose today's gym session for Alex in his Kyiv trainer's format (I warm-up, II strength, III crossfit).",
+    "Follow the trainer's method and the feedback vocabulary below exactly. Weights come only from the engine's brief: copy kg/lb for every strength exercise from brief.strength.items or brief.strength.pool[].suggest; never invent or change a weight. For an exercise with action 'new', leave kg out.",
+    "Start from the DRAFT (a deterministic plan that already follows the rules). Change it only where the method calls for variety or the check-in asks for it; at most one strength swap. Explain every departure from the brief in 'overrides' (id → short English reason).",
+    "Write note, why and overrides in short plain English (the app's language); note is one line or empty.",
+    "Reply with ONLY one JSON object of the same shape as DRAFT: {date, day, note, pre, warmup:[{id,sets,reps|secs,kg?}], strength:[{id,sets,reps,kg,lb,superset_next?,cue?}], crossfit:{format:'rounds'|'ladder'|'skip', rounds?, scheme?, cap_min?, items:[{id,reps,unit?,kg?,lb?}]}, overrides:{}, why:[≤2 short English lines]}. Use catalog ids only.",
+    errors?.length ? "Your previous answer failed the check with these errors; fix every one:\n- " + errors.join("\n- ") : "",
+    "\n## METHOD (methodology.md)\n" + (skill.methodology_md || "(not synced)"),
+    "\n## FEEDBACK VOCABULARY (feedback.md)\n" + (skill.feedback_md || "(not synced)"),
+    "\n## CHECK-IN\n" + JSON.stringify(ctx.ck),
+    "\n## ENGINE BRIEF\n" + JSON.stringify(brief),
+    "\n## CATALOG (strength for this day)\n" + JSON.stringify(strength),
+    "\n## CATALOG (warm-up)\n" + JSON.stringify(c.warmup.items.map(w => ({ id: w.id, family: w.family, level: w.level, sets: w.sets, reps: w.reps, secs: w.secs }))),
+    "\n## CATALOG (crossfit)\n" + JSON.stringify(c.crossfit.items.filter(x => x.status !== "retired").map(x => ({ id: x.id, kind: x.kind, pattern: x.pattern, back: x.back, avoid_if: x.avoid_if, max_kg: x.max_kg, reps: x.reps, unit: x.unit, equipment: x.equipment, fallback: x.fallback }))),
+    "\n## GYM EQUIPMENT\n" + JSON.stringify(gymCfg().equipment || {}) + "\nmissing machines/substitutions: " + JSON.stringify({ machines: gymCfg().machines, substitutions: gymCfg().substitutions }),
+    "\n## DRAFT\n" + JSON.stringify(draft),
+  ].filter(Boolean).join("\n");
+}
+/** Every weight in a Claude plan is reset to the engine's numbers: the app never invents one. */
+function enforceWeights(plan, ctx) {
+  for (const it of plan.strength || []) {
+    const s = ctx.sugg[it.id];
+    if (s?.kg?.length) { it.sets = s.sets || it.sets; it.kg = s.kg.slice(); it.lb = (s.lb || s.kg.map(kgToLb5)).slice(); if (!it.reps) it.reps = String(s.reps); if (s.why) it.why = s.why; }
+    else { delete it.kg; delete it.lb; }
+  }
+  for (const it of plan.crossfit?.items || []) { const c = exC(it.id); if (c?.max_kg != null && it.kg != null) { it.kg = Math.min(it.kg, c.max_kg); it.lb = crossLoad(c, it.kg); } }
+  markSupersets(plan.strength || []);
+  plan.date = ctx.ck.date; plan.day = ctx.day; plan.pre = { pain: ctx.ck.pain || [], readiness: ctx.ck.sick ? "low" : ctx.ck.readiness, time_min: ctx.ck.time_min || null };
+  return plan;
+}
+async function buildWithClaude(ctx, draft, signal) {
+  let errors = null;
+  for (let attempt = 0; attempt < 2; attempt++) {
+    const out = await S.sample.json(claudePrompt(ctx, draft, errors), { signal, cache: false });
+    if (!out || typeof out !== "object" || !Array.isArray(out.strength)) { errors = ["Answer was not a plan object"]; continue; }
+    const plan = enforceWeights(out, ctx);
+    plan.overrides = Object.assign({}, draft.overrides, plan.overrides || {});
+    const res = checkPlan(plan, ctx);
+    if (res.ok) return { plan, check: res };
+    errors = res.errors;
+  }
+  return null;
+}
+
+/* ================================================================ workout lifecycle */
+function newId(date) { let id = date, n = 2; while (S.workouts[id] && !(S.workouts[id].status === "planned" && S.workouts[id].source === "app")) id = `${date}-${n++}`; return id; }
+function defaultCheckin() {
+  const r = rotation();
+  return { date: todayLocal(), day: r.next, readiness: "normal", sick: false, injured: false, pain_keys: [], pain: [], pain_detail: [], pain_note: "", time_min: null, pause_answer: null };
+}
+function normCheckin(ck) {
+  const spots = PAIN_SPOTS.filter(p => ck.pain_keys.includes(p.key));
+  ck.pain = [...new Set(spots.map(p => p.joint).filter(Boolean))];
+  ck.pain_detail = spots.filter(p => p.side).map(p => ({ joint: p.joint, side: p.side }));
+  return ck;
+}
+async function startBuild(ck, useClaude) {
+  normCheckin(ck);
+  const ctx = contextFor(ck.day, ck);
+  if (!ctx) return toast("No brief for that day yet. Ask the trainer to sync the app.");
+  const draft = buildTemplate(ctx);
+  let plan = draft, built_by = "template", check = checkPlan(draft, ctx);
+  if (useClaude && S.sample) {
+    S.building = { day: ck.day }; S.buildCtl = new AbortController(); render();
+    try { const r = await buildWithClaude(ctx, draft, S.buildCtl.signal); if (r) { plan = r.plan; check = r.check; built_by = "claude"; } else toast("Claude's plan didn't pass the trainer's checks; using the standard plan."); }
+    catch (e) { if (e.code !== "cancelled") { if (e.code === "not_granted" || e.code === "sampling_disabled") S.sample = null; toast(e.code === "rate_limited" ? "Claude is busy right now; using the standard plan." : "Claude couldn't build the plan; using the standard plan."); } }
+    S.building = null; S.buildCtl = null;
+  }
+  const id = newId(ck.date);
+  const { pain_keys, injured, ...checkin } = ck;
+  if (injured && ck.pain.length) checkin.pain_note = ["sharp / new pain: area not trained", checkin.pain_note].filter(Boolean).join("; ");
+  const w = { id, date: ck.date, day: ck.day, status: "planned", source: "app", built_by, created_at: nowISO(), checkin, plan, check, changes: [], notes: ctx.notes,
+    log: { warmup: {}, strength: {}, crossfit: {} }, feedback: { items: {}, actual: {} }, machine_missing: {} };
+  saveWorkout(w, true);
+  S.cur = id; S.view = "workout"; lsSet("tn.cur", id); window.scrollTo(0, 0); render();
+}
+const curW = () => S.cur ? S.workouts[S.cur] : null;
+function startSession(w) { if (w.status === "planned") { w.status = "active"; w.started_at = nowISO(); saveWorkout(w, true); } keepAwake(); render(); }
+let wake = null;
+async function keepAwake() { try { if (!wake && navigator.wakeLock) { wake = await navigator.wakeLock.request("screen"); wake.addEventListener("release", () => { wake = null; }); } } catch {} }
+document.addEventListener("visibilitychange", () => { if (document.visibilityState === "visible" && curW()?.status === "active") keepAwake(); });
+
+function slog(w, id) { const ps = w.plan.strength.find(x => x.id === id); w.log.strength[id] ||= { sets: [] };
+  const L = w.log.strength[id]; const n = ps?.sets || 3;
+  while (L.sets.length < n) { const i = L.sets.length; const lb = ps?.lb?.[i] ?? ps?.lb?.slice(-1)[0] ?? null; L.sets.push({ lb, kg: lb != null ? lbToKg(lb) : null, reps: repsTarget(ps?.reps, i), done: false }); }
+  return L; }
+function repsTarget(r, i) { if (r == null) return 10; const s = String(r); if (s.includes("-") && s.split("-").length > 2) { const p = s.split("-").map(Number); return p[Math.min(i, p.length - 1)] || 10; } return parseInt(s, 10) || 10; }
+function exState(w, id) { const L = w.log.strength[id]; const fb = w.feedback.items[id]; if (fb?.rating === "skipped") return "done"; if (!L) return "todo"; const all = L.sets.length && L.sets.every(s => s.done); return all && fb ? "done" : L.sets.some(s => s.done) ? "doing" : "todo"; }
+function currentExId(w) { for (const it of w.plan.strength) if (exState(w, it.id) !== "done") return it.id; return null; }
+
+/* ================================================================ adjustments mid-session */
+function remainingIds(w) { return w.plan.strength.filter(it => { const L = w.log.strength[it.id]; return !(L && L.sets.some(s => s.done)) && !w.feedback.items[it.id]; }).map(it => it.id); }
+function ctxForWorkout(w, extra) {
+  const ck = Object.assign({}, w.checkin, extra || {}); ck.date = w.date;
+  return contextFor(w.day, ck);
+}
+function applyPain(w, spots, sharp) {
+  const joints = [...new Set(spots.map(p => p.joint).filter(Boolean))];
+  w.checkin.pain = [...new Set([...(w.checkin.pain || []), ...joints])];
+  w.checkin.pain_detail = [...(w.checkin.pain_detail || []), ...spots.filter(p => p.side).map(p => ({ joint: p.joint, side: p.side }))];
+  w.plan.pre.pain = w.checkin.pain.slice();
+  const P = new Set(w.checkin.pain); const ctx = ctxForWorkout(w); const rem = new Set(remainingIds(w));
+  const used = new Set(w.plan.strength.map(i => i.id)); const changed = [];
+  w.plan.strength = w.plan.strength.flatMap(it => {
+    if (!rem.has(it.id) || !hitsPain(exS(it.id), P)) return [it];
+    const r = sharp ? null : pickSwap(ctx, it.id, P, used);
+    if (r) { used.add(r.id); w.plan.overrides[r.id] = `instead of ${enName(it.id)}: ${joints.map(j => JOINT_EN[j]).join(", ")} hurts`; changed.push(`${enName(it.id)} → ${enName(r.id)}`); return [toPlanItem(r)]; }
+    w.feedback.items[it.id] = { rating: "skipped", note: `skipped: ${joints.map(j => JOINT_EN[j]).join(", ")} pain` }; changed.push(`${enName(it.id)} skipped`); return [it];
+  });
+  markSupersets(w.plan.strength);
+  const cf = w.plan.crossfit; if (cf?.items?.length && !w.log.crossfit.time) {
+    const bad = cf.items.filter(it => { const c = exC(it.id); return (c?.avoid_if || []).some(j => P.has(j)) || (P.has("lower_back") && c?.back === "caution"); });
+    if (bad.length) { const ctx2 = ctxForWorkout(w); const fresh = buildCrossfit(ctx2, { why: [] }); w.plan.crossfit = fresh; changed.push(`crossfit rebuilt without ${bad.map(b => enName(b.id)).join(", ")}`); }
+  }
+  w.changes.push({ at: nowISO(), kind: "pain", summary: `${spots.map(s => s.label).join(", ")}${sharp ? " (sharp)" : ""}: ${changed.join("; ") || "nothing left that loads it"}`, ids: changed.length ? [] : [] });
+  return changed;
+}
+function applyTired(w, sick) {
+  w.checkin.readiness = "low"; if (sick) w.checkin.sick = true; w.plan.pre.readiness = "low";
+  const ctx = ctxForWorkout(w); const rem = new Set(remainingIds(w)); const changed = [];
+  for (const it of w.plan.strength) if (rem.has(it.id)) {
+    if (sick) { w.feedback.items[it.id] = { rating: "skipped", note: "skipped: unwell" }; changed.push(`${enName(it.id)} skipped`); continue; }
+    const s = ctx.sugg[it.id]; if (s?.lb?.length && it.lb?.length) { const lb = it.lb.map((v, i) => Math.min(v, s.lb[Math.min(i, s.lb.length - 1)])); if (lb.join() !== it.lb.join()) { it.lb = lb; it.kg = lb.map(lbToKg); changed.push(`${enName(it.id)} held at ${lb.join("/")} lb`); } }
+  }
+  if (!w.log.crossfit.time) {
+    if (sick) { w.plan.crossfit = { format: "skip", items: [] }; changed.push("crossfit skipped"); }
+    else if (w.plan.crossfit.format === "rounds") { w.plan.crossfit.rounds = Math.min(2, w.plan.crossfit.rounds || 3); w.plan.crossfit.cap_min = Math.min(8, w.plan.crossfit.cap_min || 10); changed.push("crossfit 2 rounds, cap 8′"); }
+  }
+  w.changes.push({ at: nowISO(), kind: sick ? "sick" : "tired", summary: changed.join("; ") || "weights already at the low-readiness level", ids: [] });
+  return changed;
+}
+function applyTime(w, min) {
+  w.checkin.time_min = min; w.plan.pre.time_min = min; const rem = remainingIds(w); const changed = [];
+  const cutRoles = min < 30 ? ["isolation", "shoulder", "secondary"] : ["isolation", "shoulder"];
+  let keep = min < 30 ? 2 : 3;
+  const remEx = rem.map(id => w.plan.strength.find(x => x.id === id));
+  const toCut = remEx.filter(it => cutRoles.includes(exS(it.id)?.role)).reverse();
+  while (remEx.length - changed.length > keep && toCut.length) { const it = toCut.shift(); w.feedback.items[it.id] = { rating: "skipped", note: `skipped: ${min} min left` }; changed.push(`${enName(it.id)} skipped`); }
+  if (!w.log.crossfit.time && w.plan.crossfit.format !== "skip") {
+    if (min < 25) { w.plan.crossfit = { format: "skip", items: [] }; changed.push("crossfit skipped"); }
+    else { w.plan.crossfit.format = "rounds"; w.plan.crossfit.rounds = 2; w.plan.crossfit.cap_min = 6; delete w.plan.crossfit.scheme; changed.push("crossfit 2 rounds, cap 6′"); }
+  }
+  w.changes.push({ at: nowISO(), kind: "time", summary: `${min} min left: ${changed.join("; ") || "plan already fits"}`, ids: [] });
+  return changed;
+}
+function swapExercise(w, id, kind) {
+  const ctx = ctxForWorkout(w); const used = new Set(w.plan.strength.map(i => i.id)); const P = new Set(w.checkin.pain || []);
+  if (kind === "busy-later") {
+    const i = w.plan.strength.findIndex(x => x.id === id); const [it] = w.plan.strength.splice(i, 1); w.plan.strength.push(it); markSupersets(w.plan.strength);
+    w.changes.push({ at: nowISO(), kind: "busy", summary: `${enName(id)} moved to the end (machine busy)`, ids: [id] }); return `${enName(id)} moved to the end`;
+  }
+  const r = pickSwap(ctx, id, P, used);
+  if (!r) return null;
+  const i = w.plan.strength.findIndex(x => x.id === id);
+  w.plan.strength[i] = toPlanItem(r); markSupersets(w.plan.strength);
+  delete w.log.strength[id];
+  w.plan.overrides[r.id] = `instead of ${enName(id)}: ${kind === "missing" ? "the gym doesn't have it" : kind === "busy" ? "machine busy" : "swap"}`;
+  if (kind === "missing" || kind === "busy") w.machine_missing[id] = { kind, replaced_by: r.id, machine: exS(id)?.en || id };
+  w.changes.push({ at: nowISO(), kind: kind === "swap" ? "swap" : kind, summary: `${enName(id)} → ${enName(r.id)}`, ids: [id, r.id] });
+  return `${enName(id)} → ${enName(r.id)}`;
+}
+
+/* ================================================================ finishing */
+function composeFeedback(w) {
+  const fb = { items: {}, actual: {}, crossfit_time: w.log.crossfit.time || undefined, crossfit_rating: w.feedback.crossfit_rating || undefined, overall: w.feedback.overall || "", done: true };
+  for (const [id, v] of Object.entries(w.feedback.items || {})) if (v?.rating) fb.items[id] = { rating: v.rating, note: v.note || "" };
+  for (const [id, L] of Object.entries(w.log.strength || {})) {
+    const done = (L.sets || []).filter(s => s.done); if (!done.length) continue;
+    const reps = done.map(s => s.reps);
+    fb.actual[id] = { lb: done.map(s => s.lb), kg: done.map(s => s.lb != null ? lbToKg(s.lb) : s.kg), sets: done.length, reps: reps.every(r => r === reps[0]) ? String(reps[0]) : reps.join("-"), reps_per_set: reps };
+    if (L.machine) fb.actual[id].machine = L.machine;
+  }
+  return JSON.parse(JSON.stringify(fb));
+}
+function finishWorkout(w) {
+  w.feedback = Object.assign({}, w.feedback, composeFeedback(w));
+  w.status = "done"; w.finished_at = nowISO(); saveWorkout(w, true);
+  lsSet("tn.cur", null); try { wake?.release(); } catch {}
+  S.view = "summary"; window.scrollTo(0, 0); render();
+}
+
+/* ================================================================ rendering */
+let deferred = false;
+function render() {
+  // never rebuild the screen under someone typing: catch up when the field loses focus
+  const a = document.activeElement;
+  if (a && (a.tagName === "TEXTAREA" || (a.tagName === "INPUT" && a.type !== "file")) && a.closest("#app, #sheet")) {
+    if (!deferred) { deferred = true; a.addEventListener("blur", () => { deferred = false; setTimeout(render, 0); }, { once: true }); }
+    return;
+  }
+  const app = document.getElementById("app");
+  const sub = document.getElementById("brandSub");
+  const sync = S.cfg.sync;
+  sub.textContent = S.ready ? (sync?.pushed_at ? `${gymCfg().name ? gymCfg().name.split("(")[0].trim() + " · " : ""}synced ${fmtDate(sync.pushed_at)}` : "Not synced yet") : (S.err ? "Offline" : "Loading…");
+  document.getElementById("histBtn").onclick = () => { S.view = S.view === "history" ? (curW()?.status === "active" ? "workout" : "home") : "history"; window.scrollTo(0, 0); render(); };
+  document.getElementById("histBtn").textContent = S.view === "history" ? "Close" : "History";
+  const y = window.scrollY;
+  app.replaceChildren(...viewNodes().filter(Boolean));
+  renderBar(); renderRest(); renderSheet();
+  window.scrollTo(0, y);
+}
+function viewNodes() {
+  if (S.err && !S.ready) return [el("div", { class: "card empty" }, el("h1", { text: "Trainer Notebook" }), el("p", { class: "muted", text: S.err }))];
+  if (!S.ready) return [el("div", { class: "card empty" }, el("h1", { text: "Trainer Notebook" }), el("p", { class: "muted" }, el("span", { class: "spin" }), "  Loading your plan and log…"))];
+  if (!cat() || !Object.keys(S.briefs).length) return [el("div", { class: "card empty" }, el("h1", { text: "Waiting for the trainer" }),
+    el("p", { class: "muted", text: "The plan engine hasn't sent your exercises and weights yet. In Claude Code, tell the trainer “sync the app” (синхронизируй приложение). Your plan appears here as soon as it lands." }))];
+  const toastN = S.toast ? el("div", { class: "note info", role: "status", text: S.toast }) : null;
+  if (S.building) return [toastN, buildingView()];
+  if (S.view === "history") return [toastN, historyView()];
+  if (S.view === "summary" && curW()) return [toastN, ...summaryView(curW())];
+  if (S.view === "workout" && curW()) return [toastN, ...workoutView(curW())];
+  return [toastN, ...homeView()];
+}
+
+/* ---------------- home / check-in */
+function homeView() {
+  const r = rotation(); S.ck ||= defaultCheckin(); const ck = S.ck;
+  const nodes = [];
+  const today = todayLocal();
+  const planned = Object.values(S.workouts).filter(w => w.status === "planned" && w.source === "skill" && w.date === today);
+  const active = Object.values(S.workouts).filter(w => w.status === "active");
+  for (const w of active) nodes.push(el("div", { class: "card" }, el("div", { class: "eyebrow", text: "In progress" }), el("h2", { text: `${DAY_EN[w.day]} · ${fmtDate(w.date)}` }),
+    el("button", { class: "btn primary block", type: "button", on: { click: () => { S.cur = w.id; S.view = "workout"; lsSet("tn.cur", w.id); render(); } } }, "Resume workout")));
+  for (const w of planned) nodes.push(el("div", { class: "card" }, el("div", { class: "eyebrow", text: "Trainer's plan for today" }), el("h2", { text: `${DAY_EN[w.day]} · ${w.plan?.strength?.length || 0} exercises` }),
+    w.plan?.note ? el("p", { class: "muted small", text: w.plan.note }) : null,
+    el("button", { class: "btn primary block", type: "button", on: { click: () => { w.log ||= { warmup: {}, strength: {}, crossfit: {} }; w.feedback ||= { items: {}, actual: {} }; w.changes ||= []; w.machine_missing ||= {}; w.plan.overrides ||= {}; w.checkin ||= { readiness: "normal", pain: [] }; S.cur = w.id; S.view = "workout"; render(); } } }, "Open the trainer's plan")));
+
+  const brief = S.briefs[ck.day]?.normal;
+  const pause = brief?.pause;
+  nodes.push(el("div", { class: "card" },
+    el("div", { class: "eyebrow", text: fmtDate(today) }),
+    el("h1", { text: "How are you today?" }),
+    pause?.days_since != null ? el("p", { class: "muted small", text: `Last logged session: ${fmtDate(pause.last_session)} (${pause.days_since} days ago${r.stale.length ? `; plus ${r.stale.length} in this app` : ""}).` }) : null,
+  ));
+  if (pause?.ask && !r.stale.length) nodes.push(el("div", { class: "card" },
+    el("h3", { text: `Did you train since ${fmtDate(pause.last_session)}?` }),
+    el("div", { class: "seg" }, ...[["break", "No, I took a break"], ["unlogged", "Yes, not logged"]].map(([v, l]) => el("button", { type: "button", "aria-pressed": String(ck.pause_answer === v), on: { click: () => { ck.pause_answer = v; render(); } } }, l))),
+    ck.pause_answer === "unlogged" ? el("div", { class: "note warn", text: "Log those sessions with the trainer (a notebook photo works) when you can: today's weights may sit a little low until then." }) : null));
+
+  nodes.push(el("div", { class: "card" },
+    el("div", { class: "eyebrow", text: "Day" }),
+    el("div", { class: "seg" }, ...DAYS.map(d => el("button", { type: "button", "aria-pressed": String(ck.day === d), on: { click: () => { ck.day = d; render(); } } },
+      DAY_EN[d], el("span", { class: "ru", text: (cat().day_types?.[d]?.ru || "") + (d === r.next ? " · next" : "") })))),
+    el("p", { class: "faint small", text: `Rotation: ${DAYS.map(d => `${DAY_EN[d]} ${r.last[d] ? fmtDate(r.last[d]) : "—"}`).join(" · ")}` })));
+
+  nodes.push(el("div", { class: "card" },
+    el("div", { class: "eyebrow", text: "Energy" }),
+    el("div", { class: "seg" }, ...[["normal", "Normal"], ["low", "Tired"]].map(([v, l]) => el("button", { type: "button", "aria-pressed": String(ck.readiness === v && !ck.sick), on: { click: () => { ck.readiness = v; ck.sick = false; render(); } } }, l)),
+      el("button", { type: "button", "aria-pressed": String(!!ck.sick), on: { click: () => { ck.sick = !ck.sick; if (ck.sick) ck.readiness = "low"; render(); } } }, "Unwell")),
+    ck.sick ? el("p", { class: "muted small", text: "Light session: weights held, no crossfit. If you have a fever, skip the gym today." }) : ck.readiness === "low" ? el("p", { class: "muted small", text: "Every weight held at last time's level; crossfit 2 rounds." }) : null));
+
+  nodes.push(el("div", { class: "card" },
+    el("div", { class: "eyebrow", text: "Anything hurt?" }),
+    el("div", { class: "chips" }, ...PAIN_SPOTS.map(p => el("button", { class: "chip pain", type: "button", "aria-pressed": String(ck.pain_keys.includes(p.key)), on: { click: () => { const i = ck.pain_keys.indexOf(p.key); i >= 0 ? ck.pain_keys.splice(i, 1) : ck.pain_keys.push(p.key); render(); } } }, p.label))),
+    ck.pain_keys.length ? el("div", { class: "seg" }, ...[[false, "Dull / familiar"], [true, "Sharp / new"]].map(([v, l]) => el("button", { type: "button", "aria-pressed": String(!!ck.injured === v), on: { click: () => { ck.injured = v; render(); } } }, l))) : null,
+    ck.pain_keys.includes("other") ? el("input", { type: "text", id: "painNote", placeholder: "Where and how (e.g. right ankle, after a run)", value: ck.pain_note || "", on: { input: e => { ck.pain_note = e.target.value; } } }) : null,
+    ck.injured ? el("div", { class: "note stop" }, el("strong", { text: "Don't train that area today. " }), "Sharp, sudden or spreading pain is a reason to stop, not to work around it. If it doesn't settle in a few days, see a doctor. The plan below leaves out everything that loads it.") : null));
+
+  nodes.push(el("div", { class: "card" },
+    el("div", { class: "eyebrow", text: "Time" }),
+    el("div", { class: "seg" }, ...[[null, "Full"], [60, "60 min"], [45, "45 min"], [30, "30 min"]].map(([v, l]) => el("button", { type: "button", "aria-pressed": String(ck.time_min === v), on: { click: () => { ck.time_min = v; render(); } } }, l)))));
+
+  const probe = normCheckin(Object.assign({}, ck, { pain_keys: ck.pain_keys.slice() }));
+  const pctx = contextFor(ck.day, probe);
+  for (const n of pctx?.notes || []) nodes.push(el("div", { class: "note info", text: n }));
+  if (pctx && probe.pain.length) {
+    const left = buildTemplate(pctx).strength.length;
+    if (left < 4) {
+      const alts = DAYS.filter(d => d !== ck.day).map(d => { const c = contextFor(d, Object.assign({}, probe, { day: d })); return { d, n: c ? buildTemplate(c).strength.length : 0 }; }).filter(a => a.n >= 4).sort((a, b) => b.n - a.n);
+      nodes.push(el("div", { class: "note warn" }, el("strong", { text: `A ${DAY_EN[ck.day]} day leaves ${left} exercise${left === 1 ? "" : "s"} that spare the ${probe.pain.map(j => JOINT_EN[j]).join(" and ")}. ` }),
+        alts.length ? "Train a day that leaves it alone:" : "Every day loads it: consider resting today.",
+        alts.length ? el("div", { class: "row", style: "margin-top:8px" }, ...alts.map(a => el("button", { class: "btn", type: "button", on: { click: () => { ck.day = a.d; render(); } } }, `${DAY_EN[a.d]} (${a.n})`))) : null));
+    }
+  }
+  const bAt = S.briefs[ck.day]?.computed_at;
+  if (bAt && daysBetween(bAt.slice(0, 10), today) > 3) nodes.push(el("div", { class: "note warn", text: `The trainer last updated this plan on ${fmtDate(bAt)}. It still works; sync when you can for fresh progression.` }));
+  return nodes;
+}
+function buildingView() {
+  return el("div", { class: "card empty" }, el("div", { class: "eyebrow", text: DAY_EN[S.building.day] }), el("h1", { text: "Composing your session" }),
+    el("p", { class: "muted" }, el("span", { class: "spin" }), "  Claude is putting it together from the trainer's method and your check-in. This can take up to a minute."),
+    el("button", { class: "btn block", type: "button", on: { click: () => S.buildCtl?.abort() } }, "Use the standard plan now"));
+}
+
+/* ---------------- workout */
+function workoutView(w) {
+  const nodes = []; const active = w.status === "active";
+  const units = isLb() ? "lb" : "kg";
+  nodes.push(el("div", { class: "card" },
+    el("div", { class: "row" }, el("div", { class: "grow" }, el("div", { class: "eyebrow", text: `${fmtDate(w.date)} · ${w.built_by === "claude" ? "composed by Claude" : w.built_by === "skill" ? "trainer's plan" : "standard plan"}` }),
+      el("h1", { text: DAY_EN[w.day] }), el("div", { class: "ru", text: cat().day_types?.[w.day]?.ru || "" })),
+      el("span", { class: "badge" + (active ? " ok" : ""), text: active ? "In progress" : w.status === "done" ? "Done" : "Not started" })),
+    w.plan.note ? el("p", { class: "muted small", text: w.plan.note }) : null,
+    ...(w.plan.why || []).map(t => el("div", { class: "faint small", text: "• " + t })),
+    ...(w.notes || []).map(t => el("div", { class: "note info small", text: t })),
+    w.check && !w.check.ok ? el("div", { class: "note warn small", text: "Check flagged: " + w.check.errors.join("; ") }) : null,
+    w.checkin?.pain?.length ? el("div", { class: "faint small", text: `Avoiding load on: ${w.checkin.pain.map(j => JOINT_EN[j]).join(", ")}` }) : null,
+    w.changes?.length ? el("details", null, el("summary", { class: "small muted", text: `${w.changes.length} change${w.changes.length > 1 ? "s" : ""} today` }), ...w.changes.map(c => el("div", { class: "small faint", text: `${new Date(c.at).toLocaleTimeString([], { hour: "numeric", minute: "2-digit" })} · ${c.summary}` }))) : null));
+
+  /* I warm-up */
+  nodes.push(el("div", { class: "section-h" }, el("span", { class: "roman", text: "I" }), el("h2", { text: "Warm-up" }), el("span", { class: "faint small", text: "lower back first" })));
+  nodes.push(el("div", { class: "card" }, ...w.plan.warmup.map(it => {
+    const done = w.log.warmup[it.id]?.sets_done || 0; const n = it.sets || 2;
+    const dose = it.secs ? `${n} × ${it.secs}″` : `${n} × ${it.reps}`;
+    return el("div", { class: "wu" },
+      el("div", { style: "min-width:0" }, el("b", { text: enName(it.id) }), el("div", { class: "ru", text: ruName(it.id) }),
+        el("div", { class: "small muted" }, dose + (it.kg ? ` · ${isLb() ? kgToLb5(it.kg) + " lb" : it.kg + " kg"} (${isLb() ? it.kg + " kg" : kgToLb5(it.kg) + " lb"})` : ""), " ", howBtn(it.id))),
+      el("div", { class: "dots" }, ...Array.from({ length: n }, (_, i) => el("button", { class: "tick", type: "button", "aria-pressed": String(done > i), "aria-label": `Set ${i + 1} done`,
+        on: { click: () => { if (!active) startSession(w); w.log.warmup[it.id] = { sets_done: done > i ? i : i + 1 }; saveWorkout(w); render(); } } }, done > i ? "✓" : String(i + 1)))));
+  })));
+
+  /* II strength */
+  nodes.push(el("div", { class: "section-h" }, el("span", { class: "roman", text: "II" }), el("h2", { text: "Strength" }), el("span", { class: "faint small", text: units + (isLb() ? " · kg below" : "") })));
+  const curId = currentExId(w);
+  w.plan.strength.forEach((it, k) => {
+    nodes.push(exerciseCard(w, it, it.id === curId && active));
+    if (it.superset_next) nodes.push(el("div", { class: "ss-link", text: "+ superset with the next one, no rest between" }));
+  });
+
+  /* III crossfit */
+  nodes.push(el("div", { class: "section-h" }, el("span", { class: "roman", text: "III" }), el("h2", { text: "Crossfit" }), el("span", { class: "faint small", text: "for time" })));
+  nodes.push(crossfitCard(w));
+
+  if (w.status !== "done") nodes.push(el("button", { class: "btn danger block", type: "button", on: { click: () => openSheet({ kind: "cancel" }) } }, w.status === "planned" ? "Discard this plan" : "Cancel workout"));
+  return nodes;
+}
+function howBtn(id) { return el("button", { class: "how", type: "button", on: { click: e => { e.stopPropagation(); openSheet({ kind: "media", id }); } }, "aria-label": `How to do ${enName(id)}` }, el("span", { html: ICON.play }), "How to"); }
+function exerciseCard(w, it, isCur) {
+  const ex = exS(it.id) || {}; const st = exState(w, it.id); const fb = w.feedback.items[it.id];
+  const L = w.log.strength[it.id]; const active = w.status === "active";
+  const alt = (ex.alt_us || [])[0];
+  const head = el("div", { class: "ex-head" },
+    el("div", { class: "name" }, el("b", { text: ex.en_short || ex.en || it.id }), el("div", { class: "ru", text: ex.ru || "" }),
+      el("div", { class: "ex-meta" }, `${it.sets} × ${it.reps}`, it.lb?.length ? ` · ${[...new Set(it.lb)].join("–")} lb` : " · pick a weight", alt ? el("span", { class: "alt", text: ` · or ${alt}` }) : null)),
+    howBtn(it.id),
+    w.status !== "done" ? el("button", { class: "kebab", type: "button", "aria-label": "Exercise options", on: { click: () => openSheet({ kind: "ex", id: it.id }) } }, "⋯") : null);
+  if (st === "done") {
+    const a = L?.sets?.filter(s => s.done) || [];
+    return el("div", { class: "card ex done" }, head, el("div", { class: "row" },
+      el("span", { class: "badge " + (fb?.rating || ""), text: RATINGS.find(r => r[0] === fb?.rating)?.[1] || "Done" }),
+      el("span", { class: "small muted grow", text: a.length ? a.map(s => `${s.lb ?? "–"}×${s.reps}`).join(" · ") : fb?.note || "" }),
+      w.status !== "done" ? el("button", { class: "how", type: "button", on: { click: () => { delete w.feedback.items[it.id]; saveWorkout(w); render(); } } }, "Edit") : null));
+  }
+  const nodes = [head];
+  const ov = w.plan.overrides?.[it.id]; if (ov) nodes.push(el("div", { class: "small faint", text: "↻ " + ov }));
+  if (it.cue && (isCur || st === "todo")) nodes.push(el("div", { class: "note small" }, el("strong", { text: "Back: " }), it.cue));
+  else if (ex.back_cue_ru && isCur) nodes.push(el("div", { class: "note small", text: ex.back_cue_ru }));
+  if (it.why && isCur && (it.action === "calibrate" || it.action === "new" || it.action === "from_app")) nodes.push(el("div", { class: "small faint", text: it.action === "calibrate" ? "New machine: first set is a test. If set 2 feels easy for the top reps, go one step up on set 3." : it.action === "new" ? "No history: start light, find the weight that leaves 2 reps in reserve." : it.why }));
+  if (isCur || st === "doing" || (active && st === "todo" && L)) {
+    const Ls = slog(w, it.id); const step = stepLb(ex);
+    nodes.push(el("div", { class: "sets" }, ...Ls.sets.map((s, i) => el("div", { class: "set" + (s.done ? " done" : "") },
+      el("span", { class: "n", text: i + 1 }),
+      el("div", { class: "stepper" },
+        el("button", { type: "button", "aria-label": "Less weight", on: { click: () => { s.lb = Math.max(0, (s.lb ?? (it.lb?.[0] || step)) - step); s.kg = lbToKg(s.lb); saveWorkout(w); render(); } } }, "−"),
+        el("div", { class: "v" }, s.lb != null ? String(s.lb) : "—", el("small", { text: s.lb != null ? `${lbToKg(s.lb)} kg` : "lb" })),
+        el("button", { type: "button", "aria-label": "More weight", on: { click: () => { s.lb = (s.lb ?? 0) + step; s.kg = lbToKg(s.lb); saveWorkout(w); render(); } } }, "+")),
+      el("div", { class: "stepper" },
+        el("button", { type: "button", "aria-label": "Fewer reps", on: { click: () => { s.reps = Math.max(0, s.reps - 1); saveWorkout(w); render(); } } }, "−"),
+        el("div", { class: "v" }, String(s.reps), el("small", { text: "reps" })),
+        el("button", { type: "button", "aria-label": "More reps", on: { click: () => { s.reps += 1; saveWorkout(w); render(); } } }, "+")),
+      el("button", { class: "tick", type: "button", "aria-pressed": String(s.done), "aria-label": `Set ${i + 1} done`, on: { click: () => {
+        if (w.status === "planned") startSession(w);
+        s.done = !s.done; saveWorkout(w);
+        if (s.done && !(i === Ls.sets.length - 1)) startRest(it.superset_next ? 0 : 90);
+        else stopRest();
+        render(); } } }, "✓")))));
+    if (Ls.sets.every(s => s.done) || Ls.sets.some(s => s.done)) nodes.push(rateBlock(w, it.id, Ls.sets.every(s => s.done)));
+  } else if (st === "todo") {
+    nodes.push(el("div", { class: "small faint", text: it.lb?.length ? it.lb.map((v, i) => `${v} lb (${it.kg?.[i] ?? lbToKg(v)} kg)`).join(" · ") : "weight to pick on the day" }));
+    if (active) nodes.push(el("button", { class: "how", type: "button", style: "align-self:flex-start", on: { click: () => { slog(w, it.id); saveWorkout(w); render(); } } }, "Log this one now"));
+  }
+  return el("div", { class: "card ex" + (isCur ? " current" : "") }, ...nodes);
+}
+function rateBlock(w, id, allDone) {
+  const fb = w.feedback.items[id];
+  return el("div", { style: "display:flex;flex-direction:column;gap:8px" },
+    el("div", { class: "eyebrow", text: allDone ? "How was it?" : "Stop here? Rate it" }),
+    el("div", { class: "rate" }, ...RATINGS.map(([r, l]) => el("button", { type: "button", "data-r": r, "aria-pressed": String(fb?.rating === r), on: { click: () => {
+      if (r === "pain") return openSheet({ kind: "painRate", id });
+      if (r === "fail") return openSheet({ kind: "failRate", id });
+      w.feedback.items[id] = { rating: r, note: "" }; stopRest(); saveWorkout(w); render(); } } }, l))));
+}
+function crossfitCard(w) {
+  const cf = w.plan.crossfit || {}; const L = w.log.crossfit; const active = w.status === "active";
+  if (cf.format === "skip" || !cf.items?.length) return el("div", { class: "card" }, el("p", { class: "muted", text: "No crossfit today." }));
+  const fmt = cf.format === "ladder" ? `${cf.scheme || "21-15-9"} for time` : `${cf.rounds || 3} rounds for time`;
+  const T = S.cfTimer;
+  const running = T && T.id === w.id && T.start;
+  const elapsed = running ? (Date.now() - T.start) / 1000 : (T && T.id === w.id ? T.acc : 0);
+  const kids = [
+    el("div", { class: "row" }, el("div", { class: "grow" }, el("b", { text: fmt }), cf.cap_min ? el("span", { class: "faint small", text: ` · cap ${cf.cap_min}′` }) : null)),
+    el("div", { class: "cf-items" }, ...cf.items.map(it => {
+      const c = exC(it.id) || {};
+      const dose = cf.format === "ladder" ? (cf.scheme || "21-15-9") : `${it.reps}${it.unit === "cal" ? " cal" : ""}`;
+      return el("div", { class: "cf-item" },
+        el("div", { class: "dose" }, dose, it.lb ? el("small", { text: `${it.lb} lb · ${it.kg} kg` }) : null),
+        el("div", { style: "min-width:0" }, el("b", { text: c.en_short || c.en || it.id }), el("div", { class: "ru", text: c.ru || "" }), c.back === "caution" && c.back_cue_ru ? el("div", { class: "small faint", text: c.back_cue_ru }) : null),
+        howBtn(it.id));
+    })),
+  ];
+  if (!L.time) {
+    kids.push(el("div", { class: "clock", id: "cfClock", text: mmss(elapsed) }));
+    kids.push(el("div", { class: "row" },
+      el("button", { class: "btn primary grow", type: "button", on: { click: () => { if (w.status === "planned") startSession(w); if (running) { S.cfTimer = { id: w.id, acc: elapsed }; } else S.cfTimer = { id: w.id, start: Date.now() - elapsed * 1000 }; tickClock(); render(); } } }, running ? "Pause" : elapsed ? "Resume" : "Start clock"),
+      elapsed ? el("button", { class: "btn grow", type: "button", on: { click: () => { L.time = mmss(elapsed); S.cfTimer = null; saveWorkout(w); render(); } } }, "Done · " + mmss(elapsed)) : null));
+    kids.push(el("div", { class: "row" }, el("input", { type: "text", id: "cfTime", inputmode: "numeric", placeholder: "or type the time, e.g. 9:40", class: "grow", value: S.cfDraft || "", on: { input: e => { S.cfDraft = e.target.value; } } }),
+      el("button", { class: "btn", type: "button", on: { click: () => { const s = parseMMSS(S.cfDraft); if (s == null) return toast("Type the time as minutes:seconds, e.g. 9:40"); L.time = mmss(s); S.cfDraft = ""; saveWorkout(w); render(); } } }, "Save")));
+  } else {
+    kids.push(el("div", { class: "row" }, el("div", { class: "clock grow", text: L.time }), el("button", { class: "how", type: "button", on: { click: () => { delete L.time; saveWorkout(w); render(); } } }, "Edit")));
+    if (cf.format === "rounds") kids.push(el("div", { class: "row" }, el("span", { class: "grow muted small", text: "Rounds finished" }),
+      el("div", { class: "stepper", style: "width:150px" }, el("button", { type: "button", "aria-label": "Fewer rounds", on: { click: () => { L.rounds_done = Math.max(0, (L.rounds_done ?? cf.rounds) - 1); saveWorkout(w); render(); } } }, "−"),
+        el("div", { class: "v", text: String(L.rounds_done ?? cf.rounds) }), el("button", { type: "button", "aria-label": "More rounds", on: { click: () => { L.rounds_done = (L.rounds_done ?? cf.rounds) + 1; saveWorkout(w); render(); } } }, "+"))));
+    kids.push(el("div", { class: "eyebrow", text: "How was it?" }));
+    kids.push(el("div", { class: "rate" }, ...RATINGS.filter(r => r[0] !== "fail").map(([r, l]) => el("button", { type: "button", "data-r": r, "aria-pressed": String(w.feedback.crossfit_rating === r), on: { click: () => { w.feedback.crossfit_rating = r; saveWorkout(w); render(); } } }, l))));
+  }
+  return el("div", { class: "card" }, ...kids);
+}
+let clockT = 0;
+function tickClock() { clearInterval(clockT); clockT = setInterval(() => { const T = S.cfTimer; const n = document.getElementById("cfClock"); if (!T?.start) return clearInterval(clockT); if (n) n.textContent = mmss((Date.now() - T.start) / 1000); }, 500); }
+
+/* ---------------- rest timer */
+let restT = 0;
+function startRest(sec) { if (!sec) return stopRest(); S.rest = { end: Date.now() + sec * 1000 }; clearInterval(restT); restT = setInterval(renderRest, 500); }
+function stopRest() { S.rest = null; clearInterval(restT); renderRest(); }
+function renderRest() {
+  const n = document.getElementById("rest");
+  if (!S.rest || S.view !== "workout") return n.replaceChildren();
+  const left = (S.rest.end - Date.now()) / 1000;
+  if (left <= -30) return stopRest();
+  n.replaceChildren(el("div", { class: "rest", role: "timer" }, el("span", { class: "small", text: left > 0 ? "Rest" : "Go" }), el("b", { text: left > 0 ? mmss(left) : "0:00" }),
+    el("button", { type: "button", on: { click: () => { S.rest.end += 30000; renderRest(); } } }, "+30s"), el("button", { type: "button", on: { click: stopRest } }, "Skip")));
+}
+
+/* ---------------- bottom bar */
+function renderBar() {
+  const n = document.getElementById("bar"); const w = curW();
+  if (!S.ready || S.building || !cat()) return n.replaceChildren();
+  if (S.view === "home") {
+    const ck = S.ck; const canClaude = !!S.sample && !!S.cfg.skill?.methodology_md;
+    return n.replaceChildren(el("div", { class: "bar" }, el("div", { class: "in" },
+      el("button", { class: "btn primary", type: "button", on: { click: () => startBuild(clone(ck), canClaude) } }, `Build ${DAY_EN[ck?.day] || ""} workout`),
+      canClaude ? el("button", { class: "btn", type: "button", style: "flex:0 0 auto", title: "Instant, without Claude", on: { click: () => startBuild(clone(ck), false) } }, "Quick") : null)));
+  }
+  if (S.view === "workout" && w && w.status !== "done") {
+    return n.replaceChildren(el("div", { class: "bar" }, el("div", { class: "in" },
+      el("button", { class: "btn", type: "button", on: { click: () => openSheet({ kind: "adjust" }) } }, "Adjust"),
+      w.status === "planned" ? el("button", { class: "btn primary", type: "button", on: { click: () => startSession(w) } }, "Start workout")
+        : el("button", { class: "btn primary", type: "button", on: { click: () => openSheet({ kind: "finish" }) } }, "Finish"))));
+  }
+  n.replaceChildren();
+}
+
+/* ---------------- sheets */
+function openSheet(s) { S.sheet = s; renderSheet(); }
+function closeSheet() { S.sheet = null; renderSheet(); }
+function renderSheet() {
+  const n = document.getElementById("sheet"); const s = S.sheet; const w = curW();
+  if (!s) return n.replaceChildren();
+  const body = sheetBody(s, w); if (!body) { S.sheet = null; return n.replaceChildren(); }
+  const scrim = el("div", { class: "scrim", on: { click: e => { if (e.target === scrim) closeSheet(); } } }, el("div", { class: "sheet", role: "dialog", "aria-modal": "true" }, el("div", { class: "grab" }), ...body));
+  n.replaceChildren(scrim);
+}
+function sheetBody(s, w) {
+  const close = el("button", { class: "btn block", type: "button", on: { click: closeSheet } }, "Close");
+  if (s.kind === "adjust" && w) {
+    s.spots ||= [];
+    return [el("h2", { text: "Adjust the rest of the session" }), el("p", { class: "muted small", text: "Only exercises you haven't started change. Done sets stay as logged." }),
+      el("div", { class: "eyebrow", text: "Something hurts" }),
+      el("div", { class: "chips" }, ...PAIN_SPOTS.map(p => el("button", { class: "chip pain", type: "button", "aria-pressed": String(s.spots.includes(p.key)), on: { click: () => { const i = s.spots.indexOf(p.key); i >= 0 ? s.spots.splice(i, 1) : s.spots.push(p.key); renderSheet(); } } }, p.label))),
+      s.spots.includes("other") ? el("input", { type: "text", id: "adjNote", placeholder: "Where and how", value: s.note || "", on: { input: e => { s.note = e.target.value; } } }) : null,
+      s.spots.length ? el("div", { class: "row" },
+        el("button", { class: "btn grow", type: "button", on: { click: () => doPain(w, s, false) } }, "Dull: work around it"),
+        el("button", { class: "btn danger grow", type: "button", on: { click: () => doPain(w, s, true) } }, "Sharp: stop that area")) : null,
+      el("div", { class: "eyebrow", text: "How you feel" }),
+      el("div", { class: "list" },
+        el("button", { class: "opt", type: "button", on: { click: () => doResult(applyTired(w, false), w) } }, el("b", { text: "Tired" }), el("span", { class: "small muted", text: "Hold weights at the low-readiness level, crossfit 2 rounds" })),
+        el("button", { class: "opt", type: "button", on: { click: () => doResult(applyTired(w, true), w) } }, el("b", { text: "Unwell / injured" }), el("span", { class: "small muted", text: "Skip what's left of strength and crossfit, finish with what's done" }))),
+      el("div", { class: "eyebrow", text: "Time left" }),
+      el("div", { class: "seg" }, ...[40, 30, 20].map(m => el("button", { type: "button", on: { click: () => doResult(applyTime(w, m), w) } }, `${m} min`))),
+      el("p", { class: "faint small", text: "Machine busy or missing? Tap ⋯ on that exercise." }), close];
+  }
+  if (s.kind === "ex" && w) {
+    const ex = exS(s.id) || {};
+    return [el("h2", { text: ex.en_short || s.id }), el("div", { class: "ru", text: ex.ru }),
+      (ex.alt_us || []).length ? el("p", { class: "small muted", text: "Same movement on: " + ex.alt_us.join(", ") }) : null,
+      el("div", { class: "list" },
+        el("button", { class: "opt", type: "button", on: { click: () => { const r = swapExercise(w, s.id, "busy-later"); doResult([r], w); } } }, el("b", { text: "Machine busy: do it later" }), el("span", { class: "small muted", text: "Moves it to the end of the strength part" })),
+        el("button", { class: "opt", type: "button", on: { click: () => { const r = swapExercise(w, s.id, "busy"); r ? doResult([r], w) : toast("No safe swap for this one today."); } } }, el("b", { text: "Machine busy: swap it" }), el("span", { class: "small muted", text: "Another exercise for the same slot, the trainer's weights" })),
+        el("button", { class: "opt", type: "button", on: { click: () => { const r = swapExercise(w, s.id, "missing"); r ? doResult([r], w) : toast("No safe swap for this one today."); } } }, el("b", { text: "This gym doesn't have it" }), el("span", { class: "small muted", text: "Swaps it and tells the trainer at the next sync" })),
+        (ex.alt_us || []).length ? el("button", { class: "opt", type: "button", on: { click: () => { slog(w, s.id).machine = ex.alt_us[0]; w.changes.push({ at: nowISO(), kind: "swap", summary: `${ex.en_short} on ${ex.alt_us[0]}`, ids: [s.id] }); saveWorkout(w); closeSheet(); render(); } } }, el("b", { text: `Doing it on ${ex.alt_us[0]}` }), el("span", { class: "small muted", text: "Same exercise, different machine: logged with the sets" })) : null,
+        el("button", { class: "opt", type: "button", on: { click: () => { w.feedback.items[s.id] = { rating: "skipped", note: "" }; w.changes.push({ at: nowISO(), kind: "skip", summary: `${ex.en_short} skipped`, ids: [s.id] }); saveWorkout(w); closeSheet(); render(); } } }, el("b", { text: "Skip it" }), el("span", { class: "small muted", text: "Recorded as skipped: no change to next time's weight" }))), close];
+  }
+  if (s.kind === "painRate" && w) {
+    s.spots ||= [];
+    return [el("h2", { text: `Where did ${enName(s.id)} hurt?` }), el("div", { class: "chips" }, ...PAIN_SPOTS.map(p => el("button", { class: "chip pain", type: "button", "aria-pressed": String(s.spots.includes(p.key)), on: { click: () => { const i = s.spots.indexOf(p.key); i >= 0 ? s.spots.splice(i, 1) : s.spots.push(p.key); renderSheet(); } } }, p.label))),
+      el("input", { type: "text", id: "painRateNote", placeholder: "Optional: what it felt like", value: s.note || "", on: { input: e => { s.note = e.target.value; } } }),
+      el("p", { class: "small muted", text: "Next time the trainer swaps this exercise. Want the rest of today to avoid that area too?" }),
+      el("div", { class: "row" },
+        el("button", { class: "btn grow", type: "button", disabled: !s.spots.length, on: { click: () => ratePain(w, s, false) } }, "Just record it"),
+        el("button", { class: "btn primary grow", type: "button", disabled: !s.spots.length, on: { click: () => ratePain(w, s, true) } }, "Record + adjust")), close];
+  }
+  if (s.kind === "failRate" && w) {
+    const L = slog(w, s.id); const ps = w.plan.strength.find(x => x.id === s.id);
+    return [el("h2", { text: "Missed reps" }), el("p", { class: "muted small", text: `Set the reps you actually did on each set (target ${ps?.reps}). Next time the trainer goes one step back.` }),
+      el("div", { class: "sets" }, ...L.sets.map((st, i) => el("div", { class: "row" }, el("span", { class: "grow", text: `Set ${i + 1} · ${st.lb ?? "—"} lb` }),
+        el("div", { class: "stepper", style: "width:150px" }, el("button", { type: "button", "aria-label": "Fewer reps", on: { click: () => { st.reps = Math.max(0, st.reps - 1); renderSheet(); } } }, "−"), el("div", { class: "v", text: String(st.reps) }), el("button", { type: "button", "aria-label": "More reps", on: { click: () => { st.reps++; renderSheet(); } } }, "+"))))),
+      el("button", { class: "btn primary block", type: "button", on: { click: () => { w.feedback.items[s.id] = { rating: "fail", note: "reps " + L.sets.filter(x => x.done).map(x => x.reps).join("-") }; saveWorkout(w); closeSheet(); render(); } } }, "Save"), close];
+  }
+  if (s.kind === "finish" && w) {
+    const unrated = w.plan.strength.filter(it => !w.feedback.items[it.id]);
+    const bw = w.body_weight_kg;
+    return [el("h2", { text: "Finish workout" }),
+      unrated.length ? el("div", { class: "note warn small", text: `Not rated: ${unrated.map(it => enName(it.id)).join(", ")}. Unrated exercises send nothing to the trainer about difficulty; their logged sets still count.` }) : null,
+      el("label", { class: "eyebrow", for: "overall", text: "Anything for the trainer?" }),
+      el("textarea", { id: "overall", placeholder: "e.g. hack squat machine is a Hoist, felt deeper than Kyiv", on: { input: e => { w.feedback.overall = e.target.value; } } }, w.feedback.overall || ""),
+      el("label", { class: "eyebrow", for: "bw", text: "Body weight (optional)" }),
+      el("div", { class: "row" }, el("input", { type: "number", id: "bw", inputmode: "decimal", step: "0.1", placeholder: "kg", value: bw ?? "", class: "grow", on: { input: e => { const v = parseFloat(e.target.value); w.body_weight_kg = isFinite(v) ? v : undefined; document.getElementById("bwlb").textContent = isFinite(v) ? `${Math.round(v * KG_LB)} lb` : ""; } } }), el("span", { id: "bwlb", class: "muted", text: bw ? `${Math.round(bw * KG_LB)} lb` : "" })),
+      el("button", { class: "btn primary block", type: "button", on: { click: () => { closeSheet(); finishWorkout(w); } } }, "Save session"), close];
+  }
+  if (s.kind === "cancel" && w) {
+    return [el("h2", { text: w.status === "planned" ? "Discard this plan?" : "Cancel this workout?" }), el("p", { class: "muted", text: "Logged sets stay in the record, marked cancelled. Nothing goes to the trainer as feedback." }),
+      el("button", { class: "btn danger block", type: "button", on: { click: () => { w.status = "cancelled"; saveWorkout(w, true); lsSet("tn.cur", null); S.cur = null; S.view = "home"; S.ck = null; closeSheet(); render(); } } }, w.status === "planned" ? "Discard" : "Cancel workout"), el("button", { class: "btn block", type: "button", on: { click: closeSheet } }, "Keep it")];
+  }
+  if (s.kind === "media") return mediaSheet(s);
+  return null;
+}
+function doPain(w, s, sharp) {
+  const spots = PAIN_SPOTS.filter(p => s.spots.includes(p.key));
+  if (s.note) w.checkin.pain_note = [w.checkin.pain_note, s.note].filter(Boolean).join("; ");
+  const ch = applyPain(w, spots, sharp);
+  if (sharp) toast("Stopped everything that loads that area. If the pain doesn't settle, see a doctor.");
+  doResult(ch, w);
+}
+function ratePain(w, s, adjust) {
+  const spots = PAIN_SPOTS.filter(p => s.spots.includes(p.key));
+  w.feedback.items[s.id] = { rating: "pain", note: [spots.map(p => p.label.toLowerCase()).join(", "), s.note].filter(Boolean).join(": ") };
+  stopRest();
+  if (adjust) applyPain(w, spots, false);
+  saveWorkout(w); closeSheet(); render();
+}
+function doResult(changes, w) { saveWorkout(w, true); closeSheet(); const c = (changes || []).filter(Boolean); toast(c.length ? "Changed: " + c.join("; ") : "Nothing left to change for that."); }
+
+/* ---------------- media / how-to */
+function mediaFor(id) {
+  const items = [];
+  for (const m of (S.media[id]?.items || [])) items.push(m);
+  const e = exS(id) || exW(id) || exC(id);
+  for (const m of (e?.media || [])) items.push(Object.assign({ added_by: "skill" }, m));
+  return items;
+}
+function mediaSheet(s) {
+  const id = s.id; const e = exS(id) || exW(id) || exC(id) || {};
+  const items = mediaFor(id);
+  const q = encodeURIComponent(`${e.en || id} proper form`);
+  const nodes = [el("h2", { text: e.en_short || e.en || id }), el("div", { class: "ru", text: e.ru || "" })];
+  const cues = [e.cue, e.back_cue_ru, e.note_ru].filter(Boolean);
+  if (cues.length) nodes.push(el("div", { class: "note small" }, el("strong", { text: "Trainer's notes: " }), cues.join(" · ")));
+  const shown = items.filter(m => m.asset_id || safeUrl(m.url));
+  if (shown.length) nodes.push(el("div", { class: "media" }, ...shown.map(m => {
+    const src = m.asset_id ? "/_blob/" + m.asset_id : safeUrl(m.url);
+    const cap = el("div", { class: "faint small", text: [m.title, m.source, m.license, m.added_by === "me" ? "your upload" : "added by the trainer"].filter(Boolean).join(" · ") });
+    if (m.kind === "image" && (m.asset_id || /\.(png|jpe?g|webp|gif|svg)(\?|$)/i.test(src))) return el("figure", { style: "margin:0;display:grid;gap:4px" }, el("img", { src, alt: `${e.en_short || id} demo`, loading: "lazy" }), cap);
+    if (m.kind === "video" && m.asset_id) return el("figure", { style: "margin:0;display:grid;gap:4px" }, el("video", { src, controls: true, playsinline: true, preload: "metadata" }), cap);
+    return el("a", { class: "linkcard", href: src, target: "_blank", rel: "noopener" }, icon("play"), el("span", null, el("b", { text: m.title || "Watch the demo" }), el("div", { class: "faint small", text: m.source || new URL(src).hostname })));
+  })));
+  else nodes.push(el("p", { class: "muted small", text: "No demo saved for this exercise yet." }));
+  nodes.push(el("a", { class: "linkcard", href: `https://www.youtube.com/results?search_query=${q}`, target: "_blank", rel: "noopener" }, icon("search"), el("span", null, el("b", { text: "Search YouTube" }), el("div", { class: "faint small", text: `“${e.en || id} proper form” · opens YouTube` }))));
+  const tipBox = el("div", { class: "tips", id: "tipBox" });
+  if (S.sample) nodes.push(el("button", { class: "linkcard", type: "button", style: "text-align:left;width:100%", on: { click: () => askTips(id, tipBox) } }, icon("spark"), el("span", null, el("b", { text: "Technique tips from Claude" }), el("div", { class: "faint small", text: "Setup, the movement, keeping your lower back safe" }))));
+  nodes.push(tipBox);
+  const req = S.requests[id];
+  nodes.push(el("button", { class: "linkcard", type: "button", style: "text-align:left;width:100%", disabled: !!req && !req.done, on: { click: () => requestDemo(id) } }, icon("flag"),
+    el("span", null, el("b", { text: req && !req.done ? "Demo requested" : "Ask the trainer to find a demo" }), el("div", { class: "faint small", text: req && !req.done ? `Asked ${fmtDate(req.requested_at)}; it's attached at the next sync` : "At the next sync Claude finds a good video and saves it here" }))));
+  if (S.assets) {
+    const inp = el("input", { type: "file", id: "upl", accept: "image/*,video/*", hidden: true, on: { change: ev => uploadMedia(id, ev.target.files[0]) } });
+    nodes.push(inp, el("button", { class: "linkcard", type: "button", style: "text-align:left;width:100%", on: { click: () => inp.click() } }, icon("up"), el("span", null, el("b", { text: "Add your own photo or video" }), el("div", { class: "faint small", text: "e.g. the machine's instruction plate or the trainer showing you" }))));
+  }
+  nodes.push(el("button", { class: "btn block", type: "button", on: { click: closeSheet } }, "Close"));
+  return nodes;
+}
+async function askTips(id, box) {
+  const e = exS(id) || exW(id) || exC(id) || {};
+  box.textContent = "Thinking…";
+  try {
+    const { text } = await S.sample(`You are a strength coach. Give technique tips for "${e.en}" (${e.ru}) for a lifter whose problem zone is the lower back. ${e.cue ? "Trainer's cue: " + e.cue + "." : ""} ${e.back_cue_ru ? "Back cue: " + e.back_cue_ru + "." : ""} ${e.alt_us?.length ? "US machine names: " + e.alt_us.join(", ") + "." : ""}
+Plain text, no markdown headings. Four short lines starting with: "Setup:", "Move:", "Back:", "Common mistake:". Each under 25 words.`, { modelTier: "quick", cache: { gcTime: 86400000 }, onText: ({ text }) => { box.textContent = text; } });
+    box.textContent = text;
+  } catch (err) { box.textContent = err.code === "not_granted" ? "Claude isn't allowed on this page." : "Couldn't get tips right now. Try again in a moment."; if (err.code === "not_granted") S.sample = null; }
+}
+async function requestDemo(id) {
+  try { await S.db.doc("media_requests/" + id).set({ id, en: exS(id)?.en || exW(id)?.en || exC(id)?.en || id, ru: ruName(id), requested_at: nowISO(), done: false }); toast("Asked. The demo appears here after the next sync."); }
+  catch (e) { toast(`Couldn't save the request (${e.code}).`); }
+}
+async function uploadMedia(id, file) {
+  if (!file) return;
+  toast("Uploading…");
+  try {
+    const a = await S.assets.upload(file);
+    const kind = (a.contentType || file.type).startsWith("video") ? "video" : "image";
+    const cur = S.media[id]?.items || [];
+    const doc = { id, items: [...cur, { kind, asset_id: a.id, title: file.name.replace(/\.[^.]+$/, ""), added_by: "me", added_at: nowISO() }] };
+    await S.db.doc("media/" + id).set(doc); S.media[id] = doc; toast("Saved to this exercise."); renderSheet();
+  } catch (e) { toast(e.code === "quota_exceeded" ? "Storage is full." : `Upload failed (${e.code || "error"}). Files up to 20 MB.`); }
+}
+
+/* ---------------- summary + history */
+function summaryView(w) {
+  const fb = w.feedback || {};
+  const rows = w.plan.strength.map(it => { const a = fb.actual?.[it.id]; const r = fb.items?.[it.id]?.rating;
+    return el("div", { class: "hist" }, el("div", { style: "min-width:0" }, el("b", { text: enName(it.id) }), el("div", { class: "small muted", text: a ? a.lb.map((v, i) => `${v}×${a.reps_per_set[i]}`).join(" · ") : "no sets logged" })),
+      el("span", { class: "badge " + (r || ""), text: RATINGS.find(x => x[0] === r)?.[1] || "not rated" })); });
+  return [el("div", { class: "card" }, el("div", { class: "eyebrow", text: fmtDate(w.date) }), el("h1", { text: `${DAY_EN[w.day]} done` }),
+      el("p", { class: "muted", text: "Saved. Next time you open Claude Code, tell the trainer “sync the app” (синхронизируй приложение): it records your feedback, moves next session's weights and logs the sheet." })),
+    el("div", { class: "card" }, el("div", { class: "eyebrow", text: "Strength" }), ...rows,
+      fb.crossfit_time ? el("div", { class: "hist" }, el("b", { text: "Crossfit" }), el("span", { class: "badge " + (fb.crossfit_rating || ""), text: fb.crossfit_time })) : null),
+    el("button", { class: "btn primary block", type: "button", on: { click: () => { S.view = "home"; S.cur = null; S.ck = null; render(); } } }, "Done")];
+}
+function historyView() {
+  const ws = Object.values(S.workouts).filter(w => w.status !== "planned" || w.source === "skill").sort((a, b) => a.id < b.id ? 1 : -1);
+  if (!ws.length) return el("div", { class: "card empty" }, el("h2", { text: "No sessions yet" }), el("p", { class: "muted", text: "Sessions you log here show up in this list, with whether the trainer has synced them." }));
+  return el("div", { class: "card" }, el("div", { class: "eyebrow", text: "Sessions in this app" }), ...ws.map(w => {
+    const synced = w.sync?.feedback_recorded_at;
+    const st = w.status === "done" ? (synced ? "synced" : "waiting for sync") : w.status;
+    return el("button", { class: "opt", type: "button", on: { click: () => { S.cur = w.id; S.view = w.status === "done" ? "summary" : "workout"; render(); } } },
+      el("div", { class: "row" }, el("b", { class: "grow", text: `${fmtDate(w.date)} · ${DAY_EN[w.day] || w.day}` }), el("span", { class: "badge" + (synced ? " easy" : w.status === "done" ? " hard" : ""), text: st })),
+      el("span", { class: "small muted", text: (w.plan?.strength || []).map(it => enName(it.id)).join(", ") }),
+      w.sync?.note ? el("span", { class: "small faint", text: "Trainer: " + w.sync.note } ) : null);
+  }));
+}
+
+boot();
+</script>
