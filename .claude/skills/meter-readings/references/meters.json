@@ -28,7 +28,7 @@
         "account_number": "0251689",
         "address": "вул. Сім'ї Бродських, буд. 5/1, кв. 37",
         "meters": [
-          { "serial": "250619461", "kind": "cold", "room": "единственный", "how_known": "one cold meter on the account" },
+          { "serial": "250619461", "kind": "cold", "room": "единственный", "how_known": "one cold meter on the account", "history_note": "The cabinet is ahead of the meter: «Оператор» estimates of 3.284 m³ a month (January–August 2026) took «Початковий» to 50.263 while the meter read 46.678 on 2026-11-23. Real use is ~2.3 m³ a month, so a photo below «Початковий» is expected until about mid-January 2027. Each such month is Alex's call (on 2026-11-23 he chose a zero-difference reading of 50.263); ask him with these numbers." },
           { "serial": "250046123", "kind": "hot", "room": "единственный", "how_known": "one hot meter on the account" }
         ]
       }

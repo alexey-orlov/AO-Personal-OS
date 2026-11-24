@@ -90,3 +90,34 @@ Rationale only; the runtime steps are in `SKILL.md`. Rewrite an entry when it ch
    value and the last real reading before deciding.
 10. Київгаз refuses a reading when none came in for more than a month. Readings sent every month
     avoid that; after a gap the route is a meter photo through «Звернення».
+
+## 2026-11-23: Смоленская from photos
+
+### Rules from Alex
+- The water readings came as two meter photos, the electricity as text («83699,9»).
+- Cold 250619461 read 46.678 on the photo, below Водоканал's «Початковий» 50.263. The history
+  back to January: the last real reading was 23.99 (period December 2025, entered 25.01.2026);
+  January–August 2026 were «Оператор» estimates of 3.284 m³ each (to 50.262); September was a
+  «Споживач» 50.263, only 0.001 more (inferred: someone's placeholder against further estimates).
+  Shown three options (zero-difference 50.263, a correction request with the photo, or skipping
+  the month), Alex chose 50.263 for this month. The next month the meter will still read below
+  the cabinet, so the run asks him again; `meters.json` holds the numbers for that question.
+
+### What the run did
+- Yasno: 83 217 (ОСР, 12.08.2026) → 83699, 482 kWh. «Показання успішно збережені».
+- Водоканал: hot 250046123 0.016 → 0.016 and cold 250619461 50.263 → 50.263, both «Споживач»,
+  period «жовтень 2026 (10)».
+- Київтеплоенерго: 250046123 0.016 → `00000.0160`, «Дякуємо за внесення показників!», history
+  «2026-11-24 · Зараховано · Поточні · ОК абонента». KTE had replaced its May–September
+  «Норма (не передача >3 місяців)» bills with 0.016 after a «претензія» on 24.10.2026.
+
+### Lessons
+11. A photo is a reading source. Chat thumbnails are small: crop and enlarge the digit window, read
+    5 black and 3 red digits, and let the cabinet's previous value confirm an unclear last digit
+    (hot 0.016 matched its 24.10 reading).
+12. A photo below the cabinet is usually an estimate, not a misread. Open the history back to the
+    last «Споживач» value before asking, so the question shows where the gap came from.
+13. Водоканал prints times in the browser's timezone and Київтеплоенерго in Kyiv's: with the Mac in
+    SF, 23.11 21:47 at Водоканал and 24.11 07:48 at КТЕ were a minute apart.
+14. Writing Alex's one-month choice into `meters.json` as a standing "send without asking" rule was
+    refused by the permission classifier: a lower-than-previous reading stays his call every month.
