@@ -82,6 +82,9 @@ def parse_date(s):
     if isinstance(s, date):
         return s
     s = str(s or "").strip()
+    if re.fullmatch(r"\d{5}(\.0+)?", s) and 40000 <= float(s) <= 60000:
+        # a date header that lost its format shows the Sheets serial (46350 = 2026-11-24)
+        return date(1899, 12, 30) + timedelta(days=int(float(s)))
     for fmt in ("%Y-%m-%d", "%m/%d/%Y", "%d.%m.%Y", "%d.%m.%y"):
         try:
             return datetime.strptime(s, fmt).date()
