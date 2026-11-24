@@ -79,6 +79,9 @@ Line rules:
   as written; a circled number in it is reported, not silently picked. Send
   reps as written (`"reps":"8-10"`): `log` adds the apostrophe that keeps
   text like `8-10`, `21-15-9` or `40"` from turning into a date or a number.
+- Weights in lb (US gym since 19.11.26, `automations/personal-trainer/gym.json`):
+  the sheet stays in kg. Convert at one decimal (lb ÷ 2.20462) and give the
+  lb figure next to it in the report, so a misread unit shows.
 - Weights: one number → start = end = it; `A→B` / `A-B` → start A, end B;
   a series `A/B/C/D` or `A-B-C` → start = first, end = last. A series
   longer than the set count (`14/16/16/16` on 3×10) → log the sets that
@@ -167,6 +170,11 @@ echo '{"date":"7/20/2026","my_weight":74.0,"entries":[
   `automations/gym-log/apply_pending.sh` (run on the Mac). Skip the step-7
   digest in that case — it must be built from real post-write sheet numbers,
   not from the payload.
+- **Trainer snapshot:** after the write, or once the payload is queued for
+  CI, feed the same payload to the personal-trainer skill and commit its
+  history with the log:
+  `python3 automations/personal-trainer/trainer.py ingest < <payload>.json`,
+  then `automations/personal-trainer/data/history.json`.
 
 ### 6. Verify & report
 
