@@ -1773,7 +1773,8 @@
     "max_kg": 6,
     "back": "safe",
     "avoid_if": [
-     "knee"
+     "knee",
+     "lower_back"
     ],
     "sec": 3,
     "equipment": "med_ball",
