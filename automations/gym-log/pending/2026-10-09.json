@@ -1,0 +1,17 @@
+{"date":"10/9/2026","entries":[
+ {"category":"Back","exercise":"Верт. тяга","sets":3,"reps":10,"w_start":66,"w_end":68},
+ {"category":"Back","exercise":"Горизонт. тяга","sets":3,"reps":10,"w_start":63,"w_end":63},
+ {"category":"Back","exercise":"Тяга в упоре","sets":3,"reps":10,"w_start":35,"w_end":35},
+ {"category":"Back","exercise":"Пулловер с колен","sets":3,"reps":"?","w_start":45,"w_end":41},
+ {"category":"Shoulders","exercise":"Махи на плечи одной рукой","sets":3,"reps":10,"w_start":34,"w_end":34},
+ {"category":"Shoulders","exercise":"Жим сидя на плечи в Смитт","sets":3,"reps":10,"w_start":30,"w_end":30},
+ {"category":"Warm-up","exercise":"Бок. планка с поворотом","sets":2,"reps":15},
+ {"category":"Warm-up","exercise":"Экстензия с контролем осанки","sets":2,"reps":15,"w_start":10,"w_end":10},
+ {"category":"Warm-up","exercise":"Ягодичный мост на каждую ногу","sets":2,"reps":15},
+ {"category":"Crossfit","exercise":"Box jumps","sets":3,"reps":10},
+ {"category":"Crossfit","exercise":"Dips","sets":3,"reps":10},
+ {"category":"Crossfit","exercise":"Walking lunges","sets":3,"reps":20,"w_start":15,"w_end":15},
+ {"category":"Crossfit","exercise":"Thrusters","sets":3,"reps":"21-15-9","w_start":20,"w_end":20}],
+ "warmup":{"combination":"Бок. планка с поворотом 2x15 → Экстензия 2x15 (10 кг) → Ягодичный мост на к.н. 2x15"},
+ "crossfit":{"combination":"Box jumps 10 → Deeps 10 → Walking lunges 20 (15 кг) → Thrusters 21-15-9 (20 кг)",
+             "rounds":"3 (Thrusters 21-15-9)","cap":"-","finish":"8:55"}}
