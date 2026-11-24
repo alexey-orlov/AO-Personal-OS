@@ -128,6 +128,9 @@ Rules the app keeps, so the engine can trust the data:
    `next_time` gives the one-line replies («Верт. тяга: ок → 120/130/130 lb»).
    A machine marked `missing` → `python3 automations/personal-trainer/trainer.py gym --missing <id>`
    (`--use <id>=<alt>` only when Alex says the swap is the gym's standing one).
+   Each `gym_reports` entry → `trainer.py gym --have <id>` / `--missing <id>` /
+   `--equip <kit>=<have|missing>` (the app collects them from "This gym has
+   …", "This gym doesn't have it" and the crossfit kit questions).
    **Every finished session goes to the "My training" sheet** (Alex,
    2026-11-24), by gym-log's own writer and rules:
    `app_sync.py sheet <file> --dump <dump.json>` builds the `log` payload
@@ -140,8 +143,9 @@ Rules the app keeps, so the engine can trust the data:
    `TG_OUTBOX=1 TG_TOPIC=trainings automations/telegram/telegram_send.sh` in
    a cloud session). Exit 3 = the Sheets credential: stop and tell Alex.
    Only after the sheet write is confirmed, `ArtifactData update workouts/<id>`
-   with `{"sync": {"feedback_recorded_at": "<now>", "sheet_logged_at": "<now>", "note": "..."}}`
-   (pinned with `if_version`). Commit `data/history.json`,
+   with `{"sync": {"feedback_recorded_at": "<now>", "sheet_logged_at": "<now>", "note": "...",
+   "next_time": <the engine's next_time>}}` (pinned with `if_version`); the
+   app's session summary shows each exercise's next weights from it. Commit `data/history.json`,
    `outputs/personal-trainer/plans/` and the outbox card.
 2. **Push fresh data.** `app_sync.py export <dir> [--today D]` writes
    `config/*` and `briefs/*` bodies (it runs `trainer.py brief` for the
