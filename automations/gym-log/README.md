@@ -96,9 +96,28 @@ Row 1–2: `Category` (A1:A2) | `Excercise` (B1:B2) | per date a merged
 Weight (start) | Weight (end)`. Row 3: `My weight` label + merged 4-col
 value per date. Rows 4+: one exercise per row, category name in col A
 merged down its group. New date blocks append to the right; new exercises
-insert at the end of their category group; new categories append at the
-bottom. Formats/widths are cloned from the previous block / row above, so
-the template styling propagates.
+insert at the end of their category group; a new strength category goes
+directly above the Warm-up rows (a new Warm-up / Crossfit category would
+append at the bottom). Formats/widths are cloned from the previous block /
+row above, so the template styling propagates. Date blocks were put in
+chronological order on 2026-11-23; `progress` sorts by date anyway.
+
+Below the strength categories sit notebook sections I and III, in the same
+date blocks (`NON_STRENGTH` in `gym_sheet.py`; `progress` skips them,
+exercise names match only inside their own section, `dump` tags each
+category with `section`):
+- **Warm-up**: first a `Combination (warm-up)` row (the page's lines in
+  order, joined with →, merged across the block), then one row per exercise.
+- **Crossfit**: four summary rows merged across the block —
+  `Combination (crossfit)`, `Rounds` (a number, or e.g. `3 (21-15-9)`, `-`
+  when the page gives none), `Time cap / plan` (as written, e.g.
+  `15–18' (зачёркнуто)`), `Finish time` (a duration shown as `[m]:ss`, or a
+  note such as `не записано`) — then one row per exercise.
+- Exercise cells: Sets = sets (warm-up) or rounds the exercise was done
+  (crossfit; empty when the page gives no round count); Reps per set =
+  reps per round, `21-15-9` for a ladder across rounds, `50+40` for repeats
+  inside one round, `40"` for seconds, `N cal`; Weight = the implement in kg
+  (`10+10` = two dumbbells). Row names: `.claude/skills/gym-log/references/exercises.md`.
 
 Single-number weights in the notebook ("70кг") land as start = end = 70.
 

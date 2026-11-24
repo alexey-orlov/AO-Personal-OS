@@ -42,20 +42,53 @@ Planned-but-skipped so far (crossed out, never logged): Шаги на плечи
 A `+` written between two strength lines marks a superset (05.10: ГАКК +
 Отведение, Сгиб. голени + Разгиб. бедра). Log both lines as usual.
 
-## Not logged — section recognition vocabulary
+## Sections I and III — Warm-up and Crossfit rows
 
-Warm-up (section I): Dog birds, Бок. планка (с поворотом), Удержание резины /
-Удерж. резины / Резина удержание, Ягодичный мост (на каждую ногу), Экстензия
-(с контролем осанки; сидя с гантелью; sometimes 10кг), Махи блином вокруг
-головы (10кг), Plank shoulders touch, Планка с перекрёстной сменой рук. Format: `2x15`,
-`2x40"` (seconds); a single implement weight in brackets does not make a
-line strength work.
+Not written by `log`; the sheet keeps them in their own categories under the
+strength part (backfilled 20.07–30.10 on 23.11.26; layout in the README).
+Recognition: warm-up lines read `2x15` / `2x40"` (seconds), a single
+implement weight in brackets does not make a line strength work; crossfit
+lines carry `(x3)` rounds, `12'` time caps, `N cal`, a finish time like
+`11'53"`. «Приседания» alone says nothing: the section decides (ГАКК is
+section II, the overhead-plate squat section III).
 
-Crossfit closing (section III): Thrusters (24кг / 10кг), T2B, Sit-ups,
-Скакалка, Канат, Row (N cal), Pull-ups, Push-ups, Dips / Deeps, JJ (jumping
-jacks), Выпады (10кг), Lunges /
-Lunges walking (15кг), Burpees, Squats, Приседания с блином над головой,
-Box jumps, Зашагивание на тумбу (20кг), Протяжка с приседом, Hand stand
-push-ups, Wall-ball (6кг). Markers: `(x3)` rounds, `12'` time cap, finish
-time like `11'53"` (boxed or plain). «Приседания» alone says nothing: the
-section decides (ГАКК is section II, the overhead-plate squat section III).
+Warm-up rows (canonical = column B):
+
+| Canonical | Aliases seen | Notes |
+| --- | --- | --- |
+| Dog birds | | 2x15 |
+| Бок. планка | Боковая планка, Боковая планка на удерж. | static hold, 2x40" |
+| Бок. планка с поворотом | Боковая планка с поворотом | 2x15 reps |
+| Удержание резины | Удерж. резины, Удержание резины с колен(а), Резина удержание | 2x40", 2x45" on 12.10 |
+| Ягодичный мост | Ягодичной мост | kept apart from the single-leg row until Alex says they are one exercise |
+| Ягодичный мост на каждую ногу | на к.н., по 1 ноге | |
+| Ягодичный мост + жим гантелями | | 10+10 кг (23.09) |
+| Экстензия с контролем осанки | Экстензия, Экстензия (10кг), Экстензия с контролем | 10 kg on 05.10–14.10 |
+| Экстензия сидя с гантелью | Экстензия сидя с гант., Экстенсия с гант., Экстензия сидя (10кг) | from 16.10 |
+| Махи блином вокруг головы | Махи блином (10кг) | 2x10, 10 kg |
+| Plank shoulders touch | | 2x20 |
+| Планка со сменой рук | Планка с переменной (?) / перекрёстной сменой рук | 14.10; the adjective is unreadable |
+| Планка высокая | | 2x40" |
+
+Crossfit rows: four summary rows first (Combination (crossfit), Rounds,
+Time cap / plan, Finish time), then one row per exercise:
+
+| Canonical | Aliases seen | Notes |
+| --- | --- | --- |
+| Pull-ups | | |
+| Thrusters | | 24 → 25 → 20 kg; «(10кг)/10» on 02.10 unclear |
+| Walking lunges | Lunges walking, Lunges (15кг) | 15 kg |
+| Выпады | | 10 kg (23.10, 30.10); kept apart from Walking lunges |
+| Скакалка | Rope jumps | |
+| Dips | Deeps | |
+| T2B | | |
+| Hand stand push-ups | Hand stand push ups, Отжимания вниз головой | |
+| Wall ball | Wall-ball | 6 kg |
+| Push-ups | | |
+| Squats | | 32 / 20 / 16 kg |
+| Sumo squats | | 32 kg |
+| Burpees | | |
+| Box jumps | | |
+| Приседания с блином над головой | Присед. с блином над головой | 10 kg plate |
+| Sit-ups, Row (cal), Air bike (cal), Канат (sec), Протяжка с приседом, Жим швунговый, Зашагивание на тумбу, Plank dumbbell drag, JJ | | one row each |
+| HP | | 03.08 only; meaning unconfirmed (HSPU?) |
