@@ -65,9 +65,14 @@ sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."
 import gsheets  # noqa: E402
 
 FIRST_BLOCK_COL = 2   # zero-based index of column C
-BLOCK_W = 4           # Sets | Reps | Weight start | Weight end
+BLOCK_W = 4           # Sets | Reps per set | Weight start | Weight end
 FIRST_DATA_ROW = 3    # zero-based index of row 4
 SUB_HEADERS = ["Sets", "Reps per set", "Weight (start)", "Weight (end)"]
+# Categories below the strength part: notebook section I (warm-up) and section
+# III (crossfit). They share the date blocks but are not strength work, so
+# `progress` skips them, exercise names match only inside their own section,
+# and a new strength category is inserted above them instead of at the bottom.
+NON_STRENGTH = {"warm-up", "crossfit"}
 
 
 def _die(msg, code=2):
@@ -79,6 +84,12 @@ def _die(msg, code=2):
 def _norm(s):
     s = (s or "").strip().casefold().rstrip(".")
     return re.sub(r"\s+", " ", s)
+
+
+def _section(category):
+    """'warm-up' / 'crossfit' for the non-strength categories, else 'strength'."""
+    n = _norm(category)
+    return n if n in NON_STRENGTH else "strength"
 
 
 def _col_letter(idx):
@@ -259,10 +270,15 @@ class Model:
                 cats[-1]["end"] = r
         return cats
 
-    def exercise_row(self, name):
-        for r in range(FIRST_DATA_ROW, self.last_data_row() + 1):
-            if _norm(self._cell(r, 1)) == _norm(name):
-                return r
+    def exercise_row(self, name, section=None):
+        """Row of `name`; with `section`, only inside that section's categories
+        (a crossfit «Pull-ups» row must never take a strength entry)."""
+        for c in self.categories():
+            if section is not None and _section(c["name"]) != section:
+                continue
+            for r in range(c["start"], c["end"] + 1):
+                if _norm(self._cell(r, 1)) == _norm(name):
+                    return r
         return None
 
     def merge_at(self, r, c):
