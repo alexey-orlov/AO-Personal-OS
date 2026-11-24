@@ -106,10 +106,54 @@ The two independent readings of the nine pages logged late (05.08–09.10)
 agreed in 46 of 48 entries; the sheet keeps the other session's reading
 (Alex confirmed 17.08 Сведение рук 73→75).
 
+## US gym: 24 Hour Fitness Walnut Creek North Main Super-Sport
+
+Alex trains there from late November 2026 (Alex, 2026-11-23). Researched
+2026-11-23; the club publishes no machine list.
+
+- Club page (24hourfitness.com, club 00885, 2800 N Main St): generic
+  "Strength Machines", "Free Weights", "Cardio Equipment", "Turf Zone",
+  "TRX Suspension Training", pool, sauna, steam, basketball, Recovery24.
+- The page's 12 photos: Matrix selectorized strength machines and Matrix
+  cardio; Hoist plate-loaded machines; Smith machines; Olympic racks and
+  platforms with bumper plates; long dumbbell racks; flat and adjustable
+  benches; hip-thrust benches; turf with soft plyo boxes and a tire; medicine
+  and stability balls; cable functional-trainer stations. Two recovery-room
+  photos are marked "representative".
+- A 24 Hour Fitness press release (May 2024) lists a "Walnut Creek" club
+  reopened 16 April 2024 after a refresh with new cardio and strength
+  equipment; it doesn't name the address [unverified which club].
+- Decisions: the single-arm lateral raise machine is substituted by the
+  single-arm cable raise up front (neither Matrix nor Hoist lines seen carry
+  one [inference]); hack squat, chest-supported T-bar and glute kickback stay
+  "unknown" with a fallback shown in the plan; crossfit kit not seen (jump
+  rope, rower, air bike, kettlebells, dip bars, battle ropes) stays
+  "unknown" with fallbacks. Alex's answers turn these into have/missing via
+  `trainer.py gym`.
+- Weights do not carry 1:1 between gyms: cables and Smith are close (0.9),
+  plate-loaded levers carry the same plates on another sled (0.85),
+  selectorized cams differ most (0.75), and single-arm or kickback machines
+  get no number at all (probe). Test round 1 showed why: the Kyiv 39 kg
+  single-arm raise became 65–75 lb, 3–5× a normal cable load.
+
+## Test rounds
+
+- Round 1 (2026-11-23, six fresh-context agents running the skill as
+  written: first US session, back pain, four sessions with feedback, bad
+  sleep + 40 min + missing machine, back day without T-bar, blind replay of
+  16.10). All plans passed `check`; the blind replay matched the trainer's
+  16.10 in 5 of 6 exercises and weights, 2 of 3 warm-up movements and the
+  crossfit shape. Fixed after it: transfer factors and probe; the calibration
+  probe rule and the step shown in the table; substitutions actually read;
+  time and readiness trimming in the engine; warm-up trio and crossfit
+  doses from the engine (the agents had to guess both); recent pain carried
+  to the next session; cues only when relevant; per-hand / per-leg reps;
+  implement names in lb that never exceed a cap (10 kg extension was a
+  25-lb plate); text format for Telegram; contradictions in the method text.
+
 ## Open questions for Alex
 
 - «Экстензия сидя с гантелью (10 кг)»: which movement exactly (US name)?
-- «HP 15» on 03.08: unknown, never prescribed until explained.
 - Walking lunges «15 кг»: total of two dumbbells (assumed) or each?
 - Smith weights: plates only (assumed) or with the bar?
 - In the US gym, will he log weights in lb or kg in the notebook?
