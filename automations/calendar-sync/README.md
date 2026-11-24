@@ -192,7 +192,10 @@ launchctl kickstart -k "gui/$(id -u)/com.user.calendar-sync"
 ```
 
 ## Limits
-- Runs only while the **Mac is awake**. The daily summary makes liveness observable.
+- Runs only while the **Mac is awake**. The daily summary makes liveness observable. On the power
+  adapter KN7X2Y65NX never sleeps (`pmset` AC `sleep 0`); on battery it sleeps after 15 idle minutes,
+  so the European-morning runs in the Pacific night need it plugged in (2026-11-23 02:15–06:56 it
+  slept, on battery (inferred): the only two runs came in brief wakes and both timed out).
 - **GigaCloud lags by hours, whatever the cadence.** GigaCloud is an Exchange calendar that reaches
   Google only as a subscription by URL (`…@import.calendar.google.com`), and Google fetches that feed on
   its own timer. Observed 2026-10-26 → 11-24: GigaCloud changes landed in Google in 28 batches, always
