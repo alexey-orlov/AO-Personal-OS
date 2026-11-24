@@ -1,0 +1,9 @@
+{"date":"9/25/2026","entries":[
+ {"category":"Shoulders","exercise":"Жим сидя на плечи в Смитт","sets":3,"reps":10,"w_start":20,"w_end":30},
+ {"category":"Legs","exercise":"ГАКК присед","sets":3,"reps":"'8-12","w_start":100,"w_end":130},
+ {"category":"Glutes","exercise":"Отведение на ягодицы","sets":3,"reps":15,"w_start":79,"w_end":93},
+ {"category":"Legs","exercise":"Жим ногами сидя","sets":3,"reps":10,"w_start":104,"w_end":113},
+ {"category":"Legs","exercise":"Сгиб. голени","sets":3,"reps":"'10-12","w_start":66,"w_end":68.5},
+ {"category":"Legs","exercise":"Разгиб. голени","sets":3,"reps":10,"w_start":59,"w_end":66},
+ {"category":"Shoulders","exercise":"Махи на плечи одной рукой","sets":3,"reps":10,"w_start":34,"w_end":34}
+]}
