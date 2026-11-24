@@ -99,13 +99,15 @@ Rules the app keeps, so the engine can trust the data:
 
 ## Skill side: "sync the app" (to fold into the skill as its own mode)
 
-> **Hold (2026-11-23):** don't run step 2 (push) until the app reads the
-> brief shape of 2026-11-23 (compact brief with `ask`, `trim`,
+> **Brief compatibility.** The app (version 3, 2026-11-24) reads both the
+> first brief shape and the compact one of 2026-11-23 (`ask`,
 > `warmup.suggested`, `crossfit.dose` / `crossfit.pool`, flat
 > `strength.pool` items, `probe` / `hint_lb` / `step_lb` / `if_missing` /
-> `replaces`). The published app still reads the earlier shape and breaks
-> on a push. Steps 1, 3 and 4 are safe. Remove this note when the app is
-> updated.
+> `replaces`, `dropped`), and its JS check matches `trainer.py check` of that
+> date (same errors and warnings on 12 test cases). When `trainer.py`
+> changes the brief, plan or check shape again, hold step 2 until
+> `index.html` is updated and re-tested against `trainer.py check`; until
+> then the app keeps working on the last data it got.
 
 1. **Pull finished sessions.** `ArtifactData query` on `workouts` with
    `where status == done`, saving to a scratch dir (`out_dir`). For each one
@@ -113,7 +115,10 @@ Rules the app keeps, so the engine can trust the data:
    `python3 automations/personal-trainer/app/app_sync.py feedback <file> --apply`
    runs `trainer.py feedback <date>` with the document's `feedback` (plan
    included, so `_merge_plans` can stand in for an unphotographed session).
-   A machine marked `missing` → add it to `gym.json` `substitutions`.
+   A `pain` item carries `joint` (trainer.py `JOINTS`); the engine's
+   `next_time` gives the one-line replies («Верт. тяга: ок → 120/130/130 lb»).
+   A machine marked `missing` → `python3 automations/personal-trainer/trainer.py gym --missing <id>`
+   (`--use <id>=<alt>` only when Alex says the swap is the gym's standing one).
    The strength / warm-up / crossfit numbers can go to the sheet through
    gym-log (`entries` from `feedback.actual` + catalog `sheet_rows`).
    Then `ArtifactData update workouts/<id>` with
@@ -171,10 +176,9 @@ button shows the start-position thumbnail when an exercise has one.
 
 ## Known gaps
 
-- `trainer.py check` errors on an `action: new` exercise without weights
-  ("0 весов на 3 подхода"), while methodology.md says to leave `kg` out for
-  it. The app's JS check follows methodology.md (no error); the engine's
-  check needs the same exemption.
+- Stored briefs are computed without `--pain` / `--time` / `--missing`: the
+  app applies those itself (swaps from the pool, the engine's 4/5-exercise
+  trim, the time dose for crossfit, the alternative named in `if_missing`).
 - A second session on one date (`<date>-2`) merges its feedback into
   `plans/<date>.json`: `trainer.py feedback` takes a date, not an id.
 - Demos are pre-loaded for 26 exercises: the next Legs session, the first
