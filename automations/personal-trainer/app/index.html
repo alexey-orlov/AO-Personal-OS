@@ -424,7 +424,21 @@ function buildStrength(ctx, plan) {
     }
     out.push(toPlanItem(src));
   }
-  for (const d of brief.strength?.dropped || []) plan.why.push(`${enName(d.id)} left out: this gym doesn't have it and there's no swap.`);
+  for (const d of brief.strength?.dropped || []) plan.why.push(`${enName(d.id)} left out: ${/занят/.test(d.why || "") ? "busy today" : "this gym doesn't have it"}, no swap.`);
+  // the trainer rotated one isolation or shoulder slot when the same set ran 3 sessions in a row (methodology.md);
+  // never a superset member, never the main lift
+  const streak = brief.strength?.template_streak || 0;
+  if (streak >= 3) {
+    for (let i = out.length - 1; i >= 0; i--) {
+      const it = out[i]; const ex = exS(it.id);
+      if (!["isolation", "shoulder"].includes(ex?.role) || (ex.superset && out.some(x => x.id === ex.superset))) continue;
+      const r = pickSwap(ctx, it.id, P, new Set(out.map(x => x.id)));
+      if (!r) continue;
+      const ni = toPlanItem(r); ni.swapped_from = { id: it.id, item: it }; out[i] = ni;
+      plan.overrides[r.id] = `variety: same set ${streak} sessions running, ${enName(it.id)} rotated out`;
+      break;
+    }
+  }
   // the engine's trim: at most 4 exercises up to 45 min, 5 up to 60 min (trainer.py check)
   const t = ck.time_min; const maxN = t && t <= 45 ? 4 : t && t <= 60 ? 5 : 7;
   const dropLast = roles => { for (let i = out.length - 1; i > 0; i--) if (roles.includes(exS(out[i].id)?.role)) { const [x] = out.splice(i, 1); return x; } return null; };
