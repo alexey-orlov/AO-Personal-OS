@@ -788,7 +788,8 @@ def render_plan(plan, fmt="md"):
         joined = k > 0 and items[k - 1].get("superset_next")
         kg = it.get("kg") or []
         lb = it.get("lb") or [lb_round(v) for v in kg]
-        kg_s, lb_s = (fmt_w(kg), fmt_w(lb)) if kg else ("—", "—")
+        kg_show = [round(v) for v in kg] if st.units.lb else kg   # in a lb gym kg is for reference only
+        kg_s, lb_s = (fmt_w(kg_show), fmt_w(lb)) if kg else ("—", "—")
         if ex.get("load") == "db_each" and kg:
             kg_s, lb_s = f"2×{kg_s}", f"2×{lb_s}"
         rows.append([("+ " if joined else "") + name(ex["ru"], ex["en"], it.get("cue")), kg_s, lb_s,
