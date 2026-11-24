@@ -28,10 +28,16 @@ merged in column A, template formatting cloned onto new blocks/rows).
     digest (`TG_TOPIC=trainings`, thread in `automations/telegram/topics.env`).
   - `log` — upsert one session from stdin JSON:
     `{"date":"7/22/2026","my_weight":73.6,"entries":[{"category":"Back",
-    "exercise":"Верт. тяга","sets":3,"reps":10,"w_start":52,"w_end":62},…]}`
+    "exercise":"Верт. тяга","sets":3,"reps":10,"w_start":52,"w_end":62},…],
+    "warmup":{"combination":…},"crossfit":{"combination":…,"rounds":…,
+    "cap":…,"finish":"11:53"}}` (full example: the skill's step 5).
     Creates the date block / category / exercise row if missing, overwrites
-    if present (idempotent). Date = `M/D/YYYY`, no leading zeros. Exit 3 =
-    credential problem (see Auth).
+    if present (idempotent). Date = `M/D/YYYY`, no leading zeros. Strength
+    entries need all six fields; Warm-up / Crossfit entries only category and
+    exercise. Text that would parse as a date or number (`8-10`, `40"`) gets
+    an apostrophe; `finish` in `m:ss` or `m'ss"` is stored as a duration.
+    `rows` in the output are final sheet rows. Exit 3 = credential problem
+    (see Auth).
 - `apply_pending.sh` — flushes queued payloads (`pending/*.json`) into the
   sheet, moving each applied one to `pending/applied/`. Re-running is a no-op.
 - `pending/` — committed queue for sessions parsed where the credential is
@@ -103,9 +109,11 @@ row above, so the template styling propagates. Date blocks were put in
 chronological order on 2026-11-23; `progress` sorts by date anyway.
 
 Below the strength categories sit notebook sections I and III, in the same
-date blocks (`NON_STRENGTH` in `gym_sheet.py`; `progress` skips them,
-exercise names match only inside their own section, `dump` tags each
-category with `section`):
+date blocks, written by `log` from Warm-up / Crossfit entries and the
+`warmup` / `crossfit` payload fields (`NON_STRENGTH` and `SUMMARY` in
+`gym_sheet.py`; `progress` skips them, exercise names match only inside
+their own section, `dump` tags each category with `section`). Backfilled by
+hand for 20.07–30.10 on 2026-11-23, logged per session since:
 - **Warm-up**: first a `Combination (warm-up)` row (the page's lines in
   order, joined with →, merged across the block), then one row per exercise.
 - **Crossfit**: four summary rows merged across the block —
@@ -121,19 +129,11 @@ category with `section`):
 
 Single-number weights in the notebook ("70кг") land as start = end = 70.
 
-⚠️ Known bug in `log`: value writes are planned against row indices captured
-before the batch's structural inserts run. An existing row that is written
-earlier in the same call and sits below a newly inserted row gets its values
-one row up. Directly below the insert, that is the new row, which then
-overwrites them (2026-08-03: the 31.07 «Жим L 45°» entry was lost to the
-«Жим в брусьях сидя» insert), and re-running the same payload heals the
-date. Further down, it is another exercise's row, and the stray cell stays
-there after a re-run. Until the planner renumbers writes after inserts: put
-the entries that create a row first in the payload, top to bottom in sheet
-order (then no write is planned before an insert above it; the 2026-10-05
-run did this cleanly), and after any run
-whose output lists `created.exercises`, check in `dump` that every entry
-landed and that no other row gained a cell for that date.
+Row inserts and value writes: all structural requests run before any value
+write, and every planned write moves down with each row inserted above it
+later in the same call, so entry order in a payload does not matter. (Until
+2026-11-23 writes kept their pre-insert rows and could land one row up: the
+31.07 «Жим L 45°» entry was lost that way on 2026-08-03.)
 
 ## Consumers
 

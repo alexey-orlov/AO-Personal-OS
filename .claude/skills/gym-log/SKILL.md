@@ -172,8 +172,9 @@ echo '{"date":"7/20/2026","my_weight":74.0,"entries":[
 
 `dump` again; confirm every entry landed in the right row/block. Report to
 Alex (in-session, or Telegram reply if the request came via the bridge): a
-compact per-date table of what was logged, what was skipped as crossed-out /
-warm-up / crossfit, uncertain readings, and new exercises/categories created.
+compact per-date table of what was logged (strength, warm-up, crossfit with
+its finish time), what was skipped as crossed-out, uncertain readings, and new
+exercises/categories created.
 No invented data anywhere: only what the page shows or Alex said.
 
 ### 7. Telegram digest → 🏋️ Trainings topic
@@ -208,6 +209,10 @@ Message spec — short, structured, motivating; plain text; aim well under
   (📉, no sugarcoating) — both directions are information.
 - All-new session (`compared_count` 0): collapse to a 3–4-line note — session
   logged, N exercises, baselines set, comparisons start next time 💪.
+- Section III gets one line after the exercises, as logged and without
+  deltas (combinations rarely repeat): `🔥 Crossfit x3 — 11:53`, or
+  `🔥 Crossfit logged, no time written`. `progress` itself skips the
+  warm-up and crossfit rows.
 - Close with ONE short motivating line only when there's real progress to
   point at; never invent praise after a down session.
 

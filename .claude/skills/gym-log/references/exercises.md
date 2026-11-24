@@ -5,7 +5,7 @@ wording). Matching is the agent's job; `gym_sheet.py` only does exact
 (normalized) lookup. Add a row for every new exercise; add aliases as new
 spellings show up in the notes. Categories are EN muscle groups.
 
-## Strength exercises (section II — the only logged part)
+## Strength exercises (section II)
 
 | Canonical (sheet row) | Category | Aliases / variants seen | Notes, stack hints |
 | --- | --- | --- | --- |
@@ -45,8 +45,9 @@ A `+` written between two strength lines marks a superset (05.10: ГАКК +
 
 ## Sections I and III — Warm-up and Crossfit rows
 
-Not written by `log`; the sheet keeps them in their own categories under the
-strength part (backfilled 20.07–30.10 on 23.11.26; layout in the README).
+Logged like the strength rows, in the categories Warm-up and Crossfit under
+the strength part (backfilled by hand for 20.07–30.10 on 23.11.26; layout and
+cell conventions in the README).
 Recognition: warm-up lines read `2x15` / `2x40"` (seconds), a single
 implement weight in brackets does not make a line strength work; crossfit
 lines carry `(x3)` rounds, `12'` time caps, `N cal`, a finish time like
