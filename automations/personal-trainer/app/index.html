@@ -303,21 +303,57 @@ function restoreCurrent() {
   else { const a = Object.values(S.workouts).find(w => w.status === "active"); if (a) { S.cur = a.id; S.view = "workout"; } }
 }
 
-/* writes: one at a time per doc, coalesced */
+/* writes: one at a time per doc, coalesced. Every change is also mirrored to this phone (localStorage) the moment it
+   happens, so a reload, a dropped connection or a sign-out before the save lands loses nothing; the copy is removed
+   once the database holds that version, and restored on load if it is newer than the database's. */
 const pendingWrite = new Map(); const writing = new Set();
+const DRAFT = "tn.draft.";
 function saveWorkout(w, now) {
   w.updated_at = nowISO();
   S.workouts[w.id] = w;
-  pendingWrite.set(w.id, w);
+  try { localStorage.setItem(DRAFT + w.id, JSON.stringify(w)); } catch {}
+  pendingWrite.set(w.id, w); S.save = "saving"; paintSave();
   if (now) flush(w.id); else setTimeout(() => flush(w.id), 500);
 }
 async function flush(id) {
   if (writing.has(id) || !pendingWrite.has(id) || !S.db) return;
-  const body = clone(pendingWrite.get(id)); pendingWrite.delete(id); writing.add(id);
-  try { await S.db.doc("workouts/" + id).set(body); }
-  catch (e) { toast(e.code === "quota_exceeded" ? "Storage is full: ask Claude to clean old sessions." : `Couldn't save (${e.code}). Your entries stay on this screen; they'll save with the next change.`); pendingWrite.set(id, S.workouts[id]); }
-  finally { writing.delete(id); if (pendingWrite.has(id)) setTimeout(() => flush(id), 800); }
+  const src = pendingWrite.get(id);
+  const body = clone(src); pendingWrite.delete(id); writing.add(id);
+  // the trainer's sync writes `sync`: never send back an older copy of it
+  const dbSync = S.dbSync?.[id]; if (dbSync) body.sync = Object.assign({}, body.sync, dbSync);
+  try {
+    await S.db.doc("workouts/" + id).set(body);
+    try { const d = JSON.parse(localStorage.getItem(DRAFT + id) || "null"); if (d && d.updated_at === body.updated_at) localStorage.removeItem(DRAFT + id); } catch {}
+    if (!pendingWrite.size) { S.save = "saved"; S.saveErr = null; }
+  }
+  catch (e) {
+    S.save = "offline"; S.saveErr = e.code;
+    if (e.code === "quota_exceeded") toast("Storage is full: ask Claude to clean old sessions. Everything stays on this phone meanwhile.");
+    if (!pendingWrite.has(id)) pendingWrite.set(id, S.workouts[id]);
+  }
+  finally { writing.delete(id); paintSave(); if (pendingWrite.has(id)) setTimeout(() => flush(id), S.save === "offline" ? 4000 : 800); }
 }
+function flushAll() { for (const id of [...pendingWrite.keys()]) flush(id); }
+document.addEventListener("visibilitychange", () => { if (document.visibilityState === "hidden") flushAll(); });
+window.addEventListener("pagehide", flushAll);
+window.addEventListener("online", flushAll);
+/** Drafts newer than the database (a reload or sign-out before the save landed) come back and are sent again. */
+function restoreDrafts() {
+  let keys = []; try { keys = Object.keys(localStorage).filter(k => k.startsWith(DRAFT)); } catch { return; }
+  for (const k of keys) {
+    let d = null; try { d = JSON.parse(localStorage.getItem(k)); } catch {}
+    if (!d?.id) continue;
+    const db = S.workouts[d.id];
+    if (db && (db.updated_at || "") >= (d.updated_at || "")) { try { localStorage.removeItem(k); } catch {} continue; }
+    if (db?.sync) d.sync = Object.assign({}, d.sync, db.sync);
+    S.workouts[d.id] = d; pendingWrite.set(d.id, d); flush(d.id);
+  }
+}
+/** The save line in the workout header, updated in place (no re-render). */
+function saveText() {
+  return S.save === "offline" ? "Not saved online yet: kept on this phone, retrying" : S.save === "saving" ? "Saving…" : S.save === "saved" ? "Saved" : "";
+}
+function paintSave() { const n = document.getElementById("saveState"); if (n) { n.textContent = saveText(); n.className = "small " + (S.save === "offline" ? "warn-t" : "faint"); } }
 function toast(msg) { S.toast = msg; render(); clearTimeout(S.toastT); S.toastT = setTimeout(() => { S.toast = null; render(); }, 5000); }
 
 /* ================================================================ brief & context */
