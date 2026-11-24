@@ -760,7 +760,7 @@ function checkPlan(plan, ctx) {
   if (tm && session > tm) W(null, `Whole session ≈${session}′ for ${tm}′: drop an exercise or a round`);
   const warnings = [], accepted = [];
   for (const w of warns) { const hit = Object.keys(ov).find(k => (w.sec && k === w.sec) || w.ids.includes(k)); if (hit) accepted.push(`${w.text} (${ov[hit]})`); else warnings.push(w.text); }
-  return { ok: !errors.length, errors, warnings, accepted, estimate: { session_min: session, crossfit_min: Math.round(est / 6) / 10, cap_min: cf.cap_min ?? null } };
+  return { ok: !errors.length, errors, warnings, accepted, estimate: { session_min: session, crossfit_min: pyRound(est / 6) / 10, cap_min: cf.cap_min ?? null } };
 }
 
 /* ================================================================ Claude builder */
