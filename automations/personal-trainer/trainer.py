@@ -736,7 +736,7 @@ def suggest(st, ex, origin=None):
         mark = max(marks)
         own_since = [o for o in occ if o.date >= mark]
         before = [o for o in (occ if [o for o in occ if o.date < mark] else anchor) if o.date < mark]
-        if before and len(own_since) <= 3:
+        if before and len(own_since) <= 3 and (not below_top or fb == "easy"):
             target = U.from_kg(before[-1].we, ex)
             if W < target:
                 jump = 2 if fb == "easy" and W + 2 * step <= target else 1
