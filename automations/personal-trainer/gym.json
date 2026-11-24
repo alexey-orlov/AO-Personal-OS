@@ -1,5 +1,5 @@
 {
-  "_doc": "Where Alex trains now and how its equipment steps. 'current' picks the gym; 'since' is the first day there: entries logged before it come from other machines, so they only seed a calibration start, never a progression step. Steps are what one increment costs on that gym's equipment. substitutions: catalog id -> what this gym uses instead (fill in when Alex reports a missing machine).",
+  "_doc": "Where Alex trains and what that gym has. 'current' picks the gym; 'since' is its first day: weights logged before it come from other machines and only seed a calibration start. steps_lb = one increment on that equipment; grid_lb = what a weight is rounded to (plates load 5 lb a side). machines: catalog id -> have | missing | unknown | unlikely (Alex's answers make them have/missing; `trainer.py gym` writes them). substitutions: catalog id -> catalog id used instead in this gym. equipment: crossfit kit -> seen | likely | unknown | have | missing. Evidence for the US entries: DECISIONS.md, 'US gym'.",
   "current": "us",
   "gyms": {
     "kyiv": {
@@ -8,45 +8,54 @@
       "until": "2026-10-30"
     },
     "us": {
-      "name": "US gym (Bay Area)",
+      "name": "24 Hour Fitness Walnut Creek North Main Super-Sport (2800 N Main St)",
       "units": "lb",
       "since": "2026-11-19",
       "round_lb": 5,
+      "grid_lb": {"plates": 10, "plates_big": 10, "smith": 10},
       "steps_lb": {
         "stack": 10,
         "stack_small": 5,
         "cable": 5,
         "plates": 10,
+        "plates_small": 5,
         "plates_big": 20,
         "smith": 10,
-        "db_each": 5,
-        "plates_small": 5
+        "db_each": 5
       },
-      "kb_lb": [
-        9,
-        13,
-        18,
-        26,
-        35,
-        44,
-        53,
-        62,
-        70
-      ],
-      "ball_lb": [
-        10,
-        14,
-        20
-      ],
-      "plate_lb": [
-        5,
-        10,
-        25,
-        35,
-        45
-      ],
+      "kb_lb": [9, 13, 18, 26, 35, 44, 53, 62, 70],
+      "ball_lb": [10, 14, 20],
+      "plate_lb": [5, 10, 25, 35, 45],
+      "db_lb_step": 5,
       "bar_lb": 45,
-      "substitutions": {}
+      "brands_seen": ["Matrix (selectorized machines, cardio)", "Hoist (plate-loaded machines)"],
+      "machines": {
+        "lateral_raise_1arm": "unlikely",
+        "chest_supported_tbar": "unknown",
+        "glute_kickback": "unknown",
+        "hip_abduction": "likely",
+        "hack_squat": "unknown",
+        "seated_leg_press": "likely",
+        "smith_incline_press": "have",
+        "smith_shoulder_press": "have"
+      },
+      "substitutions": {
+        "lateral_raise_1arm": "cable_lateral_raise_1arm"
+      },
+      "equipment": {
+        "box": "seen",
+        "med_ball": "seen",
+        "db": "seen",
+        "barbell": "seen",
+        "plate": "seen",
+        "pullup_bar": "likely",
+        "dip_bars": "unknown",
+        "kb": "unknown",
+        "rope": "unknown",
+        "rower": "unknown",
+        "air_bike": "unknown",
+        "battle_rope": "unknown"
+      }
     }
   }
 }
