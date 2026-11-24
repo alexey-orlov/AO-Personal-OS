@@ -54,7 +54,18 @@ jobs:
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
             git add automations/gym-log/pending
             git commit -m "chore(gym-log): [gym-log applied] flush pending queue"
-            git push
+            # git-autosync on Alex's Macs pushes every ~30 s, so main often moves
+            # while this job runs (run #8, 2026-11-23: the sheet was written, then
+            # the push was rejected). Rebase onto it and retry instead of failing.
+            for i in 1 2 3 4 5; do
+              if git pull --rebase -q origin "$GITHUB_REF_NAME" && git push -q; then
+                exit 0
+              fi
+              git rebase --abort 2>/dev/null || true
+              sleep $((i * 3))
+            done
+            echo "::error::flush commit not pushed after 5 tries; the payload stays queued and the next run re-applies it (log is an upsert)"
+            exit 1
           else
             echo "queue was already empty — nothing to commit"
           fi
