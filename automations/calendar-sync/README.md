@@ -80,7 +80,11 @@ reverse:  Google Calendar API (all cals)  →  sync_core.reverse_reconcile  → 
   with one `ssSync` key, or two SS "Busy" blocks with one `[[gcal-busy]]` key), each run keeps the one the
   ledger points at (else the first listed) and deletes the rest; the kept one's ledger entry stays.
   Until 2026-11-24 a duplicate of a live slot was never pruned: one `SS:` copy left an hour early by the
-  CET bug and three doubled "Busy" blocks sat there for days.
+  CET bug and three doubled "Busy" blocks sat there for days. How one arises: a create times out on our
+  side after the server already took it (the `SS:` copy, 2026-11-18), so the ledger never records it,
+  and when it lies past the window the next run lists (the Google read stops at Monday + 16 days while
+  the SS read runs 14 days from now, so Wed–Fri), that run creates it again. Such a pair is pruned
+  once both are listed.
 
 ## Status sync — Busy/Free + "Your response"
 Each copy mirrors the user's real SS RSVP:
