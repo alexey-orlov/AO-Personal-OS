@@ -82,6 +82,11 @@ notes, Telegram research summaries. Distilled from his Claude-Chat instructions
   footnote line. Detail only a specialist needs stays in the long version, never on the page.
   Count the words per cell with a script before rendering, and make every review fix
   word-neutral or shorter.
+- **A comparison table has the familiar case as its baseline column and splits the other side
+  into "different" and "added" columns** (Alex, 2026-11-24, on embedded vs cloud app lifecycles).
+  One row per step or attribute. A "different" cell states what replaces the same row's baseline
+  cell, an "added" cell only what comes on top of it, and "-" means nothing. One term per thing
+  across the table, no synonyms; cells are short noun phrases.
 - For risk/decision questions: the call first (low / medium / high, yes / no / depends),
   then reasoning, then recommended action.
 - **A multi-account research table is an interactive page** (Alex, 2026-11-12, CA Jumpstart
