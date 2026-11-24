@@ -758,10 +758,10 @@ function claudePrompt(ctx, draft, errors) {
   const skill = S.cfg.skill || {};
   return [
     "You compose today's gym session for Alex in his Kyiv trainer's format (I warm-up, II strength, III crossfit).",
-    "Follow the trainer's method and the feedback vocabulary below exactly. Weights come only from the engine's brief: copy kg/lb for every strength exercise from brief.strength.items or brief.strength.pool[].suggest; never invent or change a weight. For an exercise with action 'new', leave kg out.",
+    "Follow the trainer's method and the feedback vocabulary below exactly. Weights come only from the engine's brief: copy kg/lb for every strength exercise from brief.strength.items or brief.strength.pool (each entry carries its own kg/lb; older briefs nest them under suggest); never invent or change a weight. For an exercise with action 'new' or 'probe', leave kg out. Crossfit: pick crossfit.dose.movements movements from crossfit.pool with their doses; an item whose equipment isn't confirmed keeps its 'fallback'. A warning you accept goes in overrides under the exercise id or the section name (warmup, strength, crossfit).",
     "Start from the DRAFT (a deterministic plan that already follows the rules). Change it only where the method calls for variety or the check-in asks for it; at most one strength swap. Explain every departure from the brief in 'overrides' (id → short English reason).",
     "Write note, why and overrides in short plain English (the app's language); note is one line or empty.",
-    "Reply with ONLY one JSON object of the same shape as DRAFT: {date, day, note, pre, warmup:[{id,sets,reps|secs,kg?}], strength:[{id,sets,reps,kg,lb,superset_next?,cue?}], crossfit:{format:'rounds'|'ladder'|'skip', rounds?, scheme?, cap_min?, items:[{id,reps,unit?,kg?,lb?}]}, overrides:{}, why:[≤2 short English lines]}. Use catalog ids only.",
+    "Reply with ONLY one JSON object of the same shape as DRAFT: {date, day, note, pre, warmup:[{id,sets,reps|secs,kg?}], strength:[{id,sets,reps,kg,lb,superset_next?,cue?}], crossfit:{format:'rounds'|'ladder'|'skip', rounds?, scheme?, cap_min?, items:[{id,reps,unit?,kg?,lb?,fallback?}]}, overrides:{}, why:[≤2 short English lines]}. Use catalog ids only.",
     errors?.length ? "Your previous answer failed the check with these errors; fix every one:\n- " + errors.join("\n- ") : "",
     "\n## METHOD (methodology.md)\n" + (skill.methodology_md || "(not synced)"),
     "\n## FEEDBACK VOCABULARY (feedback.md)\n" + (skill.feedback_md || "(not synced)"),
@@ -806,11 +806,14 @@ async function buildWithClaude(ctx, draft, signal) {
 function newId(date) { let id = date, n = 2; while (S.workouts[id] && !(S.workouts[id].status === "planned" && S.workouts[id].source === "app")) id = `${date}-${n++}`; return id; }
 function defaultCheckin() {
   const r = rotation();
-  return { date: todayLocal(), day: r.next, readiness: "normal", sick: false, injured: false, pain_keys: [], pain: [], pain_detail: [], pain_note: "", time_min: null, pause_answer: null };
+  return { date: todayLocal(), day: r.next, readiness: "normal", sick: false, injured: false, pain_keys: [], pain: [], pain_detail: [], pain_note: "", time_min: null, pause_answer: null, recent: {}, cleared: [] };
 }
 function normCheckin(ck) {
   const spots = PAIN_SPOTS.filter(p => ck.pain_keys.includes(p.key));
-  ck.pain = [...new Set(spots.map(p => p.joint).filter(Boolean))];
+  // a joint that hurt recently: "still hurts" plans around it today, "fine now" clears it (trainer.py --ok)
+  const still = Object.keys(ck.recent || {}).filter(j => ck.recent[j] === "hurts");
+  ck.pain = [...new Set([...spots.map(p => p.joint).filter(Boolean), ...still])];
+  ck.cleared = Object.keys(ck.recent || {}).filter(j => ck.recent[j] === "fine" && !ck.pain.includes(j));
   ck.pain_detail = spots.filter(p => p.side).map(p => ({ joint: p.joint, side: p.side }));
   return ck;
 }
@@ -937,7 +940,8 @@ function swapExercise(w, id, kind, chosenId) {
 /* ================================================================ finishing */
 function composeFeedback(w) {
   const fb = { items: {}, actual: {}, crossfit_time: w.log.crossfit.time || undefined, crossfit_rating: w.feedback.crossfit_rating || undefined, overall: w.feedback.overall || "", done: true };
-  for (const [id, v] of Object.entries(w.feedback.items || {})) if (v?.rating) fb.items[id] = { rating: v.rating, note: v.note || "" };
+  // `joint` rides along with a pain rating: the engine's recent-pain rules and the next brief's questions key on it
+  for (const [id, v] of Object.entries(w.feedback.items || {})) if (v?.rating) fb.items[id] = Object.assign({ rating: v.rating, note: v.note || "" }, v.joint ? { joint: v.joint } : {});
   for (const [id, L] of Object.entries(w.log.strength || {})) {
     const done = (L.sets || []).filter(s => s.done); if (!done.length) continue;
     const reps = done.map(s => s.reps);
