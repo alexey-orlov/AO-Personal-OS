@@ -419,7 +419,8 @@ function swapCandidates(ctx, forId, P, used, preferAlt) {
   const twin = id => others.some(u => isAlt(id, u)); // the cable twin of something already in the plan
   const shoulderTaken = ex?.role !== "shoulder" && others.some(u => exS(u)?.role === "shoulder");
   const role = p => p.role || exS(p.id)?.role; const status = p => p.status || exS(p.id)?.status;
-  const cands = pool.filter(p => poolSuggestion(p) && status(p) !== "retired" && !used.has(p.id) && roleOk(role(p)) && !hitsPain(exS(p.id), P) && g.machines?.[p.id] !== "missing" && !(g.substitutions?.[p.id])
+  const rep = gymReports().machines;
+  const cands = pool.filter(p => poolSuggestion(p) && status(p) !== "retired" && !used.has(p.id) && roleOk(role(p)) && !hitsPain(exS(p.id), P) && (rep[p.id] || g.machines?.[p.id]) !== "missing" && !(g.substitutions?.[p.id])
       && !twin(p.id) && !(shoulderTaken && role(p) === "shoulder"))
     .sort((a, b) => (preferAlt ? (isAlt(a.id, forId) ? 0 : 1) - (isAlt(b.id, forId) ? 0 : 1) : 0) || (role(a) === ex?.role ? 0 : 1) - (role(b) === ex?.role ? 0 : 1) || (rank[status(a)] ?? 3) - (rank[status(b)] ?? 3) || (b.uses || 0) - (a.uses || 0));
   return cands.map(poolSuggestion).filter(Boolean);
@@ -431,6 +432,12 @@ function buildStrength(ctx, plan) {
     let src = s; const ex = exS(s.id);
     const sub = g.substitutions?.[s.id];
     if (sub) { const p = (brief.strength.pool || []).find(x => x.id === sub); if (p?.suggest) { src = p.suggest; used.add(sub); plan.overrides[sub] = `${ex?.en_short || s.id}: this gym doesn't have it, ${exS(sub)?.en_short || sub} instead`; } }
+    if (gymReports().machines[src.id] === "missing") {   // reported in the app, not synced yet: the brief still has it
+      const r = swapCandidates(ctx, src.id, P, used, true)[0];
+      if (r) { used.add(r.id); out.push(toPlanItem(r)); plan.overrides[r.id] = `instead of ${enName(src.id)}: you said this gym doesn't have it`; }
+      else plan.why.push(`${enName(src.id)} left out: you said this gym doesn't have it, no swap.`);
+      continue;
+    }
     if (hitsPain(exS(src.id), P) || src.action === "swap") {
       const why = src.action === "swap" && !hitsPain(exS(src.id), P) ? (src.why || "pain last time") : `${[...P].filter(j => (exS(src.id)?.joints || []).includes(j)).map(j => JOINT_EN[j]).join(", ")} hurts today`;
       const r = pickSwap(ctx, src.id, P, used);
@@ -916,6 +923,27 @@ function restoreOriginal(w, id) {
   w.changes.push({ at: nowISO(), kind: "swap", summary: `${enName(id)} → back to ${enName(o.id)}`, ids: [id, o.id] });
   return `Back to ${enName(o.id)}`;
 }
+/** What Alex tells the app about this gym, for the next sync (trainer.py gym --have / --missing / --equip): one entry per machine or kit. */
+function addGymReport(w, r) {
+  const key = x => x.equip ? "equip:" + x.equip : "m:" + (x.have || x.missing);
+  w.gym_reports = (w.gym_reports || []).filter(x => key(x) !== key(r)).concat([Object.assign({ at: nowISO() }, r)]);
+}
+function reportGym(w, r, msg) {
+  if (w.status === "planned") startSession(w);
+  addGymReport(w, r);
+  w.changes.push({ at: nowISO(), kind: "gym", summary: msg, ids: [r.have || r.missing || r.equip].filter(Boolean) });
+  saveWorkout(w, true); closeSheet(); toast(msg);
+}
+const KIT_EN = { rope: "jump rope", rower: "rower", air_bike: "air bike", battle_rope: "battle rope", dip_bars: "dip bars", pullup_bar: "pull-up bar", kb: "kettlebell", med_ball: "medicine ball", box: "box", db: "dumbbells", barbell: "barbell", plate: "plate" };
+/** The fallback movement as a plan item, dosed like the brief's pool entry (or the catalog's default). */
+function fallbackItem(w, it) {
+  const ctx = ctxForWorkout(w); const pe = (ctx?.brief?.crossfit?.pool || []).find(e => e.id === it.fallback); const c = exC(it.fallback) || {};
+  const ni = { id: it.fallback };
+  if (pe?.secs != null || (c.secs && pe?.reps == null)) ni.secs = pe?.secs ?? c.secs; else ni.reps = pe?.reps ?? c.reps ?? 10;
+  if (pe?.unit || c.unit) ni.unit = pe?.unit || c.unit;
+  const kg = pe?.kg ?? c.load_kg; if (kg != null) { ni.kg = c.max_kg != null ? Math.min(kg, c.max_kg) : kg; ni.lb = crossLoad(c, ni.kg); }
+  return ni;
+}
 function swapExercise(w, id, kind, chosenId) {
   const ctx = ctxForWorkout(w); const used = new Set(w.plan.strength.map(i => i.id)); const P = new Set(w.checkin.pain || []);
   if (kind === "busy-later") {
@@ -933,6 +961,7 @@ function swapExercise(w, id, kind, chosenId) {
   delete w.plan.overrides[id];
   w.plan.overrides[r.id] = `instead of ${enName(origin.id)}: ${kind === "missing" ? "the gym doesn't have it" : kind === "busy" ? "machine busy" : "swap"}`;
   if (kind === "missing" || kind === "busy") w.machine_missing[id] = { kind, replaced_by: r.id, machine: exS(id)?.en || id };
+  if (kind === "missing") addGymReport(w, { missing: id });
   w.changes.push({ at: nowISO(), kind: kind === "swap" ? "swap" : kind, summary: `${enName(id)} → ${enName(r.id)}`, ids: [id, r.id] });
   return `${enName(id)} → ${enName(r.id)}`;
 }
@@ -1177,7 +1206,8 @@ function rateBlock(w, id, allDone) {
     el("div", { class: "rate" }, ...RATINGS.map(([r, l]) => el("button", { type: "button", "data-r": r, "aria-pressed": String(fb?.rating === r), on: { click: () => {
       if (r === "pain") return openSheet({ kind: "painRate", id });
       if (r === "fail") return openSheet({ kind: "failRate", id });
-      w.feedback.items[id] = { rating: r, note: "" }; stopRest(); saveWorkout(w); render(); } } }, l))));
+      w.feedback.items[id] = { rating: r, note: "" }; stopRest(); saveWorkout(w); render(); } } }, l))),
+    fb?.rating && NEXT_HINT[fb.rating] ? el("div", { class: "small muted", text: NEXT_HINT[fb.rating] }) : null);
 }
 function crossfitCard(w) {
   const cf = w.plan.crossfit || {}; const L = w.log.crossfit; const active = w.status === "active";
