@@ -362,9 +362,25 @@ function poolSuggestion(p) { return p?.suggest || (p && (p.kg || p.action) ? p :
 function crossfitDose(ctx) {
   const d0 = ctx.brief.crossfit?.dose; if (!d0) return null;
   const d = { ...d0 }; const t = ctx.ck.time_min;
-  if (t && t <= 45) Object.assign(d, { rounds: 2, cap_min: 6, scale: 0.7 });
+  if (t && t <= 45) Object.assign(d, { rounds: 2, cap_min: 6, scale: 0.7, movements: 3 });
   else if (t && t <= 60) d.cap_min = Math.min(d.cap_min, 8);
+  if (!d.movements) d.movements = d.known_only ? 3 : 4;
   return d;
+}
+/** Kit and machines Alex reported in the app since the last sync (gym_reports), newest last: they beat the pushed gym.json. */
+function gymReports() {
+  const out = { equip: {}, machines: {} };
+  const ws = Object.values(S.workouts).filter(w => w.gym_reports?.length && !w.sync?.feedback_recorded_at).sort((a, b) => (a.updated_at || "") < (b.updated_at || "") ? -1 : 1);
+  for (const w of ws) for (const r of w.gym_reports) { if (r.equip) out.equip[r.equip] = r.status; if (r.have) out.machines[r.have] = "have"; if (r.missing) out.machines[r.missing] = "missing"; }
+  return out;
+}
+/** Crossfit kit status for a pool entry or catalog item: an in-app report wins over the brief's "kit: status". */
+function kitKey(e) { return String(e?.equipment || exC(e?.id)?.equipment || "none").split(":")[0].trim(); }
+function kitStatus(e) {
+  const key = kitKey(e); if (key === "none") return "have";
+  const rep = gymReports().equip[key]; if (rep) return rep;
+  if (e?.equipment && String(e.equipment).includes(":")) return String(e.equipment).split(":").pop().trim();
+  return gymCfg().equipment?.[key] || "unknown";
 }
 /** Joints to protect: today's pain plus the engine's recent pain, minus the ones Alex said are fine now (trainer.py --ok / pre.cleared). */
 function soreSet(plan, ctx) {
@@ -522,15 +538,16 @@ function buildCrossfit(ctx, plan) {
 /** Engine v2: the brief carries the dose and an already-filtered pool with scaled reps; the app picks the combo. */
 function buildCrossfitV2(ctx, plan) {
   const { brief, ck, day } = ctx; const cf = brief.crossfit; const P = new Set(ck.pain || []);
-  const sore = new Set([...P, ...Object.keys(brief.pre?.recent_pain || {})]);
+  const cleared = new Set(ck.cleared || []);
+  const sore = new Set([...P, ...Object.keys(brief.pre?.recent_pain || {}).filter(j => !cleared.has(j))]);
   const low = ck.readiness === "low" || ck.sick; const t = ck.time_min;
   if (ck.sick || (low && P.size)) { plan.why.push("No crossfit today: " + (ck.sick ? "you're unwell." : "tired and something hurts.")); return { format: "skip", items: [] }; }
   const dose = crossfitDose(ctx); const factor = (dose.scale || 1) / (cf.dose.scale || 1);
-  const known = ["have", "seen", "likely"];
-  const eqStatus = e => e.equipment ? String(e.equipment).split(":").pop().trim() : "have";
-  const ok = e => { const c = exC(e.id); return c && !(c.avoid_if || []).some(j => sore.has(j)) && !(sore.has("lower_back") && (e.back || c.back) === "caution"); };
+  if (cf.dose.why) plan.why.push(/меньше/.test(cf.dose.why) ? "Crossfit reps a bit lower: the last combo ran over its cap." : "Crossfit reps a bit higher: the last combo finished well under its cap.");
+  const ok = e => { const c = exC(e.id); return c && !(c.avoid_if || []).some(j => sore.has(j)) && !(sore.has("lower_back") && (e.back || c.back) === "caution") && !(c.pattern || []).includes("hinge"); };
   const raw = cf.pool.filter(ok); const byId = Object.fromEntries(raw.map(e => [e.id, e]));
-  const pool = [...new Map(raw.map(e => known.includes(eqStatus(e)) ? e : (e.fallback && byId[e.fallback] && known.includes(eqStatus(byId[e.fallback])) ? byId[e.fallback] : null))
+  // kit he said is missing → its fallback; kit nobody confirmed stays, with the fallback named on the item (methodology.md)
+  const pool = [...new Map(raw.map(e => kitStatus(e) !== "missing" ? e : (e.fallback && byId[e.fallback] && kitStatus(byId[e.fallback]) !== "missing" ? byId[e.fallback] : null))
     .filter(Boolean).map(e => [e.id, e])).values()];
   const order = Object.keys(idx().c);
   const ids = r => (r.items || []).map(s => String(s).split(" ")[0]);
@@ -545,7 +562,7 @@ function buildCrossfitV2(ctx, plan) {
   const lastDone = Object.values(S.workouts).filter(w => w.status === "done").sort((a, b) => a.date < b.date ? 1 : -1)[0];
   const skipDayMove = lastDone && lastDone.day === day && Object.values(lastDone.feedback?.items || {}).some(x => x.rating === "hard");
   if (!skipDayMove) take(byScore(pool.filter(e => e.day_muscles && !picked.includes(e) && e.kind !== "cardio"))[0]);
-  const need = (low || (t && t <= 45) || dose.known_only) ? 3 : 4;
+  const need = dose.movements || ((low || (t && t <= 45) || dose.known_only) ? 3 : 4);
   for (const e of byScore(pool.filter(e => !e.day_muscles && e.kind !== "cardio"))) {
     if (picked.length >= need) break;
     if (picked.includes(e) || ((e.back || exC(e.id)?.back) === "caution" && caution >= 2)) continue;
@@ -567,6 +584,7 @@ function buildCrossfitV2(ctx, plan) {
     if (e.secs != null) it.secs = Math.max(10, Math.round(e.secs * factor)); else it.reps = Math.max(5, Math.round((e.reps ?? c.reps ?? 10) * factor));
     if (e.unit || c.unit) it.unit = e.unit || c.unit;
     const kg = e.kg ?? c.load_kg; if (kg != null) { it.kg = c.max_kg != null ? Math.min(kg, c.max_kg) : kg; it.lb = crossLoad(c, it.kg); }
+    if (e.fallback && !["have", "seen"].includes(kitStatus(e))) it.fallback = e.fallback;
     return it;
   });
   return { format: dose.format || "rounds", rounds: dose.rounds, cap_min: dose.cap_min, items };
