@@ -96,6 +96,37 @@ def _section(category):
     return n if n in NON_STRENGTH else "strength"
 
 
+# Summary rows of sections I and III: payload key -> row name (column B). Each
+# is one merged cell per date block, written in the block's first column.
+SUMMARY = {"warmup": ("Warm-up", {"combination": "Combination (warm-up)"}),
+           "crossfit": ("Crossfit", {"combination": "Combination (crossfit)",
+                                     "rounds": "Rounds", "cap": "Time cap / plan",
+                                     "finish": "Finish time"})}
+
+
+def _cell_value(v):
+    """Value for a USER_ENTERED write. Values are written as typed, so text that
+    starts like a number ("8-10", "10/10", '40"', "21-15-9") would turn into a
+    date or a number: it gets a leading apostrophe. Plain numbers pass through."""
+    if v is None:
+        return ""
+    if isinstance(v, (int, float)) or not isinstance(v, str):
+        return v
+    s = v.strip()
+    if not s or s.startswith("'") or re.fullmatch(r"-?\d+(\.\d+)?", s):
+        return s
+    return "'" + s if s[0].isdigit() or s[0] in "+-=" else s
+
+
+def _finish_value(v):
+    """Crossfit finish time: "11:53" or the notebook's 11'53" -> a day fraction,
+    shown as 11:53 by the row's [m]:ss format; anything else stays text."""
+    m = re.fullmatch(r"\s*(\d{1,3})\s*[:'′]\s*(\d{1,2})\s*(\"|″|'')?\s*", str(v))
+    if m:
+        return round((int(m.group(1)) * 60 + int(m.group(2))) / 86400, 12)
+    return v
+
+
 def _col_letter(idx):
     out = ""
     idx += 1
@@ -559,21 +590,41 @@ def cmd_log():
         _die(f"date {date!r} must be M/D/YYYY")
     entries = payload.get("entries") or []
     for e in entries:
-        for k in ("category", "exercise", "sets", "reps", "w_start", "w_end"):
+        # strength rows need the full set; warm-up / crossfit cells may be
+        # blank (bodyweight, no round count on the page)
+        need = ("category", "exercise")
+        if _section(e.get("category")) == "strength":
+            need += ("sets", "reps", "w_start", "w_end")
+        for k in need:
             if e.get(k) in (None, ""):
                 _die(f"entry {e.get('exercise', '?')!r}: field {k!r} missing")
+    for key, (_cat, fields) in SUMMARY.items():
+        extra = set(payload.get(key) or {}) - set(fields)
+        if extra:
+            _die(f"`{key}`: unknown field(s) {sorted(extra)}; allowed {sorted(fields)}")
 
     svc = _service()
     m = Model(svc)
     col = m.ensure_block(date)
     if payload.get("my_weight") is not None:
         m._write(2, col, payload["my_weight"])
-    rows = {}
+    planned = []                       # (label, write) — rows are final only at the end
     for e in entries:
         r = m.ensure_exercise(e["category"], e["exercise"])
-        m._write(r, col, [e["sets"], e["reps"], e["w_start"], e["w_end"]])
-        rows[e["exercise"]] = r + 1
+        w = m._write(r, col, [e.get("sets"), e.get("reps"), e.get("w_start"), e.get("w_end")])
+        label = e["exercise"] if _section(e["category"]) == "strength" \
+            else f"{e['category']}: {e['exercise']}"
+        planned.append((label, w))
+    for key, (cat, fields) in SUMMARY.items():
+        given = payload.get(key) or {}
+        for field, row_name in fields.items():
+            if given.get(field) in (None, ""):
+                continue
+            v = _finish_value(given[field]) if field == "finish" else given[field]
+            r = m.ensure_exercise(cat, row_name)
+            planned.append((f"{cat}: {row_name}", m._write(r, col, v)))
     m.flush()
+    rows = {label: w["r"] + 1 for label, w in planned}
     print(json.dumps({"ok": True, "date": date, "rows": rows,
                       "created": m.created}, ensure_ascii=False))
 
