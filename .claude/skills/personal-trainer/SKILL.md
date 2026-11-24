@@ -65,6 +65,12 @@ with `--save`, and send only the changed table.
    lb»); nothing changes → one line «Записал».
 3. A notebook photo of the session goes to gym-log as usual; its numbers win.
 
+## Mode 4 — Sync the phone app
+
+On "синхронизируй приложение / треню из приложения": follow
+`automations/personal-trainer/app/README.md`, section "Skill side". That
+file owns the steps and any hold on pushing data to the app.
+
 ## Machines the gym has or lacks
 
 Whenever he says a machine is there or not (any mode):
