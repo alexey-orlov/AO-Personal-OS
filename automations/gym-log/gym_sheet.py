@@ -28,13 +28,20 @@ Commands (JSON out on stdout):
                      "entries": [{"category": "Back",
                                   "exercise": "Верт. тяга",
                                   "sets": 3, "reps": 10,
-                                  "w_start": 52, "w_end": 62}, ...]}
+                                  "w_start": 52, "w_end": 62},
+                                 {"category": "Crossfit",   # warm-up / crossfit:
+                                  "exercise": "Pull-ups",   # blanks allowed
+                                  "reps": 10}, ...],
+                     "warmup":   {"combination": "..."},           # optional
+                     "crossfit": {"combination": "...", "rounds": 3,
+                                  "cap": "10'", "finish": "11:53"}} # optional
 
 `log` is an upsert: an existing date block / exercise row is reused, cells
 are overwritten; missing block/row/category is created (block appended at
-the right edge, exercise row at the end of its category group, category at
-the bottom). Formats are cloned from the neighbouring block / row above, so
-the template styling propagates without hand-tuning.
+the right edge, exercise row at the end of its category group, a new
+strength category above the warm-up rows). Formats are cloned from the
+neighbouring block / row above, so the template styling propagates without
+hand-tuning.
 
 Exercise matching here is EXACT (normalized: casefold, collapsed spaces,
 stripped trailing dots). Fuzzy "Жим лёжа" vs "Жим лежа руками" matching is

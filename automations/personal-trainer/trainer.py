@@ -52,7 +52,7 @@ PLANS_D = os.environ.get("TRAINER_PLANS") or os.path.join(REPO, "outputs", "pers
 KG_LB = 2.20462
 DAYS = ("legs", "push", "pull")
 ROLE_RANK = {"main": 0, "secondary": 1, "isolation": 2, "shoulder": 3}
-RATINGS = ("easy", "ok", "hard", "fail", "pain")
+RATINGS = ("easy", "ok", "hard", "fail", "pain", "skipped")
 CROSS_META = {"combination (crossfit)": "summary", "rounds": "rounds",
               "time cap / plan": "cap", "finish time": "finish"}
 
