@@ -99,6 +99,14 @@ Rules the app keeps, so the engine can trust the data:
 
 ## Skill side: "sync the app" (to fold into the skill as its own mode)
 
+> **Hold (2026-11-23):** don't run step 2 (push) until the app reads the
+> brief shape of 2026-11-23 (compact brief with `ask`, `trim`,
+> `warmup.suggested`, `crossfit.dose` / `crossfit.pool`, flat
+> `strength.pool` items, `probe` / `hint_lb` / `step_lb` / `if_missing` /
+> `replaces`). The published app still reads the earlier shape and breaks
+> on a push. Steps 1, 3 and 4 are safe. Remove this note when the app is
+> updated.
+
 1. **Pull finished sessions.** `ArtifactData query` on `workouts` with
    `where status == done`, saving to a scratch dir (`out_dir`). For each one
    without `sync.feedback_recorded_at`:
