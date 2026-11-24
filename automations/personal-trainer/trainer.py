@@ -1022,6 +1022,15 @@ def est_seconds(st, cf):
     return int(total)
 
 
+def session_minutes(st, plan):
+    """Rough length: 2.5′ per warm-up movement, 6′ per strength exercise (4.5′
+    inside a superset), the crossfit estimate, 5′ moving between stations."""
+    items = plan.get("strength", [])
+    s = sum(4.5 if (it.get("superset_next") or (k and items[k - 1].get("superset_next"))) else 6
+            for k, it in enumerate(items))
+    return round(2.5 * len(plan.get("warmup", [])) + s + est_seconds(st, plan.get("crossfit") or {}) / 60 + 5)
+
+
 # ---------------------------------------------------------------- brief
 def cmd_brief(a):
     today = parse_date(a.today) if a.today else date.today()
@@ -1115,8 +1124,9 @@ def dose_txt(it, base):
     return f"{sets}×{it.get('reps', base.get('reps'))}"
 
 
-def render_plan(plan, fmt="md"):
-    """The trainer's three-part page as three narrow tables (phone first)."""
+def render_plan(plan, fmt="md", only=None):
+    """The trainer's three-part page as three narrow tables (phone first).
+    `only` = warmup | strength | crossfit renders that table alone (Mode 2)."""
     d = parse_date(plan["date"]) or date.today()
     st = State(d, use_plans=False)
     gym = st.gym
@@ -1148,12 +1158,14 @@ def render_plan(plan, fmt="md"):
         return ["• " + " — ".join(f"{c}{(' ' + l) if l and c not in ('—', '') else ''}" for c, l in zip(r, lab)
                                   if str(c) not in ("", "—")) for r in rows]
 
-    lines = [bold(f"{d:%d.%m} · {day['ru']} / {day['en']}")]
+    lines = [bold(f"{d:%d.%m} · {day['ru']} / {day['en']} · ≈{session_minutes(st, plan)}′")]
     if plan.get("note"):
         lines.append(ital(plan["note"]))
+    if only:
+        lines = []
 
     rows = []
-    for w in plan.get("warmup", []):
+    for w in plan.get("warmup", []) if only in (None, "warmup") else []:
         base = st.cat.warm.get(w["id"]) or {"ru": w.get("ru", w["id"]), "en": w.get("en", ""), "sets": 2, "family": "?"}
         ru, en, load, kg = base["ru"], Catalog.name(base), base.get("load"), w.get("kg")
         if base.get("loaded_level") and kg:
@@ -1165,10 +1177,11 @@ def render_plan(plan, fmt="md"):
             kt, lt = implement(kg, load, gym, cap_kg=10 if base.get("family") == "E" else None)
             ru = f"{ru} {kt} ({lt})"
         rows.append([nm(ru, en, w.get("cue")), dose_txt(w, base)])
-    lines += ["", bold("I. Разминка")] + table(["Упражнение", "×"], rows)
+    if rows:
+        lines += ["", bold("I. Разминка")] + table(["Упражнение", "×"], rows)
 
     rows, steps, probe = [], {}, False
-    items = plan.get("strength", [])
+    items = plan.get("strength", []) if only in (None, "strength") else []
     for k, it in enumerate(items):
         ex = st.cat.strength.get(it["id"]) or {"ru": it.get("ru", it["id"]), "en": it.get("en", ""), "load": "stack", "day": []}
         joined = k > 0 and items[k - 1].get("superset_next")
@@ -1180,7 +1193,9 @@ def render_plan(plan, fmt="md"):
             if ex.get("load") == "db_each":
                 kg_s, lb_s = f"2×{kg_s}", f"2×{lb_s}"
         else:
-            kg_s, lb_s = "—", (f"~{it['hint_lb']}" if it.get("hint_lb") else "подобрать")
+            hint = [int(x) for x in re.findall(r"\d+", it.get("hint_lb") or "")]
+            kg_s = ("~" + "–".join(str(round(x / KG_LB)) for x in hint)) if hint else "—"
+            lb_s = f"~{it['hint_lb']}" if it.get("hint_lb") else "подобрать"
         if it.get("action") in ("calibrate", "probe"):
             probe = True
             if it.get("step_lb"):
@@ -1188,24 +1203,28 @@ def render_plan(plan, fmt="md"):
         reps = f"{it.get('sets', 3)}×{it.get('reps', '10')}"
         if ex.get("per_side"):
             reps += " на ногу" if "legs" in ex.get("day", []) else " на руку"
-        rows.append([("+ " if joined else "") + nm(ex["ru"], Catalog.name(ex), it.get("cue"),
+        smith = ex.get("unit_note_ru") if it.get("action") == "calibrate" else None
+        rows.append([("+ " if joined else "") + nm(ex["ru"], Catalog.name(ex), it.get("cue"), smith,
                                                    f"нет тренажёра → {it['if_missing']}" if it.get("if_missing") else None),
                      kg_s, lb_s, reps])
-    head = "II. Силовая" + (" · + суперсет" if any(i.get("superset_next") for i in items) else "")
-    lines += ["", bold(head)] + table(["Упражнение", "кг", "lb", "×"], rows, ["", "кг", "lb", ""])
+    if rows:
+        head = "II. Силовая" + (" · + суперсет" if any(i.get("superset_next") for i in items) else "")
+        lines += ["", bold(head)] + table(["Упражнение", "кг", "lb", "×"], rows, ["", "кг", "lb", ""])
     if probe:
         common = max(steps, key=lambda s: len(steps[s])) if steps else None
         extra = ", ".join(f"{'/'.join(n.split(' (')[0] for n in names)} ±{s}" for s, names in sorted(steps.items(), reverse=True)
                           if s != common)
         step_txt = f" Шаг ±{common} lb" + (f" ({extra})" if extra else "") + "." if common else ""
-        lines.append(ital("Новый тренажёр: 1-й подход — проба; 2-й легко → 3-й тяжелее, тяжело → легче." + step_txt))
+        lines.append(ital("1-й подход — проба: легко → +шаг, тяжело → −шаг." + step_txt))
     if notes:
         lines += [f"{SUP[i]} {n}" for i, n in enumerate(notes)]
         notes.clear()
 
-    cf = plan.get("crossfit") or {}
+    cf = (plan.get("crossfit") or {}) if only in (None, "crossfit") else {"format": "none"}
     kind = cf.get("format", "rounds")
-    if kind == "skip":
+    if kind == "none":
+        pass
+    elif kind == "skip":
         lines += ["", bold("III. Кроссфит — сегодня без него")]
     else:
         h = {"rounds": f"III. Кроссфит ×{cf.get('rounds', 3)}",
@@ -1223,7 +1242,9 @@ def render_plan(plan, fmt="md"):
                 kt, lt = implement(kg, base.get("load"), gym, base.get("max_kg"))
                 ru += f" {kt} ({lt})"
             if it.get("fallback") and it["fallback"] in st.cat.cross:
-                ru += f" (нет — {st.cat.cross[it['fallback']]['ru']})"
+                fbk = st.cat.cross[it["fallback"]]
+                ratio = (num(it.get("reps")) or base.get("reps") or 1) / (base.get("reps") or 1)
+                ru += f" (нет — {fbk['ru']} {nice((fbk.get('reps') or 10) * ratio)})"
             amount = it.get("reps", base.get("reps", ""))
             if it.get("secs") or (base.get("secs") and not it.get("reps")):
                 amount = f"{it.get('secs', base.get('secs'))}″"
@@ -1234,6 +1255,8 @@ def render_plan(plan, fmt="md"):
             lines += [f"{SUP[i]} {n}" for i, n in enumerate(notes)]
     if cf.get("note"):
         lines += ["", ital(cf["note"])]
+    if only:
+        return "\n".join(lines).strip()
     if plan.get("why"):
         lines += ["", ital("Почему: " + "; ".join(plan["why"]))]
     lines += ["", ("После: на каком весе остановился и где было легко / тяжело / больно?" if probe
@@ -1243,14 +1266,14 @@ def render_plan(plan, fmt="md"):
 
 def cmd_render(a):
     plan = load_json(a.plan)
-    text = render_plan(plan, a.fmt)
+    text = render_plan(plan, a.fmt, a.only)
     print(text)
     if a.save:
         path = os.path.join(PLANS_D, f"{parse_date(plan['date']).isoformat()}.json")
         old = load_json(path, {}) if os.path.exists(path) else {}
         if old.get("feedback"):
             plan["feedback"] = old["feedback"]
-        plan["rendered"] = text
+        plan["rendered"] = render_plan(plan, a.fmt) if a.only else text
         save_json(path, plan)
 
 
@@ -1268,7 +1291,7 @@ def cmd_check(a):
         die("plan.date missing or not a date")
     pre = plan.get("pre") or {}
     st = State(d, plan.get("day"), pre.get("pain", []), pre.get("readiness", "normal"), pre.get("time_min"),
-               missing=pre.get("missing", []))
+               missing=pre.get("missing", []), cleared=pre.get("cleared", []))
     errors, warns = [], []
     day = plan.get("day")
     if day not in DAYS:
@@ -1373,7 +1396,9 @@ def cmd_check(a):
             custom_ok(it, "кроссфит")
             continue
         if base.get("status") == "retired":
-            errors.append(f"кроссфит: {base['ru']} — снято")
+            errors.append(f"кроссфит: {base['ru']} — снято ({base.get('note_ru', '')})")
+        if "hinge" in base.get("pattern", []):
+            errors.append(f"кроссфит: {base['ru']} — наклон с весом, для поясницы не даём")
         if set(base.get("pattern", [])) & prim:
             overlap.append(base["ru"])
         if base.get("back") == "caution":
@@ -1387,7 +1412,7 @@ def cmd_check(a):
             errors.append(f"кроссфит: {base['ru']} {kg} кг — потолок {base['max_kg']} кг")
         if usage.get(it["id"], 0) == 0:
             warns.append(f"кроссфит: {base['ru']} — у тренера не было ни разу")
-        if len(rec) >= 2 and all(it["id"] in r["items"] for r in rec[-2:]):
+        if not dose["known_only"] and len(rec) >= 2 and all(it["id"] in r["items"] for r in rec[-2:]):
             warns.append(f"кроссфит: {base['ru']} было в двух последних комбо подряд")
     if len(overlap) >= 3:
         errors.append(f"кроссфит: {len(overlap)} движения добивают мышцы дня ({', '.join(overlap)}) — не больше 2, лучше 1")
@@ -1402,11 +1427,38 @@ def cmd_check(a):
     est, cap = est_seconds(st, cf), cf.get("cap_min")
     if cap and est > cap * 60 * 1.15:
         warns.append(f"кроссфит: по прикидке ≈{round(est / 60)}′ при cap {cap}′ — убавь повторы или раунды")
-    dose = crossfit_dose(st)
     if cf.get("format") == "rounds" and cf.get("rounds", 3) > dose["rounds"]:
         warns.append(f"кроссфит: {cf.get('rounds')} раундов, движок даёт {dose['rounds']} (пауза/самочувствие/время)")
+    if day in DAYS:   # the same exercises three sessions running: the trainer rotated a slot
+        t_date, t_ids = template_for(st, day)
+        streak = 0
+        for s in reversed(st.sessions):
+            if st.session_day(s) != day or not s["strength"]:
+                continue
+            if {st.cat.s_row.get(norm(i["name"])) for i in s["strength"]} - {None} == set(t_ids):
+                streak += 1
+            else:
+                break
+        if streak >= 3 and {x["id"] for x in sl} == set(t_ids):
+            warns.append(f"силовая: тот же набор {streak} тренировки подряд — поменяй одно изолирующее из пула")
+    session = session_minutes(st, plan)
+    if st.time_min and session > st.time_min:
+        warns.append(f"вся тренировка ≈{session}′ при {st.time_min}′ — убери упражнение или раунд")
 
-    res = {"ok": not errors, "errors": errors, "warnings": warns}
+    # a warning justified in overrides (by item id, or by section: warmup / strength / crossfit) is accepted
+    sections = {"разминка": "warmup", "силовая": "strength", "кроссфит": "crossfit"}
+    accepted = []
+    for w in list(warns):
+        sec = sections.get(w.split(":")[0])
+        ids_hit = [k for k in overrides if k in (sec,) or any(k == i.get("id") and (i.get("ru", "") in w or
+                   st.cat.strength.get(k, st.cat.cross.get(k, st.cat.warm.get(k, {}))).get("ru", "@@") in w)
+                   for i in wu + sl + ci)]
+        if ids_hit:
+            warns.remove(w)
+            accepted.append(f"{w} — {overrides[ids_hit[0]]}")
+    res = {"ok": not errors, "errors": errors, "warnings": warns, "accepted": accepted,
+           "estimate": {"session_min": session, "crossfit_min": round(est_seconds(st, cf) / 60, 1),
+                        "cap_min": cf.get("cap_min")}}
     out(res)
     sys.exit(0 if not errors else 1)
 
@@ -1432,6 +1484,22 @@ def cmd_feedback(a):
     merged["recorded_at"] = datetime.now().isoformat(timespec="seconds")
     plan["feedback"] = merged
     save_json(path, plan)
+    g = load_json(GYM_F)
+    cfg = g["gyms"][g["current"]]
+    gym_updates = []
+    if cfg.get("since") and parse_date(cfg["since"]) <= d:   # he trained on it, so this gym has it
+        m = cfg.setdefault("machines", {})
+        for ex_id, it in merged["items"].items():
+            if ex_id in Catalog(load_json(CATALOG_F)).strength and it.get("rating") != "skipped" \
+                    and m.get(ex_id) in (None, "unknown", "unlikely", "likely"):
+                m[ex_id] = "have"
+                gym_updates.append(ex_id)
+        for ex_id in merged["actual"]:
+            if m.get(ex_id) in (None, "unknown", "unlikely", "likely") and ex_id not in gym_updates:
+                m[ex_id] = "have"
+                gym_updates.append(ex_id)
+        if gym_updates:
+            save_json(GYM_F, g)
     st = State(d + timedelta(days=1))
     nxt = {}
     for ex_id in list(merged["items"]) + list(merged["actual"]):
@@ -1441,7 +1509,7 @@ def cmd_feedback(a):
         s = suggest(st, ex)
         nxt[ex_id] = {k: v for k, v in {"ru": ex["ru"], "action": s.get("action"), "lb": s.get("lb") if st.units.lb else None,
                                          "kg": s.get("kg"), "why": s.get("why")}.items() if v is not None}
-    out({"ok": True, "saved": os.path.relpath(path, REPO), "next_time": nxt})
+    out({"ok": True, "saved": os.path.relpath(path, REPO), "next_time": nxt, "gym_now_have": gym_updates})
 
 
 def cmd_gym(a):
@@ -1628,10 +1696,12 @@ def main():
     b.add_argument("--readiness", default="normal", choices=("low", "normal", "high"))
     b.add_argument("--time", type=int)
     b.add_argument("--missing", default="")
+    b.add_argument("--ok", default="", help="joints that hurt recently and are fine today")
     r = sub.add_parser("render")
     r.add_argument("plan")
     r.add_argument("--fmt", default="md", choices=("md", "text"))
     r.add_argument("--save", action="store_true")
+    r.add_argument("--only", choices=("warmup", "strength", "crossfit"))
     c = sub.add_parser("check")
     c.add_argument("plan")
     f = sub.add_parser("feedback")
