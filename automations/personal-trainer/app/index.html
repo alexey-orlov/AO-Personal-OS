@@ -376,7 +376,9 @@ function toPlanItem(s) {
   return it;
 }
 function hitsPain(ex, P) { return (ex?.joints || []).some(j => P.has(j)); }
-function pickSwap(ctx, forId, P, used, preferAlt) {
+function pickSwap(ctx, forId, P, used, preferAlt) { return swapCandidates(ctx, forId, P, used, preferAlt)[0] || null; }
+/** Ranked replacements for an exercise, best first, as engine suggestions (weights included). */
+function swapCandidates(ctx, forId, P, used, preferAlt) {
   const ex = exS(forId); const pool = ctx.brief.strength?.pool || [];
   const g = gymCfg(); const roleOk = r => r === ex?.role || (["isolation", "shoulder"].includes(ex?.role) && ["isolation", "shoulder"].includes(r));
   const rank = { active: 0, rare: 1, alt: 2 };
@@ -388,7 +390,7 @@ function pickSwap(ctx, forId, P, used, preferAlt) {
   const cands = pool.filter(p => poolSuggestion(p) && status(p) !== "retired" && !used.has(p.id) && roleOk(role(p)) && !hitsPain(exS(p.id), P) && g.machines?.[p.id] !== "missing" && !(g.substitutions?.[p.id])
       && !twin(p.id) && !(shoulderTaken && role(p) === "shoulder"))
     .sort((a, b) => (preferAlt ? (isAlt(a.id, forId) ? 0 : 1) - (isAlt(b.id, forId) ? 0 : 1) : 0) || (role(a) === ex?.role ? 0 : 1) - (role(b) === ex?.role ? 0 : 1) || (rank[status(a)] ?? 3) - (rank[status(b)] ?? 3) || (b.uses || 0) - (a.uses || 0));
-  return cands[0] ? poolSuggestion(cands[0]) : null;
+  return cands.map(poolSuggestion).filter(Boolean);
 }
 function buildStrength(ctx, plan) {
   const { brief, ck } = ctx; const P = new Set(ck.pain || []);
@@ -762,7 +764,8 @@ function applyPain(w, spots, sharp) {
   w.plan.strength = w.plan.strength.flatMap(it => {
     if (!rem.has(it.id) || !hitsPain(exS(it.id), P)) return [it];
     const r = sharp ? null : pickSwap(ctx, it.id, P, used);
-    if (r) { used.add(r.id); w.plan.overrides[r.id] = `instead of ${enName(it.id)}: ${joints.map(j => JOINT_EN[j]).join(", ")} hurts`; changed.push(`${enName(it.id)} → ${enName(r.id)}`); return [toPlanItem(r)]; }
+    if (r) { used.add(r.id); w.plan.overrides[r.id] = `instead of ${enName(it.id)}: ${joints.map(j => JOINT_EN[j]).join(", ")} hurts`; changed.push(`${enName(it.id)} → ${enName(r.id)}`);
+      const ni = toPlanItem(r); ni.swapped_from = it.swapped_from || { id: it.id, item: it }; return [ni]; }
     w.feedback.items[it.id] = { rating: "skipped", note: `skipped: ${joints.map(j => JOINT_EN[j]).join(", ")} pain` }; changed.push(`${enName(it.id)} skipped`); return [it];
   });
   markSupersets(w.plan.strength);
@@ -801,18 +804,30 @@ function applyTime(w, min) {
   w.changes.push({ at: nowISO(), kind: "time", summary: `${min} min left: ${changed.join("; ") || "plan already fits"}`, ids: [] });
   return changed;
 }
-function swapExercise(w, id, kind) {
+function restoreOriginal(w, id) {
+  const i = w.plan.strength.findIndex(x => x.id === id); const o = w.plan.strength[i]?.swapped_from; if (!o) return null;
+  w.plan.strength[i] = clone(o.item); markSupersets(w.plan.strength);
+  if (!w.log.strength[id]?.sets?.some(s => s.done)) delete w.log.strength[id];
+  delete w.plan.overrides[id]; if (w.machine_missing) delete w.machine_missing[o.id];
+  w.changes.push({ at: nowISO(), kind: "swap", summary: `${enName(id)} → back to ${enName(o.id)}`, ids: [id, o.id] });
+  return `Back to ${enName(o.id)}`;
+}
+function swapExercise(w, id, kind, chosenId) {
   const ctx = ctxForWorkout(w); const used = new Set(w.plan.strength.map(i => i.id)); const P = new Set(w.checkin.pain || []);
   if (kind === "busy-later") {
     const i = w.plan.strength.findIndex(x => x.id === id); const [it] = w.plan.strength.splice(i, 1); w.plan.strength.push(it); markSupersets(w.plan.strength);
     w.changes.push({ at: nowISO(), kind: "busy", summary: `${enName(id)} moved to the end (machine busy)`, ids: [id] }); return `${enName(id)} moved to the end`;
   }
-  const r = pickSwap(ctx, id, P, used, kind === "busy" || kind === "missing");
+  const cands = swapCandidates(ctx, id, P, used, kind === "busy" || kind === "missing");
+  const r = chosenId ? cands.find(c => c.id === chosenId) : cands[0];
   if (!r) return null;
   const i = w.plan.strength.findIndex(x => x.id === id);
-  w.plan.strength[i] = toPlanItem(r); markSupersets(w.plan.strength);
-  delete w.log.strength[id];
-  w.plan.overrides[r.id] = `instead of ${enName(id)}: ${kind === "missing" ? "the gym doesn't have it" : kind === "busy" ? "machine busy" : "swap"}`;
+  const old = w.plan.strength[i]; const origin = old.swapped_from || { id: old.id, item: old };
+  const ni = toPlanItem(r); if (origin.id !== r.id) ni.swapped_from = origin; // "Back to <original>" stays one tap away
+  w.plan.strength[i] = ni; markSupersets(w.plan.strength);
+  if (!w.log.strength[id]?.sets?.some(s => s.done)) delete w.log.strength[id]; // logged sets are progress: never dropped
+  delete w.plan.overrides[id];
+  w.plan.overrides[r.id] = `instead of ${enName(origin.id)}: ${kind === "missing" ? "the gym doesn't have it" : kind === "busy" ? "machine busy" : "swap"}`;
   if (kind === "missing" || kind === "busy") w.machine_missing[id] = { kind, replaced_by: r.id, machine: exS(id)?.en || id };
   w.changes.push({ at: nowISO(), kind: kind === "swap" ? "swap" : kind, summary: `${enName(id)} → ${enName(r.id)}`, ids: [id, r.id] });
   return `${enName(id)} → ${enName(r.id)}`;
@@ -1157,11 +1172,25 @@ function sheetBody(s, w) {
       (ex.alt_us || []).length ? el("p", { class: "small muted", text: "Same movement on: " + ex.alt_us.join(", ") }) : null,
       pi?.if_missing ? el("p", { class: "small muted", text: "If the gym doesn't have it, the trainer's swap: " + pi.if_missing }) : null,
       el("div", { class: "list" },
+        pi?.swapped_from ? el("button", { class: "opt", type: "button", on: { click: () => doResult([restoreOriginal(w, s.id)], w) } }, el("b", { text: `Back to ${enName(pi.swapped_from.id)}` }), el("span", { class: "small muted", text: "Undo the swap: the original exercise with its planned weights" })) : null,
         el("button", { class: "opt", type: "button", on: { click: () => { const r = swapExercise(w, s.id, "busy-later"); doResult([r], w); } } }, el("b", { text: "Machine busy: do it later" }), el("span", { class: "small muted", text: "Moves it to the end of the strength part" })),
-        el("button", { class: "opt", type: "button", on: { click: () => { const r = swapExercise(w, s.id, "busy"); r ? doResult([r], w) : toast("No safe swap for this one today."); } } }, el("b", { text: "Machine busy: swap it" }), el("span", { class: "small muted", text: "Another exercise for the same slot, the trainer's weights" })),
-        el("button", { class: "opt", type: "button", on: { click: () => { const r = swapExercise(w, s.id, "missing"); r ? doResult([r], w) : toast("No safe swap for this one today."); } } }, el("b", { text: "This gym doesn't have it" }), el("span", { class: "small muted", text: "Swaps it and tells the trainer at the next sync" })),
+        el("button", { class: "opt", type: "button", on: { click: () => openSheet({ kind: "swapPick", id: s.id, reason: "busy" }) } }, el("b", { text: "Machine busy: swap it" }), el("span", { class: "small muted", text: "Pick another exercise for the same slot, with the trainer's weights" })),
+        el("button", { class: "opt", type: "button", on: { click: () => openSheet({ kind: "swapPick", id: s.id, reason: "missing" }) } }, el("b", { text: "This gym doesn't have it" }), el("span", { class: "small muted", text: "Pick a swap; the trainer learns at the next sync" })),
         (ex.alt_us || []).length ? el("button", { class: "opt", type: "button", on: { click: () => { slog(w, s.id).machine = ex.alt_us[0]; w.changes.push({ at: nowISO(), kind: "swap", summary: `${ex.en_short} on ${ex.alt_us[0]}`, ids: [s.id] }); saveWorkout(w); closeSheet(); render(); } } }, el("b", { text: `Doing it on ${ex.alt_us[0]}` }), el("span", { class: "small muted", text: "Same exercise, different machine: logged with the sets" })) : null,
         el("button", { class: "opt", type: "button", on: { click: () => { w.feedback.items[s.id] = { rating: "skipped", note: "" }; w.changes.push({ at: nowISO(), kind: "skip", summary: `${ex.en_short} skipped`, ids: [s.id] }); saveWorkout(w); closeSheet(); render(); } } }, el("b", { text: "Skip it" }), el("span", { class: "small muted", text: "Recorded as skipped: no change to next time's weight" }))), close];
+  }
+  if (s.kind === "swapPick" && w) {
+    const pi = w.plan.strength.find(x => x.id === s.id);
+    const used = new Set(w.plan.strength.map(i => i.id));
+    const cands = swapCandidates(ctxForWorkout(w), s.id, new Set(w.checkin.pain || []), used, true).slice(0, 5);
+    const wt = c => c.lb?.length ? `${[...new Set(c.lb)].join("–")} lb` : c.hint_lb ? `find the weight (usually ${c.hint_lb} lb)` : "pick a weight";
+    return [el("h2", { text: `Swap ${enName(s.id)} for…` }),
+      el("div", { class: "list" },
+        pi?.swapped_from ? el("button", { class: "opt", type: "button", on: { click: () => doResult([restoreOriginal(w, s.id)], w) } }, el("b", { text: `Back to ${enName(pi.swapped_from.id)}` }), el("span", { class: "small muted", text: "The original exercise" })) : null,
+        ...cands.map(c => el("button", { class: "opt", type: "button", on: { click: () => doResult([swapExercise(w, s.id, s.reason, c.id)], w) } },
+          el("b", { text: enName(c.id) }), el("span", { class: "ru", text: ruName(c.id) }), el("span", { class: "small muted", text: wt(c) }))),
+        cands.length || pi?.swapped_from ? null : el("p", { class: "muted small", text: "No safe swap for this one today: skip it or do it later." })),
+      el("button", { class: "btn block", type: "button", on: { click: () => openSheet({ kind: "ex", id: s.id }) } }, "Back")];
   }
   if (s.kind === "painRate" && w) {
     s.spots ||= [];
