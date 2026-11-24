@@ -11,6 +11,10 @@ Layout contract (tab GYM_TAB, default "Sheet1"):
          first row of each category group (merged down when >1 row);
          column B the canonical exercise name. Same exercise = same row
          across all date blocks — that is the whole point of the sheet.
+  Below the strength categories: "Warm-up" (notebook section I) and
+         "Crossfit" (section III, with summary rows Combination / Rounds /
+         Time cap / Finish time merged across each block). Same blocks,
+         not strength work: see NON_STRENGTH.
 
 Commands (JSON out on stdout):
   auth              interactive OAuth consent (opens browser once)
@@ -363,16 +367,26 @@ class Model:
         return col
 
     def ensure_exercise(self, category, exercise):
-        r = self.exercise_row(exercise)
+        r = self.exercise_row(exercise, _section(category))
         if r is not None:
             return r
         cats = self.categories()
         cat = next((c for c in cats if _norm(c["name"]) == _norm(category)), None)
         last = self.last_data_row()
         if cat is None:
-            r = last + 1
-            if r > FIRST_DATA_ROW:  # clone row format from the row above
-                self._copy_fmt(r - 1, r, 0, self.n_cols, r, r + 1, 0, self.n_cols)
+            first_other = next((c for c in cats if _section(c["name"]) != "strength"), None)
+            if _section(category) == "strength" and first_other is not None:
+                # a new strength category goes above the warm-up / crossfit rows
+                r = first_other["start"]
+                self.requests.append({"insertDimension": {
+                    "range": {"sheetId": self.sheet_id, "dimension": "ROWS",
+                              "startIndex": r, "endIndex": r + 1},
+                    "inheritFromBefore": True}})
+                self._insert_local_row(r)
+            else:
+                r = last + 1
+                if r > FIRST_DATA_ROW:  # clone row format from the row above
+                    self._copy_fmt(r - 1, r, 0, self.n_cols, r, r + 1, 0, self.n_cols)
             self._write(r, 0, category)
             self._write(r, 1, exercise)
             self.created["categories"].append(category)
@@ -430,7 +444,7 @@ def cmd_dump():
                 if sets:
                     entries[b["date"]] = [m._cell(r, b["col"] + i) for i in range(BLOCK_W)]
             exercises.append({"row": r + 1, "name": name, "entries": entries})
-        cats.append({"name": c["name"], "exercises": exercises})
+        cats.append({"name": c["name"], "section": _section(c["name"]), "exercises": exercises})
     weights = {b["date"]: m._cell(2, b["col"]) for b in blocks if m._cell(2, b["col"])}
     print(json.dumps({"ok": True, "sheet": SHEET_ID, "tab": TAB,
                       "dates": [b["date"] for b in blocks],
@@ -488,6 +502,8 @@ def cmd_progress():
 
     exercises = []
     for c in m.categories():
+        if _section(c["name"]) != "strength":
+            continue                      # warm-up / crossfit rows: no kg deltas
         for r in range(c["start"], c["end"] + 1):
             today = block_entry(r, cur)
             if today is None:
