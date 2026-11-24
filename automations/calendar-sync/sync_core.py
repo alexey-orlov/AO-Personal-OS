@@ -314,18 +314,22 @@ def reconcile(inp):
     offset_min = owa_offset_minutes(_naive(inp["owa_now_wall"]), now_utc) if inp.get("owa_now_wall") else 0
     win_start, win_end = week_window(now_utc, cfg["days_ahead"], cfg["tz"])
 
-    # Existing copies we own: union of the ledger and any marker-tagged Google events.
+    # Existing copies we own: union of the ledger and any marker-tagged Google events. When
+    # Google lists more than one copy for a key, the one the ledger points at is kept (else the
+    # first listed); the deletion pass prunes the others as duplicates.
     existing = {}  # source_key -> {google_event_id, content_hash, start_kiev}
     for k, v in (inp.get("ledger") or {}).items():
         existing[k] = dict(v)
+    live = {}      # source_key -> [copy, ...] as listed in Google
     for c in inp.get("google_copies") or []:
-        k = c.get("source_key")
-        if k:
-            existing.setdefault(k, {}).update(
-                {"google_event_id": c.get("google_event_id"),
-                 "content_hash": c.get("content_hash", existing.get(k, {}).get("content_hash")),
-                 "start_kiev": c.get("start_kiev", existing.get(k, {}).get("start_kiev"))}
-            )
+        if c.get("source_key"):
+            live.setdefault(c["source_key"], []).append(c)
+    for k, cs in live.items():
+        cur = existing.setdefault(k, {})
+        c = next((x for x in cs if x.get("google_event_id") == cur.get("google_event_id")), cs[0])
+        cur.update({"google_event_id": c.get("google_event_id"),
+                    "content_hash": c.get("content_hash", cur.get("content_hash")),
+                    "start_kiev": c.get("start_kiev", cur.get("start_kiev"))})
 
     natives = inp.get("google_native") or []
     creates, updates, skips = [], [], []
@@ -362,10 +366,11 @@ def reconcile(inp):
             creates.append({**rec, "payload": payload})
 
     # Deletions: every copy we own — from the ledger AND the live Google read, deduped by
-    # event id — whose source occurrence vanished (cancelled, removed, moved out of window)
-    # or is a stale duplicate left by the old shared-key scheme. Deduping by event id (not by
-    # source_key) is what lets us prune BOTH copies when two collided on one legacy key.
-    # Guard: never prune on an incomplete read.
+    # event id — whose source occurrence vanished (cancelled, removed, moved out of window),
+    # is a stale duplicate left by the old shared-key scheme, or is a second live copy of a
+    # current occurrence (reason "duplicate": the occurrence keeps the copy `existing` holds).
+    # Deduping by event id (not by source_key) is what lets us prune BOTH copies when two
+    # collided on one legacy key. Guard: never prune on an incomplete read.
     deletes = []
     if inp.get("source_complete", True):
         owned = {}   # google_event_id -> (source_key, start_kiev)
@@ -379,15 +384,20 @@ def reconcile(inp):
                 owned.setdefault(gid, (c.get("source_key"), c.get("start_kiev")))
         updated_gids = {u["google_event_id"] for u in updates if u.get("google_event_id")}
         for gid, (key, sk) in owned.items():
-            if key in seen or gid in updated_gids:
-                continue   # a current source occurrence still maps to this copy -> keep
+            if gid in updated_gids:
+                continue
+            if key in seen:
+                if gid == (existing.get(key) or {}).get("google_event_id"):
+                    continue   # the copy a current source occurrence maps to -> keep
+                reason = "duplicate"
+            else:
+                reason = "gone-or-cancelled"
             try:
                 future = sk is None or _utc(sk) >= win_start.astimezone(timezone.utc)
             except Exception:
                 future = True
             if future:
-                deletes.append({"source_key": key, "google_event_id": gid,
-                               "reason": "gone-or-cancelled"})
+                deletes.append({"source_key": key, "google_event_id": gid, "reason": reason})
 
     return {
         "owa_offset_minutes": offset_min,
@@ -464,13 +474,22 @@ def reverse_reconcile(inp):
     existing = {}   # key -> {ss_id, hash}
     for k, v in (inp.get("reverse_ledger") or {}).items():
         existing[k] = {"ss_id": v.get("ss_id"), "hash": v.get("hash")}
+    on_ss = {}      # key -> placeholders read back from SS (more than one = duplicates)
     for p in placeholders:
-        k = p.get("key")
-        if not k:
-            continue
-        existing.setdefault(k, {})
-        existing[k]["ss_id"] = existing[k].get("ss_id") or p.get("ss_id")
-        existing[k].setdefault("hash", _rev_hash(p.get("start"), p.get("end")))
+        if p.get("key") and p.get("ss_id"):
+            on_ss.setdefault(p["key"], []).append(p)
+    # A slot keeps the placeholder the ledger points at while SS still has it; otherwise the
+    # first one SS has (ledger lost, or its id vanished), and the ledger is re-pointed there.
+    relinks = {}    # key -> {ss_id, hash} for run.py to write into the reverse ledger
+    for k, ps in on_ss.items():
+        cur = existing.setdefault(k, {})
+        mine = next((p for p in ps if p["ss_id"] == cur.get("ss_id")), None)
+        if mine is None:
+            mine = ps[0]
+            cur["ss_id"], cur["hash"] = mine["ss_id"], _rev_hash(mine.get("start"), mine.get("end"))
+            relinks[k] = dict(cur)
+        elif not cur.get("hash"):
+            cur["hash"] = _rev_hash(mine.get("start"), mine.get("end"))
 
     seen, creates, updates, skips = set(), [], [], []
     for b in inp.get("busy_events") or []:
@@ -498,11 +517,18 @@ def reverse_reconcile(inp):
                 owned.setdefault(p["ss_id"], p.get("key"))
         upd_ids = {u["ss_id"] for u in updates}
         for ssid, key in owned.items():
-            if key in seen or ssid in upd_ids:
+            if ssid in upd_ids:
+                continue
+            if key in seen:
+                if ssid == (existing.get(key) or {}).get("ss_id"):
+                    continue    # the placeholder this busy slot keeps
+                # a second placeholder for a live slot: prune it, but keep the slot's ledger entry
+                deletes.append({"op": "delete", "ss_id": ssid, "key": key, "duplicate": True})
                 continue
             deletes.append({"op": "delete", "ss_id": ssid, "key": key})
 
     return {"creates": creates, "updates": updates, "deletes": deletes, "skips": skips,
+            "relinks": relinks,
             "counts": {"create": len(creates), "update": len(updates),
                        "delete": len(deletes), "skip": len(skips)}}
 
