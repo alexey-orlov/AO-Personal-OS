@@ -126,6 +126,10 @@ h2 { font-size: 22px; font-weight: 700; letter-spacing: .01em }
 .cf-item .dose { font: 700 22px/1 var(--f-display); font-variant-numeric: tabular-nums; text-align: right }
 .cf-item .dose small { display: block; font: 400 11px/1.2 var(--f-body); color: var(--ink-3) }
 .clock { font: 700 46px/1 var(--f-display); font-variant-numeric: tabular-nums; text-align: center; letter-spacing: .02em }
+.warn-t { color: var(--hard) }
+.sheet-st { display: flex; gap: 10px; align-items: flex-start }
+.sheet-st .dot { width: 10px; height: 10px; border-radius: 50%; margin-top: 6px; flex: none; background: var(--ink-3) }
+.sheet-st.ok .dot { background: var(--easy) } .sheet-st.bad .dot { background: var(--pain) } .sheet-st.busy .dot { background: var(--accent) }
 .kit { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin-top: 4px }
 .kit-q { display: inline-flex; gap: 6px }
 .kit-q .how { min-height: 34px }
@@ -275,22 +279,31 @@ function ruName(id) { const e = exS(id) || exW(id) || exC(id); return e ? e.ru :
 async function boot() {
   render();
   if (!window.claude?.use) { S.offline = true; S.err = "This page needs to be opened in Claude to load your plan."; return render(); }
-  const timer = setTimeout(() => { if (!S.ready) { S.err = "Your trainer data can't be reached yet. Check the connection; the page keeps trying."; render(); } }, 10000);
+  const seen = new Set(), got = new Set();
+  const core = ["config", "briefs", "workouts"];
+  // a weak connection: after 10 s, work from the copy the store kept on this device (the save line says when it is behind)
+  const timer = setTimeout(() => { if (S.ready) return; if (core.every(c => got.has(c))) { S.ready = true; S.err = null; restoreCurrent(); } else S.err = "Your trainer data can't be reached yet. Check the connection; the page keeps trying."; render(); }, 10000);
   S.db = await claude.use("db");
   if (!S.db) { clearTimeout(timer); S.offline = true; S.err = "Sign in as the notebook's owner to see your plan and log."; return render(); }
   claude.use("sample").then(f => { S.sample = f; render(); });
   claude.use("assets").then(a => { S.assets = a; });
-  const seen = new Set();
+  claude.use("mcp").then(m => { S.mcp = m; });
   const sub = (coll, onDocs) => S.db.collection(coll).onSnapshot(snap => {
     onDocs(snap);
-    if (!snap.metadata.fromCache) seen.add(coll);
+    got.add(coll); if (!snap.metadata.fromCache) seen.add(coll);
     // ready only once the workouts have arrived too, so a reload lands back on the session in progress
-    if (!S.ready && ["config", "briefs", "workouts"].every(c => seen.has(c))) { S.ready = true; S.err = null; clearTimeout(timer); restoreCurrent(); }
+    if (!S.ready && core.every(c => seen.has(c))) { S.ready = true; S.err = null; clearTimeout(timer); restoreCurrent(); }
+    if (seen.has("workouts") && pendingWrite.size) flushAll();
     scheduleRender();
   }, e => { S.err = `Data stopped loading (${e.code}). Reopen the page.`; render(); });
   sub("config", snap => { for (const d of snap.docs) S.cfg[d.id] = d.data(); IDX = null; });
   sub("briefs", snap => { for (const d of snap.docs) S.briefs[d.id] = d.data(); });
-  sub("workouts", snap => { const w = {}; for (const d of snap.docs) w[d.id] = clone(d.data()); for (const id in S.workouts) if (pendingWrite.has(id)) w[id] = S.workouts[id]; S.workouts = w; });
+  sub("workouts", snap => {
+    const w = {}; S.dbSync = {};
+    for (const d of snap.docs) { w[d.id] = clone(d.data()); S.dbSync[d.id] = w[d.id].sync || null; }
+    for (const id in S.workouts) if (pendingWrite.has(id) || writing.has(id)) { w[id] = S.workouts[id]; if (S.dbSync[id]) w[id].sync = Object.assign({}, w[id].sync, S.dbSync[id]); }
+    S.workouts = w;
+  });
   sub("media", snap => { for (const d of snap.docs) S.media[d.id] = d.data(); });
   sub("media_requests", snap => { S.requests = {}; for (const d of snap.docs) S.requests[d.id] = d.data(); });
 }
@@ -298,6 +311,7 @@ let rq = 0;
 // a frame that isn't painting (a hidden pane, a thumbnail) never runs rAF: fall back to a timer so data still reaches the screen
 function scheduleRender() { if (rq) return; const run = () => { if (!rq) return; cancelAnimationFrame(rq); rq = 0; render(); }; rq = requestAnimationFrame(run); setTimeout(run, 300); }
 function restoreCurrent() {
+  restoreDrafts();
   const id = lsGet("tn.cur");
   if (id && S.workouts[id] && S.workouts[id].status === "active") { S.cur = id; S.view = "workout"; }
   else { const a = Object.values(S.workouts).find(w => w.status === "active"); if (a) { S.cur = a.id; S.view = "workout"; } }
@@ -1152,6 +1166,7 @@ function workoutView(w) {
     el("div", { class: "row" }, el("div", { class: "grow" }, el("div", { class: "eyebrow", text: `${fmtDate(w.date)} · ${w.built_by === "claude" ? "composed by Claude" : w.built_by === "skill" ? "trainer's plan" : "standard plan"}` }),
       el("h1", { text: DAY_EN[w.day] }), el("div", { class: "ru", text: cat().day_types?.[w.day]?.ru || "" })),
       el("span", { class: "badge" + (active ? " ok" : ""), text: active ? "In progress" : w.status === "done" ? "Done" : "Not started" })),
+    el("div", { id: "saveState", class: "small " + (S.save === "offline" ? "warn-t" : "faint"), text: saveText() }),
     w.plan.note ? el("p", { class: "muted small", text: w.plan.note }) : null,
     ...(w.plan.why || []).map(t => el("div", { class: "faint small", text: "• " + t })),
     ...(w.notes || []).map(t => el("div", { class: "note info small", text: t })),
@@ -1445,9 +1460,9 @@ function sheetBody(s, w) {
     return [el("h2", { text: "Finish workout" }),
       unrated.length ? el("div", { class: "note warn small", text: `Not rated: ${unrated.map(it => enName(it.id)).join(", ")}. Unrated exercises send nothing to the trainer about difficulty; their logged sets still count.` }) : null,
       el("label", { class: "eyebrow", for: "overall", text: "Anything for the trainer?" }),
-      el("textarea", { id: "overall", placeholder: "e.g. hack squat machine is a Hoist, felt deeper than Kyiv", on: { input: e => { w.feedback.overall = e.target.value; } } }, w.feedback.overall || ""),
+      el("textarea", { id: "overall", placeholder: "e.g. hack squat machine is a Hoist, felt deeper than Kyiv", on: { input: e => { w.feedback.overall = e.target.value; saveWorkout(w); } } }, w.feedback.overall || ""),
       el("label", { class: "eyebrow", for: "bw", text: "Body weight (optional)" }),
-      el("div", { class: "row" }, el("input", { type: "number", id: "bw", inputmode: "decimal", step: "0.1", placeholder: "kg", value: bw ?? "", class: "grow", on: { input: e => { const v = parseFloat(e.target.value); w.body_weight_kg = isFinite(v) ? v : undefined; document.getElementById("bwlb").textContent = isFinite(v) ? `${Math.round(v * KG_LB)} lb` : ""; } } }), el("span", { id: "bwlb", class: "muted", text: bw ? `${Math.round(bw * KG_LB)} lb` : "" })),
+      el("div", { class: "row" }, el("input", { type: "number", id: "bw", inputmode: "decimal", step: "0.1", placeholder: "kg", value: bw ?? "", class: "grow", on: { input: e => { const v = parseFloat(e.target.value); w.body_weight_kg = isFinite(v) ? v : undefined; document.getElementById("bwlb").textContent = isFinite(v) ? `${Math.round(v * KG_LB)} lb` : ""; saveWorkout(w); } } }), el("span", { id: "bwlb", class: "muted", text: bw ? `${Math.round(bw * KG_LB)} lb` : "" })),
       el("button", { class: "btn primary block", type: "button", on: { click: () => { closeSheet(); finishWorkout(w); } } }, "Save session"), close];
   }
   if (s.kind === "cancel" && w) {
