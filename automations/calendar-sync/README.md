@@ -8,9 +8,9 @@ for **this week + next week**:
   content-free **"Busy"** placeholder is written into SoftServe so colleagues can't book over it.
 
 Reads SS from the **SoftServe Exchange account in Apple Calendar (EventKit)**, reads/writes Google via the
-**Calendar API**, and writes SS placeholders back via **EventKit**. Runs **every hour around the clock,
-Monday–Friday, on the Mac's own clock** — Alex is in San Francisco and works with Europe and the US at
-once. Sends **one** Telegram status per day. Both legs guard against feedback loops (see Reverse leg).
+**Calendar API**, and writes SS placeholders back via **EventKit**. Runs **every 30 minutes around the
+clock, Monday–Friday, on the Mac's own clock** — Alex is in San Francisco and works with Europe and the
+US at once. Sends **one** Telegram status per day. Both legs guard against feedback loops (see Reverse leg).
 
 ## Architecture — pure code, no Claude session, no browser
 SoftServe is Intune/VPN-managed (no third-party API login) and the new Outlook for Mac keeps no
@@ -42,7 +42,7 @@ reverse:  Google Calendar API (all cals)  →  sync_core.reverse_reconcile  → 
   (all Google calendars → `reverse_reconcile` → `ss-cal-write`). Skips all-day events; pulls our own
   `[[gcal-busy]]` placeholders out of the forward source. Writes `.work/state/last-read.json` for diagnostics.
 - **Host:** launchd `com.user.calendar-sync` runs `open -g -j -W ~/Applications/CalendarSync.app` every
-  hour on the hour, Mon–Fri Mac-local time. The app is a faceless AppleScript applet built by
+  30 minutes (:00 and :30), Mon–Fri Mac-local time. The app is a faceless AppleScript applet built by
   `setup.sh` (`LSUIElement`: no window, no Dock icon) that runs `run.sh daemon` and holds the macOS
   privacy grants the run needs, Calendar and the Documents folder; a plain launchd process is denied
   both. Its output goes to `~/Library/Logs/calendar-sync/host.log` (outside `~/Documents`, so a lost
@@ -60,7 +60,7 @@ reverse:  Google Calendar API (all cals)  →  sync_core.reverse_reconcile  → 
 | `gcal.py` | dependency-free Google Calendar client (`auth`/`authurl`/`exchange` once, then library calls) |
 | `run.py` | orchestrator — forward pass (SS→Google) then reverse pass (Google→SS) |
 | `run.sh` | runner, one run at a time (`.work/state/run.lock`, stale locks taken over): `now` (force) / `daemon` (gated + 08:00 daily summary) |
-| `test_sync_core.py` | unit tests (35) |
+| `test_sync_core.py` | unit tests (39) |
 | `config.sh` | constants + Keychain creds + `LIVE` flag |
 | `setup.sh` | builds the reader + writer (swiftc), builds the host app if missing, installs the launchd agent. `--plist-only` reinstalls just the agent · `--build-host` builds the app only (test before switching) · `--rebuild-host` rebuilds it and reinstalls (macOS asks for the grants again) · `--terminal-host` installs the Terminal fallback. Lints the plist before replacing anything. |
 | `~/Applications/CalendarSync.app` | the faceless host app (built by `setup.sh`, not in git); its grants live in System Settings → Privacy & Security → Calendars / Files and Folders |
@@ -76,6 +76,11 @@ reverse:  Google Calendar API (all cals)  →  sync_core.reverse_reconcile  → 
   (suppressed entirely if the read was incomplete).
 - **Native dedup:** an SS meeting already on Google (same title, `olekorlov@softserveinc.com` as
   organizer/attendee) is **skipped**, not duplicated.
+- **One copy per meeting, both legs:** when a slot ends up with two copies (two `SS:` events in Google
+  with one `ssSync` key, or two SS "Busy" blocks with one `[[gcal-busy]]` key), each run keeps the one the
+  ledger points at (else the first listed) and deletes the rest; the kept one's ledger entry stays.
+  Until 2026-11-24 a duplicate of a live slot was never pruned: one `SS:` copy left an hour early by the
+  CET bug and three doubled "Busy" blocks sat there for days.
 
 ## Status sync — Busy/Free + "Your response"
 Each copy mirrors the user's real SS RSVP:
@@ -92,9 +97,10 @@ lists the organizer and the full participant roster with each person's status.
 
 ## Reverse leg — Google busy → SS "Busy"
 After the forward pass, `run.py` blocks SS time wherever Alex is busy in Google:
-- **Source:** every Google calendar (`list_calendars`) — primary, Family, **GigaCloud** (a `reader`-role
-  imported calendar) — read in-window. A slot counts as **busy** if it is timed (not all-day), not
-  `transparent` (Free), not cancelled, and not self-declined.
+- **Source:** every Google calendar (`list_calendars`) — primary, Family, Дети, **GigaCloud** (a
+  `reader`-role calendar subscribed by URL; see Limits) — read in-window. Calendars hidden in Google's
+  calendar list are skipped (2026-11-24: only "a.orlov", an empty URL import). A slot counts as
+  **busy** if it is timed (not all-day), not `transparent` (Free), not cancelled, and not self-declined.
 - **1:1 placeholders:** each busy slot → one SS event titled **"Busy"**, `availability=.busy`, **no
   attendees** (nothing emailed), **no details** (colleagues see only that the time is taken). Keyed by
   `calendarId::eventId`; create/update/delete tracked in `reverse-ledger.json`. The idempotency hash is
@@ -136,6 +142,11 @@ After the forward pass, `run.py` blocks SS time wherever Alex is busy in Google:
 7. **AppleScript `contents of t` on a tab held in a variable returns the tab, not its text** (the
    built-in `contents` operator dereferences the variable). Use Terminal's `history of tab 1 of w`.
    It silently matched nothing in the 2026-11-20 window cleanup until switched.
+8. **Apple Calendar must hold only one Exchange account, SoftServe's.** The reader treats every Exchange
+   calendar as SoftServe (`--exchange`), and the writer picks the first writable Exchange calendar titled
+   "Calendar". A second Exchange account (GigaCloud's Microsoft 365, say) would have its meetings
+   mirrored to Google as `SS:` copies and could get the "Busy" blocks written into it. Pin the source by
+   account (`ss-cal-read --source`, and the same in the writer) before adding one.
 
 ## Setup (one-time)
 1. Add the SoftServe Exchange account to **Apple Calendar** (System Settings → Internet Accounts), so SS
@@ -152,12 +163,15 @@ After the forward pass, `run.py` blocks SS time wherever Alex is busy in Google:
 3. It runs in **DRY-RUN** (plans only) until you go live: `touch .work/state/LIVE`.
 
 ## Schedule & notifications
-- **Every hour, around the clock, Mon–Fri on the Mac's local clock** (Alex, 2026-11-19: from SF he works
-  with Europe and the US at once, so European mornings fall in the Pacific night). launchd's
-  `StartCalendarInterval` fires on that clock, and `run.sh daemon` re-checks the weekday in the zone it
-  reads from `/etc/localtime`, so a weekend tick that launchd coalesces on wake is a no-op and the
-  schedule follows the Mac when it changes timezone. (A gate fixed to Kyiv let 3 of 13 ticks through on
-  PST and never reached the 08:00 summary.)
+- **Every 30 minutes (:00 and :30), around the clock, Mon–Fri on the Mac's local clock** (Alex,
+  2026-11-24; hourly from 2026-11-19, because from SF he works with Europe and the US at once and
+  European mornings fall in the Pacific night). launchd's `StartCalendarInterval` fires on that clock,
+  and `run.sh daemon` re-checks the weekday in the zone it reads from `/etc/localtime`, so a weekend tick
+  that launchd coalesces on wake is a no-op and the schedule follows the Mac when it changes timezone.
+  (A gate fixed to Kyiv let 3 of 13 ticks through on PST and never reached the 08:00 summary.) A tick
+  that fires while the previous run still holds `.work/state/run.lock` skips.
+- **Weekend gap:** nothing runs from Friday 23:30 to Monday 00:00 Pacific, so a busy slot added over
+  the weekend reaches SS at Monday 00:00 PT, which is 09:00 CET / 10:00 Kyiv.
 - **One** message/day to the **General** Telegram topic right after the 08:00 (local) run:
   `SoftServe calendar sync: X attempts, Y successful. A events added/modified.` — plus a
   `Google→SS busy-blocks: N added/updated` line when the reverse leg was active, and error lines if any.
@@ -169,12 +183,18 @@ After the forward pass, `run.py` blocks SS time wherever Alex is busy in Google:
 cd /tmp && python3 -I /Users/olekorlov/Documents/GitHub/AO-Personal-OS/automations/calendar-sync/test_sync_core.py
 # one real pass through the host app, no window (output in ~/Library/Logs/calendar-sync/host.log)
 open -g -j -W ~/Applications/CalendarSync.app
-# trigger the installed daemon out-of-cycle (the same path the hourly tick takes)
+# trigger the installed daemon out-of-cycle (the same path the half-hourly tick takes)
 launchctl kickstart -k "gui/$(id -u)/com.user.calendar-sync"
 ```
 
 ## Limits
 - Runs only while the **Mac is awake**. The daily summary makes liveness observable.
+- **GigaCloud lags by hours, whatever the cadence.** GigaCloud is an Exchange calendar that reaches
+  Google only as a subscription by URL (`…@import.calendar.google.com`), and Google fetches that feed on
+  its own timer. Observed 2026-10-26 → 11-24: Google applied GigaCloud changes in 29 batches, always at
+  :15 past an hour and never less than 5 h apart (usually 6 h or more). So a new or moved GigaCloud
+  meeting can take 5+ hours to block SS. Faster needs a direct read of GigaCloud: fetch the feed
+  ourselves each run, or read the account from Apple Calendar (see gotcha 8 first).
 - A Google refresh-token lapse (only if the consent screen reverts to "Testing") needs a re-`auth`;
   surfaced via the daily summary as a write error.
 
