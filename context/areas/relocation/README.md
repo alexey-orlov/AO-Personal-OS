@@ -1,7 +1,7 @@
 # Relocation — moving the household to the US
 
 _status: active — **Alex moved to San Francisco on 2026-11-19** and works with Europe and the US at once (chat, 2026-11-19). **Walnut Creek rental search under way** ([walnut-creek-rentals](walnut-creek-rentals.md)): 44 listings in the "Relocation planning" sheet, tours since 2026-11-06, a rental map with school and neighborhood zones, 2/3-bed filters and Planned / ★ Star / Dismiss per listing; each listing's stage lives in the sheet's Stage column (2026-11-09). Bay Area place ranking complete (220 places, 2026-08-09)_
-_updated: 2026-11-19_
+_updated: 2026-11-24_
 _source files: Google Sheet "Relocation planning" (tab "WC appartment" = the rental shortlist) — registry entry in [external-sources](../../_meta/external-sources.md)_
 
 The move itself: visa timing, where the household lands, schools, and the logistics around them. Distinct from the [job search](../job-search/README.md) — that area owns roles and how Alex is positioned (including the SF-based public framing); this one owns the physical move. The two share a dependency in both directions (an offer's location can constrain the place; the visa date gates when a start date is real) but they are not the same thread.
@@ -20,7 +20,7 @@ The move itself: visa timing, where the household lands, schools, and the logist
 - **GigaCloud role shrinks with the move (2026-10-16).** Alex goes part-time at GigaCloud in Q3'FY2026 and to ad-hoc consulting later; the restructure plan and next steps (his hours, availability and terms first) live on [gigacloud/product-team-structure](../gigacloud/product-team-structure.md). Owner: Mine. (chat, 2026-10-16)
 - **October logistics with SoftServe — a dedicated meeting, not a 1:1 topic (2026-08-18).** The move's employer-facing side came up in Alex's [SoftServe 1:1](../softserve/calls/2026-08-18_141300_one-on-one_20260818132936005C1280.md) and was deliberately split out into its own session, to be held **before Bohdan's Friday 07:30 meeting**. Four things to settle: **location · cost · expectations · impact framing**, plus the **split between base and quarterly bonus** in the post-move compensation shape. Alex sends the invite and prepares the inputs; **Bohdan prepares the internal argumentation/justification for the relocation costs** ahead of that Friday meeting. Related: US replication of SoftServe's managed-service offering is floated as possibly tied to the move ([jumpstart-pm](../softserve/jumpstart-pm.md)), and full-time SoftServe employment stays "possible after the US move" ([softserve](../softserve/README.md)). Owner: Mine (invite + inputs) / Theirs (cost case).
 - **Bay Area ranking — done, re-runnable.** The 220-place comparison is complete; it can be re-scored with Alex's own criterion weights instead of the equal-weight default. The live search has since focused on Walnut Creek (thread above). Owner: Mine.
-- **Working across time zones from SF (2026-11-19).** The SoftServe ↔ Google calendar sync now runs every hour around the clock, Monday–Friday, on the Mac's Pacific clock, so European mornings that fall in the Pacific night stay covered ([calendar-sync](../../../automations/calendar-sync/README.md)). Owner: Mine. (chat, 2026-11-19)
+- **Working across time zones from SF (2026-11-19).** The SoftServe ↔ Google calendar sync runs every 30 minutes around the clock, Monday–Friday, on the Mac's Pacific clock (hourly until 2026-11-24), so European mornings that fall in the Pacific night stay covered; its runs open no window. GigaCloud meetings lag by hours: they reach Google only through a URL-subscribed feed that Google refreshes about every 5–6 h (inferred from its update batches) ([calendar-sync](../../../automations/calendar-sync/README.md)). Owner: Mine. (chat, 2026-11-19; chat, 2026-11-24)
 
 ## Subprojects
 
@@ -64,6 +64,7 @@ Superseded, kept only as pointers: Sheets `1HiSmOvkFYEFvI31Pvsp7xWGYtrfPHiwdGqd-
 
 ## Activity
 
+- 2026-11-24 — [calendar sync every 30 minutes](../../../automations/calendar-sync/README.md) — moved from hourly at Alex's request; duplicate copies now pruned in both directions (chat, 2026-11-24).
 - 2026-11-19 — Alex moved to San Francisco — he works with Europe and the US at once, and the calendar sync now runs around the clock on weekdays (chat, 2026-11-19).
 - 2026-11-08 — [rental map update](docs/walnut-creek-map/README.md) — 2/3-bed filter, Planned visit / Like / Dislike per listing, all 44 sheet rows shown; the rental search moved to its own page, [walnut-creek-rentals](walnut-creek-rentals.md) (chat, 2026-11-08).
 - 2026-11-07 — [Walnut Creek rental map](docs/walnut-creek-map/README.md) — live map of the "WC appartment" sheet with middle-school and neighborhood zones; flagged the Rossmoor listing (no residents under 18) and the one Mt. Diablo USD listing (chat, 2026-11-07).
