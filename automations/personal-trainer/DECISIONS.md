@@ -151,6 +151,29 @@ Alex trains there from late November 2026 (Alex, 2026-11-23). Researched
   implement names in lb that never exceed a cap (10 kg extension was a
   25-lb plate); text format for Telegram; contradictions in the method text.
 
+- Round 2 (2026-11-23, two fresh agents on the rewritten engine: three
+  sessions with feedback and a missing T-bar; back pain + bad sleep + 45 min +
+  a busy machine). Both passed on the lower back, the pause, the format,
+  kg + lb and names. Fixed after it: a probe exercise without a weight
+  dropped out of the next template (broke the superset); «колено нормально»
+  could not clear a pain flag (now `--ok`); a floor hinge (squat high pull)
+  sat in the crossfit pool (retired); crossfit loads came from the catalog
+  instead of the trainer's last ones; a busy machine had no substitute
+  (presses and rows got `alt_ids`); the brief now trims to the time itself,
+  asks the pain screen, and check accepts warnings justified in `overrides`
+  and estimates the whole session.
+
+## First real US session (23.11, back day, built in the phone app)
+
+Planned (engine, ×0.75 for selectorized machines) vs done: lat pulldown
+120/130/130 lb → 115/130/130 ×12 (ok); seated row 115/125/125 → 115/115/130
+×10-10-9 (ok); T-bar 55/65/65 → 55/70/70 ×12-9-8 (hard); biceps curl
+(instead of the busy pullover) 75/85/85 → 80/85/85 (ok); reverse pec deck
+105/115/115 → 145/150/150 ×8 (ok). The rear-delt machine carried almost 1:1
+from Kyiv (70 kg ≈ 154 lb), so ×0.75 was too cautious there; the next plans
+start from what he did. Keep ×0.75 for the legs machines until the first
+legs session shows the same, then revisit.
+
 ## Open questions for Alex
 
 - «Экстензия сидя с гантелью (10 кг)»: which movement exactly (US name)?

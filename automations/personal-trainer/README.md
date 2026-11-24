@@ -29,10 +29,10 @@ mini-app (`app/`, owned by its own session; `app/README.md`).
 
 ```bash
 T=automations/personal-trainer/trainer.py
-python3 $T brief [--today 2026-11-24] [--day legs|push|pull] [--pain lower_back,knee] [--readiness low] [--time 45] [--missing id,id]
-python3 $T check .work/plan.json                  # exit 1 on errors
-python3 $T render .work/plan.json [--fmt md|text] [--save]
-echo '{...}' | python3 $T feedback 2026-11-24     # prints next_time for every rated exercise
+python3 $T brief [--today 2026-11-24] [--day legs|push|pull] [--pain lower_back,knee] [--ok knee] [--readiness low] [--time 45] [--missing id,id]
+python3 $T check .work/plan.json                  # exit 1 on errors; warnings justified in overrides → accepted; session/crossfit estimate
+python3 $T render .work/plan.json [--fmt md|text] [--save] [--only warmup|strength|crossfit]
+echo '{...}' | python3 $T feedback 2026-11-24     # prints next_time; marks machines he trained on as have
 python3 $T gym --missing chest_supported_tbar --have hack_squat --use X=Y --equip rope=have
 python3 $T sync                                   # full refresh with the Sheets token
 python3 $T import-grid a.json b.json [--replace]  # Sheets-connector responses, stitched by range
@@ -91,9 +91,11 @@ on 10 lb, i.e. 5 lb a side).
    exercises: −10 % after 3+ weeks.
 3. Feedback first: `fail` or `hard` twice → one step back; `hard` or missed
    reps → hold; `pain` → swap; a joint that hurt in the last 14 days → no
-   increase on anything loading it, and the brief asks about it.
+   increase on anything loading it, and the brief asks about it until a
+   plan carries `pre.cleared` (`--ok <joint>`).
 4. Back to the pre-break (Kyiv) weight after a pause or the gym change: one
-   step a session (two when `easy`), back-safe non-probe exercises only.
+   step a session (two when `easy`) once the reps reach the top of the
+   range, back-safe non-probe exercises only.
 5. Slow progression: close the ramp → reps to the top of the range → hold N
    flat sessions (upper body 3, leg isolation 2, hack squat and abduction 1;
    `easy` takes one off) → one step up on sets 2–3. `readiness low` holds
