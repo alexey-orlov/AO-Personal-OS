@@ -16,7 +16,7 @@ This file is not loaded at runtime. Rules live in `catalog.json`,
 
 ## Day types and rotation
 
-- Push 10 sessions, pull 12, legs 6. In full weeks (3 sessions) the trainer
+- Push 11 sessions, pull 11, legs 6. In full weeks (3 sessions) the trainer
   covered all three (weeks of 21.09, 05.10, 12.10); in 2-session weeks legs
   dropped out (19.10 week: push, pull). 30.10: the push page was crossed
   out and a pull day done instead.
@@ -80,10 +80,11 @@ This file is not loaded at runtime. Rules live in `catalog.json`,
 - 25 logged combos: 3 rounds for time in most; 21-15-9 couplets 05.08,
   14.08, 09.10 (thrusters); 4 rounds 12.08; a descending rope ladder 50-40-30
   07.10; caps 10–14′; finish times 6:49–21:44, typically 7:30–11:30.
-- Day's own muscles in the combo: pull-ups on 10 of 11 pull days, dips /
-  push-ups / HSPU on every push day, squats/lunges on every legs day —
-  usually one such movement; two or more on 17.08, 05.10, 21.10. Rule: at
-  most one (2 = warning, 3+ = error), sometimes none.
+- Day's own muscles in the combo (catalog patterns): pull days 1 (pull-ups)
+  in 9 of 11, 0 on 09.10, 2 on 22.07; legs days 1–3 (thrusters, lunges,
+  squats; 3 on 05.10); push days 1–4 (dips, push-ups, HSPU, thrusters, wall
+  balls; 3 on 17.08 and 14.10, 4 on 21.10). Rule, trainer + Alex's "don't
+  hammer tired muscles": prefer one, two allowed, three or more is an error.
 - Loads seen: thrusters 10–25 kg, wall ball 6 kg, lunges 10–15 kg, goblet /
   sumo 16–32 kg, plate 10 kg. 32 kg squats capped at 20 kg (best practice for
   the lower back under fatigue).

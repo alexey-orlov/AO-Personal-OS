@@ -58,10 +58,11 @@ Evidence: `automations/personal-trainer/DECISIONS.md`.
   cardio buy-in (Скакалка 50 / Air bike 15 cal), or a descending rope
   ladder (Скакалка 50-40-30 between movements).
 - Composition: 1 cardio or plyo (скакалка, JJ, row, air bike, box jumps,
-  burpees) + 2–3 movements for other muscle groups + **at most one** for
-  the day's muscles, bodyweight or light: pull-ups on a back day, dips or
-  push-ups on a chest day, lunges or wall balls on a legs day. Sometimes
-  none of the day's muscles at all, e.g. after a hard strength part.
+  burpees) + 2–3 movements for other muscle groups + **one** for the day's
+  muscles, bodyweight or light: pull-ups on a back day, dips or push-ups on
+  a chest day, lunges or wall balls on a legs day. Two is the ceiling (the
+  trainer's chest days); after a hard strength part or `hard` feedback, none.
+  Wall balls and thrusters count as pressing on a chest day.
 - Variety: never repeat any of `crossfit.recent[-3:]`; prefer movements
   with low `usage_last10`; change the cardio piece and the format from the
   last session.

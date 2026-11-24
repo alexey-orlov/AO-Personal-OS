@@ -1003,9 +1003,7 @@ def cmd_check(a):
         if kg is not None and base.get("max_kg") is not None and kg > base["max_kg"]:
             errors.append(f"кроссфит: {base['ru']} {kg} кг — потолок {base['max_kg']} кг")
     if len(overlap) >= 3:
-        errors.append(f"кроссфит: {len(overlap)} движения добивают мышцы дня ({', '.join(overlap)}) — максимум 1")
-    elif len(overlap) == 2:
-        warns.append(f"кроссфит: 2 движения на мышцы дня ({', '.join(overlap)}) — у тренера обычно 1")
+        errors.append(f"кроссфит: {len(overlap)} движения добивают мышцы дня ({', '.join(overlap)}) — не больше 2, лучше 1")
     if caution > 2:
         errors.append(f"кроссфит: {caution} движения с осторожностью для поясницы — максимум 2")
     if "lower_back" in st.pain and caution:
