@@ -3,6 +3,8 @@
 
   export <dir> [--today D]     write the config/* and briefs/* bodies the app reads
                                into <dir>, and print the ArtifactData batch writes
+  sheet <file> [--dump D]      one finished workouts/<id> document -> the gym-log
+                               `log` payload for the "My training" sheet
   feedback <file> [--apply]    one finished workouts/<id> document (as saved by an
                                ArtifactData read with out_dir) -> trainer.py feedback;
                                without --apply, only shows what would be recorded
@@ -115,6 +117,87 @@ def cmd_feedback(a):
     print(json.dumps({"recorded": True, **report, "engine": json.loads(r.stdout)}, ensure_ascii=False, indent=1))
 
 
+def _num(x):
+    return int(x) if float(x).is_integer() else round(float(x), 1)
+
+
+def sheet_payload(doc, cat):
+    """A finished app workout -> the gym-log `log` payload (one date block). Only logged data: done sets,
+    warm-up sets ticked, crossfit only when a time or a rating was recorded."""
+    idx = {e["id"]: e for e in cat["strength"] + cat["warmup"]["items"] + cat["crossfit"]["items"]}
+    row = lambda i: (idx.get(i, {}).get("sheet_rows") or [i])[0]
+    y, m, d = (int(x) for x in doc["date"][:10].split("-"))
+    payload = {"date": f"{m}/{d}/{y}", "entries": []}
+    notes = []
+    if doc.get("body_weight_kg") is not None:
+        payload["my_weight"] = _num(doc["body_weight_kg"])
+    actual = (doc.get("feedback") or {}).get("actual") or {}
+    order = [i["id"] for i in doc["plan"].get("strength", [])] + [i for i in actual if i not in {x["id"] for x in doc["plan"].get("strength", [])}]
+    for i in order:
+        a = actual.get(i)
+        if not a or not a.get("kg"):
+            continue
+        ex = idx.get(i, {})
+        role, days, mus = ex.get("role"), ex.get("day", []), ex.get("muscles", [])
+        category = ("Shoulders" if role == "shoulder" or "any" in days else "Glutes" if "glutes" in mus and "quads" not in mus
+                    else {"pull": "Back", "push": "Chest", "legs": "Legs"}.get((days or ["pull"])[0], "Back"))
+        payload["entries"].append({"category": category, "exercise": row(i), "sets": a.get("sets") or len(a["kg"]),
+                                   "reps": str(a.get("reps")), "w_start": _num(a["kg"][0]), "w_end": _num(a["kg"][-1])})
+        if a.get("machine"):
+            notes.append(f"{row(i)}: done on {a['machine']} (same row; split it if the scale differs)")
+    wu_log = (doc.get("log") or {}).get("warmup") or {}
+    combo = []
+    for it in doc["plan"].get("warmup", []):
+        n = (wu_log.get(it["id"]) or {}).get("sets_done") or 0
+        if not n:
+            continue
+        dose = f'{it["secs"]}"' if it.get("secs") else str(it.get("reps", ""))
+        e = {"category": "Warm-up", "exercise": row(it["id"]), "sets": n, "reps": dose}
+        if it.get("kg"):
+            e["w_start"] = e["w_end"] = _num(it["kg"])
+        payload["entries"].append(e)
+        combo.append(f'{row(it["id"])}{f" ({_num(it["kg"])} кг)" if it.get("kg") else ""} {n}x{dose}')
+    if combo:
+        payload["warmup"] = {"combination": " → ".join(combo)}
+    cf_log = (doc.get("log") or {}).get("crossfit") or {}
+    fb = doc.get("feedback") or {}
+    cf = doc["plan"].get("crossfit") or {}
+    finish = cf_log.get("time") or fb.get("crossfit_time")
+    if cf.get("format") != "skip" and cf.get("items") and (finish or fb.get("crossfit_rating")):
+        rounds = cf_log.get("rounds_done", cf.get("rounds"))
+        parts = []
+        for it in cf["items"]:
+            dose = f'{it["secs"]}"' if it.get("secs") else (f'{it["reps"]} cal' if it.get("unit") == "cal" else str(it.get("reps") or cf.get("scheme", "")))
+            e = {"category": "Crossfit", "exercise": row(it["id"]), "reps": dose}
+            if cf.get("format") == "rounds" and rounds:
+                e["sets"] = rounds
+            if it.get("kg") is not None:
+                e["w_start"] = e["w_end"] = _num(it["kg"])
+            payload["entries"].append(e)
+            parts.append(f'{row(it["id"])} {dose}' + (f' ({_num(it["kg"])} кг)' if it.get("kg") is not None else ""))
+        payload["crossfit"] = {"combination": " → ".join(parts),
+                               "rounds": rounds if cf.get("format") == "rounds" else f'{rounds or 1} ({cf.get("scheme", "")})',
+                               "cap": f'{cf["cap_min"]}\'' if cf.get("cap_min") else "-", "finish": finish or "не записано"}
+    elif cf.get("items") and cf.get("format") != "skip":
+        notes.append("crossfit not recorded in the app (no time, no rating): left out")
+    return payload, notes
+
+
+def cmd_sheet(a):
+    doc = load(a.file)
+    if "status" not in doc and isinstance(doc.get("data"), dict):
+        doc = doc["data"]
+    if doc.get("status") != "done":
+        sys.exit(f"{doc.get('id')}: status is {doc.get('status')!r}, not done")
+    payload, notes = sheet_payload(doc, load(os.path.join(ENGINE_D, "catalog.json")))
+    if a.dump:
+        have = {e["name"] for c in load(a.dump).get("categories", []) for e in c.get("exercises", [])}
+        notes += [f"new sheet row: {e['exercise']} ({e['category']})" for e in payload["entries"] if e["exercise"] not in have]
+    print(json.dumps(payload, ensure_ascii=False))
+    for n in notes:
+        print("note:", n, file=sys.stderr)
+
+
 def main():
     p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = p.add_subparsers(dest="cmd", required=True)
@@ -124,8 +207,11 @@ def main():
     f = sub.add_parser("feedback")
     f.add_argument("file")
     f.add_argument("--apply", action="store_true")
+    s = sub.add_parser("sheet", help="finished workout doc -> gym-log `log` payload on stdout, notes on stderr")
+    s.add_argument("file")
+    s.add_argument("--dump", help="gym_sheet.py dump output, to flag rows the sheet does not have yet")
     a = p.parse_args()
-    {"export": cmd_export, "feedback": cmd_feedback}[a.cmd](a)
+    {"export": cmd_export, "feedback": cmd_feedback, "sheet": cmd_sheet}[a.cmd](a)
 
 
 if __name__ == "__main__":

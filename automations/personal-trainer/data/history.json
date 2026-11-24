@@ -2813,8 +2813,81 @@
     "finish": "9:10"
    },
    "warmup_summary": "Экстензия сидя (10кг) 2x15 → Dog birds 2x15 → Бок. планка с поворотом 2x15"
+  },
+  {
+   "date": "2026-11-23",
+   "body_weight": null,
+   "strength": [
+    {
+     "name": "Верт. тяга",
+     "sets": 3,
+     "reps": "12",
+     "w_start": 52.2,
+     "w_end": 59,
+     "category": "Back"
+    },
+    {
+     "name": "Горизонт. тяга",
+     "sets": 3,
+     "reps": "10-10-9",
+     "w_start": 52.2,
+     "w_end": 59,
+     "category": "Back"
+    },
+    {
+     "name": "Тяга в упоре",
+     "sets": 3,
+     "reps": "12-9-8",
+     "w_start": 24.9,
+     "w_end": 31.8,
+     "category": "Back"
+    },
+    {
+     "name": "Сгиб. на бицепс",
+     "sets": 3,
+     "reps": "10-10-8",
+     "w_start": 36.3,
+     "w_end": 38.6,
+     "category": "Back"
+    },
+    {
+     "name": "Реверс",
+     "sets": 3,
+     "reps": "8",
+     "w_start": 65.8,
+     "w_end": 68,
+     "category": "Shoulders"
+    }
+   ],
+   "warmup": [
+    {
+     "name": "Экстензия с контролем осанки",
+     "sets": 2,
+     "reps": "15",
+     "w_start": null,
+     "w_end": null
+    },
+    {
+     "name": "Бок. планка с поворотом",
+     "sets": 2,
+     "reps": "15",
+     "w_start": null,
+     "w_end": null
+    },
+    {
+     "name": "Dog birds",
+     "sets": 2,
+     "reps": "15",
+     "w_start": null,
+     "w_end": null
+    }
+   ],
+   "crossfit": {
+    "items": []
+   },
+   "warmup_summary": "Экстензия с контролем осанки 2x15 → Бок. планка с поворотом 2x15 → Dog birds 2x15"
   }
  ],
  "source": "My training sheet (connector grid)",
- "synced_at": "2026-11-23T16:28:39"
+ "synced_at": "2026-11-24T03:00:11"
 }

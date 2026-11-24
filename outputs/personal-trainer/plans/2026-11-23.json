@@ -1,0 +1,268 @@
+{
+ "crossfit": {
+  "cap_min": 8,
+  "format": "rounds",
+  "items": [
+   {
+    "id": "jumping_jacks",
+    "reps": 20
+   },
+   {
+    "id": "pull_ups",
+    "reps": 8
+   },
+   {
+    "id": "plank_db_drag",
+    "kg": 10,
+    "lb": 20,
+    "reps": 20
+   }
+  ],
+  "rounds": 2
+ },
+ "date": "2026-11-23",
+ "day": "pull",
+ "note": "First session in a new gym after 25 days off: first set on each machine is a test set.",
+ "overrides": {
+  "back_extension": "Stepped down from the seated dumbbell version after the 25-day pause (E3 to E1).",
+  "biceps_curl_machine": "instead of Kneeling Cable Pullover: machine busy",
+  "date": "Set to the brief's today (2026-11-24) instead of the draft date.",
+  "plank_db_drag": "Replaces sit_ups, which is a back-caution movement; the lower back comes first after a long break."
+ },
+ "pre": {
+  "pain": [],
+  "readiness": "normal",
+  "time_min": null
+ },
+ "strength": [
+  {
+   "id": "lat_pulldown",
+   "kg": [
+    54.4,
+    59,
+    59
+   ],
+   "lb": [
+    120,
+    130,
+    130
+   ],
+   "reps": "8",
+   "sets": 3,
+   "why": "новый тренажёр: в Киеве 68 кг (30.10) → старт −10 %; 1-й подход — проба, если 2-й легко на 10+ — 3-й на шаг тяжелее"
+  },
+  {
+   "id": "seated_cable_row",
+   "kg": [
+    52.2,
+    56.7,
+    56.7
+   ],
+   "lb": [
+    115,
+    125,
+    125
+   ],
+   "reps": "8",
+   "sets": 3,
+   "why": "новый тренажёр: в Киеве 63 кг (30.10) → старт −10 %; 1-й подход — проба, если 2-й легко на 10+ — 3-й на шаг тяжелее"
+  },
+  {
+   "id": "chest_supported_tbar",
+   "kg": [
+    24.9,
+    29.5,
+    29.5
+   ],
+   "lb": [
+    55,
+    65,
+    65
+   ],
+   "reps": "10",
+   "sets": 3,
+   "why": "новый тренажёр: в Киеве 35 кг (30.10) → старт −10 %; 1-й подход — проба, если 2-й легко на 10+ — 3-й на шаг тяжелее"
+  },
+  {
+   "action": "calibrate",
+   "id": "biceps_curl_machine",
+   "kg": [
+    34,
+    38.6,
+    38.6
+   ],
+   "lb": [
+    75,
+    85,
+    85
+   ],
+   "reps": "10",
+   "sets": 3
+  },
+  {
+   "action": "calibrate",
+   "id": "reverse_pec_deck",
+   "kg": [
+    47.6,
+    52.2,
+    52.2
+   ],
+   "lb": [
+    105,
+    115,
+    115
+   ],
+   "reps": "8",
+   "sets": 3,
+   "why": "новый тренажёр: в Киеве 70 кг (30.10) → старт −25 %"
+  }
+ ],
+ "warmup": [
+  {
+   "id": "back_extension",
+   "reps": 15,
+   "sets": 2
+  },
+  {
+   "id": "side_plank_rotation",
+   "reps": 15,
+   "sets": 2
+  },
+  {
+   "id": "bird_dog",
+   "reps": 15,
+   "sets": 2
+  }
+ ],
+ "why": [
+  "25 days off and a new gym: warm-up stepped down, crossfit short with no new movements.",
+  "Weights copied from the engine brief; first set on each machine is a test set."
+ ],
+ "source": "app",
+ "built_by": "claude",
+ "feedback": {
+  "done": true,
+  "overall": "",
+  "source": "app",
+  "items": {
+   "biceps_curl_machine": {
+    "note": "",
+    "rating": "ok"
+   },
+   "chest_supported_tbar": {
+    "note": "",
+    "rating": "hard"
+   },
+   "lat_pulldown": {
+    "note": "",
+    "rating": "ok"
+   },
+   "reverse_pec_deck": {
+    "note": "logged by Claude from Alex's comment: 145/150/150 lb, reps as planned",
+    "rating": "ok"
+   },
+   "seated_cable_row": {
+    "note": "",
+    "rating": "ok"
+   }
+  },
+  "actual": {
+   "biceps_curl_machine": {
+    "kg": [
+     36.3,
+     38.6,
+     38.6
+    ],
+    "lb": [
+     80,
+     85,
+     85
+    ],
+    "reps": "10-10-8",
+    "reps_per_set": [
+     10,
+     10,
+     8
+    ],
+    "sets": 3
+   },
+   "chest_supported_tbar": {
+    "kg": [
+     24.9,
+     31.8,
+     31.8
+    ],
+    "lb": [
+     55,
+     70,
+     70
+    ],
+    "reps": "12-9-8",
+    "reps_per_set": [
+     12,
+     9,
+     8
+    ],
+    "sets": 3
+   },
+   "lat_pulldown": {
+    "kg": [
+     52.2,
+     59,
+     59
+    ],
+    "lb": [
+     115,
+     130,
+     130
+    ],
+    "reps": "12",
+    "reps_per_set": [
+     12,
+     12,
+     12
+    ],
+    "sets": 3
+   },
+   "reverse_pec_deck": {
+    "kg": [
+     65.8,
+     68,
+     68
+    ],
+    "lb": [
+     145,
+     150,
+     150
+    ],
+    "reps": "8",
+    "reps_per_set": [
+     8,
+     8,
+     8
+    ],
+    "sets": 3
+   },
+   "seated_cable_row": {
+    "kg": [
+     52.2,
+     52.2,
+     59
+    ],
+    "lb": [
+     115,
+     115,
+     130
+    ],
+    "reps": "10-10-9",
+    "reps_per_set": [
+     10,
+     10,
+     9
+    ],
+    "sets": 3
+   }
+  },
+  "recorded_at": "2026-11-24T03:00:11"
+ }
+}
