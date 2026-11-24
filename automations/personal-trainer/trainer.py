@@ -45,9 +45,10 @@ from datetime import date, datetime
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.abspath(os.path.join(HERE, "..", ".."))
 CATALOG_F = os.path.join(HERE, "catalog.json")
-GYM_F = os.path.join(HERE, "gym.json")
-HISTORY_F = os.path.join(HERE, "data", "history.json")
-PLANS_D = os.path.join(REPO, "outputs", "personal-trainer", "plans")
+GYM_F = os.environ.get("TRAINER_GYM") or os.path.join(HERE, "gym.json")
+# Tests point these at fixtures so a scenario never touches the real state.
+HISTORY_F = os.environ.get("TRAINER_HISTORY") or os.path.join(HERE, "data", "history.json")
+PLANS_D = os.environ.get("TRAINER_PLANS") or os.path.join(REPO, "outputs", "personal-trainer", "plans")
 KG_LB = 2.20462
 DAYS = ("legs", "push", "pull")
 ROLE_RANK = {"main": 0, "secondary": 1, "isolation": 2, "shoulder": 3}
@@ -435,15 +436,25 @@ class State:
 
 
 def deload_factor(gap_days):
-    if gap_days < 14:
-        return 1.0
-    if gap_days < 21:
-        return 0.95
+    """Working-weight cut after time away from a movement. Up to 5 weeks the
+    trainer kept the top weight and only started lower (26-day break, 14.09:
+    hack 85→120 vs 120 before, bench 80 as before); past that, cut."""
     if gap_days < 35:
-        return 0.9
+        return 1.0
     if gap_days < 56:
+        return 0.9
+    if gap_days < 90:
         return 0.8
     return 0.7
+
+
+CALIBRATION = 0.9   # first time on another gym's machine: start 10 % under (03.08 Smith: 50 was too heavy, dropped to 40)
+
+
+def global_breaks(st):
+    """Dates where training resumed after >= 14 days off (any day type)."""
+    ds = [parse_date(s["date"]) for s in st.sessions]
+    return [b for a, b in zip(ds, ds[1:]) if (b - a).days >= 14]
 
 
 # ---------------------------------------------------------------- progression
