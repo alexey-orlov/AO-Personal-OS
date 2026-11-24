@@ -550,6 +550,9 @@ def suggest(st, ex):
         res.update(action="swap", why=f"{ddmm(last.date)} было больно — заменить из пула дня")
         return res
 
+    def wt(kg):
+        return f"{U.from_kg(kg)} lb" if U.lb else f"{clean_num(kg)} кг"
+
     def ramp(top, first_steps=1):
         return shape(ex, top, step, None if pyramid else max(top - first_steps * step, step))
 
@@ -574,7 +577,7 @@ def suggest(st, ex):
     if gap >= 14:
         top = W if f == 1.0 else U.floor_from_kg(last.we * f)
         why = (f"{gap} дн. без упражнения: вес как {ddmm(last.date)}, 1-й подход легче, повторы по нижней границе"
-               if f == 1.0 else f"{gap} дн. без упражнения: −{round((1 - f) * 100)} % от {clean_num(last.we)} кг")
+               if f == 1.0 else f"{gap} дн. без упражнения: −{round((1 - f) * 100)} % от {wt(last.we)}")
         return done("re_entry", ramp(top, 2), why, str(lo))
 
     per = parse_reps(last.reps)
@@ -615,9 +618,12 @@ def suggest(st, ex):
             if U.from_kg(o.we) != W:
                 break
             flat_n += 1
-        if flat_n >= need and not below_top:
-            return done("step_up", shape(ex, W + step, step), f"верх {clean_num(last.we)} кг сделан → +1 шаг")
-        return done("hold", shape(ex, W, step), f"верх {clean_num(last.we)} кг: {flat_n} из {need} до прибавки")
+        if fb == "easy" or (flat_n >= need and not below_top):
+            return done("step_up", shape(ex, W + step, step),
+                        f"верх {wt(last.we)} " + ("было легко" if fb == "easy" else "сделан") + " → +1 шаг")
+        if below_top:
+            return done("add_reps", shape(ex, W, step), f"вес тот же, верхний подход до {hi} повторов", rep_txt)
+        return done("hold", shape(ex, W, step), f"верх {wt(last.we)} — ещё {need - flat_n} трен. до прибавки")
     if F < W:
         nf = min(W, F + step)
         return done("close_ramp", shape(ex, W, step, nf if nf < W else None),
@@ -635,8 +641,8 @@ def suggest(st, ex):
             break
     if flat_n >= need:
         return done("step_up", shape(ex, W + step, step, W),
-                    f"{clean_num(last.we)} кг × {hi} — {flat_n} раза → +1 шаг на 2-м и 3-м подходе", rep_txt)
-    return done("hold", shape(ex, W, step), f"{clean_num(last.we)} кг: {flat_n} из {need} ровных тренировок до прибавки")
+                    f"{wt(last.we)} × {hi} — {flat_n} раза → +1 шаг на 2-м и 3-м подходе", rep_txt)
+    return done("hold", shape(ex, W, step), f"{wt(last.we)} — ещё {need - flat_n} ровн. трен. до прибавки")
 
 
 # ---------------------------------------------------------------- warm-up / crossfit state
