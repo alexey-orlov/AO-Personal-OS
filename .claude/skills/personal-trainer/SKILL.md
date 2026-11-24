@@ -23,16 +23,17 @@ only, nothing around it unless he asks.
    connector: read `Sheet1!1:1`, then `A1:B90` plus the missing date blocks,
    save each response as JSON, `python3 $T import-grid a.json b.json`.
 2. **Ask** the brief's `ask` questions in one message, only those, and wait
-   (a pause since the last logged session, a joint that hurt last time).
-   Sessions he did since → log them via gym-log first; a hurting joint →
-   rerun the brief with `--pain`.
+   (a pause since the last logged session, what today's pain is like, a
+   joint that hurt last time). Sessions he did since → log them via gym-log
+   first. Sharp or spreading pain → no plan (feedback.md). A joint that hurt
+   last time and is fine now → rerun the brief with `--ok <joint>`.
 3. **Compose** `automations/personal-trainer/.work/plan.json` (Write tool),
    by methodology.md:
-   - `warmup` = `warmup.suggested` as is;
-   - `strength` = `strength.items`, each item copied whole (`id`, `sets`,
-     `reps`, `kg`, `lb`, `action`, `step_lb`, `hint_lb`, `cue`,
-     `if_missing`, `replaces`), `"superset_next": true` on the first of the
-     trainer's pairs, `trim.drop` removed when present;
+   - `warmup` = `warmup.suggested` as is (already cut to the time);
+   - `strength` = `strength.items` (already cut to the time), each item
+     copied whole (`id`, `sets`, `reps`, `kg`, `lb`, `action`, `step_lb`,
+     `hint_lb`, `cue`, `if_missing`, `replaces`), `"superset_next": true` on
+     the first of the trainer's pairs;
    - `crossfit` = `{"format", "rounds", "cap_min", "items": [{"id", "reps"
      or "secs", "kg"?, "unit"?, "fallback"?}]}` from `crossfit.pool` and
      `crossfit.dose`;
@@ -40,8 +41,9 @@ only, nothing around it unless he asks.
      `"note"` (one line, only after a pause, in a new gym or with pain),
      `"overrides"` `{id: reason}` for any departure from the brief.
 4. **Check.** `python3 $T check automations/personal-trainer/.work/plan.json`.
-   Fix every error; fix each warning or justify it in `overrides`. Repeat
-   until `ok`.
+   Fix every error. Fix each warning, or justify it in `overrides` keyed by
+   the item id or by `warmup` / `strength` / `crossfit`; check then lists it
+   under `accepted`. Repeat until `ok` with no warnings left.
 5. **Show.** `python3 $T render automations/personal-trainer/.work/plan.json --save`
    (`--fmt text` when replying through the Telegram bridge) saves the plan
    to `outputs/personal-trainer/plans/<date>.json` and prints the tables
@@ -49,10 +51,12 @@ only, nothing around it unless he asks.
 
 ## Mode 2 — Adjust today's plan
 
-Pain, fatigue, little time, a busy or missing machine before or during the
-session: rerun brief with the new flags (`--missing <id>` for a machine
-that is busy or absent today), recompose only what changed, check, render
-with `--save`, and send only the changed table.
+Pain, fatigue, little time, a busy machine before or during the session:
+rerun brief with the new flags (`--missing <id>` for a machine busy today:
+a flag only, never `gym`), recompose only what changed, check, then
+`render … --save --only <warmup|strength|crossfit>` and send that table
+plus one line on what changed («жим сидя занят → жим лёжа в тренажёре»).
+Don't repeat questions he already answered today.
 
 ## Mode 3 — After the session
 
@@ -73,7 +77,9 @@ file owns the steps and any hold on pushing data to the app.
 
 ## Machines the gym has or lacks
 
-Whenever he says a machine is there or not (any mode):
+Whenever he says the gym has a machine or doesn't at all (any mode):
 `python3 $T gym --have <id>` / `--missing <id>` (+ `--use <id>=<alt_id>`
 for a substitute he names); kit for crossfit: `--equip rope=have|missing`.
-Ids are in `automations/personal-trainer/catalog.json`. Confirm in one line.
+Busy is not missing: busy is the `--missing` brief flag for today only.
+Feedback marks every machine he trained on as `have` by itself. Ids are in
+`automations/personal-trainer/catalog.json`. Confirm in one line.

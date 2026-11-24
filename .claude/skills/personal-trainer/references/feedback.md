@@ -10,7 +10,8 @@
 | переехал, давно не был (без жалоб на самочувствие) | no flag: the engine handles the pause |
 | мало времени, есть 40 минут | `--time 40` |
 | хочу спину / ноги / грудь | `--day pull` / `legs` / `push` |
-| X занят, сегодня не работает | `--missing <id>` |
+| X занят, сегодня не работает | `--missing <id>` (today only, never `gym`) |
+| (на вопрос о прошлой боли) нормально, прошло | `--ok <joint>` |
 
 Several pains: `--pain lower_back,knee`. Sharp, new or spreading pain (a
 leg going numb, a twinge under load): no plan; tell him to skip that area

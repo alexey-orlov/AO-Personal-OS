@@ -47,7 +47,8 @@ when Alex asks or the gym lacks the kit.
   21-15-9 couplet with one cardio buy-in, or a jump-rope ladder 50-40-30
   between three movements. Not after a pause or on a low-readiness day
   (`dose.known_only` true).
-- Pick 4 movements from `crossfit.pool` (doses there are already scaled):
+- Pick `dose.movements` movements (4, or 3 after a pause, on a low day or
+  under 45 min) from `crossfit.pool` (doses there are already scaled):
   1 cardio or plyo + 2 for other muscles + 1 for the day's muscles
   (`day_muscles` true: pull-ups on a back day, dips or push-ups on a chest
   day, lunges or wall balls on a legs day). Two day-muscle movements at most;
@@ -55,8 +56,11 @@ when Alex asks or the gym lacks the kit.
 - Variety: not the same combo as any in `crossfit.recent`; nothing that was
   in both of the last two combos; prefer low `uses_last10`; change the
   cardio piece from last time.
+- When the pool can't satisfy every rule (small pool after a pause), keep
+  the count and the composition, drop variety first; repeating the only
+  cardio is fine.
 - Equipment the gym hasn't confirmed (`equipment` field): add its
-  `fallback` to the item.
+  `fallback` to the item. Loads in the pool are the trainer's last ones.
 - Keep the check's time estimate within the cap: cut reps, not movements.
 
 ## Lower back
@@ -67,6 +71,7 @@ check enforce pain rules; don't work around them.
 
 ## Time and tiredness
 
-The engine trims: `trim.drop` lists strength exercises to leave out,
-`trim.warmup_max` the warm-up size, `crossfit.dose` the rounds and cap. Low
-readiness holds every weight; crossfit 2 rounds or `"format": "skip"`.
+The engine trims the brief to `--time` (strength, warm-up, crossfit dose;
+`strength.trimmed` lists what it left out) and the check estimates the whole
+session. Low readiness holds every weight and starts a new machine one step
+lighter; crossfit 2 rounds or `"format": "skip"`.
