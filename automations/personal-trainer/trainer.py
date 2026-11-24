@@ -1074,7 +1074,26 @@ def cmd_import_grid(a):
     sess = grid_to_sessions(grid)
     if not sess:
         die("no date blocks found in the grid (row 1 must carry the dates; include columns A:B)")
+    seen, cat = set(), None
+    for row in grid[3:]:
+        if row and cell_str(row[0]):
+            cat = cell_str(row[0])
+        if cat and len(row) > 1 and cell_str(row[1]):
+            seen.add(section_of(cat))
     hist = load_json(HISTORY_F, {"sessions": []})
+    if not a.replace:   # merge only the sections this grid covers
+        old = {s["date"]: s for s in hist.get("sessions", [])}
+        for s in sess:
+            o = old.get(s["date"])
+            if not o:
+                continue
+            for sec in ("strength", "warmup", "crossfit"):
+                if sec not in seen:
+                    s[sec] = o.get(sec, s[sec])
+            if "warmup" not in seen and o.get("warmup_summary"):
+                s["warmup_summary"] = o["warmup_summary"]
+            if s.get("body_weight") is None:
+                s["body_weight"] = o.get("body_weight")
     upsert(hist, sess, "My training sheet (connector grid)", replace=a.replace)
     save_json(HISTORY_F, hist)
     out({"ok": True, "imported": [s["date"] for s in sess], "sessions": len(hist["sessions"])})
