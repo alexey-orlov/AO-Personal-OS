@@ -461,6 +461,34 @@ def reverse_sources(inp):
     return {"busy_events": out}
 
 
+def eventkit_busy(inp):
+    """Events of one calendar read straight from Apple Calendar (ss-cal-read rows) -> busy slots,
+    by Google's rule: timed, not Free, not cancelled, not an SS meeting. EventKit reports some
+    subscribed feeds' availability as "notSupported"; that counts as busy, the safe side for SS.
+    Key "ek:<calendar>::<iCal UID>", plus the original start for an occurrence of a series (all
+    of them share the UID), so a refresh of the feed never re-keys a slot."""
+    cfg = dict(DEFAULT_CONFIG); cfg.update(inp.get("config") or {})
+    ss = cfg["softserve_email"].casefold()
+    cal = inp.get("calendar", "")
+    out, keys = [], set()
+    for e in inp.get("events") or []:
+        if e.get("all_day") or not e.get("start") or not e.get("end"):
+            continue
+        if e.get("availability") == "free" or e.get("status") == "canceled" or is_cancelled(e.get("title", "")):
+            continue
+        people = [e.get("organizer_email") or ""] + [a.get("email") or "" for a in e.get("attendees") or []]
+        if any(ss in p.casefold() for p in people):
+            continue                                   # already on SS itself (anti-recursion, as for Google)
+        key = "ek:%s::%s" % (cal, e.get("external_id") or e.get("uid") or "")
+        if (e.get("recurring") or e.get("detached")) and e.get("occurrence"):
+            key += "@" + _utc(e["occurrence"]).strftime("%Y%m%dT%H%M%SZ")
+        if key in keys:
+            continue                                   # one slot per key, or two placeholders fight over one
+        keys.add(key)
+        out.append({"key": key, "start": e["start"], "end": e["end"]})
+    return {"busy_events": out}
+
+
 def reverse_reconcile(inp):
     """Busy slots + known placeholders -> {create, update, delete} writer commands.
 
@@ -698,6 +726,7 @@ _COMMANDS = {
     "reconcile": reconcile,
     "extract": extract,
     "reverse-sources": reverse_sources,
+    "eventkit-busy": eventkit_busy,
     "reverse-reconcile": reverse_reconcile,
     "schedule": schedule,
     "log-run": log_run,
