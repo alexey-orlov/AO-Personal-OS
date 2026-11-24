@@ -364,10 +364,49 @@ class State:
         self.sessions = [s for s in hist.get("sessions", []) if parse_date(s["date"]) < today]
         self.history_synced = hist.get("synced_at")
         self.plans = self._load_plans() if use_plans else {}
+        self._merge_plans()
         self.pain = {p.strip() for p in pain if p.strip()}
         self.readiness = readiness
         self.time_min = time_min
         self.day = day
+
+    def _merge_plans(self):
+        """The sheet logs strength only, and a US session may never be photographed.
+        A plan with feedback counts as done: its strength stands in until gym-log
+        logs the real numbers (feedback 'actual' wins over the prescription), and
+        its warm-up / crossfit are the only record of those parts."""
+        by_date = {s["date"]: s for s in self.sessions}
+        for d, p in self.plans.items():
+            fb = p.get("feedback") or {}
+            done = bool(fb) and fb.get("done", True)
+            s = by_date.get(d.isoformat())
+            if s is None and not done:
+                continue
+            if s is None:
+                s = empty_session(d)
+                s["from_plan"] = True
+                actual = fb.get("actual") or {}
+                for it in p.get("strength", []):
+                    ex = self.cat.strength.get(it["id"])
+                    a = actual.get(it["id"]) or {}
+                    kg = a.get("kg") or ([round(x / KG_LB, 1) for x in a["lb"]] if a.get("lb") else it.get("kg"))
+                    if not ex or not kg or (fb.get("items", {}).get(it["id"], {}).get("rating") == "skipped"):
+                        continue
+                    s["strength"].append({"name": ex["sheet_rows"][0], "category": None,
+                                          "sets": a.get("sets", it.get("sets", 3)), "reps": str(a.get("reps", it.get("reps", ""))),
+                                          "w_start": kg[0], "w_end": kg[-1]})
+                self.sessions.append(s)
+                by_date[s["date"]] = s
+            if not s["warmup"] and p.get("warmup"):
+                s["warmup"] = [{"id": w["id"], "sets": w.get("sets"), "reps": str(w.get("reps") or w.get("secs", "")),
+                                "w_end": w.get("kg")} for w in p["warmup"]]
+            if not (s.get("crossfit") or {}).get("items") and (p.get("crossfit") or {}).get("items"):
+                cf = p["crossfit"]
+                s["crossfit"] = {"rounds": str(cf.get("rounds", cf.get("scheme", ""))), "cap": cf.get("cap_min"),
+                                 "finish": fb.get("crossfit_time"),
+                                 "items": [{"id": i["id"], "reps": str(i.get("reps", "")), "w_end": i.get("kg")}
+                                           for i in cf["items"]]}
+        self.sessions.sort(key=lambda s: s["date"])
 
     def _load_plans(self):
         plans = {}
@@ -608,9 +647,9 @@ def warmup_state(st):
     for s in st.sessions:
         ids = []
         for it in s["warmup"]:
-            wid = st.cat.w_row.get(norm(it["name"]))
-            if not wid:
-                unmapped.add(it["name"])
+            wid = it.get("id") or st.cat.w_row.get(norm(it.get("name")))
+            if wid not in st.cat.warm:
+                unmapped.add(it.get("name") or str(wid))
                 continue
             w = st.cat.warm[wid]
             lvl = w["level"]
@@ -652,7 +691,7 @@ def crossfit_state(st):
         cf = s.get("crossfit") or {}
         items = []
         for it in cf.get("items", []):
-            cid = st.cat.c_row.get(norm(it["name"]), "?" + it["name"])
+            cid = it.get("id") or st.cat.c_row.get(norm(it.get("name")), "?" + str(it.get("name")))
             load = it.get("w_end")
             items.append(cid + (f" {it.get('reps')}" if it.get("reps") else "") + (f" ({load} кг)" if load else ""))
             usage[cid] += 1

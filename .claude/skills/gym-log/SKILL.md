@@ -1,6 +1,6 @@
 ---
 name: gym-log
-description: Parse a photo of Alex's handwritten gym notebook page and log the core strength-training part into his "My training" Google Sheet (one row per exercise, one 4-column block per date, body-weight row), keeping the same exercise matched to the same row across sessions. Also records a body-weight measurement when given, and closes by sending a short progress digest (deltas in kg and % vs last occurrence and vs 3-month baseline) to the 🏋️ Trainings Telegram topic. Use when Alex shares a training-note photo, says "log my training / workout", "добавь тренировку", "log this to my training sheet", or sends just a weigh-in for the training log. Photo + optional comment + optional weight in; updated sheet + Telegram digest out.
+description: Parse a photo of Alex's handwritten gym notebook page and log the whole session (warm-up, core strength, crossfit closing) into his "My training" Google Sheet (one row per exercise, one 4-column block per date, body-weight row, warm-up and crossfit rows with the day's combination, rounds and finish time under the strength part), keeping the same exercise matched to the same row across sessions. Also records a body-weight measurement when given, and closes by sending a short progress digest (deltas in kg and % vs last occurrence and vs 3-month baseline) to the 🏋️ Trainings Telegram topic. Use when Alex shares a training-note photo, says "log my training / workout", "добавь тренировку", "log this to my training sheet", or sends just a weigh-in for the training log. Photo + optional comment + optional weight in; updated sheet + Telegram digest out.
 disable-model-invocation: false
 user-invocable: true
 ---
@@ -9,15 +9,17 @@ user-invocable: true
 
 Input: photo(s) of a notebook page (HEIC/JPG path, pasted image, or a
 Telegram message's `image_path`), optionally a text comment and a body-weight
-measurement. Output: the strength part logged into the sheet, plus a short
-report of what was written, skipped, and any doubts.
+measurement. Output: the session logged into the sheet, plus a short report
+of what was written, skipped, and any doubts.
 
 Sheet: "My training" (`GYM_SHEET_ID` in `automations/gym-log/config.sh`).
 Layout: rows = exercises grouped by Category (EN muscle groups: Chest / Back /
 Legs / Glutes / Shoulders / ...); each training date = 4 columns
 (Sets | Reps per set | Weight start | Weight end) under a merged date header;
-row 3 = "My weight" per date. The whole point: **same exercise lands in the
-same row every time**, so weight/rep dynamics read left-to-right.
+row 3 = "My weight" per date; under the strength part, the categories
+Warm-up and Crossfit (README, "Sheet layout contract"). The whole point:
+**same exercise lands in the same row every time**, so weight/rep dynamics
+read left-to-right.
 
 ## Procedure
 
@@ -53,15 +55,15 @@ minute, and the handwritten date is the only date (23.11.26: six October
 pages all stamped 23.11). Sheet date format is **M/D/YYYY without leading
 zeros** ("7/22/2026") — block lookup is an exact string match.
 
-### 3. Parse the page — strength section only
+### 3. Parse the page — all three sections
 
 A session is three parts, usually separated by horizontal rules and circled
 markers: **I** warm-up → **II** core strength → **III** crossfit closing
-(often with `(x3)` rounds and a boxed finish time). **`log` writes section II
-only.** Sections I and III have their own rows under the strength part
-(categories Warm-up and Crossfit; layout and cell conventions in the README,
-row names in `references/exercises.md`). They were backfilled by hand for
-20.07–30.10 on 23.11.26 and are not logged per session yet.
+(often with `(x3)` rounds and a boxed finish time). **Log all three**
+(Alex, 23.11.26): section II as strength entries, sections I and III as
+entries in the categories Warm-up and Crossfit plus their summary fields
+(step 5). The cell conventions for I and III are in the README ("Sheet
+layout contract"), the row names in `references/exercises.md`.
 When markers are missing, recognize parts by vocabulary —
 `references/exercises.md` lists known warm-up and crossfit items; strength
 lines have per-set weights in kg, warm-up/crossfit lines have times (40",
@@ -75,8 +77,8 @@ Line rules:
   (30.10.26: push day crossed out, the pull day done on the facing page).
 - Sets notation `3x10` = 3 sets × 10 reps. A range `3x8-10` → reps `8-10`
   as written; a circled number in it is reported, not silently picked. Send
-  any non-numeric reps with a leading apostrophe (`"reps":"'8-10"`): `log`
-  writes USER_ENTERED, and the en_US sheet would read a bare `8-10` as a date.
+  reps as written (`"reps":"8-10"`): `log` adds the apostrophe that keeps
+  text like `8-10`, `21-15-9` or `40"` from turning into a date or a number.
 - Weights: one number → start = end = it; `A→B` / `A-B` → start A, end B;
   a series `A/B/C/D` or `A-B-C` → start = first, end = last. A series
   longer than the set count (`14/16/16/16` on 3×10) → log the sets that
@@ -117,28 +119,37 @@ inventing one), and **add a row to the registry file** after logging.
 ```bash
 source automations/gym-log/config.sh
 "$PYTHON_BIN" "$GYM_SHEET" dump            # current rows/dates — also validates auth
-echo '{"date":"7/22/2026","my_weight":73.6,"entries":[
-  {"category":"Back","exercise":"Верт. тяга","sets":3,"reps":10,"w_start":52,"w_end":62}
-]}' | "$PYTHON_BIN" "$GYM_SHEET" log
+echo '{"date":"7/20/2026","my_weight":74.0,"entries":[
+  {"category":"Chest","exercise":"Жим лёжа","sets":3,"reps":10,"w_start":70,"w_end":70},
+  {"category":"Warm-up","exercise":"Dog birds","sets":2,"reps":15},
+  {"category":"Crossfit","exercise":"Thrusters","sets":3,"reps":10,"w_start":24,"w_end":24},
+  {"category":"Crossfit","exercise":"Скакалка","sets":3,"reps":50}],
+ "warmup":{"combination":"Dog birds 2x15 → Удержание резины 2x40\" → Ягодичный мост 2x15"},
+ "crossfit":{"combination":"Hand stand push-ups 10 → Thrusters 10 (24 кг) → Скакалка 50",
+             "rounds":3,"cap":"10'\''","finish":"11:53"}}' | "$PYTHON_BIN" "$GYM_SHEET" log
 ```
 
 - One `log` call per training date; several photos/sessions → chronological
   order. Upsert semantics: re-logging a date overwrites that block, never
-  duplicates.
-- **Put exercises that need a new row first in `entries`, top to bottom in
-  sheet order.** `log` plans value writes before later row inserts, so a row
-  written before an insert above it lands one row up, possibly in another
-  exercise's row (README, "Known bug"). After any run that lists
-  `created.exercises`, check in `dump` that no other row gained a cell for
-  that date.
+  duplicates. Entry order does not matter: a write planned before a row
+  insert above it follows its row.
+- Strength entries need all six fields. Warm-up and Crossfit entries need
+  only category and exercise: leave out what the page does not give (no
+  weight for bodyweight work, no `sets` when the WOD shows no round count).
+  `warmup` / `crossfit` fill the summary rows: the combination is the page's
+  lines in order and in its own words, joined with ` → `; `rounds` a number
+  or e.g. `3 (21-15-9)`; `cap` and notes as written; `finish` as `11:53` or
+  `11'53"` (stored as a duration) or a note such as `не записано`. Other cell
+  conventions (`50+40`, `21-15-9`, `40"`, `N cal`): README.
 - `my_weight` only when Alex gave a weigh-in (kg, one decimal). Weight-only
   update (no training): `{"date":"...","my_weight":74.2,"entries":[]}`.
 - Numbers as JSON numbers (22.5, not "22,5"). Exit code 3 → token expired:
   run `"$PYTHON_BIN" "$GYM_SHEET" auth` (browser consent; ask Alex first).
 - **Category is ignored for an exercise that already has a row** — `log`
-  matches by name only. Re-categorizing means moving the row into the other
-  group by hand in the sheet; say so explicitly instead of assuming the
-  payload fixed it.
+  matches by name within its section (strength, Warm-up or Crossfit).
+  Re-categorizing a strength row means moving it into the other group by
+  hand in the sheet; say so explicitly instead of assuming the payload
+  fixed it.
 - **Off the Mac (cloud run, fresh clone — no `.work/`)?** It still writes:
   credentials are the shared Google Sheets credential in the
   `GSHEETS_TOKEN_JSON` env var (`automations/gsheets/README.md`), and the
