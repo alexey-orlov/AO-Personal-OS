@@ -88,8 +88,12 @@ if exchangeOnly { selected = selected.filter { $0.source.sourceType == .exchange
 if let sf = sourceFilter { selected = selected.filter { $0.source.title.lowercased().contains(sf) } }
 if let tf = typeFilter { selected = selected.filter { typeName($0.source.sourceType) == tf } }
 if let cf = calendarFilter { selected = selected.filter { $0.title.lowercased() == cf } }
+// A filter that matches no calendar is a failed read, not an empty one: never fall back to every
+// calendar (EventKit's nil = all), and never report "no events" for an account that isn't there.
 let filtered = exchangeOnly || sourceFilter != nil || typeFilter != nil || calendarFilter != nil
-if filtered && selected.isEmpty { print("[]"); exit(0) }   // nothing matches: never fall back to every calendar
+if filtered && selected.isEmpty {
+    FileHandle.standardError.write("NO_MATCHING_CALENDAR\n".data(using: .utf8)!); exit(5)
+}
 let iso = ISO8601DateFormatter(); iso.formatOptions = [.withInternetDateTime]; iso.timeZone = TimeZone.current  // emit local (Kyiv) wall time, not GMT
 let isoIn = ISO8601DateFormatter(); isoIn.formatOptions = [.withInternetDateTime]
 let isoInF = ISO8601DateFormatter(); isoInF.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
