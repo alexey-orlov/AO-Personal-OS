@@ -225,7 +225,7 @@
     "shoulder"
    ],
    "back": "caution",
-   "back_cue_ru": "спина прижата к спинке, без прогиба в пояснице",
+   "back_cue_ru": "спина прижата, без прогиба",
    "status": "active",
    "us_transfer": "plates",
    "en_short": "Hammer Shoulder Press"
@@ -452,7 +452,7 @@
     "elbow"
    ],
    "back": "safe",
-   "back_cue_ru": "корпус вертикально, без раскачки поясницей",
+   "back_cue_ru": "без раскачки поясницей",
    "status": "active",
    "us_transfer": "cable",
    "en_short": "Seated Cable Row"
@@ -531,7 +531,7 @@
     "lower_back"
    ],
    "back": "caution",
-   "back_cue_ru": "рёбра вниз, без прогиба в пояснице",
+   "back_cue_ru": "рёбра вниз, без прогиба",
    "status": "active",
    "note_ru": "в августе было 50, после паузы тренер держит 41",
    "us_transfer": "cable",
@@ -648,7 +648,7 @@
     "lower_back"
    ],
    "back": "caution",
-   "back_cue_ru": "поясница прижата к спинке всю амплитуду, глубина — пока таз не подворачивается",
+   "back_cue_ru": "поясница прижата к спинке",
    "superset": "hip_abduction",
    "status": "active",
    "us_transfer": "plates",
@@ -731,7 +731,7 @@
     "lower_back"
    ],
    "back": "caution",
-   "back_cue_ru": "таз не отрывается от сиденья внизу",
+   "back_cue_ru": "таз не отрывать внизу",
    "status": "rare",
    "us_transfer": "machine",
    "en_short": "Leg Press"
@@ -806,7 +806,7 @@
     "lower_back"
    ],
    "back": "caution",
-   "back_cue_ru": "без переразгибания поясницы наверху",
+   "back_cue_ru": "без прогиба в пояснице",
    "superset": "leg_curl",
    "status": "active",
    "us_transfer": "probe",
@@ -1035,7 +1035,7 @@
     "shoulder"
    ],
    "back": "caution",
-   "back_cue_ru": "сидя со спинкой, без прогиба",
+   "back_cue_ru": "спина к спинке, без прогиба",
    "status": "active",
    "note_ru": "25.09 (20/25/30), 09.10 (30×3)",
    "us_transfer": "smith",
@@ -1224,7 +1224,7 @@
     "lower_back"
    ],
    "back": "caution",
-   "back_cue_ru": "без переразгибания поясницы наверху",
+   "back_cue_ru": "без прогиба в пояснице",
    "superset": "leg_curl",
    "status": "alt",
    "note_ru": "замена тренажёра для разгибания бедра"

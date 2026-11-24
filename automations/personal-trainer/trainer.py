@@ -247,14 +247,14 @@ def implement(kg, load, gym, cap_kg=None):
     step = gym.get("db_lb_step", 5)
 
     def pick(choices, target):
-        ok = [c for c in choices if cap_kg is None or c / KG_LB <= cap_kg + 0.05]
+        ok = [c for c in choices if cap_kg is None or c / KG_LB <= cap_kg * 1.1]
         return min(ok or choices, key=lambda c: abs(c - target))
 
     if load in ("db_each", "db_single", "db_pair_total"):
         per = kg / 2 if load == "db_pair_total" else kg
         cap = (cap_kg / 2 if load == "db_pair_total" else cap_kg) if cap_kg else None
         lb = int(step * round(per * KG_LB / step))
-        while cap and lb > step and lb / KG_LB > cap + 0.05:
+        while cap and lb > step and lb / KG_LB > cap * 1.1:
             lb -= step
         per_kg = clean_num(round(lb / KG_LB)) if lbgym else clean_num(per)
         if load == "db_single":
