@@ -21,6 +21,14 @@ export CALSYNC_TZ="Europe/Kyiv"
 export CALSYNC_PREFIX="SS: "
 export CALSYNC_DAYS_AHEAD=14                           # this week + next week
 
+# --- reverse leg: calendars read straight from Apple Calendar ---------------------------
+# "<type>:<calendar title>[=<Google calendar id it replaces>]", comma-separated (type as
+# `ss-cal-read --list` prints it). While the calendar is in Apple Calendar its events block SS
+# directly and the Google calendar after "=" is skipped; while it isn't, that Google copy stays
+# the source. GigaCloud: Apple Calendar's subscription to its Outlook feed (refreshed every
+# 5 min) instead of Google's copy of the same feed, which lags 5-6 h. Set to "" to disable.
+export CALSYNC_EK_SOURCES="${CALSYNC_EK_SOURCES-subscribed:GigaCloud=g1ijcmfb7h40pmmcj3f67cnpki8kn898@import.calendar.google.com}"
+
 # --- secrets (macOS Keychain) ----------------------------------------------
 # Your own Google Cloud "Desktop app" OAuth client. Store once:
 #   security add-generic-password -U -a "$USER" -s CALSYNC_GOOGLE_CLIENT_ID     -w '<client id>'
