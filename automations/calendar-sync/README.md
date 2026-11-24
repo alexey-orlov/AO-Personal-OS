@@ -108,10 +108,20 @@ lists the organizer and the full participant roster with each person's status.
 
 ## Reverse leg — Google busy → SS "Busy"
 After the forward pass, `run.py` blocks SS time wherever Alex is busy in Google:
-- **Source:** every Google calendar (`list_calendars`) — primary, Family, Дети, **GigaCloud** (a
-  `reader`-role calendar subscribed by URL; see Limits) — read in-window. Calendars hidden in Google's
-  calendar list are skipped (2026-11-24: only "a.orlov", an empty URL import). A slot counts as
-  **busy** if it is timed (not all-day), not `transparent` (Free), not cancelled, and not self-declined.
+- **Source:** every Google calendar (`list_calendars`) — primary, Family, Дети, **GigaCloud** — read
+  in-window. Calendars hidden in Google's calendar list are skipped (2026-11-24: only "a.orlov", an
+  empty URL import). A slot counts as **busy** if it is timed (not all-day), not `transparent` (Free),
+  not cancelled, and not self-declined. iCloud Home/Work are not read (no timed events, 2026-11-24).
+- **GigaCloud straight from Apple Calendar** (`CALSYNC_EK_SOURCES`, 2026-11-24): Google's GigaCloud
+  is a copy of its Outlook feed that Google refreshes every 5–6 h (see Limits). While Apple Calendar
+  holds a subscription to the same feed titled **GigaCloud** (type `subscribed`, refreshed every 5 min),
+  the reverse leg reads it through EventKit (`sync_core.eventkit_busy`: same busy rule; key
+  `ek:GigaCloud::<iCal UID>`, plus the original start for an occurrence of a series) and skips Google's
+  copy. Without the subscription, Google's copy stays the source. If Apple Calendar can't be listed or
+  read, neither copy is used and nothing is pruned that run, so one bad read never re-keys GigaCloud's
+  blocks twice. The switch re-keys them once: the first run deletes the Google-keyed blocks and creates
+  the same slots from the subscription. EventKit reports some feeds' availability as `notSupported`;
+  that counts as busy.
 - **1:1 placeholders:** each busy slot → one SS event titled **"Busy"**, `availability=.busy`, **no
   attendees** (nothing emailed), **no details** (colleagues see only that the time is taken). Keyed by
   `calendarId::eventId`; create/update/delete tracked in `reverse-ledger.json`. The idempotency hash is
@@ -156,8 +166,10 @@ After the forward pass, `run.py` blocks SS time wherever Alex is busy in Google:
 8. **Apple Calendar must hold only one Exchange account, SoftServe's.** The reader treats every Exchange
    calendar as SoftServe (`--exchange`), and the writer picks the first writable Exchange calendar titled
    "Calendar". A second Exchange account (GigaCloud's Microsoft 365, say) would have its meetings
-   mirrored to Google as `SS:` copies and could get the "Busy" blocks written into it. Pin the source by
-   account (`ss-cal-read --source`, and the same in the writer) before adding one.
+   mirrored to Google as `SS:` copies and could get the "Busy" blocks written into it, so `run.py` stops
+   without writing when it sees two Exchange calendars titled "Calendar". Pin the source by account
+   (`ss-cal-read --source`, and the same in the writer) before adding one. GigaCloud comes in as a
+   calendar subscription, which is not an Exchange account.
 
 ## Setup (one-time)
 1. Add the SoftServe Exchange account to **Apple Calendar** (System Settings → Internet Accounts), so SS
@@ -172,6 +184,12 @@ After the forward pass, `run.py` blocks SS time wherever Alex is busy in Google:
      (forward writes) **+ `calendar.readonly`** (reverse multi-calendar read). Authorizing from another
      device? Use `gcal.py authurl` (prints the consent URL) then `gcal.py exchange '<pasted redirect URL>'`.
 3. It runs in **DRY-RUN** (plans only) until you go live: `touch .work/state/LIVE`.
+4. **GigaCloud without Google's delay** (only Alex can do this: the feed link carries an access token):
+   copy GigaCloud's published-calendar ICS link (Outlook on the web → Settings → Calendar → Shared
+   calendars → Publish a calendar; the same link Google subscribes to; don't reset it, or Google's copy
+   stops). In Calendar.app: File → New Calendar Subscription → paste → Subscribe → Name **GigaCloud**,
+   Location **On My Mac**, Auto-refresh **Every 5 minutes**, remove alerts and attachments → OK. The
+   next run switches over; `.work/state/calendars.txt` shows the calendar and its event count.
 
 ## Schedule & notifications
 - **Every 30 minutes (:00 and :30), around the clock, Mon–Fri on the Mac's local clock** (Alex,
@@ -203,13 +221,13 @@ launchctl kickstart -k "gui/$(id -u)/com.user.calendar-sync"
   adapter KN7X2Y65NX never sleeps (`pmset` AC `sleep 0`); on battery it sleeps after 15 idle minutes,
   so the European-morning runs in the Pacific night need it plugged in (2026-11-23 02:15–06:56 it
   slept, on battery (inferred): the only two runs came in brief wakes and both timed out).
-- **GigaCloud lags by hours, whatever the cadence.** GigaCloud is an Exchange calendar that reaches
-  Google only as a subscription by URL (`…@import.calendar.google.com`), and Google fetches that feed on
-  its own timer. Observed 2026-10-26 → 11-24: GigaCloud changes landed in Google in 28 batches, always
-  at :15 past an hour and never less than 5 h apart (25 of 27 gaps 6 h or more), so Google fetches the
-  feed about every 5–6 h or less often (inferred). A new or moved GigaCloud meeting can take 5+ hours
-  to block SS. Faster needs a direct read of GigaCloud: fetch the feed ourselves each run, or read the
-  account from Apple Calendar (see gotcha 8 first).
+- **GigaCloud through Google lags by hours.** GigaCloud is an Exchange calendar that reaches Google
+  only as a subscription by URL (`…@import.calendar.google.com`), and Google fetches that feed on its
+  own timer. Observed 2026-10-26 → 11-24: GigaCloud changes landed in Google in 28 batches, always at
+  :15 past an hour and never less than 5 h apart (25 of 27 gaps 6 h or more), so Google fetches the
+  feed about every 5–6 h or less often (inferred). The Apple Calendar subscription (Reverse leg) cuts
+  that to the 5-minute refresh plus the next run, about 35 min at worst; Google's own GigaCloud
+  calendar stays hours behind. The subscription refreshes only while the Mac is awake.
 - A Google refresh-token lapse (only if the consent screen reverts to "Testing") needs a re-`auth`;
   surfaced via the daily summary as a write error.
 
