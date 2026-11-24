@@ -17,7 +17,7 @@ spellings show up in the notes. Categories are EN muscle groups.
 | Верт. тяга | Back | Вертикальная тяга, Тяга верт., Тяга вертикального блока | lat pulldown; 52→62 (2026-07), 66/68/68 (28.09); grip variants share this row with the grip noted in the report — «шир. хват» 52-59-59 (29.07) |
 | Горизонт. тяга | Back | Горизонтальная тяга, Тяга горизонт. блока | seated row; 45→59 (2026-07); 7-kg tiles 45/52/59; 63/63/63 (28.09) sits between tiles and read clearly |
 | Тяга верт. одной рукой | Back | Тяга одной рукой, Тяга верт. бл. одной рукой | single-arm pulldown; 36→45 (22.07), 41/50/50 (28.09) |
-| Пулловер с колен | Back | Пулловер, Пуловер, Пуловер с колен | kneeling pullover; 36→45; stack 36/41/45, then 45.5 (28.09: 41→45.5); 41 ×3 (16.10–30.10) |
+| Пулловер с колен | Back | Пулловер, Пуловер, Пуловер с колен | kneeling pullover; 36→45; stack 36/41/45, then 45.5 (28.09: 41→45.5); 45/45/41 (09.10: reps not on the page, 10 inferred from the day's 3×10 — Alex left the call to the agent, 23.11.26); 41 ×3 (16.10–30.10) |
 | Тяга в упоре | Back | Т-тяга | chest-supported row, plate-loaded; 25→35 (29.07). The notebook's «Т-тяга» is this machine (Alex, 23.11.26); 35 ×3 (19.08, 09.10, 16.10–30.10). The 19.08 page put the name between question marks («?Тяга в упоре?»); the weights match this row |
 | Сгиб. на бицепс | Back | Сгибание на бицепс, Сгибание предплечья (на бицепс) | biceps curl; 7-kg tiles 45/52; 52→54 (05.08, 12.08). Filed under Back as part of the pull day — no Arms category in the sheet yet (same precedent as Жим в брусьях сидя → Chest) |
 | Жим L 45° | Chest | Жим ∠45°, Жим 45° | **Seated 45° press with the ARMS, not a leg press** (Alex, 31.07.26 — applies to every past entry too). The notebook glyph is the angle symbol `∠`, not an "L for legs". 30→40 (20.07), 40→45 (31.07). Sheet row moved into the Chest group on 03.08.26 (merge boundary shifted; `log` matches by name only and never moves rows). The real leg press is `Жим ногами сидя` |
@@ -69,7 +69,7 @@ Warm-up rows (canonical = column B):
 | Экстензия сидя с гантелью | Экстензия сидя с гант., Экстенсия с гант., Экстензия сидя (10кг) | from 16.10 |
 | Махи блином вокруг головы | Махи блином (10кг) | 2x10, 10 kg |
 | Plank shoulders touch | | 2x20 |
-| Планка со сменой рук | Планка с переменной (?) / перекрёстной сменой рук | 14.10; the adjective is unreadable |
+| Планка со сменой рук | Планка с переменной сменой рук, Планка с перекрёстной сменой рук | 14.10; the letters fit «переменной» (another reading: «перекрёстной»), the neutral row name covers both |
 | Планка высокая | | 2x40" |
 
 Crossfit rows: four summary rows first (Combination (crossfit), Rounds,
@@ -78,13 +78,13 @@ Time cap / plan, Finish time), then one row per exercise:
 | Canonical | Aliases seen | Notes |
 | --- | --- | --- |
 | Pull-ups | | |
-| Thrusters | | 24 → 25 → 20 kg; «(10кг)/10» on 02.10 unclear |
+| Thrusters | | 24 → 25 → 20 kg; 02.10 «(10кг)/10» = two 10-kg dumbbells, logged as text `10+10` (agent's call at Alex's request, 23.11.26) |
 | Walking lunges | Lunges walking, Lunges (15кг) | 15 kg |
 | Выпады | | 10 kg (23.10, 30.10); kept apart from Walking lunges |
 | Скакалка | Rope jumps | |
 | Dips | Deeps | |
 | T2B | | |
-| Hand stand push-ups | Hand stand push ups, Отжимания вниз головой | |
+| Hand stand push-ups | Hand stand push ups, Отжимания вниз головой, HP | «HP 15» (03.08) is this movement: no weight next to it, and every loaded movement carries one (agent's call at Alex's request, 23.11.26; the separate HP row was removed) |
 | Wall ball | Wall-ball | 6 kg |
 | Push-ups | | |
 | Squats | | 32 / 20 / 16 kg |
@@ -93,4 +93,3 @@ Time cap / plan, Finish time), then one row per exercise:
 | Box jumps | | |
 | Приседания с блином над головой | Присед. с блином над головой | 10 kg plate |
 | Sit-ups, Row (cal), Air bike (cal), Канат (sec), Протяжка с приседом, Жим швунговый, Зашагивание на тумбу, Plank dumbbell drag, JJ | | one row each |
-| HP | | 03.08 only; meaning unconfirmed (HSPU?) |
