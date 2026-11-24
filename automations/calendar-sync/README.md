@@ -195,10 +195,11 @@ launchctl kickstart -k "gui/$(id -u)/com.user.calendar-sync"
 - Runs only while the **Mac is awake**. The daily summary makes liveness observable.
 - **GigaCloud lags by hours, whatever the cadence.** GigaCloud is an Exchange calendar that reaches
   Google only as a subscription by URL (`…@import.calendar.google.com`), and Google fetches that feed on
-  its own timer. Observed 2026-10-26 → 11-24: Google applied GigaCloud changes in 29 batches, always at
-  :15 past an hour and never less than 5 h apart (usually 6 h or more). So a new or moved GigaCloud
-  meeting can take 5+ hours to block SS. Faster needs a direct read of GigaCloud: fetch the feed
-  ourselves each run, or read the account from Apple Calendar (see gotcha 8 first).
+  its own timer. Observed 2026-10-26 → 11-24: GigaCloud changes landed in Google in 28 batches, always
+  at :15 past an hour and never less than 5 h apart (25 of 27 gaps 6 h or more), so Google fetches the
+  feed about every 5–6 h or less often (inferred). A new or moved GigaCloud meeting can take 5+ hours
+  to block SS. Faster needs a direct read of GigaCloud: fetch the feed ourselves each run, or read the
+  account from Apple Calendar (see gotcha 8 first).
 - A Google refresh-token lapse (only if the consent screen reverts to "Testing") needs a re-`auth`;
   surfaced via the daily summary as a write error.
 
