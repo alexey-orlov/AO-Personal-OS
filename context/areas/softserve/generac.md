@@ -18,6 +18,7 @@ _tracker: [California Jumpstart Outreach](https://claude.ai/artifact/5spjsfxGjGh
 
 ## People
 
+- **Device-team map:** ecobee's and Generac's firmware, hardware and device-software teams, what each does and its stakeholders, as one page → [ecobee & Generac Device Teams](https://claude.ai/artifact/MtBowgYdmbbofePwmsbgPe) (2026-11-23).
 - Alex Bekh — account owner → [people page](../../people/alex-bekh.md).
 - Oksana Sharonina — account manager (client partner) for ecobee and Generac → [people page](../../people/oksana-sharonina.md).
 - SoftServe project team: **Muaz Malas** — Solutions Architect, Advanced Technologies (introduced on the kickoff as the IoT Solutions Architect in Chicago), the main SoftServe SME on the project (chat, 2026-11-22) · Varty Kuyumdjian — delivery director for Generac and ecobee · Lisa — delivery, on ecobee for several years · Jarek — leads the AWS Cloud Center of Excellence (Poland) · Volodymyr Pavlyuk — IoT architect, industrial IoT · Alejandro — partnerships (AWS–SoftServe–Generac).
