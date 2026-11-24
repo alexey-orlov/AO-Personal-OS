@@ -198,6 +198,21 @@ catalog cues; cached 24 h) · "Ask the trainer to find a demo" (a
 sit on a white panel in both themes (black line art), and the "How to"
 button shows the start-position thumbnail when an exercise has one.
 
+## Testing a change (app or engine)
+
+1. `python3 app/app_sync.py export app/.work/harness/seed --today <date>`, then
+   `python3 app/dev/make_harness.py` builds `app/.work/harness/harness.html`: the
+   page with a stand-in db (that seed) and a stand-in Claude that returns the
+   page's own draft. Serve it with the `trainer-app-harness` entry in
+   `.claude/launch.json` and drive it at phone width.
+2. Check parity: build plans in the page (`buildTemplate(contextFor(day, ck))`
+   for several check-ins, plus a broken one), save them, run
+   `trainer.py check` on each; the error and warning counts, `accepted` and
+   `estimate.session_min` must match the page's `checkPlan` (2026-11-24: 9 of 9).
+3. Anything that runs `trainer.py feedback`, `ingest` or `gym` first does
+   `eval "$(app/dev/sandbox.sh)"`: those commands write `gym.json`,
+   `history.json` and `plans/`, and the sandbox points all three at copies.
+
 ## Known gaps
 
 - Stored briefs are computed without `--pain` / `--time` / `--missing`: the
