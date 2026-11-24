@@ -1,13 +1,19 @@
 // ss_cal_read.swift — headless EventKit reader for the SoftServe calendar.
 // Build:  swiftc ss_cal_read.swift -o .work/ss-cal-read
-// Usage:  ss-cal-read --list                 (list calendars: "[source] :: title")
-//         ss-cal-read --source <substr> --days 14    (emit events JSON for matching source)
+// Usage:  ss-cal-read --list                 (list calendars: "[source] (type) :: title")
+//         ss-cal-read --exchange --days 14   (events of the Exchange calendars, from now)
+//         ss-cal-read --type subscribed --calendar GigaCloud --from <iso8601> --days 17
+//         (--source <substr> matches the account title; --type the account type as --list prints it;
+//          --calendar the calendar title, exact and case-insensitive; --from the window start, default now)
 // Emits a JSON array on stdout; times are absolute ISO8601 (already correct — no tz guesswork).
 import EventKit
 import Foundation
 
 var days = 14
 var sourceFilter: String? = nil
+var typeFilter: String? = nil
+var calendarFilter: String? = nil
+var fromArg: String? = nil
 var exchangeOnly = false
 var listOnly = false
 var args = Array(CommandLine.arguments.dropFirst())
@@ -16,6 +22,9 @@ while i < args.count {
     switch args[i] {
     case "--days":     if i+1 < args.count { days = Int(args[i+1]) ?? 14; i += 1 }
     case "--source":   if i+1 < args.count { sourceFilter = args[i+1].lowercased(); i += 1 }
+    case "--type":     if i+1 < args.count { typeFilter = args[i+1].lowercased(); i += 1 }
+    case "--calendar": if i+1 < args.count { calendarFilter = args[i+1].lowercased(); i += 1 }
+    case "--from":     if i+1 < args.count { fromArg = args[i+1]; i += 1 }
     case "--exchange": exchangeOnly = true       // SoftServe is the only Exchange account
     case "--list":     listOnly = true
     default: break
@@ -77,10 +86,22 @@ func meetingURL(_ e: EKEvent) -> String? {
 var selected = cals
 if exchangeOnly { selected = selected.filter { $0.source.sourceType == .exchange } }
 if let sf = sourceFilter { selected = selected.filter { $0.source.title.lowercased().contains(sf) } }
-let now = Date()
+if let tf = typeFilter { selected = selected.filter { typeName($0.source.sourceType) == tf } }
+if let cf = calendarFilter { selected = selected.filter { $0.title.lowercased() == cf } }
+let filtered = exchangeOnly || sourceFilter != nil || typeFilter != nil || calendarFilter != nil
+if filtered && selected.isEmpty { print("[]"); exit(0) }   // nothing matches: never fall back to every calendar
+let iso = ISO8601DateFormatter(); iso.formatOptions = [.withInternetDateTime]; iso.timeZone = TimeZone.current  // emit local (Kyiv) wall time, not GMT
+let isoIn = ISO8601DateFormatter(); isoIn.formatOptions = [.withInternetDateTime]
+let isoInF = ISO8601DateFormatter(); isoInF.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
+var now = Date()
+if let fa = fromArg {
+    guard let d = isoIn.date(from: fa) ?? isoInF.date(from: fa) else {
+        FileHandle.standardError.write("BAD_FROM \(fa)\n".data(using: .utf8)!); exit(4)
+    }
+    now = d
+}
 let end = Calendar.current.date(byAdding: .day, value: days, to: now)!
 let pred = store.predicateForEvents(withStart: now, end: end, calendars: selected.isEmpty ? nil : selected)
-let iso = ISO8601DateFormatter(); iso.formatOptions = [.withInternetDateTime]; iso.timeZone = TimeZone.current  // emit local (Kyiv) wall time, not GMT
 
 func mailFrom(_ u: URL?) -> String {
     guard let s = u?.absoluteString else { return "" }
@@ -94,6 +115,20 @@ func pstatus(_ s: EKParticipantStatus) -> String {
     }
 }
 let ssEmail = (ProcessInfo.processInfo.environment["CALSYNC_SS_EMAIL"] ?? "olekorlov@softserveinc.com").lowercased()
+func availName(_ a: EKEventAvailability) -> String {
+    switch a {
+    case .busy: return "busy"; case .free: return "free"; case .tentative: return "tentative"
+    case .unavailable: return "unavailable"; case .notSupported: return "notSupported"
+    @unknown default: return "unknown"
+    }
+}
+func statusName(_ s: EKEventStatus) -> String {
+    switch s {
+    case .none: return "none"; case .confirmed: return "confirmed"; case .tentative: return "tentative"
+    case .canceled: return "canceled"
+    @unknown default: return "unknown"
+    }
+}
 
 let evs = store.events(matching: pred).sorted { $0.startDate < $1.startDate }
 var rows: [String] = []
@@ -132,6 +167,16 @@ for e in evs {
     f.append("\"join_url\":" + (url == nil ? "null" : "\"\(esc(url!))\""))
     f.append("\"notes\":\"\(esc(e.notes ?? ""))\"")
     f.append("\"attendees\":[\(attJson.joined(separator: ","))]")
+    // which calendar it came from, and what the reverse leg needs to block it without Google's copy
+    f.append("\"calendar\":\"\(esc(e.calendar?.title ?? ""))\"")
+    f.append("\"source\":\"\(esc(e.calendar?.source?.title ?? ""))\"")
+    f.append("\"source_type\":\"\(e.calendar?.source.map { typeName($0.sourceType) } ?? "")\"")
+    f.append("\"external_id\":\"\(esc(e.calendarItemExternalIdentifier ?? ""))\"")   // the iCal UID
+    if let od = e.occurrenceDate { f.append("\"occurrence\":\"\(iso.string(from: od))\"") }   // original start in a series
+    else { f.append("\"occurrence\":null") }
+    f.append("\"detached\":\(e.isDetached)")
+    f.append("\"availability\":\"\(availName(e.availability))\"")
+    f.append("\"status\":\"\(statusName(e.status))\"")
     rows.append("{" + f.joined(separator: ",") + "}")
 }
 print("[\n" + rows.joined(separator: ",\n") + "\n]")
