@@ -1040,6 +1040,7 @@ function finishWorkout(w) {
   w.status = "done"; w.finished_at = nowISO(); saveWorkout(w, true);
   lsSet("tn.cur", null); try { wake?.release(); } catch {}
   S.view = "summary"; window.scrollTo(0, 0); render();
+  syncToSheet(w);   // straight into "My training": the same tap that finishes the session
 }
 
 /* ================================================================ rendering */
@@ -1777,8 +1778,9 @@ function summaryView(w) {
       el("span", { class: "badge " + (r || ""), text: RATINGS.find(x => x[0] === r)?.[1] || "not rated" })); });
   const synced = w.sync?.feedback_recorded_at;
   return [el("div", { class: "card" }, el("div", { class: "eyebrow", text: fmtDate(w.date) }), el("h1", { text: `${DAY_EN[w.day]} done` }),
-      el("p", { class: "muted", text: synced ? `Synced with the trainer ${fmtDate(synced)}${w.sync?.sheet_logged_at ? ", logged in the training sheet" : ""}.${Object.keys(nt).length ? " Next session's weights are below." : ""}`
-        : "Saved. Next time you open Claude Code, tell the trainer “sync the app” (синхронизируй приложение): it records your feedback, moves next session's weights and logs the sheet." }),
+      el("p", { class: "muted", text: synced ? `The trainer has it too (${fmtDate(synced)}).${Object.keys(nt).length ? " Next session's weights are below." : ""}`
+        : "Saved. The trainer's engine picks up your ratings at its next sync (“синхронизируй приложение” in Claude Code); until then the next plan starts from what you actually lifted." }),
+      sheetStatusNode(w),
       w.gym_reports?.length ? el("p", { class: "small faint", text: "Gym notes for the trainer: " + w.gym_reports.map(r => r.have ? `has ${enName(r.have)}` : r.missing ? `no ${enName(r.missing)}` : `${r.status === "have" ? "has" : "no"} ${KIT_EN[r.equip] || r.equip}`).join(", ") }) : null),
     el("div", { class: "card" }, el("div", { class: "eyebrow", text: "Strength" }), ...rows,
       fb.crossfit_time ? el("div", { class: "hist" }, el("b", { text: "Crossfit" }), el("span", { class: "badge " + (fb.crossfit_rating || ""), text: fb.crossfit_time })) : null),
@@ -1788,10 +1790,12 @@ function historyView() {
   const ws = Object.values(S.workouts).filter(w => w.status !== "planned" || w.source === "skill").sort((a, b) => a.id < b.id ? 1 : -1);
   if (!ws.length) return el("div", { class: "card empty" }, el("h2", { text: "No sessions yet" }), el("p", { class: "muted", text: "Sessions you log here show up in this list, with whether the trainer has synced them." }));
   return el("div", { class: "card" }, el("div", { class: "eyebrow", text: "Sessions in this app" }), ...ws.map(w => {
-    const synced = w.sync?.feedback_recorded_at;
-    const st = w.status === "done" ? (synced ? "synced" : "waiting for sync") : w.status;
+    const synced = w.sync?.feedback_recorded_at; const inSheet = w.sync?.sheet_logged_at;
+    const st = w.status === "done" ? (inSheet ? "in the sheet" : "not in the sheet") : w.status;
     return el("button", { class: "opt", type: "button", on: { click: () => { S.cur = w.id; S.view = w.status === "done" ? "summary" : "workout"; render(); } } },
-      el("div", { class: "row" }, el("b", { class: "grow", text: `${fmtDate(w.date)} · ${DAY_EN[w.day] || w.day}` }), el("span", { class: "badge" + (synced ? " easy" : w.status === "done" ? " hard" : ""), text: st })),
+      el("div", { class: "row" }, el("b", { class: "grow", text: `${fmtDate(w.date)} · ${DAY_EN[w.day] || w.day}` }),
+        el("span", { class: "badge" + (inSheet ? " easy" : w.status === "done" ? " hard" : ""), text: st }),
+        w.status === "done" ? el("span", { class: "badge" + (synced ? " easy" : ""), text: synced ? "trainer ✓" : "trainer: next sync" }) : null),
       el("span", { class: "small muted", text: (w.plan?.strength || []).map(it => enName(it.id)).join(", ") }),
       w.sync?.note ? el("span", { class: "small faint", text: "Trainer: " + w.sync.note } ) : null);
   }));

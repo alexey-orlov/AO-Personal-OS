@@ -14,6 +14,7 @@ Run from the repo root. Never computes a weight: briefs come from trainer.py.
 import argparse
 import json
 import os
+import re
 import subprocess
 import sys
 from datetime import datetime
@@ -56,7 +57,12 @@ def cmd_export(a):
     out = os.path.abspath(a.dir)
     hist = load(os.path.join(ENGINE_D, "data", "history.json"))
     sessions = hist.get("sessions", [])
+    gym_cfg = open(os.path.join(REPO, "automations", "gym-log", "config.sh"), encoding="utf-8").read()
+    sheet_id = re.search(r'GYM_SHEET_ID="([^"]+)"', gym_cfg)
+    tab = re.search(r'GYM_TAB="([^"]+)"', gym_cfg)
     bodies = {
+        # the app writes each finished session to "My training" itself (gym-log's layout, through the Sheets connector)
+        ("config", "sheet"): {"spreadsheet_id": sheet_id.group(1) if sheet_id else None, "tab": tab.group(1) if tab else "Sheet1"},
         ("config", "catalog"): load(os.path.join(ENGINE_D, "catalog.json")),
         ("config", "gym"): load(os.path.join(ENGINE_D, "gym.json")),
         ("config", "skill"): {
