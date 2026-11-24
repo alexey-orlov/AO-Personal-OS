@@ -126,6 +126,11 @@ h2 { font-size: 22px; font-weight: 700; letter-spacing: .01em }
 .cf-item .dose { font: 700 22px/1 var(--f-display); font-variant-numeric: tabular-nums; text-align: right }
 .cf-item .dose small { display: block; font: 400 11px/1.2 var(--f-body); color: var(--ink-3) }
 .clock { font: 700 46px/1 var(--f-display); font-variant-numeric: tabular-nums; text-align: center; letter-spacing: .02em }
+.kit { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin-top: 4px }
+.kit-q { display: inline-flex; gap: 6px }
+.kit-q .how { min-height: 34px }
+.hold { min-width: 64px; justify-content: center; font-variant-numeric: tabular-nums }
+.hold[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); border-color: var(--accent) }
 /* bottom bar + sheets */
 .bar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 6; background: var(--surface); border-top: 1px solid var(--line);
   padding: 10px max(16px, env(safe-area-inset-right, 0px)) calc(10px + env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px)) }
@@ -1125,7 +1130,7 @@ function workoutView(w) {
     return el("div", { class: "wu" },
       el("div", { style: "min-width:0" }, el("b", { text: enName(it.id) }), el("div", { class: "ru", text: ruName(it.id) }),
         el("div", { class: "small muted" }, dose + (it.kg ? ` · ${isLb() ? kgToLb5(it.kg) + " lb" : it.kg + " kg"} (${isLb() ? it.kg + " kg" : kgToLb5(it.kg) + " lb"})` : ""), " ", howBtn(it.id))),
-      el("div", { class: "dots" }, ...Array.from({ length: n }, (_, i) => el("button", { class: "tick", type: "button", "aria-pressed": String(done > i), "aria-label": `Set ${i + 1} done`,
+      el("div", { class: "dots" }, it.secs && done < n && w.status !== "done" ? holdBtn(w, it) : null, ...Array.from({ length: n }, (_, i) => el("button", { class: "tick", type: "button", "aria-pressed": String(done > i), "aria-label": `Set ${i + 1} done`,
         on: { click: () => { if (!active) startSession(w); w.log.warmup[it.id] = { sets_done: done > i ? i : i + 1 }; saveWorkout(w); render(); } } }, done > i ? "✓" : String(i + 1)))));
   })));
 
@@ -1143,6 +1148,31 @@ function workoutView(w) {
 
   if (w.status !== "done") nodes.push(el("button", { class: "btn danger block", type: "button", on: { click: () => openSheet({ kind: "cancel" }) } }, w.status === "planned" ? "Discard this plan" : "Cancel workout"));
   return nodes;
+}
+/* timed holds (plank, Pallof): a countdown that ticks off the set when it ends; tap again to stop */
+let holdT = 0;
+function holdLeft() { return S.hold ? Math.max(0, Math.ceil((S.hold.end - Date.now()) / 1000)) : 0; }
+function holdBtn(w, it) {
+  const on = S.hold?.id === it.id && S.hold?.wid === w.id;
+  return el("button", { class: "how hold", id: "hold-" + it.id, type: "button", "aria-pressed": String(on), "aria-label": on ? "Stop the hold timer" : `Start a ${it.secs}-second hold`,
+    on: { click: () => startHold(w, it) } }, on ? `${holdLeft()}″` : `▶ ${it.secs}″`);
+}
+function startHold(w, it) {
+  clearInterval(holdT);
+  if (S.hold?.id === it.id) { S.hold = null; return render(); }
+  if (w.status === "planned") startSession(w);
+  S.hold = { id: it.id, wid: w.id, end: Date.now() + it.secs * 1000 };
+  holdT = setInterval(() => {
+    const h = S.hold; if (!h) return clearInterval(holdT);
+    const left = holdLeft(); const b = document.getElementById("hold-" + h.id); if (b) b.textContent = `${left}″`;
+    if (left > 0) return;
+    clearInterval(holdT); S.hold = null;
+    const ww = S.workouts[h.wid];
+    if (ww) { const n = ww.plan.warmup.find(x => x.id === h.id)?.sets || 2; const d = ww.log.warmup[h.id]?.sets_done || 0; ww.log.warmup[h.id] = { sets_done: Math.min(n, d + 1) }; saveWorkout(ww); }
+    try { navigator.vibrate?.([200, 100, 200]); } catch {}
+    render();
+  }, 250);
+  render();
 }
 function howBtn(id) {
   const pic = mediaFor(id).find(isPic);
@@ -1225,7 +1255,8 @@ function crossfitCard(w) {
       const dose = cf.format === "ladder" ? (cf.scheme || "21-15-9") : `${it.reps}${it.unit === "cal" ? " cal" : ""}`;
       return el("div", { class: "cf-item" },
         el("div", { class: "dose" }, dose, it.lb ? el("small", { text: `${it.lb} lb · ${it.kg} kg` }) : null),
-        el("div", { style: "min-width:0" }, el("b", { text: c.en_short || c.en || it.id }), el("div", { class: "ru", text: c.ru || "" }), c.back === "caution" && c.back_cue_ru ? el("div", { class: "small faint", text: c.back_cue_ru }) : null),
+        el("div", { style: "min-width:0" }, el("b", { text: c.en_short || c.en || it.id }), el("div", { class: "ru", text: c.ru || "" }), c.back === "caution" && c.back_cue_ru ? el("div", { class: "small faint", text: c.back_cue_ru }) : null,
+          kitLine(w, it, cf)),
         howBtn(it.id));
     })),
   ];
@@ -1247,6 +1278,18 @@ function crossfitCard(w) {
     kids.push(el("div", { class: "rate" }, ...RATINGS.filter(r => r[0] !== "fail").map(([r, l]) => el("button", { type: "button", "data-r": r, "aria-pressed": String(w.feedback.crossfit_rating === r), on: { click: () => { w.feedback.crossfit_rating = r; saveWorkout(w); render(); } } }, l))));
   }
   return el("div", { class: "card" }, ...kids);
+}
+/** Kit nobody has confirmed at this gym: name the fallback and let him answer once (→ trainer.py gym --equip at sync). */
+function kitLine(w, it, cf) {
+  if (!it.fallback || w.status === "done" || w.log.crossfit?.time) return null;
+  const st = kitStatus({ id: it.id }); if (["have", "seen"].includes(st)) return null;
+  const key = kitKey({ id: it.id }); const kit = KIT_EN[key] || key.replace("_", " ");
+  return el("div", { class: "kit" }, el("span", { class: "small muted", text: `No ${kit}? ${enName(it.fallback)} instead.` }),
+    el("span", { class: "kit-q" },
+      el("button", { class: "how", type: "button", on: { click: () => { delete it.fallback; reportGym(w, { equip: key, status: "have" }, `Noted: this gym has a ${kit}.`); render(); } } }, "Have it"),
+      el("button", { class: "how", type: "button", on: { click: () => {
+        const i = cf.items.indexOf(it); if (i >= 0) cf.items[i] = fallbackItem(w, it);
+        reportGym(w, { equip: key, status: "missing" }, `Noted: no ${kit} here. ${enName(it.fallback)} instead.`); render(); } } }, `No ${kit}`)));
 }
 let clockT = 0;
 function tickClock() { clearInterval(clockT); clockT = setInterval(() => { const T = S.cfTimer; const n = document.getElementById("cfClock"); if (!T?.start) return clearInterval(clockT); if (n) n.textContent = mmss((Date.now() - T.start) / 1000); }, 500); }
@@ -1319,6 +1362,8 @@ function sheetBody(s, w) {
       (ex.alt_us || []).length ? el("p", { class: "small muted", text: "Same movement on: " + ex.alt_us.join(", ") }) : null,
       pi?.if_missing ? el("p", { class: "small muted", text: "If the gym doesn't have it, the trainer's swap: " + pi.if_missing }) : null,
       el("div", { class: "list" },
+        pi?.replaces ? el("button", { class: "opt", type: "button", on: { click: () => reportGym(w, { have: pi.replaces }, `Noted: this gym has ${enName(pi.replaces)}. The next plan uses it after the sync.`) } },
+          el("b", { text: `This gym has ${enName(pi.replaces)}` }), el("span", { class: "small muted", text: `Today stays on ${enName(s.id)}; the trainer switches back at the next sync` })) : null,
         pi?.swapped_from ? el("button", { class: "opt", type: "button", on: { click: () => doResult([restoreOriginal(w, s.id)], w) } }, el("b", { text: `Back to ${enName(pi.swapped_from.id)}` }), el("span", { class: "small muted", text: "Undo the swap: the original exercise with its planned weights" })) : null,
         el("button", { class: "opt", type: "button", on: { click: () => { const r = swapExercise(w, s.id, "busy-later"); doResult([r], w); } } }, el("b", { text: "Machine busy: do it later" }), el("span", { class: "small muted", text: "Moves it to the end of the strength part" })),
         el("button", { class: "opt", type: "button", on: { click: () => openSheet({ kind: "swapPick", id: s.id, reason: "busy" }) } }, el("b", { text: "Machine busy: swap it" }), el("span", { class: "small muted", text: "Pick another exercise for the same slot, with the trainer's weights" })),
