@@ -1010,9 +1010,19 @@ function homeView() {
     el("h1", { text: "How are you today?" }),
     pause?.days_since != null ? el("p", { class: "muted small", text: `Last logged session: ${fmtDate(pause.last_session)} (${pause.days_since} days ago${r.stale.length ? `; plus ${r.stale.length} in this app` : ""}).` }) : null,
   ));
-  const asks = (brief?.ask || []).filter(q => !(pause?.ask && /после|since/i.test(q) && /трениров|train/i.test(q)));
-  if (asks.length) nodes.push(el("div", { class: "note info" }, el("strong", { text: "The trainer asks: " }), asks.join(" · "),
-    Object.keys(brief?.pre?.recent_pain || {}).length ? el("div", { class: "small", text: "Still hurting? Mark it under “Anything hurt?” and the plan works around it." }) : null));
+  // the engine's questions (brief.ask): the pause gets its own card below, each recently sore joint gets "fine now / still hurts"
+  // (trainer.py --ok / --pain), anything else is shown as asked
+  const recentPain = brief?.pre?.recent_pain || {};
+  const asks = (brief?.ask || []).filter(q => !(/после|since/i.test(q) && /трениров|train/i.test(q)) && !/--ok\b|как сейчас/i.test(q));
+  for (const [j, d] of Object.entries(recentPain)) {
+    const v = ck.recent?.[j];
+    nodes.push(el("div", { class: "card" },
+      el("h3", { text: `Your ${JOINT_EN[j] || j} hurt on ${d}. How is it now?` }),
+      el("div", { class: "seg" }, ...[["fine", "Fine now"], ["hurts", "Still hurts"]].map(([val, l]) => el("button", { type: "button", "aria-pressed": String(v === val),
+        on: { click: () => { ck.recent = Object.assign({}, ck.recent, { [j]: v === val ? undefined : val }); render(); } } }, l))),
+      el("p", { class: v ? "muted small" : "faint small", text: v === "hurts" ? "Today's plan leaves that joint alone." : v === "fine" ? "Cleared: weights on it can move again." : "Until you answer, the plan keeps that joint's weights where they are." })));
+  }
+  if (asks.length) nodes.push(el("div", { class: "note info" }, el("strong", { text: "The trainer asks: " }), asks.join(" · ")));
   if (pause?.ask && !r.stale.length) nodes.push(el("div", { class: "card" },
     el("h3", { text: `Did you train since ${fmtDate(pause.last_session)}?` }),
     el("div", { class: "seg" }, ...[["break", "No, I took a break"], ["unlogged", "Yes, not logged"]].map(([v, l]) => el("button", { type: "button", "aria-pressed": String(ck.pause_answer === v), on: { click: () => { ck.pause_answer = v; render(); } } }, l))),
