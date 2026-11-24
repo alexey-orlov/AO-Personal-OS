@@ -236,7 +236,10 @@ class Model:
         ).execute()
         self.grid = resp.get("values", [])
         self.requests = []       # structural/format requests, in execution order
-        self.value_writes = []   # {range, values} in FINAL coordinates
+        # {"r", "c", "vals"}; structural requests all run before any value write,
+        # so a planned write moves down with every row inserted above it later
+        # in the same call (see _insert_local_row) and lands in final coordinates
+        self.value_writes = []
         self.created = {"blocks": [], "categories": [], "exercises": []}
 
     # ---- readers -------------------------------------------------------
@@ -308,16 +311,18 @@ class Model:
                 m["endRowIndex"] += 1
             elif m["endRowIndex"] > r:  # insertion inside the merge
                 m["endRowIndex"] += 1
+        for w in self.value_writes:      # planned writes follow their row down
+            if w["r"] >= r:
+                w["r"] += 1
 
     # ---- edit planning -------------------------------------------------
-    def _write(self, r, c, v, n=1):
-        vals = v if isinstance(v, list) else [v]
-        rng = f"'{TAB}'!{_col_letter(c)}{r + 1}"
-        if len(vals) > 1:
-            rng += f":{_col_letter(c + len(vals) - 1)}{r + 1}"
-        self.value_writes.append({"range": rng, "values": [vals]})
+    def _write(self, r, c, v):
+        vals = [_cell_value(x) for x in (v if isinstance(v, list) else [v])]
+        w = {"r": r, "c": c, "vals": vals}
+        self.value_writes.append(w)
         for i, x in enumerate(vals):
-            self._set_local(r, c + i, str(x))
+            self._set_local(r, c + i, str(x).lstrip("'"))
+        return w
 
     def _copy_fmt(self, r0, r1, c0, c1, dr0, dr1, dc0, dc1):
         self.requests.append({"copyPaste": {
@@ -421,9 +426,15 @@ class Model:
             self.svc.spreadsheets().batchUpdate(
                 spreadsheetId=SHEET_ID, body={"requests": self.requests}).execute()
         if self.value_writes:
+            data = []
+            for w in self.value_writes:
+                rng = f"'{TAB}'!{_col_letter(w['c'])}{w['r'] + 1}"
+                if len(w["vals"]) > 1:
+                    rng += f":{_col_letter(w['c'] + len(w['vals']) - 1)}{w['r'] + 1}"
+                data.append({"range": rng, "values": [w["vals"]]})
             self.svc.spreadsheets().values().batchUpdate(
                 spreadsheetId=SHEET_ID,
-                body={"valueInputOption": "USER_ENTERED", "data": self.value_writes},
+                body={"valueInputOption": "USER_ENTERED", "data": data},
             ).execute()
 
 

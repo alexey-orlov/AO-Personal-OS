@@ -715,27 +715,18 @@ def cmd_brief(a):
 
 
 # ---------------------------------------------------------------- render
+SUP = "¹²³⁴⁵⁶⁷⁸⁹"
+
+
 def fmt_w(vals):
     vals = [clean_num(v) for v in vals]
+    if vals and len(set(vals)) == 1:
+        return str(vals[0])
     return "/".join(str(v) for v in vals)
 
 
-def strength_line(st, it):
-    ex = st.cat.strength.get(it["id"], {"ru": it.get("ru", it["id"]), "en": it.get("en", ""), "load": "stack"})
-    sets = it.get("sets", 3)
-    reps = it.get("reps", "10")
-    kg = it.get("kg") or []
-    lb = it.get("lb") or [lb_round(v) for v in kg]
-    if kg:
-        if len(set(lb)) == 1:
-            w = f"{fmt_w(kg)} кг ({lb[0]} lb)"
-        else:
-            w = f"{fmt_w(kg)} кг ({fmt_w(lb)} lb)"
-        if ex.get("load") == "db_each":
-            w = w.replace(" кг", " кг/рука")
-    else:
-        w = "вес подобрать"
-    return f"{ex['ru']} · {ex['en']} — {w} — {sets}×{reps}"
+def short_en(en):
+    return re.split(r"\s*[(,]", en or "")[0].strip()
 
 
 def dose(it, base):
@@ -746,62 +737,95 @@ def dose(it, base):
 
 
 def render_plan(plan, fmt="md"):
+    """The trainer's three-part page as three narrow tables (phone-first)."""
     st = State(parse_date(plan["date"]) or date.today(), use_plans=False)
     gym = st.gym
-    b = (lambda s: f"**{s}**") if fmt == "md" else (lambda s: s)
-    i_ = (lambda s: f"_{s}_") if fmt == "md" else (lambda s: s)
+    md = fmt == "md"
     day = st.cat.days.get(plan["day"], {"ru": plan["day"], "en": ""})
     d = parse_date(plan["date"])
-    lines = [b(f"{d:%d.%m.%y} · {day['ru']} / {day['en']}")]
+    notes = []
+
+    def bold(s):
+        return f"**{s}**" if md else s
+
+    def name(ru, en, cue=None):
+        mark = ""
+        if cue:
+            notes.append(cue)
+            mark = SUP[len(notes) - 1]
+        en = short_en(en)
+        if not en or norm(en) == norm(ru):
+            return f"{ru}{mark}"
+        return f"{ru}{mark} · *{en}*" if md else f"{ru}{mark} / {en}"
+
+    def table(head, rows):
+        if md:
+            res = ["| " + " | ".join(head) + " |", "|" + "|".join(["---"] * len(head)) + "|"]
+            return res + ["| " + " | ".join(str(c).replace("|", "/") for c in r) + " |" for r in rows]
+        return [" — ".join(str(c) for c in r if str(c) not in ("", "—")) for r in rows]
+
+    lines = [bold(f"{d:%d.%m} · {day['ru']} / {day['en']}")]
     if plan.get("note"):
-        lines.append(i_(plan["note"]))
-    lines += ["", b("I. Разминка")]
+        lines.append(f"_{plan['note']}_" if md else plan["note"])
+
+    rows = []
     for w in plan.get("warmup", []):
         base = st.cat.warm.get(w["id"], {"ru": w.get("ru", w["id"]), "en": w.get("en", ""), "sets": 2})
-        ru, en = base["ru"], base["en"]
-        kg = w.get("kg", base.get("load_kg") if not base.get("loaded_level") else None)
+        ru, en, load = base["ru"], base["en"], base.get("load")
+        kg = w.get("kg") if "kg" in w else (None if base.get("loaded_level") else base.get("load_kg"))
         if base.get("loaded_level") and w.get("kg"):
-            ru, en = base["loaded_level"]["ru"], base["loaded_level"]["en"]
-        load = f" ({lb_for_load(kg, base.get('load', base.get('loaded_level', {}).get('load', 'plate')), gym)})" if kg else ""
-        lines.append(f"- {ru}{load} · {en} — {dose(w, base)}")
-    lines += ["", b("II. Силовая")]
-    n = 0
+            lv = base["loaded_level"]
+            ru, en, load = lv["ru"], lv["en"], lv.get("load", "plate")
+        if kg:
+            ru = re.sub(r"\s*\([^)]*кг\)", "", ru) + f" {clean_num(kg)} кг ({lb_for_load(kg, load, gym)})"
+        rows.append([name(ru, en, w.get("cue")), dose(w, base)])
+    lines += ["", bold("I. Разминка")] + table(["Упражнение", "×"], rows)
+
+    rows = []
     items = plan.get("strength", [])
     for k, it in enumerate(items):
-        prev = items[k - 1] if k else None
-        joined = bool(prev and prev.get("superset_next"))
-        if not joined:
-            n += 1
-        prefix = "   + " if joined else f"{n}. "
-        lines.append(prefix + strength_line(st, it))
-        cue = it.get("cue")
-        if cue:
-            lines.append(("      " if joined else "   ") + i_(cue))
+        ex = st.cat.strength.get(it["id"], {"ru": it.get("ru", it["id"]), "en": it.get("en", ""), "load": "stack"})
+        joined = k > 0 and items[k - 1].get("superset_next")
+        kg = it.get("kg") or []
+        lb = it.get("lb") or [lb_round(v) for v in kg]
+        kg_s, lb_s = (fmt_w(kg), fmt_w(lb)) if kg else ("—", "—")
+        if ex.get("load") == "db_each" and kg:
+            kg_s, lb_s = f"2×{kg_s}", f"2×{lb_s}"
+        rows.append([("+ " if joined else "") + name(ex["ru"], ex["en"], it.get("cue")), kg_s, lb_s,
+                     f"{it.get('sets', 3)}×{it.get('reps', '10')}"])
+    head = "II. Силовая" + (" · + суперсет" if any(i.get("superset_next") for i in items) else "")
+    lines += ["", bold(head)] + table(["Упражнение", "кг", "lb", "×"], rows)
+
     cf = plan.get("crossfit") or {}
-    fmt_kind = cf.get("format", "rounds")
-    if fmt_kind == "rounds":
-        head = f"III. Кроссфит ×{cf.get('rounds', 3)}"
-    elif fmt_kind == "ladder":
-        head = f"III. Кроссфит {cf.get('scheme', '21-15-9')} на время"
+    kind = cf.get("format", "rounds")
+    if kind == "skip":
+        lines += ["", bold("III. Кроссфит — сегодня без него")]
     else:
-        head = f"III. Кроссфит {cf.get('label', fmt_kind)}"
-    if cf.get("cap_min"):
-        head += f" · cap {cf['cap_min']}′"
-    lines += ["", b(head) + " — запиши время"]
-    for it in cf.get("items", []):
-        base = st.cat.cross.get(it["id"], {"ru": it.get("ru", it["id"]), "en": it.get("en", "")})
-        kg = it.get("kg", base.get("load_kg"))
-        load = f" {clean_num(kg)} кг ({lb_for_load(kg, base.get('load'), gym)})" if kg else ""
-        ru = re.sub(r"\s*\([^)]*(кг|kg)\)", "", base["ru"])
-        unit = it.get("unit", base.get("unit", ""))
-        amount = it.get("reps", base.get("reps", ""))
-        if it.get("secs") or (base.get("secs") and not it.get("reps")):
-            amount = f"{it.get('secs', base.get('secs'))}″"
-        lines.append(f"- {ru}{load} · {base['en']} — {amount}{(' ' + unit) if unit else ''}")
+        h = {"rounds": f"III. Кроссфит ×{cf.get('rounds', 3)}",
+             "ladder": f"III. Кроссфит {cf.get('scheme', '21-15-9')}"}.get(kind, f"III. Кроссфит {cf.get('label', kind)}")
+        if cf.get("cap_min"):
+            h += f" · cap {cf['cap_min']}′"
+        rows = []
+        for it in cf.get("items", []):
+            base = st.cat.cross.get(it["id"], {"ru": it.get("ru", it["id"]), "en": it.get("en", "")})
+            kg = it.get("kg", base.get("load_kg"))
+            ru = re.sub(r"\s*\([^)]*(кг|kg)\)", "", base["ru"])
+            ru = re.sub(r"\s*\(.*?\)", "", ru) if "/" not in ru else ru.split(" / ")[0]
+            if kg:
+                ru += f" {clean_num(kg)} кг ({lb_for_load(kg, base.get('load'), gym)})"
+            amount = it.get("reps", base.get("reps", ""))
+            if it.get("secs") or (base.get("secs") and not it.get("reps")):
+                amount = f"{it.get('secs', base.get('secs'))}″"
+            unit = it.get("unit", base.get("unit", ""))
+            rows.append([name(ru, base["en"], it.get("cue")), f"{amount}{(' ' + unit) if unit else ''}"])
+        lines += ["", bold(h + " · на время")] + table(["Движение", "×"], rows)
     if cf.get("note"):
-        lines.append(i_(cf["note"]))
+        lines.append(f"_{cf['note']}_" if md else cf["note"])
+    if notes:
+        lines += [""] + [f"{SUP[i]} {n}" for i, n in enumerate(notes)]
     if plan.get("why"):
-        lines += ["", i_("Почему так:")] + [f"- {w}" for w in plan["why"]]
+        why = "Почему: " + "; ".join(plan["why"])
+        lines += ["", f"_{why}_" if md else why]
     return "\n".join(lines)
 
 
