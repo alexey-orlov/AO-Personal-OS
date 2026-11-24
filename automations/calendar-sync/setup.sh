@@ -127,8 +127,9 @@ else
   HOSTED_BY="the faceless host app, no window"
 fi
 
-# --- launchd plist: every hour on the hour, Mon-Fri, on the Mac's local clock ------------
-# (Alex works with Europe and the US at once from SF; run.sh gates out stray weekend ticks.)
+# --- launchd plist: every 30 minutes (:00 and :30), Mon-Fri, on the Mac's local clock ----
+# (Alex works with Europe and the US at once from SF; run.sh gates out stray weekend ticks.
+#  Every 30 minutes since 2026-11-24, hourly before.)
 PLIST="$HOME/Library/LaunchAgents/$LABEL.plist"
 mkdir -p "$HOME/Library/LaunchAgents"
 {
@@ -140,8 +141,10 @@ mkdir -p "$HOME/Library/LaunchAgents"
   for arg in "${PROGRAM[@]}"; do printf '    <string>%s</string>\n' "$(xml "$arg")"; done
   echo '  </array>'
   echo '  <key>StartCalendarInterval</key><array>'
-  for d in 1 2 3 4 5; do   # no Hour key = every hour of that weekday
-    echo "    <dict><key>Weekday</key><integer>$d</integer><key>Minute</key><integer>0</integer></dict>"
+  for d in 1 2 3 4 5; do   # no Hour key = every hour of that weekday, at :00 and at :30
+    for m in 0 30; do
+      echo "    <dict><key>Weekday</key><integer>$d</integer><key>Minute</key><integer>$m</integer></dict>"
+    done
   done
   echo '  </array>'
   echo "  <key>StandardOutPath</key><string>$HERE/.work/launchd.out.log</string>"
@@ -154,7 +157,7 @@ mv "$PLIST.new" "$PLIST"
 launchctl bootout "gui/$(id -u)" "$PLIST" 2>/dev/null || true
 launchctl bootstrap "gui/$(id -u)" "$PLIST"
 
-echo "[setup] installed launchd agent: $LABEL  (every hour Mon-Fri on the Mac's local clock, via $HOSTED_BY)"
+echo "[setup] installed launchd agent: $LABEL  (every 30 minutes Mon-Fri on the Mac's local clock, via $HOSTED_BY)"
 [ -n "$MODE" ] && exit 0
 
 cat <<EOF

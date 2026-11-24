@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
-# run.sh — one calendar-sync pass. Runs in Terminal (which holds the Calendar +
-# Full-Disk grants the headless daemon needs). Invoked manually for testing, or
-# hourly by the launchd agent via osascript -> Terminal.
+# run.sh — one calendar-sync pass. Started every 30 minutes by the launchd agent through the
+# faceless ~/Applications/CalendarSync.app (no window), whose Calendar + Documents grants it and
+# everything it runs inherit. A shell without those grants gets EVENTKIT_DENIED.
 #   run.sh now      force a run regardless of the clock (testing)
-#   run.sh daemon   gated to Mon-Fri (every hour) on the Mac's own clock; 08:00 also sends the daily summary
+#   run.sh daemon   gated to Mon-Fri on the Mac's own clock; the first run of the 08:00 hour also sends the daily summary
 set -uo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]:-$0}")" && pwd)"
 source "$HERE/config.sh"
@@ -25,7 +25,7 @@ if [ "$MODE" = "daemon" ]; then
   OPEN8="$(printf '%s' "$SCHED" | field is_open_hour)"
 fi
 
-# One run at a time (hourly ticks, a manual run, or two hosts during a switch must not write the
+# One run at a time (half-hourly ticks, a manual run, or two hosts during a switch must not write the
 # ledgers at once). A lock whose PID is gone is stale and taken over, so a killed run can't wedge it.
 LOCK="$CALSYNC_STATE/run.lock"
 if ! mkdir "$LOCK" 2>/dev/null; then
