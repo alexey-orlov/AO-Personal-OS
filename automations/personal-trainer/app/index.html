@@ -1510,12 +1510,16 @@ async function uploadMedia(id, file) {
 
 /* ---------------- summary + history */
 function summaryView(w) {
-  const fb = w.feedback || {};
-  const rows = w.plan.strength.map(it => { const a = fb.actual?.[it.id]; const r = fb.items?.[it.id]?.rating;
-    return el("div", { class: "hist" }, el("div", { style: "min-width:0" }, el("b", { text: enName(it.id) }), el("div", { class: "small muted", text: a ? a.lb.map((v, i) => `${v}×${a.reps_per_set[i]}`).join(" · ") : "no sets logged" })),
+  const fb = w.feedback || {}; const nt = w.sync?.next_time || {};
+  const rows = w.plan.strength.map(it => { const a = fb.actual?.[it.id]; const r = fb.items?.[it.id]?.rating; const n = nt[it.id];
+    return el("div", { class: "hist" }, el("div", { style: "min-width:0" }, el("b", { text: enName(it.id) }), el("div", { class: "small muted", text: a ? a.lb.map((v, i) => `${v}×${a.reps_per_set[i]}`).join(" · ") : "no sets logged" }),
+        n?.lb?.length ? el("div", { class: "small", text: `Next time: ${n.lb.join(" / ")} lb` }) : r && !w.sync?.feedback_recorded_at ? el("div", { class: "small faint", text: NEXT_HINT[r] || "" }) : null),
       el("span", { class: "badge " + (r || ""), text: RATINGS.find(x => x[0] === r)?.[1] || "not rated" })); });
+  const synced = w.sync?.feedback_recorded_at;
   return [el("div", { class: "card" }, el("div", { class: "eyebrow", text: fmtDate(w.date) }), el("h1", { text: `${DAY_EN[w.day]} done` }),
-      el("p", { class: "muted", text: "Saved. Next time you open Claude Code, tell the trainer “sync the app” (синхронизируй приложение): it records your feedback, moves next session's weights and logs the sheet." })),
+      el("p", { class: "muted", text: synced ? `Synced with the trainer ${fmtDate(synced)}${w.sync?.sheet_logged_at ? ", logged in the training sheet" : ""}.${Object.keys(nt).length ? " Next session's weights are below." : ""}`
+        : "Saved. Next time you open Claude Code, tell the trainer “sync the app” (синхронизируй приложение): it records your feedback, moves next session's weights and logs the sheet." }),
+      w.gym_reports?.length ? el("p", { class: "small faint", text: "Gym notes for the trainer: " + w.gym_reports.map(r => r.have ? `has ${enName(r.have)}` : r.missing ? `no ${enName(r.missing)}` : `${r.status === "have" ? "has" : "no"} ${KIT_EN[r.equip] || r.equip}`).join(", ") }) : null),
     el("div", { class: "card" }, el("div", { class: "eyebrow", text: "Strength" }), ...rows,
       fb.crossfit_time ? el("div", { class: "hist" }, el("b", { text: "Crossfit" }), el("span", { class: "badge " + (fb.crossfit_rating || ""), text: fb.crossfit_time })) : null),
     el("button", { class: "btn primary block", type: "button", on: { click: () => { S.view = "home"; S.cur = null; S.ck = null; render(); } } }, "Done")];

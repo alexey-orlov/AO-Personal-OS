@@ -79,7 +79,10 @@ writes `workouts/*`; the skill writes `workouts/<id>.sync` after processing.
   },
   "body_weight_kg": 72.3,
   "machine_missing": {"<id>": {"kind": "busy | missing", "replaced_by": "<id>", "machine": "..."}},
-  "sync": {"feedback_recorded_at": "...", "sheet_logged_at": "...", "note": "..."}   // skill only
+  "gym_reports": [{"have": "<id>"} | {"missing": "<id>"} | {"equip": "<kit key>", "status": "have | missing"}],
+                                      // what Alex told the app about this gym; each carries "at"
+  "sync": {"feedback_recorded_at": "...", "sheet_logged_at": "...", "note": "...",
+           "next_time": {"<id>": {"ru", "action", "lb": [..], "kg": [..], "why"}}}   // skill only
 }
 ```
 
@@ -103,15 +106,17 @@ Rules the app keeps, so the engine can trust the data:
 
 ## Skill side: "sync the app" (to fold into the skill as its own mode)
 
-> **Brief compatibility.** The app (version 3, 2026-11-24) reads both the
-> first brief shape and the compact one of 2026-11-23 (`ask`,
-> `warmup.suggested`, `crossfit.dose` / `crossfit.pool`, flat
-> `strength.pool` items, `probe` / `hint_lb` / `step_lb` / `if_missing` /
-> `replaces`, `dropped`), and its JS check matches `trainer.py check` of that
-> date (same errors and warnings on 12 test cases). When `trainer.py`
-> changes the brief, plan or check shape again, hold step 2 until
-> `index.html` is updated and re-tested against `trainer.py check`; until
-> then the app keeps working on the last data it got.
+> **Brief compatibility.** The app (version 4, 2026-11-24) reads the first
+> brief shape and the compact one of engine `8b8cc1ac` (`ask` with recent-pain
+> questions, `pre.recent_pain` / `pre.cleared`, `trim`, `warmup.suggested`,
+> `crossfit.dose` with `movements` / `why`, `crossfit.pool` with `fallback`,
+> flat `strength.pool` items, `template_streak`, `dropped` / `trimmed`,
+> `probe` / `hint_lb` / `step_lb` / `if_missing` / `replaces`), and its JS
+> check is a copy of `trainer.py check` at `8b8cc1ac`, `accepted` and
+> `estimate` included. When `trainer.py` changes the brief, plan or check
+> shape again, hold step 2 until `index.html` is updated and re-tested
+> against `trainer.py check`; until then the app keeps working on the last
+> data it got.
 
 1. **Pull finished sessions.** `ArtifactData query` on `workouts` with
    `where status == done`, saving to a scratch dir (`out_dir`). For each one
