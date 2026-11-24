@@ -103,7 +103,8 @@ This file is not loaded at runtime. Rules live in `catalog.json`,
 | 25.07–30.10 | 119 | 61 | 100 |
 
 The two independent readings of the nine pages logged late (05.08–09.10)
-agreed in 46 of 48 entries; the sheet keeps the other session's reading.
+agreed in 46 of 48 entries; the sheet keeps the other session's reading
+(Alex confirmed 17.08 Сведение рук 73→75).
 
 ## Open questions for Alex
 
