@@ -37,8 +37,12 @@ history and statements are a separate skill: `facilities-bills`.
 1. **Parse.** Turn the message into one line per meter: address, provider, kind (гор/хол), room,
    value. Water values go to Водоканал in the 5+3 digit format: `1.16` → `00001.160`, `5.435` →
    `00005.435`. A hot-water value also goes to Київтеплоенерго (the same physical meter) in the 5+4
-   format: `1.16` → `00001.1600`. Gas goes to Київгаз as 5 + 2 digits: `7075` → `07075.00`. Map each
-   line through `meters.json`. If anything stays unmapped, ask before going on.
+   format: `1.16` → `00001.1600`. Gas goes to Київгаз as 5 + 2 digits: `7075` → `07075.00`.
+   Electricity goes to Yasno in whole kWh: `83699,9` → `83699`. A photo of a water meter reads as 5
+   black digits (m³) and 3 red ones (litres), a rolling digit as the lower one; enlarge a small photo
+   with `magick <img> -crop WxH+X+Y +repage -resize 500% -channel G -separate -auto-level <out>` and
+   match the serial printed on the dial. Map each line through `meters.json`. If anything stays
+   unmapped, ask before going on.
 2. **Check the window.** Водоканал takes no readings from the 1st to the 10th of the month.
    Київтеплоенерго asks for the last week of the month. Yasno advises the last two days of a month
    or the first three of the next. Київгаз asks for the 1st to the 3rd and counts a late reading in
@@ -68,7 +72,7 @@ history and statements are a separate skill: `facilities-bills`.
         покази» only if that check passes, and returns the confirmation dialog.
      4. Click «Так» with a real click.
      5. Run `await __vk.verify([serials])`. Each meter's newest history line must show the new
-        value, today's date and «Споживач».
+        value, today's date in the Mac's timezone (not Kyiv's) and «Споживач».
 
      Changing the filter re-ticks every row, so never filter after setting the selection.
    - **Київтеплоенерго.** One «Передати показання» sends every row of the account, so send only when

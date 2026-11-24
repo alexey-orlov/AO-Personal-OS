@@ -22,7 +22,8 @@
   date, «Зараховано», a code («> 50»), the reading, the kind («Поточні», or «Перерахунок» for a
   recalculation), the source and when it was entered (Kyiv time). The source is «ОК абонента» for
   the subscriber, «Контрольне знімання» for a KTE inspection or «Розрахункові» for a calculated
-  value.
+  value. After three months without a reading KTE bills «Норма (не передача >3 місяців)»; Смоленська
+  had those for May–September 2026 until a «претензія» on 24.10.2026 recalculated them to 0.
 - **Submit:** one «Передати показання» button sends every row of the account; there is no per-row
   selection. Send only when every meter of the account has a new value in hand. The page then says
   «Дякуємо за внесення показників! Останнього тижня наступного місяця заходьте сюди знову!».

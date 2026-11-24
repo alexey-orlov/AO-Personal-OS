@@ -33,7 +33,15 @@
   precision.
 - «Історія» opens a dialog per meter (period, previous, final, quantity, date, source: Споживач,
   Оператор or Розрахунковий) for a selectable period; close it with its header ×. Dialogs stack
-  if one is not closed.
+  if one is not closed. The period defaults to the last four months and does not take typing:
+  widen it in the date picker (arrows, the start day, the end day), then press the magnifier.
+- Dates («Дата введення», «Останнє внесення») print in the browser's timezone, Pacific while the Mac
+  is in SF: 23.11.2026 21:47 here was 24.11.2026 07:47 in Kyiv. Київтеплоенерго prints Kyiv time.
+- **Estimates.** A period with no reading gets an estimate on the last day of the next month at
+  13:59: «Оператор» with an equal monthly amount (the average), or «Розрахунковий». Estimates can
+  take «Початковий» above the real meter, and a photo then reads lower than the cabinet. Before
+  asking Alex, widen the history back to the last «Споживач» line, so he sees where the gap came
+  from. The page's own banner asks for a zero-difference reading when no water was used.
 
 ## Accounts and meters
 

@@ -6,7 +6,8 @@
 - **Path:** `https://yasno.ua/my/personal-accounts?accountId=<id>` selects the account, even on a
   fresh page load. Check the card's name and «Світло <number>», then click «Передати показання».
   That opens `/my/metering/create?accountId=<id>` with:
-  - «Нові» → one input «Показання» (`name="AllTime"`, a number);
+  - «Нові» → one input «Показання» (`name="AllTime"`, a number), filled in whole kWh: the meter's
+    digit after the comma is not reported (`83699,9` → `83699`), and ОСР's own readings are whole;
   - «Попередні» → the previous reading (Победы on 2026-11-19: 31 943, from 25.01.2026);
   - «Спожито» and «Всього спожито, кВт·год» → recomputed as you type;
   - «Зберегти».
