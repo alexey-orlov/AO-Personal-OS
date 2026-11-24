@@ -12,12 +12,36 @@ with the other unit beside them.
   passing the capabilities below and the same artifact URL, so the data and
   the link survive.
 - Artifact URL: see "Live artifact" at the end of this file.
-- Capabilities: `db` (owner-only rules), `sample` (Claude inside the page) and
-  `assets` (Alex's own exercise photos and videos):
+- Capabilities: `db` (owner-only rules), `sample` (Claude inside the page),
+  `assets` (Alex's own exercise photos and videos) and `mcp` (Alex's Google
+  Sheets connector, to write each finished session to "My training"):
   ```json
-  {"db": {"rules": [{"path": "", "read": "owner", "write": "owner"}]}, "sample": {}, "assets": {}}
+  {"db": {"rules": [{"path": "", "read": "owner", "write": "owner"}]}, "sample": {}, "assets": {},
+   "mcp": {"servers": [{"server": "Google Sheets", "tools": ["get_values", "get_spreadsheet", "update_spreadsheet"]}]}}
   ```
   On a republish from this session, omit `capabilities` to keep them.
+
+## Nothing logged is lost; "Save session" writes the sheet
+
+- **Every tap is saved twice:** to the artifact's database (server side, so
+  it survives a reload, a sign-out or another device) and, the same moment,
+  to a copy on the phone (`localStorage`, `tn.draft.<id>`). The phone copy
+  is removed once the database holds that version and comes back on load if
+  it is newer, so a dropped connection at the gym loses nothing. The workout
+  header says "Saved", "Saving…" or "Not saved online yet: kept on this
+  phone, retrying".
+- **"Save session" writes the session to "My training" at once**, through
+  Alex's own Google Sheets connector (`config/sheet` holds the sheet id and
+  tab): the same payload as `app_sync.py sheet` and the same layout rules as
+  gym-log's `gym_sheet.py log` (date block, rows by name inside their
+  section, new rows and blocks with their neighbours' format), sent as one
+  all-or-nothing `update_spreadsheet` batch and read back cell by cell. Then
+  `sync.sheet_logged_at` / `sheet_by: "app"` / `sheet_block` are set. A
+  re-save rewrites the same block, never a second one. The summary shows the
+  outcome with a code-specific fix and "Try again"; History marks each
+  session "in the sheet" / "not in the sheet".
+- The trainer's engine (ratings, next weights) still learns the session at
+  the next sync; until then the app plans from what was actually lifted.
 
 The skill stays the brain. The engine (`../trainer.py`) computes every
 weight; the app never invents one. Inside the page, Claude only composes and
@@ -38,6 +62,7 @@ writes `workouts/*`; the skill writes `workouts/<id>.sync` after processing.
 | `config/gym` | skill | `gym.json` as is |
 | `config/skill` | skill | `{"methodology_md": "...", "feedback_md": "...", "pushed_at": "..."}` — the two reference files verbatim; the page's Claude reads them |
 | `config/sync` | skill | `{"pushed_at", "for_date", "history_synced_at", "last_session"}` |
+| `config/sheet` | skill (`app_sync.py export`, from gym-log's `config.sh`) | `{"spreadsheet_id", "tab"}` — where "Save session" writes |
 | `briefs/legs` · `briefs/push` · `briefs/pull` | skill | `{"for_date", "computed_at", "normal": <trainer.py brief --day X>, "low": <… --readiness low>}` |
 | `workouts/<YYYY-MM-DD>` | app (skill may create a `planned` one) | see below |
 | `media/<exercise id>` | skill (demos) and app (Alex's uploads) | `{"id", "items": [{"kind": "youtube \| video \| image \| link", "url": "https://…", "asset_id": "…", "title", "source", "license", "license_url", "source_url", "added_by": "skill \| me", "added_at"}]}` — append, never drop Alex's items |
@@ -132,7 +157,11 @@ Rules the app keeps, so the engine can trust the data:
    `--equip <kit>=<have|missing>` (the app collects them from "This gym has
    …", "This gym doesn't have it" and the crossfit kit questions).
    **Every finished session goes to the "My training" sheet** (Alex,
-   2026-11-24), by gym-log's own writer and rules:
+   2026-11-24). The app writes it itself on "Save session"; when the doc has
+   `sync.sheet_logged_at` with `sheet_by: "app"`, skip the sheet write and
+   only run `trainer.py ingest` on the `app_sync.py sheet` payload plus the
+   digest. Otherwise (the app couldn't reach Google Sheets), by gym-log's own
+   writer and rules:
    `app_sync.py sheet <file> --dump <dump.json>` builds the `log` payload
    (catalog `sheet_rows` names, kg at one decimal, `M/D/YYYY`, crossfit only
    when a time or rating was recorded; notes on stderr flag new rows),
@@ -209,7 +238,14 @@ button shows the start-position thumbnail when an exercise has one.
    for several check-ins, plus a broken one), save them, run
    `trainer.py check` on each; the error and warning counts, `accepted` and
    `estimate.session_min` must match the page's `checkPlan` (2026-11-24: 9 of 9).
-3. Anything that runs `trainer.py feedback`, `ingest` or `gym` first does
+3. The sheet writer: the test page swaps in `dev/sheet_mock.js` (the sheet's
+   layout as of 2026-11-24) and keeps every batch in `window.__sheetRequests`.
+   Replay a batch on a scratch copy of the tab (Drive `create_file` a blank
+   spreadsheet, `copy_sheet_to_another_spreadsheet`, swap the `sheetId`),
+   read it back, then trash the copy; never test on "My training" itself.
+   2026-11-24: a new block, a new row and a re-save checked this way; the
+   copy caught a date header that read "46350".
+4. Anything that runs `trainer.py feedback`, `ingest` or `gym` first does
    `eval "$(app/dev/sandbox.sh)"`: those commands write `gym.json`,
    `history.json` and `plans/`, and the sandbox points all three at copies.
 
