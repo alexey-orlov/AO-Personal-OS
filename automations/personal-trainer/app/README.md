@@ -96,6 +96,10 @@ Rules the app keeps, so the engine can trust the data:
   `pain_detail` / `pain_note`.
 - A sharp, sudden or spreading pain stops the plan for that area and tells
   Alex to skip it and see a doctor if it persists (feedback.md).
+- Every change Alex makes mid-session is reversible and keeps his data: a
+  swap offers a choice, the swapped exercise keeps "Back to <original>", and
+  no swap, skip or rebuild deletes a logged set (2026-11-24: a one-way
+  auto-swap left him unable to return to the Rear Delt Fly).
 
 ## Skill side: "sync the app" (to fold into the skill as its own mode)
 
