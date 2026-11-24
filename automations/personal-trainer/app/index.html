@@ -194,9 +194,21 @@ const PAIN_SPOTS = [
   { key: "elbow", joint: "elbow", label: "Elbow" },
   { key: "wrist", joint: "wrist", label: "Wrist" },
   { key: "hip", joint: "hip", label: "Hip" },
+  { key: "calf", joint: "calf", label: "Calf" },
   { key: "other", joint: null, label: "Other" },
 ];
 const JOINT_EN = { lower_back: "lower back", neck: "neck", knee: "knee", shoulder: "shoulder", elbow: "elbow", wrist: "wrist", hip: "hip", calf: "calf" };
+/* rest between sets by the exercise's role (compound lifts longer, isolation shorter) */
+const REST_SEC = { main: 120, secondary: 90, isolation: 75, shoulder: 60 };
+/* what each rating does to the next plan (engine rules, trainer.py suggest) */
+const NEXT_HINT = {
+  easy: "Next time the weight goes up a session sooner.",
+  ok: "Normal slow progression.",
+  hard: "Weight held next time. Hard twice in a row: one step back.",
+  fail: "One step back next time.",
+  pain: "Swapped next time; nothing loading that joint goes up.",
+  skipped: "No change next time.",
+};
 
 /* ================================================================ helpers */
 function el(tag, props, ...kids) {
@@ -354,13 +366,17 @@ function crossfitDose(ctx) {
   else if (t && t <= 60) d.cap_min = Math.min(d.cap_min, 8);
   return d;
 }
-function soreSet(plan, ctx) { return new Set([...(plan.pre?.pain || []), ...Object.keys(ctx?.brief?.pre?.recent_pain || {})]); }
+/** Joints to protect: today's pain plus the engine's recent pain, minus the ones Alex said are fine now (trainer.py --ok / pre.cleared). */
+function soreSet(plan, ctx) {
+  const cleared = new Set(plan.pre?.cleared || []);
+  return new Set([...(plan.pre?.pain || []), ...Object.keys(ctx?.brief?.pre?.recent_pain || {}).filter(j => !cleared.has(j))]);
+}
 
 /* ================================================================ template builder (deterministic, by methodology.md) */
 function buildTemplate(ctx) {
   const { brief, ck, day } = ctx;
   const P = new Set(ck.pain || []);
-  const plan = { date: ck.date, day, gym: S.cfg.gym?.current, note: "", pre: { pain: [...P], readiness: ck.sick ? "low" : ck.readiness, time_min: ck.time_min || null }, warmup: [], strength: [], crossfit: {}, overrides: {}, why: [] };
+  const plan = { date: ck.date, day, gym: S.cfg.gym?.current, note: "", pre: { pain: [...P], readiness: ck.sick ? "low" : ck.readiness, time_min: ck.time_min || null, cleared: (ck.cleared || []).slice() }, warmup: [], strength: [], crossfit: {}, overrides: {}, why: [] };
   plan.strength = buildStrength(ctx, plan);
   plan.warmup = buildWarmup(ctx, plan);
   plan.crossfit = buildCrossfit(ctx, plan);
