@@ -857,6 +857,7 @@ def warmup_suggest(st, day):
         notes.append(f"сменили {drop} на {rot}")
     if "lower_back" in st.pain or "lower_back" in st.recent_pain:
         fams = ["A", "B", "C"]
+        notes = ["поясница: только стабилизация"]
     if not set(fams) & CORE:
         fams[-1] = "A"
     items, advanced = [], False
@@ -907,8 +908,18 @@ def warmup_suggest(st, day):
 
 
 # ---------------------------------------------------------------- crossfit
+def mmss(s):
+    m = re.fullmatch(r"(\d+):(\d{2})(?::(\d{2}))?", cell_str(s))
+    if not m:
+        return None
+    if m.group(3):   # h:mm:ss from a formatted duration
+        return int(m.group(1)) * 60 + int(m.group(2)) + int(m.group(3)) / 60
+    return int(m.group(1)) + int(m.group(2)) / 60
+
+
 def crossfit_recent(st):
-    rec, usage = [], Counter()
+    """Combos in order, how often each movement was done, and the last load used."""
+    rec, usage, loads = [], Counter(), {}
     for s in st.sessions:
         cf = s.get("crossfit") or {}
         ids = []
@@ -917,15 +928,18 @@ def crossfit_recent(st):
             if cid in st.cat.cross:
                 ids.append(cid)
                 usage[cid] += 1
+                if num(it.get("w_end")) is not None:
+                    loads[cid] = num(it.get("w_end"))
         if ids:
+            cap = num(re.sub(r"[^0-9.]", "", cell_str(cf.get("cap")))) if cf.get("cap") else None
             rec.append({"date": s["date"], "day": st.session_day(s), "rounds": cf.get("rounds"),
-                        "finish": cf.get("finish"), "items": ids})
-    return rec, usage
+                        "finish": cf.get("finish"), "finish_min": mmss(cf.get("finish")), "cap_min": cap, "items": ids})
+    return rec, usage, loads
 
 
 def crossfit_dose(st):
     gap = (st.today - parse_date(st.sessions[-1]["date"])).days if st.sessions else 0
-    dose = {"format": "rounds", "rounds": 3, "cap_min": 12, "scale": 1.0, "known_only": False}
+    dose = {"format": "rounds", "rounds": 3, "cap_min": 12, "scale": 1.0, "known_only": False, "movements": 4}
     if gap >= 21:
         dose.update(cap_min=8, scale=0.7, known_only=True)
     if st.readiness == "low":
@@ -934,11 +948,23 @@ def crossfit_dose(st):
         dose.update(rounds=2, cap_min=6, scale=0.7)
     elif st.time_min and st.time_min <= 60:
         dose.update(cap_min=min(dose["cap_min"], 8))
+    if dose["known_only"] or (st.time_min and st.time_min <= 45):
+        dose["movements"] = 3
+    rec = crossfit_recent(st)[0]
+    last = next((r for r in reversed(rec) if r["finish_min"] and r["cap_min"]), None)
+    if last and gap < 21:   # the last combo overran its cap → smaller doses; far under → a bit more
+        ratio = last["finish_min"] / last["cap_min"]
+        if ratio > 1.1:
+            dose["scale"] = round(dose["scale"] * 0.85, 2)
+            dose["why"] = f"{ddmm(last['date'])}: {last['finish']} при cap {clean_num(last['cap_min'])}′ — повторы меньше"
+        elif ratio < 0.6 and dose["scale"] >= 1.0:
+            dose["scale"] = 1.15
+            dose["why"] = f"{ddmm(last['date'])}: {last['finish']} при cap {clean_num(last['cap_min'])}′ — повторы больше"
     return dose
 
 
 def crossfit_brief(st, day):
-    rec, usage = crossfit_recent(st)
+    rec, usage, loads = crossfit_recent(st)
     last10 = Counter(i for r in rec[-10:] for i in r["items"])
     dose = crossfit_dose(st)
     prim = set(st.cat.days[day]["primary_patterns"])
@@ -963,8 +989,8 @@ def crossfit_brief(st, day):
             e["reps"] = nice(c["reps"] * dose["scale"])
         if c.get("unit"):
             e["unit"] = c["unit"]
-        if c.get("load_kg") is not None:
-            e["kg"] = c["load_kg"]
+        if c.get("load_kg") is not None:   # the trainer's last load for it, within the cap
+            e["kg"] = min(loads.get(c["id"], c["load_kg"]), c.get("max_kg") or 999)
         if status not in ("have", "seen"):
             e["equipment"] = f"{eq}: {status}"
             if c.get("fallback"):
