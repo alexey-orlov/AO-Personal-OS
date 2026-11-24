@@ -10,6 +10,7 @@
   --accent: #1f4fd1; --accent-ink: #ffffff; --accent-soft: #dfe7fb;
   --easy: #1d7a4a; --easy-soft: #dcefe3; --hard: #a35a00; --hard-soft: #f6e6cf;
   --pain: #b3261e; --pain-soft: #f7dcda; --skip: #6b7277;
+  --paper: #ffffff; /* ground for black line-art drawings, the same in both themes */
   --f-display: "Barlow Condensed", "Arial Narrow", "Roboto Condensed", sans-serif;
   --f-body: "Inter", -apple-system, "Segoe UI", Roboto, sans-serif;
   --r: 12px; --tap: 48px;
@@ -87,6 +88,15 @@ h2 { font-size: 22px; font-weight: 700; letter-spacing: .01em }
 .kebab { width: 40px; height: 40px; border-radius: 10px; border: 1px solid var(--line); background: var(--surface); font-weight: 700; flex: none }
 .how { min-height: 40px; padding: 0 10px; border-radius: 10px; border: 1px solid var(--line); background: var(--surface); font-size: 13px; font-weight: 600; flex: none; display: inline-flex; align-items: center; gap: 6px }
 .how svg { width: 16px; height: 16px }
+.how.pic { padding: 3px 10px 3px 3px }
+.how.pic img { width: 34px; height: 34px; object-fit: contain; background: var(--paper); border-radius: 7px }
+.pics { display: grid; grid-template-columns: 1fr 1fr; gap: 8px }
+.pics.one { grid-template-columns: 1fr }
+.pics figure { margin: 0; display: grid; gap: 4px; min-width: 0 }
+.pics img { width: 100%; max-width: 100%; aspect-ratio: 4 / 5; object-fit: contain; background: var(--paper); border: 1px solid var(--line); border-radius: 10px }
+.pics.one img { aspect-ratio: auto }
+.pics figcaption { font-size: 12.5px; color: var(--ink-3); text-align: center }
+.credit a { color: inherit }
 .sets { display: grid; gap: 6px }
 .set { display: grid; grid-template-columns: 26px minmax(0,1.25fr) minmax(0,1fr) 48px; gap: 6px; align-items: center }
 .set .n { font: 600 15px/1 var(--f-display); color: var(--ink-3); text-align: center }
@@ -863,7 +873,11 @@ function workoutView(w) {
   if (w.status !== "done") nodes.push(el("button", { class: "btn danger block", type: "button", on: { click: () => openSheet({ kind: "cancel" }) } }, w.status === "planned" ? "Discard this plan" : "Cancel workout"));
   return nodes;
 }
-function howBtn(id) { return el("button", { class: "how", type: "button", on: { click: e => { e.stopPropagation(); openSheet({ kind: "media", id }); } }, "aria-label": `How to do ${enName(id)}` }, el("span", { html: ICON.play }), "How to"); }
+function howBtn(id) {
+  const pic = mediaFor(id).find(isPic);
+  return el("button", { class: "how" + (pic ? " pic" : ""), type: "button", on: { click: e => { e.stopPropagation(); openSheet({ kind: "media", id }); } }, "aria-label": `How to do ${enName(id)}` },
+    pic ? el("img", { src: picSrc(pic), alt: "", loading: "lazy" }) : el("span", { html: ICON.play }), "How to");
+}
 function exerciseCard(w, it, isCur) {
   const ex = exS(it.id) || {}; const st = exState(w, it.id); const fb = w.feedback.items[it.id];
   const L = w.log.strength[it.id]; const active = w.status === "active";
@@ -1080,6 +1094,8 @@ function ratePain(w, s, adjust) {
 function doResult(changes, w) { saveWorkout(w, true); closeSheet(); const c = (changes || []).filter(Boolean); toast(c.length ? "Changed: " + c.join("; ") : "Nothing left to change for that."); }
 
 /* ---------------- media / how-to */
+const isPic = m => m.kind === "image" && (m.asset_id || /\.(png|jpe?g|webp|gif|svg)(\?|$)/i.test(safeUrl(m.url) || ""));
+const picSrc = m => m.asset_id ? "/_blob/" + m.asset_id : safeUrl(m.url);
 function mediaFor(id) {
   const items = [];
   for (const m of (S.media[id]?.items || [])) items.push(m);
@@ -1095,14 +1111,22 @@ function mediaSheet(s) {
   const cues = [e.cue, e.back_cue_ru, e.note_ru].filter(Boolean);
   if (cues.length) nodes.push(el("div", { class: "note small" }, el("strong", { text: "Trainer's notes: " }), cues.join(" · ")));
   const shown = items.filter(m => m.asset_id || safeUrl(m.url));
-  if (shown.length) nodes.push(el("div", { class: "media" }, ...shown.map(m => {
+  const pics = shown.filter(isPic), rest = shown.filter(m => !isPic(m));
+  const link = (href, text) => safeUrl(href) ? el("a", { href, target: "_blank", rel: "noopener" }, text) : text;
+  if (pics.length) {
+    nodes.push(el("div", { class: "pics" + (pics.length === 1 ? " one" : "") }, ...pics.map(m => el("figure", null,
+      el("img", { src: picSrc(m), alt: `${e.en_short || e.en || id}: ${m.title || "demo"}`, loading: "lazy" }), m.title ? el("figcaption", { text: m.title }) : null))));
+    const credits = [...new Map(pics.map(m => [[m.source, m.license, m.source_url, m.added_by].join("|"), m])).values()];
+    nodes.push(el("div", { class: "faint small credit" }, ...credits.map((m, i) => [i ? " · " : "",
+      m.added_by === "me" ? "Your upload" : (m.source || "Unknown author"),
+      m.license ? [", ", link(m.license_url, m.license)] : null, safeUrl(m.source_url) ? [", ", link(m.source_url, "source")] : null])));
+  }
+  for (const m of rest) {
     const src = m.asset_id ? "/_blob/" + m.asset_id : safeUrl(m.url);
-    const cap = el("div", { class: "faint small", text: [m.title, m.source, m.license, m.added_by === "me" ? "your upload" : "added by the trainer"].filter(Boolean).join(" · ") });
-    if (m.kind === "image" && (m.asset_id || /\.(png|jpe?g|webp|gif|svg)(\?|$)/i.test(src))) return el("figure", { style: "margin:0;display:grid;gap:4px" }, el("img", { src, alt: `${e.en_short || id} demo`, loading: "lazy" }), cap);
-    if (m.kind === "video" && m.asset_id) return el("figure", { style: "margin:0;display:grid;gap:4px" }, el("video", { src, controls: true, playsinline: true, preload: "metadata" }), cap);
-    return el("a", { class: "linkcard", href: src, target: "_blank", rel: "noopener" }, icon("play"), el("span", null, el("b", { text: m.title || "Watch the demo" }), el("div", { class: "faint small", text: m.source || new URL(src).hostname })));
-  })));
-  else nodes.push(el("p", { class: "muted small", text: "No demo saved for this exercise yet." }));
+    if (m.kind === "video" && m.asset_id) nodes.push(el("figure", { class: "media", style: "margin:0" }, el("video", { src, controls: true, playsinline: true, preload: "metadata" }), el("div", { class: "faint small", text: m.title || "Your video" })));
+    else nodes.push(el("a", { class: "linkcard", href: src, target: "_blank", rel: "noopener" }, icon("play"), el("span", null, el("b", { text: m.title || "Watch the demo" }), el("div", { class: "faint small", text: [m.source, new URL(src).hostname.replace(/^www\./, "")].filter(Boolean).join(" · ") }))));
+  }
+  if (!shown.length) nodes.push(el("p", { class: "muted small", text: "No demo saved for this exercise yet." }));
   nodes.push(el("a", { class: "linkcard", href: `https://www.youtube.com/results?search_query=${q}`, target: "_blank", rel: "noopener" }, icon("search"), el("span", null, el("b", { text: "Search YouTube" }), el("div", { class: "faint small", text: `“${e.en || id} proper form” · opens YouTube` }))));
   const tipBox = el("div", { class: "tips", id: "tipBox" });
   if (S.sample) nodes.push(el("button", { class: "linkcard", type: "button", style: "text-align:left;width:100%", on: { click: () => askTips(id, tipBox) } }, icon("spark"), el("span", null, el("b", { text: "Technique tips from Claude" }), el("div", { class: "faint small", text: "Setup, the movement, keeping your lower back safe" }))));

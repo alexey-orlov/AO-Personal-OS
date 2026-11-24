@@ -40,7 +40,7 @@ writes `workouts/*`; the skill writes `workouts/<id>.sync` after processing.
 | `config/sync` | skill | `{"pushed_at", "for_date", "history_synced_at", "last_session"}` |
 | `briefs/legs` · `briefs/push` · `briefs/pull` | skill | `{"for_date", "computed_at", "normal": <trainer.py brief --day X>, "low": <… --readiness low>}` |
 | `workouts/<YYYY-MM-DD>` | app (skill may create a `planned` one) | see below |
-| `media/<exercise id>` | skill (demos) and app (Alex's uploads) | `{"id", "items": [{"kind": "youtube \| video \| image \| link", "url": "https://…", "asset_id": "…", "title", "source", "license", "added_by": "skill \| me", "added_at"}]}` — append, never drop Alex's items |
+| `media/<exercise id>` | skill (demos) and app (Alex's uploads) | `{"id", "items": [{"kind": "youtube \| video \| image \| link", "url": "https://…", "asset_id": "…", "title", "source", "license", "license_url", "source_url", "added_by": "skill \| me", "added_at"}]}` — append, never drop Alex's items |
 | `media_requests/<exercise id>` | app ("Ask the trainer to find a demo"); skill sets `done` | `{"id", "en", "ru", "requested_at", "done": false}` |
 
 ### `workouts/<id>`
@@ -130,8 +130,22 @@ Rules the app keeps, so the engine can trust the data:
    channel, matched to the machine type in catalog `en` / `alt_us`), append it
    to `media/<id>` `items` (`added_by: skill`, `source`, `title`), then
    `update media_requests/<id> {"done": true}`. Only real https URLs from a
-   search result, never a guessed one. The app shows them under "How to";
-   YouTube can't play inside the page, so each opens in a new tab.
+   search result, never a guessed one; confirm each with YouTube oEmbed
+   (`https://www.youtube.com/oembed?format=json&url=<watch url>` gives title
+   and channel; watch pages are bot-walled from cloud IPs). YouTube can't
+   play inside the page, so each opens in a new tab.
+   Pictures: the Everkinetic drawings first (public repo
+   `github.com/everkinetic/data`, CC BY-SA 4.0: `exercises.json` maps a name
+   to `id_num`, the pair is `dist/svg/<id_num>-relaxation.svg` / `-tension.svg`;
+   a `--filter=blob:none` clone plus `git checkout HEAD -- <paths>` fetches
+   only those). Wikimedia Commons as a fallback: its API answers 429 to cloud
+   IPs, while file pages (licence, author) and `upload.wikimedia.org` work at
+   a few requests a minute. Look at every picture before attaching it, and
+   never attach one that shows a variant the catalog bans (barbell hack squat,
+   free-standing T-bar row, behind-the-neck pulldown). Upload with the
+   Artifact tool (`asset: true`, `file_paths`), then write `media/<id>` with
+   `asset_id`, `title` (Start / End), `source`, `license`, `license_url`,
+   `source_url`. Record what was added in `media-sources.json`.
 4. **Optional: a ready plan.** After Mode 1, write `workouts/<date>` with
    `status: planned`, `source: skill`, `built_by: skill`, `plan` = the checked
    plan. The app opens it as "Trainer's plan for today".
@@ -151,7 +165,9 @@ entry) · "Search YouTube" (opens YouTube with "<en name> proper form") ·
 "Technique tips from Claude" (the page's Claude, quick tier, from the
 catalog cues; cached 24 h) · "Ask the trainer to find a demo" (a
 `media_requests` row the next sync fills) · "Add your own photo or video"
-(`assets`, shown inline). The trainer's catalog cues show on top.
+(`assets`, shown inline). The trainer's catalog cues show on top. Drawings
+sit on a white panel in both themes (black line art), and the "How to"
+button shows the start-position thumbnail when an exercise has one.
 
 ## Known gaps
 
@@ -161,7 +177,10 @@ catalog cues; cached 24 h) · "Ask the trainer to find a demo" (a
   check needs the same exemption.
 - A second session on one date (`<date>-2`) merges its feedback into
   `plans/<date>.json`: `trainer.py feedback` takes a date, not an id.
-- No demos are pre-loaded yet: requests fill them sync by sync.
+- Demos are pre-loaded for 26 exercises: the next Legs session, the first
+  Pull session and the back-pain warm-ups (`media-sources.json`). Bird dog
+  and jumping jacks have a video but no picture yet (Commons throttled the
+  download); the other catalog exercises get theirs through requests.
 
 ## Live artifact
 
