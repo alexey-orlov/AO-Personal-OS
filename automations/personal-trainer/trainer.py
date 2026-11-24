@@ -51,6 +51,8 @@ ROLE_RANK = {"main": 0, "secondary": 1, "isolation": 2, "shoulder": 3}
 RATINGS = ("easy", "ok", "hard", "fail", "pain", "skipped")
 JOINTS = {"lower_back": "поясница", "knee": "колено", "shoulder": "плечо", "elbow": "локоть",
           "wrist": "запястье", "neck": "шея", "hip": "бедро", "calf": "икра"}
+JOINTS_ACC = {"lower_back": "поясницу", "knee": "колено", "shoulder": "плечо", "elbow": "локоть",
+              "wrist": "запястье", "neck": "шею", "hip": "бедро", "calf": "икру"}
 CORE = {"A", "B", "C"}
 WARMUP_ROTATE = {"legs": "D", "push": "F", "pull": "C"}   # the slot the trainer rotated in per day
 TRANSFER = {"cable": 0.9, "smith": 0.9, "free": 1.0, "plates": 0.85, "machine": 0.75}
@@ -389,8 +391,9 @@ class Occ:
 
 class State:
     def __init__(self, today, day=None, pain=(), readiness="normal", time_min=None,
-                 gym_key=None, use_plans=True, missing=()):
+                 gym_key=None, use_plans=True, missing=(), cleared=()):
         self.cat = Catalog(load_json(CATALOG_F))
+        self.cleared = {c.strip() for c in cleared if c and c.strip()}
         gyms = load_json(GYM_F)
         self.gym_key = gym_key or gyms["current"]
         self.gym = gyms["gyms"][self.gym_key]
@@ -446,12 +449,12 @@ class State:
                     ex = self.cat.strength.get(it["id"])
                     a = actual.get(it["id"]) or {}
                     kg = a.get("kg") or ([round(x / KG_LB, 1) for x in a["lb"]] if a.get("lb") else it.get("kg"))
-                    if not ex or not kg or (fb.get("items", {}).get(it["id"], {}).get("rating") == "skipped"):
+                    if not ex or (fb.get("items", {}).get(it["id"], {}).get("rating") == "skipped"):
                         continue
                     s["strength"].append({"name": ex["sheet_rows"][0], "category": None,
                                           "sets": a.get("sets", it.get("sets", 3)),
                                           "reps": str(a.get("reps", it.get("reps", ""))),
-                                          "w_start": kg[0], "w_end": kg[-1]})
+                                          "w_start": kg[0] if kg else None, "w_end": kg[-1] if kg else None})
                 self.sessions.append(s)
                 by_date[s["date"]] = s
             if not s.get("warmup") and p.get("warmup"):
@@ -469,6 +472,8 @@ class State:
         """Joints Alex reported pain in during the last 14 days -> date (dd.mm)."""
         res = {}
         for d, p in sorted(self.plans.items()):
+            for j in ((p.get("pre") or {}).get("cleared") or []):   # «колено нормально» said that day
+                res.pop(j, None)
             if (self.today - d).days > 14:
                 continue
             for ex_id, it in (((p.get("feedback") or {}).get("items")) or {}).items():
@@ -479,6 +484,8 @@ class State:
                     (self.cat.cross.get(ex_id) or {}).get("avoid_if", [])
                 for j in joints:
                     res[j] = ddmm(d)
+        for j in self.cleared:
+            res.pop(j, None)
         return res
 
     def fb(self, d, ex_id):
@@ -554,7 +561,7 @@ class State:
             if order[0] in blocked and ok:
                 res["next"] = ok[0]
                 res["moved_for_pain"] = (f"{self.cat.days[order[0]]['ru']} → {self.cat.days[ok[0]]['ru']}: главное "
-                                         f"упражнение дня нагружает {', '.join(JOINTS.get(j, j) for j in sorted(self.pain))}")
+                                         f"упражнение дня нагружает {', '.join(JOINTS_ACC.get(j, j) for j in sorted(self.pain))}")
         return res
 
 
