@@ -402,6 +402,14 @@ class State:
             return (p or {}).get("day")
         return votes.most_common(1)[0][0]
 
+    def group_gap(self, ex):
+        """Days since a session of this exercise's day type ('any' = any session)."""
+        days = [d for d in ex["day"] if d in DAYS]
+        for s in reversed(self.sessions):
+            if not days or self.session_day(s) in days:
+                return (self.today - parse_date(s["date"])).days
+        return 999
+
     def occurrences(self, ex_id):
         occ = []
         for s in self.sessions:
@@ -489,10 +497,15 @@ def suggest(st, ex):
 
     step = U.step(ex)
     pyramid = ex["scheme"] == "pyramid"
+    caution = ex.get("back") == "caution"
     cur = [o for o in occ if not st.gym_since or o.date >= st.gym_since]
     last = (cur or occ)[-1]
     gap = (st.today - last.date).days
-    f = deload_factor(gap)
+    # Strength fades with time off the MUSCLES, not off one machine: 07.10 the trainer
+    # kept 70 on a chest press unused for 58 days because chest was trained weekly.
+    f = deload_factor(st.group_gap(ex))
+    if caution and gap >= 21:
+        f = min(f, 0.9)   # lumbar-caution moves come back lighter (pullover 50 -> 36-45 on 21.09)
     fb = st.fb(last.date, ex["id"])
     if fb == "pain":
         res.update(action="swap", why=f"{ddmm(last.date)} было больно — заменить из пула дня")
@@ -543,7 +556,7 @@ def suggest(st, ex):
     marks = [b for b in global_breaks(st) if b <= last.date]
     if st.gym_since and st.gym_since <= last.date:
         marks.append(st.gym_since)
-    if marks:
+    if marks and not caution:   # caution moves climb by the normal slow rule only
         mark = max(marks)
         since = [o for o in occ if o.date >= mark]
         before = [o for o in occ if o.date < mark]

@@ -603,7 +603,48 @@
   {
    "date": "2026-08-05",
    "body_weight": null,
-   "strength": [],
+   "strength": [
+    {
+     "name": "Верт. тяга",
+     "category": "Back",
+     "sets": 3,
+     "reps": "10",
+     "w_start": 54,
+     "w_end": 62
+    },
+    {
+     "name": "Тяга верт. одной рукой",
+     "category": "Back",
+     "sets": 3,
+     "reps": "10",
+     "w_start": 41,
+     "w_end": 50
+    },
+    {
+     "name": "Горизонт. тяга",
+     "category": "Back",
+     "sets": 3,
+     "reps": "10",
+     "w_start": 52,
+     "w_end": 61
+    },
+    {
+     "name": "Пулловер с колен",
+     "category": "Back",
+     "sets": 3,
+     "reps": "10",
+     "w_start": 41,
+     "w_end": 47.5
+    },
+    {
+     "name": "Сгиб. на бицепс",
+     "category": "Back",
+     "sets": 3,
+     "reps": "10",
+     "w_start": 52,
+     "w_end": 54
+    }
+   ],
    "warmup": [
     {
      "name": "Dog birds",
@@ -661,7 +702,48 @@
   {
    "date": "2026-08-10",
    "body_weight": null,
-   "strength": [],
+   "strength": [
+    {
+     "name": "Жим лёжа",
+     "category": "Chest",
+     "sets": 3,
+     "reps": "8-6-5",
+     "w_start": 80,
+     "w_end": 80
+    },
+    {
+     "name": "Жим сидя",
+     "category": "Chest",
+     "sets": 3,
+     "reps": "10",
+     "w_start": 62,
+     "w_end": 70
+    },
+    {
+     "name": "Жим 45° (Смитт)",
+     "category": "Chest",
+     "sets": 3,
+     "reps": "8",
+     "w_start": 40,
+     "w_end": 40
+    },
+    {
+     "name": "Сведение рук",
+     "category": "Chest",
+     "sets": 3,
+     "reps": "10",
+     "w_start": 66,
+     "w_end": 73
+    },
+    {
+     "name": "Жим в брусьях сидя",
+     "category": "Chest",
+     "sets": 3,
+     "reps": "10",
+     "w_start": 63,
+     "w_end": 73
+    }
+   ],
    "warmup": [
     {
      "name": "Dog birds",
@@ -712,7 +794,48 @@
   {
    "date": "2026-08-12",
    "body_weight": null,
-   "strength": [],
+   "strength": [
+    {
+     "name": "Верт. тяга",
+     "category": "Back",
+     "sets": 3,
+     "reps": "10",
+     "w_start": 59,
+     "w_end": 63.5
+    },
+    {
+     "name": "Горизонт. тяга",
+     "category": "Back",
+     "sets": 3,
+     "reps": "8",
+     "w_start": 59,
+     "w_end": 61.5
+    },
+    {
+     "name": "Тяга верт. одной рукой",
+     "category": "Back",
+     "sets": 3,
+     "reps": "10",
+     "w_start": 45,
+     "w_end": 45
+    },
+    {
+     "name": "Пулловер с колен",
+     "category": "Back",
+     "sets": 3,
+     "reps": "10",
+     "w_start": 45,
+     "w_end": 50
+    },
+    {
+     "name": "Сгиб. на бицепс",
+     "category": "Back",
+     "sets": 3,
+     "reps": "10-10-8",
+     "w_start": 52,
+     "w_end": 54
+    }
+   ],
    "warmup": [
     {
      "name": "Dog birds",
@@ -870,7 +993,40 @@
   {
    "date": "2026-08-17",
    "body_weight": null,
-   "strength": [],
+   "strength": [
+    {
+     "name": "Жим лёжа",
+     "category": "Chest",
+     "sets": 3,
+     "reps": "8",
+     "w_start": 80,
+     "w_end": 80
+    },
+    {
+     "name": "Жим 45° (Смитт)",
+     "category": "Chest",
+     "sets": 3,
+     "reps": "10",
+     "w_start": 40,
+     "w_end": 40
+    },
+    {
+     "name": "Сведение рук",
+     "category": "Chest",
+     "sets": 3,
+     "reps": "10",
+     "w_start": 73,
+     "w_end": 75
+    },
+    {
+     "name": "Жим в брусьях сидя",
+     "category": "Chest",
+     "sets": 3,
+     "reps": "10",
+     "w_start": 73,
+     "w_end": 73
+    }
+   ],
    "warmup": [
     {
      "name": "Dog birds",
@@ -928,7 +1084,56 @@
   {
    "date": "2026-08-19",
    "body_weight": null,
-   "strength": [],
+   "strength": [
+    {
+     "name": "Верт. тяга",
+     "category": "Back",
+     "sets": 3,
+     "reps": "10-8-8",
+     "w_start": 62,
+     "w_end": 66
+    },
+    {
+     "name": "Горизонт. тяга",
+     "category": "Back",
+     "sets": 3,
+     "reps": "10",
+     "w_start": 59,
+     "w_end": 61
+    },
+    {
+     "name": "Пулловер с колен",
+     "category": "Back",
+     "sets": 3,
+     "reps": "10",
+     "w_start": 45,
+     "w_end": 50
+    },
+    {
+     "name": "Тяга в упоре",
+     "category": "Back",
+     "sets": 3,
+     "reps": "10",
+     "w_start": 35,
+     "w_end": 35
+    },
+    {
+     "name": "Махи на плечи",
+     "category": "Shoulders",
+     "sets": 3,
+     "reps": "10-8-10",
+     "w_start": 45,
+     "w_end": 39
+    },
+    {
+     "name": "Реверс",
+     "category": "Shoulders",
+     "sets": 3,
+     "reps": "10-8-8",
+     "w_start": 59,
+     "w_end": 66
+    }
+   ],
    "warmup": [
     {
      "name": "Dog birds",
@@ -1095,7 +1300,48 @@
   {
    "date": "2026-09-21",
    "body_weight": null,
-   "strength": [],
+   "strength": [
+    {
+     "name": "Верт. тяга",
+     "category": "Back",
+     "sets": 3,
+     "reps": "10-9-8",
+     "w_start": 62,
+     "w_end": 68
+    },
+    {
+     "name": "Горизонт. тяга",
+     "category": "Back",
+     "sets": 3,
+     "reps": "8-10",
+     "w_start": 59,
+     "w_end": 63
+    },
+    {
+     "name": "Пулловер с колен",
+     "category": "Back",
+     "sets": 3,
+     "reps": "10",
+     "w_start": 36,
+     "w_end": 45
+    },
+    {
+     "name": "Махи на плечи",
+     "category": "Shoulders",
+     "sets": 3,
+     "reps": "8-10",
+     "w_start": 41,
+     "w_end": 41
+    },
+    {
+     "name": "Реверс",
+     "category": "Shoulders",
+     "sets": 3,
+     "reps": "10",
+     "w_start": 59,
+     "w_end": 66
+    }
+   ],
    "warmup": [
     {
      "name": "Удержание резины",
@@ -1259,7 +1505,64 @@
   {
    "date": "2026-09-25",
    "body_weight": null,
-   "strength": [],
+   "strength": [
+    {
+     "name": "Жим сидя на плечи в Смитт",
+     "category": "Shoulders",
+     "sets": 3,
+     "reps": "10",
+     "w_start": 20,
+     "w_end": 30
+    },
+    {
+     "name": "ГАКК присед",
+     "category": "Legs",
+     "sets": 3,
+     "reps": "8-12",
+     "w_start": 100,
+     "w_end": 130
+    },
+    {
+     "name": "Отведение на ягодицы",
+     "category": "Glutes",
+     "sets": 3,
+     "reps": "15",
+     "w_start": 79,
+     "w_end": 93
+    },
+    {
+     "name": "Жим ногами сидя",
+     "category": "Legs",
+     "sets": 3,
+     "reps": "10",
+     "w_start": 104,
+     "w_end": 113
+    },
+    {
+     "name": "Сгиб. голени",
+     "category": "Legs",
+     "sets": 3,
+     "reps": "10-12",
+     "w_start": 66,
+     "w_end": 68.5
+    },
+    {
+     "name": "Разгиб. голени",
+     "category": "Legs",
+     "sets": 3,
+     "reps": "10",
+     "w_start": 59,
+     "w_end": 66
+    },
+    {
+     "name": "Махи на плечи одной рукой",
+     "category": "Shoulders",
+     "sets": 3,
+     "reps": "10",
+     "w_start": 34,
+     "w_end": 34
+    }
+   ],
    "warmup": [
     {
      "name": "Бок. планка",
@@ -1650,7 +1953,48 @@
   {
    "date": "2026-10-07",
    "body_weight": null,
-   "strength": [],
+   "strength": [
+    {
+     "name": "Жим 45° (Смитт)",
+     "category": "Chest",
+     "sets": 3,
+     "reps": "10-10-8",
+     "w_start": 40,
+     "w_end": 45
+    },
+    {
+     "name": "Жим в Hammer под углом 60°",
+     "category": "Shoulders",
+     "sets": 3,
+     "reps": "10",
+     "w_start": 40,
+     "w_end": 40
+    },
+    {
+     "name": "Жим сидя",
+     "category": "Chest",
+     "sets": 3,
+     "reps": "10",
+     "w_start": 61,
+     "w_end": 70
+    },
+    {
+     "name": "Сведение рук",
+     "category": "Chest",
+     "sets": 3,
+     "reps": "10-10-8",
+     "w_start": 73,
+     "w_end": 79
+    },
+    {
+     "name": "Реверс",
+     "category": "Shoulders",
+     "sets": 3,
+     "reps": "10-10-9",
+     "w_start": 61,
+     "w_end": 70
+    }
+   ],
    "warmup": [
     {
      "name": "Dog birds",
@@ -1715,7 +2059,56 @@
   {
    "date": "2026-10-09",
    "body_weight": null,
-   "strength": [],
+   "strength": [
+    {
+     "name": "Верт. тяга",
+     "category": "Back",
+     "sets": 3,
+     "reps": "10",
+     "w_start": 66,
+     "w_end": 68
+    },
+    {
+     "name": "Горизонт. тяга",
+     "category": "Back",
+     "sets": 3,
+     "reps": "10",
+     "w_start": 63,
+     "w_end": 63
+    },
+    {
+     "name": "Тяга в упоре",
+     "category": "Back",
+     "sets": 3,
+     "reps": "10",
+     "w_start": 35,
+     "w_end": 35
+    },
+    {
+     "name": "Пулловер с колен",
+     "category": "Back",
+     "sets": 3,
+     "reps": "?",
+     "w_start": 45,
+     "w_end": 41
+    },
+    {
+     "name": "Махи на плечи одной рукой",
+     "category": "Shoulders",
+     "sets": 3,
+     "reps": "10",
+     "w_start": 34,
+     "w_end": 34
+    },
+    {
+     "name": "Жим сидя на плечи в Смитт",
+     "category": "Shoulders",
+     "sets": 3,
+     "reps": "10",
+     "w_start": 30,
+     "w_end": 30
+    }
+   ],
    "warmup": [
     {
      "name": "Бок. планка с поворотом",
@@ -2423,5 +2816,5 @@
   }
  ],
  "source": "My training sheet (connector grid)",
- "synced_at": "2026-11-23T16:11:45"
+ "synced_at": "2026-11-23T16:16:56"
 }
