@@ -1,7 +1,7 @@
 # Generac and ecobee: the IoT platform project and the hardware Jumpstart pursuit
 
 _status: SoftServe has kicked off ecobee's IoT platform project (ICS, the AWS layer for the next-generation thermostat; a phased SoW for AWS MAP funding to approve before the end of 2026, the team from January). Alex's pursuit rides on it: the AI Jumpstart for Hardware & Embedded R&D for ecobee's firmware team, which is rewriting the thermostat firmware on Zephyr RTOS. Oksana Sharonina, the client partner, wants the offer tailored to that context before it is shown; the contact so far is ecobee's VP of firmware, with no one yet at Generac itself. Next: Alex listens to the latest project recording, talks to the SoftServe project team (Muaz Malas, the main SME, first), drafts the tailored Jumpstart and reviews it with Oksana, ideally the week of 2026-11-23._
-_updated: 2026-11-22_
+_updated: 2026-11-24_
 _tracker: [California Jumpstart Outreach](https://claude.ai/artifact/5spjsfxGjGhj9ynmkh67qe), doc `generac`: the live status, next step, contacts and account summary · registry and sync ledger: [outreach-tracker](../../_meta/outreach-tracker.md)_
 
 ## Snapshot
@@ -20,6 +20,7 @@ _tracker: [California Jumpstart Outreach](https://claude.ai/artifact/5spjsfxGjGh
 ## People
 
 - **Product-layer map:** ecobee's and Generac's product layers from the apps down to the hardware, how each layer talks to the next, and the team and stakeholders behind each → [ecobee & Generac Device Teams](https://claude.ai/artifact/MtBowgYdmbbofePwmsbgPe) (2026-11-23).
+- **R&D process explainer:** firmware and hardware R&D in SDLC terms, step by step in each layer's own names and substeps (hardware: Concept → Prototype → EVT, DVT → PVT, MP → Sustaining), with an ecobee lane and a roles and terms decoder → [Firmware & Hardware R&D](https://claude.ai/artifact/9UKRLYvLPz6NQYpLiZ57ir) (2026-11-23; Rev B 2026-11-24).
 - Alex Bekh — account owner → [people page](../../people/alex-bekh.md).
 - Oksana Sharonina — account manager (client partner) for ecobee and Generac → [people page](../../people/oksana-sharonina.md).
 - SoftServe project team: **Muaz Malas** — Solutions Architect, Advanced Technologies (introduced on the kickoff as the IoT Solutions Architect in Chicago), the main SoftServe SME on the project (chat, 2026-11-22) · Varty Kuyumdjian — delivery director for Generac and ecobee · Lisa — delivery, on ecobee for several years · Jarek — leads the AWS Cloud Center of Excellence (Poland) · Volodymyr Pavlyuk — IoT architect, industrial IoT · Alejandro — partnerships (AWS–SoftServe–Generac).
@@ -48,5 +49,6 @@ Gaps:
 - Whether SoftServe's embedded developers on smart security sit in the firmware org (a ready pilot team, inferred), and what stalled the earlier discussion.
 ## Activity
 
+- 2026-11-24 — [Firmware & Hardware R&D explainer](https://claude.ai/artifact/9UKRLYvLPz6NQYpLiZ57ir) (chat, 2026-11-23/24) — built to prepare the tailored Jumpstart: the SDLC steps for software, firmware and hardware, general and at ecobee; Rev B gives each layer its own step names and substeps.
 - 2026-11-22 — [ecobee IoT platform kickoff](calls/generac/2026-11-22_sales-call_pasted-ecobee-iot-platform-kickoff.md) + Alex's meeting with Oksana (chat, 2026-11-22) — page created: the project, the firmware context, the tailor-first steer. Web research the same day named no VP of firmware; two VP candidates and a firmware manager recorded.
 - 2026-11-13 — Hardware two-pager and first outreach ([jumpstart-science](jumpstart-science.md#active-threads)) — Generac researched; Alex Bekh introduced Alex to the client partner.
