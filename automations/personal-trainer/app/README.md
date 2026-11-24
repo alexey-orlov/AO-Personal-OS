@@ -12,10 +12,12 @@ with the other unit beside them.
   passing the capabilities below and the same artifact URL, so the data and
   the link survive.
 - Artifact URL: see "Live artifact" at the end of this file.
-- Capabilities: `db` (owner-only rules) and `sample` (Claude inside the page):
+- Capabilities: `db` (owner-only rules), `sample` (Claude inside the page) and
+  `assets` (Alex's own exercise photos and videos):
   ```json
-  {"db": {"rules": [{"path": "", "read": "owner", "write": "owner"}]}, "sample": {}}
+  {"db": {"rules": [{"path": "", "read": "owner", "write": "owner"}]}, "sample": {}, "assets": {}}
   ```
+  On a republish from this session, omit `capabilities` to keep them.
 
 The skill stays the brain. The engine (`../trainer.py`) computes every
 weight; the app never invents one. Inside the page, Claude only composes and
@@ -38,6 +40,8 @@ writes `workouts/*`; the skill writes `workouts/<id>.sync` after processing.
 | `config/sync` | skill | `{"pushed_at", "for_date", "history_synced_at", "last_session"}` |
 | `briefs/legs` · `briefs/push` · `briefs/pull` | skill | `{"for_date", "computed_at", "normal": <trainer.py brief --day X>, "low": <… --readiness low>}` |
 | `workouts/<YYYY-MM-DD>` | app (skill may create a `planned` one) | see below |
+| `media/<exercise id>` | skill (demos) and app (Alex's uploads) | `{"id", "items": [{"kind": "youtube \| video \| image \| link", "url": "https://…", "asset_id": "…", "title", "source", "license", "added_by": "skill \| me", "added_at"}]}` — append, never drop Alex's items |
+| `media_requests/<exercise id>` | app ("Ask the trainer to find a demo"); skill sets `done` | `{"id", "en", "ru", "requested_at", "done": false}` |
 
 ### `workouts/<id>`
 
@@ -111,7 +115,16 @@ Rules the app keeps, so the engine can trust the data:
    three days at normal and low readiness) and prints the `ArtifactData
    batch` writes; fill each `if_version` from a `list` of `config` and
    `briefs` first.
-3. **Optional: a ready plan.** After Mode 1, write `workouts/<date>` with
+   On a first push the documents don't exist yet: send the batch without
+   `if_version`.
+3. **Demos.** `ArtifactData list media_requests`; for each with `done: false`,
+   find one good form video (WebSearch; a YouTube watch URL from a coaching
+   channel, matched to the machine type in catalog `en` / `alt_us`), append it
+   to `media/<id>` `items` (`added_by: skill`, `source`, `title`), then
+   `update media_requests/<id> {"done": true}`. Only real https URLs from a
+   search result, never a guessed one. The app shows them under "How to";
+   YouTube can't play inside the page, so each opens in a new tab.
+4. **Optional: a ready plan.** After Mode 1, write `workouts/<date>` with
    `status: planned`, `source: skill`, `built_by: skill`, `plan` = the checked
    plan. The app opens it as "Trainer's plan for today".
 
@@ -123,6 +136,26 @@ past them and (b) starts those exercises from the weights actually lifted,
 never higher (`fail` → one step back, `pain` → swap), and says so on the
 check-in screen. The real progression comes back after the next sync.
 
+## Exercise demos ("How to" on every exercise)
+
+In order: demos saved in `media/<id>` (or a `media` list on the catalog
+entry) · "Search YouTube" (opens YouTube with "<en name> proper form") ·
+"Technique tips from Claude" (the page's Claude, quick tier, from the
+catalog cues; cached 24 h) · "Ask the trainer to find a demo" (a
+`media_requests` row the next sync fills) · "Add your own photo or video"
+(`assets`, shown inline). The trainer's catalog cues show on top.
+
+## Known gaps
+
+- `trainer.py check` errors on an `action: new` exercise without weights
+  ("0 весов на 3 подхода"), while methodology.md says to leave `kg` out for
+  it. The app's JS check follows methodology.md (no error); the engine's
+  check needs the same exemption.
+- A second session on one date (`<date>-2`) merges its feedback into
+  `plans/<date>.json`: `trainer.py feedback` takes a date, not an id.
+- No demos are pre-loaded yet: requests fill them sync by sync.
+
 ## Live artifact
 
-- URL: _(filled in after the first publish)_
+- URL: https://claude.ai/artifact/8AfbgUP6bi5akSgRR9nf8i (private to Alex;
+  first published and seeded 2026-11-24 from the engine's briefs)
