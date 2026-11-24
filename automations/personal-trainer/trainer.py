@@ -1044,6 +1044,8 @@ def cmd_feedback(a):
 
 
 def cmd_ingest(a):
+    """One session in gym-log's `log` payload shape (strength, Warm-up and Crossfit
+    entries in one list, plus the warmup / crossfit summary objects)."""
     try:
         p = json.load(sys.stdin)
     except json.JSONDecodeError as e:
@@ -1052,19 +1054,35 @@ def cmd_ingest(a):
     hist = load_json(HISTORY_F, {"sessions": []})
     by = {s["date"]: s for s in hist.get("sessions", [])}
     s = by.get(d.isoformat(), empty_session(d))
+    s.setdefault("crossfit", {"items": []})
     if p.get("my_weight") is not None:
         s["body_weight"] = p["my_weight"]
+
+    def item(e):
+        return {"name": e["exercise"], "sets": e.get("sets"), "reps": cell_str(e.get("reps")),
+                "w_start": e.get("w_start"), "w_end": e.get("w_end")}
+
     if p.get("entries") is not None:
-        s["strength"] = [{"name": e["exercise"], "category": e.get("category"), "sets": e.get("sets"),
-                          "reps": cell_str(e.get("reps")), "w_start": e.get("w_start"), "w_end": e.get("w_end")}
-                         for e in p["entries"]]
-    if p.get("warmup") is not None:
-        s["warmup"] = p["warmup"]
-    if p.get("crossfit") is not None:
-        s["crossfit"] = p["crossfit"]
+        groups = {"strength": [], "warmup": [], "crossfit": []}
+        for e in p["entries"]:
+            groups[section_of(e.get("category"))].append(e)
+        if groups["strength"]:
+            s["strength"] = [{**item(e), "category": e.get("category")} for e in groups["strength"]]
+        if groups["warmup"]:
+            s["warmup"] = [item(e) for e in groups["warmup"]]
+        if groups["crossfit"]:
+            s["crossfit"]["items"] = [item(e) for e in groups["crossfit"]]
+    wu, cf = p.get("warmup"), p.get("crossfit")
+    if isinstance(wu, dict) and wu.get("combination"):
+        s["warmup_summary"] = wu["combination"]
+    if isinstance(cf, dict):
+        for k_in, k_out in (("combination", "summary"), ("rounds", "rounds"), ("cap", "cap"), ("finish", "finish")):
+            if cf.get(k_in) not in (None, ""):
+                s["crossfit"][k_out] = cell_str(cf[k_in])
     upsert(hist, [s], hist.get("source", "ingest"))
     save_json(HISTORY_F, hist)
-    out({"ok": True, "date": s["date"], "sessions": len(hist["sessions"])})
+    out({"ok": True, "date": s["date"], "strength": len(s["strength"]), "warmup": len(s["warmup"]),
+         "crossfit": len(s["crossfit"].get("items", [])), "sessions": len(hist["sessions"])})
 
 
 def cmd_import_grid(a):
